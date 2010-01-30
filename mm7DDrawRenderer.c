@@ -1,0 +1,866 @@
+#include "mm7DDrawRenderer.h"
+
+#include "defs.h"
+
+#include "data.h"
+
+extern char off_4E7ECC[];
+extern int dword_4E800C;
+extern float flt_6BE3A0;
+extern int dword_AD4730;
+
+extern char unk_4EB8BC;
+extern char unk_4EBBD0;
+
+extern char byte_4D8410[];
+
+extern int *dword_4F2688;
+
+extern int dword_51B6E8;
+extern int dword_51B6EC;
+extern int dword_51B6F0;
+
+extern int dword_6A0CA4;
+
+extern int dword_720010;
+
+extern int dword_720018;
+
+
+extern int dword_E31C70;
+
+extern int dword_F79D70;
+extern int dword_F79D7C;
+
+int sub_45DF13(); // weak
+int sub_498038(); // weak
+void __thiscall sub_45DF48(void *this);
+int __thiscall sub_4898E6(int this);
+void __thiscall sub_498069(void *this);
+
+signed int __fastcall maybe_docompress_file(void *pDest, int *pDecompressedSize, void *pSrc, int uCompressedSize);
+void *__stdcall call_new(int, int, int);
+int call_delete(int result, unsigned int a2);
+int __fastcall sub_4C57C0(unsigned int a1, unsigned char *pData, unsigned int uSize);
+int __fastcall sub_4C4A30(int a1, int a2, int a3);
+int __fastcall sub_4C7C50(int a1, int a2);
+int __fastcall sub_4C74A0(int a1, int a2, int a3);
+signed int __fastcall sub_4C81E0(unsigned int a1, int a2, int a3, unsigned int *a4, unsigned int *a5, int *a6, int *a7, int a8, struct class19 *);
+signed int __fastcall sub_4C7C60(int a1, unsigned int *a2, int a3, unsigned int *class21_pArray_8x1440, struct class19 *pParent);
+struct class27 *__fastcall AllocateClass27(int a1, int a2, unsigned int *a3, unsigned int *a4, struct class19 *pParent);
+int __fastcall sub_4C8340(int a1, int a2, int a3, int a4, int a5);
+DWORD __fastcall sub_426892(int a1, DWORD a2);
+int __stdcall sub_401000(int a1, int a2, int a3, int (__thiscall *a4)(_DWORD));
+signed int __fastcall LOD_DoDecompression(int a1, int a2, int a3, int a4, struct class21 *pClass21, struct class19 *pClass19);
+char __cdecl sub_4A597D();
+void __cdecl sub_4A57E9();
+char __stdcall sub_4A0F40(int a1, void *Dst, int a3);
+int unknown_libname_107();
+double __stdcall sub_44F377(int a1);
+
+
+
+
+
+
+
+
+//----- (MM7.exe::0049E992) --------------------------------------------------------
+extern int dword_4EED78; // weak
+extern _UNKNOWN unk_4EED80; // weak
+void CD3DRenderer_ctor(struct CD3DRenderer *_this)
+{
+  int v1; // eax@1
+  char v3; // zf@1
+
+ _this->pdd4 = 0;
+ _this->pdds4 = 0;
+ _this->dword_040094 = 0;
+ _this->dword_040098 = 0;
+ _this->pdd2 = 0;
+ _this->pdds2 = 0;
+ _this->dword_0400A4 = 0;
+ _this->dword_0400A8 = 0;
+
+  sub_452347(&_this->dword_040114);
+  sub_452347(&_this->dword_0A1BAC);
+  _this->dword_040054 = 0;
+  _this->dword_040058 = 1;
+  _this->bUseDirect3D = ReadWindowsRegistry("Use D3D", false);
+  _this->bStartInWindow = ReadWindowsRegistry("startinwindow", false);
+  v1 = ReadWindowsRegistry("D3D Device", true);
+  v3 = _this->bStartInWindow == 0;
+
+  _this->bStartInWindow = v3 && v1 != 1;
+  _this->bUseDirect3DDevice = v1;
+  _this->dword_000010 = 640;
+  _this->dword_000014 = 480;
+  _this->dword_00001C = 0;
+  _this->dword_000020 = 0;
+  _this->dword_000024 = 639;
+  _this->dword_000028 = 479;
+
+  _this->dword_04002C = 0;
+  _this->dword_040030 = 0;
+  _this->dword_040034 = 0;
+  _this->pZBuffer = 0;
+  _this->dword_04003C = &unk_4EED80;
+  _this->dword_040040 = dword_4EED78;
+
+  _this->dword_040044 = 2;
+  _this->dword_040048 = 6;
+
+  _this->dword_0400E4 = 0;
+
+  _this->dword_0400EC = 0;
+  _this->dword_0400F0 = 0;
+  _this->dword_0400F4 = 0;
+  _this->dword_0400F8 = 0;
+  _this->dword_0400FC = 480;
+  _this->dword_040100 = 640;
+  _this->dword_040104 = 1;
+  _this->dword_040108 = 0;
+  _this->dword_04010C = 0;
+  _this->dword_040110 = 0;
+
+  _this->bUseColoredLights = ReadWindowsRegistry("Colored Lights", false);
+  _this->dword_103648 = 0;
+  _this->dword_10364C = 1;
+  _this->uLevelOfDetail = ReadWindowsRegistry("Detail Level", 1);
+
+  _this->byte_103668[0] = 0;
+
+  _this->dword_1036B8 = 0;
+  _this->dword_1036BC = 0;
+  sub_45237F(&_this->dword_040114, "data\\d3dbitmap.hwl");
+  sub_45237F(&_this->dword_0A1BAC, "data\\d3dsprite.hwl");
+}
+
+
+//----- (MM7.exe::0049FFFB) --------------------------------------------------------
+int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
+{
+  int v3; // esi@1
+  int v4; // eax@2
+  int v5; // eax@3
+  int v6; // edx@5
+  int v7; // ecx@5
+  signed int v8; // eax@6
+  signed int v9; // eax@13
+  int v10; // ecx@13
+  int v11; // eax@15
+  int v12; // eax@19
+  int v13; // eax@23
+  unsigned int v14; // ecx@25
+  int v15; // eax@25
+  int v16; // eax@25
+  unsigned int v17; // eax@27
+  int v18; // ebx@31
+  bool v19; // eax@35
+  char v20; // zf@35
+  int v21; // eax@38
+  int v22; // eax@38
+  void *v23; // eax@39
+  int v25; // eax@42
+  int v26; // ecx@42
+  int v27; // [sp+Ch] [bp-300h]@25
+  int v28; // [sp+108h] [bp-204h]@40
+  int v29; // [sp+12Ch] [bp-1E0h]@42
+  int Dst; // [sp+184h] [bp-188h]@25
+  unsigned int v31; // [sp+230h] [bp-DCh]@25
+  unsigned int v32; // [sp+234h] [bp-D8h]@25
+  unsigned int v33; // [sp+238h] [bp-D4h]@27
+  unsigned int v34; // [sp+23Ch] [bp-D0h]@27
+  int v35; // [sp+280h] [bp-8Ch]@38
+  int v36; // [sp+284h] [bp-88h]@38
+  int v37; // [sp+288h] [bp-84h]@38
+  int v38; // [sp+28Ch] [bp-80h]@38
+  int v39; // [sp+2C0h] [bp-4Ch]@38
+  int v40; // [sp+2C4h] [bp-48h]@38
+  int v41; // [sp+2E8h] [bp-24h]@38
+  int v42; // [sp+2FCh] [bp-10h]@2
+  int v43; // [sp+308h] [bp-4h]@2
+
+  v3 = _this;
+  _this->pdd4 = 0;
+  _this->pdds4 = 0;
+  _this->dword_040094 = 0;
+  _this->dword_040098 = 0;
+  _this->dword_040108 = 0;
+  _this->dword_040110 = 0;
+
+  //try_catch session
+  sub_49FE05(unknown_libname_107, _this);
+  _this->hWnd = hwnd;
+  CD3DRenderer_Initialize_ZBuffer(_this);
+
+  if (_this->bUseDirect3D)
+  {
+    v4 = malloc(0x148u);
+    v42 = v4;
+    v43 = 0;
+    if ( v4 )
+      v5 = sub_49DC58(v4);
+    else
+      v5 = 0;
+    v6 = *(_DWORD *)(v3 + 8);
+    v43 = -1;
+    *(_DWORD *)(v3 + 262280) = v5;
+    v7 = *(_DWORD *)(v5 + 28);
+    if ( *(_DWORD *)(v7 + 40 * v6) )
+    {
+      v8 = sub_49DE14(v5, v6, 0, hwnd);
+      *(_DWORD *)(v3 + 12) = *(_DWORD *)(v3 + 8);
+    }
+    else
+    {
+      if ( *(_DWORD *)(v7 + 40) )
+      {
+        v8 = sub_49DE14(v5, 1, 0, hwnd);
+        *(_DWORD *)(v3 + 12) = 1;
+      }
+      else
+      {
+        if ( !*(_DWORD *)v7 )
+          sub_466BE5("There aren't any D3D devices to create.");
+        v8 = sub_49DE14(v5, 0, 0, hwnd);
+        *(_DWORD *)(v3 + 12) = 0;
+      }
+    }
+    if ( !v8 )
+      sub_466BE5("D3Drend->Init failed.");
+    v10 = *(_DWORD *)(v3 + 262280);
+    *(_DWORD *)(v3 + 262292) = *(_DWORD *)(v10 + 44);
+    *(_DWORD *)(v3 + 262288) = *(_DWORD *)(v10 + 48);
+    *(_DWORD *)(v3 + 262284) = *(_DWORD *)(v10 + 32);
+    v9 = sub_49E444((void *)v10);
+    if ( v9 & 1 )
+    {
+      hwnd = *(_DWORD *)(v3 + 262280);
+      if ( hwnd )
+      {
+        v11 = sub_49DC90(hwnd);
+        sub_4CA32D(v11, hwnd);
+      }
+      *(_DWORD *)(v3 + 262280) = 0;
+      *(_DWORD *)(v3 + 262292) = 0;
+      *(_DWORD *)(v3 + 262288) = 0;
+      *(_DWORD *)(v3 + 262284) = 0;
+      sub_466BE5("Direct3D renderer:  The device failed to return capabilities.");
+    }
+    if ( v9 & 0x3E )
+    {
+      hwnd = *(_DWORD *)(v3 + 262280);
+      if ( hwnd)
+      {
+        v12 = sub_49DC90(hwnd);
+        sub_4CA32D(v12, hwnd);
+      }
+      *(_DWORD *)(v3 + 262296) = 0;
+      *(_DWORD *)(v3 + 262280) = 0;
+      *(_DWORD *)(v3 + 262292) = 0;
+      *(_DWORD *)(v3 + 262288) = 0;
+      *(_DWORD *)(v3 + 262284) = 0;
+      sub_466BE5("Direct3D renderer:  The device doesn't support the necessary alpha blending modes.");
+    }
+    if ( (_BYTE)v9 < 0 )
+    {
+      hwnd = *(_DWORD *)(v3 + 262280);
+      if ( hwnd )
+      {
+        v13 = sub_49DC90(hwnd);
+        sub_4CA32D(v13, hwnd);
+      }
+      *(_DWORD *)(v3 + 262280) = 0;
+      *(_DWORD *)(v3 + 262292) = 0;
+      *(_DWORD *)(v3 + 262288) = 0;
+      *(_DWORD *)(v3 + 262284) = 0;
+      sub_466BE5("Direct3D renderer:  The device doesn't support non-square textures.");
+    }
+    *(_BYTE *)(v3 + 1062492) = ~(unsigned __int8)((unsigned int)v9 >> 6) & 1;
+    *(_DWORD *)(v3 + 1062472) = sub_49E79F();
+    memset(&Dst, 0, 0xFCu);
+    Dst = 252;
+    memset(&v27, 0, 0xFCu);
+    v15 = *(_DWORD *)(v3 + 262280);
+    v27 = 252;
+    v16 = (*(int (__stdcall **)(_DWORD, int *, int *))(**(_DWORD **)(v15 + 56) + 12))(*(_DWORD *)(v15 + 56), &Dst, &v27);
+    CheckHRESULT(&hwnd, v16, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x583u, 0);
+    v14 = v31;
+    if ( v31 >= v32 )
+      v14 = v32;
+    v17 = v33;
+    *(_DWORD *)(v3 + 1062488) = v14;
+    if ( v17 < v34 )
+      v17 = v34;
+    *(_DWORD *)(v3 + 1062484) = v17;
+    if ( v14 < 4 )
+      *(_DWORD *)(v3 + 1062488) = 4;
+    sub_49FFD7(v3);
+    v18 = 1;
+    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
+      7,
+      1);
+    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
+      14,
+      1);
+    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
+      23,
+      2);
+    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
+      29,
+      0);
+    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
+      41,
+      0);
+    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
+      15,
+      0);
+    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
+      22,
+      1);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
+      0,
+      16,
+      2);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
+      0,
+      17,
+      2);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
+      0,
+      18,
+      3);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
+      0,
+      5,
+      2);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
+      0,
+      6,
+      0);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
+      0,
+      4,
+      2);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
+      0,
+      2,
+      2);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
+      0,
+      3,
+      0);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
+      0,
+      1,
+      4);
+  }
+  else
+  {
+    CD3DRenderer_CreateDirectDraw(_this);
+    CD3DRenderer_SetCooperativeLevel(_this, _this->hWnd, true);
+    CD3DRenderer_SetDisplayMode(_this, 1280, 1024, 16);
+    CD3DRenderer_CreatePrimarySurface(_this);
+    v18 = 1;
+  }
+  _this->ddpfPrimarySurface.dwSize = sizeof(DDPIXELFORMAT);
+  (_this->pdds4->lpVtbl->GetPixelFormat)(_this->pdds4, &_this->ddpfPrimarySurface);
+
+  CD3DRenderer_sub_4A0EB6(_this);
+  CD3DRenderer_sub_49EBF1(_this);
+  if (_this->dword_040088)
+  {
+    v19 = sub_49E756(*(void **)(v3 + 262284));
+    v20 = *(_DWORD *)(v3 + 12) == v18;
+    *(_DWORD *)(v3 + 262408) = v19;
+    if ( !v20 )
+      *(_DWORD *)(v3 + 262408) = 0;
+    if ( *(_DWORD *)(v3 + 262408) )
+    {
+      memset(&v35, 0, 0x7Cu);
+      v39 = *(_DWORD *)(v3 + 262364) | *(_DWORD *)(v3 + 262368);
+      v40 = v39;
+      v21 = *(_DWORD *)(v3 + 262284);
+      v35 = 124;
+      v36 = 65543;
+      v41 = 2112;
+      v38 = 640;
+      v37 = 480;
+      v22 = (*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v21 + 24))(v21, &v35, v3 + 262296, 0);
+      CheckHRESULT(&hwnd, v22, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x5CAu, 0);
+      *(_DWORD *)(v3 + 1062592) = sub_4A57E9;
+    }
+    else
+    {
+      *(_DWORD *)(v3 + 262380) = 0;
+      *(_DWORD *)(v3 + 262376) = 0;
+      compile_error;//v23 = operator new(0x96020u);
+      *(_DWORD *)(v3 + 262376) = v23;
+      if ( !v23 || (memset(&v28, 0, 0x7Cu), v28 = 124, !sub_4A0F40(pD3DRenderer->dword_040094, &v28, v18)) )
+        return 0;
+      (*(void (__stdcall **)(int, _DWORD))(*(_DWORD *)pD3DRenderer->dword_040094 + 128))(pD3DRenderer->dword_040094, 0);
+      v25 = *(_DWORD *)(v3 + 262376) + 16;
+      v26 = v29 & 7;
+      LOBYTE(v25) = v25 & 0xF8;
+      *(_DWORD *)(v3 + 262384) = 640;
+      *(_DWORD *)(v3 + 1062592) = sub_4A597D;
+      v18 = 1;
+      *(_DWORD *)(v3 + 262380) = v25 + 2 * v26;
+    }
+    *(_DWORD *)(v3 + 262416) = v18;
+  }
+  else
+  {
+   _this->pfn_1036C0 = 0;//nullsub_1;
+  }
+  _this->dword_040058 = 0;
+  dword_AD4730 |= 2u;
+  flt_6BE3A0 = 0.55f;
+  class28_fn2(class28_global, 36044);
+  return v18;
+}
+
+//----- (MM7.exe::0049FDBF) --------------------------------------------------------
+int CD3DRenderer_Initialize_ZBuffer(struct CD3DRenderer *_this)
+{
+ signed int result; // eax@1
+ int *v3; // edi@2
+
+ result = 0;
+ if (!_this->pZBuffer)
+ {
+  _this->pZBuffer = class23_AllocatedNamedBuffer(class23_instance, 0, 640 * 480 * 4, "Z Buf.");
+  result = -65536;
+  _this->dword_040034 = _this->pZBuffer;
+  memset(_this->pZBuffer, -65536, 640 * 480 * 4);
+ }
+ return result;
+}
+
+//----- (MM7.exe::004A10E4) --------------------------------------------------------
+int CD3DRenderer_CreateDirectDraw(struct CD3DRenderer *_this)
+{
+ HRESULT      hr;
+ IDirectDraw *pdd;
+ char         some_class[1024];
+
+ hr = DirectDrawCreate(0, &pdd, 0);
+ CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2286, 0);
+
+ if (dword_F79D7C != 2 || dword_F79D70 != 4)
+ {
+  hr = (pdd->lpVtbl->QueryInterface)(pdd, &IID_IDirectDraw4, &_this->pdd4);
+  CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2296, 0);
+ }
+ else
+ {
+  hr = (pdd->lpVtbl->QueryInterface)(pdd, &IID_IDirectDraw2, &_this->pdd2);
+  CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2291, 0);
+ }
+
+ return (pdd->lpVtbl->Release)(pdd);
+}
+
+//----- (MM7.exe::004A1169) --------------------------------------------------------
+void *CD3DRenderer_SetCooperativeLevel(struct CD3DRenderer *_this, HWND hWnd, int bFullscreen)
+{
+ char         some_class[128]; // eax@1
+ IDirectDraw *pdd;
+ HRESULT      hr;
+ unsigned int v7;
+ unsigned int flags;
+
+ flags = bFullscreen ? DDSCL_NORMAL | DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN : DDSCL_NORMAL;
+ //flags = bFullscreen ? DDSCL_NORMAL : DDSCL_NORMAL;
+ if (dword_F79D7C != 2 || dword_F79D70 != 4)
+ {
+  pdd = _this->pdd4;
+  v7 = 2320;
+  flags |= DDSCL_MULTITHREADED;
+ }
+ else
+ {
+  pdd = _this->pdd2;
+  v7 = 2318;
+ }
+
+ hr = (pdd->lpVtbl->SetCooperativeLevel)(pdd, hWnd, flags);
+ return CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", v7, 0);
+}
+
+//----- (MM7.exe::004A11C6) --------------------------------------------------------
+void *CD3DRenderer_SetDisplayMode(struct CD3DRenderer *_this, unsigned int uWidth, unsigned int uHeight, unsigned int uBPP)
+{
+ IDirectDraw *pdd;
+ HRESULT      hr;
+ unsigned int some_class[128];
+ int          v8;
+
+ if (dword_F79D7C != 2 || dword_F79D70 != 4)
+ {
+  pdd = _this->pdd4;
+  v8 = 2331;
+ }
+ else
+ {
+  pdd = _this->pdd2;
+  v8 = 2327;
+ }
+
+ hr = S_OK;//(pdd->lpVtbl->SetDisplayMode)(pdd, uWidth, uHeight, uBPP, 0, 0);
+ return CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", v8, 0);
+}
+
+//----- (M7.exe::004A139A) --------------------------------------------------------
+void *CD3DRenderer_CreatePrimarySurface(struct CD3DRenderer *_this)
+{
+  HRESULT hr;
+  void           *result; // eax@5
+  DDSURFACEDESC2 ddsd2_PrimarySurface;
+  DDSURFACEDESC2 ddsd2_DisplayMode;
+  char some_class[128];
+
+ if (dword_F79D7C != 2 || dword_F79D70 != 4)
+ {
+  _this->dword_04004C = 1;
+ 
+  memset(&ddsd2_PrimarySurface, 0, sizeof(DDSURFACEDESC2));
+  ddsd2_PrimarySurface.dwSize = sizeof(DDSURFACEDESC2);
+  ddsd2_PrimarySurface.dwFlags = DDSD_CAPS | DDSD_BACKBUFFERCOUNT;
+  ddsd2_PrimarySurface.dwBackBufferCount = 1;
+  ddsd2_PrimarySurface.ddsCaps.dwCaps = DDSCAPS_COMPLEX | DDSCAPS_FLIP | DDSCAPS_3DDEVICE | DDSCAPS_PRIMARYSURFACE;
+
+  hr = (_this->pdd4->lpVtbl->CreateSurface)(_this->pdd4, &ddsd2_PrimarySurface, &_this->pdds4, 0);
+  CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2440, 0);
+ }
+ else
+ {
+  __asm int 3 //ddraw2 stuff
+ }
+
+ memset(&ddsd2_DisplayMode, 0, sizeof(DDSURFACEDESC2));
+ ddsd2_DisplayMode.dwSize = sizeof(DDSURFACEDESC2);
+
+ hr = (_this->pdd4->lpVtbl->GetDisplayMode)(_this->pdd4, &ddsd2_DisplayMode);
+ result = CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2445, 0);
+
+ _this->dword_040030 = 0;
+ _this->dword_000018 = 0;
+ return result;
+}
+
+//----- (MM7.exe::004A15D8) --------------------------------------------------------
+HRESULT CD3DRenderer_GetPrimarySurfacePixelFormat(struct CD3DRenderer *_this, DDPIXELFORMAT *pddpf)
+{
+ IDirectDrawSurface *pdds;
+
+ if (dword_F79D7C != 2 || dword_F79D70 != 4)
+   pdds = _this->pdds4;
+ else
+   pdds = _this->pdds2;
+
+ return (pdds->lpVtbl->GetPixelFormat)(pdds, pddpf);
+}
+
+//----- (004A0EB6) --------------------------------------------------------
+void *CD3DRenderer_sub_4A0EB6(struct CD3DRenderer *_this)
+{
+  void *result; // eax@1
+  int v2; // edx@1
+  signed int v3; // ecx@1
+  signed int v4; // ecx@5
+  int v5; // esi@5
+  int v6; // edx@9
+  signed int v7; // ecx@9
+  int v8; // ecx@13
+
+  result = _this;
+  v3 = 0;
+  v2 = _this->ddpfPrimarySurface.dwRBitMask;
+  _this->dword_0400CC = 0;
+  _this->dword_0400D0 = 0;
+  _this->dword_0400D4 = 0;
+  do
+  {
+    if ((1 << v3) & v2)
+      ++_this->dword_0400CC;
+    ++v3;
+  }
+  while (v3 < 16);
+  v5 = _this->ddpfPrimarySurface.dwGBitMask;
+  v4 = 0;
+  do
+  {
+    if ((1 << v4) & v5)
+      ++_this->dword_0400D0;
+    ++v4;
+  }
+  while (v4 < 16);
+  v6 = _this->ddpfPrimarySurface.dwBBitMask;
+  v7 = 0;
+  do
+  {
+    if ((1 << v7) & v6)
+      ++_this->dword_0400D4;
+    ++v7;
+  }
+  while (v7 < 16);
+
+  v8 = _this->ddpfPrimarySurface.dwRBitMask;
+  _this->dword_0400D8 = v8;
+  _this->dword_0400DC = v5;
+  _this->dword_0400E0 = v6;
+
+  return result;
+}
+
+//----- (MM7.exe::0049EBF1) --------------------------------------------------------
+int CD3DRenderer_sub_49EBF1(struct CD3DRenderer *_this)
+{
+  int result; // eax@1
+  signed int v2; // edx@1
+  signed int v3; // edi@1
+  signed int v4; // esi@1
+  int v5; // edx@4
+  int v6; // edi@4
+  int v7; // ebx@4
+  int v8; // edx@4
+  signed int v9; // [sp+8h] [bp-24h]@1
+  signed int v10; // [sp+Ch] [bp-20h]@1
+  signed int v11; // [sp+20h] [bp-Ch]@1
+  signed int i; // [sp+24h] [bp-8h]@2
+  signed int v13; // [sp+28h] [bp-4h]@3
+
+  result = _this;
+  v11 = 0;
+  v2 = 1 << _this->dword_0400CC;
+  v3 = 1 << _this->dword_0400D0;
+  v4 = 1 << _this->dword_0400D4;
+  v10 = 1 << _this->dword_0400CC;
+  v9 = 1 << _this->dword_0400D0;
+  if ( v2 > 0 )
+  {
+    do
+    {
+      for ( i = 0; i < v3; ++i )
+      {
+        v13 = 0;
+        if ( v4 > 0 )
+        {
+          do
+          {
+            v5 = _this->dword_0400D4;
+            v6 = v5 + _this->dword_0400D0;
+            v7 = (v13 >> 1) + (v11 >> 1 << v6) + (i >> 1 << _this->dword_0400D4);
+            v8 = (v11 << v6) + v13++ + (i << v5);
+            _this->array_00002C[v8] = v7;
+          }
+          while ( v13 < v4 );
+          v2 = v10;
+          v3 = v9;
+        }
+      }
+      ++v11;
+    }
+    while ( v11 < v2 );
+  }
+  return result;
+}
+
+
+
+extern int nWidth; // idb
+extern int nHeight; // idb
+extern int X; // idb
+extern int Y; // idb
+
+//----- (MM7.exe::0049ED18) --------------------------------------------------------
+int sub_49ED18(struct CD3DRenderer *_this)
+{
+  int v1; // eax@3
+  int v2; // edx@3
+  int v4; // [sp+4h] [bp-74h]@5
+  int v5; // [sp+54h] [bp-24h]@5
+  int v6; // [sp+68h] [bp-10h]@3
+  int v7; // [sp+6Ch] [bp-Ch]@3
+  int v8; // [sp+70h] [bp-8h]@3
+  int v9; // [sp+74h] [bp-4h]@5
+
+ if (dword_F79D7C != 2 || dword_F79D70 != 4)
+ {
+  v6 = X;
+  v8 = X + nHeight;
+  v7 = Y;
+  v2 = Y + nWidth;
+  v1 = _this->dword_040094;
+ }
+ else
+ {//ddraw2
+  /*v6 = X;
+  v8 = X + nHeight;
+  v7 = Y;
+  v2 = Y + nWidth;
+  v1 = *(_DWORD *)(this + 262308);*/
+ }
+
+ v9 = v2;
+ v5 = 0;
+ v4 = 100;
+ (*(void (__stdcall **)(int, int *, _DWORD, _DWORD, signed int, int *))(*(_DWORD *)v1 + 20))(v1, &v6, 0, 0, 1024, &v4);
+ return sub_49FC37(pD3DRenderer);
+}
+
+//----- (MM7.exe::0044F2B2) --------------------------------------------------------
+int CheckIfDeviceSupportsGammaControl()
+{
+ HRESULT    hr;
+ DDCAPS_DX7 ddCaps;
+ char       some_class[128];
+
+ if (dword_F79D7C != 2 || dword_F79D70 != 4)
+ {
+  memset(&ddCaps, 0, sizeof(DDCAPS_DX7));
+  ddCaps.dwSize = sizeof(DDCAPS_DX7);
+
+  hr = (pD3DRenderer->pdd4->lpVtbl->GetCaps)(pD3DRenderer->pdd4, &ddCaps, 0);
+  CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\GammaControl.cpp", 71, 0);
+  return ddCaps.dwCaps2 & DDCAPS2_PRIMARYGAMMA;
+ }
+ else return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//----- (MM7.exe::0044F215) --------------------------------------------------------
+struct CGammaController *CGammaController_ctor(struct CGammaController *_this)
+{
+ _this->dword_000000 = 5080696;
+ _this->pddgc = 0;
+ _this->flt_000C0C = *(float *)&byte_4D8410[608];
+ return _this;
+}
+
+//----- (MM7.exe::0044F4D9) --------------------------------------------------------
+void *sub_44F4D9(struct CGammaController *_this, float a2)
+{
+  double v3; // st7@3
+  double v4; // st6@4
+  void *result; // eax@10
+
+ if (dword_F79D7C != 2 || dword_F79D70 != 4)
+ {
+  CGammaController_InitializeFromSurface(_this, pD3DRenderer->pdds4);
+  v3 = 2.799999952316284;
+  if ( a2 <= 2.799999952316284 )
+    v4 = a2;
+  else
+    v4 = 2.799999952316284;
+  if ( v4 >= 0.1000000014901161 )
+  {
+   if ( a2 <= 2.799999952316284 )
+   v3 = a2;
+  }
+  else
+    v3 = 0.1000000014901161;
+
+  _this->flt_000C0C = v3;
+  sub_44F45B(_this, &_this->ddGammaRamp2);
+  result = sub_44F408(_this, &_this->ddGammaRamp2);
+ }
+ return result;
+}
+
+//----- (MM7.exe::0044F24B) --------------------------------------------------------
+void CGammaController_InitializeFromSurface(struct CGammaController *_this, struct IDirectDrawSurface4 *pdds)
+{
+ _this->pdds4 = pdds;
+ if (_this->pddgc)
+ {
+  (_this->pddgc->lpVtbl->Release)(_this->pddgc);
+  _this->pddgc = 0;
+ }
+ if (CheckIfDeviceSupportsGammaControl())
+ {
+  (pdds->lpVtbl->QueryInterface)(pdds, &IID_IDirectDrawGammaControl, &_this->pddgc);
+  CGammaController_InitializeGammaRamp(_this);
+  memcpy(&_this->ddGammaRamp2, &_this->ddGammaRamp, sizeof(DDGAMMARAMP));
+  _this->flt_000C0C = sub_44F377(&_this->ddGammaRamp2);
+ }
+}
+
+//----- (MM7.exe::0044F324) --------------------------------------------------------
+void *CGammaController_InitializeGammaRamp(struct CGammaController *_this)
+{
+ HRESULT hr;
+  void *result; // eax@2
+  int v12; // [sp+7h] [bp-1h]@2
+ char some_class[128];
+
+ if (_this->pddgc)
+ {
+  hr = (_this->pddgc->lpVtbl->GetGammaRamp)(_this->pddgc, 0, &_this->ddGammaRamp);
+  result = CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\GammaControl.cpp", 87, 0);
+ }
+ else
+ {
+   sub_40E2C8(&hr, "Gamma control not active", (int)&v12);
+   result = sub_467834(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\GammaControl.cpp", 0, 0, 83, 0);
+ }
+ return result;
+}
+
+
+//----- (MM7.exe::0044F377) --------------------------------------------------------
+double __stdcall sub_44F377(DDGAMMARAMP *pddGammaRamp)
+{
+  double v2; // st7@1
+  double v3; // st6@2
+  double result; // st7@7
+  signed int v5; // [sp+0h] [bp-8h]@1
+  int i;
+
+ v2 = 0.0;
+ v5 = 256;
+ for (i = 0; i < 256; ++i)
+ {
+  v3 = (pddGammaRamp->red[i] + pddGammaRamp->green[i] + pddGammaRamp->blue[i]) * 0.00001525902189314365 * 0.3333333432674408;
+  if (fabsf(v3) < 1e-5)
+    --v5;
+  else
+    v2 += (double)i * 0.003921568859368563 / v3;
+ }
+
+ if ( v5 )
+   result = v2 / (double)v5;
+ else result = 1.0;
+ return result;
+}
