@@ -4,8 +4,7 @@
 #include "mm7DDrawRenderer.h"
 
 #include "data.h"
-extern HWND hWnd;
-extern int dword_E31CF8;
+extern HWND hWnd_global;
 
 extern char off_4E7ECC[];
 extern int dword_4E800C;
@@ -701,7 +700,7 @@ LABEL_173:
 LABEL_175:
               sub_40E32E((int)&v19, v15, v16);
               v16 = a3;
-              dword_E31CF8 = 0;
+              pD3DRenderer->dword_040110 = 0;
               v18 = &v12;
               sub_40E2C8(&v12, Str, (int)((char *)&a1 + 3));
               v11 = 48;
@@ -832,7 +831,7 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
   if (pD3DRenderer)
   {
     if (pD3DRenderer->dword_00000C == 1 )
-      SetWindowPos(hWnd, (HWND)0xFFFFFFFE, 0, 0, 0, 0, 0x18u);
+      SetWindowPos(hWnd_global, (HWND)0xFFFFFFFE, 0, 0, 0, 0, 0x18u);
   }
   ClipCursor(0);
   v21 = &v16;
@@ -848,7 +847,7 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
   v14 = *(const CHAR **)(a1 + 4);
   if ( !v14 )
     v14 = byte_4D8410 + 736;
-  MessageBoxA(hWnd, v14, v12, uType);
+  MessageBoxA(hWnd_global, v14, v12, uType);
   if ( LODWORD(class00_global) )
   {
     v15 = *(_DWORD *)(LODWORD(class00_global) + 3692);

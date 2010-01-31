@@ -203,6 +203,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Bink.c"
+				>
+			</File>
+			<File
 				RelativePath=".\Bink.h"
 				>
 			</File>

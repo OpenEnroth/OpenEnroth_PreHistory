@@ -1,5 +1,7 @@
 #include <windows.h>
 
+void nullsub_1();
+
 extern int bUseLoResSprites;
 extern int bUseRegistry;
 extern int bLoadingFromCD;
@@ -32,7 +34,7 @@ extern struct class17      *pClass17_Events_LOD;
 extern struct class17      *pClass17_Bitmaps_LOD;
 extern struct class17      *pClass17_Sprites_LOD;
 extern struct class31      *pClass31_global;
-extern struct class32      *pClass32_global;
+extern struct CVideoPlayer *pVideoPlayer;
 extern char class28_global[];
 extern char class23_instance[];
 

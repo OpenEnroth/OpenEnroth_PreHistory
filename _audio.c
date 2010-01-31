@@ -1,7 +1,6 @@
 #include "_audio.h"
 #include "_video.h"
 #include "AIL.h"
-#include "Smacker.h"
 
 #include <stdio.h>
 
@@ -175,9 +174,9 @@ int __thiscall class31_Initialize(struct class31 *_this, HWND hWnd)
  }
  class31_LoadSoundHeaders(_this);
 
- pClass32_global = malloc(sizeof(struct class32));
- class32_ctor(pClass32_global);
- return class32_LoadVideoHeaders(pClass32_global);
+ pVideoPlayer = malloc(sizeof(struct CVideoPlayer));
+ CVideoPlayer_ctor(pVideoPlayer);
+ return CVideoPlayer_LoadVideoHeaders(pVideoPlayer);
 }
 
 //----- (MM7.exe::004AB818) --------------------------------------------------------

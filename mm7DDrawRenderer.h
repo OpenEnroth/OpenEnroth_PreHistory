@@ -8,6 +8,23 @@ double __stdcall sub_44F377(DDGAMMARAMP *pddGammaRamp);
 #pragma pack(push, 1)
 
 //class30
+struct CD3DRenderer_HWLContainer
+{
+ FILE *pHWLFile;
+ int   dword_000004;
+ int   dword_000008;
+ int   uNumElements;
+ unsigned char *array_000010[50000];
+ int   array_030D50[50000];
+ int   dword_061A90;
+ int   dword_061A94;
+};
+//sizeof = 61A98
+//int __thiscall sub_452347(int this);
+void CD3DRenderer_HWLContainer_ctor(struct CD3DRenderer_HWLContainer *_this);
+//signed int __thiscall sub_45237F(void *this, const char *Filename);
+int CD3DRenderer_HWLContainer_LoadHWLHeaders(struct CD3DRenderer_HWLContainer *_this, const char *pFilename);
+
 struct CD3DRenderer
 {
  unsigned int                bUseDirect3D;       // dword @ 000000
@@ -38,12 +55,12 @@ struct CD3DRenderer
  int                         dword_040058;
  int                         dword_040088;
  struct IDirectDraw4        *pdd4;               // ptr @ 04008C
- struct IDirectDrawSurface4 *pdds4;              // ptr @ 040090
- int                         dword_040094;
+ struct IDirectDrawSurface4 *pdds4_FrontBuffer;  // ptr @ 040090
+ struct IDirectDrawSurface4 *pdds4_BackBuffer;   // ptr @ 040094
  int                         dword_040098;
  struct IDirectDraw2        *pdd2;               // ptr @ 04009C
- struct IDirectDrawSurface2 *pdds2;              // ptr @ 0400A0
- int                         dword_0400A4;
+ struct IDirectDrawSurface2 *pdds2_FrontBuffer;  // ptr @ 0400A0
+ struct IDirectDrawSurface2 *pdds2_BackBuffer;   // ptr @ 0400A4
  int                         dword_0400A8;
  DDPIXELFORMAT               ddpfPrimarySurface; // struct[32] @ 0400AC
 
@@ -65,9 +82,9 @@ struct CD3DRenderer
  int                         dword_040108;
  int                         dword_04010C;
  int                         dword_040110;
- int                         dword_040114;
 
- int                         dword_0A1BAC;
+ struct CD3DRenderer_HWLContainer struct_040114;
+ struct CD3DRenderer_HWLContainer struct_0A1BAC;
 
  unsigned int                bUseColoredLights; // dword @ 103644
  int                         dword_103648;
@@ -101,7 +118,13 @@ void *CD3DRenderer_sub_4A0EB6(struct CD3DRenderer *_this);
 //int __thiscall sub_49EBF1(int this);
 int CD3DRenderer_sub_49EBF1(struct CD3DRenderer *_this);
 //signed int __thiscall sub_49ED18(int this)
-int sub_49ED18(struct CD3DRenderer *_this);
+int CD3DRenderer_ClearBackBufferAndPresent(struct CD3DRenderer *_this);
+//signed int __thiscall sub_49FC37(int this);
+int sub_49FC37(struct CD3DRenderer *_this);
+//int __thiscall sub_4A1814(void *this);
+HRESULT CD3DRenderer_RestoreFrontBuffer(struct CD3DRenderer *_this);
+//int __thiscall sub_4A194A(int this, int a2, int a3, int a4);
+HRESULT CD3DRenderer_PresentBackBuffer(struct CD3DRenderer *_this, int a2, int a3, RECT *pRect);
 
 
 

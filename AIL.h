@@ -39,6 +39,8 @@ void __stdcall AIL_set_digital_master_volume(HDIGDRIVER hDrv, float master_volum
 // sub_4D8308: using guessed type int __fastcall AIL_redbook_set_volume(_DWORD, _DWORD, _DWORD, _DWORD);
 int __stdcall AIL_redbook_set_volume(HREDBOOK hRedbook, int volume);
 
+// sub_4D8320: using guessed type int __stdcall AIL_redbook_pause(_DWORD);
+unsigned int __stdcall AIL_redbook_pause(HREDBOOK hRedbook);
 
 
 
@@ -53,9 +55,6 @@ int __stdcall AIL_3D_provider_attribute(long a1, long a2, long a3);
 
 // sub_4D8358: using guessed type int __fastcall AIL_waveOutClose(_DWORD, _DWORD);
 int __fastcall AIL_waveOutClose(long a1, long a2);
-
-// sub_4D8320: using guessed type int __stdcall AIL_redbook_pause(_DWORD);
-int __stdcall AIL_redbook_pause(long a1);
 
 // sub_4D831C: using guessed type int __stdcall AIL_redbook_resume(_DWORD);
 int __stdcall AIL_redbook_resume(long a1);

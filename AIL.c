@@ -12,6 +12,7 @@ int (__stdcall *mss32_AIL_redbook_volume)(HREDBOOK) = 0;
 unsigned int (__stdcall *mss32_AIL_redbook_stop)(HREDBOOK) = 0;
 void (__stdcall *mss32_AIL_set_digital_master_volume)(HDIGDRIVER, float) = 0;
 int (__stdcall *mss32_AIL_redbook_set_volume)(HREDBOOK, int) = 0;
+unsigned int (__stdcall *mss32_AIL_redbook_pause)(HREDBOOK) = 0;
 void MSS32_DLL_Initialize()
 {
  void *pDll = LoadLibraryW(L"mss32.dll");
@@ -28,6 +29,7 @@ void MSS32_DLL_Initialize()
  mss32_AIL_redbook_stop = GetProcAddress(pDll, "_AIL_redbook_stop@4");
  mss32_AIL_set_digital_master_volume = GetProcAddress(pDll, "_AIL_set_digital_master_volume@8");
  mss32_AIL_redbook_set_volume = GetProcAddress(pDll, "_AIL_redbook_set_volume@8");
+ mss32_AIL_redbook_pause = GetProcAddress(pDll, "_AIL_redbook_pause@4");
 }
 
 
@@ -135,10 +137,9 @@ int __fastcall AIL_waveOutClose(long a1, long a2)
 }
 
 // sub_4D8320: using guessed type int __stdcall AIL_redbook_pause(_DWORD);
-int __stdcall AIL_redbook_pause(long a1)
+unsigned int __stdcall AIL_redbook_pause(HREDBOOK hRedbook)
 {
- __asm int 3
- return 0;
+ return (mss32_AIL_redbook_pause)(hRedbook);
 }
 
 // sub_4D831C: using guessed type int __stdcall AIL_redbook_resume(_DWORD);

@@ -17,6 +17,13 @@
 #define __thiscall __cdecl
 #define sprintfex sprintf
 
+#define compile_error
+#define runtime_error __asm int 3;
+#define function_error
+
+#define true 1
+#define false 0
+
 
 //Smacker & AIL types
 typedef struct _DIG_DRIVER *HDIGDRIVER;
@@ -164,16 +171,6 @@ typedef int bool;       // we want to use bool in our C programs
 //#define vsnprintf _vsnprintf
 #endif
 
-
-
-
-
-#define compile_error
-#define runtime_error
-#define function_error
-
-#define true 1
-#define false 0
 
 
 #pragma warning(disable: 4311)
