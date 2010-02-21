@@ -66,6 +66,8 @@ int class31_Initialize(struct class31 *_this, HWND);
 void sub_4AA214(struct class31 *_this, signed int a2);
 //int __thiscall sub_4AB818(void *this);
 int class31_LoadSoundHeaders(struct class31 *_this);
+//int __fastcall sub_4AA1F3(int a1, int a2, int a3);
+int sub_4AA1F3(struct class31 *_this, float fVolume);
 
 
 

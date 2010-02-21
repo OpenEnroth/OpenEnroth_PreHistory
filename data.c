@@ -1157,267 +1157,17 @@ float aMusicVolumeLevels[10] =  // float array @ MM7.exe::004E4534
  0.8799999, 0.9900000
 };
 
-unsigned char *aNPCProfessionNames[59];  // ptr array @ MM7.exe::0073C290
-/*int dword_73C290[array_size_unknown]; // weak
-int dword_73C294; // weak
-int dword_73C298; // weak
-int dword_73C29C; // weak
-int dword_73C2A0; // weak
-int dword_73C2A4; // weak
-int dword_73C2A8; // weak
-int dword_73C2AC; // weak
-int dword_73C2B0; // weak
-int dword_73C2B4; // weak
-int dword_73C2B8; // weak
-int dword_73C2BC; // weak
-int dword_73C2C0; // weak
-int dword_73C2C4; // weak
-int dword_73C2C8; // weak
-int dword_73C2CC; // weak
-int dword_73C2D0; // weak
-int dword_73C2D4; // weak
-int dword_73C2D8; // weak
-int dword_73C2DC; // weak
-int dword_73C2E0; // weak
-int dword_73C2E4; // weak
-int dword_73C2E8; // weak
-int dword_73C2EC; // weak
-int dword_73C2F0; // weak
-int dword_73C2F4; // weak
-int dword_73C2F8; // weak
-int dword_73C2FC; // weak
-int dword_73C300; // weak
-int dword_73C304; // weak
-int dword_73C308; // weak
-int dword_73C30C; // weak
-int dword_73C310; // weak
-int dword_73C314; // weak
-int dword_73C318; // weak
-int dword_73C31C; // weak
-int dword_73C320; // weak
-int dword_73C324; // weak
-int dword_73C328; // weak
-int dword_73C32C; // weak
-int dword_73C330; // weak
-int dword_73C334; // weak
-int dword_73C338; // weak
-int dword_73C33C; // weak
-int dword_73C340; // weak
-int dword_73C344; // weak
-int dword_73C348; // weak
-int dword_73C34C; // weak
-int dword_73C350; // weak
-int dword_73C354; // weak
-int dword_73C358; // weak
-int dword_73C35C; // weak
-int dword_73C360; // weak
-int dword_73C364; // weak
-int dword_73C368; // weak
-int dword_73C36C; // weak
-int dword_73C370; // weak
-int dword_73C374; // weak
-int dword_73C378; // weak*/
-
-
-unsigned char *aAMPMNames[2];  //ptr array[2] @ MM7.exe::005C35D8
-/*int dword_5C35D8[array_size_unknown]; // weak
-int dword_5C35DC; // weak*/
-
-unsigned char *aMoonPhaseNames[5];  //ptr array[5] @ MM7.exe::00506554
-/*int dword_506554[array_size_unknown]; // weak
-int dword_506558; // weak
-int dword_50655C; // weak
-int dword_506560; // weak
-int dword_506564; // weak*/
-
-unsigned char *aSpellNames[44];  // ptr array[44] @ MM7.exe::005068C8
-/*int dword_5068C8; // weak
-int dword_5068CC; // weak
-int dword_5068D0; // weak
-int dword_5068D4; // weak
-int dword_5068D8; // weak
-int dword_5068DC; // weak
-int dword_5068E0; // weak
-int dword_5068E4; // weak
-int dword_5068E8; // weak
-int dword_5068EC; // weak
-int dword_5068F0; // weak
-int dword_5068F4; // weak
-int dword_5068F8; // weak
-int dword_5068FC; // weak
-int dword_506900; // weak
-int dword_506904; // weak
-int dword_506908; // weak
-int dword_50690C; // weak
-int dword_506910; // weak
-int dword_506914; // weak
-int dword_506918; // weak
-int dword_50691C; // weak
-int dword_506920; // weak
-int dword_506924; // weak
-int dword_506928; // weak
-int dword_50692C; // weak
-int dword_506930; // weak
-int dword_506934; // weak
-int dword_506938; // weak
-int dword_50693C; // weak
-int dword_506940; // weak
-int dword_506944; // weak
-int dword_506948; // weak
-int dword_50694C; // weak
-int dword_506950; // weak
-int dword_506954; // weak
-int dword_506958; // weak
-int dword_50695C; // weak
-int dword_506960; // weak
-int dword_506964; // weak
-int dword_506968; // weak
-int dword_50696C; // weak
-int dword_506970; // weak
-int dword_506974; // weak*/
-
-unsigned char *aCharacterConditionNames[19]; // ptr array[19] @ MM7.exe::00AE3280
-/*char *dword_AE3280; // idb
-int dword_AE3284; // weak
-int dword_AE3288; // weak
-int dword_AE328C; // weak
-int dword_AE3290; // weak
-int dword_AE3294; // weak
-int dword_AE3298; // weak
-int dword_AE329C; // weak
-int dword_AE32A0; // weak
-int dword_AE32A4; // weak
-int dword_AE32A8; // weak
-int dword_AE32AC; // weak
-int dword_AE32B0; // weak
-int dword_AE32B4; // weak
-int dword_AE32B8; // weak
-int dword_AE32BC; // weak
-int dword_AE32C0; // weak
-int dword_AE32C4; // weak
-int dword_AE32C8; // weak*/
-
-unsigned char *aSkillNames[37];  // ptr array[37] @ MM7.exe::00AE32D0
-/*char *dword_AE32D0; // idb
-int dword_AE32D4; // weak
-int dword_AE32D8; // weak
-int dword_AE32DC; // weak
-int dword_AE32E0; // weak
-int dword_AE32E4; // weak
-int dword_AE32E8; // weak
-int dword_AE32EC; // weak
-int dword_AE32F0; // weak
-int dword_AE32F4; // weak
-int dword_AE32F8; // weak
-int dword_AE32FC; // weak
-char *dword_AE3300; // idb
-int dword_AE3304; // weak
-int dword_AE3308; // weak
-int dword_AE330C; // weak
-int dword_AE3310; // weak
-int dword_AE3314; // weak
-int dword_AE3318; // weak
-int dword_AE331C; // weak
-int dword_AE3320; // weak
-int dword_AE3324; // weak
-int dword_AE3328; // weak
-int dword_AE332C; // weak
-int dword_AE3330; // weak
-int dword_AE3334; // weak
-int dword_AE3338; // weak
-int dword_AE333C; // weak
-int dword_AE3340; // weak
-int dword_AE3344; // weak
-int dword_AE3348; // weak
-int dword_AE334C; // weak
-int dword_AE3350; // weak
-int dword_AE3354; // weak
-int dword_AE3358; // weak
-int dword_AE335C; // weak
-int dword_AE3360; // weak
-int dword_AE3364; // weak*/
-
-unsigned char *aClassNames[36]; // ptr array[36] @ MM7.exe::00AE31F0
-/*char *dword_AE31F0; // idb
-int dword_AE31F4[array_size_unknown]; // weak
-int dword_AE31F8[array_size_unknown]; // weak
-int dword_AE31FC[array_size_unknown]; // weak
-char *dword_AE3200; // idb
-int dword_AE3204; // weak
-int dword_AE3208; // weak
-int dword_AE320C; // weak
-char *dword_AE3210; // idb
-int dword_AE3214; // weak
-int dword_AE3218; // weak
-int dword_AE321C; // weak
-char *dword_AE3220; // idb
-int dword_AE3224; // weak
-int dword_AE3228; // weak
-int dword_AE322C; // weak
-char *dword_AE3230; // idb
-int dword_AE3234; // weak
-int dword_AE3238; // weak
-int dword_AE323C; // weak
-char *dword_AE3240; // idb
-int dword_AE3244; // weak
-int dword_AE3248; // weak
-int dword_AE324C; // weak
-char *dword_AE3250; // idb
-int dword_AE3254; // weak
-int dword_AE3258; // weak
-int dword_AE325C; // weak
-char *dword_AE3260; // idb
-int dword_AE3264; // weak
-int dword_AE3268; // weak
-int dword_AE326C; // weak
-char *dword_AE3270; // idb
-int dword_AE3274; // weak
-int dword_AE3278; // weak
-int dword_AE327C; // weak*/
-
-
-unsigned char *aMonthNames[12];   //ptr array @ MM7.exe::00507B08
-/*unsigned char *dword_507B08[12]; // weak
-int dword_507B0C; // weak
-int dword_507B10; // weak
-int dword_507B14; // weak
-int dword_507B18; // weak
-int dword_507B1C; // weak
-int dword_507B20; // weak
-int dword_507B24; // weak
-int dword_507B28; // weak
-int dword_507B2C; // weak
-int dword_507B30; // weak
-int dword_507B34; // weak*/
-
-unsigned char *aDayNames[8];   //ptr array @ MM7.exe::00507B38
-/*int dword_507B38[array_size_unknown]; // weak
-int dword_507B3C; // weak
-int dword_507B40; // weak
-int dword_507B44; // weak
-int dword_507B48; // weak
-int dword_507B4C; // weak
-int dword_507B50; // weak*/
-
-unsigned char *aSpellSchoolNames[9];  //ptr array @ MM7.exe::00507B54
-/*char *dword_507B54; // idb
-char *dword_507B58; // idb
-char *dword_507B5C; // idb
-char *dword_507B60; // idb
-char *dword_507B64; // idb
-char *dword_507B68; // idb
-char *dword_507B6C; // idb
-char *dword_507B70; // idb
-char *dword_507B74; // idb*/
-
-unsigned char *aAttributeNames[7];  //ptr array @ MM7.exe::00507B78
-/*int dword_507B78[array_size_unknown]; // weak
-int dword_507B7C; // weak
-int dword_507B80; // weak
-int dword_507B84; // weak
-int dword_507B88; // weak
-int dword_507B8C; // weak
-int dword_507B90; // weak*/
+unsigned char *aNPCProfessionNames[59];      // ptr array @ MM7.exe::0073C290
+unsigned char *aAMPMNames[2];                // ptr array @ MM7.exe::005C35D8
+unsigned char *aMoonPhaseNames[5];           // ptr array @ MM7.exe::00506554
+unsigned char *aSpellNames[44];              // ptr array @ MM7.exe::005068C8
+unsigned char *aCharacterConditionNames[19]; // ptr array @ MM7.exe::00AE3280
+unsigned char *aSkillNames[37];              // ptr array @ MM7.exe::00AE32D0
+unsigned char *aClassNames[36];              // ptr array @ MM7.exe::00AE31F0
+unsigned char *aMonthNames[12];              // ptr array @ MM7.exe::00507B08
+unsigned char *aDayNames[8];                 // ptr array @ MM7.exe::00507B38
+unsigned char *aSpellSchoolNames[9];         // ptr array @ MM7.exe::00507B54
+unsigned char *aAttributeNames[7];           // ptr array @ MM7.exe::00507B78
 
 
 unsigned char pStringBuffer[2000];  //byte[2000] @ MM7.exe::005C6580
@@ -1434,13 +1184,7 @@ int bLoadingFromCD;    // byte @ MM7.exe::006BE36E
 unsigned char cGameCDDriveLetter; // byte @ MM7.exe::006A0D04
 
 PCMWAVEFORMAT sPCMWaveFormat;  // struct @ MM7.exe::00F1B4B8
-/*
-__int16 word_F1B4B8; // weak
-__int16 word_F1B4BA; // weak
-int dword_F1B4BC; // weak
-int dword_F1B4C0; // weak
-__int16 word_F1B4C4; // weak
-__int16 word_F1B4C6; // weak*/
+
 
 
 struct CD3DRenderer *pD3DRenderer = 0;
@@ -1451,6 +1195,16 @@ struct class17      *pClass17_Sprites_LOD = 0;  // struct @ MM7.exe::006E21C8
 struct class31      *pClass31_global = 0;       // struct @ MM7.exe::00F790D8
 struct class32      *pVideoPlayer = 0;          // struct @ MM7.exe::00F8BB08
 
+struct class33      *pClass33_global0 = 0;      // struct @ MM7.exe::005058F0
+struct class33      *pClass33_global1 = 0;      // struct @ MM7.exe::00505918
+struct class33      *pClass33_global2 = 0;      // struct @ MM7.exe::00506F20
+struct class33      *pClass33_global3 = 0;      // struct @ MM7.exe::00506E40
+
+struct class33      *pClass33_obj0 = 0;         // struct @ MM7.exe::00507A1C
+struct class33      *pClass33_obj1 = 0;         // struct @ MM7.exe::00507A44
+struct class33      *pClass33_obj2 = 0;         // struct @ MM7.exe::00507A6C
+struct class33      *pClass33_obj3 = 0;         // struct @ MM7.exe::00507A94
+struct class33      *pClass33_obj4 = 0;         // struct @ MM7.exe::00507ABC
 
 
 void *Dst_global = 0;  //300 000 bytes

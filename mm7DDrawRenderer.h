@@ -4,6 +4,10 @@
 
 int __cdecl CheckIfDeviceSupportsGammaControl();
 double __stdcall sub_44F377(DDGAMMARAMP *pddGammaRamp);
+int __stdcall LockSurface_DDraw4(struct IDirectDrawSurface4 *, DDSURFACEDESC2 *, unsigned int uLockFlags);
+int __stdcall LockSurface_DDraw2(struct IDirectDrawSurface2 *, DDSURFACEDESC *, unsigned int uLockFlags);
+void *__stdcall BltToFrontBuffer(RECT *pDestRect, IDirectDrawSurface *pddsSrc, RECT *pSrcRect, unsigned int uFlags);
+
 
 #pragma pack(push, 1)
 
@@ -52,7 +56,7 @@ struct CD3DRenderer
  int                         dword_04004C;
  HWND                        hWnd;               // ptr @ 040050
  int                         dword_040054;
- int                         dword_040058;
+ int                         dword_040058;       //maybe windowed flag
  int                         dword_040088;
  struct IDirectDraw4        *pdd4;               // ptr @ 04008C
  struct IDirectDrawSurface4 *pdds4_FrontBuffer;  // ptr @ 040090
@@ -70,10 +74,12 @@ struct CD3DRenderer
  int                         dword_0400D8;
  int                         dword_0400DC;
  int                         dword_0400E0;
- int                         dword_0400E4;
+ unsigned int                bSceneBegun; // dword @ 0400E4
  int                         dword_0400E8;
- int                         dword_0400EC;
- int                         dword_0400F0;
+
+ unsigned short             *pTargetSurface;      // ptr @ 0400EC
+ unsigned int                uTargetSurfacePitch; // dword @ 0400F0
+
  int                         dword_0400F4;
  int                         dword_0400F8;
  int                         dword_0400FC;
@@ -120,11 +126,38 @@ int CD3DRenderer_sub_49EBF1(struct CD3DRenderer *_this);
 //signed int __thiscall sub_49ED18(int this)
 int CD3DRenderer_ClearBackBufferAndPresent(struct CD3DRenderer *_this);
 //signed int __thiscall sub_49FC37(int this);
-int sub_49FC37(struct CD3DRenderer *_this);
+int CD3DRenderer_Present(struct CD3DRenderer *_this);
 //int __thiscall sub_4A1814(void *this);
 HRESULT CD3DRenderer_RestoreFrontBuffer(struct CD3DRenderer *_this);
 //int __thiscall sub_4A194A(int this, int a2, int a3, int a4);
 HRESULT CD3DRenderer_PresentBackBuffer(struct CD3DRenderer *_this, int a2, int a3, RECT *pRect);
+//char __thiscall sub_4A51CB(int this)
+unsigned int CD3DRenderer_BeginScene(struct CD3DRenderer *_this);
+//int __thiscall sub_49FBCD(int this, int a2);
+int sub_49FBCD(struct CD3DRenderer *_this, int a2);
+//signed int __thiscall sub_4A1605(void *this, int a2, int a3);
+int CD3DRenderer_LockBackBuffer(struct CD3DRenderer *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth);
+//void *__thiscall sub_4A527D(int this);
+HRESULT CD3DRenderer_EndScene(struct CD3DRenderer *_this);
+//void *__thiscall sub_4A16E1(int this);
+void *CD3DRenderer_UnlockBackBuffer(struct CD3DRenderer *_this);
+//signed int __thiscall sub_4A172E(void *this, int a2, int a3);
+int CD3DRenderer_LockFrontBuffer(struct CD3DRenderer *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth);
+//void *__thiscall sub_4A17C7(int this);
+void *CD3DRenderer_UnlockFrontBuffer(struct CD3DRenderer *_this);
+//void __thiscall sub_4A5BE3(int this, int a2, int a3, int a4);
+void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class33 *pClass33);
+//void __thiscall sub_4A6C4F(int this, int a2, int a3, int a4, int a5, int a6, int a7, __int16 a8, __int16 a9);
+void sub_4A6C4F(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5, int a6, int a7, __int16 a8, __int16 a9);
+//void __thiscall sub_4A5BB6(int this);
+void CD3DRenderer_sub_4A5BB6(struct CD3DRenderer *_this);
+//int __thiscall sub_4A5B81(int this, int a2, int a3, int a4, int a5);
+int sub_4A5B81(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5);
+//void __thiscall sub_4A5EB2(int this, int a2, int a3, int a4);
+void CD3DRenderer_DrawIndexedTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class18 *pTexture);
+//void __thiscall sub_4A6274(int this, int a2, int a3, int a4);
+void CD3DRenderer_DrawTransparentTexture(struct CD3DRenderer *_this, int a2, int a3, int a4);
+
 
 
 

@@ -23,8 +23,8 @@ struct class00
  int  dword_000E1C;
  int  uSomeFlags;              //dword ptr [0E20]
  int  dword_000E24;
- int  dword_000E2C;
- int  dword_000E30;
+ __int64  qword_000E2C;
+ //int  dword_000E30;
  int  dword_000E34;
  int  dword_000E38;
  struct class01 *class01_obj;  //dword ptr [0E3C]
@@ -50,6 +50,8 @@ void *class00_ctor(struct class00 *_this);
 int class00_fn0(struct class00 *_this);
 //int __thiscall sub_44F0D8(int this, int a2);
 int class00_fn1(struct class00 *_this, int flags);
+//char __thiscall sub_44EA17(int this);
+char sub_44EA17(struct class00 *_this);
 
 
 
@@ -91,17 +93,38 @@ struct class03
 {
  int dword_000000;
  int dword_000004;
- int dword_000008[7];
+ int dword_000008;
+ int dword_00000C;
+ int dword_000010;
+ int dword_000014[4];
  int dword_000024;
  int dword_000028;
- int dword_00002C;
- int dword_000030;
+ HWND hWnd; // ptr @ 00002C
+ unsigned char *ptr_000030;
  int dword_000034;
- int dword_000038;
+ unsigned char *ptr_000038;
  int dword_00003C;
  int dword_000040[20];
- int dword_000090;
- int dword_000094[29];
+ unsigned char *ptr_000090;
+ int dword_000094;
+ int dword_000098;
+ int dword_00009C;
+ int dword_0000A0;
+ int dword_0000A4;
+ int dword_0000A8;
+ int dword_0000AC;
+ int dword_0000B0;
+ int dword_0000B4;
+ int dword_0000B8;
+ int dword_0000BC;
+ int dword_0000C0;
+ int dword_0000C4;
+ int dword_0000C8;
+
+ int dword_0000CC[16];
+
+ unsigned char array_0000F5[5];
+
  int dword_000108;
  int dword_00010C;
  struct class01 *class01_obj;   //dword ptr [0110]
@@ -113,6 +136,13 @@ struct class03 *class03_ctor(struct class03 *_this, struct class01 *class01_obj)
 int class03_fn1(struct class03 *_this, int a2);
 //int __thiscall sub_469C39(int this, int a2);
 int *class03_fn2(struct class03 *_this, int *a2);
+//void __thiscall sub_469C65(int this, int a2)
+void sub_469C65(struct class03 *_this, HWND hWnd);
+//void __thiscall sub_469903(int this, const char *Source);
+void sub_469903(struct class03 *_this, const char *pSource);
+//int __thiscall sub_469BA3(int this);
+int sub_469BA3(struct class03 *_this);
+
 
 
 //class04
@@ -179,7 +209,13 @@ struct class06
  int   dword_0005D0;
  int   dword_0005D4;
  int   dword_0005D8;
- int   dword_0005DC[7];
+ int   dword_0005DC;
+ int   dword_0005E0;
+ int   dword_0005E4;
+ int   dword_0005E8;
+ int   dword_0005EC;
+ int   dword_0005F0;
+ int   dword_0005F4;
 };
 //sizeof = 5F8
 //int __thiscall sub_4A7155(int this);
@@ -419,9 +455,9 @@ struct class18
 {
  char  sContainerName[16];
  int   dword_000010;
- unsigned int uCompressedSize; // dword @ 000014
- short  word_000018;
- short  word_00001A;
+ unsigned int   uCompressedSize; // dword @ 000014
+ unsigned short uTextureWidth;   // word @ 000018
+ unsigned short uTextureHeight;  // word @ 00001A
  short  word_00001C;
  short  word_00001E;
  char   byte_000020[4];
@@ -429,12 +465,14 @@ struct class18
  short  word_000026;
  unsigned int uDecompressedSize;   // dword @ 000028
  char   byte_00002C[4];
- unsigned char *ptr_000030;
+ unsigned char *pIndexedPixels; // ptr @ 000030
  int    dword_000034;
  int    dword_000038;
  int    dword_00003C;
- unsigned short *ptr_000040;
+ unsigned short *pPalette; // ptr @ 000040
  unsigned char  *ptr_000044;
+
+ unsigned int *pTruecolorPixels;
 };
 //sizeof = 000048
 //int __thiscall sub_40F5BE(int this);
@@ -464,7 +502,7 @@ struct class17
  int   dword_000234;
  int   dword_000238;
 
- struct class18 class18_array[128];  // class18[~ 1000] @ 00023C
+ struct class18 aLODHeaders[128];  // class18[~ 1000] @ 00023C
  //char   byte_00023C[16];
  //short  array_00024C[0x7528];
 
@@ -477,13 +515,13 @@ struct class17
 
  char byte_00ECB4[0x2EC8];
 
- int   dword_011B7C;
+ unsigned int uNumLoadedFiles; // dword @ 011B7C
  int   dword_011B80;
  int   dword_011B84;
  int   dword_011B88;
- char  byte_011B8C[4];
- char  byte_011B90[4];
- char  byte_011B94[4];
+ int   dword_011B8C;
+ int   dword_011B90;
+ int   dword_011B94;
  int   dword_011B98;
  int   dword_011B9C;
  int   dword_011BA0;
@@ -518,8 +556,12 @@ int class17_fn7(struct class17 *_this);
 //int __thiscall sub_40FB20(int this, const char *Source, unsigned int a3)
 int class17_LoadTexture(struct class17 *_this, const char *pContainerName, unsigned int a3);
 //signed int __thiscall sub_40FC08(int this, void *Dest, int Source, unsigned int DstBuf);
-int sub_40FC08(struct class17 *_this, struct class18 *pClass18, const char *pContainerName, unsigned int DstBuf);
+int class17_LoadPalette(struct class17 *_this, struct class18 *pClass18, const char *pContainerName, unsigned int DstBuf);
+//int __thiscall sub_41097D(void *this, int a2, int a3, int a4);
+int sub_41097D(struct class17 *_this, int a2, int a3, int a4);
 
+unsigned int   class17_LoadTextureFromCBM(struct class17 *_this, const wchar_t *pFilename);
+unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename);
 
 
 
@@ -717,56 +759,6 @@ int class28_fn1(struct class28 *_this, int a2, int a3, int a4, int a5);
 int class28_fn2(struct class28 *_this, int a2);
 
 
-//class29
-struct CSpriteFrameTable
-{
- int             dword_000000;
- int             dword_000004;
- int             dword_000008;
- unsigned char  *ptr_00000C;
- unsigned int   *ptr_000010;
- unsigned short *ptr_000014;
-};
-//sizeof ~ ?
-void CSpriteFrameTable_ctor(struct CSpriteFrameTable *_this);
-//int __thiscall sub_44D9D7(void *Dst, void *Src)
-int CSpriteFrameTable_LoadFromDSFT(struct CSpriteFrameTable *_this, void *pSrc);
-//int __thiscall sub_44D96D(void *Str);
-int CSpriteFrameTable_Save_DSFT_bin(struct CSpriteFrameTable *_this);
-
-int CSpriteFrameTable_LoadFromTXT(struct CSpriteFrameTable *_this, const char *pSourceFile);
-//int __thiscall sub_44D4D8(int this)
-int CSpriteFrameTable_sub_44D4D8(struct CSpriteFrameTable *_this);
-
-
-
-//class34
-struct IconFrame
-{
- unsigned char sIconName[12];   // byte[12] @ 000000
- unsigned char sTextureName[12];   // byte[12] @ 00000C
- short         word_000018;
- short         word_00001A;
- short         word_00001C;
- short         uTextureIdx;     // word @ 00001E
-};
-//sizeof = 20
-
-struct CIconFrameTable
-{
- unsigned int      uNumIcons;  // dword @ 000000
- struct IconFrame *pIcons;     // ptr   @ 000004
-};
-//sizeof ~ ?
-void CIconFrameTable_ctor(struct CIconFrameTable *_this);
-//void *__thiscall sub_495056(void *Dst, void *Src);
-void *CIconFrameTable_Initialize(struct CIconFrameTable *_this, void *pSrc);
-//int __thiscall sub_494F3A(void *this, const char *Str1);
-unsigned int CIconFrameTable_FindIcon(struct CIconFrameTable *_this, const char *pIconName);
-//void __thiscall sub_494FBF(int this, int a2);
-void CIconFrameTable_InitializeIcon(struct CIconFrameTable *_this, unsigned int uIconIdx);
-
-
 
 
 
@@ -786,13 +778,336 @@ struct class33
  short word_00001A;
  short word_00001C;
  short word_00001E;
+ short word_000020;
+ short word_000022;
+ unsigned int *pPixels; // ptr @ 000024
+
  int dword_000020;
- unsigned short *pPixels; // ptr @ 000024
+ int dword_000024;
 };
 //sizeof = 28
+//int __thiscall sub_40D73D(int this);
+int class33_ctor(struct class33 *_this);
 //signed int __thiscall sub_40F414(void *this, const char *Str1, int a3);
 int class33_fn0(struct class33 *_this, const char *pContainerName, int a3);
 //signed int __thiscall sub_40F037(void *this, void *Src, int a3, int a4)
 int class33_DecodePCX(struct class33 *_this, void *Src, void *a3, unsigned int uWidth);
+unsigned int class33_LoadFromCBM(struct class33 *_this, const char *pFilename);
+
+
+
+
+//class35
+struct class35
+{
+ char  aSomeCoords[50][256 * 3];   // array @ 000000
+ short aSomeIndices[50][256 * 32]; // array @ 009600
+ short array_0D1600[50][256 * 32]; // array @ 0D1600
+ short array_199600[50][256 * 32]; // array @ 199600
+ short array_261600[50][256];      // array @ 261600
+                                   // 267A00
+
+ int array_267A04[50];
+
+ char byte_267AD0;
+ char byte_267AD1;
+ char byte_267AD2;
+ char byte_267AD3;
+ char byte_267AD4;
+ char byte_267AD5;
+ char byte_267AD6;
+ char byte_267AD7;
+
+ int dword_267AD8;
+ int dword_267ADC;
+ int dword_267AE0;
+ int dword_267AE4;
+ int dword_267AE8;
+ int dword_267AEC;
+};
+//sizeof ~ ?
+//int __thiscall sub_48A8F5(int this, int a2, int a3, int a4)
+int class35_sub_48A8F5(struct class35 *_this, int a2, int a3, int a4);
+//int __thiscall sub_48A614(int this);
+int class35_sub_48A614(struct class35 *_this);
+//int __thiscall sub_489BE0(int this, int a2);
+int class35_sub_489BE0(struct class35 *_this, unsigned int idx);
+//signed int __thiscall sub_48A3BC(void *this, int a2)
+int class35_sub_48A3BC(struct class35 *_this, int a2);
+//int __thiscall sub_48A8A3(int this);
+int class35_sub_48A8A3(struct class35 *_this);
+
+
+
+
+//class36
+struct class36
+{
+ int  dword_000000;
+ char vector_000004[2560];
+
+ int dword_000A04;
+ int dword_000A08;
+};
+//sizeof ~ ?
+//void *__thiscall sub_43B688(void *this);
+void *class36_ctor(struct class36 *_this);
+
+
+
+//class37
+struct class37
+{
+ int dword_000000;
+
+ char vector_000FA8[337800];
+};
+//void *__thiscall sub_43F282(void *this);
+void *class37_ctor(struct class37 *_this);
+
+
+
+
+//many items desc
+struct class40
+{
+ int  dword_000000;
+ char byte_000004[71288];
+ unsigned char *pItemsTXT_Raw;    // ptr @ 011674
+ unsigned char *pRndItemsTXT_Raw; // ptr @ 011678
+ unsigned char *pStdItemsTXT_Raw; // ptr @ 01167C
+ unsigned char *pSpcItemsTXT_Raw; // ptr @ 011680
+ char byte_011684[10000];         // byte[?]
+};
+//char *__thiscall sub_456D84(void *this);
+char *sub_456D84(struct class40 *_this);
+//int __thiscall sub_453B3C(void *this);
+int sub_453B3C(struct class40 *_this);
+//const char *__thiscall sub_453CE5(void *this)
+const char *sub_453CE5(struct class40 *_this);
+
+
+
+
+struct MapInfo
+{
+ const unsigned char *pLocationName;             // ptr @ 000000
+ const unsigned char *pLocationFilename;         // ptr @ 000004
+ const unsigned char *pEncounterMonster1Texture; // ptr @ 000008
+ const unsigned char *pEncounterMonster2Texture; // ptr @ 00000C
+ const unsigned char *pEncounterMonster3Texture; // ptr @ 000010
+ unsigned int uNumResets;       // dword @ 000014
+ unsigned int uVisitedAt;       // dword @ 000018
+ unsigned int uRespawnInterval; // dword @ 00001C
+ int dword_000020;
+ int dword_000024;
+ int dword_000028;
+ char byte_00002C;
+ char byte_00002D;
+ char byte_00002E;
+ char byte_00002F;
+ char byte_000030;
+ char byte_000031;
+ char byte_000032;
+ char byte_000033;
+ char byte_000034;
+ unsigned char uEncounterMonster1AtLeast; // byte @ 000035
+ unsigned char uEncounterMonster1AtMost;  // byte @ 000036
+ char byte_000037;
+ unsigned char uEncounterMonster2AtLeast; // byte @ 000038
+ unsigned char uEncounterMonster2AtMost;  // byte @ 000039
+ char byte_00003A;
+ unsigned char uEncounterMonster3AtLeast; // byte @ 00003B
+ unsigned char uEncounterMonster3AtMost;  // byte @ 00003C
+ char byte_00003D;
+ char byte_00003E;
+ char byte_00003F;
+ unsigned char uRedbookTrackNum; // byte @ 000040
+ unsigned char uEAXEnv;          // byte @ 000041
+ char byte_000042;
+ char byte_000043;
+};
+//sizeof = 44
+
+struct CMapStats
+{
+ struct MapInfo pMapInfos[77]; // struct array @ 000000
+ unsigned int   uNumMaps;      // dword        @ 001474
+};
+//sizeof ~ ?
+void CMapStats_ctor(struct CMapStats *_this);
+//int __thiscall sub_453F62(void *this)
+int CMapStats_Initialize(struct CMapStats *_this);
+
+
+
+
+struct StringSplitter
+{
+ unsigned int   uNumSubstrings;  // dword @ 000000
+ unsigned char *pSubstrings[30]; // ptr   @ 000004
+};
+
+
+
+struct MonsterInfo
+{
+ const unsigned char *pName;    // ptr @ 000000
+ const unsigned char *pTexture; // ptr @ 000004
+ unsigned char        uLevel;   // byte @ 000008
+ unsigned char        byte_000009;
+ unsigned char        byte_00000A;
+ unsigned char        byte_00000B;
+ unsigned char        byte_00000C;
+ unsigned char        byte_00000D;
+ unsigned char        uCanFly;        // byte @ 00000E
+ unsigned char        uMovement;      // byte @ 00000F
+ unsigned char        uAIType;        // byte @ 000010
+ unsigned char        byte_000011;    // byte @ 000011
+ unsigned char        byte_000012;    // byte @ 000012
+ unsigned char        uSpecialAttack; // byte @ 000013
+ unsigned char        byte_000014;    // byte @ 000014
+ unsigned char        uAttackType;    // byte @ 000015
+ unsigned char        byte_000016;
+ unsigned char        byte_000017;
+ unsigned char        byte_000018;
+ unsigned char        uMissleType;    // byte @ 000019
+ unsigned char        byte_00001A;
+ unsigned char        uAttack2Type;   // byte @ 00001B
+ unsigned char        byte_00001C;
+ unsigned char        byte_00001D;
+ unsigned char        byte_00001E;
+ unsigned char        uAttack2MissleType;  // byte @ 00001F
+ unsigned char        uSpell1UseChance;    // byte @ 000020
+ unsigned char        uSpell1Type;         // byte @ 000021
+ unsigned char        uSpell2UseChance;    // byte @ 000022
+ unsigned char        uSpell2Type;         // byte @ 000023
+ unsigned char        uResistanceFire;     // byte @ 000024
+ unsigned char        uResistanceAir;      // byte @ 000025
+ unsigned char        uResistanceWater;    // byte @ 000026
+ unsigned char        uResistanceEarth;    // byte @ 000027
+ unsigned char        uResistanceMind;     // byte @ 000028
+ unsigned char        uResistanceSpirit;   // byte @ 000029
+ unsigned char        uResistanceBody;     // byte @ 00002A
+ unsigned char        uResistanceLight;    // byte @ 00002B
+ unsigned char        uResistanceDark;     // byte @ 00002C
+ unsigned char        uResistancePhysical; // byte @ 00002D
+ unsigned char        byte_00002E;
+ unsigned char        byte_00002F;
+ unsigned char        byte_000030;
+ unsigned char        byte_000031;
+ unsigned char        byte_000032;
+ unsigned char        byte_000033;
+
+ unsigned short       uID;           // word @ 000034
+ unsigned short       bQuestMonster; // word @ 000036
+ unsigned short       uSpell1Power;  // word @ 000038
+ unsigned short       uSpell2Power;  // word @ 00003A
+ unsigned short       word_00003C;
+ unsigned int         uHP;           // dword @ 000040
+ unsigned int         uAC;           // dword @ 000044
+ unsigned int         uExp;          // dword @ 000048
+ unsigned int         uSpeed;        // dword @ 00004C
+ unsigned int         dword_000050;  // dword @ 000050
+
+ unsigned char        byte_000054;
+ unsigned char        byte_000055;
+ unsigned char        byte_000056;
+ unsigned char        byte_000057;
+};
+//sizeof = 58
+
+struct CMonsterStats
+{
+ struct MonsterInfo    pMonsterInfos[265];
+ struct StringSplitter sPlacements;           // struct @ 005B18
+ unsigned int          uNumMonsters;          // dword  @ 005B94
+ unsigned int          uNumMonsterPlacements; // dword  @ 005B98
+};
+//sizeof ~ ?
+void CMonsterStats_ctor(struct CMonsterStats *_this);
+//int __thiscall sub_45501E(void *this);
+int CMonsterStats_Initialize(struct CMonsterStats *_this);
+//char *__thiscall sub_454F4E(void *this)
+char *CMonsterStats_LoadMonsterPlacements(struct CMonsterStats *_this);
+
+
+
+
+
+struct SpellInfo
+{
+ unsigned char *pSpellName;                 // ptr   @ 000000
+ unsigned char *pSpellNameShort;            // ptr   @ 000004
+ unsigned char *pSpellDescription;          // ptr   @ 000008
+ unsigned char *pSpellBasicSkillDesc;       // ptr   @ 00000Ñ
+ unsigned char *pSpellExpertSkillDesc;      // ptr   @ 000010
+ unsigned char *pSpellMasterSkillDesc;      // ptr   @ 000014
+ unsigned char *pSpellGrandmasterSkillDesc; // ptr   @ 000018
+ unsigned int   uSpellSchool;               // dword @ 00001C
+ int            dword_000020;
+};
+//sizeof = 24
+
+
+struct CSpellStats
+{
+ struct SpellInfo pSpellInfos[99]; // struct @ 000000
+};
+//sizeof ~ ?
+void CSpellStats_ctor(struct CSpellStats *_this);
+//char *__thiscall sub_45384A(void *this)
+char *CSpellStats_Initialize(struct CSpellStats *_this);
+
+
+
+
+
+//hostile.txt
+struct class48
+{
+ char byte_000000[8];
+ char unknown[1024];
+};
+void class48_ctor(struct class48 *_this);
+//int __thiscall sub_4547E4(void *this);
+int class48_Initialize(struct class48 *_this);
+
+
+
+struct StorylineText
+{
+ int dword_000000;
+ char unknown[1024];
+};
+//int __thiscall sub_453E6D(void *this)
+int StorylineText_Initialize(struct StorylineText *_this);
+
+
+
+
+
+
+struct CNPCStats
+{
+ char a[98284];
+ unsigned char *pNPCDataTXT_Raw;  // ptr @ 017FD8
+ unsigned char *pNPCNamesTXT_Raw; // ptr @ 017FDC
+ unsigned char *pNPCProfTXT_Raw;  // ptr @ 017FE0
+ unsigned char *pNPCNewsTXT_Raw;  // ptr @ 017FE4
+ unsigned char *pNPCTopicTXT_Raw; // ptr @ 017FE8
+ unsigned char *pNPCTextTXT_Raw;  // ptr @ 017FEC
+ unsigned char *pNPCDistTXT_Raw;  // ptr @ 017FF0
+ unsigned char *pNPCGreetTXT_Raw; // ptr @ 017FF4
+ unsigned char *pNCPGroupTXT_Raw; // ptr @ 017FF8
+};
+
+void CNPCStats_ctor(struct CNPCStats *_this);
+//int __thiscall sub_47702F(void *this);
+void CNPCStats_Initialize(struct CNPCStats *_this);
+//char *__thiscall sub_476CB5(void *this);
+char *CNPCStats_sub_476CB5(struct CNPCStats *_this);
+//int __thiscall sub_476977(int this);
+int CNPCStats_sub_476977(struct CNPCStats *_this);
 
 #pragma pack(pop)

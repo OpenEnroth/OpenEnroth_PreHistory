@@ -15,9 +15,10 @@
 #include <math.h>
 
 #define __thiscall __cdecl
-#define sprintfex sprintf
 
-#define compile_error
+#define compile_warning
+#define compile_error __asm int 3;
+#define runtime_warning
 #define runtime_error __asm int 3;
 #define function_error
 

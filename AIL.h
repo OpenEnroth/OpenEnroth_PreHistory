@@ -3,44 +3,23 @@
 void MSS32_DLL_Initialize();
 
 
-// sub_4D835C: using guessed type int __stdcall AIL_startup();
 int __stdcall AIL_startup();
-
-// sub_4D8360: using guessed type int __stdcall AIL_redbook_open_drive(_DWORD);
 HREDBOOK __stdcall AIL_redbook_open_drive(long drive);
-
-// sub_4D8348: using guessed type int __stdcall AIL_set_preference(_DWORD, _DWORD);
 int __stdcall AIL_set_preference(unsigned int number, int value);
-
-// sub_4D834C: using guessed type int __stdcall AIL_waveOutOpen(_DWORD, _DWORD, _DWORD, _DWORD);
 int __stdcall AIL_waveOutOpen(HDIGDRIVER drv, HWAVEOUT *phWaveOut, int wDeviceID, WAVEFORMAT *pFormat);
-
-// sub_4D8354: using guessed type int __stdcall AIL_get_preference(_DWORD);
 int __stdcall AIL_get_preference(unsigned int number);
-
-// sub_4D8350: using guessed type int __stdcall AIL_digital_configuration(_DWORD, _DWORD, _DWORD, _DWORD);
 int __stdcall AIL_digital_configuration(HDIGDRIVER drv, int *rate, int *format, char *string);
-
-// sub_4D8370: using guessed type int __stdcall AIL_allocate_sample_handle(_DWORD);
 HSAMPLE __stdcall AIL_allocate_sample_handle(HDIGDRIVER hDrv);
-
-// sub_4D8374: using guessed type int __stdcall AIL_redbook_tracks(_DWORD);
 unsigned int __stdcall AIL_redbook_tracks(HREDBOOK hRedbook);
-
-// sub_4D83B0: using guessed type int __stdcall AIL_redbook_volume(_DWORD);
 int __stdcall AIL_redbook_volume(HREDBOOK hRedbook);
-
-// sub_4D8324: using guessed type int __stdcall AIL_redbook_stop(_DWORD);
 unsigned int __stdcall AIL_redbook_stop(HREDBOOK hRedbook);
-
-// sub_4D8304: using guessed type int __stdcall AIL_set_digital_master_volume(_DWORD, _DWORD);
 void __stdcall AIL_set_digital_master_volume(HDIGDRIVER hDrv, float master_volume);
-
-// sub_4D8308: using guessed type int __fastcall AIL_redbook_set_volume(_DWORD, _DWORD, _DWORD, _DWORD);
 int __stdcall AIL_redbook_set_volume(HREDBOOK hRedbook, int volume);
-
-// sub_4D8320: using guessed type int __stdcall AIL_redbook_pause(_DWORD);
 unsigned int __stdcall AIL_redbook_pause(HREDBOOK hRedbook);
+void __stdcall AIL_redbook_track_info(HREDBOOK hRedbook, unsigned int uTrackNum, unsigned int *pStartMS, unsigned int *pEndMS);
+unsigned int __stdcall AIL_redbook_play(HREDBOOK hRedbook, unsigned int uStartMS, unsigned int uEndMS);  	
+
+
 
 
 
@@ -160,9 +139,3 @@ int __stdcall AIL_decompress_ADPCM(long a1, long a2, long a3);
 
 // sub_4D830C: using guessed type int __stdcall AIL_mem_free_lock(_DWORD);
 int __stdcall AIL_mem_free_lock(long a1);
-
-// sub_??????
-long AIL_redbook_track_info(long a1, long a2, long a3, long a4);
-
-// sub_??????
-long AIL_redbook_play(long a1, long a2, long a3);

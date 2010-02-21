@@ -13,6 +13,8 @@ unsigned int (__stdcall *mss32_AIL_redbook_stop)(HREDBOOK) = 0;
 void (__stdcall *mss32_AIL_set_digital_master_volume)(HDIGDRIVER, float) = 0;
 int (__stdcall *mss32_AIL_redbook_set_volume)(HREDBOOK, int) = 0;
 unsigned int (__stdcall *mss32_AIL_redbook_pause)(HREDBOOK) = 0;
+void (__stdcall *mss32_AIL_redbook_track_info)(HREDBOOK, unsigned int, unsigned int *, unsigned int *) = 0;
+unsigned int (__stdcall *mss32_AIL_redbook_play)(HREDBOOK, unsigned int, unsigned int) = 0;
 void MSS32_DLL_Initialize()
 {
  void *pDll = LoadLibraryW(L"mss32.dll");
@@ -30,9 +32,21 @@ void MSS32_DLL_Initialize()
  mss32_AIL_set_digital_master_volume = GetProcAddress(pDll, "_AIL_set_digital_master_volume@8");
  mss32_AIL_redbook_set_volume = GetProcAddress(pDll, "_AIL_redbook_set_volume@8");
  mss32_AIL_redbook_pause = GetProcAddress(pDll, "_AIL_redbook_pause@4");
+ mss32_AIL_redbook_track_info = GetProcAddress(pDll, "_AIL_redbook_track_info@16");
+ mss32_AIL_redbook_play = GetProcAddress(pDll, "_AIL_redbook_play@12");
 }
 
 
+
+unsigned int __stdcall AIL_redbook_play(HREDBOOK hRedbook, unsigned int uStartMS, unsigned int uEndMS)
+{
+ return (mss32_AIL_redbook_play)(hRedbook, uStartMS, uEndMS);
+}
+
+void __stdcall AIL_redbook_track_info(HREDBOOK hRedbook, unsigned int uTrackNum, unsigned int *pStartMS, unsigned int *pEndMS)
+{
+ (mss32_AIL_redbook_track_info)(hRedbook, uTrackNum, pStartMS, pEndMS);
+}
 
 
 
@@ -382,20 +396,6 @@ int __stdcall AIL_decompress_ADPCM(long a1, long a2, long a3)
 
 // sub_4D830C: using guessed type int __stdcall AIL_mem_free_lock(_DWORD);
 int __stdcall AIL_mem_free_lock(long a1)
-{
- __asm int 3
- return 0;
-}
-
-// sub_??????
-long AIL_redbook_track_info(long a1, long a2, long a3, long a4)
-{
- __asm int 3
- return 0;
-}
-
-// sub_??????
-long AIL_redbook_play(long a1, long a2, long a3)
 {
  __asm int 3
  return 0;

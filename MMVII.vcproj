@@ -211,6 +211,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CbmTools.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CbmTools.h"
+				>
+			</File>
+			<File
 				RelativePath=".\classes.c"
 				>
 			</File>
@@ -228,6 +236,18 @@
 			</File>
 			<File
 				RelativePath=".\defs.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FrameTables.c"
+				>
+			</File>
+			<File
+				RelativePath=".\FrameTables.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FrameTables_FromTXT.c"
 				>
 			</File>
 			<File

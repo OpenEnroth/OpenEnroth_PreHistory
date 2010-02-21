@@ -1,5 +1,5 @@
 #include "defs.h"
-#define sprintfex sprintf
+//#define sprintfex sprintf
 
 #include "mm7DDrawRenderer.h"
 
@@ -39,53 +39,6 @@ extern int dword_E31C70;
 extern int dword_F79D70;
 extern int dword_F79D7C;
 
-
-/*
-// sub_4CFD74: using guessed type _DWORD __cdecl __sbh_heap_init(_DWORD);
-long __cdecl __sbh_heap_init(long a1)
-{
- compile_error;
- return 0;
-}
-
-
-// sub_4CFDBC: using guessed type _DWORD __cdecl __sbh_find_block(_DWORD);
-long __cdecl __sbh_find_block(long a1)
-{
- compile_error;
- return 0;
-}
-
-// sub_4D0110: using guessed type _DWORD __cdecl __sbh_alloc_block(_DWORD);
-long __cdecl __sbh_alloc_block(long a1)
-{
- compile_error;
- return 0;
-}
-
-// sub_4D05C5: using guessed type _DWORD __cdecl __sbh_resize_block(_DWORD, _DWORD, _DWORD);
-long __cdecl __sbh_resize_block(long a1, long a2, long a3)
-{
- compile_error;
- return 0;
-}
-
-
-// sub_4D4F54: using guessed type _DWORD __cdecl __strgtold12(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
-long __cdecl __strgtold12(long a1, long a2, long a3, long a4, long a5, long a6, long a7)
-{
- compile_error;
- return 0;
-}
-
-
-// sub_4D433F: using guessed type _DWORD __cdecl _ld12cvt(_DWORD, _DWORD, _DWORD);
-long __cdecl _ld12cvt(long a1, long a2, long a3)
-{
- compile_error;
- return 0;
-}
-*/
 
 // sub_4CC57F: using guessed type _DWORD __stdcall _CxxThrowException(_DWORD, _DWORD);
 long __stdcall _CxxThrowException(long a1, long a2)
@@ -151,6 +104,7 @@ void terminate()
 }
 
 
+//#error "FFFFFFFF: variables would overlap: edx/4 and edx/8 (funcsize=96)"
 int sub_41AD6E()
 {
  __asm int 3
@@ -229,6 +183,17 @@ int unknown_libname_107()
  return 0;
 }
 
+int loc_43F2A9()
+{
+ __asm int 3;
+ return 0;
+}
+
+int loc_43F2BF()
+{
+ __asm int 3;
+ return 0;
+}
 
 char __stdcall ErrorMessageFromHRESULT(signed int a1, const char *Str, size_t a3);
 void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UINT uType, char a7, int a8, int a9, int a10, int a11);
@@ -237,7 +202,7 @@ int __fastcall sub_4678E2(int a1, int a2, char a3, int a4, int a5, int a6);
 char __stdcall sub_46778D(int a1, const char *Str, int a3);
 
 //----- (MM7.exe::00466CC2) --------------------------------------------------------
-void *CheckHRESULT(void **pSmthn, HRESULT hr, const char *pSourceFile, unsigned int a4, int a5)
+void *CheckHRESULT(void **pSmthn, HRESULT hr, const char *pSourceFile, unsigned int uSourceline, int a5)
 {
  char v6;
 
@@ -252,9 +217,9 @@ void *CheckHRESULT(void **pSmthn, HRESULT hr, const char *pSourceFile, unsigned 
    sub_466B8C();
    return pSmthn;
   }
-  v6 = sub_46778D(hr, pSourceFile, a4);
+  v6 = sub_46778D(hr, pSourceFile, uSourceline);
  }
- else v6 = ErrorMessageFromHRESULT(hr, pSourceFile, a4);
+ else v6 = ErrorMessageFromHRESULT(hr, pSourceFile, uSourceline);
 
  if (v6)
    sub_466B8C();

@@ -4,11 +4,14 @@
 #include "defs.h"
 
 #include "Smacker.h"
+#include "Bink.h"
 
 
 
 int __cdecl VideoPlayer_Smacker_CheckSurfaceFromat();
-
+void *__fastcall sub_4BFE2D(HWND hWnd, unsigned int uWidth, unsigned int uHeight, char a4);
+int BinkLockSurface(unsigned char *pBinkBuffer);
+HRESULT BinkBufferUnlock(unsigned char *pBinkBuffer);
 
 //class32
 struct CVideoPlayer_movie_header_struct
@@ -22,8 +25,8 @@ struct CVideoPlayer
 {
  int dword_000024;
 
- HSMACK pSmackerMovie; // ptr @ 000028
- int *ptr_00002C;
+ HSMACK    pSmackerMovie;    // ptr @ 000028
+ HSMACKBUF pSmackerBuffer;   // ptr @ 00002C
  unsigned char *ptr_000030;
 
  struct CVideoPlayer_movie_header_struct *pMightVideoHeaders;  // ptr @ 000038
@@ -41,19 +44,20 @@ struct CVideoPlayer
  int  dword_00005C;
  unsigned int bUsingSmackerMMX; // dword @ 000060
  int  dword_000064;
+ int  dword_000068;
  int  dword_00006C;
 
  HWND    hWnd;      // ptr @ 000070
 
- HSMACKBLIT pSmacMoviekBlit;
+ HSMACKBLIT pSmackMoviekBlit; // ptr @ 000074
 
  HANDLE  hMightVid; // ptr @ 000078
  HANDLE  hMagicVid; // ptr @ 00007C
 
- int  *ptr_000080;
- int  *ptr_000084;
+ HBINK          pBinkMovie;   // ptr @ 000080
+ unsigned char *pBinkBuffer;  // ptr @ 000084
 
- int           dword_00009C;
+ int           dword_00009C;     //1 = smk, 2 = bik
  int           dword_0000A0;
  unsigned char array_0000A4[64]; // byte[64]
 };
@@ -62,7 +66,7 @@ void CVideoPlayer_ctor(struct CVideoPlayer *_this);
 //int __thiscall sub_4BE9D8(void *this)
 int CVideoPlayer_LoadVideoHeaders(struct CVideoPlayer *_this);
 //void __thiscall sub_4BF411(int this, const char *Source, int a3, int a4)
-void sub_4BF411(struct CVideoPlayer *_this, const char *pVideoName, int a3, int a4);
+void CVideoPlayer_OpenMovie(struct CVideoPlayer *_this, const char *pVideoName, int a3, int a4);
 //int __thiscall sub_4BEB41(void *this);
 void CVideoPlayer_Initialize(struct CVideoPlayer *_this);
 //int __thiscall sub_4BF141(int this, const char *Str2);
@@ -71,4 +75,10 @@ int CVideoPlayer_OpenBinkMovie(struct CVideoPlayer *_this, const char *pVideoFil
 void CVideoPlayer_UnloadAll(struct CVideoPlayer *_this);
 //int __thiscall sub_4BF1E6(int this, const char *Str2);
 void *CVideoPlayer_OpenSmackMovie(struct CVideoPlayer *_this, const char *pVideoFile);
+//void __thiscall sub_4BEE6B(int this, HWND hWnd, int a3, int a4);
+void sub_4BEE6B(struct CVideoPlayer *_this, HWND hWnd, int a3, int a4);
+//char _cdecl sub_4BF3F9();
+int CVideoPlayer_IsAnyMovieLoaded(struct CVideoPlayer *_this);
+//void __thiscall sub_4BED4F(int this, int a2, int a3, int a4);
+void sub_4BED4F(struct CVideoPlayer *_this, HWND hWnd, int a3, int a4);
 #pragma pack(pop)

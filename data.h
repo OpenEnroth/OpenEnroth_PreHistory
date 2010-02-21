@@ -35,6 +35,18 @@ extern struct class17      *pClass17_Bitmaps_LOD;
 extern struct class17      *pClass17_Sprites_LOD;
 extern struct class31      *pClass31_global;
 extern struct CVideoPlayer *pVideoPlayer;
+
+extern struct class33      *pClass33_global0;
+extern struct class33      *pClass33_global1;
+extern struct class33      *pClass33_global2;
+extern struct class33      *pClass33_global3;
+extern struct class33      *pClass33_obj0;
+extern struct class33      *pClass33_obj1;
+extern struct class33      *pClass33_obj2;
+extern struct class33      *pClass33_obj3;
+extern struct class33      *pClass33_obj4;
+
+
 extern char class28_global[];
 extern char class23_instance[];
 

@@ -21,13 +21,13 @@ struct SMACK
   unsigned int NewPalette;        // set to one if the palette changed
   unsigned char Palette[772];      // palette data
   unsigned int PalType;           // type of palette
-  unsigned int FrameNum;          // Frame Number to be displayed
+  unsigned int FrameNum;          // 0374 Frame Number to be displayed
   unsigned int FrameSize;         // The current frame's size in bytes
   unsigned int SndSize;           // The current frame sound tracks' size in bytes
-  int LastRectx;         // Rect set in from SmackToBufferRect (X coord)
-  int LastRecty;         // Rect set in from SmackToBufferRect (Y coord)
-  int LastRectw;         // Rect set in from SmackToBufferRect (Width)
-  int LastRecth;         // Rect set in from SmackToBufferRect (Height)
+  int LastRectx;                  // 0380 Rect set in from SmackToBufferRect (X coord)
+  int LastRecty;                  // Rect set in from SmackToBufferRect (Y coord)
+  int LastRectw;                  // Rect set in from SmackToBufferRect (Width)
+  int LastRecth;                  // 038C Rect set in from SmackToBufferRect (Height)
   unsigned int OpenFlags;         // flags used on open
   unsigned int LeftOfs;           // Left Offset used in SmackTo
   unsigned int TopOfs;            // Top Offset used in SmackTo
@@ -53,8 +53,59 @@ struct SMACKBLIT
   unsigned int    firstpalette;
 };
 
+struct SMACKBUF
+{
+        unsigned int Reversed;             // 1 if the buffer is upside down
+        unsigned int SurfaceType;          // SMACKSURFACExxxx defines
+        unsigned int BlitType;             // SMACKxxxxBLIT defines
+        unsigned int FullScreen;           // 1 if full-screen
+        unsigned int Width;
+        unsigned int Height;
+        unsigned int Pitch;
+        unsigned int Zoomed;
+        unsigned int ZWidth;
+        unsigned int ZHeight;
+        unsigned int DispColors;           // colors on the screen
+        unsigned int MaxPalColors;         // total possible colors in palette (usually 256)
+        unsigned int PalColorsInUse;       // Used colors in palette (usually 236)
+        unsigned int StartPalColor;        // first usable color index (usually 10)
+        unsigned int EndPalColor;          // last usable color index (usually 246)
+        RGBQUAD Palette[256];
+        unsigned int PalType;
+        unsigned int forceredraw;  // force a complete redraw on next blit (for >8bit)
+        unsigned int didapalette;  // force an invalidate on the next palette change
+
+        void * Buffer;
+        void * DIBRestore;
+        unsigned int OurBitmap;
+        unsigned int OrigBitmap;
+        unsigned int OurPalette;
+        unsigned int WinGDC;
+        unsigned int FullFocused;
+        unsigned int ParentHwnd;
+        unsigned int OldParWndProc;
+        unsigned int OldDispWndProc;
+        unsigned int DispHwnd;
+        unsigned int WinGBufHandle;
+        void * lpDD;
+        void * lpDDSP;
+        unsigned int DDSurfaceType;
+        struct SMACKBLIT DDblit;
+        int ddSoftwarecur;
+        int didaddblit;
+        int lastwasdd;
+        RECT ddscreen;
+        int manyblits;
+        int * blitrects;
+        int * rectsptr;
+        int maxrects;
+        int numrects;
+        HDC lastdc;
+};
+
 typedef struct SMACK     *HSMACK;
 typedef struct SMACKBLIT *HSMACKBLIT;
+typedef struct SMACKBUF  *HSMACKBUF;
 
 
 
@@ -63,6 +114,19 @@ unsigned int __stdcall SmackUseMMX(unsigned int flag);
 HSMACK __stdcall SmackOpen(HANDLE hSourceFile, unsigned int uFlags, unsigned int uExtraBuffers);
 HSMACKBLIT __stdcall SmackBlitOpen(unsigned int uSurfaceFormat);
 void __stdcall SmackToBuffer(struct SmackMovieInfo *pMovie, unsigned int uX, unsigned int uY, unsigned int uPitch, unsigned int uHeight, void *pBuffer, unsigned int uFlags);
+void __stdcall SmackBlitSetPalette(HSMACKBLIT hBlit, void *pPalette, unsigned int uPalType);
+unsigned int __stdcall SmackDoFrame(HSMACK);
+unsigned int __stdcall SmackToBufferRect(HSMACK, unsigned int uSmackSurface);
+void __stdcall SmackBlit(HSMACKBLIT, void *pDest, unsigned int uDestPitch, unsigned int uDestX, unsigned int uDestY, void *pSrc, unsigned int uSrcPitch, unsigned int uSrcX, unsigned int uSrcY, unsigned int uSrcZ, unsigned int uSrcW);
+void __stdcall SmackNextFrame(HSMACK);
+unsigned int __stdcall SmackWait(HSMACK);
+unsigned int __stdcall SmackSoundOnOff(HSMACK, unsigned int bOn);
+void __stdcall SmackClose(HSMACK);
+void __stdcall SmackBufferClose(HSMACKBUF);
+void __stdcall SmackBlitClose(HSMACKBLIT);
+
+
+
 
 
 // sub_4D83C4: using guessed type int __stdcall SmackBufferOpen(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
@@ -74,41 +138,11 @@ int __fastcall SmackVolumePan(long a1, long a2, long a3, long a4, long a5, long 
 // sub_4D83B8: using guessed type int __stdcall SmackGoto(_DWORD, _DWORD);
 int __stdcall SmackGoto(long a1, long a2);
 
-// sub_4D83E4: using guessed type int __stdcall SmackDoFrame(_DWORD);
-int __stdcall SmackDoFrame(long a1);
-
-// sub_4D83E8: using guessed type int __stdcall SmackNextFrame(_DWORD);
-int __stdcall SmackNextFrame(long a1);
-
 // sub_4D83D0: using guessed type int __stdcall SmackBufferNewPalette(_DWORD, _DWORD, _DWORD);
 int __stdcall SmackBufferNewPalette(long a1, long a2, long a3);
 
 // sub_4D83D4: using guessed type int __stdcall SmackColorRemapWithTrans(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
 int __stdcall SmackColorRemapWithTrans(long a1, long a2, long a3, long a4, long a5);
 
-// sub_4D83D8: using guessed type int __stdcall SmackBlitSetPalette(_DWORD, _DWORD, _DWORD);
-int __stdcall SmackBlitSetPalette(long a1, long a2, long a3);
-
 // sub_4D83DC: using guessed type int __stdcall SmackBlitClear(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
 int __stdcall SmackBlitClear(long a1, long a2, long a3, long a4, long a5, long a6, long a7, long a8);
-
-// sub_4D83E0: using guessed type int __stdcall SmackToBufferRect(_DWORD, _DWORD);
-int __stdcall SmackToBufferRect(long a1, long a2);
-
-// sub_4D8404: using guessed type int __stdcall SmackBlit(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
-int __stdcall SmackBlit(long a1, long a2, long a3, long a4, long a5, long a6, long a7, long a8, long a9, long a10, long a11);
-
-// sub_4D83EC: using guessed type int __stdcall SmackSoundOnOff(_DWORD, _DWORD);
-int __stdcall SmackSoundOnOff(long a1, long a2);
-
-// sub_4D83F0: using guessed type int __stdcall SmackClose(_DWORD);
-int __stdcall SmackClose(long a1);
-
-// sub_4D83F4: using guessed type int __stdcall SmackBufferClose(_DWORD);
-int __stdcall SmackBufferClose(long a1);
-
-// sub_4D83F8: using guessed type int __stdcall SmackBlitClose(_DWORD);
-int __stdcall SmackBlitClose(long a1);
-
-// sub_??????
-long __stdcall SmackWait(long a1);

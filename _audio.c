@@ -54,18 +54,18 @@ extern int dword_F79D7C;
 
 
 
-
+extern int (__cdecl *sprintfex)(char *, const char *, ...);
 void class31_ctor(struct class31 *_this)
 {
- char pCurrentDirectory[121];
- char pIniFile[132];
+ char pCurrentDirectory[256];
+ char pIniFile[256];
 
  memset(_this, 0, sizeof(struct class31));
 
  _this->cGameCDDriveLetter = cGameCDDriveLetter;
 
  _getcwd(pCurrentDirectory, 120);
- sprintfex(pIniFile, "%s\\mm6.ini", pCurrentDirectory);
+ (sprintfex)(pIniFile, "%s\\mm6.ini", pCurrentDirectory);
 
  _this->iMixerChannels = GetPrivateProfileIntA("settings", "mixerchannels", 16, pIniFile);
  if (_this->iMixerChannels <= 16)
@@ -74,6 +74,18 @@ void class31_ctor(struct class31 *_this)
     _this->iMixerChannels = 0;
  }
  else _this->iMixerChannels = 16;
+}
+
+
+//----- (004AA1F3) --------------------------------------------------------
+int sub_4AA1F3(struct class31 *_this, float fVolume)
+{
+ if (_this->dword_00029C)
+ {
+  if (_this->hAILRedbook)
+    return AIL_redbook_set_volume(_this->hAILRedbook, fVolume);
+ }
+ return 0;
 }
 
 //----- (MM7.exe::004AB8CE) --------------------------------------------------------

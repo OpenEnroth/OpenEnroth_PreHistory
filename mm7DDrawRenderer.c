@@ -2,65 +2,20 @@
 
 #include "defs.h"
 
+#include "classes.h"
+
 #include "data.h"
 
-extern char off_4E7ECC[];
-extern int dword_4E800C;
 extern float flt_6BE3A0;
 extern int dword_AD4730;
-
-extern char unk_4EB8BC;
-extern char unk_4EBBD0;
-
-extern char byte_4D8410[];
-
-extern int *dword_4F2688;
-
-extern int dword_51B6E8;
-extern int dword_51B6EC;
-extern int dword_51B6F0;
-
-extern int dword_6A0CA4;
-
 extern int dword_720010;
-
-extern int dword_720018;
-
-
-extern int dword_E31C70;
-
 extern int dword_F79D70;
 extern int dword_F79D7C;
 
-int sub_45DF13(); // weak
-int sub_498038(); // weak
-void __thiscall sub_45DF48(void *this);
-int __thiscall sub_4898E6(int this);
-void __thiscall sub_498069(void *this);
 
-signed int __fastcall maybe_docompress_file(void *pDest, int *pDecompressedSize, void *pSrc, int uCompressedSize);
-void *__stdcall call_new(int, int, int);
-int call_delete(int result, unsigned int a2);
-int __fastcall sub_4C57C0(unsigned int a1, unsigned char *pData, unsigned int uSize);
-int __fastcall sub_4C4A30(int a1, int a2, int a3);
-int __fastcall sub_4C7C50(int a1, int a2);
-int __fastcall sub_4C74A0(int a1, int a2, int a3);
-signed int __fastcall sub_4C81E0(unsigned int a1, int a2, int a3, unsigned int *a4, unsigned int *a5, int *a6, int *a7, int a8, struct class19 *);
-signed int __fastcall sub_4C7C60(int a1, unsigned int *a2, int a3, unsigned int *class21_pArray_8x1440, struct class19 *pParent);
-struct class27 *__fastcall AllocateClass27(int a1, int a2, unsigned int *a3, unsigned int *a4, struct class19 *pParent);
-int __fastcall sub_4C8340(int a1, int a2, int a3, int a4, int a5);
-DWORD __fastcall sub_426892(int a1, DWORD a2);
-int __stdcall sub_401000(int a1, int a2, int a3, int (__thiscall *a4)(_DWORD));
-signed int __fastcall LOD_DoDecompression(int a1, int a2, int a3, int a4, struct class21 *pClass21, struct class19 *pClass19);
-char __cdecl sub_4A597D();
-void __cdecl sub_4A57E9();
-char __stdcall sub_4A0F40(int a1, void *Dst, int a3);
 int unknown_libname_107();
-double __stdcall sub_44F377(int a1);
-
-
-
-
+void __cdecl sub_4A57E9();
+char __cdecl sub_4A597D();
 
 
 
@@ -114,6 +69,9 @@ void CD3DRenderer_ctor(struct CD3DRenderer *_this)
   int v1; // eax@1
   char v3; // zf@1
 
+ memset(_this, 0, sizeof(struct CD3DRenderer));
+
+
  _this->pdd4 = 0;
  _this->pdds4_FrontBuffer = 0;
  pD3DRenderer->pdds4_BackBuffer = 0;
@@ -154,10 +112,11 @@ void CD3DRenderer_ctor(struct CD3DRenderer *_this)
 
  _this->dword_040088 = 0;
 
- _this->dword_0400E4 = 0;
+ _this->bSceneBegun = false;
 
- _this->dword_0400EC = 0;
- _this->dword_0400F0 = 0;
+ _this->pTargetSurface = 0;
+ _this->uTargetSurfacePitch = 0;
+
  _this->dword_0400F4 = 0;
  _this->dword_0400F8 = 0;
  _this->dword_0400FC = 480;
@@ -180,6 +139,621 @@ void CD3DRenderer_ctor(struct CD3DRenderer *_this)
  CD3DRenderer_HWLContainer_LoadHWLHeaders(&_this->struct_0A1BAC, "data\\d3dsprite.hwl");
 }
 
+//----- (MM7.exe::0049FBCD) --------------------------------------------------------
+int sub_49FBCD(struct CD3DRenderer *_this, int a2)
+{
+ int result;
+  int v4; // ecx@4
+
+ result = _this;
+ if (_this->dword_040088)
+ {
+  if (_this->dword_040110)
+    result = sub_49E4FC(_this->dword_040088, 1, a2, 0, 0.0);
+ }
+ else
+ {
+  v4 = _this->dword_000010 * _this->dword_000014 >> 1;
+  memset(_this->pTargetSurface, a2, 4 * v4);
+
+  result = a2;
+ }
+ return _this;
+}
+
+//----- (MM7.exe::004A51CB) --------------------------------------------------------
+unsigned int CD3DRenderer_BeginScene(struct CD3DRenderer *_this)
+{
+  int v1; // eax@1
+  //int Dst; // [sp+Ch] [bp-7Ch]@4
+  //int v6; // [sp+1Ch] [bp-6Ch]@5
+  //int v7; // [sp+30h] [bp-58h]@5
+ char local_0[124];
+ DDSURFACEDESC2 ddsd2;
+
+ v1 = _this->bSceneBegun++;
+ if (!v1)
+ {
+  if (_this->dword_040088)
+  {
+   if (_this->dword_040108)
+   {
+    memset(&ddsd2, 0, sizeof(DDSURFACEDESC2));
+    ddsd2.dwSize = sizeof(DDSURFACEDESC2);
+    LOBYTE(v1) = LockSurface_DDraw4(_this->dword_040098, &ddsd2, 2049);
+    if ((_BYTE)v1)
+    {
+     _this->pTargetSurface = ddsd2.lpSurface;
+     _this->uTargetSurfacePitch = ddsd2.lPitch / (ddsd2.ddpfPixelFormat.dwRGBBitCount / 8);
+     _this->dword_000018 = _this->uTargetSurfacePitch;
+     goto LABEL_11;
+    }
+
+    _this->bSceneBegun--;
+    return v1;
+   }
+  }
+  else
+  {
+   if (!_this->pTargetSurface)
+   {
+    LOBYTE(v1) = CD3DRenderer_LockBackBuffer(_this, &_this->pTargetSurface, &_this->uTargetSurfacePitch);
+    if (_this->pTargetSurface)
+    {
+     _this->dword_000018 = _this->uTargetSurfacePitch;
+     goto LABEL_11;
+    }
+    _this->bSceneBegun--;
+    return v1;
+   }
+  }
+
+LABEL_11:
+  LOBYTE(v1) = CD3DRenderer_RestoreFrontBuffer(_this);
+ }
+ return v1;
+}
+
+//----- (MM7.exe::004A1605) --------------------------------------------------------
+int CD3DRenderer_LockBackBuffer(struct CD3DRenderer *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth)
+{
+  DDSURFACEDESC2 ddsd2;
+  //int v6; // [sp+4h] [bp-7Ch]@4
+  int Dst; // [sp+14h] [bp-6Ch]@3
+  int v8; // [sp+24h] [bp-5Ch]@3
+  int v9; // [sp+28h] [bp-58h]@4
+  int v10; // [sp+38h] [bp-48h]@3
+
+ if ( dword_F79D7C != 2 || dword_F79D70 != 4 )
+ {
+  memset(&ddsd2, 0, sizeof(DDSURFACEDESC2));
+  ddsd2.dwSize = sizeof(DDSURFACEDESC2);
+
+  LockSurface_DDraw4(_this->pdds4_BackBuffer, &ddsd2, 1);
+  *ppOutSurfacePtr = ddsd2.lpSurface;
+  *pOutSurfaceWidth = ddsd2.lPitch / (ddsd2.ddpfPixelFormat.dwRGBBitCount / 8);
+ }
+  else
+  {
+   _asm int 3;  //ddraw2
+    memset(&Dst, 0, 0x6Cu);
+    Dst = 108;
+    LockSurface_DDraw2(_this->pdds2_BackBuffer, &Dst, 1);
+    *ppOutSurfacePtr = v10;
+    *pOutSurfaceWidth = v8;
+  }
+
+ return *pOutSurfaceWidth;
+}
+
+//----- (004A5B81) --------------------------------------------------------
+int sub_4A5B81(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5)
+{
+ _this->dword_0400F4 = a3;
+ _this->dword_0400F8 = a2;
+ _this->dword_0400FC = a5;
+ _this->dword_040100 = a4;
+ _this->dword_040104 = 1;
+ return a4;
+}
+
+//----- (004A5EB2) --------------------------------------------------------
+void CD3DRenderer_DrawIndexedTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class18 *pTexture)
+{
+  //int v5; // eax@4
+  int v6; // ebx@4
+  //int v7; // edx@5
+  int v8; // edx@6
+  //int v9; // edx@7
+  int v10; // edx@8
+  int v11; // edx@9
+  int v12; // esi@12
+  int v13; // esi@15
+  int v14; // edx@17
+  int v15; // esi@18
+  int v16; // edx@22
+  char v18; // zf@26
+  int v19; // [sp+10h] [bp-10h]@4
+  int v20; // [sp+18h] [bp-8h]@4
+  int v21; // [sp+1Ch] [bp-4h]@4
+  int v22; // [sp+28h] [bp+8h]@24
+  int v23; // [sp+2Ch] [bp+Ch]@22
+  int v24; // [sp+30h] [bp+10h]@11
+  int v25; // [sp+30h] [bp+10h]@22
+ unsigned int *pSurfacePtr;
+ unsigned int  y,
+               x;
+ unsigned int  uSrcColor,
+               uDstColor,
+               uAlpha;
+
+ if (!_this->bSceneBegun || !pTexture)
+   return;
+
+
+ pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
+ for (y = 0; y < pTexture->uTextureHeight - (_this->dword_0400FC - _this->dword_0400F4); ++y)
+   for (x = 0; x < pTexture->uTextureWidth; ++x)
+   {
+    uSrcColor = pTexture->pTruecolorPixels[y * pTexture->uTextureWidth + x];
+    uDstColor = pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX];
+    uAlpha = ((uSrcColor & 0xFF000000) >> 8) | ((uSrcColor & 0xFF000000) >> 16) | ((uSrcColor & 0xFF000000) >> 24);
+    pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX] = (uSrcColor & uAlpha) + (uDstColor & (0x00FFFFFF - uAlpha));
+ }
+
+
+
+ if (!pTexture->pPalette)
+   return;
+
+ pSurfacePtr = _this->pTargetSurface + (uX + uY * _this->uTargetSurfacePitch);
+
+ v6 = pTexture->uTextureHeight;
+ v21 = pTexture->uTextureWidth;
+ v19 = pTexture->uTextureWidth;
+ v20 = pTexture->pIndexedPixels;
+
+ if (_this->dword_040104)
+ {
+  if (uX < _this->dword_0400F8)
+  {
+   v8 = _this->dword_0400F8 - uX;
+   v20 += v8;
+   v21 += uX - _this->dword_0400F8;
+   pSurfacePtr += v8;
+  }
+
+  if (uY < _this->dword_0400F4)
+  {
+   v10 = _this->dword_0400F4 - uY;
+   v20 += v19 * v10;
+   v6 = uY - _this->dword_0400F4 + pTexture->uTextureHeight;
+   pSurfacePtr += _this->uTargetSurfacePitch * v10;
+  }
+
+  v11 = _this->dword_0400F8;
+  if (v11 < uX)
+    v11 = uX;
+
+  v24 = _this->dword_040100;
+  if (v11 + v21 > v24)
+  {
+   v12 = _this->dword_0400F8;
+   if (v12 < uX)
+     v12 = uX;
+   v21 = v24 - v12;
+  }
+
+  v13 = _this->dword_0400F4;
+  if (v13 < uY)
+    v13 = uY;
+
+  v14 = _this->dword_0400FC;
+  if (v6 + v13 > v14)
+  {
+   v15 = _this->dword_0400F4;
+   if ( v15 < uY )
+     v15 = uY;
+   v6 = v14 - v15;
+  }
+ }
+}
+
+//----- (004A6274) --------------------------------------------------------
+void CD3DRenderer_DrawTransparentTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class18 *pTexture)
+{
+  int v5; // eax@4
+  int v6; // ebx@4
+  int v7; // edx@5
+  int v8; // edx@6
+  int v9; // edx@7
+  int v10; // edx@8
+  int v11; // edx@9
+  int v12; // esi@12
+  int v13; // esi@15
+  int v14; // edx@17
+  int v15; // esi@18
+  int v16; // ebx@22
+  char v18; // zf@28
+  int v19; // [sp+10h] [bp-10h]@4
+  int v20; // [sp+18h] [bp-8h]@4
+  int v21; // [sp+1Ch] [bp-4h]@4
+  int v22; // [sp+28h] [bp+8h]@24
+  int v23; // [sp+2Ch] [bp+Ch]@22
+  int v24; // [sp+30h] [bp+10h]@11
+  int v25; // [sp+30h] [bp+10h]@22
+ unsigned int *pSurfacePtr;
+ unsigned int  x, y;
+ unsigned int  uSrcColor,
+               uDstColor,
+               uAlpha;
+
+ if (!_this->bSceneBegun || !pTexture)
+   return;
+
+ pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
+ for (y = 0; y < pTexture->uTextureHeight; ++y)
+   for (x = 0; x < pTexture->uTextureWidth; ++x)
+   {
+    uSrcColor = pTexture->pTruecolorPixels[y * pTexture->uTextureWidth + x];
+    uDstColor = pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX];
+    uAlpha = ((uSrcColor & 0xFF000000) >> 8) | ((uSrcColor & 0xFF000000) >> 16) | ((uSrcColor & 0xFF000000) >> 24);
+    pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX] = (uSrcColor & uAlpha) + (uDstColor & (0x00FFFFFF - uAlpha));
+   }
+
+
+
+ if (!pTexture->pPalette)
+   return;
+
+
+ v6 = pTexture->uTextureHeight;
+ v5 = _this->pTargetSurface + (uX + uY * _this->uTargetSurfacePitch);
+ v20 = pTexture->pIndexedPixels;
+ v21 = pTexture->uTextureWidth;
+ v19 = pTexture->uTextureWidth;
+
+ if (_this->dword_040104)
+ {
+          v7 = _this->dword_0400F8;
+          if ( uX < v7 )
+          {
+            v8 = v7 - uX;
+            v20 += v8;
+            v21 += uX - _this->dword_0400F8;
+            v5 += v8;
+          }
+          v9 = _this->dword_0400F4;
+          v6 = pTexture->uTextureHeight;
+          if ( uY < v9 )
+          {
+            v10 = v9 - uY;
+            v20 += v19 * v10;
+            v6 = uY - _this->dword_0400F4 + pTexture->uTextureHeight;
+            v5 += _this->uTargetSurfacePitch * v10;
+          }
+          v11 = _this->dword_0400F8;
+          if ( v11 < uX )
+            v11 = uX;
+          v24 = _this->dword_040100;
+          if ( v11 + v21 > v24 )
+          {
+            v12 = _this->dword_0400F8;
+            if ( v12 < uX )
+              v12 = uX;
+            v21 = v24 - v12;
+          }
+          v13 = _this->dword_0400F4;
+          if ( v13 < uY )
+            v13 = uY;
+          v14 = _this->dword_0400FC;
+          if ( v6 + v13 > v14 )
+          {
+            v15 = _this->dword_0400F4;
+            if ( v15 < uY )
+              v15 = uY;
+            v6 = v14 - v15;
+          }
+        }
+}
+
+//----- (004A6C4F) --------------------------------------------------------
+void sub_4A6C4F(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5, int a6, int a7, __int16 a8, __int16 a9)
+{
+  int v9; // eax@2
+  int v10; // edi@2
+  int v11; // esi@2
+  int v12; // ebx@3
+  int v13; // edx@5
+  int v14; // edx@6
+  int v15; // ebx@7
+  int v16; // edx@9
+  int v17; // edi@10
+  int v18; // ebx@13
+  int v19; // edx@15
+  int v20; // esi@16
+  int v21; // esi@22
+  __int16 v22; // dx@24
+  char v23; // zf@28
+  int v24; // [sp+Ch] [bp-4h]@2
+  int v25; // [sp+18h] [bp+8h]@20
+
+ if (!_this->bSceneBegun)
+   return;
+
+
+ v10 = a5;
+ v11 = a6;
+ v9 = _this->pTargetSurface + (a2 + a3 * _this->uTargetSurfacePitch);
+ v24 = a4;
+ if (_this->dword_040104)
+ {
+  v12 = _this->dword_0400F8;
+  if (a2 < v12)
+  {
+   v24 = v12 - a2 + a4;
+   v9 += 2 * (v12 - a2);
+   v10 = a5 + a2 - v12;
+  }
+  v13 = _this->dword_0400F4;
+  if (a3 < v13)
+  {
+   v14 = v13 - a3;
+   v24 += a5 * v14;
+   v11 = a6 + a3 - _this->dword_0400F4;
+   v9 += _this->uTargetSurfacePitch * v14;
+  }
+  v15 = _this->dword_0400F8;
+  if (v15 < a2)
+    v15 = a2;
+
+  v16 = _this->dword_040100;
+  if (v10 + v15 > v16)
+  {
+   v17 = _this->dword_0400F8;
+   if (v17 < a2)
+     v17 = a2;
+   v10 = v16 - v17;
+  }
+
+  v18 = _this->dword_0400F4;
+  if (v18 < a3)
+    v18 = a3;
+  v19 = _this->dword_0400FC;
+
+  if (v11 + v18 > v19)
+  {
+   v20 = _this->dword_0400F4;
+   if (v20 < a3)
+     v20 = a3;
+   v11 = v19 - v20;
+  }
+ }
+
+
+ if (v11 > 0)
+ {
+  v25 = v11;
+  do
+  {
+   if ( v10 > 0 )
+   {
+    v21 = v10;
+    do
+    {
+     if ( *(_BYTE *)v24 )
+     {
+      v22 = a9;
+      if ( *(_BYTE *)v24 != 1 )
+        v22 = a8;
+      *(_WORD *)v9 = v22;
+     }
+     v9 += 2;
+     ++v24;
+     --v21;
+    }
+    while (v21);
+   }
+   v24 += a5 - v10;
+   v23 = v25-- == 1;
+   v9 += (_this->uTargetSurfacePitch - v10);
+  }
+  while ( !v23 );
+ }
+}
+
+//----- (004A172E) --------------------------------------------------------
+int CD3DRenderer_LockFrontBuffer(struct CD3DRenderer *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth)
+{
+ DDSURFACEDESC2 ddsd2;
+
+ if (dword_F79D7C != 2 || dword_F79D70 != 4)
+ {
+  memset(&ddsd2, 0, sizeof(DDSURFACEDESC2));
+  ddsd2.dwSize = sizeof(DDSURFACEDESC2);
+  LockSurface_DDraw4(_this->pdds4_FrontBuffer, &ddsd2, 1);
+  *ppOutSurfacePtr = ddsd2.lpSurface;
+  *pOutSurfaceWidth = ddsd2.lPitch / (ddsd2.ddpfPixelFormat.dwRGBBitCount / 8);
+ }
+ else
+ {
+  __asm int 3;
+ }
+ return *pOutSurfaceWidth;
+}
+
+//----- (004A527D) --------------------------------------------------------
+HRESULT CD3DRenderer_EndScene(struct CD3DRenderer *_this)
+{
+ HRESULT hr;
+ char    local_0[128];
+
+  if (_this->bSceneBegun)
+  {
+   _this->bSceneBegun--;
+    if (!_this->bSceneBegun)
+    {
+      if (_this->dword_040088)
+      {
+        if (_this->dword_040108)
+        {
+          _this->pTargetSurface = 0;
+          _this->uTargetSurfacePitch = 0;
+          _this->dword_000018 = 0;
+          runtime_error;
+          //hr = (**(_DWORD **)(_this->dword_040098) + 128)(
+          //       *(_DWORD *)(_this + 262296),
+          //       0);
+          return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 207, 0);
+        }
+      }
+      else
+      {
+        _this->pTargetSurface = 0;
+        _this->uTargetSurfacePitch = 0;
+        _this->dword_000018 = 0;
+        return CD3DRenderer_UnlockBackBuffer(_this);
+      }
+    }
+  }
+  return E_FAIL;
+}
+
+//----- (004A16E1) --------------------------------------------------------
+void *CD3DRenderer_UnlockBackBuffer(struct CD3DRenderer *_this)
+{
+ IDirectDrawSurface *v1;
+ HRESULT             hr;
+ char                local_0[128];
+
+
+ if (dword_F79D7C != 2 || dword_F79D70 != 4)
+   v1 = _this->pdds4_BackBuffer;
+ else
+   v1 = _this->pdds2_BackBuffer;
+
+ hr = (_this->pdds4_BackBuffer->lpVtbl->Unlock)(_this->pdds4_BackBuffer, 0);
+ return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2560, 0);
+}
+
+//----- (004A5BE3) --------------------------------------------------------
+void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class33 *pTexture)
+{
+ unsigned int *pSurfacePtr;
+ unsigned int uColor;
+  int v5; // edi@3
+ unsigned short *v6; // esi@3
+ int x, y;
+  int v7; // ebx@4
+  int v8; // eax@5
+  int v9; // ebx@5
+  int v10; // eax@6
+  int v11; // eax@7
+  int v12; // ebx@8
+  int v13; // eax@10
+  int v14; // edi@11
+  int v15; // eax@14
+  int v16; // ebx@17
+  int v17; // eax@23
+  char v18; // zf@25
+  int v19; // [sp+10h] [bp-8h]@3
+  int v20; // [sp+14h] [bp-4h]@3
+  int v21; // [sp+20h] [bp+8h]@16
+  int v22; // [sp+20h] [bp+8h]@21
+  int v23; // [sp+24h] [bp+Ch]@21
+  int v24; // [sp+28h] [bp+10h]@3
+
+ if (!_this->bSceneBegun)
+   return;
+
+ if (!pTexture)
+   return;
+
+ v5 = pTexture->uWidth;
+ v24 = pTexture->uHeight;
+ pSurfacePtr = (unsigned int *)(_this->pTargetSurface) + (uX + uY * _this->uTargetSurfacePitch);
+ v6 = pTexture->pPixels;
+ v20 = v5;
+ v19 = v5;
+
+ if (_this->dword_040104)
+ {
+  v7 = _this->dword_0400F8;
+  if (uX < v7)
+  {
+   v8 = v7 - uX;
+   v9 = uX - v7;
+   v5 += v9;
+   v6 += v8;
+   v20 += v9;
+   pSurfacePtr += v8;
+  }
+
+  v10 = _this->dword_0400F4;
+  if (uY < v10)
+  {
+   v11 = v10 - uY;
+   v6 += v19 * v11;
+   v24 += uY - _this->dword_0400F4;
+   v5 = v20;
+   pSurfacePtr += _this->uTargetSurfacePitch * v11;
+  }
+
+  v12 = _this->dword_0400F8;
+  if ( v12 < uX)
+    v12 = uX;
+
+  v13 = _this->dword_040100;
+  if (v5 + v12 > v13)
+  {
+   v14 = _this->dword_0400F8;
+   if (v14 < uX)
+     v14 = uX;
+   v5 = v13 - v14;
+  }
+
+  v15 = _this->dword_0400F4;
+  if (v15 < uY)
+    v15 = uY;
+
+  v21 = _this->dword_0400FC;
+  if (v15 + v24 > v21)
+  {
+   v16 = _this->dword_0400F4;
+   if (v16 < uY)
+     v16 = uY;
+   v24 = v21 - v16;
+  }
+ }
+
+
+
+ pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
+ for (y = 0; y < pTexture->uHeight; ++y)
+   memcpy(pSurfacePtr + (y + uY) * _this->uTargetSurfacePitch + uX, pTexture->pPixels + y * pTexture->uWidth, pTexture->uWidth * 4);
+
+ /*
+ if (v24 > 0)
+ {
+  v22 = v24;
+  v23 = (v19 - v5);
+  do
+  {
+   for (x = 0; x < v5; ++x)
+   {
+    uColor = *v6 & 0x001F;
+    uColor |= ((unsigned int)(*v6) & 0x07E0 >> 5) << 8;
+    v6++;
+    *pSurfacePtr++ = uColor;
+   }
+
+   v6 += v23;
+   v18 = v22-- == 1;
+   pSurfacePtr += (_this->uTargetSurfacePitch - v5);
+  }
+  while ( !v18 );
+ }*/
+}
 
 //----- (MM7.exe::0049FFFB) --------------------------------------------------------
 int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
@@ -266,13 +840,13 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
       else
       {
         if ( !*(_DWORD *)v7 )
-          sub_466BE5("There aren't any D3D devices to create.");
+          erroneous_printf("There aren't any D3D devices to create.");
         v8 = sub_49DE14(v5, 0, 0, hwnd);
         *(_DWORD *)(v3 + 12) = 0;
       }
     }
     if ( !v8 )
-      sub_466BE5("D3Drend->Init failed.");
+      erroneous_printf("D3Drend->Init failed.");
     v10 = *(_DWORD *)(v3 + 262280);
     *(_DWORD *)(v3 + 262292) = *(_DWORD *)(v10 + 44);
     *(_DWORD *)(v3 + 262288) = *(_DWORD *)(v10 + 48);
@@ -290,7 +864,7 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
       *(_DWORD *)(v3 + 262292) = 0;
       *(_DWORD *)(v3 + 262288) = 0;
       *(_DWORD *)(v3 + 262284) = 0;
-      sub_466BE5("Direct3D renderer:  The device failed to return capabilities.");
+      erroneous_printf("Direct3D renderer:  The device failed to return capabilities.");
     }
     if ( v9 & 0x3E )
     {
@@ -305,7 +879,7 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
       *(_DWORD *)(v3 + 262292) = 0;
       *(_DWORD *)(v3 + 262288) = 0;
       *(_DWORD *)(v3 + 262284) = 0;
-      sub_466BE5("Direct3D renderer:  The device doesn't support the necessary alpha blending modes.");
+      erroneous_printf("Direct3D renderer:  The device doesn't support the necessary alpha blending modes.");
     }
     if ( (_BYTE)v9 < 0 )
     {
@@ -319,7 +893,7 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
       *(_DWORD *)(v3 + 262292) = 0;
       *(_DWORD *)(v3 + 262288) = 0;
       *(_DWORD *)(v3 + 262284) = 0;
-      sub_466BE5("Direct3D renderer:  The device doesn't support non-square textures.");
+      erroneous_printf("Direct3D renderer:  The device doesn't support non-square textures.");
     }
     *(_BYTE *)(v3 + 1062492) = ~(unsigned __int8)((unsigned int)v9 >> 6) & 1;
     *(_DWORD *)(v3 + 1062472) = sub_49E79F();
@@ -457,7 +1031,7 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
       *(_DWORD *)(v3 + 262376) = 0;
       compile_error;//v23 = operator new(0x96020u);
       *(_DWORD *)(v3 + 262376) = v23;
-      if ( !v23 || (memset(&v28, 0, 0x7Cu), v28 = 124, !sub_4A0F40(pD3DRenderer->pdds4_BackBuffer, &v28, v18)) )
+      if ( !v23 || (memset(&v28, 0, 0x7Cu), v28 = 124, !LockSurface_DDraw4(pD3DRenderer->pdds4_BackBuffer, &v28, v18)) )
         return 0;
       (*(void (__stdcall **)(int, _DWORD))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 128))(pD3DRenderer->pdds4_BackBuffer, 0);
       v25 = *(_DWORD *)(v3 + 262376) + 16;
@@ -524,28 +1098,26 @@ int CD3DRenderer_CreateDirectDraw(struct CD3DRenderer *_this)
 //----- (MM7.exe::004A1169) --------------------------------------------------------
 void *CD3DRenderer_SetCooperativeLevel(struct CD3DRenderer *_this, HWND hWnd, int bFullscreen)
 {
- char         some_class[128]; // eax@1
  IDirectDraw *pdd;
  HRESULT      hr;
- unsigned int v7;
  unsigned int flags;
+ char         local_0[128];
 
+ //flags = bFullscreen ? DDSCL_NORMAL | DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN : DDSCL_NORMAL;
  flags = bFullscreen ? DDSCL_NORMAL | DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN : DDSCL_NORMAL;
- //flags = bFullscreen ? DDSCL_NORMAL : DDSCL_NORMAL;
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
  {
   pdd = _this->pdd4;
-  v7 = 2320;
   flags |= DDSCL_MULTITHREADED;
  }
  else
  {
+  __asm int 3;
   pdd = _this->pdd2;
-  v7 = 2318;
  }
 
  hr = (pdd->lpVtbl->SetCooperativeLevel)(pdd, hWnd, flags);
- return CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", v7, 0);
+ return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2320, 0);
 }
 
 //----- (MM7.exe::004A11C6) --------------------------------------------------------
@@ -588,6 +1160,7 @@ void *CD3DRenderer_CreatePrimarySurface(struct CD3DRenderer *_this)
   ddsd2_PrimarySurface.dwSize = sizeof(DDSURFACEDESC2);
   ddsd2_PrimarySurface.dwFlags = DDSD_CAPS | DDSD_BACKBUFFERCOUNT;
   ddsd2_PrimarySurface.dwBackBufferCount = 1;
+  //ddsd2_PrimarySurface.ddsCaps.dwCaps = DDSCAPS_COMPLEX | DDSCAPS_FLIP | DDSCAPS_3DDEVICE | DDSCAPS_PRIMARYSURFACE;
   ddsd2_PrimarySurface.ddsCaps.dwCaps = DDSCAPS_COMPLEX | DDSCAPS_FLIP | DDSCAPS_3DDEVICE | DDSCAPS_PRIMARYSURFACE;
 
   hr = (_this->pdd4->lpVtbl->CreateSurface)(_this->pdd4, &ddsd2_PrimarySurface, &_this->pdds4_FrontBuffer, 0);
@@ -595,7 +1168,7 @@ void *CD3DRenderer_CreatePrimarySurface(struct CD3DRenderer *_this)
  }
  else
  {
-  __asm int 3 //ddraw2 stuff
+  __asm int 3 //ddraw2 impl
  }
 
  memset(&ddsCaps2_AttachedSurface, 0, sizeof(DDSCAPS2));
@@ -620,6 +1193,16 @@ HRESULT CD3DRenderer_GetPrimarySurfacePixelFormat(struct CD3DRenderer *_this, DD
    pdds = _this->pdds2_FrontBuffer;
 
  return (pdds->lpVtbl->GetPixelFormat)(pdds, pddpf);
+}
+
+//----- (MM7.exe::004A5BB6) --------------------------------------------------------
+void CD3DRenderer_sub_4A5BB6(struct CD3DRenderer *_this)
+{
+ _this->dword_0400F4 = 0;
+ _this->dword_0400F8 = 0;
+ _this->dword_0400FC = 480;
+ _this->dword_0400D0 = 640;
+ _this->dword_0400D4 = 1;
 }
 
 //----- (004A0EB6) --------------------------------------------------------
@@ -759,11 +1342,11 @@ int CD3DRenderer_ClearBackBufferAndPresent(struct CD3DRenderer *_this)
  ddblt.dwFillColor = 0x00000000;
  
  hr = (pD3DRenderer->pdds4_BackBuffer->lpVtbl->Blt)(pD3DRenderer->pdds4_BackBuffer, &rcDst, 0, 0, DDBLT_COLORFILL, &ddblt);
- return sub_49FC37(pD3DRenderer);
+ return CD3DRenderer_Present(pD3DRenderer);
 }
 
 //----- (MM7.exe::0049FC37) --------------------------------------------------------
-int sub_49FC37(struct CD3DRenderer *_this)
+int CD3DRenderer_Present(struct CD3DRenderer *_this)
 {
   struct tagRECT Rect; // [sp+8h] [bp-28h]@11
   struct tagRECT rc;
@@ -803,6 +1386,25 @@ int sub_49FC37(struct CD3DRenderer *_this)
   else CD3DRenderer_PresentBackBuffer(_this, 0, 0, &rc);
  }
  return true;
+}
+
+//----- (004A17C7) --------------------------------------------------------
+void *CD3DRenderer_UnlockFrontBuffer(struct CD3DRenderer *_this)
+{
+ IDirectDrawSurface *v1;
+ HRESULT             hr;
+ char                local_0[128];
+
+ if (dword_F79D7C != 2 || dword_F79D70 != 4)
+   v1 = _this->pdds4_FrontBuffer;
+ else
+ {
+  __asm int 3;
+  //v1 = _this->pdds2_FrontBuffer;
+ }
+
+ hr = (_this->pdds4_FrontBuffer->lpVtbl->Unlock)(_this->pdds4_FrontBuffer, 0);
+ return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2615, 0);
 }
 
 //----- (MM7.exe::004A194A) --------------------------------------------------------
@@ -983,4 +1585,135 @@ double __stdcall sub_44F377(DDGAMMARAMP *pddGammaRamp)
    result = v2 / (double)v5;
  else result = 1.0;
  return result;
+}
+
+//----- (004A18F5) --------------------------------------------------------
+void *__stdcall BltToFrontBuffer(RECT *pDestRect, IDirectDrawSurface *pddsSrc, RECT *pSrcRect, unsigned int uFlags)
+{
+ IDirectDrawSurface *v4;
+ HRESULT             hr;
+ char                local_0[128];
+
+ if (dword_F79D7C != 2 || dword_F79D70 != 4)
+   v4 = pD3DRenderer->pdds4_FrontBuffer;
+ else
+ {
+  __asm int 3; //ddraw2
+  v4 = pD3DRenderer->pdds2_FrontBuffer;
+ }
+
+ hr = (pD3DRenderer->pdds4_FrontBuffer->lpVtbl->Blt)(pD3DRenderer->pdds4_FrontBuffer, pDestRect, pddsSrc, pSrcRect, uFlags, 0);
+ return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2669, 0);
+}
+
+//----- (004A0F40) --------------------------------------------------------
+int __stdcall LockSurface_DDraw4(struct IDirectDrawSurface4 *pdds4, DDSURFACEDESC2 *pddsd2, unsigned int uLockFlags)
+{
+ char    local_0[128];
+ HRESULT hr;
+
+ hr = (pdds4->lpVtbl->Lock)(pdds4, 0, pddsd2, uLockFlags, 0);
+ if (hr == DDERR_SURFACELOST)
+ {
+  if (dword_720010)
+    sub_46B14F(dword_720010);
+
+  hr = (pdds4->lpVtbl->Restore)(pdds4);
+  if (FAILED(hr))
+  {
+   if (hr != -2005532084)
+   {
+    pddsd2->dwSize = 0;
+    return false;
+   }
+
+   (pD3DRenderer->pdds4_FrontBuffer->lpVtbl->Restore)(pD3DRenderer->pdds4_FrontBuffer);
+   (pdds4->lpVtbl->Restore)(pdds4);
+  }
+
+  hr = (pdds4->lpVtbl->Lock)(pdds4, 0, pddsd2, DDLOCK_WAIT, 0);
+  if (hr == DDERR_SURFACELOST || hr == DDERR_SURFACEBUSY)
+  {
+   pddsd2->dwSize = 0;
+   return false;
+  }
+  else if (FAILED(hr))
+  {
+   CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2161, 0);
+   pddsd2->dwSize = 0;
+   return false;
+  }
+
+  if (pD3DRenderer->dword_040088)
+    sub_4A5190();
+  (pD3DRenderer->pdd4->lpVtbl->RestoreAllSurfaces)(pD3DRenderer->pdd4);
+  if (dword_720010)
+    sub_46B105(dword_720010);
+ }
+ else if (FAILED(hr))
+ {
+  if (hr == DDERR_SURFACEBUSY)
+  {
+   pddsd2->dwSize = 0;
+   return false;
+  }
+
+  CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2199, 0);
+  pddsd2->dwSize = 0;
+ }
+
+ return true;
+}
+
+//----- (004A1032) --------------------------------------------------------
+int __stdcall LockSurface_DDraw2(struct IDirectDrawSurface2 *a1, DDSURFACEDESC *Dst, unsigned int a3)
+{
+  int v3; // eax@1
+  int v4; // esi@1
+  int v5; // eax@2
+  unsigned int v7; // [sp-8h] [bp-10h]@8
+  int v8; // [sp-4h] [bp-Ch]@8
+
+  v4 = a1;
+  v3 = (*(int (__stdcall **)(int, _DWORD, void *, int, _DWORD))(*(_DWORD *)a1 + 100))(a1, 0, Dst, a3, 0);
+  BYTE3(a1) = 1;
+  if ( v3 == -2005532222 )
+  {
+    v5 = (*(int (__stdcall **)(int))(*(_DWORD *)v4 + 108))(v4);
+    if ( v5 )
+    {
+      if ( v5 != -2005532084 )
+      {
+LABEL_14:
+        BYTE3(a1) = 0;
+        memset(Dst, 0, 4u);
+        return BYTE3(a1);
+      }
+      (*(void (__stdcall **)(int))(*(_DWORD *)pD3DRenderer->pdds2_FrontBuffer + 108))(pD3DRenderer->pdds2_FrontBuffer);
+      (*(void (__stdcall **)(int))(*(_DWORD *)v4 + 108))(v4);
+    }
+    v3 = (*(int (__stdcall **)(int, _DWORD, void *, signed int, _DWORD))(*(_DWORD *)v4 + 100))(v4, 0, Dst, 1, 0) != 0;
+    if ( v3 == -2005532522 || v3 == -2005532242 )
+      goto LABEL_14;
+    if ( v3 )
+    {
+      v8 = 0;
+      v7 = 2247;
+LABEL_13:
+      CheckHRESULT(&a1, v3, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", v7, v8);
+      goto LABEL_14;
+    }
+  }
+  else
+  {
+    if ( v3 )
+    {
+      if ( v3 == -2005532522 || v3 == -2005532242 )
+        goto LABEL_14;
+      v8 = 0;
+      v7 = 2269;
+      goto LABEL_13;
+    }
+  }
+  return BYTE3(a1);
 }
