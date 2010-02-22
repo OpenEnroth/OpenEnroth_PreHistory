@@ -157,7 +157,8 @@ int sub_4A5B81(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5);
 void CD3DRenderer_DrawIndexedTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class18 *pTexture);
 //void __thiscall sub_4A6274(int this, int a2, int a3, int a4);
 void CD3DRenderer_DrawTransparentTexture(struct CD3DRenderer *_this, int a2, int a3, int a4);
-
+//int __thiscall sub_4A0E97(int this, int a2, int a3, int a4, int a5);
+void CD3DRenderer_sub_4A0E97(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5);
 
 
 

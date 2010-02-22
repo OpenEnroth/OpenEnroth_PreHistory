@@ -480,6 +480,21 @@ void *class18_ctor(struct class18 *_this);
 
 
 
+struct LODIndex
+{
+ unsigned char pFilename[8];
+ char a[24];
+};
+//sizeof == 20
+
+struct LODFileHeader
+{
+ unsigned int uSignature; // dword @ 000000
+ char a[168];
+ unsigned char array_0000AC[32]; // byte[32] @ 0000AC
+ char b[52];
+};
+//sizeof == 100
 
 //class17
 struct class17
@@ -489,16 +504,16 @@ struct class17
 
  char   byte_000024[0x0000E0];
  int   dword_000104;
- int   dword_000108;
- int   dword_00010C;
- int   aLODHeader[64];         //array ptr [0110]
+ unsigned char *pLODIOBuffer;  // ptr @ 000108
+ unsigned int   uIOBufferSize; // dword @ 00010C
+ struct LODFileHeader sLODFileHeader;  //struct @ 000110
  void *dword_000210;
  char   sContainerName[12];    //string ptr [0214]
  int   dword_000220;
  int   dword_000224;
  int   dword_000228;
- int   dword_00022C;
- void *pLODIndexNamedBuffer;  //dword ptr [0230]
+ unsigned int   uNumSubidices; // dword @ 00022C
+ struct LODIndex *pLODSubIndexNamedBuffer;  // ptr @ 000230
  int   dword_000234;
  int   dword_000238;
 
@@ -532,6 +547,7 @@ struct class17
  int   dword_011BB4;
 };
 //sizeof = 011BB8
+
 void class17_ctor(struct class17 *_this);
 //bool __thiscall sub_40FAEE(int this, const char *Filename);
 int class17_LoadLOD_Icons(struct class17 *_this, const char *pLODFilename);
@@ -559,6 +575,10 @@ int class17_LoadTexture(struct class17 *_this, const char *pContainerName, unsig
 int class17_LoadPalette(struct class17 *_this, struct class18 *pClass18, const char *pContainerName, unsigned int DstBuf);
 //int __thiscall sub_41097D(void *this, int a2, int a3, int a4);
 int sub_41097D(struct class17 *_this, int a2, int a3, int a4);
+//int __thiscall sub_461954(int this, int a2, signed int Size);
+void class17_AllocateSubidexAndIOBuffer(struct class17 *_this, unsigned int uNumSubIndices, signed int uIOBufferSize);
+//signed int __thiscall sub_461A43(void *this, const char *Filename, char a3);
+int class17_LoadLOD_Games(struct class17 *_this, const char *pLODFilename, unsigned char uFileFlags);
 
 unsigned int   class17_LoadTextureFromCBM(struct class17 *_this, const wchar_t *pFilename);
 unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename);

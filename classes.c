@@ -936,27 +936,26 @@ FILE *class17_FindContainer(struct class17 *_this, const char *pContainerName, i
   {
     v5 = 0;
     //if ( *(_DWORD *)((char *)_this + 556) > 0 )
-    if (_this->dword_00022C > 0)
+    if (_this->uNumSubidices > 0)
     {
       v7 = 0;
       //while ( _strcmpi(pContainerName, (const char *)(v7 + *(_DWORD *)(v3 + 560))) )
-      while (_strcmpi(pContainerName, (const char *)(_this->pLODIndexNamedBuffer) + v7))
+      while (_strcmpi(pContainerName, (const char *)(_this->pLODSubIndexNamedBuffer) + v7))
       {
         v7 += 32;
         ++v5;
-        //if ( v5 >= *(_DWORD *)(v3 + 556) )
-        if (v5 >= _this->dword_00022C)
+        if (v5 >= _this->uNumSubidices)
           return 0;
       }
-      v4 = *(_DWORD *)(32 * v5 + (char *)_this->pLODIndexNamedBuffer + 16);
+      v4 = *(_DWORD *)(32 * v5 + (char *)_this->pLODSubIndexNamedBuffer + 16);
       goto LABEL_12;
     }
     return 0;
   }
-  class17_fn3(_this, 0, _this->dword_00022C, pContainerName);
+  class17_fn3(_this, 0, _this->uNumSubidices, pContainerName);
   if ( dword_6A0CA4 < 0 )
     return 0;
-  v4 = *(_DWORD *)((char *)_this->pLODIndexNamedBuffer + 32 * dword_6A0CA4 + 16);
+  v4 = *(_DWORD *)((char *)_this->pLODSubIndexNamedBuffer + 32 * dword_6A0CA4 + 16);
 LABEL_12:
 
  fseek(_this->pLODFile, _this->dword_000234 + v4, 0);
@@ -1095,7 +1094,6 @@ void class17_fn4(struct class17 *_this)
 int class17_MaybeLoadLODHeader(struct class17 *_this, const char *pFilename, char a3)
 {
   int v3; // esi@1
-  int v5; // eax@7
   const char *v7; // [sp-4h] [bp-Ch]@4
 
 
@@ -1109,18 +1107,12 @@ int class17_MaybeLoadLODHeader(struct class17 *_this, const char *pFilename, cha
  _this->pLODFile = fopen(pFilename, v7);
  if (!_this->pLODFile)
    return 1;
-
- //strcpy((char *)(v3 + 4), Filename);
  strcpy(_this->sLODName, pFilename);
 
- //locked_fread((void *)(v3 + 272), 0x100u, 1u, *(FILE **)v3);
- locked_fread(_this->aLODHeader, 256, 1, _this->pLODFile);
+ locked_fread(&_this->sLODFileHeader, sizeof(struct LODFileHeader), 1, _this->pLODFile);
 
  //v5 = class23_fn2(class23_instance, *(_DWORD *)(v3 + 528), 160, "LOD CArray");
- v5 = class23_AllocatedNamedBuffer(class23_instance, _this->dword_000210, 160, "LOD CArray");
-
- //*(_DWORD *)(v3 + 528) = v5;
- _this->dword_000210 = v5;
+ _this->dword_000210 = class23_AllocatedNamedBuffer(class23_instance, _this->dword_000210, 160, "LOD CArray");
 
  if (!_this->dword_000210)
  {
@@ -1129,10 +1121,9 @@ int class17_MaybeLoadLODHeader(struct class17 *_this, const char *pFilename, cha
  }
 
  //locked_fread(_this->dword_000210, 0x20u, *(_DWORD *)(v3 + 444), _this->pLODFile);
- locked_fread(_this->dword_000210, 0x20u, _this->aLODHeader[43], _this->pLODFile);
+ locked_fread(_this->dword_000210, 0x20, _this->sLODFileHeader.array_0000AC, _this->pLODFile);
 
  fseek(_this->pLODFile, 0, SEEK_SET);
- //*(_DWORD *)(v3 + 260) = 1;
  _this->dword_000104 = 1;
  return 0;
 }
@@ -1144,7 +1135,6 @@ int class17_fn6(struct class17 *_this, const char *pContainer)
   int v3; // esi@1
   int v4; // ebx@2
   signed int result; // eax@5
-  int v6; // eax@7
   int v7; // eax@7
   int v8; // eax@7
   __int32 v9; // edx@7
@@ -1154,7 +1144,7 @@ int class17_fn6(struct class17 *_this, const char *pContainer)
  v2 = 0;
 
  //if ( *(_DWORD *)(v3 + 444) <= 0 )
- if (_this->aLODHeader[43] <= 0)
+ if (*(int *)(_this->sLODFileHeader.array_0000AC) <= 0)
  {
 LABEL_5:
   result = 3;
@@ -1168,11 +1158,10 @@ LABEL_5:
    ++v2;
    v4 += 32;
    //if (v2 >= *(_DWORD *)(v3 + 444))
-   if (v2 >= _this->aLODHeader[43])
+   if (v2 >= *(int *)(_this->sLODFileHeader.array_0000AC))
      goto LABEL_5;
   }
 
-  //strcpy((char *)(v3 + 532), Source);
   strcpy(_this->sContainerName, pContainer);
   //v7 = *(_DWORD *)(v3 + 528);
   //*(_DWORD *)(v3 + 548) = v2;
@@ -1185,16 +1174,14 @@ LABEL_5:
   _this->dword_000234 = v9;
 
   //*(_DWORD *)(v3 + 556) = *(_WORD *)(v8 + 28);
-  _this->dword_00022C = *(_WORD *)(v8 + 28);
+  _this->uNumSubidices = *(_WORD *)(v8 + 28);
   fseek(_this->pLODFile, v9, 0);
 
   //v6 = class23_AllocatedNamedBuffer(class23_instance, *(_DWORD *)(v3 + 560), 32 * (*(_DWORD *)(v3 + 556) + 5), "LOD Index");
-  v6 = class23_AllocatedNamedBuffer(class23_instance, _this->pLODIndexNamedBuffer, 32 * (_this->dword_00022C + 5), "LOD Index");
+  _this->pLODSubIndexNamedBuffer = class23_AllocatedNamedBuffer(class23_instance, _this->pLODSubIndexNamedBuffer, (_this->uNumSubidices + 5) * sizeof(struct LODIndex), "LOD Index");
 
-  //*(_DWORD *)(v3 + 560) = v6;
-  _this->pLODIndexNamedBuffer = v6;
-  if (_this->pLODIndexNamedBuffer)
-    locked_fread(_this->pLODIndexNamedBuffer, 0x20u, _this->dword_00022C, _this->pLODFile);
+  if (_this->pLODSubIndexNamedBuffer)
+    locked_fread(_this->pLODSubIndexNamedBuffer, sizeof(struct LODIndex), _this->uNumSubidices, _this->pLODFile);
   result = 0;
  }
  return result;
@@ -1211,11 +1198,11 @@ int class17_fn7(struct class17 *_this)
   _this->dword_000224 = 0;
 
   _this->dword_000228 = 0;
-  _this->dword_00022C = 0;
+  _this->uNumSubidices = 0;
   _this->dword_000234 = 0;
 
-  result = class23_fn1(class23_instance, _this->pLODIndexNamedBuffer);
-  _this->pLODIndexNamedBuffer = 0;
+  result = class23_fn1(class23_instance, _this->pLODSubIndexNamedBuffer);
+  _this->pLODSubIndexNamedBuffer = 0;
  }
  return result;
 }
@@ -1333,6 +1320,81 @@ unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename
 }
 
 
+
+
+//----- (00461954) --------------------------------------------------------
+void class17_AllocateSubidexAndIOBuffer(struct class17 *_this, unsigned int uNumSubIndices, signed int uIOBufferSize)
+{
+ if (_this->pLODSubIndexNamedBuffer)
+ {
+  MessageBoxW(0, L"Attempt to reset a LOD subindex!", L"MM7", 0x30u);
+  class23_fn1(class23_instance, _this->pLODSubIndexNamedBuffer);
+  _this->pLODSubIndexNamedBuffer = 0;
+ }
+ _this->pLODSubIndexNamedBuffer = class23_AllocatedNamedBuffer(class23_instance, _this->pLODSubIndexNamedBuffer, 32 * uNumSubIndices, "LODsubindex");
+
+ if (_this->pLODIOBuffer)
+ {
+  MessageBoxW(0, L"Attempt to reset a LOD IObuffer!", L"MM7", 0x30u);
+  class23_fn1(class23_instance, _this->pLODIOBuffer);
+  _this->pLODIOBuffer = 0;
+  _this->uIOBufferSize = 0;
+ }
+ else if (uIOBufferSize)
+ {
+  _this->pLODIOBuffer = class23_AllocatedNamedBuffer(&class23_instance, _this->pLODIOBuffer, uIOBufferSize, "LODiobuffer");
+  _this->uIOBufferSize = uIOBufferSize;
+ }
+}
+
+//----- (00461A43) --------------------------------------------------------
+int class17_LoadLOD_Games(struct class17 *_this, const char *pLODFilename, unsigned char uFileFlags)
+{
+  void *v3; // esi@1
+  char DstBuf[32]; // [sp+Ch] [bp-20h]@5
+  //__int32 Offset; // DstBuf + 16
+  //int v13; // DstBuf + 20
+  //__int16 v14; // DstBuf + 28
+  //__int16 v15; // DstBuf + 30
+
+  v3 = _this;
+
+ if (uFileFlags & 1)
+   _this->pLODFile = fopen(pLODFilename, "rb");
+ else
+   _this->pLODFile = fopen(pLODFilename, "rb+");
+ if (!_this->pLODFile)
+   return false;
+
+ strcpy(_this->sLODName, pLODFilename);
+
+ locked_fread(&_this->sLODFileHeader, sizeof(struct LODFileHeader), 1, _this->pLODFile);
+
+ sub_46172B(DstBuf);
+
+ locked_fread(DstBuf, 0x20, 1, _this->pLODFile);
+ fseek(_this->pLODFile, 0, SEEK_SET);
+
+ _this->dword_000104 = 1;
+  strcpy(_this->sContainerName, "chapter");
+
+ _this->dword_000224 = 0;
+ _this->dword_000228 = *(int *)(DstBuf + 20);
+ _this->uNumSubidices = *(int *)(DstBuf + 28);
+
+ _this->dword_000234 = *(int *)(DstBuf + 16);
+ fseek(_this->pLODFile, _this->dword_000234, SEEK_SET);
+
+ if (_this->uNumSubidices > 300)
+ {
+  MessageBoxW(0, L"LODchapterPages exceed 300", L"LODFile", 0x30u);
+  fclose(_this->pLODFile);
+  return false;
+ }
+
+ locked_fread(_this->pLODSubIndexNamedBuffer, sizeof(struct LODIndex), _this->uNumSubidices, _this->pLODFile);
+ return true;
+}
 
 //----- (MM7.exe::0040FC08) --------------------------------------------------------
 int class17_LoadPalette(struct class17 *_this, struct class18 *pClass18, const char *pContainerName, unsigned int uSomeInt)

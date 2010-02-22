@@ -1054,6 +1054,15 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
   return v18;
 }
 
+//----- (004A0E97) --------------------------------------------------------
+void CD3DRenderer_sub_4A0E97(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5)
+{
+ _this->dword_00001C = a2;
+ _this->dword_000020 = a3;
+ _this->dword_000024 = a4;
+ _this->dword_000028 = a5;
+}
+
 //----- (MM7.exe::0049FDBF) --------------------------------------------------------
 int CD3DRenderer_Initialize_ZBuffer(struct CD3DRenderer *_this)
 {
