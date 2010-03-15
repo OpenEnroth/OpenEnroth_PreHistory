@@ -342,6 +342,12 @@ unsigned char *rle16_decompress(const unsigned char *pSource, unsigned long ulCo
 
 
 
+
+
+
+
+
+
 extern "C" unsigned long Tga2Cbm(const char *pFile)
 {
  char pTgaFile[256],

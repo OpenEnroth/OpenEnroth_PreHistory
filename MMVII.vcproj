@@ -251,6 +251,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GUI.c"
+				>
+			</File>
+			<File
+				RelativePath=".\GUI.h"
+				>
+			</File>
+			<File
 				RelativePath=".\mm7 file2.c"
 				>
 			</File>

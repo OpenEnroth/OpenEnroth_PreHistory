@@ -11,6 +11,50 @@ HDIGDRIVER __cdecl sub_4ABAF7();
 
 
 
+
+
+
+
+
+
+struct SoundDescription
+{
+ unsigned char sSoundName[12]; // byte[] @ 000000
+ char a[20];
+ int dword_000020;
+ int dword_000024;
+ int dword_000028;
+ int *ptr_00002C;
+ char b[72];
+};
+//sizeof == 78
+
+
+
+struct CSoundList
+{
+ unsigned int             uNumSounds;  // dword @ 000000
+ struct SoundDescription *pDescriptions; // ptr @ 000004
+};
+
+void CSoundList_ctor(struct CSoundList *_this);
+//int __thiscall sub_4A9E3D(void *Str)
+int CSoundList_SaveToBIN(struct CSoundList *_this);
+//signed int __thiscall sub_4A9ED0(int this, const char *Args);
+int CSoundList_InitializeFromTXT(struct CSoundList *_this, const char *pSourceFile);
+//void *__thiscall sub_4A9E89(void *Dst, void *Src)
+void *CSoundList_Initialize(struct CSoundList *_this, unsigned char *pSrc);
+//signed int __thiscall sub_4A9953(void *this);
+int sub_4A9953(struct CSoundList *_this);
+
+
+
+
+
+
+
+
+
 //class31
 struct class31_sound_header_struct
 {
@@ -21,11 +65,19 @@ struct class31_sound_header_struct
 };
 //sizeof = 34
 
+struct class31_struct_0
+{
+ int a[4];
+};
+
 struct class31
 {
  int  dword_000000;
  int  dword_000004;
  int  dword_000008;
+ int  dword_00000C;
+ int  num_structs_0;
+ struct class31_struct_0 struct_0[10]; // struct @ 000014
 
  int  dword_000218;
 
@@ -56,6 +108,7 @@ struct class31
  int array_000BF0[32];  // byte[?]
 
  unsigned int uNumDevices;        // dword @ 000C70
+ int dword_000C74;
  int          cGameCDDriveLetter; // byte @  000C80
 };
 //sizeof ~ ?
@@ -68,7 +121,10 @@ void sub_4AA214(struct class31 *_this, signed int a2);
 int class31_LoadSoundHeaders(struct class31 *_this);
 //int __fastcall sub_4AA1F3(int a1, int a2, int a3);
 int sub_4AA1F3(struct class31 *_this, float fVolume);
-
+//int __thiscall sub_4AB71F(void *this, int a2, int a3);
+void sub_4AB71F(struct class31 *_this, int a2, int a3);
+//void __thiscall sub_4AA306(int this, int a2, signed int a3, int a4, signed int a5, int a6, int a7, int a8, int a9)
+void class31_sub_4AA306(struct class31 *_this, int a2, signed int a3, int a4, signed int a5, int a6, int a7, int a8, int a9);
 
 
 

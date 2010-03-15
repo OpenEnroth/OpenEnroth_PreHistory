@@ -10,7 +10,7 @@ long __stdcall _eh_vector_destructor_iterator_(long, long, long, long);
 
 #pragma pack(push, 1)
 //class00
-struct class00
+struct CGame
 {
  int  dword_000000;
  int  dword_000004[700];
@@ -31,7 +31,7 @@ struct class00
  struct class02 *class02_obj;  //dword ptr [0E40]
  struct class03 *class03_obj;  //dword ptr [0E44]
  struct class04 *class04_obj;  //dword ptr [0E48]
- struct class05 *class05_obj;  //dword ptr [0E4C]
+ struct class05 *class05_obj;  //dword ptr [0E4C] 'Vis' object
  struct class06 *class06_obj;  //dword ptr [0E50]
  struct class08 *class08_obj;  //dword ptr [0E54]
  struct class09 *class09_obj;  //dword ptr [0E58]
@@ -45,13 +45,13 @@ struct class00
 };
 //sizeof = 0E78
 //int __thiscall sub_44E4B7(int this);
-void *class00_ctor(struct class00 *_this);
+void CGame_ctor(struct CGame *_this);
 //int __thiscall sub_44F0FD(int this);
-int class00_fn0(struct class00 *_this);
+int CGame_fn0(struct CGame *_this);
 //int __thiscall sub_44F0D8(int this, int a2);
-int class00_fn1(struct class00 *_this, int flags);
+int CGame_fn1(struct CGame *_this, int flags);
 //char __thiscall sub_44EA17(int this);
-char sub_44EA17(struct class00 *_this);
+char sub_44EA17(struct CGame *_this);
 
 
 
@@ -123,7 +123,7 @@ struct class03
 
  int dword_0000CC[16];
 
- unsigned char array_0000F5[5];
+ unsigned char array_0000F5[11];
 
  int dword_000108;
  int dword_00010C;
@@ -135,15 +135,19 @@ struct class03 *class03_ctor(struct class03 *_this, struct class01 *class01_obj)
 //int __thiscall sub_46A080(int this, int a2);
 int class03_fn1(struct class03 *_this, int a2);
 //int __thiscall sub_469C39(int this, int a2);
-int *class03_fn2(struct class03 *_this, int *a2);
+POINT *class03_GetMousePos(struct class03 *_this, POINT *ptOut);
 //void __thiscall sub_469C65(int this, int a2)
 void sub_469C65(struct class03 *_this, HWND hWnd);
 //void __thiscall sub_469903(int this, const char *Source);
 void sub_469903(struct class03 *_this, const char *pSource);
 //int __thiscall sub_469BA3(int this);
 int sub_469BA3(struct class03 *_this);
-
-
+//void __thiscall sub_4698A6(void *this)
+void class03_sub_4698A6(struct class03 *_this);
+//void sub_46A08A(int this, int a2, int a3)
+void class03_OnMouseLeftButton(struct class03 *_this, int x, int y);
+//int __thiscall sub_469860(int this, int a2, int a3);
+void sub_469860(struct class03 *_this, int *a2, int *a3);
 
 //class04
 struct class04
@@ -726,7 +730,7 @@ struct class24
  int dword_000020;
  int dword_000024;
 };
-//sizeof ~ ?
+//sizeof ~ 28
 //void __thiscall sub_426402(int this);
 void class24_ctor(struct class24 *_this);
 //void __thiscall sub_426349(int this);
@@ -779,40 +783,6 @@ int class28_fn1(struct class28 *_this, int a2, int a3, int a4, int a5);
 int class28_fn2(struct class28 *_this, int a2);
 
 
-
-
-
-
-
-//class33
-struct class33
-{
- int dword_000000;
- int dword_000004;
- int dword_000008;
- int dword_00000C;
- unsigned int uNumPixels; // dword @ 000010
- short uWidth;  // word @ 000014
- short uHeight;  // word @ 000016
- short word_000018;
- short word_00001A;
- short word_00001C;
- short word_00001E;
- short word_000020;
- short word_000022;
- unsigned int *pPixels; // ptr @ 000024
-
- int dword_000020;
- int dword_000024;
-};
-//sizeof = 28
-//int __thiscall sub_40D73D(int this);
-int class33_ctor(struct class33 *_this);
-//signed int __thiscall sub_40F414(void *this, const char *Str1, int a3);
-int class33_fn0(struct class33 *_this, const char *pContainerName, int a3);
-//signed int __thiscall sub_40F037(void *this, void *Src, int a3, int a4)
-int class33_DecodePCX(struct class33 *_this, void *Src, void *a3, unsigned int uWidth);
-unsigned int class33_LoadFromCBM(struct class33 *_this, const char *pFilename);
 
 
 
@@ -1111,6 +1081,15 @@ int StorylineText_Initialize(struct StorylineText *_this);
 struct CNPCStats
 {
  char a[98284];
+
+ unsigned char *pNPCNames[540][2]; // ptr[2] array @ 012978
+
+ short word_017F5A[51];
+
+ int dword_017FC0;
+
+ int uNumNPCNames[2]; // dword[2] @ 017FD0 number of NPC names: [0] for male, [1] for female
+
  unsigned char *pNPCDataTXT_Raw;  // ptr @ 017FD8
  unsigned char *pNPCNamesTXT_Raw; // ptr @ 017FDC
  unsigned char *pNPCProfTXT_Raw;  // ptr @ 017FE0
@@ -1129,5 +1108,184 @@ void CNPCStats_Initialize(struct CNPCStats *_this);
 char *CNPCStats_sub_476CB5(struct CNPCStats *_this);
 //int __thiscall sub_476977(int this);
 int CNPCStats_sub_476977(struct CNPCStats *_this);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+struct Player
+{
+ union
+ {
+  struct
+  {
+   int     array_000000[40];
+   __int64 qword_0000A0;
+
+   unsigned char sName[16]; // byte[16] @ 0000A8
+   unsigned char uSex;      // byte     @ 0000B8  0 male 1 female
+   char byte_0000B9;
+   char byte_0000BA;
+
+   short word_0000BC;
+   short word_0000BE;
+   short word_0000C0;
+   short word_0000C2;
+   short word_0000C4;
+   short word_0000C6;
+   short word_0000C8;
+   short word_0000CA;
+   short word_0000CC;
+   short word_0000CE;
+   short word_0000D0;
+   short word_0000D2;
+   short word_0000D4;
+   short word_0000D6;
+   short word_0000DA;
+
+   short word_0000DE;
+
+   short array_000108[37];
+   char array_000152[64];
+   char array_000192[100];
+
+   char byte_000192;
+
+   char byte_00019D;
+
+   char byte_0001A8;
+
+   char byte_0001B3;
+
+   char byte_0001BE;
+
+   char byte_0001C9;
+
+   char byte_0001D4;
+
+   char byte_0001DF;
+
+   char byte_0001EA;
+
+   char array_0017A0[24][16];
+   int  dword_001920;
+   int  dword_001924;
+
+   short word_001934;
+
+   int dword_00193C;
+   int dword_001940;
+   int dword_001944;
+
+   char byte_001A98;
+
+   short word_001A9C;
+   short word_001A9E;
+   short word_001AA0;
+  };
+  struct
+  {
+   unsigned char _[0x1B3C];
+  };
+ };
+};
+//sizeof == 1B3C
+
+struct Party
+{
+ unsigned char array_00002C[90636];
+
+ int dword_00002C;
+ int dword_000030;
+ int dword_000034;
+ int dword_000038;
+
+ unsigned char byte_000708;
+ unsigned char byte_000709;
+ unsigned char byte_00070A;
+ unsigned char byte_00070B;
+
+ int dword_000728;
+
+ int dword_000734;
+ int dword_000738;
+
+ char unk_000765[0x100];
+
+ int dword_00087C;
+
+ int dword_000884;
+ int dword_000888;
+
+ char unk_00088C[16];
+
+ char array_00089C[19][16];
+
+ //unsigned char array_0009CC[4][6972];
+ struct Player pPlayers[4]; // struct[4] @ 0009CC
+/*
+ unsigned char array_000A74[16];
+ char          byte_000A84;
+
+ char byte_000A86;
+
+ int dword_0022EC;
+ int dword_0022F0;
+
+
+
+ unsigned char array_0025B0[16];
+ char          byte_0025C0;
+
+ char byte_0025C2;
+
+ int dword_003E28;
+ int dword_003E2C;
+
+
+
+ unsigned char array_0040EC[16];
+ char          byte_0040FC;
+
+ char byte_0040FE;
+
+ int dword_005964;
+ int dword_005968;
+
+
+
+ unsigned char array_005C28[16];
+ char          byte_005C38;
+
+ char byte_005C3A;
+
+ int dword_0074A0;
+ int dword_0074A4;*/
+
+ int dword_007778;
+
+ char pad[50000];
+};
+
+
+
+
+
+
+int Party_CreateDefault(struct Party *_this);
+
+//void __thiscall sub_48E9B7(int this);
+void Player_RandomizeName(struct Player *_this);
+//signed int __thiscall sub_490109(int this);
+int sub_490109(struct Player *_this);
 
 #pragma pack(pop)

@@ -261,36 +261,3 @@ void *COverlayDescriptionList_Initialize(struct COverlayDescriptionList *_this, 
 //void __thiscall sub_458D97(void *this)
 void sub_458D97(struct COverlayDescriptionList *_this);
 
-
-
-
-
-struct SoundDescription
-{
- unsigned char sSoundName[12]; // byte[] @ 000000
- char a[20];
- int dword_000020;
- int dword_000024;
- int dword_000028;
- int *ptr_00002C;
- char b[72];
-};
-//sizeof == 78
-
-
-
-struct CSoundList
-{
- unsigned int             uNumSounds;  // dword @ 000000
- struct SoundDescription *pDescriptions; // ptr @ 000004
-};
-
-void CSoundList_ctor(struct CSoundList *_this);
-//int __thiscall sub_4A9E3D(void *Str)
-int CSoundList_SaveToBIN(struct CSoundList *_this);
-//signed int __thiscall sub_4A9ED0(int this, const char *Args);
-int CSoundList_InitializeFromTXT(struct CSoundList *_this, const char *pSourceFile);
-//void *__thiscall sub_4A9E89(void *Dst, void *Src)
-void *CSoundList_Initialize(struct CSoundList *_this, unsigned char *pSrc);
-//signed int __thiscall sub_4A9953(void *this);
-int sub_4A9953(struct CSoundList *_this);

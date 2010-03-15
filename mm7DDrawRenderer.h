@@ -181,4 +181,41 @@ void *sub_44F4D9(struct class15 *_this, float a2);
 void CGammaController_InitializeFromSurface(struct class15 *_this, struct IDirectDrawSurface4 *pdds);
 //void *__thiscall sub_44F324(int this);
 void *CGammaController_InitializeGammaRamp(struct CGammaController *_this);
+
+
+
+
+
+
+//class33
+struct RGBTexture
+{
+ int dword_000000;
+ int dword_000004;
+ int dword_000008;
+ int dword_00000C;
+ unsigned int uNumPixels; // dword @ 000010
+ short uWidth;  // word @ 000014
+ short uHeight;  // word @ 000016
+ short word_000018;
+ short word_00001A;
+ short word_00001C;
+ short word_00001E;
+ short word_000020;
+ short word_000022;
+ unsigned int *pPixels; // ptr @ 000024
+
+ int dword_000020;
+ int dword_000024;
+};
+//sizeof = 28
+//int __thiscall sub_40D73D(int this);
+int RGBTexture_ctor(struct RGBTexture *_this);
+//signed int __thiscall sub_40F414(void *this, const char *Str1, int a3);
+int RGBTexture_Load(struct RGBTexture *_this, const char *pContainerName, int a3);
+//signed int __thiscall sub_40F037(void *this, void *Src, int a3, int a4)
+int RGBTexture_DecodePCX(struct RGBTexture *_this, void *Src, void *a3, unsigned int uWidth);
+unsigned int RGBTexture_LoadFromCBM(struct RGBTexture *_this, const char *pFilename);
+
+
 #pragma pack(pop)

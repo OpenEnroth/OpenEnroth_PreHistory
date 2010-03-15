@@ -1195,16 +1195,16 @@ struct class17      *pClass17_Sprites_LOD = 0;  // struct @ MM7.exe::006E21C8
 struct class31      *pClass31_global = 0;       // struct @ MM7.exe::00F790D8
 struct class32      *pVideoPlayer = 0;          // struct @ MM7.exe::00F8BB08
 
-struct class33      *pClass33_global0 = 0;      // struct @ MM7.exe::005058F0
-struct class33      *pClass33_global1 = 0;      // struct @ MM7.exe::00505918
-struct class33      *pClass33_global2 = 0;      // struct @ MM7.exe::00506F20
-struct class33      *pClass33_global3 = 0;      // struct @ MM7.exe::00506E40
+struct RGBTexture      *pClass33_global0 = 0;      // struct @ MM7.exe::005058F0
+struct RGBTexture      *pClass33_global1 = 0;      // struct @ MM7.exe::00505918
+struct RGBTexture      *pRGBTexture_Menu = 0;      // struct @ MM7.exe::00506F20
+struct RGBTexture      *pClass33_global3 = 0;      // struct @ MM7.exe::00506E40
 
-struct class33      *pClass33_obj0 = 0;         // struct @ MM7.exe::00507A1C
-struct class33      *pClass33_obj1 = 0;         // struct @ MM7.exe::00507A44
-struct class33      *pClass33_obj2 = 0;         // struct @ MM7.exe::00507A6C
-struct class33      *pClass33_obj3 = 0;         // struct @ MM7.exe::00507A94
-struct class33      *pClass33_obj4 = 0;         // struct @ MM7.exe::00507ABC
+struct RGBTexture      *pClass33_obj0 = 0;         // struct @ MM7.exe::00507A1C
+struct RGBTexture      *pClass33_obj1 = 0;         // struct @ MM7.exe::00507A44
+struct RGBTexture      *pClass33_obj2 = 0;         // struct @ MM7.exe::00507A6C
+struct RGBTexture      *pClass33_obj3 = 0;         // struct @ MM7.exe::00507A94
+struct RGBTexture      *pClass33_obj4 = 0;         // struct @ MM7.exe::00507ABC
 
 
 void *Dst_global = 0;  //300 000 bytes

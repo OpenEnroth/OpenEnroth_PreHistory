@@ -1,5 +1,6 @@
 #include "FrameTables.h"
 #include "classes.h"
+#include "_audio.h"
 #include "data.h"
 
 //----- (0044E1EC) --------------------------------------------------------

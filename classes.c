@@ -74,10 +74,11 @@ void __cdecl sub_4A57E9();
 char __stdcall sub_4A0F40(int a1, void *Dst, int a3);
 int unknown_libname_107();
 double __stdcall sub_44F377(int a1);
+void sub_402F07(int *_this);
 
 
 //----- (MM7.exe::0044E4B7) --------------------------------------------------------
-void *class00_ctor(struct class00 *_this)
+void CGame_ctor(struct CGame *_this)
 {
  void *v1, *v2;
 
@@ -152,16 +153,15 @@ void *class00_ctor(struct class00 *_this)
  if (_this->pGammaController)
    CGammaController_ctor(_this->pGammaController);
 
- class00_fn0(_this);
+ CGame_fn0(_this);
  if (dword_F79D7C != 2 || (dword_4E800C = 1, dword_F79D70 != 4))
    dword_4E800C = 0;
- return _this;
 }
 
 //----- (MM7.exe::0044F0FD) --------------------------------------------------------
-int class00_fn0(struct class00 *_this)
+int CGame_fn0(struct CGame *_this)
 {
- class00_fn1(_this, 1 << 6);
+ CGame_fn1(_this, 1 << 6);
  if (!(_this->uSomeFlags & (1 << 6)))
  {
   _this->dword_000E08 = 0;
@@ -171,7 +171,7 @@ int class00_fn0(struct class00 *_this)
 }
 
 //----- (MM7.exe::0044F0D8) --------------------------------------------------------
-int class00_fn1(struct class00 *_this, int flags)
+int CGame_fn1(struct CGame *_this, int flags)
 {
  if (_this->uSomeFlags & flags)
    _this->uSomeFlags &= ~flags;
@@ -183,7 +183,7 @@ int class00_fn1(struct class00 *_this, int flags)
 
 //----- (0044EA17) --------------------------------------------------------
 extern struct class24 *pClass24_global;
-char sub_44EA17(struct class00 *_this)
+char sub_44EA17(struct CGame *_this)
 {
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
    CGammaController_InitializeFromSurface(_this->pGammaController, pD3DRenderer->pdds4_FrontBuffer);
@@ -192,6 +192,68 @@ char sub_44EA17(struct class00 *_this)
  _this->qword_000E2C = class24_fn2(pClass24_global);
  return 1;
 }
+
+//----- (0044EA5E) --------------------------------------------------------
+extern int dword_F8BC18;
+extern int dword_F8BC1C;
+extern int dword_F8BC20;
+extern int dword_4E28F8;
+char __thiscall sub_44EA5E(struct CGame *_this, float a2, signed int a3, signed int a4, char a5, int a6, int a7)
+{
+  int v7; // esi@1
+  char result; // al@3
+  int v9; // ecx@10
+  char v10; // [sp-4h] [bp-24h]@5
+  int v11; // [sp+0h] [bp-20h]@5
+  int v12; // [sp+4h] [bp-1Ch]@5
+  int v13; // [sp+8h] [bp-18h]@5
+  const char *v14; // [sp+Ch] [bp-14h]@5
+  int v15; // [sp+10h] [bp-10h]@5
+  char *v16; // [sp+18h] [bp-8h]@5
+  int v17; // [sp+1Fh] [bp-1h]@5
+
+  v7 = _this;
+  if (!dword_4E28F8 && pD3DRenderer->dword_040088)
+  {
+    if ( !_this->class05_obj)
+    {
+      v15 = 230;
+      v14 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Game.cpp";
+      v16 = &v10;
+      sub_40E2C8(
+        &v10,
+        "The 'Vis' object pointer has not been instatiated, but CGame::Pick() is trying to call through it.",
+        (int)&v17);
+      sub_466D09(&v16, *(int *)&v10, v11, v12, v13, v14, v15);
+    }
+    if ( a3 >= *(int*)class28_global )
+    {
+      if ( a3 <= dword_F8BC1C )
+      {
+        if ( a4 >= dword_F8BC18 )
+        {
+          if ( a4 <= dword_F8BC20 )
+          {
+            v15 = a7;
+            v9 = *(_DWORD *)(v7 + 3660);
+            *(float *)&v13 = (double)a4;
+            *(float *)&v12 = (double)a3;
+            sub_4C0646(v9, a2, *(float *)&v12, *(float *)&v13, a6, a7);
+            if ( a5 )
+              sub_44EB5A(v7);
+          }
+        }
+      }
+    }
+    result = 1;
+  }
+  else
+  {
+    result = 0;
+  }
+  return result;
+}
+
 
 
 
@@ -249,32 +311,50 @@ int class03_fn1(struct class03 *_this, int a2)
 }
 
 //----- (MM7.exe::00469C39) --------------------------------------------------------
-int *class03_fn2(struct class03 *_this, int *a2)
+POINT *class03_GetMousePos(struct class03 *_this, POINT *pOut)
 {
-  int result; // eax@1
   int *v3; // edx@1
   int v4; // ecx@2
   int v5; // edx@3
 
  v3 = dword_720010;
- result = a2;
- if (v3)
+ if (dword_720010)
  {
     //*(_DWORD *)a2 = *(_DWORD *)(LODWORD(dword_720010) + 24);
     //v4 = *(_DWORD *)(LODWORD(v3) + 28);
-  a2[0] = v3[6];
-  a2[1] = v3[7];
+  pOut->x = v3[6];
+  pOut->y = v3[7];
  }
  else
  {
-  a2[0] = _this->dword_000108;
-  a2[1] = _this->dword_00010C;
-   //v5 = *(_DWORD *)(this + 264);
-   //v4 = *(_DWORD *)(this + 268);
-   //*(_DWORD *)a2 = v5;
+  GetCursorPos(pOut);
+  //pOut->x = _this->dword_000108;
+  //pOut->y = _this->dword_00010C;
  }
  //*(_DWORD *)(a2 + 4) = v4;
- return a2;
+ return pOut;
+}
+
+//----- (00469860) --------------------------------------------------------
+void sub_469860(struct class03 *_this, int *a2, int *a3)
+{
+  if (dword_720010)
+  {
+    *a2 = *(_DWORD *)(dword_720010 + 24);
+    *a3 = *(_DWORD *)(dword_720010 + 28);
+  }
+  else
+  {
+    *a2 = _this->dword_000108;
+    *a3 = _this->dword_00010C;
+  }
+}
+
+//----- (0046A08A) --------------------------------------------------------
+void class03_OnMouseLeftButton(struct class03 *_this, int x, int y)
+{
+ _this->dword_000108 = x;
+ _this->dword_00010C = y;
 }
 
 //----- (00469C65) --------------------------------------------------------
@@ -300,7 +380,7 @@ void sub_469C65(struct class03 *_this, HWND hwnd)
 }
 
 //----- (00469903) --------------------------------------------------------
-extern struct class00 *class00_global;
+extern struct CGame *pGame;
 void sub_469903(struct class03 *_this, const char *pSource)
 {
  HCURSOR hCursor;
@@ -311,8 +391,8 @@ void sub_469903(struct class03 *_this, const char *pSource)
    return;
 
  if (_strcmpi("MICON2", pSource))
-    class00_global->dword_000E24 &= 0xFFFFFFEF;
- else class00_global->dword_000E24 |= 0x10;
+    pGame->dword_000E24 &= 0xFFFFFFEF;
+ else pGame->dword_000E24 |= 0x10;
 
  if (_strcmpi(_this->array_0000F5, pSource))
    strcpy(_this->array_0000F5, pSource);
@@ -381,6 +461,15 @@ void sub_469903(struct class03 *_this, const char *pSource)
    SetCursorPos(Point.x, Point.y);
   }
  }
+}
+
+//----- (004698A6) --------------------------------------------------------
+extern int dword_AD470C;
+void class03_sub_4698A6(struct class03 *_this)
+{
+ sub_402F07(&dword_AD470C);
+ if (_strcmpi(_this->array_0000F5, "MICON2"))
+   sub_469903(_this, "MICON1");
 }
 
 //----- (00469BA3) --------------------------------------------------------
@@ -1295,6 +1384,7 @@ unsigned int class17_LoadTextureFromCBM(struct class17 *_this, const wchar_t *pF
   return -1;
  }
 
+ WideCharToMultiByte(CP_ACP, 0, pFilename, -1, _this->aLODHeaders[_this->uNumLoadedFiles].sContainerName, lstrlenW(pFilename) - 4, 0, 0);
  _this->aLODHeaders[_this->uNumLoadedFiles].uTextureWidth = uCBMWdith;
  _this->aLODHeaders[_this->uNumLoadedFiles].uTextureHeight = uCBMHeight;
 
@@ -4135,373 +4225,6 @@ int class28_fn2(struct class28 *_this, int a2)
   v3 = _this->dword_00000C;
   _this->dword_000030 = a2;
   return class28_fn0(_this, _this->dword_000000, _this->dword_000004, _this->dword_000008, v3);
-}
-
-
-
-
-
-
-
-unsigned int class33_LoadFromCBM(struct class33 *_this, const char *pFilename)
-{
- wchar_t      pFilePath[256];
- unsigned int uCBMWdith,
-              uCBMHeight;
-
- wsprintfW(pFilePath, L".\\Data\\Icons\\%S", pFilename);
- LoadCBM(pFilePath, &uCBMWdith, &uCBMHeight, &_this->pPixels);
-
- _this->uWidth = uCBMWdith;
- _this->uHeight = uCBMHeight;
-
- return true;
-}
-
-//----- (MM7.exe::0040F414) --------------------------------------------------------
-int class33_fn0(struct class33 *_this, const char *pContainerName, int a3)
-{
-  void *v6; // ebx@5
-  int v8; // eax@9
-  int v9; // ecx@9
-  void *v11; // eax@13
-  int v14; // eax@20
-
-  void *pPCXData;
-
-  //v16
-  char local_1[48]; // [sp+Ch] [bp-98h]@7
-
-  struct class18 class18_obj;
-  //char DstBuf[48]; // [sp+3Ch] [bp-68h]@1
-  //size_t v18; // [sp+50h] [bp-54h]@4
-  //size_t Size; // [sp+64h] [bp-40h]@4
-
-  char local_2[24];  //v21 == local_2 + 3
-  //char Dst; // [sp+84h] [bp-20h]@7
-  //char v21; // [sp+87h] [bp-1Dh]@7
-  //int v22; // [sp+88h] [bp-1Ch]@9
-  //int v23; // [sp+8Ch] [bp-18h]@9
-  //char v24; // [sp+94h] [bp-10h]@7
-  FILE *f; // [sp+9Ch] [bp-8h]@1
-  //size_t Count; // [sp+A0h] [bp-4h]@4
-  //unsigned int v27; // [sp+ACh] [bp+8h]@5
-
- class18_ctor(&class18_obj);
- f = class17_FindContainer(pClass17_Icons_LOD, pContainerName, 0);
- if (!f)
- {
-  sprintfex(ExistingFileName, "Unable to load %s", pContainerName);
-  erroneous_printf(ExistingFileName);
- }
-
- locked_fread(&class18_obj, 1, 0x30, f);
- if (class18_obj.uDecompressedSize)
- {
-  pPCXData = malloc(class18_obj.uDecompressedSize);
-  v6 = class23_AllocatedNamedBuffer(class23_instance, 0, class18_obj.uCompressedSize, class18_obj.sContainerName);
-  locked_fread(v6, 1, class18_obj.uCompressedSize, f);
-  maybe_decompress_file(pPCXData, &class18_obj.uDecompressedSize, v6, class18_obj.uCompressedSize);
-  class18_obj.uCompressedSize = class18_obj.uDecompressedSize;
-  class23_fn1(class23_instance, v6);
- }
- else
- {
-  pPCXData = malloc(class18_obj.uCompressedSize);
-  locked_fread(pPCXData, 1, class18_obj.uCompressedSize, f);
- }
-
-  memcpy(local_2, pPCXData, 0x10u);
-  memcpy(local_1, (char *)pPCXData + 16, 0x30u);
-  memcpy(local_2 + 16, (char *)pPCXData + 64, 6u);
-
-  if ( local_2[3] != 8 )
-    return 3;
-
-  v8 = *(int *)(local_2 + 8) - *(int *)(local_2 + 4) + 1;
-  v9 = *(int *)(local_2 + 10) - *(int *)(local_2 + 6) + 1;
-
-  _this->uWidth = v8 & 0xFFFF;
-  _this->uHeight = v9 & 0xFFFF;
-
-  _this->uNumPixels = (signed __int16)v8 * (signed __int16)v9;
-
-  if (_this->pPixels)
-  {
-   if (a3)
-     goto LABEL_14;
-   class23_fn1(class23_instance, _this->pPixels);
-  }
-  if (!a3)
-  {
-   _this->pPixels = class23_AllocatedNamedBuffer(class23_instance, _this->pPixels, 2 * _this->uNumPixels + 4, "16bit PCX");
-   goto LABEL_17;
-  }
-
-LABEL_14:
-  if ( a3 != 2 )
-    goto LABEL_17;
-  _this->pPixels = malloc(2 * _this->uNumPixels + 4);
-  _this->dword_000020 |= 1;
-
-LABEL_17:
- if (!_this->pPixels)
-   return 2;
-
- v14 = class33_DecodePCX(_this, pPCXData, _this->pPixels, _this->uWidth);
- call_delete(v14, pPCXData);
- return 0;
-}
-
-//----- (MM7.exe::0040F037) --------------------------------------------------------
-int class33_DecodePCX(struct class33 *_this, unsigned char *pPCXData, unsigned short *pOutBuffer, unsigned int uWidth)
-{
-  void *v4; // esi@1
-  signed int result; // eax@2
-  int v6; // eax@3
-  int v7; // edx@3
-  signed int v8; // ecx@3
-  int v9; // ecx@3
-  signed int v10; // ecx@8
-  signed int v11; // ebx@37
-  unsigned short *v12; // eax@40
-  int v13; // edi@40
-  int v14; // ebx@41
-  unsigned __int8 v15; // bl@42
-  unsigned short *v17; // eax@50
-  int v18; // ebx@51
-  unsigned __int8 v19; // bl@52
-  unsigned short *v21; // eax@61
-  unsigned __int8 v22; // dl@62
-  unsigned __int8 v23; // dl@63
-  unsigned __int8 v24; // cl@63
-
-  char local_1[48];
-  char v26; // [sp+8h] [bp-54h]@1
-
-  char local_2[24];
-  char Dst; // [sp+38h] [bp-24h]@1
-  //char v28; // [sp+3Bh] [bp-21h]@1
-  //int v29; // [sp+3Ch] [bp-20h]@3
-  //int v30; // [sp+40h] [bp-1Ch]@3
-  //char v31; // [sp+48h] [bp-14h]@1
-  //char v32; // [sp+49h] [bp-13h]@37
-  //unsigned __int16 v33; // [sp+4Ah] [bp-12h]@40
-
-  int v34; // [sp+50h] [bp-Ch]@43
-  int v35; // [sp+54h] [bp-8h]@38
-  unsigned short *v36; // [sp+58h] [bp-4h]@3
-  int v37; // [sp+68h] [bp+Ch]@41
-  int v38; // [sp+68h] [bp+Ch]@51
-  unsigned __int8 v39; // [sp+6Bh] [bp+Fh]@63
-
-  v4 = _this;
- memcpy(local_2, pPCXData, 0x10u);
- memcpy(local_1, (char *)pPCXData + 16, 0x30u);
- memcpy(local_2 + 16, (char *)pPCXData + 64, 6u);
-
- if (local_2[3] != 8 )
-   return 3;
-
- v6 = *(int *)(local_2 + 8) - *(int *)(local_2 + 4) + 1;
- v9 = *(int *)(local_2 + 10) - *(int *)(local_2 + 6) + 1;
-
- _this->uWidth = v6 & 0xFFFF;
- _this->uHeight = v9 & 0xFFFF;
-
- v9 = (signed __int16)v9;
- v36 = v9;
-
- _this->uNumPixels = (signed __int16)v9 * (signed __int16)v6;
-
- HIWORD(v7) = 0;
- v8 = 1;
- while (1 << v8 != (signed __int16)v6)
- {
-  ++v8;
-  if (v8 >= 15)
-    goto LABEL_8;
- }
- _this->word_000018 = v8;
-
-LABEL_8:
- v10 = 1;
- while ( 1 << v10 != v36 )
- {
-  ++v10;
-  if ( v10 >= 15 )
-    goto LABEL_13;
- }
- _this->word_00001A = v10;
-
-LABEL_13:
- switch (_this->word_000018)
- {
-  case 2:  _this->word_00001C = 3;    break;
-  case 3:  _this->word_00001C = 7;    break;
-  case 4:  _this->word_00001C = 15;   break;
-  case 5:  _this->word_00001C = 31;   break;
-  case 6:  _this->word_00001C = 63;   break;
-  case 7:  _this->word_00001C = 127;  break;
-  case 8:  _this->word_00001C = 255;  break;
-  case 9:  _this->word_00001C = 511;  break;
-  case 10: _this->word_00001C = 1023; break;
-  case 11: _this->word_00001C = 2047; break;
-  case 12: _this->word_00001C = 4095; break;
- }
-
- switch (_this->word_00001A)
- {
-  case 2:  _this->word_00001E = 3;    break;
-  case 3:  _this->word_00001E = 7;    break;
-  case 4:  _this->word_00001E = 15;   break;
-  case 5:  _this->word_00001E = 31;   break;
-  case 6:  _this->word_00001E = 63;   break;
-  case 7:  _this->word_00001E = 127;  break;
-  case 8:  _this->word_00001E = 255;  break;
-  case 9:  _this->word_00001E = 511;  break;
-  case 10: _this->word_00001E = 1023; break;
-  case 11: _this->word_00001E = 2047; break;
-  case 12: _this->word_00001E = 4095; break;
- }
-
- v11 = 128;
- if (local_2[17] == 3)
- {
-  v35 = 0;
-  if ( v36 > 0 )
-  {
-   v36 = pOutBuffer;
-   do
-   {
-    v12 = v36;
-    v13 = 0;
-    if (*(short *)(local_2 + 18))
-    {
-     do
-     {
-      LOBYTE(v7) = *(pPCXData + v11);
-      v14 = v11 + 1;
-      v37 = v14;
-      if ((v7 & 0xC0) == -64)
-      {
-       ++v37;
-       v15 = *(pPCXData + v14);
-       if ((v7 & 0x3F) > 0)
-       {
-        v34 = v7 & 0x3F;
-        do
-        {
-         ++v13;
-         *v12++ = pD3DRenderer->dword_0400D8 & (v15 << (pD3DRenderer->dword_0400D0 + (_BYTE)pD3DRenderer->dword_0400CC + (_BYTE)pD3DRenderer->dword_0400D4 - 8));
-         if (v13 == *(short *)(local_2 + 18))
-           v12 += (uWidth - *(short *)(local_2 + 18)) - 1;
-        }
-        while (v34-- != 1);
-       }
-      }
-      else
-      {
-       v7 &= 0xFFFF00FF;
-       v7 = pD3DRenderer->dword_0400D8 & (v7 << (pD3DRenderer->dword_0400D0 + (_BYTE)pD3DRenderer->dword_0400CC + (_BYTE)pD3DRenderer->dword_0400D4 - 8));
-       ++v13;
-       *v12++ = v7;
-      }
-      v11 = v37;
-     }
-     while (v13 < *(short *)(local_2 + 18));
-    }
-
-    v17 = v36;
-    while (v13 < 2 * *(short *)(local_2 + 18))
-    {
-     LOBYTE(v7) = *(pPCXData + v11);
-     v18 = v11 + 1;
-     v38 = v18;
-     if ((v7 & 0xC0) == -64)
-     {
-      ++v38;
-      v19 = *(pPCXData + v18);
-      if ((v7 & 0x3F) > 0)
-      {
-       v34 = v7 & 0x3F;
-       do
-       {
-        *v17++ |= (_WORD)pD3DRenderer->dword_0400DC & (unsigned __int16)(v19 << (pD3DRenderer->dword_0400D0
-                                                                                  + (_BYTE)pD3DRenderer->dword_0400D4
-                                                                                  - 8));
-        ++v13;
-        if (v13 == *(short *)(local_2 + 18))
-          v17 += (uWidth - *(short *)(local_2 + 18)) - 1;
-       }
-       while (v34-- != 1);
-      }
-     }
-     else
-     {
-      v7 &= 0xFFFF00FF;
-      v7 = pD3DRenderer->dword_0400DC & (v7 << (pD3DRenderer->dword_0400D0 + (_BYTE)pD3DRenderer->dword_0400D4 - 8));
-      *v17++ |= v7;
-      ++v13;
-     }
-     v11 = v38;
-    }
-
-    v21 = v36;
-    while (v13 < 3 * *(short *)(local_2 + 18))
-    {
-     v22 = *(pPCXData + v11++);
-     if ((v22 & 0xC0) == -64)
-     {
-      v23 = v22 & 0x3F;
-      v24 = *(pPCXData + v11++);
-      v39 = v24;
-      if ((signed int)v23 > 0)
-      {
-       v34 = v23;
-       do
-       {
-        *v21++ |= v39 >> (8 - pD3DRenderer->dword_0400D4);
-        ++v13;
-        if (v13 == *(short *)(local_2 + 18))
-        {
-         v7 = uWidth - *(short *)(local_2 + 18);
-         v21 += (uWidth - *(short *)(local_2 + 18)) - 1;
-        }
-       }
-       while (v34-- != 1);
-      }
-     }
-     else
-     {
-      *v21++ |= v22 >> (8 - pD3DRenderer->dword_0400D4);
-      ++v13;
-     }
-    }
-    ++v35;
-    v36 += uWidth;
-   }
-   while (v35 < _this->uHeight);
-  }
- }
- result = 0;
-
- return result;
-}
-
-//----- (0040D73D) --------------------------------------------------------
-int class33_ctor(struct class33 *_this)
-{
- _this->dword_000000 = 0;
-
- _this->uNumPixels = 0;
- _this->word_000020 = 0;
- _this->word_000022 = 0;
- _this->pPixels = 0;
-
- _this->dword_000020 = 0;
- _this->dword_000024 = 0;
- return _this;
 }
 
 
@@ -8507,7 +8230,7 @@ void CNPCStats_Initialize(struct CNPCStats *_this)
   signed int v14; // [sp+Ch] [bp-14h]@18
   int v15; // [sp+10h] [bp-10h]@4
   int v16; // [sp+10h] [bp-10h]@24
-  int v17; // [sp+14h] [bp-Ch]@1
+  unsigned char **v17; // [sp+14h] [bp-Ch]@1
   signed int v18; // [sp+14h] [bp-Ch]@19
   signed int v19; // [sp+18h] [bp-8h]@1
   int v20; // [sp+18h] [bp-8h]@18
@@ -8524,13 +8247,13 @@ void CNPCStats_Initialize(struct CNPCStats *_this)
   InitializeMerchants();
   InitializeScrolls();
 
-  *(_DWORD *)(v2 + 98240) = 0;
+  _this->dword_017FC0 = 0;
 
  _this->pNPCNamesTXT_Raw = class17_fn1(pClass17_Events_LOD, "npcnames.txt", 0);
  strtok(_this->pNPCNamesTXT_Raw, "\r");
 
   v19 = 0;
-  v17 = v2 + 76152;
+  v17 = _this->pNPCNames;
   while ( 1 )
   {
     v4 = strtok(0, "\r") + 1;
@@ -8559,11 +8282,11 @@ void CNPCStats_Initialize(struct CNPCStats *_this)
         if ( v21 )
         {
           if ( v21 == 1 )
-            *(_DWORD *)(v17 + 4) = sub_452C30(v4);
+            v17[1] = sub_452C30(v4);
         }
         else
         {
-          *(_DWORD *)v17 = sub_452C30(v4);
+          v17[0] = sub_452C30(v4);
         }
       }
       else
@@ -8571,8 +8294,8 @@ void CNPCStats_Initialize(struct CNPCStats *_this)
 LABEL_45:
         if ( v21 == 1 )
         {
-          if ( !*(_DWORD *)(v2 + 98260) )
-            *(_DWORD *)(v2 + 98260) = v19;
+          if (!_this->uNumNPCNames[1])
+            _this->uNumNPCNames[1] = v19;
         }
       }
       ++v21;
@@ -8580,11 +8303,11 @@ LABEL_45:
     }
     while ( v21 <= 1 );
     ++v19;
-    v17 += 8;
+    v17 += 2;
     if ( v19 >= 540 )
       break;
   }
-  *(_DWORD *)(v2 + 98256) = v19;
+  _this->uNumNPCNames[0] = v19;
 
   _this->pNPCProfTXT_Raw = class17_fn1(pClass17_Events_LOD, "npcprof.txt", 0);
   strtok(_this->pNPCProfTXT_Raw, "\r");
@@ -9155,4 +8878,21 @@ int class35_sub_48A8A3(struct class35 *_this)
  }
  while ( v1 < 50 );
  return *(_DWORD *)((char *)_this + 0x267AC8);
+}
+
+
+
+//----- (00402F07) --------------------------------------------------------
+void sub_402F07(int *_this)
+{
+ _this[0] = 0;
+ _this[1] = 0;
+ _this[2] = 0;
+ _this[3] = 0;
+ _this[4] = 0;
+ _this[5] = 0;
+ ((char *)(_this))[24] = 0;
+ ((char *)(_this))[26] = 0;
+ _this[7] = 0;
+ _this[8] = 0;
 }

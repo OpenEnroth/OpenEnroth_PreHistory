@@ -292,7 +292,7 @@ void CD3DRenderer_DrawIndexedTexture(struct CD3DRenderer *_this, unsigned int uX
 
 
  pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
- for (y = 0; y < pTexture->uTextureHeight - (_this->dword_0400FC - _this->dword_0400F4); ++y)
+ for (y = 0; y < min(pTexture->uTextureHeight, (_this->dword_0400FC - _this->dword_0400F4)); ++y)
    for (x = 0; x < pTexture->uTextureWidth; ++x)
    {
     uSrcColor = pTexture->pTruecolorPixels[y * pTexture->uTextureWidth + x];
@@ -637,7 +637,7 @@ void *CD3DRenderer_UnlockBackBuffer(struct CD3DRenderer *_this)
 }
 
 //----- (004A5BE3) --------------------------------------------------------
-void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class33 *pTexture)
+void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct RGBTexture *pTexture)
 {
  unsigned int *pSurfacePtr;
  unsigned int uColor;
@@ -1725,4 +1725,388 @@ LABEL_13:
     }
   }
   return BYTE3(a1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+unsigned int RGBTexture_LoadFromCBM(struct RGBTexture *_this, const wchar_t *pFilename)
+{
+ wchar_t      pFilepath[256];
+ unsigned int uCBMWdith,
+              uCBMHeight;
+
+ wsprintfW(pFilepath, L".\\Data\\Icons\\%s.cbm", pFilename);
+ LoadCBM(pFilepath, &uCBMWdith, &uCBMHeight, &_this->pPixels);
+
+ _this->uWidth = uCBMWdith;
+ _this->uHeight = uCBMHeight;
+ _this->uNumPixels = uCBMWdith * uCBMHeight;
+
+ return true;
+}
+
+//----- (MM7.exe::0040F414) --------------------------------------------------------
+int RGBTexture_Load(struct RGBTexture *_this, const char *pContainerName, int a3)
+{
+  void *v6; // ebx@5
+  int v8; // eax@9
+  int v9; // ecx@9
+  void *v11; // eax@13
+
+  void *pPCXData;
+
+  //v16
+  char local_1[48]; // [sp+Ch] [bp-98h]@7
+
+  struct class18 class18_obj;
+  //char DstBuf[48]; // [sp+3Ch] [bp-68h]@1
+  //size_t v18; // [sp+50h] [bp-54h]@4
+  //size_t Size; // [sp+64h] [bp-40h]@4
+
+  char local_2[24];  //v21 == local_2 + 3
+  //char Dst; // [sp+84h] [bp-20h]@7
+  //char v21; // [sp+87h] [bp-1Dh]@7
+  //int v22; // [sp+88h] [bp-1Ch]@9
+  //int v23; // [sp+8Ch] [bp-18h]@9
+  //char v24; // [sp+94h] [bp-10h]@7
+  FILE *f; // [sp+9Ch] [bp-8h]@1
+  //size_t Count; // [sp+A0h] [bp-4h]@4
+  //unsigned int v27; // [sp+ACh] [bp+8h]@5
+ wchar_t      pFilepath[256];
+ unsigned int uTextureID;
+/*
+ class18_ctor(&class18_obj);
+ f = class17_FindContainer(pClass17_Icons_LOD, pContainerName, 0);
+ if (!f)
+ {
+  sprintfex(ExistingFileName, "Unable to load %s", pContainerName);
+  erroneous_printf(ExistingFileName);
+ }
+
+ locked_fread(&class18_obj, 1, 0x30, f);
+ if (class18_obj.uDecompressedSize)
+ {
+  pPCXData = malloc(class18_obj.uDecompressedSize);
+  v6 = class23_AllocatedNamedBuffer(class23_instance, 0, class18_obj.uCompressedSize, class18_obj.sContainerName);
+  locked_fread(v6, 1, class18_obj.uCompressedSize, f);
+  maybe_decompress_file(pPCXData, &class18_obj.uDecompressedSize, v6, class18_obj.uCompressedSize);
+  class18_obj.uCompressedSize = class18_obj.uDecompressedSize;
+  class23_fn1(class23_instance, v6);
+ }
+ else
+ {
+  pPCXData = malloc(class18_obj.uCompressedSize);
+  locked_fread(pPCXData, 1, class18_obj.uCompressedSize, f);
+ }
+
+  memcpy(local_2, pPCXData, 0x10u);
+  memcpy(local_1, (char *)pPCXData + 16, 0x30u);
+  memcpy(local_2 + 16, (char *)pPCXData + 64, 6u);
+
+  if ( local_2[3] != 8 )
+    return 3;
+
+  v8 = *(int *)(local_2 + 8) - *(int *)(local_2 + 4) + 1;
+  v9 = *(int *)(local_2 + 10) - *(int *)(local_2 + 6) + 1;
+
+  _this->uWidth = v8 & 0xFFFF;
+  _this->uHeight = v9 & 0xFFFF;
+
+  _this->uNumPixels = (signed __int16)v8 * (signed __int16)v9;
+
+  if (_this->pPixels)
+  {
+   if (a3)
+     goto LABEL_14;
+   class23_fn1(class23_instance, _this->pPixels);
+  }
+  if (!a3)
+  {
+   _this->pPixels = class23_AllocatedNamedBuffer(class23_instance, _this->pPixels, 2 * _this->uNumPixels + 4, "16bit PCX");
+   goto LABEL_17;
+  }
+
+LABEL_14:
+  if ( a3 != 2 )
+    goto LABEL_17;
+  _this->pPixels = malloc(2 * _this->uNumPixels + 4);
+  _this->dword_000020 |= 1;
+
+LABEL_17:
+ if (!_this->pPixels)
+   return 2;
+
+ class33_DecodePCX(_this, pPCXData, _this->pPixels, _this->uWidth);
+ call_delete(0, pPCXData);
+*/
+ wsprintfW(pFilepath, L"%S.cbm", pContainerName);
+ uTextureID = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilepath);
+
+ _this->pPixels = pClass17_Icons_LOD->aLODHeaders[uTextureID].pTruecolorPixels;
+ _this->uWidth = pClass17_Icons_LOD->aLODHeaders[uTextureID].uTextureWidth;
+ _this->uHeight = pClass17_Icons_LOD->aLODHeaders[uTextureID].uTextureHeight;
+ _this->uNumPixels = _this->uWidth * _this->uHeight;
+
+ return 0;
+}
+
+//----- (MM7.exe::0040F037) --------------------------------------------------------
+int RGBTexture_DecodePCX(struct RGBTexture *_this, unsigned char *pPCXData, unsigned short *pOutBuffer, unsigned int uWidth)
+{
+  void *v4; // esi@1
+  signed int result; // eax@2
+  int v6; // eax@3
+  int v7; // edx@3
+  signed int v8; // ecx@3
+  int v9; // ecx@3
+  signed int v10; // ecx@8
+  signed int v11; // ebx@37
+  unsigned short *v12; // eax@40
+  int v13; // edi@40
+  int v14; // ebx@41
+  unsigned __int8 v15; // bl@42
+  unsigned short *v17; // eax@50
+  int v18; // ebx@51
+  unsigned __int8 v19; // bl@52
+  unsigned short *v21; // eax@61
+  unsigned __int8 v22; // dl@62
+  unsigned __int8 v23; // dl@63
+  unsigned __int8 v24; // cl@63
+
+  char local_1[48];
+  char v26; // [sp+8h] [bp-54h]@1
+
+  char local_2[24];
+  char Dst; // [sp+38h] [bp-24h]@1
+  //char v28; // [sp+3Bh] [bp-21h]@1
+  //int v29; // [sp+3Ch] [bp-20h]@3
+  //int v30; // [sp+40h] [bp-1Ch]@3
+  //char v31; // [sp+48h] [bp-14h]@1
+  //char v32; // [sp+49h] [bp-13h]@37
+  //unsigned __int16 v33; // [sp+4Ah] [bp-12h]@40
+
+  int v34; // [sp+50h] [bp-Ch]@43
+  int v35; // [sp+54h] [bp-8h]@38
+  unsigned short *v36; // [sp+58h] [bp-4h]@3
+  int v37; // [sp+68h] [bp+Ch]@41
+  int v38; // [sp+68h] [bp+Ch]@51
+  unsigned __int8 v39; // [sp+6Bh] [bp+Fh]@63
+
+  v4 = _this;
+ memcpy(local_2, pPCXData, 0x10u);
+ memcpy(local_1, (char *)pPCXData + 16, 0x30u);
+ memcpy(local_2 + 16, (char *)pPCXData + 64, 6u);
+
+ if (local_2[3] != 8 )
+   return 3;
+
+ v6 = *(int *)(local_2 + 8) - *(int *)(local_2 + 4) + 1;
+ v9 = *(int *)(local_2 + 10) - *(int *)(local_2 + 6) + 1;
+
+ _this->uWidth = v6 & 0xFFFF;
+ _this->uHeight = v9 & 0xFFFF;
+
+ v9 = (signed __int16)v9;
+ v36 = v9;
+
+ _this->uNumPixels = (signed __int16)v9 * (signed __int16)v6;
+
+ HIWORD(v7) = 0;
+ v8 = 1;
+ while (1 << v8 != (signed __int16)v6)
+ {
+  ++v8;
+  if (v8 >= 15)
+    goto LABEL_8;
+ }
+ _this->word_000018 = v8;
+
+LABEL_8:
+ v10 = 1;
+ while ( 1 << v10 != v36 )
+ {
+  ++v10;
+  if ( v10 >= 15 )
+    goto LABEL_13;
+ }
+ _this->word_00001A = v10;
+
+LABEL_13:
+ switch (_this->word_000018)
+ {
+  case 2:  _this->word_00001C = 3;    break;
+  case 3:  _this->word_00001C = 7;    break;
+  case 4:  _this->word_00001C = 15;   break;
+  case 5:  _this->word_00001C = 31;   break;
+  case 6:  _this->word_00001C = 63;   break;
+  case 7:  _this->word_00001C = 127;  break;
+  case 8:  _this->word_00001C = 255;  break;
+  case 9:  _this->word_00001C = 511;  break;
+  case 10: _this->word_00001C = 1023; break;
+  case 11: _this->word_00001C = 2047; break;
+  case 12: _this->word_00001C = 4095; break;
+ }
+
+ switch (_this->word_00001A)
+ {
+  case 2:  _this->word_00001E = 3;    break;
+  case 3:  _this->word_00001E = 7;    break;
+  case 4:  _this->word_00001E = 15;   break;
+  case 5:  _this->word_00001E = 31;   break;
+  case 6:  _this->word_00001E = 63;   break;
+  case 7:  _this->word_00001E = 127;  break;
+  case 8:  _this->word_00001E = 255;  break;
+  case 9:  _this->word_00001E = 511;  break;
+  case 10: _this->word_00001E = 1023; break;
+  case 11: _this->word_00001E = 2047; break;
+  case 12: _this->word_00001E = 4095; break;
+ }
+
+ v11 = 128;
+ if (local_2[17] == 3)
+ {
+  v35 = 0;
+  if ( v36 > 0 )
+  {
+   v36 = pOutBuffer;
+   do
+   {
+    v12 = v36;
+    v13 = 0;
+    if (*(short *)(local_2 + 18))
+    {
+     do
+     {
+      LOBYTE(v7) = *(pPCXData + v11);
+      v14 = v11 + 1;
+      v37 = v14;
+      if ((v7 & 0xC0) == -64)
+      {
+       ++v37;
+       v15 = *(pPCXData + v14);
+       if ((v7 & 0x3F) > 0)
+       {
+        v34 = v7 & 0x3F;
+        do
+        {
+         ++v13;
+         *v12++ = pD3DRenderer->dword_0400D8 & (v15 << (pD3DRenderer->dword_0400D0 + (_BYTE)pD3DRenderer->dword_0400CC + (_BYTE)pD3DRenderer->dword_0400D4 - 8));
+         if (v13 == *(short *)(local_2 + 18))
+           v12 += (uWidth - *(short *)(local_2 + 18)) - 1;
+        }
+        while (v34-- != 1);
+       }
+      }
+      else
+      {
+       v7 &= 0xFFFF00FF;
+       v7 = pD3DRenderer->dword_0400D8 & (v7 << (pD3DRenderer->dword_0400D0 + (_BYTE)pD3DRenderer->dword_0400CC + (_BYTE)pD3DRenderer->dword_0400D4 - 8));
+       ++v13;
+       *v12++ = v7;
+      }
+      v11 = v37;
+     }
+     while (v13 < *(short *)(local_2 + 18));
+    }
+
+    v17 = v36;
+    while (v13 < 2 * *(short *)(local_2 + 18))
+    {
+     LOBYTE(v7) = *(pPCXData + v11);
+     v18 = v11 + 1;
+     v38 = v18;
+     if ((v7 & 0xC0) == -64)
+     {
+      ++v38;
+      v19 = *(pPCXData + v18);
+      if ((v7 & 0x3F) > 0)
+      {
+       v34 = v7 & 0x3F;
+       do
+       {
+        *v17++ |= (_WORD)pD3DRenderer->dword_0400DC & (unsigned __int16)(v19 << (pD3DRenderer->dword_0400D0
+                                                                                  + (_BYTE)pD3DRenderer->dword_0400D4
+                                                                                  - 8));
+        ++v13;
+        if (v13 == *(short *)(local_2 + 18))
+          v17 += (uWidth - *(short *)(local_2 + 18)) - 1;
+       }
+       while (v34-- != 1);
+      }
+     }
+     else
+     {
+      v7 &= 0xFFFF00FF;
+      v7 = pD3DRenderer->dword_0400DC & (v7 << (pD3DRenderer->dword_0400D0 + (_BYTE)pD3DRenderer->dword_0400D4 - 8));
+      *v17++ |= v7;
+      ++v13;
+     }
+     v11 = v38;
+    }
+
+    v21 = v36;
+    while (v13 < 3 * *(short *)(local_2 + 18))
+    {
+     v22 = *(pPCXData + v11++);
+     if ((v22 & 0xC0) == -64)
+     {
+      v23 = v22 & 0x3F;
+      v24 = *(pPCXData + v11++);
+      v39 = v24;
+      if ((signed int)v23 > 0)
+      {
+       v34 = v23;
+       do
+       {
+        *v21++ |= v39 >> (8 - pD3DRenderer->dword_0400D4);
+        ++v13;
+        if (v13 == *(short *)(local_2 + 18))
+        {
+         v7 = uWidth - *(short *)(local_2 + 18);
+         v21 += (uWidth - *(short *)(local_2 + 18)) - 1;
+        }
+       }
+       while (v34-- != 1);
+      }
+     }
+     else
+     {
+      *v21++ |= v22 >> (8 - pD3DRenderer->dword_0400D4);
+      ++v13;
+     }
+    }
+    ++v35;
+    v36 += uWidth;
+   }
+   while (v35 < _this->uHeight);
+  }
+ }
+ result = 0;
+
+ return result;
+}
+
+//----- (0040D73D) --------------------------------------------------------
+int RGBTexture_ctor(struct RGBTexture *_this)
+{
+ _this->dword_000000 = 0;
+
+ _this->uNumPixels = 0;
+ _this->word_000020 = 0;
+ _this->word_000022 = 0;
+ _this->pPixels = 0;
+
+ _this->dword_000020 = 0;
+ _this->dword_000024 = 0;
+ return _this;
 }

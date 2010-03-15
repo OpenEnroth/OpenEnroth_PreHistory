@@ -32,7 +32,7 @@ extern int dword_720018;
 
 extern char class23_instance[];
 extern char class28_global[];
-extern char class00_global[];
+extern char pGame[];
 
 extern int dword_E31C70;
 
@@ -781,9 +781,9 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
   v22 = 1;
   if ( LODWORD(dword_720010) )
     sub_46B14F(SLODWORD(dword_720010));
-  if ( LODWORD(class00_global) )
+  if ( LODWORD(pGame) )
   {
-    v11 = *(_DWORD *)(LODWORD(class00_global) + 3692);
+    v11 = *(_DWORD *)(LODWORD(pGame) + 3692);
     if ( v11 )
     {
       if ( *(_BYTE *)(v11 + 4) )
@@ -813,9 +813,9 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
   if ( !v14 )
     v14 = byte_4D8410 + 736;
   MessageBoxA(hWnd_global, v14, v12, uType);
-  if ( LODWORD(class00_global) )
+  if ( LODWORD(pGame) )
   {
-    v15 = *(_DWORD *)(LODWORD(class00_global) + 3692);
+    v15 = *(_DWORD *)(LODWORD(pGame) + 3692);
     if ( v15 )
     {
       if ( *(_BYTE *)(v15 + 4) )
