@@ -77,7 +77,33 @@ void CIconFrameTable_InitializeIcon(struct CIconFrameTable *_this, unsigned int 
  while (_this->pIcons[i++].word_00001C & 1);
 }
 
+//----- (00494F70) --------------------------------------------------------
+struct IconFrame *CIconFrameTable_sub_494F70(struct CIconFrameTable *_this, int a2, signed int a3)
+{
+  signed __int16 v5; // dx@2
+  int v6; // eax@3
+  int v7; // edx@3
+  int i; // ecx@3
+  int v9; // esi@5
 
+  //if ( *(_BYTE *)(v3 + 28) & 1 && (v5 = *(_WORD *)(v3 + 26)) != 0 )
+  if ( _this->pIcons[a2].word_00001C & 0x0001 && (v5 = _this->pIcons[a2].word_00001A) != 0 )
+  {
+    v7 = (a3 >> 3) % (unsigned __int16)v5;
+    v6 = a2;
+    for ( i = a2; ; ++i)
+    {
+      v9 = _this->pIcons[i].word_000018;
+      if ( v7 <= v9 )
+        break;
+      v7 -= v9;
+      ++v6;
+    }
+    return &_this->pIcons[v6];
+  }
+  else
+    return &_this->pIcons[a2];
+}
 
 
 

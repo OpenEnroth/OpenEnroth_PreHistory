@@ -10,6 +10,20 @@
 
 
 
+
+//----- (0041CD3B) --------------------------------------------------------
+struct GUIButton *GUIWindow_GetChild(struct GUIWindow *_this, int uID)
+{
+ struct GUIButton *v1;
+ int               i;
+
+ v1 = _this->pControlsHead;
+ for (i = 0; i < uID; ++i)
+   v1 = v1->pNext;
+
+ return v1;
+}
+
 //----- (00466C40) --------------------------------------------------------
 extern int uCurrentMenuID;
 extern int dword_69B00C;
@@ -45,7 +59,7 @@ void SetCurrentMenu(unsigned int uMenuID)
 struct GUIButton *__fastcall GUIButtonCreate(struct GUIWindow *pParentWindow,
                                              unsigned int uX, unsigned int uY,
                                              unsigned int uWidth, unsigned int uHeight,
-                                             int a6, int a7, int a8, int a9, char a10, const char *pName, unsigned int uTextureID)
+                                             int a6, int a7, unsigned int uControlID, int a9, char a10, const char *pName, unsigned int uTextureID)
 {
   int *v19; // edx@5
   struct class18 **v20; // ecx@5
@@ -64,7 +78,7 @@ struct GUIButton *__fastcall GUIButtonCreate(struct GUIWindow *pParentWindow,
  pButton->uW = uY + pParentWindow->uFrameY + uHeight - 1;
  pButton->dword_000018 = a6;
  pButton->dword_00001C = a7;
- pButton->dword_000020 = a8;
+ pButton->dword_000020 = uControlID;
  pButton->dword_000024 = a9;
  pButton->dword_00002C = 0;
  pButton->pParentWindow = pParentWindow;

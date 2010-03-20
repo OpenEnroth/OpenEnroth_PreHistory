@@ -970,7 +970,7 @@ int class17_LoadLOD_Sprites(struct class17 *_this, const char *pFilename)
 }
 
 //----- (MM7.exe::0041088B) --------------------------------------------------------
-void *class17_fn1(void *_this, const char *pContainer, int a3)
+void *class17_fn1(struct class17 *_this, const char *pContainer, int a3)
 {
   unsigned char *result; // ebx@7
   unsigned char *v8; // edi@7
@@ -979,6 +979,11 @@ void *class17_fn1(void *_this, const char *pContainer, int a3)
   //class18::size2 size_t Size; // [sp+34h] [bp-24h]@3
   FILE *pContainerFile; // [sp+54h] [bp-4h]@1
 
+  wchar_t  pLodFile[256];
+  void    *hFile;
+  DWORD    w;
+  int      ofs;
+
 
   class18_ctor(&class18_obj);
 
@@ -986,7 +991,15 @@ void *class17_fn1(void *_this, const char *pContainer, int a3)
   if (!pContainerFile)
     erroneous_printf("Unable to load %s", pContainer);
 
-  locked_fread(&class18_obj, 1, 0x30u, pContainerFile);
+
+    wsprintfW(pLodFile, L".\\%S", _this->sLODName);
+    hFile = CreateFileW(pLodFile, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, 0, OPEN_EXISTING, 0, 0);
+    ofs = ftell(pContainerFile);
+    SetFilePointer(hFile, ofs, 0, FILE_BEGIN);
+
+
+  //locked_fread(&class18_obj, 1, 0x30u, pContainerFile);
+  ReadFile(hFile, &class18_obj, 0x30, &w, 0);
   if (class18_obj.uDecompressedSize)
   {
     if (a3)
@@ -995,7 +1008,11 @@ void *class17_fn1(void *_this, const char *pContainer, int a3)
       result = class23_AllocatedNamedBuffer(class23_instance, 0, class18_obj.uDecompressedSize, class18_obj.sContainerName);
 
     v8 = class23_AllocatedNamedBuffer(class23_instance, 0, class18_obj.uCompressedSize, class18_obj.sContainerName);
-    locked_fread(v8, 1, class18_obj.uCompressedSize, pContainerFile);
+
+    ReadFile(hFile, v8, class18_obj.uCompressedSize, &w, 0);
+    //fread(v8, 1, class18_obj.uCompressedSize, pContainerFile);
+
+
     maybe_decompress_file(result, &class18_obj.uDecompressedSize, v8, class18_obj.uCompressedSize);
     class18_obj.uCompressedSize = class18_obj.uDecompressedSize;
     class23_fn1(class23_instance, v8);
@@ -1008,6 +1025,11 @@ void *class17_fn1(void *_this, const char *pContainer, int a3)
       result = class23_AllocatedNamedBuffer(class23_instance, 0, class18_obj.uCompressedSize, &class18_obj);
     locked_fread(result, 1u, class18_obj.uCompressedSize, pContainerFile);
   }
+
+    CloseHandle(hFile);
+    fseek(pContainerFile, ofs + class18_obj.uCompressedSize, SEEK_SET);
+
+
   return result;
 }
 
@@ -1385,6 +1407,7 @@ unsigned int class17_LoadTextureFromCBM(struct class17 *_this, const wchar_t *pF
  }
 
  WideCharToMultiByte(CP_ACP, 0, pFilename, -1, _this->aLODHeaders[_this->uNumLoadedFiles].sContainerName, lstrlenW(pFilename) - 4, 0, 0);
+ _this->aLODHeaders[_this->uNumLoadedFiles].sContainerName[lstrlenW(pFilename) - 4] = 0;
  _this->aLODHeaders[_this->uNumLoadedFiles].uTextureWidth = uCBMWdith;
  _this->aLODHeaders[_this->uNumLoadedFiles].uTextureHeight = uCBMHeight;
 

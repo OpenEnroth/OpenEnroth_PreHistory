@@ -1136,20 +1136,21 @@ struct Player
    char byte_0000B9;
    char byte_0000BA;
 
-   short word_0000BC;
+   unsigned short uStrength;     // word @ 0000BC
    short word_0000BE;
-   short word_0000C0;
+   unsigned short uIntelligence; // word @ 0000C0
    short word_0000C2;
-   short word_0000C4;
+   unsigned short uWillpower;    // word @ 0000C4
    short word_0000C6;
-   short word_0000C8;
+   unsigned short uEndurance;    // word @ 0000C8
    short word_0000CA;
-   short word_0000CC;
+   unsigned short uAccuracy;     // word @ 0000CC
    short word_0000CE;
-   short word_0000D0;
+   unsigned short uSpeed;        // word @ 0000D0
    short word_0000D2;
-   short word_0000D4;
+   unsigned short uLuck;         // word @ 0000D4
    short word_0000D6;
+
    short word_0000DA;
 
    short word_0000DE;
@@ -1179,6 +1180,7 @@ struct Player
    char array_0017A0[24][16];
    int  dword_001920;
    int  dword_001924;
+   int  dword_001928;
 
    short word_001934;
 
@@ -1208,6 +1210,8 @@ struct Party
  int dword_000030;
  int dword_000034;
  int dword_000038;
+
+ unsigned char array_000A74[16 /*+ array_size_unknown*/];
 
  unsigned char byte_000708;
  unsigned char byte_000709;

@@ -16,7 +16,7 @@ struct GUIWindow
  unsigned int uNumControls; // dword @ 000020
  int dword_000024;
  int dword_000028;
- int dword_00002C;
+ int dword_00002C; //looks like focus control id
  int dword_000030;
  int dword_000034;
  int dword_000038;
@@ -86,6 +86,24 @@ struct GUIButton
 
 
 
+struct Font
+{
+ unsigned char uFirstChar; // byte @ 000000
+ unsigned char uLastChar;  // byte @ 000001
+ char          byte_000002[2];
+ unsigned char byte_000004;
+ unsigned char uFontHeight; // byte @ 000005
+ char          byte_000006[2];
+ int           dword_000008;
+ int           dword_00000C;
+ int           dword_000010[4];
+ int           dword_000020[256][3];
+ int           array_000C20[256];
+ char          unk_001020;
+};
+
+
+
 struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
                                              unsigned int uFrameWidth, unsigned int uFrameHeight,
                                              signed int a5, int a6, int a7);
@@ -97,5 +115,10 @@ struct GUIButton *__fastcall GUIButtonCreate(struct GUIWindow *pParentWindow,
 
 void GUIWindowDelete(struct GUIWindow *);
 
+//int __thiscall sub_41CD3B(int this, int a2);
+struct GUIButton *GUIWindow_GetChild(struct GUIWindow *_this, int uID);
+
+unsigned char *__fastcall FitTextInAWindow(const char *pString, struct Font *pFont, struct GUIWindow *pParent, unsigned char uX, int a5);
+char __fastcall FontDrawText(int a1, int a2, signed int a3, int a4, __int16 a5, const char *Str1, int a7, signed int a8, char *a9);
 
 #pragma pack(pop)

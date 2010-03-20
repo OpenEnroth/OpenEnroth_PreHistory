@@ -91,9 +91,9 @@ extern "C" unsigned int LoadCBM(const wchar_t *pFile, unsigned int *pWidth, unsi
 
 
  ReadFile(hFile, pCompressedChannel, cbmHeader.cbmGreenSize, &w, 0);
- if (cbmHeader.cbmCompression & 0x00080000)
+ if (cbmHeader.cbmCompression & 0x00000800)
    pChannel = rle8_decompress(pCompressedChannel, cbmHeader.cbmGreenSize, cbmHeader.cbmWidth * cbmHeader.cbmHeight);
- else if (cbmHeader.cbmCompression & 0x00100000)
+ else if (cbmHeader.cbmCompression & 0x00001000)
    pChannel = rle16_decompress(pCompressedChannel, cbmHeader.cbmGreenSize, cbmHeader.cbmWidth * cbmHeader.cbmHeight);
  else
  {
@@ -113,9 +113,9 @@ extern "C" unsigned int LoadCBM(const wchar_t *pFile, unsigned int *pWidth, unsi
 
 
  ReadFile(hFile, pCompressedChannel, cbmHeader.cbmBlueSize, &w, 0);
- if (cbmHeader.cbmCompression & 0x00080000)
+ if (cbmHeader.cbmCompression & 0x00000008)
    pChannel = rle8_decompress(pCompressedChannel, cbmHeader.cbmBlueSize, cbmHeader.cbmWidth * cbmHeader.cbmHeight);
- else if (cbmHeader.cbmCompression & 0x00100000)
+ else if (cbmHeader.cbmCompression & 0x00000010)
    pChannel = rle16_decompress(pCompressedChannel, cbmHeader.cbmBlueSize, cbmHeader.cbmWidth * cbmHeader.cbmHeight);
  else
  {
@@ -475,7 +475,7 @@ extern "C" unsigned long Tga2Cbm(const char *pFile)
 
  size8 = rle8_estimate(pGreen, size);
  size16 = rle16_estimate(pGreen, size);
- if (size8 < size && size8 < size16)
+ if (size8 <= size && size8 <= size16)
  {
   pOutChannel = rle8_compress(pGreen, size, &cbmHeader.cbmGreenSize);
   cbmHeader.cbmCompression |= 0x00000800;

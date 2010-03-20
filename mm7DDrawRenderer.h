@@ -148,7 +148,7 @@ void *CD3DRenderer_UnlockFrontBuffer(struct CD3DRenderer *_this);
 //void __thiscall sub_4A5BE3(int this, int a2, int a3, int a4);
 void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class33 *pClass33);
 //void __thiscall sub_4A6C4F(int this, int a2, int a3, int a4, int a5, int a6, int a7, __int16 a8, __int16 a9);
-void sub_4A6C4F(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5, int a6, int a7, __int16 a8, __int16 a9);
+void sub_4A6C4F(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5, int a6, unsigned short *a7, unsigned int a8, unsigned int a9);
 //void __thiscall sub_4A5BB6(int this);
 void CD3DRenderer_sub_4A5BB6(struct CD3DRenderer *_this);
 //int __thiscall sub_4A5B81(int this, int a2, int a3, int a4, int a5);
@@ -159,7 +159,8 @@ void CD3DRenderer_DrawIndexedTexture(struct CD3DRenderer *_this, unsigned int uX
 void CD3DRenderer_DrawTransparentTexture(struct CD3DRenderer *_this, int a2, int a3, int a4);
 //int __thiscall sub_4A0E97(int this, int a2, int a3, int a4, int a5);
 void CD3DRenderer_sub_4A0E97(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5);
-
+//void __thiscall sub_4A6AB1(int this, int a2, int a3, int a4, int a5, int a6, int a7, int a8);
+void sub_4A6AB1(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, unsigned char *pData, int a5, int a6, int a7, int a8);
 
 
 //class15

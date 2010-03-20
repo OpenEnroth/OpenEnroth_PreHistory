@@ -359,6 +359,169 @@ void CD3DRenderer_DrawIndexedTexture(struct CD3DRenderer *_this, unsigned int uX
  }
 }
 
+//----- (004A6AB1) --------------------------------------------------------
+void sub_4A6AB1(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, unsigned char *pData, int a5, int a6, unsigned short *pFontPixels, int a8)
+{
+  int v8; // eax@2
+  int v9; // edx@2
+  int v10; // edi@2
+  int v11; // esi@2
+  int v12; // ebx@3
+  int v13; // edx@5
+  int v14; // edx@6
+  int v15; // ebx@7
+  int v16; // edx@9
+  int v17; // edi@10
+  int v18; // ebx@13
+  int v19; // edx@15
+  int v20; // esi@16
+  int v21; // ebx@22
+  char v23; // zf@28
+  int v24; // ebx@31
+  __int16 v25; // si@35
+  char v27; // zf@38
+  int v28; // [sp+Ch] [bp-4h]@2
+  int v29; // [sp+18h] [bp+8h]@22
+  int v30; // [sp+18h] [bp+8h]@31
+  int v31; // [sp+1Ch] [bp+Ch]@24
+  int v32; // [sp+1Ch] [bp+Ch]@33
+  int v33; // [sp+20h] [bp+10h]@30
+  int v34; // [sp+24h] [bp+14h]@22
+  int v35; // [sp+24h] [bp+14h]@31
+ unsigned int  *pSurfacePtr;
+ unsigned char *pSrc;
+ int x, y;
+
+  if (!_this->bSceneBegun)
+    return;
+
+ pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
+ pSrc = pData;
+
+
+ for (y = 0; y < a6; ++y)
+   for (x = 0; x < a5; ++x)
+   {
+    if (*pSrc++)
+      pSurfacePtr[(uY + y) * _this->uTargetSurfacePitch + uX + x] = (unsigned int)pFontPixels[pSrc[-1]] * 0xFFFFFFFF;
+
+   }
+
+
+/*
+
+    v10 = a5;
+    v11 = a6;
+
+    v8 = _this->pTargetSurface + 2 * (uX + uY * _this->uTargetSurfacePitch);
+
+    v9 = pData;
+    v28 = pData;
+    if (_this->dword_040104)
+    {
+      v12 = _this->dword_0400F8;
+      if ( uX < v12 )
+      {
+        v28 = v12 - uY + pData;
+        v8 += 2 * (v12 - uX);
+        v10 = a5 + uX - v12;
+      }
+      v13 = _this->dword_0400F4;
+      if ( uY < v13 )
+      {
+        v14 = v13 - uY;
+        v28 += a5 * v14;
+        v11 = a6 + uY - _this->dword_0400F4;
+        v8 += 2 * _this->uTargetSurfacePitch * v14;
+      }
+      v15 = _this->dword_0400F8;
+      if ( v15 < uX )
+        v15 = uX;
+      v16 = _this->dword_040100;
+      if ( v10 + v15 > v16 )
+      {
+        v17 = _this->dword_0400F8;
+        if ( v17 < uX )
+          v17 = uX;
+        v10 = v16 - v17;
+      }
+      v18 = _this->dword_0400F4;
+      if ( v18 < uY )
+        v18 = uY;
+      v19 = _this->dword_0400FC;
+      if ( v11 + v18 > v19 )
+      {
+        v20 = _this->dword_0400F4;
+        if ( v20 < uY )
+          v20 = uY;
+        v11 = v19 - v20;
+      }
+      v9 = v28;
+    }
+
+
+    if ( a8 )
+    {
+      v33 = pD3DRenderer->dword_0400DC | pD3DRenderer->dword_0400E0;
+      if ( v11 > 0 )
+      {
+        v24 = a5;
+        v35 = v11;
+        v30 = v24 - v10;
+        do
+        {
+          if ( v10 > 0 )
+          {
+            v32 = v10;
+            do
+            {
+              if ( *(_BYTE *)v9 )
+                v25 = *(_WORD *)(a7 + 2 * *(_BYTE *)v9);
+              else
+                v25 = v33;
+              *(_WORD *)v8 = v25;
+              v8 += 2;
+              ++v9;
+            }
+            while ( v32-- != 1 );
+          }
+          v9 += v30;
+          v27 = v35-- == 1;
+          v8 += 2 * (*(_DWORD *)(_this + 262384) - v10);
+        }
+        while ( !v27 );
+      }
+    }
+    else
+    {
+      if ( v11 > 0 )
+      {
+        v21 = a5;
+        v34 = v11;
+        v29 = v21 - v10;
+        do
+        {
+          if ( v10 > 0 )
+          {
+            v31 = v10;
+            do
+            {
+              if ( *(_BYTE *)v9 )
+                *(_WORD *)v8 = *(_WORD *)(a7 + 2 * *(_BYTE *)v9);
+              v8 += 2;
+              ++v9;
+            }
+            while ( v31-- != 1 );
+          }
+          v9 += v29;
+          v23 = v34-- == 1;
+          v8 += 2 * (*(_DWORD *)(_this + 262384) - v10);
+        }
+        while ( !v23 );
+      }
+    }*/
+}
+
 //----- (004A6274) --------------------------------------------------------
 void CD3DRenderer_DrawTransparentTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class18 *pTexture)
 {
@@ -458,7 +621,9 @@ void CD3DRenderer_DrawTransparentTexture(struct CD3DRenderer *_this, unsigned in
 }
 
 //----- (004A6C4F) --------------------------------------------------------
-void sub_4A6C4F(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5, int a6, int a7, __int16 a8, __int16 a9)
+void sub_4A6C4F(struct CD3DRenderer *_this, unsigned int uOutX, unsigned int uOutY,
+                unsigned short *pFontPixels, unsigned int uCharWidth, unsigned int uCharHeight,
+                unsigned short *pFontPalette, unsigned int uMainColor, unsigned int uShadowColor)
 {
   int v9; // eax@2
   int v10; // edi@2
@@ -477,11 +642,26 @@ void sub_4A6C4F(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5, int 
   char v23; // zf@28
   int v24; // [sp+Ch] [bp-4h]@2
   int v25; // [sp+18h] [bp+8h]@20
+ unsigned int  *pSurfacePtr;
+ unsigned char *pSrc;
+ int x, y;
 
- if (!_this->bSceneBegun)
-   return;
+  if (!_this->bSceneBegun)
+    return;
 
+ pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
+ pSrc = pFontPixels;
 
+ for (y = 0; y < uCharHeight; ++y)
+   for (x = 0; x < uCharWidth; ++x)
+   {
+    if (*pSrc++)
+      if (pFontPalette[pSrc[-1]] == 1)
+        pSurfacePtr[(uOutY + y) * _this->uTargetSurfacePitch + uOutX + x] = uShadowColor;
+      else
+        pSurfacePtr[(uOutY + y) * _this->uTargetSurfacePitch + uOutX + x] = uMainColor;
+   }
+/*
  v10 = a5;
  v11 = a6;
  v9 = _this->pTargetSurface + (a2 + a3 * _this->uTargetSurfacePitch);
@@ -559,7 +739,7 @@ void sub_4A6C4F(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5, int 
    v9 += (_this->uTargetSurfacePitch - v10);
   }
   while ( !v23 );
- }
+ }*/
 }
 
 //----- (004A172E) --------------------------------------------------------

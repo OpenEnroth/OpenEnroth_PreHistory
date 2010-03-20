@@ -28,7 +28,8 @@ unsigned int CIconFrameTable_FindIcon(struct CIconFrameTable *_this, const char 
 void CIconFrameTable_InitializeIcon(struct CIconFrameTable *_this, unsigned int uIconIdx);
 //int __thiscall sub_49500A(void *Str);
 int CIconFrameTable_SaveToBIN(struct CIconFrameTable *_this);
-
+//int __thiscall sub_494F70(int this, int a2, signed int a3);
+struct IconFrame *CIconFrameTable_sub_494F70(struct CIconFrameTable *_this, int a2, signed int a3);
 
 
 
