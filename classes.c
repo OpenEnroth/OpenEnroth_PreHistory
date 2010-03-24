@@ -1816,7 +1816,68 @@ int sub_41097D(struct class17 *_this, int a2, int a3, int a4)
  return _this->uNumLoadedFiles;
 }
 
+//----- (004114F2) --------------------------------------------------------
+int sub_4114F2(struct class17 *_this)
+{
+  int result; // eax@1
+  int v2; // ecx@1
+  int v3; // esi@1
+  int v4; // ecx@2
+  int v5; // edi@3
+  int v6; // ebx@4
+  int v7; // eax@5
+  int v8; // eax@6
+  int v9; // eax@8
+  int v10; // eax@9
 
+  v3 = _this;
+  result = &_this->dword_011B9C;
+  v2 = _this->dword_011B9C;
+  if ( v2 )
+  {
+    v4 = v2 - 1;
+    _this->dword_011B9C = v4;
+    if ( !v4 )
+    {
+      v5 = _this->uNumLoadedFiles - 1;
+      if ( v5 >= _this->dword_011B98)
+      {
+        v6 = &_this->aLODHeaders[v5];
+        do
+        {
+          sub_40F77C(v6);
+          v7 = _this->dword_011BB0;
+          if ( v7 )
+          {
+            v8 = *(_DWORD *)(v7 + 4 * v5);
+            if ( v8 )
+            {
+              (*(void (__stdcall **)(int))(*(_DWORD *)v8 + 8))(v8);
+              *(_DWORD *)(*(_DWORD *)(v3 + 72624) + 4 * v5) = 0;
+            }
+          }
+          v9 = *(_DWORD *)(v3 + 72620);
+          if ( v9 )
+          {
+            v10 = *(_DWORD *)(v9 + 4 * v5);
+            if ( v10 )
+            {
+              (*(void (__stdcall **)(int))(*(_DWORD *)v10 + 8))(v10);
+              *(_DWORD *)(*(_DWORD *)(v3 + 72620) + 4 * v5) = 0;
+            }
+          }
+          --v5;
+          v6 -= 72;
+        }
+        while ( v5 >= *(_DWORD *)(v3 + 72600) );
+      }
+      result = *(_DWORD *)(v3 + 72600);
+      *(_DWORD *)(v3 + 72600) = 0;
+      *(_DWORD *)(v3 + 72572) = result;
+    }
+  }
+  return result;
+}
 
 
 
@@ -4658,8 +4719,6 @@ char *sub_456D84(struct class40 *_this)
   char *v3; // eax@2
   char v4; // cl@3
   int v5; // esi@3
-  int v7; // eax@21
-  int v8; // esi@21
   int v9; // ecx@22
   char *v12; // eax@26
   char v13; // dl@27
@@ -4670,10 +4729,6 @@ char *sub_456D84(struct class40 *_this)
   char v19; // cl@41
   char v20; // zf@53
   int v21; // eax@57
-  signed int v23; // eax@66
-  int v24; // edx@66
-  int v25; // esi@66
-  int v26; // ecx@68
   int v28; // esi@71
   char *v30; // ebx@72
   int v31; // eax@73
@@ -4712,11 +4767,7 @@ char *sub_456D84(struct class40 *_this)
   int v68; // [sp+Ch] [bp-18h]@1
   signed int v69; // [sp+Ch] [bp-18h]@22
   signed int v70; // [sp+Ch] [bp-18h]@25
-  signed int v71; // [sp+Ch] [bp-18h]@39
-  signed int v72; // [sp+Ch] [bp-18h]@66
   signed int v73; // [sp+Ch] [bp-18h]@156
-  char **v74; // [sp+Ch] [bp-18h]@176
-  char **v75; // [sp+Ch] [bp-18h]@182
   signed int v76; // [sp+Ch] [bp-18h]@230
   signed int v77; // [sp+Ch] [bp-18h]@311
   signed int v78; // [sp+Ch] [bp-18h]@347
@@ -4728,7 +4779,6 @@ char *sub_456D84(struct class40 *_this)
   signed int v84; // [sp+10h] [bp-14h]@229
   int v85; // [sp+10h] [bp-14h]@239
   signed int v86; // [sp+14h] [bp-10h]@1
-  int v87; // [sp+14h] [bp-10h]@39
   int v88; // [sp+14h] [bp-10h]@175
   int v89; // [sp+14h] [bp-10h]@188
   signed int v90; // [sp+18h] [bp-Ch]@67
@@ -4752,6 +4802,7 @@ char *sub_456D84(struct class40 *_this)
   signed int v108; // [sp+20h] [bp-4h]@200
   signed int v109; // [sp+20h] [bp-4h]@234
   signed int v110; // [sp+20h] [bp-4h]@288
+ int i, j;
 
   v1 = _this;
 
@@ -4778,15 +4829,16 @@ char *sub_456D84(struct class40 *_this)
   pStorylineText = malloc(sizeof(struct StorylineText));
   StorylineText_Initialize(pStorylineText);
 
-  //_this->pStdItemsTXT_Raw = class17_LoadEvent(pClass17_Events_LOD, L"stditems.txt");
   _this->pStdItemsTXT_Raw = class17_fn1(pClass17_Events_LOD, "stditems.txt", 0);
 
   strtok(_this->pStdItemsTXT_Raw, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
-  v68 = (int)((char *)_this + 38404);
+  v68 = _this->pEnchantments;
   v86 = 24;
+
+  i = 0;
   do
   {
     v3 = strtok(0, "\r") + 1;
@@ -4811,17 +4863,17 @@ char *sub_456D84(struct class40 *_this)
         {
           if ( v104 == 1 )
           {
-            *(_DWORD *)v68 = sub_452C30(v3);
+           _this->pEnchantments[i].pName = sub_452C30(v3);
           }
           else
           {
             if ( v104 > 1 )
-              *(_BYTE *)(v68 + v104 + 6) = atoi(v3);
+              _this->pEnchantments[i].array_000008[v104 - 2] = atoi(v3);
           }
         }
         else
         {
-          *(_DWORD *)(v68 + 4) = sub_452C30(v3);
+         _this->pEnchantments[i].pParam = sub_452C30(v3);
         }
       }
       else
@@ -4834,33 +4886,21 @@ char *sub_456D84(struct class40 *_this)
     }
     while ( v104 <= 10 && !v95 );
     v68 += 20;
+    ++i;
   }
   while ( v86-- != 1 );
-  v8 = (int)((char *)v1 + 71396);
-  memset((char *)v1 + 71396, 0, 0x24u);
-  v7 = (int)((char *)v1 + 38412);
-  v80 = 9;
-  do
-  {
-    v9 = v7;
-    v69 = 24;
-    do
-    {
-      *(_DWORD *)v8 += *(_BYTE *)v9;
-      v9 += 20;
-    }
-    while ( v69-- != 1 );
-    v8 += 4;
-    ++v7;
-  }
-  while ( v80-- != 1 );
+
+  memset(_this->array_0116E4, 0, 9 * sizeof(int));
+  for (i = 0; i < 9; ++i)
+    for (j = 0; j < 24; ++j)
+      _this->array_0116E4[i] += _this->pEnchantments[j].array_000008[i];
+
   strtok(0, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
-  v70 = 17856;
-  do
+  for (i = 0; i < 6; ++i)
   {
     v12 = strtok(0, "\r") + 1;
     v105 = 0;
@@ -4881,16 +4921,14 @@ char *sub_456D84(struct class40 *_this)
       if ( v14 )
       {
         if ( v105 > 1 )
-          *((_DWORD *)v1 + v105 + v70) = atoi(v12);
+          _this->array_011700[i][v105 - 2] = atoi(v12);
       }
       ++v105;
       v12 = (char *)(v15 + 1);
     }
     while ( v105 < 4 && !v96 );
-    v70 += 2;
   }
-  while ( v70 < 17868 );
-  *((_DWORD *)v1 + 17824) = 0;
+
 
 
   _this->pSpcItemsTXT_Raw = class17_fn1(pClass17_Events_LOD, "spcitems.txt", 0);
@@ -4898,9 +4936,8 @@ char *sub_456D84(struct class40 *_this)
   strtok(0, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
-  v87 = (int)((char *)v1 + 38884);
-  v71 = 72;
-  do
+
+  for (i = 0; i < 72; ++i)
   {
     v106 = 0;
     v17 = (int)(strtok(0, "\r") + 1);
@@ -4924,7 +4961,7 @@ char *sub_456D84(struct class40 *_this)
         {
           if ( v106 == 1 )
           {
-            *(_DWORD *)v87 = sub_452C30((const char *)v17);
+           _this->pSpecialEnchantments[i].pName = sub_452C30((const char *)v17);
           }
           else
           {
@@ -4937,27 +4974,27 @@ char *sub_456D84(struct class40 *_this)
               v20 = v106 == 14;
               if ( v106 < 14 )
               {
-                *(_BYTE *)(v87 + v106 + 6) = atoi((const char *)v17);
+               _this->pSpecialEnchantments[i].array_000008[v106 - 2] = atoi((const char *)v17);
                 goto LABEL_63;
               }
             }
             if ( v20 )
             {
               v21 = atoi((const char *)v17);
-              *(_DWORD *)(v87 + 20) = v21;
+              _this->pSpecialEnchantments[i].dword_000014 = v21;
               if ( !v21 )
-                *(_DWORD *)(v87 + 20) = atoi((const char *)(v17 + 1));
+                _this->pSpecialEnchantments[i].dword_000014 = atoi((const char *)(v17 + 1));
             }
             else
             {
               if ( v106 == 15 )
-                *(_BYTE *)(v87 + 24) = tolower(*(_BYTE *)v17) - 97;
+                _this->pSpecialEnchantments[i].byte_000018 = tolower(*(_BYTE *)v17) - 97;
             }
           }
         }
         else
         {
-          *(_DWORD *)(v87 + 4) = sub_452C30((const char *)v17);
+         _this->pSpecialEnchantments[i].pParam = sub_452C30((const char *)v17);
         }
       }
       else
@@ -4970,34 +5007,19 @@ LABEL_63:
       v17 = v81 + 1;
     }
     while ( v106 <= 15 && !v97 );
-    v87 += 28;
   }
-  while ( v71-- != 1 );
-  v25 = (int)((char *)v1 + 71480);
-  memset((char *)v1 + 71480, 0, 0x60u);
-  v24 = (int)((char *)v1 + 38892);
-  v72 = 12;
-  v23 = 71;
-  *((_DWORD *)v1 + 17894) = 71;
-  do
-  {
-    v90 = 0;
-    if ( v23 > 0 )
-    {
-      v26 = v24;
-      do
-      {
-        *(_DWORD *)v25 += *(_BYTE *)v26;
-        ++v90;
-        v23 = *((_DWORD *)v1 + 17894);
-        v26 += 28;
-      }
-      while ( v90 < v23 );
-    }
-    v25 += 4;
-    ++v24;
+
+
+
+
+  memset(_this->array_011738, 0, 24 * sizeof(int));
+
+  _this->dword_011798 = 71;
+  for (i = 0; i < 12; ++i)
+  { 
+      for (j = 0; j < _this->dword_011798; ++j)
+        _this->array_011738[i] += _this->pSpecialEnchantments[j].array_000008[i];
   }
-  while ( v72-- != 1 );
   sub_443801();
 
 
@@ -5005,13 +5027,13 @@ LABEL_63:
   strtok(_this->pItemsTXT_Raw, "\r");
   v28 = 0;
   strtok(0, "\r");
-  *(_DWORD *)v1 = 0;
-  while ( 2 )
+  _this->uNumItems = 0;
+  while (true)
   {
     v107 = 0;
     v30 = strtok(0, "\r") + 1;
     v98 = 0;
-    while ( 2 )
+    while (true)
     {
       v32 = *v30;
       v31 = 0;
@@ -5028,250 +5050,87 @@ LABEL_63:
       {
         switch ( v107 )
         {
-          case 0:
-            v28 = atoi(v30);
-            break;
-          case 1:
-            *((_DWORD *)v1 + 12 * v28 + 1) = sub_452C30(v30);
-            break;
-          case 2:
-            *((_DWORD *)v1 + 12 * v28 + 2) = sub_452C30(v30);
-            break;
-          case 3:
-            *((_DWORD *)v1 + 12 * v28 + 5) = atoi(v30);
-            break;
+          case 0: v28 = atoi(v30); break;
+          case 1: _this->pItems[v28 - 1].pIconName = sub_452C30(v30); break;
+          case 2: _this->pItems[v28 - 1].pName = sub_452C30(v30);     break;
+          case 3: _this->pItems[v28 - 1].uValue = atoi(v30);          break;
+
           case 4:
-            if ( !_strcmpi(v30, "weapon") )
-              goto LABEL_89;
-            if ( _strcmpi(v30, "weapon2") )
-            {
-              if ( _strcmpi(v30, "weapon1or2") )
-              {
-                if ( _strcmpi(v30, "missile") && _strcmpi(v30, "bow") )
-                {
-                  if ( _strcmpi(v30, "armor") )
-                  {
-                    if ( _strcmpi(v30, "shield") )
-                    {
-                      if ( _strcmpi(v30, "helm") )
-                      {
-                        if ( _strcmpi(v30, "belt") )
-                        {
-                          if ( _strcmpi(v30, "cloak") )
-                          {
-                            if ( _strcmpi(v30, "gauntlets") )
-                            {
-                              if ( _strcmpi(v30, "boots") )
-                              {
-                                if ( _strcmpi(v30, "ring") )
-                                {
-                                  if ( _strcmpi(v30, "amulet") )
-                                  {
-                                    if ( _strcmpi(v30, "weaponw") )
-                                    {
-                                      if ( _strcmpi(v30, "herb") && _strcmpi(v30, "reagent") )
-                                      {
-                                        if ( _strcmpi(v30, "bottle") )
-                                        {
-                                          if ( _strcmpi(v30, "sscroll") )
-                                          {
-                                            if ( _strcmpi(v30, "book") )
-                                            {
-                                              if ( _strcmpi(v30, "mscroll") )
-                                              {
-                                                if ( _strcmpi(v30, "gold") )
-                                                {
-                                                  if ( _strcmpi(v30, "gem") )
-                                                    *((_BYTE *)v1 + 48 * v28 + 32) = 20;
-                                                  else
-                                                    *((_BYTE *)v1 + 48 * v28 + 32) = 19;
-                                                }
-                                                else
-                                                {
-                                                  *((_BYTE *)v1 + 48 * v28 + 32) = 18;
-                                                }
-                                              }
-                                              else
-                                              {
-                                                *((_BYTE *)v1 + 48 * v28 + 32) = 17;
-                                              }
-                                            }
-                                            else
-                                            {
-                                              *((_BYTE *)v1 + 48 * v28 + 32) = 16;
-                                            }
-                                          }
-                                          else
-                                          {
-                                            *((_BYTE *)v1 + 48 * v28 + 32) = 15;
-                                          }
-                                        }
-                                        else
-                                        {
-                                          *((_BYTE *)v1 + 48 * v28 + 32) = 14;
-                                        }
-                                      }
-                                      else
-                                      {
-                                        *((_BYTE *)v1 + 48 * v28 + 32) = 13;
-                                      }
-                                    }
-                                    else
-                                    {
-                                      *((_BYTE *)v1 + 48 * v28 + 32) = 12;
-                                    }
-                                  }
-                                  else
-                                  {
-                                    *((_BYTE *)v1 + 48 * v28 + 32) = 11;
-                                  }
-                                }
-                                else
-                                {
-                                  *((_BYTE *)v1 + 48 * v28 + 32) = 10;
-                                }
-                              }
-                              else
-                              {
-                                *((_BYTE *)v1 + 48 * v28 + 32) = 9;
-                              }
-                            }
-                            else
-                            {
-                              *((_BYTE *)v1 + 48 * v28 + 32) = 8;
-                            }
-                          }
-                          else
-                          {
-                            *((_BYTE *)v1 + 48 * v28 + 32) = 7;
-                          }
-                        }
-                        else
-                        {
-                          *((_BYTE *)v1 + 48 * v28 + 32) = 6;
-                        }
-                      }
-                      else
-                      {
-                        *((_BYTE *)v1 + 48 * v28 + 32) = 5;
-                      }
-                    }
-                    else
-                    {
-                      *((_BYTE *)v1 + 48 * v28 + 32) = 4;
-                    }
-                  }
-                  else
-                  {
-                    *((_BYTE *)v1 + 48 * v28 + 32) = 3;
-                  }
-                }
-                else
-                {
-                  *((_BYTE *)v1 + 48 * v28 + 32) = 2;
-                }
-              }
-              else
-              {
-LABEL_89:
-                *((_BYTE *)v1 + 48 * v28 + 32) = 0;
-              }
-            }
+            if (!_strcmpi(v30, "weapon") || !_strcmpi(v30, "weapon1or2"))
+              _this->pItems[v28 - 1].uEquipType = 0;
+            else if (!_strcmpi(v30, "weapon2"))
+              _this->pItems[v28 - 1].uEquipType = 1;
+            else if (!_strcmpi(v30, "missile") || !_strcmpi(v30, "bow"))
+              _this->pItems[v28 - 1].uEquipType = 2;
+            else if (!_strcmpi(v30, "armor"))
+              _this->pItems[v28 - 1].uEquipType = 3;
+            else if (!_strcmpi(v30, "shield"))
+              _this->pItems[v28 - 1].uEquipType = 4;
+            else if (!_strcmpi(v30, "helm"))
+              _this->pItems[v28 - 1].uEquipType = 5;
+            else if (!_strcmpi(v30, "belt"))
+              _this->pItems[v28 - 1].uEquipType = 6;
+            else if (!_strcmpi(v30, "cloak"))
+              _this->pItems[v28 - 1].uEquipType = 7;
+            else if (!_strcmpi(v30, "gauntlets"))
+              _this->pItems[v28 - 1].uEquipType = 8;
+            else if (!_strcmpi(v30, "boots"))
+              _this->pItems[v28 - 1].uEquipType = 9;
+            else if (!_strcmpi(v30, "ring"))
+              _this->pItems[v28 - 1].uEquipType = 10;
+            else if (!_strcmpi(v30, "amulet"))
+              _this->pItems[v28 - 1].uEquipType = 11;
+            else if (!_strcmpi(v30, "weaponw"))
+              _this->pItems[v28 - 1].uEquipType = 12;
+            else if (!_strcmpi(v30, "herb") || !_strcmpi(v30, "reagent"))
+              _this->pItems[v28 - 1].uEquipType = 13;
+            else if (!_strcmpi(v30, "bottle"))
+              _this->pItems[v28 - 1].uEquipType = 14;
+            else if (!_strcmpi(v30, "sscroll"))
+              _this->pItems[v28 - 1].uEquipType = 15;
+            else if (!_strcmpi(v30, "book"))
+              _this->pItems[v28 - 1].uEquipType = 16;
+            else if (!_strcmpi(v30, "mscroll"))
+              _this->pItems[v28 - 1].uEquipType = 17;
+            else if (!_strcmpi(v30, "gold"))
+              _this->pItems[v28 - 1].uEquipType = 18;
+            else if (!_strcmpi(v30, "gem"))
+              _this->pItems[v28 - 1].uEquipType = 19;
             else
-            {
-              *((_BYTE *)v1 + 48 * v28 + 32) = 1;
-            }
+              _this->pItems[v28 - 1].uEquipType = 20;
             break;
+
           case 5:
-            if ( _strcmpi(v30, "staff") )
-            {
-              if ( _strcmpi(v30, "sword") )
-              {
-                if ( _strcmpi(v30, "dagger") )
-                {
-                  if ( _strcmpi(v30, "axe") )
-                  {
-                    if ( _strcmpi(v30, "spear") )
-                    {
-                      if ( _strcmpi(v30, "bow") )
-                      {
-                        if ( _strcmpi(v30, "mace") )
-                        {
-                          if ( _strcmpi(v30, "blaster") )
-                          {
-                            if ( _strcmpi(v30, "shield") )
-                            {
-                              if ( _strcmpi(v30, "leather") )
-                              {
-                                if ( _strcmpi(v30, "chain") )
-                                {
-                                  if ( _strcmpi(v30, "plate") )
-                                  {
-                                    if ( _strcmpi(v30, "club") )
-                                      *((_BYTE *)v1 + 48 * v28 + 33) = 38;
-                                    else
-                                      *((_BYTE *)v1 + 48 * v28 + 33) = 37;
-                                  }
-                                  else
-                                  {
-                                    *((_BYTE *)v1 + 48 * v28 + 33) = 11;
-                                  }
-                                }
-                                else
-                                {
-                                  *((_BYTE *)v1 + 48 * v28 + 33) = 10;
-                                }
-                              }
-                              else
-                              {
-                                *((_BYTE *)v1 + 48 * v28 + 33) = 9;
-                              }
-                            }
-                            else
-                            {
-                              *((_BYTE *)v1 + 48 * v28 + 33) = 8;
-                            }
-                          }
-                          else
-                          {
-                            *((_BYTE *)v1 + 48 * v28 + 33) = 7;
-                          }
-                        }
-                        else
-                        {
-                          *((_BYTE *)v1 + 48 * v28 + 33) = 6;
-                        }
-                      }
-                      else
-                      {
-                        *((_BYTE *)v1 + 48 * v28 + 33) = 5;
-                      }
-                    }
-                    else
-                    {
-                      *((_BYTE *)v1 + 48 * v28 + 33) = 4;
-                    }
-                  }
-                  else
-                  {
-                    *((_BYTE *)v1 + 48 * v28 + 33) = 3;
-                  }
-                }
-                else
-                {
-                  *((_BYTE *)v1 + 48 * v28 + 33) = 2;
-                }
-              }
-              else
-              {
-                *((_BYTE *)v1 + 48 * v28 + 33) = 1;
-              }
-            }
+            if (!_strcmpi(v30, "staff"))
+              _this->pItems[v28 - 1].uSkillType = 0;
+            else if (!_strcmpi(v30, "sword"))
+              _this->pItems[v28 - 1].uSkillType = 1;
+            else if (!_strcmpi(v30, "dagger"))
+              _this->pItems[v28 - 1].uSkillType = 2;
+            else if (!_strcmpi(v30, "axe"))
+              _this->pItems[v28 - 1].uSkillType = 3;
+            else if (!_strcmpi(v30, "spear"))
+              _this->pItems[v28 - 1].uSkillType = 4;
+            else if (!_strcmpi(v30, "bow"))
+              _this->pItems[v28 - 1].uSkillType = 5;
+            else if (!_strcmpi(v30, "mace"))
+              _this->pItems[v28 - 1].uSkillType = 6;
+            else if (!_strcmpi(v30, "blaster"))
+              _this->pItems[v28 - 1].uSkillType = 7;
+            else if (!_strcmpi(v30, "shield"))
+              _this->pItems[v28 - 1].uSkillType = 8;
+            else if (!_strcmpi(v30, "leather"))
+              _this->pItems[v28 - 1].uSkillType = 9;
+            else if (!_strcmpi(v30, "chain"))
+              _this->pItems[v28 - 1].uSkillType = 10;
+            else if (!_strcmpi(v30, "plate"))
+              _this->pItems[v28 - 1].uSkillType = 11;
+            else if (!_strcmpi(v30, "club"))
+              _this->pItems[v28 - 1].uSkillType = 37;
             else
-            {
-              *((_BYTE *)v1 + 48 * v28 + 33) = 0;
-            }
+              _this->pItems[v28 - 1].uSkillType = 38;
             break;
+
           case 6:
             v73 = 0;
             v91 = strlen(v30);
@@ -5300,49 +5159,33 @@ LABEL_161:
               }
             }
             break;
-          case 7:
-            *((_BYTE *)v1 + 48 * v28 + 36) = atoi(v30);
-            break;
+
+          case 7: _this->pItems[v28 - 1].uDamageModifier = atoi(v30); break;
+
           case 8:
-            if ( _strcmpi(v30, "artifact") )
-            {
-              if ( _strcmpi(v30, "relic") )
-              {
-                if ( _strcmpi(v30, "special") )
-                  *((_BYTE *)v1 + 48 * v28 + 37) = 0;
-                else
-                  *((_BYTE *)v1 + 48 * v28 + 37) = 3;
-              }
-              else
-              {
-                *((_BYTE *)v1 + 48 * v28 + 37) = 2;
-              }
-            }
+            if (!_strcmpi(v30, "artifact") )
+              _this->pItems[v28 - 1].uMaterial = 1;
+            else if (!_strcmpi(v30, "relic") )
+              _this->pItems[v28 - 1].uMaterial = 2;
+            else if (!_strcmpi(v30, "special") )
+              _this->pItems[v28 - 1].uMaterial = 3;
             else
-            {
-              *((_BYTE *)v1 + 48 * v28 + 37) = 1;
-            }
+              _this->pItems[v28 - 1].uMaterial = 0;
             break;
-          case 9:
-            *((_BYTE *)v1 + 48 * v28 + 50) = atoi(v30);
-            break;
-          case 10:
-            *((_DWORD *)v1 + 12 * v28 + 3) = sub_452C30(v30);
-            break;
-          case 11:
-            *((_WORD *)v1 + 24 * v28 + 12) = atoi(v30);
-            break;
+
+          case 9:  break;//_this->pItems[v28 - 1].byte_000032 = atoi(v30); break;
+          case 10: _this->pItems[v28 - 1].pUnidentifiedName = sub_452C30(v30); break;
+          case 11: _this->pItems[v28 - 1].uSpriteIndex = atoi(v30); break;
+
           case 12:
             v35 = (int)((char *)v1 + 48 * v28);
             v88 = v35;
             if ( *(_BYTE *)(v35 + 37) == 3 )
             {
               v92 = 0;
-              v74 = (const char **)((char *)v1 + 38404);
-              while ( _strcmpi(*v74, v30) )
+              while ( _strcmpi(_this->pEnchantments[v92].pName, v30) )
               {
                 ++v92;
-                v74 += 5;
                 if ( v92 >= 24 )
                   goto LABEL_181;
               }
@@ -5351,11 +5194,9 @@ LABEL_181:
               if ( !*(_BYTE *)(v88 + 39) )
               {
                 v93 = 0;
-                v75 = (const char **)((char *)v1 + 38884);
-                while ( _strcmpi(*v75, v30) )
+                while ( _strcmpi(_this->pSpecialEnchantments[v92].pName, v30) )
                 {
                   ++v93;
-                  v75 += 7;
                   if ( v93 >= 72 )
                     goto LABEL_196;
                 }
@@ -5364,10 +5205,11 @@ LABEL_181:
             }
             else
             {
-              *(_BYTE *)(v35 + 38) = 0;
-              *(_BYTE *)(v35 + 39) = 0;
+              _this->pItems[v28 - 1].byte_000026 = 0;
+              _this->pItems[v28 - 1].byte_000027 = 0;
             }
             break;
+
           case 13:
             v36 = (int)((char *)v1 + 48 * v28);
             v89 = v36;
@@ -5380,18 +5222,14 @@ LABEL_181:
             }
             else
             {
-              *(_BYTE *)(v36 + 40) = 0;
+              _this->pItems[v28 - 1].byte_000028 = 0;
             }
             break;
-          case 14:
-            *((_WORD *)v1 + 24 * v28 + 14) = atoi(v30);
-            break;
-          case 15:
-            *((_WORD *)v1 + 24 * v28 + 15) = atoi(v30);
-            break;
-          case 16:
-            *((_DWORD *)v1 + 12 * v28 + 4) = sub_452C30(v30);
-            break;
+
+          case 14: _this->pItems[v28 - 1].uEquipX = atoi(v30); break;
+          case 15: _this->pItems[v28 - 1].uEquipY = atoi(v30); break;
+          case 16: _this->pItems[v28 - 1].pDescription = sub_452C30(v30); break;
+
           default:
             break;
         }
@@ -5408,7 +5246,7 @@ LABEL_196:
       continue;
     break;
   }
-  *(_DWORD *)v1 = v28;
+  _this->uNumItems = v28;
 
   _this->pRndItemsTXT_Raw = class17_fn1(pClass17_Events_LOD, "rnditems.txt", 0);
   strtok(_this->pRndItemsTXT_Raw, "\r");
@@ -8918,4 +8756,403 @@ void sub_402F07(int *_this)
  ((char *)(_this))[26] = 0;
  _this[7] = 0;
  _this[8] = 0;
+}
+
+
+
+
+//----- (00456620) --------------------------------------------------------
+extern char byte_ACD772[];
+extern char byte_ACD71D[];
+extern char byte_5D2A12[];
+extern char byte_0D2A84[];
+extern char byte_5D2A04[];
+unsigned int __fastcall sub_449B57(int a1, __int16 a2);
+char sub_456620(struct class40 *_this, int a2, signed int a3, unsigned char *Dst)
+{
+  void *v4; // edi@1
+  unsigned char *v5; // esi@1
+  int v6; // ebx@3
+  int *v7; // ecx@33
+  int v8; // eax@34
+  int v9; // eax@39
+  int v10; // ebx@43
+  int v11; // ecx@47
+  int *v12; // edx@48
+  int v13; // eax@49
+  signed int v14; // ebx@52
+  int v15; // eax@53
+  signed int v16; // eax@55
+  int v17; // ebx@57
+  int v18; // eax@61
+  int v19; // edx@62
+  signed int v20; // ebx@70
+  int v21; // ebx@85
+  int v22; // edx@86
+  int v23; // ebx@86
+  int v24; // ebx@89
+  int v25; // edx@89
+  int v26; // eax@89
+  int v27; // ecx@90
+  int v28; // ecx@91
+  int v29; // ebx@91
+  int v30; // eax@91
+  unsigned __int8 v31; // sf@97
+  unsigned __int8 v32; // of@97
+  int v33; // ebx@98
+  int v34; // eax@99
+  int v35; // edx@99
+  signed __int64 v36; // qtt@99
+  signed int v37; // ebx@101
+  int v38; // ecx@102
+  char v39; // zf@107
+  char v40; // al@108
+  char v41; // al@111
+  int *v42; // edx@118
+  int v43; // edx@120
+  int v44; // edx@120
+  int *j; // eax@121
+  int v46; // ecx@123
+  int v47; // eax@123
+  int v48; // eax@123
+  unsigned char v50[0xC80]; // [sp+Ch] [bp-C88h]@33
+  int v51; // [sp+C8Ch] [bp-8h]@33
+  int v52; // [sp+C90h] [bp-4h]@1
+  int v53; // [sp+C9Ch] [bp+8h]@3
+  int v54; // [sp+CA0h] [bp+Ch]@34
+  signed int v55; // [sp+CA0h] [bp+Ch]@55
+  int v56; // [sp+CA0h] [bp+Ch]@62
+  int i; // [sp+CA0h] [bp+Ch]@89
+  int *v58; // [sp+CA0h] [bp+Ch]@102
+  int v59; // [sp+CA0h] [bp+Ch]@123
+  signed int v60; // [sp+CA4h] [bp+10h]@33
+  int v61; // [sp+CA4h] [bp+10h]@101
+  int v62; // [sp+CA4h] [bp+10h]@120
+
+  v52 = -1;
+  v4 = _this;
+
+  v5 = Dst;
+  if (!v5)
+    v5 = class23_AllocatedNamedBuffer(class23_instance, 0, 0x24, "newItemGen");
+  memset(v5, 0, 0x24);
+
+  v6 = a2 - 1;
+  v53 = a2 - 1;
+
+  if ( a3 )
+  {
+    switch ( a3 )
+    {
+      case 20:         a3 = 0;        break;
+      case 21:        a3 = 3;        break;
+      case 22:        v52 = 38;        break;
+      case 23:        v52 = 1;        break;
+      case 24:        v52 = 2;        break;
+      case 25:        v52 = 3;        break;
+      case 26:        v52 = 4;        break;
+      case 27:        v52 = 5;        break;
+      case 28:        v52 = 6;        break;
+      case 30:        v52 = 0;        break;
+      case 31:        v52 = 9;        break;
+      case 32:        v52 = 10;        break;
+      case 33:        v52 = 11;        break;
+      case 34:        a3 = 4;        break;
+      case 35:        a3 = 5;        break;
+      case 36:        a3 = 6;        break;
+      case 37:        a3 = 7;        break;
+      case 38:        a3 = 8;        break;
+      case 39:        a3 = 9;        break;
+      case 40:        a3 = 10;        break;
+      case 41:        a3 = 11;        break;
+      case 42:        a3 = 12;        break;
+      case 43:        a3 = 15;        break;
+      case 44:        a3 = 14;        break;
+      case 45:        a3 = 13;        break;
+      case 46:        a3 = 19;        break;
+      case 29:        v52 = 37;        break;
+      default:        --a3;        break;
+    }
+    memset(&v50, 0, 0xC80);
+
+    v51 = 0;
+    v7 = v50;
+    v60 = 1;
+    if ( v52 == -1 )
+    {
+     v52 = &_this->pItems[0].uEquipType;//(int)((char *)v4 + 80);
+      v9 = (int)((char *)v4 + v6 + 92);
+      do
+      {
+        if ( *(_BYTE *)v52 == a3 )
+        {
+          *v7 = v60;
+          ++v7;
+          v51 += *(_BYTE *)v9;
+        }
+        ++v60;
+        v52 += 48;
+        v9 += 48;
+      }
+      while ( v60 < 500 );
+    }
+    else
+    {
+      v54 = (int)((char *)v4 + 81);
+      v8 = (int)((char *)v4 + v6 + 92);
+      do
+      {
+        if ( *(_BYTE *)v54 == v52 )
+        {
+          *v7 = v60;
+          ++v7;
+          v51 += *(_BYTE *)v8;
+        }
+        ++v60;
+        v54 += 48;
+        v8 += 48;
+      }
+      while ( v60 < 500 );
+    }
+    v10 = 0;
+    if ( v51 )
+      v10 = rand() % v51;
+    v5 = v50;
+    if ( !v50 )
+      *(_DWORD *)v5 = 1;
+    v11 = (char *)(&_this->pItems[*(_DWORD *)v5 - 1]) + v53 + 44;
+    //v11 = *((_BYTE *)v4 + 48 * *(_DWORD *)v5 + v53 + 44);
+    if ( v11 < v10 )
+    {
+      v12 = &v50;
+      do
+      {
+        ++v12;
+        v13 = *v12;
+        *(_DWORD *)v5 = *v12;
+        v11 += *((_BYTE *)v4 + 48 * v13 + v53 + 44);
+      }
+      while ( v11 < v10 );
+    }
+
+    if (_this->pItems[*(_DWORD *)v5 - 1].uEquipType == 14 && *(_DWORD *)v5 != 220 )
+    //if ( *((_BYTE *)v4 + 48 * *(_DWORD *)v5 + 32) == 14 && *(_DWORD *)v5 != 220 )
+    {
+      *(_DWORD *)(v5 + 4) = 0;
+      v14 = 2;
+      do
+      {
+        *(_DWORD *)(v5 + 4) += rand() % 4 + 1;
+        v15 = *(_DWORD *)(v5 + 4);
+        --v14;
+      }
+      while ( v14 );
+LABEL_72:
+      *(_DWORD *)(v5 + 4) = v15 * (v53 + 1);
+      goto LABEL_73;
+    }
+  }
+  else
+  {
+    v16 = 0;
+    v55 = 0;
+    do
+      v55 += (unsigned __int8)byte_ACD772[v16++];
+    while ( v16 < 29 );
+    v17 = rand() % 29;
+    if ( v53 == 5 && rand() % 100 < 5 && !byte_ACD772[v17] && v55 < 13 )
+    {
+      byte_ACD772[v17] = 1;
+      *(_DWORD *)(v5 + 20) = 0;
+      *(_DWORD *)v5 = v17 + 500;
+      LOBYTE(v18) = sub_456D17(v4, v5);
+      return v18;
+    }
+    v56 = 0;
+    v19 = rand() % *((_DWORD *)v4 + v53 + 17825);
+    *(_DWORD *)v5 = 0;
+    if ( v19 > 0 )
+    {
+      do
+        v56 += *((_BYTE *)v4 + 48 * *(_DWORD *)v5++ + v53 + 92);
+      while ( v56 < v19 );
+    }
+    if ( !v19 )
+      *(_DWORD *)v5 = 1;
+    if ( !*(_DWORD *)v5 )
+      *(_DWORD *)v5 = 1;
+    if ( *((_BYTE *)v4 + 48 * *(_DWORD *)v5 + 32) == 14 && *(_DWORD *)v5 != 220 )
+    {
+      *(_DWORD *)(v5 + 4) = 0;
+      v20 = 2;
+      do
+      {
+        *(_DWORD *)(v5 + 4) += rand() % 4 + 1;
+        v15 = *(_DWORD *)(v5 + 4);
+        --v20;
+      }
+      while ( v20 );
+      goto LABEL_72;
+    }
+  }
+LABEL_73:
+  if ( *(_DWORD *)v5 == 487 )
+  {
+    if ( !(unsigned __int16)sub_449B57((int)byte_ACD71D, 239) )
+      *(_DWORD *)v5 = 486;
+  }
+  if ( byte_5D2A12[48 * *(_DWORD *)v5] )
+    *(_DWORD *)(v5 + 20) = 0;
+  else
+    *(_DWORD *)(v5 + 20) = 1;
+  if ( *((_BYTE *)v4 + 48 * *(_DWORD *)v5 + 32) != 14 )
+  {
+    *(_DWORD *)(v5 + 12) = 0;
+    *(_DWORD *)(v5 + 4) = 0;
+  }
+  LOBYTE(v18) = *((_BYTE *)v4 + 48 * *(_DWORD *)v5 + 32);
+  if ( (_BYTE)v18 <= 2 )
+  {
+    LOBYTE(v18) = v53;
+    v33 = (int)((char *)v4 + 4 * v53 + 71372);
+    if ( !*(_DWORD *)v33 )
+      return v18;
+    v34 = rand();
+    v36 = v34;
+    v18 = v34 / 100;
+    v35 = v36 % 100;
+    compile_error;//v32 = __SETO__(v35, *(_DWORD *)v33);
+    v31 = v35 - *(_DWORD *)v33 < 0;
+  }
+  else
+  {
+    if ( (_BYTE)v18 > 0xBu )
+    {
+      if ( (_BYTE)v18 == 12 )
+      {
+        v18 = rand() % 6 + (unsigned __int8)byte_5D2A04[48 * *(_DWORD *)v5] + 1;
+        *(_DWORD *)(v5 + 16) = v18;
+        *(_BYTE *)(v5 + 25) = v18;
+      }
+      return v18;
+    }
+    LOBYTE(v18) = v53;
+    compile_error;//v21 = (int)(v4 + 4 * v53 + 71324);
+    if ( !*(_DWORD *)v21 )
+      return v18;
+    v23 = *(_DWORD *)v21;
+    v22 = rand() % 100;
+    if ( v22 < v23 )
+      goto LABEL_128;
+    LOBYTE(v18) = v53;
+    if ( !*((_DWORD *)v4 + v53 + 17837) )
+      return v18;
+    if ( v22 < v23 )
+    {
+LABEL_128:
+      v25 = rand() % *((_DWORD *)v4 + *((_BYTE *)v4 + 48 * *(_DWORD *)v5 + 32) + 17846);
+      v26 = *(_DWORD *)v5;
+      *(_DWORD *)(v5 + 4) = 0;
+      v24 = *((_BYTE *)v4 + *((_BYTE *)v4 + 48 * v26 + 32) + 38409);
+      for ( i = v25; v24 < i; v24 += *((_BYTE *)v4 + 20 * *(_DWORD *)(v5 + 4) + *((_BYTE *)v4 + 48 * v27 + 32) + 38409) )
+      {
+        v27 = *(_DWORD *)v5;
+        ++*(_DWORD *)(v5 + 4);
+      }
+      ++*(_DWORD *)(v5 + 4);
+      v29 = *((_DWORD *)v4 + 2 * v53 + 17858);
+      v30 = rand();
+      v28 = *(_DWORD *)(v5 + 4) - 1;
+      v18 = v30 % (*((_DWORD *)v4 + 2 * v53 + 17859) - v29 + 1) + v29;
+      *(_DWORD *)(v5 + 8) = v18;
+      if ( v28 == 21 || v28 == 22 || v28 == 23 )
+      {
+        v18 >>= 1;
+        *(_DWORD *)(v5 + 8) = v18;
+      }
+      if ( *(_DWORD *)(v5 + 8) <= 0 )
+        *(_DWORD *)(v5 + 8) = 1;
+      return v18;
+    }
+    v18 = v23 + *((_DWORD *)v4 + v53 + 17837);
+    compile_error;//v32 = __SETO__(v22, v18);
+    v31 = v22 - v18 < 0;
+  }
+  if ( !(v31 ^ v32) )
+    return v18;
+  memset(&v50, 0, 0xC80u);
+  v37 = 0;
+  v61 = 0;
+  if ( *((_DWORD *)v4 + 17894) > 0 )
+  {
+    v51 = -16 - (_DWORD)v4;
+    v58 = &v50;
+    v38 = (int)((char *)v4 + 38908);
+    do
+    {
+      switch ( v53 )
+      {
+        case 2:
+          if ( !*(_BYTE *)v38 )
+            goto LABEL_117;
+          v39 = *(_BYTE *)v38 == 1;
+          break;
+        case 3:
+          v41 = *(_BYTE *)v38;
+          if ( !*(_BYTE *)v38 || v41 == 1 )
+          {
+LABEL_117:
+            v37 += *((_BYTE *)v4 + v38 + v51 + *((_BYTE *)v4 + 48 * *(_DWORD *)v5 + 32));
+            if ( *((_BYTE *)v4 + v38 + v51 + *((_BYTE *)v4 + 48 * *(_DWORD *)v5 + 32)) )
+            {
+              v42 = v58;
+              ++v58;
+              *v42 = v61;
+            }
+            goto LABEL_119;
+          }
+          v39 = v41 == 2;
+          break;
+        case 4:
+          v40 = *(_BYTE *)v38;
+          if ( *(_BYTE *)v38 == 1 || v40 == 2 )
+            goto LABEL_117;
+          v39 = v40 == 3;
+          break;
+        default:
+          if ( v53 != 5 )
+            goto LABEL_119;
+          v39 = *(_BYTE *)v38 == 3;
+          break;
+      }
+      if ( v39 )
+        goto LABEL_117;
+LABEL_119:
+      ++v61;
+      v38 += 28;
+    }
+    while ( v61 < *((_DWORD *)v4 + 17894) );
+  }
+  v44 = rand() % v37;
+  *(_DWORD *)(v5 + 12) = v50;
+  v18 = *((_BYTE *)v4 + 28 * *(v50 + 1389) + *((_BYTE *)v4 + 48 * *(_DWORD *)v5 + 32));
+  v43 = v44 + 1;
+  v62 = v18;
+  if ( v18 < v43 )
+  {
+    for ( j = &v50; ; j = (int *)v59 )
+    {
+      v46 = *(_DWORD *)v5;
+      v47 = (int)(j + 1);
+      v59 = v47;
+      v48 = *(_DWORD *)v47;
+      *(_DWORD *)(v5 + 12) = v48;
+      v18 = *((_BYTE *)v4 + 28 * (v48 + 1389) + *((_BYTE *)v4 + 48 * v46 + 32));
+      v62 += v18;
+      if ( v62 >= v43 )
+        break;
+    }
+  }
+  ++*(_DWORD *)(v5 + 12);
+  return v18;
 }

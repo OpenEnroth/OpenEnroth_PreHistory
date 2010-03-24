@@ -25,6 +25,10 @@
 #define true 1
 #define false 0
 
+#define array_size_unknown 24
+
+
+
 
 //Smacker & AIL types
 typedef struct _DIG_DRIVER *HDIGDRIVER;

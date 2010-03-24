@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 
+#include "classes.h"
 
 #include "data.h"
 
@@ -81,14 +82,12 @@ void class31_ctor(struct class31 *_this)
 //----- (004AA306) --------------------------------------------------------
 extern int dword_6BE360;
 extern int dword_ACCFC4;
-extern int dword_ACD66C;
-extern int dword_ACD670;
-extern int dword_ACD674;
 extern int dword_F1B4D4;
 extern char unk_665230;
 extern char unk_5FF158;
 extern char *Src;
 extern short word_6836D0[];
+extern struct Party *pParty_global;
 int __fastcall sub_4621DA(signed int a1, signed int a2, signed int a3);
 void __stdcall sub_436523(int a1, int a2);
 int __fastcall sub_4AAEA6(int a1);
@@ -311,14 +310,14 @@ LABEL_150:
         if ( a5 != -1 )
         {
           if ( !a5 )
-            v74 = dword_ACD66C;
+            v74 = pParty_global->dword_0006B4;
           if ( !a6 )
-            a6 = dword_ACD670;
+            a6 = pParty_global->dword_0006B8;
           if ( a4 )
             AIL_set_sample_loop_count(*(_DWORD *)v73, a4 - 1);
           v82 = sub_4AB66C(v74, a6);
           AIL_set_sample_pan(*(_DWORD *)v73, v82);
-          v83 = sub_4AB6B1(v74, a6, dword_ACD674);
+          v83 = sub_4AB6B1(v74, a6, pParty_global->dword_0006BC);
           AIL_set_sample_volume(*(_DWORD *)v73, v83);
           v75 = a3;
           goto LABEL_184;
@@ -536,9 +535,9 @@ LABEL_116:
           v100 = 12;
           v13 = 10;
 LABEL_46:
-          v87 = (double)dword_ACD66C;
-          v88 = (double)dword_ACD670;
-          v20 = (double)dword_ACCFC4 + (double)dword_ACD674;
+          v87 = (double)pParty_global->dword_0006B4;
+          v88 = (double)pParty_global->dword_0006B8;
+          v20 = (double)dword_ACCFC4 + (double)pParty_global->dword_0006BC;
           goto LABEL_47;
         }
         v13 = 10 * v14 / 16;
@@ -749,11 +748,11 @@ LABEL_104:
           }
           if ( (a3 & 7) != 5 )
           {
-            v87 = (double)dword_ACD66C;
-            v44 = (double)dword_ACD670;
+            v87 = (double)pParty_global->dword_0006B4;
+            v44 = (double)pParty_global->dword_0006B8;
 LABEL_100:
             v88 = v44;
-            v46 = (double)dword_ACCFC4 + (double)dword_ACD674;
+            v46 = (double)dword_ACCFC4 + (double)pParty_global->dword_0006BC;
             goto LABEL_101;
           }
           v45 = (char *)&word_6836D0[16 * (a3 >> 3)];

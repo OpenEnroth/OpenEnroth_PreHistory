@@ -7,6 +7,7 @@ long __stdcall _eh_vector_destructor_iterator_(long, long, long, long);
 #include <windows.h>
 
 #include "AIL.h"
+#include "defs.h"
 
 #pragma pack(push, 1)
 //class00
@@ -583,6 +584,8 @@ int sub_41097D(struct class17 *_this, int a2, int a3, int a4);
 void class17_AllocateSubidexAndIOBuffer(struct class17 *_this, unsigned int uNumSubIndices, signed int uIOBufferSize);
 //signed int __thiscall sub_461A43(void *this, const char *Filename, char a3);
 int class17_LoadLOD_Games(struct class17 *_this, const char *pLODFilename, unsigned char uFileFlags);
+//int __thiscall sub_4114F2(_DWORD); // weak
+int sub_4114F2(struct class17 *_this); // weak
 
 unsigned int   class17_LoadTextureFromCBM(struct class17 *_this, const wchar_t *pFilename);
 unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename);
@@ -858,16 +861,81 @@ void *class37_ctor(struct class37 *_this);
 
 
 
+struct ItemEnchantment
+{
+ unsigned char *pName;  // ptr @ 000000
+ unsigned char *pParam; // ptr @ 000004
+
+ unsigned char  array_000008[9];
+
+ char padding[3];
+};
+//sizeof == 14
+
+struct ItemSpecialEnchantment
+{
+ unsigned char *pName;  // ptr @ 000000
+ unsigned char *pParam; // ptr @ 000004
+
+ unsigned char  array_000008[12];
+ int            dword_000014;
+ /*char*/int    byte_000018;
+};
+//sizeof == 1C
+
+struct Item
+{
+ int dword_000000;
+
+ unsigned char *pIconName;         // ptr   @ 000004
+ unsigned char *pName;             // ptr   @ 000008
+ unsigned char *pUnidentifiedName; // ptr   @ 00000C
+ unsigned char *pDescription;      // ptr   @ 000010
+ unsigned int   uValue;            // dword @ 000014
+ unsigned short uSpriteIndex;      // word  @ 000018
+ short          word_00001A;
+ unsigned short uEquipX;           // word  @ 00001C
+ unsigned short uEquipY;           // word  @ 00001E
+ unsigned char  uEquipType;        // byte  @ 000020
+ unsigned char  uSkillType;        // byte  @ 000021
+ char           byte_000022;
+ char           byte_000023;
+ unsigned char  uDamageModifier;   // byte @ 000024
+ unsigned char  uMaterial;         // byte @ 000025
+ char           byte_000026;
+ char           byte_000027;
+ char           byte_000028;
+ char padding[7];
+ //char byte_000032;
+};
+//sizeof == 30
+
 //many items desc
 struct class40
 {
- int  dword_000000;
+ int  uNumItems; // dword @ 000000
+
+ struct Item pItems[800]; //struct[?] @ ?
+
  char byte_000004[71288];
+
+ char unk_009604[1024 + array_size_unknown];
+ struct ItemEnchantment pEnchantments[24]; // struct[24] @ 009604
+
+ struct ItemSpecialEnchantment pSpecialEnchantments[72]; // struct[72} @ 0097E4
+
  unsigned char *pItemsTXT_Raw;    // ptr @ 011674
  unsigned char *pRndItemsTXT_Raw; // ptr @ 011678
  unsigned char *pStdItemsTXT_Raw; // ptr @ 01167C
  unsigned char *pSpcItemsTXT_Raw; // ptr @ 011680
- char byte_011684[10000];         // byte[?]
+
+ char byte_011684[96];
+ unsigned int array_0116E4[9];
+
+ int array_011700[6][2];
+
+ int array_011738[24];
+ int dword_011798;
 };
 //char *__thiscall sub_456D84(void *this);
 char *sub_456D84(struct class40 *_this);
@@ -875,6 +943,8 @@ char *sub_456D84(struct class40 *_this);
 int sub_453B3C(struct class40 *_this);
 //const char *__thiscall sub_453CE5(void *this)
 const char *sub_453CE5(struct class40 *_this);
+//char __thiscall sub_456620(void *this, int a2, signed int a3, int Dst);
+char sub_456620(struct class40 *_this, int a2, signed int a3, int Dst);
 
 
 
@@ -1133,8 +1203,8 @@ struct Player
 
    unsigned char sName[16]; // byte[16] @ 0000A8
    unsigned char uSex;      // byte     @ 0000B8  0 male 1 female
-   char byte_0000B9;
-   char byte_0000BA;
+   unsigned char uClass;    // byte     @ 0000B9
+   unsigned char uFace;     // byte     @ 0000BA
 
    unsigned short uStrength;     // word @ 0000BC
    short word_0000BE;
@@ -1177,6 +1247,12 @@ struct Player
 
    char byte_0001EA;
 
+   int array_000214[10 + array_size_unknown];
+
+   int array_00157C[128];
+
+   short word_00177E;
+
    char array_0017A0[24][16];
    int  dword_001920;
    int  dword_001924;
@@ -1187,6 +1263,8 @@ struct Player
    int dword_00193C;
    int dword_001940;
    int dword_001944;
+
+   char byte_001A4E;
 
    char byte_001A98;
 
@@ -1211,6 +1289,19 @@ struct Party
  int dword_000034;
  int dword_000038;
 
+ int dword_0006B4;
+ int dword_0006B8;
+ int dword_0006BC;
+ int dword_0006C0;
+ int dword_0006C4;
+ int dword_0006C8;
+ int dword_0006CC;
+ int dword_0006D0;
+ int dword_0006D4;
+ int dword_0006D8;
+
+ int dword_000700;
+
  unsigned char array_000A74[16 /*+ array_size_unknown*/];
 
  unsigned char byte_000708;
@@ -1225,6 +1316,8 @@ struct Party
 
  char unk_000765[0x100];
 
+ unsigned char byte_000854[32 + array_size_unknown];
+
  int dword_00087C;
 
  int dword_000884;
@@ -1236,44 +1329,6 @@ struct Party
 
  //unsigned char array_0009CC[4][6972];
  struct Player pPlayers[4]; // struct[4] @ 0009CC
-/*
- unsigned char array_000A74[16];
- char          byte_000A84;
-
- char byte_000A86;
-
- int dword_0022EC;
- int dword_0022F0;
-
-
-
- unsigned char array_0025B0[16];
- char          byte_0025C0;
-
- char byte_0025C2;
-
- int dword_003E28;
- int dword_003E2C;
-
-
-
- unsigned char array_0040EC[16];
- char          byte_0040FC;
-
- char byte_0040FE;
-
- int dword_005964;
- int dword_005968;
-
-
-
- unsigned char array_005C28[16];
- char          byte_005C38;
-
- char byte_005C3A;
-
- int dword_0074A0;
- int dword_0074A4;*/
 
  int dword_007778;
 

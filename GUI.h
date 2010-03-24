@@ -121,4 +121,6 @@ struct GUIButton *GUIWindow_GetChild(struct GUIWindow *_this, int uID);
 unsigned char *__fastcall FitTextInAWindow(const char *pString, struct Font *pFont, struct GUIWindow *pParent, unsigned char uX, int a5);
 char __fastcall FontDrawText(int a1, int a2, signed int a3, int a4, __int16 a5, const char *Str1, int a7, signed int a8, char *a9);
 
+void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigned int uWindowWidth, unsigned int uWindowHeight);
+
 #pragma pack(pop)

@@ -11,6 +11,96 @@
 
 
 
+//----- (004151D9) --------------------------------------------------------
+extern unsigned int uTextureIdx_Parchment;
+extern unsigned int uTextureIdx_EdgeTop;
+extern unsigned int uTextureIdx_EdgeBottom;
+extern unsigned int uTextureIdx_EdgeRight;
+extern unsigned int uTextureIdx_EdgeLeft;
+extern unsigned int uTextureIdx_CornerUpperLeft;
+extern unsigned int uTextureIdx_CornerUpperRight;
+extern unsigned int uTextureIdx_CornerLowerRight;
+extern unsigned int uTextureIdx_CornerLowerLeft;
+void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigned int uWindowWidth, unsigned int uWindowHeight)
+{
+  //int v10; // ebx@14
+  //int v11; // [sp+10h] [bp-28h]@5
+  //signed int v12; // [sp+18h] [bp-20h]@1
+  //int v13; // [sp+1Ch] [bp-1Ch]@7
+  //int v14; // [sp+20h] [bp-18h]@1
+  unsigned int uNumYTiles;//int v15; // [sp+24h] [bp-14h]@5
+  //int v16; // [sp+24h] [bp-14h]@11
+  //int v17; // [sp+28h] [bp-10h]@1
+  unsigned int uNumXTiles;//int v18; // [sp+2Ch] [bp-Ch]@3
+  //int v19; // [sp+2Ch] [bp-Ch]@6
+  //int v20; // [sp+2Ch] [bp-Ch]@11
+  //int v21; // [sp+30h] [bp-8h]@1
+  //int v22; // [sp+34h] [bp-4h]@5
+  //int v23; // [sp+34h] [bp-4h]@11
+ int x, y;
+
+ struct class18 *pClass18Parchment;
+
+ //v17 = uWindowX + uWindowWidth;
+ sub_4A5B81(pD3DRenderer, uWindowX, uWindowY, uWindowX + uWindowWidth, uWindowY + uWindowHeight);
+
+
+ pClass18Parchment = &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_Parchment];
+
+ uNumXTiles = uWindowWidth / pClass18Parchment->uTextureWidth;
+ if (uWindowWidth % pClass18Parchment->uTextureWidth)
+   ++uNumXTiles;
+
+ uNumYTiles = uWindowHeight / pClass18Parchment->uTextureHeight;
+ if (uWindowHeight % pClass18Parchment->uTextureHeight)
+   ++uNumYTiles;
+
+
+ for (y = 0; y < uNumYTiles; ++y)
+   for (x = 0; x < uNumXTiles; ++x)
+     CD3DRenderer_DrawIndexedTexture(pD3DRenderer,
+                uWindowX + x * pClass18Parchment->uTextureWidth,
+                uWindowY + y * pClass18Parchment->uTextureHeight,
+                pClass18Parchment);
+
+
+
+ //v16 = uWindowY + uWindowHeight - 32;
+
+ CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX, uWindowY, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_CornerUpperLeft]);
+ CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX, uWindowY + uWindowHeight - 32, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_CornerLowerLeft]);
+ CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + uWindowWidth - 32, uWindowY, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_CornerUpperRight]);
+ CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + uWindowWidth - 32, uWindowY + uWindowHeight - 32, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_CornerLowerRight]);
+
+ 
+  //v20 = uWindowX + 32;
+  //v23 = uWindowY + uWindowHeight - 10;
+ if (uWindowWidth > 64)
+ {
+  sub_4A5B81(pD3DRenderer, uWindowX + 32, uWindowY, uWindowX + uWindowWidth - 32, uWindowY + uWindowHeight);
+
+  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + 32, uWindowY, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeTop]);
+  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + 32, uWindowY + uWindowHeight - 10, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeBottom]);
+
+  if (uWindowWidth > 512)
+  {
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + 544, uWindowY, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeTop]);
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + 544, uWindowY + uWindowHeight - 10, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeBottom]);
+  }
+ }
+
+  //v10 = uWindowY + 32;
+ if (uWindowHeight > 64)
+ {
+  sub_4A5B81(pD3DRenderer, uWindowX, uWindowY + 32, uWindowX + uWindowWidth, uWindowY + uWindowHeight - 32);
+
+  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX, uWindowY + 32, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeLeft]);
+  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + uWindowWidth - 10, uWindowY + 32, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeRight]);
+ }
+
+ CD3DRenderer_sub_4A5BB6(pD3DRenderer);
+}
+
 //----- (0041CD3B) --------------------------------------------------------
 struct GUIButton *GUIWindow_GetChild(struct GUIWindow *_this, int uID)
 {
@@ -525,7 +615,6 @@ LABEL_62:
 
 //----- (0041C26A) --------------------------------------------------------
 extern int dword_AD4730;
-extern int dword_ACD678;
 extern int dword_6BE380;
 extern int dword_5C8668;
 extern int dword_5C8660;
@@ -536,6 +625,7 @@ extern int dword_59140C[];
 extern int dword_591084;
 extern int dword_507CF8;
 extern int dword_5C35D4;
+extern struct Party *pParty_global;
 void GUIWindowDelete(int this)
 {
   int v1; // esi@1
@@ -578,7 +668,7 @@ void GUIWindowDelete(int this)
         if ( dword_6BE380 )
         {
           dword_507CF8 = (dword_5C8668 - 1) & (dword_5C8660 + dword_507CF8);
-          dword_ACD678 = dword_507CF8;
+          pParty_global->dword_0006C0 = dword_507CF8;
         }
         dword_AD4730 |= 2;
         goto LABEL_26;
