@@ -723,7 +723,7 @@ LABEL_26:
       do
       {
         v9 = *(_DWORD *)(v8 + 52);
-        class23_fn1(class23_instance, v8);
+        class23_DeleteBuffer(class23_instance, v8);
         v8 = v9;
       }
       while ( v9 );

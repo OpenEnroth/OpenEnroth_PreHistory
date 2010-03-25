@@ -941,7 +941,7 @@ struct class16 *class16_ctor(struct class16 *_this, unsigned int uBlockSize)
 }
 
 //----- (MM7.exe::0040FAEE) --------------------------------------------------------
-int class17_LoadLOD_Icons(struct class17 *_this, const char *pFilename)
+int class17_LoadLOD_Icons_Events(struct class17 *_this, const char *pFilename)
 {
  class17_fn4(_this);
  if (class17_MaybeLoadLODHeader(_this, pFilename, 1))
@@ -1015,7 +1015,7 @@ void *class17_fn1(struct class17 *_this, const char *pContainer, int a3)
 
     maybe_decompress_file(result, &class18_obj.uDecompressedSize, v8, class18_obj.uCompressedSize);
     class18_obj.uCompressedSize = class18_obj.uDecompressedSize;
-    class23_fn1(class23_instance, v8);
+    class23_DeleteBuffer(class23_instance, v8);
   }
   else
   {
@@ -1312,7 +1312,7 @@ int class17_fn7(struct class17 *_this)
   _this->uNumSubidices = 0;
   _this->dword_000234 = 0;
 
-  result = class23_fn1(class23_instance, _this->pLODSubIndexNamedBuffer);
+  result = class23_DeleteBuffer(class23_instance, _this->pLODSubIndexNamedBuffer);
   _this->pLODSubIndexNamedBuffer = 0;
  }
  return result;
@@ -1441,7 +1441,7 @@ void class17_AllocateSubidexAndIOBuffer(struct class17 *_this, unsigned int uNum
  if (_this->pLODSubIndexNamedBuffer)
  {
   MessageBoxW(0, L"Attempt to reset a LOD subindex!", L"MM7", 0x30u);
-  class23_fn1(class23_instance, _this->pLODSubIndexNamedBuffer);
+  class23_DeleteBuffer(class23_instance, _this->pLODSubIndexNamedBuffer);
   _this->pLODSubIndexNamedBuffer = 0;
  }
  _this->pLODSubIndexNamedBuffer = class23_AllocatedNamedBuffer(class23_instance, _this->pLODSubIndexNamedBuffer, 32 * uNumSubIndices, "LODsubindex");
@@ -1449,7 +1449,7 @@ void class17_AllocateSubidexAndIOBuffer(struct class17 *_this, unsigned int uNum
  if (_this->pLODIOBuffer)
  {
   MessageBoxW(0, L"Attempt to reset a LOD IObuffer!", L"MM7", 0x30u);
-  class23_fn1(class23_instance, _this->pLODIOBuffer);
+  class23_DeleteBuffer(class23_instance, _this->pLODIOBuffer);
   _this->pLODIOBuffer = 0;
   _this->uIOBufferSize = 0;
  }
@@ -1507,6 +1507,212 @@ int class17_LoadLOD_Games(struct class17 *_this, const char *pLODFilename, unsig
 
  locked_fread(_this->pLODSubIndexNamedBuffer, sizeof(struct LODIndex), _this->uNumSubidices, _this->pLODFile);
  return true;
+}
+
+//----- (00461B48) --------------------------------------------------------
+signed int sub_461B48(struct class17 *_this, const char *Count, const void *a3, FILE *File)
+{
+  int v4; // ebx@1
+  int v5; // esi@1
+  unsigned __int8 v7; // zf@7
+  unsigned __int8 v8; // sf@7
+  int v9; // eax@9
+  char *v10; // edi@9
+  //unsigned __int8 v11; // sf@15
+  //unsigned __int8 v12; // of@15
+  int v13; // eax@17
+  unsigned __int16 v14; // dx@17
+  unsigned __int16 v15; // cx@17
+  int v16; // eax@27
+  int v17; // edi@27
+  int v18; // eax@29
+  char v19; // zf@29
+  int v20; // eax@31
+  int v21; // edx@31
+  void *v22; // edi@32
+  int v23; // eax@34
+  int v24; // edi@34
+  int v25; // esi@34
+  int v26; // edx@35
+  int v27; // ecx@35
+  __int32 v28; // eax@37
+  int i; // esi@39
+  __int32 v30; // esi@46
+  char Filename[256]; // [sp+Ch] [bp-230h]@22
+  char NewFilename[256]; // [sp+10Ch] [bp-130h]@51
+
+  char Str[16 + array_size_unknown]; // [sp+20Ch] [bp-30h]@27
+  __int32 Offset; // [sp+21Ch] [bp-20h]@29
+  int v36; // [sp+220h] [bp-1Ch]@29
+  int v37; // [sp+224h] [bp-18h]@27
+  __int16 v38; // [sp+228h] [bp-14h]@27
+  __int16 v39; // [sp+22Ah] [bp-12h]@27
+  size_t v40; // [sp+22Ch] [bp-10h]@27
+  int v41; // [sp+230h] [bp-Ch]@7
+  __int32 v42; // [sp+234h] [bp-8h]@8
+  int v43; // [sp+238h] [bp-4h]@7
+  size_t v44; // [sp+244h] [bp+8h]@40
+  __int32 v45; // [sp+244h] [bp+8h]@46
+  size_t v46; // [sp+244h] [bp+8h]@47
+  FILE *v47; // [sp+24Ch] [bp+10h]@22
+
+  v4 = _this;
+  v5 = 0;
+  if ( !_this->dword_000104)
+    return 1;
+  if ( !_this->pLODSubIndexNamedBuffer)
+    return 2;
+  if ( _this->pLODIOBuffer && _this->uIOBufferSize)
+  {
+    v7 = _this->uNumSubidices == 0;
+    v8 = _this->uNumSubidices < 0;
+    v43 = 0;
+    v41 = 0;
+    if ( v8 | v7 )
+    {
+      v10 = (char *)Count;
+      goto LABEL_22;
+    }
+    v42 = 0;
+    while ( 1 )
+    {
+      v10 = (char *)Count;
+      v9 = _strcmpi((const char *)(v42 + *(_DWORD *)(v4 + 560)), Count);
+      if ( v9 )
+      {
+        if ( v9 > 0 )
+          goto LABEL_22;
+      }
+      else
+      {
+        if ( !File )
+          goto LABEL_20;
+        if ( File == (FILE *)1 )
+        {
+          v14 = *((_WORD *)Count + 14);
+          v13 = *(_DWORD *)(v4 + 560) + 32 * v5;
+          v15 = *(_WORD *)(v13 + 28);
+          if ( v15 >= v14 && (v15 != v14 || *(_WORD *)(v13 + 30) >= *((_WORD *)Count + 15)) )
+            return 4;
+LABEL_20:
+          v43 = 1;
+LABEL_22:
+          strcpy(Filename, "lod.tmp");
+          v47 = fopen(Filename, "wb+");
+          if ( !v47 )
+            return 5;
+          if ( v43 )
+            v42 = *(_DWORD *)(32 * v5 + *(_DWORD *)(v4 + 560) + 20);
+          else
+            v42 = 0;
+          v40 = *((_DWORD *)v10 + 5);
+          v17 = v40 - v42;
+          sub_46172B(Str);
+          strcpy(Str, "chapter");
+          v16 = *(_DWORD *)(v4 + 552);
+          v38 = *(_WORD *)(v4 + 556);
+          v37 = 0;
+          v39 = 0;
+          if ( !v43 )
+          {
+            ++v38;
+            v17 += 32;
+          }
+          v19 = v43 == 0;
+          v36 = v17 + v16;
+          Offset = 288;
+          v18 = v38;
+          *(_DWORD *)(v4 + 556) = v38;
+          if ( v19 )
+          {
+            if ( v18 > v5 )
+            {
+              v21 = 32 * v18;
+              v20 = v18 - v5;
+              do
+              {
+                v22 = (void *)(v21 + *(_DWORD *)(v4 + 560));
+                v21 -= 32;
+                --v20;
+                memcpy(v22, (char *)v22 - 32, 0x20u);
+              }
+              while ( v20 );
+              v5 = v41;
+            }
+          }
+          v24 = *(_DWORD *)(v4 + 560);
+          v41 = 32 * v5;
+          memcpy((void *)(32 * v5 + v24), Count, 0x20u);
+          v25 = 0;
+          v23 = 32 * *(_DWORD *)(v4 + 556);
+          if ( *(_DWORD *)(v4 + 556) > 0 )
+          {
+            v27 = *(_DWORD *)(v4 + 560);
+            v26 = 0;
+            do
+            {
+              *(_DWORD *)(v26 + v27 + 16) = v23;
+              v27 = *(_DWORD *)(v4 + 560);
+              v23 += *(_DWORD *)(v26 + v27 + 20);
+              ++v25;
+              v26 += 32;
+            }
+            while ( v25 < *(_DWORD *)(v4 + 556) );
+          }
+          locked_fwrite((const void *)(v4 + 272), 0x100u, 1u, v47);
+          locked_fwrite(Str, 0x20u, 1u, v47);
+          fseek(*(FILE **)v4, Offset, 0);
+          locked_fwrite(*(const void **)(v4 + 560), 0x20u, *(_DWORD *)(v4 + 556), v47);
+          v28 = 32 * *(_DWORD *)(v4 + 556);
+          if ( !v43 )
+            v28 -= 32;
+          fseek(*(FILE **)v4, v28, 1);
+          for ( i = *(_DWORD *)(v41 + *(_DWORD *)(v4 + 560) + 16) - *(_DWORD *)(*(_DWORD *)(v4 + 560) + 16); i > 0; i -= v44 )
+          {
+            v44 = *(_DWORD *)(v4 + 268);
+            if ( i <= *(_DWORD *)(v4 + 268) )
+              v44 = i;
+            locked_fread(*(void **)(v4 + 264), 1u, v44, *(FILE **)v4);
+            locked_fwrite(*(const void **)(v4 + 264), 1u, v44, v47);
+          }
+          locked_fwrite(a3, 1u, v40, v47);
+          if ( v43 )
+            fseek(*(FILE **)v4, v42, 1);
+          v45 = ftell(*(FILE **)v4);
+          fseek(*(FILE **)v4, 0, 2);
+          v30 = ftell(*(FILE **)v4) - v45;
+          fseek(*(FILE **)v4, v45, 0);
+          while ( v30 > 0 )
+          {
+            v46 = *(_DWORD *)(v4 + 268);
+            if ( v30 <= *(_DWORD *)(v4 + 268) )
+              v46 = v30;
+            locked_fread(*(void **)(v4 + 264), 1u, v46, *(FILE **)v4);
+            locked_fwrite(*(const void **)(v4 + 264), 1u, v46, v47);
+            v30 -= v46;
+          }
+          strcpy(NewFilename, (const char *)(v4 + 4));
+          fclose(v47);
+          sub_461EE9(v4);
+          remove(NewFilename);
+          rename(Filename, NewFilename);
+          sub_461EE9(v4);
+          class17_LoadLOD_Games((void *)v4, (const char *)(v4 + 4), 0);
+          return 0;
+        }
+        if ( File == (FILE *)2 )
+          return 4;
+      }
+      v42 += 32;
+      ++v5;
+      //v12 = __SETO__(v5, *(_DWORD *)(v4 + 556));
+      //v11 = v5 - *(_DWORD *)(v4 + 556) < 0;
+      v41 = v5;
+      if (v5 < *(_DWORD *)(v4 + 556))
+        goto LABEL_22;
+    }
+  }
+  return 3;
 }
 
 //----- (MM7.exe::0040FC08) --------------------------------------------------------
@@ -1607,7 +1813,7 @@ int class17_LoadPalette(struct class17 *_this, struct class18 *pClass18, const c
               *((_WORD *)v8 + 18),
               4 * *(_DWORD *)(v6 + 72572) + *(_DWORD *)(v6 + 72620),
               4 * *(_DWORD *)(v6 + 72572) + *(_DWORD *)(v6 + 72624));
-      sub_4CA32D(v10, uSomeInt);
+      operator_delete(v10, uSomeInt);
     }
     return v10;
  }
@@ -1662,8 +1868,8 @@ int class17_LoadPalette(struct class17 *_this, struct class18 *pClass18, const c
  }
 
 
- class23_fn1(class23_instance, pClass18->pPalette);
- class23_fn1(class23_instance, pClass18->ptr_000044);
+ class23_DeleteBuffer(class23_instance, pClass18->pPalette);
+ class23_DeleteBuffer(class23_instance, pClass18->ptr_000044);
 
  if (uSomeInt == 1)
  {
@@ -3955,7 +4161,7 @@ void *class23_AllocatedNamedBuffer(struct class23 *_this, int a2, int size, cons
 }
 
 //----- (MM7.exe::00426474) --------------------------------------------------------
-int class23_fn1(struct class23 *_this, void *pMem)
+int class23_DeleteBuffer(struct class23 *_this, void *pMem)
 {
  int v2; // esi@1
  int v3; // eax@5
@@ -5318,7 +5524,7 @@ LABEL_196:
 
   if (_this->pRndItemsTXT_Raw)
   {
-   class23_fn1(class23_instance, _this->pRndItemsTXT_Raw);
+   class23_DeleteBuffer(class23_instance, _this->pRndItemsTXT_Raw);
    _this->pRndItemsTXT_Raw = 0;
   }
   v45 = (int)((char *)v1 + 71300);
@@ -5754,7 +5960,7 @@ int CMapStats_Initialize(struct CMapStats *_this)
  struct MapInfo *pMapInfo;
 
  if (pMapStatsTXT_Raw)
-   class23_fn1(class23_instance, pMapStatsTXT_Raw);
+   class23_DeleteBuffer(class23_instance, pMapStatsTXT_Raw);
 
  pMapStatsTXT_Raw = class17_fn1(pClass17_Events_LOD, "MapStats.txt", 0);
  strtok(pMapStatsTXT_Raw, "\r");
@@ -6062,7 +6268,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
   v114 = (int)_this;
 
  if (pMonstersTXT_Raw)
-   class23_fn1(class23_instance, pMonstersTXT_Raw);
+   class23_DeleteBuffer(class23_instance, pMonstersTXT_Raw);
 
  pMonstersTXT_Raw = class17_fn1(pClass17_Events_LOD, "monsters.txt", 0);
  strtok(pMonstersTXT_Raw, "\r");
@@ -7274,7 +7480,7 @@ char *CSpellStats_Initialize(struct CSpellStats *_this)
 
   v1 = _this;
  if (pSpellsTXT_Raw)
-   class23_fn1(class23_instance, pSpellsTXT_Raw);
+   class23_DeleteBuffer(class23_instance, pSpellsTXT_Raw);
 
  pSpellsTXT_Raw = class17_fn1(pClass17_Events_LOD, "spells.txt", 0);
  strtok(pSpellsTXT_Raw, "\r");
@@ -7436,7 +7642,7 @@ int sub_453B3C(struct class40 *_this)
   v9 = _this;
 
  if (pPotionsTXT_Raw)
-   class23_fn1(class23_instance, pPotionsTXT_Raw);
+   class23_DeleteBuffer(class23_instance, pPotionsTXT_Raw);
 
  pPotionsTXT_Raw = class17_fn1(pClass17_Events_LOD, "potion.txt", 0);
  for (i = strtok(pPotionsTXT_Raw, "\t\r\n"); ; i = strtok(0, "\t\r\n"))
@@ -7506,7 +7712,7 @@ int sub_453B3C(struct class40 *_this)
 
   if (pPotionsTXT_Raw)
   {
-    class23_fn1(class23_instance, pPotionsTXT_Raw);
+    class23_DeleteBuffer(class23_instance, pPotionsTXT_Raw);
     pPotionsTXT_Raw = 0;
   }
   return pPotionsTXT_Raw;
@@ -7535,7 +7741,7 @@ const char *sub_453CE5(struct class40 *_this)
   v10 = _this;
 
  if (pPotionNotesTXT_Raw)
-   class23_fn1(class23_instance, pPotionNotesTXT_Raw);
+   class23_DeleteBuffer(class23_instance, pPotionNotesTXT_Raw);
 
  pPotionNotesTXT_Raw = 0;
  pPotionNotesTXT_Raw = class17_fn1(pClass17_Events_LOD, "potnotes.txt", 0);
@@ -7654,7 +7860,7 @@ int class48_Initialize(struct class48 *_this)
   v11 = _this;
 
  if (pHostileTXT_Raw)
-   class23_fn1(class23_instance, pHostileTXT_Raw);
+   class23_DeleteBuffer(class23_instance, pHostileTXT_Raw);
 
  pHostileTXT_Raw = class17_fn1(pClass17_Events_LOD, "hostile.txt", 0);
 
@@ -7708,7 +7914,7 @@ int class48_Initialize(struct class48 *_this)
 
   if (pHostileTXT_Raw)
   {
-    class23_fn1(class23_instance, pHostileTXT_Raw);
+    class23_DeleteBuffer(class23_instance, pHostileTXT_Raw);
     pHostileTXT_Raw = 0;
   }
   return pHostileTXT_Raw;
@@ -7737,7 +7943,7 @@ int StorylineText_Initialize(struct StorylineText *_this)
   v2 = _this;
 
  if (pHistoryTXT_Raw)
-    class23_fn1(class23_instance, pHistoryTXT_Raw);
+    class23_DeleteBuffer(class23_instance, pHistoryTXT_Raw);
 
  pHistoryTXT_Raw = class17_fn1(pClass17_Events_LOD, "history.txt", 0);
  strtok(pHistoryTXT_Raw, "\r");
@@ -8492,7 +8698,7 @@ char *CNPCStats_sub_476CB5(struct CNPCStats *_this)
 
 
 //----- (00476977) --------------------------------------------------------
-extern char unk_72166C;
+extern char unk_72166C[];
 extern char unk_721668;
 int CNPCStats_sub_476977(struct CNPCStats *_this)
 {
@@ -8530,7 +8736,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
 
   v2 = _this;
   if (_this->pNPCTextTXT_Raw)
-    class23_fn1(class23_instance, _this->pNPCTextTXT_Raw);
+    class23_DeleteBuffer(class23_instance, _this->pNPCTextTXT_Raw);
 
   _this->pNPCTextTXT_Raw = class17_fn1(pClass17_Events_LOD, "npctext.txt", 0);
   strtok(_this->pNPCTextTXT_Raw, "\r");
@@ -8567,7 +8773,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
       else
       {
         if ( v23 == 1 )
-          *(_DWORD *)(&unk_72166C + v29) = sub_452C30(v4);
+          *(_DWORD *)(unk_72166C + v29) = sub_452C30(v4);
       }
       ++v23;
       v4 = (char *)(v7 + 1);
@@ -8579,7 +8785,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
   while (v29 < 0x18A8);
 
  if (_this->pNPCTopicTXT_Raw)
-   class23_fn1(class23_instance, _this->pNPCTopicTXT_Raw);
+   class23_DeleteBuffer(class23_instance, _this->pNPCTopicTXT_Raw);
 
  _this->pNPCTopicTXT_Raw = class17_fn1(pClass17_Events_LOD, "npctopic.txt", 0);
  strtok(_this->pNPCTopicTXT_Raw, "\r");
@@ -8630,7 +8836,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
 
 
  if (_this->pNPCDistTXT_Raw)
-   class23_fn1(class23_instance, _this->pNPCDistTXT_Raw);
+   class23_DeleteBuffer(class23_instance, _this->pNPCDistTXT_Raw);
 
  _this->pNPCDistTXT_Raw = class17_fn1(pClass17_Events_LOD, "npcdist.txt", 0);
  strtok(_this->pNPCDistTXT_Raw, "\r");
@@ -8712,7 +8918,7 @@ LABEL_54:
 
  if (_this->pNPCDistTXT_Raw)
  {
-  class23_fn1(class23_instance, _this->pNPCDistTXT_Raw);
+  class23_DeleteBuffer(class23_instance, _this->pNPCDistTXT_Raw);
   _this->pNPCDistTXT_Raw = 0;
  }
  return 0;
@@ -9155,4 +9361,206 @@ LABEL_119:
   }
   ++*(_DWORD *)(v5 + 12);
   return v18;
+}
+
+
+//----- (00459E3F) --------------------------------------------------------
+extern int vKey[];
+SHORT __cdecl sub_459E3F()
+{
+  int *v0; // esi@1
+  SHORT result; // ax@2
+
+  v0 = vKey;
+  do
+  {
+    result = GetAsyncKeyState(*v0++);
+  }
+  while ( (signed int)v0 < vKey + 30);
+  return result;
+}
+
+//----- (00426363) --------------------------------------------------------
+void sub_426363(struct class24 *_this)
+{
+  if (_this->dword_000004)
+  {
+    sub_459E3F();
+    _this->dword_00000C = class24_fn2(_this);
+    _this->dword_000004 = 0;
+  }
+}
+
+
+
+//----- (0048A336) --------------------------------------------------------
+int sub_48A336(struct class35 *_this)
+{
+  int v1; // eax@1
+  signed int v2; // ecx@1
+  int v3; // esi@1
+  signed int result; // eax@3
+  void *v5; // edi@4
+  int v6; // ecx@4
+
+  v3 = (int)_this;
+  v2 = 0;
+  v1 = v3 + 1;
+  do
+  {
+    *(_BYTE *)(v1 + 1) = v2;
+    *(_BYTE *)v1 = v2;
+    *(_BYTE *)(v1 - 1) = v2++;
+    v1 += 3;
+  }
+  while ( v2 < 256 );
+  class35_sub_489BE0(v3, 0);
+  result = *(_DWORD *)(v3 + 0x267AC8);
+  if ( result < 50 )
+  {
+    v5 = (void *)(v3 + 4 * result + 0x267A00);
+    v6 = 50 - result;
+    result = 0;
+    memset(v5, 0, 4 * v6);
+  }
+  return result;
+}
+
+//----- (0046454B) --------------------------------------------------------
+int sub_46454B(struct class17 *_this)
+{
+  int v1; // edi@1
+  int v2; // esi@1
+  struct class18 *v3; // ebx@2
+  int v4; // eax@3
+  int v5; // eax@4
+  int v6; // eax@6
+  int v7; // eax@7
+  int result; // eax@10
+
+  v2 = _this;
+  v1 = _this->uNumLoadedFiles - 1;
+  if ( v1 >= _this->dword_011B84)
+  {
+    //v3 = v2 + 72 * v1 + 572;
+    v3 = &_this->aLODHeaders[v1];
+    do
+    {
+      sub_40F77C(v3);
+      v4 = *(_DWORD *)(v2 + 72624);
+      if ( v4 )
+      {
+        v5 = *(_DWORD *)(v4 + 4 * v1);
+        if ( v5 )
+        {
+          (*(void (__stdcall **)(int))(*(_DWORD *)v5 + 8))(v5);
+          *(_DWORD *)(*(_DWORD *)(v2 + 72624) + 4 * v1) = 0;
+        }
+      }
+      v6 = *(_DWORD *)(v2 + 72620);
+      if ( v6 )
+      {
+        v7 = *(_DWORD *)(v6 + 4 * v1);
+        if ( v7 )
+        {
+          (*(void (__stdcall **)(int))(*(_DWORD *)v7 + 8))(v7);
+          *(_DWORD *)(*(_DWORD *)(v2 + 72620) + 4 * v1) = 0;
+        }
+      }
+      --v1;
+      v3 -= 72;
+    }
+    while ( v1 >= *(_DWORD *)(v2 + 72580) );
+  }
+  result = *(_DWORD *)(v2 + 72580);
+  *(_DWORD *)(v2 + 72604) = 0;
+  *(_DWORD *)(v2 + 72600) = 0;
+  *(_DWORD *)(v2 + 72572) = result;
+  return result;
+}
+
+//----- (004645DC) --------------------------------------------------------
+int sub_4645DC(struct class17 *_this)
+{
+  int result; // eax@1
+  int v1;
+  int v2; // esi@1
+  int v3; // edi@1
+
+  v1 = _this;
+  v2 = v1 + 60572;
+  v3 = v1 + 60576;
+  sub_450CA9(_this, *(_DWORD *)(v1 + 60576), *(_DWORD *)(v1 + 60572));
+  result = *(_DWORD *)v3;
+  *(_DWORD *)v2 = *(_DWORD *)v3;
+  return result;
+}
+
+//----- (0040F77C) --------------------------------------------------------
+int sub_40F77C(struct class18 *_this)
+{
+  int v1; // esi@1
+  char v2; // zf@2
+  int result; // eax@3
+
+  v1 = _this;
+  if ( _this )
+  {
+    v2 = (*(_BYTE *)(v1 + 45) & 4) == 0;
+    *(_BYTE *)v1 = 0;
+    if ( v2 )
+    {
+      class23_DeleteBuffer(class23_instance, *(_DWORD *)(v1 + 48));
+      class23_DeleteBuffer(class23_instance, *(_DWORD *)(v1 + 64));
+      result = class23_DeleteBuffer(class23_instance, *(_DWORD *)(v1 + 68));
+    }
+    *(_DWORD *)(v1 + 48) = 0;
+    *(_DWORD *)(v1 + 52) = 0;
+    *(_DWORD *)(v1 + 56) = 0;
+    *(_DWORD *)(v1 + 60) = 0;
+    *(_DWORD *)(v1 + 64) = 0;
+    *(_DWORD *)(v1 + 68) = 0;
+    *(_DWORD *)(v1 + 16) = 0;
+    *(_DWORD *)(v1 + 20) = 0;
+    *(_WORD *)(v1 + 26) = 0;
+    *(_WORD *)(v1 + 24) = 0;
+    *(_WORD *)(v1 + 30) = 0;
+    *(_WORD *)(v1 + 28) = 0;
+    *(_WORD *)(v1 + 36) = 0;
+    *(_WORD *)(v1 + 38) = 0;
+    *(_WORD *)(v1 + 44) = 0;
+  }
+  return result;
+}
+
+
+
+//----- (004547A3) --------------------------------------------------------
+int sub_4547A3(struct CMapStats *_this, const char *Str2)
+{
+  signed int v2; // edi@1
+  int v3; // esi@1
+  const char **v4; // ebx@2
+  signed int result; // eax@6
+
+  v3 = _this;
+  v2 = 1;
+  if ( *(_DWORD *)(v3 + 5236) <= 1 )
+  {
+LABEL_6:
+    result = 0;
+  }
+  else
+  {
+    v4 = (const char **)(v3 + 72);
+    while ( !*v4 || _strcmpi(*v4, Str2) )
+    {
+      ++v2;
+      v4 += 17;
+      if ( v2 >= *(_DWORD *)(v3 + 5236) )
+        goto LABEL_6;
+    }
+    result = v2;
+  }
+  return result;
 }

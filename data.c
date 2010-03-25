@@ -1207,8 +1207,10 @@ struct RGBTexture      *pClass33_obj3 = 0;         // struct @ MM7.exe::00507A94
 struct RGBTexture      *pClass33_obj4 = 0;         // struct @ MM7.exe::00507ABC
 
 
-void *Dst_global = 0;  //300 000 bytes
-
+void *pSpansBuf = 0;
+void *pNewEdgesBuf = 0; // ptr @ MM7.exe::0080C968
+void *pSurfsBuf = 0;    // ptr @ MM7.exe::0080C96C
+void *pEdgesBuf = 0;    // ptr @ MM7.exe::0080C970
 
 
 void nullsub_1()

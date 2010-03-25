@@ -1776,7 +1776,7 @@ int CObjectDescriptionList_InitializeFromTXT(struct CObjectDescriptionList *_thi
   int j; // [sp+470h] [bp+8h]@15
 
   v3 = _this;
-  class23_fn1(class23_instance, *(_DWORD *)(_this + 4));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(_this + 4));
   v4 = 0;
   *(_DWORD *)(v3 + 4) = 0;
   *(_DWORD *)v3 = 0;
@@ -1951,7 +1951,7 @@ int COverlayDescriptionList_InitializeFromTXT(struct COverlayDescriptionList *_t
   int v23; // [sp+308h] [bp+8h]@3
 
   v3 = _this;
-  class23_fn1(class23_instance, *(_DWORD *)(_this + 4));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(_this + 4));
   v4 = 0;
   *(_DWORD *)(v3 + 4) = 0;
   *(_DWORD *)v3 = 0;
@@ -2065,7 +2065,7 @@ int CSoundList_InitializeFromTXT(struct CSoundList *_this, const char *pSourceFi
   int v24; // [sp+304h] [bp+8h]@3
 
   v3 = _this;
-  class23_fn1((int)&class23_instance, *(_DWORD *)(_this + 4));
+  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(_this + 4));
   v4 = 0;
   *(_DWORD *)(v3 + 4) = 0;
   *(_DWORD *)v3 = 0;

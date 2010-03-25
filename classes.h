@@ -482,6 +482,8 @@ struct class18
 //sizeof = 000048
 //int __thiscall sub_40F5BE(int this);
 void *class18_ctor(struct class18 *_this);
+//int __thiscall sub_40F77C(int this);
+int sub_40F77C(struct class18 *_this);
 
 
 
@@ -522,7 +524,7 @@ struct class17
  int   dword_000234;
  int   dword_000238;
 
- struct class18 aLODHeaders[128];  // class18[~ 1000] @ 00023C
+ struct class18 aLODHeaders[1000];  // class18[~ 1000] @ 00023C
  //char   byte_00023C[16];
  //short  array_00024C[0x7528];
 
@@ -555,7 +557,7 @@ struct class17
 
 void class17_ctor(struct class17 *_this);
 //bool __thiscall sub_40FAEE(int this, const char *Filename);
-int class17_LoadLOD_Icons(struct class17 *_this, const char *pLODFilename);
+int class17_LoadLOD_Icons_Events(struct class17 *_this, const char *pLODFilename);
 //bool __thiscall sub_40FA2E(int this, const char *Filename);
 int class17_LoadLOD_Bitmaps(struct class17 *_this, const char *pLODFilename);
 //bool __thiscall sub_4AC795(int this, const char *Filename);
@@ -584,8 +586,12 @@ int sub_41097D(struct class17 *_this, int a2, int a3, int a4);
 void class17_AllocateSubidexAndIOBuffer(struct class17 *_this, unsigned int uNumSubIndices, signed int uIOBufferSize);
 //signed int __thiscall sub_461A43(void *this, const char *Filename, char a3);
 int class17_LoadLOD_Games(struct class17 *_this, const char *pLODFilename, unsigned char uFileFlags);
-//int __thiscall sub_4114F2(_DWORD); // weak
-int sub_4114F2(struct class17 *_this); // weak
+//int __thiscall sub_4114F2(_DWORD);
+int sub_4114F2(struct class17 *_this);
+//int __thiscall sub_46454B(int this);
+int sub_46454B(struct class17 *_this);
+//int __thiscall sub_4645DC(int this);
+int sub_4645DC(struct class17 *_this);
 
 unsigned int   class17_LoadTextureFromCBM(struct class17 *_this, const wchar_t *pFilename);
 unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename);
@@ -711,7 +717,7 @@ struct class23
 //signed int __thiscall sub_4266CD(int this, int a2);
 int class23_AllocateBigBuffer(struct class23 *_this, unsigned int uNumKBytes);
 //int __thiscall sub_426474(int this, int a2);
-int class23_fn1(struct class23 *_this, void *pMem);
+int class23_DeleteBuffer(struct class23 *_this, void *pMem);
 //void *__thiscall sub_426755(void *this, int a2, signed int Size, const char *Source);
 void *class23_AllocatedNamedBuffer(struct class23 *_this, int a2, int size, const char *pBufferName);
 //signed int __thiscall sub_42654C(int this, int a2)
@@ -719,6 +725,7 @@ int class23_CreateFileDump(struct class23 *_this, const char *a2);
 
 
 
+//clock.bin
 //class24
 struct class24
 {
@@ -829,6 +836,8 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx);
 int class35_sub_48A3BC(struct class35 *_this, int a2);
 //int __thiscall sub_48A8A3(int this);
 int class35_sub_48A8A3(struct class35 *_this);
+//signed int __thiscall sub_48A336(void *this);
+int sub_48A336(struct class35 *_this);
 
 
 
@@ -998,6 +1007,8 @@ struct CMapStats
 void CMapStats_ctor(struct CMapStats *_this);
 //int __thiscall sub_453F62(void *this)
 int CMapStats_Initialize(struct CMapStats *_this);
+//signed int __thiscall sub_4547A3(int this, const char *Str2);
+int sub_4547A3(struct CMapStats *_this, const char *Str2);
 
 
 
@@ -1254,7 +1265,7 @@ struct Player
    short word_00177E;
 
    char array_0017A0[24][16];
-   int  dword_001920;
+   int  dword_001920; //related to voice in SoundList
    int  dword_001924;
    int  dword_001928;
 
@@ -1334,6 +1345,7 @@ struct Party
 
  char pad[50000];
 };
+//sizeof ~ 16238
 
 
 

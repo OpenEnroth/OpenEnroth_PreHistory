@@ -58,8 +58,10 @@ extern unsigned char pStringBuffer[];
 extern unsigned char cGameCDDriveLetter;
 
 
-extern void *Dst_global;
-
+extern void *pSpansBuf;
+extern void *pNewEdgesBuf;
+extern void *pSurfsBuf;
+extern void *pEdgesBuf;
 
 
 

@@ -161,7 +161,8 @@ void CD3DRenderer_DrawTransparentTexture(struct CD3DRenderer *_this, int a2, int
 void CD3DRenderer_sub_4A0E97(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5);
 //void __thiscall sub_4A6AB1(int this, int a2, int a3, int a4, int a5, int a6, int a7, int a8);
 void sub_4A6AB1(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, unsigned char *pData, int a5, int a6, int a7, int a8);
-
+//signed int __thiscall sub_4A0E80(int this, int a2, int a3);
+int sub_4A0E80(struct CD3DRenderer *_this, int a2, int a3);
 
 //class15
 struct CGammaController

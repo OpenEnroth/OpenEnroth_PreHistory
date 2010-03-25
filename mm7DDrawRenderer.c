@@ -1038,7 +1038,7 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
       if ( hwnd )
       {
         v11 = sub_49DC90(hwnd);
-        sub_4CA32D(v11, hwnd);
+        operator_delete(v11, hwnd);
       }
       *(_DWORD *)(v3 + 262280) = 0;
       *(_DWORD *)(v3 + 262292) = 0;
@@ -1052,7 +1052,7 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
       if ( hwnd)
       {
         v12 = sub_49DC90(hwnd);
-        sub_4CA32D(v12, hwnd);
+        operator_delete(v12, hwnd);
       }
       *(_DWORD *)(v3 + 262296) = 0;
       *(_DWORD *)(v3 + 262280) = 0;
@@ -1067,7 +1067,7 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
       if ( hwnd )
       {
         v13 = sub_49DC90(hwnd);
-        sub_4CA32D(v13, hwnd);
+        operator_delete(v13, hwnd);
       }
       *(_DWORD *)(v3 + 262280) = 0;
       *(_DWORD *)(v3 + 262292) = 0;
@@ -2289,4 +2289,15 @@ int RGBTexture_ctor(struct RGBTexture *_this)
  _this->dword_000020 = 0;
  _this->dword_000024 = 0;
  return _this;
+}
+
+
+//----- (004A0E80) --------------------------------------------------------
+int sub_4A0E80(struct CD3DRenderer *_this, int a2, int a3)
+{
+  signed int result; // eax@1
+
+  result = -65536;
+  memset(_this->dword_040034, -65536, 0x12C000);
+  return result;
 }

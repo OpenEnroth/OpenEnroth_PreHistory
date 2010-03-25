@@ -227,16 +227,10 @@ int CSpriteFrameTable_fn2(struct CSpriteFrameTable *_this, int a2, signed int a3
 int CSpriteFrameTable_fn3(struct CSpriteFrameTable *_this)
 {
   int i; // edx@1
-  int v2; // esi@1
   int result; // eax@2
 
-  v2 = 0;
-  for ( i = 0; i < *(_DWORD *)_this; ++i )
-  {
-    result = v2 + *(_DWORD *)(_this + 12) + 44;
-    v2 += 60;
-    *(_BYTE *)result &= 0x7Fu;
-  }
+  for ( i = 0; i < _this->uNumSpriteFrames; ++i )
+    result = _this->pSpriteSFrames[i].dword_00002C &= 0xFFFFFF7F;
   return result;
 }
 
@@ -451,7 +445,7 @@ int CSpriteFrameTable_sub_44D4D8(struct CSpriteFrameTable *_this)
 {
  if (_this->pSpriteSFrames)
  {
-  class23_fn1(class23_instance, _this->pSpriteSFrames);
+  class23_DeleteBuffer(class23_instance, _this->pSpriteSFrames);
   _this->pSpriteSFrames = 0;
  }
  _this->uNumSpriteFrames = 0;

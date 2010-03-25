@@ -46,6 +46,8 @@ int CSoundList_InitializeFromTXT(struct CSoundList *_this, const char *pSourceFi
 void *CSoundList_Initialize(struct CSoundList *_this, unsigned char *pSrc);
 //signed int __thiscall sub_4A9953(void *this);
 int sub_4A9953(struct CSoundList *_this);
+//void __thiscall sub_4A9D79(void *this, int a2)
+void sub_4A9D79(struct CSoundList *_this, int a2);
 
 
 
@@ -120,7 +122,7 @@ void sub_4AA214(struct class31 *_this, signed int a2);
 //int __thiscall sub_4AB818(void *this);
 int class31_LoadSoundHeaders(struct class31 *_this);
 //int __fastcall sub_4AA1F3(int a1, int a2, int a3);
-int sub_4AA1F3(struct class31 *_this, float fVolume);
+int SetVolume(struct class31 *_this, float fVolume);
 //int __thiscall sub_4AB71F(void *this, int a2, int a3);
 void sub_4AB71F(struct class31 *_this, int a2, int a3);
 //void __thiscall sub_4AA306(int this, int a2, signed int a3, int a4, signed int a5, int a6, int a7, int a8, int a9)

@@ -770,7 +770,7 @@ LABEL_100:
 }
 
 //----- (004AA1F3) --------------------------------------------------------
-int sub_4AA1F3(struct class31 *_this, float fVolume)
+int SetVolume(struct class31 *_this, float fVolume)
 {
  if (_this->dword_00029C)
  {
@@ -1149,4 +1149,38 @@ LABEL_16:
   }
 
   return i;
+}
+
+
+//----- (004A9D79) --------------------------------------------------------
+void sub_4A9D79(struct CSoundList *_this, int a2)
+{
+  int i; // ebx@1
+  int v3; // edi@1
+  void *v4; // esi@1
+  int v5; // eax@2
+  int v6; // ecx@2
+  void *v7; // eax@5
+
+  v4 = _this;
+  v3 = 0;
+  for ( i = 0; i < *(_DWORD *)v4; v3 += 120 )
+  {
+    v5 = v3 + *((_DWORD *)v4 + 1);
+    v6 = *(_DWORD *)(v5 + 36);
+    if ( v6 != 1 )
+    {
+      if ( a2 || v6 != 4 )
+      {
+        v7 = *(void **)(v5 + 44);
+        if ( v7 )
+        {
+          sub_4A96BE(v7);
+          *(_DWORD *)(v3 + *((_DWORD *)v4 + 1) + 44) = 0;
+        }
+        *(_DWORD *)(v3 + *((_DWORD *)v4 + 1) + 40) &= 0xFFFFFFFEu;
+      }
+    }
+    ++i;
+  }
 }
