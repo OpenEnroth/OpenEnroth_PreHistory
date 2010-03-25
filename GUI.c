@@ -229,7 +229,6 @@ extern struct class03 *class03_global;
 extern struct class24 *pClass24_global;
 extern struct CMapStats *pMapStats;
 extern int dword_5913D8[];
-extern unsigned char *pFontArrus;
 extern int dword_5076F4;
 extern int dword_506438;
 extern int dword_591090;
@@ -331,7 +330,7 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
           if ( *(_DWORD *)(v9 + 28) != 1 )
           {
             v33 = 0;
-            v11 = *(_BYTE *)(pFontArrus + 5) - 3;
+            v11 = pFontArrus->uFontHeight - 3;
             v12 = sub_4459F9(dword_591090);
             v31 = v12;
             if ( sub_445C8B(dword_591090) == 1 )
@@ -744,4 +743,393 @@ LABEL_26:
     array_5075E0[v10] = 0;
     dword_507630 = v10 - 1;
   }
+}
+
+
+
+//----- (0044C448) --------------------------------------------------------
+struct Font *__cdecl LoadFont(const char *pFontFile, const char *pFontPalette)
+{
+  int result; // eax@1
+  int v5; // eax@3
+  int v8; // [sp+8h] [bp-8h]@1
+  int **v9; // [sp+Ch] [bp-4h]@2
+
+ result = class17_fn1(pClass17_Icons_LOD, pFontFile, 0);
+ v8 = 0;
+ if (pFontPalette)
+ {
+  v9 = result + 12;
+
+   v5 = class17_LoadTexture(pClass17_Icons_LOD, pFontPalette, 2);
+   if (v5 == -1)
+   {
+    sprintfex(&ExistingFileName, "Unable to open %s", pFontPalette);
+    erroneous_printf(&ExistingFileName);
+   }
+   ++v8;
+   *v9++ = pClass17_Icons_LOD->aLODHeaders[v5].pPalette;
+ }
+
+ *(_DWORD *)(result + 8) = v8;
+ return result;
+}
+
+
+//----- (0049750E) --------------------------------------------------------
+void __cdecl DeleteFontCChar()
+{
+  class23_DeleteBuffer(class23_instance, pFontCChar);
+  pFontCChar = 0;
+}
+
+
+//----- (0049695A) --------------------------------------------------------
+extern int dword_50CBD0[];
+extern unsigned int array_A74C8C[];
+extern unsigned int array_A74C9C[];
+extern unsigned int array_A74CAC[];
+extern unsigned int array_A74CBC[];
+extern int dword_50CBDC;
+extern int dword_A74CCC;
+extern int dword_A74CD4;
+extern char byte_6BE371;
+void __cdecl PlayerCreationUI_Initialize()
+{
+  int v1; // ebx@5
+  int v2; // eax@6
+  signed int v3; // ecx@6
+  int v4; // eax@8
+  signed int v5; // ecx@8
+  int result; // eax@19
+  //signed int v7; // [sp+10h] [bp-Ch]@7
+  int v8; // [sp+10h] [bp-Ch]@9
+  int v9; // [sp+10h] [bp-Ch]@11
+  int v10; // [sp+10h] [bp-Ch]@13
+  int v11; // [sp+10h] [bp-Ch]@15
+  //signed int v12; // [sp+14h] [bp-8h]@5
+  int v13; // [sp+14h] [bp-8h]@9
+  int v14; // [sp+14h] [bp-8h]@11
+  int v15; // [sp+14h] [bp-8h]@13
+  signed int v16; // [sp+14h] [bp-8h]@16
+
+ int i;
+ wchar_t pFilename[256];
+  if ( dword_50CBD0[0] )
+    dword_50CBD0[0] = dword_50CBDC != 0;
+
+  SetVolume(pClass31_global, aMusicVolumeLevels[byte_6BE371] * 64.0);
+
+  ++pClass17_Icons_LOD->dword_011B9C;
+  if ( !pClass17_Icons_LOD->dword_011B98 )
+    pClass17_Icons_LOD->dword_011B98 = pClass17_Icons_LOD->uNumLoadedFiles;
+
+  dword_4E28F8 = 21;
+  dword_A74CD4 = 0;
+  dword_A74CCC = 0;
+  uPlayerCreationUI_SelectedCharacter = 0;
+  v1 = pFontCreate->uFontHeight - 2;
+
+  pPlayerCreationUI_ClassIcons[0] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_KNIGHT.cbm")];
+  pPlayerCreationUI_ClassIcons[1] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_THIEF.cbm")];
+  pPlayerCreationUI_ClassIcons[2] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_MONK.cbm")];
+  pPlayerCreationUI_ClassIcons[3] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_PALADIN.cbm")];
+  pPlayerCreationUI_ClassIcons[4] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_ARCHER.cbm")];
+  pPlayerCreationUI_ClassIcons[5] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_RANGER.cbm")];
+  pPlayerCreationUI_ClassIcons[6] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_CLERIC.cbm")];
+  pPlayerCreationUI_ClassIcons[7] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_DRUID.cbm")];
+  pPlayerCreationUI_ClassIcons[8] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_SORCERER.cbm")];
+
+  pPlayerCreationUI_Sky = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAKESKY.cbm")];
+  pPlayerCreationUI_Top = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAKETOP.cbm")];
+
+  for (i = 0; i < 22; ++i)
+  {
+   wsprintfW(pFilename, L"pc%02u-01.cbm", i + 1);
+   pPlayerCreationUI_PCPortraits[i] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilename)];
+  }
+
+  uTextureID_PlayerCreationUI_FaceMask = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"FACEMASK.cbm")];
+
+  uTextureID_PlayerCreationUI_BtnLeft = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"presleft.cbm");
+  uTextureID_PlayerCreationUI_BtnRight = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"presrigh.cbm");
+  uTextureID_PlayerCreationUI_BtnMinus = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"buttminu.cbm");
+  uTextureID_PlayerCreationUI_BtnPlus = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"buttplus.cbm");
+
+  for (i = 1; i < 20; ++i)
+  {
+   wsprintfW(pFilename, L"ArrowL%02u.cbm", i);
+   pPlayerCreationUI_ArrowL[i] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilename)];
+
+   wsprintfW(pFilename, L"ArrowR%02u.cbm", i);
+   pPlayerCreationUI_ArrowR[i] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilename)];
+  }
+
+  pGUIWindow_PlayerCreation = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
+  v8 = 0;
+  v13 = 8;
+  do
+  {
+    GUIButtonCreate(pGUIWindow_PlayerCreation, v13, 120, 145, 25, 1, 0, 60, v8, 0, "", 0);
+    v13 += 158;
+    ++v8;
+  }
+  while ( v13 < 640 );
+
+  array_A74CAC[0] = GUIButtonCreate(pGUIWindow_PlayerCreation, 10, 32, 11, 13, 1, 0, 171, 0, 0, "", uTextureID_PlayerCreationUI_BtnLeft);
+  array_A74CAC[1] = GUIButtonCreate(pGUIWindow_PlayerCreation, 169, 32, 11, 13, 1, 0, 171, 1, 0, "", uTextureID_PlayerCreationUI_BtnLeft);
+  array_A74CAC[2] = GUIButtonCreate(pGUIWindow_PlayerCreation, 327, 32, 11, 13, 1, 0, 171, 2, 0, "", uTextureID_PlayerCreationUI_BtnLeft);
+  array_A74CAC[3] = GUIButtonCreate(pGUIWindow_PlayerCreation, 486, 32, 11, 13, 1, 0, 171, 3, 0, "", uTextureID_PlayerCreationUI_BtnLeft);
+
+  array_A74CBC[0] = GUIButtonCreate(pGUIWindow_PlayerCreation, 74, 32, 11, 13, 1, 0, 172, 0, 0, "", uTextureID_PlayerCreationUI_BtnRight);
+  array_A74CBC[1] = GUIButtonCreate(pGUIWindow_PlayerCreation, 233, 32, 11, 13, 1, 0, 172, 1, 0, "", uTextureID_PlayerCreationUI_BtnRight);
+  array_A74CBC[2] = GUIButtonCreate(pGUIWindow_PlayerCreation, 391, 32, 11, 13, 1, 0, 172, 2, 0, "", uTextureID_PlayerCreationUI_BtnRight);
+  array_A74CBC[3] = GUIButtonCreate(pGUIWindow_PlayerCreation, 549, 32, 11, 13, 1, 0, 172, 3, 0, "", uTextureID_PlayerCreationUI_BtnRight);
+
+  array_A74C9C[0] = GUIButtonCreate(pGUIWindow_PlayerCreation, 10, 103, 11, 13, 1, 0, 144, 0, 0, "", uTextureID_PlayerCreationUI_BtnLeft);
+  array_A74C9C[1] = GUIButtonCreate(pGUIWindow_PlayerCreation, 169, 103, 11, 13, 1, 0, 144, 1, 0, "", uTextureID_PlayerCreationUI_BtnLeft);
+  array_A74C9C[2] = GUIButtonCreate(pGUIWindow_PlayerCreation, 327, 103, 11, 13, 1, 0, 144, 2, 0, "", uTextureID_PlayerCreationUI_BtnLeft);
+  array_A74C9C[3] = GUIButtonCreate(pGUIWindow_PlayerCreation, 486, 103, 11, 13, 1, 0, 144, 3, 0, "", uTextureID_PlayerCreationUI_BtnLeft);
+
+  array_A74C8C[0] = GUIButtonCreate(pGUIWindow_PlayerCreation, 74, 103, 11, 13, 1, 0, 145, 0, 0, "", uTextureID_PlayerCreationUI_BtnRight);
+  array_A74C8C[1] = GUIButtonCreate(pGUIWindow_PlayerCreation, 233, 103, 11, 13, 1, 0, 145, 1, 0, "", uTextureID_PlayerCreationUI_BtnRight);
+  array_A74C8C[2] = GUIButtonCreate(pGUIWindow_PlayerCreation, 391, 103, 11, 13, 1, 0, 145, 2, 0, "", uTextureID_PlayerCreationUI_BtnRight);
+  array_A74C8C[3] = GUIButtonCreate(pGUIWindow_PlayerCreation, 549, 103, 11, 13, 1, 0, 145, 3, 0, "", uTextureID_PlayerCreationUI_BtnRight);
+
+  v9 = 0;
+  v14 = 8;
+  do
+  {
+    GUIButtonCreate(pGUIWindow_PlayerCreation, v14, 308, 150, v1, 1, 0, 72, v9, 0, "", 0);
+    GUIButtonCreate(pGUIWindow_PlayerCreation, v14, v1 + 308, 150, v1, 1, 0, 73, v9, 0, "", 0);
+    GUIButtonCreate(pGUIWindow_PlayerCreation, v14, 2 * v1 + 308, 150, v1, 1, 0, 74, v9, 0, "", 0);
+    GUIButtonCreate(pGUIWindow_PlayerCreation, v14, 3 * v1 + 308, 150, v1, 1, 0, 75, v9, 0, "", 0);
+    v14 += 158;
+    ++v9;
+  }
+  while ( v14 < 640 );
+
+  GUIButtonCreate(pGUIWindow_PlayerCreation, 5, 21, 153, 365, 1, 0, 118, 0, 49, "", 0);
+  GUIButtonCreate(pGUIWindow_PlayerCreation, 163, 21, 153, 365, 1, 0, 118, 1, 50, "", 0);
+  GUIButtonCreate(pGUIWindow_PlayerCreation, 321, 21, 153, 365, 1, 0, 118, 2, 51, "", 0);
+  GUIButtonCreate(pGUIWindow_PlayerCreation, 479, 21, 153, 365, 1, 0, 118, 3, 52, "", 0);
+  v15 = 23;
+  v10 = 2;
+  do
+  {
+    GUIButtonCreate(pGUIWindow_PlayerCreation, v15, 169, 120, 20, 1, 0, 0, v10 - 2, 0, "", 0);
+    GUIButtonCreate(pGUIWindow_PlayerCreation, v15, v1 + 169, 120, 20, 1, 0, 0, v10 - 1, 0, "", 0);
+    GUIButtonCreate(pGUIWindow_PlayerCreation, v15, 2 * v1 + 169, 120, 20, 1, 0, 0, v10, 0, "", 0);
+    GUIButtonCreate(pGUIWindow_PlayerCreation, v15, 3 * v1 + 169, 120, 20, 1, 0, 0, v10 + 1, 0, "", 0);
+    GUIButtonCreate(pGUIWindow_PlayerCreation, v15, 4 * v1 + 169, 120, 20, 1, 0, 0, v10 + 2, 0, "", 0);
+    GUIButtonCreate(pGUIWindow_PlayerCreation, v15, 5 * v1 + 169, 120, 20, 1, 0, 0, v10 + 3, 0, "", 0);
+    GUIButtonCreate(pGUIWindow_PlayerCreation, v15, 6 * v1 + 169, 120, 20, 1, 0, 0, v10 + 4, 0, "", 0);
+    v10 += 7;
+    v15 += 158;
+  }
+  while ( v10 < 30 );
+
+  sub_41D08F(pGUIWindow_PlayerCreation, 28, 0, 7, 40);
+  GUIButtonCreate(pGUIWindow_PlayerCreation, 323, 417, 65, v1, 1, 0, 65, 0, 0, "", 0);
+  GUIButtonCreate(pGUIWindow_PlayerCreation, 323, v1 + 417, 65, v1, 1, 0, 65, 12, 0, "", 0);
+  GUIButtonCreate(pGUIWindow_PlayerCreation, 323, 2 * v1 + 417, 65, v1, 1, 0, 65, 20, 0, "", 0);
+  GUIButtonCreate(pGUIWindow_PlayerCreation, 388, 417, 65, v1, 1, 0, 65, 24, 0, "", 0);
+  GUIButtonCreate(pGUIWindow_PlayerCreation, 388, v1 + 417, 65, v1, 1, 0, 65, 28, 0, "", 0);
+  GUIButtonCreate(pGUIWindow_PlayerCreation, 388, 2 * v1 + 417, 65, v1, 1, 0, 65, 32, 0, "", 0);
+  GUIButtonCreate(pGUIWindow_PlayerCreation, 453, 417, 65, v1, 1, 0, 65, 16, 0, "", 0);
+  GUIButtonCreate(pGUIWindow_PlayerCreation, 453, v1 + 417, 65, v1, 1, 0, 65, 8, 0, "", 0);
+  GUIButtonCreate(pGUIWindow_PlayerCreation, 453, 2 * v1 + 417, 65, v1, 1, 0, 65, 4, 0, "", 0);
+
+  v11 = 0;
+  do
+  {
+    v16 = -5;
+    if ( v11 <= 3 )
+      v16 = 0;
+    GUIButtonCreate(pGUIWindow_PlayerCreation, 100 * v11 / 3 + v16 + 17, v1 * v11 % 3 + 417, 100, v1, 1, 0, 64, v11, 0, "", 0);
+    ++v11;
+  }
+  while ( v11 < 9 );
+
+  __asm nop
+  pPlayerCreationUI_BtnOK = GUIButtonCreate(pGUIWindow_PlayerCreation,
+                                            580, 431,
+                                            51,
+                                            39,
+                                            1,
+                                            0,
+                                            66,
+                                            0,
+                                            13,
+                                            "OK",
+                                            uTextureIdx_BtnMake);
+
+  pPlayerCreationUI_BtnReset = GUIButtonCreate(pGUIWindow_PlayerCreation,
+                                               527, 431,
+                                               51,
+                                               39,
+                                               1,
+                                               0,
+                                               67,
+                                               0,
+                                               67,
+                                               "Reset",
+                                               uTextureIdx_BtnMake2);
+
+  pPlayerCreationUI_BtnMinus = GUIButtonCreate(pGUIWindow_PlayerCreation, 523, 393, 20, 35, 1, 0, 63, 0, 45, "BtnMinus", uTextureID_PlayerCreationUI_BtnMinus);
+  pPlayerCreationUI_BtnPlus = GUIButtonCreate(pGUIWindow_PlayerCreation, 613, 393, 20, 35, 1, 0, 62, 1, 43, "BtnPlus", uTextureID_PlayerCreationUI_BtnPlus);
+
+  pFontCChar = LoadFont("cchar.fnt", "FONTPAL");
+}
+
+
+
+//----- (0044C768) --------------------------------------------------------
+extern unsigned char byte_5C45B0[];
+unsigned char *__fastcall FitTextInAWindow(const char *pString, struct Font *pFont, struct GUIWindow *pParent, unsigned int uX, int a5)
+{
+  const char *v5; // edi@1
+  unsigned char *v6; // esi@1
+  int v8; // eax@3
+  int v9; // edi@3
+  int *v12; // ecx@10
+  int v16; // edx@15
+  int v17; // ecx@15
+  int v18; // esi@15
+  int v19; // ebx@16
+  int v20; // edi@16
+  unsigned __int8 v24; // dl@17
+  int v27; // edi@39
+  int v28; // eax@42
+  char v29; // [sp-18h] [bp-40h]@2
+  int v30; // [sp-14h] [bp-3Ch]@2
+  int v31; // [sp-10h] [bp-38h]@2
+  int v32; // [sp-Ch] [bp-34h]@2
+  const char *v35; // [sp+Ch] [bp-1Ch]@1
+  char Dest[3+256+array_size_unknown];
+  char v37; // [sp+13h] [bp-15h]@42
+  size_t v38; // [sp+14h] [bp-14h]@3
+  int v39; // [sp+18h] [bp-10h]@3
+  int v40; // [sp+1Ch] [bp-Ch]@1
+  int v41; // [sp+20h] [bp-8h]@3
+  int v42; // [sp+24h] [bp-4h]@3
+ unsigned char c;
+
+ v5 = pString;
+ v35 = pString;
+ v6 = pFont;
+ v40 = pFont;
+ if (!pString)
+ {
+   *(_DWORD *)&uX = &v29;
+   sub_40E2C8(&v29, "Invalid string passed !", (int)(&uX + 3));
+   sub_466D09(&pParent, *(int *)&v29, v30, v31, v32, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Font.cpp", 445);
+   return 0;
+ }
+
+ strcpy(byte_5C45B0, pString);
+ v8 = uX;
+ v9 = 0;
+ v41 = 0;
+ v39 = uX;
+ v42 = 0;
+
+ v38 = strlen(pString);
+ if (!v38)
+   return byte_5C45B0;
+
+ while (true)
+ {
+  c = byte_5C45B0[v9];
+  if ((c < v6[0] || c > v6[1]) && c != '\f' && c != '\r' && c != '\n' && c != '\t')
+    goto LABEL_34;
+
+  v12 = pFont->dword_000020[c];
+  if (c == '\t')
+  {
+   strncpy(Dest, &byte_5C45B0[v9 + 1], 3);
+   v28 = atoi(Dest);
+   v37 = 0;
+   v8 = uX + v28;
+   v27 = v9 + 3;
+   v39 = v8;
+   v42 = v27;
+   goto LABEL_34;
+  }
+  else if (c == '\n')
+    break;
+  else if (c == '\f')
+  {
+   v27 = v9 + 5;
+   v42 = v27;
+   goto LABEL_34;
+  }
+  else if (c != '\r')
+  {
+   if (c != ' ')
+   {
+    v17 = v12[0];
+    v16 = v12[1];
+    v18 = v12[2];
+
+    if ((unsigned int)(v8 + v18 + v17 + v16) < pParent->uFrameWidth)
+    {
+     if ( v42 > v41 )
+       v8 += v17;
+     v8 += v16;
+     if (v42 < (signed int)v38)
+       v8 += v18;
+     v6 = v40;
+    }
+    else
+    {
+     v19 = v41;
+     v8 = v39;
+     v6 = v40;
+     byte_5C45B0[v41] = '\n';
+     v20 = v19;
+
+     //compile_error;//v23 = __SETO__(v41, v42);
+     //v21 = v41 == v42;
+     //v22 = v41 - v42 < 0;
+     //if ( (unsigned __int8)(v22 ^ v23) | v21 )
+     if (v41 <= v42)
+     {
+      do
+      {
+       v24 = byte_5C45B0[v20];
+       if (v24 >= v6[0] && v24 <= v6[1] || v24 == '\f' || v24 == '\r' || v24 == '\n' || v24 ==  '\t')
+       {
+        if ( v20 > v19 )
+          v8 += *(_DWORD *)(v6 + 12 * v24 + 32);
+        v8 += *(_DWORD *)(v6 + 4 * (3 * v24 + 9));
+        if ( v20 < v42 )
+          v8 += *(_DWORD *)(v6 + 12 * v24 + 40);
+       }
+       ++v20;
+      }
+      while ( v20 <= v42 );
+     }
+    }
+    goto LABEL_34;
+   }
+   v8 += *(_DWORD *)(v12 + 4);
+   goto LABEL_41;
+  }
+  if (!a5)
+    return (char *)v35;
+
+LABEL_34:
+  v9 = v42 + 1;
+  v42++;
+  //compile_error;//v26 = __SETO__(v42, v38);
+  //v25 = (signed int)(v42 - v38) < 0;
+  if (v42 >= v38)//if ( !(v25 ^ v26) )
+    return byte_5C45B0;
+ }
+ v8 = v39;
+
+LABEL_41:
+ v41 = v9;
+ goto LABEL_34;
 }

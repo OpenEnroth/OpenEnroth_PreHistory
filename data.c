@@ -1169,6 +1169,25 @@ unsigned char *aDayNames[8];                 // ptr array @ MM7.exe::00507B38
 unsigned char *aSpellSchoolNames[9];         // ptr array @ MM7.exe::00507B54
 unsigned char *aAttributeNames[7];           // ptr array @ MM7.exe::00507B78
 
+unsigned char *pHealthPointsAttributeDescription = 0;     // ptr @ MM7.exe::005C8B08
+unsigned char *pSpellPointsAttributeDescription = 0;      // ptr @ MM7.exe::005C8B0C
+unsigned char *pArmourClassAttributeDescription = 0;      // ptr @ MM7.exe::005C8B10
+unsigned char *pPlayerConditionAttributeDescription = 0;  // ptr @ MM7.exe::005C8B14
+unsigned char *pFastSpellAttributeDescription = 0;        // ptr @ MM7.exe::005C8B18
+unsigned char *pPlayerAgeAttributeDescription = 0;        // ptr @ MM7.exe::005C8B1C
+unsigned char *pPlayerLevelAttributeDescription = 0;      // ptr @ MM7.exe::005C8B20
+unsigned char *pPlayerExperienceAttributeDescription = 0; // ptr @ MM7.exe::005C8B24
+unsigned char *pAttackBonusAttributeDescription = 0;      // ptr @ MM7.exe::005C8B28
+unsigned char *pAttackDamageAttributeDescription = 0;     // ptr @ MM7.exe::005C8B2C
+unsigned char *pMissleBonusAttributeDescription = 0;      // ptr @ MM7.exe::005C8B30
+unsigned char *pMissleDamageAttributeDescription = 0;     // ptr @ MM7.exe::005C8B34
+unsigned char *pFireResistanceAttributeDescription = 0;   // ptr @ MM7.exe::005C8B38
+unsigned char *pAirResistanceAttributeDescription = 0;    // ptr @ MM7.exe::005C8B3C
+unsigned char *pWaterResistanceAttributeDescription = 0;  // ptr @ MM7.exe::005C8B40
+unsigned char *pEarthResistanceAttributeDescription = 0;  // ptr @ MM7.exe::005C8B44
+unsigned char *pMindResistanceAttributeDescription = 0;   // ptr @ MM7.exe::005C8B48
+unsigned char *pBodyResistanceAttributeDescription = 0;   // ptr @ MM7.exe::005C8B4C
+unsigned char *pSkillPointsAttributeDescription = 0;      // ptr @ MM7.exe::005C8B50
 
 unsigned char pStringBuffer[2000];  //byte[2000] @ MM7.exe::005C6580
 //const CHAR byte_5C6580; // idb
@@ -1205,6 +1224,47 @@ struct RGBTexture      *pClass33_obj1 = 0;         // struct @ MM7.exe::00507A44
 struct RGBTexture      *pClass33_obj2 = 0;         // struct @ MM7.exe::00507A6C
 struct RGBTexture      *pClass33_obj3 = 0;         // struct @ MM7.exe::00507A94
 struct RGBTexture      *pClass33_obj4 = 0;         // struct @ MM7.exe::00507ABC
+
+
+unsigned int uTextureID_PlayerCreationUI_BtnLeft = 0; // ptr @ MM7.exe::0050791C
+unsigned int uTextureID_PlayerCreationUI_BtnRight = 0; // ptr @ MM7.exe::00507920
+unsigned int uTextureID_PlayerCreationUI_BtnMinus = 0; // ptr @ MM7.exe::00507924
+unsigned int uTextureID_PlayerCreationUI_BtnPlus = 0; // ptr @ MM7.exe::00507928
+
+struct GUIWindow *pGUIWindow_PlayerCreation = 0; // ptr @ MM7.exe::00507BCC
+
+unsigned int uTextureIdx_BtnEsc2 = 0;  // dword @ MM7.exe::005076D4
+unsigned int uTextureIdx_BtnXxU = 0;   // dword @ MM7.exe::005076D8
+unsigned int uTextureIdx_BtnMake2 = 0; // dword @ MM7.exe::005076DC
+
+unsigned int uTextureIdx_BtnMake = 0; // dword @ MM7.exe::005076E0
+unsigned int uTextureIdx_BtnYes2 = 0; // dword @ MM7.exe::005076E4
+unsigned int uTextureIdx_BtnXokU = 0; // dword @ MM7.exe::005076E8
+
+struct GUIButton *pPlayerCreationUI_BtnReset = 0; // ptr @ MM7.exe::005076EC
+struct GUIButton *pPlayerCreationUI_BtnOK = 0;    // ptr @ MM7.exe::005076F0
+
+struct GUIButton *pPlayerCreationUI_BtnPlus = 0;         // ptr     @ MM7.exe::00507700
+struct GUIButton *pPlayerCreationUI_BtnMinus = 0;        // ptr     @ MM7.exe::00507704
+struct class18 *pPlayerCreationUI_PCPortraits[22] = {0}; // ptr[22] @ MM7.exe::00507708
+struct class18 *pPlayerCreationUI_ClassIcons[9] = {0};   // ptr[9]  @ MM7.exe::00507760
+struct class18 *pPlayerCreationUI_Sky = 0;               // ptr     @ MM7.exe::00507784
+struct class18 *pPlayerCreationUI_Top = 0;               // ptr     @ MM7.exe::00507788
+
+struct class18 *pPlayerCreationUI_ArrowR[19] = {0}; // ptr[19] @ MM7.exe::0050787C
+struct class18 *pPlayerCreationUI_ArrowL[19] = {0}; // ptr[19] @ MM7.exe::005078CC
+
+unsigned int uPlayerCreationUI_SelectedCharacter = 0; // dword @ MM7.exe::00A74CD8
+
+unsigned int uTextureID_PlayerCreationUI_FaceMask = 0; // dword @ MM7.exe::00A74CE0
+
+struct Font *pFontArrus = 0;    // ptr @ MM7.exe::005C35E8
+struct Font *pFontLucida = 0;   // ptr @ MM7.exe::005C35EC
+
+struct Font *pFontCreate = 0;   // ptr @ MM7.exe::005C35FC
+struct Font *pFontCChar = 0;    // ptr @ MM7.exe::005C3600
+struct Font *pFontComic = 0;    // ptr @ MM7.exe::005C3604
+struct Font *pFontSmallnum = 0; // ptr @ MM7.exe::005C3608
 
 
 void *pSpansBuf = 0;

@@ -4600,9 +4600,10 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
   float v72; // [sp+41Ch] [bp-838h]@5
   int v73[256]; // [sp+81Ch] [bp-438h]@5
 
-  int v74; // [sp+C1Ch] [bp-38h]@43
-  char v75; // [sp+C20h] [bp-34h]@43
-  char v76; // [sp+C24h] [bp-30h]@43
+  //local structs
+  int v74[1 + 8*array_size_unknown]; // [sp+C1Ch] [bp-38h]@43
+  char v75[4 + 8*array_size_unknown]; // [sp+C20h] [bp-34h]@43
+  char v76[8 + 4*array_size_unknown]; // [sp+C24h] [bp-30h]@43
   float v78; // [sp+C2Ch] [bp-28h]@43
   float v79; // [sp+C30h] [bp-24h]@10
   float v83; // [sp+C44h] [bp-10h]@5
@@ -4773,7 +4774,7 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
   v78 = (double)_this->byte_267AD0 * *(double *)&byte_4D8410[1104];
   v79 = (double)v88 * *(double *)&byte_4D8410[1104];
   v83 = (double)v53 * *(double *)&byte_4D8410[1104];
-  sub_48A7AA(&v76, &v75, v78, v79, v83, &v74);
+  sub_48A7AA(v76, v75, v78, v79, v83, v74);
  }
 
 
@@ -4882,25 +4883,6 @@ void *class37_ctor(struct class37 *_this)
 
 //----- (00456D84) --------------------------------------------------------
 char *__fastcall sub_452C30(char *Str);
-extern int dword_5C8B08; // weak
-extern int dword_5C8B0C; // weak
-extern int dword_5C8B10; // weak
-extern char *dword_5C8B14; // idb
-extern int dword_5C8B18; // weak
-extern int dword_5C8B1C; // weak
-extern int dword_5C8B20; // weak
-extern int dword_5C8B24; // weak
-extern int dword_5C8B28; // weak
-extern int dword_5C8B2C; // weak
-extern int dword_5C8B30; // weak
-extern int dword_5C8B34; // weak
-extern int dword_5C8B38; // weak
-extern int dword_5C8B3C; // weak
-extern int dword_5C8B40; // weak
-extern int dword_5C8B44; // weak
-extern int dword_5C8B48; // weak
-extern int dword_5C8B4C; // weak
-extern int dword_5C8B50; // weak
 extern int dword_5CCE30;
 extern int array_5C86E0[];
 extern unsigned char *array_5C8810[];
@@ -4919,6 +4901,7 @@ extern struct StorylineText *pStorylineText;
 extern unsigned char *pClassTXT_Raw;
 extern unsigned char *pStatsTXT_Raw;
 extern unsigned char *pSkillDescTXT_Raw;
+extern unsigned char *pAttributeDescriptions[];
 char *sub_456D84(struct class40 *_this)
 {
   void *v1; // edi@1
@@ -5262,76 +5245,76 @@ LABEL_63:
           case 3: _this->pItems[v28 - 1].uValue = atoi(v30);          break;
 
           case 4:
-            if (!_strcmpi(v30, "weapon") || !_strcmpi(v30, "weapon1or2"))
+            if (!strcmpi(v30, "weapon") || !strcmpi(v30, "weapon1or2"))
               _this->pItems[v28 - 1].uEquipType = 0;
-            else if (!_strcmpi(v30, "weapon2"))
+            else if (!strcmpi(v30, "weapon2"))
               _this->pItems[v28 - 1].uEquipType = 1;
-            else if (!_strcmpi(v30, "missile") || !_strcmpi(v30, "bow"))
+            else if (!strcmpi(v30, "missile") || !strcmpi(v30, "bow"))
               _this->pItems[v28 - 1].uEquipType = 2;
-            else if (!_strcmpi(v30, "armor"))
+            else if (!strcmpi(v30, "armor"))
               _this->pItems[v28 - 1].uEquipType = 3;
-            else if (!_strcmpi(v30, "shield"))
+            else if (!strcmpi(v30, "shield"))
               _this->pItems[v28 - 1].uEquipType = 4;
-            else if (!_strcmpi(v30, "helm"))
+            else if (!strcmpi(v30, "helm"))
               _this->pItems[v28 - 1].uEquipType = 5;
-            else if (!_strcmpi(v30, "belt"))
+            else if (!strcmpi(v30, "belt"))
               _this->pItems[v28 - 1].uEquipType = 6;
-            else if (!_strcmpi(v30, "cloak"))
+            else if (!strcmpi(v30, "cloak"))
               _this->pItems[v28 - 1].uEquipType = 7;
-            else if (!_strcmpi(v30, "gauntlets"))
+            else if (!strcmpi(v30, "gauntlets"))
               _this->pItems[v28 - 1].uEquipType = 8;
-            else if (!_strcmpi(v30, "boots"))
+            else if (!strcmpi(v30, "boots"))
               _this->pItems[v28 - 1].uEquipType = 9;
-            else if (!_strcmpi(v30, "ring"))
+            else if (!strcmpi(v30, "ring"))
               _this->pItems[v28 - 1].uEquipType = 10;
-            else if (!_strcmpi(v30, "amulet"))
+            else if (!strcmpi(v30, "amulet"))
               _this->pItems[v28 - 1].uEquipType = 11;
-            else if (!_strcmpi(v30, "weaponw"))
+            else if (!strcmpi(v30, "weaponw"))
               _this->pItems[v28 - 1].uEquipType = 12;
-            else if (!_strcmpi(v30, "herb") || !_strcmpi(v30, "reagent"))
+            else if (!strcmpi(v30, "herb") || !_strcmpi(v30, "reagent"))
               _this->pItems[v28 - 1].uEquipType = 13;
-            else if (!_strcmpi(v30, "bottle"))
+            else if (!strcmpi(v30, "bottle"))
               _this->pItems[v28 - 1].uEquipType = 14;
-            else if (!_strcmpi(v30, "sscroll"))
+            else if (!strcmpi(v30, "sscroll"))
               _this->pItems[v28 - 1].uEquipType = 15;
-            else if (!_strcmpi(v30, "book"))
+            else if (!strcmpi(v30, "book"))
               _this->pItems[v28 - 1].uEquipType = 16;
-            else if (!_strcmpi(v30, "mscroll"))
+            else if (!strcmpi(v30, "mscroll"))
               _this->pItems[v28 - 1].uEquipType = 17;
-            else if (!_strcmpi(v30, "gold"))
+            else if (!strcmpi(v30, "gold"))
               _this->pItems[v28 - 1].uEquipType = 18;
-            else if (!_strcmpi(v30, "gem"))
+            else if (!strcmpi(v30, "gem"))
               _this->pItems[v28 - 1].uEquipType = 19;
             else
               _this->pItems[v28 - 1].uEquipType = 20;
             break;
 
           case 5:
-            if (!_strcmpi(v30, "staff"))
+            if (!strcmpi(v30, "staff"))
               _this->pItems[v28 - 1].uSkillType = 0;
-            else if (!_strcmpi(v30, "sword"))
+            else if (!strcmpi(v30, "sword"))
               _this->pItems[v28 - 1].uSkillType = 1;
-            else if (!_strcmpi(v30, "dagger"))
+            else if (!strcmpi(v30, "dagger"))
               _this->pItems[v28 - 1].uSkillType = 2;
-            else if (!_strcmpi(v30, "axe"))
+            else if (!strcmpi(v30, "axe"))
               _this->pItems[v28 - 1].uSkillType = 3;
-            else if (!_strcmpi(v30, "spear"))
+            else if (!strcmpi(v30, "spear"))
               _this->pItems[v28 - 1].uSkillType = 4;
-            else if (!_strcmpi(v30, "bow"))
+            else if (!strcmpi(v30, "bow"))
               _this->pItems[v28 - 1].uSkillType = 5;
-            else if (!_strcmpi(v30, "mace"))
+            else if (!strcmpi(v30, "mace"))
               _this->pItems[v28 - 1].uSkillType = 6;
-            else if (!_strcmpi(v30, "blaster"))
+            else if (!strcmpi(v30, "blaster"))
               _this->pItems[v28 - 1].uSkillType = 7;
-            else if (!_strcmpi(v30, "shield"))
+            else if (!strcmpi(v30, "shield"))
               _this->pItems[v28 - 1].uSkillType = 8;
-            else if (!_strcmpi(v30, "leather"))
+            else if (!strcmpi(v30, "leather"))
               _this->pItems[v28 - 1].uSkillType = 9;
-            else if (!_strcmpi(v30, "chain"))
+            else if (!strcmpi(v30, "chain"))
               _this->pItems[v28 - 1].uSkillType = 10;
-            else if (!_strcmpi(v30, "plate"))
+            else if (!strcmpi(v30, "plate"))
               _this->pItems[v28 - 1].uSkillType = 11;
-            else if (!_strcmpi(v30, "club"))
+            else if (!strcmpi(v30, "club"))
               _this->pItems[v28 - 1].uSkillType = 37;
             else
               _this->pItems[v28 - 1].uSkillType = 38;
@@ -5788,66 +5771,26 @@ LABEL_196:
             case 3:
             case 4:
             case 5:
-            case 6:
-              dword_5C8778[v77] = (int)sub_452C30(v58);
-              break;
-            case 7:
-              dword_5C8B08 = (int)sub_452C30(v58);
-              break;
-            case 8:
-              dword_5C8B10 = (int)sub_452C30(v58);
-              break;
-            case 9:
-              dword_5C8B0C = (int)sub_452C30(v58);
-              break;
-            case 10:
-              dword_5C8B14 = sub_452C30(v58);
-              break;
-            case 11:
-              dword_5C8B18 = (int)sub_452C30(v58);
-              break;
-            case 12:
-              dword_5C8B1C = (int)sub_452C30(v58);
-              break;
-            case 13:
-              dword_5C8B20 = (int)sub_452C30(v58);
-              break;
-            case 14:
-              dword_5C8B24 = (int)sub_452C30(v58);
-              break;
-            case 15:
-              dword_5C8B28 = (int)sub_452C30(v58);
-              break;
-            case 16:
-              dword_5C8B2C = (int)sub_452C30(v58);
-              break;
-            case 17:
-              dword_5C8B30 = (int)sub_452C30(v58);
-              break;
-            case 18:
-              dword_5C8B34 = (int)sub_452C30(v58);
-              break;
-            case 19:
-              dword_5C8B38 = (int)sub_452C30(v58);
-              break;
-            case 20:
-              dword_5C8B3C = (int)sub_452C30(v58);
-              break;
-            case 21:
-              dword_5C8B40 = (int)sub_452C30(v58);
-              break;
-            case 22:
-              dword_5C8B44 = (int)sub_452C30(v58);
-              break;
-            case 23:
-              dword_5C8B48 = (int)sub_452C30(v58);
-              break;
-            case 24:
-              dword_5C8B4C = (int)sub_452C30(v58);
-              break;
-            case 25:
-              dword_5C8B50 = (int)sub_452C30(v58);
-              break;
+            case 6:  pAttributeDescriptions[v77] = sub_452C30(v58); break;
+            case 7:  pHealthPointsAttributeDescription = sub_452C30(v58); break;
+            case 8:  pArmourClassAttributeDescription = sub_452C30(v58); break;
+            case 9:  pSpellPointsAttributeDescription = sub_452C30(v58); break;
+            case 10: pPlayerConditionAttributeDescription = sub_452C30(v58); break;
+            case 11: pFastSpellAttributeDescription = sub_452C30(v58); break;
+            case 12: pPlayerAgeAttributeDescription = sub_452C30(v58); break;
+            case 13: pPlayerLevelAttributeDescription = sub_452C30(v58); break;
+            case 14: pPlayerExperienceAttributeDescription = sub_452C30(v58); break;
+            case 15: pAttackBonusAttributeDescription = sub_452C30(v58); break;
+            case 16: pAttackDamageAttributeDescription = sub_452C30(v58); break;
+            case 17: pMissleBonusAttributeDescription = sub_452C30(v58); break;
+            case 18: pMissleDamageAttributeDescription = sub_452C30(v58); break;
+            case 19: pFireResistanceAttributeDescription = sub_452C30(v58); break;
+            case 20: pAirResistanceAttributeDescription = sub_452C30(v58); break;
+            case 21: pWaterResistanceAttributeDescription = sub_452C30(v58); break;
+            case 22: pEarthResistanceAttributeDescription = sub_452C30(v58); break;
+            case 23: pMindResistanceAttributeDescription = sub_452C30(v58); break;
+            case 24: pBodyResistanceAttributeDescription = sub_452C30(v58); break;
+            case 25: pSkillPointsAttributeDescription = sub_452C30(v58); break;
             default:
               break;
           }
@@ -9470,7 +9413,7 @@ int sub_46454B(struct class17 *_this)
       --v1;
       v3 -= 72;
     }
-    while ( v1 >= *(_DWORD *)(v2 + 72580) );
+    while ( v1 >= _this->dword_011B84);
   }
   result = *(_DWORD *)(v2 + 72580);
   *(_DWORD *)(v2 + 72604) = 0;
@@ -9536,31 +9479,117 @@ int sub_40F77C(struct class18 *_this)
 
 
 //----- (004547A3) --------------------------------------------------------
-int sub_4547A3(struct CMapStats *_this, const char *Str2)
+int CMapStats_FindLocation(struct CMapStats *_this, const char *pLocationFilename)
 {
   signed int v2; // edi@1
-  int v3; // esi@1
-  const char **v4; // ebx@2
-  signed int result; // eax@6
 
-  v3 = _this;
-  v2 = 1;
-  if ( *(_DWORD *)(v3 + 5236) <= 1 )
-  {
-LABEL_6:
-    result = 0;
-  }
-  else
-  {
-    v4 = (const char **)(v3 + 72);
-    while ( !*v4 || _strcmpi(*v4, Str2) )
+  if (_this->uNumMaps <= 1 )
+   return 0;
+
+  v2 = 0;
+  while (strcmpi(_this->pMapInfos[v2++].pLocationFilename, pLocationFilename) )
     {
-      ++v2;
-      v4 += 17;
-      if ( v2 >= *(_DWORD *)(v3 + 5236) )
-        goto LABEL_6;
+      if ( v2 >= _this->uNumMaps )
+        return 0;
     }
-    result = v2;
+    return v2 - 1;
+}
+
+
+
+//----- (0047CF9C) --------------------------------------------------------
+extern int dword_76D514;
+int sub_47CF9C(struct class51 *_this)
+{
+  int v1; // edi@1
+  int v3; // ebx@2
+
+ strcpy(_this->string_000000, "blank");
+ strcpy(_this->pFileName, "default.odm");
+ strcpy(_this->pFileDescription, "MM6 Outdoor v1.00");
+ strcpy(_this->string_000060, "sky043");
+ strcpy(_this->string_000080, "hm005");
+
+  v1 = 0;
+  if (_this->dword_0000B0 > 0 )
+  {
+    v3 = 0;
+    do
+    {
+      sub_478389(v3 + *((_DWORD *)_this + 54) + 68);
+      ++v1;
+      v3 += 188;
+    }
+    while (v1 < _this->dword_0000B0);
   }
-  return result;
+ _this->dword_0000B0 = 0;
+ _this->dword_0004C0 = 0;
+
+ class23_DeleteBuffer(class23_instance, _this->ptr_0000D8);
+ _this->ptr_0000D8 = 0;
+
+ class23_DeleteBuffer(class23_instance, _this->ptr_0004C4);
+ _this->ptr_0004C4 = 0;
+
+ sub_47C7C2(&_this->struct_0000B4);
+
+ class23_DeleteBuffer(class23_instance, _this->ptr_0000D4);
+ _this->ptr_0000D4 = 0;
+
+ class23_DeleteBuffer(class23_instance, _this->ptr_0000E4);
+ _this->ptr_0000E4 = 0;
+
+ class23_DeleteBuffer(class23_instance, _this->ptr_0000E0);
+ _this->ptr_0000E0 = 0;
+
+ class23_DeleteBuffer(class23_instance, dword_76D514);
+ dword_76D514 = 0;
+
+ return 0;
+}
+
+//----- (0047C7C2) --------------------------------------------------------
+int sub_47C7C2(struct class51_stru0 *_this)
+{
+  int result; // eax@1
+
+ class23_DeleteBuffer(class23_instance, _this->ptr_000000);
+ _this->ptr_000000 = 0;
+
+ class23_DeleteBuffer(class23_instance, _this->ptr_000004);
+ _this->ptr_000004 = 0;
+
+ class23_DeleteBuffer(class23_instance, _this->ptr_000008);
+ _this->ptr_000008 = 0;
+
+ class23_DeleteBuffer(class23_instance, _this->ptr_00000C);
+ _this->ptr_00000C = 0;
+
+ _this->word_000010 = 0;
+ _this->word_000012 = 0;
+ _this->word_000014 = 0;
+ _this->word_000016 = 0;
+
+ _this->dword_000018 = 0;
+ _this->dword_00001C = 0;
+
+ return 0;
+}
+
+
+//----- (0046161C) --------------------------------------------------------
+bool class17_Games_LOD_FindLeveL(struct class17 *_this, const char *pLevelName)
+{
+  int v2; // ebx@1
+
+  v2 = 0;
+  if (!_this->uNumSubidices)
+    return false;
+
+  while (strcmpi(pLevelName, _this->pLODSubIndexNamedBuffer[v2++].pFilename))
+  {
+   if ( v2 >= _this->uNumSubidices)
+     return false;
+  }
+ return true;
 }

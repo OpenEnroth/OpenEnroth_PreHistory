@@ -123,4 +123,14 @@ char __fastcall FontDrawText(int a1, int a2, signed int a3, int a4, __int16 a5, 
 
 void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigned int uWindowWidth, unsigned int uWindowHeight);
 
+
+struct Font *__cdecl sub_44C448(const char *pFontName, const char *pFontPalette);
+
+//int __cdecl sub_49750E();
+void __cdecl DeleteFontCChar();
+
+
+void __cdecl PlayerCreationUI_Initialize();
+
+
 #pragma pack(pop)

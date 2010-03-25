@@ -15,6 +15,9 @@
 #include <math.h>
 
 #define __thiscall __cdecl
+#ifndef __cplusplus
+  typedef int bool;
+#endif
 
 #define compile_warning
 #define compile_error __asm int 3;

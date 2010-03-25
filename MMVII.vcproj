@@ -259,6 +259,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Level.c"
+				>
+			</File>
+			<File
+				RelativePath=".\Level.h"
+				>
+			</File>
+			<File
 				RelativePath=".\mm7 file2.c"
 				>
 			</File>

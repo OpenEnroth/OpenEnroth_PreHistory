@@ -24,6 +24,26 @@ extern unsigned char *aSpellSchoolNames[];
 extern unsigned char *aAttributeNames[];
 extern unsigned char *pGlobalTXT_LocalizationStrings[];
 
+extern unsigned char *pHealthPointsAttributeDescription;
+extern unsigned char *pSpellPointsAttributeDescription;
+extern unsigned char *pArmourClassAttributeDescription;
+extern unsigned char *pPlayerConditionAttributeDescription;
+extern unsigned char *pFastSpellAttributeDescription;
+extern unsigned char *pPlayerAgeAttributeDescription;
+extern unsigned char *pPlayerLevelAttributeDescription;
+extern unsigned char *pPlayerExperienceAttributeDescription;
+extern unsigned char *pAttackBonusAttributeDescription;
+extern unsigned char *pAttackDamageAttributeDescription;
+extern unsigned char *pMissleBonusAttributeDescription;
+extern unsigned char *pMissleDamageAttributeDescription;
+extern unsigned char *pFireResistanceAttributeDescription;
+extern unsigned char *pAirResistanceAttributeDescription;
+extern unsigned char *pWaterResistanceAttributeDescription;
+extern unsigned char *pEarthResistanceAttributeDescription;
+extern unsigned char *pMindResistanceAttributeDescription;
+extern unsigned char *pBodyResistanceAttributeDescription;
+extern unsigned char *pSkillPointsAttributeDescription;
+
 extern PCMWAVEFORMAT sPCMWaveFormat;
 
 
@@ -65,8 +85,46 @@ extern void *pEdgesBuf;
 
 
 
+extern unsigned int uTextureID_PlayerCreationUI_BtnLeft;
+extern unsigned int uTextureID_PlayerCreationUI_BtnRight;
+extern unsigned int uTextureID_PlayerCreationUI_BtnMinus;
+extern unsigned int uTextureID_PlayerCreationUI_BtnPlus;
+
+extern struct GUIWindow *pGUIWindow_PlayerCreation;
+
+extern unsigned int uTextureIdx_BtnEsc2;
+extern unsigned int uTextureIdx_BtnXxU;
+extern unsigned int uTextureIdx_BtnMake2;
+
+extern unsigned int uTextureIdx_BtnMake;
+extern unsigned int uTextureIdx_BtnYes2;
+extern unsigned int uTextureIdx_BtnXokU;
+
+extern struct GUIButton *pPlayerCreationUI_BtnReset;
+extern struct GUIButton *pPlayerCreationUI_BtnOK;
+
+extern struct GUIButton *pPlayerCreationUI_BtnPlus;
+extern struct GUIButton *pPlayerCreationUI_BtnMinus;
+extern struct class18 *pPlayerCreationUI_PCPortraits[];
+extern struct class18 *pPlayerCreationUI_ClassIcons[];
+extern struct class18 *pPlayerCreationUI_Sky;
+extern struct class18 *pPlayerCreationUI_Top;
+
+extern struct class18 *pPlayerCreationUI_ArrowR[];
+extern struct class18 *pPlayerCreationUI_ArrowL[];
+
+extern unsigned int uPlayerCreationUI_SelectedCharacter;
+
+extern unsigned int uTextureID_PlayerCreationUI_FaceMask;
 
 
+extern struct Font *pFontArrus;
+extern struct Font *pFontLucida;
+
+extern struct Font *pFontCreate;
+extern struct Font *pFontCChar;
+extern struct Font *pFontComic;
+extern struct Font *pFontSmallnum;
 
 
 

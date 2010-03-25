@@ -592,6 +592,8 @@ int sub_4114F2(struct class17 *_this);
 int sub_46454B(struct class17 *_this);
 //int __thiscall sub_4645DC(int this);
 int sub_4645DC(struct class17 *_this);
+//signed int __thiscall sub_46161C(int this, const char *Str1);
+bool class17_Games_LOD_FindLeveL(struct class17 *_this, const char *pLevelName);
 
 unsigned int   class17_LoadTextureFromCBM(struct class17 *_this, const wchar_t *pFilename);
 unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename);
@@ -1008,7 +1010,7 @@ void CMapStats_ctor(struct CMapStats *_this);
 //int __thiscall sub_453F62(void *this)
 int CMapStats_Initialize(struct CMapStats *_this);
 //signed int __thiscall sub_4547A3(int this, const char *Str2);
-int sub_4547A3(struct CMapStats *_this, const char *Str2);
+int CMapStats_FindLocation(struct CMapStats *_this, const char *pLocationFilename);
 
 
 
@@ -1358,5 +1360,50 @@ int Party_CreateDefault(struct Party *_this);
 void Player_RandomizeName(struct Player *_this);
 //signed int __thiscall sub_490109(int this);
 int sub_490109(struct Player *_this);
+
+
+
+
+
+
+
+
+struct class51_stru0
+{
+ unsigned char *ptr_000000;
+ unsigned char *ptr_000004;
+ unsigned char *ptr_000008;
+ unsigned char *ptr_00000C;
+ short          word_000010;
+ short          word_000012;
+ short          word_000014;
+ short          word_000016;
+ int            dword_000018;
+ int            dword_00001C;
+};
+//sizeof == 20
+
+struct class51
+{
+ unsigned char  string_000000[32];
+ unsigned char  pFileName[32];        // byte[32] @ 000020
+ unsigned char  pFileDescription[32]; // byte[32] @ 000040
+ unsigned char  string_000060[32];
+ unsigned char  string_000080[32];
+
+ int            dword_0000B0;
+
+ struct class51_stru0 struct_0000B4;
+
+ unsigned char *ptr_0000D4;
+ unsigned char *ptr_0000D8;
+
+ unsigned char *ptr_0000E0;
+ unsigned char *ptr_0000E4;
+
+ int            dword_0004C0;
+ unsigned char *ptr_0004C4;
+};
+
 
 #pragma pack(pop)
