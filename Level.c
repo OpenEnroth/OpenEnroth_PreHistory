@@ -204,13 +204,19 @@ FILE *sub_47D0A6(struct class51 *Dst, const char *Source, int File, int a4, int 
   size_t ElementSize; // [sp+B4Ch] [bp-34h]@56
   int v157; // [sp+B50h] [bp-30h]@61
   int v158; // [sp+B54h] [bp-2Ch]@68
-  int v159; // [sp+B58h] [bp-28h]@50
-  char v160; // [sp+B5Ch] [bp-24h]@50
-  char v161; // [sp+B5Dh] [bp-23h]@50
-  char v162; // [sp+B5Eh] [bp-22h]@50
-  char v163; // [sp+B5Fh] [bp-21h]@50
-  unsigned int v164; // [sp+B60h] [bp-20h]@50
-  size_t Size; // [sp+B64h] [bp-1Ch]@50
+
+  struct maybe_odm_header
+  {
+   int v159; // [sp+B58h] [bp-28h]@50
+   char v160; // [sp+B5Ch] [bp-24h]@50
+   char v161; // [sp+B5Dh] [bp-23h]@50
+   char v162; // [sp+B5Eh] [bp-22h]@50
+   char v163; // [sp+B5Fh] [bp-21h]@50
+   unsigned int v164; // [sp+B60h] [bp-20h]@50
+   size_t Size; // [sp+B64h] [bp-1Ch]@50
+  };
+  struct maybe_odm_header v159;
+
   unsigned int v166; // [sp+B68h] [bp-18h]@13
   void *v167; // [sp+B6Ch] [bp-14h]@12
   unsigned int v168; // [sp+B70h] [bp-10h]@19
@@ -601,16 +607,19 @@ LABEL_33:
   v40 = strlen(Str);
   strcpy(&v152 + v40, ".odm");
   v41 = class17_FindContainer(pClass17_Games_LOD, Str, 1);
-  v164 = 0;
-  Size = 0;
+
   v167 = (void *)v41;
-  v159 = 91969;
-  v160 = 109;
-  v161 = 118;
-  v162 = 105;
-  v163 = 105;
-  locked_fread(&v159, 0x10u, 1u, (FILE *)v41);
-  if ( v159 != 91969 || v160 != 109 || v161 != 118 || v162 != 105 || v163 != 105 )
+
+  v159.v159 = 91969;
+  v159.v160 = 109;
+  v159.v161 = 118;
+  v159.v162 = 105;
+  v159.v163 = 105;
+  v159.v164 = 0;
+  v159.Size = 0;
+
+  locked_fread(&v159, 0x10, 1, (FILE *)v41);
+  if ( v159.v159 != 91969 || v159.v160 != 109 || v159.v161 != 118 || v159.v162 != 105 || v159.v163 != 105 )
   {
     v120 = 507;
     v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
@@ -618,9 +627,9 @@ LABEL_33:
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
     sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, v120);
   }
-  v44 = v164;
-  ElementSize = Size;
-  v42 = malloc(Size);
+  v44 = v159.v164;
+  ElementSize = v159.Size;
+  v42 = malloc(v159.Size);
   v43 = (int)v42;
   HIDWORD(v155) = v42;
   if ( v44 < ElementSize )
@@ -873,7 +882,7 @@ LABEL_75:
   v170 = class17_FindContainer(pClass17_New_LOD, &Str, 1);
   locked_fread(&v159, 0x10u, 1u, (FILE *)v170);
   Str2 = 0;
-  if ( v159 != 91969 || v160 != 109 || v161 != 118 || v162 != 105 || v163 != 105 )
+  if ( v159.v159 != 91969 || v159.v160 != 109 || v159.v161 != 118 || v159.v162 != 105 || v159.v163 != 105 )
   {
     v120 = 746;
     v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
@@ -883,12 +892,12 @@ LABEL_75:
     Str2 = (char *)1;
   }
   v78 = 0;
-  v202 = v164;
+  v202 = v159.v164;
   v168 = 0;
-  v166 = Size;
+  v166 = v159.Size;
   if ( !Str2 )
   {
-    v79 = (int)malloc(Size);
+    v79 = (int)malloc(v159.Size);
     v168 = v79;
     if ( v203 <= v166 )
     {
@@ -964,9 +973,9 @@ LABEL_112:
     *(_DWORD *)a5 = 1;
     v170 = class17_FindContainer(pClass17_Games_LOD, &Str, v120);
     locked_fread(&v159, 0x10u, 1u, (FILE *)v170);
-    v207 = v164;
-    v166 = Size;
-    v89 = (int)malloc(Size);
+    v207 = v159.v164;
+    v166 = v159.Size;
+    v89 = (int)malloc(v159.Size);
     v168 = v89;
     if ( v207 <= v166 )
     {

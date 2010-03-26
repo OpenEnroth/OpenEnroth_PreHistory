@@ -93,7 +93,6 @@ void CGame_ctor(struct CGame *_this)
  _this->uSomeFlags = 0x0800;
  _this->dword_000E24 = 0x24;
  _this->qword_000E2C = 0;
- //_this->dword_000E30 = 0;
  _this->dword_000E34 = 0;
  _this->dword_000E38 = 0;
 
@@ -320,18 +319,13 @@ POINT *class03_GetMousePos(struct class03 *_this, POINT *pOut)
  v3 = dword_720010;
  if (dword_720010)
  {
-    //*(_DWORD *)a2 = *(_DWORD *)(LODWORD(dword_720010) + 24);
-    //v4 = *(_DWORD *)(LODWORD(v3) + 28);
   pOut->x = v3[6];
   pOut->y = v3[7];
  }
  else
  {
   GetCursorPos(pOut);
-  //pOut->x = _this->dword_000108;
-  //pOut->y = _this->dword_00010C;
  }
- //*(_DWORD *)(a2 + 4) = v4;
  return pOut;
 }
 
@@ -524,7 +518,6 @@ void *class04_ctor(struct class04 *_this)
  }
  while (--v2);
 
- //*(_DWORD *)_this = 5080800;
  _this->dword_000000 = 5080800;
  return _this;
 }
@@ -541,7 +534,6 @@ void *class05_ctor(struct class05 *_this)
  float v9; // [sp+44h] [bp-28h]@1
  float v10; // [sp+68h] [bp-4h]@1
 
- //sub_4C055C((void *)((char *)_this + 4));
  class25_fn0(&_this->class25_obj);
  v6 = 0.0;
  v3 = 0.0;
@@ -551,20 +543,19 @@ void *class05_ctor(struct class05 *_this)
  v7 = 65536.0;
  v8 = 0.0;
  v9 = 0.0;
- memcpy((void *)((char *)_this + 8204), &v7, 0x30u);
+ memcpy((char *)_this + 8204, &v7, 0x30u);
  v10 = 0.0;
  v7 = 0.0;
  v8 = 65536.0;
  v9 = 0.0;
- memcpy((void *)((char *)_this + 8252), &v3, 0x30u);
+ memcpy((char *)_this + 8252, &v3, 0x30u);
  v6 = 0.0;
  v3 = 65536.0;
  v4 = 0.0;
  v5 = 0.0;
- memcpy((void *)((char *)_this + 8300), &v3, 0x30u);
- memcpy((void *)((char *)_this + 8348), &v7, 0x30u);
- //*(_DWORD *)_this = 5081604;
- //*(_DWORD *)((char *)_this + 8396) = 512;
+ memcpy((char *)_this + 8300, &v3, 0x30u);
+ memcpy((char *)_this + 8348, &v7, 0x30u);
+
  _this->dword_000000 = 5081604;
  _this->dword_0020CC = 512;
  return _this;
@@ -627,7 +618,6 @@ void *class07_InitializeVectors(struct class07 *_this, float w)
  }
  while (++v2 < _this->uNumVec4InArray1);
 
- //return memcpy(*(void **)(v3 + 12), &unk_4EBBD0, 12 * *(_DWORD *)(v3 + 8));
  return memcpy(_this->pFloatArray2, &unk_4EBBD0, 12 * _this->uNumVec3InArray2);
 }
 
@@ -651,36 +641,17 @@ struct class08 *class08_ctor(struct class08 *_this)
   class26_ctor(&_this->class26_obj2);
   class26_ctor(&_this->class26_obj3);
   compile_warning;//_eh_vector_constructor_iterator_(v3 + 52, 24, 6, sub_498038, sub_498069);
-  //v4 = (double)dword_51B6F0;
-  //v5 = (double)dword_51B6EC;
-  //v6 = (double)dword_51B6E8;
-  //*(float *)(v3 + 264) = 0.0;
-  //*(float *)(v3 + 220) = v6;
-  //*(float *)(v3 + 224) = v5;
-  //*(float *)(v3 + 228) = v4;
+
   _this->flt_0000DC = dword_51B6E8;
   _this->flt_0000E0 = dword_51B6EC;
   _this->flt_0000E4 = dword_51B6F0;
   _this->flt_000108 = 0;
-  //v7 = (double)dword_51B6F0;
-  //v8 = (double)dword_51B6EC;
-  //v9 = (double)(dword_51B6E8 + 300);
-  //*(float *)(v3 + 268) = v9;
-  //*(float *)(v3 + 272) = v8;
-  //*(float *)(v3 + 276) = v7;
-  //*(float *)(v3 + 312) = 0.0;
+
   _this->flt_00010C = dword_51B6E8 + 300;
   _this->flt_000110 = dword_51B6EC;
   _this->flt_000114 = dword_51B6F0;
   _this->flt_000138 = 0;
 
-  //*(float *)(v3 + 360) = 0.0;
-  //*(float *)(v3 + 408) = 0.0;
-  //*(float *)(v3 + 456) = 0.0;
-  //*(float *)(v3 + 504) = 0.0;
-  //*(float *)(v3 + 552) = 0.0;
-  //*(float *)(v3 + 600) = 0.0;
-  //*(float *)(v3 + 648) = 0.0;
   _this->flt_000168 = 0;
   _this->flt_000198 = 0;
   _this->flt_0001C8 = 0;
@@ -689,74 +660,49 @@ struct class08 *class08_ctor(struct class08 *_this)
   _this->flt_000258 = 0;
   _this->flt_000288 = 0;
 
-  //*(float *)(v3 + 696) = 0.0;
-  //*(float *)(v3 + 700) = 0.0;
-  //*(float *)(v3 + 704) = 0.0;
-  //*(float *)(v3 + 708) = 0.0;
   _this->flt_0002B8 = 0;
   _this->flt_0002BC = 0;
   _this->flt_0002C0 = 0;
   _this->flt_0002C4 = 0;
-  //*(float *)(v3 + 744) = 0.0;
-  //*(float *)(v3 + 748) = 0.0;
-  //*(float *)(v3 + 752) = 0.0;
-  //*(float *)(v3 + 756) = 0.0;
+
   _this->flt_0002E8 = 0;
   _this->flt_0002EC = 0;
   _this->flt_0002F0 = 0;
   _this->flt_0002F4 = 0;
 
-  //*(float *)(v3 + 792) = 0.0;
-  //*(float *)(v3 + 796) = 0.0;
-  //*(float *)(v3 + 800) = 0.0;
-  //*(float *)(v3 + 804) = 0.0;
   _this->flt_000318 = 0;
   _this->flt_00031C = 0;
   _this->flt_000320 = 0;
   _this->flt_000324 = 0;
 
-  //*(float *)(v3 + 840) = 0.0;
-  //*(float *)(v3 + 844) = 0.0;
-  //*(float *)(v3 + 848) = 0.0;
-  //*(float *)(v3 + 852) = 0.0;
   _this->flt_000348 = 0;
   _this->flt_00034C = 0;
   _this->flt_000350 = 0;
   _this->flt_000354 = 0;
 
-  //*(float *)(v3 + 888) = 0.0;
   _this->flt_000378 = 0;
 
   v2 = 16384;
-  //v1 = v3 + 892;
   v1 = _this->array_00037C;
   do
   {
-    //*(_DWORD *)v1 = 0;
-    //*(float *)(v1 + 48) = 0.0;
    *(int *)(v1) = 0;
    v1[12] = 0;
    v1 += 14;
   }
   while (--v2);
 
-  //*(_DWORD *)(v3 + 918396) = 0;
   _this->dword_0E037C = 0;
 
-  //v10 = v3 + 918400;
   v10 = _this->array_0E0380;
   v13 = 256;
   do
   {
-   //*(_DWORD *)v10 = 0;
    v10[0] = 0;
-   //sub_401000(v10 + 1, 48, 64, (int (__thiscall *)(_DWORD))loc_4363A2);
    v10 += 772;
   }
   while (v13-- != 1);
 
-  //*(_DWORD *)(v3 + 1708928) = 0;
-  //*(_DWORD *)v3 = 5080468;
   _this->dword_000000 = 5080468;
   _this->dword_1A1380 = 0;
   return _this;
@@ -805,7 +751,6 @@ struct class11 *class11_ctor(struct class11 *_this, int a2)
 
  v2 = 0;
 
-  //v3 = (char *)_this + 40;
  v3 = &_this->dword_000028;
  do
  {
@@ -975,8 +920,6 @@ void *class17_fn1(struct class17 *_this, const char *pContainer, int a3)
   unsigned char *result; // ebx@7
   unsigned char *v8; // edi@7
   struct class18 class18_obj; // [sp+Ch] [bp-4Ch]@1
-  //class18::size1 size_t v12; // [sp+20h] [bp-38h]@3
-  //class18::size2 size_t Size; // [sp+34h] [bp-24h]@3
   FILE *pContainerFile; // [sp+54h] [bp-4h]@1
 
   wchar_t  pLodFile[256];
@@ -1040,17 +983,14 @@ FILE *class17_FindContainer(struct class17 *_this, const char *pContainerName, i
   int v5; // edi@5
   int v7; // [sp+18h] [bp+Ch]@6
 
-  //if ( !*(_DWORD *)((char *)_this + 260) )
   if (!_this->dword_000104)
     return 0;
   if (a3)
   {
     v5 = 0;
-    //if ( *(_DWORD *)((char *)_this + 556) > 0 )
     if (_this->uNumSubidices > 0)
     {
       v7 = 0;
-      //while ( _strcmpi(pContainerName, (const char *)(v7 + *(_DWORD *)(v3 + 560))) )
       while (_strcmpi(pContainerName, (const char *)(_this->pLODSubIndexNamedBuffer) + v7))
       {
         v7 += 32;
@@ -1155,18 +1095,15 @@ void class17_fn4(struct class17 *_this)
   int v7; // eax@7
 
  v2 = _this;
- //v1 = *(_DWORD *)(this + 72572) - 1;
  v1 = _this->uNumLoadedFiles  - 1;
 
  if (v1 >= 0)
  {
-  //v3 = this + 72 * v1 + 572;
   v3 = (char *)_this + 572 + 72 * v1;
 
   do
   {
    sub_40F77C(v3);
-   //v4 = *(_DWORD *)(v2 + 72624);
    v4 = _this->dword_011BB0;
    if (v4)
    {
@@ -1222,7 +1159,6 @@ int class17_MaybeLoadLODHeader(struct class17 *_this, const char *pFilename, cha
 
  locked_fread(&_this->sLODFileHeader, sizeof(struct LODFileHeader), 1, _this->pLODFile);
 
- //v5 = class23_fn2(class23_instance, *(_DWORD *)(v3 + 528), 160, "LOD CArray");
  _this->dword_000210 = class23_AllocatedNamedBuffer(class23_instance, _this->dword_000210, 160, "LOD CArray");
 
  if (!_this->dword_000210)
@@ -1231,7 +1167,6 @@ int class17_MaybeLoadLODHeader(struct class17 *_this, const char *pFilename, cha
   return 1;
  }
 
- //locked_fread(_this->dword_000210, 0x20u, *(_DWORD *)(v3 + 444), _this->pLODFile);
  locked_fread(_this->dword_000210, 0x20, _this->sLODFileHeader.array_0000AC, _this->pLODFile);
 
  fseek(_this->pLODFile, 0, SEEK_SET);
@@ -1254,7 +1189,6 @@ int class17_fn6(struct class17 *_this, const char *pContainer)
  class17_fn7(_this);
  v2 = 0;
 
- //if ( *(_DWORD *)(v3 + 444) <= 0 )
  if (*(int *)(_this->sLODFileHeader.array_0000AC) <= 0)
  {
 LABEL_5:
@@ -1263,32 +1197,26 @@ LABEL_5:
  else
  {
   v4 = 0;
-  //while ( _strcmpi(Source, (const char *)(v4 + *(_DWORD *)(v3 + 528))) )
   while (strcmpi(pContainer, &((char *)(_this->dword_000210))[v4]))
   {
    ++v2;
    v4 += 32;
-   //if (v2 >= *(_DWORD *)(v3 + 444))
    if (v2 >= *(int *)(_this->sLODFileHeader.array_0000AC))
      goto LABEL_5;
   }
 
   strcpy(_this->sContainerName, pContainer);
-  //v7 = *(_DWORD *)(v3 + 528);
-  //*(_DWORD *)(v3 + 548) = v2;
+
   v7 = _this->dword_000210;
   _this->dword_000224 = v2;
 
   v8 = 32 * v2 + v7;
   v9 = *(_DWORD *)(v8 + 16);
-  //*(_DWORD *)(v3 + 564) = v9;
   _this->dword_000234 = v9;
 
-  //*(_DWORD *)(v3 + 556) = *(_WORD *)(v8 + 28);
   _this->uNumSubidices = *(_WORD *)(v8 + 28);
   fseek(_this->pLODFile, v9, 0);
 
-  //v6 = class23_AllocatedNamedBuffer(class23_instance, *(_DWORD *)(v3 + 560), 32 * (*(_DWORD *)(v3 + 556) + 5), "LOD Index");
   _this->pLODSubIndexNamedBuffer = class23_AllocatedNamedBuffer(class23_instance, _this->pLODSubIndexNamedBuffer, (_this->uNumSubidices + 5) * sizeof(struct LODIndex), "LOD Index");
 
   if (_this->pLODSubIndexNamedBuffer)
@@ -1421,9 +1349,15 @@ unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename
  void          *hFile;
  unsigned char *pOut;
  wchar_t       pFilepath[256];
+ char          pFilenameA[256];
 
  wsprintfW(pFilepath, L".\\Data\\Events\\%s", pFilename);
  hFile = CreateFileW(pFilepath, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
+ if (hFile == INVALID_HANDLE_VALUE)
+ {
+  wsprintfA(pFilenameA, "%S", pFilename);
+  return class17_fn1(_this, pFilenameA, 0);
+ }
 
  pOut = malloc(GetFileSize(hFile, 0));
  ReadFile(hFile, pOut, GetFileSize(hFile, 0), &w, 0);
@@ -1463,14 +1397,7 @@ void class17_AllocateSubidexAndIOBuffer(struct class17 *_this, unsigned int uNum
 //----- (00461A43) --------------------------------------------------------
 int class17_LoadLOD_Games(struct class17 *_this, const char *pLODFilename, unsigned char uFileFlags)
 {
-  void *v3; // esi@1
   char DstBuf[32]; // [sp+Ch] [bp-20h]@5
-  //__int32 Offset; // DstBuf + 16
-  //int v13; // DstBuf + 20
-  //__int16 v14; // DstBuf + 28
-  //__int16 v15; // DstBuf + 30
-
-  v3 = _this;
 
  if (uFileFlags & 1)
    _this->pLODFile = fopen(pLODFilename, "rb");
@@ -2125,37 +2052,27 @@ int class19_fn0(struct class19 *_this, int a2, const char *a3, int a4)
   {
     if (_this)
     {
-     //*(_DWORD *)(a1 + 24) = 0;
      _this->pStatus = 0;
 
      if (!_this->pFunction1)
      {
       _this->pFunction1 = call_new;
       _this->dword_000028 = 0;
-      //*(_DWORD *)(a1 + 32) = call_new;
-      //*(_DWORD *)(a1 + 40) = 0;
      }
-     //if ( !*(_DWORD *)(a1 + 36) )
-     //  *(_DWORD *)(a1 + 36) = sub_4C5910;
      if (!_this->pFunction2)
        _this->pFunction2 = call_delete;
 
-      //v8 = (*(int (__fastcall **)(_DWORD, signed int, signed int))(a1 + 32))(*(_DWORD *)(a1 + 40), 1, 24);
       v8 = (_this->pFunction1)(_this->dword_000028, 1, 24);
 
-      //*(_DWORD *)(v5 + 28) = v8;
       _this->class20_obj = v8;
 
       if (_this->class20_obj)
       {
        _this->class20_obj->class21_obj = 0;
-       //*(_DWORD *)(v8 + 20) = 0;
        _this->class20_obj->dword_00000C = 0;
-       //*(_DWORD *)(*(_DWORD *)(v5 + 28) + 12) = 0;
        if (v4 < 0)
        {
         v4 = -v4;
-        //*(_DWORD *)(*(_DWORD *)(v5 + 28) + 12) = 1;
         _this->class20_obj->dword_00000C = 1;
        }
 
@@ -2167,8 +2084,6 @@ int class19_fn0(struct class19 *_this, int a2, const char *a3, int a4)
        else
        {
         _this->class20_obj->dword_000010 = v4;
-        // *(_DWORD *)(*(_DWORD *)(v5 + 28) + 16) = v4;
-         //*(_DWORD *)(*(_DWORD *)(v5 + 28) + 20) = sub_4C4A30(
         _this->class20_obj->class21_obj = class19_AllocClass21Obj(_this,
                                                                   _this->class20_obj->dword_00000C == 0 ? (int)sub_4C57C0 : 0,
                                                                   1 << v4);
@@ -2235,15 +2150,10 @@ int class19_fn2(struct class19 *_this)
   v1 = _this->class20_obj;
   if (_this->class20_obj)
   {
-    //*(_DWORD *)(this + 20) = 0;
    _this->dword_000014 = 0;
-    //*(_DWORD *)(this + 8) = 0;
    _this->dword_000008 = 0;
-    //*(_DWORD *)(this + 24) = 0;
    _this->pStatus = 0;
-    //*(_DWORD *)v1 = *(_DWORD *)(v1 + 12) != 0 ? 7 : 0;
    v1->dword_000000 = v1->dword_00000C ? 7 : 0;
-    //sub_4C49C0(*(_DWORD *)(*(_DWORD *)(this + 28) + 20), this, 0);
    class21_fn1(v1->class21_obj, _this, 0);
    return 0;
   }
@@ -2356,7 +2266,6 @@ LABEL_12:
      }
      v3 = v47;
      v4 = 5;
-     //**(_DWORD **)(v2 + 28) = 2;
      _this->class20_obj->dword_000000 = 2;
 
 LABEL_35:
@@ -2364,14 +2273,9 @@ LABEL_35:
      {
       v34 = _this->pCompressedData;
       _this->dword_000008++;
-      //*(_DWORD *)(v2 + 4) = v32 - 1;
       _this->uCompressedDataSize--;
       v5 = v3;
-      //*(_DWORD *)(*(_DWORD *)(v2 + 28) + 8) = *(_BYTE *)v34 << 24;
       _this->class20_obj->dword_000008 = (int)(*_this->pCompressedData) << 24;
-      //v35 = *(_DWORD *)(v2 + 28);
-      //++*(_DWORD *)v2;
-      //*(_DWORD *)v35 = 3;
       v35 = _this->class20_obj;
       _this->pCompressedData++;
       _this->class20_obj->dword_000000 = 3;
@@ -2379,54 +2283,33 @@ LABEL_35:
 LABEL_38:
       if (_this->uCompressedDataSize)
       {
-       //v37 = *(_DWORD *)v2;
        v37 = _this->pCompressedData;
-       //*(_DWORD *)(v2 + 4) = v36 - 1;
        _this->uCompressedDataSize--;
 
-       //++*(_DWORD *)(v2 + 8);
        _this->dword_000008++;
        v5 = v3;
-       //*(_DWORD *)(*(_DWORD *)(v2 + 28) + 8) += *(_BYTE *)v37 << 16;
-       //v38 = *(_DWORD *)(v2 + 28);
-       //++*(_DWORD *)v2;
-       //*(_DWORD *)v38 = 4;
        _this->class20_obj->dword_000008 += (int)(*_this->pCompressedData) << 16;
 
 LABEL_41:
        if (_this->uCompressedDataSize)
        {
-        //v40 = *(_DWORD *)v2;
-        //*(_DWORD *)(v2 + 4) = v39 - 1;
-        //++*(_DWORD *)(v2 + 8);
         v40 = _this->pCompressedData;
         _this->uCompressedDataSize--;
         _this->dword_000008++;
         v5 = v3;
-        //*(_DWORD *)(*(_DWORD *)(v2 + 28) + 8) += *(_BYTE *)v40 << 8;
-        //++*(_DWORD *)v2;
-        //**(_DWORD **)(v2 + 28) = v4;
         _this->class20_obj->dword_000008 += (int)(*_this->pCompressedData) << 8;
 
 LABEL_44:
         if (_this->uCompressedDataSize)
         {
-         //v42 = *(_DWORD *)v2;
-         //v43 = *(_DWORD *)(v2 + 8) + 1;
-         //*(_DWORD *)(v2 + 4) = v41 - 1;
-         //v44 = *(_DWORD *)(v2 + 28);
          v42 = _this->pCompressedData;
          v43 = _this->dword_000008 + 1;
          _this->uCompressedDataSize--;
+
          v44 = _this->class20_obj;
-         //*(_DWORD *)(v2 + 8) = v43;
-         //*(_DWORD *)(v44 + 8) += *(_BYTE *)v42;
-         //++*(_DWORD *)v2;
          _this->dword_000008++;
          _this->class20_obj->dword_000008 += *_this->pCompressedData++;
-         //v45 = *(_DWORD *)(v2 + 28);
-         //*(_DWORD *)(v2 + 48) = *(_DWORD *)(v45 + 8);
-         //*(_DWORD *)v45 = 6;
+
          v45 = _this->class20_obj;
          _this->dword_00002C = _this->class20_obj->dword_000008;
          _this->class20_obj->dword_000000 = 6;
@@ -2459,12 +2342,10 @@ LABEL_36:
 
    case 7:
     v16 = class21_fn2(v6->class21_obj, _this, v5);
-    //v16 = -3;
+
     v5 = v16;
     if ( v16 == -3 )
     {
-     //**(_DWORD **)(v2 + 28) = 13;
-     //*(_DWORD *)(*(_DWORD *)(v2 + 28) + 4) = 0;
      _this->class20_obj->dword_000000 = 13;
      _this->class20_obj->dword_000004 = 0;
     }
@@ -2475,96 +2356,64 @@ LABEL_36:
      if (v5 != 1)
        goto LABEL_36;
      v5 = v3;
-     //class21_fn1(*(_DWORD *)(*(_DWORD *)(v2 + 28) + 20), v2, *(_DWORD *)(v2 + 28) + 4);
-     //v17 = *(_DWORD *)(v2 + 28);
+
      class21_fn1(_this->class20_obj->class21_obj, _this, &_this->class20_obj->dword_000004);
      v17 = _this->class20_obj;
 
-     //if (*(_DWORD *)(v17 + 12))
-       //*(_DWORD *)v17 = 12;
      if (_this->class20_obj->dword_00000C)
        _this->class20_obj->dword_000000 = 12;
      else
      {
-      //*(_DWORD *)v17 = 8;
       _this->class20_obj->dword_000000 = 8;
 
 LABEL_25:
-      //v18 = *(_DWORD *)(v2 + 4);
       v18 = _this->uCompressedDataSize;
       if (!_this->uCompressedDataSize)
         goto LABEL_36;
 
-      //v19 = *(_DWORD *)(v2 + 28);
-      //++*(_DWORD *)(v2 + 8);
-      //v20 = *(_DWORD *)v2;
-      //*(_DWORD *)(v2 + 4) = v18 - 1;
       v19 = _this->class20_obj;
       _this->dword_000008++;
       v20 = _this->pCompressedData;
       _this->uCompressedDataSize--;
       v5 = v3;
-      //*(_DWORD *)(v19 + 8) = *(_BYTE *)v20 << 24;
-      //v21 = *(_DWORD *)(v2 + 28);
-      //++*(_DWORD *)v2;
-      //*(_DWORD *)v21 = 9;
+
       _this->class20_obj->dword_000008 = (unsigned int)(*_this->pCompressedData++) << 24;
       v21 = _this->class20_obj;
       _this->class20_obj->dword_000000 = 9;
 
 LABEL_27:
-      //v22 = *(_DWORD *)(v2 + 4);
-      //if (!v22)
       v22 = _this->uCompressedDataSize;
       if (!_this->uCompressedDataSize)
         goto LABEL_36;
 
-      //v23 = *(_DWORD *)v2;
-      //++*(_DWORD *)(v2 + 8);
-      //*(_DWORD *)(v2 + 4) = v22 - 1;
       v23 = _this->pCompressedData;
       _this->dword_000008++;
       _this->uCompressedDataSize--;
       v5 = v3;
-      //*(_DWORD *)(*(_DWORD *)(v2 + 28) + 8) += *(_BYTE *)v23 << 16;
-      //++*(_DWORD *)v2;
-      //**(_DWORD **)(v2 + 28) = 10;
+
       _this->class20_obj->dword_000008 += (unsigned int)(*_this->pCompressedData++) << 16;
       _this->class20_obj->dword_000000 = 10;
 
 
 LABEL_29:
-      //v24 = *(_DWORD *)(v2 + 4);
-      //if ( !v24 )
       v24 = _this->uCompressedDataSize;
       if (!_this->uCompressedDataSize)
         goto LABEL_36;
 
-      //v25 = *(_DWORD *)v2;
-      //++*(_DWORD *)(v2 + 8);
-      //*(_DWORD *)(v2 + 4) = v24 - 1;
       v25 = _this->pCompressedData;
       _this->dword_000008++;
       _this->uCompressedDataSize--;
       v5 = v3;
-      //*(_DWORD *)(*(_DWORD *)(v2 + 28) + 8) += *(_BYTE *)v25 << 8;
-      //++*(_DWORD *)v2;
-      //**(_DWORD **)(v2 + 28) = 11;
+
       _this->class20_obj->dword_000008 += (unsigned int)(*_this->pCompressedData++) << 8;
       _this->class20_obj->dword_000000 = 11;
 
 LABEL_31:
-      //v26 = *(_DWORD *)(v2 + 4);
-      //if ( !v26 )
+
       v26 = _this->uCompressedDataSize;
       if (!_this->uCompressedDataSize)
         goto LABEL_36;
 
-      //v28 = *(_DWORD *)v2;
-      //v29 = *(_DWORD *)(v2 + 8) + 1;
-      //*(_DWORD *)(v2 + 4) = v26 - 1;
-      //v30 = *(_DWORD *)(v2 + 28);
-      //*(_DWORD *)(v2 + 8) = v29;
       v28 = _this->pCompressedData;
       v29 = _this->dword_000008 + 1;
       v30 = _this->class20_obj;
@@ -2572,23 +2421,15 @@ LABEL_31:
       _this->dword_000008++;
 
       v5 = v3;
-      //*(_DWORD *)(v30 + 8) += *(_BYTE *)v28;
-      //++*(_DWORD *)v2;
-      //v27 = *(_DWORD *)(v2 + 28);
       _this->class20_obj->dword_000008 += *_this->pCompressedData++;
       v27 = _this->class20_obj;
 
-      //if ( *(_DWORD *)(v27 + 4) == *(_DWORD *)(v27 + 8) )
       if (_this->class20_obj->dword_000004 == _this->class20_obj->dword_000008)
       {
-       //**(_DWORD **)(v2 + 28) = 12;
        _this->class20_obj->dword_000000 = 12;
        return 1;
       }
-      //*(_DWORD *)v27 = 13;
-      //v31 = *(_DWORD *)(v2 + 28);
-      //*(_DWORD *)(v2 + 24) = "incorrect data check";
-      //*(_DWORD *)(v31 + 4) = v4;
+ 
       _this->class20_obj->dword_000000 = 13;
       v31 = _this->class20_obj;
       _this->pStatus = "incorrect data check";
@@ -3356,7 +3197,6 @@ LABEL_112:
                      &v130,
                      _this->pArray_8x1440,
                      pParent);
-            //(*(void (__fastcall **)(_DWORD, _DWORD))(v39 + 36))(*(_DWORD *)(v39 + 40), _this->dword_00000C);
             (pParent->pFunction2)(pParent->dword_000028, _this->dword_00000C);
             if ( v121 )
             {
@@ -4086,7 +3926,6 @@ void *class23_AllocatedNamedBuffer(struct class23 *_this, int a2, int size, cons
     sub_466B8C();
  }
 
- //if ( !*(_DWORD *)(v4 + 120020) )
  if (!_this->bBigBufferAllocated)
  {
   if ( !dword_720018 )
@@ -4099,7 +3938,6 @@ void *class23_AllocatedNamedBuffer(struct class23 *_this, int a2, int size, cons
   if (size < 0 && !dword_720018)
     sub_466B8C();
 
-  //if ( *(_DWORD *)(v4 + 120004) == 6000 )
   if (_this->uNumMemoryBuffersUsed >= 6000)
   {
    if (!dword_720018)
@@ -4112,13 +3950,9 @@ void *class23_AllocatedNamedBuffer(struct class23 *_this, int a2, int size, cons
 
   if (!_this->dword_01D4D8)
   {
-   //v12 = malloc(v5);
-   //v11 = v4 + 4 * v8;
-   //*(_DWORD *)v11 = v12;
    v12 = malloc(size);
    v11 = _this->pMemoryBuffers[v8];
    if (v12)
-     //*(_DWORD *)(v4 + 4 * v8 + 24000) = Size;
      _this->uMemoryBufferSizes[v8] = size;
    else
    {
@@ -4128,11 +3962,9 @@ void *class23_AllocatedNamedBuffer(struct class23 *_this, int a2, int size, cons
   }
   else
   {
-   //LOBYTE(v5) = v5 & 0xFC;
    v5 &= 0xFFFFFFFC;
    v10 = v5 + 4;
 
-   //if ((unsigned int)(v10 + *(_DWORD *)(v4 + 120012)) > *(_DWORD *)(v4 + 120016))
    if ((unsigned int)(_this->uNextFreeOffsetInBigBuffer + v10) > _this->uBigBufferSizeMinus1000h)
    {
     printf("Id: %s  Size: %i", pBufferName, v10);
@@ -4141,19 +3973,13 @@ void *class23_AllocatedNamedBuffer(struct class23 *_this, int a2, int size, cons
       sub_466B8C();
    }
 
-   //v11 = v4 + 4 * v8;
-   //*(_DWORD *)v11 = *(_DWORD *)(v4 + 120012) + *(_DWORD *)(v4 + 120008);
    _this->pMemoryBuffers[v8] = (char *)(_this->pBigMemoryBuffer) + _this->uNextFreeOffsetInBigBuffer;
-   //*(_DWORD *)(v4 + 4 * v8 + 24000) = v13;
    _this->uMemoryBufferSizes[v8] = v10;
 
    if (pBufferName)
-     //strncpy((char *)(v4 + 4 * (3 * v8 + 12000)), Source, 0xBu);
      strncpy(_this->aBufferNames[v8], pBufferName, 11);
-   //*(_DWORD *)(v4 + 120012) += v13;
    _this->uNextFreeOffsetInBigBuffer += v10;
   }
-  //result = *(_DWORD *)v11;
   result = _this->pMemoryBuffers[v8];
  }
  else return 0;
@@ -4174,17 +4000,14 @@ int class23_DeleteBuffer(struct class23 *_this, void *pMem)
  v2 = _this;
  if (pMem)
  {
-  //if ( !*(_DWORD *)(this + 120020) )
   if (!_this->bBigBufferAllocated)
   {
    if (!dword_720018)
      sub_466B8C();
   }
 
-  //v3 = *(_DWORD *)(v2 + 120004);
   v3 = _this->uNumMemoryBuffersUsed;
   for (i = 0; i < v3; ++i)
-    //if ( *(_DWORD *)(v2 + 4 * i) == a2 )
     if (_this->pMemoryBuffers[i] == pMem)
       break;
  
@@ -4194,19 +4017,13 @@ int class23_DeleteBuffer(struct class23 *_this, void *pMem)
      v3 = sub_466B8C();
   }
 
-  //if ( !*(_DWORD *)(v2 + 120024) )
   if (!_this->dword_01D4D8)
-    //call_delete(v3, *(_DWORD *)(v2 + 4 * i));
     call_delete(v3, _this->pMemoryBuffers[i]);
 
-  //*(_DWORD *)(v2 + 4 * i) = 0;
-  //*(_DWORD *)(v2 + 4 * i + 24000) = 0;
-  //*(_BYTE *)(v2 + 4 * (3 * i + 12000)) = 0;
   _this->pMemoryBuffers[i] = 0;
   _this->uMemoryBufferSizes[i] = 0;
   _this->aBufferNames[i][0] = 0;
 
-  //v5 = *(_DWORD *)(v2 + 120004);
   v5 = _this->uNumMemoryBuffersUsed;
   if (i == v5 - 1)
   {
@@ -4215,25 +4032,18 @@ int class23_DeleteBuffer(struct class23 *_this, void *pMem)
     v7 = 0;
     for (j = 0; j < v5; ++j)
     {
-     //if ( *(_DWORD *)(v2 + 4 * j) )
      if (_this->pMemoryBuffers[j])
        v7 = j;
     }
 
-    //v8 = *(_DWORD *)(v2 + 120024) == 0;
-    //*(_DWORD *)(v2 + 120004) = v7 + 1;
     v8 = _this->dword_01D4D8 == 0;
     _this->uNumMemoryBuffersUsed = v7 + 1;
-    //if (!v8)
+
     if (_this->dword_01D4D8)
-      //*(_DWORD *)(v2 + 120012) = *(_DWORD *)(v2 + 4 * v7) + *(_DWORD *)(v2 + 4 * v7 + 24000)
-      //                           - *(_DWORD *)(v2 + 120008);
       _this->uNextFreeOffsetInBigBuffer = (char *)(_this->pMemoryBuffers[v7]) + _this->uMemoryBufferSizes[v7] - (unsigned int)(_this->pBigMemoryBuffer);
    }
    else
    {
-    //*(_DWORD *)(v2 + 120012) = 0;
-    //*(_DWORD *)(v2 + 120004) = 0;
     _this->uNumMemoryBuffersUsed = 0;
     _this->uNextFreeOffsetInBigBuffer = 0;
    }
@@ -4259,25 +4069,17 @@ int class23_AllocateBigBuffer(struct class23 *_this, unsigned int uNumKBytes)
  if (uNumKBytes)
  {
   v5 = malloc(uNumKBytes * 1024);
-  //*(_DWORD *)(v2 + 120008) = v5;
   _this->pBigMemoryBuffer = v5;
   v4 = (uNumKBytes * 1024) - 4096;
-  //v6 = (int)((char *)v5 - ((_WORD)v5 & 0xFFF));
   v6 = (int)(v5) & 0xFFFF0000;
 
-  //*(_DWORD *)(v2 + 120028) = v6 + 4096;
   _this->pBigBufferAlignedAt1000h = v6 + 4096;
 
   sub_426892(v6 + 4096, v4);
   result = 0;
-  //if ( !*(_DWORD *)(v2 + 120008) )
   if (!_this->pBigMemoryBuffer)
     return false;
 
-  //*(_DWORD *)(v2 + 120004) = 0;
-  //*(_DWORD *)(v2 + 120012) = 0;
-  //*(_DWORD *)(v2 + 120016) = v4;
-  //*(_DWORD *)(v2 + 120024) = 1;
   _this->uNumMemoryBuffersUsed = 0;
   _this->uNextFreeOffsetInBigBuffer = 0;
   _this->uBigBufferSizeMinus1000h = v4;
@@ -4285,11 +4087,8 @@ int class23_AllocateBigBuffer(struct class23 *_this, unsigned int uNumKBytes)
  }
  else
  {
-  //*(_DWORD *)(this + 120024) = 0;
   _this->dword_01D4D8 = 0;
  }
- //*(_DWORD *)(v2 + 120020) = result;
- //return result;
  return _this->bBigBufferAllocated = true;
 }
 
@@ -4312,8 +4111,7 @@ int class23_CreateFileDump(struct class23 *_this, const char *a2)
   int v17; // [sp+48h] [bp+8h]@11
 
   v4 = _this;
-  //v5 = *(_DWORD *)(this + 120000);
-  //*(_DWORD *)(this + 120000) = v5 + 1;
+
   sprintf(pFilename, "Mem%03i.txt", _this->dword_01D4C0++);
   v2 = fopen(pFilename, "w");
   if (v2)
@@ -4331,7 +4129,7 @@ int class23_CreateFileDump(struct class23 *_this, const char *a2)
    fprintf(v2, "dwAvailPageFile:  %d\n", Buffer.dwAvailPageFile);
    fprintf(v2, "dwTotalVirtual:   %d\n", Buffer.dwTotalVirtual);
    fprintf(v2, "dwAvailVirtual:   %d\n\n\n", Buffer.dwAvailVirtual);
-   //v8 = *(_DWORD *)(v4 + 120004);
+
    v8 = _this->uNumMemoryBuffersUsed;
    v7 = 0;
 
@@ -4358,10 +4156,8 @@ int class23_CreateFileDump(struct class23 *_this, const char *a2)
    }
    while (v12);
 
-   //fprintf(v2, "Size: %i  %i  %i\n\n", *(_DWORD *)(v4 + 120004), v7, v10);
    fprintf(v2, "Size: %i  %i  %i\n\n", _this->uNumMemoryBuffersUsed, v7, v10);
    v13 = 0;
-   //if ( *(_DWORD *)(v4 + 120004) > 0 )
    if (_this->uNumMemoryBuffersUsed > 0)
    {
     v16 = (char *)v4 + 24000;
@@ -4374,7 +4170,6 @@ int class23_CreateFileDump(struct class23 *_this, const char *a2)
      v16 += 4;
      ++v13;
     }
-    //while ( v13 < *(_DWORD *)(v4 + 120004) );
     while (v13 < _this->uNumMemoryBuffersUsed);
    }
    fclose(v2);
@@ -4874,17 +4669,9 @@ void *class37_ctor(struct class37 *_this)
 
 
 
-
-
-
-
-
-
-
 //----- (00456D84) --------------------------------------------------------
 char *__fastcall sub_452C30(char *Str);
 extern int dword_5CCE30;
-extern int array_5C86E0[];
 extern unsigned char *array_5C8810[];
 extern unsigned char *array_5C88A8[];
 extern unsigned char *array_5C8940[];
@@ -4948,7 +4735,6 @@ char *sub_456D84(struct class40 *_this)
   int v60; // eax@313
   char v61; // dl@313
   int v62; // esi@317
-  char *result; // eax@348
   signed int v64; // edi@348
   char v65; // dl@349
   int v66; // ecx@349
@@ -5732,7 +5518,10 @@ LABEL_196:
   }
   while ( v53 < 37 );
 
-  pStatsTXT_Raw = class17_fn1(pClass17_Events_LOD, "stats.txt", 0);
+
+
+  //pStatsTXT_Raw = class17_fn1(pClass17_Events_LOD, "stats.txt", 0);
+  pStatsTXT_Raw = class17_LoadEvent(pClass17_Events_LOD, L"stats.txt");
   strtok(pStatsTXT_Raw, "\r");
   v77 = 0;
   do
@@ -5809,54 +5598,22 @@ LABEL_196:
   }
   while ( v77 < 26 );
 
-  pClassTXT_Raw = class17_fn1(pClass17_Events_LOD, "class.txt", 0);
-  strtok(pClassTXT_Raw, "\r");
 
-  //v78 = (int)dword_5C86E0;
-  v78 = 0;
-  do
-  {
-    v64 = 0;
-    result = strtok(0, "\r") + 1;
-    v103 = 0;
-    do
-    {
-      v65 = *result;
-      v66 = 0;
-      if ( *result != 9 )
-      {
-        do
-        {
-          if ( !v65 )
-            break;
-          ++v66;
-          v65 = result[v66];
-        }
-        while ( v65 != 9 );
-      }
-      v67 = (int)&result[v66];
-      if ( !result[v66] )
-        v103 = 1;
-      *(_BYTE *)v67 = 0;
-      if ( v66 )
-      {
-        if ( v64 )
-          array_5C86E0[v78] = sub_452C30(result);
-      }
-      else
-      {
-        if ( !v64 )
-          v103 = 1;
-      }
-      ++v64;
-      result = (char *)(v67 + 1);
-    }
-    while ( v64 < 2 && !v103 );
-    v78++;
-  }
-  //while ( v78 <= (signed int)&unk_5C876C );
-  while (v78 < 36);
-  return result;
+
+
+
+ pClassTXT_Raw = class17_LoadEvent(pClass17_Events_LOD, L"class.txt");
+
+ v78 = strstr(pClassTXT_Raw, "\n") + 1;
+ for (i = 0; i < 36; ++i)
+ {
+  pClassDescriptions[i] = strstr(v78, "\"") + 1;
+  v78 = strstr(pClassDescriptions[i], "\"");
+  *(char *)v78 = 0;
+  v78 = strstr(v78 + 1, "\n") + 1;
+ }
+
+ return 0;
 }
 
 

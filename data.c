@@ -1162,12 +1162,14 @@ unsigned char *aAMPMNames[2];                // ptr array @ MM7.exe::005C35D8
 unsigned char *aMoonPhaseNames[5];           // ptr array @ MM7.exe::00506554
 unsigned char *aSpellNames[44];              // ptr array @ MM7.exe::005068C8
 unsigned char *aCharacterConditionNames[19]; // ptr array @ MM7.exe::00AE3280
-unsigned char *aSkillNames[37];              // ptr array @ MM7.exe::00AE32D0
+unsigned char *aSkillNames[38];              // ptr array @ MM7.exe::00AE32D0
 unsigned char *aClassNames[36];              // ptr array @ MM7.exe::00AE31F0
 unsigned char *aMonthNames[12];              // ptr array @ MM7.exe::00507B08
 unsigned char *aDayNames[8];                 // ptr array @ MM7.exe::00507B38
 unsigned char *aSpellSchoolNames[9];         // ptr array @ MM7.exe::00507B54
 unsigned char *aAttributeNames[7];           // ptr array @ MM7.exe::00507B78
+
+unsigned char *pClassDescriptions[36]; // ptr[36] @ MM7.exe::005C86E0
 
 unsigned char *pHealthPointsAttributeDescription = 0;     // ptr @ MM7.exe::005C8B08
 unsigned char *pSpellPointsAttributeDescription = 0;      // ptr @ MM7.exe::005C8B0C

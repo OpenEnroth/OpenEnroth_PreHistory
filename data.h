@@ -24,6 +24,8 @@ extern unsigned char *aSpellSchoolNames[];
 extern unsigned char *aAttributeNames[];
 extern unsigned char *pGlobalTXT_LocalizationStrings[];
 
+extern unsigned char *pClassDescriptions[];
+
 extern unsigned char *pHealthPointsAttributeDescription;
 extern unsigned char *pSpellPointsAttributeDescription;
 extern unsigned char *pArmourClassAttributeDescription;
