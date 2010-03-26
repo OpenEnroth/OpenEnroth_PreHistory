@@ -4063,10 +4063,8 @@ int __fastcall sub_47C3D7(int a1, int a2, float a3);
 signed int __fastcall sub_47C4FC(int a1, int a2, float a3, int a4, int a5);
 int __thiscall sub_47C794(int this);
 int __thiscall sub_47C7C2(void *this);
-int __thiscall sub_47C80A(void *this, int a2, int a3, int a4, int a5);
 signed int __stdcall sub_47CB57(int a1, int a2, int a3);
 signed int __thiscall sub_47CCE2(void **this);
-bool __thiscall sub_47CD44(int *this);
 int __thiscall sub_47CDE2(int Dest);
 int __thiscall sub_47CF9C(char *Dest);
 signed int __thiscall sub_47ECC1(int this, signed int a2);
@@ -4082,8 +4080,6 @@ signed int __cdecl sub_47F0E2();
 signed int __cdecl sub_47F138();
 signed int __thiscall sub_47F223(void *this);
 signed int __stdcall sub_47F2D3(int a1);
-signed int __thiscall sub_47F3EA(int this);
-signed int __thiscall sub_47F420(void *this);
 int __stdcall sub_47F44B(signed int a1);
 int __stdcall sub_47F458(signed int a1);
 int __stdcall sub_47F469(int a1);
@@ -4145,9 +4141,6 @@ signed int __cdecl sub_487DA9();
 signed int __cdecl sub_487DBE();
 int __thiscall sub_487E1D(int this);
 int __thiscall sub_487E3B(int this, int a2);
-void __thiscall sub_487E58(void *this, int a2);
-int __thiscall sub_487ED6(void *this, int a2, int a3);
-int __thiscall sub_487F84(int this, int a2, int a3);
 double __cdecl sub_488E23();
 int __thiscall sub_488EB1(void *this, signed int a2, signed int a3);
 int __thiscall sub_488EEF(void *this, signed int a2, signed int a3);
@@ -4855,6 +4848,30 @@ void RtlCallCtros()
  //Tga2Cbm(".\\Data\\Icons\\loading5");
  //Tga2Cbm(".\\Data\\Icons\\out01");
  //Tga2Cbm(".\\Data\\Icons\\lsave640");
+
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRCROS");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRCROS1");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRCROS2");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRCROS3");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRCROS4");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRECAP");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSREW");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSREW_N");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSREW_S");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRN_E");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRN_W");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRNCAP");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRNE1");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRNE2");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRNS");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRNS_E");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRNS_W");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRNW1");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRNW2");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRS_E");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRS_W");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRSCAP");
+ //Tga2Cbm(".\\Data\\Bitmaps\\DRSRWCAP");
 
  hMM7Text_dll = LoadLibraryW(L"mm7text.dll");
  sprintfex = (int (__cdecl *)(char *, const char *, ...))(GetProcAddress(hMM7Text_dll, "_sprintfex"));
@@ -14318,6 +14335,18 @@ int __cdecl sub_4666D5()
   if ( dword_6BE360 == 2 )
     result = sub_485F64((int)&dword_6BE070);
   return result;
+}
+
+//----- (004435CD) --------------------------------------------------------
+void *__thiscall sub_4435CD(void *this)
+{
+  unsigned __int8 v1; // al@1
+
+  ++*((_BYTE *)this + 11);
+  v1 = *((_BYTE *)this + 10);
+  if ( *((_BYTE *)this + 11) > v1 )
+    *((_BYTE *)this + 11) = v1;
+  return DrawLoadingScreen(this);
 }
 
 //----- (00464D32) --------------------------------------------------------
@@ -71343,18 +71372,6 @@ char __thiscall sub_4435BB(int this, char a2)
   return result;
 }
 
-//----- (004435CD) --------------------------------------------------------
-void *__thiscall sub_4435CD(void *this)
-{
-  unsigned __int8 v1; // al@1
-
-  ++*((_BYTE *)this + 11);
-  v1 = *((_BYTE *)this + 10);
-  if ( *((_BYTE *)this + 11) > v1 )
-    *((_BYTE *)this + 11) = v1;
-  return DrawLoadingScreen(this);
-}
-
 //----- (004435E2) --------------------------------------------------------
 void __thiscall sub_4435E2(void *this)
 {
@@ -107439,194 +107456,6 @@ int __thiscall sub_47C794(int this)
   return result;
 }
 
-//----- (0047C80A) --------------------------------------------------------
-int __thiscall sub_47C80A(void *this, int a2, int a3, int a4, int a5)
-{
-  void *v5; // ebx@1
-  double v6; // st7@1
-  double v7; // st7@2
-  double v8; // st7@2
-  int result; // eax@3
-  int v10; // eax@4
-  int v11; // ecx@5
-  int v12; // ecx@6
-  int v13; // edi@7
-  int v14; // edx@9
-  int v15; // eax@15
-  int v16; // edi@15
-  int v17; // esi@15
-  double v18; // st7@15
-  int v19; // ebx@15
-  int v20; // eax@15
-  int v21; // ecx@15
-  int v22; // edx@15
-  int v23; // ecx@15
-  int v24; // ebx@15
-  int v25; // ecx@15
-  int v26; // ST28_4@15
-  double v27; // st7@15
-  double v28; // st6@15
-  double v29; // st5@15
-  double v30; // st7@16
-  double v31; // st7@17
-  double v32; // st7@21
-  int v33; // eax@21
-  double v34; // st7@21
-  double v35; // st6@21
-  double v36; // st5@21
-  double v37; // st7@22
-  double v38; // st7@23
-  int v39; // [sp+14h] [bp-34h]@8
-  int v40; // [sp+18h] [bp-30h]@15
-  int v41; // [sp+1Ch] [bp-2Ch]@15
-  int v42; // [sp+20h] [bp-28h]@15
-  void *v43; // [sp+24h] [bp-24h]@1
-  int v44; // [sp+28h] [bp-20h]@21
-  float v45; // [sp+2Ch] [bp-1Ch]@1
-  float v46; // [sp+30h] [bp-18h]@1
-  float v47; // [sp+34h] [bp-14h]@1
-  int v48; // [sp+38h] [bp-10h]@7
-  int v49; // [sp+3Ch] [bp-Ch]@10
-  int v50; // [sp+40h] [bp-8h]@9
-  float v51; // [sp+44h] [bp-4h]@15
-  float v52; // [sp+44h] [bp-4h]@21
-  float v53; // [sp+50h] [bp+8h]@15
-  float v54; // [sp+50h] [bp+8h]@21
-  float v55; // [sp+54h] [bp+Ch]@15
-  int v56; // [sp+54h] [bp+Ch]@15
-  float v57; // [sp+54h] [bp+Ch]@21
-
-  v46 = -64.0;
-  v47 = -64.0;
-  v5 = this;
-  LODWORD(v45) = 1115684864;
-  v43 = this;
-  v6 = sqrt(*(double *)&byte_4D8410[944]);
-  if ( v6 != 0.0 )
-  {
-    v7 = 1.0 / v6;
-    v45 = 64.0 * v7;
-    v8 = v7 * -64.0;
-    v46 = v8;
-    v47 = v8;
-  }
-  result = a3;
-  if ( a3 > a5 )
-  {
-    v10 = a5 ^ a3;
-    a5 ^= a3 ^ a5;
-    result = a5 ^ v10;
-  }
-  v11 = a2;
-  if ( a2 > a4 )
-  {
-    v12 = a4 ^ a2;
-    a4 ^= a2 ^ a4;
-    v11 = a4 ^ v12;
-  }
-  v13 = result - 1;
-  v48 = result - 1;
-  if ( result - 1 <= a5 )
-  {
-    v39 = v11 - 1;
-    do
-    {
-      v14 = v39;
-      v50 = v39;
-      if ( v39 <= a4 )
-      {
-        result = (v39 - 63) << 9;
-        v49 = (v39 - 63) << 9;
-        do
-        {
-          if ( v13 >= 0 )
-          {
-            if ( result >= -32256 )
-            {
-              if ( v13 <= 127 )
-              {
-                if ( result <= 32768 )
-                {
-                  v15 = *((_WORD *)v5 + 8);
-                  v56 = v15;
-                  v19 = *(_DWORD *)v5;
-                  v20 = v14 + v19 + v13 * v15;
-                  v21 = -v13;
-                  v17 = (64 - v13) << 9;
-                  v16 = 32 * *(_BYTE *)v20;
-                  v22 = 32 * *(_BYTE *)(v20 + 1);
-                  v23 = (v21 + 63) << 9;
-                  v41 = v23;
-                  v24 = v19 + v56 * (v48 + 1) + v50;
-                  v25 = v23 - v17;
-                  v40 = 32 * *(_BYTE *)v24;
-                  v42 = 32 * *(_BYTE *)(v24 + 1);
-                  v26 = v49 - 512 - v49;
-                  v27 = (double)-((v16 - v22) * v25);
-                  v51 = v27;
-                  v28 = (double)-(v26 * (v42 - v22));
-                  v53 = v28;
-                  v29 = (double)(v26 * v25);
-                  v55 = v29;
-                  v18 = sqrt(v29 * v29 + v28 * v28 + v27 * v27);
-                  if ( v18 != 0.0 )
-                  {
-                    v30 = 1.0 / v18;
-                    v51 = v51 * v30;
-                    v53 = v53 * v30;
-                    v55 = v30 * v55;
-                  }
-                  v31 = (v55 * v47 + v53 * v46 + v51 * v45) * 31.0;
-                  if ( v31 < 0.0 )
-                    v31 = 0.0;
-                  if ( v31 > 31.0 )
-                    v31 = 31.0;
-                  v44 = 2 * (v50 + v48 * *((_WORD *)v43 + 8));
-                  v5 = v43;
-                  *(_BYTE *)(*((_DWORD *)v43 + 3) + v44 + 1) = (signed __int64)v31;
-                  v33 = v49 - (v49 - 512);
-                  v34 = (double)-((v42 - v40) * (v17 - v41));
-                  v52 = v34;
-                  v35 = (double)-(v33 * (v16 - v40));
-                  v54 = v35;
-                  v36 = (double)(v33 * (v17 - v41));
-                  v57 = v36;
-                  v32 = sqrt(v36 * v36 + v35 * v35 + v34 * v34);
-                  if ( v32 != 0.0 )
-                  {
-                    v37 = 1.0 / v32;
-                    v52 = v52 * v37;
-                    v54 = v54 * v37;
-                    v57 = v37 * v57;
-                  }
-                  v38 = (v57 * v47 + v54 * v46 + v52 * v45) * 31.0;
-                  if ( v38 < 0.0 )
-                    v38 = 0.0;
-                  if ( v38 > 31.0 )
-                    v38 = 31.0;
-                  v13 = v48;
-                  *(_BYTE *)(v44 + *((_DWORD *)v43 + 3)) = (signed __int64)v38;
-                  v14 = v50;
-                  result = v49;
-                }
-              }
-            }
-          }
-          ++v14;
-          result += 512;
-          v50 = v14;
-          v49 = result;
-        }
-        while ( v14 <= a4 );
-      }
-      ++v13;
-      v48 = v13;
-    }
-    while ( v13 <= a5 );
-  }
-  return result;
-}
-
 //----- (0047CB57) --------------------------------------------------------
 signed int __stdcall sub_47CB57(int a1, int a2, int a3)
 {
@@ -107750,34 +107579,6 @@ signed int __thiscall sub_47CCE2(void **this)
   v2[7] = (void *)127;
   v2[6] = (void *)127;
   return 1;
-}
-
-//----- (0047CD44) --------------------------------------------------------
-bool __thiscall sub_47CD44(int *this)
-{
-  int *v1; // esi@1
-  int v2; // eax@1
-  bool result; // eax@2
-  int v4; // eax@3
-  int v5; // eax@4
-  int v6; // eax@5
-
-  v1 = this;
-  v2 = class23_AllocatedNamedBuffer(&class23_instance, *this, 16384, "HMAP");
-  *v1 = v2;
-  if ( v2
-    && (v4 = class23_AllocatedNamedBuffer(&class23_instance, v1[1], 16384, "TMAP"), v1[1] = v4, v4)
-    && (v5 = class23_AllocatedNamedBuffer(&class23_instance, v1[2], 16384, "AMAP"), v1[2] = v5, v5) )
-  {
-    v6 = class23_AllocatedNamedBuffer(&class23_instance, v1[3], 32768, "DMAP");
-    v1[3] = v6;
-    result = v6 != 0;
-  }
-  else
-  {
-    result = 0;
-  }
-  return result;
 }
 
 //----- (0047CDE2) --------------------------------------------------------
@@ -108342,35 +108143,6 @@ LABEL_18:
   sub_41F4C1(&v6);
   v7 = 45;
   sub_45959A((int)&v6, v1);
-  return 1;
-}
-
-//----- (0047F3EA) --------------------------------------------------------
-signed int __thiscall sub_47F3EA(int this)
-{
-  int *v2; // esi@1
-
-  v2 = (int *)(this + 172);
-  *(_WORD *)(this + 174) = sub_487ED6(pTileTable, *(_WORD *)(this + 172), 1);
-  sub_487E58(pTileTable, *(_WORD *)v2);
-  return 1;
-}
-
-//----- (0047F420) --------------------------------------------------------
-signed int __thiscall sub_47F420(void *this)
-{
-  signed int v1; // edi@1
-  int v2; // esi@1
-
-  v2 = (int)((char *)this + 162);
-  v1 = 3;
-  do
-  {
-    *(_WORD *)v2 = sub_487ED6(pTileTable, *(_WORD *)(v2 - 2), 1);
-    v2 += 4;
-    --v1;
-  }
-  while ( v1 );
   return 1;
 }
 
@@ -115230,144 +115002,6 @@ int __thiscall sub_487E3B(int this, int a2)
     result = *(_DWORD *)(this + 4);
   else
     result = *(_DWORD *)(this + 4) + 26 * a2;
-  return result;
-}
-
-//----- (00487E58) --------------------------------------------------------
-void __thiscall sub_487E58(void *this, int a2)
-{
-  int v2; // ebx@1
-  void *v3; // edi@1
-  int v4; // eax@2
-  int i; // [sp+8h] [bp-4h]@1
-
-  v3 = this;
-  v2 = 0;
-  for ( i = 0; i < *(_DWORD *)v3; v2 += 26 )
-  {
-    v4 = v2 + *((_DWORD *)v3 + 1);
-    if ( a2 == *(_WORD *)(v4 + 20) )
-    {
-      if ( *(_BYTE *)v4 )
-      {
-        *(_WORD *)(*((_DWORD *)v3 + 1) + v2 + 18) = class17_LoadTexture(pClass17_Bitmaps_LOD, (const char *)v4, 0);
-        if ( *(_WORD *)(*((_DWORD *)v3 + 1) + v2 + 18) != -1 ? 72 * *(_WORD *)(*((_DWORD *)v3 + 1) + v2 + 18) + 7278780 : 0 )
-          *(_WORD *)(*(_WORD *)(*((_DWORD *)v3 + 1) + v2 + 18) != -1 ? 72 * *(_WORD *)(*((_DWORD *)v3 + 1) + v2 + 18)
-                                                                     + 7278780
-                                                                     + 0x26 : 38) = class35_sub_48A3BC(
-                                                                                      &class35_obj,
-                                                                                      *(_WORD *)(*(_WORD *)(*((_DWORD *)v3 + 1) + v2 + 18) != -1 ? 72 * *(_WORD *)(*((_DWORD *)v3 + 1) + v2 + 18) + 7278780 + 0x24 : 36));
-      }
-    }
-    ++i;
-  }
-}
-
-//----- (00487ED6) --------------------------------------------------------
-int __thiscall sub_487ED6(void *this, int a2, int a3)
-{
-  int v3; // edi@1
-  int v4; // esi@1
-  int v5; // edx@3
-  int v6; // edx@11
-  int v8; // [sp-4h] [bp-10h]@4
-
-  v4 = 0;
-  v3 = (int)this;
-  if ( a2 > 8 )
-  {
-    v8 = 0;
-    return sub_487F84(v3, a2, v8);
-  }
-  if ( a3 || (v5 = rand() % 50, v5 < 20) )
-  {
-    v8 = 0;
-    return sub_487F84(v3, a2, v8);
-  }
-  if ( v5 < 30 )
-  {
-    v8 = 1;
-    return sub_487F84(v3, a2, v8);
-  }
-  if ( v5 < 40 )
-  {
-    v8 = 2;
-    return sub_487F84(v3, a2, v8);
-  }
-  if ( v5 < 48 )
-  {
-    v8 = 3;
-    return sub_487F84(v3, a2, v8);
-  }
-  v6 = rand() % 8;
-  if ( !v6 )
-  {
-    v8 = 4;
-    return sub_487F84(v3, a2, v8);
-  }
-  if ( v6 == 1 )
-  {
-    v8 = 5;
-    return sub_487F84(v3, a2, v8);
-  }
-  if ( v6 == 2 )
-  {
-    v8 = 6;
-    return sub_487F84(v3, a2, v8);
-  }
-  if ( v6 == 3 )
-  {
-    v8 = 7;
-    return sub_487F84(v3, a2, v8);
-  }
-  if ( v6 == 4 )
-  {
-    v8 = 8;
-    return sub_487F84(v3, a2, v8);
-  }
-  if ( v6 == 5 )
-  {
-    v8 = 9;
-    return sub_487F84(v3, a2, v8);
-  }
-  if ( v6 == 6 )
-  {
-    v8 = 10;
-    return sub_487F84(v3, a2, v8);
-  }
-  if ( v6 == 7 )
-  {
-    v8 = 11;
-    return sub_487F84(v3, a2, v8);
-  }
-  return v4;
-}
-
-//----- (00487F84) --------------------------------------------------------
-int __thiscall sub_487F84(int this, int a2, int a3)
-{
-  int result; // eax@1
-  int v4; // edx@1
-  int v5; // ecx@2
-
-  v4 = *(_DWORD *)this;
-  result = 0;
-  if ( *(_DWORD *)this <= 0 )
-  {
-LABEL_6:
-    result = 0;
-  }
-  else
-  {
-    v5 = *(_DWORD *)(this + 4) + 22;
-    while ( *(_WORD *)(v5 - 2) != a2 || *(_WORD *)v5 != a3 )
-    {
-      ++result;
-      v5 += 26;
-      if ( result >= v4 )
-        goto LABEL_6;
-    }
-  }
   return result;
 }
 

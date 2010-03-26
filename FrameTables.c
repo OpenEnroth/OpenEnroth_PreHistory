@@ -464,13 +464,75 @@ void CTileTable_ctor(struct CTileTable *_this)
 
 
 //----- (00488000) --------------------------------------------------------
-void *CTileTable_Initialize(struct CTileTable *_this, unsigned char *pSrc)
+void CTileTable_Initialize(struct CTileTable *_this, unsigned char *pSrc)
 {
  _this->uNumTiles = *(int *)(pSrc);
  _this->pTiles = class23_AllocatedNamedBuffer(class23_instance, _this->pTiles, _this->uNumTiles * sizeof(struct TileDesc), "Tile Descrip");
  memcpy(_this->pTiles, pSrc + 4, _this->uNumTiles * sizeof(struct TileDesc));
- return 0;
 }
+
+//----- (00487ED6) --------------------------------------------------------
+int sub_487ED6(struct CTileTable *_this, int a2, int a3)
+{
+  int v5; // edx@3
+  int v6; // edx@11
+
+ if (a2 > 8)
+   return sub_487F84(_this, a2, 0);
+
+ v5 = rand() % 50;
+ if (a3 || v5 < 20)
+   return sub_487F84(_this, a2, 0);
+ else if (v5 < 30)
+   return sub_487F84(_this, a2, 1);
+ else if (v5 < 40)
+   return sub_487F84(_this, a2, 2);
+ else if (v5 < 48)
+   return sub_487F84(_this, a2, 3);
+
+ v6 = rand() % 8;
+ return sub_487F84(_this, a2, 4 + v6);
+}
+
+//----- (00487F84) --------------------------------------------------------
+int sub_487F84(struct CTileTable *_this, int a2, int a3)
+{
+ int i;
+
+ if (!_this->uNumTiles)
+   return 0;
+
+ i = 0;
+ while (_this->pTiles[i].word_000014 != a2 || _this->pTiles[i].word_000016 != a3 )
+ {
+  ++i;
+  if (i >= _this->uNumTiles)
+    return 0;
+ }
+ return i;
+}
+
+//----- (00487E58) --------------------------------------------------------
+void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2)
+{
+ int     i;
+ wchar_t pFilename[256];
+
+ for ( i = 0; i < _this->uNumTiles; ++i)
+ {
+  if (_this->pTiles[i].word_000014 == a2)
+  {
+   if (_this->pTiles[i].sTileName[0])
+   {
+    wsprintfW(pFilename, L"%S.cbm", _this->pTiles[i].sTileName);
+    _this->pTiles[i].word_000012 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, pFilename, 0);
+
+    pClass17_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026 = class35_sub_48A3BC(&class35_obj, pClass17_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026);
+   }
+  }
+ }
+}
+
 
 
 

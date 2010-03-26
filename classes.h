@@ -1391,6 +1391,8 @@ struct class51
  unsigned char  string_000060[32];
  unsigned char  string_000080[32];
 
+ short array_0000A0[8];
+
  int            dword_0000B0;
 
  struct class51_stru0 struct_0000B4;

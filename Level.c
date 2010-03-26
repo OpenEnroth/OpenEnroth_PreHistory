@@ -1,7 +1,5 @@
 #include "Level.h"
 
-#include "defs.h"
-
 #include "data.h"
 
 #include "classes.h"
@@ -50,7 +48,7 @@ extern unsigned char *dword_76D514;
 extern __int16 word_6836D0[];
 extern __int16 word_5D29F8[];
 signed int __fastcall maybe_decompress_file(int a1, int *a2, int a3, int a4);
-FILE *sub_47D0A6(struct class51 *Dst, const char *Source, int File, int a4, int a5)
+FILE *sub_47D0A6(struct class51 *_this, const char *Source, int File, int a4, int a5)
 {
   int v5; // esi@1
   FILE *result; // eax@9
@@ -87,9 +85,9 @@ FILE *sub_47D0A6(struct class51 *Dst, const char *Source, int File, int a4, int 
   int v38; // eax@43
   int v39; // edi@45
   size_t v40; // eax@50
-  int v41; // eax@50
+  //int v41; // eax@50
   void *v42; // eax@56
-  int v43; // ebx@56
+  //int v43; // ebx@56
   size_t v44; // edi@56
   int v45; // eax@58
   const void *v46; // ebx@59
@@ -267,9 +265,10 @@ FILE *sub_47D0A6(struct class51 *Dst, const char *Source, int File, int a4, int 
   unsigned int v213; // [sp+B88h] [bp+8h]@141
   unsigned int v214; // [sp+B88h] [bp+8h]@144
   unsigned int v215; // [sp+B88h] [bp+8h]@147
- wchar_t pLevelMapFilename[256];
+ wchar_t  pLevelMapFilename[256];
+ FILE    *hODMFile;
 
-  v5 = Dst;
+  v5 = _this;
   strcpy(Str, Source);
   if ( byte_6BE3C4 )
   {
@@ -557,12 +556,12 @@ LABEL_33:
     locked_fread((void *)(v5 + 1264), 1u, 0x38u, v24);
     fseek(v24, v148, 0);
     locked_fread((void *)(v5 + 1264), 1u, 4u, v24);
-    sub_487E58(pTileTable, 4);
+    CTileTable_LoadSomeTiles(pTileTable, 4);
     a5 = v5 + 160;
-    sub_487E58(pTileTable, *(_WORD *)(v5 + 160));
-    sub_487E58(pTileTable, *(_WORD *)(v5 + 164));
-    sub_487E58(pTileTable, *(_WORD *)(v5 + 168));
-    sub_487E58(pTileTable, *(_WORD *)(v5 + 172));
+    CTileTable_LoadSomeTiles(pTileTable, *(_WORD *)(v5 + 160));
+    CTileTable_LoadSomeTiles(pTileTable, *(_WORD *)(v5 + 164));
+    CTileTable_LoadSomeTiles(pTileTable, *(_WORD *)(v5 + 168));
+    CTileTable_LoadSomeTiles(pTileTable, *(_WORD *)(v5 + 172));
     if ( v5 != -96 && *(_BYTE *)(v5 + 96) )
     {
       v120 = 0;
@@ -606,9 +605,7 @@ LABEL_33:
   v154 = &v152;
   v40 = strlen(Str);
   strcpy(&v152 + v40, ".odm");
-  v41 = class17_FindContainer(pClass17_Games_LOD, Str, 1);
-
-  v167 = (void *)v41;
+  hODMFile = class17_FindContainer(pClass17_Games_LOD, Str, 1);
 
   v159.v159 = 91969;
   v159.v160 = 109;
@@ -618,7 +615,7 @@ LABEL_33:
   v159.v164 = 0;
   v159.Size = 0;
 
-  locked_fread(&v159, 0x10, 1, (FILE *)v41);
+  locked_fread(&v159, 0x10, 1, hODMFile);
   if ( v159.v159 != 91969 || v159.v160 != 109 || v159.v161 != 118 || v159.v162 != 105 || v159.v163 != 105 )
   {
     v120 = 507;
@@ -630,45 +627,54 @@ LABEL_33:
   v44 = v159.v164;
   ElementSize = v159.Size;
   v42 = malloc(v159.Size);
-  v43 = (int)v42;
+
   HIDWORD(v155) = v42;
   if ( v44 < ElementSize )
   {
     v180 = malloc(v44);
-    locked_fread(v180, v44, 1u, (FILE *)v167);
-    v45 = maybe_decompress_file(v43, (int *)&ElementSize, (int)v180, v44);
+    locked_fread(v180, v44, 1, hODMFile);
+    v45 = maybe_decompress_file(v42, (int *)&ElementSize, (int)v180, v44);
     call_delete(v45, (unsigned int)v180);
   }
   else
   {
-    locked_fread(v42, ElementSize, 1u, (FILE *)v167);
+    locked_fread(v42, ElementSize, 1, hODMFile);
   }
-  memcpy((void *)v5, (const void *)v43, 0xB0u);
-  v46 = (const void *)(v43 + 176);
-  sub_47F420((void *)v5);
-  sub_47F3EA(v5);
-  strcpy((char *)(v5 + 128), "grastyl");
+
+  memcpy(_this, v42, 0xB0);
+
+  sub_47F420(_this);
+  sub_47F3EA(_this);
+
+  strcpy(_this->string_000080, "grastyl");
+
   sub_4435CD(&unk_576E30);
-  sub_47CD44((int *)(v5 + 180));
-  v120 = 16384;
+  sub_47CD44(&_this->struct_0000B4);
+  v120 = 0x4000;
+  v46 = (char *)v42 + 0xB0;
   v119 = (signed int)v46;
-  v118 = *(void **)(v5 + 180);
-  memcpy(v118, v46, 0x4000u);
-  v46 = (char *)v46 + 16384;
-  v117 = 16384;
-  v116 = (int)v46;
-  *(_DWORD *)&v115 = *(_DWORD *)(v5 + 184);
-  memcpy(*(void **)&v115, v46, 0x4000u);
-  v46 = (char *)v46 + 16384;
-  memcpy(*(void **)(v5 + 188), v46, 0x4000u);
-  v46 = (char *)v46 + 16384;
-  v120 = *(_DWORD *)(v5 + 212);
-  class23_DeleteBuffer((int)&class23_instance, v120);
-  *(_DWORD *)(v5 + 212) = 0;
-  *(_DWORD *)(v5 + 212) = class23_AllocatedNamedBuffer(&class23_instance, 0, 32768, "CMAP");
-  sub_47C80A((void *)(v5 + 180), 0, 0, 128, 128);
+
+  v118 = _this->struct_0000B4.ptr_000000;
+  memcpy(_this->struct_0000B4.ptr_000000, v46, 0x4000);
+  v117 = 0x4000;
+
+  v116 = v46 = (char *)v46 + 0x4000;
+  *(_DWORD *)&v115 = _this->struct_0000B4.ptr_000004;
+  memcpy(_this->struct_0000B4.ptr_000004, v46, 0x4000);
+
+  v46 = (char *)v46 + 0x4000;
+  memcpy(_this->struct_0000B4.ptr_000008, v46, 0x4000u);
+
+  v46 = (char *)v46 + 0x4000;
+  v120 = _this->ptr_0000D4;
+
+  class23_DeleteBuffer(class23_instance, _this->ptr_0000D4);
+  _this->ptr_0000D4 = class23_AllocatedNamedBuffer(class23_instance, 0, 0x8000, "CMAP");
+
+  sub_47C80A(&_this->struct_0000B4, 0, 0, 128, 128);
+
   sub_4435CD(&unk_576E30);
-  memcpy(&dword_73D510, v46, 4u);
+  memcpy(&dword_73D510, v46, 4);
   v46 = (char *)v46 + 4;
   memcpy(&unk_73D514, v46, 0x20000u);
   v46 = (char *)v46 + 131072;
@@ -1134,16 +1140,16 @@ LABEL_120:
   sub_4435CD(&unk_576E30);
   v108 = (int)memcpy((void *)(v5 + 1264), (const void *)(v107 + 200), 0x38u);
   call_delete(v108, v168);
-  sub_487E58(pTileTable, 4);
+  CTileTable_LoadSomeTiles(pTileTable, 4);
   a5 = v5 + 160;
   v120 = *(_WORD *)(v5 + 160);
-  sub_487E58(pTileTable, v120);
+  CTileTable_LoadSomeTiles(pTileTable, v120);
   v120 = *(_WORD *)(v5 + 164);
-  sub_487E58(pTileTable, v120);
+  CTileTable_LoadSomeTiles(pTileTable, v120);
   v120 = *(_WORD *)(v5 + 168);
-  sub_487E58(pTileTable, v120);
+  CTileTable_LoadSomeTiles(pTileTable, v120);
   v120 = *(_WORD *)(v5 + 172);
-  sub_487E58(pTileTable, v120);
+  CTileTable_LoadSomeTiles(pTileTable, v120);
   strcpy((char *)(v5 + 128), byte_6BE124);
   v109 = *(_WORD *)(v5 + 162);
   v120 = 0;
@@ -1291,4 +1297,232 @@ int __cdecl LoadLevelFromFile()
  }
 
  return false;
+}
+
+
+
+//----- (0047F420) --------------------------------------------------------
+int sub_47F420(struct class51 *_this)
+{
+ int i;
+
+ for (i = 0; i < 6; i += 2)
+   _this->array_0000A0[i + 1] = sub_487ED6(pTileTable, _this->array_0000A0[i], 1);
+
+ return true;
+}
+
+
+//----- (0047F3EA) --------------------------------------------------------
+int sub_47F3EA(struct class51 *_this)
+{
+ _this->array_0000A0[7] = sub_487ED6(pTileTable, _this->array_0000A0[6], 1);
+ CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[6]);
+
+ return true;
+}
+
+
+
+//----- (0047CD44) --------------------------------------------------------
+bool sub_47CD44(struct class51_stru0 *_this)
+{
+ _this->ptr_000000 = class23_AllocatedNamedBuffer(class23_instance, _this->ptr_000000, 16384, "HMAP");
+ _this->ptr_000004 = class23_AllocatedNamedBuffer(class23_instance, _this->ptr_000004, 16384, "TMAP");
+ _this->ptr_000008 = class23_AllocatedNamedBuffer(class23_instance, _this->ptr_000008, 16384, "AMAP");
+ _this->ptr_00000C = class23_AllocatedNamedBuffer(class23_instance, _this->ptr_00000C, 32768, "DMAP");
+
+ if ( _this->ptr_000000 && _this->ptr_000004 && _this->ptr_000008 && _this->ptr_00000C)
+   return true;
+ else return false;
+}
+
+
+
+//----- (0047C80A) --------------------------------------------------------
+int sub_47C80A(struct class51_stru0 *_this, int a2, int a3, int a4, int a5)
+{
+  void *v5; // ebx@1
+  double v6; // st7@1
+  double v7; // st7@2
+  double v8; // st7@2
+  int result; // eax@3
+  int v10; // eax@4
+  int v11; // ecx@5
+  int v12; // ecx@6
+  int v13; // edi@7
+  int v14; // edx@9
+  int v15; // eax@15
+  int v16; // edi@15
+  int v17; // esi@15
+  double v18; // st7@15
+  int v19; // ebx@15
+  int v20; // eax@15
+  int v21; // ecx@15
+  int v22; // edx@15
+  int v23; // ecx@15
+  int v24; // ebx@15
+  int v25; // ecx@15
+  int v26; // ST28_4@15
+  double v27; // st7@15
+  double v28; // st6@15
+  double v29; // st5@15
+  double v30; // st7@16
+  double v31; // st7@17
+  double v32; // st7@21
+  int v33; // eax@21
+  double v34; // st7@21
+  double v35; // st6@21
+  double v36; // st5@21
+  double v37; // st7@22
+  double v38; // st7@23
+  int v39; // [sp+14h] [bp-34h]@8
+  int v40; // [sp+18h] [bp-30h]@15
+  int v41; // [sp+1Ch] [bp-2Ch]@15
+  int v42; // [sp+20h] [bp-28h]@15
+  void *v43; // [sp+24h] [bp-24h]@1
+  int v44; // [sp+28h] [bp-20h]@21
+  float v45; // [sp+2Ch] [bp-1Ch]@1
+  float v46; // [sp+30h] [bp-18h]@1
+  float v47; // [sp+34h] [bp-14h]@1
+  int v48; // [sp+38h] [bp-10h]@7
+  int v49; // [sp+3Ch] [bp-Ch]@10
+  int v50; // [sp+40h] [bp-8h]@9
+  float v51; // [sp+44h] [bp-4h]@15
+  float v52; // [sp+44h] [bp-4h]@21
+  float v53; // [sp+50h] [bp+8h]@15
+  float v54; // [sp+50h] [bp+8h]@21
+  float v55; // [sp+54h] [bp+Ch]@15
+  int v56; // [sp+54h] [bp+Ch]@15
+  float v57; // [sp+54h] [bp+Ch]@21
+
+  v46 = -64.0;
+  v47 = -64.0;
+  v5 = _this;
+  LODWORD(v45) = 1115684864;
+  v43 = _this;
+  v6 = sqrt(*(double *)&byte_4D8410[944]);
+  if ( v6 != 0.0 )
+  {
+    v7 = 1.0 / v6;
+    v45 = 64.0 * v7;
+    v8 = v7 * -64.0;
+    v46 = v8;
+    v47 = v8;
+  }
+  result = a3;
+  if ( a3 > a5 )
+  {
+    v10 = a5 ^ a3;
+    a5 ^= a3 ^ a5;
+    result = a5 ^ v10;
+  }
+  v11 = a2;
+  if ( a2 > a4 )
+  {
+    v12 = a4 ^ a2;
+    a4 ^= a2 ^ a4;
+    v11 = a4 ^ v12;
+  }
+  v13 = result - 1;
+  v48 = result - 1;
+  if ( result - 1 <= a5 )
+  {
+    v39 = v11 - 1;
+    do
+    {
+      v14 = v39;
+      v50 = v39;
+      if ( v39 <= a4 )
+      {
+        result = (v39 - 63) << 9;
+        v49 = (v39 - 63) << 9;
+        do
+        {
+          if ( v13 >= 0 )
+          {
+            if ( result >= -32256 )
+            {
+              if ( v13 <= 127 )
+              {
+                if ( result <= 32768 )
+                {
+                  v15 = *((_WORD *)v5 + 8);
+                  v56 = v15;
+                  v19 = *(_DWORD *)v5;
+                  v20 = v14 + v19 + v13 * v15;
+                  v21 = -v13;
+                  v17 = (64 - v13) << 9;
+                  v16 = 32 * *(_BYTE *)v20;
+                  v22 = 32 * *(_BYTE *)(v20 + 1);
+                  v23 = (v21 + 63) << 9;
+                  v41 = v23;
+                  v24 = v19 + v56 * (v48 + 1) + v50;
+                  v25 = v23 - v17;
+                  v40 = 32 * *(_BYTE *)v24;
+                  v42 = 32 * *(_BYTE *)(v24 + 1);
+                  v26 = v49 - 512 - v49;
+                  v27 = (double)-((v16 - v22) * v25);
+                  v51 = v27;
+                  v28 = (double)-(v26 * (v42 - v22));
+                  v53 = v28;
+                  v29 = (double)(v26 * v25);
+                  v55 = v29;
+                  v18 = sqrt(v29 * v29 + v28 * v28 + v27 * v27);
+                  if ( v18 != 0.0 )
+                  {
+                    v30 = 1.0 / v18;
+                    v51 = v51 * v30;
+                    v53 = v53 * v30;
+                    v55 = v30 * v55;
+                  }
+                  v31 = (v55 * v47 + v53 * v46 + v51 * v45) * 31.0;
+                  if ( v31 < 0.0 )
+                    v31 = 0.0;
+                  if ( v31 > 31.0 )
+                    v31 = 31.0;
+                  v44 = 2 * (v50 + v48 * *((_WORD *)v43 + 8));
+                  v5 = v43;
+                  *(_BYTE *)(*((_DWORD *)v43 + 3) + v44 + 1) = (signed __int64)v31;
+                  v33 = v49 - (v49 - 512);
+                  v34 = (double)-((v42 - v40) * (v17 - v41));
+                  v52 = v34;
+                  v35 = (double)-(v33 * (v16 - v40));
+                  v54 = v35;
+                  v36 = (double)(v33 * (v17 - v41));
+                  v57 = v36;
+                  v32 = sqrt(v36 * v36 + v35 * v35 + v34 * v34);
+                  if ( v32 != 0.0 )
+                  {
+                    v37 = 1.0 / v32;
+                    v52 = v52 * v37;
+                    v54 = v54 * v37;
+                    v57 = v37 * v57;
+                  }
+                  v38 = (v57 * v47 + v54 * v46 + v52 * v45) * 31.0;
+                  if ( v38 < 0.0 )
+                    v38 = 0.0;
+                  if ( v38 > 31.0 )
+                    v38 = 31.0;
+                  v13 = v48;
+                  *(_BYTE *)(v44 + *((_DWORD *)v43 + 3)) = (signed __int64)v38;
+                  v14 = v50;
+                  result = v49;
+                }
+              }
+            }
+          }
+          ++v14;
+          result += 512;
+          v50 = v14;
+          v49 = result;
+        }
+        while ( v14 <= a4 );
+      }
+      ++v13;
+      v48 = v13;
+    }
+    while ( v13 <= a5 );
+  }
+  return result;
 }
