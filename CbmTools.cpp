@@ -348,15 +348,17 @@ unsigned char *rle16_decompress(const unsigned char *pSource, unsigned long ulCo
 
 
 
-extern "C" unsigned long Tga2Cbm(const char *pFile)
+
+extern "C" unsigned long Tga2CbmW(const wchar_t *pFile)
 {
- char pTgaFile[256],
-      pBmaFile[256];
- wsprintfA(pTgaFile, "%s.tga", pFile);
- wsprintfA(pBmaFile, "%s.cbm", pFile);
+
+ wchar_t pTgaFile[256],
+         pBmaFile[256];
+ wsprintfW(pTgaFile, L"%s.tga", pFile);
+ wsprintfW(pBmaFile, L"%s.cbm", pFile);
 
  DWORD  w;
- void  *hFile = CreateFileA(pTgaFile, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
+ void  *hFile = CreateFileW(pTgaFile, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
  if (hFile == INVALID_HANDLE_VALUE)
  {
   MessageBoxW(0, L"Targa not found", L"Tga2Cbm", 0);
@@ -524,7 +526,7 @@ extern "C" unsigned long Tga2Cbm(const char *pFile)
 
 
 
- hFile = CreateFileA(pBmaFile, GENERIC_WRITE, FILE_SHARE_READ, 0, CREATE_ALWAYS, 0, 0);
+ hFile = CreateFileW(pBmaFile, GENERIC_WRITE, FILE_SHARE_READ, 0, CREATE_ALWAYS, 0, 0);
  WriteFile(hFile, &cbmHeader, sizeof(struct CBMHeader), &w, 0);
  WriteFile(hFile, pAlpha, cbmHeader.cbmAlphaSize, &w, 0);
  WriteFile(hFile, pRed, cbmHeader.cbmRedSize, &w, 0);
@@ -538,4 +540,13 @@ extern "C" unsigned long Tga2Cbm(const char *pFile)
  free(pGreen);
  free(pBlue);
  return 0;
+}
+
+
+extern "C" unsigned long Tga2CbmA(const char *pFile)
+{
+ wchar_t pFilepath[256];
+
+ wsprintfW(pFilepath, L"%S", pFile);
+ return Tga2CbmW(pFilepath);
 }

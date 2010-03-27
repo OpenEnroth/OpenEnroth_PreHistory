@@ -1365,47 +1365,4 @@ int sub_490109(struct Player *_this);
 
 
 
-
-
-
-struct class51_stru0
-{
- unsigned char *ptr_000000;
- unsigned char *ptr_000004;
- unsigned char *ptr_000008;
- unsigned char *ptr_00000C;
- short          word_000010;
- short          word_000012;
- short          word_000014;
- short          word_000016;
- int            dword_000018;
- int            dword_00001C;
-};
-//sizeof == 20
-
-struct class51
-{
- unsigned char  string_000000[32];
- unsigned char  pFileName[32];        // byte[32] @ 000020
- unsigned char  pFileDescription[32]; // byte[32] @ 000040
- unsigned char  string_000060[32];
- unsigned char  string_000080[32];
-
- short array_0000A0[8];
-
- int            dword_0000B0;
-
- struct class51_stru0 struct_0000B4;
-
- unsigned char *ptr_0000D4;
- unsigned char *ptr_0000D8;
-
- unsigned char *ptr_0000E0;
- unsigned char *ptr_0000E4;
-
- int            dword_0004C0;
- unsigned char *ptr_0004C4;
-};
-
-
 #pragma pack(pop)

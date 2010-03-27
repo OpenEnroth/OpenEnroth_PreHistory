@@ -1,8 +1,73 @@
 #pragma once
+#pragma pack(push, 1)
 #include <windows.h>
 #include <stdio.h>
 
 #include "defs.h"
+
+
+
+struct class51_stru0
+{
+ unsigned char *ptr_000000;
+ unsigned char *ptr_000004;
+ unsigned char *ptr_000008;
+ unsigned char *ptr_00000C;
+ short          word_000010;
+ short          word_000012;
+ short          word_000014;
+ short          word_000016;
+ int            dword_000018;
+ int            dword_00001C;
+};
+//sizeof == 20
+
+//"BData"
+struct class51_stru1
+{
+ unsigned char pSomeName[16 + array_size_unknown];
+
+ char byte_a[0x44 - 16 - array_size_unknown];
+
+ unsigned int   dword_000044;
+ unsigned char *ptr_000048;
+ unsigned int   dword_00004C;
+
+ int dword_000050;
+
+ unsigned char *ptr_000054;
+ unsigned char *ptr_000058;
+ unsigned int   dword_00005C;
+ unsigned char *ptr_000060;
+
+ int dword_000064[22];
+};
+//sizeof == BC
+
+struct class51
+{
+ unsigned char  string_000000[32];
+ unsigned char  pFileName[32];        // byte[32] @ 000020
+ unsigned char  pFileDescription[32]; // byte[32] @ 000040
+ unsigned char  string_000060[32];
+ unsigned char  string_000080[32];
+
+ short array_0000A0[8];
+
+ int            dword_0000B0;
+
+ struct class51_stru0 struct_0000B4;
+
+ unsigned char        *ptr_0000D4;
+ struct class51_stru1 *ptr_0000D8;
+
+ unsigned char *ptr_0000E0;
+ unsigned char *ptr_0000E4;
+
+ int            dword_0004C0;
+ unsigned char *ptr_0004C4;
+};
+
 
 int __cdecl LoadLevelFromFile();
 
@@ -13,3 +78,6 @@ int sub_47F3EA(struct class51 *_this);
 
 bool sub_47CD44(struct class51_stru0 *_this);
 int sub_47C80A(struct class51_stru0 *_this, int a2, int a3, int a4, int a5);
+
+
+#pragma pack(pop)

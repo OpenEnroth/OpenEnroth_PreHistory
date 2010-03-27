@@ -3,6 +3,7 @@
 #include "mm7DDrawRenderer.h"
 #include "AIL.h"
 #include "Smacker.h"
+#include "Level.h"
 
 #include "data.h"
 
@@ -1309,8 +1310,9 @@ struct class18 pending_texture;
 void *hStdHandle = 0;
 unsigned int class17_LoadTextureFromCBM(struct class17 *_this, const wchar_t *pFilename)
 {
- DWORD   w;
- wchar_t pFileNotFound[256];
+ void    *hFile;
+ DWORD    w;
+ wchar_t  pFileNotFound[256];
 
  wchar_t      pFilePath[256];
  unsigned int uCBMWdith,
@@ -1319,22 +1321,38 @@ unsigned int class17_LoadTextureFromCBM(struct class17 *_this, const wchar_t *pF
  if (_this->uNumLoadedFiles >= 1000)
    sub_466B8C();
 
- wsprintfW(pFilePath, L".\\Data\\%S\\%s", _this->sContainerName, pFilename);
+ //try to open CBM
+ wsprintfW(pFilePath, L".\\Data\\%S\\%s.cbm", _this->sContainerName, pFilename);
  if (!LoadCBM(pFilePath, &uCBMWdith, &uCBMHeight, &_this->aLODHeaders[_this->uNumLoadedFiles].pTruecolorPixels))
  {
-  if (!hStdHandle)
-    hStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-  wsprintfW(pFileNotFound, L"CBM not found: %s (%s)\n", pFilename, pFilePath);
-  WriteConsoleW(hStdHandle, pFileNotFound, lstrlenW(pFileNotFound), &w, 0);
+  //if not found, try to open find and convert TGA to CBM, then open
+  wsprintfW(pFilePath, L".\\Data\\%S\\%s.tga", _this->sContainerName, pFilename);
+  hFile = CreateFileW(pFilePath, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, 0, OPEN_EXISTING, 0, 0);
+  if (hFile != INVALID_HANDLE_VALUE)
+  {
+   CloseHandle(hFile);
+   pFilePath[lstrlenW(pFilePath) - 4] = 0;
+   Tga2CbmW(pFilePath);
 
-  if (!pending_texture.pTruecolorPixels)
-    pending_texture.pTruecolorPixels = malloc(52 * 53 * 4);
-  pending_texture.uTextureWidth = 52;
-  pending_texture.uTextureHeight = 53;
-  return -1;
+   wsprintfW(pFilePath, L".\\Data\\%S\\%s.cbm", _this->sContainerName, pFilename);
+   LoadCBM(pFilePath, &uCBMWdith, &uCBMHeight, &_this->aLODHeaders[_this->uNumLoadedFiles].pTruecolorPixels);
+  }
+  else
+  {
+   if (!hStdHandle)
+     hStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+   wsprintfW(pFileNotFound, L"CBM not found: %s (%s)\n", pFilename, pFilePath);
+   WriteConsoleW(hStdHandle, pFileNotFound, lstrlenW(pFileNotFound), &w, 0);
+
+   if (!pending_texture.pTruecolorPixels)
+     pending_texture.pTruecolorPixels = malloc(52 * 53 * 4);
+   pending_texture.uTextureWidth = 52;
+   pending_texture.uTextureHeight = 53;
+   return -1;
+  }
  }
 
- WideCharToMultiByte(CP_ACP, 0, pFilename, -1, _this->aLODHeaders[_this->uNumLoadedFiles].sContainerName, lstrlenW(pFilename) - 4, 0, 0);
+ WideCharToMultiByte(CP_ACP, 0, pFilename, -1, _this->aLODHeaders[_this->uNumLoadedFiles].sContainerName, lstrlenW(pFilename), 0, 0);
  _this->aLODHeaders[_this->uNumLoadedFiles].sContainerName[lstrlenW(pFilename) - 4] = 0;
  _this->aLODHeaders[_this->uNumLoadedFiles].uTextureWidth = uCBMWdith;
  _this->aLODHeaders[_this->uNumLoadedFiles].uTextureHeight = uCBMHeight;
@@ -1348,8 +1366,8 @@ unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename
  DWORD          w;
  void          *hFile;
  unsigned char *pOut;
- wchar_t       pFilepath[256];
- char          pFilenameA[256];
+ wchar_t        pFilepath[256];
+ char           pFilenameA[256];
 
  wsprintfW(pFilepath, L".\\Data\\Events\\%s", pFilename);
  hFile = CreateFileW(pFilepath, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);

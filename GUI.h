@@ -132,5 +132,7 @@ void __cdecl DeleteFontCChar();
 
 void __cdecl PlayerCreationUI_Initialize();
 
+void *LevelLoadingUI_UpdateAndDrawProgressBar(void *this);
+
 
 #pragma pack(pop)

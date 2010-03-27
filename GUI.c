@@ -830,38 +830,38 @@ void __cdecl PlayerCreationUI_Initialize()
   uPlayerCreationUI_SelectedCharacter = 0;
   v1 = pFontCreate->uFontHeight - 2;
 
-  pPlayerCreationUI_ClassIcons[0] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_KNIGHT.cbm")];
-  pPlayerCreationUI_ClassIcons[1] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_THIEF.cbm")];
-  pPlayerCreationUI_ClassIcons[2] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_MONK.cbm")];
-  pPlayerCreationUI_ClassIcons[3] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_PALADIN.cbm")];
-  pPlayerCreationUI_ClassIcons[4] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_ARCHER.cbm")];
-  pPlayerCreationUI_ClassIcons[5] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_RANGER.cbm")];
-  pPlayerCreationUI_ClassIcons[6] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_CLERIC.cbm")];
-  pPlayerCreationUI_ClassIcons[7] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_DRUID.cbm")];
-  pPlayerCreationUI_ClassIcons[8] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_SORCERER.cbm")];
+  pPlayerCreationUI_ClassIcons[0] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_KNIGHT")];
+  pPlayerCreationUI_ClassIcons[1] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_THIEF")];
+  pPlayerCreationUI_ClassIcons[2] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_MONK")];
+  pPlayerCreationUI_ClassIcons[3] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_PALADIN")];
+  pPlayerCreationUI_ClassIcons[4] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_ARCHER")];
+  pPlayerCreationUI_ClassIcons[5] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_RANGER")];
+  pPlayerCreationUI_ClassIcons[6] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_CLERIC")];
+  pPlayerCreationUI_ClassIcons[7] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_DRUID")];
+  pPlayerCreationUI_ClassIcons[8] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IC_SORCERER")];
 
-  pPlayerCreationUI_Sky = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAKESKY.cbm")];
-  pPlayerCreationUI_Top = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAKETOP.cbm")];
+  pPlayerCreationUI_Sky = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAKESKY")];
+  pPlayerCreationUI_Top = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAKETOP")];
 
   for (i = 0; i < 22; ++i)
   {
-   wsprintfW(pFilename, L"pc%02u-01.cbm", i + 1);
+   wsprintfW(pFilename, L"pc%02u-01", i + 1);
    pPlayerCreationUI_PCPortraits[i] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilename)];
   }
 
-  uTextureID_PlayerCreationUI_FaceMask = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"FACEMASK.cbm")];
+  uTextureID_PlayerCreationUI_FaceMask = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"FACEMASK")];
 
-  uTextureID_PlayerCreationUI_BtnLeft = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"presleft.cbm");
-  uTextureID_PlayerCreationUI_BtnRight = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"presrigh.cbm");
-  uTextureID_PlayerCreationUI_BtnMinus = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"buttminu.cbm");
-  uTextureID_PlayerCreationUI_BtnPlus = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"buttplus.cbm");
+  uTextureID_PlayerCreationUI_BtnLeft = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"presleft");
+  uTextureID_PlayerCreationUI_BtnRight = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"presrigh");
+  uTextureID_PlayerCreationUI_BtnMinus = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"buttminu");
+  uTextureID_PlayerCreationUI_BtnPlus = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"buttplus");
 
   for (i = 1; i < 20; ++i)
   {
-   wsprintfW(pFilename, L"ArrowL%02u.cbm", i);
+   wsprintfW(pFilename, L"ArrowL%02u", i);
    pPlayerCreationUI_ArrowL[i] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilename)];
 
-   wsprintfW(pFilename, L"ArrowR%02u.cbm", i);
+   wsprintfW(pFilename, L"ArrowR%02u", i);
    pPlayerCreationUI_ArrowR[i] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilename)];
   }
 
@@ -1132,4 +1132,19 @@ LABEL_34:
 LABEL_41:
  v41 = v9;
  goto LABEL_34;
+}
+
+
+
+
+//----- (004435CD) --------------------------------------------------------
+void *LevelLoadingUI_UpdateAndDrawProgressBar(void *this)
+{
+  unsigned __int8 v1; // al@1
+
+  ++*((_BYTE *)this + 11);
+  v1 = *((_BYTE *)this + 10);
+  if ( *((_BYTE *)this + 11) > v1 )
+    *((_BYTE *)this + 11) = v1;
+  return DrawLoadingScreen(this);
 }

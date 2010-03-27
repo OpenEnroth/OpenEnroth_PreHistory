@@ -31,6 +31,7 @@ HRESULT __stdcall DirectDrawCreate(GUID *lpGUID, IDirectDraw **lplpDD, IUnknown 
 #include "_video.h"
 #include "FrameTables.h"
 #include "GUI.h"
+#include "Level.h"
 
 typedef struct IDirectDraw *LPDIRECTDRAW;
 
@@ -2265,11 +2266,11 @@ unsigned char *pQuestsTXT_Raw = 0;      // ptr @ MM7.exe::0073C400
 /*extern*/ _UNKNOWN unk_73D150; // weak
 /*extern*/ _UNKNOWN unk_73D158; // weak
 /*extern*/ _UNKNOWN unk_73D15C; // weak
-/*extern*/ int dword_73D510; // weak
 
-/*extern*/ _UNKNOWN unk_73D514; // weak
-/*extern*/ __int16 word_75D514[array_size_unknown]; // weak
-/*extern*/ __int16 word_75D516[array_size_unknown]; // weak
+/*extern*/ int dword_73D510; // weak
+/*extern*/ _UNKNOWN unk_73D514[0x20000]; // weak
+/*extern*/ __int16 word_75D514[0x10000 / sizeof(short)]; // weak
+//__int16 word_75D516[array_size_unknown]; // weak
 /*extern*/ unsigned char *dword_76D514 = 0; // idb
 
 /*extern*/ int dword_76D518; // weak
@@ -3617,7 +3618,6 @@ unsigned int __thiscall sub_443343(void *this);
 int __thiscall sub_443365(void *this);
 signed int __thiscall sub_443484(void *this, int a2);
 char __thiscall sub_4435BB(int this, char a2);
-void *__thiscall sub_4435CD(void *this);
 void __thiscall sub_4435E2(void *this);
 void *DrawLoadingScreen(void *this);
 int __cdecl sub_443801();
@@ -5167,14 +5167,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   GetDiskFreeSpaceA(0, &SectorsPerCluster, &BytesPerSector, &hdc, &TotalNumberOfClusters);
   if ( hdc * BytesPerSector * SectorsPerCluster < 0x1E00000 )
   {
-    sprintfex(
-      &ExistingFileName,
-      "Due to Window Virtual Memory requirements Might and Magic® VII\nrequires 30MB of free hard drive space to operate properly.\n\nAvailable on Current Drive = %luk",
-      hdc * BytesPerSector * SectorsPerCluster / 1024i64);
-LABEL_24:
-LABEL_44:
-    MessageBoxA(0, ExistingFileName, "More Hard Drive Space Required", 48);
-    return 0;
+   //some visual studio bug sometimes return 0 disk space, so skip this check for now
   }
   hInstance = hInst;
   dword_6BE2F0 = pCmdLine;
@@ -5721,7 +5714,7 @@ int MaybePlaceItemInInventory(struct Player *_this, signed int a2, int a3)
 
   v11 = _this;
 
- wsprintfW(pFilename, L"%S.cbm", pClass40->pItems[a3].pIconName);
+ wsprintfW(pFilename, L"%S", pClass40->pItems[a3].pIconName);
  v5 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilename);
  v4 = &pClass17_Icons_LOD->aLODHeaders[v5];
 
@@ -9175,7 +9168,7 @@ signed int __cdecl sub_465D0B()
   sub_4A90A0(pGame->class06_obj);
   for (i = 0; i < 8; ++i)
   {
-   wsprintfW(pWaterTileName, L"HDWTR%03u.cbm", i);
+   wsprintfW(pWaterTileName, L"HDWTR%03u", i);
    uTextureID_WaterTiles[i] = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, pWaterTileName);
   }
 
@@ -9361,15 +9354,15 @@ void __fastcall LoadBasicTextures(int a1, char a2)
 
         dword_506438 = class17_LoadTexture(pClass17_Icons_LOD, "ib-bcu-a", 2);
 
-        uTextureIdx_EdgeTop = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Edge_Top.cbm");
-        uTextureIdx_EdgeBottom = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Edge_Bottom.cbm");
-        uTextureIdx_EdgeRight = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Edge_Right.cbm");
-        uTextureIdx_EdgeLeft = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Edge_Left.cbm");
-        uTextureIdx_CornerUpperRight = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Cornr_UR.cbm");
-        uTextureIdx_CornerUpperLeft = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Cornr_UL.cbm");
-        uTextureIdx_CornerLowerRight = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Cornr_LR.cbm");
-        uTextureIdx_CornerLowerLeft = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Cornr_LL.cbm");
-        uTextureIdx_Parchment = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Parchment.cbm");
+        uTextureIdx_EdgeTop = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Edge_Top");
+        uTextureIdx_EdgeBottom = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Edge_Bottom");
+        uTextureIdx_EdgeRight = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Edge_Right");
+        uTextureIdx_EdgeLeft = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Edge_Left");
+        uTextureIdx_CornerUpperRight = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Cornr_UR");
+        uTextureIdx_CornerUpperLeft = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Cornr_UL");
+        uTextureIdx_CornerLowerRight = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Cornr_LR");
+        uTextureIdx_CornerLowerLeft = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Cornr_LL");
+        uTextureIdx_Parchment = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Parchment");
 
         dword_507958 = class17_LoadTexture(pClass17_Icons_LOD, "fr_inven", 2);
         dword_50795C = class17_LoadTexture(pClass17_Icons_LOD, "evtnpc", 2);
@@ -9378,16 +9371,16 @@ void __fastcall LoadBasicTextures(int a1, char a2)
         dword_507968 = class17_LoadTexture(pClass17_Icons_LOD, "isg-02-a", 2);
         dword_50796C = class17_LoadTexture(pClass17_Icons_LOD, "isg-01-a", 2);
 
-        uTextureIdx_ib_m4d_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-m4d-a.cbm");
-        uTextureIdx_ib_m3d_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-m3d-a.cbm");
-        uTextureIdx_ib_m2d_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-m2d-a.cbm");
-        uTextureIdx_ib_m1d_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-m1d-a.cbm");
+        uTextureIdx_ib_m4d_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-m4d-a");
+        uTextureIdx_ib_m3d_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-m3d-a");
+        uTextureIdx_ib_m2d_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-m2d-a");
+        uTextureIdx_ib_m1d_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-m1d-a");
 
-        uTextureIdx_ib_autout_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-autout-a.cbm");
-        uTextureIdx_ib_autin_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-autin-A.cbm");
+        uTextureIdx_ib_autout_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-autout-a");
+        uTextureIdx_ib_autin_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-autin-A");
 
-        uTextureIdx_ib_npcrd_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IB-NPCRD-A.cbm");
-        uTextureIdx_ib_npcld_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IB-NPCLD-A.cbm");
+        uTextureIdx_ib_npcrd_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IB-NPCRD-A");
+        uTextureIdx_ib_npcld_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IB-NPCLD-A");
 
         dword_5079B4 = class17_LoadTexture(pClass17_Icons_LOD, "IB-COMP-A", 2);
         dword_5079C8 = class17_LoadTexture(pClass17_Icons_LOD, "IB-InitY-a", 2);
@@ -10413,6 +10406,34 @@ int __thiscall sub_4617B6(int this)
   *(_DWORD *)(this + 164) = 0;
   *(_DWORD *)(this + 168) = 0;
   *(_DWORD *)(this + 172) = 0;
+  return result;
+}
+
+//----- (0044C1E8) --------------------------------------------------------
+signed int __thiscall sub_44C1E8(int this)
+{
+  int v1; // eax@1
+  _UNKNOWN *v2; // esi@2
+  signed int result; // eax@5
+  int v4; // eax@6
+
+  v1 = 0;
+  if ( dword_5B1110 - 1 <= 0 )
+    goto LABEL_5;
+  v2 = &unk_5B65D8;
+  while ( *(_DWORD *)v2 != *(_WORD *)(this + 292) )
+  {
+    ++v1;
+    v2 = (char *)v2 + 12;
+    if ( v1 >= dword_5B1110 - 1 )
+      goto LABEL_5;
+  }
+  v4 = 12 * v1;
+  if ( byte_5B3524[*(int *)((char *)&dword_5B65EC + v4)] != 1 || byte_5B3524[*(int *)((char *)&dword_5B65E0 + v4)] != 4 )
+LABEL_5:
+    result = 0;
+  else
+    result = 1;
   return result;
 }
 
@@ -14337,18 +14358,6 @@ int __cdecl sub_4666D5()
   return result;
 }
 
-//----- (004435CD) --------------------------------------------------------
-void *__thiscall sub_4435CD(void *this)
-{
-  unsigned __int8 v1; // al@1
-
-  ++*((_BYTE *)this + 11);
-  v1 = *((_BYTE *)this + 10);
-  if ( *((_BYTE *)this + 11) > v1 )
-    *((_BYTE *)this + 11) = v1;
-  return DrawLoadingScreen(this);
-}
-
 //----- (00464D32) --------------------------------------------------------
 LSTATUS __fastcall RegistryWriteInt(const CHAR *a1, int a2)
 {
@@ -14423,7 +14432,7 @@ int sub_49289C(struct Player *_this, int a2, const void *Src)
   }
   else
   {
-   wsprintfW(pFilename, L"%S.cbm", pClass40->pItems[*(_DWORD *)Src].pIconName);
+   wsprintfW(pFilename, L"%S", pClass40->pItems[*(_DWORD *)Src].pIconName);
    v7 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilename);
    v6 = &pClass17_Icons_LOD->aLODHeaders[v7];
 
@@ -14492,7 +14501,7 @@ int __cdecl MenuLoop_Main()
 
  pGUIWindow_MainMenu = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
 
- v4 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"title_new.cbm");
+ v4 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"title_new");
  pMainMenu_NewGame = GUIButtonCreate(pGUIWindow_MainMenu,
                                      494, 172,
                                      pClass17_Icons_LOD->aLODHeaders[v4].uTextureWidth,
@@ -14505,7 +14514,7 @@ int __cdecl MenuLoop_Main()
                                      "New Game",
                                      v4);
 
- v5 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"title_load.cbm");
+ v5 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"title_load");
  pMainMenu_LoadGame = GUIButtonCreate(pGUIWindow_MainMenu,
                                       494, 227,
                                       pClass17_Icons_LOD->aLODHeaders[v5].uTextureWidth,
@@ -14518,7 +14527,7 @@ int __cdecl MenuLoop_Main()
                                       "Load Game",
                                       v5);
 
- v6 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"title_cred.cbm");
+ v6 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"title_cred");
  pMainMenu_Credits = GUIButtonCreate(pGUIWindow_MainMenu,
                                      494, 282,
                                      pClass17_Icons_LOD->aLODHeaders[v6].uTextureWidth,
@@ -14531,7 +14540,7 @@ int __cdecl MenuLoop_Main()
                                      "Creadits",
                                      v6);
 
- v7 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"title_exit.cbm");
+ v7 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"title_exit");
  pMainMenu_Exit = GUIButtonCreate(pGUIWindow_MainMenu,
                                   494, 337,
                                   pClass17_Icons_LOD->aLODHeaders[v7].uTextureWidth,
@@ -17558,6 +17567,42 @@ LABEL_27:
   return result;
 }
 
+//----- (004645FA) --------------------------------------------------------
+int __cdecl sub_4645FA()
+{
+  struct tagRECT Rect; // [sp+0h] [bp-10h]@6
+
+  if ( LODWORD(dword_720010) )
+    sub_46B14F(SLODWORD(dword_720010));
+  if ( *(_BYTE *)(*(_DWORD *)(LODWORD(pGame) + 3692) + 4) )
+  {
+    if ( dword_69B00C )
+      sub_45B329(dword_69B00C);
+  }
+  RegistryWriteInt("startinwindow", pD3DRenderer->dword_040058);
+  if ( GetWindowRect(hWnd_global, &Rect) )
+  {
+    if ( pD3DRenderer->dword_040058 )
+    {
+      RegistryWriteInt("window X", Rect.left);
+      RegistryWriteInt("window Y", Rect.top);
+    }
+  }
+  RegistryWriteInt("debug flags", dword_51076C);
+  RegistryWriteInt("valAlwaysRun", dword_6BE37C);
+  sub_45814E(pClass40);
+  sub_477266(pNPCStats);
+  sub_465C53();
+  sub_465C2C();
+  if ( class03_global )
+    sub_469CC2(class03_global);
+  sub_4ABD5B(pClass31_global);
+  sub_461A11(pClass17_New_LOD);
+  sub_461A11(pClass17_Games_LOD);
+  ClipCursor(0);
+  return sub_465CF3();
+}
+
 //----- (004063A1) --------------------------------------------------------
 signed int __thiscall sub_4063A1(int this)
 {
@@ -20307,38 +20352,38 @@ int __cdecl UI_Initialize_Icons()
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "torchB"));
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "torchA"));
 
- uTextureIdx_MapDirs[0] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR8.cbm");
- uTextureIdx_MapDirs[1] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR1.cbm");
- uTextureIdx_MapDirs[2] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR2.cbm");
- uTextureIdx_MapDirs[3] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR3.cbm");
- uTextureIdx_MapDirs[4] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR4.cbm");
- uTextureIdx_MapDirs[5] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR5.cbm");
- uTextureIdx_MapDirs[6] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR6.cbm");
- uTextureIdx_MapDirs[7] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR7.cbm");
+ uTextureIdx_MapDirs[0] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR8");
+ uTextureIdx_MapDirs[1] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR1");
+ uTextureIdx_MapDirs[2] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR2");
+ uTextureIdx_MapDirs[3] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR3");
+ uTextureIdx_MapDirs[4] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR4");
+ uTextureIdx_MapDirs[5] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR5");
+ uTextureIdx_MapDirs[6] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR6");
+ uTextureIdx_MapDirs[7] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR7");
 
- uTextureIdx_UIBarRed = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-bar_red.cbm");
- uTextureIdx_UIBarYellow = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-bar_yellow.cbm");
- uTextureIdx_UIBarGreen = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-bar_green.cbm");
- uTextureIdx_UIBarBlue = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-bar_blue.cbm");
+ uTextureIdx_UIBarRed = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-bar_red");
+ uTextureIdx_UIBarYellow = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-bar_yellow");
+ uTextureIdx_UIBarGreen = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-bar_green");
+ uTextureIdx_UIBarBlue = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-bar_blue");
 
- uTextureIdx_MonsterHP_BarYellow = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_BarYellow.cbm");
- uTextureIdx_MonsterHP_BarRed = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_BarRed.cbm");
- uTextureIdx_MonsterHP_BarGreen = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_BarGreen.cbm");
- uTextureIdx_MonsterHP_CapRight = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_CapRight.cbm");
- uTextureIdx_MonsterHP_CapLeft = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_CapLeft.cbm");
- uTextureIdx_MonsterHP_Bg = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_Bg.cbm");
+ uTextureIdx_MonsterHP_BarYellow = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_BarYellow");
+ uTextureIdx_MonsterHP_BarRed = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_BarRed");
+ uTextureIdx_MonsterHP_BarGreen = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_BarGreen");
+ uTextureIdx_MonsterHP_CapRight = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_CapRight");
+ uTextureIdx_MonsterHP_CapLeft = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_CapLeft");
+ uTextureIdx_MonsterHP_Bg = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_Bg");
 
- uTextureIdx_Leather = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"LEATHER.cbm");
+ uTextureIdx_Leather = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"LEATHER");
 
- pClass18_ibground = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ibground.cbm")];
+ pClass18_ibground = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ibground")];
 
- uTextureIdx_BtnMake = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ButtMake.cbm");
- uTextureIdx_BtnYes2 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ButtYes2.cbm");
- uTextureIdx_BtnXokU = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"x_ok_u.cbm");
+ uTextureIdx_BtnMake = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ButtMake");
+ uTextureIdx_BtnYes2 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ButtYes2");
+ uTextureIdx_BtnXokU = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"x_ok_u");
 
- uTextureIdx_BtnEsc2 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ButtEsc2.cbm");
- uTextureIdx_BtnXxU = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"x_x_u.cbm");
- uTextureIdx_BtnMake2 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ButtMake2.cbm");
+ uTextureIdx_BtnEsc2 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ButtEsc2");
+ uTextureIdx_BtnXxU = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"x_x_u");
+ uTextureIdx_BtnMake2 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ButtMake2");
 
  pGUIWindow0 = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
  GUIButtonCreate(pGUIWindow0, 7, 8, 460, 343, 1, 0, 10, 0, 0, "", 0);
@@ -20355,7 +20400,7 @@ int __cdecl UI_Initialize_Icons()
  GUIButtonCreate(pGUIWindow0, 328, 404, 5, 49, 1, 93, 0, 3, 0, "", 0);
  GUIButtonCreate(pGUIWindow0, 443, 404, 5, 49, 1, 93, 0, 4, 0, "", 0);
 
- uTextureIdx_ib_td1_A = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-td1-A.cbm");
+ uTextureIdx_ib_td1_A = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-td1-A");
  v11 = sub_459C82(&dword_69AE00, 13);
  dword_507A10 = GUIButtonCreate(pGUIWindow0,
                    491,
@@ -20372,7 +20417,7 @@ int __cdecl UI_Initialize_Icons()
 
 
 
-  uTextureIdx_ib_td2_A = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-td2-A.cbm");
+  uTextureIdx_ib_td2_A = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-td2-A");
   v16 = sub_459C82(&dword_69AE00, 17);
   dword_507A0C = GUIButtonCreate(pGUIWindow0,
                    527,
@@ -20389,7 +20434,7 @@ int __cdecl UI_Initialize_Icons()
 
 
 
-  v17 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-td3-A.cbm");
+  v17 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-td3-A");
   v21 = sub_459C82(&dword_69AE00, 18);
   dword_507A08 = GUIButtonCreate(pGUIWindow0,
                    546,
@@ -20406,7 +20451,7 @@ int __cdecl UI_Initialize_Icons()
 
 
 
-  v22 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-td4-A.cbm");
+  v22 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-td4-A");
   v26 = sub_459C82(&dword_69AE00, 16);
   dword_507A04 = GUIButtonCreate(pGUIWindow0,
                    570,
@@ -20423,7 +20468,7 @@ int __cdecl UI_Initialize_Icons()
 
 
 
-  uTextureIdx_ib_td5_A = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-td5-A.cbm");
+  uTextureIdx_ib_td5_A = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-td5-A");
   dword_507A00 = GUIButtonCreate(pGUIWindow0,
                    600,
                    361,
@@ -20561,7 +20606,7 @@ int __cdecl UI_Initialize_Icons()
 
  for (i = 0; i < 14; ++i)
  {
-  wsprintfW(pFilepath, L"isn-%02d.cbm", i + 1);
+  wsprintfW(pFilepath, L"isn-%02d", i + 1);
   uTextureIdx_SpellEffecIcons[i] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilepath);
  }
 
@@ -21396,7 +21441,7 @@ int __fastcall sub_464866(int a1, int a2)
   }
   dword_5C35C4 = 0;
   sub_443FDC(v6);
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   sub_4435E2(&unk_576E30);
   return _flushall();
 }
@@ -28819,9 +28864,9 @@ int __cdecl sub_443801()
 //----- (004A90A0) --------------------------------------------------------
 void sub_4A90A0(struct class06 *_this)
 {
- _this->dword_0005E4 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, L"effpar01.cbm");
- _this->dword_0005E8 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, L"effpar02.cbm");
- _this->dword_0005EC = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, L"effpar03.cbm");
+ _this->dword_0005E4 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, L"effpar01");
+ _this->dword_0005E8 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, L"effpar02");
+ _this->dword_0005EC = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, L"effpar03");
  runtime_warning;//_this->dword_0005F0 = sub_4AC7C0(pClass17_Sprites_LOD, "sp57c", 6);
 
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "zapp"));
@@ -31270,8 +31315,8 @@ char __cdecl LoadPlayerPortraintsAndVoices()
     uTextureIdx_PlayerFaces[i][j - 1] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilename);
    }
 
-uTextureIdx_PlayerFaceEradicated = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Eradcate.cbm");
-uTextureIdx_PlayerFaceDead = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"DEAD.cbm");
+uTextureIdx_PlayerFaceEradicated = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Eradcate");
+uTextureIdx_PlayerFaceDead = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"DEAD");
 
   for (i = 0; i < 4; ++i)
   {
@@ -57748,7 +57793,7 @@ LABEL_317:
             sub_443484(&unk_576E30, 2);
             ++byte_576E3A;
             sub_45F469(v0, 0);
-            sub_4435CD(&unk_576E30);
+            LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
             sub_4B1BDB(1440 * v211);
             if ( dword_ACD6E0 )
             {
@@ -71394,7 +71439,7 @@ void __thiscall sub_4435E2(void *this)
     if ( *((_BYTE *)v1 + 11) != v2 )
     {
       *((_BYTE *)v1 + 11) = v2 - 1;
-      v2 = (unsigned int)sub_4435CD(v1);
+      v2 = (unsigned int)LevelLoadingUI_UpdateAndDrawProgressBar(v1);
     }
     v4 = call_delete(v2, *((_DWORD *)v1 + 15));
     v3 = (int)((char *)v1 + 416);
@@ -78462,34 +78507,6 @@ int __cdecl sub_44C1D0()
 
   if ( !dword_5C35B8 )
     result = sub_44C175(pGlobalTXT_LocalizationStrings[521], 2);
-  return result;
-}
-
-//----- (0044C1E8) --------------------------------------------------------
-signed int __thiscall sub_44C1E8(int this)
-{
-  int v1; // eax@1
-  _UNKNOWN *v2; // esi@2
-  signed int result; // eax@5
-  int v4; // eax@6
-
-  v1 = 0;
-  if ( dword_5B1110 - 1 <= 0 )
-    goto LABEL_5;
-  v2 = &unk_5B65D8;
-  while ( *(_DWORD *)v2 != *(_WORD *)(this + 292) )
-  {
-    ++v1;
-    v2 = (char *)v2 + 12;
-    if ( v1 >= dword_5B1110 - 1 )
-      goto LABEL_5;
-  }
-  v4 = 12 * v1;
-  if ( byte_5B3524[*(int *)((char *)&dword_5B65EC + v4)] != 1 || byte_5B3524[*(int *)((char *)&dword_5B65E0 + v4)] != 4 )
-LABEL_5:
-    result = 0;
-  else
-    result = 1;
   return result;
 }
 
@@ -89260,7 +89277,7 @@ LABEL_43:
     while ( i < dword_6BE640 );
   }
   v13 = 0;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   i = 0;
   if ( (signed int)dword_69ADD0 > 0 )
   {
@@ -89333,7 +89350,7 @@ LABEL_43:
     }
     while ( i < (signed int)dword_69ADD0 );
   }
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v23 = 0;
   if ( (signed int)Count > v13 )
   {
@@ -89405,7 +89422,7 @@ LABEL_90:
     }
     while ( i < (signed int)dword_665228 );
   }
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   sub_41F4C1(&v35);
   v36 = 45;
   sub_45959A((int)&v35, 0);
@@ -89477,7 +89494,7 @@ void __cdecl sub_461103()
 
   sub_450218();
   v0 = &unk_576E30;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   dword_AD4730 |= 2;
   byte_ACD76D = 0;
   v1 = 0;
@@ -89527,7 +89544,7 @@ LABEL_13:
     }
     while ( v16 < (signed int)dword_665228 );
   }
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v5 = dword_665228;
   v6 = 0;
   v21 = 0;
@@ -89560,7 +89577,7 @@ LABEL_13:
     }
     while ( v17 < (signed int)v5 );
   }
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   if ( v6 > v1 )
   {
     do
@@ -89585,13 +89602,13 @@ LABEL_13:
     v0 = &unk_576E30;
     v1 = 0;
   }
-  sub_4435CD(v0);
+  LevelLoadingUI_UpdateAndDrawProgressBar(v0);
   if ( dword_6BE368 & 4 )
     dword_665228 = v1;
   if ( dword_6BE368 & 8 )
     dword_69ADD0 = v1;
   sub_4613C4();
-  sub_4435CD(v0);
+  LevelLoadingUI_UpdateAndDrawProgressBar(v0);
   dword_507CE4 = v1;
   dword_507CE0 = v1;
   dword_507CE8 = 100;
@@ -90073,42 +90090,6 @@ int __cdecl sub_46271C()
   stru_6A0DA0.lpTemplateName = 0;
   stru_6A0DA0.lpstrFileTitle = (LPSTR)&ExistingFileName;
   return result;
-}
-
-//----- (004645FA) --------------------------------------------------------
-int __cdecl sub_4645FA()
-{
-  struct tagRECT Rect; // [sp+0h] [bp-10h]@6
-
-  if ( LODWORD(dword_720010) )
-    sub_46B14F(SLODWORD(dword_720010));
-  if ( *(_BYTE *)(*(_DWORD *)(LODWORD(pGame) + 3692) + 4) )
-  {
-    if ( dword_69B00C )
-      sub_45B329(dword_69B00C);
-  }
-  RegistryWriteInt("startinwindow", pD3DRenderer->dword_040058);
-  if ( GetWindowRect(hWnd_global, &Rect) )
-  {
-    if ( pD3DRenderer->dword_040058 )
-    {
-      RegistryWriteInt("window X", Rect.left);
-      RegistryWriteInt("window Y", Rect.top);
-    }
-  }
-  RegistryWriteInt("debug flags", dword_51076C);
-  RegistryWriteInt("valAlwaysRun", dword_6BE37C);
-  sub_45814E(pClass40);
-  sub_477266(pNPCStats);
-  sub_465C53();
-  sub_465C2C();
-  if ( class03_global )
-    sub_469CC2(class03_global);
-  sub_4ABD5B(pClass31_global);
-  sub_461A11(pClass17_New_LOD);
-  sub_461A11(pClass17_Games_LOD);
-  ClipCursor(0);
-  return sub_465CF3();
 }
 
 //----- (004646F0) --------------------------------------------------------
@@ -108023,7 +108004,7 @@ signed int __cdecl sub_47F138()
     }
     while ( v1 < (signed int)dword_69ADD0 );
   }
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   return 1;
 }
 
@@ -108068,7 +108049,7 @@ signed int __thiscall sub_47F223(void *this)
     }
     while ( v1 < (signed int)Count );
   }
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   return 1;
 }
 
@@ -108139,7 +108120,7 @@ LABEL_8:
     goto LABEL_17;
   }
 LABEL_18:
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   sub_41F4C1(&v6);
   v7 = 45;
   sub_45959A((int)&v6, v1);
@@ -109207,7 +109188,7 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
         *(_DWORD *)(v15 + 52) = *(_WORD *)(v20 + 2);
         v21 = v89;
         *(_BYTE *)(v15 + 92) = v89;
-        v17 = (unsigned __int16)word_75D516[2 * (v19 + (v21 << 7))];
+        v17 = (unsigned __int16)word_75D514[2 * (v19 + (v21 << 7)) + 1];
         if ( v17 < 0 || v17 > dword_73D510 - 1 )
           v22 = 0;
         else
@@ -109361,7 +109342,7 @@ LABEL_162:
     *(_BYTE *)(v39 + 92) = v89;
     v46 = 4 * (v43 + (v45 << 7));
     v85 = v46;
-    v41 = *(unsigned __int16 *)((char *)word_75D516 + v46);
+    v41 = *(unsigned __int16 *)((char *)word_75D514 + v46 + 2);
     if ( v41 < 0 || v41 > dword_73D510 - 1 )
       v47 = 0;
     else
@@ -109840,7 +109821,7 @@ void __fastcall sub_481212(int a1, int a2, int a3)
         *(_DWORD *)(v16 + 52) = *(_WORD *)(v21 + 2);
         v22 = v95;
         *(_BYTE *)(v16 + 92) = v95;
-        v18 = (unsigned __int16)word_75D516[2 * (v20 + (v22 << 7))];
+        v18 = (unsigned __int16)word_75D514[2 * (v20 + (v22 << 7)) + 1];
         if ( v18 < 0 || v18 > dword_73D510 - 1 )
           v23 = 0;
         else
@@ -109961,7 +109942,7 @@ LABEL_105:
     *(_BYTE *)(v37 + 92) = v95;
     v44 = 4 * (v41 + (v43 << 7));
     LODWORD(v94) = v44;
-    v39 = *(unsigned __int16 *)((char *)word_75D516 + v44);
+    v39 = *(unsigned __int16 *)((char *)word_75D514 + v44 + 2);
     if ( v39 < 0 || v39 > dword_73D510 - 1 )
       v45 = 0;
     else
@@ -124700,20 +124681,20 @@ LABEL_50:
   *(_DWORD *)(v6 + 80) = 1;
   memcpy((void *)v230, (const void *)v231, v232);
   v99 = (const void *)(v94 + 136);
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   memcpy((void *)(v6 + 624), v99, 4u);
   v99 = (char *)v99 + 4;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v234 = 6 * *(_DWORD *)(v6 + 624);
   v233 = (int)v99;
   v232 = *(_DWORD *)(v6 + 628);
   v283 = v234;
   memcpy((void *)v232, v99, v234);
   v100 = (char *)v99 + v283;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   memcpy((void *)(v6 + 632), v100, 4u);
   v100 = (char *)v100 + 4;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v234 = 96 * *(_DWORD *)(v6 + 632);
   v233 = (int)v100;
   v232 = *(_DWORD *)(v6 + 636);
@@ -124806,10 +124787,10 @@ LABEL_50:
     }
     while ( v283 < *(_DWORD *)(v6 + 632) );
   }
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   memcpy((void *)(v6 + 640), v98, 4u);
   v123 = (char *)v98 + 4;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v234 = 36 * *(_DWORD *)(v6 + 640);
   v233 = (int)v123;
   v232 = *(_DWORD *)(v6 + 644);
@@ -124856,10 +124837,10 @@ LABEL_50:
     }
     while ( v283 < *(_DWORD *)(v6 + 632) );
   }
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   memcpy((void *)(v6 + 648), v122, 4u);
   v132 = (char *)v122 + 4;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v234 = 116 * *(_DWORD *)(v6 + 648);
   v233 = (int)v132;
   v232 = *(_DWORD *)(v6 + 652);
@@ -124937,7 +124918,7 @@ LABEL_50:
   v283 = v153;
   memcpy((void *)v152, v131, v153);
   v151 = (char *)v131 + v283;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v154 = *(_DWORD *)(v6 + 648) == 0;
   v155 = *(_DWORD *)(v6 + 648) < 0;
   Src = 0;
@@ -124958,13 +124939,13 @@ LABEL_50:
         break;
     }
   }
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   memcpy((void *)(v6 + 664), v151, 4u);
   v160 = (char *)v151 + 4;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   memcpy(&dword_69ADD0, v160, 4u);
   v160 = (char *)v160 + 4;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v283 = 32 * dword_69ADD0;
   memcpy(word_6836D0, v160, 32 * dword_69ADD0);
   v159 = (char *)v160 + v283;
@@ -124984,30 +124965,30 @@ LABEL_50:
     }
     while ( v283 < (signed int)dword_69ADD0 );
   }
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   memcpy((void *)(v6 + 656), v159, 4u);
   v163 = (char *)v159 + 4;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v234 = 16 * *(_DWORD *)(v6 + 656);
   v233 = (int)v163;
   v232 = *(_DWORD *)(v6 + 660);
   v283 = v234;
   memcpy((void *)v232, v163, v234);
   v164 = (char *)v163 + v283;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   memcpy((void *)(v6 + 672), v164, 4u);
   v164 = (char *)v164 + 4;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v234 = 8 * *(_DWORD *)(v6 + 672);
   v233 = (int)v164;
   v232 = *(_DWORD *)(v6 + 676);
   v283 = v234;
   memcpy((void *)v232, v164, v234);
   v165 = (char *)v164 + v283;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   memcpy((void *)(v6 + 700), v165, 4u);
   v165 = (char *)v165 + 4;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v166 = *(_DWORD *)(v6 + 700);
   v234 = (int)"Spawn";
   v233 = 24 * v166;
@@ -125018,7 +124999,7 @@ LABEL_50:
   v283 = 24 * v168;
   memcpy((void *)v167, v165, 24 * v168);
   v169 = (int)((char *)v165 + v283);
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v234 = 4;
   v233 = v169;
   v232 = *(_DWORD *)(v6 + 680);
@@ -125189,7 +125170,7 @@ LABEL_140:
     }
     while ( v283 < *(_DWORD *)(v6 + 632) );
   }
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v188 = 0;
   if ( (signed int)dword_69ADD0 > 0 )
   {
@@ -125203,17 +125184,17 @@ LABEL_140:
     }
     while ( v188 < (signed int)dword_69ADD0 );
   }
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   memcpy(&dword_665228, Src, 4u);
   Src = (char *)Src + 4;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v189 = 836 * dword_665228;
   memcpy(&unk_5FF158, Src, 836 * dword_665228);
   Src = (char *)Src + v189;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   memcpy(&::Count, Src, 4u);
   Src = (char *)Src + 4;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v190 = 112 * ::Count;
   memcpy(&unk_665230, Src, 112 * ::Count);
   Src = (char *)Src + v190;
@@ -125252,14 +125233,14 @@ LABEL_165:
     }
     while ( i-- != 1 );
   }
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   memcpy(&dword_5FF140, Src, 4u);
   Src = (char *)Src + 4;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v197 = 5324 * dword_5FF140;
   memcpy(word_5E5150, Src, 5324 * dword_5FF140);
   Src = (char *)Src + v197;
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v234 = 16000;
   v233 = (int)Src;
   v232 = *(_DWORD *)(v6 + 668);
@@ -125342,10 +125323,10 @@ LABEL_165:
     }
     while ( v283 < *(_DWORD *)(v6 + 664) );
   }
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v227 = Src;
   memcpy(byte_5E4C90, Src, 0xC8u);
-  sub_4435CD(&unk_576E30);
+  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v228 = (int)memcpy((void *)(v6 + 748), (char *)v227 + 200, 0x38u);
   call_delete(v228, (unsigned int)File);
   v5 = 0;

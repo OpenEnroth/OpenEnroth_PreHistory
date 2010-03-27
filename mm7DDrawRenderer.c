@@ -2029,7 +2029,7 @@ LABEL_17:
  class33_DecodePCX(_this, pPCXData, _this->pPixels, _this->uWidth);
  call_delete(0, pPCXData);
 */
- wsprintfW(pFilepath, L"%S.cbm", pContainerName);
+ wsprintfW(pFilepath, L"%S", pContainerName);
  uTextureID = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilepath);
 
  _this->pPixels = pClass17_Icons_LOD->aLODHeaders[uTextureID].pTruecolorPixels;
