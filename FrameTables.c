@@ -525,7 +525,7 @@ void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2)
    if (_this->pTiles[i].sTileName[0])
    {
     wsprintfW(pFilename, L"%S", _this->pTiles[i].sTileName);
-    _this->pTiles[i].word_000012 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, pFilename, 0);
+    _this->pTiles[i].word_000012 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, pFilename);
 
     pClass17_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026 = class35_sub_48A3BC(&class35_obj, pClass17_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026);
    }
@@ -573,6 +573,31 @@ void *CDecorationDescriptionList_Initialize(struct CDecorationDescriptionList *_
  return 0;
 }
 
+//----- (004488B6) --------------------------------------------------------
+__int16 sub_4488B6(struct CDecorationDescriptionList *_this, const char *Str1)
+{
+  void *v2; // esi@1
+  signed int v3; // edi@2
+  signed int v4; // ebx@3
+  __int16 result; // ax@6
+
+  v2 = _this;
+  if ( Str1 && _this->uNumDecorations > 1)
+  {
+   v3 = 1;
+    v4 = 84;
+    while ( _strcmpi(Str1, _this->pDescriptions[v3].array_000000) )
+    {
+      ++v3;
+      v4 += 84;
+      if ( v3 >= _this->uNumDecorations)
+        return 0;
+    }
+    return v3;
+  }
+
+  return 0;
+}
 
 
 

@@ -16,13 +16,12 @@ extern struct CSoundList *pSoundList;
 extern struct class17 *pClass17_Games_LOD;
 extern struct class17 *pClass17_New_LOD;
 extern struct class35 class35_obj;
-extern size_t dword_665228;
+extern size_t uNumActors;
 extern size_t Count;
 extern char byte_6BE3C4;
 extern _UNKNOWN unk_73D514[];
-extern _UNKNOWN unk_6836D2;
-extern _UNKNOWN unk_665230;
-extern _UNKNOWN unk_5FF158;
+extern struct struct2 array_665230[];
+extern struct Actor pActors[];
 extern _UNKNOWN unk_576E30;
 extern int dword_4EC2A8;
 extern int dword_4EC2AC;
@@ -45,8 +44,8 @@ extern __int16 word_5E5150[];
 extern size_t dword_5FF140;
 extern size_t dword_69ADD0;
 extern unsigned char *dword_76D514;
-extern __int16 word_6836D0[];
 extern __int16 word_5D29F8[];
+extern struct struct0 array_6836D0[];
 signed int __fastcall maybe_decompress_file(int a1, int *a2, int a3, int a4);
 FILE *sub_47D0A6(struct class51 *_this, const char *Source, int File, int a4, int a5)
 {
@@ -88,50 +87,30 @@ FILE *sub_47D0A6(struct class51 *_this, const char *Source, int File, int a4, in
   unsigned char *v42; // eax@56
   size_t v44; // edi@56
   int v45; // eax@58
-  //const void *v46; // ebx@59
   int v48; // eax@59
   int v51; // ebx@60
   int v52; // eax@61
   __int16 v64; // ax@64
   __int16 v65; // ax@65
-  int v66; // ecx@65
+  struct class51_stru2 *v66; // ecx@65
   __int16 v67; // ax@80
-  int v68; // ecx@80
   int v69; // eax@81
-  int v70; // eax@81
-  int v71; // ecx@81
-  int v72; // eax@81
   int v73; // eax@81
-  int v74; // eax@81
-  int v75; // ecx@81
   int v76; // eax@81
   size_t v77; // eax@81
   int v78; // edi@87
   int v79; // edi@88
   int v80; // eax@92
-  int v81; // edx@94
   int v82; // ecx@94
   int v83; // eax@95
   int v84; // edx@97
   int v85; // eax@99
   int v86; // eax@107
   int v87; // eax@110
-  char v88; // zf@112
   int v89; // edi@114
   int v90; // eax@118
-  const void *v91; // edi@120
   size_t v92; // eax@120
-  const void *v93; // edi@120
-  unsigned __int8 v94; // zf@122
-  unsigned __int8 v95; // sf@122
-  int v96; // eax@124
-  int v97; // eax@124
-  int v98; // eax@126
-  int v99; // eax@127
   int v100; // eax@129
-  const void *v101; // edi@138
-  const void *v102; // edi@141
-  const void *v103; // edi@141
   const void *v104; // edi@144
   const void *v105; // edi@144
   int v106; // eax@147
@@ -148,9 +127,9 @@ FILE *sub_47D0A6(struct class51 *_this, const char *Source, int File, int a4, in
   void *v118; // [sp-8h] [bp-B88h]@55
   signed int v119; // [sp-4h] [bp-B84h]@12
   int v120; // [sp+0h] [bp-B80h]@10
-  char v121; // [sp+10h] [bp-B70h]@110
-  char v122; // [sp+3D8h] [bp-7A8h]@110
-  char v123[4]; // [sp+79Ch] [bp-3E4h]@50
+  char v121[0x3C8]; // [sp+10h] [bp-B70h]@110
+  char v122[0x3C8]; // [sp+3D8h] [bp-7A8h]@110
+  //char v123[4]; // [sp+79Ch] [bp-3E4h]@50
   char Str1[256]; // [sp+7A0h] [bp-3E0h]@50
   char DstBuf; // [sp+8A0h] [bp-2E0h]@10
   __int32 Offset; // [sp+8A4h] [bp-2DCh]@10
@@ -256,6 +235,7 @@ FILE *sub_47D0A6(struct class51 *_this, const char *Source, int File, int a4, in
  wchar_t  pLevelMapFilename[256];
  FILE    *hODMFile;
  wchar_t  pFilename[256];
+ int      j;
 
   v5 = _this;
   strcpy(Str, Source);
@@ -310,7 +290,7 @@ FILE *sub_47D0A6(struct class51 *_this, const char *Source, int File, int a4, in
     fseek(v7, v129, 0);
     locked_fread(&dword_69ADD0, 4u, 1u, v7);
     fseek(v7, v130, 0);
-    locked_fread(&dword_665228, 4u, 1u, v7);
+    locked_fread(&uNumActors, 4u, 1u, v7);
     fseek(v7, v131, 0);
     locked_fread(&dword_5FF140, 4u, 1u, v7);
     sub_47CD44((int *)(v5 + 180));
@@ -463,10 +443,10 @@ LABEL_20:
 LABEL_26:
     v24 = (FILE *)File;
     fseek((FILE *)File, v137, 0);
-    locked_fread(&unk_665230, 0x70u, Count, v24);
+    locked_fread(array_665230, 0x70u, Count, v24);
     if ( (signed int)Count > 0 )
     {
-      v25 = &unk_665230;
+      v25 = array_665230;
       a4 = Count;
       do
       {
@@ -501,11 +481,11 @@ LABEL_33:
       while ( a4-- != 1 );
     }
     fseek(v24, v138, 0);
-    locked_fread(word_6836D0, 0x20u, dword_69ADD0, v24);
+    locked_fread(array_6836D0, sizeof(struct struct0), dword_69ADD0, v24);
     a4 = 0;
     if ( (signed int)dword_69ADD0 > 0 )
     {
-      a5 = (int)word_6836D0;
+      a5 = (int)array_6836D0;
       do
       {
         locked_fread(&FileName, 1u, 0x20u, v24);
@@ -518,7 +498,7 @@ LABEL_33:
       while ( a4 < (signed int)dword_69ADD0 );
     }
     fseek(v24, v139, 0);
-    locked_fread(&unk_5FF158, 0x344u, dword_665228, v24);
+    locked_fread(pActors, 0x344u, uNumActors, v24);
     fseek(v24, v140, 0);
     locked_fread(word_5E5150, 0x14CCu, dword_5FF140, v24);
     fseek(v24, v141, 0);
@@ -703,7 +683,7 @@ LABEL_33:
       v119 = 12 * _this->ptr_0000D8[i].dword_000044;
       _this->ptr_0000D8[i].ptr_000048 =  class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
 
-      v119 = 308 * _this->ptr_0000D8[i].dword_00004C;
+      v119 = _this->ptr_0000D8[i].dword_00004C * sizeof(struct class51_stru2);
       _this->ptr_0000D8[i].ptr_000054 = class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
 
       v119 = 2 * _this->ptr_0000D8[i].dword_00004C;
@@ -749,19 +729,22 @@ LABEL_74:
         goto LABEL_75;
     }
 
+
     v168 = 0;
     Str2 = (char *)v167;
+    j = 0;
     while ( 1 )
     {
-      wtf = v168 + _this->ptr_0000D8[i].ptr_000054;
-      if ( !(*(_BYTE *)(wtf + 29) & 0x40) )
+      v66 = &_this->ptr_0000D8[i].ptr_000054[j];
+      if ( !(v66->byte_000000[29] & 0x40) )
         break;
+
       v64 = sub_44E163(pTextureFrameTable, Str2);
-      *(_WORD *)(wtf + 272) = v64;
+      v66->word_000110 = v64;
       if ( !v64 )
       {
         v65 = class17_LoadTexture(pClass17_Bitmaps_LOD, Str2, 0);
-        v66 = wtf;
+
         *(_BYTE *)(v66 + 29) &= 0xBFu;
         *(_WORD *)(v66 + 272) = v65;
         v158 = v65 != -1 ? 72 * v65 + 7278780 : 0;
@@ -780,19 +763,18 @@ LABEL_69:
           *(_BYTE *)(wtf + 30) &= 0xEFu;
       }
       ++v157;
-      v52 = *(_DWORD *)(v5 + 216);
+      v52 = _this->ptr_0000D8;
       v168 += 308;
+      ++j;
       Str2 += 10;
-      if ( v157 >= *(_DWORD *)(v51 + v52 + 76) )
+      if ( v157 >= _this->ptr_0000D8[i].dword_00004C)
         goto LABEL_74;
     }
 
     wsprintfW(pFilename, L"%S", Str2);
-    v65 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, pFilename);
-    v66 = wtf;
+    v66->word_000110 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, pFilename);
 
-    *(_WORD *)(v66 + 272) = v65;
-    v158 = &pClass17_Bitmaps_LOD->aLODHeaders[v65];
+    v158 = &pClass17_Bitmaps_LOD->aLODHeaders[v66->word_000110];
     v120 = v158->word_000024;
     v158->word_000026 = class35_sub_48A3BC(&class35_obj, v158->word_000024);
     goto LABEL_69;
@@ -800,7 +782,7 @@ LABEL_69:
 
 LABEL_75:
   LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
-  memcpy(&dword_69ADD0, Src, 4u);
+  memcpy(&dword_69ADD0, Src, 4);
   Src = (char *)Src + 4;
   if ( (signed int)dword_69ADD0 < 0 || (signed int)dword_69ADD0 > 3000 )
   {
@@ -810,77 +792,80 @@ LABEL_75:
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
     sub_466D09(&v167, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, v120);
   }
+
   LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
-  wtf = 32 * dword_69ADD0;
-  memcpy(word_6836D0, Src, 32 * dword_69ADD0);
-  v170 = 0;
-  Src = (char *)Src + wtf;
-  if ( (signed int)dword_69ADD0 > 0 )
-  {
-    wtf = (int)word_6836D0;
-    do
-    {
-      memcpy(&FileName, Src, 0x20u);
-      Src = (char *)Src + 32;
-      v67 = sub_4488B6(pDecorationDescriptionList, &FileName);
-      v68 = wtf;
-      ++v170;
-      wtf += 32;
-      *(_WORD *)v68 = v67;
-    }
-    while ( v170 < (signed int)dword_69ADD0 );
-  }
-  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
-  memcpy((void *)(v5 + 220), Src, 4u);
-  Src = (char *)Src + 4;
-  v120 = *(_DWORD *)(v5 + 224);
-  class23_DeleteBuffer((int)&class23_instance, v120);
-  v69 = *(_DWORD *)(v5 + 220);
-  *(_DWORD *)(v5 + 224) = 0;
-  v70 = class23_AllocatedNamedBuffer(&class23_instance, 0, 2 * v69, "IDLIST");
-  v71 = *(_DWORD *)(v5 + 220);
-  *(_DWORD *)(v5 + 224) = v70;
-  wtf = 2 * v71;
-  memcpy((void *)v70, Src, 2 * v71);
-  Src = (char *)Src + wtf;
-  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
-  v120 = *(_DWORD *)(v5 + 228);
-  class23_DeleteBuffer((int)&class23_instance, v120);
-  *(_DWORD *)(v5 + 228) = 0;
-  v72 = class23_AllocatedNamedBuffer(&class23_instance, 0, 65536, "OMAP");
-  v120 = 65536;
-  *(_DWORD *)(v5 + 228) = v72;
-  memcpy((void *)v72, Src, v120);
-  Src = (char *)Src + 65536;
-  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
-  memcpy((void *)(v5 + 1216), Src, 4u);
-  Src = (char *)Src + 4;
-  LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
-  v73 = *(_DWORD *)(v5 + 1216);
-  v120 = (int)"Spawn";
-  v119 = 24 * v73;
-  v118 = *(void **)(v5 + 1220);
-  v74 = class23_AllocatedNamedBuffer(&class23_instance, (int)v118, 24 * v73, "Spawn");
-  v75 = *(_DWORD *)(v5 + 1216);
-  *(_DWORD *)(v5 + 1220) = v74;
-  memcpy((void *)v74, Src, 24 * v75);
-  v76 = (int)LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
-  call_delete(v76, HIDWORD(v155));
-  v120 = (int)".ddm";
-  v77 = strlen(&Str);
-  strcpy(&v154[v77], (const char *)v120);
-  v170 = class17_FindContainer(pClass17_New_LOD, &Str, 1);
-  locked_fread(&v159, 0x10u, 1u, (FILE *)v170);
-  Str2 = 0;
-  if ( v159.v159 != 91969 || v159.v160 != 109 || v159.v161 != 118 || v159.v162 != 105 || v159.v163 != 105 )
-  {
+
+
+
+ memcpy(array_6836D0, Src, dword_69ADD0 * sizeof(struct struct0));
+ Src = (char *)Src + dword_69ADD0 * sizeof(struct struct0);
+
+ for (i = 0; i < dword_69ADD0; ++i)
+ {
+  memcpy(FileName, Src, 32);
+  Src = (char *)Src + 32;
+
+  array_6836D0[i].uSomeDescorationID = sub_4488B6(pDecorationDescriptionList, FileName);
+ }
+ LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
+
+
+
+ memcpy(&_this->dword_0000DC, Src, 4);
+ Src = (char *)Src + 4;
+
+ v120 = _this->ptr_0000E0;
+ v69 = _this->dword_0000DC;
+
+ class23_DeleteBuffer(class23_instance, _this->ptr_0000E0);
+ _this->ptr_0000E0 = class23_AllocatedNamedBuffer(class23_instance, 0, 2 * v69, "IDLIST");
+ memcpy(_this->ptr_0000E0, Src, 2 * v69);
+ Src = (char *)Src + 2 * v69;
+
+ LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
+
+
+
+ class23_DeleteBuffer(class23_instance, _this->ptr_0000E4);
+ _this->ptr_0000E4 = class23_AllocatedNamedBuffer(class23_instance, 0, 65536, "OMAP");
+ memcpy(_this->ptr_0000E4, Src, 65536);
+ Src = (char *)Src + 65536;
+ LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
+
+
+
+ memcpy(&_this->dword_0004C0, Src, 4);
+ Src = (char *)Src + 4;
+ LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
+
+
+
+ v73 = _this->dword_0004C0;
+ _this->ptr_0004C4 = class23_AllocatedNamedBuffer(class23_instance, 0, 24 * v73, "Spawn");
+ memcpy(_this->ptr_0004C4, Src, 24 * v73);
+ LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
+
+
+
+
+
+
+ call_delete(0, HIDWORD(v155));
+ v77 = strlen(Str);
+ strcpy(Str + v77 - 4, ".ddm");
+ //hODMFile = class17_FindContainer(pClass17_New_LOD, Str, 1);
+ hODMFile = class17_FindContainer(pClass17_Games_LOD, Str, 1);
+ locked_fread(&v159, 0x10u, 1, hODMFile);
+ Str2 = 0;
+ if ( v159.v159 != 91969 || v159.v160 != 109 || v159.v161 != 118 || v159.v162 != 105 || v159.v163 != 105 )
+ {
     v120 = 746;
     v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
     wtf = &v115;
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
     sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, v120);
     Str2 = (char *)1;
-  }
+ }
   v78 = 0;
   wtf = v159.v164;
   v168 = 0;
@@ -893,12 +878,12 @@ LABEL_75:
     {
       if ( wtf == v166 )
       {
-        locked_fread((void *)v79, v166, 1u, (FILE *)v170);
+        locked_fread((void *)v79, v166, 1u, hODMFile);
       }
       else
       {
         Src = malloc(wtf);
-        locked_fread(Src, wtf, 1u, (FILE *)v170);
+        locked_fread(Src, wtf, 1u, hODMFile);
         v80 = maybe_decompress_file(v79, (int *)&v166, (int)Src, wtf);
         call_delete(v80, (unsigned int)Src);
       }
@@ -911,58 +896,54 @@ LABEL_75:
       sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
       sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, v120);
     }
-    memcpy((void *)(v5 + 1224), (const void *)v79, 0x28u);
+    memcpy(_this->array_0004C8, (const void *)v79, 0x28u);
     v78 = v79 + 40;
   }
-  v81 = *(_DWORD *)(v5 + 176);
+
   v82 = 0;
-  if ( v81 > 0 )
-  {
-    v83 = *(_DWORD *)(v5 + 216) + 76;
-    do
-    {
-      v82 += *(_DWORD *)v83;
-      v83 += 188;
-      --v81;
-    }
-    while ( v81 );
-  }
-  v84 = *(_DWORD *)(v5 + 1240);
+  for (i = 0; i < _this->dword_0000B0; ++i)
+    v82 += _this->ptr_0000D8[i].dword_00004C;
+
+  v84 = _this->array_0004C8[4];
   if ( v84 )
   {
-    if ( *(_DWORD *)(v5 + 1248) )
+    if (_this->array_0004C8[6])
     {
-      v85 = *(_DWORD *)(v5 + 1244);
+      v85 = _this->array_0004C8[5];
       if ( v85 )
       {
-        if ( v84 != v82 || *(_DWORD *)(v5 + 1248) != *(_DWORD *)(v5 + 176) || v85 != dword_69ADD0 )
+        if ( v84 != v82 || _this->array_0004C8[6] != _this->dword_0000B0 || v85 != dword_69ADD0 )
           Str2 = (char *)1;
       }
     }
   }
   if ( BYTE1(dword_6BE364) & 0x20 )
     a4 = 29030400;
+
   if ( Str2 )
   {
-    memset(&v122, 0, 0x3C8u);
-    v87 = (int)memset(&v121, 0, 0x3C8u);
+    memset(v122, 0, 0x3C8u);
+    v87 = memset(v121, 0, 0x3C8u);
     goto LABEL_112;
   }
-  v86 = *(_DWORD *)(v5 + 1228);
+
+  v86 = _this->array_0004C8[1];
   if ( File - v86 >= (unsigned int)a4 || !v86 )
   {
-    memcpy(&v122, (const void *)v78, 0x3C8u);
-    v87 = (int)memcpy(&v121, (const void *)(v78 + 968), 0x3C8u);
+    memcpy(v122, (const void *)v78, 0x3C8);
+    v87 = (int)memcpy(v121, (const void *)(v78 + 0x3C8), 0x3C8);
+
 LABEL_112:
     call_delete(v87, v168);
-    v88 = Str2 == 0;
-    *(_DWORD *)(v5 + 1228) = File;
-    if ( v88 )
-      ++*(_DWORD *)(v5 + 1224);
+
+    _this->array_0004C8[1] = File;
+    if (!Str2)
+      ++_this->array_0004C8[0];
     v120 = 0;
+
     *(_DWORD *)a5 = 1;
-    v170 = class17_FindContainer(pClass17_Games_LOD, &Str, v120);
-    locked_fread(&v159, 0x10u, 1u, (FILE *)v170);
+    hODMFile = class17_FindContainer(pClass17_Games_LOD, Str, v120);
+    locked_fread(&v159, 0x10, 1, hODMFile);
     wtf = v159.v164;
     v166 = v159.Size;
     v89 = (int)malloc(v159.Size);
@@ -971,12 +952,12 @@ LABEL_112:
     {
       if ( wtf == v166 )
       {
-        locked_fread((void *)v89, v166, 1u, (FILE *)v170);
+        locked_fread((void *)v89, v166, 1, hODMFile);
       }
       else
       {
         Src = malloc(wtf);
-        locked_fread(Src, wtf, 1u, (FILE *)v170);
+        locked_fread(Src, wtf, 1, hODMFile);
         v90 = maybe_decompress_file(v89, (int *)&v166, (int)Src, wtf);
         call_delete(v90, (unsigned int)Src);
       }
@@ -992,92 +973,64 @@ LABEL_112:
     v78 = v89 + 40;
     goto LABEL_120;
   }
+
   *(_DWORD *)a5 = 0;
+
 LABEL_120:
-  v120 = (int)".odm";
-  v92 = strlen(&Str);
-  strcpy(&v154[v92], (const char *)v120);
-  memcpy((void *)(v5 + 1320), (const void *)v78, 0x3C8u);
-  v93 = (const void *)(v78 + 968);
-  memcpy((void *)(v5 + 2288), v93, 0x3C8u);
-  v91 = (char *)v93 + 968;
+  v92 = strlen(Str);
+  strcpy(&v154[v92], ".odm");
+  memcpy(_this->array_000528, v78, 0x3C8);
+
+  memcpy(_this->array_0008F0, v78 + 0x3C8, 0x3C8);
+  v78 = (char *)v78 + 0x3C8 + 0x3C8;
   LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
+
+
+
   if ( *(_DWORD *)a5 )
   {
-    memcpy((void *)(v5 + 1320), &v122, 0x3C8u);
-    memcpy((void *)(v5 + 2288), &v121, 0x3C8u);
+    memcpy(_this->array_000528, v122, 0x3C8);
+    memcpy(_this->array_0008F0, v121, 0x3C8);
   }
-  v94 = *(_DWORD *)(v5 + 176) == 0;
-  v95 = *(_DWORD *)(v5 + 176) < 0;
-  v170 = 0;
-  if ( !(v95 | v94) )
+
+  for (i = 0; i < _this->dword_0000B0; ++i)
   {
-    a4 = 0;
-    do
-    {
-      v97 = *(_DWORD *)(v5 + 216);
-      a5 = 0;
-      v96 = a4 + v97;
-      if ( *(_DWORD *)(v96 + 76) > 0 )
+
+      for (j = 0; j < _this->ptr_0000D8[i].dword_00004C; ++j)
       {
-        File = 0;
-        do
-        {
-          v118 = (void *)(*(_DWORD *)(v96 + 84) + File + 28);
-          memcpy(v118, v91, 4u);
-          v98 = *(_DWORD *)(v5 + 216);
-          File += 308;
-          v91 = (char *)v91 + 4;
-          ++a5;
-          v96 = a4 + v98;
-        }
-        while ( a5 < *(_DWORD *)(v96 + 76) );
+        v118 = (void *)(_this->ptr_0000D8[i].ptr_000054[j].byte_000000 + 28);
+        memcpy(v118, v78, 4);
+        v78 = (char *)v78 + 4;
       }
-      v99 = *(_DWORD *)(v5 + 216);
-      a5 = 0;
-      if ( *(_DWORD *)(a4 + v99 + 76) > 0 )
+
+      for (j = 0; j < _this->ptr_0000D8[i].dword_00004C; ++j)
       {
-        wtf = 0;
-        do
-        {
-          v100 = wtf + *(_DWORD *)(a4 + v99 + 84);
-          File = v100;
-          if ( *(_WORD *)(v100 + 292) )
+          if (_this->ptr_0000D8[i].ptr_000054[j].word_000124)
           {
-            if ( sub_44C1E8(v100) )
-              *(_BYTE *)(File + 30) |= 0x10u;
+            if ( sub_44C1E8(&_this->ptr_0000D8[i].ptr_000054[j]) )
+              _this->ptr_0000D8[i].ptr_000054[j].byte_000000[30] |= 0x10u;
             else
-              *(_BYTE *)(File + 30) &= 0xEFu;
+              _this->ptr_0000D8[i].ptr_000054[j].byte_000000[30] &= 0xEFu;
           }
-          ++a5;
-          v99 = *(_DWORD *)(v5 + 216);
-          wtf += 308;
-        }
-        while ( a5 < *(_DWORD *)(a4 + v99 + 76) );
+
       }
-      ++v170;
-      a4 += 188;
-    }
-    while ( v170 < *(_DWORD *)(v5 + 176) );
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
-  v170 = 0;
-  if ( (signed int)dword_69ADD0 > 0 )
+
+
+
+  for (i = 0; i < dword_69ADD0; ++i)
   {
-    a5 = (int)&unk_6836D2;
-    do
-    {
-      memcpy((void *)a5, v91, 2);
-      a5 += 32;
-      v91 = (char *)v91 + 2;
-      ++v170;
-    }
-    while ( v170 < (signed int)dword_69ADD0 );
+      memcpy(&array_6836D0[i].word_000002, v78, 2);
+      v78 = (char *)v78 + 2;
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
-  memcpy(&dword_665228, v91, 4u);
-  v101 = (char *)v91 + 4;
-  if ( (signed int)dword_665228 < 0 || (signed int)dword_665228 > 500 )
+
+
+
+  memcpy(&uNumActors, v78, 4);
+  v78 = (char *)v78 + 4;
+  if ( (signed int)uNumActors < 0 || uNumActors > 500 )
   {
     v120 = 939;
     v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
@@ -1086,13 +1039,18 @@ LABEL_120:
     sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, v120);
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
-  wtf = 836 * dword_665228;
-  memcpy(&unk_5FF158, v101, 836 * dword_665228);
-  v103 = (char *)v101 + wtf;
+
+
+
+  memcpy(pActors, v78, uNumActors * sizeof(struct Actor));
+  v78 = (char *)v78 + uNumActors * sizeof(struct Actor);
   LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
-  memcpy(&Count, v103, 4u);
-  v102 = (char *)v103 + 4;
-  if ( (signed int)Count < 0 || (signed int)Count > 1000 )
+
+
+
+  memcpy(&Count, v78, 4);
+  v78 = (char *)v78 + 4;
+  if ( (signed int)Count < 0 || Count > 1000 )
   {
     v120 = 954;
     v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
@@ -1101,11 +1059,16 @@ LABEL_120:
     sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, v120);
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
-  wtf = 112 * Count;
-  memcpy(&unk_665230, v102, 112 * Count);
-  v105 = (char *)v102 + wtf;
+
+
+
+  memcpy(array_665230, v78, Count * sizeof(struct struct2));
+  v105 = (char *)v78 + Count * sizeof(struct struct2);
   LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
-  memcpy(&dword_5FF140, v105, 4u);
+
+
+
+  memcpy(&dword_5FF140, v105, 4);
   v104 = (char *)v105 + 4;
   if ( (signed int)dword_5FF140 < 0 || (signed int)dword_5FF140 > 20 )
   {
@@ -1509,4 +1472,35 @@ int sub_47C80A(struct class51_stru0 *_this, int a2, int a3, int a4, int a5)
     while ( v13 <= a5 );
   }
   return result;
+}
+
+
+
+//----- (0044C1E8) --------------------------------------------------------
+extern char byte_5B3524[];
+extern int dword_5B1110;
+extern int dword_5B65E0;
+extern int dword_5B65EC;
+extern char unk_5B65D8[];
+bool sub_44C1E8(struct class51_stru2 *_this)
+{
+  int v1; // eax@1
+  _UNKNOWN *v2; // esi@2
+  int v4; // eax@6
+
+  v1 = 0;
+  if ( dword_5B1110 - 1 <= 0 )
+    return false;
+  v2 = unk_5B65D8;
+  while ( *(_DWORD *)v2 != _this->word_000124)
+  {
+    ++v1;
+    v2 = (char *)v2 + 12;
+    if ( v1 >= dword_5B1110 - 1 )
+      return false;
+  }
+  v4 = 12 * v1;
+  if ( byte_5B3524[*(int *)((char *)&dword_5B65EC + v4)] != 1 || byte_5B3524[*(int *)((char *)&dword_5B65E0 + v4)] != 4 )
+    return false;
+  else return true;
 }

@@ -35,14 +35,24 @@ struct class51_stru1
 
  int dword_000050;
 
- unsigned char *ptr_000054;
- unsigned char *ptr_000058;
- unsigned int   dword_00005C;
- unsigned char *ptr_000060;
+ struct class51_stru2 *ptr_000054;
+ unsigned char        *ptr_000058;
+ unsigned int          dword_00005C;
+ unsigned char        *ptr_000060;
 
  int dword_000064[22];
 };
 //sizeof == BC
+
+struct class51_stru2
+{
+ char  byte_000000[272]; //if (byte_000000[29] & 0x40) then word_000110 == TextureFrameTable ID  else  plain Texture ID
+ short word_000110;
+ char  byte_000112[18];
+ short word_000124;
+ char  byte_000126[14];
+};
+//sizeof == 134
 
 struct class51
 {
@@ -60,12 +70,17 @@ struct class51
 
  unsigned char        *ptr_0000D4;
  struct class51_stru1 *ptr_0000D8;
-
- unsigned char *ptr_0000E0;
- unsigned char *ptr_0000E4;
+ int                   dword_0000DC;
+ unsigned char        *ptr_0000E0;
+ unsigned char        *ptr_0000E4;
 
  int            dword_0004C0;
  unsigned char *ptr_0004C4;
+
+ int array_0004C8[10];
+
+ unsigned char array_000528[0x3C8];
+ unsigned char array_0008F0[0x3C8];
 };
 
 
@@ -79,5 +94,6 @@ int sub_47F3EA(struct class51 *_this);
 bool sub_47CD44(struct class51_stru0 *_this);
 int sub_47C80A(struct class51_stru0 *_this, int a2, int a3, int a4, int a5);
 
+bool sub_44C1E8(struct class51_stru2 *_this);
 
 #pragma pack(pop)

@@ -1295,6 +1295,12 @@ struct Player
 
 struct Party
 {
+ int dword_000000;
+ int dword_000004; // partyHeight registry key
+ int dword_000008; // partyHeight registry key
+ int dword_00000C; // eyelevel registry key
+ int dword_000010; // eyelevel registry key
+
  unsigned char array_00002C[90636];
 
  int dword_00002C;
@@ -1364,5 +1370,38 @@ int sub_490109(struct Player *_this);
 
 
 
+
+struct struct0
+{
+ unsigned short uSomeDescorationID; // word @ 000000
+ short word_000002;
+ int   dword_000004;
+ int   dword_000008;
+ int   dword_00000C;
+ int   dword_000010;
+ short word_000014;
+ short word_000016;
+ short word_000018;
+ short word_00001A;
+ short word_00001C;
+ short word_00001E;
+};
+//sizeof == 20
+
+struct Actor
+{
+ unsigned char pActorName[32]; // byte[32] @ 000000
+ short         word_000020;
+ short         word_000022;
+ char          byte_000024[4];
+ char          byte_000028[796];
+};
+//sizeof == 344
+
+struct struct2
+{
+ char byte_000000[112];
+};
+//sizeof == 70
 
 #pragma pack(pop)

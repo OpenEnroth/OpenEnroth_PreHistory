@@ -1747,10 +1747,11 @@ int monster_list[2]; // struct @ MM7.exe::05FF14C
 //int dword_5FF14C; // weak
 /*extern*/ int dword_5FF150; // weak
 
-/*extern*/ _UNKNOWN unk_5FF158; // weak
-/*extern*/ __int16 word_5FF178[array_size_unknown]; // weak
-/*extern*/ _UNKNOWN unk_5FF17C; // weak
-/*extern*/ char byte_5FF17D[array_size_unknown]; // weak
+struct Actor pActors[500]; // struct[500] @ MM7.exe::005FF158
+//_UNKNOWN unk_5FF158; // weak
+//__int16 word_5FF178[array_size_unknown]; // weak
+//_UNKNOWN unk_5FF17C; // weak
+//char byte_5FF17D[array_size_unknown]; // weak
 /*extern*/ char byte_5FF17E[array_size_unknown]; // weak
 /*extern*/ _UNKNOWN unk_5FF180; // weak
 /*extern*/ _UNKNOWN unk_5FF184; // weak
@@ -1783,11 +1784,13 @@ int monster_list[2]; // struct @ MM7.exe::05FF14C
 /*extern*/ int dword_5FF41C[array_size_unknown]; // weak
 /*extern*/ _UNKNOWN unk_5FF420; // weak
 /*extern*/ _UNKNOWN unk_64640F; // weak
-/*extern*/ size_t dword_665228; // idb
+
+unsigned int uNumActors; // dword @ MM7.exe::00665228
+
 /*extern*/ size_t Count; // idb
-/*extern*/ _UNKNOWN unk_665230; // weak
 
-
+struct struct2 array_665230[1000]; // struct[1000] @ MM7.exe::00665230
+//_UNKNOWN unk_665230; // weak
 /*extern*/ __int16 word_665232[56000 + array_size_unknown]; // weak
 /*extern*/ int dword_665234; // weak
 /*extern*/ int dword_665238; // weak
@@ -1812,15 +1815,18 @@ struct CObjectDescriptionList *pObjectDescriptionList = 0; // struct @ MM7.exe::
 /*extern*/ int dword_6807E0; // weak
 /*extern*/ int dword_6807E8[array_size_unknown]; // weak
 /*extern*/ int dword_6836C8; // weak
-/*extern*/ __int16 word_6836D0[array_size_unknown]; // weak
-/*extern*/ _UNKNOWN unk_6836D2; // weak
-/*extern*/ int dword_6836D4[array_size_unknown]; // weak
-/*extern*/ int dword_6836D8[array_size_unknown]; // weak
-/*extern*/ int dword_6836DC; // weak
-/*extern*/ int dword_6836E0; // weak
-/*extern*/ __int16 word_6836E4; // weak
-/*extern*/ __int16 word_6836E6[array_size_unknown]; // weak
-/*extern*/ __int16 word_6836EA; // weak
+
+struct struct0 array_6836D0[3000];
+//__int16 word_6836D0[array_size_unknown]; // weak
+//_UNKNOWN unk_6836D2; // weak
+//int dword_6836D4[array_size_unknown]; // weak
+//int dword_6836D8[array_size_unknown]; // weak
+//int dword_6836DC; // weak
+//int dword_6836E0; // weak
+//__int16 word_6836E4; // weak
+//__int16 word_6836E6[array_size_unknown]; // weak
+//__int16 word_6836EA; // weak
+
 /*extern*/ size_t dword_69ADD0; // idb
 
 struct CDecorationDescriptionList *pDecorationDescriptionList = 0; // struct @ MM7.exe::0069ADD4
@@ -2470,10 +2476,10 @@ struct CPlayerFrameTable *pPlayerFrameTable = 0; // struct @ MM7.exe::00A750EC
 
 struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
 //_UNKNOWN unk_ACCFB8; // weak
-/*extern*/ int dword_ACCFBC; // weak
-/*extern*/ int dword_ACCFC0; // weak
-/*extern*/ int dword_ACCFC4; // weak
-/*extern*/ int dword_ACCFC8; // weak
+//int dword_ACCFBC; // weak
+//int dword_ACCFC0; // weak
+//int dword_ACCFC4; // weak
+//int dword_ACCFC8; // weak
 /*extern*/ int dword_ACCFCC; // weak
 /*extern*/ int dword_ACCFD0; // weak
 /*extern*/ int dword_ACCFD4; // weak
@@ -2633,7 +2639,7 @@ int dword_ACD844[array_size_unknown]; // weak
 /*extern*/ __int16 word_ACDA50; // weak
 /*extern*/ __int16 word_ACDA54; // weak
 /*extern*/ __int16 word_ACDA58; // weak
-/*extern*/ __int16 word_ACDA8C[array_size_unknown]; // weak
+//__int16 word_ACDA8C[array_size_unknown]; // pParty_global::pPlayers[0]::array_000108
 /*extern*/ _UNKNOWN unk_ACDA9C; // weak
 /*extern*/ _UNKNOWN unk_ACDAD6; // weak
 /*extern*/ _UNKNOWN unk_ACDB74; // weak
@@ -3654,7 +3660,6 @@ int __fastcall sub_448518(int a1, int a2, int a3);
 int __fastcall sub_4485A7(signed int a1, int a2, int a3);
 void __fastcall sub_44861E(int a1, const char *a2);
 void __fastcall sub_44882F(int a1, int a2, const char *Str1);
-__int16 __thiscall sub_4488B6(void *this, const char *Str1);
 void __fastcall sub_4488F7(int a1, int a2);
 int __fastcall sub_44892E(int a1, int a2, int a3);
 void __fastcall sub_448A17(signed int a1, __int16 a2, int a3);
@@ -3677,7 +3682,6 @@ void __thiscall sub_44AFFB(char *Dst, signed int a2, signed int a3);
 void __thiscall sub_44B9C4(int this, signed int a2, signed int a3);
 int __fastcall sub_44C175(const char *Source, int a2);
 int __cdecl sub_44C1D0();
-signed int __thiscall sub_44C1E8(int this);
 signed int __thiscall sub_44C23B(int this);
 signed int __cdecl sub_44C28B();
 int __cdecl sub_44C28F();
@@ -4904,6 +4908,9 @@ void RtlCallCtros()
  class36_ctor(&class36_global0);
 
  class37_ctor(&class37_global0);
+
+ pParty_global = malloc(sizeof(struct Party));
+ memset(pParty_global, 0, sizeof(struct Party));
 }
 
 //----- (00462C94) --------------------------------------------------------
@@ -4999,8 +5006,6 @@ LABEL_21:
           if ( pClass31_global->hAILRedbook )
             AIL_redbook_stop(pClass31_global->hAILRedbook);
 
-          pParty_global = malloc(sizeof(struct Party));
-          memset(pParty_global, 0, sizeof(struct Party));
           Party_CreateDefault(pParty_global);
 
           v9 = 0;
@@ -6937,7 +6942,7 @@ __int16 __fastcall sub_401221(int a1, int a2, int a3)
 
   v22 = -1;
   v19 = a1;
-  v6 = (int)((char *)&unk_5FF158 + 836 * a1);
+  v6 = (int)((char *)pActors + 836 * a1);
   v5 = 0;
   v4 = 0;
   v3 = *(_DWORD *)(v6 + 816);
@@ -6946,7 +6951,7 @@ __int16 __fastcall sub_401221(int a1, int a2, int a3)
   v18 = 0;
   v21 = v3;
   v23 = 0;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
     v7 = (int)word_5FF208;
     while ( 1 )
@@ -7007,8 +7012,8 @@ LABEL_14:
 LABEL_23:
       v7 += 836;
       v4 = v23 + 1;
-      //v11 = __SETO__(v23 + 1, dword_665228);
-      v10 = (signed int)(v23++ + 1 - dword_665228) < 0;
+      //v11 = __SETO__(v23 + 1, uNumActors);
+      v10 = (signed int)(v23++ + 1 - uNumActors) < 0;
       if ( !(v10 ^ v11) )
       {
         if ( v22 != -1 )
@@ -7099,7 +7104,7 @@ int Party_CreateDefault(struct Party *_this)
   v4 = (char *)_this + 44;
   memset(_this->array_00002C, 0, 0x1620C);
 
-  dword_ACCFC4 = 160;
+  pParty_global->dword_00000C = 160;
 
   _this->byte_000708 = 15;
 
@@ -7531,9 +7536,9 @@ int __cdecl sub_4014E6()
   dword_AD4730 &= 0xFFFFFFCFu;
   v28 = 0;
   v26 = 0;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
-    v0 = &unk_5FF17C;
+    v0 = pActors->byte_000024;
     do
     {
       *((_BYTE *)v0 + 1) &= 0xFBu;
@@ -7604,7 +7609,7 @@ LABEL_37:
       ++v26;
       v0 = (char *)v0 + 836;
     }
-    while ( v26 < (signed int)dword_665228 );
+    while ( v26 < (signed int)uNumActors );
   }
   result = v28;
   if ( v28 > 0 )
@@ -7647,7 +7652,7 @@ LABEL_37:
   }
   for ( i = 0; i < result; ++i )
   {
-    v21 = (char *)&unk_5FF17C + 836 * dword_4F7DB0[i];
+   v21 = pActors[dword_4F7DB0[i]].byte_000024;
     v21[1] |= 4u;
   }
   return result;
@@ -7707,9 +7712,9 @@ int __cdecl sub_4016FA()
   v38 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC);
   v46 = 0;
   v44 = 0;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
-    v0 = &unk_5FF17C;
+   v0 = pActors->byte_000024;
     do
     {
       *((_BYTE *)v0 + 1) &= 0xFBu;
@@ -7779,7 +7784,7 @@ LABEL_60:
       ++v44;
       v0 = (char *)v0 + 836;
     }
-    while ( v44 < (signed int)dword_665228 );
+    while ( v44 < (signed int)uNumActors );
   }
   v14 = 0;
   if ( v46 > 0 )
@@ -7816,7 +7821,7 @@ LABEL_60:
   v20 = 0;
   for ( i = 0; v19 < v46; i = v19 )
   {
-    v21 = (char *)&unk_5FF158 + 836 * dword_4F7DB0[v19];
+    v21 = (char *)pActors + 836 * dword_4F7DB0[v19];
     if ( *((_DWORD *)v21 + 9) & 0x8000 || (v22 = sub_4070EF(8 * dword_4F7DB0[v19] | 3, 4), v19 = i, v22) )
     {
       v23 = dword_4F7DB0[v19];
@@ -7830,9 +7835,9 @@ LABEL_60:
   }
   v24 = 0;
   dword_4F75D8 = v20;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
-    v25 = &unk_5FF17C;
+   v25 = pActors->byte_000024;
     do
     {
       if ( sub_40894B((int)((char *)v25 - 36)) && *((_WORD *)v25 + 61) == v38 )
@@ -7859,13 +7864,13 @@ LABEL_43:
       ++v24;
       v25 = (char *)v25 + 836;
     }
-    while ( v24 < (signed int)dword_665228 );
+    while ( v24 < (signed int)uNumActors );
   }
   v28 = dword_4F75D8;
   for ( j = 0; j < v46; ++j )
   {
     v30 = 836 * dword_4F7DB0[j];
-    if ( byte_5FF17D[v30] & 0xC0 && sub_40894B((int)((char *)&unk_5FF158 + v30)) )
+    if ( pActors[dword_4F7DB0[j]].byte_000024[1] & 0xC0 && sub_40894B((int)((char *)pActors + v30)) )
     {
       v31 = 0;
       if ( v28 <= 0 )
@@ -7900,7 +7905,7 @@ LABEL_51:
   {
     do
     {
-      v36 = (char *)&unk_5FF17C + 836 * dword_4F7DB0[HIDWORD(v35)];
+     v36 = pActors[dword_4F7DB0[HIDWORD(v35)]].byte_000024;
       v36[1] |= 4u;
       v35 += 4294967296i64;
     }
@@ -8212,7 +8217,7 @@ void __cdecl sub_401A91()
         {
           dword_AE30F4 = 0;
           v87 = 0;
-          if ( (signed int)dword_665228 > 0 )
+          if ( (signed int)uNumActors > 0 )
           {
             v5 = &unk_5FF180;
             do
@@ -8239,7 +8244,7 @@ void __cdecl sub_401A91()
               ++v87;
               v5 = (char *)v5 + 836;
             }
-            while ( v87 < (signed int)dword_665228 );
+            while ( v87 < (signed int)uNumActors );
           }
           v8 = (signed int)dword_A750C8;
           do
@@ -8269,7 +8274,7 @@ void __cdecl sub_401A91()
     return;
   }
   v86 = v0;
-  if ( (signed int)dword_665228 > v0 )
+  if ( (signed int)uNumActors > v0 )
   {
     LODWORD(v83) = word_5FF208;
     do
@@ -8364,7 +8369,7 @@ LABEL_78:
       ++v86;
       LODWORD(v83) += 836;
     }
-    while ( v86 < (signed int)dword_665228 );
+    while ( v86 < (signed int)uNumActors );
   }
   v81 = 0;
   if ( dword_4F75D8 > 0 )
@@ -8373,7 +8378,7 @@ LABEL_78:
     {
       v86 = dword_4F7DB0[v81];
       v22 = 4 * v86 + 5205512;
-      v21 = (int)((char *)&unk_5FF158 + 836 * v86);
+      v21 = (int)((char *)pActors + 836 * v86);
       sub_401221(v86, 4 * v86 + 5205512, 1);
       if ( *(_BYTE *)(v21 + 61) )
       {
@@ -8857,7 +8862,7 @@ int __fastcall sub_402686(int a1, signed int a2, signed int a3, signed int a4)
 
   v7 = a1;
   v4 = 0;
-  v6 = (int)((char *)&unk_5FF158 + 836 * a1);
+  v6 = (int)((char *)pActors + 836 * a1);
   v21 = a2;
   v5 = 8 * a1 | 3;
   v8 = *(_BYTE *)(v6 + 58) == 0;
@@ -8869,7 +8874,7 @@ int __fastcall sub_402686(int a1, signed int a2, signed int a3, signed int a4)
       if ( *(_BYTE *)(v6 + 69) && dword_6BE360 == 2 )
         v4 = *(_WORD *)(v6 + 136) + 512;
       else
-        v4 = dword_ACCFBC;
+       v4 = pParty_global->dword_000004;
     }
   }
   v9 = a4;
@@ -8971,7 +8976,7 @@ int __fastcall sub_40281C(int a1, signed int a2, signed int a3, signed int a4, i
 
   v8 = a1;
   v5 = 0;
-  v7 = (int)((char *)&unk_5FF158 + 836 * a1);
+  v7 = (int)((char *)pActors + 836 * a1);
   v19 = a2;
   v6 = 8 * a1 | 3;
   v9 = *(_BYTE *)(v7 + 58) == 0;
@@ -8983,7 +8988,7 @@ int __fastcall sub_40281C(int a1, signed int a2, signed int a3, signed int a4, i
       if ( *(_BYTE *)(v7 + 69) && dword_6BE360 == 2 )
         v5 = *(_WORD *)(v7 + 136) + 512;
       else
-        v5 = dword_ACCFBC;
+        v5 = pParty_global->dword_000004;
     }
   }
   v10 = a4;
@@ -9033,9 +9038,6 @@ int __fastcall sub_40281C(int a1, signed int a2, signed int a3, signed int a4, i
   *(_WORD *)(v7 + 176) = 6;
   return sub_45976D(v7);
 }
-// 6BE360: using guessed type int dword_6BE360;
-// ACCFBC: using guessed type int dword_ACCFBC;
-// ACD6BC: using guessed type int dword_ACD6BC;
 
 //----- (00402968) --------------------------------------------------------
 int __fastcall sub_402968(int a1, int a2, int a3, char *a4)
@@ -9058,8 +9060,8 @@ int __fastcall sub_402968(int a1, int a2, int a3, char *a4)
   v6 = a1;
   v17 = a2;
   v16 = a1;
-  v5 = (int)((char *)&unk_5FF158 + 836 * a1);
-  result = sub_40894B((int)((char *)&unk_5FF158 + 836 * a1));
+  v5 = (int)((char *)pActors + 836 * a1);
+  result = sub_40894B((int)((char *)pActors + 836 * a1));
   if ( result )
   {
     v7 = 8 * v6 | 3;
@@ -9481,7 +9483,7 @@ int __fastcall sub_402AD7(int a1, signed int a2, signed int a3, int a4, signed i
 
   v8 = a1;
   v5 = 0;
-  v7 = (int)((char *)&unk_5FF158 + 836 * a1);
+  v7 = (int)((char *)pActors + 836 * a1);
   v18 = a2;
   v6 = 8 * a1 | 3;
   v9 = *(_BYTE *)(v7 + 58) == 0;
@@ -9493,7 +9495,7 @@ int __fastcall sub_402AD7(int a1, signed int a2, signed int a3, int a4, signed i
       if ( *(_BYTE *)(v7 + 69) )
         v5 = *(_WORD *)(v7 + 136) + 512;
       else
-        v5 = dword_ACCFBC;
+        v5 = pParty_global->dword_000004;
     }
   }
   v10 = a5;
@@ -9573,7 +9575,7 @@ void __fastcall sub_402CED(signed int a1, int a2)
   int v11; // [sp-Ch] [bp-10h]@10
   int v12; // [sp-8h] [bp-Ch]@10
 
-  v2 = (char *)&unk_5FF158 + 836 * a1;
+  v2 = (char *)pActors + 836 * a1;
   v3 = *(_WORD *)&v2[2 * a2 + 204];
   if ( v3 )
   {
@@ -9636,7 +9638,7 @@ int __fastcall sub_402D6E(int a1)
   int v12; // [sp+8h] [bp-28h]@7
   int v13; // [sp+2Ch] [bp-4h]@1
 
-  v3 = (int)((char *)&unk_5FF158 + 836 * a1);
+  v3 = (int)((char *)pActors + 836 * a1);
   v13 = a1;
   //v4 = dword_5C6DCC;
   v4 = pSpriteFrameTable->pSpriteSFrames;
@@ -9812,8 +9814,7 @@ int __fastcall sub_402F27(int this)
   int v3; // edx@1
   int v4; // eax@1
 
-  v2 = (int)((char *)&unk_5FF158 + 836 * this);
-  //v3 = dword_5C6DCC;
+  v2 = (int)((char *)pActors + 836 * this);
   v3 = pSpriteFrameTable->pSpriteSFrames;
 
   v4 = 60 * *(_WORD *)(v2 + 198);
@@ -9857,7 +9858,7 @@ int __fastcall sub_402F87(int a1, signed int a2, signed int a3)
 
   v4 = a1;
   v5 = (char *)a3;
-  v3 = (int)((char *)&unk_5FF158 + 836 * a1);
+  v3 = (int)((char *)pActors + 836 * a1);
   v14 = a2;
   v15 = a1;
   if ( !a3 )
@@ -9867,7 +9868,6 @@ int __fastcall sub_402F87(int a1, signed int a2, signed int a3)
     v4 = v15;
     v5 = &v12;
   }
-  //v6 = dword_5C6DCC;
   v6 = pSpriteFrameTable->pSpriteSFrames;
 
   *(_WORD *)(v3 + 154) = *((_WORD *)v5 + 10);
@@ -9910,7 +9910,7 @@ __int16 __fastcall sub_4030AD(int a1, int a2, int a3)
 
   v4 = a1;
   v13 = a2;
-  v3 = (int)((char *)&unk_5FF158 + 836 * a1);
+  v3 = (int)((char *)pActors + 836 * a1);
   v12 = a1;
   if ( *(_WORD *)(v3 + 176) == 7 )
     *(_BYTE *)(v3 + 38) |= 2;
@@ -9963,8 +9963,8 @@ char __fastcall sub_4031C1(int a1, signed int a2, int a3)
 
   v4 = a1;
   v12 = a2;
-  v5 = (char *)&unk_5FF158 + 836 * a1;
-  v3 = sub_40894B((int)((char *)&unk_5FF158 + 836 * a1));
+  v5 = (char *)pActors + 836 * a1;
+  v3 = sub_40894B((int)((char *)pActors + 836 * a1));
   if ( v3 )
   {
     v7 = 65535;
@@ -10031,7 +10031,7 @@ int __fastcall sub_4032B2(int a1, int a2, int a3, int a4)
 
   v19 = a1;
   v6 = 836 * a1;
-  v7 = (int)((char *)&unk_5FF158 + 836 * a1);
+  v7 = (int)((char *)pActors + 836 * a1);
   v17 = a2;
   v5 = *(_WORD *)(v7 + 162) - *(_WORD *)(v7 + 142);
   v8 = *(_WORD *)(v7 + 162) - *(_WORD *)(v7 + 142);
@@ -10406,34 +10406,6 @@ int __thiscall sub_4617B6(int this)
   *(_DWORD *)(this + 164) = 0;
   *(_DWORD *)(this + 168) = 0;
   *(_DWORD *)(this + 172) = 0;
-  return result;
-}
-
-//----- (0044C1E8) --------------------------------------------------------
-signed int __thiscall sub_44C1E8(int this)
-{
-  int v1; // eax@1
-  _UNKNOWN *v2; // esi@2
-  signed int result; // eax@5
-  int v4; // eax@6
-
-  v1 = 0;
-  if ( dword_5B1110 - 1 <= 0 )
-    goto LABEL_5;
-  v2 = &unk_5B65D8;
-  while ( *(_DWORD *)v2 != *(_WORD *)(this + 292) )
-  {
-    ++v1;
-    v2 = (char *)v2 + 12;
-    if ( v1 >= dword_5B1110 - 1 )
-      goto LABEL_5;
-  }
-  v4 = 12 * v1;
-  if ( byte_5B3524[*(int *)((char *)&dword_5B65EC + v4)] != 1 || byte_5B3524[*(int *)((char *)&dword_5B65E0 + v4)] != 4 )
-LABEL_5:
-    result = 0;
-  else
-    result = 1;
   return result;
 }
 
@@ -11371,7 +11343,7 @@ int __fastcall sub_403476(int a1, signed int a2, signed int a3)
   signed int v21; // [sp+5Ch] [bp+8h]@11
 
   v19 = a1;
-  v3 = (int)((char *)&unk_5FF158 + 836 * a1);
+  v3 = (int)((char *)pActors + 836 * a1);
   v18 = a2;
   if ( (a2 & 7) == 3 )
   {
@@ -11387,7 +11359,7 @@ int __fastcall sub_403476(int a1, signed int a2, signed int a3)
     {
       v5 = pParty_global->dword_0006B4;
       v4 = pParty_global->dword_0006B8;
-      v20 = pParty_global->dword_0006BC + dword_ACCFC4;
+      v20 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
     }
     else
     {
@@ -11722,7 +11694,7 @@ int __fastcall sub_40368B(int a1, signed int a2, signed int a3)
   signed int v21; // [sp+5Ch] [bp+8h]@10
 
   v20 = a1;
-  v3 = (int)((char *)&unk_5FF158 + 836 * a1);
+  v3 = (int)((char *)pActors + 836 * a1);
   v18 = a2;
   if ( (a2 & 7) == 3 )
   {
@@ -11738,7 +11710,7 @@ int __fastcall sub_40368B(int a1, signed int a2, signed int a3)
     {
       v5 = pParty_global->dword_0006B4;
       v4 = pParty_global->dword_0006B8;
-      v19 = pParty_global->dword_0006BC + dword_ACCFC4;
+      v19 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
     }
     else
     {
@@ -11868,7 +11840,7 @@ void *__cdecl PlayerCreationUI_Draw()
   size_t v104; // eax@72
   signed int v105; // ecx@72
   signed int v106; // edi@72
-  __int16 v107; // cx@79
+  //__int16 v107; // cx@79
   int v108; // edi@81
   __int16 v109; // ST0C_2@81
   int v110; // ST08_4@81
@@ -12284,12 +12256,11 @@ LABEL_77:
     v136 = -5;
     if ( v133 <= 3 )
       v136 = 0;
-    v107 = v139;
-    if ( !word_ACDA8C[v106 + 3486 * uPlayerCreationUI_SelectedCharacter] )
-      v107 = v140;
+    v109 = v139;
+    if (!pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].array_000108[v106])
+      v109 = v140;
     v108 = v143 / 3;
-    v109 = v107;
-    v110 = v137 * v143 % 3 + 417;
+    v110 = v137 * (v143 % 3) + 417;
     v111 = AlignText_Center(100, Str1, pFontCreate);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, 100 * v108 + v111 + v136 + 17, v110, v109, Str1, 0, 0, 0xFF808080);
     ++v143;
@@ -12347,7 +12318,7 @@ int __fastcall sub_403854(int a1, signed int a2, signed int a3)
   signed int v22; // [sp+5Ch] [bp+8h]@10
 
   v21 = a1;
-  v3 = (int)((char *)&unk_5FF158 + 836 * a1);
+  v3 = (int)((char *)pActors + 836 * a1);
   v19 = a2;
   if ( (a2 & 7) == 3 )
   {
@@ -12363,7 +12334,7 @@ int __fastcall sub_403854(int a1, signed int a2, signed int a3)
     {
       v5 = pParty_global->dword_0006B4;
       v4 = pParty_global->dword_0006B8;
-      v20 = pParty_global->dword_0006BC + dword_ACCFC4;
+      v20 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
     }
     else
     {
@@ -12873,7 +12844,7 @@ int __fastcall sub_403A60(int a1, signed int a2, signed int a3)
   signed int v22; // [sp+5Ch] [bp+8h]@10
 
   v21 = a1;
-  v3 = (int)((char *)&unk_5FF158 + 836 * a1);
+  v3 = (int)((char *)pActors + 836 * a1);
   v19 = a2;
   if ( (a2 & 7) == 3 )
   {
@@ -12889,7 +12860,7 @@ int __fastcall sub_403A60(int a1, signed int a2, signed int a3)
     {
       v5 = pParty_global->dword_0006B4;
       v4 = pParty_global->dword_0006B8;
-      v20 = pParty_global->dword_0006BC + dword_ACCFC4;
+      v20 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
     }
     else
     {
@@ -13052,7 +13023,7 @@ int __fastcall sub_403C6C(int a1, int a2, char *a3)
   int v23; // [sp+50h] [bp-4h]@1
   signed int v24; // [sp+5Ch] [bp+8h]@13
 
-  v3 = (int)((char *)&unk_5FF158 + 836 * a1);
+  v3 = (int)((char *)pActors + 836 * a1);
   v21 = a2;
   v4 = *(_BYTE *)(v3 + 59) == 5;
   v23 = a1;
@@ -13076,7 +13047,7 @@ int __fastcall sub_403C6C(int a1, int a2, char *a3)
       {
         v7 = pParty_global->dword_0006B4;
         v6 = pParty_global->dword_0006B8;
-        v22 = pParty_global->dword_0006BC + dword_ACCFC4;
+        v22 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
       }
       else
       {
@@ -13305,7 +13276,7 @@ int __fastcall sub_403E61(int this)
 {
   int v2; // esi@1
 
-  v2 = (int)((char *)&unk_5FF158 + 836 * this);
+  v2 = (int)((char *)pActors + 836 * this);
   *(_WORD *)(v2 + 160) = rand() % 128 + 128;
   *(_DWORD *)(v2 + 184) = 0;
   *(_WORD *)(v2 + 176) = 0;
@@ -13327,7 +13298,7 @@ int __fastcall sub_403EB6(int a1, signed int a2, int a3, char *a4)
 
   v4 = a4;
   v6 = 0;
-  v5 = (int)((char *)&unk_5FF158 + 836 * a1);
+  v5 = (int)((char *)pActors + 836 * a1);
   if ( !a4 )
   {
     v7 = sub_4040E9(8 * a1 | 3, a2, &v9, 0);
@@ -13371,7 +13342,7 @@ int __fastcall sub_403F58(int a1, int a2, int a3, signed int a4)
   {
     v6 = (char *)a4;
     v8 = 0;
-    v7 = (int)((char *)&unk_5FF158 + 836 * v4);
+    v7 = (int)((char *)pActors + 836 * v4);
     if ( !a4 )
     {
       v9 = sub_4040E9(8 * v4 | 3, v12, &v10, 0);
@@ -13428,7 +13399,7 @@ int __fastcall sub_404030(int a1, signed int a2, int a3, signed int a4)
   {
     v7 = (char *)a4;
     v8 = 0;
-    v9 = (int)((char *)&unk_5FF158 + 836 * v5);
+    v9 = (int)((char *)pActors + 836 * v5);
     if ( !a4 )
     {
       v10 = sub_4040E9(8 * v5 | 3, v4, &v12, 0);
@@ -13539,7 +13510,7 @@ void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a
     {
       v56 = pParty_global->dword_0006B4;
       v55 = pParty_global->dword_0006B8;
-      v12 = pParty_global->dword_0006BC + dword_ACCFBC / 3;
+      v12 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
 LABEL_27:
       v54 = v12;
       goto LABEL_28;
@@ -13559,21 +13530,21 @@ LABEL_27:
           v41 = (int)&v55;
           v40 = (int)&v56;
           v18 = pParty_global->dword_0006C0 - dword_5C8664;
-          v39 = pParty_global->dword_0006BC + dword_ACCFBC / 3;
+          v39 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
           goto LABEL_20;
         }
         v42 = (int)&v54;
         v41 = (int)&v55;
         v40 = (int)&v56;
         v18 = pParty_global->dword_0006C0 - dword_5C8664;
-        v39 = pParty_global->dword_0006BC + dword_ACCFBC / 3;
+        v39 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
       }
       else
       {
         v42 = (int)&v54;
         v41 = (int)&v55;
         v40 = (int)&v56;
-        v39 = pParty_global->dword_0006BC + dword_ACCFBC / 3;
+        v39 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
         v18 = dword_5C8664 + pParty_global->dword_0006C0;
       }
       v38 = pParty_global->dword_0006B8;
@@ -13587,7 +13558,7 @@ LABEL_21:
     v42 = (int)&v54;
     v41 = (int)&v55;
     v40 = (int)&v56;
-    v39 = pParty_global->dword_0006BC + dword_ACCFBC / 3;
+    v39 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
     v18 = dword_5C8664 + pParty_global->dword_0006C0;
 LABEL_20:
     v38 = pParty_global->dword_0006B8;
@@ -13600,9 +13571,9 @@ LABEL_20:
   if ( !v9 )
   {
     v13 = 32 * v4;
-    v56 = *(int *)((char *)dword_6836D4 + v13);
-    v14 = *(int *)((char *)dword_6836D8 + v13);
-    v12 = *(int *)((char *)&dword_6836DC + v13);
+    v56 = array_6836D0[v4].dword_000004;
+    v14 = array_6836D0[v4].dword_000008;
+    v12 = array_6836D0[v4].dword_00000C;
 LABEL_26:
     v55 = v14;
     goto LABEL_27;
@@ -13648,16 +13619,16 @@ LABEL_28:
     v52 = pParty_global->dword_0006B8;
     v29 = a4;
     if ( !a4 )
-      v29 = dword_ACCFC4;
+      v29 = pParty_global->dword_00000C;
     v26 = pParty_global->dword_0006BC + v29;
     goto LABEL_44;
   }
   if ( v22 == 5 )
   {
     v27 = 32 * v20;
-    v53 = *(int *)((char *)dword_6836D4 + v27);
-    v28 = *(int *)((char *)dword_6836D8 + v27);
-    v26 = *(int *)((char *)&dword_6836DC + v27);
+    v53 = array_6836D0[v20].dword_000004;
+    v28 = array_6836D0[v20].dword_000008;
+    v26 = array_6836D0[v20].dword_00000C;
 LABEL_43:
     v52 = v28;
 LABEL_44:
@@ -13750,7 +13721,7 @@ signed int __thiscall sub_404544(int this)
     {
       if ( (*(_BYTE *)v2 & 7) == 3 )
       {
-        v3 = (int)((char *)&unk_5FF158 + 836 * (*(_DWORD *)v2 >> 3));
+        v3 = (int)((char *)pActors + 836 * (*(_DWORD *)v2 >> 3));
         *(_BYTE *)(v3 + 36) |= 0x80u;
         if ( !sub_40894B(v3) )
         {
@@ -13900,7 +13871,7 @@ signed int __fastcall sub_404736(int a1)
   int v28; // [sp+80h] [bp-4h]@6
 
   v27 = a1;
-  v2 = (char *)&unk_5FF158 + 836 * a1;
+  v2 = (char *)pActors + 836 * a1;
   sub_404828(&v9);
   v1 = 0;
   v9 = 600;
@@ -14038,7 +14009,7 @@ char __fastcall sub_404874(int a1, int a2, int a3, char a4)
 
   v33 = a1;
   v5 = a2;
-  v6 = (char *)&unk_5FF158 + 836 * a1;
+  v6 = (char *)pActors + 836 * a1;
   sub_404828(&v15);
   v4 = a3 - 1;
   switch ( a3 )
@@ -15072,7 +15043,7 @@ void __fastcall sub_404AC7(int a1, int a2, signed int a3, int a4, int a5)
   int v149; // [sp+E0h] [bp+10h]@184
 
   LODWORD(v141) = a1;
-  v7 = (int)((char *)&unk_5FF158 + 836 * a1);
+  v7 = (int)((char *)pActors + 836 * a1);
   v138 = a2;
   sub_404828(&v119);
   v6 = a5 & 0x3F;
@@ -16224,10 +16195,10 @@ signed int __thiscall sub_4059DB(void *this)
     {
       v41 = *(_DWORD *)v38;
       v6 = v41;
-      v5 = (char *)&unk_5FF158 + 836 * v41;
+      v5 = (char *)pActors + 836 * v41;
       if ( v41 != 10 )
       {
-        if ( sub_40894B((int)((char *)&unk_5FF158 + 836 * v41)) )
+        if ( sub_40894B((int)((char *)pActors + 836 * v41)) )
         {
           v7 = *((_DWORD *)v5 + 9);
           if ( BYTE1(v7) < 0 )
@@ -16390,7 +16361,7 @@ void __thiscall sub_405CFF(int this, int a2)
     do
     {
       if ( (*(_BYTE *)v7 & 7) == 3 )
-        *((_BYTE *)&unk_5FF17C + 836 * (*(_DWORD *)v7 >> 3)) &= 0x7Fu;
+       pActors[*(_DWORD *)v7 >> 3].byte_000024[0] &= 0x7Fu;
       ++v4;
       v7 += 16;
     }
@@ -17119,7 +17090,7 @@ void __thiscall sub_405E14(void *this)
   v1 = 0;
   v18 = v2;
   v20 = 0;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
     v3 = (int)&unk_5FF22C;
     v16 = (int)&unk_5FF22C;
@@ -17196,7 +17167,7 @@ void __thiscall sub_405E14(void *this)
       v3 = v16 + 836;
       v16 += 836;
     }
-    while ( v20 < (signed int)dword_665228 );
+    while ( v20 < (signed int)uNumActors );
   }
   if ( *(_DWORD *)(v2 + 4) != 1 )
   {
@@ -17473,7 +17444,7 @@ signed int __thiscall sub_4061CA(int this)
     result = *(_DWORD *)v3;
     if ( (*(_BYTE *)v3 & 7) != 4 )
     {
-      result = (signed int)((char *)&unk_5FF158 + 836 * (result >> 3));
+      result = (signed int)((char *)pActors + 836 * (result >> 3));
       LOWORD(v6) = *(_WORD *)(result + 176);
       if ( (_WORD)v6 == 4
         || (_WORD)v6 == 8
@@ -17533,7 +17504,7 @@ LABEL_27:
       if ( (*(_BYTE *)v9 & 7) != 4 )
       {
         v11 = *(_DWORD *)v9 >> 3;
-        v10 = *((_WORD *)&unk_5FF158 + 418 * v11 + 88);
+        v10 = *((_WORD *)pActors + 418 * v11 + 88);
         if ( v10 != 5 )
         {
           if ( v10 != 4 )
@@ -17656,7 +17627,7 @@ LABEL_24:
     }
     else
     {
-      v8 = (char *)&unk_5FF158 + 836 * (*(_DWORD *)(v4 + 32) >> 3);
+      v8 = (char *)pActors + 836 * (*(_DWORD *)(v4 + 32) >> 3);
       if ( v2 > 0 )
       {
         do
@@ -17797,7 +17768,7 @@ void __thiscall sub_40652A(int this)
       {
         if ( (*(_BYTE *)(v1 - 4) & 7) == 4 )
           return;
-        v2 = (char *)&unk_5FF158 + 836 * (*(_DWORD *)(v1 - 4) >> 3);
+        v2 = (char *)pActors + 836 * (*(_DWORD *)(v1 - 4) >> 3);
         v3 = *((_WORD *)v2 + 88);
         if ( !v3 || v3 == 9 || v3 == 7 )
         {
@@ -17902,7 +17873,7 @@ __int16 __thiscall sub_406648(void *this, int a2)
     v29 = dword_4F6E08[v2];
     memcpy(&v26, sub_4040E9(*(_DWORD *)v3, dword_4F6E08[v2], &v26, 0), 0x1Cu);
     memcpy(&v27, &v26, 0x1Cu);
-    v5 = (char *)&unk_5FF158 + 836 * v2;
+    v5 = (char *)pActors + 836 * v2;
     LOWORD(v2) = *((_WORD *)v5 + 88);
     if ( (_WORD)v2 != 5 )
     {
@@ -17919,7 +17890,7 @@ __int16 __thiscall sub_406648(void *this, int a2)
             v7 = (signed __int16)v2 - 2;
             if ( !v7 )
             {
-              v19 = sub_42704B((int)((char *)&unk_5FF158 + 836 * v4), v4);
+              v19 = sub_42704B((int)((char *)pActors + 836 * v4), v4);
               sub_40261D(
                 &dword_50FE08,
                 *(_DWORD *)v28,
@@ -17975,7 +17946,7 @@ LABEL_21:
                     *((_DWORD *)v5 + 46) = 0;
                     *((_WORD *)v5 + 80) = 0;
                     *((_WORD *)v5 + 88) = 5;
-                    LOWORD(v2) = sub_45976D((int)((char *)&unk_5FF158 + 836 * v4));
+                    LOWORD(v2) = sub_45976D((int)((char *)pActors + 836 * v4));
                     return v2;
                   }
                   v24 = *((_WORD *)v5 + 51);
@@ -18042,7 +18013,7 @@ __int16 __thiscall sub_40680F(void *this, int a2)
     v2 >>= 3;
     v5 = v2;
     v19 = v2;
-    v4 = (int)((char *)&unk_5FF158 + 836 * v2);
+    v4 = (int)((char *)pActors + 836 * v2);
     LOWORD(v2) = *(_WORD *)(v4 + 176);
     if ( (_WORD)v2 != 5 )
     {
@@ -18259,7 +18230,7 @@ void __thiscall sub_406AFE(int this)
       {
         v3 = *(_DWORD *)v2 >> 3;
         v8 = v3;
-        if ( sub_40894B((int)((char *)&unk_5FF158 + 836 * v3)) )
+        if ( sub_40894B((int)((char *)pActors + 836 * v3)) )
         {
           v4 = *(_DWORD *)v2;
           v9 = dword_4F6E08[v3];
@@ -18992,7 +18963,7 @@ signed int __thiscall sub_406B9F(int this)
       {
         v6 = v4 >> 3;
         v13 = v6;
-        v5 = (int)((char *)&unk_5FF158 + 836 * v6);
+        v5 = (int)((char *)pActors + 836 * v6);
         if ( *(_DWORD *)(v5 + 296) < result
           || *(_DWORD *)(v5 + 296) <= result && *(_DWORD *)(v5 + 292) <= (unsigned int)result )
           v14 = result;
@@ -19084,7 +19055,7 @@ signed int __thiscall sub_406D10(void *this, int a2)
     return 0;
   v4 = v2 >> 3;
   v31 = v4;
-  v5 = (char *)&unk_5FF158 + 836 * v4;
+  v5 = (char *)pActors + 836 * v4;
   v3 = *((_WORD *)v5 + 88);
   if ( v3 == 5 || v3 == 4 || v3 == 11 || v3 == 19 || v3 == 17 )
     return 1;
@@ -19377,7 +19348,7 @@ void __thiscall sub_406FA8(int this)
       {
         v4 = *(_DWORD *)v3 >> 3;
         v15 = v4;
-        v6 = (int)((char *)&unk_5FF158 + 836 * v4);
+        v6 = (int)((char *)pActors + 836 * v4);
         v5 = *(_WORD *)(v6 + 176);
         if ( v5 != 5 )
         {
@@ -19502,9 +19473,9 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
       if ( v5 != 2 )
         return 0;
       v7 = 32 * v2;
-      v63 = *(int *)((char *)dword_6836D4 + v7);
-      v64 = *(int *)((char *)dword_6836D8 + v7);
-      v65 = *(int *)((char *)&dword_6836DC + v7);
+      v63 = array_6836D0[v2].dword_000004;
+      v64 = array_6836D0[v2].dword_000008;
+      v65 = array_6836D0[v2].dword_00000C;
       v6 = sub_49AC17((int)byte_6BE3C8, v63, v64, v65);
     }
     else
@@ -19540,18 +19511,16 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
         if ( v15 != 1 )
           return 0;
         v16 = 32 * v12;
-        v17 = *(int *)((char *)&dword_6836DC + v16);
-        v18 = *(int *)((char *)dword_6836D4 + v16);
-        v44 = *(int *)((char *)&dword_6836DC + v16);
-        v60 = *(int *)((char *)dword_6836D8 + v16);
-        v43 = *(int *)((char *)dword_6836D8 + v16);
+        v18 = array_6836D0[v12].dword_000004;
+        v43 = v60 = array_6836D0[v12].dword_000008;
+        v17 = v44 = array_6836D0[v12].dword_00000C;
       }
       else
       {
         v18 = pParty_global->dword_0006B4;
-        v17 = dword_ACCFC4 + pParty_global->dword_0006BC;
+        v17 = pParty_global->dword_00000C + pParty_global->dword_0006BC;
         v60 = pParty_global->dword_0006B8;
-        v44 = dword_ACCFC4 + pParty_global->dword_0006BC;
+        v44 = pParty_global->dword_00000C + pParty_global->dword_0006BC;
         v43 = pParty_global->dword_0006B8;
       }
       v19 = sub_49AC17((int)byte_6BE3C8, v18, v43, v44);
@@ -19823,12 +19792,14 @@ int __cdecl sub_466082()
   dword_6BE054 = GetPrivateProfileIntA("texmapping", "terrain_subdivpow2", 4, pIniFile);
   dword_6BE058 = GetPrivateProfileIntA("texmapping", "building_subdivsize", 32, pIniFile);
   dword_6BE05C = GetPrivateProfileIntA("texmapping", "building_subdivpow2", 5, pIniFile);
+
   v6 = GetPrivateProfileIntA("party", "eyelevel", 160, pIniFile);
-  dword_ACCFC8 = v6;
-  dword_ACCFC4 = v6;
+  pParty_global->dword_000010 = v6;
+  pParty_global->dword_00000C = v6;
+
   v7 = GetPrivateProfileIntA("party", "height", 192, pIniFile);
-  dword_ACCFC0 = v7;
-  dword_ACCFBC = v7;
+  pParty_global->dword_000008 = v7;
+  pParty_global->dword_000004 = v7;
   return sub_4666D5();
 }
 
@@ -21424,8 +21395,8 @@ int __fastcall sub_464866(int a1, int a2)
   LODWORD(v6) = _strcmpi(Str1, "d11.blv");
   if ( !(_DWORD)v6 || (LODWORD(v6) = _strcmpi(Str1, "d10.blv"), !(_DWORD)v6) )
   {
-    v7 = dword_665228;
-    if ( (signed int)dword_665228 > 0 )
+    v7 = uNumActors;
+    if ( (signed int)uNumActors > 0 )
     {
       LODWORD(v6) = &unk_5FF191;
       do
@@ -21614,7 +21585,7 @@ char __cdecl sub_408768()
   v1 = sub_449B57((int)byte_ACD71D, 100);
   if ( v1 )
     v5 = 1;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
     v2 = (int)word_5FF1E6;
     do
@@ -21646,7 +21617,7 @@ char __cdecl sub_408768()
       ++v0;
       v2 += 836;
     }
-    while ( v0 < (signed int)dword_665228 );
+    while ( v0 < (signed int)uNumActors );
   }
   return v1;
 }
@@ -21747,9 +21718,9 @@ int __thiscall sub_408A27(void *this)
   v1 = 0;
   *(_DWORD *)v3 = 0;
   v8 = v4;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
-    v5 = (int)&unk_5FF158;
+    v5 = (int)pActors;
     do
     {
       v6 = *(_DWORD *)(v5 + 36);
@@ -21762,7 +21733,7 @@ int __thiscall sub_408A27(void *this)
       ++v1;
       v5 += 836;
     }
-    while ( v1 < (signed int)dword_665228 );
+    while ( v1 < (signed int)uNumActors );
   }
   return v2;
 }
@@ -21784,7 +21755,7 @@ int __fastcall sub_408A7E(int a1, int a2)
   v8 = sub_450DA3();
   *(_DWORD *)v3 = 0;
   v9 = 0;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
     v4 = (int)word_5FF1B8;
     do
@@ -21802,7 +21773,7 @@ int __fastcall sub_408A7E(int a1, int a2)
       ++v2;
       v4 += 836;
     }
-    while ( v2 < (signed int)dword_665228 );
+    while ( v2 < (signed int)uNumActors );
   }
   return v9;
 }
@@ -21824,7 +21795,7 @@ int __fastcall sub_408AE7(int a1, int a2)
   v8 = sub_450DA3();
   *(_DWORD *)v3 = 0;
   v9 = 0;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
     v4 = (int)dword_5FF41C;
     do
@@ -21842,7 +21813,7 @@ int __fastcall sub_408AE7(int a1, int a2)
       ++v2;
       v4 += 836;
     }
-    while ( v2 < (signed int)dword_665228 );
+    while ( v2 < (signed int)uNumActors );
   }
   return v9;
 }
@@ -21882,11 +21853,11 @@ signed int __fastcall sub_408B54(int a1, int a2)
   v5 = sub_450DA3();
   v2 = 0;
   *(_DWORD *)v4 = 0;
-  v6 = *((_DWORD *)&unk_5FF17C + 209 * v3);
+  v6 = *(int *)pActors[v3].byte_000024;
   if ( (v6 & 0x100000) == v5 )
   {
     *(_DWORD *)v4 = 1;
-    if ( sub_4089C7((int)((char *)&unk_5FF158 + 836 * v3)) == 1 )
+    if ( sub_4089C7((int)((char *)pActors + 836 * v3)) == 1 )
       v2 = 1;
   }
   return v2;
@@ -26264,7 +26235,7 @@ signed int __cdecl sub_4908DE()
   signed int v2; // edx@2
   signed int v3; // ecx@2
 
-  v0 = (signed int)word_ACDA8C;
+  v0 = (signed int)pParty_global->pPlayers[0].array_000108;
   while ( 1 )
   {
     v2 = 0;
@@ -35316,7 +35287,7 @@ int __fastcall sub_45F469(int a1, int a2)
         v75 = 0;
         if ( (signed int)dword_69ADD0 > 0 )
         {
-          v73 = &unk_6836D2;
+         v73 = &array_6836D0[0].word_000002;
           do
           {
             memcpy(v12, v73, 2);
@@ -35326,13 +35297,13 @@ int __fastcall sub_45F469(int a1, int a2)
           }
           while ( v75 < (signed int)dword_69ADD0 );
         }
-        memcpy(v12, &dword_665228, 4u);
+        memcpy(v12, &uNumActors, 4u);
         v15 = (char *)v12 + 4;
-        memcpy(v15, &unk_5FF158, 836 * dword_665228);
-        v16 = (char *)v15 + 836 * dword_665228;
+        memcpy(v15, pActors, 836 * uNumActors);
+        v16 = (char *)v15 + 836 * uNumActors;
         memcpy(v16, &Count, 4u);
         v16 = (char *)v16 + 4;
-        memcpy(v16, &unk_665230, 112 * Count);
+        memcpy(v16, array_665230, 112 * Count);
         v17 = (char *)v16 + 112 * Count;
         memcpy(v17, &dword_5FF140, 4u);
         v17 = (char *)v17 + 4;
@@ -35404,7 +35375,7 @@ int __fastcall sub_45F469(int a1, int a2)
         v29 = 0;
         if ( (signed int)dword_69ADD0 > 0 )
         {
-          v71 = (int)&unk_6836D2;
+         v71 = (int)&array_6836D0[0].word_000002;
           do
           {
             memcpy(v23, (const void *)v71, 2);
@@ -35414,13 +35385,13 @@ int __fastcall sub_45F469(int a1, int a2)
           }
           while ( v29 < (signed int)dword_69ADD0 );
         }
-        memcpy(v23, &dword_665228, 4u);
+        memcpy(v23, &uNumActors, 4u);
         v30 = (char *)v23 + 4;
-        memcpy(v30, &unk_5FF158, 836 * dword_665228);
-        v31 = (char *)v30 + 836 * dword_665228;
+        memcpy(v30, pActors, 836 * uNumActors);
+        v31 = (char *)v30 + 836 * uNumActors;
         memcpy(v31, &Count, 4u);
         v31 = (char *)v31 + 4;
-        memcpy(v31, &unk_665230, 112 * Count);
+        memcpy(v31, array_665230, 112 * Count);
         v32 = (char *)v31 + 112 * Count;
         memcpy(v32, &dword_5FF140, 4u);
         v32 = (char *)v32 + 4;
@@ -36605,7 +36576,7 @@ LABEL_115:
         v42 = (int)&v55;
         v41 = (int)&v53;
         v40 = (int)&v56;
-        v39 = pParty_global->dword_0006BC + dword_ACCFC4;
+        v39 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
       }
       else
       {
@@ -36676,7 +36647,7 @@ LABEL_74:
         v42 = (int)&v55;
         v41 = (int)&v53;
         v40 = (int)&v56;
-        v39 = pParty_global->dword_0006BC + dword_ACCFC4;
+        v39 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
       }
       sub_43AA99(64, pParty_global->dword_0006C0, pParty_global->dword_0006C4, pParty_global->dword_0006B4, pParty_global->dword_0006B8, v39, v40, v41, v42);
       sub_42F7EB(1051, v56, v53, v55, 0, 1, 0, 0, 0);
@@ -41808,7 +41779,7 @@ char *__fastcall sub_41E360(int a1, int a2)
     atexit(0);
   }
   v128 = -1;
-  v3 = (int)((char *)&unk_5FF158 + 836 * v2);
+  v3 = (int)((char *)pActors + 836 * v2);
   v143 = v3;
   v4 = sub_40DEF3(0xE1u, 0xFFu, 0x9Bu);
   v5 = *(_WORD *)(v3 + 32);
@@ -43486,10 +43457,10 @@ signed int __fastcall sub_42041E(int a1)
     if ( (dword_5B5920 & 7) == 5 )
     {
       v16 = 32 * v5;
-      v14 = dword_6836D4[8 * v5];
-      v55 = dword_6836D8[8 * v5];
-      v17 = *(_WORD *)(84 * word_6836D0[16 * v5] + pDecorationDescriptionList->pDescriptions + 66);
-      v15 = *(int *)((char *)&dword_6836DC + v16) + (((_DWORD)v17 - HIDWORD(v17)) >> 1);
+      v14 = array_6836D0[v5].dword_000004;
+      v55 = array_6836D0[v5].dword_000008;
+      v17 = *(_WORD *)(84 * array_6836D0[v5].uSomeDescorationID + pDecorationDescriptionList->pDescriptions + 66);
+      v15 = array_6836D0[v5].dword_00000C + (((_DWORD)v17 - HIDWORD(v17)) >> 1);
     }
     else
     {
@@ -43521,7 +43492,7 @@ signed int __fastcall sub_42041E(int a1)
     v54 = v18;
     v19 = (double)pParty_global->dword_0006B8 - (double)v55;
     v48 = v19;
-    v58 = (double)dword_ACCFC4 + (double)pParty_global->dword_0006BC - (double)v15;
+    v58 = (double)pParty_global->dword_00000C + (double)pParty_global->dword_0006BC - (double)v15;
     *(float *)&X = v19 * v19;
     *(float *)&v56 = v18 * v18;
     v20 = sqrt(v58 * v58 + *(float *)&v56 + *(float *)&X);
@@ -44054,7 +44025,7 @@ LABEL_93:
       {
         if ( (v18 & 7) == 5 )
         {
-          v24 = &word_6836D0[16 * v19];
+          v24 = &array_6836D0[v19];
           v25 = v24;
           v23 = v24[11];
           if ( !v23 )
@@ -44101,7 +44072,7 @@ LABEL_61:
       }
       if ( v18 >= 335544320 )
         goto LABEL_61;
-      v28 = (char *)&unk_5FF158 + 836 * v19;
+      v28 = (char *)pActors + 836 * v19;
       v29 = &ExistingFileName;
       v27 = *((_DWORD *)v28 + 205);
       if ( v27 )
@@ -44530,11 +44501,11 @@ LABEL_15:
       v11 = v5;
       v13 = pParty_global->dword_0006B8;
       v12 = pParty_global->dword_0006B4;
-      v14 = dword_ACCFC4 + pParty_global->dword_0006BC;
+      v14 = pParty_global->dword_00000C + pParty_global->dword_0006BC;
       v16 = 0;
       v15 = 0;
       v17 = 8;
-      v8 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, dword_ACCFC4 + pParty_global->dword_0006BC);
+      v8 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_00000C + pParty_global->dword_0006BC);
       v19 = 0;
       v18 = v8;
       memcpy(&v20, &dword_AD470C, 0x24u);
@@ -44865,16 +44836,16 @@ void __cdecl sub_42213C()
   {
     if ( (v0 & 7) == 5 )
     {
-      v13 = &word_6836D0[16 * ((signed int)(unsigned __int16)v0 >> 3)];
+      v13 = &array_6836D0[((signed int)(unsigned __int16)v0 >> 3)];
       if ( (signed int)(((unsigned int)v0 >> 16) - *(_WORD *)(84 * *v13 + pDecorationDescriptionList->pDescriptions + 68)) >= 512 )
         goto LABEL_13;
       v14 = v13[11];
       if ( !v14 )
       {
-        if ( sub_44C2F4(&word_6836D0[16 * ((signed int)(unsigned __int16)v0 >> 3)]) )
+        if ( sub_44C2F4(&array_6836D0[((signed int)(unsigned __int16)v0 >> 3)]) )
         {
           v15 = (unsigned __int8)byte_5E4C90[v13[14]];
-          dword_5C3420 = (int)&word_6836D0[16 * ((signed int)(unsigned __int16)v0 >> 3)];
+          dword_5C3420 = (int)&array_6836D0[((signed int)(unsigned __int16)v0 >> 3)];
           sub_44684A(v15 + 380, 0, 1);
           dword_5C3420 = 0;
         }
@@ -44920,10 +44891,10 @@ LABEL_18:
             v27 = pParty_global->dword_0006B8;
             v34 = 4;
             v26 = pParty_global->dword_0006B4;
-            v28 = dword_ACCFC4 + pParty_global->dword_0006BC;
+            v28 = pParty_global->dword_00000C + pParty_global->dword_0006BC;
             v29 = 0;
             v30 = 8;
-            v31 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, dword_ACCFC4 + pParty_global->dword_0006BC);
+            v31 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_00000C + pParty_global->dword_0006BC);
             v32 = 0;
             memcpy(&Dst, &dword_AD470C, 0x24u);
             v8 = class03_GetMousePos(class03_global, (int)&v35);
@@ -44957,12 +44928,12 @@ LABEL_13:
   }
   v16 = (signed int)(unsigned __int16)v0 >> 3;
   v37 = v16;
-  v17 = (int)((char *)&unk_5FF158 + 836 * v16);
+  v17 = (int)((char *)pActors + 836 * v16);
   if ( *(_WORD *)(v17 + 176) == 5 )
   {
     if ( (unsigned int)v0 < 0x2000000 )
     {
-      sub_426A5A((int)((char *)&unk_5FF158 + 836 * v16));
+      sub_426A5A((int)((char *)pActors + 836 * v16));
       return;
     }
     goto LABEL_13;
@@ -49786,7 +49757,7 @@ void __thiscall sub_427E01(void *this)
     v5 = *(_DWORD *)class03_global;
     if ( *(_DWORD *)class03_global != HIDWORD(v1)
       && (v5 & 7) == 3
-      && sub_40894B((int)((char *)&unk_5FF158 + 836 * (v5 >> 3))) )
+      && sub_40894B((int)((char *)pActors + 836 * (v5 >> 3))) )
     {
       v3 = *(_DWORD *)class03_global;
 LABEL_18:
@@ -49970,7 +49941,7 @@ LABEL_69:
         LODWORD(v688) = pParty_global->dword_0006B8;
         v691 = 0;
         v693 = 0;
-        HIDWORD(v688) = pParty_global->dword_0006BC + dword_ACCFBC / 3;
+        HIDWORD(v688) = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
         v17 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v17) = v17 | 4;
         v698 = v17;
@@ -50011,7 +49982,7 @@ LABEL_69:
         LODWORD(v688) = pParty_global->dword_0006B8;
         v691 = 0;
         v693 = 0;
-        HIDWORD(v688) = pParty_global->dword_0006BC + dword_ACCFBC / 2;
+        HIDWORD(v688) = pParty_global->dword_0006BC + pParty_global->dword_000004 / 2;
         v20 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v20) = v20 | 4;
         v698 = v20;
@@ -50118,8 +50089,8 @@ LABEL_69:
         LODWORD(v688) = pParty_global->dword_0006B8;
         v687 = pParty_global->dword_0006B4;
         v691 = WORD2(v1);
-        HIDWORD(v688) = pParty_global->dword_0006BC + dword_ACCFBC / 3;
-        v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC + dword_ACCFBC / 3);
+        HIDWORD(v688) = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
+        v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC + pParty_global->dword_000004 / 3);
         v693 = WORD2(v1);
         v33 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v33) = v33 | 4;
@@ -50176,7 +50147,7 @@ LABEL_69:
           goto LABEL_83;
         LODWORD(v704) = n >> 3;
         LODWORD(v712) = 836 * (n >> 3);
-        if ( !sub_427662((int)((char *)&unk_5FF158 + LODWORD(v712)), 3) )
+        if ( !sub_427662((int)((char *)pActors + LODWORD(v712)), 3) )
           goto LABEL_1056;
         sub_4584E0(
           (int)((char *)&unk_5FF2CC + LODWORD(v712)),
@@ -50223,7 +50194,7 @@ LABEL_133:
           goto LABEL_83;
         v708 = n >> 3;
         v652 = HIDWORD(v1);
-        LODWORD(v712) = (char *)&unk_5FF158 + 836 * (n >> 3);
+        LODWORD(v712) = (char *)pActors + 836 * (n >> 3);
         v651 = HIDWORD(v1);
         v650 = HIDWORD(v1);
         sub_402F07((int)&v694);
@@ -50279,8 +50250,8 @@ LABEL_139:
         LODWORD(v688) = pParty_global->dword_0006B8;
         v687 = pParty_global->dword_0006B4;
         v691 = WORD2(v1);
-        HIDWORD(v688) = pParty_global->dword_0006BC + dword_ACCFBC / 3;
-        v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC + dword_ACCFBC / 3);
+        HIDWORD(v688) = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
+        v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC + pParty_global->dword_000004 / 3);
         v693 = WORD2(v1);
         v49 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v49) = v49 | 4;
@@ -50305,9 +50276,9 @@ LABEL_139:
         v696 = v1;
         v697 = v709;
         HIWORD(v686) = sub_42EB42(pObjectDescriptionList, v686);
-        v50 = pParty_global->dword_0006BC + dword_ACCFBC / 2;
+        v50 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 2;
         LODWORD(v688) = pParty_global->dword_0006B8;
-        v629 = pParty_global->dword_0006BC + dword_ACCFBC / 2;
+        v629 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 2;
         v619 = pParty_global->dword_0006B8;
         goto LABEL_153;
       case 87:
@@ -50322,7 +50293,7 @@ LABEL_139:
           goto LABEL_83;
         if ( n == HIDWORD(v1)
           || (n & 7) != 3
-          || (v708 = n >> 3, LODWORD(v685) = (char *)&unk_5FF158 + 836 * (n >> 3), !sub_427662(SLODWORD(v685), 9)) )
+          || (v708 = n >> 3, LODWORD(v685) = (char *)pActors + 836 * (n >> 3), !sub_427662(SLODWORD(v685), 9)) )
           goto LABEL_1056;
         sub_403EB6(v708, 4, 128, HIDWORD(v1));
         LODWORD(v704) = 23040 * v1;
@@ -50369,8 +50340,8 @@ LABEL_174:
           goto LABEL_83;
         if ( (n & 7) != 3
           || (LODWORD(v685) = 836 * (n >> 3),
-              LODWORD(v682) = (char *)&unk_5FF158 + LODWORD(v685),
-              !sub_427662((int)((char *)&unk_5FF158 + LODWORD(v685)), 3)) )
+              LODWORD(v682) = (char *)pActors + LODWORD(v685),
+              !sub_427662((int)((char *)pActors + LODWORD(v685)), 3)) )
           goto LABEL_1056;
         LODWORD(v704) = 23040 * v1;
         v55 = (signed __int64)((double)(23040 * (_DWORD)v1) * 0.03333333507180214);
@@ -50391,7 +50362,7 @@ LABEL_174:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
         v708 = 836 * (n >> 3);
-        if ( !sub_427662((int)((char *)&unk_5FF158 + v708), 7) )
+        if ( !sub_427662((int)((char *)pActors + v708), 7) )
           goto LABEL_1056;
         v711 = 300 * v1;
         if ( v709 == 2 )
@@ -50429,8 +50400,8 @@ LABEL_174:
         v687 = pParty_global->dword_0006B4;
         LODWORD(v688) = pParty_global->dword_0006B8;
         v691 = WORD2(v1);
-        HIDWORD(v688) = pParty_global->dword_0006BC + dword_ACCFBC / 3;
-        v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC + dword_ACCFBC / 3);
+        HIDWORD(v688) = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
+        v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC + pParty_global->dword_000004 / 3);
         v693 = WORD2(v1);
         v58 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v58) = v58 | 4;
@@ -50806,7 +50777,7 @@ LABEL_269:
             if ( (n & 7) == 3 )
             {
               v708 = n >> 3;
-              v111 = (char *)&unk_5FF158 + 836 * (n >> 3);
+              v111 = (char *)pActors + 836 * (n >> 3);
               LODWORD(v704) = abs(*((_WORD *)v111 + 73) - pParty_global->dword_0006BC);
               LODWORD(v685) = abs(*((_WORD *)v111 + 72) - pParty_global->dword_0006B8);
               v108 = abs(*((_WORD *)v111 + 71) - pParty_global->dword_0006B4);
@@ -51239,8 +51210,8 @@ LABEL_353:
         LODWORD(v688) = pParty_global->dword_0006B8;
         v687 = pParty_global->dword_0006B4;
         v691 = WORD2(v1);
-        HIDWORD(v688) = pParty_global->dword_0006BC + dword_ACCFBC / 3;
-        v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC + dword_ACCFBC / 3);
+        HIDWORD(v688) = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
+        v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC + pParty_global->dword_000004 / 3);
         v693 = WORD2(v1);
         v181 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v181) = v181 | 4;
@@ -51563,8 +51534,8 @@ LABEL_152:
           v696 = v1;
           HIWORD(v686) = sub_42EB42(pObjectDescriptionList, v686);
           LODWORD(v688) = pParty_global->dword_0006B8;
-          v50 = pParty_global->dword_0006BC + dword_ACCFBC / 3;
-          v629 = pParty_global->dword_0006BC + dword_ACCFBC / 3;
+          v50 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
+          v629 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
           v619 = pParty_global->dword_0006B8;
 LABEL_153:
           v691 = WORD2(v1);
@@ -51606,8 +51577,8 @@ LABEL_157:
           LODWORD(v688) = pParty_global->dword_0006B8;
           v687 = pParty_global->dword_0006B4;
           v691 = WORD2(v1);
-          HIDWORD(v688) = pParty_global->dword_0006BC + dword_ACCFBC / 3;
-          v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC + dword_ACCFBC / 3);
+          HIDWORD(v688) = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
+          v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC + pParty_global->dword_000004 / 3);
           v693 = WORD2(v1);
           v218 = 8 * *(_WORD *)(v2 + 2);
           LOBYTE(v218) = v218 | 4;
@@ -52203,8 +52174,8 @@ LABEL_634:
         LODWORD(v688) = pParty_global->dword_0006B8;
         v687 = pParty_global->dword_0006B4;
         v691 = WORD2(v1);
-        HIDWORD(v688) = pParty_global->dword_0006BC + dword_ACCFBC / 3;
-        v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC + dword_ACCFBC / 3);
+        HIDWORD(v688) = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
+        v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC + pParty_global->dword_000004 / 3);
         v693 = WORD2(v1);
         v309 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v309) = v309 | 4;
@@ -52235,7 +52206,7 @@ LABEL_634:
         v691 = WORD2(v1);
         v692 = WORD2(v1);
         v693 = WORD2(v1);
-        HIDWORD(v688) = pParty_global->dword_0006BC + dword_ACCFBC / 3;
+        HIDWORD(v688) = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
         v310 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v310) = v310 | 4;
         v700 = 0;
@@ -52348,7 +52319,7 @@ LABEL_667:
             SBYTE4(v1));
           byte_5FF17E[(_DWORD)v1] |= 8u;
           v620[1] = (const char *)HIDWORD(v1);
-          v620[0] = (char *)&unk_5FF158 + v1;
+          v620[0] = (char *)pActors + v1;
 LABEL_165:
           sub_42EB6A(SLODWORD(pGame));
           sub_4A7E89((int)v620[0], (int)v620[1]);
@@ -52472,7 +52443,7 @@ LABEL_679:
         v690 = *(_WORD *)(v2 + 16);
         for ( n = HIDWORD(v1); n < LODWORD(v704); ++n )
         {
-          LODWORD(v1) = (char *)&unk_5FF158 + 836 * dword_50BF30[n];
+          LODWORD(v1) = (char *)pActors + 836 * dword_50BF30[n];
           if ( sub_438BDF(*(_WORD *)(v1 + 96), 1) )
           {
             v687 = *(_WORD *)(v1 + 142);
@@ -52762,7 +52733,7 @@ LABEL_780:
           goto LABEL_83;
         if ( n == HIDWORD(v1) || (n & 7) != 3 )
           goto LABEL_1056;
-        v392 = (int)((char *)&unk_5FF158 + 836 * (n >> 3));
+        v392 = (int)((char *)pActors + 836 * (n >> 3));
         v708 = v392;
         if ( !(*(_BYTE *)(v392 + 38) & 0x80) )
         {
@@ -52852,7 +52823,7 @@ LABEL_813:
         if ( (n & 7) != 3 )
           goto LABEL_1056;
         v708 = 836 * v401;
-        if ( sub_427662((int)((char *)&unk_5FF158 + 836 * v401), 7) )
+        if ( sub_427662((int)((char *)pActors + 836 * v401), 7) )
         {
           sub_458585((int)((char *)&unk_5FF23C + v708));
           sub_458585((int)((char *)&unk_5FF2EC + v708));
@@ -52884,7 +52855,7 @@ LABEL_813:
         v708 = 836 * v402;
         if ( sub_438BDF(word_5FF1B8[418 * v402], 1) )
           goto LABEL_83;
-        if ( sub_427662((int)((char *)&unk_5FF158 + v708), 7) )
+        if ( sub_427662((int)((char *)pActors + v708), 7) )
         {
           sub_458585((int)((char *)&unk_5FF2BC + v708));
           sub_458585((int)((char *)&unk_5FF23C + v708));
@@ -52935,7 +52906,7 @@ LABEL_813:
         v690 = *(_WORD *)(v2 + 16);
         for ( n = HIDWORD(v1); n < LODWORD(v704); ++n )
         {
-          LODWORD(v1) = (char *)&unk_5FF158 + 836 * dword_50BF30[n];
+          LODWORD(v1) = (char *)pActors + 836 * dword_50BF30[n];
           if ( sub_438BDF(*(_WORD *)(v1 + 96), 1) )
             break;
           v687 = *(_WORD *)(v1 + 142);
@@ -53040,7 +53011,7 @@ LABEL_855:
         {
           if ( (n & 7) == 3 )
           {
-            sub_426A5A((int)((char *)&unk_5FF158 + 836 * v1));
+            sub_426A5A((int)((char *)pActors + 836 * v1));
           }
           else
           {
@@ -53056,7 +53027,7 @@ LABEL_855:
                 v419 = *(_WORD *)(*(_DWORD *)(188 * (n >> 9) + dword_6A0EC8 + 84) + 308 * (v1 & 0x3F) + 292);
               goto LABEL_866;
             }
-            LODWORD(v1) = &word_6836D0[16 * (_DWORD)v1];
+            LODWORD(v1) = &array_6836D0[(_DWORD)v1];
             dword_507CD8 = 1;
             v420 = *(_WORD *)(v1 + 22);
             if ( v420 != WORD2(v1) )
@@ -53163,7 +53134,7 @@ LABEL_685:
         {
           if ( (v432 & 7) == 3 )
           {
-            v433 = (char *)&unk_5FF158 + 836 * (v432 >> 3);
+            v433 = (char *)pActors + 836 * (v432 >> 3);
             v435 = *((_WORD *)v433 + 88);
             v434 = *((_DWORD *)v433 + 27);
             if ( v435 != 5 )
@@ -53434,7 +53405,7 @@ LABEL_641:
         }
         for ( n = HIDWORD(v1); n < LODWORD(v712); ++n )
         {
-          LODWORD(v1) = (char *)&unk_5FF158 + 836 * dword_50BF30[n];
+          LODWORD(v1) = (char *)pActors + 836 * dword_50BF30[n];
           v687 = *(_WORD *)(v1 + 142);
           LODWORD(v688) = *(_WORD *)(v1 + 144);
           v710 = *(_WORD *)(v1 + 138);
@@ -53482,10 +53453,10 @@ LABEL_955:
         v485 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v485) = v485 | 4;
         LODWORD(v712) = HIDWORD(v1);
-        if ( (signed int)dword_665228 > HIDWORD(v1) )
+        if ( (signed int)uNumActors > HIDWORD(v1) )
         {
           v486 = (int)word_5FF208;
-          LODWORD(v704) = dword_665228;
+          LODWORD(v704) = uNumActors;
           do
           {
             v487 = *(_WORD *)v486;
@@ -53893,7 +53864,7 @@ LABEL_1000:
           v62 = pGlobalTXT_LocalizationStrings[496];
           goto LABEL_201;
         }
-        v542 = (char *)&unk_5FF158 + 836 * v541;
+        v542 = (char *)pActors + 836 * v541;
         LODWORD(v685) = v542;
         if ( *((_WORD *)v542 + 20) > WORD2(v1) || (v543 = *((_WORD *)v542 + 88), v543 != 5) && v543 != 4 )
           goto LABEL_200;
@@ -54009,8 +53980,8 @@ LABEL_1062:
         v687 = pParty_global->dword_0006B4;
         LODWORD(v688) = pParty_global->dword_0006B8;
         v691 = WORD2(v1);
-        HIDWORD(v688) = pParty_global->dword_0006BC + dword_ACCFBC / 2;
-        v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC + dword_ACCFBC / 2);
+        HIDWORD(v688) = pParty_global->dword_0006BC + pParty_global->dword_000004 / 2;
+        v692 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC + pParty_global->dword_000004 / 2);
         v693 = WORD2(v1);
         v559 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v559) = v559 | 4;
@@ -54067,7 +54038,7 @@ LABEL_1082:
         v708 = 836 * v563;
         if ( !sub_438BDF(word_5FF1B8[418 * v563], 1) )
           goto LABEL_83;
-        if ( !sub_427662((int)((char *)&unk_5FF158 + v708), 10) )
+        if ( !sub_427662((int)((char *)pActors + v708), 10) )
           goto LABEL_200;
         sub_458585((int)((char *)&unk_5FF2BC + v708));
         sub_458585((int)((char *)&unk_5FF23C + v708));
@@ -54679,7 +54650,7 @@ signed int __cdecl sub_42ECB5()
     v30 = 0;
     v7 = *(_DWORD *)class03_global;
     if ( (*(_BYTE *)class03_global & 7) != 3
-      || (v36 = *(_DWORD *)class03_global, !sub_40894B((int)((char *)&unk_5FF158 + 836 * (v7 >> 3)))) )
+      || (v36 = *(_DWORD *)class03_global, !sub_40894B((int)((char *)pActors + 836 * (v7 >> 3)))) )
       v36 = sub_42F184(&unk_50C198, 0x1400u, 0, 0);
     v27 = 0;
     v26 = 0;
@@ -54687,7 +54658,7 @@ signed int __cdecl sub_42ECB5()
     if ( (v36 & 7) == 3 )
     {
       v28 = v36 >> 3;
-      v8 = (char *)&unk_5FF158 + 836 * (v36 >> 3);
+      v8 = (char *)pActors + 836 * (v36 >> 3);
       v36 = sub_452A9E((*((_WORD *)v8 + 71) - pParty_global->dword_0006B4) * (*((_WORD *)v8 + 71) - pParty_global->dword_0006B4) + (*((_WORD *)v8 + 72) - pParty_global->dword_0006B8) * (*((_WORD *)v8 + 72) - pParty_global->dword_0006B8) + (*((_WORD *)v8 + 73) - pParty_global->dword_0006BC) * (*((_WORD *)v8 + 73) - pParty_global->dword_0006BC))
           - *((_WORD *)v8 + 68);
       if ( v36 >= 0 )
@@ -54942,7 +54913,7 @@ int __thiscall sub_42F184(void *this, unsigned int a2, int a3, int a4)
               v11 = *(_DWORD *)v29 & 0xFFFF;
               if ( (*(_BYTE *)v29 & 7) == 3 )
               {
-                v13 = (char *)&unk_5FF158 + 836 * ((unsigned int)v11 >> 3);
+                v13 = (char *)pActors + 836 * ((unsigned int)v11 >> 3);
                 v12 = *((_WORD *)v13 + 88);
                 if ( v12 != 5 )
                 {
@@ -54954,7 +54925,7 @@ int __thiscall sub_42F184(void *this, unsigned int a2, int a3, int a4)
                       {
                         if ( v12 != 17 )
                         {
-                          if ( !a3 || sub_40104C((int)((char *)&unk_5FF158 + 836 * ((unsigned int)v11 >> 3)), 0) )
+                          if ( !a3 || sub_40104C((int)((char *)pActors + 836 * ((unsigned int)v11 >> 3)), 0) )
                           {
                             if ( !a4 || sub_438BDF(*((_WORD *)v13 + 48), 1) )
                             {
@@ -55103,7 +55074,7 @@ signed int __cdecl sub_42F4DA()
   if ( dword_6BE360 == 1 )
     v0 = 2560;
   v13 = 0;
-  if ( (signed int)dword_665228 <= 0 )
+  if ( (signed int)uNumActors <= 0 )
   {
 LABEL_20:
     result = 0;
@@ -55148,7 +55119,7 @@ LABEL_20:
       }
       ++v13;
       v1 += 836;
-      if ( v13 >= (signed int)dword_665228 )
+      if ( v13 >= (signed int)uNumActors )
         goto LABEL_20;
     }
     result = 1;
@@ -55206,7 +55177,7 @@ signed int __fastcall sub_42F5ED(int a1, int a2, int a3, int a4, int a5)
     return -1;
   *(_DWORD *)(v5 + 100) = *(_DWORD *)(v5 + 4);
   *(_DWORD *)(v5 + 104) = *(_DWORD *)(v5 + 8);
-  v9 = (char *)&unk_665230 + 112 * v7;
+  v9 = (char *)array_665230 + 112 * v7;
   *(_DWORD *)(v5 + 108) = *(_DWORD *)(v5 + 12);
   memcpy(v9, (const void *)v5, 0x70u);
   if ( a5 == 1 )
@@ -55526,7 +55497,7 @@ signed int __cdecl sub_42FA22()
   v1 = 0;
   v3 = 0;
   result = (signed int)word_665232;
-  v2 = &unk_665230;
+  v2 = array_665230;
   do
   {
     if ( *(_WORD *)result )
@@ -56381,8 +56352,8 @@ void __cdecl sub_4304E7()
   dword_50CDC8 = 0;
   if ( !pClass24_global->dword_000004 )
   {
-    dword_ACCFC4 = dword_ACCFC8;
-    dword_ACCFBC = dword_ACCFC0;
+    pParty_global->dword_00000C = pParty_global->dword_000010;
+    pParty_global->dword_000004 = pParty_global->dword_000008;
   }
   if ( dword_5C35C4 )
   {
@@ -56417,8 +56388,8 @@ void __cdecl sub_4304E7()
           dword_577030 = v0;
           if ( dword_50CBD0[0] )
             dword_50CBD0[0] = dword_50CBDC != 0;
-          dword_5B65D0 = word_5FF178[418 * v209];
-          v4 = (char *)&unk_5FF158 + 836 * v209;
+          dword_5B65D0 = pActors[v209].word_000020;
+          v4 = (char *)pActors + 836 * v209;
           goto LABEL_33;
         case 0x86:
         case 0x87:
@@ -57890,7 +57861,7 @@ LABEL_400:
           }
           if ( v57 == 5 )
           {
-            v60 = word_6836E6[16 * v58] == 0;
+           v60 = array_6836D0[v58].word_000016 == 0;
           }
           else
           {
@@ -58426,7 +58397,7 @@ LABEL_544:
           {
 LABEL_569:
             if ( word_5FF208[418 * v209] == 5 )
-              sub_426A5A((int)((char *)&unk_5FF158 + 836 * v209));
+              sub_426A5A((int)((char *)pActors + 836 * v209));
             else
               sub_42EBEE((void *)v209);
           }
@@ -59758,7 +59729,7 @@ LABEL_105:
           {
             v6 = sub_4903C9(v0 + 6972 * uPlayerCreationUI_SelectedCharacter, v48 + 4);
             if ( sub_4903C9(v0 + 6972 * uPlayerCreationUI_SelectedCharacter, 3) == 37 )
-              word_ACDA8C[v6 + 3486 * uPlayerCreationUI_SelectedCharacter] = 1;
+              pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].array_000108[v6] = 1;
             v46 = 0;
             v42 = 0;
             v40 = 0;
@@ -59799,7 +59770,7 @@ LABEL_105:
               v4 = v5 % 7 + v50 + 7 * v48;
 LABEL_44:
               *(_DWORD *)(pGUIWindow_PlayerCreation + 44) = v4;
-              word_ACDA8C[sub_4903C9(v0 + 6972 * uPlayerCreationUI_SelectedCharacter, v45) + 3486 * uPlayerCreationUI_SelectedCharacter] = 0;
+              pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].array_000108[sub_4903C9(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], v45)] = 0;
               continue;
             }
           }
@@ -62496,7 +62467,7 @@ void __fastcall sub_438CF3(int a1)
   if ( dword_6BE358 )
   {
     v2 = 836 * a1;
-    if ( sub_438B9B((int)((char *)&unk_5FF158 + 836 * a1)) )
+    if ( sub_438B9B((int)((char *)pActors + 836 * a1)) )
     {
       v3 = 1;
       if ( v1 != 5 )
@@ -62573,7 +62544,7 @@ __int16 __thiscall sub_438E35(void *this)
   v5 = &pMapStats->pMapInfos[CMapStats_FindLocation(pMapStats, Str1)];
   v6 = abs(pParty_global->dword_0006B4 - *((_DWORD *)v4 + 1));
   v15 = abs(pParty_global->dword_0006B8 - *((_DWORD *)v4 + 2));
-  v16 = abs(pParty_global->dword_0006BC + dword_ACCFC4 - *((_DWORD *)v4 + 3));
+  v16 = abs(pParty_global->dword_0006BC + pParty_global->dword_00000C - *((_DWORD *)v4 + 3));
   v1 = v6;
   v3 = v15;
   v2 = v16;
@@ -62707,7 +62678,7 @@ int __fastcall sub_438F8F(int result)
       v39 = (signed int)*((_WORD *)v2 - 300) >> 3;
       if ( v4 == 2 )
       {
-        v5 = (char *)&unk_665230 + 112 * v3;
+        v5 = (char *)array_665230 + 112 * v3;
         v36 = v5;
         v6 = *((_DWORD *)v5 + 22);
         v4 = v6 & 7;
@@ -62733,18 +62704,18 @@ int __fastcall sub_438F8F(int result)
             result = (*((_WORD *)v2 + 100) + 32) * (*((_WORD *)v2 + 100) + 32);
             if ( v47 * v47
                + v11 * v11
-               + ((pParty_global->dword_0006BC + dword_ACCFBC) >> (1 - v10)) * ((pParty_global->dword_0006BC + dword_ACCFBC) >> (1 - v10)) < (unsigned int)result )
+               + ((pParty_global->dword_0006BC + pParty_global->dword_000004) >> (1 - v10)) * ((pParty_global->dword_0006BC + pParty_global->dword_000004) >> (1 - v10)) < (unsigned int)result )
             {
               result = sub_407A1C(
                          pParty_global->dword_0006B4,
                          pParty_global->dword_0006B8,
-                         pParty_global->dword_0006BC + dword_ACCFC4,
+                         pParty_global->dword_0006BC + pParty_global->dword_00000C,
                          *((_WORD *)v2 - 200),
                          *((_WORD *)v2 - 100),
                          *(_WORD *)v2);
               if ( result )
               {
-                result = sub_426E10((int)((char *)&unk_5FF158 + 836 * v39));
+                result = sub_426E10((int)((char *)pActors + 836 * v39));
                 sub_439FCB(*((_WORD *)v2 - 300), (unsigned __int8)byte_510258[v43], v46, result);
               }
             }
@@ -62752,7 +62723,7 @@ int __fastcall sub_438F8F(int result)
         }
         else
         {
-          v12 = (int)((char *)&unk_5FF158 + 836 * v9);
+          v12 = (int)((char *)pActors + 836 * v9);
           if ( *(_DWORD *)(v12 + 312) > 0
             || *(_DWORD *)(v12 + 312) >= 0 && *(_DWORD *)(v12 + 308)
             || (result = sub_40894B(v12)) != 0 )
@@ -62791,7 +62762,7 @@ int __fastcall sub_438F8F(int result)
       else
       {
         v22 = pParty_global->dword_0006B8 - *((_WORD *)v2 - 100);
-        v23 = (dword_ACCFBC >> 1) - *(_WORD *)v2;
+        v23 = (pParty_global->dword_000004 >> 1) - *(_WORD *)v2;
         v47 = pParty_global->dword_0006B4 - *((_WORD *)v2 - 200);
         v48 = v22;
         v24 = v47 * v47 + v22 * v22 + (pParty_global->dword_0006BC + v23) * (pParty_global->dword_0006BC + v23);
@@ -62801,7 +62772,7 @@ int __fastcall sub_438F8F(int result)
           result = sub_407A1C(
                      pParty_global->dword_0006B4,
                      pParty_global->dword_0006B8,
-                     pParty_global->dword_0006BC + dword_ACCFC4,
+                     pParty_global->dword_0006BC + pParty_global->dword_00000C,
                      *((_WORD *)v2 - 200),
                      *((_WORD *)v2 - 100),
                      *(_WORD *)v2);
@@ -62829,7 +62800,7 @@ int __fastcall sub_438F8F(int result)
           }
         }
         v45 = 0;
-        if ( (signed int)dword_665228 > 0 )
+        if ( (signed int)uNumActors > 0 )
         {
           v27 = (int *)word_5FF1EA;
           do
@@ -62867,7 +62838,7 @@ int __fastcall sub_438F8F(int result)
                     case 3:
                       if ( v36 )
                       {
-                        if ( sub_40104C((int)((char *)&unk_5FF158 + 836 * v37), (int)((char *)v27 - 146)) )
+                        if ( sub_40104C((int)((char *)pActors + 836 * v37), (int)((char *)v27 - 146)) )
                           sub_43B1B0(*((_WORD *)v2 - 300), v45, v46, (unsigned __int8)v36[97]);
                       }
                       break;
@@ -62882,7 +62853,7 @@ int __fastcall sub_438F8F(int result)
             v27 += 209;
             result = v45;
           }
-          while ( v45 < (signed int)dword_665228 );
+          while ( v45 < (signed int)uNumActors );
         }
       }
       v46 += 12;
@@ -62978,7 +62949,7 @@ __int16 __fastcall sub_439474(signed int a1, int a2, int a3)
   v66 = 0;
   if ( (a1 & 7) == 2 )
   {
-    v4 = (int)((char *)&unk_665230 + 112 * (a1 >> 3));
+    v4 = (int)((char *)array_665230 + 112 * (a1 >> 3));
     v67 = v4;
     v65 = *(_BYTE *)(v4 + 96);
     v3 = *(_DWORD *)(v4 + 88);
@@ -63000,8 +62971,8 @@ __int16 __fastcall sub_439474(signed int a1, int a2, int a3)
       sub_466D09(&v55, v49, v50, v51, v52, (const char *)v53, v54);
     }
   }
-  v8 = (int)((char *)&unk_5FF158 + 836 * v64);
-  v5 = sub_4089C7((int)((char *)&unk_5FF158 + 836 * v64));
+  v8 = (int)((char *)pActors + 836 * v64);
+  v5 = sub_4089C7((int)((char *)pActors + 836 * v64));
   if ( v5 )
     return v5;
   *(_BYTE *)(v8 + 37) |= 0xC0u;
@@ -63638,7 +63609,7 @@ void __fastcall sub_439FCB(signed int a1, int a2, int a3, int a4)
   v76 = v5;
   if ( !v4 )
   {
-    v38 = (char *)&unk_665230 + 112 * v76;
+    v38 = (char *)array_665230 + 112 * v76;
     v39 = *((_DWORD *)v38 + 22) & 7;
     v40 = *((_DWORD *)v38 + 22) >> 3;
     v41 = *((_DWORD *)v38 + 22) & 7;
@@ -63698,7 +63669,7 @@ LABEL_80:
       }
       return;
     }
-    v44 = (int)((char *)&unk_5FF158 + 836 * v40);
+    v44 = (int)((char *)pActors + 836 * v40);
     if ( a4 == -1 )
       a4 = sub_426E10(v44);
     v46 = &pParty_global->pPlayers[1743 * a4];
@@ -63889,7 +63860,7 @@ LABEL_133:
   if ( v4 == 1 )
   {
     v6 = &pParty_global->pPlayers[1743 * a4];
-    v7 = (int)((char *)&unk_5FF158 + 836 * v5);
+    v7 = (int)((char *)pActors + 836 * v5);
     v75 = *(_DWORD *)(v6 + 6460);
     if ( sub_4274AD(v7, v6) )
     {
@@ -64217,12 +64188,12 @@ void __fastcall sub_43AC45(int a1, int a2)
   signed int v9; // [sp+10h] [bp-4h]@3
 
   v8 = a1;
-  v2 = (int)((char *)&unk_5FF158 + 836 * a1);
+  v2 = (int)((char *)pActors + 836 * a1);
   v7 = a2;
   if ( a2 == 1 )
     *(_BYTE *)(v2 + 38) |= 8u;
   v9 = 0;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
     v3 = (int)word_5FF1E8;
     do
@@ -64248,7 +64219,7 @@ void __fastcall sub_43AC45(int a1, int a2)
       ++v9;
       v3 += 836;
     }
-    while ( v9 < (signed int)dword_665228 );
+    while ( v9 < (signed int)uNumActors );
   }
 }
 
@@ -64266,7 +64237,7 @@ void __cdecl sub_43AD34()
   if ( dword_ACD834 != 1 )
   {
     v4 = 0;
-    if ( (signed int)dword_665228 > 0 )
+    if ( (signed int)uNumActors > 0 )
     {
       v0 = (int)byte_5FF193;
       do
@@ -64288,7 +64259,7 @@ void __cdecl sub_43AD34()
         ++v4;
         v0 += 836;
       }
-      while ( v4 < (signed int)dword_665228 );
+      while ( v4 < (signed int)uNumActors );
     }
   }
 }
@@ -64490,15 +64461,15 @@ __int16 __fastcall sub_43B057(int a1, int a2, int a3)
   int v11; // [sp+Ch] [bp-4h]@8
 
   v9 = a2;
-  v4 = (int)((char *)&unk_5FF158 + 836 * a2);
+  v4 = (int)((char *)pActors + 836 * a2);
   v10 = a1;
-  v3 = sub_4089C7((int)((char *)&unk_5FF158 + 836 * a2));
+  v3 = sub_4089C7((int)((char *)pActors + 836 * a2));
   if ( !v3 )
   {
     LOWORD(v3) = v10 & 7;
     if ( v3 == 2 )
     {
-      v3 = (bool)((char *)&unk_665230 + 112 * (v10 >> 3));
+      v3 = (bool)((char *)array_665230 + 112 * (v10 >> 3));
       v5 = *(_DWORD *)(v3 + 72);
       if ( v5 )
       {
@@ -64558,16 +64529,16 @@ __int16 __fastcall sub_43B1B0(signed int a1, int a2, int a3, signed int a4)
   v17 = a1;
   if ( (a1 & 7) == 2 )
   {
-    v5 = (char *)&unk_665230 + 112 * (a1 >> 3);
+    v5 = (char *)array_665230 + 112 * (a1 >> 3);
     v4 = (unsigned __int8)v5[96];
     v17 = *((_DWORD *)v5 + 22);
   }
   LOWORD(v6) = v17 & 7;
   if ( v6 == 3 )
   {
-    v8 = (int)((char *)&unk_5FF158 + 836 * a2);
-    v7 = (int)((char *)&unk_5FF158 + 836 * (v17 >> 3));
-    v6 = sub_4089C7((int)((char *)&unk_5FF158 + 836 * a2));
+    v8 = (int)((char *)pActors + 836 * a2);
+    v7 = (int)((char *)pActors + 836 * (v17 >> 3));
+    v6 = sub_4089C7((int)((char *)pActors + 836 * a2));
     if ( !v6 )
     {
       v9 = *(_WORD *)(v8 + 176) == 7;
@@ -68560,7 +68531,7 @@ void __fastcall sub_43FA33(int a1, int a2)
 
   v36 = a1;
   LODWORD(v41) = a2;
-  v2 = &word_6836D0[16 * a1];
+  v2 = &array_6836D0[a1];
   if ( !(*((_BYTE *)v2 + 2) & 0x20) )
   {
     v4 = pDecorationDescriptionList->pDescriptions + 84 * *v2;
@@ -68733,10 +68704,10 @@ int __fastcall sub_43FDED(int a1)
 
   result = 0;
   v39 = 0;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
     v40 = 0;
-    v2 = &unk_5FF17C;
+    v2 = pActors->byte_000024;
     do
     {
       v3 = *((_WORD *)v2 + 70);
@@ -68887,7 +68858,7 @@ LABEL_48:
       result = v39;
       v2 = (char *)v2 + 836;
     }
-    while ( v39 < (signed int)dword_665228 );
+    while ( v39 < (signed int)uNumActors );
   }
   return result;
 }
@@ -69575,7 +69546,7 @@ signed int __cdecl sub_44103C()
   dword_507CE0 = pParty_global->dword_0006B4 - ((unsigned __int64)(sub_402CAE((int)&dword_5C6E00, pParty_global->dword_0006C0) * dword_ACCFD0) >> 16);
   dword_507CE4 = pParty_global->dword_0006B8
                - ((unsigned __int64)(sub_402CAE((int)&dword_5C6E00, pParty_global->dword_0006C0 - dword_5C8664) * dword_ACCFD0) >> 16);
-  dword_507CE8 = pParty_global->dword_0006BC + dword_ACCFC4;
+  dword_507CE8 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
   sub_4239A7((int)&dword_507CE0);
   sub_4376E7(*(void **)(LODWORD(pGame) + 3668));
   sub_4374E8(*(void **)(LODWORD(pGame) + 3668));
@@ -69590,7 +69561,7 @@ signed int __cdecl sub_44103C()
   }
   else
   {
-    if ( pParty_global->dword_0006B4 != pParty_global->dword_0006C8 | pParty_global->dword_0006C0 != pParty_global->dword_0006D4 | pParty_global->dword_0006B8 != pParty_global->dword_0006CC | pParty_global->dword_0006C4 != pParty_global->dword_0006D8 | pParty_global->dword_0006BC != pParty_global->dword_0006D0 | dword_ACCFC4 != dword_ACD694 )
+    if ( pParty_global->dword_0006B4 != pParty_global->dword_0006C8 | pParty_global->dword_0006C0 != pParty_global->dword_0006D4 | pParty_global->dword_0006B8 != pParty_global->dword_0006CC | pParty_global->dword_0006C4 != pParty_global->dword_0006D8 | pParty_global->dword_0006BC != pParty_global->dword_0006D0 | pParty_global->dword_00000C != dword_ACD694 )
       dword_AD4730 |= 2;
     pParty_global->dword_0006C8 = pParty_global->dword_0006B4;
     pParty_global->dword_0006D0 = pParty_global->dword_0006BC;
@@ -69598,7 +69569,7 @@ signed int __cdecl sub_44103C()
     pParty_global->dword_0006D4 = pParty_global->dword_0006C0;
     pParty_global->dword_0006CC = pParty_global->dword_0006B8;
     pParty_global->dword_0006D8 = pParty_global->dword_0006C4;
-    dword_ACD694 = dword_ACCFC4;
+    dword_ACD694 = pParty_global->dword_00000C;
     sub_4A1EB6(pD3DRenderer);
     v1 = 0;
     if ( !pD3DRenderer->dword_040088 )
@@ -70095,7 +70066,7 @@ void __cdecl sub_441BD4()
   v14 = dword_F8BC1C;
   v15 = dword_F8BC20;
   v16 = dword_F8BC44;
-  v5 = pParty_global->dword_0006BC + dword_ACCFC4;
+  v5 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
   v10 = 640;
   v11 = 480;
   v17 = pD3DRenderer->dword_040034;
@@ -70552,7 +70523,7 @@ LABEL_85:
     v65 = sub_40DEF3(0, v40, v39);
     v69 = sub_40DEF3(v40, v40, v39);
     v98 = v39;
-    if ( (signed int)dword_665228 > v39 )
+    if ( (signed int)uNumActors > v39 )
     {
       v108 = (int)word_5FF208;
       do
@@ -70614,7 +70585,7 @@ LABEL_85:
         ++v98;
         v108 += 836;
       }
-      while ( v98 < (signed int)dword_665228 );
+      while ( v98 < (signed int)uNumActors );
       v40 = 255;
       v39 = 0;
     }
@@ -70623,8 +70594,8 @@ LABEL_85:
   v99 = v39;
   if ( (signed int)dword_69ADD0 > v39 )
   {
-    v49 = (int)dword_6836D4;
-    v72 = (int)dword_6836D4;
+   v49 = (int)&array_6836D0[0].dword_000004;
+   v72 = (int)&array_6836D0[0].dword_000004;
     do
     {
       if ( *(_BYTE *)(v49 - 2) & 8 )
@@ -71074,7 +71045,7 @@ LABEL_71:
   v89 = result;
   if ( (signed int)dword_69ADD0 > 0 )
   {
-    v97 = (int)dword_6836D4;
+   v97 = (int)&array_6836D0[0].dword_000004;
     do
     {
       if ( *(_BYTE *)(v97 - 2) & 8 )
@@ -72754,10 +72725,10 @@ LABEL_79:
       if ( byte_ACD76D != -1 )
       {
         v64 = 0;
-        if ( (signed int)dword_665228 > 0 )
+        if ( (signed int)uNumActors > 0 )
         {
           v62 = (int)word_5FF208;
-          *(_DWORD *)v61 = dword_665228;
+          *(_DWORD *)v61 = uNumActors;
           do
           {
             v30 = *(_WORD *)v62;
@@ -72768,7 +72739,7 @@ LABEL_79:
           while (0);
           compile_error;//while ( *(_DWORD *)v61-- != 1 );
         }
-        if ( v64 == (const char *)dword_665228 )
+        if ( v64 == (const char *)uNumActors )
           v24 = pGlobalTXT_LocalizationStrings[658];
       }
     }
@@ -73984,7 +73955,7 @@ LABEL_28:
               goto LABEL_47;
             if ( v131 <= 3 )
             {
-              v24 = word_ACDA8C[3486 * v131 + *(_BYTE *)(v11 + 5)];
+              v24 = pParty_global->pPlayers[v131].array_000108[*(_BYTE *)(v11 + 5)];
             }
             else
             {
@@ -73999,7 +73970,7 @@ LABEL_28:
                   v21 = 0;
                   v22 = 3486 * v134 + *(_BYTE *)(v11 + 5);
                   v140 = 1;
-                  LOWORD(v22) = word_ACDA8C[v22];
+                  LOWORD(v22) = pParty_global->pPlayers[v134].array_000108[*(_BYTE *)(v11 + 5)];
                   v141 = v22 & 0x40;
                   v142 = v22 & 0x80;
                   v23 = v22 & 0x100;
@@ -74017,7 +73988,7 @@ LABEL_50:
                 }
 LABEL_47:
                 v11 = v5 + v10;
-                v24 = word_ACDA8C[*(_BYTE *)(v5 + v10 + 5) + 3486 * rand() % 4];
+                v24 = pParty_global->pPlayers[rand() % 4].array_000108[*(_BYTE *)(v5 + v10 + 5)];
               }
             }
             v140 = 1;
@@ -74170,8 +74141,8 @@ LABEL_47:
                 + ((*(_BYTE *)(v11 + 6) + ((*(_BYTE *)(v11 + 7) + (*(_BYTE *)(v11 + 8) << 8)) << 8)) << 8);
             v43 = *(_BYTE *)(v11 + 9)
                 + ((*(_BYTE *)(v11 + 10) + ((*(_BYTE *)(v11 + 11) + (*(_BYTE *)(v11 + 12) << 8)) << 8)) << 8);
-            v42 = dword_665228;
-            if ( (signed int)dword_665228 > 0 )
+            v42 = uNumActors;
+            if ( (signed int)uNumActors > 0 )
             {
               v44 = (int)dword_5FF41C;
               do
@@ -74189,8 +74160,8 @@ LABEL_47:
                 + ((*(_BYTE *)(v11 + 6) + ((*(_BYTE *)(v11 + 7) + (*(_BYTE *)(v11 + 8) << 8)) << 8)) << 8);
             v47 = *(_BYTE *)(v11 + 9)
                 + ((*(_BYTE *)(v11 + 10) + ((*(_BYTE *)(v11 + 11) + (*(_BYTE *)(v11 + 12) << 8)) << 8)) << 8);
-            v46 = dword_665228;
-            if ( (signed int)dword_665228 > 0 )
+            v46 = uNumActors;
+            if ( (signed int)uNumActors > 0 )
             {
               v48 = &unk_5FF420;
               do
@@ -75027,14 +74998,14 @@ int __fastcall sub_448518(int a1, int a2, int a3)
   char *v6; // ecx@15
 
   result = 0;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
-    v4 = (int)word_5FF178;
+    v4 = (int)&pActors->word_000020;
     while ( *(_WORD *)v4 != a1 )
     {
       ++result;
       v4 += 836;
-      if ( result >= (signed int)dword_665228 )
+      if ( result >= (signed int)uNumActors )
         return result;
     }
     result *= 836;
@@ -75090,7 +75061,7 @@ int __fastcall sub_4485A7(signed int a1, int a2, int a3)
   result = a1;
   if ( a1 >= 0 )
   {
-    if ( a1 <= (signed int)(dword_665228 - 1) )
+    if ( a1 <= (signed int)(uNumActors - 1) )
     {
       result = 836 * a1;
       v4 = (char *)&unk_5FF20C + 836 * a1;
@@ -75274,7 +75245,7 @@ void __fastcall sub_44882F(int a1, int a2, const char *Str1)
   v6 = a1;
   if ( (signed int)dword_69ADD0 > 0 )
   {
-    v4 = &unk_6836D2;
+   v4 = &array_6836D0[0].word_000002;
     do
     {
       if ( *((_WORD *)v4 + 9) == v6 )
@@ -75299,35 +75270,6 @@ void __fastcall sub_44882F(int a1, int a2, const char *Str1)
     }
     while ( v3 < (signed int)dword_69ADD0 );
   }
-}
-
-//----- (004488B6) --------------------------------------------------------
-__int16 __thiscall sub_4488B6(void *this, const char *Str1)
-{
-  void *v2; // esi@1
-  signed int v3; // edi@2
-  signed int v4; // ebx@3
-  __int16 result; // ax@6
-
-  v2 = this;
-  if ( Str1 && (v3 = 1, *(_DWORD *)this > 1) )
-  {
-    v4 = 84;
-    while ( _strcmpi(Str1, (const char *)(v4 + *((_DWORD *)v2 + 1))) )
-    {
-      ++v3;
-      v4 += 84;
-      if ( v3 >= *(_DWORD *)v2 )
-        goto LABEL_6;
-    }
-    result = v3;
-  }
-  else
-  {
-LABEL_6:
-    result = 0;
-  }
-  return result;
 }
 
 //----- (004488F7) --------------------------------------------------------
@@ -75459,11 +75401,11 @@ void __fastcall sub_448A40(signed int a1, int a2, int a3)
 
   if ( a1 >= 0 )
   {
-    if ( a1 <= (signed int)(dword_665228 - 1) )
+    if ( a1 <= (signed int)(uNumActors - 1) )
     {
       if ( a3 )
       {
-        *((_DWORD *)&unk_5FF17C + 209 * a1) |= a2;
+       *(int *)pActors[a1].byte_000024 | a2;
       }
       else
       {
@@ -75473,7 +75415,7 @@ void __fastcall sub_448A40(signed int a1, int a2, int a3)
           if ( *v3 == 19 )
             *v3 = 0;
         }
-        *((_DWORD *)&unk_5FF17C + 209 * a1) &= ~a2;
+        *(int *)pActors[a1].byte_000024 &= ~a2;
       }
     }
   }
@@ -75497,9 +75439,9 @@ void __fastcall sub_448A98(int a1, int a2, int a3)
   {
     if ( a3 )
     {
-      if ( (signed int)dword_665228 > 0 )
+      if ( (signed int)uNumActors > 0 )
       {
-        v6 = &unk_5FF17C;
+       v6 = pActors->byte_000024;
         do
         {
           if ( *((_DWORD *)v6 + 168) == v4 )
@@ -75514,13 +75456,13 @@ void __fastcall sub_448A98(int a1, int a2, int a3)
           ++v5;
           v6 = (char *)v6 + 836;
         }
-        while ( v5 < (signed int)dword_665228 );
+        while ( v5 < (signed int)uNumActors );
       }
     }
     else
     {
-      v7 = dword_665228;
-      if ( (signed int)dword_665228 > 0 )
+      v7 = uNumActors;
+      if ( (signed int)uNumActors > 0 )
       {
         v8 = (int)word_5FF208;
         do
@@ -75583,12 +75525,12 @@ const void *__fastcall sub_448CF4(__int16 a1, __int16 a2, signed int a3, int a4,
   result = (const void *)CMapStats_FindLocation(pMapStats, Str1);
   if ( result )
   {
-    v11 = dword_665228;
+    v11 = uNumActors;
     sub_44F57C((int)&pMapStats->pMapInfos[(_DWORD)result], (int)&v17, 0, a3, 0);
     result = sub_4040E9(8 * v11 | 3, 4, &v14, 1);
     memcpy(&v15, result, 0x1Cu);
     v12 = v11;
-    if ( v11 < (signed int)dword_665228 )
+    if ( v11 < (signed int)uNumActors )
     {
       v13 = (char *)&unk_5FF1F2 + 836 * v11;
       do
@@ -75600,7 +75542,7 @@ const void *__fastcall sub_448CF4(__int16 a1, __int16 a2, signed int a3, int a4,
         *(_DWORD *)(v13 + 666) = a8;
         v13 += 836;
       }
-      while ( v12 < (signed int)dword_665228 );
+      while ( v12 < (signed int)uNumActors );
     }
   }
   return result;
@@ -75723,7 +75665,7 @@ void __fastcall sub_448DF8(int a1, int a2, signed int a3, int a4, __int64 a5, si
     v52 = v11;
     v10 = (double)pParty_global->dword_0006B8 - (double)(signed int)a5;
     v53 = v10;
-    v9 = (double)(pParty_global->dword_0006BC + dword_ACCFC4);
+    v9 = (double)(pParty_global->dword_0006BC + pParty_global->dword_00000C);
   }
   v78 = v9 - (double)SHIDWORD(a5);
   v85 = v10 * v10;
@@ -76276,7 +76218,7 @@ void __thiscall sub_4498D5(void *this)
     v5 = 0;
     if ( (signed int)dword_69ADD0 > 0 )
     {
-      v6 = (int)word_6836D0;
+      v6 = (int)array_6836D0;
       while ( *(_WORD *)v6 != v4 )
       {
         ++v5;
@@ -76285,12 +76227,12 @@ void __thiscall sub_4498D5(void *this)
           goto LABEL_20;
       }
       v8 = 32 * v5;
-      pParty_global->dword_0006B4 = *(int *)((char *)dword_6836D4 + v8);
-      pParty_global->dword_0006B8 = *(int *)((char *)dword_6836D8 + v8);
-      pParty_global->dword_0006BC = *(int *)((char *)&dword_6836DC + v8);
+      pParty_global->dword_0006B4 = array_6836D0[v5].dword_000004;
+      pParty_global->dword_0006B8 = array_6836D0[v5].dword_000008;
+      pParty_global->dword_0006BC = array_6836D0[v5].dword_00000C;
       pParty_global->dword_000700 = pParty_global->dword_0006BC;
-      v9 = dword_5C8664 * *(__int16 *)((char *)&word_6836EA + v8) / 90;
-      v7 = *(int *)((char *)&dword_6836E0 + v8);
+      v9 = dword_5C8664 * array_6836D0[v5].word_00001A / 90;
+      v7 = array_6836D0[v5].dword_000010;
       pParty_global->dword_0006C0 = v9;
       if ( v7 )
         pParty_global->dword_0006C0 = v7;
@@ -80107,8 +80049,8 @@ LABEL_26:
         if ( a4 )
           v59 = a4;
         v21 = v59;
-        result = v59 + dword_665228;
-        if ( (signed int)(v59 + dword_665228) >= 500 )
+        result = v59 + uNumActors;
+        if ( (signed int)(v59 + uNumActors) >= 500 )
           return result;
         v24 = *(_DWORD *)v5;
         v23 = *(_DWORD *)(v5 + 4);
@@ -80130,8 +80072,8 @@ LABEL_26:
     }
     do
     {
-      v25 = (int)((char *)&unk_5FF158 + 836 * dword_665228);
-      sub_459671((int)((char *)&unk_5FF158 + 836 * dword_665228));
+      v25 = (int)((char *)pActors + 836 * uNumActors);
+      sub_459671((int)((char *)pActors + 836 * uNumActors));
       if ( v60 )
       {
         v26 = rand() % 100;
@@ -80233,7 +80175,7 @@ LABEL_26:
       }
       if ( a5 )
         *(_BYTE *)(v25 + 38) |= 8u;
-      ++dword_665228;
+      ++uNumActors;
 LABEL_58:
       ++v56;
       result = v56;
@@ -80313,27 +80255,27 @@ int __fastcall sub_44FA4C(int a1, int a2, int a3)
   }
   v23 = sub_44FA08(monster_list, v15);
   v3 = 0;
-  v20 = dword_665228;
-  if ( (signed int)dword_665228 > 0 )
+  v20 = uNumActors;
+  if ( (signed int)uNumActors > 0 )
   {
     v4 = (int)word_5FF208;
     while ( *(_WORD *)v4 != 11 )
     {
       ++v3;
       v4 += 836;
-      if ( v3 >= (signed int)dword_665228 )
+      if ( v3 >= (signed int)uNumActors )
         goto LABEL_12;
     }
     v20 = v3;
   }
 LABEL_12:
-  if ( v20 != dword_665228 || (result = dword_665228 + 1, (signed int)(dword_665228 + 1) < 500) )
+  if ( v20 != uNumActors || (result = uNumActors + 1, (signed int)(uNumActors + 1) < 500) )
   {
     v21 = 0;
     v22 = pParty_global->dword_0006BC;
     if ( dword_6BE360 == 1 )
       v21 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC);
-    v8 = (int)((char *)&unk_5FF158 + 836 * v20);
+    v8 = (int)((char *)pActors + 836 * v20);
     v9 = (char *)&unk_5CCE98 + 88 * v23;
     v19 = (((dword_6BE360 != 2) - 1) & 0x40) + 64;
     sub_459671(v8);
@@ -80379,8 +80321,8 @@ LABEL_12:
       && (result = sub_46CEC3(v7, v6, v22, result, (int)&v18), result != -30000)
       && (result = abs(result - v22), result <= 1024) )
     {
-      if ( v20 == dword_665228 )
-        ++dword_665228;
+      if ( v20 == uNumActors )
+        ++uNumActors;
       *(_DWORD *)(v8 + 812) = 8 * v17 | 4;
       result = sub_4584E0(
                  v8 + 244,
@@ -80457,11 +80399,11 @@ int __fastcall sub_44FD29(int a1, int a2)
   if ( dword_6BE360 == 1 )
     v28 = sub_49AC17((int)byte_6BE3C8, *(_WORD *)(v3 + 142), *(_WORD *)(v3 + 144), v6);
   v12 = v4 - 1;
-  v11 = (int)((char *)&unk_5FF158 + 836 * dword_665228);
+  v11 = (int)((char *)pActors + 836 * uNumActors);
   v27 = (((dword_6BE360 != 2) - 1) & 0x40) + 64;
   v29 = v12;
   v13 = (char *)&unk_5CCE98 + 88 * v12;
-  sub_459671((int)((char *)&unk_5FF158 + 836 * dword_665228));
+  sub_459671((int)((char *)pActors + 836 * uNumActors));
   v14 = dword_5FF150 + 152 * v12;
   strcpy((char *)v11, *(const char **)v13);
   *(_WORD *)(v11 + 40) = *((_WORD *)v13 + 32);
@@ -80519,7 +80461,7 @@ int __fastcall sub_44FD29(int a1, int a2)
     && (result = abs(result - v27), result <= 1024) )
   {
     v23 = v30;
-    ++dword_665228;
+    ++uNumActors;
     ++*(_BYTE *)(v23 + 93);
     if ( *(_DWORD *)(v23 + 36) & 0x80000 )
       *(_DWORD *)(v11 + 36) |= 0x80000u;
@@ -81120,9 +81062,9 @@ int __fastcall sub_45063B(int a1, int a2)
   v27 = a2;
   sub_448DD6((int)&v19);
   v2 = 0;
-  if ( (signed int)dword_665228 <= 0 )
+  if ( (signed int)uNumActors <= 0 )
     goto LABEL_8;
-  v3 = (int)&unk_5FF158;
+  v3 = (int)pActors;
   while ( 1 )
   {
     v25 = *(_WORD *)(v3 + 96) - 1;
@@ -81134,7 +81076,7 @@ int __fastcall sub_45063B(int a1, int a2)
     }
     ++v2;
     v3 += 836;
-    if ( v2 >= (signed int)dword_665228 )
+    if ( v2 >= (signed int)uNumActors )
       goto LABEL_8;
   }
   if ( dword_6BE360 == 2 )
@@ -81367,7 +81309,7 @@ void *__cdecl sub_450AAA()
   v1 = 0;
   if ( (signed int)dword_69ADD0 > 0 )
   {
-    v3 = (int)word_6836D0;
+    v3 = (int)array_6836D0;
     do
     {
       if ( !*(_WORD *)(v3 + 22) )
@@ -81419,7 +81361,7 @@ signed int __fastcall sub_450B0A(int a1)
   int v23; // [sp+350h] [bp-4h]@5
 
   v1 = a1;
-  if ( dword_665228 == 499 )
+  if ( uNumActors == 499 )
   {
     result = 0;
   }
@@ -81448,13 +81390,13 @@ signed int __fastcall sub_450B0A(int a1)
     v16 = v22;
     sub_450C8B(pClass17_Sprites_LOD);
     sub_48A379(&class35_obj);
-    v3 = dword_665228 - 1;
+    v3 = uNumActors - 1;
     if ( dword_5C6DF8 == 1 )
     {
       dword_5C6DF8 = 0;
-      v3 = dword_665228++;
+      v3 = uNumActors++;
     }
-    v6 = (char *)&unk_5FF158 + 836 * v3;
+    v6 = (char *)pActors + 836 * v3;
     memcpy(v6, &Dest, 0x344u);
     sub_45959A((int)v6, 1);
     result = 1;
@@ -89281,7 +89223,7 @@ LABEL_43:
   i = 0;
   if ( (signed int)dword_69ADD0 > 0 )
   {
-    v14 = (int)dword_6836D8;
+   v14 = (int)&array_6836D0[0].dword_000008;
     do
     {
       sub_458693(pDecorationDescriptionList, *(_WORD *)(v14 - 8));
@@ -89379,9 +89321,9 @@ LABEL_43:
     while ( v23 < (signed int)Count );
   }
   i = v13;
-  if ( (signed int)dword_665228 > v13 )
+  if ( (signed int)uNumActors > v13 )
   {
-    v26 = &unk_5FF17C;
+   v26 = pActors->byte_000024;
     do
     {
       v27 = *(_DWORD *)v26;
@@ -89420,7 +89362,7 @@ LABEL_90:
       ++i;
       v26 = (char *)v26 + 836;
     }
-    while ( i < (signed int)dword_665228 );
+    while ( i < (signed int)uNumActors );
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   sub_41F4C1(&v35);
@@ -89502,9 +89444,9 @@ void __cdecl sub_461103()
   dword_73C190 = 0;
   v20 = CMapStats_FindLocation(pMapStats, Str1);
   v16 = 0;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
-    v2 = (int)word_5FF178;
+   v2 = (int)&pActors->word_000020;
     do
     {
       v3 = *(_WORD *)(v2 + 64);
@@ -89542,14 +89484,14 @@ LABEL_13:
       ++v16;
       v2 += 836;
     }
-    while ( v16 < (signed int)dword_665228 );
+    while ( v16 < (signed int)uNumActors );
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
-  v5 = dword_665228;
+  v5 = uNumActors;
   v6 = 0;
   v21 = 0;
   v17 = v1;
-  if ( (signed int)dword_665228 > v1 )
+  if ( (signed int)uNumActors > v1 )
   {
     v7 = &unk_5FF184;
     do
@@ -89604,7 +89546,7 @@ LABEL_13:
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(v0);
   if ( dword_6BE368 & 4 )
-    dword_665228 = v1;
+    uNumActors = v1;
   if ( dword_6BE368 & 8 )
     dword_69ADD0 = v1;
   sub_4613C4();
@@ -89659,7 +89601,7 @@ int __cdecl sub_4613C4()
   result = 0;
   if ( (signed int)dword_69ADD0 > 0 )
   {
-    v4 = (int)word_6836D0;
+    v4 = (int)array_6836D0;
     do
     {
       if ( *(_WORD *)v4 == v2 )
@@ -92790,7 +92732,7 @@ char __cdecl sub_46A14B()
       {
         v17 = (unsigned int)v6 >> 3;
         if ( (*(_DWORD *)v22 >> 16)
-           - (signed int)*(_WORD *)(84 * word_6836D0[16 * ((unsigned int)v6 >> 3)] + pDecorationDescriptionList->pDescriptions + 68) > 512 )
+           - (signed int)*(_WORD *)(84 * array_6836D0[((unsigned int)v6 >> 3)].uSomeDescorationID + pDecorationDescriptionList->pDescriptions + 68) > 512 )
           goto LABEL_18;
       }
       else
@@ -92923,13 +92865,13 @@ char __fastcall sub_46A334(int a1, int a2)
       break;
     case 3:
       v13 = a1 >> 3;
-      v14 = (int)((char *)&unk_5FF158 + 836 * (a1 >> 3));
+      v14 = (int)((char *)pActors + 836 * (a1 >> 3));
       v12 = *(_WORD *)(v14 + 176);
       if ( v12 == 4 || v12 == 17 )
         return 1;
       if ( v12 == 5 )
       {
-        sub_426A5A((int)((char *)&unk_5FF158 + 836 * (a1 >> 3)));
+        sub_426A5A((int)((char *)pActors + 836 * (a1 >> 3)));
       }
       else
       {
@@ -92969,7 +92911,7 @@ char __fastcall sub_46A334(int a1, int a2)
       }
       break;
     case 5:
-      v9 = &word_6836D0[16 * (a1 >> 3)];
+      v9 = &array_6836D0[(a1 >> 3)];
       v8 = v9[11];
       if ( v8 )
       {
@@ -92978,7 +92920,7 @@ char __fastcall sub_46A334(int a1, int a2)
       }
       else
       {
-        if ( !sub_44C2F4(&word_6836D0[16 * (a1 >> 3)]) )
+        if ( !sub_44C2F4(&array_6836D0[(a1 >> 3)]) )
           return 1;
         v10 = v9[14];
         v27 = 1;
@@ -93209,7 +93151,7 @@ int __fastcall sub_46A89E(int a1, int a2, signed int a3)
   v15 = a2;
   v16 = a1;
   v19 = 0;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
     v4 = (int)word_5FF208;
     do
@@ -93264,7 +93206,7 @@ int __fastcall sub_46A89E(int a1, int a2, signed int a3)
       ++v3;
       v4 += 836;
     }
-    while ( v3 < (signed int)dword_665228 );
+    while ( v3 < (signed int)uNumActors );
   }
   return v19;
 }
@@ -93421,7 +93363,7 @@ LABEL_36:
     {
       if ( v19 >= 0xBB8 )
         return 0;
-      v24 = (char *)&unk_5FF158 + 836 * v19;
+      v24 = (char *)pActors + 836 * v19;
       goto LABEL_51;
     }
     if ( (dword_720020[4 * v18] & 7) == 5 )
@@ -93457,7 +93399,7 @@ LABEL_41:
     if ( v18 >= v2 )
       return 0;
   }
-  v26 = &word_6836D0[16 * v19];
+  v26 = &array_6836D0[v19];
   v27 = v26;
   v25 = v26[11];
   if ( v25 )
@@ -94782,7 +94724,7 @@ void __thiscall sub_46BEF1(void *this)
 
   v7 = 0;
   v1 = this;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
     v2 = (int)word_5FF1E8;
     do
@@ -94810,7 +94752,7 @@ void __thiscall sub_46BEF1(void *this)
       ++v7;
       v2 += 836;
     }
-    while ( v7 < (signed int)dword_665228 );
+    while ( v7 < (signed int)uNumActors );
   }
 }
 
@@ -94985,7 +94927,7 @@ signed int __fastcall sub_46BFFA(int a1, signed int a2)
   int v170; // [sp+28h] [bp-4h]@1
 
   v170 = a1;
-  v3 = (int)((char *)&unk_665230 + 112 * a1);
+  v3 = (int)((char *)array_665230 + 112 * a1);
   v2 = pObjectDescriptionList->pDescriptions + 56 * *(_WORD *)(v3 + 2);
   v162 = a2;
   v168 = a2 & 7;
@@ -94994,8 +94936,8 @@ signed int __fastcall sub_46BFFA(int a1, signed int a2)
     a1 = *(_DWORD *)(v3 + 88) & 7;
     if ( (_BYTE)a1 == 3
       && !sub_40104C(
-            (int)((char *)&unk_5FF158 + 836 * (*(_DWORD *)(v3 + 88) >> 3)),
-            (int)((char *)&unk_5FF158 + 836 * (a2 >> 3))) )
+            (int)((char *)pActors + 836 * (*(_DWORD *)(v3 + 88) >> 3)),
+            (int)((char *)pActors + 836 * (a2 >> 3))) )
       return 1;
   }
   else
@@ -95018,7 +94960,7 @@ signed int __fastcall sub_46BFFA(int a1, signed int a2)
     a1 = *(_DWORD *)(v3 + 88);
     if ( (*(_BYTE *)(v3 + 88) & 7) != 4 )
     {
-      a1 = (int)((char *)&unk_5FF17C + 836 * (a1 >> 3));
+      a1 = pActors[a1 >> 3].byte_000024;
       *(_BYTE *)(a1 + 2) |= 4u;
     }
   }
@@ -95151,7 +95093,7 @@ LABEL_246:
             if ( v169 >= 3 )
               v167 = 4;
           }
-          *((_BYTE *)&unk_5FF17C + 836 * v156 + 2) |= 8u;
+          pActors[v156].byte_000024[2] |= 8u;
         }
         if ( v5 == 6040 )
         {
@@ -95172,13 +95114,13 @@ LABEL_222:
               if ( (_WORD)a1 != 9030 || v169 != 4 )
               {
                 v123 = 836 * v156;
-                if ( sub_427662((int)((char *)&unk_5FF158 + 836 * v156), v122) )
+                if ( sub_427662((int)((char *)pActors + 836 * v156), v122) )
                 {
                   v155 = 0;
                   if ( *(_WORD *)v3 == 8030 )
                   {
                     *(__int16 *)((char *)word_5FF208 + v123) = 0;
-                    sub_45976D((int)((char *)&unk_5FF158 + v123));
+                    sub_45976D((int)((char *)pActors + v123));
                   }
                   sub_4584E0(
                     (int)((char *)&unk_5FF22C + 16 * v153 + v123),
@@ -95929,7 +95871,7 @@ int __cdecl sub_46CC4B()
   {
     do
     {
-      v3 = &word_6836D0[16 * dword_6807E8[result]];
+      v3 = &array_6836D0[dword_6807E8[result]];
       v2 = v3[12];
       v1 = *((_DWORD *)v3 + 2);
       v35 = *((_DWORD *)v3 + 1);
@@ -95967,7 +95909,7 @@ int __cdecl sub_46CC4B()
       if ( *((_BYTE *)v3 + 2) & 2 )
       {
         v39 = 0;
-        if ( (signed int)dword_665228 > 0 )
+        if ( (signed int)uNumActors > 0 )
         {
           v9 = (int)word_5FF1E8;
           do
@@ -96001,7 +95943,7 @@ int __cdecl sub_46CC4B()
             ++v39;
             v9 += 836;
           }
-          while ( v39 < (signed int)dword_665228 );
+          while ( v39 < (signed int)uNumActors );
         }
       }
       if ( *((_BYTE *)v3 + 2) & 4 )
@@ -97000,7 +96942,7 @@ signed int __fastcall sub_46DF1A(int a1, int a2)
   int v19; // [sp+18h] [bp-4h]@14
 
   v16 = a1;
-  v3 = (char *)&unk_5FF158 + 836 * a1;
+  v3 = (char *)pActors + 836 * a1;
   v2 = *((_WORD *)v3 + 88);
   if ( v2 == 11 )
     goto LABEL_25;
@@ -97079,7 +97021,7 @@ void __cdecl sub_46E0B2()
   v0 = dword_6BE654 + 116 * dword_7215A4;
   for ( i = 0; i < *(_WORD *)(v0 + 68); ++i )
   {
-    v1 = &word_6836D0[16 * *(_WORD *)(*(_DWORD *)(v0 + 72) + 2 * i)];
+    v1 = &array_6836D0[*(_WORD *)(*(_DWORD *)(v0 + 72) + 2 * i)];
     if ( !(*((_BYTE *)v1 + 2) & 0x20) )
     {
       v2 = 84 * *v1 + pDecorationDescriptionList->pDescriptions;
@@ -97186,7 +97128,7 @@ void __fastcall sub_46E26D(signed int a1, signed int a2)
               v4 = *(_WORD *)v2;
               if ( (v4 & 7) == 5 )
               {
-                v5 = &word_6836D0[16 * (v4 >> 3)];
+                v5 = &array_6836D0[(v4 >> 3)];
                 if ( !(*((_BYTE *)v5 + 2) & 0x20) )
                 {
                   v6 = 84 * *v5 + pDecorationDescriptionList->pDescriptions;
@@ -97881,7 +97823,7 @@ int __thiscall sub_46EF01(void *this)
   v8 = this;
   v2 = 2 * dword_ACCFCC;
   result = pParty_global->dword_0006B4;
-  v9 = dword_ACCFBC;
+  v9 = pParty_global->dword_000004;
   if ( dword_7215BC <= pParty_global->dword_0006B4 + 2 * dword_ACCFCC )
   {
     if ( dword_7215C0 >= pParty_global->dword_0006B4 - v2 )
@@ -97890,7 +97832,7 @@ int __thiscall sub_46EF01(void *this)
       {
         if ( dword_7215C8 >= pParty_global->dword_0006B8 - v2 )
         {
-          if ( dword_7215CC <= pParty_global->dword_0006BC + dword_ACCFBC )
+          if ( dword_7215CC <= pParty_global->dword_0006BC + pParty_global->dword_000004 )
           {
             if ( dword_7215D0 >= pParty_global->dword_0006BC )
             {
@@ -98516,11 +98458,11 @@ void __cdecl sub_46F90C()
   int v65; // [sp+5Ch] [bp-4h]@1
 
   v65 = 0;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
     while ( 1 )
     {
-      v1 = (int)((char *)&unk_5FF158 + 836 * v65);
+      v1 = (int)((char *)pActors + 836 * v65);
       v0 = *(_WORD *)(v1 + 176);
       if ( v0 == 11 )
         goto LABEL_123;
@@ -98659,7 +98601,7 @@ void __cdecl sub_46F90C()
       }
 LABEL_123:
       ++v65;
-      if ( v65 >= (signed int)dword_665228 )
+      if ( v65 >= (signed int)uNumActors )
         return;
     }
     v22 = *(_WORD *)(v1 + 136);
@@ -98789,8 +98731,8 @@ LABEL_123:
                                                                                        * *(_WORD *)(v1 + 150));
                   v49 = sub_45281E(
                           &dword_5C6E00,
-                          *(_WORD *)(v1 + 142) - dword_6836D4[8 * v41],
-                          *(_WORD *)(v1 + 144) - dword_6836D8[8 * v41]);
+                          *(_WORD *)(v1 + 142) - array_6836D0[v41].dword_000004,
+                          *(_WORD *)(v1 + 144) - array_6836D0[v41].dword_000008);
                   v56 = sub_402CAE((int)&dword_5C6E00, v49);
                   v58 = (unsigned __int64)(v56 * (signed int)v59) >> 16;
                   v50 = v49 - dword_5C8664;
@@ -99132,11 +99074,11 @@ void __cdecl sub_4706C6()
   int v78; // [sp+4Ch] [bp-4h]@10
 
   v77 = 0;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
     while ( 1 )
     {
-      v1 = (int)((char *)&unk_5FF158 + 836 * v77);
+      v1 = (int)((char *)pActors + 836 * v77);
       v68 = *(_WORD *)(v1 + 142);
       v67 = *(_WORD *)(v1 + 144);
       v0 = *(_WORD *)(v1 + 176);
@@ -99173,7 +99115,7 @@ void __cdecl sub_4706C6()
       *(_WORD *)(v1 + 176) = 11;
 LABEL_121:
       ++v77;
-      if ( v77 >= (signed int)dword_665228 )
+      if ( v77 >= (signed int)uNumActors )
         return;
     }
     if ( *(_WORD *)(v1 + 178) == 1 )
@@ -99492,8 +99434,8 @@ LABEL_103:
           v48 = sub_452A9E(*(_WORD *)(v1 + 148) * *(_WORD *)(v1 + 148) + *(_WORD *)(v1 + 150) * *(_WORD *)(v1 + 150));
           v49 = sub_45281E(
                   &dword_5C6E00,
-                  *(_WORD *)(v1 + 142) - dword_6836D4[8 * v40],
-                  *(_WORD *)(v1 + 144) - dword_6836D8[8 * v40]);
+                  *(_WORD *)(v1 + 142) - array_6836D0[v40].dword_000004,
+                  *(_WORD *)(v1 + 144) - array_6836D0[v40].dword_000008);
           v73 = sub_402CAE((int)&dword_5C6E00, v49);
           v72 = (unsigned __int64)(v73 * v48) >> 16;
           v50 = v49 - dword_5C8664;
@@ -99631,7 +99573,7 @@ void __fastcall sub_47136C(int a1)
   int v50; // [sp+8Ch] [bp-4h]@4
 
   v44 = a1;
-  v2 = (char *)&unk_665230 + 112 * a1;
+  v2 = (char *)array_665230 + 112 * a1;
   v1 = pObjectDescriptionList->pDescriptions + 56 * *((_WORD *)v2 + 1);
   v3 = *((_DWORD *)v2 + 1);
   v45 = pObjectDescriptionList->pDescriptions + 56 * *((_WORD *)v2 + 1);
@@ -99687,7 +99629,7 @@ LABEL_25:
         v50 = v8;
         if ( (v13 & 7) == 3 )
         {
-          if ( (signed int)dword_665228 > v8 )
+          if ( (signed int)uNumActors > v8 )
           {
             v47 = (int)&unk_5FF1DE;
             do
@@ -99700,13 +99642,13 @@ LABEL_25:
               ++v50;
               v47 += 836;
             }
-            while ( v50 < (signed int)dword_665228 );
+            while ( v50 < (signed int)uNumActors );
             v8 = 0;
           }
         }
         else
         {
-          if ( (signed int)dword_665228 > v8 )
+          if ( (signed int)uNumActors > v8 )
           {
             v47 = (int)&unk_5FF1DE;
             do
@@ -99714,7 +99656,7 @@ LABEL_25:
               sub_46DF1A(v50++, *(_WORD *)(152 * *(_WORD *)v47 + dword_5FF150 - 146));
               v47 += 836;
             }
-            while ( v50 < (signed int)dword_665228 );
+            while ( v50 < (signed int)uNumActors );
           }
         }
         if ( sub_46F04E() )
@@ -99776,8 +99718,8 @@ LABEL_25:
         v48 = sub_452A9E(*((_WORD *)v2 + 8) * *((_WORD *)v2 + 8) + *((_WORD *)v2 + 9) * *((_WORD *)v2 + 9));
         v23 = sub_45281E(
                 &dword_5C6E00,
-                *((_DWORD *)v2 + 1) - dword_6836D4[8 * v15],
-                *((_DWORD *)v2 + 2) - dword_6836D8[8 * v15]);
+                *((_DWORD *)v2 + 1) - array_6836D0[v15].dword_000004,
+                *((_DWORD *)v2 + 2) - array_6836D0[v15].dword_000008);
         v50 = sub_402CAE((int)&dword_5C6E00, v23);
         v49 = (unsigned __int64)(v50 * v48) >> 16;
         v24 = v23 - dword_5C8664;
@@ -100029,7 +99971,7 @@ void __fastcall sub_471C03(int a1)
   int v72; // [sp+A4h] [bp-4h]@11
 
   v65 = a1;
-  v5 = (char *)&unk_665230 + 112 * a1;
+  v5 = (char *)array_665230 + 112 * a1;
   v70 = 0;
   v3 = pObjectDescriptionList->pDescriptions + 56 * *((_WORD *)v5 + 1);
   v69 = sub_4823F4(*((_DWORD *)v5 + 1), *((_DWORD *)v5 + 2));
@@ -100210,13 +100152,13 @@ LABEL_92:
         v19 = *((_DWORD *)v5 + 22) >> 3;
         if ( v19 >= 0 )
         {
-          if ( v19 < (signed int)(dword_665228 - 1) )
+          if ( v19 < (signed int)(uNumActors - 1) )
           {
             v68 = 0;
-            if ( (signed int)dword_665228 > 0 )
+            if ( (signed int)uNumActors > 0 )
             {
-              v72 = (int)&unk_5FF158;
-              v20 = (int)((char *)&unk_5FF158 + 836 * v19);
+              v72 = (int)pActors;
+              v20 = (int)((char *)pActors + 836 * v19);
               do
               {
                 if ( sub_40104C(v20, v72) )
@@ -100224,14 +100166,14 @@ LABEL_92:
                 ++v68;
                 v72 += 836;
               }
-              while ( v68 < (signed int)dword_665228 );
+              while ( v68 < (signed int)uNumActors );
             }
           }
         }
       }
       else
       {
-        for ( i = 0; i < (signed int)dword_665228; ++i )
+        for ( i = 0; i < (signed int)uNumActors; ++i )
           sub_46DF1A(i, 0);
       }
       v27 = dword_721578 - dword_721534 - 1;
@@ -100379,8 +100321,8 @@ LABEL_74:
     v69 = sub_452A9E(*((_WORD *)v5 + 9) * *((_WORD *)v5 + 9) + *((_WORD *)v5 + 8) * *((_WORD *)v5 + 8));
     v38 = sub_45281E(
             &dword_5C6E00,
-            *((_DWORD *)v5 + 1) - dword_6836D4[8 * v30],
-            *((_DWORD *)v5 + 2) - dword_6836D8[8 * v30]);
+            *((_DWORD *)v5 + 1) - array_6836D0[v30].dword_000004,
+            *((_DWORD *)v5 + 2) - array_6836D0[v30].dword_000008);
     v68 = v38;
     v39 = sub_402CAE((int)&dword_5C6E00, v38);
     v72 = v39;
@@ -101005,7 +100947,7 @@ LABEL_93:
   dword_721538 = dword_ACCFCC >> 1;
   v83 = 0;
   dword_721530 = 1;
-  dword_72153C = dword_ACCFBC - 32;
+  dword_72153C = pParty_global->dword_000004 - 32;
   while ( 1 )
   {
     v38 = v87;
@@ -101032,7 +100974,7 @@ LABEL_93:
     {
       sub_46E44E((void *)1);
       sub_46E0B2();
-      for ( i = 0; i < (signed int)dword_665228; ++i )
+      for ( i = 0; i < (signed int)uNumActors; ++i )
         sub_46DF1A(i, 0);
       if ( sub_46F04E() )
         break;
@@ -101083,8 +101025,8 @@ LABEL_93:
       i = v53;
       v54 = sub_45281E(
               &dword_5C6E00,
-              v86 - dword_6836D4[8 * (dword_7215A8 >> 3)],
-              v85 - dword_6836D8[8 * (dword_7215A8 >> 3)]);
+              v86 - array_6836D0[(dword_7215A8 >> 3)].dword_000004,
+              v85 - array_6836D0[(dword_7215A8 >> 3)].dword_000008);
       v1 = (unsigned __int64)(sub_402CAE((int)&dword_5C6E00, v54) * v53) >> 16;
       v55 = sub_402CAE((int)&dword_5C6E00, v54 - dword_5C8664);
       v0 = (unsigned __int64)(v55 * i) >> 16;
@@ -101423,7 +101365,7 @@ LABEL_9:
         v98 = 0;
     }
   }
-  v3 = sub_46D49E(v108, v109, v115, dword_ACCFBC, (int)&v122, (int)&v100, v98);
+  v3 = sub_46D49E(v108, v109, v115, pParty_global->dword_000004, (int)&v122, (int)&v100, v98);
   v103 = v3;
   if ( v96 )
     pParty_global->dword_000700 = v3;
@@ -101469,7 +101411,7 @@ LABEL_9:
   }
   v101 = -1;
   if ( dword_ACD6BC != v2 )
-    v101 = sub_46D8E3(v108, v109, v115 + dword_ACCFBC, (int)&v94);
+    v101 = sub_46D8E3(v108, v109, v115 + pParty_global->dword_000004, (int)&v94);
   v99 = v100 == v2;
   v97 = v103 + 1;
   if ( v115 <= v103 + 1 )
@@ -101549,13 +101491,13 @@ LABEL_118:
               {
                 if ( v115 < v101 )
                 {
-                  if ( dword_ACCFBC + v115 >= v101 )
+                  if ( pParty_global->dword_000004 + v115 >= v101 )
                   {
                     dword_ACD698 = 0;
                     dword_ACD69C = 0;
                     dword_7215D8 = 0;
                     BYTE1(dword_AD4730) |= 1u;
-                    pParty_global->dword_0006BC = v101 - dword_ACCFBC - 31;
+                    pParty_global->dword_0006BC = v101 - pParty_global->dword_000004 - 31;
                     dword_ACD6A8 = v115;
                     dword_ACD6BC = 0;
                     v115 = pParty_global->dword_0006BC;
@@ -101917,7 +101859,7 @@ LABEL_151:
   dword_721538 = dword_ACCFCC >> 1;
   v118 = 0;
   dword_721530 = 1;
-  dword_72153C = dword_ACCFBC - 32;
+  dword_72153C = pParty_global->dword_000004 - 32;
   do
   {
     dword_721564 = v108;
@@ -101943,7 +101885,7 @@ LABEL_151:
     v31 = sub_47F44B(pParty_global->dword_0006B4);
     sub_46E26D(v31, v30);
     sub_46ED8A((void *)4);
-    for ( i = 0; i < (signed int)dword_665228; ++i )
+    for ( i = 0; i < (signed int)uNumActors; ++i )
       sub_46DF1A(i, 0);
     if ( dword_7215AC >= dword_72159C )
     {
@@ -101959,9 +101901,9 @@ LABEL_151:
       v32 = ((unsigned __int64)(dword_7215AC * dword_721590) >> 16) + v115;
     }
     v114 = v32;
-    sub_46D49E(v112, v117, v32, dword_ACCFBC, (int)&v122, (int)&v100, 0);
-    v121 = sub_46D49E(v112, v109, v32, dword_ACCFBC, (int)&v122, (int)&v89, 0);
-    v111 = sub_46D49E(v108, v117, v32, dword_ACCFBC, (int)&v122, (int)&v102, 0);
+    sub_46D49E(v112, v117, v32, pParty_global->dword_000004, (int)&v122, (int)&v100, 0);
+    v121 = sub_46D49E(v112, v109, v32, pParty_global->dword_000004, (int)&v122, (int)&v89, 0);
+    v111 = sub_46D49E(v108, v117, v32, pParty_global->dword_000004, (int)&v122, (int)&v102, 0);
     v119 = sub_4823F4(v112, v109);
     v34 = sub_4823F4(v108, v117);
     v99 = 0;
@@ -101994,7 +101936,7 @@ LABEL_151:
       goto LABEL_197;
     if ( v36 )
       goto LABEL_198;
-    v119 = sub_46D49E(v112, v117, v32, dword_ACCFBC, (int)&v122, (int)&v100, 0);
+    v119 = sub_46D49E(v112, v117, v32, pParty_global->dword_000004, (int)&v122, (int)&v100, 0);
     if ( sub_4823F4(v112, v117) && v119 <= v115 )
     {
       v36 = 1;
@@ -102037,8 +101979,8 @@ LABEL_199:
       v110 = v48;
       v49 = sub_45281E(
               &dword_5C6E00,
-              v112 - dword_6836D4[8 * (dword_7215A8 >> 3)],
-              v117 - dword_6836D8[8 * (dword_7215A8 >> 3)]);
+              v112 - array_6836D0[(dword_7215A8 >> 3)].dword_000004,
+              v117 - array_6836D0[(dword_7215A8 >> 3)].dword_000008);
       v121 = v49;
       v50 = sub_402CAE((int)&dword_5C6E00, v49);
       v119 = v50;
@@ -102320,10 +102262,10 @@ LABEL_344:
       {
         if ( v62 < v101 )
         {
-          if ( dword_ACCFBC + v62 >= v101 )
+          if ( pParty_global->dword_000004 + v62 >= v101 )
           {
-            pParty_global->dword_0006BC = v101 - dword_ACCFBC - 1;
-            dword_ACD6A8 = v101 - dword_ACCFBC - 1;
+            pParty_global->dword_0006BC = v101 - pParty_global->dword_000004 - 1;
+            dword_ACD6A8 = v101 - pParty_global->dword_000004 - 1;
           }
         }
       }
@@ -102456,10 +102398,10 @@ LABEL_318:
     {
       if ( v73 < v101 )
       {
-        if ( dword_ACCFBC + v73 >= v101 )
+        if ( pParty_global->dword_000004 + v73 >= v101 )
         {
-          pParty_global->dword_0006BC = v73 + dword_ACCFBC - v101 + 1;
-          dword_ACD6A8 = v73 + dword_ACCFBC - v101 + 1;
+          pParty_global->dword_0006BC = v73 + pParty_global->dword_000004 - v101 + 1;
+          dword_ACD6A8 = v73 + pParty_global->dword_000004 - v101 + 1;
         }
       }
     }
@@ -105767,7 +105709,7 @@ void __thiscall sub_47A59E(void *this)
   v3 = sub_402CAE((int)&dword_5C6E00, pParty_global->dword_0006C0 - dword_5C8664);
   dword_507D2C = v2;
   dword_507CE4 = pParty_global->dword_0006B8 - ((unsigned __int64)(v3 * dword_ACCFD0) >> 16);
-  dword_507CE8 = pParty_global->dword_0006BC + dword_ACCFC4;
+  dword_507CE8 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
   if ( v1 || pD3DRenderer->dword_040088 )
   {
     sub_481EB7();
@@ -105978,7 +105920,7 @@ void __cdecl sub_47A95E()
   v45 = 0;
   if ( (signed int)dword_69ADD0 > 0 )
   {
-    v0 = (int)dword_6836D8;
+   v0 = (int)&array_6836D0[0].dword_000008;
     do
     {
       if ( (!(*(_BYTE *)(v0 - 6) & 0x40) || sub_47A825((void *)(v0 - 8))) && !(*(_BYTE *)(v0 - 6) & 0x20) )
@@ -106417,7 +106359,7 @@ int __cdecl sub_47B42C()
 
   result = 0;
   v59 = 0;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
     v54 = 0;
     v1 = (int)word_5FF1EA;
@@ -106620,7 +106562,7 @@ LABEL_58:
       result = v59;
       v1 += 836;
     }
-    while ( v59 < (signed int)dword_665228 );
+    while ( v59 < (signed int)uNumActors );
   }
   return result;
 }
@@ -107967,7 +107909,7 @@ signed int __cdecl sub_47F138()
   v1 = 0;
   if ( (signed int)dword_69ADD0 > 0 )
   {
-    v2 = (int)word_6836D0;
+    v2 = (int)array_6836D0;
     do
     {
       sub_458693(pDecorationDescriptionList, *(_WORD *)v2);
@@ -108068,9 +108010,9 @@ signed int __stdcall sub_47F2D3(int a1)
   v1 = 0;
   v8 = 0;
   v9 = 0;
-  if ( (signed int)dword_665228 > 0 )
+  if ( (signed int)uNumActors > 0 )
   {
-    v2 = &unk_5FF17C;
+   v2 = pActors->byte_000024;
     while ( 1 )
     {
       v3 = *(_DWORD *)v2;
@@ -108086,7 +108028,7 @@ signed int __stdcall sub_47F2D3(int a1)
 LABEL_17:
       ++v9;
       v2 = (char *)v2 + 836;
-      if ( v9 >= (signed int)dword_665228 )
+      if ( v9 >= (signed int)uNumActors )
         goto LABEL_18;
     }
     if ( v8 != 1 )
@@ -115289,7 +115231,7 @@ signed int __thiscall sub_4893CF(void *this, signed int a2, signed int a3, int a
   int v16; // [sp+Ch] [bp-4h]@2
 
   v4 = (int)this;
-  if ( dword_AD4730 & 8 || (v15 = 0, v16 = 0, sub_46D49E(a2, a3, a4, dword_ACCFC0, (int)&v15, (int)&v16, 0), v16) || v15 )
+  if ( dword_AD4730 & 8 || (v15 = 0, v16 = 0, sub_46D49E(a2, a3, a4, pParty_global->dword_000008, (int)&v15, (int)&v16, 0), v16) || v15 )
     return 2;
   v6 = sub_47F44B(pParty_global->dword_0006B4);
   v7 = sub_47F458(pParty_global->dword_0006B8);
@@ -117898,9 +117840,9 @@ signed int __thiscall sub_48D88B(int this, int a2, int a3, int a4)
   signed int v33; // [sp+48h] [bp+Ch]@12
 
   v5 = this;
-  v4 = (char *)&unk_5FF158 + 836 * a2;
+  v4 = (char *)pActors + 836 * a2;
   v32 = this;
-  if ( (_UNKNOWN *)((char *)&unk_5FF158 + 836 * a2)
+  if ( (_UNKNOWN *)((char *)pActors + 836 * a2)
     && !*(_QWORD *)(this + 128)
     && !*(_QWORD *)(this + 112)
     && !*(_QWORD *)(this + 120)
@@ -117909,7 +117851,7 @@ signed int __thiscall sub_48D88B(int this, int a2, int a3, int a4)
     && !*(_QWORD *)(this + 16) )
   {
     if ( !(v4[38] & 0x80) )
-      sub_4086E9((int)((char *)&unk_5FF158 + 836 * a2));
+      sub_4086E9((int)((char *)pActors + 836 * a2));
     v6 = *(_WORD *)(v5 + 332);
     v7 = v6 & 0x3F;
     v9 = sub_458244(v6);
@@ -124544,10 +124486,10 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
       fseek(v8, v251, 0);
       locked_fread(&::Count, 4u, 1u, v8);
       fseek(v8, v252, 0);
-      locked_fread(&unk_665230, 0x70u, ::Count, v8);
+      locked_fread(array_665230, 0x70u, ::Count, v8);
       if ( (signed int)::Count > 0 )
       {
-        v81 = &unk_665230;
+        v81 = array_665230;
         a5 = ::Count;
         do
         {
@@ -124581,9 +124523,9 @@ LABEL_50:
         while ( a5-- != 1 );
       }
       fseek(v8, v253, 0);
-      locked_fread(&dword_665228, 4u, 1u, v8);
+      locked_fread(&uNumActors, 4u, 1u, v8);
       fseek(v8, v254, 0);
-      locked_fread(&unk_5FF158, 0x344u, dword_665228, v8);
+      locked_fread(pActors, 0x344u, uNumActors, v8);
       fseek(v8, v260, 0);
       locked_fread(&dword_5FF140, 4u, 1u, v8);
       fseek(v8, v261, 0);
@@ -125174,7 +125116,7 @@ LABEL_140:
   v188 = 0;
   if ( (signed int)dword_69ADD0 > 0 )
   {
-    v296 = &unk_6836D2;
+    v296 = &array_6836D0[0].word_000002;
     do
     {
       memcpy(v296, Src, 2);
@@ -125185,18 +125127,18 @@ LABEL_140:
     while ( v188 < (signed int)dword_69ADD0 );
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
-  memcpy(&dword_665228, Src, 4u);
+  memcpy(&uNumActors, Src, 4u);
   Src = (char *)Src + 4;
   LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
-  v189 = 836 * dword_665228;
-  memcpy(&unk_5FF158, Src, 836 * dword_665228);
+  v189 = 836 * uNumActors;
+  memcpy(pActors, Src, 836 * uNumActors);
   Src = (char *)Src + v189;
   LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   memcpy(&::Count, Src, 4u);
   Src = (char *)Src + 4;
   LevelLoadingUI_UpdateAndDrawProgressBar(&unk_576E30);
   v190 = 112 * ::Count;
-  memcpy(&unk_665230, Src, 112 * ::Count);
+  memcpy(array_665230, Src, 112 * ::Count);
   Src = (char *)Src + v190;
   if ( (signed int)::Count > 0 )
   {
@@ -125336,9 +125278,9 @@ LABEL_179:
   sub_4A9A67(pSoundList, 63, v5);
   sub_4A9A67(pSoundList, 102, v5);
   sub_4A9A67(pSoundList, 50, v5);
-  sub_4A9A67(pSoundList, 89, v5);
+  sub_4A9A67(pSoundList, 89, v5);*/
   return 0;
-*/
+
 }
 
 //----- (0049AC17) --------------------------------------------------------
@@ -127507,7 +127449,7 @@ LABEL_7:
             //fstp    [ebp+var_34]
             //fild    pParty_global->dword_0006B4
           }
-          a2 = pParty_global->dword_0006BC + dword_ACCFC4;
+          a2 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
           __asm
           {
            int 3
@@ -138140,7 +138082,7 @@ LABEL_35:
             v12 = v11 - 1;
             if ( !v12 )
             {
-              v15 = (char *)&unk_5FF158 + 836 * (*(_DWORD *)(v8 + 4) >> 3);
+              v15 = (char *)pActors + 836 * (*(_DWORD *)(v8 + 4) >> 3);
               v67 = *((_WORD *)v15 + 71);
               v16 = *((_WORD *)v15 + 72);
               v58 = (double)v67;
@@ -138153,14 +138095,14 @@ LABEL_35:
             {
               v58 = (double)pParty_global->dword_0006B4;
               v59 = (double)pParty_global->dword_0006B8;
-              v13 = (double)dword_ACCFC4 + (double)pParty_global->dword_0006BC;
+              v13 = (double)pParty_global->dword_00000C + (double)pParty_global->dword_0006BC;
               goto LABEL_21;
             }
-            v14 = (char *)&word_6836D0[16 * (*(_DWORD *)(v8 + 4) >> 3)];
+            v14 = (char *)&array_6836D0[(*(_DWORD *)(v8 + 4) >> 3)];
           }
           else
           {
-            v14 = (char *)&unk_665230 + 112 * (*(_DWORD *)(v8 + 4) >> 3);
+            v14 = (char *)array_665230 + 112 * (*(_DWORD *)(v8 + 4) >> 3);
           }
           v58 = (double)*((signed int *)v14 + 1);
           v59 = (double)*((signed int *)v14 + 2);
@@ -138295,12 +138237,12 @@ LABEL_60:
           {
             if ( (*(_DWORD *)(v34 + 4) & 7) == 2 )
             {
-              v36 = (char *)&unk_665230 + 112 * (v35 >> 3);
+              v36 = (char *)array_665230 + 112 * (v35 >> 3);
               goto LABEL_53;
             }
             if ( (*(_DWORD *)(v34 + 4) & 7) == 3 )
             {
-              v38 = (char *)&unk_5FF158 + 836 * (v35 >> 3);
+              v38 = (char *)pActors + 836 * (v35 >> 3);
               v37 = sub_4AB6B1(*((_WORD *)v38 + 71), *((_WORD *)v38 + 72), *((_WORD *)v38 + 73));
               if ( !v37 )
                 goto LABEL_58;
@@ -138311,7 +138253,7 @@ LABEL_60:
             }
             if ( (*(_DWORD *)(v34 + 4) & 7) == 5 )
             {
-              v36 = (char *)&word_6836D0[16 * (v35 >> 3)];
+              v36 = (char *)&array_6836D0[(v35 >> 3)];
 LABEL_53:
               v42 = v36;
               v41 = sub_4AB6B1(*((_DWORD *)v36 + 1), *((_DWORD *)v36 + 2), *((_DWORD *)v36 + 3));
@@ -138347,7 +138289,7 @@ LABEL_62:
       {
         LODWORD(v66) = 1;
         v48 = 4 * v69 + 6817720;
-        v49 = &word_6836D0[16 * dword_6807B8[v69]];
+        v49 = &array_6836D0[dword_6807B8[v69]];
         v50 = abs(*((_DWORD *)v49 + 3) - pParty_global->dword_0006BC);
         v51 = abs(*((_DWORD *)v49 + 2) - pParty_global->dword_0006B8);
         v52 = abs(*((_DWORD *)v49 + 1) - pParty_global->dword_0006B4);
@@ -151488,10 +151430,10 @@ void __cdecl sub_4BBCDD()
     else
     {
       v0 = 0;
-      if ( (signed int)dword_665228 <= 0 )
+      if ( (signed int)uNumActors <= 0 )
         goto LABEL_23;
       v1 = (int)word_5FF208;
-      v8 = dword_665228;
+      v8 = uNumActors;
       do
       {
         v2 = *(_WORD *)v1;
@@ -151500,7 +151442,7 @@ void __cdecl sub_4BBCDD()
         v1 += 836;
       }
       while ( v8-- != 1 );
-      if ( v0 >= (signed int)dword_665228 )
+      if ( v0 >= (signed int)uNumActors )
       {
 LABEL_23:
         dword_59108C = 91;
@@ -151585,21 +151527,21 @@ void __fastcall sub_4BBF61(int a1, __int16 a2, signed int a3, int a4)
   __int16 v16; // [sp+10h] [bp-4h]@3
   signed int v17; // [sp+1Ch] [bp+8h]@5
 
-  v5 = dword_665228;
+  v5 = uNumActors;
   v4 = a1;
   v14 = a2;
   v15 = a1;
-  if ( (signed int)dword_665228 < 500 )
+  if ( (signed int)uNumActors < 500 )
   {
     if ( (dword_71FFF8 >> 10) - (dword_71FFF4 >> 10) >= 2000 )
     {
       v16 = 0;
       if ( dword_6BE360 == 1 )
       {
-        v5 = dword_665228;
+        v5 = uNumActors;
         v16 = sub_49AC17((int)byte_6BE3C8, a2, a3, a4);
       }
-      v8 = (int)((char *)&unk_5FF158 + 836 * v5);
+      v8 = (int)((char *)pActors + 836 * v5);
       sub_459671(v8);
       v9 = v4;
       v7 = &dword_5CCE40[22 * v4];
@@ -151640,7 +151582,7 @@ void __fastcall sub_4BBF61(int a1, __int16 a2, signed int a3, int a4)
       do
         v13 = sub_4A9A67(pSoundList, v12++ + word_4EE088[*((_BYTE *)v7 + 33)], 1);
       while ( v13 );
-      ++dword_665228;
+      ++uNumActors;
     }
   }
 }
@@ -154269,9 +154211,9 @@ LABEL_15:
       return 1;
     }
     v9 = 32 * v3;
-    if ( *(__int16 *)((char *)&word_6836E4 + v9) || *(__int16 *)((char *)word_6836E6 + v9) )
+    if ( array_6836D0[v3].word_000014 || array_6836D0[v3].word_000016)
       return 1;
-    v10 = sub_44C2F4((char *)word_6836D0 + v9);
+    v10 = sub_44C2F4((char *)array_6836D0 + v9);
     goto LABEL_11;
   }
   if ( v5 == *(_DWORD *)(a2 + 4) )
@@ -154286,7 +154228,7 @@ LABEL_15:
       v16 = "Default case reached in VIS";
       goto LABEL_15;
     }
-    v13 = (int)((char *)&unk_5FF158 + 836 * v3);
+    v13 = (int)((char *)pActors + 836 * v3);
     v12 = 1 << *(_BYTE *)(v13 + 176);
     if ( v12 & *(_DWORD *)(a2 + 12) || !(v12 & *(_DWORD *)(a2 + 8)) || v4 & 8 && !sub_438BDF(*(_WORD *)(v13 + 96), 1) )
       return 0;

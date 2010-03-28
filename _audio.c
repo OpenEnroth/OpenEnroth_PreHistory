@@ -81,13 +81,12 @@ void class31_ctor(struct class31 *_this)
 
 //----- (004AA306) --------------------------------------------------------
 extern int dword_6BE360;
-extern int dword_ACCFC4;
 extern int dword_F1B4D4;
-extern char unk_665230;
-extern char unk_5FF158;
+extern struct struct2 array_665230[];
+extern struct Actor pActors[];
 extern char *Src;
-extern short word_6836D0[];
 extern struct Party *pParty_global;
+extern struct struct0 array_6836D0[];
 int __fastcall sub_4621DA(signed int a1, signed int a2, signed int a3);
 void __stdcall sub_436523(int a1, int a2);
 int __fastcall sub_4AAEA6(int a1);
@@ -342,7 +341,7 @@ LABEL_150:
         }
         if ( (a3 & 7) == 2 )
         {
-          v76 = (char *)&unk_665230 + 112 * (a3 >> 3);
+          v76 = (char *)array_665230 + 112 * (a3 >> 3);
           if ( !sub_4AB6B1(*((_DWORD *)v76 + 1), *((_DWORD *)v76 + 2), *((_DWORD *)v76 + 3)) )
             return;
         }
@@ -350,7 +349,7 @@ LABEL_150:
         {
           if ( (a3 & 7) == 3 )
           {
-            v80 = (char *)&unk_5FF158 + 836 * (a3 >> 3);
+            v80 = (char *)pActors + 836 * (a3 >> 3);
             if ( !sub_4AB6B1(*((_WORD *)v80 + 71), *((_WORD *)v80 + 72), *((_WORD *)v80 + 73)) )
               return;
             v77 = *((_WORD *)v80 + 72);
@@ -373,7 +372,7 @@ LABEL_184:
               AIL_sample_ms_position(*(_DWORD *)v73, &dword_F1B4D4, 0);
             return;
           }
-          v76 = (char *)&word_6836D0[16 * (a3 >> 3)];
+          v76 = (char *)&array_6836D0[(a3 >> 3)];
           if ( !sub_4AB6B1(*((_DWORD *)v76 + 1), *((_DWORD *)v76 + 2), *((_DWORD *)v76 + 3)) )
             return;
           AIL_set_sample_loop_count(*(_DWORD *)v73, a4 - 1);
@@ -424,14 +423,14 @@ LABEL_149:
     {
       v98 = 5;
       v100 = 7;
-      v57 = (char *)&unk_665230 + 112 * (a3 >> 3);
+      v57 = (char *)array_665230 + 112 * (a3 >> 3);
     }
     else
     {
       if ( (a3 & 7) == 3 )
       {
         v98 = 0;
-        v60 = (char *)&unk_5FF158 + 836 * (a3 >> 3);
+        v60 = (char *)pActors + 836 * (a3 >> 3);
         v100 = 3;
         v58 = *((_WORD *)v60 + 72);
         v86 = *((_WORD *)v60 + 73);
@@ -458,7 +457,7 @@ LABEL_116:
       }
       v98 = 4;
       v100 = 4;
-      v57 = (char *)&word_6836D0[16 * (a3 >> 3)];
+      v57 = (char *)&array_6836D0[(a3 >> 3)];
     }
     v86 = *((_DWORD *)v57 + 3);
     v58 = *((_DWORD *)v57 + 2);
@@ -494,7 +493,7 @@ LABEL_116:
       v100 = 7;
       v13 = 5;
     }
-    v18 = (char *)&unk_665230 + 112 * (a3 >> 3);
+    v18 = (char *)array_665230 + 112 * (a3 >> 3);
   }
   else
   {
@@ -506,7 +505,7 @@ LABEL_116:
         v100 = 3 * v19 / 16;
       else
         v100 = 3;
-      v21 = (char *)&unk_5FF158 + 836 * (a3 >> 3);
+      v21 = (char *)pActors + 836 * (a3 >> 3);
       v22 = *((_WORD *)v21 + 72);
       v87 = (double)*((_WORD *)v21 + 71);
       v104 = *((_WORD *)v21 + 73);
@@ -537,7 +536,7 @@ LABEL_116:
 LABEL_46:
           v87 = (double)pParty_global->dword_0006B4;
           v88 = (double)pParty_global->dword_0006B8;
-          v20 = (double)dword_ACCFC4 + (double)pParty_global->dword_0006BC;
+          v20 = (double)pParty_global->dword_00000C + (double)pParty_global->dword_0006BC;
           goto LABEL_47;
         }
         v13 = 10 * v14 / 16;
@@ -559,7 +558,7 @@ LABEL_45:
       v13 = 4;
       v100 = 4;
     }
-    v18 = (char *)&word_6836D0[16 * (a3 >> 3)];
+    v18 = (char *)&array_6836D0[(a3 >> 3)];
   }
   v87 = (double)*((signed int *)v18 + 1);
   v88 = (double)*((signed int *)v18 + 2);
@@ -732,13 +731,13 @@ LABEL_104:
         }
         if ( (a3 & 7) == 2 )
         {
-          v45 = (char *)&unk_665230 + 112 * (a3 >> 3);
+          v45 = (char *)array_665230 + 112 * (a3 >> 3);
         }
         else
         {
           if ( (a3 & 7) == 3 )
           {
-            v47 = (char *)&unk_5FF158 + 836 * (a3 >> 3);
+            v47 = (char *)pActors + 836 * (a3 >> 3);
             v48 = *((_WORD *)v47 + 72);
             v87 = (double)*((_WORD *)v47 + 71);
             v101 = *((_WORD *)v47 + 73);
@@ -752,10 +751,10 @@ LABEL_104:
             v44 = (double)pParty_global->dword_0006B8;
 LABEL_100:
             v88 = v44;
-            v46 = (double)dword_ACCFC4 + (double)pParty_global->dword_0006BC;
+            v46 = (double)pParty_global->dword_00000C + (double)pParty_global->dword_0006BC;
             goto LABEL_101;
           }
-          v45 = (char *)&word_6836D0[16 * (a3 >> 3)];
+          v45 = (char *)&array_6836D0[(a3 >> 3)];
         }
         v87 = (double)*((signed int *)v45 + 1);
         v88 = (double)*((signed int *)v45 + 2);

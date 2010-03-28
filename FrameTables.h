@@ -200,7 +200,8 @@ int CDecorationDescriptionList_InitializeFromTXT(struct CDecorationDescriptionLi
 void *CDecorationDescriptionList_Initialize(struct CDecorationDescriptionList *_this, unsigned char *pSrc);
 //int __thiscall sub_458600(void *Str);
 int CDecorationDescriptionList_SaveToBIN(struct CDecorationDescriptionList *_this);
-
+//__int16 __thiscall sub_4488B6(void *this, const char *Str1);
+__int16 sub_4488B6(struct CDecorationDescriptionList *_this, const char *Str1);
 
 
 
