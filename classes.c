@@ -198,10 +198,9 @@ extern int dword_F8BC18;
 extern int dword_F8BC1C;
 extern int dword_F8BC20;
 extern int dword_4E28F8;
-char __thiscall sub_44EA5E(struct CGame *_this, float a2, signed int a3, signed int a4, char a5, int a6, int a7)
+bool CGame_Pick(struct CGame *_this, float a2, signed int a3, signed int a4, char a5, int a6, int a7)
 {
   int v7; // esi@1
-  char result; // al@3
   int v9; // ecx@10
   char v10; // [sp-4h] [bp-24h]@5
   int v11; // [sp+0h] [bp-20h]@5
@@ -245,13 +244,9 @@ char __thiscall sub_44EA5E(struct CGame *_this, float a2, signed int a3, signed 
         }
       }
     }
-    result = 1;
+    return true;
   }
-  else
-  {
-    result = 0;
-  }
-  return result;
+  else return false;
 }
 
 
@@ -1318,7 +1313,19 @@ unsigned int class17_LoadTextureFromCBM(struct class17 *_this, const wchar_t *pF
  unsigned int uCBMWdith,
               uCBMHeight;
 
- if (_this->uNumLoadedFiles >= 1000)
+ int  i;
+ char pAnsiFilename[256];
+
+ wsprintfA(pAnsiFilename, "%S", pFilename);
+ for (i = 0; i < _this->uNumLoadedFiles; ++i)
+ {
+  if (!lstrcmpiA(pAnsiFilename, _this->aLODHeaders[i].sContainerName))
+    return i;
+ }
+
+
+
+ if (_this->uNumLoadedFiles >= 2500) //>= 1000
    sub_466B8C();
 
  //try to open CBM
@@ -1353,7 +1360,7 @@ unsigned int class17_LoadTextureFromCBM(struct class17 *_this, const wchar_t *pF
  }
 
  WideCharToMultiByte(CP_ACP, 0, pFilename, -1, _this->aLODHeaders[_this->uNumLoadedFiles].sContainerName, lstrlenW(pFilename), 0, 0);
- _this->aLODHeaders[_this->uNumLoadedFiles].sContainerName[lstrlenW(pFilename) - 4] = 0;
+ _this->aLODHeaders[_this->uNumLoadedFiles].sContainerName[lstrlenW(pFilename)] = 0;
  _this->aLODHeaders[_this->uNumLoadedFiles].uTextureWidth = uCBMWdith;
  _this->aLODHeaders[_this->uNumLoadedFiles].uTextureHeight = uCBMHeight;
 
@@ -7754,6 +7761,9 @@ int class35_sub_48A3BC(struct class35 *_this, int a2)
   float v22; // [sp+398h] [bp-8h]@7
   float v23; // [sp+39Ch] [bp-4h]@7
 
+  runtime_warning;
+  return 0; // no palette textures for now
+
   v16 = _this;
   v3 = (int)((char *)_this + 0x267A04);
   result = 1;
@@ -7847,8 +7857,6 @@ int sub_4AC7C0(struct class17 *_this, const char *pSourceFile, int a3)
   int v10; // edx@21
   int v11; // eax@21
   signed int v12; // eax@22
-  unsigned __int8 v13; // zf@23
-  unsigned __int8 v14; // sf@23
   char DstBuf; // [sp+Ch] [bp-3Ch]@13
   __int16 v16; // [sp+1Ch] [bp-2Ch]@21
   __int16 v17; // [sp+1Eh] [bp-2Ah]@12
@@ -7940,13 +7948,13 @@ LABEL_6:
 
   //v12 = sub_4AC67E(_this, (char *)(_this + 40 * v5 + 0x23C), pSourceFile);
   v12 = sub_4AC67E(_this, &_this->aLODHeaders[v5], pSourceFile);
-  *(_WORD *)(v4 + 40 * _this->dword_00EC9C + 0x256) = 0;
+  //*(_WORD *)(v4 + 40 * _this->dword_00EC9C + 0x256) = 0;
+  _this->aLODHeaders[_this->dword_00EC9C].uTextureHeight = 0;
   if ( v12 != -1 )
   {
 LABEL_28:
-    *(_WORD *)(v4 + 40 * *(_DWORD *)(v4 + 60572) + 592) = class35_sub_48A3BC(
-                                                            &class35_obj,
-                                                            *(_WORD *)(v4 + 40 * *(_DWORD *)(v4 + 60572) + 592));
+    *(_WORD *)(&_this->aLODHeaders[_this->dword_00EC9C].uCompressedSize) = class35_sub_48A3BC(&class35_obj,
+                                                            *(_WORD *)(&_this->aLODHeaders[_this->dword_00EC9C].uCompressedSize));
 LABEL_29:
     if ( pD3DRenderer->dword_040088 )
     {
@@ -7960,16 +7968,14 @@ LABEL_29:
       *(_DWORD *)(*(_DWORD *)(v4 + 60592) + 40 * *(_DWORD *)(v4 + 60572) + 4) = a3;
       sub_4A5048(pD3DRenderer, *(_DWORD *)(v4 + 60592) + 40 * *(_DWORD *)(v4 + 60572));
     }
-    ++*(_DWORD *)(v4 + 60572);
-    return *(_DWORD *)(v4 + 60572) - 1;
+    ++_this->dword_00EC9C;
+    return _this->dword_00EC9C - 1;
   }
-  v13 = *(_DWORD *)(v4 + 60572) == 0;
-  v14 = *(_DWORD *)(v4 + 60572) < 0;
   v23 = 0;
-  if ( v14 | v13 )
+  if (_this->dword_00EC9C <= 0)
   {
 LABEL_27:
-    if ( sub_4AC67E(v4, (char *)(v4 + 40 * *(_DWORD *)(v4 + 60572) + 572), "pending") == -1 )
+    if ( sub_4AC67E(v4, &_this->aLODHeaders[_this->dword_00EC9C], "pending") == -1 )
       return -1;
     goto LABEL_28;
   }
@@ -8006,21 +8012,18 @@ void CNPCStats_Initialize(struct CNPCStats *_this)
   char *v4; // ebx@3
   char v5; // al@4
   int v6; // ecx@4
-  int v7; // ebx@18
   char *v9; // ecx@19
   int v10; // eax@20
   char v11; // dl@20
   int result; // eax@39
-  char v13; // zf@41
-  signed int v14; // [sp+Ch] [bp-14h]@18
   int v15; // [sp+10h] [bp-10h]@4
   int v16; // [sp+10h] [bp-10h]@24
   unsigned char **v17; // [sp+14h] [bp-Ch]@1
   signed int v18; // [sp+14h] [bp-Ch]@19
   signed int v19; // [sp+18h] [bp-8h]@1
-  int v20; // [sp+18h] [bp-8h]@18
   signed int v21; // [sp+1Ch] [bp-4h]@3
   signed int v22; // [sp+1Ch] [bp-4h]@19
+ int i;
 
   v2 = (int)_this;
   CNPCStats_sub_476CB5(_this);
@@ -8094,15 +8097,15 @@ LABEL_45:
   }
   _this->uNumNPCNames[0] = v19;
 
+
+
   _this->pNPCProfTXT_Raw = class17_fn1(pClass17_Events_LOD, "npcprof.txt", 0);
   strtok(_this->pNPCProfTXT_Raw, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
-  v7 = v2 + 80504;
-  v20 = v2 + 80504;
-  v14 = 58;
-  do
+
+  for (i = 0; i < 59; ++i)
   {
     v22 = 0;
     v9 = strtok(0, "\r") + 1;
@@ -8121,7 +8124,6 @@ LABEL_45:
           v11 = v9[v10];
         }
         while ( v11 != 9 );
-        v7 = v20;
       }
       v16 = (int)&v9[v10];
       if ( !v9[v10] )
@@ -8132,19 +8134,19 @@ LABEL_45:
         switch ( v22 )
         {
           case 2:
-            *(_DWORD *)(v7 - 12) = atoi(v9);
+            _this->pProfessions[i].uHireCost = atoi(v9);
             break;
           case 3:
-            *(_DWORD *)(v7 - 4) = sub_452C30(v9);
+            _this->pProfessions[i].pActionText = sub_452C30(v9);
             break;
           case 4:
-            *(_DWORD *)(v7 - 8) = sub_452C30(v9);
+            _this->pProfessions[i].pBenefits = sub_452C30(v9);
             break;
           case 5:
-            *(_DWORD *)v7 = sub_452C30(v9);
+            _this->pProfessions[i].pJoinText = sub_452C30(v9);
             break;
           case 6:
-            *(_DWORD *)(v7 + 4) = sub_452C30(v9);
+            _this->pProfessions[i].pDismissText = sub_452C30(v9);
             break;
         }
       }
@@ -8158,12 +8160,8 @@ LABEL_45:
       v9 = (char *)(v16 + 1);
     }
     while ( v22 <= 6 && !v18 );
-    v7 += 20;
-    v13 = v14-- == 1;
-    v20 = v7;
   }
-  while ( !v13 );
-  *(_DWORD *)(v2 + 98252) = 59;
+  _this->uNumNPCProfessions = 59;
 }
 
 
@@ -9367,4 +9365,450 @@ bool class17_Games_LOD_FindLeveL(struct class17 *_this, const char *pLevelName)
      return false;
   }
  return true;
+}
+
+
+//----- (004AC67E) --------------------------------------------------------
+int sub_4AC67E(struct class17 *_this, struct class18 *pDstBuf, const char *pFilename)
+{
+  signed int v6; // eax@3
+  char *v8; // esi@3
+  unsigned int v12; // eax@6
+  int i; // edx@6
+  int v14; // ecx@6
+  int v16; // [sp+10h] [bp+8h]@4
+ FILE *f;
+
+  f = class17_FindContainer(_this, pFilename, 0);
+  if (!f)
+    return -1;
+
+   v8 = pDstBuf;
+   locked_fread(pDstBuf, 1, 0x20, f);
+   strcpy(pDstBuf->sContainerName, pFilename);
+   pDstBuf->ptr_000020 = class23_AllocatedNamedBuffer(class23_instance, pDstBuf->ptr_000020, 8 * pDstBuf->word_000012, pDstBuf->sContainerName);
+   locked_fread(pDstBuf->ptr_000020, 1, 8 * pDstBuf->word_000012, f);
+   v6 = pDstBuf->dword_00001C;
+    if ( v6 )
+    {
+     pDstBuf->ptr_000024 = class23_AllocatedNamedBuffer(class23_instance, pDstBuf->ptr_000024, v6, pDstBuf->sContainerName);
+     v16 = class23_AllocatedNamedBuffer(class23_instance, 0, pDstBuf->dword_00000C, pDstBuf->sContainerName);
+     locked_fread(v16, 1, pDstBuf->dword_00000C, f);
+     maybe_decompress_file(pDstBuf->ptr_000024, &pDstBuf->dword_00001C, v16, pDstBuf->dword_00000C);
+     pDstBuf->dword_00000C = pDstBuf->dword_00001C;
+     class23_DeleteBuffer(class23_instance, v16);
+    }
+    else
+    {
+     pDstBuf->ptr_000024 = class23_AllocatedNamedBuffer(class23_instance, pDstBuf->ptr_000024, pDstBuf->dword_00000C, pDstBuf->sContainerName);
+     locked_fread(pDstBuf->ptr_000024, 1, pDstBuf->dword_00000C, f);
+    }
+    v12 = pDstBuf->ptr_000020;
+    v14 = pDstBuf->ptr_000024;
+
+    for ( i = v12 + 8 * pDstBuf->word_000012; v12 < i; i = pDstBuf->ptr_000020 + 8 * pDstBuf->word_000012)
+    {
+      *(_DWORD *)(v12 + 4) += v14;
+      v12 += 8;
+    }
+ 
+  return 1;
+}
+
+
+
+
+
+//----- (0044EEA7) --------------------------------------------------------
+extern __int64 qword_5C6DF0;
+extern int dword_F93E44;
+extern int dword_F93E30;
+extern int dword_F93E1C;
+extern int dword_EF524C;
+extern int dword_DEDBAC;
+extern int dword_DEDBB0;
+extern int dword_6BE360;
+extern int dword_5C6DD8;
+extern int dword_5C6DDC;
+extern int dword_5C6DE0;
+extern int dword_5C6DE4;
+extern int dword_5C6DE8;
+extern int dword_51B6DC;
+extern int dword_519AB4;
+extern char byte_5C6DEC;
+extern char byte_5C6DEC;
+char CGame_sub_44EEA7(struct CGame *_this)
+{
+  int v1; // esi@1
+  double v2; // st7@2
+  char result; // al@9
+  float v4; // ST00_4@9
+  unsigned int v5; // eax@14
+  int v6; // eax@21
+  int v7; // [sp+4h] [bp-24h]@2
+  int v8; // [sp+8h] [bp-20h]@2
+  char v9; // [sp+Ch] [bp-1Ch]@2
+  int *v10; // [sp+10h] [bp-18h]@2
+  int v11; // [sp+14h] [bp-14h]@2
+  POINT pt;
+
+  v1 = _this;
+  ++qword_5C6DF0;
+  class02_sub_48AC65(_this->class02_obj);
+  class03_GetMousePos(_this->class03_obj, &pt);
+  if ( sub_4637E0() )
+  {
+    v11 = (int)&dword_F93E44;
+    v10 = &dword_F93E30;
+    v9 = 0;
+    v8 = pt.y;
+    v7 = pt.x;
+    v2 = sub_43643E();
+  }
+  else
+  {
+    if ( *(_BYTE *)(&_this->dword_000E24) & 0x10 )
+    {
+      v11 = (int)&dword_F93E44;
+      v10 = &dword_F93E1C;
+    }
+    else
+    {
+      if ( !(byte_5C6DEC & 1) )
+      {
+        byte_5C6DEC |= 1u;
+        dword_5C6DE0 = -1;
+        dword_5C6DD8 = 0;
+        dword_5C6DDC = 2;
+        dword_5C6DE4 = 0;
+        dword_5C6DE8 = 0;
+        atexit(0);
+      }
+      v11 = (int)&dword_F93E44;
+      v10 = &dword_5C6DD8;
+    }
+    v2 = 5120.0;
+    v9 = 0;
+    v8 = pt.y;
+    v7 = pt.x;
+  }
+
+ v4 = v2;
+ CGame_Pick(pGame, v4, v7, v8, v9, (int)v10, v11);
+  _this->class04_obj->dword_183804 = 0;
+  _this->class04_obj->dword_3C8C08 = 0;
+  dword_DEDBAC = 0;
+  dword_DEDBB0 = 0;
+  result = CGame_sub_44F07B(_this);
+  if ( result )
+  {
+    if ( *(_BYTE *)(LODWORD(pGame) + 3616) & 8 )
+      *(_BYTE *)(*(_DWORD *)(v1 + 3676) + 4) = 0;
+    if ( pD3DRenderer->dword_040088 )
+    {
+      if ( dword_6BE360 == 2 )
+      {
+        v5 = sub_47C370();
+        dword_EF524C = v5 & 0xFFFFFF;
+      }
+    }
+    if ( *(_BYTE *)(v1 + 3617) & 4 )
+      *(_DWORD *)(v1 + 3620) |= 1u;
+    if ( !pD3DRenderer->dword_040088 )
+    {
+      if ( dword_6BE360 == 2 )
+      {
+        if ( dword_51B6DC )
+        {
+          *(_DWORD *)(v1 + 3620) |= 1u;
+          *(_QWORD *)(v1 + 3600) = qword_5C6DF0;
+        }
+      }
+    }
+    v6 = qword_5C6DF0 - *(_DWORD *)(v1 + 3600);
+    if ( v6 == 1 )
+    {
+      if ( !((unsigned __int64)(qword_5C6DF0 - *(_QWORD *)(v1 + 3600)) >> 32) )
+        *(_DWORD *)(v1 + 3620) |= v6;
+    }
+    if ( *(_DWORD *)(v1 + 3608) != dword_519AB4 )
+    {
+      *(_DWORD *)(v1 + 3620) |= 1u;
+      *(_DWORD *)(v1 + 3608) = dword_519AB4;
+    }
+    sub_44E904((void *)v1);
+    result = 1;
+  }
+  return result;
+}
+
+
+
+//----- (0048AC65) --------------------------------------------------------
+extern struct class24 *pClass24_global2;
+int class02_sub_48AC65(struct class02 *_this)
+{
+  int v1; // eax@1
+  int v2; // ebx@1
+  int v3; // edi@1
+  int v4; // esi@2
+  int v5; // eax@3
+  char v6; // sf@4
+  float v7; // ST4C_4@11
+  double v8; // st7@12
+  int v9; // eax@12
+  double v10; // st7@14
+  float v11; // ST4C_4@14
+  float v12; // ST3C_4@14
+  double v13; // ST20_8@14
+  float v14; // ST3C_4@14
+  double v15; // ST18_8@14
+  float v16; // ST3C_4@14
+  double v17; // ST10_8@14
+  signed int result; // eax@19
+  signed int v19; // [sp+38h] [bp-14h]@1
+  signed int v20; // [sp+3Ch] [bp-10h]@1
+  int v21; // [sp+40h] [bp-Ch]@1
+  int v22; // [sp+44h] [bp-8h]@12
+  signed int v23; // [sp+48h] [bp-4h]@1
+
+  v20 = 0;
+  v2 = _this;
+  v3 = pClass24_global2->dword_000004 == 0 ? pClass24_global->dword_00001C : 0;
+  v1 = *(_DWORD *)(v2 + 58404);
+  v19 = 500;
+  v21 = pClass24_global2->dword_000004 == 0 ? pClass24_global->dword_00001C : 0;
+  v23 = *(_DWORD *)(v2 + 58404);
+  if ( v1 <= *(_DWORD *)(v2 + 58408) )
+  {
+    v4 = 104 * v1 + v2 + 29;
+    do
+    {
+      v5 = *(_DWORD *)(v4 - 29);
+      if ( v5 )
+      {
+        v6 = *(_DWORD *)(v4 + 3) - v3 < 0;
+        *(_DWORD *)(v4 + 3) -= v3;
+        if ( v6 )
+        {
+          *(_DWORD *)(v4 - 29) = 0;
+        }
+        else
+        {
+          if ( BYTE1(v5) & 2 )
+          {
+            *(_DWORD *)(v4 + 15) = *(_DWORD *)(v4 - 25);
+            *(_DWORD *)(v4 + 19) = *(_DWORD *)(v4 - 21);
+            *(_DWORD *)(v4 + 23) = *(_DWORD *)(v4 - 17);
+          }
+          if ( v5 & 1 )
+            *(float *)(v4 - 5) = *(float *)(v4 - 5) - (double)v21 * 5.0;
+          if ( v5 & 8 )
+          {
+            v7 = (double)v21;
+            *(float *)(v4 - 25) = (double)(rand() % 5 - 2) * v7 * 0.0625 + *(float *)(v4 - 25);
+            *(float *)(v4 - 21) = (double)(rand() % 5 - 2) * v7 * 0.0625 + *(float *)(v4 - 21);
+            *(float *)(v4 - 17) = (double)(rand() % 5 + 4) * v7 * 0.0625 + *(float *)(v4 - 17);
+          }
+          v8 = (double)v21 * 0.0078125;
+          v9 = v3 * *(_DWORD *)(v4 + 27) / 16;
+          *(float *)(v4 - 25) = v8 * *(float *)(v4 - 13) + *(float *)(v4 - 25);
+          *(float *)(v4 - 21) = v8 * *(float *)(v4 - 9) + *(float *)(v4 - 21);
+          *(float *)(v4 - 17) = v8 * *(float *)(v4 - 5) + *(float *)(v4 - 17);
+          *(_DWORD *)(v4 + 31) += v9;
+          v22 = 2 * *(_DWORD *)(v4 + 3);
+          if ( 2 * *(_DWORD *)(v4 + 3) >= 255 )
+            v22 = 255;
+          v10 = (double)v22 * 0.003921568859368563;
+          v11 = v10;
+          v12 = (double)*(_BYTE *)(v4 + 1) * v10;
+          v13 = v12 + 6.755399441055744e15;
+          v14 = (double)*(_BYTE *)v4 * v11;
+          v15 = v14 + 6.755399441055744e15;
+          v16 = (double)(*(_DWORD *)(v4 - 1) & 0xFFi64) * v11;
+          v17 = v16 + 6.755399441055744e15;
+          *(_DWORD *)(v4 + 71) = LODWORD(v17) | ((LODWORD(v15) | (LODWORD(v13) << 8)) << 8);
+          if ( v23 < v19 )
+            v19 = v23;
+          if ( v23 > v20 )
+            v20 = v23;
+        }
+      }
+      ++v23;
+      v4 += 104;
+    }
+    while ( v23 <= *(_DWORD *)(v2 + 58408) );
+  }
+  *(_DWORD *)(v2 + 58408) = v20;
+  result = v19;
+  *(_DWORD *)(v2 + 58404) = v19;
+  return result;
+}
+
+
+
+//----- (0044F07B) --------------------------------------------------------
+bool CGame_sub_44F07B(struct CGame *_this)
+{
+ if (!class14_sub_45B0A9(_this->class14_obj, VK_SHIFT) &&
+     !class14_sub_45B0A9(_this->class14_obj, VK_LSHIFT) &&
+     !class14_sub_45B0A9(_this->class14_obj, VK_LSHIFT) ||
+     !class14_sub_45B0CE(_this->class14_obj, VK_F11))
+   class14_sub_45B0CE(_this->class14_obj, VK_F11);
+
+ return true;
+}
+
+
+
+
+//----- (0045B0A9) --------------------------------------------------------
+extern int dword_69B00C;
+char class14_sub_45B0A9(struct class14 *_this, int vKey)
+{
+  char result; // al@2
+  void *v3; // esi@2
+  char v4; // bl@2
+
+  if ( *(_BYTE *)(&_this->dword_000004) )
+  {
+    v3 = (void *)dword_69B00C;
+    EnterCriticalSection(&pGame->class01_obj->cs4);
+    v4 = *((_BYTE *)v3 + (unsigned __int8)sub_45B57D(v3, vKey) + 265) >> 7;
+    LeaveCriticalSection(&pGame->class01_obj->cs4);
+    result = v4;
+  }
+  else
+  {
+    result = (GetAsyncKeyState(vKey) & 0x8001) != 0;
+  }
+  return result;
+}
+
+
+//----- (0045B0CE) --------------------------------------------------------
+char class14_sub_45B0CE(struct class14 *_this, int vKey)
+{
+  char result; // al@2
+  void *v3; // esi@2
+  char v4; // bl@2
+
+  if ( *(_BYTE *)(&_this->dword_000004) )
+  {
+    v3 = (void *)dword_69B00C;
+    EnterCriticalSection(&pGame->class01_obj->cs4);
+    v4 = *((_BYTE *)v3 + (unsigned __int8)sub_45B57D(v3, vKey) + 521) >> 7;
+    LeaveCriticalSection(&pGame->class01_obj->cs4);
+    result = v4;
+  }
+  else
+  {
+    result = GetAsyncKeyState(vKey) & 1;
+  }
+  return result;
+}
+
+
+
+//----- (0049370F) --------------------------------------------------------
+extern struct Player *pPlayers[];
+extern char byte_AE3368[];
+extern int dword_4F8878[];
+extern int dword_ACD834;
+extern int dword_4F885C;
+extern char algn_AE3369;
+extern char byte_AE336A;
+extern char byte_AE336B;
+int Party_sub_49370F(struct Party *_this)
+{
+  void *v1; // esi@1
+  int v2; // eax@4
+  int v4; // edx@6
+  signed int v5; // ecx@6
+  int v6; // eax@7
+  signed int v7; // edx@23
+  int v8; // ecx@23
+  int v9; // edi@23
+  signed int v10; // esi@23
+  int v11; // eax@24
+  int v12; // [sp+Ch] [bp-4h]@1
+
+  v1 = _this;
+  v12 = 0;
+  if ( dword_ACD834 == 1 )
+  {
+    if ( dword_4F885C != 2 || (dword_4F8878[0] & 7) != 4 )
+      return 0;
+    v2 = dword_4F8878[0] >> 3;
+    return v2 + 1;
+  }
+  v5 = 0;
+  v4 = (int)((char *)v1 + 8960);
+  while ( 1 )
+  {
+    v6 = pPlayers[v5];
+    if ( *(_QWORD *)(v6 + 16)
+      || *(_QWORD *)(v6 + 96)
+      || *(_QWORD *)(v6 + 104)
+      || *(_QWORD *)(v6 + 112)
+      || *(_QWORD *)(v6 + 120)
+      || *(_QWORD *)(v6 + 128)
+      || *(_WORD *)v4 )
+    {
+      byte_AE3368[v5] = 1;
+      goto LABEL_21;
+    }
+    if ( !byte_AE3368[v5] )
+      break;
+LABEL_21:
+    ++v5;
+    v4 += 6972;
+    if ( v5 >= 4 )
+      goto LABEL_16;
+  }
+  v12 = v5;
+  byte_AE3368[v5] = 1;
+LABEL_16:
+  if ( (unsigned __int8)(algn_AE3369 & byte_AE336A & byte_AE336B) & byte_AE3368[0] )
+    memset(byte_AE3368, 0, 4u);
+  v2 = v12;
+  if ( v12 )
+    return v2 + 1;
+  v8 = (int)((char *)v1 + 2714);
+  v10 = 0;
+  v7 = 1;
+  v9 = (int)pPlayers;
+  while ( 2 )
+  {
+    v11 = *(_DWORD *)v9;
+    if ( !*(_QWORD *)(*(_DWORD *)v9 + 16)
+      && !*(_QWORD *)(v11 + 96)
+      && !*(_QWORD *)(v11 + 104)
+      && !*(_QWORD *)(v11 + 112)
+      && !*(_QWORD *)(v11 + 120)
+      && !*(_QWORD *)(v11 + 128)
+      && !*(_WORD *)(v8 + 6246) )
+    {
+      if ( v12 )
+      {
+        if ( *(_WORD *)v8 > v10 )
+        {
+          v10 = *(_WORD *)v8;
+          goto LABEL_35;
+        }
+      }
+      else
+      {
+        v10 = *(_WORD *)v8;
+LABEL_35:
+        v12 = v7;
+      }
+    }
+    v9 += 4;
+    ++v7;
+    v8 += 6972;
+    if ( v7 - 1 < 4 )
+      continue;
+    return v12;
+  }
 }

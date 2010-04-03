@@ -527,7 +527,8 @@ void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2)
     wsprintfW(pFilename, L"%S", _this->pTiles[i].sTileName);
     _this->pTiles[i].word_000012 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, pFilename);
 
-    pClass17_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026 = class35_sub_48A3BC(&class35_obj, pClass17_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026);
+    if (_this->pTiles[i].word_000012 != -1)
+      pClass17_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026 = class35_sub_48A3BC(&class35_obj, pClass17_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026);
    }
   }
  }
@@ -599,6 +600,12 @@ __int16 sub_4488B6(struct CDecorationDescriptionList *_this, const char *Str1)
   return 0;
 }
 
+//----- (00458693) --------------------------------------------------------
+extern struct CSpriteFrameTable *pSpriteFrameTable;
+void sub_458693(struct CDecorationDescriptionList *_this, unsigned int uDecorationDescriptionID)
+{
+  CSpriteFrameTable_fn4(pSpriteFrameTable, _this->pDescriptions[uDecorationDescriptionID].word_000048);
+}
 
 
 

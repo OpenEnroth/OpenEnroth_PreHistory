@@ -73,20 +73,22 @@ struct class51
  int                   dword_0000DC;
  unsigned char        *ptr_0000E0;
  unsigned char        *ptr_0000E4;
+ unsigned int          uSkyTextureID; // dword @ 0000E8
+ int                   dword_0000EC;  // main tile texture id?
 
  int            dword_0004C0;
  unsigned char *ptr_0004C4;
 
  int array_0004C8[10];
+ int array_0004F0[14];
 
  unsigned char array_000528[0x3C8];
  unsigned char array_0008F0[0x3C8];
 };
 
 
-int __cdecl LoadLevelFromFile();
 
-FILE *sub_47D0A6(struct class51 *_this, const char *Source, int File, int a4, int a5);
+bool LoadLevel(struct class51 *_this, const char *Source, int File, signed int a4, int a5);
 
 int sub_47F420(struct class51 *_this);
 int sub_47F3EA(struct class51 *_this);

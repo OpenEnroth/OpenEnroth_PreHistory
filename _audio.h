@@ -20,7 +20,10 @@ HDIGDRIVER __cdecl sub_4ABAF7();
 struct SoundDescription
 {
  unsigned char sSoundName[12]; // byte[] @ 000000
- char a[20];
+ char byte_00000C[8];
+ int dword_000014;
+ int dword_000018;
+ int dword_00001C;
  int dword_000020;
  int dword_000024;
  int dword_000028;
@@ -48,6 +51,8 @@ void *CSoundList_Initialize(struct CSoundList *_this, unsigned char *pSrc);
 int sub_4A9953(struct CSoundList *_this);
 //void __thiscall sub_4A9D79(void *this, int a2)
 void sub_4A9D79(struct CSoundList *_this, int a2);
+//int __thiscall sub_4A9A67(void *this, int a2, int a3);
+int sub_4A9A67(struct CSoundList *_this, int a2, int a3);
 
 
 

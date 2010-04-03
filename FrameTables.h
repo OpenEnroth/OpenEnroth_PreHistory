@@ -133,6 +133,7 @@ struct CTileTable
  unsigned int     uNumTiles; // dword @ 000000
  struct TileDesc *pTiles;    // ptr   @ 000004
 };
+//sizeof == ?
 
 void CTileTable_ctor(struct CTileTable *_this);
 //signed int __thiscall sub_488047(int this, const char *a2)
@@ -181,8 +182,10 @@ struct DecorationDescription
  unsigned char array_000020[32];
  int           dword_000040;
  int           dword_000044;
- int           dword_000048;
- int           dword_00004C;
+ short         word_000048;
+ short         word_00004A;
+ short         word_00004C;
+ short         word_00004E;
  int           dword_000050;
 };
 //sizeof == 54
@@ -202,13 +205,16 @@ void *CDecorationDescriptionList_Initialize(struct CDecorationDescriptionList *_
 int CDecorationDescriptionList_SaveToBIN(struct CDecorationDescriptionList *_this);
 //__int16 __thiscall sub_4488B6(void *this, const char *Str1);
 __int16 sub_4488B6(struct CDecorationDescriptionList *_this, const char *Str1);
-
+//void __thiscall sub_458693(int this, int a2);
+void sub_458693(struct DecorationDescriptionList *_this, unsigned int uDecorationDescriptionID);
 
 
 struct ObjectDescription
 {
  unsigned char a[32];
- char b[8];
+ char b[6];
+ char     byte_000026;
+ char     byte_000027;
  short    word_000028;
  short    word_00002A;
  int      dword_00002C;

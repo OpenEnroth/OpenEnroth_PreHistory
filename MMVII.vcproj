@@ -195,6 +195,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Actor.c"
+				>
+			</File>
+			<File
+				RelativePath=".\Actor.h"
+				>
+			</File>
+			<File
 				RelativePath=".\AIL.c"
 				>
 			</File>

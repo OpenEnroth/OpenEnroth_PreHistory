@@ -53,6 +53,12 @@ int CGame_fn0(struct CGame *_this);
 int CGame_fn1(struct CGame *_this, int flags);
 //char __thiscall sub_44EA17(int this);
 char sub_44EA17(struct CGame *_this);
+//char __thiscall sub_44EEA7(int this);
+char CGame_sub_44EEA7(struct CGame *_this);
+//char __thiscall sub_44EA5E(int this, float a2, signed int a3, signed int a4, char a5, int a6, int a7);
+bool CGame_Pick(struct CGame *_this, float a2, signed int a3, signed int a4, char a5, int a6, int a7);
+//char __thiscall sub_44F07B(int this);
+bool CGame_sub_44F07B(struct CGame *_this);
 
 
 
@@ -86,6 +92,8 @@ struct class02
 void *class02_ctor(struct class02 *_this);
 //void *__thiscall sub_48AAF6(void *Dst);
 void *class02_fn0(struct class02 *_this);
+//signed int __thiscall sub_48AC65(int this);
+int class02_sub_48AC65(struct class02 *_this);
 
 
 
@@ -155,9 +163,9 @@ struct class04
 {
  int dword_000000;
  int dword_000004[3100 * 512 / 4];          //std::vector @ 000004
- int dword_183804;
+ int dword_183804;                          //std::vector::size ?
  int dword_183808[3100 * 768 / 4];          //std::vector @ 183808
- int dword_3C8C08;
+ int dword_3C8C08;                          //std::vector::size ?
 };
 //sizeof = 3CBC38
 //void *__thiscall sub_45BB06(void *this);
@@ -439,6 +447,10 @@ struct class14
 //sizeof = 0008
 //int __thiscall sub_45AFD9(int this);
 struct class14 *class14_ctor(struct class14 *_this);
+//char __thiscall sub_45B0A9(int this, int vKey);
+char class14_sub_45B0A9(struct class14 *_this, int vKey);
+//char __thiscall sub_45B0CE(int this, int vKey);
+char class14_sub_45B0CE(struct class14 *_this, int vKey);
 
 
 
@@ -458,16 +470,33 @@ struct class16 *class16_ctor(struct class16 *_this, unsigned int uBlockSize);
 //class18
 struct class18
 {
- char  sContainerName[16];
- int   dword_000010;
+ char  sContainerName[8];
+ int   dword_000008;
+ int   dword_00000C;
+ short   word_000010;
+ short   word_000012;
  unsigned int   uCompressedSize; // dword @ 000014
  unsigned short uTextureWidth;   // word @ 000018
  unsigned short uTextureHeight;  // word @ 00001A
- short  word_00001C;
- short  word_00001E;
- char   byte_000020[4];
- short  word_000024;
- short  word_000026;
+ union
+ {
+  int dword_00001C;
+  struct
+  {
+   short  word_00001C;
+   short  word_00001E;
+  };
+ };
+ unsigned char *ptr_000020;
+ union
+ {
+  unsigned char *ptr_000024;
+  struct
+  {
+   short  word_000024;
+   short  word_000026;
+  };
+ };
  unsigned int uDecompressedSize;   // dword @ 000028
  char   byte_00002C[4];
  unsigned char *pIndexedPixels; // ptr @ 000030
@@ -524,7 +553,7 @@ struct class17
  int   dword_000234;
  int   dword_000238;
 
- struct class18 aLODHeaders[1000];  // class18[~ 1000] @ 00023C
+ struct class18 aLODHeaders[2500];  // class18[~ 1000] @ 00023C
  //char   byte_00023C[16];
  //short  array_00024C[0x7528];
 
@@ -594,6 +623,8 @@ int sub_46454B(struct class17 *_this);
 int sub_4645DC(struct class17 *_this);
 //signed int __thiscall sub_46161C(int this, const char *Str1);
 bool class17_Games_LOD_FindLeveL(struct class17 *_this, const char *pLevelName);
+//signed int __thiscall sub_4AC67E(int this, char *DstBuf, const char *Size);
+int sub_4AC67E(struct class17 *_this, struct class18 *DstBuf, const char *pFilename);
 
 unsigned int   class17_LoadTextureFromCBM(struct class17 *_this, const wchar_t *pFilename);
 unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename);
@@ -921,6 +952,7 @@ struct Item
 };
 //sizeof == 30
 
+
 //many items desc
 struct class40
 {
@@ -1160,6 +1192,15 @@ int StorylineText_Initialize(struct StorylineText *_this);
 
 
 
+struct NPCProfesstion
+{
+ unsigned int   uHireCost;    // dword @ 000000
+ unsigned char *pBenefits;    // ptr   @ 000004
+ unsigned char *pActionText;  // ptr   @ 000008
+ unsigned char *pJoinText;    // ptr   @ 00000C
+ unsigned char *pDismissText; // ptr   @ 000010
+};
+//sizeof == 14
 
 struct CNPCStats
 {
@@ -1167,11 +1208,14 @@ struct CNPCStats
 
  unsigned char *pNPCNames[540][2]; // ptr[2] array @ 012978
 
+ struct NPCProfesstion pProfessions[59]; //struct[59} @ 013A6C
+
  short word_017F5A[51];
 
  int dword_017FC0;
 
- int uNumNPCNames[2]; // dword[2] @ 017FD0 number of NPC names: [0] for male, [1] for female
+ unsigned int uNumNPCProfessions; // dword    @ 017FCC
+ unsigned int uNumNPCNames[2];    // dword[2] @ 017FD0 number of NPC names: [0] for male, [1] for female
 
  unsigned char *pNPCDataTXT_Raw;  // ptr @ 017FD8
  unsigned char *pNPCNamesTXT_Raw; // ptr @ 017FDC
@@ -1321,7 +1365,9 @@ struct Party
 
  int dword_000700;
 
- unsigned char array_000A74[16 /*+ array_size_unknown*/];
+ int dword_000718; //related to a day number
+ int dword_00071C;
+ int dword_000720;
 
  unsigned char byte_000708;
  unsigned char byte_000709;
@@ -1342,18 +1388,17 @@ struct Party
  int dword_000884;
  int dword_000888;
 
- char unk_00088C[16];
-
- char array_00089C[19][16];
-
- //unsigned char array_0009CC[4][6972];
- struct Player pPlayers[4]; // struct[4] @ 0009CC
+ char          array_00088C[20][16];
+ struct Player pPlayers[4];          // struct[4] @ 0009CC
 
  int dword_007778;
 
  char pad[50000];
 };
 //sizeof ~ 16238
+
+//int __thiscall sub_49370F(void *this);
+int Party_sub_49370F(struct Party *_this);
 
 
 
@@ -1373,7 +1418,7 @@ int sub_490109(struct Player *_this);
 
 struct struct0
 {
- unsigned short uSomeDescorationID; // word @ 000000
+ unsigned short uDescorationDescriptionID; // word @ 000000
  short word_000002;
  int   dword_000004;
  int   dword_000008;
@@ -1388,20 +1433,40 @@ struct struct0
 };
 //sizeof == 20
 
-struct Actor
-{
- unsigned char pActorName[32]; // byte[32] @ 000000
- short         word_000020;
- short         word_000022;
- char          byte_000024[4];
- char          byte_000028[796];
-};
-//sizeof == 344
-
 struct struct2
 {
- char byte_000000[112];
+ char  byte_000000[2];
+ short uObjectDescriptionID; // word @ 000002
+ int   dword_000004;
+ int   dword_000008;
+ int   dword_00000C;
+ char  byte_000010[96];
 };
 //sizeof == 70
+
+
+struct struct3
+{
+ short word_000000;
+ short word_000002;
+ int   dword_000004;
+ char  byte_000008[5316];
+};
+//sizeof == 14CC
+
+struct struct4
+{
+ char byte_000000[200];
+ //char byte_00004A;
+ //char byte_00004B;
+};
+//sizeof == C8
+
+struct struct5
+{
+ short word_000000;
+ char  byte_000002[22];
+};
+//sizeof == 18
 
 #pragma pack(pop)

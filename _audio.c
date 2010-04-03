@@ -1183,3 +1183,95 @@ void sub_4A9D79(struct CSoundList *_this, int a2)
     ++i;
   }
 }
+
+
+
+
+//----- (004A9A67) --------------------------------------------------------
+extern int dword_6BE364;
+int sub_4A9A67(struct CSoundList *_this, int a2, int a3)
+{
+  int v3; // edi@1
+  signed int v4; // edx@2
+  struct SoundDescription *v9; // eax@3
+  int v12; // eax@8
+  int v13; // esi@8
+  int v14; // eax@12
+  int v15; // eax@14
+  int v16; // eax@18
+  int v17; // eax@20
+  int v18; // ebx@20
+  int v19; // ebx@20
+  int v20; // eax@20
+  int v21; // eax@21
+  int v22; // ST04_4@26
+  char v23[0x78]; // [sp+Ch] [bp-A0h]@12
+  char v24; // [sp+84h] [bp-28h]@23
+  int v25; // [sp+98h] [bp-14h]@24
+  int v26; // [sp+A8h] [bp-4h]@2
+ int i;
+
+  v3 = (int)_this;
+  v4 = _this->uNumSounds;
+  v26 = 1;
+  if ( dword_6BE364 & 0x10 || _this->uNumSounds <= 0) // if (nosound)
+    return 0;
+
+  v9 = _this->pDescriptions;
+  i = 1;
+  while ( a2 != v9[i].dword_000014)
+  {
+    v26 = ++i;
+    if ( i >= _this->uNumSounds)
+      return 0;
+  }
+  v13 = 120 * i;
+  v12 = &_this->pDescriptions[i];
+  if ( *(_DWORD *)(v12 + 40) & 2 && *(_DWORD *)(v12 + 112) || !(*(_DWORD *)(v12 + 40) & 2) && *(_DWORD *)(v12 + 44) )
+    return v26;
+  sprintfex(v23, "%s", v12);
+  v14 = v13 + *(_DWORD *)(v3 + 4);
+  if ( !*(_DWORD *)(v14 + 44) )
+    *(_DWORD *)(*(_DWORD *)(v3 + 4) + v13 + 44) = sub_4A97C6(v23, -1, *(_DWORD *)(v14 + 32));
+  v15 = v13 + *(_DWORD *)(v3 + 4);
+  if ( !*(_DWORD *)(v15 + 44) )
+    return 0;
+  if ( a3 )
+    *(_DWORD *)(v15 + 40) |= 1u;
+  if ( !pClass31_global->dword_000004 || (v16 = v13 + *(_DWORD *)(v3 + 4), !(*(_BYTE *)(v16 + 40) & 2)) || !*(_DWORD *)(v16 + 44) )
+    return v26;
+  v19 = *(_DWORD *)(v16 + 44);
+  v20 = *(_DWORD *)v19;
+  v18 = v19 + 4;
+  v17 = AIL_file_type(v18, v20);
+  if ( !v17 )
+  {
+LABEL_29:
+    *(_BYTE *)(*(_DWORD *)(v3 + 4) + v13 + 116) = 0;
+    return 0;
+  }
+  v21 = v17 - 1;
+  if ( v21 )
+  {
+    if ( v21 == 1 )
+    {
+      if ( AIL_WAV_info(v18, &v24) )
+      {
+        if ( v25 != 2 )
+        {
+          if ( !AIL_decompress_ADPCM(&v24, *(_DWORD *)(v3 + 4) + v13 + 112, &a2) )
+          {
+            v22 = v26;
+            *(_DWORD *)(*(_DWORD *)(v3 + 4) + v13 + 112) = 0;
+            *(_BYTE *)(*(_DWORD *)(v3 + 4) + v13 + 116) = 1;
+            sub_4A9DCD(v3, v22, 0);
+          }
+        }
+      }
+      return v26;
+    }
+    goto LABEL_29;
+  }
+  *(_DWORD *)(*(_DWORD *)(v3 + 4) + v13 + 112) = *(_DWORD *)(*(_DWORD *)(v3 + 4) + v13 + 44);
+  return v26;
+}
