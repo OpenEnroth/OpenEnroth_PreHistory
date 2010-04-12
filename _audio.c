@@ -6,6 +6,10 @@
 
 #include "classes.h"
 
+#include "FrameTables.h"
+
+#include "mm7DDrawRenderer.h"
+
 #include "data.h"
 
 extern char off_4E7ECC[];
@@ -1274,4 +1278,434 @@ LABEL_29:
   }
   *(_DWORD *)(*(_DWORD *)(v3 + 4) + v13 + 112) = *(_DWORD *)(*(_DWORD *)(v3 + 4) + v13 + 44);
   return v26;
+}
+
+
+
+
+
+
+//----- (004AAFCF) --------------------------------------------------------
+extern struct CDecorationDescriptionList *pDecorationDescriptionList;
+extern struct CD3DRenderer *pD3DRenderer;
+extern struct class24 *pClass24_global;
+extern struct struct0 array_6836D0[];
+extern int dword_6807B8[];
+extern int dword_51B714;
+extern int dword_51B6F8;
+extern float flt_51B710;
+extern int dword_51B718;
+extern int dword_51B71C;
+extern int dword_4E28F8;
+extern int dword_6807E0;
+void class31_sub_4AAFCF(struct class31 *_this)
+{
+  int v1; // ebx@1
+  int v2; // edi@1
+  char v3; // zf@1
+  int v4; // eax@2
+  char v5; // zf@3
+  unsigned __int8 v6; // zf@4
+  unsigned __int8 v7; // sf@4
+  int v8; // esi@5
+  int v9; // ebx@6
+  int v10; // ebx@9
+  int v11; // ebx@10
+  int v12; // ebx@11
+  double v13; // st7@13
+  char *v14; // eax@14
+  char *v15; // eax@15
+  signed int v16; // edx@15
+  char *v17; // eax@19
+  double v18; // st6@22
+  double v19; // st7@22
+  double v20; // st5@23
+  double v21; // st3@24
+  double v22; // st4@24
+  double v23; // st6@28
+  double v24; // st7@32
+  int v25; // ST1C_4@32
+  int v26; // ebx@32
+  int v27; // eax@32
+  float v28; // ST10_4@34
+  float v29; // ST08_4@34
+  int v30; // esi@38
+  unsigned __int8 v31; // zf@43
+  char v32; // sf@43
+  unsigned __int8 v33; // of@43
+  int v34; // esi@44
+  signed int v35; // eax@45
+  char *v36; // eax@49
+  int v37; // eax@50
+  char *v38; // edi@50
+  int v39; // edx@51
+  int v40; // ecx@51
+  int v41; // eax@53
+  char *v42; // edi@53
+  char *v43; // edi@56
+  int v44; // eax@57
+  int v45; // eax@60
+  int v46; // edi@65
+  int v47; // eax@68
+  int v48; // ebx@68
+  __int16 *v49; // esi@68
+  int v50; // ST1C_4@68
+  int v51; // edi@68
+  int v52; // eax@68
+  int v53; // edi@69
+  __int16 v54; // ax@69
+  int v55; // eax@71
+  __int16 v56; // ax@73
+  signed int v57; // eax@88
+  float v58; // [sp+24h] [bp-48h]@13
+  float v59; // [sp+28h] [bp-44h]@13
+  float v60; // [sp+2Ch] [bp-40h]@21
+  float v61; // [sp+30h] [bp-3Ch]@26
+  float v62; // [sp+34h] [bp-38h]@26
+  float v63; // [sp+38h] [bp-34h]@26
+  float v64; // [sp+50h] [bp-1Ch]@1
+  float v65; // [sp+54h] [bp-18h]@22
+  float v66; // [sp+58h] [bp-14h]@22
+  int v67; // [sp+5Ch] [bp-10h]@15
+  float v68; // [sp+60h] [bp-Ch]@23
+  int v69; // [sp+64h] [bp-8h]@4
+  int v70; // [sp+68h] [bp-4h]@1
+
+  runtime_warning;
+  return;
+
+  v2 = _this;
+  v1 = 0;
+  v70 = _this;
+  v3 = *(_DWORD *)(v2 + 668) == 0;
+  v64 = 0.0;
+  if ( !v3 )
+  {
+    v4 = v2 + 720;
+    *(_DWORD *)v4 -= pClass24_global->dword_00001C;
+    if ( *(_DWORD *)(v2 + 720) <= 0 )
+    {
+      v5 = *(_DWORD *)(v2 + 4) == 0;
+      *(_DWORD *)v4 = 32;
+      if ( !v5 )
+      {
+        v6 = *(_DWORD *)(v2 + 16) == 0;
+        v7 = *(_DWORD *)(v2 + 16) < 0;
+        v69 = 0;
+        if ( !(v7 | v6) )
+        {
+          v8 = v2 + 20;
+          while ( 1 )
+          {
+            v9 = *(_DWORD *)(v8 + 4) & 7;
+            if ( AIL_3D_sample_status(*(_DWORD *)v8) == 2 )
+            {
+              AIL_end_3D_sample(*(_DWORD *)v8);
+              sub_4ABF23(v2, v8);
+            }
+            if ( AIL_3D_sample_status(*(_DWORD *)v8) != 4 )
+              goto LABEL_35;
+            v10 = v9 - 1;
+            if ( v10 )
+              break;
+            if ( dword_6BE360 != 1 )
+              goto LABEL_31;
+            v17 = (char *)Src + 80 * (*(_DWORD *)(v8 + 4) >> 3);
+            if ( *((_DWORD *)v17 + 1) )
+            {
+              v67 = **((_WORD **)v17 + 14);
+              v58 = (double)v67;
+              v67 = **((_WORD **)v17 + 15);
+              v59 = (double)v67;
+              v67 = **((_WORD **)v17 + 16);
+              v13 = (double)v67;
+              goto LABEL_21;
+            }
+LABEL_35:
+            ++v69;
+            v8 += 16;
+            if ( v69 >= *(_DWORD *)(v2 + 16) )
+            {
+              v1 = 0;
+              goto LABEL_37;
+            }
+          }
+          v11 = v10 - 1;
+          if ( v11 )
+          {
+            v12 = v11 - 1;
+            if ( !v12 )
+            {
+              v15 = (char *)pActors + 836 * (*(_DWORD *)(v8 + 4) >> 3);
+              v67 = *((_WORD *)v15 + 71);
+              v16 = *((_WORD *)v15 + 72);
+              v58 = (double)v67;
+              v67 = *((_WORD *)v15 + 73);
+              v59 = (double)v16;
+              v13 = (double)v67;
+              goto LABEL_21;
+            }
+            if ( v12 != 2 )
+            {
+              v58 = (double)pParty_global->dword_0006B4;
+              v59 = (double)pParty_global->dword_0006B8;
+              v13 = (double)pParty_global->dword_00000C + (double)pParty_global->dword_0006BC;
+              goto LABEL_21;
+            }
+            v14 = (char *)&array_6836D0[(*(_DWORD *)(v8 + 4) >> 3)];
+          }
+          else
+          {
+            v14 = (char *)array_665230 + 112 * (*(_DWORD *)(v8 + 4) >> 3);
+          }
+          v58 = (double)*((signed int *)v14 + 1);
+          v59 = (double)*((signed int *)v14 + 2);
+          v13 = (double)*((signed int *)v14 + 3);
+LABEL_21:
+          v60 = v13;
+          if ( dword_6BE360 == 1 )
+          {
+            v19 = *(float *)&dword_51B718;
+            v18 = *(float *)&dword_51B71C;
+            v65 = flt_51B710;
+            LODWORD(v66) = dword_51B714;
+            if ( dword_51B6F8 )
+            {
+              v68 = v58 - (double)pParty_global->dword_0006B4;
+              *(float *)&v67 = v59 - (double)pParty_global->dword_0006B8;
+              v20 = v60 - (double)pParty_global->dword_0006BC;
+              if ( pD3DRenderer->dword_040088 )
+              {
+                v22 = *(float *)&v67 * v66 + v68 * v65;
+                v21 = v68 * v66 - *(float *)&v67 * v65;
+              }
+              else
+              {
+                v22 = v68 * v65 - *(float *)&v67 * v66;
+                v21 = v68 * v66 + *(float *)&v67 * v65;
+              }
+              v61 = v22 * v19 - v20 * v18;
+              v62 = v21;
+              v63 = v22 * v18 + v20 * v19;
+            }
+            else
+            {
+              v68 = v58 - (double)pParty_global->dword_0006B4;
+              *(float *)&v67 = v59 - (double)pParty_global->dword_0006B8;
+              if ( pD3DRenderer->dword_040088 )
+              {
+                v61 = *(float *)&v67 * v66 + v68 * v65;
+                v23 = v68 * v66 - *(float *)&v67 * v65;
+              }
+              else
+              {
+                v61 = v68 * v65 - *(float *)&v67 * v66;
+                v23 = v68 * v66 + *(float *)&v67 * v65;
+              }
+              v62 = v23;
+              v63 = v60 - (double)pParty_global->dword_0006BC;
+            }
+          }
+          else
+          {
+LABEL_31:
+            sub_436523((int)&v58, 1);
+          }
+          v68 = v62 * -0.01220703125;
+          v24 = v61 * 0.01220703125;
+          *(float *)&v67 = v24;
+          v25 = abs((signed __int64)v24);
+          v26 = abs(0);
+          v27 = abs((signed __int64)v68);
+          if ( sub_4621DA(v27, v26, v25) <= 100 )
+          {
+            AIL_set_3D_position(*(_DWORD *)v8, LODWORD(v68), 0.0, v67);
+            v28 = -*(float *)&v67;
+            v29 = -v68;
+            AIL_set_3D_orientation(*(_DWORD *)v8, LODWORD(v29), 0.0, LODWORD(v28), 0.0, 1.0, 0.0);
+          }
+          else
+          {
+            AIL_end_3D_sample(*(_DWORD *)v8);
+            sub_4ABF23(v2, v8);
+          }
+          goto LABEL_35;
+        }
+      }
+LABEL_37:
+      if ( *(_DWORD *)(v2 + 1000) > v1 )
+      {
+        v30 = v2 + 744;
+        do
+        {
+          if ( AIL_sample_status(*(_DWORD *)v30) == 2 )
+          {
+            AIL_end_sample(*(_DWORD *)v30);
+            sub_4ABE55(v2, v30);
+          }
+          ++v1;
+          v30 += 16;
+        }
+        while ( v1 < *(_DWORD *)(v2 + 1000) );
+        v1 = 0;
+      }
+      compile_error;//v33 = __SETO__(*(_DWORD *)(v2 + 1000), v1);
+      v31 = *(_DWORD *)(v2 + 1000) == v1;
+      v32 = *(_DWORD *)(v2 + 1000) - v1 < 0;
+      v69 = v1;
+      if ( !((unsigned __int8)(v32 ^ v33) | v31) )
+      {
+        v34 = v2 + 744;
+        while ( 1 )
+        {
+          v35 = *(_DWORD *)(v34 + 4);
+          if ( (*(_DWORD *)(v34 + 4) & 7) == 1 )
+          {
+            if ( dword_6BE360 == 1 )
+            {
+              v43 = (char *)Src + 80 * (v35 >> 3);
+              if ( !*((_DWORD *)v43 + 1) )
+              {
+LABEL_61:
+                v2 = v70;
+                goto LABEL_62;
+              }
+              v44 = sub_4AB6B1(**((_WORD **)v43 + 14), **((_WORD **)v43 + 15), **((_WORD **)v43 + 16));
+              if ( !v44 )
+              {
+LABEL_58:
+                AIL_end_sample(*(_DWORD *)v34);
+                sub_4ABE55(v70, v34);
+                goto LABEL_61;
+              }
+              AIL_set_sample_volume(*(_DWORD *)v34, v44);
+              v39 = **((_WORD **)v43 + 15);
+              v40 = **((_WORD **)v43 + 14);
+LABEL_60:
+              v45 = sub_4AB66C(v40, v39);
+              AIL_set_sample_pan(*(_DWORD *)v34, v45);
+              goto LABEL_61;
+            }
+          }
+          else
+          {
+            if ( (*(_DWORD *)(v34 + 4) & 7) == 2 )
+            {
+              v36 = (char *)array_665230 + 112 * (v35 >> 3);
+              goto LABEL_53;
+            }
+            if ( (*(_DWORD *)(v34 + 4) & 7) == 3 )
+            {
+              v38 = (char *)pActors + 836 * (v35 >> 3);
+              v37 = sub_4AB6B1(*((_WORD *)v38 + 71), *((_WORD *)v38 + 72), *((_WORD *)v38 + 73));
+              if ( !v37 )
+                goto LABEL_58;
+              AIL_set_sample_volume(*(_DWORD *)v34, v37);
+              v39 = *((_WORD *)v38 + 72);
+              v40 = *((_WORD *)v38 + 71);
+              goto LABEL_60;
+            }
+            if ( (*(_DWORD *)(v34 + 4) & 7) == 5 )
+            {
+              v36 = (char *)&array_6836D0[(v35 >> 3)];
+LABEL_53:
+              v42 = v36;
+              v41 = sub_4AB6B1(*((_DWORD *)v36 + 1), *((_DWORD *)v36 + 2), *((_DWORD *)v36 + 3));
+              if ( !v41 )
+                goto LABEL_58;
+              AIL_set_sample_volume(*(_DWORD *)v34, v41);
+              v39 = *((_DWORD *)v42 + 2);
+              v40 = *((_DWORD *)v42 + 1);
+              goto LABEL_60;
+            }
+          }
+LABEL_62:
+          ++v69;
+          v34 += 16;
+          if ( v69 >= *(_DWORD *)(v2 + 1000) )
+          {
+            v1 = 0;
+            break;
+          }
+        }
+      }
+      if ( dword_4E28F8 != v1 )
+      {
+        v46 = v2 + 808;
+        if ( AIL_sample_status(*(_DWORD *)v46) == 4 )
+          AIL_end_sample(*(_DWORD *)v46);
+        return;
+      }
+      v69 = v1;
+      if ( dword_6807E0 <= v1 )
+        return;
+      while ( 1 )
+      {
+        LODWORD(v66) = 1;
+        v48 = 4 * v69 + 6817720;
+        v49 = &array_6836D0[dword_6807B8[v69]];
+        v50 = abs(*((_DWORD *)v49 + 3) - pParty_global->dword_0006BC);
+        v51 = abs(*((_DWORD *)v49 + 2) - pParty_global->dword_0006B8);
+        v52 = abs(*((_DWORD *)v49 + 1) - pParty_global->dword_0006B4);
+        v47 = sub_4621DA(v52, v51, v50);
+        if ( v47 <= 8192 )
+          break;
+LABEL_89:
+        ++v69;
+        if ( v69 >= dword_6807E0 )
+          return;
+      }
+      v53 = pDecorationDescriptionList->pDescriptions + 84 * *v49;
+      v54 = *(_WORD *)(v53 + 74);
+      v67 = (~(unsigned __int8)*(_WORD *)(v53 + 74) & 0x40) >> 6;
+      if ( HIBYTE(v54) & 3 )
+      {
+        LOWORD(v47) = v49[13];
+        LODWORD(v65) = 0;
+        v67 = 2;
+        if ( (_WORD)v47 )
+        {
+          v55 = v47 - 32;
+          v49[13] = v55;
+          if ( (_WORD)v55 < 0 )
+            v49[13] = 0;
+        }
+      }
+      v56 = *(_WORD *)(v53 + 74);
+      if ( !(HIBYTE(v56) & 1) )
+      {
+        if ( !(HIBYTE(v56) & 2) )
+          goto LABEL_84;
+        if ( LODWORD(v65) )
+          goto LABEL_85;
+      }
+      LODWORD(v66) = 0;
+      if ( (unsigned int)pParty_global->dword_00071C >= 5 && (unsigned int)pParty_global->dword_00071C < 6
+        || (unsigned int)pParty_global->dword_00071C >= 0x14 && (unsigned int)pParty_global->dword_00071C < 0x15 )
+      {
+        if ( !v49[13] )
+        {
+          if ( rand() % 100 < 100 )
+            LODWORD(v66) = 1;
+        }
+        LODWORD(v65) = 1;
+      }
+LABEL_84:
+      if ( !LODWORD(v65) )
+      {
+LABEL_87:
+        if ( LODWORD(v66) )
+        {
+          v57 = 8 * *(_DWORD *)v48;
+          LOBYTE(v57) = v57 | 5;
+          class31_sub_4AA306(v70, *(_WORD *)(v53 + 76), v57, v67, -1, 0, 0, 0, 0);
+        }
+        goto LABEL_89;
+      }
+LABEL_85:
+      if ( !v49[13] )
+        v49[13] = (rand() % 15 + 1) << 7;
+      goto LABEL_87;
+    }
+  }
 }

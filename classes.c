@@ -44,8 +44,6 @@ extern int dword_6A0CA4;
 
 extern int dword_720010;
 
-extern int dword_720018;
-
 extern int dword_F792F0;
 
 extern int dword_F79D70;
@@ -83,7 +81,7 @@ void CGame_ctor(struct CGame *_this)
 {
  void *v1, *v2;
 
- _this->dword_000000 = 5080668;
+ _this->dword_000000 = 0x4D865C;
  _this->dword_000704 = 0;
  _this->dword_000E08 = 0;
  _this->dword_000E0C = 0;
@@ -3947,25 +3945,25 @@ void *class23_AllocatedNamedBuffer(struct class23 *_this, int a2, int size, cons
 
  if (a2)
  {
-  if (!dword_720018)
+  if (!pGame->dword_000004)
     sub_466B8C();
  }
 
  if (!_this->bBigBufferAllocated)
  {
-  if ( !dword_720018 )
+  if ( !pGame->dword_000004 )
     sub_466B8C();
  }
 
  v5 = size;
  if (size)
  {
-  if (size < 0 && !dword_720018)
+  if (size < 0 && !pGame->dword_000004)
     sub_466B8C();
 
   if (_this->uNumMemoryBuffersUsed >= 6000)
   {
-   if (!dword_720018)
+   if (!pGame->dword_000004)
    {
     sub_466B8C();
     v5 = size;
@@ -3981,7 +3979,7 @@ void *class23_AllocatedNamedBuffer(struct class23 *_this, int a2, int size, cons
      _this->uMemoryBufferSizes[v8] = size;
    else
    {
-    if (!dword_720018)
+    if (!pGame->dword_000004)
       sub_466B8C();
    }
   }
@@ -3994,7 +3992,7 @@ void *class23_AllocatedNamedBuffer(struct class23 *_this, int a2, int size, cons
    {
     printf("Id: %s  Size: %i", pBufferName, v10);
     class23_CreateFileDump(_this, "Memory");
-    if (!dword_720018)
+    if (!pGame->dword_000004)
       sub_466B8C();
    }
 
@@ -4027,7 +4025,7 @@ int class23_DeleteBuffer(struct class23 *_this, void *pMem)
  {
   if (!_this->bBigBufferAllocated)
   {
-   if (!dword_720018)
+   if (!pGame->dword_000004)
      sub_466B8C();
   }
 
@@ -4038,7 +4036,7 @@ int class23_DeleteBuffer(struct class23 *_this, void *pMem)
  
   if (i >= v3)
   {
-   if (!dword_720018)
+   if (!pGame->dword_000004)
      v3 = sub_466B8C();
   }
 
@@ -9810,5 +9808,496 @@ LABEL_35:
     if ( v7 - 1 < 4 )
       continue;
     return v12;
+  }
+}
+
+
+
+
+//----- (00497FC5) --------------------------------------------------------
+extern int dword_6BE358;
+bool Party_sub_497FC5(struct Party *_this)
+{
+  int v2; // edi@1
+  signed int v5; // eax@3
+  bool result; // eax@7
+ int i;
+
+  v2 = 0;
+  for (i = 0; i < 4; ++i)
+  {
+    if ( sub_492C0B(&_this->pPlayers[i]) )
+    {
+      v5 = sub_49125A(&_this->pPlayers[i]);
+      if ( v5 > v2 )
+        v2 = v5;
+    }
+  }
+  if ( dword_6BE358 && dword_6BE358 < 77 )
+    result = v2 >= 2 * pMapStats->pMapInfos[dword_6BE358].dword_000028;
+  else
+    result = 0;
+  return result;
+}
+
+
+
+//----- (004376E7) --------------------------------------------------------
+extern int dword_F8BC40;
+extern int dword_F8BC34;
+extern int dword_F8BC38;
+extern int dword_F8BC3C;
+extern struct class55 *pClass55_global;
+int __stdcall sub_4378BA(int a1, int a2, int a3);
+void class08_sub_4376E7(struct class08 *_this)
+{
+  void *v3; // esi@1
+  double v4; // st7@1
+  int result; // eax@5
+  char v8[0x24]; // [sp+10h] [bp-B8h]@1
+  float v9[4*array_size_unknown]; // [sp+34h] [bp-94h]@1
+  char v10[12]; // [sp+38h] [bp-90h]@2
+  char v11[20]; // [sp+44h] [bp-84h]@2
+  float v12; // [sp+58h] [bp-70h]@1
+  float v13; // [sp+5Ch] [bp-6Ch]@1
+  float v14; // [sp+60h] [bp-68h]@1
+  float v15; // [sp+64h] [bp-64h]@1
+  float v16; // [sp+68h] [bp-60h]@1
+  float v17; // [sp+6Ch] [bp-5Ch]@1
+  float v18; // [sp+70h] [bp-58h]@1
+  float v19; // [sp+74h] [bp-54h]@1
+  float v20; // [sp+78h] [bp-50h]@1
+  float v21; // [sp+7Ch] [bp-4Ch]@1
+  float v22; // [sp+80h] [bp-48h]@1
+  float v23; // [sp+84h] [bp-44h]@1
+  float v24; // [sp+88h] [bp-40h]@1
+  float v25; // [sp+8Ch] [bp-3Ch]@1
+  int v26; // [sp+90h] [bp-38h]@1
+  float v27; // [sp+94h] [bp-34h]@1
+  float v28; // [sp+98h] [bp-30h]@1
+  float v29; // [sp+9Ch] [bp-2Ch]@1
+  float v30; // [sp+A0h] [bp-28h]@1
+  float v31; // [sp+A4h] [bp-24h]@1
+  float v32; // [sp+A8h] [bp-20h]@1
+  float v33; // [sp+ACh] [bp-1Ch]@1
+  float v34; // [sp+B0h] [bp-18h]@1
+  float v35; // [sp+B4h] [bp-14h]@1
+  float v36; // [sp+B8h] [bp-10h]@1
+  float v37; // [sp+BCh] [bp-Ch]@1
+  float v38; // [sp+C0h] [bp-8h]@1
+  float v39; // [sp+C4h] [bp-4h]@1
+ int i;
+
+  v3 = _this;
+  v32 = 0.0;
+  v35 = 0.0;
+  v36 = 0.0;
+  v37 = 0.0;
+  v38 = 1.0;
+  v21 = 1.0;
+  v22 = 0.0;
+  v23 = 0.0;
+  v24 = 0.0;
+  v27 = 0.0;
+  v13 = 0.0;
+  v15 = 0.0;
+  v16 = 1.0;
+  v17 = 0.0;
+  v19 = 0.0;
+  v39 = cos(0.0);
+  v4 = sin(0.0);
+  v30 = v39;
+  v31 = v4;
+  v33 = -v4;
+  v34 = v39;
+  v25 = pClass55_global->flt_000038;
+  v28 = -pClass55_global->flt_000034;
+  v26 = pClass55_global->flt_000034;
+  v29 = pClass55_global->flt_000038;
+  v12 = pClass55_global->flt_000030;
+  v14 = -pClass55_global->flt_00002C;
+  v18 = pClass55_global->flt_00002C;
+  v20 = pClass55_global->flt_000030;
+  sub_4378BA((int)&v30, (int)&v12, v8);
+  sub_4378BA((int)&v21, v8, v9);
+
+  for (i = 0; i < 3; ++i)
+  {
+    _this->class26_obj1.array_000004[i] = *(float *)(v10 + i * 4);
+    _this->class26_obj2.array_000004[i] = *(float *)(v9 + i);
+    _this->class26_obj3.array_000004[i] = *(float *)(v11 + i * 4);
+  }
+
+  _this->flt_0000D0 = (double)dword_F8BC34 * 0.8814736008644104;
+  _this->flt_0000D4 = 0.8814736008644104 * (double)dword_F8BC38;
+  _this->flt_0000D8 = 1.1344639f;
+
+  _this->flt_0000C4 = max(_this->flt_0000D0, _this->flt_0000D4);
+  _this->flt_0000C8 = (double)dword_F8BC3C;
+  _this->flt_0000CC = (double)(dword_F8BC40 - dword_F8BC18);
+}
+
+
+//----- (004374E8) --------------------------------------------------------
+void class08_sub_4374E8(struct class08 *_this)
+{
+  double v2; // st7@1
+  double v3; // st7@1
+  double v4; // st7@1
+  double v5; // st7@1
+  double v6; // st7@1
+
+  //class26
+  struct class26 local_0C;
+/*  char v7[0x04]; // [sp+Ch] [bp-24h]@1
+  float v8; // [sp+10h] [bp-20h]@1
+  float v9; // [sp+14h] [bp-1Ch]@1
+  float v10; // [sp+18h] [bp-18h]@1
+*/
+  float v11; // [sp+1Ch] [bp-14h]@1
+  float v12; // [sp+20h] [bp-10h]@1
+  int v13; // [sp+2Ch] [bp-4h]@1
+
+  class26_ctor(&local_0C);
+  v2 = *(double *)&byte_4D8410[416] / _this->flt_0000D8;
+  v13 = 0;
+  v3 = atan(v2 * _this->flt_0000C4 / _this->flt_0000D0);
+  v12 = v3;
+  v11 = sin(v3);
+  v4 = cos(v12);
+  local_0C.array_000004[0] = -v11;
+  local_0C.array_000004[1] = 0;
+  local_0C.array_000004[2] = v4;
+  class08_sub_437607(_this, &local_0C, _this->std__vector_000034);
+  local_0C.array_000004[0] = v11;
+  class08_sub_437607(_this, &local_0C, _this->std__vector_000034 + 6);
+  v5 = atan(*(double *)&byte_4D8410[416] / _this->flt_0000D8 * _this->flt_0000C4 / (_this->flt_0000D4 + 0.5));
+  v12 = v5;
+  v11 = sin(v5);
+  v6 = cos(v12);
+  local_0C.array_000004[0] = 0;
+  local_0C.array_000004[1] = v11;
+  local_0C.array_000004[2] = v6;
+  class08_sub_437607(_this, &local_0C, _this->std__vector_000034 + 12);
+  local_0C.array_000004[1] = -v11;
+  class08_sub_437607(_this, &local_0C, _this->std__vector_000034 + 18);
+  v13 = -1;
+  class26_sub_4C039C(&local_0C);
+}
+
+//----- (00437607) --------------------------------------------------------
+void class08_sub_437607(struct class08 *_this, struct class26 *a2, unsigned char *a3)
+{
+  int v3; // eax@1
+  signed int v4; // ecx@1
+  double v5; // st7@1
+  double v7; // st6@2
+  
+  struct class26 local_08;
+/*
+  char v8; // [sp+8h] [bp-1Ch]@1
+  float v9; // [sp+Ch] [bp-18h]@1
+  float v10; // [sp+10h] [bp-14h]@1
+  float v11; // [sp+14h] [bp-10h]@1
+*/
+  int v12; // [sp+20h] [bp-4h]@1
+
+  class26_ctor(&local_08);
+  v12 = 0;
+  local_08.array_000004[0] = (double)pClass55_global->dword_000000;
+  local_08.array_000004[1] = (double)pClass55_global->dword_000004;
+  local_08.array_000004[2] = (double)pClass55_global->dword_000008;
+  class08_sub_437691(_this, a2, a3 + 4);
+  v5 = 0.0;
+  v4 = 0;
+  v3 = a3 + 8;
+  do
+  {
+    v7 = *(local_08.array_000004 + v4++) * *(float *)v3;
+    v3 += 4;
+    v5 = v5 + v7;
+  }
+  while ( v4 < 3 );
+  v12 = -1;
+  *(float *)(a3 + 20) = v5 + 0.00009999999747378752;
+  class26_sub_4C039C(&local_08);
+}
+
+//----- (00437691) --------------------------------------------------------
+void class08_sub_437691(struct class08 *_this, struct class26 *a2, float *a3)
+{
+ a3[1] = _this->class26_obj2.array_000004[2] * a2->array_000004[0] +
+         _this->class26_obj1.array_000004[2] * a2->array_000004[1] +
+         _this->class26_obj3.array_000004[2] * a2->array_000004[2];
+
+ a3[2] = _this->class26_obj2.array_000004[0] * a2->array_000004[0] +
+         _this->class26_obj1.array_000004[0] * a2->array_000004[1] +
+         _this->class26_obj3.array_000004[0] * a2->array_000004[2];
+
+ a3[3] = _this->class26_obj2.array_000004[1] * a2->array_000004[0] +
+         _this->class26_obj1.array_000004[1] * a2->array_000004[1] +
+         _this->class26_obj3.array_000004[1] * a2->array_000004[2];
+}
+
+
+
+//----- (00469E3B) --------------------------------------------------------
+int __thiscall sub_469E3B(int this)
+{
+  int result; // eax@1
+  int v2; // edx@3
+  int v3; // esi@3
+  int v4; // edi@4
+  int v5; // ebx@5
+  int v6; // esi@6
+  int v7; // [sp+4h] [bp-Ch]@2
+  int v8; // [sp+8h] [bp-8h]@2
+  int v9; // [sp+Ch] [bp-4h]@2
+
+  result = *(_DWORD *)(this + 60);
+  if ( result )
+  {
+    v9 = *(_DWORD *)(this + 60);
+    v7 = pD3DRenderer->uTargetSurfacePitch;
+    v8 = pD3DRenderer->pTargetSurface;
+    result = *(_DWORD *)(this + 68);
+    if ( result < *(_DWORD *)(this + 76) )
+    {
+      v3 = *(_DWORD *)(this + 72);
+      v2 = pD3DRenderer->uTargetSurfacePitch * result;
+      do
+      {
+        v4 = *(_DWORD *)(this + 64);
+        if ( v4 < v3 )
+        {
+          v5 = v8 + 2 * (v2 + v4);
+          do
+          {
+            v6 = v9;
+            v9 += 2;
+            ++v4;
+            *(_WORD *)v5 = *(_WORD *)v6;
+            v3 = *(_DWORD *)(this + 72);
+            v5 += 2;
+          }
+          while ( v4 < v3 );
+        }
+        v2 += v7;
+        ++result;
+      }
+      while ( result < *(_DWORD *)(this + 76) );
+    }
+  }
+  return result;
+}
+
+
+
+//----- (004239A7) --------------------------------------------------------
+extern int unk_5C6E00[];
+extern int dword_5C8664;
+void class55_sub_4239A7(struct class55 *_this)
+{
+  double v2; // st7@4
+
+  _this->flt_00002C = sin((*(double *)&byte_4D8410[376] + *(double *)&byte_4D8410[376])
+                            * (double)_this->dword_000018 * *(double *)&byte_4D8410[264]);
+  _this->flt_000030 = cos((*(double *)&byte_4D8410[376] + *(double *)&byte_4D8410[376])
+                          * (double)_this->dword_000018 * *(double *)&byte_4D8410[264]);
+  if ( byte_4D8410[572] && *(_BYTE *)(&pGame->uSomeFlags) & 0x80 || dword_6BE360 == 1 )
+  {
+   _this->flt_000034 = sin((*(double *)&byte_4D8410[376] + *(double *)&byte_4D8410[376])
+                            * -(double)_this->dword_000014 * *(double *)&byte_4D8410[264]);
+    v2 = (*(double *)&byte_4D8410[376] + *(double *)&byte_4D8410[376]) * -(double)_this->dword_000014;
+  }
+  else
+  {
+   _this->flt_000034 = sin((*(double *)&byte_4D8410[376] + *(double *)&byte_4D8410[376])
+                            * (double)_this->dword_000014 * *(double *)&byte_4D8410[264]);
+    v2 = (*(double *)&byte_4D8410[376] + *(double *)&byte_4D8410[376]) * (double)_this->dword_000014;
+  }
+  _this->flt_000038 = cos(v2 * *(double *)&byte_4D8410[264]);
+
+  _this->dword_00003C = sub_402CAE(unk_5C6E00, _this->dword_000018 - dword_5C8664);
+  _this->dword_000040 = sub_402CAE(unk_5C6E00, _this->dword_000018);
+  _this->dword_000044 = sub_402CAE(unk_5C6E00, _this->dword_000014 - dword_5C8664);
+  _this->dword_000048 = sub_402CAE(unk_5C6E00, _this->dword_000014);
+}
+
+
+
+//----- (0042394D) --------------------------------------------------------
+void class55_sub_42394D(struct class55 *_this, signed int a2, signed int a3, int a4)
+{
+  signed __int64 result; // qax@1
+  double v6; // st7@1
+
+  result = (signed __int64)((double)a3
+                          * *(double *)&byte_4D8410[256]
+                          / tan((double)(a2 >> 1) * *(double *)&byte_4D8410[248])
+                          + *(double *)&byte_4D8410[256]);
+  v6 = (double)(signed int)result;
+  _this->flt_00001C = v6;
+  _this->flt_000020 = 65536.0 / v6;
+}
+
+
+
+//----- (004C039C) --------------------------------------------------------
+void class26_sub_4C039C(struct class26 *_this)
+{
+ _this->dword_000000 = 0x4D89FC;
+}
+
+
+//----- (00402CAE) --------------------------------------------------------
+int sub_402CAE(int this, int a2)
+{
+  int v2; // eax@1
+  int v3; // edx@1
+  int result; // eax@4
+
+  v3 = *(_DWORD *)(this + 6240);
+  v2 = *(_DWORD *)(this + 6252) & a2;
+  if ( v2 > v3 )
+    v2 = *(_DWORD *)(this + 6248) - v2;
+  if ( v2 >= *(_DWORD *)(this + 6244) )
+    result = -*(_DWORD *)(this + 4 * (v3 - v2) + 2080);
+  else
+    result = *(_DWORD *)(this + 4 * v2 + 2080);
+  return result;
+}
+
+
+
+//----- (00436BB7) --------------------------------------------------------
+extern int dword_F8BC24;
+extern __int64 qword_F8BC28;
+extern int dword_F8BC30;
+void class08_sub_436BB7(struct class08 *_this, int a2, int a3, char a4)
+{
+  int v4; // ebx@1
+  void *v5; // edi@1
+  int v6; // esi@2
+  double v7; // st7@7
+  double v8; // st7@9
+  double v9; // st6@10
+  double v10; // st5@12
+  double v11; // st7@16
+  double v12; // st6@17
+  double v13; // st5@19
+  float v14; // [sp+14h] [bp+Ch]@12
+  float v15; // [sp+14h] [bp+Ch]@19
+
+  v4 = a3;
+  v5 = _this;
+  if ( a3 > 0 )
+  {
+    v6 = a2 + 24;
+    do
+    {
+      if ( byte_4D8410[572] && *(_BYTE *)(&pGame->uSomeFlags) & 0x80 || dword_6BE360 == 1 )
+      {
+        v7 = *(double *)&byte_4D8410[24] / *(float *)(v6 - 12);
+        *(float *)v6 = *(float *)(v6 - 8) * *((float *)v5 + 49) * v7 + *((float *)v5 + 50);
+        *(float *)(v6 + 4) = (double)dword_F8BC30
+                           - (*(float *)(v6 - 4) * *((float *)v5 + 49) * v7
+                            + *((float *)v5 + 51));
+      }
+      else
+      {
+        sub_481D77(v6 - 24);
+      }
+      if ( a4 )
+      {
+        v8 = (double)SHIDWORD(qword_F8BC28);
+        if ( v8 >= *(float *)v6 )
+          v9 = *(float *)v6;
+        else
+          v9 = v8;
+        v10 = (double)dword_F8BC24;
+        v14 = v10;
+        if ( v10 <= v9 )
+        {
+          if ( v8 >= *(float *)v6 )
+            v8 = *(float *)v6;
+        }
+        else
+        {
+          v8 = v14;
+        }
+        *(float *)v6 = v8;
+        v11 = (double)dword_F8BC30;
+        if ( v11 >= *(float *)(v6 + 4) )
+          v12 = *(float *)(v6 + 4);
+        else
+          v12 = v11;
+        v13 = (double)(signed int)qword_F8BC28;
+        v15 = v13;
+        if ( v13 <= v12 )
+        {
+          if ( v11 >= *(float *)(v6 + 4) )
+            v11 = *(float *)(v6 + 4);
+        }
+        else
+        {
+          v11 = v15;
+        }
+        *(float *)(v6 + 4) = v11;
+      }
+      v6 += 48;
+      --v4;
+    }
+    while ( v4 );
+  }
+}
+
+
+
+//----- (00486089) --------------------------------------------------------
+void sub_486089(struct struct8 *_this)
+{
+  int v1; // esi@1
+  double v2; // st5@1
+  double v3; // st6@1
+  double v4; // st7@1
+  double v5; // st7@1
+  float v6; // ST18_4@2
+  float v7; // ST14_4@2
+  float v8; // ST24_4@2
+  float v9; // ST20_4@2
+  double v10; // ST0C_8@2
+  float v11; // ST18_4@2
+  double v12; // ST0C_8@2
+  float v13; // ST14_4@2
+  double v14; // ST0C_8@2
+  float v15; // [sp+20h] [bp-8h]@1
+
+  v1 = _this;
+  v5 = (double)*(signed int *)(v1 + 24);
+  v15 = v5;
+  v3 = (double)*(signed int *)(v1 + 28);
+  v2 = (double)*(signed int *)(v1 + 32);
+  v4 = sqrt(v2 * v2 + v3 * v3 + v5 * v5);
+  if ( v4 == 0.0 )
+  {
+    *(_DWORD *)(v1 + 24) = 0;
+    *(_DWORD *)(v1 + 28) = 0;
+    *(_DWORD *)(v1 + 32) = 65536;
+  }
+  else
+  {
+    v8 = 1.0 / v4;
+    v9 = v8 * v15 * 65536.0;
+    v10 = v9 + 6.755399441055744e15;
+    *(_DWORD *)(v1 + 24) = LODWORD(v10);
+    v6 = v3;
+    v11 = v8 * v6 * 65536.0;
+    v12 = v11 + 6.755399441055744e15;
+    *(_DWORD *)(v1 + 28) = LODWORD(v12);
+    v7 = v2;
+    v13 = v8 * v7 * 65536.0;
+    v14 = v13 + 6.755399441055744e15;
+    *(_DWORD *)(v1 + 32) = LODWORD(v14);
   }
 }

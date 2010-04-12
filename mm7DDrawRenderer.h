@@ -1,3 +1,4 @@
+#pragma once
 #include <stdio.h>
 #include <windows.h>
 #include <ddraw.h>
@@ -37,7 +38,7 @@ struct CD3DRenderer
  int                         dword_00000C;
  int                         dword_000010;
  int                         dword_000014;
- int                         dword_000018;
+ int                         dword_000018; // related to currently locked surface pitch
  int                         dword_00001C;
  int                         dword_000020;
  int                         dword_000024;
@@ -96,6 +97,8 @@ struct CD3DRenderer
  int                         dword_103648;
  int                         dword_10364C;
  unsigned int                uLevelOfDetail;    // dword @ 103650
+
+ int                         dword_103660;
 
  char                        byte_103668[4];
 
@@ -163,6 +166,9 @@ void CD3DRenderer_sub_4A0E97(struct CD3DRenderer *_this, int a2, int a3, int a4,
 void sub_4A6AB1(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, unsigned char *pData, int a5, int a6, int a7, int a8);
 //signed int __thiscall sub_4A0E80(int this, int a2, int a3);
 int sub_4A0E80(struct CD3DRenderer *_this, int a2, int a3);
+//int __thiscall sub_4A1EB6(int this);
+void *sub_4A1EB6(struct CD3DRenderer *_this);
+
 
 //class15
 struct CGammaController
@@ -206,9 +212,6 @@ struct RGBTexture
  short word_000020;
  short word_000022;
  unsigned int *pPixels; // ptr @ 000024
-
- int dword_000020;
- int dword_000024;
 };
 //sizeof = 28
 //int __thiscall sub_40D73D(int this);

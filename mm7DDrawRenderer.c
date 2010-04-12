@@ -2285,9 +2285,6 @@ int RGBTexture_ctor(struct RGBTexture *_this)
  _this->word_000020 = 0;
  _this->word_000022 = 0;
  _this->pPixels = 0;
-
- _this->dword_000020 = 0;
- _this->dword_000024 = 0;
  return _this;
 }
 
@@ -2299,5 +2296,100 @@ int sub_4A0E80(struct CD3DRenderer *_this, int a2, int a3)
 
   result = -65536;
   memset(_this->dword_040034, -65536, 0x12C000);
+  return result;
+}
+
+
+
+
+//----- (004A1EB6) --------------------------------------------------------
+extern int dword_6BE360;
+extern int dword_F1B418;
+void *sub_4A1EB6(struct CD3DRenderer *_this)
+{
+  int result; // eax@1
+  int v2; // esi@1
+  int v3; // ecx@2
+  unsigned int v4; // edi@6
+  int v5; // eax@8
+  int v6; // ecx@8
+  int v7; // eax@9
+  int v8; // eax@9
+  int v9; // edi@11
+  char v10; // [sp-14h] [bp-2Ch]@4
+  int v11; // [sp-10h] [bp-28h]@4
+  int v12; // [sp-Ch] [bp-24h]@4
+  int v13; // [sp-8h] [bp-20h]@4
+  signed int v14; // [sp-4h] [bp-1Ch]@4
+  int v15; // [sp+0h] [bp-18h]@4
+  char *v16; // [sp+10h] [bp-8h]@4
+  int v17; // [sp+17h] [bp-1h]@4
+
+  v2 = _this;
+  result = _this->dword_04010C++;
+  if ( !result )
+  {
+    v3 = _this->dword_040088;
+    if ( v3 )
+    {
+      sub_49E4FC(v3, 1, result, 1, 1.0);
+      dword_F1B418 = 0;
+      (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(_this->dword_040088 + 56) + 36))(*(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56));
+      if ( !sub_44EC20() )
+      {
+        v15 = 360;
+        v14 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp";
+        v16 = &v10;
+        sub_40E2C8(&v10, "Error executing scratch 3D operations", (int)&v17);
+        sub_466D09(&v16, *(int *)&v10, v11, v12, v13, (const char *)v14, v15);
+      }
+      if ( dword_6BE360 == 2 )
+        v4 = sub_47C370();
+      else
+        v4 = 0;
+      v5 = *(_DWORD *)(_this->dword_040088 + 56);
+      v6 = *(_DWORD *)v5;
+      if ( v4 & 0xFF000000 )
+      {
+        v15 = 1;
+        v14 = 28;
+        v13 = v5;
+        (*(void (__stdcall **)(int, signed int, signed int))(v6 + 88))(v5, 28, 1);
+        v7 = *(_DWORD *)(v2 + 262280);
+        v15 = v4 & 0xFFFFFF;
+        v14 = 34;
+        v13 = *(_DWORD *)(v7 + 56);
+        (*(void (__stdcall **)(int, signed int, unsigned int))(*(_DWORD *)v13 + 88))(v13, 34, v4 & 0xFFFFFF);
+        v8 = *(_DWORD *)(v2 + 262280);
+        v15 = 0;
+        v14 = 35;
+        v13 = *(_DWORD *)(v8 + 56);
+        result = (*(int (__stdcall **)(int, signed int, _DWORD))(*(_DWORD *)v13 + 88))(v13, 35, 0);
+        *(_DWORD *)(v2 + 1062496) = 1;
+      }
+      else
+      {
+        v15 = 0;
+        v14 = 28;
+        v13 = v5;
+        result = (*(int (__stdcall **)(int, signed int, _DWORD))(v6 + 88))(v5, 28, 0);
+        *(_DWORD *)(v2 + 1062496) = 0;
+      }
+    }
+    else
+    {
+      v9 = &_this->uTargetSurfacePitch;
+      result = CD3DRenderer_LockBackBuffer(_this, &_this->pTargetSurface, &_this->uTargetSurfacePitch);
+      if (_this->pTargetSurface)
+      {
+        result = _this->uTargetSurfacePitch;
+        _this->dword_000018 = _this->uTargetSurfacePitch;
+      }
+      else
+      {
+        --_this->dword_04010C;
+      }
+    }
+  }
   return result;
 }

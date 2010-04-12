@@ -142,7 +142,7 @@ int __fastcall sub_403EB6(unsigned int uActorID, signed int a2, int a3, char *a4
 //----- (004040E9) --------------------------------------------------------
 extern struct struct0 array_6836D0[];
 extern struct struct2 array_665230[];
-extern int dword_5C6E00;
+extern int unk_5C6E00[];
 extern int dword_5C8664;
 extern int dword_6BE360;
 extern int dword_6BE644;
@@ -399,8 +399,8 @@ LABEL_45:
     v45 = (signed __int64)(1.0 / v31 * v57 * 65536.0);
     v46 = (signed __int64)v31;
     X = (signed __int64)sqrt(*(float *)&v52 + *(float *)&v53);
-    v48 = sub_45281E(&dword_5C6E00, (signed __int64)v50, (signed __int64)v51);
-    v49 = sub_45281E(&dword_5C6E00, X, (signed __int64)v57);
+    v48 = sub_45281E(unk_5C6E00, (signed __int64)v50, (signed __int64)v51);
+    v49 = sub_45281E(unk_5C6E00, X, (signed __int64)v57);
   }
   result = a3;
   memcpy(a3, &v43, 0x1Cu);

@@ -132,6 +132,8 @@ int SetVolume(struct class31 *_this, float fVolume);
 void sub_4AB71F(struct class31 *_this, int a2, int a3);
 //void __thiscall sub_4AA306(int this, int a2, signed int a3, int a4, signed int a5, int a6, int a7, int a8, int a9)
 void class31_sub_4AA306(struct class31 *_this, int a2, signed int a3, int a4, signed int a5, int a6, int a7, int a8, int a9);
+//void __thiscall sub_4AAFCF(int this);
+void class31_sub_4AAFCF(struct class31 *_this);
 
 
 

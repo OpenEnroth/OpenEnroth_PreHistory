@@ -47,7 +47,9 @@ struct Actor
  short         word_0000B2;
  char          byte_0000B4[18];
  short         word_0000C6;  //some s-sprite index
- char          byte_0000C8[636];
+ char          byte_0000C8[12];
+ char          array_0000D4[22][16];
+ char          byte_000234[272];
 };
 //sizeof == 344
 

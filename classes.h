@@ -14,7 +14,8 @@ long __stdcall _eh_vector_destructor_iterator_(long, long, long, long);
 struct CGame
 {
  int  dword_000000;
- int  dword_000004[700];
+ int  dword_000004;
+ int  dword_000008[699];
  int  dword_000704;
  int  dword_000E08;
  int  dword_000E0C;
@@ -157,6 +158,11 @@ void class03_sub_4698A6(struct class03 *_this);
 void class03_OnMouseLeftButton(struct class03 *_this, int x, int y);
 //int __thiscall sub_469860(int this, int a2, int a3);
 void sub_469860(struct class03 *_this, int *a2, int *a3);
+//int __thiscall sub_469E3B(int this)
+int sub_469E3B(struct class03 *_this);
+
+
+
 
 //class04
 struct class04
@@ -257,11 +263,13 @@ void *class07_InitializeVectors(struct class07 *_this, float w);
 struct class26
 {
  int dword_000000;
- int dword_000004[3];
+ float array_000004[3];
 };
 //sizeof = 16
 //void *__thiscall sub_4C0376(void *this)
 struct class26 *class26_ctor(struct class26 *_this);
+//void __thiscall sub_4C039C(void *this);
+void class26_sub_4C039C(struct class26 *_this);
 
 
 
@@ -269,11 +277,16 @@ struct class26 *class26_ctor(struct class26 *_this);
 struct class08
 {
  int   dword_000000;
- struct class26 class26_obj1;  //struct ptr [0004]
- struct class26 class26_obj2;  //struct ptr [0014]
- struct class26 class26_obj3;  //struct ptr [0024]
- int   dword_000034[36];       //std::vector
- int   dword_0000C4[6];
+ struct class26 class26_obj1;  //struct @ 000004
+ struct class26 class26_obj2;  //struct @ 000014
+ struct class26 class26_obj3;  //struct @ 000024
+ int   std__vector_000034[36];       //std::vector
+ float flt_0000C4;
+ float flt_0000C8;
+ float flt_0000CC;
+ float flt_0000D0;
+ float flt_0000D4;
+ float flt_0000D8;
  float flt_0000DC;
  float flt_0000E0;
  float flt_0000E4;
@@ -343,6 +356,16 @@ struct class08
 //sizeof = 1A1384
 //int __thiscall sub_4361EF(int this);
 struct class08 *class08_ctor(struct class08 *_this);
+//int __thiscall sub_4376E7(void *this);
+void class08_sub_4376E7(struct class08 *_this);
+//void __thiscall sub_4374E8(void *this);
+void class08_sub_4374E8(struct class08 *_this);
+//void __thiscall sub_437607(void *this, int a2, int a3);
+void class08_sub_437607(struct class08 *_this, struct class26 *a2, unsigned char *a3);
+//int __thiscall sub_437691(int this, int a2, int a3);
+void class08_sub_437691(struct class08 *_this, struct class26 *a2, float *a3);
+//void __thiscall sub_436BB7(void *this, int a2, int a3, char a4);
+void class08_sub_436BB7(struct class08 *_this, int a2, int a3, char a4);
 
 
 
@@ -1399,6 +1422,8 @@ struct Party
 
 //int __thiscall sub_49370F(void *this);
 int Party_sub_49370F(struct Party *_this);
+//bool __thiscall sub_497FC5(void *this);
+bool Party_sub_497FC5(struct Party *_this);
 
 
 
@@ -1468,5 +1493,83 @@ struct struct5
  char  byte_000002[22];
 };
 //sizeof == 18
+
+
+//DERIVED from struct7
+struct struct6//: public struct7
+{
+ short word_000000;
+ short word_000002;
+ short word_000004;
+ short word_000006;
+ char  byte_000008;
+ char  byte_000009;
+ char  byte_00000A;
+ char  byte_00000B;
+ char  byte_00000C[6];
+};
+//sizeof == 12
+
+struct struct7
+{
+ short word_000000;
+ short word_000002;
+ short word_000004;
+ short word_000006;
+ char  byte_000008;
+ char  byte_000009;
+ char  byte_00000A;
+ char  byte_00000B;
+};
+//sizeof == 0C
+
+struct struct8
+{
+ char                  byte_000000[20];
+ int                   dword_000014;
+ char                  byte_000018[24];
+ int                   dword_000030;
+ char                  byte_000034[4];
+ unsigned char        *ptr_000038;
+ struct class18       *ptr_00003C;
+ int                   dword_000040;
+ int                   dword_000044;
+ char                  byte_000048[12];
+ struct class51_stru2 *ptr_000054;
+ char                  byte_000058[180];
+};
+//sizeof == 10C
+//void __thiscall sub_486089(int this);
+void sub_486089(struct struct8 *_this);
+
+
+
+struct class55
+{
+ signed int   dword_000000;
+ signed int   dword_000004;
+ signed int   dword_000008;
+ int          dword_00000C;
+ int          dword_000010;
+ signed int   dword_000014;
+ signed int   dword_000018;
+ float        flt_00001C;
+ float        flt_000020;
+
+ float flt_00002C;
+ float flt_000030;
+ float flt_000034;
+ float flt_000038;
+ int   dword_00003C;
+ int   dword_000040;
+ int   dword_000044;
+ int   dword_000048;
+};
+//sizeof ~ 4C 
+//void sub_4239A7(int this);
+void sub_4239A7(struct class55 *_this);
+//signed __int64 __thiscall sub_42394D(void *this, signed int a2, signed int a3, int a4);
+void class55_sub_42394D(struct class55 *_this, signed int a2, signed int a3, int a4);
+
 
 #pragma pack(pop)

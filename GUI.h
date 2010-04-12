@@ -1,4 +1,9 @@
+#pragma once
 #pragma pack(push, 1)
+
+#include "defs.h"
+
+#include "mm7DDrawRenderer.h"
 
 #define MENU_MAIN 0
 
@@ -103,6 +108,28 @@ struct Font
 };
 
 
+//LoadingUI
+struct class56
+{
+ unsigned short    uX;               // word @ 000000
+ unsigned short    uY;               // word @ 000002
+ unsigned short    uWidth;           // word @ 000004
+ unsigned short    uHeight;          // word @ 000006
+ char              byte_000008[2];
+ unsigned char     uProgressMax;     // byte @ 00000A
+ unsigned char     uProgressCurrent; // byte @ 00000B
+ int               dword_00000C;
+ char              array_000010[8];
+ struct RGBTexture loading;          // struct @ 000018
+ char              byte_000040[304];
+ struct RGBTexture loadprog;         // struct @ 000170
+
+ unsigned int _addon_loadprog_id_in_Icons_LOD;
+};
+//sizeof ~ 198
+
+
+
 
 struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
                                              unsigned int uFrameWidth, unsigned int uFrameHeight,
@@ -132,7 +159,10 @@ void __cdecl DeleteFontCChar();
 
 void __cdecl PlayerCreationUI_Initialize();
 
-void *LevelLoadingUI_UpdateAndDrawProgressBar(void *this);
+
+bool LevelLoadingUI_Initialize(struct class56 *_this, int a2);
+void LevelLoadingUI_UpdateAndDrawProgressBar(struct class56 *_this);
+void DrawLoadingScreen(struct class56 *_this);
 
 
 #pragma pack(pop)
