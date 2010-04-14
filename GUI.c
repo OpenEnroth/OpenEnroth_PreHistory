@@ -613,7 +613,6 @@ LABEL_62:
 
 
 //----- (0041C26A) --------------------------------------------------------
-extern int dword_AD4730;
 extern int dword_6BE380;
 extern int dword_5C32D4;
 extern int dword_591430;
@@ -668,7 +667,7 @@ void GUIWindowDelete(int this)
           pClass55_global->dword_000018 = (pClass59_global->dword_001868 - 1) & (pClass59_global->dword_001860 + pClass55_global->dword_000018);
           pParty_global->dword_0006C0 = pClass55_global->dword_000018;
         }
-        dword_AD4730 |= 2;
+        pParty_global->dword_007778 |= 2;
         goto LABEL_26;
       }
       if ( v6 == 1 )

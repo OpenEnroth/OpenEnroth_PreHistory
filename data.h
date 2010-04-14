@@ -85,7 +85,7 @@ extern unsigned char cGameCDDriveLetter;
 
 
 extern void *pSpansBuf;
-extern void *pNewEdgesBuf;
+extern struct Edge *pNewEdgesBuf;
 extern void *pSurfsBuf;
 extern void *pEdgesBuf;
 

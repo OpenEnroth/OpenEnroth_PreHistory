@@ -10,7 +10,6 @@
 extern int monster_list[];
 extern int dword_4E800C;
 extern float flt_6BE3A0;
-extern int dword_AD4730;
 extern int dword_E31C7C;
 extern char byte_6BE371;
 extern struct class59 *pClass59_global;
@@ -178,6 +177,52 @@ int CGame_fn1(struct CGame *_this, int flags)
    _this->uSomeFlags |= flags;
 
   return _this->uSomeFlags;
+}
+
+//----- (0044F120) --------------------------------------------------------
+extern char byte_4E94D0;
+extern char unk_5187F0;
+void CGame_sub_44F120_MaybeStackStationaryLights(struct CGame *_this, int a2)
+{
+  int v4; // esi@2
+ int i;
+
+    v4 = _this + 20;
+ for (i = 0; i < _this->dword_000704; ++i)
+ {
+      sub_4AD3C8_MaybePlaceStationaryLights((int)&unk_5187F0,
+        (signed)*(float *)(v4 - 16),
+        (signed)*(float *)(v4 - 12),
+        (signed)*(float *)(v4 - 8),
+        (signed)*(float *)(v4 + 8),
+        (signed)*(float *)(v4 - 4),
+        (signed)*(float *)v4,
+        (signed)*(float *)(v4 + 4),
+        byte_4E94D0);
+      v4 += 28;
+ }
+}
+
+//----- (0044F192) --------------------------------------------------------
+extern struct class36 class36_global0;
+void CGame_sub_44F192(struct CGame *_this)
+{
+  int v3; // esi@2
+ int i;
+
+    v3 = _this->array_000718;
+  for (i = 0; i < _this->dword_000E08; ++i)
+  {
+      class36_sub_43B6EF(&class36_global0,
+        (signed)*(float *)(v3 - 16),
+        (signed)*(float *)(v3 - 12),
+        (signed)*(float *)(v3 - 8),
+        (signed)*(float *)(v3 + 8),
+        (signed)*(float *)(v3 - 4),
+        (signed)*(float *)v3,
+        (signed)*(float *)(v3 + 4));
+      v3 += 28;
+  }
 }
 
 //----- (0044EA17) --------------------------------------------------------
@@ -9279,11 +9324,11 @@ int sub_47CF9C(struct class51 *_this)
  strcpy(_this->string_000000, "blank");
  strcpy(_this->pFileName, "default.odm");
  strcpy(_this->pFileDescription, "MM6 Outdoor v1.00");
- strcpy(_this->string_000060, "sky043");
- strcpy(_this->string_000080, "hm005");
+ strcpy(_this->pSkyTextureName, "sky043");
+ strcpy(_this->pGroundTileset, "hm005");
 
   v1 = 0;
-  if (_this->dword_0000B0 > 0 )
+  if (_this->uNumBModels > 0 )
   {
     v3 = 0;
     do
@@ -9292,18 +9337,18 @@ int sub_47CF9C(struct class51 *_this)
       ++v1;
       v3 += 188;
     }
-    while (v1 < _this->dword_0000B0);
+    while (v1 < _this->uNumBModels);
   }
- _this->dword_0000B0 = 0;
+ _this->uNumBModels = 0;
  _this->dword_0004C0 = 0;
 
- class23_DeleteBuffer(class23_instance, _this->ptr_0000D8);
- _this->ptr_0000D8 = 0;
+ class23_DeleteBuffer(class23_instance, _this->pBModels);
+ _this->pBModels = 0;
 
  class23_DeleteBuffer(class23_instance, _this->ptr_0004C4);
  _this->ptr_0004C4 = 0;
 
- sub_47C7C2(&_this->struct_0000B4);
+ class51_FreeGeodata(&_this->struct_0000B4);
 
  class23_DeleteBuffer(class23_instance, _this->ptr_0000D4);
  _this->ptr_0000D4 = 0;
@@ -9319,35 +9364,6 @@ int sub_47CF9C(struct class51 *_this)
 
  return 0;
 }
-
-//----- (0047C7C2) --------------------------------------------------------
-int sub_47C7C2(struct class51_stru0 *_this)
-{
-  int result; // eax@1
-
- class23_DeleteBuffer(class23_instance, _this->ptr_000000);
- _this->ptr_000000 = 0;
-
- class23_DeleteBuffer(class23_instance, _this->ptr_000004);
- _this->ptr_000004 = 0;
-
- class23_DeleteBuffer(class23_instance, _this->ptr_000008);
- _this->ptr_000008 = 0;
-
- class23_DeleteBuffer(class23_instance, _this->ptr_00000C);
- _this->ptr_00000C = 0;
-
- _this->word_000010 = 0;
- _this->word_000012 = 0;
- _this->word_000014 = 0;
- _this->word_000016 = 0;
-
- _this->dword_000018 = 0;
- _this->dword_00001C = 0;
-
- return 0;
-}
-
 
 //----- (0046161C) --------------------------------------------------------
 bool class17_Games_LOD_FindLeveL(struct class17 *_this, const char *pLevelName)
@@ -10168,7 +10184,15 @@ int class59_sub_402CAE(struct class59 *_this, int a2)
 
 //----- (00436BB7) --------------------------------------------------------
 extern int dword_F8BC24;
-extern __int64 qword_F8BC28;
+extern union
+{
+ struct
+ {
+  int dword_F8BC28;
+  int dword_F8BC2C;
+ };
+/*extern*/ __int64 qword_F8BC28; // weak
+} data_F8BC28;
 extern int dword_F8BC30;
 void class08_sub_436BB7(struct class08 *_this, int a2, int a3, char a4)
 {
@@ -10206,7 +10230,7 @@ void class08_sub_436BB7(struct class08 *_this, int a2, int a3, char a4)
       }
       if ( a4 )
       {
-        v8 = (double)SHIDWORD(qword_F8BC28);
+        v8 = (double)SHIDWORD(data_F8BC28.qword_F8BC28);
         if ( v8 >= *(float *)v6 )
           v9 = *(float *)v6;
         else
@@ -10228,7 +10252,7 @@ void class08_sub_436BB7(struct class08 *_this, int a2, int a3, char a4)
           v12 = *(float *)(v6 + 4);
         else
           v12 = v11;
-        v13 = (double)(signed int)qword_F8BC28;
+        v13 = (double)(signed int)data_F8BC28.qword_F8BC28;
         v15 = v13;
         if ( v13 <= v12 )
         {
@@ -10413,6 +10437,31 @@ int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, in
   return result;
 }
 
+//----- (0048694B) --------------------------------------------------------
+int class57_sub_48694B(struct class57 *_this)
+{
+  int result; // eax@1
+  int v2; // eax@1
+  int v3; // ST04_4@1
+  int v4; // ST00_4@1
+  int v5; // eax@1
+  int v6; // ST0C_4@1
+
+  v2 = _this->dword_00000C;
+  _this->dword_000018 = -_this->dword_000018;
+  _this->dword_00001C = -_this->dword_00001C;
+  _this->dword_000020 = -_this->dword_000020;
+  v3 = (unsigned __int64)(v2 * _this->dword_000000) >> 16;
+  v4 = _this->dword_000018;
+  v5 = _this->dword_000000;
+  _this->dword_000024 = v3 +
+                         ((unsigned __int64)(_this->dword_000010 * _this->dword_000004) >> 16) +
+                         ((unsigned __int64)(_this->dword_000014 * _this->dword_000008) >> 16);
+  v6 = (unsigned __int64)(v4 * v5) >> 16;
+  result = (unsigned __int64)(_this->dword_00001C * _this->dword_000004) >> 16;
+  _this->dword_000028 = v6 + result + ((unsigned __int64)(_this->dword_000020 * _this->dword_000008) >> 16);
+  return result;
+}
 
 //----- (00485F64) --------------------------------------------------------
 extern int dword_6BE064;
@@ -10515,4 +10564,188 @@ void class59_ctor(struct class59 *_this)
     while ( v6 );
   }
   return v2;
+}
+
+
+
+//----- (0045D3C7) --------------------------------------------------------
+char __stdcall sub_45D426(int a1, int a2, signed int a3, float a4, signed int a5);
+bool __stdcall sub_45D3C7(struct struct8 *_this)
+{
+ struct struct8 *v2; // ecx@2
+ struct struct8 *i; // edi@5
+
+ if (!_this->ptr_000040)
+   return false;
+
+ if (_this->ptr_000040->ptr_000004)
+ {
+  v2 = _this->ptr_000040->ptr_000004;
+  if (v2->ptr_000040)
+  {
+   for ( i = _this->ptr_000040; ; i = i->ptr_000000 )
+   {
+    if (i->ptr_000004->byte_000108)
+       sub_45D426(i, _this->byte_000060, _this->dword_0000B0, _this->flt_0000B4, _this->dword_000104);
+     if (_this->ptr_000044 == i )
+       break;
+   }
+   return true;
+  }
+ }
+ return false;
+}
+
+
+
+//----- (00438240) --------------------------------------------------------
+void class08_sub_438240(struct class08 *_this)
+{
+  int v1; // edi@2
+  int v2; // ebx@3
+  int v3; // esi@4
+  double v4; // st7@6
+  int v5; // ST00_4@8
+  int v6; // ebp@1
+  int v7; // esi@1
+  int v8; // [sp+4h] [bp-28h]@6
+  int v9; // [sp+8h] [bp-24h]@6
+  int v10; // [sp+Ch] [bp-20h]@6
+  char v11; // [sp+10h] [bp-1Ch]@6
+  float v12; // [sp+14h] [bp-18h]@6
+  int v13; // [sp+28h] [bp-4h]@1
+
+  v7 = _this;
+  class08_sub_438141(_this);
+  v13 = 0;
+  v6 = v7;
+  if ( *(_DWORD *)(v7 + 1708928) > 0 )
+  {
+    v1 = v7 + 921476;
+    do
+    {
+      v2 = 0;
+      if ( *(_DWORD *)v1 > 0 )
+      {
+        v3 = v1 - 3048;
+        do
+        {
+          if ( *(_BYTE *)(v1 - 3076) & 1 )
+          {
+            LODWORD(v12) = 1;
+            v11 = 1;
+            v10 = *(_DWORD *)(v1 + 4);
+            *(float *)&v9 = 0.0;
+            *(float *)&v8 = *(float *)(v3 + 4);
+            v4 = *(float *)v3;
+          }
+          else
+          {
+            LODWORD(v12) = 0;
+            v11 = 1;
+            v10 = *(_DWORD *)(v1 + 4);
+            *(float *)&v9 = *(float *)(v3 - 16);
+            *(float *)&v8 = *(float *)(v3 - 20);
+            v4 = *(float *)(v3 - 24);
+          }
+          *(float *)&v5 = v4;
+          sub_437D4A((void *)v6, v5, v8, v9, v10, v11, v12);
+          ++v2;
+          v3 += 48;
+        }
+        while ( v2 < *(_DWORD *)v1 );
+      }
+      ++v13;
+      v1 += 3088;
+    }
+    while ( v13 < *(_DWORD *)(v6 + 1708928) );
+  }
+}
+
+
+
+//----- (00438141) --------------------------------------------------------
+void class08_sub_438141(struct class08 *_this)
+{
+  int v1; // ebx@1
+  int v2; // edi@1
+  int v3; // esi@2
+  double v4; // st7@4
+  int v5; // ST00_4@6
+  int v6; // [sp+4h] [bp-20h]@4
+  int v7; // [sp+8h] [bp-1Ch]@4
+  int v8; // [sp+Ch] [bp-18h]@4
+  char v9; // [sp+10h] [bp-14h]@4
+  float v10; // [sp+14h] [bp-10h]@4
+
+  v2 = _this;
+  v1 = 0;
+  if ( *(_DWORD *)(v2 + 918396) > 0 )
+  {
+    v3 = v2 + 924;
+    do
+    {
+      if ( *(_BYTE *)(v3 - 32) & 1 )
+      {
+        LODWORD(v10) = 1;
+        v9 = 1;
+        v8 = *(_DWORD *)(v3 + 20);
+        *(float *)&v7 = 0.0;
+        *(float *)&v6 = *(float *)v3;
+        v4 = *(float *)(v3 - 4);
+      }
+      else
+      {
+        LODWORD(v10) = 0;
+        v9 = 1;
+        v8 = *(_DWORD *)(v3 + 20);
+        *(float *)&v7 = *(float *)(v3 - 20);
+        *(float *)&v6 = *(float *)(v3 - 24);
+        v4 = *(float *)(v3 - 28);
+      }
+      *(float *)&v5 = v4;
+      sub_437D4A((void *)v2, v5, v6, v7, v8, v9, v10);
+      ++v1;
+      v3 += 56;
+    }
+    while ( v1 < *(_DWORD *)(v2 + 918396) );
+  }
+}
+
+//----- (0048607B) --------------------------------------------------------
+void sub_48607B_MessWithStruct8(struct struct8 *_this, struct class57 *pClass57)
+{
+ _this->ptr_000038 = pClass57;
+ _this->ptr_00003C = 0;
+}
+
+//----- (0043B6EF) --------------------------------------------------------
+bool class36_sub_43B6EF(struct class36 *_this, int a2, int a3, int a4, int a5, char a6, char a7, char a8)
+{
+ int v7;
+  int v8; // esi@1
+  int v9; // eax@3
+  int v10; // ecx@3
+  int v11; // eax@3
+  int v12; // eax@3
+
+  v7 = _this;
+  v8 = v7 + 2568;
+  if ( *(_DWORD *)(v7 + 2568) == 64 )
+    *(_DWORD *)v8 = 0;
+  v11 = 5 * *(_DWORD *)v8++;
+  v12 = v7 + 8 * v11 + 4;
+  *(_DWORD *)(v12 + 4) = a2;
+  *(_DWORD *)(v12 + 8) = a3;
+  *(_DWORD *)(v12 + 12) = a4;
+  *(_DWORD *)(v12 + 16) = a5;
+  *(_BYTE *)(v12 + 24) = a6;
+  *(_BYTE *)(v12 + 25) = a7;
+  *(_BYTE *)(v12 + 26) = a8;
+  v9 = v7 + 2564;
+  v10 = *(_DWORD *)(v7 + 2564) + 1;
+  if ( v10 > 64 )
+    v10 = 64;
+  *(_DWORD *)v9 = v10;
+  return true;
 }

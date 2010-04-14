@@ -7,11 +7,11 @@
 
 
 
-struct class51_stru0
+struct class51_Geodata
 {
- unsigned char *ptr_000000; //looks like 128x128 heightmap data
- unsigned char *ptr_000004; //looks like 128x128 tilemap data
- unsigned char *ptr_000008;
+ unsigned char *pHeightmap;    // ptr @ 000000    128x128 heightmap data scaled by 1/32
+ unsigned char *pTilemap;      // ptr @ 000004    128x128 tilemap data
+ unsigned char *pAttributemap; // ptr @ 000008    128x128 attributes
  unsigned char *ptr_00000C;
  short          word_000010;
  short          word_000012;
@@ -22,8 +22,7 @@ struct class51_stru0
 };
 //sizeof == 20
 
-//"BData"
-struct class51_stru1
+struct class51_BModel
 {
  unsigned char pSomeName[16 + array_size_unknown];
 
@@ -71,22 +70,22 @@ struct class51
  unsigned char  string_000000[32];
  unsigned char  pFileName[32];        // byte[32] @ 000020
  unsigned char  pFileDescription[32]; // byte[32] @ 000040
- unsigned char  string_000060[32];
- unsigned char  string_000080[32];
+ unsigned char  pSkyTextureName[32];  // byte[32] @ 000060
+ unsigned char  pGroundTileset[32];   // byte[32] @ 000080
 
  short array_0000A0[8];
 
- int            dword_0000B0;
+ unsigned int           uNumBModels; // dword @ 0000B0
 
- struct class51_stru0 struct_0000B4;
+ struct class51_Geodata struct_0000B4;
 
- unsigned char        *ptr_0000D4;
- struct class51_stru1 *ptr_0000D8;
- int                   dword_0000DC;
- unsigned char        *ptr_0000E0;
- unsigned char        *ptr_0000E4;
- unsigned int          uSkyTextureID; // dword @ 0000E8
- int                   dword_0000EC;  // main tile texture id?
+ unsigned char         *ptr_0000D4;
+ struct class51_BModel *pBModels;      // ptr @ 0000D8
+ int                    dword_0000DC;
+ unsigned char         *ptr_0000E0;
+ unsigned char         *ptr_0000E4;
+ unsigned int           uSkyTextureID; // dword @ 0000E8
+ int                    dword_0000EC;  // id in bitmaps.lod; main tile texture id?
 
  int            dword_0004C0;
  unsigned char *ptr_0004C4;
@@ -106,7 +105,8 @@ int class51_sub_488F2E_MaybeGetHeightOnTerrain(struct class51 *_this, signed int
 int class51_sub_47EE16_MaybeActuallyGetHeightOnTerrain(struct class51 *_this, signed int uX, signed int uY);
 //int __thiscall sub_47EDB3(int this, signed int a2, signed int a3);
 int class51_sub_47EDB3_MessWithHeightmapAndTiles(struct class51 *_this, signed int uX, signed int uY);
-
+//signed int __thiscall sub_47EF60(void *this, int a2, int a3, int a4);
+bool class51_sub_47EF60(struct class51 *_this, int a2, int a3, int a4);
 
 
 bool LoadLevel(struct class51 *_this, const char *Source, int File, signed int a4, int a5);
@@ -114,8 +114,9 @@ bool LoadLevel(struct class51 *_this, const char *Source, int File, signed int a
 int sub_47F420(struct class51 *_this);
 int sub_47F3EA(struct class51 *_this);
 
-bool sub_47CD44(struct class51_stru0 *_this);
-int sub_47C80A(struct class51_stru0 *_this, int a2, int a3, int a4, int a5);
+bool class51_InitializeGeodata(struct class51_Geodata *_this);
+void sub_47C7C2(struct class51_Geodata *_this);
+int sub_47C80A(struct class51_Geodata *_this, int a2, int a3, int a4, int a5);
 
 bool sub_44C1E8(struct class51_stru2 *_this);
 bool sub_482170(struct class51_stru2 *_this, int a2, struct struct8 *a3);

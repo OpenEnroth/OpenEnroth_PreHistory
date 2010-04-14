@@ -7,7 +7,6 @@
 #include "data.h"
 
 extern float flt_6BE3A0;
-extern int dword_AD4730;
 extern int dword_720010;
 extern int dword_F79D70;
 extern int dword_F79D7C;
@@ -20,6 +19,7 @@ char __cdecl sub_4A597D();
 
 
 //----- (MM7exe::00452347) --------------------------------------------------------
+extern struct Party *pParty_global;
 void CD3DRenderer_HWLContainer_ctor(struct CD3DRenderer_HWLContainer *_this)
 {
  _this->pHWLFile = 0;
@@ -1228,7 +1228,7 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
 
 
   _this->dword_040058 = 0;
-  dword_AD4730 |= 2u;
+  pParty_global->dword_007778 |= 2u;
   flt_6BE3A0 = 0.55f;
   class28_fn2(class28_global, 36044);
   return v18;

@@ -16,7 +16,10 @@ struct CGame
  int  dword_000000;
  int  dword_000004;
  int  dword_000008[699];
- int  dword_000704;
+ int  dword_000704;     //num stationary lights?
+
+ float array_000718[array_size_unknown];
+
  int  dword_000E08;
  int  dword_000E0C;
  int  dword_000E10;
@@ -60,6 +63,10 @@ char CGame_sub_44EEA7(struct CGame *_this);
 bool CGame_Pick(struct CGame *_this, float a2, signed int a3, signed int a4, char a5, int a6, int a7);
 //char __thiscall sub_44F07B(int this);
 bool CGame_sub_44F07B(struct CGame *_this);
+//void __thiscall sub_44F120(int this, int a2);
+void CGame_sub_44F120_MaybeStackStationaryLights(struct CGame *_this, int a2);
+//void __fastcall sub_44F192(int a1);
+void CGame_sub_44F192(struct CGame *_this);
 
 
 
@@ -172,6 +179,7 @@ struct class04
  int dword_183804;                          //std::vector::size ?
  int dword_183808[3100 * 768 / 4];          //std::vector @ 183808
  int dword_3C8C08;                          //std::vector::size ?
+ int dword_3CBC34;
 };
 //sizeof = 3CBC38
 //void *__thiscall sub_45BB06(void *this);
@@ -366,6 +374,10 @@ void class08_sub_437607(struct class08 *_this, struct class26 *a2, unsigned char
 void class08_sub_437691(struct class08 *_this, struct class26 *a2, float *a3);
 //void __thiscall sub_436BB7(void *this, int a2, int a3, char a4);
 void class08_sub_436BB7(struct class08 *_this, int a2, int a3, char a4);
+//void __thiscall sub_438240(int this);
+void class08_sub_438240(struct class08 *_this);
+//void __fastcall sub_438141(int a1);
+void class08_sub_438141(struct class08 *_this);
 
 
 
@@ -910,6 +922,8 @@ struct class36
 //sizeof ~ ?
 //void *__thiscall sub_43B688(void *this);
 void *class36_ctor(struct class36 *_this);
+//char __thiscall sub_43B6EF(int this, int a2, int a3, int a4, int a5, char a6, char a7, char a8);
+bool class36_sub_43B6EF(struct class36 *_this, int a2, int a3, int a4, int a5, char a6, char a7, char a8);
 
 
 
@@ -1440,10 +1454,10 @@ int sub_490109(struct Player *_this);
 
 
 
-
+//maybe billboard or sprite
 struct struct0
 {
- unsigned short uDescorationDescriptionID; // word @ 000000
+ unsigned short uDecorationDescriptionID; // word @ 000000
  short word_000002;
  int   dword_000004;
  int   dword_000008;
@@ -1523,24 +1537,54 @@ struct struct7
 };
 //sizeof == 0C
 
+
+/*
+struct struct8_stru1
+{
+ char byte_000000;
+ unsigned char *ptr_00003C;
+
+ char byte_000108;
+};
+
+struct struct8_stru0
+{
+ struct struct8_stru0 *ptr_000000;
+ struct struct8_stru1 *ptr_000004;
+};*/
+
 struct struct8
 {
- char                  byte_000000[20];
+ struct struct8       *ptr_000000;
+ struct struct8       *ptr_000004;
+ char                  byte_000008[12];
  int                   dword_000014;
  char                  byte_000018[24];
  int                   dword_000030;
  char                  byte_000034[4];
- unsigned char        *ptr_000038;
+ struct class57       *ptr_000038;
  struct class18       *ptr_00003C;
- int                   dword_000040;
- int                   dword_000044;
+ struct struct8       *ptr_000040;
+ struct struct8       *ptr_000044;
  char                  byte_000048[12];
  struct class51_stru2 *ptr_000054;
- char                  byte_000058[180];
+ char                  byte_000058[4];
+ int                   dword_00005C;
+ char                  byte_000060[80];
+ int                   dword_0000B0;
+ float                 flt_0000B4;
+ char                  byte_0000B8[76];
+ int                   dword_000104;
+ char                  byte_000108;
+ char                  byte_000109[3];
 };
 //sizeof == 10C
 //void __thiscall sub_486089(int this);
 void sub_486089(struct struct8 *_this);
+//char __stdcall sub_45D3C7(int a1);
+bool __stdcall sub_45D3C7(struct struct8 *_this);
+//int __thiscall sub_48607B(int this, int a2);
+void sub_48607B_MessWithStruct8(struct struct8 *_this, struct class57 *pClass57);
 
 
 
@@ -1595,7 +1639,8 @@ struct class57
 //sizeof ~ 38
 //int __thiscall sub_48616B(int this, int a2, int a3, int a4, int a5, int a6, int a7);
 int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, int a6, int a7);
-
+//int __thiscall sub_48694B(int this);
+int class57_sub_48694B(struct class57 *_this);
 
 
 
@@ -1665,6 +1710,17 @@ struct class59
 void class59_ctor(struct class59 *);
 //int __thiscall sub_402CAE(int this, int a2);
 int class59_sub_402CAE(struct class59 *_this, int a2);
+
+
+
+
+struct Edge
+{
+ char           byte_000000[16];
+ unsigned char *ptr_000010;
+ char           byte_000014[32];
+};
+//sizeof == 34
 
 
 #pragma pack(pop)

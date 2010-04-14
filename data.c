@@ -1275,7 +1275,7 @@ struct Font *pFontSmallnum = 0; // ptr @ MM7.exe::005C3608
 
 
 void *pSpansBuf = 0;
-void *pNewEdgesBuf = 0; // ptr @ MM7.exe::0080C968
+struct Edge *pNewEdgesBuf = 0; // ptr @ MM7.exe::0080C968
 void *pSurfsBuf = 0;    // ptr @ MM7.exe::0080C96C
 void *pEdgesBuf = 0;    // ptr @ MM7.exe::0080C970
 

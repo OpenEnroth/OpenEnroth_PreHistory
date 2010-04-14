@@ -18,7 +18,7 @@ int __stdcall AIL_redbook_set_volume(HREDBOOK hRedbook, int volume);
 unsigned int __stdcall AIL_redbook_pause(HREDBOOK hRedbook);
 void __stdcall AIL_redbook_track_info(HREDBOOK hRedbook, unsigned int uTrackNum, unsigned int *pStartMS, unsigned int *pEndMS);
 unsigned int __stdcall AIL_redbook_play(HREDBOOK hRedbook, unsigned int uStartMS, unsigned int uEndMS);  	
-
+unsigned int __stdcall AIL_redbook_resume(HREDBOOK);
 
 
 

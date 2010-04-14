@@ -255,7 +255,7 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
     locked_fread(&uNumActors, 4u, 1u, v7);
     fseek(v7, v131, 0);
     locked_fread(&dword_5FF140, 4u, 1u, v7);
-    sub_47CD44((int *)(v5 + 180));
+    class51_InitializeGeodata((int *)(v5 + 180));
     fseek(v7, v132, 0);
     locked_fread(*(void **)(v5 + 180), 1u, 0x4000u, v7);
     fseek(v7, v133, 0);
@@ -578,19 +578,19 @@ LABEL_33:
   sub_47F420(_this);
   sub_47F3EA(_this);
 
-  strcpy(_this->string_000080, "grastyl");
+  strcpy(_this->pGroundTileset, "grastyl");
 
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-  sub_47CD44(&_this->struct_0000B4);
+  class51_InitializeGeodata(&_this->struct_0000B4);
 
-  memcpy(_this->struct_0000B4.ptr_000000, v42, 0x4000);
-  v42 += 0x4000;
+  memcpy(_this->struct_0000B4.pHeightmap, v42, 128 * 128);
+  v42 += 128 * 128;
 
-  memcpy(_this->struct_0000B4.ptr_000004, v42, 0x4000);
-  v42 += 0x4000;
+  memcpy(_this->struct_0000B4.pTilemap, v42, 128 * 128);
+  v42 += 128 * 128;
 
-  memcpy(_this->struct_0000B4.ptr_000008, v42, 0x4000);
-  v42 += 0x4000;
+  memcpy(_this->struct_0000B4.pAttributemap, v42, 128 * 128);
+  v42 += 128 * 128;
 
   class23_DeleteBuffer(class23_instance, _this->ptr_0000D4);
   _this->ptr_0000D4 = class23_AllocatedNamedBuffer(class23_instance, 0, 0x8000, "CMAP");
@@ -611,73 +611,72 @@ LABEL_33:
   memcpy(dword_76D514, v42, 12 * dword_73D510);
   v42 += 12 * dword_73D510;
 
-  memcpy(&_this->dword_0000B0, v42, 4);
+  memcpy(&_this->uNumBModels, v42, 4);
   v42 += 4;
 
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-  v48 = _this->dword_0000B0;
-  v120 = (int)"BDdata";
+  v48 = _this->uNumBModels;
 
-  _this->ptr_0000D8 = class23_AllocatedNamedBuffer(class23_instance, _this->ptr_0000D8, v48 * sizeof(struct class51_stru1), "BDdata");
-  memcpy(_this->ptr_0000D8, v42, v48 * sizeof(struct class51_stru1));
-  Src = v42 + v48 * sizeof(struct class51_stru1);
+  _this->pBModels = class23_AllocatedNamedBuffer(class23_instance, _this->pBModels, v48 * sizeof(struct class51_BModel), "ODM BModel data");
+  memcpy(_this->pBModels, v42, v48 * sizeof(struct class51_BModel));
+  Src = v42 + v48 * sizeof(struct class51_BModel);
 
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
   v170 = 0;
-  if (_this->ptr_0000D8 > 0)
+  if (_this->uNumBModels > 0)
   {
     v51 = 0;
    i = 0;
     while (true)
     {
-      _this->ptr_0000D8[i].ptr_000048 = 0;
-      _this->ptr_0000D8[i].ptr_000054 = 0;
-      _this->ptr_0000D8[i].ptr_000058 = 0;
-      _this->ptr_0000D8[i].ptr_000060 = 0;
+      _this->pBModels[i].ptr_000048 = 0;
+      _this->pBModels[i].ptr_000054 = 0;
+      _this->pBModels[i].ptr_000058 = 0;
+      _this->pBModels[i].ptr_000060 = 0;
 
-      lstrcpyA(FileName, (const char *)(_this->ptr_0000D8[i].pSomeName));
+      lstrcpyA(FileName, (const char *)(_this->pBModels[i].pSomeName));
       v151 = 0;
       v120 = FileName;
 
-      v119 = 12 * _this->ptr_0000D8[i].dword_000044;
-      _this->ptr_0000D8[i].ptr_000048 =  class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
+      v119 = 12 * _this->pBModels[i].dword_000044;
+      _this->pBModels[i].ptr_000048 =  class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
 
-      v119 = _this->ptr_0000D8[i].dword_00004C * sizeof(struct class51_stru2);
-      _this->ptr_0000D8[i].ptr_000054 = class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
+      v119 = _this->pBModels[i].dword_00004C * sizeof(struct class51_stru2);
+      _this->pBModels[i].ptr_000054 = class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
 
-      v119 = 2 * _this->ptr_0000D8[i].dword_00004C;
-      _this->ptr_0000D8[i].ptr_000058 = class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
+      v119 = 2 * _this->pBModels[i].dword_00004C;
+      _this->pBModels[i].ptr_000058 = class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
 
-      v119 = 8 * _this->ptr_0000D8[i].dword_00005C;
-      _this->ptr_0000D8[i].ptr_000060 = class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
+      v119 = 8 * _this->pBModels[i].dword_00005C;
+      _this->pBModels[i].ptr_000060 = class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
 
-      v120 = 12 * _this->ptr_0000D8[i].dword_000044;
+      v120 = 12 * _this->pBModels[i].dword_000044;
       v119 = (signed int)Src;
-      memcpy(_this->ptr_0000D8[i].ptr_000048, Src, v120);
+      memcpy(_this->pBModels[i].ptr_000048, Src, v120);
 
       Src = (char *)Src + v120;
-      v117 = 308 * _this->ptr_0000D8[i].dword_00004C;
+      v117 = 308 * _this->pBModels[i].dword_00004C;
       v116 = (int)Src;
-      memcpy(_this->ptr_0000D8[i].ptr_000054, Src, v117);
+      memcpy(_this->pBModels[i].ptr_000054, Src, v117);
 
       Src = (char *)Src + v117;
-      v117 = 2 * _this->ptr_0000D8[i].dword_00004C;
-      memcpy(_this->ptr_0000D8[i].ptr_000058, Src, v117);
+      v117 = 2 * _this->pBModels[i].dword_00004C;
+      memcpy(_this->pBModels[i].ptr_000058, Src, v117);
 
       Src = (char *)Src + v117;
-      v117 = 8 * _this->ptr_0000D8[i].dword_00005C;
-      memcpy(_this->ptr_0000D8[i].ptr_000060, Src, v117);
+      v117 = 8 * _this->pBModels[i].dword_00005C;
+      memcpy(_this->pBModels[i].ptr_000060, Src, v117);
 
       Src = (char *)Src + v117;
-      v167 = malloc(10 * _this->ptr_0000D8[i].dword_00004C);
-      v117 = 10 * _this->ptr_0000D8[i].dword_00004C;
+      v167 = malloc(10 * _this->pBModels[i].dword_00004C);
+      v117 = 10 * _this->pBModels[i].dword_00004C;
       memcpy(v167, Src, v117);
 
       v157 = 0;
       Src = (char *)Src + v117;
-      v52 = _this->ptr_0000D8;
-      if (_this->ptr_0000D8[i].dword_00004C > 0 )
+      v52 = _this->pBModels;
+      if (_this->pBModels[i].dword_00004C > 0 )
         break;
 
 LABEL_74:
@@ -685,7 +684,7 @@ LABEL_74:
       ++v170;
       v51 += 188;
       ++i;
-      if ( v170 >= _this->dword_0000B0)
+      if ( v170 >= _this->uNumBModels)
         goto LABEL_75;
     }
 
@@ -695,7 +694,7 @@ LABEL_74:
     j = 0;
     while ( 1 )
     {
-      v66 = &_this->ptr_0000D8[i].ptr_000054[j];
+      v66 = &_this->pBModels[i].ptr_000054[j];
       if ( !(v66->byte_000010[13] & 0x40) )
         break;
 
@@ -723,11 +722,11 @@ LABEL_69:
           *(_BYTE *)(wtf + 30) &= 0xEFu;
       }
       ++v157;
-      v52 = _this->ptr_0000D8;
+      v52 = _this->pBModels;
       v168 += 308;
       ++j;
       Str2 += 10;
-      if ( v157 >= _this->ptr_0000D8[i].dword_00004C)
+      if ( v157 >= _this->pBModels[i].dword_00004C)
         goto LABEL_74;
     }
 
@@ -768,7 +767,7 @@ LABEL_75:
   memcpy(FileName, Src, 32);
   Src = (char *)Src + 32;
 
-  array_6836D0[i].uDescorationDescriptionID = sub_4488B6(pDecorationDescriptionList, FileName);
+  array_6836D0[i].uDecorationDescriptionID = sub_4488B6(pDecorationDescriptionList, FileName);
  }
  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
@@ -791,7 +790,7 @@ LABEL_75:
 
  class23_DeleteBuffer(class23_instance, _this->ptr_0000E4);
  _this->ptr_0000E4 = class23_AllocatedNamedBuffer(class23_instance, 0, 65536, "OMAP");
- memcpy(_this->ptr_0000E4, Src, 65536);
+ memcpy(_this->ptr_0000E4, Src, 128 * 128 * 4);
  Src = (char *)Src + 65536;
  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
@@ -864,8 +863,8 @@ LABEL_75:
   }
 
   v82 = 0;
-  for (i = 0; i < _this->dword_0000B0; ++i)
-    v82 += _this->ptr_0000D8[i].dword_00004C;
+  for (i = 0; i < _this->uNumBModels; ++i)
+    v82 += _this->pBModels[i].dword_00004C;
 
   v84 = _this->array_0004C8[4];
   if ( v84 )
@@ -875,7 +874,7 @@ LABEL_75:
       v85 = _this->array_0004C8[5];
       if ( v85 )
       {
-        if ( v84 != v82 || _this->array_0004C8[6] != _this->dword_0000B0 || v85 != dword_69ADD0 )
+        if ( v84 != v82 || _this->array_0004C8[6] != _this->uNumBModels || v85 != dword_69ADD0 )
           Str2 = (char *)1;
       }
     }
@@ -956,24 +955,24 @@ LABEL_120:
     memcpy(_this->array_0008F0, v121, 0x3C8);
   }
 
-  for (i = 0; i < _this->dword_0000B0; ++i)
+  for (i = 0; i < _this->uNumBModels; ++i)
   {
 
-      for (j = 0; j < _this->ptr_0000D8[i].dword_00004C; ++j)
+      for (j = 0; j < _this->pBModels[i].dword_00004C; ++j)
       {
-        v118 = (void *)(_this->ptr_0000D8[i].ptr_000054[j].byte_000010 + 12);
+        v118 = (void *)(_this->pBModels[i].ptr_000054[j].byte_000010 + 12);
         memcpy(v118, v78, 4);
         v78 = (char *)v78 + 4;
       }
 
-      for (j = 0; j < _this->ptr_0000D8[i].dword_00004C; ++j)
+      for (j = 0; j < _this->pBModels[i].dword_00004C; ++j)
       {
-          if (_this->ptr_0000D8[i].ptr_000054[j].word_000124)
+          if (_this->pBModels[i].ptr_000054[j].word_000124)
           {
-            if ( sub_44C1E8(&_this->ptr_0000D8[i].ptr_000054[j]) )
-              _this->ptr_0000D8[i].ptr_000054[j].byte_000010[14] |= 0x10u;
+            if ( sub_44C1E8(&_this->pBModels[i].ptr_000054[j]) )
+              _this->pBModels[i].ptr_000054[j].byte_000010[14] |= 0x10u;
             else
-              _this->ptr_0000D8[i].ptr_000054[j].byte_000010[14] &= 0xEFu;
+              _this->pBModels[i].ptr_000054[j].byte_000010[14] &= 0xEFu;
           }
 
       }
@@ -1064,7 +1063,7 @@ LABEL_120:
   CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[4]);
   CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[6]);
 
-  strcpy(_this->string_000080, byte_6BE124);
+  strcpy(_this->pGroundTileset, byte_6BE124);
   v109 = _this->array_0000A0[1];
   v120 = 0;
   v110 = sub_487E3B(pTileTable, _this->array_0000A0[1]);
@@ -1244,22 +1243,46 @@ int sub_47F3EA(struct class51 *_this)
 
 
 //----- (0047CD44) --------------------------------------------------------
-bool sub_47CD44(struct class51_stru0 *_this)
+bool class51_InitializeGeodata(struct class51_Geodata *_this)
 {
- _this->ptr_000000 = class23_AllocatedNamedBuffer(class23_instance, _this->ptr_000000, 16384, "HMAP");
- _this->ptr_000004 = class23_AllocatedNamedBuffer(class23_instance, _this->ptr_000004, 16384, "TMAP");
- _this->ptr_000008 = class23_AllocatedNamedBuffer(class23_instance, _this->ptr_000008, 16384, "AMAP");
- _this->ptr_00000C = class23_AllocatedNamedBuffer(class23_instance, _this->ptr_00000C, 32768, "DMAP");
+ _this->pHeightmap = class23_AllocatedNamedBuffer(class23_instance, _this->pHeightmap, 128 * 128, "ODM Heightmap");
+ _this->pTilemap = class23_AllocatedNamedBuffer(class23_instance, _this->pTilemap, 128 * 128, "ODM Tilemap");
+ _this->pAttributemap = class23_AllocatedNamedBuffer(class23_instance, _this->pAttributemap, 128 * 128, "ODM Attributes map");
+ _this->ptr_00000C = class23_AllocatedNamedBuffer(class23_instance, _this->ptr_00000C, 128 * 128 * 2, "DMAP");
 
- if ( _this->ptr_000000 && _this->ptr_000004 && _this->ptr_000008 && _this->ptr_00000C)
+ if (_this->pHeightmap && _this->pTilemap && _this->pAttributemap && _this->ptr_00000C)
    return true;
  else return false;
+}
+
+//----- (0047C7C2) --------------------------------------------------------
+int class51_FreeGeodata(struct class51_Geodata *_this)
+{
+ class23_DeleteBuffer(class23_instance, _this->pHeightmap);
+ _this->pHeightmap = 0;
+
+ class23_DeleteBuffer(class23_instance, _this->pTilemap);
+ _this->pTilemap = 0;
+
+ class23_DeleteBuffer(class23_instance, _this->pAttributemap);
+ _this->pAttributemap = 0;
+
+ class23_DeleteBuffer(class23_instance, _this->ptr_00000C);
+ _this->ptr_00000C = 0;
+
+ _this->word_000010 = 0;
+ _this->word_000012 = 0;
+ _this->word_000014 = 0;
+ _this->word_000016 = 0;
+
+ _this->dword_000018 = 0;
+ _this->dword_00001C = 0;
 }
 
 
 
 //----- (0047C80A) --------------------------------------------------------
-int sub_47C80A(struct class51_stru0 *_this, int a2, int a3, int a4, int a5)
+int sub_47C80A(struct class51_Geodata *_this, int a2, int a3, int a4, int a5)
 {
   void *v5; // ebx@1
   double v6; // st7@1
@@ -1863,7 +1886,7 @@ int class51_sub_47EE16_MaybeActuallyGetHeightOnTerrain(struct class51 *_this, si
   if ( uX < 0 || uX > 127 || uY < 0 || uY > 127 )
     return 0;
   else
-   return 32 * _this->struct_0000B4.ptr_000000[128 * uY + uX];
+   return 32 * _this->struct_0000B4.pHeightmap[128 * uY + uX];
 }
 
 //----- (0047EDB3) --------------------------------------------------------
@@ -1875,9 +1898,89 @@ int class51_sub_47EDB3_MessWithHeightmapAndTiles(struct class51 *_this, signed i
     return 0;
   else
   {
-    v3 = _this->struct_0000B4.ptr_000004[128 * uY + uX];
+    v3 = _this->struct_0000B4.pTilemap[128 * uY + uX];
     if ( v3 >= 90 )
       v3 = v3 + _this->array_0000A0[1 + 2 * (v3 - 90) / 36] - 36 * (v3 - 90) / 36 - 90;
     return pTileTable->pTiles[v3].word_000018;
   }
+}
+
+//----- (0047EF60) --------------------------------------------------------
+bool class51_sub_47EF60(struct class51 *_this, int a2, int a3, int a4)
+{
+  int v4; // ecx@1
+  int v5; // edx@2
+  int v6; // edi@2
+  int v7; // esi@2
+  int v8; // eax@4
+  int v9; // ebx@4
+  int v10; // eax@5
+  int v11; // eax@7
+  char v12; // al@12
+  int v13; // esi@12
+  char v14; // zf@16
+  int v16; // [sp+4h] [bp-14h]@7
+  int v17; // [sp+8h] [bp-10h]@5
+  int v18; // [sp+Ch] [bp-Ch]@2
+  void *v19; // [sp+10h] [bp-8h]@1
+  int v20; // [sp+14h] [bp-4h]@2
+  int i; // [sp+24h] [bp+Ch]@5
+
+  v19 = _this;
+  v4 = a3 - 10;
+  if ( a3 - 10 < a3 + 10 )
+  {
+    v5 = v4 - a3;
+    v6 = 88 * (a3 - 30);
+    v7 = a2;
+    v20 = v4 - a3;
+    v18 = a3 + 10 - v4;
+    while ( 1 )
+    {
+      v8 = abs(v5);
+      v9 = v7 - 10;
+      if ( v7 - 10 < v7 + 10 )
+      {
+        v17 = v8 * v8;
+        v10 = v9 - v7;
+        for ( i = v9 - v7; ; v10 = i )
+        {
+          v11 = abs(v10);
+          v16 = v11 * v11 + v17;
+          if ( v16 <= 100 )
+          {
+            if ( v9 >= 20 )
+            {
+              if ( v9 <= 107 )
+              {
+                if ( v6 >= 0 )
+                {
+                  if ( v6 <= 7656 )
+                  {
+                    v13 = (v6 + v9 - 20) >> 3;
+                    v12 = 1 << (8 - (v6 + v9 - 20) % 8 - 1);
+                    *((_BYTE *)v19 + v13 + 2288) |= v12;
+                    if ( v16 <= 49 )
+                      *((_BYTE *)v19 + v13 + 1320) |= v12;
+                    v7 = a2;
+                  }
+                }
+              }
+            }
+          }
+          ++v9;
+          ++i;
+          if ( v9 >= v7 + 10 )
+            break;
+        }
+      }
+      v6 += 88;
+      ++v20;
+      v14 = v18-- == 1;
+      if ( v14 )
+        break;
+      v5 = v20;
+    }
+  }
+  return 1;
 }
