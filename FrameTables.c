@@ -601,7 +601,6 @@ __int16 sub_4488B6(struct CDecorationDescriptionList *_this, const char *Str1)
 }
 
 //----- (00458693) --------------------------------------------------------
-extern struct CSpriteFrameTable *pSpriteFrameTable;
 void sub_458693(struct CDecorationDescriptionList *_this, unsigned int uDecorationDescriptionID)
 {
   CSpriteFrameTable_fn4(pSpriteFrameTable, _this->pDescriptions[uDecorationDescriptionID].word_000048);
@@ -630,7 +629,6 @@ void *CObjectDescriptionList_Initialize(struct CObjectDescriptionList *_this, un
 
 
 //----- (00459064) --------------------------------------------------------
-extern struct CSpriteFrameTable *pSpriteFrameTable;
 void sub_459064(struct CObjectDescriptionList *_this)
 {
  int i;

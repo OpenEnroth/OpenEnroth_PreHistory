@@ -68,6 +68,10 @@ extern struct RGBTexture      *pClass33_obj2;
 extern struct RGBTexture      *pClass33_obj3;
 extern struct RGBTexture      *pClass33_obj4;
 
+extern struct CTextureFrameTable *pTextureFrameTable;
+extern struct CSpriteFrameTable  *pSpriteFrameTable;
+
+extern struct class59 *pClass59_global;
 
 extern char class28_global[];
 extern char class23_instance[];

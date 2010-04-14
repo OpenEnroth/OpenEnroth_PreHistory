@@ -615,8 +615,6 @@ LABEL_62:
 //----- (0041C26A) --------------------------------------------------------
 extern int dword_AD4730;
 extern int dword_6BE380;
-extern int dword_5C8668;
-extern int dword_5C8660;
 extern int dword_5C32D4;
 extern int dword_591430;
 extern int dword_59142C;
@@ -625,6 +623,7 @@ extern int dword_591084;
 extern int dword_5C35D4;
 extern struct class55 *pClass55_global;
 extern struct Party *pParty_global;
+extern struct class59 *pClass59_global;
 void GUIWindowDelete(int this)
 {
   int v1; // esi@1
@@ -666,7 +665,7 @@ void GUIWindowDelete(int this)
         dword_5C35D4 = 0;
         if ( dword_6BE380 )
         {
-          pClass55_global->dword_000018 = (dword_5C8668 - 1) & (dword_5C8660 + pClass55_global->dword_000018);
+          pClass55_global->dword_000018 = (pClass59_global->dword_001868 - 1) & (pClass59_global->dword_001860 + pClass55_global->dword_000018);
           pParty_global->dword_0006C0 = pClass55_global->dword_000018;
         }
         dword_AD4730 |= 2;
@@ -1269,4 +1268,13 @@ void DrawLoadingScreen(struct class56 *_this)
   CD3DRenderer_sub_4A5BB6(pD3DRenderer);
   CD3DRenderer_EndScene(pD3DRenderer);
   CD3DRenderer_Present(pD3DRenderer);
+}
+
+
+//----- (004435BB) --------------------------------------------------------
+void sub_4435BB(struct class56 *_this, char a2)
+{
+ _this->byte_000009 = 0;
+ _this->uProgressMax = a2;
+ _this->uProgressCurrent = 0;
 }

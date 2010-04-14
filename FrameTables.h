@@ -91,7 +91,7 @@ struct CSpriteFrameTable
  struct SpriteFrame **pSpritePFrames; // ptr @ 000010
  unsigned short *pSpriteEFrames; // ptr @ 000014
 };
-//sizeof ~ ?
+//sizeof ~ 18
 void CSpriteFrameTable_ctor(struct CSpriteFrameTable *_this);
 //int __thiscall sub_44D9D7(void *Dst, void *Src)
 int CSpriteFrameTable_Initialize(struct CSpriteFrameTable *_this, void *pSrc);

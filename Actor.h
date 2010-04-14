@@ -47,13 +47,17 @@ struct Actor
  short         word_0000B2;
  char          byte_0000B4[18];
  short         word_0000C6;  //some s-sprite index
- char          byte_0000C8[12];
+ char          byte_0000C8[2];
+ short         word_0000CA;   //some s-sprite index
+ char          byte_0000CC[8];
  char          array_0000D4[22][16];
  char          byte_000234[272];
 };
 //sizeof == 344
 
 bool sub_40894B(struct Actor *_this);
+//int __thiscall sub_45976D(int this);
+int sub_45976D(struct Actor *_this);
 
 
 #pragma pack(pop)

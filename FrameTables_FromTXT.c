@@ -1473,7 +1473,6 @@ int CPlayerFrameTable_InitializeFromTXT(struct CPlayerFrameTable *_this, const c
 
 
 //----- (004586B0) --------------------------------------------------------
-extern struct CSpriteFrameTable *pSpriteFrameTable;
 int CDecorationDescriptionList_InitializeFromTXT(struct CDecorationDescriptionList *_this, const char *pSourceFile)
 {
   FILE *v2; // eax@1

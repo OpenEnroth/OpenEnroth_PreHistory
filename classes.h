@@ -1572,4 +1572,99 @@ void sub_4239A7(struct class55 *_this);
 void class55_sub_42394D(struct class55 *_this, signed int a2, signed int a3, int a4);
 
 
+
+
+
+
+
+
+struct class57
+{
+ int        dword_000000;
+ int        dword_000004;
+ int        dword_000008;
+ int        dword_00000C;
+ int        dword_000010;
+ int        dword_000014;
+ signed int dword_000018;
+ signed int dword_00001C;
+ signed int dword_000020;
+ int        dword_000024;
+ int        dword_000028;
+};
+//sizeof ~ 38
+//int __thiscall sub_48616B(int this, int a2, int a3, int a4, int a5, int a6, int a7);
+int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, int a6, int a7);
+
+
+
+
+struct struct9
+{
+ int dword_000000;
+ int shading_dist_shade;     // dword @ 000004
+ int shading_dist_shademist; // dword @ 000008
+ int shading_dist_mist;      // dword @ 00000C
+ int dword_000010;
+ int dword_000014;
+ int dword_000018;
+ int dword_00001C;
+ int dword_000020;
+ int dword_000024;
+ int dword_000028;
+ int dword_00002C;
+ int dword_000030;
+ int dword_000034;
+ int dword_000038;
+ int dword_00003C;
+ int dword_000040;
+ int dword_000044;
+ int dword_000048;
+ int dword_00004C;
+ int dword_000050;
+};
+//sizeof ~ 54
+//int __thiscall sub_48600E(int this);
+void sub_48600E(struct struct9 *_this);
+//int __thiscall sub_485F64(int this);
+int sub_485F64(struct struct9 *_this);
+
+
+
+
+struct class58
+{
+ char unk_000000[0x11E458];
+ char unk_11E458[0x82400];
+ char unk_1A0858[0x6405];
+ char unk_1A6C5D[0xF];
+ char unk_1A6C6C[0x161398];
+ int  dword_308004;
+ int  dword_308008;
+};
+//sizeof
+//int __thiscall sub_49B525(int this, int a2);
+void class58_sub_49B525(struct class58 *_this, int a2);
+
+
+struct class59
+{
+ int array_000000[520];
+ int array_000820[520];
+ int array_001040[520];
+ int dword_001860;
+ int dword_001864;
+ int dword_001868;
+ int dword_00186C;
+ int dword_001870;
+ int dword_001874;
+};
+//sizeof ~
+//
+//loc_452969()
+void class59_ctor(struct class59 *);
+//int __thiscall sub_402CAE(int this, int a2);
+int class59_sub_402CAE(struct class59 *_this, int a2);
+
+
 #pragma pack(pop)

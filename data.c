@@ -1227,6 +1227,11 @@ struct RGBTexture      *pClass33_obj2 = 0;         // struct @ MM7.exe::00507A6C
 struct RGBTexture      *pClass33_obj3 = 0;         // struct @ MM7.exe::00507A94
 struct RGBTexture      *pClass33_obj4 = 0;         // struct @ MM7.exe::00507ABC
 
+struct CTextureFrameTable *pTextureFrameTable = 0; // struct @ MM7.exe::005C6DB8
+struct CSpriteFrameTable  *pSpriteFrameTable = 0;  // struct @ MM7.exe::005C6DC0
+
+struct class59 *pClass59_global = 0; // struct @ MM7.exe::005C6E00
+
 
 unsigned int uTextureID_PlayerCreationUI_BtnLeft = 0; // ptr @ MM7.exe::0050791C
 unsigned int uTextureID_PlayerCreationUI_BtnRight = 0; // ptr @ MM7.exe::00507920

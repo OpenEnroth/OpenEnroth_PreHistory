@@ -13,6 +13,7 @@ extern float flt_6BE3A0;
 extern int dword_AD4730;
 extern int dword_E31C7C;
 extern char byte_6BE371;
+extern struct class59 *pClass59_global;
 
 extern int dword_4F00DC;
 extern char unk_F79CC8[];
@@ -9423,8 +9424,6 @@ extern int dword_F93E44;
 extern int dword_F93E30;
 extern int dword_F93E1C;
 extern int dword_EF524C;
-extern int dword_DEDBAC;
-extern int dword_DEDBB0;
 extern int dword_6BE360;
 extern int dword_5C6DD8;
 extern int dword_5C6DDC;
@@ -9435,6 +9434,7 @@ extern int dword_51B6DC;
 extern int dword_519AB4;
 extern char byte_5C6DEC;
 extern char byte_5C6DEC;
+extern struct class58 *pClass58_global;
 char CGame_sub_44EEA7(struct CGame *_this)
 {
   int v1; // esi@1
@@ -9495,8 +9495,8 @@ char CGame_sub_44EEA7(struct CGame *_this)
  CGame_Pick(pGame, v4, v7, v8, v9, (int)v10, v11);
   _this->class04_obj->dword_183804 = 0;
   _this->class04_obj->dword_3C8C08 = 0;
-  dword_DEDBAC = 0;
-  dword_DEDBB0 = 0;
+  pClass58_global->dword_308004 = 0;
+  pClass58_global->dword_308008 = 0;
   result = CGame_sub_44F07B(_this);
   if ( result )
   {
@@ -10094,8 +10094,6 @@ int __thiscall sub_469E3B(int this)
 
 
 //----- (004239A7) --------------------------------------------------------
-extern int unk_5C6E00[];
-extern int dword_5C8664;
 void class55_sub_4239A7(struct class55 *_this)
 {
   double v2; // st7@4
@@ -10118,10 +10116,10 @@ void class55_sub_4239A7(struct class55 *_this)
   }
   _this->flt_000038 = cos(v2 * *(double *)&byte_4D8410[264]);
 
-  _this->dword_00003C = sub_402CAE(unk_5C6E00, _this->dword_000018 - dword_5C8664);
-  _this->dword_000040 = sub_402CAE(unk_5C6E00, _this->dword_000018);
-  _this->dword_000044 = sub_402CAE(unk_5C6E00, _this->dword_000014 - dword_5C8664);
-  _this->dword_000048 = sub_402CAE(unk_5C6E00, _this->dword_000014);
+  _this->dword_00003C = class59_sub_402CAE(pClass59_global, _this->dword_000018 - pClass59_global->dword_001864);
+  _this->dword_000040 = class59_sub_402CAE(pClass59_global, _this->dword_000018);
+  _this->dword_000044 = class59_sub_402CAE(pClass59_global, _this->dword_000014 - pClass59_global->dword_001864);
+  _this->dword_000048 = class59_sub_402CAE(pClass59_global, _this->dword_000014);
 }
 
 
@@ -10151,21 +10149,19 @@ void class26_sub_4C039C(struct class26 *_this)
 
 
 //----- (00402CAE) --------------------------------------------------------
-int sub_402CAE(int this, int a2)
+int class59_sub_402CAE(struct class59 *_this, int a2)
 {
   int v2; // eax@1
   int v3; // edx@1
-  int result; // eax@4
 
-  v3 = *(_DWORD *)(this + 6240);
-  v2 = *(_DWORD *)(this + 6252) & a2;
+  v3 = _this->dword_001860;
+  v2 = _this->dword_00186C & a2;
   if ( v2 > v3 )
-    v2 = *(_DWORD *)(this + 6248) - v2;
-  if ( v2 >= *(_DWORD *)(this + 6244) )
-    result = -*(_DWORD *)(this + 4 * (v3 - v2) + 2080);
+    v2 = _this->dword_001868 - v2;
+  if ( v2 >= _this->dword_001864 )
+    return -_this->array_000820[v3 - v2];
   else
-    result = *(_DWORD *)(this + 4 * v2 + 2080);
-  return result;
+    return _this->array_000820[v2];
 }
 
 
@@ -10300,4 +10296,223 @@ void sub_486089(struct struct8 *_this)
     v14 = v13 + 6.755399441055744e15;
     *(_DWORD *)(v1 + 32) = LODWORD(v14);
   }
+}
+
+
+
+
+//----- (0048600E) --------------------------------------------------------
+void sub_48600E(struct struct9 *_this)
+{
+ _this->dword_00001C = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000018 - pClass59_global->dword_001864);
+ _this->dword_000020 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000018);
+ _this->dword_000024 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000014 - pClass59_global->dword_001864);
+ _this->dword_000028 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000014);
+}
+
+//----- (0048616B) --------------------------------------------------------
+extern struct struct9 *pStruct9_global;
+int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, int a6, int a7)
+{
+ int v1;
+  int v7; // eax@1
+  int v8; // edx@1
+  int v9; // ebx@1
+  int v10; // edi@1
+  int v11; // esi@1
+  int v12; // eax@2
+  int v13; // esi@2
+  int v14; // ST10_4@3
+  int v15; // esi@3
+  int v16; // eax@5
+  int v17; // ST0C_4@6
+  int v18; // eax@8
+  int v19; // ST0C_4@9
+  int result; // eax@10
+  int v21; // eax@10
+  int v22; // edx@10
+  int v23; // eax@10
+  int v24; // [sp+14h] [bp-14h]@1
+  int v25; // [sp+18h] [bp-10h]@1
+  int v26; // [sp+1Ch] [bp-Ch]@1
+  int v27; // [sp+24h] [bp-4h]@1
+  int v28; // [sp+30h] [bp+8h]@7
+  int v29; // [sp+30h] [bp+8h]@10
+  int v30; // [sp+3Ch] [bp+14h]@10
+
+  v1 = _this;
+  v25 = pStruct9_global->dword_000028;
+  v9 = pStruct9_global->dword_00001C;
+  v27 = pStruct9_global->dword_000024;
+  v11 = -pClass55_global->dword_000004;
+  v10 = pStruct9_global->dword_000020;
+  v26 = -pClass55_global->dword_000008;
+  v24 = -pClass55_global->dword_000000;
+  v7 = pStruct9_global->dword_000020 * -pClass55_global->dword_000000;
+  v8 = v7 + pStruct9_global->dword_00001C * -pClass55_global->dword_000004;
+  if ( pClass55_global->dword_000014 )
+  {
+    v14 = v7 + pStruct9_global->dword_00001C * -pClass55_global->dword_000004;
+    v15 = pStruct9_global->dword_000020 * v11 - pStruct9_global->dword_00001C * v24;
+    _this->dword_000000 = ((unsigned __int64)(v8 * pStruct9_global->dword_000028) >> 16)
+                    + ((unsigned __int64)(-65536 * pClass55_global->dword_000008 * pStruct9_global->dword_000024) >> 16);
+    _this->dword_000004 = v15;
+    v13 = v25;
+    v12 = ((unsigned __int64)((v26 << 16) * v25) >> 16) - ((unsigned __int64)(v14 * v27) >> 16);
+  }
+  else
+  {
+    _this->dword_000000 = v8;
+    _this->dword_000004 = pStruct9_global->dword_000020 * v11 - pStruct9_global->dword_00001C * v24;
+    v13 = v25;
+    v12 = v26 << 16;
+  }
+  _this->dword_000008 = v12;
+  if ( pClass55_global->dword_000014 )
+  {
+    v17 = ((unsigned __int64)(a2 * v10) >> 16) + ((unsigned __int64)(a3 * v9) >> 16);
+    _this->dword_00000C = ((unsigned __int64)(v17 * v13) >> 16) + ((unsigned __int64)(a4 * v27) >> 16);
+    _this->dword_000010 = ((unsigned __int64)(a3 * v10) >> 16) - ((unsigned __int64)(a2 * v9) >> 16);
+    v16 = ((unsigned __int64)(a4 * v13) >> 16) - ((unsigned __int64)(v17 * v27) >> 16);
+  }
+  else
+  {
+    _this->dword_00000C = ((unsigned __int64)(a2 * v10) >> 16) + ((unsigned __int64)(a3 * v9) >> 16);
+    _this->dword_000010 = ((unsigned __int64)(a3 * v10) >> 16) - ((unsigned __int64)(a2 * v9) >> 16);
+    v16 = a4;
+  }
+  _this->dword_000014 = v16;
+  v28 = v10;
+  if ( pClass55_global->dword_000014 )
+  {
+    v19 = ((unsigned __int64)(a5 * v28) >> 16) + ((unsigned __int64)(a6 * v9) >> 16);
+    _this->dword_000018 = ((unsigned __int64)(v19 * v13) >> 16) + ((unsigned __int64)(a7 * v27) >> 16);
+    _this->dword_00001C = ((unsigned __int64)(a6 * v10) >> 16) - ((unsigned __int64)(a5 * v9) >> 16);
+    v18 = ((unsigned __int64)(a7 * v13) >> 16) - ((unsigned __int64)(v19 * v27) >> 16);
+  }
+  else
+  {
+    _this->dword_000018 = ((unsigned __int64)(a5 * v28) >> 16) + ((unsigned __int64)(a6 * v9) >> 16);
+    _this->dword_00001C = ((unsigned __int64)(a6 * v10) >> 16) - ((unsigned __int64)(a5 * v9) >> 16);
+    v18 = a7;
+  }
+ _this->dword_000018 = -_this->dword_000018;
+ _this->dword_00001C = -_this->dword_00001C;
+ _this->dword_000020 = v18;
+  v21 = _this->dword_00000C;
+ _this->dword_000020 = -_this->dword_000020;
+ v22 = ((unsigned __int64)(v21 * _this->dword_000000) >> 16)
+      + ((unsigned __int64)(_this->dword_000010 * _this->dword_000004) >> 16)
+      + ((unsigned __int64)(_this->dword_000014 * _this->dword_000008) >> 16);
+  v29 = _this->dword_000018;
+  v23 = _this->dword_000000;
+ _this->dword_000024 = v22;
+  v30 = (unsigned __int64)(v29 * v23) >> 16;
+  result = (unsigned __int64)(_this->dword_00001C * _this->dword_000004) >> 16;
+ _this->dword_000028 = v30 + result + ((unsigned __int64)(_this->dword_000020 * _this->dword_000008) >> 16);
+  return result;
+}
+
+
+//----- (00485F64) --------------------------------------------------------
+extern int dword_6BE064;
+extern int dword_576FE8;
+extern int dword_576FF0;
+int sub_485F64(struct struct9 *_this)
+{
+ int v0;
+  int v1; // eax@1
+  int v2; // eax@2
+  signed __int64 v4; // qtt@4
+  signed int v5; // eax@4
+
+  v0 = _this;
+
+ _this->dword_000010 = 75;
+  v1 = pClass59_global->dword_001870 & 0xD5;
+  if ( v1 >= pClass59_global->dword_001864 )
+    v2 = -pClass59_global->array_000000[pClass59_global->dword_001860 - v1];
+  else
+    v2 = pClass59_global->array_000000[v1];
+  LODWORD(v4) = (dword_576FF0 - dword_576FE8) << 31;
+  HIDWORD(v4) = (dword_576FF0 - dword_576FE8) << 15 >> 16;
+  v5 = (signed int)(v4 / v2) >> 16;
+ _this->dword_000014 = v5;
+ _this->dword_000018 = 65536 / v5;
+ _this->dword_00004C = 360000;
+ _this->dword_000050 = 115;
+  dword_6BE064 = 1;
+  sub_48600E(v0);
+  return 0;
+}
+
+
+
+
+//----- (0049B525) --------------------------------------------------------
+extern struct class36 class36_global0;
+void class58_sub_49B525(struct class58 *_this, int a2)
+{
+ if (!a2)
+ {
+  class36_global0.dword_000A04 = 0;
+  class36_global0.dword_000A08 = 0;
+ }
+ _this->dword_308004 = 0;
+}
+
+
+void class59_ctor(struct class59 *_this)
+{
+  int v1; // edi@1
+  int v2; // esi@1
+  double v3; // ST18_8@2
+  signed int v4; // edx@3
+  int v5; // eax@4
+  int v6; // ecx@4
+  signed int v8; // [sp+20h] [bp-4h]@1
+
+ _this->array_000000[0] = 0;
+ _this->array_000820[0] = 65536;
+ _this->array_001040[0] = 65536;
+
+ _this->dword_001860 = 1024;
+ _this->dword_001864 = 512;
+ _this->dword_001868 = 2048;
+
+ _this->dword_00186C = 2047;
+ _this->dword_001870 = 1023;
+ _this->dword_001874 = 511;
+
+ v2 = _this;
+  v8 = 1;
+  v1 = &_this->array_001040[1];
+  do
+  {
+    v3 = (double)v8 * *(double *)&byte_4D8410[376] * *(double *)&byte_4D8410[656];
+    *(_DWORD *)(v1 - 4160) = (signed __int64)(tan(v3) * (double)*(signed int *)(v2 + 2080) + *(double *)&byte_4D8410[256]);
+    *(_DWORD *)(v1 - 2080) = (signed __int64)(cos(v3) * (double)*(signed int *)(v2 + 2080) + *(double *)&byte_4D8410[256]);
+    ++v8;
+    *(_DWORD *)v1 = (signed __int64)(*(double *)&byte_4D8410[24] / cos(v3) * (double)*(signed int *)(v2 + 2080)
+                                   + *(double *)&byte_4D8410[256]);
+    v1 += 4;
+  }
+  while ( v8 < *(_DWORD *)(v2 + 6244) );
+
+  v4 = *(_DWORD *)(v2 + 6244);
+  if ( v4 < 520 )
+  {
+    v5 = v2 + 4 * v4 + 2080;
+    v6 = 520 - v4;
+    do
+    {
+      *(_DWORD *)v5 = 0;
+      *(_DWORD *)(v5 + 2080) = -268435457;
+      *(_DWORD *)(v5 - 2080) = -268435457;
+      v5 += 4;
+      --v6;
+    }
+    while ( v6 );
+  }
+  return v2;
 }

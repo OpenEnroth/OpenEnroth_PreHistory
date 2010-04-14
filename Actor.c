@@ -142,8 +142,7 @@ int __fastcall sub_403EB6(unsigned int uActorID, signed int a2, int a3, char *a4
 //----- (004040E9) --------------------------------------------------------
 extern struct struct0 array_6836D0[];
 extern struct struct2 array_665230[];
-extern int unk_5C6E00[];
-extern int dword_5C8664;
+extern struct class59 *pClass59_global;
 extern int dword_6BE360;
 extern int dword_6BE644;
 int __fastcall sub_43AA99(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9);
@@ -250,14 +249,14 @@ LABEL_27:
           v42 = (int)&v54;
           v41 = (int)&v55;
           v40 = (int)&v56;
-          v18 = pParty_global->dword_0006C0 - dword_5C8664;
+          v18 = pParty_global->dword_0006C0 - pClass59_global->dword_001864;
           v39 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
           goto LABEL_20;
         }
         v42 = (int)&v54;
         v41 = (int)&v55;
         v40 = (int)&v56;
-        v18 = pParty_global->dword_0006C0 - dword_5C8664;
+        v18 = pParty_global->dword_0006C0 - pClass59_global->dword_001864;
         v39 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
       }
       else
@@ -266,7 +265,7 @@ LABEL_27:
         v41 = (int)&v55;
         v40 = (int)&v56;
         v39 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
-        v18 = dword_5C8664 + pParty_global->dword_0006C0;
+        v18 = pClass59_global->dword_001864 + pParty_global->dword_0006C0;
       }
       v38 = pParty_global->dword_0006B8;
       v37 = pParty_global->dword_0006B4;
@@ -280,7 +279,7 @@ LABEL_21:
     v41 = (int)&v55;
     v40 = (int)&v56;
     v39 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
-    v18 = dword_5C8664 + pParty_global->dword_0006C0;
+    v18 = pClass59_global->dword_001864 + pParty_global->dword_0006C0;
 LABEL_20:
     v38 = pParty_global->dword_0006B8;
     v37 = pParty_global->dword_0006B4;
@@ -399,8 +398,8 @@ LABEL_45:
     v45 = (signed __int64)(1.0 / v31 * v57 * 65536.0);
     v46 = (signed __int64)v31;
     X = (signed __int64)sqrt(*(float *)&v52 + *(float *)&v53);
-    v48 = sub_45281E(unk_5C6E00, (signed __int64)v50, (signed __int64)v51);
-    v49 = sub_45281E(unk_5C6E00, X, (signed __int64)v57);
+    v48 = sub_45281E(pClass59_global, (signed __int64)v50, (signed __int64)v51);
+    v49 = sub_45281E(pClass59_global, X, (signed __int64)v57);
   }
   result = a3;
   memcpy(a3, &v43, 0x1Cu);
@@ -410,7 +409,6 @@ LABEL_45:
 
 
 //----- (0045976D) --------------------------------------------------------
-extern struct CSpriteFrameTable *pSpriteFrameTable;
 int sub_45976D(struct Actor *_this)
 {
   int result; // eax@1

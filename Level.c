@@ -1480,7 +1480,6 @@ bool sub_44C1E8(struct class51_stru2 *_this)
 
 
 //----- (00488F5C) --------------------------------------------------------
-extern struct CSpriteFrameTable *pSpriteFrameTable;
 extern int dword_6BE030;
 extern int dword_6BE040;
 extern int dword_6BE044;
@@ -1565,9 +1564,7 @@ int sub_47F223_LooksLikeGenerateMonsterLoot(struct class51 *_this)
 
 
 //----- (004892E6) --------------------------------------------------------
-extern int unk_5C6E00[];
-extern int dword_5C8660;
-extern int dword_5C8664;
+extern struct class59 *pClass59_global;
 extern struct Party *pParty_global;
 int __thiscall sub_4892E6(struct class51 *_this)
 {
@@ -1587,11 +1584,11 @@ int __thiscall sub_4892E6(struct class51 *_this)
     if ( (unsigned int)pParty_global->dword_00071C < 0x15 )
     {
       v3 = pParty_global->dword_000720 + 60 * (pParty_global->dword_00071C - 5);
-      v4 = v3 * dword_5C8660 / 960;
-      v5 = sub_402CAE(unk_5C6E00, v3 * dword_5C8660 / 960);
+      v4 = v3 * pClass59_global->dword_001860 / 960;
+      v5 = class59_sub_402CAE(pClass59_global, v3 * pClass59_global->dword_001860 / 960);
       *((_DWORD *)v2 + 839) = 0;
       *((_DWORD *)v2 + 838) = v5;
-      v6 = sub_402CAE(unk_5C6E00, v4 - dword_5C8664);
+      v6 = class59_sub_402CAE(pClass59_global, v4 - pClass59_global->dword_001864);
       v7 = *((_DWORD *)v2 + 838);
       *((_DWORD *)v2 + 840) = v6;
       *((_DWORD *)v2 + 844) = -v7;
@@ -1848,4 +1845,39 @@ bool __stdcall sub_45CE50(struct struct7 *_this, struct class51_stru2 *a2, int *
     return true;
   }
   else return false;
+}
+
+
+//----- (00488F2E) --------------------------------------------------------
+int class51_sub_488F2E_MaybeGetHeightOnTerrain(struct class51 *_this, signed int uX, signed int uY)
+{
+  if ( uX < 0 || uX > 127 || uY < 0 || uY > 127 )
+    return 0;
+  else
+    return class51_sub_47EE16_MaybeActuallyGetHeightOnTerrain(_this, uX, uY);
+}
+
+//----- (0047EE16) --------------------------------------------------------
+int class51_sub_47EE16_MaybeActuallyGetHeightOnTerrain(struct class51 *_this, signed int uX, signed int uY)
+{
+  if ( uX < 0 || uX > 127 || uY < 0 || uY > 127 )
+    return 0;
+  else
+   return 32 * _this->struct_0000B4.ptr_000000[128 * uY + uX];
+}
+
+//----- (0047EDB3) --------------------------------------------------------
+int class51_sub_47EDB3_MessWithHeightmapAndTiles(struct class51 *_this, signed int uX, signed int uY)
+{
+  int v3; // esi@5
+
+  if ( uX < 0 || uX > 127 || uY < 0 || uY > 127 )
+    return 0;
+  else
+  {
+    v3 = _this->struct_0000B4.ptr_000004[128 * uY + uX];
+    if ( v3 >= 90 )
+      v3 = v3 + _this->array_0000A0[1 + 2 * (v3 - 90) / 36] - 36 * (v3 - 90) / 36 - 90;
+    return pTileTable->pTiles[v3].word_000018;
+  }
 }

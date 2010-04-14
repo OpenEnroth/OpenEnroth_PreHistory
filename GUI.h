@@ -115,7 +115,8 @@ struct class56
  unsigned short    uY;               // word @ 000002
  unsigned short    uWidth;           // word @ 000004
  unsigned short    uHeight;          // word @ 000006
- char              byte_000008[2];
+ char              byte_000008;
+ char              byte_000009;
  unsigned char     uProgressMax;     // byte @ 00000A
  unsigned char     uProgressCurrent; // byte @ 00000B
  int               dword_00000C;
@@ -163,6 +164,7 @@ void __cdecl PlayerCreationUI_Initialize();
 bool LevelLoadingUI_Initialize(struct class56 *_this, int a2);
 void LevelLoadingUI_UpdateAndDrawProgressBar(struct class56 *_this);
 void DrawLoadingScreen(struct class56 *_this);
+void sub_4435BB(struct class56 *_this, char a2);
 
 
 #pragma pack(pop)
