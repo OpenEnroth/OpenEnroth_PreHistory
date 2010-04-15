@@ -5,8 +5,8 @@ struct IconFrame
 {
  unsigned char sIconName[12];    // byte[12] @ 000000
  unsigned char sTextureName[12]; // byte[12] @ 00000C
- short         word_000018;
- short         word_00001A;
+ short         word_000018; // frame time?
+ short         word_00001A; // num frames?
  short         word_00001C;
  short         uTextureIdx;      // word @ 00001E
 };
@@ -30,7 +30,7 @@ void CIconFrameTable_InitializeIcon(struct CIconFrameTable *_this, unsigned int 
 //int __thiscall sub_49500A(void *Str);
 int CIconFrameTable_SaveToBIN(struct CIconFrameTable *_this);
 //int __thiscall sub_494F70(int this, int a2, signed int a3);
-struct IconFrame *CIconFrameTable_sub_494F70(struct CIconFrameTable *_this, int a2, signed int a3);
+struct IconFrame *CIconFrameTable_GetFrame(struct CIconFrameTable *_this, int a2, signed int a3);
 
 
 
@@ -102,7 +102,7 @@ int CSpriteFrameTable_LoadFromTXT(struct CSpriteFrameTable *_this, const char *p
 //int __thiscall sub_44D4D8(int this)
 int CSpriteFrameTable_sub_44D4D8(struct CSpriteFrameTable *_this);
 //int __thiscall class29_fn1(int this, int a2, signed int a3);
-int CSpriteFrameTable_fn1(struct CSpriteFrameTable *_this, int a2, signed int a3);
+struct SpriteFrame *CSpriteFrameTable_fn1(struct CSpriteFrameTable *_this, unsigned int uID, signed int a3);
 //int __thiscall class29_fn2(int this, int a2, signed int a3);
 int CSpriteFrameTable_fn2(struct CSpriteFrameTable *_this, int a2, signed int a3);
 //int __thiscall class29_fn3(int this);

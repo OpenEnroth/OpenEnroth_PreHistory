@@ -62,11 +62,11 @@ extern struct RGBTexture      *pClass33_global0;
 extern struct RGBTexture      *pClass33_global1;
 extern struct RGBTexture      *pRGBTexture_Menu;
 extern struct RGBTexture      *pClass33_global3;
-extern struct RGBTexture      *pClass33_obj0;
-extern struct RGBTexture      *pClass33_obj1;
-extern struct RGBTexture      *pClass33_obj2;
-extern struct RGBTexture      *pClass33_obj3;
-extern struct RGBTexture      *pClass33_obj4;
+extern struct RGBTexture      *pTexture_StatusBar;
+extern struct RGBTexture      *pTexture_LeftFrame;
+extern struct RGBTexture      *pTexture_TopFrame;
+extern struct RGBTexture      *pTexture_BottomFrame;
+extern struct RGBTexture      *pTexture_RightFrame;
 
 extern struct CTextureFrameTable *pTextureFrameTable;
 extern struct CSpriteFrameTable  *pSpriteFrameTable;

@@ -1221,11 +1221,11 @@ struct RGBTexture      *pClass33_global1 = 0;      // struct @ MM7.exe::00505918
 struct RGBTexture      *pRGBTexture_Menu = 0;      // struct @ MM7.exe::00506F20
 struct RGBTexture      *pClass33_global3 = 0;      // struct @ MM7.exe::00506E40
 
-struct RGBTexture      *pClass33_obj0 = 0;         // struct @ MM7.exe::00507A1C
-struct RGBTexture      *pClass33_obj1 = 0;         // struct @ MM7.exe::00507A44
-struct RGBTexture      *pClass33_obj2 = 0;         // struct @ MM7.exe::00507A6C
-struct RGBTexture      *pClass33_obj3 = 0;         // struct @ MM7.exe::00507A94
-struct RGBTexture      *pClass33_obj4 = 0;         // struct @ MM7.exe::00507ABC
+struct RGBTexture      *pTexture_StatusBar = 0;    // struct @ MM7.exe::00507A1C
+struct RGBTexture      *pTexture_LeftFrame = 0;    // struct @ MM7.exe::00507A44
+struct RGBTexture      *pTexture_TopFrame = 0;     // struct @ MM7.exe::00507A6C
+struct RGBTexture      *pTexture_BottomFrame = 0;  // struct @ MM7.exe::00507A94
+struct RGBTexture      *pTexture_RightFrame = 0;   // struct @ MM7.exe::00507ABC
 
 struct CTextureFrameTable *pTextureFrameTable = 0; // struct @ MM7.exe::005C6DB8
 struct CSpriteFrameTable  *pSpriteFrameTable = 0;  // struct @ MM7.exe::005C6DC0

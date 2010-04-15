@@ -2393,3 +2393,23 @@ void *sub_4A1EB6(struct CD3DRenderer *_this)
   }
   return result;
 }
+
+
+
+//----- (004A1FE1) --------------------------------------------------------
+extern struct CGame *pGame;
+void CD3DRenderer_sub_4A1FE1_MaybeRenderSpecialEffects(struct CD3DRenderer *_this)
+{
+ if (_this->dword_04010C-- == 1)
+ {
+    if (_this->dword_040088)
+    {
+      sub_44EE7C();
+      sub_4A1C1E();
+      class06_sub_4A8C27(pGame->class06_obj);
+      (*(int (__stdcall **)(_DWORD))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 40))(*(_DWORD *)(pD3DRenderer->dword_040088 + 56));
+    }
+    else
+      class06_sub_4A8C27(pGame->class06_obj);
+ }
+}

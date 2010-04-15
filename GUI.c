@@ -8,6 +8,8 @@
 
 #include "data.h"
 
+#include "FrameTables.h"
+
 
 
 
@@ -1243,7 +1245,7 @@ void DrawLoadingScreen(struct class56 *_this)
           sub_49FD3A(pD3DRenderer, v1);
       }
       CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 80, 122, v1 + 296);
-      v4 = CIconFrameTable_sub_494F70(pIconFrameTable, dword_50C984, 0);
+      v4 = CIconFrameTable_GetFrame(pIconFrameTable, dword_50C984, 0);
       CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 100, 146, 72 * *(_WORD *)(v4 + 30) + 7145548);
       v5 = (double)(113 * *(_BYTE *)(v1 + 11)) / (double)*(_BYTE *)(v1 + 10);
       sub_4A6D87(pD3DRenderer, 0, 174, 164, v5 + 6.755399441055744e15, 16, pD3DRenderer->dword_0400D8);
@@ -1276,4 +1278,258 @@ void sub_4435BB(struct class56 *_this, char a2)
  _this->byte_000009 = 0;
  _this->uProgressMax = a2;
  _this->uProgressCurrent = 0;
+}
+
+//----- (0041C179) --------------------------------------------------------
+extern char byte_5C3427[];
+extern char byte_5C3428;
+extern char byte_5C34EF[];
+extern short dword_507AF8;
+extern int dword_507AFC;
+extern int dword_5C35B8;
+extern int dword_5C35BC;
+extern struct GUIWindow *pGUIWindow0;
+extern unsigned char pStatusBarString[];
+void __cdecl GameUI_DrawStatusBar()
+{
+  char *v0; // ebp@1
+  int v1; // eax@5
+  char *v2; // edi@5
+  int v3; // esi@5
+  size_t v4; // eax@6
+  int v5; // ecx@6
+  int v6; // eax@9
+  size_t v7; // eax@10
+  int v8; // ecx@10
+  char v9; // zf@12
+  __int16 v10; // ST08_2@13
+  int v11; // eax@13
+
+  v0 = *(char **)&dword_507AF8;
+  if ( pStatusBarString[0] || dword_5C35B8 || dword_5C35BC )
+  {
+    CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 352, pTexture_StatusBar);
+    if ( dword_5C35B8 )
+    {
+      v2 = &byte_5C3428;
+      v1 = sub_44C51E(pFontLucida, &byte_5C3428);
+      v3 = 450;
+      while ( v1 > 450 )
+      {
+        v4 = strlen(&byte_5C3428);
+        v5 = pFontLucida;
+        byte_5C3427[v4] = 0;
+        v1 = sub_44C51E(v5, &byte_5C3428);
+      }
+    }
+    else
+    {
+      v2 = pStatusBarString;
+      v6 = sub_44C51E(pFontLucida, pStatusBarString);
+      v3 = 450;
+      while ( v6 > 450 )
+      {
+        v7 = strlen(pStatusBarString);
+        v8 = pFontLucida;
+        byte_5C34EF[v7] = 0;
+        v6 = sub_44C51E(v8, pStatusBarString);
+      }
+    }
+    v9 = *v2 == 0;
+    dword_5C35BC = 0;
+    if ( !v9 )
+    {
+      v10 = dword_507AFC;
+      v11 = AlignText_Center(v3, v2, pFontLucida);
+      FontDrawText(pGUIWindow0, pFontLucida, v11 + 11, 357, v10, v2, 0, 0, v0);
+    }
+  }
+}
+
+//----- (0044C502) --------------------------------------------------------
+int __fastcall AlignText_Center(int a1, const char *pString, struct Font *pFont)
+{
+  int v3; // esi@1
+  int result; // eax@2
+
+  v3 = (a1 - sub_44C51E(pFont, pString)) / 2;
+  if ( v3 >= 0 )
+    result = v3;
+  else
+    result = 0;
+  return result;
+}
+
+//----- (0044C51E) --------------------------------------------------------
+bool __fastcall sub_44C4DE(unsigned __int8 a1, int a2);
+int __fastcall sub_44C51E(struct Font *_this, const char *pString)
+{
+  signed int i; // ebx@3
+  size_t v5; // ebp@3
+  int v6; // esi@3
+  const char *v8; // [sp+0h] [bp-4h]@1
+ unsigned char c;
+
+ if (!pString)
+   return 0;
+
+ v8 = pString;
+ v5 = strlen(pString);
+ v6 = 0;
+ for ( i = 0; i < v5; ++i )
+ {
+  c = pString[i];
+  if (sub_44C4DE(c, _this))
+  {
+   if (c == '\n' || c == '\r')
+     return v6;
+   if (c != '\f')
+   {
+    if (i > 0)
+      v6 += _this->dword_000020[c][0];
+    v6 += _this->dword_000020[c][1];
+    if (i < v5)
+      v6 += _this->dword_000020[c][2];
+   }
+   else
+     i += 5;
+  }
+ }
+ return v6;
+}
+
+//----- (0041B3E2) --------------------------------------------------------
+int __cdecl GameUI_DrawFrames()
+{
+  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, pTexture_TopFrame);
+  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 8, pTexture_LeftFrame);
+  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 468, 0, pTexture_RightFrame);
+  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 352, pTexture_BottomFrame);
+
+  GameUI_DrawFoodAndGold();
+
+  runtime_warning;
+  //return sub_41AD6E();
+}
+
+//----- (0041AEBB) --------------------------------------------------------
+extern int dword_6A0D48;
+void __cdecl GameUI_DrawFoodAndGold()
+{
+  __int16 v0; // bx@2
+  char *v1; // ebp@2
+  int v2; // esi@2
+
+  if ( dword_6A0D48 != 9 )
+  {
+    v0 = dword_507AFC;
+    v1 = *(char **)&dword_507AF8;
+    v2 = sub_44100D() != 0 ? 381 : 322;
+    wsprintfA(ExistingFileName, "\r087%lu", pParty_global->uNumFood);
+    FontDrawText(pGUIWindow0, pFontSmallnum, 0, v2, v0, ExistingFileName, 0, 0, v1);
+    wsprintfA(ExistingFileName, "\r028%lu", pParty_global->uNumGold);
+    FontDrawText(pGUIWindow0, pFontSmallnum, 0, v2, v0, ExistingFileName, 0, 0, v1);
+  }
+}
+
+//----- (0044162D) --------------------------------------------------------
+extern char byte_4E5DD8[];
+extern int dword_4E5D68[];
+extern int dword_4E5D6C[];
+extern char byte_4E5DE8[];
+extern int dword_507960;
+extern int dword_507964;
+extern int dword_507968;
+extern int dword_50796C;
+extern int dword_ACD6BC;
+extern int dword_ACD848;
+extern short off_4ED748[];
+extern struct Player *pPlayers[];
+extern __int64 qword_ACD8B4;
+extern unsigned int uIconIdx_Spell21;
+extern unsigned int uIconIdx_Spell27;
+extern __int64 qword_ACD964;
+extern unsigned int uTextureIdx_SpellEffecIcons[];
+void __cdecl GameUI_DrawPartySpells()
+{
+  signed int v0; // ebp@1
+  int v2; // eax@2
+  int v3; // ecx@5
+  signed int v4; // ebx@25
+  int v5; // edi@26
+  signed int v6; // [sp-4h] [bp-1Ch]@11
+  int v7; // [sp-4h] [bp-1Ch]@12
+  signed int v8; // [sp-4h] [bp-1Ch]@20
+  int v9; // [sp-4h] [bp-1Ch]@21
+ int i;
+
+  v0 = (signed __int64)((double)GetTickCount() * 0.05000000074505806);
+
+ for (i = 0; i < 14; ++i)
+  {
+    v2 = 16 * (unsigned __int8)byte_4E5DD8[i];
+    if ( *(int *)((char *)&dword_ACD848 + v2) >= 0 )
+    {
+      if ( *(int *)((char *)&dword_ACD848 + v2) > 0 || *(unsigned int *)(pParty_global->array_00088C + (unsigned __int8)byte_4E5DD8[i]) > 0 )
+      {
+        v3 = uTextureIdx_SpellEffecIcons[i];
+        sub_4A65CC(
+          pD3DRenderer,
+          dword_4E5D68[2 * i],
+          dword_4E5D6C[2 * i],
+          v3 != -1 ? 72 * v3 + 7145548 : 0,
+          v3 != -1 ? 72 * v3 + 7145548 : 0,
+          v0 + 20 * (unsigned __int8)byte_4E5DE8[i],
+          0,
+          63);
+      }
+    }
+  }
+
+  if ( !dword_4E28F8 || dword_4E28F8 == 4 )
+  {
+    if ( qword_ACD8B4 > 0 )
+    {
+      if ( dword_ACD6BC )
+        v6 = v0;
+      else
+        v6 = 0;
+      v7 = &pClass17_Icons_LOD->aLODHeaders[CIconFrameTable_GetFrame(pIconFrameTable, uIconIdx_Spell21, v6)->uTextureIdx];
+      if ( pD3DRenderer->dword_040088 )
+        CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 8, v7);
+      else
+        CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 8, 8, v7);
+    }
+    if ( HIDWORD(qword_ACD964) >= 0 )
+    {
+      if ( HIDWORD(qword_ACD964) > 0 || (_DWORD)qword_ACD964 )
+      {
+        if ( pParty_global->dword_007778 & 0x80 )
+          v8 = v0;
+        else
+          v8 = 0;
+        v9 = 72 * *(_WORD *)(CIconFrameTable_GetFrame(pIconFrameTable, uIconIdx_Spell27, v8) + 30) + 7145548;
+        if ( pD3DRenderer->dword_040088 )
+          CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 396, 8, v9);
+        else
+          CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 396, 8, v9);
+      }
+    }
+  }
+
+  v4 = (signed int)&off_4ED748;
+
+  for (i = 0; i < 4; ++i)
+  {
+    v5 = pPlayers[i];
+    if ( *(_QWORD *)(v5 + 6144) > 0i64 )
+      CD3DRenderer_DrawIndexedTexture(pD3DRenderer, *(_WORD *)v4 + 72, 427, &pClass17_Icons_LOD->aLODHeaders[dword_507964]);
+    if ( *(_QWORD *)(v5 + 6064) > 0i64 )
+      CD3DRenderer_DrawIndexedTexture(pD3DRenderer, *(_WORD *)v4 + 72, 393, &pClass17_Icons_LOD->aLODHeaders[dword_50796C]);
+    if ( *(_QWORD *)(v5 + 6224) > 0i64 )
+      CD3DRenderer_DrawIndexedTexture(pD3DRenderer, *(_WORD *)v4 + 72, 410, &pClass17_Icons_LOD->aLODHeaders[dword_507968]);
+    if ( *(_QWORD *)(v5 + 6208) > 0i64 )
+      CD3DRenderer_DrawIndexedTexture(pD3DRenderer, *(_WORD *)v4 + 72, 444, &pClass17_Icons_LOD->aLODHeaders[dword_507960]);
+    v4 += 2;
+  }
 }

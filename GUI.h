@@ -146,6 +146,7 @@ void GUIWindowDelete(struct GUIWindow *);
 //int __thiscall sub_41CD3B(int this, int a2);
 struct GUIButton *GUIWindow_GetChild(struct GUIWindow *_this, int uID);
 
+int __fastcall AlignText_Center(int a1, const char *a2, int a3);
 unsigned char *__fastcall FitTextInAWindow(const char *pString, struct Font *pFont, struct GUIWindow *pParent, unsigned char uX, int a5);
 char __fastcall FontDrawText(int a1, int a2, signed int a3, int a4, __int16 a5, const char *Str1, int a7, signed int a8, char *a9);
 
@@ -153,6 +154,7 @@ void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigne
 
 
 struct Font *__cdecl sub_44C448(const char *pFontName, const char *pFontPalette);
+int __fastcall sub_44C51E(unsigned char *pFontData, const char *pString);
 
 //int __cdecl sub_49750E();
 void __cdecl DeleteFontCChar();
@@ -165,6 +167,11 @@ bool LevelLoadingUI_Initialize(struct class56 *_this, int a2);
 void LevelLoadingUI_UpdateAndDrawProgressBar(struct class56 *_this);
 void DrawLoadingScreen(struct class56 *_this);
 void sub_4435BB(struct class56 *_this, char a2);
+
+void __cdecl GameUI_DrawStatusBar();
+int __cdecl GameUI_DrawFrames();
+void __cdecl GameUI_DrawFoodAndGold();
+void __cdecl GameUI_DrawPartySpells();
 
 
 #pragma pack(pop)

@@ -78,7 +78,7 @@ void CIconFrameTable_InitializeIcon(struct CIconFrameTable *_this, unsigned int 
 }
 
 //----- (00494F70) --------------------------------------------------------
-struct IconFrame *CIconFrameTable_sub_494F70(struct CIconFrameTable *_this, int a2, signed int a3)
+struct IconFrame *CIconFrameTable_GetFrame(struct CIconFrameTable *_this, unsigned int uIconIdx, unsigned int uFrame)
 {
   signed __int16 v5; // dx@2
   int v6; // eax@3
@@ -86,12 +86,12 @@ struct IconFrame *CIconFrameTable_sub_494F70(struct CIconFrameTable *_this, int 
   int i; // ecx@3
   int v9; // esi@5
 
-  //if ( *(_BYTE *)(v3 + 28) & 1 && (v5 = *(_WORD *)(v3 + 26)) != 0 )
-  if ( _this->pIcons[a2].word_00001C & 0x0001 && (v5 = _this->pIcons[a2].word_00001A) != 0 )
+  v5 = _this->pIcons[uIconIdx].word_00001A;
+  if ( _this->pIcons[uIconIdx].word_00001C & 0x0001 && v5 != 0 )
   {
-    v7 = (a3 >> 3) % (unsigned __int16)v5;
-    v6 = a2;
-    for ( i = a2; ; ++i)
+    v7 = (uFrame >> 3) % (unsigned __int16)v5;
+    v6 = uIconIdx;
+    for ( i = uIconIdx; ; ++i)
     {
       v9 = _this->pIcons[i].word_000018;
       if ( v7 <= v9 )
@@ -102,7 +102,7 @@ struct IconFrame *CIconFrameTable_sub_494F70(struct CIconFrameTable *_this, int 
     return &_this->pIcons[v6];
   }
   else
-    return &_this->pIcons[a2];
+    return &_this->pIcons[uIconIdx];
 }
 
 
@@ -150,10 +150,9 @@ int CSpriteFrameTable_Initialize(struct CSpriteFrameTable *_this, unsigned char 
 }
 
 //----- (0044D8D0) --------------------------------------------------------
-int CSpriteFrameTable_fn1(struct CSpriteFrameTable *_this, int a2, signed int a3)
+struct SpriteFrame *CSpriteFrameTable_fn1(struct CSpriteFrameTable *_this, unsigned int uID, signed int a3)
 {
   int v3; // ecx@1
-  int v4; // edi@1
   signed __int16 v5; // dx@2
   int v6; // eax@3
   int v7; // edx@3
@@ -161,12 +160,12 @@ int CSpriteFrameTable_fn1(struct CSpriteFrameTable *_this, int a2, signed int a3
   int v9; // esi@5
   int result; // eax@6
 
-  v4 = *(_DWORD *)(_this + 12);
-  v3 = 60 * a2 + v4;
-  if ( *(_BYTE *)(v3 + 44) & 1 && (v5 = *(_WORD *)(v3 + 56)) != 0 )
+  v3 = &_this->pSpriteSFrames[uID];
+  v5 = *(_WORD *)(v3 + 56);
+  if ( *(_BYTE *)(v3 + 44) & 1 && v5 != 0 )
   {
     v7 = (a3 >> 3) % v5;
-    v6 = a2;
+    v6 = uID;
     for ( i = v3 + 54; ; i += 60 )
     {
       v9 = *(_WORD *)i;
@@ -175,13 +174,12 @@ int CSpriteFrameTable_fn1(struct CSpriteFrameTable *_this, int a2, signed int a3
       v7 -= v9;
       ++v6;
     }
-    result = v4 + 60 * v6;
+    return &_this->pSpriteSFrames[v6];
   }
   else
   {
-    result = 60 * a2 + v4;
+    return &_this->pSpriteSFrames[uID];
   }
-  return result;
 }
 
 //----- (0044D91F) --------------------------------------------------------

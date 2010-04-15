@@ -102,6 +102,10 @@ void *class02_ctor(struct class02 *_this);
 void *class02_fn0(struct class02 *_this);
 //signed int __thiscall sub_48AC65(int this);
 int class02_sub_48AC65(struct class02 *_this);
+//void __thiscall sub_48BBA6(int this);
+void class02_sub_48BBA6(struct class02 *_this);
+//void __thiscall sub_48BEEF(int this);
+void class02_sub_48BEEF(struct class02 *_this);
 
 
 
@@ -220,8 +224,8 @@ void *class05_ctor(struct class05 *_this);
 //class06
 struct class06
 {
- int   dword_000000[129];
- int   dword_000204;
+ int    dword_000000[129];
+ int    dword_000204;
  short  word_000208;
  short  word_00020A[7];
  short  word_000218;
@@ -230,23 +234,31 @@ struct class06
  short  word_00022A[7];
  short  word_000238;
  short  word_00023A;
- int   dword_00023C[227];
- int   dword_0005C8;
+ int    dword_00023C[227];
+ int    dword_0005C8;
  struct class07 *class07_obj;  //dword ptr [05CC]
- int   dword_0005D0;
- int   dword_0005D4;
- int   dword_0005D8;
- int   dword_0005DC;
- int   dword_0005E0;
- int   dword_0005E4;
- int   dword_0005E8;
- int   dword_0005EC;
- int   dword_0005F0;
- int   dword_0005F4;
+ int    dword_0005D0;
+ int    dword_0005D4;
+ int    dword_0005D8;
+ int    dword_0005DC;
+ int    dword_0005E0;
+ int    dword_0005E4;
+ int    dword_0005E8;
+ int    dword_0005EC;
+ int    dword_0005F0;
+ int    dword_0005F4;
 };
 //sizeof = 5F8
 //int __thiscall sub_4A7155(int this);
 void *class06_ctor(struct class06 *_this);
+//char __thiscall sub_4A81CA(int this, int a2);
+bool class06_sub_4A81CA(struct class06 *_this, int a2);
+//int __thiscall sub_4A8C27(int this);
+int class06_sub_4A8C27(struct class06 *_this);
+//int __thiscall sub_4A7298(void *this);
+int class06_sub_4A7298(struct class06 *_this);
+//void __thiscall sub_4A902A(void *this);
+void class06_sub_4A902A(struct class06 *_this);
 
 
 
@@ -1411,9 +1423,9 @@ struct Party
  unsigned char byte_00070A;
  unsigned char byte_00070B;
 
- int dword_000728;
+ unsigned int uNumFood; // dword @ 000728
 
- int dword_000734;
+ unsigned int uNumGold; // dword @ 000734
  int dword_000738;
 
  char unk_000765[0x100];
@@ -1479,7 +1491,9 @@ struct struct2
  int   dword_000004;
  int   dword_000008;
  int   dword_00000C;
- char  byte_000010[96];
+ char  byte_000010[12];
+ short word_00001C;
+ char  byte_00001E[82];
 };
 //sizeof == 70
 
@@ -1503,10 +1517,16 @@ struct struct4
 
 struct struct5
 {
- short word_000000;
- char  byte_000002[22];
+ char  byte_000000[6];
+ short word_000006;
+ short word_000008;
+ short word_00000A;
+ short word_00000C;
+ char  byte_00000E[10];
 };
 //sizeof == 18
+//void __thiscall sub_440F07(int this);
+void sub_440F07(struct struct5 *pArray);
 
 
 //DERIVED from struct7

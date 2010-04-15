@@ -168,6 +168,8 @@ void sub_4A6AB1(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, un
 int sub_4A0E80(struct CD3DRenderer *_this, int a2, int a3);
 //int __thiscall sub_4A1EB6(int this);
 void *sub_4A1EB6(struct CD3DRenderer *_this);
+//int __thiscall sub_4A1FE1(int this);
+void CD3DRenderer_sub_4A1FE1_MaybeRenderSpecialEffects(struct CD3DRenderer *_this);
 
 
 //class15
