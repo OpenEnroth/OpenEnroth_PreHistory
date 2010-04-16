@@ -20,7 +20,9 @@ struct Actor
  short         word_000060;
  char          byte_000062[10];
  short         word_00006C;
- char          byte_00006E[14];
+ char          byte_00006E[6];
+ int           dword_000074;
+ int           dword_000078;
  int           dword_00007C;
  char          byte_000080[8];
  short         word_000088;

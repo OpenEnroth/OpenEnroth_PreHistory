@@ -63,7 +63,7 @@ int sub_4A9A67(struct CSoundList *_this, int a2, int a3);
 
 
 //class31
-struct class31_sound_header_struct
+struct AudioPlayer_sound_header_struct
 {
  unsigned char sSoundName[40]; //byte[40] @ 000000
  int           dword_000024;
@@ -72,19 +72,19 @@ struct class31_sound_header_struct
 };
 //sizeof = 34
 
-struct class31_struct_0
+struct AudioPlayer_struct_0
 {
  int a[4];
 };
 
-struct class31
+struct AudioPlayer
 {
  int  dword_000000;
  int  dword_000004;
  int  dword_000008;
  int  dword_00000C;
  int  num_structs_0;
- struct class31_struct_0 struct_0[10]; // struct @ 000014
+ struct AudioPlayer_struct_0 struct_0[10]; // struct @ 000014
 
  int  dword_000218;
 
@@ -96,7 +96,7 @@ struct class31
  int  dword_0002B0;
  int  dword_0002B4;
 
- struct class31_sound_header_struct *pSoundHeaders; // ptr @ 0002B8
+ struct AudioPlayer_sound_header_struct *pSoundHeaders; // ptr @ 0002B8
  HANDLE      hSoundsSource; // ptr @ 0002BC
 
  unsigned int dword_0002DC;
@@ -119,21 +119,23 @@ struct class31
  int          cGameCDDriveLetter; // byte @  000C80
 };
 //sizeof ~ ?
-void class31_ctor(struct class31 *_this);
+void AudioPlayer_ctor(struct AudioPlayer *_this);
 //int __thiscall sub_4AB8CE(int this, HWND);
-int class31_Initialize(struct class31 *_this, HWND);
+int AudioPlayer_Initialize(struct AudioPlayer *_this, HWND);
 //void __thiscall sub_4AA214(int this, signed int a2);
-void sub_4AA214(struct class31 *_this, signed int a2);
+void AudioPlayer_sub_4AA214(struct AudioPlayer *_this, signed int a2);
 //int __thiscall sub_4AB818(void *this);
-int class31_LoadSoundHeaders(struct class31 *_this);
+int AudioPlayer_LoadSoundHeaders(struct AudioPlayer *_this);
 //int __fastcall sub_4AA1F3(int a1, int a2, int a3);
-int SetVolume(struct class31 *_this, float fVolume);
+int AudioPlayer_SetVolume(struct AudioPlayer *_this, float fVolume);
 //int __thiscall sub_4AB71F(void *this, int a2, int a3);
-void sub_4AB71F(struct class31 *_this, int a2, int a3);
+void AudioPlayer_sub_4AB71F(struct AudioPlayer *_this, int a2, int a3);
 //void __thiscall sub_4AA306(int this, int a2, signed int a3, int a4, signed int a5, int a6, int a7, int a8, int a9)
-void class31_sub_4AA306(struct class31 *_this, int a2, signed int a3, int a4, signed int a5, int a6, int a7, int a8, int a9);
+void AudioPlayer_sub_4AA306(struct AudioPlayer *_this, int a2, signed int a3, int a4, signed int a5, int a6, int a7, int a8, int a9);
 //void __thiscall sub_4AAFCF(int this);
-void class31_sub_4AAFCF(struct class31 *_this);
+void AudioPlayer_sub_4AAFCF(struct AudioPlayer *_this);
+//signed int __thiscall sub_4AC041(void *this);
+signed int AudioPlayer_sub_4AC041(struct AudioPlayer *_this);
 
 
 

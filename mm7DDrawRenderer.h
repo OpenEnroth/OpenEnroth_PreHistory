@@ -48,7 +48,7 @@ struct CD3DRenderer
 
  int                         dword_04002C;
  int                         dword_040030;
- int                         dword_040034;
+ unsigned char              *ptr_040034;
  int                        *pZBuffer;           // ptr @ 040038
  int                         dword_04003C;
  int                         dword_040040;
@@ -111,7 +111,7 @@ void CD3DRenderer_ctor(struct CD3DRenderer *_this);
 //int __thiscall sub_49FFFB(int this, unsigned int a2);
 int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd);
 //signed int __thiscall sub_49FDBF(int this)
-int CD3DRenderer_Initialize_ZBuffer(struct CD3DRenderer *_this);
+void CD3DRenderer_Initialize_ZBuffer(struct CD3DRenderer *_this);
 //int __thiscall sub_4A10E4(void *this)
 int CD3DRenderer_CreateDirectDraw(struct CD3DRenderer *_this);
 //void *__thiscall sub_4A1169(int this, int a2, char a3)
@@ -165,7 +165,7 @@ void CD3DRenderer_sub_4A0E97(struct CD3DRenderer *_this, int a2, int a3, int a4,
 //void __thiscall sub_4A6AB1(int this, int a2, int a3, int a4, int a5, int a6, int a7, int a8);
 void sub_4A6AB1(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, unsigned char *pData, int a5, int a6, int a7, int a8);
 //signed int __thiscall sub_4A0E80(int this, int a2, int a3);
-int sub_4A0E80(struct CD3DRenderer *_this, int a2, int a3);
+void CD3DRenderer_ClearZBuffer(struct CD3DRenderer *_this, int a2, int a3);
 //int __thiscall sub_4A1EB6(int this);
 void *sub_4A1EB6(struct CD3DRenderer *_this);
 //int __thiscall sub_4A1FE1(int this);

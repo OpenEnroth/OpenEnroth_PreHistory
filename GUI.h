@@ -119,7 +119,7 @@ struct class56
  char              byte_000009;
  unsigned char     uProgressMax;     // byte @ 00000A
  unsigned char     uProgressCurrent; // byte @ 00000B
- int               dword_00000C;
+ int               uProgressBarType; // dword @ 00000C   loading screen, small loading window or whatever to render
  char              array_000010[8];
  struct RGBTexture loading;          // struct @ 000018
  char              byte_000040[304];
@@ -166,7 +166,8 @@ void __cdecl PlayerCreationUI_Initialize();
 bool LevelLoadingUI_Initialize(struct class56 *_this, int a2);
 void LevelLoadingUI_UpdateAndDrawProgressBar(struct class56 *_this);
 void DrawLoadingScreen(struct class56 *_this);
-void sub_4435BB(struct class56 *_this, char a2);
+void LevelLoadingUI_Reset(struct class56 *_this, char a2);
+void LevelLoadingUI_Release(struct class56 *_this);
 
 void __cdecl GameUI_DrawStatusBar();
 int __cdecl GameUI_DrawFrames();

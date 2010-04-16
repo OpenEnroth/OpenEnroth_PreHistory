@@ -61,12 +61,12 @@ extern struct CSoundList *pSoundList;
 
 
 extern int (__cdecl *sprintfex)(char *, const char *, ...);
-void class31_ctor(struct class31 *_this)
+void AudioPlayer_ctor(struct AudioPlayer *_this)
 {
  char pCurrentDirectory[256];
  char pIniFile[256];
 
- memset(_this, 0, sizeof(struct class31));
+ memset(_this, 0, sizeof(struct AudioPlayer));
 
  _this->cGameCDDriveLetter = cGameCDDriveLetter;
 
@@ -96,7 +96,7 @@ void __stdcall sub_436523(int a1, int a2);
 int __fastcall sub_4AAEA6(int a1);
 int __fastcall sub_4AB6B1(int a1, int a2, int a3);
 int __fastcall sub_4AB66C(int a1, int a2);
-void class31_sub_4AA306(struct class31 *_this, int a2, signed int a3, int a4, signed int a5, int a6, int a7, int a8, int a9)
+void AudioPlayer_sub_4AA306(struct AudioPlayer *_this, int a2, signed int a3, int a4, signed int a5, int a6, int a7, int a8, int a9)
 {
   int v9; // esi@1
   char v10; // zf@1
@@ -773,7 +773,7 @@ LABEL_100:
 }
 
 //----- (004AA1F3) --------------------------------------------------------
-int SetVolume(struct class31 *_this, float fVolume)
+int AudioPlayer_SetVolume(struct AudioPlayer *_this, float fVolume)
 {
  if (_this->dword_00029C)
  {
@@ -784,7 +784,7 @@ int SetVolume(struct class31 *_this, float fVolume)
 }
 
 //----- (MM7.exe::004AB8CE) --------------------------------------------------------
-int __thiscall class31_Initialize(struct class31 *_this, HWND hWnd)
+int AudioPlayer_Initialize(struct AudioPlayer *_this, HWND hWnd)
 {
   int v5; // eax@9
   int v6; // ST00_4@9
@@ -861,7 +861,7 @@ int __thiscall class31_Initialize(struct class31 *_this, HWND hWnd)
  }
 
  if (_this->dword_00029C)
-   sub_4AB71F(_this, -1, -1);
+   AudioPlayer_sub_4AB71F(_this, -1, -1);
  _this->dword_00029C = 1;
 
  if (_this->hAILRedbook)
@@ -870,16 +870,15 @@ int __thiscall class31_Initialize(struct class31 *_this, HWND hWnd)
   _this->dword_0002DC = AIL_redbook_tracks(_this->hAILRedbook);
  }
 
- //dword_F792F0 = AIL_redbook_volume(dword_F7937C);
- pClass31_global->dword_000218 = AIL_redbook_volume(pClass31_global->hAILRedbook);
+ pAudioPlayer->dword_000218 = AIL_redbook_volume(pAudioPlayer->hAILRedbook);
 
- sub_4AA214(pClass31_global, 128.0 * aMusicVolumeLevels[byte_6BE36F]);
- if (pClass31_global->dword_00029C)
+ AudioPlayer_sub_4AA214(pAudioPlayer, 128.0 * aMusicVolumeLevels[byte_6BE36F]);
+ if (pAudioPlayer->dword_00029C)
  {
-  if (pClass31_global->hAILRedbook)
-    AIL_redbook_set_volume(pClass31_global->hAILRedbook, 64.0 * aMusicVolumeLevels[byte_6BE371]);
+  if (pAudioPlayer->hAILRedbook)
+    AIL_redbook_set_volume(pAudioPlayer->hAILRedbook, 64.0 * aMusicVolumeLevels[byte_6BE371]);
  }
- class31_LoadSoundHeaders(_this);
+ AudioPlayer_LoadSoundHeaders(_this);
 
  pVideoPlayer = malloc(sizeof(struct CVideoPlayer));
  CVideoPlayer_ctor(pVideoPlayer);
@@ -887,7 +886,7 @@ int __thiscall class31_Initialize(struct class31 *_this, HWND hWnd)
 }
 
 //----- (MM7.exe::004AB818) --------------------------------------------------------
-int class31_LoadSoundHeaders(struct class31 *_this)
+int AudioPlayer_LoadSoundHeaders(struct AudioPlayer *_this)
 {
  DWORD w;
 
@@ -901,13 +900,13 @@ int class31_LoadSoundHeaders(struct class31 *_this)
 
  ReadFile(_this->hSoundsSource, &_this->uNumSounds, 4, &w, 0);
 
- _this->pSoundHeaders = class23_AllocatedNamedBuffer(class23_instance, 0, _this->uNumSounds * sizeof(struct class31_sound_header_struct) + 2, 0);
+ _this->pSoundHeaders = class23_AllocatedNamedBuffer(class23_instance, 0, _this->uNumSounds * sizeof(struct AudioPlayer_sound_header_struct) + 2, 0);
 
- return ReadFile(_this->hSoundsSource, _this->pSoundHeaders, _this->uNumSounds * sizeof(struct class31_sound_header_struct), &w, 0);
+ return ReadFile(_this->hSoundsSource, _this->pSoundHeaders, _this->uNumSounds * sizeof(struct AudioPlayer_sound_header_struct), &w, 0);
 }
 
 //----- (MM7.exe::004AA214) --------------------------------------------------------
-void sub_4AA214(struct class31 *_this, signed int a2)
+void AudioPlayer_sub_4AA214(struct AudioPlayer *_this, signed int a2)
 {
  if (_this->dword_00029C)
  {
@@ -921,7 +920,7 @@ void sub_4AA214(struct class31 *_this, signed int a2)
 }
 
 //----- (004AB71F) --------------------------------------------------------
-void sub_4AB71F(struct class31 *_this, int a2, int a3)
+void AudioPlayer_sub_4AB71F(struct AudioPlayer *_this, int a2, int a3)
 {
   int v3; // ecx@1
   int v4; // esi@1
@@ -999,11 +998,11 @@ HDIGDRIVER __cdecl sub_4ABAF7()
   AIL_set_preference(33, 1);
 
   v0 = dword_4F00DC;
-  pClass31_global->aDeviceNames[0][0] = 0;
-  pClass31_global->uNumDevices = 0;
+  pAudioPlayer->aDeviceNames[0][0] = 0;
+  pAudioPlayer->uNumDevices = 0;
   if (dword_4F00DC < 11025)
     return 0;
- v5 = pClass31_global->array_000BF0;
+ v5 = pAudioPlayer->array_000BF0;
  i = 0;
  while (true)
  {
@@ -1034,20 +1033,17 @@ HDIGDRIVER __cdecl sub_4ABAF7()
         goto LABEL_12;
       }
     }
-    //strcpy(&byte_F794C8[v1], "Device: ");
-    //v2 = strlen(&byte_F794C8[v1]);
-    strcpy(&pClass31_global->aDeviceNames[i], "Device: ");
-    v2 = strlen(&pClass31_global->aDeviceNames[i]);
+    strcpy(&pAudioPlayer->aDeviceNames[i], "Device: ");
+    v2 = strlen(&pAudioPlayer->aDeviceNames[i]);
 
-    //AIL_digital_configuration(v7, v5, (char *)v5 + 64, &byte_F794C8[v2] + v1);
-    AIL_digital_configuration(hDrv, v5, v5 + 16, &pClass31_global->aDeviceNames[i][v2]);
+    AIL_digital_configuration(hDrv, v5, v5 + 16, &pAudioPlayer->aDeviceNames[i][v2]);
 
     v5++;
-    pClass31_global->uNumDevices = ++i;
+    pAudioPlayer->uNumDevices = ++i;
 
     if (AIL_get_preference(15))
       return hDrv;
-    if (!strstr(pClass31_global->aDeviceNames[i - 1], "Emulated"))
+    if (!strstr(pAudioPlayer->aDeviceNames[i - 1], "Emulated"))
       return hDrv;
     AIL_waveOutClose(v4, hDrv);
     AIL_set_preference(15, 1);
@@ -1115,7 +1111,7 @@ int sub_4A9953(struct CSoundList *_this)
      lstrcpyA(sdesc.sSoundName, _this->pDescriptions[i].sSoundName);
      _this->pDescriptions[i].ptr_00002C = sub_4A97C6(&sdesc, -1, _this->pDescriptions[i].dword_000020);
 
-     if (_this->pDescriptions[i].dword_000024 != 1 || !pClass31_global->dword_000004 ||
+     if (_this->pDescriptions[i].dword_000024 != 1 || !pAudioPlayer->dword_000004 ||
          !(_this->pDescriptions[i].dword_000028 & 2) || !_this->pDescriptions[i].ptr_00002C)
         continue;
 
@@ -1242,7 +1238,7 @@ int sub_4A9A67(struct CSoundList *_this, int a2, int a3)
     return 0;
   if ( a3 )
     *(_DWORD *)(v15 + 40) |= 1u;
-  if ( !pClass31_global->dword_000004 || (v16 = v13 + *(_DWORD *)(v3 + 4), !(*(_BYTE *)(v16 + 40) & 2)) || !*(_DWORD *)(v16 + 44) )
+  if ( !pAudioPlayer->dword_000004 || (v16 = v13 + *(_DWORD *)(v3 + 4), !(*(_BYTE *)(v16 + 40) & 2)) || !*(_DWORD *)(v16 + 44) )
     return v26;
   v19 = *(_DWORD *)(v16 + 44);
   v20 = *(_DWORD *)v19;
@@ -1298,7 +1294,7 @@ extern int dword_51B718;
 extern int dword_51B71C;
 extern int dword_4E28F8;
 extern int dword_6807E0;
-void class31_sub_4AAFCF(struct class31 *_this)
+void AudioPlayer_sub_4AAFCF(struct AudioPlayer *_this)
 {
   int v1; // ebx@1
   int v2; // edi@1
@@ -1698,7 +1694,7 @@ LABEL_87:
         {
           v57 = 8 * *(_DWORD *)v48;
           LOBYTE(v57) = v57 | 5;
-          class31_sub_4AA306(v70, *(_WORD *)(v53 + 76), v57, v67, -1, 0, 0, 0, 0);
+          AudioPlayer_sub_4AA306(v70, *(_WORD *)(v53 + 76), v57, v67, -1, 0, 0, 0, 0);
         }
         goto LABEL_89;
       }
@@ -1708,4 +1704,36 @@ LABEL_85:
       goto LABEL_87;
     }
   }
+}
+
+//----- (004AC041) --------------------------------------------------------
+extern struct CMapStats *pMapStats;
+extern unsigned char Str1[];
+signed int AudioPlayer_sub_4AC041(struct AudioPlayer *_this)
+{
+  signed int result; // eax@1
+  int v2; // esi@1
+  unsigned int v3; // [sp+4h] [bp-4h]@3
+
+  v2 = (int)_this;
+  result = CMapStats_FindLocation(pMapStats, Str1);
+  if ( *(_DWORD *)(v2 + 4) )
+  {
+    if ( *(_DWORD *)v2 )
+    {
+     v3 = pMapStats->pMapInfos[result].uEAXEnv;
+      if ( v3 >= 0x1A )
+      {
+        result = sub_4AC004(_this);
+        *(_DWORD *)(v2 + 532) = -1;
+      }
+      else
+      {
+        AIL_set_3D_provider_preference(*(_DWORD *)(v2 + 12), "EAX environment selection", &v3);
+        result = v3;
+        *(_DWORD *)(v2 + 532) = v3;
+      }
+    }
+  }
+  return result;
 }

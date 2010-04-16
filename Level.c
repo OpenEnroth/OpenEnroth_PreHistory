@@ -1473,10 +1473,10 @@ int sub_47C80A(struct class51_Geodata *_this, int a2, int a3, int a4, int a5)
 
 //----- (0044C1E8) --------------------------------------------------------
 extern char byte_5B3524[];
-extern int dword_5B1110;
 extern int dword_5B65E0;
 extern int dword_5B65EC;
-extern char unk_5B65D8[];
+extern struct Event pLevelEvents[];
+extern unsigned int uLevelEvtNumEvents;
 bool sub_44C1E8(struct class51_stru2 *_this)
 {
   int v1; // eax@1
@@ -1484,14 +1484,14 @@ bool sub_44C1E8(struct class51_stru2 *_this)
   int v4; // eax@6
 
   v1 = 0;
-  if ( dword_5B1110 - 1 <= 0 )
+  if ( uLevelEvtNumEvents - 1 <= 0 )
     return false;
-  v2 = unk_5B65D8;
+  v2 = pLevelEvents;
   while ( *(_DWORD *)v2 != _this->word_000124)
   {
     ++v1;
     v2 = (char *)v2 + 12;
-    if ( v1 >= dword_5B1110 - 1 )
+    if ( v1 >= uLevelEvtNumEvents - 1 )
       return false;
   }
   v4 = 12 * v1;

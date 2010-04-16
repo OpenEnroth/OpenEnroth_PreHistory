@@ -55,7 +55,7 @@ extern struct class17      *pClass17_Icons_LOD;
 extern struct class17      *pClass17_Events_LOD;
 extern struct class17      *pClass17_Bitmaps_LOD;
 extern struct class17      *pClass17_Sprites_LOD;
-extern struct class31      *pClass31_global;
+extern struct AudioPlayer  *pAudioPlayer;
 extern struct CVideoPlayer *pVideoPlayer;
 
 extern struct RGBTexture      *pClass33_global0;

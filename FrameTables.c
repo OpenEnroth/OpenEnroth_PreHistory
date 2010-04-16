@@ -222,14 +222,12 @@ int CSpriteFrameTable_fn2(struct CSpriteFrameTable *_this, int a2, signed int a3
 }
 
 //----- (0044D4F6) --------------------------------------------------------
-int CSpriteFrameTable_fn3(struct CSpriteFrameTable *_this)
+void CSpriteFrameTable_fn3(struct CSpriteFrameTable *_this)
 {
-  int i; // edx@1
-  int result; // eax@2
+ int i;
 
-  for ( i = 0; i < _this->uNumSpriteFrames; ++i )
-    result = _this->pSpriteSFrames[i].dword_00002C &= 0xFFFFFF7F;
-  return result;
+ for (i = 0; i < _this->uNumSpriteFrames; ++i)
+   _this->pSpriteSFrames[i].dword_00002C &= 0xFFFFFF7F;
 }
 
 //----- (0044D513) --------------------------------------------------------

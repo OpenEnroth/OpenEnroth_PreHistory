@@ -106,7 +106,7 @@ struct SpriteFrame *CSpriteFrameTable_fn1(struct CSpriteFrameTable *_this, unsig
 //int __thiscall class29_fn2(int this, int a2, signed int a3);
 int CSpriteFrameTable_fn2(struct CSpriteFrameTable *_this, int a2, signed int a3);
 //int __thiscall class29_fn3(int this);
-int CSpriteFrameTable_fn3(struct CSpriteFrameTable *_this);
+void CSpriteFrameTable_fn3(struct CSpriteFrameTable *_this);
 //void __thiscall class29_fn4(int this, int a2);
 void CSpriteFrameTable_fn4(struct CSpriteFrameTable *_this, int a2);
 //int __thiscall class29_fn5(int this, const char *Str1);

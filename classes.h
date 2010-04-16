@@ -168,7 +168,7 @@ void class03_sub_4698A6(struct class03 *_this);
 //void sub_46A08A(int this, int a2, int a3)
 void class03_OnMouseLeftButton(struct class03 *_this, int x, int y);
 //int __thiscall sub_469860(int this, int a2, int a3);
-void sub_469860(struct class03 *_this, int *a2, int *a3);
+void class03_GetMousePosXY(struct class03 *_this, int *pX, int *pY);
 //int __thiscall sub_469E3B(int this)
 int sub_469E3B(struct class03 *_this);
 
@@ -559,7 +559,7 @@ struct class18
 //int __thiscall sub_40F5BE(int this);
 void *class18_ctor(struct class18 *_this);
 //int __thiscall sub_40F77C(int this);
-int sub_40F77C(struct class18 *_this);
+void sub_40F77C(struct class18 *_this);
 
 
 
@@ -1251,13 +1251,20 @@ struct NPCProfesstion
 };
 //sizeof == 14
 
+struct NPCStats_stru1 //some npc data
+{
+ char byte_000000[0x4C];
+};
+//sizeof == 4C
+
 struct CNPCStats
 {
  char a[98284];
 
  unsigned char *pNPCNames[540][2]; // ptr[2] array @ 012978
 
- struct NPCProfesstion pProfessions[59]; //struct[59} @ 013A6C
+ struct NPCProfesstion pProfessions[58]; //struct[58] @ 013A6C
+ struct NPCStats_stru1 array_0013EF4[array_size_unknown];
 
  short word_017F5A[51];
 
@@ -1330,6 +1337,16 @@ struct Player
    short word_0000DA;
 
    short word_0000DE;
+   int   dword_0000E0;
+   int   dword_0000E4;
+   int   dword_0000E8;
+   int   dword_0000EC;
+   int   dword_0000F0;
+   int   dword_0000F4;
+   int   dword_0000F8;
+   int   dword_0000FC;
+   int   dword_000100;
+   int   dword_000104;
 
    short array_000108[37];
    char array_000152[64];
@@ -1394,7 +1411,8 @@ struct Party
  int dword_00000C; // eyelevel registry key
  int dword_000010; // eyelevel registry key
 
- unsigned char array_00002C[90636];
+ __int64 qword_00002C;
+ unsigned char array_000034[90628];
 
  int dword_00002C;
  int dword_000030;
@@ -1435,7 +1453,7 @@ struct Party
  int dword_00087C;
 
  int dword_000884;
- int dword_000888;
+ unsigned int uAlignment;   // dword @ 000888   enum (0, 1, 2) = (good, neutral, evil)
 
  char          array_00088C[20][16];
  struct Player pPlayers[4];          // struct[4] @ 0009CC
@@ -1462,6 +1480,12 @@ int Party_CreateDefault(struct Party *_this);
 void Player_RandomizeName(struct Player *_this);
 //signed int __thiscall sub_490109(int this);
 int sub_490109(struct Player *_this);
+//signed int __thiscall sub_48E8F5(void *this, signed int a2);
+signed int Player_sub_48E8F5(struct Player *_this, signed int a2);
+//signed int __thiscall sub_48EA46(void *this, int a2);
+signed int Player_sub_48EA46(struct Player *_this, int a2);
+//signed int __thiscall sub_492D65(char *Dst, int a2, int a3);
+signed int Player_sub_492D65(struct Player *_this, int a2, int a3);
 
 
 
@@ -1742,5 +1766,13 @@ struct Edge
 };
 //sizeof == 34
 
+
+struct Event
+{
+ int dword_000000;
+ int dword_000004;
+ int dword_000008;
+};
+//sizeof == 0C
 
 #pragma pack(pop)

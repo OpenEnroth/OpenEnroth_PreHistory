@@ -102,7 +102,7 @@ void CD3DRenderer_ctor(struct CD3DRenderer *_this)
 
  _this->dword_04002C = 0;
  _this->dword_040030 = 0;
- _this->dword_040034 = 0;
+ _this->ptr_040034 = 0;
  _this->pZBuffer = 0;
  _this->dword_04003C = &unk_4EED80;
  _this->dword_040040 = dword_4EED78;
@@ -780,7 +780,7 @@ HRESULT CD3DRenderer_EndScene(struct CD3DRenderer *_this)
           _this->pTargetSurface = 0;
           _this->uTargetSurfacePitch = 0;
           _this->dword_000018 = 0;
-          runtime_error;
+          compile_error;
           //hr = (**(_DWORD **)(_this->dword_040098) + 128)(
           //       *(_DWORD *)(_this + 262296),
           //       0);
@@ -1244,20 +1244,14 @@ void CD3DRenderer_sub_4A0E97(struct CD3DRenderer *_this, int a2, int a3, int a4,
 }
 
 //----- (MM7.exe::0049FDBF) --------------------------------------------------------
-int CD3DRenderer_Initialize_ZBuffer(struct CD3DRenderer *_this)
+void CD3DRenderer_Initialize_ZBuffer(struct CD3DRenderer *_this)
 {
- signed int result; // eax@1
- int *v3; // edi@2
-
- result = 0;
  if (!_this->pZBuffer)
  {
   _this->pZBuffer = class23_AllocatedNamedBuffer(class23_instance, 0, 640 * 480 * 4, "Z Buf.");
-  result = -65536;
-  _this->dword_040034 = _this->pZBuffer;
+  _this->ptr_040034 = _this->pZBuffer;
   memset(_this->pZBuffer, -65536, 640 * 480 * 4);
  }
- return result;
 }
 
 //----- (MM7.exe::004A10E4) --------------------------------------------------------
@@ -2290,13 +2284,9 @@ int RGBTexture_ctor(struct RGBTexture *_this)
 
 
 //----- (004A0E80) --------------------------------------------------------
-int sub_4A0E80(struct CD3DRenderer *_this, int a2, int a3)
+void CD3DRenderer_ClearZBuffer(struct CD3DRenderer *_this, int a2, int a3)
 {
-  signed int result; // eax@1
-
-  result = -65536;
-  memset(_this->dword_040034, -65536, 0x12C000);
-  return result;
+  memset(_this->ptr_040034, -65536, 640 * 480 * 4);
 }
 
 

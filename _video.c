@@ -214,10 +214,10 @@ void CVideoPlayer_UnloadAll(struct CVideoPlayer *_this)
  _this->dword_0000A0 = 0;
 
  memset(_this->array_0000A4, 0, 64);
- if (pClass31_global->hAILRedbook)
+ if (pAudioPlayer->hAILRedbook)
  {
   if (!dword_F8BC10)
-    AIL_redbook_resume(pClass31_global->hAILRedbook);
+    AIL_redbook_resume(pAudioPlayer->hAILRedbook);
  }
  sub_426363(pClass24_global);
 }
@@ -330,8 +330,8 @@ void CVideoPlayer_Initialize(struct CVideoPlayer *_this)
  IDirectDrawSurface *v3;
 
  class24_fn1(pClass24_global);
- if (pClass31_global->hAILRedbook)
-   AIL_redbook_pause(pClass31_global->hAILRedbook);
+ if (pAudioPlayer->hAILRedbook)
+   AIL_redbook_pause(pAudioPlayer->hAILRedbook);
 
  _this->pSmackerMovie = 0;
  _this->pSmackerBuffer = 0;
@@ -347,7 +347,7 @@ void CVideoPlayer_Initialize(struct CVideoPlayer *_this)
  _this->dword_00006C = 0;
  _this->hWnd = hWnd_global;
 
- BinkSetSoundSystem(BinkOpenMiles, pClass31_global->hDigDriver);
+ BinkSetSoundSystem(BinkOpenMiles, pAudioPlayer->hDigDriver);
 
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
    v3 = pD3DRenderer->pdds4_BackBuffer;

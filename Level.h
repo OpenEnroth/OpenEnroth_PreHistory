@@ -109,7 +109,9 @@ int class51_sub_47EDB3_MessWithHeightmapAndTiles(struct class51 *_this, signed i
 bool class51_sub_47EF60(struct class51 *_this, int a2, int a3, int a4);
 
 
+void Level_LoadEvtAndStr(const char *pLevelName);
 bool LoadLevel(struct class51 *_this, const char *Source, int File, signed int a4, int a5);
+
 
 int sub_47F420(struct class51 *_this);
 int sub_47F3EA(struct class51 *_this);
