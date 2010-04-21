@@ -1545,11 +1545,12 @@ unsigned char pLevelEvt[9216];    // byte[9216] @ MM7.exe::005B3520
 /*extern*/ int dword_5B65C8; // weak
 /*extern*/ int dword_5B65CC; // weak
 /*extern*/ int dword_5B65D0; // weak
+
 struct Event pLevelEvents[4400]; // struct[4400] @ MM7.exe::005B65D8
-//_UNKNOWN unk_5B65D8[0xCE40 + 64*array_size_unknown]; // weak
-/*extern*/ _UNKNOWN unk_5B65DC; // weak
-/*extern*/ int dword_5B65E0; // weak
-/*extern*/ int dword_5B65EC; // weak
+//_UNKNOWN unk_5B65D8[0xCE40 + 64*array_size_unknown]; // pLevelEvents[0]::dword_000000
+//_UNKNOWN unk_5B65DC; // pLevelEvents[0]::dword_000004
+//int dword_5B65E0; // pLevelEvents[0]::dword_000008
+//int dword_5B65EC; // pLevelEvents[1]::dword_000008
 /*extern*/ _UNKNOWN unk_5C310E; // weak
 /*extern*/ int dword_5C3418; // weak
 /*extern*/ int dword_5C341C; // weak
@@ -1789,7 +1790,7 @@ struct Actor pActors[500]; // struct[500] @ MM7.exe::005FF158
 //__int16 word_5FF1EA[array_size_unknown]; // pActors[0]::000092
 /*extern*/ _UNKNOWN unk_5FF1F2; // weak
 /*extern*/ __int16 word_5FF1F6[array_size_unknown]; // weak
-/*extern*/ __int16 word_5FF208[array_size_unknown]; // weak
+//__int16 word_5FF208[array_size_unknown]; // pActors[0]::0000B0
 /*extern*/ _UNKNOWN unk_5FF20C; // weak
 /*extern*/ _UNKNOWN unk_5FF22C; // weak
 /*extern*/ _UNKNOWN unk_5FF23C; // weak
@@ -2120,7 +2121,7 @@ unsigned int uLevelMapStatsID; // dword @ MM7.exe::006BE358
 
 
 
-//_UNKNOWN unk_702B28[26 * 1024 * 1024];  //some 26 or 16 Mb pointer is allocated at *(int *)((char *)(&class23_instance) + 120020) at startup
+//_UNKNOWN unk_702B28[26 * 1024 * 1024];  //some 26 or 16 Mb pointer is allocated at *(int *)((char *)(class23_instance) + 120020) at startup
 char class23_instance[26 * 1024 * 1024];  // struct @ MM7.exe::00702B28
 /*extern*/ int dword_71FFF4; // weak
 /*extern*/ int dword_71FFF8; // weak
@@ -8750,7 +8751,7 @@ __int16 __fastcall sub_401221(int a1, int a2, int a3)
 
   v22 = -1;
   v19 = a1;
-  v6 = (int)((char *)pActors + 836 * a1);
+  v6 = &pActors[a1];
   v5 = 0;
   v4 = 0;
   v3 = *(_DWORD *)(v6 + 816);
@@ -8759,11 +8760,14 @@ __int16 __fastcall sub_401221(int a1, int a2, int a3)
   v18 = 0;
   v21 = v3;
   v23 = 0;
-  if ( (signed int)uNumActors > 0 )
+
+  if (uNumActors > 0)
   {
-    v7 = (int)word_5FF208;
+   v7 = &pActors[0].word_0000B0;
     while ( 1 )
     {
+     v7 = &pActors[v23].word_0000B0;
+
       LOWORD(v3) = *(_WORD *)v7;
       if ( *(_WORD *)v7 == 5 || (_WORD)v3 == 4 || (_WORD)v3 == 11 || (_WORD)v3 == 17 || (_WORD)v3 == 19 || v19 == v4 )
         goto LABEL_23;
@@ -8834,6 +8838,9 @@ LABEL_23:
       }
     }
   }
+
+
+
   if ( HIDWORD(qword_ACD8F4) >= v5 )
   {
     if ( HIDWORD(qword_ACD8F4) > v5 || (_DWORD)qword_ACD8F4 > (unsigned int)v5 )
@@ -9764,15 +9771,15 @@ LABEL_37:
         v25 = v16;
         if ( v16 >= v28)
           break;
-        v17 = *(int *)((char *)dword_4F75E0 + v15);
+        v17 = dword_4F75E0[v15 / 4];
         if ( v17 > dword_4F75E0[v16] )
         {
-          v18 = 4 * v16 + 5209520;
-          v19 = *(int *)((char *)dword_4F7DB0 + v15);
-          *(int *)((char *)dword_4F7DB0 + v15) = *(_DWORD *)v18;
-          *(_DWORD *)v18 = v19;
+          v18 = &dword_4F7DB0[v25];
+          v19 = dword_4F7DB0[v15 / 4];
+          dword_4F7DB0[v15 / 4] = dword_4F7DB0[v25];
+          dword_4F7DB0[v25] = v19;
           v16 = v25;
-          *(int *)((char *)dword_4F75E0 + v15) = dword_4F75E0[v25];
+          dword_4F75E0[v15 / 4] = dword_4F75E0[v25];
           dword_4F75E0[v25] = v17;
         }
         ++v16;
@@ -10505,9 +10512,9 @@ void __cdecl sub_401A91()
     while ( 1 )
     {
       v86 = dword_4F7DB0[v81];
-      v22 = 4 * v86 + 5205512;
-      v21 = (int)((char *)pActors + 836 * v86);
-      sub_401221(v86, 4 * v86 + 5205512, 1);
+      v22 = &dword_4F6E08[v86];
+      v21 = &pActors[v86];
+      sub_401221(v86, &dword_4F6E08[v86], 1);
       if ( *(_BYTE *)(v21 + 61) )
       {
         if ( !*(_DWORD *)v22 )
@@ -10516,7 +10523,7 @@ void __cdecl sub_401A91()
       v88 = *(_DWORD *)v22;
       v79 = v88 & 7;
       if ( (v88 & 7) == 3 )
-        LODWORD(v83) = 1056964608;
+        LODWORD(v83) = 0x3F000000; // 1.0f ?
       else
         v83 = 1.0;
       v23 = *(_WORD *)(v21 + 176);
@@ -11409,7 +11416,7 @@ LABEL_85:
     v98 = v39;
     if ( (signed int)uNumActors > v39 )
     {
-      v108 = (int)word_5FF208;
+      v108 = &pActors[0].word_0000B0;
       do
       {
         v43 = *(_WORD *)v108;
@@ -18330,7 +18337,7 @@ LABEL_955:
         LODWORD(v712) = HIDWORD(v1);
         if ( (signed int)uNumActors > HIDWORD(v1) )
         {
-          v486 = (int)word_5FF208;
+          v486 = &pActors[0].word_0000B0;
           LODWORD(v704) = uNumActors;
           do
           {
@@ -22400,7 +22407,7 @@ int __cdecl MaybeDoAutosave()
     v0 = 1;
     sub_45F469(1, 1);
   }
-  class23_DeleteBuffer((int)&class23_instance, (int)DstBuf);
+  class23_DeleteBuffer(class23_instance, (int)DstBuf);
   return v0;
 }
 
@@ -45997,7 +46004,7 @@ int __fastcall sub_4A97C6(char *a1, int a2, _DWORD a3)
   v6 = *(_DWORD *)(v8 + 48);
   v23 = *(_DWORD *)(v8 + 48);
   if ( v5 == -1 )
-    v5 = class23_AllocatedNamedBuffer(&class23_instance, 0, v6 + 4, Source);
+    v5 = class23_AllocatedNamedBuffer(class23_instance, 0, v6 + 4, Source);
   SetFilePointer(pAudioPlayer->hSoundsSource, *(_DWORD *)(v8 + 40), 0, 0);
   v9 = *(_DWORD *)v7;
   if ( *(_DWORD *)(v8 + 44) >= *(_DWORD *)v7 )
@@ -60643,7 +60650,7 @@ int __thiscall sub_42F184(void *this, unsigned int a2, int a3, int a4)
       v21 = 0;
       for ( *((_DWORD *)v5 + 500) = v4; v21 < v4; ++v21 )
       {
-        v22 = word_5FF208[418 * *((_DWORD *)v5 + v21)];
+        v22 = pActors[*((_DWORD *)v5 + v21)].word_0000B0;
         if ( v22 != 4 && v22 != 5 )
           break;
       }
@@ -60715,7 +60722,7 @@ LABEL_20:
   }
   else
   {
-    v1 = (int)word_5FF208;
+    v1 = &pActors[0].word_0000B0;
     while ( 1 )
     {
       v5 = abs(*(_WORD *)(v1 - 34) - pParty_global->dword_0006B4);
@@ -63451,7 +63458,7 @@ LABEL_317:
           v58 = v56 >> 3;
           if ( v57 == 3 )
           {
-            v59 = word_5FF208[418 * v58] == 5;
+            v59 = pActors[v58].word_0000B0 == 5;
             goto LABEL_400;
           }
           if ( v57 == 2 )
@@ -63999,7 +64006,7 @@ LABEL_544:
           if ( !(dword_4F8870 & 2) )
           {
 LABEL_569:
-            if ( word_5FF208[418 * v209] == 5 )
+            if ( pActors[v209].word_0000B0 == 5 )
               sub_426A5A((int)((char *)pActors + 836 * v209));
             else
               sub_42EBEE((void *)v209);
@@ -75640,7 +75647,7 @@ void __cdecl sub_443F95()
   v0 = 0;
   if ( uLevelEvtNumEvents > 0 )
   {
-    v1 = &unk_5B65DC;
+    v1 = &pLevelEvents[0].dword_000004;
     do
     {
       if ( byte_5B3524[*((_WORD *)v1 + 2)] == 53 )
@@ -75887,7 +75894,7 @@ LABEL_6:
   }
   else
   {
-    v2 = &dword_5B65E0;
+   v2 = &pLevelEvents[0].dword_000008;
     while ( 1 )
     {
       if ( (void *)*(v2 - 2) == this )
@@ -76724,7 +76731,7 @@ LABEL_79:
         v64 = 0;
         if ( (signed int)uNumActors > 0 )
         {
-          v62 = (int)word_5FF208;
+          v62 = &pActors[0].word_0000B0;
           *(_DWORD *)v61 = uNumActors;
           do
           {
@@ -79408,7 +79415,7 @@ void __fastcall sub_448A40(signed int a1, int a2, int a3)
       {
         if ( a2 == 65536 )
         {
-          v3 = &word_5FF208[418 * a1];
+          v3 = &pActors[a1].word_0000B0;
           if ( *v3 == 19 )
             *v3 = 0;
         }
@@ -79461,7 +79468,7 @@ void __fastcall sub_448A98(int a1, int a2, int a3)
       v7 = uNumActors;
       if ( (signed int)uNumActors > 0 )
       {
-        v8 = (int)word_5FF208;
+        v8 = &pActors[0].word_0000B0;
         do
         {
           if ( *(_DWORD *)(v8 + 532) == v4 )
@@ -82362,7 +82369,7 @@ signed int __thiscall sub_44C23B(int this)
       goto LABEL_5;
   }
   v4 = 12 * v1;
-  if ( byte_5B3524[*(int *)((char *)&dword_5B65EC + v4)] != 1 || byte_5B3524[*(int *)((char *)&dword_5B65E0 + v4)] != 4 )
+  if ( byte_5B3524[*(int *)((char *)&pLevelEvents[1].dword_000008 + v4)] != 1 || byte_5B3524[*(int *)((char *)&pLevelEvents[0].dword_000008 + v4)] != 4 )
 LABEL_5:
     result = 0;
   else
@@ -83966,7 +83973,7 @@ int __fastcall sub_44FA4C(int a1, int a2, int a3)
   v20 = uNumActors;
   if ( (signed int)uNumActors > 0 )
   {
-    v4 = (int)word_5FF208;
+    v4 = &pActors[0].word_0000B0;
     while ( *(_WORD *)v4 != 11 )
     {
       ++v3;
@@ -87623,7 +87630,7 @@ signed int __thiscall sub_4598FC(int this, const char *a2)
     v4 = v50;
   }
   *(_DWORD *)v3 = v4;
-  v5 = class23_AllocatedNamedBuffer(&class23_instance, *(_DWORD *)(v3 + 4), 152 * v4, "Mon Race");
+  v5 = class23_AllocatedNamedBuffer(class23_instance, *(_DWORD *)(v3 + 4), 152 * v4, "Mon Race");
   *(_DWORD *)(v3 + 4) = v5;
   if ( !v5 )
     erroneous_printf("MonsterRaceListStruct::load - Out of Memory!");
@@ -91122,7 +91129,7 @@ void *__cdecl sub_45E006()
     result = (void *)*v0;
     if ( *v0 )
     {
-      class23_DeleteBuffer((int)&class23_instance, *v0);
+      class23_DeleteBuffer(class23_instance, *v0);
       result = memset(v0 - 9, 0, 0x28u);
     }
     v0 += 10;
@@ -92198,7 +92205,7 @@ char __thiscall sub_460A78(void *this)
     v3 = v41;
   }
   dword_6BE13C = v43;
-  class23_DeleteBuffer((int)&class23_instance, dword_6A0D08);
+  class23_DeleteBuffer(class23_instance, dword_6A0D08);
   dword_6A0D08 = 0;
   dword_6A0D0C = 0;
   TryLoadLevelFromFile();
@@ -92519,8 +92526,8 @@ int __thiscall sub_461431(int this)
   {
     *(_BYTE *)(this + 532) = 0;
     *(_DWORD *)(this + 548) = 0;
-    class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(this + 560));
-    class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v1 + 528));
+    class23_DeleteBuffer(class23_instance, *(_DWORD *)(this + 560));
+    class23_DeleteBuffer(class23_instance, *(_DWORD *)(v1 + 528));
     v3 = *(FILE **)v1;
     *(_DWORD *)(v1 + 560) = 0;
     *(_DWORD *)(v1 + 528) = 0;
@@ -92572,7 +92579,7 @@ int __thiscall sub_461790(int this)
   if ( *(_DWORD *)(this + 260) )
   {
     fclose(*(FILE **)this);
-    result = class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v1 + 560));
+    result = class23_DeleteBuffer(class23_instance, *(_DWORD *)(v1 + 560));
   }
   return result;
 }
@@ -92586,9 +92593,9 @@ int __thiscall sub_461A11(int this)
 
   v2 = this;
   v3 = this + 560;
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(this + 560));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(this + 560));
   v2 += 264;
-  result = class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)v2);
+  result = class23_DeleteBuffer(class23_instance, *(_DWORD *)v2);
   *(_DWORD *)v2 = 0;
   *(_DWORD *)v3 = 0;
   return result;
@@ -92805,8 +92812,8 @@ int __thiscall sub_462463(int this)
   v1 = this;
   if ( !(*(_BYTE *)(this + 27) & 4) )
   {
-    class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(this + 36));
-    result = class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v1 + 32));
+    class23_DeleteBuffer(class23_instance, *(_DWORD *)(this + 36));
+    result = class23_DeleteBuffer(class23_instance, *(_DWORD *)(v1 + 32));
   }
   *(_DWORD *)(v1 + 36) = 0;
   *(_DWORD *)(v1 + 32) = 0;
@@ -95853,7 +95860,7 @@ int __fastcall sub_46A6AC(int a1, int a2, signed int a3)
               if ( *(_DWORD *)v6 <= a3 << 16 )
               {
                 v8 = (signed int)(unsigned __int16)*(_DWORD *)v6 >> 3;
-                v7 = word_5FF208[418 * v8];
+                v7 = pActors[v8].word_0000B0;
                 if ( v7 != 5 )
                 {
                   if ( v7 != 4 )
@@ -95933,7 +95940,7 @@ int __fastcall sub_46A7C8(int a1, int a2, signed int a3)
         {
           v7 = v3 >> 3;
           v8 = v7;
-          v6 = word_5FF208[418 * v7];
+          v6 = pActors[v7].word_0000B0;
           if ( v6 != 5 )
           {
             if ( v6 != 4 )
@@ -95993,7 +96000,7 @@ int __fastcall sub_46A89E(int a1, int a2, signed int a3)
   v19 = 0;
   if ( (signed int)uNumActors > 0 )
   {
-    v4 = (int)word_5FF208;
+    v4 = &pActors[0].word_0000B0;
     do
     {
       v8 = abs(*(_WORD *)(v4 - 34) - pParty_global->dword_0006B4);
@@ -97954,13 +97961,14 @@ LABEL_222:
               if ( (_WORD)a1 != 9030 || v169 != 4 )
               {
                 v123 = 836 * v156;
-                if ( sub_427662((int)((char *)pActors + 836 * v156), v122) )
+                if ( sub_427662(&pActors[v156], v122) )
                 {
                   v155 = 0;
                   if ( *(_WORD *)v3 == 8030 )
                   {
-                    *(__int16 *)((char *)word_5FF208 + v123) = 0;
-                    sub_45976D((int)((char *)pActors + v123));
+                    //*(__int16 *)((char *)word_5FF208 + v123) = 0;
+                   pActors[v156].word_0000B0 = 0;
+                    sub_45976D(&pActors[v156]);
                   }
                   sub_4584E0(
                     (int)((char *)&unk_5FF22C + 16 * v153 + v123),
@@ -106068,26 +106076,26 @@ int __thiscall sub_477266(int this)
   int v4; // ebx@1
 
   v2 = this;
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(this + 98280));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(this + 98280));
   v3 = *(_DWORD *)(v2 + 98284);
   *(_DWORD *)(v2 + 98276) = 0;
-  class23_DeleteBuffer((int)&class23_instance, v3);
+  class23_DeleteBuffer(class23_instance, v3);
   *(_DWORD *)(v2 + 98276) = 0;
-  class23_DeleteBuffer((int)&class23_instance, 0);
+  class23_DeleteBuffer(class23_instance, 0);
   *(_DWORD *)(v2 + 98276) = 0;
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 98272));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 98272));
   *(_DWORD *)(v2 + 98272) = 0;
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 98268));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 98268));
   *(_DWORD *)(v2 + 98268) = 0;
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 98264));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 98264));
   *(_DWORD *)(v2 + 98264) = 0;
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 98288));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 98288));
   *(_DWORD *)(v2 + 98288) = 0;
   v4 = v2 + 98292;
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 98292));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 98292));
   v2 += 98296;
   *(_DWORD *)v4 = 0;
-  result = class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)v2);
+  result = class23_DeleteBuffer(class23_instance, *(_DWORD *)v2);
   *(_DWORD *)v2 = 0;
   return result;
 }
@@ -106830,16 +106838,16 @@ int __thiscall sub_478389(int this)
   int v5; // ST00_4@1
 
   v2 = this;
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(this + 4));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(this + 4));
   v3 = *(_DWORD *)(v2 + 16);
   *(_DWORD *)(v2 + 4) = 0;
-  class23_DeleteBuffer((int)&class23_instance, v3);
+  class23_DeleteBuffer(class23_instance, v3);
   v4 = *(_DWORD *)(v2 + 20);
   *(_DWORD *)(v2 + 16) = 0;
-  class23_DeleteBuffer((int)&class23_instance, v4);
+  class23_DeleteBuffer(class23_instance, v4);
   v5 = *(_DWORD *)(v2 + 28);
   *(_DWORD *)(v2 + 20) = 0;
-  result = class23_DeleteBuffer((int)&class23_instance, v5);
+  result = class23_DeleteBuffer(class23_instance, v5);
   *(_DWORD *)(v2 + 28) = 0;
   *(_DWORD *)(v2 + 24) = 0;
   *(_DWORD *)(v2 + 8) = 0;
@@ -109013,28 +109021,28 @@ int __thiscall sub_47CDE2(int Dest)
   *(_WORD *)(v2 + 172) = 10;
   sub_47F420((void *)v2);
   sub_47F3EA(v2);
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 216));
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 1220));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 216));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 1220));
   *(_DWORD *)(v2 + 216) = 0;
   *(_DWORD *)(v2 + 1220) = 0;
   class51_InitializeGeodata((int *)(v2 + 180));
   sub_47CCE2((void **)(v2 + 180));
   sub_47C80A((void *)(v2 + 180), 0, 0, 128, 128);
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 212));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 212));
   *(_DWORD *)(v2 + 212) = 0;
-  v3 = class23_AllocatedNamedBuffer(&class23_instance, 0, 32768, "CMAP");
+  v3 = class23_AllocatedNamedBuffer(class23_instance, 0, 32768, "CMAP");
   v4 = *(_DWORD *)(v2 + 228);
   *(_DWORD *)(v2 + 212) = v3;
-  class23_DeleteBuffer((int)&class23_instance, v4);
+  class23_DeleteBuffer(class23_instance, v4);
   *(_DWORD *)(v2 + 228) = 0;
-  v5 = class23_AllocatedNamedBuffer(&class23_instance, 0, 65536, "OMAP");
+  v5 = class23_AllocatedNamedBuffer(class23_instance, 0, 65536, "OMAP");
   *(_DWORD *)(v2 + 228) = v5;
   memset((void *)v5, 0, 0x10000u);
   v6 = *(_DWORD *)(v2 + 224);
   *(_DWORD *)(v2 + 220) = 0;
-  class23_DeleteBuffer((int)&class23_instance, v6);
+  class23_DeleteBuffer(class23_instance, v6);
   *(_DWORD *)(v2 + 224) = 0;
-  v7 = class23_AllocatedNamedBuffer(&class23_instance, 0, 2, "IDLIST");
+  v7 = class23_AllocatedNamedBuffer(class23_instance, 0, 2, "IDLIST");
   *(_DWORD *)(v2 + 224) = v7;
   *(_WORD *)v7 = 0;
   strcpy((char *)(v2 + 96), byte_6BE114);
@@ -113086,7 +113094,7 @@ int __thiscall sub_487E1D(int this)
   result = *(_DWORD *)(this + 4);
   if ( result )
   {
-    result = class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(this + 4));
+    result = class23_DeleteBuffer(class23_instance, *(_DWORD *)(this + 4));
     *(_DWORD *)(v2 + 4) = 0;
   }
   *(_DWORD *)v2 = 0;
@@ -119679,7 +119687,7 @@ int __cdecl sub_4979D2()
   v6 = sub_44C62E(v5, v4, v1, (int)&v23, 0, 1);
   v32 = v6 + 2 * v26;
   v30 = v31 * v32;
-  v7 = class23_AllocatedNamedBuffer(&class23_instance, v34, 2 * v30, "scrollermap");
+  v7 = class23_AllocatedNamedBuffer(class23_instance, v34, 2 * v30, "scrollermap");
   v8 = v30;
   v34 = v7;
   v9 = sub_40DEF3(0, 0xFFu, 0xFFu);
@@ -119767,9 +119775,9 @@ int __cdecl sub_4979D2()
   CD3DRenderer_EndScene(pD3DRenderer);
   CD3DRenderer_Present(pD3DRenderer);
   sub_4AA258(pAudioPlayer, 1);
-  class23_DeleteBuffer((int)&class23_instance, (int)Source);
-  class23_DeleteBuffer((int)&class23_instance, v38);
-  class23_DeleteBuffer((int)&class23_instance, v39);
+  class23_DeleteBuffer(class23_instance, (int)Source);
+  class23_DeleteBuffer(class23_instance, v38);
+  class23_DeleteBuffer(class23_instance, v39);
   GUIWindowDelete(pGUIWindow_MainMenu);
   v14 = sub_4114F2(pClass17_Icons_LOD);
   v15 = sub_40E51F((int)&v19);
@@ -120364,15 +120372,15 @@ int __thiscall sub_498B15(int this)
 
   v2 = this;
   v3 = this + 692;
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(this + 692));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(this + 692));
   *(_DWORD *)v3 = 0;
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 688));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 688));
   *(_DWORD *)(v2 + 688) = 0;
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 696));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 696));
   *(_DWORD *)(v2 + 696) = 0;
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 684));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 684));
   *(_DWORD *)(v2 + 684) = 0;
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 704));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 704));
   v4 = *(_DWORD *)(v2 + 628);
   *(_DWORD *)(v2 + 704) = 0;
   *(_DWORD *)(v2 + 648) = 0;
@@ -120381,14 +120389,14 @@ int __thiscall sub_498B15(int this)
   *(_DWORD *)(v2 + 672) = 0;
   *(_DWORD *)(v2 + 664) = 0;
   *(_DWORD *)(v2 + 656) = 0;
-  class23_DeleteBuffer((int)&class23_instance, v4);
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 636));
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 644));
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 652));
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 660));
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 668));
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 676));
-  result = class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(v2 + 680));
+  class23_DeleteBuffer(class23_instance, v4);
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 636));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 644));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 652));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 660));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 668));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 676));
+  result = class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 680));
   *(_DWORD *)(v2 + 628) = 0;
   *(_DWORD *)(v2 + 636) = 0;
   *(_DWORD *)(v2 + 644) = 0;
@@ -120424,28 +120432,28 @@ signed int __thiscall sub_498C45(int this)
   signed int result; // eax@9
 
   v3 = this;
-  v4 = class23_AllocatedNamedBuffer(&class23_instance, *(_DWORD *)(this + 628), 90000, "L.V");
+  v4 = class23_AllocatedNamedBuffer(class23_instance, *(_DWORD *)(this + 628), 90000, "L.V");
   v5 = *(_DWORD *)(v3 + 636);
   *(_DWORD *)(v3 + 628) = v4;
-  v6 = class23_AllocatedNamedBuffer(&class23_instance, v5, 960000, "L.F");
+  v6 = class23_AllocatedNamedBuffer(class23_instance, v5, 960000, "L.F");
   v7 = *(_DWORD *)(v3 + 644);
   *(_DWORD *)(v3 + 636) = v6;
-  v8 = class23_AllocatedNamedBuffer(&class23_instance, v7, 180000, "L.FX");
+  v8 = class23_AllocatedNamedBuffer(class23_instance, v7, 180000, "L.FX");
   v9 = *(_DWORD *)(v3 + 652);
   *(_DWORD *)(v3 + 644) = v8;
-  v10 = class23_AllocatedNamedBuffer(&class23_instance, v9, 59392, "L.R");
+  v10 = class23_AllocatedNamedBuffer(class23_instance, v9, 59392, "L.R");
   v11 = *(_DWORD *)(v3 + 660);
   *(_DWORD *)(v3 + 652) = v10;
-  v12 = class23_AllocatedNamedBuffer(&class23_instance, v11, 6400, "L.L");
+  v12 = class23_AllocatedNamedBuffer(class23_instance, v11, 6400, "L.L");
   v13 = *(_DWORD *)(v3 + 668);
   *(_DWORD *)(v3 + 660) = v12;
-  v14 = class23_AllocatedNamedBuffer(&class23_instance, v13, 16000, "L.D");
+  v14 = class23_AllocatedNamedBuffer(class23_instance, v13, 16000, "L.D");
   v15 = *(_DWORD *)(v3 + 676);
   *(_DWORD *)(v3 + 668) = v14;
-  v16 = class23_AllocatedNamedBuffer(&class23_instance, v15, 40000, "L.BSP");
+  v16 = class23_AllocatedNamedBuffer(class23_instance, v15, 40000, "L.BSP");
   v17 = *(_DWORD *)(v3 + 680);
   *(_DWORD *)(v3 + 676) = v16;
-  v1 = class23_AllocatedNamedBuffer(&class23_instance, v17, 84004, "L.Map");
+  v1 = class23_AllocatedNamedBuffer(class23_instance, v17, 84004, "L.Map");
   v2 = *(void **)(v3 + 628);
   *(_DWORD *)(v3 + 680) = v1;
   if ( v2
@@ -120803,7 +120811,7 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
       locked_fread((void *)(v6 + 632), 4u, 1u, v8);
       fseek(v8, v242, 0);
       locked_fread(*(void **)(v6 + 636), 0x60u, *(_DWORD *)(v6 + 632), v8);
-      v10 = class23_AllocatedNamedBuffer(&class23_instance, *(_DWORD *)(v6 + 684), *(_DWORD *)(v6 + 592), "L.FData");
+      v10 = class23_AllocatedNamedBuffer(class23_instance, *(_DWORD *)(v6 + 684), *(_DWORD *)(v6 + 592), "L.FData");
       v234 = (int)v8;
       *(_DWORD *)(v6 + 684) = v10;
       locked_fread((void *)v10, 1u, *(_DWORD *)(v6 + 592), (FILE *)v234);
@@ -120924,7 +120932,7 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
       locked_fread((void *)(v6 + 648), 4u, 1u, v8);
       fseek(v8, v246, 0);
       locked_fread(*(void **)(v6 + 652), 0x74u, *(_DWORD *)(v6 + 648), v8);
-      v32 = class23_AllocatedNamedBuffer(&class23_instance, *(_DWORD *)(v6 + 688), *(_DWORD *)(v6 + 596), "L.RData");
+      v32 = class23_AllocatedNamedBuffer(class23_instance, *(_DWORD *)(v6 + 688), *(_DWORD *)(v6 + 596), "L.RData");
       v234 = (int)v8;
       *(_DWORD *)(v6 + 688) = v32;
       locked_fread((void *)v32, 1u, *(_DWORD *)(v6 + 596), (FILE *)v234);
@@ -120981,7 +120989,7 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
         }
         while ( v289 < *(_DWORD *)(v6 + 648) );
       }
-      v49 = class23_AllocatedNamedBuffer(&class23_instance, *(_DWORD *)(v6 + 696), *(_DWORD *)(v6 + 600), "L.RLData");
+      v49 = class23_AllocatedNamedBuffer(class23_instance, *(_DWORD *)(v6 + 696), *(_DWORD *)(v6 + 600), "L.RLData");
       v234 = (int)v8;
       *(_DWORD *)(v6 + 696) = v49;
       locked_fread((void *)v49, 1u, *(_DWORD *)(v6 + 600), (FILE *)v234);
@@ -121009,7 +121017,7 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
       locked_fread((void *)(v6 + 664), 4u, 1u, v8);
       fseek(v8, v248, 0);
       locked_fread(*(void **)(v6 + 668), 0x50u, 0xC8u, v8);
-      v55 = class23_AllocatedNamedBuffer(&class23_instance, *(_DWORD *)(v6 + 692), *(_DWORD *)(v6 + 604), "L.DData");
+      v55 = class23_AllocatedNamedBuffer(class23_instance, *(_DWORD *)(v6 + 692), *(_DWORD *)(v6 + 604), "L.DData");
       v234 = (int)v8;
       *(_DWORD *)(v6 + 692) = v55;
       locked_fread((void *)v55, 1u, *(_DWORD *)(v6 + 604), (FILE *)v234);
@@ -121166,7 +121174,7 @@ LABEL_50:
       locked_fread(*(void **)(v6 + 676), 8u, *(_DWORD *)(v6 + 672), v8);
       fseek(v8, v262, 0);
       locked_fread((void *)(v6 + 700), 4u, 1u, v8);
-      v88 = class23_AllocatedNamedBuffer(&class23_instance, *(_DWORD *)(v6 + 704), 24 * *(_DWORD *)(v6 + 700), "Spawn");
+      v88 = class23_AllocatedNamedBuffer(class23_instance, *(_DWORD *)(v6 + 704), 24 * *(_DWORD *)(v6 + 700), "Spawn");
       v234 = 0;
       *(_DWORD *)(v6 + 704) = v88;
       fseek(v8, v263, v234);
@@ -121272,7 +121280,7 @@ LABEL_50:
   v234 = (int)"L.FData";
   v233 = *(_DWORD *)(v6 + 592);
   v232 = *(_DWORD *)(v6 + 684);
-  v102 = class23_AllocatedNamedBuffer(&class23_instance, v232, v233, "L.FData");
+  v102 = class23_AllocatedNamedBuffer(class23_instance, v232, v233, "L.FData");
   v103 = *(_DWORD *)(v6 + 592);
   *(_DWORD *)(v6 + 684) = v102;
   v283 = v103;
@@ -121418,7 +121426,7 @@ LABEL_50:
   v234 = (int)"L.RData";
   v233 = *(_DWORD *)(v6 + 596);
   v232 = *(_DWORD *)(v6 + 688);
-  v134 = class23_AllocatedNamedBuffer(&class23_instance, v232, v233, "L.RData");
+  v134 = class23_AllocatedNamedBuffer(class23_instance, v232, v233, "L.RData");
   v135 = *(_DWORD *)(v6 + 596);
   *(_DWORD *)(v6 + 688) = v134;
   v283 = v135;
@@ -121480,7 +121488,7 @@ LABEL_50:
   v234 = (int)"L.RLData";
   v233 = *(_DWORD *)(v6 + 600);
   v232 = *(_DWORD *)(v6 + 696);
-  v152 = class23_AllocatedNamedBuffer(&class23_instance, v232, v233, "L.RLData");
+  v152 = class23_AllocatedNamedBuffer(class23_instance, v232, v233, "L.RLData");
   v153 = *(_DWORD *)(v6 + 600);
   *(_DWORD *)(v6 + 696) = v152;
   v283 = v153;
@@ -121561,7 +121569,7 @@ LABEL_50:
   v234 = (int)"Spawn";
   v233 = 24 * v166;
   v232 = *(_DWORD *)(v6 + 704);
-  v167 = class23_AllocatedNamedBuffer(&class23_instance, v232, 24 * v166, "Spawn");
+  v167 = class23_AllocatedNamedBuffer(class23_instance, v232, 24 * v166, "Spawn");
   v168 = *(_DWORD *)(v6 + 700);
   *(_DWORD *)(v6 + 704) = v167;
   v283 = 24 * v168;
@@ -121817,7 +121825,7 @@ LABEL_165:
   v234 = (int)"L.DData";
   v233 = *(_DWORD *)(v6 + 604);
   v232 = *(_DWORD *)(v6 + 692);
-  v198 = class23_AllocatedNamedBuffer(&class23_instance, v232, v233, "L.DData");
+  v198 = class23_AllocatedNamedBuffer(class23_instance, v232, v233, "L.DData");
   v199 = *(_DWORD *)(v6 + 604);
   *(_DWORD *)(v6 + 692) = v198;
   memcpy((void *)v198, Src, v199);
@@ -126185,7 +126193,7 @@ int __thiscall sub_49EB79(int this)
   int v3; // eax@1
 
   v2 = this;
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(this + 262200));
+  class23_DeleteBuffer(class23_instance, *(_DWORD *)(this + 262200));
   sub_45271F(v2 + 262420);
   v3 = sub_45271F(v2 + 662444);
   sub_49FE05(v3, v2);
@@ -126336,7 +126344,7 @@ void __thiscall sub_49EDB6(int this)
       locked_fwrite(&v39, 2, 1u, v6);
       locked_fwrite(&v40, 2, 1u, v6);
       locked_fwrite(&v15, 0x3Au, 1u, v6);
-      v41 = class23_AllocatedNamedBuffer(&class23_instance, 0, 3 * v26 + 6, 0);
+      v41 = class23_AllocatedNamedBuffer(class23_instance, 0, 3 * v26 + 6, 0);
       if ( v43 > 0 )
       {
         v8 = v44;
@@ -126409,7 +126417,7 @@ void __thiscall sub_49EDB6(int this)
       {
         CD3DRenderer_EndScene(pD3DRenderer);
       }
-      class23_DeleteBuffer((int)&class23_instance, v41);
+      class23_DeleteBuffer(class23_instance, v41);
       fclose(v6);
     }
   }
@@ -126530,7 +126538,7 @@ void __thiscall sub_49F1BC(int this, const char *Filename)
       locked_fwrite(&v39, 2, 1u, v7);
       locked_fwrite(&v40, 2, 1u, v7);
       locked_fwrite(&v16, 0x3Au, 1u, v7);
-      v41 = class23_AllocatedNamedBuffer(&class23_instance, 0, 3 * v25 + 6, 0);
+      v41 = class23_AllocatedNamedBuffer(class23_instance, 0, 3 * v25 + 6, 0);
       if ( (signed int)Filename > 0 )
       {
         v9 = v43;
@@ -126603,7 +126611,7 @@ void __thiscall sub_49F1BC(int this, const char *Filename)
       {
         CD3DRenderer_EndScene(pD3DRenderer);
       }
-      class23_DeleteBuffer((int)&class23_instance, v41);
+      class23_DeleteBuffer(class23_instance, v41);
       fclose(v7);
     }
   }
@@ -126690,7 +126698,7 @@ FILE *__thiscall sub_49F8B5(void *this, FILE *Filename, int a3, int a4, int a5)
     locked_fwrite(&v33, 2, 1u, v7);
     locked_fwrite(&v34, 2, 1u, v7);
     locked_fwrite(&v14, 0x3Au, 1u, v7);
-    v35 = class23_AllocatedNamedBuffer(&class23_instance, 0, 3 * a4 + 6, 0);
+    v35 = class23_AllocatedNamedBuffer(class23_instance, 0, 3 * a4 + 6, 0);
     if ( a5 > 0 )
     {
       v9 = v36;
@@ -126753,7 +126761,7 @@ FILE *__thiscall sub_49F8B5(void *this, FILE *Filename, int a3, int a4, int a5)
         v9 = v36;
       }
     }
-    class23_DeleteBuffer((int)&class23_instance, v35);
+    class23_DeleteBuffer(class23_instance, v35);
     result = (FILE *)fclose(v7);
   }
   return result;
@@ -132877,7 +132885,7 @@ void *__thiscall sub_4A96BE(void *this)
     if ( (signed int)result >= (signed int)&unk_F79154 )
       return result;
   }
-  class23_DeleteBuffer((int)&class23_instance, (int)this);
+  class23_DeleteBuffer(class23_instance, (int)this);
   return memset((char *)&unk_F1B4D8 + 128 * v2, 0, 0x80u);
 }
 
@@ -146282,7 +146290,7 @@ void __cdecl sub_4BBCDD()
       v0 = 0;
       if ( (signed int)uNumActors <= 0 )
         goto LABEL_23;
-      v1 = (int)word_5FF208;
+      v1 = &pActors[0].word_0000B0;
       v8 = uNumActors;
       do
       {
@@ -146331,7 +146339,7 @@ LABEL_23:
       do
       {
         v7 = *(_DWORD *)(v6 + 52);
-        class23_DeleteBuffer((int)&class23_instance, v6);
+        class23_DeleteBuffer(class23_instance, v6);
         v6 = v7;
       }
       while ( v7 );
@@ -148820,7 +148828,7 @@ int __thiscall sub_4BF91E(void *this)
   if ( pD3DRenderer->dword_040088 )
     dword_EF52A8();
   sub_49F1BC(pD3DRenderer, "MM7_Win.Pcx");
-  class23_DeleteBuffer((int)&class23_instance, v33);
+  class23_DeleteBuffer(class23_instance, v33);
   GUIWindowDelete(dword_507BC0);
   dword_507BC0 = 0;
   if ( v26 == (void *)2 )

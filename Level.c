@@ -1479,25 +1479,17 @@ extern struct Event pLevelEvents[];
 extern unsigned int uLevelEvtNumEvents;
 bool sub_44C1E8(struct class51_stru2 *_this)
 {
-  int v1; // eax@1
-  _UNKNOWN *v2; // esi@2
-  int v4; // eax@6
+ int i;
 
-  v1 = 0;
-  if ( uLevelEvtNumEvents - 1 <= 0 )
-    return false;
-  v2 = pLevelEvents;
-  while ( *(_DWORD *)v2 != _this->word_000124)
-  {
-    ++v1;
-    v2 = (char *)v2 + 12;
-    if ( v1 >= uLevelEvtNumEvents - 1 )
+ for (i = 0; i < uLevelEvtNumEvents; ++i)
+   if (pLevelEvents[i].dword_000000 == _this->word_000124)
+   {
+    if (byte_5B3524[pLevelEvents[i].dword_000008] != 4 ||
+        byte_5B3524[pLevelEvents[i + 1].dword_000008] != 1)
       return false;
-  }
-  v4 = 12 * v1;
-  if ( byte_5B3524[*(int *)((char *)&dword_5B65EC + v4)] != 1 || byte_5B3524[*(int *)((char *)&dword_5B65E0 + v4)] != 4 )
-    return false;
-  else return true;
+    else return true;
+   }
+ return false;
 }
 
 

@@ -60,7 +60,7 @@ struct class51_stru2
  char  byte_000022[238];
  short word_000110;
  char  byte_000112[18];
- short word_000124;
+ short word_000124;     //related to Event::dword_000000
  char  byte_000126[14];
 };
 //sizeof == 134
