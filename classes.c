@@ -11889,7 +11889,7 @@ int class06_sub_4A8C27(struct class06 *_this)
     {
      v22 = pD3DRenderer->pTargetSurface;
       v35 = -1;
-      v23 = pD3DRenderer->ptr_040034;
+      v23 = pD3DRenderer->pActiveZBuffer;
       v24 = (HIDWORD(data_F8BC28.qword_F8BC28) - dword_F8BC24) / 2;
       v25 = dword_F8BC30;
       LODWORD(v21) = 0;

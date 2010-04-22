@@ -48,8 +48,8 @@ struct CD3DRenderer
 
  int                         dword_04002C;
  int                         dword_040030;
- unsigned char              *ptr_040034;
- int                        *pZBuffer;           // ptr @ 040038
+ int                        *pActiveZBuffer;     // ptr @ 040034
+ int                        *pDefaultZBuffer;    // ptr @ 040038
  int                         dword_04003C;
  int                         dword_040040;
  int                         dword_040044;

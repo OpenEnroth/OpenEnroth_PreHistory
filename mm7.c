@@ -7540,7 +7540,7 @@ LABEL_124:
             sub_452AF3(v42, pD3DRenderer->pTargetSurface + (*((_WORD *)v32 + 4) + pD3DRenderer->uTargetSurfacePitch * *((_WORD *)v32 + 5)), v33);
             LOWORD(v0) = sub_452B58(
                            -65536,
-                           (void *)(pD3DRenderer->ptr_040034 + 4 * (*((_WORD *)v32 + 4) + 640 * *((_WORD *)v32 + 5))),
+                           (void *)(pD3DRenderer->pActiveZBuffer + 4 * (*((_WORD *)v32 + 4) + 640 * *((_WORD *)v32 + 5))),
                            *((_WORD *)v32 + 6));
             goto LABEL_125;
           }
@@ -7584,7 +7584,7 @@ LABEL_109:
               if ( !sub_485044(v13, &array_77EC08[1999], v41) )
                 sub_452B58(
                   -65536,
-                  (void *)(pD3DRenderer->ptr_040034 + 4 * (*(_WORD *)(v13 + 8) + 640 * *(_WORD *)(v13 + 10))),
+                  (void *)(pD3DRenderer->pActiveZBuffer + 4 * (*(_WORD *)(v13 + 8) + 640 * *(_WORD *)(v13 + 10))),
                   *(_WORD *)(v13 + 12));
             }
           }
@@ -8768,16 +8768,19 @@ __int16 __fastcall sub_401221(int a1, int a2, int a3)
     {
      v7 = &pActors[v23].word_0000B0;
 
-      LOWORD(v3) = *(_WORD *)v7;
-      if ( *(_WORD *)v7 == 5 || (_WORD)v3 == 4 || (_WORD)v3 == 11 || (_WORD)v3 == 17 || (_WORD)v3 == 19 || v19 == v4 )
+      LOWORD(v3) = pActors[v23].word_0000B0;
+      if (pActors[v23].word_0000B0 == 5 || pActors[v23].word_0000B0 == 4 ||
+          pActors[v23].word_0000B0 == 11 || pActors[v23].word_0000B0 == 17 ||
+          pActors[v23].word_0000B0 == 19 || v19 == v4 )
         goto LABEL_23;
+
       if ( v21 != v5 )
       {
         v8 = 8 * v4;
         LOBYTE(v8) = 8 * v4 | 3;
         if ( v21 == v8 )
         {
-          if ( sub_4089C7(v7 - 176) != 1 )
+          if ( sub_4089C7(&pActors[v23]) != 1 )
           {
             v3 = *(_DWORD *)(v7 + 532);
             if ( (v3 != v5 || *(_DWORD *)(v6 + 708) != v5) && v3 == *(_DWORD *)(v6 + 708) )
@@ -12662,7 +12665,7 @@ void __cdecl sub_47BACF()
 
   v31 = -1;
   v16 = pD3DRenderer->pTargetSurface;
-  v17 = pD3DRenderer->ptr_040034;
+  v17 = pD3DRenderer->pActiveZBuffer;
   v26 = pD3DRenderer->uTargetSurfacePitch;
   v27 = dword_F8BC24;
   v28 = data_F8BC28.qword_F8BC28;
@@ -43622,7 +43625,7 @@ LABEL_16:
   }
   while ( v0 < 6 );
   v3 = class03_GetMousePos(class03_global, (int)&v13);
-  v2 = *(_DWORD *)(pD3DRenderer->ptr_040034
+  v2 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
                  + 4 * (*(_DWORD *)v3 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(class03_global, (int)&v12) + 4)])) & 0xFFFF;
   if ( !v2 )
     return sub_44D406((int)&v6, dword_5C35F0, 0, 22, 0, pGlobalTXT_LocalizationStrings[10], 3);
@@ -44576,7 +44579,7 @@ void __cdecl sub_412B58()
     while ( v1 - 1 + v3 < v1 + 11 );
   }
   v10 = class03_GetMousePos(class03_global, (int)&v24);
-  v9 = *(_DWORD *)(pD3DRenderer->ptr_040034
+  v9 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
                  + 4 * (*(_DWORD *)v10 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(class03_global, (int)&v23) + 4)])) & 0xFFFF;
   if ( v9 )
   {
@@ -47449,7 +47452,7 @@ void __cdecl sub_416196()
   {
     v0 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter);
     v1 = class03_GetMousePos(class03_global, (int)&v54);
-    v58 = *(_DWORD *)(pD3DRenderer->ptr_040034
+    v58 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
                     + 4 * (*(_DWORD *)v1 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(class03_global, (int)&v52) + 4)])) & 0xFFFF;
     class03_GetMousePos(class03_global, (int)&v50, (int)&v48);
     if ( !v58 )
@@ -48058,10 +48061,10 @@ void __thiscall sub_416D62(int this)
         goto LABEL_42;
       }
       v9 = v38 + dword_5059A8[v39];
-      if ( !(*(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * v9) & 0xFFFF) )
+      if ( !(*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v9) & 0xFFFF) )
         goto LABEL_132;
       v8 = (char *)&dword_5E5130[1331 * *(_DWORD *)(dword_507BB8 + 28)]
-         + 36 * word_5E6502[(*(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * v9) & 0xFFFF) + 2662 * *(_DWORD *)(dword_507BB8 + 28)];
+         + 36 * word_5E6502[(*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v9) & 0xFFFF) + 2662 * *(_DWORD *)(dword_507BB8 + 28)];
     }
     else
     {
@@ -48187,7 +48190,7 @@ LABEL_42:
       if ( pD3DRenderer->dword_040088 )
         LOWORD(v5) = sub_4C1BF1(*(_DWORD *)(LODWORD(pGame) + 3660));
       else
-        v5 = *(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * (v38 + dword_5059A8[v39]));
+        v5 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (v38 + dword_5059A8[v39]));
       v6 = (unsigned __int16)v5;
       if ( (v6 & 7) != 2 )
       {
@@ -48416,7 +48419,7 @@ void __thiscall OnMouseLeftClick(void *_this)
           if ( pD3DRenderer->dword_040088 )
             v5 = sub_4C1BF1(*(_DWORD *)(LODWORD(pGame) + 3660));
           else
-            v5 = *(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * (v12 + dword_5059A8[v13]));
+            v5 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (v12 + dword_5059A8[v13]));
           v6 = (unsigned __int16)v5;
           if ( (v5 & 7) == 3 )
           {
@@ -50782,7 +50785,7 @@ char __fastcall sub_41A2D1(int a1, char a2)
   int v32; // [sp+30h] [bp-8h]@5
   int v33; // [sp+34h] [bp-4h]@5
 
-  v27 = pD3DRenderer->ptr_040034;
+  v27 = pD3DRenderer->pActiveZBuffer;
   v2 = (int)*(&ptr_A750C4 + a1);
   v3 = a2;
   v25 = (int)*(&ptr_A750C4 + a1);
@@ -52992,7 +52995,7 @@ char *__fastcall sub_41E360(int a1, int a2)
   v10 = CSpriteFrameTable_fn1(pSpriteFrameTable, *(_WORD *)(v3 + 2 * word_506632 + 188), dword_506638);
   v11 = 40 * *(_WORD *)(v10 + 24) + 7218180;
   v114 = pD3DRenderer->pTargetSurface;
-  v115 = pD3DRenderer->ptr_040034;
+  v115 = pD3DRenderer->pActiveZBuffer;
   v123 = pD3DRenderer->uTargetSurfacePitch;
   v12 = *(_DWORD *)(v145 + 4) + 52;
   v124 = *(_DWORD *)v145 + 13;
@@ -54511,7 +54514,7 @@ void __cdecl sub_42038D()
   if ( *(_DWORD *)(class03_GetMousePos(class03_global, (int)&v4) + 4) < 350 )
   {
     v1 = class03_GetMousePos(class03_global, (int)&v4);
-    v0 = *(_DWORD *)(pD3DRenderer->ptr_040034
+    v0 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
                    + 4 * (*(_DWORD *)v1 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(class03_global, (int)&v3) + 4)]));
     if ( v0 )
     {
@@ -54791,7 +54794,7 @@ void __fastcall sub_42092D(int a1)
 
   v2 = pD3DRenderer;
   v3 = a1;
-  v16 = pD3DRenderer->ptr_040034;
+  v16 = pD3DRenderer->pActiveZBuffer;
   CD3DRenderer_ClearZBuffer(pD3DRenderer, 0, 479);
   v1 = 5324 * v3;
   v4 = 4 * *(__int16 *)((char *)array_5E5150 + v1);
@@ -55065,7 +55068,7 @@ void __cdecl sub_420E01()
   else
   {
     v2 = class03_GetMousePos(class03_global, (int)&v8);
-    v1 = *(_DWORD *)(pD3DRenderer->ptr_040034
+    v1 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
                    + 4 * (*(_DWORD *)v2 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(class03_global, (int)&v7) + 4)])) & 0xFFFF;
     if ( v1 )
     {
@@ -55134,39 +55137,42 @@ void __cdecl sub_420EFF()
   int v40; // [sp-8h] [bp-E8h]@83
   int v41; // [sp-4h] [bp-E4h]@20
   char Str1; // [sp+Ch] [bp-D4h]@129
-  int v43; // [sp+D4h] [bp-Ch]@1
-  int v44; // [sp+D8h] [bp-8h]@1
+  int x; // [sp+D4h] [bp-Ch]@1
+  int y; // [sp+D8h] [bp-8h]@1
   int v45; // [sp+DCh] [bp-4h]@21
  int i;
  struct GUIButton *pControl;
 
   v0 = 0;
   class03_global->dword_000000 = 0;
-  class03_GetMousePosXY(class03_global, (int)&v43, (int)&v44);
-  if ( v43 < 0 || v43 > 639 || v44 < 0 || v44 > 479 )
+  class03_GetMousePosXY(class03_global, &x, &y);
+  if (x < 0 || x > 639 ||
+      y < 0 || y > 479)
     return;
+
   if ( !dword_4E28F8 )
   {
-    if ( v43 > 467 || v44 > 351 )
-      goto LABEL_94;
+    if (x > 467 || y > 351)  //if pointer isn't inside game viewport
+      goto _mouse_is_on_UI;
+
     if ( pD3DRenderer->dword_040088 )
     {
-      v18 = sub_4C1BF1(*(_DWORD *)(LODWORD(pGame) + 3660));
-      if ( v43 < *(int *)class28_global || v43 > dword_F8BC1C || v44 < dword_F8BC18 || v44 > dword_F8BC20 )
+      v18 = sub_4C1BF1(pGame->class05_obj);
+      if (x < *(int *)class28_global || x > dword_F8BC1C ||
+          y < dword_F8BC18 || y > dword_F8BC20)
         v18 = -1;
       if ( v18 == -1 )
         goto LABEL_61;
     }
     else
-    {
-      v18 = *(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * (v43 + dword_5059A8[v44]));
-    }
-    *(_DWORD *)class03_global = (unsigned __int16)v18;
+      v18 = pD3DRenderer->pActiveZBuffer[x + dword_5059A8[y]];
+
+    class03_global->dword_000000 = (unsigned __int16)v18;
     v19 = (signed int)(unsigned __int16)v18 >> 3;
     if ( (v18 & 7) == 2 )
     {
       v30 = 112 * v19;
-      if ( *(_BYTE *)(56 * array_665230[v19].uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 38) & 0x10 )
+      if (pObjectDescriptionList->pDescriptions[array_665230[v19].uObjectDescriptionID].byte_000026 & 0x10)
         goto LABEL_73;
       if ( v18 >= 33554432 || dword_AD470C )
       {
@@ -55176,8 +55182,8 @@ LABEL_93:
         goto LABEL_87;
       }
       v31 = sub_456499((char *)&unk_665254 + v30);
-      v29 = &ExistingFileName;
-      sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[470], v31);
+      v29 = ExistingFileName;
+      sprintfex(ExistingFileName, pGlobalTXT_LocalizationStrings[470], v31);
     }
     else
     {
@@ -55223,11 +55229,11 @@ LABEL_71:
             }
           }
 LABEL_73:
-          *(_DWORD *)class03_global = 0;
+          class03_global->dword_000000 = 0;
           goto LABEL_50;
         }
 LABEL_61:
-        *(_DWORD *)class03_global = 0;
+        class03_global->dword_000000 = 0;
         goto LABEL_123;
       }
       if ( v18 >= 335544320 )
@@ -55259,7 +55265,7 @@ LABEL_38:
     if ( dword_4E28F8 == 13 )
     {
       if ( dword_F8B19C != 2
-        || (v16 = *(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * (v43 + dword_5059A8[v44])), v16 == v0)
+        || (v16 = pD3DRenderer->pActiveZBuffer[x + dword_5059A8[y]], v16 == v0)
         || v16 == -65536 )
         goto LABEL_123;
       v15 = (void *)(36 * (v16 + 12 * *(_DWORD *)(dword_507BC0 + 28)) + 11355920);
@@ -55280,23 +55286,25 @@ LABEL_123:
       dword_506578 = *(_DWORD *)class03_global;
       return;
     }
-    if ( v44 < 350 )
+    if ( y < 350 )
     {
-      v14 = *(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * (v43 + dword_5059A8[v44]));
+      v14 = pD3DRenderer->pActiveZBuffer[x + dword_5059A8[y]];
       if ( v14 == v0 || v14 == -65536 || v14 >= 0x1388 )
         goto LABEL_123;
       v15 = *((char **)(&ptr_A750C4) + uMaybeSelectedCharacter) + 36 * v14 + 496;
       goto LABEL_49;
     }
-LABEL_94:
-    if ( v43 >= array_506F50[0].uFrameX && v43 <= array_506F50[0].uFrameZ && v44 >= array_506F50[0].uFrameY && v44 <= array_506F50[0].uFrameW)
+
+_mouse_is_on_UI:
+    if (x >= array_506F50[0].uFrameX && x <= array_506F50[0].uFrameZ &&
+        y >= array_506F50[0].uFrameY && y <= array_506F50[0].uFrameW)
     {
       for ( pControl = array_506F50[0].pControlsHead; pControl; pControl = pControl->pNext)
       {
         if (pControl->dword_000018 == 1 )
         {
-          if (v43 >= pControl->uX && v43 <= pControl->uZ &&
-              v44 >= pControl->uY && v44 <= pControl->uW)
+          if (x >= pControl->uX && x <= pControl->uZ &&
+              y >= pControl->uY && y <= pControl->uW)
           {
             v37 = pControl->dword_00001C;
             if ( v37 == v0 )
@@ -55315,8 +55323,8 @@ LABEL_94:
         {
           if (pControl->dword_000018 == 2 )
           {
-           v45 = v43 - pControl->uX;
-            v45 = v44 - pControl->uY;
+           v45 = x - pControl->uX;
+            v45 = y - pControl->uY;
             if (pControl->uWidth)
             {
              if (pControl->uHeight)
@@ -55342,8 +55350,8 @@ LABEL_94:
             }
           }
           else if (pControl->dword_000018 == 3 &&
-                   v43 >= pControl->uX && v43 <= pControl->uZ &&
-                   v44 >= pControl->uY && v44 <= pControl->uW)
+                   x >= pControl->uX && x <= pControl->uZ &&
+                   y >= pControl->uY && y <= pControl->uW)
             goto LABEL_19;
         }
       }
@@ -55354,7 +55362,7 @@ LABEL_94:
   while ( 1 )
   {
     v2 = &array_506F50[array_5075E0[v1] - 1];
-    if ( v43 >= *v2 && v43 <= v2[4] && v44 >= v2[1] && v44 <= v2[5] )
+    if ( x >= *v2 && x <= v2[4] && y >= v2[1] && y <= v2[5] )
     {
       for ( i = v2[19]; ; i = *(_DWORD *)(i + 52) )
       {
@@ -55362,10 +55370,8 @@ LABEL_94:
           break;
         if ( *(_DWORD *)(i + 24) == 1 )
         {
-          if ( v43 >= *(_DWORD *)i
-            && v43 <= *(_DWORD *)(i + 16)
-            && v44 >= *(_DWORD *)(i + 4)
-            && v44 <= *(_DWORD *)(i + 20) )
+          if (x >= *(_DWORD *)i && x <= *(_DWORD *)(i + 16) &&
+              y >= *(_DWORD *)(i + 4) && y <= *(_DWORD *)(i + 20))
           {
 LABEL_24:
             v11 = *(_DWORD *)(i + 28);
@@ -55394,8 +55400,8 @@ LABEL_131:
         {
           if ( *(_DWORD *)(i + 24) == 2 )
           {
-            v45 = v43 - *(_DWORD *)i;
-            v45 = v44 - *(_DWORD *)(i + 4);
+            v45 = x - *(_DWORD *)i;
+            v45 = y - *(_DWORD *)(i + 4);
             if ( (double)*(signed int *)(i + 8) != 0.0 )
             {
               if ( (double)*(signed int *)(i + 12) != 0.0 )
@@ -55408,11 +55414,9 @@ LABEL_131:
           }
           else
           {
-            if ( *(_DWORD *)(i + 24) == 3
-              && v43 >= *(_DWORD *)i
-              && v43 <= *(_DWORD *)(i + 16)
-              && v44 >= *(_DWORD *)(i + 4)
-              && v44 <= *(_DWORD *)(i + 20) )
+            if (*(_DWORD *)(i + 24) == 3 &&
+                x >= *(_DWORD *)i && x <= *(_DWORD *)(i + 16) &&
+                y >= *(_DWORD *)(i + 4) && y <= *(_DWORD *)(i + 20))
             {
 LABEL_19:
               v6 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter);
@@ -55951,7 +55955,7 @@ void __cdecl sub_42213C()
   else
   {
     v1 = class03_GetMousePos(class03_global, (int)&v36);
-    v0 = *(_DWORD *)(pD3DRenderer->ptr_040034
+    v0 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
                    + 4 * (*(_DWORD *)v1 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(class03_global, (int)&v35) + 4)]));
   }
   if ( (v0 & 7) == 2 )
@@ -60532,15 +60536,15 @@ int __thiscall sub_42F184(void *this, unsigned int a2, int a3, int a4)
   else
   {
     v31 = 0;
-    if ( pD3DRenderer->ptr_040034 )
+    if ( pD3DRenderer->pActiveZBuffer )
     {
       v30 = dword_576FF8;
       v24 = dword_577000;
       if ( dword_576FFC < dword_577004 )
       {
         v26 = dword_577004 - dword_576FFC;
-        v9 = pD3DRenderer->ptr_040034 + 4 * (dword_576FF8 + 640 * dword_576FFC);
-        v27 = pD3DRenderer->ptr_040034 + 4 * (dword_576FF8 + 640 * dword_576FFC);
+        v9 = pD3DRenderer->pActiveZBuffer + 4 * (dword_576FF8 + 640 * dword_576FFC);
+        v27 = pD3DRenderer->pActiveZBuffer + 4 * (dword_576FF8 + 640 * dword_576FFC);
         do
         {
           if ( v30 < v24 )
@@ -63450,7 +63454,7 @@ LABEL_317:
           {
             v212 = class03_GetMousePos(class03_global, (int)&v226);
             v55 = class03_GetMousePos(class03_global, (int)&v224);
-            v54 = *(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * (*(_DWORD *)v212 + dword_5059A8[*(_DWORD *)(v55 + 4)]));
+            v54 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (*(_DWORD *)v212 + dword_5059A8[*(_DWORD *)(v55 + 4)]));
           }
           v56 = (unsigned __int16)v54;
           v57 = v56 & 7;
@@ -63969,7 +63973,7 @@ LABEL_544:
           {
             v212 = class03_GetMousePos(class03_global, (int)&v222);
             v94 = class03_GetMousePos(class03_global, (int)&v217);
-            v93 = *(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * (*(_DWORD *)v212 + dword_5059A8[*(_DWORD *)(v94 + 4)]));
+            v93 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (*(_DWORD *)v212 + dword_5059A8[*(_DWORD *)(v94 + 4)]));
           }
           v96 = v93;
           v56 = (unsigned __int16)v93;
@@ -64720,7 +64724,7 @@ LABEL_772:
           {
             v212 = class03_GetMousePos(class03_global, (int)&v225);
             v132 = class03_GetMousePos(class03_global, (int)&v220);
-            v131 = *(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * (*(_DWORD *)v212 + dword_5059A8[*(_DWORD *)(v132 + 4)]));
+            v131 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (*(_DWORD *)v212 + dword_5059A8[*(_DWORD *)(v132 + 4)]));
           }
           v180 = 0;
           v166 = (unsigned __int16)v131;
@@ -74874,7 +74878,7 @@ __int16 __thiscall sub_441A4E(void *this)
 
   v25 = -1;
   v11 = pD3DRenderer->pTargetSurface;
-  v12 = pD3DRenderer->ptr_040034;
+  v12 = pD3DRenderer->pActiveZBuffer;
   v20 = pD3DRenderer->dword_000010;
   LOWORD(v1) = 0;
   v2 = this;
@@ -74981,7 +74985,7 @@ void __cdecl sub_441BD4()
   v5 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
   v10 = 640;
   v11 = 480;
-  v17 = pD3DRenderer->ptr_040034;
+  v17 = pD3DRenderer->pActiveZBuffer;
   sub_440BED((int)&v1);
   pParty_global->dword_007778 &= 0xFFFFFFFDu;
   sub_47A815();
@@ -95061,7 +95065,7 @@ LABEL_45:
     v34 = *(_DWORD *)(class03_global + 268);
   }
   v36 = v35 + dword_5059A8[v34];
-  if ( !(*(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * v36) & 0xFFFF) )
+  if ( !(*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v36) & 0xFFFF) )
   {
     v37 = *(_DWORD *)(v1 + 6480);
     if ( v37 )
@@ -95072,7 +95076,7 @@ LABEL_45:
     }
     return;
   }
-  v39 = (*(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * v36) & 0xFFFF) - 1;
+  v39 = (*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v36) & 0xFFFF) - 1;
   v40 = v1 + 36 * v39;
   v54 = v40;
   v38 = v40 + 532;
@@ -95555,8 +95559,8 @@ char __cdecl sub_46A14B()
   {
     if ( v2 >= v21 )
       goto LABEL_20;
-    v0 = pD3DRenderer->ptr_040034 + 4 * (v3 + v2);
-    v22 = pD3DRenderer->ptr_040034 + 4 * (v3 + v2);
+    v0 = pD3DRenderer->pActiveZBuffer + 4 * (v3 + v2);
+    v22 = pD3DRenderer->pActiveZBuffer + 4 * (v3 + v2);
     v5 = 4 * v23;
     v4 = ((unsigned int)(v21 - v2 - 1) >> 1) + 1;
     do
@@ -95845,7 +95849,7 @@ int __fastcall sub_46A6AC(int a1, int a2, signed int a3)
     v13 = dword_577000;
     if ( dword_576FFC < dword_577004 )
     {
-      v16 = pD3DRenderer->ptr_040034 + 4 * (dword_576FF8 + 640 * dword_576FFC);
+      v16 = pD3DRenderer->pActiveZBuffer + 4 * (dword_576FF8 + 640 * dword_576FFC);
       v14 = ((unsigned int)(dword_577004 - dword_576FFC - 1) >> 1) + 1;
       do
       {
@@ -96109,7 +96113,7 @@ int __cdecl sub_46A99B()
   while ( 2 )
   {
     v31 = 100;
-    v6 = pD3DRenderer->ptr_040034 + 4 * (v3 + v5 - v0 / 2);
+    v6 = pD3DRenderer->pActiveZBuffer + 4 * (v3 + v5 - v0 / 2);
     v7 = 4 * v2;
     while ( 1 )
     {
@@ -110483,7 +110487,7 @@ LABEL_12:
   v23 = *(_WORD *)(v3 + 10);
   v43 = pD3DRenderer->pTargetSurface + (*(_WORD *)(v3 + 8) + pD3DRenderer->uTargetSurfacePitch * *(_WORD *)(v3 + 10));
   HIWORD(v22) = HIWORD(v50);
-  v42 = pD3DRenderer->ptr_040034 + 4 * (*(_WORD *)(v3 + 8) + 640 * v23);
+  v42 = pD3DRenderer->pActiveZBuffer + 4 * (*(_WORD *)(v3 + 8) + 640 * v23);
   LOWORD(v22) = 0;
   v36 = v22 | *(_WORD *)(v4 + 80);
   v24 = *(_DWORD *)(v4 + 60);
@@ -110728,7 +110732,7 @@ LABEL_16:
       v51 = *(_WORD *)(v47 + 8);
       v85 = dword_80AA14 >> v23;
       v52 = v51 + pD3DRenderer->uTargetSurfacePitch * *(_WORD *)(v47 + 10);
-      v92 = pD3DRenderer->ptr_040034 + 4 * (v103 + v51 + 640 * *(_WORD *)(v47 + 10)) - 4;
+      v92 = pD3DRenderer->pActiveZBuffer + 4 * (v103 + v51 + 640 * *(_WORD *)(v47 + 10)) - 4;
       v93 = v95 + 2 * (v103 + v52) - 2;
       v98 += pStruct9_global->dword_000018 << v76;
       if ( v96 > 0 )
@@ -110861,7 +110865,7 @@ LABEL_16:
       v32 = pD3DRenderer->uTargetSurfacePitch * *(_WORD *)(v94 + 10);
       v104 = *(_WORD *)(v94 + 8);
       v93 = v95 + 2 * (v104 + v32);
-      v92 = pD3DRenderer->ptr_040034 + 4 * (v104 + 640 * v31);
+      v92 = pD3DRenderer->pActiveZBuffer + 4 * (v104 + 640 * v31);
       v98 = v4 - (pStruct9_global->dword_000018 << v76);
       if ( v96 > 0 )
       {
@@ -111075,7 +111079,7 @@ signed int __fastcall sub_4839BD(int a1, int a2)
   v9 = *(_WORD *)(a1 + 12);
   v76 = a2 + 2 * v8;
   v86 = v9;
-  v75 = pD3DRenderer->ptr_040034 + 4 * (v7 + 640 * v6);
+  v75 = pD3DRenderer->pActiveZBuffer + 4 * (v7 + 640 * v6);
   v2 = pStruct9_global->dword_000018 * (dword_F8BC3C - v7);
   v10 = pStruct9_global->dword_000018 * (dword_F8BC40 - v6);
   v11 = *(_DWORD *)(*(_DWORD *)(v5 + 56) + 20);
@@ -111465,7 +111469,7 @@ LABEL_12:
   v47 = v17;
   v30 = *(_WORD *)(v4 + 8);
   v54 = pD3DRenderer->pTargetSurface + (v30 + pD3DRenderer->uTargetSurfacePitch * v29);
-  v53 = pD3DRenderer->ptr_040034 + 4 * (v30 + 640 * v28);
+  v53 = pD3DRenderer->pActiveZBuffer + 4 * (v30 + 640 * v28);
   v31 = *(_DWORD *)(v5 + 60);
   v32 = ((signed int)*(_WORD *)(v31 + 24) >> v60) - 1;
   v33 = ((signed int)*(_WORD *)(v31 + 26) >> v60 << 16) - 65536;
@@ -111646,7 +111650,7 @@ LABEL_12:
   v36 = (unsigned __int64)(v56 * v34) >> 16;
   v49 = sub_485E1F((int)&v35, v4, v57, v5, dword_6BE0E0, 1u, 1);
   v26 = *(_WORD *)(v4 + 8);
-  v27 = pD3DRenderer->ptr_040034 + 4 * (v26 + 640 * *(_WORD *)(v4 + 10));
+  v27 = pD3DRenderer->pActiveZBuffer + 4 * (v26 + 640 * *(_WORD *)(v4 + 10));
   v52 = pD3DRenderer->pTargetSurface + (v26 + pD3DRenderer->uTargetSurfacePitch * *(_WORD *)(v4 + 10));
   v51 = v27;
   v28 = *(_DWORD *)(v5 + 60);
@@ -111775,7 +111779,7 @@ signed int __thiscall sub_4847EB(int this)
   v5 = *(_DWORD *)(this + 4);
   v89 = 0;
   v61 = this;
-  v85 = pD3DRenderer->ptr_040034 + 4 * (v2 + 640 * v3);
+  v85 = pD3DRenderer->pActiveZBuffer + 4 * (v2 + 640 * v3);
   v92 = v2;
   v1 = *(_WORD *)(this + 12);
   v86 = pD3DRenderer->pTargetSurface + (v2 + pD3DRenderer->uTargetSurfacePitch * v3);
@@ -112178,7 +112182,7 @@ signed int __fastcall sub_485044(int a1, int a2, int a3)
     v49 = (*(_WORD *)(v26 + 26) << 16) - 65536;
     v27 = *(_WORD *)(v3 + 8);
     v51 = pD3DRenderer->pTargetSurface + (v27 + pD3DRenderer->uTargetSurfacePitch * *(_WORD *)(v3 + 10));
-    v56 = pD3DRenderer->ptr_040034 + 4 * (v27 + 640 * *(_WORD *)(v3 + 10));
+    v56 = pD3DRenderer->pActiveZBuffer + 4 * (v27 + 640 * *(_WORD *)(v3 + 10));
     v17 = v22;
     v16 = v23;
     v15 = v51;
@@ -112298,7 +112302,7 @@ signed int __fastcall sub_485407(int a1)
   v59 = v8;
   v1 = pStruct9_global->dword_000018 * (dword_F8BC3C - v6);
   v9 = pStruct9_global->dword_000018 * (dword_F8BC40 - v5);
-  v54 = pD3DRenderer->ptr_040034 + 4 * (v6 + 640 * v5);
+  v54 = pD3DRenderer->pActiveZBuffer + 4 * (v6 + 640 * v5);
   v10 = *(_DWORD *)(v4 + 56);
   v60 = v1;
   X = v9;
@@ -112477,7 +112481,7 @@ signed int __fastcall sub_48585C(int a1, int a2, int a3)
   sub_452AF3(*(_WORD *)&v10[2 * *(_DWORD *)(*(_DWORD *)(v3 + 60) + 40)], v12, *(_WORD *)(v4 + 12));
   HIWORD(v11) = HIWORD(v7);
   LOWORD(v11) = 0;
-  sub_452B58(v11, (void *)(pD3DRenderer->ptr_040034 + 4 * (*(_WORD *)(v4 + 8) + 640 * *(_WORD *)(v4 + 10))), *(_WORD *)(v4 + 12));
+  sub_452B58(v11, (void *)(pD3DRenderer->pActiveZBuffer + 4 * (*(_WORD *)(v4 + 8) + 640 * *(_WORD *)(v4 + 10))), *(_WORD *)(v4 + 12));
   return 1;
 }
 
@@ -137847,9 +137851,9 @@ void __cdecl sub_4B1A2D()
         {
           v2 = class03_GetMousePos(class03_global, (int)&v18);
           v3 = *(_DWORD *)v2 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(class03_global, (int)&v17) + 4)];
-          v1 = *(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * v3) & 0xFFFF;
-          v4 = (*(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * v3) & 0xFFFF) == 0;
-          v19 = *(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * v3) & 0xFFFF;
+          v1 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v3) & 0xFFFF;
+          v4 = (*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v3) & 0xFFFF) == 0;
+          v19 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v3) & 0xFFFF;
           if ( !v4 )
             sub_4B1523((void *)(36 * (v1 + 12 * *(_DWORD *)(dword_507BC0 + 28)) + 11341664));
         }
@@ -137866,7 +137870,7 @@ void __cdecl sub_4B1A2D()
         return;
 LABEL_12:
       v6 = class03_GetMousePos(class03_global, (int)&v12);
-      v5 = *(_DWORD *)(pD3DRenderer->ptr_040034
+      v5 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
                      + 4 * (*(_DWORD *)v6 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(class03_global, (int)&v11) + 4)])) & 0xFFFF;
       v19 = v5;
       if ( !v5 )
@@ -141313,7 +141317,7 @@ LABEL_61:
             v52 = 18;
         }
         CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v52, v51, v50);
-        sub_40F92A(pD3DRenderer->ptr_040034 + 4 * (v52 + 640 * v51), dword_F8B168[v125], v125 + 1);
+        sub_40F92A(pD3DRenderer->pActiveZBuffer + 4 * (v52 + 640 * v51), dword_F8B168[v125], v125 + 1);
         v49 = v125;
       }
       ++v49;
@@ -141343,7 +141347,7 @@ LABEL_61:
             v56 = 18;
         }
         CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v56, v55, v54);
-        sub_40F92A(pD3DRenderer->ptr_040034 + 4 * (v56 + 640 * v55), dword_F8B180[v125], v125 + 7);
+        sub_40F92A(pD3DRenderer->pActiveZBuffer + 4 * (v56 + 640 * v55), dword_F8B180[v125], v125 + 7);
       }
       ++v125;
     }
@@ -141375,7 +141379,7 @@ LABEL_61:
             v60 = 18;
         }
         CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v60, v59, v58);
-        sub_40F92A(pD3DRenderer->ptr_040034 + 4 * (v60 + 640 * v59), dword_F8B168[v125], v125 + 1);
+        sub_40F92A(pD3DRenderer->pActiveZBuffer + 4 * (v60 + 640 * v59), dword_F8B168[v125], v125 + 1);
         v49 = v125;
       }
       ++v49;
@@ -141407,7 +141411,7 @@ LABEL_61:
             v64 = 18;
         }
         CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v64, v63, v62);
-        sub_40F92A(pD3DRenderer->ptr_040034 + 4 * (v64 + 640 * v63), dword_F8B180[v125], v125 + 7);
+        sub_40F92A(pD3DRenderer->pActiveZBuffer + 4 * (v64 + 640 * v63), dword_F8B180[v125], v125 + 7);
       }
       ++v125;
     }
@@ -141461,9 +141465,9 @@ LABEL_61:
                     //     - pParty_global->qword_00002C);
     v70 = class03_GetMousePos(class03_global, (int)&v103);
     result = *(_DWORD *)v70 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(class03_global, (int)&v101) + 4)];
-    if ( *(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * result) & 0xFFFF )
+    if ( *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF )
     {
-      v74 = (*(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * result) & 0xFFFF) - 1;
+      v74 = (*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF) - 1;
       v120 = v74;
       v71 = *(_DWORD *)(dword_507BC0 + 28);
       v72 = 9 * (v74 + 12 * v71);
@@ -141631,7 +141635,7 @@ signed int __cdecl sub_4B5D7C()
       if ( dword_AD0F84[9 * (v6 + 12 * *(_DWORD *)(dword_507BC0 + 28))] )
       {
         CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v63, 90, dword_F8B168[v6]);
-        sub_40F89C(v62 + pD3DRenderer->ptr_040034 + 230528, dword_F8B168[v6], v6 + 1);
+        sub_40F89C(v62 + pD3DRenderer->pActiveZBuffer + 230528, dword_F8B168[v6], v6 + 1);
         v1 = (void *)v58;
       }
       v63 += 70;
@@ -141647,7 +141651,7 @@ signed int __cdecl sub_4B5D7C()
       if ( dword_AD0F84[9 * (v7 + 12 * *(_DWORD *)(dword_507BC0 + 28))] )
       {
         CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v63, 250, dword_F8B168[v7]);
-        sub_40F89C(v62 + pD3DRenderer->ptr_040034 + 638448, dword_F8B168[v7], v7 + 1);
+        sub_40F89C(v62 + pD3DRenderer->pActiveZBuffer + 638448, dword_F8B168[v7], v7 + 1);
         v1 = (void *)v58;
       }
       v63 += 70;
@@ -141683,8 +141687,8 @@ signed int __cdecl sub_4B5D7C()
                       //     - pParty_global->qword_00002C);
       v13 = class03_GetMousePos(class03_global, (int)&v51);
       result = *(_DWORD *)v13 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(class03_global, (int)&v50) + 4)];
-      v12 = *(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * result) & 0xFFFF;
-      if ( *(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * result) & 0xFFFF )
+      v12 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF;
+      if ( *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF )
       {
         v15 = *(_DWORD *)(dword_507BC0 + 28);
         v16 = 36 * (v12 + 12 * v15) + 11341664;
@@ -144511,7 +144515,7 @@ LABEL_15:
         v49 += 30;
         v51 = 60 - ((signed int)*(_WORD *)(v50 + 24) >> 1);
         CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v51 + v112, v49, v50);
-        sub_40F92A(pD3DRenderer->ptr_040034 + 4 * (v51 + v112 + 640 * v49), dword_F8B168[v113], v113 + 1);
+        sub_40F92A(pD3DRenderer->pActiveZBuffer + 4 * (v51 + v112 + 640 * v49), dword_F8B168[v113], v113 + 1);
         v48 = v113;
       }
       v112 += 70;
@@ -144532,7 +144536,7 @@ LABEL_15:
         v53 = dword_F8B168[v113];
         v54 = 60 - ((signed int)*(_WORD *)(v53 + 24) >> 1);
         CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v54 + v112, word_F8B158[v113] + 30, v53);
-        sub_40F92A(pD3DRenderer->ptr_040034 + 4 * (v54 + v112 + 640 * v52), dword_F8B168[v113], v113 + 1);
+        sub_40F92A(pD3DRenderer->pActiveZBuffer + 4 * (v54 + v112 + 640 * v52), dword_F8B168[v113], v113 + 1);
       }
       ++v113;
       v112 += 70;
@@ -144583,9 +144587,9 @@ LABEL_15:
     {
       v59 = class03_GetMousePos(class03_global, (int)&v92);
       result = *(_DWORD *)v59 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(class03_global, (int)&v90) + 4)];
-      if ( *(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * result) & 0xFFFF )
+      if ( *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF )
       {
-        v63 = (*(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * result) & 0xFFFF) - 1;
+        v63 = (*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF) - 1;
         v109 = v63;
         v60 = *(_DWORD *)(dword_507BC0 + 28);
         v61 = 9 * (v63 + 12 * v60);
@@ -144966,7 +144970,7 @@ LABEL_134:
               v48 = 18;
           }
           CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v48, v47, v46);
-          sub_40F92A(pD3DRenderer->ptr_040034 + 4 * (v48 + 640 * v47), dword_F8B168[v117], v117 + 1);
+          sub_40F92A(pD3DRenderer->pActiveZBuffer + 4 * (v48 + 640 * v47), dword_F8B168[v117], v117 + 1);
         }
         ++v117;
       }
@@ -144996,7 +145000,7 @@ LABEL_134:
               v52 = 18;
           }
           CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v52, v51, v50);
-          sub_40F92A(pD3DRenderer->ptr_040034 + 4 * (v52 + 640 * v51), dword_F8B180[v117], v117 + 7);
+          sub_40F92A(pD3DRenderer->pActiveZBuffer + 4 * (v52 + 640 * v51), dword_F8B180[v117], v117 + 7);
         }
         ++v117;
       }
@@ -145028,7 +145032,7 @@ LABEL_134:
               v56 = 18;
           }
           CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v56, v55, v54);
-          sub_40F92A(pD3DRenderer->ptr_040034 + 4 * (v56 + 640 * v55), dword_F8B168[v117], v117 + 1);
+          sub_40F92A(pD3DRenderer->pActiveZBuffer + 4 * (v56 + 640 * v55), dword_F8B168[v117], v117 + 1);
         }
         ++v117;
       }
@@ -145058,7 +145062,7 @@ LABEL_134:
               v60 = 18;
           }
           CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v60, v59, v58);
-          sub_40F92A(pD3DRenderer->ptr_040034 + 4 * (v60 + 640 * v59), dword_F8B180[v117], v117 + 7);
+          sub_40F92A(pD3DRenderer->pActiveZBuffer + 4 * (v60 + 640 * v59), dword_F8B180[v117], v117 + 7);
         }
         ++v117;
       }
@@ -145112,9 +145116,9 @@ LABEL_134:
                     //     - pParty_global->qword_00002C);
     v66 = class03_GetMousePos(class03_global, (int)&v99);
     result = *(_DWORD *)v66 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(class03_global, (int)&v97) + 4)];
-    if ( !(*(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * result) & 0xFFFF) )
+    if ( !(*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF) )
       return result;
-    v70 = (*(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * result) & 0xFFFF) - 1;
+    v70 = (*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF) - 1;
     v112 = v70;
     v67 = *(_DWORD *)(dword_507BC0 + 28);
     v68 = 9 * (v70 + 12 * v67);
@@ -145433,7 +145437,7 @@ char __cdecl sub_4BA928()
       if ( v147 )
       {
         v90 = class03_GetMousePos(class03_global, (int)&v128);
-        v147 = *(_DWORD *)(pD3DRenderer->ptr_040034
+        v147 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
                          + 4 * (*(_DWORD *)v90 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(class03_global, (int)&v126) + 4)]));
         v89 = v147;
         if ( v147 )
@@ -145477,7 +145481,7 @@ char __cdecl sub_4BA928()
               v123 = v99 + 1;
               v101 = v150 + v151 + 640 * v102;
             }
-            LOBYTE(v1) = sub_40F89C(pD3DRenderer->ptr_040034 + 4 * v101, dword_F8B168[v99], v123);
+            LOBYTE(v1) = sub_40F89C(pD3DRenderer->pActiveZBuffer + 4 * v101, dword_F8B168[v99], v123);
           }
           v151 += 105;
           ++v99;
@@ -145673,7 +145677,7 @@ LABEL_64:
             v121 = v50 + 1;
             v52 = v151 + v150 + 640 * v53;
           }
-          sub_40F89C(pD3DRenderer->ptr_040034 + 4 * v52, dword_F8B168[v50], v121);
+          sub_40F89C(pD3DRenderer->pActiveZBuffer + 4 * v52, dword_F8B168[v50], v121);
         }
         v151 += 105;
         ++v50;
@@ -145708,7 +145712,7 @@ LABEL_64:
             v122 = v56 + 1;
             v58 = v150 + v151 + 640 * v59;
           }
-          sub_40F89C(pD3DRenderer->ptr_040034 + 4 * v58, dword_F8B168[v56], v122);
+          sub_40F89C(pD3DRenderer->pActiveZBuffer + 4 * v58, dword_F8B168[v56], v122);
           v10 = 0;
         }
         v151 += 105;
@@ -145759,8 +145763,8 @@ LABEL_64:
     {
       v69 = class03_GetMousePos(class03_global, (int)&v132);
       v1 = *(_DWORD *)v69 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(class03_global, (int)&v130) + 4)];
-      v68 = *(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * v1) & 0xFFFF;
-      if ( !(*(_DWORD *)(pD3DRenderer->ptr_040034 + 4 * v1) & 0xFFFF) )
+      v68 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v1) & 0xFFFF;
+      if ( !(*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v1) & 0xFFFF) )
         return v1;
       v147 = v68 - 1;
       v70 = *(_DWORD *)(dword_507BC0 + 28);
@@ -147943,7 +147947,7 @@ LABEL_73:
   if ( dword_F8B19C == 18 )
   {
     v18 = class03_GetMousePos(class03_global, (int)&v64);
-    v17 = *(_DWORD *)(pD3DRenderer->ptr_040034
+    v17 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
                     + 4 * (*(_DWORD *)v18 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(class03_global, (int)&v62) + 4)])) & 0xFFFF;
     if ( !v17 )
       return;
@@ -147982,7 +147986,7 @@ LABEL_70:
   {
 LABEL_49:
     v29 = class03_GetMousePos(class03_global, (int)&v60);
-    v28 = *(_DWORD *)(pD3DRenderer->ptr_040034
+    v28 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
                     + 4 * (*(_DWORD *)v29 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(class03_global, (int)&v58) + 4)])) & 0xFFFF;
     if ( !v28 )
       return;
