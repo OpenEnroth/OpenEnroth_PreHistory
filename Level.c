@@ -10,6 +10,8 @@
 
 #include "mm7DDrawRenderer.h"
 
+#include "codec.h"
+
 
 
 bool __cdecl TryLoadLevelFromFile(); // internal
@@ -55,7 +57,6 @@ extern unsigned char *dword_76D514;
 extern __int16 word_5D29F8[];
 extern struct struct0 array_6836D0[];
 extern struct Party *pParty_global;
-signed int __fastcall maybe_decompress_file(int a1, int *a2, int a3, int a4);
 extern struct class56 *pLoadingUI;
 bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a4, int a5)
 {
@@ -564,8 +565,8 @@ LABEL_33:
   {
     wtf = malloc(v44);
     locked_fread(wtf, v44, 1, hODMFile);
-    v45 = maybe_decompress_file(v42, (int *)&ElementSize, wtf, v44);
-    call_delete(v45, wtf);
+    MemUnzip(v42, (int *)&ElementSize, wtf, v44);
+    call_delete(0, wtf);
   }
   else
   {
@@ -846,8 +847,8 @@ LABEL_75:
       {
         Src = malloc(wtf);
         locked_fread(Src, wtf, 1u, hODMFile);
-        v80 = maybe_decompress_file(v79, (int *)&v166, (int)Src, wtf);
-        call_delete(v80, (unsigned int)Src);
+        MemUnzip(v79, (int *)&v166, (int)Src, wtf);
+        call_delete(0, (unsigned int)Src);
       }
     }
     else
@@ -920,8 +921,8 @@ LABEL_112:
       {
         Src = malloc(wtf);
         locked_fread(Src, wtf, 1, hODMFile);
-        v90 = maybe_decompress_file(v89, (int *)&v166, (int)Src, wtf);
-        call_delete(v90, (unsigned int)Src);
+        MemUnzip(v89, (int *)&v166, (int)Src, wtf);
+        call_delete(0, (unsigned int)Src);
       }
     }
     else

@@ -524,3 +524,130 @@ __int16 __thiscall sub_45959A(struct Actor *_this, char a2)
   }
   return v6;
 }
+
+
+//----- (0040104C) --------------------------------------------------------
+extern struct class48 *pClass48;
+signed int Actor_sub_40104C(struct Actor *pActor1, struct Actor *pActor2)
+{
+  int v2; // esi@1
+  int v3; // ebp@5
+  int v4; // edi@11
+  int v5; // edx@15
+  int v6; // eax@16
+  int v7; // ebp@19
+  int v8; // eax@22
+  int v9; // edx@25
+  int v10; // edx@33
+
+  v2 = pActor2;
+  if (pActor1)
+  {
+    if ( *(_DWORD *)((char *)pActor1 + 360) >= 0 && (*(_DWORD *)((char *)pActor1 + 360) > 0 || *(_DWORD *)((char *)pActor1 + 356) > 0))
+      return 4;
+    v3 = pActor1->word_000060;
+  }
+  else
+    v3 = 0;
+ 
+  if (pActor2)
+  {
+    if ( *(_DWORD *)((char *)pActor2 + 360) >= 0 && (*(_DWORD *)((char *)pActor2 + 360) > 0 || *(_DWORD *)((char *)pActor2 + 356) > 0))
+      return 4;
+    v4 = pActor2->word_000060;
+  }
+  else
+    v4 = 0;
+
+  if (pActor2)
+  {
+    if (pActor1)
+    {
+      v5 = *(_DWORD *)((char *)pActor2 + 708);
+      if ( v5 )
+      {
+        v6 = *(_DWORD *)((char *)pActor1 + 708);
+        if ( v6 )
+        {
+          if ( v5 == v6 )
+            return 0;
+        }
+      }
+    }
+  }
+  if ( v3 )
+    v7 = (v3 - 1) / 3 + 1;
+  else
+    v7 = 0;
+  if ( v4 )
+    v8 = (v4 - 1) / 3 + 1;
+  else
+    v8 = 0;
+  if (pActor1)
+  {
+    v9 = *(_DWORD *)((char *)pActor1 + 712);
+    if ( v9 <= 0 )
+    {
+      if ( v9 != 9999 )
+        goto LABEL_30;
+    }
+    else
+    {
+      if ( v9 != 9999 )
+      {
+        v7 = *(_DWORD *)((char *)pActor1 + 712);
+        goto LABEL_30;
+      }
+    }
+    v7 = 0;
+LABEL_30:
+    if ( *(_QWORD *)((char *)pActor1 + 404) > 0i64 )
+      v7 = 0;
+  }
+  if ( !v2 )
+    goto LABEL_40;
+  v10 = *(_DWORD *)((char *)pActor2 + 712);
+  if ( v10 <= 0 )
+  {
+    if ( v10 != 9999 )
+      goto LABEL_38;
+  }
+  else
+  {
+    if ( v10 != 9999 )
+    {
+      v8 = *(_DWORD *)(v2 + 712);
+      goto LABEL_38;
+    }
+  }
+  v8 = 0;
+LABEL_38:
+  if ( *(_QWORD *)(v2 + 404) > 0i64 )
+    v8 = 0;
+LABEL_40:
+  if (pActor1 && *(_QWORD *)((char *)pActor1 + 228) > 0i64 && !v8 || v2 && *(_QWORD *)(v2 + 228) > 0i64 && !v7 )
+    return 0;
+  if (pActor1 && *(_QWORD *)((char *)pActor1 + 404) <= 0i64 && *(_DWORD *)((char *)pActor1 + 36) & 0x80000 && !v8 )
+    return 4;
+  if ( v2 && pActor1 && *(_QWORD *)((char *)pActor1 + 404) <= 0i64 && *(_DWORD *)(v2 + 36) & 0x80000 )
+  {
+    if ( v7 )
+      goto LABEL_55;
+    return 4;
+  }
+  if ( !v7 )
+  {
+    if ( (!v2 || *(_QWORD *)(v2 + 404) > 0i64 || !(*(_DWORD *)(v2 + 36) & 0x80000)) && !pClass48->byte_000000[89 * v8] )
+    {
+LABEL_56:
+      if ( v8 < 89 )
+        return &pClass48->byte_000000[89 * v7] + v8;
+      return 0;
+    }
+    return 4;
+  }
+LABEL_55:
+  if ( v7 < 89 )
+    goto LABEL_56;
+  return 0;
+}

@@ -235,6 +235,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\codec.c"
+				>
+			</File>
+			<File
+				RelativePath=".\codec.h"
+				>
+			</File>
+			<File
 				RelativePath=".\data.c"
 				>
 			</File>

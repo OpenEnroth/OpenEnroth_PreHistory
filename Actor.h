@@ -60,6 +60,8 @@ struct Actor
 bool sub_40894B(struct Actor *_this);
 //int __thiscall sub_45976D(int this);
 int sub_45976D(struct Actor *_this);
+//signed int __fastcall sub_40104C(int a1, int a2);
+signed int Actor_sub_40104C(struct Actor *pActor1, struct Actor *pActor2);
 
 
 #pragma pack(pop)

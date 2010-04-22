@@ -33,8 +33,7 @@ HRESULT __stdcall DirectDrawCreate(GUID *lpGUID, IDirectDraw **lplpDD, IUnknown 
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-
-typedef struct IDirectDraw *LPDIRECTDRAW;
+#include "codec.h"
 
 
 #define UNDEF
@@ -1656,7 +1655,7 @@ struct CSpellStats *pSpellStats = 0; // struct @ MM7.exe::005CC030
 struct CMonsterStats *pMonsterStats = 0; //struct @ MM7.exe::005CCE40
 int dword_5CCE40[array_size_unknown]; // weak
 /*extern*/ char byte_5CCE48[array_size_unknown]; // weak
-/*extern*/ char byte_5CCE51[array_size_unknown]; // weak
+/*extern*/ char byte_5CCE51[1024*88*array_size_unknown]; // weak
 /*extern*/ __int16 word_5CCE74[array_size_unknown]; // weak
 /*extern*/ char byte_5CCE76[array_size_unknown]; // weak
 /*extern*/ int dword_5CCE88[array_size_unknown]; // weak
@@ -3209,12 +3208,6 @@ int __fastcall IsMM7CD(char cDriveLetter);
 char __fastcall CheckForCD(HWND hwnd, int a2);
 struct CGame *__cdecl GameInitialize();
 void erroneous_printf(const char *Format, ...);
-signed int __fastcall maybe_decompress_file(int a1, int *a2, int a3, int a4);
-struct class27 *__fastcall AllocateClass27(int a1, int a2, unsigned int *a3, unsigned int *a4, struct class19 *pParent);
-signed int __fastcall sub_4C7C60(int a1, unsigned int *a2, int *a3, unsigned int *class21_pArray_8x1440, struct class19 *pParent);
-signed int __fastcall sub_4C7D10(int *pSomeIndices, unsigned int uNumIndices, unsigned int a3, int a4, int a5, unsigned int **a6, unsigned int **a7, int a8, int a9, unsigned int a10);
-signed int __fastcall sub_4C81E0(unsigned int a1, int a2, int *pSomeIndices, unsigned int *a4, unsigned int *a5, int a6, int a7, int a8, int a9);
-signed int __fastcall LOD_DoDecompression(int a1, int a2, int a3, int a4, struct class21 *pClass21, struct class19 *pClass19);
 int LoadFileToBuffer(const char *pSourceFile, unsigned char *pOutBuffer, unsigned int uBufferSize);
 int __cdecl Initialize_GlobalEVT();
 int __cdecl MaybeDoAutosave();
@@ -3247,8 +3240,7 @@ void AllocateDrawBuffers(void *this);
 
 int __stdcall sub_401000(int a1, int a2, int a3, int (__thiscall *a4)(_DWORD));
 int __stdcall loc_401008(int, int, int, int); // weak
-signed int __fastcall sub_40104C(int a1, int a2);
-__int16 __fastcall sub_401221(int a1, int a2, int a3);
+__int16 __fastcall sub_401221(unsigned int uActorID, int a2, int a3);
 int __cdecl sub_4014E6();
 int __cdecl sub_4016FA();
 void __cdecl sub_401A91();
@@ -4629,7 +4621,6 @@ signed int __thiscall sub_4C3D70(int this);
 unsigned int __thiscall sub_4C3F60(int this);
 unsigned int __fastcall sub_4C4080(int a1, void *a2, unsigned int a3);
 int __fastcall sub_4C4420(int a1, unsigned int a2);
-int __fastcall sub_4C57C0(unsigned int a1, unsigned char *pData, unsigned int uSize);
 int __thiscall sub_4C5920(int this);
 int __thiscall sub_4C59A0(int this);
 int __fastcall sub_4C5A10(int a1, int a2, int a3, int a4);
@@ -4649,7 +4640,6 @@ unsigned int __fastcall sub_4C7290(unsigned int a1, int a2);
 int __thiscall sub_4C72B0(int this);
 int __thiscall sub_4C7340(int this);
 int __fastcall sub_4C73C0(int a1, int a2, int a3, int a4);
-int __fastcall sub_4C8340(int a1, int a2, int a3, int a4, int a5);
 int __thiscall sub_4C9A60(void *this);
 void __cdecl sub_4C9BB9(LPCRITICAL_SECTION lpCriticalSection);
 void __cdecl sub_4C9BC4(LPCRITICAL_SECTION lpCriticalSection);
@@ -5960,122 +5950,6 @@ void Level_LoadEvtAndStr(const char *pLevelName)
 int __fastcall sub_4C7C50(int a1, int a2)
 {
   return (*(int (__fastcall **)(_DWORD, int))(a2 + 36))(*(_DWORD *)(a2 + 40), a1);
-}
-
-//----- (004C57C0) --------------------------------------------------------
-int __fastcall sub_4C57C0(unsigned int a1, unsigned char *pData, unsigned int uSize)
-{
-  //HASH CALCULATOR OR SMTHN
-
-
-  unsigned int v3; // ecx@1
-  unsigned char *v4; // edi@1
-  unsigned int v5; // esi@1
-  int result; // eax@2
-  unsigned int i; // ebx@3
-  unsigned int v8; // eax@4
-  unsigned int v9; // ebp@7
-  int v10; // edx@8
-  int v11; // esi@8
-  int v12; // ecx@8
-  int v13; // esi@8
-  int v14; // ecx@8
-  int v15; // esi@8
-  int v16; // ecx@8
-  int v17; // esi@8
-  int v18; // ecx@8
-  int v19; // esi@8
-  int v20; // ecx@8
-  int v21; // esi@8
-  int v22; // ecx@8
-  int v23; // esi@8
-  int v24; // ecx@8
-  int v25; // esi@8
-  int v26; // ecx@8
-  int v27; // esi@8
-  int v28; // ecx@8
-  int v29; // esi@8
-  int v30; // ecx@8
-  int v31; // esi@8
-  int v32; // ecx@8
-  int v33; // esi@8
-  int v34; // ecx@8
-  int v35; // esi@8
-  int v36; // ecx@8
-  int v37; // esi@8
-  int v38; // ecx@8
-  int v39; // esi@8
-  int v40; // ecx@8
-
-  v4 = pData;
-  v5 = a1 & 0xFFFF;
-  v3 = a1 >> 16;
-  if (pData)
-  {
-    for ( i = uSize; i; v3 %= 0xFFF1u )
-    {
-      v8 = i;
-      if ( i >= 0x15B0 )
-        v8 = 0x15B0;
-      i -= v8;
-      if ( (signed int)v8 >= 16 )
-      {
-        v9 = v8 >> 4;
-        v8 += 16 * (-(signed)(v9));
-        do
-        {
-          v10 = v4[0];
-          v11 = v10 + v5;
-          v12 = v11 + v3;
-          v13 = v4[1] + v11;
-          v14 = v13 + v12;
-          v15 = v4[2] + v13;
-          v16 = v15 + v14;
-          v17 = v4[3] + v15;
-          v18 = v17 + v16;
-          v19 = v4[4] + v17;
-          v20 = v19 + v18;
-          v21 = v4[5] + v19;
-          v22 = v21 + v20;
-          v23 = v4[6] + v21;
-          v24 = v23 + v22;
-          v25 = v4[7] + v23;
-          v26 = v25 + v24;
-          v27 = v4[8] + v25;
-          v28 = v27 + v26;
-          v29 = v4[9] + v27;
-          v30 = v29 + v28;
-          v31 = v4[10] + v29;
-          v32 = v31 + v30;
-          v33 = v4[11] + v31;
-          v34 = v33 + v32;
-          v35 = v4[12] + v33;
-          v36 = v35 + v34;
-          v37 = v4[13] + v35;
-          v38 = v37 + v36;
-          v39 = v4[14] + v37;
-          v40 = v39 + v38;
-          v5 = v4[15] + v39;
-          v3 = v5 + v40;
-          --v9;
-          v4 += 16;
-        }
-        while ( v9 );
-      }
-      for ( ; v8; --v8 )
-      {
-        v5 += *v4++;
-        v3 += v5;
-      }
-      v5 %= 0xFFF1u;
-    }
-    result = v5 | (v3 << 16);
-  }
-  else
-  {
-    result = 1;
-  }
-  return result;
 }
 
 //----- (0047F5C6) --------------------------------------------------------
@@ -8521,133 +8395,6 @@ LABEL_20:
   return DefWindowProcA(hWnd, Msg, wParam, v5);
 }
 
-//----- (0040104C) --------------------------------------------------------
-signed int __fastcall sub_40104C(int a1, int a2)
-{
-  int v2; // esi@1
-  int v3; // ebp@5
-  int v4; // edi@11
-  int v5; // edx@15
-  int v6; // eax@16
-  int v7; // ebp@19
-  int v8; // eax@22
-  int v9; // edx@25
-  int v10; // edx@33
-
-  v2 = a2;
-  if ( a1 )
-  {
-    if ( *(_DWORD *)(a1 + 360) >= 0 && (*(_DWORD *)(a1 + 360) > 0 || *(_DWORD *)(a1 + 356) > 0u) )
-      return 4;
-    v3 = *(_WORD *)(a1 + 96);
-  }
-  else
-  {
-    v3 = 0;
-  }
-  if ( a2 )
-  {
-    if ( *(_DWORD *)(a2 + 360) >= 0 && (*(_DWORD *)(a2 + 360) > 0 || *(_DWORD *)(a2 + 356) > 0u) )
-      return 4;
-    v4 = *(_WORD *)(a2 + 96);
-  }
-  else
-  {
-    v4 = 0;
-  }
-  if ( a2 )
-  {
-    if ( a1 )
-    {
-      v5 = *(_DWORD *)(a2 + 708);
-      if ( v5 )
-      {
-        v6 = *(_DWORD *)(a1 + 708);
-        if ( v6 )
-        {
-          if ( v5 == v6 )
-            return 0;
-        }
-      }
-    }
-  }
-  if ( v3 )
-    v7 = (v3 - 1) / 3 + 1;
-  else
-    v7 = 0;
-  if ( v4 )
-    v8 = (v4 - 1) / 3 + 1;
-  else
-    v8 = 0;
-  if ( a1 )
-  {
-    v9 = *(_DWORD *)(a1 + 712);
-    if ( v9 <= 0 )
-    {
-      if ( v9 != 9999 )
-        goto LABEL_30;
-    }
-    else
-    {
-      if ( v9 != 9999 )
-      {
-        v7 = *(_DWORD *)(a1 + 712);
-        goto LABEL_30;
-      }
-    }
-    v7 = 0;
-LABEL_30:
-    if ( *(_QWORD *)(a1 + 404) > 0i64 )
-      v7 = 0;
-  }
-  if ( !v2 )
-    goto LABEL_40;
-  v10 = *(_DWORD *)(v2 + 712);
-  if ( v10 <= 0 )
-  {
-    if ( v10 != 9999 )
-      goto LABEL_38;
-  }
-  else
-  {
-    if ( v10 != 9999 )
-    {
-      v8 = *(_DWORD *)(v2 + 712);
-      goto LABEL_38;
-    }
-  }
-  v8 = 0;
-LABEL_38:
-  if ( *(_QWORD *)(v2 + 404) > 0i64 )
-    v8 = 0;
-LABEL_40:
-  if ( a1 && *(_QWORD *)(a1 + 228) > 0i64 && !v8 || v2 && *(_QWORD *)(v2 + 228) > 0i64 && !v7 )
-    return 0;
-  if ( a1 && *(_QWORD *)(a1 + 404) <= 0i64 && *(_DWORD *)(a1 + 36) & 0x80000 && !v8 )
-    return 4;
-  if ( v2 && a1 && *(_QWORD *)(a1 + 404) <= 0i64 && *(_DWORD *)(v2 + 36) & 0x80000 )
-  {
-    if ( v7 )
-      goto LABEL_55;
-    return 4;
-  }
-  if ( !v7 )
-  {
-    if ( (!v2 || *(_QWORD *)(v2 + 404) > 0i64 || !(*(_DWORD *)(v2 + 36) & 0x80000)) && !pClass48->byte_000000[89 * v8] )
-    {
-LABEL_56:
-      if ( v8 < 89 )
-        return &pClass48->byte_000000[89 * v7] + v8;
-      return 0;
-    }
-    return 4;
-  }
-LABEL_55:
-  if ( v7 < 89 )
-    goto LABEL_56;
-  return 0;
-}
-
 //----- (0048C93C) --------------------------------------------------------
 int sub_48C93C(struct Player *_this)
 {
@@ -8677,56 +8424,8 @@ LABEL_5:
   return v6 * v4 * *(_WORD *)(v3 + 188) / 100 / 100 + sub_48F73C(v3, 0) + v7 + *(_WORD *)(v3 + 190);
 }
 
-//----- (004C2FC0) --------------------------------------------------------
-signed int __fastcall maybe_decompress_file(void *pDest, int *pDecompressedSize, void *pSrc, int uCompressedSize)
-{
-  signed int result; // eax@1
-  int *v5; // esi@1
-  int v6; // eax@1
-  signed int v7; // edi@2
-
-  struct class19 class19_obj;
-
-  
-  v5 = pDecompressedSize;
-  v6 = *pDecompressedSize;
-
-  class19_obj.pCompressedData = pSrc;
-  //v8 = a3;
-  class19_obj.uCompressedDataSize = uCompressedSize;
-  //v9 = a4;
-  class19_obj.pDecompressedData = pDest;
-  //v10 = a1;
-  class19_obj.uDecompressedDataSize = *pDecompressedSize;
-  //v11 = *a2;
-  class19_obj.pFunction1 = 0;
-  //v13 = 0;
-  class19_obj.pFunction2 = 0;
-  //v14 = 0;
-
-
-  result = class19_fn0(&class19_obj, 15, "1.1.3", 56);
-  if ( !result )
-  {
-    v7 = class19_fn3(&class19_obj, 4);
-    if ( v7 == 1 )
-    {
-     *v5 = class19_obj.dword_000014;
-     result = class19_fn1(&class19_obj);
-    }
-    else
-    {
-     class19_fn1(&class19_obj);
-     result = -5;
-     if (v7)
-       result = v7;
-    }
-  }
-  return result;
-}
-
 //----- (00401221) --------------------------------------------------------
-__int16 __fastcall sub_401221(int a1, int a2, int a3)
+__int16 __fastcall sub_401221(unsigned int uActorID, int a2, int a3)
 {
   int v3; // eax@1
   int v4; // ecx@1
@@ -8750,8 +8449,8 @@ __int16 __fastcall sub_401221(int a1, int a2, int a3)
   int v25; // [sp+2Ch] [bp-4h]@45
 
   v22 = -1;
-  v19 = a1;
-  v6 = &pActors[a1];
+  v19 = uActorID;
+  v6 = &pActors[uActorID];
   v5 = 0;
   v4 = 0;
   v3 = *(_DWORD *)(v6 + 816);
@@ -8788,11 +8487,11 @@ __int16 __fastcall sub_401221(int a1, int a2, int a3)
             v3 = 4;
 LABEL_14:
             if ( *(_BYTE *)(v6 + 61) )
-              v3 = (unsigned __int8)byte_5CCE51[88 * *(_WORD *)(v6 + 96)];
+              v3 = (unsigned __int8)byte_5CCE51[88 * pActors[uActorID].word_000060];
             v9 = dword_4DF380[v3];
-            v20 = abs(*(_WORD *)(v6 + 142) - *(_WORD *)(v7 - 34));
-            v24 = abs(*(_WORD *)(v6 + 144) - *(_WORD *)(v7 - 32));
-            v3 = abs(*(_WORD *)(v6 + 146) - *(_WORD *)(v7 - 30));
+            v20 = abs(pActors[uActorID].word_00008E - pActors[v23].word_00008E);
+            v24 = abs(pActors[uActorID].word_000090 - pActors[v23].word_000090);
+            v3 = abs(pActors[uActorID].word_000092 - pActors[v23].word_000092);
             v16 = v3;
             if ( v20 <= v9 )
             {
@@ -8821,7 +8520,7 @@ LABEL_14:
           *(_DWORD *)(v6 + 816) = v5;
         }
       }
-      v3 = sub_40104C(v6, v7 - 176);
+      v3 = Actor_sub_40104C(&pActors[uActorID], &pActors[v23]);
       if ( v3 != v5 )
         goto LABEL_14;
 LABEL_23:
@@ -8851,7 +8550,7 @@ LABEL_23:
   }
   if ( a3 != v5 )
   {
-    v3 = sub_40104C(v6, 0);
+    v3 = Actor_sub_40104C(v6, 0);
     if ( *(_BYTE *)(v6 + 38) & 8 )
     {
       if ( *(_DWORD *)(v6 + 408) <= v5 )
@@ -9591,73 +9290,6 @@ int Party_CreateDefault(struct Party *_this)
   return 0;
 }
 
-//----- (004C81E0) --------------------------------------------------------
-signed int __fastcall sub_4C81E0(unsigned int uNumIndices, int a2, int *pSomeIndices, unsigned int *a4, unsigned int *a5, int **a6, int **a7, unsigned *pResultBuffer, struct class19 *pParent)
-{
-  unsigned int *p288x4Buffer; // eax@1
-  signed int v14; // eax@3
-  int v17; // ecx@10
-  int v19; // [sp+10h] [bp-8h]@1
-  unsigned int v20; // [sp+14h] [bp-4h]@1
-
-  v20 = a2;
-  v19 = 0;
-  p288x4Buffer = (pParent->pFunction1)(pParent->dword_000028, 288, 4);
-  if (!p288x4Buffer)
-    return -4;
-  //v14 = sub_4C7D10(pSomeIndices, uNumIndices, 0x101u, 0x4D956C, 0x4D95E8, a6, a4, a8, (int)&v19, p288x4Buffer);
-  v14 = sub_4C7D10(pSomeIndices, uNumIndices, 0x101u, &byte_4D8410[0x115C], &byte_4D8410[0x11D8], a6, a4, pResultBuffer, (int)&v19, p288x4Buffer);
-  if ( v14 )
-  {
-    if ( v14 == -3 )
-    {
-     pParent->pStatus = "oversubscribed literal/length tree";
-     (pParent->pFunction2)(pParent->dword_000028, p288x4Buffer);
-      return -3;
-    }
-    if ( v14 == -4 )
-      goto LABEL_20;
-LABEL_18:
-    pParent->pStatus = "incomplete literal/length tree";
-    goto LABEL_19;
-  }
-  if ( !*a4 )
-    goto LABEL_18;
-  //v14 = sub_4C7D10(pSomeIndices + uNumIndices, v20, v14, 0x4D9664, 0x4D96DC, a7, a5, pResultBuffer, (int)&v19, p288x4Buffer);
-  v14 = sub_4C7D10(pSomeIndices + uNumIndices, v20, v14, &byte_4D8410[0x1254], &byte_4D8410[0x12CC], a7, a5, pResultBuffer, (int)&v19, p288x4Buffer);
-  if ( !v14 )
-  {
-    if ( *a5 || uNumIndices <= 0x101 )
-    {
-     (pParent->pFunction2)(pParent->dword_000028, p288x4Buffer);
-      return 0;
-    }
-    goto LABEL_14;
-  }
-  if ( v14 == -3 )
-  {
-   pParent->pStatus = "oversubscribed distance tree";
-    (pParent->pFunction2)(pParent->dword_000028, p288x4Buffer);
-    return -3;
-  }
-  if ( v14 == -5 )
-  {
-   pParent->pStatus = "incomplete distance tree";
-LABEL_19:
-    v14 = -3;
-    goto LABEL_20;
-  }
-  if ( v14 != -4 )
-  {
-LABEL_14:
-    pParent->pStatus = "empty distance tree with lengths";
-    goto LABEL_19;
-  }
-LABEL_20:
-    (pParent->pFunction2)(pParent->dword_000028, p288x4Buffer);
-  return v14;
-}
-
 //----- (004014E6) --------------------------------------------------------
 int __cdecl sub_4014E6()
 {
@@ -9735,7 +9367,7 @@ int __cdecl sub_4014E6()
       {
         v11 = *(_DWORD *)v0 & 0xFEFFFFFF;
         *(_DWORD *)v0 = v11;
-        if ( v11 & 0x80000 || sub_40104C((int)((char *)v0 - 36), 0) )
+        if ( v11 & 0x80000 || Actor_sub_40104C((int)((char *)v0 - 36), 0) )
         {
           v12 = (pParty_global->dword_007778 & 0x10) == 0;
           *(_DWORD *)v0 = v11 | 0x1000000;
@@ -9905,7 +9537,7 @@ int __cdecl sub_4016FA()
       {
         v11 = *(_DWORD *)v0 & 0xFEFFFFFF;
         *(_DWORD *)v0 = v11;
-        if ( v11 & 0x80000 || sub_40104C((int)((char *)v0 - 36), 0) )
+        if ( v11 & 0x80000 || Actor_sub_40104C((int)((char *)v0 - 36), 0) )
         {
           v12 = (pParty_global->dword_007778 & 0x10) == 0;
           *(_DWORD *)v0 = v11 | 0x1000000;
@@ -26820,360 +26452,6 @@ LABEL_34:
   }
 }
 
-//----- (004C7D10) --------------------------------------------------------
-signed int __fastcall sub_4C7D10(int *pSomeIndices, unsigned int uNumIndices, unsigned int a3, int a4, int a5, unsigned int *pOutSomething, unsigned int *a7, int *a8, int *a9, unsigned int *pOutBuffer)
-{
-  int v10; // edx@1
-  signed int result; // eax@5
-  int *v15; // eax@6
-  signed int v16; // ecx@6
-  unsigned int v17; // ebp@6
-  int v18; // eax@9
-  int *v19; // edi@11
-  signed int v20; // esi@11
-  signed int v21; // edi@16
-  int *v22; // ebx@17
-  int v23; // edi@18
-  int v24; // ecx@20
-  int v25; // edi@20
-  int v26; // ecx@22
-  int v27; // esi@22
-  int v28; // edi@23
-  int v29; // ebx@24
-  unsigned int v30; // edi@25
-  int *v31; // esi@25
-  int v32; // ecx@26
-  int v33; // esi@27
-  int v34; // ebx@29
-  unsigned int v35; // edi@29
-  int v36; // ecx@29
-  int v37; // esi@30
-  int v39; // edx@31
-  int v40; // ecx@34
-  int v41; // edx@37
-  signed int v42; // eax@39
-  int v43; // ecx@39
-  int v44; // eax@40
-  int *v45; // ebp@40
-  int v46; // eax@42
-  unsigned int v47; // edi@42
-  int v49; // edx@44
-  int v50; // eax@45
-  int v51; // ST34_4@46
-  unsigned int v52; // eax@46
-  int v53; // ecx@46
-  int v54; // esi@53
-  char v55; // dl@53
-  unsigned int v56; // eax@55
-  signed int v57; // edx@55
-  int v58; // ecx@56
-  unsigned int i; // eax@58
-  int *v60; // eax@60
-  signed int v61; // edx@60
-  int v62; // edx@63
-  unsigned int v63; // [sp+10h] [bp-104h]@6
-  signed int v64; // [sp+14h] [bp-100h]@9
-  signed int v65; // [sp+18h] [bp-FCh]@29
-  int v66; // [sp+1Ch] [bp-F8h]@26
-  unsigned int *pOutBufferPtr; // [sp+1Ch] [bp-F8h]@29
-  int v68; // [sp+20h] [bp-F4h]@1
-  int v69; // [sp+20h] [bp-F4h]@30
-  int v70; // [sp+24h] [bp-F0h]@20
-  unsigned int v71; // [sp+24h] [bp-F0h]@29
-  int v72; // [sp+28h] [bp-ECh]@31
-  int *v73; // [sp+2Ch] [bp-E8h]@30
-  int v74; // [sp+30h] [bp-E4h]@14
-  int v75; // [sp+34h] [bp-E0h]@57
-  signed int v76; // [sp+3Ch] [bp-D8h]@29
-  int v77; // [sp+40h] [bp-D4h]@29
-  unsigned int v78; // [sp+44h] [bp-D0h]@1
-  int v79; // [sp+44h] [bp-D0h]@29
-  int v80; // [sp+48h] [bp-CCh]@20
-  int *v81; // [sp+4Ch] [bp-C8h]@45
-  int v82; // [sp+50h] [bp-C4h]@37
-  int v83; // [sp+54h] [bp-C0h]@35
-
-  int v84_array[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-
-  v68 = pSomeIndices;
-  v10 = 0;
-  v78 = uNumIndices;
-  v51 = 0;
-  v75 = 0;
-
-  for (i = 0; i < uNumIndices; ++i)
-    v84_array[pSomeIndices[i]]++;
-
-  if (v84_array[0] == uNumIndices)
-  {
-   *pOutSomething = 0;
-   *a7 = 0;
-   return 0;
-  }
-
-  v16 = 1;
-  v15 = &v84_array[1];
-  v17 = *a7;
-  v63 = *a7;
-  do
-  {
-    if ( *v15 )
-      break;
-    ++v16;
-    ++v15;
-  }
-  while ( (unsigned int)v16 <= 0xF );
-  v18 = v16;
-  v64 = v16;
-  if ( v17 < v16 )
-  {
-    v63 = v16;
-    v17 = v16;
-  }
-  v20 = 15;
-  v19 = &v84_array[15];
-  do
-  {
-    if ( *v19 )
-      break;
-    --v20;
-    --v19;
-  }
-  while ( v20 );
-  v74 = v20;
-  if ( v17 > v20 )
-  {
-    v63 = v20;
-    v17 = v20;
-  }
-  *a7 = v17;
-  v21 = 1 << v16;
-  if ( v16 < (unsigned int)v20 )
-  {
-   v22 = &v84_array[v16];
-    do
-    {
-      v23 = v21 - *v22;
-      if ( v23 < 0 )
-        return -3;
-      ++v16;
-      ++v22;
-      v21 = 2 * v23;
-    }
-    while ( v16 < (unsigned int)v20 );
-  }
-  v70 = 4 * v20;
-  v24 = v84_array[v20];
-  v25 = v21 - v24;
-  v80 = v25;
-  if ( v25 < 0 )
-    return -3;
-  v84_array[17] = 0;
-  v84_array[v20] = v25 + v24;
-  v26 = 0;
-  v27 = v20 - 1;
-  if ( v27 )
-  {
-    v28 = 0;
-    do
-    {
-      v29 = v84_array[1 + v28 / 4];
-
-      v28 += 4;
-      v26 += v29;
-      --v27;
-
-      v84_array[17 + v28  / 4] = v26;
-    }
-    while ( v27 );
-  }
-  v31 = pSomeIndices;
-  v30 = 0;
-  do
-  {
-    v32 = *v31++;
-    v66 = v31;
-    if ( v32 )
-    {
-      v33 = v84_array[16 + v32];
-      pOutBuffer[v33] = v30;
-      v84_array[16 + v32] = v33 + 1;
-      v31 = v66;
-    }
-    ++v30;
-  }
-  while ( v30 < v78 );
-  v35 = 0;
-  v65 = -1;
-  v36 = v84_array[16 + v70 / 4];
-  v71 = 0;
-  v79 = v36;
-  pOutBufferPtr = pOutBuffer;
-  v34 = -v17;
-  v84_array[16] = 0;
-  v84_array[18 + 0] = 0;
-
-  v77 = 0;
-  v76 = 0;
-  if ( v18 > v74 )
-  {
-LABEL_65:
-    if ( v80 == v10 || v74 == 1 )
-      return 0;
-    result = -5;
-  }
-  else
-  {
-   v37 = 0;
-    v69 = v18 - 1;
-    v73 = &v84_array[v18];
-    while ( 1 )
-    {
-      v39 = *v73 - 1;
-      v72 = *v73 - 1;
-      if ( *v73 )
-        break;
-LABEL_64:
-      v10 = 0;
-      ++v18;
-      ++v73;
-      v64 = v18;
-      ++v69;
-      if ( v18 > v74 )
-        goto LABEL_65;
-    }
-    while ( 1 )
-    {
-      v40 = v34 + v17;
-      if ( v18 > v40 )
-        break;
-LABEL_49:
-      BYTE1(v75) = v18 - v34;
-      if ((unsigned int)pOutBufferPtr < (unsigned int)pOutBuffer + v79 * 4)
-      {
-        v37 = *pOutBufferPtr;
-        if ( v37 >= a3 )
-        {
-          v54 = 4 * (v37 - a3);
-          v55 = *(_BYTE *)(v54 + a5);
-          v37 = *(_DWORD *)(v54 + a4);
-          LOBYTE(v75) = v55 + 80;
-        }
-        else
-        {
-          LOBYTE(v75) = (unsigned int)v37 < 0x100 ? 0 : 96;
-        }
-        ++pOutBufferPtr;
-      }
-      else
-      {
-        LOBYTE(v75) = -64;
-      }
-      v57 = 1 << (v18 - v34);
-      v56 = v35 >> v34;
-      if (v56 < v76 )
-      {
-        v58 = v77 + 8 * v56;
-        do
-        {
-          v56 += v57;
-          *(_DWORD *)v58 = v75;
-          *(_DWORD *)(v58 + 4) = v37;
-          v58 += 8 * v57;
-        }
-        while ( v56 < v76 );
-      }
-      for ( i = 1 << v69; i & v35; i >>= 1 )
-        v35 ^= i;
-      v61 = v65;
-      v35 ^= i;
-      v60 = &v84_array[16 + v65];
-      v71 = v35;
-      if ((v35 & ((1 << v34) - 1)) != v84_array[16 + v65] )
-      {
-        do
-        {
-          --v61;
-          v34 -= v63;
-          --v60;
-        }
-        while ( (v35 & ((1 << v34) - 1)) != *v60 );
-        v65 = v61;
-      }
-      v17 = v63;
-      v62 = v72--;
-      v18 = v64;
-      if ( !v62 )
-        goto LABEL_64;
-      v39 = v72;
-    }
-    v83 = v39 + 1;
-    while ( 1 )
-    {
-      v34 += v17;
-      ++v65;
-      v41 = v74 - v34;
-      v82 = v17 + v40;
-      if ( v74 - v34 > v17 )
-        v41 = v17;
-      v43 = v18 - v34;
-      v42 = 1 << (v18 - v34);
-      if ( v42 > (unsigned int)v83 )
-      {
-        v45 = v73;
-        v44 = -1 - v72 + v42;
-        if ( v43 < (unsigned int)v41 )
-        {
-          ++v43;
-          for ( ; v43 < (unsigned int)v41; ++v43 )
-          {
-            v47 = v45[1];
-            ++v45;
-            v46 = 2 * v44;
-            if ( v46 <= v47 )
-              break;
-            v44 = v46 - v47;
-          }
-        }
-      }
-      v76 = 1 << v43;
-      v49 = *a9 + (1 << v43);
-      if ( (unsigned int)v49 > 0x5A0 )
-        break;
-      v50 = a8 + 2 * (*a9);
-      *a9 = v49;
-      v77 = v50;
-      v81 = &v84_array[18 + v65];
-      *v81 = v50;
-      if ( v65 )
-      {
-        v35 = v71;
-        LOBYTE(v51) = v43;
-        v84_array[16 + v65] = v71;
-        BYTE1(v51) = v63;
-        v52 = v71 >> (v34 - (_BYTE)v63);
-        v53 = *(v81 - 1);
-        v37 = ((v77 - v53) >> 3) - v52;
-        *(_DWORD *)(v53 + 8 * v52) = v51;
-        *(_DWORD *)(v53 + 8 * v52 + 4) = v37;
-      }
-      else
-      {
-        v35 = v71;
-        *pOutSomething = v50;
-      }
-      v40 = v82;
-      LOBYTE(v18) = v64;
-      if ( v64 <= v82 )
-        goto LABEL_49;
-      v17 = v63;
-      v18 = v64;
-    }
-    result = -4;
-  }
-  return result;
-}
-
 //----- (00466B8C) --------------------------------------------------------
 int __cdecl sub_466B8C()
 {
@@ -27188,41 +26466,6 @@ int __cdecl sub_466B8C()
     sub_464761((void *)1);
   }
   return 0;
-}
-
-//----- (004C7C60) --------------------------------------------------------
-signed int __fastcall sub_4C7C60(int *pSomeIndices, unsigned int *a2, int *a3, unsigned int *class21_pArray_8x1440, struct class19 *pParent)
-{
-  unsigned int *p19x4Buffer; // edi@1
-  signed int result; // eax@2
-  signed int v10; // eax@3
-
-  int v13[256];   //some local struct or array
-  v13[0] = 0;
-
-  p19x4Buffer = (pParent->pFunction1)(pParent->dword_000028, 19, 4);
-  if (p19x4Buffer)
-  {
-    v10 = sub_4C7D10(pSomeIndices, 0x13u, 0x13u, 0, 0, a3, a2, class21_pArray_8x1440, v13, p19x4Buffer);
-    if (v10 == -3)
-    {
-     pParent->pStatus = "oversubscribed dynamic bit lengths tree";
-     (pParent->pFunction2)(pParent->dword_000028, p19x4Buffer);
-     result = v10;
-    }
-    else
-    {
-      if (v10 == -5 || !*a2)
-      {
-       pParent->pStatus = "incomplete dynamic bit lengths tree";
-       v10 = -3;
-      }
-      (pParent->pFunction2)(pParent->dword_000028, p19x4Buffer);
-      result = v10;
-    }
-  }
-  else return -4;
-  return result;
 }
 
 //----- (00487DBE) --------------------------------------------------------
@@ -28519,23 +27762,6 @@ LABEL_47:
     }
   }
   return v2;
-}
-
-//----- (004C7460) --------------------------------------------------------
-struct class27 *__fastcall AllocateClass27(int a1, int a2, unsigned int *a3, unsigned int *a4, struct class19 *pParent)
-{
- struct class27 *result;
-
- result = (pParent->pFunction1)(pParent->dword_000028, 1, 28);
- if ( result )
- {
-  result->dword_000000 = 0;
-  result->byte_000010 = a1;
-  result->byte_000011 = a2;
-  result->ptr_000014 = a3;
-  result->ptr_000018 = a4;
- }
- return result;
 }
 
 //----- (00406A63) --------------------------------------------------------
@@ -42414,7 +41640,7 @@ signed int __thiscall sub_40F5F5(void *this, const char *Str1)
     v5 = (unsigned int)malloc(Size);
     v24 = class23_AllocatedNamedBuffer(class23_instance, 0, v15, class18_obj);
     locked_fread((void *)v24, 1u, Count, File);
-    maybe_decompress_file(v5, (int *)&Size, v24, v15);
+    MemUnzip(v5, (int *)&Size, v24, v15);
     v15 = Size;
     class23_DeleteBuffer(class23_instance, v24);
   }
@@ -42458,7 +41684,7 @@ int __thiscall sub_40F806(int this)
   v4 = this;
   v2 = this;
   v3 = (int)malloc(*(_DWORD *)(this + 40));
-  maybe_decompress_file(v3, &v4, *(_DWORD *)(v2 + 48), *(_DWORD *)(v2 + 20));
+  MemUnzip(v3, &v4, *(_DWORD *)(v2 + 48), *(_DWORD *)(v2 + 20));
   return v3;
 }
 
@@ -42742,7 +41968,7 @@ signed int __thiscall sub_4101B1(int this, char *DstBuf, const char *Source, siz
       v21 = malloc(*((_DWORD *)DstBuf + 10));
       v20 = malloc(*((_DWORD *)DstBuf + 5));
       locked_fread(v20, 1u, v22, v16);
-      maybe_decompress_file((int)v21, (int *)v6 + 10, (int)v20, *((_DWORD *)v6 + 5));
+      MemUnzip((int)v21, (int *)v6 + 10, (int)v20, *((_DWORD *)v6 + 5));
       v11 = *v10;
       *((_DWORD *)v6 + 5) = *v10;
       call_delete(v11, (unsigned int)v20);
@@ -43082,7 +42308,7 @@ signed int __thiscall sub_410522(int this, void *DstBuf, const char *Source, int
     compile_error;//*((_DWORD *)v7 + 12) = new char[v5];
     compile_error;//Source = (const char *)new char[v8];
     locked_fread((void *)Source, 1u, v28, File);
-    maybe_decompress_file(*((_DWORD *)v7 + 12), (int *)v7 + 10, (int)Source, *((_DWORD *)v7 + 5));
+    MemUnzip(*((_DWORD *)v7 + 12), (int *)v7 + 10, (int)Source, *((_DWORD *)v7 + 5));
     v9 = *(_DWORD *)v6;
     v10 = (unsigned int)Source;
     *((_DWORD *)v7 + 5) = *(_DWORD *)v6;
@@ -46030,8 +45256,8 @@ int __fastcall sub_4A97C6(char *a1, int a2, _DWORD a3)
   {
     v26 = malloc(*(_DWORD *)(v8 + 44));
     ReadFile(pAudioPlayer->hSoundsSource, v26, *(_DWORD *)(v8 + 44), &NumberOfBytesRead, 0);
-    v10 = maybe_decompress_file(v5 + 4, (int *)(v8 + 48), (int)v26, *(_DWORD *)(v8 + 44));
-    call_delete(v10, (unsigned int)v26);
+    MemUnzip(v5 + 4, (int *)(v8 + 48), (int)v26, *(_DWORD *)(v8 + 44));
+    call_delete(0, (unsigned int)v26);
   }
   if ( v5 )
   {
@@ -56098,7 +55324,7 @@ LABEL_13:
   }
   if ( GetAsyncKeyState(16) >= 0 )
   {
-    if ( !sub_40104C(v17, 0) && !(*(_BYTE *)(v17 + 38) & 8) )
+    if ( !Actor_sub_40104C(v17, 0) && !(*(_BYTE *)(v17 + 38) & 8) )
     {
       if ( (unsigned int)v0 >= 0x2000000 )
         goto LABEL_13;
@@ -60570,7 +59796,7 @@ int __thiscall sub_42F184(void *this, unsigned int a2, int a3, int a4)
                       {
                         if ( v12 != 17 )
                         {
-                          if ( !a3 || sub_40104C((int)((char *)pActors + 836 * ((unsigned int)v11 >> 3)), 0) )
+                          if ( !a3 || Actor_sub_40104C((int)((char *)pActors + 836 * ((unsigned int)v11 >> 3)), 0) )
                           {
                             if ( !a4 || sub_438BDF(*((_WORD *)v13 + 48), 1) )
                             {
@@ -60758,7 +59984,7 @@ LABEL_20:
         v9 = *(_WORD *)v1;
         if ( *(_WORD *)v1 != 5 )
         {
-          if ( v9 != 4 && v9 != 11 && v9 != 19 && v9 != 17 && (*(_BYTE *)(v1 - 138) & 8 || sub_40104C(0, v1 - 176)) )
+          if ( v9 != 4 && v9 != 11 && v9 != 19 && v9 != 17 && (*(_BYTE *)(v1 - 138) & 8 || Actor_sub_40104C(0, v1 - 176)) )
             break;
         }
       }
@@ -68053,7 +67279,7 @@ int __fastcall sub_438F8F(int result)
                     case 3:
                       if ( v36 )
                       {
-                        if ( sub_40104C((int)((char *)pActors + 836 * v37), (int)((char *)v27 - 146)) )
+                        if ( Actor_sub_40104C((int)((char *)pActors + 836 * v37), (int)((char *)v27 - 146)) )
                           sub_43B1B0(*((_WORD *)v2 - 300), v45, v46, (unsigned __int8)v36[97]);
                       }
                       break;
@@ -86565,8 +85791,8 @@ void *__thiscall sub_4524D8(void *this, int a2, int a3)
       compile_error;//v33 = operator new(DstBuf);
       locked_fread(v33, 1u, DstBuf, *(FILE **)v4);
       v27 = 2 * *(_DWORD *)v9 * *((_DWORD *)v10 + 11);
-      v11 = maybe_decompress_file(*((_DWORD *)v10 + 14), &v27, (int)v33, DstBuf);
-      operator_delete(v11, (unsigned int)v33);
+      MemUnzip(*((_DWORD *)v10 + 14), &v27, (int)v33, DstBuf);
+      operator_delete(0, (unsigned int)v33);
     }
     else
     {
@@ -95726,7 +94952,7 @@ char __fastcall sub_46A334(int a1, int a2)
       }
       else
       {
-        if ( !sub_40104C(v14, 0) )
+        if ( !Actor_sub_40104C(v14, 0) )
         {
           if ( !(*(_BYTE *)(v14 + 38) & 8) )
           {
@@ -97786,7 +97012,7 @@ signed int __fastcall sub_46BFFA(int a1, signed int a2)
   {
     a1 = *(_DWORD *)(v3 + 88) & 7;
     if ( (_BYTE)a1 == 3
-      && !sub_40104C(
+      && !Actor_sub_40104C(
             (int)((char *)pActors + 836 * (*(_DWORD *)(v3 + 88) >> 3)),
             (int)((char *)pActors + 836 * (a2 >> 3))) )
       return 1;
@@ -101667,7 +100893,7 @@ LABEL_119:
                 *(_WORD *)(v1 + 152) = v58;
                 goto LABEL_120;
               }
-              if ( sub_40104C(v1, 0) )
+              if ( Actor_sub_40104C(v1, 0) )
               {
                 compile_error;//v53 = __SETO__(HIDWORD(qword_ACD8F4), v23);
                 v51 = HIDWORD(qword_ACD8F4) == v23;
@@ -102265,7 +101491,7 @@ LABEL_103:
           }
           break;
         case 4:
-          if ( !sub_40104C(v1, 0) )
+          if ( !Actor_sub_40104C(v1, 0) )
           {
             v39 = dword_7215A8;
             goto LABEL_103;
@@ -103012,7 +102238,7 @@ LABEL_92:
               v20 = (int)((char *)pActors + 836 * v19);
               do
               {
-                if ( sub_40104C(v20, v72) )
+                if ( Actor_sub_40104C(v20, v72) )
                   sub_46DF1A(v68, 0);
                 ++v68;
                 v72 += 836;
@@ -121242,7 +120468,7 @@ LABEL_50:
     {
       HIDWORD(v280) = malloc(v95);
       locked_fread(HIDWORD(v280), v95, 1u, File);
-      v96 = maybe_decompress_file(v94, (int *)&ElementSize, SHIDWORD(v280), v95);
+      v96 = MemUnzip(v94, (int *)&ElementSize, SHIDWORD(v280), v95);
       call_delete(v96, HIDWORD(v280));
     }
   }
@@ -121621,7 +120847,7 @@ LABEL_50:
       {
         HIDWORD(v280) = malloc(v173);
         locked_fread(HIDWORD(v280), v173, 1u, (FILE *)v283);
-        v174 = maybe_decompress_file((int)Src, (int *)&Count, SHIDWORD(v280), v173);
+        v174 = MemUnzip((int)Src, (int *)&Count, SHIDWORD(v280), v173);
         call_delete(v174, HIDWORD(v280));
       }
     }
@@ -121688,7 +120914,7 @@ LABEL_132:
       {
         HIDWORD(v280) = malloc(v180);
         locked_fread(HIDWORD(v280), v180, 1u, (FILE *)v283);
-        v181 = maybe_decompress_file((int)Src, (int *)&Count, SHIDWORD(v280), v180);
+        v181 = MemUnzip((int)Src, (int *)&Count, SHIDWORD(v280), v180);
         call_delete(v181, HIDWORD(v280));
       }
     }
@@ -124123,289 +123349,6 @@ LABEL_7:
     result = 1;
   }
   return result;
-}
-
-//----- (004C84C0) --------------------------------------------------------
-signed int __fastcall LOD_DoDecompression(int a1, int a2, int a3, int a4, struct class21 *pClass21, struct class19 *pClass19)
-{
-  unsigned int v6; // eax@1
-  unsigned int v7; // ecx@1
-  unsigned char *pDataPtr;
-  unsigned char *v9; // ebp@1
-  unsigned int v10; // esi@1
-  int v11; // edx@6
-  int v12; // edx@8
-  unsigned char *v13; // edi@8
-  int v14; // ecx@9
-  unsigned int v15; // eax@10
-  unsigned int v16; // esi@10
-  int v17; // ecx@10
-  int v18; // ecx@13
-  int v19; // eax@14
-  int v20; // edx@14
-  unsigned int v21; // esi@14
-  int v22; // edx@15
-  int v23; // edx@17
-  int v24; // edi@17
-  int v25; // ecx@17
-  int v26; // ecx@19
-  int v27; // ecx@19
-  int v28; // edx@20
-  int v29; // ebx@23
-  int v30; // edx@24
-  int v31; // ecx@24
-  int v32; // ebx@24
-  char v33; // cl@24
-  int v34; // ecx@25
-  int v35; // ecx@25
-  int v36; // ebp@25
-  char v37; // bl@25
-  char v38; // bl@25
-  int v39; // edi@26
-  int v40; // ecx@32
-  unsigned int v41; // edx@37
-  int v43; // edx@37
-  int v44; // ecx@39
-  int v46; // ebx@41
-  int v47; // esi@41
-  int v48; // eax@41
-  int v49; // ecx@43
-  int v50; // ebx@45
-  int v51; // esi@45
-  int v52; // eax@45
-  int v53; // edx@46
-  int v54; // ebx@48
-  int v55; // esi@48
-  int v56; // eax@48
-  unsigned int v57; // [sp+10h] [bp-1Ch]@1
-  int v58; // [sp+14h] [bp-18h]@2
-  int v59; // [sp+1Ch] [bp-10h]@1
-  int v60; // [sp+1Ch] [bp-10h]@14
-  int v61; // [sp+1Ch] [bp-10h]@37
-  int v62; // [sp+20h] [bp-Ch]@1
-  int v63; // [sp+24h] [bp-8h]@4
-  int v64; // [sp+28h] [bp-4h]@4
-  int a;
-
-  pDataPtr = pClass19->pCompressedData;
-  v59 = a1;
-  v57 = pClass19->uCompressedDataSize;
-  v9 = pClass21->pDecompressionBufferTail;
-  v7 = pClass21->pDecompressionBufferHead;
-  v10 = pClass21->dword_000020;
-  v6 = pClass21->dword_00001C;
-  v62 = pClass19->pCompressedData;
-  if ( v9 >= v7 )
-    v58 = pClass21->dword_00002C - (unsigned int)v9;
-  else
-    v58 = v7 - (unsigned int)v9 - 1;
-  v64 = dword_4F2688[a2];
-  v63 = dword_4F2688[v59];
-
-  a = 0xffff;
-  while ( 1 )
-  {
-   a = v57;
-    if ( v6 < 0x14 )
-    {
-      do
-      {
-        --v57;
-        v11 = (unsigned int)(*pDataPtr++) << v6;
-        v6 += 8;
-        v10 |= v11;
-      }
-      while ( v6 < 0x14 );
-      v62 = pDataPtr;
-    }
-    v13 = (char *)a3 + 8 * (v10 & v63);
-    v12 = *v13;
-    if (v12)
-      break;
-    v14 = v13[1];
-    v10 >>= v14;
-    v6 -= v14;
-    *v9 = v13[4];
-LABEL_33:
-    ++v9;
-    --v58;
-LABEL_34:
-    if ( (unsigned int)v58 < 0x102 || v57 < 0xA )
-    {
-      v44 = pClass19->uCompressedDataSize - v57;
-      if ( v6 >> 3 < v44 )
-        v44 = v6 >> 3;
-      v46 = (unsigned int)(pDataPtr) - v44;
-      pClass21->dword_000020 = v10;
-      pClass21->dword_00001C = v6 - 8 * v44;
-      v47 = pClass19->pCompressedData;
-      v48 = pClass19->dword_000008;
-      pClass19->uCompressedDataSize = v57 + v44;
-      pClass19->pCompressedData = v46;
-      pClass19->dword_000008 = v46 - v47 + v48;
-      pClass21->pDecompressionBufferTail = v9;
-      return 0;
-    }
-  }
-  v17 = v13[1];
-  v16 = v10 >> v17;
-  v15 = v6 - v17;
-  if ( v12 & 0x10 )
-  {
-LABEL_14:
-    v20 = v12 & 0xF;
-    v19 = v15 - v20;
-    v60 = *(unsigned int *)(v13 + 4) + (v16 & dword_4F2688[v20]);
-    v21 = v16 >> v20;
-    if ( (unsigned int)v19 < 0xF )
-    {
-      do
-      {
-        --v57;
-        v22 = (unsigned int)(*pDataPtr++) << v19;
-        v19 += 8;
-        v21 |= v22;
-      }
-      while ( (unsigned int)v19 < 0xF );
-      v62 = pDataPtr;
-    }
-    v24 = a4 + 8 * (v21 & v64);
-    v25 = *(_BYTE *)(v24 + 1);
-    v23 = *(_BYTE *)v24;
-    v16 = v21 >> v25;
-    v15 = v19 - v25;
-    if ( !(v23 & 0x10) )
-    {
-      while ( !(v23 & 0x40) )
-      {
-        v26 = *(_DWORD *)(v24 + 4) + (v16 & dword_4F2688[v23]);
-        v23 = *(_BYTE *)(v24 + 8 * v26);
-        v24 += 8 * v26;
-        v27 = *(_BYTE *)(v24 + 1);
-        v16 >>= v27;
-        v15 -= v27;
-        if ( v23 & 0x10 )
-          goto LABEL_20;
-      }
-      v43 = pClass19->uCompressedDataSize;
-      pClass19->pStatus = "invalid distance code";
-      v61 = v43 - v57;
-      v41 = v15 >> 3;
-      if ( v15 >> 3 >= v61 )
-LABEL_47:
-        v41 = v61;
-LABEL_48:
-      v54 = (unsigned int)(pDataPtr) - v41;
-      pClass21->dword_000020 = v16;
-      pClass21->dword_00001C = v15 - 8 * v41;
-      v55 = pClass19->pCompressedData;
-      v56 = pClass19->dword_000008;
-      pClass19->uCompressedDataSize = v57 + v41;
-      pClass19->pCompressedData = v54;
-      pClass19->dword_000008 = v54 - v55 + v56;
-      pClass21->pDecompressionBufferTail = v9;
-      return -3;
-    }
-LABEL_20:
-    v28 = v23 & 0xF;
-    if ( v15 < v28 )
-    {
-      while ( 1 )
-      {
-        --v57;
-        v29 = (unsigned int)(*pDataPtr++) << v15;
-        v15 += 8;
-        v16 |= v29;
-        ++v62;
-        if ( v15 >= v28 )
-          break;
-      }
-    }
-    v6 = v15 - v28;
-    v32 = *(unsigned int *)(v24 + 4) + (v16 & dword_4F2688[v28]);
-    v33 = v28;
-    v30 = v60;
-    v10 = v16 >> v33;
-    v58 -= v60;
-    v31 = pClass21->dword_000028;
-    if ( (unsigned int)v9 - v31 < (unsigned int)v32 )
-    {
-      v39 = v32 + v31 - (unsigned int)v9;
-      v34 = pClass21->dword_00002C - v39;
-      if ( v60 > (unsigned int)v39 )
-      {
-        v30 = v60 - v39;
-        do
-        {
-          *v9++ = *(_BYTE *)v34++;
-          --v39;
-        }
-        while ( v39 );
-        v34 = pClass21->dword_000028;
-      }
-    }
-    else
-    {
-      v35 = v9 - v32;
-      v36 = v9 + 1;
-      v37 = *(_BYTE *)v35++;
-      *(_BYTE *)(v36 - 1) = v37;
-      v9 = v36 + 1;
-      v38 = *(_BYTE *)v35;
-      v34 = v35 + 1;
-      v9[-1] = v38;
-      v30 = v60 - 2;
-    }
-    do
-    {
-      *v9++ = *(_BYTE *)v34++;
-      --v30;
-    }
-    while ( v30 );
-    pDataPtr = v62;
-    goto LABEL_34;
-  }
-  while ( !(v12 & 0x40) )
-  {
-    v13 += 8 * (*(unsigned int *)(v13 + 4) + (v16 & dword_4F2688[v12]));
-    v12 = *v13;
-    if (!v12)
-    {
-      v40 = v13[1];
-      *v9 = v13[4];
-      v10 = v16 >> v40;
-      v6 = v15 - v40;
-      goto LABEL_33;
-    }
-    v18 = v13[1];
-    v16 >>= v18;
-    v15 -= v18;
-    if ( v12 & 0x10 )
-      goto LABEL_14;
-  }
-  if ( !(v12 & 0x20) )
-  {
-    v53 = pClass19->uCompressedDataSize;
-    pClass19->pStatus = "invalid literal/length code";
-    v61 = v53 - v57;
-    v41 = v15 >> 3;
-    if ( v15 >> 3 >= v61 )
-      goto LABEL_47;
-    goto LABEL_48;
-  }
-  v49 = pClass19->uCompressedDataSize - v57;
-  if ( v15 >> 3 < v49 )
-    v49 = v15 >> 3;
-  v50 = (unsigned int)(pDataPtr) - v49;
-  pClass21->dword_000020 = v16;
-  pClass21->dword_00001C = v15 - 8 * v49;
-  v51 = pClass19->pCompressedData;
-  v52 = pClass19->dword_000008;
-  pClass19->uCompressedDataSize = v57 + v49;
-  pClass19->pCompressedData = v50;
-  pClass19->dword_000008 = v50 - v51 + v52;
-  pClass21->pDecompressionBufferTail = v9;
-  return 1;
 }
 
 //----- (0049CE9E) --------------------------------------------------------
@@ -133075,8 +132018,8 @@ LABEL_12:
     {
       v18 = malloc(*(_DWORD *)(v16 + 44));
       ReadFile(pAudioPlayer->hSoundsSource, v18, *(_DWORD *)(v16 + 44), &Args, 0);
-      v19 = maybe_decompress_file((int)lpBuffer, (int *)(v16 + 48), (int)v18, *(_DWORD *)(v16 + 44));
-      call_delete(v19, (unsigned int)v18);
+      MemUnzip((int)lpBuffer, (int *)(v16 + 48), (int)v18, *(_DWORD *)(v16 + 44));
+      call_delete(0, (unsigned int)v18);
       v14 = a2;
     }
     result = v30;
@@ -149090,7 +148033,7 @@ LABEL_15:
       return 0;
     if ( !(*(_BYTE *)(v2 + 16) & 1) )
       return 1;
-    v10 = sub_40104C(v13, 0);
+    v10 = Actor_sub_40104C(v13, 0);
 LABEL_11:
     v6 = v10 == 0;
 LABEL_32:
@@ -151618,7 +150561,7 @@ unsigned int __fastcall sub_4C4080(int a1, void *a2, unsigned int a3)
   {
     *(_DWORD *)(a1 + 4) -= v4;
     if ( !*(_DWORD *)(*(_DWORD *)(a1 + 28) + 24) )
-      *(_DWORD *)(a1 + 48) = sub_4C57C0(*(_DWORD *)(a1 + 48), *(_DWORD *)a1, v4);
+      *(_DWORD *)(a1 + 48) = sub_4C57C0_MaybeCalcHash(*(_DWORD *)(a1 + 48), *(_DWORD *)a1, v4);
     memcpy(v5, *(const void **)v3, v4);
     v7 = v4 + *(_DWORD *)v3;
     *(_DWORD *)(v3 + 8) += v4;
@@ -153538,16 +152481,6 @@ int __fastcall sub_4C73C0(int a1, int a2, int a3, int a4)
     while ( result );
   }
   return result;
-}
-
-//----- (004C8340) --------------------------------------------------------
-int __fastcall sub_4C8340(int a1, int a2, int a3, int a4, int a5)
-{
-  *(_DWORD *)a1 = dword_4F1490;
-  *(_DWORD *)a2 = dword_4F1494;
-  *(_DWORD *)a3 = &unk_4F1498;
-  *(_DWORD *)a4 = &unk_4F2498;
-  return 0;
 }
 
 //----- (004C9A60) --------------------------------------------------------
