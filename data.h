@@ -123,6 +123,8 @@ extern unsigned int uPlayerCreationUI_SelectedCharacter;
 
 extern unsigned int uTextureID_PlayerCreationUI_FaceMask;
 
+extern struct CMonsterStats *pMonsterStats;
+
 
 extern struct Font *pFontArrus;
 extern struct Font *pFontLucida;

@@ -17,7 +17,7 @@ struct Actor
  char          byte_000024[4];
  short         word_000028;
  char          byte_00002A[54];
- short         word_000060;
+ short         word_000060;  //monster id in MonsterStats
  char          byte_000062[10];
  short         word_00006C;
  char          byte_00006E[6];

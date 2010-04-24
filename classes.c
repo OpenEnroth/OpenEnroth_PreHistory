@@ -2880,7 +2880,6 @@ extern int dword_5C8778[];
 extern int dword_5C88A8;
 extern char unk_5C876C;
 extern struct CMapStats *pMapStats;
-extern struct CMonsterStats *pMonsterStats;
 extern struct CSpellStats *pSpellStats;
 extern struct class48 *pClass48;
 extern struct StorylineText *pStorylineText;

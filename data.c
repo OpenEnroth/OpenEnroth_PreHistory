@@ -1261,6 +1261,8 @@ struct class18 *pPlayerCreationUI_Top = 0;               // ptr     @ MM7.exe::0
 struct class18 *pPlayerCreationUI_ArrowR[19] = {0}; // ptr[19] @ MM7.exe::0050787C
 struct class18 *pPlayerCreationUI_ArrowL[19] = {0}; // ptr[19] @ MM7.exe::005078CC
 
+struct CMonsterStats *pMonsterStats = 0; //struct @ MM7.exe::005CCE40
+
 unsigned int uPlayerCreationUI_SelectedCharacter = 0; // dword @ MM7.exe::00A74CD8
 
 unsigned int uTextureID_PlayerCreationUI_FaceMask = 0; // dword @ MM7.exe::00A74CE0

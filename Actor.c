@@ -473,7 +473,6 @@ LABEL_10:
 
 //----- (0045959A) --------------------------------------------------------
 extern int monster_list[];
-extern char unk_5CCE98;
 __int16 __thiscall sub_45959A(struct Actor *_this, char a2)
 {
   int v2; // edi@1
@@ -491,7 +490,8 @@ __int16 __thiscall sub_45959A(struct Actor *_this, char a2)
   v2 = _this;
   v12 = 8;
   v3 = monster_list[1] + 152 * (_this->word_000060 - 1);
-  v11 = (int)((char *)&unk_5CCE98 + 88 * (*(_WORD *)(v2 + 96) - 1));
+  //v11 = (int)((char *)&unk_5CCE98 + 88 * (*(_WORD *)(v2 + 96) - 1));
+  v11 = &pMonsterStats->pMonsterInfos[1 + (*(_WORD *)(v2 + 96) - 1)];
   v14 = v2 + 188;
   Source = (char *)(v3 + 52);
   do

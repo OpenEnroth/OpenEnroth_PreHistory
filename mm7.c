@@ -1652,19 +1652,6 @@ struct CSpellStats *pSpellStats = 0; // struct @ MM7.exe::005CC030
 //char byte_5CC04C[array_size_unknown]; // pSpellStats::pSpellInfos[0].uSpellSchool
 //int dword_5CC054[array_size_unknown]; // pSpellStats::pSpellInfos[1].pSpellName
 
-struct CMonsterStats *pMonsterStats = 0; //struct @ MM7.exe::005CCE40
-int dword_5CCE40[array_size_unknown]; // weak
-/*extern*/ char byte_5CCE48[array_size_unknown]; // weak
-/*extern*/ char byte_5CCE51[1024*88*array_size_unknown]; // weak
-/*extern*/ __int16 word_5CCE74[array_size_unknown]; // weak
-/*extern*/ char byte_5CCE76[array_size_unknown]; // weak
-/*extern*/ int dword_5CCE88[array_size_unknown]; // weak
-/*extern*/ int dword_5CCE90[array_size_unknown]; // weak
-/*extern*/ _UNKNOWN unk_5CCE98[1024*array_size_unknown]; // weak
-/*extern*/ _UNKNOWN unk_5CCEA0; // weak
-/*extern*/ _UNKNOWN unk_5D26F8; // weak
-/*extern*/ int dword_5D2958[array_size_unknown]; // weak
-
 struct class40 *pClass40 = 0; // struct @ MM7.exe::005D29E0
 //int dword_5D29E0; // weak
 //int dword_5D29E4[array_size_unknown]; // pClass40::pItems[0]::pName
@@ -8487,7 +8474,7 @@ __int16 __fastcall sub_401221(unsigned int uActorID, int a2, int a3)
             v3 = 4;
 LABEL_14:
             if ( *(_BYTE *)(v6 + 61) )
-              v3 = (unsigned __int8)byte_5CCE51[88 * pActors[uActorID].word_000060];
+             v3 = pMonsterStats->pMonsterInfos[pActors[uActorID].word_000060].byte_000011;
             v9 = dword_4DF380[v3];
             v20 = abs(pActors[uActorID].word_00008E - pActors[v23].word_00008E);
             v24 = abs(pActors[uActorID].word_000090 - pActors[v23].word_000090);
@@ -10015,7 +10002,7 @@ void __cdecl sub_401A91()
                   {
                     sub_402D6E(v87);
                     if ( *((_DWORD *)v5 + 19) )
-                      sub_4269A2(dword_5CCE88[22 * *((_WORD *)v5 + 28)]);
+                      sub_4269A2(pMonsterStats->pMonsterInfos[*((_WORD *)v5 + 28)].uExp);
                   }
                 }
               }
@@ -10099,7 +10086,7 @@ void __cdecl sub_401A91()
         if ( *(_DWORD *)(v11 + 232) <= (signed int)v13 )
         {
           if ( *(_DWORD *)(v11 + 232) < (signed int)v13 || *(_DWORD *)(v11 + 228) <= v13 )
-            *(_BYTE *)(v11 + 61) = byte_5CCE51[88 * *(_WORD *)(v11 + 96)];
+           *(_BYTE *)(v11 + 61) = pMonsterStats->pMonsterInfos[*(_WORD *)(v11 + 96)].byte_000011;
         }
       }
       if ( *(_DWORD *)(v11 + 296) > (signed int)v13 )
@@ -10212,7 +10199,7 @@ void __cdecl sub_401A91()
         if ( *(_DWORD *)(v21 + 232) <= (signed int)v25 )
         {
           if ( *(_DWORD *)(v21 + 232) < (signed int)v25 || *(_DWORD *)(v21 + 228) <= v25 )
-            *(_BYTE *)(v21 + 61) = byte_5CCE51[88 * *(_WORD *)(v21 + 96)];
+           *(_BYTE *)(v21 + 61) = pMonsterStats->pMonsterInfos[*(_WORD *)(v21 + 96)].byte_000011;
         }
       }
       if ( v84 != v25
@@ -19947,8 +19934,8 @@ int __fastcall sub_403476(int a1, signed int a2, signed int a3)
     *(_DWORD *)(v3 + 184) = v9;
     *(_WORD *)(v3 + 176) = 3;
     sub_402CED(v14, 0);
-    v11 = dword_5CCE90[22 * *(_WORD *)(v3 + 96)];
-    v21 = dword_5CCE90[22 * *(_WORD *)(v3 + 96)];
+    v11 = pMonsterStats->pMonsterInfos[*(_WORD *)(v3 + 96)].dword_000050;
+    v21 = pMonsterStats->pMonsterInfos[*(_WORD *)(v3 + 96)].dword_000050;
     if ( *(_DWORD *)(v3 + 328) >= (signed int)v9 )
     {
       if ( *(_DWORD *)(v3 + 328) > (signed int)v9 || *(_DWORD *)(v3 + 324) > v9 )
@@ -20717,8 +20704,8 @@ int __fastcall sub_40368B(int a1, signed int a2, signed int a3)
     *(_DWORD *)(v3 + 184) = v9;
     *(_WORD *)(v3 + 176) = 12;
     sub_402CED(v14, 0);
-    LODWORD(v11) = dword_5CCE90[22 * *(_WORD *)(v3 + 96)];
-    v21 = dword_5CCE90[22 * *(_WORD *)(v3 + 96)];
+    LODWORD(v11) = pMonsterStats->pMonsterInfos[*(_WORD *)(v3 + 96)].dword_000050;
+    v21 = pMonsterStats->pMonsterInfos[*(_WORD *)(v3 + 96)].dword_000050;
     if ( *(_DWORD *)(v3 + 328) >= (signed int)v9 )
     {
       if ( *(_DWORD *)(v3 + 328) > (signed int)v9 || *(_DWORD *)(v3 + 324) > v9 )
@@ -21907,8 +21894,8 @@ int __fastcall sub_403854(int a1, signed int a2, signed int a3)
     *(_DWORD *)(v3 + 184) = v9;
     *(_WORD *)(v3 + 176) = 13;
     sub_402CED(v14, 0);
-    v11 = dword_5CCE90[22 * *(_WORD *)(v3 + 96)];
-    v22 = dword_5CCE90[22 * *(_WORD *)(v3 + 96)];
+    v11 = pMonsterStats->pMonsterInfos[*(_WORD *)(v3 + 96)].dword_000050;
+    v22 = pMonsterStats->pMonsterInfos[*(_WORD *)(v3 + 96)].dword_000050;
     if ( *(_DWORD *)(v3 + 328) >= (signed int)v9 )
     {
       if ( *(_DWORD *)(v3 + 328) > (signed int)v9 || *(_DWORD *)(v3 + 324) > v9 )
@@ -22433,8 +22420,8 @@ int __fastcall sub_403A60(int a1, signed int a2, signed int a3)
     *(_DWORD *)(v3 + 184) = v9;
     *(_WORD *)(v3 + 176) = 18;
     sub_402CED(v14, 0);
-    v11 = dword_5CCE90[22 * *(_WORD *)(v3 + 96)];
-    v22 = dword_5CCE90[22 * *(_WORD *)(v3 + 96)];
+    v11 = pMonsterStats->pMonsterInfos[*(_WORD *)(v3 + 96)].dword_000050;
+    v22 = pMonsterStats->pMonsterInfos[*(_WORD *)(v3 + 96)].dword_000050;
     if ( *(_DWORD *)(v3 + 328) >= (signed int)v9 )
     {
       if ( *(_DWORD *)(v3 + 328) > (signed int)v9 || *(_DWORD *)(v3 + 324) > v9 )
@@ -22616,8 +22603,8 @@ int __fastcall sub_403C6C(int a1, int a2, char *a3)
       *(_DWORD *)(v3 + 184) = v12;
       *(_WORD *)(v3 + 176) = 2;
       sub_402CED(v17, 0);
-      LODWORD(v14) = dword_5CCE90[22 * *(_WORD *)(v3 + 96)];
-      v24 = dword_5CCE90[22 * *(_WORD *)(v3 + 96)];
+      LODWORD(v14) = pMonsterStats->pMonsterInfos[*(_WORD *)(v3 + 96)].dword_000050;
+      v24 = pMonsterStats->pMonsterInfos[*(_WORD *)(v3 + 96)].dword_000050;
       if ( *(_DWORD *)(v3 + 328) >= (signed int)v12 )
       {
         if ( *(_DWORD *)(v3 + 328) > (signed int)v12 || *(_DWORD *)(v3 + 324) > v12 )
@@ -27341,7 +27328,7 @@ int __thiscall sub_406457(void *this, int a2)
   }
   else
   {
-    v4 = dword_5CCE90[22 * word_5FF1B8[418 * (v2 >> 3)]];
+    v4 = pMonsterStats->pMonsterInfos[word_5FF1B8[418 * (v2 >> 3)]].dword_000050;
   }
   *(_DWORD *)(16 * a2 + v3 + 36) = v4;
   sub_404544(v3);
@@ -27399,7 +27386,7 @@ void __thiscall sub_40652A(int this)
         v3 = *((_WORD *)v2 + 88);
         if ( !v3 || v3 == 9 || v3 == 7 )
         {
-          v4 = dword_5CCE90[22 * *((_WORD *)v2 + 48)];
+         v4 = pMonsterStats->pMonsterInfos[*((_WORD *)v2 + 48)].dword_000050;
           *(_DWORD *)v1 = v4;
           if ( *(_QWORD *)(v2 + 324) > 0i64 )
             *(_DWORD *)v1 = 2 * v4;
@@ -27662,7 +27649,7 @@ __int16 __thiscall sub_40680F(void *this, int a2)
           v20 = 0;
         }
         if ( (v22 & 7) == 3 )
-          v9 = (unsigned __int8)*(&byte_5C8D1A[89 * (word_5CCE74[44 * word_5FF1B8[418 * (v22 >> 3)]] - 1) / 3]
+          v9 = (unsigned __int8)*(&byte_5C8D1A[89 * (pMonsterStats->pMonsterInfos[word_5FF1B8[418 * (v22 >> 3)]].uID - 1) / 3]
                                 + (*(_WORD *)(v4 + 96) - 1) / 3);
         else
           v9 = 4;
@@ -52421,9 +52408,10 @@ LABEL_51:
     v37 = *(_DWORD *)(v143 + 820);
     v77 = 2000;
     if ( v37 )
-      v72 = dword_5D2958[v37];
+      //v72 = dword_5D2958[v37];
+      v72 = pMonsterStats->sPlacements.pSubstrings[v37 - 1];
     else
-      v72 = dword_5CCE40[22 * *(_WORD *)(v143 + 96)];
+      v72 = pMonsterStats->pMonsterInfos[*(_WORD *)(v143 + 96)].pName;
   }
   strncpy((char *)&ExistingFileName, (const char *)v72, v77);
 LABEL_59:
@@ -54468,9 +54456,10 @@ LABEL_61:
       v29 = &ExistingFileName;
       v27 = *((_DWORD *)v28 + 205);
       if ( v27 )
-        v40 = dword_5D2958[v27];
+        //v40 = dword_5D2958[v27];
+        v40 = pMonsterStats->sPlacements.pSubstrings[v27 - 1];
       else
-        v40 = dword_5CCE40[22 * *((_WORD *)v28 + 48)];
+        v40 = pMonsterStats->pMonsterInfos[*((_WORD *)v28 + 48)].pName;
       strncpy((char *)&ExistingFileName, (const char *)v40, 0x7D0u);
     }
     v26 = (int)v29;
@@ -67701,7 +67690,7 @@ LABEL_69:
   }
   else
   {
-    if ( byte_5CCE76[88 * *(_WORD *)(v8 + 96)] & 1 )
+    if ( pMonsterStats->pMonsterInfos[*(_WORD *)(v8 + 96)].bQuestMonster & 1 )
     {
       if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3618) & 8 )
         v35 = 10 * *(_WORD *)(v8 + 136);
@@ -67735,7 +67724,7 @@ LABEL_69:
     sub_438CF3(v64);
     sub_43AC45(v64, 1);
     if ( *(_DWORD *)(v8 + 116) )
-      sub_4269A2(dword_5CCE88[22 * *(_WORD *)(v8 + 96)]);
+      sub_4269A2(pMonsterStats->pMonsterInfos[*(_WORD *)(v8 + 96)].uExp);
     v42 = 51;
     if ( rand() % 100 < 20 )
       v42 = (*(_DWORD *)(v8 + 108) >= 100) + 1;
@@ -68239,7 +68228,7 @@ LABEL_133:
                 }
                 else
                 {
-                  if ( byte_5CCE76[88 * *(_WORD *)(v44 + 96)] & 1 )
+                  if (pMonsterStats->pMonsterInfos[*(_WORD *)(v44 + 96)].bQuestMonster & 1 )
                   {
                     if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3618) & 8 )
                       v57 = 10 * *(_WORD *)(v44 + 136);
@@ -68267,7 +68256,7 @@ LABEL_133:
                   sub_438CF3(v76);
                   sub_43AC45(v76, 1);
                   if ( *(_DWORD *)(v44 + 116) )
-                    sub_4269A2(dword_5CCE88[22 * *(_WORD *)(v44 + 96)]);
+                    sub_4269A2(pMonsterStats->pMonsterInfos[*(_WORD *)(v44 + 96)].uExp);
                   v64 = 51;
                   if ( rand() % 100 < 20 )
                     v64 = (*(_DWORD *)(v44 + 108) >= 100) + 1;
@@ -68435,7 +68424,7 @@ LABEL_43:
                   }
                   else
                   {
-                    if ( byte_5CCE76[88 * *(_WORD *)(v7 + 96)] & 1 )
+                    if (pMonsterStats->pMonsterInfos[*(_WORD *)(v7 + 96)].bQuestMonster & 1 )
                     {
                       if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3618) & 8 )
                         v27 = 10 * *(_WORD *)(v7 + 136);
@@ -68463,7 +68452,7 @@ LABEL_43:
                     sub_438CF3(v76);
                     sub_43AC45(v76, 1);
                     if ( *(_DWORD *)(v7 + 116) )
-                      sub_4269A2(dword_5CCE88[22 * *(_WORD *)(v7 + 96)]);
+                      sub_4269A2(pMonsterStats->pMonsterInfos[*(_WORD *)(v7 + 96)].uExp);
                     v34 = 51;
                     if ( rand() % 100 < 20 )
                       v34 = (*(_DWORD *)(v7 + 108) >= 100) + 1;
@@ -83068,10 +83057,10 @@ LABEL_26:
         return (int)sub_466D09(&a4, *(int *)&v43, v44, (int)v45, v46, v47, v48);
       }
       v31 = monster_list[1] + 152 * v29;
-      v30 = sub_4563FF((int)dword_5CCE40, (const char *)v48);
+      v30 = sub_4563FF(pMonsterStats->pMonsterInfos, (const char *)v48);
       if ( !v30 )
         v30 = 1;
-      Src = &dword_5CCE40[22 * v30];
+      Src = &pMonsterStats->pMonsterInfos[v30];
       strcpy((char *)v25, *(const char **)Src);
       v46 = 88;
       v45 = Src;
@@ -83221,7 +83210,8 @@ LABEL_12:
     if ( dword_6BE360 == 1 )
       v21 = sub_49AC17((int)byte_6BE3C8, pParty_global->dword_0006B4, pParty_global->dword_0006B8, pParty_global->dword_0006BC);
     v8 = (int)((char *)pActors + 836 * v20);
-    v9 = (char *)&unk_5CCE98 + 88 * v23;
+    //v9 = (char *)&unk_5CCE98 + 88 * v23;
+    v9 = &pMonsterStats->pMonsterInfos[v23 + 1];
     v19 = (((dword_6BE360 != 2) - 1) & 0x40) + 64;
     sub_459671(v8);
     v10 = monster_list[1] + 152 * v23;
@@ -83347,7 +83337,8 @@ int __fastcall sub_44FD29(int a1, int a2)
   v11 = (int)((char *)pActors + 836 * uNumActors);
   v27 = (((dword_6BE360 != 2) - 1) & 0x40) + 64;
   v29 = v12;
-  v13 = (char *)&unk_5CCE98 + 88 * v12;
+  //v13 = (char *)&unk_5CCE98 + 88 * v12;
+  v13 = &pMonsterStats->pMonsterInfos[v12 + 1];
   sub_459671((int)((char *)pActors + 836 * uNumActors));
   v14 = monster_list[1] + 152 * v12;
   strcpy((char *)v11, *(const char **)v13);
@@ -84046,12 +84037,14 @@ signed int __fastcall sub_450B0A(int a1)
     if ( a1 >= monster_list[0] )
       v1 = 0;
     v4 = monster_list[1] + 152 * v1;
-    v5 = (char *)&unk_5CCE98 + 88 * v1;
+    //v5 = (char *)&unk_5CCE98 + 88 * v1;
+    v5 = &pMonsterStats->pMonsterInfos[v1 + 1];
     sub_41F4C1(&Dest);
     memset(&Dest, 0, 0x344u);
     strcpy(&Dest, *(const char **)v5);
     v8 = *((_WORD *)v5 + 32);
-    memcpy(&Dst, (char *)&unk_5CCE98 + 88 * v1, 0x58u);
+    //memcpy(&Dst, (char *)&unk_5CCE98 + 88 * v1, 0x58u);
+    memcpy(&Dst, &pMonsterStats->pMonsterInfos[v1 + 1], sizeof(struct MonsterInfo));
     v10 = v1 + 1;
     v11 = *(_WORD *)(v4 + 2);
     v12 = *(_WORD *)v4;
@@ -137933,7 +137926,7 @@ LABEL_45:
         v28 = v27 - 1;
         if ( !v28 )
         {
-          v29 = &dword_5CCE40[22 * word_F8B1A0];
+          v29 = &pMonsterStats->pMonsterInfos[word_F8B1A0];
           v30 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
           v31 = *v29;
           v32 = sub_40DEF3(0xFFu, 0xFFu, 0x9Bu);
@@ -141947,7 +141940,7 @@ LABEL_8:
       *(_DWORD *)(v0 + 64) = 0;
       goto LABEL_8;
     }
-    v7 = &dword_5CCE40[22 * word_F8B1A0];
+    v7 = &pMonsterStats->pMonsterInfos[word_F8B1A0];
     v8 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
     v9 = *v7;
     v10 = sub_40DEF3(0xFFu, 0xFFu, 0x9Bu);
@@ -145196,7 +145189,7 @@ int __cdecl sub_4BBA85()
   {
     if ( v5 )
     {
-      sub_420C05(100 * (unsigned __int8)byte_5CCE48[88 * v5], 0);
+      sub_420C05(100 * pMonsterStats->pMonsterInfos[v5].uLevel, 0);
       v8 = (char *)&pParty_global->pPlayers[0];
       do
       {
@@ -145204,7 +145197,7 @@ int __cdecl sub_4BBA85()
         v8 += 6972;
       }
       while ( (signed int)v8 < (signed int)&dword_AD4674 );
-      dword_ACD700 += 100 * (unsigned __int8)byte_5CCE48[88 * *(unsigned __int16 *)((char *)word_ACD708 + v6)];
+      dword_ACD700 += 100 * pMonsterStats->pMonsterInfos[*(unsigned __int16 *)((char *)word_ACD708 + v6)].uLevel;
       *(__int16 *)((char *)word_ACD708 + v6) = 0;
       *(__int16 *)((char *)word_ACD712 + v6) = 0;
     }
@@ -145349,7 +145342,7 @@ void __fastcall sub_4BBF61(int a1, __int16 a2, signed int a3, int a4)
       v8 = (int)((char *)pActors + 836 * v5);
       sub_459671(v8);
       v9 = v4;
-      v7 = &dword_5CCE40[22 * v4];
+      v7 = &pMonsterStats->pMonsterInfos[v4];
       v10 = 152 * v9 + monster_list[1] - 152;
       strcpy((char *)v8, (const char *)*v7);
       *(_WORD *)(v8 + 40) = *((_WORD *)v7 + 32);
@@ -145528,7 +145521,9 @@ LABEL_24:
     v31 = 2;
   v6 = 0;
   v30 = 1;
-  v7 = (signed int)&unk_5CCEA0;
+
+  //v7 = (signed int)&unk_5CCEA0;
+  v7 = &pMonsterStats->pMonsterInfos[1].uLevel;
   do
   {
     if ( *(_BYTE *)(v7 + 8) != 1 )
@@ -145546,7 +145541,9 @@ LABEL_24:
     ++v30;
     v7 += 88;
   }
-  while ( v7 <= (signed int)&unk_5D26F8 );
+  //while ( v7 <= (signed int)&unk_5D26F8 );
+  while (v7 <= &pMonsterStats->pMonsterInfos[102].uLevel);
+
   v31 = 6;
   if ( v6 < 6 )
     v31 = v6;
@@ -146334,7 +146331,7 @@ LABEL_15:
           {
             if ( v29 != v17 )
             {
-              sub_420C05(100 * (unsigned __int8)byte_5CCE48[88 * v29], 0);
+              sub_420C05(100 * pMonsterStats->pMonsterInfos[v29].uLevel, 0);
               v32 = (char *)&pParty_global->pPlayers[0];
               do
               {
@@ -146342,7 +146339,7 @@ LABEL_15:
                 v32 += 6972;
               }
               while ( (signed int)v32 < (signed int)&dword_AD4674 );
-              dword_ACD700 += 100 * (unsigned __int8)byte_5CCE48[88 * *(unsigned __int16 *)((char *)word_ACD708 + v30)];
+              dword_ACD700 += 100 * pMonsterStats->pMonsterInfos[*(unsigned __int16 *)((char *)word_ACD708 + v30)].uLevel;
               *(__int16 *)((char *)word_ACD708 + v30) = v17;
               *(__int16 *)((char *)word_ACD712 + v30) = v17;
             }
