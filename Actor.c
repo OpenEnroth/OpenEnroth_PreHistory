@@ -637,11 +637,11 @@ LABEL_40:
   }
   if ( !v7 )
   {
-    if ( (!v2 || *(_QWORD *)(v2 + 404) > 0i64 || !(*(_DWORD *)(v2 + 36) & 0x80000)) && !pClass48->byte_000000[89 * v8] )
+    if ( (!v2 || *(_QWORD *)(v2 + 404) > 0i64 || !(*(_DWORD *)(v2 + 36) & 0x80000)) && !pClass48->array_000000[v8][0] )
     {
 LABEL_56:
       if ( v8 < 89 )
-        return &pClass48->byte_000000[89 * v7] + v8;
+        return pClass48->array_000000[v7][v8];
       return 0;
     }
     return 4;

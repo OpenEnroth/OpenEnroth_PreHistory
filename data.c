@@ -1258,8 +1258,8 @@ struct class18 *pPlayerCreationUI_ClassIcons[9] = {0};   // ptr[9]  @ MM7.exe::0
 struct class18 *pPlayerCreationUI_Sky = 0;               // ptr     @ MM7.exe::00507784
 struct class18 *pPlayerCreationUI_Top = 0;               // ptr     @ MM7.exe::00507788
 
-struct class18 *pPlayerCreationUI_ArrowR[19] = {0}; // ptr[19] @ MM7.exe::0050787C
-struct class18 *pPlayerCreationUI_ArrowL[19] = {0}; // ptr[19] @ MM7.exe::005078CC
+struct class18 *pPlayerCreationUI_ArrowR[20] = {0}; // ptr[19] @ MM7.exe::0050787C
+struct class18 *pPlayerCreationUI_ArrowL[20] = {0}; // ptr[19] @ MM7.exe::005078CC
 
 struct CMonsterStats *pMonsterStats = 0; //struct @ MM7.exe::005CCE40
 

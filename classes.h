@@ -1145,9 +1145,11 @@ char *CSpellStats_Initialize(struct CSpellStats *_this);
 //hostile.txt
 struct class48
 {
- char byte_000000[8];
- char unknown[1024];
+ //char byte_000000[8];
+ //char unknown[1024];
+ char array_000000[4*array_size_unknown][89];
 };
+//sizeof ~ ?
 void class48_ctor(struct class48 *_this);
 //int __thiscall sub_4547E4(void *this);
 int class48_Initialize(struct class48 *_this);
@@ -1440,7 +1442,8 @@ struct struct2
  int   dword_000004;
  int   dword_000008;
  int   dword_00000C;
- char  byte_000010[12];
+ short uObjectDescriptionID2; // word @ 000010
+ char  byte_000012[10];
  short word_00001C;
  char  byte_00001E[82];
 };
