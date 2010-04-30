@@ -1711,7 +1711,9 @@ struct struct14
  float flt_000004;
  float flt_000008;
  float flt_00000C;
- char  byte_000010[32];
+ char  byte_000010[12];
+ float flt_00001C;
+ char  byte_000020[16];
 };
 //sizeof == 30
 

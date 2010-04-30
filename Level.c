@@ -1864,21 +1864,21 @@ bool __stdcall sub_45CE50(struct struct7 *_this, struct class51_stru2 *a2, int *
 
 
 //----- (00488F2E) --------------------------------------------------------
-int class51_sub_488F2E_MaybeGetHeightOnTerrain(struct class51 *_this, signed int uX, signed int uY)
+int class51_sub_488F2E_GetHeightOnTerrain(struct class51 *_this, signed int uX, signed int uY)
 {
-  if ( uX < 0 || uX > 127 || uY < 0 || uY > 127 )
-    return 0;
-  else
-    return class51_sub_47EE16_MaybeActuallyGetHeightOnTerrain(_this, uX, uY);
+ if ( uX < 0 || uX > 127 || uY < 0 || uY > 127 )
+   return 0;
+ else
+   return class51_sub_47EE16_ActuallyGetHeightOnTerrain(_this, uX, uY);
 }
 
 //----- (0047EE16) --------------------------------------------------------
-int class51_sub_47EE16_MaybeActuallyGetHeightOnTerrain(struct class51 *_this, signed int uX, signed int uY)
+int class51_sub_47EE16_ActuallyGetHeightOnTerrain(struct class51 *_this, signed int uX, signed int uY)
 {
-  if ( uX < 0 || uX > 127 || uY < 0 || uY > 127 )
-    return 0;
-  else
-   return 32 * _this->struct_0000B4.pHeightmap[128 * uY + uX];
+ if ( uX < 0 || uX > 127 || uY < 0 || uY > 127 )
+   return 0;
+ else
+  return 32 * _this->struct_0000B4.pHeightmap[128 * uY + uX];
 }
 
 //----- (0047EDB3) --------------------------------------------------------

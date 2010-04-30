@@ -1562,3 +1562,190 @@ void LevelLoadingUI_Release(struct class56 *_this)
     *(_DWORD *)(int)((char *)v1 + 360) = 0;
   }
 }
+
+
+//----- (004921C1) --------------------------------------------------------
+extern struct class24 *pClass24_global2;
+extern struct CPlayerFrameTable *pPlayerFrameTable;
+extern int dword_4F8864;
+extern int dword_4F8878[];
+extern int dword_5079C8;
+extern int dword_4F885C;
+extern int dword_5079CC;
+extern int dword_ACD834;
+extern int dword_ACD9F4;
+extern int dword_5079C8;
+extern int dword_5079CC;
+extern int uTextureIdx_PlayerFaceEradicated;
+extern int uTextureIdx_PlayerFaceDead;
+extern int uTextureIdx_SensorGreen;
+extern __int64 qword_A750D8;
+extern __int64 qword_ACD8F4;
+extern short word_A750E0;
+extern short word_A750E2;
+extern char unk_AD46E4;
+extern int dword_A74CEC[];
+void GameUI_DrawPortraits(void *this)
+{
+  signed int v1; // ebx@2
+  void *v2; // ebp@7
+  signed int v3; // esi@7
+  int v4; // eax@10
+  int v5; // edx@13
+  int v6; // eax@14
+  int v7; // eax@17
+  int v8; // eax@21
+  int v9; // eax@27
+  bool v10; // eax@33
+  bool v11; // edi@40
+  bool v12; // edx@43
+  bool v13; // ecx@46
+  int v14; // esi@54
+  int v15; // edi@55
+  int v16; // eax@57
+  int v19; // eax@62
+  int v20; // [sp-4h] [bp-1Ch]@27
+  signed int v21; // [sp+10h] [bp-8h]@7
+  void *v22; // [sp+14h] [bp-4h]@1
+ int i;
+
+  v22 = this;
+  if ( qword_A750D8 )
+  {
+    qword_A750D8 -= pClass24_global2->dword_00001C;
+    v1 = 0;
+    if ( qword_A750D8 <= 0 )
+    {
+      if ( sub_492C0B(pPlayers[word_A750E2 - 1]) )
+        sub_4948B1(pPlayers[word_A750E2 - 1], word_A750E0, 0);
+      qword_A750D8 = 0i64;
+    }
+  }
+  else
+  {
+    v1 = 0;
+  }
+  v2 = 0;
+  v21 = v1;
+  v3 = (signed int)&dword_ACD9F4;
+  while ( 1 )
+  {
+    if ( *(_QWORD *)(v3 + 16) )
+    {
+      v4 = &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_PlayerFaceDead];
+LABEL_27:
+      v20 = v4;
+      v9 = off_4ED748[(_DWORD)v2];
+      if ( qword_ACD8F4 )
+        sub_4A6E7E(pD3DRenderer, v9, 387, v20);
+      else
+        CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v9 + 1, 388, v20);
+      v10 = *(_DWORD *)(v3 + 6164) >= v1 && (*(_DWORD *)(v3 + 6164) > v1 || *(_DWORD *)(v3 + 6160) > (unsigned int)v1);
+      if ( *(_DWORD *)(v3 + 5956) >= v1 )
+      {
+        if ( *(_DWORD *)(v3 + 5956) > v1 || *(_DWORD *)(v3 + 5952) > (unsigned int)v1 )
+          v1 = 1;
+      }
+      v11 = *(_QWORD *)(v3 + 6064) > 0i64;
+      v12 = *(_QWORD *)(v3 + 6048) > 0i64;
+      v13 = *(_QWORD *)(v3 + 6144) > 0i64;
+      if ( v13 | v12 | v11 | v1 | v10 )
+        sub_441A4E(v2);
+      goto LABEL_50;
+    }
+    if ( *(_QWORD *)v3 )
+    {
+      v4 = &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_PlayerFaceEradicated];
+      goto LABEL_27;
+    }
+    v5 = 0;
+    if ( pPlayerFrameTable->uNumFrames <= v1 )
+    {
+LABEL_17:
+      v7 = 0;
+    }
+    else
+    {
+     v6 = pPlayerFrameTable->pFrames;
+      while ( *(_WORD *)v6 != *(_WORD *)(v3 + 6700) )
+      {
+        ++v5;
+        v6 += 10;
+        if ( v5 >= pPlayerFrameTable->uNumFrames )
+          goto LABEL_17;
+      }
+      v7 = v5;
+    }
+    if ( v7 == v1 )
+      v7 = 1;
+    if ( *(_WORD *)(v3 + 6700) == 21 )
+     v8 = sub_494B5E(pPlayerFrameTable, v3 + 6712, v3 + 6708, pClass24_global2->dword_00001C);
+    else
+      v8 = sub_494B10(pPlayerFrameTable, v7, *(_WORD *)(v3 + 6702));
+    if ( *(_WORD *)(v3 + 6706) != *(_WORD *)(v8 + 2) - 1 || v22 )
+    {
+      *(_WORD *)(v3 + 6706) = *(_WORD *)(v8 + 2) - 1;
+      v1 = 0;
+      v4 = &pClass17_Icons_LOD->aLODHeaders[dword_A74CEC[v21 + *(_WORD *)(v8 + 2)]];
+      goto LABEL_27;
+    }
+LABEL_50:
+    v21 += 56;
+    v3 += 6972;
+    v2 = (char *)v2 + 1;
+    if ( v3 >= (signed int)&unk_AD46E4 )
+      break;
+    v1 = 0;
+  }
+  if ( dword_ACD834 == 1 )
+  {
+    if ( dword_4F885C != 1 )
+    {
+      if ( (dword_4F8878[0] & 7) == 4 )
+      {
+        v14 = 0;
+        if ( dword_4F8864 > 0 )
+        {
+          v15 = (int)dword_4F8878;
+          do
+          {
+            if ( (*(_BYTE *)v15 & 7) != 4 )
+              break;
+            v16 = uTextureIdx_SensorGreen;
+            if ( pParty_global->dword_007778 & 0x10 )
+            {
+              v16 = dword_5079CC;
+            }
+            else
+            {
+              if ( pParty_global->dword_007778 & 0x20 )
+                v16 = dword_5079C8;
+            }
+            CD3DRenderer_DrawTransparentTexture(pD3DRenderer, off_4ED748[*(_DWORD *)v15 >> 3] - 4, 385, v16 != -1 ? 72 * v16 + 7145548 : 0);
+            ++v14;
+            v15 += 16;
+          }
+          while ( v14 < dword_4F8864 );
+        }
+      }
+    }
+  }
+  else
+  {
+    for (i = 0; i < 4; ++i)
+    {
+      if ( sub_492C0B(&pParty_global->pPlayers[i]) )
+      {
+        if ( !pParty_global->pPlayers[i].word_001934)
+        {
+          v19 = uTextureIdx_SensorGreen;
+          if ( pParty_global->dword_007778 & 0x10 )
+            v19 = dword_5079CC;
+          else if ( pParty_global->dword_007778 & 0x20 )
+              v19 = dword_5079C8;
+          CD3DRenderer_DrawTransparentTexture(pD3DRenderer, off_4ED748[i] - 4, 385, &pClass17_Icons_LOD->aLODHeaders[v19]);
+        }
+      }
+    }
+  }
+}

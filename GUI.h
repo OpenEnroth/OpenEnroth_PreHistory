@@ -173,6 +173,7 @@ void __cdecl GameUI_DrawStatusBar();
 int __cdecl GameUI_DrawFrames();
 void __cdecl GameUI_DrawFoodAndGold();
 void __cdecl GameUI_DrawPartySpells();
+void GameUI_DrawPortraits(void *this);
 
 
 #pragma pack(pop)
