@@ -227,7 +227,7 @@ extern char byte_591180[600];
 extern int array_5075E0[20];
 extern int dword_506978;
 extern int dword_4E28F8;
-extern struct class03 *class03_global;
+extern struct class03 *pClass03_global;
 extern struct class24 *pClass24_global;
 extern struct CMapStats *pMapStats;
 extern int dword_5913D8[];
@@ -577,7 +577,7 @@ LABEL_62:
     {
       class24_fn1(pClass24_global);
       AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-      sub_469903(class03_global, "MICON2");
+      sub_469903(pClass03_global, "MICON2");
       sub_44C175(pGlobalTXT_LocalizationStrings[39], 2);
       return v9;
     }
@@ -585,7 +585,7 @@ LABEL_62:
       goto LABEL_62;
     if ( a5 == 31 )
     {
-      sub_469903(class03_global, "MICON2");
+      sub_469903(pClass03_global, "MICON2");
       dword_5076F4 = GUIButtonCreate(
                        v9,
                        392,

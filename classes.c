@@ -8321,7 +8321,7 @@ extern union
 /*extern*/ __int64 qword_F8BC28; // weak
 } data_F8BC28;
 extern int dword_F8BC30;
-void class08_sub_436BB7(struct class08 *_this, int a2, int a3, char a4)
+void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char a4)
 {
   int v4; // ebx@1
   void *v5; // edi@1
@@ -8340,7 +8340,7 @@ void class08_sub_436BB7(struct class08 *_this, int a2, int a3, char a4)
   v5 = _this;
   if ( a3 > 0 )
   {
-    v6 = a2 + 24;
+    v6 = (char *)a2 + 24;
     do
     {
       if ( byte_4D8410[572] && *(_BYTE *)(&pGame->uSomeFlags) & 0x80 || dword_6BE360 == 1 )

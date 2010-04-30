@@ -1,4 +1,5 @@
 #include <windows.h>
+#include "classes.h"
 
 //struct IID_IDirectDraw2            @ byte_4D8410 + 4984
 //struct IID_IDirectDraw4            @ byte_4D8410 + 5000
@@ -1275,6 +1276,7 @@ struct Font *pFontCChar = 0;    // ptr @ MM7.exe::005C3600
 struct Font *pFontComic = 0;    // ptr @ MM7.exe::005C3604
 struct Font *pFontSmallnum = 0; // ptr @ MM7.exe::005C3608
 
+struct struct14 array_73D150[20]; // struct[20] @ MM7.exe::0073D150
 
 void *pSpansBuf = 0;
 struct Edge *pNewEdgesBuf = 0; // ptr @ MM7.exe::0080C968

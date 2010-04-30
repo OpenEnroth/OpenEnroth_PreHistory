@@ -125,6 +125,7 @@ extern unsigned int uTextureID_PlayerCreationUI_FaceMask;
 
 extern struct CMonsterStats *pMonsterStats;
 
+extern struct struct14 array_73D150[];
 
 extern struct Font *pFontArrus;
 extern struct Font *pFontLucida;

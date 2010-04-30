@@ -60,7 +60,7 @@ extern struct Party *pParty_global;
 extern struct class56 *pLoadingUI;
 bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a4, int a5)
 {
-  int v5; // esi@1
+ int v5;
   FILE *result; // eax@9
   FILE *v7; // ebx@9
   size_t v8; // eax@10
@@ -91,7 +91,6 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
   int v34; // ecx@37
   int v35; // eax@38
   int v36; // eax@38
-  int v37; // edi@43
   int v38; // eax@43
   int v39; // edi@45
   size_t v40; // eax@50
@@ -242,12 +241,12 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
     uTextureID_LocationMap = class17_LoadTexture(pClass17_Icons_LOD, &Str, v120);
     locked_fread(&DstBuf, 0x180u, 1u, v7);
     fseek(v7, Offset, 0);
-    locked_fread((void *)v5, 0xB0u, 1u, v7);
-    sub_47F420((void *)v5);
-    sub_47F3EA(v5);
-    strcpy((char *)(v5 + 128), "grastyl");
+    locked_fread(_this, 0xB0u, 1u, v7);
+    sub_47F420(_this);
+    sub_47F3EA(_this);
+    strcpy(_this->pGroundTileset, "grastyl");
     fseek(v7, v127, 0);
-    locked_fread((void *)(v5 + 176), 4u, 1u, v7);
+    locked_fread(_this->uNumBModels, 4u, 1u, v7);
     fseek(v7, v128, 0);
     locked_fread(&Count, 4u, 1u, v7);
     fseek(v7, v129, 0);
@@ -504,16 +503,16 @@ LABEL_33:
       v120 = 0;
       v119 = (signed int)byte_6BE114;
     }
-    *(_DWORD *)(v5 + 232) = class17_LoadTexture(pClass17_Bitmaps_LOD, (const char *)v119, v120);
-    strcpy((char *)(v5 + 128), byte_6BE124);
-    v38 = sub_487E3B(pTileTable, *(_WORD *)(v5 + 162));
-    v37 = *(_DWORD *)(v5 + 232);
-    *(_DWORD *)(v5 + 236) = class17_LoadTexture(pClass17_Bitmaps_LOD, (const char *)v38, 0);
-    if ( v37 != -1 )
-      *(_WORD *)(v37 != -1 ? 72 * v37 + 7278780 + 0x26 : 38) = class35_sub_48A3BC(
+    _this->uSkyTextureID = class17_LoadTexture(pClass17_Bitmaps_LOD, (const char *)v119, v120);
+    strcpy(_this->pGroundTileset, byte_6BE124);
+    v38 = sub_487E3B(pTileTable, _this->array_0000A0[1]);
+
+    _this->dword_0000EC = class17_LoadTexture(pClass17_Bitmaps_LOD, (const char *)v38, 0);
+    if ( _this->uSkyTextureID != -1 )
+      *(_WORD *)(_this->uSkyTextureID != -1 ? 72 * _this->uSkyTextureID + 0x6F10BC + 0x26 : 38) = class35_sub_48A3BC(
                                                                  &class35_obj,
-                                                                 *(_WORD *)(v37 != -1 ? 72 * v37 + 7278780 + 0x24 : 36));
-    v39 = *(_DWORD *)(v5 + 236);
+                                                                 *(_WORD *)(_this->uSkyTextureID != -1 ? 72 * _this->uSkyTextureID + 0x6F10BC + 0x24 : 36));
+    v39 = _this->dword_0000EC;
     if ( v39 != -1 )
       *(_WORD *)(v39 != -1 ? 72 * v39 + 7278780 + 0x26 : 38) = class35_sub_48A3BC(
                                                                  &class35_obj,
@@ -712,7 +711,7 @@ LABEL_74:
         *(_WORD *)(v65 != -1 ? 72 * v65 + 7278780 + 0x26 : 38) = class35_sub_48A3BC(&class35_obj, v120);
         goto LABEL_69;
       }
-      v120 = *(_WORD *)(*(_DWORD *)(*(_DWORD *)(v5 + 216) + v51 + 84) + v168 + 272);
+      v120 = _this->pBModels[v51 / 188].ptr_000054[v168 / 308].word_000110;
       sub_44E0ED(pTextureFrameTable, v120);
 LABEL_69:
       if ( *(_WORD *)(wtf + 292) )

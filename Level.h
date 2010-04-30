@@ -22,16 +22,24 @@ struct class51_Geodata
 };
 //sizeof == 20
 
+struct class51_stru3
+{
+ signed int int_000000;
+ signed int int_000004;
+ signed int int_000008;
+};
+//sizeof == 0C
+
 struct class51_BModel
 {
  unsigned char pSomeName[16 + array_size_unknown];
 
  char byte_a[0x40 - 16 - array_size_unknown];
 
- int            dword_000040;
- unsigned int   dword_000044;
- unsigned char *ptr_000048;
- unsigned int   dword_00004C;
+ int                   dword_000040;
+ unsigned int          dword_000044;
+ struct class51_stru3 *ptr_000048;
+ unsigned int          dword_00004C;
 
  int dword_000050;
 
@@ -40,8 +48,13 @@ struct class51_BModel
  unsigned int          dword_00005C;
  unsigned char        *ptr_000060;
 
- int dword_000064[18];
-
+ int dword_000064[6];
+ int dword_00007C;
+ int dword_000080;
+ int dword_000084;
+ int dword_000088;
+ int dword_00008C;
+ int dword_000090[7];
  int dword_0000AC;
  int dword_0000B0;
  int dword_0000B4;
@@ -56,12 +69,21 @@ struct class51_stru2
  int   dword_000008;
  int   dword_00000C;
  char  byte_000010[16]; //if (byte_000010[13] & 0x40) then word_000110 == TextureFrameTable ID  else  plain Texture ID
- short word_000020;
- char  byte_000022[238];
+ short array_000020[60];
+ short array_000098[20];
+ short array_0000C0[20];
+ char  byte_0000E8[40];
  short word_000110;
- char  byte_000112[18];
+ char  byte_000112[4];
+ short word_000116;
+ short word_000118;
+ short word_00011A;
+ char  word_00011C;
+ char  byte_00011E[6];
  short word_000124;     //related to Event::dword_000000
- char  byte_000126[14];
+ char  byte_000126[8];
+ char  byte_00012E;
+ char  byte_00012F[5];
 };
 //sizeof == 134
 

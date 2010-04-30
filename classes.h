@@ -385,7 +385,7 @@ void class08_sub_437607(struct class08 *_this, struct class26 *a2, unsigned char
 //int __thiscall sub_437691(int this, int a2, int a3);
 void class08_sub_437691(struct class08 *_this, struct class26 *a2, float *a3);
 //void __thiscall sub_436BB7(void *this, int a2, int a3, char a4);
-void class08_sub_436BB7(struct class08 *_this, int a2, int a3, char a4);
+void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char a4);
 //void __thiscall sub_438240(int this);
 void class08_sub_438240(struct class08 *_this);
 //void __fastcall sub_438141(int a1);
@@ -1702,5 +1702,17 @@ struct Event
  int dword_000008;
 };
 //sizeof == 0C
+
+
+
+struct struct14
+{
+ float flt_000000;
+ float flt_000004;
+ float flt_000008;
+ float flt_00000C;
+ char  byte_000010[32];
+};
+//sizeof == 30
 
 #pragma pack(pop)
