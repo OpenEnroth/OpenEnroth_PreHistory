@@ -284,7 +284,7 @@ bool CGame_Pick(struct CGame *_this, float a2, signed int a3, signed int a4, cha
             *(float *)&v12 = (double)a3;
             sub_4C0646(v9, a2, *(float *)&v12, *(float *)&v13, a6, a7);
             if ( a5 )
-              sub_44EB5A(v7);
+              CGame_outline_selection(v7);
           }
         }
       }

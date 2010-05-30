@@ -114,7 +114,7 @@ void CD3DRenderer_ctor(struct CD3DRenderer *_this)
 
  _this->bSceneBegun = false;
 
- _this->pTargetSurface = 0;
+ _this->pTargetSurface = NULL;
  _this->uTargetSurfacePitch = 0;
 
  _this->dword_0400F4 = 0;
@@ -1799,7 +1799,7 @@ int __stdcall LockSurface_DDraw4(struct IDirectDrawSurface4 *pdds4, DDSURFACEDES
  if (hr == DDERR_SURFACELOST)
  {
   if (dword_720010)
-    sub_46B14F(dword_720010);
+    Mouse_suspend(dword_720010);
 
   hr = (pdds4->lpVtbl->Restore)(pdds4);
   if (FAILED(hr))

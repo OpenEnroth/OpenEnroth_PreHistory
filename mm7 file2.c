@@ -780,7 +780,7 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
 
   v22 = 1;
   if ( LODWORD(dword_720010) )
-    sub_46B14F(SLODWORD(dword_720010));
+    Mouse_suspend(SLODWORD(dword_720010));
   if ( LODWORD(pGame) )
   {
     v11 = *(_DWORD *)(LODWORD(pGame) + 3692);
@@ -789,7 +789,7 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
       if ( *(_BYTE *)(v11 + 4) )
       {
         if ( dword_69B00C )
-          sub_45B329(dword_69B00C);
+          Keyboard_suspend(dword_69B00C);
       }
     }
   }

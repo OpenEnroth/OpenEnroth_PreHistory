@@ -7,12 +7,12 @@
 int (__cdecl *sprintfex)(char *, const char *, ...) = 0;
 
 
-#include <ddraw.h>
+#include "ddraw.h"
 #pragma comment(lib, "ddraw.lib")
 HRESULT __stdcall DirectDrawCreate(GUID *lpGUID, IDirectDraw **lplpDD, IUnknown *pUnkOuter); 
 
 
-#include <dinput.h>
+#include "dinput.h"
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "dinput8.lib")
 
@@ -3578,7 +3578,7 @@ char __thiscall sub_438B9B(int this);
 signed int __fastcall sub_438BDF(signed int a1, int a2);
 void __fastcall sub_438CF3(int a1);
 __int16 __thiscall sub_438E35(void *this);
-__int16 __fastcall sub_439474(signed int a1, int a2, int a3);
+__int16 __fastcall damageMonsterFromParty(signed int a1, int a2, int a3);
 int __fastcall sub_439DF3(int a1, int a2, int a3);
 void __fastcall sub_439FCB(signed int a1, int a2, int a3, int a4);
 void __fastcall sub_43A97E(int a1, signed int a2);
@@ -3733,7 +3733,7 @@ signed int __thiscall sub_44E163(void *this, const char *Str2);
 int __thiscall sub_44E19A(int this, int a2, signed int a3);
 void __thiscall sub_44E904(void *this);
 char __thiscall sub_44EB12(int this, char a2, int a3, int a4);
-void *__thiscall sub_44EB5A(int this);
+void *__thiscall CGame_outline_selection(int this);
 char __cdecl sub_44EC20();
 signed int __thiscall sub_44EC23(int this, int a2, int a3, signed int a4);
 signed int __thiscall sub_44ED0A(int this, int a2, int a3, signed int a4);
@@ -3826,9 +3826,9 @@ void __cdecl sub_45B213();
 char __thiscall sub_45B229(DWORD lpParameter);
 char __thiscall sub_45B260(void *this);
 void __thiscall sub_45B2A7(int this);
-void __thiscall sub_45B329(int this);
+void __thiscall Keyboard_suspend(int this);
 char __thiscall sub_45B3A4(int this);
-void __thiscall sub_45B3B6(int this);
+void __thiscall Keyboard_update_keyboard_data(int this);
 char __thiscall sub_45B4EC(void *this, unsigned __int8 a2);
 char __thiscall sub_45B57D(void *this, int a2);
 void __stdcall StartAddress(int a1);
@@ -3973,12 +3973,12 @@ char __thiscall sub_46B072(DWORD lpParameter);
 char __thiscall sub_46B0A9(void *this);
 int __thiscall sub_46B0ED(int this);
 void __thiscall sub_46B105(void *this);
-void __thiscall sub_46B14F(int this);
+void __thiscall Mouse_suspend(int this);
 char __thiscall sub_46B1DD(int this);
 char __stdcall sub_46B1EC(int a1, int a2, int a3);
 char __thiscall sub_46B289(int this, int a2, char a3);
 int __thiscall sub_46B342(int this, float a2, float a3);
-int __thiscall sub_46B37C(int this, int a2);
+int __thiscall update_mouse_data(int this, int a2);
 char __thiscall sub_46B420(int this);
 void __thiscall sub_46B492(void *this, int a2);
 void __thiscall sub_46B5D5(void *this, int a2);
@@ -4048,7 +4048,7 @@ bool __fastcall sub_477F63(int a1);
 signed int __fastcall sub_47802A(int a1);
 void __thiscall sub_47829F(void *this, float a2, float a3, float a4, float a5, int a6);
 int __thiscall sub_478389(int this);
-char __cdecl sub_47840D();
+char __cdecl RenderBuildings();
 void __cdecl loc_4789D4(); // idb
 void __cdecl sub_4789DE();
 bool __fastcall sub_479089(unsigned int a1, int *a2);
@@ -4356,7 +4356,7 @@ FILE *__thiscall sub_49F8B5(void *this, FILE *Filename, int a3, int a4, int a5);
 signed int __thiscall sub_49FFD7(int this);
 int __thiscall sub_4A05F3(void *this, int a2);
 char __thiscall sub_4A0BEE(int this, int a2, int a3, int a4, int a5, __int16 a6);
-void *__thiscall sub_4A121C(void *this);
+void *__thiscall CD3DRenderer_sub_4A121C(struct CD3DRenderer * this);
 void *__thiscall sub_4A12CD(void *this);
 void *__thiscall sub_4A14F4(int this, int a2);
 char __thiscall sub_4A169E(void *this);
@@ -4553,7 +4553,7 @@ void __thiscall sub_4C05BE(int this);
 char __thiscall sub_4C05CC(int this, int a2, int a3, int a4);
 char __thiscall sub_4C0646(int this, float a2, float a3, float a4, int a5, int a6);
 void __thiscall sub_4C06F8(void *this, float a2, int a3, int a4);
-char __stdcall sub_4C0791(int a1, int a2);
+char __stdcall CVis_is_part_of_selection(int a1, int a2);
 char __thiscall sub_4C091D(void *this, float a2, int a3);
 void __cdecl loc_4C0D27(); // idb
 int __thiscall sub_4C0D32(void *this, float a2, int a3, int a4);
@@ -5147,6 +5147,62 @@ LABEL_71:
     }
 }
 
+//----- (004A121C) --------------------------------------------------------
+void *__thiscall CD3DRenderer_sub_4A121C(struct CD3DRenderer * this)
+{
+  char    local_0[128];
+  HRESULT hr; 
+  DDSURFACEDESC2 dd;
+
+  memset(&dd, 0, sizeof(DDSURFACEDESC2));
+  dd.dwSize = sizeof(DDSURFACEDESC2);
+  dd.dwFlags = DDSD_CAPS;
+  dd.ddsCaps.dwCaps = 512;
+
+  hr = pD3DRenderer->pdd4->lpVtbl->CreateSurface(pD3DRenderer->pdd4, &dd, &pD3DRenderer->pdds4_FrontBuffer, 0);
+  return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2357, 0);
+}
+//----- (004A14F4) --------------------------------------------------------
+void *__thiscall sub_4A14F4(int this, int a2)
+{
+  int v2; // edi@1
+  const char *v3; // edi@3
+  int v4; // esi@3
+  int v5; // eax@3
+  unsigned int v6; // ST1C_4@3
+  int v7; // ST20_4@3
+  int v8; // eax@3
+  HRESULT hr; // eax@4
+  unsigned int v10; // ST1C_4@4
+  int v11; // ST20_4@4
+  int v12; // eax@4
+  unsigned int v14; // ST14_4@5
+  int v15; // eax@5
+  char v16; // [sp+Ch] [bp-4h]@3
+
+  v2 = this;
+  hr = pD3DRenderer->pdd4->lpVtbl->CreateClipper(pD3DRenderer->pdd4, NULL, &dword_DF1BE0, NULL);
+
+	//CreateClipper)(THIS_ DWORD, LPDIRECTDRAWCLIPPER FAR*, IUnknown FAR * ) PURE;
+  v4 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp";
+  hr = (*(int (__stdcall **)(_DWORD, _DWORD, int *, _DWORD, _DWORD, signed int))(**(_DWORD **)(this + 262284) + 16))(
+           *(_DWORD *)(this + 262284),
+           0,
+           &dword_DF1BE0,
+           0,
+           "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp",
+           2463);
+  CheckHRESULT(&v16, hr, 0, v10, v11);
+  v12 = (*(int (__stdcall **)(int, _DWORD, int))(*(_DWORD *)dword_DF1BE0 + 32))(dword_DF1BE0, 0, a2);
+  CheckHRESULT(&a2, v12, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x9A0u, 0);
+  v3 = *(const char **)(v2 + 262288);
+
+  v14 = dword_DF1BE0;
+  v15 = (*(int (**)(void))(*(_DWORD *)v3 + 112))();
+  return CheckHRESULT(&a2, v15, v3, v14, v4);
+}
+
+
 //----- (00438F8F) --------------------------------------------------------
 int __fastcall sub_438F8F(int result)
 {
@@ -5367,7 +5423,7 @@ int __fastcall sub_438F8F(int result)
                   switch ( v41 )
                   {
                     case 4:
-                      sub_439474(*((_WORD *)v2 - 300), v45, v33);
+                      damageMonsterFromParty(*((_WORD *)v2 - 300), v45, v33);
                       break;
                     case 3:
                       if ( v36 )
@@ -5454,7 +5510,7 @@ void sub_47A59E(bool a1)
   {
 LABEL_14:
     sub_479543();
-    sub_47840D();
+    RenderBuildings();
     sub_47F5C6();
     goto LABEL_16;
   }
@@ -5632,11 +5688,11 @@ LABEL_21:
             goto LABEL_49;
           class03_fn1(pClass03_global, 0);
           if ( LODWORD(dword_720010) )
-            sub_46B14F(SLODWORD(dword_720010));
+            Mouse_suspend(SLODWORD(dword_720010));
           if ( *(_BYTE *)(*(_DWORD *)(LODWORD(pGame) + 3692) + 4) )
           {
             if ( dword_69B00C )
-              sub_45B329(dword_69B00C);
+              Keyboard_suspend(dword_69B00C);
           }
           Party_CreateDefault(pParty_global);
           sub_49137D(pParty_global, 1);
@@ -8168,7 +8224,7 @@ LABEL_261:
   {
     if (Msg == WM_WINDOWPOSCHANGED)
     {
-      if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) && pVideoPlayer->pBinkBuffer)
+      if ( pVideoPlayer && CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) && pVideoPlayer->pBinkBuffer)
       {
         BinkBufferSetOffset(pVideoPlayer->pBinkBuffer, 0, 0);
         return DefWindowProcA(hWnd, Msg, wParam, v5);
@@ -8490,7 +8546,7 @@ LABEL_179:
             pVideoPlayer->dword_00006C = 1;
         }
         if (dword_720010)
-          sub_46B14F(dword_720010);
+          Mouse_suspend(dword_720010);
         if ( pD3DRenderer->bUseDirect3D )
         {
           if ( pD3DRenderer->dword_00000C == 1 )
@@ -8511,7 +8567,7 @@ LABEL_179:
           if (pGame->class14_obj->dword_000004 & 0xFF)
           {
             if ( dword_69B00C )
-              sub_45B329(dword_69B00C);
+              Keyboard_suspend(dword_69B00C);
           }
         }
         AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
@@ -8557,7 +8613,7 @@ LABEL_179:
       ClipCursor(0);
       if ( LODWORD(dword_720010) )
       {
-        sub_46B14F(SLODWORD(dword_720010));
+        Mouse_suspend(SLODWORD(dword_720010));
         return DefWindowProcA(hWnd, Msg, wParam, v5);
       }
     }
@@ -14149,7 +14205,7 @@ void __stdcall PlayMovie(unsigned int uVideoID, char a2)
   int v12; // [sp+Bh] [bp-1h]@14
 
  if (*(int *)&dword_720010)
-   sub_46B14F(*(int *)&dword_720010);
+   Mouse_suspend(*(int *)&dword_720010);
 
  switch (uVideoID)
  {
@@ -14383,7 +14439,7 @@ LABEL_19:
           v46 = v18;
           v57 = v19;
           v20 = sub_42F5ED((int)&v43, 0, 0, 0, 0);
-          sub_439474(8 * v20 | 2, *v15, (int)&v59);
+          damageMonsterFromParty(8 * v20 | 2, *v15, (int)&v59);
           ++v11;
         }
         while ( v11 < v13 );
@@ -16252,7 +16308,7 @@ LABEL_133:
         v628 = (int)&v650;
         v36 = LODWORD(v704);
 LABEL_139:
-        sub_439474(8 * v36 | 2, v46, v628);
+        damageMonsterFromParty(8 * v36 | 2, v46, v628);
         goto LABEL_1056;
       case 2:
       case 6:
@@ -16859,7 +16915,7 @@ LABEL_269:
                 LOBYTE(v117) = 8 * n | 3;
                 v699 = v117;
                 v118 = sub_42F5ED((int)&v686, 0, 0, 0, 0);
-                sub_439474(8 * v118 | 2, v708, (int)&v662);
+                damageMonsterFromParty(8 * v118 | 2, v708, (int)&v662);
                 LODWORD(v705) = 1;
               }
               else
@@ -17119,7 +17175,7 @@ LABEL_304:
             v699 = v159;
             v160 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v161 = n;
-            sub_439474(8 * v160 | 2, dword_50BF30[n], (int)&v659);
+            damageMonsterFromParty(8 * v160 | 2, dword_50BF30[n], (int)&v659);
             v162 = sub_42EB6A(SLODWORD(pGame));
             class06_sub_4A81CA(v162, (int)&v686);
             v163 = sub_42EB6A(SLODWORD(pGame));
@@ -19426,7 +19482,7 @@ LABEL_641:
             v699 = v476;
             v477 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v478 = n;
-            sub_439474(8 * v477 | 2, dword_50BF30[n], (int)&v647);
+            damageMonsterFromParty(8 * v477 | 2, dword_50BF30[n], (int)&v647);
             n = v478 + 1;
           }
           while ( v478 + 1 < LODWORD(v712) );
@@ -19606,7 +19662,7 @@ LABEL_973:
             v699 = v502;
             v503 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v504 = n;
-            sub_439474(8 * v503 | 2, dword_50BF30[n], (int)&v653);
+            damageMonsterFromParty(8 * v503 | 2, dword_50BF30[n], (int)&v653);
             n = v504 + 1;
           }
           while ( v504 + 1 < LODWORD(v704) );
@@ -20283,7 +20339,7 @@ LABEL_1119:
             v699 = v586;
             v587 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v588 = n;
-            sub_439474(8 * v587 | 2, dword_50BF30[n], (int)&v668);
+            damageMonsterFromParty(8 * v587 | 2, dword_50BF30[n], (int)&v668);
             n = v588 + 1;
           }
           while ( v588 + 1 < LODWORD(v712) );
@@ -23849,7 +23905,7 @@ LABEL_69:
 
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
   if ( LODWORD(dword_720010) )
-    sub_46B14F(SLODWORD(dword_720010));
+    Mouse_suspend(SLODWORD(dword_720010));
   return v28;
 }
 
@@ -28687,12 +28743,12 @@ int __cdecl sub_4645FA()
   struct tagRECT Rect; // [sp+0h] [bp-10h]@6
 
   if (dword_720010)
-    sub_46B14F(dword_720010);
+    Mouse_suspend(dword_720010);
 
   if ( *(_BYTE *)(&pGame->class14_obj->dword_000004) )
   {
     if ( dword_69B00C )
-      sub_45B329(dword_69B00C);
+      Keyboard_suspend(dword_69B00C);
   }
   RegistryWriteInt("startinwindow", pD3DRenderer->dword_040058);
   if ( GetWindowRect(hWnd_global, &Rect) )
@@ -61324,7 +61380,7 @@ LABEL_28:
         v26 = *((_WORD *)v8 + 72) - pParty_global->dword_0006B8;
         v27 = *((_WORD *)v8 + 73) - pParty_global->dword_0006BC;
         sub_43AB61((int)&v25, (int)&v26, (int)&v27);
-        sub_439474((8 * v1 - 8) | 4, v28, (int)&v25);
+        damageMonsterFromParty((8 * v1 - 8) | 4, v28, (int)&v25);
         if ( sub_48D709((void *)v2, 506, 1) || sub_48D709((void *)v2, 506, 0) )
           sub_42FA66(
             *((_WORD *)v8 + 71),
@@ -68790,7 +68846,7 @@ __int16 __thiscall sub_438E35(void *this)
 }
 
 //----- (00439474) --------------------------------------------------------
-__int16 __fastcall sub_439474(signed int a1, int a2, int a3)
+__int16 __fastcall damageMonsterFromParty(signed int a1, int a2, int a3)
 {
   signed int v3; // eax@1
   int v4; // ebx@1
@@ -70025,7 +70081,7 @@ void __fastcall sub_43A97E(int a1, signed int a2)
         sub_43B1B0(8 * v6 | 2, v3, (int)&dword_50FDFC, (unsigned __int8)byte_665291[v5]);
         break;
       case 4:
-        sub_439474(8 * v6 | 2, v3, (int)&dword_50FDFC);
+        damageMonsterFromParty(8 * v6 | 2, v3, (int)&dword_50FDFC);
         break;
       case 2:
         sub_43B057(8 * v6 | 2, v3, (int)&dword_50FDFC);
@@ -78529,7 +78585,7 @@ void __fastcall sub_44684A(int a1, int a2, int a3)
             pVideoPlayer->dword_00006C = 0;
             pVideoPlayer->dword_000040 = 0;
             if ( LODWORD(dword_720010) )
-              sub_46B14F(SLODWORD(dword_720010));
+              Mouse_suspend(SLODWORD(dword_720010));
             v132 = dword_4E28F8;
             v16 = dword_59107C + v10;
             v17 = *(_BYTE *)(v16 + 5);
@@ -83891,7 +83947,7 @@ char __thiscall sub_44EB12(int this, char a2, int a3, int a4)
   {
     sub_4C05CC(v5, v5 + 4, a3, a4);
     if ( a2 )
-      sub_44EB5A(v4);
+      CGame_outline_selection(v4);
     result = 1;
   }
   else
@@ -83902,7 +83958,7 @@ char __thiscall sub_44EB12(int this, char a2, int a3, int a4)
 }
 
 //----- (0044EB5A) --------------------------------------------------------
-void *__thiscall sub_44EB5A(int this)
+void *__thiscall CGame_outline_selection(int this)
 {
   void *result; // eax@1
   int v2; // edx@9
@@ -88433,7 +88489,7 @@ void __thiscall sub_459E5A(int this, int a2, int a3, int a4)
   if ( *(_BYTE *)(*(_DWORD *)(LODWORD(pGame) + 3692) + 4) )
   {
     if ( dword_69B00C )
-      sub_45B329(dword_69B00C);
+      Keyboard_suspend(dword_69B00C);
   }
 }
 
@@ -89297,7 +89353,7 @@ char __thiscall sub_45B260(void *this)
 }
 
 //----- (0045B329) --------------------------------------------------------
-void __thiscall sub_45B329(int this)
+void __thiscall Keyboard_suspend(int this)
 {
   int v1; // esi@1
   char v2; // [sp-18h] [bp-24h]@2
@@ -89336,7 +89392,7 @@ char __thiscall sub_45B3A4(int this)
 }
 
 //----- (0045B3B6) --------------------------------------------------------
-void __thiscall sub_45B3B6(int this)
+void __thiscall Keyboard_update_keyboard_data(int this)
 {
   int v1; // esi@1
   int v2; // eax@3
@@ -89757,7 +89813,7 @@ void __stdcall StartAddress(int a1)
       ;
     if ( *(_BYTE *)(dword_69B00C + 8) )
       ExitThread(0);
-    sub_45B3B6(dword_69B00C);
+    Keyboard_update_keyboard_data(dword_69B00C);
     Sleep(0x21u);
   }
 }
@@ -93755,7 +93811,7 @@ void __cdecl sub_465C2C()
 {
   if ( LODWORD(dword_720010) )
   {
-    sub_46B14F(SLODWORD(dword_720010));
+    Mouse_suspend(SLODWORD(dword_720010));
     if ( LODWORD(dword_720010) )
       compile_error;//(*(void (__stdcall **)(_DWORD))*LODWORD(dword_720010))(1);
   }
@@ -93769,7 +93825,7 @@ void __cdecl sub_465C53()
   {
     if ( dword_69B00C )
     {
-      sub_45B329(dword_69B00C);
+      Keyboard_suspend(dword_69B00C);
       if ( dword_69B00C )
         (**(void (__stdcall ***)(_DWORD))dword_69B00C)(1);
     }
@@ -97182,7 +97238,7 @@ void __thiscall sub_46B105(void *this)
 }
 
 //----- (0046B14F) --------------------------------------------------------
-void __thiscall sub_46B14F(int this)
+void __thiscall Mouse_suspend(int this)
 {
   int v1; // esi@1
   int v2; // eax@3
@@ -97348,7 +97404,7 @@ int __thiscall sub_46B342(int this, float a2, float a3)
 }
 
 //----- (0046B37C) --------------------------------------------------------
-int __thiscall sub_46B37C(int this, int a2)
+int __thiscall update_mouse_data(int this, int a2)
 {
   int v2; // edi@1
   int result; // eax@2
@@ -97409,7 +97465,7 @@ char __thiscall sub_46B420(int this)
   }
   else
   {
-    sub_46B37C(this, (int)&v7);
+    update_mouse_data(this, (int)&v7);
     sub_46BA8D((void *)v1, v7, v8);
     sub_46B958((void *)v1, v7 - *(_DWORD *)(v1 + 40), v8 - *(_DWORD *)(v1 + 44));
     sub_46B492((void *)v1, (int)&v7);
@@ -105805,7 +105861,7 @@ int __thiscall sub_478389(int this)
 }
 
 //----- (0047840D) --------------------------------------------------------
-char __cdecl sub_47840D()
+char __cdecl RenderBuildings()
 {
   char result; // al@3
   int v1; // eax@3
@@ -125715,7 +125771,7 @@ int __thiscall sub_4A05F3(void *this, int a2)
     CD3DRenderer_CreateDirectDraw((void *)v2);
     CD3DRenderer_SetCooperativeLevel(v2, a2, 0);
     *(_DWORD *)(v2 + 262220) = 1;
-    sub_4A121C((void *)v2);
+    CD3DRenderer_sub_4A121C((struct CD3DRenderer *)v2);
     sub_4A14F4(v2, a2);
     sub_4A12CD((void *)v2);
     *(_DWORD *)(v2 + 262192) = 0;
@@ -126027,53 +126083,6 @@ LABEL_24:
   return v12;
 }
 
-//----- (004A121C) --------------------------------------------------------
-void *__thiscall sub_4A121C(void *this)
-{
-  void *v1; // esi@1
-  int v2; // eax@3
-  int *v3; // edx@3
-  int v4; // esi@3
-  int v6; // eax@5
-  unsigned int v7; // [sp-8h] [bp-8Ch]@3
-  int v8; // [sp-4h] [bp-88h]@3
-  int v9; // [sp+4h] [bp-80h]@4
-  int v10; // [sp+8h] [bp-7Ch]@4
-  int Dst; // [sp+14h] [bp-70h]@3
-  int v12; // [sp+18h] [bp-6Ch]@3
-  int v13; // [sp+6Ch] [bp-18h]@4
-  int v14; // [sp+7Ch] [bp-8h]@3
-  char v15; // [sp+80h] [bp-4h]@5
-
-  v1 = this;
-  if ( dword_F79D7C != 2 || dword_F79D70 != 4 )
-  {
-    memset(&v9, 0, 0x7Cu);
-    v2 = *((_DWORD *)v1 + 65571);
-    v9 = 124;
-    v10 = 1;
-    v8 = 0;
-    v13 = 512;
-    v7 = 2357;
-    v4 = (int)((char *)v1 + 262288);
-    v3 = &v9;
-  }
-  else
-  {
-    memset(&Dst, 0, 0x6Cu);
-    v2 = *((_DWORD *)v1 + 65575);
-    Dst = 108;
-    v12 = 1;
-    v8 = 0;
-    v14 = 512;
-    v7 = 2346;
-    v4 = (int)((char *)v1 + 262304);
-    v3 = &Dst;
-  }
-  v6 = (*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v2 + 24))(v2, v3, v4, 0);
-  return CheckHRESULT(&v15, v6, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", v7, v8);
-}
-
 //----- (004A12CD) --------------------------------------------------------
 void *__thiscall sub_4A12CD(void *this)
 {
@@ -126127,60 +126136,6 @@ void *__thiscall sub_4A12CD(void *this)
   }
   v6 = (*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v2 + 24))(v2, v3, v4, 0);
   return CheckHRESULT(&v19, v6, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", v7, v8);
-}
-
-//----- (004A14F4) --------------------------------------------------------
-void *__thiscall sub_4A14F4(int this, int a2)
-{
-  int v2; // edi@1
-  const char *v3; // edi@3
-  int v4; // esi@3
-  int v5; // eax@3
-  unsigned int v6; // ST1C_4@3
-  int v7; // ST20_4@3
-  int v8; // eax@3
-  int v9; // eax@4
-  unsigned int v10; // ST1C_4@4
-  int v11; // ST20_4@4
-  int v12; // eax@4
-  unsigned int v14; // ST14_4@5
-  int v15; // eax@5
-  char v16; // [sp+Ch] [bp-4h]@3
-
-  v2 = this;
-  if ( dword_F79D7C != 2 || dword_F79D70 != 4 )
-  {
-    v4 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp";
-    v9 = (*(int (__stdcall **)(_DWORD, _DWORD, int *, _DWORD, _DWORD, signed int))(**(_DWORD **)(this + 262284) + 16))(
-           *(_DWORD *)(this + 262284),
-           0,
-           &dword_DF1BE0,
-           0,
-           "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp",
-           2463);
-    CheckHRESULT(&v16, v9, 0, v10, v11);
-    v12 = (*(int (__stdcall **)(int, _DWORD, int))(*(_DWORD *)dword_DF1BE0 + 32))(dword_DF1BE0, 0, a2);
-    CheckHRESULT(&a2, v12, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x9A0u, 0);
-    v3 = *(const char **)(v2 + 262288);
-  }
-  else
-  {
-    v4 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp";
-    v5 = (*(int (__stdcall **)(_DWORD, _DWORD, int *, _DWORD, _DWORD, signed int))(**(_DWORD **)(this + 262300) + 16))(
-           *(_DWORD *)(this + 262300),
-           0,
-           &dword_DF1BE0,
-           0,
-           "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp",
-           2457);
-    CheckHRESULT(&v16, v5, 0, v6, v7);
-    v8 = (*(int (__stdcall **)(int, _DWORD, int))(*(_DWORD *)dword_DF1BE0 + 32))(dword_DF1BE0, 0, a2);
-    CheckHRESULT(&a2, v8, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x99Au, 0);
-    v3 = *(const char **)(v2 + 262304);
-  }
-  v14 = dword_DF1BE0;
-  v15 = (*(int (**)(void))(*(_DWORD *)v3 + 112))();
-  return CheckHRESULT(&a2, v15, v3, v14, v4);
 }
 
 //----- (004A169E) --------------------------------------------------------
@@ -147645,7 +147600,7 @@ void __thiscall sub_4C06F8(void *this, float a2, int a3, int a4)
     v7 = (int)dword_EF5350;
     do
     {
-      if ( sub_4C0791(v8, a4) )
+      if ( CVis_is_part_of_selection(v8, a4) )
       {
         if ( sub_4C091D(v6, a2, v8) )
         {
@@ -147666,7 +147621,7 @@ void __thiscall sub_4C06F8(void *this, float a2, int a3, int a4)
 }
 
 //----- (004C0791) --------------------------------------------------------
-char __stdcall sub_4C0791(int a1, int a2)
+char __stdcall CVis_is_part_of_selection(int a1, int a2)
 {
   int v2; // esi@1
   int v3; // eax@2
@@ -147970,7 +147925,7 @@ int __thiscall sub_4C0D32(void *this, float a2, int a3, int a4)
           v6 = dword_6BE644 + 96 * v5;
           if ( !sub_436455(dword_6BE644 + 96 * v5) )
           {
-            if ( sub_4C0791(v6, a4) )
+            if ( CVis_is_part_of_selection(v6, a4) )
             {
               v8 = 8 * v5;
               LOBYTE(v8) = 8 * v5 | 6;
@@ -148049,7 +148004,7 @@ int __thiscall sub_4C0DEA(void *this, float a2, int a3, int a4)
             do
             {
               v11 = v21 + *(_DWORD *)(v6 + 84);
-              if ( sub_4C0791(v11, a4) )
+              if ( CVis_is_part_of_selection(v11, a4) )
               {
                 sub_4C0EF2((int)&v15, v11);
                 v13 = 8 * (v23 | (v24 << 6));
@@ -148379,7 +148334,7 @@ void __thiscall sub_4C1542(void *this, float a2, float a3, float a4, int a5, int
     v9 = (int)dword_EF5350;
     do
     {
-      if ( sub_4C0791(v10, a6) )
+      if ( CVis_is_part_of_selection(v10, a6) )
       {
         if ( sub_4C1607(v9 - 152, a3, a4) )
         {
@@ -148474,7 +148429,7 @@ int __thiscall sub_4C16B4(void *this, char a2, int a3, int a4, int a5)
         if ( v6 < dword_6BE640 )
         {
           v7 = 96 * v6;
-          if ( sub_4C0791(96 * v6 + dword_6BE644, a5) )
+          if ( CVis_is_part_of_selection(96 * v6 + dword_6BE644, a5) )
           {
             if ( !sub_436455(v7 + dword_6BE644) )
             {
@@ -148574,7 +148529,7 @@ LABEL_8:
       do
       {
         v10 = v26 + *(_DWORD *)(v9 + 84);
-        if ( sub_4C0791(v10, a5) )
+        if ( CVis_is_part_of_selection(v10, a5) )
         {
           sub_4C0EF2((int)&v17, v10);
           if ( sub_4C1C0C(a3, a3 + 48, (int)&a2, (int)&v18, (int)&v17, v29) )

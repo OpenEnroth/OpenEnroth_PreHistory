@@ -129,7 +129,7 @@ void SetCurrentMenu(unsigned int uMenuID)
       if (pGame->class14_obj->dword_000004 & 0xFF)
       {
         if (dword_69B00C)
-          sub_45B329(dword_69B00C);
+          Keyboard_suspend(dword_69B00C);
       }
     }
   }
@@ -1156,7 +1156,7 @@ bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarT
 
   v2 = _this;
   if ( dword_720010)
-    sub_46B14F(dword_720010);
+    Mouse_suspend(dword_720010);
 
   if (uProgressBarType)
     _this->uProgressBarType = uProgressBarType;
