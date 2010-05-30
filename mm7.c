@@ -7,12 +7,12 @@
 int (__cdecl *sprintfex)(char *, const char *, ...) = 0;
 
 
-#include "ddraw.h"
+#include <ddraw.h>
 #pragma comment(lib, "ddraw.lib")
 HRESULT __stdcall DirectDrawCreate(GUID *lpGUID, IDirectDraw **lplpDD, IUnknown *pUnkOuter); 
 
 
-#include "dinput.h"
+#include <dinput.h>
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "dinput8.lib")
 
@@ -2824,7 +2824,7 @@ struct class58 *pClass58_global = 0; // struct @ MM7.exe::00AE5BA8
 //int dword_DEDBAC; // ::dword_308004
 //int dword_DEDBB0; // ::dword_308008
 /*extern*/ int dword_DF1BB4; // weak
-/*extern*/ int dword_DF1BE0; // weak
+LPDIRECTDRAWCLIPPER DDrawClipper;//dword_DF1BE0; // weak
 
 //struct CD3DRenderer *pD3DRenderer = 0;  // struct @ MM7.exe::00DF1BE8
 //int dword_DF1BE8; // @ pD3DRenderer::bUseDirect3D
@@ -4356,9 +4356,9 @@ FILE *__thiscall sub_49F8B5(void *this, FILE *Filename, int a3, int a4, int a5);
 signed int __thiscall sub_49FFD7(int this);
 int __thiscall sub_4A05F3(void *this, int a2);
 char __thiscall sub_4A0BEE(int this, int a2, int a3, int a4, int a5, __int16 a6);
-void *__thiscall CD3DRenderer_sub_4A121C(struct CD3DRenderer * this);
-void *__thiscall sub_4A12CD(void *this);
-void *__thiscall sub_4A14F4(int this, int a2);
+void *__thiscall CD3DRenderer_CreateSurface(struct CD3DRenderer * this);
+void *__thiscall CD3DRenderer_CreateWndSurface(struct CD3DRenderer * this);
+void *__thiscall CD3DRenderer_CreateClipper(struct CD3DRenderer * this, HWND ClipWnd);
 char __thiscall sub_4A169E(void *this);
 char __cdecl sub_4A16A5();
 int __thiscall sub_4A184C(void *this);
@@ -5148,7 +5148,7 @@ LABEL_71:
 }
 
 //----- (004A121C) --------------------------------------------------------
-void *__thiscall CD3DRenderer_sub_4A121C(struct CD3DRenderer * this)
+void *__thiscall CD3DRenderer_CreateSurface(struct CD3DRenderer * this)
 {
   char    local_0[128];
   HRESULT hr; 
@@ -5157,49 +5157,342 @@ void *__thiscall CD3DRenderer_sub_4A121C(struct CD3DRenderer * this)
   memset(&dd, 0, sizeof(DDSURFACEDESC2));
   dd.dwSize = sizeof(DDSURFACEDESC2);
   dd.dwFlags = DDSD_CAPS;
-  dd.ddsCaps.dwCaps = 512;
+  dd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
 
-  hr = pD3DRenderer->pdd4->lpVtbl->CreateSurface(pD3DRenderer->pdd4, &dd, &pD3DRenderer->pdds4_FrontBuffer, 0);
+  hr = this->pdd4->lpVtbl->CreateSurface(pD3DRenderer->pdd4, &dd, &pD3DRenderer->pdds4_FrontBuffer, 0);
   return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2357, 0);
 }
 //----- (004A14F4) --------------------------------------------------------
-void *__thiscall sub_4A14F4(int this, int a2)
+void *__thiscall CD3DRenderer_CreateClipper(struct CD3DRenderer * this, HWND ClipWnd)
 {
-  int v2; // edi@1
-  const char *v3; // edi@3
-  int v4; // esi@3
+  char    local_0[128];
+  HRESULT hr; 
+  hr = this->pdd4->lpVtbl->CreateClipper(pD3DRenderer->pdd4, NULL, &DDrawClipper, NULL);
+  CheckHRESULT(&local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2463, 0);
+
+  hr = DDrawClipper->lpVtbl->SetHWnd(DDrawClipper, 0, ClipWnd);
+  CheckHRESULT(&local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2464, 0);
+
+  hr = this->pdds4_FrontBuffer->lpVtbl->SetClipper(pD3DRenderer->pdds4_FrontBuffer, DDrawClipper);
+  return CheckHRESULT(&local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2465, 0);
+}
+//----- (004A12CD) --------------------------------------------------------
+void *__thiscall CD3DRenderer_CreateWndSurface(struct CD3DRenderer * this)
+{
+  char    local_0[128];
+  HRESULT hr; 
+  DDSURFACEDESC2 dd;
+
+  memset(&dd, 0, sizeof(DDSURFACEDESC2));
+  dd.dwSize = sizeof(DDSURFACEDESC2);
+  dd.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;
+  dd.dwWidth = 640;
+  dd.dwHeight = 480;
+  dd.ddsCaps.dwCaps = DDSCAPS_SYSTEMMEMORY | DDSCAPS_OFFSCREENPLAIN;
+  hr = this->pdd4->lpVtbl->CreateSurface(pD3DRenderer->pdd4, &dd, &pD3DRenderer->pdds4_BackBuffer, 0);
+  return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2357, 0);
+}
+
+//----- (004A05F3) --------------------------------------------------------
+int __thiscall sub_4A05F3(void *this, int a2)
+{
+  int v2; // esi@1
+  int v3; // eax@1
+  int v4; // eax@2
   int v5; // eax@3
-  unsigned int v6; // ST1C_4@3
-  int v7; // ST20_4@3
-  int v8; // eax@3
-  HRESULT hr; // eax@4
-  unsigned int v10; // ST1C_4@4
-  int v11; // ST20_4@4
-  int v12; // eax@4
-  unsigned int v14; // ST14_4@5
-  int v15; // eax@5
-  char v16; // [sp+Ch] [bp-4h]@3
+  int v6; // edx@5
+  int v7; // ecx@5
+  signed int v8; // eax@7
+  signed int v9; // eax@12
+  int v10; // ecx@12
+  int v11; // eax@14
+  int v12; // eax@18
+  int v13; // eax@22
+  int v14; // eax@24
+  int v15; // eax@24
+  int v16; // eax@24
+  int v17; // eax@26
+  bool v18; // eax@32
+  char v19; // zf@32
+  int v20; // eax@35
+  int v21; // eax@35
+  void *v22; // eax@36
+  int v23; // eax@38
+  int v24; // edx@38
+  int v25; // ecx@38
+  int v26; // eax@41
+  int v28; // [sp+Ch] [bp-300h]@24
+  int v29; // [sp+108h] [bp-204h]@37
+  int v30; // [sp+12Ch] [bp-1E0h]@38
+  int Dst; // [sp+184h] [bp-188h]@24
+  unsigned int v32; // [sp+230h] [bp-DCh]@24
+  unsigned int v33; // [sp+234h] [bp-D8h]@24
+  unsigned int v34; // [sp+238h] [bp-D4h]@26
+  unsigned int v35; // [sp+23Ch] [bp-D0h]@26
+  int v36; // [sp+280h] [bp-8Ch]@35
+  int v37; // [sp+284h] [bp-88h]@35
+  int v38; // [sp+288h] [bp-84h]@35
+  int v39; // [sp+28Ch] [bp-80h]@35
+  int v40; // [sp+2C0h] [bp-4Ch]@35
+  int v41; // [sp+2C4h] [bp-48h]@35
+  int v42; // [sp+2E8h] [bp-24h]@35
+  unsigned int v43; // [sp+2FCh] [bp-10h]@2
+  int v44; // [sp+308h] [bp-4h]@2
 
-  v2 = this;
-  hr = pD3DRenderer->pdd4->lpVtbl->CreateClipper(pD3DRenderer->pdd4, NULL, &dword_DF1BE0, NULL);
-
-	//CreateClipper)(THIS_ DWORD, LPDIRECTDRAWCLIPPER FAR*, IUnknown FAR * ) PURE;
-  v4 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp";
-  hr = (*(int (__stdcall **)(_DWORD, _DWORD, int *, _DWORD, _DWORD, signed int))(**(_DWORD **)(this + 262284) + 16))(
-           *(_DWORD *)(this + 262284),
-           0,
-           &dword_DF1BE0,
-           0,
-           "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp",
-           2463);
-  CheckHRESULT(&v16, hr, 0, v10, v11);
-  v12 = (*(int (__stdcall **)(int, _DWORD, int))(*(_DWORD *)dword_DF1BE0 + 32))(dword_DF1BE0, 0, a2);
-  CheckHRESULT(&a2, v12, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x9A0u, 0);
-  v3 = *(const char **)(v2 + 262288);
-
-  v14 = dword_DF1BE0;
-  v15 = (*(int (**)(void))(*(_DWORD *)v3 + 112))();
-  return CheckHRESULT(&a2, v15, v3, v14, v4);
+  pParty_global->dword_007778 |= 2;
+  v2 = (int)this;
+  LODWORD(flt_6BE3A0) = 1057803469;
+  v3 = class28_fn2(class28_global, 36044);
+  *(_DWORD *)(v2 + 262416) = 0;
+  sub_49FE05(v3, v2);
+  *(_DWORD *)(v2 + 262296) = 0;
+  *(_DWORD *)(v2 + 262292) = 0;
+  *(_DWORD *)(v2 + 262288) = 0;
+  *(_DWORD *)(v2 + 262284) = 0;
+  *(_DWORD *)(v2 + 262408) = 0;
+  CD3DRenderer_Initialize_ZBuffer(v2);
+  if ( *(_DWORD *)v2 )
+  {
+    compile_error;//v4 = (int)operator new(0x148u);
+    v43 = v4;
+    v44 = 0;
+    if ( v4 )
+      v5 = sub_49DC58(v4);
+    else
+      v5 = 0;
+    v6 = *(_DWORD *)(v2 + 8);
+    v44 = -1;
+    *(_DWORD *)(v2 + 262280) = v5;
+    v7 = *(_DWORD *)(v5 + 28);
+    if ( *(_DWORD *)(v7 + 40 * v6) && v6 != 1 )
+    {
+      v8 = sub_49DE14(v5, v6, 1, a2);
+      *(_DWORD *)(v2 + 12) = *(_DWORD *)(v2 + 8);
+    }
+    else
+    {
+      if ( !*(_DWORD *)v7 )
+        erroneous_printf("There aren't any D3D devices to init.");
+      v8 = sub_49DE14(v5, 0, 1, a2);
+      *(_DWORD *)(v2 + 12) = 0;
+    }
+    if ( !v8 )
+      erroneous_printf("D3Drend->Init failed.");
+    v10 = *(_DWORD *)(v2 + 262280);
+    *(_DWORD *)(v2 + 262296) = 0;
+    *(_DWORD *)(v2 + 262292) = *(_DWORD *)(v10 + 44);
+    *(_DWORD *)(v2 + 262288) = *(_DWORD *)(v10 + 48);
+    *(_DWORD *)(v2 + 262284) = *(_DWORD *)(v10 + 32);
+    v9 = sub_49E444((void *)v10);
+    if ( v9 & 1 )
+    {
+      v43 = *(_DWORD *)(v2 + 262280);
+      if ( v43 )
+      {
+        v11 = sub_49DC90(v43);
+        operator_delete(v11, v43);
+      }
+      *(_DWORD *)(v2 + 262280) = 0;
+      *(_DWORD *)(v2 + 262292) = 0;
+      *(_DWORD *)(v2 + 262288) = 0;
+      *(_DWORD *)(v2 + 262284) = 0;
+      erroneous_printf("Direct3D renderer:  The device failed to return capabilities.");
+    }
+    if ( v9 & 0x3E )
+    {
+      v43 = *(_DWORD *)(v2 + 262280);
+      if ( v43 )
+      {
+        v12 = sub_49DC90(v43);
+        operator_delete(v12, v43);
+      }
+      *(_DWORD *)(v2 + 262296) = 0;
+      *(_DWORD *)(v2 + 262280) = 0;
+      *(_DWORD *)(v2 + 262292) = 0;
+      *(_DWORD *)(v2 + 262288) = 0;
+      *(_DWORD *)(v2 + 262284) = 0;
+      erroneous_printf("Direct3D renderer:  The device doesn't support the necessary alpha blending modes.");
+    }
+    if ( (_BYTE)v9 < 0 )
+    {
+      v43 = *(_DWORD *)(v2 + 262280);
+      if ( v43 )
+      {
+        v13 = sub_49DC90(v43);
+        operator_delete(v13, v43);
+      }
+      *(_DWORD *)(v2 + 262280) = 0;
+      *(_DWORD *)(v2 + 262292) = 0;
+      *(_DWORD *)(v2 + 262288) = 0;
+      *(_DWORD *)(v2 + 262284) = 0;
+      erroneous_printf("Direct3D renderer:  The device doesn't support non-square textures.");
+    }
+    *(_BYTE *)(v2 + 1062492) = ~(unsigned __int8)((unsigned int)v9 >> 6) & 1;
+    *(_DWORD *)(v2 + 1062472) = sub_49E79F();
+    memset(&Dst, 0, 0xFCu);
+    Dst = 252;
+    memset(&v28, 0, 0xFCu);
+    v15 = *(_DWORD *)(v2 + 262280);
+    v28 = 252;
+    v16 = (*(int (__stdcall **)(_DWORD, int *, int *))(**(_DWORD **)(v15 + 56) + 12))(*(_DWORD *)(v15 + 56), &Dst, &v28);
+    CheckHRESULT(&v43, v16, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x6A8u, 0);
+    v14 = v32;
+    if ( v32 >= v33 )
+      v14 = v33;
+    *(_DWORD *)(v2 + 1062488) = v14;
+    v17 = v34;
+    if ( v34 < v35 )
+      v17 = v35;
+    *(_DWORD *)(v2 + 1062484) = v17;
+    sub_49FFD7(v2);
+    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      7,
+      1);
+    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      14,
+      1);
+    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      23,
+      2);
+    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      29,
+      0);
+    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      41,
+      0);
+    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      22,
+      1);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      16,
+      2);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      17,
+      2);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      18,
+      3);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      5,
+      2);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      6,
+      0);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      4,
+      2);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      2,
+      2);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      3,
+      0);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      1,
+      4);
+  }
+  else
+  {
+    CD3DRenderer_CreateDirectDraw((void *)v2);
+    CD3DRenderer_SetCooperativeLevel(v2, a2, 0);
+    *(_DWORD *)(v2 + 262220) = 1;
+    CD3DRenderer_CreateSurface(v2);
+    CD3DRenderer_CreateClipper(v2, a2);
+    CD3DRenderer_CreateWndSurface(v2);
+    *(_DWORD *)(v2 + 262192) = 0;
+    *(_DWORD *)(v2 + 24) = 0;
+  }
+  *(_DWORD *)(v2 + 262316) = 32;
+  CD3DRenderer_GetPrimarySurfacePixelFormat(v2, v2 + 262316);
+  CD3DRenderer_sub_4A0EB6((void *)v2);
+  CD3DRenderer_sub_49EBF1(v2);
+  if ( !*(_DWORD *)(v2 + 262280) )
+  {
+    compile_error;//*(_DWORD *)(v2 + 1062592) = nullsub_1;
+    goto LABEL_47;
+  }
+  v18 = sub_49E756(*(void **)(v2 + 262284));
+  v19 = *(_DWORD *)(v2 + 12) == 1;
+  *(_DWORD *)(v2 + 262408) = v18;
+  if ( !v19 )
+    *(_DWORD *)(v2 + 262408) = 0;
+  if ( *(_DWORD *)(v2 + 262408) )
+  {
+    memset(&v36, 0, 0x7Cu);
+    v40 = *(_DWORD *)(v2 + 262364) | *(_DWORD *)(v2 + 262368);
+    v41 = v40;
+    v20 = *(_DWORD *)(v2 + 262284);
+    v36 = 124;
+    v37 = 65543;
+    v42 = 2112;
+    v39 = 640;
+    v38 = 480;
+    v21 = (*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v20 + 24))(v20, &v36, v2 + 262296, 0);
+    CheckHRESULT(&v43, v21, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x6F7u, 0);
+    *(_DWORD *)(v2 + 1062592) = sub_4A57E9;
+LABEL_45:
+    *(_DWORD *)(v2 + 262416) = 1;
+LABEL_47:
+    *(_DWORD *)(v2 + 262232) = 1;
+    *(_DWORD *)(v2 + 262224) = a2;
+    return 0;
+  }
+  *(_DWORD *)(v2 + 262380) = 0;
+  *(_DWORD *)(v2 + 262376) = 0;
+  compile_error;//v22 = operator new(0x96020u);
+  *(_DWORD *)(v2 + 262376) = v22;
+  if ( v22 )
+  {
+    memset(&v29, 0, 0x7Cu);
+    v29 = 124;
+    if ( LockSurface_DDraw4(pD3DRenderer->pdds4_BackBuffer, &v29, 1) )
+    {
+      (*(void (__stdcall **)(int, _DWORD))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 128))(pD3DRenderer->pdds4_BackBuffer, 0);
+      v24 = *(_DWORD *)(v2 + 262376);
+      v23 = v30 & 7;
+      v25 = *(_DWORD *)(v2 + 262376) & 7;
+      if ( v25 == v23 )
+      {
+        *(_DWORD *)(v2 + 262380) = v24;
+      }
+      else
+      {
+        if ( v25 >= v23 )
+          v26 = v24 + 2 * (v25 - v23) + 16;
+        else
+          v26 = v24 + 2 * (v23 - v25) + 16;
+        *(_DWORD *)(v2 + 262380) = v26;
+      }
+      *(_DWORD *)(v2 + 262384) = 640;
+      *(_DWORD *)(v2 + 1062592) = sub_4A597D;
+      goto LABEL_45;
+    }
+  }
+  return 0;
 }
 
 
@@ -125544,308 +125837,6 @@ signed int __thiscall sub_49FFD7(int this)
            (void *)0x20);
 }
 
-//----- (004A05F3) --------------------------------------------------------
-int __thiscall sub_4A05F3(void *this, int a2)
-{
-  int v2; // esi@1
-  int v3; // eax@1
-  int v4; // eax@2
-  int v5; // eax@3
-  int v6; // edx@5
-  int v7; // ecx@5
-  signed int v8; // eax@7
-  signed int v9; // eax@12
-  int v10; // ecx@12
-  int v11; // eax@14
-  int v12; // eax@18
-  int v13; // eax@22
-  int v14; // eax@24
-  int v15; // eax@24
-  int v16; // eax@24
-  int v17; // eax@26
-  bool v18; // eax@32
-  char v19; // zf@32
-  int v20; // eax@35
-  int v21; // eax@35
-  void *v22; // eax@36
-  int v23; // eax@38
-  int v24; // edx@38
-  int v25; // ecx@38
-  int v26; // eax@41
-  int v28; // [sp+Ch] [bp-300h]@24
-  int v29; // [sp+108h] [bp-204h]@37
-  int v30; // [sp+12Ch] [bp-1E0h]@38
-  int Dst; // [sp+184h] [bp-188h]@24
-  unsigned int v32; // [sp+230h] [bp-DCh]@24
-  unsigned int v33; // [sp+234h] [bp-D8h]@24
-  unsigned int v34; // [sp+238h] [bp-D4h]@26
-  unsigned int v35; // [sp+23Ch] [bp-D0h]@26
-  int v36; // [sp+280h] [bp-8Ch]@35
-  int v37; // [sp+284h] [bp-88h]@35
-  int v38; // [sp+288h] [bp-84h]@35
-  int v39; // [sp+28Ch] [bp-80h]@35
-  int v40; // [sp+2C0h] [bp-4Ch]@35
-  int v41; // [sp+2C4h] [bp-48h]@35
-  int v42; // [sp+2E8h] [bp-24h]@35
-  unsigned int v43; // [sp+2FCh] [bp-10h]@2
-  int v44; // [sp+308h] [bp-4h]@2
-
-  pParty_global->dword_007778 |= 2;
-  v2 = (int)this;
-  LODWORD(flt_6BE3A0) = 1057803469;
-  v3 = class28_fn2(class28_global, 36044);
-  *(_DWORD *)(v2 + 262416) = 0;
-  sub_49FE05(v3, v2);
-  *(_DWORD *)(v2 + 262296) = 0;
-  *(_DWORD *)(v2 + 262292) = 0;
-  *(_DWORD *)(v2 + 262288) = 0;
-  *(_DWORD *)(v2 + 262284) = 0;
-  *(_DWORD *)(v2 + 262408) = 0;
-  CD3DRenderer_Initialize_ZBuffer(v2);
-  if ( *(_DWORD *)v2 )
-  {
-    compile_error;//v4 = (int)operator new(0x148u);
-    v43 = v4;
-    v44 = 0;
-    if ( v4 )
-      v5 = sub_49DC58(v4);
-    else
-      v5 = 0;
-    v6 = *(_DWORD *)(v2 + 8);
-    v44 = -1;
-    *(_DWORD *)(v2 + 262280) = v5;
-    v7 = *(_DWORD *)(v5 + 28);
-    if ( *(_DWORD *)(v7 + 40 * v6) && v6 != 1 )
-    {
-      v8 = sub_49DE14(v5, v6, 1, a2);
-      *(_DWORD *)(v2 + 12) = *(_DWORD *)(v2 + 8);
-    }
-    else
-    {
-      if ( !*(_DWORD *)v7 )
-        erroneous_printf("There aren't any D3D devices to init.");
-      v8 = sub_49DE14(v5, 0, 1, a2);
-      *(_DWORD *)(v2 + 12) = 0;
-    }
-    if ( !v8 )
-      erroneous_printf("D3Drend->Init failed.");
-    v10 = *(_DWORD *)(v2 + 262280);
-    *(_DWORD *)(v2 + 262296) = 0;
-    *(_DWORD *)(v2 + 262292) = *(_DWORD *)(v10 + 44);
-    *(_DWORD *)(v2 + 262288) = *(_DWORD *)(v10 + 48);
-    *(_DWORD *)(v2 + 262284) = *(_DWORD *)(v10 + 32);
-    v9 = sub_49E444((void *)v10);
-    if ( v9 & 1 )
-    {
-      v43 = *(_DWORD *)(v2 + 262280);
-      if ( v43 )
-      {
-        v11 = sub_49DC90(v43);
-        operator_delete(v11, v43);
-      }
-      *(_DWORD *)(v2 + 262280) = 0;
-      *(_DWORD *)(v2 + 262292) = 0;
-      *(_DWORD *)(v2 + 262288) = 0;
-      *(_DWORD *)(v2 + 262284) = 0;
-      erroneous_printf("Direct3D renderer:  The device failed to return capabilities.");
-    }
-    if ( v9 & 0x3E )
-    {
-      v43 = *(_DWORD *)(v2 + 262280);
-      if ( v43 )
-      {
-        v12 = sub_49DC90(v43);
-        operator_delete(v12, v43);
-      }
-      *(_DWORD *)(v2 + 262296) = 0;
-      *(_DWORD *)(v2 + 262280) = 0;
-      *(_DWORD *)(v2 + 262292) = 0;
-      *(_DWORD *)(v2 + 262288) = 0;
-      *(_DWORD *)(v2 + 262284) = 0;
-      erroneous_printf("Direct3D renderer:  The device doesn't support the necessary alpha blending modes.");
-    }
-    if ( (_BYTE)v9 < 0 )
-    {
-      v43 = *(_DWORD *)(v2 + 262280);
-      if ( v43 )
-      {
-        v13 = sub_49DC90(v43);
-        operator_delete(v13, v43);
-      }
-      *(_DWORD *)(v2 + 262280) = 0;
-      *(_DWORD *)(v2 + 262292) = 0;
-      *(_DWORD *)(v2 + 262288) = 0;
-      *(_DWORD *)(v2 + 262284) = 0;
-      erroneous_printf("Direct3D renderer:  The device doesn't support non-square textures.");
-    }
-    *(_BYTE *)(v2 + 1062492) = ~(unsigned __int8)((unsigned int)v9 >> 6) & 1;
-    *(_DWORD *)(v2 + 1062472) = sub_49E79F();
-    memset(&Dst, 0, 0xFCu);
-    Dst = 252;
-    memset(&v28, 0, 0xFCu);
-    v15 = *(_DWORD *)(v2 + 262280);
-    v28 = 252;
-    v16 = (*(int (__stdcall **)(_DWORD, int *, int *))(**(_DWORD **)(v15 + 56) + 12))(*(_DWORD *)(v15 + 56), &Dst, &v28);
-    CheckHRESULT(&v43, v16, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x6A8u, 0);
-    v14 = v32;
-    if ( v32 >= v33 )
-      v14 = v33;
-    *(_DWORD *)(v2 + 1062488) = v14;
-    v17 = v34;
-    if ( v34 < v35 )
-      v17 = v35;
-    *(_DWORD *)(v2 + 1062484) = v17;
-    sub_49FFD7(v2);
-    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      7,
-      1);
-    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      14,
-      1);
-    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      23,
-      2);
-    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      29,
-      0);
-    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      41,
-      0);
-    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      22,
-      1);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      16,
-      2);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      17,
-      2);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      18,
-      3);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      5,
-      2);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      6,
-      0);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      4,
-      2);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      2,
-      2);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      3,
-      0);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      1,
-      4);
-  }
-  else
-  {
-    CD3DRenderer_CreateDirectDraw((void *)v2);
-    CD3DRenderer_SetCooperativeLevel(v2, a2, 0);
-    *(_DWORD *)(v2 + 262220) = 1;
-    CD3DRenderer_sub_4A121C((struct CD3DRenderer *)v2);
-    sub_4A14F4(v2, a2);
-    sub_4A12CD((void *)v2);
-    *(_DWORD *)(v2 + 262192) = 0;
-    *(_DWORD *)(v2 + 24) = 0;
-  }
-  *(_DWORD *)(v2 + 262316) = 32;
-  CD3DRenderer_GetPrimarySurfacePixelFormat(v2, v2 + 262316);
-  CD3DRenderer_sub_4A0EB6((void *)v2);
-  CD3DRenderer_sub_49EBF1(v2);
-  if ( !*(_DWORD *)(v2 + 262280) )
-  {
-    compile_error;//*(_DWORD *)(v2 + 1062592) = nullsub_1;
-    goto LABEL_47;
-  }
-  v18 = sub_49E756(*(void **)(v2 + 262284));
-  v19 = *(_DWORD *)(v2 + 12) == 1;
-  *(_DWORD *)(v2 + 262408) = v18;
-  if ( !v19 )
-    *(_DWORD *)(v2 + 262408) = 0;
-  if ( *(_DWORD *)(v2 + 262408) )
-  {
-    memset(&v36, 0, 0x7Cu);
-    v40 = *(_DWORD *)(v2 + 262364) | *(_DWORD *)(v2 + 262368);
-    v41 = v40;
-    v20 = *(_DWORD *)(v2 + 262284);
-    v36 = 124;
-    v37 = 65543;
-    v42 = 2112;
-    v39 = 640;
-    v38 = 480;
-    v21 = (*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v20 + 24))(v20, &v36, v2 + 262296, 0);
-    CheckHRESULT(&v43, v21, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x6F7u, 0);
-    *(_DWORD *)(v2 + 1062592) = sub_4A57E9;
-LABEL_45:
-    *(_DWORD *)(v2 + 262416) = 1;
-LABEL_47:
-    *(_DWORD *)(v2 + 262232) = 1;
-    *(_DWORD *)(v2 + 262224) = a2;
-    return 0;
-  }
-  *(_DWORD *)(v2 + 262380) = 0;
-  *(_DWORD *)(v2 + 262376) = 0;
-  compile_error;//v22 = operator new(0x96020u);
-  *(_DWORD *)(v2 + 262376) = v22;
-  if ( v22 )
-  {
-    memset(&v29, 0, 0x7Cu);
-    v29 = 124;
-    if ( LockSurface_DDraw4(pD3DRenderer->pdds4_BackBuffer, &v29, 1) )
-    {
-      (*(void (__stdcall **)(int, _DWORD))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 128))(pD3DRenderer->pdds4_BackBuffer, 0);
-      v24 = *(_DWORD *)(v2 + 262376);
-      v23 = v30 & 7;
-      v25 = *(_DWORD *)(v2 + 262376) & 7;
-      if ( v25 == v23 )
-      {
-        *(_DWORD *)(v2 + 262380) = v24;
-      }
-      else
-      {
-        if ( v25 >= v23 )
-          v26 = v24 + 2 * (v25 - v23) + 16;
-        else
-          v26 = v24 + 2 * (v23 - v25) + 16;
-        *(_DWORD *)(v2 + 262380) = v26;
-      }
-      *(_DWORD *)(v2 + 262384) = 640;
-      *(_DWORD *)(v2 + 1062592) = sub_4A597D;
-      goto LABEL_45;
-    }
-  }
-  return 0;
-}
-
 //----- (004A0BEE) --------------------------------------------------------
 char __thiscall sub_4A0BEE(int this, int a2, int a3, int a4, int a5, __int16 a6)
 {
@@ -126081,61 +126072,6 @@ LABEL_24:
     goto LABEL_46;
   }
   return v12;
-}
-
-//----- (004A12CD) --------------------------------------------------------
-void *__thiscall sub_4A12CD(void *this)
-{
-  void *v1; // esi@1
-  int v2; // eax@3
-  int *v3; // edx@3
-  int v4; // esi@3
-  int v6; // eax@5
-  unsigned int v7; // [sp-8h] [bp-8Ch]@3
-  int v8; // [sp-4h] [bp-88h]@3
-  int v9; // [sp+4h] [bp-80h]@4
-  int v10; // [sp+8h] [bp-7Ch]@4
-  int v11; // [sp+Ch] [bp-78h]@4
-  int v12; // [sp+10h] [bp-74h]@4
-  int Dst; // [sp+14h] [bp-70h]@3
-  int v14; // [sp+18h] [bp-6Ch]@3
-  int v15; // [sp+1Ch] [bp-68h]@3
-  int v16; // [sp+20h] [bp-64h]@3
-  int v17; // [sp+6Ch] [bp-18h]@4
-  int v18; // [sp+7Ch] [bp-8h]@3
-  char v19; // [sp+80h] [bp-4h]@5
-
-  v1 = this;
-  if ( dword_F79D7C != 2 || dword_F79D70 != 4 )
-  {
-    memset(&v9, 0, 0x7Cu);
-    v2 = *((_DWORD *)v1 + 65571);
-    v9 = 124;
-    v10 = 7;
-    v8 = 0;
-    v17 = 2112;
-    v12 = 640;
-    v11 = 480;
-    v7 = 2387;
-    v4 = (int)((char *)v1 + 262292);
-    v3 = &v9;
-  }
-  else
-  {
-    memset(&Dst, 0, 0x6Cu);
-    v2 = *((_DWORD *)v1 + 65575);
-    Dst = 108;
-    v14 = 7;
-    v8 = 0;
-    v18 = 2112;
-    v16 = 640;
-    v15 = 480;
-    v7 = 2374;
-    v4 = (int)((char *)v1 + 262308);
-    v3 = &Dst;
-  }
-  v6 = (*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v2 + 24))(v2, v3, v4, 0);
-  return CheckHRESULT(&v19, v6, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", v7, v8);
 }
 
 //----- (004A169E) --------------------------------------------------------

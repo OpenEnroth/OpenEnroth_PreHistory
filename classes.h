@@ -572,9 +572,10 @@ struct LODIndex
 
 struct LODFileHeader
 {
- unsigned int uSignature; // dword @ 000000
+ unsigned char Signature[4]; // LOD\0 // dword @ 000000
  char a[168];
- unsigned char array_0000AC[32]; // byte[32] @ 0000AC
+ int NumFiles;
+ unsigned char arr[28]; // byte[32] @ 0000AC
  char b[52];
 };
 //sizeof == 100

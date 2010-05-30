@@ -1208,7 +1208,7 @@ int class17_MaybeLoadLODHeader(struct class17 *_this, const char *pFilename, cha
   return 1;
  }
 
- locked_fread(_this->dword_000210, 0x20, _this->sLODFileHeader.array_0000AC, _this->pLODFile);
+ locked_fread(_this->dword_000210, 32, _this->sLODFileHeader.NumFiles, _this->pLODFile);
 
  fseek(_this->pLODFile, 0, SEEK_SET);
  _this->dword_000104 = 1;
@@ -1230,7 +1230,7 @@ int class17_fn6(struct class17 *_this, const char *pContainer)
  class17_fn7(_this);
  v2 = 0;
 
- if (*(int *)(_this->sLODFileHeader.array_0000AC) <= 0)
+ if (_this->sLODFileHeader.NumFiles <= 0)
  {
 LABEL_5:
   result = 3;
@@ -1242,7 +1242,7 @@ LABEL_5:
   {
    ++v2;
    v4 += 32;
-   if (v2 >= *(int *)(_this->sLODFileHeader.array_0000AC))
+   if (v2 >= _this->sLODFileHeader.NumFiles)
      goto LABEL_5;
   }
 
