@@ -1633,3 +1633,169 @@ LABEL_50:
     }
   }
 }
+
+//----- (0044CE08) --------------------------------------------------------
+char __fastcall FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, __int16 a5, const char *pString, int a7, signed int a8, unsigned int a9)
+{
+  int v9; // ebx@1
+  int v10; // edi@1
+  char *v11; // eax@2
+  int v12; // edx@9
+  //int v13; // edi@9
+  //int v14; // esi@9
+  int v15; // eax@25
+  int v16; // ecx@25
+  int v17; // eax@27
+  int v18; // edi@32
+  int v19; // esi@38
+  unsigned __int8 v20; // sf@39
+  unsigned __int8 v21; // of@39
+  char v23; // [sp-18h] [bp-50h]@2
+  int v24; // [sp-14h] [bp-4Ch]@2
+  int v25; // [sp-10h] [bp-48h]@2
+  int v26; // [sp-Ch] [bp-44h]@2
+  char Dest[8]; // [sp+Ch] [bp-2Ch]@32
+  char v30; // [sp+Fh] [bp-29h]@32
+  char v31; // [sp+11h] [bp-27h]@34
+  char *v32; // [sp+20h] [bp-18h]@25
+  int v33; // [sp+24h] [bp-14h]@25
+  int v34; // [sp+28h] [bp-10h]@1
+  size_t v35; // [sp+2Ch] [bp-Ch]@4
+  int v36; // [sp+30h] [bp-8h]@1
+  char *v37; // [sp+34h] [bp-4h]@7
+  int v38; // [sp+4Ch] [bp+14h]@11
+ unsigned char c;
+ unsigned int uOutX,
+              uOutY;
+
+  v34 = 0;
+  v10 = _this;
+  v9 = pFont;
+  v36 = _this;
+  if (!pString)
+  {
+    a9 = &v23;
+    sub_40E2C8(&v23, "Invalid string passed!", (int)((char *)&a9 + 3));
+    LOBYTE(v11) = (unsigned int)sub_466D09(&a8, *(int *)&v23, v24, v25, v26, __FILE__, __LINE__);
+    return (char)v11;
+  }
+  v11 = strcmp(pString, "null");
+  if (!v11)
+    return v11;
+
+    v35 = strlen(pString);
+    v11 = 0;
+    if ( !uX )
+      uX = 12;
+    if ( a8 )
+    {
+      v37 = (char *)pString;
+    }
+    else
+    {
+      v11 = FitTextInAWindow(pString, pFont, _this, uX, 0);
+      v37 = v11;
+    }
+    uOutX = uX + _this->uFrameX;
+    uOutY = uY + _this->uFrameY;
+    v12 = 0;
+    v11 = uOutY + pFont->uFontHeight;
+    if ( !a8 || (signed int)v11 <= a8)
+    {
+      v38 = 0;
+      if ( (signed int)v35 > 0 )
+      {
+        do
+        {
+          c = v37[v12];
+          if (c >= pFont->uFirstChar && c <= pFont->uLastChar
+            || c == 12
+            || c == '\r' || c == '\t' || c == '\n')
+          {
+            switch ( c )
+            {
+              case 9u: // number (3 digit always) after \t denotes tab amount (in pixels);  example:  "\t004skips 4 whitespaces before this string"
+                strncpy(Dest, &v37[v12 + 1], 3);
+                v30 = 0;
+                v38 += 3;
+                v34 = atoi(Dest);
+                v19 = atoi(Dest);
+                c = v36;
+                uOutX = uX + _this->uFrameX + v19;
+                break;
+              case 0xAu:
+                c = pFont->uFontHeight;
+                uY = uY + pFont->uFontHeight - 3;
+                uOutY = uY + _this->uFrameY;
+                uOutX = uX + v34 + _this->uFrameX;
+                if ( a8 )
+                  goto LABEL_36;
+                break;
+              case 0xCu:
+                strncpy(&Dest, &v37[v12 + 1], 5u);
+                v31 = 0;
+                c = (char *)atoi(&Dest);
+                v38 += 5;
+                *(_DWORD *)&a5 = c;
+                break;
+              case 0xDu:
+                strncpy(&Dest, &v37[v12 + 1], 3u);
+                v30 = 0;
+                v38 += 3;
+                v18 = atoi(&Dest);
+                c = (char *)sub_44C51E(v9, &v37[v38]);
+                uOutX = *(_DWORD *)(v36 + 16) - (_DWORD)c - v18;
+                uOutY = uY + *(_DWORD *)(v36 + 4);
+                if ( a8 )
+                {
+                 c = pFont->uFontHeight;
+LABEL_36:
+                  c = pFont->uFontHeight + uOutY - 3;
+                  if ( (signed int)c > a8 )
+                    return (char)c;
+                  break;
+                }
+                break;
+              default:
+                if (c == 34 )
+                {
+                  if ( v37[v12 + 1] == 34 )
+                  {
+                    ++v12;
+                    v38 = v12;
+                  }
+                }
+                v32 = &v37[v12];
+                v15 = (unsigned __int8)v37[v12];
+                v16 = pFont->dword_000020[v15][1];
+                v33 = pFont->dword_000020[v15][2];
+                if ( v12 > 0 )
+                  uOutX += pFont->dword_000020[v15][0];
+                v17 = pFont->array_000C20[v15] + &pFont->unk_001020;
+                if ( a5 )
+                  sub_4A6C4F(pD3DRenderer, uOutX, uOutY, v17,
+                    v16,
+                    pFont->uFontHeight, pFont->dword_00000C,
+                    a5,
+                    a9);
+                else
+                  sub_4A6AB1(pD3DRenderer, uOutX, uOutY, v17,
+                             v16, pFont->uFontHeight, pFont->dword_00000C, a7);
+                uOutX += pFont->dword_000020[v15][1];
+                if ( v38 < (signed int)v35)
+                {
+                  uOutX += pFont->dword_000020[v15][2];
+                }
+                break;
+            }
+          }
+          v12 = v38 + 1;
+          //v21 = __SETO__(v38 + 1, v35);
+          //v20 = (signed int)(v38++ + 1 - v35) < 0;
+        }
+        while ( ++v38 < v35);
+      }
+    }
+
+  return (char)v11;
+}

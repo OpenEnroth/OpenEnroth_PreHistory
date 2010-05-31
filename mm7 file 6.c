@@ -21,103 +21,6 @@
 #include "mm7_unparsed_functions.h"
 
 
-//----- (0048C6F6) --------------------------------------------------------
-signed int __thiscall sub_48C6F6(void *this, int a2)
-{
-  int v2; // eax@1
-  signed int v3; // edx@4
-  int v4; // ecx@4
-  const char *v5; // eax@8
-  int v6; // ebx@10
-  signed int v7; // esi@10
-  int v8; // eax@10
-  int v9; // eax@11
-  int v10; // edi@11
-  signed int result; // eax@15
-  char v12; // [sp-18h] [bp-40h]@9
-  const CHAR *v13; // [sp-14h] [bp-3Ch]@9
-  int v14; // [sp-10h] [bp-38h]@9
-  int v15; // [sp-Ch] [bp-34h]@9
-  const char *v16; // [sp-8h] [bp-30h]@9
-  int v17; // [sp-4h] [bp-2Ch]@9
-  int v18; // [sp+Ch] [bp-1Ch]@3
-  int v19; // [sp+10h] [bp-18h]@3
-  int v20; // [sp+14h] [bp-14h]@3
-  int v21; // [sp+18h] [bp-10h]@3
-  void *v22; // [sp+1Ch] [bp-Ch]@9
-  void *v23; // [sp+20h] [bp-8h]@1
-  int v24; // [sp+24h] [bp-4h]@10
-  char *v25; // [sp+30h] [bp+8h]@9
-
-  v23 = this;
-  v2 = 48 * *(_DWORD *)a2;
-  if ( !byte_5D2A12[v2] )
-    *(_DWORD *)(a2 + 20) |= 1u;
-  v18 = 0;
-  v19 = 1;
-  v21 = 3;
-  v20 = 2;
-  if ( uMaybeSelectedCharacter )
-  {
-    v4 = uMaybeSelectedCharacter - 1;
-    v3 = 0;
-    do
-    {
-      *(&v18 + v3++) = v4++;
-      if ( v4 >= 4 )
-        v4 = 0;
-    }
-    while ( v3 < 4 );
-  }
-  v5 = *(const char **)(pClass40->pItems[0].pIconName + v2);
-  if ( v5 )
-  {
-    v8 = class17_LoadTexture(pClass17_Icons_LOD, v5, 2);
-    v6 = v8 != -1 ? 72 * v8 + 7145548 : 0;
-    v24 = dword_506128;
-    v7 = 0;
-    while ( 1 )
-    {
-      v10 = (int)((char *)v23 + 6972 * *(&v18 + v7) + 2508);
-      v22 = (char *)v23 + 6972 * *(&v18 + v7) + 2508;
-      v9 = sub_4927A8(v22, -1, *(_DWORD *)a2);
-      if ( v9 )
-        break;
-      ++v7;
-      if ( v7 >= 4 )
-      {
-        if ( v24 == v9 )
-        {
-          sub_40F77C(v6);
-          sub_40F9C5(pClass17_Icons_LOD);
-        }
-        goto LABEL_15;
-      }
-    }
-    memcpy((void *)(v10 + 36 * v9 + 496), (const void *)a2, 0x24u);
-    sub_402F07(a2);
-    AudioPlayer_sub_4AA306(pAudioPlayer, 200, 0, 0, -1, 0, 0, 0, 0);
-    sub_4948B1(v22, 60, 0);
-    if ( !v24 )
-    {
-      sub_40F77C(v6);
-      sub_40F9C5(pClass17_Icons_LOD);
-    }
-    result = 1;
-  }
-  else
-  {
-    v17 = 795;
-    v16 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Party.cpp";
-    v25 = &v12;
-    sub_40E2C8(&v12, "Invalid picture_name detected ::addItem()", (int)((char *)&a2 + 3));
-    sub_467834(&v22, v12, v13, v14, v15, v16, v17);
-LABEL_15:
-    result = 0;
-  }
-  return result;
-}
-
 //----- (0048C855) --------------------------------------------------------
 int __thiscall sub_48C855(int this)
 {
@@ -1665,7 +1568,7 @@ LABEL_84:
           ++v4;
         }
         while ( v4 < 4 );
-        sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), 153, v4);
+        sub_4A89BD(pGame->class06_obj, 153, v4);
         result = 1;
         break;
       case 12:
@@ -4864,7 +4767,7 @@ const CHAR *__fastcall sub_495461(char *lpsz, unsigned __int8 a2, int a3, int a4
   int v11; // edx@7
   int v12; // edi@7
   int v13; // esi@7
-  const CHAR v14; // cl@8
+  CHAR v14; // cl@8
   int v15; // eax@10
   int v16; // edx@10
   char *v17; // ecx@10
@@ -4925,7 +4828,7 @@ const CHAR *__fastcall sub_495461(char *lpsz, unsigned __int8 a2, int a3, int a4
 
   v6 = a2;
   Str = lpsz;
-  if ( IsBadStringPtrA(lpsz, 1u) )
+  if ( IsBadStringPtrA(lpsz, 1) )
     return "Invalid String Passed";
   v66 = strlen(Str);
   Dest = 0;
@@ -4947,10 +4850,10 @@ const CHAR *__fastcall sub_495461(char *lpsz, unsigned __int8 a2, int a3, int a4
     v12 = a3;
     while ( 1 )
     {
-      compile_error;//v14 = Str[v11];
+      v14 = Str[v11];
       if ( v14 == 37 )
         break;
-      compile_error;//*(&pStringBuffer + v10++) = v14;
+      pStringBuffer[v10++] = v14;
 LABEL_119:
       ++v11;
       v70 = v11;
@@ -5411,8 +5314,8 @@ int __cdecl sub_4979D2()
     }
     else
     {
-      if ( LODWORD(dword_720010) )
-        sub_46B736(LODWORD(dword_720010), 1);
+      if (dword_720010)
+        sub_46B736(dword_720010, 1);
       if ( dword_A74C88 )
       {
         RGBTexture_Load(&v19, "mm6title.pcx", 1);
@@ -8461,7 +8364,7 @@ char __thiscall sub_49B790(int this, int a2, char a3, int a4, int a5, int a6, in
       goto LABEL_24;
     v32 = a8;
     sub_436523(a8, *(_DWORD *)a6);
-    class08_sub_436BB7(*(void **)(LODWORD(pGame) + 3668), v32, *(_DWORD *)v31, 0);
+    class08_sub_436BB7(pGame->class08_obj, v32, *(_DWORD *)v31, 0);
     if ( !(a12 & 1) )
     {
 LABEL_19:
@@ -9077,7 +8980,7 @@ char __thiscall sub_49C550(int this)
     v3 = this + 12;
     do
     {
-      result = sub_4379EE(*(void **)(LODWORD(pGame) + 3668), v3, *(_DWORD *)(v3 - 4), pClass58_global->unk_1A0858, 0.0);
+      result = sub_4379EE(pGame->class08_obj, v3, *(_DWORD *)(v3 - 4), pClass58_global->unk_1A0858, 0.0);
       ++v1;
       v3 += 3104;
     }
@@ -9107,7 +9010,7 @@ char __thiscall sub_49C5DA(void *this, int a2, int a3, signed int *a4, int a5, i
     --v7;
   }
   while ( v7 );
-  v9 = *(void **)(LODWORD(pGame) + 3668);
+  v9 = pGame->class08_obj;
   sub_49CE9E(a2, a3, *a4, (int)&v11);
   if ( byte_4D8410[572] )
   {
@@ -9141,7 +9044,7 @@ char __thiscall sub_49C681(void *this, int a2, int a3, int a4)
     --v5;
   }
   while ( v5 );
-  v7 = *(void **)(LODWORD(pGame) + 3668);
+  v7 = pGame->class08_obj;
   sub_49D379(a2, (int)&v9);
   if ( byte_4D8410[572] )
   {
@@ -9359,7 +9262,7 @@ char __thiscall sub_49C9E3(void *this, int a2, int a3, int a4, int a5)
     fld     dword ptr [esi+4]
     fldz
   }
-  v6 = *(void **)(LODWORD(pGame) + 3668);
+  v6 = pGame->class08_obj;
   v5 = *(_BYTE *)(a2 + 92);
   __asm
   {
@@ -9758,7 +9661,7 @@ LABEL_7:
             //fstp    [ebp+var_58]
             fldz
           }
-          v21 = *(void **)(LODWORD(pGame) + 3668);
+          v21 = pGame->class08_obj;
           __asm {
            int 3
            //fstp    [esp+0A0h+var_A0]
@@ -9770,21 +9673,21 @@ LABEL_7:
              int 3
             //fstp    [esp+0A0h+var_A0]
           }
-          compile_error;//sub_437AB5(*(void **)(LODWORD(pGame) + 3668), (int)&v32, 65280, _EBX + 48, 65280, 0, v23);
+          compile_error;//sub_437AB5(pGame->class08_obj, (int)&v32, 65280, _EBX + 48, 65280, 0, v23);
           __asm
           {
             fldz
              int 3
             //fstp    [esp+0A0h+var_A0]
           }
-          compile_error;//sub_437AB5(*(void **)(LODWORD(pGame) + 3668), (int)&v32, 255, _EBX + 96, 255, 0, v24);
+          compile_error;//sub_437AB5(pGame->class08_obj, (int)&v32, 255, _EBX + 96, 255, 0, v24);
           __asm
           {
             fldz
              int 3
             //fstp    [esp+0A0h+var_A0]
           }
-          compile_error;//sub_437AB5(*(void **)(LODWORD(pGame) + 3668), (int)&v32, 16777215, _EBX + 144, 16777215, 0, v25);
+          compile_error;//sub_437AB5(pGame->class08_obj, (int)&v32, 16777215, _EBX + 144, 16777215, 0, v25);
           *(_BYTE *)(v20 + 4) = 1;
         }
         __asm { fld     dword ptr ds:byte_4D8410+2D8h }
@@ -12361,7 +12264,7 @@ int __thiscall sub_4A05F3(void *this, int a2)
     v15 = *(_DWORD *)(v2 + 262280);
     v28 = 252;
     v16 = (*(int (__stdcall **)(_DWORD, int *, int *))(**(_DWORD **)(v15 + 56) + 12))(*(_DWORD *)(v15 + 56), &Dst, &v28);
-    CheckHRESULT(&v43, v16, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x6A8u, 0);
+    CheckHRESULT(&v43, v16, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 1704, 0);
     v14 = v32;
     if ( v32 >= v33 )
       v14 = v33;
@@ -12478,7 +12381,7 @@ int __thiscall sub_4A05F3(void *this, int a2)
     v39 = 640;
     v38 = 480;
     v21 = (*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v20 + 24))(v20, &v36, v2 + 262296, 0);
-    CheckHRESULT(&v43, v21, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x6F7u, 0);
+    CheckHRESULT(&v43, v21, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 1783, 0);
     *(_DWORD *)(v2 + 1062592) = sub_4A57E9;
 LABEL_45:
     *(_DWORD *)(v2 + 262416) = 1;
@@ -13213,12 +13116,12 @@ void __thiscall sub_4A2050(int this, signed int a2, int a3, int a4, int a5)
   {
     if ( a2 >= 3 )
     {
-      LODWORD(v7) = *(_DWORD *)(LODWORD(pGame) + 3656);
+      LODWORD(v7) = pGame->class04_obj;
       v56 = v7;
       v57 = *(_DWORD *)(LODWORD(v7) + 1587204);
       if ( *(_DWORD *)(LODWORD(v7) + 1587204) )
         v61 = -1;
-      sub_44EE30(SLODWORD(pGame), a4, (void **)&v61);
+      sub_44EE30(pGame, a4, (void **)&v61);
       if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3616) & 1 )
       {
         v8 = sub_47C4FC(*(_BYTE *)(a3 + 88), 0, flt_50AC1C, 0, 0);
@@ -13261,7 +13164,7 @@ void __thiscall sub_4A2050(int this, signed int a2, int a3, int a4, int a5)
             do
             {
               v61 = sub_47C4FC(*(_BYTE *)(a3 + 88), 0, *v50, 0, 0);
-              sub_44EE30(SLODWORD(pGame), a4, (void **)&v61);
+              sub_44EE30(pGame, a4, (void **)&v61);
               v51 = v60;
               v52 = *v50 * 1000.0 / (double)pStruct9_global->shading_dist_mist;
               *(_DWORD *)(v60 - 4) = *((_DWORD *)v50 + 3);
@@ -13603,8 +13506,8 @@ void sub_4A26BC(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
     if ( a3 >= 3 )
     {
       v65 = a2;
-      LODWORD(v9) = *(_DWORD *)(LODWORD(pGame) + 3656);
-      v67 = *(_DWORD *)(LODWORD(pGame) + 3656);
+      LODWORD(v9) = pGame->class04_obj;
+      v67 = pGame->class04_obj;
       if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3616) & 1 )
       {
         v10 = sub_47C4FC(*(_BYTE *)(a4 + 88), 0, flt_50AC1C, 0, 0);
@@ -14167,13 +14070,13 @@ void __thiscall sub_4A2FC0(int this, signed int a2, int a3, signed int a4, signe
   {
     if ( a2 >= 3 )
     {
-      LODWORD(v65) = *(_DWORD *)(LODWORD(pGame) + 3656);
+      LODWORD(v65) = pGame->class04_obj;
       v9 = *(_DWORD *)(LODWORD(v65) + 1587204);
       if ( v9 )
         v66 = -1;
       else
         v66 = a7;
-      sub_44EDE4(SLODWORD(pGame), a3, (void **)&v66);
+      sub_44EDE4(pGame, a3, (void **)&v66);
       if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3616) & 1 )
       {
         v11 = (*(int (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v8 + 262280) + 56) + 88))(
@@ -17321,15 +17224,15 @@ void __thiscall sub_4A73AA(void *this, int a2, int a3, int a4)
     v19 = (rand() & 0x40) + 96;
     v20 = a4;
     v21 = 1.0;
-    sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+    sub_48AB23(pGame->class02_obj, (int)&Dst);
     v12 = v22 - 4.0;
-    sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+    sub_48AB23(pGame->class02_obj, (int)&Dst);
     v12 = (double)*(signed int *)(v6 + 4) + 4.0;
     v13 = (double)*(signed int *)(v6 + 8);
     v14 = (double)*(signed int *)(v6 + 12);
-    sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+    sub_48AB23(pGame->class02_obj, (int)&Dst);
     v12 = (double)*(signed int *)(v6 + 4) - 4.0;
-    sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+    sub_48AB23(pGame->class02_obj, (int)&Dst);
     *((float *)v5 + 4 * (*(_DWORD *)(v6 + 84) & 0x1F) + 1) = (double)*(signed int *)(v6 + 4);
     *((float *)v5 + 4 * (*(_DWORD *)(v6 + 84) & 0x1F) + 2) = (double)*(signed int *)(v6 + 8);
     *((float *)v5 + 4 * (*(_DWORD *)(v6 + 84) & 0x1F) + 3) = (double)*(signed int *)(v6 + 12);
@@ -17352,9 +17255,9 @@ void __thiscall sub_4A73AA(void *this, int a2, int a3, int a4)
     v21 = 1.0;
     v19 = (rand() & 0x7F) + 128;
     v20 = a4;
-    sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+    sub_48AB23(pGame->class02_obj, (int)&Dst);
     v12 = (double)*(signed int *)(a2 + 4) - 4.0;
-    sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+    sub_48AB23(pGame->class02_obj, (int)&Dst);
   }
 }
 
@@ -17391,7 +17294,7 @@ void __stdcall sub_4A75CC(int a1, int a2, int a3)
     v9 = (double)(rand() & 0x1FF) - 255.0;
     v10 = (double)(rand() & 0x1FF) - 255.0;
     v11 = (double)(rand() & 0x1FF) - 255.0;
-    sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+    sub_48AB23(pGame->class02_obj, (int)&Dst);
     --v3;
   }
   while ( v3 );
@@ -17456,7 +17359,7 @@ void __thiscall sub_4A7688(void *this, int a2)
     WORD2(v25) = rand() & 0x1FF;
     HIDWORD(v25) = WORD2(v25);
     v18 = (double)WORD2(v25) - 255.0;
-    sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+    sub_48AB23(pGame->class02_obj, (int)&Dst);
   }
   while ( v27-- != 1 );
   v25 = v24 + 6.755399441055744e15;
@@ -17536,7 +17439,7 @@ void __stdcall sub_4A78AE(int a1)
   v10 = 0.0;
   v13 = *(_WORD *)(CSpriteFrameTable_fn1(pSpriteFrameTable, *(_WORD *)(v1 + 40), v2) + 24);
   v14 = 1073741824;
-  sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+  sub_48AB23(pGame->class02_obj, (int)&Dst);
 }
 
 //----- (004A7948) --------------------------------------------------------
@@ -17578,7 +17481,7 @@ void __stdcall sub_4A7948(int a1)
     v10 = (double)(rand() & 0x1FF) - 255.0;
     v11 = (double)(rand() & 0x1FF) - 255.0;
     v12 = (double)(rand() & 0x1FF) - 255.0;
-    sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+    sub_48AB23(pGame->class02_obj, (int)&Dst);
     --v1;
   }
   while ( v1 );
@@ -17641,41 +17544,41 @@ void __stdcall sub_4A7A66(int a1, int a2, int a3, float a4)
   v14 = v6;
   v15 = a4;
   v16 = a4;
-  sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+  sub_48AB23(pGame->class02_obj, (int)&Dst);
   v7 = 0.7071067690849304 * a4;
   v23 = v7;
   v14 = v7;
   v15 = v7;
   v16 = a4;
-  sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+  sub_48AB23(pGame->class02_obj, (int)&Dst);
   v15 = v22;
   v14 = a4;
   v16 = a4;
-  sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+  sub_48AB23(pGame->class02_obj, (int)&Dst);
   v14 = v23;
   v16 = a4;
   v8 = -v23;
   v24 = v8;
   v15 = v8;
-  sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+  sub_48AB23(pGame->class02_obj, (int)&Dst);
   v9 = -1.0 * a4;
   v14 = v22;
   v21 = v9;
   v15 = v9;
   v16 = a4;
-  sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+  sub_48AB23(pGame->class02_obj, (int)&Dst);
   v16 = a4;
   v14 = v24;
   v15 = v24;
-  sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+  sub_48AB23(pGame->class02_obj, (int)&Dst);
   v14 = v21;
   v15 = v22;
   v16 = a4;
-  sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+  sub_48AB23(pGame->class02_obj, (int)&Dst);
   v14 = v24;
   v15 = v23;
   v16 = a4;
-  sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+  sub_48AB23(pGame->class02_obj, (int)&Dst);
 }
 
 //----- (004A7C07) --------------------------------------------------------
@@ -17729,14 +17632,14 @@ void __thiscall sub_4A7C07(void *this, int a2)
     v23 = 1077936128;
     v21 = (v10 & 0x3F) + 64;
     v22 = *(_WORD *)(CSpriteFrameTable_fn1(pSpriteFrameTable, *(_WORD *)(v3 + 40), *(_WORD *)(v5 + 30)) + 24);
-    sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+    sub_48AB23(pGame->class02_obj, (int)&Dst);
     v11 = (double)*(signed int *)(v5 + 4);
     v23 = 1082130432;
     v14 = v11;
     v15 = (double)*(signed int *)(v5 + 8);
     v16 = (double)*(signed int *)(v5 + 12);
     v21 = (rand() & 0x3F) + 64;
-    sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+    sub_48AB23(pGame->class02_obj, (int)&Dst);
     *((float *)v4 + 4 * (*(_DWORD *)(v5 + 84) & 0x1F) + 1) = (double)*(signed int *)(v5 + 4);
     *((float *)v4 + 4 * (*(_DWORD *)(v5 + 84) & 0x1F) + 2) = (double)*(signed int *)(v5 + 8);
     *((float *)v4 + 4 * (*(_DWORD *)(v5 + 84) & 0x1F) + 3) = (double)*(signed int *)(v5 + 12);
@@ -17759,7 +17662,7 @@ void __thiscall sub_4A7C07(void *this, int a2)
     v19 = 0.0;
     v21 = (rand() & 0x3F) + 64;
     v22 = *(_WORD *)(CSpriteFrameTable_fn1(pSpriteFrameTable, *(_WORD *)(v3 + 40), *(_WORD *)(a2 + 30)) + 24);
-    sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+    sub_48AB23(pGame->class02_obj, (int)&Dst);
   }
 }
 
@@ -17839,7 +17742,7 @@ void __stdcall sub_4A7E89(int a1, int a2)
       v3 = rand() << 16;
       v9 = rand() | v3;
     }
-    sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+    sub_48AB23(pGame->class02_obj, (int)&Dst);
   }
   while ( v14-- != 1 );
 }
@@ -17891,7 +17794,7 @@ void __thiscall sub_4A7F74(void *this, signed int a2, signed int a3, signed int 
     v14 = sub_4BE5B1((int)&unk_F8BAD8) * *(double *)&byte_4D8410[1272] - *(double *)&byte_4D8410[1264];
     v15 = sub_4BE5B1((int)&unk_F8BAD8) * *(double *)&byte_4D8410[1272] - *(double *)&byte_4D8410[1264];
     v16 = sub_4BE5B1((int)&unk_F8BAD8) * *(double *)&byte_4D8410[1256] + *(double *)&byte_4D8410[1248];
-    sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+    sub_48AB23(pGame->class02_obj, (int)&Dst);
     --v4;
   }
   while ( v4 );
@@ -17963,7 +17866,7 @@ void __thiscall sub_4A80DC(void *this, int a2)
     v8 = sub_4BE5B1((int)&unk_F8BAD8) * *(double *)&byte_4D8410[1304] - *(double *)&byte_4D8410[1272];
     v9 = sub_4BE5B1((int)&unk_F8BAD8) * *(double *)&byte_4D8410[1304] - *(double *)&byte_4D8410[1272];
     v10 = sub_4BE5B1((int)&unk_F8BAD8) * *(double *)&byte_4D8410[1296] + *(double *)&byte_4D8410[1248];
-    sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+    sub_48AB23(pGame->class02_obj, (int)&Dst);
     --v2;
   }
   while ( v2 );

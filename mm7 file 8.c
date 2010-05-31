@@ -3081,261 +3081,6 @@ int __cdecl MenuLoop_Main()
   return 0;
 }
 
-//----- (0049137D) --------------------------------------------------------
-int __thiscall sub_49137D(struct Party *_this, char a2)
-{
-  signed __int16 v2; // ax@1
-  int v3; // ecx@1
-  int v4; // esi@1
-  int v5; // esi@3
-  int v6; // eax@5
-  signed int v7; // edx@5
-  int v8; // eax@11
-  unsigned __int8 v9; // zf@37
-  char v10; // sf@37
-  unsigned __int8 v11; // of@37
-  int v12; // eax@38
-  signed int v13; // ecx@38
-  int result; // eax@42
-  char v15; // zf@42
-  int v16; // [sp-4h] [bp-44h]@14
-  int v17; // [sp-4h] [bp-44h]@26
-  int v18; // [sp+10h] [bp-30h]@1
-  int v19; // [sp+14h] [bp-2Ch]@11
-  signed int v20; // [sp+18h] [bp-28h]@1
-  char Dst; // [sp+1Ch] [bp-24h]@10
-
-  v4 = _this;
-
-  strcpy(_this->pPlayers[0].sName, pGlobalTXT_LocalizationStrings[509]);
-  _this->pPlayers[0].uFace = 17;
-  _this->pPlayers[0].dword_001920 = 17;
-  _this->pPlayers[0].dword_001924 = 17;
-  _this->pPlayers[0].dword_001928 = 17;
-
-  _this->pPlayers[0].uStrength = 30;
-  _this->pPlayers[0].uIntelligence = 5;
-  _this->pPlayers[0].uWillpower = 5;
-  _this->pPlayers[0].uEndurance = 13;
-  _this->pPlayers[0].uAccuracy = 13;
-  _this->pPlayers[0].uSpeed = 14;
-  _this->pPlayers[0].uLuck = 7;
-
-  _this->pPlayers[0].array_000108[1] = 1;
-  _this->pPlayers[0].array_000108[5] = 1;
-  _this->pPlayers[0].array_000108[9] = 1;
-  _this->pPlayers[0].array_000108[33] = 1;
-
-
-
-
-  strcpy(_this->pPlayers[1].sName, pGlobalTXT_LocalizationStrings[506]);
-  _this->pPlayers[1].uFace = 3;
-  _this->pPlayers[1].dword_001920 = 3;
-  _this->pPlayers[1].dword_001924 = 3;
-  _this->pPlayers[1].dword_001928 = 3;
-
-  _this->pPlayers[1].uStrength = 13;
-  _this->pPlayers[1].uIntelligence = 9;
-  _this->pPlayers[1].uWillpower = 9;
-  _this->pPlayers[1].uEndurance = 13;
-  _this->pPlayers[1].uAccuracy = 13;
-  _this->pPlayers[1].uSpeed = 13;
-  _this->pPlayers[1].uLuck = 13;
-
-  _this->pPlayers[1].array_000108[1] = 1;
-  _this->pPlayers[1].array_000108[5] = 1;
-  _this->pPlayers[1].array_000108[9] = 1;
-  _this->pPlayers[1].array_000108[33] = 1;
-
-
-
-  strcpy(_this->pPlayers[2].sName, pGlobalTXT_LocalizationStrings[508]);
-  _this->pPlayers[2].uFace = 14;
-  _this->pPlayers[2].dword_001920 = 14;
-  _this->pPlayers[2].dword_001924 = 14;
-  _this->pPlayers[2].dword_001928 = 14;
-
-  _this->pPlayers[2].uStrength = 12;
-  _this->pPlayers[2].uIntelligence = 9;
-  _this->pPlayers[2].uWillpower = 20;
-  _this->pPlayers[2].uEndurance = 22;
-  _this->pPlayers[2].uAccuracy = 7;
-  _this->pPlayers[2].uSpeed = 13;
-  _this->pPlayers[2].uLuck = 7;
-
-  _this->pPlayers[2].array_000108[1] = 1;
-  _this->pPlayers[2].array_000108[5] = 1;
-  _this->pPlayers[2].array_000108[9] = 1;
-  _this->pPlayers[2].array_000108[33] = 1;
-
-
-
-  strcpy(_this->pPlayers[3].sName, pGlobalTXT_LocalizationStrings[507]);
-  _this->pPlayers[3].uFace = 10;
-  _this->pPlayers[3].dword_001920 = 10;
-  _this->pPlayers[3].dword_001924 = 10;
-  _this->pPlayers[3].dword_001928 = 10;
-
-  _this->pPlayers[3].uStrength = 5;
-  _this->pPlayers[3].uIntelligence = 30;
-  _this->pPlayers[3].uWillpower = 9;
-  _this->pPlayers[3].uEndurance = 13;
-  _this->pPlayers[3].uAccuracy = 13;
-  _this->pPlayers[3].uSpeed = 13;
-  _this->pPlayers[3].uLuck = 7;
-
-  _this->pPlayers[3].array_000108[1] = 1;
-  _this->pPlayers[3].array_000108[5] = 1;
-  _this->pPlayers[3].array_000108[9] = 1;
-  _this->pPlayers[3].array_000108[33] = 1;
-
-
-  runtime_warning;
-  return 0;
-
-  v2 = 10;
-  v3 = (char *)v4 + 8522;
-
-  v18 = (char *)v4 + 8522;
-  v20 = 4;
-  while ( 1 )
-  {
-    v5 = v3 - 6014;
-    if ( !*(_BYTE *)(v3 - 5829) )
-      *(_WORD *)v3 = v2;
-    v7 = 0;
-    v6 = v3 - 5726;
-    while ( !*(_WORD *)v6 )
-    {
-      ++v7;
-      v6 += 2;
-      if ( v7 >= 9 )
-        goto LABEL_10;
-    }
-    *(_BYTE *)(v5 + 6734) = v7;
-LABEL_10:
-    *(_WORD *)(v5 + 6814) = 0;
-    sub_402F07((int)&Dst);
-    if ( a2 )
-    {
-      sub_456620(pClass40, 2, 40, (int)&Dst);
-      sub_492826((void *)v5, -1, (int)&Dst);
-      v8 = 0;
-      v19 = 0;
-      do
-      {
-        if ( *(_WORD *)(v5 + 2 * v8 + 264) )
-        {
-          switch ( v8 )
-          {
-            case 0:
-              v16 = 61;
-              goto LABEL_25;
-            case 1:
-              v16 = 1;
-              goto LABEL_25;
-            case 2:
-              v16 = 15;
-              goto LABEL_25;
-            case 3:
-              v16 = 23;
-              goto LABEL_25;
-            case 4:
-              v16 = 31;
-              goto LABEL_25;
-            case 5:
-              v16 = 47;
-              goto LABEL_25;
-            case 6:
-              v16 = 50;
-              goto LABEL_25;
-            case 8:
-              v16 = 84;
-              goto LABEL_25;
-            case 9:
-              v16 = 66;
-              goto LABEL_25;
-            case 10:
-              v16 = 71;
-              goto LABEL_25;
-            case 11:
-              v16 = 76;
-LABEL_25:
-              sub_492745((void *)v5, v16);
-              break;
-            case 12:
-              v17 = 401;
-              goto LABEL_36;
-            case 13:
-              v17 = 412;
-              goto LABEL_36;
-            case 14:
-              v17 = 423;
-              goto LABEL_36;
-            case 15:
-              v17 = 434;
-              goto LABEL_36;
-            case 16:
-              v17 = 445;
-              goto LABEL_36;
-            case 17:
-              v17 = 456;
-              goto LABEL_36;
-            case 18:
-              v17 = 467;
-              goto LABEL_36;
-            case 21:
-            case 23:
-            case 25:
-            case 26:
-            case 27:
-            case 29:
-            case 36:
-              sub_4927A8((void *)v5, -1, 220);
-              v17 = 5 * (rand() % 3 + 40);
-              goto LABEL_36;
-            case 30:
-              v17 = 115;
-              goto LABEL_36;
-            case 31:
-              v17 = 110;
-LABEL_36:
-              sub_4927A8((void *)v5, -1, v17);
-              break;
-            default:
-              break;
-          }
-        }
-        v8 = v19 + 1;
-        compile_error;//v11 = __SETO__(v19 + 1, 36);
-        v9 = v19 == 35;
-        v10 = v19++ - 35 < 0;
-      }
-      while ( (unsigned __int8)(v10 ^ v11) | v9 );
-      v12 = v5 + 552;
-      v13 = 138;
-      do
-      {
-        if ( *(_DWORD *)(v12 - 20) )
-          *(_DWORD *)v12 |= 1u;
-        v12 += 36;
-        --v13;
-      }
-      while ( v13 );
-    }
-    *(_DWORD *)(v5 + 6460) = sub_48E4F8(v5);
-    result = sub_48E565(v5);
-    v18 += 6972;
-    v15 = v20-- == 1;
-    *(_DWORD *)(v5 + 6464) = result;
-    if ( v15 )
-      return result;
-    v3 = v18;
-    v2 = 10;
-  }
-}
-
 //----- (00404AC7) --------------------------------------------------------
 void __fastcall sub_404AC7(int a1, int a2, signed int a3, int a4, int a5)
 {
@@ -8753,11 +8498,11 @@ void __thiscall Keyboard_resume(int this)
   v1 = this;
   if ( *(_DWORD *)(this + 1804) )
   {
-    EnterCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 76));
+    EnterCriticalSection(&pGame->class01_obj->cs4);
     sub_45B1B1(v1);
-    sub_43B96E(*(_DWORD *)(v1 + 1804), 1);
+    set_acquire(*(_DWORD *)(v1 + 1804), 1);
     ResumeThread(*(HANDLE *)(v1 + 4));
-    LeaveCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 76));
+    LeaveCriticalSection(&pGame->class01_obj->cs4);
   }
   else
   {
@@ -11294,7 +11039,7 @@ void __cdecl sub_465F5A()
         else
           v1 = 0;
         LOBYTE(v5) = 0;
-        LODWORD(dword_720010) = v1;
+        dword_720010 = v1;
         if ( v1 )
           sub_46B105((void *)v1);
   }
@@ -12102,10 +11847,10 @@ LABEL_8:
     v0 += 1067;
   }
   while ( (signed int)v0 < (signed int)&unk_5052C8 );
-  if ( LODWORD(dword_720010) )
+  if (dword_720010)
   {
-    sub_409E3D(SLODWORD(dword_720010), *(_BYTE *)(LODWORD(dword_720010) + 103));
-    v1 = sub_46B944(SLODWORD(dword_720010));
+    sub_409E3D(dword_720010, *(_BYTE *)(dword_720010 + 103));
+    v1 = sub_46B944(dword_720010);
   }
   v3 = sub_40E51F(pClass33_global0);
   sub_40E51F(pClass33_global1);

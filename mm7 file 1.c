@@ -404,7 +404,7 @@ LABEL_71:
           v57 = flt_73C81C;
           v58 = flt_73C820;
           v59 = flt_73C824;
-          sub_45CA88(*(void **)(LODWORD(pGame) + 3656), (int)&dword_F8AD28, (int)&unk_50AC10, v28, (int)&v57);
+          sub_45CA88(pGame->class04_obj, (int)&dword_F8AD28, (int)&unk_50AC10, v28, (int)&v57);
         }
         if ( v76 )
         {
@@ -732,7 +732,7 @@ int __fastcall sub_438F8F(int result)
                   switch ( v41 )
                   {
                     case 4:
-                      sub_439474(*((_WORD *)v2 - 300), v45, v33);
+                      DamageMonsterFromParty(*((_WORD *)v2 - 300), v45, v33);
                       break;
                     case 3:
                       if ( v36 )
@@ -819,7 +819,7 @@ void sub_47A59E(bool a1)
   {
 LABEL_14:
     sub_479543();
-    sub_47840D();
+    RenderBuildings();
     sub_47F5C6();
     goto LABEL_16;
   }
@@ -964,7 +964,7 @@ LABEL_21:
           }
           while ( v9 < 50);
           strcpy(Str1, pStartMapName);
-          sub_49137D(pParty_global, 0);
+          Party_CreateDefaultParty(pParty_global, 0);
 
           PlayerCreationUI_Initialize();
           if ( MenuLoop_CharacterCreation() )
@@ -998,20 +998,20 @@ LABEL_21:
           class03_fn1(pClass03_global, 0);
           if (dword_720010)
             Mouse_suspend(dword_720010);
-          if ( *(_BYTE *)(*(_DWORD *)(LODWORD(pGame) + 3692) + 4) )
+          if (pGame->class14_obj->dword_000004 & 0xFF)
           {
             if (dword_69B00C)
               Keyboard_suspend(dword_69B00C);
           }
           Party_CreateDefault(pParty_global);
-          sub_49137D(pParty_global, 1);
+          Party_CreateDefaultParty(pParty_global, 1);
           sub_46271C();
           if ( !GetOpenFileNameA(&stru_6A0DA0) )
           {
             class03_fn1(pClass03_global, 1);
-            if ( LODWORD(dword_720010) )
-              sub_46B105(LODWORD(dword_720010));
-            if ( *(_BYTE *)(*(_DWORD *)(LODWORD(pGame) + 3692) + 4) )
+            if (dword_720010)
+              sub_46B105(dword_720010);
+            if (pGame->class14_obj->dword_000004 & 0xFF)
             {
               if (dword_69B00C)
                 Keyboard_resume(dword_69B00C);
@@ -1021,9 +1021,9 @@ LABEL_21:
           _chdir("..\\");
           strcpy(Str1, stru_6A0DA0.lpstrFileTitle);
           class03_fn1(pClass03_global, 1);
-          if ( LODWORD(dword_720010) )
-            sub_46B105(LODWORD(dword_720010));
-          if ( *(_BYTE *)(*(_DWORD *)(LODWORD(pGame) + 3692) + 4) )
+          if (dword_720010)
+            sub_46B105(dword_720010);
+          if (pGame->class14_obj->dword_000004 & 0xFF)
           {
             if (dword_69B00C)
               Keyboard_resume(dword_69B00C);
@@ -1312,8 +1312,8 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   const CHAR *v61; // [sp-4h] [bp-168h]@3
   UINT v62; // [sp+0h] [bp-164h]@3
   //const char *v63; // [sp+0h] [bp-164h]@39
-  char v64[128]; // [sp+10h] [bp-154h]@21
-  const char FileName[256]; // [sp+88h] [bp-DCh]@21
+  char v64[120]; // [sp+10h] [bp-154h]@21
+  const char pConfigFilename[120]; // [sp+88h] [bp-DCh]@21
   DWORD TotalNumberOfClusters; // [sp+100h] [bp-64h]@1
   WNDCLASSEXW wcxw; // [sp+104h] [bp-60h]@4
   RECT rcWindow, rcClient;
@@ -1328,7 +1328,8 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
    //some visual studio bug sometimes return 0 disk space, so skip this check for now
   }
   hInstance = hInst;
-  dword_6BE2F0 = pCmdLine;
+  pCommand = pCmdLine;
+  lstrcpyW(pWindowClassName, L"MM VII");
 
   wcxw.cbSize = sizeof(WNDCLASSEXW);
   wcxw.style = CS_VREDRAW | CS_HREDRAW | CS_DBLCLKS;
@@ -1340,7 +1341,6 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   wcxw.hIcon = wcxw.hIconSm = LoadIconW(hInst, L"MM7_ICON");
   wcxw.lpszMenuName = 0;
   wcxw.hbrBackground = GetStockObject(LTGRAY_BRUSH);
-  strcpy(pWindowClassName, L"MM VII");
   wcxw.lpszClassName = pWindowClassName;
   RegisterClassExW(&wcxw);
 
@@ -1385,12 +1385,11 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
     if ( v15 >= v13 )
       Y = v15;
   }
-  _getcwd(v64, 120);
-  (sprintfex)(FileName, "%s\\mm6.ini", v64);
+  GetCurrentDirectoryA(120, v64);
+  wsprintfA(pConfigFilename, "%s\\mm6.ini", v64);
   dwNewLong = WS_CAPTION | WS_SYSMENU | WS_GROUP;
-  hWnd_global = CreateWindowExW(
-           0,
-           pWindowClassName,
+  hWnd_global = CreateWindowExW(0,
+                                pWindowClassName,
            L"Might and Magic® VII 7",
            WS_CAPTION | WS_SYSMENU | WS_GROUP,
            X,
@@ -1436,7 +1435,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   //added check of pVideoPlayer pointer in wWinProc
   MoveWindow(hWnd_global, X, Y, rcClient.left - rcClient.bottom - rcWindow.left + rcWindow.right + 640, rcClient.top - rcClient.bottom - rcWindow.top + rcWindow.bottom + 480, v13);
 
-  bLoadingFromCD = GetPrivateProfileIntA("settings", "use_cd", true, &FileName);
+  bLoadingFromCD = GetPrivateProfileIntA("settings", "use_cd", true, pConfigFilename);
   if (bLoadingFromCD)
   {
    if (!CheckForCD(hWnd_global, &cGameCDDriveLetter))
@@ -1473,9 +1472,9 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
  }
 
  pClass17_Icons_LOD->dword_011BA4 = 0;
- bUseRegistry = GetPrivateProfileIntA("settings", "registry", 1, FileName);
+ bUseRegistry = GetPrivateProfileIntA("settings", "registry", 1, pConfigFilename);
  if (!bUseRegistry)
-   bUseLoResSprites = GetPrivateProfileIntA("settings", "resolution", 0, &FileName);
+   bUseLoResSprites = GetPrivateProfileIntA("settings", "resolution", 0, pConfigFilename);
  else bUseLoResSprites = ReadWindowsRegistry("resolution", 0);
 
  pClass17_Sprites_LOD = malloc(sizeof(struct class17));
@@ -1601,7 +1600,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   SetMenu(hWnd_global, 0);
   SetWindowLongA(hWnd_global, GWL_EXSTYLE, 0);
   SetWindowLongA(hWnd_global, GWL_STYLE, WS_VISIBLE);
-  if ( LODWORD(dword_720010) )
+  if (dword_720010)
     sub_46BBD0();
   CD3DRenderer_Initialize(pD3DRenderer, hWnd_global);
  }
@@ -3354,7 +3353,7 @@ __continue:
         v29 = 0;
         if ( byte_505992 )
         {
-          if ( LODWORD(dword_720010) )
+          if (dword_720010)
             goto LABEL_184;
           dword_5058A0 = 7;
           BYTE4(a1) = 1;
@@ -3374,7 +3373,7 @@ LABEL_208:
         v31 = 0;
         if ( !byte_505992 )
           goto LABEL_238;
-        if ( LODWORD(dword_720010) )
+        if (dword_720010)
           goto LABEL_184;
         dword_5058A0 = 8;
         BYTE4(a1) = 1;
@@ -3393,12 +3392,12 @@ LABEL_208:
         if ( !byte_505992 )
         {
 LABEL_216:
-          if ( LODWORD(dword_720010) != v32 )
+          if ( dword_720010 != v32 )
             goto LABEL_184;
           sub_4356FF();
           return DefWindowProcA(hWnd, Msg, wParam, v5);
         }
-        if ( LODWORD(dword_720010) )
+        if (dword_720010)
           goto LABEL_184;
         dword_5058A0 = 4;
         BYTE4(a1) = 0;
@@ -3407,18 +3406,18 @@ LABEL_216:
         v29 = 0;
         if ( byte_505992 )
         {
-          if ( LODWORD(dword_720010) )
+          if (dword_720010)
             goto LABEL_184;
           dword_5058A0 = 7;
           return DefWindowProcA(hWnd, Msg, wParam, v5);
         }
         if ( pVideoPlayer->dword_000024 )
           pVideoPlayer->dword_00006C = 1;
-        if ( !LODWORD(dword_720010) )
+        if ( !dword_720010 )
           class03_OnMouseLeftButton(pClass03_global, (unsigned __int16)lParam, lParam >> 16);
         if ( uCurrentMenuID != 6 )
           goto LABEL_228;
-        if ( !LODWORD(dword_720010) )
+        if ( !dword_720010 )
         {
 LABEL_227:
           sub_41CD4F((void *)0x29);
@@ -3451,15 +3450,15 @@ LABEL_228:
 LABEL_238:
           if ( pVideoPlayer->dword_000024 != v31 )
             pVideoPlayer->dword_00006C = 1;
-          if ( LODWORD(dword_720010) == v31 )
+          if ( dword_720010 == v31 )
             class03_OnMouseLeftButton(pClass03_global, (unsigned __int16)lParam, lParam >> 16);
-          if ( LODWORD(pGame) != v31 )
+          if ( pGame != v31 )
           {
-            if ( LODWORD(dword_720010) != v31 )
+            if ( dword_720010 != v31 )
               goto LABEL_184;
             v33 = sub_43643E();
             CGame_Pick(
-              SLODWORD(pGame),
+              pGame,
               v33,
               (unsigned __int16)lParam,
               lParam >> 16,
@@ -3467,25 +3466,24 @@ LABEL_238:
               (int)&dword_F93E30,
               (int)&dword_F93E58);
           }
-          if ( LODWORD(dword_720010) == v31 )
+          if ( dword_720010 == v31 )
           {
             sub_416D62(0);
             return DefWindowProcA(hWnd, Msg, wParam, v5);
           }
           goto LABEL_184;
         }
-        if ( LODWORD(dword_720010) )
+        if (dword_720010)
           goto LABEL_184;
         dword_5058A0 = 8;
         return DefWindowProcA(hWnd, Msg, wParam, v5);
       case 0x207u:
-        if ( pD3DRenderer->dword_040088 )
+        if (pD3DRenderer->dword_040088)
         {
-          if ( LODWORD(pGame) && !LODWORD(dword_720010) )
+          if (pGame && !dword_720010)
           {
             v34 = sub_43643E();
-            CGame_Pick(
-              SLODWORD(pGame),
+            CGame_Pick(pGame,
               v34,
               (unsigned __int16)lParam,
               lParam >> 16,
@@ -3496,14 +3494,14 @@ LABEL_238:
           }
           goto LABEL_184;
         }
-        if ( !LODWORD(pGame) )
+        if (!pGame)
           goto LABEL_184;
         sub_417871(0);
         return DefWindowProcA(hWnd, Msg, wParam, v5);
       case 0x200u:
         if ( byte_505992 )
         {
-          if ( LODWORD(dword_720010) )
+          if (dword_720010)
             goto LABEL_184;
           v41 = (unsigned __int16)lParam;
           v42 = lParam >> 16;
@@ -3519,7 +3517,7 @@ LABEL_261:
         }
         else
         {
-          if ( LODWORD(dword_720010) )
+          if (dword_720010)
             goto LABEL_184;
           class03_OnMouseLeftButton(pClass03_global, (unsigned __int16)lParam, lParam >> 16);
         }
@@ -3808,8 +3806,8 @@ LABEL_179:
             erroneous_printf(pGlobalTXT_LocalizationStrings[62]);
         }
         BYTE1(dword_6BE364) &= 0xFEu;
-        if ( LODWORD(dword_720010) )
-          sub_46B105(LODWORD(dword_720010));
+        if (dword_720010)
+          sub_46B105(dword_720010);
         if ( byte_505992 )
         {
           byte_505991 = 1;
@@ -3894,20 +3892,20 @@ LABEL_179:
   {
     v7 = GetCurrentProcess();
     SetPriorityClass(v7, 0x20u);
-    if ( LODWORD(pGame) )
+    if (pGame)
     {
-      v8 = *(_DWORD *)(pGame + 3692);
+     v8 = pGame->class14_obj;
       if ( v8 )
       {
-        if ( *(_BYTE *)(v8 + 4) )
+        if (*(_BYTE *)(v8 + 4))
         {
-          if ( dword_69B00C )
+          if (dword_69B00C)
             sub_45B3A4(dword_69B00C);
         }
       }
     }
-    if ( LODWORD(dword_720010) )
-      sub_46B1DD(SLODWORD(dword_720010));
+    if (dword_720010)
+      sub_46B1DD(dword_720010);
     PostQuitMessage(0);
     return 0;
   }
@@ -3958,10 +3956,10 @@ LABEL_20:
     goto LABEL_184;
   }
 
-  if ( hWnd != (HWND)wParam || (dword_4E98BC = 1, pD3DRenderer->dword_040058) || !LODWORD(dword_720010) )
+  if ( hWnd != (HWND)wParam || (dword_4E98BC = 1, pD3DRenderer->dword_040058) || !dword_720010 )
     return DefWindowProcA(hWnd, Msg, wParam, v5);
-  sub_46B105(LODWORD(dword_720010));
-  if ( !LODWORD(dword_720010) )
+  sub_46B105(dword_720010);
+  if ( !dword_720010 )
     goto LABEL_184;
   sub_46BBD0();
   return DefWindowProcA(hWnd, Msg, wParam, v5);
@@ -4264,7 +4262,7 @@ void __cdecl sub_47B42C()
         else
         {
           v49 = 1;
-          sub_4A7F74(*(void **)(LODWORD(pGame) + 3664), *(_WORD *)(v1 - 4), *(_WORD *)(v1 - 2), v3);
+          sub_4A7F74(pGame->class06_obj, *(_WORD *)(v1 - 4), *(_WORD *)(v1 - 2), v3);
           v4 = (1.0 - (double)*(signed int *)(v1 + 38) / (double)*(_WORD *)(v1 + 14))
              * (double)(2 * (signed int)*(_WORD *)(v1 - 8));
           v5 = v4 + 6.755399441055744e15;
@@ -5276,176 +5274,6 @@ void *__stdcall call_new(int a1, int a2, int a3)
  p = malloc(a2 * a3);
  memset(p, 0, a2 * a3);
  return p;
-}
-
-//----- (0044CE08) --------------------------------------------------------
-char __fastcall FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, __int16 a5, const char *pString, int a7, signed int a8, unsigned int a9)
-{
-  int v9; // ebx@1
-  int v10; // edi@1
-  char *v11; // eax@2
-  int v12; // edx@9
-  //int v13; // edi@9
-  //int v14; // esi@9
-  int v15; // eax@25
-  int v16; // ecx@25
-  int v17; // eax@27
-  int v18; // edi@32
-  int v19; // esi@38
-  unsigned __int8 v20; // sf@39
-  unsigned __int8 v21; // of@39
-  char v23; // [sp-18h] [bp-50h]@2
-  int v24; // [sp-14h] [bp-4Ch]@2
-  int v25; // [sp-10h] [bp-48h]@2
-  int v26; // [sp-Ch] [bp-44h]@2
-  const char *v27; // [sp-8h] [bp-40h]@2
-  int v28; // [sp-4h] [bp-3Ch]@2
-  char Dest[8]; // [sp+Ch] [bp-2Ch]@32
-  char v30; // [sp+Fh] [bp-29h]@32
-  char v31; // [sp+11h] [bp-27h]@34
-  char *v32; // [sp+20h] [bp-18h]@25
-  int v33; // [sp+24h] [bp-14h]@25
-  int v34; // [sp+28h] [bp-10h]@1
-  size_t v35; // [sp+2Ch] [bp-Ch]@4
-  int v36; // [sp+30h] [bp-8h]@1
-  char *v37; // [sp+34h] [bp-4h]@7
-  int v38; // [sp+4Ch] [bp+14h]@11
- unsigned char c;
- unsigned int uOutX,
-              uOutY;
-
-  v34 = 0;
-  v10 = _this;
-  v9 = pFont;
-  v36 = _this;
-  if (!pString)
-  {
-    v28 = 859;
-    v27 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Font.cpp";
-    a9 = &v23;
-    sub_40E2C8(&v23, "Invalid string passed!", (int)((char *)&a9 + 3));
-    LOBYTE(v11) = (unsigned int)sub_466D09(&a8, *(int *)&v23, v24, v25, v26, v27, v28);
-    return (char)v11;
-  }
-  v11 = strcmp(pString, "null");
-  if (!v11)
-    return v11;
-
-    v35 = strlen(pString);
-    v11 = 0;
-    if ( !uX )
-      uX = 12;
-    if ( a8 )
-    {
-      v37 = (char *)pString;
-    }
-    else
-    {
-      v11 = FitTextInAWindow(pString, pFont, _this, uX, 0);
-      v37 = v11;
-    }
-    uOutX = uX + _this->uFrameX;
-    uOutY = uY + _this->uFrameY;
-    v12 = 0;
-    v11 = uOutY + pFont->uFontHeight;
-    if ( !a8 || (signed int)v11 <= a8)
-    {
-      v38 = 0;
-      if ( (signed int)v35 > 0 )
-      {
-        do
-        {
-          c = v37[v12];
-          if (c >= pFont->uFirstChar && c <= pFont->uLastChar
-            || c == 12
-            || c == '\r' || c == '\t' || c == '\n')
-          {
-            switch ( c )
-            {
-              case 9u: // number (3 digit always) after \t denotes tab amount (in pixels);  example:  "\t004skips 4 whitespaces before this string"
-                strncpy(Dest, &v37[v12 + 1], 3);
-                v30 = 0;
-                v38 += 3;
-                v34 = atoi(Dest);
-                v19 = atoi(Dest);
-                c = v36;
-                uOutX = uX + _this->uFrameX + v19;
-                break;
-              case 0xAu:
-                c = pFont->uFontHeight;
-                uY = uY + pFont->uFontHeight - 3;
-                uOutY = uY + _this->uFrameY;
-                uOutX = uX + v34 + _this->uFrameX;
-                if ( a8 )
-                  goto LABEL_36;
-                break;
-              case 0xCu:
-                strncpy(&Dest, &v37[v12 + 1], 5u);
-                v31 = 0;
-                c = (char *)atoi(&Dest);
-                v38 += 5;
-                *(_DWORD *)&a5 = c;
-                break;
-              case 0xDu:
-                strncpy(&Dest, &v37[v12 + 1], 3u);
-                v30 = 0;
-                v38 += 3;
-                v18 = atoi(&Dest);
-                c = (char *)sub_44C51E(v9, &v37[v38]);
-                uOutX = *(_DWORD *)(v36 + 16) - (_DWORD)c - v18;
-                uOutY = uY + *(_DWORD *)(v36 + 4);
-                if ( a8 )
-                {
-                 c = pFont->uFontHeight;
-LABEL_36:
-                  c = pFont->uFontHeight + uOutY - 3;
-                  if ( (signed int)c > a8 )
-                    return (char)c;
-                  break;
-                }
-                break;
-              default:
-                if (c == 34 )
-                {
-                  if ( v37[v12 + 1] == 34 )
-                  {
-                    ++v12;
-                    v38 = v12;
-                  }
-                }
-                v32 = &v37[v12];
-                v15 = (unsigned __int8)v37[v12];
-                v16 = pFont->dword_000020[v15][1];
-                v33 = pFont->dword_000020[v15][2];
-                if ( v12 > 0 )
-                  uOutX += pFont->dword_000020[v15][0];
-                v17 = pFont->array_000C20[v15] + &pFont->unk_001020;
-                if ( a5 )
-                  sub_4A6C4F(pD3DRenderer, uOutX, uOutY, v17,
-                    v16,
-                    pFont->uFontHeight, pFont->dword_00000C,
-                    a5,
-                    a9);
-                else
-                  sub_4A6AB1(pD3DRenderer, uOutX, uOutY, v17,
-                             v16, pFont->uFontHeight, pFont->dword_00000C, a7);
-                uOutX += pFont->dword_000020[v15][1];
-                if ( v38 < (signed int)v35)
-                {
-                  uOutX += pFont->dword_000020[v15][2];
-                }
-                break;
-            }
-          }
-          v12 = v38 + 1;
-          //v21 = __SETO__(v38 + 1, v35);
-          //v20 = (signed int)(v38++ + 1 - v35) < 0;
-        }
-        while ( ++v38 < v35);
-      }
-    }
-
-  return (char)v11;
 }
 
 //----- (00401A91) --------------------------------------------------------
@@ -9520,7 +9348,6 @@ void __stdcall PlayMovie(unsigned int uVideoID, char a2)
   int v5; // [sp-14h] [bp-20h]@4
   int v6; // [sp-10h] [bp-1Ch]@4
   int v7; // [sp-Ch] [bp-18h]@4
-  int v9; // [sp-4h] [bp-10h]@4
   char v10; // [sp+0h] [bp-Ch]@14
   char v11; // [sp+4h] [bp-8h]@4
   int v12; // [sp+Bh] [bp-1h]@14
@@ -9531,9 +9358,8 @@ void __stdcall PlayMovie(unsigned int uVideoID, char a2)
  switch (uVideoID)
  {
     case 0:
-      v9 = 40;
       sub_40E2C8(CShow, "No movie", (int)((char *)&a1 + 3));
-      sub_467834(&v11, CShow, (const CHAR *)v5, v6, v7, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Show.cpp", v9);
+      sub_467834(&v11, CShow, (const CHAR *)v5, v6, v7, __FILE__, __LINE__);
       break;
 
     case 1: MoviePlayerLoop("3dologo", 0, 0, 1);
@@ -9558,16 +9384,15 @@ void __stdcall PlayMovie(unsigned int uVideoID, char a2)
     break;
 
     default:
-      v9 = 72;
       sub_40E2C8(CShow, "Invalid movie requested in CShow::Run()", (int)&v12);
-      sub_466D09(&v10, CShow, v5, v6, v7, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Show.cpp", v9);
+      sub_466D09(&v10, CShow, v5, v6, v7, __FILE__, __LINE__);
       break;
   }
 
  if (a2)
  {
-  if (*(int *)&dword_720010)
-    sub_46B105(*(int *)&dword_720010);
+  if (dword_720010)
+    sub_46B105(dword_720010);
  }
 }
 
@@ -9760,7 +9585,7 @@ LABEL_19:
           v46 = v18;
           v57 = v19;
           v20 = sub_42F5ED((int)&v43, 0, 0, 0, 0);
-          sub_439474(8 * v20 | 2, *v15, (int)&v59);
+          DamageMonsterFromParty(8 * v20 | 2, *v15, (int)&v59);
           ++v11;
         }
         while ( v11 < v13 );
@@ -11629,7 +11454,7 @@ LABEL_133:
         v628 = (int)&v650;
         v36 = LODWORD(v704);
 LABEL_139:
-        sub_439474(8 * v36 | 2, v46, v628);
+        DamageMonsterFromParty(8 * v36 | 2, v46, v628);
         goto LABEL_1056;
       case 2:
       case 6:
@@ -11963,7 +11788,7 @@ LABEL_202:
           goto LABEL_83;
         v70 = *(_WORD *)(v2 + 4);
         v71 = *(_WORD *)v2;
-        v72 = sub_42EB6A(SLODWORD(pGame));
+        v72 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v72, v71, v70);
         BYTE4(v617) = BYTE4(v1);
         LODWORD(v617) = HIDWORD(v1);
@@ -12035,17 +11860,17 @@ LABEL_232:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
         v80 = *(_WORD *)v2;
-        v81 = sub_42EB6A(SLODWORD(pGame));
+        v81 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v81, v80, SWORD2(v1));
         v78 = 1;
         v82 = *(_WORD *)v2;
-        v83 = sub_42EB6A(SLODWORD(pGame));
+        v83 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v83, v82, 1);
         v84 = *(_WORD *)v2;
-        v85 = sub_42EB6A(SLODWORD(pGame));
+        v85 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v85, v84, 2);
         v86 = *(_WORD *)v2;
-        v87 = sub_42EB6A(SLODWORD(pGame));
+        v87 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v87, v86, 3);
         v79 = (double)v711 * 4.266666889190674;
         goto LABEL_304;
@@ -12094,16 +11919,16 @@ LABEL_254:
               SHIDWORD(v1),
               SBYTE4(v1));
             v90 = *(_WORD *)v2;
-            v91 = sub_42EB6A(SLODWORD(pGame));
+            v91 = sub_42EB6A(pGame);
             sub_4A89BD((void *)v91, v90, SWORD2(v1));
             v92 = *(_WORD *)v2;
-            v93 = sub_42EB6A(SLODWORD(pGame));
+            v93 = sub_42EB6A(pGame);
             sub_4A89BD((void *)v93, v92, 1);
             v94 = *(_WORD *)v2;
-            v95 = sub_42EB6A(SLODWORD(pGame));
+            v95 = sub_42EB6A(pGame);
             sub_4A89BD((void *)v95, v94, 2);
             v96 = *(_WORD *)v2;
-            v97 = sub_42EB6A(SLODWORD(pGame));
+            v97 = sub_42EB6A(pGame);
             sub_4A89BD((void *)v97, v96, 3);
           }
         }
@@ -12137,7 +11962,7 @@ LABEL_269:
         {
           v104 = *(_WORD *)(v2 + 4);
           v105 = *(_WORD *)v2;
-          v106 = sub_42EB6A(SLODWORD(pGame));
+          v106 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v106, v105, v104);
           v107 = sub_4418B1(10000, *(_WORD *)(v2 + 4) + 310, SHIDWORD(v1), 65536);
           BYTE4(v617) = BYTE4(v1);
@@ -12157,7 +11982,7 @@ LABEL_269:
         do
         {
           v102 = *(_WORD *)v2;
-          v103 = sub_42EB6A(SLODWORD(pGame));
+          v103 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v103, v102, v1);
           v680 = sub_4418B1(10000, v1 + 310, SHIDWORD(v1), 65536);
           sub_4584E0(
@@ -12236,7 +12061,7 @@ LABEL_269:
                 LOBYTE(v117) = 8 * n | 3;
                 v699 = v117;
                 v118 = sub_42F5ED((int)&v686, 0, 0, 0, 0);
-                sub_439474(8 * v118 | 2, v708, (int)&v662);
+                DamageMonsterFromParty(8 * v118 | 2, v708, (int)&v662);
                 LODWORD(v705) = 1;
               }
               else
@@ -12298,17 +12123,17 @@ LABEL_296:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
         v124 = *(_WORD *)v2;
-        v125 = sub_42EB6A(SLODWORD(pGame));
+        v125 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v125, v124, SWORD2(v1));
         v78 = 1;
         v126 = *(_WORD *)v2;
-        v127 = sub_42EB6A(SLODWORD(pGame));
+        v127 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v127, v126, 1);
         v128 = *(_WORD *)v2;
-        v129 = sub_42EB6A(SLODWORD(pGame));
+        v129 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v129, v128, 2);
         v130 = *(_WORD *)v2;
-        v131 = sub_42EB6A(SLODWORD(pGame));
+        v131 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v131, v130, 3);
         LODWORD(v704) = v711 << 7;
         v79 = (double)(v711 << 7) * 0.03333333507180214;
@@ -12330,16 +12155,16 @@ LABEL_304:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
         v137 = *(_WORD *)v2;
-        v138 = sub_42EB6A(SLODWORD(pGame));
+        v138 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v138, v137, SWORD2(v1));
         v139 = *(_WORD *)v2;
-        v140 = sub_42EB6A(SLODWORD(pGame));
+        v140 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v140, v139, 1);
         v141 = *(_WORD *)v2;
-        v142 = sub_42EB6A(SLODWORD(pGame));
+        v142 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v142, v141, 2);
         v143 = *(_WORD *)v2;
-        v144 = sub_42EB6A(SLODWORD(pGame));
+        v144 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v144, v143, 3);
         BYTE4(v617) = BYTE4(v1);
         LODWORD(v704) = v711 << 7;
@@ -12496,10 +12321,10 @@ LABEL_304:
             v699 = v159;
             v160 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v161 = n;
-            sub_439474(8 * v160 | 2, dword_50BF30[n], (int)&v659);
-            v162 = sub_42EB6A(SLODWORD(pGame));
+            DamageMonsterFromParty(8 * v160 | 2, dword_50BF30[n], (int)&v659);
+            v162 = sub_42EB6A(pGame);
             class06_sub_4A81CA(v162, (int)&v686);
-            v163 = sub_42EB6A(SLODWORD(pGame));
+            v163 = sub_42EB6A(pGame);
             sub_4A8BDF(v163, 16727070, 64);
             n = v161 + 1;
           }
@@ -12555,17 +12380,17 @@ LABEL_353:
         }
         while ( (_DWORD)v1 < 4 );
         v170 = *(_WORD *)v2;
-        v171 = sub_42EB6A(SLODWORD(pGame));
+        v171 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v171, v170, SWORD2(v1));
         LODWORD(v1) = 1;
         v172 = *(_WORD *)v2;
-        v173 = sub_42EB6A(SLODWORD(pGame));
+        v173 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v173, v172, 1);
         v174 = *(_WORD *)v2;
-        v175 = sub_42EB6A(SLODWORD(pGame));
+        v175 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v175, v174, 2);
         v176 = *(_WORD *)v2;
-        v177 = sub_42EB6A(SLODWORD(pGame));
+        v177 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v177, v176, 3);
         v630 = BYTE4(v1);
         v710 = v711 << 7;
@@ -12699,17 +12524,17 @@ LABEL_393:
         if ( sub_427730(v707, SLODWORD(v706)) )
         {
           v190 = *(_WORD *)v2;
-          v191 = sub_42EB6A(SLODWORD(pGame));
+          v191 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v191, v190, SWORD2(v1));
           LODWORD(v1) = 1;
           v192 = *(_WORD *)v2;
-          v193 = sub_42EB6A(SLODWORD(pGame));
+          v193 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v193, v192, 1);
           v194 = *(_WORD *)v2;
-          v195 = sub_42EB6A(SLODWORD(pGame));
+          v195 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v195, v194, 2);
           v196 = *(_WORD *)v2;
-          v197 = sub_42EB6A(SLODWORD(pGame));
+          v197 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v197, v196, 3);
           v630 = BYTE4(v1);
           v710 = v711 << 7;
@@ -13028,17 +12853,17 @@ LABEL_157:
           goto LABEL_83;
         v680 = sub_4418B1(10005, 201, SHIDWORD(v1), 65536);
         v222 = *(_WORD *)v2;
-        v223 = sub_42EB6A(SLODWORD(pGame));
+        v223 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v223, v222, SWORD2(v1));
         HIDWORD(v1) = 1;
         v224 = *(_WORD *)v2;
-        v225 = sub_42EB6A(SLODWORD(pGame));
+        v225 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v225, v224, 1);
         v226 = *(_WORD *)v2;
-        v227 = sub_42EB6A(SLODWORD(pGame));
+        v227 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v227, v226, 2);
         v228 = *(_WORD *)v2;
-        v229 = sub_42EB6A(SLODWORD(pGame));
+        v229 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v229, v228, 3);
         v230 = *(_WORD *)(v2 + 2) + 1;
         v710 = (_DWORD)v1 << 7;
@@ -13646,17 +13471,17 @@ LABEL_125:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
         v314 = *(_WORD *)v2;
-        v315 = sub_42EB6A(SLODWORD(pGame));
+        v315 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v315, v314, SWORD2(v1));
         LODWORD(v1) = 1;
         v316 = *(_WORD *)v2;
-        v317 = sub_42EB6A(SLODWORD(pGame));
+        v317 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v317, v316, 1);
         v318 = *(_WORD *)v2;
-        v319 = sub_42EB6A(SLODWORD(pGame));
+        v319 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v319, v318, 2);
         v320 = *(_WORD *)v2;
-        v321 = sub_42EB6A(SLODWORD(pGame));
+        v321 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v321, v320, 3);
         v630 = BYTE4(v1);
         v710 = v711 << 7;
@@ -13699,7 +13524,7 @@ LABEL_667:
         {
           v325 = *(_WORD *)(v2 + 4);
           v326 = *(_WORD *)v2;
-          v327 = sub_42EB6A(SLODWORD(pGame));
+          v327 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v327, v326, v325);
           BYTE4(v617) = BYTE4(v1);
           LODWORD(v617) = HIDWORD(v1);
@@ -13726,7 +13551,7 @@ LABEL_667:
           v620[1] = (const char *)HIDWORD(v1);
           v620[0] = (char *)pActors + v1;
 LABEL_165:
-          sub_42EB6A(SLODWORD(pGame));
+          sub_42EB6A(pGame);
           sub_4A7E89((int)v620[0], (int)v620[1]);
         }
         goto LABEL_1056;
@@ -13784,7 +13609,7 @@ LABEL_679:
         {
           v339 = *(_WORD *)(v2 + 4);
           v340 = *(_WORD *)v2;
-          v341 = sub_42EB6A(SLODWORD(pGame));
+          v341 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v341, v340, v339);
           BYTE4(v617) = BYTE4(v1);
           v710 = v711 << 7;
@@ -13803,7 +13628,7 @@ LABEL_679:
         {
           v336 = n;
           v337 = *(_WORD *)v2;
-          v338 = sub_42EB6A(SLODWORD(pGame));
+          v338 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v338, v337, v336);
           sub_4584E0(
             v1,
@@ -13828,7 +13653,7 @@ LABEL_679:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
         LODWORD(v704) = sub_46A6AC((int)dword_50BF30, 100, 4096);
-        v345 = sub_42EB6A(SLODWORD(pGame));
+        v345 = sub_42EB6A(pGame);
         sub_4A8BDF(v345, 16777215, 192);
         LOWORD(v686.v686) = v686.v686 + 1;
         sub_402F07(v686.v694);
@@ -13971,7 +13796,7 @@ LABEL_679:
             v363 = LODWORD(v712);
             v364 = LOWORD(v639[LODWORD(v712)]) - 1;
             v365 = *(_WORD *)v2;
-            v366 = sub_42EB6A(SLODWORD(pGame));
+            v366 = sub_42EB6A(pGame);
             sub_4A89BD((void *)v366, v365, v364);
             LODWORD(v712) = v363 + 1;
           }
@@ -14080,7 +13905,7 @@ LABEL_768:
           goto LABEL_83;
         v383 = *(_WORD *)(v2 + 4);
         v384 = *(_WORD *)v2;
-        v385 = sub_42EB6A(SLODWORD(pGame));
+        v385 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v385, v384, v383);
         v307 = 6972 * *(_WORD *)(v2 + 4);
         v306 = (char *)&unk_ACD9E4 + v307;
@@ -14121,7 +13946,7 @@ LABEL_780:
           goto LABEL_83;
         v389 = *(_WORD *)(v2 + 4);
         v390 = *(_WORD *)v2;
-        v391 = sub_42EB6A(SLODWORD(pGame));
+        v391 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v391, v390, v389);
         v307 = 6972 * *(_WORD *)(v2 + 4);
         v306 = (char *)&unk_ACD99C + v307;
@@ -14291,7 +14116,7 @@ LABEL_813:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
         LODWORD(v704) = sub_46A6AC((int)dword_50BF30, 100, 4096);
-        v406 = sub_42EB6A(SLODWORD(pGame));
+        v406 = sub_42EB6A(pGame);
         sub_4A8BDF(v406, 657930, 192);
         LOWORD(v686.v686) = v686.v686 + 1;
         sub_402F07(v686.v694);
@@ -14347,7 +14172,7 @@ LABEL_813:
           goto LABEL_83;
         v412 = *(_WORD *)(v2 + 4);
         v413 = *(_WORD *)v2;
-        v414 = sub_42EB6A(SLODWORD(pGame));
+        v414 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v414, v413, v412);
         v411 = 6972 * *(_WORD *)(v2 + 4);
         if ( *(int *)((char *)&dword_ACD9B0 + v411) | *(int *)((char *)&dword_ACD9AC + v411) )
@@ -14407,7 +14232,7 @@ LABEL_855:
           {
             sprintfex(pStringBuffer, pGlobalTXT_LocalizationStrings[471], *(int *)((char *)dword_5D29EC + v421));
             sub_44C175(pStringBuffer, 2);
-            if ( !sub_48C6F6(pParty_global, (int)((char *)&unk_665254 + 112 * v1)) )
+            if ( !Party_AddItem(pParty_global, (int)((char *)&unk_665254 + 112 * v1)) )
               sub_4936E1(pParty_global, (char *)&unk_665254 + 112 * v1);
           }
           sub_42F933(v1);
@@ -14481,7 +14306,7 @@ LABEL_883:
           goto LABEL_83;
         v426 = *(_WORD *)(v2 + 4);
         v427 = *(_WORD *)v2;
-        v428 = sub_42EB6A(SLODWORD(pGame));
+        v428 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v428, v427, v426);
         v307 = 6972 * *(_WORD *)(v2 + 4);
         v306 = (char *)&dword_ACD98C + v307;
@@ -14532,7 +14357,7 @@ LABEL_904:
           v631 = *(_WORD *)(v2 + 4);
 LABEL_685:
           v331 = *(_WORD *)v2;
-          v332 = sub_42EB6A(SLODWORD(pGame));
+          v332 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v332, v331, v631);
         }
         else
@@ -14585,7 +14410,7 @@ LABEL_912:
           goto LABEL_83;
         v439 = *(_WORD *)(v2 + 4);
         v440 = *(_WORD *)v2;
-        v441 = sub_42EB6A(SLODWORD(pGame));
+        v441 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v441, v440, v439);
         LODWORD(v1) = 6972 * *(_WORD *)(v2 + 4);
         if ( !(*(int *)((char *)&dword_ACD9B8 + v1) | *(int *)((char *)&dword_ACD9B4 + v1))
@@ -14618,16 +14443,16 @@ LABEL_912:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
         v445 = *(_WORD *)v2;
-        v446 = sub_42EB6A(SLODWORD(pGame));
+        v446 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v446, v445, SWORD2(v1));
         v447 = *(_WORD *)v2;
-        v448 = sub_42EB6A(SLODWORD(pGame));
+        v448 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v448, v447, 1);
         v449 = *(_WORD *)v2;
-        v450 = sub_42EB6A(SLODWORD(pGame));
+        v450 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v450, v449, 2);
         v451 = *(_WORD *)v2;
-        v452 = sub_42EB6A(SLODWORD(pGame));
+        v452 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v452, v451, 3);
         BYTE4(v617) = BYTE4(v1);
         v710 = v711 << 7;
@@ -14645,16 +14470,16 @@ LABEL_912:
         if ( v709 == 4 )
         {
           v453 = *(_WORD *)v2;
-          v454 = sub_42EB6A(SLODWORD(pGame));
+          v454 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v454, v453, SWORD2(v1));
           v455 = *(_WORD *)v2;
-          v456 = sub_42EB6A(SLODWORD(pGame));
+          v456 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v456, v455, 1);
           v457 = *(_WORD *)v2;
-          v458 = sub_42EB6A(SLODWORD(pGame));
+          v458 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v458, v457, 2);
           v459 = *(_WORD *)v2;
-          v460 = sub_42EB6A(SLODWORD(pGame));
+          v460 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v460, v459, 3);
           v710 = v711 << 7;
           v681 = (signed int)(signed __int64)((double)(v711 << 7) * 0.03333333507180214);
@@ -14692,7 +14517,7 @@ LABEL_912:
         }
         v461 = *(_WORD *)(v2 + 4);
         v462 = *(_WORD *)v2;
-        v463 = sub_42EB6A(SLODWORD(pGame));
+        v463 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v463, v462, v461);
         v710 = v711 << 7;
         v617 = v1;
@@ -14711,7 +14536,7 @@ LABEL_912:
           goto LABEL_83;
         v466 = *(_WORD *)(v2 + 4);
         v467 = *(_WORD *)v2;
-        v468 = sub_42EB6A(SLODWORD(pGame));
+        v468 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v468, v467, v466);
         LODWORD(v1) = 6972 * *(_WORD *)(v2 + 4);
         if ( !(*(int *)((char *)&dword_ACD9C0 + v1) | *(int *)((char *)&dword_ACD9BC + v1))
@@ -14752,7 +14577,7 @@ LABEL_641:
         do
         {
           v471 = *(_WORD *)v2;
-          v472 = sub_42EB6A(SLODWORD(pGame));
+          v472 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v472, v471, SWORD2(v1));
           sub_48DBB9(v1, v714);
           LODWORD(v1) = v1 + 6972;
@@ -14764,7 +14589,7 @@ LABEL_641:
         v683 -= v1;
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
-        v473 = sub_42EB6A(SLODWORD(pGame));
+        v473 = sub_42EB6A(pGame);
         sub_4A8BDF(v473, 720650, 192);
         v474 = sub_46A6AC((int)dword_50BF30, 100, 4096);
         LOWORD(v686.v686) = v686.v686 + 1;
@@ -14803,7 +14628,7 @@ LABEL_641:
             v699 = v476;
             v477 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v478 = n;
-            sub_439474(8 * v477 | 2, dword_50BF30[n], (int)&v647);
+            DamageMonsterFromParty(8 * v477 | 2, dword_50BF30[n], (int)&v647);
             n = v478 + 1;
           }
           while ( v478 + 1 < LODWORD(v712) );
@@ -14917,17 +14742,17 @@ LABEL_973:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
         v492 = *(_WORD *)v2;
-        v493 = sub_42EB6A(SLODWORD(pGame));
+        v493 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v493, v492, SWORD2(v1));
         LODWORD(v1) = 1;
         v494 = *(_WORD *)v2;
-        v495 = sub_42EB6A(SLODWORD(pGame));
+        v495 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v495, v494, 1);
         v496 = *(_WORD *)v2;
-        v497 = sub_42EB6A(SLODWORD(pGame));
+        v497 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v497, v496, 2);
         v498 = *(_WORD *)v2;
-        v499 = sub_42EB6A(SLODWORD(pGame));
+        v499 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v499, v498, 3);
         v630 = BYTE4(v1);
         v710 = v711 << 7;
@@ -14983,12 +14808,12 @@ LABEL_973:
             v699 = v502;
             v503 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v504 = n;
-            sub_439474(8 * v503 | 2, dword_50BF30[n], (int)&v653);
+            DamageMonsterFromParty(8 * v503 | 2, dword_50BF30[n], (int)&v653);
             n = v504 + 1;
           }
           while ( v504 + 1 < LODWORD(v704) );
         }
-        v505 = sub_42EB6A(SLODWORD(pGame));
+        v505 = sub_42EB6A(pGame);
         sub_4A8BFC((void *)v505);
         goto LABEL_1056;
       case 85:
@@ -15008,16 +14833,16 @@ LABEL_973:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
         v509 = *(_WORD *)v2;
-        v510 = sub_42EB6A(SLODWORD(pGame));
+        v510 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v510, v509, SWORD2(v1));
         v511 = *(_WORD *)v2;
-        v512 = sub_42EB6A(SLODWORD(pGame));
+        v512 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v512, v511, 1);
         v513 = *(_WORD *)v2;
-        v514 = sub_42EB6A(SLODWORD(pGame));
+        v514 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v514, v513, 2);
         v515 = *(_WORD *)v2;
-        v516 = sub_42EB6A(SLODWORD(pGame));
+        v516 = sub_42EB6A(pGame);
         sub_4A89BD((void *)v516, v515, 3);
         v710 = v708 << 7;
         v517 = (double)(v708 << 7) * 0.03333333507180214;
@@ -15121,16 +14946,16 @@ LABEL_1000:
         do
         {
           v520 = *(_WORD *)v2;
-          v521 = sub_42EB6A(SLODWORD(pGame));
+          v521 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v521, v520, SWORD2(v1));
           v522 = *(_WORD *)v2;
-          v523 = sub_42EB6A(SLODWORD(pGame));
+          v523 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v523, v522, 1);
           v524 = *(_WORD *)v2;
-          v525 = sub_42EB6A(SLODWORD(pGame));
+          v525 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v525, v524, 2);
           v526 = *(_WORD *)v2;
-          v527 = sub_42EB6A(SLODWORD(pGame));
+          v527 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v527, v526, 3);
           sub_4584E0(
             v1 + 6056,
@@ -15205,7 +15030,7 @@ LABEL_1000:
           v532 = n;
           compile_error;//*(_DWORD *)(*LODWORD(v702) + 6464) = sub_48E565(*v531);
           v533 = *(_WORD *)v2;
-          v534 = sub_42EB6A(SLODWORD(pGame));
+          v534 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v534, v533, v532);
           ++n;
           LODWORD(v702) += 4;
@@ -15250,7 +15075,7 @@ LABEL_1000:
           v547 = *(_WORD *)(v2 + 4);
           v548 = *(_WORD *)v2;
           v546 = &pParty_global->pPlayers[1743 * *(_WORD *)(v2 + 4)];
-          v549 = sub_42EB6A(SLODWORD(pGame));
+          v549 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v549, v548, v547);
           if ( *(_QWORD *)(v546 + 112) )
           {
@@ -15584,7 +15409,7 @@ LABEL_1119:
         {
           v578 = *(_WORD *)(v2 + 4);
           v579 = *(_WORD *)v2;
-          v580 = sub_42EB6A(SLODWORD(pGame));
+          v580 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v580, v579, v578);
           BYTE4(v617) = BYTE4(v1);
           LODWORD(v617) = v680;
@@ -15603,7 +15428,7 @@ LABEL_1119:
         {
           v581 = n;
           v582 = *(_WORD *)v2;
-          v583 = sub_42EB6A(SLODWORD(pGame));
+          v583 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v583, v582, v581);
           sub_4584E0(
             v1,
@@ -15622,7 +15447,7 @@ LABEL_1119:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
         LODWORD(v704) = HIDWORD(v1);
-        sub_42EB71(SLODWORD(pGame));
+        sub_42EB71(pGame);
         v584 = (signed __int64)sub_43643E();
         LODWORD(v712) = sub_46A6AC((int)dword_50BF30, 100, v584);
         v670 = HIDWORD(v1);
@@ -15660,7 +15485,7 @@ LABEL_1119:
             v699 = v586;
             v587 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v588 = n;
-            sub_439474(8 * v587 | 2, dword_50BF30[n], (int)&v668);
+            DamageMonsterFromParty(8 * v587 | 2, dword_50BF30[n], (int)&v668);
             n = v588 + 1;
           }
           while ( v588 + 1 < LODWORD(v712) );
@@ -15709,13 +15534,13 @@ LABEL_1119:
             v595 = LODWORD(v712);
             v596 = LOWORD(v712);
             v597 = *(_WORD *)v2;
-            v598 = sub_42EB6A(SLODWORD(pGame));
+            v598 = sub_42EB6A(pGame);
             sub_4A89BD((void *)v598, v597, v596);
             LODWORD(v712) = v595 + 1;
           }
           while ( v595 + 1 < v708 );
         }
-        v599 = sub_42EB6A(SLODWORD(pGame));
+        v599 = sub_42EB6A(pGame);
         sub_4A8BDF(v599, SHIDWORD(v1), 64);
         goto LABEL_1056;
       case 98:

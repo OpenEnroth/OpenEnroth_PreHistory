@@ -576,7 +576,7 @@ LABEL_53:
 LABEL_54:
               sub_44C175(&ExistingFileName, 2);
               class03_sub_4698A6((void *)pClass03_global);
-              sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), 151, a2 - 1);
+              sub_4A89BD(pGame->class06_obj, 151, a2 - 1);
               sub_4948B1((void *)v3, 93, 0);
               AudioPlayer_sub_4AA306(pAudioPlayer, 219, 0, 0, -1, 0, 0, 0, 0);
               if ( pParty_global->dword_000718 == 6 || pParty_global->dword_000718 == 20 )
@@ -666,7 +666,7 @@ LABEL_54:
             }
             goto LABEL_167;
           }
-          sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), 151, a2 - 1);
+          sub_4A89BD(pGame->class06_obj, 151, a2 - 1);
           v5 = 8 * a2 + 392;
           LOBYTE(v5) = (8 * a2 - 120) | 4;
           AudioPlayer_sub_4AA306(pAudioPlayer, 20001, v5, 0, -1, 0, 0, 0, 0);
@@ -1104,10 +1104,10 @@ LABEL_33:
         if ( v4 == 2 && (unsigned __int16)(*(_WORD *)(v1 + 268) & 0xFFC0)
           || v4 == 1 && sub_458244(*(_WORD *)(v1 + 266)) >= 3 )
         {
-          if ( LODWORD(dword_720010) )
+          if (dword_720010)
           {
-            v19 = *(_DWORD *)(LODWORD(dword_720010) + 24);
-            v18 = *(_DWORD *)(LODWORD(dword_720010) + 28);
+            v19 = *(_DWORD *)(dword_720010 + 24);
+            v18 = *(_DWORD *)(dword_720010 + 28);
           }
           else
           {
@@ -1250,11 +1250,11 @@ LABEL_45:
     }
     return;
   }
-  if ( LODWORD(dword_720010) )
+  if (dword_720010)
   {
-    v35 = *(_DWORD *)(LODWORD(dword_720010) + 24);
-    v34 = *(_DWORD *)(LODWORD(dword_720010) + 28);
-    v53 = *(_DWORD *)(LODWORD(dword_720010) + 28);
+    v35 = *(_DWORD *)(dword_720010 + 24);
+    v34 = *(_DWORD *)(dword_720010 + 28);
+    v53 = *(_DWORD *)(dword_720010 + 28);
     v52 = v35;
   }
   else
@@ -1347,11 +1347,11 @@ LONG __thiscall sub_469AE4(int this)
 
   v1 = this;
   *(_DWORD *)(this + 8) = 1;
-  if ( LODWORD(dword_720010) )
+  if (dword_720010)
   {
-    v3 = *(_DWORD *)(LODWORD(dword_720010) + 24);
-    Point.x = *(_DWORD *)(LODWORD(dword_720010) + 24);
-    result = *(_DWORD *)(LODWORD(dword_720010) + 28);
+    v3 = *(_DWORD *)(dword_720010 + 24);
+    Point.x = *(_DWORD *)(dword_720010 + 24);
+    result = *(_DWORD *)(dword_720010 + 28);
   }
   else
   {
@@ -1365,7 +1365,7 @@ LONG __thiscall sub_469AE4(int this)
   *(_DWORD *)(v1 + 268) = result;
   if ( pD3DRenderer->dword_040058 )
     goto LABEL_16;
-  if ( LODWORD(dword_720010) )
+  if (dword_720010)
     goto LABEL_24;
   if ( v3 < 0 )
     v3 = 0;
@@ -1377,7 +1377,7 @@ LONG __thiscall sub_469AE4(int this)
   {
     result = 479;
 LABEL_16:
-    if ( LODWORD(dword_720010) )
+    if (dword_720010)
       goto LABEL_24;
     if ( pD3DRenderer->dword_040058 && (v3 < 0 || result < 0 || v3 > 639 || result > 479) )
       goto LABEL_23;
@@ -1555,10 +1555,10 @@ void __thiscall sub_469EA4(int this)
   {
    v3 = class17_LoadTexture(pClass17_Icons_LOD, pClass40->pItems[12 * dword_AD470C].pIconName, 2);
     v2 = v3 != -1 ? 72 * v3 + 7145548 : 0;
-    if ( LODWORD(dword_720010) )
+    if (dword_720010)
     {
-      v5 = *(_DWORD *)(LODWORD(dword_720010) + 24);
-      v4 = *(_DWORD *)(LODWORD(dword_720010) + 28);
+      v5 = *(_DWORD *)(dword_720010 + 24);
+      v4 = *(_DWORD *)(dword_720010 + 28);
     }
     else
     {
@@ -1675,7 +1675,7 @@ int __thiscall sub_46A0A1(void *this)
   if ( dword_6BE360 == 1 )
   {
     if ( pD3DRenderer->dword_040088 )
-      v1 = *(float *)(*(_DWORD *)(LODWORD(pGame) + 3668) + 196);
+      v1 = *(float *)(pGame->class08_obj + 196);
     else
       v1 = pClass55_global->flt_00001C;
     v3 = (signed __int64)v1;
@@ -1696,7 +1696,7 @@ int __thiscall sub_46A0F6(void *this)
   if ( dword_6BE360 == 1 )
   {
     if ( pD3DRenderer->dword_040088 )
-      v1 = *(float *)(*(_DWORD *)(LODWORD(pGame) + 3668) + 196);
+      v1 = *(float *)(pGame->class08_obj + 196);
     else
       v1 = pClass55_global->flt_00001C;
     v3 = (signed __int64)v1;
@@ -1737,8 +1737,8 @@ char __cdecl sub_46A14B()
   if ( pD3DRenderer->dword_040088 )
   {
     v1 = GetAsyncKeyState(17);
-    sub_44EB12(SLODWORD(pGame), (v1 & 0x8001) != 0, (int)&dword_F93E6C, (int)&dword_F93E58);
-    v0 = sub_4C1BF1(*(_DWORD *)(LODWORD(pGame) + 3660));
+    sub_44EB12(pGame, (v1 & 0x8001) != 0, (int)&dword_F93E6C, (int)&dword_F93E58);
+    v0 = sub_4C1BF1(pGame->class05_obj);
     if ( v0 != -1 )
       LOBYTE(v0) = sub_46A334((unsigned __int16)v0, (signed int)(unsigned __int16)v0 >> 3);
     return v0;
@@ -1906,7 +1906,7 @@ char __fastcall sub_46A334(int a1, int a2)
           sub_449B7E((int)byte_ACD71D, 184, 1);
         if ( *(_DWORD *)v20 == 455 )
           sub_449B7E((int)byte_ACD71D, 185, 1);
-        if ( !sub_48C6F6(pParty_global, v20) )
+        if ( !Party_AddItem(pParty_global, v20) )
           sub_4936E1(pParty_global, (const void *)v20);
         v21 = (int)v29;
       }
@@ -2154,7 +2154,7 @@ int __fastcall sub_46A7C8(int a1, int a2, signed int a3)
                   if ( v6 != 17 )
                   {
                     v9 = (double)a3;
-                    if ( sub_4C1930(*(void **)(LODWORD(pGame) + 3660), v9, v16) )
+                    if ( sub_4C1930(pGame->class05_obj, v9, v16) )
                     {
                       if ( v15 < v14 - 1 )
                       {
@@ -2596,7 +2596,7 @@ char __thiscall sub_46AE97(void *this, void *Source)
   char v9; // [sp+B4h] [bp-4h]@1
 
   v2 = this;
-  EnterCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 28));
+  EnterCriticalSection(&pGame->class01_obj->cs2);
   v3 = *((_DWORD *)v2 + 1);
   v6 = 100;
   v7 = 0;
@@ -2613,7 +2613,7 @@ char __thiscall sub_46AE97(void *this, void *Source)
   if ( class17_LoadPalette(pClass17_Icons_LOD, class18_obj, (int)Source, 2) != -1 && sub_46B1EC((int)&Dest, *((_DWORD *)v2 + 1), 0) )
   {
     sub_40F77C(class18_obj);
-    LeaveCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 28));
+    LeaveCriticalSection(&pGame->class01_obj->cs2);
     result = 1;
   }
   else
@@ -2724,7 +2724,8 @@ char __thiscall sub_46B0A9(void *this)
   int v3; // eax@2
 
   v2 = this;
-  compile_error;//v1 = (int)operator new(0x2Cu);
+  //v1 = (int)operator new(0x2Cu);
+  v1 = malloc(0x2C);
   if ( v1 )
     v3 = sub_43B9FF(v1);
   else
@@ -2754,12 +2755,12 @@ void __thiscall sub_46B105(void *this)
   void *v1; // esi@1
 
   v1 = this;
-  EnterCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 52));
+  EnterCriticalSection(&pGame->class01_obj->cs3);
   sub_46B0A9(v1);
   sub_46BBD0();
   ResumeThread(*((HANDLE *)v1 + 4));
   *((_BYTE *)v1 + 88) = 0;
-  LeaveCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 52));
+  LeaveCriticalSection(&pGame->class01_obj->cs3);
 }
 
 //----- (0046B14F) --------------------------------------------------------
@@ -2779,13 +2780,13 @@ void __thiscall Mouse_suspend(int this)
   v1 = this;
   if ( *(_DWORD *)(this + 132) )
   {
-    v2 = *(_DWORD *)(LODWORD(pGame) + 3660);
+    v2 = pGame->class05_obj;
     if ( v2 )
       *(_DWORD *)(v2 + 8200) = 0;
-    EnterCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 52));
+    EnterCriticalSection(&pGame->class01_obj->cs3);
     SuspendThread(*(HANDLE *)(v1 + 16));
     sub_46B0ED(v1);
-    LeaveCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 52));
+    LeaveCriticalSection(&pGame->class01_obj->cs3);
   }
   else
   {
@@ -2929,7 +2930,7 @@ int __thiscall sub_46B342(int this, float a2, float a3)
 }
 
 //----- (0046B37C) --------------------------------------------------------
-int __thiscall sub_46B37C(int this, int a2)
+int __thiscall update_mouse_data(int this, int a2)
 {
   int v2; // edi@1
   int result; // eax@2
@@ -2940,30 +2941,28 @@ int __thiscall sub_46B37C(int this, int a2)
   int v8; // [sp-10h] [bp-20h]@2
   int v9; // [sp-Ch] [bp-1Ch]@2
   const char *v10; // [sp-8h] [bp-18h]@2
-  int v11; // [sp-4h] [bp-14h]@2
   char *v12; // [sp+8h] [bp-8h]@2
   int v13; // [sp+Fh] [bp-1h]@2
 
   v2 = this;
   if ( *(_DWORD *)(this + 132) )
   {
-    EnterCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 52));
+   EnterCriticalSection(&pGame->class01_obj->cs3);
     sub_43BB89(*(_DWORD *)(v2 + 132));
     v4 = *(_DWORD *)(v2 + 132);
     v5 = v4 + 32;
     sub_46B289(v2, v4 + 32, *(_DWORD *)(v4 + 40));
-    LeaveCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 52));
+    LeaveCriticalSection(&pGame->class01_obj->cs3);
     result = a2;
     *(_DWORD *)a2 = *(_DWORD *)v5;
     *(_DWORD *)(a2 + 4) = *(_DWORD *)(v5 + 4);
   }
   else
   {
-    v11 = 446;
     v10 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MouseAsync.cpp";
     v12 = &v6;
     sub_40E2C8(&v6, "DI_Mouse pointer invalid bailing out from update_mouse_data()", (int)&v13);
-    sub_467834(&v12, v6, v7, v8, v9, v10, v11);
+    sub_467834(&v12, v6, v7, v8, v9, v10, __LINE__);
     result = a2;
     *(_DWORD *)a2 = 0;
     *(_DWORD *)(a2 + 4) = 0;
@@ -2990,7 +2989,7 @@ char __thiscall sub_46B420(int this)
   }
   else
   {
-    sub_46B37C(this, (int)&v7);
+    update_mouse_data(this, (int)&v7);
     sub_46BA8D((void *)v1, v7, v8);
     sub_46B958((void *)v1, v7 - *(_DWORD *)(v1 + 40), v8 - *(_DWORD *)(v1 + 44));
     sub_46B492((void *)v1, (int)&v7);
@@ -3026,7 +3025,7 @@ void __thiscall sub_46B492(void *this, int a2)
   int v14; // [sp+24h] [bp-4h]@5
 
   v2 = this;
-  EnterCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 4));
+  EnterCriticalSection(&pGame->class01_obj->cs1);
   if ( *((_DWORD *)v2 + 28) > 0x80u )
     sub_46BCAB((int)((char *)v2 + 104));
   v3 = a2;
@@ -3074,7 +3073,7 @@ void __thiscall sub_46B492(void *this, int a2)
       sub_46BCD2((char *)v2 + 104, (int)&a2, *((_DWORD *)v2 + 27), (int)&v10);
     }
   }
-  LeaveCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 4));
+  LeaveCriticalSection(&pGame->class01_obj->cs1);
 }
 
 //----- (0046B5D5) --------------------------------------------------------
@@ -3098,7 +3097,7 @@ void __thiscall sub_46B5D5(void *this, int a2)
   int v17; // [sp+28h] [bp-4h]@6
 
   v2 = this;
-  EnterCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 4));
+  EnterCriticalSection(&pGame->class01_obj->cs1);
   if ( *((_DWORD *)v2 + 31) > 0x80u )
     sub_46BCAB((int)((char *)v2 + 116));
   v3 = timeGetTime();
@@ -3164,7 +3163,7 @@ void __thiscall sub_46B5D5(void *this, int a2)
       *((_DWORD *)v2 + 21) = v3;
     }
   }
-  LeaveCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 4));
+  LeaveCriticalSection(&pGame->class01_obj->cs1);
 }
 
 //----- (0046B736) --------------------------------------------------------
@@ -3202,9 +3201,9 @@ void __cdecl sub_46B76F()
   signed int v9; // ST04_4@9
   float v10; // ST00_4@9
 
-  EnterCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 4));
-  v0 = LODWORD(dword_720010) + 108;
-  v2 = *(_DWORD *)(LODWORD(dword_720010) + 108);
+  EnterCriticalSection(&pGame->class01_obj->cs1);
+  v0 = dword_720010 + 108;
+  v2 = *(_DWORD *)(dword_720010 + 108);
   v1 = *(_DWORD *)v2;
   if ( *(_DWORD *)v2 != v2 )
   {
@@ -3214,7 +3213,7 @@ void __cdecl sub_46B76F()
       v4 = (signed int *)(v1 + 12);
       if ( v3 & 1 )
       {
-        CGame_Pick(SLODWORD(pGame), 512.0, *v4, *(_DWORD *)(v1 + 16), 0, (int)&dword_F93E6C, (int)&dword_F93E58);
+        CGame_Pick(pGame, 512.0, *v4, *(_DWORD *)(v1 + 16), 0, (int)&dword_F93E6C, (int)&dword_F93E58);
         if ( sub_466CA0() == 6 )
           sub_41CD4F((void *)0x29);
         OnMouseLeftClick((void *)(v1 + 12));
@@ -3226,7 +3225,7 @@ void __cdecl sub_46B76F()
           v5 = *(_DWORD *)(v1 + 16);
           v6 = *v4;
           v7 = sub_43643E();
-          CGame_Pick(SLODWORD(pGame), v7, v6, v5, 0, (int)&dword_F93E30, (int)&dword_F93E44);
+          CGame_Pick(pGame, v7, v6, v5, 0, (int)&dword_F93E30, (int)&dword_F93E44);
           sub_416D62(v1 + 12);
         }
         else
@@ -3236,7 +3235,7 @@ void __cdecl sub_46B76F()
             v8 = *(_DWORD *)(v1 + 16);
             v9 = *v4;
             v10 = sub_43643E();
-            CGame_Pick(SLODWORD(pGame), v10, v9, v8, 1, (int)&dword_F93E6C, (int)&dword_F93E44);
+            CGame_Pick(pGame, v10, v9, v8, 1, (int)&dword_F93E6C, (int)&dword_F93E44);
           }
         }
       }
@@ -3244,7 +3243,7 @@ void __cdecl sub_46B76F()
     }
     while ( v1 != *(_DWORD *)v0 );
   }
-  LeaveCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 4));
+  LeaveCriticalSection(&pGame->class01_obj->cs1);
 }
 
 //----- (0046B879) --------------------------------------------------------
@@ -3259,9 +3258,9 @@ void __cdecl sub_46B879()
   signed int v6; // ST04_4@5
   float v7; // ST00_4@5
 
-  EnterCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 4));
-  v0 = LODWORD(dword_720010) + 120;
-  v2 = *(_DWORD *)(LODWORD(dword_720010) + 120);
+  EnterCriticalSection(&pGame->class01_obj->cs1);
+  v0 = dword_720010 + 120;
+  v2 = *(_DWORD *)(dword_720010 + 120);
   v1 = *(_DWORD *)v2;
   if ( *(_DWORD *)v2 != v2 )
   {
@@ -3271,7 +3270,7 @@ void __cdecl sub_46B879()
       v4 = (signed int *)(v1 + 12);
       if ( v3 & 1 )
       {
-        CGame_Pick(SLODWORD(pGame), 512.0, *v4, *(_DWORD *)(v1 + 16), 0, (int)&dword_F93E6C, (int)&dword_F93E58);
+        CGame_Pick(pGame, 512.0, *v4, *(_DWORD *)(v1 + 16), 0, (int)&dword_F93E6C, (int)&dword_F93E58);
         sub_4178C4();
       }
       else
@@ -3281,7 +3280,7 @@ void __cdecl sub_46B879()
           v5 = *(_DWORD *)(v1 + 16);
           v6 = *v4;
           v7 = sub_43643E();
-          CGame_Pick(SLODWORD(pGame), v7, v6, v5, 0, (int)&dword_F93E30, (int)&dword_F93E58);
+          CGame_Pick(pGame, v7, v6, v5, 0, (int)&dword_F93E30, (int)&dword_F93E58);
           sub_4178E1();
         }
         else
@@ -3294,7 +3293,7 @@ void __cdecl sub_46B879()
     }
     while ( v1 != *(_DWORD *)v0 );
   }
-  LeaveCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 4));
+  LeaveCriticalSection(&pGame->class01_obj->cs1);
 }
 
 //----- (0046B944) --------------------------------------------------------
@@ -3328,7 +3327,7 @@ char __thiscall sub_46B958(void *this, int a2, int a3)
   v3 = this;
   if ( pD3DRenderer->pdds4_FrontBuffer && !(*(int (__stdcall **)(int))(pD3DRenderer->pdds4_FrontBuffer + 96))(pD3DRenderer->pdds4_FrontBuffer) )
   {
-    EnterCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 28));
+    EnterCriticalSection(&pGame->class01_obj->cs2);
     if ( *((_BYTE *)v3 + 88) )
       (*(void (__stdcall **)(int, _DWORD, _DWORD, _DWORD, char *, signed int))(pD3DRenderer->pdds4_FrontBuffer + 28))(
         pD3DRenderer->pdds4_FrontBuffer,
@@ -3394,7 +3393,7 @@ char __thiscall sub_46B958(void *this, int a2, int a3)
         &v11);
     }
     *((_BYTE *)v3 + 88) = 1;
-    LeaveCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 28));
+    LeaveCriticalSection(&pGame->class01_obj->cs2);
     result = 1;
   }
   else
@@ -3440,7 +3439,7 @@ void __thiscall sub_46BAEC(void *this)
   void *v1; // esi@1
 
   v1 = this;
-  EnterCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 28));
+  EnterCriticalSection(&pGame->class01_obj->cs2);
   *((_BYTE *)v1 + 88) = 0;
 }
 
@@ -3507,7 +3506,7 @@ void __thiscall sub_46BB0A(int this)
         &v9);
     }
   }
-  LeaveCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 28));
+  LeaveCriticalSection(&pGame->class01_obj->cs2);
 }
 
 //----- (0046BBD0) --------------------------------------------------------
@@ -3546,9 +3545,9 @@ void __stdcall sub_46BC4E(int a1)
 {
   while ( 1 )
   {
-    while ( !LODWORD(dword_720010) )
+    while ( !dword_720010 )
       ;
-    if ( !sub_46B420(SLODWORD(dword_720010)) )
+    if ( !sub_46B420(dword_720010) )
       ExitThread(0);
     Sleep(0x12u);
   }
@@ -8619,7 +8618,7 @@ LABEL_71:
       v41 = (unsigned __int8)(v11 & 0x80) + 128;
       v42 = class17_LoadTexture(pClass17_Bitmaps_LOD, v29, v31);
 LABEL_72:
-      sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+      sub_48AB23(pGame->class02_obj, (int)&Dst);
       return;
     }
     goto LABEL_25;
@@ -8812,7 +8811,7 @@ LABEL_83:
         v63 = 0;
 LABEL_89:
         v64 = 1.0;
-        sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+        sub_48AB23(pGame->class02_obj, (int)&Dst);
         return;
       }
       Dst = 1032;
@@ -11246,7 +11245,7 @@ signed int __fastcall sub_47802A(int a1)
           v7 = v5 + 6.755399441055744e15;
           compile_error;
           /*sub_436A9A(
-            *(_DWORD *)(LODWORD(pGame) + 3668),
+            pGame->class08_obj,
             COERCE_UNSIGNED_INT64(v5 + 6.755399441055744e15),
             COERCE_UNSIGNED_INT64(*(float *)(v4 - 4) + 6.755399441055744e15),
             COERCE_UNSIGNED_INT64(*(float *)v4 + 6.755399441055744e15),
@@ -11386,7 +11385,7 @@ int __thiscall sub_478389(int this)
 }
 
 //----- (0047840D) --------------------------------------------------------
-char __cdecl sub_47840D()
+char __cdecl RenderBuildings()
 {
   char result; // al@3
   int v1; // eax@3
@@ -11462,7 +11461,7 @@ char __cdecl sub_47840D()
     sub_466D09(&v46, *(int *)&v40, v41, v42, v43, v44, v45);
   }
   v63 = 0;
-  v1 = *(_DWORD *)(LODWORD(pGame) + 3668);
+  v1 = pGame->class08_obj;
   v60 = 0;
   v52 = (void *)v1;
   result = pClass51_global->pBModels;
@@ -11690,7 +11689,7 @@ LABEL_30:
           compile_error;//atexit(loc_4789D4);
         }
         v45 = v4;
-        LODWORD(v48) = *(_DWORD *)(LODWORD(pGame) + 3656);
+        LODWORD(v48) = pGame->class04_obj;
         v36 = LODWORD(v48);
         sub_45CDB7(v4);
         sub_49BCEB(pClass58_global, v4);
@@ -12802,7 +12801,7 @@ LABEL_30:
           v42 = 1.0;
           v40 = (rand() & 0x80) + 128;
           v41 = class17_LoadTexture(pClass17_Bitmaps_LOD, "effpar01", 0);
-          sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+          sub_48AB23(pGame->class02_obj, (int)&Dst);
         }
       }
 LABEL_38:
@@ -13160,7 +13159,7 @@ char *__fastcall sub_47C1CA(int a1, char a2, int a3, signed int a4)
   }
   else
   {
-    v6 = sub_44EC23(SLODWORD(pGame), a1, (int)&v8, a4);
+    v6 = sub_44EC23(pGame, a1, (int)&v8, a4);
     if ( v6 == -1 )
       v6 = a3;
     if ( v9 == 1 )
@@ -13195,7 +13194,7 @@ char *__fastcall sub_47C24C(int a1, int a2, int a3, char a4)
   v7 = 1;
   if ( a4 )
   {
-    v5 = sub_44ED0A(SLODWORD(pGame), a1, (int)&v7, 31);
+    v5 = sub_44ED0A(pGame, a1, (int)&v7, 31);
     if ( v5 != -1 )
       a3 = v5;
   }
@@ -13221,7 +13220,7 @@ char *__fastcall sub_47C28C(int a1, char a2, signed int a3, signed int a4)
   }
   else
   {
-    v6 = sub_44EC23(SLODWORD(pGame), a1, (int)&v8, a4);
+    v6 = sub_44EC23(pGame, a1, (int)&v8, a4);
     if ( v6 != -1 )
       a3 = v6;
     if ( v9 == 1 )
@@ -14080,14 +14079,14 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
           compile_error;//atexit(loc_481199);
         }
         v31 = (int)&unk_50AC10;
-        v97 = *(_DWORD *)(LODWORD(pGame) + 3656);
+        v97 = pGame->class04_obj;
         compile_error;//sub_45D036(SLODWORD(v105), (int)&v95, COERCE_FLOAT(&unk_50AC10), COERCE_FLOAT(4), 1);
         sub_49BE8A(pClass58_global, v15, v105, (int)&v95, (int)&unk_50AC10, 4, 1);
         v103 = 4;
         if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3616) & 0x80 )
         {
-          v112 = *(void **)(LODWORD(pGame) + 3668);
-          if ( sub_4371C3(*(void **)(LODWORD(pGame) + 3668), &unk_50AC10, (int)&v103, 0) == 1 && !v103 )
+          v112 = pGame->class08_obj;
+          if ( sub_4371C3(pGame->class08_obj, &unk_50AC10, (int)&v103, 0) == 1 && !v103 )
             goto LABEL_162;
           sub_436523((int)&unk_50AC10, v103);
           class08_sub_436BB7(v112, (int)&unk_50AC10, v103, 0);
@@ -14228,14 +14227,14 @@ LABEL_162:
       sub_49B001(&unk_76D590);
       compile_error;//atexit(loc_48118F);
     }
-    v96 = *(_DWORD *)(LODWORD(pGame) + 3656);
+    v96 = pGame->class04_obj;
     compile_error;//sub_45D036(SLODWORD(v105), (int)&v86, COERCE_FLOAT(&unk_50AC10), COERCE_FLOAT(3), 0);
     sub_49BE8A(pClass58_global, v39, v105, (int)&v86, (int)&unk_50AC10, 3, 0);
     v99 = 3;
     if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3616) & 0x80 )
     {
-      v114 = *(void **)(LODWORD(pGame) + 3668);
-      if ( sub_4371C3(*(void **)(LODWORD(pGame) + 3668), &unk_50AC10, (int)&v99, 0) == 1 && !v99 )
+      v114 = pGame->class08_obj;
+      if ( sub_4371C3(pGame->class08_obj, &unk_50AC10, (int)&v99, 0) == 1 && !v99 )
       {
 LABEL_77:
         --pStruct9_global->dword_00002C;
@@ -14369,14 +14368,14 @@ LABEL_126:
       sub_49B001(&unk_76D578);
       compile_error;//atexit(loc_481185);
     }
-    v96 = *(_DWORD *)(LODWORD(pGame) + 3656);
+    v96 = pGame->class04_obj;
     compile_error;//sub_45D036(SLODWORD(v105), (int)&v87, COERCE_FLOAT(&unk_50AC10), COERCE_FLOAT(3), 1);
     sub_49BE8A(pClass58_global, v39, v105, (int)&v87, (int)&unk_50AC10, 3, 1);
     v100 = 3;
     if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3616) & 0x80 )
     {
-      v116 = *(void **)(LODWORD(pGame) + 3668);
-      if ( sub_4371C3(*(void **)(LODWORD(pGame) + 3668), &unk_50AC10, (int)&v100, 0) == 1 && !v100 )
+      v116 = pGame->class08_obj;
+      if ( sub_4371C3(pGame->class08_obj, &unk_50AC10, (int)&v100, 0) == 1 && !v100 )
         goto LABEL_126;
       sub_436523((int)&unk_50AC10, v100);
       class08_sub_436BB7(v116, (int)&unk_50AC10, v100, 0);
@@ -18630,10 +18629,10 @@ signed int __thiscall sub_48AE74(void *this, float a2)
           1) )*/
   if (0)
     return 0;
-  sub_436A9A(*(_DWORD *)(LODWORD(pGame) + 3668), SLODWORD(a2), v55, v51, (int)&v53, (int)&v54);
-  *(float *)(v2 + 92) = *(float *)(*(_DWORD *)(LODWORD(pGame) + 3668) + 208);
+  sub_436A9A(pGame->class08_obj, SLODWORD(a2), v55, v51, (int)&v53, (int)&v54);
+  *(float *)(v2 + 92) = *(float *)(pGame->class08_obj + 208);
   LODWORD(v5) = *(_DWORD *)(v2 + 92);
-  *(float *)(v2 + 96) = *(float *)(*(_DWORD *)(LODWORD(pGame) + 3668) + 212);
+  *(float *)(v2 + 96) = *(float *)(pGame->class08_obj + 212);
   v6 = v5 + 6.755399441055744e15;
   LODWORD(v7) = 0;
   HIDWORD(v7) = LODWORD(v6) << 16 >> 16;

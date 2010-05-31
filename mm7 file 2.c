@@ -4428,13 +4428,13 @@ bool __fastcall sub_40DC2D(int a1, void *a2)
     TranslateMessage(&Msg_global);
     DispatchMessageA(&Msg_global);
   }
-  if ( LODWORD(dword_720010) )
+  if (dword_720010)
   {
-    EnterCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 4));
-    v5 = *(_DWORD *)(LODWORD(dword_720010) + 28);
-    dword_5058C8 = *(_DWORD *)(LODWORD(dword_720010) + 24);
+    EnterCriticalSection(&pGame->class01_obj->cs1);
+    v5 = *(_DWORD *)(dword_720010 + 28);
+    dword_5058C8 = *(_DWORD *)(dword_720010 + 24);
     dword_5058CC = v5;
-    v6 = *(_DWORD *)(LODWORD(dword_720010) + 108);
+    v6 = *(_DWORD *)(dword_720010 + 108);
     v4 = *(_DWORD *)v6;
     if ( *(_DWORD *)v6 != v6 )
     {
@@ -4452,12 +4452,12 @@ bool __fastcall sub_40DC2D(int a1, void *a2)
         }
         v4 = *(_DWORD *)v4;
       }
-      while ( v4 != *(_DWORD *)(LODWORD(dword_720010) + 108) );
+      while ( v4 != *(_DWORD *)(dword_720010 + 108) );
     }
-    sub_46B944(SLODWORD(dword_720010));
-    if ( !*(_BYTE *)(LODWORD(dword_720010) + 90) )
+    sub_46B944(dword_720010);
+    if ( !*(_BYTE *)(dword_720010 + 90) )
       byte_50598E = 1;
-    LeaveCriticalSection((LPCRITICAL_SECTION)(*(_DWORD *)(LODWORD(pGame) + 3644) + 4));
+    LeaveCriticalSection(&pGame->class01_obj->cs1);
   }
   memcpy(v3, &dword_5058A0, 0xCu);
   return dword_5058A0 != 0;
@@ -11660,7 +11660,7 @@ LABEL_42:
       v26 = v4;
       v27 = 40;
       if ( pD3DRenderer->dword_040088 )
-        LOWORD(v5) = sub_4C1BF1(*(_DWORD *)(LODWORD(pGame) + 3660));
+        LOWORD(v5) = sub_4C1BF1(pGame->class05_obj);
       else
         v5 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (v38 + dword_5059A8[v39]));
       v6 = (unsigned __int16)v5;
@@ -11889,7 +11889,7 @@ void __thiscall OnMouseLeftClick(void *_this)
         if ( v13 >= (_DWORD)data_F8BC28.qword_F8BC28 && v13 <= dword_F8BC30 )
         {
           if ( pD3DRenderer->dword_040088 )
-            v5 = sub_4C1BF1(*(_DWORD *)(LODWORD(pGame) + 3660));
+            v5 = sub_4C1BF1(pGame->class05_obj);
           else
             v5 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (v12 + dword_5059A8[v13]));
           v6 = (unsigned __int16)v5;
@@ -12010,7 +12010,7 @@ void __cdecl sub_4178C4()
 {
   if ( byte_505992 == 1 )
   {
-    if ( LODWORD(dword_720010) )
+    if (dword_720010)
       dword_5058A0 = 7;
   }
 }
@@ -12020,7 +12020,7 @@ void __cdecl sub_4178E1()
 {
   if ( byte_505992 == 1 )
   {
-    if ( LODWORD(dword_720010) )
+    if (dword_720010)
       dword_5058A0 = 8;
   }
 }
@@ -19424,7 +19424,7 @@ void __cdecl sub_42213C()
   sub_404828(&v24);
   if ( pD3DRenderer->dword_040088 )
   {
-    v0 = sub_4C1BF1(*(_DWORD *)(LODWORD(pGame) + 3660));
+    v0 = sub_4C1BF1(pGame->class05_obj);
   }
   else
   {
@@ -19456,7 +19456,7 @@ void __cdecl sub_42213C()
           sub_449B7E((int)byte_ACD71D, 184, 1);
         if ( *(_DWORD *)v23 == 455 )
           sub_449B7E((int)byte_ACD71D, 185, 1);
-        if ( !sub_48C6F6(pParty_global, v23) )
+        if ( !Party_AddItem(pParty_global, v23) )
           sub_4936E1(pParty_global, (const void *)v23);
       }
       sub_42F933(v37);

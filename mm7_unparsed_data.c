@@ -1919,7 +1919,7 @@ union unnamed_6BE060 data_6BE060;
 //char byte_6BE2D8[20];
 wchar_t pWindowClassName[20];
  HINSTANCE hInstance; // idb
- int dword_6BE2F0; // weak
+ const char *pCommand = 0; // dword @ MM7.exe::006BE2F0     command line passed to application on startup
  HWND hWnd_global; // idb
  int nWidth; // idb
  int nHeight; // idb
@@ -1937,6 +1937,8 @@ unsigned int uLevelMapStatsID; // dword @ MM7.exe::006BE358
                    // 0x0008: no logo
                    // 0x0010: no sound
                    // 0x0020: no walk sound
+                   // 0x0040: no anim
+                   // 0x4000: ?
 
  int dword_6BE368; // debug flags
                    // 0x0001: windowed mode

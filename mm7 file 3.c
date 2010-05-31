@@ -290,7 +290,7 @@ __int16 __thiscall sub_438E35(void *this)
 }
 
 //----- (00439474) --------------------------------------------------------
-__int16 __fastcall sub_439474(signed int a1, int a2, int a3)
+__int16 __fastcall DamageMonsterFromParty(signed int a1, int a2, int a3)
 {
   signed int v3; // eax@1
   int v4; // ebx@1
@@ -380,20 +380,20 @@ __int16 __fastcall sub_439474(signed int a1, int a2, int a3)
   v5 = v3 >> 3;
   if ( v6 != 4 )
     return v5;
-  v7 = &pParty_global->pPlayers[1743 * v5];
+
+  v7 = &pParty_global->pPlayers[v5];
   if ( (signed int)v5 < 0 )
   {
     if ( (signed int)v5 > 3 )
     {
-      v54 = 457;
       v53 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Damage.cpp";
       v55 = &v49;
       sub_40E2C8(&v49, "Invalid player in damageMonsterFromParty!", (int)&v69);
-      sub_466D09(&v55, v49, v50, v51, v52, (const char *)v53, v54);
+      sub_466D09(&v55, v49, v50, v51, v52, (const char *)v53, __LINE__);
     }
   }
-  v8 = (int)((char *)pActors + 836 * v64);
-  v5 = sub_4089C7((int)((char *)pActors + 836 * v64));
+  v8 = &pActors[v64];
+  v5 = sub_4089C7(&pActors[v64]);
   if ( v5 )
     return v5;
   *(_BYTE *)(v8 + 37) |= 0xC0u;
@@ -1525,7 +1525,7 @@ void __fastcall sub_43A97E(int a1, signed int a2)
         sub_43B1B0(8 * v6 | 2, v3, (int)&dword_50FDFC, (unsigned __int8)byte_665291[v5]);
         break;
       case 4:
-        sub_439474(8 * v6 | 2, v3, (int)&dword_50FDFC);
+        DamageMonsterFromParty(8 * v6 | 2, v3, (int)&dword_50FDFC);
         break;
       case 2:
         sub_43B057(8 * v6 | 2, v3, (int)&dword_50FDFC);
@@ -2301,7 +2301,7 @@ int __thiscall sub_43B87B(int this)
 }
 
 //----- (0043B8EC) --------------------------------------------------------
-char __thiscall sub_43B8EC(int this)
+char __thiscall update_data(int this)
 {
   int v1; // eax@1
   int v2; // esi@1
@@ -2350,7 +2350,7 @@ char __thiscall sub_43B8EC(int this)
 }
 
 //----- (0043B96E) --------------------------------------------------------
-char __thiscall sub_43B96E(int this, int a2)
+char __thiscall set_acquire(int this, int a2)
 {
   int v2; // eax@1
   char result; // al@2
@@ -5543,7 +5543,7 @@ void __thiscall sub_43F39E(int this)
     while ( v10 ^ v11 );
   }
   sub_43F515();
-  CGame_sub_44F192(SLODWORD(pGame));
+  CGame_sub_44F192(pGame);
 }
 
 //----- (0043F515) --------------------------------------------------------
@@ -5962,7 +5962,7 @@ void __fastcall sub_43FA33(int a1, int a2)
           v14 = abs(X);
           if ( v14 >= abs(v45) )
           {
-            sub_436A9A(*(_DWORD *)(LODWORD(pGame) + 3668), X, v45, v43, (int)&v42, (int)&v44);
+            sub_436A9A(pGame->class08_obj, X, v45, v43, (int)&v42, (int)&v44);
             v15 = &array_512250[dword_5187E0];
             if ( dword_5187E0 < 500 )
             {
@@ -5984,8 +5984,8 @@ void __fastcall sub_43FA33(int a1, int a2)
               }
               else
               {
-                v17 = LODWORD(pGame) + 3668;
-                *((float *)v15 + 2) = *(float *)(*(_DWORD *)(LODWORD(pGame) + 3668) + 208);
+                v17 = &pGame->class08_obj;
+                *((float *)v15 + 2) = *(float *)(pGame->class08_obj + 208);
                 v18 = *(float *)(*(_DWORD *)v17 + 212);
                 LODWORD(v19) = *((_DWORD *)v15 + 2);
                 *((float *)v15 + 3) = v18;
@@ -6038,7 +6038,7 @@ void __fastcall sub_43FA33(int a1, int a2)
       v34 = 1.0;
       v32 = (rand() & 0x80) + 128;
       v33 = class17_LoadTexture(pClass17_Bitmaps_LOD, "effpar01", 0);
-      sub_48AB23(*(_DWORD *)(LODWORD(pGame) + 3648), (int)&Dst);
+      sub_48AB23(pGame->class02_obj, (int)&Dst);
     }
   }
 }
@@ -6170,7 +6170,7 @@ LABEL_12:
       }
       if ( !sub_43669D(v35, v34, v33, &X, (int)&v45, (int)&v44, 1) || (a1 = abs(X), a1 < abs(v45)) )
         goto LABEL_48;
-      sub_436A9A(*(_DWORD *)(LODWORD(pGame) + 3668), X, v45, v44, (int)&v43, (int)&v42);
+      sub_436A9A(pGame->class08_obj, X, v45, v44, (int)&v43, (int)&v42);
       result = dword_5187E0;
       a1 = &array_512250[dword_5187E0];
       if ( dword_5187E0 >= 500 )
@@ -6193,8 +6193,8 @@ LABEL_12:
       }
       else
       {
-        v15 = LODWORD(pGame) + 3668;
-        *(float *)(a1 + 8) = *(float *)(*(_DWORD *)(LODWORD(pGame) + 3668) + 208);
+        v15 = &pGame->class08_obj;
+        *(float *)(a1 + 8) = *(float *)(pGame->class08_obj + 208);
         v16 = *(float *)(*(_DWORD *)v15 + 212);
         LODWORD(v17) = *(_DWORD *)(a1 + 8);
         *(float *)(a1 + 12) = v16;
@@ -6311,7 +6311,7 @@ void __cdecl sub_44028F()
         if ( !(*(_BYTE *)(v1 + 38) & 1) )
         {
           if ( ((v2 = *(v0 - 14), v2 < 1000) || v2 >= 10000) && (v2 < 500 || v2 >= 600) && (v2 < 811 || v2 >= 815)
-            || class06_sub_4A81CA(*(_DWORD *)(LODWORD(pGame) + 3664), (int)(v0 - 14)) )
+            || class06_sub_4A81CA(pGame->class06_obj, (int)(v0 - 14)) )
           {
             v27 = *v0;
             v30 = *((_DWORD *)v0 - 6);
@@ -6361,7 +6361,7 @@ void __cdecl sub_44028F()
             }
             if ( sub_43669D(v30, v29, v34, &v40, (int)&v39, (int)&v38, 1) )
             {
-              sub_436A9A(*(_DWORD *)(LODWORD(pGame) + 3668), v40, v39, v38, (int)&v37, (int)&v36);
+              sub_436A9A(pGame->class08_obj, v40, v39, v38, (int)&v37, (int)&v36);
               if ( dword_5187E0 >= 500 )
                 return;
               ++dword_5187E0;
@@ -6380,8 +6380,8 @@ void __cdecl sub_44028F()
               }
               else
               {
-                v13 = LODWORD(pGame) + 3668;
-                *((float *)v7 + 2) = *(float *)(*(_DWORD *)(LODWORD(pGame) + 3668) + 208);
+                v13 = &pGame->class08_obj;
+                *((float *)v7 + 2) = *(float *)(pGame->class08_obj + 208);
                 v14 = *(float *)(*(_DWORD *)v13 + 212);
                 LODWORD(v15) = *((_DWORD *)v7 + 2);
                 *((float *)v7 + 3) = v14;
@@ -10066,8 +10066,8 @@ LABEL_28:
               if ( v132 == 13 )
                 sub_4BF28F(pVideoPlayer, (unsigned int)*(&off_4E5F70 + 4 * dword_591160), 1);
             }
-            if ( LODWORD(dword_720010) )
-              sub_46B105(LODWORD(dword_720010));
+            if (dword_720010)
+              sub_46B105(dword_720010);
             goto LABEL_291;
           case 0x2B:
             v19 = *(_BYTE *)(v11 + 7)
@@ -11837,10 +11837,10 @@ void __fastcall sub_448DF8(int a1, int a2, signed int a3, int a4, __int64 a5, si
     v42 = 10800 * a3;
     v41 = 3 * a3 + 10;
 LABEL_114:
-    sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), 83, 0);
-    sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), 83, 1);
-    sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), 83, 2);
-    sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), 83, 3);
+    sub_4A89BD(pGame->class06_obj, 83, 0);
+    sub_4A89BD(pGame->class06_obj, 83, 1);
+    sub_4A89BD(pGame->class06_obj, 83, 2);
+    sub_4A89BD(pGame->class06_obj, 83, 3);
     v51 = 0;
     v49[0] = 0;
     v47 = v41;
@@ -12094,10 +12094,10 @@ LABEL_60:
           0,
           0);
         v32 = v75;
-        sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), v75, 0);
-        sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), v32, 1);
-        sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), v32, 2);
-        sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), v32, 3);
+        sub_4A89BD(pGame->class06_obj, v75, 0);
+        sub_4A89BD(pGame->class06_obj, v32, 1);
+        sub_4A89BD(pGame->class06_obj, v32, 2);
+        sub_4A89BD(pGame->class06_obj, v32, 3);
         goto LABEL_138;
       case 17:
       case 38:
@@ -12132,10 +12132,10 @@ LABEL_60:
             v74 = v33;
             break;
         }
-        sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), v75, 0);
-        sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), v75, 1);
-        sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), v75, 2);
-        sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), v75, 3);
+        sub_4A89BD(pGame->class06_obj, v75, 0);
+        sub_4A89BD(pGame->class06_obj, v75, 1);
+        sub_4A89BD(pGame->class06_obj, v75, 2);
+        sub_4A89BD(pGame->class06_obj, v75, 3);
         v51 = 0;
         v49[0] = 0;
         v47 = v74;
@@ -12148,10 +12148,10 @@ LABEL_60:
           v37 = 60 * a3;
         else
           v37 = 600 * a3;
-        sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), v75, 0);
-        sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), v75, 1);
-        sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), v75, 2);
-        sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), v75, 3);
+        sub_4A89BD(pGame->class06_obj, v75, 0);
+        sub_4A89BD(pGame->class06_obj, v75, 1);
+        sub_4A89BD(pGame->class06_obj, v75, 2);
+        sub_4A89BD(pGame->class06_obj, v75, 3);
         v51 = 0;
         v49[0] = 0;
         v47 = a3;
@@ -12245,10 +12245,10 @@ LABEL_125:
       break;
   }
   v44 = v75;
-  sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), v75, 0);
-  sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), v44, 1);
-  sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), v44, 2);
-  sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), v44, 3);
+  sub_4A89BD(pGame->class06_obj, v75, 0);
+  sub_4A89BD(pGame->class06_obj, v44, 1);
+  sub_4A89BD(pGame->class06_obj, v44, 2);
+  sub_4A89BD(pGame->class06_obj, v44, 3);
   sub_4584E0((int)pParty_global->array_00088C[a3],
     pParty_global->qword_00002C + (signed __int64)((double)v77 * 4.266666889190674),
     (unsigned __int64)(pParty_global->qword_00002C + (signed int)(signed __int64)((double)v77 * 4.266666889190674)) >> 32,
@@ -13081,7 +13081,7 @@ LABEL_170:
       goto LABEL_172;
     }
 LABEL_169:
-    sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), 150, v3);
+    sub_4A89BD(pGame->class06_obj, 150, v3);
     goto LABEL_170;
   }
   if ( a2 == 223 )
@@ -13953,7 +13953,7 @@ LABEL_106:
 LABEL_129:
     v3 = 1;
 LABEL_174:
-    sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), 151, v4);
+    sub_4A89BD(pGame->class06_obj, 151, v4);
 LABEL_175:
     if ( v3 != 1 )
       return;
@@ -14419,7 +14419,7 @@ LABEL_73:
           *(_DWORD *)(this + 8 * a2 - 840) = 0;
           *(_DWORD *)(this + 8 * v5 - 836) = 0;
 LABEL_17:
-          sub_4A89BD(*(void **)(LODWORD(pGame) + 3664), 152, v4);
+          sub_4A89BD(pGame->class06_obj, 152, v4);
           v8 = 8 * v4 + 400;
           LOBYTE(v8) = (8 * v4 - 112) | 4;
           AudioPlayer_sub_4AA306(pAudioPlayer, 20001, v8, 0, -1, 0, 0, 0, 0);
@@ -15638,7 +15638,7 @@ char __cdecl sub_44EE7C()
 {
   if ( *(_BYTE *)(LODWORD(pGame) + 3616) & 4 )
   {
-    sub_45D698(*(_DWORD *)(LODWORD(pGame) + 3656), -1);
+    sub_45D698(pGame->class04_obj, -1);
     sub_49C550(pClass58_global);
   }
   return 1;

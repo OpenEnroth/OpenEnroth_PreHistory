@@ -1891,7 +1891,7 @@ extern float flt_6BE150; // weak
 //char byte_6BE2D8[20];
 extern wchar_t pWindowClassName[20];
 extern HINSTANCE hInstance; // idb
-extern int dword_6BE2F0; // weak
+extern const char *pCommand;
 extern HWND hWnd_global; // idb
 extern int nWidth; // idb
 extern int nHeight; // idb

@@ -2041,7 +2041,7 @@ LABEL_16:
                 }
 LABEL_24:
                 v135 = 1;
-                sub_44ED0A(SLODWORD(pGame), v3, (int)&v135, 31);
+                sub_44ED0A(pGame, v3, (int)&v135, 31);
                 v104 = sub_47C24C(v3, v109, 0, 1);
                 v134 = dword_F8AD6C;
                 v106 = dword_F8AD70;
@@ -2527,9 +2527,9 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
           v29 = sub_4AE5BA(v9);
           if ( v29 )
           {
-            v10 = *(void **)(LODWORD(pGame) + 3668);
-            v32 = *(void **)(LODWORD(pGame) + 3668);
-            v31 = *(_DWORD *)(LODWORD(pGame) + 3656);
+            v10 = pGame->class08_obj;
+            v32 = pGame->class08_obj;
+            v31 = pGame->class04_obj;
             if ( !sub_436455(v9) )
             {
               v11 = 0;
@@ -2832,12 +2832,12 @@ char __thiscall sub_4B0EA8(int this, signed int a2, int a3)
                   *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4014) = dword_51B73C;
                   *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4012) = dword_51B738;
                   *(_WORD *)(2252 * *(_DWORD *)(v5 + 4004) + v5 + 4016) = dword_51B740;
-                  v37 = *(void **)(LODWORD(pGame) + 3676);
-                  v35 = *(void **)(LODWORD(pGame) + 3668);
+                  v37 = pGame->class10_obj;
+                  v35 = pGame->class08_obj;
                   if ( *(_DWORD *)(v16 + 5968) == -1 )
                   {
                     LOBYTE(v3) = sub_49C681(
-                                   *(void **)(LODWORD(pGame) + 3676),
+                                   pGame->class10_obj,
                                    v38,
                                    v5 + 2252 * *(_DWORD *)(v5 + 4004) + 5972,
                                    v5 + 2252 * *(_DWORD *)(v5 + 4004) + 6068);

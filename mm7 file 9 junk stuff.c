@@ -1,43 +1,14 @@
 #include "defs.h"
-//#define sprintfex sprintf
 
 #include "mm7DDrawRenderer.h"
 
+#include "mm7_unparsed_data.h"
+#include "mm7_unparsed_functions.h"
+
 #include "data.h"
-extern HWND hWnd_global;
 
-extern char off_4E7ECC[];
-extern int dword_4E800C;
-extern float flt_6BE3A0;
-extern int dword_AD4730;
-extern int dword_E31C7C;
 
-extern char unk_4EB8BC;
-extern char unk_4EBBD0;
 
-extern char byte_4D8410[];
-
-extern int *dword_4F2688;
-
-extern int dword_51B6E8;
-extern int dword_51B6EC;
-extern int dword_51B6F0;
-
-extern int dword_69B00C;
-extern int dword_6A0CA4;
-
-extern int dword_720010;
-
-extern int dword_720018;
-
-extern char class23_instance[];
-extern char class28_global[];
-extern char pGame[];
-
-extern int dword_E31C70;
-
-extern int dword_F79D70;
-extern int dword_F79D7C;
 
 
 // sub_4CC57F: using guessed type _DWORD __stdcall _CxxThrowException(_DWORD, _DWORD);
@@ -53,13 +24,6 @@ long __stdcall exception__exception(long a1)
  __asm int 3
  return 0;
 }
-/*
-// sub_4CADD0: using guessed type int sprintfex(_DWORD, const char *, ...);
-int __cdecl sprintfex(long a1, const char * a2, ...)
-{
- __asm int 3
- return 0;
-}*/
 
 // sub_4D83BC: using guessed type int __stdcall radmalloc(_DWORD);
 int __stdcall radmalloc(long a1)
@@ -781,9 +745,9 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
   v22 = 1;
   if (dword_720010)
     Mouse_suspend(dword_720010);
-  if ( LODWORD(pGame) )
+  if (pGame)
   {
-    v11 = *(_DWORD *)(LODWORD(pGame) + 3692);
+    v11 = pGame->class14_obj;
     if ( v11 )
     {
       if (*(_BYTE *)(v11 + 4))
@@ -813,9 +777,9 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
   if ( !v14 )
     v14 = byte_4D8410 + 736;
   MessageBoxA(hWnd_global, v14, v12, uType);
-  if ( LODWORD(pGame) )
+  if (pGame)
   {
-    v15 = *(_DWORD *)(LODWORD(pGame) + 3692);
+    v15 = pGame->class14_obj;
     if ( v15 )
     {
       if ( *(_BYTE *)(v15 + 4) )
@@ -825,8 +789,8 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
       }
     }
   }
-  if ( LODWORD(dword_720010) )
-    sub_46B105(LODWORD(dword_720010));
+  if (dword_720010)
+    sub_46B105(dword_720010);
   LOBYTE(v22) = 0;
   sub_40E2F6((int)&a2, 1);
   v22 = -1;

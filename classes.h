@@ -1402,6 +1402,10 @@ struct Party
 int Party_sub_49370F(struct Party *_this);
 //bool __thiscall sub_497FC5(void *this);
 bool Party_sub_497FC5(struct Party *_this);
+//signed int __thiscall sub_48C6F6(void *this, int a2);
+int Party_AddItem(struct Party *_this, int a2);
+//int __thiscall sub_49137D(int this, char a2);
+int Party_CreateDefaultParty(struct Party *_this, char a2);
 
 
 
