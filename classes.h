@@ -572,11 +572,11 @@ struct LODIndex
 
 struct LODFileHeader
 {
- unsigned char Signature[4]; // LOD\0 // dword @ 000000
- char a[168];
- int NumFiles;
- unsigned char arr[28]; // byte[32] @ 0000AC
- char b[52];
+ unsigned char Signature[4];     // dword @ 000000    "LOD\0"
+ char          a[168];
+ unsigned int  uNumFiles;        // dword @ 0000AC
+ unsigned char array_0000B0[28]; // byte[28] @ 0000B0
+ char          b[52];
 };
 //sizeof == 100
 
@@ -1660,7 +1660,7 @@ struct class58
  int  dword_308004;
  int  dword_308008;
 };
-//sizeof
+//sizeof == ?
 //int __thiscall sub_49B525(int this, int a2);
 void class58_sub_49B525(struct class58 *_this, int a2);
 

@@ -779,16 +779,16 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
   int v22; // [sp+28h] [bp-4h]@1
 
   v22 = 1;
-  if ( LODWORD(dword_720010) )
-    Mouse_suspend(SLODWORD(dword_720010));
+  if (dword_720010)
+    Mouse_suspend(dword_720010);
   if ( LODWORD(pGame) )
   {
     v11 = *(_DWORD *)(LODWORD(pGame) + 3692);
     if ( v11 )
     {
-      if ( *(_BYTE *)(v11 + 4) )
+      if (*(_BYTE *)(v11 + 4))
       {
-        if ( dword_69B00C )
+        if (dword_69B00C)
           Keyboard_suspend(dword_69B00C);
       }
     }
@@ -820,8 +820,8 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
     {
       if ( *(_BYTE *)(v15 + 4) )
       {
-        if ( dword_69B00C )
-          sub_45B2A7(dword_69B00C);
+        if (dword_69B00C)
+          Keyboard_resume(dword_69B00C);
       }
     }
   }

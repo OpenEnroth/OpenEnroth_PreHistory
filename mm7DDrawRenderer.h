@@ -170,6 +170,12 @@ void CD3DRenderer_ClearZBuffer(struct CD3DRenderer *_this, int a2, int a3);
 void *sub_4A1EB6(struct CD3DRenderer *_this);
 //int __thiscall sub_4A1FE1(int this);
 void CD3DRenderer_sub_4A1FE1_MaybeRenderSpecialEffects(struct CD3DRenderer *_this);
+//void *__thiscall sub_4A121C(void *this);
+void *CD3DRenderer_CreateSurface(struct CD3DRenderer *_this);
+//void *__thiscall sub_4A12CD(void *this);
+void *CD3DRenderer_CreateWndSurface(struct CD3DRenderer *_this);
+//void *__thiscall sub_4A14F4(int this, int a2);
+void *CD3DRenderer_CreateClipper(struct CD3DRenderer *_this, HWND ClipWnd);
 
 
 //class15

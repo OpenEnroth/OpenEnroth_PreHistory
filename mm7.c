@@ -1725,10 +1725,10 @@ struct struct4 global_5E4C90; // struct @ MM7.exe::005E4C90
 //char byte_5E4CDB[array_size_unknown]; // weak
 _UNKNOWN unk_5E4D52; // weak
 
-//overlay.bin tin 5E5144
+
 //_UNKNOWN unk_5E4D58; // weak
-unsigned char array_5E4D58[50][20];
-/*extern*/ _UNKNOWN unk_5E4D64; // weak
+unsigned short array_5E4D58[50][10];
+//_UNKNOWN unk_5E4D64; // weak
 /*extern*/ int dword_5E5130[array_size_unknown]; // weak
 /*extern*/ int dword_5E5144; // weak
 
@@ -2276,9 +2276,9 @@ unsigned char *pAwardsTXT_Raw = 0;    // ptr @ MM7.exe::0073C37C
 unsigned char *pScrollsTXT_Raw = 0;   // ptr @ MM7.exe::0073C380
 unsigned char *pMerchantsTXT_Raw = 0; // ptr @ MM7.exe::0073C384
 
-/*extern*/ const CHAR dword_73C388[28]; // idb
+/*extern*/ CHAR dword_73C388[28]; // idb
 /*extern*/ int dword_73C3A4[array_size_unknown]; // weak
-/*extern*/ const CHAR dword_73C3C0[28]; // idb
+/*extern*/ CHAR dword_73C3C0[28]; // idb
 /*extern*/ int dword_73C3DC[array_size_unknown]; // weak
 
 unsigned char *pTransitionsTXT_Raw = 0; // ptr @ MM7.exe::0073C3F8
@@ -2824,7 +2824,7 @@ struct class58 *pClass58_global = 0; // struct @ MM7.exe::00AE5BA8
 //int dword_DEDBAC; // ::dword_308004
 //int dword_DEDBB0; // ::dword_308008
 /*extern*/ int dword_DF1BB4; // weak
-LPDIRECTDRAWCLIPPER DDrawClipper;//dword_DF1BE0; // weak
+IDirectDrawClipper *pDDrawClipper; // dword @ MM7.exe::00FD1BE0
 
 //struct CD3DRenderer *pD3DRenderer = 0;  // struct @ MM7.exe::00DF1BE8
 //int dword_DF1BE8; // @ pD3DRenderer::bUseDirect3D
@@ -3578,7 +3578,7 @@ char __thiscall sub_438B9B(int this);
 signed int __fastcall sub_438BDF(signed int a1, int a2);
 void __fastcall sub_438CF3(int a1);
 __int16 __thiscall sub_438E35(void *this);
-__int16 __fastcall damageMonsterFromParty(signed int a1, int a2, int a3);
+__int16 __fastcall sub_439474(signed int a1, int a2, int a3);
 int __fastcall sub_439DF3(int a1, int a2, int a3);
 void __fastcall sub_439FCB(signed int a1, int a2, int a3, int a4);
 void __fastcall sub_43A97E(int a1, signed int a2);
@@ -3825,10 +3825,10 @@ void __cdecl sub_45B1FD();
 void __cdecl sub_45B213();
 char __thiscall sub_45B229(DWORD lpParameter);
 char __thiscall sub_45B260(void *this);
-void __thiscall sub_45B2A7(int this);
+void __thiscall Keyboard_resume(int this);
 void __thiscall Keyboard_suspend(int this);
 char __thiscall sub_45B3A4(int this);
-void __thiscall Keyboard_update_keyboard_data(int this);
+void __thiscall sub_45B3B6(int this);
 char __thiscall sub_45B4EC(void *this, unsigned __int8 a2);
 char __thiscall sub_45B57D(void *this, int a2);
 void __stdcall StartAddress(int a1);
@@ -3978,7 +3978,7 @@ char __thiscall sub_46B1DD(int this);
 char __stdcall sub_46B1EC(int a1, int a2, int a3);
 char __thiscall sub_46B289(int this, int a2, char a3);
 int __thiscall sub_46B342(int this, float a2, float a3);
-int __thiscall update_mouse_data(int this, int a2);
+int __thiscall sub_46B37C(int this, int a2);
 char __thiscall sub_46B420(int this);
 void __thiscall sub_46B492(void *this, int a2);
 void __thiscall sub_46B5D5(void *this, int a2);
@@ -4048,7 +4048,7 @@ bool __fastcall sub_477F63(int a1);
 signed int __fastcall sub_47802A(int a1);
 void __thiscall sub_47829F(void *this, float a2, float a3, float a4, float a5, int a6);
 int __thiscall sub_478389(int this);
-char __cdecl RenderBuildings();
+char __cdecl sub_47840D();
 void __cdecl loc_4789D4(); // idb
 void __cdecl sub_4789DE();
 bool __fastcall sub_479089(unsigned int a1, int *a2);
@@ -4356,9 +4356,6 @@ FILE *__thiscall sub_49F8B5(void *this, FILE *Filename, int a3, int a4, int a5);
 signed int __thiscall sub_49FFD7(int this);
 int __thiscall sub_4A05F3(void *this, int a2);
 char __thiscall sub_4A0BEE(int this, int a2, int a3, int a4, int a5, __int16 a6);
-void *__thiscall CD3DRenderer_CreateSurface(struct CD3DRenderer * this);
-void *__thiscall CD3DRenderer_CreateWndSurface(struct CD3DRenderer * this);
-void *__thiscall CD3DRenderer_CreateClipper(struct CD3DRenderer * this, HWND ClipWnd);
 char __thiscall sub_4A169E(void *this);
 char __cdecl sub_4A16A5();
 int __thiscall sub_4A184C(void *this);
@@ -4553,7 +4550,7 @@ void __thiscall sub_4C05BE(int this);
 char __thiscall sub_4C05CC(int this, int a2, int a3, int a4);
 char __thiscall sub_4C0646(int this, float a2, float a3, float a4, int a5, int a6);
 void __thiscall sub_4C06F8(void *this, float a2, int a3, int a4);
-char __stdcall CVis_is_part_of_selection(int a1, int a2);
+char __stdcall sub_4C0791(int a1, int a2);
 char __thiscall sub_4C091D(void *this, float a2, int a3);
 void __cdecl loc_4C0D27(); // idb
 int __thiscall sub_4C0D32(void *this, float a2, int a3, int a4);
@@ -5147,355 +5144,6 @@ LABEL_71:
     }
 }
 
-//----- (004A121C) --------------------------------------------------------
-void *__thiscall CD3DRenderer_CreateSurface(struct CD3DRenderer * this)
-{
-  char    local_0[128];
-  HRESULT hr; 
-  DDSURFACEDESC2 dd;
-
-  memset(&dd, 0, sizeof(DDSURFACEDESC2));
-  dd.dwSize = sizeof(DDSURFACEDESC2);
-  dd.dwFlags = DDSD_CAPS;
-  dd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
-
-  hr = this->pdd4->lpVtbl->CreateSurface(pD3DRenderer->pdd4, &dd, &pD3DRenderer->pdds4_FrontBuffer, 0);
-  return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2357, 0);
-}
-//----- (004A14F4) --------------------------------------------------------
-void *__thiscall CD3DRenderer_CreateClipper(struct CD3DRenderer * this, HWND ClipWnd)
-{
-  char    local_0[128];
-  HRESULT hr; 
-  hr = this->pdd4->lpVtbl->CreateClipper(pD3DRenderer->pdd4, NULL, &DDrawClipper, NULL);
-  CheckHRESULT(&local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2463, 0);
-
-  hr = DDrawClipper->lpVtbl->SetHWnd(DDrawClipper, 0, ClipWnd);
-  CheckHRESULT(&local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2464, 0);
-
-  hr = this->pdds4_FrontBuffer->lpVtbl->SetClipper(pD3DRenderer->pdds4_FrontBuffer, DDrawClipper);
-  return CheckHRESULT(&local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2465, 0);
-}
-//----- (004A12CD) --------------------------------------------------------
-void *__thiscall CD3DRenderer_CreateWndSurface(struct CD3DRenderer * this)
-{
-  char    local_0[128];
-  HRESULT hr; 
-  DDSURFACEDESC2 dd;
-
-  memset(&dd, 0, sizeof(DDSURFACEDESC2));
-  dd.dwSize = sizeof(DDSURFACEDESC2);
-  dd.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;
-  dd.dwWidth = 640;
-  dd.dwHeight = 480;
-  dd.ddsCaps.dwCaps = DDSCAPS_SYSTEMMEMORY | DDSCAPS_OFFSCREENPLAIN;
-  hr = this->pdd4->lpVtbl->CreateSurface(pD3DRenderer->pdd4, &dd, &pD3DRenderer->pdds4_BackBuffer, 0);
-  return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2357, 0);
-}
-
-//----- (004A05F3) --------------------------------------------------------
-int __thiscall sub_4A05F3(void *this, int a2)
-{
-  int v2; // esi@1
-  int v3; // eax@1
-  int v4; // eax@2
-  int v5; // eax@3
-  int v6; // edx@5
-  int v7; // ecx@5
-  signed int v8; // eax@7
-  signed int v9; // eax@12
-  int v10; // ecx@12
-  int v11; // eax@14
-  int v12; // eax@18
-  int v13; // eax@22
-  int v14; // eax@24
-  int v15; // eax@24
-  int v16; // eax@24
-  int v17; // eax@26
-  bool v18; // eax@32
-  char v19; // zf@32
-  int v20; // eax@35
-  int v21; // eax@35
-  void *v22; // eax@36
-  int v23; // eax@38
-  int v24; // edx@38
-  int v25; // ecx@38
-  int v26; // eax@41
-  int v28; // [sp+Ch] [bp-300h]@24
-  int v29; // [sp+108h] [bp-204h]@37
-  int v30; // [sp+12Ch] [bp-1E0h]@38
-  int Dst; // [sp+184h] [bp-188h]@24
-  unsigned int v32; // [sp+230h] [bp-DCh]@24
-  unsigned int v33; // [sp+234h] [bp-D8h]@24
-  unsigned int v34; // [sp+238h] [bp-D4h]@26
-  unsigned int v35; // [sp+23Ch] [bp-D0h]@26
-  int v36; // [sp+280h] [bp-8Ch]@35
-  int v37; // [sp+284h] [bp-88h]@35
-  int v38; // [sp+288h] [bp-84h]@35
-  int v39; // [sp+28Ch] [bp-80h]@35
-  int v40; // [sp+2C0h] [bp-4Ch]@35
-  int v41; // [sp+2C4h] [bp-48h]@35
-  int v42; // [sp+2E8h] [bp-24h]@35
-  unsigned int v43; // [sp+2FCh] [bp-10h]@2
-  int v44; // [sp+308h] [bp-4h]@2
-
-  pParty_global->dword_007778 |= 2;
-  v2 = (int)this;
-  LODWORD(flt_6BE3A0) = 1057803469;
-  v3 = class28_fn2(class28_global, 36044);
-  *(_DWORD *)(v2 + 262416) = 0;
-  sub_49FE05(v3, v2);
-  *(_DWORD *)(v2 + 262296) = 0;
-  *(_DWORD *)(v2 + 262292) = 0;
-  *(_DWORD *)(v2 + 262288) = 0;
-  *(_DWORD *)(v2 + 262284) = 0;
-  *(_DWORD *)(v2 + 262408) = 0;
-  CD3DRenderer_Initialize_ZBuffer(v2);
-  if ( *(_DWORD *)v2 )
-  {
-    compile_error;//v4 = (int)operator new(0x148u);
-    v43 = v4;
-    v44 = 0;
-    if ( v4 )
-      v5 = sub_49DC58(v4);
-    else
-      v5 = 0;
-    v6 = *(_DWORD *)(v2 + 8);
-    v44 = -1;
-    *(_DWORD *)(v2 + 262280) = v5;
-    v7 = *(_DWORD *)(v5 + 28);
-    if ( *(_DWORD *)(v7 + 40 * v6) && v6 != 1 )
-    {
-      v8 = sub_49DE14(v5, v6, 1, a2);
-      *(_DWORD *)(v2 + 12) = *(_DWORD *)(v2 + 8);
-    }
-    else
-    {
-      if ( !*(_DWORD *)v7 )
-        erroneous_printf("There aren't any D3D devices to init.");
-      v8 = sub_49DE14(v5, 0, 1, a2);
-      *(_DWORD *)(v2 + 12) = 0;
-    }
-    if ( !v8 )
-      erroneous_printf("D3Drend->Init failed.");
-    v10 = *(_DWORD *)(v2 + 262280);
-    *(_DWORD *)(v2 + 262296) = 0;
-    *(_DWORD *)(v2 + 262292) = *(_DWORD *)(v10 + 44);
-    *(_DWORD *)(v2 + 262288) = *(_DWORD *)(v10 + 48);
-    *(_DWORD *)(v2 + 262284) = *(_DWORD *)(v10 + 32);
-    v9 = sub_49E444((void *)v10);
-    if ( v9 & 1 )
-    {
-      v43 = *(_DWORD *)(v2 + 262280);
-      if ( v43 )
-      {
-        v11 = sub_49DC90(v43);
-        operator_delete(v11, v43);
-      }
-      *(_DWORD *)(v2 + 262280) = 0;
-      *(_DWORD *)(v2 + 262292) = 0;
-      *(_DWORD *)(v2 + 262288) = 0;
-      *(_DWORD *)(v2 + 262284) = 0;
-      erroneous_printf("Direct3D renderer:  The device failed to return capabilities.");
-    }
-    if ( v9 & 0x3E )
-    {
-      v43 = *(_DWORD *)(v2 + 262280);
-      if ( v43 )
-      {
-        v12 = sub_49DC90(v43);
-        operator_delete(v12, v43);
-      }
-      *(_DWORD *)(v2 + 262296) = 0;
-      *(_DWORD *)(v2 + 262280) = 0;
-      *(_DWORD *)(v2 + 262292) = 0;
-      *(_DWORD *)(v2 + 262288) = 0;
-      *(_DWORD *)(v2 + 262284) = 0;
-      erroneous_printf("Direct3D renderer:  The device doesn't support the necessary alpha blending modes.");
-    }
-    if ( (_BYTE)v9 < 0 )
-    {
-      v43 = *(_DWORD *)(v2 + 262280);
-      if ( v43 )
-      {
-        v13 = sub_49DC90(v43);
-        operator_delete(v13, v43);
-      }
-      *(_DWORD *)(v2 + 262280) = 0;
-      *(_DWORD *)(v2 + 262292) = 0;
-      *(_DWORD *)(v2 + 262288) = 0;
-      *(_DWORD *)(v2 + 262284) = 0;
-      erroneous_printf("Direct3D renderer:  The device doesn't support non-square textures.");
-    }
-    *(_BYTE *)(v2 + 1062492) = ~(unsigned __int8)((unsigned int)v9 >> 6) & 1;
-    *(_DWORD *)(v2 + 1062472) = sub_49E79F();
-    memset(&Dst, 0, 0xFCu);
-    Dst = 252;
-    memset(&v28, 0, 0xFCu);
-    v15 = *(_DWORD *)(v2 + 262280);
-    v28 = 252;
-    v16 = (*(int (__stdcall **)(_DWORD, int *, int *))(**(_DWORD **)(v15 + 56) + 12))(*(_DWORD *)(v15 + 56), &Dst, &v28);
-    CheckHRESULT(&v43, v16, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x6A8u, 0);
-    v14 = v32;
-    if ( v32 >= v33 )
-      v14 = v33;
-    *(_DWORD *)(v2 + 1062488) = v14;
-    v17 = v34;
-    if ( v34 < v35 )
-      v17 = v35;
-    *(_DWORD *)(v2 + 1062484) = v17;
-    sub_49FFD7(v2);
-    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      7,
-      1);
-    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      14,
-      1);
-    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      23,
-      2);
-    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      29,
-      0);
-    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      41,
-      0);
-    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      22,
-      1);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      16,
-      2);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      17,
-      2);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      18,
-      3);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      5,
-      2);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      6,
-      0);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      4,
-      2);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      2,
-      2);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      3,
-      0);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
-      0,
-      1,
-      4);
-  }
-  else
-  {
-    CD3DRenderer_CreateDirectDraw((void *)v2);
-    CD3DRenderer_SetCooperativeLevel(v2, a2, 0);
-    *(_DWORD *)(v2 + 262220) = 1;
-    CD3DRenderer_CreateSurface(v2);
-    CD3DRenderer_CreateClipper(v2, a2);
-    CD3DRenderer_CreateWndSurface(v2);
-    *(_DWORD *)(v2 + 262192) = 0;
-    *(_DWORD *)(v2 + 24) = 0;
-  }
-  *(_DWORD *)(v2 + 262316) = 32;
-  CD3DRenderer_GetPrimarySurfacePixelFormat(v2, v2 + 262316);
-  CD3DRenderer_sub_4A0EB6((void *)v2);
-  CD3DRenderer_sub_49EBF1(v2);
-  if ( !*(_DWORD *)(v2 + 262280) )
-  {
-    compile_error;//*(_DWORD *)(v2 + 1062592) = nullsub_1;
-    goto LABEL_47;
-  }
-  v18 = sub_49E756(*(void **)(v2 + 262284));
-  v19 = *(_DWORD *)(v2 + 12) == 1;
-  *(_DWORD *)(v2 + 262408) = v18;
-  if ( !v19 )
-    *(_DWORD *)(v2 + 262408) = 0;
-  if ( *(_DWORD *)(v2 + 262408) )
-  {
-    memset(&v36, 0, 0x7Cu);
-    v40 = *(_DWORD *)(v2 + 262364) | *(_DWORD *)(v2 + 262368);
-    v41 = v40;
-    v20 = *(_DWORD *)(v2 + 262284);
-    v36 = 124;
-    v37 = 65543;
-    v42 = 2112;
-    v39 = 640;
-    v38 = 480;
-    v21 = (*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v20 + 24))(v20, &v36, v2 + 262296, 0);
-    CheckHRESULT(&v43, v21, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x6F7u, 0);
-    *(_DWORD *)(v2 + 1062592) = sub_4A57E9;
-LABEL_45:
-    *(_DWORD *)(v2 + 262416) = 1;
-LABEL_47:
-    *(_DWORD *)(v2 + 262232) = 1;
-    *(_DWORD *)(v2 + 262224) = a2;
-    return 0;
-  }
-  *(_DWORD *)(v2 + 262380) = 0;
-  *(_DWORD *)(v2 + 262376) = 0;
-  compile_error;//v22 = operator new(0x96020u);
-  *(_DWORD *)(v2 + 262376) = v22;
-  if ( v22 )
-  {
-    memset(&v29, 0, 0x7Cu);
-    v29 = 124;
-    if ( LockSurface_DDraw4(pD3DRenderer->pdds4_BackBuffer, &v29, 1) )
-    {
-      (*(void (__stdcall **)(int, _DWORD))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 128))(pD3DRenderer->pdds4_BackBuffer, 0);
-      v24 = *(_DWORD *)(v2 + 262376);
-      v23 = v30 & 7;
-      v25 = *(_DWORD *)(v2 + 262376) & 7;
-      if ( v25 == v23 )
-      {
-        *(_DWORD *)(v2 + 262380) = v24;
-      }
-      else
-      {
-        if ( v25 >= v23 )
-          v26 = v24 + 2 * (v25 - v23) + 16;
-        else
-          v26 = v24 + 2 * (v23 - v25) + 16;
-        *(_DWORD *)(v2 + 262380) = v26;
-      }
-      *(_DWORD *)(v2 + 262384) = 640;
-      *(_DWORD *)(v2 + 1062592) = sub_4A597D;
-      goto LABEL_45;
-    }
-  }
-  return 0;
-}
-
-
 //----- (00438F8F) --------------------------------------------------------
 int __fastcall sub_438F8F(int result)
 {
@@ -5716,7 +5364,7 @@ int __fastcall sub_438F8F(int result)
                   switch ( v41 )
                   {
                     case 4:
-                      damageMonsterFromParty(*((_WORD *)v2 - 300), v45, v33);
+                      sub_439474(*((_WORD *)v2 - 300), v45, v33);
                       break;
                     case 3:
                       if ( v36 )
@@ -5803,7 +5451,7 @@ void sub_47A59E(bool a1)
   {
 LABEL_14:
     sub_479543();
-    RenderBuildings();
+    sub_47840D();
     sub_47F5C6();
     goto LABEL_16;
   }
@@ -5980,11 +5628,11 @@ LABEL_21:
           if ( uCurrentMenuID != 10 )
             goto LABEL_49;
           class03_fn1(pClass03_global, 0);
-          if ( LODWORD(dword_720010) )
-            Mouse_suspend(SLODWORD(dword_720010));
+          if (dword_720010)
+            Mouse_suspend(dword_720010);
           if ( *(_BYTE *)(*(_DWORD *)(LODWORD(pGame) + 3692) + 4) )
           {
-            if ( dword_69B00C )
+            if (dword_69B00C)
               Keyboard_suspend(dword_69B00C);
           }
           Party_CreateDefault(pParty_global);
@@ -5997,8 +5645,8 @@ LABEL_21:
               sub_46B105(LODWORD(dword_720010));
             if ( *(_BYTE *)(*(_DWORD *)(LODWORD(pGame) + 3692) + 4) )
             {
-              if ( dword_69B00C )
-                sub_45B2A7(dword_69B00C);
+              if (dword_69B00C)
+                Keyboard_resume(dword_69B00C);
             }
             goto LABEL_53;
           }
@@ -6009,8 +5657,8 @@ LABEL_21:
             sub_46B105(LODWORD(dword_720010));
           if ( *(_BYTE *)(*(_DWORD *)(LODWORD(pGame) + 3692) + 4) )
           {
-            if ( dword_69B00C )
-              sub_45B2A7(dword_69B00C);
+            if (dword_69B00C)
+              Keyboard_resume(dword_69B00C);
           }
         }
         sub_463149();
@@ -6415,6 +6063,9 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   GetClientRect(hWnd_global, &rcClient);
   nWidth = rcClient.left - rcClient.right - rcWindow.left + rcWindow.right + 640;
   nHeight = rcClient.top - rcClient.bottom - rcWindow.top + rcWindow.bottom + 480;
+
+  //here occurs WM_WINDOWPOSCHANGED which tries to access pVideoPlayer which was not created til this moment
+  //added check of pVideoPlayer pointer in wWinProc
   MoveWindow(hWnd_global, X, Y, rcClient.left - rcClient.bottom - rcWindow.left + rcWindow.right + 640, rcClient.top - rcClient.bottom - rcWindow.top + rcWindow.bottom + 480, v13);
 
   bLoadingFromCD = GetPrivateProfileIntA("settings", "use_cd", true, &FileName);
@@ -8517,7 +8168,7 @@ LABEL_261:
   {
     if (Msg == WM_WINDOWPOSCHANGED)
     {
-      if ( pVideoPlayer && CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) && pVideoPlayer->pBinkBuffer)
+      if (pVideoPlayer && CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) && pVideoPlayer->pBinkBuffer)
       {
         BinkBufferSetOffset(pVideoPlayer->pBinkBuffer, 0, 0);
         return DefWindowProcA(hWnd, Msg, wParam, v5);
@@ -8807,8 +8458,8 @@ LABEL_179:
             sub_426363(pClass24_global2);
           if ( *(_BYTE *)(&pGame->class14_obj->dword_000004) )
           {
-            if ( dword_69B00C )
-              sub_45B2A7(dword_69B00C);
+            if (dword_69B00C)
+              Keyboard_resume(dword_69B00C);
           }
           dword_57702C = 1;
           if ( pVideoPlayer->pSmackerMovie )
@@ -8859,7 +8510,7 @@ LABEL_179:
         {
           if (pGame->class14_obj->dword_000004 & 0xFF)
           {
-            if ( dword_69B00C )
+            if (dword_69B00C)
               Keyboard_suspend(dword_69B00C);
           }
         }
@@ -8904,9 +8555,9 @@ LABEL_179:
           SetWindowPos(hWnd, (HWND)0xFFFFFFFE, 0, 0, 0, 0, 0x18u);
       }
       ClipCursor(0);
-      if ( LODWORD(dword_720010) )
+      if (dword_720010)
       {
-        Mouse_suspend(SLODWORD(dword_720010));
+        Mouse_suspend(dword_720010);
         return DefWindowProcA(hWnd, Msg, wParam, v5);
       }
     }
@@ -11768,9 +11419,11 @@ __int16 __thiscall sub_441A4E(void *this)
   v3 = 0;
   do
   {
-    if ( *(_WORD *)(v3 - 6) > 0 )
+    //if ( *(_WORD *)(v3 - 6) > 0 )
+   if (array_5E4D58[v3][3])
     {
-      LOWORD(v1) = *(_WORD *)(v3 - 12);
+      //LOWORD(v1) = *(_WORD *)(v3 - 12);
+     LOWORD(v1) = array_5E4D58[v3][0];
       if ( (_WORD)v1 >= 300 )
       {
         v4 = (signed __int16)v1;
@@ -11779,22 +11432,28 @@ __int16 __thiscall sub_441A4E(void *this)
         LODWORD(v5) = v4 == (_DWORD)((char *)v2 + 310);
         if ( v5 )
         {
-          if ( !*(_WORD *)v3 )
+          //if ( !*(_WORD *)v3 )
+         if (!array_5E4D58[v3][6])
           {
-            v8 = CSpriteFrameTable_fn1(
-                   pSpriteFrameTable,
-                   pOverlayDescriptionList->pDescriptions[*(_WORD *)(v3 - 10)].word_000004,
-                   *(_WORD *)(v3 - 8));
+            v8 = CSpriteFrameTable_fn1(pSpriteFrameTable,
+                   //pOverlayDescriptionList->pDescriptions[*(_WORD *)(v3 - 10)].word_000004,
+                   pOverlayDescriptionList->pDescriptions[array_5E4D58[v3][1]].word_000004,
+                   //*(_WORD *)(v3 - 8));
+                   array_5E4D58[v3][2]);
             v7 = v8;
-            v26 = *(_DWORD *)(v3 + 4);
+            //v26 = *(_DWORD *)(v3 + 4);
+            v26 = *(int *)(&array_5E4D58[v3][8]);
             v28 = *(_DWORD *)(v8 + 40);
             v28 = (unsigned __int64)(v26 * v28) >> 16;
-            v13 = *(_WORD *)(v3 - 4);
-            v14 = *(_WORD *)(v3 - 2);
+            //v13 = *(_WORD *)(v3 - 4);
+            //v14 = *(_WORD *)(v3 - 2);
+            v13 = array_5E4D58[v3][4];
+            v14 = array_5E4D58[v3][5];
             v15 = v28;
             v16 = v28;
             v17 = sub_41F50D(*(_WORD *)(v8 + 52), 0, 1);
-            v9 = *(_WORD *)(v3 - 10);
+            //v9 = *(_WORD *)(v3 - 10);
+            v9 = array_5E4D58[v3][1];
             v18 = 0;
             v19 = 0;
             v6 = pOverlayDescriptionList->pDescriptions[v9].word_000002;
@@ -11808,7 +11467,8 @@ __int16 __thiscall sub_441A4E(void *this)
         }
       }
     }
-    v3 += 20;
+    //v3 += 20;
+   v3++;
   }
   //while ( v3 < (signed int)&dword_5E514C );
   while (v3 < 0x3E8);
@@ -14497,8 +14157,8 @@ void __stdcall PlayMovie(unsigned int uVideoID, char a2)
   char v11; // [sp+4h] [bp-8h]@4
   int v12; // [sp+Bh] [bp-1h]@14
 
- if (*(int *)&dword_720010)
-   Mouse_suspend(*(int *)&dword_720010);
+ if (dword_720010)
+   Mouse_suspend(dword_720010);
 
  switch (uVideoID)
  {
@@ -14732,7 +14392,7 @@ LABEL_19:
           v46 = v18;
           v57 = v19;
           v20 = sub_42F5ED((int)&v43, 0, 0, 0, 0);
-          damageMonsterFromParty(8 * v20 | 2, *v15, (int)&v59);
+          sub_439474(8 * v20 | 2, *v15, (int)&v59);
           ++v11;
         }
         while ( v11 < v13 );
@@ -16601,7 +16261,7 @@ LABEL_133:
         v628 = (int)&v650;
         v36 = LODWORD(v704);
 LABEL_139:
-        damageMonsterFromParty(8 * v36 | 2, v46, v628);
+        sub_439474(8 * v36 | 2, v46, v628);
         goto LABEL_1056;
       case 2:
       case 6:
@@ -17208,7 +16868,7 @@ LABEL_269:
                 LOBYTE(v117) = 8 * n | 3;
                 v699 = v117;
                 v118 = sub_42F5ED((int)&v686, 0, 0, 0, 0);
-                damageMonsterFromParty(8 * v118 | 2, v708, (int)&v662);
+                sub_439474(8 * v118 | 2, v708, (int)&v662);
                 LODWORD(v705) = 1;
               }
               else
@@ -17468,7 +17128,7 @@ LABEL_304:
             v699 = v159;
             v160 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v161 = n;
-            damageMonsterFromParty(8 * v160 | 2, dword_50BF30[n], (int)&v659);
+            sub_439474(8 * v160 | 2, dword_50BF30[n], (int)&v659);
             v162 = sub_42EB6A(SLODWORD(pGame));
             class06_sub_4A81CA(v162, (int)&v686);
             v163 = sub_42EB6A(SLODWORD(pGame));
@@ -19775,7 +19435,7 @@ LABEL_641:
             v699 = v476;
             v477 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v478 = n;
-            damageMonsterFromParty(8 * v477 | 2, dword_50BF30[n], (int)&v647);
+            sub_439474(8 * v477 | 2, dword_50BF30[n], (int)&v647);
             n = v478 + 1;
           }
           while ( v478 + 1 < LODWORD(v712) );
@@ -19955,7 +19615,7 @@ LABEL_973:
             v699 = v502;
             v503 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v504 = n;
-            damageMonsterFromParty(8 * v503 | 2, dword_50BF30[n], (int)&v653);
+            sub_439474(8 * v503 | 2, dword_50BF30[n], (int)&v653);
             n = v504 + 1;
           }
           while ( v504 + 1 < LODWORD(v704) );
@@ -20632,7 +20292,7 @@ LABEL_1119:
             v699 = v586;
             v587 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v588 = n;
-            damageMonsterFromParty(8 * v587 | 2, dword_50BF30[n], (int)&v668);
+            sub_439474(8 * v587 | 2, dword_50BF30[n], (int)&v668);
             n = v588 + 1;
           }
           while ( v588 + 1 < LODWORD(v712) );
@@ -21695,7 +21355,7 @@ void __thiscall sub_459ED1(void *this, int a2)
  if ((char)pGame->class14_obj->dword_000004)
  {
   if (dword_69B00C)
-    sub_45B2A7(dword_69B00C);
+    Keyboard_resume(dword_69B00C);
  }
 
  *((_DWORD *)v2 + 129) = 0;
@@ -24197,8 +23857,8 @@ LABEL_69:
 
 
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-  if ( LODWORD(dword_720010) )
-    Mouse_suspend(SLODWORD(dword_720010));
+  if (dword_720010)
+    Mouse_suspend(dword_720010);
   return v28;
 }
 
@@ -24328,68 +23988,6 @@ int __fastcall sub_403A60(int a1, signed int a2, signed int a3)
   else
   {
     result = sub_402AD7(v21, v19, v21, 64, a3);
-  }
-  return result;
-}
-
-//----- (MM7.exe::004CAF5C) --------------------------------------------------------
-int call_delete(int result, unsigned int a2)
-{
-  unsigned int v2; // eax@3
-  char v3; // zf@5
-  int v4; // eax@7
-  void *v5; // [sp-10h] [bp-38h]@11
-  int v6; // [sp+0h] [bp-28h]@7
-  int v7; // [sp+4h] [bp-24h]@7
-  int v8; // [sp+8h] [bp-20h]@7
-  unsigned int v9; // [sp+Ch] [bp-1Ch]@3
-  int v10; // [sp+18h] [bp-10h]@1
-  int (__cdecl *v11)(int, int, int); // [sp+1Ch] [bp-Ch]@1
-  signed int v12; // [sp+20h] [bp-8h]@1
-  int v13; // [sp+24h] [bp-4h]@1
-
-  runtime_warning;
-  return 1;
-
-  v13 = -1;
-  v12 = 5091560;
-  compile_error;//v11 = unknown_libname_59;
-  v10 = result;
-  if ( a2 )
-  {
-    if ( dword_F94508 == 3 )
-    {
-      _lock(9);
-      v13 = 0;
-      v2 = __sbh_find_block(a2);
-      v9 = v2;
-      if ( v2 )
-        sub_4CFDE7(v2, a2);
-      v13 = -1;
-      result = sub_4CAFC6();
-      v3 = v9 == 0;
-    }
-    else
-    {
-      if ( dword_F94508 != 2 )
-      {
-        v5 = (void *)a2;
-        return HeapFree(hHeap, 0, v5);
-      }
-      _lock(9);
-      v13 = 1;
-      v4 = sub_4D0B17(a2, (int)&v6, (int)&v8);
-      v7 = v4;
-      if ( v4 )
-        sub_4D0B6E(v6, v8, v4);
-      v13 = -1;
-      result = sub_4CB01E();
-      v3 = v7 == 0;
-    }
-    if ( !v3 )
-      return result;
-    v5 = (void *)a2;
-    return HeapFree(hHeap, 0, v5);
   }
   return result;
 }
@@ -26082,7 +25680,7 @@ int __cdecl MenuLoop_Main()
  if (pGame->class14_obj->dword_000004)
  {
   if (dword_69B00C)
-    sub_45B2A7(dword_69B00C);
+    Keyboard_resume(dword_69B00C);
  }
 
  pGUIWindow2 = 0;
@@ -27599,78 +27197,6 @@ LABEL_183:
   }
 }
 
-//----- (004CD96F) --------------------------------------------------------
-void *__cdecl sub_4CD96F(int a1, int a2)
-{
-  int v2; // esi@1
-  int v3; // ebx@2
-  void *result; // eax@20
-  size_t v5; // [sp-18h] [bp-38h]@10
-  void *v6; // [sp+0h] [bp-20h]@6
-  int v7; // [sp+4h] [bp-1Ch]@1
-
-  v2 = a2 * a1;
-  v7 = a2 * a1;
-  if ( (unsigned int)(a2 * a1) > 0xFFFFFFE0 )
-  {
-    v3 = 0;
-  }
-  else
-  {
-    v3 = 0;
-    if ( !v2 )
-      v2 = 1;
-    v2 = (v2 + 15) & 0xFFFFFFF0;
-  }
-  while ( 1 )
-  {
-    v6 = (void *)v3;
-    if ( (unsigned int)v2 <= 0xFFFFFFE0 )
-    {
-      if ( dword_F94508 == 3 )
-      {
-        if ( v7 > (unsigned int)dword_F94500 )
-          goto LABEL_16;
-        _lock(9);
-        v6 = (void *)__sbh_alloc_block(v7);
-        _unlock(9);
-        if ( v6 != (void *)v3 )
-        {
-          v5 = a2 * a1;
-LABEL_15:
-          memset(v6, v3, v5);
-          goto LABEL_16;
-        }
-      }
-      else
-      {
-        if ( dword_F94508 != 2 || v2 > (unsigned int)dword_4F4D8C )
-        {
-LABEL_16:
-          if ( v6 != (void *)v3 )
-            return v6;
-          goto LABEL_17;
-        }
-        _lock(9);
-        v6 = (void *)sub_4D0BB3((unsigned int)v2 >> 4);
-        _unlock(9);
-        if ( v6 != (void *)v3 )
-        {
-          v5 = v2;
-          goto LABEL_15;
-        }
-      }
-LABEL_17:
-      v6 = HeapAlloc(hHeap, 8u, v2);
-    }
-    if ( v6 != (void *)v3 || dword_F94004 == v3 )
-      return v6;
-    result = (void *)_callnewh(v2);
-    if ( !result )
-      return result;
-  }
-}
-
 //----- (0044D406) --------------------------------------------------------
 char *__fastcall sub_44D406(int *a1, unsigned char *pFontData, int a3, int a4, unsigned __int16 a5, const char *pString, int a7)
 {
@@ -29040,7 +28566,7 @@ int __cdecl sub_4645FA()
 
   if ( *(_BYTE *)(&pGame->class14_obj->dword_000004) )
   {
-    if ( dword_69B00C )
+    if (dword_69B00C)
       Keyboard_suspend(dword_69B00C);
   }
   RegistryWriteInt("startinwindow", pD3DRenderer->dword_040058);
@@ -31989,7 +31515,7 @@ LABEL_29:
 }
 
 //----- (0045B2A7) --------------------------------------------------------
-void __thiscall sub_45B2A7(int this)
+void __thiscall Keyboard_resume(int this)
 {
   int v1; // esi@1
   char v2; // [sp-18h] [bp-24h]@2
@@ -36552,7 +36078,7 @@ void __cdecl sub_465FF0()
       LOBYTE(v6) = 0;
       dword_69B00C = v2;
       if ( v2 )
-        sub_45B2A7(v2);
+        Keyboard_resume(v2);
     }
  }
 }
@@ -38695,8 +38221,8 @@ int __cdecl sub_463149()
 
     if (pGame->class14_obj->dword_000004 && 0xFF)
     {
-      if ( dword_69B00C )
-        sub_45B2A7(dword_69B00C);
+      if (dword_69B00C)
+        Keyboard_resume(dword_69B00C);
     }
     if ( pD3DRenderer->dword_040088 )
       sub_4C1A02(pGame->class05_obj);
@@ -61673,7 +61199,7 @@ LABEL_28:
         v26 = *((_WORD *)v8 + 72) - pParty_global->dword_0006B8;
         v27 = *((_WORD *)v8 + 73) - pParty_global->dword_0006BC;
         sub_43AB61((int)&v25, (int)&v26, (int)&v27);
-        damageMonsterFromParty((8 * v1 - 8) | 4, v28, (int)&v25);
+        sub_439474((8 * v1 - 8) | 4, v28, (int)&v25);
         if ( sub_48D709((void *)v2, 506, 1) || sub_48D709((void *)v2, 506, 0) )
           sub_42FA66(
             *((_WORD *)v8 + 71),
@@ -69139,7 +68665,7 @@ __int16 __thiscall sub_438E35(void *this)
 }
 
 //----- (00439474) --------------------------------------------------------
-__int16 __fastcall damageMonsterFromParty(signed int a1, int a2, int a3)
+__int16 __fastcall sub_439474(signed int a1, int a2, int a3)
 {
   signed int v3; // eax@1
   int v4; // ebx@1
@@ -70374,7 +69900,7 @@ void __fastcall sub_43A97E(int a1, signed int a2)
         sub_43B1B0(8 * v6 | 2, v3, (int)&dword_50FDFC, (unsigned __int8)byte_665291[v5]);
         break;
       case 4:
-        damageMonsterFromParty(8 * v6 | 2, v3, (int)&dword_50FDFC);
+        sub_439474(8 * v6 | 2, v3, (int)&dword_50FDFC);
         break;
       case 2:
         sub_43B057(8 * v6 | 2, v3, (int)&dword_50FDFC);
@@ -78877,8 +78403,8 @@ void __fastcall sub_44684A(int a1, int a2, int a3)
               CVideoPlayer_UnloadAll(pVideoPlayer);
             pVideoPlayer->dword_00006C = 0;
             pVideoPlayer->dword_000040 = 0;
-            if ( LODWORD(dword_720010) )
-              Mouse_suspend(SLODWORD(dword_720010));
+            if (dword_720010)
+              Mouse_suspend(dword_720010);
             v132 = dword_4E28F8;
             v16 = dword_59107C + v10;
             v17 = *(_BYTE *)(v16 + 5);
@@ -88781,7 +88307,7 @@ void __thiscall sub_459E5A(int this, int a2, int a3, int a4)
   *(_DWORD *)(a4 + 64) = 1;
   if ( *(_BYTE *)(*(_DWORD *)(LODWORD(pGame) + 3692) + 4) )
   {
-    if ( dword_69B00C )
+    if (dword_69B00C)
       Keyboard_suspend(dword_69B00C);
   }
 }
@@ -89685,7 +89211,7 @@ char __thiscall sub_45B3A4(int this)
 }
 
 //----- (0045B3B6) --------------------------------------------------------
-void __thiscall Keyboard_update_keyboard_data(int this)
+void __thiscall sub_45B3B6(int this)
 {
   int v1; // esi@1
   int v2; // eax@3
@@ -90106,7 +89632,7 @@ void __stdcall StartAddress(int a1)
       ;
     if ( *(_BYTE *)(dword_69B00C + 8) )
       ExitThread(0);
-    Keyboard_update_keyboard_data(dword_69B00C);
+    sub_45B3B6(dword_69B00C);
     Sleep(0x21u);
   }
 }
@@ -94102,10 +93628,10 @@ LABEL_9:
 //----- (00465C2C) --------------------------------------------------------
 void __cdecl sub_465C2C()
 {
-  if ( LODWORD(dword_720010) )
+  if (dword_720010)
   {
-    Mouse_suspend(SLODWORD(dword_720010));
-    if ( LODWORD(dword_720010) )
+    Mouse_suspend(dword_720010);
+    if (dword_720010)
       compile_error;//(*(void (__stdcall **)(_DWORD))*LODWORD(dword_720010))(1);
   }
   LODWORD(dword_720010) = 0;
@@ -94114,12 +93640,12 @@ void __cdecl sub_465C2C()
 //----- (00465C53) --------------------------------------------------------
 void __cdecl sub_465C53()
 {
-  if ( *(_BYTE *)(*(_DWORD *)(LODWORD(pGame) + 3692) + 4) )
+  if (*(_BYTE *)(*(_DWORD *)(LODWORD(pGame) + 3692) + 4))
   {
-    if ( dword_69B00C )
+    if (dword_69B00C)
     {
       Keyboard_suspend(dword_69B00C);
-      if ( dword_69B00C )
+      if (dword_69B00C)
         (**(void (__stdcall ***)(_DWORD))dword_69B00C)(1);
     }
     dword_69B00C = 0;
@@ -97697,7 +97223,7 @@ int __thiscall sub_46B342(int this, float a2, float a3)
 }
 
 //----- (0046B37C) --------------------------------------------------------
-int __thiscall update_mouse_data(int this, int a2)
+int __thiscall sub_46B37C(int this, int a2)
 {
   int v2; // edi@1
   int result; // eax@2
@@ -97758,7 +97284,7 @@ char __thiscall sub_46B420(int this)
   }
   else
   {
-    update_mouse_data(this, (int)&v7);
+    sub_46B37C(this, (int)&v7);
     sub_46BA8D((void *)v1, v7, v8);
     sub_46B958((void *)v1, v7 - *(_DWORD *)(v1 + 40), v8 - *(_DWORD *)(v1 + 44));
     sub_46B492((void *)v1, (int)&v7);
@@ -106154,7 +105680,7 @@ int __thiscall sub_478389(int this)
 }
 
 //----- (0047840D) --------------------------------------------------------
-char __cdecl RenderBuildings()
+char __cdecl sub_47840D()
 {
   char result; // al@3
   int v1; // eax@3
@@ -125835,6 +125361,308 @@ signed int __thiscall sub_49FFD7(int this)
            1,
            0,
            (void *)0x20);
+}
+
+//----- (004A05F3) --------------------------------------------------------
+int __thiscall sub_4A05F3(void *this, int a2)
+{
+  int v2; // esi@1
+  int v3; // eax@1
+  int v4; // eax@2
+  int v5; // eax@3
+  int v6; // edx@5
+  int v7; // ecx@5
+  signed int v8; // eax@7
+  signed int v9; // eax@12
+  int v10; // ecx@12
+  int v11; // eax@14
+  int v12; // eax@18
+  int v13; // eax@22
+  int v14; // eax@24
+  int v15; // eax@24
+  int v16; // eax@24
+  int v17; // eax@26
+  bool v18; // eax@32
+  char v19; // zf@32
+  int v20; // eax@35
+  int v21; // eax@35
+  void *v22; // eax@36
+  int v23; // eax@38
+  int v24; // edx@38
+  int v25; // ecx@38
+  int v26; // eax@41
+  int v28; // [sp+Ch] [bp-300h]@24
+  int v29; // [sp+108h] [bp-204h]@37
+  int v30; // [sp+12Ch] [bp-1E0h]@38
+  int Dst; // [sp+184h] [bp-188h]@24
+  unsigned int v32; // [sp+230h] [bp-DCh]@24
+  unsigned int v33; // [sp+234h] [bp-D8h]@24
+  unsigned int v34; // [sp+238h] [bp-D4h]@26
+  unsigned int v35; // [sp+23Ch] [bp-D0h]@26
+  int v36; // [sp+280h] [bp-8Ch]@35
+  int v37; // [sp+284h] [bp-88h]@35
+  int v38; // [sp+288h] [bp-84h]@35
+  int v39; // [sp+28Ch] [bp-80h]@35
+  int v40; // [sp+2C0h] [bp-4Ch]@35
+  int v41; // [sp+2C4h] [bp-48h]@35
+  int v42; // [sp+2E8h] [bp-24h]@35
+  unsigned int v43; // [sp+2FCh] [bp-10h]@2
+  int v44; // [sp+308h] [bp-4h]@2
+
+  pParty_global->dword_007778 |= 2;
+  v2 = (int)this;
+  LODWORD(flt_6BE3A0) = 1057803469;
+  v3 = class28_fn2(class28_global, 36044);
+  *(_DWORD *)(v2 + 262416) = 0;
+  sub_49FE05(v3, v2);
+  *(_DWORD *)(v2 + 262296) = 0;
+  *(_DWORD *)(v2 + 262292) = 0;
+  *(_DWORD *)(v2 + 262288) = 0;
+  *(_DWORD *)(v2 + 262284) = 0;
+  *(_DWORD *)(v2 + 262408) = 0;
+  CD3DRenderer_Initialize_ZBuffer(v2);
+  if ( *(_DWORD *)v2 )
+  {
+    compile_error;//v4 = (int)operator new(0x148u);
+    v43 = v4;
+    v44 = 0;
+    if ( v4 )
+      v5 = sub_49DC58(v4);
+    else
+      v5 = 0;
+    v6 = *(_DWORD *)(v2 + 8);
+    v44 = -1;
+    *(_DWORD *)(v2 + 262280) = v5;
+    v7 = *(_DWORD *)(v5 + 28);
+    if ( *(_DWORD *)(v7 + 40 * v6) && v6 != 1 )
+    {
+      v8 = sub_49DE14(v5, v6, 1, a2);
+      *(_DWORD *)(v2 + 12) = *(_DWORD *)(v2 + 8);
+    }
+    else
+    {
+      if ( !*(_DWORD *)v7 )
+        erroneous_printf("There aren't any D3D devices to init.");
+      v8 = sub_49DE14(v5, 0, 1, a2);
+      *(_DWORD *)(v2 + 12) = 0;
+    }
+    if ( !v8 )
+      erroneous_printf("D3Drend->Init failed.");
+    v10 = *(_DWORD *)(v2 + 262280);
+    *(_DWORD *)(v2 + 262296) = 0;
+    *(_DWORD *)(v2 + 262292) = *(_DWORD *)(v10 + 44);
+    *(_DWORD *)(v2 + 262288) = *(_DWORD *)(v10 + 48);
+    *(_DWORD *)(v2 + 262284) = *(_DWORD *)(v10 + 32);
+    v9 = sub_49E444((void *)v10);
+    if ( v9 & 1 )
+    {
+      v43 = *(_DWORD *)(v2 + 262280);
+      if ( v43 )
+      {
+        v11 = sub_49DC90(v43);
+        operator_delete(v11, v43);
+      }
+      *(_DWORD *)(v2 + 262280) = 0;
+      *(_DWORD *)(v2 + 262292) = 0;
+      *(_DWORD *)(v2 + 262288) = 0;
+      *(_DWORD *)(v2 + 262284) = 0;
+      erroneous_printf("Direct3D renderer:  The device failed to return capabilities.");
+    }
+    if ( v9 & 0x3E )
+    {
+      v43 = *(_DWORD *)(v2 + 262280);
+      if ( v43 )
+      {
+        v12 = sub_49DC90(v43);
+        operator_delete(v12, v43);
+      }
+      *(_DWORD *)(v2 + 262296) = 0;
+      *(_DWORD *)(v2 + 262280) = 0;
+      *(_DWORD *)(v2 + 262292) = 0;
+      *(_DWORD *)(v2 + 262288) = 0;
+      *(_DWORD *)(v2 + 262284) = 0;
+      erroneous_printf("Direct3D renderer:  The device doesn't support the necessary alpha blending modes.");
+    }
+    if ( (_BYTE)v9 < 0 )
+    {
+      v43 = *(_DWORD *)(v2 + 262280);
+      if ( v43 )
+      {
+        v13 = sub_49DC90(v43);
+        operator_delete(v13, v43);
+      }
+      *(_DWORD *)(v2 + 262280) = 0;
+      *(_DWORD *)(v2 + 262292) = 0;
+      *(_DWORD *)(v2 + 262288) = 0;
+      *(_DWORD *)(v2 + 262284) = 0;
+      erroneous_printf("Direct3D renderer:  The device doesn't support non-square textures.");
+    }
+    *(_BYTE *)(v2 + 1062492) = ~(unsigned __int8)((unsigned int)v9 >> 6) & 1;
+    *(_DWORD *)(v2 + 1062472) = sub_49E79F();
+    memset(&Dst, 0, 0xFCu);
+    Dst = 252;
+    memset(&v28, 0, 0xFCu);
+    v15 = *(_DWORD *)(v2 + 262280);
+    v28 = 252;
+    v16 = (*(int (__stdcall **)(_DWORD, int *, int *))(**(_DWORD **)(v15 + 56) + 12))(*(_DWORD *)(v15 + 56), &Dst, &v28);
+    CheckHRESULT(&v43, v16, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x6A8u, 0);
+    v14 = v32;
+    if ( v32 >= v33 )
+      v14 = v33;
+    *(_DWORD *)(v2 + 1062488) = v14;
+    v17 = v34;
+    if ( v34 < v35 )
+      v17 = v35;
+    *(_DWORD *)(v2 + 1062484) = v17;
+    sub_49FFD7(v2);
+    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      7,
+      1);
+    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      14,
+      1);
+    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      23,
+      2);
+    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      29,
+      0);
+    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      41,
+      0);
+    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 88))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      22,
+      1);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      16,
+      2);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      17,
+      2);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      18,
+      3);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      5,
+      2);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      6,
+      0);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      4,
+      2);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      2,
+      2);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      3,
+      0);
+    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v2 + 262280) + 56) + 160))(
+      *(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56),
+      0,
+      1,
+      4);
+  }
+  else
+  {
+    CD3DRenderer_CreateDirectDraw((void *)v2);
+    CD3DRenderer_SetCooperativeLevel(v2, a2, 0);
+    *(_DWORD *)(v2 + 262220) = 1;
+    CD3DRenderer_CreateSurface((void *)v2);
+    CD3DRenderer_CreateClipper(v2, a2);
+    CD3DRenderer_CreateWndSurface((void *)v2);
+    *(_DWORD *)(v2 + 262192) = 0;
+    *(_DWORD *)(v2 + 24) = 0;
+  }
+  *(_DWORD *)(v2 + 262316) = 32;
+  CD3DRenderer_GetPrimarySurfacePixelFormat(v2, v2 + 262316);
+  CD3DRenderer_sub_4A0EB6((void *)v2);
+  CD3DRenderer_sub_49EBF1(v2);
+  if ( !*(_DWORD *)(v2 + 262280) )
+  {
+    compile_error;//*(_DWORD *)(v2 + 1062592) = nullsub_1;
+    goto LABEL_47;
+  }
+  v18 = sub_49E756(*(void **)(v2 + 262284));
+  v19 = *(_DWORD *)(v2 + 12) == 1;
+  *(_DWORD *)(v2 + 262408) = v18;
+  if ( !v19 )
+    *(_DWORD *)(v2 + 262408) = 0;
+  if ( *(_DWORD *)(v2 + 262408) )
+  {
+    memset(&v36, 0, 0x7Cu);
+    v40 = *(_DWORD *)(v2 + 262364) | *(_DWORD *)(v2 + 262368);
+    v41 = v40;
+    v20 = *(_DWORD *)(v2 + 262284);
+    v36 = 124;
+    v37 = 65543;
+    v42 = 2112;
+    v39 = 640;
+    v38 = 480;
+    v21 = (*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v20 + 24))(v20, &v36, v2 + 262296, 0);
+    CheckHRESULT(&v43, v21, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x6F7u, 0);
+    *(_DWORD *)(v2 + 1062592) = sub_4A57E9;
+LABEL_45:
+    *(_DWORD *)(v2 + 262416) = 1;
+LABEL_47:
+    *(_DWORD *)(v2 + 262232) = 1;
+    *(_DWORD *)(v2 + 262224) = a2;
+    return 0;
+  }
+  *(_DWORD *)(v2 + 262380) = 0;
+  *(_DWORD *)(v2 + 262376) = 0;
+  compile_error;//v22 = operator new(0x96020u);
+  *(_DWORD *)(v2 + 262376) = v22;
+  if ( v22 )
+  {
+    memset(&v29, 0, 0x7Cu);
+    v29 = 124;
+    if ( LockSurface_DDraw4(pD3DRenderer->pdds4_BackBuffer, &v29, 1) )
+    {
+      (*(void (__stdcall **)(int, _DWORD))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 128))(pD3DRenderer->pdds4_BackBuffer, 0);
+      v24 = *(_DWORD *)(v2 + 262376);
+      v23 = v30 & 7;
+      v25 = *(_DWORD *)(v2 + 262376) & 7;
+      if ( v25 == v23 )
+      {
+        *(_DWORD *)(v2 + 262380) = v24;
+      }
+      else
+      {
+        if ( v25 >= v23 )
+          v26 = v24 + 2 * (v25 - v23) + 16;
+        else
+          v26 = v24 + 2 * (v23 - v25) + 16;
+        *(_DWORD *)(v2 + 262380) = v26;
+      }
+      *(_DWORD *)(v2 + 262384) = 640;
+      *(_DWORD *)(v2 + 1062592) = sub_4A597D;
+      goto LABEL_45;
+    }
+  }
+  return 0;
 }
 
 //----- (004A0BEE) --------------------------------------------------------
@@ -147536,7 +147364,7 @@ void __thiscall sub_4C06F8(void *this, float a2, int a3, int a4)
     v7 = (int)dword_EF5350;
     do
     {
-      if ( CVis_is_part_of_selection(v8, a4) )
+      if ( sub_4C0791(v8, a4) )
       {
         if ( sub_4C091D(v6, a2, v8) )
         {
@@ -147557,7 +147385,7 @@ void __thiscall sub_4C06F8(void *this, float a2, int a3, int a4)
 }
 
 //----- (004C0791) --------------------------------------------------------
-char __stdcall CVis_is_part_of_selection(int a1, int a2)
+char __stdcall sub_4C0791(int a1, int a2)
 {
   int v2; // esi@1
   int v3; // eax@2
@@ -147861,7 +147689,7 @@ int __thiscall sub_4C0D32(void *this, float a2, int a3, int a4)
           v6 = dword_6BE644 + 96 * v5;
           if ( !sub_436455(dword_6BE644 + 96 * v5) )
           {
-            if ( CVis_is_part_of_selection(v6, a4) )
+            if ( sub_4C0791(v6, a4) )
             {
               v8 = 8 * v5;
               LOBYTE(v8) = 8 * v5 | 6;
@@ -147940,7 +147768,7 @@ int __thiscall sub_4C0DEA(void *this, float a2, int a3, int a4)
             do
             {
               v11 = v21 + *(_DWORD *)(v6 + 84);
-              if ( CVis_is_part_of_selection(v11, a4) )
+              if ( sub_4C0791(v11, a4) )
               {
                 sub_4C0EF2((int)&v15, v11);
                 v13 = 8 * (v23 | (v24 << 6));
@@ -148270,7 +148098,7 @@ void __thiscall sub_4C1542(void *this, float a2, float a3, float a4, int a5, int
     v9 = (int)dword_EF5350;
     do
     {
-      if ( CVis_is_part_of_selection(v10, a6) )
+      if ( sub_4C0791(v10, a6) )
       {
         if ( sub_4C1607(v9 - 152, a3, a4) )
         {
@@ -148365,7 +148193,7 @@ int __thiscall sub_4C16B4(void *this, char a2, int a3, int a4, int a5)
         if ( v6 < dword_6BE640 )
         {
           v7 = 96 * v6;
-          if ( CVis_is_part_of_selection(96 * v6 + dword_6BE644, a5) )
+          if ( sub_4C0791(96 * v6 + dword_6BE644, a5) )
           {
             if ( !sub_436455(v7 + dword_6BE644) )
             {
@@ -148465,7 +148293,7 @@ LABEL_8:
       do
       {
         v10 = v26 + *(_DWORD *)(v9 + 84);
-        if ( CVis_is_part_of_selection(v10, a5) )
+        if ( sub_4C0791(v10, a5) )
         {
           sub_4C0EF2((int)&v17, v10);
           if ( sub_4C1C0C(a3, a3 + 48, (int)&a2, (int)&v18, (int)&v17, v29) )
@@ -152229,55 +152057,6 @@ int __cdecl sub_4CA676()
   return atexit(0);
 }
 
-//----- (004CAE60) --------------------------------------------------------
-LPVOID __cdecl sub_4CAE60(unsigned int a1)
-{
-  LPVOID result; // eax@3
-  void *v2; // ST18_4@3
-  int v3; // esi@7
-  int v4; // ST18_4@10
-  signed int v5; // eax@12
-  int v6; // eax@14
-  SIZE_T v7; // [sp-10h] [bp-2Ch]@11
-
-  if ( dword_F94508 == 3 )
-  {
-    if ( a1 <= dword_F94500 )
-    {
-      _lock(9);
-      v2 = (void *)__sbh_alloc_block(a1);
-      sub_4CAEC7();
-      result = v2;
-      if ( v2 )
-        return result;
-    }
-    goto LABEL_12;
-  }
-  if ( dword_F94508 != 2 )
-  {
-LABEL_12:
-    v5 = a1;
-    if ( !a1 )
-      v5 = 1;
-    v6 = v5 + 15;
-    LOBYTE(v6) = v6 & 0xF0;
-    v7 = v6;
-    goto LABEL_15;
-  }
-  if ( a1 )
-    v3 = (a1 + 15) & 0xFFFFFFF0;
-  else
-    v3 = 16;
-  if ( v3 > (unsigned int)dword_4F4D8C
-    || (_lock(9), v4 = sub_4D0BB3((unsigned int)v3 >> 4), sub_4CAF26(), result = (LPVOID)v4, !v4) )
-  {
-    v7 = v3;
-LABEL_15:
-    result = HeapAlloc(hHeap, 0, v7);
-  }
-  return result;
-}
-
 //----- (004CAEC7) --------------------------------------------------------
 int __cdecl sub_4CAEC7()
 {
@@ -152327,221 +152106,6 @@ int sub_4CE45A(int result, int a2)
   return result;
 }
 
-//----- (004CEE48) --------------------------------------------------------
-function_error;//void *__usercall sub_4CEE48<eax>(int a1<eax>, const void *Src, signed int Size)
-void *sub_4CEE48(int a1, const void *Src, int Size)
-{
-  const void *v3; // ebx@1
-  int v4; // edi@1
-  void *result; // eax@2
-  int v6; // esi@3
-  int v7; // eax@7
-  size_t v8; // eax@12
-  size_t v9; // eax@19
-  int v10; // eax@36
-  size_t v11; // eax@41
-  size_t v12; // eax@47
-  int v13; // [sp+0h] [bp-38h]@36
-  size_t v14; // [sp+4h] [bp-34h]@41
-  int v15; // [sp+8h] [bp-30h]@36
-  int v16; // [sp+Ch] [bp-2Ch]@36
-  unsigned int v17; // [sp+10h] [bp-28h]@7
-  void *Dst; // [sp+14h] [bp-24h]@6
-  size_t v19; // [sp+18h] [bp-20h]@12
-  int v20; // [sp+28h] [bp-10h]@1
-  int (__cdecl *v21)(int, int, int); // [sp+2Ch] [bp-Ch]@1
-  signed int v22; // [sp+30h] [bp-8h]@1
-  int v23; // [sp+34h] [bp-4h]@1
-
-  v23 = -1;
-  v22 = 5091904;
-  compile_error;//v21 = unknown_libname_59;
-  v20 = a1;
-  v3 = Src;
-  v4 = 0;
-  if ( Src )
-  {
-    v6 = Size;
-    if ( Size )
-    {
-      if ( dword_F94508 == 3 )
-      {
-        while ( 1 )
-        {
-          Dst = 0;
-          if ( (unsigned int)v6 <= 0xFFFFFFE0 )
-          {
-            _lock(9);
-            v23 = 0;
-            v7 = __sbh_find_block(Src);
-            v17 = v7;
-            if ( v7 )
-            {
-              if ( v6 <= (unsigned int)dword_F94500 )
-              {
-                if ( __sbh_resize_block(v7, Src, v6) )
-                {
-                  Dst = (void *)Src;
-                }
-                else
-                {
-                  Dst = (void *)__sbh_alloc_block(v6);
-                  if ( Dst )
-                  {
-                    v8 = *((_DWORD *)Src - 1) - 1;
-                    v19 = v8;
-                    if ( v8 >= v6 )
-                      v8 = v6;
-                    memcpy(Dst, Src, v8);
-                    v17 = __sbh_find_block(Src);
-                    sub_4CFDE7(v17, (int)Src);
-                  }
-                }
-              }
-              if ( !Dst )
-              {
-                if ( !v6 )
-                  v6 = 1;
-                v6 = (v6 + 15) & 0xFFFFFFF0;
-                Dst = HeapAlloc(hHeap, 0, v6);
-                if ( Dst )
-                {
-                  v9 = *((_DWORD *)Src - 1) - 1;
-                  v19 = v9;
-                  if ( v9 >= v6 )
-                    v9 = v6;
-                  memcpy(Dst, Src, v9);
-                  sub_4CFDE7(v17, (int)Src);
-                }
-              }
-            }
-            v23 = -1;
-            sub_4CEFD3();
-            if ( !v17 )
-            {
-              if ( !v6 )
-                v6 = 1;
-              v6 = (v6 + 15) & 0xFFFFFFF0;
-              Dst = HeapReAlloc(hHeap, 0, (LPVOID)Src, v6);
-            }
-          }
-          result = Dst;
-          if ( Dst )
-            break;
-          if ( !dword_F94004 )
-            break;
-          if ( !_callnewh(v6) )
-            goto LABEL_63;
-        }
-      }
-      else
-      {
-        if ( dword_F94508 == 2 )
-        {
-          if ( (unsigned int)Size <= 0xFFFFFFE0 )
-          {
-            if ( (unsigned int)Size <= 0 )
-              v6 = 16;
-            else
-              v6 = (Size + 15) & 0xFFFFFFF0;
-          }
-          while ( 1 )
-          {
-            Dst = (void *)v4;
-            if ( (unsigned int)v6 <= 0xFFFFFFE0 )
-            {
-              _lock(9);
-              v23 = 1;
-              v10 = sub_4D0B17((unsigned int)v3, (int)&v13, (int)&v16);
-              v4 = v10;
-              v15 = v10;
-              if ( v10 )
-              {
-                if ( v6 < (unsigned int)dword_4F4D8C )
-                {
-                  if ( sub_4D0EDF(v13, v16, v10, (unsigned int)v6 >> 4) )
-                  {
-                    Dst = (void *)Src;
-                  }
-                  else
-                  {
-                    Dst = (void *)sub_4D0BB3((unsigned int)v6 >> 4);
-                    if ( Dst )
-                    {
-                      v11 = 16 * *(_BYTE *)v4;
-                      v14 = v11;
-                      if ( v11 >= v6 )
-                        v11 = v6;
-                      memcpy(Dst, Src, v11);
-                      sub_4D0B6E(v13, v16, v4);
-                    }
-                  }
-                  v3 = Src;
-                }
-                if ( !Dst )
-                {
-                  Dst = HeapAlloc(hHeap, 0, v6);
-                  if ( Dst )
-                  {
-                    v12 = 16 * *(_BYTE *)v4;
-                    v14 = v12;
-                    if ( v12 >= v6 )
-                      v12 = v6;
-                    memcpy(Dst, v3, v12);
-                    sub_4D0B6E(v13, v16, v4);
-                  }
-                }
-              }
-              else
-              {
-                Dst = HeapReAlloc(hHeap, 0, (LPVOID)v3, v6);
-              }
-              v23 = -1;
-              sub_4CF121();
-            }
-            result = Dst;
-            if ( Dst != (void *)v4 )
-              break;
-            if ( dword_F94004 == v4 )
-              break;
-            if ( !_callnewh(v6) )
-              goto LABEL_63;
-          }
-        }
-        else
-        {
-          while ( 1 )
-          {
-            result = 0;
-            if ( (unsigned int)v6 <= 0xFFFFFFE0 )
-            {
-              if ( !v6 )
-                v6 = 1;
-              v6 = (v6 + 15) & 0xFFFFFFF0;
-              result = HeapReAlloc(hHeap, 0, (LPVOID)Src, v6);
-            }
-            if ( result || !dword_F94004 )
-              break;
-            if ( !_callnewh(v6) )
-              goto LABEL_63;
-          }
-        }
-      }
-    }
-    else
-    {
-      call_delete(a1, (unsigned int)Src);
-LABEL_63:
-      result = 0;
-    }
-  }
-  else
-  {
-    result = malloc(Size);
-  }
-  return result;
-}
-
 //----- (004CEFD3) --------------------------------------------------------
 int __cdecl sub_4CEFD3()
 {
@@ -152552,71 +152116,6 @@ int __cdecl sub_4CEFD3()
 int __cdecl sub_4CF121()
 {
   return _unlock(9);
-}
-
-//----- (004CF177) --------------------------------------------------------
-function_error;//SIZE_T __usercall sub_4CF177<eax>(int a1<eax>, unsigned int lpMem)
-SIZE_T sub_4CF177(int a1, unsigned int lpMem)
-{
-  int v2; // esi@3
-  char v3; // zf@5
-  int v4; // eax@7
-  char v6; // [sp+0h] [bp-2Ch]@7
-  int v7; // [sp+4h] [bp-28h]@7
-  char v8; // [sp+8h] [bp-24h]@7
-  int v9; // [sp+Ch] [bp-20h]@3
-  int v10; // [sp+10h] [bp-1Ch]@2
-  int v11; // [sp+1Ch] [bp-10h]@1
-  int (__cdecl *v12)(int, int, int); // [sp+20h] [bp-Ch]@1
-  signed int v13; // [sp+24h] [bp-8h]@1
-  int v14; // [sp+28h] [bp-4h]@1
-
-  v14 = -1;
-  v13 = 5091928;
-  compile_error;//v12 = unknown_libname_59;
-  v11 = a1;
-  if ( dword_F94508 == 3 )
-  {
-    _lock(9);
-    v14 = 0;
-    v10 = __sbh_find_block(lpMem);
-    if ( v10 )
-    {
-      v2 = *(_DWORD *)(lpMem - 4) - 9;
-      v9 = *(_DWORD *)(lpMem - 4) - 9;
-    }
-    else
-    {
-      v2 = v9;
-    }
-    v14 = -1;
-    sub_4CF1E1();
-    v3 = v10 == 0;
-  }
-  else
-  {
-    if ( dword_F94508 != 2 )
-      return HeapSize(hHeap, 0, (LPCVOID)lpMem);
-    _lock(9);
-    v14 = 1;
-    v4 = sub_4D0B17(lpMem, (int)&v6, (int)&v8);
-    v7 = v4;
-    if ( v4 )
-    {
-      v2 = 16 * *(_BYTE *)v4;
-      v9 = 16 * *(_BYTE *)v4;
-    }
-    else
-    {
-      v2 = v9;
-    }
-    v14 = -1;
-    sub_4CF25C();
-    v3 = v7 == 0;
-  }
-  if ( v3 )
-    return HeapSize(hHeap, 0, (LPCVOID)lpMem);
-  return v2;
 }
 
 //----- (004CF1E1) --------------------------------------------------------
@@ -152746,38 +152245,6 @@ LABEL_32:
     }
   }
   return result;
-}
-
-
-
-
-//----- (004CFD17) --------------------------------------------------------
-signed int __cdecl sub_4CFD17(int a1)
-{
-  __int32 v1; // eax@2
-  LPVOID v2; // eax@3
-
-  hHeap = HeapCreate(a1 == 0, 0x1000u, 0);
-  if ( !hHeap )
-    return 0;
-  v1 = sub_4CFBCF();
-  dword_F94508 = v1;
-  if ( v1 == 3 )
-  {
-    v2 = (LPVOID)__sbh_heap_init(1016);
-  }
-  else
-  {
-    if ( v1 != 2 )
-      return 1;
-    v2 = sub_4D08BB();
-  }
-  if ( !v2 )
-  {
-    HeapDestroy(hHeap);
-    return 0;
-  }
-  return 1;
 }
 
 //----- (004CFDE7) --------------------------------------------------------
@@ -154468,4 +153935,512 @@ void erroneous_printf(const char *Format, ...)
   ClipCursor(0);
   MessageBoxA(0, ExistingFileName, "Error", 0x30u);
   sub_464761((void *)1);
+}
+
+
+//----- (004CEE48) --------------------------------------------------------
+void *sub_4CEE48(int a1, const void *Src, int Size)
+{
+  const void *v3; // ebx@1
+  int v4; // edi@1
+  void *result; // eax@2
+  int v6; // esi@3
+  int v7; // eax@7
+  size_t v8; // eax@12
+  size_t v9; // eax@19
+  int v10; // eax@36
+  size_t v11; // eax@41
+  size_t v12; // eax@47
+  int v13; // [sp+0h] [bp-38h]@36
+  size_t v14; // [sp+4h] [bp-34h]@41
+  int v15; // [sp+8h] [bp-30h]@36
+  int v16; // [sp+Ch] [bp-2Ch]@36
+  unsigned int v17; // [sp+10h] [bp-28h]@7
+  void *Dst; // [sp+14h] [bp-24h]@6
+  size_t v19; // [sp+18h] [bp-20h]@12
+  int v20; // [sp+28h] [bp-10h]@1
+  int (__cdecl *v21)(int, int, int); // [sp+2Ch] [bp-Ch]@1
+  signed int v22; // [sp+30h] [bp-8h]@1
+  int v23; // [sp+34h] [bp-4h]@1
+
+  compile_error;
+  return 0;
+  /*
+  v23 = -1;
+  v22 = 5091904;
+  compile_error;//v21 = unknown_libname_59;
+  v20 = a1;
+  v3 = Src;
+  v4 = 0;
+  if ( Src )
+  {
+    v6 = Size;
+    if ( Size )
+    {
+      if ( dword_F94508 == 3 )
+      {
+        while ( 1 )
+        {
+          Dst = 0;
+          if ( (unsigned int)v6 <= 0xFFFFFFE0 )
+          {
+            _lock(9);
+            v23 = 0;
+            v7 = __sbh_find_block(Src);
+            v17 = v7;
+            if ( v7 )
+            {
+              if ( v6 <= (unsigned int)dword_F94500 )
+              {
+                if ( __sbh_resize_block(v7, Src, v6) )
+                {
+                  Dst = (void *)Src;
+                }
+                else
+                {
+                  Dst = (void *)__sbh_alloc_block(v6);
+                  if ( Dst )
+                  {
+                    v8 = *((_DWORD *)Src - 1) - 1;
+                    v19 = v8;
+                    if ( v8 >= v6 )
+                      v8 = v6;
+                    memcpy(Dst, Src, v8);
+                    v17 = __sbh_find_block(Src);
+                    sub_4CFDE7(v17, (int)Src);
+                  }
+                }
+              }
+              if ( !Dst )
+              {
+                if ( !v6 )
+                  v6 = 1;
+                v6 = (v6 + 15) & 0xFFFFFFF0;
+                Dst = HeapAlloc(hHeap, 0, v6);
+                if ( Dst )
+                {
+                  v9 = *((_DWORD *)Src - 1) - 1;
+                  v19 = v9;
+                  if ( v9 >= v6 )
+                    v9 = v6;
+                  memcpy(Dst, Src, v9);
+                  sub_4CFDE7(v17, (int)Src);
+                }
+              }
+            }
+            v23 = -1;
+            sub_4CEFD3();
+            if ( !v17 )
+            {
+              if ( !v6 )
+                v6 = 1;
+              v6 = (v6 + 15) & 0xFFFFFFF0;
+              Dst = HeapReAlloc(hHeap, 0, (LPVOID)Src, v6);
+            }
+          }
+          result = Dst;
+          if ( Dst )
+            break;
+          if ( !dword_F94004 )
+            break;
+          if ( !_callnewh(v6) )
+            goto LABEL_63;
+        }
+      }
+      else
+      {
+        if ( dword_F94508 == 2 )
+        {
+          if ( (unsigned int)Size <= 0xFFFFFFE0 )
+          {
+            if ( (unsigned int)Size <= 0 )
+              v6 = 16;
+            else
+              v6 = (Size + 15) & 0xFFFFFFF0;
+          }
+          while ( 1 )
+          {
+            Dst = (void *)v4;
+            if ( (unsigned int)v6 <= 0xFFFFFFE0 )
+            {
+              _lock(9);
+              v23 = 1;
+              v10 = sub_4D0B17((unsigned int)v3, (int)&v13, (int)&v16);
+              v4 = v10;
+              v15 = v10;
+              if ( v10 )
+              {
+                if ( v6 < (unsigned int)dword_4F4D8C )
+                {
+                  if ( sub_4D0EDF(v13, v16, v10, (unsigned int)v6 >> 4) )
+                  {
+                    Dst = (void *)Src;
+                  }
+                  else
+                  {
+                    Dst = (void *)sub_4D0BB3((unsigned int)v6 >> 4);
+                    if ( Dst )
+                    {
+                      v11 = 16 * *(_BYTE *)v4;
+                      v14 = v11;
+                      if ( v11 >= v6 )
+                        v11 = v6;
+                      memcpy(Dst, Src, v11);
+                      sub_4D0B6E(v13, v16, v4);
+                    }
+                  }
+                  v3 = Src;
+                }
+                if ( !Dst )
+                {
+                  Dst = HeapAlloc(hHeap, 0, v6);
+                  if ( Dst )
+                  {
+                    v12 = 16 * *(_BYTE *)v4;
+                    v14 = v12;
+                    if ( v12 >= v6 )
+                      v12 = v6;
+                    memcpy(Dst, v3, v12);
+                    sub_4D0B6E(v13, v16, v4);
+                  }
+                }
+              }
+              else
+              {
+                Dst = HeapReAlloc(hHeap, 0, (LPVOID)v3, v6);
+              }
+              v23 = -1;
+              sub_4CF121();
+            }
+            result = Dst;
+            if ( Dst != (void *)v4 )
+              break;
+            if ( dword_F94004 == v4 )
+              break;
+            if ( !_callnewh(v6) )
+              goto LABEL_63;
+          }
+        }
+        else
+        {
+          while ( 1 )
+          {
+            result = 0;
+            if ( (unsigned int)v6 <= 0xFFFFFFE0 )
+            {
+              if ( !v6 )
+                v6 = 1;
+              v6 = (v6 + 15) & 0xFFFFFFF0;
+              result = HeapReAlloc(hHeap, 0, (LPVOID)Src, v6);
+            }
+            if ( result || !dword_F94004 )
+              break;
+            if ( !_callnewh(v6) )
+              goto LABEL_63;
+          }
+        }
+      }
+    }
+    else
+    {
+      call_delete(a1, (unsigned int)Src);
+LABEL_63:
+      result = 0;
+    }
+  }
+  else
+  {
+    result = malloc(Size);
+  }
+  return result;*/
+}
+
+
+//----- (MM7.exe::004CAF5C) --------------------------------------------------------
+int call_delete(int result, unsigned int a2)
+{
+  unsigned int v2; // eax@3
+  char v3; // zf@5
+  int v4; // eax@7
+  void *v5; // [sp-10h] [bp-38h]@11
+  int v6; // [sp+0h] [bp-28h]@7
+  int v7; // [sp+4h] [bp-24h]@7
+  int v8; // [sp+8h] [bp-20h]@7
+  unsigned int v9; // [sp+Ch] [bp-1Ch]@3
+  int v10; // [sp+18h] [bp-10h]@1
+  int (__cdecl *v11)(int, int, int); // [sp+1Ch] [bp-Ch]@1
+  signed int v12; // [sp+20h] [bp-8h]@1
+  int v13; // [sp+24h] [bp-4h]@1
+
+  runtime_warning;
+  return 1;
+  /*
+  v13 = -1;
+  v12 = 5091560;
+  compile_error;//v11 = unknown_libname_59;
+  v10 = result;
+  if ( a2 )
+  {
+    if ( dword_F94508 == 3 )
+    {
+      _lock(9);
+      v13 = 0;
+      v2 = __sbh_find_block(a2);
+      v9 = v2;
+      if ( v2 )
+        sub_4CFDE7(v2, a2);
+      v13 = -1;
+      result = sub_4CAFC6();
+      v3 = v9 == 0;
+    }
+    else
+    {
+      if ( dword_F94508 != 2 )
+      {
+        v5 = (void *)a2;
+        return HeapFree(hHeap, 0, v5);
+      }
+      _lock(9);
+      v13 = 1;
+      v4 = sub_4D0B17(a2, (int)&v6, (int)&v8);
+      v7 = v4;
+      if ( v4 )
+        sub_4D0B6E(v6, v8, v4);
+      v13 = -1;
+      result = sub_4CB01E();
+      v3 = v7 == 0;
+    }
+    if ( !v3 )
+      return result;
+    v5 = (void *)a2;
+    return HeapFree(hHeap, 0, v5);
+  }
+  return result;*/
+}
+
+
+//----- (004CD96F) --------------------------------------------------------
+void *__cdecl sub_4CD96F(int a1, int a2)
+{
+  int v2; // esi@1
+  int v3; // ebx@2
+  void *result; // eax@20
+  size_t v5; // [sp-18h] [bp-38h]@10
+  void *v6; // [sp+0h] [bp-20h]@6
+  int v7; // [sp+4h] [bp-1Ch]@1
+
+  compile_warning;
+  return 1;
+  /*
+  v2 = a2 * a1;
+  v7 = a2 * a1;
+  if ( (unsigned int)(a2 * a1) > 0xFFFFFFE0 )
+  {
+    v3 = 0;
+  }
+  else
+  {
+    v3 = 0;
+    if ( !v2 )
+      v2 = 1;
+    v2 = (v2 + 15) & 0xFFFFFFF0;
+  }
+  while ( 1 )
+  {
+    v6 = (void *)v3;
+    if ( (unsigned int)v2 <= 0xFFFFFFE0 )
+    {
+      if ( dword_F94508 == 3 )
+      {
+        if ( v7 > (unsigned int)dword_F94500 )
+          goto LABEL_16;
+        _lock(9);
+        v6 = (void *)__sbh_alloc_block(v7);
+        _unlock(9);
+        if ( v6 != (void *)v3 )
+        {
+          v5 = a2 * a1;
+LABEL_15:
+          memset(v6, v3, v5);
+          goto LABEL_16;
+        }
+      }
+      else
+      {
+        if ( dword_F94508 != 2 || v2 > (unsigned int)dword_4F4D8C )
+        {
+LABEL_16:
+          if ( v6 != (void *)v3 )
+            return v6;
+          goto LABEL_17;
+        }
+        _lock(9);
+        v6 = (void *)sub_4D0BB3((unsigned int)v2 >> 4);
+        _unlock(9);
+        if ( v6 != (void *)v3 )
+        {
+          v5 = v2;
+          goto LABEL_15;
+        }
+      }
+LABEL_17:
+      v6 = HeapAlloc(hHeap, 8u, v2);
+    }
+    if ( v6 != (void *)v3 || dword_F94004 == v3 )
+      return v6;
+    result = (void *)_callnewh(v2);
+    if ( !result )
+      return result;
+  }*/
+}
+
+//----- (004CAE60) --------------------------------------------------------
+LPVOID __cdecl sub_4CAE60(unsigned int a1)
+{
+  LPVOID result; // eax@3
+  void *v2; // ST18_4@3
+  int v3; // esi@7
+  int v4; // ST18_4@10
+  signed int v5; // eax@12
+  int v6; // eax@14
+  SIZE_T v7; // [sp-10h] [bp-2Ch]@11
+
+  compile_error;
+  return 0;
+  /*
+  if ( dword_F94508 == 3 )
+  {
+    if ( a1 <= dword_F94500 )
+    {
+      _lock(9);
+      v2 = (void *)__sbh_alloc_block(a1);
+      sub_4CAEC7();
+      result = v2;
+      if ( v2 )
+        return result;
+    }
+    goto LABEL_12;
+  }
+  if ( dword_F94508 != 2 )
+  {
+LABEL_12:
+    v5 = a1;
+    if ( !a1 )
+      v5 = 1;
+    v6 = v5 + 15;
+    LOBYTE(v6) = v6 & 0xF0;
+    v7 = v6;
+    goto LABEL_15;
+  }
+  if ( a1 )
+    v3 = (a1 + 15) & 0xFFFFFFF0;
+  else
+    v3 = 16;
+  if ( v3 > (unsigned int)dword_4F4D8C
+    || (_lock(9), v4 = sub_4D0BB3((unsigned int)v3 >> 4), sub_4CAF26(), result = (LPVOID)v4, !v4) )
+  {
+    v7 = v3;
+LABEL_15:
+    result = HeapAlloc(hHeap, 0, v7);
+  }
+  return result;*/
+}
+
+//----- (004CF177) --------------------------------------------------------
+SIZE_T sub_4CF177(int a1, unsigned int lpMem)
+{
+  int v2; // esi@3
+  char v3; // zf@5
+  int v4; // eax@7
+  char v6; // [sp+0h] [bp-2Ch]@7
+  int v7; // [sp+4h] [bp-28h]@7
+  char v8; // [sp+8h] [bp-24h]@7
+  int v9; // [sp+Ch] [bp-20h]@3
+  int v10; // [sp+10h] [bp-1Ch]@2
+  int v11; // [sp+1Ch] [bp-10h]@1
+  int (__cdecl *v12)(int, int, int); // [sp+20h] [bp-Ch]@1
+  signed int v13; // [sp+24h] [bp-8h]@1
+  int v14; // [sp+28h] [bp-4h]@1
+
+  compile_error;
+  return 0;
+  /*
+  v14 = -1;
+  v13 = 5091928;
+  compile_error;//v12 = unknown_libname_59;
+  v11 = a1;
+  if ( dword_F94508 == 3 )
+  {
+    _lock(9);
+    v14 = 0;
+    v10 = __sbh_find_block(lpMem);
+    if ( v10 )
+    {
+      v2 = *(_DWORD *)(lpMem - 4) - 9;
+      v9 = *(_DWORD *)(lpMem - 4) - 9;
+    }
+    else
+    {
+      v2 = v9;
+    }
+    v14 = -1;
+    sub_4CF1E1();
+    v3 = v10 == 0;
+  }
+  else
+  {
+    if ( dword_F94508 != 2 )
+      return HeapSize(hHeap, 0, (LPCVOID)lpMem);
+    _lock(9);
+    v14 = 1;
+    v4 = sub_4D0B17(lpMem, (int)&v6, (int)&v8);
+    v7 = v4;
+    if ( v4 )
+    {
+      v2 = 16 * *(_BYTE *)v4;
+      v9 = 16 * *(_BYTE *)v4;
+    }
+    else
+    {
+      v2 = v9;
+    }
+    v14 = -1;
+    sub_4CF25C();
+    v3 = v7 == 0;
+  }
+  if ( v3 )
+    return HeapSize(hHeap, 0, (LPCVOID)lpMem);
+  return v2;*/
+}
+
+//----- (004CFD17) --------------------------------------------------------
+signed int __cdecl sub_4CFD17(int a1)
+{
+  __int32 v1; // eax@2
+  LPVOID v2; // eax@3
+
+  compile_error;
+  return 0;
+  /*
+  hHeap = HeapCreate(a1 == 0, 0x1000u, 0);
+  if ( !hHeap )
+    return 0;
+  v1 = sub_4CFBCF();
+  dword_F94508 = v1;
+  if ( v1 == 3 )
+  {
+    v2 = (LPVOID)__sbh_heap_init(1016);
+  }
+  else
+  {
+    if ( v1 != 2 )
+      return 1;
+    v2 = sub_4D08BB();
+  }
+  if ( !v2 )
+  {
+    HeapDestroy(hHeap);
+    return 0;
+  }
+  return 1;*/
 }

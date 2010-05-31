@@ -114,7 +114,7 @@ void CD3DRenderer_ctor(struct CD3DRenderer *_this)
 
  _this->bSceneBegun = false;
 
- _this->pTargetSurface = NULL;
+ _this->pTargetSurface = 0;
  _this->uTargetSurfacePitch = 0;
 
  _this->dword_0400F4 = 0;
@@ -2402,4 +2402,55 @@ void CD3DRenderer_sub_4A1FE1_MaybeRenderSpecialEffects(struct CD3DRenderer *_thi
     else
       class06_sub_4A8C27(pGame->class06_obj);
  }
+}
+
+//----- (004A121C) --------------------------------------------------------
+void *CD3DRenderer_CreateSurface(struct CD3DRenderer *_this)
+{
+ char    local_0[128];
+ HRESULT hr; 
+ DDSURFACEDESC2 dd;
+
+ memset(&dd, 0, sizeof(DDSURFACEDESC2));
+ dd.dwSize = sizeof(DDSURFACEDESC2);
+ dd.dwFlags = DDSD_CAPS;
+ dd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
+
+ hr = _this->pdd4->lpVtbl->CreateSurface(pD3DRenderer->pdd4, &dd, &pD3DRenderer->pdds4_FrontBuffer, 0);
+ return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2357, 0);
+}
+
+//----- (004A12CD) --------------------------------------------------------
+void *CD3DRenderer_CreateWndSurface(struct CD3DRenderer *_this)
+{
+ char    local_0[128];
+ HRESULT hr; 
+ DDSURFACEDESC2 dd;
+
+ memset(&dd, 0, sizeof(DDSURFACEDESC2));
+ dd.dwSize = sizeof(DDSURFACEDESC2);
+ dd.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;
+ dd.dwWidth = 640;
+ dd.dwHeight = 480;
+ dd.ddsCaps.dwCaps = DDSCAPS_SYSTEMMEMORY | DDSCAPS_OFFSCREENPLAIN;
+
+ hr = _this->pdd4->lpVtbl->CreateSurface(pD3DRenderer->pdd4, &dd, &pD3DRenderer->pdds4_BackBuffer, 0);
+ return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2357, 0);
+}
+
+//----- (004A14F4) --------------------------------------------------------
+extern IDirectDrawClipper *pDDrawClipper;
+void *CD3DRenderer_CreateClipper(struct CD3DRenderer *_this, HWND hClipWnd)
+{
+ char    local_0[128];
+ HRESULT hr; 
+
+ hr = _this->pdd4->lpVtbl->CreateClipper(pD3DRenderer->pdd4, NULL, &pDDrawClipper, NULL);
+ CheckHRESULT(&local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2463, 0);
+
+ hr = pDDrawClipper->lpVtbl->SetHWnd(pDDrawClipper, 0, hClipWnd);
+ CheckHRESULT(&local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2464, 0);
+
+ hr = _this->pdds4_FrontBuffer->lpVtbl->SetClipper(pD3DRenderer->pdds4_FrontBuffer, pDDrawClipper);
+ return CheckHRESULT(&local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2465, 0);
 }

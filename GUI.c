@@ -140,7 +140,7 @@ void SetCurrentMenu(unsigned int uMenuID)
       if (pGame->class14_obj->dword_000004 & 0xFF)
       {
         if (dword_69B00C)
-          sub_45B2A7(dword_69B00C);
+          Keyboard_resume(dword_69B00C);
       }
     }
   }
