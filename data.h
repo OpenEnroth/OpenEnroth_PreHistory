@@ -119,13 +119,23 @@ extern struct class18 *pPlayerCreationUI_Top;
 extern struct class18 *pPlayerCreationUI_ArrowR[];
 extern struct class18 *pPlayerCreationUI_ArrowL[];
 
+extern struct class24 *pClass24_global2;
+
 extern unsigned int uPlayerCreationUI_SelectedCharacter;
 
 extern unsigned int uTextureID_PlayerCreationUI_FaceMask;
 
+extern struct CMapStats     *pMapStats;
+extern struct CSpellStats   *pSpellStats;
 extern struct CMonsterStats *pMonsterStats;
 
+extern struct COverlayDescriptionList    *pOverlayDescriptionList;
+extern struct CObjectDescriptionList     *pObjectDescriptionList;
+extern struct CDecorationDescriptionList *pDecorationDescriptionList;
+
 extern struct struct14 array_73D150[];
+
+extern struct CIconFrameTable *pIconFrameTable;
 
 extern struct Font *pFontArrus;
 extern struct Font *pFontLucida;

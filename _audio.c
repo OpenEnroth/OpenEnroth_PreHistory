@@ -2,62 +2,14 @@
 #include "_video.h"
 #include "AIL.h"
 
-#include <stdio.h>
-
-#include "classes.h"
+#include "mm7_unparsed_data.h"
+#include "mm7_unparsed_functions.h"
 
 #include "FrameTables.h"
 
 #include "mm7DDrawRenderer.h"
 
 #include "data.h"
-
-extern char off_4E7ECC[];
-extern int dword_4E800C;
-extern float flt_6BE3A0;
-extern int dword_AD4730;
-extern int dword_E31C7C;
-extern char byte_6BE371;
-extern int dword_4F00DC;
-extern char unk_F79CC8[];
-extern char byte_F79448[];
-
-extern char unk_4EB8BC;
-extern char unk_4EBBD0;
-extern char byte_6BE36F;
-
-extern int dword_4F00E4;
-extern short word_F1B4C4;
-extern int dword_4F00E4;
-extern int dword_4F00E0;
-extern short word_F1B4C6;
-extern int dword_4F00E0;
-extern int dword_4F00E4;
-extern int dword_4F00E0;
-
-extern char byte_4D8410[];
-
-extern int *dword_4F2688;
-
-extern int dword_51B6E8;
-extern int dword_51B6EC;
-extern int dword_51B6F0;
-
-extern int dword_6A0CA4;
-
-extern int dword_720010;
-
-extern int dword_720018;
-
-extern int dword_E31C70;
-
-extern int dword_F792F0;
-
-extern int dword_F79D70;
-extern int dword_F79D7C;
-extern struct CSoundList *pSoundList;
-
-
 
 
 extern int (__cdecl *sprintfex)(char *, const char *, ...);
@@ -84,18 +36,6 @@ void AudioPlayer_ctor(struct AudioPlayer *_this)
 
 
 //----- (004AA306) --------------------------------------------------------
-extern int dword_6BE360;
-extern int dword_F1B4D4;
-extern struct struct2 array_665230[];
-extern struct Actor pActors[];
-extern char *Src;
-extern struct Party *pParty_global;
-extern struct struct0 array_6836D0[];
-int __fastcall sub_4621DA(signed int a1, signed int a2, signed int a3);
-void __stdcall sub_436523(int a1, int a2);
-int __fastcall sub_4AAEA6(int a1);
-int __fastcall sub_4AB6B1(int a1, int a2, int a3);
-int __fastcall sub_4AB66C(int a1, int a2);
 void AudioPlayer_sub_4AA306(struct AudioPlayer *_this, int a2, signed int a3, int a4, signed int a5, int a6, int a7, int a8, int a9)
 {
   int v9; // esi@1
@@ -1087,7 +1027,6 @@ void *CSoundList_Initialize(struct CSoundList *_this, unsigned char *pSrc)
 }
 
 //----- (004A9953) --------------------------------------------------------
-int __fastcall sub_4A97C6(char *a1, int a2, _DWORD a3);
 int sub_4A9953(struct CSoundList *_this)
 {
   int v2; // esi@1
@@ -1188,7 +1127,6 @@ void sub_4A9D79(struct CSoundList *_this, int a2)
 
 
 //----- (004A9A67) --------------------------------------------------------
-extern int dword_6BE364;
 int sub_4A9A67(struct CSoundList *_this, int a2, int a3)
 {
   int v3; // edi@1
@@ -1282,18 +1220,6 @@ LABEL_29:
 
 
 //----- (004AAFCF) --------------------------------------------------------
-extern struct CDecorationDescriptionList *pDecorationDescriptionList;
-extern struct CD3DRenderer *pD3DRenderer;
-extern struct class24 *pClass24_global;
-extern struct struct0 array_6836D0[];
-extern int dword_6807B8[];
-extern int dword_51B714;
-extern int dword_51B6F8;
-extern float flt_51B710;
-extern int dword_51B718;
-extern int dword_51B71C;
-extern int dword_4E28F8;
-extern int dword_6807E0;
 void AudioPlayer_sub_4AAFCF(struct AudioPlayer *_this)
 {
   int v1; // ebx@1
@@ -1707,8 +1633,6 @@ LABEL_85:
 }
 
 //----- (004AC041) --------------------------------------------------------
-extern struct CMapStats *pMapStats;
-extern unsigned char Str1[];
 signed int AudioPlayer_sub_4AC041(struct AudioPlayer *_this)
 {
   signed int result; // eax@1

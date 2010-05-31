@@ -1,5 +1,6 @@
 #include "FrameTables.h"
-#include "classes.h"
+#include "mm7_unparsed_data.h"
+#include "mm7_unparsed_functions.h"
 #include "_audio.h"
 #include "data.h"
 

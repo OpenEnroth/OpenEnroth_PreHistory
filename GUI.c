@@ -2,7 +2,8 @@
 
 #include "defs.h"
 
-#include "classes.h"
+#include "mm7_unparsed_data.h"
+#include "mm7_unparsed_functions.h"
 
 #include "mm7DDrawRenderer.h"
 
@@ -14,15 +15,6 @@
 
 
 //----- (004151D9) --------------------------------------------------------
-extern unsigned int uTextureIdx_Parchment;
-extern unsigned int uTextureIdx_EdgeTop;
-extern unsigned int uTextureIdx_EdgeBottom;
-extern unsigned int uTextureIdx_EdgeRight;
-extern unsigned int uTextureIdx_EdgeLeft;
-extern unsigned int uTextureIdx_CornerUpperLeft;
-extern unsigned int uTextureIdx_CornerUpperRight;
-extern unsigned int uTextureIdx_CornerLowerRight;
-extern unsigned int uTextureIdx_CornerLowerLeft;
 void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigned int uWindowWidth, unsigned int uWindowHeight)
 {
   //int v10; // ebx@14
@@ -117,9 +109,6 @@ struct GUIButton *GUIWindow_GetChild(struct GUIWindow *_this, int uID)
 }
 
 //----- (00466C40) --------------------------------------------------------
-extern int uCurrentMenuID;
-extern int dword_69B00C;
-extern struct CGame *pGame;
 void SetCurrentMenu(unsigned int uMenuID)
 {
   if ( uCurrentMenuID == -1 )
@@ -214,41 +203,6 @@ struct GUIButton *__fastcall GUIButtonCreate(struct GUIWindow *pParentWindow,
 
 
 //----- (0041C432) --------------------------------------------------------
-bool __thiscall sub_4466C4(void *this);
-extern struct GUIWindow array_506F50[20];
-extern unsigned int uTextureIdx_BtnEsc2;
-extern unsigned int uTextureIdx_BtnXxU;
-extern unsigned int uTextureIdx_BtnMake2;
-extern unsigned int uTextureIdx_BtnMake;
-extern unsigned int uTextureIdx_BtnYes2;
-extern unsigned int uTextureIdx_BtnXokU;
-extern unsigned int uNumGUIWindows;
-extern char byte_591180[600];
-extern int array_5075E0[20];
-extern int dword_506978;
-extern int dword_4E28F8;
-extern struct class03 *pClass03_global;
-extern struct class24 *pClass24_global;
-extern struct CMapStats *pMapStats;
-extern int dword_5913D8[];
-extern int dword_5076F4;
-extern int dword_506438;
-extern int dword_591090;
-extern int dword_5076F4;
-extern int dword_5076FC;
-extern int dword_4E5E50;
-extern int dword_591424;
-extern int dword_507BC0;
-extern int dword_506F48;
-extern int dword_4E5EE0;
-extern int dword_591080;
-extern int dword_5C35D0;
-extern int dword_69AE00;
-extern int dword_591440[];
-extern int dword_5913F4[];
-int __fastcall sub_44C175(const char *Source, int a2);
-int __fastcall sub_445C8B(signed int a1);
-char *__fastcall sub_4459F9(signed int a1);
 struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
                                              unsigned int uFrameWidth, unsigned int uFrameHeight,
                                              signed int a5, int a6, int a7)
@@ -615,16 +569,6 @@ LABEL_62:
 
 
 //----- (0041C26A) --------------------------------------------------------
-extern int dword_6BE380;
-extern int dword_5C32D4;
-extern int dword_591430;
-extern int dword_59142C;
-extern int dword_59140C[];
-extern int dword_591084;
-extern int dword_5C35D4;
-extern struct class55 *pClass55_global;
-extern struct Party *pParty_global;
-extern struct class59 *pClass59_global;
 void GUIWindowDelete(int this)
 {
   int v1; // esi@1
@@ -785,15 +729,6 @@ void __cdecl DeleteFontCChar()
 
 
 //----- (0049695A) --------------------------------------------------------
-extern int dword_50CBD0[];
-extern unsigned int array_A74C8C[];
-extern unsigned int array_A74C9C[];
-extern unsigned int array_A74CAC[];
-extern unsigned int array_A74CBC[];
-extern int dword_50CBDC;
-extern int dword_A74CCC;
-extern int dword_A74CD4;
-extern char byte_6BE371;
 void __cdecl PlayerCreationUI_Initialize()
 {
   int v1; // ebx@5
@@ -985,7 +920,6 @@ void __cdecl PlayerCreationUI_Initialize()
 
 
 //----- (0044C768) --------------------------------------------------------
-extern unsigned char byte_5C45B0[];
 unsigned char *__fastcall FitTextInAWindow(const char *pString, struct Font *pFont, struct GUIWindow *pParent, unsigned int uX, int a5)
 {
   const char *v5; // edi@1
@@ -1143,7 +1077,6 @@ void LevelLoadingUI_UpdateAndDrawProgressBar(struct class56 *_this)
 }
 
 //----- (00443484) --------------------------------------------------------
-extern int dword_720010;
 bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarType)
 {
   void *v2; // esi@1
@@ -1214,8 +1147,6 @@ bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarT
 
 
 //----- (00443670) --------------------------------------------------------
-extern int dword_50C984;
-extern struct CIconFrameTable *pIconFrameTable;
 void DrawLoadingScreen(struct class56 *_this)
 {
   int v1; // edi@1
@@ -1270,15 +1201,6 @@ void LevelLoadingUI_Reset(struct class56 *_this, char a2)
 }
 
 //----- (0041C179) --------------------------------------------------------
-extern char byte_5C3427[];
-extern char byte_5C3428;
-extern char byte_5C34EF[];
-extern short dword_507AF8;
-extern int dword_507AFC;
-extern int dword_5C35B8;
-extern int dword_5C35BC;
-extern struct GUIWindow *pGUIWindow0;
-extern unsigned char pStatusBarString[];
 void __cdecl GameUI_DrawStatusBar()
 {
   char *v0; // ebp@1
@@ -1402,7 +1324,6 @@ int __cdecl GameUI_DrawFrames()
 }
 
 //----- (0041AEBB) --------------------------------------------------------
-extern int dword_6A0D48;
 void __cdecl GameUI_DrawFoodAndGold()
 {
   __int16 v0; // bx@2
@@ -1422,23 +1343,6 @@ void __cdecl GameUI_DrawFoodAndGold()
 }
 
 //----- (0044162D) --------------------------------------------------------
-extern char byte_4E5DD8[];
-extern int dword_4E5D68[];
-extern int dword_4E5D6C[];
-extern char byte_4E5DE8[];
-extern int dword_507960;
-extern int dword_507964;
-extern int dword_507968;
-extern int dword_50796C;
-extern int dword_ACD6BC;
-extern int dword_ACD848;
-extern short off_4ED748[];
-extern struct Player *pPlayers[];
-extern __int64 qword_ACD8B4;
-extern unsigned int uIconIdx_Spell21;
-extern unsigned int uIconIdx_Spell27;
-extern __int64 qword_ACD964;
-extern unsigned int uTextureIdx_SpellEffecIcons[];
 void __cdecl GameUI_DrawPartySpells()
 {
   signed int v0; // ebp@1
@@ -1565,26 +1469,6 @@ void LevelLoadingUI_Release(struct class56 *_this)
 
 
 //----- (004921C1) --------------------------------------------------------
-extern struct class24 *pClass24_global2;
-extern struct CPlayerFrameTable *pPlayerFrameTable;
-extern int dword_4F8864;
-extern int dword_4F8878[];
-extern int dword_5079C8;
-extern int dword_4F885C;
-extern int dword_5079CC;
-extern int dword_ACD834;
-extern int dword_ACD9F4;
-extern int dword_5079C8;
-extern int dword_5079CC;
-extern int uTextureIdx_PlayerFaceEradicated;
-extern int uTextureIdx_PlayerFaceDead;
-extern int uTextureIdx_SensorGreen;
-extern __int64 qword_A750D8;
-extern __int64 qword_ACD8F4;
-extern short word_A750E0;
-extern short word_A750E2;
-extern char unk_AD46E4;
-extern int dword_A74CEC[];
 void GameUI_DrawPortraits(void *this)
 {
   signed int v1; // ebx@2

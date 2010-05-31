@@ -28,8 +28,9 @@
 #define true 1
 #define false 0
 
-#define array_size_unknown 24
+#define array_size_unknown 32
 
+#define UNDEF
 
 
 

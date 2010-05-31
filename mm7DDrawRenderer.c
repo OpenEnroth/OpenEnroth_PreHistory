@@ -2,24 +2,15 @@
 
 #include "defs.h"
 
-#include "classes.h"
+#include "mm7_unparsed_data.h"
+#include "mm7_unparsed_functions.h"
 
 #include "data.h"
 
-extern float flt_6BE3A0;
-extern int dword_720010;
-extern int dword_F79D70;
-extern int dword_F79D7C;
-
-
-int unknown_libname_107();
-void __cdecl sub_4A57E9();
-char __cdecl sub_4A597D();
 
 
 
 //----- (MM7exe::00452347) --------------------------------------------------------
-extern struct Party *pParty_global;
 void CD3DRenderer_HWLContainer_ctor(struct CD3DRenderer_HWLContainer *_this)
 {
  _this->pHWLFile = 0;
@@ -62,8 +53,6 @@ int CD3DRenderer_HWLContainer_LoadHWLHeaders(struct CD3DRenderer_HWLContainer *_
 }
 
 //----- (MM7.exe::0049E992) --------------------------------------------------------
-extern int dword_4EED78; // weak
-extern _UNKNOWN unk_4EED80; // weak
 void CD3DRenderer_ctor(struct CD3DRenderer *_this)
 {
   int v1; // eax@1
@@ -1494,11 +1483,6 @@ int CD3DRenderer_sub_49EBF1(struct CD3DRenderer *_this)
 }
 
 
-
-extern int nWidth; // idb
-extern int nHeight; // idb
-extern int X; // idb
-extern int Y; // idb
 
 //----- (MM7.exe::0049ED18) --------------------------------------------------------
 int CD3DRenderer_ClearBackBufferAndPresent(struct CD3DRenderer *_this)

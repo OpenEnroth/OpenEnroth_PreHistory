@@ -2,7 +2,8 @@
 
 #include "data.h"
 
-#include "classes.h"
+#include "mm7_unparsed_data.h"
+#include "mm7_unparsed_functions.h"
 
 #include "FrameTables.h"
 
@@ -18,46 +19,6 @@ bool __cdecl TryLoadLevelFromFile(); // internal
 bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a4, int a5); // internal
 
 //----- (0047D0A6) --------------------------------------------------------
-extern struct CObjectDescriptionList *pObjectDescriptionList;
-extern struct CTileTable *pTileTable;
-extern struct CTextureFrameTable *pTextureFrameTable;
-extern struct CDecorationDescriptionList *pDecorationDescriptionList;
-extern struct CObjectDescriptionList *pObjectDescriptionList;
-extern struct CSoundList *pSoundList;
-extern struct class17 *pClass17_Games_LOD;
-extern struct class17 *pClass17_New_LOD;
-extern struct class35 class35_obj;
-extern size_t uNumActors;
-extern size_t Count;
-extern char byte_6BE3C4;
-extern _UNKNOWN unk_73D514[];
-extern struct struct2 array_665230[];
-extern struct Actor pActors[];
-extern _UNKNOWN unk_576E30;
-extern int dword_4EC2A8;
-extern int dword_4EC2AC;
-extern int dword_4EC268[];
-extern int dword_4EC28C[];
-extern char byte_6BE114[];
-extern char byte_6BE124[];
-extern struct struct4 global_5E4C90;
-extern char byte_5E4CDA[];
-extern char byte_5E4CDB[];
-extern __int16 word_75D514[];
-extern __int16 word_75D516[];
-extern int dword_6BE364;
-extern int dword_6807E0;
-extern int uTextureID_LocationMap;
-extern int dword_73D510;
-extern unsigned char *dword_73D514;
-extern struct struct3 array_5E5150[];
-extern size_t dword_5FF140;
-extern size_t dword_69ADD0;
-extern unsigned char *dword_76D514;
-extern __int16 word_5D29F8[];
-extern struct struct0 array_6836D0[];
-extern struct Party *pParty_global;
-extern struct class56 *pLoadingUI;
 bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a4, int a5)
 {
  int v5;
@@ -1174,7 +1135,6 @@ LABEL_175:
 
 
 //----- (00460706) --------------------------------------------------------
-extern char Str1[];
 bool __cdecl TryLoadLevelFromFile()
 {
   FILE *v1; // esi@1
@@ -1472,11 +1432,6 @@ int sub_47C80A(struct class51_Geodata *_this, int a2, int a3, int a4, int a5)
 
 
 //----- (0044C1E8) --------------------------------------------------------
-extern char byte_5B3524[];
-extern int dword_5B65E0;
-extern int dword_5B65EC;
-extern struct Event pLevelEvents[];
-extern unsigned int uLevelEvtNumEvents;
 bool sub_44C1E8(struct class51_stru2 *_this)
 {
  int i;
@@ -1495,10 +1450,6 @@ bool sub_44C1E8(struct class51_stru2 *_this)
 
 
 //----- (00488F5C) --------------------------------------------------------
-extern int dword_6BE030;
-extern int dword_6BE040;
-extern int dword_6BE044;
-extern int dword_6BE134;
 bool LoadLevel(struct class51 *_this, const char *Source, int File, signed int a4, int a5)
 {
   if ( Source )
@@ -1529,9 +1480,6 @@ bool LoadLevel(struct class51 *_this, const char *Source, int File, signed int a
 
 
 //----- (0047F223) --------------------------------------------------------
-extern struct class40 *pClass40;
-extern char byte_5D2A00[];
-int __fastcall sub_48257A(signed int a1, signed int a2, int a3, int a4);
 int sub_47F223_LooksLikeGenerateMonsterLoot(struct class51 *_this)
 {
   signed int v1; // ebx@1
@@ -1579,8 +1527,6 @@ int sub_47F223_LooksLikeGenerateMonsterLoot(struct class51 *_this)
 
 
 //----- (004892E6) --------------------------------------------------------
-extern struct class59 *pClass59_global;
-extern struct Party *pParty_global;
 int __thiscall sub_4892E6(struct class51 *_this)
 {
   int result; // eax@1
@@ -1624,7 +1570,6 @@ int __thiscall sub_4892E6(struct class51 *_this)
 
 
 //----- (00482170) --------------------------------------------------------
-extern struct class55 *pClass55_global;
 bool sub_482170(struct class51_stru2 *_this, int a2, struct struct8 *a3)
 {
   signed int v3; // edx@1
@@ -1742,13 +1687,6 @@ bool sub_482170(struct class51_stru2 *_this, int a2, struct struct8 *a3)
 
 
 //----- (0045CDB7) --------------------------------------------------------
-extern int dword_519AB4;
-extern int dword_51B6DC;
-extern int dword_F8AD54;
-extern int dword_F8ADD4;
-extern int dword_F8B120;
-extern struct struct6 array_519ABC[];
-extern struct struct7 array_5187F4[];
 bool __stdcall sub_45CDB7(struct class51_stru2 *_this)
 {
   int v2; // eax@1
@@ -1780,18 +1718,6 @@ bool __stdcall sub_45CDB7(struct class51_stru2 *_this)
 
 
 //----- (0045CE50) --------------------------------------------------------
-extern int dword_F8ADD8[];
-extern int dword_F8AE28[];
-extern int dword_F8AE78[];
-extern int dword_F8AEC8[];
-extern int dword_F8AF18[];
-extern int dword_F8AFB8[];
-extern float flt_F8B008[];
-extern float flt_F8B058[];
-extern float flt_F8B0A8[];
-extern char byte_F8B0F8[];
-extern struct CD3DRenderer *pD3DRenderer;
-extern char byte_4E94D2;
 bool __stdcall sub_45CE50(struct struct7 *_this, struct class51_stru2 *a2, int *a3, char a4)
 {
   signed int v4; // ebx@1

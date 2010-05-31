@@ -1,6 +1,7 @@
 #include "Actor.h"
 
-#include "classes.h"
+#include "mm7_unparsed_data.h"
+#include "mm7_unparsed_functions.h"
 
 #include "FrameTables.h"
 
@@ -25,15 +26,6 @@ bool sub_40894B(struct Actor *_this)
 
 
 //----- (00408768) --------------------------------------------------------
-extern char byte_ACD71D[];
-extern int dword_4F6E08[];
-extern struct Actor pActors[];
-extern unsigned char Str1[];
-extern unsigned int uNumActors;
-extern struct Party *pParty_global;
-extern char __fastcall sub_4031C1(int a1, signed int a2, int a3);
-extern int __fastcall sub_403EB6(int a1, signed int a2, int a3, char *a4);
-extern unsigned int __fastcall sub_449B57(int a1, __int16 a2);;
 char __cdecl sub_408768()
 {
   __int16 v1; // ax@7
@@ -97,7 +89,6 @@ char __cdecl sub_408768()
 
 
 //----- (00403EB6) --------------------------------------------------------
-void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a4);
 int __fastcall sub_403EB6(unsigned int uActorID, signed int a2, int a3, char *a4)
 {
   char *v4; // eax@1
@@ -140,12 +131,6 @@ int __fastcall sub_403EB6(unsigned int uActorID, signed int a2, int a3, char *a4
 
 
 //----- (004040E9) --------------------------------------------------------
-extern struct struct0 array_6836D0[];
-extern struct struct2 array_665230[];
-extern struct class59 *pClass59_global;
-extern int dword_6BE360;
-extern int dword_6BE644;
-int __fastcall sub_43AA99(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9);
 void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a4)
 {
   signed int v4; // eax@1
@@ -472,7 +457,6 @@ LABEL_10:
 
 
 //----- (0045959A) --------------------------------------------------------
-extern int monster_list[];
 __int16 __thiscall sub_45959A(struct Actor *_this, char a2)
 {
   int v2; // edi@1
@@ -527,7 +511,6 @@ __int16 __thiscall sub_45959A(struct Actor *_this, char a2)
 
 
 //----- (0040104C) --------------------------------------------------------
-extern struct class48 *pClass48;
 signed int Actor_sub_40104C(struct Actor *pActor1, struct Actor *pActor2)
 {
   int v2; // esi@1

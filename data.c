@@ -1,5 +1,5 @@
 #include <windows.h>
-#include "classes.h"
+#include "mm7_unparsed_data.h"
 
 //struct IID_IDirectDraw2            @ byte_4D8410 + 4984
 //struct IID_IDirectDraw4            @ byte_4D8410 + 5000
@@ -1262,11 +1262,22 @@ struct class18 *pPlayerCreationUI_Top = 0;               // ptr     @ MM7.exe::0
 struct class18 *pPlayerCreationUI_ArrowR[20] = {0}; // ptr[19] @ MM7.exe::0050787C
 struct class18 *pPlayerCreationUI_ArrowL[20] = {0}; // ptr[19] @ MM7.exe::005078CC
 
+struct class24 *pClass24_global2 = 0; // struct @ MM7.exe::0050BBB8
+
+struct CMapStats     *pMapStats = 0;     // struct @ MM7.exe::005CABB8
+struct CSpellStats   *pSpellStats = 0;   // struct @ MM7.exe::005CC030
 struct CMonsterStats *pMonsterStats = 0; //struct @ MM7.exe::005CCE40
+
+struct COverlayDescriptionList    *pOverlayDescriptionList = 0;    // struct @ MM7.exe::005E5148
+struct CObjectDescriptionList     *pObjectDescriptionList = 0;     // struct @ MM7.exe::006807B0
+struct CDecorationDescriptionList *pDecorationDescriptionList = 0; // struct @ MM7.exe::0069ADD4
 
 unsigned int uPlayerCreationUI_SelectedCharacter = 0; // dword @ MM7.exe::00A74CD8
 
 unsigned int uTextureID_PlayerCreationUI_FaceMask = 0; // dword @ MM7.exe::00A74CE0
+
+struct CIconFrameTable *pIconFrameTable = 0;   //struct @ MM7.exe::00A750E4
+
 
 struct Font *pFontArrus = 0;    // ptr @ MM7.exe::005C35E8
 struct Font *pFontLucida = 0;   // ptr @ MM7.exe::005C35EC

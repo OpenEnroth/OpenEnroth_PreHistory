@@ -878,3 +878,510 @@ char __stdcall sub_46778D(int a1, const char *Str, int a3)
   }
   return result;
 }
+
+//----- (004CEE48) --------------------------------------------------------
+void *sub_4CEE48(int a1, const void *Src, int Size)
+{
+  const void *v3; // ebx@1
+  int v4; // edi@1
+  void *result; // eax@2
+  int v6; // esi@3
+  int v7; // eax@7
+  size_t v8; // eax@12
+  size_t v9; // eax@19
+  int v10; // eax@36
+  size_t v11; // eax@41
+  size_t v12; // eax@47
+  int v13; // [sp+0h] [bp-38h]@36
+  size_t v14; // [sp+4h] [bp-34h]@41
+  int v15; // [sp+8h] [bp-30h]@36
+  int v16; // [sp+Ch] [bp-2Ch]@36
+  unsigned int v17; // [sp+10h] [bp-28h]@7
+  void *Dst; // [sp+14h] [bp-24h]@6
+  size_t v19; // [sp+18h] [bp-20h]@12
+  int v20; // [sp+28h] [bp-10h]@1
+  int (__cdecl *v21)(int, int, int); // [sp+2Ch] [bp-Ch]@1
+  signed int v22; // [sp+30h] [bp-8h]@1
+  int v23; // [sp+34h] [bp-4h]@1
+
+  compile_error;
+  return 0;
+  /*
+  v23 = -1;
+  v22 = 5091904;
+  compile_error;//v21 = unknown_libname_59;
+  v20 = a1;
+  v3 = Src;
+  v4 = 0;
+  if ( Src )
+  {
+    v6 = Size;
+    if ( Size )
+    {
+      if ( dword_F94508 == 3 )
+      {
+        while ( 1 )
+        {
+          Dst = 0;
+          if ( (unsigned int)v6 <= 0xFFFFFFE0 )
+          {
+            _lock(9);
+            v23 = 0;
+            v7 = __sbh_find_block(Src);
+            v17 = v7;
+            if ( v7 )
+            {
+              if ( v6 <= (unsigned int)dword_F94500 )
+              {
+                if ( __sbh_resize_block(v7, Src, v6) )
+                {
+                  Dst = (void *)Src;
+                }
+                else
+                {
+                  Dst = (void *)__sbh_alloc_block(v6);
+                  if ( Dst )
+                  {
+                    v8 = *((_DWORD *)Src - 1) - 1;
+                    v19 = v8;
+                    if ( v8 >= v6 )
+                      v8 = v6;
+                    memcpy(Dst, Src, v8);
+                    v17 = __sbh_find_block(Src);
+                    sub_4CFDE7(v17, (int)Src);
+                  }
+                }
+              }
+              if ( !Dst )
+              {
+                if ( !v6 )
+                  v6 = 1;
+                v6 = (v6 + 15) & 0xFFFFFFF0;
+                Dst = HeapAlloc(hHeap, 0, v6);
+                if ( Dst )
+                {
+                  v9 = *((_DWORD *)Src - 1) - 1;
+                  v19 = v9;
+                  if ( v9 >= v6 )
+                    v9 = v6;
+                  memcpy(Dst, Src, v9);
+                  sub_4CFDE7(v17, (int)Src);
+                }
+              }
+            }
+            v23 = -1;
+            sub_4CEFD3();
+            if ( !v17 )
+            {
+              if ( !v6 )
+                v6 = 1;
+              v6 = (v6 + 15) & 0xFFFFFFF0;
+              Dst = HeapReAlloc(hHeap, 0, (LPVOID)Src, v6);
+            }
+          }
+          result = Dst;
+          if ( Dst )
+            break;
+          if ( !dword_F94004 )
+            break;
+          if ( !_callnewh(v6) )
+            goto LABEL_63;
+        }
+      }
+      else
+      {
+        if ( dword_F94508 == 2 )
+        {
+          if ( (unsigned int)Size <= 0xFFFFFFE0 )
+          {
+            if ( (unsigned int)Size <= 0 )
+              v6 = 16;
+            else
+              v6 = (Size + 15) & 0xFFFFFFF0;
+          }
+          while ( 1 )
+          {
+            Dst = (void *)v4;
+            if ( (unsigned int)v6 <= 0xFFFFFFE0 )
+            {
+              _lock(9);
+              v23 = 1;
+              v10 = sub_4D0B17((unsigned int)v3, (int)&v13, (int)&v16);
+              v4 = v10;
+              v15 = v10;
+              if ( v10 )
+              {
+                if ( v6 < (unsigned int)dword_4F4D8C )
+                {
+                  if ( sub_4D0EDF(v13, v16, v10, (unsigned int)v6 >> 4) )
+                  {
+                    Dst = (void *)Src;
+                  }
+                  else
+                  {
+                    Dst = (void *)sub_4D0BB3((unsigned int)v6 >> 4);
+                    if ( Dst )
+                    {
+                      v11 = 16 * *(_BYTE *)v4;
+                      v14 = v11;
+                      if ( v11 >= v6 )
+                        v11 = v6;
+                      memcpy(Dst, Src, v11);
+                      sub_4D0B6E(v13, v16, v4);
+                    }
+                  }
+                  v3 = Src;
+                }
+                if ( !Dst )
+                {
+                  Dst = HeapAlloc(hHeap, 0, v6);
+                  if ( Dst )
+                  {
+                    v12 = 16 * *(_BYTE *)v4;
+                    v14 = v12;
+                    if ( v12 >= v6 )
+                      v12 = v6;
+                    memcpy(Dst, v3, v12);
+                    sub_4D0B6E(v13, v16, v4);
+                  }
+                }
+              }
+              else
+              {
+                Dst = HeapReAlloc(hHeap, 0, (LPVOID)v3, v6);
+              }
+              v23 = -1;
+              sub_4CF121();
+            }
+            result = Dst;
+            if ( Dst != (void *)v4 )
+              break;
+            if ( dword_F94004 == v4 )
+              break;
+            if ( !_callnewh(v6) )
+              goto LABEL_63;
+          }
+        }
+        else
+        {
+          while ( 1 )
+          {
+            result = 0;
+            if ( (unsigned int)v6 <= 0xFFFFFFE0 )
+            {
+              if ( !v6 )
+                v6 = 1;
+              v6 = (v6 + 15) & 0xFFFFFFF0;
+              result = HeapReAlloc(hHeap, 0, (LPVOID)Src, v6);
+            }
+            if ( result || !dword_F94004 )
+              break;
+            if ( !_callnewh(v6) )
+              goto LABEL_63;
+          }
+        }
+      }
+    }
+    else
+    {
+      call_delete(a1, (unsigned int)Src);
+LABEL_63:
+      result = 0;
+    }
+  }
+  else
+  {
+    result = malloc(Size);
+  }
+  return result;*/
+}
+
+
+//----- (MM7.exe::004CAF5C) --------------------------------------------------------
+int call_delete(int result, unsigned int a2)
+{
+  unsigned int v2; // eax@3
+  char v3; // zf@5
+  int v4; // eax@7
+  void *v5; // [sp-10h] [bp-38h]@11
+  int v6; // [sp+0h] [bp-28h]@7
+  int v7; // [sp+4h] [bp-24h]@7
+  int v8; // [sp+8h] [bp-20h]@7
+  unsigned int v9; // [sp+Ch] [bp-1Ch]@3
+  int v10; // [sp+18h] [bp-10h]@1
+  int (__cdecl *v11)(int, int, int); // [sp+1Ch] [bp-Ch]@1
+  signed int v12; // [sp+20h] [bp-8h]@1
+  int v13; // [sp+24h] [bp-4h]@1
+
+  runtime_warning;
+  return 1;
+  /*
+  v13 = -1;
+  v12 = 5091560;
+  compile_error;//v11 = unknown_libname_59;
+  v10 = result;
+  if ( a2 )
+  {
+    if ( dword_F94508 == 3 )
+    {
+      _lock(9);
+      v13 = 0;
+      v2 = __sbh_find_block(a2);
+      v9 = v2;
+      if ( v2 )
+        sub_4CFDE7(v2, a2);
+      v13 = -1;
+      result = sub_4CAFC6();
+      v3 = v9 == 0;
+    }
+    else
+    {
+      if ( dword_F94508 != 2 )
+      {
+        v5 = (void *)a2;
+        return HeapFree(hHeap, 0, v5);
+      }
+      _lock(9);
+      v13 = 1;
+      v4 = sub_4D0B17(a2, (int)&v6, (int)&v8);
+      v7 = v4;
+      if ( v4 )
+        sub_4D0B6E(v6, v8, v4);
+      v13 = -1;
+      result = sub_4CB01E();
+      v3 = v7 == 0;
+    }
+    if ( !v3 )
+      return result;
+    v5 = (void *)a2;
+    return HeapFree(hHeap, 0, v5);
+  }
+  return result;*/
+}
+
+
+//----- (004CD96F) --------------------------------------------------------
+void *__cdecl sub_4CD96F(int a1, int a2)
+{
+  int v2; // esi@1
+  int v3; // ebx@2
+  void *result; // eax@20
+  size_t v5; // [sp-18h] [bp-38h]@10
+  void *v6; // [sp+0h] [bp-20h]@6
+  int v7; // [sp+4h] [bp-1Ch]@1
+
+  compile_warning;
+  return 1;
+  /*
+  v2 = a2 * a1;
+  v7 = a2 * a1;
+  if ( (unsigned int)(a2 * a1) > 0xFFFFFFE0 )
+  {
+    v3 = 0;
+  }
+  else
+  {
+    v3 = 0;
+    if ( !v2 )
+      v2 = 1;
+    v2 = (v2 + 15) & 0xFFFFFFF0;
+  }
+  while ( 1 )
+  {
+    v6 = (void *)v3;
+    if ( (unsigned int)v2 <= 0xFFFFFFE0 )
+    {
+      if ( dword_F94508 == 3 )
+      {
+        if ( v7 > (unsigned int)dword_F94500 )
+          goto LABEL_16;
+        _lock(9);
+        v6 = (void *)__sbh_alloc_block(v7);
+        _unlock(9);
+        if ( v6 != (void *)v3 )
+        {
+          v5 = a2 * a1;
+LABEL_15:
+          memset(v6, v3, v5);
+          goto LABEL_16;
+        }
+      }
+      else
+      {
+        if ( dword_F94508 != 2 || v2 > (unsigned int)dword_4F4D8C )
+        {
+LABEL_16:
+          if ( v6 != (void *)v3 )
+            return v6;
+          goto LABEL_17;
+        }
+        _lock(9);
+        v6 = (void *)sub_4D0BB3((unsigned int)v2 >> 4);
+        _unlock(9);
+        if ( v6 != (void *)v3 )
+        {
+          v5 = v2;
+          goto LABEL_15;
+        }
+      }
+LABEL_17:
+      v6 = HeapAlloc(hHeap, 8u, v2);
+    }
+    if ( v6 != (void *)v3 || dword_F94004 == v3 )
+      return v6;
+    result = (void *)_callnewh(v2);
+    if ( !result )
+      return result;
+  }*/
+}
+
+//----- (004CAE60) --------------------------------------------------------
+LPVOID __cdecl sub_4CAE60(unsigned int a1)
+{
+  LPVOID result; // eax@3
+  void *v2; // ST18_4@3
+  int v3; // esi@7
+  int v4; // ST18_4@10
+  signed int v5; // eax@12
+  int v6; // eax@14
+  SIZE_T v7; // [sp-10h] [bp-2Ch]@11
+
+  compile_error;
+  return 0;
+  /*
+  if ( dword_F94508 == 3 )
+  {
+    if ( a1 <= dword_F94500 )
+    {
+      _lock(9);
+      v2 = (void *)__sbh_alloc_block(a1);
+      sub_4CAEC7();
+      result = v2;
+      if ( v2 )
+        return result;
+    }
+    goto LABEL_12;
+  }
+  if ( dword_F94508 != 2 )
+  {
+LABEL_12:
+    v5 = a1;
+    if ( !a1 )
+      v5 = 1;
+    v6 = v5 + 15;
+    LOBYTE(v6) = v6 & 0xF0;
+    v7 = v6;
+    goto LABEL_15;
+  }
+  if ( a1 )
+    v3 = (a1 + 15) & 0xFFFFFFF0;
+  else
+    v3 = 16;
+  if ( v3 > (unsigned int)dword_4F4D8C
+    || (_lock(9), v4 = sub_4D0BB3((unsigned int)v3 >> 4), sub_4CAF26(), result = (LPVOID)v4, !v4) )
+  {
+    v7 = v3;
+LABEL_15:
+    result = HeapAlloc(hHeap, 0, v7);
+  }
+  return result;*/
+}
+
+//----- (004CF177) --------------------------------------------------------
+SIZE_T sub_4CF177(int a1, unsigned int lpMem)
+{
+  int v2; // esi@3
+  char v3; // zf@5
+  int v4; // eax@7
+  char v6; // [sp+0h] [bp-2Ch]@7
+  int v7; // [sp+4h] [bp-28h]@7
+  char v8; // [sp+8h] [bp-24h]@7
+  int v9; // [sp+Ch] [bp-20h]@3
+  int v10; // [sp+10h] [bp-1Ch]@2
+  int v11; // [sp+1Ch] [bp-10h]@1
+  int (__cdecl *v12)(int, int, int); // [sp+20h] [bp-Ch]@1
+  signed int v13; // [sp+24h] [bp-8h]@1
+  int v14; // [sp+28h] [bp-4h]@1
+
+  compile_error;
+  return 0;
+  /*
+  v14 = -1;
+  v13 = 5091928;
+  compile_error;//v12 = unknown_libname_59;
+  v11 = a1;
+  if ( dword_F94508 == 3 )
+  {
+    _lock(9);
+    v14 = 0;
+    v10 = __sbh_find_block(lpMem);
+    if ( v10 )
+    {
+      v2 = *(_DWORD *)(lpMem - 4) - 9;
+      v9 = *(_DWORD *)(lpMem - 4) - 9;
+    }
+    else
+    {
+      v2 = v9;
+    }
+    v14 = -1;
+    sub_4CF1E1();
+    v3 = v10 == 0;
+  }
+  else
+  {
+    if ( dword_F94508 != 2 )
+      return HeapSize(hHeap, 0, (LPCVOID)lpMem);
+    _lock(9);
+    v14 = 1;
+    v4 = sub_4D0B17(lpMem, (int)&v6, (int)&v8);
+    v7 = v4;
+    if ( v4 )
+    {
+      v2 = 16 * *(_BYTE *)v4;
+      v9 = 16 * *(_BYTE *)v4;
+    }
+    else
+    {
+      v2 = v9;
+    }
+    v14 = -1;
+    sub_4CF25C();
+    v3 = v7 == 0;
+  }
+  if ( v3 )
+    return HeapSize(hHeap, 0, (LPCVOID)lpMem);
+  return v2;*/
+}
+
+//----- (004CFD17) --------------------------------------------------------
+signed int __cdecl sub_4CFD17(int a1)
+{
+  __int32 v1; // eax@2
+  LPVOID v2; // eax@3
+
+  compile_error;
+  return 0;
+  /*
+  hHeap = HeapCreate(a1 == 0, 0x1000u, 0);
+  if ( !hHeap )
+    return 0;
+  v1 = sub_4CFBCF();
+  dword_F94508 = v1;
+  if ( v1 == 3 )
+  {
+    v2 = (LPVOID)__sbh_heap_init(1016);
+  }
+  else
+  {
+    if ( v1 != 2 )
+      return 1;
+    v2 = sub_4D08BB();
+  }
+  if ( !v2 )
+  {
+    HeapDestroy(hHeap);
+    return 0;
+  }
+  return 1;*/
+}

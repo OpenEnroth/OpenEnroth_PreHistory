@@ -1,4 +1,6 @@
-#include "classes.h"
+#include "mm7_unparsed_data.h"
+#include "mm7_unparsed_functions.h"
+
 #include "defs.h"
 #include "mm7DDrawRenderer.h"
 #include "AIL.h"
@@ -9,72 +11,8 @@
 
 #include "data.h"
 
-extern int monster_list[];
-extern int dword_4E800C;
-extern float flt_6BE3A0;
-extern int dword_E31C7C;
-extern char byte_6BE371;
-extern struct class59 *pClass59_global;
-
-extern int dword_4F00DC;
-extern char unk_F79CC8[];
-extern char byte_F79448[];
-extern int dword_506128;
-extern int dword_EF5294;
 
 
-extern char unk_4EB8BC;
-extern char unk_4EBBD0;
-extern char byte_6BE36F;
-
-extern int dword_4F00E4;
-extern short word_F1B4C4;
-extern int dword_4F00E4;
-extern int dword_4F00E0;
-extern short word_F1B4C6;
-extern int dword_4F00E0;
-extern int dword_4F00E4;
-extern int dword_4F00E0;
-
-extern int *dword_4F2688;
-
-extern int dword_51B6E8;
-extern int dword_51B6EC;
-extern int dword_51B6F0;
-
-extern int dword_6A0CA4;
-
-extern int dword_720010;
-
-extern int dword_F792F0;
-
-extern int dword_F79D70;
-extern int dword_F79D7C;
-
-
-int sub_45DF13(); // weak
-int sub_498038(); // weak
-void __thiscall sub_45DF48(void *this);
-int __thiscall sub_4898E6(int this);
-void __thiscall sub_498069(void *this);
-
-int __fastcall sub_4C57C0(unsigned int a1, unsigned char *pData, unsigned int uSize);
-int __fastcall sub_4C4A30(int a1, int a2, int a3);
-int __fastcall sub_4C7C50(int a1, int a2);
-int __fastcall sub_4C74A0(int a1, int a2, int a3);
-signed int __fastcall sub_4C81E0(unsigned int a1, int a2, int a3, unsigned int *a4, unsigned int *a5, int *a6, int *a7, int a8, struct class19 *);
-signed int __fastcall sub_4C7C60(int a1, unsigned int *a2, int a3, unsigned int *class21_pArray_8x1440, struct class19 *pParent);
-struct class27 *__fastcall AllocateClass27(int a1, int a2, unsigned int *a3, unsigned int *a4, struct class19 *pParent);
-int __fastcall sub_4C8340(int a1, int a2, int a3, int a4, int a5);
-DWORD __fastcall sub_426892(int a1, DWORD a2);
-int __stdcall sub_401000(int a1, int a2, int a3, int (__thiscall *a4)(_DWORD));
-signed int __fastcall LOD_DoDecompression(int a1, int a2, int a3, int a4, struct class21 *pClass21, struct class19 *pClass19);
-char __cdecl sub_4A597D();
-void __cdecl sub_4A57E9();
-char __stdcall sub_4A0F40(int a1, void *Dst, int a3);
-int unknown_libname_107();
-double __stdcall sub_44F377(int a1);
-void sub_402F07(int *_this);
 
 
 //----- (MM7.exe::0044E4B7) --------------------------------------------------------
@@ -181,8 +119,6 @@ int CGame_fn1(struct CGame *_this, int flags)
 }
 
 //----- (0044F120) --------------------------------------------------------
-extern char byte_4E94D0;
-extern char unk_5187F0;
 void CGame_sub_44F120_MaybeStackStationaryLights(struct CGame *_this, int a2)
 {
   int v4; // esi@2
@@ -205,7 +141,6 @@ void CGame_sub_44F120_MaybeStackStationaryLights(struct CGame *_this, int a2)
 }
 
 //----- (0044F192) --------------------------------------------------------
-extern struct class36 class36_global0;
 void CGame_sub_44F192(struct CGame *_this)
 {
   int v3; // esi@2
@@ -227,7 +162,6 @@ void CGame_sub_44F192(struct CGame *_this)
 }
 
 //----- (0044EA17) --------------------------------------------------------
-extern struct class24 *pClass24_global;
 char sub_44EA17(struct CGame *_this)
 {
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
@@ -239,10 +173,6 @@ char sub_44EA17(struct CGame *_this)
 }
 
 //----- (0044EA5E) --------------------------------------------------------
-extern int dword_F8BC18;
-extern int dword_F8BC1C;
-extern int dword_F8BC20;
-extern int dword_4E28F8;
 bool CGame_Pick(struct CGame *_this, float a2, signed int a3, signed int a4, char a5, int a6, int a7)
 {
   int v7; // esi@1
@@ -415,7 +345,6 @@ void sub_469C65(struct class03 *_this, HWND hwnd)
 }
 
 //----- (00469903) --------------------------------------------------------
-extern struct CGame *pGame;
 void sub_469903(struct class03 *_this, const char *pSource)
 {
  HCURSOR hCursor;
@@ -499,7 +428,6 @@ void sub_469903(struct class03 *_this, const char *pSource)
 }
 
 //----- (004698A6) --------------------------------------------------------
-extern int dword_AD470C;
 void class03_sub_4698A6(struct class03 *_this)
 {
  sub_402F07(&dword_AD470C);
@@ -2869,24 +2797,6 @@ void *class37_ctor(struct class37 *_this)
 
 
 //----- (00456D84) --------------------------------------------------------
-char *__fastcall sub_452C30(char *Str);
-extern int dword_5CCE30;
-extern unsigned char *array_5C8810[];
-extern unsigned char *array_5C88A8[];
-extern unsigned char *array_5C8940[];
-extern unsigned char *array_5C89D8[];
-extern unsigned char *array_5C8A70[];
-extern int dword_5C8778[];
-extern int dword_5C88A8;
-extern char unk_5C876C;
-extern struct CMapStats *pMapStats;
-extern struct CSpellStats *pSpellStats;
-extern struct class48 *pClass48;
-extern struct StorylineText *pStorylineText;
-extern unsigned char *pClassTXT_Raw;
-extern unsigned char *pStatsTXT_Raw;
-extern unsigned char *pSkillDescTXT_Raw;
-extern unsigned char *pAttributeDescriptions[];
 char *sub_456D84(struct class40 *_this)
 {
   void *v1; // edi@1
@@ -3833,7 +3743,6 @@ void CMapStats_ctor(struct CMapStats *_this)
 }
 
 //----- (00453F62) --------------------------------------------------------
-extern unsigned char *pMapStatsTXT_Raw;
 int CMapStats_Initialize(struct CMapStats *_this)
 {
   //void *v1; // esi@1
@@ -4040,11 +3949,6 @@ void CMonsterStats_ctor(struct CMonsterStats *_this)
 }
 
 //----- (0045501E) --------------------------------------------------------
-extern unsigned char *pMonstersTXT_Raw;
-extern int dword_5FF14C;
-unsigned int __fastcall sub_4548E2(struct StringSplitter *pStrings, int *a2);
-char __fastcall sub_454D7D(const char *Str, int a2, int a3, int a4);
-int sub_454CB4(const char *pString);
 int CMonsterStats_Initialize(struct CMonsterStats *_this)
 {
   void *v1; // ebx@1
@@ -5277,7 +5181,6 @@ unsigned int __fastcall sub_4548E2(struct StringSplitter *pStrings, int *a2)
 
 
 //----- (00454F4E) --------------------------------------------------------
-extern unsigned char *pMonsterPlacementTXT_Raw;
 char *CMonsterStats_LoadMonsterPlacements(struct CMonsterStats *_this)
 {
   char *v1; // ebx@1
@@ -5356,8 +5259,6 @@ void CSpellStats_ctor(struct CSpellStats *_this)
 }
 
 //----- (0045384A) --------------------------------------------------------
-extern unsigned char *pSpellsTXT_Raw;
-extern unsigned char some_spell_stuff[];
 char *CSpellStats_Initialize(struct CSpellStats *_this)
 {
   void *v1; // esi@1
@@ -5522,7 +5423,6 @@ char *CSpellStats_Initialize(struct CSpellStats *_this)
 
 
 //----- (00453B3C) --------------------------------------------------------
-extern unsigned char *pPotionsTXT_Raw;
 int sub_453B3C(struct class40 *_this)
 {
   char *i; // eax@3
@@ -5619,7 +5519,6 @@ int sub_453B3C(struct class40 *_this)
 
 
 //----- (00453CE5) --------------------------------------------------------
-extern unsigned char *pPotionNotesTXT_Raw;
 const char *sub_453CE5(struct class40 *_this)
 {
   char *i; // eax@3
@@ -5741,7 +5640,6 @@ void class48_ctor(struct class48 *_this)
 }
 
 //----- (004547E4) --------------------------------------------------------
-extern unsigned char *pHostileTXT_Raw;
 int class48_Initialize(struct class48 *_this)
 {
   char *v2; // eax@4
@@ -5824,7 +5722,6 @@ int class48_Initialize(struct class48 *_this)
 
 
 //----- (00453E6D) --------------------------------------------------------
-extern unsigned char *pHistoryTXT_Raw;
 int StorylineText_Initialize(struct StorylineText *_this)
 {
   void *v2; // esi@1
@@ -5908,7 +5805,6 @@ int StorylineText_Initialize(struct StorylineText *_this)
 
 
 //----- (0048A3BC) --------------------------------------------------------
-extern char Dest[];
 int class35_sub_48A3BC(struct class35 *_this, int a2)
 {
   signed int result; // eax@1
@@ -6018,7 +5914,6 @@ int class35_sub_48A3BC(struct class35 *_this, int a2)
 
 
 //----- (004AC7C0) --------------------------------------------------------
-extern struct class35 class35_obj;
 int sub_4AC7C0(struct class17 *_this, const char *pSourceFile, int a3)
 {
   int v3; // edi@1
@@ -6587,8 +6482,6 @@ char *CNPCStats_sub_476CB5(struct CNPCStats *_this)
 
 
 //----- (00476977) --------------------------------------------------------
-extern char unk_72166C[];
-extern char unk_721668;
 int CNPCStats_sub_476977(struct CNPCStats *_this)
 {
  int v1;
@@ -6857,12 +6750,6 @@ void sub_402F07(int *_this)
 
 
 //----- (00456620) --------------------------------------------------------
-extern char byte_ACD772[];
-extern char byte_ACD71D[];
-extern char byte_5D2A12[];
-extern char byte_0D2A84[];
-extern char byte_5D2A04[];
-unsigned int __fastcall sub_449B57(int a1, __int16 a2);
 char sub_456620(struct class40 *_this, int a2, signed int a3, unsigned char *Dst)
 {
   void *v4; // edi@1
@@ -7254,7 +7141,6 @@ LABEL_119:
 
 
 //----- (00459E3F) --------------------------------------------------------
-extern int vKey[];
 SHORT __cdecl sub_459E3F()
 {
   int *v0; // esi@1
@@ -7442,7 +7328,6 @@ int CMapStats_FindLocation(struct CMapStats *_this, const char *pLocationFilenam
 
 
 //----- (0047CF9C) --------------------------------------------------------
-extern int dword_76D514;
 int sub_47CF9C(struct class51 *_this)
 {
   int v1; // edi@1
@@ -7562,22 +7447,6 @@ int sub_4AC67E(struct class17 *_this, struct class18 *pDstBuf, const char *pFile
 
 
 //----- (0044EEA7) --------------------------------------------------------
-extern __int64 qword_5C6DF0;
-extern int dword_F93E44;
-extern int dword_F93E30;
-extern int dword_F93E1C;
-extern int dword_EF524C;
-extern int dword_6BE360;
-extern int dword_5C6DD8;
-extern int dword_5C6DDC;
-extern int dword_5C6DE0;
-extern int dword_5C6DE4;
-extern int dword_5C6DE8;
-extern int dword_51B6DC;
-extern int dword_519AB4;
-extern char byte_5C6DEC;
-extern char byte_5C6DEC;
-extern struct class58 *pClass58_global;
 char CGame_sub_44EEA7(struct CGame *_this)
 {
   int v1; // esi@1
@@ -7686,7 +7555,6 @@ char CGame_sub_44EEA7(struct CGame *_this)
 
 
 //----- (0048AC65) --------------------------------------------------------
-extern struct class24 *pClass24_global2;
 int class02_sub_48AC65(struct class02 *_this)
 {
   int v1; // eax@1
@@ -7804,7 +7672,6 @@ bool CGame_sub_44F07B(struct CGame *_this)
 
 
 //----- (0045B0A9) --------------------------------------------------------
-extern int dword_69B00C;
 char class14_sub_45B0A9(struct class14 *_this, int vKey)
 {
   char result; // al@2
@@ -7852,14 +7719,6 @@ char class14_sub_45B0CE(struct class14 *_this, int vKey)
 
 
 //----- (0049370F) --------------------------------------------------------
-extern struct Player *pPlayers[];
-extern char byte_AE3368[];
-extern int dword_4F8878[];
-extern int dword_ACD834;
-extern int dword_4F885C;
-extern char algn_AE3369;
-extern char byte_AE336A;
-extern char byte_AE336B;
 int Party_sub_49370F(struct Party *_this)
 {
   void *v1; // esi@1
@@ -7958,7 +7817,6 @@ LABEL_35:
 
 
 //----- (00497FC5) --------------------------------------------------------
-extern unsigned int uLevelMapStatsID;
 bool Party_sub_497FC5(struct Party *_this)
 {
   int v2; // edi@1
@@ -7986,12 +7844,6 @@ bool Party_sub_497FC5(struct Party *_this)
 
 
 //----- (004376E7) --------------------------------------------------------
-extern int dword_F8BC40;
-extern int dword_F8BC34;
-extern int dword_F8BC38;
-extern int dword_F8BC3C;
-extern struct class55 *pClass55_global;
-int __stdcall sub_4378BA(int a1, int a2, int a3);
 void class08_sub_4376E7(struct class08 *_this)
 {
   void *v3; // esi@1
@@ -8310,17 +8162,6 @@ int class59_sub_402CAE(struct class59 *_this, int a2)
 
 
 //----- (00436BB7) --------------------------------------------------------
-extern int dword_F8BC24;
-extern union
-{
- struct
- {
-  int dword_F8BC28;
-  int dword_F8BC2C;
- };
-/*extern*/ __int64 qword_F8BC28; // weak
-} data_F8BC28;
-extern int dword_F8BC30;
 void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char a4)
 {
   int v4; // ebx@1
@@ -8462,7 +8303,6 @@ void sub_48600E(struct struct9 *_this)
 }
 
 //----- (0048616B) --------------------------------------------------------
-extern struct struct9 *pStruct9_global;
 int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, int a6, int a7)
 {
  int v1;
@@ -8591,13 +8431,6 @@ int class57_sub_48694B(struct class57 *_this)
 }
 
 //----- (00485F64) --------------------------------------------------------
-extern int dword_576FE8;
-extern int dword_576FF0;
-extern union
-{
-/*extern*/ int dword_6BE060; // weak
-/*extern*/ int dword_6BE064; // weak
-} data_6BE060;
 int sub_485F64(struct struct9 *_this)
 {
   int v1; // eax@1
@@ -8628,7 +8461,6 @@ int sub_485F64(struct struct9 *_this)
 
 
 //----- (0049B525) --------------------------------------------------------
-extern struct class36 class36_global0;
 void class58_sub_49B525(struct class58 *_this, int a2)
 {
  if (!a2)
@@ -8880,15 +8712,6 @@ bool class36_sub_43B6EF(struct class36 *_this, int a2, int a3, int a4, int a5, c
 }
 
 //----- (004A81CA) --------------------------------------------------------
-extern char unk_5C310E;
-extern char unk_64640F;
-extern char unk_9EB9F1;
-extern char unk_F8BAD8;
-void __stdcall sub_4A78AE(int a1);
-void __stdcall sub_4A7A66(int a1, int a2, int a3, float a4);
-void __stdcall sub_4A75CC(int a1, int a2, int a3);
-char __stdcall sub_4A7A27(int a1, unsigned int a2, int a3);
-void __stdcall sub_4A7948(int a1);
 bool class06_sub_4A81CA(struct class06 *_this, int a2)
 {
   signed int v2; // eax@1
@@ -9460,11 +9283,6 @@ LABEL_144:
 }
 
 //----- (0048BBA6) --------------------------------------------------------
-extern int dword_51B734;
-extern int dword_51B738;
-extern int dword_51B73C;
-extern int dword_51B740;
-signed int __stdcall sub_4A48E4(int a1, int a2, int a3, int a4, signed int a5);
 void class02_sub_48BBA6(struct class02 *_this)
 {
   float v1; // eax@1
@@ -10124,9 +9942,6 @@ int class06_sub_4A7298(struct class06 *_this)
 }
 
 //----- (004A902A) --------------------------------------------------------
-extern int dword_5E5144;
-extern short off_4ED748[];
-extern struct CIconFrameTable *pIconFrameTable;
 void class06_sub_4A902A(struct class06 *_this)
 {
   int *v1; // edi@1
@@ -10164,9 +9979,6 @@ void class06_sub_4A902A(struct class06 *_this)
 
 
 //----- (0048E8F5) --------------------------------------------------------
-extern int dword_57702C;
-extern struct Party *pParty_global;
-extern unsigned int uMaybeSelectedCharacter;
 signed int Player_sub_48E8F5(struct Player *_this, signed int a2)
 {
   signed __int64 v2; // qax@1
@@ -10223,9 +10035,6 @@ LABEL_11:
 }
 
 //----- (00492D65) --------------------------------------------------------
-extern __int64 qword_ACD914;
-extern __int16 word_ACD91C;
-extern __int16 word_ACD91E;
 signed int Player_sub_492D65(struct Player *_this, int a2, int a3)
 {
   int v3; // esi@1

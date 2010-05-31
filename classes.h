@@ -1,3 +1,5 @@
+#pragma once
+
 long __cdecl std__basic_string_char_std__char_traits_char__std__allocator_char_____Copy(long);
 long __stdcall std__basic_string_char_std__char_traits_char__std__allocator_char____erase(long, long);
 long __stdcall _eh_vector_constructor_iterator_(long, long, long, long, long);
@@ -8,6 +10,7 @@ long __stdcall _eh_vector_destructor_iterator_(long, long, long, long);
 
 #include "AIL.h"
 #include "defs.h"
+#include "mm7_unparsed_data.h"
 
 #pragma pack(push, 1)
 //class00
@@ -1338,6 +1341,9 @@ struct Party
  int dword_000008; // partyHeight registry key
  int dword_00000C; // eyelevel registry key
  int dword_000010; // eyelevel registry key
+ int dword_000014;
+ int dword_000018;
+ int uWalkSpeed;   // dword @ 00001C
 
  __int64 qword_00002C;
  unsigned char array_000034[90628];
