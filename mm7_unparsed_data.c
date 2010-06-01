@@ -1933,6 +1933,7 @@ unsigned int uLevelMapStatsID; // dword @ MM7.exe::006BE358
  int dword_6BE35C; // weak
  int dword_6BE360; // weak
  int dword_6BE364; // startup flags
+                   // 0x0002: ?
                    // 0x0004: no intro
                    // 0x0008: no logo
                    // 0x0010: no sound
@@ -2010,17 +2011,14 @@ struct CGame *pGame = 0; //struct @ MM7.exe::00720014
  int dword_7207F0[array_size_unknown]; // weak
  int dword_720980; // weak
  int dword_720984; // weak
-
-struct class03 *pClass03_global;  //dowrd @ MM7.exe::00720988
-//char byte_72098C; // +000004
-//char byte_720990; // +000008
-//void *dword_720994; // +00000C
+//struct class03 *pClass03_global;  //CGame::000974, dword @ MM7.exe::00720988
+//char  byte_72098C;                //CGame::000978, dword @ MM7.exe::00720988
+//char  byte_720990;                //CGame::00097C, dword @ MM7.exe::00720990
+//void *dword_720994;               //CGame::000980, ptr   @ MM7.exe::00720994
  __int16 word_7209A0[array_size_unknown]; // weak
  __int16 word_7209A2[array_size_unknown]; // weak
  __int16 word_720A70[array_size_unknown]; // weak
  __int16 word_720A72[array_size_unknown]; // weak
-
-
  __int16 word_720B40[array_size_unknown]; // weak
  __int16 word_720B42[array_size_unknown]; // weak
  __int16 word_720C10[array_size_unknown]; // weak
@@ -2031,6 +2029,8 @@ struct class03 *pClass03_global;  //dowrd @ MM7.exe::00720988
  __int16 word_720DB0[array_size_unknown]; // weak
  __int16 word_720DB2[array_size_unknown]; // weak
  int dword_720E80[array_size_unknown]; // weak
+
+
  int dword_720ED0[array_size_unknown]; // weak
  int dword_720F20[array_size_unknown]; // weak
  __int16 word_720F70[4*array_size_unknown]; // weak

@@ -34,7 +34,7 @@ void CGame_ctor(struct CGame *_this)
  _this->dword_000E34 = 0;
  _this->dword_000E38 = 0;
 
- _this->class01_obj = malloc(0x64u);
+ _this->class01_obj = malloc(0x64);
  if (_this->class01_obj)
    class01_ctor(_this->class01_obj);
 
@@ -42,51 +42,51 @@ void CGame_ctor(struct CGame *_this)
  if (_this->class02_obj)
    class02_ctor(_this->class02_obj);
 
- _this->class03_obj = malloc(0x114u);
+ _this->class03_obj = malloc(0x114);
  if (_this->class03_obj)
    class03_ctor(_this->class03_obj, _this->class01_obj);
 
- _this->class04_obj = malloc(0x3CBC38u);
+ _this->class04_obj = malloc(0x3CBC38);
  if (_this->class04_obj)
    class04_ctor(_this->class04_obj);
 
- _this->class05_obj = malloc(0x20D0u);
+ _this->class05_obj = malloc(0x20D0);
  if (_this->class05_obj)
    class05_ctor(_this->class05_obj);
 
- _this->class06_obj = malloc(0x5F8u);
+ _this->class06_obj = malloc(0x5F8);
  if (_this->class06_obj)
    class06_ctor(_this->class06_obj);
 
- _this->class08_obj = malloc(0x1A1384u);
+ _this->class08_obj = malloc(0x1A1384);
  if (_this->class08_obj)
    class08_ctor(_this->class08_obj);
 
- _this->class09_obj = malloc(4u);
+ _this->class09_obj = malloc(4);
  if (_this->class09_obj)
    class09_ctor(_this->class09_obj);
 
- _this->class10_obj = malloc(8u);
+ _this->class10_obj = malloc(8);
  if (_this->class10_obj)
    class10_ctor(_this->class10_obj);
 
- _this->class11_obj = malloc(0xE8u);
+ _this->class11_obj = malloc(0xE8);
  if (_this->class11_obj)
    class11_ctor(_this->class11_obj, 0);
 
- _this->class12_obj = malloc(0x90u);
+ _this->class12_obj = malloc(0x90);
  if (_this->class12_obj)
    class12_ctor(_this->class12_obj, _this->class11_obj);
 
- _this->class13_obj = malloc(4u);
+ _this->class13_obj = malloc(4);
  if (_this->class13_obj)
    class13_ctor(_this->class13_obj);
 
- _this->class14_obj = malloc(8u);
+ _this->class14_obj = malloc(8);
  if (_this->class14_obj)
    class14_ctor(_this->class14_obj);
 
- _this->pGammaController = malloc(0xC10u);
+ _this->pGammaController = malloc(0xC10);
  if (_this->pGammaController)
    CGammaController_ctor(_this->pGammaController);
 
@@ -170,6 +170,31 @@ char sub_44EA17(struct CGame *_this)
  _this->dword_000E1C = 1;
  _this->qword_000E2C = class24_fn2(pClass24_global);
  return 1;
+}
+
+//----- (0040E2F6) --------------------------------------------------------
+void CGame_stru0_sub_40E2F6(struct CGame_stru0 *_this, char a2)
+{
+  int v2; // esi@1
+  int v3; // eax@2
+  int v4; // eax@3
+
+  v2 = _this;
+  if ( a2 )
+  {
+    v3 = _this->ptr_000004;
+    if ( v3 )
+    {
+      v4 = v3 - 1;
+      if ( *(_BYTE *)v4 && *(_BYTE *)v4 != -1 )
+        --*(_BYTE *)v4;
+      else
+        operator_delete(v4, v4);
+    }
+  }
+  _this->ptr_000004 = 0;
+  _this->dword_000008 = 0;
+  _this->dword_00000C = 0;
 }
 
 //----- (0044EA5E) --------------------------------------------------------
@@ -2329,7 +2354,7 @@ __int64 class24_fn2(struct class24 *_this)
 {
  DWORD v1; // edi@1
 
- v1 = (timeGetTime() << 7) / 0x3E8;
+ v1 = (timeGetTime() * 128) / 1000;
  if ( v1 < (signed __int64)_this->dword_000008 )
    _this->dword_000004 = 0;
  return v1;

@@ -14,6 +14,14 @@ long __stdcall _eh_vector_destructor_iterator_(long, long, long, long);
 
 #pragma pack(push, 1)
 //class00
+struct CGame_stru0
+{
+ unsigned int    dword_000000;
+ unsigned char  *ptr_000004;
+ int             dword_000008;
+ int             dword_00000C;
+};
+
 struct CGame
 {
  int  dword_000000;
@@ -23,13 +31,19 @@ struct CGame
 
  float array_000718[array_size_unknown];
 
+                              // looks like ptr to current selected input device
+ struct class03 *pClass03;    // ptr @ 000974
+ unsigned int    dword_000978;
+                              // looks like start of a struct or a class, sub_40E2F6 is a member of which
+ struct CGame_stru0 unnamed_00097C;
+
  int  dword_000E08;
  int  dword_000E0C;
  int  dword_000E10;
  int  dword_000E14;
  int  dword_000E18;
  int  dword_000E1C;
- int  uSomeFlags;              //dword ptr [0E20]
+ int  uSomeFlags;              //dword @ 000E20
  int  dword_000E24;
  __int64  qword_000E2C;
  //int  dword_000E30;
@@ -48,7 +62,7 @@ struct CGame
  struct class12 *class12_obj;  //dword ptr [0E64]
  struct class13 *class13_obj;  //dword ptr [0E68]
  struct class14 *class14_obj;  //dword ptr [0E6Ñ]
- struct CGammaController *pGammaController;  //dword ptr [0E70]
+ struct CGammaController *pGammaController;  // dword @ 000E70
  int  dword_000E74;
 };
 //sizeof = 0E78
@@ -70,6 +84,9 @@ bool CGame_sub_44F07B(struct CGame *_this);
 void CGame_sub_44F120_MaybeStackStationaryLights(struct CGame *_this, int a2);
 //void __fastcall sub_44F192(int a1);
 void CGame_sub_44F192(struct CGame *_this);
+
+//void __thiscall sub_40E2F6(int this, char a2);
+void CGame_stru0_sub_40E2F6(struct CGame_stru0 *_this, char a2);
 
 
 
@@ -151,7 +168,7 @@ struct class03
 
  int dword_000108;
  int dword_00010C;
- struct class01 *class01_obj;   //dword ptr [0110]
+ struct class01 *class01_obj;   // dword @ 000110
 };
 //sizeof = 0114
 //int __thiscall sub_467E4E(int this, int a2);

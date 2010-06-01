@@ -531,7 +531,7 @@ LABEL_62:
     {
       class24_fn1(pClass24_global);
       AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-      sub_469903(pClass03_global, "MICON2");
+      sub_469903(pGame->pClass03, "MICON2");
       sub_44C175(pGlobalTXT_LocalizationStrings[39], 2);
       return v9;
     }
@@ -539,7 +539,7 @@ LABEL_62:
       goto LABEL_62;
     if ( a5 == 31 )
     {
-      sub_469903(pClass03_global, "MICON2");
+      sub_469903(pGame->pClass03, "MICON2");
       dword_5076F4 = GUIButtonCreate(
                        v9,
                        392,

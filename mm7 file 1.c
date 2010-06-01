@@ -995,7 +995,7 @@ LABEL_21:
         {
           if ( uCurrentMenuID != 10 )
             goto LABEL_49;
-          class03_fn1(pClass03_global, 0);
+          class03_fn1(pGame->pClass03, 0);
           if (dword_720010)
             Mouse_suspend(dword_720010);
           if (pGame->class14_obj->dword_000004 & 0xFF)
@@ -1008,7 +1008,7 @@ LABEL_21:
           sub_46271C();
           if ( !GetOpenFileNameA(&stru_6A0DA0) )
           {
-            class03_fn1(pClass03_global, 1);
+            class03_fn1(pGame->pClass03, 1);
             if (dword_720010)
               sub_46B105(dword_720010);
             if (pGame->class14_obj->dword_000004 & 0xFF)
@@ -1020,7 +1020,7 @@ LABEL_21:
           }
           _chdir("..\\");
           strcpy(Str1, stru_6A0DA0.lpstrFileTitle);
-          class03_fn1(pClass03_global, 1);
+          class03_fn1(pGame->pClass03, 1);
           if (dword_720010)
             sub_46B105(dword_720010);
           if (pGame->class14_obj->dword_000004 & 0xFF)
@@ -1388,8 +1388,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   GetCurrentDirectoryA(120, v64);
   wsprintfA(pConfigFilename, "%s\\mm6.ini", v64);
   dwNewLong = WS_CAPTION | WS_SYSMENU | WS_GROUP;
-  hWnd_global = CreateWindowExW(0,
-                                pWindowClassName,
+  hWnd_global = CreateWindowExW(0, pWindowClassName,
            L"Might and Magic® VII 7",
            WS_CAPTION | WS_SYSMENU | WS_GROUP,
            X,
@@ -1416,7 +1415,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   {
    MessageBoxW(0, L"Unable to Allocate 16MB of RAM", L"More RAM Memory Required", 48);
    return 0;
-   }
+  }
  }
 
  pClass24_global = malloc(sizeof(struct class24));
@@ -1425,7 +1424,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   sub_448B67((void *)1);
   sub_448B45((void *)1);
   GameInitialize();
-  pClass03_global = pGame->class03_obj;
+  pGame->pClass03 = pGame->class03_obj;
   GetWindowRect(hWnd_global, &rcWindow);
   GetClientRect(hWnd_global, &rcClient);
   nWidth = rcClient.left - rcClient.right - rcWindow.left + rcWindow.right + 640;
@@ -1595,7 +1594,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
 
  pD3DRenderer = malloc(sizeof(struct CD3DRenderer));
  CD3DRenderer_ctor(pD3DRenderer);
- if (dword_6BE364 & 2 || !(dword_6BE368 & 1))
+ if (dword_6BE364 & 2 || !(dword_6BE368 & 1))  // if (dword_6BE364 & 2 || !windowed)
  {
   SetMenu(hWnd_global, 0);
   SetWindowLongA(hWnd_global, GWL_EXSTYLE, 0);
@@ -3364,7 +3363,7 @@ LABEL_208:
         if ( pVideoPlayer->dword_000024 )
          pVideoPlayer->dword_000068 = 1;
         if (!dword_720010)
-          class03_OnMouseLeftButton(pClass03_global, (unsigned __int16)lParam, lParam >> 16);
+          class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, lParam >> 16);
         if ( uCurrentMenuID != 6 )
           goto LABEL_228;
         else goto LABEL_227;
@@ -3414,7 +3413,7 @@ LABEL_216:
         if ( pVideoPlayer->dword_000024 )
           pVideoPlayer->dword_00006C = 1;
         if ( !dword_720010 )
-          class03_OnMouseLeftButton(pClass03_global, (unsigned __int16)lParam, lParam >> 16);
+          class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, lParam >> 16);
         if ( uCurrentMenuID != 6 )
           goto LABEL_228;
         if ( !dword_720010 )
@@ -3423,7 +3422,7 @@ LABEL_227:
           sub_41CD4F((void *)0x29);
 LABEL_228:
           if (!dword_720010)
-            class03_OnMouseLeftButton(pClass03_global, (unsigned __int16)lParam, lParam >> 16);
+            class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, lParam >> 16);
         }
         if (pGame)
         {
@@ -3451,7 +3450,7 @@ LABEL_238:
           if ( pVideoPlayer->dword_000024 != v31 )
             pVideoPlayer->dword_00006C = 1;
           if ( dword_720010 == v31 )
-            class03_OnMouseLeftButton(pClass03_global, (unsigned __int16)lParam, lParam >> 16);
+            class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, lParam >> 16);
           if ( pGame != v31 )
           {
             if ( dword_720010 != v31 )
@@ -3519,7 +3518,7 @@ LABEL_261:
         {
           if (dword_720010)
             goto LABEL_184;
-          class03_OnMouseLeftButton(pClass03_global, (unsigned __int16)lParam, lParam >> 16);
+          class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, lParam >> 16);
         }
         return DefWindowProcA(hWnd, Msg, wParam, v5);
     }
@@ -3850,9 +3849,9 @@ LABEL_179:
       if ( !(dword_6BE364 & 0x100) )
       {
         dword_4E98BC = 0;
-        if ( pVideoPlayer->pSmackerMovie || pVideoPlayer->pBinkMovie )
+        if (pVideoPlayer && (pVideoPlayer->pSmackerMovie || pVideoPlayer->pBinkMovie))
         {
-          if ( pVideoPlayer->dword_000058 )
+          if ( pVideoPlayer->dword_000058)
             pVideoPlayer->dword_00006C = 1;
         }
         if (dword_720010)
@@ -4469,7 +4468,7 @@ signed int __cdecl sub_44103C()
     if ( pD3DRenderer->dword_040088 )
       goto LABEL_22;
     sub_4A1EB6(pD3DRenderer);
-    sub_469E3B(pClass03_global);
+    sub_469E3B(pGame->pClass03);
   }
   else
   {
@@ -4485,7 +4484,7 @@ signed int __cdecl sub_44103C()
     sub_4A1EB6(pD3DRenderer);
     v1 = 0;
     if ( !pD3DRenderer->dword_040088 )
-      sub_469E3B(pClass03_global);
+      sub_469E3B(pGame->pClass03);
     if ( !sub_4226C2() || dword_577030 == 1 )
     {
       if ( pD3DRenderer->dword_040088 )
@@ -4515,7 +4514,7 @@ signed int __cdecl sub_44103C()
 LABEL_22:
   CD3DRenderer_BeginScene(pD3DRenderer);
   if ( pD3DRenderer->dword_040088 != v1 )
-    sub_469E3B(pClass03_global);
+    sub_469E3B(pGame->pClass03);
   if ( dword_5E5144 != v1 )
     dword_57702C = 1;
   v5 = dword_57702C;
@@ -4582,10 +4581,10 @@ LABEL_22:
   ++dword_510774;
   dword_5B5924 = v1;
   if ( v5 != v1 )
-    pClass03_global->dword_000014[0] = 1;
-  sub_469EA4(pClass03_global);
-  sub_469CCD(pClass03_global);
-  sub_469E1C(pClass03_global);
+    pGame->pClass03->dword_000014[0] = 1;
+  sub_469EA4(pGame->pClass03);
+  sub_469CCD(pGame->pClass03);
+  sub_469E1C(pGame->pClass03);
   CD3DRenderer_EndScene(v0);
   result = CD3DRenderer_Present(v0);
 
@@ -6955,7 +6954,7 @@ signed int __cdecl sub_465D0B()
  char *pNames[4] = {"glow03", "glow05", "torchA", "wizeyeA"};
  int i;
 
-  sub_469C65(pClass03_global, hWnd_global);
+  sub_469C65(pGame->pClass03, hWnd_global);
   sub_465F5A();
   sub_465FF0();
 
@@ -10985,12 +10984,12 @@ void __thiscall sub_427E01(void *this)
     else
       v625 = HIDWORD(v1);
     n = sub_42F184(&unk_50C198, 0x1400u, 1, v625);
-    v5 = *(_DWORD *)pClass03_global;
-    if ( *(_DWORD *)pClass03_global != HIDWORD(v1)
+    v5 = pGame->pClass03->dword_000000;
+    if (v5 != HIDWORD(v1)
       && (v5 & 7) == 3
       && sub_40894B((int)((char *)pActors + 836 * (v5 >> 3))) )
     {
-      v3 = *(_DWORD *)pClass03_global;
+     v3 = pGame->pClass03->dword_000000;
 LABEL_18:
       n = v3;
     }
@@ -18008,8 +18007,9 @@ void erroneous_printf(const char *Format, ...)
   if ( !pD3DRenderer->dword_040058 )
     sub_4667E9();
   vsprintf(ExistingFileName, Format, va);
-  if ( pClass03_global )
-    class03_fn1(pClass03_global, 0);
+  if (pGame->pClass03)
+    class03_fn1(pGame->pClass03, 0);
+
   ClipCursor(0);
   MessageBoxA(0, ExistingFileName, "Error", 0x30u);
   sub_464761((void *)1);

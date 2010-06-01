@@ -189,7 +189,6 @@ signed int __fastcall sub_40E0F5(int a1, char a2, char a3);
 signed int __thiscall sub_40E133(int this);
 int __thiscall sub_40E2A7(int this);
 int __thiscall sub_40E2C8(void *this, const char *Src, int a3);
-void __thiscall sub_40E2F6(int this, char a2);
 int __thiscall sub_40E32E(int this, const void *Src, size_t Size);
 char __thiscall sub_40E363(int this, unsigned int a2, char a3);
 int __fastcall sub_40E4C2(int a1);

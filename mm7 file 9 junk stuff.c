@@ -216,7 +216,7 @@ char __stdcall ErrorMessageFromHRESULT(signed int a1, const char *Str, size_t a3
   if ( a1 )
   {
     LOBYTE(v19) = BYTE3(a1);
-    sub_40E2F6((int)&v19, 0);
+    CGame_stru0_sub_40E2F6((int)&v19, 0);
     v20 = 0;
     if ( v4 > -2005532222 )
     {
@@ -720,7 +720,7 @@ LABEL_174:
     }
 LABEL_176:
     v20 = -1;
-    sub_40E2F6((int)&v19, 1);
+    CGame_stru0_sub_40E2F6((int)&v19, 1);
     return v3;
   }
   return 0;
@@ -769,7 +769,7 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
   LOBYTE(v22) = 2;
   sub_467AAF(a1, v13, 0, 0xFFFFFFFFu);
   LOBYTE(v22) = 1;
-  sub_40E2F6((int)&v20, 1);
+  CGame_stru0_sub_40E2F6((int)&v20, 1);
   v12 = lpCaption;
   if ( !lpCaption )
     v12 = byte_4D8410 + 736;
@@ -792,9 +792,9 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
   if (dword_720010)
     sub_46B105(dword_720010);
   LOBYTE(v22) = 0;
-  sub_40E2F6((int)&a2, 1);
+  CGame_stru0_sub_40E2F6((int)&a2, 1);
   v22 = -1;
-  sub_40E2F6((int)&a7, 1);
+  CGame_stru0_sub_40E2F6((int)&a7, 1);
 }
 
 //----- (MM7.exe::0046778D) --------------------------------------------------------
@@ -819,7 +819,7 @@ char __stdcall sub_46778D(int a1, const char *Str, int a3)
   if ( a1 )
   {
     LOBYTE(v15) = BYTE3(a1);
-    sub_40E2F6((int)&v15, 0);
+    CGame_stru0_sub_40E2F6((int)&v15, 0);
     v4 = strlen("Unknown Direct Input error");
     sub_40E32E((int)&v15, "Unknown Direct Input error", v4);
     v14 = a3;
@@ -833,7 +833,7 @@ char __stdcall sub_46778D(int a1, const char *Str, int a3)
     LOBYTE(v17) = 0;
     sub_466D83((int)&v15, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14);
     v17 = -1;
-    sub_40E2F6((int)&v15, 1);
+    CGame_stru0_sub_40E2F6((int)&v15, 1);
     result = 1;
   }
   else

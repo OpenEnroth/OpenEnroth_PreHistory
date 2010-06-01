@@ -575,7 +575,7 @@ LABEL_53:
               sprintfex(&ExistingFileName, "+%u %s %s", v49, v53, v62);
 LABEL_54:
               sub_44C175(&ExistingFileName, 2);
-              class03_sub_4698A6((void *)pClass03_global);
+              class03_sub_4698A6(pGame->pClass03);
               sub_4A89BD(pGame->class06_obj, 151, a2 - 1);
               sub_4948B1((void *)v3, 93, 0);
               AudioPlayer_sub_4AA306(pAudioPlayer, 219, 0, 0, -1, 0, 0, 0, 0);
@@ -673,7 +673,7 @@ LABEL_54:
           sub_44AFFB((char *)v3, 243, 2);
         }
 LABEL_187:
-        class03_sub_4698A6((void *)pClass03_global);
+        class03_sub_4698A6(pGame->pClass03);
         return;
       }
       if ( sub_492C0B((int)((char *)&unk_ACBE48 + 6972 * a2)) )
@@ -846,7 +846,7 @@ LABEL_178:
   v24 = dword_AD470C - 299;
   if ( dword_AD470C == 329 || v24 == 4 || v24 == 91 || v24 == 28 )
   {
-    class03_sub_4698A6((void *)pClass03_global);
+    class03_sub_4698A6(pGame->pClass03);
     GUIWindowDelete(pGUIWindow_PlayerCreation);
     sub_4114F2(pClass17_Icons_LOD);
     dword_4E28F8 = 0;
@@ -856,7 +856,7 @@ LABEL_178:
   else
   {
     dword_720984 = dword_AD470C;
-    class03_sub_4698A6((void *)pClass03_global);
+    class03_sub_4698A6(pGame->pClass03);
     if ( dword_50C9E8[0] < 40 )
     {
       dword_50C9EC[3 * dword_50C9E8[0]] = 146;
@@ -1032,7 +1032,7 @@ LABEL_16:
         byte_AD4724 = v56 + 1;
         memcpy((void *)(v1 + 36 * v8 + 532), &dword_AD470C, 0x24u);
         *(_DWORD *)(v1 + 4 * v9 + 6472) = v8 + 1;
-        class03_sub_4698A6((void *)pClass03_global);
+        class03_sub_4698A6(pGame->pClass03);
 LABEL_33:
         if ( v56 == 16 )
         {
@@ -1111,8 +1111,8 @@ LABEL_33:
           }
           else
           {
-            v19 = *(_DWORD *)(pClass03_global + 264);
-            v18 = *(_DWORD *)(pClass03_global + 268);
+           v19 = pGame->pClass03->dword_000108;
+           v18 = pGame->pClass03->dword_00010C;
           }
           v53 = v18;
           if ( v19 >= 560 )
@@ -1147,7 +1147,7 @@ LABEL_73:
               memcpy((void *)(v1 + 36 * v24 + 532), &dword_AD470C, 0x24u);
               *(_DWORD *)(v1 + 6472) = v24 + 1;
 LABEL_71:
-              class03_sub_4698A6((void *)pClass03_global);
+              class03_sub_4698A6(pGame->pClass03);
               if ( v56 != 12 )
                 return;
               v23 = *(_DWORD *)v54;
@@ -1239,7 +1239,7 @@ LABEL_74:
               memcpy((void *)(v1 + 36 * v56 + 532), &dword_AD470C, 0x24u);
               *(_DWORD *)(v1 + 6476) = v33;
 LABEL_45:
-              class03_sub_4698A6((void *)pClass03_global);
+              class03_sub_4698A6(pGame->pClass03);
             }
           }
         }
@@ -1259,8 +1259,8 @@ LABEL_45:
   }
   else
   {
-    v35 = *(_DWORD *)(pClass03_global + 264);
-    v34 = *(_DWORD *)(pClass03_global + 268);
+   v35 = pGame->pClass03->dword_000108;
+   v34 = pGame->pClass03->dword_00010C;
   }
   v36 = v35 + dword_5059A8[v34];
   if ( !(*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v36) & 0xFFFF) )
@@ -1309,7 +1309,7 @@ LABEL_96:
     dword_50C9A0 = 0;
     if ( dword_50CBD0[0] )
       dword_50CBD0[0] = dword_50CBDC != 0;
-    sub_469903(pClass03_global, "MICON1");
+    sub_469903(pGame->pClass03, "MICON1");
     dword_50C9D4 = 0;
     dword_50C9D0 = 113;
     dword_50C9D8 = 256;
@@ -1328,7 +1328,7 @@ LABEL_96:
 //----- (004698D8) --------------------------------------------------------
 void __stdcall sub_4698D8(int a1)
 {
-  sub_469903(pClass03_global, pClass40->pItems[a1].pIconName);
+  sub_469903(pGame->pClass03, pClass40->pItems[a1].pIconName);
 }
 
 //----- (004698F6) --------------------------------------------------------
@@ -1439,7 +1439,7 @@ void __thiscall sub_469CCD(int this)
       if ( *(_DWORD *)(this + 4) )
       {
         if ( !*(_DWORD *)(this + 12) )
-          sub_469AE4(pClass03_global);
+          sub_469AE4(pGame->pClass03);
       }
     }
     v2 = *(_DWORD *)(v1 + 12) == 0;
@@ -1490,8 +1490,8 @@ LABEL_12:
     *(_DWORD *)(v1 + 208) = *(_DWORD *)(v1 + 240) - *(_DWORD *)(v1 + 232);
     if ( !v9 )
     {
-      if ( *(_DWORD *)(pClass03_global + 144) )
-        v10 = 2 * *(_DWORD *)(pClass03_global + 88);
+     if (pGame->pClass03->ptr_000090)
+        v10 = 2 * *(_DWORD *)((char *)pGame->pClass03 + 88);
       else
         v10 = 0;
       sub_4A6DF5(*(_DWORD *)(v1 + 48), v10, v1 + 196, pD3DRenderer->pTargetSurface, pD3DRenderer->uTargetSurfacePitch, v1 + 228);
@@ -1562,8 +1562,8 @@ void __thiscall sub_469EA4(int this)
     }
     else
     {
-      v5 = *(_DWORD *)(pClass03_global + 264);
-      v4 = *(_DWORD *)(pClass03_global + 268);
+     v5 = pGame->pClass03->dword_000108;
+     v4 = pGame->pClass03->dword_00010C;
     }
     v6 = v4;
     v16 = v5;
@@ -2472,19 +2472,19 @@ int __fastcall sub_46AC59(int a1)
 {
   size_t v2; // eax@1
 
-  *(char *)(&pClass03_global->dword_000004) = BYTE3(a1);
-  sub_40E2F6(&pClass03_global->dword_000004, 0);
+  *(char *)(&pGame->unnamed_00097C.dword_000000) = BYTE3(a1);
+  CGame_stru0_sub_40E2F6(&pGame->unnamed_00097C, 0);
   v2 = strlen("micon1");
-  return sub_40E32E(&pClass03_global->dword_000004, "micon1", v2);
+  return sub_40E32E(&pGame->unnamed_00097C, "micon1", v2);
 }
 
 //----- (0046AC8C) --------------------------------------------------------
 void __cdecl sub_46AC8C()
 {
-  if ( !(pClass03_global->dword_000004 & 1) )
+  if ( !(pGame->dword_000978 & 1) )
   {
-    pClass03_global->dword_000004 |= 1;
-    sub_40E2F6(&pClass03_global->dword_000004, 1);
+    pGame->dword_000978 |= 1;
+    CGame_stru0_sub_40E2F6(&pGame->unnamed_00097C, 1);
   }
 }
 
@@ -2636,7 +2636,6 @@ char __thiscall sub_46AF50(void *this)
   int v8; // [sp-10h] [bp-124h]@9
   int v9; // [sp-Ch] [bp-120h]@9
   const char *v10; // [sp-8h] [bp-11Ch]@9
-  int v11; // [sp-4h] [bp-118h]@9
   int Dst; // [sp+Ch] [bp-108h]@1
   char v13; // [sp+54h] [bp-C0h]@2
   int v14; // [sp+88h] [bp-8Ch]@2
@@ -2681,16 +2680,15 @@ char __thiscall sub_46AF50(void *this)
   }
   else
   {
-   v5 = pClass03_global->dword_00000C;
-    if ( !pClass03_global->dword_00000C)
+   v5 = pGame->unnamed_00097C.ptr_000004;
+    if ( !pGame->unnamed_00097C.ptr_000004)
       v5 = byte_4D8410 + 736;
     if ( !sub_46AE97(v1, v5) )
     {
-      v11 = 182;
       v10 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MouseAsync.cpp";
       v22 = &v6;
       sub_40E2C8(&v6, "Could not load async mouse cursor image", (int)&v23);
-      sub_466D09(&v22, *(int *)&v6, v7, v8, v9, v10, v11);
+      sub_466D09(&v22, *(int *)&v6, v7, v8, v9, v10, __LINE__);
     }
     result = 1;
   }

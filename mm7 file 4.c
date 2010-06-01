@@ -2350,7 +2350,7 @@ LABEL_33:
         {
           GUIWindowDelete(dword_507BD4);
           dword_507BD4 = 0;
-          sub_469903(pClass03_global, "MICON1");
+          sub_469903(pGame->pClass03, "MICON1");
           dword_5C35B8 = 0;
           dword_50C9A0 = 0;
           sub_4356FF();
@@ -2526,7 +2526,7 @@ void __thiscall sub_427D48(void *this, int a2)
         *(_WORD *)v3 = 0;
         GUIWindowDelete(dword_507BD4);
         dword_507BD4 = 0;
-        sub_469903(pClass03_global, "MICON1");
+        sub_469903(pGame->pClass03, "MICON1");
         dword_5C35B8 = 0;
         dword_50C9A0 = 0;
         sub_4356FF();
@@ -2794,9 +2794,9 @@ signed int __cdecl sub_42ECB5()
     v32 = 0;
     v31 = 0;
     v30 = 0;
-    v7 = *(_DWORD *)pClass03_global;
-    if ( (*(_BYTE *)pClass03_global & 7) != 3
-      || (v36 = *(_DWORD *)pClass03_global, !sub_40894B((int)((char *)pActors + 836 * (v7 >> 3)))) )
+    v7 = pGame->pClass03->dword_000000;
+    if ( ((_BYTE)v7 & 7) != 3
+     || (v36 = pGame->pClass03->dword_000000, !sub_40894B((int)((char *)pActors + 836 * (v7 >> 3)))) )
       v36 = sub_42F184(&unk_50C198, 0x1400u, 0, 0);
     v27 = 0;
     v26 = 0;
@@ -5064,7 +5064,7 @@ LABEL_122:
           }
           else
           {
-            dword_4E2900 = (*(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v219) - 42) / 17;
+            dword_4E2900 = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v219) - 42) / 17;
             v27 = (double)dword_4E2900 * *(double *)&byte_4D8410[112] + *(double *)&byte_4D8410[352];
             sub_44F4D9(*(_DWORD *)(LODWORD(pGame) + 3696), v27);
           }
@@ -5110,7 +5110,7 @@ LABEL_136:
             v170 = dword_50C9C8;
             goto LABEL_136;
           }
-          byte_6BE371 = (*(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v218) - 263) / 17;
+          byte_6BE371 = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v218) - 263) / 17;
           if ( byte_6BE371 > 9 )
             byte_6BE371 = 9;
 LABEL_143:
@@ -5142,7 +5142,7 @@ LABEL_150:
             v171 = dword_50C9C8;
             goto LABEL_150;
           }
-          byte_6BE36F = (*(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v223) - 263) / 17;
+          byte_6BE36F = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v223) - 263) / 17;
           if ( byte_6BE36F > 8 )
             byte_6BE36F = 9;
 LABEL_157:
@@ -5191,7 +5191,7 @@ LABEL_166:
             v172 = dword_50C9C8;
             goto LABEL_166;
           }
-          byte_6BE370 = (*(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v221) - 263) / 17;
+          byte_6BE370 = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v221) - 263) / 17;
           if ( byte_6BE370 > 8 )
             byte_6BE370 = 9;
 LABEL_173:
@@ -5602,13 +5602,13 @@ LABEL_322:
               {
                 if ( dword_4E28F8 == 7 )
                 {
-                  sub_469903(pClass03_global, "MICON2");
+                  sub_469903(pGame->pClass03, "MICON2");
                 }
                 else
                 {
                   GUIWindowDelete(dword_507BD4);
                   dword_507BD4 = 0;
-                  sub_469903(pClass03_global, "MICON1");
+                  sub_469903(pGame->pClass03, "MICON1");
                   dword_5C35B8 = 0;
                   dword_50C9A0 = 0;
                   sub_4356FF();
@@ -5944,8 +5944,8 @@ LABEL_317:
           }
           else
           {
-            v212 = class03_GetMousePos(pClass03_global, (int)&v226);
-            v55 = class03_GetMousePos(pClass03_global, (int)&v224);
+            v212 = class03_GetMousePos(pGame->pClass03, (int)&v226);
+            v55 = class03_GetMousePos(pGame->pClass03, (int)&v224);
             v54 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (*(_DWORD *)v212 + dword_5059A8[*(_DWORD *)(v55 + 4)]));
           }
           v56 = (unsigned __int16)v54;
@@ -5999,7 +5999,7 @@ LABEL_416:
 LABEL_333:
           GUIWindowDelete(v44);
           dword_507BD4 = 0;
-          sub_469903(pClass03_global, "MICON1");
+          sub_469903(pGame->pClass03, "MICON1");
           dword_5C35B8 = 0;
           dword_50C9A0 = 0;
           sub_4356FF();
@@ -6039,7 +6039,7 @@ LABEL_422:
               GUIWindowDelete(dword_507BD4);
               dword_507BD4 = 0;
               sub_426363(pClass24_global);
-              sub_469903(pClass03_global, "MICON1");
+              sub_469903(pGame->pClass03, "MICON1");
               dword_5C35B8 = 0;
               dword_50C9A0 = 0;
             }
@@ -6463,8 +6463,8 @@ LABEL_544:
           }
           else
           {
-            v212 = class03_GetMousePos(pClass03_global, (int)&v222);
-            v94 = class03_GetMousePos(pClass03_global, (int)&v217);
+            v212 = class03_GetMousePos(pGame->pClass03, (int)&v222);
+            v94 = class03_GetMousePos(pGame->pClass03, (int)&v217);
             v93 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (*(_DWORD *)v212 + dword_5059A8[*(_DWORD *)(v94 + 4)]));
           }
           v96 = v93;
@@ -6934,7 +6934,7 @@ LABEL_453:
           goto LABEL_770;
         case 0xC0:
           dword_50651C = v0;
-          if ( *(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v227) + 4) > 178 )
+          if ( *(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v227) + 4) > 178 )
             dword_50651C = -1;
           goto LABEL_92;
         case 0xA9:
@@ -7151,7 +7151,7 @@ LABEL_731:
           sub_41C0B8(&ExistingFileName);
           v123 = 8 * v209 - 8;
           LOBYTE(v123) = v123 | 4;
-          *(_DWORD *)pClass03_global = v123;
+          pGame->pClass03->dword_000000 = v123;
           goto LABEL_92;
         case 0x5D:
           v124 = pGlobalTXT_LocalizationStrings[212];
@@ -7214,8 +7214,8 @@ LABEL_772:
           }
           else
           {
-            v212 = class03_GetMousePos(pClass03_global, (int)&v225);
-            v132 = class03_GetMousePos(pClass03_global, (int)&v220);
+            v212 = class03_GetMousePos(pGame->pClass03, (int)&v225);
+            v132 = class03_GetMousePos(pGame->pClass03, (int)&v220);
             v131 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (*(_DWORD *)v212 + dword_5059A8[*(_DWORD *)(v132 + 4)]));
           }
           v180 = 0;
@@ -7896,7 +7896,7 @@ LABEL_44:
               dword_6A0D48 = 1;
               break;
             case 17:
-              sub_469903(pClass03_global, "MICON2");
+              sub_469903(pGame->pClass03, "MICON2");
               break;
             default:
               if ( v49 == 54 )
@@ -9498,7 +9498,6 @@ char __stdcall sub_438258(int a1, int a2)
 }
 
 //----- (004382BC) --------------------------------------------------------
-function_error;//char __usercall sub_4382BC<al>(char _CF<cf>, char _ZF<zf>, char _SF<sf>, char _OF<of>, int a5<ebx>)
 char __fastcall sub_4382BC(char _CF, char _ZF, char _SF, char _OF, int a5)
 {
   int v5; // ST00_4@1
@@ -13994,7 +13993,7 @@ int __fastcall sub_45BAB6(int a1)
   size_t v2; // eax@1
 
   byte_69BD44 = BYTE3(a1);
-  sub_40E2F6((int)&byte_69BD44, 0);
+  CGame_stru0_sub_40E2F6((int)&byte_69BD44, 0);
   v2 = strlen("effpar03");
   return sub_40E32E((int)&byte_69BD44, "effpar03", v2);
 }
@@ -14005,7 +14004,7 @@ void __cdecl sub_45BAE9()
   if ( !(byte_69BD41 & 1) )
   {
     byte_69BD41 |= 1u;
-    sub_40E2F6((int)&byte_69BD44, 1);
+    CGame_stru0_sub_40E2F6((int)&byte_69BD44, 1);
   }
 }
 
@@ -18046,7 +18045,7 @@ LABEL_52:
       BYTE1(dword_6BE364) |= 0x10u;
     else
       class24_fn1(pClass24_global2);
-    *(_DWORD *)(pClass03_global + 4) = 0;
+    pGame->pClass03->dword_000004 = 0;
     if ( pD3DRenderer->dword_040088 )
     {
       sub_4103BB(pClass17_Bitmaps_LOD);
@@ -18132,14 +18131,14 @@ LABEL_52:
 LABEL_38:
     dword_57702C = 1;
     sub_443343(&dword_576FE8);
-    sub_4698F6(pClass03_global);
+    sub_4698F6(pGame->pClass03);
     if ( pD3DRenderer->dword_040058 )
     {
       InvalidateRect(0, 0, 0);
       MoveWindow(hWnd_global, X, Y, nWidth, nHeight, 0);
       ShowWindow(hWnd_global, 1);
     }
-    *(_DWORD *)(pClass03_global + 4) = 1;
+    pGame->pClass03->dword_000004 = 1;
     if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
       sub_4BF73A(pVideoPlayer);
     if ( BYTE1(dword_6BE364) & 8 )
@@ -18189,7 +18188,7 @@ void *__thiscall sub_466D09(void *this, int a2, int a3, int a4, int a5, const ch
   LOBYTE(v21) = 0;
   sub_466D83((int)&a2, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18);
   v21 = -1;
-  sub_40E2F6((int)&a2, 1);
+  CGame_stru0_sub_40E2F6((int)&a2, 1);
   return v8;
 }
 
@@ -18222,15 +18221,15 @@ void *__thiscall sub_467834(void *this, char a2, const CHAR *a3, int a4, int a5,
   LOBYTE(v20) = 2;
   sub_467AAF((int)&a2, v10, 0, 0xFFFFFFFFu);
   LOBYTE(v20) = 1;
-  sub_40E2F6((int)&v18, 1);
+  CGame_stru0_sub_40E2F6((int)&v18, 1);
   LOBYTE(v20) = 0;
-  sub_40E2F6((int)&v17, 1);
+  CGame_stru0_sub_40E2F6((int)&v17, 1);
   v7 = a3;
   if ( !a3 )
     v7 = byte_4D8410 + 736;
   OutputDebugStringA(v7);
   v20 = -1;
-  sub_40E2F6((int)&a2, 1);
+  CGame_stru0_sub_40E2F6((int)&a2, 1);
   return v8;
 }
 
@@ -18259,17 +18258,17 @@ int __fastcall sub_4678E2(int a1, int a2, char a3, int a4, int a5, int a6)
   LOBYTE(v16) = 3;
   sub_467BCF((int)&v14, v9, &Str);
   LOBYTE(v16) = 6;
-  sub_40E2F6((int)&v12, 1);
+  CGame_stru0_sub_40E2F6((int)&v12, 1);
   LOBYTE(v16) = 5;
-  sub_40E2F6((int)&v11, 1);
+  CGame_stru0_sub_40E2F6((int)&v11, 1);
   *(_BYTE *)v7 = v14;
-  sub_40E2F6(v7, 0);
+  CGame_stru0_sub_40E2F6(v7, 0);
   sub_4679E2(v7, (int)&v14, 0, 0xFFFFFFFFu);
   v15 = 1;
   LOBYTE(v16) = 1;
-  sub_40E2F6((int)&v14, 1);
+  CGame_stru0_sub_40E2F6((int)&v14, 1);
   LOBYTE(v16) = 0;
-  sub_40E2F6((int)&a3, 1);
+  CGame_stru0_sub_40E2F6((int)&a3, 1);
   return v7;
 }
 
@@ -18280,7 +18279,7 @@ int __thiscall sub_4679B4(void *this, int a2)
 
   v3 = (int)this;
   *(_BYTE *)this = *(_BYTE *)a2;
-  sub_40E2F6((int)this, 0);
+  CGame_stru0_sub_40E2F6((int)this, 0);
   sub_4679E2(v3, a2, 0, 0xFFFFFFFFu);
   return v3;
 }
@@ -18317,7 +18316,7 @@ int __thiscall sub_4679E2(int this, int a2, unsigned int a3, size_t a4)
       v6 = 5080816;
     if ( *(_BYTE *)(v6 - 1) < 0xFEu )
     {
-      sub_40E2F6(this, 1);
+      CGame_stru0_sub_40E2F6(this, 1);
       v7 = *(_DWORD *)(a2 + 4);
       if ( !v7 )
         v7 = 5080816;
@@ -18393,7 +18392,7 @@ void __thiscall sub_467B9F(int this)
     {
       if ( v3 != -1 )
       {
-        sub_40E2F6(this, 1);
+        CGame_stru0_sub_40E2F6(this, 1);
         v4 = strlen(v2);
         sub_40E32E(v1, v2, v4);
       }
@@ -18415,16 +18414,16 @@ int __cdecl sub_467BCF(int a1, int a2, const char *Src)
   v4 = *(_BYTE *)a2;
   v9 = 0;
   v8 = v4;
-  sub_40E2F6((int)&v8, 0);
+  CGame_stru0_sub_40E2F6((int)&v8, 0);
   sub_4679E2((int)&v8, a2, 0, 0xFFFFFFFFu);
   v10 = 0;
   v5 = strlen(Src);
   v6 = sub_467CD1((int)&v8, Src, v5);
   v7 = v6;
   *(_BYTE *)a1 = *(_BYTE *)v6;
-  sub_40E2F6(a1, 0);
+  CGame_stru0_sub_40E2F6(a1, 0);
   sub_4679E2(a1, v7, 0, 0xFFFFFFFFu);
-  sub_40E2F6((int)&v8, 1);
+  CGame_stru0_sub_40E2F6((int)&v8, 1);
   return a1;
 }
 
@@ -18440,16 +18439,16 @@ int __cdecl sub_467C50(int a1, const char *a2, int a3)
 
   v8 = 0;
   v7 = BYTE3(a2);
-  sub_40E2F6((int)&v7, 0);
+  CGame_stru0_sub_40E2F6((int)&v7, 0);
   v4 = strlen(a2);
   sub_40E32E((int)&v7, a2, v4);
   v9 = 0;
   v5 = sub_467AAF((int)&v7, a3, 0, 0xFFFFFFFFu);
   v6 = v5;
   *(_BYTE *)a1 = *(_BYTE *)v5;
-  sub_40E2F6(a1, 0);
+  CGame_stru0_sub_40E2F6(a1, 0);
   sub_4679E2(a1, v6, 0, 0xFFFFFFFFu);
-  sub_40E2F6((int)&v7, 1);
+  CGame_stru0_sub_40E2F6((int)&v7, 1);
   return a1;
 }
 
@@ -18567,7 +18566,7 @@ void __thiscall sub_467E7F(void *this)
       byte_AD4724 = v3 + 1;
       memcpy((char *)v11 + 36 * v8 + 532, &dword_AD470C, 0x24u);
       *v13 = v8 + 1;
-      class03_sub_4698A6((void *)pClass03_global);
+      class03_sub_4698A6(pGame->pClass03);
     }
   }
   else

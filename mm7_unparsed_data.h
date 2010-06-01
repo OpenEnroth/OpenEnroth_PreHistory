@@ -1970,17 +1970,10 @@ extern int dword_7207EC; // weak
 extern int dword_7207F0[array_size_unknown]; // weak
 extern int dword_720980; // weak
 extern int dword_720984; // weak
-
-extern struct class03 *pClass03_global;  //dowrd @ MM7.exe::00720988
-//char byte_72098C; // +000004
-//char byte_720990; // +000008
-//void *dword_720994; // +00000C
 extern __int16 word_7209A0[array_size_unknown]; // weak
 extern __int16 word_7209A2[array_size_unknown]; // weak
 extern __int16 word_720A70[array_size_unknown]; // weak
 extern __int16 word_720A72[array_size_unknown]; // weak
-
-
 extern __int16 word_720B40[array_size_unknown]; // weak
 extern __int16 word_720B42[array_size_unknown]; // weak
 extern __int16 word_720C10[array_size_unknown]; // weak
@@ -1991,6 +1984,7 @@ extern __int16 word_720CE2; // weak
 extern __int16 word_720DB0[array_size_unknown]; // weak
 extern __int16 word_720DB2[array_size_unknown]; // weak
 extern int dword_720E80[array_size_unknown]; // weak
+
 extern int dword_720ED0[array_size_unknown]; // weak
 extern int dword_720F20[array_size_unknown]; // weak
 extern __int16 word_720F70[4*array_size_unknown]; // weak

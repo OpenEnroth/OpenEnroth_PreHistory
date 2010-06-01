@@ -844,7 +844,7 @@ LABEL_27:
     if (dword_720010)
       sub_46B736(dword_720010, 1);
 
-    class03_GetMousePosXY(pClass03_global, &v6, &v4);
+    class03_GetMousePosXY(pGame->pClass03, &v6, &v4);
 
     v5 = pGUIWindow_PlayerCreation->pControlsHead;
     if ( v5 != 0)
@@ -2908,7 +2908,7 @@ int __cdecl MenuLoop_Main()
 
  pGUIWindow2 = 0;
  AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
- class03_sub_4698A6(pClass03_global);
+ class03_sub_4698A6(pGame->pClass03);
  ++pClass17_Icons_LOD->dword_011B9C;
  if (!pClass17_Icons_LOD->dword_011B98)
    pClass17_Icons_LOD->dword_011B98 = pClass17_Icons_LOD->uNumLoadedFiles;
@@ -2976,7 +2976,7 @@ int __cdecl MenuLoop_Main()
 
  while (uCurrentMenuID == MENU_MAIN || uCurrentMenuID == 3)
  {
-  v18 = class03_GetMousePos(pClass03_global, &ptMouse)->x;
+  v18 = class03_GetMousePos(pGame->pClass03, &ptMouse)->x;
   v19 = ptMouse.y;
   v17 = pGUIWindow_MainMenu;
     if ( uCurrentMenuID == 3 )
@@ -4198,8 +4198,8 @@ void __cdecl sub_464479()
 {
   int v0; // esi@9
 
-  if ( pClass03_global )
-    sub_469903(pClass03_global, "MICON1");
+  if (pGame->pClass03)
+    sub_469903(pGame->pClass03, "MICON1");
   sub_48A336(&class35_obj);
   sub_46454B(pClass17_Bitmaps_LOD);
   sub_4645DC(pClass17_Sprites_LOD);
@@ -5552,8 +5552,8 @@ int __cdecl sub_4645FA()
   sub_477266(pNPCStats);
   sub_465C53();
   sub_465C2C();
-  if ( pClass03_global )
-    sub_469CC2(pClass03_global);
+  if (pGame->pClass03)
+    sub_469CC2(pGame->pClass03);
   sub_4ABD5B(pAudioPlayer);
   sub_461A11(pClass17_New_LOD);
   sub_461A11(pClass17_Games_LOD);
@@ -14363,7 +14363,7 @@ void __cdecl sub_4CA564()
   int v4; // [sp+3Ch] [bp-4h]@1
 
   v2 = v3;
-  sub_40E2F6((int)&v2, 0);
+  CGame_stru0_sub_40E2F6((int)&v2, 0);
   v0 = strlen(&byte_4D8410[11432]);
   sub_40E32E((int)&v2, &byte_4D8410[11432], v0);
   v4 = 0;

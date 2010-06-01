@@ -3034,8 +3034,8 @@ char *__thiscall sub_4B1523(void *this)
   v2 = (*(_DWORD *)this - 400) % 11 + 1;
   v17 = 4 * (*(_DWORD *)this - 400) / 11;
   sprintfex(&ExistingFileName, "%s%03d", *(wchar_t **)((char *)&off_4E1D18 + v17), v2);
-  if ( *(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v18) + 4) <= 320 )
-    v3 = *(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v18) + 4) + 30;
+  if ( *(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v18) + 4) <= 320 )
+    v3 = *(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v18) + 4) + 30;
   else
     v3 = 30;
   v16 = 0;
@@ -3248,8 +3248,8 @@ void __cdecl sub_4B1A2D()
       {
         if ( dword_F8B19C == 18 )
         {
-          v2 = class03_GetMousePos(pClass03_global, (int)&v18);
-          v3 = *(_DWORD *)v2 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v17) + 4)];
+          v2 = class03_GetMousePos(pGame->pClass03, (int)&v18);
+          v3 = *(_DWORD *)v2 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v17) + 4)];
           v1 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v3) & 0xFFFF;
           v4 = (*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v3) & 0xFFFF) == 0;
           v19 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v3) & 0xFFFF;
@@ -3268,9 +3268,9 @@ void __cdecl sub_4B1A2D()
       if ( dword_F8B19C != 95 )
         return;
 LABEL_12:
-      v6 = class03_GetMousePos(pClass03_global, (int)&v12);
+      v6 = class03_GetMousePos(pGame->pClass03, (int)&v12);
       v5 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
-                     + 4 * (*(_DWORD *)v6 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v11) + 4)])) & 0xFFFF;
+                     + 4 * (*(_DWORD *)v6 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v11) + 4)])) & 0xFFFF;
       v19 = v5;
       if ( !v5 )
         return;
@@ -3280,11 +3280,11 @@ LABEL_12:
         v8 = 4 * v7 + 11378816;
       goto LABEL_15;
     }
-    v9 = *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v16) - 14;
-    v19 = (v9 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v15) + 4) - 17) >> 5);
-    if ( *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v14) > 13 )
+    v9 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v16) - 14;
+    v19 = (v9 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v15) + 4) - 17) >> 5);
+    if ( *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v14) > 13 )
     {
-      if ( *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v13) < 462 )
+      if ( *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v13) < 462 )
       {
         v10 = sub_421E75(v0, (int)&v19);
         if ( v10 )
@@ -6524,11 +6524,11 @@ LABEL_140:
       sub_4B46A5(pGlobalTXT_LocalizationStrings[198], 0);
       result = sub_4B1784();
       if ( !result
-        || (v27 = *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v111) - 14,
-            v120 = (v27 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v109) + 4) - 17) >> 5),
-            result = class03_GetMousePos(pClass03_global, (int)&v107),
+        || (v27 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v111) - 14,
+            v120 = (v27 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v109) + 4) - 17) >> 5),
+            result = class03_GetMousePos(pGame->pClass03, (int)&v107),
             *(_DWORD *)result <= 13)
-        || (result = class03_GetMousePos(pClass03_global, (int)&v105), *(_DWORD *)result >= 462)
+        || (result = class03_GetMousePos(pGame->pClass03, (int)&v105), *(_DWORD *)result >= 462)
         || (result = sub_421E75(v0, (int)&v120), v3 = 0, !result)
         || (result *= 9, !(*(_BYTE *)(v123 + 4 * result + 516) & 2)) )
         return result;
@@ -6613,12 +6613,12 @@ LABEL_140:
           result = sub_4B1784();
           if ( result )
           {
-            v2 = *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v110) - 14;
-            v120 = (v2 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v99) + 4) - 17) >> 5);
-            result = class03_GetMousePos(pClass03_global, (int)&v112);
+            v2 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v110) - 14;
+            v120 = (v2 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v99) + 4) - 17) >> 5);
+            result = class03_GetMousePos(pGame->pClass03, (int)&v112);
             if ( *(_DWORD *)result > 13 )
             {
-              result = class03_GetMousePos(pClass03_global, (int)&v104);
+              result = class03_GetMousePos(pGame->pClass03, (int)&v104);
               if ( *(_DWORD *)result < 462 )
               {
                 result = sub_421E75(v0, (int)&v120);
@@ -6657,11 +6657,11 @@ LABEL_140:
       sub_4B46A5(pGlobalTXT_LocalizationStrings[199], 0);
       result = sub_4B1784();
       if ( !result
-        || (v11 = *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v108) - 14,
-            v120 = (v11 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v100) + 4) - 17) >> 5),
-            result = class03_GetMousePos(pClass03_global, (int)&v106),
+        || (v11 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v108) - 14,
+            v120 = (v11 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v100) + 4) - 17) >> 5),
+            result = class03_GetMousePos(pGame->pClass03, (int)&v106),
             *(_DWORD *)result <= 13)
-        || (result = class03_GetMousePos(pClass03_global, (int)&v102), *(_DWORD *)result >= 462)
+        || (result = class03_GetMousePos(pGame->pClass03, (int)&v102), *(_DWORD *)result >= 462)
         || (result = sub_421E75(v0, (int)&v120), v3 = 0, !result) )
         return result;
       v97 = 0;
@@ -6862,8 +6862,8 @@ LABEL_61:
                     //         dword_ACD048[2 * *(_DWORD *)(dword_507BC0 + 28)],
                     //         dword_ACD044[2 * *(_DWORD *)(dword_507BC0 + 28)])
                     //     - pParty_global->qword_00002C);
-    v70 = class03_GetMousePos(pClass03_global, (int)&v103);
-    result = *(_DWORD *)v70 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v101) + 4)];
+    v70 = class03_GetMousePos(pGame->pClass03, (int)&v103);
+    result = *(_DWORD *)v70 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v101) + 4)];
     if ( *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF )
     {
       v74 = (*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF) - 1;
@@ -7084,8 +7084,8 @@ signed int __cdecl sub_4B5D7C()
                       //         dword_ACCD98[2 * *(_DWORD *)(dword_507BC0 + 28)],
                       //         dword_ACCD94[2 * *(_DWORD *)(dword_507BC0 + 28)])
                       //     - pParty_global->qword_00002C);
-      v13 = class03_GetMousePos(pClass03_global, (int)&v51);
-      result = *(_DWORD *)v13 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v50) + 4)];
+      v13 = class03_GetMousePos(pGame->pClass03, (int)&v51);
+      result = *(_DWORD *)v13 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v50) + 4)];
       v12 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF;
       if ( *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF )
       {
@@ -9710,12 +9710,12 @@ LABEL_105:
       result = sub_4B1784();
       if ( result )
       {
-        v27 = *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v100) - 14;
-        v109 = (v27 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v98) + 4) - 17) >> 5);
-        result = class03_GetMousePos(pClass03_global, (int)&v96);
+        v27 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v100) - 14;
+        v109 = (v27 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v98) + 4) - 17) >> 5);
+        result = class03_GetMousePos(pGame->pClass03, (int)&v96);
         if ( *(_DWORD *)result > 13 )
         {
-          result = class03_GetMousePos(pClass03_global, (int)&v94);
+          result = class03_GetMousePos(pGame->pClass03, (int)&v94);
           if ( *(_DWORD *)result < 462 )
           {
             result = sub_421E75(v0, (int)&v109);
@@ -9809,12 +9809,12 @@ LABEL_105:
         result = sub_4B1784();
         if ( result )
         {
-          v11 = *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v97) - 14;
-          v109 = (v11 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v89) + 4) - 17) >> 5);
-          result = class03_GetMousePos(pClass03_global, (int)&v95);
+          v11 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v97) - 14;
+          v109 = (v11 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v89) + 4) - 17) >> 5);
+          result = class03_GetMousePos(pGame->pClass03, (int)&v95);
           if ( *(_DWORD *)result > 13 )
           {
-            result = class03_GetMousePos(pClass03_global, (int)&v91);
+            result = class03_GetMousePos(pGame->pClass03, (int)&v91);
             if ( *(_DWORD *)result < 462 )
             {
               result = sub_421E75(v0, (int)&v109);
@@ -9847,12 +9847,12 @@ LABEL_105:
           result = sub_4B1784();
           if ( result )
           {
-            v2 = *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v99) - 14;
-            v109 = (v2 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v88) + 4) - 17) >> 5);
-            result = class03_GetMousePos(pClass03_global, (int)&v101);
+            v2 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v99) - 14;
+            v109 = (v2 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v88) + 4) - 17) >> 5);
+            result = class03_GetMousePos(pGame->pClass03, (int)&v101);
             if ( *(_DWORD *)result > 13 )
             {
-              result = class03_GetMousePos(pClass03_global, (int)&v93);
+              result = class03_GetMousePos(pGame->pClass03, (int)&v93);
               if ( *(_DWORD *)result < 462 )
               {
                 result = sub_421E75(v0, (int)&v109);
@@ -9984,8 +9984,8 @@ LABEL_15:
     sub_4B46A5(v58, 0);
     if ( v109 )
     {
-      v59 = class03_GetMousePos(pClass03_global, (int)&v92);
-      result = *(_DWORD *)v59 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v90) + 4)];
+      v59 = class03_GetMousePos(pGame->pClass03, (int)&v92);
+      result = *(_DWORD *)v59 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v90) + 4)];
       if ( *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF )
       {
         v63 = (*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF) - 1;
@@ -10224,11 +10224,11 @@ signed int __cdecl sub_4B9CC6()
     sub_4B46A5(pGlobalTXT_LocalizationStrings[199], 0);
     result = sub_4B1784();
     if ( !result
-      || (v43 = *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v100) - 14,
-          v112 = (v43 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v96) + 4) - 17) >> 5),
-          result = class03_GetMousePos(pClass03_global, (int)&v103),
+      || (v43 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v100) - 14,
+          v112 = (v43 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v96) + 4) - 17) >> 5),
+          result = class03_GetMousePos(pGame->pClass03, (int)&v103),
           *(_DWORD *)result <= 13)
-      || (result = class03_GetMousePos(pClass03_global, (int)&v101), *(_DWORD *)result >= 462)
+      || (result = class03_GetMousePos(pGame->pClass03, (int)&v101), *(_DWORD *)result >= 462)
       || (result = sub_421E75(v0, (int)&v112), v2 = 0, !result) )
       return result;
     v94 = 0;
@@ -10257,11 +10257,11 @@ LABEL_45:
     sub_4B46A5(pGlobalTXT_LocalizationStrings[197], 0);
     result = sub_4B1784();
     if ( !result
-      || (v36 = *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v104) - 14,
-          v112 = (v36 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v95) + 4) - 17) >> 5),
-          result = class03_GetMousePos(pClass03_global, (int)&v102),
+      || (v36 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v104) - 14,
+          v112 = (v36 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v95) + 4) - 17) >> 5),
+          result = class03_GetMousePos(pGame->pClass03, (int)&v102),
           *(_DWORD *)result <= 13)
-      || (result = class03_GetMousePos(pClass03_global, (int)&v98), *(_DWORD *)result >= 462)
+      || (result = class03_GetMousePos(pGame->pClass03, (int)&v98), *(_DWORD *)result >= 462)
       || (result = sub_421E75(v0, (int)&v112), v2 = 0, !result) )
       return result;
     v94 = 0;
@@ -10513,8 +10513,8 @@ LABEL_134:
                     //         dword_ACD048[2 * *(_DWORD *)(dword_507BC0 + 28)],
                     //         dword_ACD044[2 * *(_DWORD *)(dword_507BC0 + 28)])
                     //     - pParty_global->qword_00002C);
-    v66 = class03_GetMousePos(pClass03_global, (int)&v99);
-    result = *(_DWORD *)v66 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v97) + 4)];
+    v66 = class03_GetMousePos(pGame->pClass03, (int)&v99);
+    result = *(_DWORD *)v66 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v97) + 4)];
     if ( !(*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF) )
       return result;
     v70 = (*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF) - 1;
@@ -10835,9 +10835,9 @@ char __cdecl sub_4BA928()
       while ( v88 < 8 );
       if ( v147 )
       {
-        v90 = class03_GetMousePos(pClass03_global, (int)&v128);
+        v90 = class03_GetMousePos(pGame->pClass03, (int)&v128);
         v147 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
-                         + 4 * (*(_DWORD *)v90 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v126) + 4)]));
+                         + 4 * (*(_DWORD *)v90 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v126) + 4)]));
         v89 = v147;
         if ( v147 )
         {
@@ -11160,8 +11160,8 @@ LABEL_64:
     sub_4B46A5(v66, 0);
     if ( (char *)v147 != v10 )
     {
-      v69 = class03_GetMousePos(pClass03_global, (int)&v132);
-      v1 = *(_DWORD *)v69 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v130) + 4)];
+      v69 = class03_GetMousePos(pGame->pClass03, (int)&v132);
+      v1 = *(_DWORD *)v69 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v130) + 4)];
       v68 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v1) & 0xFFFF;
       if ( !(*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v1) & 0xFFFF) )
         return v1;
@@ -11213,11 +11213,11 @@ LABEL_96:
     sub_4B46A5(pGlobalTXT_LocalizationStrings[198], 0);
     v1 = sub_4B1784();
     if ( !v1
-      || (v29 = *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v131) - 14,
-          v147 = (v29 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v138) + 4) - 17) >> 5),
-          v1 = class03_GetMousePos(pClass03_global, (int)&v136),
+      || (v29 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v131) - 14,
+          v147 = (v29 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v138) + 4) - 17) >> 5),
+          v1 = class03_GetMousePos(pGame->pClass03, (int)&v136),
           *(_DWORD *)v1 <= 13)
-      || (v1 = class03_GetMousePos(pClass03_global, (int)&v134), *(_DWORD *)v1 >= 462)
+      || (v1 = class03_GetMousePos(pGame->pClass03, (int)&v134), *(_DWORD *)v1 >= 462)
       || (v1 = sub_421E75((void *)v0, (int)&v147), v10 = 0, !v1)
       || (v1 *= 9, !(*(_BYTE *)(v0 + 4 * v1 + 516) & 2)) )
       return v1;
@@ -11298,11 +11298,11 @@ LABEL_96:
     sub_4B46A5(pGlobalTXT_LocalizationStrings[199], 0);
     v1 = sub_4B1784();
     if ( !v1
-      || (v9 = *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v135) - 14,
-          v147 = (v9 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v129) + 4) - 17) >> 5),
-          v1 = class03_GetMousePos(pClass03_global, (int)&v133),
+      || (v9 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v135) - 14,
+          v147 = (v9 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v129) + 4) - 17) >> 5),
+          v1 = class03_GetMousePos(pGame->pClass03, (int)&v133),
           *(_DWORD *)v1 <= 13)
-      || (v1 = class03_GetMousePos(pClass03_global, (int)&v125), *(_DWORD *)v1 >= 462)
+      || (v1 = class03_GetMousePos(pGame->pClass03, (int)&v125), *(_DWORD *)v1 >= 462)
       || (v1 = sub_421E75((void *)v0, (int)&v147), v10 = 0, !v1) )
       return v1;
     v120 = 0;
@@ -11325,12 +11325,12 @@ LABEL_96:
     v1 = sub_4B1784();
     if ( v1 )
     {
-      v2 = *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v127) - 14;
-      v147 = (v2 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v124) + 4) - 17) >> 5);
-      v1 = class03_GetMousePos(pClass03_global, (int)&v137);
+      v2 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v127) - 14;
+      v147 = (v2 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v124) + 4) - 17) >> 5);
+      v1 = class03_GetMousePos(pGame->pClass03, (int)&v137);
       if ( *(_DWORD *)v1 > 13 )
       {
-        v1 = class03_GetMousePos(pClass03_global, (int)&v139);
+        v1 = class03_GetMousePos(pGame->pClass03, (int)&v139);
         if ( *(_DWORD *)v1 < 462 )
         {
           v1 = sub_421E75((void *)v0, (int)&v147);
@@ -13349,9 +13349,9 @@ LABEL_73:
   }
   if ( dword_F8B19C == 18 )
   {
-    v18 = class03_GetMousePos(pClass03_global, (int)&v64);
+    v18 = class03_GetMousePos(pGame->pClass03, (int)&v64);
     v17 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
-                    + 4 * (*(_DWORD *)v18 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v62) + 4)])) & 0xFFFF;
+                    + 4 * (*(_DWORD *)v18 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v62) + 4)])) & 0xFFFF;
     if ( !v17 )
       return;
     v20 = *(_DWORD *)(dword_507BC0 + 28);
@@ -13388,9 +13388,9 @@ LABEL_70:
   if ( dword_F8B19C == 2 )
   {
 LABEL_49:
-    v29 = class03_GetMousePos(pClass03_global, (int)&v60);
+    v29 = class03_GetMousePos(pGame->pClass03, (int)&v60);
     v28 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
-                    + 4 * (*(_DWORD *)v29 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v58) + 4)])) & 0xFFFF;
+                    + 4 * (*(_DWORD *)v29 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v58) + 4)])) & 0xFFFF;
     if ( !v28 )
       return;
     v30 = *(_DWORD *)(dword_507BC0 + 28);
@@ -13480,10 +13480,10 @@ LABEL_81:
   }
   if ( dword_F8B19C == 3 )
   {
-    v14 = *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v72) - 14;
-    v80 = (v14 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v70) + 4) - 17) >> 5);
-    if ( *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v68) <= 13
-      || *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v66) >= 462
+    v14 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v72) - 14;
+    v80 = (v14 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v70) + 4) - 17) >> 5);
+    if ( *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v68) <= 13
+      || *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v66) >= 462
       || (v15 = sub_421E75((void *)v0, (int)&v80), v78 = v15, !v15) )
       return;
     v16 = dword_507BC0;
@@ -13511,11 +13511,11 @@ LABEL_87:
   }
   if ( dword_F8B19C == 4 )
   {
-    v10 = *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v63) - 14;
-    v80 = (v10 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v67) + 4) - 17) >> 5);
-    if ( *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v59) > 13 )
+    v10 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v63) - 14;
+    v80 = (v10 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v67) + 4) - 17) >> 5);
+    if ( *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v59) > 13 )
     {
-      if ( *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v65) < 462 )
+      if ( *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v65) < 462 )
       {
         v11 = sub_421E75((void *)v0, (int)&v80);
         if ( v11 )
@@ -13554,11 +13554,11 @@ LABEL_30:
   {
     if ( dword_F8B19C == 5 )
     {
-      v1 = *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v69) - 14;
-      v80 = (v1 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pClass03_global, (int)&v71) + 4) - 17) >> 5);
-      if ( *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v61) > 13 )
+      v1 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v69) - 14;
+      v80 = (v1 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v71) + 4) - 17) >> 5);
+      if ( *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v61) > 13 )
       {
-        if ( *(_DWORD *)class03_GetMousePos(pClass03_global, (int)&v73) < 462 )
+        if ( *(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v73) < 462 )
         {
           v2 = sub_421E75((void *)v0, (int)&v80);
           if ( v2 )
@@ -14041,7 +14041,7 @@ int __thiscall sub_4BF5B2(int this)
       SmackNextFrame(*(_DWORD *)(v2 + 40));
     }
   }
-  sub_469E24(pClass03_global);
+  sub_469E24(pGame->pClass03);
   result = dword_507BC0;
   if ( dword_507BC0 )
   {
@@ -18988,7 +18988,7 @@ void __cdecl sub_4CA338()
   int v4; // [sp+3Ch] [bp-4h]@1
 
   v2 = v3;
-  sub_40E2F6((int)&v2, 0);
+  CGame_stru0_sub_40E2F6((int)&v2, 0);
   v0 = strlen(&byte_4D8410[11380]);
   sub_40E32E((int)&v2, &byte_4D8410[11380], v0);
   v4 = 0;
@@ -19009,7 +19009,7 @@ void *__thiscall sub_4CA392(void *this, int a2)
   exception__exception(&v4);
   v5 = 0;
   *((_BYTE *)v3 + 12) = *(_BYTE *)a2;
-  sub_40E2F6((int)((char *)v3 + 12), 0);
+  CGame_stru0_sub_40E2F6((int)((char *)v3 + 12), 0);
   sub_4679E2((int)((char *)v3 + 12), a2, 0, *(size_t *)&byte_4D8410[11412]);
   *(_DWORD *)v3 = 5091480;
   return v3;
@@ -19023,7 +19023,7 @@ void *__thiscall sub_4CA479(void *this, int a2)
   v3 = this;
   exception__exception(a2);
   *((_BYTE *)v3 + 12) = *(_BYTE *)(a2 + 12);
-  sub_40E2F6((int)((char *)v3 + 12), 0);
+  CGame_stru0_sub_40E2F6((int)((char *)v3 + 12), 0);
   sub_4679E2((int)((char *)v3 + 12), a2 + 12, 0, *(size_t *)&byte_4D8410[11412]);
   *(_DWORD *)v3 = 5091480;
   return v3;

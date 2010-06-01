@@ -8010,7 +8010,7 @@ int __fastcall sub_49B3B8(int a1)
   size_t v2; // eax@1
 
   byte_AE5B94 = BYTE3(a1);
-  sub_40E2F6((int)&byte_AE5B94, 0);
+  CGame_stru0_sub_40E2F6((int)&byte_AE5B94, 0);
   v2 = strlen("hwsplat04");
   return sub_40E32E((int)&byte_AE5B94, "hwsplat04", v2);
 }
@@ -8021,7 +8021,7 @@ void __cdecl sub_49B3EB()
   if ( !(byte_AE5B91 & 1) )
   {
     byte_AE5B91 |= 1u;
-    sub_40E2F6((int)&byte_AE5B94, 1);
+    CGame_stru0_sub_40E2F6((int)&byte_AE5B94, 1);
   }
 }
 
