@@ -7889,9 +7889,6 @@ int __cdecl sub_466082()
   size_t v2; // eax@31
   size_t v3; // ebx@32
   size_t v4; // edi@36
-  UINT v6; // eax@40
-  UINT v7; // eax@40
-  //char v8; // [sp+Ch] [bp-17Ch]@1
   char String[32]; // [sp+84h] [bp-104h]@32
   CHAR Str[16]; // [sp+FCh] [bp-8Ch]@32
   //const CHAR FileName; // [sp+10Ch] [bp-7Ch]@1
@@ -7977,9 +7974,9 @@ int __cdecl sub_466082()
   GetPrivateProfileStringA("textures", "sky", "plansky1", byte_6BE114, 0x10u, pIniFile);
   GetPrivateProfileStringA("textures", "default", "dirt", Str, 0x10u, pIniFile);
   GetPrivateProfileStringA("debug", "recmod1", "1.0", String, 0x10u, pIniFile);
-  flt_6BE3A4 = atof(&String);
+  flt_6BE3A4 = atof(String);
   GetPrivateProfileStringA("debug", "recmod2", "1.0", String, 0x10u, pIniFile);
-  flt_6BE3A8 = atof(&String);
+  flt_6BE3A8 = atof(String);
   flt_6BE3AC = flt_6BE3A4 * *(double *)&byte_4D8410[768];
   v3 = 0;
   if ( strlen(byte_6BE114) )
@@ -8008,13 +8005,9 @@ int __cdecl sub_466082()
   dword_6BE058 = GetPrivateProfileIntA("texmapping", "building_subdivsize", 32, pIniFile);
   dword_6BE05C = GetPrivateProfileIntA("texmapping", "building_subdivpow2", 5, pIniFile);
 
-  v6 = GetPrivateProfileIntA("party", "eyelevel", 160, pIniFile);
-  pParty_global->dword_000010 = v6;
-  pParty_global->dword_00000C = v6;
+  pParty_global->dword_00000C = pParty_global->dword_000010 = GetPrivateProfileIntA("party", "eyelevel", 160, pIniFile);
+  pParty_global->dword_000004 = pParty_global->dword_000008 = GetPrivateProfileIntA("party", "height", 192, pIniFile);
 
-  v7 = GetPrivateProfileIntA("party", "height", 192, pIniFile);
-  pParty_global->dword_000008 = v7;
-  pParty_global->dword_000004 = v7;
   return sub_4666D5();
 }
 

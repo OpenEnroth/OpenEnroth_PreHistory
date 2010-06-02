@@ -437,7 +437,7 @@ LABEL_33:
     locked_fread(*(void **)(v5 + 228), 4u, 0x4000u, v24);
     fseek(v24, v143, 0);
     locked_fread((void *)(v5 + 1216), 4u, 1u, v24);
-    *(_DWORD *)(v5 + 1220) = class23_AllocatedNamedBuffer(&class23_instance, *(_DWORD *)(v5 + 1220), 24 * *(_DWORD *)(v5 + 1216), "Spawn");
+    *(_DWORD *)(v5 + 1220) = class23_AllocatedNamedBuffer(class23_instance, *(_DWORD *)(v5 + 1220), 24 * *(_DWORD *)(v5 + 1216), "Spawn");
     fseek(v24, v144, 0);
     locked_fread(*(void **)(v5 + 1220), 0x18u, *(_DWORD *)(v5 + 1216), v24);
     fseek(v24, v145, 0);
@@ -601,7 +601,7 @@ LABEL_33:
       v120 = FileName;
 
       v119 = 12 * _this->pBModels[i].dword_000044;
-      _this->pBModels[i].ptr_000048 =  class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
+      _this->pBModels[i].ptr_000048 = class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
 
       v119 = _this->pBModels[i].dword_00004C * sizeof(struct class51_stru2);
       _this->pBModels[i].ptr_000054 = class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
@@ -709,11 +709,10 @@ LABEL_75:
   Src = (char *)Src + 4;
   if ( (signed int)dword_69ADD0 < 0 || (signed int)dword_69ADD0 > 3000 )
   {
-    v120 = 678;
     v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
     wtf = &v115;
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
-    sub_466D09(&v167, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, v120);
+    sub_466D09(&v167, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, __LINE__);
   }
 
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
@@ -782,11 +781,10 @@ LABEL_75:
  Str2 = 0;
  if ( v159.v159 != 91969 || v159.v160 != 109 || v159.v161 != 118 || v159.v162 != 105 || v159.v163 != 105 )
  {
-    v120 = 746;
     v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
     wtf = &v115;
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
-    sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, v120);
+    sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, __LINE__);
     Str2 = (char *)1;
  }
   v78 = 0;
@@ -813,11 +811,10 @@ LABEL_75:
     }
     else
     {
-      v120 = 765;
       v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
       wtf = &v115;
       sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
-      sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, v120);
+      sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, __LINE__);
     }
     memcpy(_this->array_0004C8, (const void *)v79, 0x28u);
     v78 = v79 + 40;
@@ -887,11 +884,10 @@ LABEL_112:
     }
     else
     {
-      v120 = 857;
       v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
       a4 = (signed int)&v115;
       sub_40E2C8(&v115, "Can't load file!", (int)((char *)&a4 + 3));
-      sub_466D09(&File, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, v120);
+      sub_466D09(&File, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, __LINE__);
     }
     v78 = v89 + 40;
     goto LABEL_120;
@@ -955,11 +951,10 @@ LABEL_120:
   v78 = (char *)v78 + 4;
   if ( (signed int)uNumActors < 0 || uNumActors > 500 )
   {
-    v120 = 939;
     v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
     a5 = (int)&v115;
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&a5 + 3));
-    sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, v120);
+    sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, __LINE__);
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
@@ -975,11 +970,10 @@ LABEL_120:
   v78 = (char *)v78 + 4;
   if ( (signed int)Count < 0 || Count > 1000 )
   {
-    v120 = 954;
     v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
     a5 = (int)&v115;
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&a5 + 3));
-    sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, v120);
+    sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, __LINE__);
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
@@ -995,11 +989,10 @@ LABEL_120:
   v78 = (char *)v78 + 4;
   if ( (signed int)dword_5FF140 < 0 || (signed int)dword_5FF140 > 20 )
   {
-    v120 = 968;
     v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
     a5 = (int)&v115;
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&a5 + 3));
-    sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, v120);
+    sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, __LINE__);
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
@@ -1048,7 +1041,7 @@ LABEL_150:
         v120 = dword_4EC268[rand() % dword_4EC2A8];
       else
         v120 = dword_4EC28C[rand() % dword_4EC2AC];
-      sprintfex(&_this->array_0004F0[2], "plansky%d", v120);
+      wsprintfA(&_this->array_0004F0[2], "plansky%d", v120);
     }
   }
   else
