@@ -1187,7 +1187,6 @@ void __thiscall sub_49F1BC(int this, const char *Filename);
 int __thiscall sub_49F5A2(void *this, int a2, int a3, int a4, void *Dst, int a6, int a7);
 FILE *__thiscall sub_49F8B5(void *this, FILE *Filename, int a3, int a4, int a5);
 signed int __thiscall sub_49FFD7(int this);
-int __thiscall sub_4A05F3(void *this, int a2);
 char __thiscall sub_4A0BEE(int this, int a2, int a3, int a4, int a5, __int16 a6);
 char __thiscall sub_4A169E(void *this);
 char __cdecl sub_4A16A5();

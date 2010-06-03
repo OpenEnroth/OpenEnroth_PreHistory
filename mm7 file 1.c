@@ -1606,7 +1606,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
  else
  {
   ClipCursor(0);
-  sub_4A05F3(pD3DRenderer, hWnd_global);
+  CD3DRenderer_InitWnd(pD3DRenderer, hWnd_global);
  }
 
  byte_6BE36F = ReadWindowsRegistry("soundflag", 9);

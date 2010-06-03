@@ -110,6 +110,8 @@ struct CD3DRenderer
 void CD3DRenderer_ctor(struct CD3DRenderer *_this);
 //int __thiscall sub_49FFFB(int this, unsigned int a2);
 int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd);
+int CD3DRenderer_InitWnd(struct CD3DRenderer *_this, HWND hwnd);
+
 //signed int __thiscall sub_49FDBF(int this)
 void CD3DRenderer_Initialize_ZBuffer(struct CD3DRenderer *_this);
 //int __thiscall sub_4A10E4(void *this)

@@ -18070,7 +18070,7 @@ LABEL_52:
     else
     {
       ClipCursor(0);
-      sub_4A05F3(pD3DRenderer, hWnd_global);
+      CD3DRenderer_InitWnd(pD3DRenderer, hWnd_global);
       SetWindowLongA(hWnd_global, -16, dwNewLong);
       SetMenu(hWnd_global, hMenu);
     }
