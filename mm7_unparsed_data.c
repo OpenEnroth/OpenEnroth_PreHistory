@@ -1933,7 +1933,7 @@ unsigned int uLevelMapStatsID; // dword @ MM7.exe::006BE358
  int dword_6BE35C; // weak
  int dword_6BE360; // weak
  int dword_6BE364; // startup flags
-                   // 0x0002: ?
+                   // 0x0002: desktop color depth == 32
                    // 0x0004: no intro
                    // 0x0008: no logo
                    // 0x0010: no sound

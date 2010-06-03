@@ -1343,14 +1343,14 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   wcxw.hbrBackground = GetStockObject(LTGRAY_BRUSH);
   wcxw.lpszClassName = pWindowClassName;
   RegisterClassExW(&wcxw);
-
+ 
   hMenu = 0;
   v5 = 2 * GetSystemMetrics(SM_CYFRAME);
   hdc = (DWORD)GetDC(0);
   SectorsPerCluster = GetDeviceCaps((HDC)hdc, 12);
   v4 = GetDeviceCaps((HDC)hdc, 14);
-  if ( SectorsPerCluster != 16 || v4 != 1 )
-    dword_6BE364 |= 2;
+  //if ( SectorsPerCluster != 16 || v4 != 1 )
+  //  dword_6BE364 |= 2;
   BytesPerSector = GetDeviceCaps((HDC)hdc, 8);
   SectorsPerCluster = GetDeviceCaps((HDC)hdc, 10);
   ReleaseDC(0, (HDC)hdc);
@@ -1594,7 +1594,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
 
  pD3DRenderer = malloc(sizeof(struct CD3DRenderer));
  CD3DRenderer_ctor(pD3DRenderer);
- if (dword_6BE364 & 2 || !(dword_6BE368 & 1))  // if (dword_6BE364 & 2 || !windowed)
+ if (!(dword_6BE368 & 1))  // if (dword_6BE364 & 2 || !windowed)
  {
   SetMenu(hWnd_global, 0);
   SetWindowLongA(hWnd_global, GWL_EXSTYLE, 0);

@@ -18029,11 +18029,13 @@ void __cdecl sub_4667E9()
 
   if ( pD3DRenderer->dword_040058 )
     goto LABEL_52;
-  if ( dword_6BE364 & 2 )
+
+  compile_error;
+  /*if ( dword_6BE364 & 2 )  // if primary surface color depth == 32
   {
     sub_4141CA(pGlobalTXT_LocalizationStrings[62], 0);
     return;
-  }
+  }*/
   if ( !pD3DRenderer->dword_040088 || **(_DWORD **)(pD3DRenderer->dword_040088 + 28) )
   {
 LABEL_52:
