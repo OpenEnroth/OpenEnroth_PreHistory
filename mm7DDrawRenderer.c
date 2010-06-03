@@ -548,15 +548,15 @@ void CD3DRenderer_DrawTransparentTexture(struct CD3DRenderer *_this, unsigned in
  {
   if (y + uY < _this->dword_0400F4)
     continue;
-  else if (y + uY >= _this->dword_0400FC)
-    return;
+  if (y + uY >= _this->dword_0400FC)
+    continue;
 
   for (x = 0; x < pTexture->uTextureWidth; ++x)
   {
    if (x + uX < _this->dword_0400F8)
      continue;
-   else if (x + uX >= _this->dword_040100)
-     return;
+   if (x + uX >= _this->dword_040100)
+     continue;
 
    uSrcColor = pTexture->pTruecolorPixels[y * pTexture->uTextureWidth + x];
    uDstColor = pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX];
@@ -1499,7 +1499,7 @@ LABEL_45:
     *(_DWORD *)(v2 + 262416) = 1;
 LABEL_47:
     *(_DWORD *)(v2 + 262232) = 1;
-    *(_DWORD *)(v2 + 262224) = hwnd;
+    _this->hWnd = hwnd;
     return 0;
   }
   *(_DWORD *)(v2 + 262380) = 0;
@@ -1861,7 +1861,7 @@ int CD3DRenderer_Present(struct CD3DRenderer *_this)
    Point.x = 0;
    ClientToScreen(_this->hWnd, &Point);
    OffsetRect(&Rect, Point.x, Point.y);
-   sub_4A1884(_this, &Rect, &rc);
+   CD3DRenderer_Blt(_this, &Rect, &rc);
   }
   else CD3DRenderer_PresentBackBuffer(_this, 0, 0, &rc);
  }
@@ -2750,4 +2750,14 @@ void *CD3DRenderer_CreateClipper(struct CD3DRenderer *_this, HWND hClipWnd)
 
  hr = _this->pdds4_FrontBuffer->lpVtbl->SetClipper(pD3DRenderer->pdds4_FrontBuffer, pDDrawClipper);
  return CheckHRESULT(&local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2465, 0);
+}
+
+//----- (004A1884) --------------------------------------------------------
+void * CD3DRenderer_Blt(struct CD3DRenderer *_this, RECT *pDestRect, RECT *pSrcRect)
+{
+  HRESULT             hr;
+  char                local_0[128];
+
+  hr = (pD3DRenderer->pdds4_FrontBuffer->lpVtbl->Blt)(pD3DRenderer->pdds4_FrontBuffer, pDestRect, pD3DRenderer->pdds4_BackBuffer, pSrcRect, DDBLT_WAIT, 0);
+  return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2657, 0);
 }

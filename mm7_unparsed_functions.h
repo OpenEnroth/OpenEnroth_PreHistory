@@ -1191,7 +1191,6 @@ char __thiscall sub_4A0BEE(int this, int a2, int a3, int a4, int a5, __int16 a6)
 char __thiscall sub_4A169E(void *this);
 char __cdecl sub_4A16A5();
 int __thiscall sub_4A184C(void *this);
-void *__thiscall sub_4A1884(int this, int a2, int a3);
 int __fastcall sub_4A19D8(unsigned int a1, unsigned int a2);
 int __stdcall sub_4A1B22(int a1);
 int __cdecl sub_4A1C1E();

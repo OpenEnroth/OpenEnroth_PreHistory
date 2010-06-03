@@ -12403,45 +12403,6 @@ int __thiscall sub_4A184C(void *this)
   return result;
 }
 
-//----- (004A1884) --------------------------------------------------------
-void *__thiscall sub_4A1884(int this, int a2, int a3)
-{
-  int v3; // eax@3
-  int v5; // eax@5
-  int v6; // [sp-1Ch] [bp-1Ch]@3
-  int v7; // [sp-18h] [bp-18h]@3
-  signed int v8; // [sp-14h] [bp-14h]@3
-  int v9; // [sp-10h] [bp-10h]@3
-  const char *v10; // [sp-Ch] [bp-Ch]@3
-  unsigned int v11; // [sp-8h] [bp-8h]@3
-  int v12; // [sp-4h] [bp-4h]@3
-
-  if ( dword_F79D7C != 2 || dword_F79D70 != 4 )
-  {
-    v12 = 0;
-    v3 = *(_DWORD *)(this + 262288);
-    v11 = 2657;
-    v10 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp";
-    v9 = 0;
-    v8 = 16777216;
-    v7 = a3;
-    v6 = *(_DWORD *)(this + 262292);
-  }
-  else
-  {
-    v12 = 0;
-    v3 = *(_DWORD *)(this + 262304);
-    v11 = 2653;
-    v10 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp";
-    v9 = 0;
-    v8 = 16777216;
-    v7 = a3;
-    v6 = *(_DWORD *)(this + 262308);
-  }
-  v5 = (*(int (__stdcall **)(int, int, int, int, signed int, int))(*(_DWORD *)v3 + 20))(v3, a2, v6, v7, v8, v9);
-  return CheckHRESULT(&a3, v5, v10, v11, v12);
-}
-
 //----- (004A19D8) --------------------------------------------------------
 int __fastcall sub_4A19D8(unsigned int a1, unsigned int a2)
 {
