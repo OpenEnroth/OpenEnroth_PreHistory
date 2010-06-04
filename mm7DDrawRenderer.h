@@ -45,6 +45,7 @@ struct CD3DRenderer
  int                         dword_000028;
 
  unsigned short              array_00002C[65536]; //byte[?] @ 00002C
+ unsigned short              array_02002C[65536]; //byte[?] @ 02002C
 
  int                         dword_04002C;
  int                         dword_040030;
