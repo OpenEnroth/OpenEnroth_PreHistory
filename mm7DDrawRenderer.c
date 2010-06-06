@@ -101,7 +101,7 @@ void CD3DRenderer_ctor(struct CD3DRenderer *_this)
 
  _this->dword_040088 = 0;
 
- _this->bSceneBegun = false;
+ _this->bSceneBegun = 0;
 
  _this->pTargetSurface = 0;
  _this->uTargetSurfacePitch = 0;

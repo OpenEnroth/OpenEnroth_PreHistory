@@ -59,6 +59,7 @@ struct CD3DRenderer
  HWND                        hWnd;               // ptr @ 040050
  int                         dword_040054;
  int                         dword_040058;       //maybe windowed flag
+ int                         dword_04005C[11];   // for struct align
  int                         dword_040088;
  struct IDirectDraw4        *pdd4;               // ptr @ 04008C
  struct IDirectDrawSurface4 *pdds4_FrontBuffer;  // ptr @ 040090
