@@ -60,7 +60,7 @@ struct CD3DRenderer
  int                         dword_040054;
  int                         dword_040058;       //maybe windowed flag
  int                         dword_04005C[11];   // for struct align
- int                         dword_040088;
+ int                         dword_040088;       // some D3D interface
  struct IDirectDraw4        *pdd4;               // ptr @ 04008C
  struct IDirectDrawSurface4 *pdds4_FrontBuffer;  // ptr @ 040090
  struct IDirectDrawSurface4 *pdds4_BackBuffer;   // ptr @ 040094

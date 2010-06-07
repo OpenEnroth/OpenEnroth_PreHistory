@@ -1389,7 +1389,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   wsprintfA(pConfigFilename, "%s\\mm6.ini", v64);
   dwNewLong = WS_CAPTION | WS_SYSMENU | WS_GROUP;
   hWnd_global = CreateWindowExW(0, pWindowClassName,
-           L"Might and Magic® VII 7",
+           "Might and Magic® VII 7",
            WS_CAPTION | WS_SYSMENU | WS_GROUP,
            X,
            Y,
@@ -1432,7 +1432,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
 
   //here occurs WM_WINDOWPOSCHANGED which tries to access pVideoPlayer which was not created til this moment
   //added check of pVideoPlayer pointer in wWinProc
-  MoveWindow(hWnd_global, X, Y, rcClient.left - rcClient.bottom - rcWindow.left + rcWindow.right + 640, rcClient.top - rcClient.bottom - rcWindow.top + rcWindow.bottom + 480, v13);
+  MoveWindow(hWnd_global, X, Y, 640, 480, v13);
 
   bLoadingFromCD = GetPrivateProfileIntA("settings", "use_cd", true, pConfigFilename);
   if (bLoadingFromCD)
@@ -3795,6 +3795,7 @@ LABEL_179:
       if ( BYTE1(dword_6BE364) & 1 )
       {
         dword_4E98BC = 1;
+        /* check for 16-bit screen 
         if ( pD3DRenderer->dword_040058 )
         {
           v12 = GetDC(0);
@@ -3803,7 +3804,7 @@ LABEL_179:
           ReleaseDC(0, v12);
           if ( v43 != 16 || v11 != 1 )
             erroneous_printf(pGlobalTXT_LocalizationStrings[62]);
-        }
+        } */
         BYTE1(dword_6BE364) &= 0xFEu;
         if (dword_720010)
           sub_46B105(dword_720010);

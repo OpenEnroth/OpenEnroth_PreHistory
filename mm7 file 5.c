@@ -1111,8 +1111,8 @@ LABEL_33:
           }
           else
           {
-           v19 = pGame->pClass03->dword_000108;
-           v18 = pGame->pClass03->dword_00010C;
+           v19 = pGame->pClass03->MouseClickX;
+           v18 = pGame->pClass03->MouseClickY;
           }
           v53 = v18;
           if ( v19 >= 560 )
@@ -1259,8 +1259,8 @@ LABEL_45:
   }
   else
   {
-   v35 = pGame->pClass03->dword_000108;
-   v34 = pGame->pClass03->dword_00010C;
+   v35 = pGame->pClass03->MouseClickX;
+   v34 = pGame->pClass03->MouseClickY;
   }
   v36 = v35 + dword_5059A8[v34];
   if ( !(*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v36) & 0xFFFF) )
@@ -1562,8 +1562,8 @@ void __thiscall sub_469EA4(int this)
     }
     else
     {
-     v5 = pGame->pClass03->dword_000108;
-     v4 = pGame->pClass03->dword_00010C;
+     v5 = pGame->pClass03->MouseClickX;
+     v4 = pGame->pClass03->MouseClickY;
     }
     v6 = v4;
     v16 = v5;

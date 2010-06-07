@@ -166,8 +166,8 @@ struct class03
 
  unsigned char array_0000F5[11];
 
- int dword_000108;
- int dword_00010C;
+ int MouseClickX;
+ int MouseClickY;
  struct class01 *class01_obj;   // dword @ 000110
 };
 //sizeof = 0114

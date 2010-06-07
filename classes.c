@@ -335,16 +335,16 @@ void class03_GetMousePosXY(struct class03 *_this, int *pX, int *pY)
   }
   else
   {
-    *pX = _this->dword_000108;
-    *pY = _this->dword_00010C;
+    *pX = _this->MouseClickX;
+    *pY = _this->MouseClickY;
   }
 }
 
 //----- (0046A08A) --------------------------------------------------------
 void class03_OnMouseLeftButton(struct class03 *_this, int x, int y)
 {
- _this->dword_000108 = x;
- _this->dword_00010C = y;
+ _this->MouseClickX = x;
+ _this->MouseClickY = y;
 }
 
 //----- (00469C65) --------------------------------------------------------
@@ -362,7 +362,7 @@ void sub_469C65(struct class03 *_this, HWND hwnd)
  _this->dword_0000C4 = 0;
  _this->dword_0000C8 = 0;
 
- _this->dword_00010C = 0;
+ _this->MouseClickY = 0;
 
  sub_469903(_this, "MICON3");
  sub_469903(_this, "MICON2");
