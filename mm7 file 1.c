@@ -1284,7 +1284,6 @@ LABEL_34:
 //----- (004651F4) --------------------------------------------------------
 signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
 {
-  int v4; // eax@4
   int v5; // edi@4
   HINSTANCE v6; // edi@4
   int v8; // ST2C_4@4
@@ -1347,16 +1346,14 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   hMenu = 0;
   v5 = 2 * GetSystemMetrics(SM_CYFRAME);
   hdc = (DWORD)GetDC(0);
-  SectorsPerCluster = GetDeviceCaps((HDC)hdc, 12);
-  v4 = GetDeviceCaps((HDC)hdc, 14);
-  //if ( SectorsPerCluster != 16 || v4 != 1 )
+  SectorsPerCluster = GetDeviceCaps((HDC)hdc, BITSPIXEL);
+  //if ( SectorsPerCluster != 16 || GetDeviceCaps((HDC)hdc, PLANES) != 1 )
   //  dword_6BE364 |= 2;
-  BytesPerSector = GetDeviceCaps((HDC)hdc, 8);
-  SectorsPerCluster = GetDeviceCaps((HDC)hdc, 10);
   ReleaseDC(0, (HDC)hdc);
+
   v12 = v5 + 640;
   v11 = GetSystemMetrics(SM_CYCAPTION) + v5 + 480;
-  v10 = (signed int)(BytesPerSector - v12) / 2;
+  v10 = (signed int)(GetDeviceCaps((HDC)hdc, HORZRES) - v12) / 2;
   hdc = v10;
   if ( v10 >= 0 )
   {
@@ -1367,23 +1364,24 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
     v13 = 0;
     v10 = 0;
   }
-  X = ReadWindowsRegistry("window X", v10);
-  v14 = SectorsPerCluster - v11 - ((unsigned __int64)(signed int)(SectorsPerCluster - v11) >> 32);
+  uWindowPosX = ReadWindowsRegistry("window X", v10);
+  v14 = GetDeviceCaps((HDC)hdc, VERTRES) - v11 - ((unsigned __int64)(signed int)(GetDeviceCaps((HDC)hdc, VERTRES) - v11) >> 32);
   v15 = v14 >> 1;
   if ( v14 >> 1 >= 0 )
     v16 = v14 >> 1;
   else
     v16 = 0;
-  Y = ReadWindowsRegistry("window Y", v16);
+  uWindowPosY = ReadWindowsRegistry("window Y", v16);
   dword_51076C = ReadWindowsRegistry("debug flags", 0);
-  if ( X < v13 || X > (signed int)BytesPerSector || Y < v13 || Y > (signed int)SectorsPerCluster )
+  if (uWindowPosX < 0 || uWindowPosX > GetDeviceCaps((HDC)hdc, HORZRES) ||
+      uWindowPosY < 0 || uWindowPosY > GetDeviceCaps((HDC)hdc, VERTRES))
   {
-    X = v13;
-    if ( (signed int)hdc >= v13 )
-      X = hdc;
-    Y = v13;
-    if ( v15 >= v13 )
-      Y = v15;
+   uWindowPosX = 0;
+   if ((signed int)hdc >= 0)
+     uWindowPosX = hdc;
+   uWindowPosY = 0;
+   if (v15 >= 0)
+     uWindowPosY = v15;
   }
   GetCurrentDirectoryA(120, v64);
   wsprintfA(pConfigFilename, "%s\\mm6.ini", v64);
@@ -1391,8 +1389,8 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   hWnd_global = CreateWindowExW(0, pWindowClassName,
            "Might and Magic® VII 7",
            WS_CAPTION | WS_SYSMENU | WS_GROUP,
-           X,
-           Y,
+           uWindowPosX,
+           uWindowPosY,
            640,
            480,
            0,
@@ -1425,14 +1423,15 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   sub_448B45((void *)1);
   GameInitialize();
   pGame->pClass03 = pGame->class03_obj;
+
   GetWindowRect(hWnd_global, &rcWindow);
   GetClientRect(hWnd_global, &rcClient);
-  nWidth = rcClient.left - rcClient.right - rcWindow.left + rcWindow.right + 640;
-  nHeight = rcClient.top - rcClient.bottom - rcWindow.top + rcWindow.bottom + 480;
+  uWindowWidth = (rcWindow.right - rcWindow.left) - (rcClient.right - rcClient.left) + 640;
+  uWindowHeight = (rcWindow.bottom - rcWindow.top) - (rcClient.bottom - rcClient.top) + 480;
 
   //here occurs WM_WINDOWPOSCHANGED which tries to access pVideoPlayer which was not created til this moment
   //added check of pVideoPlayer pointer in wWinProc
-  MoveWindow(hWnd_global, X, Y, 640, 480, v13);
+  MoveWindow(hWnd_global, 16 + uWindowPosX, 16 + uWindowPosY, uWindowWidth, uWindowHeight, false);
 
   bLoadingFromCD = GetPrivateProfileIntA("settings", "use_cd", true, pConfigFilename);
   if (bLoadingFromCD)

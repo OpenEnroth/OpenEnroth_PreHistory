@@ -164,10 +164,10 @@ struct class03
 
  int dword_0000CC[16];
 
- unsigned char array_0000F5[11];
+ unsigned char   array_0000F5[11];
 
- int MouseClickX;
- int MouseClickY;
+ unsigned int    uMouseClickX;
+ unsigned int    uMouseClickY;
  struct class01 *class01_obj;   // dword @ 000110
 };
 //sizeof = 0114
@@ -188,7 +188,7 @@ void class03_sub_4698A6(struct class03 *_this);
 //void sub_46A08A(int this, int a2, int a3)
 void class03_OnMouseLeftButton(struct class03 *_this, int x, int y);
 //int __thiscall sub_469860(int this, int a2, int a3);
-void class03_GetMousePosXY(struct class03 *_this, int *pX, int *pY);
+void class03_GetMouseClickPos(struct class03 *_this, int *pX, int *pY);
 //int __thiscall sub_469E3B(int this)
 int sub_469E3B(struct class03 *_this);
 

@@ -1921,10 +1921,10 @@ wchar_t pWindowClassName[20];
  HINSTANCE hInstance; // idb
  const char *pCommand = 0; // dword @ MM7.exe::006BE2F0     command line passed to application on startup
  HWND hWnd_global; // idb
- int nWidth; // idb
- int nHeight; // idb
- int X; // idb
- int Y; // idb
+ unsigned int uWindowWidth; // idb
+ unsigned int uWindowHeight; // idb
+ unsigned int uWindowPosX; // idb
+ unsigned int uWindowPosY; // idb
  LONG dwNewLong; // idb
  HMENU hMenu; // idb
  int dword_6BE340; // weak

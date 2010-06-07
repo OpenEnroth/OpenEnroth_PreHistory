@@ -1111,8 +1111,8 @@ LABEL_33:
           }
           else
           {
-           v19 = pGame->pClass03->MouseClickX;
-           v18 = pGame->pClass03->MouseClickY;
+           v19 = pGame->pClass03->uMouseClickX;
+           v18 = pGame->pClass03->uMouseClickY;
           }
           v53 = v18;
           if ( v19 >= 560 )
@@ -1259,8 +1259,8 @@ LABEL_45:
   }
   else
   {
-   v35 = pGame->pClass03->MouseClickX;
-   v34 = pGame->pClass03->MouseClickY;
+   v35 = pGame->pClass03->uMouseClickX;
+   v34 = pGame->pClass03->uMouseClickY;
   }
   v36 = v35 + dword_5059A8[v34];
   if ( !(*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v36) & 0xFFFF) )
@@ -1562,8 +1562,8 @@ void __thiscall sub_469EA4(int this)
     }
     else
     {
-     v5 = pGame->pClass03->MouseClickX;
-     v4 = pGame->pClass03->MouseClickY;
+     v5 = pGame->pClass03->uMouseClickX;
+     v4 = pGame->pClass03->uMouseClickY;
     }
     v6 = v4;
     v16 = v5;
@@ -2564,7 +2564,7 @@ int __thiscall sub_46ADE2(int this)
     (**(void (__stdcall ***)(_DWORD))v1)(1);
   *(_DWORD *)v2 = 0;
   TerminateThread(*(HANDLE *)(v3 + 16), 0xFAu);
-  v5 = SetWindowPos(hWnd_global, (HWND)0xFFFFFFFE, X, Y, 640, 480, 0);
+  v5 = SetWindowPos(hWnd_global, (HWND)0xFFFFFFFE, uWindowPosX, uWindowPosY, 640, 480, 0);
   v6 = sub_46BC73(v5, v3 + 116);
   return sub_46BC73(v6, v3 + 104);
 }

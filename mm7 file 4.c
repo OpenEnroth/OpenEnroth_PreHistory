@@ -18059,8 +18059,8 @@ LABEL_52:
       {
         RegistryWriteInt("window X", Rect.left);
         RegistryWriteInt("window Y", Rect.top);
-        X = Rect.left;
-        Y = Rect.top;
+        uWindowPosX = Rect.left;
+        uWindowPosY = Rect.top;
       }
       SetMenu(hWnd_global, 0);
       SetWindowLongA(hWnd_global, -20, 0);
@@ -18137,7 +18137,7 @@ LABEL_38:
     if ( pD3DRenderer->dword_040058 )
     {
       InvalidateRect(0, 0, 0);
-      MoveWindow(hWnd_global, X, Y, nWidth, nHeight, 0);
+      MoveWindow(hWnd_global, uWindowPosX, uWindowPosY, uWindowWidth, uWindowHeight, 0);
       ShowWindow(hWnd_global, 1);
     }
     pGame->pClass03->dword_000004 = 1;

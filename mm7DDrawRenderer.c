@@ -1823,10 +1823,10 @@ int CD3DRenderer_ClearBackBufferAndPresent(struct CD3DRenderer *_this)
  DDBLTFX ddblt;
  RECT    rcDst;
 
- rcDst.left = X;
- rcDst.top = Y;
- rcDst.right = X + nWidth;
- rcDst.bottom = Y + nHeight;
+ rcDst.left = uWindowPosX;
+ rcDst.top = uWindowPosY;
+ rcDst.right = uWindowPosX + uWindowWidth;
+ rcDst.bottom = uWindowPosY + uWindowHeight;
 
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
    v1 = pD3DRenderer->pdds4_BackBuffer;

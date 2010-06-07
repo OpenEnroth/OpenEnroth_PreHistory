@@ -308,9 +308,9 @@ int class03_fn1(struct class03 *_this, int a2)
 //----- (MM7.exe::00469C39) --------------------------------------------------------
 POINT *class03_GetMousePos(struct class03 *_this, POINT *pOut)
 {
-  int *v3; // edx@1
-  int v4; // ecx@2
-  int v5; // edx@3
+ int *v3; // edx@1
+ int v4; // ecx@2
+ int v5; // edx@3
 
  v3 = dword_720010;
  if (dword_720010)
@@ -321,12 +321,13 @@ POINT *class03_GetMousePos(struct class03 *_this, POINT *pOut)
  else
  {
   GetCursorPos(pOut);
+  ScreenToClient(hWnd_global, pOut);
  }
  return pOut;
 }
 
 //----- (00469860) --------------------------------------------------------
-void class03_GetMousePosXY(struct class03 *_this, int *pX, int *pY)
+void class03_GetMouseClickPos(struct class03 *_this, int *pX, int *pY)
 {
   if (dword_720010)
   {
@@ -335,16 +336,16 @@ void class03_GetMousePosXY(struct class03 *_this, int *pX, int *pY)
   }
   else
   {
-    *pX = _this->MouseClickX;
-    *pY = _this->MouseClickY;
+    *pX = _this->uMouseClickX;
+    *pY = _this->uMouseClickY;
   }
 }
 
 //----- (0046A08A) --------------------------------------------------------
 void class03_OnMouseLeftButton(struct class03 *_this, int x, int y)
 {
- _this->MouseClickX = x;
- _this->MouseClickY = y;
+ _this->uMouseClickX = x;
+ _this->uMouseClickY = y;
 }
 
 //----- (00469C65) --------------------------------------------------------
@@ -362,7 +363,7 @@ void sub_469C65(struct class03 *_this, HWND hwnd)
  _this->dword_0000C4 = 0;
  _this->dword_0000C8 = 0;
 
- _this->MouseClickY = 0;
+ _this->uMouseClickY = 0;
 
  sub_469903(_this, "MICON3");
  sub_469903(_this, "MICON2");

@@ -1893,10 +1893,10 @@ extern wchar_t pWindowClassName[20];
 extern HINSTANCE hInstance; // idb
 extern const char *pCommand;
 extern HWND hWnd_global; // idb
-extern int nWidth; // idb
-extern int nHeight; // idb
-extern int X; // idb
-extern int Y; // idb
+extern unsigned int uWindowWidth;
+extern unsigned int uWindowHeight;
+extern unsigned int uWindowPosX;
+extern unsigned int uWindowPosY;
 extern LONG dwNewLong; // idb
 extern HMENU hMenu; // idb
 extern int dword_6BE340; // weak

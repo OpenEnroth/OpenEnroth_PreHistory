@@ -798,7 +798,7 @@ int __fastcall MenuLoop_CharacterCreation()
   int v6; // edi@6
   int v7; // ecx@7
   int v8; // esi@12
-  int v9; // eax@28
+  //int v9; // eax@28
   signed int v10; // edi@30
   int v11; // edx@31
   signed int v12; // ebx@37
@@ -825,26 +825,25 @@ int __fastcall MenuLoop_CharacterCreation()
  int i;
 
   v28 = 0;
-  //sub_40E51F(pRGBTexture_Menu);
   RGBTexture_Load(pRGBTexture_Menu, "makeme", 0);
+  sub_4A5B81(pD3DRenderer, 0, 0, 640, 480);
 
   if (dword_720010)
     sub_46B105(dword_720010);
 
-  v3 = 6;
+  v3 = MENU_CREATEPARTY;
   pGUIWindow_PlayerCreation->dword_000040 = 0;
 LABEL_27:
   SetCurrentMenu(v3);
   while (true)
   {
-    v9 = sub_466CA0();
-    if ( v9 != 6 )
+    if (sub_466CA0() != MENU_CREATEPARTY)
       break;
 
     if (dword_720010)
       sub_46B736(dword_720010, 1);
 
-    class03_GetMousePosXY(pGame->pClass03, &v6, &v4);
+    class03_GetMouseClickPos(pGame->pClass03, &v6, &v4);
 
     v5 = pGUIWindow_PlayerCreation->pControlsHead;
     if ( v5 != 0)
@@ -891,7 +890,7 @@ LABEL_27:
       if ( dword_6A0D48 == 1 )
       {
         v28 = 1;
-        v3 = 0;
+        v3 = MENU_MAIN;
         goto LABEL_27;
       }
       if ( dword_6A0D48 == 6 )
@@ -2890,8 +2889,8 @@ int __cdecl MenuLoop_Main()
   int v11; // ecx@37
   int v15; // [sp-14h] [bp-50h]@39
   struct GUIWindow *v17; // [sp+4h] [bp-38h]@11
-  int v18; // [sp+8h] [bp-34h]@11
-  int v19; // [sp+Ch] [bp-30h]@11
+  //int v18; // [sp+8h] [bp-34h]@11
+  //int v19; // [sp+Ch] [bp-30h]@11
   //char v20; // [sp+10h] [bp-2Ch]@11
   //char v21; // [sp+18h] [bp-24h]@11
   POINT ptMouse;
@@ -2976,8 +2975,7 @@ int __cdecl MenuLoop_Main()
 
  while (uCurrentMenuID == MENU_MAIN || uCurrentMenuID == 3)
  {
-  v18 = class03_GetMousePos(pGame->pClass03, &ptMouse)->x;
-  v19 = ptMouse.y;
+  class03_GetMousePos(pGame->pClass03, &ptMouse);
   v17 = pGUIWindow_MainMenu;
     if ( uCurrentMenuID == 3 )
     {
@@ -3029,8 +3027,8 @@ int __cdecl MenuLoop_Main()
         v8 = v17->pControlsHead;
         while (true)
         {
-         if (v18 >= v8->uX && v18 <= v8->uZ &&
-             v19 >= v8->uY && v19 <= v8->uW &&
+         if (ptMouse.x >= v8->uX && ptMouse.x <= v8->uZ &&
+             ptMouse.y >= v8->uY && ptMouse.y <= v8->uW &&
              v17 == pGUIWindow_MainMenu)
          {
           switch (v8->dword_000024)

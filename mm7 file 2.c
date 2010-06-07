@@ -11458,7 +11458,7 @@ void __thiscall sub_416D62(int this)
   }
   else
   {
-    class03_GetMousePosXY(pGame->pClass03, (int)&v38, (int)&v39);
+    class03_GetMouseClickPos(pGame->pClass03, (int)&v38, (int)&v39);
   }
   if ( pD3DRenderer->dword_040058 )
   {
@@ -11846,7 +11846,7 @@ void __thiscall OnMouseLeftClick(void *_this)
     }
     else
     {
-      class03_GetMousePosXY(pGame->pClass03, &click_x, &click_y);
+      class03_GetMouseClickPos(pGame->pClass03, &click_x, &click_y);
       v13 = click_y;
       v12 = click_x;
     }
@@ -11972,7 +11972,7 @@ int __thiscall sub_417871(int this)
     }
     else
     {
-      class03_GetMousePosXY(pGame->pClass03, (int)&v5, (int)&v4);
+      class03_GetMouseClickPos(pGame->pClass03, (int)&v5, (int)&v4);
     }
     class03_GetMousePos(pGame->pClass03, (int)&v3);
     result = class03_GetMousePos(pGame->pClass03, (int)&v2);
@@ -15113,7 +15113,7 @@ signed int __thiscall sub_41CD4F(void *this)
     //if ( *(int *)((char *)array_506F68 + 24 + v3) != v1 )
     if (array_506F50[v3 / 84].dword_000030 != v1)
     {
-      class03_GetMousePosXY(pGame->pClass03, (int)&v33, (int)&v34);
+      class03_GetMouseClickPos(pGame->pClass03, (int)&v33, (int)&v34);
       //v4 = *(int *)((char *)array_506F68 + 32 + v3);
       v4 = array_506F50[v3 / 84].dword_000038;
       //v32 = v4 + *(int *)((char *)array_506F68 + 16 + v3);
@@ -15279,7 +15279,7 @@ LABEL_56:
     }
     if ( (char *)v29 - 40 == (void *)1 )
     {
-      class03_GetMousePosXY(pGame->pClass03, (int)&v33, (int)&v34);
+      class03_GetMouseClickPos(pGame->pClass03, (int)&v33, (int)&v34);
       //v4 = *(int *)((char *)array_506F68 + 32 + v3);
       v4 = array_506F50[v3 / 84].dword_000038;
       //v31 = v4 + *(int *)((char *)array_506F68 + 16 + v3);
@@ -18593,7 +18593,7 @@ void __cdecl sub_420EFF()
 
   v0 = 0;
   pGame->pClass03->dword_000000 = 0;
-  class03_GetMousePosXY(pGame->pClass03, &x, &y);
+  class03_GetMouseClickPos(pGame->pClass03, &x, &y);
   if (x < 0 || x > 639 ||
       y < 0 || y > 479)
     return;
@@ -19270,7 +19270,7 @@ void __cdecl sub_421EA6()
   v0 = *(&ptr_A750C4 + uMaybeSelectedCharacter);
   if ( dword_506F48 == 103 )
   {
-    class03_GetMousePosXY(pGame->pClass03, (int)&v16, (int)&v15);
+    class03_GetMouseClickPos(pGame->pClass03, (int)&v16, (int)&v15);
     v2 = v15 - 17;
     v3 = v16 - 14;
     v15 = v2;

@@ -7818,7 +7818,7 @@ int __cdecl sub_4443D5()
   v0 = 0;
   v18 = pClass51_global->uNumBModels;
   v21 = 0;
-  class03_GetMousePosXY(pGame->pClass03, (int)&X, (int)&v22);
+  class03_GetMouseClickPos(pGame->pClass03, (int)&X, (int)&v22);
   v3 = 1.0 / *(float *)&v23;
   v23 = X - 557;
   v19 = (signed __int64)((double)(X - 557) * v3 + (double)v24);
@@ -7926,7 +7926,7 @@ char *__cdecl sub_444564()
   }
   v17 = 0;
   v16 = pClass51_global->uNumBModels;
-  class03_GetMousePosXY(pGame->pClass03, (int)&X, (int)&v18);
+  class03_GetMouseClickPos(pGame->pClass03, (int)&X, (int)&v18);
   v1 = 1.0 / v19;
   v0 = (signed __int64)((double)(X - 229) * v1 + (double)v20);
   LODWORD(v19) = (signed __int64)((double)v21 - (double)(v18 - 181) * v1);
