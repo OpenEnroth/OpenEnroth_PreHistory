@@ -41,10 +41,15 @@ int (__cdecl *sprintfex)(char *, const char *, ...) = 0;
 void *hMM7Text_dll = 0;
 void RtlCallCtors()
 {
+ BINKW32_DLL_Initialize();
+
  hMM7Text_dll = LoadLibraryW(L"mm7text.dll");
  sprintfex = (int (__cdecl *)(char *, const char *, ...))(GetProcAddress(hMM7Text_dll, "_sprintfex"));
  sprintfex = sprintf;
 
+ //moved creation of d3d here since sub_40DEF3 uses it
+ pD3DRenderer = malloc(sizeof(struct CD3DRenderer));
+ CD3DRenderer_ctor(pD3DRenderer);
 
  dword_507AFC = sub_40DEF3(10, 0, 0);
  dword_507AF8 = sub_40DEF3(230, 214, 193);
@@ -1591,8 +1596,6 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   CSoundList_SaveToBIN(pSoundList);
  }
 
- pD3DRenderer = malloc(sizeof(struct CD3DRenderer));
- CD3DRenderer_ctor(pD3DRenderer);
  if (!(dword_6BE368 & 1))  // if (dword_6BE364 & 2 || !windowed)
  {
   SetMenu(hWnd_global, 0);

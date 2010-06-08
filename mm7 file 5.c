@@ -13545,8 +13545,8 @@ int __thiscall sub_47CDE2(int Dest)
   *(_WORD *)(v2 + 164) = 5;
   *(_WORD *)(v2 + 168) = 6;
   *(_WORD *)(v2 + 172) = 10;
-  sub_47F420((void *)v2);
-  sub_47F3EA(v2);
+  class51_sub_47F420(v2);
+  class51_sub_47F3EA(v2);
   class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 216));
   class23_DeleteBuffer(class23_instance, *(_DWORD *)(v2 + 1220));
   *(_DWORD *)(v2 + 216) = 0;

@@ -9953,7 +9953,7 @@ int __fastcall sub_45F469(int a1, int a2)
               do
               {
                 v42 = (int)((char *)v73 + *(_DWORD *)(v25 + v26 + 8) + 28);
-                memcpy(v23, (const void *)v42, 4u);
+                memcpy(v23, (const void *)v42, 4);
                 v25 = pClass51_global->pBModels;
                 v73 = (char *)v73 + 308;
                 v23 = (char *)v23 + 4;

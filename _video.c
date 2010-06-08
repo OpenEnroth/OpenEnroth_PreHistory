@@ -74,7 +74,7 @@ void CVideoPlayer_OpenMovie(struct CVideoPlayer *_this, const char *pVideoName, 
 
  CVideoPlayer_Initialize(_this);
  _this->dword_000064 = a3;
- sprintfex(pVideoFile, "%s.bik", pVideoName);
+ wsprintfA(pVideoFile, "%s.bik", pVideoName);
  strcpy(_this->array_0000A4, pVideoName);
 
  _this->pBinkMovie = CVideoPlayer_OpenBinkMovie(_this, pVideoFile);

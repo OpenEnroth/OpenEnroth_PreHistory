@@ -203,8 +203,8 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
     locked_fread(&DstBuf, 0x180u, 1u, v7);
     fseek(v7, Offset, 0);
     locked_fread(_this, 0xB0u, 1u, v7);
-    sub_47F420(_this);
-    sub_47F3EA(_this);
+    class51_sub_47F420(_this);
+    class51_sub_47F3EA(_this);
     strcpy(_this->pGroundTileset, "grastyl");
     fseek(v7, v127, 0);
     locked_fread(_this->uNumBModels, 4u, 1u, v7);
@@ -485,7 +485,7 @@ LABEL_33:
   }
 
   if (!class17_Games_LOD_FindLeveL(pClass17_Games_LOD, Str))
-    erroneous_printf("Unable to find %s in Games.LOD", &Str);
+    erroneous_printf("Unable to find %s in Games.LOD", Str);
 
   strcpy(FileName, Str);
 
@@ -510,11 +510,9 @@ LABEL_33:
   locked_fread(&v159, 0x10, 1, hODMFile);
   if ( v159.v159 != 91969 || v159.v160 != 109 || v159.v161 != 118 || v159.v162 != 105 || v159.v163 != 105 )
   {
-    v120 = 507;
-    v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
     wtf = &v115;
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
-    sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, v120);
+    sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
   }
   v44 = v159.v164;
   ElementSize = v159.Size;
@@ -536,8 +534,8 @@ LABEL_33:
   memcpy(_this, v42, 0xB0);
   v42 += 0xB0;
 
-  sub_47F420(_this);
-  sub_47F3EA(_this);
+  class51_sub_47F420(_this);
+  class51_sub_47F3EA(_this);
 
   strcpy(_this->pGroundTileset, "grastyl");
 
@@ -709,10 +707,9 @@ LABEL_75:
   Src = (char *)Src + 4;
   if ( (signed int)dword_69ADD0 < 0 || (signed int)dword_69ADD0 > 3000 )
   {
-    v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
     wtf = &v115;
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
-    sub_466D09(&v167, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, __LINE__);
+    sub_466D09(&v167, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
   }
 
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
@@ -781,10 +778,9 @@ LABEL_75:
  Str2 = 0;
  if ( v159.v159 != 91969 || v159.v160 != 109 || v159.v161 != 118 || v159.v162 != 105 || v159.v163 != 105 )
  {
-    v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
     wtf = &v115;
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
-    sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, __LINE__);
+    sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
     Str2 = (char *)1;
  }
   v78 = 0;
@@ -811,10 +807,9 @@ LABEL_75:
     }
     else
     {
-      v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
       wtf = &v115;
       sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
-      sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, __LINE__);
+      sub_466D09((char *)&v155 + 4, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
     }
     memcpy(_this->array_0004C8, (const void *)v79, 0x28u);
     v78 = v79 + 40;
@@ -884,10 +879,9 @@ LABEL_112:
     }
     else
     {
-      v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
       a4 = (signed int)&v115;
       sub_40E2C8(&v115, "Can't load file!", (int)((char *)&a4 + 3));
-      sub_466D09(&File, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, __LINE__);
+      sub_466D09(&File, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
     }
     v78 = v89 + 40;
     goto LABEL_120;
@@ -951,10 +945,9 @@ LABEL_120:
   v78 = (char *)v78 + 4;
   if ( (signed int)uNumActors < 0 || uNumActors > 500 )
   {
-    v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
     a5 = (int)&v115;
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&a5 + 3));
-    sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, __LINE__);
+    sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
@@ -970,10 +963,9 @@ LABEL_120:
   v78 = (char *)v78 + 4;
   if ( (signed int)Count < 0 || Count > 1000 )
   {
-    v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
     a5 = (int)&v115;
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&a5 + 3));
-    sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, __LINE__);
+    sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
@@ -989,10 +981,9 @@ LABEL_120:
   v78 = (char *)v78 + 4;
   if ( (signed int)dword_5FF140 < 0 || (signed int)dword_5FF140 > 20 )
   {
-    v119 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp";
     a5 = (int)&v115;
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&a5 + 3));
-    sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, (const char *)v119, __LINE__);
+    sub_466D09(&a4, *(int *)&v115, v116, v117, (int)v118, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odmap.cpp", __LINE__);
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
@@ -1173,10 +1164,9 @@ bool __cdecl TryLoadLevelFromFile()
 
 
 //----- (0047F420) --------------------------------------------------------
-int sub_47F420(struct class51 *_this)
+bool class51_sub_47F420(struct class51 *_this)
 {
  int i;
-
  for (i = 0; i < 6; i += 2)
    _this->array_0000A0[i + 1] = sub_487ED6(pTileTable, _this->array_0000A0[i], 1);
 
@@ -1185,7 +1175,7 @@ int sub_47F420(struct class51 *_this)
 
 
 //----- (0047F3EA) --------------------------------------------------------
-int sub_47F3EA(struct class51 *_this)
+int class51_sub_47F3EA(struct class51 *_this)
 {
  _this->array_0000A0[7] = sub_487ED6(pTileTable, _this->array_0000A0[6], 1);
  CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[6]);
@@ -1209,7 +1199,7 @@ bool class51_InitializeGeodata(struct class51_Geodata *_this)
 }
 
 //----- (0047C7C2) --------------------------------------------------------
-int class51_FreeGeodata(struct class51_Geodata *_this)
+void class51_FreeGeodata(struct class51_Geodata *_this)
 {
  class23_DeleteBuffer(class23_instance, _this->pHeightmap);
  _this->pHeightmap = 0;
@@ -1235,28 +1225,20 @@ int class51_FreeGeodata(struct class51_Geodata *_this)
 
 
 //----- (0047C80A) --------------------------------------------------------
-int sub_47C80A(struct class51_Geodata *_this, int a2, int a3, int a4, int a5)
+void sub_47C80A(struct class51_Geodata *_this, int sX, int sY, int sZ, int sW)
 {
+  int v1;
   void *v5; // ebx@1
   double v6; // st7@1
   double v7; // st7@2
   double v8; // st7@2
-  int result; // eax@3
   int v10; // eax@4
-  int v11; // ecx@5
   int v12; // ecx@6
-  int v13; // edi@7
-  int v14; // edx@9
-  int v15; // eax@15
   int v16; // edi@15
   int v17; // esi@15
   double v18; // st7@15
-  int v19; // ebx@15
-  int v20; // eax@15
-  int v21; // ecx@15
   int v22; // edx@15
   int v23; // ecx@15
-  int v24; // ebx@15
   int v25; // ecx@15
   int v26; // ST28_4@15
   double v27; // st7@15
@@ -1271,155 +1253,105 @@ int sub_47C80A(struct class51_Geodata *_this, int a2, int a3, int a4, int a5)
   double v36; // st5@21
   double v37; // st7@22
   double v38; // st7@23
-  int v39; // [sp+14h] [bp-34h]@8
   int v40; // [sp+18h] [bp-30h]@15
-  int v41; // [sp+1Ch] [bp-2Ch]@15
   int v42; // [sp+20h] [bp-28h]@15
-  void *v43; // [sp+24h] [bp-24h]@1
-  int v44; // [sp+28h] [bp-20h]@21
   float v45; // [sp+2Ch] [bp-1Ch]@1
   float v46; // [sp+30h] [bp-18h]@1
   float v47; // [sp+34h] [bp-14h]@1
-  int v48; // [sp+38h] [bp-10h]@7
-  int v49; // [sp+3Ch] [bp-Ch]@10
-  int v50; // [sp+40h] [bp-8h]@9
-  float v51; // [sp+44h] [bp-4h]@15
-  float v52; // [sp+44h] [bp-4h]@21
-  float v53; // [sp+50h] [bp+8h]@15
-  float v54; // [sp+50h] [bp+8h]@21
-  float v55; // [sp+54h] [bp+Ch]@15
-  int v56; // [sp+54h] [bp+Ch]@15
-  float v57; // [sp+54h] [bp+Ch]@21
-
+ int x, y;
+  
+  v45 = 64.0;
   v46 = -64.0;
   v47 = -64.0;
+
   v5 = _this;
-  LODWORD(v45) = 1115684864;
-  v43 = _this;
+
   v6 = sqrt(*(double *)&byte_4D8410[944]);
   if ( v6 != 0.0 )
   {
     v7 = 1.0 / v6;
     v45 = 64.0 * v7;
-    v8 = v7 * -64.0;
+    v8 = -64.0 * v7;
     v46 = v8;
     v47 = v8;
   }
-  result = a3;
-  if ( a3 > a5 )
+
+ if (sY > sW)
+ {
+  v10 = sY;
+  sY = sW;
+  sW = v10;
+ }
+
+ if (sX > sZ)
+ {
+  v12 = sX;
+  sX = sZ;
+  sZ = v12;
+ }
+ 
+ for (y = sY - 1; y <= sW; ++y)
+ {
+  for (x = sX - 1; x <= sZ; ++x)
   {
-    v10 = a5 ^ a3;
-    a5 ^= a3 ^ a5;
-    result = a5 ^ v10;
-  }
-  v11 = a2;
-  if ( a2 > a4 )
-  {
-    v12 = a4 ^ a2;
-    a4 ^= a2 ^ a4;
-    v11 = a4 ^ v12;
-  }
-  v13 = result - 1;
-  v48 = result - 1;
-  if ( result - 1 <= a5 )
-  {
-    v39 = v11 - 1;
-    do
-    {
-      v14 = v39;
-      v50 = v39;
-      if ( v39 <= a4 )
-      {
-        result = (v39 - 63) << 9;
-        v49 = (v39 - 63) << 9;
-        do
-        {
-          if ( v13 >= 0 )
-          {
-            if ( result >= -32256 )
-            {
-              if ( v13 <= 127 )
-              {
-                if ( result <= 32768 )
-                {
-                  v15 = *((_WORD *)v5 + 8);
-                  v56 = v15;
-                  v19 = *(_DWORD *)v5;
-                  v20 = v14 + v19 + v13 * v15;
-                  v21 = -v13;
-                  v17 = (64 - v13) << 9;
-                  v16 = 32 * *(_BYTE *)v20;
-                  v22 = 32 * *(_BYTE *)(v20 + 1);
-                  v23 = (v21 + 63) << 9;
-                  v41 = v23;
-                  v24 = v19 + v56 * (v48 + 1) + v50;
+   if (y >= 0 && y <= 127 &&
+       x >= 0 && x <= 127)
+   {
+    v1 = (sX - 64 + x + 1) * 512;
+
+                  v17 = (64 - y) * 512;
+                  v16 = 32 * _this->pHeightmap[y * _this->word_000010 + x];
+                  v22 = 32 * _this->pHeightmap[y * _this->word_000010 + x + 1];
+                  v23 = (63 - y) * 512;
+
                   v25 = v23 - v17;
-                  v40 = 32 * *(_BYTE *)v24;
-                  v42 = 32 * *(_BYTE *)(v24 + 1);
-                  v26 = v49 - 512 - v49;
+
+                  v40 = 32 * _this->pHeightmap[(y + 1) * _this->word_000010 + x];
+                  v42 = 32 * _this->pHeightmap[(y + 1) * _this->word_000010 + x + 1];
+
+                  v26 = v1 - 512 - v1;
+
                   v27 = (double)-((v16 - v22) * v25);
-                  v51 = v27;
                   v28 = (double)-(v26 * (v42 - v22));
-                  v53 = v28;
                   v29 = (double)(v26 * v25);
-                  v55 = v29;
                   v18 = sqrt(v29 * v29 + v28 * v28 + v27 * v27);
                   if ( v18 != 0.0 )
                   {
                     v30 = 1.0 / v18;
-                    v51 = v51 * v30;
-                    v53 = v53 * v30;
-                    v55 = v30 * v55;
+                    v27 = v27 * v30;
+                    v28 = v28 * v30;
+                    v29 = v29 * v30;
                   }
-                  v31 = (v55 * v47 + v53 * v46 + v51 * v45) * 31.0;
-                  if ( v31 < 0.0 )
+                  v31 = (v29 * v47 + v28 * v46 + v27 * v45) * 31.0;
+                  if (v31 < 0.0)
                     v31 = 0.0;
-                  if ( v31 > 31.0 )
+                  else if (v31 > 31.0)
                     v31 = 31.0;
-                  v44 = 2 * (v50 + v48 * *((_WORD *)v43 + 8));
-                  v5 = v43;
-                  *(_BYTE *)(*((_DWORD *)v43 + 3) + v44 + 1) = (signed __int64)v31;
-                  v33 = v49 - (v49 - 512);
-                  v34 = (double)-((v42 - v40) * (v17 - v41));
-                  v52 = v34;
+
+                  _this->ptr_00000C[2 * (x + y * _this->word_000010) + 1] = v31;
+
+                  v33 = v1 - (v1 - 512);
+                  v34 = (double)-((v42 - v40) * (v17 - v23));
                   v35 = (double)-(v33 * (v16 - v40));
-                  v54 = v35;
-                  v36 = (double)(v33 * (v17 - v41));
-                  v57 = v36;
+                  v36 = (double)(v33 * (v17 - v23));
                   v32 = sqrt(v36 * v36 + v35 * v35 + v34 * v34);
                   if ( v32 != 0.0 )
                   {
                     v37 = 1.0 / v32;
-                    v52 = v52 * v37;
-                    v54 = v54 * v37;
-                    v57 = v37 * v57;
+                    v34 = v34 * v37;
+                    v35 = v35 * v37;
+                    v36 = v36 * v37;
                   }
-                  v38 = (v57 * v47 + v54 * v46 + v52 * v45) * 31.0;
-                  if ( v38 < 0.0 )
+                  v38 = (v36 * v47 + v35 * v46 + v34 * v45) * 31.0;
+
+                  if (v38 < 0.0)
                     v38 = 0.0;
-                  if ( v38 > 31.0 )
+                  else if (v38 > 31.0)
                     v38 = 31.0;
-                  v13 = v48;
-                  *(_BYTE *)(v44 + *((_DWORD *)v43 + 3)) = (signed __int64)v38;
-                  v14 = v50;
-                  result = v49;
-                }
-              }
-            }
-          }
-          ++v14;
-          result += 512;
-          v50 = v14;
-          v49 = result;
-        }
-        while ( v14 <= a4 );
-      }
-      ++v13;
-      v48 = v13;
+                  _this->ptr_00000C[2 * (x + y * _this->word_000010)] = v38;
     }
-    while ( v13 <= a5 );
   }
-  return result;
+ }
 }
 
 

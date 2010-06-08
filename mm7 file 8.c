@@ -699,7 +699,7 @@ int __cdecl MaybeDoAutosave()
   char v4; // zf@7
 
   //local struct
-  char v6[4 + 4*array_size_unknown]; // [sp+Ch] [bp-16Ch]@3
+  char v6[4 + 32*array_size_unknown]; // [sp+Ch] [bp-16Ch]@3
   char Dest[80 + 4*array_size_unknown]; // [sp+10h] [bp-168h]@3
   char v8[80 + 4*array_size_unknown]; // [sp+60h] [bp-118h]@3
   int v9; // [sp+B0h] [bp-C8h]@3
@@ -7441,7 +7441,6 @@ int __cdecl LoadMainMenu()
  {
   CD3DRenderer_ClearBackBufferAndPresent(pD3DRenderer);
 
-  BINKW32_DLL_Initialize();
   PlayMovie(1, 1);
 
   if (!pVideoPlayer->dword_00006C)
