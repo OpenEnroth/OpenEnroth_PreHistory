@@ -1266,6 +1266,7 @@ struct Player
    unsigned char uSex;      // byte     @ 0000B8  0 male 1 female
    unsigned char uClass;    // byte     @ 0000B9
    unsigned char uFace;     // byte     @ 0000BA
+   unsigned char unknown;   // byte     @ 0000BB
 
    unsigned short uStrength;     // word @ 0000BC
    short word_0000BE;
@@ -1281,8 +1282,9 @@ struct Player
    short word_0000D2;
    unsigned short uLuck;         // word @ 0000D4
    short word_0000D6;
-
+   short word_0000D8;
    short word_0000DA;
+   short word_0000DC;
 
    short word_0000DE;
    int   dword_0000E0;

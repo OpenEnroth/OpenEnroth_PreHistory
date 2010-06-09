@@ -1062,7 +1062,7 @@ signed int __thiscall sub_490141(int this);
 __int16 __thiscall sub_490188(int this);
 int __thiscall sub_4901FC(int this);
 int __thiscall sub_49024A(int this, char a2);
-signed int __thiscall sub_4903C9(int this, signed int a2);
+signed int __thiscall sub_4903C9(struct Player *_this, signed int a2);
 __int16 __thiscall sub_49048D(int this, int a2);
 signed int __thiscall sub_4905F5(int this, int a2);
 void *__thiscall sub_49070F(int this);

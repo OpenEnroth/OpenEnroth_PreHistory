@@ -2360,75 +2360,68 @@ int __thiscall sub_4901FC(int this)
 }
 
 //----- (004903C9) --------------------------------------------------------
-signed int __thiscall sub_4903C9(int this, signed int a2)
+signed int __thiscall sub_4903C9(struct Player *_this, signed int a2)
 {
-  signed int result; // eax@5
+  signed int i; // eax@5
   int v3; // edx@5
   char *v4; // ecx@5
-  int v5; // edx@11
   int v6; // esi@11
-  int v7; // edx@18
   int v8; // esi@18
+  int skidx = 0;
 
   if ( a2 >= 0 )
   {
     if ( a2 <= 1 )
     {
-      result = 0;
       v8 = 0;
-      v7 = this + 264;
-      do
+      
+      for (i = 0; i < 37; ++i)
       {
-        if ( *(_WORD *)v7 && *(&array_4ED820[37 * ((unsigned int)*(_BYTE *)(this + 185) >> 2)] + result) == 2 )
+        if ( _this->array_000108[skidx] && array_4ED820[37 * (_this->uClass >> 2) + i] == 2 )
         {
           if ( v8 == a2 )
-            return result;
+            return i;
           ++v8;
         }
-        ++result;
-        v7 += 2;
+        skidx++;
       }
-      while ( result < 37 );
     }
     else
     {
       if ( a2 <= 3 )
       {
-        result = 0;
+
         v6 = 0;
-        v5 = this + 264;
-        do
+        for (i = 0; i < 37; ++i)
         {
-          if ( *(_WORD *)v5 && *(&array_4ED820[37 * ((unsigned int)*(_BYTE *)(this + 185) >> 2)] + result) == 1 )
+          if ( _this->array_000108[skidx] && array_4ED820[37 * (_this->uClass >> 2) + i] == 1 )
           {
             if ( v6 == a2 - 2 )
-              return result;
+              return i;
             ++v6;
           }
-          ++result;
-          v5 += 2;
+          skidx++;
         }
-        while ( result < 37 );
       }
       else
       {
         if ( a2 <= 12 )
         {
-          result = 0;
+          i = 0;
           v3 = 0;
-          v4 = &array_4ED820[37 * ((unsigned int)*(_BYTE *)(this + 185) >> 2)];
+          v4 = &array_4ED820[37 * (_this->uClass >> 2)];
           do
           {
             if ( *v4 == 1 )
             {
               if ( v3 == a2 - 4 )
-                return result;
+                return i;
               ++v3;
             }
-            ++result;
+            ++i;
             ++v4;
           }
-          while ( result < 37 );
+          while ( i < 37 );
         }
       }
     }
