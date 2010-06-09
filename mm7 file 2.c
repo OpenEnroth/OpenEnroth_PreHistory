@@ -8387,7 +8387,33 @@ int sub_49024A(struct Player *_this, char a2)
   _this->dword_001944 = 1147 - rand() % 6;
   memset(_this->array_000108, 0, 37 * 2);
   memset(_this->array_000152, 0, 0x40);
-  memset(_this->array_000192, 0, 0x64);
+
+  _this->byte_000192 = 0;
+  memset(_this->array_000193, 0, 10);
+
+  _this->byte_00019D = 0;
+  memset(_this->array_00019E, 0, 10);
+
+  _this->byte_0001A8 = 0;
+  memset(_this->array_0001A9, 0, 10);
+
+  _this->byte_0001B3 = 0;
+  memset(_this->array_0001B4, 0, 10);
+
+  _this->byte_0001BE = 0;
+  memset(_this->array_0001BF, 0, 10);
+
+  _this->byte_0001C9 = 0;
+  memset(_this->array_0001CA, 0, 10);
+
+  _this->byte_0001D4 = 0;
+  memset(_this->array_0001D5, 0, 10);
+
+  _this->byte_0001DF = 0;
+  memset(_this->array_0001E0, 0, 10);
+
+  _this->byte_0001EA = 0;
+  memset(_this->array_0001EB, 0, 41);
 
   for (i = 0; i < 37; ++i)
   {

@@ -1300,46 +1300,63 @@ struct Player
 
    short array_000108[37];
    char array_000152[64];
-   char array_000192[100];
 
    char byte_000192;
+   char array_000193[10];
 
    char byte_00019D;
+   char array_00019E[10];
 
    char byte_0001A8;
+   char array_0001A9[10];
 
    char byte_0001B3;
+   char array_0001B4[10];
 
    char byte_0001BE;
+   char array_0001BF[10];
 
    char byte_0001C9;
+   char array_0001CA[10];
 
    char byte_0001D4;
+   char array_0001D5[10];
 
    char byte_0001DF;
+   char array_0001E0[10];
 
    char byte_0001EA;
+   char array_0001EB[41];
 
-   int array_000214[10 + array_size_unknown];
+   int array_000214[1134]; // 36 * 126 / 4
+   char array_0013CC[432];
 
    int array_00157C[128];
 
+   short word_00177C;
    short word_00177E;
+   char array_00177F[32];
 
    char array_0017A0[24][16];
    int  dword_001920; //related to voice in SoundList
    int  dword_001924;
    int  dword_001928;
+   int  dword_00192C;
+   int  dword_001930;
 
    short word_001934;
+   char array_001936[6];
 
    int dword_00193C;
    int dword_001940;
    int dword_001944;
+   char array_001948[262];
 
    char byte_001A4E;
+   char array_001A4F[73];
 
    char byte_001A98;
+   char array_001A99[3];
 
    short word_001A9C;
    short word_001A9E;
