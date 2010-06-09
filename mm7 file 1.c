@@ -3344,11 +3344,11 @@ __continue:
     {
       default:
         goto LABEL_184;
-      case 0x219u:
+      case WM_DEVICECHANGE:
         if ( wParam == 32768 )
           PostMessageA(dword_6A0CFC, 0x401u, 0, 0);
         return 0;
-      case 0x214u:
+      case WM_SIZING:
         return 1;
       case WM_LBUTTONDOWN:
         v29 = 0;
@@ -3370,7 +3370,7 @@ LABEL_208:
           goto LABEL_228;
         else goto LABEL_227;
 
-      case 0x204u:
+      case WM_RBUTTONDOWN:
         v31 = 0;
         if ( !byte_505992 )
           goto LABEL_238;
@@ -3388,7 +3388,7 @@ LABEL_208:
         dword_5058A0 = 3;
         BYTE4(a1) = 0;
         goto LABEL_208;
-      case 0x205u:
+      case WM_RBUTTONUP:
         v32 = 0;
         if ( !byte_505992 )
         {
@@ -3403,7 +3403,7 @@ LABEL_216:
         dword_5058A0 = 4;
         BYTE4(a1) = 0;
         goto LABEL_260;
-      case 0x203u:
+      case WM_LBUTTONDBLCLK:
         v29 = 0;
         if ( byte_505992 )
         {
@@ -3421,7 +3421,7 @@ LABEL_216:
         if ( !dword_720010 )
         {
 LABEL_227:
-          sub_41CD4F((void *)0x29);
+          sub_41CD4F(VK_SELECT);
 LABEL_228:
           if (!dword_720010)
             class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, lParam >> 16);
@@ -3444,7 +3444,7 @@ LABEL_228:
           return DefWindowProcA(hWnd, Msg, wParam, v5);
         }
         goto LABEL_184;
-      case 0x206u:
+      case WM_RBUTTONDBLCLK:
         v31 = 0;
         if ( !byte_505992 )
         {
@@ -3478,7 +3478,7 @@ LABEL_238:
           goto LABEL_184;
         dword_5058A0 = 8;
         return DefWindowProcA(hWnd, Msg, wParam, v5);
-      case 0x207u:
+      case WM_MBUTTONDOWN:
         if (pD3DRenderer->dword_040088)
         {
           if (pGame && !dword_720010)
@@ -3499,7 +3499,7 @@ LABEL_238:
           goto LABEL_184;
         sub_417871(0);
         return DefWindowProcA(hWnd, Msg, wParam, v5);
-      case 0x200u:
+      case WM_MOUSEMOVE:
         if ( byte_505992 )
         {
           if (dword_720010)
@@ -3527,7 +3527,7 @@ LABEL_261:
   }
   if ( Msg == WM_SYSCOMMAND)
   {
-    if ( wParam == 61760 || wParam == 61808 )
+    if ( wParam == SC_SCREENSAVE || wParam == SC_MONITORPOWER )
       return 0;
     goto LABEL_184;
   }
@@ -3542,9 +3542,9 @@ LABEL_261:
       }
       goto LABEL_184;
     }
-    if ( Msg != 256 )
+    if ( Msg != WM_KEYDOWN )
     {
-      if ( Msg == 257 )
+      if ( Msg == WM_KEYUP )
       {
         if ( wParam == 17 )
         {
@@ -3553,9 +3553,9 @@ LABEL_261:
         }
         goto LABEL_184;
       }
-      if ( Msg == 258 )
+      if ( Msg == WM_CHAR )
         sub_459F10((int)&dword_69AE00, wParam);
-      if ( Msg != 273 )
+      if ( Msg != WM_COMMAND )
         goto LABEL_184;
       if ( wParam != 101 )
       {
@@ -3623,7 +3623,7 @@ LABEL_124:
           return 0;
       }
       if ( !dword_577034 )
-        sub_41CD4F((void *)wParam);
+        sub_41CD4F(wParam);
       return 0;
     }
     dword_5058A0 = 1;
@@ -3912,7 +3912,7 @@ LABEL_179:
     return 0;
   }
 
-  if ( Msg == 7 )
+  if ( Msg == WM_SETFOCUS )
   {
     if ( hWnd == (HWND)wParam )
     {
@@ -3934,7 +3934,7 @@ LABEL_184:
     return DefWindowProcA(hWnd, Msg, wParam, v5);
   }
   
-  if (WM_KILLFOCUS != 8)
+  if (Msg != WM_KILLFOCUS)
   {
     if (Msg == WM_PAINT)
     {

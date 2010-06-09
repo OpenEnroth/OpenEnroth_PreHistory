@@ -10267,10 +10267,10 @@ void __cdecl sub_4156F0()
   char v61; // [sp+E4h] [bp-24h]@129
 
   if ( sub_466CA0() != 6 )
-    sub_41CD4F((void *)0x22);
+    sub_41CD4F(VK_NEXT);
   for ( i = 1; i <= uNumGUIWindows; ++i )
   {
-    v1 = &array_506F50[array_5075E0[i] - 1];
+    v1 = &GUIWindow_List[array_5075E0[i] - 1];
     v0 = v1->bSlotUsed;
     if ( v1->bSlotUsed > 70 )
     {
@@ -10666,7 +10666,7 @@ LABEL_110:
           }
           continue;
         }
-        sub_4B3157(&array_506F50[array_5075E0[i] - 1]);
+        sub_4B3157(&GUIWindow_List[array_5075E0[i] - 1]);
         if ( !dword_507BC0 )
           continue;
         v10 = *(_DWORD *)(dword_507BC0 + 28);
@@ -11903,7 +11903,7 @@ void __thiscall OnMouseLeftClick(void *_this)
       return;
     while ( 1 )
     {
-      v8 = &array_506F50[array_5075E0[v7] - 1];
+      v8 = &GUIWindow_List[array_5075E0[v7] - 1];
       if (click_x >= v8->uFrameX && click_x <= v8->uFrameZ &&
           click_y >= v8->uFrameY && click_y <= v8->uFrameW)
           break;
@@ -14887,7 +14887,7 @@ int __fastcall sub_41B438(unsigned __int8 a1)
   {
     while ( 2 )
     {
-      v4 = &array_506F50[array_5075E0[v2] - 1];
+      v4 = &GUIWindow_List[array_5075E0[v2] - 1];
       for ( result = v4[19]; result; result = *(_DWORD *)(result + 52) )
       {
         if ( *(_BYTE *)(result + 84) == v1 )
@@ -14992,7 +14992,7 @@ int __cdecl LoadFontsAndSomeStuff()
  uNumGUIWindows = -1;
  memset(array_5075E0, 0, 20 * sizeof(int));
  for (i = 0; i < 20; ++i)
-   array_506F50[i].bSlotUsed = false;
+   GUIWindow_List[i].bSlotUsed = false;
 
  return 0;
 }
@@ -15060,11 +15060,11 @@ void __thiscall sub_41C0B8(const char *Str1)
 }
 
 //----- (0041CD4F) --------------------------------------------------------
-signed int __thiscall sub_41CD4F(void *this)
+signed int __thiscall sub_41CD4F(unsigned char Key)
 {
   signed int v1; // edi@1
   int v2; // eax@2
-  int v3; // esi@3
+  int wndIdx; // esi@3
   int v4; // ecx@10
   struct GUIButton *v5; // eax@11
   int v6; // edx@12
@@ -15097,48 +15097,47 @@ signed int __thiscall sub_41CD4F(void *this)
   int v34; // [sp+1Ch] [bp-4h]@10
 
   v1 = 0;
-  v29 = this;
   v30 = uNumGUIWindows;
   if ( uNumGUIWindows < 0 )
     return 0;
   v2 = dword_50CBD0[0];
   while ( 1 )
   {
-    v3 = 84 * (array_5075E0[v30] - 1);
+    wndIdx = array_5075E0[v30] - 1;
     //if ( *(int *)((char *)array_506F68 + 44 + v3) == v1 )
-    if (array_506F50[v3 / 84].dword_000044 == v1)
+    if (GUIWindow_List[wndIdx].dword_000044 == v1)
       goto LABEL_47;
-    if ( v29 != (void *)34 )
+    if ( Key != VK_NEXT )
       break;
     //if ( *(int *)((char *)array_506F68 + 24 + v3) != v1 )
-    if (array_506F50[v3 / 84].dword_000030 != v1)
+    if (GUIWindow_List[wndIdx].dword_000030 != v1)
     {
       class03_GetMouseClickPos(pGame->pClass03, (int)&v33, (int)&v34);
       //v4 = *(int *)((char *)array_506F68 + 32 + v3);
-      v4 = array_506F50[v3 / 84].dword_000038;
+      v4 = GUIWindow_List[wndIdx].dword_000038;
       //v32 = v4 + *(int *)((char *)array_506F68 + 16 + v3);
-      v32 = v4 + array_506F50[v3 / 84].dword_000028;
+      v32 = v4 + GUIWindow_List[wndIdx].dword_000028;
       //if ( v4 < v4 + *(int *)((char *)array_506F68 + 16 + v3) )
-      if (v4 < v4 + array_506F50[v3 / 84].dword_000028)
+      if (v4 < v4 + GUIWindow_List[wndIdx].dword_000028)
       {
         while ( 1 )
         {
           //v15 = *(int *)((char *)array_506F68 + 52 + v3);
-         v15 = array_506F50[v3 / 84].pControlsHead;
+         v15 = GUIWindow_List[wndIdx].pControlsHead;
           if ( v4 > 0 )
           {
             v16 = v4;
             do
             {
-              v15 = *(_DWORD *)(v15 + 52);
+              v15 = v15->pNext;
               --v16;
             }
             while ( v16 );
           }
           if ( v33 >= *(_DWORD *)v15
-            && v33 <= *(_DWORD *)(v15 + 16)
-            && v34 >= *(_DWORD *)(v15 + 4)
-            && v34 <= *(_DWORD *)(v15 + 20) )
+            && v33 <= *(_DWORD *)((char*)v15 + 16)
+            && v34 >= *(_DWORD *)((char*)v15 + 4)
+            && v34 <= *(_DWORD *)((char*)v15 + 20) )
             goto LABEL_66;
           ++v4;
           if ( v4 >= v32 )
@@ -15156,16 +15155,16 @@ LABEL_47:
     if ( v17 )
       return 0;
   }
-  if ( v29 == (void *)37 )
+  if ( Key == VK_LEFT )
   {
     //v12 = *(int *)((char *)array_506F68 + 28 + v3);
-   v12 = array_506F50[v3 / 84].dword_000034;
+   v12 = GUIWindow_List[wndIdx].dword_000034;
     //if ( *(int *)((char *)array_506F68 + 20 + v3) - *(int *)((char *)array_506F68 + 32 + v3) - v12 >= 0 )
-   if (array_506F50[v3 / 84].dword_00002C - array_506F50[v3 / 84].dword_000038 - v12 >= 0)
+   if (GUIWindow_List[wndIdx].dword_00002C - GUIWindow_List[wndIdx].dword_000038 - v12 >= 0)
     {
       v13 = dword_4E28F8 == 21;
       //*(int *)((char *)array_506F68 + 20 + v3) -= v12;
-      array_506F50[v3 / 84].dword_00002C -= v12;
+      GUIWindow_List[wndIdx].dword_00002C -= v12;
       if ( v13 )
       {
         AudioPlayer_sub_4AA306(pAudioPlayer, 66, v1, v1, -1, v1, v1, v1, v1);
@@ -15173,44 +15172,44 @@ LABEL_47:
       }
     }
     //if ( *(int *)((char *)array_506F68 + 24 + v3) != v1 )
-   if (array_506F50[v3 / 84].dword_000030 != v1)
+   if (GUIWindow_List[wndIdx].dword_000030 != v1)
       goto LABEL_47;
     //v9 = *(int *)((char *)array_506F68 + 52 + v3);
     //v14 = *(int *)((char *)array_506F68 + 20 + v3);
-   v9 = array_506F50[v3 / 84].pControlsHead;
-   v14 = array_506F50[v3 / 84].dword_00002C;
+   v9 = GUIWindow_List[wndIdx].pControlsHead;
+   v14 = GUIWindow_List[wndIdx].dword_00002C;
     if ( v14 > v1 )
     {
       do
       {
-        v9 = *(_DWORD *)(v9 + 52);
+        v9 = v9->pNext;
         --v14;
       }
       while ( v14 );
     }
 LABEL_26:
-    v11 = *(_DWORD *)(v9 + 36);
+    v11 = *(_DWORD *)((char*)v9 + 36);
     if ( v2 < 40 )
     {
-      dword_50CBD0[3 * v2 + 1] = *(_DWORD *)(v9 + 32);
+      dword_50CBD0[3 * v2 + 1] = *(_DWORD *)((char*)v9 + 32);
       dword_50CBD0[3 * dword_50CBD0[0] + 2] = v11;
       dword_50CBD0[3 * dword_50CBD0[0] + 3] = v1;
       v2 = dword_50CBD0[0]++ + 1;
     }
     goto LABEL_47;
   }
-  if ( v29 != (void *)38 )
+  if ( Key != VK_UP )
   {
-    if ( v29 == (void *)39 )
+    if ( Key == VK_RIGHT )
     {
       //v7 = *(int *)((char *)array_506F68 + 20 + v3) + *(int *)((char *)array_506F68 + 28 + v3);
-     v7 = array_506F50[v3 / 84].dword_00002C + array_506F50[v3 / 84].dword_000034;
+     v7 = GUIWindow_List[wndIdx].dword_00002C + GUIWindow_List[wndIdx].dword_000034;
       //if ( v7 < *(int *)((char *)array_506F68 + 16 + v3) + *(int *)((char *)array_506F68 + 32 + v3) )
-     if (v7 < array_506F50[v3 / 84].dword_000028 + array_506F50[v3 / 84].dword_000038)
+     if (v7 < GUIWindow_List[wndIdx].dword_000028 + GUIWindow_List[wndIdx].dword_000038)
       {
         v8 = dword_4E28F8 == 21;
         //*(int *)((char *)array_506F68 + 20 + v3) = v7;
-        array_506F50[v3 / 84].dword_00002C = v7;
+        GUIWindow_List[wndIdx].dword_00002C = v7;
         if ( v8 )
         {
           AudioPlayer_sub_4AA306(pAudioPlayer, 66, v1, v1, -1, v1, v1, v1, v1);
@@ -15218,58 +15217,58 @@ LABEL_26:
         }
       }
       //if ( *(int *)((char *)array_506F68 + 24 + v3) != v1 )
-     if (array_506F50[v3 / 84].dword_000030 != v1)
+     if (GUIWindow_List[wndIdx].dword_000030 != v1)
         goto LABEL_47;
       //v9 = *(int *)((char *)array_506F68 + 52 + v3);
       //v10 = *(int *)((char *)array_506F68 + 20 + v3);
-     v9 = array_506F50[v3 / 84].pControlsHead;
-     v10 = array_506F50[v3 / 84].dword_00002C;
+     v9 = GUIWindow_List[wndIdx].pControlsHead;
+     v10 = GUIWindow_List[wndIdx].dword_00002C;
       if ( v10 > v1 )
       {
         do
         {
-          v9 = *(_DWORD *)(v9 + 52);
+          v9 = v9->pNext;
           --v10;
         }
         while ( v10 );
       }
       goto LABEL_26;
     }
-    if ( v29 == (void *)40 )
+    if ( Key == VK_DOWN )
     {
       //v20 = *(int *)((char *)array_506F68 + 32 + v3);
       //v19 = *(int *)((char *)array_506F68 + 20 + v3);
-     v19 = array_506F50[v3 / 84].dword_00002C;
-     v20 = array_506F50[v3 / 84].dword_000038;
+     v19 = GUIWindow_List[wndIdx].dword_00002C;
+     v20 = GUIWindow_List[wndIdx].dword_000038;
       //if ( v19 >= *(int *)((char *)array_506F68 + 16 + v3) + v20 - 1 )
-     if (v19 >= array_506F50[v3 / 84].dword_000028 + v20 - 1)
+     if (v19 >= GUIWindow_List[wndIdx].dword_000028 + v20 - 1)
         //*(int *)((char *)array_506F68 + 20 + v3) = v20;
-        array_506F50[v3 / 84].dword_00002C = v20;
+        GUIWindow_List[wndIdx].dword_00002C = v20;
       else
         //*(int *)((char *)array_506F68 + 20 + v3) = v19 + 1;
-        array_506F50[v3 / 84].dword_00002C = v19 + 1;
+        GUIWindow_List[wndIdx].dword_00002C = v19 + 1;
 
       //if ( *(int *)((char *)array_506F68 + 24 + v3) == v1 )
-     if (array_506F50[v3 / 84].dword_000030 == v1)
+     if (GUIWindow_List[wndIdx].dword_000030 == v1)
       {
         //v21 = *(int *)((char *)array_506F68 + 52 + v3);
         //v22 = *(int *)((char *)array_506F68 + 20 + v3);
-       v21 = array_506F50[v3 / 84].pControlsHead;
-       v22 = array_506F50[v3 / 84].dword_00002C;
+       v21 = GUIWindow_List[wndIdx].pControlsHead;
+       v22 = GUIWindow_List[wndIdx].dword_00002C;
         if ( v22 > v1 )
         {
           do
           {
-            v21 = *(_DWORD *)(v21 + 52);
+            v21 = v21->pNext;
             --v22;
           }
           while ( v22 );
         }
 LABEL_56:
-        v23 = *(_DWORD *)(v21 + 36);
+        v23 = *(_DWORD *)((char*)v21 + 36);
         if ( v2 < 40 )
         {
-          dword_50CBD0[3 * v2 + 1] = *(_DWORD *)(v21 + 32);
+          dword_50CBD0[3 * v2 + 1] = *(_DWORD *)((char*)v21 + 32);
           dword_50CBD0[3 * dword_50CBD0[0] + 2] = v23;
           dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = v1;
         }
@@ -15277,20 +15276,20 @@ LABEL_56:
       }
       return 1;
     }
-    if ( (char *)v29 - 40 == (void *)1 )
+    if ( Key == VK_SELECT )
     {
       class03_GetMouseClickPos(pGame->pClass03, (int)&v33, (int)&v34);
       //v4 = *(int *)((char *)array_506F68 + 32 + v3);
-      v4 = array_506F50[v3 / 84].dword_000038;
+      v4 = GUIWindow_List[wndIdx].dword_000038;
       //v31 = v4 + *(int *)((char *)array_506F68 + 16 + v3);
-      v31 = v4 + array_506F50[v3 / 84].dword_000028;
+      v31 = v4 + GUIWindow_List[wndIdx].dword_000028;
       //if ( v4 < v4 + *(int *)((char *)array_506F68 + 16 + v3) )
-      if (v4 < v4 + array_506F50[v3 / 84].dword_000028)
+      if (v4 < v4 + GUIWindow_List[wndIdx].dword_000028)
       {
         while ( 1 )
         {
           //v5 = *(int *)((char *)array_506F68 + 52 + v3);
-         v5 = array_506F50[v3 / 84].pControlsHead;
+         v5 = GUIWindow_List[wndIdx].pControlsHead;
           if ( v4 > 0 )
           {
             v6 = v4;
@@ -15312,7 +15311,7 @@ LABEL_56:
         }
 LABEL_66:
         //*(int *)((char *)array_506F68 + 20 + v3) = v4;
-        array_506F50[v3 / 84].dword_00002C = v4;
+        GUIWindow_List[wndIdx].dword_00002C = v4;
         return 1;
       }
 LABEL_46:
@@ -15323,28 +15322,28 @@ LABEL_46:
   }
   //v25 = *(int *)((char *)array_506F68 + 20 + v3);
   //v24 = *(int *)((char *)array_506F68 + 32 + v3);
-  v24 = array_506F50[v3 / 84].dword_000038;
-  v25 = array_506F50[v3 / 84].dword_00002C;
+  v24 = GUIWindow_List[wndIdx].dword_000038;
+  v25 = GUIWindow_List[wndIdx].dword_00002C;
   if ( v25 <= v24 )
     //v26 = *(int *)((char *)array_506F68 + 16 + v3) + v24 - 1;
-    v26 = array_506F50[v3 / 84].dword_000028 + v24 - 1;
+    v26 = GUIWindow_List[wndIdx].dword_000028 + v24 - 1;
   else
     v26 = v25 - 1;
   //v27 = *(int *)((char *)array_506F68 + 24 + v3) == v1;
-  v27 = array_506F50[v3 / 84].dword_000030 == v1;
+  v27 = GUIWindow_List[wndIdx].dword_000030 == v1;
   //*(int *)((char *)array_506F68 + 20 + v3) = v26;
-  array_506F50[v3 / 84].dword_00002C = v26;
+  GUIWindow_List[wndIdx].dword_00002C = v26;
   if ( v27 )
   {
     //v21 = *(int *)((char *)array_506F68 + 52 + v3);
     //v28 = *(int *)((char *)array_506F68 + 20 + v3);
-   v21 = array_506F50[v3 / 84].pControlsHead;
-   v28 = array_506F50[v3 / 84].dword_00002C;
+   v21 = GUIWindow_List[wndIdx].pControlsHead;
+   v28 = GUIWindow_List[wndIdx].dword_00002C;
     if ( v28 > v1 )
     {
       do
       {
-        v21 = *(_DWORD *)(v21 + 52);
+        v21 = v21->pNext;
         --v28;
       }
       while ( v28 );
@@ -18745,10 +18744,10 @@ LABEL_123:
     }
 
 _mouse_is_on_UI:
-    if (x >= array_506F50[0].uFrameX && x <= array_506F50[0].uFrameZ &&
-        y >= array_506F50[0].uFrameY && y <= array_506F50[0].uFrameW)
+    if (x >= GUIWindow_List[0].uFrameX && x <= GUIWindow_List[0].uFrameZ &&
+        y >= GUIWindow_List[0].uFrameY && y <= GUIWindow_List[0].uFrameW)
     {
-      for ( pControl = array_506F50[0].pControlsHead; pControl; pControl = pControl->pNext)
+      for ( pControl = GUIWindow_List[0].pControlsHead; pControl; pControl = pControl->pNext)
       {
         if (pControl->dword_000018 == 1 )
         {
@@ -18810,7 +18809,7 @@ _mouse_is_on_UI:
   }
   while ( 1 )
   {
-    v2 = &array_506F50[array_5075E0[v1] - 1];
+    v2 = &GUIWindow_List[array_5075E0[v1] - 1];
     if ( x >= *v2 && x <= v2[4] && y >= v2[1] && y <= v2[5] )
     {
       for ( i = v2[19]; ; i = *(_DWORD *)(i + 52) )

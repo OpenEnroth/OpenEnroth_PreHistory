@@ -693,12 +693,12 @@ extern struct GUIWindow *pGUIWindow_MainMenu; // ptr @ MM7.exe::00506F4C
 //int dword_506F4C; // idb
 
 
-extern struct GUIWindow array_506F50[20];  // struct array @ MM7.exe::00506F50
+extern struct GUIWindow GUIWindow_List[20];  // struct array @ MM7.exe::00506F50
 //int dword_506F50[array_size_unknown]; // weak
 //int dword_506F54; // weak
 //int dword_506F60; // weak
 //int dword_506F64; // weak
-//int array_506F68[420]; // array_506F50[0]::bSlotUsed
+//int array_506F68[420]; // GUIWindow_List[0]::bSlotUsed
 //_UNKNOWN unk_506F68; // weak
 //int dword_506F78; // weak
 //int dword_506F7C; // weak

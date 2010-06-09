@@ -238,12 +238,12 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
   v8 = 0;
   for (i = 0; i < 20; ++i)
   {
-   if (!array_506F50[i].bSlotUsed)
+   if (!GUIWindow_List[i].bSlotUsed)
      break;
    ++v8;
   }
 
-  v9 = &array_506F50[v8];
+  v9 = &GUIWindow_List[v8];
   v9->uFrameX = uFrameX;
   v9->uFrameY = uFrameY;
   v9->uFrameWidth = uFrameWidth;
@@ -487,7 +487,7 @@ LABEL_62:
     }
     if ( v25 == 1 )
     {
-      dword_507BC0 = &array_506F50[v8];
+      dword_507BC0 = &GUIWindow_List[v8];
       sub_4B4224(0);
     }
   }

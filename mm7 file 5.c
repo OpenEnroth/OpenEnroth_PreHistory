@@ -3213,7 +3213,7 @@ void __cdecl sub_46B76F()
       {
         CGame_Pick(pGame, 512.0, *v4, *(_DWORD *)(v1 + 16), 0, (int)&dword_F93E6C, (int)&dword_F93E58);
         if ( sub_466CA0() == 6 )
-          sub_41CD4F((void *)0x29);
+          sub_41CD4F(VK_SELECT);
         OnMouseLeftClick((void *)(v1 + 12));
       }
       else

@@ -4224,7 +4224,7 @@ void __cdecl sub_464479()
   v0 = uNumGUIWindows;
   dword_AE30F4 = uNumGUIWindows;
   while ( v0 > 0 )
-    GUIWindowDelete(&array_506F50[array_5075E0[v0--] - 1]);
+    GUIWindowDelete(&GUIWindow_List[array_5075E0[v0--] - 1]);
 }
 
 //----- (004059DB) --------------------------------------------------------
@@ -8525,7 +8525,7 @@ int GetRaceByFace(struct Player *_this)
 }
 
 //----- (0041B690) --------------------------------------------------------
-int __cdecl UI_Initialize_Icons()
+void __cdecl UI_Initialize_Icons()
 {
   char v11; // al@1
   int v12; // eax@1
