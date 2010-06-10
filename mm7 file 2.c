@@ -1001,9 +1001,14 @@ LABEL_85:
         }
         while ( v6 < dword_73C194 );
       }
-      sub_4BF8F6();
-      if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
-        CVideoPlayer_UnloadAll(pVideoPlayer);
+
+      if (!bSkipVideo)
+      {
+       PlayFirstActMovie();
+       if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
+         CVideoPlayer_UnloadAll(pVideoPlayer);
+      }
+
       sub_45F469(0, 0);
       ++dword_ACD6F4;
       v8 = &pParty_global->pPlayers;

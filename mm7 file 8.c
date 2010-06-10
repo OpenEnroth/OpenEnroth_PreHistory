@@ -2997,7 +2997,7 @@ int __cdecl MenuLoop_Main()
      TranslateMessage(&Msg);
      DispatchMessageA(&Msg);
     }
-    if ( BYTE1(dword_6BE364) & 1 )
+    if (dword_6BE364 & 0x0100 )
     {
       WaitMessage();
     }
@@ -8106,7 +8106,7 @@ void __cdecl InitializeAutonotes()
       {
         if ( v1 == 1 )
         {
-          *(_DWORD *)(&unk_723724 + v0 - 4) = sub_452C30(v2);
+          *(_DWORD *)(unk_723724 + v0 - 4) = sub_452C30(v2);
         }
         else
         {
@@ -8119,23 +8119,23 @@ void __cdecl InitializeAutonotes()
                 if ( _strcmpi(v2, "seer") )
                 {
                   if ( _strcmpi(v2, "obelisk") )
-                    *(_DWORD *)(&unk_723724 + v0) = 5 - (_strcmpi(v2, "teacher") != 0);
+                    *(_DWORD *)(unk_723724 + v0) = 5 - (_strcmpi(v2, "teacher") != 0);
                   else
-                    *(_DWORD *)(&unk_723724 + v0) = 2;
+                    *(_DWORD *)(unk_723724 + v0) = 2;
                 }
                 else
                 {
-                  *(_DWORD *)(&unk_723724 + v0) = 3;
+                  *(_DWORD *)(unk_723724 + v0) = 3;
                 }
               }
               else
               {
-                *(_DWORD *)(&unk_723724 + v0) = 1;
+                *(_DWORD *)(unk_723724 + v0) = 1;
               }
             }
             else
             {
-              *(_DWORD *)(&unk_723724 + v0) = 0;
+              *(_DWORD *)(unk_723724 + v0) = 0;
             }
           }
         }

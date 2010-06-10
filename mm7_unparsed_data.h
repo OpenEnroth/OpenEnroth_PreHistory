@@ -2072,7 +2072,7 @@ extern _UNKNOWN unk_722F14[0x800 + array_size_unknown]; // weak
 extern _UNKNOWN unk_723714; // weak
 extern char *dword_723718; // idb
 extern int dword_72371C[array_size_unknown]; // weak
-extern _UNKNOWN unk_723724; // weak
+extern _UNKNOWN unk_723724[]; // weak
 extern char *dword_723D38; // idb
 extern _UNKNOWN unk_723D3C; // weak
 extern int dword_723E80[array_size_unknown]; // weak

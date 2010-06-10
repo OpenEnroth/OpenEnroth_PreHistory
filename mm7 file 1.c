@@ -3316,10 +3316,10 @@ long *__stdcall wWndProc(HWND hWnd, UINT Msg, signed int wParam, unsigned int lP
   __asm
   {
    mov eax, dword ptr [Msg]
-   cmp eax, WM_LBUTTONUP
+   cmp eax, WM_TIMER
      jnz __continue
 
-   //int 3
+   int 3
 __continue:
   }
 
@@ -3882,9 +3882,14 @@ LABEL_179:
               Keyboard_suspend(dword_69B00C);
           }
         }
+
+        runtime_warning;
+        //keeps get here during initialization after ShowWindow call
+        //getting here is incorrect since AudioPlayer class is created after window
+        /*
         AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
         if ( pAudioPlayer->hAILRedbook )
-          AIL_redbook_pause(pAudioPlayer->hAILRedbook);
+          AIL_redbook_pause(pAudioPlayer->hAILRedbook);*/
       }
     }
     return 0;
@@ -17613,7 +17618,7 @@ void *__cdecl PlayerCreationUI_Draw()
    uPlayerCreationUI_SelectedCharacter = (pGUIWindow_PlayerCreation->dword_00002C - pGUIWindow_PlayerCreation->dword_000038) / 7;
 
    v3 = AlignText_Center(640, pGlobalTXT_LocalizationStrings[51], pFontCChar);
-   FontDrawText(pGUIWindow_PlayerCreation, pFontCChar, v3 + 1, 0, 0, pGlobalTXT_LocalizationStrings[51], 0, 0, 0);
+   FontDrawText(pGUIWindow_PlayerCreation, pFontCChar, v3 + 1, 3, 0, pGlobalTXT_LocalizationStrings[51], 0, 0, 0);
    CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 17, 35, pPlayerCreationUI_PCPortraits[pParty_global->pPlayers[0].uFace]);
    CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 176, 35, pPlayerCreationUI_PCPortraits[pParty_global->pPlayers[1].uFace]);
    CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 335, 35, pPlayerCreationUI_PCPortraits[pParty_global->pPlayers[2].uFace]);

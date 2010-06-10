@@ -1939,6 +1939,7 @@ unsigned int uLevelMapStatsID; // dword @ MM7.exe::006BE358
                    // 0x0010: no sound
                    // 0x0020: no walk sound
                    // 0x0040: no anim
+                   // 0x0100: application is minimized to tray/not active right now
                    // 0x4000: ?
 
  int dword_6BE368; // debug flags
@@ -2118,7 +2119,7 @@ struct CGame *pGame = 0; //struct @ MM7.exe::00720014
  _UNKNOWN unk_723714; // weak
  char *dword_723718; // idb
  int dword_72371C[array_size_unknown]; // weak
- _UNKNOWN unk_723724; // weak
+ _UNKNOWN unk_723724[128 * array_size_unknown]; // weak
  char *dword_723D38; // idb
  _UNKNOWN unk_723D3C; // weak
  int dword_723E80[array_size_unknown]; // weak

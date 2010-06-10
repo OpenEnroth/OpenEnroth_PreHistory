@@ -14097,11 +14097,11 @@ void __thiscall sub_4BF73A(int this)
 }
 
 //----- (004BF8F6) --------------------------------------------------------
-void __cdecl sub_4BF8F6()
+void PlayFirstActMovie()
 {
   pVideoPlayer->dword_00006C = 0;
   pVideoPlayer->dword_000040 = 0;
-  PlayMovie(6, 1);
+  PlayMovie(4, 1);
 }
 
 //----- (004BF91E) --------------------------------------------------------

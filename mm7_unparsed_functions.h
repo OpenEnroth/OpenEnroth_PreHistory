@@ -4,6 +4,8 @@
 #include <stdio.h>
 
 
+void PlayFirstActMovie();
+
 //-------------------------------------------------------------------------
 // Function declarations
 
@@ -1373,7 +1375,6 @@ void *__thiscall sub_4BF08B(void *this, int a2);
 void __thiscall sub_4BF28F(int this, char a2, int a3);
 int __thiscall sub_4BF5B2(int this);
 void __thiscall sub_4BF73A(int this);
-void __cdecl sub_4BF8F6();
 int sub_4BF919(void); // weak
 int __thiscall sub_4BF91E(void *this);
 int __thiscall sub_4C0312(int this, int a2, int a3, int a4, int a5);
