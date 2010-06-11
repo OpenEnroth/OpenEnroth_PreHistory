@@ -1296,7 +1296,9 @@ int __fastcall sub_4269A2(int a1)
     v2 += v4;
     v3 += 4;
   }
-  while ( HIDWORD(v1) < (signed int)&unk_AD46E4 );
+  //while ( HIDWORD(v1) < (signed int)&unk_AD46E4 );
+  while (HIWORD(v1) < &struct_AD4674[1].dword_000024);
+
   if ( v2 )
   {
     LODWORD(v1) = (_DWORD)v1 / v2;
@@ -4217,8 +4219,6 @@ void __cdecl sub_4304E7()
   int v2; // eax@7
   int v3; // edx@7
   char *v4; // ecx@13
-  signed int v5; // eax@18
-  int v6; // ecx@18
   int v7; // edx@20
   int v8; // ecx@29
   char v9; // sf@57
@@ -4411,8 +4411,6 @@ void __cdecl sub_4304E7()
   int v196; // [sp+14h] [bp-5E8h]@22
   signed int v197; // [sp+14h] [bp-5E8h]@251
   signed int v198; // [sp+14h] [bp-5E8h]@272
-  char *v199; // [sp+14h] [bp-5E8h]@373
-  char *v200; // [sp+14h] [bp-5E8h]@377
   int v201; // [sp+14h] [bp-5E8h]@445
   int v202; // [sp+14h] [bp-5E8h]@455
   int v203; // [sp+14h] [bp-5E8h]@467
@@ -4454,6 +4452,7 @@ void __cdecl sub_4304E7()
   char Str2; // [sp+238h] [bp-3C4h]@527
   char Dst; // [sp+2B8h] [bp-344h]@4
   __int16 v241; // [sp+2D8h] [bp-324h]@4
+ int i;
 
   dword_50CDC8 = 0;
   if ( !pClass24_global->dword_000004 )
@@ -4507,19 +4506,14 @@ void __cdecl sub_4304E7()
                 dword_50CBD0[0] = dword_50CBDC != 0;
               v210 = 0;
               v212 = LODWORD(v214) - 134;
-              v6 = 0;
-              v5 = (signed int)&dword_AD4674;
-              do
-              {
-                if ( *(_DWORD *)v5 )
+
+              for (i = 0; i < 2; ++i)
+                if (struct_AD4674[i].dword_AD4674)
                 {
                   v7 = v210++;
-                  compile_error;//*(&ExistingFileName + v7) = v6;
+                  ExistingFileName[v7] = i;
                 }
-                v5 += 76;
-                ++v6;
-              }
-              while ( v5 < (signed int)&dword_AD470C );
+
               v196 = 0;
               if ( dword_73C194 > 0 )
               {
@@ -4528,12 +4522,12 @@ void __cdecl sub_4304E7()
                 {
                   if ( *(_BYTE *)(v211 + 8) & 0x80 )
                   {
-                    if ( !dword_AD4674 || strcmp(*(const char **)v211, dword_AD4674) )
+                    if (!struct_AD4674[0].dword_AD4674 || strcmp(*(const char **)v211, struct_AD4674[0].dword_AD4674))
                     {
-                      if ( !dword_AD46C0 || strcmp(*(const char **)v211, dword_AD46C0) )
+                     if (!struct_AD4674[1].dword_AD4674 || strcmp(*(const char **)v211, struct_AD4674[1].dword_AD4674))
                       {
                         v8 = v210++;
-                        compile_error;//*(&ExistingFileName + v8) = v196 + 2;
+                        ExistingFileName[v8] = v196 + 2;
                       }
                     }
                   }
@@ -5744,7 +5738,7 @@ LABEL_92:
           if ( v209 )
           {
             GUIWindowCreate(626, 179, 0, 0, 90, dword_5079E8, 0);
-            v48 = (dword_AD4674 != 0) + (dword_AD46C0 != 0) + (unsigned __int8)byte_ACD6C2 - 2;
+            v48 = (struct_AD4674[0].dword_AD4674 != 0) + (struct_AD4674[1].dword_AD4674!= 0) + (unsigned __int8)byte_ACD6C2 - 2;
             if ( (unsigned __int8)byte_ACD6C1 < v48 )
             {
               ++byte_ACD6C1;
@@ -5877,26 +5871,16 @@ LABEL_317:
               sub_490D02(pParty_global);
               if ( pParty_global->uNumFood - v211 < 0 )
               {
-                v199 = (char *)&pParty_global->pPlayers[0];
-                do
-                {
-                  Player_sub_492D65(v199, v0, 0);
-                  v199 += 6972;
-                }
-                while ( (signed int)v199 < (signed int)&dword_AD4674 );
+               for (i = 0; i < 4; ++i)
+                 Player_sub_492D65(&pParty_global->pPlayers[i], v0, 0);
                 ++byte_ACD71C;
               }
               sub_492B03((void *)v211);
             }
             else
             {
-              v200 = (char *)&pParty_global->pPlayers[0];
-              do
-              {
-                Player_sub_492D65(v200, v0, 0);
-                v200 += 6972;
-              }
-              while ( (signed int)v200 < (signed int)&dword_AD4674 );
+             for (i = 0; i < 4; ++i)
+               Player_sub_492D65(&pParty_global->pPlayers[i], v0, 0);
               ++byte_ACD71C;
             }
             sub_48A336(&class35_obj);
@@ -16383,7 +16367,6 @@ int __fastcall sub_45EE8A(int a1)
 {
   int v1; // ebx@1
   char v2; // zf@1
-  signed int v3; // esi@3
   int v4; // esi@8
   int v5; // eax@9
   int v6; // eax@12
@@ -16421,6 +16404,7 @@ int __fastcall sub_45EE8A(int a1)
   char Source; // [sp+20h] [bp-D0h]@62
   char Str; // [sp+70h] [bp-80h]@25
   __int64 v40; // [sp+E8h] [bp-8h]@2
+ int i, j;
 
   v1 = a1;
   v2 = dword_69CF28[a1] == 0;
@@ -16432,25 +16416,17 @@ int __fastcall sub_45EE8A(int a1)
   }
   else
   {
-    HIDWORD(v40) = 1;
-    do
+   for (i = 1; i < 5; ++i)
+     for (j = 1; j < 6; ++j)
+     {
+      wsprintfA(ExistingFileName, "data\\lloyd%d%d.pcx", i, j);
+      remove(ExistingFileName);
+     }
+
+
+    for (i = 0; i < 4; ++i)
     {
-      v3 = 1;
-      do
-      {
-        v36 = v3;
-        v35 = HIDWORD(v40);
-        sprintfex(&ExistingFileName, "data\\lloyd%d%d.pcx", HIDWORD(v40), v3);
-        remove(&ExistingFileName);
-        ++v3;
-      }
-      while ( v3 < 6 );
-      v40 += 4294967296i64;
-    }
-    while ( HIDWORD(v40) < 5 );
-    HIDWORD(v40) = &pParty_global->pPlayers[0];
-    do
-    {
+    HIDWORD(v40) = &pParty_global->pPlayers[i];
       if ( byte_4ED498 )
       {
         v4 = 0;
@@ -16491,12 +16467,11 @@ LABEL_17:
         }
         sub_4A9DCD(pSoundList, v7, 1);
       }
-      v40 += 29944511987712i64;
     }
-    while ( HIDWORD(v40) < (signed int)&dword_AD4674 );
-    sprintfex(&ExistingFileName, "saves\\%s", &byte_69CFF4[280 * v1]);
+
+    wsprintfA(ExistingFileName, "saves\\%s", &byte_69CFF4[280 * v1]);
     sub_461EE9(pClass17_New_LOD);
-    if ( !CopyFileA(&ExistingFileName, "data\\new.lod", 0) )
+    if ( !CopyFileA(ExistingFileName, "data\\new.lod", 0) )
       GetLastError();
     class17_LoadLOD_Games(pClass17_New_LOD, "data\\new.lod", 0);
     v9 = class17_FindContainer(pClass17_New_LOD, "header.bin", 1);
@@ -16506,12 +16481,10 @@ LABEL_17:
     }
     else
     {
-      sprintfex(&Str, pGlobalTXT_LocalizationStrings[612], 100);
-      v36 = 549;
-      v35 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp";
+      wsprintfA(Str, pGlobalTXT_LocalizationStrings[612], 100);
       HIDWORD(v40) = &v31;
       sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
-      sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, (const char *)v35, v36);
+      sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
     v10 = class17_FindContainer(pClass17_New_LOD, "party.bin", 1);
     if ( v10 )
@@ -16521,12 +16494,10 @@ LABEL_17:
     else
     {
       v36 = 101;
-      sprintfex(&Str, pGlobalTXT_LocalizationStrings[612], 101);
-      v36 = 559;
-      v35 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp";
+      wsprintfA(&Str, pGlobalTXT_LocalizationStrings[612], 101);
       HIDWORD(v40) = &v31;
       sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
-      sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, (const char *)v35, v36);
+      sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
     v11 = class17_FindContainer(pClass17_New_LOD, "clock.bin", 1);
     if ( v11 )
@@ -16536,12 +16507,10 @@ LABEL_17:
     else
     {
       v36 = 102;
-      sprintfex(&Str, pGlobalTXT_LocalizationStrings[612], 102);
-      v36 = 569;
-      v35 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp";
+      wsprintfA(Str, pGlobalTXT_LocalizationStrings[612], 102);
       HIDWORD(v40) = &v31;
       sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
-      sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, (const char *)v35, v36);
+      sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
     v12 = class17_FindContainer(pClass17_New_LOD, "overlay.bin", 1);
     if ( v12 )
@@ -16551,12 +16520,10 @@ LABEL_17:
     else
     {
       v36 = 103;
-      sprintfex(&Str, pGlobalTXT_LocalizationStrings[612], 103);
-      v36 = 579;
-      v35 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp";
+      wsprintfA(Str, pGlobalTXT_LocalizationStrings[612], 103);
       HIDWORD(v40) = &v31;
       sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
-      sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, (const char *)v35, v36);
+      sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
     v13 = class17_FindContainer(pClass17_New_LOD, "npcdata.bin", 0);
     if ( v13 )
@@ -16567,12 +16534,10 @@ LABEL_17:
     else
     {
       v36 = 104;
-      sprintfex(&Str, pGlobalTXT_LocalizationStrings[612], 104);
-      v36 = 590;
-      v35 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp";
+      wsprintfA(Str, pGlobalTXT_LocalizationStrings[612], 104);
       HIDWORD(v40) = &v31;
       sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
-      sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, (const char *)v35, v36);
+      sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
     v14 = class17_FindContainer(pClass17_New_LOD, "npcgroup.bin", 0);
     if ( v14 )
@@ -16582,25 +16547,22 @@ LABEL_17:
     else
     {
       v36 = 105;
-      sprintfex(&Str, pGlobalTXT_LocalizationStrings[612], 105);
-      v36 = 600;
-      v35 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp";
+      wsprintfA(Str, pGlobalTXT_LocalizationStrings[612], 105);
       HIDWORD(v40) = &v31;
       sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
-      sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, (const char *)v35, v36);
+      sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
-    v15 = 0;
-    v16 = (int)&pParty_global->pPlayers[0];
+
+    i = 0;
     while ( 1 )
     {
-      ++v15;
-      if ( sub_492C0B(v16) )
+      if (sub_492C0B(&pParty_global->pPlayers[i++]))
         break;
-      v16 += 6972;
-      if ( v16 >= (signed int)&dword_AD4674 )
+      if (i >= 4)
         goto LABEL_46;
     }
-    uMaybeSelectedCharacter = v15;
+    uMaybeSelectedCharacter = v15 = 3;
+
 LABEL_46:
     v19 = (int *)&unk_ACF3D3;
     v18 = 9;

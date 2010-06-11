@@ -4270,6 +4270,7 @@ signed int __thiscall sub_4059DB(void *this)
   int v39; // [sp+68h] [bp-Ch]@5
   int v40; // [sp+6Ch] [bp-8h]@1
   int v41; // [sp+70h] [bp-4h]@7
+ int i;
 
   dword_4F8870 &= 0xFFFFFFFDu;
   v1 = (int)this;
@@ -4277,7 +4278,7 @@ signed int __thiscall sub_4059DB(void *this)
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
   v2 = 0;
   AudioPlayer_sub_4AA306(pAudioPlayer, 207, 0, 0, -1, 0, 0, 0, 0);
-  v40 = (int)&pParty_global->pPlayers[0];
+
   dword_50C998 = 8 * pIconFrameTable->pIcons[dword_50C990].word_00001A;
   dword_50C994 = 0;
   *(_DWORD *)(v1 + 16) = 100;
@@ -4286,19 +4287,17 @@ signed int __thiscall sub_4059DB(void *this)
   *(_DWORD *)(v1 + 4) = 1;
   *(_DWORD *)(v1 + 12) = 0;
   v3 = 0;
-  do
+  for (i = 0; i < 4; ++i)
   {
-    if ( sub_492C0B(v40) )
+    if ( sub_492C0B(&pParty_global->pPlayers[i]) )
     {
       *(_DWORD *)(16 * (*(_DWORD *)(v1 + 12) + 2) + v1) = 8 * v3 | 4;
       *(_DWORD *)(16 * *(_DWORD *)(v1 + 12) + v1 + 44) = 2;
       *(_DWORD *)(16 * *(_DWORD *)(v1 + 12) + v1 + 40) = 0;
       compile_error;//dword_AE30FC[*(_DWORD *)(v1 + 12)++] = 0;
     }
-    v40 += 6972;
     ++v3;
   }
-  while ( v40 < (signed int)&dword_AD4674 );
   v39 = *(_DWORD *)(v1 + 12);
   v4 = v39;
   v40 = v4;
@@ -6609,7 +6608,6 @@ int __cdecl sub_494035()
   unsigned int v1; // edi@1
   int v2; // eax@4
   _UNKNOWN *v3; // ecx@5
-  char *v4; // esi@8
   signed int v5; // ecx@12
   int v6; // esi@15
   void *v7; // esi@25
@@ -6678,8 +6676,8 @@ int __cdecl sub_494035()
   if ( (unsigned int)pParty_global->dword_00071C >= 3 && (v60 < 3 || (unsigned int)(v0 / 60) / 0x18 % 0x1C > v58) )
   {
     v2 = 0;
-    dword_AD46B8 = 0;
-    dword_AD4704 = 0;
+    struct_AD4674[0].dword_000044 = 0;
+    struct_AD4674[1].dword_000044 = 0;
     if ( dword_73C194 > 0 )
     {
       v3 = &unk_72D6D0;
@@ -6694,13 +6692,9 @@ int __cdecl sub_494035()
     ++byte_ACD71C;
     if ( (unsigned __int8)byte_ACD71C > 1u )
     {
-      v4 = &pParty_global->pPlayers;
-      do
-      {
-        Player_sub_492D65(v4, 1, 0);
-        v4 += 6972;
-      }
-      while ( (signed int)v4 < (signed int)&dword_AD4674 );
+     for (i = 0; i < 4; ++i)
+        Player_sub_492D65(&pParty_global->pPlayers[i], 1, 0);
+
       if ( pParty_global->uNumFood )
       {
         sub_492B03((void *)1);
@@ -6717,31 +6711,29 @@ int __cdecl sub_494035()
       }
       if ( (unsigned __int8)byte_ACD71C > 3u )
       {
-        v6 = (int)&pParty_global->pPlayers[0];
-        do
+        for (i = 0; i < 4; ++i)
         {
-          sub_49070F(v6);
+        v6 = &pParty_global->pPlayers[i];
+          sub_49070F(&pParty_global->pPlayers[i]);
           if ( !(*(_QWORD *)(v6 + 120) | *(_QWORD *)(v6 + 128) | *(_QWORD *)(v6 + 112)) )
           {
             if ( rand() % 100 < 5 * (unsigned __int8)byte_ACD71C )
             {
               v54 = 0;
               v52 = 14;
-LABEL_21:
-              Player_sub_492D65((char *)v6, v52, v54);
-              goto LABEL_22;
+
+              Player_sub_492D65(&pParty_global->pPlayers[i], v52, v54);
+              continue;
             }
             if ( rand() % 100 < 10 * (unsigned __int8)byte_ACD71C )
             {
               v54 = 0;
               v52 = 5;
-              goto LABEL_21;
+              Player_sub_492D65(&pParty_global->pPlayers[i], v52, v54);
+              continue;
             }
           }
-LABEL_22:
-          v6 += 6972;
         }
-        while ( v6 < (signed int)&dword_AD4674 );
       }
     }
     if ( dword_6BE360 == 2 )

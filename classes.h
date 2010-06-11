@@ -240,21 +240,32 @@ struct class05
 void *class05_ctor(struct class05 *_this);
 
 
+struct class06_stru0
+{
+ short word_000000;
+ short word_000002;
+ int   dword_000004;
+ int   dword_000008;
+ int   dword_00000C;
+};
+//sizeof == 10
 
 //class06
 struct class06
 {
  int    dword_000000[129];
  int    dword_000204;
- short  word_000208;
+
+ struct class06_stru0 array_000208[4];
+ /*short  word_000208;
  short  word_00020A[7];
  short  word_000218;
  short  word_00021A[7];
  short  word_000228;
  short  word_00022A[7];
  short  word_000238;
- short  word_00023A;
- int    dword_00023C[227];
+ short  word_00023A;*/
+ int    unk_000248[224];
  int    dword_0005C8;
  struct class07 *class07_obj;  //dword ptr [05CC]
  int    dword_0005D0;
@@ -278,7 +289,7 @@ int class06_sub_4A8C27(struct class06 *_this);
 //int __thiscall sub_4A7298(void *this);
 int class06_sub_4A7298(struct class06 *_this);
 //void __thiscall sub_4A902A(void *this);
-void class06_sub_4A902A(struct class06 *_this);
+void class06_sub_4A902A_DrawSomeIcon(struct class06 *_this);
 
 
 
@@ -1587,14 +1598,16 @@ struct struct8
  struct class18       *ptr_00003C;
  struct struct8       *ptr_000040;
  struct struct8       *ptr_000044;
- char                  byte_000048[12];
+ int                 **ptr_000048;
+ char                  byte_00004C[8];
  struct class51_stru2 *ptr_000054;
  char                  byte_000058[4];
  int                   dword_00005C;
  char                  byte_000060[80];
  int                   dword_0000B0;
  float                 flt_0000B4;
- char                  byte_0000B8[76];
+ char                  byte_0000B8[72];
+ int                   dword_000100;
  int                   dword_000104;
  char                  byte_000108;
  char                  byte_000109[3];

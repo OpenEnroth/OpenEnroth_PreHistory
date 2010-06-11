@@ -560,10 +560,10 @@ void *class05_ctor(struct class05 *_this)
 void *class06_ctor(struct class06 *_this)
 {
  _this->dword_000204 = 0;
- _this->word_000208 = 0;
- _this->word_000218 = 0;
- _this->word_000218 = 0;
- _this->word_000238 = 0;
+ _this->array_000208[0].word_000000 = 0;
+ _this->array_000208[1].word_000000 = 0;
+ _this->array_000208[2].word_000000 = 0;
+ _this->array_000208[3].word_000000 = 0;
  _this->dword_0005C8 = 0;
  _this->dword_0005D8 = 0;
 
@@ -9968,39 +9968,26 @@ int class06_sub_4A7298(struct class06 *_this)
 }
 
 //----- (004A902A) --------------------------------------------------------
-void class06_sub_4A902A(struct class06 *_this)
+void class06_sub_4A902A_DrawSomeIcon(struct class06 *_this)
 {
-  int *v1; // edi@1
-  int v2; // esi@1
-  signed int v3; // eax@3
-  int v7; // eax@4
+ struct IconFrame *pIcon;
  int i;
 
-  v1 = (int *)off_4ED748;
-  v2 = (int)((char *)_this + 524);
-  for (i = 0; i < 4; ++i)
+ for (i = 0; i < 4; ++i)
+ {
+  if (_this->array_000208[i].word_000000)
   {
-    if ( *(_WORD *)(v2 - 4) )
-    {
-      v3 = pClass24_global->dword_00001C + *(_DWORD *)v2;
-      //v6 = __SETO__(v3, *(_DWORD *)(v2 + 4));
-      //v4 = v3 == *(_DWORD *)(v2 + 4);
-      //v5 = v3 - *(_DWORD *)(v2 + 4) < 0;
-      *(_DWORD *)v2 = v3;
-      if (v3 <= *(_DWORD *)(v2 + 4) )
-      {
-        v7 = CIconFrameTable_GetFrame(pIconFrameTable, *(_DWORD *)(v2 + 8), v3);
-        CD3DRenderer_DrawTransparentTexture(pD3DRenderer, *(_WORD *)v1, 385, 72 * *(_WORD *)(v7 + 30) + 7145548);
-        dword_5E5144 = 1;
-      }
-      else
-      {
-        *(_WORD *)(v2 - 4) = 0;
-      }
-    }
-    v2 += 16;
-    v1 = (int *)((char *)v1 + 2);
+   _this->array_000208[i].dword_000004 += pClass24_global->dword_00001C;
+   if (_this->array_000208[i].dword_000004 <= _this->array_000208[i].dword_000008)
+   {
+    pIcon = CIconFrameTable_GetFrame(pIconFrameTable, _this->array_000208[i].dword_00000C, _this->array_000208[i].dword_000004);
+    CD3DRenderer_DrawTransparentTexture(pD3DRenderer, off_4ED748[i], 385, &pClass17_Icons_LOD->aLODHeaders[pIcon->uTextureIdx]);
+    dword_5E5144 = 1;
+   }
+   else
+     _this->array_000208[i].word_000000 = 0;
   }
+ }
 }
 
 

@@ -3307,8 +3307,8 @@ void __stdcall sub_4B1BDB(__int64 a1)
   signed __int64 v3; // ST1C_8@1
   unsigned int v4; // ebx@1
 
-  dword_AD46B8 = 0;
-  dword_AD4704 = 0;
+  struct_AD4674[0].dword_000044 = 0;
+  struct_AD4674[1].dword_000044 = 0;
   pParty_global->qword_00002C += (signed __int64)((double)(7680 * a1) * 0.03333333507180214);
   v2 = (signed __int64)((double)pParty_global->qword_00002C * 0.234375);
   v3 = v2 / 60 / 60;
@@ -3450,7 +3450,6 @@ void __cdecl sub_4B1ECE()
 {
   signed int v0; // edi@1
   int v1; // ebx@3
-  int v2; // esi@3
   int v3; // eax@4
   signed int v4; // eax@9
   int v5; // ebx@11
@@ -3461,6 +3460,7 @@ void __cdecl sub_4B1ECE()
   signed int v10; // [sp+10h] [bp-8h]@13
   int v11; // [sp+14h] [bp-4h]@1
   signed int v12; // [sp+14h] [bp-4h]@11
+ int i;
 
   dword_F8B1A8 = 0;
   v11 = 0;
@@ -3472,16 +3472,14 @@ void __cdecl sub_4B1ECE()
     if ( (unsigned __int16)sub_449B57((int)byte_ACD71D, *(_WORD *)(v0 - 2)) )
     {
       v1 = 0;
-      v2 = (int)&pParty_global->pPlayers[0];
-      do
+      for (i = 0; i < 4; ++i)
       {
-        LOBYTE(v3) = sub_449BB4(v2, 17, (void *)*(_WORD *)v0);
+        LOBYTE(v3) = sub_449BB4(&pParty_global->pPlayers[i], 17, (void *)*(_WORD *)v0);
         if ( v3 )
           break;
-        v2 += 6972;
         ++v1;
       }
-      while ( v2 < (signed int)&dword_AD4674 );
+
       if ( v1 == 4 )
         break;
     }
@@ -3567,6 +3565,7 @@ int __fastcall sub_4B2001(int this)
   int v24; // [sp-8h] [bp-14h]@49
   const char *v25; // [sp-8h] [bp-14h]@73
   int v26; // [sp-4h] [bp-10h]@49
+ int i;
 
   v1 = this;
   dword_59108C = this + 1;
@@ -3698,13 +3697,11 @@ LABEL_84:
         if ( dword_F8B1A8 )
         {
           sub_492BB6(dword_F8B1B4);
-          v4 = (char *)&pParty_global->pPlayers[0];
-          do
-          {
-            sub_44A5CB(v4, 12, dword_F8B1AC);
-            v4 += 6972;
-          }
-          while ( (signed int)v4 < (signed int)&dword_AD4674 );
+
+          for (i = 0; i < 4; ++i)
+            sub_44A5CB(&pParty_global->pPlayers[i], 12, dword_F8B1AC);
+
+
           switch ( dword_F8B1D8 )
           {
             case 19:
@@ -3776,7 +3773,7 @@ LABEL_50:
     }
     return sub_4BF5B2(pVideoPlayer);
   }
-  if ( dword_AD4674 && dword_AD46C0 )
+  if (struct_AD4674[0].dword_AD4674 && struct_AD4674[1].dword_AD4674)
   {
     v19 = pGlobalTXT_LocalizationStrings[533];
 LABEL_77:
@@ -3804,15 +3801,15 @@ LABEL_77:
   *(_BYTE *)(v2 + 8) |= 0x80u;
   byte_ACD6C1 = 0;
   sub_44A56A();
-  if ( dword_AD4674 )
+  if (struct_AD4674[0].dword_AD4674)
   {
-    memcpy(&dword_AD46C0, (const void *)v2, 0x4Cu);
+    memcpy(&struct_AD4674[1], (const void *)v2, sizeof(struct unnamed_AD4674));
     v25 = *(const char **)v2;
     v23 = (char *)&unk_AE3090;
   }
   else
   {
-    memcpy(&dword_AD4674, (const void *)v2, 0x4Cu);
+    memcpy(&struct_AD4674[0], (const void *)v2, sizeof(struct unnamed_AD4674));
     v25 = *(const char **)v2;
     v23 = byte_AE302C;
   }
@@ -11388,7 +11385,6 @@ signed int __fastcall sub_4BB756(signed int a1)
   int v15; // ST40_4@19
   int v16; // ST34_4@19
   int v17; // ST38_4@19
-  int v18; // esi@21
   int v19; // eax@26
   int v20; // eax@39
   int v21; // [sp-20h] [bp-54h]@25
@@ -11403,6 +11399,7 @@ signed int __fastcall sub_4BB756(signed int a1)
   __int16 v30; // [sp-8h] [bp-3Ch]@32
   int v31; // [sp-4h] [bp-38h]@25
   int v32; // [sp-4h] [bp-38h]@32
+ int i;
 
   if ( a1 > 39 )
   {
@@ -11496,13 +11493,8 @@ LABEL_40:
   }
   if ( a1 == 10 )
   {
-    v18 = (int)&pParty_global->pPlayers[0];
-    do
-    {
-      *(_DWORD *)(v18 + 6460) = sub_48E4F8(v18);
-      v18 += 6972;
-    }
-    while ( v18 < (signed int)&dword_AD4674 );
+    for (i = 0; i < 4; ++i)
+      pParty_global->pPlayers[i].dword_00193C = sub_48E4F8(&pParty_global->pPlayers[i]);
     return 0;
   }
   if ( a1 == 11 )
@@ -11534,7 +11526,8 @@ LABEL_40:
       *(_DWORD *)(v7 + 6340) = sub_48E4F8(v7 - 120);
       v7 += 6972;
     }
-    while ( v7 < (signed int)&unk_AD46EC );
+    //while ( v7 < (signed int)&unk_AD46EC );
+    while (v7 < struct_AD4674[1].dword_AD46A0);
     return 0;
   }
   if ( a1 == 12 )
@@ -11586,7 +11579,6 @@ int __cdecl sub_4BBA85()
   unsigned __int16 v5; // ax@16
   int v6; // edi@16
   char v7; // zf@16
-  char *v8; // ebx@18
   int result; // eax@21
   char v10; // zf@22
 
@@ -11653,13 +11645,10 @@ int __cdecl sub_4BBA85()
     if ( v5 )
     {
       sub_420C05(100 * pMonsterStats->pMonsterInfos[v5].uLevel, 0);
-      v8 = (char *)&pParty_global->pPlayers[0];
-      do
-      {
-        sub_44A5CB(v8, 12, 86);
-        v8 += 6972;
-      }
-      while ( (signed int)v8 < (signed int)&dword_AD4674 );
+
+      for (i = 0; i < 4; ++i)
+        sub_44A5CB(&pParty_global->pPlayers[i], 12, 86);
+
       dword_ACD700 += 100 * pMonsterStats->pMonsterInfos[*(unsigned __int16 *)((char *)word_ACD708 + v6)].uLevel;
       *(__int16 *)((char *)word_ACD708 + v6) = 0;
       *(__int16 *)((char *)word_ACD712 + v6) = 0;
@@ -11677,10 +11666,10 @@ void __cdecl sub_4BBCDD()
   int v1; // eax@4
   __int16 v2; // cx@5
   int v3; // esi@8
-  char *v5; // esi@14
   int v6; // eax@18
   int v7; // esi@19
   size_t v8; // [sp+10h] [bp-4h]@4
+ int i;
 
   if ( byte_ACD76D )
   {
@@ -11707,14 +11696,11 @@ void __cdecl sub_4BBCDD()
       {
 LABEL_23:
         dword_59108C = 91;
-        v5 = (char *)&pParty_global->pPlayers[0];
         ++byte_ACD719[(unsigned __int8)byte_ACD76D];
-        do
-        {
-          sub_44A5CB(v5, 12, (unsigned __int8)byte_ACD76D + 3);
-          v5 += 6972;
-        }
-        while ( (signed int)v5 < (signed int)&dword_AD4674 );
+
+        for (i = 0; i < 4; ++i)
+          sub_44A5CB(&pParty_global->pPlayers[i], 12, (unsigned __int8)byte_ACD76D + 3);
+
         sub_420C05(dword_F8B1B4, 0);
         AudioPlayer_sub_4AA306(pAudioPlayer, 14060, 0, 0, -1, 0, 0, 0, 0);
         byte_ACD76D = -1;
@@ -11853,7 +11839,6 @@ void __cdecl sub_4BC109()
 {
   int v0; // edi@1
   char *v1; // eax@7
-  void *v2; // edi@9
   signed int v3; // esi@10
   int v4; // eax@10
   signed __int64 v5; // qax@18
@@ -11883,6 +11868,7 @@ void __cdecl sub_4BC109()
   int v29; // [sp+134h] [bp-Ch]@1
   int v30; // [sp+138h] [bp-8h]@23
   int v31; // [sp+13Ch] [bp-4h]@17
+ int i;
 
   v29 = 0;
   byte_ACD76D = dword_59108C;
@@ -11935,19 +11921,19 @@ void __cdecl sub_4BC109()
     dword_50CBD0[3 * dword_50CBD0[0] + 2] = 1;
     dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
   }
-  v2 = &pParty_global->pPlayers[0];
-  do
+
+
+  for (i = 0; i < 4; ++i)
   {
-    v4 = sub_48C90D(v2);
+    v4 = sub_48C90D(&pParty_global->pPlayers[i]);
     v3 = v29;
     if ( v4 > v29 )
     {
-      v29 = sub_48C90D(v2);
+      v29 = sub_48C90D(&pParty_global->pPlayers[i]);
       v3 = v29;
     }
-    v2 = (char *)v2 + 6972;
   }
-  while ( (signed int)v2 < (signed int)&dword_AD4674 );
+
   if ( dword_59108C == 85 )
   {
     v31 = v3;
@@ -12143,19 +12129,19 @@ void __thiscall sub_4BC49B(void *this)
         goto LABEL_43;
       }
 LABEL_44:
-      if ( !dword_AD4674 || _strcmpi(dword_AD4674, *(const char **)v2) )
+      if (!struct_AD4674[0].dword_AD4674 || _strcmpi(struct_AD4674[0].dword_AD4674, *(const char **)v2))
       {
-        if ( !dword_AD46C0 || _strcmpi(dword_AD46C0, *(const char **)v2) )
+        if (!struct_AD4674[1].dword_AD4674 || _strcmpi(struct_AD4674[1].dword_AD4674, *(const char **)v2))
           goto LABEL_51;
         v14 = 76;
         v12 = 0;
-        v11 = &dword_AD46C0;
+        v11 = &struct_AD4674[1];
       }
       else
       {
         v14 = 76;
         v12 = 0;
-        v11 = &dword_AD4674;
+        v11 = &struct_AD4674[0];
       }
       memset(v11, v12, v14);
 LABEL_51:
@@ -12170,7 +12156,7 @@ LABEL_51:
       }
       goto LABEL_89;
     }
-    if ( dword_AD4674 && dword_AD46C0 )
+    if (struct_AD4674[0].dword_AD4674 && struct_AD4674[1].dword_AD4674)
     {
       v7 = pGlobalTXT_LocalizationStrings[533];
 LABEL_64:
@@ -12194,15 +12180,15 @@ LABEL_64:
       sub_492BB6(v10);
     }
     v2[8] |= 0x80u;
-    if ( dword_AD4674 )
+    if (struct_AD4674[0].dword_AD4674)
     {
-      memcpy(&dword_AD46C0, v2, 0x4Cu);
+      memcpy(&struct_AD4674[1], v2, sizeof(struct unnamed_AD4674));
       v15 = *(const char **)v2;
       v13 = (char *)&unk_AE3090;
     }
     else
     {
-      memcpy(&dword_AD4674, v2, 0x4Cu);
+      memcpy(&struct_AD4674[0], v2, sizeof(struct unnamed_AD4674));
       v15 = *(const char **)v2;
       v13 = byte_AE302C;
     }
@@ -12470,6 +12456,7 @@ void __fastcall sub_4BCACC(signed int a1, int a2)
   signed int v60; // edi@268
   signed int v61; // [sp+10h] [bp-10h]@1
   int v62; // [sp+14h] [bp-Ch]@33
+ int i;
 
   v3 = 0;
   v2 = a1;
@@ -12795,13 +12782,10 @@ LABEL_15:
             if ( v29 != v17 )
             {
               sub_420C05(100 * pMonsterStats->pMonsterInfos[v29].uLevel, 0);
-              v32 = (char *)&pParty_global->pPlayers[0];
-              do
-              {
-                sub_44A5CB(v32, 12, 86);
-                v32 += 6972;
-              }
-              while ( (signed int)v32 < (signed int)&dword_AD4674 );
+
+              for (i = 0; i < 4; ++i)
+                sub_44A5CB(&pParty_global->pPlayers[i], 12, 86);
+
               dword_ACD700 += 100 * pMonsterStats->pMonsterInfos[*(unsigned __int16 *)((char *)word_ACD708 + v30)].uLevel;
               *(__int16 *)((char *)word_ACD708 + v30) = v17;
               *(__int16 *)((char *)word_ACD712 + v30) = v17;

@@ -477,7 +477,7 @@ void __cdecl sub_440CB8();
 int __thiscall sub_440DF5(int this, __int16 a2, __int16 a3, __int16 a4, int a5, __int16 a6);
 int __thiscall sub_440E91(void *this, __int16 a2, int a3, int a4, int a5, __int16 a6);
 bool __cdecl sub_44100D();
-signed int __cdecl sub_44103C();
+void sub_44103C();
 int __stdcall sub_4418B1(int a1, int a2, int a3, int a4);
 signed int __thiscall sub_4418B6(int this, int a2, __int16 a3, int a4, int a5, __int16 a6);
 int __thiscall sub_441964(void *this, int a2);

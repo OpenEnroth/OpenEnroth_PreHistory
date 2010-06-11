@@ -2133,6 +2133,7 @@ struct CGame *pGame = 0; //struct @ MM7.exe::00720014
 
 struct CNPCStats *pNPCStats = 0; // struct @ MM7.exe::007241D0
 //_UNKNOWN unk_7241D0; // weak
+//looks like unnamed_AD4674 around here
  _UNKNOWN unk_72D5F4; // weak
  int dword_72D5F8[array_size_unknown]; // weak
  _UNKNOWN unk_72D68C[0x94BC + array_size_unknown]; // npcdata.bin
@@ -2577,6 +2578,9 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  int dword_AD4650; // weak
  int dword_AD4654[array_size_unknown]; // weak
  int dword_AD4658; // weak
+ 
+struct unnamed_AD4674 struct_AD4674[2];
+ /*
 char *dword_AD4674; // end of pPlayers[4]
  int dword_AD4678[array_size_unknown]; // weak
  _UNKNOWN unk_AD467C; // weak
@@ -2590,7 +2594,8 @@ char *dword_AD4674; // end of pPlayers[4]
  _UNKNOWN unk_AD46E4; // weak
  _UNKNOWN unk_AD46EC; // weak
  int dword_AD46F0; // weak
- int dword_AD4704; // weak
+ int dword_AD4704; // weak*/
+
  int dword_AD470C; // weak
  int dword_AD4710; // weak
  _UNKNOWN unk_AD4714; // weak

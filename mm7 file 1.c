@@ -700,7 +700,8 @@ int __fastcall sub_438F8F(int result)
               v26 += 6972;
               ++v25;
             }
-            while ( v26 < (signed int)&unk_AD46EC );
+            //while ( v26 < (signed int)&unk_AD46EC );
+            while (v26 < &struct_AD4674[1].dword_AD46A0);
           }
         }
         v45 = 0;
@@ -4445,7 +4446,7 @@ LABEL_58:
 }
 
 //----- (0044103C) --------------------------------------------------------
-signed int __cdecl sub_44103C()
+void sub_44103C()
 {
   int v0; // esi@3
   int v1; // ebx@6
@@ -4454,7 +4455,6 @@ signed int __cdecl sub_44103C()
   int v4; // ecx@26
   int v5; // edi@26
   int v6; // eax@35
-  signed int result; // eax@45
 
   pGame->dword_000E24 &= 0xFFFFFFFDu;
   if ( Party_sub_497FC5(pParty_global) )
@@ -4521,6 +4521,7 @@ signed int __cdecl sub_44103C()
   CD3DRenderer_sub_4A1FE1_MaybeRenderSpecialEffects(pD3DRenderer);
 LABEL_22:
   CD3DRenderer_BeginScene(pD3DRenderer);
+  sub_4A5B81(pD3DRenderer, 0, 0, 640, 480);
   if ( pD3DRenderer->dword_040088 != v1 )
     sub_469E3B(pGame->pClass03);
   if ( dword_5E5144 != v1 )
@@ -4528,6 +4529,7 @@ LABEL_22:
   v5 = dword_57702C;
   GameUI_DrawStatusBar();
 
+  
   if ( dword_57702C == v1 )
     sub_41AD6E();
   else
@@ -4537,8 +4539,8 @@ LABEL_22:
     dword_57702C = v1;
   }
 
-
-  if ( pVideoPlayer->pSmackerMovie == v1 )
+ 
+  if (!pVideoPlayer->pSmackerMovie)
   {
    sub_441D38_DrawMinimap(488, 16, 625, 133, struct_576FE8.dword_000024, pParty_global->dword_007778 & 2);
 
@@ -4564,7 +4566,7 @@ LABEL_22:
   dword_5E5144 = v1;
   dword_57702C = v6;
   GameUI_DrawPartySpells();
-  if ( v5 != v1 || dword_AD46A4 != v1 || dword_AD46F0 != v1 )
+  if ( v5 != v1 || struct_AD4674[0].dword_AD46A4 != v1 || struct_AD4674[1].dword_AD46A4 != v1 )
     sub_491F87();
 
   GameUI_DrawPortraits((void *)v5);
@@ -4572,10 +4574,10 @@ LABEL_22:
   GameUI_DrawCharacterSelectionFrame();
   if ( sub_44100D() )
     sub_41B3B6();
-
+ 
   if ( !CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
   {
-    class06_sub_4A902A(pGame->class06_obj);
+    class06_sub_4A902A_DrawSomeIcon(pGame->class06_obj);
     sub_441964(array_5E4D58, v5);
     GameUI_DrawTorchlightAndWizardEye();
   }
@@ -4590,10 +4592,9 @@ LABEL_22:
   sub_469CCD(pGame->pClass03);
   sub_469E1C(pGame->pClass03);
   CD3DRenderer_EndScene(v0);
-  result = CD3DRenderer_Present(v0);
+  CD3DRenderer_Present(v0);
 
   pParty_global->dword_007778 &= 0xFFFFFFFDu;
-  return result;
 }
 
 //----- (004917CE) --------------------------------------------------------
@@ -10794,12 +10795,10 @@ void __thiscall sub_427E01(void *this)
   int v566; // eax@1086
   int v567; // ecx@1086
   int v568; // eax@1087
-  signed int v569; // eax@1089
   int v570; // edx@1091
   int v571; // ecx@1100
   __int16 v572; // ax@1102
   int v573; // eax@1104
-  int v574; // edi@1106
   int v575; // eax@1106
   _UNKNOWN *v576; // eax@1108
   int v577; // eax@1116
@@ -11909,7 +11908,9 @@ LABEL_254:
               LODWORD(v705) = HIDWORD(v1);
             v89 += 6972;
           }
-          while ( v89 < (signed int)&unk_AD467C );
+          //while ( v89 < (signed int)&unk_AD467C );
+          while (v89 < &struct_AD4674[0].unk_AD467C);
+
           if ( LODWORD(v705) != HIDWORD(v1) )
           {
             LODWORD(v704) = v711 << 7;
@@ -14576,17 +14577,18 @@ LABEL_641:
         v714 = 5 * v1 + 10;
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
-        LODWORD(v1) = &pParty_global->pPlayers[0];
-        do
+        
+        for (i = 0; i < 4; ++i)
         {
+        LODWORD(v1) = &pParty_global->pPlayers[i];
           v471 = *(_WORD *)v2;
           v472 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v472, v471, SWORD2(v1));
           sub_48DBB9(v1, v714);
-          LODWORD(v1) = v1 + 6972;
+
           v1 += 4294967296i64;
         }
-        while ( (_DWORD)v1 < (signed int)&dword_AD4674 );
+
         goto LABEL_1056;
       case 80:
         v683 -= v1;
@@ -14946,6 +14948,7 @@ LABEL_1000:
         LODWORD(v704) = HIDWORD(v1);
         LODWORD(v1) = &dword_ACD98C;
         v712 = (double)v710 * 0.03333333507180214;
+
         do
         {
           v520 = *(_WORD *)v2;
@@ -14972,7 +14975,10 @@ LABEL_1000:
             LODWORD(v704) = 1;
           LODWORD(v1) = v1 + 6972;
         }
-        while ( (_DWORD)v1 < (signed int)&unk_AD467C );
+        //while ( (_DWORD)v1 < (signed int)&unk_AD467C );
+        while ((_DWORD)v1 < &struct_AD4674[0].unk_AD467C );
+
+
         LOWORD(v1) = v709;
         sub_4584E0(
           (int)&unk_ACD8D4,
@@ -15322,18 +15328,17 @@ LABEL_1087:
         LODWORD(v712) = HIDWORD(v1);
         memset(dword_5C3610, SHIDWORD(v1), 0xFA0u);
         LODWORD(v702) = HIDWORD(v1);
-        v569 = (signed int)&dword_AD4674;
-        do
+
+        for (i = 0; i < 2; ++i)
         {
-          if ( *(_DWORD *)v569 != HIDWORD(v1) )
+          if (struct_AD4674[i].dword_AD4674 != HIDWORD(v1) )
           {
             v570 = LODWORD(v712)++;
             dword_5C3610[v570] = LODWORD(v702) + 1;
           }
           ++LODWORD(v702);
-          v569 += 76;
         }
-        while ( v569 < (signed int)&dword_AD470C );
+
         LODWORD(v702) = HIDWORD(v1);
         if ( dword_73C194 > HIDWORD(v1) )
         {
@@ -15343,9 +15348,9 @@ LABEL_1087:
           {
             if ( *(_BYTE *)(v708 + 8) & 0x80 )
             {
-              if ( dword_AD4674 == HIDWORD(v1) || strcmp(*(const char **)v708, dword_AD4674) )
+             if (struct_AD4674[0].dword_AD4674 == HIDWORD(v1) || strcmp(*(const char **)v708, struct_AD4674[0].dword_AD4674))
               {
-                if ( dword_AD46C0 == HIDWORD(v1) || strcmp(*(const char **)v708, dword_AD46C0) )
+               if (struct_AD4674[1].dword_AD4674 == HIDWORD(v1) || strcmp(*(const char **)v708, struct_AD4674[1].dword_AD4674))
                 {
                   v571 = LODWORD(v712);
                   LODWORD(v712) += 4;
@@ -15359,7 +15364,7 @@ LABEL_1087:
           while ( LODWORD(v702) < dword_73C194 );
         }
         v572 = *(_WORD *)(v2 + 4);
-        runtime_warning;
+        compile_error;
         /*
         if ( v572 != 4 && v572 != 5
           || (v573 = pFontCChar[v572 + (unsigned __int8)byte_ACD6C1], v573 <= HIDWORD(v1))
@@ -15372,14 +15377,13 @@ LABEL_1087:
         *(int *)((char *)&dword_AD4658 + v1) = sub_42EB78(pIconFrameTable, v575);
         HIDWORD(v1) = 1;
         *(int *)((char *)&dword_AD4650 + v1) = 1;
-        v574 = (int)&pParty_global->pPlayers[0];
-        do
+
+        for (i = 0; i < 4; ++i)
         {
-          *(_DWORD *)(v574 + 6460) = sub_48E4F8(v574);
-          *(_DWORD *)(v574 + 6464) = sub_48E565(v574);
-          v574 += 6972;
+         pParty_global->pPlayers[i].dword_00193C = sub_48E4F8(&pParty_global->pPlayers[i]);
+         pParty_global->pPlayers[i].dword_001940 = sub_48E565(&pParty_global->pPlayers[i]);
         }
-        while ( v574 < (signed int)&dword_AD4674 );
+
         v576 = &unk_6A12B8;
         if ( dword_6BE360 != 2 )
           v576 = &unk_6BE68C;
@@ -15614,7 +15618,10 @@ LABEL_439:
       }
       LODWORD(v1) = v1 + 6972;
       LODWORD(v712) = v1;
-      if ( (_DWORD)v1 >= (signed int)&dword_AD4674 )
+
+      runtime_warning;
+      //if ( (_DWORD)v1 >= (signed int)&dword_AD4674 )
+      if ((_DWORD)v1 >= &struct_AD4674[0])
         goto LABEL_1056;
       continue;
     }
@@ -17208,9 +17215,6 @@ int __thiscall sub_4C2AA6(struct unnamed_6BD080 *_this)
 //----- (00491F87) --------------------------------------------------------
 void __cdecl sub_491F87()
 {
-  signed int v0; // eax@2
-  int v1; // ecx@2
-  int v2; // edx@4
   int v3; // ebx@6
   _UNKNOWN *v4; // esi@7
   int v5; // ecx@13
@@ -17232,24 +17236,19 @@ void __cdecl sub_491F87()
   int v23; // [sp+30h] [bp-Ch]@19
   int v24; // [sp+34h] [bp-8h]@2
   unsigned __int8 v25; // [sp+3Bh] [bp-1h]@2
+ int i;
 
-  if ( byte_6BE3C5 != 1 )
-  {
+  if ( byte_6BE3C5 == 1 )
+    return;
+
+
     v25 = 0;
     v24 = 0;
-    v1 = 0;
-    v0 = (signed int)&dword_AD4674;
-    do
+    for (i = 0; i < 2; ++i)
     {
-      if ( *(_DWORD *)v0 )
-      {
-        v2 = v24++;
-        ExistingFileName[v2] = v1;
-      }
-      v0 += 76;
-      ++v1;
+     if (struct_AD4674[i].dword_AD4674)
+       ExistingFileName[v24++] = i;
     }
-    while ( v0 < (signed int)&dword_AD470C );
 
     v3 = 0;
     if ( dword_73C194 > 0 )
@@ -17259,9 +17258,9 @@ void __cdecl sub_491F87()
       {
         if ( *((_BYTE *)v4 + 8) & 0x80 )
         {
-          if ( !dword_AD4674 || strcmp(*(const char **)v4, dword_AD4674) )
+         if (!struct_AD4674[0].dword_AD4674 || strcmp(*(const char **)v4, struct_AD4674[0].dword_AD4674))
           {
-            if ( !dword_AD46C0 || strcmp(*(const char **)v4, dword_AD46C0) )
+           if (!struct_AD4674[1].dword_AD4674 || strcmp(*(const char **)v4, struct_AD4674[1].dword_AD4674))
             {
               v5 = v24++;
               ExistingFileName[v5] = v3 + 2;
@@ -17273,6 +17272,7 @@ void __cdecl sub_491F87()
       }
       while ( v3 < dword_73C194 );
     }
+
     v6 = (unsigned __int8)byte_ACD6C1;
     v21 = (unsigned __int8)byte_ACD6C1;
     if ( (unsigned __int8)byte_ACD6C1 < v24 )
@@ -17281,27 +17281,27 @@ void __cdecl sub_491F87()
       {
         if ( v25 >= 2 )
           break;
-        v7 = *(&ExistingFileName + v6);
+
+        v7 = ExistingFileName[v6];
         if ( v7 >= 2 )
         {
-          sprintfex(&Str1, "NPC%03d", dword_72D5F8[19 * v7]);
+          wsprintfA(Str1, "NPC%03d", dword_72D5F8[19 * v7]);
           v15 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
           CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_4EE06C[v25], dword_4EE074[v25], v15 != -1 ? 72 * v15 + 7145548 : 0);
         }
         else
         {
-          sprintfex(&Str1, "NPC%03d", dword_AD4678[19 * v7]);
+          wsprintfA(Str1, "NPC%03d", struct_AD4674[v7].dword_AD4678);
           v10 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
           v9 = 4 * v25;
-          CD3DRenderer_DrawIndexedTexture(
-            pD3DRenderer,
+          CD3DRenderer_DrawIndexedTexture(pD3DRenderer,
             *(int *)((char *)dword_4EE06C + v9),
             *(int *)((char *)dword_4EE074 + v9),
             v10 != -1 ? 72 * v10 + 7145548 : 0);
           v8 = 76 * (unsigned __int8)*(&ExistingFileName + v21);
-          if ( *(int *)((char *)&dword_AD469C + v8) == 1 )
+          if (struct_AD4674[v8].dword_AD469C == 1 )
           {
-            v20 = *(int *)((char *)&dword_AD46A0 + v8);
+           v20 = struct_AD4674[v8].dword_AD46A0;
             v12 = *(int *)((char *)dword_4EE06C + v9);
             v11 = *(int *)((char *)dword_4EE074 + v9);
             v19 = v12;
@@ -17336,7 +17336,7 @@ LABEL_23:
       }
       while (++v24 < v24);
     }
-  }
+
 }
 
 //----- (004610AA) --------------------------------------------------------

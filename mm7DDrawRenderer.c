@@ -921,13 +921,13 @@ void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, un
     return;
 
   startX = max(_this->dword_0400F8, uX);
-  endX = min(_this->dword_040100, uX + pTexture->uWidth);
+  endX = min(min(_this->dword_040100, uX + pTexture->uWidth), 640);
 
   /*memcpy(pSurfacePtr + (y + uY) * _this->uTargetSurfacePitch + uX,
          pTexture->pPixels + y * pTexture->uWidth,
          pTexture->uWidth * 4);*/
   memcpy(pSurfacePtr + (y + uY) * _this->uTargetSurfacePitch + startX,
-         pTexture->pPixels + y * pTexture->uWidth + startX,
+         pTexture->pPixels + y * pTexture->uWidth + startX - uX,
          (endX - startX) * 4);
  }
 

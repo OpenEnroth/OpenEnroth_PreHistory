@@ -10397,9 +10397,9 @@ char __thiscall sub_476395(void *this)
     {
 LABEL_8:
       v4 = 0;
-      if ( (void *)dword_AD468C != this )
+      if (struct_AD4674[0].dword_000018 != this )
       {
-        LOBYTE(v1) = dword_AD46D8 == (_DWORD)this;
+       LOBYTE(v1) = struct_AD4674[1].dword_000018 == (_DWORD)this;
         return v1;
       }
     }
@@ -10587,10 +10587,10 @@ void __thiscall sub_476C60(int this)
     }
     while ( v1 < *(_DWORD *)(this + 98244) );
   }
-  if ( dword_AD4674 )
-    dword_AD4674 = byte_AE302C;
-  if ( dword_AD46C0 )
-    dword_AD46C0 = (char *)&unk_AE3090;
+  if (struct_AD4674[0].dword_AD4674)
+    struct_AD4674[0].dword_AD4674 = byte_AE302C;
+  if (struct_AD4674[1].dword_AD4674)
+    struct_AD4674[1].dword_AD4674 = (char *)&unk_AE3090;
 }
 
 //----- (00477266) --------------------------------------------------------
@@ -11838,6 +11838,7 @@ signed int __cdecl sub_479332()
   float v14; // [sp+4h] [bp-34h]@1
   float v15; // [sp+8h] [bp-30h]@1
   float v16; // [sp+Ch] [bp-2Ch]@1
+ int i;
 
   v14 = (double)dword_6A1B20 * 0.0000152587890625;
   result = 0;
@@ -11846,7 +11847,8 @@ signed int __cdecl sub_479332()
   v16 = (double)dword_6A1B28 * 0.0000152587890625;
   if ( pStruct9_global->dword_00002C > 0)
   {
-   v2 = &array_77EC08[0].byte_000048[12];
+   i = 0;
+   v2 = &array_77EC08[0].ptr_000048;
     while ( 1 )
     {
       v3 = *((_BYTE *)v2 + 5);
@@ -11878,14 +11880,17 @@ signed int __cdecl sub_479332()
         goto LABEL_23;
       }
 LABEL_24:
-      v2 = (char *)v2 + 268;
-      if ( (unsigned int)((char *)v2 - 84) >= v1 )
-        return result;
+      //v2 = (char *)v2 + 268;
+      //if ( (unsigned int)((char *)v2 - 84) >= v1 )
+      //  return result;
+      if (array_77EC08[i++].dword_000100 >= 1)
+         return result;
+     v2 = &array_77EC08[i].ptr_000048;
     }
-    v4 = (double)(signed int)(((unsigned __int64)(**(_DWORD **)v2 * -dword_6A1B20) >> 16)
-                            + ((unsigned __int64)(*(_DWORD *)(*(_DWORD *)v2 + 4) * -dword_6A1B24) >> 16)
-                            + ((unsigned __int64)(*(_DWORD *)(*(_DWORD *)v2 + 8) * -dword_6A1B28) >> 16))
-       * 0.0000152587890625;
+
+    v4 = ((__int64)(*array_77EC08[i].ptr_000048)[0] * -dword_6A1B20 / 65536 +
+         (__int64)(*array_77EC08[i].ptr_000048)[1] * -dword_6A1B24 / 65536 +
+         (__int64)(*array_77EC08[i].ptr_000048)[2] * -dword_6A1B28 / 65536) / 65536.0;
     if ( v4 < 0.0 )
       v4 = 0.0;
     v6 = v4 * 31.0;
@@ -11896,7 +11901,7 @@ LABEL_24:
       *(_BYTE *)v5 = 0;
     if ( *(_BYTE *)v5 > 31 )
       *(_BYTE *)v5 = 31;
-    if ( *(_BYTE *)(*(_DWORD *)v2 + 29) & 0x40 )
+    if ( *(_BYTE *)((char *)array_77EC08[i].ptr_000048 + 29) & 0x40 )
     {
       v8 = sub_44E19A(pTextureFrameTable, *((_WORD *)v2 - 4), pClass24_global->dword_000024);
       *((_DWORD *)v2 - 6) = v8 != -1 ? 72 * v8 + 7278780 : 0;

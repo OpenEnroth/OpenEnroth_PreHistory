@@ -2730,11 +2730,11 @@ void __thiscall sub_4909F4(void *this)
   int v4; // edx@27
   int v5; // eax@52
   int v6; // edx@53
-  signed int v8; // esi@60
   int v9; // ebp@61
   int v10; // ebx@62
   int v11; // edi@62
   signed int v12; // [sp+0h] [bp-4h]@2
+ int i;
 
   if ( dword_A75070 != dword_510774 )
   {
@@ -2925,31 +2925,31 @@ LABEL_56:
       v1 += 6972;
     }
     while ( v12-- != 1 );
-    v8 = (signed int)&dword_AD46A0;
-    do
+
+
+
+    for (i = 0; i < 2; ++i)
     {
-      v9 = *(_DWORD *)(v8 + 4);
+      v9 = struct_AD4674[i].dword_AD46A4;
       if ( v9 )
       {
-        v10 = *(_DWORD *)(v8 - 4);
-        v11 = pClass24_global2->dword_00001C + *(_DWORD *)v8;
+        v10 = struct_AD4674[i].dword_AD469C;
+        v11 = pClass24_global2->dword_00001C + struct_AD4674[i].dword_AD46A0;
         if ( v11 >= v9 )
         {
           v10 = 0;
           v9 = 0;
           v11 = 0;
-          memset((void *)(v8 - 44), 0, 0x4Cu);
+          memset(&struct_AD4674[i], 0, sizeof(struct unnamed_AD4674));
           byte_ACD6C1 = 0;
           sub_44A56A();
           dword_57702C = 1;
         }
-        *(_DWORD *)v8 = v11;
-        *(_DWORD *)(v8 + 4) = v9;
-        *(_DWORD *)(v8 - 4) = v10;
+        struct_AD4674[i].dword_AD46A0 = v11;
+        struct_AD4674[i].dword_AD46A4 = v9;
+        struct_AD4674[i].dword_AD469C = v10;
       }
-      v8 += 76;
     }
-    while ( v8 < (signed int)&unk_AD4738 );
   }
 }
 
@@ -3591,10 +3591,12 @@ int __cdecl sub_491E3A()
   int v10; // eax@22
   int v11; // eax@23
   int result; // eax@26
+ int i;
 
-  v0 = (signed int)&pParty_global->pPlayers[0];
-  do
+  for (i = 0; i < 4; ++i)
   {
+   v0 = &pParty_global->pPlayers[i];
+
     if ( byte_4ED498 )
     {
       v1 = 0;
@@ -3635,9 +3637,9 @@ LABEL_12:
       }
       sub_4A9DCD(pSoundList, v4, 1);
     }
-    v0 += 6972;
   }
-  while ( v0 < (signed int)&dword_AD4674 );
+
+
   v6 = *((_DWORD *)pClass17_Icons_LOD + 18143) - 1;
   if ( v6 >= *((_DWORD *)pClass17_Icons_LOD + 18152) )
   {

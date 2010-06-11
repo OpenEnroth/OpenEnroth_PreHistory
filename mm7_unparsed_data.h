@@ -2567,20 +2567,28 @@ extern _UNKNOWN unk_AD4338; // weak
 extern int dword_AD4650; // weak
 extern int dword_AD4654[array_size_unknown]; // weak
 extern int dword_AD4658; // weak
-extern char *dword_AD4674; // end of pPlayers[4]
-extern int dword_AD4678[array_size_unknown]; // weak
-extern _UNKNOWN unk_AD467C; // weak
-extern int dword_AD468C; // weak
-extern int dword_AD469C; // weak
-extern int dword_AD46A0; // weak
-extern int dword_AD46A4; // weak
-extern int dword_AD46B8; // weak
-extern char *dword_AD46C0; // idb
-extern int dword_AD46D8; // weak
-extern _UNKNOWN unk_AD46E4; // weak
-extern _UNKNOWN unk_AD46EC; // weak
-extern int dword_AD46F0; // weak
-extern int dword_AD4704; // weak
+
+extern struct unnamed_AD4674
+{
+ char *dword_AD4674; // end of pPlayers[4],  string pointer
+ int dword_AD4678; // weak
+ _UNKNOWN unk_AD467C; // weak
+ int dword_000018;
+ int dword_000024;
+ int dword_AD469C; // weak
+ int dword_AD46A0; // weak
+ int dword_AD46A4; // weak
+ int dword_000044;
+ int dword_000048;
+} struct_AD4674[];
+//sizeof == 4C
+ //char *dword_AD46C0; // idb
+ //int dword_AD46D8;    // [1]:000018
+ //_UNKNOWN unk_AD46E4; // [1]:000024
+ //_UNKNOWN unk_AD46EC; // weak
+ //int dword_AD46F0; // weak
+ //int dword_AD4704; // [1]:000044
+
 extern int dword_AD470C; // weak
 extern int dword_AD4710; // weak
 extern _UNKNOWN unk_AD4714; // weak

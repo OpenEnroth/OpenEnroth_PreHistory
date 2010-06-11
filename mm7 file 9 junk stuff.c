@@ -199,7 +199,7 @@ loc_41AE9C:                             ; CODE XREF: sub_41AD6E+7Bj
   jmp     sub_491F87
   }*/
 
-  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 468, 0, pTexture_RightFrame);
+  //CD3DRenderer_DrawRGBTexture(pD3DRenderer, 468, 0, pTexture_RightFrame);
   sub_491F87();
   return;
  }

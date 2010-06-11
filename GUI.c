@@ -1310,17 +1310,16 @@ int __fastcall sub_44C51E(struct Font *_this, const char *pString)
 }
 
 //----- (0041B3E2) --------------------------------------------------------
-int __cdecl GameUI_DrawFrames()
+void GameUI_DrawFrames()
 {
-  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, pTexture_TopFrame);
-  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 8, pTexture_LeftFrame);
-  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 468, 0, pTexture_RightFrame);
-  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 352, pTexture_BottomFrame);
+ CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, pTexture_TopFrame);
+ CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 8, pTexture_LeftFrame);
+ CD3DRenderer_DrawRGBTexture(pD3DRenderer, 468, 0, pTexture_RightFrame);
+ CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 352, pTexture_BottomFrame);
 
-  GameUI_DrawFoodAndGold();
+ GameUI_DrawFoodAndGold();
 
-  runtime_warning;
-  //return sub_41AD6E();
+ sub_41AD6E();
 }
 
 //----- (0041AEBB) --------------------------------------------------------
@@ -1577,7 +1576,8 @@ LABEL_50:
     v21 += 56;
     v3 += 6972;
     v2 = (char *)v2 + 1;
-    if ( v3 >= (signed int)&unk_AD46E4 )
+    //if ( v3 >= (signed int)&unk_AD46E4 )
+    if (v3 >= &struct_AD4674[1].dword_000024)
       break;
     v1 = 0;
   }

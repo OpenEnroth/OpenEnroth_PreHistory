@@ -171,7 +171,7 @@ void LevelLoadingUI_Reset(struct class56 *_this, char a2);
 void LevelLoadingUI_Release(struct class56 *_this);
 
 void __cdecl GameUI_DrawStatusBar();
-int __cdecl GameUI_DrawFrames();
+void GameUI_DrawFrames();
 void __cdecl GameUI_DrawFoodAndGold();
 void __cdecl GameUI_DrawPartySpells();
 void GameUI_DrawPortraits(void *this);
