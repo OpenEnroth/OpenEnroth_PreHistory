@@ -271,7 +271,7 @@ char __fastcall sub_41A2D1(int a1, char a2);
 void __cdecl sub_41A556();
 char __cdecl sub_41A57E();
 void __thiscall sub_41ABFD(int a1);
-int sub_41AD6E(void); // weak
+void sub_41AD6E(void); // weak
 void __fastcall sub_41AF52(int a1, int a2);
 void __cdecl sub_41B3B6();
 int __fastcall sub_41B438(unsigned __int8 a1);
@@ -695,7 +695,7 @@ char __stdcall sub_45DAE8(int a1, int a2, float a3);
 int sub_45DF13(); // weak
 void __thiscall sub_45DF48(void *this);
 void *__cdecl sub_45E006();
-int __fastcall sub_45E03A(signed int a1, signed int a2);
+int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed int a2);
 int __thiscall sub_45E26C(void *Filename);
 int __thiscall sub_45E297(void *this);
 int __fastcall sub_45E361(int a1);

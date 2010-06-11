@@ -3030,13 +3030,13 @@ int __thiscall sub_42F184(void *this, unsigned int a2, int a3, int a4)
     v31 = 0;
     if ( pD3DRenderer->pActiveZBuffer )
     {
-      v30 = dword_576FF8;
-      v24 = dword_577000;
-      if ( dword_576FFC < dword_577004 )
+     v30 = struct_576FE8.dword_000010;
+     v24 = struct_576FE8.dword_000018;
+     if (struct_576FE8.dword_000014 < struct_576FE8.dword_00001C)
       {
-        v26 = dword_577004 - dword_576FFC;
-        v9 = pD3DRenderer->pActiveZBuffer + 4 * (dword_576FF8 + 640 * dword_576FFC);
-        v27 = pD3DRenderer->pActiveZBuffer + 4 * (dword_576FF8 + 640 * dword_576FFC);
+       v26 = struct_576FE8.dword_00001C - struct_576FE8.dword_000014;
+        v9 = pD3DRenderer->pActiveZBuffer + 4 * (struct_576FE8.dword_000010 + 640 * struct_576FE8.dword_000014);
+        v27 = pD3DRenderer->pActiveZBuffer + 4 * (struct_576FE8.dword_000010 + 640 * struct_576FE8.dword_000014);
         do
         {
           if ( v30 < v24 )
@@ -5267,8 +5267,8 @@ LABEL_184:
           if ( dword_4E28F8 )
             GUIWindowDelete(pGUIWindow_PlayerCreation);
           class24_fn1(pClass24_global);
-          dword_577018 = pParty_global->dword_0006B4;
-          dword_57701C = pParty_global->dword_0006B8;
+          struct_576FE8.dword_000030 = pParty_global->dword_0006B4;
+          struct_576FE8.dword_000034 = pParty_global->dword_0006B8;
           AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
           v32 = GUIWindowCreate(0, 0, 640, 480, 9, SLODWORD(v214), 0);
           v33 = 353;
@@ -5726,7 +5726,7 @@ LABEL_322:
               v45 = sub_41D08F(pGUIWindow_PlayerCreation, 6, v0, 0, 0);
               dword_577030 = v0;
               sub_40E51F(pClass33_global3);
-              v46 = sub_45E03A(155, 117);
+              v46 = sub_45E03A_SomethingLikeCaptureAScreenshot(155, 117);
               v212 = v46;
               v47 = (int)sub_49F8B5(pD3DRenderer, &stru_4E4678, v46, 155, 117);
               operator_delete(v47, v212);
@@ -6921,7 +6921,7 @@ LABEL_693:
             dword_57702C = v0;
           }
           sub_40E51F(pClass33_global3);
-          v117 = sub_45E03A(155, 117);
+          v117 = sub_45E03A_SomethingLikeCaptureAScreenshot(155, 117);
           v212 = v117;
           v118 = (int)sub_49F8B5(pD3DRenderer, &stru_4E4678, v117, 155, 117);
           operator_delete(v118, v212);
@@ -7246,22 +7246,22 @@ LABEL_733:
           pParty_global->dword_007778 |= 2;
           GUIWindowCreate(519, 136, 0, 0, 90, dword_507A14, 0);
           v212 = 131072;
-          v133 = (unsigned __int64)((signed __int64)dword_57700C << 17) >> 16;
-          ++dword_577010;
-          dword_57700C = (unsigned __int64)((signed __int64)dword_57700C << 17) >> 16;
+          v133 = (unsigned __int64)((signed __int64)struct_576FE8.dword_000024 << 17) >> 16;
+          ++struct_576FE8.dword_000028;
+          struct_576FE8.dword_000024 = (unsigned __int64)((signed __int64)struct_576FE8.dword_000024 << 17) >> 16;
           if ( dword_6BE360 != 2 )
           {
             if ( v133 > 4096 )
             {
-              dword_57700C = 4096;
-              dword_577010 = 12;
+             struct_576FE8.dword_000024 = 4096;
+             struct_576FE8.dword_000028 = 12;
             }
             goto LABEL_92;
           }
           v134 = 2048;
           if ( v133 <= 2048 )
             goto LABEL_789;
-          dword_577010 = 11;
+          struct_576FE8.dword_000028 = 11;
           goto LABEL_788;
         case 0x170:
           if ( dword_4E28F8 )
@@ -7269,29 +7269,29 @@ LABEL_733:
           pParty_global->dword_007778 |= 2;
           GUIWindowCreate(574, 136, 0, 0, 90, dword_507A18, 0);
           v212 = 32768;
-          v133 = (unsigned __int64)((signed __int64)dword_57700C << 15) >> 16;
-          --dword_577010;
-          dword_57700C = (unsigned __int64)((signed __int64)dword_57700C << 15) >> 16;
+          v133 = (unsigned __int64)((signed __int64)struct_576FE8.dword_000024 << 15) >> 16;
+          --struct_576FE8.dword_000028;
+          struct_576FE8.dword_000024 = (unsigned __int64)((signed __int64)struct_576FE8.dword_000024 << 15) >> 16;
           if ( dword_6BE360 == 2 )
           {
             v134 = 512;
             if ( v133 < 512 )
             {
-              dword_577010 = 9;
+             struct_576FE8.dword_000028 = 9;
 LABEL_788:
               v133 = v134;
-              dword_57700C = v134;
+              struct_576FE8.dword_000024 = v134;
             }
 LABEL_789:
             dword_576E2C = v133;
-            dword_576E28 = dword_577010;
+            dword_576E28 = struct_576FE8.dword_000028;
           }
           else
           {
             if ( v133 < 256 )
             {
-              dword_57700C = 256;
-              dword_577010 = 8;
+             struct_576FE8.dword_000024 = 256;
+             struct_576FE8.dword_000028 = 8;
             }
           }
           goto LABEL_92;
@@ -15993,7 +15993,7 @@ int __thiscall sub_45E26C(void *Filename)
   int v5; // eax@1
 
   v2 = (FILE *)Filename;
-  v3 = sub_45E03A(92, 68);
+  v3 = sub_45E03A_SomethingLikeCaptureAScreenshot(92, 68);
   v4 = v3;
   v5 = (int)sub_49F8B5(pD3DRenderer, v2, v3, 92, 68);
   return operator_delete(v5, v4);
@@ -17311,7 +17311,7 @@ LABEL_90:
     dword_ACD6A0 = 0;
     sub_4498D5((void *)dword_6BE35C);
   }
-  sub_443365(&dword_576FE8);
+  sub_443365(&struct_576FE8);
   LOBYTE(v30) = LoadLevel_InitializeMusic();
   if ( !v41 )
   {
@@ -18132,7 +18132,7 @@ LABEL_52:
     RGBTexture_Load(v5, v7, v8);
 LABEL_38:
     dword_57702C = 1;
-    sub_443343(&dword_576FE8);
+    sub_443343(&struct_576FE8);
     sub_4698F6(pGame->pClass03);
     if ( pD3DRenderer->dword_040058 )
     {

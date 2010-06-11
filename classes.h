@@ -1380,7 +1380,9 @@ struct Party
  int dword_000014;
  int dword_000018;
  int uWalkSpeed;   // dword @ 00001C
-
+ int dword_000020;
+ int dword_000024;
+ int dword_000028;
  __int64 qword_00002C;
  unsigned char array_000034[90628];
 

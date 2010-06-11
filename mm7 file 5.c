@@ -1744,15 +1744,15 @@ char __cdecl sub_46A14B()
     return v0;
   }
   v23 = 0;
-  v0 = (dword_577000 + dword_576FF8) >> 1;
-  if ( dword_576FFC >= dword_577004 )
+  v0 = (struct_576FE8.dword_000018 + struct_576FE8.dword_000010) >> 1;
+  if ( struct_576FE8.dword_000014 >= struct_576FE8.dword_00001C )
     goto LABEL_21;
   v2 = v0 - 50;
   v0 += 50;
-  v3 = 640 * dword_576FFC;
+  v3 = 640 * struct_576FE8.dword_000014;
   v18 = v2;
   v21 = v0;
-  v19 = ((unsigned int)(dword_577004 - dword_576FFC - 1) >> 1) + 1;
+  v19 = ((unsigned int)(struct_576FE8.dword_00001C - struct_576FE8.dword_000014 - 1) >> 1) + 1;
   do
   {
     if ( v2 >= v21 )
@@ -2043,12 +2043,12 @@ int __fastcall sub_46A6AC(int a1, int a2, signed int a3)
   else
   {
     v17 = 0;
-    v4 = dword_576FF8;
-    v13 = dword_577000;
-    if ( dword_576FFC < dword_577004 )
+    v4 = struct_576FE8.dword_000010;
+    v13 = struct_576FE8.dword_000018;
+    if (struct_576FE8.dword_000014 < struct_576FE8.dword_00001C)
     {
-      v16 = pD3DRenderer->pActiveZBuffer + 4 * (dword_576FF8 + 640 * dword_576FFC);
-      v14 = ((unsigned int)(dword_577004 - dword_576FFC - 1) >> 1) + 1;
+     v16 = pD3DRenderer->pActiveZBuffer + 4 * (struct_576FE8.dword_000010 + 640 * struct_576FE8.dword_000014);
+     v14 = ((unsigned int)(struct_576FE8.dword_00001C - struct_576FE8.dword_000014 - 1) >> 1) + 1;
       do
       {
         if ( v4 < v13 )
@@ -2297,8 +2297,8 @@ int __cdecl sub_46A99B()
   int v32; // [sp+20h] [bp-4h]@1
 
   v2 = 0;
-  v4 = (dword_577004 + dword_576FFC) >> 1;
-  v3 = (dword_576FF8 + dword_577000) >> 1;
+  v4 = (struct_576FE8.dword_00001C + struct_576FE8.dword_000014) >> 1;
+  v3 = (struct_576FE8.dword_000010 + struct_576FE8.dword_000018) >> 1;
   v1 = v4 - 50;
   v32 = 0;
   v0 = 100;

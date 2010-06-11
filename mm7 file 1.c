@@ -4529,10 +4529,7 @@ LABEL_22:
   GameUI_DrawStatusBar();
 
   if ( dword_57702C == v1 )
-  {
-    compile_error;//nullsub_1(v4);
     sub_41AD6E();
-  }
   else
   {
     GameUI_DrawFrames();
@@ -4543,8 +4540,7 @@ LABEL_22:
 
   if ( pVideoPlayer->pSmackerMovie == v1 )
   {
-   runtime_warning;
-    //sub_441D38_DrawMinimap(488, 16, 625, 133, dword_57700C, pParty_global->dword_007778 & 2);
+   sub_441D38_DrawMinimap(488, 16, 625, 133, struct_576FE8.dword_000024, pParty_global->dword_007778 & 2);
 
     if ( v5 != v1 )
     {
@@ -17074,12 +17070,12 @@ int __thiscall sub_4C2AA6(struct unnamed_6BD080 *_this)
  unsigned int *pSurfacePtr;
 
   v26 = _this;
-  v25 = dword_577000;
-  v28 = dword_576FFC;
+  v25 = struct_576FE8.dword_000018;
+  v28 = struct_576FE8.dword_000014;
   v1 = pSurfacePtr = pD3DRenderer->pTargetSurface;
-  v29 = dword_576FF8;
-  v23 = dword_577004;
-  v24 = dword_577000 - dword_576FF8;
+  v29 = struct_576FE8.dword_000010;
+  v23 = struct_576FE8.dword_00001C;
+  v24 = struct_576FE8.dword_000018 - struct_576FE8.dword_000010;
 
 
  for (i = 0; i < 700; ++i)
@@ -17357,7 +17353,7 @@ void __fastcall PrepareToLoadODM(int a1, void *a2)
   sub_47A384(Str1, v3);
   if ( !v2 )
     sub_4498D5((void *)dword_6BE35C);
-  sub_443365(&dword_576FE8);
+  sub_443365(&struct_576FE8);
   LoadLevel_InitializeMusic();
 }
 

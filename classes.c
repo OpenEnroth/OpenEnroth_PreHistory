@@ -8471,8 +8471,8 @@ int sub_485F64(struct struct9 *_this)
     v2 = -pClass59_global->array_000000[pClass59_global->dword_001860 - v1];
   else
     v2 = pClass59_global->array_000000[v1];
-  LODWORD(v4) = (dword_576FF0 - dword_576FE8) << 31;
-  HIDWORD(v4) = (dword_576FF0 - dword_576FE8) << 15 >> 16;
+  LODWORD(v4) = (struct_576FE8.dword_000008 - struct_576FE8.dword_000000) << 31;
+  HIDWORD(v4) = (struct_576FE8.dword_000008 - struct_576FE8.dword_000000) << 15 >> 16;
   v5 = (signed int)(v4 / v2) >> 16;
  _this->dword_000014 = v5;
  _this->dword_000018 = 65536 / v5;

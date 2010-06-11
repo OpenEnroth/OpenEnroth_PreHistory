@@ -19056,7 +19056,7 @@ int __thiscall sub_4ACC38(int this, int a2, char a3)
     v55 = v65;
   }
   v74 = v13 * (v75 - v12) + v73;
-  if ( byte_577008 )
+  if (struct_576FE8.dword_000020)
   {
     if ( a3 )
       return result;

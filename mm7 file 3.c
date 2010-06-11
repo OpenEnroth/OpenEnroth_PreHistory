@@ -95,12 +95,15 @@ signed int __fastcall sub_438BDF(signed int a1, int a2)
       v3 = a1 - 27 < 0;
       goto LABEL_32;
     case 5:
-      if ( a1 < 46 )
-        goto LABEL_34;
-      compile_error;//v4 = __SETO__(a1, 48);
-      v2 = a1 == 48;
-      v3 = a1 - 48 < 0;
-      goto LABEL_32;
+      //if (a1 < 46)
+      //  goto LABEL_34;
+      //v4 = __SETO__(a1, 48);
+      //v2 = a1 == 48;
+      //v3 = a1 - 48 < 0;
+      //goto LABEL_32;
+      if (a1 < 46 || a1 > 48)
+        return 0;
+      return 1;
     case 6:
       if ( a1 < 253 )
         goto LABEL_34;
@@ -7210,13 +7213,13 @@ unsigned int __fastcall sub_442955(int a1, int a2, int a3, int a4, int a5)
   v93 = (a2 + a4) >> 1;
   v82 = pD3DRenderer->uTargetSurfacePitch;
   CD3DRenderer_sub_4A0E97(pD3DRenderer, a1, a2, a3, a4);
-  v5 = dword_577014;
-  v6 = dword_577018;
-  v89 = dword_577018;
-  v87 = dword_57701C;
-  if ( dword_577014 != 384 )
+  v5 = struct_576FE8.dword_00002C;
+  v6 = struct_576FE8.dword_000030;
+  v89 = struct_576FE8.dword_000030;
+  v87 = struct_576FE8.dword_000034;
+  if ( struct_576FE8.dword_00002C != 384 )
   {
-    if ( dword_577014 == 768 )
+   if ( struct_576FE8.dword_00002C == 768 )
     {
       if ( dword_6BE360 != 1 )
         goto LABEL_23;
@@ -7313,12 +7316,12 @@ LABEL_23:
     }
     goto LABEL_38;
   }
-  v6 = word_577020;
-  v89 = word_577020;
-  v87 = word_577022;
+  v6 = struct_576FE8.word_000038;
+  v89 = struct_576FE8.word_000038;
+  v87 = struct_576FE8.word_00003A;
   if ( dword_6BE360 != 1 )
     goto LABEL_23;
-  v5 = dword_577014 - 34;
+  v5 = struct_576FE8.dword_00002C - 34;
 LABEL_8:
   v92 = sub_40DEF3(0, 0, 0);
   v86 = sub_40DEF3(0, 0xFFu, 0xFFu);
@@ -7814,7 +7817,7 @@ int __cdecl sub_4443D5()
   v24 = pParty_global->dword_0006B4;
   v2 = pParty_global->dword_0006B8;
   v1 = pClass51_global->uNumBModels;
-  *(float *)&v23 = (double)dword_57700C * 0.0000152587890625;
+  *(float *)&v23 = (double)struct_576FE8.dword_000024 * 0.0000152587890625;
   v0 = 0;
   v18 = pClass51_global->uNumBModels;
   v21 = 0;
@@ -7916,17 +7919,17 @@ char *__cdecl sub_444564()
   int v22; // [sp+18h] [bp-8h]@8
   int X; // [sp+1Ch] [bp-4h]@3
 
-  v20 = dword_577018;
-  v21 = dword_57701C;
-  v19 = (double)dword_577014 * 0.0000152587890625;
-  if ( dword_577014 == 384 )
+  v20 = struct_576FE8.dword_000030;
+  v21 = struct_576FE8.dword_000034;
+  v19 = (double)struct_576FE8.dword_00002C * 0.0000152587890625;
+  if ( struct_576FE8.dword_00002C == 384 )
   {
-    v20 = word_577020;
-    v21 = word_577022;
+   v20 = struct_576FE8.word_000038;
+   v21 = struct_576FE8.word_00003A;
   }
   v17 = 0;
   v16 = pClass51_global->uNumBModels;
-  class03_GetMouseClickPos(pGame->pClass03, (int)&X, (int)&v18);
+  class03_GetMouseClickPos(pGame->pClass03, &X, &v18);
   v1 = 1.0 / v19;
   v0 = (signed __int64)((double)(X - 229) * v1 + (double)v20);
   LODWORD(v19) = (signed __int64)((double)v21 - (double)(v18 - 181) * v1);

@@ -2668,7 +2668,7 @@ int __cdecl sub_4666D5()
       dword_6BE104 = 20;
       pStruct9_global->shading_dist_mist = 8192;
       dword_6BE0C4 = 0;
-      byte_577008 = 0;
+      struct_576FE8.dword_000020 = 0;
     }
 
     dword_6BE0D4 = 0;
@@ -2691,14 +2691,14 @@ int __cdecl sub_4666D5()
   }
   else
   {
-    byte_577008 = 0;
+   struct_576FE8.dword_000020 = 0;
   }
   pParty_global->dword_007778 |= 2;
-  dword_576FEC = dword_576FFC;
-  dword_576FE8 = dword_576FF8;
-  dword_576FF0 = dword_577000;
-  dword_576FF4 = dword_577004;
-  result = class28_fn0(class28_global, dword_576FF8, dword_576FFC, dword_577000, dword_577004);
+  struct_576FE8.dword_000000 = struct_576FE8.dword_000010;
+  struct_576FE8.dword_000004 = struct_576FE8.dword_000014;
+  struct_576FE8.dword_000008 = struct_576FE8.dword_000018;
+  struct_576FE8.dword_00000C = struct_576FE8.dword_00001C;
+  result = class28_fn0(class28_global, struct_576FE8.dword_000010, struct_576FE8.dword_000014, struct_576FE8.dword_000018, struct_576FE8.dword_00001C);
 
   if ( dword_6BE360 == 2 )
     result = sub_485F64(pStruct9_global);
@@ -4590,12 +4590,12 @@ LABEL_8:
 //----- (004647AB) --------------------------------------------------------
 void __cdecl sub_4647AB()
 {
- class28_fn0(class28_global, dword_576FE8, dword_576FEC, dword_576FF0, dword_576FF4);
+ class28_fn0(class28_global, struct_576FE8.dword_000000, struct_576FE8.dword_000004, struct_576FE8.dword_000008, struct_576FE8.dword_00000C);
  class28_fn2(class28_global, (signed __int64)(flt_6BE3A0 * 65536.0));
 
  pClass55_global = malloc(sizeof(struct class55));
  memset(pClass55_global, 0, sizeof(struct class55));
- class55_sub_42394D(pClass55_global, 65, dword_577000 - dword_576FF8 + 1, dword_577004 - dword_576FFC + 1);
+ class55_sub_42394D(pClass55_global, 65, struct_576FE8.dword_000018 - struct_576FE8.dword_000010 + 1, struct_576FE8.dword_00001C - struct_576FE8.dword_000014 + 1);
 
  sub_42F3D6();
  pClass17_Bitmaps_LOD->dword_011B84 = pClass17_Bitmaps_LOD->uNumLoadedFiles;
@@ -6430,7 +6430,7 @@ void __thiscall sub_406AFE(int this)
 }
 
 //----- (0045E03A) --------------------------------------------------------
-int __fastcall sub_45E03A(signed int a1, signed int a2)
+int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed int a2)
 {
   void *v2; // ebx@1
   signed int v3; // edi@1
@@ -7000,7 +7000,7 @@ LABEL_61:
       }
     }
 
-    if ( *(_QWORD *)(v18 + 16) | *(_QWORD *)(v18 + 96) | *(_QWORD *)(v18 + 104) | *(_QWORD *)(v18 + 112) | *(_QWORD *)(v18 + 120) | *(_QWORD *)(v18 + 128) )
+    if ( *(_QWORD *)((char *)v18 + 16) | *(_QWORD *)((char *)v18 + 96) | *(_QWORD *)((char *)v18 + 104) | *(_QWORD *)((char *)v18 + 112) | *(_QWORD *)((char *)v18 + 120) | *(_QWORD *)((char *)v18 + 128) )
       --v62;
     v40 = *(_QWORD *)((char *)v18 + 6160) > 0i64;
 
@@ -7895,10 +7895,10 @@ int __cdecl sub_466082()
 
   GetCurrentDirectoryA(120, pCurrentDirectory);
   wsprintfA(pIniFile, "%s\\mm6.ini", pCurrentDirectory);
-  dword_576FF8 = GetPrivateProfileIntA("screen", "vx1", 8, pIniFile);
-  dword_576FFC = GetPrivateProfileIntA("screen", "vy1", 8, pIniFile);
-  dword_577000 = GetPrivateProfileIntA("screen", "vx2", 468, pIniFile);
-  dword_577004 = GetPrivateProfileIntA("screen", "vy2", 351, pIniFile);
+  struct_576FE8.dword_000010 = GetPrivateProfileIntA("screen", "vx1", 8, pIniFile);
+  struct_576FE8.dword_000014 = GetPrivateProfileIntA("screen", "vy1", 8, pIniFile);
+  struct_576FE8.dword_000018 = GetPrivateProfileIntA("screen", "vx2", 468, pIniFile);
+  struct_576FE8.dword_00001C = GetPrivateProfileIntA("screen", "vy2", 351, pIniFile);
 
   if (GetPrivateProfileIntA("settings", "nointro", 0, pIniFile))
     dword_6BE364 |= 4;

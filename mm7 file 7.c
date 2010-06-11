@@ -204,7 +204,7 @@ int __fastcall sub_4AD504(int a1)
                 {
                   v112 = *(__int16 *)((char *)word_F8A5A8 + v12);
                   sub_4AE313(v112, result, (int)&dword_F81018);
-                  if ( byte_577008 )
+                  if ( struct_576FE8.dword_000020 )
                   {
                     v15 = v95 * (v12 - dword_51B738);
                     v119 = dword_51B748
@@ -267,7 +267,7 @@ int __fastcall sub_4AD504(int a1)
                       v108 = (signed int)(v116 - v121) >> 4;
                       v103 = (v90 - v120) >> 4;
                       v27 = v123 + 32;
-                      if ( byte_577008 )
+                      if (struct_576FE8.dword_000020)
                         v27 = v123 + 64;
                       if ( v27 > v117 )
                         v27 = v117;
@@ -277,7 +277,7 @@ int __fastcall sub_4AD504(int a1)
                       if ( v110 >> 16 == v100 >> 16 )
                       {
                         v122 = sub_47C24C(v91, v92, v110 >> 16, 1);
-                        if ( byte_577008 )
+                        if (struct_576FE8.dword_000020)
                         {
                           v44 = v123;
                           if ( v123 < v118 )
@@ -391,7 +391,7 @@ LABEL_30:
                         v55 = v110 - ((v100 - v110) >> 4);
                         v110 = (v100 - v110) >> 4;
                         v122 = (char *)v55;
-                        if ( byte_577008 )
+                        if (struct_576FE8.dword_000020)
                         {
                           v71 = v123;
                           if ( v123 < v118 )
@@ -708,7 +708,7 @@ void __fastcall sub_4ADD1D(int a1)
                   LOWORD(v20) = 0;
                   v49 = dword_F8AD28 | v20;
                   v64 = *(__int16 *)((char *)word_F8A968 + v14) - v16;
-                  if ( byte_577008 )
+                  if (struct_576FE8.dword_000020)
                   {
                     v66 = dword_51B748 + 4 * (2 * (v16 + 320 * (v14 - dword_51B738)) - dword_51B734);
                     v34 = v47;
@@ -2063,7 +2063,7 @@ LABEL_24:
                   {
                     v118 = *(__int16 *)((char *)word_F8A5A8 + v24);
                     sub_4AE313(v118, v21, (int)&dword_F81018);
-                    if ( byte_577008 )
+                    if (struct_576FE8.dword_000020)
                     {
                       v27 = v111 * (v24 - dword_51B738);
                       v129 = dword_51B748
@@ -2116,7 +2116,7 @@ LABEL_24:
                         v38 = (signed int)*(_WORD *)(v5 + 34) >> v35 << (v35 + 16);
                         v128 = v37;
                         v126 = v38;
-                        v39 = byte_577008 ? v132 + 4 * v134 : v132 + 2 * v134;
+                        v39 = struct_576FE8.dword_000020 ? v132 + 4 * v134 : v132 + 2 * v134;
                         if ( v39 > v131 )
                           v39 = v131;
                         v41 = *(_WORD *)(v29 + 2);
@@ -2128,7 +2128,7 @@ LABEL_24:
                         if ( (signed int)v123 >> 16 == v40 >> 16 || v135 & 2 )
                         {
                           v123 = sub_47C24C(v103, v109, (signed int)v123 >> 16, 1);
-                          if ( byte_577008 )
+                          if (struct_576FE8.dword_000020)
                           {
                             v86 = v132;
                             if ( v132 < v121 )
@@ -2240,7 +2240,7 @@ LABEL_62:
                           v44 = (int)&v123[-v43];
                           v123 = (char *)v43;
                           v115 = v44;
-                          if ( byte_577008 )
+                          if (struct_576FE8.dword_000020)
                           {
                             v60 = v132;
                             if ( v132 < v121 )
@@ -16377,11 +16377,11 @@ signed int sub_4C2F0B(struct unnamed_6BD080 *_this, __int16 a2)
   v10 = _this;
   if ( *(_DWORD *)(v10 + 4004) != 1 )
     return 0;
-  HIWORD(v3) = HIWORD(dword_576FF8);
+  HIWORD(v3) = HIWORD(struct_576FE8.dword_000010);
   v4 = 0;
-  v5 = dword_577000 - dword_576FF8;
-  v8 = dword_576FF8;
-  v9 = dword_577000 - 4;
+  v5 = struct_576FE8.dword_000018 - struct_576FE8.dword_000010;
+  v8 = struct_576FE8.dword_000010;
+  v9 = struct_576FE8.dword_000018 - 4;
   while ( 1 )
   {
     v6 = v10 + 4 * v4;

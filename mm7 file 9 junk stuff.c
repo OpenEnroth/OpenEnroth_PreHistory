@@ -69,10 +69,238 @@ void terminate()
 
 
 //#error "FFFFFFFF: variables would overlap: edx/4 and edx/8 (funcsize=96)"
-int sub_41AD6E()
+void sub_41AD6E()
 {
- __asm int 3
- return 0;
+ int     local_0,
+         local_1;
+ __int64 eax_ecx,
+         ecx_eax;
+
+ eax_ecx = pParty_global->qword_00002C - qword_507CC8;
+ if (eax_ecx < 0)
+   qword_507CC8 = 0;
+ /*__asm
+ {
+  push    ecx
+  push    ecx
+  //mov     edx, dword ptr [qword_ACCFE4]
+  {
+   mov edx, dword ptr [pParty_global]
+   mov edx, dword ptr [edx + 0x2C]
+  }
+  push    ebx
+  push    esi
+  //mov     esi, dword ptr [qword_ACCFE4+4]
+  {
+   mov esi, dword ptr [pParty_global]
+   mov esi, dword ptr [esi + 0x2C + 4]
+  }
+  mov     ecx, edx
+  mov     eax, esi
+  sub     ecx, dword ptr [qword_507CC8]
+  sbb     eax, dword ptr [qword_507CC8+4]  //eax:ecx = pParty_global->qword_00002C - qword_507CC8
+  xor     ebx, ebx
+  cmp     eax, ebx         
+  jg      short loc_41ADA6                 //if      eax:ecx positive
+  jl      short loc_41AD9A                 //else if eax:ecx negative
+  cmp     ecx, ebx                         //else: eax:ecx fits in 32bits, 
+  jnb     short loc_41ADA6                 //if ecx >= 0
+                                           //else (negative)
+  //if pParty_global->qword_00002C - qword_507CC8 < 0, qword_507CC8 = 0
+loc_41AD9A:                               
+  mov     dword ptr [qword_507CC8], ebx
+  mov     dword ptr [qword_507CC8+4], ebx
+ }*/
+
+
+
+ ecx_eax = pParty_global->qword_00002C - qword_507CC8;
+ local_0 = HIWORD(ecx_eax);
+ /*__asm
+ {
+loc_41ADA6:                             ; CODE XREF: sub_41AD6E+24j
+                                         ; sub_41AD6E+2Aj
+  mov     eax, edx
+  mov     ecx, esi
+  sub     eax, dword ptr [qword_507CC8]
+  sbb     ecx, dword ptr [qword_507CC8+4]
+  mov     dword ptr [esp+16-4], ecx   // local var @ local frame:  -> ecx <- ecx ebx esi
+ }*/
+
+ __asm
+ {
+  {
+   //restore asm state
+   xor ebx, ebx
+     mov edx, dword ptr [pParty_global]
+     mov edx, dword ptr [edx + 0x2C]
+   mov esi, dword ptr [pParty_global]
+   mov esi, dword ptr [esi + 0x2C + 4]
+     sub esp, 16     //local frame: ecx ecx ebx esi
+   mov     eax, edx
+   mov     ecx, esi
+   sub     eax, dword ptr [qword_507CC8]
+   sbb     ecx, dword ptr [qword_507CC8+4]
+  }
+
+  js      loc_41AE97
+  jg      short loc_41ADCD
+
+  {
+   add esp, 16
+  }
+ }
+
+ if (LODWORD(ecx_eax) <= 128)
+   return;
+
+
+ /*__asm
+ {
+  mov     dword ptr [qword_507CC8], edx
+  mov     dword ptr [qword_507CC8+4], esi
+ }*/
+ 
+ qword_507CC8 = pParty_global->qword_00002C;
+
+
+  __asm loc_41ADCD:
+ /*
+ __asm
+ {
+loc_41ADCD:                             ; CODE XREF: sub_41AD6E+52j
+  cmp     byte ptr [byte_50697C], bl
+  setz    al
+  cmp     al, bl
+  mov     byte ptr [byte_50697C], al
+  jz      loc_41AE9C
+  cmp     dword ptr [dword_4E28F8], 5
+  jz      loc_41AE9C
+ }*/
+ byte_50697C = ~byte_50697C;
+ if (!byte_50697C || dword_4E28F8 == 5)
+ {
+  /*__asm
+  {
+loc_41AE9C:                             ; CODE XREF: sub_41AD6E+7Bj
+                                        ; sub_41AD6E+88j
+  //push    offset unk_507ABC
+  {
+   mov esi, dword ptr [pTexture_RightFrame]
+   push esi
+  }
+  push    ebx
+  push    468
+  mov ecx, dword ptr [pD3DRenderer]
+  call    CD3DRenderer_DrawRGBTexture
+  pop     esi
+  pop     ebx
+  add     esp, 8
+  jmp     sub_491F87
+  }*/
+
+  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 468, 0, pTexture_RightFrame);
+  sub_491F87();
+  return;
+ }
+
+ /*__asm
+ {
+  cmp     byte ptr [byte_50794A], bl
+  mov     esi, dword ptr [pD3DRenderer]
+  jz      short loc_41AE33
+  mov     eax, dword ptr [uTextureIdx_ib_td1_A]
+  mov     ecx, eax
+  inc     ecx
+  lea     eax, [eax+eax*8]
+  neg     ecx
+  lea     eax, ds:6D084Ch[eax*8]
+  sbb     ecx, ecx
+  and     ecx, eax
+  push    ecx
+  push    163h
+  push    1EDh
+  mov     ecx, esi
+  call    CD3DRenderer_DrawTransparentTexture
+ }*/
+ if (byte_50794A)
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 493, 355, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_ib_td1_A]);
+
+ /*__asm
+ {
+loc_41AE33:                             ; CODE XREF: sub_41AD6E+99j
+  cmp     byte ptr [byte_507949], bl
+  jz      short loc_41AE65
+  mov     eax, dword ptr [uTextureIdx_ib_td2_A]
+  mov     ecx, eax
+  inc     ecx
+  lea     eax, [eax+eax*8]
+  neg     ecx
+  lea     eax, ds:6D084Ch[eax*8]
+  sbb     ecx, ecx
+  and     ecx, eax
+  push    ecx
+  push    161h
+  push    20Fh
+  mov     ecx, esi
+  call    CD3DRenderer_DrawTransparentTexture
+ }*/
+ if (byte_507949)
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 527, 353, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_ib_td2_A]);
+
+ /*__asm
+ {
+loc_41AE65:                             ; CODE XREF: sub_41AD6E+CBj
+  cmp     byte ptr [byte_507948], bl
+  jz      short loc_41AE97
+  mov     eax, dword ptr [uTextureIdx_ib_td5_A]
+  mov     ecx, eax
+  inc     ecx
+  lea     eax, [eax+eax*8]
+  neg     ecx
+  lea     eax, ds:6D084Ch[eax*8]
+  sbb     ecx, ecx
+  and     ecx, eax
+  push    ecx
+  push    169h
+  push    258h
+  mov     ecx, esi
+  call    CD3DRenderer_DrawTransparentTexture
+ }*/
+ if (byte_507948)
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 600, 361, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_ib_td5_A]);
+ return;
+ /*
+ __asm
+ {
+loc_41AE97:                             ; CODE XREF: sub_41AD6E+4Cj
+                                        ; sub_41AD6E+59j ...
+  pop     esi
+  pop     ebx
+  pop     ecx
+  pop     ecx
+  retn
+ ; ---------------------------------------------------------------------------
+
+loc_41AE9C:                             ; CODE XREF: sub_41AD6E+7Bj
+                                        ; sub_41AD6E+88j
+  //push    offset unk_507ABC
+  {
+   mov esi, dword ptr [pTexture_RightFrame]
+   push esi
+  }
+  push    ebx
+  push    468
+  mov ecx, dword ptr [pD3DRenderer]
+  call    CD3DRenderer_DrawRGBTexture
+  pop     esi
+  pop     ebx
+  add     esp, 8
+  jmp     sub_491F87
+ }*/
+
+ __asm loc_41AE97:
+ return;
 }
 
 int sub_498038()

@@ -341,7 +341,7 @@ LABEL_18:
 }
 
 //----- (00443365) --------------------------------------------------------
-int __thiscall sub_443365(void *this)
+int __thiscall sub_443365(struct unnamed_576FE8 *_this)
 {
   void *v1; // esi@1
   int v2; // edi@3
@@ -361,8 +361,8 @@ int __thiscall sub_443365(void *this)
   signed int v16; // [sp+18h] [bp-8h]@2
   signed int v17; // [sp+1Ch] [bp-4h]@2
 
-  v1 = this;
-  sub_443343(this);
+  v1 = _this;
+  sub_443343(_this);
   if ( dword_6BE360 == 1 )
   {
     v16 = 1073741824;
@@ -405,22 +405,22 @@ int __thiscall sub_443365(void *this)
       }
       while ( !v9 );
     }
-    *((_DWORD *)v1 + 9) = 1024;
-    *((_WORD *)v1 + 28) = (v16 + v17) / 2;
-    *((_DWORD *)v1 + 10) = 10;
+    _this->dword_000024 = 1024;
+    _this->dword_000028 = 10;
+    _this->word_000038 = (v16 + v17) / 2;
+    _this->word_00003A = (v14 + v15) / 2;
     result = (v14 + v15) / 2;
-    *((_WORD *)v1 + 29) = result;
   }
   else
   {
-    *((_WORD *)v1 + 28) = 0;
-    *((_WORD *)v1 + 29) = 0;
-    *((_DWORD *)v1 + 9) = dword_576E2C;
+    _this->word_000038 = 0;
+    _this->word_00003A = 0;
+    _this->dword_000024 = dword_576E2C;
+    _this->dword_000028 = dword_576E28;
     result = dword_576E28;
-    *((_DWORD *)v1 + 10) = dword_576E28;
   }
-  *((_DWORD *)v1 + 11) = 384;
-  return result;
+ _this->dword_00002C = 384;
+ return result;
 }
 
 //----- (0048F882) --------------------------------------------------------
@@ -8808,7 +8808,7 @@ char *__cdecl sub_413980()
   int v27; // [sp+98h] [bp-40h]@35
 
   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_F8BC24, data_F8BC28.qword_F8BC28, dword_5064D0);
-  if ( dword_506548 || dword_577014 / 128 >= 12 )
+  if ( dword_506548 || struct_576FE8.dword_00002C / 128 >= 12 )
   {
     v15 = dword_50639C;
     v9 = data_F8BC28.qword_F8BC28 + 2;
@@ -8821,7 +8821,7 @@ char *__cdecl sub_413980()
     v0 = dword_F8BC24 + 398;
   }
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v0, v9, v15);
-  if ( dword_506544 || dword_577014 / 128 <= 3 )
+  if ( dword_506544 || struct_576FE8.dword_00002C / 128 <= 3 )
   {
     v16 = dword_506398;
     v10 = data_F8BC28.qword_F8BC28 + 38;
@@ -8887,19 +8887,19 @@ char *__cdecl sub_413980()
   }
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v5, v14, v20);
   if ( dword_506544 )
-    sub_443291((int)&dword_576FE8);
+    sub_443291(&struct_576FE8);
   if ( dword_506548 )
-    sub_443249((int)&dword_576FE8);
+    sub_443249(&struct_576FE8);
   if ( dword_506540 )
-    sub_443219((int)&dword_576FE8);
+    sub_443219(&struct_576FE8);
   if ( dword_50653C )
-    sub_443231((int)&dword_576FE8);
+    sub_443231(&struct_576FE8);
   if ( dword_506538 )
-    sub_44323D((int)&dword_576FE8);
+    sub_44323D(&struct_576FE8);
   v6 = dword_506534;
   if ( dword_506534 )
   {
-    sub_443225((int)&dword_576FE8);
+    sub_443225(&struct_576FE8);
     v6 = dword_506534;
   }
   if ( dword_506548 | dword_506544 | dword_506540 | dword_50653C | dword_506538 | v6 )
@@ -9651,8 +9651,7 @@ int __fastcall sub_45F469(int a1, int a2)
   int v39; // [sp-14h] [bp-284h]@8
   const char *v40; // [sp-10h] [bp-280h]@6
   const char *v41; // [sp-Ch] [bp-27Ch]@6
-  int v42; // [sp-8h] [bp-278h]@8
-  int v43; // [sp-4h] [bp-274h]@8
+  int v42; // [sp-8] [bp-278]@6
   CHAR Buffer; // [sp+Ch] [bp-264h]@59
   char Dir; // [sp+8Ch] [bp-1E4h]@51
   char Drive; // [sp+ACh] [bp-1C4h]@51
@@ -9716,7 +9715,7 @@ int __fastcall sub_45F469(int a1, int a2)
     else
       qword_6A12E0 = pParty_global->qword_00002C;
 
-    v3 = sub_45E03A(150, 112);
+    v3 = sub_45E03A_SomethingLikeCaptureAScreenshot(150, 112);
     strcpy(Str2, "image.pcx");
     v4 = sub_49F5A2(pD3DRenderer, v3, 150, 112, DstBuf, 1000000, (int)&ElementSize);
     operator_delete(v4, v3);
@@ -9737,96 +9736,72 @@ int __fastcall sub_45F469(int a1, int a2)
     }
     if ( sub_461B48(pClass17_New_LOD, Str2, DstBuf, 0) )
     {
-      sprintfex(&Str, pGlobalTXT_LocalizationStrings[612], 200);
-      v8 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp";
-      v43 = 773;
-      v42 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp";
+      wsprintfA(Str, pGlobalTXT_LocalizationStrings[612], 200);
       v76 = (unsigned int)&v38;
       sub_40E2C8(&v38, &Str, (int)&v77);
-      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, (const char *)v42, v43);
+      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
-    else
-    {
-      v8 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp";
-    }
+
     strcpy(v48, Str1);
     v49 = pParty_global->qword_00002C;
     strcpy(Str2, "header.bin");
     ElementSize = 100;
     if ( sub_461B48(pClass17_New_LOD, "header.bin", &v47, 0) )
     {
-      v43 = 201;
-      sprintfex(&Str, pGlobalTXT_LocalizationStrings[612], 201);
-      v43 = 784;
-      v42 = v8;
+      wsprintfA(Str, pGlobalTXT_LocalizationStrings[612], 201);
       v76 = (unsigned int)&v38;
       sub_40E2C8(&v38, &Str, (int)&v77);
-      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, (const char *)v42, v43);
+      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
 
     strcpy(Str2, "party.bin");
     ElementSize = 90680;
     if ( sub_461B48(pClass17_New_LOD, "party.bin", pParty_global, 0) )
     {
-      v43 = 202;
-      sprintfex(&Str, pGlobalTXT_LocalizationStrings[612], 202);
-      v43 = 793;
-      v42 = v8;
+      wsprintfA(Str, pGlobalTXT_LocalizationStrings[612], 202);
       v76 = (unsigned int)&v38;
       sub_40E2C8(&v38, &Str, (int)&v77);
-      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, (const char *)v42, v43);
+      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
 
     strcpy(Str2, "clock.bin");
     ElementSize = 40;
     if ( sub_461B48(pClass17_New_LOD, "clock.bin", pClass24_global, 0) )
     {
-      v43 = 203;
-      sprintfex(&Str, pGlobalTXT_LocalizationStrings[612], 203);
-      v43 = 802;
-      v42 = v8;
+      wsprintfA(Str, pGlobalTXT_LocalizationStrings[612], 203);
       v76 = (unsigned int)&v38;
       sub_40E2C8(&v38, &Str, (int)&v77);
-      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, (const char *)v42, v43);
+      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
 
     strcpy(Str2, "overlay.bin");
     ElementSize = 1008;
     if ( sub_461B48(pClass17_New_LOD, "overlay.bin", array_5E4D58, 0) )
     {
-      v43 = 204;
-      sprintfex(&Str, pGlobalTXT_LocalizationStrings[612], 204);
-      v43 = 811;
-      v42 = v8;
+      wsprintfA(Str, pGlobalTXT_LocalizationStrings[612], 204);
       v76 = (unsigned int)&v38;
       sub_40E2C8(&v38, &Str, (int)&v77);
-      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, (const char *)v42, v43);
+      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
 
     strcpy(Str2, "npcdata.bin");
     ElementSize = 38076;
     if ( sub_461B48(pClass17_New_LOD, "npcdata.bin", unk_72D68C, 0) )
     {
-      v43 = 205;
-      sprintfex(&Str, pGlobalTXT_LocalizationStrings[165], 205);
-      v43 = 820;
-      v42 = v8;
+      wsprintfA(Str, pGlobalTXT_LocalizationStrings[165], 205);
       v76 = (unsigned int)&v38;
       sub_40E2C8(&v38, &Str, (int)&v77);
-      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, (const char *)v42, v43);
+      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
 
     strcpy(&Str2, "npcgroup.bin");
     ElementSize = 102;
     if ( sub_461B48(pClass17_New_LOD, "npcgroup.bin", pNPCStats->word_017F5A, 0) )
     {
-      v43 = 206;
-      sprintfex(&Str, pGlobalTXT_LocalizationStrings[165], 206);
-      v43 = 829;
-      v42 = v8;
+      wsprintfA(Str, pGlobalTXT_LocalizationStrings[165], 206);
       v76 = (unsigned int)&v38;
       sub_40E2C8(&v38, &Str, (int)&v77);
-      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, (const char *)v42, v43);
+      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
 
     v75 = 1;
@@ -9835,14 +9810,12 @@ int __fastcall sub_45F469(int a1, int a2)
       v74 = 1;
       do
       {
-        v43 = v74;
         v42 = v75;
         wsprintfA(Str, "data\\lloyd%d%d.pcx", v75, v74);
         v9 = fopen(Str, "rb");
         v10 = (FILE *)v9;
         if ( v9 )
         {
-          v43 = v74;
           v42 = v75;
           wsprintfA(Str, "lloyd%d%d.pcx", v75, v74);
           fseek(v10, 0, 2);
@@ -9855,13 +9828,10 @@ int __fastcall sub_45F469(int a1, int a2)
           v9 = (void *)sub_461B48(pClass17_New_LOD, Str2, DstBuf, 0);
           if ( v9 )
           {
-            v43 = 207;
             wsprintfA(Str, pGlobalTXT_LocalizationStrings[165], 207);
-            v43 = 857;
-            v42 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp";
             v76 = (unsigned int)&v38;
             sub_40E2C8(&v38, &Str, (int)&v77);
-            v9 = sub_466D09(&Size, *(int *)&v38, v39, (int)v40, (int)v41, (const char *)v42, v43);
+            v9 = sub_466D09(&Size, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
             Size = 5080748;
           }
         }
@@ -9949,7 +9919,7 @@ int __fastcall sub_45F469(int a1, int a2)
         if ( pClass51_global->uNumBModels > 0 )
         {
           v22 = pClass51_global->uNumBModels;
-          v21 = pClass51_global->pBModels + 76;
+          v21 = (char *)pClass51_global->pBModels + 76;
           do
           {
             v20 += *(_DWORD *)v21;
@@ -10048,13 +10018,10 @@ int __fastcall sub_45F469(int a1, int a2)
       v36 = (void *)sub_461B48(pClass17_New_LOD, &Str2, (const void *)v11, 0);
       if ( v36 )
       {
-        v43 = 208;
-        sprintfex(&Str, pGlobalTXT_LocalizationStrings[165], 208);
-        v43 = 1071;
-        v42 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp";
+        wsprintfA(Str, pGlobalTXT_LocalizationStrings[165], 208);
         v76 = (unsigned int)&v38;
         sub_40E2C8(&v38, &Str, (int)&v77);
-        v36 = sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, (const char *)v42, v43);
+        v36 = sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
       }
       v9 = (void *)call_delete((int)v36, v11);
     }
@@ -10066,13 +10033,10 @@ int __fastcall sub_45F469(int a1, int a2)
       {
         v37 = GetLastError();
         FormatMessageA(0x1000u, 0, v37, 0x400u, &Buffer, 0x80u, 0);
-        v43 = 300;
-        sprintfex(&Str, pGlobalTXT_LocalizationStrings[612], 300);
-        v43 = 1097;
-        v42 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp";
+        wsprintfA(Str, pGlobalTXT_LocalizationStrings[612], 300);
         v69 = (int)&v38;
         sub_40E2C8(&v38, &Str, (int)&v77);
-        sub_466D09(&v69, *(int *)&v38, v39, (int)v40, (int)v41, (const char *)v42, v43);
+        sub_466D09(&v69, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
       }
     }
     pParty_global->dword_0006B4 = v56;

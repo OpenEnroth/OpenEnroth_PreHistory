@@ -643,6 +643,7 @@ extern int dword_506638; // weak
 extern char byte_5068C4; // weak
 
 extern int dword_506978; // weak
+extern char byte_50697C;
 extern int dword_506980; // weak
 extern int dword_506984; // weak
 extern int dword_506988; // weak
@@ -1302,22 +1303,46 @@ extern struct class56 *pLoadingUI; // struct @ MM7.exe::00576E30
 //char byte_576E3A; // pLoadingUI::uProgressMax
 //int dword_576E3C; // 00000C
 
-extern int dword_576FE8; // weak
-extern int dword_576FEC; // weak
-extern int dword_576FF0; // weak
-extern int dword_576FF4; // weak
-extern int dword_576FF8; // weak
-extern int dword_576FFC; // weak
-extern int dword_577000; // weak
-extern int dword_577004; // weak
-extern char byte_577008; // weak
-extern int dword_57700C; // weak
-extern int dword_577010; // weak
-extern int dword_577014; // weak
-extern int dword_577018; // weak
-extern int dword_57701C; // weak
-extern __int16 word_577020; // weak
-extern __int16 word_577022; // weak
+
+extern struct unnamed_576FE8
+{
+ int dword_000000;
+ int dword_000004;
+ int dword_000008;
+ int dword_00000C;
+ int dword_000010;  //screen::vx1 config entry
+ int dword_000014;  //screen::vy1
+ int dword_000018;  //screen::vx2
+ int dword_00001C;  //screen::vy2
+ int dword_000020;
+ int dword_000024;
+ int dword_000028;
+ int dword_00002C;
+ int dword_000030;
+ int dword_000034;
+ short word_000038;
+ short word_00003A;
+} struct_576FE8;      // struct @ MM7.exe::00576FE8
+//extern int dword_576FE8; // 000000
+//extern int dword_576FEC; // 000004
+//extern int dword_576FF0; // 000008
+//extern int dword_576FF4; // 00000C
+//extern int dword_576FF8; // 000010
+//extern int dword_576FFC; // 000014
+//extern int dword_577000; // 000018
+//extern int dword_577004; // 00001C
+//extern char byte_577008; // 000020
+//extern int dword_57700C; // 000024
+//extern int dword_577010; // 000028
+//extern int dword_577014; // 00002C
+//extern int dword_577018; // 000030
+//extern int dword_57701C; // 000034
+//extern __int16 word_577020; // 000038
+//extern __int16 word_577022; // 00003A
+
+
+
+
 extern unsigned int uTextureID_LocationMap; // dword @ MM7.exe::00577028
 extern int dword_57702C; // weak
 extern int dword_577030; // weak

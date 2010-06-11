@@ -686,6 +686,7 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  char byte_5068C4; // weak
 
  int dword_506978; // weak
+ char byte_50697C = 0;
  int dword_506980; // weak
  int dword_506984; // weak
  int dword_506988; // weak
@@ -1339,22 +1340,25 @@ struct class56 *pLoadingUI = 0; // struct @ MM7.exe::00576E30
 //char byte_576E3A; // pLoadingUI::uProgressMax
 //int dword_576E3C; // 00000C
 
- int dword_576FE8; // weak
- int dword_576FEC; // weak
- int dword_576FF0; // weak
- int dword_576FF4; // weak
- int dword_576FF8; // weak
- int dword_576FFC; // weak
- int dword_577000; // weak
- int dword_577004; // weak
- char byte_577008; // weak
- int dword_57700C; // weak
- int dword_577010; // weak
- int dword_577014; // weak
- int dword_577018; // weak
- int dword_57701C; // weak
- __int16 word_577020; // weak
- __int16 word_577022; // weak
+struct unnamed_576FE8 struct_576FE8;      // struct @ MM7.exe::00576FE8
+// int dword_576FE8; // 000000
+ //int dword_576FEC; // 000004
+ //int dword_576FF0; // 000008
+ //int dword_576FF4; // 00000C
+ //int dword_576FF8; // 000010
+ //int dword_576FFC; // 000014
+ //int dword_577000; // 000018
+ //int dword_577004; // 00001C
+ //char byte_577008; // 000020
+ //int dword_57700C; // 000024
+ //int dword_577010; // 000028
+ //int dword_577014; // 00002C
+ //int dword_577018; // 000030
+ //int dword_57701C; // 000034
+ //__int16 word_577020; // 000038
+ //__int16 word_577022; // 00003A
+
+
 unsigned int uTextureID_LocationMap = 0; // dword @ MM7.exe::00577028
  int dword_57702C; // weak
  int dword_577030; // weak
