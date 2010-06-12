@@ -232,6 +232,7 @@ char CD3DRenderer_FillRect(struct CD3DRenderer *_this, unsigned int uX, unsigned
  unsigned int *pTargetSurface;
  unsigned int  uRectWidth,
                uRectHeight;
+ unsigned int  x, y;
   
   v36 = _this;
   v37 = 0i64;
@@ -259,7 +260,12 @@ char CD3DRenderer_FillRect(struct CD3DRenderer *_this, unsigned int uX, unsigned
   if ( (_DWORD)v37 & HIDWORD(v37) )
     return (_BYTE)v37;
 
+ pTargetSurface = pD3DRenderer->pTargetSurface;
+ for (y = uY; y < uW; ++y)
+   for (x = uX; x < uZ; ++x)
+      pTargetSurface[y * pD3DRenderer->uTargetSurfacePitch + x] = uColor;
 
+  /*
   if ( !v37 )
   {
 LABEL_46:
@@ -362,7 +368,7 @@ LABEL_24:
   else
     pTargetSurface = 2;
   compile_error;
-  /*if ( uW > v19 )
+  if ( uW > v19 )
     LOBYTE(pTargetSurface) = pTargetSurface | 1;
   if ( !(pTargetSurface & v38) )
   {
@@ -401,8 +407,8 @@ LABEL_24:
       }
     }
     goto LABEL_46;
-  }*/
-  return pTargetSurface;
+  }
+  return pTargetSurface;*/
 }
 
 //----- (MM7.exe::004A1605) --------------------------------------------------------

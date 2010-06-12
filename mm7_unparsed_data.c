@@ -1335,7 +1335,7 @@ struct class37 class37_global0; // struct @ MM7.exe::0051B778
 
  int dword_56EEA8; // weak
  __int16 word_56EEAC[array_size_unknown]; // weak
- unsigned short array_56EFD8[32*array_size_unknown]; // weak
+ unsigned short array_56EFD8[137 * 117 + array_size_unknown]; // weak
  int dword_576D14; // weak
  __int16 word_576D80[array_size_unknown]; // weak
 

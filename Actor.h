@@ -28,8 +28,8 @@ struct Actor
  short         word_000088;
  short         word_00008A;
  short         word_00008C;
- short         word_00008E;
- short         word_000090;
+ short         word_00008E; // looks like actor x pos
+ short         word_000090; // ~ y
  short         word_000092;
  short         word_000094;
  short         word_000096;

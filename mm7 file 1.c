@@ -6037,7 +6037,6 @@ void __cdecl sub_487DA9()
 void __fastcall sub_441D38_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW, signed int a5, int a6)
 {
   int v6; // eax@4
-  int v7; // ebx@6
   int v8; // eax@8
   int v9; // edx@9
   int v10; // edi@9
@@ -6052,7 +6051,6 @@ void __fastcall sub_441D38_DrawMinimap(unsigned int uX, unsigned int uY, unsigne
   double v19; // st7@30
   __int16 v20; // di@30
   double v21; // st7@30
-  float v22; // ST38_4@30
   double v23; // st5@33
   int v24; // eax@37
   unsigned short *v25; // edx@37
@@ -6060,7 +6058,6 @@ void __fastcall sub_441D38_DrawMinimap(unsigned int uX, unsigned int uY, unsigne
   double v28; // ST20_8@37
   double v29; // ST20_8@37
   signed int v30; // edi@40
-  int v31; // eax@42
   _UNKNOWN *v32; // ebx@43
   int v37; // eax@50
   signed int v38; // ecx@50
@@ -6069,63 +6066,46 @@ void __fastcall sub_441D38_DrawMinimap(unsigned int uX, unsigned int uY, unsigne
   __int16 v43; // ax@87
   int v44; // ebx@91
   int v45; // edi@91
-  int v46; // eax@101
-  int v47; // ebx@101
-  int v48; // ST30_4@101
   int v49; // ebx@106
   int v50; // eax@108
   int v51; // edi@108
   int v52; // ebx@114
   int v53; // ST64_4@114
   double v54; // ST20_8@117
-  int v55; // [sp-10h] [bp-64h]@79
-  int v56; // [sp-10h] [bp-64h]@100
-  int v57; // [sp-Ch] [bp-60h]@79
-  int v58; // [sp-Ch] [bp-60h]@100
-  int v59; // [sp-8h] [bp-5Ch]@77
-  int v60; // [sp-8h] [bp-5Ch]@100
   signed int v61; // [sp-4h] [bp-58h]@54
-  __int16 v62; // [sp-4h] [bp-58h]@77
-  __int16 v63; // [sp-4h] [bp-58h]@100
   int v66; // [sp+14h] [bp-40h]@30
-  int v68; // [sp+18h] [bp-3Ch]@39
   int v71; // [sp+20h] [bp-34h]@23
   int v73; // [sp+24h] [bp-30h]@23
   signed int v74; // [sp+24h] [bp-30h]@37
-  __int16 v75; // [sp+28h] [bp-2Ch]@1
   signed int v76; // [sp+28h] [bp-2Ch]@37
   int v77; // [sp+2Ch] [bp-28h]@30
-  int v78; // [sp+30h] [bp-24h]@30
   signed int v79; // [sp+34h] [bp-20h]@4
-  int v80; // [sp+34h] [bp-20h]@91
   int v81; // [sp+34h] [bp-20h]@108
   signed int v82; // [sp+38h] [bp-1Ch]@37
   int v83; // [sp+38h] [bp-1Ch]@72
   bool v84; // [sp+3Ch] [bp-18h]@2
   int v86; // [sp+40h] [bp-14h]@8
-  signed int v87; // [sp+40h] [bp-14h]@41
   int v88; // [sp+40h] [bp-14h]@68
-  int v90; // [sp+44h] [bp-10h]@40
   signed int v93; // [sp+5Ch] [bp+8h]@7
   int i; // [sp+5Ch] [bp+8h]@27
-  signed int v95; // [sp+5Ch] [bp+8h]@30
   int v100; // [sp+60h] [bp+Ch]@23
   float v101; // [sp+60h] [bp+Ch]@30
   _UNKNOWN *v102; // [sp+60h] [bp+Ch]@37
   float v103; // [sp+60h] [bp+Ch]@37
   unsigned int v104; // [sp+60h] [bp+Ch]@95
   float v105; // [sp+64h] [bp+10h]@117
-  signed int v106; // [sp+68h] [bp+14h]@42
   int v108; // [sp+68h] [bp+14h]@86
  unsigned int  x, y;
- unsigned int *pTargetSurface;
- unsigned int uMinimapCentreX,
-              uMinimapCentreY;
+ unsigned int *pTargetSurface,
+              *pSourceSurface;
+ unsigned int  uMinimapCentreX,
+               uMinimapCentreY;
+ unsigned int  uMinimapWidth,
+               uMinimapHeight;
+ unsigned int *pMapPixels;
 
   uMinimapCentreX = (uX + uZ) / 2;
   uMinimapCentreY = (uY + uW) / 2;
-  sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0, 0);
-  v75 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0, 0xFFu);
   v84 = qword_ACD974 > 0;
   v79 = (unsigned __int16)word_ACD97E;
   LOBYTE(v6) = sub_476395((void *)0x26);
@@ -6136,30 +6116,30 @@ void __fastcall sub_441D38_DrawMinimap(unsigned int uX, unsigned int uY, unsigne
   }
 
   CD3DRenderer_sub_4A0E97(pD3DRenderer, uX, uY, uZ - 1, uW - 1);
-  v7 = uW - uY;
+  uMinimapHeight = uW - uY;
   if ( dword_6BE360 != 1 )
   {
-    v95 = uZ - uX;
+    uMinimapWidth = uZ - uX;
     v20 = pClass17_Icons_LOD->aLODHeaders[uTextureID_LocationMap].word_00001C;
-    v78 = pClass17_Icons_LOD->aLODHeaders[uTextureID_LocationMap].pIndexedPixels;
+    pMapPixels = pClass17_Icons_LOD->aLODHeaders[uTextureID_LocationMap].pTruecolorPixels;
     v66 = pClass17_Icons_LOD->aLODHeaders[uTextureID_LocationMap].pPalette;
     v77 = (1 << (v20 + 16)) / a5;
     v21 = (double)(1 << (16 - (_BYTE)v20));
-    v22 = v21;
-    v19 = (double)(pParty_global->dword_0006B4 + 32768) / v21;
-    v18 = (double)(32768 - pParty_global->dword_0006B8) / v22;
+
+    v19 = (double)(32768 + pParty_global->dword_0006B4) / v21;
+    v18 = (double)(32768 - pParty_global->dword_0006B8) / v21;
     v101 = v18;
     if ( a5 == 512 )
     {
-      v19 = v19 - (double)(v95 / 2);
-      v23 = (double)(v7 / 2);
+      v19 = v19 - (double)(uMinimapWidth / 2);
+      v23 = (double)(uMinimapHeight / 2);
     }
     else
     {
       if ( a5 == 1024 )
       {
-        v19 = v19 - (double)(v95 / 4);
-        v23 = (double)(v7 / 4);
+        v19 = v19 - (double)(uMinimapWidth / 4);
+        v23 = (double)(uMinimapHeight / 4);
       }
       else
       {
@@ -6174,66 +6154,61 @@ LABEL_37:
           v82 = v74;
           v76 = LODWORD(v29);
           v25 = array_56EFD8;
-          v24 = LODWORD(v29) >> 16;
+          v24 = LODWORD(v29) / 65536;
           v102 = array_56EFD8;
           pTargetSurface = pD3DRenderer->pTargetSurface + (uX + uY * pD3DRenderer->uTargetSurfacePitch);
           if ( a6 )
           {
-            if ( v78 )
-            {
-              v68 = pClass17_Icons_LOD->aLODHeaders[uTextureID_LocationMap].uTextureWidth;
-              if ( v7 > 0 )
-              {
-                v90 = v7;
-                v30 = v74 >> 16;
-                do
+              v30 = v74  / 65536;
+
+
+              //convert world-space xy to texture-space xy
+             v19 = (double)(32768 + pParty_global->dword_0006B4) / 65536 * pClass17_Icons_LOD->aLODHeaders[uTextureID_LocationMap].uTextureWidth;
+             v18 = (double)(32768 - pParty_global->dword_0006B8) / 65536 * pClass17_Icons_LOD->aLODHeaders[uTextureID_LocationMap].uTextureHeight;
+
+                for (y = 0; y < uMinimapHeight; ++y)
                 {
-                  v87 = 0;
-                  if ( v95 > 0 )
-                  {
-                    v31 = v24 * v68 + v78;
-                    v106 = v95;
-                    v87 = v95;
-                    do
+                 pTargetSurface = pD3DRenderer->pTargetSurface + (uY+y) * pD3DRenderer->uTargetSurfacePitch + uX;
+                 pSourceSurface = pMapPixels + ((unsigned int)v18 + y) * pClass17_Icons_LOD->aLODHeaders[uTextureID_LocationMap].uTextureWidth + (unsigned int)v19;
+                    for (x = 0; x < uMinimapWidth; ++x)
                     {
+                     *pTargetSurface++ = *pSourceSurface++;
+                     /*
                       v32 = v102;
                       v102 = (char *)v102 + 2;
                       *(_WORD *)v32 = *(_WORD *)(v66 + 2 * *(_BYTE *)(v31 + v30));
                       v82 += v77;
-                      v30 = v82 >> 16;
+                      v30 = v82 >> 16;*/
                     }
-                    while ( v106-- != 1 );
-                  }
+                    /*
                   v82 = v74;
                   v30 = v74 >> 16;
-                  pTargetSurface += (137 - v87);
+                  pTargetSurface += (137 - uMinimapWidth);
                   v76 += v77;
-                  v24 = v76 >> 16;
+                  v24 = v76 >> 16;*/
                 }
-                while ( v90-- != 1 );
-              }
-            }
           }
-
+          /*
           for (y = 0; y < 117; ++y)
           {
            pTargetSurface = pD3DRenderer->pTargetSurface + (uY+y) * pD3DRenderer->uTargetSurfacePitch + uX;
            for (x = 0; x < 137; ++x)
              *pTargetSurface++ = *v25++;
-          }
+          }*/
 
           dword_576D14 = 0;
           goto LABEL_50;
+         }
+        v19 = v19 - (double)(uMinimapWidth / 8);
+        v23 = (double)(uMinimapHeight / 8);
         }
-        v19 = v19 - (double)(v95 / 8);
-        v23 = (double)(v7 / 8);
-      }
     }
     v101 = v18 - v23;
     goto LABEL_37;
   }
 
-  sub_4A6D87(pD3DRenderer, v7, uX, uY, uZ - uX, v7, 15);
+
+  sub_4A6D87(pD3DRenderer, uMinimapHeight, uX, uY, uMinimapWidth, uMinimapHeight, 15);
   dword_576D14 = 0;
   v93 = 0;
   if ( *(_DWORD *)dword_6BE670 > 0 )
@@ -6321,7 +6296,7 @@ LABEL_26:
                                                                            + 6)
                                                                 + 2)) >> 16) << 16)
                   - a5 * pParty_global->dword_0006B8) >> 16),
-      v75);
+      0xFF0000FF);
   }
 
 LABEL_50:
@@ -6394,32 +6369,16 @@ LABEL_66:
 
         if (pObjectDescriptionList->pDescriptions[array_665230[i].uObjectDescriptionID].byte_000026 & 0x10)
         {
-                v62 = 0xFFFF0000;
-      v59 = uMinimapCentreY - (unsigned __int64)((*(_DWORD *)(v88 + 6) - pParty_global->dword_0006B8) * a5) >> 16;
-      v57 = v42;
-      v55 = uMinimapCentreY - (unsigned __int64)((*(_DWORD *)(v88 + 6) - pParty_global->dword_0006B8) * a5) >> 16;
+         CD3DRenderer_FillRect(pD3DRenderer, v42 - 1, v41 - 1, v42 + 1, v41 + 1, 0xFF0000FF);
         }
         else if (a5 > 512)
         {
-          CD3DRenderer_FillRect(pD3DRenderer, v42 - 1, v41 - 1, v42 - 1, v41 + 1, 0xFF0000FF);
-          CD3DRenderer_FillRect(pD3DRenderer, v42, v41 - 2, v42, v41 + 1, 0xFF0000FF);
-          CD3DRenderer_FillRect(pD3DRenderer, v42 + 1, v41 - 1, v42 + 1, v41 + 1, 0xFF0000FF);
-          CD3DRenderer_FillRect(pD3DRenderer, v42 - 2, v41, v42 - 2, v41 + 1, 0xFF0000FF);
-          v42 += 2;
-          v62 = 0xFF0000FF;
-          v59 = v41 + 1;
-        v57 = v42;
-        v55 = uMinimapCentreY - (unsigned __int64)((*(_DWORD *)(v88 + 6) - pParty_global->dword_0006B8) * a5) >> 16;
+         CD3DRenderer_FillRect(pD3DRenderer, v42 - 1, v41 - 1, v42 + 1, v41 + 1, 0xFF0000FF);
         }
         else
         {
          CD3DRenderer_FillRect(pD3DRenderer, v42 - 1, v41 - 1, v42 + 1, v41 + 1, 0xFF0000FF);
-         v62 = 0xFF0000FF;
-         v59 = v41;
-         v57 = v42;
-         v55 = v41 - 1;
         }
-         CD3DRenderer_FillRect(pD3DRenderer, v42 - 1, v55, v57 + 1, v59 + 1, v62);
     }
 
 
@@ -6427,56 +6386,36 @@ LABEL_66:
     {
       v108 = &pActors[i].word_0000B0;
 
-        v43 = *(_WORD *)v108;
-        if ( *(_WORD *)v108 != 11 )
+        v43 = pActors[i].word_0000B0;
+        if (pActors[i].word_0000B0 != 11 )
         {
-          if ( v43 != 19 )
+          if ( pActors[i].word_0000B0 != 19 )
           {
-            if ( v43 == 5 || *(_BYTE *)(v108 - 139) & 0x80 )
+            if (pActors[i].word_0000B0 == 5 || *((char *)&pActors[i] + 37) & 0x80 )
             {
-              v45 = ((unsigned __int64)(((signed int)*(_WORD *)(v108 - 34) - pParty_global->dword_0006B4) * a5) >> 16) + uMinimapCentreX;
-              v80 = (unsigned __int64)(((signed int)*(_WORD *)(v108 - 32) - pParty_global->dword_0006B8) * a5) >> 16;
-              v44 = uMinimapCentreY - v80;
-              if ( v45 >= pD3DRenderer->dword_00001C)
-              {
-                if ( v45 <= pD3DRenderer->dword_000024 )
-                {
-                  if ( v44 >= pD3DRenderer->dword_000020 )
+              v45 = uMinimapCentreX + (unsigned __int64)(pActors[i].word_00008E - pParty_global->dword_0006B4) * a5 / 65535;
+              v44 = uMinimapCentreY - (unsigned __int64)(pActors[i].word_000090 - pParty_global->dword_0006B8) * a5 / 65535;
+              if (v45 >= pD3DRenderer->dword_00001C && v45 <= pD3DRenderer->dword_000024 &&
+                  v44 >= pD3DRenderer->dword_000020 && v44 <= pD3DRenderer->dword_000028)
                   {
-                    if ( v44 <= pD3DRenderer->dword_000028 )
-                    {
-                      v104 = 0xFF00FF00;
-                      if ( *(_BYTE *)(v108 - 137) & 1 )
-                        v104 = 0xFFFF0000;
-                      if ( *(_WORD *)v108 == 5 )
-                        v104 = 0xFFFFFF00;
-                      if ( a5 > 1024 )
-                      {
-                        CD3DRenderer_FillRect(pD3DRenderer, v45 - 1, v44 - 2, v45 - 1, v44 + 2, v104);
-                        CD3DRenderer_FillRect(pD3DRenderer, v45, v44 - 2, v45, v44 + 2, v104);
-                        CD3DRenderer_FillRect(pD3DRenderer, v45 + 1, v44 - 2, v45 + 1, v44 + 2, v104);
-                        v46 = v44 + 1;
-                        v47 = v44 - 1;
-                        v48 = v46;
-                        CD3DRenderer_FillRect(pD3DRenderer, v45 - 2, v47, v45 - 2, v46, v104);
-                        v45 += 2;
-                        v63 = v104;
-                        v60 = v48;
-                        v58 = v45;
-                        v56 = v47;
-                      }
-                      else
-                      {
-                        CD3DRenderer_FillRect(pD3DRenderer, v45 - 1, v44 - 1, v45 - 1, uMinimapCentreY - v80, v104);
-                        v63 = v104;
-                        v60 = uMinimapCentreY - v80;
-                        v58 = v45;
-                        v56 = v44 - 1;
-                      }
-                      CD3DRenderer_FillRect(pD3DRenderer, v45, v56, v58, v60, v63);
-                    }
-                  }
-                }
+                   v104 = 0xFF00FF00;
+                   if (*((char *)&pActors[i] + 47) & 1 )
+                     v104 = 0xFFFF0000;
+                   if (pActors[i].word_0000B0 == 5 )
+                     v104 = 0xFFFFFF00;
+                   
+                   if ( a5 > 1024 )
+                   {
+                    CD3DRenderer_FillRect(pD3DRenderer, v45 - 1, v44 - 2, v45 - 1, v44 + 2, v104);
+                    CD3DRenderer_FillRect(pD3DRenderer, v45, v44 - 2, v45, v44 + 2, v104);
+                    CD3DRenderer_FillRect(pD3DRenderer, v45 + 1, v44 - 2, v45 + 1, v44 + 2, v104);
+                    CD3DRenderer_FillRect(pD3DRenderer, v45 - 2, v44 - 1, v45 - 2, v44 + 1, v104);
+                    CD3DRenderer_FillRect(pD3DRenderer, v45 + 2, v44 - 1, v45 + 2, v44 + 1, v104);
+                   }
+                   else
+                   {
+                    CD3DRenderer_FillRect(pD3DRenderer, v45 - 1, v44 - 1, v45 + 1, v44 + 1, v104);
+                   }
               }
             }
           }

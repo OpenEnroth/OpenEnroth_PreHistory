@@ -1399,8 +1399,8 @@ struct Party
  int dword_000034;
  int dword_000038;
 
- int dword_0006B4;
- int dword_0006B8;
+ int dword_0006B4; // looks like party x pos     world coordinates are  x: -32768..  32767
+ int dword_0006B8; // ~ y                                               y:  32767.. -32768
  int dword_0006BC;
  int dword_0006C0;
  int dword_0006C4;
