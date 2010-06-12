@@ -4818,9 +4818,9 @@ int Party_CreateDefault(struct Party *_this)
     v10 = 0;
     do
     {
-     v9->array_000000[v10++] = 0;
+     v9->array_000000[v10++] = 0; // originally it skipped 8 bytes...
     }
-    while ( v10 < 40);
+    while ( v10 < 23); // why 40? originally it was 160... now 23
 
     v10 = 0;
     do

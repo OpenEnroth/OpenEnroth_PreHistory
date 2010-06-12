@@ -2446,6 +2446,7 @@ __int16 __thiscall sub_49048D(int this, int a2)
   int v13; // edi@32
   int v15; // [sp+Ch] [bp-4h]@1
 
+  v3 = this;
   v2 = 4 * (a2 + 7 * GetRaceByFace(this));
   v4 = array_4ED7B0[v2];
   v5 = array_4ED7B0[v2 + 2];

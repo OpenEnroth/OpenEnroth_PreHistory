@@ -1270,7 +1270,16 @@ struct Player
  {
   struct
   {
-   int     array_000000[40];
+   int   array_000000[23];
+   short word_00005C;
+   short word_00005E;
+   short word_000060;
+   short word_000062;
+   short word_000064;
+   short word_000066;
+   short word_000068;
+   short word_00006A;
+   char  reserve[52];
    __int64 qword_0000A0;
 
    unsigned char sName[16]; // byte[16] @ 0000A8

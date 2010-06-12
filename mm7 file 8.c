@@ -13622,16 +13622,49 @@ __int16 __thiscall sub_4907E7(struct Player *_this, int a2)
   v11 = sub_40DEF3(0xFFu, 0x23u, 0);
   v10 = sub_40DEF3(0, 0xFFu, 0);
   v5 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
+
+  if ( a2 )
+  {
+    switch ( a2 )
+    {
+      case 1:
+        v8 = _this->word_000060;
+        break;
+      case 2:
+        v8 = _this->word_000062;
+        break;
+      case 3:
+       v8 = _this->word_000064;
+        break;
+      case 4:
+        v8 = _this->word_000068;
+        break;
+      case 5:
+        v8 = _this->word_000066;
+        break;
+      case 6:
+        v8 = _this->word_00006A;
+        break;
+      default:
+        v8 = a2;
+        break;
+    }
+  }
+  else
+  {
+    v8 = _this->word_00005E;
+  }
+
+
   v7 = array_4ED7B0[4 * (a2 + 7 * GetRaceByFace(_this))];
- return v11;
-  //v4 = __SETO__(v8, v7);
-  //v3 = v8 - v7 < 0;
-  //v2 = v8 == v7;
+  v4 = __SETO__(v8, v7);
+  v3 = v8 - v7 < 0;
+  v2 = v8 == v7;
   if ( v8 >= v7 )
   {
     result = v10;
     runtime_warning;
-    //if ( (unsigned __int8)(v3 ^ v4) | v2 )
+    if ( (unsigned __int8)(v3 ^ v4) | v2 )
       result = v5;
   }
   else
