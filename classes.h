@@ -140,7 +140,11 @@ struct class03
  int dword_000034;
  unsigned char *ptr_000038;
  int dword_00003C;
- int dword_000040[20];
+ int dword_000040;
+ int dword_000044;
+ int dword_000048;
+ int dword_00004C;
+ int dword_000050[16];
  unsigned char *ptr_000090;
  int dword_000094;
  int dword_000098;

@@ -8121,14 +8121,14 @@ int sub_469E3B(struct class03 *_this)
     v9 = _this->dword_00003C;
     v7 = pD3DRenderer->uTargetSurfacePitch;
     v8 = pD3DRenderer->pTargetSurface;
-    result = *(_DWORD *)(_this + 68);
-    if ( result < *(_DWORD *)(_this + 76) )
+    result = _this->dword_000044;
+    if ( result < _this->dword_00004C )
     {
-      v3 = *(_DWORD *)(_this + 72);
+      v3 = _this->dword_000048;
       v2 = pD3DRenderer->uTargetSurfacePitch * result;
       do
       {
-        v4 = *(_DWORD *)(_this + 64);
+        v4 = _this->dword_000040;
         if ( v4 < v3 )
         {
           v5 = v8 + 2 * (v2 + v4);
@@ -8138,7 +8138,7 @@ int sub_469E3B(struct class03 *_this)
             v9 += 2;
             ++v4;
             *(_WORD *)v5 = *(_WORD *)v6;
-            v3 = *(_DWORD *)(_this + 72);
+            v3 = _this->dword_000048;
             v5 += 2;
           }
           while ( v4 < v3 );
@@ -8146,7 +8146,7 @@ int sub_469E3B(struct class03 *_this)
         v2 += v7;
         ++result;
       }
-      while ( result < *(_DWORD *)(_this + 76) );
+      while ( result < _this->dword_00004C );
     }
   }
   return result;

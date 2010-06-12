@@ -4333,40 +4333,36 @@ signed int __cdecl PlayerCreation_ComputeAttributeBonus()
 
   v8 = 50;
   v0 = 50;
-  v1 = 0;
-  do
+  for(v1 = 0;v1 < 4; v1 ++)
   {
     v9 = 0;
-    v2 = 7 * GetRaceByFace((int)((char *)&pParty_global->pPlayers[0] + v1));
+    v2 = 7 * GetRaceByFace(pParty_global->pPlayers[v1]);
     do
     {
-      if ( v9 )
+      switch ( v9 )
       {
-        switch ( v9 )
-        {
           case 1:
-            v0 = *(__int16 *)((char *)&pParty_global->pPlayers[0].uIntelligence + v1);
+            v0 = pParty_global->pPlayers[v1].uIntelligence;
             break;
           case 2:
-            v0 = *(__int16 *)((char *)&pParty_global->pPlayers[0].uWillpower + v1);
+            v0 = pParty_global->pPlayers[v1].uWillpower;
             break;
           case 3:
-            v0 = *(__int16 *)((char *)&pParty_global->pPlayers[0].uEndurance + v1);
+            v0 = pParty_global->pPlayers[v1].uEndurance;
             break;
           case 4:
-            v0 = *(__int16 *)((char *)&pParty_global->pPlayers[0].uSpeed + v1);
+            v0 = pParty_global->pPlayers[v1].uSpeed;
             break;
           case 5:
-            v0 = *(__int16 *)((char *)&pParty_global->pPlayers[0].uAccuracy + v1);
+            v0 = pParty_global->pPlayers[v1].uAccuracy;
             break;
           case 6:
-            v0 = *(__int16 *)((char *)&pParty_global->pPlayers[0].uLuck + v1);
+            v0 = pParty_global->pPlayers[v1].uLuck;
             break;
-        }
-      }
-      else
-      {
-        v0 = *(__int16 *)((char *)&pParty_global->pPlayers[0].uStrength + v1);
+          case 0:
+          default:
+            v0 = pParty_global->pPlayers[v1].uStrength;
+            break;
       }
       v4 = 4 * (v2 + v9);
       v3 = array_4ED7B0[v4];
@@ -4384,9 +4380,7 @@ signed int __cdecl PlayerCreation_ComputeAttributeBonus()
       ++v9;
     }
     while ( v9 <= 6 );
-    v1 += 6972;
   }
-  while ( v1 < 27888 );
   return v8;
 }
 
