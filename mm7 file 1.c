@@ -6166,6 +6166,9 @@ LABEL_37:
              v19 = (double)(32768 + pParty_global->dword_0006B4) / 65536 * pClass17_Icons_LOD->aLODHeaders[uTextureID_LocationMap].uTextureWidth;
              v18 = (double)(32768 - pParty_global->dword_0006B8) / 65536 * pClass17_Icons_LOD->aLODHeaders[uTextureID_LocationMap].uTextureHeight;
 
+             v19 -= uMinimapWidth / 2;
+             v18 -= uMinimapHeight / 2;
+
                 for (y = 0; y < uMinimapHeight; ++y)
                 {
                  pTargetSurface = pD3DRenderer->pTargetSurface + (uY+y) * pD3DRenderer->uTargetSurfacePitch + uX;

@@ -4336,7 +4336,7 @@ signed int __cdecl PlayerCreation_ComputeAttributeBonus()
   for(v1 = 0;v1 < 4; v1 ++)
   {
     v9 = 0;
-    v2 = 7 * GetRaceByFace(pParty_global->pPlayers[v1]);
+    v2 = 7 * GetRaceByFace(&pParty_global->pPlayers[v1]);
     do
     {
       switch ( v9 )
