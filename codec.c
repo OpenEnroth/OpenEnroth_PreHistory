@@ -680,8 +680,6 @@ int class21_fn1(struct class21 *_this, struct class19 *pParent, int *a3)
 }
 
 //----- (MM7.exe::004C4AD0) --------------------------------------------------------
-extern unsigned char byte_4D8410[];
-extern int *dword_4F2688;
 int class21_fn2(struct class21 *_this, struct class19 *pParent, int a3)
 {
   unsigned int v3; // eax@1

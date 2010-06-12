@@ -14,7 +14,6 @@
 #include "codec.h"
 
 
-
 bool __cdecl TryLoadLevelFromFile(); // internal
 bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a4, int a5); // internal
 
@@ -153,6 +152,7 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
   int v170; // [sp+B78h] [bp-8h]@59
   void *Src; // [sp+B7Ch] [bp-4h]@59
   int wtf;
+ unsigned char *pTexturesNames;
 
 
  wchar_t  pLevelMapFilename[256];
@@ -209,7 +209,7 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
     fseek(v7, v127, 0);
     locked_fread(_this->uNumBModels, 4u, 1u, v7);
     fseek(v7, v128, 0);
-    locked_fread(&Count, 4u, 1u, v7);
+    locked_fread(&uNumElementsIn665230, 4u, 1u, v7);
     fseek(v7, v129, 0);
     locked_fread(&dword_69ADD0, 4u, 1u, v7);
     fseek(v7, v130, 0);
@@ -366,11 +366,11 @@ LABEL_20:
 LABEL_26:
     v24 = (FILE *)File;
     fseek((FILE *)File, v137, 0);
-    locked_fread(array_665230, 0x70u, Count, v24);
-    if ( (signed int)Count > 0 )
+    locked_fread(array_665230, 0x70u, uNumElementsIn665230, v24);
+    if ( (signed int)uNumElementsIn665230 > 0 )
     {
       v25 = array_665230;
-      a4 = Count;
+      a4 = uNumElementsIn665230;
       do
       {
         v27 = *((_DWORD *)v25 + 9);
@@ -594,52 +594,42 @@ LABEL_33:
       _this->pBModels[i].ptr_000058 = 0;
       _this->pBModels[i].ptr_000060 = 0;
 
-      lstrcpyA(FileName, (const char *)(_this->pBModels[i].pSomeName));
+      lstrcpyA(FileName, (const char *)(_this->pBModels[i].pModelName));
       v151 = 0;
       v120 = FileName;
 
       v119 = 12 * _this->pBModels[i].dword_000044;
       _this->pBModels[i].ptr_000048 = class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
+      memcpy(_this->pBModels[i].ptr_000048, Src, v119);
+      Src = (char *)Src + v119;
 
       v119 = _this->pBModels[i].dword_00004C * sizeof(struct class51_stru2);
       _this->pBModels[i].ptr_000054 = class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
+      memcpy(_this->pBModels[i].ptr_000054, Src, v119);
+      Src = (char *)Src + v119;
 
       v119 = 2 * _this->pBModels[i].dword_00004C;
       _this->pBModels[i].ptr_000058 = class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
+      memcpy(_this->pBModels[i].ptr_000058, Src, v119);
+      Src = (char *)Src + v119;
 
       v119 = 8 * _this->pBModels[i].dword_00005C;
       _this->pBModels[i].ptr_000060 = class23_AllocatedNamedBuffer(class23_instance, 0, v119, FileName);
+      memcpy(_this->pBModels[i].ptr_000060, Src, v119);
+      Src = (char *)Src + v119;
 
-      v120 = 12 * _this->pBModels[i].dword_000044;
-      v119 = (signed int)Src;
-      memcpy(_this->pBModels[i].ptr_000048, Src, v120);
-
-      Src = (char *)Src + v120;
-      v117 = 308 * _this->pBModels[i].dword_00004C;
-      v116 = (int)Src;
-      memcpy(_this->pBModels[i].ptr_000054, Src, v117);
-
-      Src = (char *)Src + v117;
-      v117 = 2 * _this->pBModels[i].dword_00004C;
-      memcpy(_this->pBModels[i].ptr_000058, Src, v117);
-
-      Src = (char *)Src + v117;
-      v117 = 8 * _this->pBModels[i].dword_00005C;
-      memcpy(_this->pBModels[i].ptr_000060, Src, v117);
-
-      Src = (char *)Src + v117;
-      v167 = malloc(10 * _this->pBModels[i].dword_00004C);
-      v117 = 10 * _this->pBModels[i].dword_00004C;
-      memcpy(v167, Src, v117);
+      pTexturesNames = malloc(10 * _this->pBModels[i].dword_00004C);
+      v119 = 10 * _this->pBModels[i].dword_00004C;
+      memcpy(pTexturesNames, Src, v119);
+      Src = (char *)Src + v119;
 
       v157 = 0;
-      Src = (char *)Src + v117;
       v52 = _this->pBModels;
       if (_this->pBModels[i].dword_00004C > 0 )
         break;
 
 LABEL_74:
-      call_delete(v52, (unsigned int)v167);
+      call_delete(0, pTexturesNames);
       ++v170;
       v51 += 188;
       ++i;
@@ -649,7 +639,7 @@ LABEL_74:
 
 
     v168 = 0;
-    Str2 = (char *)v167;
+    Str2 = pTexturesNames;
     j = 0;
     while ( 1 )
     {
@@ -658,7 +648,7 @@ LABEL_74:
         break;
 
       v64 = sub_44E163(pTextureFrameTable, Str2);
-      v66->word_000110 = v64;
+      v66->uTextureID = v64;
       if ( !v64 )
       {
         v65 = class17_LoadTexture(pClass17_Bitmaps_LOD, Str2, 0);
@@ -670,7 +660,7 @@ LABEL_74:
         *(_WORD *)(v65 != -1 ? 72 * v65 + 7278780 + 0x26 : 38) = class35_sub_48A3BC(&class35_obj, v120);
         goto LABEL_69;
       }
-      v120 = _this->pBModels[v51 / 188].ptr_000054[v168 / 308].word_000110;
+      v120 = _this->pBModels[v51 / 188].ptr_000054[v168 / 308].uTextureID;
       sub_44E0ED(pTextureFrameTable, v120);
 LABEL_69:
       if ( *(_WORD *)(wtf + 292) )
@@ -690,12 +680,11 @@ LABEL_69:
     }
 
     wsprintfW(pFilename, L"%S", Str2);
-    v66->word_000110 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, pFilename);
+    v66->uTextureID = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, pFilename);
 
-    if (v66->word_000110 != -1)
+    if (v66->uTextureID != -1)
     {
-     v158 = &pClass17_Bitmaps_LOD->aLODHeaders[v66->word_000110];
-     v120 = v158->word_000024;
+     v158 = &pClass17_Bitmaps_LOD->aLODHeaders[v66->uTextureID];
      v158->word_000026 = class35_sub_48A3BC(&class35_obj, v158->word_000024);
     }
     goto LABEL_69;
@@ -959,9 +948,9 @@ LABEL_120:
 
 
 
-  memcpy(&Count, v78, 4);
+  memcpy(&uNumElementsIn665230, v78, 4);
   v78 = (char *)v78 + 4;
-  if ( (signed int)Count < 0 || Count > 1000 )
+  if ( (signed int)uNumElementsIn665230 < 0 || uNumElementsIn665230 > 1000 )
   {
     a5 = (int)&v115;
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&a5 + 3));
@@ -971,8 +960,8 @@ LABEL_120:
 
 
 
-  memcpy(array_665230, v78, Count * sizeof(struct struct2));
-  v78 = (char *)v78 + Count * sizeof(struct struct2);
+  memcpy(array_665230, v78, uNumElementsIn665230 * sizeof(struct struct2));
+  v78 = (char *)v78 + uNumElementsIn665230 * sizeof(struct struct2);
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
 
@@ -1106,7 +1095,7 @@ LABEL_150:
       v120 = 0;
       v119 = 93;
     }
-    runtime_warning; //sound loading error
+    runtime_warning(); //sound loading error
     //sub_4A9A67(pSoundList, v119, v120);
 LABEL_175:
     v113 += 4;
@@ -1414,7 +1403,7 @@ int sub_47F223_LooksLikeGenerateMonsterLoot(struct class51 *_this)
 
   v5 = _this;
   v1 = 0;
-  if ( (signed int)Count > 0 )
+  if ( (signed int)uNumElementsIn665230 > 0 )
   {
    v2 = &array_665230[0].uObjectDescriptionID;
     do
@@ -1443,7 +1432,7 @@ int sub_47F223_LooksLikeGenerateMonsterLoot(struct class51 *_this)
       ++v1;
       v2 += 112;
     }
-    while ( v1 < (signed int)Count );
+    while ( v1 < (signed int)uNumElementsIn665230 );
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
   return 1;

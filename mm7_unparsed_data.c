@@ -62,8 +62,14 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  _UNKNOWN unk_4E2A50; // weak
  _UNKNOWN unk_4E2A80; // weak
  _BYTE byte_4E2AA4[20]; // idb
- int dword_4E2AB8[array_size_unknown]; // weak
- int dword_4E2AC8[array_size_unknown]; // weak
+ int dword_4E2AB8[4] =
+ {
+  16, 137, 251, 366
+ };
+ int dword_4E2AC8[4] =
+ {
+  102, 217, 331, 447
+ };
  _UNKNOWN unk_4E2AD9; // weak
  _UNKNOWN unk_4E2B21; // weak
  char byte_4E2B70[array_size_unknown]; // weak
@@ -248,9 +254,12 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  char *off_4ECEA0; // idb
  char byte_4ECEEF[array_size_unknown]; // weak
  char byte_4ED498; // weak
- __int16 word_4ED746[array_size_unknown]; // this and next 4 or 5 words are X offsets of player portraits/selection frames i the bottom GameUI hud
- _WORD off_4ED748[4]; // idb
- unsigned char byte_4ED750[0xC] =
+ //__int16 word_4ED746[array_size_unknown]; // off_4ED748[-1] indexing
+short off_4ED748[4] =
+{
+ 34, 149, 264, 379
+};
+unsigned char byte_4ED750[0xC] =
 {
  0x28, 0x23, 0x23, 0x1E, 0x1E, 0x1E, 0x19, 0x14, 0x14, 0x0, 0x0, 0x0
 };
@@ -1322,11 +1331,14 @@ struct class37 class37_global0; // struct @ MM7.exe::0051B778
  int dword_51CEC8; // weak
  _UNKNOWN unk_51CECC; // weak
  _UNKNOWN unk_51CF2C; // weak
+
+
  int dword_56EEA8; // weak
  __int16 word_56EEAC[array_size_unknown]; // weak
- _UNKNOWN unk_56EFD8; // weak
+ unsigned short array_56EFD8[32*array_size_unknown]; // weak
  int dword_576D14; // weak
  __int16 word_576D80[array_size_unknown]; // weak
+
 
 unsigned int uTextureIdx_SpellEffecIcons[14]; // dword[14] @ MM7.exe::00576DE8
 unsigned int uIconIdx_Spell21;                // dword     @ MM7.exe::00576E20
@@ -1684,10 +1696,8 @@ struct Actor pActors[500]; // struct[500] @ MM7.exe::005FF158
  _UNKNOWN unk_5FF420; // weak
  _UNKNOWN unk_64640F; // weak
 
-unsigned int uNumActors; // dword @ MM7.exe::00665228
-
- size_t Count; // idb
-
+unsigned int uNumActors;           // dword        @ MM7.exe::00665228
+unsigned int uNumElementsIn665230; // dword        @ MM7.exe::0066522C
 struct struct2 array_665230[1000]; // struct[1000] @ MM7.exe::00665230
 //_UNKNOWN unk_665230; // weak
 //__int16 word_665232[56000 + array_size_unknown]; // weak
@@ -2343,8 +2353,7 @@ struct GUIButton *array_A74CBC[4]; // ptr[4] @ MM7.exe::00A74CBC
 unsigned int uTextureIdx_PlayerFaceEradicated; // dword @ MM7.exe::00A74CE4
 unsigned int uTextureIdx_PlayerFaceDead;       // dword @ MM7.exe::00A74CE8
 
- int dword_A74CEC[array_size_unknown]; // weak
-
+int dword_A74CEC[array_size_unknown]; // related to indexing of below
 unsigned int uTextureIdx_PlayerFaces[4][56]; // dword[224] @ MM7.exe::00A74CF0
 //_UNKNOWN unk_A74CF0; // weak
 
@@ -2527,13 +2536,13 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  int dword_ACD9DC; // weak
  int dword_ACD9E0; // weak
  _UNKNOWN unk_ACD9E4; // weak
- int dword_ACD9EC; // weak
- int dword_ACD9F0; // weak
- int dword_ACD9F4; // weak
- int dword_ACD9F8; // weak
+ //int dword_ACD9EC; // ::000068
+ //int dword_ACD9F0; // ::00006C
+ //int dword_ACD9F4; // ::000070
+ //int dword_ACD9F8; // ::000074
  _UNKNOWN unk_ACD9FC; // weak
- int dword_ACDA04; // weak
- int dword_ACDA08; // weak
+ //int dword_ACDA04; // ::000080
+ //int dword_ACDA08; // ::000084
  _UNKNOWN unk_ACDA24; // weak
 //_UNKNOWN unk_ACDA2C; // pParty_global::pPlayers[0]::sName
 //char byte_ACDA3D[array_size_unknown]; // pParty_global::pPlayers[0]::uClass

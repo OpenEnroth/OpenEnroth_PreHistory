@@ -4935,7 +4935,7 @@ int __cdecl sub_46CC4B()
       if ( *((_BYTE *)v3 + 2) & 4 )
       {
         v40 = 0;
-        if ( (signed int)Count > 0 )
+        if ( (signed int)uNumElementsIn665230 > 0 )
         {
           v17 = &array_665230[0].dword_000008;
           do
@@ -4969,7 +4969,7 @@ int __cdecl sub_46CC4B()
             ++v40;
             v17 += 28;
           }
-          while ( v40 < (signed int)Count );
+          while ( v40 < (signed int)uNumElementsIn665230 );
         }
       }
       result = v36 + 1;
@@ -6471,7 +6471,7 @@ void __thiscall sub_46ED8A(void *this)
 
   v15 = 0;
   v12 = (int)this;
-  if ( (signed int)Count > 0 )
+  if ( (signed int)uNumElementsIn665230 > 0 )
   {
    v1 = &array_665230[0].uObjectDescriptionID;
    v14 = &array_665230[0].uObjectDescriptionID;
@@ -6530,7 +6530,7 @@ void __thiscall sub_46ED8A(void *this)
       v1 = v14 + 112;
       v14 += 112;
     }
-    while ( v15 < (signed int)Count );
+    while ( v15 < (signed int)uNumElementsIn665230 );
   }
 }
 

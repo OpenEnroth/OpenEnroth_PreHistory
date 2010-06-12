@@ -89,7 +89,7 @@ struct IconFrame *CIconFrameTable_GetFrame(struct CIconFrameTable *_this, unsign
   v5 = _this->pIcons[uIconIdx].word_00001A;
   if ( _this->pIcons[uIconIdx].word_00001C & 0x0001 && v5 != 0 )
   {
-    v7 = (uFrame >> 3) % (unsigned __int16)v5;
+    v7 = (uFrame / 8) % (unsigned __int16)v5;
     v6 = uIconIdx;
     for ( i = uIconIdx; ; ++i)
     {
@@ -547,6 +547,27 @@ void *CPlayerFrameTable_Initialize(struct CPlayerFrameTable *_this, unsigned cha
  _this->pFrames = class23_AllocatedNamedBuffer(class23_instance, _this->pFrames, _this->uNumFrames * sizeof(struct PlayerFrame), "P Frames");
  memcpy(_this->pFrames, pSrc + 4, _this->uNumFrames * sizeof(struct PlayerFrame));
  return 0;
+}
+
+//----- (00494B10) --------------------------------------------------------
+struct PlayerFrame *CPlayerFrameTable_GetFrame(struct CPlayerFrameTable *_this, unsigned int uFramesetID, unsigned int uFrameID)
+{
+  int v8; // edx@3
+ int i;
+
+ if (_this->pFrames[uFramesetID].word_000008 & 0x0001 &&
+     _this->pFrames[uFramesetID].word_000006)
+ {
+  v8 = (uFrameID / 8) % _this->pFrames[uFramesetID].word_000006;
+  for (i = 0; ; ++i)
+  {
+   if ( v8 <= _this->pFrames[i].word_000004)
+     break;
+   v8 -= _this->pFrames[i].word_000004;
+  }
+  return &_this->pFrames[i];
+ }
+ else return &_this->pFrames[uFramesetID];
 }
 
 

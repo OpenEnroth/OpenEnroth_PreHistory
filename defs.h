@@ -21,7 +21,7 @@
 
 #define compile_warning
 #define compile_error __asm int 3;
-#define runtime_warning
+#define runtime_warning()
 #define runtime_error __asm int 3;
 #define function_error
 
@@ -165,7 +165,7 @@ typedef int bool;       // we want to use bool in our C programs
 #define __MKCSHR__(x, y) invalid_operation // Generate carry flag for a shift right
 #define __MKCRCL__(x, y) invalid_operation // Generate carry flag for a RCL
 #define __MKCRCR__(x, y) invalid_operation // Generate carry flag for a RCR
-#define __SETO__(x, y)   0                 // Generate overflow flags for (x-y)
+#define __SETO__(x, y)   invalid_operation // Generate overflow flags for (x-y)
 
 
 // In the decompilation listing there are some objects declarared as _UNKNOWN

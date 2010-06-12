@@ -1,11 +1,11 @@
-#include "mm7DDrawRenderer.h"
-
 #include "defs.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
 #include "data.h"
+
+#include "mm7DDrawRenderer.h"
 
 
 
@@ -106,11 +106,12 @@ void CD3DRenderer_ctor(struct CD3DRenderer *_this)
  _this->pTargetSurface = 0;
  _this->uTargetSurfacePitch = 0;
 
- _this->dword_0400F4 = 0;
- _this->dword_0400F8 = 0;
- _this->dword_0400FC = 480;
- _this->dword_040100 = 640;
+ _this->uClipRectY = 0;
+ _this->uClipRectX = 0;
+ _this->uClipRectW = 480;
+ _this->uClipRectZ = 640;
  _this->dword_040104 = 1;
+
  _this->dword_040108 = 0;
  _this->dword_04010C = 0;
  _this->dword_040110 = 0;
@@ -203,6 +204,207 @@ LABEL_11:
  return v1;
 }
 
+//----- (004A0BEE) --------------------------------------------------------
+char CD3DRenderer_FillRect(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW, unsigned int uColor)
+{
+  int v13; // edi@21
+  int v14; // eax@21
+  int v15; // eax@22
+  int v16; // eax@25
+  int v17; // eax@27
+  int v18; // eax@28
+  int v19; // edi@30
+  signed __int64 v20; // qax@41
+  int v21; // edi@41
+  signed int v25; // edx@50
+  int v27; // esi@52
+  int v28; // ebx@54
+  int v29; // edx@55
+  int v30; // edi@55
+  int v31; // ebx@60
+  int v32; // edx@61
+  int v36; // [sp+10h] [bp-Ch]@1
+  __int64 v37; // [sp+14h] [bp-8h]@1
+  signed int v38; // [sp+18h] [bp-4h]@28
+  int v40; // [sp+28h] [bp+Ch]@28
+  int v42; // [sp+2Ch] [bp+10h]@19
+  int v43; // [sp+2Ch] [bp+10h]@38
+ unsigned int *pTargetSurface;
+ unsigned int  uRectWidth,
+               uRectHeight;
+  
+  v36 = _this;
+  v37 = 0i64;
+
+  if (uX < _this->dword_00001C)
+    HIDWORD(v37) = 8;
+  if (uX > _this->dword_000024)
+    HIDWORD(v37) |= 4u;
+
+  if (uY < _this->dword_000020)
+    HIDWORD(v37) |= 2;
+  if (uY > _this->dword_000028)
+    HIDWORD(v37) |= 1u;
+
+  if (uZ < _this->dword_00001C)
+    LODWORD(v37) = 8;
+  if (uZ > _this->dword_000024)
+    LODWORD(v37) = v37 | 4;
+
+  if (uW < _this->dword_000020)
+    LODWORD(v37) = v37 | 2;
+  if (uW > _this->dword_000028)
+    LODWORD(v37) = v37 | 1;
+
+  if ( (_DWORD)v37 & HIDWORD(v37) )
+    return (_BYTE)v37;
+
+
+  if ( !v37 )
+  {
+LABEL_46:
+      uRectWidth = uZ - uX;
+      uRectHeight = uW - uY;
+
+      v25 = 1;
+
+      v27 = 0;
+
+      pTargetSurface = _this->pTargetSurface + uX + uY * pD3DRenderer->uTargetSurfacePitch;
+        if ( uRectWidth <= uRectHeight )
+        {
+          v31 = uRectHeight + 1;
+          if ( v31 > 0 )
+          {
+            v32 = v25;
+            do
+            {
+              v27 += uRectWidth;
+              *pTargetSurface = uColor;
+              pTargetSurface += pD3DRenderer->uTargetSurfacePitch;
+              if ( v27 > 0 )
+              {
+                v27 -= uRectHeight;
+                pTargetSurface += v32;
+              }
+              --v31;
+            }
+            while ( v31 );
+          }
+        }
+        else
+        {
+          v28 = uRectWidth + 1;
+          if ( uRectWidth + 1 > 0 )
+          {
+            v30 = pD3DRenderer->uTargetSurfacePitch;
+            v29 = v25;
+            do
+            {
+              v27 += uRectHeight;
+              *pTargetSurface = uColor;
+              pTargetSurface += v29;
+              if ( v27 > uRectWidth )
+              {
+                v27 -= uRectWidth;
+                pTargetSurface += v30;
+              }
+              --v28;
+            }
+            while ( v28 );
+          }
+        }
+    return pTargetSurface;
+  }
+  v42 = HIDWORD(v37) ^ v37;
+  if ( (BYTE4(v37) ^ (_BYTE)v37) & 8 )
+  {
+    if ( BYTE4(v37) & 8 )
+    {
+      v14 = (uW - uY) * (_this->dword_00001C - uX) / (uZ - uX);
+      v13 = v36;
+      uY = v14 + uY;
+      uX = *(_DWORD *)(v36 + 28);
+      goto LABEL_24;
+    }
+    v15 = (uY - uW) * (_this->dword_00001C - uZ) / (uX - uZ);
+    uZ = _this->dword_00001C;
+    uW = v15 + uW;
+  }
+  v13 = v36;
+LABEL_24:
+  if ( v42 & 4 )
+  {
+    v16 = *(_DWORD *)(v13 + 36);
+    if ( BYTE4(v37) & 4 )
+    {
+      v13 = v36;
+      uY += (uW - uY) * (v16 - uX) / (uZ - uX);
+      uX = *(_DWORD *)(v36 + 36);
+    }
+    else
+    {
+      v17 = (uY - uW) * (v16 - uZ) / (uX - uZ);
+      uZ = *(_DWORD *)(v13 + 36);
+      uW += v17;
+    }
+  }
+  v18 = *(_DWORD *)(v13 + 32);
+  v38 = 0;
+  v40 = *(_DWORD *)(v13 + 32);
+  if ( uY < v18 )
+    v38 = 2;
+  v19 = *(_DWORD *)(v13 + 40);
+  if ( uY > v19 )
+    v38 |= 1u;
+  if ( uW >= v18 )
+    pTargetSurface = 0;
+  else
+    pTargetSurface = 2;
+  compile_error;
+  /*if ( uW > v19 )
+    LOBYTE(pTargetSurface) = pTargetSurface | 1;
+  if ( !(pTargetSurface & v38) )
+  {
+    pTargetSurface ^= v38;
+    v43 = pTargetSurface;
+    if ( pTargetSurface & 2 )
+    {
+      if ( v38 & 2 )
+      {
+        uX += (uZ - uX) * (v40 - uY) / (uW - uY);
+        LOBYTE(pTargetSurface) = v36;
+        uY = *(_DWORD *)(v36 + 32);
+      }
+      else
+      {
+        v20 = (uX - uZ) * (v40 - uW);
+        v21 = uY - uW;
+        uW = v40;
+        pTargetSurface = v20 / v21;
+        uZ += pTargetSurface;
+      }
+    }
+    if ( v43 & 1 )
+    {
+      if ( v38 & 1 )
+      {
+        uX += (uZ - uX) * (*(_DWORD *)(v36 + 40) - uY) / (uW - uY);
+        LOBYTE(pTargetSurface) = v36;
+        uY = *(_DWORD *)(v36 + 40);
+      }
+      else
+      {
+        pTargetSurface = (uX - uZ) * (*(_DWORD *)(v36 + 40) - uW) / (uY - uW);
+        uW = *(_DWORD *)(v36 + 40);
+        uZ += pTargetSurface;
+      }
+    }
+    goto LABEL_46;
+  }*/
+  return pTargetSurface;
+}
+
 //----- (MM7.exe::004A1605) --------------------------------------------------------
 int CD3DRenderer_LockBackBuffer(struct CD3DRenderer *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth)
 {
@@ -236,14 +438,13 @@ int CD3DRenderer_LockBackBuffer(struct CD3DRenderer *_this, void **ppOutSurfaceP
 }
 
 //----- (004A5B81) --------------------------------------------------------
-int sub_4A5B81(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5)
+void CD3DRenderer_Set2DClippingRect(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW)
 {
- _this->dword_0400F4 = a3;
- _this->dword_0400F8 = a2;
- _this->dword_0400FC = a5;
- _this->dword_040100 = a4;
+ _this->uClipRectX = uX;
+ _this->uClipRectY = uY;
+ _this->uClipRectZ = uZ;
+ _this->uClipRectW = uW;
  _this->dword_040104 = 1;
- return a4;
 }
 
 //----- (004A5EB2) --------------------------------------------------------
@@ -281,235 +482,59 @@ void CD3DRenderer_DrawIndexedTexture(struct CD3DRenderer *_this, unsigned int uX
 
 
  pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
- for (y = 0; y < min(pTexture->uTextureHeight, (_this->dword_0400FC - _this->dword_0400F4)); ++y)
-   for (x = 0; x < pTexture->uTextureWidth; ++x)
-   {
-    uSrcColor = pTexture->pTruecolorPixels[y * pTexture->uTextureWidth + x];
-    uDstColor = pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX];
-    uAlpha = ((uSrcColor & 0xFF000000) >> 8) | ((uSrcColor & 0xFF000000) >> 16) | ((uSrcColor & 0xFF000000) >> 24);
-    pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX] = (uSrcColor & uAlpha) + (uDstColor & (0x00FFFFFF - uAlpha));
- }
 
-
-
- if (!pTexture->pPalette)
-   return;
-
- pSurfacePtr = _this->pTargetSurface + (uX + uY * _this->uTargetSurfacePitch);
-
- v6 = pTexture->uTextureHeight;
- v21 = pTexture->uTextureWidth;
- v19 = pTexture->uTextureWidth;
- v20 = pTexture->pIndexedPixels;
-
- if (_this->dword_040104)
+ for (y = 0; y < pTexture->uTextureHeight; ++y)
  {
-  if (uX < _this->dword_0400F8)
+  if (y + uY < _this->uClipRectY)
+    continue;
+  if (y + uY >= _this->uClipRectW)
+    continue;
+
+  for (x = 0; x < pTexture->uTextureWidth; ++x)
   {
-   v8 = _this->dword_0400F8 - uX;
-   v20 += v8;
-   v21 += uX - _this->dword_0400F8;
-   pSurfacePtr += v8;
-  }
+   if (x + uX < _this->uClipRectX)
+     continue;
+   if (x + uX >= _this->uClipRectZ)
+     continue;
 
-  if (uY < _this->dword_0400F4)
-  {
-   v10 = _this->dword_0400F4 - uY;
-   v20 += v19 * v10;
-   v6 = uY - _this->dword_0400F4 + pTexture->uTextureHeight;
-   pSurfacePtr += _this->uTargetSurfacePitch * v10;
-  }
-
-  v11 = _this->dword_0400F8;
-  if (v11 < uX)
-    v11 = uX;
-
-  v24 = _this->dword_040100;
-  if (v11 + v21 > v24)
-  {
-   v12 = _this->dword_0400F8;
-   if (v12 < uX)
-     v12 = uX;
-   v21 = v24 - v12;
-  }
-
-  v13 = _this->dword_0400F4;
-  if (v13 < uY)
-    v13 = uY;
-
-  v14 = _this->dword_0400FC;
-  if (v6 + v13 > v14)
-  {
-   v15 = _this->dword_0400F4;
-   if ( v15 < uY )
-     v15 = uY;
-   v6 = v14 - v15;
+   uSrcColor = pTexture->pTruecolorPixels[y * pTexture->uTextureWidth + x];
+   uDstColor = pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX];
+   uAlpha = ((uSrcColor & 0xFF000000) >> 8) | ((uSrcColor & 0xFF000000) >> 16) | ((uSrcColor & 0xFF000000) >> 24);
+   pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX] = (uSrcColor & uAlpha) + (uDstColor & (0x00FFFFFF - uAlpha));
   }
  }
 }
 
-//----- (004A6AB1) --------------------------------------------------------
-void sub_4A6AB1(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, unsigned char *pData, int a5, int a6, unsigned short *pFontPixels, int a8)
+
+//----- (004A6C4F) --------------------------------------------------------
+void CD3DRenderer_DrawText(struct CD3DRenderer *_this, unsigned int uOutX, unsigned int uOutY,
+                unsigned char *pFontPixels, unsigned int uCharWidth, unsigned int uCharHeight,
+                unsigned short *pFontPalette, unsigned int uMainColor, unsigned int uShadowColor)
 {
-  int v8; // eax@2
-  int v9; // edx@2
-  int v10; // edi@2
-  int v11; // esi@2
-  int v12; // ebx@3
-  int v13; // edx@5
-  int v14; // edx@6
-  int v15; // ebx@7
-  int v16; // edx@9
-  int v17; // edi@10
-  int v18; // ebx@13
-  int v19; // edx@15
-  int v20; // esi@16
-  int v21; // ebx@22
-  char v23; // zf@28
-  int v24; // ebx@31
-  __int16 v25; // si@35
-  char v27; // zf@38
-  int v28; // [sp+Ch] [bp-4h]@2
-  int v29; // [sp+18h] [bp+8h]@22
-  int v30; // [sp+18h] [bp+8h]@31
-  int v31; // [sp+1Ch] [bp+Ch]@24
-  int v32; // [sp+1Ch] [bp+Ch]@33
-  int v33; // [sp+20h] [bp+10h]@30
-  int v34; // [sp+24h] [bp+14h]@22
-  int v35; // [sp+24h] [bp+14h]@31
  unsigned int  *pSurfacePtr;
- unsigned char *pSrc;
+ unsigned char *pPixel;
  int x, y;
 
-  if (!_this->bSceneBegun)
-    return;
+ if (!_this->bSceneBegun)
+   return;
 
  pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
- pSrc = pData;
+ pPixel = pFontPixels;
 
-
- for (y = 0; y < a6; ++y)
-   for (x = 0; x < a5; ++x)
+ for (y = 0; y < uCharHeight; ++y)
+   for (x = 0; x < uCharWidth; ++x)
    {
-    if (*pSrc++)
-      pSurfacePtr[(uY + y) * _this->uTargetSurfacePitch + uX + x] = (unsigned int)pFontPixels[pSrc[-1]] * 0xFFFFFFFF;
+    if (*pPixel++)
+    {
+     unsigned int uSrc = pFontPalette[pPixel[-1]] == 0x0000 ? uShadowColor : uMainColor;
 
+     pSurfacePtr[(uOutY + y) * _this->uTargetSurfacePitch + uOutX + x] = uSrc;
+    }
    }
-
-
-/*
-
-    v10 = a5;
-    v11 = a6;
-
-    v8 = _this->pTargetSurface + 2 * (uX + uY * _this->uTargetSurfacePitch);
-
-    v9 = pData;
-    v28 = pData;
-    if (_this->dword_040104)
-    {
-      v12 = _this->dword_0400F8;
-      if ( uX < v12 )
-      {
-        v28 = v12 - uY + pData;
-        v8 += 2 * (v12 - uX);
-        v10 = a5 + uX - v12;
-      }
-      v13 = _this->dword_0400F4;
-      if ( uY < v13 )
-      {
-        v14 = v13 - uY;
-        v28 += a5 * v14;
-        v11 = a6 + uY - _this->dword_0400F4;
-        v8 += 2 * _this->uTargetSurfacePitch * v14;
-      }
-      v15 = _this->dword_0400F8;
-      if ( v15 < uX )
-        v15 = uX;
-      v16 = _this->dword_040100;
-      if ( v10 + v15 > v16 )
-      {
-        v17 = _this->dword_0400F8;
-        if ( v17 < uX )
-          v17 = uX;
-        v10 = v16 - v17;
-      }
-      v18 = _this->dword_0400F4;
-      if ( v18 < uY )
-        v18 = uY;
-      v19 = _this->dword_0400FC;
-      if ( v11 + v18 > v19 )
-      {
-        v20 = _this->dword_0400F4;
-        if ( v20 < uY )
-          v20 = uY;
-        v11 = v19 - v20;
-      }
-      v9 = v28;
-    }
-
-
-    if ( a8 )
-    {
-      v33 = pD3DRenderer->dword_0400DC | pD3DRenderer->dword_0400E0;
-      if ( v11 > 0 )
-      {
-        v24 = a5;
-        v35 = v11;
-        v30 = v24 - v10;
-        do
-        {
-          if ( v10 > 0 )
-          {
-            v32 = v10;
-            do
-            {
-              if ( *(_BYTE *)v9 )
-                v25 = *(_WORD *)(a7 + 2 * *(_BYTE *)v9);
-              else
-                v25 = v33;
-              *(_WORD *)v8 = v25;
-              v8 += 2;
-              ++v9;
-            }
-            while ( v32-- != 1 );
-          }
-          v9 += v30;
-          v27 = v35-- == 1;
-          v8 += 2 * (*(_DWORD *)(_this + 262384) - v10);
-        }
-        while ( !v27 );
-      }
-    }
-    else
-    {
-      if ( v11 > 0 )
-      {
-        v21 = a5;
-        v34 = v11;
-        v29 = v21 - v10;
-        do
-        {
-          if ( v10 > 0 )
-          {
-            v31 = v10;
-            do
-            {
-              if ( *(_BYTE *)v9 )
-                *(_WORD *)v8 = *(_WORD *)(a7 + 2 * *(_BYTE *)v9);
-              v8 += 2;
-              ++v9;
-            }
-            while ( v31-- != 1 );
-          }
-          v9 += v29;
-          v23 = v34-- == 1;
-          v8 += 2 * (*(_DWORD *)(_this + 262384) - v10);
-        }
-        while ( !v23 );
-      }
-    }*/
 }
+
+
+
 
 //----- (004A6274) --------------------------------------------------------
 void CD3DRenderer_DrawTransparentTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class18 *pTexture)
@@ -546,16 +571,16 @@ void CD3DRenderer_DrawTransparentTexture(struct CD3DRenderer *_this, unsigned in
  pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
  for (y = 0; y < pTexture->uTextureHeight; ++y)
  {
-  if (y + uY < _this->dword_0400F4)
+  if (y + uY < _this->uClipRectY)
     continue;
-  if (y + uY >= _this->dword_0400FC)
+  if (y + uY >= _this->uClipRectW)
     continue;
 
   for (x = 0; x < pTexture->uTextureWidth; ++x)
   {
-   if (x + uX < _this->dword_0400F8)
+   if (x + uX < _this->uClipRectX)
      continue;
-   if (x + uX >= _this->dword_040100)
+   if (x + uX >= _this->uClipRectZ)
      continue;
 
    uSrcColor = pTexture->pTruecolorPixels[y * pTexture->uTextureWidth + x];
@@ -566,7 +591,7 @@ void CD3DRenderer_DrawTransparentTexture(struct CD3DRenderer *_this, unsigned in
  }
 
 
-
+ /*
  if (!pTexture->pPalette)
    return;
 
@@ -618,129 +643,7 @@ void CD3DRenderer_DrawTransparentTexture(struct CD3DRenderer *_this, unsigned in
               v15 = uY;
             v6 = v14 - v15;
           }
-        }
-}
-
-//----- (004A6C4F) --------------------------------------------------------
-void sub_4A6C4F(struct CD3DRenderer *_this, unsigned int uOutX, unsigned int uOutY,
-                unsigned short *pFontPixels, unsigned int uCharWidth, unsigned int uCharHeight,
-                unsigned short *pFontPalette, unsigned int uMainColor, unsigned int uShadowColor)
-{
-  int v9; // eax@2
-  int v10; // edi@2
-  int v11; // esi@2
-  int v12; // ebx@3
-  int v13; // edx@5
-  int v14; // edx@6
-  int v15; // ebx@7
-  int v16; // edx@9
-  int v17; // edi@10
-  int v18; // ebx@13
-  int v19; // edx@15
-  int v20; // esi@16
-  int v21; // esi@22
-  __int16 v22; // dx@24
-  char v23; // zf@28
-  int v24; // [sp+Ch] [bp-4h]@2
-  int v25; // [sp+18h] [bp+8h]@20
- unsigned int  *pSurfacePtr;
- unsigned char *pSrc;
- int x, y;
-
-  if (!_this->bSceneBegun)
-    return;
-
- pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
- pSrc = pFontPixels;
-
- for (y = 0; y < uCharHeight; ++y)
-   for (x = 0; x < uCharWidth; ++x)
-   {
-    if (*pSrc++)
-      if (pFontPalette[pSrc[-1]] == 1)
-        pSurfacePtr[(uOutY + y) * _this->uTargetSurfacePitch + uOutX + x] = uShadowColor;
-      else
-        pSurfacePtr[(uOutY + y) * _this->uTargetSurfacePitch + uOutX + x] = uMainColor;
-   }
-/*
- v10 = a5;
- v11 = a6;
- v9 = _this->pTargetSurface + (a2 + a3 * _this->uTargetSurfacePitch);
- v24 = a4;
- if (_this->dword_040104)
- {
-  v12 = _this->dword_0400F8;
-  if (a2 < v12)
-  {
-   v24 = v12 - a2 + a4;
-   v9 += 2 * (v12 - a2);
-   v10 = a5 + a2 - v12;
-  }
-  v13 = _this->dword_0400F4;
-  if (a3 < v13)
-  {
-   v14 = v13 - a3;
-   v24 += a5 * v14;
-   v11 = a6 + a3 - _this->dword_0400F4;
-   v9 += _this->uTargetSurfacePitch * v14;
-  }
-  v15 = _this->dword_0400F8;
-  if (v15 < a2)
-    v15 = a2;
-
-  v16 = _this->dword_040100;
-  if (v10 + v15 > v16)
-  {
-   v17 = _this->dword_0400F8;
-   if (v17 < a2)
-     v17 = a2;
-   v10 = v16 - v17;
-  }
-
-  v18 = _this->dword_0400F4;
-  if (v18 < a3)
-    v18 = a3;
-  v19 = _this->dword_0400FC;
-
-  if (v11 + v18 > v19)
-  {
-   v20 = _this->dword_0400F4;
-   if (v20 < a3)
-     v20 = a3;
-   v11 = v19 - v20;
-  }
- }
-
-
- if (v11 > 0)
- {
-  v25 = v11;
-  do
-  {
-   if ( v10 > 0 )
-   {
-    v21 = v10;
-    do
-    {
-     if ( *(_BYTE *)v24 )
-     {
-      v22 = a9;
-      if ( *(_BYTE *)v24 != 1 )
-        v22 = a8;
-      *(_WORD *)v9 = v22;
-     }
-     v9 += 2;
-     ++v24;
-     --v21;
-    }
-    while (v21);
-   }
-   v24 += a5 - v10;
-   v23 = v25-- == 1;
-   v9 += (_this->uTargetSurfacePitch - v10);
-  }
-  while ( !v23 );
- }*/
+        }*/
 }
 
 //----- (004A172E) --------------------------------------------------------
@@ -849,7 +752,7 @@ void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, un
 
  if (!pTexture)
    return;
-
+ /*
  v5 = pTexture->uWidth;
  v24 = pTexture->uHeight;
  pSurfacePtr = (unsigned int *)(_this->pTargetSurface) + (uX + uY * _this->uTargetSurfacePitch);
@@ -859,7 +762,7 @@ void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, un
 
  if (_this->dword_040104)
  {
-  v7 = _this->dword_0400F8;
+  v7 = _this->uClipRectX;
   if (uX < v7)
   {
    v8 = v7 - uX;
@@ -870,43 +773,43 @@ void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, un
    pSurfacePtr += v8;
   }
 
-  v10 = _this->dword_0400F4;
+  v10 = _this->uClipRectY;
   if (uY < v10)
   {
    v11 = v10 - uY;
    v6 += v19 * v11;
-   v24 += uY - _this->dword_0400F4;
+   v24 += uY - _this->uClipRectY;
    v5 = v20;
    pSurfacePtr += _this->uTargetSurfacePitch * v11;
   }
 
-  v12 = _this->dword_0400F8;
+  v12 = _this->uClipRectX;
   if ( v12 < uX)
     v12 = uX;
 
-  v13 = _this->dword_040100;
+  v13 = _this->uClipRectZ;
   if (v5 + v12 > v13)
   {
-   v14 = _this->dword_0400F8;
+   v14 = _this->uClipRectX;
    if (v14 < uX)
      v14 = uX;
    v5 = v13 - v14;
   }
 
-  v15 = _this->dword_0400F4;
+  v15 = _this->uClipRectY;
   if (v15 < uY)
     v15 = uY;
 
-  v21 = _this->dword_0400FC;
+  v21 = _this->uClipRectW;
   if (v15 + v24 > v21)
   {
-   v16 = _this->dword_0400F4;
+   v16 = _this->uClipRectY;
    if (v16 < uY)
      v16 = uY;
    v24 = v21 - v16;
   }
  }
-
+ */
 
 
  pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
@@ -915,13 +818,13 @@ void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, un
   unsigned int startX,
                endX;
 
-  if (y + uY < _this->dword_0400F4)
+  if (y + uY < _this->uClipRectY)
     continue;
-  else if (y + uY >= _this->dword_0400FC)
+  else if (y + uY >= _this->uClipRectW)
     return;
 
-  startX = max(_this->dword_0400F8, uX);
-  endX = min(min(_this->dword_040100, uX + pTexture->uWidth), 640);
+  startX = max(_this->uClipRectX, uX);
+  endX = min(min(_this->uClipRectZ, uX + pTexture->uWidth), 640);
 
   /*memcpy(pSurfacePtr + (y + uY) * _this->uTargetSurfacePitch + uX,
          pTexture->pPixels + y * pTexture->uWidth,
@@ -1252,8 +1155,9 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
   class28_fn2(class28_global, 36044);
   return v18;
 }
+
 //----- (004A05F3) --------------------------------------------------------
-int CD3DRenderer_InitWnd(struct CD3DRenderer *_this, HWND hwnd)
+int CD3DRenderer_InitWindowed(struct CD3DRenderer *_this, HWND hwnd)
 {
   int v2; // esi@1
   int v3; // eax@1
@@ -1699,13 +1603,13 @@ HRESULT CD3DRenderer_GetPrimarySurfacePixelFormat(struct CD3DRenderer *_this, DD
 }
 
 //----- (MM7.exe::004A5BB6) --------------------------------------------------------
-void CD3DRenderer_sub_4A5BB6(struct CD3DRenderer *_this)
+void CD3DRenderer_Reset2DClippingRect(struct CD3DRenderer *_this)
 {
- _this->dword_0400F4 = 0;
- _this->dword_0400F8 = 0;
- _this->dword_0400FC = 480;
- _this->dword_0400D0 = 640;
- _this->dword_0400D4 = 1;
+ _this->uClipRectY = 0;
+ _this->uClipRectX = 0;
+ _this->uClipRectW = 480;
+ _this->uClipRectZ = 640;
+ _this->dword_040104 = 1;
 }
 
 //----- (004A0EB6) --------------------------------------------------------
@@ -1718,44 +1622,46 @@ void *CD3DRenderer_sub_4A0EB6(struct CD3DRenderer *_this)
   int v5; // esi@5
   int v6; // edx@9
   signed int v7; // ecx@9
-  int v8; // ecx@13
 
   result = _this;
   v3 = 0;
   v2 = _this->ddpfPrimarySurface.dwRBitMask;
-  _this->dword_0400CC = 0;
-  _this->dword_0400D0 = 0;
-  _this->dword_0400D4 = 0;
+
+  _this->uNumTargetRBits = 0;
+  _this->uNumTargetGBits = 0;
+  _this->uNumTargetBBits = 0;
+
   do
   {
     if ((1 << v3) & v2)
-      ++_this->dword_0400CC;
+      ++_this->uNumTargetRBits;
     ++v3;
   }
-  while (v3 < 16);
+  while (v3 < 32);
+
   v5 = _this->ddpfPrimarySurface.dwGBitMask;
   v4 = 0;
   do
   {
     if ((1 << v4) & v5)
-      ++_this->dword_0400D0;
+      ++_this->uNumTargetGBits;
     ++v4;
   }
-  while (v4 < 16);
+  while (v4 < 32);
+
   v6 = _this->ddpfPrimarySurface.dwBBitMask;
   v7 = 0;
   do
   {
     if ((1 << v7) & v6)
-      ++_this->dword_0400D4;
+      ++_this->uNumTargetBBits;
     ++v7;
   }
-  while (v7 < 16);
+  while (v7 < 32);
 
-  v8 = _this->ddpfPrimarySurface.dwRBitMask;
-  _this->dword_0400D8 = v8;
-  _this->dword_0400DC = v5;
-  _this->dword_0400E0 = v6;
+  _this->uTargetRMask = _this->ddpfPrimarySurface.dwRBitMask;
+  _this->uTargetGMask = v5;
+  _this->uTargetBMask = v6;
 
   return result;
 }
@@ -1779,11 +1685,15 @@ int CD3DRenderer_sub_49EBF1(struct CD3DRenderer *_this)
 
   result = _this;
   v11 = 0;
-  v2 = 1 << _this->dword_0400CC;
-  v3 = 1 << _this->dword_0400D0;
-  v4 = 1 << _this->dword_0400D4;
-  v10 = 1 << _this->dword_0400CC;
-  v9 = 1 << _this->dword_0400D0;
+  runtime_warning(hack: here we pretend that we are running 16 bit, otherwise thigs like palettes go crazy o_O);
+  //v2 = 1 << _this->uNumTargetRBits;
+  //v10 = 1 << _this->uNumTargetRBits;
+  v2 = v10 = 1 << 5;
+  //v3 = 1 << _this->uNumTargetGBits;
+  //v9 = 1 << _this->uNumTargetGBits;
+  v3 = v9 = 1 << 6;
+  //v4 = 1 << _this->uNumTargetBBits;
+  v4 = 1 << 5;
   if ( v2 > 0 )
   {
     do
@@ -1795,9 +1705,12 @@ int CD3DRenderer_sub_49EBF1(struct CD3DRenderer *_this)
         {
           do
           {
-            v5 = _this->dword_0400D4;
-            v6 = v5 + _this->dword_0400D0;
-            v7 = (v13 >> 1) + (v11 >> 1 << v6) + (i >> 1 << _this->dword_0400D4);
+            //v5 = _this->uNumTargetBBits;
+           v5 = 5;
+            //v6 = v5 + _this->uNumTargetGBits;
+           v6 = v5 + 6;
+            //v7 = (v13 >> 1) + (v11 >> 1 << v6) + (i >> 1 << _this->uNumTargetBBits);
+           v7 = (v13 >> 1) + (v11 >> 1 << v6) + (i >> 1 << 5);
             v8 = (v11 << v6) + v13++ + (i << v5);
             _this->array_00002C[v8] = v7;
           }
@@ -1879,7 +1792,7 @@ int CD3DRenderer_Present(struct CD3DRenderer *_this)
    Point.x = 0;
    ClientToScreen(_this->hWnd, &Point);
    OffsetRect(&Rect, Point.x, Point.y);
-   CD3DRenderer_Blt(_this, &Rect, &rc);
+   CD3DRenderer_PresentRegion(_this, &Rect, &rc);
   }
   else CD3DRenderer_PresentBackBuffer(_this, 0, 0, &rc);
  }
@@ -2489,7 +2402,7 @@ LABEL_13:
         do
         {
          ++v13;
-         *v12++ = pD3DRenderer->dword_0400D8 & (v15 << (pD3DRenderer->dword_0400D0 + (_BYTE)pD3DRenderer->dword_0400CC + (_BYTE)pD3DRenderer->dword_0400D4 - 8));
+         *v12++ = pD3DRenderer->uTargetRMask & (v15 << (pD3DRenderer->uNumTargetGBits + (_BYTE)pD3DRenderer->uNumTargetRBits + (_BYTE)pD3DRenderer->uNumTargetBBits - 8));
          if (v13 == *(short *)(local_2 + 18))
            v12 += (uWidth - *(short *)(local_2 + 18)) - 1;
         }
@@ -2499,7 +2412,7 @@ LABEL_13:
       else
       {
        v7 &= 0xFFFF00FF;
-       v7 = pD3DRenderer->dword_0400D8 & (v7 << (pD3DRenderer->dword_0400D0 + (_BYTE)pD3DRenderer->dword_0400CC + (_BYTE)pD3DRenderer->dword_0400D4 - 8));
+       v7 = pD3DRenderer->uTargetRMask & (v7 << (pD3DRenderer->uNumTargetGBits + (_BYTE)pD3DRenderer->uNumTargetRBits + (_BYTE)pD3DRenderer->uNumTargetBBits - 8));
        ++v13;
        *v12++ = v7;
       }
@@ -2523,8 +2436,8 @@ LABEL_13:
        v34 = v7 & 0x3F;
        do
        {
-        *v17++ |= (_WORD)pD3DRenderer->dword_0400DC & (unsigned __int16)(v19 << (pD3DRenderer->dword_0400D0
-                                                                                  + (_BYTE)pD3DRenderer->dword_0400D4
+        *v17++ |= (_WORD)pD3DRenderer->uTargetGMask & (unsigned __int16)(v19 << (pD3DRenderer->uNumTargetGBits
+                                                                                  + (_BYTE)pD3DRenderer->uNumTargetBBits
                                                                                   - 8));
         ++v13;
         if (v13 == *(short *)(local_2 + 18))
@@ -2536,7 +2449,7 @@ LABEL_13:
      else
      {
       v7 &= 0xFFFF00FF;
-      v7 = pD3DRenderer->dword_0400DC & (v7 << (pD3DRenderer->dword_0400D0 + (_BYTE)pD3DRenderer->dword_0400D4 - 8));
+      v7 = pD3DRenderer->uTargetGMask & (v7 << (pD3DRenderer->uNumTargetGBits + (_BYTE)pD3DRenderer->uNumTargetBBits - 8));
       *v17++ |= v7;
       ++v13;
      }
@@ -2557,7 +2470,7 @@ LABEL_13:
        v34 = v23;
        do
        {
-        *v21++ |= v39 >> (8 - pD3DRenderer->dword_0400D4);
+        *v21++ |= v39 >> (8 - pD3DRenderer->uNumTargetBBits);
         ++v13;
         if (v13 == *(short *)(local_2 + 18))
         {
@@ -2570,7 +2483,7 @@ LABEL_13:
      }
      else
      {
-      *v21++ |= v22 >> (8 - pD3DRenderer->dword_0400D4);
+      *v21++ |= v22 >> (8 - pD3DRenderer->uNumTargetBBits);
       ++v13;
      }
     }
@@ -2635,18 +2548,16 @@ void *sub_4A1EB6(struct CD3DRenderer *_this)
   if ( !result )
   {
     v3 = _this->dword_040088;
-    if ( v3 )
+    if (_this->dword_040088)
     {
       sub_49E4FC(v3, 1, result, 1, 1.0);
       dword_F1B418 = 0;
       (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(_this->dword_040088 + 56) + 36))(*(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56));
       if ( !sub_44EC20() )
       {
-        v15 = 360;
-        v14 = (signed int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp";
         v16 = &v10;
         sub_40E2C8(&v10, "Error executing scratch 3D operations", (int)&v17);
-        sub_466D09(&v16, *(int *)&v10, v11, v12, v13, (const char *)v14, v15);
+        sub_466D09(&v16, *(int *)&v10, v11, v12, v13, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", v15);
       }
       if ( dword_6BE360 == 2 )
         v4 = sub_47C370();
@@ -2683,7 +2594,6 @@ void *sub_4A1EB6(struct CD3DRenderer *_this)
     }
     else
     {
-      v9 = &_this->uTargetSurfacePitch;
       result = CD3DRenderer_LockBackBuffer(_this, &_this->pTargetSurface, &_this->uTargetSurfacePitch);
       if (_this->pTargetSurface)
       {
@@ -2771,11 +2681,11 @@ void *CD3DRenderer_CreateClipper(struct CD3DRenderer *_this, HWND hClipWnd)
 }
 
 //----- (004A1884) --------------------------------------------------------
-void * CD3DRenderer_Blt(struct CD3DRenderer *_this, RECT *pDestRect, RECT *pSrcRect)
+void *CD3DRenderer_PresentRegion(struct CD3DRenderer *_this, RECT *pDestRect, RECT *pSrcRect)
 {
-  HRESULT             hr;
-  char                local_0[128];
+ HRESULT hr;
+ char    local_0[128];
 
   hr = (pD3DRenderer->pdds4_FrontBuffer->lpVtbl->Blt)(pD3DRenderer->pdds4_FrontBuffer, pDestRect, pD3DRenderer->pdds4_BackBuffer, pSrcRect, DDBLT_WAIT, 0);
-  return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2657, 0);
+  return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", __LINE__, 0);
 }

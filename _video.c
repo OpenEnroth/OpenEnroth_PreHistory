@@ -8,61 +8,15 @@
 #include "mm7DDrawRenderer.h"
 
 #include "data.h"
+#include "mm7_unparsed_data.h"
+#include "mm7_unparsed_functions.h"
 
-
-
-extern char off_4E7ECC[];
-extern int dword_4E800C;
-extern float flt_6BE3A0;
-extern int dword_AD4730;
-extern int dword_E31C7C;
-extern char byte_6BE371;
-extern int dword_4F00DC;
-extern char unk_F79CC8[];
-extern char byte_F79448[];
-extern HWND hWnd_global;
-
-
-extern char unk_4EB8BC;
-extern char unk_4EBBD0;
-extern char byte_6BE36F;
-
-extern int dword_4F00E4;
-extern short word_F1B4C4;
-extern int dword_4F00E4;
-extern int dword_4F00E0;
-extern short word_F1B4C6;
-extern int dword_4F00E0;
-extern int dword_4F00E4;
-extern int dword_4F00E0;
-
-extern char byte_4D8410[];
-
-extern int *dword_4F2688;
-
-extern int dword_51B6E8;
-extern int dword_51B6EC;
-extern int dword_51B6F0;
-
-extern int dword_6A0CA4;
-
-extern int dword_720010;
-
-extern int dword_720018;
-
-extern int dword_E31C70;
-
-extern int dword_F792F0;
-
-extern int dword_F79D70;
-extern int dword_F79D7C;
 
 
 
 
 
 //----- (MM7.exe::004BF411) --------------------------------------------------------
-extern int dword_6A0D00;
 int __stdcall radmalloc(long);
 void CVideoPlayer_OpenMovie(struct CVideoPlayer *_this, const char *pVideoName, int a3, int a4)
 {
@@ -163,8 +117,6 @@ void *CVideoPlayer_OpenSmackMovie(struct CVideoPlayer *_this, const char *pVideo
 }
 
 //----- (MM7.exe::004BEBD7) --------------------------------------------------------
-extern int dword_F8BC10;
-extern struct class24 *pClass24_global;
 void CVideoPlayer_UnloadAll(struct CVideoPlayer *_this)
 {
   int v2; // esi@1
@@ -572,7 +524,6 @@ int __cdecl VideoPlayer_Smacker_CheckSurfaceFromat()
 
 
 //----- (004BFE2D) --------------------------------------------------------
-extern int dword_6BE384;
 void *__fastcall sub_4BFE2D(HWND hWnd, unsigned int uWidth, unsigned int uHeight, char a4)
 {
   void *v5; // esi@3
@@ -627,7 +578,7 @@ void *__fastcall sub_4BFE2D(HWND hWnd, unsigned int uWidth, unsigned int uHeight
    ddsd2.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY;
 
    hr = (pD3DRenderer->pdd4->lpVtbl->CreateSurface)(pD3DRenderer->pdd4, &ddsd2, &pdds, 0);
-   CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Video.cpp", 1476, 0);
+   CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Video.cpp", __LINE__, 0);
   }
 
   v5 = malloc(0x7Cu);

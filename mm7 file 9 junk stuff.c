@@ -46,19 +46,84 @@ long __stdcall std__basic_string_char_std__char_traits_char__std__allocator_char
  return 0;
 }
 
-// sub_4CC3A8: using guessed type _DWORD __stdcall _eh vector constructor iterator_(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
-long __stdcall _eh_vector_constructor_iterator_(long a1, long a2, long a3, long a4, long a5)
+int __ArrayUnwind(char *a3, unsigned int a4, int a5, int (*a6)(void))
 {
- compile_error;//__asm int 3
- return 0;
+  char v6; // sf@2
+  char v7; // [sp-Ch] [bp-24h]@1
+  char *v8; // [sp+0h] [bp-18h]@1
+  int v10; // [sp+8h] [bp-10h]@1
+  int (__cdecl *v11)(int, int, int); // [sp+Ch] [bp-Ch]@1
+  signed int v12; // [sp+10h] [bp-8h]@1
+  int v13; // [sp+14h] [bp-4h]@1
+
+  compile_error;
+  v12 = 5091600;
+  //v11 = unknown_libname_59;
+  v8 = &v7;
+  v13 = 0;
+  while ( 1 )
+  {
+    v6 = a5-- - 1 < 0;
+    if ( v6 )
+      break;
+    a3 -= a4;
+    a6();
+  }
+}
+
+
+void sub_4CC412(int a1)
+{
+  if ( !*(_DWORD *)(a1 - 32) )
+    __ArrayUnwind(
+      *(void **)(a1 + 8),
+      *(_DWORD *)(a1 + 12),
+      *(_DWORD *)(a1 - 28),
+      *(void (__thiscall **)(void *))(a1 + 24));
+}
+
+
+void sub_4CC31C(int a1)
+{
+  if ( !*(_DWORD *)(a1 - 28) )
+    __ArrayUnwind(
+      *(void **)(a1 + 8),
+      *(_DWORD *)(a1 + 12),
+      *(_DWORD *)(a1 + 16),
+      *(void (__thiscall **)(void *))(a1 + 20));
+}
+
+
+// sub_4CC3A8: using guessed type _DWORD __stdcall _eh vector constructor iterator_(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
+void __stdcall _eh_vector_constructor_iterator_(int a1, int a2, int a3, void (__fastcall *a4)(_DWORD), int a5)
+{
+  int i; // [sp+4h] [bp-1Ch]@1
+
+  for ( i = 0; i < a3; ++i )
+  {
+    a4(a1);
+    a1 += a2;
+  }
+  //sub_4CC412(1);
 }
 
 // sub_4CC2B4: using guessed type _DWORD __stdcall _eh vector destructor iterator_(_DWORD, _DWORD, _DWORD, _DWORD);
-long __stdcall _eh_vector_destructor_iterator_(long a1, long a2, long a3, long a4)
+void __stdcall _eh_vector_destructor_iterator_(int a1, int a2, int a3, void (__fastcall *a4)(_DWORD))
 {
- __asm int 3
- return 0;
+  char v4; // sf@2
+  int i; // [sp+24h] [bp+8h]@1
+
+  for ( i = a3 * a2 + a1; ; a4(i) )
+  {
+    v4 = a3-- - 1 < 0;
+    if ( v4 )
+      break;
+    i -= a2;
+  }
+  //sub_4CC31C(1);
 }
+
+
 
 // sub_??????
 void terminate()
@@ -303,13 +368,7 @@ loc_41AE9C:                             ; CODE XREF: sub_41AD6E+7Bj
  return;
 }
 
-int sub_498038()
-{
- __asm int 3
- return 0;
-}
-
-int sub_43B569()
+void __fastcall sub_43B569(void *_this)
 {
  __asm int 3
  return 0;
@@ -351,19 +410,13 @@ int sub_486009(long a1)
  return 0;
 }
 
-int sub_43B60C()
+void __fastcall sub_43B60C(void *_this)
 {
  __asm int 3
  return 0;
 }
 
 int sub_4C5910()
-{
- __asm int 3
- return 0;
-}
-
-int sub_43B538()
 {
  __asm int 3
  return 0;
@@ -1305,7 +1358,7 @@ int call_delete(int result, unsigned int a2)
   signed int v12; // [sp+20h] [bp-8h]@1
   int v13; // [sp+24h] [bp-4h]@1
 
-  runtime_warning;
+  runtime_warning();
   return 1;
   /*
   v13 = -1;

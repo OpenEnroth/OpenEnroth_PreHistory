@@ -1,3 +1,4 @@
+#pragma once
 #include <windows.h>
 
 void nullsub_1();
@@ -8,7 +9,32 @@ extern int bLoadingFromCD;
 
 extern float aMusicVolumeLevels[];
 
-extern unsigned char byte_4D8410[];
+extern union unnamed_4D8410
+{
+ unsigned char byte_4D8410[17412];
+ struct
+ {
+  char   unk_4D8410_0000[24];
+  double f1_0;                        // double @ 0018     1.0
+  char   unk_4D8410_0020[232];
+  double fOneOver2048;                // double @ 0108     1 / 2048
+  char   unk_4D8410_0110[104];
+  double fSomeAngle;                  // double @ 0178     ï (3.1415926535897931)
+  char   unk_4D8410_0180[32];
+  double fTwo;                        // double @ 01A0     2.0
+  char   unk_4D8410_01A8[896];
+  double f10_0;                       // double @ 0528     10.0
+  double f0_9;                        // double @ 0530     0.9
+  char   unk_4D8410_0538[3648];
+  GUID   IID_IDirectDraw2;            // struct @ 1378     IID_IDirectDraw2
+  GUID   IID_IDirectDraw4;            // struct @ 1388     IID_IDirectDraw4
+  char   unk_4D8410_1398[208];
+  GUID   IID_IDirectDrawGammaControl; // struct @ 1468     IID_IDirectDrawGammaControl
+  char   unk_4D8410_1478[12172];
+ };
+} memory_4D8410;
+
+extern unsigned char *byte_4D8410;
 extern unsigned char memory_4F2688[];
 
 extern unsigned char *aNPCProfessionNames[];

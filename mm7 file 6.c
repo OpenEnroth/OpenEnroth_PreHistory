@@ -821,7 +821,7 @@ unsigned int __thiscall sub_48D498(int this)
   unsigned int result; // eax@2
 
   if ( sub_48D45A(this) )
-    result = sub_40DEF3(0, 0xFFu, 0);
+    result = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, 0);
   else
     result = 0;
   return result;
@@ -2446,7 +2446,7 @@ __int16 __thiscall sub_49048D(int this, int a2)
   int v13; // edi@32
   int v15; // [sp+Ch] [bp-4h]@1
 
-  v3 = this;
+   v3 = this;
   v2 = 4 * (a2 + 7 * GetRaceByFace(this));
   v4 = array_4ED7B0[v2];
   v5 = array_4ED7B0[v2 + 2];
@@ -4598,41 +4598,6 @@ LABEL_5:
   return result;
 }
 
-//----- (00494B10) --------------------------------------------------------
-int __thiscall sub_494B10(int this, int a2, signed int a3)
-{
-  int v3; // ecx@1
-  int v4; // edi@1
-  int v5; // esi@1
-  signed __int16 v6; // dx@2
-  int i; // eax@3
-  int v8; // edx@3
-  int v9; // ecx@5
-  int result; // eax@6
-
-  v5 = a2;
-  v4 = *(_DWORD *)(this + 4);
-  v3 = v4 + 10 * a2;
-  if ( *(_BYTE *)(v3 + 8) & 1 && (v6 = *(_WORD *)(v3 + 6)) != 0 )
-  {
-    v8 = (a3 >> 3) % (unsigned __int16)v6;
-    for ( i = v3 + 4; ; i += 10 )
-    {
-      v9 = *(_WORD *)i;
-      if ( v8 <= v9 )
-        break;
-      v8 -= v9;
-      ++v5;
-    }
-    result = v4 + 10 * v5;
-  }
-  else
-  {
-    result = v4 + 10 * a2;
-  }
-  return result;
-}
-
 //----- (00494B5E) --------------------------------------------------------
 int __thiscall sub_494B5E(int this, int a2, int a3, int a4)
 {
@@ -4829,7 +4794,7 @@ const CHAR *__fastcall sub_495461(char *lpsz, unsigned __int8 a2, int a3, int a4
   v66 = strlen(Str);
   Dest = 0;
   v8 = &pParty_global->pPlayers[1743 * v6];
-  v65 = sub_40DEF3(0xFFu, 0xFFu, 0x9Bu);
+  v65 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
   v67 = v8;
   memset(pStringBuffer, 0, 0x7D0u);
   if ( dword_5C35D4 )
@@ -5268,11 +5233,11 @@ int __cdecl sub_4979D2()
   v7 = class23_AllocatedNamedBuffer(class23_instance, v34, 2 * v30, "scrollermap");
   v8 = v30;
   v34 = v7;
-  v9 = sub_40DEF3(0, 0xFFu, 0xFFu);
+  v9 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, 0xFFu);
   sub_452AF3(v9, v34, v8);
   v33 = 0;
-  v28 = sub_40DEF3(0x70u, 0x8Fu, 0xFEu);
-  *(_DWORD *)v27 = sub_40DEF3(0xECu, 0xE6u, 0x9Cu);
+  v28 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0x70u, 0x8Fu, 0xFEu);
+  *(_DWORD *)v27 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xECu, 0xE6u, 0x9Cu);
   compile_error;//Dest = (char *)operator new(2 * v3);
   strncpy(Dest, Source, v3);
   sub_44D2FD(v38, v39, 1, v26 + 1, v31, v32, 1u, 1u, Dest, v34, v31);
@@ -5286,9 +5251,9 @@ int __cdecl sub_4979D2()
   SetCurrentMenu(8);
   CD3DRenderer_BeginScene(pD3DRenderer);
   CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, (int)&v19);
-  sub_4A5B81(pD3DRenderer, v23, v24, v23 + v25, v24 + v26);
+  CD3DRenderer_Set2DClippingRect(pD3DRenderer, v23, v24, v23 + v25, v24 + v26);
   sub_4A5D33(pD3DRenderer, v23, v24, 0, 0, (int)&v29);
-  CD3DRenderer_sub_4A5BB6(pD3DRenderer);
+  CD3DRenderer_Reset2DClippingRect(pD3DRenderer);
   CD3DRenderer_EndScene(pD3DRenderer);
   Dest = (char *)1148846080;
   v20 = 1000.0 + 6.755399441055744e15;
@@ -5316,7 +5281,7 @@ int __cdecl sub_4979D2()
       {
         RGBTexture_Load(&v19, "mm6title.pcx", 1);
         v11 = v30;
-        v12 = sub_40DEF3(0, 0xFFu, 0xFFu);
+        v12 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, 0xFFu);
         sub_452AF3(v12, v34, v11);
         strncpy((char *)&ExistingFileName, Source, 0x7D0u);
         sub_44D2FD(v38, v39, 1, v26 + 1, v31, v32, 1u, 1u, &ExistingFileName, v34, v31);
@@ -5325,18 +5290,18 @@ int __cdecl sub_4979D2()
         dword_A74C88 = 0;
         CD3DRenderer_BeginScene(pD3DRenderer);
         CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, (int)&v19);
-        sub_4A5B81(pD3DRenderer, v23, v24, v23 + v25, v23 + v26);
+        CD3DRenderer_Set2DClippingRect(pD3DRenderer, v23, v24, v23 + v25, v23 + v26);
         sub_4A5D33(pD3DRenderer, v23, v24, 0, v35, (int)&v29);
-        CD3DRenderer_sub_4A5BB6(pD3DRenderer);
+        CD3DRenderer_Reset2DClippingRect(pD3DRenderer);
         CD3DRenderer_EndScene(pD3DRenderer);
         CD3DRenderer_Present(pD3DRenderer);
       }
       timeGetTime();
       CD3DRenderer_BeginScene(pD3DRenderer);
       CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, (int)&v19);
-      sub_4A5B81(pD3DRenderer, v23, v24, v23 + v25, v24 + v26);
+      CD3DRenderer_Set2DClippingRect(pD3DRenderer, v23, v24, v23 + v25, v24 + v26);
       sub_4A5D33(pD3DRenderer, v23, v24, 0, v35, (int)&v29);
-      CD3DRenderer_sub_4A5BB6(pD3DRenderer);
+      CD3DRenderer_Reset2DClippingRect(pD3DRenderer);
       CD3DRenderer_EndScene(pD3DRenderer);
       ++v35;
       if ( v35 >= v32 )
@@ -5364,7 +5329,7 @@ int __cdecl sub_4979D2()
 }
 
 //----- (00498069) --------------------------------------------------------
-void __thiscall sub_498069(void *this)
+void __fastcall sub_498069(void *this)
 {
   *(_DWORD *)this = 5081236;
   class26_sub_4C039C((char *)this + 4);
@@ -8046,10 +8011,10 @@ void *__thiscall sub_49B408(void *this)
 }
 
 //----- (0049B471) --------------------------------------------------------
-int __thiscall sub_49B471(void *this)
+void __fastcall sub_49B471(void *this)
 {
   *(_DWORD *)this = 5081264;
-  return _eh_vector_destructor_iterator_((char *)this + 4, 3104, 1024, sub_43B641);
+  _eh_vector_destructor_iterator_((char *)this + 4, 3104, 1024, sub_43B641);
 }
 
 //----- (0049B490) --------------------------------------------------------
@@ -12118,244 +12083,6 @@ signed int __thiscall sub_49FFD7(int this)
            (void *)0x20);
 }
 
-
-//----- (004A0BEE) --------------------------------------------------------
-char __thiscall sub_4A0BEE(int this, int a2, int a3, int a4, int a5, __int16 a6)
-{
-  int v6; // edi@1
-  int v7; // edx@5
-  int v8; // ebx@5
-  int v9; // eax@7
-  int v10; // ecx@9
-  int v11; // esi@13
-  int v12; // eax@17
-  int v13; // edi@21
-  int v14; // eax@21
-  int v15; // eax@22
-  int v16; // eax@25
-  int v17; // eax@27
-  int v18; // eax@28
-  int v19; // edi@30
-  signed __int64 v20; // qax@41
-  int v21; // edi@41
-  int v22; // edi@46
-  int v23; // ebx@47
-  int v24; // esi@47
-  signed int v25; // edx@50
-  int v26; // ecx@52
-  int v27; // esi@52
-  int v28; // ebx@54
-  int v29; // edx@55
-  int v30; // edi@55
-  int v31; // ebx@60
-  int v32; // edx@61
-  int v33; // edi@61
-  int v35; // [sp+Ch] [bp-10h]@3
-  int v36; // [sp+10h] [bp-Ch]@1
-  __int64 v37; // [sp+14h] [bp-8h]@1
-  signed int v38; // [sp+18h] [bp-4h]@28
-  int v39; // [sp+24h] [bp+8h]@49
-  int v40; // [sp+28h] [bp+Ch]@28
-  int v41; // [sp+28h] [bp+Ch]@47
-  int v42; // [sp+2Ch] [bp+10h]@19
-  int v43; // [sp+2Ch] [bp+10h]@38
-
-  v37 = 0i64;
-  v6 = *(_DWORD *)(this + 28);
-  v36 = this;
-  if ( a2 < v6 )
-    HIDWORD(v37) = 8;
-  v35 = *(_DWORD *)(this + 36);
-  if ( a2 > *(_DWORD *)(this + 36) )
-    HIDWORD(v37) |= 4u;
-  v7 = *(_DWORD *)(this + 32);
-  v8 = a3;
-  if ( a3 < v7 )
-    HIDWORD(v37) |= 2;
-  v9 = *(_DWORD *)(this + 40);
-  if ( a3 > v9 )
-    HIDWORD(v37) |= 1u;
-  v10 = a4;
-  if ( a4 < v6 )
-    LODWORD(v37) = 8;
-  if ( a4 > v35 )
-    LODWORD(v37) = v37 | 4;
-  v11 = a5;
-  if ( a5 < v7 )
-    LODWORD(v37) = v37 | 2;
-  if ( a5 > v9 )
-    LODWORD(v37) = v37 | 1;
-  LOBYTE(v12) = v37;
-  if ( (_DWORD)v37 & HIDWORD(v37) )
-    return v12;
-  if ( !v37 )
-  {
-LABEL_46:
-    v22 = pD3DRenderer->uTargetSurfacePitch;
-    if ( pD3DRenderer->uTargetSurfacePitch )
-    {
-      v12 = a2 + v8 * pD3DRenderer->uTargetSurfacePitch;
-      v24 = v11 - v8;
-      v23 = v24;
-      v41 = v24;
-      if ( v24 < 0 )
-      {
-        v23 = -v24;
-        v41 = -v24;
-        v22 = -pD3DRenderer->uTargetSurfacePitch;
-      }
-      v39 = v10 - a2;
-      if ( v39 >= 0 )
-      {
-        v25 = 1;
-      }
-      else
-      {
-        v39 = -v39;
-        v25 = -1;
-      }
-      v27 = 0;
-      v26 = *(_DWORD *)(v36 + 262380);
-      if ( v26 )
-      {
-        if ( v39 <= v23 )
-        {
-          v31 = v23 + 1;
-          if ( v31 > 0 )
-          {
-            v32 = 2 * v25;
-            v33 = 2 * v22;
-            v12 = v26 + 2 * v12;
-            do
-            {
-              v27 += v39;
-              *(_WORD *)v12 = a6;
-              v12 += v33;
-              if ( v27 > 0 )
-              {
-                v27 -= v41;
-                v12 += v32;
-              }
-              --v31;
-            }
-            while ( v31 );
-          }
-        }
-        else
-        {
-          v28 = v39 + 1;
-          if ( v39 + 1 > 0 )
-          {
-            v30 = 2 * v22;
-            v29 = 2 * v25;
-            v12 = v26 + 2 * v12;
-            do
-            {
-              v27 += v41;
-              *(_WORD *)v12 = a6;
-              v12 += v29;
-              if ( v27 > v39 )
-              {
-                v27 -= v39;
-                v12 += v30;
-              }
-              --v28;
-            }
-            while ( v28 );
-          }
-        }
-      }
-    }
-    return v12;
-  }
-  v42 = HIDWORD(v37) ^ v37;
-  if ( (BYTE4(v37) ^ (_BYTE)v37) & 8 )
-  {
-    if ( BYTE4(v37) & 8 )
-    {
-      v14 = (a5 - a3) * (v6 - a2) / (v10 - a2);
-      v13 = v36;
-      v8 = v14 + a3;
-      a2 = *(_DWORD *)(v36 + 28);
-      goto LABEL_24;
-    }
-    v15 = (a3 - a5) * (v6 - v10) / (a2 - v10);
-    v10 = v6;
-    v11 = v15 + a5;
-  }
-  v13 = v36;
-LABEL_24:
-  if ( v42 & 4 )
-  {
-    v16 = *(_DWORD *)(v13 + 36);
-    if ( BYTE4(v37) & 4 )
-    {
-      v13 = v36;
-      v8 += (v11 - v8) * (v16 - a2) / (v10 - a2);
-      a2 = *(_DWORD *)(v36 + 36);
-    }
-    else
-    {
-      v17 = (v8 - v11) * (v16 - v10) / (a2 - v10);
-      v10 = *(_DWORD *)(v13 + 36);
-      v11 += v17;
-    }
-  }
-  v18 = *(_DWORD *)(v13 + 32);
-  v38 = 0;
-  v40 = *(_DWORD *)(v13 + 32);
-  if ( v8 < v18 )
-    v38 = 2;
-  v19 = *(_DWORD *)(v13 + 40);
-  if ( v8 > v19 )
-    v38 |= 1u;
-  if ( v11 >= v18 )
-    v12 = 0;
-  else
-    v12 = 2;
-  if ( v11 > v19 )
-    LOBYTE(v12) = v12 | 1;
-  if ( !(v12 & v38) )
-  {
-    v12 ^= v38;
-    v43 = v12;
-    if ( v12 & 2 )
-    {
-      if ( v38 & 2 )
-      {
-        a2 += (v10 - a2) * (v40 - v8) / (v11 - v8);
-        LOBYTE(v12) = v36;
-        v8 = *(_DWORD *)(v36 + 32);
-      }
-      else
-      {
-        v20 = (a2 - v10) * (v40 - v11);
-        v21 = v8 - v11;
-        v11 = v40;
-        v12 = v20 / v21;
-        v10 += v12;
-      }
-    }
-    if ( v43 & 1 )
-    {
-      if ( v38 & 1 )
-      {
-        a2 += (v10 - a2) * (*(_DWORD *)(v36 + 40) - v8) / (v11 - v8);
-        LOBYTE(v12) = v36;
-        v8 = *(_DWORD *)(v36 + 40);
-      }
-      else
-      {
-        v12 = (a2 - v10) * (*(_DWORD *)(v36 + 40) - v11) / (v8 - v11);
-        v11 = *(_DWORD *)(v36 + 40);
-        v10 += v12;
-      }
-    }
-    goto LABEL_46;
-  }
-  return v12;
-}
-
 //----- (004A169E) --------------------------------------------------------
 char __thiscall sub_4A169E(void *this)
 {
@@ -15409,7 +15136,7 @@ int __thiscall sub_4A52F1(int this, int a2, float a3)
       v16 += 4;
     }
     while ( v16 < (signed int)&dword_F1B4B0 );
-    if ( pD3DRenderer->dword_0400D0 == 6 )
+    if ( pD3DRenderer->uNumTargetGBits == 6 )
     {
       v20 = sub_42690D(a2);
       v24 = (65536 - LODWORD(a3)) * (v20 & 0x1F);
@@ -15605,7 +15332,7 @@ char __cdecl sub_4A597D()
         v1 = pD3DRenderer->pTargetSurface;
         v30 = v23;
         dword_F1B424 = v23;
-        v28 = pD3DRenderer->dword_0400DC | pD3DRenderer->dword_0400E0 | ((pD3DRenderer->dword_0400DC | pD3DRenderer->dword_0400E0) << 16);
+        v28 = pD3DRenderer->uTargetGMask | pD3DRenderer->uTargetBMask | ((pD3DRenderer->uTargetGMask | pD3DRenderer->uTargetBMask) << 16);
         dword_F1B428 = pD3DRenderer->pTargetSurface;
         dword_F1B420 = v22;
         v5 = dword_F1B428;
@@ -15812,7 +15539,7 @@ void __thiscall sub_4A5D33(int this, int a2, int a3, int a4, int a5, int a6)
           v9 = v20 - v21;
         }
       }
-      v27 = sub_40DEF3(0, 0xFFu, 0xFFu);
+      v27 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, 0xFFu);
       if ( v9 > 0 )
       {
         v22 = v28;
@@ -16692,7 +16419,7 @@ void __thiscall sub_4A6E7E(int this, int a2, int a3, int a4)
             v6 = v15 - v16;
           }
         }
-        if ( pD3DRenderer->dword_0400D0 == 5 )
+        if ( pD3DRenderer->uNumTargetGBits == 5 )
         {
           if ( v6 > 0 )
           {

@@ -3090,14 +3090,14 @@ char *__thiscall sub_4B1523(void *this)
   
   v14 = v10 + v12 - 1;
   v15 = v13 + v11 - 1;
-  v9 = sub_40DEF3(0xFFu, 0xFFu, 0x9Bu);
+  v9 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
   sub_44D406((int)&v10, pFontArrus, 120, 12, v9, v8, 3);
-  FontDrawText((int)&v10, pFontSmallnum, 120, 44, 0, pStringBuffer, 0, 0, 0);
+  FontDrawText((int)&v10, pFontSmallnum, 120, 44, pStringBuffer, 0, 0, 0);
   v14 = v10 + 107;
   v12 = 108;
   //sub_44D406((int)&v10, pFontComic, 12, 75, 0, (&dword_AE3300)[v17], 3);
   sub_44D406((int)&v10, pFontComic, 12, 75, 0, aSkillNames[12 + v17 / 4], 3);
-  sprintfex(&ExistingFileName, "%s\n%d", pGlobalTXT_LocalizationStrings[522], (unsigned __int16)word_4E3C68[10 * v1]);
+  wsprintfA(ExistingFileName, "%s\n%d", pGlobalTXT_LocalizationStrings[522], (unsigned __int16)word_4E3C68[10 * v1]);
   return sub_44D406((int)&v10, pFontComic, 12, v13 - *(_BYTE *)(pFontComic + 5) - 16, 0, &ExistingFileName, 3);
 }
 
@@ -3126,7 +3126,7 @@ signed int __cdecl sub_4B1784()
     v5 = 148;
     v6 = 334;
     sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[427], v0 + 168, pGlobalTXT_LocalizationStrings[562]);
-    v2 = sub_40DEF3(0xFFu, 0xFFu, 0x9Bu);
+    v2 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
     v3 = sub_44C59D(pFontArrus, &ExistingFileName, (int)&v4, 0, 0);
     sub_44D406((int)&v4, pFontArrus, 0, (212 - v3) / 2 + 101, v2, &ExistingFileName, 3);
     result = 0;
@@ -3210,7 +3210,7 @@ char *__thiscall sub_4B1854(void *this, __int64 a2)
       strcat(ExistingFileName, pStringBuffer);
     }
   }
-  v13 = sub_40DEF3(0xFFu, 0xFFu, 0x9Bu);
+  v13 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
   v14 = sub_44C59D(pFontArrus, &ExistingFileName, v15, 0, 0);
   return sub_44D406(v15, pFontArrus, 0, (212 - v14) / 2 + 101, v13, &ExistingFileName, 3);
 }
@@ -4305,8 +4305,8 @@ char __cdecl sub_4B2A74()
   v60 -= 10;
   v65 = dword_5913D8[dword_5913F0 - ((dword_591080 != 0) + 1)];
   v8 = v65;
-  *(_DWORD *)v62 = sub_40DEF3(0xE1u, 0xCDu, 0x23u);
-  v7 = sub_40DEF3(0x15u, 0x99u, 0xE9u);
+  *(_DWORD *)v62 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xE1u, 0xCDu, 0x23u);
+  v7 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0x15u, 0x99u, 0xE9u);
   v6 = *(_DWORD *)(v8 + 24);
   if ( v6 )
     //sprintfex(&ExistingFileName, (const char *)dword_5E4834, *(_DWORD *)v8, dword_73C290[v6]);
@@ -4335,7 +4335,7 @@ char __cdecl sub_4B2A74()
           *(_WORD *)(uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 + 0x1A : 26) - (v11 + 7));
         CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 347 - v12, pClass18_EndcapTexture);
         v13 = FitTextInAWindow((const char *)v64, pFontArrus, (int)&v58, 13, 0);
-        FontDrawText(dword_507BBC, pFontArrus, 13, 354 - v12, 0, v13, 0, 0, 0);
+        FontDrawText(dword_507BBC, pFontArrus, 13, 354 - v12, v13, 0, 0, 0);
       }
     }
   }
@@ -4387,9 +4387,9 @@ LABEL_45:
         if ( !v28 )
         {
           v29 = &pMonsterStats->pMonsterInfos[word_F8B1A0];
-          v30 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
+          v30 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
           v31 = *v29;
-          v32 = sub_40DEF3(0xFFu, 0xFFu, 0x9Bu);
+          v32 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
           sprintfex(ExistingFileName, (const char *)&unk_4F0F98, v32, v31, v30);
           sprintfex(pStringBuffer, (const char *)dword_F8B1A4, ExistingFileName, 100 * *((_BYTE *)v29 + 8));
           dword_F8B1E8 = pStringBuffer;
@@ -4472,9 +4472,9 @@ LABEL_49:
     }
   }
   v35 = 0;
-  v61 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
+  v61 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
   v34 = *(_DWORD *)(v14 + 56);
-  *(_DWORD *)v62 = sub_40DEF3(0xE1u, 0xCDu, 0x23u);
+  *(_DWORD *)v62 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xE1u, 0xCDu, 0x23u);
   for ( i = v34 + *(_DWORD *)(v14 + 40); v34 < i; i = *(_DWORD *)(dword_507BBC + 40) + *(_DWORD *)(dword_507BBC + 56) )
   {
     v36 = GUIWindow_GetChild(v14, v34);
@@ -4538,7 +4538,7 @@ LABEL_49:
       *(_WORD *)(uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 + 0x1A : 26) - v46);
     CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 347 - v46, pClass18_EndcapTexture);
     v47 = FitTextInAWindow(dword_F8B1E8, v45, (int)&v49, 13, 0);
-    LOBYTE(i) = FontDrawText((int)&v58, v45, 13, 354 - v46, 0, v47, 0, 0, 0);
+    LOBYTE(i) = FontDrawText((int)&v58, v45, 13, 354 - v46, v47, 0, 0, 0);
   }
   return i;
 }
@@ -4576,8 +4576,8 @@ void __thiscall sub_4B3157(const void *this)
     memcpy(&v21, this, 0x54u);
     v22 -= 18;
     v23 -= 18;
-    v1 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
-    *(_DWORD *)v24 = sub_40DEF3(0x15u, 0x99u, 0xE9u);
+    v1 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
+    *(_DWORD *)v24 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0x15u, 0x99u, 0xE9u);
     CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 477, 0, dword_591430);
     CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 468, 0, dword_507B04 != -1 ? 72 * dword_507B04 + 7145548 : 0);
     if ( dword_5913F0 != dword_591424 || !dword_5C35D0 )
@@ -4732,7 +4732,7 @@ LABEL_36:
         *(_WORD *)(uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 + 0x1A : 26) - (v5 + 7));
       CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 347 - v6, pClass18_EndcapTexture);
       v7 = FitTextInAWindow(dword_F8B1E8, pFontArrus, (int)&v17, 13, 0);
-      FontDrawText(dword_507BC0, pFontArrus, 13, 354 - v6, 0, v7, 0, 0, 0);
+      FontDrawText(dword_507BC0, pFontArrus, 13, 354 - v6, v7, 0, 0, 0);
     }
     v8 = 0;
     if ( dword_591424 <= 0 )
@@ -5759,10 +5759,10 @@ char __fastcall sub_4B46A5(const char *Str1, __int16 a2)
   int v5; // eax@1
 
   v3 = Str1;
-  v4 = a2;
+  v4 = a2;//colored or white text flag
   CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 352, pTexture_StatusBar);
   v5 = AlignText_Center(450, v3, pFontLucida);
-  return FontDrawText(pGUIWindow0, pFontLucida, v5 + 11, 357, v4, v3, 0, 0, 0);
+  return FontDrawText(pGUIWindow0, pFontLucida, v5 + 11, 357, v3, 0, 0, 0);
 }
 
 //----- (004B46F8) --------------------------------------------------------
@@ -5865,8 +5865,8 @@ int __cdecl sub_4B4710()
   v68 = 483;
   v69 = 148;
   v70 = 334;
-  v72 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
-  v4 = sub_40DEF3(0xE1u, 0xCDu, 0x23u);
+  v72 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
+  v4 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xE1u, 0xCDu, 0x23u);
   v2 = *(_WORD *)(v3 + 218);
   *(_DWORD *)v76 = v4;
   v0 = 0;
@@ -6203,7 +6203,7 @@ char *__cdecl sub_4B4F4F()
   v5 = 483;
   v6 = 148;
   v7 = 334;
-  v3 = sub_40DEF3(0xFFu, 0xFFu, 0x9Bu);
+  v3 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
   v4 = sub_44C59D(pFontArrus, v1, (int)&v5, 0, 0);
   return sub_44D406((int)&v5, pFontArrus, 0, (310 - v4) / 2 + 18, v3, v2, 3);
 }
@@ -6344,8 +6344,8 @@ signed int __cdecl sub_4B4FCF()
   v113 = 483;
   v114 = 148;
   v115 = 334;
-  *(_DWORD *)v119 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
-  *(_DWORD *)v118 = sub_40DEF3(0xE1u, 0xCDu, 0x23u);
+  *(_DWORD *)v119 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
+  *(_DWORD *)v118 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xE1u, 0xCDu, 0x23u);
   if ( dword_F8B19C > 5 )
   {
     if ( dword_F8B19C == 94 )
@@ -6971,8 +6971,8 @@ signed int __cdecl sub_4B5D7C()
   v52 = 483;
   v53 = 148;
   v54 = 334;
-  *(_DWORD *)v56 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
-  *(_DWORD *)v57 = sub_40DEF3(0xFFu, 0xFFu, 0x9Bu);
+  *(_DWORD *)v56 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
+  *(_DWORD *)v57 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
   v0 = (signed __int64)(*((float *)&unk_591458 + 13 * *(_DWORD *)(v2 + 28)) * 500.0);
   v63 = v0 * (100 - sub_4911F3(v1)) / 100;
   if ( v63 < v0 / 3 )
@@ -7277,8 +7277,8 @@ signed int __cdecl sub_4B6478()
   v28 = 483;
   v29 = 148;
   v30 = 334;
-  v32 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
-  *(_DWORD *)v33 = sub_40DEF3(0xFFu, 0xFFu, 0x9Bu);
+  v32 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
+  *(_DWORD *)v33 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
   v4 = 52 * *(_DWORD *)(v3 + 28);
   v34 = (((*(__int16 *)((char *)word_591438 + v4) != 18) - 1) & 0x96) + 100;
   v2 = (signed __int64)((double)v34 * *(float *)(v4 + 5837912));
@@ -7550,8 +7550,8 @@ void __cdecl sub_4B6943()
   v62 = 483;
   v63 = 148;
   v64 = 334;
-  *(_DWORD *)v68 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
-  v67 = sub_40DEF3(0xFFu, 0xFFu, 0x9Bu);
+  *(_DWORD *)v68 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
+  v67 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
   v4 = 52 * *(_DWORD *)(v2 + 28);
   v70 = (((*(__int16 *)((char *)word_591438 + v4) != 27) - 1) & 0xFFFFFFE7) + 50;
   v0 = (signed __int64)((double)v70 * *(float *)(v4 + 5837912));
@@ -7914,8 +7914,8 @@ int __cdecl sub_4B705E()
   v57 = 483;
   v58 = 148;
   v59 = 334;
-  HIDWORD(v60) = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
-  HIDWORD(v61) = sub_40DEF3(0xFFu, 0xFFu, 0x9Bu);
+  HIDWORD(v60) = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
+  HIDWORD(v61) = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
   v1 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter);
   v0 = sub_4B807C(*(&ptr_A750C4 + uMaybeSelectedCharacter), *((float *)&unk_591458 + 13 * *(_DWORD *)(v2 + 28)));
   HIDWORD(v62) = v0;
@@ -8283,8 +8283,8 @@ char __cdecl sub_4B7911()
   v31 = 483;
   v32 = 148;
   v33 = 334;
-  *(_DWORD *)v34 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
-  *(_DWORD *)v36 = sub_40DEF3(0xFFu, 0xFFu, 0x9Bu);
+  *(_DWORD *)v34 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
+  *(_DWORD *)v36 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
   sprintfex(&ExistingFileName, "%s: %d", pGlobalTXT_LocalizationStrings[162], dword_AE31E0);
   sub_44D406((int)&v31, pFontArrus, 0, 260, v36[0], &ExistingFileName, 3);
   if ( dword_F8B19C == 1 )
@@ -8401,9 +8401,9 @@ LABEL_8:
       goto LABEL_8;
     }
     v7 = &pMonsterStats->pMonsterInfos[word_F8B1A0];
-    v8 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
+    v8 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
     v9 = *v7;
-    v10 = sub_40DEF3(0xFFu, 0xFFu, 0x9Bu);
+    v10 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
     sprintfex(ExistingFileName, (const char *)&unk_4F0F98, v10, v9, v8);
     sprintfex(pStringBuffer, (const char *)dword_F8B1A4, ExistingFileName, 100 * *((_BYTE *)v7 + 8));
     dword_F8B1E8 = pStringBuffer;
@@ -8425,7 +8425,7 @@ LABEL_8:
       *(_WORD *)(uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 + 0x1A : 26) - v6);
     CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 347 - v6, pClass18_EndcapTexture);
     v11 = FitTextInAWindow(dword_F8B1E8, v38, (int)&v28, 13, 0);
-    LOBYTE(v0) = FontDrawText((int)&v27, v38, 13, 354 - v6, 0, v11, 0, 0, 0);
+    LOBYTE(v0) = FontDrawText((int)&v27, v38, 13, 354 - v6, v11, 0, 0, 0);
   }
   return v0;
 }
@@ -8455,8 +8455,8 @@ char __cdecl sub_4B7D7E()
   v13 = 483;
   v14 = 148;
   v15 = 334;
-  *(_DWORD *)v16 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
-  *(_DWORD *)v17 = sub_40DEF3(0xFFu, 0xFFu, 0x9Bu);
+  *(_DWORD *)v16 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
+  *(_DWORD *)v17 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
   sprintfex(&ExistingFileName, "%s: %d", pGlobalTXT_LocalizationStrings[25], unk_ACD6F0);
   sub_44D406((int)&v13, pFontArrus, 0, 220, v17[0], &ExistingFileName, 3);
   if ( dword_F8B19C != 1 )
@@ -8836,8 +8836,8 @@ void __cdecl sub_4B8285()
   v82 = 483;
   v83 = 148;
   v84 = 334;
-  v86 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
-  *(_DWORD *)v89 = sub_40DEF3(0xFFu, 0xFFu, 0x9Bu);
+  v86 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
+  *(_DWORD *)v89 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
   v4 = *((float *)&unk_591458 + 13 * *(_DWORD *)(v2 + 28));
   *(float *)&v88 = *((float *)&unk_591458 + 13 * *(_DWORD *)(v2 + 28));
   *(float *)&v94 = v4 * v4;
@@ -9227,7 +9227,7 @@ LABEL_73:
     v62 = FitTextInAWindow(&ExistingFileName, pFontArrus, (int)&v79, 12, 0);
     v63 = pFontArrus;
 LABEL_103:
-    FontDrawText(dword_507BC0, v63, 12, 354 - v64, 0, v62, v69, v71, v74);
+    FontDrawText(dword_507BC0, v63, 12, 354 - v64, v62, v69, v71, v74);
     return;
   }
   if ( dword_F8B19C == 104 && byte_505992 != 1 )
@@ -9529,8 +9529,8 @@ int __cdecl sub_4B910F()
   v102 = 483;
   v103 = 148;
   v104 = 334;
-  *(_DWORD *)v108 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
-  *(_DWORD *)v107 = sub_40DEF3(0xE1u, 0xCDu, 0x23u);
+  *(_DWORD *)v108 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
+  *(_DWORD *)v107 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xE1u, 0xCDu, 0x23u);
   if ( dword_F8B19C > 5 )
   {
     if ( dword_F8B19C == 94 )
@@ -10153,8 +10153,8 @@ signed int __cdecl sub_4B9CC6()
   v105 = 483;
   v106 = 148;
   v107 = 334;
-  *(_DWORD *)v111 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
-  *(_DWORD *)v109 = sub_40DEF3(0xE1u, 0xCDu, 0x23u);
+  *(_DWORD *)v111 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
+  *(_DWORD *)v109 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xE1u, 0xCDu, 0x23u);
   if ( dword_F8B19C == 1 )
   {
     result = sub_4B1784();
@@ -10810,8 +10810,8 @@ char __cdecl sub_4BA928()
   v140 = 483;
   v141 = 148;
   v142 = 334;
-  *(_DWORD *)v146 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
-  *(_DWORD *)v145 = sub_40DEF3(0xE1u, 0xCDu, 0x23u);
+  *(_DWORD *)v146 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
+  *(_DWORD *)v145 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xE1u, 0xCDu, 0x23u);
   if ( dword_F8B19C > 5 )
   {
     if ( dword_F8B19C == 6 )
@@ -11889,23 +11889,21 @@ void __cdecl sub_4BC109()
   CD3DRenderer_sub_4A1FE1_MaybeRenderSpecialEffects(pD3DRenderer);
   CD3DRenderer_BeginScene(pD3DRenderer);
   if ( pD3DRenderer->dword_040088 )
-    sub_4A6D87(
-      pD3DRenderer,
+    sub_4A6D87(pD3DRenderer,
       1,
       dword_F8BC24,
       data_F8BC28.qword_F8BC28,
       HIDWORD(data_F8BC28.qword_F8BC28) - dword_F8BC24,
       dword_F8BC30 - data_F8BC28.qword_F8BC28 + 1,
-      pD3DRenderer->dword_0400DC | pD3DRenderer->dword_0400E0);
-  sub_4A6A68(
-    pD3DRenderer,
+      pD3DRenderer->uTargetGMask | pD3DRenderer->uTargetBMask);
+  sub_4A6A68(pD3DRenderer,
     8,
     352 - v0,
     uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 : 0,
     *(_WORD *)(uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 + 0x1A : 26) - v0);
   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 347 - v0, pClass18_EndcapTexture);
   v1 = FitTextInAWindow(pGlobalTXT_LocalizationStrings[575], pFontArrus, (int)&v24, 13, 0);
-  FontDrawText(dword_507BBC, pFontArrus, 13, 354 - v0, 0, v1, 0, 0, 0);
+  FontDrawText(dword_507BBC, pFontArrus, 13, 354 - v0, v1, 0, 0, 0);
   CD3DRenderer_EndScene(pD3DRenderer);
   CD3DRenderer_Present(pD3DRenderer);
   pParty_global->dword_0006B4 = 3849;

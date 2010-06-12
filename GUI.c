@@ -36,7 +36,7 @@ void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigne
  struct class18 *pClass18Parchment;
 
  //v17 = uWindowX + uWindowWidth;
- sub_4A5B81(pD3DRenderer, uWindowX, uWindowY, uWindowX + uWindowWidth, uWindowY + uWindowHeight);
+ CD3DRenderer_Set2DClippingRect(pD3DRenderer, uWindowX, uWindowY, uWindowX + uWindowWidth, uWindowY + uWindowHeight);
 
 
  pClass18Parchment = &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_Parchment];
@@ -71,7 +71,7 @@ void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigne
   //v23 = uWindowY + uWindowHeight - 10;
  if (uWindowWidth > 64)
  {
-  sub_4A5B81(pD3DRenderer, uWindowX + 32, uWindowY, uWindowX + uWindowWidth - 32, uWindowY + uWindowHeight);
+  CD3DRenderer_Set2DClippingRect(pD3DRenderer, uWindowX + 32, uWindowY, uWindowX + uWindowWidth - 32, uWindowY + uWindowHeight);
 
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + 32, uWindowY, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeTop]);
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + 32, uWindowY + uWindowHeight - 10, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeBottom]);
@@ -86,13 +86,13 @@ void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigne
   //v10 = uWindowY + 32;
  if (uWindowHeight > 64)
  {
-  sub_4A5B81(pD3DRenderer, uWindowX, uWindowY + 32, uWindowX + uWindowWidth, uWindowY + uWindowHeight - 32);
+  CD3DRenderer_Set2DClippingRect(pD3DRenderer, uWindowX, uWindowY + 32, uWindowX + uWindowWidth, uWindowY + uWindowHeight - 32);
 
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX, uWindowY + 32, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeLeft]);
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + uWindowWidth - 10, uWindowY + 32, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeRight]);
  }
 
- CD3DRenderer_sub_4A5BB6(pD3DRenderer);
+ CD3DRenderer_Reset2DClippingRect(pD3DRenderer);
 }
 
 //----- (0041CD3B) --------------------------------------------------------
@@ -694,29 +694,25 @@ LABEL_26:
 //----- (0044C448) --------------------------------------------------------
 struct Font *__cdecl LoadFont(const char *pFontFile, const char *pFontPalette)
 {
-  int result; // eax@1
   int v5; // eax@3
-  int v8; // [sp+8h] [bp-8h]@1
-  int **v9; // [sp+Ch] [bp-4h]@2
+ struct Font *pFont;
 
- result = class17_fn1(pClass17_Icons_LOD, pFontFile, 0);
- v8 = 0;
+ pFont = class17_fn1(pClass17_Icons_LOD, pFontFile, 0);
+
  if (pFontPalette)
  {
-  v9 = result + 12;
+  v5 = class17_LoadTexture(pClass17_Icons_LOD, pFontPalette, 2);
+  if (v5 == -1)
+  {
+   wsprintfA(ExistingFileName, "Unable to open %s", pFontPalette);
+   erroneous_printf(ExistingFileName);
+  }
 
-   v5 = class17_LoadTexture(pClass17_Icons_LOD, pFontPalette, 2);
-   if (v5 == -1)
-   {
-    sprintfex(&ExistingFileName, "Unable to open %s", pFontPalette);
-    erroneous_printf(&ExistingFileName);
-   }
-   ++v8;
-   *v9++ = pClass17_Icons_LOD->aLODHeaders[v5].pPalette;
+  pFont->pFontPalette = pClass17_Icons_LOD->aLODHeaders[v5].pPalette;
  }
 
- *(_DWORD *)(result + 8) = v8;
- return result;
+ pFont->dword_000008 = 1;
+ return pFont;
 }
 
 
@@ -1168,7 +1164,7 @@ void DrawLoadingScreen(struct class56 *_this)
       v4 = CIconFrameTable_GetFrame(pIconFrameTable, dword_50C984, 0);
       CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 100, 146, 72 * *(_WORD *)(v4 + 30) + 7145548);
       v5 = (double)(113 * *(_BYTE *)(v1 + 11)) / (double)*(_BYTE *)(v1 + 10);
-      sub_4A6D87(pD3DRenderer, 0, 174, 164, v5 + 6.755399441055744e15, 16, pD3DRenderer->dword_0400D8);
+      sub_4A6D87(pD3DRenderer, 0, 174, 164, v5 + 6.755399441055744e15, 16, pD3DRenderer->uTargetRMask);
 
       CD3DRenderer_EndScene(pD3DRenderer);
       CD3DRenderer_Present(pD3DRenderer);
@@ -1180,13 +1176,11 @@ void DrawLoadingScreen(struct class56 *_this)
 
   CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, v1 + 24);
   CD3DRenderer_sub_4A0E97(pD3DRenderer, 0, 0, 639, 479);
-  sub_4A5B81(pD3DRenderer,
-    172,
-    459,
+  CD3DRenderer_Set2DClippingRect(pD3DRenderer, 172, 459,
     172 + 300 * ((float)(_this->uProgressCurrent) / (float)_this->uProgressMax),
     471);
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 172, 459, &pClass17_Icons_LOD->aLODHeaders[_this->_addon_loadprog_id_in_Icons_LOD]);
-  CD3DRenderer_sub_4A5BB6(pD3DRenderer);
+  CD3DRenderer_Reset2DClippingRect(pD3DRenderer);
   CD3DRenderer_EndScene(pD3DRenderer);
   CD3DRenderer_Present(pD3DRenderer);
 }
@@ -1250,9 +1244,9 @@ void __cdecl GameUI_DrawStatusBar()
     dword_5C35BC = 0;
     if ( !v9 )
     {
-      v10 = dword_507AFC;
+      v10 = dword_507AFC; //colored or white text flag
       v11 = AlignText_Center(v3, v2, pFontLucida);
-      FontDrawText(pGUIWindow0, pFontLucida, v11 + 11, 357, v10, v2, 0, 0, v0);
+      FontDrawText(pGUIWindow0, pFontLucida, v11 + 11, 357, v2, 0xFFFFFFFF, 0, v0);
     }
   }
 }
@@ -1331,13 +1325,13 @@ void __cdecl GameUI_DrawFoodAndGold()
 
   if ( dword_6A0D48 != 9 )
   {
-    v0 = dword_507AFC;
-    v1 = *(char **)&dword_507AF8;
+    v0 = dword_507AFC; //colored or white text
+    v1 = *(char **)&dword_507AF8; //final param in DrawText
     v2 = sub_44100D() != 0 ? 381 : 322;
     wsprintfA(ExistingFileName, "\r087%lu", pParty_global->uNumFood);
-    FontDrawText(pGUIWindow0, pFontSmallnum, 0, v2, v0, ExistingFileName, 0, 0, v1);
+    FontDrawText(pGUIWindow0, pFontSmallnum, 0, v2, ExistingFileName, 0xFFFFFFFF, 0, 0);
     wsprintfA(ExistingFileName, "\r028%lu", pParty_global->uNumGold);
-    FontDrawText(pGUIWindow0, pFontSmallnum, 0, v2, v0, ExistingFileName, 0, 0, v1);
+    FontDrawText(pGUIWindow0, pFontSmallnum, 0, v2, ExistingFileName, 0xFFFFFFFF, 0, 0);
   }
 }
 
@@ -1470,14 +1464,12 @@ void LevelLoadingUI_Release(struct class56 *_this)
 //----- (004921C1) --------------------------------------------------------
 void GameUI_DrawPortraits(void *this)
 {
-  signed int v1; // ebx@2
-  void *v2; // ebp@7
+  int v1;
   signed int v3; // esi@7
-  int v4; // eax@10
-  int v5; // edx@13
+ struct class18 *v4; // eax@10
   int v6; // eax@14
   int v7; // eax@17
-  int v8; // eax@21
+  //int v8; // eax@21
   int v9; // eax@27
   bool v10; // eax@33
   bool v11; // edi@40
@@ -1487,16 +1479,14 @@ void GameUI_DrawPortraits(void *this)
   int v15; // edi@55
   int v16; // eax@57
   int v19; // eax@62
-  int v20; // [sp-4h] [bp-1Ch]@27
-  signed int v21; // [sp+10h] [bp-8h]@7
   void *v22; // [sp+14h] [bp-4h]@1
- int i;
+ int i, j;
+ struct PlayerFrame *pPlayerFaceIcon;
 
   v22 = this;
   if ( qword_A750D8 )
   {
     qword_A750D8 -= pClass24_global2->dword_00001C;
-    v1 = 0;
     if ( qword_A750D8 <= 0 )
     {
       if ( sub_492C0B(pPlayers[word_A750E2 - 1]) )
@@ -1504,25 +1494,26 @@ void GameUI_DrawPortraits(void *this)
       qword_A750D8 = 0i64;
     }
   }
-  else
+
+  v1 = 0;
+
+  for (i = 0; i < 4; ++i)
   {
-    v1 = 0;
-  }
-  v2 = 0;
-  v21 = v1;
-  v3 = (signed int)&dword_ACD9F4;
-  while ( 1 )
-  {
-    if ( *(_QWORD *)(v3 + 16) )
-    {
+   v3 = &pParty_global->pPlayers[i].qword_000070;
+
+   if (pParty_global->pPlayers[i].qword_000070 || pParty_global->pPlayers[i].qword_000080)
+   {
+    if (pParty_global->pPlayers[i].qword_000070)
+      v4 = &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_PlayerFaceEradicated];
+    else if (pParty_global->pPlayers[i].qword_000080)
       v4 = &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_PlayerFaceDead];
+
 LABEL_27:
-      v20 = v4;
-      v9 = off_4ED748[(_DWORD)v2];
-      if ( qword_ACD8F4 )
-        sub_4A6E7E(pD3DRenderer, v9, 387, v20);
+      v9 = off_4ED748[i];
+      if (qword_ACD8F4)
+        sub_4A6E7E(pD3DRenderer, v9, 387, v4);
       else
-        CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v9 + 1, 388, v20);
+        CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v9 + 1, 388, v4);
       v10 = *(_DWORD *)(v3 + 6164) >= v1 && (*(_DWORD *)(v3 + 6164) > v1 || *(_DWORD *)(v3 + 6160) > (unsigned int)v1);
       if ( *(_DWORD *)(v3 + 5956) >= v1 )
       {
@@ -1533,54 +1524,37 @@ LABEL_27:
       v12 = *(_QWORD *)(v3 + 6048) > 0i64;
       v13 = *(_QWORD *)(v3 + 6144) > 0i64;
       if ( v13 | v12 | v11 | v1 | v10 )
-        sub_441A4E(v2);
-      goto LABEL_50;
+        sub_441A4E(i);
+      continue;
     }
-    if ( *(_QWORD *)v3 )
-    {
-      v4 = &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_PlayerFaceEradicated];
-      goto LABEL_27;
-    }
-    v5 = 0;
-    if ( pPlayerFrameTable->uNumFrames <= v1 )
-    {
-LABEL_17:
-      v7 = 0;
-    }
-    else
-    {
-     v6 = pPlayerFrameTable->pFrames;
-      while ( *(_WORD *)v6 != *(_WORD *)(v3 + 6700) )
+
+
+    v7 = 1;
+    for (j = 0; j < pPlayerFrameTable->uNumFrames; ++j)
+      if (pPlayerFrameTable->pFrames[j].word_000000 == pParty_global->pPlayers[i].word_001A9C)
       {
-        ++v5;
-        v6 += 10;
-        if ( v5 >= pPlayerFrameTable->uNumFrames )
-          goto LABEL_17;
+       v7 = j;
+       break;
       }
-      v7 = v5;
-    }
-    if ( v7 == v1 )
-      v7 = 1;
-    if ( *(_WORD *)(v3 + 6700) == 21 )
-     v8 = sub_494B5E(pPlayerFrameTable, v3 + 6712, v3 + 6708, pClass24_global2->dword_00001C);
+
+    if (pParty_global->pPlayers[i].word_001A9C == 21)
+      pPlayerFaceIcon = sub_494B5E(pPlayerFrameTable,
+                      &pParty_global->pPlayers[i].dword_001AA8,
+                      &pParty_global->pPlayers[i].dword_001AA4,
+                      pClass24_global2->dword_00001C);
     else
-      v8 = sub_494B10(pPlayerFrameTable, v7, *(_WORD *)(v3 + 6702));
-    if ( *(_WORD *)(v3 + 6706) != *(_WORD *)(v8 + 2) - 1 || v22 )
+      pPlayerFaceIcon = CPlayerFrameTable_GetFrame(pPlayerFrameTable, v7, pParty_global->pPlayers[i].word_001A9E);
+
+    if (pParty_global->pPlayers[i].word_001AA2 != pPlayerFaceIcon->word_000002 - 1 || v22)
     {
-      *(_WORD *)(v3 + 6706) = *(_WORD *)(v8 + 2) - 1;
-      v1 = 0;
-      v4 = &pClass17_Icons_LOD->aLODHeaders[dword_A74CEC[v21 + *(_WORD *)(v8 + 2)]];
-      goto LABEL_27;
+     pParty_global->pPlayers[i].word_001AA2 = pPlayerFaceIcon->word_000002 - 1;
+     v1 = 0;
+     v4 = &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_PlayerFaces[i][pPlayerFaceIcon->word_000002 - 1]];
+     goto LABEL_27;
     }
-LABEL_50:
-    v21 += 56;
-    v3 += 6972;
-    v2 = (char *)v2 + 1;
-    //if ( v3 >= (signed int)&unk_AD46E4 )
-    if (v3 >= &struct_AD4674[1].dword_000024)
-      break;
-    v1 = 0;
   }
+
+  
   if ( dword_ACD834 == 1 )
   {
     if ( dword_4F885C != 1 )
@@ -1635,7 +1609,7 @@ LABEL_50:
 }
 
 //----- (0044CE08) --------------------------------------------------------
-char __fastcall FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, __int16 a5, const char *pString, int a7, signed int a8, unsigned int a9)
+char __fastcall FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, const char *pString, unsigned int uTextMainColor, signed int a8, unsigned int uTextShadowColor)
 {
   int v9; // ebx@1
   int v10; // edi@1
@@ -1674,8 +1648,7 @@ char __fastcall FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsign
   v36 = _this;
   if (!pString)
   {
-    a9 = &v23;
-    sub_40E2C8(&v23, "Invalid string passed!", (int)((char *)&a9 + 3));
+    sub_40E2C8(&v23, "Invalid string passed!", 0);
     LOBYTE(v11) = (unsigned int)sub_466D09(&a8, *(int *)&v23, v24, v25, v26, __FILE__, __LINE__);
     return (char)v11;
   }
@@ -1732,11 +1705,13 @@ char __fastcall FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsign
                   goto LABEL_36;
                 break;
               case 0xCu:
+                runtime_warning(color option inside a string?);
+               /*
                 strncpy(&Dest, &v37[v12 + 1], 5u);
                 v31 = 0;
                 c = (char *)atoi(&Dest);
                 v38 += 5;
-                *(_DWORD *)&a5 = c;
+                *(_DWORD *)&a5 = c;*/
                 break;
               case 0xDu:
                 strncpy(&Dest, &v37[v12 + 1], 3u);
@@ -1772,15 +1747,12 @@ LABEL_36:
                 if ( v12 > 0 )
                   uOutX += pFont->dword_000020[v15][0];
                 v17 = pFont->array_000C20[v15] + &pFont->unk_001020;
-                if ( a5 )
-                  sub_4A6C4F(pD3DRenderer, uOutX, uOutY, v17,
+
+                CD3DRenderer_DrawText(pD3DRenderer, uOutX, uOutY, v17,
                     v16,
-                    pFont->uFontHeight, pFont->dword_00000C,
-                    a5,
-                    a9);
-                else
-                  sub_4A6AB1(pD3DRenderer, uOutX, uOutY, v17,
-                             v16, pFont->uFontHeight, pFont->dword_00000C, a7);
+                    pFont->uFontHeight, pFont->pFontPalette,
+                    uTextMainColor,
+                    uTextShadowColor);
                 uOutX += pFont->dword_000020[v15][1];
                 if ( v38 < (signed int)v35)
                 {
@@ -1798,4 +1770,12 @@ LABEL_36:
     }
 
   return (char)v11;
+}
+
+
+//----- (0044158F) --------------------------------------------------------
+void GameUI_DrawCharacterSelectionFrame()
+{
+ if (uMaybeSelectedCharacter)
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, off_4ED748[uMaybeSelectedCharacter - 1] - 9, 380, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_CharacterSelectionFrame]);
 }

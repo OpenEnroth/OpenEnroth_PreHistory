@@ -32,7 +32,7 @@ struct class51_stru3
 
 struct class51_BModel
 {
- unsigned char pSomeName[16 + array_size_unknown];
+ unsigned char pModelName[16 + array_size_unknown];
 
  char byte_a[0x40 - 16 - array_size_unknown];
 
@@ -44,7 +44,7 @@ struct class51_BModel
  int dword_000050;
 
  struct class51_stru2 *ptr_000054;
- unsigned char        *ptr_000058;
+ unsigned short       *ptr_000058;
  unsigned int          dword_00005C;
  unsigned char        *ptr_000060;
 
@@ -73,12 +73,12 @@ struct class51_stru2
  short array_000098[20];
  short array_0000C0[20];
  char  byte_0000E8[40];
- short word_000110;
+ short uTextureID;      // word @ 000110
  char  byte_000112[4];
  short word_000116;
  short word_000118;
  short word_00011A;
- char  word_00011C;
+ short word_00011C;
  char  byte_00011E[6];
  short word_000124;     //related to Event::dword_000000
  char  byte_000126[8];
@@ -120,7 +120,7 @@ struct class51
 
  char maybe_more[0x20000];
 };
-//sizeof
+//sizeof ~ ?
 //int __thiscall sub_488F2E(int this, signed int a2, signed int a3);
 int class51_sub_488F2E_GetHeightOnTerrain(struct class51 *_this, signed int uX, signed int uY);
 //int __thiscall sub_47EE16(int this, signed int a2, signed int a3);

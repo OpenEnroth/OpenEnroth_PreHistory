@@ -826,7 +826,7 @@ int __fastcall MenuLoop_CharacterCreation()
 
   v28 = 0;
   RGBTexture_Load(pRGBTexture_Menu, "makeme", 0);
-  sub_4A5B81(pD3DRenderer, 0, 0, 640, 480);
+  CD3DRenderer_Set2DClippingRect(pD3DRenderer, 0, 0, 640, 480);
 
   if (dword_720010)
     sub_46B105(dword_720010);
@@ -1359,13 +1359,14 @@ int __fastcall sub_44CB4F(int a1, int a2, signed int a3, int a4, __int16 a5, con
   const char *v33; // [sp+44h] [bp+18h]@20
   int v34; // [sp+48h] [bp+1Ch]@26
 
+  //a5;//colored or white text flag
   v9 = a2;
   v29 = a1;
   v30 = strlen(Str1);
   v8 = sub_44C51E(v9, Str1);
   if ( v8 < Source )
   {
-    FontDrawText(v29, v9, a3, a4, a5, Str1, 0, 0, 0);
+    FontDrawText(v29, v9, a3, a4, Str1, 0, 0, 0);
     return v8;
   }
   strcpy(pStringBuffer, Str1);
@@ -1445,10 +1446,11 @@ LABEL_12:
                 if ( v32 > 0 )
                   v14 += *(_DWORD *)(v9 + 12 * v16 + 32);
                 v21 = *(_DWORD *)(v9 + 4 * v16 + 3104) + v9 + 4128;
-                if ( a5 )
-                  sub_4A6C4F(pD3DRenderer, v14, v13, v21, v20, *(_BYTE *)(v9 + 5), *(_DWORD *)(v9 + 12), a5, 0);
-                else
-                  sub_4A6AB1(pD3DRenderer, v14, v13, v21, v20, *(_BYTE *)(v9 + 5), *(_DWORD *)(v9 + 12), 0);
+                //if ( a5 )
+                  CD3DRenderer_DrawText(pD3DRenderer, v14, v13, v21, v20, *(_BYTE *)(v9 + 5), *(_DWORD *)(v9 + 12), a5, 0);
+                /*else
+                  sub_4A6AB1(pD3DRenderer, v14, v13, v21, v20, *(_BYTE *)(v9 + 5), *(_DWORD *)(v9 + 12), 0);*/
+                //sub_4A6AB1 is obsolete, replaces with CD3DRenderer_DrawText
                 v14 += v34;
                 if ( v32 < (signed int)v30 )
                   v14 += *(_DWORD *)(v9 + 12 * (unsigned __int8)pStringBuffer[v32] + 40);
@@ -2128,7 +2130,7 @@ char __cdecl sub_450218()
   v51 = (int)array_5E5150;
   i = 0;
 
-  runtime_warning;
+  runtime_warning();
   return 0;
   for (i = 0; i < 20; ++i)
   {
@@ -2520,7 +2522,7 @@ void __cdecl sub_47AF11()
   signed __int16 v46; // [sp+3Ch] [bp-4h]@12
  int i;
 
-  for (i = 0; i < Count; ++i)
+  for (i = 0; i < uNumElementsIn665230; ++i)
   {
    v0 = &array_665230[i].word_00001C;
       if (array_665230[i].uObjectDescriptionID)
@@ -3075,7 +3077,7 @@ int __cdecl MenuLoop_Main()
     pGUIWindow2 = 0;
   }
   GUIWindowDelete(pGUIWindow_MainMenu);
-  runtime_warning;//return sub_4114F2(pClass17_Icons_LOD);
+  runtime_warning();//return sub_4114F2(pClass17_Icons_LOD);
   return 0;
 }
 
@@ -4480,10 +4482,10 @@ void __thiscall sub_405CFF(int this, int a2)
     }
     while ( v4 < *(_DWORD *)(v3 + 12) );
   }
-  if ( (signed int)Count > 0 )
+  if ( (signed int)uNumElementsIn665230 > 0 )
   {
     v9 = (int)byte_66524A;
-    v8 = Count;
+    v8 = uNumElementsIn665230;
     do
     {
       v10 = *(_WORD *)v9;
@@ -4830,7 +4832,7 @@ void __cdecl sub_487DBE_LooksLikeResetNewEdgesBuf()
   dword_80CA10[i] = 0;
  }
 
- runtime_warning;  //wtf is this shit? o_O
+ runtime_warning();  //wtf is this shit? o_O
  for (i = 0; i < 2000; ++i)
    *((_WORD *)pSurfsBuf + 17) = 0;
 }
@@ -5341,7 +5343,7 @@ bool __cdecl sub_47F0E2()
 {
  int i;
 
- runtime_warning;
+ runtime_warning();
  return true;
 
  for (i = 0; i < pClass17_Bitmaps_LOD->uNumLoadedFiles; ++i)
@@ -7489,7 +7491,7 @@ void __fastcall sub_481E55(int a1)
   double v6; // st4@3
   double v7; // st3@3
 
-  runtime_warning;
+  runtime_warning();
   return;
 
   if ( a1 > 0 )
@@ -8878,7 +8880,7 @@ char __fastcall sub_486B4E(int a1, int a2, int *a3, struct struct8 *a4)
   int v60; // [sp+7Ch] [bp-4h]@14
   char *v61; // [sp+8Ch] [bp+Ch]@2
 
-  runtime_warning;
+  runtime_warning();
   return 0;
 
   v5 = a4;
@@ -8887,11 +8889,9 @@ char __fastcall sub_486B4E(int a1, int a2, int *a3, struct struct8 *a4)
   v51 = a1;
   if ( !(a4->dword_000030 & 0x4000))
   {
-    v36 = 162;
-    v35 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odspan.cpp";
     v61 = &v31;
     sub_40E2C8(&v31, "The Texture Frame Table is not a supported feature.", (int)((char *)&a4 + 3));
-    sub_466D09(&v42, *(int *)&v31, v32, v33, v34, v35, v36);
+    sub_466D09(&v42, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odspan.cpp", __LINE__);
   }
   LOBYTE(v7) = *(_BYTE *)(v5 + 264);
   v8 = *(_DWORD *)(v5 + 20);
@@ -13607,71 +13607,39 @@ LABEL_5:
 }
 
 //----- (004907E7) --------------------------------------------------------
-__int16 __thiscall sub_4907E7(struct Player *_this, int a2)
+unsigned int sub_4907E7(struct Player *_this, int a2)
 {
   unsigned __int8 v2; // zf@1
   char v3; // sf@1
   unsigned __int8 v4; // of@1
-  __int16 v5; // si@1
   int v7; // eax@1
   int v8; // edx@1
-  __int16 result; // ax@2
-  __int16 v10; // [sp+8h] [bp-8h]@1
-  __int16 v11; // [sp+Ch] [bp-4h]@1
 
-  v11 = sub_40DEF3(0xFFu, 0x23u, 0);
-  v10 = sub_40DEF3(0, 0xFFu, 0);
-  v5 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
+ switch (a2)
+ {
+  case 0:  v8 = _this->uStrength;     break;
+  case 1:  v8 = _this->uIntelligence; break;
+  case 2:  v8 = _this->uWillpower;    break;
+  case 3:  v8 = _this->uEndurance;    break;
+  case 4:  v8 = _this->uAccuracy;     break;
+  case 5:  v8 = _this->uSpeed;        break;
+  case 6:  v8 = _this->uLuck;         break;
+  default: v8 = a2;                   break;
+ }
 
-  if ( a2 )
-  {
-    switch ( a2 )
-    {
-      case 1:
-        v8 = _this->word_000060;
-        break;
-      case 2:
-        v8 = _this->word_000062;
-        break;
-      case 3:
-       v8 = _this->word_000064;
-        break;
-      case 4:
-        v8 = _this->word_000068;
-        break;
-      case 5:
-        v8 = _this->word_000066;
-        break;
-      case 6:
-        v8 = _this->word_00006A;
-        break;
-      default:
-        v8 = a2;
-        break;
-    }
-  }
-  else
-  {
-    v8 = _this->word_00005E;
-  }
+  
+  //v11 = sub_40DEF3(0xFFu, 0x23u, 0);
+  //v10 = sub_40DEF3(0, 0xFFu, 0);
+  //v5 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
 
+ v7 = array_4ED7B0[4 * (a2 + 7 * GetRaceByFace(_this))];
 
-  v7 = array_4ED7B0[4 * (a2 + 7 * GetRaceByFace(_this))];
-  v4 = __SETO__(v8, v7);
-  v3 = v8 - v7 < 0;
-  v2 = v8 == v7;
-  if ( v8 >= v7 )
-  {
-    result = v10;
-    runtime_warning;
-    if ( (unsigned __int8)(v3 ^ v4) | v2 )
-      result = v5;
-  }
-  else
-  {
-    result = v11;
-  }
-  return result;
+ if (v8 == v7)
+   return 0xFF00FF00;
+ else if (v8 > v7)
+   return 0xFFFFFFFF;
+ else
+   return 0xFFFF2300;
 }
 
 //----- (0040B4B9) --------------------------------------------------------
@@ -14098,15 +14066,15 @@ int __stdcall sub_47CB57(unsigned char *pIndexedPixels, int a2, unsigned int uNu
   {
     v5 = sub_41F50D(a2, 0, 1);
     v7 = 0.0;
-    v6 = pD3DRenderer->dword_0400D4;
-    v20 = pD3DRenderer->dword_0400D8;
-    v22 = pD3DRenderer->dword_0400DC;
+    v6 = pD3DRenderer->uNumTargetBBits;
+    v20 = pD3DRenderer->uTargetRMask;
+    v22 = pD3DRenderer->uTargetGMask;
     v23 = 0.0;
-    v21 = pD3DRenderer->dword_0400E0;
+    v21 = pD3DRenderer->uTargetBMask;
     v4 = 0;
     v18 = v5;
     v24 = 0.0;
-    v19 = pD3DRenderer->dword_0400D4;
+    v19 = pD3DRenderer->uNumTargetBBits;
     v28 = 0;
     v25 = 0;
     if ( uNumPixels > 0 )
@@ -14117,10 +14085,10 @@ int __stdcall sub_47CB57(unsigned char *pIndexedPixels, int a2, unsigned int uNu
         if ( v8 )
         {
           v9 = *(_WORD *)&v5[2 * v8];
-          v7 = v7 + (double)((v20 & v9) >> (pD3DRenderer->dword_0400D4 + pD3DRenderer->dword_0400D0));
+          v7 = v7 + (double)((v20 & v9) >> (pD3DRenderer->uNumTargetBBits + pD3DRenderer->uNumTargetGBits));
           ++v28;
           v26 = v21 & v9;
-          v23 = (double)((v22 & v9) >> pD3DRenderer->dword_0400D4) + v23;
+          v23 = (double)((v22 & v9) >> pD3DRenderer->uNumTargetBBits) + v23;
           v24 = (double)(v21 & v9) + v24;
         }
         v4 = v25 + 1;
@@ -14135,7 +14103,7 @@ int __stdcall sub_47CB57(unsigned char *pIndexedPixels, int a2, unsigned int uNu
     v26 = (signed __int64)(v30 * v23);
     v25 = (signed __int64)(v30 * v24);
     v12 = 0;
-    v29 = pD3DRenderer->dword_0400D4 + pD3DRenderer->dword_0400D0;
+    v29 = pD3DRenderer->uNumTargetBBits + pD3DRenderer->uNumTargetGBits;
     while ( 1 )
     {
       v14 = *(_WORD *)&v18[2 * v12];

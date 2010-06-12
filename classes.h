@@ -1,10 +1,5 @@
 #pragma once
 
-long __cdecl std__basic_string_char_std__char_traits_char__std__allocator_char_____Copy(long);
-long __stdcall std__basic_string_char_std__char_traits_char__std__allocator_char____erase(long, long);
-long __stdcall _eh_vector_constructor_iterator_(long, long, long, long, long);
-long __stdcall _eh_vector_destructor_iterator_(long, long, long, long);
-
 #include <stdio.h>
 #include <windows.h>
 
@@ -257,17 +252,9 @@ struct class06
  int    dword_000204;
 
  struct class06_stru0 array_000208[4];
- /*short  word_000208;
- short  word_00020A[7];
- short  word_000218;
- short  word_00021A[7];
- short  word_000228;
- short  word_00022A[7];
- short  word_000238;
- short  word_00023A;*/
  int    unk_000248[224];
  int    dword_0005C8;
- struct class07 *class07_obj;  //dword ptr [05CC]
+ struct class07 *class07_obj;  // dword @ 0005CC
  int    dword_0005D0;
  int    dword_0005D4;
  int    dword_0005D8;
@@ -689,7 +676,7 @@ int class17_LoadTexture(struct class17 *_this, const char *pContainerName, unsig
 //signed int __thiscall sub_40FC08(int this, void *Dest, int Source, unsigned int DstBuf);
 int class17_LoadPalette(struct class17 *_this, struct class18 *pClass18, const char *pContainerName, unsigned int DstBuf);
 //int __thiscall sub_41097D(void *this, int a2, int a3, int a4);
-int sub_41097D(struct class17 *_this, int a2, int a3, int a4);
+int class17_SetupPalettes(struct class17 *_this, int a2, int a3, int a4);
 //int __thiscall sub_461954(int this, int a2, signed int Size);
 void class17_AllocateSubidexAndIOBuffer(struct class17 *_this, unsigned int uNumSubIndices, signed int uIOBufferSize);
 //signed int __thiscall sub_461A43(void *this, const char *Filename, char a3);
@@ -903,6 +890,7 @@ struct class37
 
  char vector_000FA8[337800];
 };
+//sizeof ~ ?
 //void *__thiscall sub_43F282(void *this);
 void *class37_ctor(struct class37 *_this);
 
@@ -1270,16 +1258,13 @@ struct Player
  {
   struct
   {
-   int   array_000000[23];
-   short word_00005C;
-   short word_00005E;
-   short word_000060;
-   short word_000062;
-   short word_000064;
-   short word_000066;
-   short word_000068;
-   short word_00006A;
-   char  reserve[52];
+   int     array_000000[20];
+   int     array_000050[6];
+   __int64 qword_000068;
+   __int64 qword_000070;
+   int     array_000078[2];
+   __int64 qword_000080;
+   int     array_000088[6];
    __int64 qword_0000A0;
 
    unsigned char sName[16]; // byte[16] @ 0000A8
@@ -1378,9 +1363,12 @@ struct Player
    char byte_001A98;
    char array_001A99[3];
 
-   short word_001A9C;
-   short word_001A9E;
+   short word_001A9C; //id in PlayerFrameTable, face set
+   short word_001A9E; //subframe in FrameTable, current face emotion?
    short word_001AA0;
+   short word_001AA2; //PlayerFrame::word_000002 - 1
+   int dword_001AA4;
+   int dword_001AA8;
   };
   struct
   {
@@ -1506,7 +1494,7 @@ struct struct0
 
 struct struct2
 {
- char  byte_000000[2];
+ short word_000000;
  short uObjectDescriptionID; // word @ 000002
  int   dword_000004;
  int   dword_000008;

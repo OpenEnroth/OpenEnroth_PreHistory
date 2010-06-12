@@ -235,7 +235,7 @@ int __stdcall AIL_end_sample(long a1)
 // sub_4D8300: using guessed type int __stdcall AIL_end_3D_sample(_DWORD);
 int __stdcall AIL_end_3D_sample(long a1)
 {
- runtime_warning;//__asm int 3
+ runtime_warning();//__asm int 3
  return 0;
 }
 

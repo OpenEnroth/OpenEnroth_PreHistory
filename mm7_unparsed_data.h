@@ -69,8 +69,8 @@ extern _UNKNOWN unk_4E2A2C; // weak
 extern _UNKNOWN unk_4E2A50; // weak
 extern _UNKNOWN unk_4E2A80; // weak
 extern _BYTE byte_4E2AA4[20]; // idb
-extern int dword_4E2AB8[array_size_unknown]; // weak
-extern int dword_4E2AC8[array_size_unknown]; // weak
+extern int dword_4E2AB8[]; // weak
+extern int dword_4E2AC8[]; // weak
 extern _UNKNOWN unk_4E2AD9; // weak
 extern _UNKNOWN unk_4E2B21; // weak
 extern char byte_4E2B70[array_size_unknown]; // weak
@@ -1285,9 +1285,12 @@ extern __int16 word_51CEC4; // weak
 extern int dword_51CEC8; // weak
 extern _UNKNOWN unk_51CECC; // weak
 extern _UNKNOWN unk_51CF2C; // weak
+
+
+
 extern int dword_56EEA8; // weak
 extern __int16 word_56EEAC[array_size_unknown]; // weak
-extern _UNKNOWN unk_56EFD8; // weak
+extern unsigned short array_56EFD8[]; // weak
 extern int dword_576D14; // weak
 extern __int16 word_576D80[array_size_unknown]; // weak
 
@@ -1491,7 +1494,7 @@ extern unsigned char byte_5C45B0[2048];
 //char byte_5C45B1[array_size_unknown]; // weak
 
 extern _UNKNOWN unk_5C4DB0; // weak
-extern unsigned char ExistingFileName[array_size_unknown + 2000]; // byte[~2000] @ MM7.exe::005C5DB0
+extern unsigned char ExistingFileName[]; // byte[~2000] @ MM7.exe::005C5DB0
 extern char byte_5C657F[array_size_unknown]; // weak
 
 extern char byte_5C6D50[100]; // weak
@@ -1668,10 +1671,8 @@ extern int dword_5FF41C[array_size_unknown]; // weak
 extern _UNKNOWN unk_5FF420; // weak
 extern _UNKNOWN unk_64640F; // weak
 
-extern unsigned int uNumActors; // dword @ MM7.exe::00665228
-
-extern size_t Count; // idb
-
+extern unsigned int uNumActors;           // dword        @ MM7.exe::00665228
+extern unsigned int uNumElementsIn665230; // dword        @ MM7.exe::0066522C
 extern struct struct2 array_665230[1000]; // struct[1000] @ MM7.exe::00665230
 //_UNKNOWN unk_665230; // weak
 //__int16 word_665232[56000 + array_size_unknown]; // weak
@@ -2516,13 +2517,13 @@ extern int dword_ACD9D8; // weak
 extern int dword_ACD9DC; // weak
 extern int dword_ACD9E0; // weak
 extern _UNKNOWN unk_ACD9E4; // weak
-extern int dword_ACD9EC; // weak
-extern int dword_ACD9F0; // weak
-extern int dword_ACD9F4; // weak
-extern int dword_ACD9F8; // weak
+//extern int dword_ACD9EC; // weak
+//extern int dword_ACD9F0; // weak
+//extern int dword_ACD9F4; // weak
+//extern int dword_ACD9F8; // weak
 extern _UNKNOWN unk_ACD9FC; // weak
-extern int dword_ACDA04; // weak
-extern int dword_ACDA08; // weak
+//extern int dword_ACDA04; // weak
+//extern int dword_ACDA08; // weak
 extern _UNKNOWN unk_ACDA24; // weak
 //_UNKNOWN unk_ACDA2C; // pParty_global::pPlayers[0]::sName
 //char byte_ACDA3D[array_size_unknown]; // pParty_global::pPlayers[0]::uClass

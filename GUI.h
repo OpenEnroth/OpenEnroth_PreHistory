@@ -94,18 +94,18 @@ struct GUIButton
 
 struct Font
 {
- unsigned char uFirstChar; // byte @ 000000
- unsigned char uLastChar;  // byte @ 000001
- char          byte_000002[2];
- unsigned char byte_000004;
- unsigned char uFontHeight; // byte @ 000005
- char          byte_000006[2];
- int           dword_000008;
- int           dword_00000C;
- int           dword_000010[4];
- int           dword_000020[256][3];
- int           array_000C20[256];
- char          unk_001020;
+ unsigned char   uFirstChar;           // byte  @ 000000
+ unsigned char   uLastChar;            // byte  @ 000001
+ char            byte_000002[2];
+ unsigned char   byte_000004;
+ unsigned char   uFontHeight;          // byte  @ 000005
+ char            byte_000006[2];
+ int             dword_000008;
+ unsigned short *pFontPalette;         // dword @ 00000C
+ int             dword_000010[4];
+ int             dword_000020[256][3];
+ int             array_000C20[256];
+ char            unk_001020;
 };
 
 
@@ -149,7 +149,7 @@ struct GUIButton *GUIWindow_GetChild(struct GUIWindow *_this, int uID);
 
 int __fastcall AlignText_Center(int a1, const char *a2, int a3);
 unsigned char *__fastcall FitTextInAWindow(const char *pString, struct Font *pFont, struct GUIWindow *pParent, unsigned char uX, int a5);
-char __fastcall FontDrawText(int a1, int a2, signed int a3, int a4, __int16 a5, const char *Str1, int a7, signed int a8, char *a9);
+char __fastcall FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, const char *pString, unsigned int uTextMainColor, signed int a8, unsigned int uTextShadowColor);
 
 void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigned int uWindowWidth, unsigned int uWindowHeight);
 
@@ -175,6 +175,7 @@ void GameUI_DrawFrames();
 void __cdecl GameUI_DrawFoodAndGold();
 void __cdecl GameUI_DrawPartySpells();
 void GameUI_DrawPortraits(void *this);
+void GameUI_DrawCharacterSelectionFrame();
 
 
 #pragma pack(pop)

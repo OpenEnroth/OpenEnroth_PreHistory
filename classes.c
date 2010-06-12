@@ -1919,7 +1919,7 @@ LABEL_53:
 
 
 //----- (0041097D) --------------------------------------------------------
-int sub_41097D(struct class17 *_this, int a2, int a3, int a4)
+int class17_SetupPalettes(struct class17 *_this, int a2, int a3, int a4)
 {
  unsigned int v14;
  unsigned int v15;
@@ -2472,7 +2472,6 @@ int class28_fn2(struct class28 *_this, int a2)
 
 
 //----- (0048A8F5) --------------------------------------------------------
-int __fastcall sub_452AE2(int a1);
 int class35_sub_48A8F5(struct class35 *_this, int a2, int a3, int a4)
 {
  _this->dword_267AD8 = a2;
@@ -2795,12 +2794,10 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
 
 
 //----- (0043B688) --------------------------------------------------------
-int sub_43B538(); // weak
-int sub_43B569(); // weak
 void *class36_ctor(struct class36 *_this)
 {
  _this->dword_000000 = 0x4D8600;
- //_eh_vector_constructor_iterator_(_this->vector_000004, 40, 64, sub_43B538, sub_43B569);
+ _eh_vector_constructor_iterator_(_this->vector_000004, 40, 64, sub_43B538, sub_43B569);
  _this->dword_000A04 = 0;
  _this->dword_000A08 = 0;
  return _this;
@@ -2809,13 +2806,57 @@ void *class36_ctor(struct class36 *_this)
 
 
 
+
+
+__declspec(naked) void __fastcall class37_loc_43F2A9(char *_this)
+{
+ __asm
+ {
+loc_43F2A9:                             ; DATA XREF: .text:0043F266o
+                                        ; sub_43F282+3o
+         push    offset sub_498069
+         push    4
+         add     ecx, 7ACh
+         push    18h
+         push    ecx
+         call    _eh_vector_destructor_iterator_
+         retn
+ }
+}
+
+__declspec(naked) void __fastcall class37_loc_43F2BF(char *_this)
+{
+ __asm
+ {
+loc_43F2BF:                             ; DATA XREF: sub_43F282+8o
+         push    esi
+         mov     esi, ecx
+         push    offset sub_498069
+         push    offset sub_498038
+         push    4
+         lea     eax, [esi+7ACh]
+         push    18h
+         push    eax
+         call    _eh_vector_constructor_iterator_
+         push    4
+         lea     eax, [esi+838h]
+         pop     ecx
+
+loc_43F2E5:                             ; CODE XREF: sub_43F282+6Bj
+         fldz
+         fstp    dword ptr [eax]
+         add     eax, 30h
+         dec     ecx
+         jnz     short loc_43F2E5
+         mov     eax, esi
+         pop     esi
+         retn
+ }
+}
 //----- (0043F282) --------------------------------------------------------
-int loc_43F2A9();
-int loc_43F2BF();
 void *class37_ctor(struct class37 *_this)
 {
- //_eh_vector_constructor_iterator_(_this->vector_000FA8, 2252, 150, loc_43F2BF, loc_43F2A9);
- return _this;
+ _eh_vector_constructor_iterator_(_this->vector_000FA8, 2252, 150, class37_loc_43F2BF, class37_loc_43F2A9);
 }
 
 
@@ -5856,7 +5897,7 @@ int class35_sub_48A3BC(struct class35 *_this, int a2)
   float v22; // [sp+398h] [bp-8h]@7
   float v23; // [sp+39Ch] [bp-4h]@7
 
-  runtime_warning;
+  runtime_warning();
   return 0; // no palette textures for now
 
   v16 = _this;
@@ -7962,7 +8003,7 @@ void class08_sub_4376E7(struct class08 *_this)
 //----- (004374E8) --------------------------------------------------------
 void class08_sub_4374E8(struct class08 *_this)
 {
-  double v2; // st7@1
+  //double v2; // st7@1
   double v3; // st7@1
   double v4; // st7@1
   double v5; // st7@1
@@ -7976,26 +8017,25 @@ void class08_sub_4374E8(struct class08 *_this)
   float v10; // [sp+18h] [bp-18h]@1
 */
   float v11; // [sp+1Ch] [bp-14h]@1
-  float v12; // [sp+20h] [bp-10h]@1
+  //float v12; // [sp+20h] [bp-10h]@1
   int v13; // [sp+2Ch] [bp-4h]@1
 
   class26_ctor(&local_0C);
-  v2 = *(double *)&byte_4D8410[416] / _this->flt_0000D8;
   v13 = 0;
-  v3 = atan(v2 * _this->flt_0000C4 / _this->flt_0000D0);
-  v12 = v3;
+  v3 = atan(memory_4D8410.fTwo / _this->flt_0000D8 * _this->flt_0000C4 / _this->flt_0000D0);
   v11 = sin(v3);
-  v4 = cos(v12);
+  v4 = cos(v3);
   local_0C.array_000004[0] = -v11;
   local_0C.array_000004[1] = 0;
   local_0C.array_000004[2] = v4;
   class08_sub_437607(_this, &local_0C, _this->std__vector_000034);
   local_0C.array_000004[0] = v11;
   class08_sub_437607(_this, &local_0C, _this->std__vector_000034 + 6);
-  v5 = atan(*(double *)&byte_4D8410[416] / _this->flt_0000D8 * _this->flt_0000C4 / (_this->flt_0000D4 + 0.5));
-  v12 = v5;
+
+
+  v5 = atan(memory_4D8410.fTwo / _this->flt_0000D8 * _this->flt_0000C4 / (_this->flt_0000D4 + 0.5));
   v11 = sin(v5);
-  v6 = cos(v12);
+  v6 = cos(v5);
   local_0C.array_000004[0] = 0;
   local_0C.array_000004[1] = v11;
   local_0C.array_000004[2] = v6;
@@ -8063,7 +8103,7 @@ void class08_sub_437691(struct class08 *_this, struct class26 *a2, float *a3)
 
 
 //----- (00469E3B) --------------------------------------------------------
-int __thiscall sub_469E3B(int this)
+int sub_469E3B(struct class03 *_this)
 {
   int result; // eax@1
   int v2; // edx@3
@@ -8075,20 +8115,20 @@ int __thiscall sub_469E3B(int this)
   int v8; // [sp+8h] [bp-8h]@2
   int v9; // [sp+Ch] [bp-4h]@2
 
-  result = *(_DWORD *)(this + 60);
+  result = _this->dword_00003C;
   if ( result )
   {
-    v9 = *(_DWORD *)(this + 60);
+    v9 = _this->dword_00003C;
     v7 = pD3DRenderer->uTargetSurfacePitch;
     v8 = pD3DRenderer->pTargetSurface;
-    result = *(_DWORD *)(this + 68);
-    if ( result < *(_DWORD *)(this + 76) )
+    result = *(_DWORD *)(_this + 68);
+    if ( result < *(_DWORD *)(_this + 76) )
     {
-      v3 = *(_DWORD *)(this + 72);
+      v3 = *(_DWORD *)(_this + 72);
       v2 = pD3DRenderer->uTargetSurfacePitch * result;
       do
       {
-        v4 = *(_DWORD *)(this + 64);
+        v4 = *(_DWORD *)(_this + 64);
         if ( v4 < v3 )
         {
           v5 = v8 + 2 * (v2 + v4);
@@ -8098,7 +8138,7 @@ int __thiscall sub_469E3B(int this)
             v9 += 2;
             ++v4;
             *(_WORD *)v5 = *(_WORD *)v6;
-            v3 = *(_DWORD *)(this + 72);
+            v3 = *(_DWORD *)(_this + 72);
             v5 += 2;
           }
           while ( v4 < v3 );
@@ -8106,7 +8146,7 @@ int __thiscall sub_469E3B(int this)
         v2 += v7;
         ++result;
       }
-      while ( result < *(_DWORD *)(this + 76) );
+      while ( result < *(_DWORD *)(_this + 76) );
     }
   }
   return result;
@@ -8117,30 +8157,26 @@ int __thiscall sub_469E3B(int this)
 //----- (004239A7) --------------------------------------------------------
 void class55_sub_4239A7(struct class55 *_this)
 {
-  double v2; // st7@4
+ double angle;
 
-  _this->flt_00002C = sin((*(double *)&byte_4D8410[376] + *(double *)&byte_4D8410[376])
-                            * (double)_this->dword_000018 * *(double *)&byte_4D8410[264]);
-  _this->flt_000030 = cos((*(double *)&byte_4D8410[376] + *(double *)&byte_4D8410[376])
-                          * (double)_this->dword_000018 * *(double *)&byte_4D8410[264]);
-  if ( byte_4D8410[572] && *(_BYTE *)(&pGame->uSomeFlags) & 0x80 || dword_6BE360 == 1 )
-  {
-   _this->flt_000034 = sin((*(double *)&byte_4D8410[376] + *(double *)&byte_4D8410[376])
-                            * -(double)_this->dword_000014 * *(double *)&byte_4D8410[264]);
-    v2 = (*(double *)&byte_4D8410[376] + *(double *)&byte_4D8410[376]) * -(double)_this->dword_000014;
-  }
-  else
-  {
-   _this->flt_000034 = sin((*(double *)&byte_4D8410[376] + *(double *)&byte_4D8410[376])
-                            * (double)_this->dword_000014 * *(double *)&byte_4D8410[264]);
-    v2 = (*(double *)&byte_4D8410[376] + *(double *)&byte_4D8410[376]) * (double)_this->dword_000014;
-  }
-  _this->flt_000038 = cos(v2 * *(double *)&byte_4D8410[264]);
+ angle = 2 * memory_4D8410.fSomeAngle * (double)_this->dword_000018 * memory_4D8410.fOneOver2048;
 
-  _this->dword_00003C = class59_sub_402CAE(pClass59_global, _this->dword_000018 - pClass59_global->dword_001864);
-  _this->dword_000040 = class59_sub_402CAE(pClass59_global, _this->dword_000018);
-  _this->dword_000044 = class59_sub_402CAE(pClass59_global, _this->dword_000014 - pClass59_global->dword_001864);
-  _this->dword_000048 = class59_sub_402CAE(pClass59_global, _this->dword_000014);
+ _this->flt_00002C = sin(angle);
+ _this->flt_000030 = cos(angle);
+
+
+ if ( byte_4D8410[572] && *(_BYTE *)(&pGame->uSomeFlags) & 0x80 || dword_6BE360 == 1 )
+   angle = 2 * memory_4D8410.fSomeAngle * (double)_this->dword_000014 * memory_4D8410.fOneOver2048;
+ else
+   angle = -2 * memory_4D8410.fSomeAngle * (double)_this->dword_000014 * memory_4D8410.fOneOver2048;
+
+ _this->flt_000034 = sin(angle);
+ _this->flt_000038 = cos(angle);
+
+ _this->dword_00003C = class59_sub_402CAE(pClass59_global, _this->dword_000018 - pClass59_global->dword_001864);
+ _this->dword_000040 = class59_sub_402CAE(pClass59_global, _this->dword_000018);
+ _this->dword_000044 = class59_sub_402CAE(pClass59_global, _this->dword_000014 - pClass59_global->dword_001864);
+ _this->dword_000048 = class59_sub_402CAE(pClass59_global, _this->dword_000014);
 }
 
 
@@ -9641,9 +9677,6 @@ void sub_440F07(struct struct5 *pArray)
 
 
 //----- (004A8C27) --------------------------------------------------------
-char *__fastcall sub_41F50D(int a1, int a2, char a3);
-int __stdcall sub_4A49D0(float, float, float, float, float, float, float, float, int);
-void __stdcall sub_436523(int a1, int a2);
 int class06_sub_4A8C27(struct class06 *_this)
 {
   int v1; // ebx@1
@@ -9729,15 +9762,17 @@ int class06_sub_4A8C27(struct class06 *_this)
   if ( result > 0 )
   {
     v6 = (double)v70 / (double)*(signed int *)(v1 + 1500);
-    v4 = *(double *)&byte_4D8410[24] - v6 * v6;
+    v4 = memory_4D8410.f1_0 - v6 * v6;
     v5 = v4;
-    if ( v4 > *(double *)&byte_4D8410[1328] )
-      v5 = *(double *)&byte_4D8410[24] - (v4 - *(double *)&byte_4D8410[1328]) * *(double *)&byte_4D8410[1320];
+    if ( v4 > memory_4D8410.f0_9)
+      v5 = memory_4D8410.f1_0 - (v4 - memory_4D8410.f0_9) * memory_4D8410.f10_0;
     v7 = v5;
     sub_4A52F1(pD3DRenderer, *(_DWORD *)(v1 + 1504), v7);
     result = pClass24_global->dword_00001C;
     *(_DWORD *)(v1 + 1496) -= pClass24_global->dword_00001C;
   }
+  //by the time we first get in this function, dword_0005D4  is still not initialized in the original exe
+  //maybe the following code in never executed at all
   if (_this->dword_0005D4 > 0 )
   {
     v9 = 8 * *(_WORD *)(60 * CSpriteFrameTable_fn5(pSpriteFrameTable, "spell84") + (unsigned int)(pSpriteFrameTable->pSpriteSFrames) + 56) - *(_DWORD *)(v1 + 1492);
@@ -10501,7 +10536,7 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
   _this->pPlayers[3].array_000108[33] = 1;
 
 
-  runtime_warning;
+  runtime_warning();
   return 0;
 
   v2 = 10;

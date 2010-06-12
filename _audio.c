@@ -138,7 +138,7 @@ void AudioPlayer_sub_4AA306(struct AudioPlayer *_this, int a2, signed int a3, in
   int v106; // [sp+90h] [bp+1Ch]@60
   int v107; // [sp+90h] [bp+1Ch]@68
 
-  runtime_warning;
+  runtime_warning();
   return;
 
   v9 = _this;
@@ -1293,7 +1293,7 @@ void AudioPlayer_sub_4AAFCF(struct AudioPlayer *_this)
   int v69; // [sp+64h] [bp-8h]@4
   int v70; // [sp+68h] [bp-4h]@1
 
-  runtime_warning;
+  runtime_warning();
   return;
 
   v2 = _this;

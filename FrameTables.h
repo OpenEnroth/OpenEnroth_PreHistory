@@ -152,11 +152,13 @@ void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2);
 
 struct PlayerFrame
 {
- int   dword_000000;
- int   dword_000004;
+ short word_000000;
+ short word_000002;
+ short word_000004;
+ unsigned short word_000006;
  short word_000008;
 };
-
+//sizeof == 0A
 
 struct CPlayerFrameTable
 {
@@ -171,6 +173,8 @@ int CPlayerFrameTable_SaveToBIN(struct CPlayerFrameTable *_this);
 void *CPlayerFrameTable_Initialize(struct CPlayerFrameTable *_this, unsigned char *pSrc);
 //signed int __thiscall sub_494C5A(int this, const char *Args);
 int CPlayerFrameTable_InitializeFromTXT(struct CPlayerFrameTable *_this, const char *pSourceFile);
+//int __thiscall sub_494B10(int this, int a2, signed int a3);
+struct PlayerFrame *CPlayerFrameTable_GetFrame(struct CPlayerFrameTable *_this, unsigned int uFramesetID, unsigned int uFrameID);
 
 
 

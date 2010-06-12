@@ -11,6 +11,11 @@ void PlayFirstActMovie();
 
 #define __thiscall __cdecl // Test compile in C mode
 
+void __stdcall _eh_vector_constructor_iterator_(int a1, int a2, int a3, void (__fastcall *a4)(void *), void (__fastcall *a5)(void *));
+void __stdcall _eh_vector_destructor_iterator_(int a1, int a2, int a3, void (__fastcall *a4)(void *));
+
+long __stdcall std__basic_string_char_std__char_traits_char__std__allocator_char____erase(long a1, long a2);
+
 void __cdecl InitializeScrolls();
 void __cdecl InitializeMerchants();
 void __cdecl InitializeTransitions();
@@ -45,7 +50,6 @@ signed int __thiscall sub_47F223_LooksLikeGenerateMonsterLoot(void *this);
 int __cdecl MenuLoop_Main();
 void __fastcall sub_441D38_DrawMinimap(int a1, int a2, int a3, int a4, signed int a5, int a6);
 void __cdecl GameUI_DrawTorchlightAndWizardEye();
-void __cdecl GameUI_DrawCharacterSelectionFrame();
 int __fastcall GetSizeInInventorySlots(unsigned int uNumPixels);
 void __cdecl GameUI_DrawLifeManaBars();
 void __cdecl LoadLevel_InitializeLevelStr();
@@ -195,7 +199,7 @@ int __thiscall sub_40E32E(int this, const void *Src, size_t Size);
 char __thiscall sub_40E363(int this, unsigned int a2, char a3);
 int __fastcall sub_40E4C2(int a1);
 int loc_40E4FC(); // weak
-unsigned int __fastcall sub_40DEF3(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3);
+unsigned int __fastcall sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3);
 int __fastcall sub_40E51F(int a2);
 signed int __thiscall sub_40E55E(void *Source, unsigned int Filename, unsigned int a3);
 signed int __thiscall sub_40EAD8(void *Source, FILE *File, unsigned int a3, int a4);
@@ -429,11 +433,11 @@ int __fastcall sub_43AFE3(int a1, int a2, signed int a3, int a4);
 __int16 __fastcall sub_43B057(int a1, int a2, int a3);
 __int16 __fastcall sub_43B1B0(signed int a1, int a2, int a3, signed int a4);
 int __fastcall sub_43B3E0(int a1, signed int a2);
-int sub_43B538(); // weak
-int sub_43B569(); // weak
+void __fastcall sub_43B538(void *); // weak
+void __fastcall sub_43B569(void *); // weak
 double __thiscall sub_43B570(int this);
-int sub_43B60C(); // weak
-void __thiscall sub_43B641(void *this);
+void __fastcall sub_43B60C(void *); // weak
+void __fastcall sub_43B641(void *this);
 int __thiscall sub_43B6D6(void *this);
 int __thiscall sub_43B76D(int this);
 int __thiscall sub_43B7FF(int this);
@@ -693,7 +697,7 @@ char __thiscall sub_45D74F(float this, int a2, int a3);
 char __thiscall sub_45DA56(int this, float a2);
 char __stdcall sub_45DAE8(int a1, int a2, float a3);
 int sub_45DF13(); // weak
-void __thiscall sub_45DF48(void *this);
+void __fastcall sub_45DF48(void *this);
 void *__cdecl sub_45E006();
 int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed int a2);
 int __thiscall sub_45E26C(void *Filename);
@@ -732,7 +736,7 @@ void *__thiscall sub_462272(void *this);
 int __thiscall sub_462303(int this);
 void *__thiscall sub_4623E5(void *this);
 int loc_46244C(); // weak
-int __thiscall sub_462463(int this);
+void __fastcall sub_462463(void *this);
 int __thiscall sub_46249B(int this);
 int __thiscall sub_462607(int this);
 void *__thiscall sub_4626CD(void *this);
@@ -1068,7 +1072,7 @@ signed int __thiscall sub_4903C9(struct Player *_this, signed int a2);
 __int16 __thiscall sub_49048D(int this, int a2);
 signed int __thiscall sub_4905F5(int this, int a2);
 void *__thiscall sub_49070F(int this);
-__int16 __thiscall sub_4907E7(void *this, int a2);
+unsigned int __thiscall sub_4907E7(void *this, int a2);
 char __thiscall sub_4908A8(void *this, int a2, __int64 a3);
 signed int __cdecl sub_4908DE();
 void __thiscall sub_4909F4(void *this);
@@ -1118,14 +1122,13 @@ int __thiscall sub_494836(void *this, int a2, int a3);
 __int16 __thiscall sub_4948B1(void *this, int a2, int a3);
 __int16 __thiscall sub_494A25(int this, int a2, int a3);
 int __thiscall sub_494AED(int this, int a2);
-int __thiscall sub_494B10(int this, int a2, signed int a3);
 int __thiscall sub_494B5E(int this, int a2, int a3, int a4);
 int __fastcall sub_495366(unsigned __int8 a1, unsigned __int8 a2);
 int __fastcall sub_495430(signed int a1);
 const CHAR *__fastcall sub_495461(char *lpsz, unsigned __int8 a2, int a3, int a4, int a5, __int64 *a6);
 int __cdecl sub_4979D2();
-int sub_498038(); // weak
-void __thiscall sub_498069(void *this);
+void __fastcall sub_498038(void *); // weak
+void __fastcall sub_498069(void *this);
 char __stdcall sub_4980B9(int a1, signed int a2, float a3, float a4, float a5, int a6, int a7);
 __int64 __fastcall sub_49835A(int a1);
 char __stdcall sub_498377(int a1, signed int a2, int a3, int a4, int a5);
@@ -1148,7 +1151,7 @@ int __thiscall sub_49B32D(int this, int a2, float a3, float a4, float a5);
 int __fastcall sub_49B3B8(int a1);
 void __cdecl sub_49B3EB();
 void *__thiscall sub_49B408(void *this);
-int __thiscall sub_49B471(void *this);
+void __fastcall sub_49B471(void *this);
 char __stdcall sub_49B490(int a1, int a2, int a3, float a4, float a5, float a6, int a7, int a8, int a9);
 char __thiscall sub_49B540(void *this, signed int a2, char a3, int a4, signed int a5, int a6, int a7, float a8, int a9);
 void __cdecl loc_49B785(); // idb
@@ -1189,7 +1192,6 @@ void __thiscall sub_49F1BC(int this, const char *Filename);
 int __thiscall sub_49F5A2(void *this, int a2, int a3, int a4, void *Dst, int a6, int a7);
 FILE *__thiscall sub_49F8B5(void *this, FILE *Filename, int a3, int a4, int a5);
 signed int __thiscall sub_49FFD7(int this);
-char __thiscall sub_4A0BEE(int this, int a2, int a3, int a4, int a5, __int16 a6);
 char __thiscall sub_4A169E(void *this);
 char __cdecl sub_4A16A5();
 int __thiscall sub_4A184C(void *this);

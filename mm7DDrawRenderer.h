@@ -39,10 +39,10 @@ struct CD3DRenderer
  int                         dword_000010;
  int                         dword_000014;
  int                         dword_000018; // related to currently locked surface pitch
- int                         dword_00001C;
- int                         dword_000020;
- int                         dword_000024;
- int                         dword_000028;
+ int                         dword_00001C; // ->
+ int                         dword_000020;   // some kind
+ int                         dword_000024;   // of clipping rect
+ int                         dword_000028; // <-
 
  unsigned short              array_00002C[65536]; //byte[?] @ 00002C
  unsigned short              array_02002C[65536]; //byte[?] @ 02002C
@@ -71,22 +71,21 @@ struct CD3DRenderer
  int                         dword_0400A8;
  DDPIXELFORMAT               ddpfPrimarySurface; // struct[32] @ 0400AC
 
- int                         dword_0400CC;
- int                         dword_0400D0;
- int                         dword_0400D4;
- int                         dword_0400D8;
- int                         dword_0400DC;
- int                         dword_0400E0;
- unsigned int                bSceneBegun; // dword @ 0400E4
+ unsigned int                uNumTargetRBits;    // dword @ 0400CC
+ unsigned int                uNumTargetGBits;    // dword @ 0400D0
+ unsigned int                uNumTargetBBits;    // dword @ 0400D4
+ unsigned int                uTargetRMask;       // dword @ 0400D8
+ unsigned int                uTargetGMask;       // dword @ 0400DC
+ unsigned int                uTargetBMask;       // dword @ 0400E0
+ unsigned int                bSceneBegun;        // dword @ 0400E4
  int                         dword_0400E8;
 
- unsigned short             *pTargetSurface;      // ptr @ 0400EC
+ unsigned int               *pTargetSurface;      // ptr   @ 0400EC
  unsigned int                uTargetSurfacePitch; // dword @ 0400F0
-
- int                         dword_0400F4;
- int                         dword_0400F8;
- int                         dword_0400FC;
- int                         dword_040100;
+ unsigned int                uClipRectY;          // dword @ 0400F4
+ unsigned int                uClipRectX;          // dword @ 0400F8
+ unsigned int                uClipRectW;          // dword @ 0400FC
+ unsigned int                uClipRectZ;          // dword @ 040100
  int                         dword_040104;
  int                         dword_040108;
  int                         dword_04010C;
@@ -112,8 +111,8 @@ struct CD3DRenderer
 void CD3DRenderer_ctor(struct CD3DRenderer *_this);
 //int __thiscall sub_49FFFB(int this, unsigned int a2);
 int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd);
-int CD3DRenderer_InitWnd(struct CD3DRenderer *_this, HWND hwnd);
-
+//int __thiscall sub_4A05F3
+int CD3DRenderer_InitWindowed(struct CD3DRenderer *_this, HWND hwnd);
 //signed int __thiscall sub_49FDBF(int this)
 void CD3DRenderer_Initialize_ZBuffer(struct CD3DRenderer *_this);
 //int __thiscall sub_4A10E4(void *this)
@@ -155,19 +154,17 @@ void *CD3DRenderer_UnlockFrontBuffer(struct CD3DRenderer *_this);
 //void __thiscall sub_4A5BE3(int this, int a2, int a3, int a4);
 void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class33 *pClass33);
 //void __thiscall sub_4A6C4F(int this, int a2, int a3, int a4, int a5, int a6, int a7, __int16 a8, __int16 a9);
-void sub_4A6C4F(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5, int a6, unsigned short *a7, unsigned int a8, unsigned int a9);
+void CD3DRenderer_DrawText(struct CD3DRenderer *_this, unsigned int uOutX, unsigned int uOutY, unsigned char *pFontPixels, unsigned int uCharWidth, unsigned int uCharHeight, unsigned short *pFontPalette, unsigned int uMainColor, unsigned int uShadowColor);
 //void __thiscall sub_4A5BB6(int this);
-void CD3DRenderer_sub_4A5BB6(struct CD3DRenderer *_this);
+void CD3DRenderer_Reset2DClippingRect(struct CD3DRenderer *_this);
 //int __thiscall sub_4A5B81(int this, int a2, int a3, int a4, int a5);
-int sub_4A5B81(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5);
+void CD3DRenderer_Set2DClippingRect(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5);
 //void __thiscall sub_4A5EB2(int this, int a2, int a3, int a4);
 void CD3DRenderer_DrawIndexedTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class18 *pTexture);
 //void __thiscall sub_4A6274(int this, int a2, int a3, int a4);
 void CD3DRenderer_DrawTransparentTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class18 *pTexture);
 //int __thiscall sub_4A0E97(int this, int a2, int a3, int a4, int a5);
 void CD3DRenderer_sub_4A0E97(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5);
-//void __thiscall sub_4A6AB1(int this, int a2, int a3, int a4, int a5, int a6, int a7, int a8);
-void sub_4A6AB1(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, unsigned char *pData, int a5, int a6, int a7, int a8);
 //signed int __thiscall sub_4A0E80(int this, int a2, int a3);
 void CD3DRenderer_ClearZBuffer(struct CD3DRenderer *_this, int a2, int a3);
 //int __thiscall sub_4A1EB6(int this);
@@ -175,12 +172,14 @@ void *sub_4A1EB6(struct CD3DRenderer *_this);
 //int __thiscall sub_4A1FE1(int this);
 void CD3DRenderer_sub_4A1FE1_MaybeRenderSpecialEffects(struct CD3DRenderer *_this);
 //void *__thiscall sub_4A121C(void *this);
-void* CD3DRenderer_CreateSurface(struct CD3DRenderer *_this);
+void *CD3DRenderer_CreateSurface(struct CD3DRenderer *_this);
 //void *__thiscall sub_4A12CD(void *this);
-void* CD3DRenderer_CreateWndSurface(struct CD3DRenderer *_this);
+void *CD3DRenderer_CreateWndSurface(struct CD3DRenderer *_this);
 //void *__thiscall sub_4A14F4(int this, int a2);
-void* CD3DRenderer_CreateClipper(struct CD3DRenderer *_this, HWND ClipWnd);
-void* CD3DRenderer_Blt(struct CD3DRenderer *_this, RECT *pDestRect, RECT *pSrcRect);
+void *CD3DRenderer_CreateClipper(struct CD3DRenderer *_this, HWND ClipWnd);
+void *CD3DRenderer_PresentRegion(struct CD3DRenderer *_this, RECT *pDestRect, RECT *pSrcRect);
+//char __thiscall sub_4A0BEE(int this, int a2, int a3, int a4, int a5, __int16 a6);
+char CD3DRenderer_FillRect(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5, unsigned int uColor);
 
 //class15
 struct CGammaController
