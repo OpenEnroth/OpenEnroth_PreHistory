@@ -1149,7 +1149,7 @@ void __thiscall sub_4263A0(int this)
 }
 
 //----- (004263B7) --------------------------------------------------------
-int __thiscall sub_4263B7(void *this)
+int __thiscall class24_sub_4263B7(struct class24 *_this)
 {
   void *v1; // esi@1
   int v2; // eax@2
@@ -1157,13 +1157,14 @@ int __thiscall sub_4263B7(void *this)
   char v4; // zf@5
   int result; // eax@8
 
-  v1 = this;
+  v1 = _this;
   do
   {
-    v2 = class24_fn2(v1) - *((_DWORD *)v1 + 3);
-    *((_DWORD *)v1 + 7) = v2;
+    v2 = class24_fn2(_this) - _this->dword_00000C;
+   _this->int_00001C = v2;
   }
   while ( v2 <= 0 );
+
   *((_DWORD *)v1 + 3) = class24_fn2(v1);
   v3 = *((_DWORD *)v1 + 7);
   if ( v3 > 32 )
@@ -2330,10 +2331,10 @@ LABEL_25:
           break;
       }
     }
-    v15 = (signed int)&unk_50C0C8;
+    v15 = &struct_50C0C8;
     if ( v7 & 0x3CA )
     {
-      v16 = (signed int)&unk_50C0C8;
+      v16 = &struct_50C0C8;
       while ( !(*(_WORD *)(v16 + 8) & 0x3CA) )
       {
         v16 += 20;
@@ -2362,7 +2363,7 @@ LABEL_33:
       v15 += 20;
     }
     while ( v15 < (signed int)&unk_50C190 );
-    result = sub_427DA0(&unk_50C0C8, v32, v31, a3, v7, a5);
+    result = sub_427DA0(&struct_50C0C8, v32, v31, a3, v7, a5);
     if ( result != -1 )
     {
       if ( v7 & 2 )
@@ -2688,7 +2689,7 @@ signed int __thiscall sub_42EBEE(void *this)
   result = sub_492C0B((int)((char *)&unk_ACBE48 + 6972 * uMaybeSelectedCharacter));
   if ( result )
   {
-    sub_427D48(&unk_50C0C8, v3);
+    sub_427D48(&struct_50C0C8, v3);
     v5 = 0;
     v4 = CMapStats_FindLocation(pMapStats, Str1);
     if ( v4 )
@@ -2755,7 +2756,7 @@ signed int __cdecl sub_42ECB5()
   result = sub_492C0B((int)((char *)&unk_ACBE48 + 6972 * uMaybeSelectedCharacter));
   if ( result )
   {
-    sub_427D48(&unk_50C0C8, v1);
+    sub_427D48(&struct_50C0C8, v1);
     v3 = 0;
     if ( qword_ACD8F4 > 0 )
       sub_458585((int)&qword_ACD8F4);
@@ -2808,7 +2809,7 @@ signed int __cdecl sub_42ECB5()
     {
       v28 = v36 >> 3;
       v8 = (char *)pActors + 836 * (v36 >> 3);
-      v36 = sub_452A9E((*((_WORD *)v8 + 71) - pParty_global->dword_0006B4) * (*((_WORD *)v8 + 71) - pParty_global->dword_0006B4) + (*((_WORD *)v8 + 72) - pParty_global->dword_0006B8) * (*((_WORD *)v8 + 72) - pParty_global->dword_0006B8) + (*((_WORD *)v8 + 73) - pParty_global->dword_0006BC) * (*((_WORD *)v8 + 73) - pParty_global->dword_0006BC))
+      v36 = sub_452A9E((*((_WORD *)v8 + 71) - pParty_global->sPartyPosX) * (*((_WORD *)v8 + 71) - pParty_global->sPartyPosX) + (*((_WORD *)v8 + 72) - pParty_global->sPartyPosY) * (*((_WORD *)v8 + 72) - pParty_global->sPartyPosY) + (*((_WORD *)v8 + 73) - pParty_global->dword_0006BC) * (*((_WORD *)v8 + 73) - pParty_global->dword_0006BC))
           - *((_WORD *)v8 + 68);
       if ( v36 >= 0 )
       {
@@ -2853,8 +2854,8 @@ LABEL_28:
       }
       if ( (double)v36 <= *(double *)&byte_4D8410[328] )
       {
-        v25 = *((_WORD *)v8 + 71) - pParty_global->dword_0006B4;
-        v26 = *((_WORD *)v8 + 72) - pParty_global->dword_0006B8;
+        v25 = *((_WORD *)v8 + 71) - pParty_global->sPartyPosX;
+        v26 = *((_WORD *)v8 + 72) - pParty_global->sPartyPosY;
         v27 = *((_WORD *)v8 + 73) - pParty_global->dword_0006BC;
         sub_43AB61((int)&v25, (int)&v26, (int)&v27);
         DamageMonsterFromParty((8 * v1 - 8) | 4, v28, (int)&v25);
@@ -3224,8 +3225,8 @@ LABEL_20:
     v1 = &pActors[0].word_0000B0;
     while ( 1 )
     {
-      v5 = abs(*(_WORD *)(v1 - 34) - pParty_global->dword_0006B4);
-      v11 = abs(*(_WORD *)(v1 - 32) - pParty_global->dword_0006B8);
+      v5 = abs(*(_WORD *)(v1 - 34) - pParty_global->sPartyPosX);
+      v11 = abs(*(_WORD *)(v1 - 32) - pParty_global->sPartyPosY);
       v12 = abs(*(_WORD *)(v1 - 30) - pParty_global->dword_0006BC);
       v2 = v5;
       v4 = v11;
@@ -3844,9 +3845,9 @@ LABEL_6:
      v3 = pGame->class14_obj;
       v17 = *(&vKey + v23);
       if ( dword_69AE84[v23] )
-        v4 = class14_sub_45B0CE(v3, v17);
+        v4 = class14_IsKeyPressed(v3, v17);
       else
-        v4 = class14_sub_45B0A9(v3, v17);
+        v4 = class14_IsKeyHeld(v3, v17);
       if ( v4 )
       {
         switch ( v23 )
@@ -3992,7 +3993,7 @@ LABEL_75:
                   sub_48E96A(
                     (int)*(&ptr_A750C4 + uMaybeSelectedCharacter),
                     (signed __int64)(flt_6BE3A4 * (double)v24 * *(double *)&byte_4D8410[40]));
-                sub_427D48(&unk_50C0C8, uMaybeSelectedCharacter);
+                sub_427D48(&struct_50C0C8, uMaybeSelectedCharacter);
                 sub_40471C(&unk_4F8858);
               }
             }
@@ -4161,9 +4162,9 @@ LABEL_155:
     v22 = *(&vKey + v12);
     v13 = pGame->class14_obj;
     if ( dword_69AE84[v12] )
-      v14 = class14_sub_45B0CE(v13, v22);
+      v14 = class14_IsKeyPressed(v13, v22);
     else
-      v14 = class14_sub_45B0A9(v13, v22);
+      v14 = class14_IsKeyHeld(v13, v22);
     if ( v14 && v12 == 9 )
     {
       if ( !dword_4E28F8 )
@@ -4485,7 +4486,7 @@ void __cdecl sub_4304E7()
           goto LABEL_92;
         case 0x1D:
           sub_4BF5B2(pVideoPlayer);
-          byte_505992 = 1;
+          struct_505898.byte_505992 = 1;
           sub_409C8B();
           goto LABEL_92;
         case 0xA1:
@@ -5262,8 +5263,8 @@ LABEL_184:
           if ( dword_4E28F8 )
             GUIWindowDelete(pGUIWindow_PlayerCreation);
           class24_fn1(pClass24_global);
-          struct_576FE8.dword_000030 = pParty_global->dword_0006B4;
-          struct_576FE8.dword_000034 = pParty_global->dword_0006B8;
+          struct_576FE8.dword_000030 = pParty_global->sPartyPosX;
+          struct_576FE8.dword_000034 = pParty_global->sPartyPosY;
           AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
           v32 = GUIWindowCreate(0, 0, 640, 480, 9, SLODWORD(v214), 0);
           v33 = 353;
@@ -5567,14 +5568,14 @@ LABEL_306:
                       sub_4452BB();
                       goto LABEL_317;
                     case 17:
-                      if ( pParty_global->dword_0006B4 < -22528 )
-                        pParty_global->dword_0006B4 = -22528;
-                      if ( pParty_global->dword_0006B4 > 22528 )
-                        pParty_global->dword_0006B4 = 22528;
-                      if ( pParty_global->dword_0006B8 < -22528 )
-                        pParty_global->dword_0006B8 = -22528;
-                      if ( pParty_global->dword_0006B8 > 22528 )
-                        pParty_global->dword_0006B8 = 22528;
+                      if ( pParty_global->sPartyPosX < -22528 )
+                        pParty_global->sPartyPosX = -22528;
+                      if ( pParty_global->sPartyPosX > 22528 )
+                        pParty_global->sPartyPosX = 22528;
+                      if ( pParty_global->sPartyPosY < -22528 )
+                        pParty_global->sPartyPosY = -22528;
+                      if ( pParty_global->sPartyPosY > 22528 )
+                        pParty_global->sPartyPosY = 22528;
                       goto LABEL_317;
                     case 16:
                       CVideoPlayer_UnloadAll(pVideoPlayer);
@@ -5772,12 +5773,12 @@ LABEL_92:
           {
             if ( dword_59117C )
             {
-              pParty_global->dword_0006B4 = dword_59117C;
+              pParty_global->sPartyPosX = dword_59117C;
               dword_5B65A8 = dword_59117C;
             }
             if ( dword_591178 )
             {
-              pParty_global->dword_0006B8 = dword_591178;
+              pParty_global->sPartyPosY = dword_591178;
               dword_5B65AC = dword_591178;
             }
             if ( dword_591174 )
@@ -5814,7 +5815,7 @@ LABEL_92:
           else
           {
             dword_597F18 = dword_5C341C;
-            sub_44684A(dword_5C3418, 0, v0);
+            sub_44684A_LooksLikeEventProcessor(dword_5C3418, 0, v0);
           }
           dword_597F18 = 0;
           if ( !_strcmpi(byte_6BE3B0, "d05.blv") )
@@ -5838,19 +5839,19 @@ LABEL_92:
           v211 = sub_444D80();
           strcpy(pClass51_global->string_000000, Str1);
           if ( byte_6BE3C4 != 1 && dword_ACD6BC
-           || sub_48902E(pClass51_global->string_000000, pParty_global->dword_0006B4, pParty_global->dword_0006B8, &Source, 20) != v0 )
+           || sub_48902E(pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, &Source, 20) != v0 )
           {
             dword_57702C = v0;
 LABEL_387:
             sub_42FC15();
-            if ( pParty_global->dword_0006B4 < -22528 )
-              pParty_global->dword_0006B4 = -22528;
-            if ( pParty_global->dword_0006B4 > 22528 )
-              pParty_global->dword_0006B4 = 22528;
-            if ( pParty_global->dword_0006B8 < -22528 )
-              pParty_global->dword_0006B8 = -22528;
-            if ( pParty_global->dword_0006B8 > 22528 )
-              pParty_global->dword_0006B8 = 22528;
+            if ( pParty_global->sPartyPosX < -22528 )
+              pParty_global->sPartyPosX = -22528;
+            if ( pParty_global->sPartyPosX > 22528 )
+              pParty_global->sPartyPosX = 22528;
+            if ( pParty_global->sPartyPosY < -22528 )
+              pParty_global->sPartyPosY = -22528;
+            if ( pParty_global->sPartyPosY > 22528 )
+              pParty_global->sPartyPosY = 22528;
 LABEL_317:
             sub_44603D();
             dword_4E28F8 = 0;
@@ -5859,7 +5860,7 @@ LABEL_317:
           {
             dword_ACD69C = 0;
             dword_ACD698 = 0;
-            sub_427D48(&unk_50C0C8, v0);
+            sub_427D48(&struct_50C0C8, v0);
             sub_44603D();
             class24_fn1(pClass24_global);
             LevelLoadingUI_Initialize(pLoadingUI, 2);
@@ -5911,7 +5912,7 @@ LABEL_317:
             sub_443FDC(v53);
             sub_489487();
             sub_4498D5((void *)dword_6BE35C);
-            pParty_global->dword_0006BC = sub_48257A(pParty_global->dword_0006B4, pParty_global->dword_0006B8, (int)&v229, 0);
+            pParty_global->dword_0006BC = sub_48257A(pParty_global->sPartyPosX, pParty_global->sPartyPosY, (int)&v229, 0);
             pParty_global->dword_000700 = pParty_global->dword_0006BC;
             sub_461103();
             sub_426363(pClass24_global);
@@ -6148,8 +6149,8 @@ LABEL_450:
             }
             else
             {
-              pParty_global->dword_0006B4 = *(_DWORD *)(v211 + 8);
-              pParty_global->dword_0006B8 = *(_DWORD *)(v211 + 12);
+              pParty_global->sPartyPosX = *(_DWORD *)(v211 + 8);
+              pParty_global->sPartyPosY = *(_DWORD *)(v211 + 12);
               pParty_global->dword_0006BC = *(_DWORD *)(v211 + 16);
               pParty_global->dword_000700 = pParty_global->dword_0006BC;
               pParty_global->dword_0006C0 = *(_WORD *)(v211 + 20);
@@ -6178,8 +6179,8 @@ LABEL_450:
             v74 = (unsigned __int64)(pParty_global->qword_00002C + (signed __int64)((double)(qword_506350 << 7) * 0.03333333507180214)) >> 32;
             *(_DWORD *)v211 = pParty_global->qword_00002C + (signed __int64)((double)(qword_506350 << 7) * 0.03333333507180214);
             *(_DWORD *)(v73 + 4) = v74;
-            *(_DWORD *)(v73 + 8) = pParty_global->dword_0006B4;
-            *(_DWORD *)(v73 + 12) = pParty_global->dword_0006B8;
+            *(_DWORD *)(v73 + 8) = pParty_global->sPartyPosX;
+            *(_DWORD *)(v73 + 12) = pParty_global->sPartyPosY;
             *(_DWORD *)(v73 + 16) = pParty_global->dword_0006BC;
             *(_WORD *)(v73 + 20) = pParty_global->dword_0006C0;
             *(_WORD *)(v73 + 22) = pParty_global->dword_0006C4;
@@ -6222,8 +6223,8 @@ LABEL_486:
                   v76 = 20 * v209;
                   if ( v77 == word_4ECBC8[10 * v209] )
                   {
-                    pParty_global->dword_0006B4 = *(int *)((char *)dword_4ECBB8 + v76);
-                    pParty_global->dword_0006B8 = *(int *)((char *)dword_4ECBBC + v76);
+                    pParty_global->sPartyPosX = *(int *)((char *)dword_4ECBB8 + v76);
+                    pParty_global->sPartyPosY = *(int *)((char *)dword_4ECBBC + v76);
                     pParty_global->dword_0006BC = *(int *)((char *)dword_4ECBC0 + v76);
                     pParty_global->dword_000700 = pParty_global->dword_0006BC;
                     pParty_global->dword_0006C0 = *(__int16 *)((char *)word_4ECBC4 + v76);
@@ -6402,8 +6403,8 @@ LABEL_91:
               {
                 v89 = v205;
 LABEL_544:
-                pParty_global->dword_0006B4 = v87;
-                pParty_global->dword_0006B8 = v89;
+                pParty_global->sPartyPosX = v87;
+                pParty_global->sPartyPosY = v89;
                 pParty_global->dword_0006BC = v88;
                 pParty_global->dword_000700 = v88;
                 goto LABEL_90;
@@ -7300,9 +7301,9 @@ LABEL_789:
   {
     if ( dword_50C9D0 > 0 )
     {
-      v135 = dword_50C9D8 == pClass24_global->dword_00001C;
-      v136 = dword_50C9D8 - pClass24_global->dword_00001C < 0;
-      dword_50C9D8 -= pClass24_global->dword_00001C;
+      v135 = dword_50C9D8 == pClass24_global->int_00001C;
+      v136 = dword_50C9D8 - pClass24_global->int_00001C < 0;
+      dword_50C9D8 -= pClass24_global->int_00001C;
       if ( v136 | v135 )
       {
         if ( dword_50CBD0[0] < 40 )
@@ -7317,7 +7318,17 @@ LABEL_789:
       }
     }
   }
-  sub_427E01(unk_50C0C8);
+  sub_427E01(&struct_50C0C8);
+}
+
+void unnamed_505898_ctor(struct unnamed_505898 *_this)
+{
+ _this->dword_000004 = 0;
+ RGBTexture_ctor(&_this->class33_obj0);
+ RGBTexture_ctor(&_this->class33_obj1);
+
+ _this->byte_505991 = 0;
+ _this->byte_505992 = 0;
 }
 
 //----- (004355F7) --------------------------------------------------------
@@ -17264,8 +17275,8 @@ LABEL_90:
     pParty_global->dword_0006C4 = 0;
     pParty_global->dword_0006C0 = 0;
     pParty_global->dword_0006BC = 0;
-    pParty_global->dword_0006B8 = 0;
-    pParty_global->dword_0006B4 = 0;
+    pParty_global->sPartyPosY = 0;
+    pParty_global->sPartyPosX = 0;
     pParty_global->dword_000700 = 0;
     dword_ACD6A0 = 0;
     sub_4498D5((void *)dword_6BE35C);
@@ -17746,7 +17757,7 @@ void __thiscall sub_4646F0(int this)
   class24_fn1(pClass24_global);
   class24_fn1(pClass24_global2);
   pParty_global->dword_007778 = 2;
-  sub_427D48(&unk_50C0C8, 1);
+  sub_427D48(&struct_50C0C8, 1);
   sub_464479();
   sub_464866(0, (v1 == 0) + 1);
   sub_426363(pClass24_global2);

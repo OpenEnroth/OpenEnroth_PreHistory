@@ -2377,7 +2377,7 @@ signed int __thiscall sub_4903C9(struct Player *_this, signed int a2)
       
       for (i = 0; i < 37; ++i)
       {
-        if ( _this->array_000108[skidx] && AvailSkillPerClass[_this->uClass >> 2][i] == 2 )
+        if ( _this->array_000108[skidx] &&  AvailSkillPerClass[_this->uClass >> 2][i] == 2 )
         {
           if ( v8 == a2 )
             return i;
@@ -2744,7 +2744,7 @@ void __thiscall sub_4909F4(void *this)
       v2 = sub_48E9F4((void *)(v1 - 6812));
       if ( v2 == 18 || v2 == 17 )
       {
-        *(_WORD *)(v1 + 2) += pClass24_global2->dword_00001C;
+        *(_WORD *)(v1 + 2) += pClass24_global2->int_00001C;
         if ( *(_WORD *)(v1 + 2) >= *(_WORD *)(v1 + 4) )
         {
           if ( *(_WORD *)v1 != 1 || rand() % 5 )
@@ -2862,7 +2862,7 @@ LABEL_56:
       else
       {
         v3 = *(_WORD *)v1;
-        if ( *(_WORD *)v1 != 34 && v3 != 35 && v3 != 36 || pClass24_global2->dword_00001C + *(_WORD *)(v1 + 2) >= *(_WORD *)(v1 + 4) )
+        if ( *(_WORD *)v1 != 34 && v3 != 35 && v3 != 36 || pClass24_global2->int_00001C + *(_WORD *)(v1 + 2) >= *(_WORD *)(v1 + 4) )
         {
           *(_WORD *)(v1 + 4) = 0;
           *(_WORD *)(v1 + 2) = 0;
@@ -2917,7 +2917,7 @@ LABEL_56:
         }
         else
         {
-          *(_WORD *)(v1 + 2) += pClass24_global2->dword_00001C;
+          *(_WORD *)(v1 + 2) += pClass24_global2->int_00001C;
         }
       }
       v1 += 6972;
@@ -2932,7 +2932,7 @@ LABEL_56:
       if ( v9 )
       {
         v10 = struct_AD4674[i].dword_AD469C;
-        v11 = pClass24_global2->dword_00001C + struct_AD4674[i].dword_AD46A0;
+        v11 = pClass24_global2->int_00001C + struct_AD4674[i].dword_AD46A0;
         if ( v11 >= v9 )
         {
           v10 = 0;
@@ -9606,14 +9606,14 @@ LABEL_7:
             fldz
              int 3
             //fstp    [ebp+var_34]
-            //fild    pParty_global->dword_0006B4
+            //fild    pParty_global->sPartyPosX
           }
           a2 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
           __asm
           {
            int 3
             //fstp    [ebp+var_60]
-            //fild    pParty_global->dword_0006B8
+            //fild    pParty_global->sPartyPosY
             //fstp    [ebp+var_5C]
             //fild    [ebp+arg_0]
             //fstp    [ebp+var_58]
@@ -17794,8 +17794,8 @@ int __fastcall sub_4AAEA6(int a1)
   result = 0;
   if ( dword_51B6F8 )
   {
-    v13 = *(float *)a1 - (double)pParty_global->dword_0006B4;
-    v11 = *(float *)(a1 + 4) - (double)pParty_global->dword_0006B8;
+    v13 = *(float *)a1 - (double)pParty_global->sPartyPosX;
+    v11 = *(float *)(a1 + 4) - (double)pParty_global->sPartyPosY;
     v4 = *(float *)(a1 + 8) - (double)pParty_global->dword_0006BC;
     if ( pD3DRenderer->dword_040088 )
     {
@@ -17813,8 +17813,8 @@ int __fastcall sub_4AAEA6(int a1)
   }
   else
   {
-    v14 = *(float *)a1 - (double)pParty_global->dword_0006B4;
-    v12 = *(float *)(a1 + 4) - (double)pParty_global->dword_0006B8;
+    v14 = *(float *)a1 - (double)pParty_global->sPartyPosX;
+    v12 = *(float *)(a1 + 4) - (double)pParty_global->sPartyPosY;
     v7 = *(float *)(a1 + 8) - (double)pParty_global->dword_0006BC;
     if ( pD3DRenderer->dword_040088 )
     {
@@ -17837,7 +17837,7 @@ int __fastcall sub_4AB66C(int a1, int a2)
 {
   int v2; // eax@1
 
-  v2 = pClass59_global->dword_00186C & (sub_45281E(pClass59_global, a1 - pParty_global->dword_0006B4, a2 - pParty_global->dword_0006B8) - pClass59_global->dword_001864 - pParty_global->dword_0006C0);
+  v2 = pClass59_global->dword_00186C & (sub_45281E(pClass59_global, a1 - pParty_global->sPartyPosX, a2 - pParty_global->sPartyPosY) - pClass59_global->dword_001864 - pParty_global->dword_0006C0);
   if ( v2 > pClass59_global->dword_001860 )
     v2 = 2 * pClass59_global->dword_001860 - v2;
   return (v2 >> 3) - (v2 >> 10);
@@ -17857,8 +17857,8 @@ int __fastcall sub_4AB6B1(int a1, int a2, int a3)
   v3 = a2;
   v4 = a1;
   v5 = abs(a3 - pParty_global->dword_0006BC);
-  v6 = abs(v3 - pParty_global->dword_0006B8);
-  v7 = abs(v4 - pParty_global->dword_0006B4);
+  v6 = abs(v3 - pParty_global->sPartyPosY);
+  v7 = abs(v4 - pParty_global->sPartyPosX);
   v9 = sub_4621DA(v7, v6, v5);
   if ( v9 <= 8192 )
     result = 114 - (signed __int64)((double)v9 * *(double *)&byte_4D8410[1360] * *(double *)&byte_4D8410[1352]);

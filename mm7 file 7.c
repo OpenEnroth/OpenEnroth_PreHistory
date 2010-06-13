@@ -3628,7 +3628,7 @@ LABEL_84:
           {
             dword_F8B1E8 = 0;
             dword_5C3420 = 1;
-            sub_44684A(v3, 0, 1);
+            sub_44684A_LooksLikeEventProcessor(v3, 0, 1);
             dword_5C3420 = 0;
           }
         }
@@ -7744,11 +7744,11 @@ LABEL_71:
         {
           v6 = *((_DWORD *)v5 + 3);
           pParty_global->dword_0006C4 = 0;
-          pParty_global->dword_0006B4 = v6;
+          pParty_global->sPartyPosX = v6;
           v7 = *((_DWORD *)v5 + 4);
           pClass55_global->dword_000018 = 0;
           pParty_global->dword_007778 |= 2;
-          pParty_global->dword_0006B8 = v7;
+          pParty_global->sPartyPosY = v7;
           pParty_global->dword_0006BC = *((_DWORD *)v5 + 5);
           pParty_global->dword_000700 = pParty_global->dword_0006BC;
           pParty_global->dword_0006C0 = *((_DWORD *)v5 + 6);
@@ -9230,12 +9230,12 @@ LABEL_103:
     FontDrawText(dword_507BC0, v63, 12, 354 - v64, v62, v69, v71, v74);
     return;
   }
-  if ( dword_F8B19C == 104 && byte_505992 != 1 )
+  if ( dword_F8B19C == 104 && struct_505898.byte_505992 != 1 )
   {
     v26 = &ExistingFileName;
-    if ( dword_505944 )
+    if ( struct_505898.dword_505944 )
     {
-      if ( dword_505944 == 1 )
+      if ( struct_505898.dword_505944 == 1 )
         v73 = pGlobalTXT_LocalizationStrings[640];
       else
         v73 = pGlobalTXT_LocalizationStrings[641];
@@ -11708,8 +11708,8 @@ LABEL_23:
       else
       {
         dword_59108C = 90;
-        pParty_global->dword_0006B4 = 3849;
-        pParty_global->dword_0006B8 = 5770;
+        pParty_global->sPartyPosX = 3849;
+        pParty_global->sPartyPosY = 5770;
         pParty_global->dword_0006BC = 1;
         pParty_global->dword_000700 = 1;
         pParty_global->dword_0006C0 = 512;
@@ -11906,8 +11906,8 @@ void __cdecl sub_4BC109()
   FontDrawText(dword_507BBC, pFontArrus, 13, 354 - v0, v1, 0, 0, 0);
   CD3DRenderer_EndScene(pD3DRenderer);
   CD3DRenderer_Present(pD3DRenderer);
-  pParty_global->dword_0006B4 = 3849;
-  pParty_global->dword_0006B8 = 5770;
+  pParty_global->sPartyPosX = 3849;
+  pParty_global->sPartyPosY = 5770;
   pParty_global->dword_0006BC = 1;
   pParty_global->dword_000700 = 1;
   pParty_global->dword_0006C0 = 512;
@@ -12284,7 +12284,7 @@ LABEL_74:
           default:
             dword_5C3420 = 1;
             dword_F8B1E8 = 0;
-            sub_44684A(v4, 0, 1);
+            sub_44684A_LooksLikeEventProcessor(v4, 0, 1);
             dword_5C3420 = 0;
             break;
         }

@@ -1486,7 +1486,7 @@ void GameUI_DrawPortraits(void *this)
   v22 = this;
   if ( qword_A750D8 )
   {
-    qword_A750D8 -= pClass24_global2->dword_00001C;
+    qword_A750D8 -= pClass24_global2->int_00001C;
     if ( qword_A750D8 <= 0 )
     {
       if ( sub_492C0B(pPlayers[word_A750E2 - 1]) )
@@ -1541,7 +1541,7 @@ LABEL_27:
       pPlayerFaceIcon = sub_494B5E(pPlayerFrameTable,
                       &pParty_global->pPlayers[i].dword_001AA8,
                       &pParty_global->pPlayers[i].dword_001AA4,
-                      pClass24_global2->dword_00001C);
+                      pClass24_global2->int_00001C);
     else
       pPlayerFaceIcon = CPlayerFrameTable_GetFrame(pPlayerFrameTable, v7, pParty_global->pPlayers[i].word_001A9E);
 

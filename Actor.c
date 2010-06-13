@@ -57,8 +57,8 @@ char __cdecl sub_408768()
 
       if ( sub_40894B(pActor) || pActor->word_0000B0 == 19 )
       {
-        pActor->word_00008E = pActor->word_0000A2;
-        pActor->word_000090 = pActor->word_0000A4;
+        pActor->sActorPosX = pActor->word_0000A2;
+        pActor->sActorPosY = pActor->word_0000A4;
         pActor->word_000092 = pActor->word_0000A6;
         pActor->word_000028 = pActor->word_00006C;
         if (pActor->word_0000B0 != 19)
@@ -194,16 +194,16 @@ void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a
   if ( !v5 )
   {
     v19 = 112 * v4;
-    v56 = array_665230[v4].dword_000004;
-    v14 = array_665230[v4].dword_000008;
+    v56 = array_665230[v4].sItemPosX;
+    v14 = array_665230[v4].sItemPosY;
     v12 = array_665230[v4].dword_00000C;
     goto LABEL_26;
   }
   v7 = v5 - 1;
   if ( !v7 )
   {
-    v56 = pActors[v4].word_00008E;
-    v55 = pActors[v4].word_000090;
+    v56 = pActors[v4].sActorPosX;
+    v55 = pActors[v4].sActorPosY;
     LODWORD(v50) = pActors[v4].word_00008A;
     v10 = pActors[v4].word_000092 - (unsigned int)(signed __int64)((double)SLODWORD(v50) * -0.75);
     goto LABEL_24;
@@ -213,8 +213,8 @@ void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a
   {
     if ( !v4 )
     {
-      v56 = pParty_global->dword_0006B4;
-      v55 = pParty_global->dword_0006B8;
+      v56 = pParty_global->sPartyPosX;
+      v55 = pParty_global->sPartyPosY;
       v12 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
 LABEL_27:
       v54 = v12;
@@ -252,8 +252,8 @@ LABEL_27:
         v39 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
         v18 = pClass59_global->dword_001864 + pParty_global->dword_0006C0;
       }
-      v38 = pParty_global->dword_0006B8;
-      v37 = pParty_global->dword_0006B4;
+      v38 = pParty_global->sPartyPosY;
+      v37 = pParty_global->sPartyPosX;
       v36 = 0;
       v35 = 8;
 LABEL_21:
@@ -266,8 +266,8 @@ LABEL_21:
     v39 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
     v18 = pClass59_global->dword_001864 + pParty_global->dword_0006C0;
 LABEL_20:
-    v38 = pParty_global->dword_0006B8;
-    v37 = pParty_global->dword_0006B4;
+    v38 = pParty_global->sPartyPosY;
+    v37 = pParty_global->sPartyPosX;
     v36 = 0;
     v35 = 24;
     goto LABEL_21;
@@ -306,22 +306,22 @@ LABEL_28:
   if ( v22 == 2 )
   {
     v30 = 112 * v20;
-    v53 = array_665230[v20].dword_000004;
-    v28 = array_665230[v20].dword_000008;
+    v53 = array_665230[v20].sItemPosX;
+    v28 = array_665230[v20].sItemPosY;
     v26 = array_665230[v20].dword_00000C;
     goto LABEL_43;
   }
   if ( v22 == 3 )
   {
-    v53 = pActors[v20].word_00008E;
-    v52 = pActors[v20].word_000090;
+    v53 = pActors[v20].sActorPosX;
+    v52 = pActors[v20].sActorPosY;
     v23 = pActors[v20].word_00008A - (unsigned int)(signed __int64)((double)pActors[v20].word_00008A * -0.75);
     goto LABEL_41;
   }
   if ( v22 == 4 )
   {
-    v53 = pParty_global->dword_0006B4;
-    v52 = pParty_global->dword_0006B8;
+    v53 = pParty_global->sPartyPosX;
+    v52 = pParty_global->sPartyPosY;
     v29 = a4;
     if ( !a4 )
       v29 = pParty_global->dword_00000C;

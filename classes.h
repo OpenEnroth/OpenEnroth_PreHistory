@@ -79,6 +79,8 @@ bool CGame_sub_44F07B(struct CGame *_this);
 void CGame_sub_44F120_MaybeStackStationaryLights(struct CGame *_this, int a2);
 //void __fastcall sub_44F192(int a1);
 void CGame_sub_44F192(struct CGame *_this);
+//void __thiscall sub_44E904(void *this);
+void sub_44E904(struct CGame *_this);
 
 //void __thiscall sub_40E2F6(int this, char a2);
 void CGame_stru0_sub_40E2F6(struct CGame_stru0 *_this, char a2);
@@ -89,10 +91,10 @@ void CGame_stru0_sub_40E2F6(struct CGame_stru0 *_this, char a2);
 struct class01
 {
  int              dword_000000;
- CRITICAL_SECTION cs1;           //struct ptr [04]
- CRITICAL_SECTION cs2;           //struct ptr [1C]
- CRITICAL_SECTION cs3;           //struct ptr [34]
- CRITICAL_SECTION cs4;           //struct ptr [4C]
+ CRITICAL_SECTION cs1;           //struct @ 000004
+ CRITICAL_SECTION cs2;           //struct @ 00001C
+ CRITICAL_SECTION cs3;           //struct @ 000034
+ CRITICAL_SECTION cs4;           //struct @ 00004C
 };
 //sizeof = 0064
 //int __thiscall sub_438B0B(int this);
@@ -517,9 +519,9 @@ struct class14
 //int __thiscall sub_45AFD9(int this);
 struct class14 *class14_ctor(struct class14 *_this);
 //char __thiscall sub_45B0A9(int this, int vKey);
-char class14_sub_45B0A9(struct class14 *_this, int vKey);
+bool class14_IsKeyHeld(struct class14 *_this, int vKey);
 //char __thiscall sub_45B0CE(int this, int vKey);
-char class14_sub_45B0CE(struct class14 *_this, int vKey);
+bool class14_IsKeyPressed(struct class14 *_this, int vKey);
 
 
 
@@ -764,7 +766,7 @@ struct class24
  int dword_000010;
  int dword_000014;
  int dword_000018;
- int dword_00001C;
+ int int_00001C;
  int dword_000020;
  int dword_000024;
 };
@@ -775,6 +777,8 @@ void class24_ctor(struct class24 *_this);
 void class24_fn1(struct class24 *_this);
 //__int64 __thiscall sub_426317(void *this);
 __int64 class24_fn2(struct class24 *_this);
+//int __thiscall class24_sub_4263B7(int this)
+int class24_sub_4263B7(struct class24 *_this);
 
 
 //class27
@@ -1403,10 +1407,10 @@ struct Party
  int dword_000034;
  int dword_000038;
 
- int dword_0006B4; // looks like party x pos     world coordinates are  x: -32768..  32767
- int dword_0006B8; // ~ y                                               y:  32767.. -32768
- int dword_0006BC;
- int dword_0006C0;
+ int sPartyPosX;   // dword @ 0006B4     world coordinates are  x: -32768..  32767
+ int sPartyPosY;   // dword @ 0006B8                            y:  32767.. -32768
+ int dword_0006BC; // maybe z
+ int dword_0006C0; // related to compass on minimap
  int dword_0006C4;
  int dword_0006C8;
  int dword_0006CC;
@@ -1483,8 +1487,8 @@ struct struct0
 {
  unsigned short uDecorationDescriptionID; // word @ 000000
  short word_000002;
- int   dword_000004;
- int   dword_000008;
+ int   dword_000004; // x position
+ int   dword_000008; // y position
  int   dword_00000C;
  int   dword_000010;
  short word_000014;
@@ -1500,8 +1504,8 @@ struct struct2
 {
  short word_000000;
  short uObjectDescriptionID; // word @ 000002
- int   dword_000004;
- int   dword_000008;
+ int   sItemPosX;            // dword @ 000004
+ int   sItemPosY;            // dword @ 000008
  int   dword_00000C;
  short uObjectDescriptionID2; // word @ 000010
  char  byte_000012[10];

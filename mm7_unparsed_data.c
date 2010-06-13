@@ -305,7 +305,7 @@ unsigned char byte_4ED750[0xC] =
  // 0 - not available
  // 1 - available
  // 2 - primary skill
- unsigned char AvailSkillPerClass[9][37] = 
+unsigned char AvailSkillPerClass[9][37] =  // byte[] @ MM7.exe::004ED820
 {
   {0, 2, 0, 1, 1, 1, 1, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},     
   {0, 1, 2, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 2, 1, 0},     
@@ -560,6 +560,8 @@ unsigned char byte_4ED750[0xC] =
  int dword_50588C; // weak
  int dword_505890; // weak
 
+struct unnamed_505898 struct_505898;
+ /*
  char byte_505898; // weak
  int dword_5058A0; // weak
  _UNKNOWN unk_5058A4; // weak
@@ -575,8 +577,6 @@ unsigned char byte_4ED750[0xC] =
  int dword_5058E0; // weak
  int dword_5058E4; // weak
  __int16 word_5058EC; // weak
-
-
  int dword_505940; // weak
  int dword_505944; // weak
  int dword_505948; // weak
@@ -589,6 +589,7 @@ unsigned char byte_4ED750[0xC] =
  char byte_505990; // weak
  char byte_505991; // weak
  char byte_505992; // weak
+ */
  int dword_5059A8[480]; // 
  int dword_506128; // weak
  char byte_506130[array_size_unknown]; // weak
@@ -1094,7 +1095,9 @@ struct struct14 array_508FF0[50]; // struct[50] @ MM7.exe::00508FF0
  int dword_50BF30[array_size_unknown]; // weak
  char byte_50C0C0; // weak
  int dword_50C0C4; // weak
- _UNKNOWN unk_50C0C8[256*array_size_unknown]; // weak
+
+struct unnamed_50C0C8 struct_50C0C8;
+ //_UNKNOWN unk_50C0C8[256*array_size_unknown]; // weak
  _UNKNOWN unk_50C190; // weak
  _UNKNOWN unk_50C198; // weak
 
@@ -1329,7 +1332,7 @@ struct class37 class37_global0; // struct @ MM7.exe::0051B778
 
  int dword_56EEA8; // weak
  __int16 word_56EEAC[array_size_unknown]; // weak
- unsigned short array_56EFD8[137 * 117 + array_size_unknown]; // weak
+ //unsigned short array_56EFD8[137 * 117 + array_size_unknown]; // used in drawing minimap, now obsolete
  int dword_576D14; // weak
  __int16 word_576D80[array_size_unknown]; // weak
 
@@ -1374,16 +1377,19 @@ unsigned int uTextureID_LocationMap = 0; // dword @ MM7.exe::00577028
  _UNKNOWN unk_5771E4; // weak
  __int64 qword_5773B8; // weak
  int dword_5773C0; // weak
- int dword_5773F0[array_size_unknown]; // weak
- int dword_5773F4; // weak
- int dword_5773F8; // weak
- int dword_584230; // weak
- int dword_584234; // weak
- int dword_584238[array_size_unknown]; // weak
- int dword_58423C; // weak
- int dword_584240; // weak
- int dword_591078; // weak
- int dword_59107C; // weak
+
+struct Event   pSomeOtherEVT_Events[4400]; // struct[4400] @ MM7.exe::005773F0
+// int dword_5773F4; // weak
+// int dword_5773F8; // weak
+unsigned int   uSomeOtherEVT_NumEvents; // dword @ MM7.exe::00584230
+unsigned char *pSomeOtherEVT;           // dword @ MM7.exe::00584234
+
+struct Event   pSomeEVT_Events[4400];   // struct[4400] @ MM7.exe::00584238
+// int dword_58423C; // weak
+// int dword_584240; // weak
+unsigned int   uSomeEVT_NumEvents;      // dword @ MM7.exe::00591078
+unsigned char *pSomeEVT;                // dword @ MM7.exe::0059107C
+
  int dword_591080; // weak
  int dword_591084; // weak
  int dword_591088; // weak
@@ -1428,29 +1434,24 @@ struct class18 *pClass18_EndcapTexture; // ptr @ MM7.exe::00591428
  __int16 word_593A36; // weak
  _UNKNOWN unk_597F10; // weak
  int dword_597F18; // weak
-unsigned int  uLevelStrOffsets[500]; // dword[500] @ MM7.exe::00597F20
-unsigned char some_struct_2[52800]; // byte[52800] @ MM7.exe::005986F0
-//_UNKNOWN unk_5986F0; // weak
 
- int dword_5A5530; // weak
+unsigned int  uLevelStrOffsets[500]; // dword[500]  @ MM7.exe::00597F20
 
-//global.evt
-unsigned int uGlobalEVT_Size; // dword @ MM7.exe::005A5534
-unsigned char pGlobalEVT[46080]; // byte[46080] @ MM7.exe::005A5538
-//char byte_5A5539[46079]; // weak
-//char byte_5A553A[46078]; // weak
-//char byte_5A553B[46077]; // weak
+struct Event  pGlobalEVT_Events[4400]; // struct[4400] @ MM7.exe::005986F0
+unsigned int  uGlobalEVT_NumEvents;    // dword        @ MM7.exe::005A5530
+unsigned int  uGlobalEVT_Size;         // dword        @ MM7.exe::005A5534
+unsigned char pGlobalEVT[46080];       // byte[46080]  @ MM7.exe::005A5538
 
  char byte_5B0938; // idb
 unsigned int  uLevelStrNumStrings;// dword      @ MM7.exe::005B1108
 unsigned int  uLevelStrFileSize;  // dword      @ MM7.exe::005B110C
-unsigned int  uLevelEvtNumEvents; // dword      @ MM7.exe::005B1110
-unsigned int  uLevelEvtFileSize;  // dword      @ MM7.exe::005B1114
+unsigned int  uLevelEVT_NumEvents; // dword      @ MM7.exe::005B1110
+unsigned int  uLevelEVT_Size;  // dword      @ MM7.exe::005B1114
 unsigned char pLevelStr[9216];    // byte[9216] @ MM7.exe::005B1120
-unsigned char pLevelEvt[9216];    // byte[9216] @ MM7.exe::005B3520
-//unsigned char byte_5B3521[array_size_unknown]; // pLevelEvt + 1
-//unsigned char byte_5B3522[array_size_unknown]; // pLevelEvt + 2
-//unsigned char byte_5B3523[array_size_unknown]; // pLevelEvt + 3
+unsigned char pLevelEVT[9216];    // byte[9216] @ MM7.exe::005B3520
+//unsigned char byte_5B3521[array_size_unknown]; // pLevelEVT + 1
+//unsigned char byte_5B3522[array_size_unknown]; // pLevelEVT + 2
+//unsigned char byte_5B3523[array_size_unknown]; // pLevelEVT + 3
  char byte_5B3524[array_size_unknown]; // weak
  char byte_5B3525[array_size_unknown]; // weak
  char byte_5B3526[array_size_unknown]; // weak
@@ -1476,11 +1477,11 @@ unsigned char pLevelEvt[9216];    // byte[9216] @ MM7.exe::005B3520
  int dword_5B65CC; // weak
  int dword_5B65D0; // weak
 
-struct Event pLevelEvents[4400]; // struct[4400] @ MM7.exe::005B65D8
-//_UNKNOWN unk_5B65D8[0xCE40 + 64*array_size_unknown]; // pLevelEvents[0]::dword_000000
-//_UNKNOWN unk_5B65DC; // pLevelEvents[0]::dword_000004
-//int dword_5B65E0; // pLevelEvents[0]::dword_000008
-//int dword_5B65EC; // pLevelEvents[1]::dword_000008
+struct Event pLevelEVT_Events[4400]; // struct[4400] @ MM7.exe::005B65D8
+//_UNKNOWN unk_5B65D8[0xCE40 + 64*array_size_unknown]; // pLevelEVT_Events[0]::dword_000000
+//_UNKNOWN unk_5B65DC; // pLevelEVT_Events[0]::dword_000004
+//int dword_5B65E0; // pLevelEVT_Events[0]::dword_000008
+//int dword_5B65EC; // pLevelEVT_Events[1]::dword_000008
  _UNKNOWN unk_5C310E; // weak
  int dword_5C3418; // weak
  int dword_5C341C; // weak

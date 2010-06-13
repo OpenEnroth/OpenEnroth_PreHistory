@@ -277,7 +277,7 @@ extern unsigned char array_4ED7B0[0x70];
 //char byte_4ED7C4[array_size_unknown]; // weak
 //char byte_4ED7C8[array_size_unknown]; // weak
 
-extern unsigned char AvailSkillPerClass[9][37]; // 0x14D = 9 classes X 37 skills
+extern unsigned char AvailSkillPerClass[9][37]; // byte[] @ MM7.exe::004ED820
 //char byte_4ED820[array_size_unknown]; // weak
 
 extern char byte_4ED94C[array_size_unknown]; // weak
@@ -514,35 +514,43 @@ extern int dword_505888; // weak
 extern int dword_50588C; // weak
 extern int dword_505890; // weak
 
-extern char byte_505898; // weak
-extern int dword_5058A0; // weak
-extern _UNKNOWN unk_5058A4; // weak
-extern char byte_5058A8; // weak
-extern struct tagMSG Msg_global; // idb
-extern int dword_5058C8; // weak
-extern int dword_5058CC; // weak
-extern char byte_5058D0; // weak
-extern char byte_5058D2; // weak
-extern int dword_5058D4; // weak
-extern int dword_5058D8; // weak
-extern int dword_5058DC; // weak
-extern int dword_5058E0; // weak
-extern int dword_5058E4; // weak
-extern __int16 word_5058EC; // weak
+extern struct unnamed_505898
+{
+ char byte_505898; // weak
+ int dword_000004; // 50989C
+ int dword_5058A0; // weak
+ _UNKNOWN unk_5058A4; // weak
+ char byte_5058A8; // weak
+ struct tagMSG Msg_global; // idb
+ int dword_5058C8; // weak
+ int dword_5058CC; // weak
+ char byte_5058D0; // weak
+ char byte_5058D2; // weak
+ int dword_5058D4; // weak
+ int dword_5058D8; // weak
+ int dword_5058DC; // weak
+ int dword_5058E0; // weak
+ int dword_5058E4; // weak
+ __int16 word_5058EC; // weak
+ struct RGBTexture class33_obj0; // ::5058F0
+ struct RGBTexture class33_obj1; // ::505918
+ int dword_505940; // weak
+ int dword_505944; // weak
+ int dword_505948; // weak
+ char Dest[32]; // idb
+ char byte_50596C[32]; // idb
+ char byte_50598C; // weak
+ char byte_50598D; // weak
+ char byte_50598E; // weak
+ char byte_50598F; // weak
+ char byte_505990; // weak
+ char byte_505991; // 0000F9
+ char byte_505992; // 0000FA
+} struct_505898;
+//sizeof ~ FB
+//loc_40D707
+void unnamed_505898_ctor(struct unnamed_505898 *_this);
 
-
-extern int dword_505940; // weak
-extern int dword_505944; // weak
-extern int dword_505948; // weak
-extern char Dest[32]; // idb
-extern char byte_50596C[32]; // idb
-extern char byte_50598C; // weak
-extern char byte_50598D; // weak
-extern char byte_50598E; // weak
-extern char byte_50598F; // weak
-extern char byte_505990; // weak
-extern char byte_505991; // weak
-extern char byte_505992; // weak
 extern int dword_5059A8[480]; // 
 extern int dword_506128; // weak
 extern char byte_506130[array_size_unknown]; // weak
@@ -1049,7 +1057,29 @@ extern int dword_50BDA0[array_size_unknown]; // weak
 extern int dword_50BF30[array_size_unknown]; // weak
 extern char byte_50C0C0; // weak
 extern int dword_50C0C4; // weak
-extern _UNKNOWN unk_50C0C8[256*array_size_unknown]; // weak
+
+struct unnamed_50C0C8_stru0
+{
+ short          word_000000;
+ unsigned short uPlayerID;       // word @ 000002
+ short          word_000004;
+ short          word_000006;
+ short          word_000008;
+ short          word_00000A;
+ short          word_00000C;
+ short          word_00000E;
+ int            dword_000010;
+};
+extern struct unnamed_50C0C8
+{
+ struct unnamed_50C0C8_stru0 array_000000[10];
+} struct_50C0C8;
+//loc_42696D
+void struct_50C0C8_ctor(struct unnamed_50C0C8 *_this);
+//int __thiscall sub_426987(int this)
+void struct_50C0C8_ctor_sub0(struct unnamed_50C0C8_stru0 *_this);
+
+//extern _UNKNOWN unk_50C0C8[256*array_size_unknown]; // weak
 extern _UNKNOWN unk_50C190; // weak
 extern _UNKNOWN unk_50C198; // weak
 
@@ -1290,7 +1320,6 @@ extern _UNKNOWN unk_51CF2C; // weak
 
 extern int dword_56EEA8; // weak
 extern __int16 word_56EEAC[array_size_unknown]; // weak
-extern unsigned short array_56EFD8[]; // weak
 extern int dword_576D14; // weak
 extern __int16 word_576D80[array_size_unknown]; // weak
 
@@ -1355,16 +1384,15 @@ extern int dword_57703C; // weak
 extern _UNKNOWN unk_5771E4; // weak
 extern __int64 qword_5773B8; // weak
 extern int dword_5773C0; // weak
-extern int dword_5773F0[array_size_unknown]; // weak
-extern int dword_5773F4; // weak
-extern int dword_5773F8; // weak
-extern int dword_584230; // weak
-extern int dword_584234; // weak
-extern int dword_584238[array_size_unknown]; // weak
-extern int dword_58423C; // weak
-extern int dword_584240; // weak
-extern int dword_591078; // weak
-extern int dword_59107C; // weak
+
+extern struct Event   pSomeOtherEVT_Events[]; // weak
+extern unsigned int   uSomeOtherEVT_NumEvents; // weak
+extern unsigned char *pSomeOtherEVT; // weak
+
+extern struct Event   pSomeEVT_Events[];  // struct[4400] @ MM7.exe::00584238
+extern unsigned int   uSomeEVT_NumEvents; // dword        @ MM7.exe::00591078
+extern unsigned char *pSomeEVT; // weak
+
 extern int dword_591080; // weak
 extern int dword_591084; // weak
 extern int dword_591088; // weak
@@ -1409,29 +1437,24 @@ extern _UNKNOWN unk_59146C; // weak
 extern __int16 word_593A36; // weak
 extern _UNKNOWN unk_597F10; // weak
 extern int dword_597F18; // weak
+
 extern unsigned int  uLevelStrOffsets[500]; // dword[500] @ MM7.exe::00597F20
-extern unsigned char some_struct_2[52800]; // byte[52800] @ MM7.exe::005986F0
-//_UNKNOWN unk_5986F0; // weak
 
-extern int dword_5A5530; // weak
-
-//global.evt
-extern unsigned int uGlobalEVT_Size; // dword @ MM7.exe::005A5534
-extern unsigned char pGlobalEVT[46080]; // byte[46080] @ MM7.exe::005A5538
-//char byte_5A5539[46079]; // weak
-//char byte_5A553A[46078]; // weak
-//char byte_5A553B[46077]; // weak
+extern struct Event  pGlobalEVT_Events[];  // struct[4400] @ MM7.exe::005986F0
+extern unsigned int  uGlobalEVT_NumEvents; // dword        @ MM7.exe::005A5530
+extern unsigned int  uGlobalEVT_Size;      // dword        @ MM7.exe::005A5534
+extern unsigned char pGlobalEVT[];         // byte[46080]  @ MM7.exe::005A5538
 
 extern char byte_5B0938; // idb
-extern unsigned int  uLevelStrNumStrings;// dword      @ MM7.exe::005B1108
-extern unsigned int  uLevelStrFileSize;  // dword      @ MM7.exe::005B110C
-extern unsigned int  uLevelEvtNumEvents; // dword      @ MM7.exe::005B1110
-extern unsigned int  uLevelEvtFileSize;  // dword      @ MM7.exe::005B1114
-extern unsigned char pLevelStr[9216];    // byte[9216] @ MM7.exe::005B1120
-extern unsigned char pLevelEvt[9216];    // byte[9216] @ MM7.exe::005B3520
-//unsigned char byte_5B3521[array_size_unknown]; // pLevelEvt + 1
-//unsigned char byte_5B3522[array_size_unknown]; // pLevelEvt + 2
-//unsigned char byte_5B3523[array_size_unknown]; // pLevelEvt + 3
+extern unsigned int  uLevelStrNumStrings; // dword      @ MM7.exe::005B1108
+extern unsigned int  uLevelStrFileSize;   // dword      @ MM7.exe::005B110C
+extern unsigned int  uLevelEVT_NumEvents; // dword      @ MM7.exe::005B1110
+extern unsigned int  uLevelEVT_Size;      // dword      @ MM7.exe::005B1114
+extern unsigned char pLevelStr[9216];     // byte[9216] @ MM7.exe::005B1120
+extern unsigned char pLevelEVT[9216];     // byte[9216] @ MM7.exe::005B3520
+//unsigned char byte_5B3521[array_size_unknown]; // pLevelEVT + 1
+//unsigned char byte_5B3522[array_size_unknown]; // pLevelEVT + 2
+//unsigned char byte_5B3523[array_size_unknown]; // pLevelEVT + 3
 extern char byte_5B3524[array_size_unknown]; // weak
 extern char byte_5B3525[array_size_unknown]; // weak
 extern char byte_5B3526[array_size_unknown]; // weak
@@ -1457,11 +1480,11 @@ extern int dword_5B65C8; // weak
 extern int dword_5B65CC; // weak
 extern int dword_5B65D0; // weak
 
-extern struct Event pLevelEvents[4400]; // struct[4400] @ MM7.exe::005B65D8
-//_UNKNOWN unk_5B65D8[0xCE40 + 64*array_size_unknown]; // pLevelEvents[0]::dword_000000
-//_UNKNOWN unk_5B65DC; // pLevelEvents[0]::dword_000004
-//int dword_5B65E0; // pLevelEvents[0]::dword_000008
-//int dword_5B65EC; // pLevelEvents[1]::dword_000008
+extern struct Event pLevelEVT_Events[4400]; // struct[4400] @ MM7.exe::005B65D8
+//_UNKNOWN unk_5B65D8[0xCE40 + 64*array_size_unknown]; // pLevelEVT_Events[0]::dword_000000
+//_UNKNOWN unk_5B65DC; // pLevelEVT_Events[0]::dword_000004
+//int dword_5B65E0; // pLevelEVT_Events[0]::dword_000008
+//int dword_5B65EC; // pLevelEVT_Events[1]::dword_000008
 extern _UNKNOWN unk_5C310E; // weak
 extern int dword_5C3418; // weak
 extern int dword_5C341C; // weak

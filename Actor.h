@@ -28,8 +28,8 @@ struct Actor
  short         word_000088;
  short         word_00008A;
  short         word_00008C;
- short         word_00008E; // looks like actor x pos
- short         word_000090; // ~ y
+ short         sActorPosX; // word @ 00008E
+ short         sActorPosY; // word @ 000090
  short         word_000092;
  short         word_000094;
  short         word_000096;
@@ -45,7 +45,7 @@ struct Actor
  short         word_0000AA;
  short         word_0000AC;
  short         word_0000AE;
- short         word_0000B0;
+ short         word_0000B0; // if == 5 then monster is rendered as dead on minimap
  short         word_0000B2;
  char          byte_0000B4[18];
  short         word_0000C6;  //some s-sprite index

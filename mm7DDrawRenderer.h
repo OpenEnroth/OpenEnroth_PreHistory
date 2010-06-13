@@ -152,7 +152,7 @@ int CD3DRenderer_LockFrontBuffer(struct CD3DRenderer *_this, void **ppOutSurface
 //void *__thiscall sub_4A17C7(int this);
 void *CD3DRenderer_UnlockFrontBuffer(struct CD3DRenderer *_this);
 //void __thiscall sub_4A5BE3(int this, int a2, int a3, int a4);
-void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class33 *pClass33);
+void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct RGBTexture *pClass33);
 //void __thiscall sub_4A6C4F(int this, int a2, int a3, int a4, int a5, int a6, int a7, __int16 a8, __int16 a9);
 void CD3DRenderer_DrawText(struct CD3DRenderer *_this, unsigned int uOutX, unsigned int uOutY, unsigned char *pFontPixels, unsigned int uCharWidth, unsigned int uCharHeight, unsigned short *pFontPalette, unsigned int uMainColor, unsigned int uShadowColor);
 //void __thiscall sub_4A5BB6(int this);

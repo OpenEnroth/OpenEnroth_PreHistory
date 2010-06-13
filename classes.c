@@ -5956,7 +5956,7 @@ int class35_sub_48A3BC(struct class35 *_this, int a2)
           v4 += 3;
         }
         while ( v4 < 768 );
-        sub_40F77C((int)&Dest);
+        sub_40F77C((int)struct_505898.Dest);
         result = sub_48A5A4(v16, a2, (int)&v10);
       }
       else
@@ -7579,8 +7579,8 @@ char CGame_sub_44EEA7(struct CGame *_this)
   result = CGame_sub_44F07B(_this);
   if ( result )
   {
-    if ( *(_BYTE *)(LODWORD(pGame) + 3616) & 8 )
-      *(_BYTE *)(*(_DWORD *)(v1 + 3676) + 4) = 0;
+    if (pGame->uSomeFlags & 0x08)
+      _this->class10_obj->dword_000004 &= 0xFFFFFF00;
     if ( pD3DRenderer->dword_040088 )
     {
       if ( dword_6BE360 == 2 )
@@ -7589,8 +7589,8 @@ char CGame_sub_44EEA7(struct CGame *_this)
         dword_EF524C = v5 & 0xFFFFFF;
       }
     }
-    if ( *(_BYTE *)(v1 + 3617) & 4 )
-      *(_DWORD *)(v1 + 3620) |= 1u;
+    if ( *(_BYTE *)(v1 + 0xE21) & 4 )
+      _this->dword_000E24 |= 0x01;
     if ( !pD3DRenderer->dword_040088 )
     {
       if ( dword_6BE360 == 2 )
@@ -7613,7 +7613,7 @@ char CGame_sub_44EEA7(struct CGame *_this)
       *(_DWORD *)(v1 + 3620) |= 1u;
       *(_DWORD *)(v1 + 3608) = dword_519AB4;
     }
-    sub_44E904((void *)v1);
+    sub_44E904(_this);
     result = 1;
   }
   return result;
@@ -7650,10 +7650,10 @@ int class02_sub_48AC65(struct class02 *_this)
 
   v20 = 0;
   v2 = _this;
-  v3 = pClass24_global2->dword_000004 == 0 ? pClass24_global->dword_00001C : 0;
+  v3 = pClass24_global2->dword_000004 == 0 ? pClass24_global->int_00001C : 0;
   v1 = *(_DWORD *)(v2 + 58404);
   v19 = 500;
-  v21 = pClass24_global2->dword_000004 == 0 ? pClass24_global->dword_00001C : 0;
+  v21 = pClass24_global2->dword_000004 == 0 ? pClass24_global->int_00001C : 0;
   v23 = *(_DWORD *)(v2 + 58404);
   if ( v1 <= *(_DWORD *)(v2 + 58408) )
   {
@@ -7726,11 +7726,11 @@ int class02_sub_48AC65(struct class02 *_this)
 //----- (0044F07B) --------------------------------------------------------
 bool CGame_sub_44F07B(struct CGame *_this)
 {
- if (!class14_sub_45B0A9(_this->class14_obj, VK_SHIFT) &&
-     !class14_sub_45B0A9(_this->class14_obj, VK_LSHIFT) &&
-     !class14_sub_45B0A9(_this->class14_obj, VK_LSHIFT) ||
-     !class14_sub_45B0CE(_this->class14_obj, VK_F11))
-   class14_sub_45B0CE(_this->class14_obj, VK_F11);
+ if (!class14_IsKeyHeld(_this->class14_obj, VK_SHIFT) &&
+     !class14_IsKeyHeld(_this->class14_obj, VK_LSHIFT) &&
+     !class14_IsKeyHeld(_this->class14_obj, VK_LSHIFT) ||
+     !class14_IsKeyPressed(_this->class14_obj, VK_F11))
+   class14_IsKeyPressed(_this->class14_obj, VK_F11);
 
  return true;
 }
@@ -7739,7 +7739,7 @@ bool CGame_sub_44F07B(struct CGame *_this)
 
 
 //----- (0045B0A9) --------------------------------------------------------
-char class14_sub_45B0A9(struct class14 *_this, int vKey)
+bool class14_IsKeyHeld(struct class14 *_this, int vKey)
 {
   char result; // al@2
   void *v3; // esi@2
@@ -7762,7 +7762,7 @@ char class14_sub_45B0A9(struct class14 *_this, int vKey)
 
 
 //----- (0045B0CE) --------------------------------------------------------
-char class14_sub_45B0CE(struct class14 *_this, int vKey)
+bool class14_IsKeyPressed(struct class14 *_this, int vKey)
 {
   char result; // al@2
   void *v3; // esi@2
@@ -9669,7 +9669,7 @@ void sub_440F07(struct struct5 *pArray)
     pArray[i].word_000006 += rand() % 5 - 2;
     pArray[i].word_000008 += rand() % 5 - 2;
     pArray[i].word_00000A += rand() % 5 + 4;
-    pArray[i].word_00000C -= pClass24_global->dword_00001C;
+    pArray[i].word_00000C -= pClass24_global->int_00001C;
    }
 }
 
@@ -9768,8 +9768,8 @@ int class06_sub_4A8C27(struct class06 *_this)
       v5 = memory_4D8410.f1_0 - (v4 - memory_4D8410.f0_9) * memory_4D8410.f10_0;
     v7 = v5;
     sub_4A52F1(pD3DRenderer, *(_DWORD *)(v1 + 1504), v7);
-    result = pClass24_global->dword_00001C;
-    *(_DWORD *)(v1 + 1496) -= pClass24_global->dword_00001C;
+    result = pClass24_global->int_00001C;
+    *(_DWORD *)(v1 + 1496) -= pClass24_global->int_00001C;
   }
   //by the time we first get in this function, dword_0005D4  is still not initialized in the original exe
   //maybe the following code in never executed at all
@@ -9781,7 +9781,7 @@ int class06_sub_4A8C27(struct class06 *_this)
     v11 = CSpriteFrameTable_fn1(pSpriteFrameTable, v10, v9);
     v8 = *(_WORD *)(v11 + 24);
     v69 = v11;
-    *(_DWORD *)(v1 + 1492) -= pClass24_global->dword_00001C;
+    *(_DWORD *)(v1 + 1492) -= pClass24_global->int_00001C;
     if ( pD3DRenderer->dword_040088 )
     {
       v12 = (double)dword_F8BC24;
@@ -10012,7 +10012,7 @@ void class06_sub_4A902A_DrawSomeIcon(struct class06 *_this)
  {
   if (_this->array_000208[i].word_000000)
   {
-   _this->array_000208[i].dword_000004 += pClass24_global->dword_00001C;
+   _this->array_000208[i].dword_000004 += pClass24_global->int_00001C;
    if (_this->array_000208[i].dword_000004 <= _this->array_000208[i].dword_000008)
    {
     pIcon = CIconFrameTable_GetFrame(pIconFrameTable, _this->array_000208[i].dword_00000C, _this->array_000208[i].dword_000004);

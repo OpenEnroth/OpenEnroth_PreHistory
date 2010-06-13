@@ -162,6 +162,7 @@ void __cdecl DeleteFontCChar();
 
 
 void __cdecl PlayerCreationUI_Initialize();
+unsigned int PlayerCreationUI_GetStatColor(struct Player *_this, int Stat);
 
 
 bool LevelLoadingUI_Initialize(struct class56 *_this, int a2);
