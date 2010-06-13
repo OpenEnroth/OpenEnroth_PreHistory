@@ -10356,7 +10356,8 @@ LABEL_6:
 }
 
 //----- (0049D784) --------------------------------------------------------
-signed int __stdcall sub_49D784(const void *Src, const char *a2, const char *Str1, int a4, int a5, int a6)
+//bool __stdcall Direct3D3EnumDevicesCallback(GUID *pGUID, const char *pDeviceDescription, const char *pDeviceName, D3DDEVICEDESC *a4, D3DDEVICEDESC *a5, int a6)
+bool __stdcall Direct3D3EnumDevicesCallback(GUID *pGUID, const char *pDeviceDescription, const char *pDeviceName, unsigned char *a4, unsigned char *a5, int a6)
 {
   int v6; // eax@1
   signed int v7; // edi@1
@@ -10410,26 +10411,32 @@ signed int __stdcall sub_49D784(const void *Src, const char *a2, const char *Str
       *(_BYTE *)(v8 + *(_DWORD *)a6 + 17) |= 1u;
     if ( *(_BYTE *)(a4 + 132) & 0x20 )
       *(_BYTE *)(v8 + *(_DWORD *)a6 + 16) |= 0x80u;
-    v9 = strlen(Str1);
-    compile_error;//*(_DWORD *)(v8 + *(_DWORD *)a6 + 4) = operator new(v9 + 1);
-    strcpy(*(char **)(v8 + *(_DWORD *)a6 + 4), Str1);
-    v10 = strlen(a2);
-    compile_error;//*(_DWORD *)(v8 + *(_DWORD *)a6 + 8) = operator new(v10 + 1);
-    strcpy(*(char **)(v8 + *(_DWORD *)a6 + 8), a2);
-    compile_error;//*(_DWORD *)(v8 + *(_DWORD *)a6 + 12) = operator new(0x10u);
-    memcpy(*(void **)(v8 + *(_DWORD *)a6 + 12), Src, 0x10u);
+
+    v9 = strlen(pDeviceName);
+    *(_DWORD *)(v8 + *(_DWORD *)a6 + 4) = malloc(v9 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 4) = operator new(v9 + 1);
+    strcpy(*(char **)(v8 + *(_DWORD *)a6 + 4), pDeviceName);
+
+    v10 = strlen(pDeviceDescription);
+    *(_DWORD *)(v8 + *(_DWORD *)a6 + 8) = malloc(v10 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 8) = operator new(v10 + 1);
+    strcpy(*(char **)(v8 + *(_DWORD *)a6 + 8), pDeviceDescription);
+
+    *(_DWORD *)(v8 + *(_DWORD *)a6 + 12) = malloc(0x10);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 12) = operator new(0x10u);
+    memcpy(*(void **)(v8 + *(_DWORD *)a6 + 12), pGUID, 0x10u);
+
     v11 = strlen(*(const char **)(*(_DWORD *)(a6 + 4) + 20));
-    compile_error;//*(_DWORD *)(v8 + *(_DWORD *)a6 + 20) = operator new(v11 + 1);
+    *(_DWORD *)(v8 + *(_DWORD *)a6 + 20) = malloc(v11 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 20) = operator new(v11 + 1);
     strcpy(*(char **)(v8 + *(_DWORD *)a6 + 20), *(const char **)(*(_DWORD *)(a6 + 4) + 20));
+
     v12 = strlen(*(const char **)(*(_DWORD *)(a6 + 4) + 24));
-    compile_error;//*(_DWORD *)(v8 + *(_DWORD *)a6 + 24) = operator new(v12 + 1);
+    *(_DWORD *)(v8 + *(_DWORD *)a6 + 24) = malloc(v12 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 24) = operator new(v12 + 1);
     strcpy(*(char **)(v8 + *(_DWORD *)a6 + 24), *(const char **)(*(_DWORD *)(a6 + 4) + 24));
+
     v13 = strlen(*(const char **)(*(_DWORD *)(a6 + 4) + 28));
-    compile_error;//*(_DWORD *)(v8 + *(_DWORD *)a6 + 28) = operator new(v13 + 1);
+    *(_DWORD *)(v8 + *(_DWORD *)a6 + 28) = malloc(v13 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 28) = operator new(v13 + 1);
     strcpy(*(char **)(v8 + *(_DWORD *)a6 + 28), *(const char **)(*(_DWORD *)(a6 + 4) + 28));
     if ( *(_DWORD *)(*(_DWORD *)(a6 + 4) + 32) )
     {
-      compile_error;//*(_DWORD *)(v8 + *(_DWORD *)a6 + 32) = operator new(0x10u);
+      *(_DWORD *)(v8 + *(_DWORD *)a6 + 32) = malloc(0x10);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 32) = operator new(0x10u);
       memcpy(*(void **)(v8 + *(_DWORD *)a6 + 32), *(const void **)(*(_DWORD *)(a6 + 4) + 32), 0x10u);
     }
     else
@@ -10441,177 +10448,167 @@ signed int __stdcall sub_49D784(const void *Src, const char *a2, const char *Str
   return 1;
 }
 
-//----- (0049D9BC) --------------------------------------------------------
-signed int __stdcall Callback(const void *Src, const char *a2, const char *Str, int a4)
+bool __stdcall DDrawEnumDisplayModesCallback(DDSURFACEDESC2 *pDDSurfaceDesc, unsigned short *a2)
 {
- compile_error;
- /*
+ if (*(_DWORD *)((char *)pDDSurfaceDesc + 0x68) | 0x2000 && *(_DWORD *)((char *)pDDSurfaceDesc + 84) == 16 )
+ {
+  a2 = 1;
+    return 0;
+ }
+ else
+   return 1;
+}
+
+//----- (0049D9BC) --------------------------------------------------------
+bool __stdcall DDrawEnumCallback(GUID *pGUID, const char *pDriverDescription, const char *pDriverName, unsigned char *a4)
+{
+
   size_t v4; // eax@1
   size_t v5; // eax@1
-  int v6; // eax@4
-  int v7; // eax@5
-  int v8; // eax@5
-  int v9; // eax@7
-  int v10; // eax@8
-  int v11; // eax@8
-  int v12; // eax@10
   size_t v13; // eax@13
-  int v14; // eax@16
-  int v15; // eax@19
-  int v16; // eax@19
-  int v17; // eax@19
   int v18; // eax@24
   int v19; // eax@24
-  char v21; // [sp+4h] [bp-4F8h]@11
+  DDDEVICEIDENTIFIER ddDeviceId;
   char v22; // [sp+204h] [bp-2F8h]@13
   int v23; // [sp+42Ch] [bp-D0h]@16
   int v24; // [sp+430h] [bp-CCh]@16
   int v25; // [sp+434h] [bp-C8h]@16
   int v26; // [sp+438h] [bp-C4h]@16
   int v27; // [sp+474h] [bp-88h]@16
-  char Dst; // [sp+4A8h] [bp-54h]@14
-  char v29; // [sp+4B8h] [bp-44h]@14
-  int v30; // [sp+4BCh] [bp-40h]@19
+  DDSCAPS2 ddsCaps2;
   char *v31; // [sp+4C0h] [bp-3Ch]@19
-  int v32; // [sp+4C4h] [bp-38h]@18
-  int v33; // [sp+4C8h] [bp-34h]@16
+  short v33; // [sp+4C8h] [bp-34h]@16
   char v34; // [sp+4CCh] [bp-30h]@19
   char *Dest; // [sp+4E0h] [bp-1Ch]@1
   char *v36; // [sp+4E4h] [bp-18h]@1
   char *v37; // [sp+4E8h] [bp-14h]@12
   GUID *lpGUID; // [sp+4ECh] [bp-10h]@2
-  int v39; // [sp+4F0h] [bp-Ch]@14
-  LPDIRECTDRAW lpDD; // [sp+4F4h] [bp-8h]@4
-  int v41; // [sp+4F8h] [bp-4h]@7
 
-  v4 = strlen(Str);
-  compile_error;//Dest = (char *)operator new(v4 + 1);
-  v5 = strlen(a2);
-  compile_error;//v36 = (char *)operator new(v5 + 1);
-  strcpy(Dest, Str);
-  strcpy(v36, a2);
-  if ( Src )
-  {
-    compile_error;//lpGUID = (GUID *)operator new(0x10u);
-    memcpy(lpGUID, Src, 0x10u);
-  }
-  else
-  {
-    lpGUID = 0;
-  }
-  v6 = DirectDrawCreate(lpGUID, &lpDD, 0);
-  if ( v6 )
-  {
-    v8 = operator_delete(v6, (unsigned int)Dest);
-    v7 = operator_delete(v8, (unsigned int)v36);
-    if ( lpGUID )
-      operator_delete(v7, (unsigned int)lpGUID);
-  }
-  else
-  {
-    v9 = (*(int (__stdcall **)(LPDIRECTDRAW, signed int, int *))lpDD->lpVtbl)(lpDD, 5085080, &v41);
-    if ( v9 )
-    {
-      v11 = operator_delete(v9, (unsigned int)Dest);
-      v10 = operator_delete(v11, (unsigned int)v36);
-      if ( lpGUID )
-        operator_delete(v10, (unsigned int)lpGUID);
-      v12 = (int)lpDD;
-    }
-    else
-    {
-      (*(void (__stdcall **)(LPDIRECTDRAW))((void (__stdcall **)(_DWORD))lpDD->lpVtbl + 2))(lpDD);
-      if ( (*(int (__stdcall **)(int, char *, signed int))(*(_DWORD *)v41 + 108))(v41, &v21, 1) )
-      {
-        v37 = 0;
-      }
-      else
-      {
-        v13 = strlen(&v22);
-        compile_error;//v37 = (char *)operator new(v13 + 1);
-        strcpy(v37, &v22);
-      }
-      memset(&Dst, 0, 0x10u);
-      if ( (*(int (__stdcall **)(int, char *, int *, char *))(*(_DWORD *)v41 + 92))(v41, &Dst, &v39, &v29) )
-        v39 = 0;
-      memset(&v23, 0, 0x7Cu);
+ IDirectDraw  *pDirectDraw;
+ IDirectDraw4 *pDirectDraw4;
+ IDirect3D3   *pDirect3D3;
+ HRESULT       hr;
+ unsigned int  uTotalVideoMem,
+               uFreeVideoMem;
+
+ v4 = strlen(pDriverName);
+ Dest = malloc(v4 + 1);//Dest = (char *)operator new(v4 + 1);
+ strcpy(Dest, pDriverName);
+
+ v5 = strlen(pDriverDescription);
+ v36 = malloc(v5 + 1);//v36 = (char *)operator new(v5 + 1);
+ strcpy(v36, pDriverDescription);
+
+ if (pGUID)
+ {
+  lpGUID = malloc(sizeof(GUID));//lpGUID = (GUID *)operator new(0x10u);
+  memcpy(lpGUID, pGUID, sizeof(GUID));
+ }
+ else
+   lpGUID = 0;
+
+ hr = DirectDrawCreate(pGUID, &pDirectDraw, 0);
+ if (FAILED(hr))
+ {
+  operator_delete(0, Dest);
+  operator_delete(0, v36);
+  if (lpGUID)
+    operator_delete(0, lpGUID);
+ }
+
+ hr = (pDirectDraw->lpVtbl->QueryInterface)(pDirectDraw, &IID_IDirectDraw4, &pDirectDraw4);
+ if (FAILED(hr))
+ {
+  operator_delete(0, Dest);
+  operator_delete(0, v36);
+  if (lpGUID)
+    operator_delete(0, lpGUID);
+
+  (pDirectDraw->lpVtbl->Release)(pDirectDraw);
+  return 1;
+ }
+
+ (pDirectDraw->lpVtbl->Release)(pDirectDraw);
+
+ hr = (pDirectDraw4->lpVtbl->GetDeviceIdentifier)(pDirectDraw4, &ddDeviceId, DDGDI_GETHOSTIDENTIFIER);
+ if (FAILED(hr))
+   v37 = 0;
+ else
+ {
+  v13 = strlen(ddDeviceId.szDescription);
+  v37 = malloc(v13 + 1);//v37 = (char *)operator new(v13 + 1);
+  strcpy(v37, ddDeviceId.szDescription);
+ }
+ 
+ memset(&ddsCaps2, 0, sizeof(DDSCAPS2));
+ //hr = (pDirectDraw4->lpVtvl->GetAvailableVidMem)(&ddsCaps2, &uTotalVideoMem, &uFreeVideoMem);
+ if (FAILED(hr))
+   uTotalVideoMem = 0;
+
+ memset(&v23, 0, 0x7Cu);
       v23 = 124;
       v24 = 6;
       v25 = 640;
       v26 = 480;
       v27 = 32;
       v33 = 0;
-      v14 = (*(int (__stdcall **)(int, _DWORD, _DWORD, int *, int (__stdcall *)(int, int)))(*(_DWORD *)v41 + 32))(
-              v41,
-              0,
-              0,
-              &v33,
-              sub_49D75C);
-      if ( v14 || !v33 || (v14 = (**(int (__stdcall ***)(int, signed int, int *))v41)(v41, 5085880, &v32)) != 0 )
-      {
-        v19 = operator_delete(v14, (unsigned int)Dest);
-        v18 = operator_delete(v19, (unsigned int)v36);
-        if ( v37 )
-          v18 = operator_delete(v18, (unsigned int)v37);
-        if ( lpGUID )
-          operator_delete(v18, (unsigned int)lpGUID);
-        v12 = v41;
-      }
-      else
-      {
-        v30 = a4;
-        v31 = &v34;
-        v16 = (*(int (__stdcall **)(int, signed int (__stdcall *)(const void *, const char *, const char *, int, int, int), int *))(*(_DWORD *)v32 + 12))(
-                v32,
-                sub_49D784,
-                &v30);
-        v17 = operator_delete(v16, (unsigned int)Dest);
-        v15 = operator_delete(v17, (unsigned int)v36);
-        if ( v37 )
-          v15 = operator_delete(v15, (unsigned int)v37);
-        if ( lpGUID )
-          operator_delete(v15, (unsigned int)lpGUID);
-        (*(void (__stdcall **)(int))(*(_DWORD *)v41 + 8))(v41);
-        v12 = v32;
-        v41 = 0;
-      }
-    }
-    (*(void (__stdcall **)(int))(*(_DWORD *)v12 + 8))(v12);
-  }
-*/
+
+ hr = (pDirectDraw4->lpVtbl->EnumDisplayModes)(pDirectDraw4, 0, 0, &v33, DDrawEnumDisplayModesCallback);
+ (pDirectDraw4->lpVtbl->QueryInterface)(pDirectDraw4, &memory_4D8410.IID_IDirect3D3, &pDirect3D3);
+ //if (FAILED(hr) || !v33 || !pDirect3D3)
+ if (FAILED(hr) || !pDirect3D3)
+ {
+  operator_delete(0, Dest);
+  operator_delete(0, v36);
+  if (v37)
+    operator_delete(0, v37);
+  if (lpGUID)
+    operator_delete(0, lpGUID);
+
+  (pDirectDraw4->lpVtbl->Release)(pDirectDraw4);
   return 1;
+ }
+
+ v31 = &v34;
+ hr = (pDirect3D3->lpVtbl->EnumDevices)(pDirect3D3, Direct3D3EnumDevicesCallback, a4);
+
+ operator_delete(0, Dest);
+ operator_delete(0, v36);
+ if (v37)
+   operator_delete(0, v37);
+ if (lpGUID)
+   operator_delete(0, lpGUID);
+
+ (pDirectDraw4->lpVtbl->Release)(pDirectDraw4);
+ (pDirect3D3->lpVtbl->Release)(pDirect3D3);
+
+
+ return 1;
 }
 
 //----- (0049DC28) --------------------------------------------------------
 HRESULT __stdcall sub_49DC28(LPVOID *a1)
 {
-  void *v2; // eax@1
 
-  compile_error;//v2 = operator new(0xA0u);
-  *a1 = v2;
-  memset(v2, 0, 0xA0u);
-  compile_error;//return DirectDrawEnumerateA((LPDDENUMCALLBACKA)Callback, *a1);
-  return S_OK;
 }
 
 //----- (0049DC58) --------------------------------------------------------
-int __thiscall sub_49DC58(int this)
+void sub_49DC58(struct D3DRenderer_struct0 *_this)
 {
-  int v2; // esi@1
+ _this->dword_000010 = 0;
+ _this->dword_000014 = 0;
+ _this->dword_000018 = 0;
+ _this->dword_000020 = 0;
+ _this->dword_000024 = 0;
+ _this->dword_000028 = 0;
+ _this->dword_00002C = 0;
+ _this->dword_000030 = 1;
+ _this->dword_000034 = 10;
 
-  v2 = this;
-  *(_DWORD *)(this + 32) = 0;
-  *(_DWORD *)(this + 36) = 0;
-  *(_DWORD *)(this + 40) = 0;
-  *(_DWORD *)(this + 44) = 0;
-  *(_DWORD *)(this + 48) = 0;
-  *(_DWORD *)(this + 52) = 0;
-  *(_DWORD *)(this + 56) = 0;
-  *(_DWORD *)(this + 60) = 0;
-  *(_DWORD *)(this + 64) = 1;
-  *(_DWORD *)(this + 68) = 10;
-  sub_49DC28((LPVOID *)(this + 28));
-  return v2;
+ _this->ptr_00001C = malloc(0xA0);
+ memset(_this->ptr_00001C, 0, 0xA0u);
+
+ DirectDrawEnumerateA((LPDDENUMCALLBACKA)(DDrawEnumCallback), _this->ptr_00001C);
 }
 
 //----- (0049DC90) --------------------------------------------------------

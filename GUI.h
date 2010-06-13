@@ -177,6 +177,9 @@ void __cdecl GameUI_DrawFoodAndGold();
 void __cdecl GameUI_DrawPartySpells();
 void GameUI_DrawPortraits(void *this);
 void GameUI_DrawCharacterSelectionFrame();
+void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW, unsigned int uMinimapZoom, int a6);
+void GameUI_DrawTorchlightAndWizardEye();
+void GameUI_DrawLifeManaBars();
 
 
 #pragma pack(pop)

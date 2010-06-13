@@ -48,10 +48,7 @@ signed int __cdecl PlayerCreation_ComputeAttributeBonus();
 void __cdecl sub_487DBE_LooksLikeResetNewEdgesBuf();
 signed int __thiscall sub_47F223_LooksLikeGenerateMonsterLoot(void *this);
 int __cdecl MenuLoop_Main();
-void __fastcall sub_441D38_DrawMinimap(int a1, int a2, int a3, int a4, signed int a5, int a6);
-void __cdecl GameUI_DrawTorchlightAndWizardEye();
 int __fastcall GetSizeInInventorySlots(unsigned int uNumPixels);
-void __cdecl GameUI_DrawLifeManaBars();
 void __cdecl LoadLevel_InitializeLevelStr();
 void __cdecl LoadLevel_InitializeLevelEvt();
 void __cdecl ReleaseDrawBuffers();
@@ -1169,11 +1166,6 @@ void __stdcall sub_49CE9E(int a1, int a2, signed int a3, int a4);
 signed int __stdcall sub_49D379(int a1, int a2);
 int __thiscall sub_49D700(void *this);
 int __stdcall sub_49D717(void *Src, void *Dst); // idb
-int __stdcall sub_49D75C(int, int); // weak
-signed int __stdcall sub_49D784(const void *Src, const char *a2, const char *Str1, int a4, int a5, int a6);
-signed int __stdcall Callback(const void *Src, const char *a2, const char *Str, int a4);
-HRESULT __stdcall sub_49DC28(LPVOID *a1);
-int __thiscall sub_49DC58(int this);
 int __thiscall sub_49DC90(int this);
 signed int __thiscall sub_49DE14(int this, int a2, int a3, int a4);
 signed int __thiscall sub_49E444(void *this);

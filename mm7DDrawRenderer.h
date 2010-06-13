@@ -1,13 +1,19 @@
 #pragma once
 #include <stdio.h>
 #include <windows.h>
+
 #include <ddraw.h>
+#include <d3d.h>
 
 int __cdecl CheckIfDeviceSupportsGammaControl();
 double __stdcall sub_44F377(DDGAMMARAMP *pddGammaRamp);
 int __stdcall LockSurface_DDraw4(struct IDirectDrawSurface4 *, DDSURFACEDESC2 *, unsigned int uLockFlags);
 int __stdcall LockSurface_DDraw2(struct IDirectDrawSurface2 *, DDSURFACEDESC *, unsigned int uLockFlags);
 void *__stdcall BltToFrontBuffer(RECT *pDestRect, IDirectDrawSurface *pddsSrc, RECT *pSrcRect, unsigned int uFlags);
+
+bool __stdcall DDrawEnumCallback(GUID *pGUID, const char *pDriverDescription, const char *pDriverName, unsigned char *a4);
+bool __stdcall DDrawEnumDisplayModesCallback(DDSURFACEDESC2 *pDDSurfaceDesc, unsigned short *a2);
+bool __stdcall Direct3D3EnumDevicesCallback(GUID *pGUID, const char *pDeviceDescription, const char *pDeviceName, D3DDEVICEDESC *a4, D3DDEVICEDESC *a5, int a6);
 
 
 #pragma pack(push, 1)
@@ -29,6 +35,23 @@ struct CD3DRenderer_HWLContainer
 void CD3DRenderer_HWLContainer_ctor(struct CD3DRenderer_HWLContainer *_this);
 //signed int __thiscall sub_45237F(void *this, const char *Filename);
 int CD3DRenderer_HWLContainer_LoadHWLHeaders(struct CD3DRenderer_HWLContainer *_this, const char *pFilename);
+
+struct D3DRenderer_struct0
+{
+ int            dword_000010;
+ int            dword_000014;
+ int            dword_000018;
+ unsigned char *ptr_00001C;
+ int            dword_000020;
+ int            dword_000024;
+ int            dword_000028;
+ int            dword_00002C;
+ int            dword_000030;
+ int            dword_000034;
+};
+//sizeof = 0148
+//int __thiscall sub_49DC58(int this);
+void sub_49DC58(struct D3DRenderer_struct0 *_this);
 
 struct CD3DRenderer
 {

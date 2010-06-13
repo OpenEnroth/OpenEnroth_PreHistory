@@ -868,7 +868,6 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
 {
   int v3; // esi@1
   int v4; // eax@2
-  int v5; // eax@3
   int v6; // edx@5
   int v7; // ecx@5
   signed int v8; // eax@6
@@ -926,30 +925,29 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
     v42 = v4;
     v43 = 0;
     if ( v4 )
-      v5 = sub_49DC58(v4);
-    else
-      v5 = 0;
+      sub_49DC58(v4);
+
     v6 = *(_DWORD *)(v3 + 8);
     v43 = -1;
-    *(_DWORD *)(v3 + 262280) = v5;
-    v7 = *(_DWORD *)(v5 + 28);
+    *(_DWORD *)(v3 + 262280) = v4;
+    v7 = *(_DWORD *)(v4 + 28);
     if ( *(_DWORD *)(v7 + 40 * v6) )
     {
-      v8 = sub_49DE14(v5, v6, 0, hwnd);
+      v8 = sub_49DE14(v4, v6, 0, hwnd);
       *(_DWORD *)(v3 + 12) = *(_DWORD *)(v3 + 8);
     }
     else
     {
       if ( *(_DWORD *)(v7 + 40) )
       {
-        v8 = sub_49DE14(v5, 1, 0, hwnd);
+        v8 = sub_49DE14(v4, 1, 0, hwnd);
         *(_DWORD *)(v3 + 12) = 1;
       }
       else
       {
         if ( !*(_DWORD *)v7 )
           erroneous_printf("There aren't any D3D devices to create.");
-        v8 = sub_49DE14(v5, 0, 0, hwnd);
+        v8 = sub_49DE14(v4, 0, 0, hwnd);
         *(_DWORD *)(v3 + 12) = 0;
       }
     }
@@ -1168,7 +1166,6 @@ int CD3DRenderer_InitWindowed(struct CD3DRenderer *_this, HWND hwnd)
   int v2; // esi@1
   int v3; // eax@1
   int v4; // eax@2
-  int v5; // eax@3
   int v6; // edx@5
   int v7; // ecx@5
   signed int v8; // eax@7
@@ -1220,29 +1217,29 @@ int CD3DRenderer_InitWindowed(struct CD3DRenderer *_this, HWND hwnd)
   *(_DWORD *)(v2 + 262284) = 0;
   *(_DWORD *)(v2 + 262408) = 0;
   CD3DRenderer_Initialize_ZBuffer(_this);
-  if ( *(_DWORD *)v2 )
-  {
-    compile_error;//v4 = (int)operator new(0x148u);
+
+ if (_this->bUseDirect3D)
+ {
+    v4 = malloc(0x148);//v4 = (int)operator new(0x148u);
     v43 = v4;
     v44 = 0;
     if ( v4 )
-      v5 = sub_49DC58(v4);
-    else
-      v5 = 0;
+      sub_49DC58(v4);
+
     v6 = *(_DWORD *)(v2 + 8);
     v44 = -1;
-    *(_DWORD *)(v2 + 262280) = v5;
-    v7 = *(_DWORD *)(v5 + 28);
+    *(_DWORD *)(v2 + 262280) = v4;
+    v7 = *(_DWORD *)(v4 + 28);
     if ( *(_DWORD *)(v7 + 40 * v6) && v6 != 1 )
     {
-      v8 = sub_49DE14(v5, v6, 1, hwnd);
+      v8 = sub_49DE14(v4, v6, 1, hwnd);
       *(_DWORD *)(v2 + 12) = *(_DWORD *)(v2 + 8);
     }
     else
     {
       if ( !*(_DWORD *)v7 )
         erroneous_printf("There aren't any D3D devices to init.");
-      v8 = sub_49DE14(v5, 0, 1, hwnd);
+      v8 = sub_49DE14(v4, 0, 1, hwnd);
       *(_DWORD *)(v2 + 12) = 0;
     }
     if ( !v8 )
@@ -2188,75 +2185,10 @@ int RGBTexture_Load(struct RGBTexture *_this, const char *pContainerName, int a3
   //int v23; // [sp+8Ch] [bp-18h]@9
   //char v24; // [sp+94h] [bp-10h]@7
   FILE *f; // [sp+9Ch] [bp-8h]@1
-  //size_t Count; // [sp+A0h] [bp-4h]@4
-  //unsigned int v27; // [sp+ACh] [bp+8h]@5
+
  wchar_t      pFilepath[256];
  unsigned int uTextureID;
-/*
- class18_ctor(&class18_obj);
- f = class17_FindContainer(pClass17_Icons_LOD, pContainerName, 0);
- if (!f)
- {
-  sprintfex(ExistingFileName, "Unable to load %s", pContainerName);
-  erroneous_printf(ExistingFileName);
- }
 
- locked_fread(&class18_obj, 1, 0x30, f);
- if (class18_obj.uDecompressedSize)
- {
-  pPCXData = malloc(class18_obj.uDecompressedSize);
-  v6 = class23_AllocatedNamedBuffer(class23_instance, 0, class18_obj.uCompressedSize, class18_obj.sContainerName);
-  locked_fread(v6, 1, class18_obj.uCompressedSize, f);
-  maybe_decompress_file(pPCXData, &class18_obj.uDecompressedSize, v6, class18_obj.uCompressedSize);
-  class18_obj.uCompressedSize = class18_obj.uDecompressedSize;
-  class23_fn1(class23_instance, v6);
- }
- else
- {
-  pPCXData = malloc(class18_obj.uCompressedSize);
-  locked_fread(pPCXData, 1, class18_obj.uCompressedSize, f);
- }
-
-  memcpy(local_2, pPCXData, 0x10u);
-  memcpy(local_1, (char *)pPCXData + 16, 0x30u);
-  memcpy(local_2 + 16, (char *)pPCXData + 64, 6u);
-
-  if ( local_2[3] != 8 )
-    return 3;
-
-  v8 = *(int *)(local_2 + 8) - *(int *)(local_2 + 4) + 1;
-  v9 = *(int *)(local_2 + 10) - *(int *)(local_2 + 6) + 1;
-
-  _this->uWidth = v8 & 0xFFFF;
-  _this->uHeight = v9 & 0xFFFF;
-
-  _this->uNumPixels = (signed __int16)v8 * (signed __int16)v9;
-
-  if (_this->pPixels)
-  {
-   if (a3)
-     goto LABEL_14;
-   class23_fn1(class23_instance, _this->pPixels);
-  }
-  if (!a3)
-  {
-   _this->pPixels = class23_AllocatedNamedBuffer(class23_instance, _this->pPixels, 2 * _this->uNumPixels + 4, "16bit PCX");
-   goto LABEL_17;
-  }
-
-LABEL_14:
-  if ( a3 != 2 )
-    goto LABEL_17;
-  _this->pPixels = malloc(2 * _this->uNumPixels + 4);
-  _this->dword_000020 |= 1;
-
-LABEL_17:
- if (!_this->pPixels)
-   return 2;
-
- class33_DecodePCX(_this, pPCXData, _this->pPixels, _this->uWidth);
- call_delete(0, pPCXData);
-*/
  wsprintfW(pFilepath, L"%S", pContainerName);
  uTextureID = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilepath);
 
