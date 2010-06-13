@@ -16,6 +16,8 @@ unsigned int (__stdcall *mss32_AIL_redbook_pause)(HREDBOOK) = 0;
 void (__stdcall *mss32_AIL_redbook_track_info)(HREDBOOK, unsigned int, unsigned int *, unsigned int *) = 0;
 unsigned int (__stdcall *mss32_AIL_redbook_play)(HREDBOOK, unsigned int, unsigned int) = 0;
 unsigned int (__stdcall *mss32_AIL_redbook_resume)(HREDBOOK) = 0;
+int (__stdcall *mss32_AIL_sample_status)(long a1) = 0;
+int (__stdcall *mss32_AIL_sample_volume)(long a1, long a2) = 0;
 void MSS32_DLL_Initialize()
 {
  void *pDll = LoadLibraryW(L"mss32.dll");
@@ -36,6 +38,8 @@ void MSS32_DLL_Initialize()
  mss32_AIL_redbook_track_info = GetProcAddress(pDll, "_AIL_redbook_track_info@16");
  mss32_AIL_redbook_play = GetProcAddress(pDll, "_AIL_redbook_play@12");
  mss32_AIL_redbook_resume = GetProcAddress(pDll, "_AIL_redbook_resume@4");
+ mss32_AIL_sample_status = GetProcAddress(pDll, "_AIL_sample_status@4");
+ mss32_AIL_sample_volume = GetProcAddress(pDll, "_AIL_sample_volume@8");
 }
 
 
@@ -55,6 +59,18 @@ unsigned int __stdcall AIL_redbook_resume(HREDBOOK hRedbook)
  return (mss32_AIL_redbook_resume)(hRedbook);
 }
 
+
+// sub_4D83A4: using guessed type int __thiscall AIL_sample_volume(_DWORD, _DWORD);
+int __stdcall AIL_sample_volume(long a1, long a2)
+{
+ return (mss32_AIL_sample_volume)(a1, a2);
+}
+
+// sub_4D82F8: using guessed type int __stdcall AIL_sample_status(_DWORD);
+int __stdcall AIL_sample_status(long a1)
+{
+ return (mss32_AIL_sample_status)(a1);
+}
 
 // sub_4D8304: using guessed type int __stdcall AIL_set_digital_master_volume(_DWORD, _DWORD);
 void __stdcall AIL_set_digital_master_volume(HDIGDRIVER hDrv, float master_volume)
@@ -288,13 +304,6 @@ int __stdcall AIL_3D_sample_status(long a1)
  return 0;
 }
 
-// sub_4D82F8: using guessed type int __stdcall AIL_sample_status(_DWORD);
-int __stdcall AIL_sample_status(long a1)
-{
- __asm int 3
- return 0;
-}
-
 // sub_4D8334: using guessed type int __stdcall AIL_set_sample_loop_count(_DWORD, _DWORD);
 int __stdcall AIL_set_sample_loop_count(long a1, long a2)
 {
@@ -346,13 +355,6 @@ int __stdcall AIL_set_3D_position(long a1, long a2, long a3, long a4)
 
 // sub_4D83A0: using guessed type int __stdcall AIL_set_3D_orientation(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
 int __stdcall AIL_set_3D_orientation(long a1, long a2, long a3, long a4, long a5, long a6, long a7)
-{
- __asm int 3
- return 0;
-}
-
-// sub_4D83A4: using guessed type int __thiscall AIL_sample_volume(_DWORD, _DWORD);
-int __fastcall AIL_sample_volume(long a1, long a2)
 {
  __asm int 3
  return 0;

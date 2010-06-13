@@ -816,7 +816,7 @@ struct class28
  int  dword_00002C;
  int  dword_000030;
 };
-//sizeof ~ ?
+//sizeof ~ 34
 //int __thiscall sub_4C0262(int this, int a2, int a3, int a4, int a5);
 int class28_fn0(struct class28 *_this, int a2, int a3, int a4, int a5);
 //int __thiscall sub_4C0312(int this, int a2, int a3, int a4, int a5)
@@ -1448,7 +1448,7 @@ struct Party
 
  int dword_007778;
 
- char pad[50000];
+ char pad[100000];
 };
 //sizeof ~ 16238
 
@@ -1699,7 +1699,7 @@ struct struct9
  int dword_00002C;
  int dword_000030;
  int dword_000034;
- int dword_000038;
+ int dword_000038; // num spans?
  int dword_00003C;
  int dword_000040;
  int dword_000044;
@@ -1760,6 +1760,18 @@ struct Edge
  char           byte_000014[32];
 };
 //sizeof == 34
+
+struct Span
+{
+ int   dword_000000;
+ int   dword_000004;
+ short word_000008;  // -1 here for final span
+ short word_00000A;
+ short word_00000C;
+ short word_00000E;
+ char  byte_000010[8];
+};
+//sizeof == 18
 
 
 struct Event

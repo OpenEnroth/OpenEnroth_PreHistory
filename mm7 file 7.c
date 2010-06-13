@@ -11891,10 +11891,10 @@ void __cdecl sub_4BC109()
   if ( pD3DRenderer->dword_040088 )
     sub_4A6D87(pD3DRenderer,
       1,
-      dword_F8BC24,
-      data_F8BC28.qword_F8BC28,
-      HIDWORD(data_F8BC28.qword_F8BC28) - dword_F8BC24,
-      dword_F8BC30 - data_F8BC28.qword_F8BC28 + 1,
+      class28_global.dword_000010,
+      class28_global.dword_000014,
+      class28_global.dword_000018 - class28_global.dword_000010,
+      class28_global.dword_00001C - class28_global.dword_000014 + 1,
       pD3DRenderer->uTargetGMask | pD3DRenderer->uTargetBMask);
   sub_4A6A68(pD3DRenderer,
     8,
@@ -14566,10 +14566,10 @@ LABEL_49:
     sub_4C264A(dword_F93E14 - 1, (int)&dword_F93614, 0, dword_F93E14 - 1);
     if ( dword_F93E14
       && (dword_F93E14 <= 0 ? (v8 = 0) : (v8 = dword_F93614), v9 = *(_DWORD *)(v8 + 4), LOWORD(v9) = 0, v9 <= v37)
-      || (double)(*(int*)class28_global) > *(float *)&v35
-      || (double)dword_F8BC1C < *(float *)&v35
-      || (double)dword_F8BC18 > *(float *)&v36
-      || (double)dword_F8BC20 < *(float *)&v36 )
+      || (double)(class28_global.dword_000000) > *(float *)&v35
+      || (double)class28_global.dword_000008 < *(float *)&v35
+      || (double)class28_global.dword_000004 > *(float *)&v36
+      || (double)class28_global.dword_00000C < *(float *)&v36 )
     {
       v40 = 0;
       v10 = (int)((char *)dword_EF52C4 + v4);
@@ -14580,13 +14580,13 @@ LABEL_49:
         v11 = *(float *)v10;
         v13 = *(float *)(v10 - 4);
         dword_F93E14 = 0;
-        if ( v13 >= (double)(*(int*)class28_global))
+        if ( v13 >= (double)(class28_global.dword_000000))
         {
-          if ( v12 <= (double)dword_F8BC1C )
+          if ( v12 <= (double)class28_global.dword_000008 )
           {
-            if ( v11 >= (double)dword_F8BC18 )
+            if ( v11 >= (double)class28_global.dword_000004 )
             {
-              if ( v11 <= (double)dword_F8BC20 )
+              if ( v11 <= (double)class28_global.dword_00000C )
               {
                 v14 = v11;
                 v15 = v12;
@@ -14637,10 +14637,10 @@ LABEL_49:
             v41 = v38;
           dword_F93E14 = 0;
           v23 = (v20 - v21) * 0.5;
-          if ( v23 < (double)(*(int*)class28_global)
-            || v23 > (double)dword_F8BC1C
-            || (double)dword_F8BC18 > v41
-            || (double)dword_F8BC20 < v41
+          if ( v23 < (double)(class28_global.dword_000000)
+            || v23 > (double)class28_global.dword_000008
+            || (double)class28_global.dword_000004 > v41
+            || (double)class28_global.dword_00000C < v41
             || ((v24 = v39, v25 = v23, sub_4C248E((int)&v32, SLODWORD(v25), v41, a2), dword_6BE360 != 1) ? (v27 = a2, sub_4C17CF(v24, SLOBYTE(v27), (int)&v32, (int)&class25_global, (int)&dword_F93E44, 0)) : (v26 = a2, sub_4C16B4(v24, SLOBYTE(v26), (int)&v32, (int)&class25_global, (int)&dword_F93E44)),
                 (sub_4C2591((int)&class25_global, 0),
                  sub_4C264A(dword_F93E14 - 1, (int)&dword_F93614, 0, dword_F93E14 - 1),

@@ -225,13 +225,13 @@ bool CGame_Pick(struct CGame *_this, float a2, signed int a3, signed int a4, cha
         (int)&v17);
       sub_466D09(&v16, *(int *)&v10, v11, v12, v13, v14, v15);
     }
-    if ( a3 >= *(int*)class28_global )
+    if ( a3 >= class28_global.dword_000000 )
     {
-      if ( a3 <= dword_F8BC1C )
+      if ( a3 <= class28_global.dword_000008 )
       {
-        if ( a4 >= dword_F8BC18 )
+        if ( a4 >= class28_global.dword_000004 )
         {
-          if ( a4 <= dword_F8BC20 )
+          if ( a4 <= class28_global.dword_00000C )
           {
             v15 = a7;
             v9 = *(_DWORD *)(v7 + 3660);
@@ -5897,8 +5897,8 @@ int class35_sub_48A3BC(struct class35 *_this, int a2)
   float v22; // [sp+398h] [bp-8h]@7
   float v23; // [sp+39Ch] [bp-4h]@7
 
-  runtime_warning();
-  return 0; // no palette textures for now
+  runtime_warning(no palette textures for now);
+  return 0;
 
   v16 = _this;
   v3 = (int)((char *)_this + 0x267A04);
@@ -7990,13 +7990,13 @@ void class08_sub_4376E7(struct class08 *_this)
     _this->class26_obj3.array_000004[i] = *(float *)(v11 + i * 4);
   }
 
-  _this->flt_0000D0 = (double)dword_F8BC34 * 0.8814736008644104;
-  _this->flt_0000D4 = 0.8814736008644104 * (double)dword_F8BC38;
+  _this->flt_0000D0 = (double)class28_global.dword_000020 * 0.8814736008644104;
+  _this->flt_0000D4 = 0.8814736008644104 * (double)class28_global.dword_000024;
   _this->flt_0000D8 = 1.1344639f;
 
   _this->flt_0000C4 = max(_this->flt_0000D0, _this->flt_0000D4);
-  _this->flt_0000C8 = (double)dword_F8BC3C;
-  _this->flt_0000CC = (double)(dword_F8BC40 - dword_F8BC18);
+  _this->flt_0000C8 = (double)class28_global.dword_000028;
+  _this->flt_0000CC = (double)(class28_global.dword_00002C - class28_global.dword_000004);
 }
 
 
@@ -8250,7 +8250,7 @@ void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char
       {
         v7 = *(double *)&byte_4D8410[24] / *(float *)(v6 - 12);
         *(float *)v6 = *(float *)(v6 - 8) * *((float *)v5 + 49) * v7 + *((float *)v5 + 50);
-        *(float *)(v6 + 4) = (double)dword_F8BC30
+        *(float *)(v6 + 4) = (double)class28_global.dword_00001C
                            - (*(float *)(v6 - 4) * *((float *)v5 + 49) * v7
                             + *((float *)v5 + 51));
       }
@@ -8260,12 +8260,12 @@ void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char
       }
       if ( a4 )
       {
-        v8 = (double)SHIDWORD(data_F8BC28.qword_F8BC28);
+        v8 = (double)class28_global.dword_000018;
         if ( v8 >= *(float *)v6 )
           v9 = *(float *)v6;
         else
           v9 = v8;
-        v10 = (double)dword_F8BC24;
+        v10 = (double)class28_global.dword_000010;
         v14 = v10;
         if ( v10 <= v9 )
         {
@@ -8277,12 +8277,12 @@ void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char
           v8 = v14;
         }
         *(float *)v6 = v8;
-        v11 = (double)dword_F8BC30;
+        v11 = (double)class28_global.dword_00001C;
         if ( v11 >= *(float *)(v6 + 4) )
           v12 = *(float *)(v6 + 4);
         else
           v12 = v11;
-        v13 = (double)(signed int)data_F8BC28.qword_F8BC28;
+        v13 = (double)class28_global.dword_000014;
         v15 = v13;
         if ( v13 <= v12 )
         {
@@ -9479,10 +9479,10 @@ void class02_sub_48BBA6(struct class02 *_this)
                       v11 = 30;
                     v13 = v8 - v11;
                     v12 = v25 - (v11 >> 1);
-                    if ( v12 + v11 < dword_F8BC24
-                      || v12 >= HIDWORD(data_F8BC28.qword_F8BC28)
-                      || v13 + v11 < (_DWORD)data_F8BC28.qword_F8BC28
-                      || v13 >= dword_F8BC30 )
+                    if ( v12 + v11 < class28_global.dword_000010
+                      || v12 >= class28_global.dword_000018
+                      || v13 + v11 < class28_global.dword_000014
+                      || v13 >= class28_global.dword_00001C )
                     {
                       v6 = pD3DRenderer;
                     }
@@ -9633,10 +9633,10 @@ void class02_sub_48BEEF(struct class02 *_this)
             v10 = 30;
           v12 = *(_DWORD *)(v7 - 18) - (v10 >> 1);
           v11 = *(_DWORD *)(v7 - 14) - v10;
-          if ( v12 + v10 < dword_F8BC24
-            || v12 >= HIDWORD(data_F8BC28.qword_F8BC28)
-            || *(_DWORD *)(v7 - 14) < (_DWORD)data_F8BC28.qword_F8BC28
-            || v11 >= dword_F8BC30 )
+          if ( v12 + v10 < class28_global.dword_000010
+            || v12 >= class28_global.dword_000018
+            || *(_DWORD *)(v7 - 14) < class28_global.dword_000014
+            || v11 >= class28_global.dword_00001C )
           {
             v6 = pD3DRenderer;
           }
@@ -9784,22 +9784,22 @@ int class06_sub_4A8C27(struct class06 *_this)
     *(_DWORD *)(v1 + 1492) -= pClass24_global->int_00001C;
     if ( pD3DRenderer->dword_040088 )
     {
-      v12 = (double)dword_F8BC24;
+      v12 = (double)class28_global.dword_000010;
       v36 = v12;
       v44 = v12;
-      v13 = (double)SHIDWORD(data_F8BC28.qword_F8BC28);
-      v70 = dword_F8BC30 + 1;
+      v13 = (double)class28_global.dword_000018;
+      v70 = class28_global.dword_00001C + 1;
       v40 = 0x7F7F7F;
       v48 = 0x7F7F7F;
       v52 = v13;
       v60 = v13;
-      v14 = (double)(signed int)data_F8BC28.qword_F8BC28;
+      v14 = (double)class28_global.dword_000014;
       v56 = 0x7F7F7F;
       v64 = 0x7F7F7F;
       v41 = 0;
       v49 = 0;
       v37 = v14;
-      v15 = (double)(dword_F8BC30 + 1);
+      v15 = (double)(class28_global.dword_00001C + 1);
       v57 = 0;
       v65 = 0;
       v45 = v15;
@@ -9897,24 +9897,24 @@ int class06_sub_4A8C27(struct class06 *_this)
      v22 = pD3DRenderer->pTargetSurface;
       v35 = -1;
       v23 = pD3DRenderer->pActiveZBuffer;
-      v24 = (HIDWORD(data_F8BC28.qword_F8BC28) - dword_F8BC24) / 2;
-      v25 = dword_F8BC30;
+      v24 = (class28_global.dword_000018 - class28_global.dword_000010) / 2;
+      v25 = class28_global.dword_00001C;
       LODWORD(v21) = 0;
-      HIDWORD(v21) = (HIDWORD(data_F8BC28.qword_F8BC28) - dword_F8BC24) << 16 >> 16;
+      HIDWORD(v21) = (class28_global.dword_000018 - class28_global.dword_000010) << 16 >> 16;
       v68 = 16777216;
       v26 = v21 / 16777216;
       LODWORD(v21) = 0;
-      HIDWORD(v21) = (dword_F8BC30 - (_DWORD)data_F8BC28.qword_F8BC28) << 16 >> 16;
+      HIDWORD(v21) = (class28_global.dword_00001C - class28_global.dword_000014) << 16 >> 16;
       v70 = v21 / 16777216;
       v27 = v21 / 16777216;
       v28 = sub_41F50D(*(_WORD *)(v69 + 52), 0, 1);
       v31 = pD3DRenderer->uTargetSurfacePitch;
       v35 = -1;
-      v32 = dword_F8BC24;
-      v33 = data_F8BC28.qword_F8BC28;
-      result = dword_F8BC30;
+      v32 = class28_global.dword_000010;
+      v33 = class28_global.dword_000014;
+      result = class28_global.dword_00001C;
       v29 = 0;
-      v34 = dword_F8BC30;
+      v34 = class28_global.dword_00001C;
       v30 = 0;
       if ( v8 >= 0 )
         result = sub_4ACC38(40 * v8 + 7218180, (int)&v22, 1);
@@ -10535,9 +10535,6 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
   _this->pPlayers[3].array_000108[9] = 1;
   _this->pPlayers[3].array_000108[33] = 1;
 
-
-  runtime_warning();
-  return 0;
 
   v2 = 10;
   v3 = (char *)v4 + 8522;

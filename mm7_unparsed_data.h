@@ -2281,10 +2281,13 @@ extern struct unnamed_80C980
  float flt_80C980; // weak
  float flt_80C984; // weak
  float flt_80C988; // weak
- int dword_80C994; // weak
- int dword_80C998; // weak
- __int16 word_80C9A0; // weak
- __int16 word_80C9A2; // weak
+ int   dword_00000C;
+ int   dword_000010;
+ struct unnamed_80C980 *dword_80C994; // weak
+ struct unnamed_80C980 *dword_80C998; // weak
+ int   dword_00001C;
+ __int16 word_80C9A0; // 000020
+ __int16 word_80C9A2; // 000022
 } struct_80C980;
 
 extern struct unnamed_80C9A4
@@ -2293,7 +2296,7 @@ extern struct unnamed_80C9A4
  int align_80C9A8;
  int         dword_80C9AC; // weak
  struct unnamed_80C980 *ptr_80C9B0; // weak
- int                    dword_80C9B4; // weak
+ struct unnamed_80C9A4 *pNext; // 000010, dword_80C9B4
 } struct_80C9A4;
 extern int dword_80C9B8; // weak
 extern float flt_80C9D8; // weak
@@ -2793,9 +2796,16 @@ extern BYTE Data; // idb
 extern int dword_F1B4C8; // weak
 extern int dword_F1B4D0; // weak
 extern int dword_F1B4D4; // weak
-extern _UNKNOWN unk_F1B4D8; // weak
-extern _UNKNOWN unk_F1B4DC; // weak
-extern _DWORD dword_F1B554[4800]; // idb
+
+extern struct unnamed_F1B4D8
+{
+ int dword_000000; // weak
+ unsigned char string_000004[120]; // byte[?]
+ int dword_00007C; // weak
+//extern _UNKNOWN unk_F1B4DC; // weak
+ //int dword_F1B554[4800]; // idb
+ //int unk_F20054[91169]; // weak
+} struct_F1B4D8[];
 
 //struct AudioPlayer *pAudioPlayer = 0; // struct @ MM7.exe::00F790D8
 //_UNKNOWN unk_F790D8; // weak
@@ -2977,27 +2987,8 @@ HANDLE hObject; // idb*/
 extern _UNKNOWN unk_F8BBEC; // weak
 extern int dword_F8BC10; // weak
 
-extern char class28_global[array_size_unknown + 256];  // struct @ MM7.exe::00F8BC14
-/*int dword_F8BC14; // weak*/
-extern int dword_F8BC18; // weak
-extern int dword_F8BC1C; // weak
-extern int dword_F8BC20; // weak
-extern int dword_F8BC24; // weak
-extern union unnamed_F8BC28
-{
- struct
- {
-  int dword_F8BC28;
-  int dword_F8BC2C;
- };
-  __int64 qword_F8BC28; // weak
-} data_F8BC28;
-extern int dword_F8BC30; // weak
-extern int dword_F8BC34; // weak
-extern int dword_F8BC38; // weak
-extern int dword_F8BC3C; // weak
-extern int dword_F8BC40; // weak
-extern int dword_F8BC44; // weak
+extern struct class28 class28_global;  // struct @ MM7.exe::00F8BC14
+
 extern __int16 word_F8BC48[array_size_unknown]; // weak
 extern __int16 word_F8BC4A; // weak
 extern __int16 word_F8BD18[array_size_unknown]; // weak

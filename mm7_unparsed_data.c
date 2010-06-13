@@ -2780,9 +2780,12 @@ IDirectDrawClipper *pDDrawClipper = 0; // dword @ MM7.exe::00FD1BE0
  int dword_F1B4C8; // weak
  int dword_F1B4D0; // weak
  int dword_F1B4D4; // weak
- _UNKNOWN unk_F1B4D8; // weak
- _UNKNOWN unk_F1B4DC; // weak
- _DWORD dword_F1B554[4800]; // idb
+
+struct unnamed_F1B4D8 struct_F1B4D8[3000];
+//_UNKNOWN unk_F1B4D8; // weak
+//_UNKNOWN unk_F1B4DC; // weak
+//int dword_F1B554[4800]; // idb
+//int unk_F20054[91169]; // weak
 
 //struct AudioPlayer *pAudioPlayer = 0; // struct @ MM7.exe::00F790D8
 //_UNKNOWN unk_F790D8; // weak
@@ -2964,19 +2967,22 @@ HANDLE hObject; // idb*/
 _UNKNOWN unk_F8BBEC; // weak
 int dword_F8BC10; // weak
 
-char class28_global[array_size_unknown + 256];  // struct @ MM7.exe::00F8BC14
-/*int dword_F8BC14; // weak*/
- int dword_F8BC18; // weak
- int dword_F8BC1C; // weak
- int dword_F8BC20; // weak
- int dword_F8BC24; // weak
- union unnamed_F8BC28 data_F8BC28;
- int dword_F8BC30; // weak
- int dword_F8BC34; // weak
- int dword_F8BC38; // weak
- int dword_F8BC3C; // weak
- int dword_F8BC40; // weak
- int dword_F8BC44; // weak
+struct class28 class28_global;  // struct @ MM7.exe::00F8BC14
+// int dword_F8BC14; // 000000
+// int dword_F8BC18; // 000004
+// int dword_F8BC1C; // 000008
+// int dword_F8BC20; // 00000C
+// int dword_F8BC24; // 000010
+// int dword_F8BC28; // 000014
+// int dword_F8BC2C; // 000018
+// int dword_F8BC30; // 00001C
+// int dword_F8BC34; // 000020
+// int dword_F8BC38; // 000024
+// int dword_F8BC3C; // 000028
+// int dword_F8BC40; // 00002C
+// int class28_global.dword_000030; // 000030
+
+
  __int16 word_F8BC48[array_size_unknown]; // weak
  __int16 word_F8BC4A; // weak
  __int16 word_F8BD18[array_size_unknown]; // weak

@@ -138,7 +138,7 @@ void AudioPlayer_sub_4AA306(struct AudioPlayer *_this, int a2, signed int a3, in
   int v106; // [sp+90h] [bp+1Ch]@60
   int v107; // [sp+90h] [bp+1Ch]@68
 
-  runtime_warning();
+  runtime_warning(crashes in AIL);
   return;
 
   v9 = _this;

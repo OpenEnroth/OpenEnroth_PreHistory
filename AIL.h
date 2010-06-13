@@ -120,7 +120,7 @@ int __stdcall AIL_set_3D_position(long a1, long a2, long a3, long a4);
 int __stdcall AIL_set_3D_orientation(long a1, long a2, long a3, long a4, long a5, long a6, long a7);
 
 // sub_4D83A4: using guessed type int __thiscall AIL_sample_volume(_DWORD, _DWORD);
-int __fastcall AIL_sample_volume(long a1, long a2);
+int __stdcall AIL_sample_volume(long a1, long a2);
 
 // sub_4D83A8: using guessed type int __stdcall AIL_init_sample(_DWORD);
 int __stdcall AIL_init_sample(long a1);

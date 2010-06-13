@@ -323,7 +323,9 @@ LABEL_9:
       *((_WORD *)v2 + 58) = v1;
       sub_45976D(pActor);
       *((_BYTE *)v2 + 25) = 0;
-      runtime_warning(); //sub_45959A(pActor, 0);//mess with sprites, doesnt work
+
+      runtime_warning(mess with sprites, doesnt work);
+       //sub_45959A(pActor, 0);
       v1 = 0;
       goto LABEL_17;
     }
@@ -336,7 +338,9 @@ LABEL_18:
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
   sub_41F4C1(&v6);
   v6.v7[0] = 45;
-  runtime_warning(); //sub_45959A(&v6, v1);
+
+  runtime_warning();
+  sub_45959A(&v6, v1);
   return true;
 }
 
@@ -3380,7 +3384,9 @@ void sub_4A90A0(struct class06 *_this)
  _this->dword_0005E4 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, L"effpar01");
  _this->dword_0005E8 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, L"effpar02");
  _this->dword_0005EC = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, L"effpar03");
- runtime_warning();//_this->dword_0005F0 = sub_4AC7C0(pClass17_Sprites_LOD, "sp57c", 6);
+
+ runtime_warning();
+ _this->dword_0005F0 = sub_4AC7C0(pClass17_Sprites_LOD, "sp57c", 6);
 
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "zapp"));
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spheal1"));
@@ -7269,8 +7275,8 @@ int __thiscall sub_411621(void *this)
       v4 = 8 * (12 * *(_BYTE *)(v2 + 6734) + (unsigned __int8)*(&byte_4E2431[12 * *(_BYTE *)(v2 + 6734)] + v1));
       GUIButtonCreate(
         v3,
-        dword_F8BC24 + *(int *)((char *)&dword_4E20D0 + v4),
-        data_F8BC28.qword_F8BC28 + *(int *)((char *)&dword_4E20D4 + v4),
+        class28_global.dword_000010 + *(int *)((char *)&dword_4E20D0 + v4),
+        class28_global.dword_000014 + *(int *)((char *)&dword_4E20D4 + v4),
         *(_WORD *)(dword_50640C[v1] + 24),
         *(_WORD *)(dword_50640C[v1] + 26),
         1,
@@ -7542,8 +7548,8 @@ int __thiscall sub_411BFC(void *this)
         dword_506398 = 72 * class17_LoadTexture(pClass17_Icons_LOD, "tab-an-7a", 2) + 7145548;
         dword_506518 = GUIButtonCreate(
                          v1,
-                         dword_F8BC24 + 398,
-                         data_F8BC28.qword_F8BC28 + 1,
+                         class28_global.dword_000010 + 398,
+                         class28_global.dword_000014 + 1,
                          *(_WORD *)(dword_5063A4 + 24),
                          *(_WORD *)(dword_5063A4 + 26),
                          1,
@@ -7555,8 +7561,8 @@ int __thiscall sub_411BFC(void *this)
                          dword_5063A4);
         dword_506514 = GUIButtonCreate(
                          v1,
-                         dword_F8BC24 + 398,
-                         data_F8BC28.qword_F8BC28 + 38,
+                         class28_global.dword_000010 + 398,
+                         class28_global.dword_000014 + 38,
                          *(_WORD *)(dword_5063A0 + 26),
                          *(_WORD *)(dword_5063A0 + 26),
                          1,
@@ -7605,8 +7611,8 @@ int __thiscall sub_411BFC(void *this)
           dword_506368 = 72 * class17_LoadTexture(pClass17_Icons_LOD, "tab-an-8a", 2) + 7145548;
           dword_506518 = GUIButtonCreate(
                            v1,
-                           dword_F8BC24 + 398,
-                           data_F8BC28.qword_F8BC28 + 1,
+                           class28_global.dword_000010 + 398,
+                           class28_global.dword_000014 + 1,
                            50,
                            34,
                            1,
@@ -7618,8 +7624,8 @@ int __thiscall sub_411BFC(void *this)
                            dword_5063A4);
           dword_506514 = GUIButtonCreate(
                            v1,
-                           dword_F8BC24 + 398,
-                           data_F8BC28.qword_F8BC28 + 38,
+                           class28_global.dword_000010 + 398,
+                           class28_global.dword_000014 + 38,
                            50,
                            34,
                            1,
@@ -7631,8 +7637,8 @@ int __thiscall sub_411BFC(void *this)
                            dword_5063A0);
           dword_506510 = GUIButtonCreate(
                            v1,
-                           dword_F8BC24 + 398,
-                           data_F8BC28.qword_F8BC28 + 113,
+                           class28_global.dword_000010 + 398,
+                           class28_global.dword_000014 + 113,
                            50,
                            34,
                            1,
@@ -7644,8 +7650,8 @@ int __thiscall sub_411BFC(void *this)
                            dword_506394);
           dword_50650C = GUIButtonCreate(
                            v1,
-                           dword_F8BC24 + 399,
-                           data_F8BC28.qword_F8BC28 + 150,
+                           class28_global.dword_000010 + 399,
+                           class28_global.dword_000014 + 150,
                            50,
                            34,
                            1,
@@ -7657,8 +7663,8 @@ int __thiscall sub_411BFC(void *this)
                            dword_50638C);
           dword_506508 = GUIButtonCreate(
                            v1,
-                           dword_F8BC24 + 397,
-                           data_F8BC28.qword_F8BC28 + 188,
+                           class28_global.dword_000010 + 397,
+                           class28_global.dword_000014 + 188,
                            50,
                            34,
                            1,
@@ -7670,8 +7676,8 @@ int __thiscall sub_411BFC(void *this)
                            dword_506384);
           dword_506504 = GUIButtonCreate(
                            v1,
-                           dword_F8BC24 + 397,
-                           data_F8BC28.qword_F8BC28 + 226,
+                           class28_global.dword_000010 + 397,
+                           class28_global.dword_000014 + 226,
                            50,
                            34,
                            1,
@@ -7683,8 +7689,8 @@ int __thiscall sub_411BFC(void *this)
                            dword_50637C);
           dword_506500 = GUIButtonCreate(
                            v1,
-                           dword_F8BC24 + 397,
-                           data_F8BC28.qword_F8BC28 + 264,
+                           class28_global.dword_000010 + 397,
+                           class28_global.dword_000014 + 264,
                            50,
                            34,
                            1,
@@ -7697,8 +7703,8 @@ int __thiscall sub_411BFC(void *this)
           v10 = dword_506528;
           dword_5064FC = GUIButtonCreate(
                            v1,
-                           dword_F8BC24 + 397,
-                           data_F8BC28.qword_F8BC28 + 302,
+                           class28_global.dword_000010 + 397,
+                           class28_global.dword_000014 + 302,
                            50,
                            34,
                            1,
@@ -7749,8 +7755,8 @@ int __thiscall sub_411BFC(void *this)
             dword_506378 = 72 * class17_LoadTexture(pClass17_Icons_LOD, "tabWoff", 2) + 7145548;
             dword_506518 = GUIButtonCreate(
                              v1,
-                             dword_F8BC24 + 398,
-                             data_F8BC28.qword_F8BC28 + 1,
+                             class28_global.dword_000010 + 398,
+                             class28_global.dword_000014 + 1,
                              50,
                              34,
                              1,
@@ -7762,8 +7768,8 @@ int __thiscall sub_411BFC(void *this)
                              dword_5063A4);
             dword_506514 = GUIButtonCreate(
                              v1,
-                             dword_F8BC24 + 398,
-                             data_F8BC28.qword_F8BC28 + 38,
+                             class28_global.dword_000010 + 398,
+                             class28_global.dword_000014 + 38,
                              50,
                              34,
                              1,
@@ -7775,8 +7781,8 @@ int __thiscall sub_411BFC(void *this)
                              dword_5063A0);
             dword_506510 = GUIButtonCreate(
                              v1,
-                             dword_F8BC24 + 397,
-                             data_F8BC28.qword_F8BC28 + 113,
+                             class28_global.dword_000010 + 397,
+                             class28_global.dword_000014 + 113,
                              50,
                              34,
                              1,
@@ -7788,8 +7794,8 @@ int __thiscall sub_411BFC(void *this)
                              (int)Class);
             dword_50650C = GUIButtonCreate(
                              v1,
-                             dword_F8BC24 + 397,
-                             data_F8BC28.qword_F8BC28 + 150,
+                             class28_global.dword_000010 + 397,
+                             class28_global.dword_000014 + 150,
                              50,
                              34,
                              1,
@@ -7801,8 +7807,8 @@ int __thiscall sub_411BFC(void *this)
                              (int)Class);
             dword_506508 = GUIButtonCreate(
                              v1,
-                             dword_F8BC24 + 397,
-                             data_F8BC28.qword_F8BC28 + 188,
+                             class28_global.dword_000010 + 397,
+                             class28_global.dword_000014 + 188,
                              50,
                              34,
                              1,
@@ -7814,8 +7820,8 @@ int __thiscall sub_411BFC(void *this)
                              (int)Class);
             result = GUIButtonCreate(
                        v1,
-                       dword_F8BC24 + 397,
-                       data_F8BC28.qword_F8BC28 + 226,
+                       class28_global.dword_000010 + 397,
+                       class28_global.dword_000014 + 226,
                        50,
                        34,
                        1,
@@ -7849,8 +7855,8 @@ int __thiscall sub_411BFC(void *this)
           dword_506398 = 72 * class17_LoadTexture(pClass17_Icons_LOD, "tab-an-7a", 2) + 7145548;
           dword_506518 = GUIButtonCreate(
                            v1,
-                           dword_F8BC24 + 398,
-                           data_F8BC28.qword_F8BC28 + 1,
+                           class28_global.dword_000010 + 398,
+                           class28_global.dword_000014 + 1,
                            *(_WORD *)(dword_5063A4 + 24),
                            *(_WORD *)(dword_5063A4 + 26),
                            1,
@@ -7862,8 +7868,8 @@ int __thiscall sub_411BFC(void *this)
                            dword_5063A4);
           dword_506514 = GUIButtonCreate(
                            v1,
-                           dword_F8BC24 + 398,
-                           data_F8BC28.qword_F8BC28 + 38,
+                           class28_global.dword_000010 + 398,
+                           class28_global.dword_000014 + 38,
                            *(_WORD *)(dword_5063A0 + 26),
                            *(_WORD *)(dword_5063A0 + 26),
                            1,
@@ -8002,8 +8008,8 @@ void __cdecl sub_412B58()
           if ( *(_DWORD *)(v6 + 48) )
           {
             v7 = 8 * (12 * *(_BYTE *)(v0 + 6734) + (unsigned __int8)*(&byte_4E2430[12 * *(_BYTE *)(v0 + 6734)] + v3));
-            v19 = data_F8BC28.qword_F8BC28 + *(int *)((char *)&dword_4E20D4 + v7);
-            v17 = dword_F8BC24 + *(int *)((char *)&dword_4E20D0 + v7);
+            v19 = class28_global.dword_000014 + *(int *)((char *)&dword_4E20D4 + v7);
+            v17 = class28_global.dword_000010 + *(int *)((char *)&dword_4E20D0 + v7);
             if ( *(_BYTE *)(v6 + 45) & 2 )
               CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v17, v19, v6);
             else
@@ -8032,8 +8038,8 @@ void __cdecl sub_412B58()
     {
       v21 = dword_5063D8[v9];
       v12 = 8 * (12 * *(_BYTE *)(v0 + 6734) + (unsigned __int8)*(&byte_4E2430[12 * *(_BYTE *)(v0 + 6734)] + v9));
-      v20 = data_F8BC28.qword_F8BC28 + *(int *)((char *)&dword_4E20D4 + v12);
-      v18 = dword_F8BC24 + *(int *)((char *)&dword_4E20D0 + v12);
+      v20 = class28_global.dword_000014 + *(int *)((char *)&dword_4E20D4 + v12);
+      v18 = class28_global.dword_000010 + *(int *)((char *)&dword_4E20D0 + v12);
       if ( *(_BYTE *)(v11 + 45) & 2 )
         CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v18, v20, v21);
       else
@@ -8171,31 +8177,31 @@ char __cdecl sub_412E85()
   int v19; // [sp+18h] [bp-44h]@10
   int v20; // [sp+1Ch] [bp-40h]@10
 
-  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_F8BC24, data_F8BC28.qword_F8BC28, dword_5064CC);
+  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, class28_global.dword_000010, class28_global.dword_000014, dword_5064CC);
   if ( dword_506548 || !dword_506528 )
   {
     v13 = dword_50639C;
-    v11 = data_F8BC28.qword_F8BC28 + 2;
-    v0 = dword_F8BC24 + 407;
+    v11 = class28_global.dword_000014 + 2;
+    v0 = class28_global.dword_000010 + 407;
   }
   else
   {
     v13 = dword_5063A4;
-    v11 = data_F8BC28.qword_F8BC28 + 1;
-    v0 = dword_F8BC24 + 398;
+    v11 = class28_global.dword_000014 + 1;
+    v0 = class28_global.dword_000010 + 398;
   }
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v0, v11, v13);
   if ( dword_506544 || dword_506528 + dword_506520 >= dword_506524 )
   {
     v14 = dword_506398;
-    v12 = data_F8BC28.qword_F8BC28 + 38;
-    v1 = dword_F8BC24 + 407;
+    v12 = class28_global.dword_000014 + 38;
+    v1 = class28_global.dword_000010 + 407;
   }
   else
   {
     v14 = dword_5063A0;
-    v12 = data_F8BC28.qword_F8BC28 + 38;
-    v1 = dword_F8BC24 + 398;
+    v12 = class28_global.dword_000014 + 38;
+    v1 = class28_global.dword_000010 + 398;
   }
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v1, v12, v14);
   if ( !byte_5C6D50[dword_506528] )
@@ -8280,31 +8286,31 @@ void __cdecl sub_413126()
   int v16; // [sp+1Ch] [bp-44h]@9
   int v17; // [sp+20h] [bp-40h]@9
 
-  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_F8BC24, data_F8BC28.qword_F8BC28, dword_5064DC);
+  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, class28_global.dword_000010, class28_global.dword_000014, dword_5064DC);
   if ( dword_506548 || !dword_506528 )
   {
     v10 = dword_50639C;
-    v8 = data_F8BC28.qword_F8BC28 + 2;
-    v0 = dword_F8BC24 + 407;
+    v8 = class28_global.dword_000014 + 2;
+    v0 = class28_global.dword_000010 + 407;
   }
   else
   {
     v10 = dword_5063A4;
-    v8 = data_F8BC28.qword_F8BC28 + 1;
-    v0 = dword_F8BC24 + 398;
+    v8 = class28_global.dword_000014 + 1;
+    v0 = class28_global.dword_000010 + 398;
   }
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v0, v8, v10);
   if ( dword_506544 || dword_506528 + dword_506520 >= dword_506524 )
   {
     v11 = dword_506398;
-    v9 = data_F8BC28.qword_F8BC28 + 38;
-    v1 = dword_F8BC24 + 407;
+    v9 = class28_global.dword_000014 + 38;
+    v1 = class28_global.dword_000010 + 407;
   }
   else
   {
     v11 = dword_5063A0;
-    v9 = data_F8BC28.qword_F8BC28 + 38;
-    v1 = dword_F8BC24 + 398;
+    v9 = class28_global.dword_000014 + 38;
+    v1 = class28_global.dword_000010 + 398;
   }
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v1, v9, v11);
   v14 = 460;
@@ -8502,38 +8508,38 @@ void __cdecl sub_41338E()
   int v38; // [sp+28h] [bp-40h]@46
 
   v31 = 0;
-  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_F8BC24, data_F8BC28.qword_F8BC28, dword_5064D8);
+  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, class28_global.dword_000010, class28_global.dword_000014, dword_5064D8);
   if ( dword_506548 || !dword_506528 )
   {
     v24 = dword_50639C;
-    v17 = data_F8BC28.qword_F8BC28 + 2;
-    v0 = dword_F8BC24 + 407;
+    v17 = class28_global.dword_000014 + 2;
+    v0 = class28_global.dword_000010 + 407;
   }
   else
   {
     v24 = dword_5063A4;
-    v17 = data_F8BC28.qword_F8BC28 + 1;
-    v0 = dword_F8BC24 + 398;
+    v17 = class28_global.dword_000014 + 1;
+    v0 = class28_global.dword_000010 + 398;
   }
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v0, v17, v24);
   if ( dword_506544 || dword_506528 + dword_506520 >= dword_506524 )
   {
     v25 = dword_506398;
-    v18 = data_F8BC28.qword_F8BC28 + 38;
-    v1 = dword_F8BC24 + 407;
+    v18 = class28_global.dword_000014 + 38;
+    v1 = class28_global.dword_000010 + 407;
   }
   else
   {
     v25 = dword_5063A0;
-    v18 = data_F8BC28.qword_F8BC28 + 38;
-    v1 = dword_F8BC24 + 398;
+    v18 = class28_global.dword_000014 + 38;
+    v1 = class28_global.dword_000010 + 398;
   }
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v1, v18, v25);
   if ( !dword_506540 )
   {
     if ( dword_506568 )
     {
-      CD3DRenderer_DrawTransparentTexture(pD3DRenderer, dword_F8BC24 + 408, data_F8BC28.qword_F8BC28 + 113, dword_506390);
+      CD3DRenderer_DrawTransparentTexture(pD3DRenderer, class28_global.dword_000010 + 408, class28_global.dword_000014 + 113, dword_506390);
       v2 = 1;
       goto LABEL_16;
     }
@@ -8550,7 +8556,7 @@ LABEL_14:
   AudioPlayer_sub_4AA306(pAudioPlayer, 75, 0, 0, -1, 0, 0, 0, 0);
 LABEL_15:
   dword_506568 = 0;
-  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, dword_F8BC24 + 398, data_F8BC28.qword_F8BC28 + 113, dword_506394);
+  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, class28_global.dword_000010 + 398, class28_global.dword_000014 + 113, dword_506394);
 LABEL_16:
   if ( dword_50653C )
   {
@@ -8565,15 +8571,15 @@ LABEL_16:
     if ( dword_506568 != v2 )
     {
       v26 = dword_506388;
-      v19 = data_F8BC28.qword_F8BC28 + 150;
-      v3 = dword_F8BC24 + 408;
+      v19 = class28_global.dword_000014 + 150;
+      v3 = class28_global.dword_000010 + 408;
       goto LABEL_22;
     }
   }
   v26 = dword_50638C;
   dword_506568 = v2;
-  v19 = data_F8BC28.qword_F8BC28 + 150;
-  v3 = dword_F8BC24 + 399;
+  v19 = class28_global.dword_000014 + 150;
+  v3 = class28_global.dword_000010 + 399;
 LABEL_22:
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v3, v19, v26);
   if ( dword_506538 )
@@ -8589,15 +8595,15 @@ LABEL_22:
     if ( dword_506568 != 2 )
     {
       v27 = dword_506380;
-      v20 = data_F8BC28.qword_F8BC28 + 188;
-      v4 = dword_F8BC24 + 408;
+      v20 = class28_global.dword_000014 + 188;
+      v4 = class28_global.dword_000010 + 408;
       goto LABEL_28;
     }
   }
   v27 = dword_506384;
   dword_506568 = 2;
-  v20 = data_F8BC28.qword_F8BC28 + 188;
-  v4 = dword_F8BC24 + 397;
+  v20 = class28_global.dword_000014 + 188;
+  v4 = class28_global.dword_000010 + 397;
 LABEL_28:
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v4, v20, v27);
   if ( dword_506534 )
@@ -8613,15 +8619,15 @@ LABEL_28:
     if ( dword_506568 != 3 )
     {
       v28 = dword_506378;
-      v21 = data_F8BC28.qword_F8BC28 + 226;
-      v5 = dword_F8BC24 + 408;
+      v21 = class28_global.dword_000014 + 226;
+      v5 = class28_global.dword_000010 + 408;
       goto LABEL_34;
     }
   }
   v28 = dword_50637C;
   dword_506568 = 3;
-  v21 = data_F8BC28.qword_F8BC28 + 226;
-  v5 = dword_F8BC24 + 397;
+  v21 = class28_global.dword_000014 + 226;
+  v5 = class28_global.dword_000010 + 397;
 LABEL_34:
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v5, v21, v28);
   if ( dword_506530 )
@@ -8637,15 +8643,15 @@ LABEL_34:
     if ( dword_506568 != 4 )
     {
       v29 = dword_506370;
-      v22 = data_F8BC28.qword_F8BC28 + 263;
-      v6 = dword_F8BC24 + 408;
+      v22 = class28_global.dword_000014 + 263;
+      v6 = class28_global.dword_000010 + 408;
       goto LABEL_40;
     }
   }
   v29 = dword_506374;
   dword_506568 = 4;
-  v22 = data_F8BC28.qword_F8BC28 + 264;
-  v6 = dword_F8BC24 + 397;
+  v22 = class28_global.dword_000014 + 264;
+  v6 = class28_global.dword_000010 + 397;
 LABEL_40:
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v6, v22, v29);
   if ( dword_50652C )
@@ -8661,15 +8667,15 @@ LABEL_40:
     if ( dword_506568 != 5 )
     {
       v30 = dword_506368;
-      v23 = data_F8BC28.qword_F8BC28 + 302;
-      v7 = dword_F8BC24 + 408;
+      v23 = class28_global.dword_000014 + 302;
+      v7 = class28_global.dword_000010 + 408;
       goto LABEL_46;
     }
   }
   v30 = dword_50636C;
   dword_506568 = 5;
-  v23 = data_F8BC28.qword_F8BC28 + 302;
-  v7 = dword_F8BC24 + 397;
+  v23 = class28_global.dword_000014 + 302;
+  v7 = class28_global.dword_000010 + 397;
 LABEL_46:
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v7, v23, v30);
   v35 = 460;
@@ -8799,83 +8805,83 @@ char *__cdecl sub_413980()
   int v26; // [sp+94h] [bp-44h]@35
   int v27; // [sp+98h] [bp-40h]@35
 
-  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_F8BC24, data_F8BC28.qword_F8BC28, dword_5064D0);
+  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, class28_global.dword_000010, class28_global.dword_000014, dword_5064D0);
   if ( dword_506548 || struct_576FE8.dword_00002C / 128 >= 12 )
   {
     v15 = dword_50639C;
-    v9 = data_F8BC28.qword_F8BC28 + 2;
-    v0 = dword_F8BC24 + 408;
+    v9 = class28_global.dword_000014 + 2;
+    v0 = class28_global.dword_000010 + 408;
   }
   else
   {
     v15 = dword_5063A4;
-    v9 = data_F8BC28.qword_F8BC28 + 1;
-    v0 = dword_F8BC24 + 398;
+    v9 = class28_global.dword_000014 + 1;
+    v0 = class28_global.dword_000010 + 398;
   }
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v0, v9, v15);
   if ( dword_506544 || struct_576FE8.dword_00002C / 128 <= 3 )
   {
     v16 = dword_506398;
-    v10 = data_F8BC28.qword_F8BC28 + 38;
-    v1 = dword_F8BC24 + 408;
+    v10 = class28_global.dword_000014 + 38;
+    v1 = class28_global.dword_000010 + 408;
   }
   else
   {
     v16 = dword_5063A0;
-    v10 = data_F8BC28.qword_F8BC28 + 38;
-    v1 = dword_F8BC24 + 398;
+    v10 = class28_global.dword_000014 + 38;
+    v1 = class28_global.dword_000010 + 398;
   }
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v1, v10, v16);
   if ( dword_506540 )
   {
     v17 = dword_506390;
-    v11 = data_F8BC28.qword_F8BC28 + 113;
-    v2 = dword_F8BC24 + 408;
+    v11 = class28_global.dword_000014 + 113;
+    v2 = class28_global.dword_000010 + 408;
   }
   else
   {
     v17 = dword_506394;
-    v11 = data_F8BC28.qword_F8BC28 + 113;
-    v2 = dword_F8BC24 + 398;
+    v11 = class28_global.dword_000014 + 113;
+    v2 = class28_global.dword_000010 + 398;
   }
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v2, v11, v17);
   if ( dword_50653C )
   {
     v18 = dword_506388;
-    v12 = dword_F8BC24 + 150;
-    v3 = data_F8BC28.qword_F8BC28 + 408;
+    v12 = class28_global.dword_000010 + 150;
+    v3 = class28_global.dword_000014 + 408;
   }
   else
   {
     v18 = dword_50638C;
-    v12 = dword_F8BC24 + 150;
-    v3 = data_F8BC28.qword_F8BC28 + 399;
+    v12 = class28_global.dword_000010 + 150;
+    v3 = class28_global.dword_000014 + 399;
   }
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v3, v12, v18);
   if ( dword_506538 )
   {
     v19 = dword_506380;
-    v13 = data_F8BC28.qword_F8BC28 + 188;
-    v4 = dword_F8BC24 + 408;
+    v13 = class28_global.dword_000014 + 188;
+    v4 = class28_global.dword_000010 + 408;
   }
   else
   {
     v19 = dword_506384;
-    v13 = data_F8BC28.qword_F8BC28 + 188;
-    v4 = dword_F8BC24 + 397;
+    v13 = class28_global.dword_000014 + 188;
+    v4 = class28_global.dword_000010 + 397;
   }
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v4, v13, v19);
   if ( dword_506534 )
   {
     v20 = dword_506378;
-    v14 = data_F8BC28.qword_F8BC28 + 226;
-    v5 = dword_F8BC24 + 408;
+    v14 = class28_global.dword_000014 + 226;
+    v5 = class28_global.dword_000010 + 408;
   }
   else
   {
     v20 = dword_50637C;
-    v14 = data_F8BC28.qword_F8BC28 + 226;
-    v5 = dword_F8BC24 + 397;
+    v14 = class28_global.dword_000014 + 226;
+    v5 = class28_global.dword_000010 + 397;
   }
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v5, v14, v20);
   if ( dword_506544 )
@@ -9006,7 +9012,7 @@ char __cdecl sub_413D6F()
   v0 = pParty_global->dword_00071C;
   v11 = CMapStats_FindLocation(pMapStats, Str1);
   v13 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0x4Bu, 0x4Bu, 0x4Bu); //colored or white text flag
-  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_F8BC24, data_F8BC28.qword_F8BC28, dword_5064D4);
+  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, class28_global.dword_000010, class28_global.dword_000014, dword_5064D4);
   v12 = (unsigned __int8)byte_4E1B18[pParty_global->dword_000718];
   if ( v0 <= 12 )
   {
@@ -9431,8 +9437,6 @@ LABEL_12:
 //----- (004A97C6) --------------------------------------------------------
 int __fastcall sub_4A97C6(char *a1, int a2, _DWORD a3)
 {
-  signed int v3; // eax@1
-  _DWORD v4; // ecx@1
   int v5; // edi@1
   _DWORD v6; // eax@5
   int v7; // ebx@5
@@ -9456,19 +9460,17 @@ int __fastcall sub_4A97C6(char *a1, int a2, _DWORD a3)
   char *Source; // [sp+18h] [bp-4h]@1
   void *v26; // [sp+24h] [bp+8h]@8
   _BYTE *v27; // [sp+24h] [bp+8h]@12
+ int i;
 
   Source = a1;
   v5 = a2;
-  v4 = 0;
-  v3 = (signed int)&unk_F1B4D8;
-  do
+
+  for (i = 0; i < 3000; ++i)
   {
-    if ( *(_DWORD *)v3 == a3 )
-      return dword_F1B554[32 * v4];
-    v3 += 128;
-    ++v4;
+   if (struct_F1B4D8[i].dword_000000 == a3)
+     return struct_F1B4D8[i].dword_00007C;
   }
-  while ( v3 < (signed int)pAudioPlayer );
+
   sub_4A96FF(0, pAudioPlayer->uNumSounds, Source);
   if ( dword_F1B4C8 == -1 )
     goto LABEL_22;
@@ -9509,9 +9511,9 @@ int __fastcall sub_4A97C6(char *a1, int a2, _DWORD a3)
     v12 = 0;
     *(_DWORD *)v5 = v23;
     dword_F1B4D0 = 0;
-    if ( dword_F1B554[0] )
+    if ( struct_F1B4D8[0].dword_00007C )
     {
-      v14 = dword_F1B554;
+      v14 = &struct_F1B4D8[0].dword_00007C;
       do
       {
         v14 += 128;
@@ -9520,10 +9522,10 @@ int __fastcall sub_4A97C6(char *a1, int a2, _DWORD a3)
       while ( *(_DWORD *)v14 );
       dword_F1B4D0 = v12;
     }
-    strcpy((char *)&unk_F1B4DC + 128 * v12, Source);
+    strcpy(struct_F1B4D8[v12].string_000004, Source);
     v15 = dword_F1B4D0++ << 7;
     dword_F79D64 += v13;
-    *(_DWORD *)((char *)dword_F1B554 + v15) = v5;
+    struct_F1B4D8[v15 / 128].dword_00007C = v5;
     result = v5;
   }
   else
@@ -10106,10 +10108,10 @@ void __thiscall sub_415551(int *_this, int a2)
   v3 = 0;
   if ( a2 )
   {
-    v5 = dword_F8BC24;
-    v4 = HIDWORD(data_F8BC28.qword_F8BC28);
-    v3 = data_F8BC28.qword_F8BC28;
-    v27 = dword_F8BC30;
+    v5 = class28_global.dword_000010;
+    v4 = class28_global.dword_000018;
+    v3 = class28_global.dword_000014;
+    v27 = class28_global.dword_00001C;
   }
   else
   {
@@ -10732,8 +10734,8 @@ LABEL_142:
             continue;
           }
           v46 = dword_507944 != -1 ? 72 * dword_507944 + 7145548 : 0;
-          v45 = data_F8BC28.qword_F8BC28;
-          v44 = dword_F8BC24;
+          v45 = class28_global.dword_000014;
+          v44 = class28_global.dword_000010;
           goto LABEL_18;
         }
         sub_445350();
@@ -11536,10 +11538,10 @@ LABEL_125:
           goto LABEL_126;
         }
         if ( !dword_506364
-          || v38 < dword_F8BC24
-          || v38 > HIDWORD(data_F8BC28.qword_F8BC28)
-          || v39 < (_DWORD)data_F8BC28.qword_F8BC28
-          || v39 > dword_F8BC30
+          || v38 < class28_global.dword_000010
+          || v38 > class28_global.dword_000018
+          || v39 < class28_global.dword_000014
+          || v39 > class28_global.dword_00001C
           || (v2 = sub_444564(), Str1 = v2, !v2) )
           goto LABEL_132;
         v37 = (double)(sub_44C51E(pFontArrus, v2) + 32);
@@ -11552,7 +11554,7 @@ LABEL_125:
       }
       if ( sub_466CA0() >= 0 )
         goto LABEL_132;
-      if ( v39 > dword_F8BC30 )
+      if ( v39 > class28_global.dword_00001C )
       {
         v32 = v38 / 118;
         if ( v38 / 118 < 4 )
@@ -11567,7 +11569,7 @@ LABEL_125:
         }
         goto LABEL_132;
       }
-      if ( v38 > HIDWORD(data_F8BC28.qword_F8BC28) )
+      if ( v38 > class28_global.dword_000018 )
       {
         if ( v39 >= 130 )
         {
@@ -11836,14 +11838,14 @@ void __thiscall OnMouseLeftClick(void *_this)
     {
       v4 = sub_466CA0();
       click_x = v12;
-      if ( v4 >= 0 || v12 < dword_F8BC24 || v12 > HIDWORD(data_F8BC28.qword_F8BC28) )
+      if ( v4 >= 0 || v12 < class28_global.dword_000010 || v12 > class28_global.dword_000018 )
       {
         click_y = v13;
       }
       else
       {
         click_y = v13;
-        if ( v13 >= (_DWORD)data_F8BC28.qword_F8BC28 && v13 <= dword_F8BC30 )
+        if ( v13 >= class28_global.dword_000014 && v13 <= class28_global.dword_00001C )
         {
           if ( pD3DRenderer->dword_040088 )
             v5 = sub_4C1BF1(pGame->class05_obj);
@@ -14849,7 +14851,7 @@ LABEL_24:
 //----- (0041B3B6) --------------------------------------------------------
 void __cdecl sub_41B3B6()
 {
-  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, SHIDWORD(data_F8BC28.qword_F8BC28), 0, dword_5079E4 != -1 ? 72 * dword_5079E4 + 7145548 : 0);
+  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, class28_global.dword_000018, 0, dword_5079E4 != -1 ? 72 * dword_5079E4 + 7145548 : 0);
 }
 
 //----- (0041B438) --------------------------------------------------------
@@ -17626,12 +17628,12 @@ int sub_47A384(const char *pLevelFilename, void *a2)
 
 
   sub_47F138();
-  sub_47F223_LooksLikeGenerateMonsterLoot(pClass51_global);//sub_47F223(&stru_6A0DA0.dwReserved);
+  sub_47F223_LooksLikeGenerateMonsterLoot(pClass51_global);
   sub_47F2D3(v3);
-  sub_48917E(pClass51_global);//sub_48917E((int)&stru_6A0DA0.dwReserved);
+  sub_48917E(pClass51_global);
   v8 = strlen("levels\\");
   strcpy(Source, &pLevelFilename[v8]);
-  strcpy(pClass51_global->string_000000, Source);//strcpy((char *)&stru_6A0DA0.dwReserved, &Source);
+  strcpy(pClass51_global->string_000000, Source);
   sub_4C2EA0(&struct_6BD080);
   pClass55_global->dword_000014 = pParty_global->dword_0006C4;
   pClass55_global->dword_000018 = pParty_global->dword_0006C0;
@@ -18579,8 +18581,8 @@ void __cdecl sub_420EFF()
     if ( pD3DRenderer->dword_040088 )
     {
       v18 = sub_4C1BF1(pGame->class05_obj);
-      if (x < *(int *)class28_global || x > dword_F8BC1C ||
-          y < dword_F8BC18 || y > dword_F8BC20)
+      if (x < class28_global.dword_000000 || x > class28_global.dword_000008 ||
+          y < class28_global.dword_000004 || y > class28_global.dword_00000C)
         v18 = -1;
       if ( v18 == -1 )
         goto LABEL_61;
@@ -18892,8 +18894,8 @@ int __thiscall sub_421626(void *this)
   v3 = GUIWindowCreate(0, 0, 640, 480, 4, uMaybeSelectedCharacter, 0);
   dword_50768C = GUIButtonCreate(
                    v3,
-                   dword_F8BC24 + 12,
-                   data_F8BC28.qword_F8BC28 + 308,
+                   class28_global.dword_000010 + 12,
+                   class28_global.dword_000014 + 308,
                    *(_WORD *)(dword_51122C != -1 ? 72 * dword_51122C + 7145548 + 0x18 : 24),
                    *(_WORD *)(dword_51122C != -1 ? 72 * dword_51122C + 7145548 + 0x1A : 26),
                    1,
@@ -18905,8 +18907,8 @@ int __thiscall sub_421626(void *this)
                    dword_511230 != -1 ? 72 * dword_511230 + 7145548 : 0);
   dword_507688 = GUIButtonCreate(
                    v3,
-                   dword_F8BC24 + 102,
-                   data_F8BC28.qword_F8BC28 + 308,
+                   class28_global.dword_000010 + 102,
+                   class28_global.dword_000014 + 308,
                    *(_WORD *)(dword_511224 != -1 ? 72 * dword_511224 + 7145548 + 0x18 : 24),
                    *(_WORD *)(dword_511224 != -1 ? 72 * dword_511224 + 7145548 + 0x1A : 26),
                    1,
@@ -18918,8 +18920,8 @@ int __thiscall sub_421626(void *this)
                    dword_511228 != -1 ? 72 * dword_511228 + 7145548 : 0);
   dword_507684 = GUIButtonCreate(
                    v3,
-                   dword_F8BC24 + 192,
-                   data_F8BC28.qword_F8BC28 + 308,
+                   class28_global.dword_000010 + 192,
+                   class28_global.dword_000014 + 308,
                    *(_WORD *)(dword_51121C != -1 ? 72 * dword_51121C + 7145548 + 0x18 : 24),
                    *(_WORD *)(dword_51121C != -1 ? 72 * dword_51121C + 7145548 + 0x1A : 26),
                    1,
@@ -18931,8 +18933,8 @@ int __thiscall sub_421626(void *this)
                    dword_511220 != -1 ? 72 * dword_511220 + 7145548 : 0);
   dword_507680 = GUIButtonCreate(
                    v3,
-                   dword_F8BC24 + 282,
-                   data_F8BC28.qword_F8BC28 + 308,
+                   class28_global.dword_000010 + 282,
+                   class28_global.dword_000014 + 308,
                    *(_WORD *)(dword_511214 != -1 ? 72 * dword_511214 + 7145548 + 0x18 : 24),
                    *(_WORD *)(dword_511214 != -1 ? 72 * dword_511214 + 7145548 + 0x1A : 26),
                    1,
@@ -18944,8 +18946,8 @@ int __thiscall sub_421626(void *this)
                    dword_511218 != -1 ? 72 * dword_511218 + 7145548 : 0);
   dword_50767C = GUIButtonCreate(
                    v3,
-                   dword_F8BC24 + 371,
-                   data_F8BC28.qword_F8BC28 + 308,
+                   class28_global.dword_000010 + 371,
+                   class28_global.dword_000014 + 308,
                    *(_WORD *)(dword_51120C != -1 ? 72 * dword_51120C + 7145548 + 0x18 : 24),
                    *(_WORD *)(dword_51120C != -1 ? 72 * dword_51120C + 7145548 + 0x1A : 26),
                    1,

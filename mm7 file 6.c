@@ -14969,11 +14969,11 @@ int __thiscall sub_4A52F1(int this, int a2, float a3)
     a3 = v4 * 255.0;
     v70 = a3 + 6.755399441055744e15;
     LODWORD(v71) = LODWORD(v70);
-    v6 = (double)dword_F8BC24;
+    v6 = (double)class28_global.dword_000010;
     v36 = v6;
-    v7 = (double)(signed int)data_F8BC28.qword_F8BC28;
+    v7 = (double)class28_global.dword_000014;
     v8 = a2 | (LODWORD(v70) << 24);
-    a2 = dword_F8BC30 + 1;
+    a2 = class28_global.dword_00001C + 1;
     v41 = 0;
     v37 = v7;
     v40 = v8;
@@ -14988,13 +14988,13 @@ int __thiscall sub_4A52F1(int this, int a2, float a3)
     v65 = 0;
     v43 = 0.0;
     v44 = v6;
-    v9 = (double)(dword_F8BC30 + 1);
+    v9 = (double)(class28_global.dword_00001C + 1);
     v45 = v9;
     v46 = 0.0;
     v47 = 1.0;
     v50 = 0.0;
     v51 = 0.0;
-    v10 = (double)SHIDWORD(data_F8BC28.qword_F8BC28);
+    v10 = (double)class28_global.dword_000018;
     v52 = v10;
     v53 = v9;
     v54 = 0.0;
@@ -15115,10 +15115,10 @@ int __thiscall sub_4A52F1(int this, int a2, float a3)
     v71 = (*(double *)&byte_4D8410[24] - a3) * *(double *)&byte_4D8410[560];
     v70 = v71 + 6.755399441055744e15;
     LODWORD(a3) = LODWORD(v70);
-    v69 = (HIDWORD(data_F8BC28.qword_F8BC28) - dword_F8BC24) >> 1;
-    HIDWORD(v70) = dword_F8BC30 - data_F8BC28.qword_F8BC28 + 1;
-    v17 = dword_F8BC24 + *(_DWORD *)(this + 262384) - HIDWORD(data_F8BC28.qword_F8BC28);
-    v18 = *(_DWORD *)(this + 262380) + 2 * (dword_F8BC24 + data_F8BC28.qword_F8BC28 * *(_DWORD *)(this + 262384));
+    v69 = (class28_global.dword_000018 - class28_global.dword_000010) >> 1;
+    HIDWORD(v70) = class28_global.dword_00001C - class28_global.dword_000014 + 1;
+    v17 = class28_global.dword_000010 + *(_DWORD *)(this + 262384) - class28_global.dword_000018;
+    v18 = *(_DWORD *)(this + 262380) + 2 * (class28_global.dword_000010 + class28_global.dword_000014 * *(_DWORD *)(this + 262384));
     v68 = 2 * v17;
     LODWORD(v71) = v18;
     v16 = (signed int)&unk_F1B430;
@@ -15216,7 +15216,7 @@ void __cdecl sub_4A57E9()
   {
     if ( pD3DRenderer->dword_040110 )
     {
-      v7 = data_F8BC28.qword_F8BC28;
+      v7 = class28_global.dword_000014;
       v5 = 0;
       v6 = 2748779069440i64;
       v0 = (*(int (__stdcall **)(int, _DWORD, _DWORD, int, int *, signed int))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 28))(
@@ -15229,47 +15229,47 @@ void __cdecl sub_4A57E9()
       CheckHRESULT(&v8, v0, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 0x39Eu, 0);
       HIDWORD(v6) = 640;
       v5 = 0;
-      LODWORD(v6) = dword_F8BC30 + 1;
+      LODWORD(v6) = class28_global.dword_00001C + 1;
       v7 = 480;
       v1 = (*(int (__stdcall **)(int, _DWORD, int, int, int *, signed int))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 28))(
              pD3DRenderer->pdds4_BackBuffer,
              0,
-             dword_F8BC30 + 1,
+             class28_global.dword_00001C + 1,
              pD3DRenderer->dword_040098,
              &v5,
              16);
       CheckHRESULT(&v8, v1, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 0x3A9u, 0);
-      HIDWORD(v6) = dword_F8BC24;
-      v7 = dword_F8BC30 + 1;
+      HIDWORD(v6) = class28_global.dword_000010;
+      v7 = class28_global.dword_00001C + 1;
       v5 = 0;
-      LODWORD(v6) = data_F8BC28.qword_F8BC28;
+      LODWORD(v6) = class28_global.dword_000014;
       v2 = (*(int (__stdcall **)(int, _DWORD, _DWORD, int, int *, signed int))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 28))(
              pD3DRenderer->pdds4_BackBuffer,
              0,
-             data_F8BC28.qword_F8BC28,
+             class28_global.dword_000014,
              pD3DRenderer->dword_040098,
              &v5,
              16);
       CheckHRESULT(&v8, v2, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 0x3B4u, 0);
-      v5 = HIDWORD(data_F8BC28.qword_F8BC28);
-      LODWORD(v6) = data_F8BC28.qword_F8BC28;
+      v5 = class28_global.dword_000018;
+      LODWORD(v6) = class28_global.dword_000014;
       HIDWORD(v6) = 640;
-      v7 = dword_F8BC30 + 1;
+      v7 = class28_global.dword_00001C + 1;
       v3 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 28))(
              pD3DRenderer->pdds4_BackBuffer,
-             HIDWORD(data_F8BC28.qword_F8BC28),
-             data_F8BC28.qword_F8BC28,
+             class28_global.dword_000018,
+             class28_global.dword_000014,
              pD3DRenderer->dword_040098,
              &v5,
              16);
       CheckHRESULT(&v8, v3, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 0x3BFu, 0);
-      v7 = dword_F8BC30 + 1;
-      v5 = dword_F8BC24;
-      v6 = data_F8BC28.qword_F8BC28;
+      v7 = class28_global.dword_00001C + 1;
+      v5 = class28_global.dword_000010;
+      v6 = class28_global.dword_000014;
       v4 = (*(int (__stdcall **)(int, int, _DWORD, int, int *, signed int))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 28))(
              pD3DRenderer->pdds4_BackBuffer,
-             dword_F8BC24,
-             data_F8BC28.qword_F8BC28,
+             class28_global.dword_000010,
+             class28_global.dword_000014,
              pD3DRenderer->dword_040098,
              &v5,
              17);
@@ -15371,16 +15371,16 @@ char __cdecl sub_4A597D()
           --v9;
         }
         while ( v9 );
-        v29 = v1 + 4 * ((dword_F8BC24 >> 1) + 320 * data_F8BC28.qword_F8BC28);
-        v27 = v30 + 4 * ((dword_F8BC24 >> 1) + (v22 >> 2) * data_F8BC28.qword_F8BC28);
-        v14 = (dword_F8BC24 >> 1) - (HIDWORD(data_F8BC28.qword_F8BC28) >> 1);
-        v24 = (HIDWORD(data_F8BC28.qword_F8BC28) >> 1) - (dword_F8BC24 >> 1);
+        v29 = v1 + 4 * ((class28_global.dword_000010 >> 1) + 320 * class28_global.dword_000014);
+        v27 = v30 + 4 * ((class28_global.dword_000010 >> 1) + (v22 >> 2) * class28_global.dword_000014);
+        v14 = (class28_global.dword_000010 >> 1) - (class28_global.dword_000018 >> 1);
+        v24 = (class28_global.dword_000018 >> 1) - (class28_global.dword_000010 >> 1);
         v26 = 4 * ((v22 >> 2) + v14);
         v25 = 4 * v14 + 1280;
-        v30 = dword_F8BC30 - data_F8BC28.qword_F8BC28 + 1;
+        v30 = class28_global.dword_00001C - class28_global.dword_000014 + 1;
         v13 = v29;
         v12 = v27;
-        v10 = (HIDWORD(data_F8BC28.qword_F8BC28) >> 1) - (dword_F8BC24 >> 1);
+        v10 = (class28_global.dword_000018 >> 1) - (class28_global.dword_000010 >> 1);
         v11 = v28;
         while ( 1 )
         {
@@ -17397,7 +17397,7 @@ void *__thiscall sub_4A96BE(void *this)
   int v2; // esi@1
 
   v2 = 0;
-  result = dword_F1B554;
+  result = &struct_F1B4D8[0].dword_00007C;
   while ( *(void **)result != this )
   {
     result = (char *)result + 128;
@@ -17406,7 +17406,7 @@ void *__thiscall sub_4A96BE(void *this)
       return result;
   }
   class23_DeleteBuffer(class23_instance, (int)this);
-  return memset((char *)&unk_F1B4D8 + 128 * v2, 0, 0x80u);
+  return memset(&struct_F1B4D8[v2], 0, sizeof(struct unnamed_F1B4D8));
 }
 
 //----- (004A96FF) --------------------------------------------------------

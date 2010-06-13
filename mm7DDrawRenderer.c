@@ -1156,7 +1156,7 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
   _this->dword_040058 = 0;
   pParty_global->dword_007778 |= 2u;
   flt_6BE3A0 = 0.55f;
-  class28_fn2(class28_global, 36044);
+  class28_fn2(&class28_global, 36044);
   return v18;
 }
 
@@ -1208,7 +1208,7 @@ int CD3DRenderer_InitWindowed(struct CD3DRenderer *_this, HWND hwnd)
   pParty_global->dword_007778 |= 2;
   v2 = (int)_this;
   LODWORD(flt_6BE3A0) = 1057803469;
-  v3 = class28_fn2(class28_global, 36044);
+  v3 = class28_fn2(&class28_global, 36044);
   *(_DWORD *)(v2 + 262416) = 0;
   sub_49FE05(v3, v2);
   *(_DWORD *)(v2 + 262296) = 0;

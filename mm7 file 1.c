@@ -308,7 +308,7 @@ void __cdecl sub_4789DE()
           p14->ptr_00003C = 0;
         else if (v18 < 0 || v18 > 1999)
         {
-         runtime_warning(); //sometiems negative index returned, function unstable;
+         runtime_warning(sometiems negative index returned, function unstable);
          //for now let's pretend there's no required texture
          p14->ptr_00003C = &pClass17_Bitmaps_LOD->aLODHeaders[1];
          v18 = 0;
@@ -2758,7 +2758,7 @@ int __fastcall sub_46BE0A(unsigned int a1)
 //----- (00487389) --------------------------------------------------------
 __int16 __cdecl sub_487389()
 {
-  int v0; // eax@1
+ struct struct8 *v0; // eax@1
   int v1; // ebx@1
   int v2; // esi@1
   int v3; // edi@6
@@ -2803,9 +2803,9 @@ __int16 __cdecl sub_487389()
   char v43; // [sp+30h] [bp-2Ch]@57
 
   v1 = pD3DRenderer->pTargetSurface;
-  v2 = pStruct9_global->dword_00002C;
   v40 = pD3DRenderer->pTargetSurface;
   v0 = array_77EC08;
+  v2 = pStruct9_global->dword_00002C;
   v39 = pStruct9_global->dword_00002C;
   if ( !(pParty_global->dword_007778 & 2) )
   {
@@ -2816,16 +2816,28 @@ __int16 __cdecl sub_487389()
   v36 = 0;
   if ( v2 > 0 )
   {
-    v38 = v0 + 64;
+    //v38 = v0 + 64;
+   v38 = &v0->ptr_000040;
+
     do
     {
       if ( pParty_global->dword_007778 & 2 )
-        v3 = *(_DWORD *)v38;
+        v3 = v0->ptr_000040;
       else
         v3 = *(_DWORD *)(dword_80AA28[v36] + 64);
-      if ( !v3 || (v4 = *(_DWORD *)(v3 + 4), !v4) || (v5 = *(_DWORD *)(v4 + 60), !v5) )
+
+      if (!v3)
         goto LABEL_14;
-      if ( *(_WORD *)(v3 + 8) >= dword_F8BC24 || *(_WORD *)(v3 + 12) != dword_F8BC24 )
+
+      v4 = *(_DWORD *)(v3 + 4);
+      if (!v4)
+        goto LABEL_14;
+
+      v5 = *(_DWORD *)(v4 + 60);
+      if (!v5)
+        goto LABEL_14;
+
+      if ( *(_WORD *)(v3 + 8) >= class28_global.dword_000010 || *(_WORD *)(v3 + 12) != class28_global.dword_000010 )
       {
         *(_BYTE *)(v4 + 50) |= 2;
         v14 = *(_DWORD *)(v4 + 48);
@@ -3081,10 +3093,10 @@ LABEL_14:
       do
       {
         v0 = *(_DWORD *)v8;
-        if ( v0 & 0x20000 )
+        if ( (int)v0 & 0x20000 )
         {
           ++v6;
-          *(_DWORD *)v8 = v0 & 0xFFFDFFFF;
+          *(_DWORD *)v8 = (int)v0 & 0xFFFDFFFF;
           v0 = (int)((char *)v8 - 48);
           dword_80AA24[v6] = (int)((char *)v8 - 48);
         }
@@ -3115,7 +3127,7 @@ LABEL_14:
   dword_8018D4 = v10;
   dword_8018DC = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000014);
   dword_8018E0 = 2048 - (pClass55_global->dword_000008 << 16);
-  v41 = (signed __int64)((double)(pClass55_global->dword_000008 * pStruct9_global->dword_000014) / ((double)pStruct9_global->dword_000014 + 8192.0) + (double)dword_F8BC40);
+  v41 = (signed __int64)((double)(pClass55_global->dword_000008 * pStruct9_global->dword_000014) / ((double)pStruct9_global->dword_000014 + 8192.0) + (double)class28_global.dword_00002C);
   cos((double)pClass55_global->dword_000014 * 0.003066406352445483);
   sin((double)pClass55_global->dword_000014 * 0.003066406352445483);
   sub_48607B_MessWithStruct8(&array_77EC08[1999], pClass57_global);
@@ -3149,17 +3161,17 @@ LABEL_14:
       v0 = *((_WORD *)v32 + 7);
       if ( v0 != data_6BE060.dword_6BE064 )
       {
-        LOWORD(v0) = dword_F8BC24;
-        if ( *((_WORD *)v32 + 4) >= dword_F8BC24 )
+        LOWORD(v0) = class28_global.dword_000010;
+        if ( *((_WORD *)v32 + 4) >= class28_global.dword_000010 )
           goto LABEL_124;
-        if ( *((_WORD *)v32 + 6) == dword_F8BC24 )
+        if ( *((_WORD *)v32 + 6) == class28_global.dword_000010 )
         {
           *((_WORD *)v32 + 7) = data_6BE060.dword_6BE064;
         }
         else
         {
-          *((_WORD *)v32 + 4) = dword_F8BC24;
-          *((_WORD *)v32 + 6) -= dword_F8BC24;
+          *((_WORD *)v32 + 4) = class28_global.dword_000010;
+          *((_WORD *)v32 + 6) -= class28_global.dword_000010;
           if ( *((_WORD *)v32 + 6) >= 0 )
           {
 LABEL_124:
@@ -3192,13 +3204,13 @@ LABEL_125:
       v0 = *(_WORD *)(v13 + 14);
       if ( v0 != data_6BE060.dword_6BE064 )
       {
-        LOWORD(v0) = dword_F8BC24;
-        if ( *(_WORD *)(v13 + 8) >= dword_F8BC24 )
+        LOWORD(v0) = class28_global.dword_000010;
+        if ( *(_WORD *)(v13 + 8) >= class28_global.dword_000010 )
           goto LABEL_109;
-        if ( *(_WORD *)(v13 + 12) != dword_F8BC24 )
+        if ( *(_WORD *)(v13 + 12) != class28_global.dword_000010 )
         {
-          *(_WORD *)(v13 + 8) = dword_F8BC24;
-          *(_WORD *)(v13 + 12) -= dword_F8BC24;
+          *(_WORD *)(v13 + 8) = class28_global.dword_000010;
+          *(_WORD *)(v13 + 12) -= class28_global.dword_000010;
           if ( *(_WORD *)(v13 + 12) >= 0 )
           {
 LABEL_109:
@@ -4382,9 +4394,9 @@ LABEL_25:
         LODWORD(v27) = 0;
         HIDWORD(v27) = pStruct9_global->dword_000014 << 16 >> 16;
         v57 = v27 / v60;
-        v25 = dword_F8BC3C - ((signed int)(((unsigned __int64)(v28 * v42) >> 16) + 32768) >> 16);
-        v43 = dword_F8BC3C - ((signed int)(((unsigned __int64)(v28 * v42) >> 16) + 32768) >> 16);
-        v46 = dword_F8BC40 - ((signed int)(((unsigned __int64)(v27 / v60 * v45) >> 16) + 32768) >> 16);
+        v25 = class28_global.dword_000028 - ((signed int)(((unsigned __int64)(v28 * v42) >> 16) + 32768) >> 16);
+        v43 = class28_global.dword_000028 - ((signed int)(((unsigned __int64)(v28 * v42) >> 16) + 32768) >> 16);
+        v46 = class28_global.dword_00002C - ((signed int)(((unsigned __int64)(v27 / v60 * v45) >> 16) + 32768) >> 16);
 
         v26 = &array_512250[dword_5187E0];
         if ( dword_5187E0 >= 500 )
@@ -4555,10 +4567,10 @@ LABEL_22:
         if ( pD3DRenderer->dword_040088)
           sub_4A6D87(pD3DRenderer,
             0,
-            dword_F8BC24,
-            data_F8BC28.qword_F8BC28,
-            data_F8BC28.dword_F8BC2C - dword_F8BC24,
-            dword_F8BC30 - data_F8BC28.qword_F8BC28 + 1,
+            class28_global.dword_000010,
+            class28_global.dword_000014,
+            class28_global.dword_000018 - class28_global.dword_000010,
+            class28_global.dword_00001C - class28_global.dword_000014 + 1,
             pD3DRenderer->uTargetGMask | pD3DRenderer->uTargetBMask);
       }
       dword_577030 = 0;
@@ -4614,7 +4626,10 @@ int Party_CreateDefault(struct Party *_this)
 
   v3 = _this;
   v4 = (char *)_this + 44;
-  memset(&_this->qword_00002C, 0, 0x1620C);
+
+  runtime_warning(some fields like dword_007778 were not zeroed as shuould have been);
+  //memset(&_this->qword_00002C, 0, 0x1620C);
+  memset(&_this->qword_00002C, 0, sizeof(struct Party) - 0x2C);
 
   pParty_global->dword_00000C = 160;
 
@@ -6439,10 +6454,14 @@ signed int __cdecl sub_465D0B()
   class35_sub_48A614(&class35_obj);
   pClass17_Sprites_LOD->dword_00ECAC = 1;
 
-  runtime_warning();//sub_459064(pObjectDescriptionList);
-  runtime_warning();//sub_458D97(pOverlayDescriptionList);
+  runtime_warning();
+  sub_459064(pObjectDescriptionList);
+  sub_458D97(pOverlayDescriptionList);
   if (!(dword_6BE364 & 0x10))  //if (!nosound)
-    runtime_warning();//sub_4A9953(pSoundList);
+  {
+   runtime_warning();
+    sub_4A9953(pSoundList);
+  }
   v1 = &unk_4E98D4;
 
   for (i = 0; i < 4; ++i)
@@ -8481,10 +8500,10 @@ void __cdecl sub_47BACF()
   v16 = pD3DRenderer->pTargetSurface;
   v17 = pD3DRenderer->pActiveZBuffer;
   v26 = pD3DRenderer->uTargetSurfacePitch;
-  v27 = dword_F8BC24;
-  v28 = data_F8BC28.qword_F8BC28;
-  v29 = data_F8BC28.dword_F8BC2C - 1;
-  v30 = dword_F8BC30;
+  v27 = class28_global.dword_000010;
+  v28 = class28_global.dword_000014;
+  v29 = class28_global.dword_000018 - 1;
+  v30 = class28_global.dword_00001C;
   pStruct9_global->dword_00003C = dword_5187E0;
 
     v35 = 0;
@@ -9422,8 +9441,8 @@ void __cdecl sub_441CFF()
 //----- (00486F92) --------------------------------------------------------
 void __cdecl sub_486F92()
 {
-  void *v0; // ebx@1
-  int v1; // eax@2
+  //void *v0; // ebx@1
+  //int v1; // eax@2
   float *v2; // edx@3
   _UNKNOWN *v3; // ecx@3
   int v4; // esi@6
@@ -9438,7 +9457,6 @@ void __cdecl sub_486F92()
   int v13; // eax@15
   int v14; // ecx@17
   double v15; // st7@28
-  signed __int64 v16; // qax@28
   int v17; // eax@29
   int v18; // ecx@31
   int i; // eax@40
@@ -9446,19 +9464,18 @@ void __cdecl sub_486F92()
   float *v21; // esi@44
   double v22; // st7@45
   int v23; // edx@48
-  int v24; // [sp+10h] [bp-10h]@2
   float v25; // [sp+14h] [bp-Ch]@3
-  int v26; // [sp+18h] [bp-8h]@8
   signed int v27; // [sp+1Ch] [bp-4h]@1
+ struct Span *pNewSpan;
 
-  v0 = pSpansBuf;
+ pNewSpan = pSpansBuf;
   dword_80C9E4 = &struct_80C980;
-  flt_80C9D8 = (double)dword_F8BC24;
+  flt_80C9D8 = (double)class28_global.dword_000010;
 
-  struct_80C9A4.flt_80C9A4 = (double)data_F8BC28.dword_F8BC2C;
+  struct_80C9A4.flt_80C9A4 = (double)class28_global.dword_000018;
   struct_80C9A4.dword_80C9AC = 0;
   struct_80C9A4.ptr_80C9B0 = &struct_80C980;
-  struct_80C9A4.dword_80C9B4 = 0;
+  struct_80C9A4.pNext = 0;
 
   struct_80C980.flt_80C980 = -999999.0;
   struct_80C980.flt_80C984 = 0.0;
@@ -9470,20 +9487,18 @@ void __cdecl sub_486F92()
   dword_80C9EC = 0;
   dword_80C9E0 = 1;
   dword_80C9B8 = (int)&flt_80C9D8;
-  v27 = data_F8BC28.dword_F8BC28;
+  v27 = class28_global.dword_000014;
 
-  if ( data_F8BC28.dword_F8BC28 > dword_F8BC30 )
+  if ( class28_global.dword_000014 > class28_global.dword_00001C )
   {
 LABEL_51:
-    *((_WORD *)v0 + 4) = -1; 
+   pNewSpan->word_000008 = -1; 
   }
   else
   {
-    v1 = 52 * data_F8BC28.dword_F8BC28;
-    v24 = 52 * data_F8BC28.dword_F8BC28;
     while ( 1 )
     {
-      v3 = pNewEdgesBuf[data_F8BC28.dword_F8BC28].ptr_000010;
+      v3 = pNewEdgesBuf[class28_global.dword_000014].ptr_000010;
       v2 = &flt_80C9D8;
       v25 = (double)v27;
       if ( v3 != &unk_4EC3EC )
@@ -9510,15 +9525,12 @@ LABEL_51:
       struct_80C980.word_80C9A0 = 0;
       struct_80C980.word_80C9A2 = 1;
       v6 = dword_80C9E8;
-      v26 = dword_80C9E8;
       if ( v6 )
       {
         while ( 1 )
         {
-          //v7 = *(_DWORD *)(v6 + 12);
          v7 = v6->ptr_80C9B0;
-          //if ( *(_DWORD *)(v6 + 8) )
-          if (v6->ptr_80C9B0)
+          if (v6->dword_80C9AC)
           {
            ++v7->word_80C9A2;
             if ( v7->word_80C9A2 == 1 )
@@ -9546,13 +9558,13 @@ LABEL_51:
               {
                 v11 = *(float *)v6 + 0.5;
                 v12 = (signed __int64)(v11 - (double)*(_WORD *)(struct_80C980.dword_80C994 + 32));
-                *((_WORD *)v0 + 6) = v12;
+                pNewSpan->word_00000C = v12;
                 if ( (_WORD)v12 > 0 )
                 {
-                  *((_WORD *)v0 + 5) = v27;
-                  *((_WORD *)v0 + 4) = *(_WORD *)(v8 + 32);
+                 pNewSpan->word_00000A = v27;
+                 pNewSpan->word_000008 = *(_WORD *)(v8 + 32);
                   v13 = *(_DWORD *)(v8 + 28);
-                  *((_DWORD *)v0 + 1) = v13;
+                 pNewSpan->dword_000004 = v13;
                   if ( v13 )
                   {
                     if ( *(_DWORD *)(v13 + 64) )
@@ -9560,20 +9572,19 @@ LABEL_51:
                       v14 = *(_DWORD *)(v13 + 68);
                       if ( !v14 )
                         return;
-                      *(_DWORD *)v14 = v0;
+                      *(_DWORD *)v14 = pNewSpan;
                     }
                     else
                     {
-                      *(_DWORD *)(v13 + 64) = v0;
+                      *(_DWORD *)(v13 + 64) = pNewSpan;
                     }
-                    *(_DWORD *)(v13 + 68) = v0;
+                    *(_DWORD *)(v13 + 68) = pNewSpan;
                   }
                   if ( pStruct9_global->dword_000038 >= 12499 )
                     return;
-                  v0 = (char *)v0 + 24;
+                  ++pNewSpan;
                   ++pStruct9_global->dword_000038;
                 }
-                v6 = v26;
                 *(_WORD *)(v7 + 32) = (signed __int64)v11;
                 *(_DWORD *)(v7 + 20) = v8;
                 *(_DWORD *)(v8 + 24) = v7;
@@ -9584,51 +9595,48 @@ LABEL_51:
           }
           else
           {
-            --*(_WORD *)(v7 + 34);
-            if ( !*(_WORD *)(v7 + 34) )
+            --v7->word_80C9A2;
+            if (!v7->word_80C9A2)
             {
               if ( struct_80C980.dword_80C994 == v7 )
               {
-                v15 = *(float *)v6 + 0.5;
-                v16 = (signed __int64)(v15 - (double)*(_WORD *)(v7 + 32));
-                *((_WORD *)v0 + 6) = v16;
-                if ( (_WORD)v16 > 0 )
+                v15 = v6->flt_80C9A4 + 0.5;
+                pNewSpan->word_00000C = v15 - (double)v7->word_80C9A0;
+                if (pNewSpan->word_00000C > 0)
                 {
-                  *((_WORD *)v0 + 5) = v27;
-                  *((_WORD *)v0 + 4) = *(_WORD *)(v7 + 32);
-                  v17 = *(_DWORD *)(v7 + 28);
-                  *((_DWORD *)v0 + 1) = v17;
-                  if ( v17 )
+                 pNewSpan->word_00000A = v27;
+                 pNewSpan->word_000008 = *(_WORD *)(v7 + 32);
+                  v17 = v7->word_80C9A0;
+                 pNewSpan->dword_000004 = v7->word_80C9A0;
+                  if (pNewSpan->dword_000004)
                   {
                     if ( *(_DWORD *)(v17 + 64) )
                     {
                       v18 = *(_DWORD *)(v17 + 68);
                       if ( !v18 )
                         return;
-                      *(_DWORD *)v18 = v0;
+                      *(_DWORD *)v18 = pNewSpan;
                     }
                     else
                     {
-                      *(_DWORD *)(v17 + 64) = v0;
+                      *(_DWORD *)(v17 + 64) = pNewSpan;
                     }
-                    *(_DWORD *)(v17 + 68) = v0;
+                    *(_DWORD *)(v17 + 68) = pNewSpan;
                   }
                   if ( pStruct9_global->dword_000038 >= 12499 )
                     return;
-                  v0 = (char *)v0 + 24;
+                  ++pNewSpan;
                   ++pStruct9_global->dword_000038;
                 }
-                *(_WORD *)(*(_DWORD *)(v7 + 20) + 32) = (signed __int64)v15;
-                v6 = v26;
+                v7->dword_80C994->word_80C9A0 = (signed __int64)v15;
               }
-              *(_DWORD *)(*(_DWORD *)(v7 + 20) + 24) = *(_DWORD *)(v7 + 24);
-              *(_DWORD *)(*(_DWORD *)(v7 + 24) + 20) = *(_DWORD *)(v7 + 20);
+              v7->dword_80C994->dword_80C998 = v7->dword_80C998;
+              v7->dword_80C998->dword_80C994 = v7->dword_80C994;
             }
           }
-          v26 = *(_DWORD *)(v6 + 16);
-          if ( !v26 )
+          if (!v6->pNext)
             break;
-          v6 = *(_DWORD *)(v6 + 16);
+          v6 = v6->pNext;
         }
       }
       for ( i = dword_80CA10[v27]; i; i = *(_DWORD *)(i + 24) )
@@ -9641,11 +9649,11 @@ LABEL_51:
         break;
 LABEL_50:
       ++v27;
-      v1 = v24 + 52;
-      v24 += 52;
-      if ( v27 > dword_F8BC30 )
+
+      if ( v27 > class28_global.dword_00001C )
         goto LABEL_51;
     }
+
     while ( 1 )
     {
       v21 = *(float **)(v20 + 16);
@@ -16052,12 +16060,12 @@ int sub_4C2EA0(struct unnamed_6BD080 *_this)
  int i;
 
   v3 = _this;
-  v1 = dword_F8BC1C - *(int*)class28_global - 4;
-  v2 = dword_F8BC20 - dword_F8BC18 - 4;
+  v1 = class28_global.dword_000008 - class28_global.dword_000000 - 4;
+  v2 = class28_global.dword_00000C - class28_global.dword_000004 - 4;
  for (i = 0; i < 1000; ++i)
  {
-  _this->word_000000[i * 2 + 0] = dword_F8BC24 + rand() % v1;
-  _this->word_000000[i * 2 + 1] = data_F8BC28.dword_F8BC28 + rand() % v2;
+  _this->word_000000[i * 2 + 0] = class28_global.dword_000010 + rand() % v1;
+  _this->word_000000[i * 2 + 1] = class28_global.dword_000014 + rand() % v2;
  }
  return 0;
 }
@@ -16390,8 +16398,7 @@ void __cdecl sub_461103()
         continue;
       if ( v18 )
       {
-       runtime_warning();
-       //decompilation error
+       runtime_warning(decompilation error);
         //sub_47732C(&pNPCStats->array_0013EF4[pNPCStats->dword_017FC0], v3, 0, v20);
         v15 = pNPCStats->dword_017FC0++ + 5000;
         *(_WORD *)v2 = v15;
@@ -16434,8 +16441,7 @@ LABEL_12:
   v1 = 0;
   if ( v6 > 0 )
   {
-   runtime_warning();
-    //sound staff crashes
+   runtime_warning(sound staff crashes);
    /*
     do
     {

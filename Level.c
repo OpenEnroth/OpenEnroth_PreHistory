@@ -1095,8 +1095,10 @@ LABEL_150:
       v120 = 0;
       v119 = 93;
     }
-    runtime_warning(); //sound loading error
-    //sub_4A9A67(pSoundList, v119, v120);
+
+    runtime_warning(sound loading error);
+    sub_4A9A67(pSoundList, v119, v120);
+
 LABEL_175:
     v113 += 4;
   }

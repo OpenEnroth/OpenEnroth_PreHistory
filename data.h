@@ -101,7 +101,6 @@ extern struct CSpriteFrameTable  *pSpriteFrameTable;
 
 extern struct class59 *pClass59_global;
 
-extern char class28_global[];
 extern char class23_instance[];
 
 
@@ -112,10 +111,10 @@ extern unsigned char pStringBuffer[];
 extern unsigned char cGameCDDriveLetter;
 
 
-extern void *pSpansBuf;
 extern struct Edge *pNewEdgesBuf;
-extern void *pSurfsBuf;
-extern void *pEdgesBuf;
+extern void        *pSurfsBuf;
+extern void        *pEdgesBuf;
+extern struct Span *pSpansBuf;
 
 
 

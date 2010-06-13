@@ -231,10 +231,6 @@ void CSpriteFrameTable_fn3(struct CSpriteFrameTable *_this)
 }
 
 //----- (0044D513) --------------------------------------------------------
-extern struct class35 class35_obj;
-extern _UNKNOWN unk_4E7E20;
-extern _UNKNOWN unk_4E7E24;
-extern _UNKNOWN unk_4E7E28;
 void CSpriteFrameTable_fn4(struct CSpriteFrameTable *_this, int a2)
 {
   int v2; // esi@1
@@ -257,7 +253,7 @@ void CSpriteFrameTable_fn4(struct CSpriteFrameTable *_this, int a2)
   int v27; // [sp-4h] [bp-4Ch]@37
   char v28; // [sp+9h] [bp-3Fh]@19
   char Str; // [sp+Ch] [bp-3Ch]@19
-  char Size; // [sp+2Ch] [bp-1Ch]@15
+  char Size[20]; // [sp+2Ch] [bp-1Ch]@15
   char Source[4]; // [sp+40h] [bp-8h]@19
   int v32; // [sp+44h] [bp-4h]@19
   int v33; // [sp+50h] [bp+8h]@4
@@ -378,7 +374,7 @@ LABEL_46:
           v19 = &_this->pSpriteSFrames[a2];
           if ( !((256 << v18) & *(_DWORD *)(v19 + 44)) )
           {
-            sprintfex(&Size, "%s%i", v19 + 12, v18);
+            wsprintfA(Size, "%s%i", v19 + 12, v18);
             goto LABEL_45;
           }
           if ( v18 == 1 )
@@ -412,7 +408,7 @@ LABEL_46:
             v27 = v19 + 12;
             v24 = "%s1";
 LABEL_42:
-            sprintfex(&Size, v24, v27);
+            wsprintfA(Size, v24, v27);
           }
 LABEL_45:
           v20 = sub_4AC7C0(pClass17_Sprites_LOD, &Size, _this->pSpriteSFrames[a2].word_000032);

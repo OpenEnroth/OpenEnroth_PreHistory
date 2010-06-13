@@ -2149,7 +2149,7 @@ char __cdecl sub_450218()
   i = 0;
 
   runtime_warning();
-  return 0;
+
   for (i = 0; i < 20; ++i)
   {
     v3 = &array_5E5150[i].dword_000004;
@@ -2632,8 +2632,8 @@ LABEL_29:
                   v25 = v24 / v42;
                   LODWORD(v24) = 0;
                   HIDWORD(v24) = pStruct9_global->dword_000014 << 16 >> 16;
-                  v35 = dword_F8BC3C - ((signed int)(((unsigned __int64)(v25 * v40) >> 16) + 32768) >> 16);
-                  v32 = dword_F8BC40 - ((signed int)(((unsigned __int64)(v24 / v42 * v31) >> 16) + 32768) >> 16);
+                  v35 = class28_global.dword_000028 - ((signed int)(((unsigned __int64)(v25 * v40) >> 16) + 32768) >> 16);
+                  v32 = class28_global.dword_00002C - ((signed int)(((unsigned __int64)(v24 / v42 * v31) >> 16) + 32768) >> 16);
                   if ( dword_5187E0 >= 500 )
                     return;
                   ++dword_5187E0;
@@ -2718,7 +2718,7 @@ int __cdecl sub_4666D5()
   struct_576FE8.dword_000004 = struct_576FE8.dword_000014;
   struct_576FE8.dword_000008 = struct_576FE8.dword_000018;
   struct_576FE8.dword_00000C = struct_576FE8.dword_00001C;
-  result = class28_fn0(class28_global, struct_576FE8.dword_000010, struct_576FE8.dword_000014, struct_576FE8.dword_000018, struct_576FE8.dword_00001C);
+  result = class28_fn0(&class28_global, struct_576FE8.dword_000010, struct_576FE8.dword_000014, struct_576FE8.dword_000018, struct_576FE8.dword_00001C);
 
   if ( dword_6BE360 == 2 )
     result = sub_485F64(pStruct9_global);
@@ -3095,8 +3095,9 @@ int __cdecl MenuLoop_Main()
     pGUIWindow2 = 0;
   }
   GUIWindowDelete(pGUIWindow_MainMenu);
-  runtime_warning();//return sub_4114F2(pClass17_Icons_LOD);
-  return 0;
+
+  runtime_warning();
+  return sub_4114F2(pClass17_Icons_LOD);
 }
 
 //----- (00404AC7) --------------------------------------------------------
@@ -4609,8 +4610,8 @@ LABEL_8:
 //----- (004647AB) --------------------------------------------------------
 void __cdecl sub_4647AB()
 {
- class28_fn0(class28_global, struct_576FE8.dword_000000, struct_576FE8.dword_000004, struct_576FE8.dword_000008, struct_576FE8.dword_00000C);
- class28_fn2(class28_global, (signed __int64)(flt_6BE3A0 * 65536.0));
+ class28_fn0(&class28_global, struct_576FE8.dword_000000, struct_576FE8.dword_000004, struct_576FE8.dword_000008, struct_576FE8.dword_00000C);
+ class28_fn2(&class28_global, (signed __int64)(flt_6BE3A0 * 65536.0));
 
  pClass55_global = malloc(sizeof(struct class55));
  memset(pClass55_global, 0, sizeof(struct class55));
@@ -4850,7 +4851,7 @@ void __cdecl sub_487DBE_LooksLikeResetNewEdgesBuf()
   dword_80CA10[i] = 0;
  }
 
- runtime_warning();  //wtf is this shit? o_O
+ runtime_warning(wtf is this shit? o_O);
  for (i = 0; i < 2000; ++i)
    *((_WORD *)pSurfsBuf + 17) = 0;
 }
@@ -5362,7 +5363,6 @@ bool __cdecl sub_47F0E2()
  int i;
 
  runtime_warning();
- return true;
 
  for (i = 0; i < pClass17_Bitmaps_LOD->uNumLoadedFiles; ++i)
    pClass17_Bitmaps_LOD->aLODHeaders[i].uDecompressedSize = sub_47CB57(pClass17_Bitmaps_LOD->aLODHeaders[i].pIndexedPixels,
@@ -7510,13 +7510,12 @@ void __fastcall sub_481E55(int a1)
   double v7; // st3@3
 
   runtime_warning();
-  return;
 
   if ( a1 > 0 )
   {
     v5 = (double)pStruct9_global->dword_000014;
-    v4 = (double)dword_F8BC3C;
-    v3 = (double)dword_F8BC40;
+    v4 = (double)class28_global.dword_000028;
+    v3 = (double)class28_global.dword_00002C;
     v1 = 0;
     v2 = a1;
     do
@@ -8897,9 +8896,6 @@ char __fastcall sub_486B4E(int a1, int a2, int *a3, struct struct8 *a4)
   float v59; // [sp+78h] [bp-8h]@10
   int v60; // [sp+7Ch] [bp-4h]@14
   char *v61; // [sp+8Ch] [bp+Ch]@2
-
-  runtime_warning();
-  return 0;
 
   v5 = a4;
   v4 = a1;

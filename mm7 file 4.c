@@ -570,12 +570,12 @@ int __fastcall sub_4254D2(signed int a1)
   float *v144; // [sp+D4h] [bp-4h]@48
   _UNKNOWN *v145; // [sp+D4h] [bp-4h]@65
 
-  v106 = (double)dword_F8BC24;
-  v105 = (double)HIDWORD(data_F8BC28.qword_F8BC28);
+  v106 = (double)class28_global.dword_000010;
+  v105 = (double)class28_global.dword_000018;
   v122 = a1;
   v141 = 1;
-  v109 = (double)LODWORD(data_F8BC28.qword_F8BC28);
-  v107 = (double)(dword_F8BC30 + 1);
+  v109 = (double)class28_global.dword_000014;
+  v107 = (double)(class28_global.dword_00001C + 1);
   if ( a1 <= 0 )
     return v122;
   v132 = a1;
@@ -596,7 +596,7 @@ int __fastcall sub_4254D2(signed int a1)
   v115 = 0;
   memcpy((char *)&unk_50AC10 + v2, &unk_50AC10, 0x30u);
   v6 = flt_50AC28 + 6.755399441055744e15;
-  v5 = LODWORD(v6) >= dword_F8BC24;
+  v5 = LODWORD(v6) >= class28_global.dword_000010;
   if ( v122 < 1 )
     goto LABEL_112;
   v8 = &unk_50A2CC;
@@ -609,11 +609,11 @@ int __fastcall sub_4254D2(signed int a1)
   do
   {
     v108 = *((float *)v7 + 7) + 6.755399441055744e15;
-    v111 = LODWORD(v108) >= dword_F8BC24;
+    v111 = LODWORD(v108) >= class28_global.dword_000010;
     if ( !(v5 ^ v111) )
       goto LABEL_25;
     v9 = v106;
-    if ( LODWORD(v108) >= dword_F8BC24 )
+    if ( LODWORD(v108) >= class28_global.dword_000010 )
     {
       v11 = (v9 - *((float *)v7 - 5)) / (*((float *)v7 + 7) - *((float *)v7 - 5));
       *(float *)v8 = (*((float *)v7 + 8) - *((float *)v7 - 4)) * v11 + *((float *)v7 - 4);
@@ -695,7 +695,7 @@ LABEL_25:
 
    memcpy((char *)&unk_50A2B0 + 48 * v115, &unk_50A2B0, 0x30u);
    v26 = flt_50A2C8 + 6.755399441055744e15;
-   v25 = LODWORD(v26) <= HIDWORD(data_F8BC28.qword_F8BC28);
+   v25 = LODWORD(v26) <= class28_global.dword_000018;
    if (v115 < 1)
      goto LABEL_112;
   }
@@ -712,12 +712,12 @@ LABEL_25:
   while ( 2 )
   {
     v102 = *((float *)v27 + 7) + 6.755399441055744e15;
-    v29 = LODWORD(v102) <= HIDWORD(data_F8BC28.qword_F8BC28);
-    v112 = LODWORD(v102) <= HIDWORD(data_F8BC28.qword_F8BC28);
+    v29 = LODWORD(v102) <= class28_global.dword_000018;
+    v112 = LODWORD(v102) <= class28_global.dword_000018;
     if ( v25 != v29 )
     {
       v30 = v105;
-      if ( LODWORD(v102) <= HIDWORD(data_F8BC28.qword_F8BC28))
+      if ( LODWORD(v102) <= class28_global.dword_000018)
       //if (1)
       {
         v32 = (v30 - *((float *)v27 - 5)) / (*((float *)v27 + 7) - *((float *)v27 - 5));
@@ -804,7 +804,7 @@ LABEL_42:
   v128 = 0;
   memcpy((char *)&unk_509950 + 48 * v120, &unk_509950, 0x30u);
   v46 = flt_50996C + 6.755399441055744e15;
-  v45 = LODWORD(v46) >= LODWORD(data_F8BC28.qword_F8BC28);
+  v45 = LODWORD(v46) >= class28_global.dword_000014;
   if (v120 < 1)
     goto LABEL_112;
 
@@ -819,12 +819,12 @@ LABEL_42:
   while ( 2 )
   {
     v103 = *((float *)v47 + 8) + 6.755399441055744e15;
-    v49 = LODWORD(v103) >= LODWORD(data_F8BC28.qword_F8BC28);
-    v113 = LODWORD(v103) >= LODWORD(data_F8BC28.qword_F8BC28);
+    v49 = LODWORD(v103) >= class28_global.dword_000014;
+    v113 = LODWORD(v103) >= class28_global.dword_000014;
     if ( v45 != v49 )
     {
       v50 = v109;
-      if ( LODWORD(v103) >= LODWORD(data_F8BC28.qword_F8BC28))
+      if ( LODWORD(v103) >= class28_global.dword_000014)
       //if (LOWORD(v103))
       {
         v52 = (v50 - *((float *)v47 - 4)) / (*((float *)v47 + 8) - *((float *)v47 - 4));
@@ -897,7 +897,7 @@ LABEL_59:
     || (v121 = 0,
         memcpy(array_508FF0 + v128, array_508FF0, sizeof(struct struct14)),
         v66 = array_508FF0[0].flt_00001C + 6.755399441055744e15,
-        v65 = LODWORD(v66) <= dword_F8BC30,
+        v65 = LODWORD(v66) <= class28_global.dword_00001C,
         v128 < 1) )
     goto LABEL_112;
   v68 = &unk_5086A8;
@@ -911,12 +911,12 @@ LABEL_59:
   while ( 2 )
   {
     v104 = *((float *)v67 + 8) + 6.755399441055744e15;
-    v69 = LODWORD(v104) <= dword_F8BC30;
-    v114 = LODWORD(v104) <= dword_F8BC30;
+    v69 = LODWORD(v104) <= class28_global.dword_00001C;
+    v114 = LODWORD(v104) <= class28_global.dword_00001C;
     if ( v65 != v69 )
     {
       v70 = v107;
-      if ( LODWORD(v104) <= dword_F8BC30 )
+      if ( LODWORD(v104) <= class28_global.dword_00001C )
       {
         v72 = (v70 - *((float *)v67 - 4)) / (*((float *)v67 + 8) - *((float *)v67 - 4));
         *(float *)v68 = (*((float *)v67 + 7) - *((float *)v67 - 5)) * v72 + *((float *)v67 - 5);
@@ -997,11 +997,11 @@ LABEL_76:
       LODWORD(v88) = *(_DWORD *)v86;
       *((float *)v86 - 3) = 1.0 / *((float *)v86 + 2);
       v89 = v88 + 6.755399441055744e15;
-      if ( LODWORD(v89) <= HIDWORD(data_F8BC28.qword_F8BC28))
+      if ( LODWORD(v89) <= class28_global.dword_000018)
       //if (1)
       {
         v91 = *(float *)v86 + 6.755399441055744e15;
-        if ( LODWORD(v91) >= dword_F8BC24 )
+        if ( LODWORD(v91) >= class28_global.dword_000010 )
           goto LABEL_88;
         v90 = v106;
       }
@@ -1012,7 +1012,7 @@ LABEL_76:
       *(_DWORD *)v86 = LODWORD(v90);
 LABEL_88:
       v92 = *((float *)v86 + 1) + 6.755399441055744e15;
-      if ( LODWORD(v92) > dword_F8BC30 )
+      if ( LODWORD(v92) > class28_global.dword_00001C )
       {
         v93 = v107;
 LABEL_92:
@@ -1020,7 +1020,7 @@ LABEL_92:
         goto LABEL_93;
       }
       v94 = *((float *)v86 + 1) + 6.755399441055744e15;
-      if ( LODWORD(v94) < LODWORD(data_F8BC28.qword_F8BC28))
+      if ( LODWORD(v94) < class28_global.dword_000014)
       //if (1)
       {
         v93 = v109;
@@ -8410,8 +8410,8 @@ int __thiscall sub_436A9A(int this, signed int a2, signed int a3, signed int a4,
     *(_DWORD *)a5 = LODWORD(v8);
     v13 = (double)a4 * *(float *)(this + 196) * v7 + *(float *)(this + 204);
     v9 = v13 + 6.755399441055744e15;
-    result = dword_F8BC30 - LODWORD(v9);
-    *(_DWORD *)a6 = dword_F8BC30 - LODWORD(v9);
+    result = class28_global.dword_00001C - LODWORD(v9);
+    *(_DWORD *)a6 = class28_global.dword_00001C - LODWORD(v9);
   }
   else
   {
@@ -8650,10 +8650,10 @@ int __stdcall sub_437143(int a1, int a2, int a3, int a4)
       *(float *)v5 = 1.0 / (*(float *)(v5 - 20) + 0.0000001000000011686097);
       memcpy((void *)(v6 - 28), (const void *)(v5 - 32), 0x30u);
       v8 = (double)pStruct9_global->dword_000014 * *(float *)(v7 + v5);
-      v9 = (double)dword_F8BC3C - v8 * *(float *)(v5 - 16);
+      v9 = (double)class28_global.dword_000028 - v8 * *(float *)(v5 - 16);
       v5 += 48;
       *(float *)(v6 - 4) = v9;
-      *(float *)v6 = (double)dword_F8BC40 - v8 * *(float *)(v5 - 60);
+      *(float *)v6 = (double)class28_global.dword_00002C - v8 * *(float *)(v5 - 60);
       v6 += 48;
     }
     while ( v12-- != 1 );
@@ -9399,13 +9399,13 @@ LABEL_15:
     }
     else
     {
-      if ( (double)dword_F8BC24 <= v25 - 1.0 )
+      if ( (double)class28_global.dword_000010 <= v25 - 1.0 )
       {
-        if ( (double)SHIDWORD(data_F8BC28.qword_F8BC28) > v25 + 2.0 )
+        if ( (double)class28_global.dword_000018 > v25 + 2.0 )
         {
-          if ( (double)(signed int)data_F8BC28.qword_F8BC28 <= v26 - 1.0 )
+          if ( (double)class28_global.dword_000014 <= v26 - 1.0 )
           {
-            if ( (double)dword_F8BC30 > v26 + 2.0 )
+            if ( (double)class28_global.dword_00001C > v26 + 2.0 )
             {
               if ( v12 > 0 )
               {
