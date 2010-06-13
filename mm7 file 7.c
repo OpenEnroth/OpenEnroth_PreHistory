@@ -6897,7 +6897,7 @@ LABEL_61:
 }
 
 //----- (004B5D7C) --------------------------------------------------------
-signed int __cdecl sub_4B5D7C()
+signed int __cdecl sub_4B5D7C() //buy skills in shop
 {
   signed int v0; // ebx@1
   void *v1; // edi@1

@@ -277,7 +277,7 @@ extern unsigned char array_4ED7B0[0x70];
 //char byte_4ED7C4[array_size_unknown]; // weak
 //char byte_4ED7C8[array_size_unknown]; // weak
 
-extern unsigned char array_4ED820[0x12C];
+extern unsigned char AvailSkillPerClass[9][37]; // 0x14D = 9 classes X 37 skills
 //char byte_4ED820[array_size_unknown]; // weak
 
 extern char byte_4ED94C[array_size_unknown]; // weak

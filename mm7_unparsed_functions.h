@@ -1072,7 +1072,7 @@ signed int __thiscall sub_4903C9(struct Player *_this, signed int a2);
 __int16 __thiscall sub_49048D(int this, int a2);
 signed int __thiscall sub_4905F5(int this, int a2);
 void *__thiscall sub_49070F(int this);
-unsigned int __thiscall sub_4907E7(void *this, int a2);
+unsigned int PlayerCreationUI_GetStatColor(struct Player *_this, int Stat);
 char __thiscall sub_4908A8(void *this, int a2, __int64 a3);
 signed int __cdecl sub_4908DE();
 void __thiscall sub_4909F4(void *this);

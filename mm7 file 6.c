@@ -2377,7 +2377,7 @@ signed int __thiscall sub_4903C9(struct Player *_this, signed int a2)
       
       for (i = 0; i < 37; ++i)
       {
-        if ( _this->array_000108[skidx] && array_4ED820[37 * (_this->uClass >> 2) + i] == 2 )
+        if ( _this->array_000108[skidx] && AvailSkillPerClass[_this->uClass >> 2][i] == 2 )
         {
           if ( v8 == a2 )
             return i;
@@ -2394,7 +2394,7 @@ signed int __thiscall sub_4903C9(struct Player *_this, signed int a2)
         v6 = 0;
         for (i = 0; i < 37; ++i)
         {
-          if ( _this->array_000108[skidx] && array_4ED820[37 * (_this->uClass >> 2) + i] == 1 )
+          if ( _this->array_000108[skidx] && AvailSkillPerClass[_this->uClass >> 2][i] == 1 )
           {
             if ( v6 == a2 - 2 )
               return i;
@@ -2407,10 +2407,9 @@ signed int __thiscall sub_4903C9(struct Player *_this, signed int a2)
       {
         if ( a2 <= 12 )
         {
-          i = 0;
           v3 = 0;
-          v4 = &array_4ED820[37 * (_this->uClass >> 2)];
-          do
+          v4 = &AvailSkillPerClass[_this->uClass >> 2];
+          for (i = 0; i < 37; ++i)
           {
             if ( *v4 == 1 )
             {
@@ -2418,10 +2417,8 @@ signed int __thiscall sub_4903C9(struct Player *_this, signed int a2)
                 return i;
               ++v3;
             }
-            ++i;
             ++v4;
           }
-          while ( i < 37 );
         }
       }
     }
@@ -2446,7 +2443,7 @@ __int16 __thiscall sub_49048D(int this, int a2)
   int v13; // edi@32
   int v15; // [sp+Ch] [bp-4h]@1
 
-   v3 = this;
+  v3 = this;
   v2 = 4 * (a2 + 7 * GetRaceByFace(this));
   v4 = array_4ED7B0[v2];
   v5 = array_4ED7B0[v2 + 2];

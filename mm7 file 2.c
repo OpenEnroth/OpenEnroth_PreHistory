@@ -8417,7 +8417,7 @@ int sub_49024A(struct Player *_this, char a2)
 
   for (i = 0; i < 37; ++i)
   {
-    if (array_4ED820[37 * (_this->uClass >> 2) + i] == 2 )
+    if (AvailSkillPerClass[_this->uClass >> 2][i] == 2 )
     {
      _this->array_000108[i] = 1;
       if ( (unsigned int)(i - 12) <= 8 )

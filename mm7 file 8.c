@@ -13607,15 +13607,12 @@ LABEL_5:
 }
 
 //----- (004907E7) --------------------------------------------------------
-unsigned int sub_4907E7(struct Player *_this, int a2)
+unsigned int PlayerCreationUI_GetStatColor(struct Player *_this, int Stat)
 {
-  unsigned __int8 v2; // zf@1
-  char v3; // sf@1
-  unsigned __int8 v4; // of@1
   int v7; // eax@1
   int v8; // edx@1
 
- switch (a2)
+ switch (Stat)
  {
   case 0:  v8 = _this->uStrength;     break;
   case 1:  v8 = _this->uIntelligence; break;
@@ -13624,22 +13621,17 @@ unsigned int sub_4907E7(struct Player *_this, int a2)
   case 4:  v8 = _this->uAccuracy;     break;
   case 5:  v8 = _this->uSpeed;        break;
   case 6:  v8 = _this->uLuck;         break;
-  default: v8 = a2;                   break;
+  default: v8 = Stat;                 break;
  }
 
-  
-  //v11 = sub_40DEF3(0xFFu, 0x23u, 0);
-  //v10 = sub_40DEF3(0, 0xFFu, 0);
-  //v5 = sub_40DEF3(0xFFu, 0xFFu, 0xFFu);
-
- v7 = array_4ED7B0[4 * (a2 + 7 * GetRaceByFace(_this))];
+ v7 = array_4ED7B0[4 * (Stat + 7 * GetRaceByFace(_this))];
 
  if (v8 == v7)
-   return 0xFF00FF00;
+   return 0xFFFFFFFF;  // white
  else if (v8 > v7)
-   return 0xFFFFFFFF;
+   return 0xFF00FF00;  // green
  else
-   return 0xFFFF2300;
+   return 0xFFFF2300;  // red
 }
 
 //----- (0040B4B9) --------------------------------------------------------
