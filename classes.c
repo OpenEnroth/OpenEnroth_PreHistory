@@ -10430,12 +10430,10 @@ LABEL_15:
 int Party_CreateDefaultParty(struct Party *_this, char a2)
 {
   signed __int16 v2; // ax@1
-  int v3; // ecx@1
   int v4; // esi@1
   int v5; // esi@3
-  int v6; // eax@5
+  short *v6; // eax@5
   signed int v7; // edx@5
-  int v8; // eax@11
   unsigned __int8 v9; // zf@37
   char v10; // sf@37
   unsigned __int8 v11; // of@37
@@ -10445,12 +10443,10 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
   char v15; // zf@42
   int v16; // [sp-4h] [bp-44h]@14
   int v17; // [sp-4h] [bp-44h]@26
-  int v18; // [sp+10h] [bp-30h]@1
   int v19; // [sp+14h] [bp-2Ch]@11
   signed int v20; // [sp+18h] [bp-28h]@1
-  char Dst; // [sp+1Ch] [bp-24h]@10
-
-  v4 = _this;
+  char Dst[32 + array_size_unknown]; // [sp+1Ch] [bp-24h]@10
+ int i;
 
   strcpy(_this->pPlayers[0].sName, pGlobalTXT_LocalizationStrings[509]);
   _this->pPlayers[0].uFace = 17;
@@ -10535,41 +10531,42 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
   _this->pPlayers[3].array_000108[9] = 1;
   _this->pPlayers[3].array_000108[33] = 1;
 
-
+  
+  v4 = _this;
   v2 = 10;
-  v3 = (char *)v4 + 8522;
 
-  v18 = (char *)v4 + 8522;
   v20 = 4;
+  i = 0;
   while ( 1 )
   {
-    v5 = v3 - 6014;
-    if ( !*(_BYTE *)(v3 - 5829) )
-      *(_WORD *)v3 = v2;
+    v5 = &_this->pPlayers[i];
+
+    if (!_this->pPlayers[i].uClass)
+      _this->pPlayers[i].word_00177E = v2;
+
     v7 = 0;
-    v6 = v3 - 5726;
-    while ( !*(_WORD *)v6 )
+    v6 = _this->pPlayers[i].array_000108 + 12;
+    while (!*v6++)
     {
       ++v7;
-      v6 += 2;
       if ( v7 >= 9 )
         goto LABEL_10;
     }
-    *(_BYTE *)(v5 + 6734) = v7;
+    _this->pPlayers[i].byte_001A4E = v7;
+
 LABEL_10:
-    *(_WORD *)(v5 + 6814) = 0;
-    sub_402F07((int)&Dst);
+    _this->pPlayers[i].word_001A9E = 0;
+    sub_402F07(Dst);
     if ( a2 )
     {
-      sub_456620(pClass40, 2, 40, (int)&Dst);
-      sub_492826((void *)v5, -1, (int)&Dst);
-      v8 = 0;
+      sub_456620(pClass40, 2, 40, Dst);
+      sub_492826(&_this->pPlayers[i], -1, Dst);
       v19 = 0;
       do
       {
-        if ( *(_WORD *)(v5 + 2 * v8 + 264) )
+        if (_this->pPlayers[i].array_000108[v19])
         {
-          switch ( v8 )
+          switch (v19)
           {
             case 0:
               v16 = 61;
@@ -10604,7 +10601,7 @@ LABEL_10:
             case 11:
               v16 = 76;
 LABEL_25:
-              sub_492745((void *)v5, v16);
+              sub_492745(&_this->pPlayers[i], v16);
               break;
             case 12:
               v17 = 401;
@@ -10634,7 +10631,7 @@ LABEL_25:
             case 27:
             case 29:
             case 36:
-              sub_4927A8((void *)v5, -1, 220);
+              sub_4927A8(&_this->pPlayers[i], -1, 220);
               v17 = 5 * (rand() % 3 + 40);
               goto LABEL_36;
             case 30:
@@ -10643,19 +10640,20 @@ LABEL_25:
             case 31:
               v17 = 110;
 LABEL_36:
-              sub_4927A8((void *)v5, -1, v17);
+              sub_4927A8(&_this->pPlayers[i], -1, v17);
               break;
             default:
               break;
           }
         }
-        v8 = v19 + 1;
-        compile_error;//v11 = __SETO__(v19 + 1, 36);
-        v9 = v19 == 35;
-        v10 = v19++ - 35 < 0;
+        //v11 = __SETO__(v19 + 1, 36);
+        //v9 = v19 == 35;
+        //v10 = v19++ - 35 < 0;
+        v9 = ++v19 < 37;
       }
-      while ( (unsigned __int8)(v10 ^ v11) | v9 );
-      v12 = v5 + 552;
+      while (v9);
+
+      v12 = v5 + 0x228;
       v13 = 138;
       do
       {
@@ -10666,14 +10664,12 @@ LABEL_36:
       }
       while ( v13 );
     }
-    *(_DWORD *)(v5 + 6460) = sub_48E4F8(v5);
-    result = sub_48E565(v5);
-    v18 += 6972;
+    _this->pPlayers[i].dword_00193C = sub_48E4F8(&_this->pPlayers[i]);
+    result = sub_48E565(&_this->pPlayers[i]);
     v15 = v20-- == 1;
-    *(_DWORD *)(v5 + 6464) = result;
+    _this->pPlayers[i].dword_001940 = result;
     if ( v15 )
       return result;
-    v3 = v18;
     v2 = 10;
   }
 }
