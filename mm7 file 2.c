@@ -4327,7 +4327,7 @@ char __fastcall sub_40DBD3(int this, __int16 a2)
 //----- (00490913) --------------------------------------------------------
 signed int __cdecl PlayerCreation_ComputeAttributeBonus()
 {
-  signed int v0; // edi@1
+  signed int vStat; // edi@1
   signed int v1; // esi@1
   int v2; // ebx@2
   signed int v3; // eax@17
@@ -4338,41 +4338,40 @@ signed int __cdecl PlayerCreation_ComputeAttributeBonus()
   signed int v9; // [sp+10h] [bp-4h]@2
 
   v8 = 50;
-  v0 = 50;
+  vStat = 50;
   for(v1 = 0;v1 < 4; v1 ++)
-  {
-    v9 = 0;
+  {    
     v2 = 7 * GetRaceByFace(&pParty_global->pPlayers[v1]);
-    do
+    for(v9 = 0; v9 <= 6; v9++)
     {
       switch ( v9 )
       {
           case 1:
-            v0 = pParty_global->pPlayers[v1].uIntelligence;
+            vStat = pParty_global->pPlayers[v1].uIntelligence;
             break;
           case 2:
-            v0 = pParty_global->pPlayers[v1].uWillpower;
+            vStat = pParty_global->pPlayers[v1].uWillpower;
             break;
           case 3:
-            v0 = pParty_global->pPlayers[v1].uEndurance;
+            vStat = pParty_global->pPlayers[v1].uEndurance;
             break;
           case 4:
-            v0 = pParty_global->pPlayers[v1].uSpeed;
+            vStat = pParty_global->pPlayers[v1].uAccuracy;
             break;
           case 5:
-            v0 = pParty_global->pPlayers[v1].uAccuracy;
+            vStat = pParty_global->pPlayers[v1].uSpeed;
             break;
           case 6:
-            v0 = pParty_global->pPlayers[v1].uLuck;
+            vStat = pParty_global->pPlayers[v1].uLuck;
             break;
           case 0:
           default:
-            v0 = pParty_global->pPlayers[v1].uStrength;
+            vStat = pParty_global->pPlayers[v1].uStrength;
             break;
       }
       v4 = 4 * (v2 + v9);
       v3 = array_4ED7B0[v4];
-      if ( v0 >= v3 )
+      if ( vStat >= v3 )
       {
         v5 = array_4ED7B0[v4 + 2];
         v6 = array_4ED7B0[v4 + 3];
@@ -4382,10 +4381,8 @@ signed int __cdecl PlayerCreation_ComputeAttributeBonus()
         v5 = array_4ED7B0[v4 + 3];
         v6 = array_4ED7B0[v4 + 2];
       }
-      v8 += v5 * (v3 - v0) / v6;
-      ++v9;
+      v8 += v5 * (v3 - vStat) / v6;
     }
-    while ( v9 <= 6 );
   }
   return v8;
 }

@@ -8523,7 +8523,7 @@ int GetRaceByFace(struct Player *_this)
   v2 = _this->uFace;
   if ( v2 > 15 && v2 < 20)
     return 2;
-  else if ( v2 > 1)
+  else if ( v2 > 12)
     return 3;
   else if ( v2 >= 0 )
   {
