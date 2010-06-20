@@ -10484,10 +10484,10 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
   _this->pPlayers[1].uSpeed = 13;
   _this->pPlayers[1].uLuck = 13;
 
-  _this->pPlayers[1].array_000108[1] = 1;
-  _this->pPlayers[1].array_000108[5] = 1;
+  _this->pPlayers[1].array_000108[2] = 1;
   _this->pPlayers[1].array_000108[9] = 1;
-  _this->pPlayers[1].array_000108[33] = 1;
+  _this->pPlayers[1].array_000108[29] = 1;
+  _this->pPlayers[1].array_000108[34] = 1;
 
 
 
@@ -10505,10 +10505,10 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
   _this->pPlayers[2].uSpeed = 13;
   _this->pPlayers[2].uLuck = 7;
 
-  _this->pPlayers[2].array_000108[1] = 1;
-  _this->pPlayers[2].array_000108[5] = 1;
+  _this->pPlayers[2].array_000108[6] = 1;
   _this->pPlayers[2].array_000108[9] = 1;
-  _this->pPlayers[2].array_000108[33] = 1;
+  _this->pPlayers[2].array_000108[18] = 1;
+  _this->pPlayers[2].array_000108[35] = 1;
 
 
 
@@ -10526,10 +10526,10 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
   _this->pPlayers[3].uSpeed = 13;
   _this->pPlayers[3].uLuck = 7;
 
-  _this->pPlayers[3].array_000108[1] = 1;
-  _this->pPlayers[3].array_000108[5] = 1;
+  _this->pPlayers[3].array_000108[0] = 1;
   _this->pPlayers[3].array_000108[9] = 1;
-  _this->pPlayers[3].array_000108[33] = 1;
+  _this->pPlayers[3].array_000108[12] = 1;
+  _this->pPlayers[3].array_000108[13] = 1;
 
   
   v4 = _this;
