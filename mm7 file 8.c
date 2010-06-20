@@ -955,11 +955,11 @@ LABEL_27:
 
     pParty_global->pPlayers[i].word_001A9E = 0;
     v15 = 0;
-    v14 = &pParty_global->pPlayers[i].array_000108[12];// v12 - 5726;
+    v14 = &pParty_global->pPlayers[i].ActiveSkills[SKILL_FIREMAGIC]; // starting from first magic skill 
     while (!*v14++)
     {
       ++v15;
-      if ( v15 >= 9 )
+      if ( v15 >= 9 ) // 9 - is the last magic skill
         goto LABEL_45;
     }
     pParty_global->pPlayers[i].byte_001A4E = v15;
@@ -971,7 +971,7 @@ LABEL_45:
     v30 = 0;
     do
     {
-      if (pParty_global->pPlayers[i].array_000108[v16])
+      if (pParty_global->pPlayers[i].ActiveSkills[v16])
       {
         switch ( v16 )
         {
@@ -1009,31 +1009,31 @@ LABEL_45:
             v20 = 76;
             goto LABEL_69;
           case 12:
-            sub_4927A8(&pParty_global->pPlayers[i], -1, 401);
+            CreateItemInInventory(&pParty_global->pPlayers[i], -1, 401);
             pParty_global->pPlayers[i].byte_000192 = 1;
             break;
           case 13:
-            sub_4927A8(&pParty_global->pPlayers[i], -1, 412);
+            CreateItemInInventory(&pParty_global->pPlayers[i], -1, 412);
             pParty_global->pPlayers[i].byte_00019D = 1;
             break;
           case 14:
-            sub_4927A8(&pParty_global->pPlayers[i], -1, 423);
+            CreateItemInInventory(&pParty_global->pPlayers[i], -1, 423);
             pParty_global->pPlayers[i].byte_0001A8 = 1;
             break;
           case 15:
-            sub_4927A8(&pParty_global->pPlayers[i], -1, 434);
+            CreateItemInInventory(&pParty_global->pPlayers[i], -1, 434);
             pParty_global->pPlayers[i].byte_0001B3 = 1;
             break;
           case 16:
-            sub_4927A8(&pParty_global->pPlayers[i], -1, 445);
+            CreateItemInInventory(&pParty_global->pPlayers[i], -1, 445);
             pParty_global->pPlayers[i].byte_0001BE = 1;
             break;
           case 17:
-            sub_4927A8(&pParty_global->pPlayers[i], -1, 456);
+            CreateItemInInventory(&pParty_global->pPlayers[i], -1, 456);
             pParty_global->pPlayers[i].byte_0001C9 = 1;
             break;
           case 18:
-            sub_4927A8(&pParty_global->pPlayers[i], -1, 467);
+            CreateItemInInventory(&pParty_global->pPlayers[i], -1, 467);
             pParty_global->pPlayers[i].byte_0001D4 = 1;
             break;
           case 21:
@@ -1042,7 +1042,7 @@ LABEL_45:
           case 26:
           case 29:
           case 36:
-            sub_4927A8(&pParty_global->pPlayers[i], -1, 220);
+            CreateItemInInventory(&pParty_global->pPlayers[i], -1, 220);
             v20 = 5 * (rand() % 3 + 40);
             goto LABEL_69;
           case 30:
@@ -1051,7 +1051,7 @@ LABEL_45:
           case 31:
             v20 = 110;
 LABEL_69:
-            sub_4927A8(&pParty_global->pPlayers[i], -1, v20);
+            CreateItemInInventory(&pParty_global->pPlayers[i], -1, v20);
             break;
           default:
             break;

@@ -17289,17 +17289,17 @@ void *__cdecl PlayerCreationUI_Draw()
 
 
 
-    v39 = sub_4903C9(&pParty_global->pPlayers[i], 0);
+    v39 = GetSkillIdxByOrder(&pParty_global->pPlayers[i], 0);
     v40 = AlignText_Center(150, aSkillNames[v39], pFontCreate);
     wsprintfA(ExistingFileName, "\t%03u%s", v40, aSkillNames[v39]);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141 - 24, 311, ExistingFileName, 0xFFFFFFFF, 0, 0);
 
-    v41 = sub_4903C9(&pParty_global->pPlayers[i], 1);
+    v41 = GetSkillIdxByOrder(&pParty_global->pPlayers[i], 1);
     v42 = AlignText_Center(150, aSkillNames[v41], pFontCreate);
     wsprintfA(ExistingFileName, "\t%03u%s", v42, aSkillNames[v41]);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141 - 24, v137 + 311, ExistingFileName, 0xFFFFFFFF, 0, 0);
 
-    v43 = sub_4903C9(&pParty_global->pPlayers[i], 2);
+    v43 = GetSkillIdxByOrder(&pParty_global->pPlayers[i], 2);
     v46 = AlignText_Center(150, aSkillNames[v43], pFontCreate);
     wsprintfA(ExistingFileName, "\t%03u%s", v46, aSkillNames[v43]);
     uColor = 0xFF00FF00;
@@ -17307,7 +17307,7 @@ void *__cdecl PlayerCreationUI_Draw()
       uColor = 0xFF00FFFF;
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141 - 24, 2 * v137 + 311, ExistingFileName, uColor, 0, 0);
 
-    v48 = sub_4903C9(&pParty_global->pPlayers[i], 3);
+    v48 = GetSkillIdxByOrder(&pParty_global->pPlayers[i], 3);
     v51 = AlignText_Center(150, aSkillNames[v48], pFontCreate);
     sprintfex(ExistingFileName, "\t%03u%s", v51, aSkillNames[v48]);
     uColor = 0xFF00FF00;
@@ -17416,10 +17416,9 @@ void *__cdecl PlayerCreationUI_Draw()
   v103 = AlignText_Center(236, pGlobalTXT_LocalizationStrings[20], pFontCreate);
   FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v103 + 37, 395, pGlobalTXT_LocalizationStrings[20], 0xFFD1BB61, 0, 0);
 
-  v143 = 0;
-  do
+  for(v143 = 0; v143 < 9; ++v143)
   {
-    v106 = sub_4903C9(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], v143 + 4);
+    v106 = GetSkillIdxByOrder(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], v143 + 4);
     strcpy(Str1, aSkillNames[v106]);
     v104 = strlen(Str1);
     v105 = 0;
@@ -17438,15 +17437,13 @@ LABEL_77:
     if ( v133 <= 3 )
       v136 = 0;
     uColor = 0xFF00F7F7;
-    if (!pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].array_000108[v106])
+    if (!pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].ActiveSkills[v106])
       uColor = 0xFFFFFFFF;
     v108 = v143 / 3;
     v110 = v137 * (v143 % 3) + 417;
     v111 = AlignText_Center(100, Str1, pFontCreate);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, 100 * v108 + v111 + v136 + 17, v110, Str1, uColor, 0, 0);
-    ++v143;
   }
-  while ( v143 < 9 );
 
   v115 = AlignText_Center(92, pGlobalTXT_LocalizationStrings[30], pFontCreate);
   FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v115 + 533, 394, pGlobalTXT_LocalizationStrings[30], 0xFFD1BB61, 0, 0);

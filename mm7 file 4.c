@@ -7829,9 +7829,9 @@ LABEL_105:
           }
           if ( v49 == 64 )
           {
-            v6 = sub_4903C9(v0 + 6972 * uPlayerCreationUI_SelectedCharacter, v48 + 4);
-            if ( sub_4903C9(v0 + 6972 * uPlayerCreationUI_SelectedCharacter, 3) == 37 )
-              pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].array_000108[v6] = 1;
+            v6 = GetSkillIdxByOrder(v0 + 6972 * uPlayerCreationUI_SelectedCharacter, v48 + 4);
+            if ( GetSkillIdxByOrder(v0 + 6972 * uPlayerCreationUI_SelectedCharacter, 3) == 37 ) // 37 - no more skills
+              pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].ActiveSkills[v6] = 1;
             v46 = 0;
             v42 = 0;
             v40 = 0;
@@ -7872,7 +7872,7 @@ LABEL_105:
               v4 = v5 % 7 + v50 + 7 * v48;
 LABEL_44:
               *(_DWORD *)(pGUIWindow_PlayerCreation + 44) = v4;
-              pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].array_000108[sub_4903C9(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], v45)] = 0;
+              pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].ActiveSkills[GetSkillIdxByOrder(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], v45)] = 0;
               continue;
             }
           }

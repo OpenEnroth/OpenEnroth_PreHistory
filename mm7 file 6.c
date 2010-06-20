@@ -2360,7 +2360,7 @@ int __thiscall sub_4901FC(int this)
 }
 
 //----- (004903C9) --------------------------------------------------------
-signed int __thiscall sub_4903C9(struct Player *_this, signed int a2)
+signed int __thiscall GetSkillIdxByOrder(struct Player *_this, int Order)
 {
   signed int i; // eax@5
   int v3; // edx@5
@@ -2369,17 +2369,17 @@ signed int __thiscall sub_4903C9(struct Player *_this, signed int a2)
   int v8; // esi@18
   int skidx = 0;
 
-  if ( a2 >= 0 )
+  if ( Order >= 0 )
   {
-    if ( a2 <= 1 )
+    if ( Order <= 1 )
     {
       v8 = 0;
       
       for (i = 0; i < 37; ++i)
       {
-        if ( _this->array_000108[skidx] &&  AvailSkillPerClass[_this->uClass >> 2][i] == 2 )
+        if ( _this->ActiveSkills[skidx] &&  AvailSkillPerClass[_this->uClass >> 2][i] == 2 )
         {
-          if ( v8 == a2 )
+          if ( v8 == Order )
             return i;
           ++v8;
         }
@@ -2388,15 +2388,15 @@ signed int __thiscall sub_4903C9(struct Player *_this, signed int a2)
     }
     else
     {
-      if ( a2 <= 3 )
+      if ( Order <= 3 )
       {
 
         v6 = 0;
         for (i = 0; i < 37; ++i)
         {
-          if ( _this->array_000108[skidx] && AvailSkillPerClass[_this->uClass >> 2][i] == 1 )
+          if ( _this->ActiveSkills[skidx] && AvailSkillPerClass[_this->uClass >> 2][i] == 1 )
           {
-            if ( v6 == a2 - 2 )
+            if ( v6 == Order - 2 )
               return i;
             ++v6;
           }
@@ -2405,7 +2405,7 @@ signed int __thiscall sub_4903C9(struct Player *_this, signed int a2)
       }
       else
       {
-        if ( a2 <= 12 )
+        if ( Order <= 12 )
         {
           v3 = 0;
           v4 = &AvailSkillPerClass[_this->uClass >> 2];
@@ -2413,7 +2413,7 @@ signed int __thiscall sub_4903C9(struct Player *_this, signed int a2)
           {
             if ( *v4 == 1 )
             {
-              if ( v3 == a2 - 4 )
+              if ( v3 == Order - 4 )
                 return i;
               ++v3;
             }
@@ -3779,7 +3779,7 @@ signed int __thiscall sub_492700(void *this, signed int a2)
 }
 
 //----- (00492745) --------------------------------------------------------
-int __thiscall sub_492745(void *this, int a2)
+int __thiscall WearItem(void *this, int a2)
 {
   signed int v2; // eax@1
   int v3; // edx@1
@@ -3812,17 +3812,13 @@ int __thiscall sub_492745(void *this, int a2)
 }
 
 //----- (004927A8) --------------------------------------------------------
-int __thiscall sub_4927A8(void *this, signed int a2, int a3)
+int __thiscall CreateItemInInventory(struct Player *_this, signed int a2, int itemid)
 {
   signed int v3; // ebx@2
   signed int v4; // edi@3
   signed int v5; // esi@3
-  int v7; // [sp-8h] [bp-18h]@8
-  int v8; // [sp-4h] [bp-14h]@8
-  void *v9; // [sp+Ch] [bp-4h]@1
 
-  v9 = this;
-  if ( a2 == -1 )
+  if ( a2 == -1 ) // need to find appropriate place for item
   {
     v3 = 0;
     while ( 2 )
@@ -3831,12 +3827,9 @@ int __thiscall sub_4927A8(void *this, signed int a2, int a3)
       v5 = v3;
       do
       {
-        if ( MaybePlaceItemInInventory(v9, v5, a3) )
-        {
-          v8 = a3;
-          v7 = v5;
-          return sub_492600(v9, v7, v8);
-        }
+        if ( MaybePlaceItemInInventory(_this, v5, itemid) )
+          return sub_492600(_this, v5, itemid);
+        
         ++v4;
         v5 += 14;
       }
@@ -3848,14 +3841,12 @@ int __thiscall sub_4927A8(void *this, signed int a2, int a3)
     }
     return 0;
   }
-  if ( !MaybePlaceItemInInventory(this, a2, a3) )
+  if ( !MaybePlaceItemInInventory(_this, a2, itemid) )
   {
     AudioPlayer_sub_4AA306(pAudioPlayer, 27, 0, 0, -1, 0, 0, 0, 0);
     return 0;
   }
-  v8 = a3;
-  v7 = a2;
-  return sub_492600(v9, v7, v8);
+  return sub_492600(_this, a2, itemid);
 }
 
 //----- (0049298B) --------------------------------------------------------

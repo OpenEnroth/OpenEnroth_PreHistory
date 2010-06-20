@@ -10055,7 +10055,7 @@ LABEL_28:
               goto LABEL_47;
             if ( v131 <= 3 )
             {
-              v24 = pParty_global->pPlayers[v131].array_000108[*(_BYTE *)(v11 + 5)];
+              v24 = pParty_global->pPlayers[v131].ActiveSkills[*(_BYTE *)(v11 + 5)];
             }
             else
             {
@@ -10070,7 +10070,7 @@ LABEL_28:
                   v21 = 0;
                   v22 = 3486 * v134 + *(_BYTE *)(v11 + 5);
                   v140 = 1;
-                  LOWORD(v22) = pParty_global->pPlayers[v134].array_000108[*(_BYTE *)(v11 + 5)];
+                  LOWORD(v22) = pParty_global->pPlayers[v134].ActiveSkills[*(_BYTE *)(v11 + 5)];
                   v141 = v22 & 0x40;
                   v142 = v22 & 0x80;
                   v23 = v22 & 0x100;
@@ -10088,7 +10088,7 @@ LABEL_50:
                 }
 LABEL_47:
                 v11 = v5 + v10;
-                v24 = pParty_global->pPlayers[rand() % 4].array_000108[*(_BYTE *)(v5 + v10 + 5)];
+                v24 = pParty_global->pPlayers[rand() % 4].ActiveSkills[*(_BYTE *)(v5 + v10 + 5)];
               }
             }
             v140 = 1;

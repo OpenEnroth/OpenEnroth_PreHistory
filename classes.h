@@ -1250,14 +1250,43 @@ int CNPCStats_sub_476977(struct CNPCStats *_this);
 
 
 
-
-
-
-
-
-
-
-
+#define SKILL_STAFF         0
+#define SKILL_SWORD		    1
+#define SKILL_DAGGER		2
+#define SKILL_AXE		    3
+#define SKILL_SPEAR		    4
+#define SKILL_BOW		    5
+#define SKILL_MACE		    6
+#define SKILL_BLASTER		7
+#define SKILL_SHIELD		8
+#define SKILL_LEATHER		9
+#define SKILL_CHAIN		    10
+#define SKILL_PLATE		    11
+#define SKILL_FIREMAGIC		12
+#define SKILL_AIRMAGIC		13
+#define SKILL_WATERMAGIC	14
+#define SKILL_EARTHMAGIC	15
+#define SKILL_SPIRITMAGIC	16
+#define SKILL_MINDMAGIC		17
+#define SKILL_BODYMAGIC		18
+#define SKILL_LIGHTMAGIC	19
+#define SKILL_DARKMAGIC		20
+#define SKILL_IDITEM		21
+#define SKILL_MERCHANT		22
+#define SKILL_REPAIR		23
+#define SKILL_BODYBUILDING	24
+#define SKILL_MEDITATION    25
+#define SKILL_PERCEPTION	26
+#define SKILL_DIPLOMACY		27
+#define SKILL_THIEVERY		28 // NOT USED
+#define SKILL_DISARMTRAP	29
+#define SKILL_DODGING		30
+#define SKILL_UNARMED		31
+#define SKILL_IDMONSTER		32
+#define SKILL_ARMSMASTER	33
+#define SKILL_STEALING		34
+#define SKILL_ALCHEMY		35
+#define SKILL_LEARNING		36
 
 
 struct Player
@@ -1311,7 +1340,7 @@ struct Player
    int   dword_000100;
    int   dword_000104;
 
-   short array_000108[37];
+   short ActiveSkills[37];
    char array_000152[64];
 
    char byte_000192;

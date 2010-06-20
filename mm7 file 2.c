@@ -753,7 +753,7 @@ signed int __cdecl sub_4908DE()
   signed int v2; // edx@2
   signed int v3; // ecx@2
 
-  v0 = (signed int)pParty_global->pPlayers[0].array_000108;
+  v0 = (signed int)pParty_global->pPlayers[0].ActiveSkills;
   while ( 1 )
   {
     v2 = 0;
@@ -8385,7 +8385,7 @@ int sub_49024A(struct Player *_this, char a2)
   _this->word_0000DA = 1;
 
   _this->dword_001944 = 1147 - rand() % 6;
-  memset(_this->array_000108, 0, 37 * 2);
+  memset(_this->ActiveSkills, 0, 37 * 2);
   memset(_this->array_000152, 0, 0x40);
 
   _this->byte_000192 = 0;
@@ -8419,36 +8419,36 @@ int sub_49024A(struct Player *_this, char a2)
   {
     if (AvailSkillPerClass[_this->uClass >> 2][i] == 2 )
     {
-     _this->array_000108[i] = 1;
+     _this->ActiveSkills[i] = 1;
       if ( (unsigned int)(i - 12) <= 8 )
       {
         switch ( i )
         {
-          case 12:
+          case SKILL_FIREMAGIC:
             _this->byte_000192 = 1;
             break;
-          case 13:
+          case SKILL_AIRMAGIC:
             _this->byte_00019D = 1;
             break;
-          case 14:
+          case SKILL_WATERMAGIC:
             _this->byte_0001A8 = 1;
             break;
-          case 15:
+          case SKILL_EARTHMAGIC:
             _this->byte_0001B3 = 1;
             break;
-          case 16:
+          case SKILL_SPIRITMAGIC:
             _this->byte_0001BE = 1;
             break;
-          case 17:
+          case SKILL_MINDMAGIC:
             _this->byte_0001C9 = 1;
             break;
-          case 18:
+          case SKILL_BODYMAGIC:
             _this->byte_0001D4 = 1;
             break;
-          case 19:
+          case SKILL_LIGHTMAGIC:
             _this->byte_0001DF = 1;
             break;
-          case 20:
+          case SKILL_DARKMAGIC:
             _this->byte_0001EA = 1;
             break;
         }
@@ -11181,7 +11181,7 @@ LABEL_115:
             {
               if ( v59 != 5 )
               {
-                v19 = sub_4927A8((void *)v0, -1, 220);
+                v19 = CreateItemInInventory((void *)v0, -1, 220);
                 if ( v19 )
                   *(_DWORD *)(v0 + 36 * v19 + 516) = 1;
                 v20 = v51 + 50 * v15;
@@ -11203,7 +11203,7 @@ LABEL_74:
                   *(_DWORD *)(v55 + 532) = dword_AD470C;
                 else
                   *(_DWORD *)(v55 + 536) = dword_AD4710;
-                v21 = sub_4927A8((void *)v0, -1, 220);
+                v21 = CreateItemInInventory((void *)v0, -1, 220);
                 if ( v21 )
                   *(_DWORD *)(v0 + 36 * v21 + 516) = 1;
                 goto LABEL_74;
@@ -11699,7 +11699,7 @@ LABEL_42:
             {
               if ( v17 == 1 )
               {
-                v18 = 4 * sub_4903C9(&pParty_global->pPlayers[1743 * uPlayerCreationUI_SelectedCharacter], *(_DWORD *)(v12 + 36) + 4);
+                v18 = 4 * GetSkillIdxByOrder(&pParty_global->pPlayers[1743 * uPlayerCreationUI_SelectedCharacter], *(_DWORD *)(v12 + 36) + 4);
                 v14 = aSkillNames[v18 / 4];
                 Str1 = array_5C8A70[v18 / 4];
                 v13 = v39;
@@ -11754,7 +11754,7 @@ LABEL_116:
     }
     goto LABEL_117;
   }
-  v21 = sub_4903C9(&pParty_global->pPlayers[1743 * *(_DWORD *)(v12 + 36)], v15 - 72);
+  v21 = GetSkillIdxByOrder(&pParty_global->pPlayers[1743 * *(_DWORD *)(v12 + 36)], v15 - 72);
   v13 = v21;
   v39 = v21;
   if ( v21 < 0 || v21 >= 37 )
@@ -19033,7 +19033,7 @@ signed int __cdecl sub_421B2C()
    v1 = class17_LoadTexture(pClass17_Icons_LOD, pClass40->pItems[12 * dword_AD470C].pIconName, 2);
     v0 = v1 != -1 ? 72 * v1 + 7145548 : 0;
     v22 = dword_506128;
-    if ( uMaybeSelectedCharacter && (v2 = sub_4927A8(*(&ptr_A750C4 + uMaybeSelectedCharacter), -1, dword_AD470C)) != 0 )
+    if ( uMaybeSelectedCharacter && (v2 = CreateItemInInventory(*(&ptr_A750C4 + uMaybeSelectedCharacter), -1, dword_AD470C)) != 0 )
     {
       memcpy(*((char **)(&ptr_A750C4) + uMaybeSelectedCharacter) + 36 * v2 + 496, &dword_AD470C, 0x24u);
     }
@@ -19043,7 +19043,7 @@ signed int __cdecl sub_421B2C()
       i = 0;
       while ( 1 )
       {
-        v4 = sub_4927A8(&pParty_global->pPlayers[i++], -1, dword_AD470C);
+        v4 = CreateItemInInventory(&pParty_global->pPlayers[i++], -1, dword_AD470C);
         if ( v4 )
           break;
         ++v23;
@@ -19112,7 +19112,7 @@ void __fastcall sub_421D00(void *this)
   v1 = this;
   if ( dword_AD470C )
   {
-    v2 = sub_4927A8(*(&ptr_A750C4 + (_DWORD)this), -1, dword_AD470C);
+    v2 = CreateItemInInventory(*(&ptr_A750C4 + (_DWORD)this), -1, dword_AD470C);
     v3 = (int)*(&ptr_A750C4 + (_DWORD)v1);
     if ( v2 )
     {
@@ -19313,9 +19313,9 @@ LABEL_24:
           sub_469903(pGame->pClass03, pClass40->pItems[v9].pIconName);
           return;
         }
-        v10 = sub_4927A8(v0, v17, v8);
+        v10 = CreateItemInInventory(v0, v17, v8);
         v16 = v10;
-        if ( v10 || (v10 = sub_4927A8(v0, -1, dword_AD470C), v16 = v10, v10) )
+        if ( v10 || (v10 = CreateItemInInventory(v0, -1, dword_AD470C), v16 = v10, v10) )
         {
           memcpy((char *)v0 + 36 * v10 + 496, &dword_AD470C, 0x24u);
           class03_sub_4698A6(pGame->pClass03);

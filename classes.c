@@ -1026,7 +1026,7 @@ int class17_fn3(struct class17 *_this, int a2, int a3, const char *pContainerNam
     while (true)
     {
       v6 = a3 - v4;
-      result = _strcmpi(pContainerName, (const char *)(*((_DWORD *)v10 + 140) + 32 * ((a3 - v4) / 2 + v4)));
+      result = _strcmpi(pContainerName, _this->pLODSubIndexNamedBuffer[(a3 - v4) / 2 + v4].pFilename);
       if ( !result )
         dword_6A0CA4 = (a3 - v4) / 2 + v4;
       if ( v4 == a3 )
@@ -10388,7 +10388,7 @@ int Party_AddItem(struct Party *_this, int a2)
     {
       v10 = (int)((char *)v23 + 6972 * *(&v18 + v7) + 2508);
       v22 = (char *)v23 + 6972 * *(&v18 + v7) + 2508;
-      v9 = sub_4927A8(v22, -1, *(_DWORD *)a2);
+      v9 = CreateItemInInventory(v22, -1, *(_DWORD *)a2);
       if ( v9 )
         break;
       ++v7;
@@ -10462,10 +10462,10 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
   _this->pPlayers[0].uSpeed = 14;
   _this->pPlayers[0].uLuck = 7;
 
-  _this->pPlayers[0].array_000108[1] = 1;
-  _this->pPlayers[0].array_000108[5] = 1;
-  _this->pPlayers[0].array_000108[9] = 1;
-  _this->pPlayers[0].array_000108[33] = 1;
+  _this->pPlayers[0].ActiveSkills[SKILL_SWORD] = 1;
+  _this->pPlayers[0].ActiveSkills[SKILL_BOW] = 1;
+  _this->pPlayers[0].ActiveSkills[SKILL_LEATHER] = 1;
+  _this->pPlayers[0].ActiveSkills[SKILL_ARMSMASTER] = 1;
 
 
 
@@ -10484,10 +10484,10 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
   _this->pPlayers[1].uSpeed = 13;
   _this->pPlayers[1].uLuck = 13;
 
-  _this->pPlayers[1].array_000108[2] = 1;
-  _this->pPlayers[1].array_000108[9] = 1;
-  _this->pPlayers[1].array_000108[29] = 1;
-  _this->pPlayers[1].array_000108[34] = 1;
+  _this->pPlayers[1].ActiveSkills[SKILL_DAGGER] = 1;
+  _this->pPlayers[1].ActiveSkills[SKILL_LEATHER] = 1;
+  _this->pPlayers[1].ActiveSkills[SKILL_DISARMTRAP] = 1;
+  _this->pPlayers[1].ActiveSkills[SKILL_STEALING] = 1;
 
 
 
@@ -10505,10 +10505,10 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
   _this->pPlayers[2].uSpeed = 13;
   _this->pPlayers[2].uLuck = 7;
 
-  _this->pPlayers[2].array_000108[6] = 1;
-  _this->pPlayers[2].array_000108[9] = 1;
-  _this->pPlayers[2].array_000108[18] = 1;
-  _this->pPlayers[2].array_000108[35] = 1;
+  _this->pPlayers[2].ActiveSkills[SKILL_MACE] = 1;
+  _this->pPlayers[2].ActiveSkills[SKILL_LEATHER] = 1;
+  _this->pPlayers[2].ActiveSkills[SKILL_BODYMAGIC] = 1;
+  _this->pPlayers[2].ActiveSkills[SKILL_ALCHEMY] = 1;
 
 
 
@@ -10526,10 +10526,10 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
   _this->pPlayers[3].uSpeed = 13;
   _this->pPlayers[3].uLuck = 7;
 
-  _this->pPlayers[3].array_000108[0] = 1;
-  _this->pPlayers[3].array_000108[9] = 1;
-  _this->pPlayers[3].array_000108[12] = 1;
-  _this->pPlayers[3].array_000108[13] = 1;
+  _this->pPlayers[3].ActiveSkills[SKILL_STAFF] = 1;
+  _this->pPlayers[3].ActiveSkills[SKILL_LEATHER] = 1;
+  _this->pPlayers[3].ActiveSkills[SKILL_FIREMAGIC] = 1;
+  _this->pPlayers[3].ActiveSkills[SKILL_AIRMAGIC] = 1;
 
   
   v4 = _this;
@@ -10545,7 +10545,7 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
       _this->pPlayers[i].word_00177E = v2;
 
     v7 = 0;
-    v6 = _this->pPlayers[i].array_000108 + 12;
+    v6 = _this->pPlayers[i].ActiveSkills + 12;
     while (!*v6++)
     {
       ++v7;
@@ -10564,83 +10564,83 @@ LABEL_10:
       v19 = 0;
       do
       {
-        if (_this->pPlayers[i].array_000108[v19])
+        if (_this->pPlayers[i].ActiveSkills[v19])
         {
-          switch (v19)
+          switch (v19) // creating skill-related items
           {
-            case 0:
+            case SKILL_STAFF:
               v16 = 61;
               goto LABEL_25;
-            case 1:
+            case SKILL_SWORD:
               v16 = 1;
               goto LABEL_25;
-            case 2:
+            case SKILL_DAGGER:
               v16 = 15;
               goto LABEL_25;
-            case 3:
+            case SKILL_AXE:
               v16 = 23;
               goto LABEL_25;
-            case 4:
+            case SKILL_SPEAR:
               v16 = 31;
               goto LABEL_25;
-            case 5:
+            case SKILL_BOW:
               v16 = 47;
               goto LABEL_25;
-            case 6:
+            case SKILL_MACE:
               v16 = 50;
               goto LABEL_25;
-            case 8:
+            case SKILL_SHIELD:
               v16 = 84;
               goto LABEL_25;
-            case 9:
+            case SKILL_LEATHER:
               v16 = 66;
               goto LABEL_25;
-            case 10:
+            case SKILL_CHAIN:
               v16 = 71;
               goto LABEL_25;
-            case 11:
+            case SKILL_PLATE:
               v16 = 76;
 LABEL_25:
-              sub_492745(&_this->pPlayers[i], v16);
+              WearItem(&_this->pPlayers[i], v16);
               break;
-            case 12:
+            case SKILL_FIREMAGIC:
               v17 = 401;
               goto LABEL_36;
-            case 13:
+            case SKILL_AIRMAGIC:
               v17 = 412;
               goto LABEL_36;
-            case 14:
+            case SKILL_WATERMAGIC:
               v17 = 423;
               goto LABEL_36;
-            case 15:
+            case SKILL_EARTHMAGIC:
               v17 = 434;
               goto LABEL_36;
-            case 16:
+            case SKILL_SPIRITMAGIC:
               v17 = 445;
               goto LABEL_36;
-            case 17:
+            case SKILL_MINDMAGIC:
               v17 = 456;
               goto LABEL_36;
-            case 18:
+            case SKILL_BODYMAGIC:
               v17 = 467;
               goto LABEL_36;
-            case 21:
-            case 23:
-            case 25:
-            case 26:
-            case 27:
-            case 29:
-            case 36:
-              sub_4927A8(&_this->pPlayers[i], -1, 220);
+            case SKILL_IDITEM:
+            case SKILL_REPAIR:
+            case SKILL_MEDITATION:
+            case SKILL_PERCEPTION:
+            case SKILL_DIPLOMACY:
+            case SKILL_DISARMTRAP:
+            case SKILL_LEARNING:
+              CreateItemInInventory(&_this->pPlayers[i], -1, 220);
               v17 = 5 * (rand() % 3 + 40);
               goto LABEL_36;
-            case 30:
+            case SKILL_DODGING:
               v17 = 115;
               goto LABEL_36;
-            case 31:
+            case SKILL_UNARMED:
               v17 = 110;
 LABEL_36:
-              sub_4927A8(&_this->pPlayers[i], -1, v17);
+              CreateItemInInventory(&_this->pPlayers[i], -1, v17);
               break;
             default:
               break;

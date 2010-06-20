@@ -13353,7 +13353,7 @@ LABEL_62:
       v55 = 2;
       goto LABEL_71;
     }
-    v25 = sub_4927A8((void *)v0, -1, *(_DWORD *)v19);
+    v25 = CreateItemInInventory((void *)v0, -1, *(_DWORD *)v19);
     if ( v25 )
     {
       v26 = 1;
@@ -13422,7 +13422,7 @@ LABEL_49:
           goto LABEL_62;
       }
     }
-    v39 = sub_4927A8((void *)v0, -1, *(_DWORD *)v32);
+    v39 = CreateItemInInventory((void *)v0, -1, *(_DWORD *)v32);
     if ( v39 )
     {
       *(_DWORD *)(v32 + 20) |= 1u;
