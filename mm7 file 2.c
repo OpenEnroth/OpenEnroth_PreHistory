@@ -4329,7 +4329,7 @@ signed int __cdecl PlayerCreation_ComputeAttributeBonus()
 {
   signed int vStat; // edi@1
   signed int v1; // esi@1
-  int v2; // ebx@2
+  int r; // ebx@2
   signed int v3; // eax@17
   int v4; // ecx@17
   int v5; // edx@18
@@ -4341,7 +4341,7 @@ signed int __cdecl PlayerCreation_ComputeAttributeBonus()
   vStat = 50;
   for(v1 = 0;v1 < 4; v1 ++)
   {    
-    v2 = 7 * GetRaceByFace(&pParty_global->pPlayers[v1]);
+    r = GetRaceByFace(&pParty_global->pPlayers[v1]);
     for(v9 = 0; v9 <= 6; v9++)
     {
       switch ( v9 )
@@ -4369,17 +4369,16 @@ signed int __cdecl PlayerCreation_ComputeAttributeBonus()
             vStat = pParty_global->pPlayers[v1].uStrength;
             break;
       }
-      v4 = 4 * (v2 + v9);
-      v3 = array_4ED7B0[v4];
+      v3 = g_StatTable[r][v9].InitialStat;
       if ( vStat >= v3 )
       {
-        v5 = array_4ED7B0[v4 + 2];
-        v6 = array_4ED7B0[v4 + 3];
+        v5 = g_StatTable[r][v9].Ratio1;
+        v6 = g_StatTable[r][v9].Ratio2;
       }
       else
       {
-        v5 = array_4ED7B0[v4 + 3];
-        v6 = array_4ED7B0[v4 + 2];
+        v5 = g_StatTable[r][v9].Ratio2;
+        v6 = g_StatTable[r][v9].Ratio1;
       }
       v8 += v5 * (v3 - vStat) / v6;
     }
@@ -14717,19 +14716,17 @@ void __cdecl InitializeAwards()
 }
 
 //----- (00490188) --------------------------------------------------------
-__int16 sub_490188(struct Player *_this)
+__int16 Player_SetInitialStats(struct Player *_this)
 {
-  int v2; // eax@1
-
-  v2 = 28 * GetRaceByFace(_this);
-  _this->uStrength = array_4ED7B0[v2];
-  _this->uIntelligence = array_4ED7B0[v2 + 4];
-  _this->uWillpower = array_4ED7B0[v2 + 8];
-  _this->uEndurance = array_4ED7B0[v2 + 12];
-  _this->uAccuracy = array_4ED7B0[v2 + 20];
-  _this->uSpeed = array_4ED7B0[v2 + 16];
-  _this->uLuck = array_4ED7B0[v2 + 24];
-  return array_4ED7B0[v2 + 24];
+  int r = GetRaceByFace(_this);
+  _this->uStrength = g_StatTable[r][0].InitialStat;
+  _this->uIntelligence = g_StatTable[r][1].InitialStat;
+  _this->uWillpower = g_StatTable[r][2].InitialStat;
+  _this->uEndurance = g_StatTable[r][3].InitialStat;
+  _this->uSpeed = g_StatTable[r][5].InitialStat;
+  _this->uAccuracy = g_StatTable[r][4].InitialStat;
+  _this->uLuck = g_StatTable[r][6].InitialStat;
+  return g_StatTable[r][6].InitialStat;
 }
 
 //----- (0041B0C9) --------------------------------------------------------

@@ -7553,7 +7553,7 @@ LABEL_134:
             if ( v27 )
               *(_BYTE *)v25 = 19;
             *(_DWORD *)(v26 + 6432) = *(_BYTE *)v25;
-            sub_490188(v26);
+            Player_SetInitialStats(v26);
             sub_4901FC(v26);
             Player_RandomizeName(v26);
             v28 = v48;
@@ -7573,7 +7573,7 @@ LABEL_134:
             v23 = (char)(*(_BYTE *)(v22 + 186) + 1) % 20;
             *(_BYTE *)(v22 + 186) = v23;
             *(_DWORD *)(v22 + 6432) = v23;
-            sub_490188(v22);
+            Player_SetInitialStats(v22);
             sub_4901FC(v22);
             Player_RandomizeName(v22);
             v24 = v48;
@@ -7802,7 +7802,7 @@ LABEL_105:
           if ( v49 == 62 )
           {
             GUIWindowCreate(613, 393, 0, 0, 90, pPlayerCreationUI_BtnPlus, 1);
-            sub_4905F5(v0 + 6972 * uPlayerCreationUI_SelectedCharacter, (*(_DWORD *)(pGUIWindow_PlayerCreation + 44) - *(_DWORD *)(pGUIWindow_PlayerCreation + 56)) % 7);
+            PartyCreation_BtnPlusClick(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], (pGUIWindow_PlayerCreation->dword_00002C - pGUIWindow_PlayerCreation->dword_000038) % 7);
             v46 = 0;
             v42 = 0;
             v40 = 0;
@@ -7815,8 +7815,8 @@ LABEL_105:
           }
           if ( v49 == 63 )
           {
-            GUIWindowCreate(523, 393, 0, 0, 90, pPlayerCreationUI_BtnMinus, 1);
-            sub_49048D(v0 + 6972 * uPlayerCreationUI_SelectedCharacter, (*(_DWORD *)(pGUIWindow_PlayerCreation + 44) - *(_DWORD *)(pGUIWindow_PlayerCreation + 56)) % 7);
+            GUIWindowCreate(523, 393, 0, 0, 90, pPlayerCreationUI_BtnMinus, 1);            
+            PartyCreation_BtnMinusClick(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], (pGUIWindow_PlayerCreation->dword_00002C - pGUIWindow_PlayerCreation->dword_000038) % 7);
             v46 = 0;
             v42 = 0;
             v40 = 0;

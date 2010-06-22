@@ -280,26 +280,14 @@ unsigned char byte_4ED750[0xC] =
  0x03, 0x04, 0x06, 0x06
 };
 
- unsigned char array_4ED7B0[0x70] =
+// 4 races, 7 stats
+struct StatTable g_StatTable[4][7] = // byte[] @ MM7.exe::004ED7B0
 {
-	0x0B, 0x19, 0x01, 0x01, 0x0B, 0x19, 0x01, 0x01, 0x0B, 0x19, 0x01, 0x01, 0x09, 0x19, 0x01, 0x01, 
-	0x0B, 0x19, 0x01, 0x01, 0x0B, 0x19, 0x01, 0x01, 0x09, 0x19, 0x01, 0x01, 0x07, 0x0F, 0x02, 0x01, 
-	0x0E, 0x1E, 0x01, 0x02, 0x0B, 0x19, 0x01, 0x01, 0x07, 0x0F, 0x02, 0x01, 0x0E, 0x1E, 0x01, 0x02, 
-	0x0B, 0x19, 0x01, 0x01, 0x09, 0x14, 0x01, 0x01, 0x0E, 0x1E, 0x01, 0x02, 0x07, 0x0F, 0x02, 0x01, 
-	0x07, 0x0F, 0x02, 0x01, 0x0B, 0x19, 0x01, 0x01, 0x0B, 0x19, 0x01, 0x01, 0x0E, 0x1E, 0x01, 0x02, 
-	0x09, 0x14, 0x01, 0x01, 0x0E, 0x1E, 0x01, 0x02, 0x0B, 0x19, 0x01, 0x01, 0x0B, 0x19, 0x01, 0x01, 
-	0x0E, 0x1E, 0x01, 0x02, 0x07, 0x0F, 0x02, 0x01, 0x07, 0x0F, 0x02, 0x01, 0x09, 0x14, 0x01, 0x01
+  {{11, 25, 1, 1}, {11, 25, 1, 1}, {11, 25, 1, 1}, { 9, 25, 1, 1}, {11, 25, 1, 1}, {11, 25, 1, 1}, {9, 25, 1, 1},},
+  {{ 7, 15, 2, 1}, {14, 30, 1, 2}, {11, 25, 1, 1}, { 7, 15, 2, 1}, {14, 30, 1, 2}, {11, 25, 1, 1}, {9, 20, 1, 1},}, 
+  {{14, 30, 1, 2}, { 7, 15, 2, 1}, { 7, 15, 2, 1}, {11, 25, 1, 1}, {11, 25, 1, 1}, {14, 30, 1, 2}, {9, 20, 1, 1},}, 
+  {{14, 30, 1, 2}, {11, 25, 1, 1}, {11, 25, 1, 1}, {14, 30, 1, 2}, { 7, 15, 2, 1}, { 7, 15, 2, 1}, {9, 20, 1, 1}}
 };
-//char byte_4ED7B0[array_size_unknown]; // weak
-//char byte_4ED7B1[array_size_unknown]; // weak
-//char byte_4ED7B2[array_size_unknown]; // weak
-//char byte_4ED7B3[array_size_unknown]; // weak
-//char byte_4ED7B4[array_size_unknown]; // weak
-//char byte_4ED7B8[array_size_unknown]; // weak
-//char byte_4ED7BC[array_size_unknown]; // weak
-//char byte_4ED7C0[array_size_unknown]; // weak
-//char byte_4ED7C4[array_size_unknown]; // weak
-//char byte_4ED7C8[array_size_unknown]; // weak
 
  // available skills per class ( 9 classes X 37 skills )
  // 0 - not available
@@ -317,7 +305,6 @@ unsigned char AvailSkillPerClass[9][37] =  // byte[] @ MM7.exe::004ED820
   {0, 0, 2, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 2, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1}, 
   {2, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 2, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0} // some of these are started at 4ED94C, but needs to be here
 };
-//char byte_4ED820[array_size_unknown]; // weak
 
  char byte_4ED94C[array_size_unknown]; // weak
  char byte_4ED970[array_size_unknown]; // weak

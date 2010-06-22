@@ -13629,7 +13629,7 @@ unsigned int PlayerCreationUI_GetStatColor(struct Player *_this, int Stat)
   default: v8 = Stat;                 break;
  }
 
- v7 = array_4ED7B0[4 * (Stat + 7 * GetRaceByFace(_this))];
+ v7 = g_StatTable[GetRaceByFace(_this)][Stat].InitialStat;
 
  if (v8 == v7)
    return 0xFFFFFFFF;

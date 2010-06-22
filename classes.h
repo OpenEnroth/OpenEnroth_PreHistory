@@ -1318,9 +1318,9 @@ struct Player
    short word_0000C6;
    unsigned short uEndurance;    // word @ 0000C8
    short word_0000CA;
-   unsigned short uAccuracy;     // word @ 0000CC
+   unsigned short uSpeed;        // word @ 0000CC
    short word_0000CE;
-   unsigned short uSpeed;        // word @ 0000D0
+   unsigned short uAccuracy;     // word @ 0000D0
    short word_0000D2;
    unsigned short uLuck;         // word @ 0000D4
    short word_0000D6;
@@ -1824,5 +1824,13 @@ struct struct14
  char  byte_000020[16];
 };
 //sizeof == 30
+
+struct StatTable
+{
+  unsigned char InitialStat;
+  unsigned char MaxStat;
+  unsigned char Ratio1;
+  unsigned char Ratio2;
+};
 
 #pragma pack(pop)

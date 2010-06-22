@@ -4663,7 +4663,7 @@ int Party_CreateDefault(struct Party *_this)
   _this->pPlayers[0].uFace = 17;
   _this->pPlayers[0].dword_001920 = 17;
   _this->pPlayers[0].dword_001924 = 17;
-  sub_490188(&_this->pPlayers[0]);
+  Player_SetInitialStats(&_this->pPlayers[0]);
   switch (_this->pPlayers[0].dword_001920)
   {
     case 0:
@@ -4706,7 +4706,7 @@ int Party_CreateDefault(struct Party *_this)
   _this->pPlayers[1].uFace = 3;
   _this->pPlayers[1].dword_001920 = 3;
   _this->pPlayers[1].dword_001924 = 3;
-  sub_490188(&_this->pPlayers[1]);
+  Player_SetInitialStats(&_this->pPlayers[1]);
   switch (_this->pPlayers[1].dword_001920)
   {
     case 0:
@@ -4748,7 +4748,7 @@ int Party_CreateDefault(struct Party *_this)
   _this->pPlayers[2].uFace = 14;
   _this->pPlayers[2].dword_001920 = 14;
   _this->pPlayers[2].dword_001924 = 14;
-  sub_490188(&_this->pPlayers[2]);
+  Player_SetInitialStats(&_this->pPlayers[2]);
   switch (_this->pPlayers[2].dword_001920)
   {
     case 0:
@@ -4790,7 +4790,7 @@ int Party_CreateDefault(struct Party *_this)
   _this->pPlayers[3].uFace = 10;
   _this->pPlayers[3].dword_001920 = 10;
   _this->pPlayers[3].dword_001924 = 10;
-  sub_490188(&_this->pPlayers[3]);
+  Player_SetInitialStats(&_this->pPlayers[3]);
   switch (_this->pPlayers[3].dword_001920)
   {
     case 0:
