@@ -14573,7 +14573,7 @@ LABEL_1000:
           if ( *(_QWORD *)(v546 + 112) )
           {
             Player_sub_492D65((char *)v546, 17, 1);
-            v550 = sub_490141(v546);
+            v550 = Player_GetVoiceSex(v546);
             sub_491DE7(*(_WORD *)(v2 + 4), (v550 != 0) + 23);
             *(_QWORD *)(v546 + 136) = pParty_global->qword_00002C;
           }

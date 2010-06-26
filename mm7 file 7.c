@@ -8135,8 +8135,8 @@ LABEL_55:
         *(_DWORD *)(v1 + 6440) = *(_BYTE *)(v1 + 186);
         *(_DWORD *)(v1 + 6436) = *(_DWORD *)(v1 + 6432);
         Player_sub_492D65((char *)v1, 17, 1);
-        *(_DWORD *)(v1 + 6432) = (sub_490141(v1) != 0) + 23;
-        v40 = (sub_490141(v1) != 0) + 23;
+        *(_DWORD *)(v1 + 6432) = (Player_GetVoiceSex(v1) != 0) + 23;
+        v40 = (Player_GetVoiceSex(v1) != 0) + 23;
         *(_BYTE *)(v1 + 186) = v40;
         sub_491DE7(uMaybeSelectedCharacter - 1, v40);
         *(_DWORD *)(v1 + 136) = pParty_global->qword_00002C;

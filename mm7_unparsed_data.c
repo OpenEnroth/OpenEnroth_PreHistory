@@ -253,6 +253,7 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  char *off_4ECE38; // idb
  char *off_4ECEA0; // idb
  char byte_4ECEEF[array_size_unknown]; // weak
+ char byte_4ED3D8[856]; // need to fill with data...
  char byte_4ED498; // weak
  //__int16 word_4ED746[array_size_unknown]; // off_4ED748[-1] indexing
 short off_4ED748[4] =

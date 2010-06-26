@@ -2275,12 +2275,12 @@ LABEL_5:
 }
 
 //----- (00490141) --------------------------------------------------------
-signed int __thiscall sub_490141(int this)
+signed int __thiscall Player_GetVoiceSex(struct Player *_this) 
 {
   signed int result; // eax@1
 
   result = 0;
-  switch ( *(_DWORD *)(this + 6432) )
+  switch ( _this->dword_001920 )
   {
     case 0:
     case 1:

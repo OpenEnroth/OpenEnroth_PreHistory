@@ -1059,7 +1059,7 @@ int __thiscall sub_48EAAE(void *this, signed int a2, int a3);
 int __thiscall sub_48F73C(int this, signed int a2);
 char __thiscall sub_48F882(void *this, signed int a2);
 int __thiscall sub_48FC00(void *this, signed int a2);
-signed int __thiscall sub_490141(int this);
+signed int __thiscall Player_GetVoiceSex(struct Player *_this);
 __int16 __thiscall Player_SetInitialStats(struct Player *_this);
 int __thiscall sub_4901FC(int this);
 int __thiscall sub_49024A(int this, char a2);

@@ -4666,7 +4666,7 @@ LABEL_60:
           v150 = 106;
           goto LABEL_733;
         case 0xA5:
-          if ( *(_DWORD *)(pGUIWindow_PlayerCreation + 64) == v0 )
+          if ( pGUIWindow_PlayerCreation->dword_000040 == v0 )
             sub_459ED1(&dword_69AE00, 0);
           if ( dword_4E28F8 != 11 || dword_6A0CA0 != dword_6A0C9C + v209 )
           {
@@ -4708,7 +4708,7 @@ LABEL_60:
           }
           goto LABEL_189;
         case 0x53:
-          if ( *(_DWORD *)(pGUIWindow_PlayerCreation + 64) == v0 )
+          if ( pGUIWindow_PlayerCreation->dword_000040 == v0 )
           {
             sub_459ED1(&dword_69AE00, 0);
             strcpy((char *)&unk_69BD68 + 100 * dword_6A0CA0, &byte_69AF00);
@@ -6246,7 +6246,7 @@ LABEL_486:
                     dword_5B65B8 = v78;
                     sub_408768();
                   }
-                  v79 = *(_DWORD *)(pGUIWindow_PlayerCreation + 72);
+                  v79 = pGUIWindow_PlayerCreation->dword_000048;
                   if ( v79 )
                     *(_DWORD *)(v79 + 68) = v0;
                   else
@@ -7432,7 +7432,7 @@ void __cdecl sub_435748()
   char v7; // sf@54
   int v8; // eax@56
   int v9; // edx@56
-  int v10; // edi@57
+  struct Player *v10; // edi@57
   signed int v11; // eax@58
   int v12; // eax@59
   char v13; // sf@62
@@ -7444,11 +7444,11 @@ void __cdecl sub_435748()
   int v19; // eax@80
   int v20; // ecx@105
   void *v21; // ecx@116
-  int v22; // edi@116
+  struct Player *v22; // edi@116
   char v23; // dl@116
   int v24; // eax@116
-  int v25; // eax@118
-  int v26; // ebx@118
+  //int v25; // eax@118
+  struct Player *v26; // ebx@118
   char v27; // sf@118
   int v28; // eax@120
   int v29; // ecx@127
@@ -7489,9 +7489,9 @@ void __cdecl sub_435748()
           {
             v47 = 0;
             v43 = dword_69BD64;
-            v9 = *(_DWORD *)(pGUIWindow_PlayerCreation + 4) + 302;
+            v9 = pGUIWindow_PlayerCreation->uFrameY + 302;
             v41 = 94;
-            v20 = *(_DWORD *)pGUIWindow_PlayerCreation + 241;
+            v20 = pGUIWindow_PlayerCreation->uFrameX + 241;
 LABEL_133:
             v39 = 28;
             v37 = 61;
@@ -7501,7 +7501,7 @@ LABEL_134:
           }
           if ( v49 == 165 )
           {
-            if ( *(_DWORD *)(pGUIWindow_PlayerCreation + 64) == 1 )
+            if ( pGUIWindow_PlayerCreation->dword_000040 == 1 )
               sub_459ED1(&dword_69AE00, 0);
             if ( dword_4E28F8 != 11 || dword_6A0CA0 != v48 + dword_6A0C9C )
             {
@@ -7539,26 +7539,25 @@ LABEL_134:
           {
             v47 = 0;
             v43 = dword_69BD60;
-            v9 = *(_DWORD *)(pGUIWindow_PlayerCreation + 4) + 302;
+            v9 = pGUIWindow_PlayerCreation->uFrameY + 302;
             v41 = 95;
-            v20 = *(_DWORD *)pGUIWindow_PlayerCreation + 350;
+            v20 = pGUIWindow_PlayerCreation->uFrameX + 350;
             goto LABEL_133;
           }
-          if ( v49 == 171 )
+          if ( v49 == 171 ) // change face button (left)
           {
-            v26 = &pParty_global->pPlayers[1743 * v48];
-            v25 = v26 + 186;
-            v27 = (char)(*(_BYTE *)(v26 + 186) - 1) < 0;
-            --*(_BYTE *)v25;
+            v26 = &pParty_global->pPlayers[v48];
+            v27 = (v26->uFace - 1) < 0;
+            v26->uFace--;
             if ( v27 )
-              *(_BYTE *)v25 = 19;
-            *(_DWORD *)(v26 + 6432) = *(_BYTE *)v25;
+              v26->uFace = 19;
+            v26->dword_001920 = v26->uFace; //face to voice? strange, but double-checked
             Player_SetInitialStats(v26);
             sub_4901FC(v26);
             Player_RandomizeName(v26);
             v28 = v48;
-            *(_DWORD *)(pGUIWindow_PlayerCreation + 44) = (*(_DWORD *)(pGUIWindow_PlayerCreation + 44) - *(_DWORD *)(pGUIWindow_PlayerCreation + 56)) % 7
-                                           + *(_DWORD *)(pGUIWindow_PlayerCreation + 56)
+            pGUIWindow_PlayerCreation->dword_00002C = (pGUIWindow_PlayerCreation->dword_00002C - pGUIWindow_PlayerCreation->dword_000038) % 7
+                                           + pGUIWindow_PlayerCreation->dword_000038
                                            + 7 * v48;
             uPlayerCreationUI_SelectedCharacter = v28;
             GUIWindowCreate(*(_DWORD *)array_A74CAC[v28], *(_DWORD *)(array_A74CAC[v28] + 4), 0, 0, 92, array_A74CAC[v28], 1);
@@ -7567,18 +7566,18 @@ LABEL_134:
             v21 = (void *)v26;
             goto LABEL_117;
           }
-          if ( v49 == 172 )
+          if ( v49 == 172 ) // change face button (right)
           {
-            v22 = v0 + 6972 * v48;
-            v23 = (char)(*(_BYTE *)(v22 + 186) + 1) % 20;
-            *(_BYTE *)(v22 + 186) = v23;
-            *(_DWORD *)(v22 + 6432) = v23;
+            v22 = &pParty_global->pPlayers[v48];
+            v23 = (v22->uFace + 1) % 20;
+            v22->uFace = v23;
+            v22->dword_001920 = v23;
             Player_SetInitialStats(v22);
             sub_4901FC(v22);
             Player_RandomizeName(v22);
             v24 = v48;
-            *(_DWORD *)(pGUIWindow_PlayerCreation + 44) = (*(_DWORD *)(pGUIWindow_PlayerCreation + 44) - *(_DWORD *)(pGUIWindow_PlayerCreation + 56)) % 7
-                                           + *(_DWORD *)(pGUIWindow_PlayerCreation + 56)
+            pGUIWindow_PlayerCreation->dword_00002C = (pGUIWindow_PlayerCreation->dword_00002C - pGUIWindow_PlayerCreation->dword_000038) % 7
+                                           + pGUIWindow_PlayerCreation->dword_000038
                                            + 7 * v48;
             uPlayerCreationUI_SelectedCharacter = v24;
             GUIWindowCreate(*(_DWORD *)array_A74CBC[v24], *(_DWORD *)(array_A74CBC[v24] + 4), 0, 0, 92, array_A74CBC[v24], 1);
@@ -7616,7 +7615,7 @@ LABEL_90:
           v8 = pGUIWindow_PlayerCreation;
           v47 = 0;
           v43 = dword_69BD58;
-          v9 = *(_DWORD *)(pGUIWindow_PlayerCreation + 4) + 323;
+          v9 = pGUIWindow_PlayerCreation->uFrameY + 323;
           goto LABEL_105;
         }
         if ( v49 == 82 )
@@ -7718,8 +7717,8 @@ LABEL_81:
           if ( v49 == 118 )
           {
             v15 = v48;
-            *(_DWORD *)(pGUIWindow_PlayerCreation + 44) = (*(_DWORD *)(pGUIWindow_PlayerCreation + 44) - *(_DWORD *)(pGUIWindow_PlayerCreation + 56)) % 7
-                                           + *(_DWORD *)(pGUIWindow_PlayerCreation + 56)
+            pGUIWindow_PlayerCreation->dword_00002C = (pGUIWindow_PlayerCreation->dword_00002C - pGUIWindow_PlayerCreation->dword_000038) % 7
+                                           + pGUIWindow_PlayerCreation->dword_000038
                                            + 7 * v48;
             uPlayerCreationUI_SelectedCharacter = v15;
 LABEL_36:
@@ -7735,29 +7734,29 @@ LABEL_40:
             AudioPlayer_sub_4AA306(v1, v33, v34, v35, v36, v38, v40, v42, v46);
             continue;
           }
-          if ( v49 == 144 )
+          if ( v49 == 144 ) // button change voice (left)
           {
-            v10 = v0 + 6972 * v48;
-            v50 = sub_490141(v0 + 6972 * v48);
+            v10 = &pParty_global->pPlayers[v48];
+            v50 = Player_GetVoiceSex(v10);
             do
             {
-              compile_error;//v13 = *(_DWORD *)(v10 + 6432)-- - 1 < 0;
-              if ( v13 )
-                *(_DWORD *)(v10 + 6432) = 19;
-              v14 = sub_490141(v10);
+              v10->dword_001920--;
+              if ( v10->dword_001920 < 0 )
+                v10->dword_001920 = 19;
+              v14 = Player_GetVoiceSex(v10);
             }
             while ( v14 != v50 );
             v12 = array_A74C9C[v48];
             goto LABEL_60;
           }
-          if ( v49 == 145 )
+          if ( v49 == 145 ) // button change voice (right)
           {
-            v10 = v0 + 6972 * v48;
-            v50 = sub_490141(v0 + 6972 * v48);
+            v10 = &pParty_global->pPlayers[v48];
+            v50 = Player_GetVoiceSex(v10);
             do
             {
-              *(_DWORD *)(v10 + 6432) = (*(_DWORD *)(v10 + 6432) + 1) % 20;
-              v11 = sub_490141(v10);
+              v10->dword_001920 = (v10->dword_001920 + 1) % 20;
+              v11 = Player_GetVoiceSex(v10);
             }
             while ( v11 != v50 );
             v12 = array_A74C8C[v48];
@@ -7775,7 +7774,7 @@ LABEL_60:
             v8 = pGUIWindow_PlayerCreation;
             v47 = 0;
             v43 = dword_69BD5C;
-            v9 = *(_DWORD *)(pGUIWindow_PlayerCreation + 4) + 197;
+            v9 = pGUIWindow_PlayerCreation->uFrameY + 197;
 LABEL_105:
             v41 = 90;
             v39 = 0;
@@ -7792,8 +7791,8 @@ LABEL_105:
           uPlayerCreationUI_SelectedCharacter = v48;
           v45 = 3;
           v0 = (int)&pParty_global->pPlayers[0];
-          v4 = (*(_DWORD *)(pGUIWindow_PlayerCreation + 44) - *(_DWORD *)(pGUIWindow_PlayerCreation + 56)) % 7
-             + *(_DWORD *)(pGUIWindow_PlayerCreation + 56)
+          v4 = (pGUIWindow_PlayerCreation->dword_00002C - pGUIWindow_PlayerCreation->dword_000038) % 7
+             + pGUIWindow_PlayerCreation->dword_000038
              + 7 * v48;
           goto LABEL_44;
         }
@@ -7866,12 +7865,12 @@ LABEL_105:
             if ( v49 == 74 )
             {
               uPlayerCreationUI_SelectedCharacter = v48;
-              v5 = *(_DWORD *)(pGUIWindow_PlayerCreation + 44) - *(_DWORD *)(pGUIWindow_PlayerCreation + 56);
-              v50 = *(_DWORD *)(pGUIWindow_PlayerCreation + 56);
+              v5 = pGUIWindow_PlayerCreation->dword_00002C - pGUIWindow_PlayerCreation->dword_000038;
+              v50 = pGUIWindow_PlayerCreation->dword_000038;
               v45 = 2;
               v4 = v5 % 7 + v50 + 7 * v48;
 LABEL_44:
-              *(_DWORD *)(pGUIWindow_PlayerCreation + 44) = v4;
+              pGUIWindow_PlayerCreation->dword_00002C = v4;
               pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].ActiveSkills[GetSkillIdxByOrder(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], v45)] = 0;
               continue;
             }
@@ -7886,7 +7885,7 @@ LABEL_44:
               v3 = v48;
               uPlayerCreationUI_SelectedCharacter = v48;
               sub_459E5A((int)&dword_69AE00, 0, 15, pGUIWindow_PlayerCreation);
-              *(_DWORD *)(pGUIWindow_PlayerCreation + 28) = v3;
+              pGUIWindow_PlayerCreation->dword_00001C = v3;
               break;
             case 5:
               dword_6A0D48 = 1;
@@ -16787,8 +16786,8 @@ void *__fastcall sub_4601B7(int a1)
   if ( dword_69CF28[dword_6A0CA0] )
   {
     memset(&Dst, 0, 0x54u);
-    Dst = *(_DWORD *)pGUIWindow_PlayerCreation + 240;
-    v5 = *(_DWORD *)(pGUIWindow_PlayerCreation + 4) - *(_BYTE *)(pFontSmallnum + 5);
+    Dst = pGUIWindow_PlayerCreation->uFrameX + 240;
+    v5 = pGUIWindow_PlayerCreation->uFrameY - *(_BYTE *)(pFontSmallnum + 5);
     v31 = 220;
     v5 += 157;
     v30 = v5;
@@ -16801,8 +16800,8 @@ void *__fastcall sub_4601B7(int a1)
     {
       CD3DRenderer_DrawRGBTexture(
         pD3DRenderer,
-        *(_DWORD *)pGUIWindow_PlayerCreation + 276,
-        *(_DWORD *)(pGUIWindow_PlayerCreation + 4) + 171,
+        pGUIWindow_PlayerCreation->uFrameX + 276,
+        pGUIWindow_PlayerCreation->uFrameY + 171,
         (int)((char *)&unk_6A0118 + 40 * dword_6A0CA0));
       v4 = dword_6A0CA0;
     }
@@ -16832,7 +16831,7 @@ void *__fastcall sub_4601B7(int a1)
     HIDWORD(v7) = v37 % 0x1C;
     v39 += 1168;
     v9 = v16 & 3;
-    v30 = *(_DWORD *)(pGUIWindow_PlayerCreation + 4) + 261;
+    v30 = pGUIWindow_PlayerCreation->uFrameY + 261;
     HIDWORD(v38) = v8 >= 0 && (v8 > 0 || (_DWORD)v7 >= 0xCu) && v8 <= 0 && (v8 < 0 || (_DWORD)v7 < 0x18u);
     if ( v8 < 0 || v8 <= 0 && (_DWORD)v7 <= 0xCu )
     {
@@ -16865,9 +16864,9 @@ LABEL_23:
     sub_44D406((int)&Dst, pFontSmallnum, 0, 0, 0, &ExistingFileName, 3);
     v1 = 255;
   }
-  if ( *(_DWORD *)(pGUIWindow_PlayerCreation + 64) == 2 )
+  if ( pGUIWindow_PlayerCreation->dword_000040 == 2 )
   {
-    *(_DWORD *)(pGUIWindow_PlayerCreation + 64) = 0;
+    pGUIWindow_PlayerCreation->dword_000040 = 0;
     strcpy((char *)&unk_69BD68 + 100 * dword_6A0CA0, &byte_69AF00);
     if ( dword_50CBD0[0] < 40 )
     {
@@ -16878,8 +16877,8 @@ LABEL_23:
   }
   else
   {
-    if ( *(_DWORD *)(pGUIWindow_PlayerCreation + 64) == 3 )
-      *(_DWORD *)(pGUIWindow_PlayerCreation + 64) = 0;
+    if ( pGUIWindow_PlayerCreation->dword_000040 == 3 )
+      pGUIWindow_PlayerCreation->dword_000040 = 0;
   }
   if ( sub_466CA0() == 9 )
   {
@@ -16907,7 +16906,7 @@ LABEL_23:
       if ( v39 >= (signed int)v37 )
         break;
       HIDWORD(v38) = v39 == dword_6A0CA0 ? sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(v1, v1, 0x64u) : 0;
-      if ( *(_DWORD *)(pGUIWindow_PlayerCreation + 64) != 1 || v39 != dword_6A0CA0 )
+      if ( pGUIWindow_PlayerCreation->dword_000040 != 1 || v39 != dword_6A0CA0 )
       {
         sub_44CB4F(pGUIWindow_PlayerCreation, pFontSmallnum, 27, v40, SWORD2(v38), v26, 185, 0);
       }

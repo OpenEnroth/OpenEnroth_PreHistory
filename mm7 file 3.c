@@ -2710,7 +2710,7 @@ int __cdecl sub_43BCA7()
     {
       v2 = 4 * v29;
       v1 = GetRaceByFace(pPlayers[v29]);
-      v0 = sub_490141(pPlayers[v29]);
+      v0 = Player_GetVoiceSex(pPlayers[v29]);
       if ( v1 && v1 != 1 && v1 != 2 )
         v3 = (v0 != 0) + 3;
       else
@@ -3483,7 +3483,7 @@ void __fastcall sub_43CC7C(int a1)
   v246 = (int)*(&ptr_A750C4 + a1);
   class17_LoadTexture(pClass17_Icons_LOD, "sptext01", 2);
   v3 = GetRaceByFace(v2);
-  v1 = sub_490141(v2);
+  v1 = Player_GetVoiceSex(v2);
   v279 = v1;
   if ( v3 && v3 != 1 && v3 != 2 )
   {
@@ -5174,7 +5174,7 @@ char __thiscall sub_43ED6F(void *this)
   {
     v4 = *v1;
     v3 = GetRaceByFace(*v1);
-    sub_490141(v4);
+    Player_GetVoiceSex(v4);   // result not interested?
     if ( v3 && v3 != 1 && v3 != 2 )
       v5 = v2 == (void *)1;
     else
@@ -5206,7 +5206,7 @@ char __thiscall sub_43EDB9(void *this)
   {
     v5 = *v1;
     v4 = GetRaceByFace(*v1);
-    v3 = sub_490141(v5);
+    v3 = Player_GetVoiceSex(v5);
     if ( !v4 )
       break;
     if ( v4 == 1 || v4 == 2 )
@@ -5352,7 +5352,7 @@ void __fastcall sub_43EF2B(int a1)
   {
     v4 = (int *)(4 * a1 + 10965188);
     v3 = GetRaceByFace((int)*(&ptr_A750C4 + a1));
-    v2 = sub_490141(*v4);
+    v2 = Player_GetVoiceSex(*v4);
     if ( v3 && v3 != 1 && v3 != 2 )
       v5 = (v2 != 0) + 3;
     else
@@ -13229,7 +13229,7 @@ LABEL_22:
         *(_WORD *)(v5 + 6010) = 20;
       *(_WORD *)(v5 + 6018) = 200;
       *(_WORD *)(v5 + 6020) = 200;
-      v11 = sub_490141(v5);
+      v11 = Player_GetVoiceSex(v5);
       *(_DWORD *)(v5 + 6436) = *(_DWORD *)(v5 + 6432);
       *(_DWORD *)(v5 + 6440) = *(_BYTE *)(v5 + 186);
       if ( v11 )

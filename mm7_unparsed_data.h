@@ -254,6 +254,7 @@ extern char *off_4ECDD0; // idb
 extern char *off_4ECE38; // idb
 extern char *off_4ECEA0; // idb
 extern char byte_4ECEEF[array_size_unknown]; // weak
+extern char byte_4ED3D8[856];
 extern char byte_4ED498; // weak
 extern __int16 word_4ED746[array_size_unknown]; // this and next 4 or 5 words are X offsets of player portraits/selection frames i the bottom GameUI hud
 extern _WORD off_4ED748[4]; // idb
