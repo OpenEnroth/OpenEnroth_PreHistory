@@ -3691,19 +3691,19 @@ signed int __thiscall sub_4925E6(void *this)
 }
 
 //----- (00492600) --------------------------------------------------------
-int __thiscall sub_492600(void *this, int a2, int a3)
+int __thiscall sub_492600(void *this, int a2, unsigned int uItemID)
 {
   int v3; // eax@1
   signed int v4; // edx@1
   int result; // eax@8
-  int v6; // ebx@10
-  int v7; // esi@10
+ struct class18 *v7; // esi@10
   int v8; // eax@10
   void *v9; // esi@13
   int v11; // [sp+0h] [bp-Ch]@10
   void *v12; // [sp+4h] [bp-8h]@1
   signed int v13; // [sp+8h] [bp-4h]@4
   int v14; // [sp+18h] [bp+Ch]@10
+ wchar_t pItemIconNameW[64];
 
   v12 = this;
   v4 = 0;
@@ -3723,16 +3723,18 @@ LABEL_5:
   if ( v13 == -1 )
   {
     if ( uMaybeSelectedCharacter )
-      sub_4948B1(*(&ptr_A750C4 + uMaybeSelectedCharacter), 15, 0);
+      //sub_4948B1(*(&ptr_A750C4 + uMaybeSelectedCharacter), 15, 0);
+      sub_4948B1(pPlayers[uMaybeSelectedCharacter - 1], 15, 0);
     result = 0;
   }
   else
   {
-    v6 = a3;
-    v8 = class17_LoadTexture(pClass17_Icons_LOD, pClass40->pItems[a3].pIconName, 2);
-    v7 = v8 != -1 ? 72 * v8 + 7145548 : 0;
-    v11 = GetSizeInInventorySlots(*(_WORD *)(v8 != -1 ? 72 * v8 + 7145548 + 0x18 : 24));
-    v14 = GetSizeInInventorySlots(*(_WORD *)(v7 + 26));
+    MultiByteToWideChar(CP_ACP, 0, pClass40->pItems[uItemID].pIconName, -1, pItemIconNameW, 64);
+    v8 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pItemIconNameW);
+
+    v7 = &pClass17_Icons_LOD->aLODHeaders[v8];
+    v11 = GetSizeInInventorySlots(v7->uTextureWidth);
+    v14 = GetSizeInInventorySlots(v7->uTextureHeight);
     if ( !dword_506128 )
     {
       sub_40F77C(v7);
@@ -3751,7 +3753,7 @@ LABEL_5:
     }
     result = v13 + 1;
     *((_DWORD *)v12 + a2 + 1375) = v13 + 1;
-    *((_DWORD *)v12 + 9 * v13 + 133) = v6;
+    *((_DWORD *)v12 + 9 * v13 + 133) = uItemID;
   }
   return result;
 }

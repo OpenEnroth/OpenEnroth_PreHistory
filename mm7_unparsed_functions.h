@@ -1086,7 +1086,7 @@ int __fastcall sub_491DE7(int a1, int a2);
 int __cdecl sub_491E3A();
 void __cdecl sub_491F87();
 signed int __thiscall sub_4925E6(void *this);
-int __thiscall sub_492600(void *this, int a2, int a3);
+int __thiscall sub_492600(void *this, int a2, unsigned int uItemID);
 signed int __thiscall sub_492700(void *this, signed int a2);
 int __thiscall WearItem(void *this, int a2);
 int __thiscall CreateItemInInventory(struct Player *_this, signed int a2, int itemid);

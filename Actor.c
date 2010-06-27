@@ -465,7 +465,7 @@ __int16 __thiscall sub_45959A(struct Actor *_this, char a2)
   int v6; // eax@3
   signed int v7; // edx@4
   int v8; // ecx@4
-  char Str1; // [sp+Ch] [bp-88h]@2
+  char Str1[120]; // [sp+Ch] [bp-88h]@2
   int v11; // [sp+84h] [bp-10h]@1
   int v12; // [sp+88h] [bp-Ch]@1
   char *Source; // [sp+8Ch] [bp-8h]@1
@@ -481,7 +481,7 @@ __int16 __thiscall sub_45959A(struct Actor *_this, char a2)
   do
   {
     strcpy(Str1, Source);
-    v4 = CSpriteFrameTable_fn5(pSpriteFrameTable, &Str1);
+    v4 = CSpriteFrameTable_fn5(pSpriteFrameTable, Str1);
     *(_WORD *)v14 = v4;
     CSpriteFrameTable_fn4(pSpriteFrameTable, v4);
     v14 += 2;

@@ -5358,16 +5358,16 @@ LABEL_11:
 }
 
 //----- (0047F0E2) --------------------------------------------------------
-bool __cdecl sub_47F0E2()
+bool sub_47F0E2()
 {
  int i;
 
- runtime_warning();
-
+ runtime_warning(Some operations on palette pixels. We have no palettes);
+/*
  for (i = 0; i < pClass17_Bitmaps_LOD->uNumLoadedFiles; ++i)
    pClass17_Bitmaps_LOD->aLODHeaders[i].uDecompressedSize = sub_47CB57(pClass17_Bitmaps_LOD->aLODHeaders[i].pIndexedPixels,
                                                                        pClass17_Bitmaps_LOD->aLODHeaders[i].word_000026,
-                                                                       pClass17_Bitmaps_LOD->aLODHeaders[i].uTextureWidth * pClass17_Bitmaps_LOD->aLODHeaders[i].uTextureHeight);
+                                                                       pClass17_Bitmaps_LOD->aLODHeaders[i].uTextureWidth * pClass17_Bitmaps_LOD->aLODHeaders[i].uTextureHeight);*/
  return true;
 }
 

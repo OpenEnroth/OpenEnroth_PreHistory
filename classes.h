@@ -929,8 +929,7 @@ struct ItemSpecialEnchantment
 
 struct Item
 {
- int dword_000000;
-
+ int            dword_000000;
  unsigned char *pIconName;         // ptr   @ 000004
  unsigned char *pName;             // ptr   @ 000008
  unsigned char *pUnidentifiedName; // ptr   @ 00000C
@@ -958,7 +957,7 @@ struct Item
 //many items desc
 struct class40
 {
- int  uNumItems; // dword @ 000000
+ int  uNumItems; // dword @ 000000   looks like this sits in pItems[0]::dword_000000
 
  struct Item pItems[800]; //struct[?] @ ?
 
