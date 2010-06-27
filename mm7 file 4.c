@@ -15,7 +15,7 @@
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-#include "codec.h"
+//#include "codec.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -5865,7 +5865,7 @@ LABEL_317:
             class24_fn1(pClass24_global);
             LevelLoadingUI_Initialize(pLoadingUI, 2);
             ++pLoadingUI->uProgressMax;
-            sub_45F469(v0, 0);
+            SaveGame(v0, 0);
             LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
             sub_4B1BDB(1440 * v211);
             if ( pParty_global->uNumFood )
@@ -6034,7 +6034,7 @@ LABEL_422:
         case 0xBF:
           dword_50CDC8 = v0;
           sub_42FBDD();
-          sub_45F469(v0, 0);
+          SaveGame(v0, 0);
           strcpy(Str1, pMapStats->pMapInfos[dword_5C35D0].pLocationFilename);
           dword_6BE364 |= v0;
           dword_6A0D48 = 2;
@@ -6135,7 +6135,7 @@ LABEL_450:
           {
             if ( _strcmpi(Str1, (const char *)(dword_6A0C90 + 32 * *(_WORD *)(v211 + 26))) )
             {
-              sub_45F469(v0, 0);
+              SaveGame(v0, 0);
               sub_443F95();
               strcpy(Str1, (const char *)(dword_6A0C90 + 32 * *(_WORD *)(v211 + 26)));
               dword_6BE364 |= v0;
@@ -6218,7 +6218,7 @@ LABEL_450:
                 if ( v209 != 5 )
                 {
 LABEL_486:
-                  sub_45F469(v0, 0);
+                  SaveGame(v0, 0);
                   v77 = CMapStats_FindLocation(pMapStats, Str1);
                   v76 = 20 * v209;
                   if ( v77 == word_4ECBC8[10 * v209] )
@@ -6232,7 +6232,7 @@ LABEL_486:
                   }
                   else
                   {
-                    sub_45F469(v0, 0);
+                    SaveGame(v0, 0);
                     sub_443F95();
                     dword_6BE364 |= v0;
                     dword_6A0D48 = 2;
@@ -16679,7 +16679,7 @@ int __fastcall sub_460078(int a1)
   v8 = _strcmpi(Str1, "d05.blv");
   if ( v8 )
   {
-    sub_45F469(0, 0);
+    SaveGame(0, 0);
     sub_461743((int)&Str2);
     v2 = 100 * v1;
     strcpy(&byte_69BD7C[v2], Str1);

@@ -15,7 +15,7 @@
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-#include "codec.h"
+//#include "codec.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -783,7 +783,7 @@ int __cdecl MaybeDoAutosave()
     pParty_global->dword_000700 = v0;
 
     v0 = 1;
-    sub_45F469(1, 1);
+    SaveGame(1, 1);
   }
   class23_DeleteBuffer(class23_instance, (int)DstBuf);
   return v0;
@@ -4834,7 +4834,7 @@ int __cdecl sub_466B8C()
     if ( !pD3DRenderer->dword_040058 )
       sub_4667E9();
     if ( MessageBoxA(0, pGlobalTXT_LocalizationStrings[176], pGlobalTXT_LocalizationStrings[59], 0x34u) == 6 )
-      sub_45F469(1, 0);
+      SaveGame(1, 0);
     sub_464761((void *)1);
   }
   return 0;

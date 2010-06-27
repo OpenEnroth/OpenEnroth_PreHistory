@@ -59,6 +59,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>$(MsBuildProjectDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -95,6 +96,18 @@
     <ClCompile Include="mm7 file 8.c" />
     <ClCompile Include="mm7 file 9 junk stuff.c" />
     <ClCompile Include="mm7_unparsed_data.c" />
+    <ClCompile Include="zlib\adler32.c" />
+    <ClCompile Include="zlib\compress.c" />
+    <ClCompile Include="zlib\deflate.c" />
+    <ClCompile Include="zlib\infblock.c" />
+    <ClCompile Include="zlib\infcodes.c" />
+    <ClCompile Include="zlib\inffast.c" />
+    <ClCompile Include="zlib\inflate.c" />
+    <ClCompile Include="zlib\inftrees.c" />
+    <ClCompile Include="zlib\infutil.c" />
+    <ClCompile Include="zlib\trees.c" />
+    <ClCompile Include="zlib\uncompr.c" />
+    <ClCompile Include="zlib\zutil.c" />
     <ClCompile Include="_audio.c" />
     <ClCompile Include="_video.c" />
     <ClCompile Include="Actor.c" />
@@ -102,7 +115,6 @@
     <ClCompile Include="Bink.c" />
     <ClCompile Include="CbmTools.cpp" />
     <ClCompile Include="classes.c" />
-    <ClCompile Include="codec.c" />
     <ClCompile Include="data.c" />
     <ClCompile Include="FrameTables.c" />
     <ClCompile Include="FrameTables_FromTXT.c" />
@@ -121,7 +133,6 @@
     <ClInclude Include="Bink.h" />
     <ClInclude Include="CbmTools.h" />
     <ClInclude Include="classes.h" />
-    <ClInclude Include="codec.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="defs.h" />
     <ClInclude Include="FrameTables.h" />

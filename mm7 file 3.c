@@ -15,7 +15,7 @@
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-#include "codec.h"
+//#include "codec.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -12236,7 +12236,7 @@ char *__fastcall sub_44987B(const char *Source, int a2)
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
   LevelLoadingUI_Initialize(pLoadingUI, 0);
   if ( _strcmpi(Str1, v3) )
-    sub_45F469(1, 0);
+    SaveGame(1, 0);
   dword_6A0D48 = 2;
   result = strcpy(Str1, v3);
   dword_6BE35C = v2;

@@ -15,7 +15,7 @@
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-#include "codec.h"
+//#include "codec.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"

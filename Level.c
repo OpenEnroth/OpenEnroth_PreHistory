@@ -11,8 +11,6 @@
 
 #include "mm7DDrawRenderer.h"
 
-#include "codec.h"
-
 
 bool __cdecl TryLoadLevelFromFile(); // internal
 bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a4, int a5); // internal

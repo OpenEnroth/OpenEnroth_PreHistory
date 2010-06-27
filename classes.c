@@ -7,7 +7,6 @@
 #include "Smacker.h"
 #include "Level.h"
 #include "FrameTables.h"
-#include "codec.h"
 
 #include "data.h"
 

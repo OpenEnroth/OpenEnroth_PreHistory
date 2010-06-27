@@ -30,7 +30,7 @@ int (__cdecl *sprintfex)(char *, const char *, ...) = 0;
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-#include "codec.h"
+//#include "codec.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -16181,11 +16181,7 @@ int __fastcall sub_403476(int a1, signed int a2, signed int a3)
   return result;
 }
 
-//----- (004C32B0) --------------------------------------------------------
-signed int __fastcall sub_4C32B0(int a1, int a2, int a3)
-{
-  return class19_fn0(a1, 15, a2, a3);
-}
+
 
 //----- (0048EA1B) --------------------------------------------------------
 int __stdcall sub_48EA1B(signed int a1)

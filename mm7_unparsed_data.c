@@ -398,19 +398,7 @@ unsigned char AvailSkillPerClass[9][37] =  // byte[] @ MM7.exe::004ED820
  int dword_4F0E94[array_size_unknown]; // weak
  __int16 word_4F0F30[array_size_unknown]; // weak
  _UNKNOWN unk_4F0F98; // weak
- char *off_4F1308; // weak
- char *off_4F1390[5]; // weak
- char *off_4F1398[3]; // weak
- char *off_4F139C[2]; // weak
- void *off_4F1418; // weak
- void *off_4F1430; // weak
- _UNKNOWN unk_4F1448; // weak
- int dword_4F1490; // weak
- int dword_4F1494; // weak
- _UNKNOWN unk_4F1498; // weak
- _UNKNOWN unk_4F2498; // weak
 
- int *dword_4F2688 = (int *)(memory_4F2688);
 
  void *off_4F2D68; // weak
  LPVOID off_4F2D6C; // idb

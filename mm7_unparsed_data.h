@@ -356,19 +356,6 @@ extern int dword_4F0E90[array_size_unknown]; // weak
 extern int dword_4F0E94[array_size_unknown]; // weak
 extern __int16 word_4F0F30[array_size_unknown]; // weak
 extern _UNKNOWN unk_4F0F98; // weak
-extern char *off_4F1308; // weak
-extern char *off_4F1390[5]; // weak
-extern char *off_4F1398[3]; // weak
-extern char *off_4F139C[2]; // weak
-extern void *off_4F1418; // weak
-extern void *off_4F1430; // weak
-extern _UNKNOWN unk_4F1448; // weak
-extern int dword_4F1490; // weak
-extern int dword_4F1494; // weak
-extern _UNKNOWN unk_4F1498; // weak
-extern _UNKNOWN unk_4F2498; // weak
-
-extern int *dword_4F2688;
 
 extern void *off_4F2D68; // weak
 extern LPVOID off_4F2D6C; // idb

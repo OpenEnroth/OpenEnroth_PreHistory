@@ -15,7 +15,7 @@
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-#include "codec.h"
+//#include "codec.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -1013,7 +1013,7 @@ LABEL_85:
          CVideoPlayer_UnloadAll(pVideoPlayer);
       }
 
-      sub_45F469(0, 0);
+      SaveGame(0, 0);
       ++dword_ACD6F4;
 
       for (i = 0; i < 4; ++i)
@@ -9598,7 +9598,7 @@ char __fastcall sub_415180(int a1, const char *a2, int a3, __int16 a4, char *a5)
 }
 
 //----- (0045F469) --------------------------------------------------------
-int __fastcall sub_45F469(int a1, int a2)
+int __fastcall SaveGame(int a1, int a2)
 {
   int result; // eax@1
   int v3; // edi@5
@@ -9992,7 +9992,7 @@ int __fastcall sub_45F469(int a1, int a2)
       v52 = 100;
       Size = v34 - (_DWORD)DstBuf;
       v74 = 999984;
-      LOBYTE(v35) = sub_4C30F0(v11 + 16, &v74, (int)DstBuf, v34 - (_DWORD)DstBuf);
+      LOBYTE(v35) = compress(v11 + 16, &v74, (int)DstBuf, v34 - (_DWORD)DstBuf);
       if ( v35 || v74 > (signed int)Size )
       {
         memcpy((void *)(v11 + 16), DstBuf, Size);
