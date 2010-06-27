@@ -941,14 +941,15 @@ struct Item
  unsigned short uEquipY;           // word  @ 00001E
  unsigned char  uEquipType;        // byte  @ 000020
  unsigned char  uSkillType;        // byte  @ 000021
- char           byte_000022;
- char           byte_000023;
- unsigned char  uDamageModifier;   // byte @ 000024
- unsigned char  uMaterial;         // byte @ 000025
+ unsigned char  uDamageDice;       // byte  @ 000022
+ unsigned char  uDamageRoll;       // byte  @ 000023
+ unsigned char  uDamageModifier;   // byte  @ 000024
+ unsigned char  uMaterial;         // byte  @ 000025
  char           byte_000026;
  char           byte_000027;
  char           byte_000028;
- char padding[7];
+ char           byte_000029[3];
+ char           byte_00002C[4];
  //char byte_000032;
 };
 //sizeof == 30

@@ -2883,11 +2883,6 @@ char *sub_456D84(struct class40 *_this)
   char *v30; // ebx@72
   int v31; // eax@73
   char v32; // cl@73
-  int v33; // ST3C_4@160
-  int v34; // ST3C_4@163
-  int v35; // eax@175
-  int v36; // eax@188
-  char v37; // al@190
   int v39; // esi@199
   char *v41; // eax@200
   char v42; // dl@201
@@ -2916,7 +2911,6 @@ char *sub_456D84(struct class40 *_this)
   int v68; // [sp+Ch] [bp-18h]@1
   signed int v69; // [sp+Ch] [bp-18h]@22
   signed int v70; // [sp+Ch] [bp-18h]@25
-  signed int v73; // [sp+Ch] [bp-18h]@156
   signed int v76; // [sp+Ch] [bp-18h]@230
   signed int v77; // [sp+Ch] [bp-18h]@311
   signed int v78; // [sp+Ch] [bp-18h]@347
@@ -2929,9 +2923,7 @@ char *sub_456D84(struct class40 *_this)
   int v85; // [sp+10h] [bp-14h]@239
   signed int v86; // [sp+14h] [bp-10h]@1
   int v88; // [sp+14h] [bp-10h]@175
-  int v89; // [sp+14h] [bp-10h]@188
   signed int v90; // [sp+18h] [bp-Ch]@67
-  size_t v91; // [sp+18h] [bp-Ch]@156
   signed int v92; // [sp+18h] [bp-Ch]@176
   signed int v93; // [sp+18h] [bp-Ch]@182
   signed int v94; // [sp+18h] [bp-Ch]@233
@@ -3281,31 +3273,13 @@ LABEL_63:
             break;
 
           case 6:
-            v73 = 0;
-            v91 = strlen(v30);
-            if ( (signed int)v91 > 0 )
+            if (strlen(v30) > 0)
             {
-              while ( tolower((unsigned __int8)v30[v73]) != 100 )
-              {
-                ++v73;
-                if ( v73 >= (signed int)v91 )
-                  goto LABEL_161;
-              }
-              v30[v73] = 0;
-              v33 = (int)((char *)v1 + 48 * v28);
-              *(_BYTE *)(v33 + 34) = atoi(v30);
-              *(_BYTE *)(v33 + 35) = atoi(&v30[v73 + 1]);
-              v30[v73] = 100;
-            }
-LABEL_161:
-            if ( v73 == v91 )
-            {
-              if ( tolower((unsigned __int8)*v30) != 115 )
-              {
-                v34 = (int)((char *)v1 + 48 * v28);
-                *(_BYTE *)(v34 + 34) = atoi(v30);
-                *(_BYTE *)(v34 + 35) = 1;
-              }
+             unsigned int uDice, uRoll;
+             sscanf(v30, "%ud%u", &uDice, &uRoll);
+
+             _this->pItems[v28 - 1].uDamageDice = uDice;
+             _this->pItems[v28 - 1].uDamageRoll = uRoll;
             }
             break;
 
@@ -3322,14 +3296,13 @@ LABEL_161:
               _this->pItems[v28 - 1].uMaterial = 0;
             break;
 
-          case 9:  break;//_this->pItems[v28 - 1].byte_000032 = atoi(v30); break;
+          case 9:  ((char *)(&_this->pItems[v28 - 1 + 1].dword_000000))[2] = atoi(v30); break;
           case 10: _this->pItems[v28 - 1].pUnidentifiedName = sub_452C30(v30); break;
           case 11: _this->pItems[v28 - 1].uSpriteIndex = atoi(v30); break;
 
           case 12:
-            v35 = (int)((char *)v1 + 48 * v28);
-            v88 = v35;
-            if ( *(_BYTE *)(v35 + 37) == 3 )
+            v88 = &_this->pItems[v28 - 1];
+            if (_this->pItems[v28 - 1].uMaterial == 3) // 'special'
             {
               v92 = 0;
               while ( _strcmpi(_this->pEnchantments[v92].pName, v30) )
@@ -3338,7 +3311,8 @@ LABEL_161:
                 if ( v92 >= 24 )
                   goto LABEL_181;
               }
-              *(_BYTE *)(v88 + 39) = v92 + 1;
+              _this->pItems[v28 - 1].byte_000027 = v92 + 1;
+
 LABEL_181:
               if ( !*(_BYTE *)(v88 + 39) )
               {
@@ -3360,19 +3334,14 @@ LABEL_181:
             break;
 
           case 13:
-            v36 = (int)((char *)v1 + 48 * v28);
-            v89 = v36;
-            if ( *(_BYTE *)(v36 + 37) == 3 && *(_BYTE *)(v36 + 39) )
+            if (_this->pItems[v28 - 1].uMaterial == 3 && _this->pItems[v28 - 1].byte_000027) // uMaterial == special
             {
-              v37 = atoi(v30);
-              *(_BYTE *)(v89 + 40) = v37;
-              if ( !v37 )
-                *(_BYTE *)(v89 + 40) = 1;
+             _this->pItems[v28 - 1].byte_000028 = atoi(v30);
+             if (!_this->pItems[v28 - 1].byte_000028)
+               _this->pItems[v28 - 1].byte_000028 = 1;
             }
             else
-            {
               _this->pItems[v28 - 1].byte_000028 = 0;
-            }
             break;
 
           case 14: _this->pItems[v28 - 1].uEquipX = atoi(v30); break;
@@ -6921,15 +6890,15 @@ char sub_456620(struct class40 *_this, int a2, signed int a3, unsigned char *Dst
       case 29:        v52 = 37;        break;
       default:        --a3;        break;
     }
-    memset(&v50, 0, 0xC80);
+    memset(v50, 0, 0xC80);
 
     v51 = 0;
     v7 = v50;
     v60 = 1;
     if ( v52 == -1 )
     {
-     v52 = &_this->pItems[0].uEquipType;//(int)((char *)v4 + 80);
-      v9 = (int)((char *)_this + v6 + 92);
+     v52 = &_this->pItems[0].uEquipType;//(int)((char *)_this + 80);
+     v9 = &_this->pItems[0].byte_00002C[v6];//(int)((char *)_this + v6 + 92)
       do
       {
         if ( *(_BYTE *)v52 == a3 )
@@ -6946,8 +6915,8 @@ char sub_456620(struct class40 *_this, int a2, signed int a3, unsigned char *Dst
     }
     else
     {
-      v54 = (int)((char *)_this + 81);
-      v8 = (int)((char *)_this + v6 + 92);
+     v54 = &_this->pItems[0].uSkillType;//(int)((char *)_this + 81);
+     v8 = &_this->pItems[0].byte_00002C[v6];//(int)((char *)_this + v6 + 92)
       do
       {
         if ( *(_BYTE *)v54 == v52 )
@@ -7022,7 +6991,7 @@ LABEL_72:
     if ( v19 > 0 )
     {
       do
-      v56 += *((char *)&_this->pItems[*(_DWORD *)v5++] + v53 + 92);
+        v56 += _this->pItems[*(_DWORD *)v5++].byte_00002C[v53];
       while ( v56 < v19 );
     }
     if ( !v19 )
@@ -7098,11 +7067,14 @@ LABEL_73:
     if ( v22 < v23 )
     {
 LABEL_128:
-      v25 = rand() % *((_DWORD *)_this + *((char *)&_this->pItems[*(_DWORD *)v5] + 32) + 17846);
+      v25 = rand() % *((_DWORD *)_this + *((char *)(&_this->pItems[*(_DWORD *)v5]) + 32) + 0x45B6);
       v26 = *(_DWORD *)v5;
       *(_DWORD *)(v5 + 4) = 0;
-      v24 = *((_BYTE *)_this + *((char *)&_this->pItems[v26] + 32) + 38409);
-      for ( i = v25; v24 < i; v24 += *((_BYTE *)_this + 20 * *(_DWORD *)(v5 + 4) + *((char  *)&_this->pItems[v27] + 32) + 38409) )
+
+      //v24 = *((_BYTE *)_this + _this->pItems[v26]->uEquipType + 0x9609);
+      v24 = &_this->pEnchantments[0].array_000008[_this->pItems[v26].uEquipType + 1];
+
+      for ( i = v25; v24 < i; v24 += *((_BYTE *)_this + 20 * *(_DWORD *)(v5 + 4) + *((char  *)(&_this->pItems[v27]) + 32) + 0x9609) )
       {
         v27 = *(_DWORD *)v5;
         ++*(_DWORD *)(v5 + 4);

@@ -810,12 +810,13 @@ int __fastcall MenuLoop_CharacterCreation()
   signed int v18; // ecx@70
   int v20; // [sp-4h] [bp-84h]@48
 
-  unsigned char local_0[0x44];
+  unsigned char local_0[0x24];  //ItemGen
   //char Dst; // [sp+Ch] [bp-74h]@37
-  //char v22; // [sp+30h] [bp-50h]@29
-  //char v23[0x1C]; // [sp+31h] [bp-4Fh]@29
-  //__int16 v24; // [sp+4Dh] [bp-33h]@29
-  //char v25; // [sp+4Fh] [bp-31h]@29
+
+  char v22; // [sp+30h] [bp-50h]@29
+  char v23[0x1C]; // [sp+31h] [bp-4Fh]@29
+  __int16 v24; // [sp+4Dh] [bp-33h]@29
+  char v25; // [sp+4Fh] [bp-31h]@29
 
   MSG Msg; // [sp+50h] [bp-30h]@17
   char v27; // [sp+6Ch] [bp-14h]@6
@@ -905,14 +906,11 @@ LABEL_27:
   GUIWindowDelete(pGUIWindow_PlayerCreation);
   sub_4114F2(pClass17_Icons_LOD);
 
-  //v22 = 0;
-  local_0[0x24] = 0;
-  memset(local_0 + 0x25, 0, 0x1Cu);
+  v22 = 0;
+  memset(v23, 0, 0x1C);
 
-  //v24 = 0;
-  *(short *)(local_0 + 0x41) = 0;
-  //v25 = 0;
-  local_0[0x43] = 0;
+  v24 = 0;
+  v25 = 0;
 
   for (i = 0; i < 32; ++i)
   {
@@ -920,8 +918,7 @@ LABEL_27:
     do
     {
       v11 = rand() % 32;
-      //if ( !*(&v22 + v11) )
-      if (!local_0[0x24 + v11])
+      if ( !*(&v22 + v11) )
         break;
       ++v10;
     }
@@ -929,19 +926,15 @@ LABEL_27:
     if ( v10 == 10 )
     {
       v11 = 0;
-      //if ( v22 )
-      if (local_0[0x24])
+      if ( v22 )
       {
         do
           ++v11;
-        //while ( *(&v22 + v11) );
-         while (local_0[0x24 + v11]);
+        while ( *(&v22 + v11) );
       }
     }
-    //byte_ACD80C[v2++] = v11;
     pParty_global->byte_000854[i] = v11;
-    //*(&v22 + v11) = 1;
-    local_0[0x24 + v11] = 1;
+    *(&v22 + v11) = 1;
   }
   sub_402F07(local_0);
 
