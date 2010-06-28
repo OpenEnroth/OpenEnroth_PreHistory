@@ -207,12 +207,9 @@ extern _UNKNOWN unk_4E7E20; // weak
 extern _UNKNOWN unk_4E7E24; // weak
 extern _UNKNOWN unk_4E7E28; // weak
 extern int dword_4E800C; // weak
-extern __int16 word_4E8152[array_size_unknown]; // weak
-extern __int16 word_4E8154[array_size_unknown]; // weak
-extern char byte_4E816A[array_size_unknown]; // weak
-extern char byte_4E816B[array_size_unknown]; // weak
-extern char byte_4E8178[array_size_unknown]; // weak
-extern char byte_4E8179[array_size_unknown]; // weak
+extern unsigned short word_4E8152[];
+extern unsigned char data_4E7168[];
+
 extern int dword_4E82B4; // weak
 extern int dword_4E82B8; // weak
 extern int dword_4E82BC; // weak

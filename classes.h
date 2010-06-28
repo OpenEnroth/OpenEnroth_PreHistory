@@ -544,8 +544,15 @@ struct class18
  char  sContainerName[8];
  int   dword_000008;
  int   dword_00000C;
- short   word_000010;
- short   word_000012;
+ union
+ {
+  int     dword_000010;
+  struct
+  {
+   short  word_000010;
+   short  word_000012;
+  };
+ };
  unsigned int   uCompressedSize; // dword @ 000014
  unsigned short uTextureWidth;   // word @ 000018
  unsigned short uTextureHeight;  // word @ 00001A
@@ -568,12 +575,13 @@ struct class18
    short  word_000026;
   };
  };
- unsigned int uDecompressedSize;   // dword @ 000028
- char   byte_00002C[4];
- unsigned char *pIndexedPixels; // ptr @ 000030
- int    dword_000034;
- int    dword_000038;
- int    dword_00003C;
+ unsigned int    uDecompressedSize;   // dword @ 000028
+ short           word_00002C;
+ char            byte_00002E[2];
+ unsigned char  *pIndexedPixels; // ptr @ 000030
+ int             dword_000034;
+ int             dword_000038;
+ int             dword_00003C;
  unsigned short *pPalette; // ptr @ 000040
  unsigned char  *ptr_000044;
 
@@ -960,21 +968,17 @@ struct class40
 {
  int  uNumItems; // dword @ 000000   looks like this sits in pItems[0]::dword_000000
 
- struct Item pItems[800]; //struct[?] @ ?
-
- char byte_000004[71288];
-
- char unk_009604[1024 + array_size_unknown];
- struct ItemEnchantment pEnchantments[24]; // struct[24] @ 009604
-
- struct ItemSpecialEnchantment pSpecialEnchantments[72]; // struct[72} @ 0097E4
+ struct Item                   pItems[800];              // struct[800] @ 000000
+ struct ItemEnchantment        pEnchantments[24];        // struct[24]  @ 009604
+ struct ItemSpecialEnchantment pSpecialEnchantments[72]; // struct[72]  @ 0097E4
 
  unsigned char *pItemsTXT_Raw;    // ptr @ 011674
  unsigned char *pRndItemsTXT_Raw; // ptr @ 011678
  unsigned char *pStdItemsTXT_Raw; // ptr @ 01167C
  unsigned char *pSpcItemsTXT_Raw; // ptr @ 011680
 
- char byte_011684[96];
+ int          array_011684[6];
+ char         byte_01169C[72];
  unsigned int array_0116E4[9];
 
  int array_011700[6][2];
@@ -1370,6 +1374,8 @@ struct Player
    char byte_0001EA;
    char array_0001EB[41];
 
+
+
    int array_000214[1134]; // 36 * 126 / 4
    char array_0013CC[432];
 
@@ -1392,7 +1398,7 @@ struct Player
    int dword_00193C;
    int dword_001940;
    int dword_001944;
-   char array_001948[262];
+   int array_001948[65];
 
    char byte_001A4E;
    char array_001A4F[73];
@@ -1544,12 +1550,16 @@ struct struct2
 //sizeof == 70
 
 
+struct ItemGen
+{
+ int dword_000000[9];
+};
 struct struct3
 {
- short word_000000;
- short word_000002;
- int   dword_000004;
- char  byte_000008[5316];
+ short          word_000000;
+ short          word_000002;
+ struct ItemGen stru_000004;
+ char           byte_000008[5284];
 };
 //sizeof == 14CC
 

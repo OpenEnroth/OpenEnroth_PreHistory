@@ -2495,7 +2495,8 @@ int MaybePlaceItemInInventory(struct Player *_this, signed int a2, int a3)
 
   if ( !dword_506128 )
   {
-    sub_40F77C(v4);
+   runtime_warning(When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the class17 containing the textures);
+   //sub_40F77C(v4);
     sub_40F9C5(pClass17_Icons_LOD);
   }
   if ( uNumSlotsX + a2 % 14 <= 14 && uNumSlotsY + a2 / 14 <= 9 )
@@ -8819,7 +8820,7 @@ bool sub_48D6AA(struct Player *_this, int a2)
 {
   int v2; // eax@1
 
-  v2 = *((_DWORD *)_this + a2 + 0x652);
+  v2 = _this->array_001948[a2];
   return v2 && !(*((_BYTE *)_this + 36 * v2 + 0x204) & 2);
 }
 
@@ -16358,7 +16359,10 @@ void __cdecl sub_461103()
   int v22[16]; // [sp+1Ch] [bp-40h]@17
  int i;
 
-  sub_450218();
+
+  runtime_warning(Random item generation? randomly crashes);
+  //sub_450218();
+
   v0 = pLoadingUI;
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
   pParty_global->dword_007778 |= 2;

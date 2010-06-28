@@ -2492,17 +2492,15 @@ int sub_48E4F8(struct Player *_this)
 {
   signed int result; // eax@1
   int v2; // esi@1
-  int v3; // edi@1
   int v4; // eax@1
   int v5; // esi@1
   int v6; // esi@1
   int v7; // esi@1
 
-  v3 = _this;
   v4 = sub_48CABC(_this);
   v5 = sub_48EA1B(v4);
-  v6 = byte_4ED768[_this->uClass] * (sub_48C90D((void *)v3) + v5);
-  v7 = sub_48EAAE((void *)v3, 7, 0) + v6;
+  v6 = byte_4ED768[_this->uClass] * (sub_48C90D(_this) + v5);
+  v7 = sub_48EAAE(_this, 7, 0) + v6;
   v2 = _this->byte_001A98
      + byte_4ED750[_this->uClass >> 2]
      + sub_48FC00(_this, 7)

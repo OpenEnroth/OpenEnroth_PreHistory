@@ -14,6 +14,362 @@
 
 
 
+//----- (00420EFF) --------------------------------------------------------
+void GameUI_Update()
+{
+  int v1; // ebx@6
+  int *v2; // edi@7
+  unsigned int v4; // eax@19
+  int v5; // ecx@19
+  int v6; // eax@19
+  char v7; // cl@19
+  __int16 v8; // fps@23
+  unsigned __int8 v9; // c0@23
+  unsigned __int8 v10; // c3@23
+  int v11; // esi@24
+  int v12; // edx@25
+  char *v13; // ecx@28
+  unsigned int v14; // eax@41
+  void *v15; // ecx@44
+  int v16; // ecx@46
+  int v17; // eax@49
+  signed int v18; // eax@55
+  signed int v19; // ecx@63
+  int v20; // eax@69
+  __int16 v21; // ax@70
+  char *v22; // eax@72
+  __int16 v23; // ax@75
+  __int16 *v24; // ecx@75
+  __int16 *v25; // esi@75
+  int v26; // ecx@79
+  int v27; // eax@82
+  char *v28; // ecx@82
+  const CHAR *v29; // esi@82
+  int v30; // ecx@88
+  int v31; // eax@91
+  unsigned __int8 v33; // c0@109
+  unsigned __int8 v34; // c3@109
+  int v35; // esi@110
+  int v36; // edx@111
+  int v37; // edx@117
+  int v38; // ecx@118
+  int v39; // [sp-8h] [bp-E8h]@20
+  int v40; // [sp-8h] [bp-E8h]@83
+  int v41; // [sp-4h] [bp-E4h]@20
+  char Str1; // [sp+Ch] [bp-D4h]@129
+  int x; // [sp+D4h] [bp-Ch]@1
+  int y; // [sp+D8h] [bp-8h]@1
+  int v45; // [sp+DCh] [bp-4h]@21
+ int i;
+ struct GUIButton *pControl;
+
+  pGame->pClass03->dword_000000 = 0;
+  class03_GetMouseClickPos(pGame->pClass03, &x, &y);
+  if (x < 0 || x > 639 ||
+      y < 0 || y > 479)
+    return;
+
+  if ( !dword_4E28F8 )
+  {
+    if (x > 467 || y > 351)  //if pointer isn't inside game viewport
+      goto _mouse_is_on_UI;
+
+    if ( pD3DRenderer->dword_040088 )
+    {
+      v18 = sub_4C1BF1(pGame->class05_obj);
+      if (x < class28_global.dword_000000 || x > class28_global.dword_000008 ||
+          y < class28_global.dword_000004 || y > class28_global.dword_00000C)
+        v18 = -1;
+      if ( v18 == -1 )
+        goto LABEL_61;
+    }
+    else
+      v18 = pD3DRenderer->pActiveZBuffer[x + dword_5059A8[y]];
+
+    pGame->pClass03->dword_000000 = (unsigned __int16)v18;
+    v19 = (signed int)(unsigned __int16)v18 >> 3;
+    if ( (v18 & 7) == 2 )
+    {
+      v30 = 112 * v19;
+      if (pObjectDescriptionList->pDescriptions[array_665230[v19].uObjectDescriptionID].byte_000026 & 0x10)
+        goto LABEL_73;
+      if ( v18 >= 33554432 || dword_AD470C )
+      {
+        v22 = (char *)sub_456499((char *)&unk_665254 + v30);
+LABEL_93:
+        v26 = (int)v22;
+        goto LABEL_87;
+      }
+      v31 = sub_456499((char *)&unk_665254 + v30);
+      v29 = ExistingFileName;
+      sprintfex(ExistingFileName, pGlobalTXT_LocalizationStrings[470], v31);
+    }
+    else
+    {
+      if ( (v18 & 7) != 3 )
+      {
+        if ( (v18 & 7) == 5 )
+        {
+          v24 = &array_6836D0[v19];
+          v25 = v24;
+          v23 = v24[11];
+          if ( !v23 )
+          {
+            if ( sub_44C2F4(v24) )
+             v26 = dword_722240[2 * (unsigned __int8)global_5E4C90.byte_000000[v25[14]]];
+            else
+              v26 = 84 * *v25 + pDecorationDescriptionList->pDescriptions + 32;
+            goto LABEL_87;
+          }
+          v22 = sub_444732((void *)v23);
+          if ( !v22 )
+            goto LABEL_123;
+          goto LABEL_93;
+        }
+        if ( (v18 & 7) == 6 )
+        {
+          if ( v18 < 33554432 )
+          {
+            if ( dword_6BE360 != 1 )
+            {
+              v21 = *(_WORD *)(*(_DWORD *)(188 * ((signed int)(unsigned __int16)v18 >> 9) + pClass51_global->pBModels + 84)
+                             + 308 * (v19 & 0x3F)
+                             + 292);
+              goto LABEL_71;
+            }
+            v20 = dword_6BE644 + 96 * v19;
+            if ( *(_BYTE *)(v20 + 47) & 6 )
+            {
+              v21 = *(_WORD *)(dword_6BE64C + 36 * *(_WORD *)(v20 + 72) + 26);
+LABEL_71:
+              if ( !v21 || (v22 = sub_444732((void *)v21), !v22) )
+                goto LABEL_73;
+              goto LABEL_93;
+            }
+          }
+LABEL_73:
+          pGame->pClass03->dword_000000 = 0;
+          goto LABEL_50;
+        }
+LABEL_61:
+        pGame->pClass03->dword_000000 = 0;
+        goto LABEL_123;
+      }
+      if ( v18 >= 335544320 )
+        goto LABEL_61;
+      v28 = (char *)pActors + 836 * v19;
+      v29 = &ExistingFileName;
+      v27 = *((_DWORD *)v28 + 205);
+      if ( v27 )
+        //v40 = dword_5D2958[v27];
+        v40 = pMonsterStats->sPlacements.pSubstrings[v27 - 1];
+      else
+        v40 = pMonsterStats->pMonsterInfos[*((_WORD *)v28 + 48)].pName;
+      strncpy((char *)&ExistingFileName, (const char *)v40, 0x7D0u);
+    }
+    v26 = (int)v29;
+LABEL_87:
+    sub_41C0B8((const char *)v26);
+    goto LABEL_123;
+  }
+  v1 = uNumGUIWindows;
+
+  if ( uNumGUIWindows <= 0 )
+  {
+LABEL_38:
+    if ( dword_4E28F8 == 10 )
+    {
+      sub_42038D();
+      goto LABEL_123;
+    }
+    if ( dword_4E28F8 == 13 )
+    {
+      if ( dword_F8B19C != 2
+        || (v16 = pD3DRenderer->pActiveZBuffer[x + dword_5059A8[y]], v16 == 0)
+        || v16 == -65536 )
+        goto LABEL_123;
+      v15 = (void *)(36 * (v16 + 12 * *(_DWORD *)(dword_507BC0 + 28)) + 11355920);
+LABEL_49:
+      v17 = sub_456499(v15);
+      sub_41C0B8((const char *)v17);
+LABEL_50:
+      dword_506578 = 1;
+LABEL_123:
+      if (pGame->pClass03->dword_000000 == 0)
+      {
+        if ( dword_506578 != 0 )
+        {
+          pStatusBarString[0] = 0;
+          dword_5C35BC = 1;
+        }
+      }
+      dword_506578 = pGame->pClass03->dword_000000;
+      return;
+    }
+    if ( y < 350 )
+    {
+      v14 = pD3DRenderer->pActiveZBuffer[x + dword_5059A8[y]];
+      if ( v14 == 0 || v14 == -65536 || v14 >= 0x1388 )
+        goto LABEL_123;
+      v15 = *((char **)(&ptr_A750C4) + uMaybeSelectedCharacter) + 36 * v14 + 496;
+      goto LABEL_49;
+    }
+
+_mouse_is_on_UI:
+    if (x >= GUIWindow_List[0].uFrameX && x <= GUIWindow_List[0].uFrameZ &&
+        y >= GUIWindow_List[0].uFrameY && y <= GUIWindow_List[0].uFrameW)
+    {
+      for ( pControl = GUIWindow_List[0].pControlsHead; pControl; pControl = pControl->pNext)
+      {
+        if (pControl->dword_000018 == 1 )
+        {
+          if (x >= pControl->uX && x <= pControl->uZ &&
+              y >= pControl->uY && y <= pControl->uW)
+          {
+            v37 = pControl->dword_00001C;
+            if ( v37 == 0 )
+              goto LABEL_28;
+            v38 = pControl->dword_000024;
+            if ( dword_50CBD0[0] < 40 )
+            {
+              dword_50CBD0[3 * dword_50CBD0[0] + 1] = v37;
+              dword_50CBD0[3 * dword_50CBD0[0] + 2] = v38;
+              dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
+            }
+            goto LABEL_131;
+          }
+        }
+        else
+        {
+          if (pControl->dword_000018 == 2 )
+          {
+           v45 = x - pControl->uX;
+            v45 = y - pControl->uY;
+            if (pControl->uWidth)
+            {
+             if (pControl->uHeight)
+              {
+                if ( v33 | v34 )
+                {
+                  v35 = pControl->dword_00001C;
+                  if ( v35 != 0 )
+                  {
+                    v36 = pControl->dword_000024;
+                    if ( dword_50CBD0[0] < 40 )
+                    {
+                      dword_50CBD0[3 * dword_50CBD0[0] + 1] = v35;
+                      dword_50CBD0[3 * dword_50CBD0[0] + 2] = v36;
+                      dword_50CBD0[3 * dword_50CBD0[0] + 3] = 0;
+                      goto LABEL_27;
+                    }
+                  }
+                  goto LABEL_28;
+                }
+              }
+            }
+          }
+          else if (pControl->dword_000018 == 3 &&
+                   x >= pControl->uX && x <= pControl->uZ &&
+                   y >= pControl->uY && y <= pControl->uW)
+            goto LABEL_19;
+        }
+      }
+    }
+    pGame->pClass03->dword_000000 = sub_46A99B();
+    goto LABEL_123;
+  }
+  while ( 1 )
+  {
+    v2 = &GUIWindow_List[array_5075E0[v1] - 1];
+    if ( x >= *v2 && x <= v2[4] && y >= v2[1] && y <= v2[5] )
+    {
+      for ( i = v2[19]; ; i = *(_DWORD *)(i + 52) )
+      {
+        if ( !i )
+          break;
+        if ( *(_DWORD *)(i + 24) == 1 )
+        {
+          if (x >= *(_DWORD *)i && x <= *(_DWORD *)(i + 16) &&
+              y >= *(_DWORD *)(i + 4) && y <= *(_DWORD *)(i + 20))
+          {
+LABEL_24:
+            v11 = *(_DWORD *)(i + 28);
+            if ( v11 )
+            {
+              v12 = *(_DWORD *)(i + 36);
+              if ( dword_50CBD0[0] < 40 )
+              {
+                dword_50CBD0[3 * dword_50CBD0[0] + 1] = v11;
+                dword_50CBD0[3 * dword_50CBD0[0] + 2] = v12;
+                dword_50CBD0[3 * dword_50CBD0[0] + 3] = 0;
+LABEL_27:
+                ++dword_50CBD0[0];
+              }
+            }
+LABEL_28:
+            v13 = (char *)(i + 85);
+LABEL_130:
+            sub_41C0B8(v13);
+LABEL_131:
+            dword_506578 = 1;
+            return;
+          }
+        }
+        else
+        {
+          if ( *(_DWORD *)(i + 24) == 2 )
+          {
+            v45 = x - *(_DWORD *)i;
+            v45 = y - *(_DWORD *)(i + 4);
+            if ( (double)*(signed int *)(i + 8) != 0.0 )
+            {
+              if ( (double)*(signed int *)(i + 12) != 0.0 )
+              {
+                UNDEF(v8);
+                if ( v9 | v10 )
+                  goto LABEL_24;
+              }
+            }
+          }
+          else
+          {
+            if (*(_DWORD *)(i + 24) == 3 &&
+                x >= *(_DWORD *)i && x <= *(_DWORD *)(i + 16) &&
+                y >= *(_DWORD *)(i + 4) && y <= *(_DWORD *)(i + 20))
+            {
+LABEL_19:
+              v6 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter);
+              v7 = *(_BYTE *)(v6 + 2 * *(_DWORD *)(i + 36) + 264);
+              v4 = *(_DWORD *)(v6 + 6456);
+              v5 = (v7 & 0x3F) + 1;
+              if ( v4 < v5 )
+              {
+                v41 = v5 - v4;
+                v39 = pGlobalTXT_LocalizationStrings[469];
+              }
+              else
+              {
+                v41 = v5;
+                v39 = pGlobalTXT_LocalizationStrings[468];
+              }
+              sprintfex(&Str1, (const char *)v39, v41);
+              v13 = &Str1;
+              goto LABEL_130;
+            }
+          }
+        }
+      }
+    }
+    if ( v2[3] == 480 )
+      break;
+    --v1;
+    if ( v1 <= 0 )
+    {
+      goto LABEL_38;
+    }
+  }
+}
+
 //----- (00441D38) --------------------------------------------------------
 void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW, unsigned int uMinimapZoom, int a6)
 {

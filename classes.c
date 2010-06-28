@@ -1711,7 +1711,7 @@ int class17_LoadPalette(struct class17 *_this, struct class18 *pClass18, const c
  locked_fread(pClass18, 1, 0x30, f);
  strcpy(pClass18->sContainerName, pContainerName);
 
- if (pD3DRenderer->dword_040088 && pClass18->byte_00002C[0] & 2 && _this->dword_011BA8)
+ if (pD3DRenderer->dword_040088 && pClass18->word_00002C & 0x0002 && _this->dword_011BA8)
   {
     if ( !*(_DWORD *)(v6 + 72620) || !*(_DWORD *)(v6 + 72624) )
     {
@@ -1787,7 +1787,7 @@ int class17_LoadPalette(struct class17 *_this, struct class18 *pClass18, const c
   pClass18->uCompressedSize = pClass18->uDecompressedSize;
 
 
-  if (bUseLoResSprites && pClass18->byte_00002C[0] & 2)
+  if (bUseLoResSprites && pClass18->word_00002C & 0x0002)
   {
       v45 = (*((_DWORD *)v8 + 4) >> 2) + (*((_DWORD *)v8 + 4) >> 4) + (*((_DWORD *)v8 + 4) >> 6);
       v21 = class23_AllocatedNamedBuffer(class23_instance, *((_DWORD *)v8 + 12), v45, (const char *)v8);
@@ -1846,7 +1846,7 @@ LABEL_35:
  }
 
 LABEL_36:
- if (pClass18->byte_00002C[0] & 2)
+ if (pClass18->word_00002C & 0x0002)
  {
     v34 = *((_DWORD *)v8 + 4);
     v35 = v34 + *((_DWORD *)v8 + 12);
@@ -2887,9 +2887,6 @@ char *sub_456D84(struct class40 *_this)
   char *v41; // eax@200
   char v42; // dl@201
   int v43; // ecx@201
-  int v44; // eax@229
-  int v45; // esi@229
-  int v46; // ecx@230
   char *v49; // esi@233
   char *v50; // eax@234
   char v51; // dl@235
@@ -2911,7 +2908,6 @@ char *sub_456D84(struct class40 *_this)
   int v68; // [sp+Ch] [bp-18h]@1
   signed int v69; // [sp+Ch] [bp-18h]@22
   signed int v70; // [sp+Ch] [bp-18h]@25
-  signed int v76; // [sp+Ch] [bp-18h]@230
   signed int v77; // [sp+Ch] [bp-18h]@311
   signed int v78; // [sp+Ch] [bp-18h]@347
   int v79; // [sp+10h] [bp-14h]@7
@@ -2919,7 +2915,6 @@ char *sub_456D84(struct class40 *_this)
   int v81; // [sp+10h] [bp-14h]@45
   int v82; // [sp+10h] [bp-14h]@77
   int v83; // [sp+10h] [bp-14h]@205
-  signed int v84; // [sp+10h] [bp-14h]@229
   int v85; // [sp+10h] [bp-14h]@239
   signed int v86; // [sp+14h] [bp-10h]@1
   int v88; // [sp+14h] [bp-10h]@175
@@ -3169,6 +3164,7 @@ LABEL_63:
   v28 = 0;
   strtok(0, "\r");
   _this->uNumItems = 0;
+  memset(_this->pItems, 0, 800 * sizeof(struct Item));
   while (true)
   {
     v107 = 0;
@@ -3392,34 +3388,17 @@ LABEL_196:
       *(_BYTE *)v83 = 0;
       if ( v43 )
       {
-        if ( v108 )
-        {
           switch ( v108 )
           {
-            case 2:
-              *((_BYTE *)v1 + 48 * v39 + 44) = atoi(v41);
-              break;
-            case 3:
-              *((_BYTE *)v1 + 48 * v39 + 45) = atoi(v41);
-              break;
-            case 4:
-              *((_BYTE *)v1 + 48 * v39 + 46) = atoi(v41);
-              break;
-            case 5:
-              *((_BYTE *)v1 + 48 * v39 + 47) = atoi(v41);
-              break;
-            case 6:
-              *((_BYTE *)v1 + 16 * (3 * v39 + 3)) = atoi(v41);
-              break;
-            case 7:
-              *((_BYTE *)v1 + 48 * v39 + 49) = atoi(v41);
-              break;
+            case 0: v39 = atoi(v41); break;
+
+            case 2: _this->pItems[v39 - 1].byte_00002C[0] = atoi(v41); break;
+            case 3: _this->pItems[v39 - 1].byte_00002C[1] = atoi(v41); break;
+            case 4: _this->pItems[v39 - 1].byte_00002C[2] = atoi(v41); break;
+            case 5: _this->pItems[v39 - 1].byte_00002C[3] = atoi(v41); break;
+            case 6: _this->pItems[v39 - 1].byte_00002C[4] = atoi(v41); break;
+            case 7: _this->pItems[v39 - 1].byte_00002C[5] = atoi(v41); break;
           }
-        }
-        else
-        {
-          v39 = atoi(v41);
-        }
       }
       else
       {
@@ -3439,24 +3418,15 @@ LABEL_196:
    class23_DeleteBuffer(class23_instance, _this->pRndItemsTXT_Raw);
    _this->pRndItemsTXT_Raw = 0;
   }
-  v45 = (int)((char *)v1 + 71300);
-  memset((char *)v1 + 71300, 0, 0x18u);
-  v44 = (int)((char *)v1 + 44);
-  v84 = 6;
-  do
+
+
+  memset(_this->array_011684, 0, 6 * sizeof(int));
+  for (i = 0; i < 6; ++i)
   {
-    v46 = v44;
-    v76 = 800;
-    do
-    {
-      *(_DWORD *)v45 += *(_BYTE *)v46;
-      v46 += 48;
-    }
-    while ( v76-- != 1 );
-    v45 += 4;
-    ++v44;
+    for (j = 0; j < 800; ++j)
+     _this->array_011684[i] += _this->pItems[j].byte_00002C[i];
   }
-  while ( v84-- != 1 );
+
   v49 = 0;
   strtok(0, "\r");
   strtok(0, "\r");
@@ -6767,25 +6737,25 @@ int class35_sub_48A8A3(struct class35 *_this)
 
 
 //----- (00402F07) --------------------------------------------------------
-void sub_402F07(int *_this)
+void sub_402F07(struct ItemGen *_this)
 {
- _this[0] = 0;
- _this[1] = 0;
- _this[2] = 0;
- _this[3] = 0;
- _this[4] = 0;
- _this[5] = 0;
+ _this->dword_000000[0] = 0;
+ _this->dword_000000[1] = 0;
+ _this->dword_000000[2] = 0;
+ _this->dword_000000[3] = 0;
+ _this->dword_000000[4] = 0;
+ _this->dword_000000[5] = 0;
  ((char *)(_this))[24] = 0;
  ((char *)(_this))[26] = 0;
- _this[7] = 0;
- _this[8] = 0;
+ _this->dword_000000[7] = 0;
+ _this->dword_000000[8] = 0;
 }
 
 
 
 
 //----- (00456620) --------------------------------------------------------
-char sub_456620(struct class40 *_this, int a2, signed int a3, unsigned char *Dst)
+char sub_456620(struct class40 *_this, int a2, signed int a3, unsigned int *Dst)
 {
   void *v4; // edi@1
   unsigned char *v5; // esi@1
@@ -6985,8 +6955,9 @@ LABEL_72:
       LOBYTE(v18) = sub_456D17(_this, v5);
       return v18;
     }
+
     v56 = 0;
-    v19 = rand() % *((_DWORD *)_this + v53 + 17825);
+    v19 = rand() % _this->array_011684[v53];
     *(_DWORD *)v5 = 0;
     if ( v19 > 0 )
     {
@@ -6998,7 +6969,7 @@ LABEL_72:
       *(_DWORD *)v5 = 1;
     if ( !*(_DWORD *)v5 )
       *(_DWORD *)v5 = 1;
-    if ( *((char *)&_this->pItems[*(_DWORD *)v5] + 32) == 14 && *(_DWORD *)v5 != 220 )
+    if ( *((char *)(&_this->pItems[*(_DWORD *)v5]) + 32) == 14 && *(_DWORD *)v5 != 220 )
     {
       *(_DWORD *)(v5 + 4) = 0;
       v20 = 2;
@@ -7326,21 +7297,23 @@ void sub_40F77C(struct class18 *_this)
       class23_DeleteBuffer(class23_instance, _this->pPalette);
       class23_DeleteBuffer(class23_instance, _this->ptr_000044);
     }
-    *(_DWORD *)(v1 + 48) = 0;
-    *(_DWORD *)(v1 + 52) = 0;
-    *(_DWORD *)(v1 + 56) = 0;
-    *(_DWORD *)(v1 + 60) = 0;
-    *(_DWORD *)(v1 + 64) = 0;
-    *(_DWORD *)(v1 + 68) = 0;
-    *(_DWORD *)(v1 + 16) = 0;
-    *(_DWORD *)(v1 + 20) = 0;
-    *(_WORD *)(v1 + 26) = 0;
-    *(_WORD *)(v1 + 24) = 0;
-    *(_WORD *)(v1 + 30) = 0;
-    *(_WORD *)(v1 + 28) = 0;
-    *(_WORD *)(v1 + 36) = 0;
-    *(_WORD *)(v1 + 38) = 0;
-    *(_WORD *)(v1 + 44) = 0;
+
+    _this->pIndexedPixels = 0;
+    _this->dword_000034 = 0;
+    _this->dword_000038 = 0;
+    _this->dword_00003C = 0;
+    _this->pPalette = 0;
+    _this->ptr_000044 = 0;
+    _this->uCompressedSize = 0;
+    _this->dword_000010 = 0;
+
+    _this->uTextureWidth = 0;
+    _this->uTextureHeight = 0;
+    _this->word_00001C = 0;
+    _this->word_00001E = 0;
+    _this->word_000024 = 0;
+    _this->word_000026 = 0;
+    _this->word_00002C = 0;
   }
 }
 
@@ -9998,18 +9971,17 @@ void class06_sub_4A902A_DrawSomeIcon(struct class06 *_this)
 
 
 //----- (0048E8F5) --------------------------------------------------------
-signed int Player_sub_48E8F5(struct Player *_this, signed int a2)
+bool Player_sub_48E8F5(struct Player *_this, signed int a2)
 {
   signed __int64 v2; // qax@1
   void *v3; // esi@1
-  signed int result; // eax@4
 
   v3 = _this;
-  v2 = (signed __int64)((double)(a2 * Player_sub_48EA46(_this, 17)) * *(double *)&byte_4D8410[184] + (double)a2);
+  v2 = (signed __int64)((double)(a2 * Player_sub_48EA46(_this, 17)) * memory_4D8410.f0_01 + (double)a2);
   if ( *((_WORD *)v3 + 3226) - (_DWORD)v2 > 0 )
   {
     *((_WORD *)v3 + 3226) -= v2;
-    result = 1;
+    return true;
   }
   else
   {
@@ -10017,9 +9989,8 @@ signed int Player_sub_48E8F5(struct Player *_this, signed int a2)
     dword_57702C = 1;
     if ( !uMaybeSelectedCharacter )
       uMaybeSelectedCharacter = Party_sub_49370F(pParty_global);
-    result = 0;
+    return false;
   }
-  return result;
 }
 
 //----- (0048EA46) --------------------------------------------------------
@@ -10027,7 +9998,6 @@ signed int Player_sub_48EA46(struct Player *_this, int a2)
 {
   int v2; // edi@1
   int v3; // esi@1
-  int v4; // edx@2
   int v5; // eax@3
   int v6; // eax@4
 
@@ -10037,7 +10007,7 @@ signed int Player_sub_48EA46(struct Player *_this, int a2)
   {
     if ( !sub_48D6AA(_this, v3) )
       goto LABEL_11;
-    v5 = *(_DWORD *)v4 - 1;
+    v5 = _this->array_001948[0] - 1;
     if ( a2 != 17 )
       break;
     v6 = (int)((char *)_this + 36 * v5);

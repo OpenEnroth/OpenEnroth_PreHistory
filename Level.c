@@ -80,7 +80,7 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
   size_t v92; // eax@120
   int v100; // eax@129
   int v106; // eax@147
-  int v107; // edi@147
+  //int v107; // edi@147
   int v108; // eax@147
   int v109; // eax@147
   int v110; // eax@147
@@ -977,17 +977,17 @@ LABEL_120:
 
 
   memcpy(array_5E5150, v78, dword_5FF140 * sizeof(struct struct3));
-  v107 = (int)((char *)v78 + dword_5FF140 * sizeof(struct struct3));
+  v78 = (char *)v78 + dword_5FF140 * sizeof(struct struct3);
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
 
 
-  memcpy(&global_5E4C90, (const void *)v107, sizeof(struct struct4));
+  memcpy(&global_5E4C90, v78, sizeof(struct struct4));
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
 
 
-  memcpy(_this->array_0004F0, (const void *)(v107 + 200), 0x38);
+  memcpy(_this->array_0004F0, v78 + 200, 0x38);
   call_delete(0, v168);
   CTileTable_LoadSomeTiles(pTileTable, 4);
   CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[0]);

@@ -304,7 +304,6 @@ void __fastcall sub_42092D(int a1);
 int __fastcall sub_420B13(int a1, int a2);
 void __fastcall sub_420C05(int a1, int a2);
 void __cdecl sub_420E01();
-void __cdecl sub_420EFF();
 int __thiscall sub_421626(void *this);
 int __thiscall sub_4219BE(void *this);
 signed int __cdecl sub_421B2C();

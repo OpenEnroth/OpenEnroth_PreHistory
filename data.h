@@ -16,7 +16,9 @@ extern union unnamed_4D8410
  {
   char   unk_4D8410_0000[24];
   double f1_0;                        // double @ 0018     1.0
-  char   unk_4D8410_0020[232];
+  char   unk_4D8410_0020[152];
+  double f0_01;                       // double @ 00B8     0.01
+  char   unk_4D8410_00C0[72];
   double fOneOver2048;                // double @ 0108     1 / 2048
   char   unk_4D8410_0110[104];
   double fSomeAngle;                  // double @ 0178     ï (3.1415926535897931)

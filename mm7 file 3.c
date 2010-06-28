@@ -15871,10 +15871,10 @@ LABEL_26:
       {
         v26 = rand() % 100;
         v28 = 3;
-        v27 = (unsigned __int16)word_4E8152[3 * v60];
+        v27 = word_4E8152[3 * v60];
         if ( v26 >= v27 )
         {
-          if ( v26 < v27 + (unsigned __int16)word_4E8154[3 * v60] )
+          if ( v26 < v27 + word_4E8152[3 * v60 + 1] )
             v28 = 2;
         }
         else
@@ -16328,8 +16328,8 @@ int __fastcall sub_44FFD8(int a1, int a2)
   v50 = 0;
   v7 = v6 % 100;
   v8 = 2 * (*(_BYTE *)(v5 + 47) + 7 * *(_WORD *)(v4 + 16)) - 14;
-  v9 = (unsigned __int8)byte_4E8178[v8];
-  v10 = (unsigned __int8)byte_4E8179[v8];
+  v9 = data_4E7168[v8 + 16];
+  v10 = data_4E7168[v8 + 17];
   v48 = v7;
   v49 = v9;
   v11 = rand();

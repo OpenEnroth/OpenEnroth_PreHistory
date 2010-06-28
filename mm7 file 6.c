@@ -70,14 +70,12 @@ int __thiscall sub_48C8F6(int this)
 }
 
 //----- (0048C90D) --------------------------------------------------------
-int __thiscall sub_48C90D(void *this)
+int sub_48C90D(struct Player *_this)
 {
-  int v2; // esi@1
   int v3; // edi@1
 
-  v2 = (int)this;
-  v3 = sub_48EAAE(this, 24, 0);
-  return *(_WORD *)(v2 + 220) + sub_48F73C(v2, 24) + v3 + *(_WORD *)(v2 + 218);
+  v3 = sub_48EAAE(_this, 24, 0);
+  return _this->word_0000DC + sub_48F73C(_this, 24) + v3 + _this->word_0000DA;
 }
 
 //----- (0048C9C2) --------------------------------------------------------
@@ -962,19 +960,19 @@ bool __thiscall sub_48D676(void *this)
 }
 
 //----- (0048D6D0) --------------------------------------------------------
-signed int __thiscall sub_48D6D0(void *this, int a2)
+bool sub_48D6D0(struct Player *_this, int a2)
 {
   int v2; // esi@1
   int v3; // edx@2
 
   v2 = 0;
-  while ( !sub_48D6AA(this, v2) || *((_DWORD *)this + 9 * *(_DWORD *)v3 + 127) != a2 )
+  while (!sub_48D6AA(_this, v2) || *((int *)((char *)_this + 0x2FC) + 9 * _this->array_001948[v2]) != a2)
   {
     ++v2;
     if ( v2 >= 16 )
-      return 0;
+      return false;
   }
-  return 1;
+  return true;
 }
 
 //----- (0048D709) --------------------------------------------------------
@@ -2182,7 +2180,7 @@ signed int __thiscall sub_48E96A(int this, signed int a2)
 }
 
 //----- (0048F73C) --------------------------------------------------------
-int __thiscall sub_48F73C(int this, signed int a2)
+int sub_48F73C(struct Player *_this, signed int a2)
 {
   int result; // eax@1
   int v3; // eax@4
@@ -2196,25 +2194,25 @@ int __thiscall sub_48F73C(int this, signed int a2)
       switch ( a2 )
       {
         case 15:
-          v3 = *(_WORD *)(this + 6088);
+          v3 = *(_WORD *)((char *)_this + 6088);
           v4 = (unsigned __int16)word_ACD85C;
           break;
         case 11:
-          v3 = *(_WORD *)(this + 6056);
+          v3 = *(_WORD *)((char *)_this + 6056);
           v4 = (unsigned __int16)word_ACD84C;
           break;
         case 12:
-          v3 = *(_WORD *)(this + 6408);
+          v3 = *(_WORD *)((char *)_this + 6408);
           v4 = (unsigned __int16)word_ACD95C;
           break;
         case 13:
-          v3 = *(_WORD *)(this + 6104);
+          v3 = *(_WORD *)((char *)_this + 6104);
           v4 = (unsigned __int16)word_ACD88C;
           break;
         default:
           if ( a2 != 14 )
             return result;
-          v3 = *(_WORD *)(this + 6200);
+          v3 = *(_WORD *)((char *)_this + 6200);
           v4 = (unsigned __int16)word_ACD90C;
           break;
       }
@@ -2224,48 +2222,48 @@ int __thiscall sub_48F73C(int this, signed int a2)
     {
       if ( a2 == 26 )
       {
-        v3 = *(_WORD *)(this + 6184);
+        v3 = *(_WORD *)((char *)_this + 6184);
         v4 = (unsigned __int16)word_ACD8DC;
         return v4 + v3;
       }
       if ( a2 != 29 )
         return result;
     }
-    return *(_WORD *)(this + 6072);
+    return *(_WORD *)((char *)_this + 6072);
   }
   if ( a2 == 10 )
   {
-    v3 = *(_WORD *)(this + 6136);
+    v3 = *(_WORD *)((char *)_this + 6136);
     v4 = (unsigned __int16)word_ACD8AC;
     return v4 + v3;
   }
   switch ( a2 )
   {
     case 0:
-      v3 = *(_WORD *)(this + 6360);
+      v3 = *(_WORD *)((char *)_this + 6360);
       goto LABEL_5;
     case 1:
-      v3 = *(_WORD *)(this + 6328);
+      v3 = *(_WORD *)((char *)_this + 6328);
       goto LABEL_5;
     case 2:
-      v3 = *(_WORD *)(this + 6376);
+      v3 = *(_WORD *)((char *)_this + 6376);
       goto LABEL_5;
     case 3:
-      v3 = *(_WORD *)(this + 6312);
+      v3 = *(_WORD *)((char *)_this + 6312);
       goto LABEL_5;
     case 4:
-      v3 = *(_WORD *)(this + 6296);
+      v3 = *(_WORD *)((char *)_this + 6296);
       goto LABEL_5;
     case 5:
-      v3 = *(_WORD *)(this + 6392);
+      v3 = *(_WORD *)((char *)_this + 6392);
       goto LABEL_5;
     case 6:
-      v3 = *(_WORD *)(this + 6344);
+      v3 = *(_WORD *)((char *)_this + 6344);
 LABEL_5:
       v4 = (unsigned __int16)word_ACD86C;
       return v4 + v3;
     case 9:
-      v3 = *(_WORD *)(this + 6280);
+      v3 = *(_WORD *)((char *)_this + 6280);
       v4 = (unsigned __int16)word_ACD93C;
       return v4 + v3;
     default:
@@ -3737,7 +3735,8 @@ LABEL_5:
     v14 = GetSizeInInventorySlots(v7->uTextureHeight);
     if ( !dword_506128 )
     {
-      sub_40F77C(v7);
+     runtime_warning(When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the class17 containing the textures);
+      //sub_40F77C(v7);
       sub_40F9C5(pClass17_Icons_LOD);
     }
     if ( v14 > 0 )

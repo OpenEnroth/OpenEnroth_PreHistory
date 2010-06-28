@@ -2132,28 +2132,25 @@ char __cdecl sub_450218()
   int *v50; // [sp+18h] [bp-10h]@1
   int v51; // [sp+1Ch] [bp-Ch]@1
   int v52; // [sp+20h] [bp-8h]@26
-  //signed int v53; // [sp+24h] [bp-4h]@2
  int i, j;
 
-  v48 = rand() % 100;
-  v0 = CMapStats_FindLocation(pMapStats, Str1);
-  v2 = v50 = &pMapStats->pMapInfos[v0];
-  v51 = (int)array_5E5150;
-  i = 0;
-
-  runtime_warning();
+ v48 = rand() % 100;
+ v0 = CMapStats_FindLocation(pMapStats, Str1);
+ v2 = v50 = &pMapStats->pMapInfos[v0];
+ v51 = array_5E5150;
+ i = 0;
 
   for (i = 0; i < 20; ++i)
   {
-    v3 = &array_5E5150[i].dword_000004;
+    v3 = &array_5E5150[i].stru_000004;
     for (j = 0; j < 140; ++j)
     {
-     if ( *(int *)v3 >= 0 )
+     if (array_5E5150[i].stru_000004.dword_000000[0] >= 0)
         goto LABEL_56;
 
       v5 = rand() % 5 + 1;
-      v6 = (unsigned __int8)byte_4E816A[2 * (v2->byte_00002F + 7 * abs(*(int *)v3))];
-      v7 = (unsigned __int8)byte_4E816B[2 * (v2->byte_00002F + 7 * abs(*(int *)v3))];
+      v6 = data_4E7168[2 * (v2->byte_00002F + 7 * abs(array_5E5150[i].stru_000004.dword_000000[0])) + 2];
+      v7 = data_4E7168[2 * (v2->byte_00002F + 7 * abs(array_5E5150[i].stru_000004.dword_000000[0])) + 3];
       v8 = rand();
       v9 = v7 - v6 + 1;
       v4 = v6 + v8 % v9;
@@ -3089,8 +3086,9 @@ int __cdecl MenuLoop_Main()
   }
   GUIWindowDelete(pGUIWindow_MainMenu);
 
-  runtime_warning();
-  return sub_4114F2(pClass17_Icons_LOD);
+  runtime_warning(Purge old textures or something, works.. bad);
+  //return sub_4114F2(pClass17_Icons_LOD);
+  return 0;
 }
 
 //----- (00404AC7) --------------------------------------------------------
