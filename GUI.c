@@ -47,8 +47,6 @@ void GameUI_Update()
   const CHAR *v29; // esi@82
   int v30; // ecx@88
   int v31; // eax@91
-  unsigned __int8 v33; // c0@109
-  unsigned __int8 v34; // c3@109
   int v35; // esi@110
   int v36; // edx@111
   int v37; // edx@117
@@ -56,10 +54,9 @@ void GameUI_Update()
   int v39; // [sp-8h] [bp-E8h]@20
   int v40; // [sp-8h] [bp-E8h]@83
   int v41; // [sp-4h] [bp-E4h]@20
-  char Str1; // [sp+Ch] [bp-D4h]@129
+  char Str1[200]; // [sp+Ch] [bp-D4h]@129
   int x; // [sp+D4h] [bp-Ch]@1
   int y; // [sp+D8h] [bp-8h]@1
-  int v45; // [sp+DCh] [bp-4h]@21
  int i;
  struct GUIButton *pControl;
 
@@ -241,16 +238,72 @@ _mouse_is_on_UI:
         }
         else
         {
+/*
+  if (pControl->dword_000018 == 2 )
+    loc_421491:
+  esi:		x
+  edx:		y
+  ecx:		pControl
+
+  [ebp+v4] = eax = x - pControl->uX
+  fild [ebp+v4]		//fpu stack: x - pControl->uX
+  [ebp+v4] = eax = y - pControl->uY
+  fild [ebp+v4]		//fpu stack:     y - pControl->uY	x - pControl->uX
+  fild pControl->uWidth	//pControl->uWidth	y - pControl->uY	x - pControl->uX
+  fild pControl->uHeight	//pControl->uHeight	pControl->uWidth	y - pControl->uY	x - pControl->uX
+  fld st(1)		//pControl->uWidth	pControl->uHeight	pControl->uWidth	y - pControl->uY	x - pControl->uX
+  fcomp	pControl->uWidth, 0.0   //fpop
+  fcom	pControl->uHeight, 0.0
+  if (pControl->uWidth != 0.0 && pControl->uHeight != 0.0)
+  {
+   //fpu stack:	pControl->uHeight	pControl->uWidth	y - pControl->uY	x - pControl->uX
+
+ fld st(2)		//y - pControl->uY	pControl->uHeight	pControl->uWidth	y - pControl->uY	x - pControl->uX
+ fmul st(0), st(3)	//(y - pControl->uY)^2	pControl->uHeight	pControl->uWidth	y - pControl->uY	x - pControl->uX
+ fld st(1)		//pControl->uHeight	(y - pControl->uY)^2	pControl->uHeight	pControl->uWidth	y - pControl->uY	x - pControl->uX
+ fmul st(0), st(2)	//(pControl->uHeight)^2	(y - pControl->uY)^2	pControl->uHeight	pControl->uWidth	y - pControl->uY	x - pControl->uX
+ fdivp st(1), st	//(y - pControl->uY)^2/(pControl->uHeight)^2	pControl->uHeight	pControl->uWidth	y - pControl->uY	x - pControl->uX
+
+ fld st(4)		//x - pControl->uX	(y - pControl->uY)^2/(pControl->uHeight)^2	pControl->uHeight	pControl->uWidth	y - pControl->uY	x - pControl->uX
+ fmul st(0), st(5)	//(x - pControl->uX)^2	(y - pControl->uY)^2/(pControl->uHeight)^2	pControl->uHeight	pControl->uWidth	y - pControl->uY	x - pControl->uX
+ fld st(3)		//pControl->uWidth	(x - pControl->uX)^2	(y - pControl->uY)^2/(pControl->uHeight)^2	pControl->uHeight	pControl->uWidth	y - pControl->uY	x - pControl->uX
+ fmul st(0), st(4)	//(pControl->uWidth)^2	(x - pControl->uX)^2	(y - pControl->uY)^2/(pControl->uHeight)^2	pControl->uHeight	pControl->uWidth	y - pControl->uY	x - pControl->uX
+ fdivp st(1), st(0)	//(x - pControl->uX)^2/(pControl->uWidth)^2	(y - pControl->uY)^2/(pControl->uHeight)^2	pControl->uHeight	pControl->uWidth	y - pControl->uY	x - pControl->uX
+ faddp st(1), st(0)	//(x - pControl->uX)^2/(pControl->uWidth)^2 + (y - pControl->uY)^2/(pControl->uHeight)^2	pControl->uHeight	pControl->uWidth	y - pControl->uY	x - pControl->uX
+ fcomp   dword ptr ds:byte_4D8410+98h
+ fstp st(0)		//pControl->uWidth	y - pControl->uY	x - pControl->uX
+ fstp st(0)		//y - pControl->uY	x - pControl->uX
+ fstp st(0)		//x - pControl->uX
+ fstp st(0)		//-
+ if ((x - pControl->uX)^2/(pControl->uWidth)^2 + (y - pControl->uY)^2/(pControl->uHeight)^2 >= 1.0)
+ {
+  if (pControl->dword_00001C == edi)
+    continue;
+
+  edx = pControl->dword_000024;
+  if (dword_50CBD0 >= 0x28)
+    continue;
+
+  dword_50CBD0[3 * dword_50CBD0[0] + 1] = v35;
+  dword_50CBD0[3 * dword_50CBD0[0] + 2] = v36;
+  dword_50CBD0[3 * dword_50CBD0[0] + 3] = 0; 
+ }
+}
+else
+{
+  loc_4215A9:
+  //fpu cleanup: 4x fstp, nothing interesting
+}
+loc_4215B1:
+*/
+
           if (pControl->dword_000018 == 2 )
           {
-           v45 = x - pControl->uX;
-            v45 = y - pControl->uY;
-            if (pControl->uWidth)
+           if (pControl->uWidth && pControl->uHeight)
+           {
+            if (((float)(x) - pControl->uX) * ((float)(x) - pControl->uX) / (float)pControl->uWidth * pControl->uWidth +
+                ((float)(y) - pControl->uY) * ((float)(y) - pControl->uY) / (float)pControl->uHeight * pControl->uHeight >= 1.0)
             {
-             if (pControl->uHeight)
-              {
-                if ( v33 | v34 )
-                {
                   v35 = pControl->dword_00001C;
                   if ( v35 != 0 )
                   {
@@ -264,9 +317,8 @@ _mouse_is_on_UI:
                     }
                   }
                   goto LABEL_28;
-                }
-              }
             }
+           }
           }
           else if (pControl->dword_000018 == 3 &&
                    x >= pControl->uX && x <= pControl->uZ &&
@@ -319,8 +371,10 @@ LABEL_131:
         {
           if ( *(_DWORD *)(i + 24) == 2 )
           {
-            v45 = x - *(_DWORD *)i;
-            v45 = y - *(_DWORD *)(i + 4);
+           runtime_warning(decompilation error);
+           compile_error;
+            //v45 = x - *(_DWORD *)i;
+            //v45 = y - *(_DWORD *)(i + 4);
             if ( (double)*(signed int *)(i + 8) != 0.0 )
             {
               if ( (double)*(signed int *)(i + 12) != 0.0 )
@@ -352,8 +406,8 @@ LABEL_19:
                 v41 = v5;
                 v39 = pGlobalTXT_LocalizationStrings[468];
               }
-              sprintfex(&Str1, (const char *)v39, v41);
-              v13 = &Str1;
+              wsprintfA(Str1, (const char *)v39, v41);
+              v13 = Str1;
               goto LABEL_130;
             }
           }

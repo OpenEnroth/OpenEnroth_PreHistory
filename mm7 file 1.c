@@ -884,7 +884,6 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *
   int v16; // [sp+8h] [bp-24h]@55
   RECT Rect; // [sp+Ch] [bp-20h]@15
   HWND hActiveWindow;
-
   
  RtlCallCtors();
  AllocConsole();
