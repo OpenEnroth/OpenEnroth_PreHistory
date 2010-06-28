@@ -10250,7 +10250,7 @@ void __cdecl sub_4156F0()
   int v60; // [sp+60h] [bp-A8h]@133
   char v61; // [sp+E4h] [bp-24h]@129
 
-  if ( sub_466CA0() != 6 )
+  if ( sub_466CA0() != MENU_CREATEPARTY )
     sub_41CD4F(VK_NEXT);
   for ( i = 1; i <= uNumGUIWindows; ++i )
   {
@@ -10583,7 +10583,7 @@ LABEL_110:
               {
                 CD3DRenderer_ClearZBuffer(pD3DRenderer, 0, 479);
                 sub_41A556();
-                sub_41A2D1(uMaybeSelectedCharacter, 1);
+                GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
                 sub_43CC7C(uMaybeSelectedCharacter);
                 CD3DRenderer_DrawTransparentTexture(
                   pD3DRenderer,
@@ -10634,7 +10634,7 @@ LABEL_110:
                 {
                   CD3DRenderer_ClearZBuffer(pD3DRenderer, 0, 479);
                   sub_41A556();
-                  sub_41A2D1(uMaybeSelectedCharacter, 1);
+                  GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
                   CD3DRenderer_DrawIndexedTexture(
                     pD3DRenderer,
                     *(_DWORD *)dword_5076F4,
@@ -11519,12 +11519,12 @@ LABEL_126:
             goto LABEL_132;
           if ( dword_506F48 == 100 )
           {
-            sub_418083();
+            GameUI_StatsTab_ShowHint();
             goto LABEL_132;
           }
           if ( dword_506F48 == 101 )
           {
-            sub_417FE5();
+            GameUI_SkillsTab_ShowHint();
             goto LABEL_132;
           }
           v11 = dword_506F48 == 103;
@@ -12324,7 +12324,7 @@ _UNKNOWN *__fastcall sub_417BB5(int a1, int a2)
 }
 
 //----- (00417FE5) --------------------------------------------------------
-char __cdecl sub_417FE5()
+char __cdecl GameUI_SkillsTab_ShowHint()
 {
   int v0; // eax@1
   int v1; // ecx@1
@@ -12369,7 +12369,7 @@ char __cdecl sub_417FE5()
 }
 
 //----- (00418083) --------------------------------------------------------
-char __cdecl sub_418083()
+char __cdecl GameUI_StatsTab_ShowHint()
 {
   int v0; // eax@1
   signed int v1; // ecx@1
@@ -12609,7 +12609,7 @@ LABEL_49:
 }
 
 //----- (00418511) --------------------------------------------------------
-char __fastcall sub_418511(int a1)
+char __fastcall GameUI_DrawStatsTab(int a1) // character stats tab
 {
   int v1; // edi@1
   int v2; // eax@1
@@ -13356,7 +13356,7 @@ int __cdecl sub_4196A0()
 }
 
 //----- (00419719) --------------------------------------------------------
-char __fastcall sub_419719(int a1)
+char __fastcall GameUI_DrawSkillsTab(int a1) // character skills tab
 {
   signed int v1; // ecx@1
   char *v2; // ebp@1
@@ -13978,7 +13978,7 @@ LABEL_23:
 }
 
 //----- (0041A000) --------------------------------------------------------
-int __fastcall sub_41A000(int a1)
+int __fastcall GameUI_DrawAwardsTab(int a1)
 {
   int result; // eax@1
   int v2; // esi@1
@@ -14176,7 +14176,7 @@ int __fastcall GetSizeInInventorySlots(signed int a1)
 }
 
 //----- (0041A2D1) --------------------------------------------------------
-char __fastcall sub_41A2D1(int a1, char a2)
+char __fastcall GameUI_DrawInventory(int a1, char a2) // character inventory tab
 {
   int v2; // esi@1
   char v3; // bl@1
@@ -14540,31 +14540,31 @@ void __thiscall sub_41ABFD(int a1)
     CD3DRenderer_ClearZBuffer(pD3DRenderer, 0, 479);
     switch ( dword_506F48 )
     {
-      case 100:
+      case 100: // stats 
         sub_4196A0();
         sub_419379();
-        sub_418511(v1);
+        GameUI_DrawStatsTab(v1);
         v7 = class17_LoadTexture(pClass17_Icons_LOD, "ib-cd1-d", 2);
         v3 = v7 != -1 ? 72 * v7 + 7145548 : 0;
         v2 = dword_50768C;
         break;
-      case 101:
+      case 101: // skills
         if ( dword_507CC0 != uMaybeSelectedCharacter )
         {
           sub_4196A0();
           sub_419401();
         }
         sub_419379();
-        sub_419719(v1);
+        GameUI_DrawSkillsTab(v1);
         v6 = class17_LoadTexture(pClass17_Icons_LOD, "ib-cd2-d", 2);
         v3 = v6 != -1 ? 72 * v6 + 7145548 : 0;
         v2 = dword_507688;
         break;
-      case 102:
+      case 102: // awards
         sub_4196A0();
         sub_419379();
         sub_419220();
-        sub_41A000(v1);
+        GameUI_DrawAwardsTab(v1);
         v5 = class17_LoadTexture(pClass17_Icons_LOD, "ib-cd4-d", 2);
         v3 = v5 != -1 ? 72 * v5 + 7145548 : 0;
         v2 = dword_507680;
@@ -14574,7 +14574,7 @@ void __thiscall sub_41ABFD(int a1)
           goto LABEL_13;
         sub_4196A0();
         sub_419379();
-        sub_41A2D1(v1, 0);
+        GameUI_DrawInventory(v1, 0);
         v4 = class17_LoadTexture(pClass17_Icons_LOD, "ib-cd3-d", 2);
         v3 = v4 != -1 ? 72 * v4 + 7145548 : 0;
         v2 = dword_507684;

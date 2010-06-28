@@ -3211,7 +3211,7 @@ void __cdecl sub_46B76F()
       if ( v3 & 1 )
       {
         CGame_Pick(pGame, 512.0, *v4, *(_DWORD *)(v1 + 16), 0, (int)&dword_F93E6C, (int)&dword_F93E58);
-        if ( sub_466CA0() == 6 )
+        if ( sub_466CA0() == MENU_CREATEPARTY )
           sub_41CD4F(VK_SELECT);
         OnMouseLeftClick((void *)(v1 + 12));
       }

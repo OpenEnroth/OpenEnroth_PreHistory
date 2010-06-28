@@ -4613,7 +4613,7 @@ void __thiscall sub_4B3157(const void *this)
       CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_4E5E50, dword_4E5EE0, dword_59140C[v4]);
       if ( dword_4E28F8 == 14 )
       {
-        sub_41A2D1(uMaybeSelectedCharacter, 1);
+        GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
         goto LABEL_58;
       }
       if ( v4 || !dword_591080 )
@@ -6351,7 +6351,7 @@ signed int __cdecl sub_4B4FCF()
     if ( dword_F8B19C == 94 )
     {
       sub_41A556();
-      sub_41A2D1(uMaybeSelectedCharacter, 1);
+      GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
       dword_F8B1B8[0] = pGlobalTXT_LocalizationStrings[200];
       dword_F8B1BC = pGlobalTXT_LocalizationStrings[113];
       dword_F8B1C0 = pGlobalTXT_LocalizationStrings[179];
@@ -6517,7 +6517,7 @@ LABEL_140:
     if ( dword_F8B19C == 5 )
     {
       sub_41A556();
-      sub_41A2D1(uMaybeSelectedCharacter, 1);
+      GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
       sub_4B46A5(pGlobalTXT_LocalizationStrings[198], 0);
       result = sub_4B1784();
       if ( !result
@@ -6605,7 +6605,7 @@ LABEL_140:
         if ( dword_F8B19C == 4 )
         {
           sub_41A556();
-          sub_41A2D1(uMaybeSelectedCharacter, 1);
+          GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
           sub_4B46A5(pGlobalTXT_LocalizationStrings[197], 0);
           result = sub_4B1784();
           if ( result )
@@ -6650,7 +6650,7 @@ LABEL_140:
         return result;
       }
       sub_41A556();
-      sub_41A2D1(uMaybeSelectedCharacter, 1);
+      GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
       sub_4B46A5(pGlobalTXT_LocalizationStrings[199], 0);
       result = sub_4B1784();
       if ( !result
@@ -9536,7 +9536,7 @@ int __cdecl sub_4B910F()
     if ( dword_F8B19C == 94 )
     {
       sub_41A556();
-      sub_41A2D1(uMaybeSelectedCharacter, 1);
+      GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
       dword_F8B1B8[0] = pGlobalTXT_LocalizationStrings[200];
       dword_F8B1BC = pGlobalTXT_LocalizationStrings[113];
       dword_F8B1C0 = pGlobalTXT_LocalizationStrings[179];
@@ -9702,7 +9702,7 @@ LABEL_105:
     if ( dword_F8B19C == 5 )
     {
       sub_41A556();
-      sub_41A2D1(uMaybeSelectedCharacter, 1);
+      GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
       sub_4B46A5(pGlobalTXT_LocalizationStrings[198], 0);
       result = sub_4B1784();
       if ( result )
@@ -9801,7 +9801,7 @@ LABEL_105:
       if ( dword_F8B19C == 3 )
       {
         sub_41A556();
-        sub_41A2D1(uMaybeSelectedCharacter, 1);
+        GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
         sub_4B46A5(pGlobalTXT_LocalizationStrings[199], 0);
         result = sub_4B1784();
         if ( result )
@@ -9839,7 +9839,7 @@ LABEL_105:
         if ( dword_F8B19C == 4 )
         {
           sub_41A556();
-          sub_41A2D1(uMaybeSelectedCharacter, 1);
+          GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
           sub_4B46A5(pGlobalTXT_LocalizationStrings[197], 0);
           result = sub_4B1784();
           if ( result )
@@ -10217,7 +10217,7 @@ signed int __cdecl sub_4B9CC6()
   if ( dword_F8B19C == 3 )
   {
     sub_41A556();
-    sub_41A2D1(uMaybeSelectedCharacter, 1);
+    GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
     sub_4B46A5(pGlobalTXT_LocalizationStrings[199], 0);
     result = sub_4B1784();
     if ( !result
@@ -10250,7 +10250,7 @@ LABEL_45:
   if ( dword_F8B19C == 4 )
   {
     sub_41A556();
-    sub_41A2D1(uMaybeSelectedCharacter, 1);
+    GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
     sub_4B46A5(pGlobalTXT_LocalizationStrings[197], 0);
     result = sub_4B1784();
     if ( !result
@@ -10283,7 +10283,7 @@ LABEL_45:
   if ( dword_F8B19C == 94 )
   {
     sub_41A556();
-    sub_41A2D1(uMaybeSelectedCharacter, 1);
+    GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
     dword_F8B1B8[0] = pGlobalTXT_LocalizationStrings[200];
     dword_F8B1BC = pGlobalTXT_LocalizationStrings[113];
     v23 = 0;
@@ -10891,7 +10891,7 @@ char __cdecl sub_4BA928()
     if ( dword_F8B19C == 94 )
     {
       sub_41A556();
-      sub_41A2D1(uMaybeSelectedCharacter, 1);
+      GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
       v75 = (const char **)dword_F8B1B8;
       dword_F8B1B8[0] = pGlobalTXT_LocalizationStrings[200];
       dword_F8B1BC = pGlobalTXT_LocalizationStrings[113];
@@ -11206,7 +11206,7 @@ LABEL_96:
   if ( dword_F8B19C == 5 )
   {
     sub_41A556();
-    sub_41A2D1(uMaybeSelectedCharacter, 1);
+    GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
     sub_4B46A5(pGlobalTXT_LocalizationStrings[198], 0);
     v1 = sub_4B1784();
     if ( !v1
@@ -11291,7 +11291,7 @@ LABEL_96:
   if ( dword_F8B19C == 3 )
   {
     sub_41A556();
-    sub_41A2D1(uMaybeSelectedCharacter, 1);
+    GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
     sub_4B46A5(pGlobalTXT_LocalizationStrings[199], 0);
     v1 = sub_4B1784();
     if ( !v1
@@ -11317,7 +11317,7 @@ LABEL_96:
   if ( dword_F8B19C == 4 )
   {
     sub_41A556();
-    sub_41A2D1(uMaybeSelectedCharacter, 1);
+    GameUI_DrawInventory(uMaybeSelectedCharacter, 1);
     sub_4B46A5(pGlobalTXT_LocalizationStrings[197], 0);
     v1 = sub_4B1784();
     if ( v1 )

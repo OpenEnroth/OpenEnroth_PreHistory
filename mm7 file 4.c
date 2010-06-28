@@ -7652,7 +7652,7 @@ LABEL_99:
           pVideoPlayer->dword_00006C = 1;
           dword_57702C = 1;
           dword_577030 = 1;
-          if ( !sub_466CA0() || sub_466CA0() == 6 || sub_466CA0() == 7 )
+          if ( !sub_466CA0() || sub_466CA0() == MENU_CREATEPARTY || sub_466CA0() == 7 )
           {
             v17 = dword_4E28F8;
 LABEL_83:
