@@ -757,7 +757,7 @@ extern unsigned int uTextureIdx_ib_td5_A; // dword @ MM7.exe::0050794C
 extern unsigned int uTextureIdx_ib_td2_A; // dword @ MM7.exe::00507950
 extern unsigned int uTextureIdx_ib_td1_A; // dword @ MM7.exe::00507954
 
-extern int dword_507958; // weak
+extern unsigned int uTextureIdx_InventoryBackground; // dword @ MM7.exe::00507958
 extern int dword_50795C; // weak
 extern int dword_507960; // weak
 extern int dword_507964; // weak
@@ -954,7 +954,7 @@ extern float flt_50A2C8; // weak
 extern _UNKNOWN unk_50A2CC; // weak
 extern _UNKNOWN unk_50A2D0; // weak
 extern _UNKNOWN unk_50A2DC; // weak
-extern _UNKNOWN unk_50AC10; // weak
+extern _UNKNOWN unk_50AC10[48*array_size_unknown]; // begin of new structure in array, size 0x30
 extern _UNKNOWN unk_50AC18; // weak
 extern float flt_50AC1C; // weak
 extern float flt_50AC28; // weak

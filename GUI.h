@@ -182,5 +182,10 @@ void GameUI_DrawTorchlightAndWizardEye();
 void GameUI_DrawLifeManaBars();
 void GameUI_Update();
 
+char __cdecl GameUI_SkillsTab_ShowHint();
+char __cdecl GameUI_StatsTab_ShowHint();
+char __fastcall GameUI_DrawSkillsTab(int a1);
+int __fastcall GameUI_DrawAwardsTab(int a1);
+char GameUI_DrawInventory(unsigned int uSelectedCharacter, char a2);
 
 #pragma pack(pop)

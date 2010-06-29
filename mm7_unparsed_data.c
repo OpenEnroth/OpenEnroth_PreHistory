@@ -809,7 +809,7 @@ struct unnamed_505898 struct_505898;
  unsigned int uTextureIdx_ib_td2_A; // dword @ MM7.exe::00507950
  unsigned int uTextureIdx_ib_td1_A; // dword @ MM7.exe::00507954
 
- int dword_507958; // weak
+unsigned int uTextureIdx_InventoryBackground; // dword @ MM7.exe::00507958
  int dword_50795C; // weak
  int dword_507960; // weak
  int dword_507964; // weak
@@ -1006,7 +1006,7 @@ struct struct14 array_508FF0[50]; // struct[50] @ MM7.exe::00508FF0
  _UNKNOWN unk_50A2CC; // weak
  _UNKNOWN unk_50A2D0; // weak
  _UNKNOWN unk_50A2DC; // weak
- _UNKNOWN unk_50AC10; // weak
+ _UNKNOWN unk_50AC10[48*array_size_unknown]; // begin of new structure in array, size 0x30
  _UNKNOWN unk_50AC18; // weak
  float flt_50AC1C; // weak
  float flt_50AC28; // weak

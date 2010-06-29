@@ -10614,3 +10614,17 @@ LABEL_36:
     v2 = 10;
   }
 }
+
+//----- (0040F806) --------------------------------------------------------
+int class18_UnzipPalette(struct class18 *_this)
+{
+  int v2; // esi@1
+  int v3; // edi@1
+  int v4; // [sp+0h] [bp-4h]@1
+
+  v4 = _this;
+  v2 = _this;
+  v3 = (int)malloc(_this->uDecompressedSize);
+  MemUnzip(v3, &v4, _this->pIndexedPixels, *(_DWORD *)(v2 + 20));
+  return v3;
+}

@@ -592,6 +592,8 @@ struct class18
 void *class18_ctor(struct class18 *_this);
 //int __thiscall sub_40F77C(int this);
 void sub_40F77C(struct class18 *_this);
+//int __thiscall sub_40F806(int this);
+int class18_UnzipPalette(struct class18 *_this);
 
 
 
@@ -1293,6 +1295,15 @@ int CNPCStats_sub_476977(struct CNPCStats *_this);
 #define SKILL_LEARNING		36
 
 
+struct Player_stru0
+{
+ unsigned int  uItemID; // dword @ 000000
+ int           dword_000004[3];
+ int           dword_000014;
+ int           dword_00001C[4];
+};
+//sizeof == 24
+
 struct Player
 {
  union
@@ -1375,9 +1386,8 @@ struct Player
    char array_0001EB[41];
 
 
-
-   int array_000214[1134]; // 36 * 126 / 4
-   char array_0013CC[432];
+   struct Player_stru0 array_000214[126];
+   char                array_0013CC[432];
 
    int array_00157C[128];
 

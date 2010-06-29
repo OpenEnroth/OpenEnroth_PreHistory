@@ -10877,7 +10877,7 @@ char __cdecl sub_4BA928()
               v123 = v99 + 1;
               v101 = v150 + v151 + 640 * v102;
             }
-            LOBYTE(v1) = sub_40F89C(pD3DRenderer->pActiveZBuffer + 4 * v101, dword_F8B168[v99], v123);
+            sub_40F89C(pD3DRenderer->pActiveZBuffer + v101, dword_F8B168[v99], v123);
           }
           v151 += 105;
           ++v99;

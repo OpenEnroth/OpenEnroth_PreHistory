@@ -4597,6 +4597,8 @@ LABEL_22:
     GameUI_DrawTorchlightAndWizardEye();
   }
 
+  GameUI_DrawInventory(2, 0);
+
   sub_4156F0();
   sub_4909F4(pParty_global);
   ++dword_510774;
@@ -6459,8 +6461,8 @@ signed int __cdecl sub_465D0B()
   sub_458D97(pOverlayDescriptionList);
   if (!(dword_6BE364 & 0x10))  //if (!nosound)
   {
-   runtime_warning();
-    sub_4A9953(pSoundList);
+   runtime_warning(Soundy crashes);
+    //sub_4A9953(pSoundList);
   }
   v1 = &unk_4E98D4;
 
@@ -6597,7 +6599,7 @@ void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
         CIconFrameTable_InitializeIcon(pIconFrameTable, uIconIdx_Torch);
         sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_506438 + 7145548), "ib-bcu-c", 2);
         sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_50795C + 7145548), "evtnpc-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_507958 + 7145548), "fr_inven-c", 2);
+        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_InventoryBackground + 7145548), "fr_inven-c", 2);
         sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_Parchment + 7145548), "parchment", 2);
         sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_CornerLowerLeft + 7145548), "cornr_ll-c", 2);
         sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_CornerLowerRight + 7145548), "cornr_lr-c", 2);
@@ -6637,7 +6639,7 @@ void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
         dword_507964 = class17_LoadTexture(pClass17_Icons_LOD, "isg-03-c", 2);
         dword_507960 = class17_LoadTexture(pClass17_Icons_LOD, "isg-04-c", 2);
         dword_50795C = class17_LoadTexture(pClass17_Icons_LOD, "evtnpc-c", 2);
-        dword_507958 = class17_LoadTexture(pClass17_Icons_LOD, "fr_inven", 2);
+        uTextureIdx_InventoryBackground = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"fr_inven");
 
         uIconIdx_WizardEye = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeC");
         CIconFrameTable_InitializeIcon(pIconFrameTable, uIconIdx_WizardEye);
@@ -6716,7 +6718,7 @@ void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
         uTextureIdx_CornerLowerLeft = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Cornr_LL");
         uTextureIdx_Parchment = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Parchment");
 
-        dword_507958 = class17_LoadTexture(pClass17_Icons_LOD, "fr_inven", 2);
+        uTextureIdx_InventoryBackground = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"fr_inven");
         dword_50795C = class17_LoadTexture(pClass17_Icons_LOD, "evtnpc", 2);
         dword_507960 = class17_LoadTexture(pClass17_Icons_LOD, "isg-04-a", 2);
         dword_507964 = class17_LoadTexture(pClass17_Icons_LOD, "isg-03-a", 2);
@@ -6792,7 +6794,7 @@ void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
       CIconFrameTable_InitializeIcon(pIconFrameTable, uIconIdx_Torch);
       sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_506438 + 7145548), "ib-bcu-b", 2);
       sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_50795C + 7145548), "evtnpc-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_507958 + 7145548), "fr_inven-b", 2);
+      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_InventoryBackground + 7145548), "fr_inven-b", 2);
       sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_Parchment + 7145548), "parchment", 2);
       sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_CornerLowerLeft + 7145548), "cornr_ll-b", 2);
       sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_CornerLowerRight + 7145548), "cornr_lr-b", 2);

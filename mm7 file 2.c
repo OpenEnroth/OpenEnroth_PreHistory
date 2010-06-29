@@ -5897,24 +5897,10 @@ signed int __thiscall sub_40F5F5(void *this, const char *Str1)
   return result;
 }
 
-//----- (0040F806) --------------------------------------------------------
-int __thiscall sub_40F806(int this)
-{
-  int v2; // esi@1
-  int v3; // edi@1
-  int v4; // [sp+0h] [bp-4h]@1
-
-  v4 = this;
-  v2 = this;
-  v3 = (int)malloc(*(_DWORD *)(this + 40));
-  MemUnzip(v3, &v4, *(_DWORD *)(v2 + 48), *(_DWORD *)(v2 + 20));
-  return v3;
-}
-
 //----- (0040F82D) --------------------------------------------------------
-char __fastcall sub_40F82D(int a1, int a2, int a3)
+void sub_40F82D(int *pZBuffer, unsigned int uTextureID, int a3)
 {
-  return sub_40F89C(a1, a2 != -1 ? 72 * a2 + 7145548 : 0, a3);
+  sub_40F89C(pZBuffer, &pClass17_Icons_LOD->aLODHeaders[uTextureID], a3);
 }
 
 //----- (0040F845) --------------------------------------------------------
@@ -5957,54 +5943,25 @@ __int16 __fastcall sub_40F845(int a1, int a2, int a3, int a4, int a5, __int16 a6
 }
 
 //----- (0040F89C) --------------------------------------------------------
-char __fastcall sub_40F89C(int a1, int a2, int a3)
+void sub_40F89C(int *pZBuffer, struct class18 *pTexture, int uZFill)
 {
-  int v3; // eax@3
-  int v4; // eax@5
-  int v5; // edi@5
-  int v6; // esi@5
-  int v7; // ecx@6
-  int v8; // eax@7
-  int v11; // [sp+Ch] [bp-14h]@1
-  int v12; // [sp+10h] [bp-10h]@1
-  int v13; // [sp+14h] [bp-Ch]@1
-  int v14; // [sp+18h] [bp-8h]@1
-  unsigned int v15; // [sp+1Ch] [bp-4h]@5
+ unsigned int *pPixels;
+ int x, y;
 
-  v13 = *(_WORD *)(a2 + 24);
-  v11 = a2;
-  v12 = a1;
-  v14 = *(_WORD *)(a2 + 26);
-  if ( pClass17_Icons_LOD->dword_011BA4 && *(_DWORD *)(a2 + 40) )
-    v3 = sub_40F806(a2);
-  else
-    v3 = *(_DWORD *)(a2 + 48);
-  v15 = v3;
-  v6 = v3;
-  v5 = v12;
-  v4 = 0;
-  do
+
+ pPixels = pTexture->pTruecolorPixels;
+
+ for (y = 0; y < pTexture->uTextureHeight; ++y)
+ {
+  for (x = 0; x < pTexture->uTextureWidth; ++x)
   {
-    v7 = v13;
-    do
-    {
-      LOBYTE(v4) = *(_BYTE *)v6++;
-      if ( v4 )
-        *(_DWORD *)v5 = a3;
-      v5 += 4;
-      --v7;
-    }
-    while ( v7 );
-    v5 += 4 * (640 - v13);
+   if (!(*pPixels++ & 0xFF000000)) // on zbuffer place only non-transparent pixels
+     *pZBuffer = uZFill;
+   pZBuffer++;
   }
-  while ( v14-- != 1 );
-  if ( pClass17_Icons_LOD->dword_011BA4 )
-  {
-    LOBYTE(v8) = v11;
-    if ( *(_DWORD *)(v11 + 40) )
-      LOBYTE(v8) = operator_delete(v11, v15);
-  }
-  return v8;
+
+  pZBuffer += 640 - pTexture->uTextureWidth;
+ }
 }
 
 //----- (0040F92A) --------------------------------------------------------
@@ -6025,7 +5982,7 @@ int __fastcall sub_40F92A(int a1, int a2, int a3)
   v10 = *(_WORD *)(a2 + 24);
   v12 = *(_WORD *)(a2 + 26);
   if ( pClass17_Icons_LOD->dword_011BA4 && *(_DWORD *)(a2 + 40) )
-    v4 = sub_40F806(a2);
+    v4 = class18_UnzipPalette(a2);
   else
     v4 = *(_DWORD *)(a2 + 48);
   v11 = v4;
@@ -14176,19 +14133,12 @@ int __fastcall GetSizeInInventorySlots(signed int a1)
 }
 
 //----- (0041A2D1) --------------------------------------------------------
-char __fastcall GameUI_DrawInventory(int a1, char a2) // character inventory tab
+void GameUI_DrawInventory(unsigned int uSelectedCharacter, bool a2) // character inventory tab
 {
-  int v2; // esi@1
-  char v3; // bl@1
+  struct Player *v2; // esi@1
   int v4; // eax@2
-  int v5; // eax@4
-  int v6; // ebx@5
-  __int16 v7; // ax@6
+  struct Player_stru0 *v6; // ebx@5
   signed int v8; // edx@6
-  signed int v9; // ecx@6
-  signed int v10; // edi@6
-  int v11; // esi@6
-  int v12; // eax@6
   signed int v13; // eax@11
   int v14; // eax@13
   int v15; // eax@13
@@ -14200,78 +14150,72 @@ char __fastcall GameUI_DrawInventory(int a1, char a2) // character inventory tab
   unsigned __int8 v21; // sf@24
   double v22; // st7@26
   const char *v24; // [sp-8h] [bp-40h]@20
-  int v25; // [sp+14h] [bp-24h]@1
-  int v26; // [sp+18h] [bp-20h]@6
-  int v27; // [sp+1Ch] [bp-1Ch]@1
   int v28; // [sp+20h] [bp-18h]@5
-  int v29; // [sp+24h] [bp-14h]@5
-  int v30; // [sp+28h] [bp-10h]@3
-  signed int v31; // [sp+2Ch] [bp-Ch]@3
   int v32; // [sp+30h] [bp-8h]@5
   int v33; // [sp+34h] [bp-4h]@5
+ int i;
 
-  v27 = pD3DRenderer->pActiveZBuffer;
-  v2 = (int)*(&ptr_A750C4 + a1);
-  v3 = a2;
-  v25 = (int)*(&ptr_A750C4 + a1);
-  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 8, dword_507958 != -1 ? 72 * dword_507958 + 7145548 : 0);
-  if ( v3 )
+  v2 = pPlayers[uSelectedCharacter - 1];
+
+  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 8, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_InventoryBackground]);
+  if (a2)
   {
-    v4 = class17_LoadTexture(pClass17_Icons_LOD, "fr_strip", 2);
-    CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 305, v4 != -1 ? 72 * v4 + 7145548 : 0);
+    v4 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"fr_strip");
+    CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 305, &pClass17_Icons_LOD->aLODHeaders[v4]);
   }
-  v31 = 0;
-  v30 = v2 + 5500;
-  do
+
+
+  for (i = 0; i < 126; ++i)
   {
-    LOBYTE(v5) = v30;
-    if ( *(_DWORD *)v30 > 0 )
+    if (v2->array_00157C[i] > 0)
     {
-      v28 = *(_DWORD *)v30 - 1;
-      v33 = 32 * v31 / 14 + 17;
-      v6 = v2 + 36 * v28 + 532;
-      v32 = 32 * v31 % 14 + 14;
-      v29 = v6;
-      v5 = *(_DWORD *)v6;
-      if ( *(_DWORD *)v6 )
+      v28 = v2->array_00157C[i] - 1;
+      v33 = 32 * i / 14 + 17;
+      v6 = &v2->array_000214[v28];
+      v32 = 32 * i % 14 + 14;
+
+      if (v6->uItemID)
       {
-        v12 = class17_LoadTexture(pClass17_Icons_LOD, pClass40->pItems[v5].pIconName, 2);
-        v26 = v12;
-        v11 = v12 != -1 ? 72 * v12 + 7145548 : 0;
-        v7 = *(_WORD *)(v12 != -1 ? 72 * v12 + 7145548 + 0x18 : 24);
-        v10 = *(_WORD *)(v11 + 26);
-        v9 = *(_WORD *)(v11 + 24);
-        v8 = *(_WORD *)(v11 + 24);
-        if ( v9 < 14 )
+       wchar_t         pItemIconNameW[256];
+       unsigned int    uItemTextureIdx;
+       struct class18 *pItemTexture;
+
+
+       wsprintfW(pItemIconNameW, L"%S", pClass40->pItems[v6->uItemID].pIconName);
+       uItemTextureIdx = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pItemIconNameW);
+
+        pItemTexture = &pClass17_Icons_LOD->aLODHeaders[uItemTextureIdx];
+        v8 = pItemTexture->uTextureWidth;
+        if (pItemTexture->uTextureWidth < 14)
           v8 = 14;
-        if ( (v8 - 14) >> 5 == 0 )
+        if ( (v8 - 14) / 32 == 0 )
         {
-          if ( v7 < 32 )
-            v32 += (32 - v9) / 2;
+          if (pItemTexture->uTextureWidth < 32 )
+            v32 += (32 - pItemTexture->uTextureWidth) / 2;
         }
-        v13 = *(_WORD *)(v11 + 24);
-        if ( v9 < 14 )
+        v13 = pItemTexture->uTextureWidth;
+        if (pItemTexture->uTextureWidth < 14)
           v13 = 14;
         v15 = v13 - 14;
-        v16 = *(_WORD *)(v11 + 26);
+        v16 = pItemTexture->uTextureHeight;
         LOBYTE(v15) = v15 & 0xE0;
         v14 = v15 + 32;
-        if ( v10 < 14 )
+        if (pItemTexture->uTextureHeight < 14 )
           v16 = 14;
-        v17 = *(_DWORD *)(v6 + 20);
-        v18 = v32 + ((v14 - v9) >> 1) + dword_5059A8[v33 + ((((v16 - 14) & 0xFFFFFFE0) - v10 + 32) >> 1)];
+        v17 = v6->dword_000014;
+        v18 = v32 + ((v14 - pItemTexture->uTextureWidth) >> 1) + dword_5059A8[v33 + ((((v16 - 14) & 0xFFFFFFE0) - pItemTexture->uTextureHeight + 32) >> 1)];
         if ( !(v17 & 0xF0) )
         {
           if ( v17 & 1 || dword_4E28F8 != 13 )
           {
             if ( v17 & 2 )
-              sub_4A6776(pD3DRenderer, v32, v33, v11);
+              sub_4A6776(pD3DRenderer, v32, v33, pItemTexture);
             else
-              CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v32, v33, v11);
+              CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v32, v33, pItemTexture);
           }
           else
           {
-            sub_4A68EF(pD3DRenderer, v32, v33, v11);
+            sub_4A68EF(pD3DRenderer, v32, v33, pItemTexture);
           }
           goto LABEL_33;
         }
@@ -14301,27 +14245,21 @@ LABEL_24:
             if ( v21 | v20 )
             {
               dword_50C9A8 = 0;
-              *(_BYTE *)(v29 + 20) &= 0xFu;
+              v6->dword_000014 &= 0xFFFFFF0F;
               dword_50C9A4 = 0;
             }
             v22 = (double)GetTickCount() * 0.1000000014901161;
-            sub_4A63E6(pD3DRenderer, v32, v33, v11, v19, (signed __int64)v22, 0, 255);
+            sub_4A63E6(pD3DRenderer, v32, v33, pItemTexture, v19, (signed __int64)v22, 0, 255);
 LABEL_33:
-            LOBYTE(v5) = sub_40F82D(v27 + 4 * v18, v26, v28 + 1);
-            v2 = v25;
-            goto LABEL_34;
+            sub_40F82D(pD3DRenderer->pActiveZBuffer + v18, uItemTextureIdx, v28 + 1);
+            continue;
           }
         }
         v24 = "sptext01";
         goto LABEL_24;
       }
     }
-LABEL_34:
-    ++v31;
-    v30 += 4;
   }
-  while ( v31 < 126 );
-  return v5;
 }
 
 //----- (0041A556) --------------------------------------------------------
