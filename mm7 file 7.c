@@ -13446,7 +13446,7 @@ LABEL_42:
       dword_F8B1E4 = v26;
       sub_492BB6(v81);
 LABEL_43:
-      dword_57702C = v26;
+      struct_576FE8.dword_000044 = v26;
       sub_402F07(v82);
       CD3DRenderer_ClearZBuffer(pD3DRenderer, 0, 479);
       v27 = (void *)v78;
@@ -13473,7 +13473,7 @@ LABEL_81:
     {
       dword_F8B1E4 = 1;
       sub_4BE2DD((void *)v0, v80, v78 - 1, *(_DWORD *)(v16 + 28));
-      dword_57702C = 1;
+      struct_576FE8.dword_000044 = 1;
       CD3DRenderer_ClearZBuffer(pD3DRenderer, 0, 479);
       v54 = 0;
       v52 = 77;

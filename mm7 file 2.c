@@ -366,13 +366,13 @@ int __thiscall sub_443365(struct unnamed_576FE8 *_this)
   signed int v17; // [sp+1Ch] [bp-4h]@2
 
   v1 = _this;
-  sub_443343(_this);
+  sub_443343_GenerateSomeColorTable(_this);
   if ( dword_6BE360 == 1 )
   {
-    v16 = 1073741824;
-    v14 = 1073741824;
-    v17 = -1073741824;
-    v15 = -1073741824;
+    v16 = 0x40000000;
+    v14 = 0x40000000;
+    v17 = 0xC0000000;
+    v15 = 0xC0000000;
     if ( *(_DWORD *)dword_6BE670 > 0 )
     {
       v2 = dword_6BE670 + 4;
@@ -956,7 +956,7 @@ LABEL_89:
       if ( v19 )
       {
         v19 = 0;
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
       }
       AudioPlayer_sub_4AAFCF(pAudioPlayer);
       if ( dword_6A0D48 == 1 )
@@ -10224,7 +10224,7 @@ void __cdecl sub_4156F0()
           v43 = pWnd->dword_00001C;
           CD3DRenderer_DrawIndexedTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, *(_DWORD *)(v43 + 60));
           v42 = *(const char **)((char*)pWnd + 72);
-          dword_57702C = 1;
+          struct_576FE8.dword_000044 = 1;
           if ( v42 )
           {
             if ( v42 != (const char *)1 )
@@ -10275,7 +10275,7 @@ LABEL_152:
                   GUIWindowDelete(pWnd);
                   sub_426363(pClass24_global);
                   dword_4E28F8 = 0;
-                  dword_57702C = 1;
+                  struct_576FE8.dword_000044 = 1;
                   v39 = atoi(&byte_69AF00);
                   if ( v39 > 0 )
                   {
@@ -10292,7 +10292,7 @@ LABEL_152:
 LABEL_18:
             CD3DRenderer_DrawIndexedTexture(pD3DRenderer, v44, v45, v46);
 LABEL_114:
-            dword_57702C = 1;
+            struct_576FE8.dword_000044 = 1;
             continue;
           }
           memset(&Dst, 0, 0xBCu);
@@ -10305,7 +10305,7 @@ LABEL_114:
           v60 = *(_DWORD *)(dword_507640 + 56);
           AudioPlayer_sub_4AA306(pAudioPlayer, 75, 0, 0, -1, 0, 0, 0, 0);
           CD3DRenderer_DrawIndexedTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, *(_DWORD *)(pWnd->dword_00001C + 60));
-          dword_57702C = 1;
+          struct_576FE8.dword_000044 = 1;
           sub_415180((int)&Dst, pGlobalTXT_LocalizationStrings[183], pFontCreate, 0, 0);
           v60 = 0;
           goto LABEL_134;
@@ -10324,7 +10324,7 @@ LABEL_114:
         CD3DRenderer_DrawTransparentTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, *(_DWORD *)(v32 + 60));
 LABEL_138:
         v40 = *(const char **)((char*)pWnd + 72);
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
         if ( v40 )
         {
           if ( v40 != (const char *)1 )
@@ -10348,7 +10348,7 @@ LABEL_138:
             GUIWindowDelete(pWnd);
             sub_426363(pClass24_global);
             dword_4E28F8 = 0;
-            dword_57702C = 1;
+            struct_576FE8.dword_000044 = 1;
             v26 = atoi(&byte_69AF00);
             if ( v26 > 0 )
             {
@@ -10399,7 +10399,7 @@ LABEL_138:
             }
           }
           v23 = *(const char **)((char*)pWnd + 72);
-          dword_57702C = 1;
+          struct_576FE8.dword_000044 = 1;
           if ( v23 )
           {
             v24 = v23 == (const char *)1;
@@ -10421,7 +10421,7 @@ LABEL_134:
           CD3DRenderer_DrawIndexedTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, &pClass17_Icons_LOD->aLODHeaders[v47]);
 LABEL_80:
           v23 = pWnd->dword_000048;
-          dword_57702C = 1;
+          struct_576FE8.dword_000044 = 1;
           if ( v23 )
           {
             v24 = v23 == (const char *)1;
@@ -10446,7 +10446,7 @@ LABEL_82:
           if ( pWnd->dword_000048 != 1 )
             AudioPlayer_sub_4AA306(pAudioPlayer, 75, 0, 0, -1, 0, 0, 0, 0);
           CD3DRenderer_DrawTransparentTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, *(_DWORD *)(pWnd->dword_00001C + 64));
-          dword_57702C = 1;
+          struct_576FE8.dword_000044 = 1;
           goto LABEL_134;
         }
         if ( v19 == 1 )
@@ -10456,7 +10456,7 @@ LABEL_82:
           v21 = pWnd->dword_00001C;
           CD3DRenderer_DrawIndexedTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, *(_DWORD *)(v21 + 60));
           v20 = *(const char **)((char*)pWnd + 72);
-          dword_57702C = 1;
+          struct_576FE8.dword_000044 = 1;
           if ( v20 )
           {
             if ( v20 != (const char *)1 )
@@ -11746,7 +11746,7 @@ LABEL_112:
   }
 LABEL_132:
   dword_507BF0 = 1;
-  dword_57702C = 1;
+  struct_576FE8.dword_000044 = 1;
 }
 
 //----- (004175C0) --------------------------------------------------------
@@ -17103,7 +17103,7 @@ void __cdecl sub_41F5BE()
       sub_4114F2(pClass17_Icons_LOD);
       sub_40F9C5(pClass17_Icons_LOD);
       dword_4E28F8 = 0;
-      dword_57702C = 1;
+      struct_576FE8.dword_000044 = 1;
       if ( dword_6BE360 == 2 )
       {
         sub_4892E6(pClass51_global);
@@ -17118,7 +17118,7 @@ void __cdecl sub_41F5BE()
     dword_506F18 -= 6;
     sub_41F54A();
   }
-  dword_57702C = 1;
+  struct_576FE8.dword_000044 = 1;
 }
 
 //----- (0041F6C1) --------------------------------------------------------
@@ -17136,7 +17136,7 @@ int __cdecl sub_41F6C1()
   {
     GUIWindowDelete(pGUIWindow_PlayerCreation);
     dword_4E28F8 = 0;
-    dword_57702C = 1;
+    struct_576FE8.dword_000044 = 1;
   }
   class24_fn1(pClass24_global);
   if ( dword_506F14 != 2 )
@@ -18436,7 +18436,7 @@ void __cdecl sub_420E01()
       if ( byte_5D2A00[48 * *(_DWORD *)((char *)&unk_5E5154 + v4)] == 18 )
       {
         sub_420C05(*(int *)((char *)&dword_5E5160 + v4), 0);
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
       }
       else
       {
@@ -18691,7 +18691,7 @@ void __fastcall sub_421D00(void *this)
     if ( v2 )
     {
       memcpy((void *)(v3 + 36 * v2 + 496), &dword_AD470C, 0x24u);
-      dword_57702C = 1;
+      struct_576FE8.dword_000044 = 1;
       class03_sub_4698A6(pGame->pClass03);
       return;
     }
@@ -18710,7 +18710,7 @@ void __fastcall sub_421D00(void *this)
 LABEL_9:
   if ( !dword_4E28F8 )
   {
-    dword_57702C = 1;
+    struct_576FE8.dword_000044 = 1;
     if ( (void *)uMaybeSelectedCharacter != v1 )
       goto LABEL_27;
     v5 = 7;
@@ -18723,7 +18723,7 @@ LABEL_22:
   if ( dword_4E28F8 == 10 )
   {
 LABEL_23:
-    dword_57702C = 1;
+    struct_576FE8.dword_000044 = 1;
     if ( (void *)uMaybeSelectedCharacter == v1 )
     {
       dword_506F48 = 103;
@@ -18745,7 +18745,7 @@ LABEL_28:
     }
     if ( dword_4E28F8 != 15 )
     {
-      dword_57702C = 1;
+      struct_576FE8.dword_000044 = 1;
       uMaybeSelectedCharacter = (int)v1;
       if ( dword_506F48 == 102 )
         sub_419100();
@@ -18755,7 +18755,7 @@ LABEL_28:
   }
   if ( *(_DWORD *)(dword_507BC0 + 64) == 1 )
     return;
-  dword_57702C = 1;
+  struct_576FE8.dword_000044 = 1;
   if ( (void *)uMaybeSelectedCharacter != v1 )
     goto LABEL_28;
   if ( dword_F8B19C == 2 || dword_F8B19C == 6 )
@@ -18966,7 +18966,7 @@ void __cdecl sub_42213C()
       if ( byte_5D2A00[v22] == 18 )
       {
         sub_420C05(*(_DWORD *)(v23 + 12), 0);
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
       }
       else
       {

@@ -197,7 +197,7 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
     v8 = strlen(&Str);
     v120 = 2;
     *(&v152 + v8) = 0;
-    uTextureID_LocationMap = class17_LoadTexture(pClass17_Icons_LOD, &Str, v120);
+    struct_576FE8.uTextureID_LocationMap = class17_LoadTexture(pClass17_Icons_LOD, &Str, v120);
     locked_fread(&DstBuf, 0x180u, 1u, v7);
     fseek(v7, Offset, 0);
     locked_fread(_this, 0xB0u, 1u, v7);
@@ -490,7 +490,7 @@ LABEL_33:
   strcpy(Str1, Str);
   Str1[strlen(Str1) - 4] = 0;
   wsprintfW(pLevelMapFilename, L"%S", Str1);
-  uTextureID_LocationMap = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pLevelMapFilename);
+  struct_576FE8.uTextureID_LocationMap = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pLevelMapFilename);
 
   v154 = &v152;
   v40 = strlen(Str);

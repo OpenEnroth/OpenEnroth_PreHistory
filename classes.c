@@ -9986,7 +9986,7 @@ bool Player_sub_48E8F5(struct Player *_this, signed int a2)
   else
   {
     *((_WORD *)v3 + 3226) = 0;
-    dword_57702C = 1;
+    struct_576FE8.dword_000044 = 1;
     if ( !uMaybeSelectedCharacter )
       uMaybeSelectedCharacter = Party_sub_49370F(pParty_global);
     return false;

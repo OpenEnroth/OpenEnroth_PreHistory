@@ -1330,34 +1330,22 @@ extern struct unnamed_576FE8
  int dword_000034;
  short word_000038;
  short word_00003A;
+ int   dword_00003C;
+ unsigned int uTextureID_LocationMap; // 000040, dword @ MM7.exe::00577028
+ int dword_000044; // dword_57702C
+ int dword_000048; // dword_577030
+ int dword_00004C; // dword_577034
+ int dword_000050; // dword_577038
+ int dword_000054; // dword_57703C
+ int dword_000058;
+ int dword_00005C;
+ int dword_000060;
+ int dword_000064;
+ int dword_000068;
+ int pSomeColorTable[256]; //used to be word[256] @ 00006C, a color table, 0x200 bytes long, now in dwords 0x400 bytes long
 } struct_576FE8;      // struct @ MM7.exe::00576FE8
-//extern int dword_576FE8; // 000000
-//extern int dword_576FEC; // 000004
-//extern int dword_576FF0; // 000008
-//extern int dword_576FF4; // 00000C
-//extern int dword_576FF8; // 000010
-//extern int dword_576FFC; // 000014
-//extern int dword_577000; // 000018
-//extern int dword_577004; // 00001C
-//extern char byte_577008; // 000020
-//extern int dword_57700C; // 000024
-//extern int dword_577010; // 000028
-//extern int dword_577014; // 00002C
-//extern int dword_577018; // 000030
-//extern int dword_57701C; // 000034
-//extern __int16 word_577020; // 000038
-//extern __int16 word_577022; // 00003A
 
 
-
-
-extern unsigned int uTextureID_LocationMap; // dword @ MM7.exe::00577028
-extern int dword_57702C; // weak
-extern int dword_577030; // weak
-extern int dword_577034; // weak
-extern int dword_577038; // weak
-extern int dword_57703C; // weak
-extern _UNKNOWN unk_5771E4; // weak
 extern __int64 qword_5773B8; // weak
 extern int dword_5773C0; // weak
 

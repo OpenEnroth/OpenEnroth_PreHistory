@@ -1485,7 +1485,7 @@ LABEL_43:
           }
         }
       }
-      dword_57702C = 1;
+      struct_576FE8.dword_000044 = 1;
       return;
     }
   }
@@ -7084,9 +7084,9 @@ void __cdecl sub_441BD4()
   int v19; // [sp+48h] [bp-4h]@5
 
   v0 = 0;
-  if ( dword_577038 )
+  if ( struct_576FE8.dword_000050 )
     v0 = 1;
-  if ( dword_57703C )
+  if ( struct_576FE8.dword_000054 )
     LOBYTE(v0) = v0 | 2;
   v1 = pClass24_global->dword_000024;
   v2 = v0;
@@ -7743,23 +7743,12 @@ int __thiscall sub_4432E7(int this)
 }
 
 //----- (00443343) --------------------------------------------------------
-unsigned int __thiscall sub_443343(void *this)
+void sub_443343_GenerateSomeColorTable(struct unnamed_576FE8 *_this)
 {
-  int v1; // edi@1
-  signed int v2; // esi@1
-  unsigned int result; // eax@2
+ unsigned int i;
 
-  v2 = 0;
-  v1 = (int)((char *)this + 108);
-  do
-  {
-    result = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(v2, v2, v2);
-    *(_WORD *)v1 = result;
-    ++v2;
-    v1 += 2;
-  }
-  while ( v2 < 256 );
-  return result;
+ for (i = 0; i < 256; ++i)
+   _this->pSomeColorTable[i] = 0xFF000000 | (i << 16) | (i << 8) | i;
 }
 
 //----- (00443F95) --------------------------------------------------------
@@ -9453,7 +9442,7 @@ int __fastcall sub_44622E(int a1)
   sub_44C175(Class, 2);
   if ( dword_50CBD0[0] )
     dword_50CBD0[0] = dword_50CBDC != 0;
-  dword_57702C = 1;
+  struct_576FE8.dword_000044 = 1;
   dword_59108C = 0;
   sub_459ED1(&dword_69AE00, 3);
   sub_459E3F();
@@ -10660,7 +10649,7 @@ LABEL_210:
 LABEL_212:
             v86 = *(_BYTE *)(pSomeEVT + v10 + 5) + (*(_BYTE *)(pSomeEVT + v10 + 6) << 8);
             if ( v86 == 21 || v86 == 22 || v86 == 23 || v86 == 24 )
-              dword_57702C = 1;
+              struct_576FE8.dword_000044 = 1;
             goto LABEL_291;
           case 0x1A:
             if ( !dword_597F18 )
@@ -10995,7 +10984,7 @@ LABEL_280:
                   if ( dword_50CBD0[0] )
                     dword_50CBD0[0] = dword_50CBDC != 0;
                   dword_4E28F8 = 0;
-                  dword_57702C = 1;
+                  struct_576FE8.dword_000044 = 1;
                   dword_5913F0 = 0;
                   GUIWindowDelete(dword_507BBC);
                   dword_F8B19C = 0;
@@ -12962,7 +12951,7 @@ LABEL_8:
               byte_ACD6C1 = 0;
               LOBYTE(dword_72D694[19 * a3]) |= 0x80u;
               sub_44A56A();
-              dword_57702C = 1;
+              struct_576FE8.dword_000044 = 1;
               break;
             case 243:
               *((_DWORD *)Dst + 1614) = a3;
@@ -13499,7 +13488,7 @@ LABEL_8:
               byte_ACD6C1 = 0;
               LOBYTE(dword_72D694[19 * a3]) |= 0x80u;
               sub_44A56A();
-              dword_57702C = 1;
+              struct_576FE8.dword_000044 = 1;
               break;
             case 243:
               *((_DWORD *)Dst + 1614) += a3;
@@ -14048,7 +14037,7 @@ LABEL_8:
                 byte_ACD6C1 = 0;
                 LOBYTE(dword_72D694[19 * a3]) &= 0x7Fu;
                 sub_44A56A();
-                dword_57702C = 1;
+                struct_576FE8.dword_000044 = 1;
               }
               break;
             case 241:

@@ -3028,7 +3028,7 @@ int __cdecl MenuLoop_Main()
           GUIWindowDelete(pGUIWindow_PlayerCreation);
           pGUIWindow_PlayerCreation = 0;
           dword_4E28F8 = 0;
-          dword_57702C = 1;
+          struct_576FE8.dword_000044 = 1;
       }
       else if (uCurrentMenuID == MENU_MAIN)
       {
@@ -3062,7 +3062,7 @@ int __cdecl MenuLoop_Main()
            GUIWindowDelete(pGUIWindow_PlayerCreation);
            pGUIWindow_PlayerCreation = 0;
            dword_4E28F8 = 0;
-           dword_57702C = 1;
+           struct_576FE8.dword_000044 = 1;
           }
           break;
          }
@@ -5420,7 +5420,7 @@ signed int __thiscall sub_4061CA(int this)
   {
     uMaybeSelectedCharacter = 0;
   }
-  dword_57702C = 1;
+  struct_576FE8.dword_000044 = 1;
   if ( *(_DWORD *)(v4 + 28) )
   {
     dword_4F8870 |= 2;
@@ -5589,7 +5589,7 @@ signed int __thiscall sub_4063A1(int this)
   sub_404544(this);
   v3 = v4 + 36;
   result = 1;
-  dword_57702C = 1;
+  struct_576FE8.dword_000044 = 1;
   v2 = *(_DWORD *)(v4 + 36);
   if ( v2 )
   {
@@ -5712,7 +5712,7 @@ int __thiscall sub_406457(void *this, int a2)
   else
     uMaybeSelectedCharacter = 0;
   result = v3 + 36;
-  dword_57702C = 1;
+  struct_576FE8.dword_000044 = 1;
   while ( *(_DWORD *)result > 0 )
   {
     if ( *(_DWORD *)(v3 + 16) <= 0 )
@@ -6010,7 +6010,7 @@ __int16 __thiscall sub_4065B0(int this)
   LOWORD(v1) = sub_404544(this);
   if ( *(_DWORD *)(v2 + 36) <= 0
     || ((sub_4063A1(v2), v1 = *(_DWORD *)(v2 + 32), (*(_BYTE *)(v2 + 32) & 7) != 4) ? (uMaybeSelectedCharacter = 0) : (v1 = (v1 >> 3) + 1, uMaybeSelectedCharacter = v1),
-        dword_57702C = 1,
+        struct_576FE8.dword_000044 = 1,
         *(_DWORD *)(v2 + 36) <= 0) )
   {
     v3 = 0;
@@ -6762,7 +6762,7 @@ int __cdecl sub_494035()
   {
     v9 = 1;
     dword_ACD6B4 = pParty_global->qword_00002C + 128;
-    dword_57702C = 1;
+    struct_576FE8.dword_000044 = 1;
     while ( 1 )
     {
       if ( sub_48D709(*(&ptr_A750C4 + v9), 516, 3) || sub_48D6D0((void *)v10, 71) || *(_QWORD *)(v10 + 6416) > 0i64 )
@@ -6802,7 +6802,7 @@ LABEL_39:
     {
       if ( (signed int)((unsigned __int64)dword_ACD6B4 >> 32) < HIDWORD(pParty_global->qword_00002C) || dword_ACD6B4 < v8 )
       {
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
         dword_ACD6B4 = v8 + 128;
         for (i = 0; i < 4; ++i)
         {
@@ -6865,7 +6865,7 @@ LABEL_61:
       else
       {
         *(_DWORD *)v20 = 0;
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
       }
     }
     v22 = &v18->dword_0000E4;
@@ -6879,7 +6879,7 @@ LABEL_61:
       else
       {
         *(_DWORD *)v22 = 0;
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
       }
     }
 
@@ -6894,7 +6894,7 @@ LABEL_61:
       else
       {
         *(_DWORD *)v24 = 0;
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
       }
     }
 
@@ -6909,7 +6909,7 @@ LABEL_61:
       else
       {
         *(_DWORD *)v26 = 0;
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
       }
     }
 
@@ -6924,7 +6924,7 @@ LABEL_61:
       else
       {
         *(_DWORD *)v28 = 0;
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
       }
     }
 
@@ -6939,7 +6939,7 @@ LABEL_61:
       else
       {
         *(_DWORD *)v30 = 0;
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
       }
     }
 
@@ -6954,7 +6954,7 @@ LABEL_61:
       else
       {
         *(_DWORD *)v32 = 0;
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
       }
     }
 
@@ -6969,7 +6969,7 @@ LABEL_61:
       else
       {
         *(_DWORD *)v34 = 0;
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
       }
     }
 
@@ -6984,7 +6984,7 @@ LABEL_61:
       else
       {
         *(_DWORD *)v36 = 0;
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
       }
     }
 
@@ -6999,7 +6999,7 @@ LABEL_61:
       else
       {
         *(_DWORD *)v38 = 0;
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
       }
     }
 
@@ -7024,7 +7024,7 @@ LABEL_61:
   for (i = 0; i < 20; ++i)
   {
     if ( sub_4585CA(pParty_global->array_00088C[i], pParty_global->qword_00002C, SHIDWORD(pParty_global->qword_00002C)) == 1 )
-      dword_57702C = 1;
+      struct_576FE8.dword_000044 = 1;
   }
 
   if ( qword_ACD8C4 > 0 )
@@ -7097,7 +7097,7 @@ LABEL_137:
         || *(_QWORD *)(result + 120)
         || *(_QWORD *)(result + 128) )
       {
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
         result = Party_sub_49370F(pParty_global);
         uMaybeSelectedCharacter = result;
       }
@@ -11833,7 +11833,7 @@ LABEL_8:
   v3 = sub_40E51F(pClass33_global0);
   sub_40E51F(pClass33_global1);
   struct_505898.byte_505992 = 0;
-  dword_57702C = 1;
+  struct_576FE8.dword_000044 = 1;
   if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
     sub_4BF5B2(pVideoPlayer);
   v4 = (int *)&unk_4FAA08;

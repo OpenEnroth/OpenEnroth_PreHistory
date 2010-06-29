@@ -485,7 +485,7 @@ int __thiscall sub_44323D(int this);
 int __thiscall sub_443249(int this);
 int __thiscall sub_443291(int this);
 int __thiscall sub_4432E7(int this);
-unsigned int __thiscall sub_443343(void *this);
+void sub_443343_GenerateSomeColorTable(struct unnamed_576FE8 *_this);
 int __thiscall sub_443365(void *this);
 int __cdecl sub_443801();
 void __cdecl sub_443F95();

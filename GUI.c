@@ -502,22 +502,22 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
 
  if (dword_6BE360 != 1)
  {
-  v20 = pClass17_Icons_LOD->aLODHeaders[uTextureID_LocationMap].word_00001C;
+  v20 = pClass17_Icons_LOD->aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C;
   v77 = (1 << (v20 + 16)) / uMinimapZoom;
   v21 = (double)(1 << (16 - (_BYTE)v20));
 
   //convert world-space xy to texture-space xy
-  uMinimapOffsetX = pClass17_Icons_LOD->aLODHeaders[uTextureID_LocationMap].uTextureWidth * (32768 + pParty_global->sPartyPosX) / 65536;
-  uMinimapOffsetY = pClass17_Icons_LOD->aLODHeaders[uTextureID_LocationMap].uTextureHeight * (32768 - pParty_global->sPartyPosY) / 65536;
+  uMinimapOffsetX = pClass17_Icons_LOD->aLODHeaders[struct_576FE8.uTextureID_LocationMap].uTextureWidth * (32768 + pParty_global->sPartyPosX) / 65536;
+  uMinimapOffsetY = pClass17_Icons_LOD->aLODHeaders[struct_576FE8.uTextureID_LocationMap].uTextureHeight * (32768 - pParty_global->sPartyPosY) / 65536;
 
   uMinimapOffsetX -= uMinimapWidth / (uMinimapZoom / 256);
   uMinimapOffsetY -= uMinimapHeight / (uMinimapZoom / 256);
              
-  pMapPixels = pClass17_Icons_LOD->aLODHeaders[uTextureID_LocationMap].pTruecolorPixels;
+  pMapPixels = pClass17_Icons_LOD->aLODHeaders[struct_576FE8.uTextureID_LocationMap].pTruecolorPixels;
   for (y = 0; y < uMinimapHeight; ++y)
   {
    pTargetSurface = pD3DRenderer->pTargetSurface + (uY + y) * pD3DRenderer->uTargetSurfacePitch + uX;
-   pSourceSurface = pMapPixels + (uMinimapOffsetY + y) * pClass17_Icons_LOD->aLODHeaders[uTextureID_LocationMap].uTextureWidth + uMinimapOffsetX;
+   pSourceSurface = pMapPixels + (uMinimapOffsetY + y) * pClass17_Icons_LOD->aLODHeaders[struct_576FE8.uTextureID_LocationMap].uTextureWidth + uMinimapOffsetX;
    for (x = 0; x < uMinimapWidth; ++x)
      *pTargetSurface++ = *pSourceSurface++;
   }
@@ -577,7 +577,8 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
         v15 = abs(*(_WORD *)(v10 + 8) - pParty_global->dword_0006BC) / 8;
         if ( v15 > 100 )
           v15 = 100;
-        CD3DRenderer_FillRect(pD3DRenderer, v73, v71, v100, v16, *((_WORD *)&unk_5771E4 - v15));
+        //CD3DRenderer_FillRect(pD3DRenderer, v73, v71, v100, v16, *((_WORD *)&unk_5771E4 - v15));
+        CD3DRenderer_FillRect(pD3DRenderer, v73, v71, v100, v16, struct_576FE8.pSomeColorTable[200 - v15]);
         v8 = dword_6BE644;
       }
 LABEL_26:

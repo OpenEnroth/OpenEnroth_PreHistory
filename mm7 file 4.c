@@ -1380,7 +1380,7 @@ void __stdcall sub_426A5A(int a1)
   if ( v16 )
   {
     sub_420C05(v16, 0);
-    dword_57702C = 1;
+    struct_576FE8.dword_000044 = 1;
   }
 LABEL_9:
   if ( *(_WORD *)(a1 + 180) )
@@ -4490,7 +4490,7 @@ void __cdecl sub_4304E7()
         case 0xA1:
           if ( !uMaybeSelectedCharacter )
             goto LABEL_92;
-          dword_577030 = v0;
+          struct_576FE8.dword_000048 = v0;
           if ( dword_50CBD0[0] )
             dword_50CBD0[0] = dword_50CBDC != 0;
           dword_5B65D0 = pActors[v209].word_000020;
@@ -4574,7 +4574,7 @@ LABEL_33:
             dword_6A0D48 = 4;
 LABEL_188:
             dword_4E28F8 = 0;
-            dword_57702C = v0;
+            struct_576FE8.dword_000044 = v0;
           }
           else
           {
@@ -4603,7 +4603,7 @@ LABEL_189:
               dword_50CBD0[0] = dword_50CBDC != 0;
             GUIWindowDelete(pGUIWindow_PlayerCreation);
             dword_4E28F8 = 0;
-            dword_57702C = v0;
+            struct_576FE8.dword_000044 = v0;
             if ( !v209 )
               AudioPlayer_sub_4AA306(pAudioPlayer, 7, 0, 0, -1, 0, 0, 0, 0);
             dword_6A0D48 = 7;
@@ -4722,7 +4722,7 @@ LABEL_60:
           if ( dword_50CBD0[0] )
             dword_50CBD0[0] = dword_50CBDC != 0;
           GUIWindowDelete(pGUIWindow_PlayerCreation);
-          dword_577030 = v0;
+          struct_576FE8.dword_000048 = v0;
           dword_4E28F8 = 2;
           dword_507C60 = class17_LoadTexture(pClass17_Icons_LOD, "ControlBG", 2);
           dword_507C6C = class17_LoadTexture(pClass17_Icons_LOD, "con_16x", 2);
@@ -4863,7 +4863,7 @@ LABEL_60:
           if ( dword_50CBD0[0] )
             dword_50CBD0[0] = dword_50CBDC != 0;
           GUIWindowDelete(pGUIWindow_PlayerCreation);
-          dword_577030 = 1;
+          struct_576FE8.dword_000048 = 1;
           dword_4E28F8 = 26;
           dword_507BF4 = class17_LoadTexture(pClass17_Icons_LOD, "optkb", 2);
           dword_507BF8 = class17_LoadTexture(pClass17_Icons_LOD, "optkb_h", 2);
@@ -4954,7 +4954,7 @@ LABEL_60:
           if ( dword_50CBD0[0] )
             dword_50CBD0[0] = dword_50CBDC != 0;
           GUIWindowDelete(pGUIWindow_PlayerCreation);
-          dword_577030 = v0;
+          struct_576FE8.dword_000048 = v0;
           dword_4E28F8 = 28;
           dword_507C10 = class17_LoadTexture(pClass17_Icons_LOD, "optvid", 2);
           dword_507C14 = class17_LoadTexture(pClass17_Icons_LOD, "opvdH-bs", 2);
@@ -5329,8 +5329,8 @@ LABEL_232:
           if ( !dword_507BDC )
           {
             CD3DRenderer_ClearZBuffer(pD3DRenderer, 0, 479);
-            dword_57702C = v0;
-            dword_577030 = v0;
+            struct_576FE8.dword_000044 = v0;
+            struct_576FE8.dword_000048 = v0;
             if ( dword_4E28F8 )
             {
               if ( dword_4E28F8 > 103 )
@@ -5391,7 +5391,7 @@ LABEL_249:
                       GUIWindowDelete(v36);
                       sub_4114F2(pClass17_Icons_LOD);
                       dword_4E28F8 = 0;
-                      dword_57702C = v0;
+                      struct_576FE8.dword_000044 = v0;
                       sub_426363(pClass24_global);
                       goto LABEL_92;
                     case 2:
@@ -5557,7 +5557,7 @@ LABEL_306:
                         byte_ACD6C1 = 0;
                         LOBYTE(dword_72D694[19 * dword_5B65CC]) &= 0x7Fu;
                         sub_44A56A();
-                        dword_57702C = v0;
+                        struct_576FE8.dword_000044 = v0;
                         dword_5B65CC = 0;
                       }
                       goto LABEL_317;
@@ -5616,7 +5616,7 @@ LABEL_322:
               pGUIWindow_PlayerCreation = 0;
               sub_426363(pClass24_global);
               dword_4E28F8 = 0;
-              dword_57702C = v0;
+              struct_576FE8.dword_000044 = v0;
               sub_4355F7(pClass17_Icons_LOD);
               goto LABEL_92;
             }
@@ -5718,7 +5718,7 @@ LABEL_322:
                                pGlobalTXT_LocalizationStrings[619],
                                dword_507930 != -1 ? 72 * dword_507930 + 7145548 : 0);
               v45 = sub_41D08F(pGUIWindow_PlayerCreation, 6, v0, 0, 0);
-              dword_577030 = v0;
+              struct_576FE8.dword_000048 = v0;
               sub_40E51F(pClass33_global3);
               v46 = sub_45E03A_SomethingLikeCaptureAScreenshot(155, 117);
               v212 = v46;
@@ -5766,7 +5766,7 @@ LABEL_92:
           sub_4B1E92(dword_591160, 2);
           CVideoPlayer_UnloadAll(pVideoPlayer);
           sub_44603D();
-          dword_57702C = v0;
+          struct_576FE8.dword_000044 = v0;
           if ( dword_59117C | dword_591178 | dword_591174 | dword_591170 | dword_59116C | dword_591168 )
           {
             if ( dword_59117C )
@@ -5839,7 +5839,7 @@ LABEL_92:
           if ( byte_6BE3C4 != 1 && dword_ACD6BC
            || sub_48902E(pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, &Source, 20) != v0 )
           {
-            dword_57702C = v0;
+            struct_576FE8.dword_000044 = v0;
 LABEL_387:
             sub_42FC15();
             if ( pParty_global->sPartyPosX < -22528 )
@@ -5914,7 +5914,7 @@ LABEL_317:
             pParty_global->dword_000700 = pParty_global->dword_0006BC;
             sub_461103();
             sub_426363(pClass24_global);
-            dword_57702C = 1;
+            struct_576FE8.dword_000044 = 1;
             dword_4E28F8 = 0;
             LevelLoadingUI_Release(pLoadingUI);
           }
@@ -5999,7 +5999,7 @@ LABEL_333:
 LABEL_421:
             uMaybeSelectedCharacter = v50;
 LABEL_422:
-            dword_57702C = v0;
+            struct_576FE8.dword_000044 = v0;
           }
           else
           {
@@ -6783,7 +6783,7 @@ LABEL_662:
                 {
                   GUIWindowDelete(pGUIWindow_PlayerCreation);
                   sub_426363(pClass24_global);
-                  dword_57702C = v0;
+                  struct_576FE8.dword_000044 = v0;
                   dword_4E28F8 = 0;
                   sub_4114F2(pClass17_Icons_LOD);
                   v116 = dword_50654C + 11 * *(_BYTE *)(v212 + 6734);
@@ -6861,7 +6861,7 @@ LABEL_693:
                 class24_fn1(pClass24_global);
                 pGUIWindow_PlayerCreation = GUIWindowCreate(0, 0, 640, 480, 18, 0, 0);
                 AudioPlayer_sub_4AA306(pAudioPlayer, 48, 0, 0, -1, 0, 0, 0, 0);
-                dword_577030 = v0;
+                struct_576FE8.dword_000048 = v0;
                 goto LABEL_92;
               }
             }
@@ -6876,7 +6876,7 @@ LABEL_693:
           if ( !pClass17_Icons_LOD->dword_011B98 )
             pClass17_Icons_LOD->dword_011B98 = pClass17_Icons_LOD->uNumLoadedFiles;
           GUIWindowCreate(560, 450, 0, 0, 90, dword_5079F4, 0);
-          dword_57702C = v0;
+          struct_576FE8.dword_000044 = v0;
           class24_fn1(pClass24_global);
           AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
           dword_4E28F8 = 104;
@@ -6902,7 +6902,7 @@ LABEL_693:
             GUIWindowDelete(pGUIWindow_PlayerCreation);
             sub_426363(pClass24_global);
             dword_4E28F8 = 0;
-            dword_57702C = v0;
+            struct_576FE8.dword_000044 = v0;
           }
           sub_40E51F(pClass33_global3);
           v117 = sub_45E03A_SomethingLikeCaptureAScreenshot(155, 117);
@@ -7414,7 +7414,7 @@ void __cdecl sub_4356FF()
     if ( !dword_507BD4 )
       sub_426363(pClass24_global);
   }
-  dword_57702C = 1;
+  struct_576FE8.dword_000044 = 1;
 }
 
 //----- (00435748) --------------------------------------------------------
@@ -7631,7 +7631,7 @@ LABEL_99:
             GUIWindowDelete(pGUIWindow_PlayerCreation);
             sub_426363(pClass24_global);
             dword_4E28F8 = 0;
-            dword_57702C = 1;
+            struct_576FE8.dword_000044 = 1;
           }
           GUIWindowCreate(602, 450, 0, 0, 92, dword_5079F0, 0);
           if ( dword_50CBD0[0] >= 40 )
@@ -7650,8 +7650,8 @@ LABEL_99:
             continue;
           v16 = 1;
           pVideoPlayer->dword_00006C = 1;
-          dword_57702C = 1;
-          dword_577030 = 1;
+          struct_576FE8.dword_000044 = 1;
+          struct_576FE8.dword_000048 = 1;
           if ( !sub_466CA0() || sub_466CA0() == MENU_CREATEPARTY || sub_466CA0() == 7 )
           {
             v17 = dword_4E28F8;
@@ -7696,7 +7696,7 @@ LABEL_81:
             pGUIWindow2 = 0;
             sub_426363(pClass24_global);
             dword_4E28F8 = 0;
-            dword_57702C = v16;
+            struct_576FE8.dword_000044 = v16;
             continue;
           }
           if ( dword_4E28F8 == 16 )
@@ -16603,7 +16603,7 @@ LABEL_55:
     GUIWindowDelete(pGUIWindow_PlayerCreation);
     dword_4E28F8 = 0;
     v22 = 1;
-    dword_57702C = 1;
+    struct_576FE8.dword_000044 = 1;
     if ( pParty_global->uAlignment )
     {
       if ( pParty_global->uAlignment == 2 )
@@ -16655,7 +16655,7 @@ LABEL_55:
     pParty_global->dword_0006C0 = dword_6BE38C * pParty_global->dword_0006C0 / dword_6BE38C;
   result = sub_4666D5();
   byte_50794A = 0;
-  dword_57702C = 1;
+  struct_576FE8.dword_000044 = 1;
   return result;
 }
 
@@ -16694,7 +16694,7 @@ int __fastcall sub_460078(int a1)
   GUIWindowDelete(pGUIWindow_PlayerCreation);
   dword_4E28F8 = 0;
   v4 = (int)&unk_6A0118;
-  dword_57702C = 1;
+  struct_576FE8.dword_000044 = 1;
   do
   {
     v3 = sub_40E51F(v4);
@@ -16708,7 +16708,7 @@ int __fastcall sub_460078(int a1)
   sub_4355F7(pClass17_Icons_LOD);
   sub_426363(pClass24_global);
   result = sub_44C175(pGlobalTXT_LocalizationStrings[656], 2);
-  dword_57702C = 1;
+  struct_576FE8.dword_000044 = 1;
   return result;
 }
 
@@ -18097,8 +18097,8 @@ LABEL_52:
     }
     RGBTexture_Load(v5, v7, v8);
 LABEL_38:
-    dword_57702C = 1;
-    sub_443343(&struct_576FE8);
+    struct_576FE8.dword_000044 = 1;
+    sub_443343_GenerateSomeColorTable(&struct_576FE8);
     sub_4698F6(pGame->pClass03);
     if ( pD3DRenderer->dword_040058 )
     {

@@ -2175,7 +2175,7 @@ signed int __thiscall sub_48E96A(int this, signed int a2)
       uMaybeSelectedCharacter = Party_sub_49370F(pParty_global);
   }
   result = 1;
-  dword_57702C = 1;
+  struct_576FE8.dword_000044 = 1;
   return result;
 }
 
@@ -2935,7 +2935,7 @@ LABEL_56:
           memset(&struct_AD4674[i], 0, sizeof(struct unnamed_AD4674));
           byte_ACD6C1 = 0;
           sub_44A56A();
-          dword_57702C = 1;
+          struct_576FE8.dword_000044 = 1;
         }
         struct_AD4674[i].dword_AD46A0 = v11;
         struct_AD4674[i].dword_AD46A4 = v9;
@@ -4551,7 +4551,7 @@ LABEL_20:
     *(_WORD *)(this + 6816) = v3;
   }
   *(_WORD *)(this + 6812) = v4;
-  dword_57702C = 1;
+  struct_576FE8.dword_000044 = 1;
   return v3;
 }
 

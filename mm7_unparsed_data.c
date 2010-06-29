@@ -1339,31 +1339,7 @@ struct class56 *pLoadingUI = 0; // struct @ MM7.exe::00576E30
 //int dword_576E3C; // 00000C
 
 struct unnamed_576FE8 struct_576FE8;      // struct @ MM7.exe::00576FE8
-// int dword_576FE8; // 000000
- //int dword_576FEC; // 000004
- //int dword_576FF0; // 000008
- //int dword_576FF4; // 00000C
- //int dword_576FF8; // 000010
- //int dword_576FFC; // 000014
- //int dword_577000; // 000018
- //int dword_577004; // 00001C
- //char byte_577008; // 000020
- //int dword_57700C; // 000024
- //int dword_577010; // 000028
- //int dword_577014; // 00002C
- //int dword_577018; // 000030
- //int dword_57701C; // 000034
- //__int16 word_577020; // 000038
- //__int16 word_577022; // 00003A
 
-
-unsigned int uTextureID_LocationMap = 0; // dword @ MM7.exe::00577028
- int dword_57702C; // weak
- int dword_577030; // weak
- int dword_577034; // weak
- int dword_577038; // weak
- int dword_57703C; // weak
- _UNKNOWN unk_5771E4; // weak
  __int64 qword_5773B8; // weak
  int dword_5773C0; // weak
 

@@ -849,7 +849,7 @@ LABEL_178:
     GUIWindowDelete(pGUIWindow_PlayerCreation);
     sub_4114F2(pClass17_Icons_LOD);
     dword_4E28F8 = 0;
-    dword_57702C = 1;
+    struct_576FE8.dword_000044 = 1;
     sub_42777D(v24, a2 - 1, 133, 1, 0);
   }
   else
@@ -1891,7 +1891,7 @@ char __fastcall sub_46A334(int a1, int a2)
       if ( byte_5D2A00[v19] == 18 )
       {
         sub_420C05(*(_DWORD *)(v20 + 12), 0);
-        dword_57702C = 1;
+        struct_576FE8.dword_000044 = 1;
         v21 = v18;
       }
       else
@@ -7556,7 +7556,7 @@ LABEL_119:
                   if ( !((unsigned __int8)(v52 ^ v53) | v51) || (_DWORD)qword_ACD8F4 > (unsigned int)v23 )
                     sub_458585((int)&qword_ACD8F4);
                 }
-                dword_57702C = 1;
+                struct_576FE8.dword_000044 = 1;
                 goto LABEL_119;
               }
               v40 = dword_7215A8;
@@ -8156,7 +8156,7 @@ LABEL_103:
             if ( !(v52 | v51) || (_DWORD)qword_ACD8F4 > 0u )
               sub_458585((int)&qword_ACD8F4);
           }
-          dword_57702C = 1;
+          struct_576FE8.dword_000044 = 1;
           break;
         case 5:
           v48 = sub_452A9E(*(_WORD *)(v1 + 148) * *(_WORD *)(v1 + 148) + *(_WORD *)(v1 + 150) * *(_WORD *)(v1 + 150));
@@ -9604,7 +9604,7 @@ LABEL_93:
         if ( HIDWORD(qword_ACD8F4) > 0 || (_DWORD)qword_ACD8F4 )
           sub_458585((int)&qword_ACD8F4);
       }
-      dword_57702C = 1;
+      struct_576FE8.dword_000044 = 1;
       goto LABEL_152;
     }
     if ( (dword_7215A8 & 7) == 5 )
