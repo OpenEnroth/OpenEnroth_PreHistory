@@ -18393,8 +18393,8 @@ void __fastcall sub_420C05(int a1, int a2)
     v3 = 0;
   }
   pParty_global->uNumGold += v4 - v2;
-  word_6A0D24 = v3;
-  word_6A0D26 = 8 * pIconFrameTable->pIcons[word_6A0D20].word_00001A;
+  array_6A0D14[1].word_000004 = v3;
+  array_6A0D14[1].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[1].uIconIdx].word_00001A;
   if ( pStringBuffer[0] )
     sub_44C175(pStringBuffer, 2);
   AudioPlayer_sub_4AA306(pAudioPlayer, 200, v3, v3, -1, v3, v3, v3, v3);

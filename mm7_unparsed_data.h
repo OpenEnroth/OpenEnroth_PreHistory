@@ -1764,7 +1764,20 @@ extern int dword_6A0D00; // weak
 extern unsigned char *dword_6A0D08; // idb
 extern int dword_6A0D0C; // weak
 extern _UNKNOWN unk_6A0D10; // weak
-extern __int16 word_6A0D14; // weak
+
+struct unnamed_6A0D14 //glow3, glow5, torchlight and wizard eye spell anims
+{
+ unsigned int uIconIdx; // word @ 000000
+ short word_000002;
+ short word_000004;
+ short word_000006;
+ short word_000008;
+ short word_00000A;
+};
+//sizeof == 0C
+
+extern struct unnamed_6A0D14 array_6A0D14[4]; // struct[4] @ MM7.exe::006A0D14
+/*extern __int16 word_6A0D14; // weak
 extern __int16 word_6A0D18; // weak
 extern __int16 word_6A0D1A; // weak
 extern __int16 word_6A0D20; // weak
@@ -1772,15 +1785,14 @@ extern __int16 word_6A0D24; // weak
 extern __int16 word_6A0D26; // weak
 
 extern unsigned int uIconIdx_Torch; // word @ MM7.exe::006A0D2C
-//__int16 word_6A0D2C; // weak
 
 extern __int16 word_6A0D34; // weak
 extern __int16 word_6A0D36; // weak
 
 extern unsigned int uIconIdx_WizardEye; // word @ MM7.exe::006A0D38
-//__int16 word_6A0D38; // weak
+
 extern __int16 word_6A0D40; // weak
-extern __int16 word_6A0D42; // weak
+extern __int16 word_6A0D42; // weak*/
 
 extern unsigned int uCurrentMenuID; // dword @ MM7.exe::006A0D44
 extern int dword_6A0D48; // weak

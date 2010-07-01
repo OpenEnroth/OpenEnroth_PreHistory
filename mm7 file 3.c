@@ -6923,8 +6923,8 @@ void __cdecl GameUI_DrawTorchlightAndWizardEye()
       if ( HIDWORD(qword_ACD944) > 0 || (_DWORD)qword_ACD944 )
       {
         v0 = class24_fn2(pClass24_global);
-        v1 = CIconFrameTable_GetFrame(pIconFrameTable, uIconIdx_Torch, v0);
-        CD3DRenderer_DrawTransparentTexture(pD3DRenderer, word_6A0D34, word_6A0D36, 72 * *(_WORD *)(v1 + 30) + 7145548);
+        v1 = CIconFrameTable_GetFrame(pIconFrameTable, array_6A0D14[2].uIconIdx, v0);
+        CD3DRenderer_DrawTransparentTexture(pD3DRenderer, array_6A0D14[2].word_000008, array_6A0D14[2].word_00000A, 72 * *(_WORD *)(v1 + 30) + 0x6D084C);
       }
     }
     if ( HIDWORD(qword_ACD974) >= 0 )
@@ -6932,8 +6932,8 @@ void __cdecl GameUI_DrawTorchlightAndWizardEye()
       if (HIDWORD(qword_ACD974) > 0 || LODWORD(qword_ACD974))
       {
         v2 = class24_fn2(pClass24_global);
-        v3 = CIconFrameTable_GetFrame(pIconFrameTable, uIconIdx_WizardEye, v2);
-        CD3DRenderer_DrawTransparentTexture(pD3DRenderer, word_6A0D40, word_6A0D42, 72 * *(_WORD *)(v3 + 30) + 7145548);
+        v3 = CIconFrameTable_GetFrame(pIconFrameTable, array_6A0D14[3].uIconIdx, v2);
+        CD3DRenderer_DrawTransparentTexture(pD3DRenderer, array_6A0D14[3].word_000008, array_6A0D14[3].word_00000A, 72 * *(_WORD *)(v3 + 30) + 0x6D084C);
       }
     }
   }

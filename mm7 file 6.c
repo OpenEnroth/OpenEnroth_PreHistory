@@ -3931,10 +3931,10 @@ __int16 __thiscall sub_492AD5(void *this)
 {
   __int16 result; // ax@1
 
-  word_6A0D18 = 0;
+  array_6A0D14[0].word_000004 = 0;
   pParty_global->uNumFood = (int)this;
-  result = 8 * pIconFrameTable->pIcons[word_6A0D14].word_00001A;
-  word_6A0D1A = 8 * pIconFrameTable->pIcons[word_6A0D14].word_00001A;
+  result = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
+  array_6A0D14[0].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
   return result;
 }
 
@@ -3947,9 +3947,9 @@ __int16 __thiscall sub_492B03(void *this)
     pParty_global->uNumFood -= (signed int)this;
   else
     pParty_global->uNumFood = 0;
-  word_6A0D18 = 0;
-  result = 8 * pIconFrameTable->pIcons[word_6A0D14].word_00001A;
-  word_6A0D1A = 8 * pIconFrameTable->pIcons[word_6A0D14].word_00001A;
+  array_6A0D14[0].word_000004 = 0;
+  result = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
+  array_6A0D14[0].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
   return result;
 }
 
@@ -3959,9 +3959,9 @@ __int16 __thiscall sub_492B42(void *this)
   __int16 result; // ax@1
 
   pParty_global->uNumFood += (int)this;
-  word_6A0D18 = 0;
-  result = 8 * pIconFrameTable->pIcons[word_6A0D14].word_00001A;
-  word_6A0D1A = 8 * pIconFrameTable->pIcons[word_6A0D14].word_00001A;
+  array_6A0D14[0].word_000004 = 0;
+  result = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
+  array_6A0D14[0].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
   return result;
 }
 
@@ -3969,8 +3969,8 @@ __int16 __thiscall sub_492B42(void *this)
 void __thiscall sub_492B70(void *this)
 {
   pParty_global->uNumGold = (int)this;
-  word_6A0D24 = 0;
-  word_6A0D26 = 8 * pIconFrameTable->pIcons[word_6A0D20].word_00001A;
+  array_6A0D14[1].word_000004 = 0;
+  array_6A0D14[1].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[1].uIconIdx].word_00001A;
   AudioPlayer_sub_4AA306(pAudioPlayer, 200, 0, 0, -1, 0, 0, 0, 0);
 }
 
@@ -3981,8 +3981,8 @@ void __fastcall sub_492BB6(unsigned int a1)
     pParty_global->uNumGold -= a1;
   else
     pParty_global->uNumGold = 0;
-  word_6A0D24 = 0;
-  word_6A0D26 = 8 * pIconFrameTable->pIcons[word_6A0D20].word_00001A;
+  array_6A0D14[1].word_000004 = 0;
+  array_6A0D14[1].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[1].uIconIdx].word_00001A;
   AudioPlayer_sub_4AA306(pAudioPlayer, 200, 0, 0, -1, 0, 0, 0, 0);
 }
 

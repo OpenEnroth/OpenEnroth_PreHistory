@@ -68,7 +68,7 @@ int CGame_fn0(struct CGame *_this);
 //int __thiscall sub_44F0D8(int this, int a2);
 int CGame_fn1(struct CGame *_this, int flags);
 //char __thiscall sub_44EA17(int this);
-char sub_44EA17(struct CGame *_this);
+bool sub_44EA17(struct CGame *_this);
 //char __thiscall sub_44EEA7(int this);
 char CGame_sub_44EEA7(struct CGame *_this);
 //char __thiscall sub_44EA5E(int this, float a2, signed int a3, signed int a4, char a5, int a6, int a7);

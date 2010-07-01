@@ -161,14 +161,14 @@ void CGame_sub_44F192(struct CGame *_this)
 }
 
 //----- (0044EA17) --------------------------------------------------------
-char sub_44EA17(struct CGame *_this)
+bool sub_44EA17(struct CGame *_this)
 {
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
    CGammaController_InitializeFromSurface(_this->pGammaController, pD3DRenderer->pdds4_FrontBuffer);
 
  _this->dword_000E1C = 1;
  _this->qword_000E2C = class24_fn2(pClass24_global);
- return 1;
+ return true;
 }
 
 //----- (0040E2F6) --------------------------------------------------------

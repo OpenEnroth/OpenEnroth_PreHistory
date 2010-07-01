@@ -1762,25 +1762,10 @@ struct class17 *pClass17_Games_LOD = 0; // struct @ MM7.exe::006A0A60
  unsigned char *dword_6A0D08; // idb
  int dword_6A0D0C; // weak
  _UNKNOWN unk_6A0D10; // weak
- __int16 word_6A0D14; // weak
- __int16 word_6A0D18; // weak
- __int16 word_6A0D1A; // weak
- __int16 word_6A0D20; // weak
- __int16 word_6A0D24; // weak
- __int16 word_6A0D26; // weak
 
-unsigned int uIconIdx_Torch; // word @ MM7.exe::006A0D2C
-//__int16 word_6A0D2C; // weak
+struct unnamed_6A0D14 array_6A0D14[4]; // struct[4] @ MM7.exe::006A0D14
+unsigned int          uCurrentMenuID;  // dword     @ MM7.exe::006A0D44
 
- __int16 word_6A0D34; // weak
- __int16 word_6A0D36; // weak
-
-unsigned int uIconIdx_WizardEye; // word @ MM7.exe::006A0D38
-//__int16 word_6A0D38; // weak
- __int16 word_6A0D40; // weak
- __int16 word_6A0D42; // weak
-
-unsigned int uCurrentMenuID; // dword @ MM7.exe::006A0D44
  int dword_6A0D48; // weak
 
 struct class51 class51_6A0DA0_dwReserved;

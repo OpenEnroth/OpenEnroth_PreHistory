@@ -6424,7 +6424,6 @@ int __fastcall sub_402968(int a1, int a2, int a3, char *a4)
 signed int __cdecl sub_465D0B()
 {
   _UNKNOWN *v1; // edi@3
-  short *v2; // esi@3
   __int16 v3; // ax@4
   int v5; // esi@5
   int v6; // ecx@6
@@ -6462,21 +6461,20 @@ signed int __cdecl sub_465D0B()
    runtime_warning(Soundy crashes);
     //sub_4A9953(pSoundList);
   }
-  v1 = &unk_4E98D4;
 
+  v1 = &unk_4E98D4;
   for (i = 0; i < 4; ++i)
   {
-    v3 = CIconFrameTable_FindIcon(pIconFrameTable, pNames[i]);
-   v2 = &word_6A0D18 + 6 * i;
-   v2[-2] = v3;
-    CIconFrameTable_InitializeIcon(pIconFrameTable, v3);
-   v2[1] = 0;
-   v2[0] = 0;
-   v2[2] = *((_WORD *)v1 - 2);
-   v2[3] = *(_WORD *)v1;
+   array_6A0D14[i].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, pNames[i]);
+   CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[i].uIconIdx);
+
+   array_6A0D14[i].word_000004 = 0;
+   array_6A0D14[i].word_000006 = 0;
+   array_6A0D14[i].word_000008 = *((_WORD *)v1 - 2);
+   array_6A0D14[i].word_00000A = *(_WORD *)v1;
+
     v1 = (char *)v1 + 8;
   }
-  //while ( v2 < (signed int)&dword_6A0D48 );
 
   for (i = 0; i < pObjectDescriptionList->uNumObjects; ++i)
   {
@@ -6591,10 +6589,10 @@ void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
         sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_507968 + 7145548), "isg-02-c", 2);
         sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_507964 + 7145548), "isg-03-c", 2);
         sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_507960 + 7145548), "isg-04-c", 2);
-        uIconIdx_WizardEye = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeC");
-        CIconFrameTable_InitializeIcon(pIconFrameTable, uIconIdx_WizardEye);
-        uIconIdx_Torch = CIconFrameTable_FindIcon(pIconFrameTable, "torchC");
-        CIconFrameTable_InitializeIcon(pIconFrameTable, uIconIdx_Torch);
+        array_6A0D14[3].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeC");
+        CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[3].uIconIdx);
+        array_6A0D14[2].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "torchC");
+        CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[2].uIconIdx);
         sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_506438 + 7145548), "ib-bcu-c", 2);
         sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_50795C + 7145548), "evtnpc-c", 2);
         sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_InventoryBackground + 7145548), "fr_inven-c", 2);
@@ -6639,10 +6637,10 @@ void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
         dword_50795C = class17_LoadTexture(pClass17_Icons_LOD, "evtnpc-c", 2);
         uTextureIdx_InventoryBackground = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"fr_inven");
 
-        uIconIdx_WizardEye = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeC");
-        CIconFrameTable_InitializeIcon(pIconFrameTable, uIconIdx_WizardEye);
-        uIconIdx_Torch = CIconFrameTable_FindIcon(pIconFrameTable, "torchC");
-        CIconFrameTable_InitializeIcon(pIconFrameTable, uIconIdx_Torch);
+        array_6A0D14[3].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeC");
+        CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[3].uIconIdx);
+        array_6A0D14[2].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "torchC");
+        CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[2].uIconIdx);
       }
       v3 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xC8u, 0, 0);
       v4 = 0;
@@ -6743,11 +6741,11 @@ void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
 
         uTextureIdx_CharacterSelectionFrame = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IB-selec-A");
 
-        uIconIdx_WizardEye = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeA");
-        CIconFrameTable_InitializeIcon(pIconFrameTable, uIconIdx_WizardEye);
+        array_6A0D14[3].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeA");
+        CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[3].uIconIdx);
 
-        uIconIdx_Torch = CIconFrameTable_FindIcon(pIconFrameTable, "torchA");
-        CIconFrameTable_InitializeIcon(pIconFrameTable, uIconIdx_Torch);
+        array_6A0D14[2].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "torchA");
+        CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[2].uIconIdx);
 
         uTextureIdx_Endcap = class17_LoadTexture(pClass17_Icons_LOD, "endcap", 2);
         pClass18_EndcapTexture = &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_Endcap];
@@ -6786,10 +6784,10 @@ void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
       sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_507968 + 7145548), "isg-02-b", 2);
       sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_507964 + 7145548), "isg-03-b", 2);
       sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_507960 + 7145548), "isg-04-b", 2);
-      uIconIdx_WizardEye = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeB");
-      CIconFrameTable_InitializeIcon(pIconFrameTable, uIconIdx_WizardEye);
-      uIconIdx_Torch = CIconFrameTable_FindIcon(pIconFrameTable, "torchB");
-      CIconFrameTable_InitializeIcon(pIconFrameTable, uIconIdx_Torch);
+      array_6A0D14[3].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeB");
+      CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[3].uIconIdx);
+      array_6A0D14[2].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "torchB");
+      CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[2].uIconIdx);
       sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_506438 + 7145548), "ib-bcu-b", 2);
       sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_50795C + 7145548), "evtnpc-b", 2);
       sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_InventoryBackground + 7145548), "fr_inven-b", 2);
