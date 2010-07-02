@@ -122,11 +122,11 @@ struct class51
 };
 //sizeof ~ ?
 //int __thiscall sub_488F2E(int this, signed int a2, signed int a3);
-int class51_sub_488F2E_GetHeightOnTerrain(struct class51 *_this, signed int uX, signed int uY);
+int class51_sub_488F2E_GetHeightOnTerrain(struct class51 *_this, unsigned int uX, unsigned int uY);
 //int __thiscall sub_47EE16(int this, signed int a2, signed int a3);
-int class51_sub_47EE16_ActuallyGetHeightOnTerrain(struct class51 *_this, signed int uX, signed int uY);
+int class51_sub_47EE16_ActuallyGetHeightOnTerrain(struct class51 *_this, unsigned int uX, unsigned int uY);
 //int __thiscall sub_47EDB3(int this, signed int a2, signed int a3);
-int class51_sub_47EDB3_MessWithHeightmapAndTiles(struct class51 *_this, signed int uX, signed int uY);
+int class51_sub_47EDB3_MessWithHeightmapAndTiles(struct class51 *_this, unsigned int uX, unsigned int uY);
 //signed int __thiscall sub_47EF60(void *this, int a2, int a3, int a4);
 bool class51_sub_47EF60(struct class51 *_this, int a2, int a3, int a4);
 bool class51_sub_47F420(struct class51 *_this);

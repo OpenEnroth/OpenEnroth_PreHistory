@@ -1520,9 +1520,9 @@ bool sub_482170(struct class51_stru2 *_this, struct struct14 *a2, struct struct8
    return false;
 
   v6 = &a2[v3 - 1];
-  if (a2[0].flt_000008 == a2[1].flt_000008)
+  if (a2[0].y == a2[1].y)
   {
-    if (a2[1].flt_000008 == a2[v3 - 1].flt_000008)
+    if (a2[1].y == a2[v3 - 1].y)
       a3->dword_000030 |= 0x10;
   }
 
@@ -1532,12 +1532,12 @@ bool sub_482170(struct class51_stru2 *_this, struct struct14 *a2, struct struct8
   v21 = a2[v3 - 1].flt_00000C - a2->flt_00000C;
   v22 = a2[v3 - 1].flt_000010 - a2->flt_000010;
   v23 = a2[v3 - 1].flt_000014 - a2->flt_000014;
-  v28 = a2[1].flt_000000 - a2->flt_000000;
-  v27 = a2[1].flt_000004 - a2->flt_000004;
-  v29 = a2[1].flt_000008 - a2->flt_000008;
-  v7 = a2[v3 - 1].flt_000000 - a2->flt_000000;
-  v8 = a2[v3 - 1].flt_000004 - a2->flt_000004;
-  v9 = a2[v3 - 1].flt_000008 - a2->flt_000008;
+  v28 = a2[1].x - a2->x;
+  v27 = a2[1].z - a2->z;
+  v29 = a2[1].y - a2->y;
+  v7 = a2[v3 - 1].x - a2->x;
+  v8 = a2[v3 - 1].z - a2->z;
+  v9 = a2[v3 - 1].y - a2->y;
 
  v26 = v27 * v9 - v8 * v29;
  v24 = v7 * v29 - v9 * v28;
@@ -1550,9 +1550,9 @@ bool sub_482170(struct class51_stru2 *_this, struct struct14 *a2, struct struct8
    if (v3 < 2)
      break;
 
-   v10 = v6->flt_000000 - a2->flt_000000;
-   v11 = v6->flt_000004 - a2->flt_000004;
-   v12 = v6->flt_000008 - a2->flt_000008;
+   v10 = v6->x - a2->x;
+   v11 = v6->z - a2->z;
+   v12 = v6->y - a2->y;
 
    v26 = v27 * v12 - v11 * v29;
    v24 = v10 * v29 - v12 * v28;
@@ -1566,9 +1566,9 @@ bool sub_482170(struct class51_stru2 *_this, struct struct14 *a2, struct struct8
   v23 = v6->flt_000014 - a2->flt_000014;
  }
 
- if ((pClass55_global->dword_000000 - a2->flt_000000) * v26 +
-     (pClass55_global->dword_000008 - a2->flt_000008) * v25 +
-     (pClass55_global->dword_000004 - a2->flt_000004) * v24 > 0.0)
+ if ((pClass55_global->dword_000000 - a2->x) * v26 +
+     (pClass55_global->dword_000008 - a2->y) * v25 +
+     (pClass55_global->dword_000004 - a2->z) * v24 > 0.0)
  {
     v30 = v23 * v18 - v22 * v20;
     v14 = v30 + 6.755399441055744e15;
@@ -1695,37 +1695,37 @@ bool __stdcall sub_45CE50(struct struct7 *_this, struct class51_stru2 *a2, int *
 
 
 //----- (00488F2E) --------------------------------------------------------
-int class51_sub_488F2E_GetHeightOnTerrain(struct class51 *_this, signed int uX, signed int uY)
+int class51_sub_488F2E_GetHeightOnTerrain(struct class51 *_this, unsigned int uX, unsigned int uY)
 {
- if ( uX < 0 || uX > 127 || uY < 0 || uY > 127 )
+ if (uX > 127 || uY > 127)
    return 0;
  else
    return class51_sub_47EE16_ActuallyGetHeightOnTerrain(_this, uX, uY);
 }
 
 //----- (0047EE16) --------------------------------------------------------
-int class51_sub_47EE16_ActuallyGetHeightOnTerrain(struct class51 *_this, signed int uX, signed int uY)
+int class51_sub_47EE16_ActuallyGetHeightOnTerrain(struct class51 *_this, unsigned int uX, unsigned int uY)
 {
- if ( uX < 0 || uX > 127 || uY < 0 || uY > 127 )
+ if (uX > 127 || uY > 127)
    return 0;
  else
   return 32 * _this->struct_0000B4.pHeightmap[128 * uY + uX];
 }
 
 //----- (0047EDB3) --------------------------------------------------------
-int class51_sub_47EDB3_MessWithHeightmapAndTiles(struct class51 *_this, signed int uX, signed int uY)
+int class51_sub_47EDB3_MessWithHeightmapAndTiles(struct class51 *_this, unsigned int uX, unsigned int uY)
 {
   int v3; // esi@5
 
-  if ( uX < 0 || uX > 127 || uY < 0 || uY > 127 )
-    return 0;
-  else
-  {
-    v3 = _this->struct_0000B4.pTilemap[128 * uY + uX];
-    if ( v3 >= 90 )
-      v3 = v3 + _this->array_0000A0[1 + 2 * (v3 - 90) / 36] - 36 * (v3 - 90) / 36 - 90;
-    return pTileTable->pTiles[v3].word_000018;
-  }
+ if (uX > 127 || uY > 127)
+   return 0;
+ else
+ {
+   v3 = _this->struct_0000B4.pTilemap[128 * uY + uX];
+   if ( v3 >= 90 )
+     v3 = v3 + _this->array_0000A0[1 + 2 * (v3 - 90) / 36] - 36 * (v3 - 90) / 36 - 90;
+   return pTileTable->pTiles[v3].word_000018;
+ }
 }
 
 //----- (0047EF60) --------------------------------------------------------

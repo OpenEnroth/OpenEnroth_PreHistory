@@ -32,7 +32,6 @@ void __fastcall sub_481212(int a1, int a2, int a3)
   int v6; // ST10_4@1
   int v7; // ebx@2
   int v8; // eax@2
-  int v9; // eax@3
   int v10; // edi@3
   char *v11; // ecx@4
   int v12; // ebx@4
@@ -153,7 +152,7 @@ void __fastcall sub_481212(int a1, int a2, int a3)
       v7 = abs(X);
       v8 = abs(v87);
       --X;
-      v93 = 4 * ((v7 << 7) + v8) + 0x76E5C8;
+      v93 = 4 * ((v7 << 7) + v8) + byte_76E5C8;
 
 
 
@@ -190,24 +189,23 @@ void __fastcall sub_481212(int a1, int a2, int a3)
         goto LABEL_105;
 */
 
-      if ( !byte_76E5C8[4 * ((v7 << 7) + v8)])
+      if ( !byte_76E5C8[4 * ((v7 * 128) + v8)])
         goto LABEL_105;
 
-      v9 = 48 * v3;
-      v10 = (int)((char *)array_806210 + 48 * v3);
+      v10 = &array_806210[v3];
       v106 = v10;
       if (!v86)
       {
-       v12 = (int)((char *)array_801A10 + v9);
-       v11 = (char *)(array_806210 + 1) + v9;
+       v12 = &array_801A10[v3];
+       v11 = &array_806210[v3 + 1];
       }
       else
       {
-       v12 = (int)((char *)(array_806210 + 1) + v9);
-       v11 = (char *)array_801A10 + v9;
+       v12 = &array_806210[v3 + 1];
+       v11 = &array_801A10[v3];
       }
       v103 = v12;
-      v105 = (int)((char *)(array_801A10 + 1) + v9);
+      v105 = &array_801A10[v3 + 1];
       LODWORD(v13) = *(_DWORD *)v10;
       v104 = (int)v11;
       v81 = v13;
@@ -256,7 +254,7 @@ void __fastcall sub_481212(int a1, int a2, int a3)
         *(_DWORD *)(v16 + 52) = *(_WORD *)(v21 + 2);
         v22 = v95;
         *(_BYTE *)(v16 + 92) = v95;
-        v18 = (unsigned __int16)word_75D514[2 * (v20 + (v22 << 7)) + 1];
+        v18 = (unsigned __int16)word_75D514[2 * (v20 + (v22 * 128)) + 1];
         if ( v18 < 0 || v18 > dword_73D510 - 1 )
           v23 = 0;
         else
@@ -11746,12 +11744,12 @@ void __thiscall sub_48276F(struct struct8 *_this)
      v13 = &((float *)(array_508690))[4 * (3 * _this->dword_000014 - 3)];
       v12 = &array_508690[0];
       v11 = &array_508690[1];
-      v19.v28 = array_508690[1].flt_000000 - array_508690[0].flt_000000;
-      v19.v27 = array_508690[1].flt_000004 - array_508690[0].flt_000004;
-      v19.v29 = array_508690[1].flt_00000C - array_508690[0].flt_000008;
-      v19.v26 = v13[0] - array_508690[0].flt_000000;
-      v19.v25 = v13[1] - array_508690[0].flt_000004;
-      v19.v24 = v13[2] - array_508690[0].flt_000008;
+      v19.v28 = array_508690[1].x - array_508690[0].x;
+      v19.v27 = array_508690[1].z - array_508690[0].z;
+      v19.v29 = array_508690[1].y - array_508690[0].y;
+      v19.v26 = v13[0] - array_508690[0].x;
+      v19.v25 = v13[1] - array_508690[0].z;
+      v19.v24 = v13[2] - array_508690[0].y;
       if ( v19.v24 * v19.v27 - v19.v25 * v19.v29 == 0.0 )
       {
         if ( v19.v26 * v19.v29 - v19.v24 * v19.v28 == 0.0 )
@@ -11765,9 +11763,9 @@ void __thiscall sub_48276F(struct struct8 *_this)
               v15 = &array_508690[v14];
               do
               {
-               v18 = *v15 - array_508690[0].flt_000000;
-               v17 = v15[1] - array_508690[0].flt_000004;
-               v16 = v15[2] - array_508690[0].flt_000008;
+               v18 = *v15 - array_508690[0].x;
+               v17 = v15[1] - array_508690[0].z;
+               v16 = v15[2] - array_508690[0].y;
                 v13 = v15;
                 if ( v19.v27 * v16 - v17 * v19.v29 != 0.0 )
                   break;

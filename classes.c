@@ -6610,7 +6610,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
       else
       {
         if ( v24 == 1 )
-          *(_DWORD *)(&unk_721668 + v30) = sub_452C30(v9);
+          *(_DWORD *)(unk_721668 + v30) = sub_452C30(v9);
       }
       ++v24;
       v9 = (char *)(v12 + 1);

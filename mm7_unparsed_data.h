@@ -1994,8 +1994,8 @@ extern int dword_721658; // weak
 extern int dword_72165C; // weak
 extern char *dword_721660; // idb
 extern char *dword_721664; // idb
-extern _UNKNOWN unk_721668[1024 + 64*array_size_unknown]; // weak
-extern _UNKNOWN unk_72166C[1024 + 64*array_size_unknown]; // weak
+extern _UNKNOWN unk_721668[]; // weak
+extern _UNKNOWN unk_72166C[]; // weak
 extern int dword_721824; // weak
 extern int dword_72193C; // weak
 extern int dword_721984[array_size_unknown]; // weak
@@ -2121,15 +2121,11 @@ extern int dword_76D5C8[12*array_size_unknown]; // weak
 extern int dword_76D7C8[12*array_size_unknown]; // weak
 extern int dword_76D9C8[12*array_size_unknown]; // weak
 extern int dword_76DBC8[12*array_size_unknown]; // weak
-extern int dword_76DDC4[array_size_unknown]; // weak
-extern int dword_76DDC8[array_size_unknown]; // weak
-extern int dword_76DFC4[array_size_unknown]; // weak
-extern int dword_76DFC8[array_size_unknown]; // weak
-extern int dword_76E1C4[array_size_unknown]; // weak
-extern int dword_76E1C8[array_size_unknown]; // weak
-extern int dword_76E3C4[array_size_unknown]; // weak
-extern int dword_76E3C8[4*array_size_unknown]; // weak
-extern _BYTE byte_76E5C8[32644]; // idb
+extern int dword_76DDC8[];
+extern int dword_76DFC8[];
+extern int dword_76E1C8[];
+extern int dword_76E3C8[];
+extern _BYTE byte_76E5C8[]; // idb
 extern _UNKNOWN unk_77E5C8; // weak
 extern _UNKNOWN unk_77E5CC; // weak
 extern _UNKNOWN unk_77E5D8; // weak
@@ -2160,14 +2156,9 @@ extern char byte_801914; // weak
 
 
 
-extern struct class57 *pClass57_global; // struct @ MM7.exe::008019C8
-//_UNKNOWN unk_8019C8; // weak
-
-extern _UNKNOWN unk_801A00; // weak
-extern struct struct14 *ptr_801A04; // ptr @ MM7.exe::00801A04
-extern struct struct14 *ptr_801A08; // ptr @ MM7.exe::00801A08
-extern _UNKNOWN unk_801A0C; // weak
-
+extern struct class57 *pClass57_global;
+extern struct struct14 *ptr_801A04;
+extern struct struct14 *ptr_801A08;
 extern struct struct14 array_801A10[384];
 extern struct struct14 array_806210[384];
 

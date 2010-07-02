@@ -1844,9 +1844,9 @@ struct Event
 
 struct struct14
 {
- float flt_000000;
- float flt_000004;
- float flt_000008;
+ float x; // float @ 000000   looks like world coordinates
+ float z; // float @ 000004
+ float y; // float @ 000008
  float flt_00000C;
  float flt_000010;
  float flt_000014;

@@ -4330,7 +4330,6 @@ void __cdecl sub_4304E7()
   int v118; // eax@703
   int v119; // eax@718
   int v120; // ecx@718
-  int v121; // ST78_4@758
   int v122; // eax@758
   int v123; // eax@758
   int v124; // ST64_4@759
@@ -7116,20 +7115,15 @@ LABEL_731:
           v174 = pGlobalTXT_LocalizationStrings[501];
           goto LABEL_520;
         case 0x5E:
-          v121 = (int)*(&ptr_A750C4 + v209);
-          sprintfex(
-            &ExistingFileName,
-            pGlobalTXT_LocalizationStrings[429],
-            v121 + 168,
-            //(&dword_AE31F0)[4 * *(_BYTE *)(v121 + 185)]);
-            aClassNames[*(_BYTE *)(v121 + 185)]);
+          wsprintfA(ExistingFileName, pGlobalTXT_LocalizationStrings[429],
+                    pPlayers[v209 - 1]->sName, aClassNames[pPlayers[v209 - 1]->uClass]);
 
-          strcat((char *)&ExistingFileName, ": ");
-          v122 = sub_48E9F4((void *)v121);
+          strcat(ExistingFileName, ": ");
+          v122 = sub_48E9F4(&pPlayers[v209 - 1]);
           //strcat((char *)&ExistingFileName, (&dword_AE3280)[4 * v122]);
-          strcat((char *)ExistingFileName, aCharacterConditionNames[v122]);
+          strcat(ExistingFileName, aCharacterConditionNames[v122]);
 
-          sub_41C0B8(&ExistingFileName);
+          sub_41C0B8(ExistingFileName);
           v123 = 8 * v209 - 8;
           LOBYTE(v123) = v123 | 4;
           pGame->pClass03->dword_000000 = v123;

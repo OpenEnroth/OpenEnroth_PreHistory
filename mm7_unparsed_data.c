@@ -1976,8 +1976,8 @@ struct CGame *pGame = 0; //struct @ MM7.exe::00720014
  int dword_72165C; // weak
  char *dword_721660; // idb
  char *dword_721664; // idb
- _UNKNOWN unk_721668[1024 + 64*array_size_unknown]; // weak
- _UNKNOWN unk_72166C[1024 + 64*array_size_unknown]; // weak
+ _UNKNOWN unk_721668[1024 + 92*array_size_unknown]; // weak
+ _UNKNOWN unk_72166C[1024 + 92*array_size_unknown]; // weak
  int dword_721824; // weak
  int dword_72193C; // weak
  int dword_721984[array_size_unknown]; // weak
@@ -2104,15 +2104,12 @@ unsigned char *pQuestsTXT_Raw = 0;      // ptr @ MM7.exe::0073C400
  int dword_76D7C8[12*array_size_unknown]; // weak
  int dword_76D9C8[12*array_size_unknown]; // weak
  int dword_76DBC8[12*array_size_unknown]; // weak
- int dword_76DDC4[array_size_unknown]; // weak
- int dword_76DDC8[array_size_unknown]; // weak
- int dword_76DFC4[array_size_unknown]; // weak
- int dword_76DFC8[array_size_unknown]; // weak
- int dword_76E1C4[array_size_unknown]; // weak
- int dword_76E1C8[array_size_unknown]; // weak
- int dword_76E3C4[array_size_unknown]; // weak
- int dword_76E3C8[4*array_size_unknown]; // weak
- _BYTE byte_76E5C8[32644]; // idb
+
+int dword_76DDC8[128]; // dword[128] @ MM7.exe::0076DDC8
+int dword_76DFC8[128]; // dword[128] @ MM7.exe::0076DFC8
+int dword_76E1C8[128]; // dword[128] @ MM7.exe::0076E1C8
+int dword_76E3C8[128]; // dword[128] @ MM7.exe::0076E3C8
+ _BYTE byte_76E5C8[64 * 1024]; // idb
  _UNKNOWN unk_77E5C8; // weak
  _UNKNOWN unk_77E5CC; // weak
  _UNKNOWN unk_77E5D8; // weak
@@ -2141,18 +2138,12 @@ struct struct8 array_77EC08[2000]; //struct[2000] @ MM7.exe::0077EC08
  char byte_801914; // weak
 
 
+struct class57 *pClass57_global;   // struct @ MM7.exe::008019C8
+struct struct14 *ptr_801A04;       // ptr @ MM7.exe::00801A04
+struct struct14 *ptr_801A08;       // ptr @ MM7.exe::00801A08
+struct struct14 array_801A10[384]; // struct[384] @ MM7.exe::00801A10
+struct struct14 array_806210[384]; // struct[384] @ MM7.exe::00806210
 
-
-struct class57 *pClass57_global; // struct @ MM7.exe::008019C8
-//_UNKNOWN unk_8019C8; // weak
-
- _UNKNOWN unk_801A00; // weak
-struct struct14 *ptr_801A04; // ptr @ MM7.exe::00801A04
-struct struct14 *ptr_801A08; // ptr @ MM7.exe::00801A08
- _UNKNOWN unk_801A0C; // weak
-
-struct struct14 array_801A10[384];
-struct struct14 array_806210[384];
 
  char byte_80AA10; // weak
  int dword_80AA14; // weak

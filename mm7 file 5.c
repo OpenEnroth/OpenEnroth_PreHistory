@@ -11584,7 +11584,7 @@ LABEL_30:
       v62 = v20;
       if ( v20 > 0 )
       {
-       v21 = &array_73D150[0].flt_000008;
+       v21 = &array_73D150[0].y;
         v22 = v4 + 72;
         v56 = v20;
         do
@@ -13801,7 +13801,7 @@ int __stdcall sub_47F476(int a1)
 int __fastcall sub_47F4D3(int a1, int a2, int a3)
 {
   int v3; // edi@1
-  signed int v4; // esi@1
+  int v4; // esi@1
   int result; // eax@3
   double v6; // ST2C_8@3
   double v7; // st7@3
@@ -13816,17 +13816,18 @@ int __fastcall sub_47F4D3(int a1, int a2, int a3)
   v11 = a1 << 9;
   v3 = a3 << 9;
   pStruct9_global->dword_000000 = a3 << 9;
-  v4 = byte_76E5C8;
+  //v4 = byte_76E5C8;
+  v4 = 0;
   do
   {
     v12 = 256;
     v9 = (double)(v4 + 256);
     do
     {
-      v6 = pow((double)v12, *(double *)&byte_4D8410[416]);
-      v7 = pow(v9, *(double *)&byte_4D8410[416]);
-      *((float *)&v6 + 1) = sqrt(v7 + v6);
-      v8 = *((float *)&v6 + 1) + 6.755399441055744e15;
+      v6 = powf(v12, 2);
+      v7 = powf(v9, 2);
+      v6 = sqrt(v7 + v6);
+      v8 = v6 + 6.755399441055744e15;
       result = LODWORD(v8);
       if ( LODWORD(v8) >= v11 )
       {
@@ -13843,9 +13844,9 @@ int __fastcall sub_47F4D3(int a1, int a2, int a3)
       *(_WORD *)(&byte_76E5C8[v4] + 2) = LOWORD(v8);
       v4 += 4;
     }
-    while ( v12 < 65792 );
+    while (v12 < 65792);
   }
-  while ( v4 < 0x10000);//(signed int)&unk_77E5C8 );
+  while (v4 < 0x10000);
   return result;
 }
 
@@ -14508,9 +14509,9 @@ void sub_481CCE(struct struct14 *a1)
 
   v8 = pClass55_global->flt_000038;
   LODWORD(v7) = *(int *)&pClass55_global->flt_000034;
-  v9 = a1->flt_000000 - (double)pClass55_global->dword_000000;
-  v10 = a1->flt_000004 - (double)pClass55_global->dword_000004;
-  v5 = a1->flt_000008 - (double)pClass55_global->dword_000008;
+  v9 = a1->x - (double)pClass55_global->dword_000000;
+  v10 = a1->z - (double)pClass55_global->dword_000004;
+  v5 = a1->y - (double)pClass55_global->dword_000008;
   v4 = pClass55_global->flt_000030;
   v3 = pClass55_global->flt_00002C;
   v2 = v10 * pClass55_global->flt_00002C + pClass55_global->flt_000030 * v9;
