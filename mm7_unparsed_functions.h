@@ -559,7 +559,7 @@ int __thiscall sub_44D83A(void *this, int a2, int a3, const char *Str1);
 int __thiscall sub_44E054(void *Str);
 int __thiscall sub_44E0ED(void *this, int a2);
 signed int __thiscall sub_44E163(void *this, const char *Str2);
-int __thiscall sub_44E19A(int this, int a2, signed int a3);
+int __thiscall TextureFrameTable_GetFrame(int this, int a2, signed int a3);
 char __thiscall sub_44EB12(int this, char a2, int a3, int a4);
 void *__thiscall CGame_outline_selection(int this);
 char __cdecl sub_44EC20();
@@ -932,7 +932,7 @@ void __cdecl loc_48118F(); // idb
 void __cdecl loc_481199(); // idb
 void __thiscall sub_4811A3(void *this);
 void __fastcall sub_481212(int a1, int a2, int a3);
-int __fastcall sub_481CCE(int a1);
+void sub_481CCE(int a1);
 void __thiscall sub_481D77(int this);
 char __fastcall sub_481DB2(int a1, signed int a2, int a3);
 void __fastcall sub_481E55(int a1);

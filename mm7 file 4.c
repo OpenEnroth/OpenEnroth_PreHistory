@@ -55,25 +55,25 @@ signed int __fastcall sub_424EE0(int a1)
 
   v1 = a1;
   v3 = (double)pStruct9_global->shading_dist_mist;
-  memcpy((char *)&unk_50AC10 + 48 * a1, &unk_50AC10, 0x30u);
+  memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct struct14));
   v2 = 0;
   v23 = 0;
-  if ( flt_50AC1C <= v3 )
+  if ( array_50AC10[0].flt_00000C <= v3 )
     v2 = 1;
   if ( a1 + 1 <= 1 )
     return 0;
-  v6 = &unk_507D44;
-  v5 = &unk_507D40;
+  v6 = &array_507D30[0].flt_000014;
+  v5 = &array_507D30[0].flt_000010;
   v7 = v1;
-  v24 = &unk_507D5C;
-  v27 = &unk_507D50;
-  v25 = &unk_507D30;
-  v21 = &unk_507D44;
-  v22 = &unk_507D40;
-  v26 = &unk_507D3C;
-  v28 = &unk_507D58;
-  v29 = &unk_507D54;
-  v4 = &flt_50AC38;
+  v24 = &array_507D30[0].byte_00002C[0];
+  v27 = &array_507D30[0].flt_000020;
+  v25 = array_507D30;
+  v21 = &array_507D30[0].flt_000014;
+  v22 = &array_507D30[0].flt_000010;
+  v26 = &array_507D30[0].flt_00000C;
+  v28 = &array_507D30[0].v;
+  v29 = &array_507D30[0].u;
+  v4 = &array_50AC10[0].v;
   v19 = v7;
   do
   {
@@ -195,20 +195,20 @@ signed int __fastcall sub_4250FE(int a1)
   _UNKNOWN *v25; // [sp+2Ch] [bp-4h]@5
 
   v1 = a1;
-  memcpy((char *)&unk_50AC10 + 48 * a1, &unk_50AC10, 0x30u);
+  memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct struct14));
   v21 = 0;
-  v17 = flt_50AC1C >= 8.0;
+  v17 = array_50AC10[0].flt_00000C >= 8.0;
   if ( a1 + 1 <= 1 )
     return 0;
-  v3 = &unk_507D44;
-  v4 = &unk_507D40;
-  v24 = &unk_507D50;
-  v22 = &unk_507D30;
-  v19 = &unk_507D44;
-  v20 = &unk_507D40;
-  v23 = &unk_507D3C;
-  v25 = &unk_507D5C;
-  v2 = &flt_50AC1C;
+  v3 = &array_507D30[0].flt_000014;
+  v4 = &array_507D30[0].flt_000010;
+  v24 = &array_507D30[0].flt_000020;
+  v22 = array_507D30;
+  v19 = &array_507D30[0].flt_000014;
+  v20 = &array_507D30[0].flt_000010;
+  v23 = &array_507D30[0].flt_00000C;
+  v25 = &array_507D30[0].byte_00002C[0];
+  v2 = &array_50AC10[0].flt_00000C;
   v16 = v1;
   do
   {
@@ -326,20 +326,20 @@ signed int __fastcall sub_4252E8(int a1)
 
   v1 = a1;
   v2 = (double)pStruct9_global->shading_dist_mist;
-  memcpy((char *)&unk_50AC10 + 48 * a1, &unk_50AC10, 0x30u);
+  memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct struct14));
   v22 = 0;
-  v18 = flt_50AC1C <= v2;
+  v18 = array_50AC10[0].flt_00000C <= v2;
   if ( a1 + 1 <= 1 )
     return 0;
-  v4 = &unk_507D44;
-  v5 = &unk_507D40;
-  v25 = &unk_507D50;
-  v23 = &unk_507D30;
-  v20 = &unk_507D44;
-  v21 = &unk_507D40;
-  v24 = &unk_507D3C;
-  v26 = &unk_507D5C;
-  v3 = &flt_50AC1C;
+  v4 = &array_507D30[0].flt_000014;
+  v5 = &array_507D30[0].flt_000010;
+  v25 = &array_507D30[0].flt_000020;
+  v23 = array_507D30;
+  v20 = &array_507D30[0].flt_000014;
+  v21 = &array_507D30[0].flt_000010;
+  v24 = &array_507D30[0].flt_00000C;
+  v26 = &array_507D30[0].byte_00002C[0];
+  v3 = &array_50AC10[0].flt_00000C;
   v17 = v1;
   do
   {
@@ -580,13 +580,13 @@ int __fastcall sub_4254D2(signed int a1)
     return v122;
   v132 = a1;
   v2 = 48 * a1;
-  memcpy(flt_508690, &unk_50AC10, 4 * ((unsigned int)(48 * a1) >> 2));
+  memcpy(array_508690, array_50AC10, a1 * sizeof(struct struct14));
   v1 = 0;
   do
   {
-    if ( *(float *)((char *)&flt_50AC28 + v1) < (double)v106 || *(float *)((char *)&flt_50AC28 + v1) > (double)v105 )
+    if (array_50AC10[v1 / 48].flt_000018 < (double)v106 || array_50AC10[v1 / 48].flt_000018 > (double)v105 )
       v141 = 0;
-    if ( *(float *)(v1 + (char *)&flt_50AC28 + 4) < (double)v109 || *(float *)(v1 + (char *)&flt_50AC28 + 4) > (double)v107 )
+    if (array_50AC10[v1 / 48].flt_00001C < (double)v109 || array_50AC10[v1 / 48].flt_00001C > (double)v107 )
       v141 = 0;
     v1 += 48;
   }
@@ -594,18 +594,18 @@ int __fastcall sub_4254D2(signed int a1)
   if ( v141 )
     return v122;
   v115 = 0;
-  memcpy((char *)&unk_50AC10 + v2, &unk_50AC10, 0x30u);
-  v6 = flt_50AC28 + 6.755399441055744e15;
+  memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct struct14));
+  v6 = array_50AC10[0].flt_000018 + 6.755399441055744e15;
   v5 = LODWORD(v6) >= class28_global.dword_000010;
   if ( v122 < 1 )
     goto LABEL_112;
-  v8 = &unk_50A2CC;
-  v137 = &unk_50A2B0;
-  v142 = &flt_50A2C8;
-  v133 = &unk_50A2CC;
-  v126 = &unk_50A2DC;
-  v119 = &unk_50A2D0;
-  v7 = &unk_50AC3C;
+  v8 = &array_50A2B0[0].flt_00001C;
+  v137 = array_50A2B0;
+  v142 = &array_50A2B0[0].flt_000018;
+  v133 = &array_50A2B0[0].flt_00001C;
+  v126 = &array_50A2B0[0].byte_00002C[0];
+  v119 = &array_50A2B0[0].flt_000020;
+  v7 = &array_50AC10[0].byte_00002C[0];
   do
   {
     v108 = *((float *)v7 + 7) + 6.755399441055744e15;
@@ -693,22 +693,22 @@ LABEL_25:
    if ( v115 < 3)
      goto LABEL_112;
 
-   memcpy((char *)&unk_50A2B0 + 48 * v115, &unk_50A2B0, 0x30u);
-   v26 = flt_50A2C8 + 6.755399441055744e15;
+   memcpy(&array_50A2B0[v115], array_50A2B0, sizeof(struct struct14));
+   v26 = array_50A2B0[0].flt_000018 + 6.755399441055744e15;
    v25 = LODWORD(v26) <= class28_global.dword_000018;
    if (v115 < 1)
      goto LABEL_112;
   }
 
-  v28 = &unk_509970;
-  v143 = &unk_509950;
-  v134 = &flt_50A2C8;
-  v123 = &unk_50A2CC;
-  v138 = &unk_509968;
-  v127 = &flt_50996C;
-  v129 = &unk_50997C;
-  v116 = &unk_509970;
-  v27 = &unk_50A2DC;
+  v28 = &array_509950[0].flt_000020;
+  v143 = array_509950;
+  v134 = &array_50A2B0[0].flt_000018;
+  v123 = &array_50A2B0[0].flt_00001C;
+  v138 = &array_509950[0].flt_000018;
+  v127 = &array_509950[0].flt_00001C;
+  v129 = &array_509950[0].byte_00002C[0];
+  v116 = &array_509950[0].flt_000020;
+  v27 = &array_50A2B0[0].byte_00002C[0];
   while ( 2 )
   {
     v102 = *((float *)v27 + 7) + 6.755399441055744e15;
@@ -802,19 +802,19 @@ LABEL_42:
     goto LABEL_112;
 
   v128 = 0;
-  memcpy((char *)&unk_509950 + 48 * v120, &unk_509950, 0x30u);
-  v46 = flt_50996C + 6.755399441055744e15;
+  memcpy(&array_509950[v120], array_509950, sizeof(struct struct14));
+  v46 = array_509950[0].flt_00001C + 6.755399441055744e15;
   v45 = LODWORD(v46) >= class28_global.dword_000014;
   if (v120 < 1)
     goto LABEL_112;
 
-  v48 = &unk_509008;
+  v48 = &array_508FF0[0].flt_000018;
   v135 = array_508FF0;
-  v124 = &unk_509008;
+  v124 = &array_508FF0[0].flt_000018;
   v144 = &array_508FF0[0].flt_00001C;
-  v130 = &unk_50901C;
-  v139 = &unk_509010;
-  v47 = &unk_50997C;
+  v130 = &array_508FF0[0].byte_00002C[0];
+  v139 = &array_508FF0[0].flt_000020;
+  v47 = &array_509950[0].byte_00002C[0];
   v117 = v120;
   while ( 2 )
   {
@@ -900,13 +900,13 @@ LABEL_59:
         v65 = LODWORD(v66) <= class28_global.dword_00001C,
         v128 < 1) )
     goto LABEL_112;
-  v68 = &unk_5086A8;
-  v136 = flt_508690;
-  v125 = &unk_5086A8;
-  v145 = &unk_5086AC;
-  v131 = &unk_5086BC;
-  v140 = &unk_5086B0;
-  v67 = &unk_50901C;
+  v68 = &array_508690[0].flt_000018;
+  v136 = array_508690;
+  v125 = &array_508690[0].flt_000018;
+  v145 = &array_508690[0].flt_00001C;
+  v131 = &array_508690[0].byte_00002C[0];
+  v140 = &array_508690[0].flt_000020;
+  v67 = &array_508FF0[0].byte_00002C[0];
   v118 = v128;
   while ( 2 )
   {
@@ -987,10 +987,10 @@ LABEL_76:
   if ( v121 < 3 )
     goto LABEL_112;
   v85 = v121;
-  memcpy(&flt_508690[12 * v121], flt_508690, 0x30u);
+  memcpy(&array_508690[v121], array_508690, sizeof(struct struct14));
   if ( v121 > 0 )
   {
-    v86 = &unk_5086A8;
+   v86 = &array_508690[0].flt_000018;
     v87 = v121;
     do
     {
@@ -1036,7 +1036,7 @@ LABEL_93:
   //v95 = v121 - 3 < 0;
   if ( v121 > 3 )
   {
-    memcpy(&flt_5086C0[12 * v121], flt_5086C0, 0x30u);
+    memcpy(&array_508690[v121 + 1], &array_508690[1], sizeof(struct struct14));
     if ( v121 > 0 )
     {
       v110 = 1;
@@ -1052,18 +1052,15 @@ LABEL_93:
           v98 = v110 - v85;
         if ( v99 >= v85 )
           v97 = v99 - v85;
-        if ( (*((float *)&unk_5086A8 + 12 * v98) - *((float *)&unk_5086A8 + 12 * v100))
-           * (*((float *)&unk_5086AC + 12 * v97) - *((float *)&unk_5086AC + 12 * v100))
-           - (*((float *)&unk_5086A8 + 12 * v97) - *((float *)&unk_5086A8 + 12 * v100))
-           * (*((float *)&unk_5086AC + 12 * v98) - *((float *)&unk_5086AC + 12 * v100)) < 0.0 )
-        {
-          ++v110;
-        }
+
+        if ((array_508690[v98].flt_000018 - array_508690[v100].flt_000018) * (array_508690[v97].flt_00001C - array_508690[v100].flt_00001C) -
+            (array_508690[v97].flt_000018 - array_508690[v100].flt_000018) * (array_508690[v98].flt_00001C - array_508690[v100].flt_00001C) < 0)
+           ++v110;
         else
         {
           v101 = v110;
           if ( v110 < v85 || (v101 = v110 - v85, v110 - v85 < v85) )
-            memcpy(&flt_508690[12 * v101], &flt_5086C0[12 * v101], 4 * ((unsigned int)(48 * v85 - 48 * v101) >> 2));
+            memcpy(&array_508690[v101], &array_508690[v101 + 1], (unsigned int)(48 * v85 - 48 * v101) * sizeof(struct struct14));
           --v85;
         }
       }
@@ -8020,13 +8017,14 @@ void __stdcall sub_4364C5(int a1, int a2, int a3, int a4)
 }
 
 //----- (00436523) --------------------------------------------------------
-void __stdcall sub_436523(struct struct14 *a1, int a2)
+void __stdcall sub_436523(struct struct14 *a1, unsigned int uNumStructs)
 {
   int v2; // esi@4
   int v3; // ecx@7
   int v6; // [sp+4h] [bp-4h]@7
+ int i;
 
-  if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3616) & 0x80 || dword_6BE360 == 1 )
+  if ( byte_4D8410[572] && pGame->uSomeFlags & 0x80 || dword_6BE360 == 1 )
   {
     __asm
     {
@@ -8034,11 +8032,11 @@ void __stdcall sub_436523(struct struct14 *a1, int a2)
       //fld     pClass55_global->flt_00002C
       //fld     pClass55_global->flt_000038
     }
-    v3 = a2;
+    v3 = uNumStructs;
     v6 = *(int *)&pClass55_global->flt_000034;
     if ( pClass55_global->dword_000014 )
     {
-      if ( a2 > 0 )
+      if ( uNumStructs > 0 )
       {
         compile_error;//_EAX = a1;
         do
@@ -8120,7 +8118,7 @@ void __stdcall sub_436523(struct struct14 *a1, int a2)
     else
     {
       __asm { fstp    st }
-      if ( a2 > 0 )
+      if ( uNumStructs > 0 )
       {
         compile_error;//_EAX = a1;
         do
@@ -8191,20 +8189,8 @@ void __stdcall sub_436523(struct struct14 *a1, int a2)
       fstp    st
     }
   }
-  else
-  {
-    v2 = a2;
-    if ( a2 > 0 )
-    {
-      do
-      {
-        sub_481CCE(a1);
-        a1 += 48;
-        --v2;
-      }
-      while ( v2 );
-    }
-  }
+ else for (i = 0; i < uNumStructs; ++i)
+   sub_481CCE(a1 + i);
 }
 
 //----- (0043669D) --------------------------------------------------------
@@ -8325,7 +8311,7 @@ void __fastcall sub_4369DB(int a1)
   double v2; // st7@1
 
   v1 = a1;
-  v2 = *(double *)&byte_4D8410[24]
+  v2 = memory_4D8410.f1_0
      / sqrt(*(float *)a1 * *(float *)a1 + *(float *)(a1 + 4) * *(float *)(a1 + 4) + *(float *)(a1 + 8)
                                                                                   * *(float *)(a1 + 8));
   *(float *)v1 = v2 * *(float *)v1;
@@ -8401,7 +8387,7 @@ int __thiscall sub_436A9A(int this, signed int a2, signed int a3, signed int a4,
 
   if ( pD3DRenderer->dword_040088 )
   {
-    v7 = *(double *)&byte_4D8410[24] / (double)a2;
+    v7 = memory_4D8410.f1_0 / (double)a2;
     v12 = (double)a3 * *(float *)(this + 196) * v7 + *(float *)(this + 200);
     v8 = v12 + 6.755399441055744e15;
     *(_DWORD *)a5 = LODWORD(v8);

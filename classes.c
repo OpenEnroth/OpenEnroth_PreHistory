@@ -2606,7 +2606,7 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
  v81 = _this->aSomeIndices[idx];
  for (i = 0; i < 32; ++i)
  {
-  scale = *(double *)&byte_4D8410[24] - (double)i * *(double *)&byte_4D8410[1088];
+  scale = memory_4D8410.f1_0 - (double)i * *(double *)&byte_4D8410[1088];
 
   for (j = 0; j < 256; ++j)
   {
@@ -2640,7 +2640,7 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
  v81 = _this->array_199600[idx];
  for (i = 0; i < 32; ++i)
  {
-  scale = *(double *)&byte_4D8410[24] - (double)i * *(double *)&byte_4D8410[1088];
+  scale = memory_4D8410.f1_0 - (double)i * *(double *)&byte_4D8410[1088];
 
   for (j = 0; j < 256; ++j)
   {
@@ -8131,10 +8131,7 @@ void class55_sub_42394D(struct class55 *_this, signed int a2, signed int a3, int
   signed __int64 result; // qax@1
   double v6; // st7@1
 
-  result = (signed __int64)((double)a3
-                          * *(double *)&byte_4D8410[256]
-                          / tan((double)(a2 >> 1) * *(double *)&byte_4D8410[248])
-                          + *(double *)&byte_4D8410[256]);
+  result = (double)(a3) * memory_4D8410.d_0_5 / tan((double)(a2 / 2) * memory_4D8410.double_0000F8) + memory_4D8410.d_0_5;
   v6 = (double)(signed int)result;
   _this->flt_00001C = v6;
   _this->flt_000020 = 65536.0 / v6;
@@ -8170,8 +8167,6 @@ int class59_sub_402CAE(struct class59 *_this, int a2)
 //----- (00436BB7) --------------------------------------------------------
 void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char a4)
 {
-  int v4; // ebx@1
-  void *v5; // edi@1
   int v6; // esi@2
   double v7; // st7@7
   double v8; // st7@9
@@ -8182,25 +8177,22 @@ void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char
   double v13; // st5@19
   float v14; // [sp+14h] [bp+Ch]@12
   float v15; // [sp+14h] [bp+Ch]@19
+ int i;
 
-  v4 = a3;
-  v5 = _this;
-  if ( a3 > 0 )
-  {
-    v6 = (char *)a2 + 24;
-    do
-    {
-      if ( byte_4D8410[572] && *(_BYTE *)(&pGame->uSomeFlags) & 0x80 || dword_6BE360 == 1 )
+ for (i = 0; i < a3; ++i)
+ {
+    v6 = (char *)(&a2[i]) + 24;
+
+      if ( byte_4D8410[572] && pGame->uSomeFlags & 0x80 || dword_6BE360 == 1 )
       {
-        v7 = *(double *)&byte_4D8410[24] / *(float *)(v6 - 12);
-        *(float *)v6 = *(float *)(v6 - 8) * *((float *)v5 + 49) * v7 + *((float *)v5 + 50);
+        v7 = memory_4D8410.f1_0 / *(float *)(v6 - 12);
+        *(float *)v6 = *(float *)(v6 - 8) * *((float *)_this + 49) * v7 + *((float *)_this + 50);
         *(float *)(v6 + 4) = (double)class28_global.dword_00001C
-                           - (*(float *)(v6 - 4) * *((float *)v5 + 49) * v7
-                            + *((float *)v5 + 51));
+                           - (*(float *)(v6 - 4) * *((float *)_this + 49) * v7 + *((float *)_this + 51));
       }
       else
       {
-        sub_481D77(v6 - 24);
+        sub_481D77(&a2[i]);
       }
       if ( a4 )
       {
@@ -8240,9 +8232,6 @@ void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char
         *(float *)(v6 + 4) = v11;
       }
       v6 += 48;
-      --v4;
-    }
-    while ( v4 );
   }
 }
 
@@ -8506,11 +8495,11 @@ void class59_ctor(struct class59 *_this)
   do
   {
     v3 = (double)v8 * *(double *)&byte_4D8410[376] * *(double *)&byte_4D8410[656];
-    *(_DWORD *)(v1 - 4160) = (signed __int64)(tan(v3) * (double)*(signed int *)(v2 + 2080) + *(double *)&byte_4D8410[256]);
-    *(_DWORD *)(v1 - 2080) = (signed __int64)(cos(v3) * (double)*(signed int *)(v2 + 2080) + *(double *)&byte_4D8410[256]);
+    *(_DWORD *)(v1 - 4160) = (signed __int64)(tan(v3) * (double)*(signed int *)(v2 + 2080) + memory_4D8410.d_0_5);
+    *(_DWORD *)(v1 - 2080) = (signed __int64)(cos(v3) * (double)*(signed int *)(v2 + 2080) + memory_4D8410.d_0_5);
     ++v8;
-    *(_DWORD *)v1 = (signed __int64)(*(double *)&byte_4D8410[24] / cos(v3) * (double)*(signed int *)(v2 + 2080)
-                                   + *(double *)&byte_4D8410[256]);
+    *(_DWORD *)v1 = (signed __int64)(memory_4D8410.f1_0 / cos(v3) * (double)*(signed int *)(v2 + 2080)
+                                   + memory_4D8410.d_0_5);
     v1 += 4;
   }
   while ( v8 < *(_DWORD *)(v2 + 6244) );

@@ -12489,7 +12489,7 @@ void __thiscall sub_4A2050(int this, signed int a2, int a3, int a4, int a5)
       sub_44EE30(pGame, a4, (void **)&v61);
       if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3616) & 1 )
       {
-        v8 = sub_47C4FC(*(_BYTE *)(a3 + 88), 0, flt_50AC1C, 0, 0);
+       v8 = sub_47C4FC(*(_BYTE *)(a3 + 88), 0, array_50AC10[0].flt_00000C, 0, 0);
         sub_45D74F(v7, v8, 0);
       }
       else
@@ -12523,7 +12523,7 @@ void __thiscall sub_4A2050(int this, signed int a2, int a3, int a4, int a5)
           }
           if ( a2 > 0 )
           {
-            v50 = &flt_50AC1C;
+            v50 = &array_50AC10[0].flt_00000C;
             v60 = (int)&unk_77E5CC;
             v58 = a2;
             do
@@ -12572,7 +12572,7 @@ void __thiscall sub_4A2050(int this, signed int a2, int a3, int a4, int a5)
           if ( a2 > 0 )
           {
             LODWORD(v9) = &unk_77E5CC;
-            v10 = &flt_50AC1C;
+            v10 = &array_50AC10[0].flt_00000C;
             a4 = (int)&unk_77E5CC;
             v59 = a2;
             while ( 1 )
@@ -12875,7 +12875,7 @@ void sub_4A26BC(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
       v67 = pGame->class04_obj;
       if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3616) & 1 )
       {
-        v10 = sub_47C4FC(*(_BYTE *)(a4 + 88), 0, flt_50AC1C, 0, 0);
+        v10 = sub_47C4FC(*(_BYTE *)(a4 + 88), 0, array_50AC10[0].flt_00000C, 0, 0);
         sub_45D74F(v9, v10, 0);
       }
       else
@@ -12915,7 +12915,7 @@ void sub_4A26BC(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
           if ( a3 > 0 )
           {
             LODWORD(v54) = &unk_77E5CC;
-            v55 = &flt_50AC1C;
+            v55 = &array_50AC10[0].flt_00000C;
             a7 = (int)&unk_77E5CC;
             v68 = a3;
             while ( 1 )
@@ -12983,7 +12983,7 @@ void sub_4A26BC(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
           if ( a3 > 0 )
           {
             LODWORD(v11) = &unk_77E5CC;
-            v12 = &flt_50AC1C;
+            v12 = &array_50AC10[0].flt_00000C;
             a7 = (int)&unk_77E5CC;
             v69 = a3;
             while ( 1 )
@@ -13207,7 +13207,7 @@ void sub_4A26BC(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
           CheckHRESULT(&a7, v49, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x398u, v7);
         }
       }
-      if ( dword_507D2C & 2 || byte_51B6E4 & 2 )
+      if (pClass55_global->dword_00004C & 2 || byte_51B6E4 & 2)
         sub_437A55(&unk_77E5C8, a3, 16777215, 0.0);
     }
   }
@@ -13256,7 +13256,7 @@ void __thiscall sub_4A2DA3(int this, signed int a2, int a3, int a4)
       if ( a2 > 0 )
       {
         v6 = &unk_77E5CC;
-        v5 = &flt_50AC2C;
+        v5 = &array_50AC10[0].flt_00001C;
         v14 = a2;
         do
         {
@@ -13329,7 +13329,7 @@ void __thiscall sub_4A2ED5(int this, signed int a2, int a3, int a4)
       if ( a2 > 0 )
       {
         v7 = &unk_77E5CC;
-        v8 = &unk_507D4C;
+        v8 = &array_507D30[0].flt_00001C;
         do
         {
           v9 = *((float *)v8 - 4) * 0.06175889447331429;
@@ -13459,7 +13459,7 @@ void __thiscall sub_4A2FC0(int this, signed int a2, int a3, signed int a4, signe
         v10 = a2;
         if ( a2 > 0 )
         {
-          v14 = &unk_507D3C;
+         v14 = &array_507D30[0].flt_00000C;
           v13 = &unk_77E5CC;
           a7 = a2;
           do
@@ -13517,7 +13517,7 @@ void __thiscall sub_4A2FC0(int this, signed int a2, int a3, signed int a4, signe
           if ( a2 > 0 )
           {
             v54 = a5;
-            v55 = &unk_507D3C;
+            v55 = &array_507D30[0].flt_00000C;
             v53 = &unk_77E5CC;
             a5 = a2;
             do
@@ -13570,7 +13570,7 @@ void __thiscall sub_4A2FC0(int this, signed int a2, int a3, signed int a4, signe
           if ( a2 > 0 )
           {
             v26 = a5;
-            v27 = &unk_507D3C;
+            v27 = &array_507D30[0].flt_00000C;
             v25 = &unk_77E5CC;
             a5 = a2;
             do
@@ -14945,7 +14945,7 @@ int __thiscall sub_4A52F1(int this, int a2, float a3)
   if ( *(_DWORD *)(this + 262280) )
   {
     v4 = a3;
-    if ( a3 <= *(double *)&byte_4D8410[24] )
+    if ( a3 <= memory_4D8410.f1_0 )
     {
       if ( v4 < *(double *)&byte_4D8410[176] )
         v4 = 0.0;
@@ -15100,7 +15100,7 @@ int __thiscall sub_4A52F1(int this, int a2, float a3)
   }
   else
   {
-    v71 = (*(double *)&byte_4D8410[24] - a3) * *(double *)&byte_4D8410[560];
+    v71 = (memory_4D8410.f1_0 - a3) * *(double *)&byte_4D8410[560];
     v70 = v71 + 6.755399441055744e15;
     LODWORD(a3) = LODWORD(v70);
     v69 = (class28_global.dword_000018 - class28_global.dword_000010) >> 1;
@@ -16701,7 +16701,7 @@ void __thiscall sub_4A7688(void *this, int a2)
   v3 = (double)*(_WORD *)(a2 + 30) / (double)*(_WORD *)(56 * *(_WORD *)(a2 + 2) + pObjectDescriptionList->pDescriptions + 42);
   v24 = 512.0 * v3;
   if ( v3 >= *(double *)&byte_4D8410[72] )
-    v4 = (*(double *)&byte_4D8410[24] - v3) * *(double *)&byte_4D8410[1224];
+    v4 = (memory_4D8410.f1_0 - v3) * *(double *)&byte_4D8410[1224];
   else
     v4 = v3 * *(double *)&byte_4D8410[1232];
   v26 = v4;

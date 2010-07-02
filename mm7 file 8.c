@@ -281,26 +281,31 @@ void __fastcall sub_481212(int a1, int a2, int a3)
         ++pStruct9_global->dword_00002C;
         if ( !sub_481FC9(v10, v103, v104, v16) )
           goto LABEL_104;
+
         v25 = 1.0 / (*(float *)(v106 + 12) + 0.0000001000000011686097);
-        memcpy(&unk_50AC10, (const void *)v106, 0x30u);
-        flt_50AC30 = v25;
-        flt_50AC34 = 0.0;
-        flt_50AC38 = 0.0;
+        memcpy(&array_50AC10[0], v106, sizeof(struct struct14));
+        array_50AC10[0].flt_000020 = v25;
+        array_50AC10[0].u = 0.0;
+        array_50AC10[0].v = 0.0;
+
         v26 = *(float *)(v103 + 12) + 0.0000001000000011686097;
-        memcpy(&unk_50AC40, (const void *)v103, 0x30u);
-        flt_50AC60 = 1.0 / v26;
-        flt_50AC64 = 0.0;
-        flt_50AC68 = 1.0;
+        memcpy(&array_50AC10[1], v103, sizeof(struct struct14));
+        array_50AC10[1].flt_000020 = 1.0 / v26;
+        array_50AC10[1].u = 0.0;
+        array_50AC10[1].v = 1.0;
+
         v27 = *(float *)(v105 + 12) + 0.0000001000000011686097;
-        memcpy(&unk_50AC70, (const void *)v105, 0x30u);
-        flt_50AC90 = 1.0 / v27;
-        flt_50AC94 = 1.0;
-        flt_50AC98 = 1.0;
+        memcpy(&array_50AC10[2], v105, sizeof(struct struct14));
+        array_50AC10[2].flt_000020 = 1.0 / v27;
+        array_50AC10[2].u = 1.0;
+        array_50AC10[2].v = 1.0;
+
         v28 = *(float *)(v104 + 12) + 0.0000001000000011686097;
-        memcpy(&unk_50ACA0, (const void *)v104, 0x30u);
-        flt_50ACC0 = 1.0 / v28;
-        flt_50ACC4 = 1.0;
-        flt_50ACC8 = 0.0;
+        memcpy(&array_50AC10[3], v104, sizeof(struct struct14));
+        array_50AC10[3].flt_000020 = 1.0 / v28;
+        array_50AC10[3].u = 1.0;
+        array_50AC10[3].v = 0.0;
+
         compile_error;//sub_45D036(v109, (int)&v92, COERCE_FLOAT(&unk_50AC10), COERCE_FLOAT(4), 1);
         if ( dword_F8ADD4 <= 0 )
         {
@@ -310,7 +315,7 @@ void __fastcall sub_481212(int a1, int a2, int a3)
         {
           compile_error;//v29 = pGame;
           *(_BYTE *)(v16 + 264) = 1;
-          sub_45CA88(*(void **)(LODWORD(v29) + 3656), (int)&dword_F8AD28, (int)&unk_50AC10, 4, v109);
+          sub_45CA88(*(void **)(LODWORD(v29) + 3656), (int)&dword_F8AD28, array_50AC10, 4, v109);
         }
         if ( *(float *)(v106 + 12) < 8.0
           || *(float *)(v103 + 12) < 8.0
@@ -404,21 +409,25 @@ LABEL_105:
     ++pStruct9_global->dword_00002C;
     if ( !sub_481FC9(v103, v105, v106, v37) )
       goto LABEL_74;
+
     v47 = 1.0 / (*(float *)(v106 + 12) + 0.0000001000000011686097);
-    memcpy(&unk_50AC10, (const void *)v106, 0x30u);
-    flt_50AC30 = v47;
-    flt_50AC34 = 0.0;
-    flt_50AC38 = 0.0;
+    memcpy(&array_50AC10[0], v106, sizeof(struct struct14));
+    array_50AC10[0].flt_000020 = v47;
+    array_50AC10[0].u = 0.0;
+    array_50AC10[0].v = 0.0;
+
     v48 = *(float *)(v103 + 12) + 0.0000001000000011686097;
-    memcpy(&unk_50AC40, (const void *)v103, 0x30u);
-    flt_50AC60 = 1.0 / v48;
-    flt_50AC64 = 0.0;
-    flt_50AC68 = 1.0;
+    memcpy(&array_50AC10[1], v103, sizeof(struct struct14));
+    array_50AC10[1].flt_000020 = 1.0 / v48;
+    array_50AC10[1].u = 0.0;
+    array_50AC10[1].v = 1.0;
+
     v49 = *(float *)(v105 + 12) + 0.0000001000000011686097;
-    memcpy(&unk_50AC70, (const void *)v105, 0x30u);
-    flt_50AC90 = 1.0 / v49;
-    flt_50AC94 = 1.0;
-    flt_50AC98 = 1.0;
+    memcpy(&array_50AC10[2], v105, sizeof(struct struct14));
+    array_50AC10[2].flt_000020 = 1.0 / v49;
+    array_50AC10[2].u = 1.0;
+    array_50AC10[2].v = 1.0;
+
     compile_error;//sub_45D036(v110, (int)&v79, COERCE_FLOAT(&unk_50AC10), COERCE_FLOAT(3), 0);
     if ( dword_F8ADD4 <= 0 )
     {
@@ -428,7 +437,7 @@ LABEL_105:
     {
       compile_error;//v50 = pGame;
       *(_BYTE *)(v37 + 264) = 1;
-      sub_45CA88(*(void **)(LODWORD(v50) + 3656), (int)&dword_F8AD28, (int)&unk_50AC10, 3, v110);
+      sub_45CA88(*(void **)(LODWORD(v50) + 3656), (int)&dword_F8AD28, array_50AC10, 3, v110);
     }
     if ( *(float *)(v106 + 12) < 8.0 || *(float *)(v103 + 12) < 8.0 || (v51 = v105, *(float *)(v105 + 12) < 8.0) )
     {
@@ -445,7 +454,7 @@ LABEL_105:
         {
           sub_4829B9(v103, v51, v106, v37, 0);
 LABEL_68:
-          sub_481DB2((int)flt_508690, v53, v37);
+          sub_481DB2(array_508690, v53, v37);
 LABEL_75:
           v16 = &array_77EC08[pStruct9_global->dword_00002C];
           v56 = sub_488EEF(pClass51_global, v102, v101);
@@ -494,21 +503,25 @@ LABEL_104:
             --pStruct9_global->dword_00002C;
             goto LABEL_105;
           }
+
           v61 = 1.0 / (*(float *)(v106 + 12) + 0.0000001000000011686097);
-          memcpy(&unk_50AC10, (const void *)v106, 0x30u);
-          flt_50AC30 = v61;
-          flt_50AC34 = 0.0;
-          flt_50AC38 = 0.0;
+          memcpy(&array_50AC10[0], v106, sizeof(struct struct14));
+          array_50AC10[0].flt_000020 = v61;
+          array_50AC10[0].u = 0.0;
+          array_50AC10[0].v = 0.0;
+
           v62 = *(float *)(v105 + 12) + 0.0000001000000011686097;
-          memcpy(&unk_50AC40, (const void *)v105, 0x30u);
-          flt_50AC60 = 1.0 / v62;
-          flt_50AC64 = 1.0;
-          flt_50AC68 = 1.0;
+          memcpy(&array_50AC10[1], v105, sizeof(struct struct14));
+          array_50AC10[1].flt_000020 = 1.0 / v62;
+          array_50AC10[1].u = 1.0;
+          array_50AC10[1].v = 1.0;
+
           v63 = *(float *)(v104 + 12) + 0.0000001000000011686097;
-          memcpy(&unk_50AC70, (const void *)v104, 0x30u);
-          flt_50AC90 = 1.0 / v63;
-          flt_50AC94 = 1.0;
-          flt_50AC98 = 0.0;
+          memcpy(&array_50AC10[2], v104, sizeof(struct struct14));
+          array_50AC10[2].flt_000020 = 1.0 / v63;
+          array_50AC10[2].u = 1.0;
+          array_50AC10[2].v = 0.0;
+
           compile_error;//sub_45D036(v111, (int)&v71, COERCE_FLOAT(&unk_50AC10), COERCE_FLOAT(3), 1);
           if ( dword_F8ADD4 <= 0 )
           {
@@ -518,7 +531,7 @@ LABEL_104:
           {
             compile_error;//v64 = pGame;
             *(_BYTE *)(v16 + 264) = 1;
-            sub_45CA88(*(void **)(LODWORD(v64) + 3656), (int)&dword_F8AD28, (int)&unk_50AC10, 3, v111);
+            sub_45CA88(*(void **)(LODWORD(v64) + 3656), (int)&dword_F8AD28, array_50AC10, 3, v111);
           }
           if ( *(float *)(v106 + 12) < 8.0 || *(float *)(v105 + 12) < 8.0 || *(float *)(v104 + 12) < 8.0 )
           {
@@ -548,7 +561,7 @@ LABEL_104:
 LABEL_37:
           sub_4829B9(v34, v33, v68, v69, v70);
 LABEL_38:
-          sub_481DB2((int)flt_508690, v32, v16);
+          sub_481DB2(array_508690, v32, v16);
           goto LABEL_105;
         }
         goto LABEL_74;
@@ -2822,7 +2835,7 @@ int sub_49289C(struct Player *_this, int a2, const void *Src)
 }
 
 //----- (00479089) --------------------------------------------------------
-bool __fastcall sub_479089(unsigned int uSomeIdx, int *a2)
+bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
 {
   int v2; // ecx@1
   int v3; // ebx@1
@@ -2835,9 +2848,7 @@ bool __fastcall sub_479089(unsigned int uSomeIdx, int *a2)
   signed int v11; // esi@6
   int v12; // esi@8
   char result; // al@9
-  //int v14; // [sp+Ch] [bp-20h]@1
   int v15; // [sp+Ch] [bp-20h]@5
-  //int v16; // [sp+10h] [bp-1Ch]@1
   int v17; // [sp+1Ch] [bp-10h]@1
   int v18; // [sp+20h] [bp-Ch]@1
   int v19; // [sp+20h] [bp-Ch]@3
@@ -2847,10 +2858,10 @@ bool __fastcall sub_479089(unsigned int uSomeIdx, int *a2)
 
   v20 = (pStruct9_global->dword_000010 << 11) / 360 >> 1;
 
-  v5 = &pClass51_global->pBModels[uSomeIdx];
+  v5 = &pClass51_global->pBModels[uModelIdx];
 
-  v4 = pClass51_global->pBModels[uSomeIdx].dword_0000AC - pClass55_global->dword_000000;
-  v3 = pClass51_global->pBModels[uSomeIdx].dword_0000B0 - pClass55_global->dword_000000;
+  v4 = pClass51_global->pBModels[uModelIdx].dword_0000AC - pClass55_global->dword_000000;
+  v3 = pClass51_global->pBModels[uModelIdx].dword_0000B0 - pClass55_global->dword_000000;
 
   v6 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000018);
   v21 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000018 - pClass59_global->dword_001864);
@@ -2867,7 +2878,7 @@ bool __fastcall sub_479089(unsigned int uSomeIdx, int *a2)
   v10 = sub_4621DA(v9, v8, 0);
   v22 = v10;
 
-  if ( v10 < pClass51_global->pBModels[uSomeIdx].dword_0000B8 + 256 )
+  if ( v10 < pClass51_global->pBModels[uModelIdx].dword_0000B8 + 256 )
     *a2 = 1;
   else *a2 = 0;
 
@@ -2879,7 +2890,7 @@ bool __fastcall sub_479089(unsigned int uSomeIdx, int *a2)
   v12 = v11 >> 16;
   if ( v22 <= pStruct9_global->shading_dist_mist + 2048 )
   {
-   if ( abs(v12) > pClass51_global->pBModels[uSomeIdx].dword_0000B8 + 512 )
+   if ( abs(v12) > pClass51_global->pBModels[uModelIdx].dword_0000B8 + 512 )
       return v12 >= 0;
     else
       return true;
@@ -3538,7 +3549,7 @@ LABEL_48:
               v144 = (double)v26 + v116 - v25;
               v141 = v27 * v27;
               v140 = v28 * v28;
-              if ( sqrt(v144 * v144 + v140 + v141) <= *(double *)&byte_4D8410[24] )
+              if ( sqrt(v144 * v144 + v140 + v141) <= memory_4D8410.f1_0 )
               {
                 v30 = 0;
                 v113 = 0;
@@ -7511,11 +7522,11 @@ void __fastcall sub_481E55(int a1)
     v2 = a1;
     do
     {
-      v6 = v5 * *(float *)(v1 + &unk_507D50);
-      v7 = v6 * *(float *)(v1 + &unk_507D40);
-      memcpy((char *)&unk_50AC10 + v1, (char *)&unk_507D30 + v1, 0x30u);
-      *(float *)(v1 + &flt_50AC28) = v4 - v7;
-      *(float *)(v1 + &flt_50AC2C) = v3 - v6 * *(float *)(v1 + &unk_507D44);
+      v6 = v5 * array_507D30[v1 / 48].flt_000020;
+      v7 = v6 * array_507D30[v1 / 48].flt_000010;
+      memcpy(&array_50AC10[v1 / 48], &array_507D30[v1 / 48], sizeof(struct struct14));
+      array_50AC10[v1 / 48].flt_000018 = v4 - v7;
+      array_50AC10[v1 / 48].flt_00001C = v3 - v6 * array_507D30[v1 / 48].flt_000014;
       v1 += 48;
       --v2;
     }
@@ -11682,7 +11693,7 @@ void __thiscall sub_48276F(struct struct8 *_this)
     v3 = -10000.0;
     v19.v27 = -10000.0;
 
-      v4 = &unk_5086AC;
+    v4 = &array_508690[0].flt_00001C;
       for (i = 0; i < _this->dword_000014; ++i)
       {
         if ( *((float *)v4 - 1) < (double)v19.v26 )
@@ -11723,20 +11734,24 @@ void __thiscall sub_48276F(struct struct8 *_this)
       else 
         (&v19.v19)[i] = 0;
     }
-    v12 = (int)&flt_508690[12 * v19.v19];
-    v11 = (int)&flt_508690[12 * v19.v20];
-    v13 = &flt_508690[12 * v19.v21];
+    //v12 = (int)&flt_508690[12 * v19.v19];
+    //v11 = (int)&flt_508690[12 * v19.v20];
+    //v13 = &flt_508690[12 * v19.v21];
+    v12 = &array_508690[v19.v19];
+    v11 = &array_508690[v19.v20];
+    v13 = &array_508690[v19.v21];
     if ( LODWORD(v19.v29) != 3 )
     {
-      v12 = (int)flt_508690;
-      v13 = &flt_508690[4 * (3 * _this->dword_000014 - 3)];
-      v11 = (int)flt_5086C0;
-      v19.v28 = flt_5086C0[0] - flt_508690[0];
-      v19.v27 = flt_5086C4 - flt_508690[1];
-      v19.v29 = flt_5086C8 - flt_508690[2];
-      v19.v26 = *v13 - flt_508690[0];
-      v19.v25 = v13[1] - flt_508690[1];
-      v19.v24 = v13[2] - flt_508690[2];
+      //v13 = &flt_508690[4 * (3 * _this->dword_000014 - 3)];
+     v13 = &((float *)(array_508690))[4 * (3 * _this->dword_000014 - 3)];
+      v12 = &array_508690[0];
+      v11 = &array_508690[1];
+      v19.v28 = array_508690[1].flt_000000 - array_508690[0].flt_000000;
+      v19.v27 = array_508690[1].flt_000004 - array_508690[0].flt_000004;
+      v19.v29 = array_508690[1].flt_00000C - array_508690[0].flt_000008;
+      v19.v26 = v13[0] - array_508690[0].flt_000000;
+      v19.v25 = v13[1] - array_508690[0].flt_000004;
+      v19.v24 = v13[2] - array_508690[0].flt_000008;
       if ( v19.v24 * v19.v27 - v19.v25 * v19.v29 == 0.0 )
       {
         if ( v19.v26 * v19.v29 - v19.v24 * v19.v28 == 0.0 )
@@ -11747,12 +11762,12 @@ void __thiscall sub_48276F(struct struct8 *_this)
             LODWORD(v19.v26) = v14;
             if ( v14 >= 2 )
             {
-              v15 = &flt_508690[12 * v14];
+              v15 = &array_508690[v14];
               do
               {
-                v18 = *v15 - flt_508690[0];
-                v17 = v15[1] - flt_508690[1];
-                v16 = v15[2] - flt_508690[2];
+               v18 = *v15 - array_508690[0].flt_000000;
+               v17 = v15[1] - array_508690[0].flt_000004;
+               v16 = v15[2] - array_508690[0].flt_000008;
                 v13 = v15;
                 if ( v19.v27 * v16 - v17 * v19.v29 != 0.0 )
                   break;

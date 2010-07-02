@@ -643,7 +643,7 @@ void __fastcall sub_4ADD1D(int a1)
               {
                 v57 = v3;
                 v46 = v3;
-                v6 = &unk_507D58;
+                v6 = &array_507D30[0].v;
                 do
                 {
                   *((float *)v6 - 1) = (double)((GetTickCount() >> 5) - dword_51B6E8) + *((float *)v6 - 1);
@@ -656,12 +656,12 @@ void __fastcall sub_4ADD1D(int a1)
               }
               v8 = 48 * v4;
               v44 = dword_F8AD28;
-              *(float *)((char *)&unk_507D54 + v8) = *(float *)((char *)&unk_507D54 + v8) * 0.25;
-              *(float *)((char *)&unk_507D58 + v8) = *(float *)((char *)&unk_507D58 + v8) * 0.25;
+              array_507D30[v4].u *= 0.25;
+              array_507D30[v4].v *= 0.25;
               if ( *(_BYTE *)(v2 + 45) & 0x40 )
               {
                 v43 = sub_4AE5BA(v2);
-                v9 = sub_44E19A(pTextureFrameTable, *(_WORD *)(v2 + 74), dword_51B6E0);
+                v9 = TextureFrameTable_GetFrame(pTextureFrameTable, *(_WORD *)(v2 + 74), dword_51B6E0);
               }
               else
               {
@@ -1001,7 +1001,7 @@ int __thiscall sub_4AE5BA(int this)
   int v1; // ecx@2
 
   if ( *(_BYTE *)(this + 45) & 0x40 )
-    v1 = sub_44E19A(pTextureFrameTable, *(_WORD *)(this + 74), dword_51B6E0);
+    v1 = TextureFrameTable_GetFrame(pTextureFrameTable, *(_WORD *)(this + 74), dword_51B6E0);
   else
     v1 = *(_WORD *)(this + 74);
   return v1 != -1 ? 72 * v1 + 7278780 : 0;
@@ -2563,8 +2563,8 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                   sub_4B0E07(v34);
                   sub_45C7F6(v34);
                   sub_49BBBD(pClass58_global, v34);
-                  sub_4364C5((int)&unk_F7B628, v35, (int)&unk_507D30, (int)&dword_F8AD28);
-                  class08_sub_436BB7(v32, (int)&unk_507D30, v35, 0);
+                  sub_4364C5((int)&unk_F7B628, v35, array_507D30, (int)&dword_F8AD28);
+                  class08_sub_436BB7(v32, array_507D30, v35, 0);
                   *(_DWORD *)(v31 + 1587204) = 0;
                   if ( dword_F8ADD4 > 0 || dword_DF1BB4 > 0 )
                   {
@@ -2586,7 +2586,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                         (int)&dword_F8AD28,
                         (int)&unk_F7B60C,
                         v35,
-                        (int)&unk_507D30,
+                        array_507D30,
                         *(float *)&v33,
                         0);
                   }
@@ -2597,7 +2597,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                       1,
                       (int)&unk_F7B60C,
                       v35,
-                      (int)&unk_507D30,
+                      array_507D30,
                       v33,
                       0.0,
                       *(_WORD *)(v9 + 76));
@@ -2613,7 +2613,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                     if ( v35 > 0 )
                     {
                       v25 = v24 - pClass59_global->dword_001864;
-                      v26 = &unk_507D58;
+                      v26 = &array_507D30[0].v;
                       v37 = v35;
                       for ( i = v25; ; v25 = i )
                       {
@@ -2633,7 +2633,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                   {
                     if ( BYTE1(v22) & 0x40 )
                     {
-                      v23 = sub_44E19A(pTextureFrameTable, *(_WORD *)(v9 + 74), dword_51B6E0);
+                      v23 = TextureFrameTable_GetFrame(pTextureFrameTable, *(_WORD *)(v9 + 74), dword_51B6E0);
 LABEL_42:
                       v28 = *(_DWORD *)(pClass17_Bitmaps_LOD->dword_011BB0 + 4 * v23);
                       if ( *(_BYTE *)(v9 + 46) & 0x40 )

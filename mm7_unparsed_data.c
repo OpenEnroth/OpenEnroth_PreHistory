@@ -953,86 +953,16 @@ unsigned int uTextureIdx_InventoryBackground; // dword @ MM7.exe::00507958
 
 
 
- struct class55 *pClass55_global = 0; // struct @ MM7.exe::00507CE0
-//int dword_507CE0; // 000000
-//int dword_507CE4; // 000004
-//int dword_507CE8; // 000008
-//int dword_507CEC; // 00000C
-//int dword_507CF0; // 000010
-//int dword_507CF4; // 000014
-//int dword_507CF8; // 000018
-//float flt_507CFC; // 00001C
-//float flt_507D00; // 000020
-//float flt_507D0C; // 00002C
-//float flt_507D10; // 000030
-//int dword_507D14; // 000034
-//float flt_507D18; // 000038
- int dword_507D2C; // weak
- _UNKNOWN unk_507D30; // weak
- _UNKNOWN unk_507D3C; // weak
- _UNKNOWN unk_507D40; // weak, 000060
- _UNKNOWN unk_507D44; // weak
- _UNKNOWN unk_507D4C; // weak
- _UNKNOWN unk_507D50; // weak
- _UNKNOWN unk_507D54; // weak
- _UNKNOWN unk_507D58; // weak
- _UNKNOWN unk_507D5C; // weak
- _UNKNOWN unk_507D7C; // weak
- float flt_508690[32*array_size_unknown]; // weak
-//float flt_508694; // weak
-//float flt_508698; // weak
- _UNKNOWN unk_5086A8; // weak
- _UNKNOWN unk_5086AC; // weak
- _UNKNOWN unk_5086B0; // weak
- _UNKNOWN unk_5086BC; // weak
- float flt_5086C0[array_size_unknown]; // weak
- float flt_5086C4; // weak
- float flt_5086C8; // weak
+struct class55 *pClass55_global = 0; // struct     @ MM7.exe::00507CE0
 
-struct struct14 array_508FF0[50]; // struct[50] @ MM7.exe::00508FF0
-// _UNKNOWN unk_508FF0[48*array_size_unknown]; // looks like 0x30-byte-wide struct array 
- _UNKNOWN unk_509008; // weak
-//float flt_50900C; // [0]::00001C
- _UNKNOWN unk_509010; // weak
- _UNKNOWN unk_50901C; // weak
+struct struct14 array_507D30[50];    // struct[50] @ MM7.exe::00507D30
+struct struct14 array_508690[50];    // struct[50] @ MM7.exe::00508690
+struct struct14 array_508FF0[50];    // struct[50] @ MM7.exe::00508FF0
+struct struct14 array_509950[50];    // struct[50] @ MM7.exe::00509950
+struct struct14 array_50A2B0[50];    // struct[50] @ MM7.exe::0050A2B0
+struct struct14 array_50AC10[50];    // struct[50] @ MM7.exe::0050AC10
 
- _UNKNOWN unk_509950[48*array_size_unknown]; // weak
- _UNKNOWN unk_509968; // weak
- float flt_50996C; // weak
- _UNKNOWN unk_509970; // weak
- _UNKNOWN unk_50997C; // weak
- _UNKNOWN unk_50A2B0; // weak
- float flt_50A2C8; // weak
- _UNKNOWN unk_50A2CC; // weak
- _UNKNOWN unk_50A2D0; // weak
- _UNKNOWN unk_50A2DC; // weak
- _UNKNOWN unk_50AC10[48*array_size_unknown]; // begin of new structure in array, size 0x30
- _UNKNOWN unk_50AC18; // weak
- float flt_50AC1C; // weak
- float flt_50AC28; // weak
- float flt_50AC2C; // weak
- float flt_50AC30; // weak
- float flt_50AC34; // weak
- float flt_50AC38; // weak
- _UNKNOWN unk_50AC3C; // weak
- _UNKNOWN unk_50AC40; // weak
- float flt_50AC58; // weak
- float flt_50AC5C; // weak
- float flt_50AC60; // weak
- float flt_50AC64; // weak
- float flt_50AC68; // weak
- _UNKNOWN unk_50AC70; // weak
- float flt_50AC88; // weak
- float flt_50AC8C; // weak
- float flt_50AC90; // weak
- float flt_50AC94; // weak
- float flt_50AC98; // weak
- _UNKNOWN unk_50ACA0; // weak
- float flt_50ACB8; // weak
- float flt_50ACBC; // weak
- float flt_50ACC0; // weak
- float flt_50ACC4; // weak
- float flt_50ACC8; // weak
+
  int dword_50B570[array_size_unknown]; // weak
  int dword_50B638[array_size_unknown]; // weak
  int dword_50B700; // weak

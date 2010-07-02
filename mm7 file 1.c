@@ -149,7 +149,6 @@ int __fastcall sub_4829B9(int a1, int a2, int a3, int a4, int a5)
 void __cdecl sub_4789DE()
 {
   int v1; // ebx@2
-  int v2; // eax@3
   struct class51_stru2 *v3; // edi@4
   int v6; // ecx@6
   int v7; // ecx@6
@@ -159,7 +158,6 @@ void __cdecl sub_4789DE()
   int v14; // ebx@19
   struct struct8 *p14;
   double v15; // st7@21
-  int v16; // eax@23
   double v17; // ST4C_8@23
   int v18; // eax@27
   int v22; // ecx@30
@@ -168,14 +166,7 @@ void __cdecl sub_4789DE()
   int v25; // eax@35
   int v26; // eax@39
   int v28; // esi@43
-  double v29; // st5@43
-  double v30; // st6@43
-  signed int v31; // ecx@43
-  int v32; // eax@44
-  int v33; // edx@44
-  double v34; // st4@45
   int v35; // ecx@45
-  char v36; // zf@45
   int v37; // eax@50
   int v38; // eax@53
   signed int v39; // esi@53
@@ -234,8 +225,7 @@ void __cdecl sub_4789DE()
    v1 = &pClass51_global->pBModels[i].dword_00004C;
    pModel = &pClass51_global->pBModels[i];
 
-   LOBYTE(v2) = sub_479089(i, &v87);
-   if ( LOBYTE(v2) )
+   if (sub_479089(i, &v87))
    {
     pClass51_global->pBModels[i].dword_000040 |= 0x0001;
     v3 = pClass51_global->pBModels[i].ptr_000054;
@@ -283,7 +273,7 @@ void __cdecl sub_4789DE()
           p14->dword_000030 = 65536;
         p14->ptr_000054 = v3;
         p14->dword_000014 = v6;
-        p14->byte_000058[1] = 5;
+        p14->byte_000059 = 5;
         v85 = (unsigned __int64)(v3->dword_000000 * -dword_6A1B20) >> 16;
         v84 = (unsigned __int64)(v3->dword_000004 * -dword_6A1B24) >> 16;
         v83 = (unsigned __int64)(v3->dword_000008 * -dword_6A1B28) >> 16;
@@ -294,32 +284,36 @@ void __cdecl sub_4789DE()
         *(float *)&v86 = v15 * 31.0;
         v17 = *(float *)&v86 + 6.755399441055744e15;
         v73 = LODWORD(v17);
-        v16 = v14 + 88;
-        *(_BYTE *)(v14 + 88) = 31 - LOBYTE(v17);
-        if ( (char)(31 - LOBYTE(v17)) < 0 )
-          *(_BYTE *)v16 = 0;
-        if ( *(_BYTE *)v16 > 31 )
-          *(_BYTE *)v16 = 31;
-        v18 = v3->uTextureID;
+
+        p14->byte_000058 = 31 - LOBYTE(v17);
+        if (p14->byte_000058 < 0)
+           p14->byte_000058;
+        if (p14->byte_000058 > 31)
+           p14->byte_000058 = 31;
+
         if (v3->byte_000010[13] & 0x40 )
-          v18 = sub_44E19A(pTextureFrameTable, v3->uTextureID, pClass24_global->dword_000024);
+          v18 = TextureFrameTable_GetFrame(pTextureFrameTable, v3->uTextureID, pClass24_global->dword_000024);
+        else v18 = v3->uTextureID;
 
         if (v18 == -1)
           p14->ptr_00003C = 0;
         else if (v18 < 0 || v18 > 1999)
         {
          runtime_warning(sometiems negative index returned, function unstable);
+         runtime_error;
          //for now let's pretend there's no required texture
          p14->ptr_00003C = &pClass17_Bitmaps_LOD->aLODHeaders[1];
          v18 = 0;
         }
         else
           p14->ptr_00003C = &pClass17_Bitmaps_LOD->aLODHeaders[v18];
+
         if (pStruct9_global->dword_00002C > 1999)
           return;
+
         ++pStruct9_global->dword_00002C;
         ++pStruct9_global->dword_000044;
-        if ( !sub_482170(v3, array_73D150, v14) )
+        if (!sub_482170(pClass51_global->pBModels[i].ptr_000054, array_73D150, p14))
         {
 LABEL_71:
           --pStruct9_global->dword_00002C;
@@ -360,40 +354,26 @@ LABEL_71:
             *(_BYTE *)(v14 + 49) |= 0x10u;
         }
         v28 = v6;
-        v31 = p14->ptr_00003C->uTextureWidth;
-        v86 = p14->ptr_00003C->uTextureHeight;
-        v30 = 1.0 / (double)v31;
-        v29 = 1.0 / (double)v86;
-        if ( v6 > 0 )
+
+        for (k = 0; k < v6 - 1; ++k)
         {
-          v33 = v3 + 112;
-          v32 = 0;
-          v85 = v6;
-          do
-          {
-           v34 = 1.0 / (array_73D150[v32 / 48].flt_00000C + 0.0000001000000011686097);
-            memcpy((char *)&unk_50AC10 + v32, &array_73D150[v32 / 48], 0x30u);
-            v32 += 48;
+            //memcpy((char *)&unk_50AC10 + v32, &array_73D150[v32 / 48], 0x30u);
+         memcpy(&array_50AC10[k], &array_73D150[k], sizeof(struct struct14));
 
             //*(float *)(v32 + 0x50AC00) = v34;
-            *(float *)(v32 + &unk_50AC10 - 0x10) = v34;
+         array_50AC10[k].flt_000020 = 1.0 / (array_73D150[k].flt_00000C + 0.0000001000000011686097);
 
-            v86 = *(_DWORD *)(v14 + 40) + *(_WORD *)(v33 - 40);
+         v86 = p14->dword_000028 + v3->array_000020[20 + i];
+         v35 = p14->dword_00002C + v3->array_000020[40 + i];
 
             //*(float *)(v32 + 0x50AC04) = (double)v86 * v30;
-            *(float *)(v32 + &unk_50AC10 - 0x0C) = (double)v86 * v30;
-
-            v35 = *(_DWORD *)(v14 + 44) + *(_WORD *)v33;
-            v33 += 2;
-            v36 = v85-- == 1;
-            v86 = v35;
-
+         array_50AC10[k].u = v86 * (1.0 / p14->ptr_00003C->uTextureWidth);
+           
             //*(float *)(v32 + 0x50AC08) = (double)v35 * v29;
-            *(float *)(v32 + &unk_50AC10 - 0x08) = (double)v35 * v29;
-          }
-          while ( !v36 );
-          v28 = v6;
+         array_50AC10[k].v = v35 * (1.0 / p14->ptr_00003C->uTextureHeight);
         }
+
+
         if ( !(byte_73C830 & 1) )
         {
           byte_73C830 |= 1u;
@@ -413,7 +393,7 @@ LABEL_71:
           v57 = flt_73C81C;
           v58 = flt_73C820;
           v59 = flt_73C824;
-          sub_45CA88(pGame->class04_obj, (int)&dword_F8AD28, (int)&unk_50AC10, v28, (int)&v57);
+          sub_45CA88(pGame->class04_obj, (int)&dword_F8AD28, array_50AC10, v28, (int)&v57);
         }
         if ( v76 )
         {
@@ -425,7 +405,7 @@ LABEL_71:
           v41 = 0;
           if ( *(_DWORD *)(v14 + 20) > 0 )
           {
-            v42 = &unk_5086AC;
+           v42 = &array_508690[0].flt_00001C;
             do
             {
               LODWORD(v66) = *((_DWORD *)v42 - 1);
@@ -462,7 +442,7 @@ LABEL_71:
             v48 = 0;
             if ( *(_DWORD *)(v14 + 20) > 0 )
             {
-              v49 = &unk_5086AC;
+             v49 = &array_508690[0].flt_00001C;
               do
               {
                 LODWORD(v63) = *((_DWORD *)v49 - 1);
@@ -493,7 +473,7 @@ LABEL_71:
             v53 = 0;
             if ( *(_DWORD *)(v14 + 20) > 0 )
             {
-              v54 = &unk_5086AC;
+             v54 = &array_508690[0].flt_00001C;
               do
               {
                 LODWORD(v64) = *((_DWORD *)v54 - 1);
@@ -510,9 +490,8 @@ LABEL_71:
             }
           }
         }
-        sub_486B4E((int)flt_508690, (int)dword_50B638, dword_50B570, v14);
+        sub_486B4E(array_508690, (int)dword_50B638, dword_50B570, v14);
       }
-      v3 += 308;
     }
 
 
@@ -793,7 +772,7 @@ void sub_47A59E(bool a1)
 
   pClass55_global->dword_000000 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_sub_402CAE(pClass59_global, pParty_global->dword_0006C0) * dword_ACCFD0) >> 16);
   v3 = class59_sub_402CAE(pClass59_global, pParty_global->dword_0006C0 - pClass59_global->dword_001864);
-  dword_507D2C = v2;
+  pClass55_global->dword_00004C = v2;
   pClass55_global->dword_000004 = pParty_global->sPartyPosY - ((unsigned __int64)(v3 * dword_ACCFD0) >> 16);
   pClass55_global->dword_000008 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
   if (a1 || pD3DRenderer->dword_040088 )
@@ -11705,7 +11684,7 @@ LABEL_304:
             v712 = (double)(v153 % 1000) + *(float *)&Source - *(float *)&v710;
             *(float *)&v703 = v155 * v155;
             v702 = v154 * v154;
-            if ( sqrt(v712 * v712 + v702 + *(float *)&v703) <= *(double *)&byte_4D8410[24] )
+            if ( sqrt(v712 * v712 + v702 + *(float *)&v703) <= memory_4D8410.f1_0 )
             {
               v645 = HIDWORD(v1);
               v646 = HIDWORD(v1);
@@ -12129,7 +12108,7 @@ LABEL_104:
           v712 = (double)(v207 % 1000) + *(float *)&v710 - *(float *)&Source;
           v685 = v209 * v209;
           v704 = v208 * v208;
-          if ( sqrt(v712 * v712 + v704 + v685) <= *(double *)&byte_4D8410[24] )
+          if ( sqrt(v712 * v712 + v704 + v685) <= memory_4D8410.f1_0 )
           {
             v642 = HIDWORD(v1);
             v643 = HIDWORD(v1);

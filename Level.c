@@ -1484,12 +1484,10 @@ int __thiscall sub_4892E6(struct class51 *_this)
 
 
 //----- (00482170) --------------------------------------------------------
-bool sub_482170(struct class51_stru2 *_this, int a2, struct struct8 *a3)
+bool sub_482170(struct class51_stru2 *_this, struct struct14 *a2, struct struct8 *a3)
 {
   signed int v3; // edx@1
-  int v4; // edi@1
-  int v5; // esi@1
-  int v6; // ecx@2
+  struct struct14 *v6; // ecx@2
   double v7; // st7@5
   double v8; // st6@5
   double v9; // st5@5
@@ -1517,85 +1515,78 @@ bool sub_482170(struct class51_stru2 *_this, int a2, struct struct8 *a3)
   float v32; // [sp+48h] [bp+8h]@17
   float v33; // [sp+48h] [bp+8h]@17
 
-  v4 = a3;
-  v5 = a2;
-  v3 = a3->dword_000014;
-  if (a3->dword_000014 < 3)
-    return false;
+ v3 = a3->dword_000014;
+ if (a3->dword_000014 < 3)
+   return false;
 
-  v6 = 48 * v3 + v5 - 48;
-  if ( *(float *)(v5 + 8) == *(float *)(v5 + 56) )
+  v6 = &a2[v3 - 1];
+  if (a2[0].flt_000008 == a2[1].flt_000008)
   {
-    if ( *(float *)(v5 + 56) == *(float *)(v6 + 8) )
+    if (a2[1].flt_000008 == a2[v3 - 1].flt_000008)
       a3->dword_000030 |= 0x10;
   }
-  v19 = *(float *)(v5 + 60) - *(float *)(v5 + 12);
-  v18 = *(float *)(v5 + 64) - *(float *)(v5 + 16);
-  v20 = *(float *)(v5 + 68) - *(float *)(v5 + 20);
-  v21 = *(float *)(v6 + 12) - *(float *)(v5 + 12);
-  v22 = *(float *)(v6 + 16) - *(float *)(v5 + 16);
-  v23 = *(float *)(v6 + 20) - *(float *)(v5 + 20);
-  v28 = *(float *)(v5 + 48) - *(float *)v5;
-  v27 = *(float *)(v5 + 52) - *(float *)(v5 + 4);
-  v29 = *(float *)(v5 + 56) - *(float *)(v5 + 8);
-  v7 = *(float *)v6 - *(float *)v5;
-  v8 = *(float *)(v6 + 4) - *(float *)(v5 + 4);
-  v9 = *(float *)(v6 + 8) - *(float *)(v5 + 8);
-  v26 = v27 * v9 - v8 * v29;
-  v24 = v7 * v29 - v9 * v28;
-  v25 = v8 * v28 - v7 * v27;
-  if ( v26 == 0.0 )
+
+  v19 = a2[1].flt_00000C - a2->flt_00000C;
+  v18 = a2[1].flt_000010 - a2->flt_000010;
+  v20 = a2[1].flt_000014 - a2->flt_000014;
+  v21 = a2[v3 - 1].flt_00000C - a2->flt_00000C;
+  v22 = a2[v3 - 1].flt_000010 - a2->flt_000010;
+  v23 = a2[v3 - 1].flt_000014 - a2->flt_000014;
+  v28 = a2[1].flt_000000 - a2->flt_000000;
+  v27 = a2[1].flt_000004 - a2->flt_000004;
+  v29 = a2[1].flt_000008 - a2->flt_000008;
+  v7 = a2[v3 - 1].flt_000000 - a2->flt_000000;
+  v8 = a2[v3 - 1].flt_000004 - a2->flt_000004;
+  v9 = a2[v3 - 1].flt_000008 - a2->flt_000008;
+
+ v26 = v27 * v9 - v8 * v29;
+ v24 = v7 * v29 - v9 * v28;
+ v25 = v8 * v28 - v7 * v27;
+ if (v26 == 0.0 && v24 == 0.0 && v25 == 0.0)
+ {
+  while (true)
   {
-    if ( v24 == 0.0 )
-    {
-      if ( v25 == 0.0 )
-      {
-        while ( 1 )
-        {
-          --v3;
-          if ( v3 < 2 )
-            break;
-          v10 = *(float *)v6 - *(float *)v5;
-          v11 = *(float *)(v6 + 4) - *(float *)(v5 + 4);
-          v12 = *(float *)(v6 + 8) - *(float *)(v5 + 8);
-          v26 = v27 * v12 - v11 * v29;
-          v24 = v10 * v29 - v12 * v28;
-          v25 = v11 * v28 - v10 * v27;
-          if ( v26 != 0.0 )
-            break;
-          if ( v24 != 0.0 || v25 != 0.0 )
-            break;
-          v6 -= 48;
-        }
-        v21 = *(float *)(v6 + 12) - *(float *)(v5 + 12);
-        v22 = *(float *)(v6 + 16) - *(float *)(v5 + 16);
-        v23 = *(float *)(v6 + 20) - *(float *)(v5 + 20);
-      }
-    }
+   --v3;
+   if (v3 < 2)
+     break;
+
+   v10 = v6->flt_000000 - a2->flt_000000;
+   v11 = v6->flt_000004 - a2->flt_000004;
+   v12 = v6->flt_000008 - a2->flt_000008;
+
+   v26 = v27 * v12 - v11 * v29;
+   v24 = v10 * v29 - v12 * v28;
+   v25 = v11 * v28 - v10 * v27;
+   if (v26 != 0.0 || v24 != 0.0 || v25 != 0.0)
+     break;
+   --v6;
   }
-  if ( ((double)pClass55_global->dword_000000 - *(float *)v5) * v26
-     + ((double)pClass55_global->dword_000008 - *(float *)(v5 + 8)) * v25
-     + ((double)pClass55_global->dword_000004 - *(float *)(v5 + 4)) * v24 > 0.0 )
-  {
+  v21 = v6->flt_00000C - a2->flt_00000C;
+  v22 = v6->flt_000010 - a2->flt_000010;
+  v23 = v6->flt_000014 - a2->flt_000014;
+ }
+
+ if ((pClass55_global->dword_000000 - a2->flt_000000) * v26 +
+     (pClass55_global->dword_000008 - a2->flt_000008) * v25 +
+     (pClass55_global->dword_000004 - a2->flt_000004) * v24 > 0.0)
+ {
     v30 = v23 * v18 - v22 * v20;
     v14 = v30 + 6.755399441055744e15;
-    *(_DWORD *)(v4 + 24) = LODWORD(v14);
+    a3->dword_000018 = LODWORD(v14);
     v31 = v21 * v20 - v23 * v19;
     v15 = v31 + 6.755399441055744e15;
-    *(_DWORD *)(v4 + 28) = LODWORD(v15);
+    a3->dword_00001C = LODWORD(v15);
     v32 = v22 * v19 - v21 * v18;
     v16 = v32 + 6.755399441055744e15;
-    *(_DWORD *)(v4 + 32) = LODWORD(v16);
+    a3->dword_000020 = LODWORD(v16);
     sub_486089(a3);
-    v33 = -((double)*(signed int *)(v4 + 24) * *(float *)(v5 + 12))
-        - (double)*(signed int *)(v4 + 28) * *(float *)(v5 + 16)
-        - (double)*(signed int *)(v4 + 32) * *(float *)(v5 + 20);
+    v33 = -(a3->dword_000018 * a2->flt_00000C) - a3->dword_00001C * a2->flt_000010 - a3->dword_000020 * a2->flt_000014;
     v17 = v33 + 6.755399441055744e15;
-    *(_DWORD *)(v4 + 36) = LODWORD(v17);
+    a3->dword_000024 = LODWORD(v17);
     return true;
-  }
-  else
-    return false;
+ }
+ else
+   return false;
 }
 
 

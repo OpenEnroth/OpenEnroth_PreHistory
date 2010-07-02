@@ -855,7 +855,7 @@ void AudioPlayer_sub_4AA214(struct AudioPlayer *_this, signed int a2)
     AIL_set_digital_master_volume(_this->hDigDriver, a2);
 
   if (_this->dword_000004)
-    _this->dword_000008 = (signed __int64)((double)a2 * *(double *)&byte_4D8410[256]);
+    _this->dword_000008 = (signed __int64)((double)a2 * memory_4D8410.d_0_5);
  }
 }
 

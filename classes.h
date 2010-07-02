@@ -1645,7 +1645,12 @@ struct struct8
  struct struct8       *ptr_000004;
  char                  byte_000008[12];
  int                   dword_000014;
- char                  byte_000018[24];
+ int                   dword_000018;
+ int                   dword_00001C;
+ int                   dword_000020;
+ int                   dword_000024;
+ int                   dword_000028;
+ int                   dword_00002C;
  int                   dword_000030;
  char                  byte_000034[4];
  struct class57       *ptr_000038;
@@ -1655,7 +1660,10 @@ struct struct8
  int                 **ptr_000048;
  char                  byte_00004C[8];
  struct class51_stru2 *ptr_000054;
- char                  byte_000058[4];
+ char                  byte_000058;
+ char                  byte_000059;
+ char                  byte_00005A;
+ char                  byte_00005B;
  int                   dword_00005C;
  char                  byte_000060[80];
  int                   dword_0000B0;
@@ -1696,8 +1704,9 @@ struct class55
  int   dword_000040;
  int   dword_000044;
  int   dword_000048;
+ int   dword_00004C;
 };
-//sizeof ~ 4C 
+//sizeof == 50
 //void sub_4239A7(int this);
 void sub_4239A7(struct class55 *_this);
 //signed __int64 __thiscall sub_42394D(void *this, signed int a2, signed int a3, int a4);
@@ -1839,9 +1848,14 @@ struct struct14
  float flt_000004;
  float flt_000008;
  float flt_00000C;
- char  byte_000010[12];
+ float flt_000010;
+ float flt_000014;
+ float flt_000018;
  float flt_00001C;
- char  byte_000020[16];
+ float flt_000020;
+ float u;          // float @ 000024   looks like texture coordinates
+ float v;          // float @ 000028
+ char  byte_00002C[4];
 };
 //sizeof == 30
 

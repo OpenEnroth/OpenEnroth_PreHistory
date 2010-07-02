@@ -18018,7 +18018,7 @@ signed int __fastcall sub_42041E(int a1)
     *(float *)&v56 = v18 * v18;
     v20 = sqrt(v58 * v58 + *(float *)&v56 + *(float *)&X);
     v57 = v20;
-    if ( v20 <= *(double *)&byte_4D8410[24] )
+    if ( v20 <= memory_4D8410.f1_0 )
     {
       v56 = 0;
       X = 0;
@@ -19921,7 +19921,7 @@ LABEL_16:
     __asm
     {
      fild    dword ptr unk_51B720
-     lea ecx, dword ptr [unk_507D3C]
+     //lea ecx, dword ptr [array_507D30[0].flt_00000C]
     }
     v23 = result;
     __asm
@@ -19961,7 +19961,7 @@ LABEL_16:
       fstp    st
     }
   }
-  memcpy((char *)&unk_507D30 + 48 * result, &unk_507D30, 0x30u);
+  memcpy(&array_507D30[result], array_507D30, sizeof(struct struct14));
   return result;
 }
 
@@ -20418,24 +20418,24 @@ signed int __fastcall sub_424CD7(int a1)
   _UNKNOWN *v26; // [sp+2Ch] [bp-4h]@4
 
   v1 = a1;
-  memcpy((char *)&unk_50AC10 + 48 * a1, &unk_50AC10, 0x30u);
+  memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct struct14));
   v2 = 0;
   v21 = 0;
-  if ( flt_50AC1C >= 8.0 )
+  if ( array_50AC10[0].flt_00000C >= 8.0 )
     v2 = 1;
   if ( a1 + 1 <= 1 )
     return 0;
-  v5 = &unk_507D44;
-  v4 = &unk_507D40;
+  v5 = &array_507D30[0].flt_000014;
+  v4 = &array_507D30[0].flt_000010;
   v6 = v1;
-  v24 = &unk_507D50;
-  v22 = &unk_507D30;
-  v19 = &unk_507D44;
-  v20 = &unk_507D40;
-  v23 = &unk_507D3C;
-  v25 = &unk_507D58;
-  v26 = &unk_507D54;
-  v3 = &flt_50AC38;
+  v24 = &array_507D30[0].flt_000020;
+  v22 = array_507D30;
+  v19 = &array_507D30[0].flt_000014;
+  v20 = &array_507D30[0].flt_000010;
+  v23 = &array_507D30[0].flt_00000C;
+  v25 = &array_507D30[0].v;
+  v26 = &array_507D30[0].u;
+  v3 = &array_50AC10[0].v;
   v17 = v6;
   do
   {

@@ -6643,9 +6643,9 @@ int __thiscall sub_4407D9(int this, int a2)
     *(_DWORD *)(v3 + 120) = *(_DWORD *)(v3 + 96) - ((unsigned __int64)(v26 * v29) >> 16);
   }
   v28 = (unsigned int)(signed __int64)((double)*(signed int *)(v3 + 112)
-                                     * *(double *)&byte_4D8410[256]
-                                     / tan((double)(signed int)(*(_DWORD *)(v2 + 28) >> 1) * *(double *)&byte_4D8410[248])
-                                     + *(double *)&byte_4D8410[256]) << 16;
+                                     * memory_4D8410.d_0_5
+                                     / tan((double)(signed int)(*(_DWORD *)(v2 + 28) >> 1) * memory_4D8410.double_0000F8)
+                                     + memory_4D8410.d_0_5) << 16;
   *(_DWORD *)(v3 + 64) = v28;
   *(_DWORD *)(v3 + 68) = 4294967296i64 / v28;
   *(_DWORD *)(v3 + 72) = *(_DWORD *)(v2 + 32);
@@ -11741,7 +11741,7 @@ void __fastcall sub_448DF8(int a1, int a2, signed int a3, int a4, __int64 a5, si
   v85 = v10 * v10;
   v82 = v11 * v11;
   v12 = sqrt(v78 * v78 + v82 + v85);
-  if ( v12 <= *(double *)&byte_4D8410[24] )
+  if ( v12 <= memory_4D8410.f1_0 )
   {
     LOBYTE(v54) = 1;
     v55 = 0;
@@ -15133,7 +15133,7 @@ LABEL_4:
 }
 
 //----- (0044E19A) --------------------------------------------------------
-int __thiscall sub_44E19A(int this, int a2, signed int a3)
+int __thiscall TextureFrameTable_GetFrame(int this, int a2, signed int a3)
 {
   int v3; // ecx@1
   int v4; // edi@1

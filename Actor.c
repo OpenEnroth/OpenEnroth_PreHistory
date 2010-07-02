@@ -366,7 +366,7 @@ LABEL_45:
   *(float *)&v53 = v33 * v33;
   *(float *)&v52 = v32 * v32;
   v31 = sqrt(v57 * v57 + *(float *)&v52 + *(float *)&v53);
-  if ( v31 <= *(double *)&byte_4D8410[24] )
+  if ( v31 <= memory_4D8410.f1_0 )
   {
     v43 = 65536;
     v44 = 0;
