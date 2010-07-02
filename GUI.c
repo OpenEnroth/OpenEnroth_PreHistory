@@ -305,6 +305,7 @@ loc_4215B1:
                 ((float)(y) - pControl->uY) * ((float)(y) - pControl->uY) / (float)pControl->uHeight * pControl->uHeight >= 1.0)
             {
                   v35 = pControl->dword_00001C;
+                  i = pControl;
                   if ( v35 != 0 )
                   {
                     v36 = pControl->dword_000024;
