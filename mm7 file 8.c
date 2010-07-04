@@ -60,7 +60,6 @@ void __fastcall sub_481212(int a1, int a2, int a3)
   int v42; // eax@44
   int v43; // eax@44
   int v44; // eax@44
-  int v45; // eax@46
   double v46; // st7@49
   double v47; // st5@57
   double v48; // st5@57
@@ -112,7 +111,6 @@ void __fastcall sub_481212(int a1, int a2, int a3)
   struct struct14 *v105; // [sp+B0h] [bp-8h]@6
   float v107; // [sp+C0h] [bp+8h]@6
   float v108; // [sp+C0h] [bp+8h]@6
-  int v110; // [sp+C0h] [bp+8h]@48
 
   v4 = a1;
   v5 = *(_WORD *)(a3 + 4);
@@ -185,7 +183,7 @@ void __fastcall sub_481212(int a1, int a2, int a3)
         array_77EC08[pStruct9_global->dword_00002C].byte_00005D = v20;
         array_77EC08[pStruct9_global->dword_00002C].dword_000034 = *(_WORD *)(v93 + 2);
         v18 = (unsigned __int16)word_75D514[2 * (v20 + (v95 * 128)) + 1];
-        if (v18 < 0 || v18 > dword_73D510 - 1)
+        if (v18 < 0 || v18 > uNumTerrainNormals - 1)
           pNormal = 0;
         else
           pNormal = pTerrainNormals + v18;
@@ -293,13 +291,13 @@ LABEL_105:
     }
     v37 = &array_77EC08[pStruct9_global->dword_00002C];
     v38 = class51_sub_488EEF_GetSomeTileInfo(pClass51_global, v102, v101);
-    *(_WORD *)(v37 + 76) = v38;
+    array_77EC08[pStruct9_global->dword_00002C].word_00004C = v38;
     if ( v38 == -1 )
       goto LABEL_105;
-    v40 = class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v102, v101);
-    BYTE1(v40) |= 0x80u;
+    v40 = 0x80 | class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v102, v101);
+
     v41 = LODWORD(v100);
-    *(_DWORD *)(v37 + 48) = v40;
+    array_77EC08[pStruct9_global->dword_00002C].dword_000030 = v40;
     v42 = v93;
     *(_BYTE *)(v37 + 89) = 1;
     *(_BYTE *)(v37 + 93) = v41;
@@ -309,14 +307,14 @@ LABEL_105:
     v44 = 4 * (v41 + (v43 << 7));
     LODWORD(v94) = v44;
     v39 = *(unsigned __int16 *)((char *)word_75D514 + v44 + 2);
-    if ( v39 < 0 || v39 > dword_73D510 - 1 )
-      v45 = 0;
+    if ( v39 < 0 || v39 > uNumTerrainNormals - 1 )
+      pNormal = 0;
     else
-      v45 = pTerrainNormals + v39;
-    v110 = v45;
-    if ( v45 )
+      pNormal = pTerrainNormals + v39;
+
+    if (pNormal)
     {
-      v46 = -(v98 * *(float *)(v45 + 8) + v97 * *(float *)(v45 + 4) + v96 * *(float *)v45);
+      v46 = -(v98 * pNormal->y + v97 * pNormal->z + v96 * pNormal->x);
       if ( v46 < 0.0 )
         v46 = 0.0;
       v89 = v46 * 31.0;
@@ -354,7 +352,7 @@ LABEL_105:
     array_50AC10[2].u = 1.0;
     array_50AC10[2].v = 1.0;
 
-    sub_45D036(v110, (int)&v79, array_50AC10, 3, 0);
+    sub_45D036(pNormal, (int)&v79, array_50AC10, 3, 0);
     if ( dword_F8ADD4 <= 0 )
     {
       *(_BYTE *)(v37 + 264) = 0;
@@ -363,7 +361,7 @@ LABEL_105:
     {
       v50 = *(float *)&pGame;
       *(_BYTE *)(v37 + 264) = 1;
-      sub_45CA88(*(void **)(LODWORD(v50) + 3656), (int)&dword_F8AD28, array_50AC10, 3, v110);
+      sub_45CA88(*(void **)(LODWORD(v50) + 3656), (int)&dword_F8AD28, array_50AC10, 3, pNormal);
     }
     if (v10->flt_00000C < 8.0 || v12->flt_00000C < 8.0 || (v51 = v105, *(float *)(v105 + 12) < 8.0) )
     {
@@ -394,7 +392,7 @@ LABEL_75:
           *(_BYTE *)(v16 + 92) = v95;
           *(_BYTE *)(v16 + 93) = LOBYTE(v100);
           v57 = *(unsigned __int16 *)((char *)word_75D514 + LODWORD(v94));
-          if ( v57 > dword_73D510 - 1 )
+          if ( v57 > uNumTerrainNormals - 1 )
              pNormal = 0;
           else
              pNormal = pTerrainNormals + v57;

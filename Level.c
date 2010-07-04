@@ -298,11 +298,11 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
     v120 = 0;
     *(_DWORD *)(v5 + 228) = v10;
     fseek(v7, v149, v120);
-    locked_fread(&dword_73D510, 4u, 1u, v7);
+    locked_fread(&uNumTerrainNormals, 4u, 1u, v7);
     locked_fread(&unk_73D514, 1u, 0x20000u, v7);
     locked_fread(word_75D514, 1u, 0x10000u, v7);
-    pTerrainNormals = class23_AllocatedNamedBuffer(&class23_instance, pTerrainNormals, 12 * dword_73D510, "TerNorm");
-    locked_fread(pTerrainNormals, 1u, 12 * dword_73D510, v7);
+    pTerrainNormals = class23_AllocatedNamedBuffer(&class23_instance, pTerrainNormals, uNumTerrainNormals * sizeof(struct Normal), "TerNorm");
+    locked_fread(pTerrainNormals, 1u, uNumTerrainNormals * sizeof(struct Normal), v7);
     v11 = class23_AllocatedNamedBuffer(&class23_instance, *(_DWORD *)(v5 + 216), 188 * *(_DWORD *)(v5 + 176), "BDdata");
     v120 = 0;
     *(_DWORD *)(v5 + 216) = v11;
@@ -620,7 +620,7 @@ LABEL_33:
   sub_47C80A(&_this->struct_0000B4, 0, 0, 128, 128);
 
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-  memcpy(&dword_73D510, v42, 4);
+  memcpy(&uNumTerrainNormals, v42, 4);
   v42 += 4;
 
   memcpy(unk_73D514, v42, 0x20000);
@@ -629,9 +629,9 @@ LABEL_33:
   memcpy(word_75D514, v42, 0x10000);
   v42 += 0x10000;
 
-  pTerrainNormals = class23_AllocatedNamedBuffer(class23_instance, pTerrainNormals, 12 * dword_73D510, "TerNorm");
-  memcpy(pTerrainNormals, v42, dword_73D510 * sizeof(struct Normal));
-  v42 += 12 * dword_73D510;
+  pTerrainNormals = class23_AllocatedNamedBuffer(class23_instance, pTerrainNormals, uNumTerrainNormals * sizeof(struct Normal), "TerNorm");
+  memcpy(pTerrainNormals, v42, uNumTerrainNormals * sizeof(struct Normal));
+  v42 += uNumTerrainNormals * sizeof(struct Normal);
 
   memcpy(&_this->uNumBModels, v42, 4);
   v42 += 4;
@@ -1557,10 +1557,6 @@ bool sub_482170(struct class51_stru2 *_this, struct struct14 *a2, struct struct8
   double v10; // st6@9
   double v11; // st5@9
   double v12; // st4@9
-  double v14; // ST2C_8@17
-  double v15; // ST20_8@17
-  double v16; // ST0C_8@17
-  double v17; // ST0C_8@17
   float v18; // [sp+8h] [bp-38h]@5
   float v19; // [sp+10h] [bp-30h]@5
   float v20; // [sp+14h] [bp-2Ch]@5
@@ -1633,20 +1629,20 @@ bool sub_482170(struct class51_stru2 *_this, struct struct14 *a2, struct struct8
      (pClass55_global->dword_000008 - a2->y) * v25 +
      (pClass55_global->dword_000004 - a2->z) * v24 > 0.0)
  {
-    v30 = v23 * v18 - v22 * v20;
-    v14 = v30 + 6.755399441055744e15;
-    a3->dword_000018 = LODWORD(v14);
-    v31 = v21 * v20 - v23 * v19;
-    v15 = v31 + 6.755399441055744e15;
-    a3->dword_00001C = LODWORD(v15);
-    v32 = v22 * v19 - v21 * v18;
-    v16 = v32 + 6.755399441055744e15;
-    a3->dword_000020 = LODWORD(v16);
-    sub_486089(a3);
-    v33 = -(a3->dword_000018 * a2->flt_00000C) - a3->dword_00001C * a2->flt_000010 - a3->dword_000020 * a2->flt_000014;
-    v17 = v33 + 6.755399441055744e15;
-    a3->dword_000024 = LODWORD(v17);
-    return true;
+  v30 = v23 * v18 - v22 * v20;
+  a3->dword_000018 = floorf(v30 + 0.5f);
+
+  v31 = v21 * v20 - v23 * v19;
+  a3->dword_00001C = floorf(v31 + 0.5f);
+
+  v32 = v22 * v19 - v21 * v18;
+  a3->dword_000020 = floorf(v32 + 0.5f);
+
+  sub_486089(a3);
+
+  v33 = -(a3->dword_000018 * a2->flt_00000C) - a3->dword_00001C * a2->flt_000010 - a3->dword_000020 * a2->flt_000014;
+  a3->dword_000024 = floorf(v33 + 0.5f);
+  return true;
  }
  else
    return false;

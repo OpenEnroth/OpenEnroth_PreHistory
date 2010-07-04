@@ -5455,8 +5455,8 @@ void class40_LoadPotionsTable(struct class40 *_this)
     break;
   if (!i)
   {
-    MessageBoxW(0, L"Error Pre-Parsing Potion Table", L"Load Error", 0x10);
-    return;
+   MessageBoxW(0, L"Error Pre-Parsing Potion Table", L"Load Error", 0x10);
+   return;
   }
  }
 
@@ -5467,8 +5467,8 @@ void class40_LoadPotionsTable(struct class40 *_this)
     break;
   if (!v12)
   {
-    MessageBoxW(0, L"Error Pre-Parsing Potion Table", L"Load Error", 0x10);
-    return;
+   MessageBoxW(0, L"Error Pre-Parsing Potion Table", L"Load Error", 0x10);
+   return;
   }
  }
 
@@ -5495,7 +5495,7 @@ void class40_LoadPotionsTable(struct class40 *_this)
       if ( !v3 )
         break;
       v6 = atoi(v3);
-      v5 = (DWORD)v9 + (v11 + uCol)*2;
+      v5 = (_DWORD)v9 + (v11 + uCol)*2;
       *(_WORD *)v5 = v6;
       if ( !v6 )
       {
@@ -5504,17 +5504,17 @@ void class40_LoadPotionsTable(struct class40 *_this)
         else
           *(_WORD *)v5 = 0;
       }
-      uCol++;
+      ++uCol;
     }
-    while ( uCol < 50 );
-    if ( uCol != 50 )
+    while (uCol < 50 );
+    if (uCol != 50)
       break;
     strtok(0, "\r\t\n");
     v11 += 50;
     ++uRow;
   }
   while ( v11 < 33142 );
-  if ( uRow != 50 )
+  if (uRow != 50 )
   {
     wsprintfA(&Text, "Error Parsing Potion Table at Row: %d Column: %d", uRow, uCol);
     MessageBoxA(0, &Text, "Parsing Error", 0x10u);
@@ -5523,7 +5523,7 @@ void class40_LoadPotionsTable(struct class40 *_this)
   if (pPotionsTXT_Raw)
   {
     class23_DeleteBuffer(class23_instance, pPotionsTXT_Raw);
-    pPotionsTXT_Raw = NULL;
+    pPotionsTXT_Raw = 0;
   }
 }
 
@@ -5618,15 +5618,18 @@ LABEL_20:
       break;
     result = strtok(0, "\r\t\n");
     v12 += 50;
-    uRow++;
+    ++uRow;
   }
   while ( v12 < 35642 );
-  if ( uRow != 50 )
+  if (uRow != 50)
   {
     wsprintfA(Text, "Error Parsing Potion Autonote Table at Row: %d Column: %d", uRow, v13);
     MessageBoxA(NULL, Text, "Parsing Error", 0x10);
   }
 }
+
+
+
 
 
 

@@ -988,13 +988,15 @@ struct class40
  int array_011738[24];
  int dword_011798;
 
- char padding[30000];
+ char padding[50000];
 };
 //sizeof ~ ?
 
 //char *__thiscall sub_456D84(void *this);
 char *sub_456D84(struct class40 *_this);
+//int __thiscall sub_453B3C(void *this);
 void class40_LoadPotionsTable(struct class40 *_this);
+//const char *__thiscall sub_453CE5(void *this)
 void class40_LoadPotionNotes(struct class40 *_this);
 //char __thiscall sub_456620(void *this, int a2, signed int a3, int Dst);
 char sub_456620(struct class40 *_this, int a2, signed int a3, int Dst);
@@ -1463,6 +1465,9 @@ struct Party
  int dword_0006D4;
  int dword_0006D8;
 
+ int dword_0006E8;
+
+ int dword_0006FC;
  int dword_000700;
  
  unsigned char byte_000708;
@@ -1496,9 +1501,19 @@ struct Party
  int dword_007778;
 
  char pad[100000];
+
+ float flt_01622C;
+ float flt_016230;
+ float flt_016234;
+
+ char pad2[100000];
 };
 //sizeof ~ 16238
 
+//int __thiscall sub_49135E(void *this)
+void Party_ctor(struct Party *_this);
+//unsigned __int16 __thiscall sub_491BF9(int this);
+void sub_491BF9(struct Party *_this);
 //int __thiscall sub_49370F(void *this);
 int Party_sub_49370F(struct Party *_this);
 //bool __thiscall sub_497FC5(void *this);
@@ -1714,6 +1729,7 @@ struct class55
  int   dword_00004C;
 };
 //sizeof == 50
+
 //void sub_4239A7(int this);
 void sub_4239A7(struct class55 *_this);
 //signed __int64 __thiscall sub_42394D(void *this, signed int a2, signed int a3, int a4);

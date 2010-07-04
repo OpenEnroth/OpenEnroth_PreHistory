@@ -18925,16 +18925,29 @@ void __cdecl sub_42213C()
   int v21; // eax@58
   int v22; // eax@62
   int v23; // esi@62
-  __int16 v24; // [sp+Ch] [bp-80h]@1
-  __int16 v25; // [sp+Eh] [bp-7Eh]@19
-  int v26; // [sp+10h] [bp-7Ch]@19
-  int v27; // [sp+14h] [bp-78h]@19
-  int v28; // [sp+18h] [bp-74h]@19
-  int v29; // [sp+22h] [bp-6Ah]@19
-  __int16 v30; // [sp+26h] [bp-66h]@19
-  __int16 v31; // [sp+28h] [bp-64h]@19
-  __int16 v32; // [sp+2Ah] [bp-62h]@19
-  char Dst[0x34]; // [sp+30h] [bp-5Ch]@19
+
+  struct
+  {
+   __int16 v24; // [sp+Ch] [bp-80h]@1
+   __int16 v25; // [sp+Eh] [bp-7Eh]@19
+   int v26; // [sp+10h] [bp-7Ch]@19
+   int v27; // [sp+14h] [bp-78h]@19
+   int v28; // [sp+18h] [bp-74h]@19
+
+   int unk2;
+   short unk3;
+
+   int v29; // [sp+22h] [bp-6Ah]@19
+   __int16 v30; // [sp+26h] [bp-66h]@19
+   __int16 v31; // [sp+28h] [bp-64h]@19
+   __int16 v32; // [sp+2Ah] [bp-62h]@19
+
+   short unk4[2];
+
+   char Dst[0x24]; // [sp+30h] [bp-5Ch]@19
+
+   char unk[12];
+  } v24;
   int v34; // [sp+64h] [bp-28h]@19
   char v35; // [sp+7Ch] [bp-10h]@3
   char v36; // [sp+84h] [bp-8h]@3
@@ -19022,7 +19035,7 @@ LABEL_11:
 LABEL_14:
             v6 = word_5D29F8[24 * v4];
             v5 = 0;
-            v24 = v6;
+            v24.v24 = v6;
             if ( pObjectDescriptionList->uNumObjects <= 0 )
             {
 LABEL_18:
@@ -19039,16 +19052,16 @@ LABEL_18:
                   goto LABEL_18;
               }
             }
-            v25 = v5;
-            v27 = pParty_global->sPartyPosY;
+            v24.v25 = v5;
+            v24.v27 = pParty_global->sPartyPosY;
             v34 = 4;
-            v26 = pParty_global->sPartyPosX;
-            v28 = pParty_global->dword_00000C + pParty_global->dword_0006BC;
-            v29 = 0;
-            v30 = 8;
-            v31 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->dword_00000C + pParty_global->dword_0006BC);
-            v32 = 0;
-            memcpy(&Dst, &dword_AD470C, 0x24u);
+            v24.v26 = pParty_global->sPartyPosX;
+            v24.v28 = pParty_global->dword_00000C + pParty_global->dword_0006BC;
+            v24.v29 = 0;
+            v24.v30 = 8;
+            v24.v31 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->dword_00000C + pParty_global->dword_0006BC);
+            v24.v32 = 0;
+            memcpy(v24.Dst, &dword_AD470C, 0x24u);
             v8 = class03_GetMousePos(pGame->pClass03, (int)&v35);
             v9 = sub_46A0A1(*(void **)v8);
             sub_42F5ED((int)&v24, pParty_global->dword_0006C0 + v9, 184, 200, 0);

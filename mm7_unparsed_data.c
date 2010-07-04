@@ -2063,7 +2063,7 @@ unsigned char *pQuestsTXT_Raw = 0;      // ptr @ MM7.exe::0073C400
  char byte_73C84C; // weak
 
 
- int dword_73D510; // weak
+unsigned int uNumTerrainNormals; // dword @ MM7.exe::0073D510
  _UNKNOWN unk_73D514[0x20000]; // weak
 unsigned short word_75D514[32768]; // weak
 
@@ -2259,7 +2259,6 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
 //int dword_ACCFC4; // weak
 //int dword_ACCFC8; // weak
  int dword_ACCFCC; // weak
- int dword_ACCFD0; // weak
 //int dword_ACCFD4; // 00001C
  int dword_ACCFD8; // weak
  int dword_ACCFDC; // weak

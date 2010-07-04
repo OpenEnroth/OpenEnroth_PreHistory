@@ -8018,14 +8018,14 @@ void __stdcall sub_436523(struct struct14 *a1, unsigned int uNumStructs)
   int v6; // [sp+4h] [bp-4h]@7
  int i;
 
-  if ( byte_4D8410[572] && pGame->uSomeFlags & 0x80 || dword_6BE360 == 1 )
-  {
-    __asm
-    {
-      //fld     pClass55_global->flt_000030
-      //fld     pClass55_global->flt_00002C
-      //fld     pClass55_global->flt_000038
-    }
+ if ( byte_4D8410[572] && pGame->uSomeFlags & 0x80 || dword_6BE360 == 1 )
+ {
+  /*
+      fld     pClass55_global->flt_000030
+      fld     pClass55_global->flt_00002C
+      fld     pClass55_global->flt_000038
+  */
+
     v3 = uNumStructs;
     v6 = *(int *)&pClass55_global->flt_000034;
     if ( pClass55_global->dword_000014 )

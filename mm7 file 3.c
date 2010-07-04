@@ -7090,9 +7090,9 @@ void __cdecl sub_441BD4()
     LOBYTE(v0) = v0 | 2;
   v1 = pClass24_global->dword_000024;
   v2 = v0;
-  v3 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_sub_402CAE(pClass59_global, pParty_global->dword_0006C0) * dword_ACCFD0) >> 16);
+  v3 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_sub_402CAE(pClass59_global, pParty_global->dword_0006C0) * pParty_global->dword_000018) >> 16);
   v18 = class59_sub_402CAE(pClass59_global, pParty_global->dword_0006C0 - pClass59_global->dword_001864);
-  v19 = (unsigned __int64)(v18 * dword_ACCFD0) >> 16;
+  v19 = (unsigned __int64)(v18 * pParty_global->dword_000018) >> 16;
   v8 = 65;
   v4 = pParty_global->sPartyPosY - v19;
   v6 = pParty_global->dword_0006C0;

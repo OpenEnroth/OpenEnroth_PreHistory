@@ -11857,7 +11857,7 @@ signed int __cdecl sub_479332()
       {
         v9 = (unsigned __int16)word_75D514[((*((_DWORD *)v2 - 9) >> 15) & 1)
                                          + 2 * (*((_BYTE *)v2 + 9) + (*((_BYTE *)v2 + 8) << 7))];
-        if ( v9 > dword_73D510 - 1 )
+        if ( v9 > uNumTerrainNormals - 1 )
           v10 = 0;
         else
           v10 = pTerrainNormals + v9;
@@ -14008,7 +14008,7 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
         v21 = v89;
         *(_BYTE *)(v15 + 92) = v89;
         v17 = (unsigned __int16)word_75D514[2 * (v19 + (v21 << 7)) + 1];
-        if ( v17 < 0 || v17 > dword_73D510 - 1 )
+        if ( v17 < 0 || v17 > uNumTerrainNormals - 1 )
           v22 = 0;
         else
           v22 = pTerrainNormals + v17;
@@ -14167,7 +14167,7 @@ LABEL_162:
     v46 = 4 * (v43 + (v45 << 7));
     v85 = v46;
     v41 = *(unsigned __int16 *)((char *)word_75D514 + v46 + 2);
-    if ( v41 < 0 || v41 > dword_73D510 - 1 )
+    if ( v41 < 0 || v41 > uNumTerrainNormals - 1 )
       v47 = 0;
     else
       v47 = pTerrainNormals + v41;
@@ -14308,7 +14308,7 @@ LABEL_112:
     *(_BYTE *)(v58 + 92) = v89;
     *(_BYTE *)(v58 + 93) = v97;
     v60 = *(unsigned __int16 *)((char *)word_75D514 + v85);
-    if ( v60 > dword_73D510 - 1 )
+    if ( v60 > uNumTerrainNormals - 1 )
       v62 = 0;
     else
       v62 = pTerrainNormals + v60;

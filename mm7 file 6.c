@@ -3487,37 +3487,107 @@ int __thiscall sub_49135E(void *this)
   return v1 / 1000;
 }
 
+void Party_ctor(struct Party *_this)
+{
+  int v1; // eax@1
+  int v3; // esi@1
+  signed int v6; // ebx@5
+  signed int v7; // ebp@5
+  int v8; // edi@5
+  int v9; // edi@7
+  signed int v10; // ebx@9
+  int v11; // edi@9
+ int i;
+
+  v3 = (int)_this;
+
+  for (i = 0; i < 20; ++i)
+  {
+   v1 = _this->array_00088C[i];
+
+    *(_WORD *)(v1 + 10) = 0;
+    *(_WORD *)(v1 + 8) = 0;
+    *(_DWORD *)v1 = 0;
+    *(_DWORD *)(v1 + 4) = 0;
+    *(_BYTE *)(v1 + 14) = 0;
+    *(_BYTE *)(v1 + 15) = 0;
+  }
+
+  for (i = 0; i < 4; ++i)
+    sub_48C6AF(&_this->pPlayers[i]);
+
+  sub_402F07(v3 + 0x7754);
+  v6 = 636;
+  v8 = v3 + 0x777C;
+  v7 = 636;
+  do
+  {
+    sub_402F07(v8);
+    v8 += 36;
+    --v7;
+  }
+  while ( v7 );
+
+  v9 = v3 + 0xD0EC;
+  do
+  {
+    sub_402F07(v9);
+    v9 += 36;
+    --v6;
+  }
+  while ( v6 );
+
+  v11 = v3 + 0x12A5C;
+  v10 = 384;
+  do
+  {
+    sub_402F07(v11);
+    v11 += 36;
+    --v10;
+  }
+  while ( v10 );
+
+ sub_491BF9(_this);
+ _this->flt_01622C = 255.0;
+ _this->flt_016230 = 255.0;
+ _this->flt_016234 = 255.0;
+}
+
 //----- (00491BF9) --------------------------------------------------------
-unsigned __int16 __thiscall sub_491BF9(int this)
+void sub_491BF9(struct Party *_this)
 {
   int v1; // edi@1
   int v2; // esi@1
   int v3; // ebx@2
-  signed int v6; // edi@5
-  int v7; // esi@5
-  unsigned __int16 result; // ax@6
   signed int v9; // [sp+8h] [bp-8h]@1
   signed int v10; // [sp+Ch] [bp-4h]@2
+ int i;
 
-  v2 = this;
-  *(_DWORD *)(this + 1724) = 0;
-  *(_DWORD *)(this + 1720) = 0;
-  *(_DWORD *)(this + 1716) = 0;
-  *(_DWORD *)(this + 1792) = 0;
-  *(_DWORD *)(this + 1728) = 0;
-  *(_DWORD *)(this + 1732) = 0;
-  *(_DWORD *)(this + 1768) = 0;
-  *(_DWORD *)(this + 40) = 0;
-  *(_DWORD *)(this + 8) = 120;
-  *(_DWORD *)(this + 20) = 37;
-  *(_DWORD *)(this + 24) = 25;
-  *(_DWORD *)(this + 28) = 384;
-  *(_DWORD *)(this + 32) = 90;
-  *(_DWORD *)(this + 36) = 5;
-  *(_DWORD *)(this + 1788) = 0;
-  *(_BYTE *)(this + 1800) = 15;
-  *(_DWORD *)this = 25;
-  v1 = this + 8556;
+  v2 = _this;
+
+ _this->sPartyPosX = 0;
+ _this->sPartyPosY = 0;
+ _this->dword_0006BC = 0;
+
+ _this->dword_000700 = 0;
+ _this->dword_0006C0 = 0;
+ _this->dword_0006C4 = 0;
+ _this->dword_0006E8 = 0;
+
+ _this->dword_000028 = 0;
+ _this->dword_000008 = 120;
+ _this->dword_000014 = 37;
+ _this->dword_000018 = 25;
+ _this->uWalkSpeed = 384;
+ _this->dword_000020 = 90;
+ _this->dword_000024 = 5;
+
+ _this->dword_0006FC = 0;
+ _this->byte_000708 = 15;
+
+ _this->dword_000000 = 25;
+
+  v1 = v2 + 0x216C;
   v9 = 4;
   do
   {
@@ -3529,19 +3599,13 @@ unsigned __int16 __thiscall sub_491BF9(int this)
       v3 += 16;
     }
     while ( v10-- != 1 );
-    v1 += 6972;
+    v1 += 0x1B3C;
   }
   while ( v9-- != 1 );
-  v7 = v2 + 2188;
-  v6 = 20;
-  do
-  {
-    result = sub_458585(v7);
-    v7 += 16;
-    --v6;
-  }
-  while ( v6 );
-  return result;
+
+
+ for (i = 0; i < 20; ++i)
+   sub_458585(_this->array_00088C[i]);
 }
 
 //----- (00491DE7) --------------------------------------------------------

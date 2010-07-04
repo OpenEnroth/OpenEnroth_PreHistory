@@ -1792,7 +1792,7 @@ extern struct struct9 *pStruct9_global; // struct @ MM7.exe::006BE070
 //int dword_6BE090; // 000020
 //int dword_6BE094; // 000024
 //int dword_6BE098; // 000028
-//int dword_6BE09C; // weak
+//int dword_6BE09C; // 00002C
 //int dword_6BE0A0; // 000030
 //int dword_6BE0A4; // weak
 //int dword_6BE0A8; // weak
@@ -2077,10 +2077,9 @@ extern _UNKNOWN unk_73C834; // weak
 extern char byte_73C84C; // weak
 
 
-extern int dword_73D510; // weak
+extern unsigned int uNumTerrainNormals;
 extern _UNKNOWN unk_73D514[0x20000]; // weak
 extern unsigned short word_75D514[]; // weak
-
 
 extern struct Normal
 {
@@ -2156,11 +2155,11 @@ extern char byte_801914; // weak
 
 
 
-extern struct class57 *pClass57_global;
+extern struct class57  *pClass57_global;
 extern struct struct14 *ptr_801A04;
 extern struct struct14 *ptr_801A08;
-extern struct struct14 array_801A10[384];
-extern struct struct14 array_806210[384];
+extern struct struct14  array_801A10[384];
+extern struct struct14  array_806210[384];
 
 extern char byte_80AA10; // weak
 extern int dword_80AA14; // weak
@@ -2299,7 +2298,7 @@ extern struct Party *pParty_global; // struct @ MM7.exe::00ACCFB8
 //int dword_ACCFC4; // weak
 //int dword_ACCFC8; // weak
 extern int dword_ACCFCC; // weak
-extern int dword_ACCFD0; // weak
+//int dword_ACCFD0; // 000018
 //int dword_ACCFD4; // weak
 extern int dword_ACCFD8; // weak
 extern int dword_ACCFDC; // weak

@@ -80,6 +80,7 @@ void RtlCallCtors()
 
  pParty_global = malloc(sizeof(struct Party));
  memset(pParty_global, 0, sizeof(struct Party));
+ Party_ctor(pParty_global);
 
  pStruct9_global = malloc(sizeof(struct struct9));
  memset(pStruct9_global, 0, sizeof(struct struct9));
@@ -234,8 +235,8 @@ void __cdecl sub_4789DE()
     {
       if ( !(pClass51_global->pBModels[i].ptr_000054[j].byte_000010[13] & 0x20))
       {
-        v7 = 3 * pClass51_global->pBModels[i].ptr_000054[j].array_000020[0];
-        v8 = *(_DWORD *)(pClass51_global->pBModels[i].ptr_000048 + 4 * v7 + 8) + 4;
+        v7 = pClass51_global->pBModels[i].ptr_000054[j].array_000020[0];
+        v8 = pClass51_global->pBModels[i].ptr_000048[v7].int_000008 + 4;
         v84 = 0;
         v76 = 0;
         v77 = 0;
@@ -770,10 +771,10 @@ void sub_47A59E(bool a1)
   pClass55_global->dword_000014 = pParty_global->dword_0006C4;
   pClass55_global->dword_000018 = pParty_global->dword_0006C0;
 
-  pClass55_global->dword_000000 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_sub_402CAE(pClass59_global, pParty_global->dword_0006C0) * dword_ACCFD0) >> 16);
+  pClass55_global->dword_000000 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_sub_402CAE(pClass59_global, pParty_global->dword_0006C0) * pParty_global->dword_000018) >> 16);
   v3 = class59_sub_402CAE(pClass59_global, pParty_global->dword_0006C0 - pClass59_global->dword_001864);
   pClass55_global->dword_00004C = v2;
-  pClass55_global->dword_000004 = pParty_global->sPartyPosY - ((unsigned __int64)(v3 * dword_ACCFD0) >> 16);
+  pClass55_global->dword_000004 = pParty_global->sPartyPosY - ((unsigned __int64)(v3 * pParty_global->dword_000018) >> 16);
   pClass55_global->dword_000008 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
   if (a1 || pD3DRenderer->dword_040088 )
   {
@@ -4449,8 +4450,8 @@ void sub_44103C()
 
   pClass55_global->dword_000014 = pParty_global->dword_0006C4;
   pClass55_global->dword_000018 = pParty_global->dword_0006C0;
-  pClass55_global->dword_000000 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_sub_402CAE(pClass59_global, pParty_global->dword_0006C0) * dword_ACCFD0) >> 16);
-  pClass55_global->dword_000004 = pParty_global->sPartyPosY - ((unsigned __int64)(class59_sub_402CAE(pClass59_global, pParty_global->dword_0006C0 - pClass59_global->dword_001864) * dword_ACCFD0) >> 16);
+  pClass55_global->dword_000000 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_sub_402CAE(pClass59_global, pParty_global->dword_0006C0) * pParty_global->dword_000018) / 65536);
+  pClass55_global->dword_000004 = pParty_global->sPartyPosY - ((unsigned __int64)(class59_sub_402CAE(pClass59_global, pParty_global->dword_0006C0 - pClass59_global->dword_001864) * pParty_global->dword_000018) / 65536);
   pClass55_global->dword_000008 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
 
   class55_sub_4239A7(pClass55_global);
