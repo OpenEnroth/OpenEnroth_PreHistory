@@ -601,7 +601,6 @@ int __fastcall sub_452AF3(int a1, int a2, unsigned int a3);
 int __fastcall sub_452B2E(int a1, signed int a2);
 int __fastcall sub_452B58(int a1, void *a2, int a3);
 char *__fastcall sub_452C30(char *Str);
-const char *__thiscall sub_453CE5(void *this);
 int __thiscall sub_453E6D(void *this);
 unsigned int __fastcall sub_4548E2(struct StringSplitter *pStrings, int *a2);
 char __fastcall sub_454D7D(const char *Str, unsigned char *a2, unsigned char *a3, unsigned char *a4);

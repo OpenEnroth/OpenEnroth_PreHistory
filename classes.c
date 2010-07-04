@@ -2955,8 +2955,8 @@ char *sub_456D84(struct class40 *_this)
   CSpellStats_ctor(pSpellStats);
   CSpellStats_Initialize(pSpellStats);
 
-  sub_453B3C(_this);
-  sub_453CE5(_this);
+  class40_LoadPotionsTable(_this);
+  class40_LoadPotionNotes(_this);
 
   pClass48 = malloc(sizeof(struct class48));
   class48_ctor(pClass48);
@@ -5428,7 +5428,7 @@ char *CSpellStats_Initialize(struct CSpellStats *_this)
 
 
 //----- (00453B3C) --------------------------------------------------------
-int sub_453B3C(struct class40 *_this)
+void class40_LoadPotionsTable(struct class40 *_this)
 {
   char *i; // eax@3
   signed int v2; // esi@11
@@ -5438,9 +5438,10 @@ int sub_453B3C(struct class40 *_this)
   __int16 v6; // ax@17
   CHAR Text; // [sp+Ch] [bp-6Ch]@26
   void *v9; // [sp+68h] [bp-10h]@1
-  int v10; // [sp+6Ch] [bp-Ch]@10
+  int uRow; // [sp+6Ch] [bp-Ch]@10
   int v11; // [sp+70h] [bp-8h]@10
   char *v12; // [sp+74h] [bp-4h]@4
+  int uCol;
 
   v9 = _this;
 
@@ -5453,7 +5454,10 @@ int sub_453B3C(struct class40 *_this)
   if (!strcmp(i, "222"))
     break;
   if (!i)
-    return MessageBoxW(0, L"Error Pre-Parsing Potion Table", L"Load Error", 0x10);
+  {
+    MessageBoxW(0, L"Error Pre-Parsing Potion Table", L"Load Error", 0x10);
+    return;
+  }
  }
 
  while (true)
@@ -5462,14 +5466,17 @@ int sub_453B3C(struct class40 *_this)
   if (!strcmp(v12, "222"))
     break;
   if (!v12)
-    return MessageBoxW(0, L"Error Pre-Parsing Potion Table", L"Load Error", 0x10);
+  {
+    MessageBoxW(0, L"Error Pre-Parsing Potion Table", L"Load Error", 0x10);
+    return;
+  }
  }
 
-  v10 = 0;
+  uRow = 0;
   v11 = 30642;
   do
   {
-    v12 = 0;
+    uCol = 0;
     v2 = 0;
     do
     {
@@ -5480,7 +5487,7 @@ int sub_453B3C(struct class40 *_this)
     while ( v2 < 6 );
     if ( v2 != 6 )
       break;
-    v12 = 0;
+    uCol = 0;
     do
     {
       v3 = strtok(0, "\r\t\n");
@@ -5488,7 +5495,7 @@ int sub_453B3C(struct class40 *_this)
       if ( !v3 )
         break;
       v6 = atoi(v3);
-      v5 = (int)((char *)v9 + 2 * (_DWORD)&v12[v11]);
+      v5 = (DWORD)v9 + (v11 + uCol)*2;
       *(_WORD *)v5 = v6;
       if ( !v6 )
       {
@@ -5497,46 +5504,42 @@ int sub_453B3C(struct class40 *_this)
         else
           *(_WORD *)v5 = 0;
       }
-      ++v12;
+      uCol++;
     }
-    while ( (signed int)v12 < 50 );
-    if ( v12 != (char *)50 )
+    while ( uCol < 50 );
+    if ( uCol != 50 )
       break;
     strtok(0, "\r\t\n");
     v11 += 50;
-    ++v10;
+    ++uRow;
   }
   while ( v11 < 33142 );
-  if ( v10 != 50 )
+  if ( uRow != 50 )
   {
-    wsprintfA(&Text, "Error Parsing Potion Table at Row: %d Column: %d", v10, v12);
+    wsprintfA(&Text, "Error Parsing Potion Table at Row: %d Column: %d", uRow, uCol);
     MessageBoxA(0, &Text, "Parsing Error", 0x10u);
   }
 
   if (pPotionsTXT_Raw)
   {
     class23_DeleteBuffer(class23_instance, pPotionsTXT_Raw);
-    pPotionsTXT_Raw = 0;
+    pPotionsTXT_Raw = NULL;
   }
-  return pPotionsTXT_Raw;
 }
 
 
 
 //----- (00453CE5) --------------------------------------------------------
-const char *sub_453CE5(struct class40 *_this)
+void class40_LoadPotionNotes(struct class40 *_this)
 {
   char *i; // eax@3
   signed int v2; // esi@11
   const char *result; // eax@12
   const char *v4; // edi@16
   int v5; // esi@17
-  CHAR *v6; // [sp-Ch] [bp-84h]@20
-  const CHAR *v7; // [sp-8h] [bp-80h]@20
-  UINT v8; // [sp-4h] [bp-7Ch]@20
-  CHAR Text; // [sp+Ch] [bp-6Ch]@26
+  char Text[256]; // [sp+Ch] [bp-6Ch]@26
   void *v10; // [sp+68h] [bp-10h]@1
-  int v11; // [sp+6Ch] [bp-Ch]@10
+  int uRow; // [sp+6Ch] [bp-Ch]@10
   int v12; // [sp+70h] [bp-8h]@10
   char *v13; // [sp+74h] [bp-4h]@4
 
@@ -5556,10 +5559,8 @@ const char *sub_453CE5(struct class40 *_this)
     if ( !v13 )
     {
 LABEL_20:
-      v8 = 16;
-      v7 = "Load Error";
-      v6 = "Error Pre-Parsing Potion Table";
-      return (const char *)MessageBoxA(0, v6, v7, v8);
+      MessageBoxA(NULL, "Error Pre-Parsing Potion Table", "Load Error", 0x10);
+      return;
     }
  }
 
@@ -5571,7 +5572,7 @@ LABEL_20:
     if ( !v13 )
       goto LABEL_20;
   }
-  v11 = 0;
+  uRow = 0;
   v12 = 33142;
   do
   {
@@ -5617,22 +5618,15 @@ LABEL_20:
       break;
     result = strtok(0, "\r\t\n");
     v12 += 50;
-    ++v11;
+    uRow++;
   }
   while ( v12 < 35642 );
-  if ( v11 != 50 )
+  if ( uRow != 50 )
   {
-    wsprintfA(&Text, "Error Parsing Potion Autonote Table at Row: %d Column: %d", v11, v13);
-    v8 = 16;
-    v7 = "Parsing Error";
-    v6 = &Text;
-    return (const char *)MessageBoxA(0, v6, v7, v8);
+    wsprintfA(Text, "Error Parsing Potion Autonote Table at Row: %d Column: %d", uRow, v13);
+    MessageBoxA(NULL, Text, "Parsing Error", 0x10);
   }
-  return result;
 }
-
-
-
 
 
 
