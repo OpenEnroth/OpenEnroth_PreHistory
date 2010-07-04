@@ -1721,10 +1721,7 @@ struct class51 *pClass51_global = &class51_6A0DA0_dwReserved; // struct @ stru_6
  int dword_6A12FC; // weak
  _UNKNOWN unk_6A1318; // weak
  _UNKNOWN unk_6A16E0; // weak
- int dword_6A1AAC; // weak
- int dword_6A1B20; // weak
- int dword_6A1B24; // weak
- int dword_6A1B28; // weak
+
 
  float flt_6BD074; // weak
  int dword_6BD078; // weak
@@ -2068,9 +2065,9 @@ unsigned char *pQuestsTXT_Raw = 0;      // ptr @ MM7.exe::0073C400
 
  int dword_73D510; // weak
  _UNKNOWN unk_73D514[0x20000]; // weak
- __int16 word_75D514[0x10000 / sizeof(short)]; // weak
-//__int16 word_75D516[array_size_unknown]; // weak
- unsigned char *dword_76D514 = 0; // TERRAIN NORMALS?
+unsigned short word_75D514[32768]; // weak
+
+struct Normal *pTerrainNormals = 0;         // ptr @ MM7.exe::0076D514
 
  int dword_76D518; // weak
  int dword_76D51C; // weak
@@ -2298,15 +2295,9 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  int dword_ACD6B4; // weak
 //int dword_ACD6B8; // 000700
  int dword_ACD6BC; // weak
- char byte_ACD6C1; // weak
- char byte_ACD6C2; // weak
- int dword_ACD6C4; // weak
- int dword_ACD6C8; // weak
- int dword_ACD6CC; // weak
 //int dword_ACD6D0; // pParty_global::dword_000718
 //int dword_ACD6D4; // pParty_global::dword_00071C
 //int dword_ACD6D8; // pParty_global::dword_000720
- int dword_ACD6DC; // weak
 //int dword_ACD6E0; // ::000728
 //int dword_ACD6EC; // ::000734
  _UNKNOWN unk_ACD6F0; // weak

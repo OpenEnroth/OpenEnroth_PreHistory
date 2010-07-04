@@ -3313,16 +3313,18 @@ void __stdcall sub_4B1BDB(__int64 a1)
   v2 = (signed __int64)((double)pParty_global->qword_00002C * 0.234375);
   v3 = v2 / 60 / 60;
   v4 = (_DWORD)v3 / 0x18u / 0x1C;
-  dword_ACD6DC = v2 % 60;
-  pParty_global->dword_000720 = v2 / 60 % 60;
-  pParty_global->dword_00071C = v3 % 24;
-  dword_ACD6CC = (_DWORD)v3 / 0x18u / 7 & 3;
+  pParty_global->dword_00070C = v4 / 0xC + 1168;
+  pParty_global->dword_000710 = v4 % 0xC;
+  pParty_global->dword_000714 = (_DWORD)v3 / 0x18u / 7 & 3;
   pParty_global->dword_000718 = (_DWORD)v3 / 0x18u % 0x1C;
-  dword_ACD6C8 = v4 % 0xC;
-  dword_ACD6C4 = v4 / 0xC + 1168;
+  pParty_global->dword_00071C = v3 % 24;
+  pParty_global->dword_000720 = v2 / 60 % 60;
+  pParty_global->dword_000724 = v2 % 60;
   sub_490D02(pParty_global);
   dword_507B94 = 1;
-  v1 = &unk_ACF4BC;
+
+  //v1 = &unk_ACF4BC;
+  v1 = &pParty_global->pPlayers[0].dword_001B38;
   do
   {
     *((_WORD *)v1 - 258) = 0;
@@ -3799,7 +3801,7 @@ LABEL_77:
     sub_492BB6(v21);
   }
   *(_BYTE *)(v2 + 8) |= 0x80u;
-  byte_ACD6C1 = 0;
+  pParty_global->byte_000709 = 0;
   sub_44A56A();
   if (struct_AD4674[0].dword_AD4674)
   {
@@ -3814,7 +3816,7 @@ LABEL_77:
     v23 = byte_AE302C;
   }
   strcpy(v23, v25);
-  byte_ACD6C1 = 0;
+  pParty_global->byte_000709 = 0;
   sub_44A56A();
   sub_44606A(*(_DWORD *)(dword_507BC0 + 28));
   dword_F8B19C = 1;
@@ -11610,7 +11612,7 @@ int __cdecl sub_4BBA85()
     {
       word_ACD712[v1] = 0;
       v3 = (signed __int64)((double)(309657600
-                                   * ((unsigned int)dword_ACD6C8 + 12i64 * (unsigned int)dword_ACD6C4 - 14015))
+                                   * ((unsigned int)pParty_global->dword_000710 + 12i64 * (unsigned int)pParty_global->dword_00070C - 14015))
                           * 0.03333333507180214);
       dword_ACCFF4[2 * v1] = v3;
       dword_ACCFF4[2 * v1 + 1] = HIDWORD(v3);
@@ -12143,7 +12145,7 @@ LABEL_44:
       }
       memset(v11, v12, v14);
 LABEL_51:
-      byte_ACD6C1 = 0;
+      pParty_global->byte_000709 = 0;
       sub_44A56A();
       dword_591084 = 0;
       if ( dword_50CBD0[0] < 40 )
@@ -12191,7 +12193,7 @@ LABEL_64:
       v13 = byte_AE302C;
     }
     strcpy(v13, v15);
-    byte_ACD6C1 = 0;
+    pParty_global->byte_000709 = 0;
     sub_44A56A();
     if ( dword_50CBD0[0] < 40 )
     {
@@ -12609,8 +12611,8 @@ LABEL_15:
             v17 = 0;
             *(__int16 *)((char *)word_ACD712 + v18) = 0;
             *(_QWORD *)v14 = (signed __int64)((double)(309657600
-                                                     * ((unsigned int)dword_ACD6C8
-                                                      + 12i64 * (unsigned int)dword_ACD6C4
+                                                     * ((unsigned int)pParty_global->dword_000710
+                                                      + 12i64 * (unsigned int)pParty_global->dword_00070C
                                                       - 14015))
                                             * 0.03333333507180214);
             v19 = rand() % 258;

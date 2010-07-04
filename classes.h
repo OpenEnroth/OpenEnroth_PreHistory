@@ -987,7 +987,11 @@ struct class40
 
  int array_011738[24];
  int dword_011798;
+
+ char padding[30000];
 };
+//sizeof ~ ?
+
 //char *__thiscall sub_456D84(void *this);
 char *sub_456D84(struct class40 *_this);
 //int __thiscall sub_453B3C(void *this);
@@ -1422,6 +1426,8 @@ struct Player
    short word_001AA2; //PlayerFrame::word_000002 - 1
    int dword_001AA4;
    int dword_001AA8;
+
+   int dword_001B38;
   };
   struct
   {
@@ -1445,12 +1451,8 @@ struct Party
  int dword_000024;
  int dword_000028;
  __int64 qword_00002C;
- unsigned char array_000034[90628];
-
- int dword_00002C;
- int dword_000030;
- int dword_000034;
- int dword_000038;
+ __int64 qword_000034;
+ unsigned char array_00003C[1656];
 
  int sPartyPosX;   // dword @ 0006B4     world coordinates are  x: -32768..  32767
  int sPartyPosY;   // dword @ 0006B8                            y:  32767.. -32768
@@ -1464,17 +1466,19 @@ struct Party
  int dword_0006D8;
 
  int dword_000700;
-
- int dword_000718; //related to a day number
- int dword_00071C;
- int dword_000720;
-
+ 
  unsigned char byte_000708;
  unsigned char byte_000709;
  unsigned char byte_00070A;
  unsigned char byte_00070B;
-
- unsigned int uNumFood; // dword @ 000728
+ int           dword_00070C;
+ unsigned int  dword_000710; // related to month number
+ int           dword_000714;
+ int           dword_000718; // related to a day number
+ int           dword_00071C;
+ int           dword_000720;
+ int           dword_000724;
+ unsigned int  uNumFood; // dword @ 000728
 
  unsigned int uNumGold; // dword @ 000734
  int dword_000738;
@@ -1610,6 +1614,7 @@ struct struct6//: public struct7
 };
 //sizeof == 12
 
+//BASE CLASS for struct6
 struct struct7
 {
  short word_000000;
@@ -1651,20 +1656,24 @@ struct struct8
  int                   dword_000024;
  int                   dword_000028;
  int                   dword_00002C;
- int                   dword_000030;
- char                  byte_000034[4];
+ int                   dword_000030;   // word_000018 in struct TileDesc
+ int                   dword_000034;
  struct class57       *ptr_000038;
  struct class18       *ptr_00003C;
  struct struct8       *ptr_000040;
  struct struct8       *ptr_000044;
  int                 **ptr_000048;
- char                  byte_00004C[8];
+ short                 word_00004C;    // word_000012 in struct TileDesc
+ char                  byte_00004E[6];
  struct class51_stru2 *ptr_000054;
  char                  byte_000058;
  char                  byte_000059;
  char                  byte_00005A;
  char                  byte_00005B;
- int                   dword_00005C;
+ char                  byte_00005C;
+ char                  byte_00005D;
+ char                  byte_00005E;
+ char                  byte_00005F;
  char                  byte_000060[80];
  int                   dword_0000B0;
  float                 flt_0000B4;
@@ -1791,9 +1800,9 @@ void class58_sub_49B525(struct class58 *_this, int a2);
 
 struct class59
 {
- int array_000000[520];
- int array_000820[520];
- int array_001040[520];
+ int pTanTable[520];    // int[520] @ 000000
+ int pCosTable[520];    // int[520] @ 000820
+ int pInvCosTable[520]; // int[520] @ 001040
  int dword_001860;
  int dword_001864;
  int dword_001868;

@@ -32,20 +32,13 @@ void __fastcall sub_481212(int a1, int a2, int a3)
   int v6; // ST10_4@1
   int v7; // ebx@2
   int v8; // eax@2
-  int v10; // edi@3
-  char *v11; // ecx@4
-  int v12; // ebx@4
-  float v13; // eax@6
-  double v14; // st7@6
-  double v15; // st7@6
+  struct struct14 *v10; // edi@3
+  struct struct14 *v11; // ecx@4
+  struct struct14 *v12; // ebx@4
   int v16; // ebx@12
   __int16 v17; // ax@12
   int v18; // eax@13
-  int v19; // eax@13
   int v20; // ecx@13
-  int v21; // eax@13
-  int v22; // eax@13
-  int v23; // eax@15
   double v24; // st7@18
   double v25; // st5@24
   double v26; // st5@24
@@ -81,7 +74,7 @@ void __fastcall sub_481212(int a1, int a2, int a3)
   __int16 v56; // ax@75
   int v57; // eax@76
   int v58; // eax@76
-  int v59; // eax@77
+  struct Normal *pNormal; // eax@77
   double v60; // st7@80
   double v61; // st5@88
   double v62; // st5@88
@@ -92,16 +85,9 @@ void __fastcall sub_481212(int a1, int a2, int a3)
   int v69; // [sp-8h] [bp-C0h]@36
   int v70; // [sp-4h] [bp-BCh]@36
   char v71; // [sp+Ch] [bp-ACh]@88
-  double v72; // [sp+10h] [bp-A8h]@6
   double v73; // [sp+18h] [bp-A0h]@82
-  double v74; // [sp+20h] [bp-98h]@6
   double v75; // [sp+28h] [bp-90h]@51
-  double v76; // [sp+30h] [bp-88h]@6
-  double v77; // [sp+38h] [bp-80h]@20
-  double v78; // [sp+40h] [bp-78h]@6
   char v79; // [sp+48h] [bp-70h]@57
-  float v80; // [sp+4Ch] [bp-6Ch]@6
-  float v81; // [sp+50h] [bp-68h]@6
   int v82; // [sp+54h] [bp-64h]@1
   int v83; // [sp+58h] [bp-60h]@6
   int v84; // [sp+5Ch] [bp-5Ch]@82
@@ -123,15 +109,10 @@ void __fastcall sub_481212(int a1, int a2, int a3)
   float v100; // [sp+9Ch] [bp-1Ch]@6
   int v101; // [sp+A0h] [bp-18h]@6
   int v102; // [sp+A4h] [bp-14h]@6
-  int v103; // [sp+A8h] [bp-10h]@6
-  int v104; // [sp+ACh] [bp-Ch]@6
-  int v105; // [sp+B0h] [bp-8h]@6
-  int v106; // [sp+B4h] [bp-4h]@3
+  struct struct14 *v105; // [sp+B0h] [bp-8h]@6
   float v107; // [sp+C0h] [bp+8h]@6
   float v108; // [sp+C0h] [bp+8h]@6
-  int v109; // [sp+C0h] [bp+8h]@17
   int v110; // [sp+C0h] [bp+8h]@48
-  int v111; // [sp+C0h] [bp+8h]@77
 
   v4 = a1;
   v5 = *(_WORD *)(a3 + 4);
@@ -142,9 +123,9 @@ void __fastcall sub_481212(int a1, int a2, int a3)
   v3 = 0;
   v91 = 0;
   v82 = v4 - 1;
-  v96 = (double)dword_6A1B20 * 0.0000152587890625;
-  v97 = (double)dword_6A1B24 * 0.0000152587890625;
-  v98 = (double)dword_6A1B28 * 0.0000152587890625;
+  v96 = pClass51_global->dword_000D30 / 65536.0;
+  v97 = pClass51_global->dword_000D34 / 65536.0;
+  v98 = pClass51_global->dword_000D38 / 65536.0;
   if ( v4 - 1 > 0 )
   {
     while ( 1 )
@@ -152,48 +133,12 @@ void __fastcall sub_481212(int a1, int a2, int a3)
       v7 = abs(X);
       v8 = abs(v87);
       --X;
-      v93 = 4 * ((v7 << 7) + v8) + byte_76E5C8;
-
-
-
-/*
-      if ( !byte_76E5C8[4 * ((v7 << 7) + v8)]
-        || ((v9 = 48 * v3, v10 = (int)((char *)&unk_806210 + 48 * v3), v106 = v10, !v86) ? (v12 = (int)((char *)&unk_801A10 + v9),
-                                                                                            v11 = (char *)&unk_806240
-                                                                                                + v9) : (v12 = (int)((char *)&unk_806240 + v9), v11 = (char *)&unk_801A10 + v9),
-            ((v103 = v12,
-              v105 = (int)((char *)&unk_801A40 + v9),
-              LODWORD(v13) = *(_DWORD *)v10,
-              v104 = (int)v11,
-              v81 = v13,
-              v74 = v13 + 6.755399441055744e15,
-              v102 = LODWORD(v74),
-              LODWORD(v80) = *(_DWORD *)(v10 + 4),
-              v76 = v80 + 6.755399441055744e15,
-              v101 = LODWORD(v76),
-              v107 = (*(float *)v11 + *(float *)v10) * 0.5,
-              v72 = v107 + 6.755399441055744e15,
-              v90 = LODWORD(v72),
-              v14 = *(float *)(v12 + 4) + *(float *)(v10 + 4),
-              v95 = sub_47F44B(COERCE_UNSIGNED_INT64(v107 + 6.755399441055744e15)),
-              v108 = v14 * 0.5,
-              v15 = v108 + 6.755399441055744e15,
-              v78 = v15,
-              v83 = LODWORD(v78),
-              LODWORD(v100) = sub_47F458(SLODWORD(v15)),
-              sub_47F44B(v102),
-              sub_47F458(v101),
-              !byte_4D8410[572])
-          || !(*(_BYTE *)(LODWORD(pGame) + 3616) & 0x80))
-         && !sub_481EFA(v10, v12, v104, v105, 1)) )
-        goto LABEL_105;
-*/
+      v93 = 4 * ((v7 * 128) + v8) + byte_76E5C8;
 
       if ( !byte_76E5C8[4 * ((v7 * 128) + v8)])
         goto LABEL_105;
 
       v10 = &array_806210[v3];
-      v106 = v10;
       if (!v86)
       {
        v12 = &array_801A10[v3];
@@ -204,90 +149,73 @@ void __fastcall sub_481212(int a1, int a2, int a3)
        v12 = &array_806210[v3 + 1];
        v11 = &array_801A10[v3];
       }
-      v103 = v12;
       v105 = &array_801A10[v3 + 1];
-      LODWORD(v13) = *(_DWORD *)v10;
-      v104 = (int)v11;
-      v81 = v13;
-      v74 = v13 + 6.755399441055744e15;
-      v102 = LODWORD(v74);
-      LODWORD(v80) = *(_DWORD *)(v10 + 4);
-      v76 = v80 + 6.755399441055744e15;
-      v101 = LODWORD(v76);
-      v107 = (*(float *)v11 + *(float *)v10) * 0.5;
-      v72 = v107 + 6.755399441055744e15;
-      v90 = LODWORD(v72);
-      v14 = *(float *)(v12 + 4) + *(float *)(v10 + 4);
-      v95 = sub_47F44B(v107 + 6.755399441055744e15);
-      v108 = v14 * 0.5;
-      v15 = v108 + 6.755399441055744e15;
-      v78 = v15;
-      v83 = LODWORD(v78);
-      LODWORD(v100) = sub_47F458(SLODWORD(v15));
+
+      v102 = floorf(v10->x + 0.5);
+      v101 = floorf(v10->z + 0.5);
+
+      v107 = (v11->x + v10->x) / 2;
+      v90 = floorf(v107 + 0.5f);
+      v95 = sub_47F44B(v90);
+
+      v108 = (v12->z + v10->z) / 2;
+      v83 = floorf(v108 + 0.5f);
+      LODWORD(v100) = sub_47F458(v83);
+
       sub_47F44B(v102);
       sub_47F458(v101);
-      if ((!byte_4D8410[572] || !(*(_BYTE *)(&pGame->uSomeFlags) & 0x80)) &&
-          !sub_481EFA(v10, v12, v104, v105, 1))
+
+      if ((!byte_4D8410[572] || !(pGame->uSomeFlags & 0x80)) && !sub_481EFA(v10, v12, v11, v105, 1))
         goto LABEL_105;
 
-
-
-
-
-
-      if ( *(float *)(v10 + 8) != *(float *)(v12 + 8)
-        || *(float *)(v12 + 8) != *(float *)(v105 + 8)
-        || *(float *)(v105 + 8) != *(float *)(v104 + 8) )
+      if (v10->y != v12->y ||
+          v12->y != v105->y ||
+          v105->y != v11->y)
         break;
+
       v16 = &array_77EC08[pStruct9_global->dword_00002C];
-      v17 = sub_488EEF(pClass51_global, v102, v101);
-      *(_WORD *)(v16 + 76) = v17;
+      v17 = class51_sub_488EEF_GetSomeTileInfo(pClass51_global, v102, v101);
+      array_77EC08[pStruct9_global->dword_00002C].word_00004C = v17;
       if ( v17 != -1 )
       {
-        v19 = sub_488EB1(pClass51_global, v102, v101);
-        LOWORD(v19) = v19 | 0x8010;
         v20 = LODWORD(v100);
-        *(_DWORD *)(v16 + 48) = v19;
-        v21 = v93;
-        *(_BYTE *)(v16 + 89) = 1;
-        *(_BYTE *)(v16 + 93) = v20;
-        *(_DWORD *)(v16 + 52) = *(_WORD *)(v21 + 2);
-        v22 = v95;
-        *(_BYTE *)(v16 + 92) = v95;
-        v18 = (unsigned __int16)word_75D514[2 * (v20 + (v22 * 128)) + 1];
-        if ( v18 < 0 || v18 > dword_73D510 - 1 )
-          v23 = 0;
+        array_77EC08[pStruct9_global->dword_00002C].dword_000030 = 0x8010 | class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v102, v101);
+        array_77EC08[pStruct9_global->dword_00002C].byte_000059 = 1;
+        array_77EC08[pStruct9_global->dword_00002C].byte_00005C = v95;
+        array_77EC08[pStruct9_global->dword_00002C].byte_00005D = v20;
+        array_77EC08[pStruct9_global->dword_00002C].dword_000034 = *(_WORD *)(v93 + 2);
+        v18 = (unsigned __int16)word_75D514[2 * (v20 + (v95 * 128)) + 1];
+        if (v18 < 0 || v18 > dword_73D510 - 1)
+          pNormal = 0;
         else
-          v23 = dword_76D514 + 12 * v18;
-        v109 = v23;
-        if ( v23 )
+          pNormal = pTerrainNormals + v18;
+
+        if (pNormal)
         {
-          v24 = -(v98 * *(float *)(v23 + 8) + v97 * *(float *)(v23 + 4) + v96 * *(float *)v23);
+         v24 = -(v98 * pNormal->y + v97 * pNormal->z + v96 * pNormal->x);
           if ( v24 < 0.0 )
             v24 = 0.0;
           v100 = v24 * 31.0;
-          v77 = v100 + 6.755399441055744e15;
-          v85 = LODWORD(v77);
-          *(_BYTE *)(v16 + 88) = 31 - LOBYTE(v77);
+          v85 = floorf(v100 + 0.5f);
+          array_77EC08[pStruct9_global->dword_00002C].byte_000058 = 31 - (char)(v85);
         }
         else
-        {
-          *(_BYTE *)(v16 + 88) = 0;
-        }
+          array_77EC08[pStruct9_global->dword_00002C].byte_000058 = 0;
+
         if ( pStruct9_global->dword_00002C >= 1999 )
           return;
         ++pStruct9_global->dword_00002C;
-        if ( !sub_481FC9(v10, v103, v104, v16) )
+        if ( !sub_481FC9(v10, v12, v11, v16) )
           goto LABEL_104;
 
-        v25 = 1.0 / (*(float *)(v106 + 12) + 0.0000001000000011686097);
-        memcpy(&array_50AC10[0], v106, sizeof(struct struct14));
+        v25 = 1.0 / (v10->flt_00000C + 0.0000001000000011686097);
+        memcpy(&array_50AC10[0], v10, sizeof(struct struct14));
         array_50AC10[0].flt_000020 = v25;
         array_50AC10[0].u = 0.0;
         array_50AC10[0].v = 0.0;
 
-        v26 = *(float *)(v103 + 12) + 0.0000001000000011686097;
-        memcpy(&array_50AC10[1], v103, sizeof(struct struct14));
+        v26 = v12->flt_00000C + 0.0000001000000011686097;
+        memcpy(&array_50AC10[1], v12, sizeof(struct struct14));
         array_50AC10[1].flt_000020 = 1.0 / v26;
         array_50AC10[1].u = 0.0;
         array_50AC10[1].v = 1.0;
@@ -298,26 +226,26 @@ void __fastcall sub_481212(int a1, int a2, int a3)
         array_50AC10[2].u = 1.0;
         array_50AC10[2].v = 1.0;
 
-        v28 = *(float *)(v104 + 12) + 0.0000001000000011686097;
-        memcpy(&array_50AC10[3], v104, sizeof(struct struct14));
+        v28 = v11->flt_00000C + 0.0000001000000011686097;
+        memcpy(&array_50AC10[3], v11, sizeof(struct struct14));
         array_50AC10[3].flt_000020 = 1.0 / v28;
         array_50AC10[3].u = 1.0;
         array_50AC10[3].v = 0.0;
 
-        compile_error;//sub_45D036(v109, (int)&v92, COERCE_FLOAT(&unk_50AC10), COERCE_FLOAT(4), 1);
+        sub_45D036(pNormal, (int)&v92, array_50AC10, 4, 1);
         if ( dword_F8ADD4 <= 0 )
         {
           *(_BYTE *)(v16 + 264) = 0;
         }
         else
         {
-          compile_error;//v29 = pGame;
+          v29 = *(float *)&pGame;
           *(_BYTE *)(v16 + 264) = 1;
-          sub_45CA88(*(void **)(LODWORD(v29) + 3656), (int)&dword_F8AD28, array_50AC10, 4, v109);
+          sub_45CA88(*(void **)(LODWORD(v29) + 3656), (int)&dword_F8AD28, array_50AC10, 4, pNormal);
         }
-        if ( *(float *)(v106 + 12) < 8.0
-          || *(float *)(v103 + 12) < 8.0
-          || (v30 = v104, *(float *)(v104 + 12) < 8.0)
+        if (v10->flt_00000C < 8.0
+          || v12->flt_00000C < 8.0
+          || (v30 = v11, v11->flt_00000C < 8.0)
           || *(float *)(v105 + 12) < 8.0 )
         {
           v35 = sub_4250FE(4);
@@ -325,17 +253,17 @@ void __fastcall sub_481212(int a1, int a2, int a3)
         else
         {
           v31 = (double)pStruct9_global->shading_dist_mist;
-          if ( v31 >= *(float *)(v106 + 12)
-            && v31 >= *(float *)(v103 + 12)
-            && v31 >= *(float *)(v104 + 12)
-            && v31 >= *(float *)(v105 + 12) )
+          if (v31 >= v10->flt_00000C &&
+              v31 >= v12->flt_00000C &&
+              v31 >= v11->flt_00000C &&
+              v31 >= *(float *)(v105 + 12) )
           {
             v32 = sub_4254D2(4);
             *(_DWORD *)(v16 + 20) = v32;
             if ( !v32 )
               goto LABEL_104;
-            v33 = v103;
-            v34 = v106;
+            v33 = v12;
+            v34 = v10;
             v70 = 0;
             v69 = v16;
             v68 = v30;
@@ -364,11 +292,11 @@ LABEL_105:
         return;
     }
     v37 = &array_77EC08[pStruct9_global->dword_00002C];
-    v38 = sub_488EEF(pClass51_global, v102, v101);
+    v38 = class51_sub_488EEF_GetSomeTileInfo(pClass51_global, v102, v101);
     *(_WORD *)(v37 + 76) = v38;
     if ( v38 == -1 )
       goto LABEL_105;
-    v40 = sub_488EB1(pClass51_global, v102, v101);
+    v40 = class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v102, v101);
     BYTE1(v40) |= 0x80u;
     v41 = LODWORD(v100);
     *(_DWORD *)(v37 + 48) = v40;
@@ -384,7 +312,7 @@ LABEL_105:
     if ( v39 < 0 || v39 > dword_73D510 - 1 )
       v45 = 0;
     else
-      v45 = dword_76D514 + 12 * v39;
+      v45 = pTerrainNormals + v39;
     v110 = v45;
     if ( v45 )
     {
@@ -405,17 +333,17 @@ LABEL_105:
     if ( pStruct9_global->dword_00002C >= 1999 )
       return;
     ++pStruct9_global->dword_00002C;
-    if ( !sub_481FC9(v103, v105, v106, v37) )
+    if ( !sub_481FC9(v12, v105, v10, v37) )
       goto LABEL_74;
 
-    v47 = 1.0 / (*(float *)(v106 + 12) + 0.0000001000000011686097);
-    memcpy(&array_50AC10[0], v106, sizeof(struct struct14));
+    v47 = 1.0 / (v10->flt_00000C + 0.0000001000000011686097);
+    memcpy(&array_50AC10[0], v10, sizeof(struct struct14));
     array_50AC10[0].flt_000020 = v47;
     array_50AC10[0].u = 0.0;
     array_50AC10[0].v = 0.0;
 
-    v48 = *(float *)(v103 + 12) + 0.0000001000000011686097;
-    memcpy(&array_50AC10[1], v103, sizeof(struct struct14));
+    v48 = v12->flt_00000C + 0.0000001000000011686097;
+    memcpy(&array_50AC10[1], v12, sizeof(struct struct14));
     array_50AC10[1].flt_000020 = 1.0 / v48;
     array_50AC10[1].u = 0.0;
     array_50AC10[1].v = 1.0;
@@ -426,40 +354,40 @@ LABEL_105:
     array_50AC10[2].u = 1.0;
     array_50AC10[2].v = 1.0;
 
-    compile_error;//sub_45D036(v110, (int)&v79, COERCE_FLOAT(&unk_50AC10), COERCE_FLOAT(3), 0);
+    sub_45D036(v110, (int)&v79, array_50AC10, 3, 0);
     if ( dword_F8ADD4 <= 0 )
     {
       *(_BYTE *)(v37 + 264) = 0;
     }
     else
     {
-      compile_error;//v50 = pGame;
+      v50 = *(float *)&pGame;
       *(_BYTE *)(v37 + 264) = 1;
       sub_45CA88(*(void **)(LODWORD(v50) + 3656), (int)&dword_F8AD28, array_50AC10, 3, v110);
     }
-    if ( *(float *)(v106 + 12) < 8.0 || *(float *)(v103 + 12) < 8.0 || (v51 = v105, *(float *)(v105 + 12) < 8.0) )
+    if (v10->flt_00000C < 8.0 || v12->flt_00000C < 8.0 || (v51 = v105, *(float *)(v105 + 12) < 8.0) )
     {
       v54 = sub_4250FE(3);
     }
     else
     {
       v52 = (double)pStruct9_global->shading_dist_mist;
-      if ( v52 >= *(float *)(v106 + 12) && v52 >= *(float *)(v103 + 12) && v52 >= *(float *)(v105 + 12) )
+      if ( v52 >= v10->flt_00000C && v52 >= v12->flt_00000C && v52 >= *(float *)(v105 + 12) )
       {
         v53 = sub_4254D2(3);
         *(_DWORD *)(v37 + 20) = v53;
         if ( v53 )
         {
-          sub_4829B9(v103, v51, v106, v37, 0);
+          sub_4829B9(v12, v51, v10, v37, 0);
 LABEL_68:
           sub_481DB2(array_508690, v53, v37);
 LABEL_75:
           v16 = &array_77EC08[pStruct9_global->dword_00002C];
-          v56 = sub_488EEF(pClass51_global, v102, v101);
+          v56 = class51_sub_488EEF_GetSomeTileInfo(pClass51_global, v102, v101);
           *(_WORD *)(v16 + 76) = v56;
           if ( v56 == -1 )
             goto LABEL_105;
-          *(_DWORD *)(v16 + 48) = sub_488EB1(pClass51_global, v102, v101);
+          *(_DWORD *)(v16 + 48) = class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v102, v101);
           v58 = v93;
           *(_BYTE *)(v16 + 89) = 1;
           *(_DWORD *)(v16 + 52) = *(_WORD *)(v58 + 2);
@@ -467,18 +395,12 @@ LABEL_75:
           *(_BYTE *)(v16 + 93) = LOBYTE(v100);
           v57 = *(unsigned __int16 *)((char *)word_75D514 + LODWORD(v94));
           if ( v57 > dword_73D510 - 1 )
-          {
-            v111 = 0;
-            v59 = 0;
-          }
+             pNormal = 0;
           else
+             pNormal = pTerrainNormals + v57;
+          if ( pNormal )
           {
-            v59 = dword_76D514 + 12 * v57;
-            v111 = v59;
-          }
-          if ( v59 )
-          {
-            v60 = -(v98 * *(float *)(v59 + 8) + v97 * *(float *)(v59 + 4) + v96 * *(float *)v59);
+           v60 = -(v98 * pNormal->y + v97 * pNormal->z + v96 * pNormal->x);
             if ( v60 < 0.0 )
               v60 = 0.0;
             v94 = v60 * 31.0;
@@ -495,15 +417,15 @@ LABEL_75:
           if ( pStruct9_global->dword_00002C >= 1999 )
             return;
           ++pStruct9_global->dword_00002C;
-          if ( !sub_481FC9(v104, v106, v105, v16) )
+          if ( !sub_481FC9(v11, v10, v105, v16) )
           {
 LABEL_104:
             --pStruct9_global->dword_00002C;
             goto LABEL_105;
           }
 
-          v61 = 1.0 / (*(float *)(v106 + 12) + 0.0000001000000011686097);
-          memcpy(&array_50AC10[0], v106, sizeof(struct struct14));
+          v61 = 1.0 / (v10->flt_00000C + 0.0000001000000011686097);
+          memcpy(&array_50AC10[0], v10, sizeof(struct struct14));
           array_50AC10[0].flt_000020 = v61;
           array_50AC10[0].u = 0.0;
           array_50AC10[0].v = 0.0;
@@ -514,24 +436,24 @@ LABEL_104:
           array_50AC10[1].u = 1.0;
           array_50AC10[1].v = 1.0;
 
-          v63 = *(float *)(v104 + 12) + 0.0000001000000011686097;
-          memcpy(&array_50AC10[2], v104, sizeof(struct struct14));
+          v63 = v11->flt_00000C + 0.0000001000000011686097;
+          memcpy(&array_50AC10[2], v11, sizeof(struct struct14));
           array_50AC10[2].flt_000020 = 1.0 / v63;
           array_50AC10[2].u = 1.0;
           array_50AC10[2].v = 0.0;
 
-          compile_error;//sub_45D036(v111, (int)&v71, COERCE_FLOAT(&unk_50AC10), COERCE_FLOAT(3), 1);
+          sub_45D036(pNormal, (int)&v71, array_50AC10, 3, 1);
           if ( dword_F8ADD4 <= 0 )
           {
             *(_BYTE *)(v16 + 264) = 0;
           }
           else
           {
-            compile_error;//v64 = pGame;
+            v64 = *(float *)&pGame;
             *(_BYTE *)(v16 + 264) = 1;
-            sub_45CA88(*(void **)(LODWORD(v64) + 3656), (int)&dword_F8AD28, array_50AC10, 3, v111);
+            sub_45CA88(*(void **)(LODWORD(v64) + 3656), (int)&dword_F8AD28, array_50AC10, 3, pNormal);
           }
-          if ( *(float *)(v106 + 12) < 8.0 || *(float *)(v105 + 12) < 8.0 || *(float *)(v104 + 12) < 8.0 )
+          if (v10->flt_00000C < 8.0 || *(float *)(v105 + 12) < 8.0 || v11->flt_00000C < 8.0 )
           {
             v36 = sub_4250FE(3);
             sub_481E55(v36);
@@ -540,7 +462,7 @@ LABEL_104:
             goto LABEL_102;
           }
           v65 = (double)pStruct9_global->shading_dist_mist;
-          if ( v65 < *(float *)(v106 + 12) || v65 < *(float *)(v105 + 12) || v65 < *(float *)(v104 + 12) )
+          if ( v65 < v10->flt_00000C || v65 < *(float *)(v105 + 12) || v65 < v11->flt_00000C)
           {
             v36 = sub_4252E8(3);
             if ( !v36 )
@@ -551,8 +473,8 @@ LABEL_104:
           *(_DWORD *)(v16 + 20) = v32;
           if ( !v32 )
             goto LABEL_104;
-          v33 = v106;
-          v34 = v104;
+          v33 = v10;
+          v34 = v11;
           v70 = 0;
           v69 = v16;
           v68 = v105;
@@ -6630,7 +6552,6 @@ int __cdecl sub_494035()
   _UNKNOWN *v3; // ecx@5
   signed int v5; // ecx@12
   int v6; // esi@15
-  void *v7; // esi@25
   unsigned int v8; // ecx@27
   signed int v9; // edi@29
   int v10; // ecx@30
@@ -6686,13 +6607,13 @@ int __cdecl sub_494035()
   pParty_global->qword_00002C += pClass24_global->int_00001C;
   v0 = (signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60;
   v1 = (unsigned int)(v0 / 60) / 0x18 / 0x1C;
-  dword_ACD6DC = (signed __int64)((double)pParty_global->qword_00002C * 0.234375) % 60;
-  pParty_global->dword_000720 = v0 % 60;
-  dword_ACD6CC = (unsigned int)(v0 / 60) / 0x18 / 7 & 3;
-  pParty_global->dword_00071C = v0 / 60 % 24;
+  pParty_global->dword_000714 = (unsigned int)(v0 / 60) / 0x18 / 7 & 3;
   pParty_global->dword_000718 = (unsigned int)(v0 / 60) / 0x18 % 0x1C;
-  dword_ACD6C8 = v1 % 0xC;
-  dword_ACD6C4 = v1 / 0xC + 1168;
+  pParty_global->dword_00071C = v0 / 60 % 24;
+  pParty_global->dword_000720 = v0 % 60;
+  pParty_global->dword_000724 = (signed __int64)((double)pParty_global->qword_00002C * 0.234375) % 60;
+  pParty_global->dword_00070C = v1 / 0xC + 1168;
+  pParty_global->dword_000710 = v1 % 0xC;
   if ( (unsigned int)pParty_global->dword_00071C >= 3 && (v60 < 3 || (unsigned int)(v0 / 60) / 0x18 % 0x1C > v58) )
   {
     v2 = 0;
@@ -6758,13 +6679,15 @@ int __cdecl sub_494035()
     }
     if ( dword_6BE360 == 2 )
       sub_489487();
-    v7 = &unk_ACF4BC;
-    do
+
+    //v7 = &unk_ACF4BC;
+    for (i = 0; i < 4; ++i)
     {
-      memset(v7, 0, 4u);
-      v7 = (char *)v7 + 6972;
+     pParty_global->pPlayers[i].dword_001B38 = 0;
+      //memset(v7, 0, 4u);
+      //v7 = (char *)v7 + 6972;
     }
-    while ( (signed int)v7 < (signed int)&unk_AD61AC );
+    //while ( (signed int)v7 < (signed int)&unk_AD61AC );
   }
   v8 = pParty_global->qword_00002C;
   if ( pParty_global->dword_007778 & 4 && dword_ACD6B4 < pParty_global->qword_00002C )
@@ -7014,7 +6937,7 @@ LABEL_61:
 
     if ( *(_QWORD *)((char *)v18 + 16) | *(_QWORD *)((char *)v18 + 96) | *(_QWORD *)((char *)v18 + 104) | *(_QWORD *)((char *)v18 + 112) | *(_QWORD *)((char *)v18 + 120) | *(_QWORD *)((char *)v18 + 128) )
       --v62;
-    v40 = *(_QWORD *)((char *)v18 + 6160) > 0i64;
+    v40 = *(_QWORD *)((char *)v18 + 0x1810) > 0i64;
 
     for (j = 0; j < 24; ++j)
     {
@@ -7023,8 +6946,8 @@ LABEL_61:
 
     if ( v40 )
     {
-      if ( *(_QWORD *)(v18 + 6160) <= 0i64 )
-        Player_sub_492D65((char *)v18, 1, 0);
+      if ( *(_QWORD *)((char *)v18 + 0x1810) <= 0i64 )
+        Player_sub_492D65(v18, 1, 0);
     }
   }
 

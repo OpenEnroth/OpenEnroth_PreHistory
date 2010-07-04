@@ -4532,11 +4532,11 @@ void __cdecl sub_4304E7()
                 }
                 while ( v196 < dword_73C194 );
               }
-              if ( v212 + (unsigned __int8)byte_ACD6C1 < v210 )
+              if ( v212 + (unsigned __int8)pParty_global->byte_000709 < v210 )
               {
                 sub_41F4C1(&Dst);
                 memset(&Dst, 0, 0x344u);
-                v241 += -1 - (unsigned __int8)byte_ACD6C1 - v212;
+                v241 += -1 - (unsigned __int8)pParty_global->byte_000709 - v212;
                 v4 = &Dst;
 LABEL_33:
                 sub_445D4A((int)v4, v0);
@@ -5550,7 +5550,7 @@ LABEL_291:
 LABEL_306:
                       if ( dword_5B65CC )
                       {
-                        byte_ACD6C1 = 0;
+                        pParty_global->byte_000709 = 0;
                         LOBYTE(dword_72D694[19 * dword_5B65CC]) &= 0x7Fu;
                         sub_44A56A();
                         struct_576FE8.dword_000044 = v0;
@@ -5734,22 +5734,22 @@ LABEL_92:
           if ( v209 )
           {
             GUIWindowCreate(626, 179, 0, 0, 90, dword_5079E8, 0);
-            v48 = (struct_AD4674[0].dword_AD4674 != 0) + (struct_AD4674[1].dword_AD4674!= 0) + (unsigned __int8)byte_ACD6C2 - 2;
-            if ( (unsigned __int8)byte_ACD6C1 < v48 )
+            v48 = (struct_AD4674[0].dword_AD4674 != 0) + (struct_AD4674[1].dword_AD4674!= 0) + (unsigned __int8)pParty_global->byte_00070A - 2;
+            if (pParty_global->byte_000709 < v48 )
             {
-              ++byte_ACD6C1;
-              if ( (unsigned __int8)byte_ACD6C1 >= v48 )
-                byte_ACD6C1 = v48;
+              ++pParty_global->byte_000709;
+              if (pParty_global->byte_000709 >= v48 )
+                pParty_global->byte_000709 = v48;
             }
           }
           else
           {
             GUIWindowCreate(469, 179, 0, 0, 90, dword_5079EC, 0);
-            if ( byte_ACD6C1 )
+            if (pParty_global->byte_000709)
             {
-              --byte_ACD6C1;
-              if ( byte_ACD6C1 < 1 )
-                byte_ACD6C1 = 0;
+              --pParty_global->byte_000709;
+              if ( pParty_global->byte_000709 < 1 )
+                pParty_global->byte_000709 = 0;
             }
           }
           sub_491F87();
@@ -7106,9 +7106,9 @@ LABEL_731:
             pParty_global->dword_000720,
             aAMPMNames[v212],//dword_5C35D8[v212],
             aDayNames[pParty_global->dword_000718 % 7],//dword_507B38[dword_ACD6D0 % 7u],
-            7 * dword_ACD6CC + pParty_global->dword_000718 % 7u + 1,
-            aMonthNames[dword_ACD6C8],//dword_507B08[dword_ACD6C8],
-            dword_ACD6C4);
+            7 * pParty_global->dword_000714 + pParty_global->dword_000718 % 7u + 1,
+            aMonthNames[pParty_global->dword_000710],//dword_507B08[dword_ACD6C8],
+            pParty_global->dword_00070C);
           goto LABEL_521;
         case 0x64:
           v190 = pParty_global->uNumFood;
@@ -15038,50 +15038,34 @@ double __stdcall sub_45CC0C(float a1, float a2, float a3, float a4, float a5, in
 }
 
 //----- (0045D036) --------------------------------------------------------
-char __stdcall sub_45D036(int a1, int a2, float a3, float a4, signed int X)
+char __stdcall sub_45D036(struct Normal *pNormal, int a2, struct struct14 *a3, int a4, signed int X)
 {
-  int v5; // esi@1
   float v6; // ebx@2
-  int v7; // esi@5
-  float v8; // ebx@6
   int v10; // [sp+Ch] [bp-4h]@1
+ int i;
 
-  v5 = 0;
   v10 = 0;
-  dword_F8AD54 = dword_6A1AAC;
-  if ( dword_51B6DC > 0 )
+  dword_F8AD54 = pClass51_global->dword_000CBC;
+  for (i = 0; i < dword_51B6DC; ++i)
   {
-    LODWORD(v6) = array_519ABC;
-    do
-    {
       if ( v10 >= 20 )
         break;
-      sub_45D0D5(v6, a1, a2, a3, a4, X, (int)&v10);
-      ++v5;
-      LODWORD(v6) += 18;
-    }
-    while ( v5 < dword_51B6DC );
+      sub_45D0D5(&array_519ABC[i], a1, a2, a3, a4, X, &v10);
   }
-  v7 = 0;
-  if ( dword_519AB4 > 0 )
+
+  for (i = 0; i < dword_519AB4; ++i)
   {
-    LODWORD(v8) = array_5187F4;
-    do
-    {
       if ( v10 >= 20 )
         break;
-      sub_45D0D5(v8, a1, a2, a3, a4, X, (int)&v10);
-      ++v7;
-      LODWORD(v8) += 12;
-    }
-    while ( v7 < dword_519AB4 );
+      sub_45D0D5(&array_5187F4[i], a1, a2, a3, a4, X, &v10);
   }
+
   dword_F8ADD4 = v10;
   return 1;
 }
 
 //----- (0045D0D5) --------------------------------------------------------
-char __stdcall sub_45D0D5(float a1, int a2, int a3, float a4, float a5, signed int X, int a7)
+char __stdcall sub_45D0D5(struct struct6 *a1, struct Normal *pNormal, int a3, struct struct14 *a4, float a5, signed int X, int a7)
 {
   float v7; // edi@1
   int v8; // eax@1
@@ -15115,7 +15099,7 @@ char __stdcall sub_45D0D5(float a1, int a2, int a3, float a4, float a5, signed i
   int v37; // [sp+18h] [bp-8h]@1
   float v38; // [sp+1Ch] [bp-4h]@5
 
-  v7 = a1;
+  v7 = *(float *)&a1;
   v8 = *(_WORD *)(LODWORD(a1) + 6);
   v37 = *(_WORD *)(LODWORD(a1) + 6);
   if ( v8 <= 0 )

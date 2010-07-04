@@ -1156,17 +1156,11 @@ extern int dword_5187EC; // weak
 extern _UNKNOWN unk_5187F0; // weak
 
 struct struct7 array_5187F4[400]; // struct[400] @ MM7.exe::005187F4
-//_UNKNOWN unk_5187F4; // weak
-//_UNKNOWN unk_5187F6; // weak
-//_UNKNOWN unk_5187FA; // weak
 extern int dword_519AB4; // num of elements in array_5187F4
 
 extern _UNKNOWN unk_519AB8; // weak
 
 extern struct struct6 array_519ABC[400]; // struct[400] @ MM7.exe::00519ABC
-//_UNKNOWN unk_519ABC; // weak
-//_UNKNOWN unk_519ABE; // weak
-//_UNKNOWN unk_519AC2; // weak
 extern int dword_51B6DC; // num of elements in array_519ABC
 
 extern int dword_51B6E0; // weak
@@ -1749,10 +1743,10 @@ extern int dword_6A12F8; // weak
 extern int dword_6A12FC; // weak
 extern _UNKNOWN unk_6A1318; // weak
 extern _UNKNOWN unk_6A16E0; // weak
-extern int dword_6A1AAC; // weak
-extern int dword_6A1B20; // weak
-extern int dword_6A1B24; // weak
-extern int dword_6A1B28; // weak
+//int dword_6A1AAC; // 000CBC
+//int dword_6A1B20; // 000D30
+//int dword_6A1B24; // 000D34
+//int dword_6A1B28; // 000D38
 
 extern float flt_6BD074; // weak
 extern int dword_6BD078; // weak
@@ -2085,9 +2079,15 @@ extern char byte_73C84C; // weak
 
 extern int dword_73D510; // weak
 extern _UNKNOWN unk_73D514[0x20000]; // weak
-extern __int16 word_75D514[0x10000 / sizeof(short)]; // weak
-//__int16 word_75D516[array_size_unknown]; // weak
-extern unsigned char *dword_76D514; // TERRAIN NORMALS?
+extern unsigned short word_75D514[]; // weak
+
+
+extern struct Normal
+{
+ float x;
+ float z;
+ float y;
+} *pTerrainNormals;                      // ptr @ MM7.exe::0076D514  terrain normals?
 
 extern int dword_76D518; // weak
 extern int dword_76D51C; // weak
@@ -2335,15 +2335,15 @@ extern int dword_ACD6B0; // weak
 extern int dword_ACD6B4; // weak
 //int dword_ACD6B8; // 000700
 extern int dword_ACD6BC; // weak
-extern char byte_ACD6C1; // weak
-extern char byte_ACD6C2; // weak
-extern int dword_ACD6C4; // weak
-extern int dword_ACD6C8; // weak
-extern int dword_ACD6CC; // weak
+//char byte_ACD6C1; // 000709
+//char byte_ACD6C2; // 00070A
+//int dword_ACD6C4; // 00070C
+//int dword_ACD6C8; // 000710
+//int dword_ACD6CC; // 000714
 //int dword_ACD6D0; // pParty_global::dword_000718
 //int dword_ACD6D4; // pParty_global::dword_00071C
 //int dword_ACD6D8; // pParty_global::dword_000720
-extern int dword_ACD6DC; // weak
+//int dword_ACD6DC; // 000724
 //int dword_ACD6E0; // ::000728
 //int dword_ACD6EC; // ::000734
 extern _UNKNOWN unk_ACD6F0; // weak
@@ -2475,7 +2475,8 @@ extern _UNKNOWN unk_ACF1E4; // weak
 extern __int16 word_ACF2B8[array_size_unknown]; // weak
 extern int dword_ACF2C0[array_size_unknown]; // weak
 extern _UNKNOWN unk_ACF3D3; // weak
-extern _UNKNOWN unk_ACF4BC; // weak
+//extern _UNKNOWN unk_ACF4BC; // pPlayers[0]::001B38
+
 extern __int64 qword_ACF4D0; // weak
 //char byte_ACF57A; // pParty_global::pPlayers[1]::uFace
 extern _UNKNOWN unk_AD0CC0; // weak

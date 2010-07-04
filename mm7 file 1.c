@@ -274,10 +274,10 @@ void __cdecl sub_4789DE()
         p14->ptr_000054 = v3;
         p14->dword_000014 = v6;
         p14->byte_000059 = 5;
-        v85 = (unsigned __int64)(v3->dword_000000 * -dword_6A1B20) >> 16;
-        v84 = (unsigned __int64)(v3->dword_000004 * -dword_6A1B24) >> 16;
-        v83 = (unsigned __int64)(v3->dword_000008 * -dword_6A1B28) >> 16;
-        v86 = v85 + v84 + ((unsigned __int64)(v3->dword_000008 * -dword_6A1B28) >> 16);
+        v85 = (unsigned __int64)(v3->dword_000000 * -pClass51_global->dword_000D30) >> 16;
+        v84 = (unsigned __int64)(v3->dword_000004 * -pClass51_global->dword_000D34) >> 16;
+        v83 = (unsigned __int64)(v3->dword_000008 * -pClass51_global->dword_000D38) >> 16;
+        v86 = v85 + v84 + ((unsigned __int64)(v3->dword_000008 * -pClass51_global->dword_000D38) >> 16);
         v15 = (double)v86 * 0.0000152587890625;
         if ( v15 < 0.0 )
           v15 = 0.0;
@@ -1760,7 +1760,6 @@ int __cdecl sub_47F5C6()
   int v82; // eax@182
   int v83; // eax@184
   int v84; // ecx@184
-  //int v86; // ebx@185
   int v87; // esi@185
   int v88; // eax@196
   int v89; // ecx@196
@@ -1817,18 +1816,21 @@ int __cdecl sub_47F5C6()
   v103 = class59_sub_402CAE(pClass59_global, v7 - pClass59_global->dword_001864);
   v107 = class59_sub_402CAE(pClass59_global, v4);
   v5 = class59_sub_402CAE(pClass59_global, v4 - pClass59_global->dword_001864);
+
   v3 = v7 & pClass59_global->dword_001870;
   if ( (v7 & pClass59_global->dword_001870) >= pClass59_global->dword_001864 )
-    v8 = -pClass59_global->array_000000[pClass59_global->dword_001860 - v3];
+    v8 = -pClass59_global->pTanTable[pClass59_global->dword_001860 - v3];
   else
-    v8 = pClass59_global->array_000000[v3];
+    v8 = pClass59_global->pTanTable[v3];
   v108 = abs(v8);
+
   v9 = v4 & pClass59_global->dword_001870;
   if ( (v4 & pClass59_global->dword_001870) >= pClass59_global->dword_001864 )
-    v10 = -pClass59_global->array_000000[pClass59_global->dword_001860 - v9];
+    v10 = -pClass59_global->pTanTable[pClass59_global->dword_001860 - v9];
   else
-    v10 = pClass59_global->array_000000[v9];
+    v10 = pClass59_global->pTanTable[v9];
   v104 = abs(v10);
+
   v11 = v120;
   v12 = v119;
   v110 = 0;
@@ -2820,7 +2822,7 @@ __int16 __cdecl sub_487389()
           v17 = (*(_BYTE *)(v4 + 93) << 25) + 2147418112;
           dword_80AA14 = v17;
           dword_80AA18 = v17 - 33488896;
-          byte_80AA10 = ((unsigned int)class51_sub_47EDB3_MessWithHeightmapAndTiles(
+          byte_80AA10 = ((unsigned int)class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(
                                          pClass51_global,
                                          *(_BYTE *)(v4 + 92),
                                          *(_BYTE *)(v4 + 93) - 1) >> 9) & 1;
@@ -2858,7 +2860,7 @@ __int16 __cdecl sub_487389()
                 dword_80AA1C = dword_80AA20 + 33488896;
                 dword_80AA14 = (*(_BYTE *)(v4 + 93) << 25) + 2147418112;
                 dword_80AA18 = dword_80AA14 - 33488896;
-                byte_80AA10 = ((unsigned int)class51_sub_47EDB3_MessWithHeightmapAndTiles(
+                byte_80AA10 = ((unsigned int)class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(
                                                pClass51_global,
                                                *(_BYTE *)(v4 + 92),
                                                *(_BYTE *)(v4 + 93) - 1) >> 9) & 1;
@@ -2912,7 +2914,7 @@ __int16 __cdecl sub_487389()
                 dword_80AA1C = dword_80AA20 + 33488896;
                 dword_80AA14 = (*(_BYTE *)(v4 + 93) << 25) + 2147418112;
                 dword_80AA18 = dword_80AA14 - 33488896;
-                byte_80AA10 = ((unsigned int)class51_sub_47EDB3_MessWithHeightmapAndTiles(
+                byte_80AA10 = ((unsigned int)class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(
                                                pClass51_global,
                                                *(_BYTE *)(v4 + 92),
                                                *(_BYTE *)(v4 + 93) - 1) >> 9) & 1;
@@ -3090,7 +3092,7 @@ LABEL_14:
     return v0;
   byte_801914 = 23
               - ((signed int)((unsigned __int64)(1310720i64
-                                               * (signed int)((unsigned __int64)((signed __int64)-dword_6A1B28 << 16) >> 16)) >> 16) >> 16);
+                                               * (signed int)((unsigned __int64)((signed __int64)-pClass51_global->dword_000D38 << 16) >> 16)) >> 16) >> 16);
   if ( byte_801914 > 20 )
     byte_801914 = 20;
   v10 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000014 - pClass59_global->dword_001864);
@@ -4614,10 +4616,9 @@ int Party_CreateDefault(struct Party *_this)
 
   LoadInterfaceTextures(1, 1);
 
-  _this->dword_00002C = 138240;
-  _this->dword_000030 = 0;
-  _this->dword_000034 = 138240;
-  _this->dword_000038 = 0;
+  _this->qword_00002C = 138240;
+  _this->qword_000034 = 138240;
+
   _this->dword_00087C = 0;
 
   uMaybeSelectedCharacter = 1;
@@ -7766,9 +7767,9 @@ LABEL_344:
   v59 = sub_47F458(pParty_global->sPartyPosY) - 1;
   v106 = sub_47F44B(v108);
   v60 = sub_47F458(v109) - 1;
-  v119 = ((unsigned int)~class51_sub_47EDB3_MessWithHeightmapAndTiles(pClass51_global, v118, v59) >> 1) & 1;
-  v114 = ((unsigned int)~class51_sub_47EDB3_MessWithHeightmapAndTiles(pClass51_global, v106, v59) >> 1) & 1;
-  v61 = class51_sub_47EDB3_MessWithHeightmapAndTiles(pClass51_global, v118, v60);
+  v119 = ((unsigned int)~class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pClass51_global, v118, v59) >> 1) & 1;
+  v114 = ((unsigned int)~class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pClass51_global, v106, v59) >> 1) & 1;
+  v61 = class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pClass51_global, v118, v60);
   v58 = 0;
   v57 = ((unsigned int)~v61 >> 1) & 1;
   if ( v106 == v118 )
@@ -8288,7 +8289,7 @@ int __fastcall sub_48257A(signed int a1, signed int a2, int a3, int a4)
   dword_76D520 = class51_sub_47EE16_ActuallyGetHeightOnTerrain(pClass51_global, v4 + 1, v5 + 1);
   dword_76D524 = class51_sub_47EE16_ActuallyGetHeightOnTerrain(pClass51_global, v4, v5 + 1);
   *(_DWORD *)a3 = 0;
-  if ( class51_sub_47EDB3_MessWithHeightmapAndTiles(pClass51_global, v4, v5) & 2 )
+  if ( class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pClass51_global, v4, v5) & 2 )
     *(_DWORD *)a3 = 1;
   v14 = 0;
   if ( !a4 )
@@ -16723,9 +16724,9 @@ void __cdecl sub_491F87()
       while ( v3 < dword_73C194 );
     }
 
-    v6 = (unsigned __int8)byte_ACD6C1;
-    v21 = (unsigned __int8)byte_ACD6C1;
-    if ( (unsigned __int8)byte_ACD6C1 < v24 )
+    v6 = (unsigned __int8)pParty_global->byte_000709;
+    v21 = (unsigned __int8)pParty_global->byte_000709;
+    if ( (unsigned __int8)pParty_global->byte_000709 < v24 )
     {
       do
       {

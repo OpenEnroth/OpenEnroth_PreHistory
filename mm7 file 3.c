@@ -9520,7 +9520,8 @@ LABEL_23:
         v25 = 187;
         v13 = (_DWORD)pParty_global->qword_00002C >= 0xF89E0000u;
         LODWORD(pParty_global->qword_00002C) = pParty_global->qword_00002C + 123863040;
-        v12 = &unk_ACF4BC;
+        //v12 = &unk_ACF4BC;
+        v12 = &pParty_global->pPlayers[0].dword_001B38;
         v14 = (unsigned __int8)byte_4E5F7C[16 * word_593A36];
         HIDWORD(pParty_global->qword_00002C) += v13;
         dword_F8B198 = v14;
@@ -9603,7 +9604,7 @@ signed int __thiscall sub_4465DF(void *this)
   int v4; // ecx@3
   char v6; // zf@9
 
-  v1 = dword_ACD6C8 + 1;
+  v1 = pParty_global->dword_000710 + 1;
   v2 = pParty_global->dword_000718 + 1;
   if ( this )
   {
@@ -12461,7 +12462,7 @@ LABEL_125:
         while ( v24 < (signed int)&unk_AD4888 );
         goto LABEL_170;
       case 244:
-        v17 = dword_ACD6C8 == (_DWORD)a3;
+        v17 = pParty_global->dword_000710 == (_DWORD)a3;
         goto LABEL_146;
       case 240:
         compile_error;//if ( dword_ACD6BC && dword_ACD8B8 >= 0 && (dword_ACD8B8 > 0 || (unsigned int)dword_ACD8B4 > 0) )
@@ -12847,7 +12848,7 @@ void __cdecl sub_44A56A()
   int v0; // edi@1
   _UNKNOWN *v1; // esi@2
 
-  byte_ACD6C2 = 0;
+  pParty_global->byte_00070A = 0;
   v0 = 0;
   if ( dword_73C194 > 0 )
   {
@@ -12859,7 +12860,7 @@ void __cdecl sub_44A56A()
        if (!struct_AD4674[0].dword_AD4674 || strcmp(*(const char **)v1, struct_AD4674[0].dword_AD4674))
         {
          if (!struct_AD4674[1].dword_AD4674 || strcmp(*(const char **)v1, struct_AD4674[1].dword_AD4674))
-            ++byte_ACD6C2;
+            ++pParty_global->byte_00070A;
         }
       }
       ++v0;
@@ -12948,7 +12949,7 @@ LABEL_8:
               sub_449B7E((int)(Dst + 6736), a3, 1);
               break;
             case 232:
-              byte_ACD6C1 = 0;
+              pParty_global->byte_000709 = 0;
               LOBYTE(dword_72D694[19 * a3]) |= 0x80u;
               sub_44A56A();
               struct_576FE8.dword_000044 = 1;
@@ -13485,7 +13486,7 @@ LABEL_8:
               sub_449B7E((int)(Dst + 6736), a3, 1);
               break;
             case 232:
-              byte_ACD6C1 = 0;
+              pParty_global->byte_000709 = 0;
               LOBYTE(dword_72D694[19 * a3]) |= 0x80u;
               sub_44A56A();
               struct_576FE8.dword_000044 = 1;
@@ -14034,7 +14035,7 @@ LABEL_8:
               }
               else
               {
-                byte_ACD6C1 = 0;
+                pParty_global->byte_000709 = 0;
                 LOBYTE(dword_72D694[19 * a3]) &= 0x7Fu;
                 sub_44A56A();
                 struct_576FE8.dword_000044 = 1;
@@ -14066,7 +14067,7 @@ LABEL_8:
                 memset(&struct_AD4674[0], 0, sizeof(struct unnamed_AD4674));
               if (struct_AD4674[1].dword_000018 == v19 )
                 memset(&struct_AD4674[1], 0, sizeof(struct unnamed_AD4674));
-              byte_ACD6C1 = 0;
+              pParty_global->byte_000709 = 0;
               sub_44A56A();
               break;
             case 243:

@@ -15,6 +15,71 @@
 bool __cdecl TryLoadLevelFromFile(); // internal
 bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a4, int a5); // internal
 
+
+
+//----- (00488EB1) --------------------------------------------------------
+int class51_sub_488EB1_GetSomeOtherTileInfo(struct class51 *_this, int sX, int sY)
+{
+  int v3; // eax@1
+  int v4; // edi@1
+
+ v4 = sub_47F458(sY);
+ v3 = sub_47F44B(sX);
+ if ( v3 < 0 || v3 > 127 || v4 < 0 || v4 > 127 )
+   return 0;
+
+ return class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(_this, v3, v4);
+}
+
+//----- (0047EDB3) --------------------------------------------------------
+int class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(struct class51 *_this, unsigned int uX, unsigned int uY)
+{
+  int v3; // esi@5
+
+ if (uX > 127 || uY > 127)
+   return 0;
+ else
+ {
+   v3 = _this->struct_0000B4.pTilemap[128 * uY + uX];
+   if ( v3 >= 90 )
+     v3 = v3 + _this->array_0000A0[1 + (v3 - 90) / 18] - 36 * (v3 - 90) / 36 - 90;
+   return pTileTable->pTiles[v3].word_000018;
+ }
+}
+
+//----- (00488EEF) --------------------------------------------------------
+int class51_sub_488EEF_GetSomeTileInfo(struct class51 *_this, int sX, int sY)
+{
+ int v3; // eax@1
+ int v4; // edi@1
+
+ v4 = sub_47F458(sY);
+ v3 = sub_47F44B(sX);
+ if ( v3 < 0 || v3 > 127 || v4 < 0 || v4 > 127 )
+   return -1;
+ return class51_sub_47ED08_ActuallyGetSomeTileInfo(_this, v3, v4);
+}
+
+//----- (0047ED08) --------------------------------------------------------
+int class51_sub_47ED08_ActuallyGetSomeTileInfo(struct class51 *_this, unsigned int uX, unsigned int uY)
+{
+ int v3; // esi@5
+
+ if (uX > 127 || uY > 127)
+   return 0;
+
+ v3 = _this->struct_0000B4.pTilemap[uY * 128 + uX];
+ if (v3 < 198)
+ {
+  if (v3 >= 90)
+    v3 = v3 + _this->array_0000A0[1 + (v3 - 90) / 18] - 36 * (v3 - 90) / 36 - 90;
+ }
+ else
+   v3 = v3 + _this->array_0000A0[7] - 198;
+
+ return pTileTable->pTiles[v3].word_000012;
+}
+
 //----- (0047D0A6) --------------------------------------------------------
 bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a4, int a5)
 {
@@ -236,8 +301,8 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
     locked_fread(&dword_73D510, 4u, 1u, v7);
     locked_fread(&unk_73D514, 1u, 0x20000u, v7);
     locked_fread(word_75D514, 1u, 0x10000u, v7);
-    dword_76D514 = class23_AllocatedNamedBuffer(&class23_instance, dword_76D514, 12 * dword_73D510, "TerNorm");
-    locked_fread((void *)dword_76D514, 1u, 12 * dword_73D510, v7);
+    pTerrainNormals = class23_AllocatedNamedBuffer(&class23_instance, pTerrainNormals, 12 * dword_73D510, "TerNorm");
+    locked_fread(pTerrainNormals, 1u, 12 * dword_73D510, v7);
     v11 = class23_AllocatedNamedBuffer(&class23_instance, *(_DWORD *)(v5 + 216), 188 * *(_DWORD *)(v5 + 176), "BDdata");
     v120 = 0;
     *(_DWORD *)(v5 + 216) = v11;
@@ -564,8 +629,8 @@ LABEL_33:
   memcpy(word_75D514, v42, 0x10000);
   v42 += 0x10000;
 
-  dword_76D514 = class23_AllocatedNamedBuffer(class23_instance, dword_76D514, 12 * dword_73D510, "TerNorm");
-  memcpy(dword_76D514, v42, 12 * dword_73D510);
+  pTerrainNormals = class23_AllocatedNamedBuffer(class23_instance, pTerrainNormals, 12 * dword_73D510, "TerNorm");
+  memcpy(pTerrainNormals, v42, dword_73D510 * sizeof(struct Normal));
   v42 += 12 * dword_73D510;
 
   memcpy(&_this->uNumBModels, v42, 4);
@@ -1449,7 +1514,6 @@ int __thiscall sub_4892E6(struct class51 *_this)
   int v4; // ebx@3
   int v5; // eax@3
   int v6; // eax@3
-  int v7; // ecx@3
   double v8; // st7@4
 
   result = pParty_global->dword_00071C;
@@ -1461,22 +1525,21 @@ int __thiscall sub_4892E6(struct class51 *_this)
       v3 = pParty_global->dword_000720 + 60 * (pParty_global->dword_00071C - 5);
       v4 = v3 * pClass59_global->dword_001860 / 960;
       v5 = class59_sub_402CAE(pClass59_global, v3 * pClass59_global->dword_001860 / 960);
-      *((_DWORD *)v2 + 839) = 0;
-      *((_DWORD *)v2 + 838) = v5;
+      _this->dword_000D18 = v5;
+      _this->dword_000D1C = 0;
       v6 = class59_sub_402CAE(pClass59_global, v4 - pClass59_global->dword_001864);
-      v7 = *((_DWORD *)v2 + 838);
-      *((_DWORD *)v2 + 840) = v6;
-      *((_DWORD *)v2 + 844) = -v7;
-      *((_DWORD *)v2 + 845) = -*((_DWORD *)v2 + 839);
-      *((_DWORD *)v2 + 846) = -v6;
+      _this->dword_000D20 = v6;
+      _this->dword_000D30 = -v5;
+      _this->dword_000D34 = -_this->dword_000D1C;
+      _this->dword_000D38 = -v6;
       if ( v3 >= 480 )
         v8 = (double)(960 - v3);
       else
         v8 = (double)v3;
-      *((_DWORD *)v2 + 815) = (signed __int64)(*(double *)&byte_4D8410[1016]
+      _this->dword_000CBC = (signed __int64)(*(double *)&byte_4D8410[1016]
                                              - v8 * *(double *)&byte_4D8410[1024] * *(double *)&byte_4D8410[1016]);
       result = pParty_global->dword_000720;
-      *((_DWORD *)v2 + 28834) = pParty_global->dword_000720;
+      _this->dword_01C288 = pParty_global->dword_000720;
     }
   }
   return result;
@@ -1710,22 +1773,6 @@ int class51_sub_47EE16_ActuallyGetHeightOnTerrain(struct class51 *_this, unsigne
    return 0;
  else
   return 32 * _this->struct_0000B4.pHeightmap[128 * uY + uX];
-}
-
-//----- (0047EDB3) --------------------------------------------------------
-int class51_sub_47EDB3_MessWithHeightmapAndTiles(struct class51 *_this, unsigned int uX, unsigned int uY)
-{
-  int v3; // esi@5
-
- if (uX > 127 || uY > 127)
-   return 0;
- else
- {
-   v3 = _this->struct_0000B4.pTilemap[128 * uY + uX];
-   if ( v3 >= 90 )
-     v3 = v3 + _this->array_0000A0[1 + 2 * (v3 - 90) / 36] - 36 * (v3 - 90) / 36 - 90;
-   return pTileTable->pTiles[v3].word_000018;
- }
 }
 
 //----- (0047EF60) --------------------------------------------------------

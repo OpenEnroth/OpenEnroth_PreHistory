@@ -451,40 +451,40 @@ LABEL_147:
       {
         if ( dword_AD470C == 616 )
         {
-          v77 = dword_ACD6CC + 1;
-          if ( (unsigned int)dword_ACD6C8 >= 7 )
+          v77 = pParty_global->dword_000714 + 1;
+          if (pParty_global->dword_000710 >= 7 )
             v74 = 0;
           else
             //v74 = dword_507B78[dword_ACD6C8];
-            v74 = aAttributeNames[dword_ACD6C8 / 4];
-          switch ( dword_ACD6C8 )
+            v74 = aAttributeNames[pParty_global->dword_000710 / 4];
+          switch (pParty_global->dword_000710)
           {
             case 0:
-              v6 = dword_ACD6CC + 1;
+              v6 = pParty_global->dword_000714 + 1;
               *(_WORD *)(v3 + 188) += v77;
               goto LABEL_33;
             case 1:
-              v6 = dword_ACD6CC + 1;
+              v6 = pParty_global->dword_000714 + 1;
               *(_WORD *)(v3 + 192) += v77;
               goto LABEL_33;
             case 2:
-              v6 = dword_ACD6CC + 1;
+              v6 = pParty_global->dword_000714 + 1;
               *(_WORD *)(v3 + 196) += v77;
               goto LABEL_33;
             case 3:
-              v6 = dword_ACD6CC + 1;
+              v6 = pParty_global->dword_000714 + 1;
               *(_WORD *)(v3 + 200) += v77;
               goto LABEL_33;
             case 4:
-              v6 = dword_ACD6CC + 1;
+              v6 = pParty_global->dword_000714 + 1;
               *(_WORD *)(v3 + 208) += v77;
               goto LABEL_33;
             case 5:
-              v6 = dword_ACD6CC + 1;
+              v6 = pParty_global->dword_000714 + 1;
               *(_WORD *)(v3 + 204) += v77;
               goto LABEL_33;
             case 6:
-              v6 = dword_ACD6CC + 1;
+              v6 = pParty_global->dword_000714 + 1;
               *(_WORD *)(v3 + 212) += v77;
 LABEL_33:
               v62 = pGlobalTXT_LocalizationStrings[121];
@@ -8061,8 +8061,8 @@ LABEL_107:
         v73 = v58 - 1;
         v70 = sub_47F44B(v60);
         v72 = sub_47F458(*(_WORD *)(v1 + 144)) - 1;
-        v57 = ((unsigned int)~class51_sub_47EDB3_MessWithHeightmapAndTiles(pClass51_global, v71, v59) >> 1) & 1;
-        v56 = ((unsigned int)~class51_sub_47EDB3_MessWithHeightmapAndTiles(pClass51_global, v70, v72) >> 1) & 1;
+        v57 = ((unsigned int)~class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pClass51_global, v71, v59) >> 1) & 1;
+        v56 = ((unsigned int)~class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pClass51_global, v70, v72) >> 1) & 1;
         v55 = 0;
         if ( v71 == v70 )
         {
@@ -11629,7 +11629,7 @@ LABEL_30:
       }
       if ( v58 == v20 )
         *(_BYTE *)(v8 + 50) |= 1u;
-      v28 = dword_6A1B20;
+      v28 = pClass51_global->dword_000D30;
       *(_DWORD *)(v8 + 84) = v4;
       *(_DWORD *)(v8 + 20) = v20;
       *(_BYTE *)(v8 + 89) = 5;
@@ -11637,10 +11637,10 @@ LABEL_30:
       v56 = *(_DWORD *)v4;
       v56 = (unsigned __int64)(-v28 * v56) >> 16;
       v58 = *(_DWORD *)(v4 + 4);
-      LODWORD(v48) = -dword_6A1B24;
-      v58 = (unsigned __int64)(-dword_6A1B24 * v58) >> 16;
+      LODWORD(v48) = -pClass51_global->dword_000D34;
+      v58 = (unsigned __int64)(-pClass51_global->dword_000D34 * v58) >> 16;
       v57 = *(_DWORD *)(v4 + 8);
-      v57 = (unsigned __int64)(-dword_6A1B28 * v57) >> 16;
+      v57 = (unsigned __int64)(-pClass51_global->dword_000D38 * v57) >> 16;
       LODWORD(v48) = v56 + v58 + v57;
       v56 = (unsigned __int64)(1310720i64 * SLODWORD(v48)) >> 16;
       result = 20 - ((signed int)((unsigned __int64)(1310720i64 * SLODWORD(v48)) >> 16) >> 16);
@@ -11839,11 +11839,11 @@ signed int __cdecl sub_479332()
   float v16; // [sp+Ch] [bp-2Ch]@1
  int i;
 
-  v14 = (double)dword_6A1B20 * 0.0000152587890625;
+  v14 = (double)pClass51_global->dword_000D30 * 0.0000152587890625;
   result = 0;
   v1 = &array_77EC08[pStruct9_global->dword_00002C];
-  v15 = (double)dword_6A1B24 * 0.0000152587890625;
-  v16 = (double)dword_6A1B28 * 0.0000152587890625;
+  v15 = (double)pClass51_global->dword_000D34 * 0.0000152587890625;
+  v16 = (double)pClass51_global->dword_000D38 * 0.0000152587890625;
   if ( pStruct9_global->dword_00002C > 0)
   {
    i = 0;
@@ -11860,7 +11860,7 @@ signed int __cdecl sub_479332()
         if ( v9 > dword_73D510 - 1 )
           v10 = 0;
         else
-          v10 = dword_76D514 + 12 * v9;
+          v10 = pTerrainNormals + v9;
         if ( v10 )
         {
           v11 = -(v16 * *(float *)(v10 + 8) + v15 * *(float *)(v10 + 4) + v14 * *(float *)v10);
@@ -11887,9 +11887,9 @@ LABEL_24:
      v2 = &array_77EC08[i].ptr_000048;
     }
 
-    v4 = ((__int64)(*array_77EC08[i].ptr_000048)[0] * -dword_6A1B20 / 65536 +
-         (__int64)(*array_77EC08[i].ptr_000048)[1] * -dword_6A1B24 / 65536 +
-         (__int64)(*array_77EC08[i].ptr_000048)[2] * -dword_6A1B28 / 65536) / 65536.0;
+    v4 = ((__int64)(*array_77EC08[i].ptr_000048)[0] * -pClass51_global->dword_000D30 / 65536 +
+         (__int64)(*array_77EC08[i].ptr_000048)[1] * -pClass51_global->dword_000D34 / 65536 +
+         (__int64)(*array_77EC08[i].ptr_000048)[2] * -pClass51_global->dword_000D38 / 65536) / 65536.0;
     if ( v4 < 0.0 )
       v4 = 0.0;
     v6 = v4 * 31.0;
@@ -12876,8 +12876,8 @@ char *__fastcall sub_47BC6F(int a1, int a2, signed int a3, int a4)
       v10 = 27;
     if ( v10 < a4 )
       v10 = a4;
-    if ( v10 > dword_6A1AAC )
-      v10 = dword_6A1AAC;
+    if ( v10 > pClass51_global->dword_000CBC )
+      v10 = pClass51_global->dword_000CBC;
     return sub_41F50D(v4, v10, 1);
   }
   v6 = 0;
@@ -13016,8 +13016,8 @@ LABEL_46:
         *(_DWORD *)v14 = v20;
       if ( *(_DWORD *)v14 < v16 )
         *(_DWORD *)v14 = v16;
-      if ( *(_DWORD *)v14 > dword_6A1AAC )
-        *(_DWORD *)v14 = dword_6A1AAC;
+      if ( *(_DWORD *)v14 > pClass51_global->dword_000CBC )
+        *(_DWORD *)v14 = pClass51_global->dword_000CBC;
       goto LABEL_45;
     }
     if ( v8 >= dword_6BE040 << 16 )
@@ -13472,8 +13472,8 @@ LABEL_20:
       v5 = 216;
     if ( v5 < v12 )
       v5 = v12;
-    if ( v5 > 8 * dword_6A1AAC )
-      v5 = 8 * dword_6A1AAC;
+    if ( v5 > 8 * pClass51_global->dword_000CBC )
+      v5 = 8 * pClass51_global->dword_000CBC;
     if ( !byte_6BE3C4 )
       return (255 - v5) | ((255 - v5) << 16) | ((255 - v5) << 8);
     v15 = (double)(255 - v5) * 0.003921568859368563;
@@ -13608,33 +13608,6 @@ signed int __thiscall sub_47ECC1(int this, signed int a2)
   else
   {
     result = 0;
-  }
-  return result;
-}
-
-//----- (0047ED08) --------------------------------------------------------
-int __thiscall sub_47ED08(int this, signed int a2, signed int a3)
-{
-  int v3; // esi@5
-  int result; // eax@9
-
-  if ( a2 < 0 || a2 > 127 || a3 < 0 || a3 > 127 )
-  {
-    result = 0;
-  }
-  else
-  {
-    v3 = *(_BYTE *)((a3 << 7) + *(_DWORD *)(this + 184) + a2);
-    if ( v3 < 198 )
-    {
-      if ( v3 >= 90 )
-        v3 = v3 + *(_WORD *)(this + 4 * (v3 - 90) / 36 + 162) - 36 * (v3 - 90) / 36 - 90;
-    }
-    else
-    {
-      v3 = v3 + *(_WORD *)(this + 174) - 198;
-    }
-    result = *(_WORD *)(26 * v3 + pTileTable->pTiles + 18);
   }
   return result;
 }
@@ -13776,13 +13749,13 @@ bool __thiscall sub_47F097(void *this, signed int a2, signed int a3)
 //----- (0047F44B) --------------------------------------------------------
 int __stdcall sub_47F44B(signed int a1)
 {
-  return (a1 >> 9) + 64;
+  return (a1 / 512) + 64;
 }
 
 //----- (0047F458) --------------------------------------------------------
 int __stdcall sub_47F458(signed int a1)
 {
-  return 64 - (a1 >> 9);
+  return 64 - (a1 / 512);
 }
 
 //----- (0047F469) --------------------------------------------------------
@@ -13978,9 +13951,9 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
   v3 = 0;
   v88 = 0;
   v84 = v4 - 1;
-  v90 = (double)dword_6A1B20 * 0.0000152587890625;
-  v91 = (double)dword_6A1B24 * 0.0000152587890625;
-  v92 = (double)dword_6A1B28 * 0.0000152587890625;
+  v90 = (double)pClass51_global->dword_000D30 * 0.0000152587890625;
+  v91 = (double)pClass51_global->dword_000D34 * 0.0000152587890625;
+  v92 = (double)pClass51_global->dword_000D38 * 0.0000152587890625;
   if ( v4 - 1 > 0 )
   {
     while ( 1 )
@@ -14020,11 +13993,11 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
         || *(float *)(v106 + 8) != *(float *)(v104 + 8) )
         break;
       v15 = &array_77EC08[pStruct9_global->dword_00002C];
-      v16 = sub_488EEF(pClass51_global, v98, v101);
+      v16 = class51_sub_488EEF_GetSomeTileInfo(pClass51_global, v98, v101);
       *(_WORD *)(v15 + 76) = v16;
       if ( v16 != -1 )
       {
-        v18 = sub_488EB1(pClass51_global, v98, v101);
+        v18 = class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v98, v101);
         LOWORD(v18) = v18 | 0x8010;
         v19 = v97;
         *(_DWORD *)(v15 + 48) = v18;
@@ -14038,7 +14011,7 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
         if ( v17 < 0 || v17 > dword_73D510 - 1 )
           v22 = 0;
         else
-          v22 = dword_76D514 + 12 * v17;
+          v22 = pTerrainNormals + v17;
         v23 = v92 * *(float *)(v22 + 8);
         LODWORD(v105) = v22;
         v111 = 20.0 - (-v23 - v91 * *(float *)(v22 + 4) - v90 * *(float *)v22) * 20.0;
@@ -14177,11 +14150,11 @@ LABEL_162:
         return;
     }
     v39 = &array_77EC08[pStruct9_global->dword_00002C];
-    v40 = sub_488EEF(pClass51_global, v98, v101);
+    v40 = class51_sub_488EEF_GetSomeTileInfo(pClass51_global, v98, v101);
     *(_WORD *)(v39 + 76) = v40;
     if ( v40 == -1 )
       goto LABEL_162;
-    v42 = sub_488EB1(pClass51_global, v98, v101);
+    v42 = class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v98, v101);
     BYTE1(v42) |= 0x80u;
     v43 = v97;
     *(_DWORD *)(v39 + 48) = v42;
@@ -14197,7 +14170,7 @@ LABEL_162:
     if ( v41 < 0 || v41 > dword_73D510 - 1 )
       v47 = 0;
     else
-      v47 = dword_76D514 + 12 * v41;
+      v47 = pTerrainNormals + v41;
     v48 = v92 * *(float *)(v47 + 8);
     LODWORD(v105) = v47;
     v113 = 20.0 - (-v48 - v91 * *(float *)(v47 + 4) - v90 * *(float *)v47) * 20.0;
@@ -14324,11 +14297,11 @@ LABEL_105:
 LABEL_112:
     v58 = &array_77EC08[pStruct9_global->dword_00002C];
     v107 = &array_77EC08[pStruct9_global->dword_00002C];
-    v59 = sub_488EEF(pClass51_global, v98, v101);
+    v59 = class51_sub_488EEF_GetSomeTileInfo(pClass51_global, v98, v101);
     *(_WORD *)(v58 + 76) = v59;
     if ( v59 == -1 )
       goto LABEL_162;
-    *(_DWORD *)(v58 + 48) = sub_488EB1(pClass51_global, v98, v101);
+    *(_DWORD *)(v58 + 48) = class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v98, v101);
     v61 = v93;
     *(_BYTE *)(v58 + 89) = 1;
     *(_DWORD *)(v58 + 52) = *(_WORD *)(v61 + 2);
@@ -14338,7 +14311,7 @@ LABEL_112:
     if ( v60 > dword_73D510 - 1 )
       v62 = 0;
     else
-      v62 = dword_76D514 + 12 * v60;
+      v62 = pTerrainNormals + v60;
     v63 = v92 * *(float *)(v62 + 8);
     LODWORD(v105) = v62;
     v115 = 20.0 - (-v63 - v91 * *(float *)(v62 + 4) - v90 * *(float *)v62) * 20.0;
@@ -14580,206 +14553,220 @@ char __fastcall sub_481DB2(int a1, signed int a2, int a3)
 }
 
 //----- (00481EFA) --------------------------------------------------------
-bool __fastcall sub_481EFA(int a1, int a2, int a3, int a4, int a5)
+bool sub_481EFA(struct struct14 *a1, struct struct14 *a2, struct struct14 *a3, struct struct14 *a4, int a5)
 {
-  int v5; // edx@1
-  int v6; // esi@1
-  bool v7; // edi@2
-  bool v8; // ecx@5
-  bool v9; // esi@8
-  bool v10; // eax@11
-  double v11; // st7@14
-  signed int v12; // esi@15
-  signed int v13; // edx@18
-  signed int v14; // ecx@21
-  signed int v15; // eax@24
-  int v17; // [sp+Ch] [bp-8h]@1
+ double v11; // st7@14
 
-  v6 = a2;
-  v5 = a1;
-  v17 = v6;
-  v7 = *(float *)(a1 + 12) < 8.0;
-  v8 = *(float *)(v6 + 12) < 8.0;
-  v9 = *(float *)(a3 + 12) < 8.0;
-  v10 = *(float *)(a4 + 12) < 8.0;
-  return !(v8 & v9 & v10 & v7)
-      && ((v11 = (double)pStruct9_global->shading_dist_mist, v11 > *(float *)(v5 + 12)) ? (v12 = 0) : (v12 = 1),
-          v11 > *(float *)(v17 + 12) ? (v13 = 0) : (v13 = 1),
-          v11 > *(float *)(a3 + 12) ? (v14 = 0) : (v14 = 1),
-          v11 > *(float *)(a4 + 12) ? (v15 = 0) : (v15 = 1),
-          !(v13 & v14 & v15 & v12));
+ v11 = pStruct9_global->shading_dist_mist;
+ return (a1->flt_00000C >= 8.0 || a2->flt_00000C >= 8.0 || a3->flt_00000C >= 8.0 || a4->flt_00000C >= 8.0) &&
+        (a1->flt_00000C <= v11 || a2->flt_00000C <= v11 || a3->flt_00000C <= v11 || a4->flt_00000C <= v11);
 }
 
 //----- (00481FC9) --------------------------------------------------------
-signed int __fastcall sub_481FC9(int _ECX, int a2, int a3, int a4)
+bool sub_481FC9(struct struct14 *a1, struct struct14 *a2, struct struct14 *a3, struct struct8 *a4)
 {
-  signed int result; // eax@5
-  __int64 v11; // ST08_8@6
-  __int64 v12; // ST08_8@6
-  __int64 v13; // ST08_8@6
-  __int64 v14; // ST08_8@6
+ float arg_0, arg_4, var_4, var_8, var_c, var_10, var_14;
 
-  __asm { fld     dword ptr [ecx+8] }
-  compile_error;//_ESI = a2;
-  compile_error;//_EDX = a3;
-  __asm { fcomp   dword ptr [esi+8] }
-  compile_error;//_EDI = a4;
-  __asm { fnstsw  ax }
-
-  compile_error;//if ( !__SETP__(HIBYTE(_AX) & 0x44, 0) )
-  if (0)
+  /*
+  fld     a1->y
+  _ESI = a2;
+  _EDX = a3;
+  fcomp   a2->y
+  _EDI = a4;
+  fnstsw  ax
+  test ah, 44h
+  jnp block
   {
-    __asm
-    {
-      fld     dword ptr [esi+8]
-      fcomp   dword ptr [edx+8]
+      fld     a2->y
+      fcomp   a3->y
       fnstsw  ax
-    }
-    compile_error;//if ( !__SETP__(HIBYTE(_AX) & 0x44, 0) )
-      compile_error;//*(_DWORD *)(a4 + 48) |= 0x10u;
-  }
-  __asm
-  {
-   int 3
-    fld     dword ptr [ecx+0Ch]
-    fsub    dword ptr [esi+0Ch]
-    //fstp    [ebp+var_C]
-    fld     dword ptr [ecx+10h]
-    fsub    dword ptr [esi+10h]
-    //fstp    [ebp+var_14]
-    fld     dword ptr [ecx+14h]
-    fsub    dword ptr [esi+14h]
-    //fstp    [ebp+arg_0]
-    fld     dword ptr [edx+0Ch]
-    fsub    dword ptr [esi+0Ch]
-    //fstp    [ebp+var_10]
-    fld     dword ptr [edx+10h]
-    fsub    dword ptr [esi+10h]
-    //fstp    [ebp+var_8]
-    fld     dword ptr [edx+14h]
-    fsub    dword ptr [esi+14h]
-    //fstp    [ebp+var_4]
-    fld     dword ptr [ecx]
-    fsub    dword ptr [esi]
-    fld     dword ptr [ecx+4]
-    fsub    dword ptr [esi+4]
-    fld     dword ptr [ecx+8]
-    fsub    dword ptr [esi+8]
-    fld     dword ptr [edx]
-    fsub    dword ptr [esi]
-    fld     dword ptr [edx+4]
-    fsub    dword ptr [esi+4]
-    fld     dword ptr [edx+8]
-    fsub    dword ptr [esi+8]
-    //fstp    [ebp+arg_4]
-    fld     st
-    fmul    st, st(3)
-    //fld     [ebp+arg_4]
-    fmul    st, st(5)
-    fsubp   st(1), st
-    //fild    pClass55_global->dword_000000
-    fsub    dword ptr [esi]
-    fmulp   st(1), st
-    //fld     [ebp+arg_4]
-    fmul    st, st(6)
-    fld     st(3)
-    fmul    st, st(5)
-    fsubp   st(1), st
-    //fild    pClass55_global->dword_000004
-    fsub    dword ptr [esi+4]
-    fmulp   st(1), st
-    faddp   st(1), st
-    fld     st(2)
-    fmul    st, st(5)
-    fld     st(2)
-    fmul    st, st(7)
-    fsubp   st(1), st
-    //fild    pClass55_global->dword_000008
-    fsub    dword ptr [esi+8]
-    fmulp   st(1), st
-    faddp   st(1), st
-    fcomp   dword ptr ds:byte_4D8410+0D8h
-    fstp    st
-    fstp    st
-    fstp    st
-    fnstsw  ax
-    fstp    st
-    fstp    st
-  }
+      test ah, 44h
+      jnp block
+      {
+       *(_DWORD *)(a4 + 48) |= 0x10u;
+      }
 
-  compile_error;//if ( __SETP__(HIBYTE(_AX) & 0x41, 0) )
-  if (1)
+  }
+  */
+  if (a1->y == a2->y && a2->y == a3->y)
+    a4->dword_000030 |= 0x10;
+
+  
+    //fld     a1->flt_00000C
+    //fsub    a2->flt_00000C
+    //fstp    [ebp+var_C]
+  var_c = a1->flt_00000C - a2->flt_00000C;
+
+    //fld     a1->flt_000010
+    //fsub    a2->flt_000010
+    //fstp    [ebp+var_14]
+  var_14 = a1->flt_000010 - a2->flt_000010;
+
+    //fld     dword ptr [ecx+14h]
+    //fsub    dword ptr [esi+14h]
+    //fstp    [ebp+arg_0]
+  arg_0 = a1->flt_000014 - a2->flt_000014;
+
+    //fld     dword ptr [edx+0Ch]
+    //fsub    dword ptr [esi+0Ch]
+    //fstp    [ebp+var_10]
+  var_10 = a3->flt_00000C - a2->flt_00000C;
+
+    //fld     dword ptr [edx+10h]
+    //fsub    dword ptr [esi+10h]
+    //fstp    [ebp+var_8]
+  var_8 = a3->flt_000010 - a2->flt_000010;
+
+    //fld     dword ptr [edx+14h]
+    //fsub    dword ptr [esi+14h]
+    //fstp    [ebp+var_4]
+  var_4 = a3->flt_000014 - a2->flt_000014;
+
+  /*
+    fld     dword ptr [ecx]     //a1->x
+    fsub    dword ptr [esi]     //(a1->x - a2->x)
+
+    fld     dword ptr [ecx+4]   //a1->z			(a1->x - a2->x)
+    fsub    dword ptr [esi+4]   //(a1->z - a2->z)	(a1->x - a2->x)
+
+    fld     dword ptr [ecx+8]   //a1->y			(a1->z - a2->z)		(a1->x - a2->x)
+    fsub    dword ptr [esi+8]   //(a1->y - a2->y)	(a1->z - a2->z)		(a1->x - a2->x)
+
+    fld     dword ptr [edx]     //a3->x			(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fsub    dword ptr [esi]     //(a3->x - a2->x)	(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+
+    fld     dword ptr [edx+4]   //a3->z			(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fsub    dword ptr [esi+4]   //(a3->z - a2->z)	(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+
+    fld     dword ptr [edx+8]   //a3->y			(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fsub    dword ptr [esi+8]   //(a3->y - a2->y)	(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fstp    [ebp+arg_4]         //(a3->z - a2->z)	(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+  */
+  arg_4 = a3->y - a2->y;
+
+  /*
+    fld     st                            //(a3->z - a2->z)													(a3->z - a2->z)														(a3->x - a2->x)														(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fmul    st, st(3)                     //(a3->z - a2->z)*(a1->y - a2->y)											(a3->z - a2->z)														(a3->x - a2->x)														(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fld     [ebp+arg_4]                   //(a3->y - a2->y)													(a3->z - a2->z)*(a1->y - a2->y)												(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fmul    st, st(5)                     //(a3->y - a2->y)*(a1->z - a2->z)											(a3->z - a2->z)*(a1->y - a2->y)												(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fsubp   st(1), st                     //(a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z)							(a3->z - a2->z)														(a3->x - a2->x)														(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fild    pClass55_global->dword_000000 //pClass55_global->dword_000000    											(a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z)								(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fsub    dword ptr [esi]               //(pClass55_global->dword_000000 - a2->x)										(a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z)								(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fmulp   st(1), st                     //((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pClass55_global->dword_000000 - a2->x)		(a3->z - a2->z)														(a3->x - a2->x)														(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fld     [ebp+arg_4]                   //(a3->y - a2->y)													((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pClass55_global->dword_000000 - a2->x)		(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fmul    st, st(6)                     //(a3->y - a2->y)*(a1->x - a2->x)											((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pClass55_global->dword_000000 - a2->x)		(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fld     st(3)                         //(a3->x - a2->x)													(a3->y - a2->y)*(a1->x - a2->x)												((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pClass55_global->dword_000000 - a2->x)		(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fmul    st, st(5)                     //(a3->x - a2->x)*(a1->y - a2->y)											(a3->y - a2->y)*(a1->x - a2->x)												((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pClass55_global->dword_000000 - a2->x)		(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fsubp   st(1), st                     //(a3->y - a2->y)*(a1->x - a2->x)-(a3->x - a2->x)*(a1->y - a2->y)							((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pClass55_global->dword_000000 - a2->x)		(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fild    pClass55_global->dword_000004 //pClass55_global->dword_000004											(a3->y - a2->y)*(a1->x - a2->x)-(a3->x - a2->x)*(a1->y - a2->y)								((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pClass55_global->dword_000000 - a2->x)		(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fsub    dword ptr [esi+4]             //(pClass55_global->dword_000004 - a2->z)										(a3->y - a2->y)*(a1->x - a2->x)-(a3->x - a2->x)*(a1->y - a2->y)								((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pClass55_global->dword_000000 - a2->x)		(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fmulp   st(1), st                     //((a3->y - a2->y)*(a1->x - a2->x)-(a3->x - a2->x)*(a1->y - a2->y))*(pClass55_global->dword_000004 - a2->z)		((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pClass55_global->dword_000000 - a2->x)		(a3->z - a2->z)														(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+//@1 = ((a3->y - a2->y)*(a1->x - a2->x)-(a3->x - a2->x)*(a1->y - a2->y))*(pClass55_global->dword_000004 - a2->z) + ((a3->z - a2->z)*(a1->y - a2->y)-(a3->y - a2->y)*(a1->z - a2->z))*(pClass55_global->dword_000000 - a2->x)
+
+    faddp   st(1), st                     //@1															(a3->z - a2->z)								(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fld     st(2)                         //(a3->x - a2->x)													@1									(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fmul    st, st(5)                     //(a3->x - a2->x)*(a1->z - a2->z)											@1									(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fld     st(2)                         //(a3->z - a2->z)													(a3->x - a2->x)*(a1->z - a2->z)						@1			(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fmul    st, st(7)                     //(a3->z - a2->z)*(a1->x - a2->x)											(a3->x - a2->x)*(a1->z - a2->z)						@1			(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fsubp   st(1), st                     //(a3->x - a2->x)*(a1->z - a2->z)-(a3->z - a2->z)*(a1->x - a2->x)							@1									(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fild    pClass55_global->dword_000008 //pClass55_global->dword_000008											(a3->x - a2->x)*(a1->z - a2->z)-(a3->z - a2->z)*(a1->x - a2->x)		@1			(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fsub    dword ptr [esi+8]             //(pClass55_global->dword_000008 - a2->y)										(a3->x - a2->x)*(a1->z - a2->z)-(a3->z - a2->z)*(a1->x - a2->x)		@1			(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fmulp   st(1), st                     //((a3->x - a2->x)*(a1->z - a2->z)-(a3->z - a2->z)*(a1->x - a2->x))*(pClass55_global->dword_000008 - a2->y)		@1									(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+//@2 = @1 + ((a3->x - a2->x)*(a1->z - a2->z)-(a3->z - a2->z)*(a1->x - a2->x))*(pClass55_global->dword_000008 - a2->y)
+
+    faddp   st(1), st                     //@2			(a3->z - a2->z)		(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fcomp   0.0f                          //(a3->z - a2->z)	(a3->x - a2->x)		(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fstp    st                            //(a3->x - a2->x)	(a1->y - a2->y)		(a1->z - a2->z)		(a1->x - a2->x)
+    fstp    st                            //(a1->y - a2->y)	(a1->z - a2->z)		(a1->x - a2->x)
+    fstp    st                            //(a1->z - a2->z)	(a1->x - a2->x)
+    fnstsw  ax
+    fstp    st                            //(a1->x - a2->x)
+    fstp    st                            //empty
+    */
+  if (((a3->y - a2->y) * (a1->x - a2->x) - (a3->x - a2->x) * (a1->y - a2->y)) * (pClass55_global->dword_000004 - a2->z) +
+      ((a3->z - a2->z) * (a1->y - a2->y) - (a3->y - a2->y) * (a1->z - a2->z)) * (pClass55_global->dword_000000 - a2->x) +
+      ((a3->x - a2->x) * (a1->z - a2->z) - (a3->z - a2->z) * (a1->x - a2->x)) * (pClass55_global->dword_000008 - a2->y) < 0)
   {
-    __asm
-    {
-     int 3
-      //fld     [ebp+var_4]
-      //fmul    [ebp+var_14]
-      //fld     [ebp+var_8]
-      //fmul    [ebp+arg_0]
-      fsubp   st(1), st
-      //fstp    [ebp+arg_4]
-      //fld     [ebp+arg_4]
+   /*
+      fld     [ebp+var_4]                    //var_4
+      fmul    [ebp+var_14]                   //var_4 * var_14
+      fld     [ebp+var_8]                    //var_8					var_4 * var_14
+      fmul    [ebp+arg_0]                    //var_8 * arg_0				var_4 * var_14
+      fsubp   st(1), st                      //(var_4 * var_14 - var_8 * arg_0)
+      fstp    [ebp+arg_4]                    //empty
+   */
+   arg_4 = var_4 * var_14 - var_8 * arg_0;
+
+   /*
+   //arg_4 rounding
+      fld     [ebp+arg_4]                    //arg_4
+      fadd    dword ptr ds:byte_4D8410+3C0h  //arg_4 + const
+      fstp    [ebp+var_20]                   //empty
+   */
+   a4->dword_000018 = floorf(arg_4 + 0.5f);
+
+   /*
+      fld     [ebp+var_10]                   //var_10
+      fmul    [ebp+arg_0]                    //var_10 * arg_0
+      fld     [ebp+var_4]                    //var_4		var_10 * arg_0
+      fmul    [ebp+var_C]                    //var_4 * var_c	var_10 * arg_0
+
+      fsubp   st(1), st                      //(var_10 * arg_0 - var_4 * var_c)
+      fstp    [ebp+arg_4]                    //empty
+   */
+   arg_4 = var_10 * arg_0 - var_4 * var_c;
+
+   /*
+      fld     [ebp+arg_4]
       fadd    dword ptr ds:byte_4D8410+3C0h
-     // fstp    [ebp+var_20]
-      //fld     [ebp+var_10]
-      //fmul    [ebp+arg_0]
-      //fld     [ebp+var_4]
-      //fmul    [ebp+var_C]
-    }
-    compile_error;//*(_DWORD *)(_EDI + 24) = v11;
-    __asm
-    {
-     int 3
-      fsubp   st(1), st
-      //fstp    [ebp+arg_4]
-      //fld     [ebp+arg_4]
+      fstp    [ebp+var_20]
+   */
+   a4->dword_00001C = floorf(arg_4 + 0.5f);
+
+   /*
+      fld     [ebp+var_8]                   //var_8
+      fmul    [ebp+var_C]                   //var_8 * var_c
+      fld     [ebp+var_10]                  //var_10				var_8 * var_c
+      fmul    [ebp+var_14]                  //var_10 * var_14			var_8 * var_c
+      fsubp   st(1), st                     //(var_8 * var_c - var_10 * var_14)
+      fstp    [ebp+arg_4]
+   */
+   arg_4 = var_8 * var_c - var_10 * var_14;
+
+   /*
+      fld     [ebp+arg_4]
       fadd    dword ptr ds:byte_4D8410+3C0h
-      //fstp    [ebp+var_20]
-      //fld     [ebp+var_8]
-      //fmul    [ebp+var_C]
-      //fld     [ebp+var_10]
-      //fmul    [ebp+var_14]
-    }
-    compile_error;//*(_DWORD *)(_EDI + 28) = v12;
-    __asm
-    {
-     int 3
-      fsubp   st(1), st
-      //fstp    [ebp+arg_4]
-      //fld     [ebp+arg_4]
+      fstp    [ebp+var_20]
+   */
+   a4->dword_000020 = floorf(arg_4 + 0.5f);
+
+   sub_486089(a4);
+
+   /*
+      fild    dword ptr [edi+18h]           //a4->dword_000018
+      fmul    dword ptr [esi+0Ch]           //a4->dword_000018 * a2->float_00000C
+      fchs                                  //-(a4->dword_000018 * a2->flt_00000C)
+      fild    dword ptr [edi+1Ch]           //a4->dword_00001C														-(a4->dword_000018 * a2->flt_00000C)
+      fmul    dword ptr [esi+10h]           //a4->dword_00001C * a2->float_000010											-(a4->dword_000018 * a2->flt_00000C)
+      fsubp   st(1), st                     //-(a4->dword_000018 * a2->flt_00000C) - a4->dword_00001C * a2->flt_000010
+      fild    dword ptr [edi+20h]           //a4->dword_000020														-(a4->dword_000018 * a2->flt_00000C) - a4->dword_00001C * a2->flt_000010
+      fmul    dword ptr [esi+14h]           //a4->dword_000020 * a2->float_000014											-(a4->dword_000018 * a2->flt_00000C) - a4->dword_00001C * a2->flt_000010
+      fsubp   st(1), st                     //-(a4->dword_000018 * a2->flt_00000C) - a4->dword_00001C * a2->flt_000010 - a4->dword_000020 * a2->flt_000014
+      fstp    [ebp+arg_4]                   //empty
+   */
+   arg_4 = -(a4->dword_000018 * a2->flt_00000C) - a4->dword_00001C * a2->flt_000010 - a4->dword_000020 * a2->flt_000014;
+
+   /*
+      fld     [ebp+arg_4]
       fadd    dword ptr ds:byte_4D8410+3C0h
-      //fstp    [ebp+var_20]
-    }
-    compile_error;//*(_DWORD *)(_EDI + 32) = v13;
-    compile_error;//sub_486089(_EDI);
-    __asm
-    {
-     int 3
-      fild    dword ptr [edi+18h]
-      fmul    dword ptr [esi+0Ch]
-      fchs
-      fild    dword ptr [edi+1Ch]
-      fmul    dword ptr [esi+10h]
-      fsubp   st(1), st
-      fild    dword ptr [edi+20h]
-      fmul    dword ptr [esi+14h]
-      fsubp   st(1), st
-      //fstp    [ebp+arg_4]
-      //fld     [ebp+arg_4]
-      fadd    dword ptr ds:byte_4D8410+3C0h
-      //fstp    [ebp+var_20]
-    }
-    compile_error;//*(_DWORD *)(_EDI + 36) = v14;
-    result = 1;
+      fstp    [ebp+var_20]
+   */
+   a4->dword_000024 = floorf(arg_4 + 0.5f);
+   return true;
   }
   else
-  {
-    result = 0;
-  }
-  return result;
+    return false;
 }
-// 481FCF: inconsistent fpu stack
 
 //----- (004823F4) --------------------------------------------------------
 bool __fastcall sub_4823F4(signed int a1, signed int a2)
@@ -17647,42 +17634,6 @@ int __thiscall sub_487E3B(int this, int a2)
     result = *(_DWORD *)(this + 4);
   else
     result = *(_DWORD *)(this + 4) + 26 * a2;
-  return result;
-}
-
-//----- (00488EB1) --------------------------------------------------------
-int __thiscall sub_488EB1(void *this, signed int a2, signed int a3)
-{
-  int v3; // eax@1
-  int v4; // edi@1
-  int v5; // esi@1
-  int result; // eax@5
-
-  v5 = (int)this;
-  v4 = sub_47F458(a3);
-  v3 = sub_47F44B(a2);
-  if ( v3 < 0 || v3 > 127 || v4 < 0 || v4 > 127 )
-    result = 0;
-  else
-    result = class51_sub_47EDB3_MessWithHeightmapAndTiles(v5, v3, v4);
-  return result;
-}
-
-//----- (00488EEF) --------------------------------------------------------
-int __thiscall sub_488EEF(void *this, signed int a2, signed int a3)
-{
-  int v3; // eax@1
-  int v4; // edi@1
-  int v5; // esi@1
-  int result; // eax@5
-
-  v5 = (int)this;
-  v4 = sub_47F458(a3);
-  v3 = sub_47F44B(a2);
-  if ( v3 < 0 || v3 > 127 || v4 < 0 || v4 > 127 )
-    result = -1;
-  else
-    result = sub_47ED08(v5, v3, v4);
   return result;
 }
 

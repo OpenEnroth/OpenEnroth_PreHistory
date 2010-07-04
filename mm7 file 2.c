@@ -8988,9 +8988,9 @@ char __cdecl sub_413D6F()
   FontDrawText(&v5, dword_5C35F4, 70, 55, ExistingFileName, 0, 0, 0);
   wsprintfA(ExistingFileName, "%s\t100:\t110%d - %s", pGlobalTXT_LocalizationStrings[56], pParty_global->dword_000718 + 1, aDayNames[pParty_global->dword_000718 % 7]);
   FontDrawText(&v5, dword_5C35F4, 70, 2 * *(_BYTE *)(dword_5C35F4 + 5) + 49, ExistingFileName, 0, 0, 0);
-  wsprintfA(ExistingFileName, "%s\t100:\t110%d - %s", pGlobalTXT_LocalizationStrings[146], dword_ACD6C8 + 1, aMonthNames[dword_ACD6C8]);
+  wsprintfA(ExistingFileName, "%s\t100:\t110%d - %s", pGlobalTXT_LocalizationStrings[146], pParty_global->dword_000710 + 1, aMonthNames[pParty_global->dword_000710]);
   FontDrawText(&v5, dword_5C35F4, 70, 4 * *(_BYTE *)(dword_5C35F4 + 5) + 43, ExistingFileName, 0, 0, 0);
-  wsprintfA(ExistingFileName, "%s\t100:\t110%d", pGlobalTXT_LocalizationStrings[245], dword_ACD6C4);
+  wsprintfA(ExistingFileName, "%s\t100:\t110%d", pGlobalTXT_LocalizationStrings[245], pParty_global->dword_00070C);
   FontDrawText(&v5, dword_5C35F4, 70, 6 * *(_BYTE *)(dword_5C35F4 + 5) + 37, ExistingFileName, 0, 0, 0);
   wsprintfA(ExistingFileName, "%s\t100:\t110%s", pGlobalTXT_LocalizationStrings[530], aMoonPhaseNames[v12]);
   FontDrawText(&v5, dword_5C35F4, 70, 8 * *(_BYTE *)(dword_5C35F4 + 5) + 31, ExistingFileName, 0, 0, 0);
@@ -11269,9 +11269,9 @@ void __thiscall sub_416B01(void *this)
       }
       while ( (signed int)lpsz < dword_73C194 );
     }
-    if ( (signed int)((char *)v22 + (unsigned __int8)byte_ACD6C1) < v3 )
+    if ( (signed int)((char *)v22 + (unsigned __int8)pParty_global->byte_000709) < v3 )
     {
-      dword_591090 = -1 - (unsigned __int8)byte_ACD6C1 - (_DWORD)v22;
+      dword_591090 = -1 - (unsigned __int8)pParty_global->byte_000709 - (_DWORD)v22;
       v5 = sub_445B2C(dword_591090, (int)&v21);
       v6 = v5;
       if ( v5 )
@@ -17371,9 +17371,9 @@ void __cdecl sub_41FA01()
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, 368, 168, ExistingFileName, 0, 0, *(char **)v18);
     wsprintfA(ExistingFileName, "%s\r190%d", pGlobalTXT_LocalizationStrings[56], pParty_global->dword_000718 + 1);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, 350, 190, ExistingFileName, 0, 0, *(char **)v18);
-    wsprintfA(ExistingFileName, "%s\r190%d", pGlobalTXT_LocalizationStrings[146], dword_ACD6C8 + 1);
+    wsprintfA(ExistingFileName, "%s\r190%d", pGlobalTXT_LocalizationStrings[146], pParty_global->dword_000710 + 1);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, 350, 222, ExistingFileName, 0, 0, *(char **)v18);
-    wsprintfA(ExistingFileName, "%s\r190%d", pGlobalTXT_LocalizationStrings[245], dword_ACD6C4);
+    wsprintfA(ExistingFileName, "%s\r190%d", pGlobalTXT_LocalizationStrings[245], pParty_global->dword_00070C);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, 350, 254, ExistingFileName, 0, 0, *(char **)v18);
     if ( dword_506F14 )
       sub_41F5BE();
@@ -18903,7 +18903,6 @@ LABEL_24:
 void __cdecl sub_42213C()
 {
   signed int v0; // ebx@2
-  int v1; // esi@3
   signed int v2; // eax@9
   int v3; // eax@10
   int v4; // eax@11
@@ -18935,11 +18934,12 @@ void __cdecl sub_42213C()
   __int16 v30; // [sp+26h] [bp-66h]@19
   __int16 v31; // [sp+28h] [bp-64h]@19
   __int16 v32; // [sp+2Ah] [bp-62h]@19
-  char Dst; // [sp+30h] [bp-5Ch]@19
+  char Dst[0x34]; // [sp+30h] [bp-5Ch]@19
   int v34; // [sp+64h] [bp-28h]@19
   char v35; // [sp+7Ch] [bp-10h]@3
   char v36; // [sp+84h] [bp-8h]@3
   int v37; // [sp+88h] [bp-4h]@30
+ POINT pt;
 
   sub_404828(&v24);
   if ( pD3DRenderer->dword_040088 )
@@ -18948,10 +18948,10 @@ void __cdecl sub_42213C()
   }
   else
   {
-    v1 = class03_GetMousePos(pGame->pClass03, (int)&v36);
-    v0 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
-                   + 4 * (*(_DWORD *)v1 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v35) + 4)]));
+   class03_GetMousePos(pGame->pClass03, &pt);
+   v0 = pD3DRenderer->pActiveZBuffer[pt.x + dword_5059A8[pt.y]];
   }
+
   if ( (v0 & 7) == 2 )
   {
     v37 = (signed int)(unsigned __int16)v0 >> 3;

@@ -2933,7 +2933,7 @@ LABEL_56:
           v9 = 0;
           v11 = 0;
           memset(&struct_AD4674[i], 0, sizeof(struct unnamed_AD4674));
-          byte_ACD6C1 = 0;
+          pParty_global->byte_000709 = 0;
           sub_44A56A();
           struct_576FE8.dword_000044 = 1;
         }
@@ -13323,8 +13323,8 @@ void __thiscall sub_4A2ED5(int this, signed int a2, int a3, int a4)
         12,
         1);
       v5 = 31 - (*(_BYTE *)(a3 + 88) & 0x1F);
-      if ( v5 < dword_6A1AAC )
-        v5 = dword_6A1AAC;
+      if ( v5 < pClass51_global->dword_000CBC )
+        v5 = pClass51_global->dword_000CBC;
       v6 = 8 * v5 | ((8 * v5 | (v5 << 11)) << 8);
       if ( a2 > 0 )
       {

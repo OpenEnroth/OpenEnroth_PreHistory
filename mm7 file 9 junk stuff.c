@@ -8,6 +8,57 @@
 #include "data.h"
 
 
+/*x87 COMPARISON OPCODES
+
+  if (a == b)
+00D07D7D D9 45 A4             fld         dword ptr [ebp-5Ch]  
+00D07D80 D9 45 A0             fld         dword ptr [ebp-60h]  
+00D07D83 DA E9                fucompp  
+00D07D85 DF E0                fnstsw      ax  
+00D07D87 F6 C4 44             test        ah,44h  
+00D07D8A 7A 11                jp          NOT_EQUAL
+
+  if (a != b)
+00D07D9E D9 45 A4             fld         dword ptr [ebp-5Ch]  
+00D07DA1 D9 45 A0             fld         dword ptr [ebp-60h]  
+00D07DA4 DA E9                fucompp  
+00D07DA6 DF E0                fnstsw      ax  
+00D07DA8 F6 C4 44             test        ah,44h  
+00D07DAB 7B 11                jnp         EQUAL
+
+  if (a > b)
+00C97D7D D9 45 A4             fld         dword ptr [ebp-5Ch]  
+00C97D80 D9 45 A0             fld         dword ptr [ebp-60h]  
+00C97D83 DE D9                fcompp  
+00C97D85 DF E0                fnstsw      ax  
+00C97D87 F6 C4 05             test        ah,5  
+00C97D8A 7A 11                jp          LESS_OR_EQUAL
+
+  if (a >= b)
+00C97D9E D9 45 A4             fld         dword ptr [ebp-5Ch]  
+00C97DA1 D9 45 A0             fld         dword ptr [ebp-60h]  
+00C97DA4 DE D9                fcompp  
+00C97DA6 DF E0                fnstsw      ax  
+00C97DA8 F6 C4 41             test        ah,41h  
+00C97DAB 7A 11                jp          LESS
+
+  if (a < b)
+00C97DBF D9 45 A4             fld         dword ptr [ebp-5Ch]  
+00C97DC2 D9 45 A0             fld         dword ptr [ebp-60h]  
+00C97DC5 DE D9                fcompp  
+00C97DC7 DF E0                fnstsw      ax  
+00C97DC9 F6 C4 41             test        ah,41h  
+00C97DCC 75 11                jne         GREATER_OR_EQUAL
+
+  if (a <= b)
+00C97DE0 D9 45 A4             fld         dword ptr [ebp-5Ch]  
+00C97DE3 D9 45 A0             fld         dword ptr [ebp-60h]  
+00C97DE6 DE D9                fcompp  
+00C97DE8 DF E0                fnstsw      ax  
+00C97DEA F6 C4 01             test        ah,1  
+00C97DED 75 11                jne         GREATER
+*/
+
 
 
 
