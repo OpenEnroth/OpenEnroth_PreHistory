@@ -40,7 +40,7 @@
 00C97DA4 DE D9                fcompp  
 00C97DA6 DF E0                fnstsw      ax  
 00C97DA8 F6 C4 41             test        ah,41h  
-00C97DAB 7A 11                jp          LESS
+00C97DAB 7A 11                jp/jz       LESS
 
   if (a < b)
 00C97DBF D9 45 A4             fld         dword ptr [ebp-5Ch]  

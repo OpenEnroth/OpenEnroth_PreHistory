@@ -1291,8 +1291,8 @@ struct Font *pFontSmallnum = 0; // ptr @ MM7.exe::005C3608
 struct struct14 array_73D150[20]; // struct[20] @ MM7.exe::0073D150
 
 struct Edge *pNewEdgesBuf = 0; // ptr @ MM7.exe::0080C968
-void        *pSurfsBuf = 0;    // ptr @ MM7.exe::0080C96C
-void        *pEdgesBuf = 0;    // ptr @ MM7.exe::0080C970
+struct Surf *pSurfsBuf = 0;    // ptr @ MM7.exe::0080C96C
+struct Edge *pEdgesBuf = 0;    // ptr @ MM7.exe::0080C970
 struct Span *pSpansBuf = 0;    // ptr @ MM7.exe::0080C974
 
 

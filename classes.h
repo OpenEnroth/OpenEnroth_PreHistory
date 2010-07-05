@@ -1657,48 +1657,56 @@ struct struct8_stru0
  struct struct8_stru1 *ptr_000004;
 };*/
 
+struct struct8_stru0
+{
+ unsigned char  *pNext;   // ptr @ 000000
+ struct struct8 *pParent; // ptr @ 000004
+};
+
 struct struct8
 {
- struct struct8       *ptr_000000;
- struct struct8       *ptr_000004;
- char                  byte_000008[12];
- int                   dword_000014;
- int                   dword_000018;
- int                   dword_00001C;
- int                   dword_000020;
- int                   dword_000024;
- int                   dword_000028;
- int                   dword_00002C;
- int                   dword_000030;   // word_000018 in struct TileDesc
- int                   dword_000034;
- struct class57       *ptr_000038;
- struct class18       *ptr_00003C;
- struct struct8       *ptr_000040;
- struct struct8       *ptr_000044;
- int                 **ptr_000048;
- short                 word_00004C;    // word_000012 in struct TileDesc
- char                  byte_00004E[6];
- struct class51_stru2 *ptr_000054;
- char                  byte_000058;
- char                  byte_000059;
- char                  byte_00005A;
- char                  byte_00005B;
- char                  byte_00005C;
- char                  byte_00005D;
- char                  byte_00005E;
- char                  byte_00005F;
- char                  byte_000060[80];
- int                   dword_0000B0;
- float                 flt_0000B4;
- char                  byte_0000B8[72];
- int                   dword_000100;
- int                   dword_000104;
- char                  byte_000108;
- char                  byte_000109[3];
+ float                  flt_000000;
+ float                  flt_000004;
+ float                  flt_000008;
+ float                  flt_00000C;
+ float                  flt_000010;
+ int                    dword_000014;
+ int                    dword_000018;
+ int                    dword_00001C;
+ int                    dword_000020;
+ int                    dword_000024;
+ int                    dword_000028;
+ int                    dword_00002C;
+ int                    dword_000030;   // word_000018 in struct TileDesc
+ int                    dword_000034;
+ struct class57        *ptr_000038;
+ struct class18        *ptr_00003C;
+ struct struct8_stru0  *ptr_000040;
+ struct struct8_stru0  *ptr_000044;
+ int                  **ptr_000048;
+ short                  word_00004C;    // word_000012 in struct TileDesc
+ short                  word_00004E;
+ short                  word_000050;
+ short                  word_000052;
+ struct class51_stru2  *ptr_000054;
+ char                   byte_000058;    //0..31 steps (step = ï/32) of some rotation
+ char                   byte_000059;
+ char                   byte_00005A;
+ char                   byte_00005B;
+ char                   byte_00005C;
+ char                   byte_00005D;
+ char                   byte_00005E;     //bmodel id
+ char                   byte_00005F;     //bmodel's class51_stru2 id
+ struct Edge           *array_000060[20];
+ int                    dword_0000B0;        //num ptrs in 000060
+ struct Edge           *array_0000B4[20];
+ int                    dword_000104;        //num ptrs in 0000B4
+ char                   byte_000108;
+ char                   byte_000109[3];
 };
 //sizeof == 10C
-//void __thiscall sub_486089(int this);
-void sub_486089(struct struct8 *_this);
+//void __thiscall sub_486089_NormalizeVector(int this);
+void sub_486089_NormalizeVector(struct struct8 *_this);
 //char __stdcall sub_45D3C7(int a1);
 bool __stdcall sub_45D3C7(struct struct8 *_this);
 //int __thiscall sub_48607B(int this, int a2);
@@ -1718,8 +1726,8 @@ struct class55
  float        flt_00001C;
  float        flt_000020;
 
- float flt_00002C;
- float flt_000030;
+ float fSomeSine;   // float @ 00002C
+ float fSomeCosine; // float @ 000030
  float flt_000034;
  float flt_000038;
  int   dword_00003C;
@@ -1766,27 +1774,27 @@ int class57_sub_48694B(struct class57 *_this);
 
 struct struct9
 {
- int dword_000000;
- int shading_dist_shade;     // dword @ 000004
- int shading_dist_shademist; // dword @ 000008
- int shading_dist_mist;      // dword @ 00000C
- int dword_000010;
- int dword_000014;
- int dword_000018;
- int dword_00001C;
- int dword_000020;
- int dword_000024;
- int dword_000028;
- int dword_00002C;
- int dword_000030;
- int dword_000034;
- int dword_000038; // num spans?
- int dword_00003C;
- int dword_000040;
- int dword_000044;
- int dword_000048;
- int dword_00004C;
- int dword_000050;
+ int          dword_000000;
+ int          shading_dist_shade;     // dword @ 000004
+ int          shading_dist_shademist; // dword @ 000008
+ int          shading_dist_mist;      // dword @ 00000C
+ int          dword_000010;
+ int          dword_000014;
+ int          dword_000018;
+ int          dword_00001C;
+ int          dword_000020;
+ int          dword_000024;
+ int          dword_000028;
+ int          dword_00002C;
+ unsigned int uNumEdges; // dword @ 000030
+ unsigned int uNumSurfs; // dword @ 000034
+ unsigned int uNumSpans; // dword @ 000038
+ int          dword_00003C;
+ int          dword_000040;
+ int          dword_000044;
+ int          dword_000048;
+ int          dword_00004C;
+ int          dword_000050;
 };
 //sizeof ~ 54
 //int __thiscall sub_48600E(int this);
@@ -1836,9 +1844,19 @@ int class59_sub_402CAE(struct class59 *_this, int a2);
 
 struct Edge
 {
- char           byte_000000[16];
- unsigned char *ptr_000010;
- char           byte_000014[32];
+ float        flt_000000;
+ float        flt_000004;
+ int          dword_000008;
+ struct Surf *pSurf;            // ptr @ 00000C
+ struct Edge *pNext;            // ptr @ 000010
+ struct Edge *pPrev;            // ptr @ 000014
+ struct Edge *ptr_000018;
+ float        flt_00001C;
+ float        flt_000020;
+ float        flt_000024;
+ float        flt_000028;
+ float        flt_00002C;
+ float        flt_000030;
 };
 //sizeof == 34
 
@@ -1853,6 +1871,21 @@ struct Span
  char  byte_000010[8];
 };
 //sizeof == 18
+
+struct Surf
+{
+ float           flt_000000;
+ float           flt_000004;
+ float           flt_000008;
+ float           flt_00000C;
+ float           flt_000010;
+ struct Surf    *pNext;      // dword @ 000014
+ struct Surf    *pPrev;      // dword @ 000018
+ struct struct8 *ptr_00001C;
+ short           word_000020;
+ short           word_000022;
+};
+//sizeof == 24
 
 
 struct Event
@@ -1878,7 +1911,7 @@ struct struct14
  float flt_000020;
  float u;          // float @ 000024   looks like texture coordinates
  float v;          // float @ 000028
- char  byte_00002C[4];
+ float flt_00002C;
 };
 //sizeof == 30
 

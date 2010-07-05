@@ -1601,7 +1601,7 @@ bool sub_482170(struct class51_stru2 *_this, struct struct14 *a2, struct struct8
  v26 = v27 * v9 - v8 * v29;
  v24 = v7 * v29 - v9 * v28;
  v25 = v8 * v28 - v7 * v27;
- if (v26 == 0.0 && v24 == 0.0 && v25 == 0.0)
+ if (v26 + v24 + v25 == 0.0)
  {
   while (true)
   {
@@ -1638,7 +1638,7 @@ bool sub_482170(struct class51_stru2 *_this, struct struct14 *a2, struct struct8
   v32 = v22 * v19 - v21 * v18;
   a3->dword_000020 = floorf(v32 + 0.5f);
 
-  sub_486089(a3);
+  sub_486089_NormalizeVector(a3);
 
   v33 = -(a3->dword_000018 * a2->flt_00000C) - a3->dword_00001C * a2->flt_000010 - a3->dword_000020 * a2->flt_000014;
   a3->dword_000024 = floorf(v33 + 0.5f);

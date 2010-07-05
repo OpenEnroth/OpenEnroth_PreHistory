@@ -4767,8 +4767,8 @@ void __cdecl sub_487DBE_LooksLikeResetNewEdgesBuf()
 
  for (i = 0; i < 480; ++i)
  {
-  pNewEdgesBuf[i].ptr_000010 = &unk_4EC3EC;
-  dword_80CA10[i] = 0;
+  pNewEdgesBuf[i].pNext = &defaultEdge;
+  ptr_80CA10[i] = 0;
  }
 
  runtime_warning(wtf is this shit? o_O);
@@ -8759,236 +8759,175 @@ int __thiscall sub_48E9F4(struct Player *_this)
 }
 
 //----- (00486B4E) --------------------------------------------------------
-char __fastcall sub_486B4E(int a1, int a2, int *a3, struct struct8 *a4)
+void __fastcall sub_486B4E(struct struct14 *a1, int *a2, int *a3, struct struct8 *a4)
 {
-  int v4; // edi@1
-  int v5; // esi@1
-  int v7; // eax@3
-  int v8; // ebx@3
-  int *v9; // ecx@7
+ int v0;
   int v10; // ebx@8
   int v11; // eax@10
-  unsigned __int8 v12; // zf@10
-  char v13; // sf@10
-  unsigned __int8 v14; // of@10
-  int v15; // edx@14
-  double v16; // st7@14
-  double v17; // st6@14
-  int v18; // edi@16
-  double v19; // st7@16
-  char v20; // zf@16
-  double v21; // st7@16
   double v22; // st7@16
-  int v23; // edi@18
-  char v24; // zf@18
-  double v25; // st7@18
   double v26; // st7@18
-  char *i; // edx@20
+  int i; // edx@20
   double v28; // st7@28
-  int v29; // eax@28
   char v31; // [sp-18h] [bp-98h]@2
   int v32; // [sp-14h] [bp-94h]@2
   int v33; // [sp-10h] [bp-90h]@2
   int v34; // [sp-Ch] [bp-8Ch]@2
   const char *v35; // [sp-8h] [bp-88h]@2
   int v36; // [sp-4h] [bp-84h]@2
-  double v37; // [sp+Ch] [bp-74h]@28
-  double v38; // [sp+14h] [bp-6Ch]@28
-  double v39; // [sp+1Ch] [bp-64h]@20
-  double v40; // [sp+24h] [bp-5Ch]@16
-  double v41; // [sp+2Ch] [bp-54h]@14
-  int v42; // [sp+34h] [bp-4Ch]@2
-  int v43; // [sp+38h] [bp-48h]@28
-  float v44; // [sp+3Ch] [bp-44h]@28
   int v45; // [sp+40h] [bp-40h]@28
   int v46; // [sp+44h] [bp-3Ch]@20
-  float v47; // [sp+48h] [bp-38h]@18
-  int v48; // [sp+4Ch] [bp-34h]@16
-  signed int v49; // [sp+50h] [bp-30h]@14
-  int v50; // [sp+54h] [bp-2Ch]@3
-  int v51; // [sp+58h] [bp-28h]@1
   int v52; // [sp+5Ch] [bp-24h]@14
   int v53; // [sp+60h] [bp-20h]@6
   int v54; // [sp+64h] [bp-1Ch]@6
-  int v55; // [sp+68h] [bp-18h]@7
-  int v56; // [sp+6Ch] [bp-14h]@1
-  int v57; // [sp+70h] [bp-10h]@7
-  int v58; // [sp+74h] [bp-Ch]@7
   float v59; // [sp+78h] [bp-8h]@10
-  int v60; // [sp+7Ch] [bp-4h]@14
   char *v61; // [sp+8Ch] [bp+Ch]@2
+ struct Edge *pEdge;
 
-  v5 = a4;
-  v4 = a1;
-  v56 = a2;
-  v51 = a1;
-  if ( !(a4->dword_000030 & 0x4000))
+
+  if (a4->dword_000030 & 0x4000)
   {
     v61 = &v31;
     sub_40E2C8(&v31, "The Texture Frame Table is not a supported feature.", (int)((char *)&a4 + 3));
-    sub_466D09(&v42, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odspan.cpp", __LINE__);
+    sub_466D09(&v31, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odspan.cpp", __LINE__);
   }
-  LOBYTE(v7) = *(_BYTE *)(v5 + 264);
-  v8 = *(_DWORD *)(v5 + 20);
-  *(_BYTE *)(v5 + 264) = 0;
-  BYTE3(a4) = v7;
-  v50 = v8;
-  if ( v8 > 0 )
-  {
-    if ( pStruct9_global->dword_000034 < 1999 )
-    {
-      v7 = pStruct9_global->dword_000030;
-      if ( pStruct9_global->dword_000030 < 5979 )
-      {
-        *(_DWORD *)(v5 + 176) = 0;
-        *(_DWORD *)(v5 + 260) = 0;
-        v54 = -1;
-        v42 = v7;
-        v53 = 10000;
-        sub_45CB89(v4, v8);
-        if ( v8 > 0 )
-        {
-          v9 = a3;
-          v57 = 1;
-          v58 = v4 + 44;
-          v55 = v56 - (_DWORD)a3;
-          do
-          {
-            v10 = v57;
-            ++pStruct9_global->dword_000030;
-            if ( v57 >= v50 )
-              v10 = 0;
-            v11 = *v9;
-            compile_error;//v14 = __SETO__(*v9, v54);
+
+ v0 = a4->byte_000108;
+ a4->byte_000108 = 0;
+
+ if (a4->dword_000014 <= 0)
+   return v0;
+
+ if (pStruct9_global->uNumSurfs >= 1999 || pStruct9_global->uNumEdges >= 5979)
+   return v0;
+
+ a4->dword_0000B0 = 0;
+ a4->dword_000104= 0;
+
+ v54 = -1;
+ v53 = 10000;
+
+ sub_45CB89(a1, a4->dword_000014);
+
+
+ for (i = 0; i < a4->dword_000014; ++i)
+ {
+  ++pStruct9_global->uNumEdges;
+
+  v10 = i + 1;
+  if (v10 >= a4->dword_000014)
+    v10 = 0;
+
+  v11 = a3[i];
+            /*
+            v14 = __SETO__(*v9, v54);
             v12 = *v9 == v54;
             v13 = *v9 - v54 < 0;
-            LODWORD(v59) = *v9;
-            if ( !((unsigned __int8)(v13 ^ v14) | v12) )
-              v54 = v11;
-            if ( v11 < v53 )
-              v53 = v11;
-            v16 = (double)SLODWORD(v59);
-            v15 = (int)&a3[v10];
-            *(float *)&v60 = v16;
-            v17 = (double)*(signed int *)v15;
-            v59 = v17;
-            *(float *)&v49 = v17 - v16;
-            v41 = *(float *)&v49 + 6.755399441055744e15;
-            v52 = LODWORD(v41);
-            if ( LODWORD(v41) )
-            {
-              if ( LODWORD(v41) >= 0 )
-              {
-                v23 = (int)((char *)v9 + v55);
-                *(_DWORD *)(dword_80C978 + 8) = 1;
-                LODWORD(v47) = v56 + 4 * v10;
-                compile_error;//v49 = *LODWORD(v47) - *(_DWORD *)v23;
-                v24 = BYTE3(a4) == 0;
-                v25 = (double)v49;
-                v49 = *(_DWORD *)v15 - *v9;
-                v26 = v25 / (double)v49;
-                *(float *)(dword_80C978 + 4) = v26;
-                *(float *)dword_80C978 = (*(float *)&v60 - (double)*v9) * v26 + (double)*(signed int *)v23;
-                if ( !v24 )
-                {
-                  *(float *)(dword_80C978 + 28) = *(float *)v58;
-                  *(float *)(dword_80C978 + 32) = *(float *)(48 * v10 + v51 + 44);
-                  *(float *)(dword_80C978 + 36) = (double)*(signed int *)v23;
-                  compile_error;//*(float *)(dword_80C978 + 40) = (double)(signed int)*LODWORD(v47);
-                  *(float *)(dword_80C978 + 44) = (double)*v9;
-                  *(float *)(dword_80C978 + 48) = (double)*(signed int *)v15;
-                  compile_error;//*(_DWORD *)(v5 + 4 * *(_DWORD *)(v5 + 176)++ + 96) = dword_80C978;
-                }
-              }
-              else
-              {
-                v40 = *(float *)&v60 + 6.755399441055744e15;
-                v48 = LODWORD(v40);
-                v60 = LODWORD(v59);
-                v19 = (double)SLODWORD(v40);
-                *(_DWORD *)(dword_80C978 + 8) = 0;
-                v18 = v56 + 4 * v10;
-                v59 = v19;
-                v49 = *(int *)((char *)v9 + v55) - *(_DWORD *)v18;
-                v20 = BYTE3(a4) == 0;
-                v21 = (double)v49;
-                v49 = *v9 - *(_DWORD *)v15;
-                v22 = v21 / (double)v49;
-                *(float *)(dword_80C978 + 4) = v22;
-                *(float *)dword_80C978 = (*(float *)&v60 - (double)*(signed int *)v15) * v22
-                                       + (double)*(signed int *)v18;
-                if ( !v20 )
-                {
-                  *(float *)(dword_80C978 + 28) = *(float *)(48 * v10 + v51 + 44);
-                  *(float *)(dword_80C978 + 32) = *(float *)v58;
-                  *(float *)(dword_80C978 + 36) = (double)*(signed int *)v18;
-                  *(float *)(dword_80C978 + 40) = (double)*(int *)((char *)v9 + v55);
-                  *(float *)(dword_80C978 + 44) = (double)*(signed int *)v15;
-                  *(float *)(dword_80C978 + 48) = (double)*v9;
-                  compile_error;//*(_DWORD *)(v5 + 4 * *(_DWORD *)(v5 + 260)++ + 180) = dword_80C978;
-                }
-              }
-              v39 = *(float *)&v60 + 6.755399441055744e15;
-              v46 = LODWORD(v39);
-              for ( i = (char *)pNewEdgesBuf + 52 * LODWORD(v39);
-                    **((float **)i + 4) < (double)*(float *)dword_80C978;
-                    i = (char *)*((_DWORD *)i + 4) )
-                ;
-              if ( *(float *)i != *(float *)dword_80C978 || *((_DWORD *)i + 2) || *(_DWORD *)(dword_80C978 + 8) != 1 )
-              {
-                *(_DWORD *)(dword_80C978 + 16) = *((_DWORD *)i + 4);
-                *((_DWORD *)i + 4) = dword_80C978;
-              }
-              else
-              {
-                *(_DWORD *)(dword_80C978 + 16) = i;
-                *(_DWORD *)(*((_DWORD *)i + 5) + 16) = dword_80C978;
-              }
-              v28 = v59 - 1.0;
-              *(float *)&v49 = v28;
-              v47 = v28;
-              v38 = v47 + 6.755399441055744e15;
-              v45 = LODWORD(v38);
-              *(_DWORD *)(dword_80C978 + 24) = dword_80CA10[LODWORD(v38)];
-              LODWORD(v44) = v49;
-              v37 = *(float *)&v49 + 6.755399441055744e15;
-              v43 = LODWORD(v37);
-              v29 = dword_80C978;
-              dword_80CA10[LODWORD(v37)] = dword_80C978;
-              *(_DWORD *)(v29 + 12) = dword_80C97C;
-              if ( dword_80C978 < (unsigned int)((char *)pEdgesBuf + 311948) )
-                dword_80C978 += 52;
-            }
-            ++v57;
-            v58 += 48;
-            ++v9;
-          }
-          while ( v57 - 1 < v50 );
-        }
-        LOBYTE(v7) = v42;
-        if ( pStruct9_global->dword_000030 != v42 )
-        {
-          *(_DWORD *)(v5 + 72) = 0;
-          *(_WORD *)(dword_80C97C + 34) = 0;
-          *(_DWORD *)(dword_80C97C + 28) = v5;
-          *(float *)(dword_80C97C + 4) = *(float *)(v5 + 4);
-          *(float *)(dword_80C97C + 8) = *(float *)(v5 + 8);
-          *(float *)dword_80C97C = *(float *)v5;
-          *(float *)(dword_80C97C + 12) = *(float *)(v5 + 12);
-          *(float *)(dword_80C97C + 16) = *(float *)(v5 + 16);
-          v7 = (int)((char *)pSurfsBuf + 71964);
-          if ( dword_80C97C < (unsigned int)((char *)pSurfsBuf + 71964) )
-          {
-            dword_80C97C += 36;
-            ++pStruct9_global->dword_000034;
-          }
-          if ( BYTE3(a4) )
-            *(_BYTE *)(v5 + 264) = 1;
-        }
-      }
-    }
+            if ( !((unsigned __int8)(v13 ^ v14) | v12) )*/
+  if (a3[i] > v54)
+    v54 = a3[i];
+
+  if (a3[i] < v53)
+    v53 = a3[i];
+
+  v59 = a3[v10];
+
+  v52 = floorf(v59 - a3[i] + 0.5f);
+  if (!v52)
+    continue;
+
+  if (v52 > 0)
+  {
+   ptr_80C978->dword_000008 = 1;
+
+   v26 = (double)(a2[v10] - a2[i]) / (double)(a3[v10] - a3[i]);
+   
+   ptr_80C978->flt_000000 = (a3[v10] - a3[i]) * v26 + a2[i];
+   ptr_80C978->flt_000004 = v26;
+
+   if (v0)
+   {
+    ptr_80C978->flt_00001C = a1[i].flt_00002C;
+    ptr_80C978->flt_000020 = a1[v10].flt_00002C;
+    ptr_80C978->flt_000024 = a2[i];
+    ptr_80C978->flt_000028 = a2[v10];
+    ptr_80C978->flt_00002C = a3[i];
+    ptr_80C978->flt_000030 = a3[v10];
+    a4->array_000060[a4->dword_0000B0++] = ptr_80C978;
+   }
   }
-  return v7;
+  else
+  {
+   v59 = a3[i];
+
+   ptr_80C978->dword_000008 = 0;
+
+   v22 = (double)(a2[i] - a2[v10]) / (double)(a3[i] - a3[v10]);
+   
+   ptr_80C978->flt_000000 = (a3[i] - a3[v10]) * v22 + a2[v10];
+   ptr_80C978->flt_000004 = v22;
+
+   if (v0)
+   {
+    ptr_80C978->flt_00001C = a1[v10].flt_00002C;
+    ptr_80C978->flt_000020 = a1[i].flt_00002C;
+    ptr_80C978->flt_000024 = (double)a2[v10];
+    ptr_80C978->flt_000028 = (double)a2[i];
+    ptr_80C978->flt_00002C = (double)a3[v10];
+    ptr_80C978->flt_000030 = (double)a3[i];
+    a4->array_0000B4[a4->dword_000104++] = ptr_80C978;
+   }
+  }
+
+  v46 = floorf(a3[i] + 0.5f);
+  for (pEdge = &pNewEdgesBuf[a3[i]]; pEdge->pNext->flt_000000 < ptr_80C978->flt_000000; pEdge = pEdge->pNext)
+    ;
+
+  if (pEdge->flt_000000 != ptr_80C978->flt_000000 || pEdge->dword_000008 || ptr_80C978->dword_000008 != 1 )
+  {
+   ptr_80C978->pNext = pEdge->pNext;
+   pEdge->pNext = ptr_80C978;
+  }
+  else
+  {
+   ptr_80C978->pNext = pEdge;
+   pEdge->pPrev->pNext = ptr_80C978;
+  }
+  v28 = v59 - 1.0;
+
+  v45 = floorf(v28 + 0.5f);
+  ptr_80C978->ptr_000018 = ptr_80CA10[v45];
+  ptr_80CA10[v45] = ptr_80C978;
+
+  ptr_80C978->pSurf = ptr_80C97C;
+  if (ptr_80C978 < &pEdgesBuf[5999])
+    ptr_80C978++;
+ }
+
+
+
+ if (a4->dword_000014 > 0)
+ {
+  a4->ptr_000048 = 0;
+
+  ptr_80C97C->flt_000000 = a4->flt_000000;
+  ptr_80C97C->flt_000004 = a4->flt_000004;
+  ptr_80C97C->flt_000008 = a4->flt_000008;
+  ptr_80C97C->flt_00000C = a4->flt_00000C;
+  ptr_80C97C->flt_000010 = a4->flt_000010;
+
+  ptr_80C97C->ptr_00001C = a4;
+
+  ptr_80C97C->word_000022 = 0;
+
+  if (ptr_80C97C < &pSurfsBuf[1999])
+  {
+   ptr_80C97C++;
+   pStruct9_global->uNumSurfs++;
+  }
+
+  if (a4->byte_000108)
+    a4->byte_000108 = 1;
+ }
 }
 
 //----- (00407A1C) --------------------------------------------------------
@@ -10115,17 +10054,17 @@ void AllocateDrawBuffers(void *this)
   {
     ReleaseDrawBuffers();
 
-    pSpansBuf = class23_AllocatedNamedBuffer(class23_instance, pSpansBuf, 300000, "SPANS");
-    memset(pSpansBuf, 0, 0x493E0);
+    pSpansBuf = class23_AllocatedNamedBuffer(class23_instance, pSpansBuf, 12500 * sizeof(struct Span), "SPANS");
+    memset(pSpansBuf, 0, 12500 * sizeof(struct Span));
 
-    pEdgesBuf = class23_AllocatedNamedBuffer(class23_instance, pEdgesBuf, 312000, "EDGES");
-    memset(pEdgesBuf, 0, 0x4C2C0);
+    pEdgesBuf = class23_AllocatedNamedBuffer(class23_instance, pEdgesBuf, 6000 * sizeof(struct Edge), "EDGES");
+    memset(pEdgesBuf, 0, 6000 * sizeof(struct Edge));
 
-    pSurfsBuf = class23_AllocatedNamedBuffer(class23_instance, pSurfsBuf, 72000, "SURFS");
-    memset(pSurfsBuf, 0, 0x11940);
+    pSurfsBuf = class23_AllocatedNamedBuffer(class23_instance, pSurfsBuf, 2000 * sizeof(struct Surf), "SURFS");
+    memset(pSurfsBuf, 0, 2000 * sizeof(struct Surf));
 
-    pNewEdgesBuf = class23_AllocatedNamedBuffer(class23_instance, pNewEdgesBuf, 24960, "NEWEDGES");
-    memset(pNewEdgesBuf, 0, 0x6180);
+    pNewEdgesBuf = class23_AllocatedNamedBuffer(class23_instance, pNewEdgesBuf, 480 * sizeof(struct Edge), "NEWEDGES");
+    memset(pNewEdgesBuf, 0, 480 * sizeof(struct Edge));
   }
 }
 

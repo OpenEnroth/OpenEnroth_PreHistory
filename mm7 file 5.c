@@ -11882,7 +11882,7 @@ LABEL_24:
       //v2 = (char *)v2 + 268;
       //if ( (unsigned int)((char *)v2 - 84) >= v1 )
       //  return result;
-      if (array_77EC08[i++].dword_000100 >= 1)
+      if (&array_77EC08[i++].array_0000B4[19] >= v1)
          return result;
      v2 = &array_77EC08[i].ptr_000048;
     }
@@ -14471,8 +14471,6 @@ void __thiscall sub_4811A3(void *this)
 void sub_481CCE(struct struct14 *a1)
 {
   double v2; // st4@1
-  double v3; // st5@1
-  double v4; // st6@1
   double v5; // st7@1
   float v6; // ST04_4@3
   float v7; // [sp+0h] [bp-14h]@1
@@ -14485,20 +14483,19 @@ void sub_481CCE(struct struct14 *a1)
   v9 = a1->x - (double)pClass55_global->dword_000000;
   v10 = a1->z - (double)pClass55_global->dword_000004;
   v5 = a1->y - (double)pClass55_global->dword_000008;
-  v4 = pClass55_global->flt_000030;
-  v3 = pClass55_global->flt_00002C;
-  v2 = v10 * pClass55_global->flt_00002C + pClass55_global->flt_000030 * v9;
+
+  v2 = v10 * pClass55_global->fSomeSine + pClass55_global->fSomeCosine * v9;
   if ( pClass55_global->dword_000014 )
   {
     v6 = v2;
     a1->flt_00000C = v2 * pClass55_global->flt_000038 + pClass55_global->flt_000034 * v5;
-    a1->flt_000010 = v4 * v10 - v3 * v9;
+    a1->flt_000010 = pClass55_global->fSomeCosine * v10 - pClass55_global->fSomeSine * v9;
     a1->flt_000014 = v8 * v5 - v6 * v7;
   }
   else
   {
     a1->flt_00000C = v2;
-    a1->flt_000010 = v4 * v10 - v3 * v9;
+    a1->flt_000010 = pClass55_global->fSomeCosine * v10 - pClass55_global->fSomeSine * v9;
     a1->flt_000014 = v5;
   }
 }
@@ -14517,7 +14514,7 @@ void sub_481D77(struct struct14 *_this)
 }
 
 //----- (00481DB2) --------------------------------------------------------
-char __fastcall sub_481DB2(int a1, signed int a2, int a3)
+void __fastcall sub_481DB2(int a1, signed int a2, int a3)
 {
   int v3; // esi@2
   int v4; // eax@2
@@ -14547,9 +14544,8 @@ char __fastcall sub_481DB2(int a1, signed int a2, int a3)
       }
       while ( v3 < *(_DWORD *)(a3 + 20) );
     }
-    result = sub_486B4E(a1, (int)dword_50B638, dword_50B570, a3);
+    sub_486B4E(a1, (int)dword_50B638, dword_50B570, a3);
   }
-  return result;
 }
 
 //----- (00481EFA) --------------------------------------------------------
@@ -14740,7 +14736,7 @@ bool sub_481FC9(struct struct14 *a1, struct struct14 *a2, struct struct14 *a3, s
    */
    a4->dword_000020 = floorf(arg_4 + 0.5f);
 
-   sub_486089(a4);
+   sub_486089_NormalizeVector(a4);
 
    /*
       fild    dword ptr [edi+18h]           //a4->dword_000018
@@ -18012,12 +18008,12 @@ int __thiscall sub_4898E6(int this)
       v26 = *(float *)(v2 + v25 + v24) - (double)pClass55_global->dword_000000;
       v27 = *(float *)(v2 + v25) - (double)pClass55_global->dword_000004;
       v10 = *(float *)(v2 + v25 + v23) - (double)pClass55_global->dword_000008;
-      v9 = pClass55_global->flt_000030;
-      v8 = pClass55_global->flt_00002C;
+      v9 = pClass55_global->fSomeCosine;
+      v8 = pClass55_global->fSomeSine;
       v20 = pClass55_global->flt_000038;
       LODWORD(v19) = *(int *)&pClass55_global->flt_000034;
       v6 = v21 + v2;
-      v7 = v27 * pClass55_global->flt_00002C + pClass55_global->flt_000030 * v26;
+      v7 = v27 * pClass55_global->fSomeSine + pClass55_global->fSomeCosine * v26;
       if ( pClass55_global->dword_000014 )
       {
         v11 = v7;

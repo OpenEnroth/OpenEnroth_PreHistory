@@ -81,9 +81,16 @@ struct class51_stru2
  short word_00011C;
  char  byte_00011E[6];
  short word_000124;     //related to Event::dword_000000
- char  byte_000126[8];
+ char  byte_000126[4];
+ char  byte_00012A;
+ char  byte_00012B;
+ char  byte_00012C;
+ char  byte_00012D;
  char  byte_00012E;
- char  byte_00012F[5];
+ char  byte_00012F;
+ char  byte_000130;
+ char  byte_000131;
+ char  byte_000132[2];
 };
 //sizeof == 134
 

@@ -247,8 +247,13 @@ unsigned char data_4E7168[116] =
  int dword_4EC28C[array_size_unknown]; // weak
  int dword_4EC2A8; // weak
  int dword_4EC2AC; // weak
-//somehow connected to NewEndgesBuf
- _UNKNOWN unk_4EC3EC; // weak
+
+// _UNKNOWN unk_4EC3EC; // weak
+struct Edge defaultEdge = // struct @ MM7.exe::004EC3EC
+{
+ 2.1474836e+009
+};
+
  char byte_4ECA93[array_size_unknown]; // weak
  char byte_4ECACF[array_size_unknown]; // weak
  _BYTE byte_4ECB0C[64]; // idb
@@ -2148,21 +2153,14 @@ struct struct14 array_806210[384]; // struct[384] @ MM7.exe::00806210
  int dword_80AA1C; // weak
  int dword_80AA20; // weak
  int dword_80AA24[array_size_unknown]; // weak
- int dword_80AA28[array_size_unknown]; // weak
- int dword_80C978; // weak
- int dword_80C97C; // weak
+ struct struct8 *dword_80AA28[array_size_unknown]; // weak
+struct Edge *ptr_80C978; // ptr    @ MM7.exe::0080C978
+struct Surf *ptr_80C97C; // ptr    @ MM7.exe::0080C97C
+struct Surf someSurf;    // struct @ MM7.exe::0080C980
+struct Edge someEdge1;   // struct @ MM7.exe::0080C9A4
+struct Edge someEdge2;   // struct @ MM7.exe::0080C9D8
 
- struct unnamed_80C980 struct_80C980;
-
- struct unnamed_80C9A4 struct_80C9A4;
- int dword_80C9B8; // weak
- float flt_80C9D8; // weak
- int dword_80C9E0; // weak
- int dword_80C9E4; // weak
- int dword_80C9E8; // weak
- int dword_80C9EC; // weak
- int dword_80CA10[480]; // weak
-//_UNKNOWN unk_80D190; // end of dword_80CA10
+struct Edge *ptr_80CA10[480]; // dword[480] @ MM7.exe::0080CA10
 
 struct class35 class35_obj; // struct @ MM7.exe::0080D198
 //_UNKNOWN unk_80D198; // weak

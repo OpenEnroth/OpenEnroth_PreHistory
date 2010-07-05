@@ -22,7 +22,7 @@ extern union unnamed_4D8410
   double f0_01;                       // double @ 00B8     0.01
   char   unk_4D8410_00C0[24];
   float  fZero;                       // float  @ 00D8     0.0
-  char   unk_4D8410_00DC[24];
+  char   unk_4D8410_00DC[28];
   double double_0000F8;               // double @ 00F8     0.017453290000000000
   double d_0_5;                       // double @ 0100     0.5
   double fOneOver2048;                // double @ 0108     1 / 2048
@@ -120,8 +120,8 @@ extern unsigned char cGameCDDriveLetter;
 
 
 extern struct Edge *pNewEdgesBuf;
-extern void        *pSurfsBuf;
-extern void        *pEdgesBuf;
+extern struct Surf *pSurfsBuf;
+extern struct Edge *pEdgesBuf;
 extern struct Span *pSpansBuf;
 
 

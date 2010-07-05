@@ -1839,7 +1839,7 @@ void DrawLoadingScreen(struct class56 *_this)
     return;
   }
 
-  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, v1 + 24);
+  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, &_this->loading);
   CD3DRenderer_sub_4A0E97(pD3DRenderer, 0, 0, 639, 479);
   CD3DRenderer_Set2DClippingRect(pD3DRenderer, 172, 459,
     172 + 300 * ((float)(_this->uProgressCurrent) / (float)_this->uProgressMax),

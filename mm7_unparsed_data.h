@@ -232,8 +232,9 @@ extern int dword_4EC268[array_size_unknown]; // weak
 extern int dword_4EC28C[array_size_unknown]; // weak
 extern int dword_4EC2A8; // weak
 extern int dword_4EC2AC; // weak
-//somehow connected to NewEndgesBuf
-extern _UNKNOWN unk_4EC3EC; // weak
+
+extern struct Edge defaultEdge; // struct @ MM7.exe::004EC3EC
+
 extern char byte_4ECA93[array_size_unknown]; // weak
 extern char byte_4ECACF[array_size_unknown]; // weak
 extern _BYTE byte_4ECB0C[64]; // idb
@@ -2167,40 +2168,14 @@ extern int dword_80AA18; // weak
 extern int dword_80AA1C; // weak
 extern int dword_80AA20; // weak
 extern int dword_80AA24[array_size_unknown]; // weak
-extern int dword_80AA28[array_size_unknown]; // weak
-extern int dword_80C978; // weak
-extern int dword_80C97C; // weak
+extern struct struct8 *dword_80AA28[array_size_unknown]; // weak
+extern struct Edge *ptr_80C978; // ptr @ MM7.exe::0080C978
+extern struct Surf *ptr_80C97C; // ptr @ MM7.exe::0080C97C
 
-extern struct unnamed_80C980
-{
- float flt_80C980; // weak
- float flt_80C984; // weak
- float flt_80C988; // weak
- int   dword_00000C;
- int   dword_000010;
- struct unnamed_80C980 *dword_80C994; // weak
- struct unnamed_80C980 *dword_80C998; // weak
- int   dword_00001C;
- __int16 word_80C9A0; // 000020
- __int16 word_80C9A2; // 000022
-} struct_80C980;
-
-extern struct unnamed_80C9A4
-{
- float flt_80C9A4; // weak
- int align_80C9A8;
- int         dword_80C9AC; // weak
- struct unnamed_80C980 *ptr_80C9B0; // weak
- struct unnamed_80C9A4 *pNext; // 000010, dword_80C9B4
-} struct_80C9A4;
-extern int dword_80C9B8; // weak
-extern float flt_80C9D8; // weak
-extern int dword_80C9E0; // weak
-extern int dword_80C9E4; // weak
-extern int dword_80C9E8; // weak
-extern int dword_80C9EC; // weak
-extern int dword_80CA10[480]; // weak
-//_UNKNOWN unk_80D190; // end of dword_80CA10
+extern struct Surf someSurf;  // struct @ MM7.exe::0080C980
+extern struct Edge someEdge1; // struct @ MM7.exe::0080C9A4
+extern struct Edge someEdge2; // struct @ MM7.exe::0080C9D8
+extern struct Edge *ptr_80CA10[];
 
 extern struct class35 class35_obj; // struct @ MM7.exe::0080D198
 //_UNKNOWN unk_80D198; // weak

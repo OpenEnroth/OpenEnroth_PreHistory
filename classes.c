@@ -7227,7 +7227,8 @@ int sub_46454B(struct class17 *_this)
     v3 = &_this->aLODHeaders[v1];
     do
     {
-      sub_40F77C(v3);
+     runtime_warning(this stuff kills textures being drawn);
+      //sub_40F77C(v3);
       v4 = *(_DWORD *)(v2 + 72624);
       if ( v4 )
       {
@@ -7917,10 +7918,10 @@ void class08_sub_4376E7(struct class08 *_this)
   v28 = -pClass55_global->flt_000034;
   v26 = pClass55_global->flt_000034;
   v29 = pClass55_global->flt_000038;
-  v12 = pClass55_global->flt_000030;
-  v14 = -pClass55_global->flt_00002C;
-  v18 = pClass55_global->flt_00002C;
-  v20 = pClass55_global->flt_000030;
+  v12 = pClass55_global->fSomeCosine;
+  v14 = -pClass55_global->fSomeSine;
+  v18 = pClass55_global->fSomeSine;
+  v20 = pClass55_global->fSomeCosine;
   sub_4378BA((int)&v30, (int)&v12, v8);
   sub_4378BA((int)&v21, v8, v9);
 
@@ -8100,10 +8101,10 @@ void class55_sub_4239A7(struct class55 *_this)
 {
  double angle;
 
- angle = 2 * memory_4D8410.fSomeAngle * (double)_this->dword_000018 * memory_4D8410.fOneOver2048;
+ angle = 2.0 * memory_4D8410.fSomeAngle * (double)_this->dword_000018 * memory_4D8410.fOneOver2048;
 
- _this->flt_00002C = sin(angle);
- _this->flt_000030 = cos(angle);
+ _this->fSomeSine = sin(angle);
+ _this->fSomeCosine = cos(angle);
 
 
  if ( byte_4D8410[572] && *(_BYTE *)(&pGame->uSomeFlags) & 0x80 || dword_6BE360 == 1 )
@@ -8178,7 +8179,7 @@ void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char
 
  for (i = 0; i < a3; ++i)
  {
-    v6 = (char *)(&a2[i]) + 24;
+    v6 = &a2[i].flt_000018;
 
       if ( byte_4D8410[572] && pGame->uSomeFlags & 0x80 || dword_6BE360 == 1 )
       {
@@ -8228,57 +8229,47 @@ void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char
         }
         *(float *)(v6 + 4) = v11;
       }
-      v6 += 48;
   }
 }
 
 
 
 //----- (00486089) --------------------------------------------------------
-void sub_486089(struct struct8 *_this)
+void sub_486089_NormalizeVector(struct struct8 *_this)
 {
   int v1; // esi@1
   double v2; // st5@1
   double v3; // st6@1
   double v4; // st7@1
   double v5; // st7@1
-  float v6; // ST18_4@2
-  float v7; // ST14_4@2
   float v8; // ST24_4@2
   float v9; // ST20_4@2
-  double v10; // ST0C_8@2
   float v11; // ST18_4@2
-  double v12; // ST0C_8@2
   float v13; // ST14_4@2
-  double v14; // ST0C_8@2
-  float v15; // [sp+20h] [bp-8h]@1
 
   v1 = _this;
-  v5 = (double)*(signed int *)(v1 + 24);
-  v15 = v5;
-  v3 = (double)*(signed int *)(v1 + 28);
-  v2 = (double)*(signed int *)(v1 + 32);
+  v5 = (double)_this->dword_000018;
+  v3 = (double)_this->dword_00001C;
+  v2 = (double)_this->dword_000020;
   v4 = sqrt(v2 * v2 + v3 * v3 + v5 * v5);
   if ( v4 == 0.0 )
   {
-    *(_DWORD *)(v1 + 24) = 0;
-    *(_DWORD *)(v1 + 28) = 0;
-    *(_DWORD *)(v1 + 32) = 65536;
+   _this->dword_000018 = 0;
+   _this->dword_00001C = 0;
+   _this->dword_000020 = 65536;
   }
   else
   {
     v8 = 1.0 / v4;
-    v9 = v8 * v15 * 65536.0;
-    v10 = v9 + 6.755399441055744e15;
-    *(_DWORD *)(v1 + 24) = LODWORD(v10);
-    v6 = v3;
-    v11 = v8 * v6 * 65536.0;
-    v12 = v11 + 6.755399441055744e15;
-    *(_DWORD *)(v1 + 28) = LODWORD(v12);
-    v7 = v2;
-    v13 = v8 * v7 * 65536.0;
-    v14 = v13 + 6.755399441055744e15;
-    *(_DWORD *)(v1 + 32) = LODWORD(v14);
+
+    v9 = v8 * v5 * 65536.0;
+    _this->dword_000018 = floorf(v9 + 0.5f);
+
+    v11 = v8 * v3 * 65536.0;
+    _this->dword_00001C = floorf(v11 + 0.5f);
+
+    v13 = v8 * v2 * 65536.0;
+    _this->dword_000020 = floorf(v13 + 0.5f);
   }
 }
 
@@ -8916,25 +8907,24 @@ void class59_ctor(struct class59 *_this)
 
 
 //----- (0045D3C7) --------------------------------------------------------
-char __stdcall sub_45D426(int a1, int a2, signed int a3, float a4, signed int a5);
 bool __stdcall sub_45D3C7(struct struct8 *_this)
 {
- struct struct8 *v2; // ecx@2
- struct struct8 *i; // edi@5
+ struct struct8       *v2; // ecx@2
+ struct struct8_stru0 *i; // edi@5
 
  if (!_this->ptr_000040)
    return false;
 
- if (_this->ptr_000040->ptr_000004)
+ if (_this->ptr_000040->pParent)
  {
-  v2 = _this->ptr_000040->ptr_000004;
+  v2 = _this->ptr_000040->pParent;
   if (v2->ptr_000040)
   {
-   for ( i = _this->ptr_000040; ; i = i->ptr_000000 )
+   for (i = _this->ptr_000040; ; i = i->pNext)
    {
-    if (i->ptr_000004->byte_000108)
-       sub_45D426(i, _this->byte_000060, _this->dword_0000B0, _this->flt_0000B4, _this->dword_000104);
-     if (_this->ptr_000044 == i )
+    if (i->pParent->byte_000108)
+       sub_45D426(i, _this->array_000060, _this->dword_0000B0, _this->array_0000B4, _this->dword_000104);
+     if (_this->ptr_000044 == i)
        break;
    }
    return true;
