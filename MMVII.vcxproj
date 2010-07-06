@@ -86,6 +86,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="libpng143\png.c" />
+    <ClCompile Include="libpng143\pngerror.c" />
+    <ClCompile Include="libpng143\pngget.c" />
+    <ClCompile Include="libpng143\pngmem.c" />
+    <ClCompile Include="libpng143\pngpread.c" />
+    <ClCompile Include="libpng143\pngread.c" />
+    <ClCompile Include="libpng143\pngrio.c" />
+    <ClCompile Include="libpng143\pngrtran.c" />
+    <ClCompile Include="libpng143\pngrutil.c" />
+    <ClCompile Include="libpng143\pngset.c" />
+    <ClCompile Include="libpng143\pngtest.c" />
+    <ClCompile Include="libpng143\pngtrans.c" />
+    <ClCompile Include="libpng143\pngwio.c" />
+    <ClCompile Include="libpng143\pngwrite.c" />
+    <ClCompile Include="libpng143\pngwtran.c" />
+    <ClCompile Include="libpng143\pngwutil.c" />
     <ClCompile Include="mm7 file 1.c" />
     <ClCompile Include="mm7 file 2.c" />
     <ClCompile Include="mm7 file 3.c" />
@@ -125,8 +141,22 @@
     <ClCompile Include="Smacker.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="libpng143\png.h" />
+    <ClInclude Include="libpng143\pngconf.h" />
+    <ClInclude Include="libpng143\pngpriv.h" />
     <ClInclude Include="mm7_unparsed_data.h" />
     <ClInclude Include="mm7_unparsed_functions.h" />
+    <ClInclude Include="zlib\deflate.h" />
+    <ClInclude Include="zlib\infblock.h" />
+    <ClInclude Include="zlib\infcodes.h" />
+    <ClInclude Include="zlib\inffast.h" />
+    <ClInclude Include="zlib\inffixed.h" />
+    <ClInclude Include="zlib\inftrees.h" />
+    <ClInclude Include="zlib\infutil.h" />
+    <ClInclude Include="zlib\trees.h" />
+    <ClInclude Include="zlib\zconf.h" />
+    <ClInclude Include="zlib\zlib.h" />
+    <ClInclude Include="zlib\zutil.h" />
     <ClInclude Include="_audio.h" />
     <ClInclude Include="_video.h" />
     <ClInclude Include="Actor.h" />

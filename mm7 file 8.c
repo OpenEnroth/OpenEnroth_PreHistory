@@ -2721,7 +2721,7 @@ int sub_49289C(struct Player *_this, int a2, const void *Src)
   else
   {
    wsprintfW(pFilename, L"%S", pClass40->pItems[*(_DWORD *)Src].pIconName);
-   v7 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilename);
+   v7 = class17_LoadTexture_New(pClass17_Icons_LOD, pFilename);
    v6 = &pClass17_Icons_LOD->aLODHeaders[v7];
 
    v11 = GetSizeInInventorySlots(v6->uTextureWidth);
@@ -2853,7 +2853,7 @@ int __cdecl MenuLoop_Main()
 
  pGUIWindow_MainMenu = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
 
- v4 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"title_new");
+ v4 = class17_LoadTexture_New(pClass17_Icons_LOD, L"title_new");
  pMainMenu_NewGame = GUIButtonCreate(pGUIWindow_MainMenu,
                                      494, 172,
                                      pClass17_Icons_LOD->aLODHeaders[v4].uTextureWidth,
@@ -2866,7 +2866,7 @@ int __cdecl MenuLoop_Main()
                                      "New Game",
                                      v4);
 
- v5 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"title_load");
+ v5 = class17_LoadTexture_New(pClass17_Icons_LOD, L"title_load");
  pMainMenu_LoadGame = GUIButtonCreate(pGUIWindow_MainMenu,
                                       494, 227,
                                       pClass17_Icons_LOD->aLODHeaders[v5].uTextureWidth,
@@ -2879,7 +2879,7 @@ int __cdecl MenuLoop_Main()
                                       "Load Game",
                                       v5);
 
- v6 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"title_cred");
+ v6 = class17_LoadTexture_New(pClass17_Icons_LOD, L"title_cred");
  pMainMenu_Credits = GUIButtonCreate(pGUIWindow_MainMenu,
                                      494, 282,
                                      pClass17_Icons_LOD->aLODHeaders[v6].uTextureWidth,
@@ -2892,7 +2892,7 @@ int __cdecl MenuLoop_Main()
                                      "Creadits",
                                      v6);
 
- v7 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"title_exit");
+ v7 = class17_LoadTexture_New(pClass17_Icons_LOD, L"title_exit");
  pMainMenu_Exit = GUIButtonCreate(pGUIWindow_MainMenu,
                                   494, 337,
                                   pClass17_Icons_LOD->aLODHeaders[v7].uTextureWidth,
@@ -2906,7 +2906,7 @@ int __cdecl MenuLoop_Main()
                                   v7);
 
  sub_40E51F(pRGBTexture_Menu);
- RGBTexture_LoadFromCBM(pRGBTexture_Menu, L"Title");
+ RGBTexture_Load(pRGBTexture_Menu, "Title", 0);
 
  SetCurrentMenu(MENU_MAIN);
  SetForegroundWindow(hWnd_global);
@@ -2920,7 +2920,6 @@ int __cdecl MenuLoop_Main()
     {
       if ( dword_4E28F8 != 12 )
       {
-        //sub_40E51F(pRGBTexture_Menu);
         RGBTexture_Load(pRGBTexture_Menu, "lsave640", 0);
         pGUIWindow2 = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
         dword_4E28F8 = 12;
@@ -7390,7 +7389,7 @@ int __cdecl LoadMainMenu()
 
  pTitleScreen = malloc(sizeof(struct RGBTexture));
  RGBTexture_ctor(pTitleScreen);
- RGBTexture_LoadFromCBM(pTitleScreen, L"mm7title");
+ RGBTexture_Load(pTitleScreen, "mm7title", 0);
 
 
  CD3DRenderer_BeginScene(pD3DRenderer);
@@ -8479,38 +8478,38 @@ void __cdecl UI_Initialize_Icons()
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "torchB"));
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "torchA"));
 
- uTextureIdx_MapDirs[0] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR8");
- uTextureIdx_MapDirs[1] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR1");
- uTextureIdx_MapDirs[2] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR2");
- uTextureIdx_MapDirs[3] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR3");
- uTextureIdx_MapDirs[4] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR4");
- uTextureIdx_MapDirs[5] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR5");
- uTextureIdx_MapDirs[6] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR6");
- uTextureIdx_MapDirs[7] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"MAPDIR7");
+ uTextureIdx_MapDirs[0] = class17_LoadTexture_New(pClass17_Icons_LOD, L"MAPDIR8");
+ uTextureIdx_MapDirs[1] = class17_LoadTexture_New(pClass17_Icons_LOD, L"MAPDIR1");
+ uTextureIdx_MapDirs[2] = class17_LoadTexture_New(pClass17_Icons_LOD, L"MAPDIR2");
+ uTextureIdx_MapDirs[3] = class17_LoadTexture_New(pClass17_Icons_LOD, L"MAPDIR3");
+ uTextureIdx_MapDirs[4] = class17_LoadTexture_New(pClass17_Icons_LOD, L"MAPDIR4");
+ uTextureIdx_MapDirs[5] = class17_LoadTexture_New(pClass17_Icons_LOD, L"MAPDIR5");
+ uTextureIdx_MapDirs[6] = class17_LoadTexture_New(pClass17_Icons_LOD, L"MAPDIR6");
+ uTextureIdx_MapDirs[7] = class17_LoadTexture_New(pClass17_Icons_LOD, L"MAPDIR7");
 
- uTextureIdx_UIBarRed = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-bar_red");
- uTextureIdx_UIBarYellow = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-bar_yellow");
- uTextureIdx_UIBarGreen = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-bar_green");
- uTextureIdx_UIBarBlue = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-bar_blue");
+ uTextureIdx_UIBarRed = class17_LoadTexture_New(pClass17_Icons_LOD, L"ui-bar_red");
+ uTextureIdx_UIBarYellow = class17_LoadTexture_New(pClass17_Icons_LOD, L"ui-bar_yellow");
+ uTextureIdx_UIBarGreen = class17_LoadTexture_New(pClass17_Icons_LOD, L"ui-bar_green");
+ uTextureIdx_UIBarBlue = class17_LoadTexture_New(pClass17_Icons_LOD, L"ui-bar_blue");
 
- uTextureIdx_MonsterHP_BarYellow = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_BarYellow");
- uTextureIdx_MonsterHP_BarRed = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_BarRed");
- uTextureIdx_MonsterHP_BarGreen = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_BarGreen");
- uTextureIdx_MonsterHP_CapRight = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_CapRight");
- uTextureIdx_MonsterHP_CapLeft = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_CapLeft");
- uTextureIdx_MonsterHP_Bg = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ui-MonsterHP_Bg");
+ uTextureIdx_MonsterHP_BarYellow = class17_LoadTexture_New(pClass17_Icons_LOD, L"ui-MonsterHP_BarYellow");
+ uTextureIdx_MonsterHP_BarRed = class17_LoadTexture_New(pClass17_Icons_LOD, L"ui-MonsterHP_BarRed");
+ uTextureIdx_MonsterHP_BarGreen = class17_LoadTexture_New(pClass17_Icons_LOD, L"ui-MonsterHP_BarGreen");
+ uTextureIdx_MonsterHP_CapRight = class17_LoadTexture_New(pClass17_Icons_LOD, L"ui-MonsterHP_CapRight");
+ uTextureIdx_MonsterHP_CapLeft = class17_LoadTexture_New(pClass17_Icons_LOD, L"ui-MonsterHP_CapLeft");
+ uTextureIdx_MonsterHP_Bg = class17_LoadTexture_New(pClass17_Icons_LOD, L"ui-MonsterHP_Bg");
 
- uTextureIdx_Leather = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"LEATHER");
+ uTextureIdx_Leather = class17_LoadTexture_New(pClass17_Icons_LOD, L"LEATHER");
 
- pClass18_ibground = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ibground")];
+ pClass18_ibground = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, L"ibground")];
 
- uTextureIdx_BtnMake = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ButtMake");
- uTextureIdx_BtnYes2 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ButtYes2");
- uTextureIdx_BtnXokU = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"x_ok_u");
+ uTextureIdx_BtnMake = class17_LoadTexture_New(pClass17_Icons_LOD, L"ButtMake");
+ uTextureIdx_BtnYes2 = class17_LoadTexture_New(pClass17_Icons_LOD, L"ButtYes2");
+ uTextureIdx_BtnXokU = class17_LoadTexture_New(pClass17_Icons_LOD, L"x_ok_u");
 
- uTextureIdx_BtnEsc2 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ButtEsc2");
- uTextureIdx_BtnXxU = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"x_x_u");
- uTextureIdx_BtnMake2 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ButtMake2");
+ uTextureIdx_BtnEsc2 = class17_LoadTexture_New(pClass17_Icons_LOD, L"ButtEsc2");
+ uTextureIdx_BtnXxU = class17_LoadTexture_New(pClass17_Icons_LOD, L"x_x_u");
+ uTextureIdx_BtnMake2 = class17_LoadTexture_New(pClass17_Icons_LOD, L"ButtMake2");
 
  pGUIWindow0 = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
  GUIButtonCreate(pGUIWindow0, 7, 8, 460, 343, 1, 0, 10, 0, 0, "", 0);
@@ -8527,7 +8526,7 @@ void __cdecl UI_Initialize_Icons()
  GUIButtonCreate(pGUIWindow0, 328, 404, 5, 49, 1, 93, 0, 3, 0, "", 0);
  GUIButtonCreate(pGUIWindow0, 443, 404, 5, 49, 1, 93, 0, 4, 0, "", 0);
 
- uTextureIdx_ib_td1_A = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-td1-A");
+ uTextureIdx_ib_td1_A = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-td1-A");
  v11 = sub_459C82(&dword_69AE00, 13);
  dword_507A10 = GUIButtonCreate(pGUIWindow0,
                    491,
@@ -8544,7 +8543,7 @@ void __cdecl UI_Initialize_Icons()
 
 
 
-  uTextureIdx_ib_td2_A = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-td2-A");
+  uTextureIdx_ib_td2_A = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-td2-A");
   v16 = sub_459C82(&dword_69AE00, 17);
   dword_507A0C = GUIButtonCreate(pGUIWindow0,
                    527,
@@ -8561,7 +8560,7 @@ void __cdecl UI_Initialize_Icons()
 
 
 
-  v17 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-td3-A");
+  v17 = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-td3-A");
   v21 = sub_459C82(&dword_69AE00, 18);
   dword_507A08 = GUIButtonCreate(pGUIWindow0,
                    546,
@@ -8578,7 +8577,7 @@ void __cdecl UI_Initialize_Icons()
 
 
 
-  v22 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-td4-A");
+  v22 = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-td4-A");
   v26 = sub_459C82(&dword_69AE00, 16);
   dword_507A04 = GUIButtonCreate(pGUIWindow0,
                    570,
@@ -8595,7 +8594,7 @@ void __cdecl UI_Initialize_Icons()
 
 
 
-  uTextureIdx_ib_td5_A = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-td5-A");
+  uTextureIdx_ib_td5_A = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-td5-A");
   dword_507A00 = GUIButtonCreate(pGUIWindow0,
                    600,
                    361,
@@ -8734,7 +8733,7 @@ void __cdecl UI_Initialize_Icons()
  for (i = 0; i < 14; ++i)
  {
   wsprintfW(pFilepath, L"isn-%02d", i + 1);
-  uTextureIdx_SpellEffecIcons[i] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilepath);
+  uTextureIdx_SpellEffecIcons[i] = class17_LoadTexture_New(pClass17_Icons_LOD, pFilepath);
  }
 
  uIconIdx_Spell21 = CIconFrameTable_FindIcon(pIconFrameTable, "spell21");

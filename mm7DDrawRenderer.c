@@ -2144,22 +2144,6 @@ LABEL_13:
 
 
 
-unsigned int RGBTexture_LoadFromCBM(struct RGBTexture *_this, const wchar_t *pFilename)
-{
- wchar_t      pFilepath[256];
- unsigned int uCBMWdith,
-              uCBMHeight;
-
- wsprintfW(pFilepath, L".\\Data\\Icons\\%s.cbm", pFilename);
- LoadCBM(pFilepath, &uCBMWdith, &uCBMHeight, &_this->pPixels);
-
- _this->uWidth = uCBMWdith;
- _this->uHeight = uCBMHeight;
- _this->uNumPixels = uCBMWdith * uCBMHeight;
-
- return true;
-}
-
 //----- (MM7.exe::0040F414) --------------------------------------------------------
 int RGBTexture_Load(struct RGBTexture *_this, const char *pContainerName, int a3)
 {
@@ -2190,7 +2174,7 @@ int RGBTexture_Load(struct RGBTexture *_this, const char *pContainerName, int a3
  unsigned int uTextureID;
 
  wsprintfW(pFilepath, L"%S", pContainerName);
- uTextureID = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilepath);
+ uTextureID = class17_LoadTexture_New(pClass17_Icons_LOD, pFilepath);
 
  _this->pPixels = pClass17_Icons_LOD->aLODHeaders[uTextureID].pTruecolorPixels;
  _this->uWidth = pClass17_Icons_LOD->aLODHeaders[uTextureID].uTextureWidth;

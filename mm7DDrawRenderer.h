@@ -254,7 +254,6 @@ int RGBTexture_ctor(struct RGBTexture *_this);
 int RGBTexture_Load(struct RGBTexture *_this, const char *pContainerName, int a3);
 //signed int __thiscall sub_40F037(void *this, void *Src, int a3, int a4)
 int RGBTexture_DecodePCX(struct RGBTexture *_this, void *Src, void *a3, unsigned int uWidth);
-unsigned int RGBTexture_LoadFromCBM(struct RGBTexture *_this, const char *pFilename);
 
 
 #pragma pack(pop)

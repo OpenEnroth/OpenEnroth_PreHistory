@@ -7,7 +7,6 @@
 
 #include "data.h"
 
-
 /*x87 COMPARISON OPCODES
 
   if (a == b)

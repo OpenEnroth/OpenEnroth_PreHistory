@@ -1298,99 +1298,6 @@ LABEL_15:
 
 
 
-#include "CbmTools.h"
-struct class18 pending_texture;
-void *hStdHandle = 0;
-unsigned int class17_LoadTextureFromCBM(struct class17 *_this, const wchar_t *pFilename)
-{
- void    *hFile;
- DWORD    w;
- wchar_t  pFileNotFound[256];
-
- wchar_t      pFilePath[256];
- unsigned int uCBMWdith,
-              uCBMHeight;
-
- int  i;
- char pAnsiFilename[256];
-
- wsprintfA(pAnsiFilename, "%S", pFilename);
- for (i = 0; i < _this->uNumLoadedFiles; ++i)
- {
-  if (!lstrcmpiA(pAnsiFilename, _this->aLODHeaders[i].sContainerName))
-    return i;
- }
-
-
-
- if (_this->uNumLoadedFiles >= 2500) //>= 1000
-   sub_466B8C();
-
- //try to open CBM
- wsprintfW(pFilePath, L".\\Data\\%S\\%s.cbm", _this->sContainerName, pFilename);
- if (!LoadCBM(pFilePath, &uCBMWdith, &uCBMHeight, &_this->aLODHeaders[_this->uNumLoadedFiles].pTruecolorPixels))
- {
-  //if not found, try to open find and convert TGA to CBM, then open
-  wsprintfW(pFilePath, L".\\Data\\%S\\%s.tga", _this->sContainerName, pFilename);
-  hFile = CreateFileW(pFilePath, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, 0, OPEN_EXISTING, 0, 0);
-  if (hFile != INVALID_HANDLE_VALUE)
-  {
-   CloseHandle(hFile);
-   pFilePath[lstrlenW(pFilePath) - 4] = 0;
-   Tga2CbmW(pFilePath);
-
-   wsprintfW(pFilePath, L".\\Data\\%S\\%s.cbm", _this->sContainerName, pFilename);
-   LoadCBM(pFilePath, &uCBMWdith, &uCBMHeight, &_this->aLODHeaders[_this->uNumLoadedFiles].pTruecolorPixels);
-  }
-  else
-  {
-   if (!hStdHandle)
-     hStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-   wsprintfW(pFileNotFound, L"CBM not found: %s (%s)\n", pFilename, pFilePath);
-   WriteConsoleW(hStdHandle, pFileNotFound, lstrlenW(pFileNotFound), &w, 0);
-
-   if (!pending_texture.pTruecolorPixels)
-     pending_texture.pTruecolorPixels = malloc(52 * 53 * 4);
-   pending_texture.uTextureWidth = 52;
-   pending_texture.uTextureHeight = 53;
-   return -1;
-  }
- }
-
- WideCharToMultiByte(CP_ACP, 0, pFilename, -1, _this->aLODHeaders[_this->uNumLoadedFiles].sContainerName, lstrlenW(pFilename), 0, 0);
- _this->aLODHeaders[_this->uNumLoadedFiles].sContainerName[lstrlenW(pFilename)] = 0;
- _this->aLODHeaders[_this->uNumLoadedFiles].uTextureWidth = uCBMWdith;
- _this->aLODHeaders[_this->uNumLoadedFiles].uTextureHeight = uCBMHeight;
-
- _this->uNumLoadedFiles++;
- return _this->uNumLoadedFiles - 1;
-}
-
-unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename)
-{
- DWORD          w;
- void          *hFile;
- unsigned char *pOut;
- wchar_t        pFilepath[256];
- char           pFilenameA[256];
-
- wsprintfW(pFilepath, L".\\Data\\Events\\%s", pFilename);
- hFile = CreateFileW(pFilepath, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
- if (hFile == INVALID_HANDLE_VALUE)
- {
-  wsprintfA(pFilenameA, "%S", pFilename);
-  return class17_fn1(_this, pFilenameA, 0);
- }
-
- pOut = malloc(GetFileSize(hFile, 0));
- ReadFile(hFile, pOut, GetFileSize(hFile, 0), &w, 0);
-
- CloseHandle(hFile);
- return pOut;
-}
-
-
-
 
 //----- (00461954) --------------------------------------------------------
 void class17_AllocateSubidexAndIOBuffer(struct class17 *_this, unsigned int uNumSubIndices, signed int uIOBufferSize)
@@ -10997,4 +10904,100 @@ int class18_UnzipPalette(struct class18 *_this)
   v3 = (int)malloc(_this->uDecompressedSize);
   MemUnzip(v3, &v4, _this->pIndexedPixels, *(_DWORD *)(v2 + 20));
   return v3;
+}
+
+
+
+
+
+
+
+
+
+
+#include "CbmTools.h"
+
+struct class18 pending_texture;
+void *hStdHandle = 0;
+unsigned int class17_LoadTexture_New(struct class17 *_this, const wchar_t *pFilename)
+{
+ void    *hFile;
+ DWORD    w;
+ wchar_t  pFileNotFound[256];
+
+ wchar_t      pFilePath[256];
+ unsigned int uCBMWdith,
+              uCBMHeight;
+
+ int  i;
+ char pAnsiFilename[256];
+
+ wsprintfA(pAnsiFilename, "%S", pFilename);
+ for (i = 0; i < _this->uNumLoadedFiles; ++i)
+ {
+  if (!lstrcmpiA(pAnsiFilename, _this->aLODHeaders[i].sContainerName))
+    return i;
+ }
+
+
+
+ if (_this->uNumLoadedFiles >= 2500) //>= 1000
+   sub_466B8C();
+
+ //try to open CBM
+ wsprintfW(pFilePath, L".\\Data\\%S\\%s.cbm", _this->sContainerName, pFilename);
+ if (LoadCBM(pFilePath, &uCBMWdith, &uCBMHeight, &_this->aLODHeaders[_this->uNumLoadedFiles].pTruecolorPixels))
+ {
+  //try open TGA
+  wsprintfW(pFilePath, L".\\Data\\%S\\%s.tga", _this->sContainerName, pFilename);
+  if (LoadTGA(pFilePath, &uCBMWdith, &uCBMHeight, &_this->aLODHeaders[_this->uNumLoadedFiles].pTruecolorPixels))
+  {
+   //try open PNG
+   wsprintfW(pFilePath, L".\\Data\\%S\\%s.png", _this->sContainerName, pFilename);
+   if (LoadPNG(pFilePath, &uCBMWdith, &uCBMHeight, &_this->aLODHeaders[_this->uNumLoadedFiles].pTruecolorPixels))
+   {
+    if (!hStdHandle)
+      hStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    wsprintfW(pFileNotFound, L"Texture not found: %s\n", pFilename);
+    WriteConsoleW(hStdHandle, pFileNotFound, lstrlenW(pFileNotFound), &w, 0);
+
+    if (!pending_texture.pTruecolorPixels)
+      pending_texture.pTruecolorPixels = malloc(52 * 53 * 4);
+    pending_texture.uTextureWidth = 52;
+    pending_texture.uTextureHeight = 53;
+    return -1;
+   }
+  }
+ }
+
+ wsprintfA(_this->aLODHeaders[_this->uNumLoadedFiles].sContainerName, "%S", pFilename);
+ _this->aLODHeaders[_this->uNumLoadedFiles].uTextureWidth = uCBMWdith;
+ _this->aLODHeaders[_this->uNumLoadedFiles].uTextureHeight = uCBMHeight;
+
+ _this->uNumLoadedFiles++;
+ return _this->uNumLoadedFiles - 1;
+}
+
+
+unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename)
+{
+ DWORD          w;
+ void          *hFile;
+ unsigned char *pOut;
+ wchar_t        pFilepath[256];
+ char           pFilenameA[256];
+
+ wsprintfW(pFilepath, L".\\Data\\Events\\%s", pFilename);
+ hFile = CreateFileW(pFilepath, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
+ if (hFile == INVALID_HANDLE_VALUE)
+ {
+  wsprintfA(pFilenameA, "%S", pFilename);
+  return class17_fn1(_this, pFilenameA, 0);
+ }
+
+ pOut = malloc(GetFileSize(hFile, 0));
+ ReadFile(hFile, pOut, GetFileSize(hFile, 0), &w, 0);
+
+ CloseHandle(hFile);
+ return pOut;
 }

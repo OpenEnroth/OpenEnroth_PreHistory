@@ -1,10 +1,21 @@
 #include <stdio.h>
 #include <windows.h>
 
-//#include "CbmTools.h"
+#include "libpng143\\png.h"
 
-
-
+#pragma pack(push, 1)
+struct TGAHeader
+{
+ unsigned char  tgaSkip;
+ unsigned char  tgaDontCare1;
+ unsigned char  tgaType;
+ unsigned char  tgaDontCare2[9];
+ unsigned short tgaWidth;
+ unsigned short tgaHeight;
+ unsigned char  tgaBPP;
+ unsigned char  tgaDontCare3;
+};
+#pragma pack(pop)
 
 #pragma pack(push, 1)
 struct CBMHeader
@@ -21,9 +32,6 @@ struct CBMHeader
 #pragma pack(pop)
 
 
-
-
-
 unsigned long rle8_estimate(const unsigned char *pSource, unsigned long ulSize);
 unsigned char *rle8_compress(const unsigned char *pSource, unsigned long ulSize, unsigned long *pCompressedSize);
 unsigned char *rle8_decompress(const unsigned char *pSource, unsigned long ulCompressedSize, unsigned long ulSize);
@@ -36,12 +44,133 @@ unsigned char *rle16_decompress(const unsigned char *pSource, unsigned long ulCo
 
 
 
+
+extern "C" unsigned int LoadTGA(const wchar_t *pFile, unsigned int *pWidth, unsigned int *pHeight, unsigned int **pPixels)
+{
+ DWORD  w;
+ void  *hFile = CreateFileW(pFile, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
+ if (hFile == INVALID_HANDLE_VALUE)
+   return 1;
+
+ struct TGAHeader tgaHeader;
+ ReadFile(hFile, &tgaHeader, sizeof(struct TGAHeader), &w, 0);
+ SetFilePointer(hFile, tgaHeader.tgaSkip, 0, FILE_CURRENT);
+
+ if (tgaHeader.tgaBPP != 32)
+ {
+  MessageBoxW(0, L"Invalid Targa format", L"LoadTGA", 0);
+
+  CloseHandle(hFile);
+  return 1;
+ }
+
+ *pWidth = tgaHeader.tgaWidth;
+ *pHeight = tgaHeader.tgaHeight;
+ *pPixels = new unsigned int[*pWidth * *pHeight];
+
+ ReadFile(hFile, *pPixels, *pWidth * *pHeight * sizeof(__int32), &w, 0);
+ CloseHandle(hFile);
+
+ return 0;
+}
+
+
+
+
+extern "C" unsigned int LoadPNG(const wchar_t *pFile, unsigned int *pWidth, unsigned int *pHeight, unsigned int **pPixels)
+{
+ png_structp png_ptr;
+ png_infop info_ptr;
+ png_uint_32 width, height;
+ int bit_depth, color_type, interlace_type;
+ png_voidp user_error_ptr;
+ FILE *fp;
+
+ if (!(fp = _wfopen(pFile, L"rb")))
+   return 1;
+
+ png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, 0, 0, 0);
+
+ if (!png_ptr)
+ {
+  fclose(fp);
+  return 1;
+ }
+
+   /* Allocate/initialize the memory for image information.  REQUIRED. */
+ info_ptr = png_create_info_struct(png_ptr);
+ if (!info_ptr)
+ {
+  fclose(fp);
+  png_destroy_read_struct(&png_ptr, 0, 0);
+  return 1;
+ }
+
+   /* Set error handling if you are using the setjmp/longjmp method (this is
+    * the normal method of doing things with libpng).  REQUIRED unless you
+    * set up your own error handlers in the png_create_read_struct() earlier.
+    */
+ if (setjmp(png_jmpbuf(png_ptr)))
+ {
+  png_destroy_read_struct(&png_ptr, &info_ptr, 0);
+  fclose(fp);
+  return 1;
+ }
+
+ png_init_io(png_ptr, fp);
+
+
+   /*
+    * If you have enough memory to read in the entire image at once,
+    * and you need to specify only transforms that can be controlled
+    * with one of the PNG_TRANSFORM_* bits (this presently excludes
+    * quantizing, filling, setting background, and doing gamma
+    * adjustment), then you can read the entire image (including
+    * pixels) into the info structure with this call:
+    */
+ png_read_png(png_ptr, info_ptr, 0, 0);
+
+ if (info_ptr->channels != 4)
+ {
+  wchar_t pErrorMsg[256];
+  wsprintfW(pErrorMsg, L"\"%s\": Invalid PNG format [4-channel ARGB PNG required]", pFile);
+  MessageBoxW(0, pErrorMsg, L"LoadPNG", 0);
+  return 1;
+ }
+
+
+ *pWidth = info_ptr->width;
+ *pHeight = info_ptr->height;
+
+ *pPixels = new unsigned int[info_ptr->width * info_ptr->height];
+ for (unsigned int i = 0; i < info_ptr->height; ++i)
+ {
+  unsigned int *pRow = *pPixels + i * info_ptr->width;
+
+  memcpy(pRow, info_ptr->row_pointers[i], info_ptr->width * sizeof(__int32));
+  for (unsigned int x = 0; x < info_ptr->width; ++x)
+  {
+   unsigned int abgr = pRow[x];
+   pRow[x] = (abgr & 0xFF00FF00) | ((abgr & 0x00FF0000) >> 16) | ((abgr & 0x000000FF) << 16);
+  }
+ }
+
+
+ 
+   /* Clean up after the read, and free any memory allocated - REQUIRED */
+ png_destroy_read_struct(&png_ptr, &info_ptr, 0);
+
+ fclose(fp);
+ return 0;
+}
+
+
 extern "C" unsigned int LoadCBM(const wchar_t *pFile, unsigned int *pWidth, unsigned int *pHeight, unsigned int **ppPixels)
 {
  DWORD  w;
  void  *hFile = CreateFileW(pFile, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
  if (hFile == INVALID_HANDLE_VALUE)
-   return false;
+   return 1;
 
  struct CBMHeader cbmHeader;
  ReadFile(hFile, &cbmHeader, sizeof(struct CBMHeader), &w, 0);
@@ -135,7 +264,7 @@ extern "C" unsigned int LoadCBM(const wchar_t *pFile, unsigned int *pWidth, unsi
  *ppPixels = pPixels;
 
  delete [] pCompressedChannel;
- return true;
+ return 0;
 }
 
 

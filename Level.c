@@ -555,7 +555,7 @@ LABEL_33:
   strcpy(Str1, Str);
   Str1[strlen(Str1) - 4] = 0;
   wsprintfW(pLevelMapFilename, L"%S", Str1);
-  struct_576FE8.uTextureID_LocationMap = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pLevelMapFilename);
+  struct_576FE8.uTextureID_LocationMap = class17_LoadTexture_New(pClass17_Icons_LOD, pLevelMapFilename);
 
   v154 = &v152;
   v40 = strlen(Str);
@@ -743,7 +743,7 @@ LABEL_69:
     }
 
     wsprintfW(pFilename, L"%S", Str2);
-    v66->uTextureID = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, pFilename);
+    v66->uTextureID = class17_LoadTexture_New(pClass17_Bitmaps_LOD, pFilename);
 
     if (v66->uTextureID != -1)
     {
@@ -1064,7 +1064,7 @@ LABEL_120:
   v109 = _this->array_0000A0[1];
   v120 = 0;
   v110 = sub_487E3B(pTileTable, _this->array_0000A0[1]);
-  v106 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, (const char *)v110);
+  v106 = class17_LoadTexture_New(pClass17_Bitmaps_LOD, (const char *)v110);
   _this->dword_0000EC = v106;
   if ( v106 != -1 )
     pClass17_Bitmaps_LOD->aLODHeaders[v106].word_000026 = class35_sub_48A3BC(&class35_obj, pClass17_Bitmaps_LOD->aLODHeaders[v106].word_000024);
@@ -1096,7 +1096,7 @@ LABEL_150:
    wchar_t pSkyFilename[256];
 
    wsprintfW(pSkyFilename, L"%S", &_this->array_0004F0[2]);
-   _this->uSkyTextureID = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, pSkyFilename);
+   _this->uSkyTextureID = class17_LoadTexture_New(pClass17_Bitmaps_LOD, pSkyFilename);
   }
 
   v158 = &pClass17_Bitmaps_LOD->aLODHeaders[_this->uSkyTextureID];

@@ -3381,9 +3381,9 @@ int __cdecl sub_443801()
 //----- (004A90A0) --------------------------------------------------------
 void sub_4A90A0(struct class06 *_this)
 {
- _this->dword_0005E4 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, L"effpar01");
- _this->dword_0005E8 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, L"effpar02");
- _this->dword_0005EC = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, L"effpar03");
+ _this->dword_0005E4 = class17_LoadTexture_New(pClass17_Bitmaps_LOD, L"effpar01");
+ _this->dword_0005E8 = class17_LoadTexture_New(pClass17_Bitmaps_LOD, L"effpar02");
+ _this->dword_0005EC = class17_LoadTexture_New(pClass17_Bitmaps_LOD, L"effpar03");
 
  runtime_warning();
  _this->dword_0005F0 = sub_4AC7C0(pClass17_Sprites_LOD, "sp57c", 6);
@@ -3413,6 +3413,8 @@ void sub_4A90A0(struct class06 *_this)
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell73"));
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell75"));
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell96"));
+
+ runtime_warning();
 /*
  CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell02"));
  CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell03"));
@@ -5800,11 +5802,11 @@ char __cdecl LoadPlayerPortraintsAndVoices()
    for (j = 0; j < 56; ++j)
    {
     wsprintfW(pFilename, L"pc%02u-%02u", pParty_global->pPlayers[i].uFace, j + 1);
-    uTextureIdx_PlayerFaces[i][j] = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilename);
+    uTextureIdx_PlayerFaces[i][j] = class17_LoadTexture_New(pClass17_Icons_LOD, pFilename);
    }
 
- uTextureIdx_PlayerFaceEradicated = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Eradcate");
- uTextureIdx_PlayerFaceDead = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"DEAD");
+ uTextureIdx_PlayerFaceEradicated = class17_LoadTexture_New(pClass17_Icons_LOD, L"Eradcate");
+ uTextureIdx_PlayerFaceDead = class17_LoadTexture_New(pClass17_Icons_LOD, L"DEAD");
 
  for (i = 0; i < 4; ++i)
  {
@@ -13777,7 +13779,7 @@ void __fastcall GameUI_DrawInventory(unsigned int uSelectedCharacter, bool a2) /
   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 8, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_InventoryBackground]);
   if (a2)
   {
-    v4 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"fr_strip");
+    v4 = class17_LoadTexture_New(pClass17_Icons_LOD, L"fr_strip");
     CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 305, &pClass17_Icons_LOD->aLODHeaders[v4]);
   }
 
@@ -13799,7 +13801,7 @@ void __fastcall GameUI_DrawInventory(unsigned int uSelectedCharacter, bool a2) /
 
 
        wsprintfW(pItemIconNameW, L"%S", pClass40->pItems[v6->uItemID].pIconName);
-       uItemTextureIdx = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pItemIconNameW);
+       uItemTextureIdx = class17_LoadTexture_New(pClass17_Icons_LOD, pItemIconNameW);
 
         pItemTexture = &pClass17_Icons_LOD->aLODHeaders[uItemTextureIdx];
         v8 = pItemTexture->uTextureWidth;

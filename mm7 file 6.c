@@ -15,7 +15,6 @@
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-//#include "codec.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -3792,7 +3791,7 @@ LABEL_5:
   else
   {
     MultiByteToWideChar(CP_ACP, 0, pClass40->pItems[uItemID].pIconName, -1, pItemIconNameW, 64);
-    v8 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pItemIconNameW);
+    v8 = class17_LoadTexture_New(pClass17_Icons_LOD, pItemIconNameW);
 
     v7 = &pClass17_Icons_LOD->aLODHeaders[v8];
     v11 = GetSizeInInventorySlots(v7->uTextureWidth);

@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="zlib">
+      <UniqueIdentifier>{7d66f862-495f-4d34-9a1e-db46c3ba7b63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libpng">
+      <UniqueIdentifier>{25aaa0dd-089c-4d6a-bacb-589174ba9946}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Wight and Wagic">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="_audio.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="_video.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="AIL.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="Bink.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="CbmTools.cpp">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="classes.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="data.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameTables.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameTables_FromTXT.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="mm7DDrawRenderer.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="Smacker.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="mm7 file 1.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="mm7 file 2.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="mm7_unparsed_data.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="mm7 file 3.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="mm7 file 4.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="mm7 file 5.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="mm7 file 6.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="mm7 file 7.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="mm7 file 8.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="mm7 file 9 junk stuff.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\adler32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\compress.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\deflate.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\infblock.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\infutil.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\infcodes.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\inffast.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\inflate.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\inftrees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\zutil.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\uncompr.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\trees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="libpng143\png.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="libpng143\pngerror.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="libpng143\pngget.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="libpng143\pngmem.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="libpng143\pngpread.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="libpng143\pngread.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="libpng143\pngrio.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="libpng143\pngrtran.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="libpng143\pngrutil.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="libpng143\pngset.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="libpng143\pngtest.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="libpng143\pngtrans.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="libpng143\pngwio.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="libpng143\pngwrite.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="libpng143\pngwtran.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="libpng143\pngwutil.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="zlib\crc32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="_audio.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="_video.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="AIL.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="Bink.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="CbmTools.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="classes.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="data.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="defs.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameTables.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="mm7DDrawRenderer.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="Smacker.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="mm7_unparsed_data.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="mm7_unparsed_functions.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="libpng143\png.h">
+      <Filter>libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="libpng143\pngconf.h">
+      <Filter>libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="libpng143\pngpriv.h">
+      <Filter>libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\deflate.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\infblock.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\infcodes.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\inffast.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\inffixed.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\inftrees.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\infutil.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\trees.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\zconf.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\zlib.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib\zutil.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

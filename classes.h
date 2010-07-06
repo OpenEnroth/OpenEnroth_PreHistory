@@ -708,7 +708,7 @@ bool class17_Games_LOD_FindLeveL(struct class17 *_this, const char *pLevelName);
 //signed int __thiscall sub_4AC67E(int this, char *DstBuf, const char *Size);
 int sub_4AC67E(struct class17 *_this, struct class18 *DstBuf, const char *pFilename);
 
-unsigned int   class17_LoadTextureFromCBM(struct class17 *_this, const wchar_t *pFilename);
+unsigned int   class17_LoadTexture_New(struct class17 *_this, const wchar_t *pFilename);
 unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename);
 
 
@@ -1408,9 +1408,9 @@ struct Player
 
    short word_001934;
    char array_001936[2];
-   unsigned int uSkillPoints;
-   int uHealthMax;
-   int uManaMax;
+   unsigned int uSkillPoints; // dword @ 001938
+   int uHealthMax;            // dword @ 00193C
+   int uManaMax;              // dword @ 001940
    int dword_001944;
    int array_001948[65];
 

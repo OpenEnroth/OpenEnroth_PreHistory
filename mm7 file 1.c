@@ -2392,7 +2392,7 @@ int MaybePlaceItemInInventory(struct Player *_this, signed int a2, int a3)
   v11 = _this;
 
  wsprintfW(pFilename, L"%S", pClass40->pItems[a3].pIconName);
- v5 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilename);
+ v5 = class17_LoadTexture_New(pClass17_Icons_LOD, pFilename);
  v4 = &pClass17_Icons_LOD->aLODHeaders[v5];
 
  uNumSlotsX = GetSizeInInventorySlots(v4->uTextureWidth);
@@ -6393,7 +6393,7 @@ signed int __cdecl sub_465D0B()
   for (i = 0; i < 8; ++i)
   {
    wsprintfW(pWaterTileName, L"HDWTR%03u", i);
-   uTextureID_WaterTiles[i] = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, pWaterTileName);
+   uTextureID_WaterTiles[i] = class17_LoadTexture_New(pClass17_Bitmaps_LOD, pWaterTileName);
   }
 
  pNPCStats = malloc(sizeof(struct CNPCStats));
@@ -6535,7 +6535,7 @@ void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
         dword_507964 = class17_LoadTexture(pClass17_Icons_LOD, "isg-03-c", 2);
         dword_507960 = class17_LoadTexture(pClass17_Icons_LOD, "isg-04-c", 2);
         dword_50795C = class17_LoadTexture(pClass17_Icons_LOD, "evtnpc-c", 2);
-        uTextureIdx_InventoryBackground = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"fr_inven");
+        uTextureIdx_InventoryBackground = class17_LoadTexture_New(pClass17_Icons_LOD, L"fr_inven");
 
         array_6A0D14[3].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeC");
         CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[3].uIconIdx);
@@ -6604,42 +6604,42 @@ void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
 
         dword_506438 = class17_LoadTexture(pClass17_Icons_LOD, "ib-bcu-a", 2);
 
-        uTextureIdx_EdgeTop = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Edge_Top");
-        uTextureIdx_EdgeBottom = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Edge_Bottom");
-        uTextureIdx_EdgeRight = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Edge_Right");
-        uTextureIdx_EdgeLeft = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Edge_Left");
-        uTextureIdx_CornerUpperRight = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Cornr_UR");
-        uTextureIdx_CornerUpperLeft = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Cornr_UL");
-        uTextureIdx_CornerLowerRight = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Cornr_LR");
-        uTextureIdx_CornerLowerLeft = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Cornr_LL");
-        uTextureIdx_Parchment = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"Parchment");
+        uTextureIdx_EdgeTop = class17_LoadTexture_New(pClass17_Icons_LOD, L"Edge_Top");
+        uTextureIdx_EdgeBottom = class17_LoadTexture_New(pClass17_Icons_LOD, L"Edge_Bottom");
+        uTextureIdx_EdgeRight = class17_LoadTexture_New(pClass17_Icons_LOD, L"Edge_Right");
+        uTextureIdx_EdgeLeft = class17_LoadTexture_New(pClass17_Icons_LOD, L"Edge_Left");
+        uTextureIdx_CornerUpperRight = class17_LoadTexture_New(pClass17_Icons_LOD, L"Cornr_UR");
+        uTextureIdx_CornerUpperLeft = class17_LoadTexture_New(pClass17_Icons_LOD, L"Cornr_UL");
+        uTextureIdx_CornerLowerRight = class17_LoadTexture_New(pClass17_Icons_LOD, L"Cornr_LR");
+        uTextureIdx_CornerLowerLeft = class17_LoadTexture_New(pClass17_Icons_LOD, L"Cornr_LL");
+        uTextureIdx_Parchment = class17_LoadTexture_New(pClass17_Icons_LOD, L"Parchment");
 
-        uTextureIdx_InventoryBackground = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"fr_inven");
+        uTextureIdx_InventoryBackground = class17_LoadTexture_New(pClass17_Icons_LOD, L"fr_inven");
         dword_50795C = class17_LoadTexture(pClass17_Icons_LOD, "evtnpc", 2);
         dword_507960 = class17_LoadTexture(pClass17_Icons_LOD, "isg-04-a", 2);
         dword_507964 = class17_LoadTexture(pClass17_Icons_LOD, "isg-03-a", 2);
         dword_507968 = class17_LoadTexture(pClass17_Icons_LOD, "isg-02-a", 2);
         dword_50796C = class17_LoadTexture(pClass17_Icons_LOD, "isg-01-a", 2);
 
-        uTextureIdx_ib_m4d_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-m4d-a");
-        uTextureIdx_ib_m3d_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-m3d-a");
-        uTextureIdx_ib_m2d_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-m2d-a");
-        uTextureIdx_ib_m1d_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-m1d-a");
+        uTextureIdx_ib_m4d_a = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-m4d-a");
+        uTextureIdx_ib_m3d_a = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-m3d-a");
+        uTextureIdx_ib_m2d_a = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-m2d-a");
+        uTextureIdx_ib_m1d_a = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-m1d-a");
 
-        uTextureIdx_ib_autout_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-autout-a");
-        uTextureIdx_ib_autin_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-autin-A");
+        uTextureIdx_ib_autout_a = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-autout-a");
+        uTextureIdx_ib_autin_a = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-autin-A");
 
-        uTextureIdx_ib_npcrd_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IB-NPCRD-A");
-        uTextureIdx_ib_npcld_a = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IB-NPCLD-A");
+        uTextureIdx_ib_npcrd_a = class17_LoadTexture_New(pClass17_Icons_LOD, L"IB-NPCRD-A");
+        uTextureIdx_ib_npcld_a = class17_LoadTexture_New(pClass17_Icons_LOD, L"IB-NPCLD-A");
 
-        uTextureIdx_MinimapCompass = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IB-COMP-A");
+        uTextureIdx_MinimapCompass = class17_LoadTexture_New(pClass17_Icons_LOD, L"IB-COMP-A");
         dword_5079C8 = class17_LoadTexture(pClass17_Icons_LOD, "IB-InitY-a", 2);
         dword_5079CC = class17_LoadTexture(pClass17_Icons_LOD, "IB-InitR-a", 2);
-        uTextureIdx_SensorGreen = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IB-InitG-a");
-        uTextureIdx_MinimapMask = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"ib-autmask-a");
+        uTextureIdx_SensorGreen = class17_LoadTexture_New(pClass17_Icons_LOD, L"IB-InitG-a");
+        uTextureIdx_MinimapMask = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-autmask-a");
         dword_5079E4 = class17_LoadTexture(pClass17_Icons_LOD, "ib-mb-A", 2);
 
-        uTextureIdx_CharacterSelectionFrame = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"IB-selec-A");
+        uTextureIdx_CharacterSelectionFrame = class17_LoadTexture_New(pClass17_Icons_LOD, L"IB-selec-A");
 
         array_6A0D14[3].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeA");
         CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[3].uIconIdx);

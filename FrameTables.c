@@ -72,7 +72,7 @@ void CIconFrameTable_InitializeIcon(struct CIconFrameTable *_this, unsigned int 
  do
  {
   wsprintfW(pFilepath, L"%S", _this->pIcons[i].sTextureName);
-  _this->pIcons[i].uTextureIdx = class17_LoadTextureFromCBM(pClass17_Icons_LOD, pFilepath);
+  _this->pIcons[i].uTextureIdx = class17_LoadTexture_New(pClass17_Icons_LOD, pFilepath);
  }
  while (_this->pIcons[i++].word_00001C & 1);
 }
@@ -517,7 +517,7 @@ void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2)
    if (_this->pTiles[i].sTileName[0])
    {
     wsprintfW(pFilename, L"%S", _this->pTiles[i].sTileName);
-    _this->pTiles[i].word_000012 = class17_LoadTextureFromCBM(pClass17_Bitmaps_LOD, pFilename);
+    _this->pTiles[i].word_000012 = class17_LoadTexture_New(pClass17_Bitmaps_LOD, pFilename);
 
     if (_this->pTiles[i].word_000012 != -1)
       pClass17_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026 = class35_sub_48A3BC(&class35_obj, pClass17_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026);
