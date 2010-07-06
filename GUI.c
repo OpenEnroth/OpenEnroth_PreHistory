@@ -2576,7 +2576,6 @@ char __fastcall GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // characte
 
   pp = pPlayers[uSelectedCharacter - 1];
   v2 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"fr_stats");
-  //v2 = class17_LoadTexture(pClass17_Icons_LOD, "fr_stats", 2);
   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 8, &pClass17_Icons_LOD->aLODHeaders[v2]);
 
   v3 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
@@ -2584,11 +2583,11 @@ char __fastcall GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // characte
   wsprintfA(pStringBuffer, pGlobalTXT_LocalizationStrings[429], pp->sName, aClassNames[pp->uClass]);
 
   strcat(ExistingFileName, pStringBuffer);
-  if ( pp->dword_001938 )
+  if ( pp->uSkillPoints )
     v4 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, 0);
   else
     v4 = 0xFFFF;
-  wsprintfA(pStringBuffer, "\f00000\r180%s: \f%05d\f%d\f00000\n\n\n", pGlobalTXT_LocalizationStrings[207], v4, pp->dword_001938);
+  wsprintfA(pStringBuffer, "\f00000\r180%s: \f%05d\f%d\f00000\n\n\n", pGlobalTXT_LocalizationStrings[207], v4, pp->uSkillPoints);
   strcat(ExistingFileName, pStringBuffer);
   FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, 18, ExistingFileName, 0, 0, 0);
   v6 = sub_48C855(pp);

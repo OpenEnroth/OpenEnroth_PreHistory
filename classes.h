@@ -1408,7 +1408,7 @@ struct Player
 
    short word_001934;
    char array_001936[2];
-   int dword_001938;
+   unsigned int uSkillPoints;
    int uHealthMax;
    int uManaMax;
    int dword_001944;
