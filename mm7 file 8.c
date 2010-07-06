@@ -7614,8 +7614,8 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
       if ( v5 != 2 )
         return 0;
       v7 = 32 * v2;
-      v63 = array_6836D0[v2].dword_000004;
-      v64 = array_6836D0[v2].dword_000008;
+      v63 = array_6836D0[v2].sPosX;
+      v64 = array_6836D0[v2].sPosY;
       v65 = array_6836D0[v2].dword_00000C;
       v6 = sub_49AC17((int)byte_6BE3C8, v63, v64, v65);
     }
@@ -7652,8 +7652,8 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
         if ( v15 != 1 )
           return 0;
         v16 = 32 * v12;
-        v18 = array_6836D0[v12].dword_000004;
-        v43 = v60 = array_6836D0[v12].dword_000008;
+        v18 = array_6836D0[v12].sPosX;
+        v43 = v60 = array_6836D0[v12].sPosY;
         v17 = v44 = array_6836D0[v12].dword_00000C;
       }
       else

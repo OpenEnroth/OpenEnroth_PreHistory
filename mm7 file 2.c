@@ -17597,8 +17597,8 @@ signed int __fastcall sub_42041E(int a1)
     if ( (dword_5B5920 & 7) == 5 )
     {
       v16 = 32 * v5;
-      v14 = array_6836D0[v5].dword_000004;
-      v55 = array_6836D0[v5].dword_000008;
+      v14 = array_6836D0[v5].sPosX;
+      v55 = array_6836D0[v5].sPosY;
       v17 = *(_WORD *)((char *)&pDecorationDescriptionList->pDescriptions[array_6836D0[v5].uDecorationDescriptionID] + 66);
       v15 = array_6836D0[v5].dword_00000C + (((_DWORD)v17 - HIDWORD(v17)) >> 1);
     }

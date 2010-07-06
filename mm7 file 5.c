@@ -7459,8 +7459,8 @@ LABEL_123:
                                                                                        * *(_WORD *)(v1 + 150));
                   v49 = sub_45281E(
                           pClass59_global,
-                          *(_WORD *)(v1 + 142) - array_6836D0[v41].dword_000004,
-                          *(_WORD *)(v1 + 144) - array_6836D0[v41].dword_000008);
+                          *(_WORD *)(v1 + 142) - array_6836D0[v41].sPosX,
+                          *(_WORD *)(v1 + 144) - array_6836D0[v41].sPosY);
                   v56 = class59_sub_402CAE(pClass59_global, v49);
                   v58 = (unsigned __int64)(v56 * (signed int)v59) >> 16;
                   v50 = v49 - pClass59_global->dword_001864;
@@ -8162,8 +8162,8 @@ LABEL_103:
           v48 = sub_452A9E(*(_WORD *)(v1 + 148) * *(_WORD *)(v1 + 148) + *(_WORD *)(v1 + 150) * *(_WORD *)(v1 + 150));
           v49 = sub_45281E(
                   pClass59_global,
-                  *(_WORD *)(v1 + 142) - array_6836D0[v40].dword_000004,
-                  *(_WORD *)(v1 + 144) - array_6836D0[v40].dword_000008);
+                  *(_WORD *)(v1 + 142) - array_6836D0[v40].sPosX,
+                  *(_WORD *)(v1 + 144) - array_6836D0[v40].sPosY);
           v73 = class59_sub_402CAE(pClass59_global, v49);
           v72 = (unsigned __int64)(v73 * v48) >> 16;
           v50 = v49 - pClass59_global->dword_001864;
@@ -8446,8 +8446,8 @@ LABEL_25:
         v48 = sub_452A9E(*((_WORD *)v2 + 8) * *((_WORD *)v2 + 8) + *((_WORD *)v2 + 9) * *((_WORD *)v2 + 9));
         v23 = sub_45281E(
                 pClass59_global,
-                *((_DWORD *)v2 + 1) - array_6836D0[v15].dword_000004,
-                *((_DWORD *)v2 + 2) - array_6836D0[v15].dword_000008);
+                *((_DWORD *)v2 + 1) - array_6836D0[v15].sPosX,
+                *((_DWORD *)v2 + 2) - array_6836D0[v15].sPosY);
         v50 = class59_sub_402CAE(pClass59_global, v23);
         v49 = (unsigned __int64)(v50 * v48) >> 16;
         v24 = v23 - pClass59_global->dword_001864;
@@ -9049,8 +9049,8 @@ LABEL_74:
     v69 = sub_452A9E(*((_WORD *)v5 + 9) * *((_WORD *)v5 + 9) + *((_WORD *)v5 + 8) * *((_WORD *)v5 + 8));
     v38 = sub_45281E(
             pClass59_global,
-            *((_DWORD *)v5 + 1) - array_6836D0[v30].dword_000004,
-            *((_DWORD *)v5 + 2) - array_6836D0[v30].dword_000008);
+            *((_DWORD *)v5 + 1) - array_6836D0[v30].sPosX,
+            *((_DWORD *)v5 + 2) - array_6836D0[v30].sPosY);
     v68 = v38;
     v39 = class59_sub_402CAE(pClass59_global, v38);
     v72 = v39;
@@ -9613,8 +9613,8 @@ LABEL_93:
       i = v53;
       v54 = sub_45281E(
               pClass59_global,
-              v86 - array_6836D0[(dword_7215A8 >> 3)].dword_000004,
-              v85 - array_6836D0[(dword_7215A8 >> 3)].dword_000008);
+              v86 - array_6836D0[(dword_7215A8 >> 3)].sPosX,
+              v85 - array_6836D0[(dword_7215A8 >> 3)].sPosY);
       v1 = (unsigned __int64)(class59_sub_402CAE(pClass59_global, v54) * v53) >> 16;
       v55 = class59_sub_402CAE(pClass59_global, v54 - pClass59_global->dword_001864);
       v0 = (unsigned __int64)(v55 * i) >> 16;
@@ -12630,7 +12630,7 @@ void __cdecl sub_47A95E()
   v45 = 0;
   if ( (signed int)dword_69ADD0 > 0 )
   {
-   v0 = (int)&array_6836D0[0].dword_000008;
+   v0 = (int)&array_6836D0[0].sPosY;
     do
     {
       if ( (!(*(_BYTE *)(v0 - 6) & 0x40) || sub_47A825((void *)(v0 - 8))) && !(*(_BYTE *)(v0 - 6) & 0x20) )

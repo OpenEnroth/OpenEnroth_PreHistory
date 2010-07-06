@@ -285,6 +285,7 @@ void __cdecl sub_4789DE()
           p14->ptr_00003C = 0;
         else if (v18 < 0 || v18 > 1999)
         {
+         __asm int 3
          runtime_warning(sometiems negative index returned, function unstable);
          runtime_error;
          //for now let's pretend there's no required texture
@@ -7498,8 +7499,8 @@ LABEL_199:
       v110 = v48;
       v49 = sub_45281E(
               pClass59_global,
-              v112 - array_6836D0[(dword_7215A8 >> 3)].dword_000004,
-              v117 - array_6836D0[(dword_7215A8 >> 3)].dword_000008);
+              v112 - array_6836D0[(dword_7215A8 >> 3)].sPosX,
+              v117 - array_6836D0[(dword_7215A8 >> 3)].sPosY);
       v121 = v49;
       v50 = class59_sub_402CAE(pClass59_global, v49);
       v119 = v50;
@@ -9284,8 +9285,8 @@ void __thiscall sub_4498D5(void *this)
           goto LABEL_20;
       }
       v8 = 32 * v5;
-      pParty_global->sPartyPosX = array_6836D0[v5].dword_000004;
-      pParty_global->sPartyPosY = array_6836D0[v5].dword_000008;
+      pParty_global->sPartyPosX = array_6836D0[v5].sPosX;
+      pParty_global->sPartyPosY = array_6836D0[v5].sPosY;
       pParty_global->dword_0006BC = array_6836D0[v5].dword_00000C;
       pParty_global->dword_000700 = pParty_global->dword_0006BC;
       v9 = pClass59_global->dword_001864 * array_6836D0[v5].word_00001A / 90;

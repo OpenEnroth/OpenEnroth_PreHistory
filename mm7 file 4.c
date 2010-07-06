@@ -16820,7 +16820,7 @@ LABEL_43:
   i = 0;
   if ( (signed int)dword_69ADD0 > 0 )
   {
-   v14 = (int)&array_6836D0[0].dword_000008;
+   v14 = (int)&array_6836D0[0].sPosY;
     do
     {
       sub_458693(pDecorationDescriptionList, *(_WORD *)(v14 - 8));

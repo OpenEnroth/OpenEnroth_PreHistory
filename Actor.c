@@ -276,8 +276,8 @@ LABEL_20:
   if ( !v9 )
   {
     v13 = 32 * v4;
-    v56 = array_6836D0[v4].dword_000004;
-    v14 = array_6836D0[v4].dword_000008;
+    v56 = array_6836D0[v4].sPosX;
+    v14 = array_6836D0[v4].sPosY;
     v12 = array_6836D0[v4].dword_00000C;
 LABEL_26:
     v55 = v14;
@@ -331,8 +331,8 @@ LABEL_28:
   if ( v22 == 5 )
   {
     v27 = 32 * v20;
-    v53 = array_6836D0[v20].dword_000004;
-    v28 = array_6836D0[v20].dword_000008;
+    v53 = array_6836D0[v20].sPosX;
+    v28 = array_6836D0[v20].sPosY;
     v26 = array_6836D0[v20].dword_00000C;
 LABEL_43:
     v52 = v28;

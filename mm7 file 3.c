@@ -7514,7 +7514,7 @@ LABEL_71:
   v89 = result;
   if ( (signed int)dword_69ADD0 > 0 )
   {
-   v97 = (int)&array_6836D0[0].dword_000004;
+   v97 = (int)&array_6836D0[0].sPosX;
     do
     {
       if ( *(_BYTE *)(v97 - 2) & 8 )

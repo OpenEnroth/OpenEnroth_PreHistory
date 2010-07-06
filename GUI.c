@@ -661,8 +661,8 @@ LABEL_66:
  for (i = 0; i < dword_69ADD0; ++i)
    if (array_6836D0[i].word_000002 & 8 )
    {
-    v44 = uMinimapCentreX + uMinimapZoom * (array_6836D0[i].dword_000004 - pParty_global->sPartyPosX) / 65536;
-    v45 = uMinimapCentreY - uMinimapZoom * (array_6836D0[i].dword_000008 - pParty_global->sPartyPosY) / 65536;
+    v44 = uMinimapCentreX + uMinimapZoom * (array_6836D0[i].sPosX - pParty_global->sPartyPosX) / 65536;
+    v45 = uMinimapCentreY - uMinimapZoom * (array_6836D0[i].sPosY - pParty_global->sPartyPosY) / 65536;
     if (v44 >= pD3DRenderer->dword_00001C && v44 <= pD3DRenderer->dword_000024 &&
         v45 >= pD3DRenderer->dword_000020 && v45 <= pD3DRenderer->dword_000028)
     {

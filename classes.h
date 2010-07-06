@@ -1550,9 +1550,9 @@ struct struct0
 {
  unsigned short uDecorationDescriptionID; // word @ 000000
  short word_000002;
- int   dword_000004; // x position
- int   dword_000008; // y position
- int   dword_00000C;
+ int   sPosX; // dword @ 000004
+ int   sPosY; // dword @ 000008
+ int   dword_00000C; // z?
  int   dword_000010;
  short word_000014;
  short word_000016;
