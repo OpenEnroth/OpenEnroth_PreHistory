@@ -1415,7 +1415,7 @@ struct Player
    int array_001948[65];
 
    char byte_001A4E;
-   unsigned char uQuickSpell;
+   unsigned char uQuickSpell; // byte  @ 001A4F
    char array_001A50[72];
 
    char byte_001A98;

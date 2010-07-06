@@ -4496,7 +4496,7 @@ LABEL_22:
     sub_441964(array_5E4D58, v5);
     GameUI_DrawTorchlightAndWizardEye();
   }
-  //GameUI_DrawStatsTab(1);
+//  GameUI_DrawStatsTab(1);
 
   sub_4156F0();
   sub_4909F4(pParty_global);
@@ -16615,7 +16615,7 @@ void __cdecl sub_491F87()
     for (i = 0; i < 2; ++i)
     {
      if (struct_AD4674[i].dword_AD4674)
-       ExistingFileName[v24++] = i;
+       TmpBuf[v24++] = i;
     }
 
     v3 = 0;
@@ -16631,7 +16631,7 @@ void __cdecl sub_491F87()
            if (!struct_AD4674[1].dword_AD4674 || strcmp(*(const char **)v4, struct_AD4674[1].dword_AD4674))
             {
               v5 = v24++;
-              ExistingFileName[v5] = v3 + 2;
+              TmpBuf[v5] = v3 + 2;
             }
           }
         }
@@ -16650,7 +16650,7 @@ void __cdecl sub_491F87()
         if ( v25 >= 2 )
           break;
 
-        v7 = ExistingFileName[v6];
+        v7 = TmpBuf[v6];
         if ( v7 >= 2 )
         {
           wsprintfA(Str1, "NPC%03d", dword_72D5F8[19 * v7]);
@@ -16667,7 +16667,7 @@ void __cdecl sub_491F87()
             *(int *)((char *)dword_4EE074 + v9),
             v10 != -1 ? 72 * v10 + 7145548 : 0);
 
-          v8 = 76 * (unsigned __int8)ExistingFileName[v21];
+          v8 = 76 * (unsigned __int8)TmpBuf[v21];
           if (struct_AD4674[v8].dword_AD469C == 1 )
           {
            v20 = struct_AD4674[v8].dword_AD46A0;
@@ -17115,10 +17115,10 @@ void *__cdecl PlayerCreationUI_Draw()
      case 3:  v119 = pGlobalTXT_LocalizationStrings[101];  break;
      default: v119 = "";
     };
-    strcpy(ExistingFileName, v119);
+    strcpy(TmpBuf, v119);
 
-    //sub_44CB4F(pGUIWindow_PlayerCreation, pFontCreate, v143 + 72, v137 + 12, 0, ExistingFileName, 130, 0);
-    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v143 + 72, v137 + 12, ExistingFileName, 0xFFFFFFFF, 0, 0);
+    //sub_44CB4F(pGUIWindow_PlayerCreation, pFontCreate, v143 + 72, v137 + 12, 0, TmpBuf, 130, 0);
+    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v143 + 72, v137 + 12, TmpBuf, 0xFFFFFFFF, 0, 0);
     v23 = 0xFFD1BB61;
     v24 = AlignText_Center(150, Str1, pFontCreate);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v24 + v141 - 24, 291, Str1, 0xFFD1BB61, 0, 0);
@@ -17126,80 +17126,80 @@ void *__cdecl PlayerCreationUI_Draw()
 
     v25 = sub_48C93C(&pParty_global->pPlayers[i]);
     if (pParty_global->pPlayers[i].uStrength < 10)
-      wsprintfA(ExistingFileName, "%s\t099%d", pGlobalTXT_LocalizationStrings[144], pParty_global->pPlayers[i].uStrength);
-    else wsprintfA(ExistingFileName, "%s\t092%d", pGlobalTXT_LocalizationStrings[144], pParty_global->pPlayers[i].uStrength);
+      wsprintfA(TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[144], pParty_global->pPlayers[i].uStrength);
+    else wsprintfA(TmpBuf, "%s\t092%d", pGlobalTXT_LocalizationStrings[144], pParty_global->pPlayers[i].uStrength);
     uColor = PlayerCreationUI_GetStatColor(&pParty_global->pPlayers[i], 0);
-    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, 169, ExistingFileName, uColor, 0, 0);
+    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, 169, TmpBuf, uColor, 0, 0);
 
     v27 = sub_48C9C2(&pParty_global->pPlayers[i]);
     if (pParty_global->pPlayers[i].uIntelligence < 10)
-      wsprintfA(ExistingFileName, "%s\t099%d", pGlobalTXT_LocalizationStrings[116], pParty_global->pPlayers[i].uIntelligence);
-    else wsprintfA(ExistingFileName, "%s\t092%d", pGlobalTXT_LocalizationStrings[116], pParty_global->pPlayers[i].uIntelligence);
+      wsprintfA(TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[116], pParty_global->pPlayers[i].uIntelligence);
+    else wsprintfA(TmpBuf, "%s\t092%d", pGlobalTXT_LocalizationStrings[116], pParty_global->pPlayers[i].uIntelligence);
     uColor = PlayerCreationUI_GetStatColor(&pParty_global->pPlayers[i], 1);
-    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, v137 + 169, ExistingFileName, uColor, 0, 0);
+    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, v137 + 169, TmpBuf, uColor, 0, 0);
 
     v29 = sub_48CA3F(&pParty_global->pPlayers[i]);
     if (pParty_global->pPlayers[i].uWillpower < 10)
-      wsprintfA(ExistingFileName, "%s\t099%d", pGlobalTXT_LocalizationStrings[163], pParty_global->pPlayers[i].uWillpower);
-    else wsprintfA(ExistingFileName, "%s\t092%d", pGlobalTXT_LocalizationStrings[163], pParty_global->pPlayers[i].uWillpower);
+      wsprintfA(TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[163], pParty_global->pPlayers[i].uWillpower);
+    else wsprintfA(TmpBuf, "%s\t092%d", pGlobalTXT_LocalizationStrings[163], pParty_global->pPlayers[i].uWillpower);
     uColor = PlayerCreationUI_GetStatColor(&pParty_global->pPlayers[i], 2);
-    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, 2 * v137 + 169, ExistingFileName, uColor, 0, 0);
+    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, 2 * v137 + 169, TmpBuf, uColor, 0, 0);
 
     v31 = sub_48CABC(&pParty_global->pPlayers[i]);
     if (pParty_global->pPlayers[i].uEndurance < 10)
-      wsprintfA(ExistingFileName, "%s\t099%d", pGlobalTXT_LocalizationStrings[75], pParty_global->pPlayers[i].uEndurance);
-    else wsprintfA(ExistingFileName, "%s\t092%d", pGlobalTXT_LocalizationStrings[75], pParty_global->pPlayers[i].uEndurance);
+      wsprintfA(TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[75], pParty_global->pPlayers[i].uEndurance);
+    else wsprintfA(TmpBuf, "%s\t092%d", pGlobalTXT_LocalizationStrings[75], pParty_global->pPlayers[i].uEndurance);
     uColor = PlayerCreationUI_GetStatColor(&pParty_global->pPlayers[i], 3);
-    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, v130, ExistingFileName, uColor, 0, 0);
+    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, v130, TmpBuf, uColor, 0, 0);
 
     v33 = sub_48CB39(&pParty_global->pPlayers[i]);
     if (pParty_global->pPlayers[i].uAccuracy < 10)
-      wsprintfA(ExistingFileName, "%s\t099%d", pGlobalTXT_LocalizationStrings[1], pParty_global->pPlayers[i].uAccuracy);
-    else wsprintfA(ExistingFileName, "%s\t092%d", pGlobalTXT_LocalizationStrings[1], pParty_global->pPlayers[i].uAccuracy);
+      wsprintfA(TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[1], pParty_global->pPlayers[i].uAccuracy);
+    else wsprintfA(TmpBuf, "%s\t092%d", pGlobalTXT_LocalizationStrings[1], pParty_global->pPlayers[i].uAccuracy);
     uColor = PlayerCreationUI_GetStatColor(&pParty_global->pPlayers[i], 4);
-    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, 4 * v137 + 169, ExistingFileName, uColor, 0, 0);
+    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, 4 * v137 + 169, TmpBuf, uColor, 0, 0);
 
     v35 = sub_48CBB6(&pParty_global->pPlayers[i]);
     if (pParty_global->pPlayers[i].uSpeed < 10)
-      wsprintfA(ExistingFileName, "%s\t099%d", pGlobalTXT_LocalizationStrings[211], pParty_global->pPlayers[i].uSpeed);
-    else wsprintfA(ExistingFileName, "%s\t092%d", pGlobalTXT_LocalizationStrings[211], pParty_global->pPlayers[i].uSpeed);
+      wsprintfA(TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[211], pParty_global->pPlayers[i].uSpeed);
+    else wsprintfA(TmpBuf, "%s\t092%d", pGlobalTXT_LocalizationStrings[211], pParty_global->pPlayers[i].uSpeed);
     uColor = PlayerCreationUI_GetStatColor(&pParty_global->pPlayers[i], 5);
-    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, v131, ExistingFileName, uColor, 0, 0);
+    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, v131, TmpBuf, uColor, 0, 0);
 
     v37 = sub_48CC33(&pParty_global->pPlayers[i]);
     if (pParty_global->pPlayers[i].uLuck < 10)
-      wsprintfA(ExistingFileName, "%s\t099%d", pGlobalTXT_LocalizationStrings[136], pParty_global->pPlayers[i].uLuck);
-    else wsprintfA(ExistingFileName, "%s\t092%d", pGlobalTXT_LocalizationStrings[136], pParty_global->pPlayers[i].uLuck);
+      wsprintfA(TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[136], pParty_global->pPlayers[i].uLuck);
+    else wsprintfA(TmpBuf, "%s\t092%d", pGlobalTXT_LocalizationStrings[136], pParty_global->pPlayers[i].uLuck);
     uColor = PlayerCreationUI_GetStatColor(&pParty_global->pPlayers[i], 6);
-    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, v128, ExistingFileName, uColor, 0, 0);
+    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, v128, TmpBuf, uColor, 0, 0);
 
 
 
     v39 = GetSkillIdxByOrder(&pParty_global->pPlayers[i], 0);
     v40 = AlignText_Center(150, aSkillNames[v39], pFontCreate);
-    wsprintfA(ExistingFileName, "\t%03u%s", v40, aSkillNames[v39]);
-    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141 - 24, 311, ExistingFileName, 0xFFFFFFFF, 0, 0);
+    wsprintfA(TmpBuf, "\t%03u%s", v40, aSkillNames[v39]);
+    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141 - 24, 311, TmpBuf, 0xFFFFFFFF, 0, 0);
 
     v41 = GetSkillIdxByOrder(&pParty_global->pPlayers[i], 1);
     v42 = AlignText_Center(150, aSkillNames[v41], pFontCreate);
-    wsprintfA(ExistingFileName, "\t%03u%s", v42, aSkillNames[v41]);
-    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141 - 24, v137 + 311, ExistingFileName, 0xFFFFFFFF, 0, 0);
+    wsprintfA(TmpBuf, "\t%03u%s", v42, aSkillNames[v41]);
+    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141 - 24, v137 + 311, TmpBuf, 0xFFFFFFFF, 0, 0);
 
     v43 = GetSkillIdxByOrder(&pParty_global->pPlayers[i], 2);
     v46 = AlignText_Center(150, aSkillNames[v43], pFontCreate);
-    wsprintfA(ExistingFileName, "\t%03u%s", v46, aSkillNames[v43]);
+    wsprintfA(TmpBuf, "\t%03u%s", v46, aSkillNames[v43]);
     uColor = 0xFF00FF00;
     if (v43 >= 37)
       uColor = 0xFF00FFFF;
-    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141 - 24, 2 * v137 + 311, ExistingFileName, uColor, 0, 0);
+    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141 - 24, 2 * v137 + 311, TmpBuf, uColor, 0, 0);
 
     v48 = GetSkillIdxByOrder(&pParty_global->pPlayers[i], 3);
     v51 = AlignText_Center(150, aSkillNames[v48], pFontCreate);
-    sprintfex(ExistingFileName, "\t%03u%s", v51, aSkillNames[v48]);
+    sprintfex(TmpBuf, "\t%03u%s", v51, aSkillNames[v48]);
     uColor = 0xFF00FF00;
     if (v48 >= 37)
       uColor = 0xFF00FFFF;
-    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141 - 24, v132, ExistingFileName, uColor, 0, 0);
+    FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141 - 24, v132, TmpBuf, uColor, 0, 0);
 
 
     ++v133;
@@ -17334,12 +17334,12 @@ LABEL_77:
   v115 = AlignText_Center(92, pGlobalTXT_LocalizationStrings[30], pFontCreate);
   FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v115 + 533, 394, pGlobalTXT_LocalizationStrings[30], 0xFFD1BB61, 0, 0);
 
-  wsprintfA(ExistingFileName, "%d", PlayerCreation_ComputeAttributeBonus());
+  wsprintfA(TmpBuf, "%d", PlayerCreation_ComputeAttributeBonus());
   if (PlayerCreation_ComputeAttributeBonus() > 0)
     uColor = 0xFF00FF00;
   else uColor = 0xFFFFFFFF;
-  v117 = AlignText_Center(90, ExistingFileName, pFontCreate);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v117 + 530, 410, ExistingFileName, uColor, 0, 0);
+  v117 = AlignText_Center(90, TmpBuf, pFontCreate);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v117 + 530, 410, TmpBuf, uColor, 0, 0);
 
   if ( dword_5C35B8 > GetTickCount() )
   {
@@ -17371,11 +17371,11 @@ void erroneous_printf(const char *Format, ...)
   va_start(va, Format);
   if ( !pD3DRenderer->dword_040058 )
     sub_4667E9();
-  vsprintf(ExistingFileName, Format, va);
+  vsprintf(TmpBuf, Format, va);
   if (pGame->pClass03)
     class03_fn1(pGame->pClass03, 0);
 
   ClipCursor(0);
-  MessageBoxA(0, ExistingFileName, "Error", 0x30u);
+  MessageBoxA(0, TmpBuf, "Error", 0x30u);
   sub_464761((void *)1);
 }

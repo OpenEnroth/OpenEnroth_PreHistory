@@ -1406,7 +1406,7 @@ unsigned char byte_5C45B0[2048];
 //char byte_5C45B1[array_size_unknown]; // weak
 
  _UNKNOWN unk_5C4DB0; // weak
- unsigned char ExistingFileName[array_size_unknown + 2000]; // byte[~2000] @ MM7.exe::005C5DB0
+ unsigned char TmpBuf[array_size_unknown + 2000]; // byte[~2000] @ MM7.exe::005C5DB0
  char byte_5C657F[array_size_unknown]; // weak
 
  char byte_5C6D50[100]; // weak
@@ -1971,7 +1971,7 @@ struct CGame *pGame = 0; //struct @ MM7.exe::00720014
  char *dword_721660; // idb
  char *dword_721664; // idb
  _UNKNOWN unk_721668[1024 + 92*array_size_unknown]; // weak
- _UNKNOWN unk_72166C[1024 + 92*array_size_unknown]; // weak
+ _UNKNOWN unk_72166C[0x18AC]; // weak
  int dword_721824; // weak
  int dword_72193C; // weak
  int dword_721984[array_size_unknown]; // weak

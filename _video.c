@@ -318,7 +318,7 @@ int CVideoPlayer_LoadVideoHeaders(struct CVideoPlayer *_this)
 {
  DWORD w;
 
- strcpy(ExistingFileName, "anims\\might7.vid");
+ strcpy(TmpBuf, "anims\\might7.vid");
  _this->hMightVid = CreateFileW(L"anims\\might7.vid", GENERIC_READ, 1, 0, 3, 0x8000080, 0);
  if (_this->hMightVid == INVALID_HANDLE_VALUE)
  {
@@ -326,7 +326,7 @@ int CVideoPlayer_LoadVideoHeaders(struct CVideoPlayer *_this)
   return false;
  }
 
- strcpy(ExistingFileName, "anims\\magic7.vid");
+ strcpy(TmpBuf, "anims\\magic7.vid");
  _this->hMagicVid = CreateFileW(L"anims\\magic7.vid", GENERIC_READ, 1, 0, 3, 0x8000080, 0);
  if (_this->hMagicVid == INVALID_HANDLE_VALUE)
  {

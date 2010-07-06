@@ -4688,8 +4688,8 @@ LABEL_185:
                     pMonsterInfo->byte_00002E = 2;
                     if ( v73 > 1 )
                     {
-                      ExistingFileName[0] = 0;
-                      strcpy(ExistingFileName, Source);
+                      TmpBuf[0] = 0;
+                      strcpy(TmpBuf, Source);
                       if ( v73 > 2 )
                       {
                         v112 = 3;
@@ -4697,10 +4697,10 @@ LABEL_185:
                         {
                           do
                           {
-                            strcat(ExistingFileName, L" ");
+                            strcat(TmpBuf, L" ");
                             v76 = (&v104)[4 * v112];
                             v84 = (int)(&v104)[4 * v112];
-                            strcat(ExistingFileName, (const char *)v84);
+                            strcat(TmpBuf, (const char *)v84);
                             if ( v112 == v103 - 1 )
                             {
                               v86 = (unsigned __int8)*v76;
@@ -4736,7 +4736,7 @@ LABEL_185:
                       }
                       if ( monster_list[0] )
                       {
-                        LOWORD(v77) = sub_44FA08(monster_list, &ExistingFileName);
+                        LOWORD(v77) = sub_44FA08(monster_list, &TmpBuf);
                         ++v77;
                         *(_WORD *)(v75 + 60) = v77;
                         if ( (_WORD)v77 == -1 )
@@ -5079,9 +5079,9 @@ unsigned int __fastcall sub_4548E2(struct StringSplitter *pStrings, int *a2)
    return 73;
  else
  {
-  sprintfex(ExistingFileName, "Unknown monster spell %s", pStrings->pSubstrings[0]);
+  sprintfex(TmpBuf, "Unknown monster spell %s", pStrings->pSubstrings[0]);
   v11 = &v5;
-  sub_40E2C8(&v5, ExistingFileName, (int)&v12);
+  sub_40E2C8(&v5, TmpBuf, (int)&v12);
   sub_466D09(&v11, *(int *)&v5, v6, v7, v8, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Itemdata.cpp", 1562);
   *a2 += 1;
   return 0;

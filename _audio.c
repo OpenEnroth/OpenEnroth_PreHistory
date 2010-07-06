@@ -830,11 +830,11 @@ int AudioPlayer_LoadSoundHeaders(struct AudioPlayer *_this)
 {
  DWORD w;
 
- strcpy(ExistingFileName, "Sounds\\Audio.snd");
+ strcpy(TmpBuf, "Sounds\\Audio.snd");
  _this->hSoundsSource = CreateFileA("Sounds\\Audio.snd", GENERIC_READ, 1u, 0, 3u, 0x8000080u, 0);
  if (_this->hSoundsSource == INVALID_HANDLE_VALUE)
  {
-  sprintfex(pStringBuffer, "Can't open file - %s", ExistingFileName);
+  sprintfex(pStringBuffer, "Can't open file - %s", TmpBuf);
   return MessageBoxA(0, pStringBuffer, "Sound File Error", 0);
  }
 

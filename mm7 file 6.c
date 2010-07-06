@@ -3621,8 +3621,8 @@ int __fastcall sub_491DE7(int a1, int a2)
   do
   {
     v5 = result + 1;
-    sprintfex(&ExistingFileName, "%s%02d", *(_DWORD *)v4, result + 1);
-    sub_4101B1(pClass17_Icons_LOD, *v3, &ExistingFileName, 2);
+    sprintfex(&TmpBuf, "%s%02d", *(_DWORD *)v4, result + 1);
+    sub_4101B1(pClass17_Icons_LOD, *v3, &TmpBuf, 2);
     result = v5;
     ++v3;
   }
@@ -3831,8 +3831,8 @@ signed int __thiscall sub_492700(void *this, signed int a2)
   }
   else
   {
-    sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[67], (char *)this + 168);
-    sub_44C175(&ExistingFileName, 2);
+    sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[67], (char *)this + 168);
+    sub_44C175(&TmpBuf, 2);
     result = 0;
   }
   return result;
@@ -5331,10 +5331,10 @@ int __cdecl sub_4979D2()
         v11 = v30;
         v12 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, 0xFFu);
         sub_452AF3(v12, v34, v11);
-        strncpy((char *)&ExistingFileName, Source, 0x7D0u);
-        sub_44D2FD(v38, v39, 1, v26 + 1, v31, v32, 1u, 1u, &ExistingFileName, v34, v31);
-        strncpy((char *)&ExistingFileName, Source, 0x7D0u);
-        sub_44D2FD(v38, v39, 0, v26, v31, v32, v28, v27[0], &ExistingFileName, v34, v31);
+        strncpy((char *)&TmpBuf, Source, 0x7D0u);
+        sub_44D2FD(v38, v39, 1, v26 + 1, v31, v32, 1u, 1u, &TmpBuf, v34, v31);
+        strncpy((char *)&TmpBuf, Source, 0x7D0u);
+        sub_44D2FD(v38, v39, 0, v26, v31, v32, v28, v27[0], &TmpBuf, v34, v31);
         dword_A74C88 = 0;
         CD3DRenderer_BeginScene(pD3DRenderer);
         CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, (int)&v19);

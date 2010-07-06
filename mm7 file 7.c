@@ -3033,7 +3033,7 @@ char *__thiscall sub_4B1523(void *this)
   v1 = *(_DWORD *)this - 399;
   v2 = (*(_DWORD *)this - 400) % 11 + 1;
   v17 = 4 * (*(_DWORD *)this - 400) / 11;
-  sprintfex(&ExistingFileName, "%s%03d", *(wchar_t **)((char *)&off_4E1D18 + v17), v2);
+  sprintfex(&TmpBuf, "%s%03d", *(wchar_t **)((char *)&off_4E1D18 + v17), v2);
   if ( *(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v18) + 4) <= 320 )
     v3 = *(_DWORD *)(class03_GetMousePos(pGame->pClass03, (int)&v18) + 4) + 30;
   else
@@ -3097,8 +3097,8 @@ char *__thiscall sub_4B1523(void *this)
   v12 = 108;
   //sub_44D406((int)&v10, pFontComic, 12, 75, 0, (&dword_AE3300)[v17], 3);
   sub_44D406((int)&v10, pFontComic, 12, 75, 0, aSkillNames[12 + v17 / 4], 3);
-  wsprintfA(ExistingFileName, "%s\n%d", pGlobalTXT_LocalizationStrings[522], (unsigned __int16)word_4E3C68[10 * v1]);
-  return sub_44D406((int)&v10, pFontComic, 12, v13 - *(_BYTE *)(pFontComic + 5) - 16, 0, &ExistingFileName, 3);
+  wsprintfA(TmpBuf, "%s\n%d", pGlobalTXT_LocalizationStrings[522], (unsigned __int16)word_4E3C68[10 * v1]);
+  return sub_44D406((int)&v10, pFontComic, 12, v13 - *(_BYTE *)(pFontComic + 5) - 16, 0, &TmpBuf, 3);
 }
 
 //----- (004B1784) --------------------------------------------------------
@@ -3125,10 +3125,10 @@ signed int __cdecl sub_4B1784()
     v4 = 483;
     v5 = 148;
     v6 = 334;
-    sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[427], v0 + 168, pGlobalTXT_LocalizationStrings[562]);
+    sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[427], v0 + 168, pGlobalTXT_LocalizationStrings[562]);
     v2 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
-    v3 = sub_44C59D(pFontArrus, &ExistingFileName, (int)&v4, 0, 0);
-    sub_44D406((int)&v4, pFontArrus, 0, (212 - v3) / 2 + 101, v2, &ExistingFileName, 3);
+    v3 = sub_44C59D(pFontArrus, &TmpBuf, (int)&v4, 0, 0);
+    sub_44D406((int)&v4, pFontArrus, 0, (212 - v3) / 2 + 101, v2, &TmpBuf, 3);
     result = 0;
   }
   return result;
@@ -3168,14 +3168,14 @@ char *__thiscall sub_4B1854(void *this, __int64 a2)
   v17 = v6 % 60;
   v2 = v5 % 24;
   v16 = (unsigned __int64)(v5 % 24) >> 32;
-  strcpy(ExistingFileName, pGlobalTXT_LocalizationStrings[532]);
+  strcpy(TmpBuf, pGlobalTXT_LocalizationStrings[532]);
   if ( (_DWORD)v5 / 0x18u )
   {
     v8 = pGlobalTXT_LocalizationStrings[57];
     if ( v19 <= 1 )
       v8 = pGlobalTXT_LocalizationStrings[56];
     sprintfex(pStringBuffer, "%d %s ", v19, v8);
-    strcat(ExistingFileName, pStringBuffer);
+    strcat(TmpBuf, pStringBuffer);
   }
   if ( v16 | v2 )
   {
@@ -3184,7 +3184,7 @@ char *__thiscall sub_4B1854(void *this, __int64 a2)
     else
       v9 = pGlobalTXT_LocalizationStrings[110];
     sprintfex(pStringBuffer, "%d %s ", v2, v9);
-    strcat(ExistingFileName, pStringBuffer);
+    strcat(TmpBuf, pStringBuffer);
   }
   if ( v17 )
   {
@@ -3195,7 +3195,7 @@ char *__thiscall sub_4B1854(void *this, __int64 a2)
       else
         v10 = pGlobalTXT_LocalizationStrings[436];
       sprintfex(pStringBuffer, "%d %s ", v17, v10);
-      strcat(ExistingFileName, pStringBuffer);
+      strcat(TmpBuf, pStringBuffer);
     }
   }
   if ( v18 )
@@ -3207,12 +3207,12 @@ char *__thiscall sub_4B1854(void *this, __int64 a2)
       else
         v11 = pGlobalTXT_LocalizationStrings[438];
       sprintfex(pStringBuffer, "%d %s ", v18, v11);
-      strcat(ExistingFileName, pStringBuffer);
+      strcat(TmpBuf, pStringBuffer);
     }
   }
   v13 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
-  v14 = sub_44C59D(pFontArrus, &ExistingFileName, v15, 0, 0);
-  return sub_44D406(v15, pFontArrus, 0, (212 - v14) / 2 + 101, v13, &ExistingFileName, 3);
+  v14 = sub_44C59D(pFontArrus, &TmpBuf, v15, 0, 0);
+  return sub_44D406(v15, pFontArrus, 0, (212 - v14) / 2 + 101, v13, &TmpBuf, 3);
 }
 
 //----- (004B1A2D) --------------------------------------------------------
@@ -3946,8 +3946,8 @@ const CHAR *__thiscall sub_4B254D(void *this)
       {
         if ( v33 == v16 )
         {
-          sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[634], aClassNames[2 + v10], aClassNames[3 + v10]);
-          return &ExistingFileName;
+          sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[634], aClassNames[2 + v10], aClassNames[3 + v10]);
+          return &TmpBuf;
         }
         v27 = aClassNames[2 + v10];
       }
@@ -3964,8 +3964,8 @@ const CHAR *__thiscall sub_4B254D(void *this)
     }
     v24 = pGlobalTXT_LocalizationStrings[633];
 LABEL_23:
-    sprintfex(&ExistingFileName, (const char *)v24, v27);
-    return &ExistingFileName;
+    sprintfex(&TmpBuf, (const char *)v24, v27);
+    return &TmpBuf;
   }
   if ( !sub_492C0B(v4) )
     return dword_721A3C;
@@ -4295,8 +4295,8 @@ char __cdecl sub_4B2A74()
     v0 = (&off_4EB080)[4 * dword_5C35D0];
     if ( !v0 )
     {
-      sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[411], v1);
-      v0 = &ExistingFileName;
+      sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[411], v1);
+      v0 = &TmpBuf;
     }
     v4 = v0;
     v5 = sub_44C59D(pFontCreate, v0, (int)&v58, 0, 0);
@@ -4311,11 +4311,11 @@ char __cdecl sub_4B2A74()
   v7 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0x15u, 0x99u, 0xE9u);
   v6 = *(_DWORD *)(v8 + 24);
   if ( v6 )
-    //sprintfex(&ExistingFileName, (const char *)dword_5E4834, *(_DWORD *)v8, dword_73C290[v6]);
-    sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[429], *(_DWORD *)v8, aNPCProfessionNames[v6]);
+    //sprintfex(&TmpBuf, (const char *)dword_5E4834, *(_DWORD *)v8, dword_73C290[v6]);
+    sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[429], *(_DWORD *)v8, aNPCProfessionNames[v6]);
   else
-    strcpy((char *)&ExistingFileName, *(const char **)v8);
-  sub_44D406((int)&v58, pFontCreate, 483, 113, v7, &ExistingFileName, 3);
+    strcpy((char *)&TmpBuf, *(const char **)v8);
+  sub_44D406((int)&v58, pFontCreate, 483, 113, v7, &TmpBuf, 3);
   if ( !dword_591080 )
   {
     if ( !dword_59108C )
@@ -4392,8 +4392,8 @@ LABEL_45:
           v30 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
           v31 = *v29;
           v32 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
-          sprintfex(ExistingFileName, (const char *)&unk_4F0F98, v32, v31, v30);
-          sprintfex(pStringBuffer, (const char *)dword_F8B1A4, ExistingFileName, 100 * *((_BYTE *)v29 + 8));
+          sprintfex(TmpBuf, (const char *)&unk_4F0F98, v32, v31, v30);
+          sprintfex(pStringBuffer, (const char *)dword_F8B1A4, TmpBuf, 100 * *((_BYTE *)v29 + 8));
           dword_F8B1E8 = pStringBuffer;
           v15 = Class;
           goto LABEL_45;
@@ -4435,8 +4435,8 @@ LABEL_33:
             }
             if ( dword_59108C != 84 )
               goto LABEL_49;
-            sprintfex(ExistingFileName, (const char *)&unk_4E2D80, *(_DWORD *)v62, dword_5D29EC[12 * dword_F8B1A8]);
-            sprintfex(pStringBuffer, dword_F8B1E8, ExistingFileName);
+            sprintfex(TmpBuf, (const char *)&unk_4E2D80, *(_DWORD *)v62, dword_5D29EC[12 * dword_F8B1A8]);
+            sprintfex(pStringBuffer, dword_F8B1E8, TmpBuf);
             dword_F8B1E8 = pStringBuffer;
             goto LABEL_45;
           }
@@ -4625,11 +4625,11 @@ void __thiscall sub_4B3157(const void *this)
       else
       {
         sprintfex(
-          &ExistingFileName,
+          &TmpBuf,
           pGlobalTXT_LocalizationStrings[429],
           dword_591440[13 * *(_DWORD *)(dword_507BC0 + 28)],
           dword_591448[13 * *(_DWORD *)(dword_507BC0 + 28)]);
-        sub_44D406((int)&v21, pFontCreate, 483, 113, v24[0], &ExistingFileName, 3);
+        sub_44D406((int)&v21, pFontCreate, 483, 113, v24[0], &TmpBuf, 3);
         if ( dword_F8B198 <= 18 )
         {
           switch ( dword_F8B198 )
@@ -5940,8 +5940,8 @@ int __cdecl sub_4B4710()
             while ( v16 < *(_DWORD *)(v14 + 40) + *(_DWORD *)(v14 + 56) );
             if ( v77 )
             {
-              sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[401], v78);
-              sub_44D406((int)&v68, pFontArrus, 0, 146, 0, &ExistingFileName, 3);
+              sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[401], v78);
+              sub_44D406((int)&v68, pFontArrus, 0, 146, 0, &TmpBuf, 3);
               v78 = (signed int)(149 - i) / v77;
               if ( v78 > 32 )
                 v78 = 32;
@@ -5992,16 +5992,16 @@ int __cdecl sub_4B4710()
             {
 LABEL_82:
               sprintfex(
-                &ExistingFileName,
+                &TmpBuf,
                 pGlobalTXT_LocalizationStrings[544],
                 v3 + 168,
                 //(&dword_AE31F0)[4 * *(_BYTE *)(v3 + 185)]);
                 aClassNames[*(_BYTE *)(v3 + 185)]);
-              strcat((char *)&ExistingFileName, "\n \n");
-              strcat((char *)&ExistingFileName, pGlobalTXT_LocalizationStrings[528]);
+              strcat((char *)&TmpBuf, "\n \n");
+              strcat((char *)&TmpBuf, pGlobalTXT_LocalizationStrings[528]);
               v30 = v76[0];
-              v31 = sub_44C59D(pFontArrus, &ExistingFileName, (int)&v68, 0, 0);
-              result = (int)sub_44D406((int)&v68, pFontArrus, 0, (174 - v31) / 2 + 138, v30, &ExistingFileName, 3);
+              v31 = sub_44C59D(pFontArrus, &TmpBuf, (int)&v68, 0, 0);
+              result = (int)sub_44D406((int)&v68, pFontArrus, 0, (174 - v31) / 2 + 138, v30, &TmpBuf, 3);
             }
           }
         }
@@ -6055,12 +6055,12 @@ LABEL_82:
             }
             sub_4948B1((void *)v3, 87, 0);
             sprintfex(
-              &ExistingFileName,
+              &TmpBuf,
               pGlobalTXT_LocalizationStrings[430],
               v3 + 168,
               *(_WORD *)(v3 + 218),
               *(_WORD *)(v3 + 218) / 10 + 5);
-            sub_44C175(&ExistingFileName, 2);
+            sub_44C175(&TmpBuf, 2);
             goto LABEL_60;
           }
           sub_44C175(pGlobalTXT_LocalizationStrings[155], 2);
@@ -6079,21 +6079,21 @@ LABEL_60:
           }
           return result;
         }
-        sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[538], v7 - *(_DWORD *)(v3 + 160), v35 + 1);
+        sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[538], v7 - *(_DWORD *)(v3 + 160), v35 + 1);
         v37 = 0;
         v65 = 3;
-        v63 = &ExistingFileName;
+        v63 = &TmpBuf;
         v61 = v76[0];
-        v36 = (212 - sub_44C59D(pFontArrus, &ExistingFileName, (int)&v68, 0, 0)) / 2 + 88;
+        v36 = (212 - sub_44C59D(pFontArrus, &TmpBuf, (int)&v68, 0, 0)) / 2 + 88;
       }
       else
       {
-        sprintfex(&ExistingFileName, "%s\n \n%s", pGlobalTXT_LocalizationStrings[536], pGlobalTXT_LocalizationStrings[529]);
+        sprintfex(&TmpBuf, "%s\n \n%s", pGlobalTXT_LocalizationStrings[536], pGlobalTXT_LocalizationStrings[529]);
         v37 = 0;
         v65 = 3;
-        v63 = &ExistingFileName;
+        v63 = &TmpBuf;
         v61 = v76[0];
-        v36 = (212 - sub_44C59D(pFontArrus, &ExistingFileName, (int)&v68, 0, 0)) / 2 + 101;
+        v36 = (212 - sub_44C59D(pFontArrus, &TmpBuf, (int)&v68, 0, 0)) / 2 + 101;
       }
       sub_44D406((int)&v68, pFontArrus, v37, v36, v61, v63, v65);
       v66 = 3;
@@ -6104,7 +6104,7 @@ LABEL_60:
     {
       v45 = dword_507BBC;
       v77 = 0;
-      dword_F8B1B8[0] = (int)&ExistingFileName;
+      dword_F8B1B8[0] = (int)&TmpBuf;
       dword_F8B1BC = (int)pGlobalTXT_LocalizationStrings[160];
       v46 = *(_DWORD *)(dword_507BBC + 40);
       v78 = *(_DWORD *)(dword_507BBC + 56);
@@ -6445,24 +6445,24 @@ signed int __cdecl sub_4B4FCF()
           {
 LABEL_140:
             sprintfex(
-              &ExistingFileName,
+              &TmpBuf,
               pGlobalTXT_LocalizationStrings[544],
               v123 + 168,
               //(&dword_AE31F0)[4 * *(_BYTE *)(v123 + 185)]);
               aClassNames[*(_BYTE *)(v123 + 185)]);
-            strcat((char *)&ExistingFileName, "\n \n");
-            strcat((char *)&ExistingFileName, pGlobalTXT_LocalizationStrings[528]);
-            v30 = &ExistingFileName;
+            strcat((char *)&TmpBuf, "\n \n");
+            strcat((char *)&TmpBuf, pGlobalTXT_LocalizationStrings[528]);
+            v30 = &TmpBuf;
             v98 = 3;
-            v96 = &ExistingFileName;
+            v96 = &TmpBuf;
             v93 = v118[0];
             v92 = 0;
             v90 = 0;
             v89 = (int)&v113;
             goto LABEL_61;
           }
-          sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[401], v122);
-          sub_44D406((int)&v113, pFontArrus, 0, 146, 0, &ExistingFileName, 3);
+          sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[401], v122);
+          sub_44D406((int)&v113, pFontArrus, 0, 146, 0, &TmpBuf, 3);
           v122 = (149 - v121) / v125;
           if ( (149 - v121) / v125 > 32 )
             v122 = 32;
@@ -6993,9 +6993,9 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
         v3 = (int)((char *)v1 + 2 * dword_F8B19C + 192);
         if ( *(_WORD *)v3 )
         {
-          //sprintfex(&ExistingFileName, (const char *)dword_5E47CC, (&dword_AE3240)[4 * dword_F8B19C]);
-          sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[403], aClassNames[20 + dword_F8B19C]);
-          sub_44C175(&ExistingFileName, 2);
+          //sprintfex(&TmpBuf, (const char *)dword_5E47CC, (&dword_AE3240)[4 * dword_F8B19C]);
+          sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[403], aClassNames[20 + dword_F8B19C]);
+          sub_44C175(&TmpBuf, 2);
           AudioPlayer_sub_4AA306(pAudioPlayer, 27, 0, 0, -1, 0, 0, 0, 0);
         }
         else
@@ -7158,14 +7158,14 @@ LABEL_32:
   if ( !v61 )
   {
 LABEL_64:
-    //sprintfex(&ExistingFileName, (const char *)dword_5E4A00, v58 + 168, (&dword_AE31F0)[4 * *(_BYTE *)(v58 + 185)]);
-    sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[544], v58 + 168, aClassNames[*(_BYTE *)(v58 + 185)]);
+    //sprintfex(&TmpBuf, (const char *)dword_5E4A00, v58 + 168, (&dword_AE31F0)[4 * *(_BYTE *)(v58 + 185)]);
+    sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[544], v58 + 168, aClassNames[*(_BYTE *)(v58 + 185)]);
 
-    strcat((char *)&ExistingFileName, "\n \n");
-    strcat((char *)&ExistingFileName, pGlobalTXT_LocalizationStrings[528]);
-    v14 = &ExistingFileName;
+    strcat((char *)&TmpBuf, "\n \n");
+    strcat((char *)&TmpBuf, pGlobalTXT_LocalizationStrings[528]);
+    v14 = &TmpBuf;
     v44 = 3;
-    v43 = &ExistingFileName;
+    v43 = &TmpBuf;
     v42 = v57[0];
     v41 = 0;
     v40 = 0;
@@ -7174,8 +7174,8 @@ LABEL_64:
   }
   if ( Str )
   {
-    sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[401], v63);
-    sub_44D406((int)&v52, pFontArrus, 0, 146, 0, &ExistingFileName, 3);
+    sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[401], v63);
+    sub_44D406((int)&v52, pFontArrus, 0, 146, 0, &TmpBuf, 3);
   }
   v63 = (149 - v62) / v61;
   if ( v63 > 32 )
@@ -7374,17 +7374,17 @@ signed int __cdecl sub_4B6478()
   if ( !v36 )
   {
 LABEL_40:
-    //sprintfex(&ExistingFileName, (const char *)dword_5E4A00, v1 + 168, (&dword_AE31F0)[4 * *(_BYTE *)(v1 + 185)]);
-    sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[544], v1 + 168, aClassNames[*(_BYTE *)(v1 + 185)]);
+    //sprintfex(&TmpBuf, (const char *)dword_5E4A00, v1 + 168, (&dword_AE31F0)[4 * *(_BYTE *)(v1 + 185)]);
+    sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[544], v1 + 168, aClassNames[*(_BYTE *)(v1 + 185)]);
 
-    strcat((char *)&ExistingFileName, "\n \n");
-    strcat((char *)&ExistingFileName, pGlobalTXT_LocalizationStrings[528]);
+    strcat((char *)&TmpBuf, "\n \n");
+    strcat((char *)&TmpBuf, pGlobalTXT_LocalizationStrings[528]);
     v22 = v33[0];
-    v23 = sub_44C59D(pFontArrus, &ExistingFileName, (int)&v28, 0, 0);
-    return (signed int)sub_44D406((int)&v28, pFontArrus, 0, (174 - v23) / 2 + 138, v22, &ExistingFileName, 3);
+    v23 = sub_44C59D(pFontArrus, &TmpBuf, (int)&v28, 0, 0);
+    return (signed int)sub_44D406((int)&v28, pFontArrus, 0, (174 - v23) / 2 + 138, v22, &TmpBuf, 3);
   }
-  sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[401], v34);
-  sub_44D406((int)&v28, pFontArrus, 0, 146, 0, &ExistingFileName, 3);
+  sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[401], v34);
+  sub_44D406((int)&v28, pFontArrus, 0, 146, 0, &TmpBuf, 3);
   v34 = (149 - v35) / v36;
   if ( (149 - v35) / v36 > 32 )
     v34 = 32;
@@ -7629,7 +7629,7 @@ void __cdecl sub_4B6943()
           {
             memcpy(&v41, &pMapStats->pMapInfos[(unsigned __int8)byte_4F09B0[v30]], sizeof(struct MapInfo));
             sprintfex(
-              &ExistingFileName,
+              &TmpBuf,
               pGlobalTXT_LocalizationStrings[404],
               v77,
               *(_DWORD *)&v41,
@@ -7648,14 +7648,14 @@ void __cdecl sub_4B6943()
               v54,
               v55,
               *(_QWORD *)v56);
-            strcat(v75, &ExistingFileName);
+            strcat(v75, &TmpBuf);
             v36 = v75;
             v75 += 100;
             ++v73;
             ++v76;
             strcat(v36, "\n \n");
             *(_DWORD *)(v26 + 4) = v74;
-            v37 = sub_44C59D(pFontArrus, &ExistingFileName, (int)&v62, 0, 0);
+            v37 = sub_44C59D(pFontArrus, &TmpBuf, (int)&v62, 0, 0);
             v38 = *(_DWORD *)(v26 + 4);
             *(_DWORD *)(v26 + 12) = v37;
             v1 = 255;
@@ -7690,8 +7690,8 @@ void __cdecl sub_4B6943()
         v54 = &v58;
         v53 = &v57;
         v52 = pStringBuffer;
-        sprintfex(ExistingFileName, "%s\n \n%s%s%s%s%s", pStringBuffer, &v57, &v58, &v59, &v60, &Dest);
-        sub_44D406((int)&v62, pFontArrus, 0, 146, 0, ExistingFileName, 3);
+        sprintfex(TmpBuf, "%s\n \n%s%s%s%s%s", pStringBuffer, &v57, &v58, &v59, &v60, &Dest);
+        sub_44D406((int)&v62, pFontArrus, 0, 146, 0, TmpBuf, 3);
       }
       else
       {
@@ -7967,8 +7967,8 @@ int __cdecl sub_4B705E()
             while ( v64 < *(_DWORD *)(v4 + 40) + v11 );
             if ( v67 )
             {
-              sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[401], v66);
-              sub_44D406((int)&v57, pFontArrus, 0, 146, 0, &ExistingFileName, 3);
+              sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[401], v66);
+              sub_44D406((int)&v57, pFontArrus, 0, 146, 0, &TmpBuf, 3);
               v66 = (149 - (_DWORD)v68) / v67;
               if ( v66 > 32 )
                 v66 = 32;
@@ -8021,16 +8021,16 @@ int __cdecl sub_4B705E()
             {
 LABEL_78:
               sprintfex(
-                &ExistingFileName,
+                &TmpBuf,
                 pGlobalTXT_LocalizationStrings[544],
                 v1 + 168,
                 //(&dword_AE31F0)[4 * *(_BYTE *)(v1 + 185)]);
                 aClassNames[*(_BYTE *)(v1 + 185)]);
-              strcat((char *)&ExistingFileName, "\n \n");
-              strcat((char *)&ExistingFileName, pGlobalTXT_LocalizationStrings[528]);
+              strcat((char *)&TmpBuf, "\n \n");
+              strcat((char *)&TmpBuf, pGlobalTXT_LocalizationStrings[528]);
               v22 = WORD2(v61);
-              v23 = sub_44C59D(pFontArrus, &ExistingFileName, (int)&v57, 0, 0);
-              result = (int)sub_44D406((int)&v57, pFontArrus, 0, (174 - v23) / 2 + 138, v22, &ExistingFileName, 3);
+              v23 = sub_44C59D(pFontArrus, &TmpBuf, (int)&v57, 0, 0);
+              result = (int)sub_44D406((int)&v57, pFontArrus, 0, (174 - v23) / 2 + 138, v22, &TmpBuf, 3);
             }
           }
         }
@@ -8287,8 +8287,8 @@ char __cdecl sub_4B7911()
   v33 = 334;
   *(_DWORD *)v34 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
   *(_DWORD *)v36 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
-  sprintfex(&ExistingFileName, "%s: %d", pGlobalTXT_LocalizationStrings[162], dword_AE31E0);
-  sub_44D406((int)&v31, pFontArrus, 0, 260, v36[0], &ExistingFileName, 3);
+  sprintfex(&TmpBuf, "%s: %d", pGlobalTXT_LocalizationStrings[162], dword_AE31E0);
+  sub_44D406((int)&v31, pFontArrus, 0, 260, v36[0], &TmpBuf, 3);
   if ( dword_F8B19C == 1 )
   {
     v12 = 1;
@@ -8352,8 +8352,8 @@ char __cdecl sub_4B7911()
       v0 = dword_507BC0;
       if ( *(_DWORD *)(dword_507BC0 + 64) == 1 )
       {
-        sprintfex(&ExistingFileName, "%s\n%s", pGlobalTXT_LocalizationStrings[163], pGlobalTXT_LocalizationStrings[112]);
-        sub_44D406((int)&v31, pFontArrus, 0, 146, v36[0], &ExistingFileName, 3);
+        sprintfex(&TmpBuf, "%s\n%s", pGlobalTXT_LocalizationStrings[163], pGlobalTXT_LocalizationStrings[112]);
+        sub_44D406((int)&v31, pFontArrus, 0, 146, v36[0], &TmpBuf, 3);
         sub_44D406((int)&v31, pFontArrus, 0, 186, v34[0], &byte_69AF00, 3);
         v4 = pFontArrus;
         v5 = sub_44C51E(pFontArrus, &byte_69AF00);
@@ -8406,8 +8406,8 @@ LABEL_8:
     v8 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
     v9 = *v7;
     v10 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
-    sprintfex(ExistingFileName, (const char *)&unk_4F0F98, v10, v9, v8);
-    sprintfex(pStringBuffer, (const char *)dword_F8B1A4, ExistingFileName, 100 * *((_BYTE *)v7 + 8));
+    sprintfex(TmpBuf, (const char *)&unk_4F0F98, v10, v9, v8);
+    sprintfex(pStringBuffer, (const char *)dword_F8B1A4, TmpBuf, 100 * *((_BYTE *)v7 + 8));
     dword_F8B1E8 = pStringBuffer;
     memcpy(&v27, (const void *)dword_507BBC, 0x54u);
     v29 = 458;
@@ -8459,8 +8459,8 @@ char __cdecl sub_4B7D7E()
   v15 = 334;
   *(_DWORD *)v16 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
   *(_DWORD *)v17 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
-  sprintfex(&ExistingFileName, "%s: %d", pGlobalTXT_LocalizationStrings[25], unk_ACD6F0);
-  sub_44D406((int)&v13, pFontArrus, 0, 220, v17[0], &ExistingFileName, 3);
+  sprintfex(&TmpBuf, "%s: %d", pGlobalTXT_LocalizationStrings[25], unk_ACD6F0);
+  sub_44D406((int)&v13, pFontArrus, 0, 220, v17[0], &TmpBuf, 3);
   if ( dword_F8B19C != 1 )
   {
     if ( dword_F8B19C == 7 )
@@ -8546,8 +8546,8 @@ LABEL_15:
       v12 = pGlobalTXT_LocalizationStrings[112];
       v11 = pGlobalTXT_LocalizationStrings[224];
     }
-    sprintfex(&ExistingFileName, "%s\n%s", v11, v12);
-    sub_44D406((int)&v13, pFontArrus, 0, 146, v17[0], &ExistingFileName, 3);
+    sprintfex(&TmpBuf, "%s\n%s", v11, v12);
+    sub_44D406((int)&v13, pFontArrus, 0, 146, v17[0], &TmpBuf, 3);
     sub_44D406((int)&v13, pFontArrus, 0, 186, v16[0], &byte_69AF00, 3);
     v4 = pFontArrus;
     v5 = sub_44C51E(pFontArrus, &byte_69AF00);
@@ -8982,8 +8982,8 @@ LABEL_51:
               while ( v10 < *(_DWORD *)(v8 + 56) + *(_DWORD *)(v8 + 40) );
               if ( v91 )
               {
-                sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[401], v96);
-                sub_44D406((int)&v82, pFontArrus, 0, 146, 0, &ExistingFileName, 3);
+                sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[401], v96);
+                sub_44D406((int)&v82, pFontArrus, 0, 146, 0, &TmpBuf, 3);
                 v96 = (149 - v94) / v91;
                 if ( (149 - v94) / v91 > 32 )
                   v96 = 32;
@@ -9032,15 +9032,15 @@ LABEL_51:
                 return;
               }
             }
-            v26 = &ExistingFileName;
+            v26 = &TmpBuf;
             sprintfex(
-              &ExistingFileName,
+              &TmpBuf,
               pGlobalTXT_LocalizationStrings[544],
               v90 + 168,
               //(&dword_AE31F0)[4 * *(_BYTE *)(v90 + 185)]);
               aClassNames[*(_BYTE *)(v90 + 185)]);
-            strcat((char *)&ExistingFileName, "\n \n");
-            strcat((char *)&ExistingFileName, pGlobalTXT_LocalizationStrings[528]);
+            strcat((char *)&TmpBuf, "\n \n");
+            strcat((char *)&TmpBuf, pGlobalTXT_LocalizationStrings[528]);
             goto LABEL_97;
           }
           return;
@@ -9128,9 +9128,9 @@ LABEL_43:
     if (1)
     {
 LABEL_75:
-      sprintfex(&ExistingFileName, "%s%s%s%s", &Dest, &v77, &v78, &v76);
+      sprintfex(&TmpBuf, "%s%s%s%s", &Dest, &v77, &v78, &v76);
       v72 = 3;
-      v70 = &ExistingFileName;
+      v70 = &TmpBuf;
       v68 = 0;
       v67 = 146;
 LABEL_98:
@@ -9186,14 +9186,14 @@ LABEL_73:
   {
     v66 = pFontArrus;
     v96 = pFontArrus;
-    strcpy((char *)&ExistingFileName, dword_72217C);
+    strcpy((char *)&TmpBuf, dword_72217C);
     v80 = 460;
     v81 = 452;
-    v64 = sub_44C59D(v66, &ExistingFileName, (int)&v79, 12, 0) + 7;
+    v64 = sub_44C59D(v66, &TmpBuf, (int)&v79, 12, 0) + 7;
     if ( 352 - v64 < 8 )
     {
       v96 = pFontCreate;
-      v64 = sub_44C59D(pFontCreate, &ExistingFileName, (int)&v79, 12, 0) + 7;
+      v64 = sub_44C59D(pFontCreate, &TmpBuf, (int)&v79, 12, 0) + 7;
     }
     sub_4A6A68(
       pD3DRenderer,
@@ -9205,16 +9205,16 @@ LABEL_73:
     v74 = 0;
     v71 = 0;
     v69 = 0;
-    v62 = FitTextInAWindow(&ExistingFileName, v96, (int)&v79, 12, 0);
+    v62 = FitTextInAWindow(&TmpBuf, v96, (int)&v79, 12, 0);
     v63 = v96;
     goto LABEL_103;
   }
   if ( dword_F8B19C == 103 )
   {
-    compile_error;//strcpy((char *)&ExistingFileName, *(const char **)&dword_721E24[8 * *(_DWORD *)(dword_507BC0 + 28)]);
+    compile_error;//strcpy((char *)&TmpBuf, *(const char **)&dword_721E24[8 * *(_DWORD *)(dword_507BC0 + 28)]);
     v80 = 460;
     v81 = 452;
-    v65 = sub_44C59D(pFontArrus, &ExistingFileName, (int)&v79, 12, 0);
+    v65 = sub_44C59D(pFontArrus, &TmpBuf, (int)&v79, 12, 0);
     v64 = v65 + 7;
     sub_4A6A68(
       pD3DRenderer,
@@ -9226,7 +9226,7 @@ LABEL_73:
     v74 = 0;
     v71 = 0;
     v69 = 0;
-    v62 = FitTextInAWindow(&ExistingFileName, pFontArrus, (int)&v79, 12, 0);
+    v62 = FitTextInAWindow(&TmpBuf, pFontArrus, (int)&v79, 12, 0);
     v63 = pFontArrus;
 LABEL_103:
     FontDrawText(dword_507BC0, v63, 12, 354 - v64, v62, v69, v71, v74);
@@ -9234,7 +9234,7 @@ LABEL_103:
   }
   if ( dword_F8B19C == 104 && struct_505898.byte_505992 != 1 )
   {
-    v26 = &ExistingFileName;
+    v26 = &TmpBuf;
     if ( struct_505898.dword_505944 )
     {
       if ( struct_505898.dword_505944 == 1 )
@@ -9246,7 +9246,7 @@ LABEL_103:
     {
       v73 = pGlobalTXT_LocalizationStrings[639];
     }
-    strcpy((char *)&ExistingFileName, v73);
+    strcpy((char *)&TmpBuf, v73);
 LABEL_97:
     v72 = 3;
     v70 = v26;
@@ -9630,24 +9630,24 @@ int __cdecl sub_4B910F()
           {
 LABEL_105:
             sprintfex(
-              &ExistingFileName,
+              &TmpBuf,
               pGlobalTXT_LocalizationStrings[544],
               v111 + 168,
               //(&dword_AE31F0)[4 * *(_BYTE *)(v111 + 185)]);
               aClassNames[*(_BYTE *)(v111 + 185)]);
-            strcat((char *)&ExistingFileName, "\n \n");
-            strcat((char *)&ExistingFileName, pGlobalTXT_LocalizationStrings[528]);
-            v7 = &ExistingFileName;
+            strcat((char *)&TmpBuf, "\n \n");
+            strcat((char *)&TmpBuf, pGlobalTXT_LocalizationStrings[528]);
+            v7 = &TmpBuf;
             v87 = 3;
-            v85 = &ExistingFileName;
+            v85 = &TmpBuf;
             v83 = v107[0];
             v81 = 0;
             v79 = 0;
             v78 = (int)&v102;
             goto LABEL_15;
           }
-          sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[401], v112);
-          sub_44D406((int)&v102, pFontArrus, 0, 146, 0, &ExistingFileName, 3);
+          sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[401], v112);
+          sub_44D406((int)&v102, pFontArrus, 0, 146, 0, &TmpBuf, 3);
           v112 = (149 - v110) / v113;
           if ( (149 - v110) / v113 > 32 )
             v112 = 32;
@@ -10581,8 +10581,8 @@ LABEL_44:
         while ( v6 < *(_DWORD *)(v3 + 40) + *(_DWORD *)(v3 + 56) );
         if ( v117 )
         {
-          sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[401], v114);
-          sub_44D406((int)&v105, pFontArrus, 0, 146, 0, &ExistingFileName, 3);
+          sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[401], v114);
+          sub_44D406((int)&v105, pFontArrus, 0, 146, 0, &TmpBuf, 3);
           v114 = (149 - v115) / v117;
           if ( (149 - v115) / v117 > 32 )
             v114 = 32;
@@ -10632,13 +10632,13 @@ LABEL_44:
           return result;
         }
       }
-      //sprintfex(&ExistingFileName, (const char *)dword_5E4A00, v113 + 168, (&dword_AE31F0)[4 * *(_BYTE *)(v113 + 185)]);
-      sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[544], v113 + 168, aClassNames[*(_BYTE *)(v113 + 185)]);
-      strcat((char *)&ExistingFileName, "\n \n");
-      strcat((char *)&ExistingFileName, pGlobalTXT_LocalizationStrings[528]);
-      v21 = &ExistingFileName;
+      //sprintfex(&TmpBuf, (const char *)dword_5E4A00, v113 + 168, (&dword_AE31F0)[4 * *(_BYTE *)(v113 + 185)]);
+      sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[544], v113 + 168, aClassNames[*(_BYTE *)(v113 + 185)]);
+      strcat((char *)&TmpBuf, "\n \n");
+      strcat((char *)&TmpBuf, pGlobalTXT_LocalizationStrings[528]);
+      v21 = &TmpBuf;
       v93 = 3;
-      v91 = &ExistingFileName;
+      v91 = &TmpBuf;
       v89 = v109[0];
       v87 = 0;
       v86 = 0;
@@ -10978,8 +10978,8 @@ char __cdecl sub_4BA928()
         while ( v35 < *(_DWORD *)(v33 + 40) + *(_DWORD *)(v33 + 56) );
         if ( v151 )
         {
-          sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[401], v148);
-          sub_44D406((int)&v140, pFontArrus, 0, 146, 0, &ExistingFileName, 3);
+          sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[401], v148);
+          sub_44D406((int)&v140, pFontArrus, 0, 146, 0, &TmpBuf, 3);
           v148 = (149 - v150) / v151;
           if ( (149 - v150) / v151 > 32 )
             v148 = 32;
@@ -11029,14 +11029,14 @@ char __cdecl sub_4BA928()
           return v1;
         }
       }
-      //sprintfex(&ExistingFileName, (const char *)dword_5E4A00, v0 + 168, (&dword_AE31F0)[4 * *(_BYTE *)(v0 + 185)]);
-      sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[544], v0 + 168, aClassNames[*(_BYTE *)(v0 + 185)]);
-      strcat((char *)&ExistingFileName, "\n \n");
-      strcat((char *)&ExistingFileName, pGlobalTXT_LocalizationStrings[528]);
+      //sprintfex(&TmpBuf, (const char *)dword_5E4A00, v0 + 168, (&dword_AE31F0)[4 * *(_BYTE *)(v0 + 185)]);
+      sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[544], v0 + 168, aClassNames[*(_BYTE *)(v0 + 185)]);
+      strcat((char *)&TmpBuf, "\n \n");
+      strcat((char *)&TmpBuf, pGlobalTXT_LocalizationStrings[528]);
       v10 = 0;
-      v32 = &ExistingFileName;
+      v32 = &TmpBuf;
       v119 = 3;
-      v117 = &ExistingFileName;
+      v117 = &TmpBuf;
       v115 = v145[0];
       v113 = 0;
       v109 = 0;
@@ -13961,13 +13961,13 @@ LABEL_6:
     if ( !v5 )
     {
       CVideoPlayer_UnloadAll(v3);
-      sprintfex(&ExistingFileName, "Can't load %s", &Str2);
+      sprintfex(&TmpBuf, "Can't load %s", &Str2);
       v19 = 937;
       v18 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Video.cpp";
       v4 = &v14;
       v22 = &v14;
       v13 = (int)(&a2 + 3);
-      v12 = &ExistingFileName;
+      v12 = &TmpBuf;
       goto LABEL_6;
     }
     v19 = a2;
@@ -14182,8 +14182,8 @@ int __thiscall sub_4BF91E(void *this)
     v5 = aClassNames[*(_BYTE *)(v4 + 17)];
 
     v6 = sub_48C8F6(v4 - 168);
-    sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[129], i, v6, v5);
-    sub_44D406((int)&v18, v33, 1, v31 * (*(_BYTE *)(v33 + 5) - 2) + *(_BYTE *)(v33 + 5) + 46, 1u, &ExistingFileName, 3);
+    sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[129], i, v6, v5);
+    sub_44D406((int)&v18, v33, 1, v31 * (*(_BYTE *)(v33 + 5) - 2) + *(_BYTE *)(v33 + 5) + 46, 1u, &TmpBuf, 3);
     v7 = *(_DWORD *)(i - 8);
     v8 = v7 >= -(_DWORD)v34;
     LODWORD(v34) = v7 + v34;
@@ -14198,7 +14198,7 @@ int __thiscall sub_4BF91E(void *this)
   v34 /= (signed __int64)v30;
   v12 = FitTextInAWindow(v27, v33, (int)&v18, 12, 0);
   sub_44D406((int)&v18, v33, 1, 5 * (*(_BYTE *)(v33 + 5) + 11), 1u, v12, 0);
-  strcpy(ExistingFileName, pGlobalTXT_LocalizationStrings[37]);
+  strcpy(TmpBuf, pGlobalTXT_LocalizationStrings[37]);
   v11 = pGlobalTXT_LocalizationStrings[56];
   if ( v28 != 1 )
     v11 = pGlobalTXT_LocalizationStrings[57];
@@ -14209,10 +14209,10 @@ int __thiscall sub_4BF91E(void *this)
   if ( v25 != 1 )
     v14 = pGlobalTXT_LocalizationStrings[132];
   sprintfex(pStringBuffer, " %lu %s, %lu %s, %lu %s ", v25, v14, v29, v13, v28, v11);
-  strcat(ExistingFileName, pStringBuffer);
-  sub_44D406((int)&v18, v33, 1, v21 - 2 * *(_BYTE *)(v33 + 5) - 5, 1u, &ExistingFileName, 3);
-  sprintfex(ExistingFileName, pGlobalTXT_LocalizationStrings[94], v34);
-  sub_44D406((int)&v18, v33, 1, v21, 1u, ExistingFileName, 3);
+  strcat(TmpBuf, pStringBuffer);
+  sub_44D406((int)&v18, v33, 1, v21 - 2 * *(_BYTE *)(v33 + 5) - 5, 1u, &TmpBuf, 3);
+  sprintfex(TmpBuf, pGlobalTXT_LocalizationStrings[94], v34);
+  sub_44D406((int)&v18, v33, 1, v21, 1u, TmpBuf, 3);
   BYTE1(dword_6BE364) |= 0x40u;
   CD3DRenderer_EndScene(pD3DRenderer);
   CD3DRenderer_Present(pD3DRenderer);

@@ -513,7 +513,7 @@ LABEL_33:
               *(_DWORD *)(v3 + 160) += 2500 * v77;
               *(_DWORD *)(v3 + 164) += ((unsigned __int64)(2500 * v77) >> 32) + v7;
 LABEL_38:
-              sprintfex(&ExistingFileName, "+%u %s", v54, v63);
+              sprintfex(&TmpBuf, "+%u %s", v54, v63);
               goto LABEL_54;
             case 11:
               v8 = rand() % 6;
@@ -571,9 +571,9 @@ LABEL_52:
               v53 = v74;
               v49 = v77;
 LABEL_53:
-              sprintfex(&ExistingFileName, "+%u %s %s", v49, v53, v62);
+              sprintfex(&TmpBuf, "+%u %s %s", v49, v53, v62);
 LABEL_54:
-              sub_44C175(&ExistingFileName, 2);
+              sub_44C175(&TmpBuf, 2);
               class03_sub_4698A6(pGame->pClass03);
               sub_4A89BD(pGame->class06_obj, 151, a2 - 1);
               sub_4948B1((void *)v3, 93, 0);
@@ -690,8 +690,8 @@ LABEL_89:
 
       v58 = pGlobalTXT_LocalizationStrings[382];
 LABEL_90:
-      sprintfex(&ExistingFileName, (const char *)v58, v68);
-      v23 = &ExistingFileName;
+      sprintfex(&TmpBuf, (const char *)v58, v68);
+      v23 = &TmpBuf;
 LABEL_91:
       sub_44C175(v23, 2);
       v4 = 0;
@@ -704,8 +704,8 @@ LABEL_91:
       v66 = sub_456499(&dword_AD470C);
       v57 = pGlobalTXT_LocalizationStrings[380];
 LABEL_72:
-      sprintfex(&ExistingFileName, (const char *)v57, v66);
-      sub_44C175(&ExistingFileName, 2);
+      sprintfex(&TmpBuf, (const char *)v57, v66);
+      sub_44C175(&TmpBuf, 2);
 LABEL_92:
       v61 = v4;
       v52 = v4;
@@ -748,8 +748,8 @@ LABEL_83:
             if ( v75 > v21 || !*v17 )
             {
               v22 = sub_456499(&dword_AD470C);
-              sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[381], v22);
-              sub_44C175(&ExistingFileName, 2);
+              sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[381], v22);
+              sub_44C175(&TmpBuf, 2);
               v65 = 0;
               v56 = 20;
               goto LABEL_67;

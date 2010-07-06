@@ -1397,7 +1397,7 @@ extern unsigned char byte_5C45B0[2048];
 //char byte_5C45B1[array_size_unknown]; // weak
 
 extern _UNKNOWN unk_5C4DB0; // weak
-extern unsigned char ExistingFileName[]; // byte[~2000] @ MM7.exe::005C5DB0
+extern unsigned char TmpBuf[]; // byte[~2000] @ MM7.exe::005C5DB0
 extern char byte_5C657F[array_size_unknown]; // weak
 
 extern char byte_5C6D50[100]; // weak

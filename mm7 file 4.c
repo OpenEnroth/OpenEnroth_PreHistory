@@ -4241,7 +4241,7 @@ void __cdecl sub_4304E7()
                 if (struct_AD4674[i].dword_AD4674)
                 {
                   v7 = v210++;
-                  ExistingFileName[v7] = i;
+                  TmpBuf[v7] = i;
                 }
 
               v196 = 0;
@@ -4257,7 +4257,7 @@ void __cdecl sub_4304E7()
                      if (!struct_AD4674[1].dword_AD4674 || strcmp(*(const char **)v211, struct_AD4674[1].dword_AD4674))
                       {
                         v8 = v210++;
-                        ExistingFileName[v8] = v196 + 2;
+                        TmpBuf[v8] = v196 + 2;
                       }
                     }
                   }
@@ -5835,7 +5835,7 @@ LABEL_439:
           v175 = v201;
           v163 = pGlobalTXT_LocalizationStrings[475];
 LABEL_450:
-          sprintfex(&ExistingFileName, (const char *)v163, v175, v191);
+          sprintfex(&TmpBuf, (const char *)v163, v175, v191);
           goto LABEL_521;
         case 0xB5:
           dword_50CDC8 = v0;
@@ -6077,7 +6077,7 @@ LABEL_519:
           goto LABEL_524;
         case 0xDD:
 LABEL_524:
-          sprintfex(&ExistingFileName, "%s", &byte_69AF00);
+          sprintfex(&TmpBuf, "%s", &byte_69AF00);
           memcpy(&v232, sub_4BE3BF(&byte_69AF00, &v237), 0x7Cu);
           if ( v232 == 1 )
           {
@@ -6384,7 +6384,7 @@ LABEL_621:
             compile_error;//v190 = dword_5CC030[9 * (dword_50654C + 11 * *((_BYTE *)*(&ptr_A750C4 + uMaybeSelectedCharacter) + 6734))];
             v174 = pGlobalTXT_LocalizationStrings[483];
 LABEL_520:
-            sprintfex(&ExistingFileName, (const char *)v174, v190);
+            sprintfex(&TmpBuf, (const char *)v174, v190);
           }
           else
           {
@@ -6392,10 +6392,10 @@ LABEL_520:
               v194 = pGlobalTXT_LocalizationStrings[584];
             else
               v194 = pGlobalTXT_LocalizationStrings[484];
-            strcpy((char *)&ExistingFileName, v194);
+            strcpy((char *)&TmpBuf, v194);
           }
 LABEL_521:
-          sub_41C0B8(&ExistingFileName);
+          sub_41C0B8(&TmpBuf);
           goto LABEL_92;
         case 0x4F:
           if ( !uMaybeSelectedCharacter
@@ -6417,8 +6417,8 @@ LABEL_521:
            v195 = pSpellStats->pSpellInfos[1 + (v209 + 11 * v110) / 4].pSpellName;
             v178 = pGlobalTXT_LocalizationStrings[486];
           }
-          sprintfex(&ExistingFileName, (const char *)v178, v195);
-          sub_41C0B8(&ExistingFileName);
+          sprintfex(&TmpBuf, (const char *)v178, v195);
+          sub_41C0B8(&TmpBuf);
           goto LABEL_91;
         case 0x58:
           GUIWindowCreate(*(_DWORD *)dword_5064F8, *(_DWORD *)(dword_5064F8 + 4), 0, 0, 90, dword_5064F8, 0);
@@ -6834,7 +6834,7 @@ LABEL_731:
           if ( (unsigned int)pParty_global->dword_00071C < 0xC || (v212 = v0, (unsigned int)pParty_global->dword_00071C >= 0x18) )
             v212 = 0;
           sprintfex(
-            &ExistingFileName,
+            &TmpBuf,
             "%d:%02d%s %s %d %s %d",
             v211,
             pParty_global->dword_000720,
@@ -6849,15 +6849,15 @@ LABEL_731:
           v174 = pGlobalTXT_LocalizationStrings[501];
           goto LABEL_520;
         case 0x5E:
-          wsprintfA(ExistingFileName, pGlobalTXT_LocalizationStrings[429],
+          wsprintfA(TmpBuf, pGlobalTXT_LocalizationStrings[429],
                     pPlayers[v209 - 1]->sName, aClassNames[pPlayers[v209 - 1]->uClass]);
 
-          strcat(ExistingFileName, ": ");
+          strcat(TmpBuf, ": ");
           v122 = sub_48E9F4(&pPlayers[v209 - 1]);
-          //strcat((char *)&ExistingFileName, (&dword_AE3280)[4 * v122]);
-          strcat(ExistingFileName, aCharacterConditionNames[v122]);
+          //strcat((char *)&TmpBuf, (&dword_AE3280)[4 * v122]);
+          strcat(TmpBuf, aCharacterConditionNames[v122]);
 
-          sub_41C0B8(ExistingFileName);
+          sub_41C0B8(TmpBuf);
           v123 = 8 * v209 - 8;
           LOBYTE(v123) = v123 | 4;
           pGame->pClass03->dword_000000 = v123;
@@ -6870,7 +6870,7 @@ LABEL_731:
           v128 = pGlobalTXT_LocalizationStrings[108];
           v129 = sub_48E4F8(v125);
           sprintfex(
-            &ExistingFileName,
+            &TmpBuf,
             "%d / %d %s    %d / %d %s",
             *(_DWORD *)(v125 + 6460),
             v129,
@@ -15709,13 +15709,13 @@ int __thiscall sub_45E297(void *this)
   v1 = 0;
   do
   {
-    sprintfex(&ExistingFileName, "save%03d.mm7", v1);
-    if ( _access(&ExistingFileName, 0) != -1 )
+    sprintfex(&TmpBuf, "save%03d.mm7", v1);
+    if ( _access(&TmpBuf, 0) != -1 )
     {
       v2 = v1;
       if ( !v4 )
         v2 = dword_69CF24;
-      strcpy(&byte_69CFF4[280 * v2], &ExistingFileName);
+      strcpy(&byte_69CFF4[280 * v2], &TmpBuf);
       ++dword_69CF24;
     }
     ++v1;
@@ -15798,10 +15798,10 @@ int __fastcall sub_45E361(int a1)
     v15 = byte_69CFF4;
     while ( 1 )
     {
-      wsprintfA(ExistingFileName, "saves\\%s", v15);
-      if ( _access(ExistingFileName, 6) )
+      wsprintfA(TmpBuf, "saves\\%s", v15);
+      if ( _access(TmpBuf, 6) )
         break;
-      class17_LoadLOD_Games(&v16, ExistingFileName, 1);
+      class17_LoadLOD_Games(&v16, TmpBuf, 1);
       v4 = class17_FindContainer(v16, "header.bin", 1);
       if ( v4 )
         locked_fread(v14, 0x64u, 1u, (FILE *)v4);
@@ -15965,8 +15965,8 @@ int __cdecl sub_45E93E()
     v3 = v9;
     if ( !*(_BYTE *)v9 )
       v3 = (signed int)"1.mm7";
-    sprintfex(&ExistingFileName, "saves\\%s", v3);
-    if ( _access(&ExistingFileName, 0) || _access(&ExistingFileName, 6) )
+    sprintfex(&TmpBuf, "saves\\%s", v3);
+    if ( _access(&TmpBuf, 0) || _access(&TmpBuf, 6) )
     {
       v6 = pGlobalTXT_LocalizationStrings[72];
       *(_DWORD *)v2 = 0;
@@ -15974,7 +15974,7 @@ int __cdecl sub_45E93E()
     }
     else
     {
-      class17_LoadLOD_Games(&v12, &ExistingFileName, 1);
+      class17_LoadLOD_Games(&v12, &TmpBuf, 1);
       v5 = class17_FindContainer(v12, "header.bin", 1);
       locked_fread(v10, 0x64u, 1u, (FILE *)v5);
       v4 = class17_FindContainer(v12, "image.pcx", 1);
@@ -16122,8 +16122,8 @@ int __fastcall sub_45EE8A(int a1)
    for (i = 1; i < 5; ++i)
      for (j = 1; j < 6; ++j)
      {
-      wsprintfA(ExistingFileName, "data\\lloyd%d%d.pcx", i, j);
-      remove(ExistingFileName);
+      wsprintfA(TmpBuf, "data\\lloyd%d%d.pcx", i, j);
+      remove(TmpBuf);
      }
 
 
@@ -16172,9 +16172,9 @@ LABEL_17:
       }
     }
 
-    wsprintfA(ExistingFileName, "saves\\%s", &byte_69CFF4[280 * v1]);
+    wsprintfA(TmpBuf, "saves\\%s", &byte_69CFF4[280 * v1]);
     sub_461EE9(pClass17_New_LOD);
-    if ( !CopyFileA(ExistingFileName, "data\\new.lod", 0) )
+    if ( !CopyFileA(TmpBuf, "data\\new.lod", 0) )
       GetLastError();
     class17_LoadLOD_Games(pClass17_New_LOD, "data\\new.lod", 0);
     v9 = class17_FindContainer(pClass17_New_LOD, "header.bin", 1);
@@ -16318,15 +16318,15 @@ LABEL_55:
   }
   v25 = class17_Games_LOD_FindLeveL(pClass17_Games_LOD, &Source);
   v36 = (int)&Source;
-  sprintfex(&ExistingFileName, "levels\\%s", &Source);
-  v24 = _access(&ExistingFileName, 4) != -1;
+  sprintfex(&TmpBuf, "levels\\%s", &Source);
+  v24 = _access(&TmpBuf, 4) != -1;
   if ( !v25 )
   {
     if ( !v24 )
     {
       v36 = (int)&Source;
-      sprintfex(&ExistingFileName, "Unable to find: %s!", &Source);
-      erroneous_printf(&ExistingFileName, v34, v35, v36);
+      sprintfex(&TmpBuf, "Unable to find: %s!", &Source);
+      erroneous_printf(&TmpBuf, v34, v35, v36);
     }
   }
   v26 = strcpy(Str1, &Source);
@@ -16384,9 +16384,9 @@ int __fastcall sub_460078(int a1)
     strcpy(&Str2, "header.bin");
     v7 = 100;
     sub_461B48(pClass17_New_LOD, &Str2, (char *)&unk_69BD68 + v2, 0);
-    sprintfex(&ExistingFileName, "saves\\save%03d.mm7", v9);
+    sprintfex(&TmpBuf, "saves\\save%03d.mm7", v9);
     sub_461EE9(pClass17_New_LOD);
-    CopyFileA("data\\new.lod", &ExistingFileName, 0);
+    CopyFileA("data\\new.lod", &TmpBuf, 0);
   }
   sub_4156F0();
   GUIWindowDelete(pGUIWindow_PlayerCreation);
@@ -16548,7 +16548,7 @@ void *__fastcall sub_4601B7(int a1)
     v37 = v8;
 LABEL_23:
     sprintfex(
-      &ExistingFileName,
+      &TmpBuf,
       "%s %d:%02d%s\n%d %s %d",
       aDayNames[HIDWORD(v7) % 7],//dword_507B38[HIDWORD(v7) % 7u],
       v19,
@@ -16557,7 +16557,7 @@ LABEL_23:
       7 * v9 + HIDWORD(v7) % 7u + 1,
       aMonthNames[v36],//dword_507B08[v36],
       v39);
-    sub_44D406((int)&Dst, pFontSmallnum, 0, 0, 0, &ExistingFileName, 3);
+    sub_44D406((int)&Dst, pFontSmallnum, 0, 0, 0, &TmpBuf, 3);
     v1 = 255;
   }
   if ( pGUIWindow_PlayerCreation->dword_000040 == 2 )
@@ -17437,7 +17437,7 @@ int __cdecl sub_46271C()
   stru_6A0DA0.lCustData = 0;
   stru_6A0DA0.lpfnHook = 0;
   stru_6A0DA0.lpTemplateName = 0;
-  stru_6A0DA0.lpstrFileTitle = (LPSTR)&ExistingFileName;
+  stru_6A0DA0.lpstrFileTitle = (LPSTR)&TmpBuf;
   return result;
 }
 
@@ -18317,8 +18317,8 @@ char __cdecl sub_467FB6()
   v9 = v7 + v5 - 1;
   v2 = dword_5DAD28[12 * *(_DWORD *)(dword_507BC4 + 28)];
   v3 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
-  wsprintfA(ExistingFileName, (const char *)&unk_4E2D80, v3, v2);
-  sub_44D406((int)&v4, pFontCreate, 0, 0, 0, &ExistingFileName, 3);
+  wsprintfA(TmpBuf, (const char *)&unk_4E2D80, v3, v2);
+  sub_44D406((int)&v4, pFontCreate, 0, 0, 0, &TmpBuf, 3);
   return FontDrawText((int)&v4,
            pFontSmallnum,
            1,
