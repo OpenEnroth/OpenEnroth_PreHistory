@@ -3307,8 +3307,8 @@ void __stdcall sub_4B1BDB(__int64 a1)
   signed __int64 v3; // ST1C_8@1
   unsigned int v4; // ebx@1
 
-  struct_AD4674[0].dword_000044 = 0;
-  struct_AD4674[1].dword_000044 = 0;
+  array_AD4674[0].dword_000044 = 0;
+  array_AD4674[1].dword_000044 = 0;
   pParty_global->qword_00002C += (signed __int64)((double)(7680 * a1) * 0.03333333507180214);
   v2 = (signed __int64)((double)pParty_global->qword_00002C * 0.234375);
   v3 = v2 / 60 / 60;
@@ -3775,7 +3775,7 @@ LABEL_50:
     }
     return sub_4BF5B2(pVideoPlayer);
   }
-  if (struct_AD4674[0].dword_AD4674 && struct_AD4674[1].dword_AD4674)
+  if (array_AD4674[0].pNPCName && array_AD4674[1].pNPCName)
   {
     v19 = pGlobalTXT_LocalizationStrings[533];
 LABEL_77:
@@ -3803,15 +3803,15 @@ LABEL_77:
   *(_BYTE *)(v2 + 8) |= 0x80u;
   pParty_global->byte_000709 = 0;
   sub_44A56A();
-  if (struct_AD4674[0].dword_AD4674)
+  if (array_AD4674[0].pNPCName)
   {
-    memcpy(&struct_AD4674[1], (const void *)v2, sizeof(struct unnamed_AD4674));
+    memcpy(&array_AD4674[1], v2, sizeof(struct NPCData));
     v25 = *(const char **)v2;
     v23 = (char *)&unk_AE3090;
   }
   else
   {
-    memcpy(&struct_AD4674[0], (const void *)v2, sizeof(struct unnamed_AD4674));
+    memcpy(&array_AD4674[0], v2, sizeof(struct NPCData));
     v25 = *(const char **)v2;
     v23 = byte_AE302C;
   }
@@ -11529,7 +11529,7 @@ LABEL_40:
       v7 += 6972;
     }
     //while ( v7 < (signed int)&unk_AD46EC );
-    while (v7 < struct_AD4674[1].dword_AD46A0);
+    while (v7 < array_AD4674[1].dword_00002C);
     return 0;
   }
   if ( a1 == 12 )
@@ -12116,32 +12116,32 @@ void __thiscall sub_4BC49B(void *this)
     if ( v2[8] & 0x80 )
     {
       v8 = 0;
-      if ( dword_73C194 > 0 )
+      if (pNPCStats->dword_017FC4 > 0)
       {
-        v6 = unk_72D68C;
+        v6 = pNPCStats->pNPCData2;
         while ( !(*((_BYTE *)v6 + 8) & 0x80) || strcmp(*(const char **)v2, *(const char **)v6) )
         {
           ++v8;
           v6 = (char *)v6 + 76;
-          if ( v8 >= dword_73C194 )
+          if ( v8 >= pNPCStats->dword_017FC4)
             goto LABEL_44;
         }
         goto LABEL_43;
       }
 LABEL_44:
-      if (!struct_AD4674[0].dword_AD4674 || _strcmpi(struct_AD4674[0].dword_AD4674, *(const char **)v2))
+      if (!array_AD4674[0].pNPCName || strcmpi(array_AD4674[0].pNPCName, *(const char **)v2))
       {
-        if (!struct_AD4674[1].dword_AD4674 || _strcmpi(struct_AD4674[1].dword_AD4674, *(const char **)v2))
+        if (!array_AD4674[1].pNPCName || strcmpi(array_AD4674[1].pNPCName, *(const char **)v2))
           goto LABEL_51;
         v14 = 76;
         v12 = 0;
-        v11 = &struct_AD4674[1];
+        v11 = &array_AD4674[1];
       }
       else
       {
         v14 = 76;
         v12 = 0;
-        v11 = &struct_AD4674[0];
+        v11 = &array_AD4674[0];
       }
       memset(v11, v12, v14);
 LABEL_51:
@@ -12156,7 +12156,7 @@ LABEL_51:
       }
       goto LABEL_89;
     }
-    if (struct_AD4674[0].dword_AD4674 && struct_AD4674[1].dword_AD4674)
+    if (array_AD4674[0].pNPCName && array_AD4674[1].pNPCName)
     {
       v7 = pGlobalTXT_LocalizationStrings[533];
 LABEL_64:
@@ -12180,15 +12180,15 @@ LABEL_64:
       sub_492BB6(v10);
     }
     v2[8] |= 0x80u;
-    if (struct_AD4674[0].dword_AD4674)
+    if (array_AD4674[0].pNPCName)
     {
-      memcpy(&struct_AD4674[1], v2, sizeof(struct unnamed_AD4674));
+      memcpy(&array_AD4674[1], v2, sizeof(struct NPCData));
       v15 = *(const char **)v2;
       v13 = (char *)&unk_AE3090;
     }
     else
     {
-      memcpy(&struct_AD4674[0], v2, sizeof(struct unnamed_AD4674));
+      memcpy(&array_AD4674[0], v2, sizeof(struct NPCData));
       v15 = *(const char **)v2;
       v13 = byte_AE302C;
     }
@@ -12238,14 +12238,14 @@ LABEL_64:
       goto LABEL_87;
     }
     v5 = 0;
-    if ( dword_73C194 > 0 )
+    if (pNPCStats->dword_017FC4 > 0)
     {
-      v6 = unk_72D68C;
+      v6 = pNPCStats->pNPCData2;
       while ( !(*((_BYTE *)v6 + 8) & 0x80) || strcmp(*(const char **)v2, *(const char **)v6) )
       {
         ++v5;
         v6 = (char *)v6 + 76;
-        if ( v5 >= dword_73C194 )
+        if ( v5 >= pNPCStats->dword_017FC4)
           goto LABEL_44;
       }
 LABEL_43:

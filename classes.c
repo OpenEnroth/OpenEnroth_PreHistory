@@ -6148,14 +6148,12 @@ LABEL_45:
 
 
 //----- (00476CB5) --------------------------------------------------------
-char *CNPCStats_sub_476CB5(struct CNPCStats *_this)
+void *CNPCStats_sub_476CB5(struct CNPCStats *_this)
 {
-  int v1; // edi@1
   void *v2; // esi@1
   char *v4; // eax@2
   char v5; // dl@3
   int v6; // ecx@3
-  char *v7; // eax@11
   char *v10; // ecx@27
   int v11; // eax@28
   char v12; // dl@28
@@ -6169,14 +6167,6 @@ char *CNPCStats_sub_476CB5(struct CNPCStats *_this)
   int v24; // edi@58
   int v25; // esi@62
   int v27; // [sp+Ch] [bp-14h]@7
-  signed int v28; // [sp+10h] [bp-10h]@1
-  signed int v29; // [sp+10h] [bp-10h]@26
-  signed int v30; // [sp+10h] [bp-10h]@42
-  signed int v31; // [sp+10h] [bp-10h]@56
-  int v32; // [sp+14h] [bp-Ch]@1
-  int v33; // [sp+14h] [bp-Ch]@26
-  int v34; // [sp+14h] [bp-Ch]@42
-  int v35; // [sp+14h] [bp-Ch]@56
   signed int v36; // [sp+18h] [bp-8h]@2
   signed int v37; // [sp+18h] [bp-8h]@27
   signed int v38; // [sp+18h] [bp-8h]@43
@@ -6185,6 +6175,7 @@ char *CNPCStats_sub_476CB5(struct CNPCStats *_this)
   signed int v41; // [sp+1Ch] [bp-4h]@27
   signed int v42; // [sp+1Ch] [bp-4h]@43
   signed int v43; // [sp+1Ch] [bp-4h]@57
+ int i;
 
   v2 = _this;
 
@@ -6192,11 +6183,8 @@ char *CNPCStats_sub_476CB5(struct CNPCStats *_this)
  strtok(_this->pNPCDataTXT_Raw, "\r");
  strtok(0, "\r");
 
-  v1 = (int)((char *)_this + 96);
-  v32 = (int)((char *)_this + 89460);
-  v28 = 500;
-  do
-  {
+ for (i = 0; i < 501; ++i)
+ {
     v36 = 0;
     v4 = strtok(0, "\r") + 1;
     v40 = -1;
@@ -6213,47 +6201,47 @@ char *CNPCStats_sub_476CB5(struct CNPCStats *_this)
       if ( !v4[v6] )
         v36 = 1;
       v4[v6] = 0;
+
       if ( v6 )
       {
         switch ( v40 )
         {
           case 0:
-            v7 = sub_452C30(v4);
-            *(_DWORD *)(v1 - 20) = v7;
-            *(_DWORD *)v32 = v7;
+            _this->pNPCData[i].pNPCName = sub_452C30(v4);
+            _this->pNPCNames2[i] = sub_452C30(v4);
             break;
           case 1:
-            *(_DWORD *)(v1 - 16) = atoi(v4);
+            _this->pNPCData[i].uPortraitID = atoi(v4);
             break;
           case 5:
-            *(_DWORD *)v1 = atoi(v4);
+            _this->pNPCData[i].dword_000014 = atoi(v4);
             break;
           case 6:
-            *(_DWORD *)(v1 + 4) = atoi(v4);
+            _this->pNPCData[i].dword_000018 = atoi(v4);
             break;
           case 7:
-            *(_DWORD *)(v1 + 8) = atoi(v4);
+            _this->pNPCData[i].dword_00001C = atoi(v4);
             break;
           case 8:
-            *(_DWORD *)(v1 + 12) = *v4 == 121;
+            _this->pNPCData[i].dword_000020 = *v4 == 121;
             break;
           case 9:
-            *(_DWORD *)(v1 + 20) = atoi(v4);
+            _this->pNPCData[i].dword_000028 = atoi(v4);
             break;
           case 10:
-            *(_DWORD *)(v1 + 24) = atoi(v4);
+            _this->pNPCData[i].dword_00002C = atoi(v4);
             break;
           case 11:
-            *(_DWORD *)(v1 + 28) = atoi(v4);
+            _this->pNPCData[i].dword_000030 = atoi(v4);
             break;
           case 12:
-            *(_DWORD *)(v1 + 32) = atoi(v4);
+            _this->pNPCData[i].dword_000034 = atoi(v4);
             break;
           case 13:
-            *(_DWORD *)(v1 + 36) = atoi(v4);
+            _this->pNPCData[i].dword_000038 = atoi(v4);
             break;
           case 14:
-            *(_DWORD *)(v1 + 40) = atoi(v4);
+            _this->pNPCData[i].dword_00003C = atoi(v4);
             break;
           default:
             break;
@@ -6263,20 +6251,15 @@ char *CNPCStats_sub_476CB5(struct CNPCStats *_this)
       v4 = (char *)(v27 + 1);
     }
     while ( v40 + 1 <= 15 && !v36 );
-    v32 += 4;
-    v1 += 76;
-  }
-  while ( v28-- != 1 );
-  *((_DWORD *)v2 + 24561) = 501;
+ }
+ _this->dword_017FC4 = 501;
 
 
  _this->pNPCGreetTXT_Raw = class17_fn1(pClass17_Events_LOD, "npcgreet.txt", 0);
  strtok(_this->pNPCGreetTXT_Raw, "\r");
 
-  v33 = (int)((char *)v2 + 96396);
-  v29 = 205;
-  do
-  {
+ for (i = 0; i < 206; ++i)
+ {
     v41 = 0;
     v37 = 0;
     v10 = strtok(0, "\r") + 1;
@@ -6296,30 +6279,21 @@ char *CNPCStats_sub_476CB5(struct CNPCStats *_this)
       if ( v11 )
       {
         if ( v41 == 1 )
-        {
-          *(_DWORD *)v33 = sub_452C30(v10);
-        }
-        else
-        {
-          if ( v41 == 2 )
-            *(_DWORD *)(v33 + 4) = sub_452C30(v10);
-        }
+          _this->pNPCGreetings[i].pGreeting1 = sub_452C30(v10);
+        else if (v41 == 2)
+          _this->pNPCGreetings[i].pGreeting2 = sub_452C30(v10);
       }
       ++v41;
       v10 = (char *)(v13 + 1);
     }
     while ( v41 <= 2 && !v37 );
-    v33 += 8;
   }
-  while ( v29-- != 1 );
 
  _this->pNCPGroupTXT_Raw = class17_fn1(pClass17_Events_LOD, "npcgroup.txt", 0);
  strtok(_this->pNCPGroupTXT_Raw, "\r");
 
-  v34 = (int)((char *)v2 + 98036);
-  v30 = 51;
-  do
-  {
+ for (i = 0; i < 51; ++i)
+ {
     v16 = strtok(0, "\r") + 1;
     v42 = 0;
     v38 = 0;
@@ -6339,23 +6313,19 @@ char *CNPCStats_sub_476CB5(struct CNPCStats *_this)
       if ( v18 )
       {
         if ( v42 == 1 )
-          *(_WORD *)v34 = atoi(v16);
+          _this->array_017EF4[i] = atoi(v16);
       }
       ++v42;
       v16 = (char *)(v19 + 1);
     }
     while ( v42 <= 1 && !v38 );
-    v34 += 2;
   }
-  while ( v30-- != 1 );
 
  _this->pNPCNewsTXT_Raw = class17_fn1(pClass17_Events_LOD, "npcnews.txt", 0);
  strtok(_this->pNPCNewsTXT_Raw, "\r");
 
-  v35 = (int)((char *)v2 + 89252);
-  v31 = 51;
-  do
-  {
+ for (i = 0; i < 52; ++i)
+ {
     result = strtok(0, "\r") + 1;
     v43 = 0;
     v39 = 0;
@@ -6375,16 +6345,13 @@ char *CNPCStats_sub_476CB5(struct CNPCStats *_this)
       if ( v24 )
       {
         if ( v43 == 1 )
-          *(_DWORD *)v35 = sub_452C30(result);
+          _this->array_015CA4[i] = sub_452C30(result);
       }
       ++v43;
       result = (char *)(v25 + 1);
     }
     while ( v43 <= 1 && !v39 );
-    v35 += 4;
   }
-  while ( v31-- != 1 );
-  return result;
 }
 
 
@@ -6535,7 +6502,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
 
  v1 = 0;
   v31 = 1;
-  v32 = v2 + 91465;
+  v32 = _this->unk_016544 + 5;
   while ( 2 )
   {
     v14 = strtok(0, "\r") + 1;
@@ -6571,7 +6538,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
       {
         if ( v1 < 77 )
         {
-          *(_BYTE *)(v31 + (v1 << 6) + v2 + 91464) = atoi(v14);
+          *(_BYTE *)(v31 + (v1 << 6) + (_this->unk_016544 + 4)) = atoi(v14);
           goto LABEL_54;
         }
         v18 = v1 == 0;
@@ -6593,7 +6560,7 @@ LABEL_54:
     }
     break;
   }
-  v19 = v2 + 91460;
+  v19 = _this->unk_016544;
   v20 = 77;
   do
   {

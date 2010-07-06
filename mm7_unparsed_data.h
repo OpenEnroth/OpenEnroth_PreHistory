@@ -2023,9 +2023,9 @@ extern int dword_7241C8; // weak
 
 extern struct CNPCStats *pNPCStats; // struct @ MM7.exe::007241D0
 //_UNKNOWN unk_7241D0; // weak
-extern _UNKNOWN unk_72D5F4; // weak
+//extern _UNKNOWN unk_72D5F4; // 009424, pNPCStats::pNPCData[499]
 extern int dword_72D5F8[array_size_unknown]; // weak
-extern _UNKNOWN unk_72D68C[0x94BC + array_size_unknown]; // npcdata.bin
+//extern struct NPCData array_72D68C[]; // 0094BC, struct[] @ MM7.exe::0072D68C
 extern int dword_72D694[array_size_unknown]; // weak
 extern int dword_72D6A0[array_size_unknown]; // weak
 extern int dword_72D6A8; // weak
@@ -2042,10 +2042,11 @@ extern int dword_737C38[array_size_unknown]; // weak  737C3C
 //_UNKNOWN unk_7380C4; // 0013EF4
 extern char dword_739E74[7136]; // idb
 extern int dword_73BA54[array_size_unknown]; // weak
-extern _UNKNOWN unk_73C0C4; // weak
+//extern _UNKNOWN unk_73C0C4; // weak
+//extern short array_73C0C4[]; // 017EF4, short[51] @ MM7.exe::0073C0C4
 //__int16 word_73C12A[102 + array_size_unknown]; // pNPCStats::word_017F5A
 //int dword_73C190; // 0017FC0
-extern int dword_73C194; // weak
+//extern int dword_73C194; // 017FC4
 //int dword_73C1A0[array_size_unknown]; // pNPCStats::dword_017FD0
 
 unsigned char *pAwardsTXT_Raw;    // ptr @ MM7.exe::0073C37C
@@ -2458,19 +2459,22 @@ extern int dword_AD4650; // weak
 extern int dword_AD4654[array_size_unknown]; // weak
 extern int dword_AD4658; // weak
 
+// maybe currently hired npcs
+extern struct NPCData array_AD4674[]; // struct[2] @ MM7.exe::00AD4674
+/*
 extern struct unnamed_AD4674
 {
- char *dword_AD4674; // end of pPlayers[4],  string pointer
- int dword_AD4678; // weak
- _UNKNOWN unk_AD467C; // weak
+ char *dword_AD4674; // 000000, end of pPlayers[4]
+ int dword_AD4678; // 000004
+ _UNKNOWN unk_AD467C; // 000008
  int dword_000018;
  int dword_000024;
- int dword_AD469C; // weak
- int dword_AD46A0; // weak
- int dword_AD46A4; // weak
+ int dword_AD469C; // 000028
+ int dword_AD46A0; // 00002C
+ int dword_AD46A4; // 000030
  int dword_000044;
  int dword_000048;
-} struct_AD4674[];
+} struct_AD4674[];*/
 //sizeof == 4C
  //char *dword_AD46C0; // idb
  //int dword_AD46D8;    // [1]:000018

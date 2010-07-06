@@ -10392,13 +10392,13 @@ char __thiscall sub_476395(void *this)
   if ( byte_6BE3C5 != 1 )
   {
     v2 = 0;
-    if ( dword_73C194 <= 0 )
+    if (pNPCStats->dword_017FC4 <= 0)
     {
 LABEL_8:
       v4 = 0;
-      if (struct_AD4674[0].dword_000018 != this )
+      if (array_AD4674[0].dword_000018 != this )
       {
-       LOBYTE(v1) = struct_AD4674[1].dword_000018 == (_DWORD)this;
+       LOBYTE(v1) = array_AD4674[1].dword_000018 == (_DWORD)this;
         return v1;
       }
     }
@@ -10409,7 +10409,7 @@ LABEL_8:
       {
         ++v2;
         v3 += 76;
-        if ( v2 >= dword_73C194 )
+        if ( v2 >= pNPCStats->dword_017FC4)
           goto LABEL_8;
       }
       v4 = 0;
@@ -10586,10 +10586,10 @@ void __thiscall sub_476C60(int this)
     }
     while ( v1 < *(_DWORD *)(this + 98244) );
   }
-  if (struct_AD4674[0].dword_AD4674)
-    struct_AD4674[0].dword_AD4674 = byte_AE302C;
-  if (struct_AD4674[1].dword_AD4674)
-    struct_AD4674[1].dword_AD4674 = (char *)&unk_AE3090;
+  if (array_AD4674[0].pNPCName)
+    array_AD4674[0].pNPCName = byte_AE302C;
+  if (array_AD4674[1].pNPCName)
+    array_AD4674[1].pNPCName = (char *)&unk_AE3090;
 }
 
 //----- (00477266) --------------------------------------------------------

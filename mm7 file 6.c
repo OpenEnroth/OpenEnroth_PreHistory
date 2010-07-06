@@ -2921,24 +2921,25 @@ LABEL_56:
 
     for (i = 0; i < 2; ++i)
     {
-      v9 = struct_AD4674[i].dword_AD46A4;
+      v9 = array_AD4674[i].dword_000030;
       if ( v9 )
       {
-        v10 = struct_AD4674[i].dword_AD469C;
-        v11 = pClass24_global2->int_00001C + struct_AD4674[i].dword_AD46A0;
+        v10 = array_AD4674[i].dword_000028;
+        v11 = pClass24_global2->int_00001C + array_AD4674[i].dword_00002C;
         if ( v11 >= v9 )
         {
           v10 = 0;
           v9 = 0;
           v11 = 0;
-          memset(&struct_AD4674[i], 0, sizeof(struct unnamed_AD4674));
+          memset(&array_AD4674[i], 0, sizeof(struct NPCData));
           pParty_global->byte_000709 = 0;
           sub_44A56A();
           struct_576FE8.dword_000044 = 1;
         }
-        struct_AD4674[i].dword_AD46A0 = v11;
-        struct_AD4674[i].dword_AD46A4 = v9;
-        struct_AD4674[i].dword_AD469C = v10;
+
+        array_AD4674[i].dword_000028 = v10;
+        array_AD4674[i].dword_00002C = v11;
+        array_AD4674[i].dword_000030 = v9;
       }
     }
   }

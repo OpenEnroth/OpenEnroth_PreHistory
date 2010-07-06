@@ -644,7 +644,7 @@ int __fastcall sub_438F8F(int result)
               ++v25;
             }
             //while ( v26 < (signed int)&unk_AD46EC );
-            while (v26 < &struct_AD4674[1].dword_AD46A0);
+            while (v26 < &array_AD4674[1].dword_00002C);
           }
         }
         v45 = 0;
@@ -4482,7 +4482,7 @@ LABEL_22:
   dword_5E5144 = 0;
   struct_576FE8.dword_000044 = v6;
   GameUI_DrawPartySpells();
-  if (v5 || struct_AD4674[0].dword_AD46A4 || struct_AD4674[1].dword_AD46A4)
+  if (v5 || array_AD4674[0].dword_000030 || array_AD4674[1].dword_000030)
     sub_491F87();
 
   GameUI_DrawPortraits((void *)v5);
@@ -4768,21 +4768,21 @@ int Party_CreateDefault(struct Party *_this)
   sub_449B7E(_this->unk_000765, 5, 1);
   sub_449B7E(_this->unk_000765, 6, 1);
 
-  for (i = 0; i < 4; ++i)
-  {
-   v9 = pPlayers[i];
+ for (i = 0; i < 4; ++i)
+ {
+  v9 = pPlayers[i];
 
-   v9->word_001A9C = 1;
-   v9->word_001A9E = 0;
-   v9->word_001AA0 = rand() % 256 + 128;
-  }
+  v9->word_001A9C = 1;
+  v9->word_001A9E = 0;
+  v9->word_001AA0 = rand() % 256 + 128;
+ }
 
-  memcpy(unk_72D68C, pNPCStats, 0x94BC);
-  memcpy(pNPCStats->word_017F5A, &unk_73C0C4, 51 * 2);
-  dword_72D778 |= 0x80u;
-  sub_494035();
-  class24_fn1(pClass24_global);
-  return 0;
+ memcpy(pNPCStats->pNPCData2, pNPCStats->pNPCData, 501 * sizeof(struct NPCData));
+ memcpy(pNPCStats->word_017F5A, pNPCStats->array_017EF4, 51 * sizeof(short));
+ dword_72D778 |= 0x80u;
+ sub_494035();
+ class24_fn1(pClass24_global);
+ return 0;
 }
 
 //----- (004014E6) --------------------------------------------------------
@@ -11270,7 +11270,7 @@ LABEL_254:
             v89 += 6972;
           }
           //while ( v89 < (signed int)&unk_AD467C );
-          while (v89 < &struct_AD4674[0].unk_AD467C);
+          while (v89 < &array_AD4674[0].dword_000008);
 
           if ( LODWORD(v705) != HIDWORD(v1) )
           {
@@ -14348,7 +14348,7 @@ LABEL_1000:
           LODWORD(v1) = v1 + 6972;
         }
         //while ( (_DWORD)v1 < (signed int)&unk_AD467C );
-        while ((_DWORD)v1 < &struct_AD4674[0].unk_AD467C );
+        while ((_DWORD)v1 < &array_AD4674[0].dword_000008);
 
 
         LOWORD(v1) = v709;
@@ -14703,7 +14703,7 @@ LABEL_1087:
 
         for (i = 0; i < 2; ++i)
         {
-          if (struct_AD4674[i].dword_AD4674 != HIDWORD(v1) )
+          if (array_AD4674[i].pNPCName != HIDWORD(v1) )
           {
             v570 = LODWORD(v712)++;
             dword_5C3610[v570] = LODWORD(v702) + 1;
@@ -14712,17 +14712,17 @@ LABEL_1087:
         }
 
         LODWORD(v702) = HIDWORD(v1);
-        if ( dword_73C194 > HIDWORD(v1) )
+        if (pNPCStats->dword_017FC4 > HIDWORD(v1))
         {
-          v708 = (int)unk_72D68C;
+          v708 = pNPCStats->pNPCData2;
           LODWORD(v712) = 4 * LODWORD(v712) + 6043152;
           do
           {
             if ( *(_BYTE *)(v708 + 8) & 0x80 )
             {
-             if (struct_AD4674[0].dword_AD4674 == HIDWORD(v1) || strcmp(*(const char **)v708, struct_AD4674[0].dword_AD4674))
+             if (array_AD4674[0].pNPCName == HIDWORD(v1) || strcmp(*(const char **)v708, array_AD4674[0].pNPCName))
               {
-               if (struct_AD4674[1].dword_AD4674 == HIDWORD(v1) || strcmp(*(const char **)v708, struct_AD4674[1].dword_AD4674))
+               if (array_AD4674[1].pNPCName == HIDWORD(v1) || strcmp(*(const char **)v708, array_AD4674[1].pNPCName))
                 {
                   v571 = LODWORD(v712);
                   LODWORD(v712) += 4;
@@ -14733,7 +14733,7 @@ LABEL_1087:
             ++LODWORD(v702);
             v708 += 76;
           }
-          while ( LODWORD(v702) < dword_73C194 );
+          while ( LODWORD(v702) < pNPCStats->dword_017FC4);
         }
         v572 = *(_WORD *)(v2 + 4);
         compile_error;
@@ -14993,7 +14993,7 @@ LABEL_439:
 
       runtime_warning();
       //if ( (_DWORD)v1 >= (signed int)&dword_AD4674 )
-      if ((_DWORD)v1 >= &struct_AD4674[0])
+      if ((_DWORD)v1 >= &array_AD4674[0])
         goto LABEL_1056;
       continue;
     }
@@ -16584,7 +16584,6 @@ int __thiscall sub_4C2AA6(struct unnamed_6BD080 *_this)
 //----- (00491F87) --------------------------------------------------------
 void __cdecl sub_491F87()
 {
-  int v3; // ebx@6
   _UNKNOWN *v4; // esi@7
   int v5; // ecx@13
   int v6; // eax@15
@@ -16610,37 +16609,31 @@ void __cdecl sub_491F87()
   if ( byte_6BE3C5 == 1 )
     return;
 
-
     v25 = 0;
     v24 = 0;
-    for (i = 0; i < 2; ++i)
-    {
-     if (struct_AD4674[i].dword_AD4674)
-       TmpBuf[v24++] = i;
-    }
 
-    v3 = 0;
-    if ( dword_73C194 > 0 )
+ if (array_AD4674[0].pNPCName)
+   TmpBuf[v24++] = 0;
+ if (array_AD4674[1].pNPCName)
+   TmpBuf[v24++] = 1;
+
+ for (i = 0; i < pNPCStats->dword_017FC4; ++i)
+ {
+  v4 = &pNPCStats->pNPCData2[i];
+  if ( *((_BYTE *)v4 + 8) & 0x80 )
+  {
+   if (!array_AD4674[0].pNPCName ||
+       strcmp(pNPCStats->pNPCData2[i].pNPCName, array_AD4674[0].pNPCName))
+   {
+    if (!array_AD4674[1].pNPCName ||
+        strcmp(pNPCStats->pNPCData2[i].pNPCName, array_AD4674[1].pNPCName))
     {
-      v4 = unk_72D68C;
-      do
-      {
-        if ( *((_BYTE *)v4 + 8) & 0x80 )
-        {
-         if (!struct_AD4674[0].dword_AD4674 || strcmp(*(const char **)v4, struct_AD4674[0].dword_AD4674))
-          {
-           if (!struct_AD4674[1].dword_AD4674 || strcmp(*(const char **)v4, struct_AD4674[1].dword_AD4674))
-            {
-              v5 = v24++;
-              TmpBuf[v5] = v3 + 2;
-            }
-          }
-        }
-        ++v3;
-        v4 = (char *)v4 + 76;
-      }
-      while ( v3 < dword_73C194 );
+     v5 = v24++;
+     TmpBuf[v5] = i + 2;
     }
+   }
+  }
+ }
 
     v6 = (unsigned __int8)pParty_global->byte_000709;
     v21 = (unsigned __int8)pParty_global->byte_000709;
@@ -16660,7 +16653,7 @@ void __cdecl sub_491F87()
         }
         else
         {
-          wsprintfA(Str1, "NPC%03d", struct_AD4674[v7].dword_AD4678);
+          wsprintfA(Str1, "NPC%03d", array_AD4674[v7].uPortraitID);
           v10 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
           v9 = 4 * v25;
           CD3DRenderer_DrawIndexedTexture(pD3DRenderer,
@@ -16669,9 +16662,9 @@ void __cdecl sub_491F87()
             v10 != -1 ? 72 * v10 + 7145548 : 0);
 
           v8 = 76 * (unsigned __int8)TmpBuf[v21];
-          if (struct_AD4674[v8].dword_AD469C == 1 )
+          if (array_AD4674[v8].dword_000028 == 1 )
           {
-           v20 = struct_AD4674[v8].dword_AD46A0;
+           v20 = array_AD4674[v8].dword_00002C;
             v12 = *(int *)((char *)dword_4EE06C + v9);
             v11 = *(int *)((char *)dword_4EE074 + v9);
             v19 = v12;

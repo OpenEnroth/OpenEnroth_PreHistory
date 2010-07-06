@@ -1030,7 +1030,7 @@ int __fastcall sub_4269A2(int a1)
     v3 += 4;
   }
   //while ( HIDWORD(v1) < (signed int)&unk_AD46E4 );
-  while (HIWORD(v1) < &struct_AD4674[1].dword_000024);
+  while (HIWORD(v1) < &array_AD4674[1].dword_000024);
 
   if ( v2 )
   {
@@ -4238,23 +4238,23 @@ void __cdecl sub_4304E7()
               v212 = LODWORD(v214) - 134;
 
               for (i = 0; i < 2; ++i)
-                if (struct_AD4674[i].dword_AD4674)
+                if (array_AD4674[i].pNPCName)
                 {
                   v7 = v210++;
                   TmpBuf[v7] = i;
                 }
 
               v196 = 0;
-              if ( dword_73C194 > 0 )
+              if (pNPCStats->dword_017FC4 > 0)
               {
-                v211 = (int)unk_72D68C;
+                v211 = pNPCStats->pNPCData2;
                 do
                 {
                   if ( *(_BYTE *)(v211 + 8) & 0x80 )
                   {
-                    if (!struct_AD4674[0].dword_AD4674 || strcmp(*(const char **)v211, struct_AD4674[0].dword_AD4674))
+                    if (!array_AD4674[0].pNPCName || strcmp(*(const char **)v211, array_AD4674[0].pNPCName))
                     {
-                     if (!struct_AD4674[1].dword_AD4674 || strcmp(*(const char **)v211, struct_AD4674[1].dword_AD4674))
+                     if (!array_AD4674[1].pNPCName || strcmp(*(const char **)v211, array_AD4674[1].pNPCName))
                       {
                         v8 = v210++;
                         TmpBuf[v8] = v196 + 2;
@@ -4264,7 +4264,7 @@ void __cdecl sub_4304E7()
                   ++v196;
                   v211 += 76;
                 }
-                while ( v196 < dword_73C194 );
+                while ( v196 < pNPCStats->dword_017FC4);
               }
               if ( v212 + (unsigned __int8)pParty_global->byte_000709 < v210 )
               {
@@ -5468,7 +5468,7 @@ LABEL_92:
           if ( v209 )
           {
             GUIWindowCreate(626, 179, 0, 0, 90, dword_5079E8, 0);
-            v48 = (struct_AD4674[0].dword_AD4674 != 0) + (struct_AD4674[1].dword_AD4674!= 0) + (unsigned __int8)pParty_global->byte_00070A - 2;
+            v48 = (array_AD4674[0].pNPCName != 0) + (array_AD4674[1].pNPCName != 0) + (unsigned __int8)pParty_global->byte_00070A - 2;
             if (pParty_global->byte_000709 < v48 )
             {
               ++pParty_global->byte_000709;
@@ -16231,7 +16231,7 @@ LABEL_17:
     v13 = class17_FindContainer(pClass17_New_LOD, "npcdata.bin", 0);
     if ( v13 )
     {
-      locked_fread(unk_72D68C, 0x94BCu, 1u, (FILE *)v13);
+      locked_fread(pNPCStats->pNPCData2, 501 * sizeof(struct NPCData), 1u, (FILE *)v13);
       sub_476C60(pNPCStats);
     }
     else

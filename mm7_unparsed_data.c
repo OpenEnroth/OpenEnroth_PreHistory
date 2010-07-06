@@ -1406,7 +1406,7 @@ unsigned char byte_5C45B0[2048];
 //char byte_5C45B1[array_size_unknown]; // weak
 
  _UNKNOWN unk_5C4DB0; // weak
- unsigned char TmpBuf[array_size_unknown + 2000]; // byte[~2000] @ MM7.exe::005C5DB0
+unsigned char TmpBuf[array_size_unknown + 2000]; // byte[~2000] @ MM7.exe::005C5DB0
  char byte_5C657F[array_size_unknown]; // weak
 
  char byte_5C6D50[100]; // weak
@@ -2013,9 +2013,8 @@ struct CGame *pGame = 0; //struct @ MM7.exe::00720014
 struct CNPCStats *pNPCStats = 0; // struct @ MM7.exe::007241D0
 //_UNKNOWN unk_7241D0; // weak
 //looks like unnamed_AD4674 around here
- _UNKNOWN unk_72D5F4; // weak
+// _UNKNOWN unk_72D5F4; // weak
  int dword_72D5F8[array_size_unknown]; // weak
- _UNKNOWN unk_72D68C[0x94BC + array_size_unknown]; // npcdata.bin
  int dword_72D694[array_size_unknown]; // weak
  int dword_72D6A0[array_size_unknown]; // weak
  int dword_72D6A8; // weak
@@ -2033,8 +2032,6 @@ struct CNPCStats *pNPCStats = 0; // struct @ MM7.exe::007241D0
  char dword_739E74[7136]; // idb
  int dword_73BA54[array_size_unknown]; // weak
  _UNKNOWN unk_73C0C4; // weak
-//__int16 word_73C12A[102 + array_size_unknown]; // pNPCStats::word_017F5A
-//int dword_73C190; // 0017FC0
  int dword_73C194; // weak
 //int dword_73C1A0[array_size_unknown]; // pNPCStats::dword_017FD0
 
@@ -2434,22 +2431,7 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  int dword_AD4654[array_size_unknown]; // weak
  int dword_AD4658; // weak
  
-struct unnamed_AD4674 struct_AD4674[2];
- /*
-char *dword_AD4674; // end of pPlayers[4]
- int dword_AD4678[array_size_unknown]; // weak
- _UNKNOWN unk_AD467C; // weak
- int dword_AD468C; // weak
- int dword_AD469C; // weak
- int dword_AD46A0; // weak
- int dword_AD46A4; // weak
- int dword_AD46B8; // weak
- char *dword_AD46C0; // idb
- int dword_AD46D8; // weak
- _UNKNOWN unk_AD46E4; // weak
- _UNKNOWN unk_AD46EC; // weak
- int dword_AD46F0; // weak
- int dword_AD4704; // weak*/
+struct NPCData array_AD4674[2];
 
  int dword_AD470C; // weak
  int dword_AD4710; // weak

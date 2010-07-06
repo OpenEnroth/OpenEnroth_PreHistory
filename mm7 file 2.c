@@ -990,10 +990,10 @@ LABEL_85:
         goto LABEL_89;
       }
       AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-      memset(&struct_AD4674[0], 0, sizeof(struct unnamed_AD4674));
-      memset(&struct_AD4674[1], 0, sizeof(struct unnamed_AD4674));
+      memset(&array_AD4674[0], 0, sizeof(struct NPCData));
+      memset(&array_AD4674[1], 0, sizeof(struct NPCData));
       v6 = 0;
-      if ( dword_73C194 > 0 )
+      if (pNPCStats->dword_017FC4 > 0)
       {
         v7 = (int)dword_72D694;
         do
@@ -1003,7 +1003,7 @@ LABEL_85:
           ++v6;
           v7 += 76;
         }
-        while ( v6 < dword_73C194 );
+        while ( v6 < pNPCStats->dword_017FC4);
       }
 
       if (!bSkipVideo)
@@ -9734,7 +9734,7 @@ int __fastcall SaveGame(int a1, int a2)
 
     strcpy(Str2, "npcdata.bin");
     ElementSize = 38076;
-    if ( sub_461B48(pClass17_New_LOD, "npcdata.bin", unk_72D68C, 0) )
+    if ( sub_461B48(pClass17_New_LOD, "npcdata.bin", pNPCStats->pNPCData2, 0) )
     {
       wsprintfA(Str, pGlobalTXT_LocalizationStrings[165], 205);
       v76 = (unsigned int)&v38;
@@ -11248,28 +11248,28 @@ void __thiscall sub_416B01(void *this)
 
     for (i = 0; i < 2; ++i)
     {
-     if (struct_AD4674[i].dword_AD4674)
+     if (array_AD4674[i].pNPCName)
         TmpBuf[v3++] = i;
     }
 
     lpsz = 0;
-    if ( dword_73C194 > 0 )
+    if (pNPCStats->dword_017FC4 > 0)
     {
-      v4 = unk_72D68C;
+      v4 = pNPCStats->pNPCData2;
       do
       {
         if ( *((_BYTE *)v4 + 8) & 0x80 )
         {
-         if ( !struct_AD4674[0].dword_AD4674 || strcmp(*(const char **)v4, struct_AD4674[0].dword_AD4674) )
+         if (!array_AD4674[0].pNPCName || strcmp(*(const char **)v4, array_AD4674[0].pNPCName))
           {
-           if ( !struct_AD4674[1].dword_AD4674 || strcmp(*(const char **)v4, struct_AD4674[1].dword_AD4674) )
+           if (!array_AD4674[1].pNPCName || strcmp(*(const char **)v4, array_AD4674[1].pNPCName))
               TmpBuf[v3++] = (_BYTE)lpsz + 2;
           }
         }
         ++lpsz;
         v4 = (char *)v4 + 76;
       }
-      while ( (signed int)lpsz < dword_73C194 );
+      while ( (signed int)lpsz < pNPCStats->dword_017FC4);
     }
     if ( (signed int)((char *)v22 + (unsigned __int8)pParty_global->byte_000709) < v3 )
     {
@@ -17943,7 +17943,7 @@ void __fastcall sub_420C05(int a1, int a2)
     v17 = 0;
     for (i = 0; i < 2; ++i)
     {
-      if (struct_AD4674[i].dword_AD4674)
+      if (array_AD4674[i].pNPCName)
       {
         v7 = v17++;
         TmpBuf[v7] = i;
@@ -17952,16 +17952,16 @@ void __fastcall sub_420C05(int a1, int a2)
 
 
     v8 = 0;
-    if ( dword_73C194 > 0 )
+    if (pNPCStats->dword_017FC4 > 0)
     {
-      v9 = unk_72D68C;
+      v9 = pNPCStats->pNPCData2;
       do
       {
         if ( *((_BYTE *)v9 + 8) & 0x80 )
         {
-         if (!struct_AD4674[0].dword_AD4674 || strcmp(*(const char **)v9, struct_AD4674[0].dword_AD4674))
+         if (!array_AD4674[0].pNPCName || strcmp(*(const char **)v9, array_AD4674[0].pNPCName))
           {
-           if (!struct_AD4674[1].dword_AD4674 || strcmp(*(const char **)v9, struct_AD4674[1].dword_AD4674))
+           if (!array_AD4674[1].pNPCName || strcmp(*(const char **)v9, array_AD4674[1].pNPCName))
             {
               v10 = v17++;
               TmpBuf[v10] = v8 + 2;
@@ -17971,7 +17971,7 @@ void __fastcall sub_420C05(int a1, int a2)
         ++v8;
         v9 = (char *)v9 + 76;
       }
-      while ( v8 < dword_73C194 );
+      while ( v8 < pNPCStats->dword_017FC4);
       v3 = 0;
     }
     if ( v17 > 0 )
@@ -17979,9 +17979,9 @@ void __fastcall sub_420C05(int a1, int a2)
       do
       {
         v11 = 76 * TmpBuf[v3];
-        v12 = (char *)&unk_72D5F4 + v11;
+        v12 = &pNPCStats->pNPCData[499 + v11 / 76];
         if ( TmpBuf[v3] < 2 )
-         v12 = (char *)&(&struct_AD4674->dword_AD4674)[v11];
+         v12 = (char *)&(&array_AD4674->pNPCName)[v11];
         v13 = *((_DWORD *)v12 + 6);
         if ( v13 )
           v2 += dword_737C28[5 * v13];

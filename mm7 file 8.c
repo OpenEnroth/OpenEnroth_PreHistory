@@ -6614,9 +6614,9 @@ int __cdecl sub_494035()
   if ( (unsigned int)pParty_global->dword_00071C >= 3 && (v60 < 3 || (unsigned int)(v0 / 60) / 0x18 % 0x1C > v58) )
   {
     v2 = 0;
-    struct_AD4674[0].dword_000044 = 0;
-    struct_AD4674[1].dword_000044 = 0;
-    if ( dword_73C194 > 0 )
+    array_AD4674[0].dword_000044 = 0;
+    array_AD4674[1].dword_000044 = 0;
+    if (pNPCStats->dword_017FC4 > 0)
     {
       v3 = &unk_72D6D0;
       do
@@ -6625,7 +6625,7 @@ int __cdecl sub_494035()
         ++v2;
         v3 = (char *)v3 + 76;
       }
-      while ( v2 < dword_73C194 );
+      while (v2 < pNPCStats->dword_017FC4);
     }
     ++byte_ACD71C;
     if ( (unsigned __int8)byte_ACD71C > 1u )
