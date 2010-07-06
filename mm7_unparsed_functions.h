@@ -257,7 +257,6 @@ signed int __thiscall sub_417939(void *this);
 char __fastcall sub_4179BC(int a1, const char *a2);
 unsigned int __fastcall sub_417AD4(signed int a1, int a2, signed int a3);
 _UNKNOWN *__fastcall sub_417BB5(int a1, int a2);
-char __fastcall GameUI_DrawStatsTab(int a1);
 int __cdecl sub_419100();
 void __cdecl sub_419220();
 int __cdecl sub_419379();

@@ -11496,7 +11496,7 @@ LABEL_40:
   if ( a1 == 10 )
   {
     for (i = 0; i < 4; ++i)
-      pParty_global->pPlayers[i].dword_00193C = sub_48E4F8(&pParty_global->pPlayers[i]);
+      pParty_global->pPlayers[i].uHealthMax = sub_48E4F8(&pParty_global->pPlayers[i]);
     return 0;
   }
   if ( a1 == 11 )

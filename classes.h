@@ -1321,7 +1321,7 @@ struct Player
    int     array_000078[2];
    __int64 qword_000080;
    int     array_000088[6];
-   __int64 qword_0000A0;
+   __int64 qword_0000A0; // Expirience?
 
    unsigned char sName[16]; // byte[16] @ 0000A8
    unsigned char uSex;      // byte     @ 0000B8  0 male 1 female
@@ -1407,15 +1407,16 @@ struct Player
    int  dword_001930;
 
    short word_001934;
-   char array_001936[6];
-
-   int dword_00193C;
-   int dword_001940;
+   char array_001936[2];
+   int dword_001938;
+   int uHealthMax;
+   int uManaMax;
    int dword_001944;
    int array_001948[65];
 
    char byte_001A4E;
-   char array_001A4F[73];
+   unsigned char uQuickSpell;
+   char array_001A50[72];
 
    char byte_001A98;
    char array_001A99[3];

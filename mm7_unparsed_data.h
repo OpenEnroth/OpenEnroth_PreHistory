@@ -84,14 +84,6 @@ extern _UNKNOWN unk_4E2DC8; // weak
 extern _UNKNOWN unk_4E2DE8; // weak
 extern _UNKNOWN unk_4E2E00; // weak
 extern _UNKNOWN unk_4E2E10; // weak
-extern _UNKNOWN unk_4E2E50; // weak
-extern _UNKNOWN unk_4E2E68; // weak
-extern _UNKNOWN unk_4E2E84; // weak
-extern _UNKNOWN unk_4E2EA8; // weak
-extern _UNKNOWN unk_4E2EB8; // weak
-extern _UNKNOWN unk_4E2ED4; // weak
-extern _UNKNOWN unk_4E2EF4; // weak
-extern _UNKNOWN unk_4E2F14; // weak
 extern _UNKNOWN unk_4E2F4C; // weak
 extern _UNKNOWN unk_4E2F7C; // weak
 extern _UNKNOWN unk_4E2FA0; // weak
@@ -2181,7 +2173,7 @@ extern struct class35 class35_obj; // struct @ MM7.exe::0080D198
 //_UNKNOWN unk_80D198; // weak
 extern _UNKNOWN unk_816798; // weak
 extern _UNKNOWN unk_8DE798; // weak
-extern _UNKNOWN unk_98967F; // weak
+extern unsigned int unk_98967F; // weak
 extern _UNKNOWN unk_989680; // weak
 extern _UNKNOWN unk_9A6798; // weak
 extern _UNKNOWN unk_9EB9F1; // weak

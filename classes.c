@@ -10975,10 +10975,10 @@ LABEL_36:
       }
       while ( v13 );
     }
-    _this->pPlayers[i].dword_00193C = sub_48E4F8(&_this->pPlayers[i]);
+    _this->pPlayers[i].uHealthMax = sub_48E4F8(&_this->pPlayers[i]);
     result = sub_48E565(&_this->pPlayers[i]);
     v15 = v20-- == 1;
-    _this->pPlayers[i].dword_001940 = result;
+    _this->pPlayers[i].uManaMax = result;
     if ( v15 )
       return result;
     v2 = 10;

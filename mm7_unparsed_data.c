@@ -79,18 +79,10 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  int dword_4E2C0C[array_size_unknown]; // weak
  int dword_4E2C2C[array_size_unknown]; // weak
  _UNKNOWN unk_4E2D80; // weak
- _UNKNOWN unk_4E2DC8; // weak
+ _UNKNOWN unk_4E2DC8; // "\f%05d" (this one looks like 16-bit color number)
  _UNKNOWN unk_4E2DE8; // weak
  _UNKNOWN unk_4E2E00; // weak
  _UNKNOWN unk_4E2E10; // weak
- _UNKNOWN unk_4E2E50; // weak
- _UNKNOWN unk_4E2E68; // weak
- _UNKNOWN unk_4E2E84; // weak
- _UNKNOWN unk_4E2EA8; // weak
- _UNKNOWN unk_4E2EB8; // weak
- _UNKNOWN unk_4E2ED4; // weak
- _UNKNOWN unk_4E2EF4; // weak
- _UNKNOWN unk_4E2F14; // weak
  _UNKNOWN unk_4E2F4C; // weak
  _UNKNOWN unk_4E2F7C; // weak
  _UNKNOWN unk_4E2FA0; // weak
@@ -2166,7 +2158,7 @@ struct class35 class35_obj; // struct @ MM7.exe::0080D198
 //_UNKNOWN unk_80D198; // weak
  _UNKNOWN unk_816798; // weak
  _UNKNOWN unk_8DE798; // weak
- _UNKNOWN unk_98967F; // weak
+ unsigned int unk_98967F; // weak
  _UNKNOWN unk_989680; // weak
  _UNKNOWN unk_9A6798; // weak
  _UNKNOWN unk_9EB9F1; // weak

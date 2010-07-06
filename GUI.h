@@ -186,6 +186,8 @@ char __cdecl GameUI_SkillsTab_ShowHint();
 char __cdecl GameUI_StatsTab_ShowHint();
 char __fastcall GameUI_DrawSkillsTab(int a1);
 int __fastcall GameUI_DrawAwardsTab(int a1);
-char GameUI_DrawInventory(unsigned int uSelectedCharacter, char a2);
+void __fastcall GameUI_DrawInventory(unsigned int uSelectedCharacter, char a2);
+char __fastcall GameUI_DrawStatsTab(unsigned int uSelectedCharacter);
+
 
 #pragma pack(pop)

@@ -1029,7 +1029,7 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
                 GUIButtonCreate(v9, 480, 130, 140, v11, 1, 0, 136, 77, 0, pGlobalTXT_LocalizationStrings[407], 0);
                 if ( v31[8] & 0x80 )
                 {
-                  sprintfex(&ExistingFileName, pGlobalTXT_LocalizationStrings[408], *(_DWORD *)v31);
+                  wsprintfA(ExistingFileName, pGlobalTXT_LocalizationStrings[408], *(_DWORD *)v31);
                   GUIButtonCreate(v9, 480, v11 + 130, 140, v11, 1, 0, 136, 76, 0, &ExistingFileName, 0);
                 }
                 else
@@ -2444,3 +2444,364 @@ void GameUI_DrawCharacterSelectionFrame()
  if (uMaybeSelectedCharacter)
    CD3DRenderer_DrawTransparentTexture(pD3DRenderer, off_4ED748[uMaybeSelectedCharacter - 1] - 9, 380, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_CharacterSelectionFrame]);
 }
+//----- (00418511) --------------------------------------------------------
+char __fastcall GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
+{
+  struct Player *pp; // edi@1
+  int v2; // eax@1
+  unsigned int v3; // eax@1
+  unsigned int v4; // eax@2
+  int v5; // ebp@4
+  int v6; // ST20_4@4
+  int v7; // ST1C_4@4
+  int v8; // ebp@4
+  int v9; // eax@4
+  unsigned int v10; // eax@4
+  int v11; // ST34_4@4
+  int v12; // ST20_4@4
+  int v13; // ST1C_4@4
+  int v14; // ebp@4
+  int v15; // eax@4
+  unsigned int v16; // eax@4
+  int v17; // ST34_4@4
+  int v18; // ST20_4@4
+  int v19; // ST1C_4@4
+  int v20; // ebp@4
+  int v21; // eax@4
+  unsigned int v22; // eax@4
+  int v23; // ST34_4@4
+  int v24; // ST20_4@4
+  int v25; // ST1C_4@4
+  int v26; // ebp@4
+  int v27; // eax@4
+  unsigned int v28; // eax@4
+  int v29; // ST34_4@4
+  int v30; // ST20_4@4
+  int v31; // ST1C_4@4
+  int v32; // ebp@4
+  int v33; // eax@4
+  unsigned int v34; // eax@4
+  int v35; // ST34_4@4
+  int v36; // ST20_4@4
+  int v37; // ST1C_4@4
+  int v38; // ebp@4
+  int v39; // eax@4
+  unsigned int v40; // eax@4
+  int v41; // ST34_4@4
+  int v42; // ST20_4@4
+  int v43; // ST1C_4@4
+  int v44; // ebp@4
+  int v45; // eax@4
+  unsigned int v46; // eax@4
+  signed int v47; // ST20_4@6
+  signed int v49; // eax@6
+  unsigned int v50; // eax@6
+  unsigned __int8 v51; // al@8
+  int v52; // ebp@8
+  int v53; // ST20_4@8
+  int v55; // eax@8
+  unsigned int v56; // eax@8
+  int v57; // ST34_4@8
+  int v58; // ST20_4@8
+  int v59; // ST1C_4@8
+  int v60; // ebp@8
+  int v61; // eax@8
+  unsigned int v62; // eax@8
+  int v63; // ebp@8
+  int v64; // eax@8
+  char *v65; // ST20_4@8
+  signed int v66; // eax@8
+  char *v67; // eax@9
+  int v68; // ST20_4@11
+  int v69; // ST1C_4@11
+  int v70; // ebp@11
+  int v71; // eax@11
+  unsigned int v72; // eax@11
+  int v73; // ST20_4@13
+  int v74; // ST1C_4@13
+  int v75; // ebp@13
+  int v76; // eax@13
+  unsigned int v77; // eax@13
+  int v78; // ecx@14
+  int v79; // eax@16
+  unsigned int v82; // eax@16
+  int v83; // ST34_4@16
+  int v84; // eax@16
+  int v85; // ST34_4@16
+  char *v86; // eax@16
+  int v87; // ST34_4@16
+  int v88; // eax@16
+  int v89; // ST34_4@16
+  char *v90; // eax@16
+  int v91; // eax@19
+  int v92; // ST20_4@19
+  unsigned int v93; // eax@19
+  int v94; // eax@22
+  unsigned int v96; // eax@22
+  int v97; // eax@25
+  unsigned int v99; // eax@25
+  int v100; // eax@27
+  unsigned int v102; // eax@27
+  unsigned int v104; // eax@30
+  unsigned int v106; // eax@32
+  int v107; // eax@33
+  unsigned int v109; // eax@36
+  unsigned int v111; // eax@38
+  int v113; // [sp+10h] [bp-10h]@6
+  int v114; // [sp+10h] [bp-10h]@11
+  int v115; // [sp+10h] [bp-10h]@13
+  int v116; // [sp+10h] [bp-10h]@16
+  int v117; // [sp+10h] [bp-10h]@19
+  int v118; // [sp+10h] [bp-10h]@22
+  int v119; // [sp+10h] [bp-10h]@25
+  int v120; // [sp+10h] [bp-10h]@27
+  int v121; // [sp+10h] [bp-10h]@33
+  const char *v122; // [sp+14h] [bp-Ch]@4
+  const char *v123; // [sp+14h] [bp-Ch]@6
+  const char *v124; // [sp+14h] [bp-Ch]@11
+  const char *v125; // [sp+14h] [bp-Ch]@16
+  const char *v126; // [sp+14h] [bp-Ch]@19
+  const char *v127; // [sp+14h] [bp-Ch]@22
+  const char *v128; // [sp+14h] [bp-Ch]@25
+  const char *v129; // [sp+14h] [bp-Ch]@27
+  const char *v130; // [sp+14h] [bp-Ch]@33
+  int v131; // [sp+18h] [bp-8h]@16
+  int v132; // [sp+18h] [bp-8h]@19
+  int v133; // [sp+18h] [bp-8h]@22
+  int v134; // [sp+18h] [bp-8h]@25
+  int v135; // [sp+18h] [bp-8h]@27
+  int v136; // [sp+18h] [bp-8h]@33
+  int v137; // [sp+1Ch] [bp-4h]@27
+  int v138; // [sp+1Ch] [bp-4h]@33
+
+  pp = pPlayers[uSelectedCharacter - 1];
+  v2 = class17_LoadTextureFromCBM(pClass17_Icons_LOD, L"fr_stats");
+  //v2 = class17_LoadTexture(pClass17_Icons_LOD, "fr_stats", 2);
+  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 8, &pClass17_Icons_LOD->aLODHeaders[v2]);
+
+  v3 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+  wsprintfA(ExistingFileName, "\f%05d", v3);
+  wsprintfA(pStringBuffer, pGlobalTXT_LocalizationStrings[429], pp->sName, aClassNames[pp->uClass]);
+
+  strcat(ExistingFileName, pStringBuffer);
+  if ( pp->dword_001938 )
+    v4 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, 0);
+  else
+    v4 = 0xFFFF;
+  wsprintfA(pStringBuffer, "\f00000\r180%s: \f%05d\f%d\f00000\n\n\n", pGlobalTXT_LocalizationStrings[207], v4, pp->dword_001938);
+  strcat(ExistingFileName, pStringBuffer);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, 18, ExistingFileName, 0, 0, 0);
+  v6 = sub_48C855(pp);
+  v7 = sub_48C93C(pp);
+  v8 = sub_48C855(pp);
+  v9 = sub_48C93C(pp);
+  v10 = sub_4178FE(v9, v8);
+  wsprintfA(ExistingFileName, "%s\f%05u\r424%d\f00000 /\t185%d\n", pGlobalTXT_LocalizationStrings[144], v10, v7, v6);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, 53, ExistingFileName, 0, 0, 0);
+  v11 = *(_BYTE *)(pFontArrus + 5) + 51;
+  v12 = sub_48C86C(pp);
+  v13 = sub_48C9C2(pp);
+  v14 = sub_48C86C(pp);
+  v15 = sub_48C9C2(pp);
+  v16 = sub_4178FE(v15, v14);
+  wsprintfA(ExistingFileName, "%s\f%05u\r424%d\f00000 /\t185%d\n", pGlobalTXT_LocalizationStrings[116], v16, v13, v12);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v11, ExistingFileName, 0, 0, 0);
+  v17 = v11 - 2 + *(_BYTE *)(pFontArrus + 5);
+  v18 = sub_48C883(pp);
+  v19 = sub_48CA3F(pp);
+  v20 = sub_48C883(pp);
+  v21 = sub_48CA3F(pp);
+  v22 = sub_4178FE(v21, v20);
+  wsprintfA(ExistingFileName, "%s\f%05u\r424%d\f00000 /\t185%d\n", pGlobalTXT_LocalizationStrings[163], v22, v19, v18);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v17, ExistingFileName, 0, 0, 0);
+  v23 = v17 - 2 + *(_BYTE *)(pFontArrus + 5);
+  v24 = sub_48C89A(pp);
+  v25 = sub_48CABC(pp);
+  v26 = sub_48C89A(pp);
+  v27 = sub_48CABC(pp);
+  v28 = sub_4178FE(v27, v26);
+  wsprintfA(ExistingFileName, "%s\f%05u\r424%d\f00000 /\t185%d\n", pGlobalTXT_LocalizationStrings[75], v28, v25, v24);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v23, ExistingFileName, 0, 0, 0);
+  v29 = v23 - 2 + *(_BYTE *)(pFontArrus + 5);
+  v30 = sub_48C8B1(pp);
+  v31 = sub_48CB39(pp);
+  v32 = sub_48C8B1(pp);
+  v33 = sub_48CB39(pp);
+  v34 = sub_4178FE(v33, v32);
+  wsprintfA(ExistingFileName, "%s\f%05u\r424%d\f00000 /\t185%d\n", pGlobalTXT_LocalizationStrings[1], v34, v31, v30);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v29, ExistingFileName, 0, 0, 0);
+  v35 = v29 - 2 + *(_BYTE *)(pFontArrus + 5);
+  v36 = sub_48C8C8(pp);
+  v37 = sub_48CBB6(pp);
+  v38 = sub_48C8C8(pp);
+  v39 = sub_48CBB6(pp);
+  v40 = sub_4178FE(v39, v38);
+  wsprintfA(ExistingFileName, "%s\f%05u\r424%d\f00000 /\t185%d\n", pGlobalTXT_LocalizationStrings[211], v40, v37, v36);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v35, ExistingFileName, 0, 0, 0);
+  v41 = v35 - 2 + *(_BYTE *)(pFontArrus + 5);
+  v42 = sub_48C8DF(pp);
+  v43 = sub_48CC33(pp);
+  v44 = sub_48C8DF(pp);
+  v45 = sub_48CC33(pp);
+  v46 = sub_4178FE(v45, v44);
+  wsprintfA(ExistingFileName, "%s\f%05u\r424%d\f00000 /\t185%d\n\n", pGlobalTXT_LocalizationStrings[136], v46, v43, v42);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v41, ExistingFileName, 0, 0, 0);
+  v122 = "%s\f%05u\r424%d\f00000 /\t185%d\n";
+  v5 = v41 + 5 + 2 * *(_BYTE *)(pFontArrus + 5);
+  if ( sub_48E4F8(pp) >= 1000 )
+    v122 = "%s\f%05u\r388%d\f00000 / %d\n";
+  v47 = sub_48E4F8(pp);
+  v49 = sub_48E4F8(pp);
+  v50 = sub_4178FE(pp->uHealthMax, v49);
+  wsprintfA(ExistingFileName, v122, pGlobalTXT_LocalizationStrings[108], v50, pp->uHealthMax, v47);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v5, ExistingFileName, 0, 0, 0);
+  v123 = "%s\f%05u\r424%d\f00000 /\t185%d\n";
+  v113 = v5 - 2 + *(_BYTE *)(pFontArrus + 5);
+  if ( sub_48E565(pp) >= 1000 )
+    v123 = "%s\f%05u\r388%d\f00000 / %d\n";
+  v53 = sub_48E565(pp);
+  v55 = sub_48E565(pp);
+  v56 = sub_4178FE(pp->uManaMax, v55);
+  wsprintfA(ExistingFileName, v123, pGlobalTXT_LocalizationStrings[212], v56, pp->uManaMax, v53);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v113, ExistingFileName, 0, 0, 0);
+  v57 = v113 - 2 + *(_BYTE *)(pFontArrus + 5);
+  v58 = sub_48E656(pp);
+  v59 = sub_48E68F(pp);
+  v60 = sub_48E656(pp);
+  v61 = sub_48E68F(pp);
+  v62 = sub_4178FE(v61, v60);
+  wsprintfA(ExistingFileName, "%s\f%05u\r424%d\f00000 /\t185%d\n\n", pGlobalTXT_LocalizationStrings[12], v62, v59, v58);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v57, ExistingFileName, 0, 0, 0);
+  v63 = v57 - 2 + 2 * *(_BYTE *)(pFontArrus + 5);
+  v64 = sub_48E9F4(pp);
+  //v65 = (&dword_AE3280)[4 * v64];
+  v65 = aCharacterConditionNames[v64];
+
+  v66 = sub_417939((void *)v64);
+  wsprintfA(ExistingFileName, "%s: \f%05d%s\n", pGlobalTXT_LocalizationStrings[47], v66, v65);
+  sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 26, v63, 0, ExistingFileName, 226, 0);
+  v52 = v63 - 1 + *(_BYTE *)(pFontArrus + 5);
+  v51 = pp->uQuickSpell;
+  if ( v51 )
+    v67 = pSpellStats->pSpellInfos[v51].pSpellNameShort;
+  else
+    v67 = pGlobalTXT_LocalizationStrings[153];
+  wsprintfA(ExistingFileName, "%s: %s", pGlobalTXT_LocalizationStrings[172], v67);
+  sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 26, v52, 0, ExistingFileName, 226, 0);
+  v68 = sub_48E6DC(pp);
+  v69 = sub_48E72C(pp);
+  v70 = sub_48E6DC(pp);
+  v71 = sub_48E72C(pp);
+  v72 = sub_4178FE(v71, v70);
+  wsprintfA(ExistingFileName, "%s\f%05u\t100%d\f00000 / %d\n", pGlobalTXT_LocalizationStrings[5], v72, v69, v68);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, 50, ExistingFileName, 0, 0, 0);
+  v124 = "%s\f%05u\t100%d\f00000 / %d\n";
+  v114 = *(_BYTE *)(pFontArrus + 5) + 48;
+  if ( sub_48C8F6(pp) > 99 )
+    v124 = "%s\f%05u\t180%d\f00000 / %d\n";
+  v73 = sub_48C8F6(pp);
+  v74 = sub_48C90D(pp);
+  v75 = sub_48C8F6(pp);
+  v76 = sub_48C90D(pp);
+  v77 = sub_4178FE(v76, v75);
+  wsprintfA(ExistingFileName, v124, pGlobalTXT_LocalizationStrings[131], v77, v74, v73);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v114, ExistingFileName, 0, 0, 0);
+  v115 = v114 + *(_BYTE *)(pFontArrus + 5) - 2;
+  if ( pp->qword_0000A0 <= (signed __int64)(unsigned int)&unk_98967F )
+    v78 = pGlobalTXT_LocalizationStrings[83];
+  else
+    v78 = pGlobalTXT_LocalizationStrings[17];
+  v82 = sub_48D498(pp);
+  wsprintfA(ExistingFileName, "%s\r180\f%05d%lu\f00000\n\n", v78, v82, pp->qword_0000A0);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v115, ExistingFileName, 0, 0, 0);
+  v83 = v115 + 2 * *(_BYTE *)(pFontArrus + 5);
+  v84 = sub_48CCF5(pp, 0);
+  wsprintfA(ExistingFileName, "%s\t100%+d\n", pGlobalTXT_LocalizationStrings[18], v84);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v83, ExistingFileName, 0, 0, 0);
+  v85 = v83 + *(_BYTE *)(pFontArrus + 5) - 2;
+  v86 = sub_48D2EA(pp);
+  wsprintfA(ExistingFileName, "%s\t100 %s\n", pGlobalTXT_LocalizationStrings[53], v86);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v85, ExistingFileName, 0, 0, 0);
+  v87 = v85 + *(_BYTE *)(pFontArrus + 5) - 2;
+  v88 = sub_48D0B9(pp);
+  wsprintfA(ExistingFileName, "%s\t100%+d\n", pGlobalTXT_LocalizationStrings[203], v88);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v87, ExistingFileName, 0, 0, 0);
+  v89 = v87 + *(_BYTE *)(pFontArrus + 5) - 2;
+  v90 = sub_48D396(pp);
+  wsprintfA(ExistingFileName, "%s\t100 %s\n\n", pGlobalTXT_LocalizationStrings[53], v90);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v89, ExistingFileName, 0, 0, 0);
+  v125 = "%s\f%05u\t110%d\f00000 / %d\n";
+  v116 = v89 + 2 * *(_BYTE *)(pFontArrus + 5) - 4;
+  v131 = sub_48E7D0(pp, 10);
+  v79 = sub_48E73F(pp, 10);
+  if ( v131 > 99 || v79 > 99 )
+    v125 = "%s\f%05u\t180%d\f00000 / %d\n";
+  v92 = v79;
+  v93 = sub_4178FE(v131, v79);
+  wsprintfA(ExistingFileName, v125, pGlobalTXT_LocalizationStrings[87], v93, v131, v92);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v116, ExistingFileName, 0, 0, 0);
+  v126 = "%s\f%05u\t110%d\f00000 / %d\n";
+  v117 = v116 + *(_BYTE *)(pFontArrus + 5) - 2;
+  v132 = sub_48E7D0(pp, 11);
+  v91 = sub_48E73F(pp, 11);
+  if ( v132 > 99 || v91 > 99 )
+    v126 = "%s\f%05u\t180%d\f00000 / %d\n";
+  v96 = sub_4178FE(v132, v91);
+  wsprintfA(ExistingFileName, v126, pGlobalTXT_LocalizationStrings[6], v96, v132, v91);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v117, ExistingFileName, 0, 0, 0);
+  v127 = "%s\f%05u\t110%d\f00000 / %d\n";
+  v118 = v117 + *(_BYTE *)(pFontArrus + 5) - 2;
+  v133 = sub_48E7D0(pp, 12);
+  v94 = sub_48E73F(pp, 12);
+  if ( v133 > 99 || v94 > 99 )
+    v127 = "%s\f%05u\t180%d\f00000 / %d\n";
+  v99 = sub_4178FE(v133, v94);
+  wsprintfA(ExistingFileName, v127, pGlobalTXT_LocalizationStrings[240], v99, v133, v94);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v118, ExistingFileName, 0, 0, 0);
+  v128 = "%s\f%05u\t110%d\f00000 / %d\n";
+  v119 = v118 + *(_BYTE *)(pFontArrus + 5) - 2;
+  v134 = sub_48E7D0(pp, 13);
+  v97 = sub_48E73F(pp, 13);
+  if ( v134 > 99 )
+    v128 = "%s\f%05u\t180%d\f00000 / %d\n";
+  v102 = sub_4178FE(v134, v97);
+  wsprintfA(ExistingFileName, v128, pGlobalTXT_LocalizationStrings[70], v102, v134, v97);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v119, ExistingFileName, 0, 0, 0);
+  v129 = "%s\f%05u\t110%d\f00000 / %d\n";
+  v120 = v119 + *(_BYTE *)(pFontArrus + 5) - 2;
+  v135 = sub_48E7D0(pp, 14);
+  v100 = sub_48E73F(pp, 14);
+  v137 = v100;
+  if ( v135 > 99 || v100 > 99 )
+    v129 = "%s\f%05u\t180%d\f00000 / %d\n";
+  v104 = sub_4178FE(v135, v100);
+  wsprintfA(ExistingFileName, v129, pGlobalTXT_LocalizationStrings[142], v104, v135, v100);
+  if ( pp->uClass == 35 )
+  {
+    if ( v137 == 200 )
+    {
+      v106 = sub_4178FE(v135, 200);
+      wsprintfA(ExistingFileName, "%s\f%05u\r180%s", pGlobalTXT_LocalizationStrings[142], v106, pGlobalTXT_LocalizationStrings[625]);
+    }
+  }
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v120, ExistingFileName, 0, 0, 0);
+  v130 = "%s\f%05u\t110%d\f00000 / %d\n";
+  v121 = v120 + *(_BYTE *)(pFontArrus + 5) - 2;
+  v136 = sub_48E7D0(pp, 15);
+  v107 = sub_48E73F(pp, 15);
+  v138 = v107;
+  if ( v136 > 99 || v107 > 99 )
+    v130 = "%s\f%05u\t180%d\f00000 / %d\n";
+  v109 = sub_4178FE(v136, v107);
+  wsprintfA(ExistingFileName, v130, pGlobalTXT_LocalizationStrings[29], v109, v136, v107);
+  if ( pp->uClass == 35 )
+  {
+    if ( v138 == 200 )
+    {
+      v111 = sub_4178FE(v136, 200);
+      wsprintfA(ExistingFileName, "%s\f%05u\r180%s", pGlobalTXT_LocalizationStrings[29], v111, pGlobalTXT_LocalizationStrings[625]);
+    }
+  }
+  return FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v121, ExistingFileName, 0, 0, 0);
+}
+

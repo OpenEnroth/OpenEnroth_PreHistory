@@ -990,8 +990,8 @@ LABEL_69:
           --v18;
         }
         while ( v18 );
-        pParty_global->pPlayers[i].dword_00193C = sub_48E4F8(&pParty_global->pPlayers[i]);
-        pParty_global->pPlayers[i].dword_001940 = sub_48E565(&pParty_global->pPlayers[i]);
+        pParty_global->pPlayers[i].uHealthMax = sub_48E4F8(&pParty_global->pPlayers[i]);
+        pParty_global->pPlayers[i].uManaMax = sub_48E565(&pParty_global->pPlayers[i]);
         v16 = v30;
       }
       ++v16;
@@ -6767,8 +6767,8 @@ LABEL_39:
     if (pPlayers[i]->word_001934)
       Player_sub_48E8F5(pPlayers[i], v61);
 
-    v19 = v18->dword_00193C;
-    if ( sub_48EAAE(pPlayers[i], 3, 0) + v18->dword_00193C + v18->uEndurance >= 1 ||
+    v19 = v18->uHealthMax;
+    if ( sub_48EAAE(pPlayers[i], 3, 0) + v18->uHealthMax + v18->uEndurance >= 1 ||
         *(_QWORD *)(v18 + 6224) > 0i64 )
     {
       if ( v19 >= 1 )

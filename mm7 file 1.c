@@ -4496,6 +4496,7 @@ LABEL_22:
     sub_441964(array_5E4D58, v5);
     GameUI_DrawTorchlightAndWizardEye();
   }
+  //GameUI_DrawStatsTab(1);
 
   sub_4156F0();
   sub_4909F4(pParty_global);
@@ -14757,8 +14758,8 @@ LABEL_1087:
 
         for (i = 0; i < 4; ++i)
         {
-         pParty_global->pPlayers[i].dword_00193C = sub_48E4F8(&pParty_global->pPlayers[i]);
-         pParty_global->pPlayers[i].dword_001940 = sub_48E565(&pParty_global->pPlayers[i]);
+         pParty_global->pPlayers[i].uHealthMax = sub_48E4F8(&pParty_global->pPlayers[i]);
+         pParty_global->pPlayers[i].uManaMax = sub_48E565(&pParty_global->pPlayers[i]);
         }
 
         v576 = &unk_6A12B8;
