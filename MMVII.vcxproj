@@ -98,6 +98,7 @@
     <ClCompile Include="mm7_unparsed_data.c" />
     <ClCompile Include="zlib\adler32.c" />
     <ClCompile Include="zlib\compress.c" />
+    <ClCompile Include="zlib\crc32.c" />
     <ClCompile Include="zlib\deflate.c" />
     <ClCompile Include="zlib\infblock.c" />
     <ClCompile Include="zlib\infcodes.c" />
