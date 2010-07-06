@@ -8909,8 +8909,8 @@ void class59_ctor(struct class59 *_this)
 //----- (0045D3C7) --------------------------------------------------------
 bool __stdcall sub_45D3C7(struct struct8 *_this)
 {
- struct struct8       *v2; // ecx@2
- struct struct8_stru0 *i; // edi@5
+ struct struct8 *v2; // ecx@2
+ struct Span    *i; // edi@5
 
  if (!_this->ptr_000040)
    return false;

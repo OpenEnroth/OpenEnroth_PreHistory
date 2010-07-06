@@ -2725,7 +2725,7 @@ __int16 __cdecl sub_487389()
     //v38 = v0 + 64;
   v38 = &pStruct8Array[i].ptr_000040;
 
-  if ( pParty_global->dword_007778 & 2 )
+  if (pParty_global->dword_007778 & 2)
     v3 = pStruct8Array[i].ptr_000040;
   else
     v3 = *(_DWORD *)(dword_80AA28[i] + 64);
@@ -9339,22 +9339,19 @@ void __cdecl sub_441CFF()
 //----- (00486F92) --------------------------------------------------------
 void __cdecl sub_486F92_MessWithEdgesAndSpans()
 {
-  float *v2; // edx@3
- struct Edge *v3; // ecx@3
-  int v4; // esi@6
-  _UNKNOWN *v5; // eax@7
+  struct Edge *v2; // edx@3
+  struct Edge *v3; // ecx@3
+  struct Edge *v4; // esi@6
+  struct Edge *v5; // eax@7
   struct Edge *v6; // ecx@8
   struct Surf *v7; // esi@11
-  int v8; // edi@13
+  struct Surf *v8; // edi@13
   double v9; // st6@13
   double v10; // st7@13
   double v11; // st7@14
-  signed __int64 v12; // qax@14
-  int v13; // eax@15
-  int v14; // ecx@17
+  short v12; // qax@14
+  struct struct8 *v13; // eax@15
   double v15; // st7@28
-  int v17; // eax@29
-  int v18; // ecx@31
   struct Edge *v20; // ecx@43
   struct Edge *v23; // edx@48
   float v25; // [sp+14h] [bp-Ch]@3
@@ -9394,7 +9391,7 @@ LABEL_51:
     while ( 1 )
     {
       v3 = pNewEdgesBuf[v27].pNext;
-      v2 = &someEdge2.flt_000000;
+      v2 = &someEdge2;
       v25 = (double)v27;
       if (v3 != &defaultEdge)
       {
@@ -9402,17 +9399,17 @@ LABEL_51:
         {
           while ( 1 )
           {
-            v4 = *((_DWORD *)v2 + 4);
-            if (v3->flt_000000 <= (double)*(float *)v4 )
+            v4 = v2->pNext;
+            if (v3->flt_000000 <= v4->flt_000000)
               break;
-            v2 = (float *)*((_DWORD *)v2 + 4);
+            v2 = v2->pNext;
           }
-          v5 = (_UNKNOWN *)v3->pNext;
+          v5 = v3->pNext;
           v3->pNext = v4;
           v3->pPrev = v2;
-          *(_DWORD *)(*((_DWORD *)v2 + 4) + 20) = v3;
-          *((_DWORD *)v2 + 4) = v3;
-          v2 = (float *)v3;
+          v2->pNext->pPrev = v3;
+          v2->pNext = v3;
+          v2 = v3;
           v3 = v5;
         }
         while ( v5 != &defaultEdge );
@@ -9439,10 +9436,9 @@ LABEL_51:
                  someSurf.pNext->flt_000000)
               {
                 do
-                  v8 = *(_DWORD *)(v8 + 20);
-                while ( v9 <= (v10 - *(float *)(v8 + 12)) * *(float *)(v8 + 4)
-                            + (v25 - *(float *)(v8 + 16)) * *(float *)(v8 + 8)
-                            + *(float *)v8 );
+                  v8 = v8->pNext;
+                while ( v9 <= (v10 - v8->flt_00000C) * v8->flt_000004 +
+                              (v25 - v8->flt_000010) * v8->flt_000008 + v8->flt_000000);
                 *(_DWORD *)(v7 + 20) = v8;
                 *(_DWORD *)(v7 + 24) = *(_DWORD *)(v8 + 24);
                 *(_DWORD *)(*(_DWORD *)(v8 + 24) + 20) = v7;
@@ -9450,40 +9446,39 @@ LABEL_51:
               }
               else
               {
-                v11 = *(float *)v6 + 0.5;
-                v12 = (signed __int64)(v11 - (double)someSurf.pNext->word_000020);
+               v11 = v6->flt_000000 + 0.5;
+                v12 = v11 - (double)someSurf.pNext->word_000020;
                 pNewSpan->word_00000C = v12;
-                if ( (_WORD)v12 > 0 )
+                if (v12 > 0)
                 {
                  pNewSpan->word_00000A = v27;
-                 pNewSpan->word_000008 = *(_WORD *)(v8 + 32);
-                  v13 = *(_DWORD *)(v8 + 28);
-                 pNewSpan->dword_000004 = v13;
-                  if ( v13 )
+                 pNewSpan->word_000008 = v8->word_000020;
+                  v13 = v8->ptr_00001C;
+                 pNewSpan->pParent = v13;
+                  if (v13)
                   {
-                    if ( *(_DWORD *)(v13 + 64) )
+                    if (v13->ptr_000040)
                     {
-                      v14 = *(_DWORD *)(v13 + 68);
-                      if ( !v14 )
+                      if (!v13->ptr_000044)
                         return;
-                      *(_DWORD *)v14 = pNewSpan;
+                      v13->ptr_000044->pNext = pNewSpan;
                     }
                     else
-                    {
-                      *(_DWORD *)(v13 + 64) = pNewSpan;
-                    }
-                    *(_DWORD *)(v13 + 68) = pNewSpan;
+                      v13->ptr_000040 = pNewSpan;
+                    v13->ptr_000044 = pNewSpan;
                   }
                   if ( pStruct9_global->uNumSpans >= 12499 )
                     return;
                   ++pNewSpan;
                   ++pStruct9_global->uNumSpans;
                 }
-                *(_WORD *)(v7 + 32) = (signed __int64)v11;
-                *(_DWORD *)(v7 + 20) = v8;
-                *(_DWORD *)(v8 + 24) = v7;
+                v7->word_000020 = (signed __int64)v11;
+
+                v7->pNext = v8;
+                v8->pPrev = v7;
+
                 someSurf.pNext = v7;
-                *(_DWORD *)(v7 + 24) = &someSurf;
+                v7->pPrev = &someSurf;
               }
             }
           }
@@ -9492,7 +9487,7 @@ LABEL_51:
             --v7->word_000022;
             if (!v7->word_000022)
             {
-              if ( someSurf.pNext == v7 )
+              if (someSurf.pNext == v7)
               {
                 v15 = v6->flt_000000 + 0.5;
                 pNewSpan->word_00000C = v15 - (double)v7->word_000020;
@@ -9500,22 +9495,20 @@ LABEL_51:
                 {
                  pNewSpan->word_00000A = v27;
                  pNewSpan->word_000008 = v7->word_000020;
-                  v17 = v7->word_000020;
-                 pNewSpan->dword_000004 = v7->word_000020;
-                  if (pNewSpan->dword_000004)
+
+                 pNewSpan->pParent = v7->ptr_00001C;
+                  if (pNewSpan->pParent)
                   {
-                    if ( *(_DWORD *)(v17 + 64) )
+                   if (pNewSpan->pParent->ptr_000040)
                     {
-                      v18 = *(_DWORD *)(v17 + 68);
-                      if ( !v18 )
+                      if (!pNewSpan->pParent->ptr_000044)
                         return;
-                      *(_DWORD *)v18 = pNewSpan;
+                      pNewSpan->pParent->ptr_000040 = pNewSpan;
                     }
                     else
-                    {
-                      *(_DWORD *)(v17 + 64) = pNewSpan;
-                    }
-                    *(_DWORD *)(v17 + 68) = pNewSpan;
+                      pNewSpan->pParent->ptr_000040 = pNewSpan;
+
+                    pNewSpan->pParent->ptr_000044 = pNewSpan;
                   }
                   if (pStruct9_global->uNumSpans >= 12499)
                     return;

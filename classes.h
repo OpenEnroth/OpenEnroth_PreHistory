@@ -1643,27 +1643,6 @@ struct struct7
 //sizeof == 0C
 
 
-/*
-struct struct8_stru1
-{
- char byte_000000;
- unsigned char *ptr_00003C;
-
- char byte_000108;
-};
-
-struct struct8_stru0
-{
- struct struct8_stru0 *ptr_000000;
- struct struct8_stru1 *ptr_000004;
-};*/
-
-struct struct8_stru0
-{
- unsigned char  *pNext;   // ptr @ 000000
- struct struct8 *pParent; // ptr @ 000004
-};
-
 struct struct8
 {
  float                  flt_000000;
@@ -1682,8 +1661,8 @@ struct struct8
  int                    dword_000034;
  struct class57        *ptr_000038;
  struct class18        *ptr_00003C;
- struct struct8_stru0  *ptr_000040;
- struct struct8_stru0  *ptr_000044;
+ struct Span           *ptr_000040;
+ struct Span           *ptr_000044;
  int                  **ptr_000048;
  short                  word_00004C;    // word_000012 in struct TileDesc
  short                  word_00004E;
@@ -1863,13 +1842,13 @@ struct Edge
 
 struct Span
 {
- int   dword_000000;
- int   dword_000004;
- short word_000008;  // -1 here for final span
- short word_00000A;
- short word_00000C;
- short word_00000E;
- char  byte_000010[8];
+ struct Span    *pNext;        // dword @ 000000
+ struct struct8 *pParent;      // dword @ 000004
+ short           word_000008;  // -1 here for final span
+ short           word_00000A;
+ short           word_00000C;
+ short           word_00000E;
+ char            byte_000010[8];
 };
 //sizeof == 18
 
