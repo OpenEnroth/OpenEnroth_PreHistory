@@ -7033,7 +7033,7 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
       if ( dword_AD0F84[9 * (v6 + 12 * *(_DWORD *)(dword_507BC0 + 28))] )
       {
         CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v63, 90, dword_F8B168[v6]);
-        sub_40F89C(v62 + pD3DRenderer->pActiveZBuffer + 230528, dword_F8B168[v6], v6 + 1);
+        array_40F89C_ActuallyFillZBuffer(v62 + pD3DRenderer->pActiveZBuffer + 230528, dword_F8B168[v6], v6 + 1);
         v1 = (void *)v58;
       }
       v63 += 70;
@@ -7049,7 +7049,7 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
       if ( dword_AD0F84[9 * (v7 + 12 * *(_DWORD *)(dword_507BC0 + 28))] )
       {
         CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v63, 250, dword_F8B168[v7]);
-        sub_40F89C(v62 + pD3DRenderer->pActiveZBuffer + 638448, dword_F8B168[v7], v7 + 1);
+        array_40F89C_ActuallyFillZBuffer(v62 + pD3DRenderer->pActiveZBuffer + 638448, dword_F8B168[v7], v7 + 1);
         v1 = (void *)v58;
       }
       v63 += 70;
@@ -10879,7 +10879,7 @@ char __cdecl sub_4BA928()
               v123 = v99 + 1;
               v101 = v150 + v151 + 640 * v102;
             }
-            sub_40F89C(pD3DRenderer->pActiveZBuffer + v101, dword_F8B168[v99], v123);
+            array_40F89C_ActuallyFillZBuffer(pD3DRenderer->pActiveZBuffer + v101, dword_F8B168[v99], v123);
           }
           v151 += 105;
           ++v99;
@@ -11075,7 +11075,7 @@ LABEL_64:
             v121 = v50 + 1;
             v52 = v151 + v150 + 640 * v53;
           }
-          sub_40F89C(pD3DRenderer->pActiveZBuffer + 4 * v52, dword_F8B168[v50], v121);
+          array_40F89C_ActuallyFillZBuffer(pD3DRenderer->pActiveZBuffer + 4 * v52, dword_F8B168[v50], v121);
         }
         v151 += 105;
         ++v50;
@@ -11110,7 +11110,7 @@ LABEL_64:
             v122 = v56 + 1;
             v58 = v150 + v151 + 640 * v59;
           }
-          sub_40F89C(pD3DRenderer->pActiveZBuffer + 4 * v58, dword_F8B168[v56], v122);
+          array_40F89C_ActuallyFillZBuffer(pD3DRenderer->pActiveZBuffer + 4 * v58, dword_F8B168[v56], v122);
           v10 = 0;
         }
         v151 += 105;

@@ -5900,9 +5900,9 @@ signed int __thiscall sub_40F5F5(void *this, const char *Str1)
 }
 
 //----- (0040F82D) --------------------------------------------------------
-void sub_40F82D(int *pZBuffer, unsigned int uTextureID, int a3)
+void array_AD4674_FillZBuffer(int *pZBuffer, unsigned int uTextureID, unsigned int uZFill)
 {
-  sub_40F89C(pZBuffer, &pClass17_Icons_LOD->aLODHeaders[uTextureID], a3);
+  array_40F89C_ActuallyFillZBuffer(pZBuffer, &pClass17_Icons_LOD->aLODHeaders[uTextureID], uZFill);
 }
 
 //----- (0040F845) --------------------------------------------------------
@@ -5945,7 +5945,7 @@ __int16 __fastcall sub_40F845(int a1, int a2, int a3, int a4, int a5, __int16 a6
 }
 
 //----- (0040F89C) --------------------------------------------------------
-void sub_40F89C(int *pZBuffer, struct class18 *pTexture, int uZFill)
+void array_40F89C_ActuallyFillZBuffer(int *pZBuffer, struct class18 *pTexture, int uZFill)
 {
  unsigned int *pPixels;
  int x, y;
@@ -13789,9 +13789,9 @@ void __fastcall GameUI_DrawInventory(unsigned int uSelectedCharacter, bool a2) /
     if (v2->array_00157C[i] > 0)
     {
       v28 = v2->array_00157C[i] - 1;
-      v33 = 32 * i / 14 + 17;
+      v33 = 32 * (i / 14) + 17;
       v6 = &v2->array_000214[v28];
-      v32 = 32 * i % 14 + 14;
+      v32 = 32 * (i % 14) + 14;
 
       if (v6->uItemID)
       {
@@ -13822,7 +13822,8 @@ void __fastcall GameUI_DrawInventory(unsigned int uSelectedCharacter, bool a2) /
         if (pItemTexture->uTextureHeight < 14 )
           v16 = 14;
         v17 = v6->dword_000014;
-        v18 = v32 + ((v14 - pItemTexture->uTextureWidth) >> 1) + dword_5059A8[v33 + ((((v16 - 14) & 0xFFFFFFE0) - pItemTexture->uTextureHeight + 32) >> 1)];
+        v18 = v32 + ((v14 - pItemTexture->uTextureWidth) / 2) +
+              dword_5059A8[v33 + ((((v16 - 14) & 0xFFFFFFE0) - pItemTexture->uTextureHeight + 32) / 2)];
         if ( !(v17 & 0xF0) )
         {
           if ( v17 & 1 || dword_4E28F8 != 13 )
@@ -13854,7 +13855,7 @@ void __fastcall GameUI_DrawInventory(unsigned int uSelectedCharacter, bool a2) /
           {
             v24 = "sp91a";
 LABEL_24:
-            v19 = 72 * class17_LoadTexture(pClass17_Icons_LOD, v24, 2) + 7145548;
+            v19 = 72 * class17_LoadTexture(pClass17_Icons_LOD, v24, 2) + 0x6D084C;
             //v20 = dword_50C9A8 == pClass24_global->int_00001C;
             //v21 = dword_50C9A8 - pClass24_global->int_00001C < 0;
             //dword_50C9A8 -= pClass24_global->int_00001C;
@@ -13870,7 +13871,7 @@ LABEL_24:
             v22 = (double)GetTickCount() * 0.1000000014901161;
             sub_4A63E6(pD3DRenderer, v32, v33, pItemTexture, v19, (signed __int64)v22, 0, 255);
 LABEL_33:
-            sub_40F82D(pD3DRenderer->pActiveZBuffer + v18, uItemTextureIdx, v28 + 1);
+            array_AD4674_FillZBuffer(pD3DRenderer->pActiveZBuffer + v18, uItemTextureIdx, v28 + 1);
             continue;
           }
         }

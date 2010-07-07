@@ -4497,7 +4497,9 @@ LABEL_22:
     sub_441964(array_5E4D58, v5);
     GameUI_DrawTorchlightAndWizardEye();
   }
-//  GameUI_DrawStatsTab(1);
+
+  //GameUI_DrawStatsTab(1);
+  //GameUI_DrawInventory(1, false);
 
   sub_4156F0();
   sub_4909F4(pParty_global);

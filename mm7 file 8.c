@@ -2745,8 +2745,8 @@ int sub_49289C(struct Player *_this, int a2, const void *Src)
       }
       while ( v14-- != 1 );
     }
-    *((_DWORD *)v13 + v8 + 1375) = v4 + 1;
-    memcpy((char *)v13 + 36 * v4 + 532, Src, 0x24u);
+    _this->array_00157C[v8] = v4 + 1;
+    memcpy(&_this->array_000214[v4], Src, sizeof(struct Player_stru0));
     result = v4 + 1;
   }
   return result;
