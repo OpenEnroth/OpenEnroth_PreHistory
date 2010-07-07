@@ -2576,7 +2576,6 @@ char __fastcall GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // characte
   v2 = class17_LoadTexture_New(pClass17_Icons_LOD, L"fr_stats");
   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 8, &pClass17_Icons_LOD->aLODHeaders[v2]);
 
-  //strcpy(TmpBuf, "FFFF9B");
   wsprintfA(pStringBuffer, pGlobalTXT_LocalizationStrings[429], pp->sName, aClassNames[pp->uClass]);
   strcpy(TmpBuf, pStringBuffer);
   if (pp->uSkillPoints)
@@ -2674,7 +2673,7 @@ char __fastcall GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // characte
 
   v66 = sub_417939((void *)v64);
   wsprintfA(TmpBuf, "%s: \f%06x%s\n", pGlobalTXT_LocalizationStrings[47], v66, v65);
-  sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 26, v63, 0, TmpBuf, 0xFFFFFFFF, 0);
+  sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 26, v63, 0, TmpBuf, 226, 0);
   v52 = v63 - 1 + pFontArrus->uFontHeight;
   v51 = pp->uQuickSpell;
   if ( v51 )
@@ -2682,7 +2681,7 @@ char __fastcall GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // characte
   else
     v67 = pGlobalTXT_LocalizationStrings[153];
   wsprintfA(TmpBuf, "%s: %s", pGlobalTXT_LocalizationStrings[172], v67);
-  sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 26, v52, 0, TmpBuf, 0xFFFFFFFF, 0);
+  sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 26, v52, 0, TmpBuf, 226, 0);
   v68 = sub_48E6DC(pp);
   v69 = sub_48E72C(pp);
   v70 = sub_48E6DC(pp);

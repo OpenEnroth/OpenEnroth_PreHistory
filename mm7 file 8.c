@@ -1290,7 +1290,7 @@ int __fastcall sub_44CB4F(int a1, int a2, signed int a3, int a4, __int16 a5, con
   v8 = sub_44C51E(v9, Str1);
   if ( v8 < Source )
   {
-    FontDrawText(v29, v9, a3, a4, Str1, 0, 0, 0);
+    FontDrawText(v29, v9, a3, a4, Str1, 0xFFFFFFFF, 0, 0);
     return v8;
   }
   strcpy(pStringBuffer, Str1);
