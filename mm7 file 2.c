@@ -11940,7 +11940,7 @@ void __cdecl sub_4178E1()
 }
 
 //----- (004178FE) --------------------------------------------------------
-unsigned int __fastcall sub_4178FE(signed int a1, signed int a2)
+unsigned int __fastcall sub_4178FE_GetColor(signed int a1, signed int a2)
 {
   unsigned __int16 v2; // dx@2
   unsigned __int16 v3; // cx@2
@@ -11970,7 +11970,7 @@ unsigned int __fastcall sub_4178FE(signed int a1, signed int a2)
     v2 = 255;
     v3 = 0;
   }
-  return sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(v3, v2, v6);
+  return RGB_MAKE(v3, v2, v6);
 }
 
 //----- (00417939) --------------------------------------------------------
@@ -13977,14 +13977,14 @@ char __cdecl sub_41A57E()
       sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 22, v7, v0, pGlobalTXT_LocalizationStrings[107], 60, v0);
     sprintfex(&TmpBuf, "%d", *(_DWORD *)(v2 + 6460));
     v9 = sub_48E4F8(v2);
-    v10 = sub_4178FE(*(_DWORD *)(v2 + 6460), v9);
+    v10 = sub_4178FE_GetColor(*(_DWORD *)(v2 + 6460), v9);
     sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, v44, v7, v10, &TmpBuf, 84, v0);
     v8 = v45 + v7;
     if ( v43 == v0 )
       sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 22, v8, v0, pGlobalTXT_LocalizationStrings[209], 60, v0);
     sprintfex(&TmpBuf, "%d", *(_DWORD *)(v2 + 6464));
     v12 = sub_48E565(v2);
-    v13 = sub_4178FE(*(_DWORD *)(v2 + 6464), v12);
+    v13 = sub_4178FE_GetColor(*(_DWORD *)(v2 + 6464), v12);
     sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, v44, v8, v13, &TmpBuf, 84, v0);
     v11 = v45 + v8;
     if ( v43 == v0 )
@@ -13994,7 +13994,7 @@ char __cdecl sub_41A57E()
     v16 = v0;
     v17 = sub_48E656(v2);
     v18 = sub_48E68F(v2);
-    v19 = sub_4178FE(v18, v17);
+    v19 = sub_4178FE_GetColor(v18, v17);
     sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, v44, v11, v19, &TmpBuf, 84, v16);
     v0 = 0;
     v14 = v45 + v11;
@@ -15153,13 +15153,13 @@ char __thiscall sub_41D3B7(int this)
   v18 = sub_48E4F8(v5);
   v19 = *(_DWORD *)(v5 + 6460);
   v20 = sub_48E4F8(v5);
-  v21 = sub_4178FE(*(_DWORD *)(v5 + 6460), v20);
+  v21 = sub_4178FE_GetColor(*(_DWORD *)(v5 + 6460), v20);
   sprintfex(pStringBuffer, (const char *)&unk_4E3278, pGlobalTXT_LocalizationStrings[108], v21, v19, v18);
   strcat(TmpBuf, pStringBuffer);
   v22 = sub_48E565(v5);
   v23 = *(_DWORD *)(v5 + 6464);
   v24 = sub_48E565(v5);
-  v25 = sub_4178FE(*(_DWORD *)(v5 + 6464), v24);
+  v25 = sub_4178FE_GetColor(*(_DWORD *)(v5 + 6464), v24);
   sprintfex(pStringBuffer, (const char *)&unk_4E3278, pGlobalTXT_LocalizationStrings[212], v25, v23, v22);
   strcat(TmpBuf, pStringBuffer);
   v26 = sub_48E9F4((void *)v5);

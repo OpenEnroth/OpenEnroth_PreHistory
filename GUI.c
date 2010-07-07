@@ -2346,12 +2346,12 @@ char __fastcall FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsign
         {
           c = v37[v12];
           if (c >= pFont->uFirstChar && c <= pFont->uLastChar
-            || c == 12
-            || c == '\r' || c == '\t' || c == '\n')
+            || c == '\f' || c == '\r' || c == '\t' || c == '\n')
           {
             switch ( c )
             {
               case 9u: // number (3 digit always) after \t denotes tab amount (in pixels);  example:  "\t004skips 4 whitespaces before this string"
+                memset(&Dest,0, sizeof (Dest));
                 strncpy(Dest, &v37[v12 + 1], 3);
                 v30 = 0;
                 v38 += 3;
@@ -2369,15 +2369,15 @@ char __fastcall FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsign
                   goto LABEL_36;
                 break;
               case 0xCu:
-                runtime_warning(color option inside a string?);
-               /*
-                strncpy(&Dest, &v37[v12 + 1], 5u);
+                memset(&Dest,0, sizeof (Dest));
+                strncpy(&Dest, &v37[v12 + 1], 6);
                 v31 = 0;
-                c = (char *)atoi(&Dest);
-                v38 += 5;
-                *(_DWORD *)&a5 = c;*/
+                sscanf(Dest,"%x",&uTextMainColor);
+                uTextMainColor|=0xFF000000;
+                v38 += 6;
                 break;
               case 0xDu:
+                memset(&Dest,0, sizeof (Dest));
                 strncpy(&Dest, &v37[v12 + 1], 3u);
                 v30 = 0;
                 v38 += 3;
@@ -2448,8 +2448,7 @@ char __fastcall GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // characte
 {
   struct Player *pp; // edi@1
   int v2; // eax@1
-  unsigned int v3; // eax@1
-  unsigned int v4; // eax@2
+  unsigned int uClr; // eax@2
   int v5; // ebp@4
   int v6; // ST20_4@4
   int v7; // ST1C_4@4
@@ -2577,107 +2576,105 @@ char __fastcall GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // characte
   v2 = class17_LoadTexture_New(pClass17_Icons_LOD, L"fr_stats");
   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 8, &pClass17_Icons_LOD->aLODHeaders[v2]);
 
-  v3 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
-  wsprintfA(TmpBuf, "\f%05d", v3);
+  //strcpy(TmpBuf, "FFFF9B");
   wsprintfA(pStringBuffer, pGlobalTXT_LocalizationStrings[429], pp->sName, aClassNames[pp->uClass]);
-
-  strcat(TmpBuf, pStringBuffer);
+  strcpy(TmpBuf, pStringBuffer);
   if (pp->uSkillPoints)
-    v4 = 0xFF00FF00;
+    uClr = 0x00FF00;
   else
-    v4 = 0xFFFFFFFF;
-  wsprintfA(pStringBuffer, "\f00000\r180%s: \f%05d\f%d\f00000\n\n\n", pGlobalTXT_LocalizationStrings[207], v4, pp->uSkillPoints);
+    uClr = 0xFFFFFF;
+  wsprintfA(pStringBuffer, "\f000000\r180%s: \f%06x%d\f000000\n\n\n", pGlobalTXT_LocalizationStrings[207], uClr, pp->uSkillPoints);
   strcat(TmpBuf, pStringBuffer);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, 18, TmpBuf, 0, 0, 0);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, 18, TmpBuf, 0xFFFFFF9B, 0, 0);
   v6 = sub_48C855(pp);
   v7 = sub_48C93C(pp);
   v8 = sub_48C855(pp);
   v9 = sub_48C93C(pp);
-  v10 = sub_4178FE(v9, v8);
-  wsprintfA(TmpBuf, "%s\f%05u\r424%d\f00000 /\t185%d\n", pGlobalTXT_LocalizationStrings[144], v10, v7, v6);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, 53, TmpBuf, 0, 0, 0);
+  v10 = sub_4178FE_GetColor(v9, v8);
+  wsprintfA(TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[144], v10, v7, v6);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, 53, TmpBuf, 0xFFFFFFFF, 0, 0);
   v11 = pFontArrus->uFontHeight + 51;
   v12 = sub_48C86C(pp);
   v13 = sub_48C9C2(pp);
   v14 = sub_48C86C(pp);
   v15 = sub_48C9C2(pp);
-  v16 = sub_4178FE(v15, v14);
-  wsprintfA(TmpBuf, "%s\f%05u\r424%d\f00000 /\t185%d\n", pGlobalTXT_LocalizationStrings[116], v16, v13, v12);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v11, TmpBuf, 0, 0, 0);
+  v16 = sub_4178FE_GetColor(v15, v14);
+  wsprintfA(TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[116], v16, v13, v12);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v11, TmpBuf, 0xFFFFFFFF, 0, 0);
   v17 = v11 - 2 + pFontArrus->uFontHeight;
   v18 = sub_48C883(pp);
   v19 = sub_48CA3F(pp);
   v20 = sub_48C883(pp);
   v21 = sub_48CA3F(pp);
-  v22 = sub_4178FE(v21, v20);
-  wsprintfA(TmpBuf, "%s\f%05u\r424%d\f00000 /\t185%d\n", pGlobalTXT_LocalizationStrings[163], v22, v19, v18);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v17, TmpBuf, 0, 0, 0);
+  v22 = sub_4178FE_GetColor(v21, v20);
+  wsprintfA(TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[163], v22, v19, v18);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v17, TmpBuf, 0xFFFFFFFF, 0, 0);
   v23 = v17 - 2 + pFontArrus->uFontHeight;
   v24 = sub_48C89A(pp);
   v25 = sub_48CABC(pp);
   v26 = sub_48C89A(pp);
   v27 = sub_48CABC(pp);
-  v28 = sub_4178FE(v27, v26);
-  wsprintfA(TmpBuf, "%s\f%05u\r424%d\f00000 /\t185%d\n", pGlobalTXT_LocalizationStrings[75], v28, v25, v24);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v23, TmpBuf, 0, 0, 0);
+  v28 = sub_4178FE_GetColor(v27, v26);
+  wsprintfA(TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[75], v28, v25, v24);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v23, TmpBuf, 0xFFFFFFFF, 0, 0);
   v29 = v23 - 2 + pFontArrus->uFontHeight;
   v30 = sub_48C8B1(pp);
   v31 = sub_48CB39(pp);
   v32 = sub_48C8B1(pp);
   v33 = sub_48CB39(pp);
-  v34 = sub_4178FE(v33, v32);
-  wsprintfA(TmpBuf, "%s\f%05u\r424%d\f00000 /\t185%d\n", pGlobalTXT_LocalizationStrings[1], v34, v31, v30);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v29, TmpBuf, 0, 0, 0);
+  v34 = sub_4178FE_GetColor(v33, v32);
+  wsprintfA(TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[1], v34, v31, v30);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v29, TmpBuf, 0xFFFFFFFF, 0, 0);
   v35 = v29 - 2 + pFontArrus->uFontHeight;
   v36 = sub_48C8C8(pp);
   v37 = sub_48CBB6(pp);
   v38 = sub_48C8C8(pp);
   v39 = sub_48CBB6(pp);
-  v40 = sub_4178FE(v39, v38);
-  wsprintfA(TmpBuf, "%s\f%05u\r424%d\f00000 /\t185%d\n", pGlobalTXT_LocalizationStrings[211], v40, v37, v36);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v35, TmpBuf, 0, 0, 0);
+  v40 = sub_4178FE_GetColor(v39, v38);
+  wsprintfA(TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[211], v40, v37, v36);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v35, TmpBuf, 0xFFFFFFFF, 0, 0);
   v41 = v35 - 2 + pFontArrus->uFontHeight;
   v42 = sub_48C8DF(pp);
   v43 = sub_48CC33(pp);
   v44 = sub_48C8DF(pp);
   v45 = sub_48CC33(pp);
-  v46 = sub_4178FE(v45, v44);
-  wsprintfA(TmpBuf, "%s\f%05u\r424%d\f00000 /\t185%d\n\n", pGlobalTXT_LocalizationStrings[136], v46, v43, v42);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v41, TmpBuf, 0, 0, 0);
-  v122 = "%s\f%05u\r424%d\f00000 /\t185%d\n";
+  v46 = sub_4178FE_GetColor(v45, v44);
+  wsprintfA(TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n\n", pGlobalTXT_LocalizationStrings[136], v46, v43, v42);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v41, TmpBuf, 0xFFFFFFFF, 0, 0);
+  v122 = "%s\f%06x\r424%d\f000000 /\t185%d\n";
   v5 = v41 + 5 + 2 * pFontArrus->uFontHeight;
   if ( sub_48E4F8(pp) >= 1000 )
-    v122 = "%s\f%05u\r388%d\f00000 / %d\n";
+    v122 = "%s\f%06x\r388%d\f000000 / %d\n";
   v47 = sub_48E4F8(pp);
   v49 = sub_48E4F8(pp);
-  v50 = sub_4178FE(pp->uHealthMax, v49);
+  v50 = sub_4178FE_GetColor(pp->uHealthMax, v49);
   wsprintfA(TmpBuf, v122, pGlobalTXT_LocalizationStrings[108], v50, pp->uHealthMax, v47);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v5, TmpBuf, 0, 0, 0);
-  v123 = "%s\f%05u\r424%d\f00000 /\t185%d\n";
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v5, TmpBuf, 0xFFFFFFFF, 0, 0);
+  v123 = "%s\f%06x\r424%d\f000000 /\t185%d\n";
   v113 = v5 - 2 + pFontArrus->uFontHeight;
   if ( sub_48E565(pp) >= 1000 )
-    v123 = "%s\f%05u\r388%d\f00000 / %d\n";
+    v123 = "%s\f%06x\r388%d\f000000 / %d\n";
   v53 = sub_48E565(pp);
   v55 = sub_48E565(pp);
-  v56 = sub_4178FE(pp->uManaMax, v55);
+  v56 = sub_4178FE_GetColor(pp->uManaMax, v55);
   wsprintfA(TmpBuf, v123, pGlobalTXT_LocalizationStrings[212], v56, pp->uManaMax, v53);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v113, TmpBuf, 0, 0, 0);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v113, TmpBuf, 0xFFFFFFFF, 0, 0);
   v57 = v113 - 2 + pFontArrus->uFontHeight;
   v58 = sub_48E656(pp);
   v59 = sub_48E68F(pp);
   v60 = sub_48E656(pp);
   v61 = sub_48E68F(pp);
-  v62 = sub_4178FE(v61, v60);
-  wsprintfA(TmpBuf, "%s\f%05u\r424%d\f00000 /\t185%d\n\n", pGlobalTXT_LocalizationStrings[12], v62, v59, v58);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v57, TmpBuf, 0, 0, 0);
+  v62 = sub_4178FE_GetColor(v61, v60);
+  wsprintfA(TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n\n", pGlobalTXT_LocalizationStrings[12], v62, v59, v58);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v57, TmpBuf, 0xFFFFFFFF, 0, 0);
   v63 = v57 - 2 + 2 * pFontArrus->uFontHeight;
   v64 = sub_48E9F4(pp);
   //v65 = (&dword_AE3280)[4 * v64];
   v65 = aCharacterConditionNames[v64];
 
   v66 = sub_417939((void *)v64);
-  wsprintfA(TmpBuf, "%s: \f%05d%s\n", pGlobalTXT_LocalizationStrings[47], v66, v65);
-  sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 26, v63, 0, TmpBuf, 226, 0);
+  wsprintfA(TmpBuf, "%s: \f%06x%s\n", pGlobalTXT_LocalizationStrings[47], v66, v65);
+  sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 26, v63, 0, TmpBuf, 0xFFFFFFFF, 0);
   v52 = v63 - 1 + pFontArrus->uFontHeight;
   v51 = pp->uQuickSpell;
   if ( v51 )
@@ -2685,121 +2682,121 @@ char __fastcall GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // characte
   else
     v67 = pGlobalTXT_LocalizationStrings[153];
   wsprintfA(TmpBuf, "%s: %s", pGlobalTXT_LocalizationStrings[172], v67);
-  sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 26, v52, 0, TmpBuf, 226, 0);
+  sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 26, v52, 0, TmpBuf, 0xFFFFFFFF, 0);
   v68 = sub_48E6DC(pp);
   v69 = sub_48E72C(pp);
   v70 = sub_48E6DC(pp);
   v71 = sub_48E72C(pp);
-  v72 = sub_4178FE(v71, v70);
-  wsprintfA(TmpBuf, "%s\f%05u\t100%d\f00000 / %d\n", pGlobalTXT_LocalizationStrings[5], v72, v69, v68);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, 50, TmpBuf, 0, 0, 0);
-  v124 = "%s\f%05u\t100%d\f00000 / %d\n";
+  v72 = sub_4178FE_GetColor(v71, v70);
+  wsprintfA(TmpBuf, "%s\f%06x\t100%d\f000000 / %d\n", pGlobalTXT_LocalizationStrings[5], v72, v69, v68);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, 50, TmpBuf, 0xFFFFFFFF, 0, 0);
+  v124 = "%s\f%06x\t100%d\f000000 / %d\n";
   v114 = pFontArrus->uFontHeight + 48;
   if ( sub_48C8F6(pp) > 99 )
-    v124 = "%s\f%05u\t180%d\f00000 / %d\n";
+    v124 = "%s\f%06x\t180%d\f000000 / %d\n";
   v73 = sub_48C8F6(pp);
   v74 = sub_48C90D(pp);
   v75 = sub_48C8F6(pp);
   v76 = sub_48C90D(pp);
-  v77 = sub_4178FE(v76, v75);
+  v77 = sub_4178FE_GetColor(v76, v75);
   wsprintfA(TmpBuf, v124, pGlobalTXT_LocalizationStrings[131], v77, v74, v73);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v114, TmpBuf, 0, 0, 0);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v114, TmpBuf, 0xFFFFFFFF, 0, 0);
   v115 = v114 + pFontArrus->uFontHeight - 2;
   if ( pp->qword_0000A0 <= (signed __int64)(unsigned int)&unk_98967F )
     v78 = pGlobalTXT_LocalizationStrings[83];
   else
     v78 = pGlobalTXT_LocalizationStrings[17];
   v82 = sub_48D498(pp);
-  wsprintfA(TmpBuf, "%s\r180\f%05d%lu\f00000\n\n", v78, v82, pp->qword_0000A0);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v115, TmpBuf, 0, 0, 0);
+  wsprintfA(TmpBuf, "%s\r180\f%06x%lu\f000000\n\n", v78, v82, pp->qword_0000A0);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v115, TmpBuf, 0xFFFFFFFF, 0, 0);
   v83 = v115 + 2 * pFontArrus->uFontHeight;
   v84 = 0;// attack bonus sub_48CCF5(pp, 0);
   wsprintfA(TmpBuf, "%s\t100%+d\n", pGlobalTXT_LocalizationStrings[18], v84);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v83, TmpBuf, 0, 0, 0);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v83, TmpBuf, 0xFFFFFFFF, 0, 0);
   v85 = v83 + pFontArrus->uFontHeight - 2;
   v86 = "1";// damage sub_48D2EA(pp);
   wsprintfA(TmpBuf, "%s\t100 %s\n", pGlobalTXT_LocalizationStrings[53], v86);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v85, TmpBuf, 0, 0, 0);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v85, TmpBuf, 0xFFFFFFFF, 0, 0);
   v87 = v85 + pFontArrus->uFontHeight - 2;
   v88 = sub_48D0B9(pp);
   wsprintfA(TmpBuf, "%s\t100%+d\n", pGlobalTXT_LocalizationStrings[203], v88);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v87, TmpBuf, 0, 0, 0);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v87, TmpBuf, 0xFFFFFFFF, 0, 0);
   v89 = v87 + pFontArrus->uFontHeight - 2;
   v90 = sub_48D396(pp);
   wsprintfA(TmpBuf, "%s\t100 %s\n\n", pGlobalTXT_LocalizationStrings[53], v90);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v89, TmpBuf, 0, 0, 0);
-  v125 = "%s\f%05u\t110%d\f00000 / %d\n";
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v89, TmpBuf, 0xFFFFFFFF, 0, 0);
+  v125 = "%s\f%06x\t110%d\f000000 / %d\n";
   v116 = v89 + 2 * pFontArrus->uFontHeight - 4;
   v131 = sub_48E7D0(pp, 10);
   v79 = sub_48E73F(pp, 10);
   if ( v131 > 99 || v79 > 99 )
-    v125 = "%s\f%05u\t180%d\f00000 / %d\n";
+    v125 = "%s\f%06x\t180%d\f000000 / %d\n";
   v92 = v79;
-  v93 = sub_4178FE(v131, v79);
+  v93 = sub_4178FE_GetColor(v131, v79);
   wsprintfA(TmpBuf, v125, pGlobalTXT_LocalizationStrings[87], v93, v131, v92);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v116, TmpBuf, 0, 0, 0);
-  v126 = "%s\f%05u\t110%d\f00000 / %d\n";
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v116, TmpBuf, 0xFFFFFFFF, 0, 0);
+  v126 = "%s\f%06x\t110%d\f000000 / %d\n";
   v117 = v116 + pFontArrus->uFontHeight - 2;
   v132 = sub_48E7D0(pp, 11);
   v91 = sub_48E73F(pp, 11);
   if ( v132 > 99 || v91 > 99 )
-    v126 = "%s\f%05u\t180%d\f00000 / %d\n";
-  v96 = sub_4178FE(v132, v91);
+    v126 = "%s\f%06x\t180%d\f000000 / %d\n";
+  v96 = sub_4178FE_GetColor(v132, v91);
   wsprintfA(TmpBuf, v126, pGlobalTXT_LocalizationStrings[6], v96, v132, v91);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v117, TmpBuf, 0, 0, 0);
-  v127 = "%s\f%05u\t110%d\f00000 / %d\n";
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v117, TmpBuf, 0xFFFFFFFF, 0, 0);
+  v127 = "%s\f%06x\t110%d\f000000 / %d\n";
   v118 = v117 + pFontArrus->uFontHeight - 2;
   v133 = sub_48E7D0(pp, 12);
   v94 = sub_48E73F(pp, 12);
   if ( v133 > 99 || v94 > 99 )
-    v127 = "%s\f%05u\t180%d\f00000 / %d\n";
-  v99 = sub_4178FE(v133, v94);
+    v127 = "%s\f%06x\t180%d\f000000 / %d\n";
+  v99 = sub_4178FE_GetColor(v133, v94);
   wsprintfA(TmpBuf, v127, pGlobalTXT_LocalizationStrings[240], v99, v133, v94);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v118, TmpBuf, 0, 0, 0);
-  v128 = "%s\f%05u\t110%d\f00000 / %d\n";
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v118, TmpBuf, 0xFFFFFFFF, 0, 0);
+  v128 = "%s\f%06x\t110%d\f000000 / %d\n";
   v119 = v118 + pFontArrus->uFontHeight - 2;
   v134 = sub_48E7D0(pp, 13);
   v97 = sub_48E73F(pp, 13);
   if ( v134 > 99 )
-    v128 = "%s\f%05u\t180%d\f00000 / %d\n";
-  v102 = sub_4178FE(v134, v97);
+    v128 = "%s\f%06x\t180%d\f000000 / %d\n";
+  v102 = sub_4178FE_GetColor(v134, v97);
   wsprintfA(TmpBuf, v128, pGlobalTXT_LocalizationStrings[70], v102, v134, v97);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v119, TmpBuf, 0, 0, 0);
-  v129 = "%s\f%05u\t110%d\f00000 / %d\n";
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v119, TmpBuf, 0xFFFFFFFF, 0, 0);
+  v129 = "%s\f%06x\t110%d\f000000 / %d\n";
   v120 = v119 + pFontArrus->uFontHeight - 2;
   v135 = sub_48E7D0(pp, 14);
   v100 = sub_48E73F(pp, 14);
   v137 = v100;
   if ( v135 > 99 || v100 > 99 )
-    v129 = "%s\f%05u\t180%d\f00000 / %d\n";
-  v104 = sub_4178FE(v135, v100);
+    v129 = "%s\f%06x\t180%d\f000000 / %d\n";
+  v104 = sub_4178FE_GetColor(v135, v100);
   wsprintfA(TmpBuf, v129, pGlobalTXT_LocalizationStrings[142], v104, v135, v100);
   if ( pp->uClass == 35 )
   {
     if ( v137 == 200 )
     {
-      v106 = sub_4178FE(v135, 200);
-      wsprintfA(TmpBuf, "%s\f%05u\r180%s", pGlobalTXT_LocalizationStrings[142], v106, pGlobalTXT_LocalizationStrings[625]);
+      v106 = sub_4178FE_GetColor(v135, 200);
+      wsprintfA(TmpBuf, "%s\f%06x\r180%s", pGlobalTXT_LocalizationStrings[142], v106, pGlobalTXT_LocalizationStrings[625]);
     }
   }
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v120, TmpBuf, 0, 0, 0);
-  v130 = "%s\f%05u\t110%d\f00000 / %d\n";
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v120, TmpBuf, 0xFFFFFFFF, 0, 0);
+  v130 = "%s\f%06x\t110%d\f000000 / %d\n";
   v121 = v120 + pFontArrus->uFontHeight - 2;
   v136 = sub_48E7D0(pp, 15);
   v107 = sub_48E73F(pp, 15);
   v138 = v107;
   if ( v136 > 99 || v107 > 99 )
-    v130 = "%s\f%05u\t180%d\f00000 / %d\n";
-  v109 = sub_4178FE(v136, v107);
+    v130 = "%s\f%06x\t180%d\f000000 / %d\n";
+  v109 = sub_4178FE_GetColor(v136, v107);
   wsprintfA(TmpBuf, v130, pGlobalTXT_LocalizationStrings[29], v109, v136, v107);
   if ( pp->uClass == 35 )
   {
     if ( v138 == 200 )
     {
-      v111 = sub_4178FE(v136, 200);
-      wsprintfA(TmpBuf, "%s\f%05u\r180%s", pGlobalTXT_LocalizationStrings[29], v111, pGlobalTXT_LocalizationStrings[625]);
+      v111 = sub_4178FE_GetColor(v136, 200);
+      wsprintfA(TmpBuf, "%s\f%06x\r180%s", pGlobalTXT_LocalizationStrings[29], v111, pGlobalTXT_LocalizationStrings[625]);
     }
   }
-  return FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v121, TmpBuf, 0, 0, 0);
+  return FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v121, TmpBuf, 0xFFFFFFFF, 0, 0);
 }
 
