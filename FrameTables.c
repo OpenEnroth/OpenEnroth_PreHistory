@@ -486,6 +486,15 @@ int sub_487ED6(struct CTileTable *_this, int a2, int a3)
  return sub_487F84(_this, a2, 4 + v6);
 }
 
+//----- (00487E3B) --------------------------------------------------------
+struct TileDesc *TileTable_GetTile(struct CTileTable *_this, unsigned int uTileID)
+{
+ if (uTileID < 0 || uTileID > _this->uNumTiles - 1)
+   return _this->pTiles;
+ else
+   return &_this->pTiles[uTileID];
+}
+
 //----- (00487F84) --------------------------------------------------------
 int sub_487F84(struct CTileTable *_this, int a2, int a3)
 {

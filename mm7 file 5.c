@@ -11688,7 +11688,7 @@ LABEL_30:
         v45 = v4;
         LODWORD(v48) = pGame->class04_obj;
         v36 = LODWORD(v48);
-        sub_45CDB7(v4);
+        sub_45CDB7(v4, pGame->class04_obj);
         sub_49BCEB(pClass58_global, v4);
         *(_DWORD *)(v36 + 1587204) = 0;
         v35 = 0;
@@ -17618,18 +17618,6 @@ int __thiscall sub_487E1D(int this)
     *(_DWORD *)(v2 + 4) = 0;
   }
   *(_DWORD *)v2 = 0;
-  return result;
-}
-
-//----- (00487E3B) --------------------------------------------------------
-int __thiscall sub_487E3B(int this, int a2)
-{
-  int result; // eax@3
-
-  if ( a2 < 0 || a2 > *(_DWORD *)this - 1 )
-    result = *(_DWORD *)(this + 4);
-  else
-    result = *(_DWORD *)(this + 4) + 26 * a2;
   return result;
 }
 

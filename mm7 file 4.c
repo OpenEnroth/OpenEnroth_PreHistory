@@ -298,127 +298,84 @@ LABEL_22:
 signed int __fastcall sub_4252E8(int a1)
 {
   int v1; // edx@1
-  double v2; // st7@1
-  float *v3; // ecx@5
-  _UNKNOWN *v4; // edi@5
-  _UNKNOWN *v5; // esi@5
-  int v6; // ebx@6
-  double v7; // st5@11
+  struct struct14 *v5; // esi@5
   double v8; // st6@11
   double v9; // st6@12
-  unsigned __int8 v10; // c2@16
-  unsigned __int8 v11; // c3@16
-  void *v12; // edi@23
   double v13; // st6@23
-  _UNKNOWN *v14; // ecx@23
   char v15; // zf@24
   signed int result; // eax@25
-  int v17; // [sp+8h] [bp-28h]@5
   bool v18; // [sp+Ch] [bp-24h]@2
   bool v19; // [sp+10h] [bp-20h]@7
-  _UNKNOWN *v20; // [sp+14h] [bp-1Ch]@5
-  _UNKNOWN *v21; // [sp+18h] [bp-18h]@5
   signed int v22; // [sp+1Ch] [bp-14h]@1
-  _UNKNOWN *v23; // [sp+20h] [bp-10h]@5
-  _UNKNOWN *v24; // [sp+24h] [bp-Ch]@5
-  _UNKNOWN *v25; // [sp+28h] [bp-8h]@5
-  _UNKNOWN *v26; // [sp+2Ch] [bp-4h]@5
+ int i;
 
   v1 = a1;
-  v2 = (double)pStruct9_global->shading_dist_mist;
   memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct struct14));
   v22 = 0;
-  v18 = array_50AC10[0].flt_00000C <= v2;
+  v18 = array_50AC10[0].flt_00000C <= pStruct9_global->shading_dist_mist;
   if ( a1 + 1 <= 1 )
     return 0;
-  v4 = &array_507D30[0].flt_000014;
-  v5 = &array_507D30[0].flt_000010;
-  v25 = &array_507D30[0].flt_000020;
-  v23 = array_507D30;
-  v20 = &array_507D30[0].flt_000014;
-  v21 = &array_507D30[0].flt_000010;
-  v24 = &array_507D30[0].flt_00000C;
-  v26 = &array_507D30[0].flt_00002C;
-  v3 = &array_50AC10[0].flt_00000C;
-  v17 = v1;
-  do
+
+ v5 = array_507D30;
+ for (i = 0; i < a1; ++i)
+ {
+  v19 = pStruct9_global->shading_dist_mist >= array_50AC10[i + 1].flt_00000C;
+  if (v18 == v19)
+    goto LABEL_22;
+
+
+  if (v19)
   {
-    v6 = (int)(v3 + 12);
-    v19 = v2 >= v3[12];
-    if ( v18 != v19 )
+   v8 = (pStruct9_global->shading_dist_mist - array_50AC10[i].flt_00000C) /
+        (array_50AC10[i + 1].flt_00000C - array_50AC10[i].flt_00000C);
+   v5->flt_000010 = (array_50AC10[i + 1].flt_000010 - array_50AC10[i].flt_000010) * v8 + array_50AC10[i].flt_000010;
+   v5->flt_000014 = (array_50AC10[i + 1].flt_000014 - array_50AC10[i].flt_000014) * v8 + array_50AC10[i].flt_000014;
+   v5->flt_00002C = (array_50AC10[i + 1].flt_00002C - array_50AC10[i].flt_00002C) * v8 + array_50AC10[i].flt_00002C;
+  }
+  else
+  {
+   v9 = (pStruct9_global->shading_dist_mist - array_50AC10[i + 1].flt_00000C) /
+        (array_50AC10[i].flt_00000C - array_50AC10[i + 1].flt_00000C);
+   v5->flt_000010 = (array_50AC10[i].flt_000010 - array_50AC10[i + 1].flt_000010) * v9 + array_50AC10[i + 1].flt_000010;
+   v5->flt_000014 = (array_50AC10[i].flt_000014 - array_50AC10[i + 1].flt_000014) * v9 + array_50AC10[i + 1].flt_000014;
+   v5->flt_00002C = (array_50AC10[i].flt_00002C - array_50AC10[i + 1].flt_00002C) * v9 + array_50AC10[i + 1].flt_00002C;
+  }
+
+  v5->flt_00000C = pStruct9_global->shading_dist_mist;
+  v5->flt_000020 = 1.0 / (float)pStruct9_global->shading_dist_mist;
+  if (v18)
+  {
+   if (pStruct9_global->shading_dist_mist == array_50AC10[i].flt_00000C && v5->flt_000010 == array_50AC10[i].flt_000010)
+   {
+    if (v5->flt_000014 != array_50AC10[i].flt_000014)
     {
-      if ( v19 )
-      {
-        v8 = (v2 - *v3) / (*(float *)v6 - *v3);
-        *(float *)v5 = (v3[13] - v3[1]) * v8 + v3[1];
-        *(float *)v4 = (v3[14] - v3[2]) * v8 + v3[2];
-        v7 = (v3[20] - v3[8]) * v8 + v3[8];
-      }
-      else
-      {
-        v9 = (v2 - *(float *)v6) / (*v3 - *(float *)v6);
-        *(float *)v5 = (v3[1] - v3[13]) * v9 + v3[13];
-        *(float *)v4 = (v3[2] - v3[14]) * v9 + v3[14];
-        v7 = (v3[8] - v3[20]) * v9 + v3[20];
-      }
-      *(float *)v26 = v7;
-      *(float *)v24 = v2;
-      *(float *)v25 = 1.0 / v2;
-      if ( v18 )
-      {
-        if ( v2 == *v3 && *(float *)v5 == v3[1] )
-        {
-          v10 = 0;
-          v11 = *(float *)v4 == v3[2];
-          goto LABEL_20;
-        }
-      }
-      else
-      {
-        if ( v2 == *(float *)v6 && *(float *)v5 == v3[13] )
-        {
-          v10 = 0;
-          v11 = *(float *)v4 == v3[14];
-LABEL_20:
-          if ( v11 | v10 )
-            goto LABEL_22;
-          goto LABEL_21;
-        }
-      }
-LABEL_21:
-      v23 = (char *)v23 + 48;
-      v24 = (char *)v24 + 48;
-      v26 = (char *)v26 + 48;
-      v5 = (char *)v5 + 48;
-      v4 = (char *)v4 + 48;
+      v5++;
       ++v22;
-      v25 = (char *)v25 + 48;
-      v21 = v5;
-      v20 = v4;
     }
+   }
+  }
+  else if (pStruct9_global->shading_dist_mist == array_50AC10[i + 1].flt_00000C && v5->flt_000010 == array_50AC10[i + 1].flt_000010)
+  {
+    if (v5->flt_000014 != array_50AC10[i + 1].flt_000014)
+    {
+      v5++;
+      ++v22;
+    }
+  }
+
+
 LABEL_22:
     if ( v19 )
     {
-      v12 = v23;
-      v21 = (char *)v21 + 48;
-      v20 = (char *)v20 + 48;
-      v13 = 1.0 / (*(float *)v6 + 0.0000001000000011686097);
+      v13 = 1.0 / (array_50AC10[i + 1].flt_00000C + 0.0000001000000011686097);
       ++v22;
-      v26 = (char *)v26 + 48;
-      v24 = (char *)v24 + 48;
-      v23 = (char *)v23 + 48;
-      memcpy(v12, v3 + 9, 0x30u);
-      v14 = v25;
-      v25 = (char *)v25 + 48;
-      v5 = v21;
-      v4 = v20;
-      *(float *)v14 = v13;
+      v5->flt_000020 = v13;
+      memcpy(v5++, &array_50AC10[i + 1], sizeof(struct struct14));
     }
-    v15 = v17-- == 1;
+
     v18 = v19;
-    v3 = (float *)v6;
   }
-  while ( !v15 );
+
   result = v22;
   if ( v22 < 3 )
     return 0;

@@ -147,12 +147,8 @@ extern struct GUIButton *pPlayerCreationUI_BtnOK;
 extern struct GUIButton *pPlayerCreationUI_BtnPlus;
 extern struct GUIButton *pPlayerCreationUI_BtnMinus;
 extern struct class18 *pPlayerCreationUI_PCPortraits[];
-extern struct class18 *pPlayerCreationUI_ClassIcons[];
 extern struct class18 *pPlayerCreationUI_Sky;
 extern struct class18 *pPlayerCreationUI_Top;
-
-extern struct class18 *pPlayerCreationUI_ArrowR[];
-extern struct class18 *pPlayerCreationUI_ArrowL[];
 
 extern struct class24 *pClass24_global2;
 

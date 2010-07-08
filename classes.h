@@ -87,6 +87,7 @@ void CGame_stru0_sub_40E2F6(struct CGame_stru0 *_this, char a2);
 
 
 
+
 //class01
 struct class01
 {

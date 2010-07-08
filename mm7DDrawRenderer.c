@@ -595,61 +595,30 @@ void CD3DRenderer_DrawTransparentTexture(struct CD3DRenderer *_this, unsigned in
    pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX] = (uSrcColor & uAlpha) + (uDstColor & (0x00FFFFFF - uAlpha));
   }
  }
+}
 
+void CD3DRenderer_DrawTransparentRect(struct CD3DRenderer *_this, unsigned int uOutX, unsigned int uOutY,
+                                      unsigned int uSrcX, unsigned int uSrcY, unsigned int uSrcWidth, unsigned int uSrcHeight,
+                                      struct class18 *pTexture)
+{
+ unsigned int *pSurfacePtr;
+ unsigned int  x, y;
+ unsigned int  uSrcColor,
+               uDstColor,
+               uAlpha;
 
- /*
- if (!pTexture->pPalette)
+ if (!_this->bSceneBegun || !pTexture)
    return;
 
-
- v6 = pTexture->uTextureHeight;
- v5 = _this->pTargetSurface + (uX + uY * _this->uTargetSurfacePitch);
- v20 = pTexture->pIndexedPixels;
- v21 = pTexture->uTextureWidth;
- v19 = pTexture->uTextureWidth;
-
- if (_this->dword_040104)
- {
-          v7 = _this->dword_0400F8;
-          if ( uX < v7 )
-          {
-            v8 = v7 - uX;
-            v20 += v8;
-            v21 += uX - _this->dword_0400F8;
-            v5 += v8;
-          }
-          v9 = _this->dword_0400F4;
-          v6 = pTexture->uTextureHeight;
-          if ( uY < v9 )
-          {
-            v10 = v9 - uY;
-            v20 += v19 * v10;
-            v6 = uY - _this->dword_0400F4 + pTexture->uTextureHeight;
-            v5 += _this->uTargetSurfacePitch * v10;
-          }
-          v11 = _this->dword_0400F8;
-          if ( v11 < uX )
-            v11 = uX;
-          v24 = _this->dword_040100;
-          if ( v11 + v21 > v24 )
-          {
-            v12 = _this->dword_0400F8;
-            if ( v12 < uX )
-              v12 = uX;
-            v21 = v24 - v12;
-          }
-          v13 = _this->dword_0400F4;
-          if ( v13 < uY )
-            v13 = uY;
-          v14 = _this->dword_0400FC;
-          if ( v6 + v13 > v14 )
-          {
-            v15 = _this->dword_0400F4;
-            if ( v15 < uY )
-              v15 = uY;
-            v6 = v14 - v15;
-          }
-        }*/
+ pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
+ for (y = 0; y < uSrcHeight; ++y)
+   for (x = 0; x < uSrcWidth; ++x)
+   {
+    uSrcColor = pTexture->pTruecolorPixels[(y + uSrcY) * pTexture->uTextureWidth + x + uSrcX];
+    uDstColor = pSurfacePtr[(y + uOutY) * _this->uTargetSurfacePitch + x + uOutX];
+    uAlpha = ((uSrcColor & 0xFF000000) >> 8) | ((uSrcColor & 0xFF000000) >> 16) | ((uSrcColor & 0xFF000000) >> 24);
+    pSurfacePtr[(y + uOutY) * _this->uTargetSurfacePitch + x + uOutX] = (uSrcColor & uAlpha) + (uDstColor & (0x00FFFFFF - uAlpha));
+   }
 }
 
 //----- (004A172E) --------------------------------------------------------

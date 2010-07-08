@@ -10963,6 +10963,7 @@ void __cdecl InitializeScrolls()
  while (v6 < 0x148);
 }
 
+
 //----- (00452C49) --------------------------------------------------------
 void __cdecl InitializeGameText()
 {
@@ -10978,10 +10979,12 @@ void __cdecl InitializeGameText()
    class23_DeleteBuffer(class23_instance, pGlobalTXT_Raw);
 
  pGlobalTXT_Raw = class17_fn1(pClass17_Events_LOD, "global.txt", 0);
+ 
  strtok(pGlobalTXT_Raw, "\r");
  strtok(0, "\r");
  v1 = strtok(0, "\r") + 1;
  v7 = pGlobalTXT_LocalizationStrings;
+
 
   for (i = 0; i < 677; ++i)
   {
@@ -11011,7 +11014,7 @@ void __cdecl InitializeGameText()
       else
       {
         if ( v2 == 1 )
-          v7[i] = sub_452C30(v1);
+         v7[i] = sub_452C30(v1);
       }
       ++v2;
       v1 = &v1[v4] + 1;
@@ -11020,6 +11023,7 @@ void __cdecl InitializeGameText()
 
     v1 = strtok(0, "\r") + 1;
   }
+  
 
   aMonthNames[0] = pGlobalTXT_LocalizationStrings[415];  aMonthNames[1] = pGlobalTXT_LocalizationStrings[416];
   aMonthNames[2] = pGlobalTXT_LocalizationStrings[417];  aMonthNames[3] = pGlobalTXT_LocalizationStrings[418];

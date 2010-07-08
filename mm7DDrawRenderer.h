@@ -36,6 +36,21 @@ void CD3DRenderer_HWLContainer_ctor(struct CD3DRenderer_HWLContainer *_this);
 //signed int __thiscall sub_45237F(void *this, const char *Filename);
 int CD3DRenderer_HWLContainer_LoadHWLHeaders(struct CD3DRenderer_HWLContainer *_this, const char *pFilename);
 
+struct HWLBitmap
+{
+ unsigned char  pName[20];    // byte[20] @ 000000
+ int            uPalette;     // dword    @ 000014
+ unsigned int   uFullWidth;   // dword    @ 000018
+ unsigned int   uFullHeight;  // dword    @ 00001C
+ unsigned int   uAreaWidth;   // dword    @ 000020
+ unsigned int   uAreaHeight;  // dword    @ 000024
+ unsigned int   uBufWidth;    // dword    @ 000028
+ unsigned int   uBufHeight;   // dword    @ 00002C
+ int            AreaX;        // dword    @ 000030
+ int            AreaY;        // dword    @ 000034
+ unsigned char *pData;        // dword    @ 000038
+};
+
 struct D3DRenderer_struct0
 {
  int            dword_000010;
@@ -203,6 +218,10 @@ void *CD3DRenderer_CreateClipper(struct CD3DRenderer *_this, HWND ClipWnd);
 void *CD3DRenderer_PresentRegion(struct CD3DRenderer *_this, RECT *pDestRect, RECT *pSrcRect);
 //char __thiscall sub_4A0BEE(int this, int a2, int a3, int a4, int a5, __int16 a6);
 char CD3DRenderer_FillRect(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5, unsigned int uColor);
+
+void CD3DRenderer_DrawTransparentRect(struct CD3DRenderer *_this, unsigned int uOutX, unsigned int uOutY,
+                                      unsigned int uSrcX, unsigned int uSrcY, unsigned int uSrcWidth, unsigned int uSrcHeight,
+                                      struct class18 *pTexture);
 
 //class15
 struct CGammaController

@@ -8,6 +8,9 @@
 #include "Level.h"
 #include "Actor.h"
 
+extern unsigned int uTextureID_ClassIcons;
+extern unsigned int uTextureID_Arrows;
+
 
 extern char aTooManyStation[]; // byte[] @ MM7.exe::004F0364
 
@@ -1493,15 +1496,15 @@ extern char *dword_5E4C44; // weak
 extern char *dword_5E4C48; // weak
 extern char *dword_5E4C4C; // weak
 
-extern unsigned char *pGlobalTXT_Raw; // ptr @ MM7.exe::005E4C68
-extern unsigned char *pMonstersTXT_Raw; // ptr @ MM7.exe::005E4C6C
+extern unsigned char *pGlobalTXT_Raw;           // ptr @ MM7.exe::005E4C68
+extern unsigned char *pMonstersTXT_Raw;         // ptr @ MM7.exe::005E4C6C
 extern unsigned char *pMonsterPlacementTXT_Raw; // ptr @ MM7.exe::005E4C70
-extern unsigned char *pSpellsTXT_Raw; // ptr @ MM7.exe005E4C74
-extern unsigned char *pMapStatsTXT_Raw; // ptr @ MM7.exe::005E4C78
-extern unsigned char *pHostileTXT_Raw; // ptr @ MM7.exe::005E4C7C
-extern unsigned char *pPotionsTXT_Raw; // ptr @ MM7.exe::005E4C80
-extern unsigned char *pPotionNotesTXT_Raw; // ptr @ MM7.exe::005E4C84
-extern unsigned char *pHistoryTXT_Raw; // ptr @ MM7.exe::005E4C88
+extern unsigned char *pSpellsTXT_Raw;           // ptr @ MM7.exe::005E4C74
+extern unsigned char *pMapStatsTXT_Raw;         // ptr @ MM7.exe::005E4C78
+extern unsigned char *pHostileTXT_Raw;          // ptr @ MM7.exe::005E4C7C
+extern unsigned char *pPotionsTXT_Raw;          // ptr @ MM7.exe::005E4C80
+extern unsigned char *pPotionNotesTXT_Raw;      // ptr @ MM7.exe::005E4C84
+extern unsigned char *pHistoryTXT_Raw;          // ptr @ MM7.exe::005E4C88
 
 extern struct struct4 global_5E4C90; // struct @ MM7.exe::005E4C90
 //char byte_5E4C90[array_size_unknown]; // weak

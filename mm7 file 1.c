@@ -121,27 +121,27 @@ void sub_4829B9(struct struct14 *a1, struct struct14 *a2, struct struct14 *a3, s
   float v16; // [sp+1Ch] [bp+8h]@1
   float v17; // [sp+1Ch] [bp+8h]@3
 
-  v7 = a2->flt_000018 - a1->flt_000018;
-  v16 = a3->flt_00001C - a1->flt_00001C;
-  v15 = a2->flt_00001C - a1->flt_00001C;
-  v14 = a3->flt_000018 - a1->flt_000018;
-  v6 = v16 * v7 - v14 * v15;
-  if ( v6 == 0.0 )
-    v6 = 0.0000001000000011686097;
-  v9 = 1.0 / v6;
+ v7 = a2->flt_000018 - a1->flt_000018;
+ v16 = a3->flt_00001C - a1->flt_00001C;
+ v15 = a2->flt_00001C - a1->flt_00001C;
+ v14 = a3->flt_000018 - a1->flt_000018;
+ v6 = v16 * v7 - v14 * v15;
+ if ( v6 == 0.0 )
+   v6 = 0.0000001000000011686097;
+ v9 = 1.0 / v6;
 
-  v10 = 1.0 / a1->flt_00000C;
-  v11 = 1.0 / a2->flt_00000C - v10;
-  v12 = 1.0 / a3->flt_00000C - v10;
-  v13 = (v11 * v16 - v12 * v15) * v9;
-  v17 = (v11 * v14 - v12 * v7) * -v9;
+ v10 = 1.0 / a1->flt_00000C;
+ v11 = 1.0 / a2->flt_00000C - v10;
+ v12 = 1.0 / a3->flt_00000C - v10;
+ v13 = (v11 * v16 - v12 * v15) * v9;
+ v17 = (v11 * v14 - v12 * v7) * -v9;
 
-  a4->flt_00000C = a1->flt_000018;
-  a4->flt_000010 = a1->flt_00001C;
+ a4->flt_00000C = a1->flt_000018;
+ a4->flt_000010 = a1->flt_00001C;
 
-  a4->flt_000000 = v10;
-  a4->flt_000004 = v13;
-  a4->flt_000008 = v17;
+ a4->flt_000000 = v10;
+ a4->flt_000004 = v13;
+ a4->flt_000008 = v17;
 }
 
 //----- (004789DE) --------------------------------------------------------
@@ -173,19 +173,12 @@ void __cdecl sub_4789DE()
   signed int v46; // esi@60
   int v47; // eax@61
   int v48; // edx@62
-  _UNKNOWN *v49; // ecx@63
-  double v50; // ST34_8@64
-  double v51; // ST44_8@64
   int v52; // eax@66
   float v57; // [sp+44h] [bp-7Ch]@50
   float v58; // [sp+48h] [bp-78h]@50
   float v59; // [sp+4Ch] [bp-74h]@50
-  float v60; // [sp+50h] [bp-70h]@64
-  int v61; // [sp+54h] [bp-6Ch]@64
-  float v63; // [sp+5Ch] [bp-64h]@64
   float v65; // [sp+64h] [bp-5Ch]@57
   float v66; // [sp+68h] [bp-58h]@57
-  int v67; // [sp+6Ch] [bp-54h]@64
   int v71; // [sp+7Ch] [bp-44h]@57
   int v73; // [sp+84h] [bp-3Ch]@23
   int v75; // [sp+8Ch] [bp-34h]@57
@@ -277,7 +270,7 @@ void __cdecl sub_4789DE()
         if (p14->byte_000058 > 31)
            p14->byte_000058 = 31;
 
-        if (v3->byte_000010[13] & 0x40 )
+        if (v3->byte_000010[13] & 0x40)
           v18 = TextureFrameTable_GetFrame(pTextureFrameTable, v3->uTextureID, pClass24_global->dword_000024);
         else v18 = v3->uTextureID;
 
@@ -334,7 +327,7 @@ LABEL_71:
         else if (v3->byte_000010[12] & 0x40)
           p14->dword_000030 |= 0x1000;
 
-        for (k = 0; k < pClass51_global->pBModels[i].ptr_000054[j].byte_00012E - 1; ++k)
+        for (k = 0; k < pClass51_global->pBModels[i].ptr_000054[j].byte_00012E; ++k)
         {
             //memcpy((char *)&unk_50AC10 + v32, &array_73D150[v32 / 48], 0x30u);
          memcpy(&array_50AC10[k], &array_73D150[k], sizeof(struct struct14));
@@ -359,7 +352,7 @@ LABEL_71:
           sub_49B001(&unk_73C818);
           atexit(loc_47907F);
         }
-        sub_45CDB7(v3);
+        sub_45CDB7(v3, pGame->class04_obj);
         if ( dword_F8ADD4 <= 0 )
            p14->byte_000108 = 0;
         else
@@ -372,7 +365,7 @@ LABEL_71:
           v59 = flt_73C824;
           sub_45CA88(pGame->class04_obj, (int)&dword_F8AD28, array_50AC10, pClass51_global->pBModels[i].ptr_000054[j].byte_00012E, (int)&v57);
         }
-        if ( v76 )
+        if (v76)
         {
           v38 = sub_4250FE(pClass51_global->pBModels[i].ptr_000054[j].byte_00012E);
           v39 = v38;
@@ -409,28 +402,17 @@ LABEL_71:
               goto LABEL_71;
             sub_481E55(v45);
             v47 = sub_4254D2(v46);
-            *(_DWORD *)(v14 + 20) = v47;
+            p14->dword_000014 = v47;
             if (!v47)
               goto LABEL_71;
 
             sub_48276F(v14);
             v48 = 0;
-            if ( *(_DWORD *)(v14 + 20) > 0 )
+            
+            for (k = 0; k < p14->dword_000014; ++k)
             {
-             v49 = &array_508690[0].flt_00001C;
-              do
-              {
-                LODWORD(v63) = *((_DWORD *)v49 - 1);
-                v50 = v63 + 6.755399441055744e15;
-                v67 = LODWORD(v50);
-                dword_50B638[v48] = LODWORD(v50);
-                LODWORD(v60) = *(_DWORD *)v49;
-                v51 = v60 + 6.755399441055744e15;
-                v61 = LODWORD(v51);
-                v49 = (char *)v49 + 48;
-                dword_50B570[v48++] = LODWORD(v51);
-              }
-              while ( v48 < *(_DWORD *)(v14 + 20) );
+             dword_50B638[v48] = floorf(array_508690[i].flt_000018 + 0.5f);
+             dword_50B570[v48++] = floorf(array_508690[i].flt_00001C + 0.5f);
             }
           }
           else
@@ -775,7 +757,7 @@ LABEL_14:
 
   sub_4789DE();
   sub_47F5C6();
-  sub_486F92_MessWithEdgesAndSpans();
+  //sub_486F92_MessWithEdgesAndSpans();
   sub_487355();
 LABEL_16:
   dword_51B6DC = 0;
@@ -9442,10 +9424,10 @@ LABEL_51:
                   v8 = v8->pNext;
                 while ( v9 <= (v10 - v8->flt_00000C) * v8->flt_000004 +
                               (v25 - v8->flt_000010) * v8->flt_000008 + v8->flt_000000);
-                *(_DWORD *)(v7 + 20) = v8;
-                *(_DWORD *)(v7 + 24) = *(_DWORD *)(v8 + 24);
-                *(_DWORD *)(*(_DWORD *)(v8 + 24) + 20) = v7;
-                *(_DWORD *)(v8 + 24) = v7;
+                v7->pNext = v8;
+                v7->pPrev = v8->pPrev;
+                v8->pPrev->pNext = v7;
+                v8->pPrev = v7;
               }
               else
               {
@@ -17002,8 +16984,8 @@ void *__cdecl PlayerCreationUI_Draw()
 
 
    v5 = GUIWindow_GetChild(pGUIWindow_PlayerCreation, pGUIWindow_PlayerCreation->dword_00002C);
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v5->uZ - 4, v5->uY, pPlayerCreationUI_ArrowL[dword_A74CD4 + 1]);
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v5->uX - 12, v5->uY, pPlayerCreationUI_ArrowR[dword_A74CD4 + 1]);
+   CD3DRenderer_DrawTransparentRect(pD3DRenderer, v5->uZ - 4, v5->uY, 20 * dword_A74CD4, 0, 20, 16, &pClass17_Icons_LOD->aLODHeaders[uTextureID_Arrows]);
+   CD3DRenderer_DrawTransparentRect(pD3DRenderer, v5->uX - 12, v5->uY, 20 * dword_A74CD4, 16, 20, 16, &pClass17_Icons_LOD->aLODHeaders[uTextureID_Arrows]);
 
    v6 = dword_A74CD4-- - 1 < 0;
    if ( v6 )
@@ -17041,9 +17023,16 @@ void *__cdecl PlayerCreationUI_Draw()
   i = 0;
   do
   {
-   FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v143 + 73, 100, aClassNames[pParty_global->pPlayers[i].uClass], 0xFFFFFFFF, 0, 0);
+   unsigned int uClassIconCellX,
+                uClassIconCellY;
 
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v143 + 77, 50, pPlayerCreationUI_ClassIcons[pParty_global->pPlayers[i].uClass >> 2]);
+   FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v143 + 73, 100, aClassNames[pParty_global->pPlayers[i].uClass], 0xFFFFFFFF, 0, 0);
+   
+   uClassIconCellX = (pParty_global->pPlayers[i].uClass / 4) % 3;
+   uClassIconCellY = (pParty_global->pPlayers[i].uClass / 4) / 3;
+   //CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v143 + 77, 50, pPlayerCreationUI_ClassIcons[pParty_global->pPlayers[i].uClass / 4]);
+   CD3DRenderer_DrawTransparentRect(pD3DRenderer, v143 + 77, 50,
+                                    uClassIconCellX * 48, uClassIconCellY * 52, 48, 52, &pClass17_Icons_LOD->aLODHeaders[uTextureID_ClassIcons]);
 
    v12 = pGUIWindow_PlayerCreation->dword_000040;
    v13 = pGUIWindow_PlayerCreation->dword_00001C;

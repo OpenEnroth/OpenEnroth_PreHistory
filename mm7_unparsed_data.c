@@ -1,6 +1,10 @@
 #include "mm7_unparsed_data.h"
 
 
+unsigned int uTextureID_ClassIcons;
+unsigned int uTextureID_Arrows;
+
+
 
 char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004F0364
 

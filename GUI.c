@@ -1398,12 +1398,10 @@ void __cdecl PlayerCreationUI_Initialize()
   int v4; // eax@8
   signed int v5; // ecx@8
   int result; // eax@19
-  //signed int v7; // [sp+10h] [bp-Ch]@7
   int v8; // [sp+10h] [bp-Ch]@9
   int v9; // [sp+10h] [bp-Ch]@11
   int v10; // [sp+10h] [bp-Ch]@13
   int v11; // [sp+10h] [bp-Ch]@15
-  //signed int v12; // [sp+14h] [bp-8h]@5
   int v13; // [sp+14h] [bp-8h]@9
   int v14; // [sp+14h] [bp-8h]@11
   int v15; // [sp+14h] [bp-8h]@13
@@ -1426,15 +1424,7 @@ void __cdecl PlayerCreationUI_Initialize()
   uPlayerCreationUI_SelectedCharacter = 0;
   v1 = pFontCreate->uFontHeight - 2;
 
-  pPlayerCreationUI_ClassIcons[0] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, L"IC_KNIGHT")];
-  pPlayerCreationUI_ClassIcons[1] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, L"IC_THIEF")];
-  pPlayerCreationUI_ClassIcons[2] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, L"IC_MONK")];
-  pPlayerCreationUI_ClassIcons[3] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, L"IC_PALADIN")];
-  pPlayerCreationUI_ClassIcons[4] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, L"IC_ARCHER")];
-  pPlayerCreationUI_ClassIcons[5] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, L"IC_RANGER")];
-  pPlayerCreationUI_ClassIcons[6] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, L"IC_CLERIC")];
-  pPlayerCreationUI_ClassIcons[7] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, L"IC_DRUID")];
-  pPlayerCreationUI_ClassIcons[8] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, L"IC_SORCERER")];
+  uTextureID_ClassIcons = class17_LoadTexture_New(pClass17_Icons_LOD, L"Class Icons");
 
   pPlayerCreationUI_Sky = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, L"MAKESKY")];
   pPlayerCreationUI_Top = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, L"MAKETOP")];
@@ -1452,14 +1442,7 @@ void __cdecl PlayerCreationUI_Initialize()
   uTextureID_PlayerCreationUI_BtnMinus = class17_LoadTexture_New(pClass17_Icons_LOD, L"buttminu");
   uTextureID_PlayerCreationUI_BtnPlus = class17_LoadTexture_New(pClass17_Icons_LOD, L"buttplus");
 
-  for (i = 1; i < 20; ++i)
-  {
-   wsprintfW(pFilename, L"ArrowL%02u", i);
-   pPlayerCreationUI_ArrowL[i] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, pFilename)];
-
-   wsprintfW(pFilename, L"ArrowR%02u", i);
-   pPlayerCreationUI_ArrowR[i] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, pFilename)];
-  }
+  uTextureID_Arrows = class17_LoadTexture_New(pClass17_Icons_LOD, L"Arrows");
 
   pGUIWindow_PlayerCreation = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
   v8 = 0;

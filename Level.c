@@ -145,10 +145,9 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
   size_t v92; // eax@120
   int v100; // eax@129
   int v106; // eax@147
-  //int v107; // edi@147
   int v108; // eax@147
   int v109; // eax@147
-  int v110; // eax@147
+  struct TileDesc *v110; // eax@147
   int v111; // ecx@150
   int v113; // edi@159
   char v115; // [sp-14h] [bp-B94h]@55
@@ -529,7 +528,7 @@ LABEL_33:
     }
     _this->uSkyTextureID = class17_LoadTexture(pClass17_Bitmaps_LOD, (const char *)v119, v120);
     strcpy(_this->pGroundTileset, byte_6BE124);
-    v38 = sub_487E3B(pTileTable, _this->array_0000A0[1]);
+    v38 = TileTable_GetTile(pTileTable, _this->array_0000A0[1]);
 
     _this->dword_0000EC = class17_LoadTexture(pClass17_Bitmaps_LOD, (const char *)v38, 0);
     if ( _this->uSkyTextureID != -1 )
@@ -1063,8 +1062,13 @@ LABEL_120:
   strcpy(_this->pGroundTileset, byte_6BE124);
   v109 = _this->array_0000A0[1];
   v120 = 0;
-  v110 = sub_487E3B(pTileTable, _this->array_0000A0[1]);
-  v106 = class17_LoadTexture_New(pClass17_Bitmaps_LOD, (const char *)v110);
+  v110 = TileTable_GetTile(pTileTable, _this->array_0000A0[1]);
+  {
+   wchar_t pTmp[256];
+   wsprintfW(pTmp, L"%S", v110->sTileName);
+
+   v106 = class17_LoadTexture_New(pClass17_Bitmaps_LOD, pTmp);
+  }
   _this->dword_0000EC = v106;
   if ( v106 != -1 )
     pClass17_Bitmaps_LOD->aLODHeaders[v106].word_000026 = class35_sub_48A3BC(&class35_obj, pClass17_Bitmaps_LOD->aLODHeaders[v106].word_000024);
@@ -1651,7 +1655,7 @@ bool sub_482170(struct class51_stru2 *_this, struct struct14 *a2, struct struct8
 
 
 //----- (0045CDB7) --------------------------------------------------------
-bool __stdcall sub_45CDB7(struct class51_stru2 *_this)
+bool __stdcall sub_45CDB7(struct class51_stru2 *_this, struct class04 *pClass04)
 {
   int v2; // eax@1
   int v7; // [sp+10h] [bp-4h]@1
@@ -1666,6 +1670,7 @@ bool __stdcall sub_45CDB7(struct class51_stru2 *_this)
  {
   if ( v7 >= 20 )
     break;
+  //pClass04 is passed as the first parameter here in ecx but is never used inside sub_45CE50
   sub_45CE50(&array_519ABC[i], _this, &v7, 1);
  }
 
