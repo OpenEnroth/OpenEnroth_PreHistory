@@ -2371,8 +2371,8 @@ signed int __thiscall sub_42EBEE(void *this)
 
   v3 = uMaybeSelectedCharacter;
   v7 = (int)this;
-  v2 = (char *)&unk_ACBE48 + 6972 * uMaybeSelectedCharacter;
-  result = sub_492C0B((int)((char *)&unk_ACBE48 + 6972 * uMaybeSelectedCharacter));
+  v2 =&pParty_global->pPlayers[uMaybeSelectedCharacter - 1];
+  result = sub_492C0B(&pParty_global->pPlayers[uMaybeSelectedCharacter - 1]);
   if ( result )
   {
     sub_427D48(&struct_50C0C8, v3);
@@ -2438,8 +2438,8 @@ signed int __cdecl sub_42ECB5()
 
   v1 = uMaybeSelectedCharacter;
   v29 = 6972 * uMaybeSelectedCharacter;
-  v2 = (int)((char *)&unk_ACBE48 + 6972 * uMaybeSelectedCharacter);
-  result = sub_492C0B((int)((char *)&unk_ACBE48 + 6972 * uMaybeSelectedCharacter));
+  v2 = &pParty_global->pPlayers[uMaybeSelectedCharacter - 1];
+  result = sub_492C0B(&pParty_global->pPlayers[uMaybeSelectedCharacter - 1]);
   if ( result )
   {
     sub_427D48(&struct_50C0C8, v1);
@@ -11749,7 +11749,7 @@ LABEL_18:
               v4 = 255;
               v1 = 15;
               v2 = 235;
-              return sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(v2, v1, v4);
+              return 0xFFEB0FFF;
             }
             goto LABEL_21;
           }
@@ -11769,7 +11769,7 @@ LABEL_13:
           v4 = v2;
 LABEL_30:
           v1 = v2;
-          return sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(v2, v1, v4);
+          return 0xFF000000 | (v2 << 16) | (v1 << 8) | v4;
         }
         goto LABEL_15;
       }
@@ -11780,7 +11780,7 @@ LABEL_8:
         v1 = 128;
 LABEL_32:
         v2 = 0;
-        return sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(v2, v1, v4);
+        return 0xFF000000 | (v1 << 8) | v4;
       }
       goto LABEL_11;
     }
@@ -11793,7 +11793,7 @@ LABEL_32:
       v1 = 85;
 LABEL_23:
       v2 = 255;
-      return sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(v2, v1, v4);
+      return 0xFFFF0000 | (v1 << 8) | v4;
     }
   }
   if ( a1 >= 23 )
@@ -11801,7 +11801,7 @@ LABEL_23:
   v4 = 255;
   v1 = 212;
   v2 = 150;
-  return sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(v2, v1, v4);
+  return 0xFF96D4FF;
 }
 
 //----- (004583B0) --------------------------------------------------------
@@ -16411,8 +16411,8 @@ void *__fastcall sub_4601B7(int a1)
 
   v1 = 255;
   v40 = a1;
-  sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
-  sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+  0xFFFFFFFF;
+  0xFFFFFF9B;
   CD3DRenderer_BeginScene(pD3DRenderer);
   if ( sub_466CA0() != 3 )
   {
@@ -16557,7 +16557,7 @@ LABEL_23:
     {
       if ( v39 >= (signed int)v37 )
         break;
-      HIDWORD(v38) = v39 == dword_6A0CA0 ? sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(v1, v1, 0x64u) : 0;
+      HIDWORD(v38) = v39 == dword_6A0CA0 ? 0xFF000064 | (v1 << 16) | (v1 << 8) : 0;
       if ( pGUIWindow_PlayerCreation->dword_000040 != 1 || v39 != dword_6A0CA0 )
       {
         sub_44CB4F(pGUIWindow_PlayerCreation, pFontSmallnum, 27, v40, SWORD2(v38), v26, 185, 0);
@@ -18272,7 +18272,7 @@ void __cdecl sub_467FB6()
   v8 = v6 + v4 - 1;
   v9 = v7 + v5 - 1;
   v2 = dword_5DAD28[12 * *(_DWORD *)(dword_507BC4 + 28)];
-  v3 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+  v3 = 0xFFFFFF9B;
   wsprintfA(TmpBuf, (const char *)&unk_4E2D80, v3, v2);
   sub_44D406((int)&v4, pFontCreate, 0, 0, 0, &TmpBuf, 3);
   FontDrawText((int)&v4,

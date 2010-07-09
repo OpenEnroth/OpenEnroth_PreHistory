@@ -91,7 +91,6 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  _UNKNOWN unk_4E2F7C; // weak
  _UNKNOWN unk_4E2FA0; // weak
  char byte_4E2FD4; // idb
- _UNKNOWN unk_4E2FDC; // weak
  _UNKNOWN unk_4E3030; // weak
  void *off_4E3044; // weak
  void *off_4E3048; // weak
@@ -864,7 +863,7 @@ unsigned int uTextureIdx_InventoryBackground; // dword @ MM7.exe::00507958
 //int dword_507AEC; // weak
 //int dword_507AF0; // weak
 
- __int16 dword_507AF8; // idb
+int dword_507AF8; // idb
  int dword_507AFC; // idb
  int dword_507B00; // weak
  int dword_507B04; // weak
@@ -2226,7 +2225,6 @@ struct CPlayerFrameTable *pPlayerFrameTable = 0; // struct @ MM7.exe::00A750EC
  _UNKNOWN unk_A81376; // weak
  _UNKNOWN unk_A96080; // weak
  _UNKNOWN unk_AA1058; // weak
- _UNKNOWN unk_ACBE48; // weak
  int dword_ACC038[array_size_unknown]; // weak
  int dword_ACCCEC[array_size_unknown]; // weak
  int dword_ACCCF0[array_size_unknown]; // weak

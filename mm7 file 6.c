@@ -831,7 +831,7 @@ unsigned int __thiscall sub_48D498(int this)
   unsigned int result; // eax@2
 
   if ( sub_48D45A(this) )
-    result = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, 0);
+    result = 0xFF00FF00;
   else
     result = 0;
   return result;
@@ -4850,7 +4850,7 @@ const CHAR *__fastcall sub_495461(char *lpsz, unsigned __int8 a2, int a3, int a4
   v66 = strlen(Str);
   Dest = 0;
   v8 = &pParty_global->pPlayers[1743 * v6];
-  v65 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+  v65 = 0xFFFFFF9B;
   v67 = v8;
   memset(pStringBuffer, 0, 0x7D0u);
   if ( dword_5C35D4 )
@@ -5289,11 +5289,11 @@ int __cdecl sub_4979D2()
   v7 = class23_AllocatedNamedBuffer(class23_instance, v34, 2 * v30, "scrollermap");
   v8 = v30;
   v34 = v7;
-  v9 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, 0xFFu);
+  v9 = 0xFF00FFFF;
   sub_452AF3(v9, v34, v8);
   v33 = 0;
-  v28 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0x70u, 0x8Fu, 0xFEu);
-  *(_DWORD *)v27 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xECu, 0xE6u, 0x9Cu);
+  v28 = 0xFF708FFE;
+  *(_DWORD *)v27 = 0xFFECE69C;
   compile_error;//Dest = (char *)operator new(2 * v3);
   strncpy(Dest, Source, v3);
   sub_44D2FD(v38, v39, 1, v26 + 1, v31, v32, 1u, 1u, Dest, v34, v31);
@@ -5337,7 +5337,7 @@ int __cdecl sub_4979D2()
       {
         RGBTexture_Load(&v19, "mm6title.pcx", 1);
         v11 = v30;
-        v12 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, 0xFFu);
+        v12 = 0xFF00FFFF;
         sub_452AF3(v12, v34, v11);
         strncpy((char *)&TmpBuf, Source, 0x7D0u);
         sub_44D2FD(v38, v39, 1, v26 + 1, v31, v32, 1u, 1u, &TmpBuf, v34, v31);
@@ -15592,7 +15592,7 @@ void __thiscall sub_4A5D33(int this, int a2, int a3, int a4, int a5, int a6)
           v9 = v20 - v21;
         }
       }
-      v27 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, 0xFFu);
+      v27 = 0xFF00FFFF;
       if ( v9 > 0 )
       {
         v22 = v28;

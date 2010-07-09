@@ -1063,7 +1063,7 @@ LABEL_80:
         while ( v79 <= 4 );
         if ( !v74 )
           return;
-        v43 = (char *)&unk_ACBE48 + 6972 * v72[rand() % v74];
+        v43 = &pParty_global->pPlayers[v72[rand() % v74] - 1];
       }
       else
       {
@@ -7327,8 +7327,8 @@ LABEL_23:
     goto LABEL_23;
   v5 = struct_576FE8.dword_00002C - 34;
 LABEL_8:
-  v92 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0, 0);
-  v86 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, 0xFFu);
+  v92 = 0xFF000000;
+  v86 = 0xFF00FFFF;
   v7 = dword_6BE670;
   dword_576D14 = 0;
   v8 = *(_DWORD *)dword_6BE670 == 0;
@@ -7508,7 +7508,7 @@ LABEL_38:
 LABEL_71:
     sub_4A6776(pD3DRenderer, v52, v50, uTextureIdx_MapDirs[v53] != -1 ? 72 * uTextureIdx_MapDirs[v53] + 7145548 : 0);
   }
-  result = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
+  result = 0xFFFFFFFF;
   v98 = 0;
   v89 = result;
   if ( (signed int)dword_69ADD0 > 0 )
@@ -7581,7 +7581,7 @@ LABEL_71:
     v86 = v60 >> 16;
     v61 = (_DWORD)v66 << 16 >> 16;
     v101 = &v78;
-    result = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xCu, 0xCu, 0xCu);
+    result = 0xFF0C0C0C;
     v88 = 0;
     for ( i = result; v88 < v98; result = v88 )
     {
@@ -8578,9 +8578,9 @@ void __cdecl sub_445350()
   v53 -= 10;
   v54 -= 10;
   *(_DWORD *)v61 = v3;
-  sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
-  sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xE1u, 0xCDu, 0x23u);
-  v2 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0x15u, 0x99u, 0xE9u);
+  0xFFFFFFFF;
+  0xFFE1CD23;
+  v2 = 0xFF1599E9;
   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 477, 0, dword_591430);
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 468, 0, dword_507B04 != -1 ? 72 * dword_507B04 + 7145548 : 0);
   CD3DRenderer_DrawIndexedTexture(
@@ -8862,8 +8862,8 @@ LABEL_79:
     strcpy((char *)(v15 + 85), (const char *)v24);
   }
   v35 = 0;
-  v64 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
-  v37 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xE1u, 0xCDu, 0x23u);
+  v64 = 0xFFFFFFFF;
+  v37 = 0xFFE1CD23;
   v34 = dword_507BBC;
   *(_DWORD *)v61 = v37;
   v36 = *(_DWORD *)(dword_507BBC + 56);

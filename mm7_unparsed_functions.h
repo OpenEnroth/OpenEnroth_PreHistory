@@ -196,7 +196,6 @@ int __thiscall sub_40E32E(int this, const void *Src, size_t Size);
 char __thiscall sub_40E363(int this, unsigned int a2, char a3);
 int __fastcall sub_40E4C2(int a1);
 int loc_40E4FC(); // weak
-unsigned int __fastcall sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3);
 int __fastcall sub_40E51F(int a2);
 signed int __thiscall sub_40E55E(void *Source, unsigned int Filename, unsigned int a3);
 signed int __thiscall sub_40EAD8(void *Source, FILE *File, unsigned int a3, int a4);

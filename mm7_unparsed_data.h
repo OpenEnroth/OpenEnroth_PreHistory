@@ -91,7 +91,6 @@ extern _UNKNOWN unk_4E2F4C; // weak
 extern _UNKNOWN unk_4E2F7C; // weak
 extern _UNKNOWN unk_4E2FA0; // weak
 extern char byte_4E2FD4; // idb
-extern _UNKNOWN unk_4E2FDC; // weak
 extern _UNKNOWN unk_4E3030; // weak
 extern void *off_4E3044; // weak
 extern void *off_4E3048; // weak
@@ -807,7 +806,7 @@ extern struct GUIButton *pMainMenu_NewGame;  // ptr @ MM7.exe::00507AF0
 //int dword_507AEC; // weak
 //int dword_507AF0; // weak
 
-extern __int16 dword_507AF8; // idb
+extern int dword_507AF8; // idb
 extern int dword_507AFC; // idb
 extern int dword_507B00; // weak
 extern int dword_507B04; // weak
@@ -2251,7 +2250,7 @@ extern _UNKNOWN unk_A750F8; // weak
 extern _UNKNOWN unk_A81376; // weak
 extern _UNKNOWN unk_A96080; // weak
 extern _UNKNOWN unk_AA1058; // weak
-extern _UNKNOWN unk_ACBE48; // weak
+//extern _UNKNOWN unk_ACBE48; // pParty_global->pPlayers[-1] indexing
 extern int dword_ACC038[array_size_unknown]; // weak
 extern int dword_ACCCEC[array_size_unknown]; // weak
 extern int dword_ACCCF0[array_size_unknown]; // weak

@@ -100,7 +100,7 @@ void __thiscall sub_4680ED(void *this, signed int a2, int a3)
   int v77; // [sp+28h] [bp-4h]@22
 
   v76 = (int)this;
-  v3 = (int)((char *)&unk_ACBE48 + 6972 * a2);
+  v3 = &pParty_global->pPlayers[a2 - 1];
   v73 = 1;
   if ( dword_ACD834 == 1 && (dword_4F885C == 1 || dword_4F885C == 3) )
     return;
@@ -128,14 +128,14 @@ LABEL_167:
         }
         v69 = 2;
 LABEL_111:
-        sub_48DBB9((int)((char *)&unk_ACBE48 + 6972 * a2), v69);
+        sub_48DBB9(&pParty_global->pPlayers[a2 - 1], v69);
       }
 LABEL_112:
       sub_4948B1((void *)v3, 36, 0);
       goto LABEL_173;
     }
 LABEL_172:
-    Player_sub_492D65((char *)&unk_ACBE48 + 6972 * a2, 6, 1);
+    Player_sub_492D65(&pParty_global->pPlayers[a2 - 1], 6, 1);
     goto LABEL_173;
   }
   if ( (unsigned __int8)byte_5D2A00[48 * dword_AD470C] == 14 )
@@ -303,7 +303,7 @@ LABEL_172:
         v33 = *(_DWORD *)(v3 + 124);
         v34 = *(_DWORD *)(v3 + 128);
         v35 = *(_DWORD *)(v3 + 132);
-        memset((char *)&unk_ACBE48 + 6972 * a2, 0, 0xA0u);
+        memset(&pParty_global->pPlayers[a2 - 1], 0, 0xA0);
         *(_DWORD *)(v3 + 116) = v31;
         *(_DWORD *)(v3 + 120) = v32;
         *(_DWORD *)(v3 + 124) = v33;
@@ -675,7 +675,7 @@ LABEL_187:
         class03_sub_4698A6(pGame->pClass03);
         return;
       }
-      if ( sub_492C0B((int)((char *)&unk_ACBE48 + 6972 * a2)) )
+      if ( sub_492C0B(&pParty_global->pPlayers[a2 - 1]))
       {
         sub_467F48(dword_AD470C);
         v65 = 0;
@@ -721,7 +721,7 @@ LABEL_63:
       AudioPlayer_sub_4AA306(v14, v37, v39, v41, v43, v45, v48, v52, v61);
       return;
     }
-    if ( !sub_492C0B((int)((char *)&unk_ACBE48 + 6972 * a2)) )
+    if ( !sub_492C0B(&pParty_global->pPlayers[a2 - 1]))
     {
       //v66 = (int)(&dword_AE3280)[4 * sub_48E9F4((void *)v3)];
      v66 = (int)(aCharacterConditionNames[sub_48E9F4((void *)v3)]);
@@ -834,7 +834,7 @@ LABEL_178:
   }
   if ( dword_4E28F8 == 23 )
     return;
-  if ( !sub_492C0B((int)((char *)&unk_ACBE48 + 6972 * a2)) )
+  if ( !sub_492C0B(&pParty_global->pPlayers[a2 - 1]) )
     goto LABEL_89;
   if ( byte_6BE3C4 == 1 )
   {

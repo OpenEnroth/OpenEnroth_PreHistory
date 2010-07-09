@@ -4498,25 +4498,6 @@ int __fastcall sub_40DDB1(int a1, int a2)
   return a1 + rand() % (a2 - a1 + 1);
 }
 
-//----- (0040DEF3) --------------------------------------------------------
-unsigned int __fastcall sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3)
-{
- return 0xFF000000 |
-        ((unsigned int)a1 < 16) |
-        ((unsigned int)a2 < 8) |
-        a3;
- /*
- unsigned int v1,
-              v2,
-              v3;
-
- v1 = (unsigned int)(a3) >> (8 - pD3DRenderer->uNumTargetBBits);
- v2 = pD3DRenderer->uTargetGMask & (a2 << (pD3DRenderer->uNumTargetGBits + (unsigned char)(pD3DRenderer->uNumTargetBBits) - 8));
- v3 = pD3DRenderer->uTargetRMask & (a1 << (pD3DRenderer->uNumTargetGBits + (_BYTE)pD3DRenderer->uNumTargetRBits + (_BYTE)pD3DRenderer->uNumTargetBBits - 8));
- return v1 | v2 | v3;*/
-
-}
-
 //----- (0040DDC9) --------------------------------------------------------
 void __thiscall sub_40DDC9(void *this)
 {
@@ -4635,7 +4616,8 @@ int __cdecl sub_40DED8()
 //----- (0040DEDB) --------------------------------------------------------
 unsigned int __stdcall sub_40DEDB(int a1)
 {
-  return sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat((unsigned __int8)a1, BYTE1(a1), BYTE2(a1));
+  //return sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat((unsigned __int8)a1, BYTE1(a1), BYTE2(a1));
+ return 0xFF000000 | ((a1 & 0x000000FF) << 16) | (a1 & 0x0000FF00) | ((a1 & 0x00FF0000) >> 16);
 }
 
 
@@ -6727,7 +6709,7 @@ char *__thiscall sub_410B28(void *this)
   v8 = *(const char **)v2;
   v14 = v10 + v12 - 1;
   v15 = v13 + v11 - 1;
-  v9 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+  v9 = 0xFFFFFF9B;
   sub_44D406((int)&v10, pFontArrus, 120, 12, v9, v8, 3);
   FontDrawText((int)&v10, pFontSmallnum, 120, 44, pStringBuffer, 0, 0, 0);
   v12 = 108;
@@ -8965,7 +8947,7 @@ void __cdecl sub_413D6F()
 
   v0 = pParty_global->dword_00071C;
   v11 = CMapStats_FindLocation(pMapStats, Str1);
-  v13 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0x4Bu, 0x4Bu, 0x4Bu); //colored or white text flag
+  v13 = 0xFF4B4B4B; //colored or white text flag
   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, class28_global.dword_000010, class28_global.dword_000014, dword_5064D4);
   v12 = (unsigned __int8)byte_4E1B18[pParty_global->dword_000718];
   if ( v0 <= 12 )
@@ -9130,7 +9112,7 @@ void __cdecl sub_4142D3()
   char *v65; // [sp-4h] [bp-18h]@16
   __int16 v66; // [sp+10h] [bp-4h]@1
 
-  v0 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);//colored or white text flag
+  v0 = 0xFFFFFFFF;//colored or white text flag
   v66 = v0;
   if ( byte_4E28FC )
   {
@@ -9146,7 +9128,7 @@ void __cdecl sub_4142D3()
     if ( v1 == 15 )
       byte_4E28FC = 1;
   }
-  v3 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(v1, 0, 0);
+  v3 = 0xFF000000 | ((v1 & 0x000000FF) << 16);
   v2 = pGUIWindow_PlayerCreation;
   dword_507C08 = v3;
   if ( *(_DWORD *)(pGUIWindow_PlayerCreation + 64) == 2 )
@@ -9316,9 +9298,9 @@ unsigned int __thiscall sub_414D24(void *this)
   void *v4; // esi@1
 
   v4 = this;
-  v3 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xE1u, 0xCDu, 0x23u);
-  v2 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFu, 0, 0);
-  result = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
+  v3 = 0xFFE1CD23;
+  v2 = 0xFF0F0000;
+  result = 0xFFFFFFFF;
   if ( (void *)dword_506E68 == v4 )
   {
     if ( GetTickCount() % 0x3E8 <= 0x1F4 )
@@ -9365,7 +9347,7 @@ void __cdecl sub_414D9A()
       v6 = 79;
       v7 = 232;
       v8 = 268;
-      v1 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+      v1 = 0xFFFFFF9B;
       sub_44D406((int)&v3, pFontSmallnum, 0, 0, v1, v0, 3);
     }
   }
@@ -10484,7 +10466,7 @@ LABEL_82:
       }
       else
       {
-        v27 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);//colored or white text flag
+        v27 = 0xFFFFFFFF;//colored or white text flag
         if ( *(_DWORD *)(dword_507BD0 + 64) == 1 )
         {
           sub_415551(dword_507BD0, 0);
@@ -11316,7 +11298,7 @@ void __thiscall sub_416B01(void *this)
           v10 = &TmpBuf;
           strcpy((char *)&TmpBuf, v12);
         }
-        v13 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+        v13 = 0xFFFFFF9B;
         sub_44D406((int)&v15, pFontArrus, 0, 12, v13, v10, 3);
         v17 -= 24;
         v19 = v15 + v17 - 1;
@@ -11740,7 +11722,7 @@ LABEL_112:
     v29 -= 12;
     v30 = v26 + v28 - 1;
     v31 = v27 + v29 - 1;
-    v25 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+    v25 = 0xFFFFFF9B;
     sprintfex(&TmpBuf, (const char *)&unk_4E2D80, v25, v14);
     sub_44D406((int)&v26, pFontCreate, 0, 0, 0, &TmpBuf, 3);
     FontDrawText((int)&v26, pFontSmallnum, 1, *(_BYTE *)(pFontLucida + 5), v23, 0, 0, 0);
@@ -11983,9 +11965,9 @@ signed int __thiscall sub_417939(void *this)
 
   v4 = this;
   v2 = 65535;
-  v3 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xE1u, 0xCDu, 0x23u);
-  v6 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0x23u, 0);
-  v1 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, 0);
+  v3 = 0xFFE1CD23;
+  v6 = 0xFFFF2300;
+  v1 = 0xFF00FF00;
   switch ( (unsigned int)(v4) )
   {
     case 0u:
@@ -12048,7 +12030,7 @@ void sub_4179BC(int a1, const char *a2)
   v9 -= 12;
   v10 = Dst + v8 - 1;
   v11 = v7 + v9 - 1;
-  v5 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+  v5 = 0xFFFFFF9B;
   sprintfex(&TmpBuf, (const char *)&unk_4E2D80, v5, v4);
   sub_44D406((int)&Dst, pFontCreate, 0, 0, 0, &TmpBuf, 3);
   FontDrawText((int)&Dst, pFontSmallnum, 1, *(_BYTE *)(pFontLucida + 5), v3, 0, 0, 0);
@@ -12073,9 +12055,9 @@ unsigned int __fastcall sub_417AD4(signed int a1, int a2, signed int a3)
 
   v5 = a2;
   v6 = a1;
-  v16 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
-  v15 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0, 0);
-  v14 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0);
+  v16 = 0xFFFFFFFF;
+  v15 = 0xFFFF0000;
+  v14 = 0xFFFFFF00;
   v4 = 0;
   v3 = v6 % 4;
   if ( !(v6 % 4) )
@@ -12240,7 +12222,7 @@ _UNKNOWN *__fastcall sub_417BB5(int a1, int a2)
     sprintfex(&Source, (const char *)&unk_4E2DC8, v14);
     strcat(&Dest, &Source);
     strcat(&Dest, "%s\t%03d:\t%03d%s\t000\n\n");
-    v15 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0xFFu);
+    v15 = 0xFFFFFFFF;
     sprintfex(&Source, (const char *)&unk_4E2DC8, v15);
     strcat(&Dest, &Source);
     strcat(&Dest, "%s: +%d");
@@ -12818,7 +12800,7 @@ int __cdecl sub_419401()
   }
   v12 = 0;
   v19 = *(_DWORD *)(pGUIWindow_PlayerCreation + 32);
-  v18 = (char *)&unk_ACBE48 + 6972 * v1;
+  v18 = &pParty_global->pPlayers[v1 - 1];
   result = pFontLucida;
   v14 = (int *)&unk_4E2A2C;
   v3 = 2 * *(_BYTE *)(pFontLucida + 5) + 13;
@@ -13039,12 +13021,12 @@ void GameUI_DrawSkillsTab(int a1) // character skills tab
   int v107; // [sp+3Ch] [bp-4h]@114
 
   v3 = a1;
-  v93 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);//colored or white text flag
-  v99 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xAFu, 0xFFu);
+  v93 = 0xFFFFFF9B;//colored or white text flag
+  v99 = 0xFF00AFFF;
   v100 = *(_DWORD *)(pGUIWindow_PlayerCreation + 44);
-  v101 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0, 0);
-  v94 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, 0);
-  v2 = (char *)&unk_ACBE48 + 6972 * v3;
+  v101 = 0xFFFF0000;
+  v94 = 0xFF00FF00;
+  v2 = &pParty_global->pPlayers[v3 - 1];
   v4 = class17_LoadTexture(pClass17_Icons_LOD, "fr_skill", 2);
   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 8, v4 != -1 ? 72 * v4 + 7145548 : 0);
   v1 = v94;
@@ -13113,7 +13095,7 @@ void GameUI_DrawSkillsTab(int a1) // character skills tab
         if ( HIBYTE(v102) & 1 )
         {
           if ( !v15 )
-            v15 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+            v15 = 0xFFFFFF9B;
           v69 = v89;
           v65 = v73;
           v61 = pGlobalTXT_LocalizationStrings[96];
@@ -13131,7 +13113,7 @@ void GameUI_DrawSkillsTab(int a1) // character skills tab
             v16 = pGlobalTXT_LocalizationStrings[433];
           v103 = v16;
           if ( !v15 )
-            v15 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+            v15 = 0xFFFFFF9B;
           v69 = v89;
           v65 = v73;
           v61 = v103;
@@ -13208,7 +13190,7 @@ LABEL_29:
         if ( HIBYTE(v24) & 1 )
         {
           if ( !v28 )
-            v28 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+            v28 = 0xFFFFFF9B;
           v70 = v25;
           v66 = v74;
           v62 = pGlobalTXT_LocalizationStrings[96];
@@ -13227,7 +13209,7 @@ LABEL_29:
             v30 = pGlobalTXT_LocalizationStrings[433];
           v104 = v30;
           if ( !v28 )
-            v28 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+            v28 = 0xFFFFFF9B;
           v70 = v25;
           v66 = v74;
           v62 = v104;
@@ -13304,7 +13286,7 @@ LABEL_59:
         if ( (*(_WORD *)&v2[2 * v79 + 264] >> 8) & 1 )
         {
           if ( !v42 )
-            v42 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+            v42 = 0xFFFFFF9B;
           v71 = v91;
           v67 = v75;
           v63 = pGlobalTXT_LocalizationStrings[96];
@@ -13322,7 +13304,7 @@ LABEL_59:
             v43 = pGlobalTXT_LocalizationStrings[433];
           v106 = v43;
           if ( !v42 )
-            v42 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+            v42 = 0xFFFFFF9B;
           v71 = v91;
           v67 = v75;
           v63 = v106;
@@ -13400,7 +13382,7 @@ LABEL_89:
         if ( HIBYTE(v51) & 1 )
         {
           if ( !v55 )
-            v55 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+            v55 = 0xFFFFFF9B;
           v72 = v52;
           v68 = v76;
           v64 = pGlobalTXT_LocalizationStrings[96];
@@ -13419,7 +13401,7 @@ LABEL_89:
             v57 = pGlobalTXT_LocalizationStrings[433];
           v107 = v57;
           if ( !v55 )
-            v55 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+            v55 = 0xFFFFFF9B;
           v72 = v52;
           v68 = v76;
           v64 = v107;
@@ -13550,10 +13532,9 @@ LABEL_23:
 }
 
 //----- (0041A000) --------------------------------------------------------
-int __fastcall GameUI_DrawAwardsTab(int a1)
+int __fastcall GameUI_DrawAwardsTab(unsigned int uCharacter)
 {
   int result; // eax@1
-  int v2; // esi@1
   unsigned int v3; // ebx@1
   int v4; // eax@1
   int v5; // eax@15
@@ -13569,7 +13550,7 @@ int __fastcall GameUI_DrawAwardsTab(int a1)
   __int16 v15; // ax@43
   int v16; // eax@43
   int v17; // [sp-4h] [bp-D4h]@16
-  char Source; // [sp+Ch] [bp-C4h]@1
+  char Source[100]; // [sp+Ch] [bp-C4h]@1
   int v19; // [sp+70h] [bp-60h]@1
   int v20; // [sp+74h] [bp-5Ch]@1
   int v21; // [sp+78h] [bp-58h]@1
@@ -13580,20 +13561,16 @@ int __fastcall GameUI_DrawAwardsTab(int a1)
   int v26; // [sp+C8h] [bp-8h]@14
   int v27; // [sp+CCh] [bp-4h]@40
 
-  v2 = a1;
-  v3 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
-  v4 = class17_LoadTexture(pClass17_Icons_LOD, "fr_award", 2);
-  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 8, v4 != -1 ? 72 * v4 + 7145548 : 0);
-  wsprintfA(TmpBuf, (const char *)&unk_4E2FDC, pGlobalTXT_LocalizationStrings[23], v3);
-  wsprintfA(
-    &Source,
-    pGlobalTXT_LocalizationStrings[429],
-    (char *)&unk_ACBE48 + 6972 * v2 + 168,
-    aClassNames[*((_BYTE *)&unk_ACBE48 + 6972 * v2 + 185)]);
+  v3 = 0xFFFFFF9B;
+  v4 = class17_LoadTexture_New(pClass17_Icons_LOD, L"fr_award");
+  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 8, &pClass17_Icons_LOD->aLODHeaders[v4]);
 
-  strcat(TmpBuf, &Source);
+  wsprintfA(TmpBuf, "%s \x0C%08X", pGlobalTXT_LocalizationStrings[23], v3);
+  wsprintfA(Source, pGlobalTXT_LocalizationStrings[429], pParty_global->pPlayers[uCharacter - 1].sName, aClassNames[pParty_global->pPlayers[uCharacter - 1].uClass]);
+
+  strcat(TmpBuf, Source);
   strcat(TmpBuf, &byte_4E2FD4);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 24, 18, TmpBuf, 0, 0, 0);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 24, 18, TmpBuf, 0xFFFFFF9B, 0, 0xFF000000);
   result = dword_506528;
   v19 = 12;
   v20 = 48;
@@ -13657,7 +13634,7 @@ LABEL_42:
 LABEL_43:
       v14 = *(int *)((char *)dword_723E84 + v25);
       ++dword_506520;
-      v15 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(byte_4E2AA4[3 * v14 % 6], byte_4E2AA4[3 * v14 % 6 + 1], byte_4E2AA4[3 * v14 % 6 + 2]);
+      v15 = 0xFF000000 | ((unsigned int)(byte_4E2AA4[3 * v14 % 6]) << 16) | ((unsigned int)(byte_4E2AA4[3 * v14 % 6 + 1]) << 8) | byte_4E2AA4[3 * v14 % 6 + 2];
       FontDrawText((int)&v19, pFontArrus, 0, 0, v6, 0, 0, 0);
       v16 = sub_44C59D(pFontArrus, v6, (int)&v19, 0, 0);
       result = v16 + v20 + 4;
@@ -13938,9 +13915,9 @@ void __cdecl sub_41A57E()
   unsigned int v49; // [sp+28h] [bp-4h]@1
 
   v0 = 0;
-  v47 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
-  v49 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0, 0);
-  v46 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, 0);
+  v47 = 0xFFFFFF9B;
+  v49 = 0xFFFF0000;
+  v46 = 0xFF00FF00;
   v1 = class17_LoadTexture(pClass17_Icons_LOD, "quikref", 2);
   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 8, v1 != -1 ? 72 * v1 + 7145548 : 0);
   v43 = 0;
@@ -13960,7 +13937,7 @@ void __cdecl sub_41A57E()
     if ( Player_GetActualLevel((void *)v2) <= v4 )
       v5 = sub_48D498(v2);
     else
-      v5 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, v0);
+      v5 = 0xFF00FF00 | (unsigned char)v0;
     sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, v44, 47, v5, &TmpBuf, 84, v0);
     v6 = v45 + 47;
     if ( v43 == v0 )
@@ -15139,7 +15116,7 @@ void sub_41D3B7(int this)
     }
   }
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, *(_DWORD *)v4 + 24, *(_DWORD *)(v4 + 4) + 24, v13);
-  v17 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+  v17 = 0xFFFFFF9B;
   sprintfex(TmpBuf, (const char *)&unk_4E2DC8, v17);
   //sprintfex(&pStringBuffer, (const char *)dword_5E4834, v5 + 168, (&dword_AE31F0)[4 * *(_BYTE *)(v5 + 185)]);
   sprintfex(pStringBuffer, pGlobalTXT_LocalizationStrings[429], v5 + 168, aClassNames[*(_BYTE *)(v5 + 185)]);
@@ -15191,7 +15168,7 @@ void sub_41D3B7(int this)
         compile_error;//v35 = __PAIR__(v34, v33) - pParty_global->qword_00002C;
         v36 = v45++ * *(_BYTE *)(v42 + 5) + 134;
         v37 = *(const char **)v46;
-        v38 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(*((_BYTE *)v31 - 1), *(_BYTE *)v31, *((_BYTE *)v31 + 1));//colored or white text flag
+        v38 = 0xFF000000 | ((unsigned int)(*((_BYTE *)v31 - 1)) << 16) | ((unsigned int)(*(_BYTE *)v31) << 8) | *((_BYTE *)v31 + 1);//colored or white text flag
         FontDrawText(v43, v42, 52, v36, v37, 0, 0, 0);
         sub_41D20D(v36, v43, v35, v42);
         v30 = v41;
@@ -15276,7 +15253,7 @@ void sub_41D73D(int this)
         v12 = v20 * *(_BYTE *)(v3 + 5) + 40;
         v13 = (const char *)*v16;
         ++v20;
-        v14 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(*((_BYTE *)v8 - 1), *(_BYTE *)v8, *((_BYTE *)v8 + 1));//colored or white text flag
+        v14 = 0xFF000000 | ((unsigned int)(*((_BYTE *)v8 - 1)) << 16) | ((unsigned int)(*(_BYTE *)v8) << 8) | *((_BYTE *)v8 + 1);//colored or white text flag
         FontDrawText(v2, v17, 52, v12, v13, 0, 0, 0);
         sub_41D20D(v12, v2, v11, v17);
         v3 = v17;
@@ -15390,7 +15367,7 @@ void __thiscall sub_41D895(void *this)
 
   v1 = this;
   v97 = (int)this;
-  *(_DWORD *)v78 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+  *(_DWORD *)v78 = 0xFFFFFF9B;
   v94 = pFontComic;
   if ( *(_DWORD *)v1 )
   {
@@ -15513,7 +15490,7 @@ void __thiscall sub_41D895(void *this)
       v57 = pGlobalTXT_LocalizationStrings[232];
 LABEL_37:
       v21 = v20 >> 1;
-      v22 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0x19u, 0x19u);
+      v22 = 0xFFFF1919;
       sub_44D406((int)&v84, pFontArrus, 100, (v87 >> 1) - v21, v22, v57, v62);
       goto LABEL_116;
     }
@@ -15923,7 +15900,7 @@ char *__fastcall sub_41E360(int a1, int a2)
   v128 = -1;
   v3 = (int)((char *)pActors + 836 * v2);
   v143 = v3;
-  v4 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xE1u, 0xFFu, 0x9Bu);
+  v4 = 0xFFFFFF9B;
   v5 = *(_WORD *)(v3 + 32);
   v144 = v4;
   v6 = sub_4459F9(v5);
@@ -16178,7 +16155,7 @@ LABEL_51:
   }
   strncpy((char *)&TmpBuf, (const char *)v72, v77);
 LABEL_59:
-  v38 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
+  v38 = 0xFFFFFF9B;
   sub_44D406(v145, pFontComic, 0, 12, v38, &TmpBuf, 3);
   sub_41AF52(v143, v145);
   v141 = 0;
@@ -16896,8 +16873,8 @@ void __cdecl sub_41FA01()
   int v19; // [sp+E0h] [bp-4h]@1
 
   v1 = 0;
-  v19 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xAu, 0, 0);
-  *(_DWORD *)v18 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xE6u, 0xD6u, 0xC1u);
+  v19 = 0xFF0A0000;
+  *(_DWORD *)v18 = 0xFFE6D6C1;
   v0 = (signed int)pPlayers;
   do
   {

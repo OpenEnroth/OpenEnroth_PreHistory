@@ -51,8 +51,8 @@ void RtlCallCtors()
  pD3DRenderer = malloc(sizeof(struct CD3DRenderer));
  CD3DRenderer_ctor(pD3DRenderer);
 
- dword_507AFC = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(10, 0, 0);
- dword_507AF8 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(230, 214, 193);
+ dword_507AFC = 0xFF0A0000;
+ dword_507AF8 = 0xFFE6D6C1;
 
  pClass33_global0 = malloc(sizeof(struct RGBTexture));
  RGBTexture_ctor(pClass33_global0);
@@ -4471,6 +4471,7 @@ LABEL_22:
   }
 
   GameUI_DrawStatsTab(1);
+  GameUI_DrawAwardsTab(1);
   //GameUI_DrawInventory(1, false);
 
   sub_4156F0();
@@ -6423,10 +6424,6 @@ void __cdecl sub_481ED9()
 void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
 {
   int v2; // ecx@2
-  unsigned int v3; // eax@7
-  unsigned __int16 v4; // dx@7
-  unsigned __int16 v5; // cx@7
-  unsigned __int16 v6; // [sp-4h] [bp-14h]@7
 
   unsigned int uTextureIdx_Endcap;
 
@@ -6517,20 +6514,18 @@ void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
         array_6A0D14[2].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "torchC");
         CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[2].uIconIdx);
       }
-      v3 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xC8u, 0, 0);
-      v4 = 0;
-      v6 = 0;
-      v5 = 10;
+      dword_507AFC = 0xFFC80000;
+      dword_507AF8 = 0xFF0A0000;
     }
     else
-    {
+    {/*
       if ( a2 )
-      {/*
-       sub_40F5F5(pTexture_RightFrame, "ib-r-a.pcx");
-       sub_40F5F5(pTexture_BottomFrame, "ib-b-a.pcx");
-       sub_40F5F5(pTexture_TopFrame, "ib-t-a.pcx");
-       sub_40F5F5(pTexture_LeftFrame, "ib-l-a.pcx");
-       sub_40F5F5(pTexture_StatusBar, "IB-Foot-a.pcx");
+      {
+        RGBTexture_Load(pTexture_RightFrame, "ib-r-A", 0);
+        RGBTexture_Load(pTexture_BottomFrame, "ib-b-A", 0);
+        RGBTexture_Load(pTexture_TopFrame, "ib-t-A", 0);
+        RGBTexture_Load(pTexture_LeftFrame, "ib-l-A", 0);
+        RGBTexture_Load(pTexture_StatusBar, "IB-Foot-a", 0);
 
         sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[dword_5079E4], "ib-mb-a", 2);
         sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_MinimapMask], "ib-autmask-a", 2);
@@ -6551,13 +6546,13 @@ void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
         sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[dword_507968], "isg-02-a", 2);
         sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[dword_507964], "isg-03-a", 2);
         sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[dword_507960], "isg-04-a", 2);
-        uIconIdx_WizardEye = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeA");
-        CIconFrameTable_InitializeIcon(pIconFrameTable, uIconIdx_WizardEye);
-        uIconIdx_Torch = CIconFrameTable_FindIcon(pIconFrameTable, "torchA");
-        CIconFrameTable_InitializeIcon(pIconFrameTable, uIconIdx_Torch);
+        array_6A0D14[3].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeA");
+        CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[3].uIconIdx);
+        array_6A0D14[2].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "torchA");
+        CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[2].uIconIdx);
         sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[dword_506438], "ib-bcu-a", 2);
         sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[dword_50795C], "evtnpc", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[dword_507958], "fr_inven", 2);
+        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_InventoryBackground], "fr_inven", 2);
         sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_Parchment], "parchment", 2);
         sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_CornerLowerLeft], "cornr_ll", 2);
         sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_CornerLowerRight], "cornr_lr", 2);
@@ -6567,9 +6562,9 @@ void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
         sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeLeft], "edge_lf", 2);
         sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeRight], "edge_rt", 2);
         sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeTop], "edge_top", 2);
-        sub_4101B1(pClass17_Icons_LOD, pClass18_EndcapTexture, "endcap", 2);*/
+        sub_4101B1(pClass17_Icons_LOD, pClass18_EndcapTexture, "endcap", 2);
       }
-      else
+      else*/
       {
         RGBTexture_Load(pTexture_RightFrame, "ib-r-A", 0);
         RGBTexture_Load(pTexture_BottomFrame, "ib-b-A", 0);
@@ -6625,10 +6620,8 @@ void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
         uTextureIdx_Endcap = class17_LoadTexture(pClass17_Icons_LOD, "endcap", 2);
         pClass18_EndcapTexture = &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_Endcap];
       }
-      v3 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xAu, 0, 0);
-      v4 = 214;
-      v5 = 230;
-      v6 = 193;
+      dword_507AFC = 0xFF0A0000;
+      dword_507AF8 = 0xFFE6D6C1;
     }
   }
   else
@@ -6677,13 +6670,9 @@ void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
       sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_EdgeTop + 7145548), "edge_top-b", 2);
       sub_4101B1(pClass17_Icons_LOD, pClass18_EndcapTexture, "endcap-b", 2);
     }
-    v3 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0, 0xC8u);
-    v5 = 255;
-    v4 = 225;
-    v6 = 255;
+    dword_507AFC = 0xFF0000C8;
+    dword_507AF8 = 0xFFFFE1FF;
   }
-  dword_507AFC = v3;
-  *(_DWORD *)&dword_507AF8 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(v5, v4, v6);
 }
 
 //----- (00473893) --------------------------------------------------------
@@ -8858,7 +8847,7 @@ int __cdecl sub_493938()
         if ( !(byte_ACD8C3 & 1) )
         {
           v6 = v4 * (unsigned __int16)word_ACD8BC;
-          v5 = (char *)&unk_ACBE48 + 6972 * (unsigned __int8)byte_ACD8C2 + 6464;
+          v5 = (char *)(&pParty_global->pPlayers[(unsigned __int8)byte_ACD8C2 - 1]) + 6464;
           v7 = *(_DWORD *)v5 - v6 < 0;
           *(_DWORD *)v5 -= v6;
           if ( v7 )
@@ -8877,7 +8866,7 @@ int __cdecl sub_493938()
       {
         if ( !(byte_ACD973 & 1) )
         {
-          v8 = (char *)&unk_ACBE48 + 6972 * (unsigned __int8)byte_ACD972 + 6464;
+          v8 = (char *)(&pParty_global->pPlayers[(unsigned __int8)byte_ACD972 - 1]) + 6464;
           v9 = *(_DWORD *)v8 - v4 < 0;
           *(_DWORD *)v8 -= v4;
           if ( v9 )
