@@ -6860,7 +6860,7 @@ LABEL_73:
     if ( !(unsigned __int16)sub_449B57((int)byte_ACD71D, 239) )
       *(_DWORD *)v5 = 486;
   }
-  if ( byte_5D2A12[48 * *(_DWORD *)v5] )
+  if (byte_5D2A00[48 * *(_DWORD *)v5 + 18])
     *(_DWORD *)(v5 + 20) = 0;
   else
     *(_DWORD *)(v5 + 20) = 1;
@@ -6889,7 +6889,7 @@ LABEL_73:
     {
       if ( (_BYTE)v18 == 12 )
       {
-        v18 = rand() % 6 + (unsigned __int8)byte_5D2A04[48 * *(_DWORD *)v5] + 1;
+        v18 = rand() % 6 + (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v5 + 4] + 1;
         *(_DWORD *)(v5 + 16) = v18;
         *(_BYTE *)(v5 + 25) = v18;
       }
@@ -10538,7 +10538,7 @@ int Party_AddItem(struct Party *_this, int a2)
 
   v23 = _this;
   v2 = 48 * *(_DWORD *)a2;
-  if ( !byte_5D2A12[v2] )
+  if (!byte_5D2A00[v2 + 18])
     *(_DWORD *)(a2 + 20) |= 1u;
   v18 = 0;
   v19 = 1;

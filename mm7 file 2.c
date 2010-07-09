@@ -1014,7 +1014,7 @@ LABEL_85:
       }
 
       SaveGame(0, 0);
-      ++dword_ACD6F4;
+      ++pParty_global->dword_00073C;
 
       for (i = 0; i < 4; ++i)
         sub_44A5CB(&pParty_global->pPlayers[i], 12, 85);
@@ -1053,7 +1053,7 @@ LABEL_85:
       {
         pParty_global->sPartyPosX = -17331;
         pParty_global->sPartyPosY = 12547;
-        pParty_global->dword_0006BC = 465;
+        pParty_global->sPartyPosZ = 465;
         pParty_global->dword_0006C0 = 0;
         v16 = "out02.odm";
       }
@@ -1061,22 +1061,22 @@ LABEL_85:
       {
         pParty_global->sPartyPosX = 12552;
         pParty_global->sPartyPosY = 1816;
-        pParty_global->dword_0006BC = 0;
+        pParty_global->sPartyPosZ = 0;
         pParty_global->dword_0006C0 = 512;
         v16 = "out01.odm";
       }
       strcpy(&Source, v16);
-      pParty_global->dword_000700 = pParty_global->dword_0006BC;
+      pParty_global->dword_000700 = pParty_global->sPartyPosZ;
       pParty_global->dword_0006C4 = 0;
-      dword_ACD6A0 = 0;
-      dword_ACD69C = 0;
-      dword_ACD698 = 0;
+      pParty_global->dword_0006E8 = 0;
+      pParty_global->dword_0006E4 = 0;
+      pParty_global->dword_0006E0 = 0;
       if ( _strcmpi(&Source, Str1) )
       {
         strcpy(Str1, &Source);
         dword_5B65A8 = pParty_global->sPartyPosX;
         dword_5B65AC = pParty_global->sPartyPosY;
-        dword_5B65B0 = pParty_global->dword_0006BC;
+        dword_5B65B0 = pParty_global->sPartyPosZ;
         dword_5B65B4 = pParty_global->dword_0006C0;
         dword_5B65B8 = pParty_global->dword_0006C4;
         dword_5B65C0 = 1;
@@ -3780,7 +3780,7 @@ LABEL_49:
     {
       if ( v7 <= 120 )
       {
-        v9 = &byte_ACD6F1[v7];
+       v9 = (char *)&pParty_global->uNumGoldInBank + v7 + 1;
         if ( !*v9 )
         {
           *v9 = 1;
@@ -3791,7 +3791,7 @@ LABEL_49:
     v10 = 108;
     do
     {
-      if ( !byte_ACD6F1[v10] )
+      if ( !*((char *)&pParty_global->uNumGoldInBank + v10 + 1) )
         break;
       ++v10;
     }
@@ -8329,10 +8329,10 @@ int sub_49024A(struct Player *_this, char a2)
 {
  int i;
 
-  _this->qword_0000A0 = rand() % 100 + 251;
+  _this->uExperience = rand() % 100 + 251;
 
   _this->uClass = a2;
-  _this->word_0000BE = 0;
+  _this->uStrengthBonus = 0;
   _this->word_0000C2 = 0;
   _this->word_0000C6 = 0;
   _this->word_0000CA = 0;
@@ -9647,12 +9647,12 @@ int __fastcall SaveGame(int a1, int a2)
     sub_461743(Str2);
     v56 = pParty_global->sPartyPosX;
     v55 = pParty_global->sPartyPosY;
-    v66 = pParty_global->dword_0006BC;
+    v66 = pParty_global->sPartyPosZ;
     v57 = pParty_global->dword_0006C0;
     v58 = pParty_global->dword_0006C4;
     pParty_global->sPartyPosX = pParty_global->dword_0006C8;
     pParty_global->sPartyPosY = pParty_global->dword_0006CC;
-    pParty_global->dword_0006BC = pParty_global->dword_0006D0;
+    pParty_global->sPartyPosZ = pParty_global->dword_0006D0;
     pParty_global->dword_0006C0 = pParty_global->dword_0006D4;
     pParty_global->dword_0006C4 = pParty_global->dword_0006D8;
     pParty_global->dword_000700 = pParty_global->dword_0006D0;
@@ -9988,7 +9988,7 @@ int __fastcall SaveGame(int a1, int a2)
     }
     pParty_global->sPartyPosX = v56;
     pParty_global->sPartyPosY = v55;
-    pParty_global->dword_0006BC = v66;
+    pParty_global->sPartyPosZ = v66;
     pParty_global->dword_000700 = v66;
     pParty_global->dword_0006C0 = v57;
     result = v58;
@@ -10359,7 +10359,7 @@ LABEL_138:
                 v49 = v26;
                 if ( byte_5D2A00[48 * v26] == 12 )
                 {
-                  v51 = rand() % 6 + (unsigned __int8)byte_5D2A04[48 * v49] + 1;
+                  v51 = rand() % 6 + (unsigned __int8)byte_5D2A00[48 * v49 + 4] + 1;
                   v53 = v51;
                 }
                 else
@@ -10614,17 +10614,17 @@ LABEL_110:
         v10 = *(_DWORD *)(dword_507BC0 + 28);
         if ( v10 >= 53 )
           continue;
-        v11 = dword_ACD2F0[2 * v10];
+        v11 = pParty_global->array_000334[2 * v10 + 1];
 
-        compile_error;//if ( !__PAIR__(v11, dword_ACD2EC[2 * v10])
+        compile_error;//if ( !__PAIR__(v11, pParty_global->array_000334[2 * v10])
           //|| v11 < HIDWORD(pParty_global->qword_00002C)
-          //|| v11 <= HIDWORD(pParty_global->qword_00002C) && (unsigned int)dword_ACD2EC[2 * v10] <= (_DWORD)pParty_global->qword_00002C )
+          //|| v11 <= HIDWORD(pParty_global->qword_00002C) && (unsigned int)pParty_global->array_000334[2 * v10] <= (_DWORD)pParty_global->qword_00002C )
         if (0)
         {
           if ( v10 < 53 )
           {
-            dword_ACD2EC[2 * v10] = 0;
-            dword_ACD2F0[2 * v10] = 0;
+            pParty_global->array_000334[2 * v10] = 0;
+            pParty_global->array_000334[2 * v10 + 1] = 0;
           }
           continue;
         }
@@ -10884,7 +10884,7 @@ LABEL_116:
           v11 = v0 + 36 * v58;
           if ( *(_DWORD *)(v11 + 532) == 220 )
           {
-            *(_DWORD *)(v11 + 536) = v9 + (unsigned __int8)byte_5D2A02[48 * dword_AD470C];
+            *(_DWORD *)(v11 + 536) = v9 + (unsigned __int8)byte_5D2A00[48 * dword_AD470C + 2];
             switch ( dword_AD470C )
             {
               case 200:
@@ -11112,7 +11112,7 @@ LABEL_115:
         v42 = (int)&v55;
         v41 = (int)&v53;
         v40 = (int)&v56;
-        v39 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
+        v39 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
       }
       else
       {
@@ -11147,7 +11147,7 @@ LABEL_115:
                 sub_44A5CB((char *)v0, 223, word_5E2CCC[v20]);
 LABEL_74:
                 v22 = v0 + 36 * v58;
-                if ( !byte_5D2A12[48 * *(_DWORD *)(v22 + 532)] )
+                if ( !byte_5D2A00[48 * *(_DWORD *)(v22 + 532) + 18] )
                   *(_DWORD *)(v22 + 552) |= 1u;
                 if ( !dword_4E455C )
                   goto LABEL_92;
@@ -11183,7 +11183,7 @@ LABEL_74:
         v42 = (int)&v55;
         v41 = (int)&v53;
         v40 = (int)&v56;
-        v39 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
+        v39 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
       }
       sub_43AA99(64, pParty_global->dword_0006C0, pParty_global->dword_0006C4, pParty_global->sPartyPosX, pParty_global->sPartyPosY, v39, v40, v41, v42);
       sub_42F7EB(1051, v56, v53, v55, 0, 1, 0, 0, 0);
@@ -13709,19 +13709,19 @@ LABEL_43:
       v7 = v5 - 85;
       if ( !v7 )
       {
-        v10 = dword_ACD6F4;
+        v10 = pParty_global->dword_00073C;
         goto LABEL_40;
       }
       v8 = v7 - 1;
       if ( !v8 )
       {
-        v10 = dword_ACD700;
+        v10 = pParty_global->dword_000748;
         goto LABEL_40;
       }
       v9 = v8 - 1;
       if ( !v9 )
       {
-        v10 = dword_ACD6FC;
+        v10 = pParty_global->dword_000744;
         goto LABEL_40;
       }
       if ( v9 == 1 )
@@ -15721,7 +15721,7 @@ LABEL_116:
     }
     if ( v26 == 13 )
     {
-      v27 = (unsigned __int8)byte_5D2A02[48 * *(_DWORD *)v97];
+      v27 = (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v97 + 2];
 LABEL_56:
       v64 = v27;
       v59 = pGlobalTXT_LocalizationStrings[449];
@@ -16760,7 +16760,7 @@ int __cdecl sub_41F6C1()
   dword_506F14 = 0;
   dword_506F10 = 2;
   if ( dword_6BE360 == 2 )
-    dword_506F10 = sub_4893CF(pClass51_global, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->dword_0006BC);
+    dword_506F10 = sub_4893CF(pClass51_global, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ);
   if ( sub_476387() )
   {
     v0 = pParty_global->pPlayers[0].uClass;
@@ -17628,7 +17628,7 @@ signed int __fastcall sub_42041E(int a1)
     v54 = v18;
     v19 = (double)pParty_global->sPartyPosY - (double)v55;
     v48 = v19;
-    v58 = (double)pParty_global->dword_00000C + (double)pParty_global->dword_0006BC - (double)v15;
+    v58 = (double)pParty_global->uEyelevel + (double)pParty_global->sPartyPosZ - (double)v15;
     *(float *)&X = v19 * v19;
     *(float *)&v56 = v18 * v18;
     v20 = sqrt(v58 * v58 + *(float *)&v56 + *(float *)&X);
@@ -18268,11 +18268,11 @@ LABEL_15:
       v11 = v5;
       v13 = pParty_global->sPartyPosY;
       v12 = pParty_global->sPartyPosX;
-      v14 = pParty_global->dword_00000C + pParty_global->dword_0006BC;
+      v14 = pParty_global->uEyelevel + pParty_global->sPartyPosZ;
       v16 = 0;
       v15 = 0;
       v17 = 8;
-      v8 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->dword_00000C + pParty_global->dword_0006BC);
+      v8 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->uEyelevel + pParty_global->sPartyPosZ);
       v19 = 0;
       v18 = v8;
       memcpy(&v20, &dword_AD470C, 0x24u);
@@ -18671,10 +18671,10 @@ LABEL_18:
             v24.v27 = pParty_global->sPartyPosY;
             v34 = 4;
             v24.v26 = pParty_global->sPartyPosX;
-            v24.v28 = pParty_global->dword_00000C + pParty_global->dword_0006BC;
+            v24.v28 = pParty_global->uEyelevel + pParty_global->sPartyPosZ;
             v24.v29 = 0;
             v24.v30 = 8;
-            v24.v31 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->dword_00000C + pParty_global->dword_0006BC);
+            v24.v31 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->uEyelevel + pParty_global->sPartyPosZ);
             v24.v32 = 0;
             memcpy(v24.Dst, &dword_AD470C, 0x24u);
             v8 = class03_GetMousePos(pGame->pClass03, (int)&v35);

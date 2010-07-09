@@ -545,7 +545,7 @@ int __fastcall sub_403854(int a1, signed int a2, signed int a3)
     {
       v5 = pParty_global->sPartyPosX;
       v4 = pParty_global->sPartyPosY;
-      v20 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
+      v20 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
     }
     else
     {
@@ -621,9 +621,8 @@ int __fastcall sub_403854(int a1, signed int a2, signed int a3)
 }
 
 //----- (0046086A) --------------------------------------------------------
-int __cdecl MaybeDoAutosave()
+bool __cdecl MaybeDoAutosave()
 {
-  signed int v0; // esi@3
   int v1; // eax@4
   int v2; // edx@5
   int v3; // eax@7
@@ -649,7 +648,7 @@ int __cdecl MaybeDoAutosave()
 
   if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
     CVideoPlayer_UnloadAll(pVideoPlayer);
-  v0 = 0;
+
   DstBuf = (void *)class23_AllocatedNamedBuffer(class23_instance, 0, 1000000, 0);
   sub_461EE9(pClass17_New_LOD);
   remove("data\\new.lod");
@@ -667,8 +666,12 @@ int __cdecl MaybeDoAutosave()
 
   sub_461492(pClass17_New_LOD, v6, v14, "data\\new.lod");
 
-  if ( class17_LoadLOD_Games(pClass17_New_LOD, "data\\new.lod", 0) )
-  {
+  if (!class17_LoadLOD_Games(pClass17_New_LOD, "data\\new.lod", 0))
+  { 
+   class23_DeleteBuffer(class23_instance, (int)DstBuf);
+   return false;
+  }
+
     sub_461F1E(pClass17_New_LOD);
     dword_6A0A4C = 0;
     sub_461743(v11);
@@ -690,7 +693,6 @@ int __cdecl MaybeDoAutosave()
           break;
         v2 = v19;
       }
-      v0 = 0;
     }
     sub_461743(v12);
     strcpy(byte_69BD7C, "out01.odm");
@@ -701,23 +703,23 @@ int __cdecl MaybeDoAutosave()
 
     pParty_global->sPartyPosX = 12552;
     pParty_global->sPartyPosY = 1816;
-    pParty_global->dword_0006BC = v0;
+    pParty_global->sPartyPosZ = 0;
     pParty_global->dword_0006C0 = 512;
-    pParty_global->dword_0006C4 = v0;
+    pParty_global->dword_0006C4 = 0;
 
     pParty_global->dword_0006C8 = 12552;
     pParty_global->dword_0006CC = 1816;
-    pParty_global->dword_0006D0 = v0;
+    pParty_global->dword_0006D0 = 0;
     pParty_global->dword_0006D4 = 512;
-    pParty_global->dword_0006D8 = v0;
+    pParty_global->dword_0006D8 = 0;
 
-    pParty_global->dword_000700 = v0;
+    pParty_global->dword_000700 = 0;
 
-    v0 = 1;
+
     SaveGame(1, 1);
-  }
+
   class23_DeleteBuffer(class23_instance, (int)DstBuf);
-  return v0;
+  return true;
 }
 
 //----- (00497526) --------------------------------------------------------
@@ -1063,7 +1065,7 @@ int __fastcall sub_403A60(int a1, signed int a2, signed int a3)
     {
       v5 = pParty_global->sPartyPosX;
       v4 = pParty_global->sPartyPosY;
-      v20 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
+      v20 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
     }
     else
     {
@@ -1188,7 +1190,7 @@ int __fastcall sub_403C6C(int a1, int a2, char *a3)
       {
         v7 = pParty_global->sPartyPosX;
         v6 = pParty_global->sPartyPosY;
-        v22 = pParty_global->dword_0006BC + pParty_global->dword_00000C;
+        v22 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
       }
       else
       {
@@ -3423,9 +3425,9 @@ LABEL_191:
           }
           if ( dword_6BE360 == 1 )
             return;
-          v139 = pParty_global->dword_0006BC;
+          v139 = pParty_global->sPartyPosZ;
           v115 = pParty_global->sPartyPosX;
-          v118 = pParty_global->dword_0006BC + 2500;
+          v118 = pParty_global->sPartyPosZ + 2500;
           v117 = pParty_global->sPartyPosY;
           v23 = 8;
           if ( BYTE1(a5) & 1 )
@@ -6686,10 +6688,10 @@ int __cdecl sub_494035()
     //while ( (signed int)v7 < (signed int)&unk_AD61AC );
   }
   v8 = pParty_global->qword_00002C;
-  if ( pParty_global->dword_007778 & 4 && dword_ACD6B4 < pParty_global->qword_00002C )
+  if ( pParty_global->dword_007778 & 4 && pParty_global->dword_0006FC < pParty_global->qword_00002C )
   {
     v9 = 1;
-    dword_ACD6B4 = pParty_global->qword_00002C + 128;
+    pParty_global->dword_0006FC = pParty_global->qword_00002C + 128;
     struct_576FE8.dword_000044 = 1;
     while ( 1 )
     {
@@ -6726,12 +6728,12 @@ LABEL_39:
   }
   if ( pParty_global->dword_007778 & 0x200 )
   {
-    if ( (signed int)((unsigned __int64)dword_ACD6B4 >> 32) <= HIDWORD(pParty_global->qword_00002C) )
+    if ( (signed int)((unsigned __int64)pParty_global->dword_0006FC >> 32) <= HIDWORD(pParty_global->qword_00002C) )
     {
-      if ( (signed int)((unsigned __int64)dword_ACD6B4 >> 32) < HIDWORD(pParty_global->qword_00002C) || dword_ACD6B4 < v8 )
+      if ( (signed int)((unsigned __int64)pParty_global->dword_0006FC >> 32) < HIDWORD(pParty_global->qword_00002C) || pParty_global->dword_0006FC < v8 )
       {
         struct_576FE8.dword_000044 = 1;
-        dword_ACD6B4 = v8 + 128;
+        pParty_global->dword_0006FC = v8 + 128;
         for (i = 0; i < 4; ++i)
         {
           v14 = pPlayers[i];
@@ -6978,7 +6980,7 @@ LABEL_61:
         {
           sub_458585(v47);
           if (array_4EE07C[i] == 7 )
-            dword_ACD6BC = 0;
+            pParty_global->dword_000704 = 0;
         }
       }
     }
@@ -7658,9 +7660,9 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
       else
       {
         v18 = pParty_global->sPartyPosX;
-        v17 = pParty_global->dword_00000C + pParty_global->dword_0006BC;
+        v17 = pParty_global->uEyelevel + pParty_global->sPartyPosZ;
         v60 = pParty_global->sPartyPosY;
-        v44 = pParty_global->dword_00000C + pParty_global->dword_0006BC;
+        v44 = pParty_global->uEyelevel + pParty_global->sPartyPosZ;
         v43 = pParty_global->sPartyPosY;
       }
       v19 = sub_49AC17((int)byte_6BE3C8, v18, v43, v44);
@@ -7932,8 +7934,8 @@ int __cdecl sub_466082()
   dword_6BE058 = GetPrivateProfileIntA("texmapping", "building_subdivsize", 32, pIniFile);
   dword_6BE05C = GetPrivateProfileIntA("texmapping", "building_subdivpow2", 5, pIniFile);
 
-  pParty_global->dword_00000C = pParty_global->dword_000010 = GetPrivateProfileIntA("party", "eyelevel", 160, pIniFile);
-  pParty_global->dword_000004 = pParty_global->dword_000008 = GetPrivateProfileIntA("party", "height", 192, pIniFile);
+  pParty_global->uEyelevel = pParty_global->uDefaultEyelevel = GetPrivateProfileIntA("party", "eyelevel", 160, pIniFile);
+  pParty_global->uPartyHeight = pParty_global->uDefaultPartyHeight = GetPrivateProfileIntA("party", "height", 192, pIniFile);
 
   return sub_4666D5();
 }
@@ -9706,7 +9708,7 @@ int __fastcall sub_464866(int a1, int a2)
     pGame->dword_000E24 |= 8;
   }
 
-  dword_ACD6AC = 0;
+  pParty_global->dword_0006F4 = 0;
   if (strcmpi(pLevelType, "blv"))
     PrepareToLoadODM(v10, 0);
   else
@@ -12003,7 +12005,7 @@ LABEL_12:
         {
           if ( sub_48D6AA(v5, v72) )
           {
-            v12 = (unsigned __int8)byte_5D2A01[48 * *((_DWORD *)v5 + 9 * *(_DWORD *)v9 + 124)];
+            v12 = (unsigned __int8)byte_5D2A00[48 * *((_DWORD *)v5 + 9 * *(_DWORD *)v9 + 124) + 1];
             LOBYTE(v13) = sub_48F882(v10, v12);
             v73 = v13;
             sub_458244(v13);
@@ -12070,7 +12072,7 @@ LABEL_31:
           return v71;
       }
       v72 = 0;
-      v25 = (unsigned __int8)byte_5D2A01[48 * v22];
+      v25 = (unsigned __int8)byte_5D2A00[48 * v22 + 1];
       LOBYTE(v26) = sub_48F882(v5, v25);
       v24 = v26;
       v23 = sub_458244(v26);
@@ -12154,7 +12156,7 @@ LABEL_53:
       if ( v35 >= 16 )
         return v71;
     }
-    v38 = (unsigned __int8)byte_5D2A01[48 * v37];
+    v38 = (unsigned __int8)byte_5D2A00[48 * v37 + 1];
     LOBYTE(v39) = sub_48F882(v5, v38);
     v74 = v39;
     sub_458244(v39);
@@ -12223,8 +12225,8 @@ LABEL_53:
       v42 = (int)((char *)v5 + 36 * *(_DWORD *)v70);
       if ( !(*(_BYTE *)(v42 + 516) & 2) )
       {
-        v44 = (unsigned __int8)byte_5D2A01[48 * *(_DWORD *)(v42 + 496)];
-        v43 = (unsigned __int8)byte_5D2A01[48 * *(_DWORD *)(v42 + 496)];
+        v44 = (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)(v42 + 496) + 1];
+        v43 = (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)(v42 + 496) + 1];
         if ( v43 )
         {
           v45 = v43 - 1;

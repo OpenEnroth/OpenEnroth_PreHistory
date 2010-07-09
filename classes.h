@@ -1355,40 +1355,37 @@ struct Player
  {
   struct
   {
-   int     array_000000[20];
-   int     array_000050[6];
-   __int64 qword_000068;
-   __int64 qword_000070;
-   int     array_000078[2];
-   __int64 qword_000080;
-   int     array_000088[6];
-   __int64 qword_0000A0; // Expirience?
-
-   unsigned char sName[16]; // byte[16] @ 0000A8
-   unsigned char uSex;      // byte     @ 0000B8  0 male 1 female
-   unsigned char uClass;    // byte     @ 0000B9
-   unsigned char uFace;     // byte     @ 0000BA
-   unsigned char unknown;   // byte     @ 0000BB
-
-   unsigned short uStrength;     // word @ 0000BC
-   short word_0000BE;
-   unsigned short uIntelligence; // word @ 0000C0
-   short word_0000C2;
-   unsigned short uWillpower;    // word @ 0000C4
-   short word_0000C6;
-   unsigned short uEndurance;    // word @ 0000C8
-   short word_0000CA;
-   unsigned short uSpeed;        // word @ 0000CC
-   short word_0000CE;
-   unsigned short uAccuracy;     // word @ 0000D0
-   short word_0000D2;
-   unsigned short uLuck;         // word @ 0000D4
-   short word_0000D6;
-   short word_0000D8;
-
-   short BaseLevel;              // word @ 0000DA
-   short TempLevelBonus;         // word @ 0000DC
-   short AgeingAdd;              // word @ 0000DE
+   int              array_000000[20];
+   int              array_000050[6];
+   __int64          qword_000068;
+   __int64          qword_000070;
+   int              array_000078[2];
+   __int64          qword_000080;
+   int              array_000088[6];
+   unsigned __int64 uExperience;     // qword    @ 0000A0
+   unsigned char    sName[16];       // byte[16] @ 0000A8
+   unsigned char    uSex;            // byte     @ 0000B8    0 male 1 female
+   unsigned char    uClass;          // byte     @ 0000B9
+   unsigned char    uFace;           // byte     @ 0000BA
+   unsigned char    unknown;         // byte     @ 0000BB
+   unsigned short   uStrength;       // word     @ 0000BC
+   unsigned short   uStrengthBonus;  // word     @ 0000BE
+   unsigned short   uIntelligence;   // word @ 0000C0
+   short            word_0000C2;
+   unsigned short   uWillpower;      // word @ 0000C4
+   short            word_0000C6;
+   unsigned short   uEndurance;      // word @ 0000C8
+   short            word_0000CA;
+   unsigned short   uSpeed;          // word @ 0000CC
+   short            word_0000CE;
+   unsigned short   uAccuracy;       // word @ 0000D0
+   short            word_0000D2;
+   unsigned short   uLuck;           // word @ 0000D4
+   short            word_0000D6;
+   short            word_0000D8;
+   short            BaseLevel;       // word @ 0000DA
+   short            TempLevelBonus;  // word @ 0000DC
+   short            AgeingAdd;       // word @ 0000DE
 
    int   dword_0000E0;
    int   dword_0000E4;
@@ -1401,11 +1398,11 @@ struct Player
    int   dword_000100;
    int   dword_000104;
 
-   short ActiveSkills[37];
-   char array_000152[64];
+   short ActiveSkills[37];  // word[37] @ 000108
+   char array_000152[64];   // awards?
 
-   char byte_000192;
-   char array_000193[10];
+   char byte_000192;       // related to spells
+   char array_000193[10];  //
 
    char byte_00019D;
    char array_00019E[10];
@@ -1432,33 +1429,48 @@ struct Player
    char array_0001EB[41];
 
 
-   struct Player_stru0 array_000214[126];
+   struct Player_stru0 array_000214[126]; // items in inventory
    char                array_0013CC[432];
+   int          array_00157C[126];
+   short        sFireResistanceBase;    // word @ 001774
+   short        sAirResistanceBase;     // word @ 001776
+   short        sWaterResistanceBase;   // word @ 001778
+   short        sEarthResistanceBase;   // word @ 00177A
+   short        word_00177C;
+   short        word_00177E;
+   short        sSpiritResistanceBase;  // word @ 001780
+   short        sMindResistanceBase;    // word @ 001782
+   short        sBodyResistanceBase;    // word @ 001784
+   short        word_001786;
+   short        word_001788;
+   short        sFireResistanceBonus;   // word @ 00178A
+   short        sAirResistanceBonus;    // word @ 00178C
+   short        sWaterResistanceBonus;  // word @ 00178E
+   short        sEarthResistanceBonus;  // word @ 001790
+   short        word_001792;
+   short        word_001794;
+   short        sSpiritResistanceBonus; // word @ 001796
+   short        sMindResistanceBonus;   // word @ 001798
+   short        sBodyResistanceBonus;   // word @ 00179A
+   short        word_00179C;
+   short        word_00179E;
+   char         array_0017A0[24][16];  // related to spells
+   int          dword_001920; //related to voice in SoundList
+   int          dword_001924;
+   int          dword_001928;
+   int          dword_00192C;
+   int          dword_001930;
+   short        word_001934;   // recovery delay ?
+   char         array_001936[2];
+   unsigned int uSkillPoints;           // dword @ 001938
+   int          uHealthMax;             // dword @ 00193C
+   int          uManaMax;               // dword @ 001940
+   int          dword_001944; // birth year?
+   int          array_001948[65]; // related to equipped items
 
-   int array_00157C[128];
-
-   short word_00177C;
-   short word_00177E;
-   char array_00177F[32];
-
-   char array_0017A0[24][16];
-   int  dword_001920; //related to voice in SoundList
-   int  dword_001924;
-   int  dword_001928;
-   int  dword_00192C;
-   int  dword_001930;
-
-   short word_001934;
-   char array_001936[2];
-   unsigned int uSkillPoints; // dword @ 001938
-   int uHealthMax;            // dword @ 00193C
-   int uManaMax;              // dword @ 001940
-   int dword_001944;
-   int array_001948[65];
-
-   char byte_001A4E;
-   unsigned char uQuickSpell; // byte  @ 001A4F
-   char array_001A50[72];
+   char          byte_001A4E;
+   unsigned char uQuickSpell;     // byte  @ 001A4F
+   char          array_001A50[72];
 
    char byte_001A98;
    char array_001A99[3];
@@ -1482,37 +1494,47 @@ struct Player
 
 struct Party
 {
- int dword_000000;
- int dword_000004; // partyHeight registry key
- int dword_000008; // partyHeight registry key
- int dword_00000C; // eyelevel registry key
- int dword_000010; // eyelevel registry key
- int dword_000014;
- int dword_000018;
- int uWalkSpeed;   // dword @ 00001C
- int dword_000020;
- int dword_000024;
- int dword_000028;
- __int64 qword_00002C;  // time played ?
- __int64 qword_000034;
- unsigned char array_00003C[1656];
-
- int sPartyPosX;   // dword @ 0006B4     world coordinates are  x: -32768..  32767
- int sPartyPosY;   // dword @ 0006B8                            y:  32767.. -32768
- int dword_0006BC; // maybe z
- int dword_0006C0; // related to compass on minimap
- int dword_0006C4;
- int dword_0006C8;
- int dword_0006CC;
- int dword_0006D0;
- int dword_0006D4;
- int dword_0006D8;
-
- int dword_0006E8;
-
- int dword_0006FC;
- int dword_000700;
- 
+ int           dword_000000;
+ unsigned int  uPartyHeight;        // dword @ 000004
+ unsigned int  uDefaultPartyHeight; // dword @ 000008
+ unsigned int  uEyelevel;           // dword @ 00000C
+ unsigned int  uDefaultEyelevel;    // dword @ 000010
+ int           dword_000014;
+ int           dword_000018;
+ int           uWalkSpeed;          // dword @ 00001C
+ int           dword_000020;
+ int           dword_000024;
+ int           dword_000028;
+ __int64       qword_00002C;  // time played ?
+ __int64       qword_000034;
+ int           array_00003C[20];
+ int           array_00008C[170];
+ int           array_000334[82];
+ int           array_00047C[44];
+ int           array_00052C[38];
+ char          byte_0005C4[2];
+ char          byte_0005C6[238];
+ int           sPartyPosX;       // dword @ 0006B4     world coordinates are  x: -32768..  32767
+ int           sPartyPosY;       // dword @ 0006B8                            y:  32767.. -32768
+ int           sPartyPosZ;       // dword @ 0006BC
+ int           dword_0006C0;     // related to compass on minimap
+ int           dword_0006C4;
+ int           dword_0006C8;
+ int           dword_0006CC;
+ int           dword_0006D0;
+ int           dword_0006D4;
+ int           dword_0006D8;
+ int           dword_0006DC;
+ int           dword_0006E0;
+ int           dword_0006E4;
+ int           dword_0006E8;
+ int           dword_0006EC;
+ int           dword_0006F0; // copy of PartyPosZ
+ int           dword_0006F4; // / 512 == some bmodel id
+ int           dword_0006F8;
+ int           dword_0006FC;
+ int           dword_000700;
+ int           dword_000704; // flying flag?
  unsigned char byte_000708;
  unsigned char byte_000709;
  unsigned char byte_00070A;
@@ -1524,10 +1546,15 @@ struct Party
  int           dword_00071C;
  int           dword_000720;
  int           dword_000724;
- unsigned int  uNumFood; // dword @ 000728
-
- unsigned int uNumGold; // dword @ 000734
- int dword_000738;
+ unsigned int  uNumFood;       // dword @ 000728
+ int           dword_00072C;
+ int           dword_000730;
+ unsigned int  uNumGold;       // dword @ 000734
+ unsigned int  uNumGoldInBank; // dword @ 000738
+ int           dword_00073C; // num deaths? looks very like it
+ int           dword_000740;
+ int           dword_000744;
+ int           dword_000748;
 
  char unk_000765[0x100];
 

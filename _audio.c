@@ -260,7 +260,7 @@ LABEL_150:
             AIL_set_sample_loop_count(*(_DWORD *)v73, a4 - 1);
           v82 = sub_4AB66C(v74, a6);
           AIL_set_sample_pan(*(_DWORD *)v73, v82);
-          v83 = sub_4AB6B1(v74, a6, pParty_global->dword_0006BC);
+          v83 = sub_4AB6B1(v74, a6, pParty_global->sPartyPosZ);
           AIL_set_sample_volume(*(_DWORD *)v73, v83);
           v75 = a3;
           goto LABEL_184;
@@ -480,7 +480,7 @@ LABEL_116:
 LABEL_46:
           v87 = (double)pParty_global->sPartyPosX;
           v88 = (double)pParty_global->sPartyPosY;
-          v20 = (double)pParty_global->dword_00000C + (double)pParty_global->dword_0006BC;
+          v20 = (double)pParty_global->uEyelevel + (double)pParty_global->sPartyPosZ;
           goto LABEL_47;
         }
         v13 = 10 * v14 / 16;
@@ -695,7 +695,7 @@ LABEL_104:
             v44 = (double)pParty_global->sPartyPosY;
 LABEL_100:
             v88 = v44;
-            v46 = (double)pParty_global->dword_00000C + (double)pParty_global->dword_0006BC;
+            v46 = (double)pParty_global->uEyelevel + (double)pParty_global->sPartyPosZ;
             goto LABEL_101;
           }
           v45 = (char *)&array_6836D0[(a3 >> 3)];
@@ -1371,7 +1371,7 @@ LABEL_35:
             {
               v58 = (double)pParty_global->sPartyPosX;
               v59 = (double)pParty_global->sPartyPosY;
-              v13 = (double)pParty_global->dword_00000C + (double)pParty_global->dword_0006BC;
+              v13 = (double)pParty_global->uEyelevel + (double)pParty_global->sPartyPosZ;
               goto LABEL_21;
             }
             v14 = (char *)&array_6836D0[(*(_DWORD *)(v8 + 4) >> 3)];
@@ -1395,7 +1395,7 @@ LABEL_21:
             {
               v68 = v58 - (double)pParty_global->sPartyPosX;
               *(float *)&v67 = v59 - (double)pParty_global->sPartyPosY;
-              v20 = v60 - (double)pParty_global->dword_0006BC;
+              v20 = v60 - (double)pParty_global->sPartyPosZ;
               if ( pD3DRenderer->dword_040088 )
               {
                 v22 = *(float *)&v67 * v66 + v68 * v65;
@@ -1425,7 +1425,7 @@ LABEL_21:
                 v23 = v68 * v66 + *(float *)&v67 * v65;
               }
               v62 = v23;
-              v63 = v60 - (double)pParty_global->dword_0006BC;
+              v63 = v60 - (double)pParty_global->sPartyPosZ;
             }
           }
           else
@@ -1566,7 +1566,7 @@ LABEL_62:
         LODWORD(v66) = 1;
         v48 = 4 * v69 + 6817720;
         v49 = &array_6836D0[dword_6807B8[v69]];
-        v50 = abs(*((_DWORD *)v49 + 3) - pParty_global->dword_0006BC);
+        v50 = abs(*((_DWORD *)v49 + 3) - pParty_global->sPartyPosZ);
         v51 = abs(*((_DWORD *)v49 + 2) - pParty_global->sPartyPosY);
         v52 = abs(*((_DWORD *)v49 + 1) - pParty_global->sPartyPosX);
         v47 = sub_4621DA(v52, v51, v50);

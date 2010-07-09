@@ -959,7 +959,7 @@ void __cdecl sub_468F8A()
   if ( dword_AD470C )
   {
     v56 = (unsigned __int8)byte_5D2A00[48 * dword_AD470C];
-    v4 = (unsigned __int8)byte_5D2A01[48 * dword_AD470C];
+    v4 = (unsigned __int8)byte_5D2A00[48 * dword_AD470C + 1];
     if ( v4 == 4 )
     {
       if ( v2 )
@@ -978,7 +978,7 @@ LABEL_8:
     }
     else
     {
-      if ( (v4 == 8 || v4 == 1 || v4 == 2) && v0 && byte_5D2A01[48 * *(_DWORD *)(v1 + 36 * v0 + 496)] == 4 )
+      if ( (v4 == 8 || v4 == 1 || v4 == 2) && v0 && byte_5D2A00[48 * *(_DWORD *)(v1 + 36 * v0 + 496) + 1] == 4 )
         goto LABEL_7;
     }
 LABEL_16:
@@ -2206,7 +2206,7 @@ int __fastcall sub_46A89E(int a1, int a2, signed int a3)
     {
       v8 = abs(*(_WORD *)(v4 - 34) - pParty_global->sPartyPosX);
       v17 = abs(*(_WORD *)(v4 - 32) - pParty_global->sPartyPosY);
-      v18 = abs(*(_WORD *)(v4 - 30) - pParty_global->dword_0006BC);
+      v18 = abs(*(_WORD *)(v4 - 30) - pParty_global->sPartyPosZ);
       v5 = v8;
       v7 = v17;
       v6 = v18;
@@ -4867,7 +4867,7 @@ int __cdecl sub_46CC4B()
       {
         v38 = abs(*((_DWORD *)v3 + 1) - pParty_global->sPartyPosX);
         v27 = abs(v1 - pParty_global->sPartyPosY);
-        v30 = abs(v37 - pParty_global->dword_0006BC);
+        v30 = abs(v37 - pParty_global->sPartyPosZ);
         v4 = v38;
         v6 = v27;
         v5 = v30;
@@ -6549,10 +6549,10 @@ int __thiscall sub_46EF01(void *this)
   int v11; // [sp+18h] [bp-4h]@7
 
   v8 = this;
-  v2 = 2 * dword_ACCFCC;
+  v2 = 2 * pParty_global->dword_000014;
   result = pParty_global->sPartyPosX;
-  v9 = pParty_global->dword_000004;
-  if ( dword_7215BC <= pParty_global->sPartyPosX + 2 * dword_ACCFCC )
+  v9 = pParty_global->uPartyHeight;
+  if ( dword_7215BC <= pParty_global->sPartyPosX + 2 * pParty_global->dword_000014 )
   {
     if ( dword_7215C0 >= pParty_global->sPartyPosX - v2 )
     {
@@ -6560,9 +6560,9 @@ int __thiscall sub_46EF01(void *this)
       {
         if ( dword_7215C8 >= pParty_global->sPartyPosY - v2 )
         {
-          if ( dword_7215CC <= pParty_global->dword_0006BC + pParty_global->dword_000004 )
+          if ( dword_7215CC <= pParty_global->sPartyPosZ + pParty_global->uPartyHeight )
           {
-            if ( dword_7215D0 >= pParty_global->dword_0006BC )
+            if ( dword_7215D0 >= pParty_global->sPartyPosZ )
             {
               v3 = dword_721534 + v2;
               v11 = pParty_global->sPartyPosX - dword_721558;
@@ -6576,11 +6576,11 @@ int __thiscall sub_46EF01(void *this)
                 if ( v5 > 0 )
                 {
                   v6 = ((unsigned __int64)(dword_721590 * v5) >> 16) + dword_721560;
-                  result = pParty_global->dword_0006BC;
-                  if ( v6 >= pParty_global->dword_0006BC )
+                  result = pParty_global->sPartyPosZ;
+                  if ( v6 >= pParty_global->sPartyPosZ )
                   {
-                    result = v9 + pParty_global->dword_0006BC;
-                    if ( v6 <= v9 + pParty_global->dword_0006BC || v8 )
+                    result = v9 + pParty_global->sPartyPosZ;
+                    if ( v6 <= v9 + pParty_global->sPartyPosZ || v8 )
                     {
                       result = sub_452A9E(v3 * v3 - v4 * v4);
                       v7 = v5 - result;
@@ -9198,24 +9198,24 @@ void __cdecl sub_472866()
   int v89; // [sp+58h] [bp-8h]@1
   int v90; // [sp+5Ch] [bp-4h]@47
 
-  v3 = pParty_global->dword_0006BC;
-  v89 = dword_ACD6A0;
+  v3 = pParty_global->sPartyPosZ;
+  v89 = pParty_global->dword_0006E8;
   v0 = 0;
   v85 = pParty_global->sPartyPosY;
   v70 = 0;
   v1 = 0;
   v86 = pParty_global->sPartyPosX;
-  v87 = pParty_global->dword_0006BC;
-  v77 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->dword_0006BC);
+  v87 = pParty_global->sPartyPosZ;
+  v77 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ);
   v72 = 0;
   v78 = 0;
   v71 = 0;
   v84 = 0;
   v2 = v3 + 40;
   i = sub_46ED1B(v86, v85, v2, &v77, (int)&v79);
-  if ( dword_ACD6BC )
+  if (pParty_global->dword_000704)
   {
-    dword_ACD6BC = 0;
+    pParty_global->dword_000704 = 0;
     if ( qword_ACD8B4 > 0 )
       *((_BYTE *)&unk_5E4D52 + 20 * (unsigned __int16)word_ACD8C0) |= 1u;
   }
@@ -9226,14 +9226,14 @@ void __cdecl sub_472866()
     {
       pParty_global->sPartyPosX = dword_721654;
       pParty_global->sPartyPosY = dword_721658;
-      pParty_global->dword_0006BC = dword_72165C;
+      pParty_global->sPartyPosZ = dword_72165C;
       pParty_global->dword_000700 = dword_72165C;
       return;
     }
   }
   dword_721654 = pParty_global->sPartyPosX;
   dword_721658 = pParty_global->sPartyPosY;
-  dword_72165C = pParty_global->dword_0006BC;
+  dword_72165C = pParty_global->sPartyPosZ;
   if ( dword_ACD834 != 1 )
   {
     v4 = (double)(GetTickCount() / 0x1F4);
@@ -9242,7 +9242,7 @@ void __cdecl sub_472866()
     {
       dword_4F8584[3 * dword_4F8580[0]] = pParty_global->sPartyPosX;
       dword_4F8588[3 * dword_4F8580[0]] = pParty_global->sPartyPosY;
-      dword_4F8580[3 * dword_4F8580[0]++ + 3] = pParty_global->dword_0006BC;
+      dword_4F8580[3 * dword_4F8580[0]++ + 3] = pParty_global->sPartyPosZ;
       if ( dword_4F8580[0] > 60 )
         dword_4F8580[0] = 1;
     }
@@ -9306,8 +9306,8 @@ LABEL_20:
     pParty_global->dword_000700 = v87;
   if ( dword_6BE374 )
   {
-    if ( dword_ACD6B0 > 0 )
-      dword_ACD6B0 -= pClass24_global->int_00001C;
+    if (pParty_global->dword_0006F8 > 0)
+      pParty_global->dword_0006F8 -= pClass24_global->int_00001C;
   }
   if ( v87 > i + 1 )
   {
@@ -9320,7 +9320,7 @@ LABEL_43:
   pParty_global->dword_000700 = i + 1;
   if ( v84 )
     goto LABEL_45;
-  if ( dword_ACD6AC != v79 )
+  if (pParty_global->dword_0006F4 != v79)
   {
     v11 = dword_6BE644 + 96 * v79;
     if ( *(_BYTE *)(v11 + 47) & 4 )
@@ -9330,7 +9330,7 @@ LABEL_43:
     }
   }
 LABEL_44:
-  dword_ACD6AC = v79;
+  pParty_global->dword_0006F4 = v79;
 LABEL_45:
   v68 = 96 * v79;
   if ( *(_BYTE *)(96 * v79 + dword_6BE644 + 44) & 0x10 )
@@ -9338,7 +9338,7 @@ LABEL_45:
   v81 = pParty_global->uWalkSpeed;
   v90 = pParty_global->dword_0006C0;
   v83 = pParty_global->dword_0006C4;
-  v82 = (unsigned __int64)(pClass24_global->dword_000020 * dword_ACCFD8 * pClass59_global->dword_001860 / 180) >> 16;
+  v82 = ((unsigned __int64)(pClass24_global->dword_000020) * pParty_global->dword_000020 * pClass59_global->dword_001860 / 180) >> 16;
 LABEL_87:
   while ( dword_7215D8 )
   {
@@ -9471,10 +9471,10 @@ LABEL_76:
       case 12:
         if ( !v84 || v87 <= i + 6 && v89 <= 0 )
         {
-          if ( dword_ACCFDC )
+         if (pParty_global->dword_000024)
           {
             v84 = 1;
-            v89 = (signed __int64)((double)(dword_ACCFDC << 6) * 1.5 + (double)v89);
+            v89 = (signed __int64)((double)(pParty_global->dword_000024 << 6) * 1.5 + (double)v89);
           }
         }
         break;
@@ -9504,7 +9504,7 @@ LABEL_76:
   {
     if ( v89 < -500 )
     {
-      if ( !dword_ACD6BC )
+      if (!pParty_global->dword_000704)
       {
         v41 = pPlayers;
         do
@@ -9531,11 +9531,11 @@ LABEL_93:
   }
   dword_7215B4 = -1;
   dword_7215A0 = 0;
-  dword_721534 = dword_ACCFCC;
-  dword_721538 = dword_ACCFCC >> 1;
+  dword_721534 = pParty_global->dword_000014;
+  dword_721538 = pParty_global->dword_000014 / 2;
   v83 = 0;
   dword_721530 = 1;
-  dword_72153C = pParty_global->dword_000004 - 32;
+  dword_72153C = pParty_global->uPartyHeight - 32;
   while ( 1 )
   {
     v38 = v87;
@@ -9669,9 +9669,9 @@ LABEL_93:
 LABEL_142:
           v43 = dword_7215A8;
 LABEL_143:
-          if ( dword_ACD6AC != v43 >> 3 )
+          if (pParty_global->dword_0006F4 != v43 >> 3)
           {
-            if ( *(_BYTE *)(v45 + 47) & 4 )
+            if (*(_BYTE *)(v45 + 47) & 4)
               v70 = *(_WORD *)(dword_6BE64C + 36 * *(_WORD *)(v45 + 72) + 26);
           }
           goto LABEL_152;
@@ -9705,10 +9705,10 @@ LABEL_152:
       break;
     }
   }
-  if ( dword_6BE374 && dword_ACD6B0 <= 0 )
+  if ( dword_6BE374 && pParty_global->dword_0006F8 <= 0)
   {
     if ( sub_452A9E((pParty_global->sPartyPosX - v86) * (pParty_global->sPartyPosX - v86) + (pParty_global->sPartyPosY - v85) * (pParty_global->sPartyPosY - v85)
-                                                                + (pParty_global->dword_0006BC - v38) * (pParty_global->dword_0006BC - v38)) <= 16 )
+                                                                + (pParty_global->sPartyPosZ - v38) * (pParty_global->sPartyPosZ - v38)) <= 16 )
       goto LABEL_188;
     if ( v72 && (!v84 || v76) )
     {
@@ -9759,7 +9759,7 @@ LABEL_175:
     {
 LABEL_188:
       sub_4AA258(pAudioPlayer, 804);
-      dword_ACD6B0 = 64;
+      pParty_global->dword_0006F8 = 64;
     }
   }
   if ( !v84 || v76 )
@@ -9768,9 +9768,9 @@ LABEL_188:
     pParty_global->dword_007778 |= 8u;
   BYTE1(pParty_global->dword_007778) &= 0xFDu;
   pParty_global->sPartyPosX = v86;
-  pParty_global->dword_0006BC = v38;
+  pParty_global->sPartyPosZ = v38;
   pParty_global->sPartyPosY = v85;
-  dword_ACD6A0 = v89;
+  pParty_global->dword_0006E8 = v89;
   if ( !v84 )
   {
     if ( *(_BYTE *)(96 * v79 + dword_6BE644 + 47) & 0x40 )
@@ -17790,7 +17790,7 @@ signed int __thiscall sub_4893CF(void *this, signed int a2, signed int a3, int a
   int v16; // [sp+Ch] [bp-4h]@2
 
   v4 = (int)this;
-  if ( pParty_global->dword_007778 & 8 || (v15 = 0, v16 = 0, sub_46D49E(a2, a3, a4, pParty_global->dword_000008, (int)&v15, (int)&v16, 0), v16) || v15 )
+  if ( pParty_global->dword_007778 & 8 || (v15 = 0, v16 = 0, sub_46D49E(a2, a3, a4, pParty_global->uDefaultPartyHeight, (int)&v15, (int)&v16, 0), v16) || v15 )
     return 2;
   v6 = sub_47F44B(pParty_global->sPartyPosX);
   v7 = sub_47F458(pParty_global->sPartyPosY);

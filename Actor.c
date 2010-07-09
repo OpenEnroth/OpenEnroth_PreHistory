@@ -215,7 +215,7 @@ void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a
     {
       v56 = pParty_global->sPartyPosX;
       v55 = pParty_global->sPartyPosY;
-      v12 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
+      v12 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
 LABEL_27:
       v54 = v12;
       goto LABEL_28;
@@ -235,21 +235,21 @@ LABEL_27:
           v41 = (int)&v55;
           v40 = (int)&v56;
           v18 = pParty_global->dword_0006C0 - pClass59_global->dword_001864;
-          v39 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
+          v39 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
           goto LABEL_20;
         }
         v42 = (int)&v54;
         v41 = (int)&v55;
         v40 = (int)&v56;
         v18 = pParty_global->dword_0006C0 - pClass59_global->dword_001864;
-        v39 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
+        v39 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
       }
       else
       {
         v42 = (int)&v54;
         v41 = (int)&v55;
         v40 = (int)&v56;
-        v39 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
+        v39 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
         v18 = pClass59_global->dword_001864 + pParty_global->dword_0006C0;
       }
       v38 = pParty_global->sPartyPosY;
@@ -263,7 +263,7 @@ LABEL_21:
     v42 = (int)&v54;
     v41 = (int)&v55;
     v40 = (int)&v56;
-    v39 = pParty_global->dword_0006BC + pParty_global->dword_000004 / 3;
+    v39 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
     v18 = pClass59_global->dword_001864 + pParty_global->dword_0006C0;
 LABEL_20:
     v38 = pParty_global->sPartyPosY;
@@ -324,8 +324,8 @@ LABEL_28:
     v52 = pParty_global->sPartyPosY;
     v29 = a4;
     if ( !a4 )
-      v29 = pParty_global->dword_00000C;
-    v26 = pParty_global->dword_0006BC + v29;
+      v29 = pParty_global->uEyelevel;
+    v26 = pParty_global->sPartyPosZ + v29;
     goto LABEL_44;
   }
   if ( v22 == 5 )

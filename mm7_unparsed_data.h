@@ -1451,13 +1451,13 @@ extern int dword_5D29F4[array_size_unknown]; // weak
 extern __int16 word_5D29F8[array_size_unknown]; // weak
 extern __int16 word_5D29FC; // weak
 extern __int16 word_5D29FE; // weak
-extern char byte_5D2A00[array_size_unknown]; // weak
-extern char byte_5D2A01[array_size_unknown]; // weak
-extern char byte_5D2A02[array_size_unknown]; // weak
-extern char byte_5D2A03[array_size_unknown]; // weak
-extern char byte_5D2A04[array_size_unknown]; // weak
-extern char byte_5D2A05[array_size_unknown]; // weak
-extern char byte_5D2A12[array_size_unknown]; // weak
+extern char byte_5D2A00[]; // weak
+//char byte_5D2A01[array_size_unknown]; // weak
+//char byte_5D2A02[array_size_unknown]; // weak
+//char byte_5D2A03[array_size_unknown]; // weak
+//char byte_5D2A04[array_size_unknown]; // weak
+//char byte_5D2A05[array_size_unknown]; // weak
+//char byte_5D2A12[array_size_unknown]; // weak
 extern int dword_5DAD28[array_size_unknown]; // weak
 extern int dword_5DBFD0[array_size_unknown]; // weak
 extern int dword_5DBFD4[array_size_unknown]; // weak
@@ -2263,28 +2263,27 @@ extern int dword_ACCDD8[array_size_unknown]; // weak
 
 
 extern struct Party *pParty_global; // struct @ MM7.exe::00ACCFB8
-//_UNKNOWN unk_ACCFB8; // weak
-//int dword_ACCFBC; // weak
-//int dword_ACCFC0; // weak
-//int dword_ACCFC4; // weak
-//int dword_ACCFC8; // weak
-extern int dword_ACCFCC; // weak
+//int dword_ACCFBC; // 000004
+//int dword_ACCFC0; // 000008
+//int dword_ACCFC4; // 00000C
+//int dword_ACCFC8; // 000010
+//int dword_ACCFCC; // 000014
 //int dword_ACCFD0; // 000018
-//int dword_ACCFD4; // weak
-extern int dword_ACCFD8; // weak
-extern int dword_ACCFDC; // weak
-//__int64 qword_ACCFE4; // pParty_global::00002C
-extern __int64 qword_ACCFEC; // weak
-extern _DWORD dword_ACCFF4[20]; // idb
-extern int dword_ACD044[array_size_unknown]; // weak
-extern int dword_ACD048[array_size_unknown]; // weak
-extern int dword_ACD2EC[array_size_unknown]; // weak
-extern int dword_ACD2F0[array_size_unknown]; // weak
-extern int dword_ACD434[array_size_unknown]; // weak
-extern int dword_ACD438[array_size_unknown]; // weak
-extern int dword_ACD4E4; // idb
-extern _DWORD dword_ACD4E8[36]; // idb
-extern char byte_ACD57E[array_size_unknown]; // weak
+//int dword_ACCFD4; // 00001C
+//int dword_ACCFD8; // 000020
+//int dword_ACCFDC; // 000024
+//__int64 qword_ACCFE4; // 00002C
+//__int64 qword_ACCFEC; // 000034
+//_DWORD dword_ACCFF4[20]; // idb
+//int dword_ACD044[array_size_unknown]; // 00008C
+//int dword_ACD048[array_size_unknown]; // 00008C[1]
+//int dword_ACD2EC[array_size_unknown]; // 000334
+//int dword_ACD2F0[array_size_unknown]; // 000334[1]
+//int dword_ACD434[array_size_unknown]; // 00047C
+//int dword_ACD438[array_size_unknown]; // 00047C[1]
+//int dword_ACD4E4; // 00052C
+//_DWORD dword_ACD4E8[36]; // 00052C[1]
+//char byte_ACD57E[array_size_unknown]; // 0005C6
 //int dword_ACD66C; // 0006B4
 //int dword_ACD670; // 0006B8
 //int dword_ACD674; // 0006BÑ
@@ -2295,16 +2294,16 @@ extern char byte_ACD57E[array_size_unknown]; // weak
 //int dword_ACD688; // pParty_global::0006D0
 //int dword_ACD68C; // pParty_global::0006D4
 //int dword_ACD690; // pParty_global::0006D8
-extern int dword_ACD694; // weak
-extern int dword_ACD698; // weak
-extern int dword_ACD69C; // weak
-extern int dword_ACD6A0; // weak
-extern int dword_ACD6A8; // weak
-extern int dword_ACD6AC; // weak
-extern int dword_ACD6B0; // weak
-extern int dword_ACD6B4; // weak
+//int dword_ACD694; // pParty_global::0006DC
+//int dword_ACD698; // pParty_global::0006E0
+//int dword_ACD69C; // pParty_global::0006E4
+//int dword_ACD6A0; // pParty_global::0006E8
+//int dword_ACD6A8; // pParty_global::0006F0
+//int dword_ACD6AC; // pParty_global::0006F4
+//int dword_ACD6B0; // pParty_global::0006F8
+//int dword_ACD6B4; // pParty_global::0006FC
 //int dword_ACD6B8; // 000700
-extern int dword_ACD6BC; // weak
+//int dword_ACD6BC; // 000704
 //char byte_ACD6C1; // 000709
 //char byte_ACD6C2; // 00070A
 //int dword_ACD6C4; // 00070C
@@ -2316,11 +2315,11 @@ extern int dword_ACD6BC; // weak
 //int dword_ACD6DC; // 000724
 //int dword_ACD6E0; // ::000728
 //int dword_ACD6EC; // ::000734
-extern _UNKNOWN unk_ACD6F0; // weak
-extern char byte_ACD6F1[array_size_unknown]; // weak
-extern int dword_ACD6F4; // weak
-extern int dword_ACD6FC; // weak
-extern int dword_ACD700; // weak
+//_UNKNOWN unk_ACD6F0; // 000738
+//char byte_ACD6F1[array_size_unknown]; // 000739
+//int dword_ACD6F4; // 00073C
+//int dword_ACD6FC; // 000744
+//int dword_ACD700; // 000748
 extern __int16 word_ACD708[array_size_unknown]; // weak
 extern __int16 word_ACD712[array_size_unknown]; // weak
 extern char byte_ACD719[array_size_unknown]; // weak

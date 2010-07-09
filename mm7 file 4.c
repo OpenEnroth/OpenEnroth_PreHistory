@@ -1086,7 +1086,7 @@ LABEL_9:
     if ( byte_5D2A00[48 * *(_DWORD *)Dst] == 12 )
     {
       v4 = 48 * *(_DWORD *)Dst;
-      v5 = rand() % 6 + (unsigned __int8)byte_5D2A04[48 * *(_DWORD *)Dst] + 1;
+      v5 = rand() % 6 + (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)Dst + 4] + 1;
       v13 = v5;
       v14 = v5;
       v3 = *(_DWORD *)Dst;
@@ -2495,7 +2495,7 @@ signed int __cdecl sub_42ECB5()
     {
       v28 = v36 >> 3;
       v8 = (char *)pActors + 836 * (v36 >> 3);
-      v36 = sub_452A9E((*((_WORD *)v8 + 71) - pParty_global->sPartyPosX) * (*((_WORD *)v8 + 71) - pParty_global->sPartyPosX) + (*((_WORD *)v8 + 72) - pParty_global->sPartyPosY) * (*((_WORD *)v8 + 72) - pParty_global->sPartyPosY) + (*((_WORD *)v8 + 73) - pParty_global->dword_0006BC) * (*((_WORD *)v8 + 73) - pParty_global->dword_0006BC))
+      v36 = sub_452A9E((*((_WORD *)v8 + 71) - pParty_global->sPartyPosX) * (*((_WORD *)v8 + 71) - pParty_global->sPartyPosX) + (*((_WORD *)v8 + 72) - pParty_global->sPartyPosY) * (*((_WORD *)v8 + 72) - pParty_global->sPartyPosY) + (*((_WORD *)v8 + 73) - pParty_global->sPartyPosZ) * (*((_WORD *)v8 + 73) - pParty_global->sPartyPosZ))
           - *((_WORD *)v8 + 68);
       if ( v36 >= 0 )
       {
@@ -2542,7 +2542,7 @@ LABEL_28:
       {
         v25 = *((_WORD *)v8 + 71) - pParty_global->sPartyPosX;
         v26 = *((_WORD *)v8 + 72) - pParty_global->sPartyPosY;
-        v27 = *((_WORD *)v8 + 73) - pParty_global->dword_0006BC;
+        v27 = *((_WORD *)v8 + 73) - pParty_global->sPartyPosZ;
         sub_43AB61((int)&v25, (int)&v26, (int)&v27);
         DamageMonsterFromParty((8 * v1 - 8) | 4, v28, (int)&v25);
         if ( sub_48D709((void *)v2, 506, 1) || sub_48D709((void *)v2, 506, 0) )
@@ -2602,7 +2602,7 @@ LABEL_29:
           {
             v15 = *(_DWORD *)(v2 + 6476);
             if ( sub_48D6AA((void *)v2, 1) )
-              v36 = (unsigned __int8)byte_5D2A01[48 * *(_DWORD *)(v2 + 36 * v15 + 496)];
+              v36 = (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)(v2 + 36 * v15 + 496) + 1];
             sub_40471C(&unk_4F8858);
           }
           else
@@ -2913,7 +2913,7 @@ LABEL_20:
     {
       v5 = abs(*(_WORD *)(v1 - 34) - pParty_global->sPartyPosX);
       v11 = abs(*(_WORD *)(v1 - 32) - pParty_global->sPartyPosY);
-      v12 = abs(*(_WORD *)(v1 - 30) - pParty_global->dword_0006BC);
+      v12 = abs(*(_WORD *)(v1 - 30) - pParty_global->sPartyPosZ);
       v2 = v5;
       v4 = v11;
       v3 = v12;
@@ -4144,8 +4144,8 @@ void __cdecl sub_4304E7()
   dword_50CDC8 = 0;
   if ( !pClass24_global->dword_000004 )
   {
-    pParty_global->dword_00000C = pParty_global->dword_000010;
-    pParty_global->dword_000004 = pParty_global->dword_000008;
+    pParty_global->uEyelevel = pParty_global->uDefaultEyelevel;
+    pParty_global->uPartyHeight = pParty_global->uDefaultPartyHeight;
   }
   if ( dword_5C35C4 )
   {
@@ -5468,7 +5468,7 @@ LABEL_92:
             }
             if ( dword_591174 )
             {
-              pParty_global->dword_0006BC = dword_591174;
+              pParty_global->sPartyPosZ = dword_591174;
               dword_5B65B0 = dword_591174;
               pParty_global->dword_000700 = dword_591174;
             }
@@ -5482,7 +5482,7 @@ LABEL_92:
               pParty_global->dword_0006C4 = dword_59116C;
               dword_5B65B8 = dword_59116C;
               v49 = dword_591168;
-              dword_ACD6A0 = dword_591168;
+              pParty_global->dword_0006E8 = dword_591168;
               dword_5B65BC = dword_591168;
             }
             else
@@ -5523,7 +5523,7 @@ LABEL_92:
           sub_42FBDD();
           v211 = sub_444D80();
           strcpy(pClass51_global->string_000000, Str1);
-          if ( byte_6BE3C4 != 1 && dword_ACD6BC
+          if ( byte_6BE3C4 != 1 && pParty_global->dword_000704
            || sub_48902E(pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, &Source, 20) != v0 )
           {
             struct_576FE8.dword_000044 = v0;
@@ -5543,8 +5543,8 @@ LABEL_317:
           }
           else
           {
-            dword_ACD69C = 0;
-            dword_ACD698 = 0;
+            pParty_global->dword_0006E4 = 0;
+            pParty_global->dword_0006E0 = 0;
             sub_427D48(&struct_50C0C8, v0);
             sub_44603D();
             class24_fn1(pClass24_global);
@@ -5597,8 +5597,8 @@ LABEL_317:
             sub_443FDC(v53);
             sub_489487();
             sub_4498D5((void *)dword_6BE35C);
-            pParty_global->dword_0006BC = sub_48257A(pParty_global->sPartyPosX, pParty_global->sPartyPosY, (int)&v229, 0);
-            pParty_global->dword_000700 = pParty_global->dword_0006BC;
+            pParty_global->sPartyPosZ = sub_48257A(pParty_global->sPartyPosX, pParty_global->sPartyPosY, (int)&v229, 0);
+            pParty_global->dword_000700 = pParty_global->sPartyPosZ;
             sub_461103();
             sub_426363(pClass24_global);
             struct_576FE8.dword_000044 = 1;
@@ -5836,8 +5836,8 @@ LABEL_450:
             {
               pParty_global->sPartyPosX = *(_DWORD *)(v211 + 8);
               pParty_global->sPartyPosY = *(_DWORD *)(v211 + 12);
-              pParty_global->dword_0006BC = *(_DWORD *)(v211 + 16);
-              pParty_global->dword_000700 = pParty_global->dword_0006BC;
+              pParty_global->sPartyPosZ = *(_DWORD *)(v211 + 16);
+              pParty_global->dword_000700 = pParty_global->sPartyPosZ;
               pParty_global->dword_0006C0 = *(_WORD *)(v211 + 20);
               pParty_global->dword_0006C4 = *(_WORD *)(v211 + 22);
             }
@@ -5866,7 +5866,7 @@ LABEL_450:
             *(_DWORD *)(v73 + 4) = v74;
             *(_DWORD *)(v73 + 8) = pParty_global->sPartyPosX;
             *(_DWORD *)(v73 + 12) = pParty_global->sPartyPosY;
-            *(_DWORD *)(v73 + 16) = pParty_global->dword_0006BC;
+            *(_DWORD *)(v73 + 16) = pParty_global->sPartyPosZ;
             *(_WORD *)(v73 + 20) = pParty_global->dword_0006C0;
             *(_WORD *)(v73 + 22) = pParty_global->dword_0006C4;
             if ( dword_6A0C8C / 2 <= 0 )
@@ -5910,8 +5910,8 @@ LABEL_486:
                   {
                     pParty_global->sPartyPosX = *(int *)((char *)dword_4ECBB8 + v76);
                     pParty_global->sPartyPosY = *(int *)((char *)dword_4ECBBC + v76);
-                    pParty_global->dword_0006BC = *(int *)((char *)dword_4ECBC0 + v76);
-                    pParty_global->dword_000700 = pParty_global->dword_0006BC;
+                    pParty_global->sPartyPosZ = *(int *)((char *)dword_4ECBC0 + v76);
+                    pParty_global->dword_000700 = pParty_global->sPartyPosZ;
                     pParty_global->dword_0006C0 = *(__int16 *)((char *)word_4ECBC4 + v76);
                     pParty_global->dword_0006C4 = *(__int16 *)((char *)word_4ECBC6 + v76);
                   }
@@ -6090,7 +6090,7 @@ LABEL_91:
 LABEL_544:
                 pParty_global->sPartyPosX = v87;
                 pParty_global->sPartyPosY = v89;
-                pParty_global->dword_0006BC = v88;
+                pParty_global->sPartyPosZ = v88;
                 pParty_global->dword_000700 = v88;
                 goto LABEL_90;
               }
@@ -6773,8 +6773,8 @@ LABEL_731:
           sub_421D00((void *)v209);
           goto LABEL_92;
         case 0x65:
-          v191 = unk_ACD6F0;
-          v175 = pParty_global->uNumGold + unk_ACD6F0;
+          v191 = pParty_global->uNumGoldInBank;
+          v175 = pParty_global->uNumGold + pParty_global->uNumGoldInBank;
           v163 = pGlobalTXT_LocalizationStrings[489];
           goto LABEL_450;
         case 0x5C:
@@ -16925,11 +16925,11 @@ LABEL_90:
   {
     pParty_global->dword_0006C4 = 0;
     pParty_global->dword_0006C0 = 0;
-    pParty_global->dword_0006BC = 0;
+    pParty_global->sPartyPosZ = 0;
     pParty_global->sPartyPosY = 0;
     pParty_global->sPartyPosX = 0;
     pParty_global->dword_000700 = 0;
-    dword_ACD6A0 = 0;
+    pParty_global->dword_0006E8 = 0;
     sub_4498D5((void *)dword_6BE35C);
   }
   sub_443365(&struct_576FE8);

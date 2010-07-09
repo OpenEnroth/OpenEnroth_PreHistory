@@ -516,7 +516,7 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
             - ((signed int)(((unsigned int)((unsigned __int64)(uMinimapZoom
                                                              * *(_WORD *)(dword_6BE63C + 6 * *(_WORD *)(v10 + 2) + 2)) >> 16) << 16)
                           - uMinimapZoom * pParty_global->sPartyPosY) >> 16);
-        v15 = abs(*(_WORD *)(v10 + 8) - pParty_global->dword_0006BC) / 8;
+        v15 = abs(*(_WORD *)(v10 + 8) - pParty_global->sPartyPosZ) / 8;
         if ( v15 > 100 )
           v15 = 100;
         //CD3DRenderer_FillRect(pD3DRenderer, v73, v71, v100, v16, *((_WORD *)&unk_5771E4 - v15));
@@ -2023,7 +2023,7 @@ void __cdecl GameUI_DrawPartySpells()
   {
     if ( qword_ACD8B4 > 0 )
     {
-      if ( dword_ACD6BC )
+      if (pParty_global->dword_000704)
         v6 = v0;
       else
         v6 = 0;
@@ -2647,12 +2647,12 @@ void GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
   wsprintfA(TmpBuf, v124, pGlobalTXT_LocalizationStrings[131], v77, v74, v73);
   FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v114, TmpBuf, 0xFFFFFFFF, 0, 0);
   v115 = v114 + pFontArrus->uFontHeight - 2;
-  if ( pp->qword_0000A0 <= (signed __int64)(unsigned int)&unk_98967F )
+  if ( pp->uExperience <= (signed __int64)(unsigned int)&unk_98967F )
     v78 = pGlobalTXT_LocalizationStrings[83];
   else
     v78 = pGlobalTXT_LocalizationStrings[17];
   v82 = sub_48D498(pp);
-  wsprintfA(TmpBuf, "%s\r180\f%06x%lu\f000000\n\n", v78, v82, pp->qword_0000A0);
+  wsprintfA(TmpBuf, "%s\r180\f%06x%lu\f000000\n\n", v78, v82, pp->uExperience);
   FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v115, TmpBuf, 0xFFFFFFFF, 0, 0);
   v83 = v115 + 2 * pFontArrus->uFontHeight;
   v84 = 0;// attack bonus sub_48CCF5(pp, 0);
