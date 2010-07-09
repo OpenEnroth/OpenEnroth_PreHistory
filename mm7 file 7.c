@@ -4540,7 +4540,7 @@ LABEL_49:
       *(_WORD *)(uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 + 0x1A : 26) - v46);
     CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 347 - v46, pClass18_EndcapTexture);
     v47 = FitTextInAWindow(dword_F8B1E8, v45, (int)&v49, 13, 0);
-    LOBYTE(i) = FontDrawText((int)&v58, v45, 13, 354 - v46, v47, 0, 0, 0);
+    FontDrawText((int)&v58, v45, 13, 354 - v46, v47, 0, 0, 0);
   }
   return i;
 }
@@ -5754,7 +5754,7 @@ int __thiscall sub_4B4224(void *this)
 }
 
 //----- (004B46A5) --------------------------------------------------------
-char __fastcall sub_4B46A5(const char *Str1, __int16 a2)
+void sub_4B46A5(const char *Str1, __int16 a2)
 {
   const char *v3; // esi@1
   __int16 v4; // di@1
@@ -5764,7 +5764,7 @@ char __fastcall sub_4B46A5(const char *Str1, __int16 a2)
   v4 = a2;//colored or white text flag
   CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 352, pTexture_StatusBar);
   v5 = AlignText_Center(450, v3, pFontLucida);
-  return FontDrawText(pGUIWindow0, pFontLucida, v5 + 11, 357, v3, 0, 0, 0);
+  FontDrawText(pGUIWindow0, pFontLucida, v5 + 11, 357, v3, 0, 0, 0);
 }
 
 //----- (004B46F8) --------------------------------------------------------
@@ -8240,7 +8240,7 @@ LABEL_46:
 }
 
 //----- (004B7911) --------------------------------------------------------
-char __cdecl sub_4B7911()
+void __cdecl sub_4B7911()
 {
   int v0; // eax@3
   int v1; // eax@10
@@ -8357,8 +8357,8 @@ char __cdecl sub_4B7911()
         sub_44D406((int)&v31, pFontArrus, 0, 186, v34[0], &byte_69AF00, 3);
         v4 = pFontArrus;
         v5 = sub_44C51E(pFontArrus, &byte_69AF00);
-        LOBYTE(v0) = sub_459C2B((int)&v31, v5 / 2 + 80, 185, v4);
-        return v0;
+        sub_459C2B((int)&v31, v5 / 2 + 80, 185, v4);
+        return;
       }
       if ( *(_DWORD *)(dword_507BC0 + 64) == 2 )
       {
@@ -8427,13 +8427,12 @@ LABEL_8:
       *(_WORD *)(uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 + 0x1A : 26) - v6);
     CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 347 - v6, pClass18_EndcapTexture);
     v11 = FitTextInAWindow(dword_F8B1E8, v38, (int)&v28, 13, 0);
-    LOBYTE(v0) = FontDrawText((int)&v27, v38, 13, 354 - v6, v11, 0, 0, 0);
+    FontDrawText((int)&v27, v38, 13, 354 - v6, v11, 0, 0, 0);
   }
-  return v0;
 }
 
 //----- (004B7D7E) --------------------------------------------------------
-char __cdecl sub_4B7D7E()
+void __cdecl sub_4B7D7E()
 {
   int v0; // eax@3
   int v1; // ecx@5
@@ -8551,8 +8550,8 @@ LABEL_15:
     sub_44D406((int)&v13, pFontArrus, 0, 186, v16[0], &byte_69AF00, 3);
     v4 = pFontArrus;
     v5 = sub_44C51E(pFontArrus, &byte_69AF00);
-    LOBYTE(v0) = sub_459C2B((int)&v13, v5 / 2 + 80, 185, v4);
-    return v0;
+    sub_459C2B((int)&v13, v5 / 2 + 80, 185, v4);
+    return;
   }
   v8 = v17[0];
   if ( *(_DWORD *)(dword_507BBC + 44) != 2 )
@@ -8561,8 +8560,8 @@ LABEL_15:
   v9 = v17[0];
   if ( *(_DWORD *)(dword_507BBC + 44) != 3 )
     v9 = v16[0];
-  LOBYTE(v0) = (unsigned int)sub_44D406((int)&v13, pFontArrus, 0, 176, v9, pGlobalTXT_LocalizationStrings[224], 3);
-  return v0;
+  sub_44D406((int)&v13, pFontArrus, 0, 176, v9, pGlobalTXT_LocalizationStrings[224], 3);
+  return;
 }
 
 //----- (004B8040) --------------------------------------------------------

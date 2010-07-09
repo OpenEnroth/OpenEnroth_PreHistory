@@ -2767,46 +2767,45 @@ bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
   int v12; // esi@8
   char result; // al@9
   int v15; // [sp+Ch] [bp-20h]@5
+  int v16; //          [bp-14h]
   int v17; // [sp+1Ch] [bp-10h]@1
   int v18; // [sp+20h] [bp-Ch]@1
   int v19; // [sp+20h] [bp-Ch]@3
   int v20; // [sp+24h] [bp-8h]@1
   int v21; // [sp+28h] [bp-4h]@1
-  int v22; // [sp+28h] [bp-4h]@3
 
   v20 = (pStruct9_global->dword_000010 << 11) / 360 >> 1;
 
   v5 = &pClass51_global->pBModels[uModelIdx];
 
   v4 = pClass51_global->pBModels[uModelIdx].dword_0000AC - pClass55_global->dword_000000;
-  v3 = pClass51_global->pBModels[uModelIdx].dword_0000B0 - pClass55_global->dword_000000;
+  v3 = pClass51_global->pBModels[uModelIdx].dword_0000B0 - pClass55_global->dword_000004;
 
   v6 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000018);
   v21 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000018 - pClass59_global->dword_001864);
   v18 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000014);
-  class59_sub_402CAE(pClass59_global, pClass55_global->dword_000014 - pClass59_global->dword_001864);
+  v16 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000014 - pClass59_global->dword_001864);
 
   v2 = v6;
   v17 = v4 * v6 + v3 * v21;
-  if ( pClass55_global->dword_000014 )
-    v17 = (unsigned __int64)(v17 * v18) >> 16;
+  if (pClass55_global->dword_000014)
+    v17 = (unsigned __int64)(v17) * v18 >> 16;
   v19 = v3 * v2 - v4 * v21;
   v8 = abs(v3);
   v9 = abs(v4);
   v10 = sub_4621DA(v9, v8, 0);
-  v22 = v10;
 
-  if ( v10 < pClass51_global->pBModels[uModelIdx].dword_0000B8 + 256 )
+  *a2 = 0;
+  if (v10 < pClass51_global->pBModels[uModelIdx].dword_0000B8 + 256)
     *a2 = 1;
-  else *a2 = 0;
 
   v15 = class59_sub_402CAE(pClass59_global, v20 - pClass59_global->dword_001864);
   if ( v19 >= 0 )
-    v11 = ((unsigned __int64)(v15 * v17) >> 16) - ((unsigned __int64)(class59_sub_402CAE(pClass59_global, v20) * v19) >> 16);
+    v11 = ((unsigned __int64)(v15) * (unsigned __int64)(v17) / 65536) - ((unsigned __int64)(class59_sub_402CAE(pClass59_global, v20)) * v19 / 65536);
   else
-    v11 = ((unsigned __int64)(class59_sub_402CAE(pClass59_global, v20) * v19) >> 16) + ((unsigned __int64)(v15 * v17) >> 16);
+    v11 = ((unsigned __int64)(class59_sub_402CAE(pClass59_global, v20)) * v19 / 65536) + ((unsigned __int64)(v15) * v17 / 65536);
   v12 = v11 >> 16;
-  if ( v22 <= pStruct9_global->shading_dist_mist + 2048 )
+  if (v10 <= pStruct9_global->shading_dist_mist + 2048 )
   {
    if ( abs(v12) > pClass51_global->pBModels[uModelIdx].dword_0000B8 + 512 )
       return v12 >= 0;

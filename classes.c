@@ -8039,7 +8039,6 @@ int class59_sub_402CAE(struct class59 *_this, int a2)
 //----- (00436BB7) --------------------------------------------------------
 void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char a4)
 {
-  int v6; // esi@2
   double v7; // st7@7
   double v8; // st7@9
   double v9; // st6@10
@@ -8053,14 +8052,12 @@ void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char
 
  for (i = 0; i < a3; ++i)
  {
-    v6 = &a2[i].flt_000018;
-
       if ( byte_4D8410[572] && pGame->uSomeFlags & 0x80 || dword_6BE360 == 1 )
       {
-        v7 = memory_4D8410.f1_0 / *(float *)(v6 - 12);
-        *(float *)v6 = *(float *)(v6 - 8) * *((float *)_this + 49) * v7 + *((float *)_this + 50);
-        *(float *)(v6 + 4) = (double)class28_global.dword_00001C
-                           - (*(float *)(v6 - 4) * *((float *)_this + 49) * v7 + *((float *)_this + 51));
+        v7 = 1.0 / a2[i].flt_00000C;
+        a2[i].flt_000018 = a2[i].flt_000010 * _this->flt_0000C4 * v7 + _this->flt_0000C8;
+        a2[i].flt_00001C = (double)class28_global.dword_00001C
+                           - (a2[i].flt_000014 * _this->flt_0000C4 * v7 + _this->flt_0000CC);
       }
       else
       {
@@ -8069,39 +8066,36 @@ void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char
       if ( a4 )
       {
         v8 = (double)class28_global.dword_000018;
-        if ( v8 >= *(float *)v6 )
-          v9 = *(float *)v6;
+        if ( v8 >= a2[i].flt_000018)
+          v9 = a2[i].flt_000018;
         else
           v9 = v8;
         v10 = (double)class28_global.dword_000010;
         v14 = v10;
         if ( v10 <= v9 )
         {
-          if ( v8 >= *(float *)v6 )
-            v8 = *(float *)v6;
+          if ( v8 >= a2[i].flt_000018)
+            v8 = a2[i].flt_000018;
         }
         else
-        {
-          v8 = v14;
-        }
-        *(float *)v6 = v8;
+           v8 = v14;
+        a2[i].flt_000018 = v8;
+
         v11 = (double)class28_global.dword_00001C;
-        if ( v11 >= *(float *)(v6 + 4) )
-          v12 = *(float *)(v6 + 4);
+        if ( v11 >= a2[i].flt_00001C)
+          v12 = a2[i].flt_00001C;
         else
           v12 = v11;
         v13 = (double)class28_global.dword_000014;
         v15 = v13;
         if ( v13 <= v12 )
         {
-          if ( v11 >= *(float *)(v6 + 4) )
-            v11 = *(float *)(v6 + 4);
+          if ( v11 >= a2[i].flt_00001C)
+            v11 = a2[i].flt_00001C;
         }
         else
-        {
-          v11 = v15;
-        }
-        *(float *)(v6 + 4) = v11;
+           v11 = v15;
+        a2[i].flt_00001C= v11;
       }
   }
 }

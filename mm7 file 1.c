@@ -233,7 +233,7 @@ void __cdecl sub_4789DE()
 
          sub_436523(&array_73D150[k], 1);
          if (array_73D150[k].flt_00000C < 8.0 ||
-             pStruct9_global->shading_dist_mist < array_73D150[k].flt_00000C)
+             array_73D150[k].flt_00000C > pStruct9_global->shading_dist_mist)
          {
           if (array_73D150[k].flt_00000C >= 8.0 )
             v77 = 1;
@@ -393,7 +393,7 @@ LABEL_71:
         }
         else
         {
-          if ( v77 )
+          if (v77)
           {
             v45 = sub_4252E8(pClass51_global->pBModels[i].ptr_000054[j].byte_00012E);
             v46 = v45;
@@ -16945,10 +16945,10 @@ void *__cdecl PlayerCreationUI_Draw()
   {
    CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, pRGBTexture_Menu);
    CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_A74CCC, 2, pPlayerCreationUI_Sky);
-   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_A74CCC++ - 640, 2, pPlayerCreationUI_Sky);
+   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_A74CCC - 640, 2, pPlayerCreationUI_Sky);
 
-   if ( dword_A74CCC > 640 )
-     dword_A74CCC = 0;
+   dword_A74CCC = (GetTickCount() / 20) % 640;
+
    CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 0, 0, pPlayerCreationUI_Top);
 
    uPlayerCreationUI_SelectedCharacter = (pGUIWindow_PlayerCreation->dword_00002C - pGUIWindow_PlayerCreation->dword_000038) / 7;
@@ -16962,7 +16962,7 @@ void *__cdecl PlayerCreationUI_Draw()
 
    v1 = CIconFrameTable_GetFrame(pIconFrameTable, uIconTableFrameID_CharacterFrame, pClass24_global->dword_00000C);
 
-   switch ( uPlayerCreationUI_SelectedCharacter )
+   switch (uPlayerCreationUI_SelectedCharacter)
    {
       case 0:
         v4 = 12;
@@ -16977,7 +16977,7 @@ void *__cdecl PlayerCreationUI_Draw()
         v4 = 488;
         break;
       default:
-        v4 = v132;
+        v4 = v132; 
         break;
    }
    CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v4, 29, &pClass17_Icons_LOD->aLODHeaders[v1->uTextureIdx]);
@@ -16987,9 +16987,8 @@ void *__cdecl PlayerCreationUI_Draw()
    CD3DRenderer_DrawTransparentRect(pD3DRenderer, v5->uZ - 4, v5->uY, 20 * dword_A74CD4, 0, 20, 16, &pClass17_Icons_LOD->aLODHeaders[uTextureID_Arrows]);
    CD3DRenderer_DrawTransparentRect(pD3DRenderer, v5->uX - 12, v5->uY, 20 * dword_A74CD4, 16, 20, 16, &pClass17_Icons_LOD->aLODHeaders[uTextureID_Arrows]);
 
-   v6 = dword_A74CD4-- - 1 < 0;
-   if ( v6 )
-     dword_A74CD4 = 18;
+   dword_A74CD4 = (GetTickCount() / 25) % 18;
+
 
 
    v8 = pFontCreate->uFontHeight - 2;

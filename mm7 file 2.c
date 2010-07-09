@@ -3828,14 +3828,14 @@ LABEL_49:
 }
 
 //----- (0040D75D) --------------------------------------------------------
-char __fastcall sub_40D75D(int a1, const char *a2, int a3)
+void sub_40D75D(int a1, const char *a2, int a3)
 {
   const char *v4; // ST0C_4@1
   __int64 v5; // qax@1
 
   v4 = a2;
   v5 = *(_BYTE *)(pFontComic + 5) - 3;
-  return FontDrawText(pGUIWindow0,
+  FontDrawText(pGUIWindow0,
            pFontComic,
            *(_DWORD *)a3,
            *(_DWORD *)(a3 + 4) - (((_DWORD)v5 - HIDWORD(v5)) >> 1) + 3,
@@ -8109,7 +8109,7 @@ LABEL_46:
 }
 
 //----- (00412E85) --------------------------------------------------------
-char __cdecl sub_412E85()
+void __cdecl sub_412E85()
 {
   int v0; // eax@3
   int v1; // eax@7
@@ -8213,10 +8213,9 @@ char __cdecl sub_412E85()
   if ( v8 )
   {
     v9 = sub_44C6C2(dword_5C35E0, v6, (int)&v15, 1, (unsigned __int8)byte_5C6D50[dword_506528]);
-    LOBYTE(v6) = FontDrawText((int)&v15, dword_5C35E0, 1, 0, (const char *)v9, 0, v16 + v18, 0);
+    FontDrawText((int)&v15, dword_5C35E0, 1, 0, (const char *)v9, 0, v16 + v18, 0);
     ++dword_506520;
   }
-  return (char)v6;
 }
 
 //----- (00413126) --------------------------------------------------------
@@ -8948,7 +8947,7 @@ int __cdecl sub_413D3C()
 }
 
 //----- (00413D6F) --------------------------------------------------------
-char __cdecl sub_413D6F()
+void __cdecl sub_413D6F()
 {
   signed int v0; // esi@1
   int v1; // eax@5
@@ -9001,7 +9000,7 @@ char __cdecl sub_413D6F()
   else
     v3 = (int)"Unknown";
   wsprintfA(TmpBuf, "%s\t100:\t110%s", pGlobalTXT_LocalizationStrings[531], v3);
-  return FontDrawText(&v5, dword_5C35F4, 70, 10 * *(_BYTE *)(dword_5C35F4 + 5) + 25, TmpBuf, 0, 0, 0);
+  FontDrawText(&v5, dword_5C35F4, 70, 10 * *(_BYTE *)(dword_5C35F4 + 5) + 25, TmpBuf, 0, 0, 0);
 }
 
 //----- (004141CA) --------------------------------------------------------
@@ -9062,7 +9061,7 @@ void __cdecl sub_41426F()
 }
 
 //----- (004142D3) --------------------------------------------------------
-char __cdecl sub_4142D3()
+void __cdecl sub_4142D3()
 {
   __int16 v0; // bp@1
   int v1; // ecx@2
@@ -9305,7 +9304,7 @@ char __cdecl sub_4142D3()
     v61 = 27;
   }
   v60 = sub_414D24((void *)v61);
-  return FontDrawText(pGUIWindow_PlayerCreation, pFontLucida, v6, 268, v62, v63, v64, v65);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontLucida, v6, 268, v62, v63, v64, v65);
 }
 
 //----- (00414D24) --------------------------------------------------------
@@ -9535,7 +9534,7 @@ void __cdecl sub_414F82()
 }
 
 //----- (00415180) --------------------------------------------------------
-char __fastcall sub_415180(int a1, const char *a2, int a3, __int16 a4, char *a5)
+void sub_415180(int a1, const char *a2, int a3, __int16 a4, char *a5)
 {
   const char *v6; // ebx@1
   int v7; // esi@1
@@ -9545,7 +9544,7 @@ char __fastcall sub_415180(int a1, const char *a2, int a3, __int16 a4, char *a5)
   v7 = a1;
   strlen(a2);
   v8 = sub_44C51E(a3, v6);
-  return FontDrawText(*(_DWORD *)(v7 + 56),
+  FontDrawText(*(_DWORD *)(v7 + 56),
            a3,
            *(_DWORD *)v7 + (*(_DWORD *)(v7 + 8) - v8) / 2,
            *(_DWORD *)(v7 + 4) + (*(_DWORD *)(v7 + 12) - *(_BYTE *)(a3 + 5)) / 2,
@@ -12019,7 +12018,7 @@ signed int __thiscall sub_417939(void *this)
 }
 
 //----- (004179BC) --------------------------------------------------------
-char __fastcall sub_4179BC(int a1, const char *a2)
+void sub_4179BC(int a1, const char *a2)
 {
   const char *v3; // ebx@1
   int v4; // edi@1
@@ -12052,7 +12051,7 @@ char __fastcall sub_4179BC(int a1, const char *a2)
   v5 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
   sprintfex(&TmpBuf, (const char *)&unk_4E2D80, v5, v4);
   sub_44D406((int)&Dst, pFontCreate, 0, 0, 0, &TmpBuf, 3);
-  return FontDrawText((int)&Dst, pFontSmallnum, 1, *(_BYTE *)(pFontLucida + 5), v3, 0, 0, 0);
+  FontDrawText((int)&Dst, pFontSmallnum, 1, *(_BYTE *)(pFontLucida + 5), v3, 0, 0, 0);
 }
 
 //----- (00417AD4) --------------------------------------------------------
@@ -12283,7 +12282,7 @@ _UNKNOWN *__fastcall sub_417BB5(int a1, int a2)
 }
 
 //----- (00417FE5) --------------------------------------------------------
-char __cdecl GameUI_SkillsTab_ShowHint()
+void __cdecl GameUI_SkillsTab_ShowHint()
 {
   int v0; // eax@1
   int v1; // ecx@1
@@ -12322,13 +12321,12 @@ char __cdecl GameUI_SkillsTab_ShowHint()
   }
   else
   {
-    LOBYTE(v0) = sub_4179BC(pGlobalTXT_LocalizationStrings[207], pSkillPointsAttributeDescription);
+    sub_4179BC(pGlobalTXT_LocalizationStrings[207], pSkillPointsAttributeDescription);
   }
-  return v0;
 }
 
 //----- (00418083) --------------------------------------------------------
-char __cdecl GameUI_StatsTab_ShowHint()
+void __cdecl GameUI_StatsTab_ShowHint()
 {
   int v0; // eax@1
   signed int v1; // ecx@1
@@ -12558,13 +12556,12 @@ LABEL_49:
       if ( v26 )
       {
         if ( v7 )
-          LOBYTE(v0) = sub_4179BC(v26, (const char *)v7);
+          sub_4179BC(v26, (const char *)v7);
       }
       break;
     default:
-      return v0;
+      return;
   }
-  return v0;
 }
 
 //----- (00458585) --------------------------------------------------------
@@ -12932,7 +12929,7 @@ int __cdecl sub_4196A0()
 }
 
 //----- (00419719) --------------------------------------------------------
-char __fastcall GameUI_DrawSkillsTab(int a1) // character skills tab
+void GameUI_DrawSkillsTab(int a1) // character skills tab
 {
   signed int v1; // ecx@1
   char *v2; // ebp@1
@@ -13430,7 +13427,7 @@ LABEL_89:
         //sprintfex(&TmpBuf, (const char *)&unk_4E2F4C, (&dword_AE32D0)[4 * v80], v55, v64, v68, v72);
         wsprintfA(TmpBuf, (const char *)&unk_4E2F4C, aSkillNames[v80], v55, v64, v68, v72);
 LABEL_118:
-        LOBYTE(v47) = FontDrawText(pGUIWindow_PlayerCreation, pFontLucida, 248, v92, TmpBuf, 0, 0, 0);
+        FontDrawText(pGUIWindow_PlayerCreation, pFontLucida, 248, v92, TmpBuf, 0, 0, 0);
         v46 = pGUIWindow_PlayerCreation;
 LABEL_119:
         v48 = v84 + 1;
@@ -13443,8 +13440,7 @@ LABEL_119:
   }
   while ( v98 < (signed int)&unk_4E2A80 );
   if ( !v88 )
-    LOBYTE(v47) = FontDrawText(v46, pFontLucida, 248, *(_BYTE *)(pFontLucida + 5) + v92 - 3, pGlobalTXT_LocalizationStrings[153], 0, 0, 0);
-  return v47;
+    FontDrawText(v46, pFontLucida, 248, *(_BYTE *)(pFontLucida + 5) + v92 - 3, pGlobalTXT_LocalizationStrings[153], 0, 0, 0);
 }
 
 //----- (004948B1) --------------------------------------------------------
@@ -13889,7 +13885,7 @@ void __cdecl sub_41A556()
 }
 
 //----- (0041A57E) --------------------------------------------------------
-char __cdecl sub_41A57E()
+void __cdecl sub_41A57E()
 {
   int v0; // ebx@1
   int v1; // eax@1
@@ -14078,7 +14074,7 @@ char __cdecl sub_41A57E()
   FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 22, 323, TmpBuf, 0, 0, 0);
   v42 = sub_49135E(pParty_global);
   wsprintfA(TmpBuf, "\r261%s: %d", pGlobalTXT_LocalizationStrings[84], v42);
-  return FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 0, 323, TmpBuf, 0, 0, 0);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 0, 323, TmpBuf, 0, 0, 0);
 }
 
 //----- (0041ABFD) --------------------------------------------------------
@@ -14959,7 +14955,7 @@ void __thiscall sub_41D0D8(int this)
 }
 
 //----- (0041D20D) --------------------------------------------------------
-char __fastcall sub_41D20D(int a1, int a2, __int64 a3, int a4)
+void sub_41D20D(int a1, int a2, __int64 a3, int a4)
 {
   unsigned int v4; // ebp@1
   int v5; // ebp@1
@@ -15034,11 +15030,11 @@ char __fastcall sub_41D20D(int a1, int a2, __int64 a3, int a4)
       strcat(TmpBuf, pStringBuffer);
     }
   }
-  return FontDrawText(v16, a4, 32, v15, TmpBuf, 0, 0, 0);
+  FontDrawText(v16, a4, 32, v15, TmpBuf, 0, 0, 0);
 }
 
 //----- (0041D3B7) --------------------------------------------------------
-char __thiscall sub_41D3B7(int this)
+void sub_41D3B7(int this)
 {
   int v1; // eax@1
   int v2; // ecx@1
@@ -15212,11 +15208,11 @@ char __thiscall sub_41D3B7(int this)
   if ( v45 == v32 )
     v39 = pGlobalTXT_LocalizationStrings[153];
   wsprintfA(TmpBuf, pGlobalTXT_LocalizationStrings[450], v39);
-  return FontDrawText(v43, pFontArrus, 14, 114, TmpBuf, v32, v32, (char *)v32);
+  FontDrawText(v43, pFontArrus, 14, 114, TmpBuf, v32, v32, (char *)v32);
 }
 
 //----- (0041D73D) --------------------------------------------------------
-char __thiscall sub_41D73D(int this)
+void sub_41D73D(int this)
 {
   signed int v1; // eax@1
   int v2; // edi@1
@@ -15282,7 +15278,7 @@ char __thiscall sub_41D73D(int this)
         ++v20;
         v14 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(*((_BYTE *)v8 - 1), *(_BYTE *)v8, *((_BYTE *)v8 + 1));//colored or white text flag
         FontDrawText(v2, v17, 52, v12, v13, 0, 0, 0);
-        LOBYTE(v9) = sub_41D20D(v12, v2, v11, v17);
+        sub_41D20D(v12, v2, v11, v17);
         v3 = v17;
       }
     }
@@ -15291,7 +15287,6 @@ char __thiscall sub_41D73D(int this)
     v8 = (char *)v8 + 3;
   }
   while ( v18 < (signed int)&pParty_global->pPlayers[0] );
-  return v9;
 }
 
 //----- (0041D895) --------------------------------------------------------

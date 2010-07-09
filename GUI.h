@@ -149,7 +149,7 @@ struct GUIButton *GUIWindow_GetChild(struct GUIWindow *_this, int uID);
 
 int __fastcall AlignText_Center(int a1, const char *a2, int a3);
 unsigned char *__fastcall FitTextInAWindow(const char *pString, struct Font *pFont, struct GUIWindow *pParent, unsigned char uX, int a5);
-char __fastcall FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, const char *pString, unsigned int uTextMainColor, signed int a8, unsigned int uTextShadowColor);
+void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, const char *pString, unsigned int uTextMainColor, signed int a8, unsigned int uTextShadowColor);
 
 void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigned int uWindowWidth, unsigned int uWindowHeight);
 
@@ -182,12 +182,14 @@ void GameUI_DrawTorchlightAndWizardEye();
 void GameUI_DrawLifeManaBars();
 void GameUI_Update();
 
-char __cdecl GameUI_SkillsTab_ShowHint();
-char __cdecl GameUI_StatsTab_ShowHint();
-char __fastcall GameUI_DrawSkillsTab(int a1);
+void __cdecl GameUI_SkillsTab_ShowHint();
+void GameUI_DrawSkillsTab(int a1);
+
+void __cdecl GameUI_StatsTab_ShowHint();
+void GameUI_DrawStatsTab(unsigned int uSelectedCharacter);
+
 int __fastcall GameUI_DrawAwardsTab(int a1);
 void __fastcall GameUI_DrawInventory(unsigned int uSelectedCharacter, char a2);
-char __fastcall GameUI_DrawStatsTab(unsigned int uSelectedCharacter);
 
 
 #pragma pack(pop)

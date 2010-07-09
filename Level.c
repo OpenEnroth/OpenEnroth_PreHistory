@@ -1609,8 +1609,7 @@ bool sub_482170(struct class51_stru2 *_this, struct struct14 *a2, struct struct8
  {
   while (true)
   {
-   --v3;
-   if (v3 < 2)
+   if (--v3 < 2)
      break;
 
    v10 = v6->x - a2->x;

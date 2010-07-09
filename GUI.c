@@ -2256,14 +2256,11 @@ LABEL_27:
 }
 
 //----- (0044CE08) --------------------------------------------------------
-char __fastcall FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, const char *pString, unsigned int uTextMainColor, signed int a8, unsigned int uTextShadowColor)
+void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, const char *pString, unsigned int uTextMainColor, signed int a8, unsigned int uTextShadowColor)
 {
   int v9; // ebx@1
   int v10; // edi@1
-  char *v11; // eax@2
   int v12; // edx@9
-  //int v13; // edi@9
-  //int v14; // esi@9
   int v15; // eax@25
   int v16; // ecx@25
   int v17; // eax@27
@@ -2282,7 +2279,6 @@ char __fastcall FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsign
   int v33; // [sp+24h] [bp-14h]@25
   int v34; // [sp+28h] [bp-10h]@1
   size_t v35; // [sp+2Ch] [bp-Ch]@4
-  int v36; // [sp+30h] [bp-8h]@1
   char *v37; // [sp+34h] [bp-4h]@7
   int v38; // [sp+4Ch] [bp+14h]@11
  unsigned char c;
@@ -2292,19 +2288,12 @@ char __fastcall FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsign
   v34 = 0;
   v10 = _this;
   v9 = pFont;
-  v36 = _this;
-  if (!pString)
-  {
-    sub_40E2C8(&v23, "Invalid string passed!", 0);
-    LOBYTE(v11) = (unsigned int)sub_466D09(&a8, *(int *)&v23, v24, v25, v26, __FILE__, __LINE__);
-    return (char)v11;
-  }
-  v11 = strcmp(pString, "null");
-  if (!v11)
-    return v11;
+
+  if (!strcmp(pString, "null"))
+    return 0;
 
     v35 = strlen(pString);
-    v11 = 0;
+
     if ( !uX )
       uX = 12;
     if ( a8 )
@@ -2313,17 +2302,16 @@ char __fastcall FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsign
     }
     else
     {
-      v11 = FitTextInAWindow(pString, pFont, _this, uX, 0);
-      v37 = v11;
+      v37 = FitTextInAWindow(pString, pFont, _this, uX, 0);
     }
     uOutX = uX + _this->uFrameX;
     uOutY = uY + _this->uFrameY;
     v12 = 0;
-    v11 = uOutY + pFont->uFontHeight;
-    if ( !a8 || (signed int)v11 <= a8)
-    {
-      v38 = 0;
-      if ( (signed int)v35 > 0 )
+
+  if (!a8 || uOutY + pFont->uFontHeight <= a8)
+  {
+   v38 = 0;
+   if ((signed int)v35 > 0)
       {
         do
         {
@@ -2340,7 +2328,6 @@ char __fastcall FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsign
                 v38 += 3;
                 v34 = atoi(Dest);
                 v19 = atoi(Dest);
-                c = v36;
                 uOutX = uX + _this->uFrameX + v19;
                 break;
               case 0xAu:
@@ -2366,8 +2353,8 @@ char __fastcall FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsign
                 v38 += 3;
                 v18 = atoi(&Dest);
                 c = (char *)sub_44C51E(v9, &v37[v38]);
-                uOutX = *(_DWORD *)(v36 + 16) - (_DWORD)c - v18;
-                uOutY = uY + *(_DWORD *)(v36 + 4);
+                uOutX = *(_DWORD *)(v10 + 16) - (_DWORD)c - v18;
+                uOutY = uY + *(_DWORD *)(v10 + 4);
                 if ( a8 )
                 {
                  c = pFont->uFontHeight;
@@ -2415,8 +2402,6 @@ LABEL_36:
         while ( ++v38 < v35);
       }
     }
-
-  return (char)v11;
 }
 
 
@@ -2427,7 +2412,7 @@ void GameUI_DrawCharacterSelectionFrame()
    CD3DRenderer_DrawTransparentTexture(pD3DRenderer, off_4ED748[uMaybeSelectedCharacter - 1] - 9, 380, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_CharacterSelectionFrame]);
 }
 //----- (00418511) --------------------------------------------------------
-char __fastcall GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
+void GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
 {
   struct Player *pp; // edi@1
   int v2; // eax@1
@@ -2779,6 +2764,6 @@ char __fastcall GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // characte
       wsprintfA(TmpBuf, "%s\f%06x\r180%s", pGlobalTXT_LocalizationStrings[29], v111, pGlobalTXT_LocalizationStrings[625]);
     }
   }
-  return FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v121, TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v121, TmpBuf, 0xFFFFFFFF, 0, 0);
 }
 

@@ -12212,7 +12212,7 @@ signed int __thiscall sub_4598FC(int this, const char *a2)
 }
 
 //----- (00459C2B) --------------------------------------------------------
-char __fastcall sub_459C2B(int a1, signed int a2, int a3, int a4)
+void sub_459C2B(int a1, signed int a2, int a3, int a4)
 {
   unsigned int v4; // eax@1
   int v5; // edi@1
@@ -12224,8 +12224,7 @@ char __fastcall sub_459C2B(int a1, signed int a2, int a3, int a4)
   v7 = GetTickCount();
   v4 = v7 / 0x3E8;
   if ( v7 % 0x3E8 > 0x1F4 )
-    LOBYTE(v4) = FontDrawText(v5, a4, v6, a3, "_", 0, 0, 0);
-  return v4;
+    FontDrawText(v5, a4, v6, a3, "_", 0, 0, 0);
 }
 
 //----- (00459C68) --------------------------------------------------------
@@ -18236,7 +18235,7 @@ void __cdecl sub_467F9F()
 }
 
 //----- (00467FB6) --------------------------------------------------------
-char __cdecl sub_467FB6()
+void __cdecl sub_467FB6()
 {
   int v0; // eax@1
   int v2; // ST18_4@3
@@ -18276,7 +18275,7 @@ char __cdecl sub_467FB6()
   v3 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0xFFu, 0xFFu, 0x9Bu);
   wsprintfA(TmpBuf, (const char *)&unk_4E2D80, v3, v2);
   sub_44D406((int)&v4, pFontCreate, 0, 0, 0, &TmpBuf, 3);
-  return FontDrawText((int)&v4,
+  FontDrawText((int)&v4,
            pFontSmallnum,
            1,
            *(_BYTE *)(pFontCreate + 5) - 3,
