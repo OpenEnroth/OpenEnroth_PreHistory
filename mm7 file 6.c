@@ -21,64 +21,77 @@
 
 
 //----- (0048C855) --------------------------------------------------------
-int __thiscall sub_48C855(int this)
+int __thiscall Player_GetBaseStrength(struct Player *_this)
 {
-  return *(_WORD *)(this + 188) + sub_48EAAE((void *)this, 0, 0);
+  return _this->uStrength + Player_CalcParamBonus(_this, 0, 0);
 }
 
 //----- (0048C86C) --------------------------------------------------------
-int __thiscall sub_48C86C(int this)
+int __thiscall Player_GetBaseIntelligence(struct Player *_this)
 {
-  return *(_WORD *)(this + 192) + sub_48EAAE((void *)this, 1, 0);
+  return _this->uIntelligence + Player_CalcParamBonus(_this, 1, 0);
 }
 
 //----- (0048C883) --------------------------------------------------------
-int __thiscall sub_48C883(int this)
+int __thiscall Player_GetBaseWillpower(struct Player *_this)
 {
-  return *(_WORD *)(this + 196) + sub_48EAAE((void *)this, 2, 0);
+  return _this->uWillpower + Player_CalcParamBonus(_this, 2, 0);
 }
 
 //----- (0048C89A) --------------------------------------------------------
-int __thiscall sub_48C89A(int this)
+int __thiscall Player_GetBaseEndurance(struct Player *_this)
 {
-  return *(_WORD *)(this + 200) + sub_48EAAE((void *)this, 3, 0);
+  return _this->uEndurance + Player_CalcParamBonus(_this, 3, 0);
 }
 
 //----- (0048C8B1) --------------------------------------------------------
-int __thiscall sub_48C8B1(int this)
+int __thiscall Player_GetBaseAccuracy(struct Player *_this)
 {
-  return *(_WORD *)(this + 208) + sub_48EAAE((void *)this, 4, 0);
+  return _this->uAccuracy + Player_CalcParamBonus(_this, 4, 0);
 }
 
 //----- (0048C8C8) --------------------------------------------------------
-int __thiscall sub_48C8C8(int this)
+int __thiscall Player_GetBaseSpeed(struct Player *_this)
 {
-  return *(_WORD *)(this + 204) + sub_48EAAE((void *)this, 5, 0);
+  return _this->uSpeed + Player_CalcParamBonus(_this, 5, 0);
 }
 
 //----- (0048C8DF) --------------------------------------------------------
-int __thiscall sub_48C8DF(int this)
+int __thiscall Player_GetBaseLuck(struct Player *_this)
 {
-  return *(_WORD *)(this + 212) + sub_48EAAE((void *)this, 6, 0);
+  return _this->uLuck + Player_CalcParamBonus(_this, 6, 0);
 }
 
 //----- (0048C8F6) --------------------------------------------------------
-int __thiscall sub_48C8F6(int this)
+int __thiscall Player_GetBaseLevel(struct Player *_this)
 {
-  return *(_WORD *)(this + 218) + sub_48EAAE((void *)this, 24, 0);
+  return _this->BaseLevel + Player_CalcParamBonus(_this, 24, 0);
 }
 
 //----- (0048C90D) --------------------------------------------------------
-int sub_48C90D(struct Player *_this)
+int Player_GetActualLevel(struct Player *_this)
 {
-  int v3; // edi@1
+  return Player_GetBaseLevel(_this) + _this->TempLevelBonus + sub_48F73C(_this, 24);
+}
 
-  v3 = sub_48EAAE(_this, 24, 0);
-  return _this->word_0000DC + sub_48F73C(_this, 24) + v3 + _this->word_0000DA;
+//----- (0048E72C) --------------------------------------------------------
+int __thiscall Player_GetActualAge(struct Player *_this)
+{
+  return Player_GetBaseAge(_this) + _this->AgeingAdd;
+}
+
+//----- (0048E6DC) --------------------------------------------------------
+int Player_GetBaseAge(struct Player *_this)
+{
+ double d;
+ 
+ d = pParty_global->qword_00002C;
+  return (signed int)((unsigned int)((signed __int64)(d * 0.234375) / 60 / 60) / 0x18) / 7 / 4 / 12
+       - _this->dword_001944 + 1168;
 }
 
 //----- (0048C9C2) --------------------------------------------------------
-int __thiscall sub_48C9C2(struct Player *_this)
+int __thiscall Player_GetActualIntelligence(struct Player *_this)
 {
   int v1; // eax@1
   signed int v2; // ecx@1
@@ -88,7 +101,7 @@ int __thiscall sub_48C9C2(struct Player *_this)
   int v7; // ebp@5
 
   v3 = _this;
-  v1 = _this->word_0000DE + sub_48E6DC(_this);
+  v1 = Player_GetBaseAge(_this) + _this->AgeingAdd;
   v2 = 0;
   while ( v1 >= dword_4EDFD0[v2] )
   {
@@ -102,12 +115,12 @@ int __thiscall sub_48C9C2(struct Player *_this)
   v4 = (unsigned __int8)byte_4EDFE4[v2];
 LABEL_5:
   v6 = (unsigned __int8)byte_4EDF5B[sub_48E9F4((void *)v3)];
-  v7 = sub_48EAAE((void *)v3, 1, 0);
+  v7 = Player_CalcParamBonus((void *)v3, 1, 0);
   return v6 * v4 * *(_WORD *)(v3 + 192) / 100 / 100 + sub_48F73C(v3, 1) + v7 + *(_WORD *)(v3 + 194);
 }
 
 //----- (0048CA3F) --------------------------------------------------------
-int __thiscall sub_48CA3F(int this)
+int __thiscall Player_GetActualWillpower(int this)
 {
   int v1; // eax@1
   signed int v2; // ecx@1
@@ -117,7 +130,7 @@ int __thiscall sub_48CA3F(int this)
   int v7; // ebp@5
 
   v3 = this;
-  v1 = *(_WORD *)(this + 222) + sub_48E6DC(this);
+  v1 = *(_WORD *)(this + 222) + Player_GetBaseAge(this);
   v2 = 0;
   while ( v1 >= dword_4EDFD0[v2] )
   {
@@ -131,12 +144,12 @@ int __thiscall sub_48CA3F(int this)
   v4 = (unsigned __int8)byte_4EDFE8[v2];
 LABEL_5:
   v6 = (unsigned __int8)byte_4EDF6E[sub_48E9F4((void *)v3)];
-  v7 = sub_48EAAE((void *)v3, 2, 0);
+  v7 = Player_CalcParamBonus((void *)v3, 2, 0);
   return v6 * v4 * *(_WORD *)(v3 + 196) / 100 / 100 + sub_48F73C(v3, 2) + v7 + *(_WORD *)(v3 + 198);
 }
 
 //----- (0048CB39) --------------------------------------------------------
-int __thiscall sub_48CB39(int this)
+int __thiscall Player_GetActualAccuracy(int this)
 {
   int v1; // eax@1
   signed int v2; // ecx@1
@@ -146,7 +159,7 @@ int __thiscall sub_48CB39(int this)
   int v7; // ebp@5
 
   v3 = this;
-  v1 = *(_WORD *)(this + 222) + sub_48E6DC(this);
+  v1 = *(_WORD *)(this + 222) + Player_GetBaseAge(this);
   v2 = 0;
   while ( v1 >= dword_4EDFD0[v2] )
   {
@@ -160,12 +173,12 @@ int __thiscall sub_48CB39(int this)
   v4 = (unsigned __int8)byte_4EDFF0[v2];
 LABEL_5:
   v6 = (unsigned __int8)byte_4EDF94[sub_48E9F4((void *)v3)];
-  v7 = sub_48EAAE((void *)v3, 4, 0);
+  v7 = Player_CalcParamBonus((void *)v3, 4, 0);
   return v6 * v4 * *(_WORD *)(v3 + 208) / 100 / 100 + sub_48F73C(v3, 4) + v7 + *(_WORD *)(v3 + 210);
 }
 
 //----- (0048CBB6) --------------------------------------------------------
-int __thiscall sub_48CBB6(int this)
+int __thiscall Player_GetActualSpeed(int this)
 {
   int v1; // eax@1
   signed int v2; // ecx@1
@@ -175,7 +188,7 @@ int __thiscall sub_48CBB6(int this)
   int v7; // ebp@5
 
   v3 = this;
-  v1 = *(_WORD *)(this + 222) + sub_48E6DC(this);
+  v1 = *(_WORD *)(this + 222) + Player_GetBaseAge(this);
   v2 = 0;
   while ( v1 >= dword_4EDFD0[v2] )
   {
@@ -189,12 +202,12 @@ int __thiscall sub_48CBB6(int this)
   v4 = (unsigned __int8)byte_4EDFF4[v2];
 LABEL_5:
   v6 = (unsigned __int8)byte_4EDFA7[sub_48E9F4((void *)v3)];
-  v7 = sub_48EAAE((void *)v3, 5, 0);
+  v7 = Player_CalcParamBonus((void *)v3, 5, 0);
   return v6 * v4 * *(_WORD *)(v3 + 204) / 100 / 100 + sub_48F73C(v3, 5) + v7 + *(_WORD *)(v3 + 206);
 }
 
 //----- (0048CC33) --------------------------------------------------------
-int __thiscall sub_48CC33(void *this)
+int __thiscall Player_GetActualLuck(void *this)
 {
   int v1; // esi@1
   int v2; // eax@1
@@ -218,7 +231,7 @@ int __thiscall sub_48CC33(void *this)
   LOBYTE(v4) = sub_476395((void *)0x2F);
   if ( v4 )
     v11 += 10;
-  v5 = *(_WORD *)(v1 + 222) + sub_48E6DC(v1);
+  v5 = *(_WORD *)(v1 + 222) + Player_GetBaseAge(v1);
   v6 = 0;
   while ( v5 >= dword_4EDFD0[v6] )
   {
@@ -232,7 +245,7 @@ int __thiscall sub_48CC33(void *this)
   v7 = (unsigned __int8)byte_4EDFF8[v6];
 LABEL_11:
   v9 = (unsigned __int8)byte_4EDFBA[sub_48E9F4((void *)v1)];
-  v10 = sub_48EAAE((void *)v1, 6, 0);
+  v10 = Player_CalcParamBonus((void *)v1, 6, 0);
   return sub_48F73C(v1, 6) + v10 + v11 + v9 * v7 * *(_WORD *)(v1 + 212) / 100 / 100 + *(_WORD *)(v1 + 214);
 }
 
@@ -246,10 +259,10 @@ int __thiscall sub_48CCF5(int this, int a2)
   int v7; // ebp@1
 
   v3 = this;
-  v4 = sub_48CB39(this);
+  v4 = Player_GetActualAccuracy(this);
   v5 = sub_48EA1B(v4);
   v6 = sub_48FC00((void *)v3, 25);
-  v7 = sub_48EAAE((void *)v3, 25, a2);
+  v7 = Player_CalcParamBonus((void *)v3, 25, a2);
   return v5 + v6 + v7 + sub_48F73C(v3, 25) + *(_BYTE *)(v3 + 6800);
 }
 
@@ -265,9 +278,9 @@ signed int __thiscall sub_48CD45(int this)
   int v7; // esi@1
 
   v3 = this;
-  v4 = sub_48C93C(this);
+  v4 = Player_GetActualStrength(this);
   v5 = sub_48EA1B(v4);
-  v6 = sub_48EAAE((void *)v3, 27, 0) + v5;
+  v6 = Player_CalcParamBonus((void *)v3, 27, 0) + v5;
   v7 = sub_48FC00((void *)v3, 26) + v6;
   v2 = *(_BYTE *)(v3 + 6802) + sub_48F73C(v3, 26) + v7;
   result = 1;
@@ -288,9 +301,9 @@ signed int __thiscall sub_48CD90(int this)
   int v7; // esi@1
 
   v3 = this;
-  v4 = sub_48C93C(this);
+  v4 = Player_GetActualStrength(this);
   v5 = sub_48EA1B(v4);
-  v6 = sub_48EAAE((void *)v3, 28, 0) + v5;
+  v6 = Player_CalcParamBonus((void *)v3, 28, 0) + v5;
   v7 = sub_48FC00((void *)v3, 26) + v6;
   v2 = *(_BYTE *)(v3 + 6802) + sub_48F73C(v3, 26) + v7;
   result = 1;
@@ -503,7 +516,7 @@ LABEL_62:
   v22 = v33 + v35;
   if ( !a2 )
   {
-    v23 = sub_48C93C(v4);
+    v23 = Player_GetActualStrength(v4);
     v24 = sub_48EA1B(v23);
     v25 = sub_48FC00((void *)v4, 26) + v24;
     v22 += *(_BYTE *)(v4 + 6802) + sub_48F73C(v4, 26) + v25;
@@ -529,9 +542,9 @@ int __thiscall sub_48D0B9(int this)
   v1 = *(_DWORD *)(this + 36 * *(_DWORD *)(this + 6476) + 496);
   if ( v1 < 64 || v1 > 65 )
   {
-    v4 = sub_48CB39(this);
+    v4 = Player_GetActualAccuracy(this);
     v5 = sub_48EA1B(v4);
-    v6 = sub_48EAAE((void *)v2, 29, 0) + v5;
+    v6 = Player_CalcParamBonus((void *)v2, 29, 0) + v5;
     v7 = sub_48FC00((void *)v2, 29) + v6;
     v3 = *(_BYTE *)(v2 + 6804) + sub_48F73C(v2, 29) + v7;
   }
@@ -553,7 +566,7 @@ int __thiscall sub_48D124(void *this)
   int result; // eax@6
 
   v3 = (int)this;
-  v4 = sub_48EAAE(this, 31, 0);
+  v4 = Player_CalcParamBonus(this, 31, 0);
   v5 = sub_48FC00((void *)v3, 30) + v4;
   v2 = *(_BYTE *)(v3 + 6806) + sub_48F73C(v3, 30) + v5;
   v1 = *(_WORD *)(v3 + 274);
@@ -583,7 +596,7 @@ int __thiscall sub_48D191(void *this)
   int result; // eax@6
 
   v3 = (int)this;
-  v4 = sub_48EAAE(this, 32, 0);
+  v4 = Player_CalcParamBonus(this, 32, 0);
   v5 = sub_48FC00((void *)v3, 30) + v4;
   v2 = *(_BYTE *)(v3 + 6806) + sub_48F73C(v3, 30) + v5;
   v1 = *(_WORD *)(v3 + 274);
@@ -708,8 +721,8 @@ char *__thiscall sub_48D2EA(int this)
   }
   else
   {
-    v4 = sub_48EAAE((void *)this, 27, 0);
-    v3 = sub_48EAAE((void *)v2, 28, 0);
+    v4 = Player_CalcParamBonus((void *)this, 27, 0);
+    v3 = Player_CalcParamBonus((void *)v2, 28, 0);
   }
   if ( v4 == v3 )
   {
@@ -758,8 +771,8 @@ char *__thiscall sub_48D396(int this)
   }
   else
   {
-    v4 = sub_48EAAE((void *)this, 27, 1);
-    v3 = sub_48EAAE((void *)v2, 28, 1);
+    v4 = Player_CalcParamBonus((void *)this, 27, 1);
+    v3 = Player_CalcParamBonus((void *)v2, 28, 1);
   }
   if ( v3 )
   {
@@ -888,22 +901,22 @@ LABEL_17:
     return 0;
   if ( v4 )
   {
-    v6 = sub_48CC33((void *)v3);
+    v6 = Player_GetActualLuck((void *)v3);
     v7 = sub_48EA1B(v6) + v4 + 30;
     if ( rand() % v7 >= 30 )
     {
       v18 = a3 >> 1;
-      v8 = sub_48CC33((void *)v3);
+      v8 = Player_GetActualLuck((void *)v3);
       v9 = sub_48EA1B(v8) + v4 + 30;
       if ( rand() % v9 >= 30 )
       {
         v18 = a3 >> 2;
-        v10 = sub_48CC33((void *)v3);
+        v10 = Player_GetActualLuck((void *)v3);
         v11 = sub_48EA1B(v10) + v4 + 30;
         if ( rand() % v11 >= 30 )
         {
           v18 = a3 >> 3;
-          v12 = sub_48CC33((void *)v3);
+          v12 = Player_GetActualLuck((void *)v3);
           v13 = sub_48EA1B(v12) + v4 + 30;
           if ( rand() % v13 >= 30 )
             v18 = a3 >> 4;
@@ -1260,7 +1273,7 @@ signed int __thiscall sub_48DC1E(int Dst, signed int a2, int a3)
   LOBYTE(v3) = v6 <= -10;
   if ( v6 < 1 )
   {
-    if ( *(_DWORD *)(v4 + 6460) + *(_WORD *)(v4 + 200) + sub_48EAAE((void *)v4, 3, 0) >= 1
+    if ( *(_DWORD *)(v4 + 6460) + *(_WORD *)(v4 + 200) + Player_CalcParamBonus((void *)v4, 3, 0) >= 1
       || *(_QWORD *)(v4 + 6224) > 0i64 )
     {
       Player_sub_492D65((char *)v4, 13, 0);
@@ -1353,7 +1366,7 @@ signed int __thiscall sub_48DCF6(char *Dst, int a2, int a3)
   switch ( a2 )
   {
     case 1:
-      v6 = sub_48CA3F((int)Dst);
+      v6 = Player_GetActualWillpower((int)Dst);
       goto LABEL_46;
     case 2:
     case 3:
@@ -1363,7 +1376,7 @@ signed int __thiscall sub_48DCF6(char *Dst, int a2, int a3)
     case 11:
     case 13:
     case 21:
-      v6 = sub_48CABC((int)Dst);
+      v6 = Player_GetActualEndurance((int)Dst);
       goto LABEL_46;
     case 5:
     case 12:
@@ -1383,9 +1396,9 @@ LABEL_5:
       v7 = sub_48E7D0((int)Dst, v40);
       goto LABEL_47;
     case 22:
-      v9 = sub_48CA3F((int)Dst);
+      v9 = Player_GetActualWillpower((int)Dst);
       v10 = sub_48EA1B(v9);
-      v11 = sub_48C9C2(v5);
+      v11 = Player_GetActualIntelligence(v5);
       v8 = (sub_48EA1B(v11) + v10) >> 1;
       break;
     case 17:
@@ -1468,7 +1481,7 @@ LABEL_36:
       if ( !v3 )
         goto LABEL_87;
       v47 = (unsigned __int8)v46[rand() % v3];
-      v6 = sub_48CB39(v5);
+      v6 = Player_GetActualAccuracy(v5);
 LABEL_46:
       v7 = sub_48EA1B(v6);
 LABEL_47:
@@ -1478,7 +1491,7 @@ LABEL_47:
       v8 = 0;
       break;
   }
-  v22 = sub_48CC33((void *)v5);
+  v22 = Player_GetActualLuck((void *)v5);
   v23 = sub_48EA1B(v22) + v8 + 30;
   if ( rand() % v23 >= 30 )
   {
@@ -1831,7 +1844,7 @@ LABEL_28:
       v45 = (signed __int64)((double)v45 * *(&v34 + v24));
     }
   }
-  v25 = sub_48CBB6(v4);
+  v25 = Player_GetActualSpeed(v4);
   v39 = sub_48EA1B(v25);
   v42 = v2;
   if ( v3 != (int *)v2 )
@@ -1911,7 +1924,7 @@ int __thiscall sub_48E565(int this)
     case 0x21:
     case 0x22:
     case 0x23:
-      v2 = sub_48C9C2(this);
+      v2 = Player_GetActualIntelligence(this);
       goto LABEL_4;
     case 9:
     case 0xA:
@@ -1924,7 +1937,7 @@ int __thiscall sub_48E565(int this)
     case 0x19:
     case 0x1A:
     case 0x1B:
-      v2 = sub_48CA3F(this);
+      v2 = Player_GetActualWillpower(this);
 LABEL_4:
       v3 = sub_48EA1B(v2);
       goto LABEL_6;
@@ -1935,13 +1948,13 @@ LABEL_4:
     case 0x1D:
     case 0x1E:
     case 0x1F:
-      v4 = sub_48CA3F(this);
+      v4 = Player_GetActualWillpower(this);
       v5 = sub_48EA1B(v4);
-      v6 = sub_48C9C2(v1);
+      v6 = Player_GetActualIntelligence(v1);
       v3 = sub_48EA1B(v6) + v5;
 LABEL_6:
-      v8 = (unsigned __int8)byte_4ED78C[*(_BYTE *)(v1 + 185)] * (sub_48C90D((void *)v1) + v3);
-      v9 = sub_48EAAE((void *)v1, 8, 0) + v8;
+      v8 = (unsigned __int8)byte_4ED78C[*(_BYTE *)(v1 + 185)] * (Player_GetActualLevel((void *)v1) + v3);
+      v9 = Player_CalcParamBonus((void *)v1, 8, 0) + v8;
       v7 = *(_BYTE *)(v1 + 6810)
          + (unsigned __int8)byte_4ED75C[(unsigned int)*(_BYTE *)(v1 + 185) >> 2]
          + sub_48FC00((void *)v1, 8)
@@ -1969,9 +1982,9 @@ int __thiscall sub_48E656(int this)
   int result; // eax@2
 
   v2 = (void *)this;
-  v3 = sub_48CBB6(this);
+  v3 = Player_GetActualSpeed(this);
   v4 = sub_48EA1B(v3);
-  v5 = sub_48EAAE(v2, 9, 0) + v4;
+  v5 = Player_CalcParamBonus(v2, 9, 0) + v4;
   v1 = sub_48FC00(v2, 9) + v5;
   if ( v1 >= 1 )
     result = v1;
@@ -1992,9 +2005,9 @@ int __thiscall sub_48E68F(int this)
   int result; // eax@2
 
   v2 = this;
-  v3 = sub_48CBB6(this);
+  v3 = Player_GetActualSpeed(this);
   v4 = sub_48EA1B(v3);
-  v5 = sub_48EAAE((void *)v2, 9, 0) + v4;
+  v5 = Player_CalcParamBonus((void *)v2, 9, 0) + v4;
   v6 = sub_48FC00((void *)v2, 9) + v5;
   v1 = *(_WORD *)(v2 + 216) + sub_48F73C(v2, 9) + v6;
   if ( v1 >= 1 )
@@ -2002,12 +2015,6 @@ int __thiscall sub_48E68F(int this)
   else
     result = 0;
   return result;
-}
-
-//----- (0048E72C) --------------------------------------------------------
-int __thiscall sub_48E72C(int this)
-{
-  return *(_WORD *)(this + 222) + sub_48E6DC(this);
 }
 
 //----- (0048E73F) --------------------------------------------------------
@@ -2071,7 +2078,7 @@ LABEL_17:
   }
   v5 = 0;
 LABEL_20:
-  v7 = sub_48EAAE((void *)v3, a2, 0) + v4;
+  v7 = Player_CalcParamBonus((void *)v3, a2, 0) + v4;
   if ( *(_BYTE *)(v3 + 185) != 35 || (result = 200, v7 + *(_WORD *)(v3 + 2 * v5 + 6004) <= 200) )
     result = v7 + *(_WORD *)(v3 + 2 * v5 + 6004);
   return result;
@@ -2147,7 +2154,7 @@ LABEL_26:
       goto LABEL_26;
   }
 LABEL_28:
-  v9 = sub_48EAAE((void *)v4, a2, 0);
+  v9 = Player_CalcParamBonus((void *)v4, a2, 0);
   result = v11 + sub_48F73C(v4, a2) + v9 + v10 + *(_WORD *)(v4 + 2 * v3 + 6026) + *(_WORD *)(v4 + 2 * v3 + 6004);
   if ( *(_BYTE *)(v4 + 185) == 35 )
   {

@@ -9287,7 +9287,7 @@ LABEL_20:
               {
                 v8 = (signed __int64)((double)sub_48E4F8(*v7) * *(double *)&byte_4D8410[112]);
                 sub_48DC1E(*v7, (pParty_global->dword_000700 - v87) * (_DWORD)v8 / 256, 4);
-                v9 = sub_48CABC(*v7);
+                v9 = Player_GetActualEndurance(*v7);
                 v10 = (double)(20 - sub_48EA1B(v9)) * flt_6BE3A4 * *(double *)&byte_4D8410[40];
                 sub_48E96A(*v7, (signed __int64)v10);
               }

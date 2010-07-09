@@ -1385,10 +1385,11 @@ struct Player
    unsigned short uLuck;         // word @ 0000D4
    short word_0000D6;
    short word_0000D8;
-   short word_0000DA;
-   short word_0000DC;
 
-   short word_0000DE;
+   short BaseLevel;              // word @ 0000DA
+   short TempLevelBonus;         // word @ 0000DC
+   short AgeingAdd;              // word @ 0000DE
+
    int   dword_0000E0;
    int   dword_0000E4;
    int   dword_0000E8;
@@ -1492,7 +1493,7 @@ struct Party
  int dword_000020;
  int dword_000024;
  int dword_000028;
- __int64 qword_00002C;
+ __int64 qword_00002C;  // time played ?
  __int64 qword_000034;
  unsigned char array_00003C[1656];
 

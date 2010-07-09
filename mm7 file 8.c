@@ -3743,11 +3743,11 @@ LABEL_127:
       v57 = pPlayers;
       do
       {
-        v58 = sub_48CA3F(*v57);
+        v58 = Player_GetActualWillpower(*v57);
         v59 = sub_48EA1B(v58);
-        v60 = sub_48C9C2(*v57);
+        v60 = Player_GetActualIntelligence(*v57);
         v61 = (sub_48EA1B(v60) + v59) >> 1;
-        v62 = sub_48CC33((void *)*v57);
+        v62 = Player_GetActualLuck((void *)*v57);
         v63 = v61 + sub_48EA1B(v62) + 30;
         if ( rand() % v63 < 30 )
         {
@@ -6766,7 +6766,7 @@ LABEL_39:
       Player_sub_48E8F5(pPlayers[i], v61);
 
     v19 = v18->uHealthMax;
-    if ( sub_48EAAE(pPlayers[i], 3, 0) + v18->uHealthMax + v18->uEndurance >= 1 ||
+    if ( Player_CalcParamBonus(pPlayers[i], 3, 0) + v18->uHealthMax + v18->uEndurance >= 1 ||
         *(_QWORD *)(v18 + 6224) > 0i64 )
     {
       if ( v19 >= 1 )

@@ -735,7 +735,7 @@ LABEL_112:
       break;
   }
 LABEL_125:
-  v2 += sub_48EAAE(v37, v36, 0);
+  v2 += Player_CalcParamBonus(v37, v36, 0);
 LABEL_126:
   v30 = *((_WORD *)v37 + a2 + 132);
   if ( v2 + (*((_WORD *)v37 + a2 + 132) & 0x3F) < 60 )
@@ -5759,7 +5759,7 @@ LABEL_24:
 }
 
 //----- (0048CABC) --------------------------------------------------------
-int sub_48CABC(struct Player *_this)
+int Player_GetActualEndurance(struct Player *_this)
 {
   int v1; // eax@1
   signed int v2; // ecx@1
@@ -5769,7 +5769,7 @@ int sub_48CABC(struct Player *_this)
   int v7; // ebp@5
 
   v3 = _this;
-  v1 = _this->word_0000DE + sub_48E6DC(_this);
+  v1 = Player_GetBaseAge(_this) + _this->AgeingAdd;
   v2 = 0;
   while ( v1 >= dword_4EDFD0[v2] )
   {
@@ -5783,7 +5783,7 @@ int sub_48CABC(struct Player *_this)
   v4 = (unsigned __int8)byte_4EDFEC[v2];
 LABEL_5:
   v6 = byte_4EDF81[sub_48E9F4(_this)];
-  v7 = sub_48EAAE(_this, 3, 0);
+  v7 = Player_CalcParamBonus(_this, 3, 0);
   return v6 * v4 * *(_WORD *)(v3 + 200) / 100 / 100 + sub_48F73C(v3, 3) + v7 + *(_WORD *)(v3 + 202);
 }
 
@@ -8339,7 +8339,7 @@ int sub_49024A(struct Player *_this, char a2)
   _this->word_0000CE = 0;
   _this->word_0000D2 = 0;
   _this->word_0000D6 = 0;
-  _this->word_0000DA = 1;
+  _this->BaseLevel = 1;
 
   _this->dword_001944 = 1147 - rand() % 6;
   memset(_this->ActiveSkills, 0, 37 * 2);
@@ -13954,10 +13954,10 @@ void __cdecl sub_41A57E()
     sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 94 * v43 + 89, 18, v47, (const char *)(v2 + 168), 84, v0);
     if ( v43 == v0 )
       sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 22, 47, v0, pGlobalTXT_LocalizationStrings[131], 60, v0);
-    v3 = sub_48C90D((void *)v2);
+    v3 = Player_GetActualLevel((void *)v2);
     sprintfex(&TmpBuf, (const char *)&off_4E3048, v3);
-    v4 = sub_48C8F6(v2);
-    if ( sub_48C90D((void *)v2) <= v4 )
+    v4 = Player_GetBaseLevel(v2);
+    if ( Player_GetActualLevel((void *)v2) <= v4 )
       v5 = sub_48D498(v2);
     else
       v5 = sub_40DEF3_LooksLikeGenerateColorAsCloseAsPossibleToR8G8B8InDstFormat(0, 0xFFu, v0);
@@ -18075,7 +18075,7 @@ int __thiscall sub_421626(void *this)
   class24_fn1(pClass24_global);
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
   dword_5118E0 = 0;
-  sub_43BCA7();
+  GameUI_DrawPaperdoll();
   dword_4E28F8 = v1;
   v3 = GUIWindowCreate(0, 0, 640, 480, 4, uMaybeSelectedCharacter, 0);
   dword_50768C = GUIButtonCreate(
@@ -18165,7 +18165,7 @@ int __thiscall sub_4219BE(void *this)
   class24_fn1(pClass24_global);
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
   dword_5118E0 = 0;
-  sub_43BCA7();
+  GameUI_DrawPaperdoll();
   dword_4E28F8 = 23;
   v3 = GUIWindowCreate(0, 0, 640, 480, 31, v2, 0);
   dword_50767C = GUIButtonCreate(

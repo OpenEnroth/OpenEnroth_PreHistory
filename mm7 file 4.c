@@ -2185,10 +2185,10 @@ int sub_48E4F8(struct Player *_this)
   int v6; // esi@1
   int v7; // esi@1
 
-  v4 = sub_48CABC(_this);
+  v4 = Player_GetActualEndurance(_this);
   v5 = sub_48EA1B(v4);
-  v6 = byte_4ED768[_this->uClass] * (sub_48C90D(_this) + v5);
-  v7 = sub_48EAAE(_this, 7, 0) + v6;
+  v6 = byte_4ED768[_this->uClass] * (Player_GetActualLevel(_this) + v5);
+  v7 = Player_CalcParamBonus(_this, 7, 0) + v6;
   v2 = _this->byte_001A98
      + byte_4ED750[_this->uClass >> 2]
      + sub_48FC00(_this, 7)

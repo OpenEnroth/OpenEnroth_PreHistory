@@ -3126,16 +3126,6 @@ LABEL_114:
   return v0;
 }
 
-//----- (0048E6DC) --------------------------------------------------------
-int sub_48E6DC(struct Player *_this)
-{
- double d;
- 
- d = pParty_global->qword_00002C;
-  return (signed int)((unsigned int)((signed __int64)(d * 0.234375) / 60 / 60) / 0x18) / 7 / 4 / 12
-       - _this->dword_001944 + 1168;
-}
-
 //----- (0047A815) --------------------------------------------------------
 void __cdecl sub_47A815()
 {
@@ -3873,7 +3863,7 @@ LABEL_20:
 }
 
 //----- (0048C93C) --------------------------------------------------------
-int sub_48C93C(struct Player *_this)
+int Player_GetActualStrength(struct Player *_this)
 {
   int v1; // eax@1
   signed int v2; // ecx@1
@@ -3883,7 +3873,7 @@ int sub_48C93C(struct Player *_this)
   int v7; // ST14_4@5
 
   v3 = _this;
-  v1 = *(_WORD *)((char *)_this + 222) + sub_48E6DC(_this);
+  v1 = *(_WORD *)((char *)_this + 222) + Player_GetBaseAge(_this);
   v2 = 0;
   while ( v1 >= dword_4EDFD0[v2] )
   {
@@ -3897,7 +3887,7 @@ int sub_48C93C(struct Player *_this)
   v4 = (unsigned __int8)byte_4EDFE0[v2];
 LABEL_5:
   v6 = (unsigned __int8)byte_4EDF48[sub_48E9F4((void *)v3)];
-  v7 = sub_48EAAE((void *)v3, 0, 0);
+  v7 = Player_CalcParamBonus((void *)v3, 0, 0);
   return v6 * v4 * *(_WORD *)(v3 + 188) / 100 / 100 + sub_48F73C(v3, 0) + v7 + *(_WORD *)(v3 + 190);
 }
 
@@ -6900,7 +6890,7 @@ LABEL_9:
                   (signed int)((pParty_global->dword_000700 - v115) * (signed __int64)((double)v97 * *(double *)&byte_4D8410[112]))
                 / 256,
                   4);
-                v5 = sub_48CABC(*v4);
+                v5 = Player_GetActualEndurance(*v4);
                 v97 = 20 - sub_48EA1B(v5);
                 sub_48E96A(*v4, (signed __int64)((double)v97 * flt_6BE3A4 * *(double *)&byte_4D8410[40]));
               }
@@ -7748,7 +7738,7 @@ LABEL_344:
                       (signed int)((pParty_global->dword_000700 - v63) * (signed __int64)((double)v102 * *(double *)&byte_4D8410[112]))
                     / 256,
                       4);
-                    v67 = sub_48CABC(*v66);
+                    v67 = Player_GetActualEndurance(*v66);
                     v102 = 20 - sub_48EA1B(v67);
                     sub_48E96A(*v66, (signed __int64)((double)v102 * flt_6BE3A4 * *(double *)&byte_4D8410[40]));
                     ++v66;
@@ -7884,7 +7874,7 @@ LABEL_318:
                     (signed int)((pParty_global->dword_000700 - v74) * (signed __int64)((double)v102 * *(double *)&byte_4D8410[112]))
                   / 256,
                     4);
-                  v77 = sub_48CABC(*v76);
+                  v77 = Player_GetActualEndurance(*v76);
                   v102 = 20 - sub_48EA1B(v77);
                   sub_48E96A(*v76, (signed __int64)((double)v102 * flt_6BE3A4 * *(double *)&byte_4D8410[40]));
                   ++v76;
@@ -9133,7 +9123,7 @@ LABEL_59:
               }
               if ( v35 < 1 )
               {
-                if ( *(_DWORD *)(v22 + 6460) + *(_WORD *)(v22 + 200) + sub_48EAAE((void *)v22, 3, 0) >= 1
+                if ( *(_DWORD *)(v22 + 6460) + *(_WORD *)(v22 + 200) + Player_CalcParamBonus((void *)v22, 3, 0) >= 1
                   || *(_QWORD *)(v22 + 6224) > 0i64 )
                 {
                   *(_QWORD *)(v22 + 104) = pParty_global->qword_00002C;
@@ -15014,7 +15004,7 @@ LABEL_439:
 }
 
 //----- (0048EAAE) --------------------------------------------------------
-int sub_48EAAE(struct Player *_this, signed int a2, int a3)
+int Player_CalcParamBonus(struct Player *_this, signed int a2, int a3)
 {
   signed int v3; // eax@1
   void *v4; // ebx@1
@@ -17108,49 +17098,49 @@ void *__cdecl PlayerCreationUI_Draw()
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v24 + v141 - 24, 291, Str1, 0xFFD1BB61, 0, 0);
 
 
-    v25 = sub_48C93C(&pParty_global->pPlayers[i]);
+    v25 = Player_GetActualStrength(&pParty_global->pPlayers[i]);
     if (pParty_global->pPlayers[i].uStrength < 10)
       wsprintfA(TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[144], pParty_global->pPlayers[i].uStrength);
     else wsprintfA(TmpBuf, "%s\t092%d", pGlobalTXT_LocalizationStrings[144], pParty_global->pPlayers[i].uStrength);
     uColor = PlayerCreationUI_GetStatColor(&pParty_global->pPlayers[i], 0);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, 169, TmpBuf, uColor, 0, 0);
 
-    v27 = sub_48C9C2(&pParty_global->pPlayers[i]);
+    v27 = Player_GetActualIntelligence(&pParty_global->pPlayers[i]);
     if (pParty_global->pPlayers[i].uIntelligence < 10)
       wsprintfA(TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[116], pParty_global->pPlayers[i].uIntelligence);
     else wsprintfA(TmpBuf, "%s\t092%d", pGlobalTXT_LocalizationStrings[116], pParty_global->pPlayers[i].uIntelligence);
     uColor = PlayerCreationUI_GetStatColor(&pParty_global->pPlayers[i], 1);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, v137 + 169, TmpBuf, uColor, 0, 0);
 
-    v29 = sub_48CA3F(&pParty_global->pPlayers[i]);
+    v29 = Player_GetActualWillpower(&pParty_global->pPlayers[i]);
     if (pParty_global->pPlayers[i].uWillpower < 10)
       wsprintfA(TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[163], pParty_global->pPlayers[i].uWillpower);
     else wsprintfA(TmpBuf, "%s\t092%d", pGlobalTXT_LocalizationStrings[163], pParty_global->pPlayers[i].uWillpower);
     uColor = PlayerCreationUI_GetStatColor(&pParty_global->pPlayers[i], 2);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, 2 * v137 + 169, TmpBuf, uColor, 0, 0);
 
-    v31 = sub_48CABC(&pParty_global->pPlayers[i]);
+    v31 = Player_GetActualEndurance(&pParty_global->pPlayers[i]);
     if (pParty_global->pPlayers[i].uEndurance < 10)
       wsprintfA(TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[75], pParty_global->pPlayers[i].uEndurance);
     else wsprintfA(TmpBuf, "%s\t092%d", pGlobalTXT_LocalizationStrings[75], pParty_global->pPlayers[i].uEndurance);
     uColor = PlayerCreationUI_GetStatColor(&pParty_global->pPlayers[i], 3);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, v130, TmpBuf, uColor, 0, 0);
 
-    v33 = sub_48CB39(&pParty_global->pPlayers[i]);
+    v33 = Player_GetActualAccuracy(&pParty_global->pPlayers[i]);
     if (pParty_global->pPlayers[i].uAccuracy < 10)
       wsprintfA(TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[1], pParty_global->pPlayers[i].uAccuracy);
     else wsprintfA(TmpBuf, "%s\t092%d", pGlobalTXT_LocalizationStrings[1], pParty_global->pPlayers[i].uAccuracy);
     uColor = PlayerCreationUI_GetStatColor(&pParty_global->pPlayers[i], 4);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, 4 * v137 + 169, TmpBuf, uColor, 0, 0);
 
-    v35 = sub_48CBB6(&pParty_global->pPlayers[i]);
+    v35 = Player_GetActualSpeed(&pParty_global->pPlayers[i]);
     if (pParty_global->pPlayers[i].uSpeed < 10)
       wsprintfA(TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[211], pParty_global->pPlayers[i].uSpeed);
     else wsprintfA(TmpBuf, "%s\t092%d", pGlobalTXT_LocalizationStrings[211], pParty_global->pPlayers[i].uSpeed);
     uColor = PlayerCreationUI_GetStatColor(&pParty_global->pPlayers[i], 5);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v141, v131, TmpBuf, uColor, 0, 0);
 
-    v37 = sub_48CC33(&pParty_global->pPlayers[i]);
+    v37 = Player_GetActualLuck(&pParty_global->pPlayers[i]);
     if (pParty_global->pPlayers[i].uLuck < 10)
       wsprintfA(TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[136], pParty_global->pPlayers[i].uLuck);
     else wsprintfA(TmpBuf, "%s\t092%d", pGlobalTXT_LocalizationStrings[136], pParty_global->pPlayers[i].uLuck);

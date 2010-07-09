@@ -1275,7 +1275,7 @@ LABEL_133:
     }
     if ( !dword_ACD834 )
     {
-      v65 = sub_48CABC(v46);
+      v65 = Player_GetActualEndurance(v46);
       v66 = (double)(20 - sub_48EA1B(v65)) * flt_6BE3A4 * *(double *)&byte_4D8410[40];
       sub_48E96A(v46, (signed __int64)v66);
     }
@@ -1468,7 +1468,7 @@ LABEL_43:
       }
       if ( !dword_ACD834 )
       {
-        v35 = sub_48CABC(v6);
+        v35 = Player_GetActualEndurance(v6);
         v36 = (double)(20 - sub_48EA1B(v35)) * flt_6BE3A4 * *(double *)&byte_4D8410[40];
         sub_48E96A(v6, (signed __int64)v36);
       }
@@ -2650,7 +2650,7 @@ signed int __stdcall sub_43BC61(int a1, int a2)
 }
 
 //----- (0043BCA7) --------------------------------------------------------
-int __cdecl sub_43BCA7()
+int __cdecl GameUI_DrawPaperdoll()
 {
   signed int v0; // eax@7
   signed int v1; // ebx@7
@@ -12486,32 +12486,32 @@ LABEL_125:
         v3 = unk_ACD6F0;
         goto LABEL_170;
       case 224:
-        v30 = sub_48C93C(this);
-        v29 = sub_48C855(v4);
+        v30 = Player_GetActualStrength(this);
+        v29 = Player_GetBaseStrength(v4);
         goto LABEL_168;
       case 225:
-        v30 = sub_48C9C2(this);
-        v29 = sub_48C86C(v4);
+        v30 = Player_GetActualIntelligence(this);
+        v29 = Player_GetBaseIntelligence(v4);
         goto LABEL_168;
       case 226:
-        v30 = sub_48CA3F(this);
-        v29 = sub_48C883(v4);
+        v30 = Player_GetActualWillpower(this);
+        v29 = Player_GetBaseWillpower(v4);
         goto LABEL_168;
       case 227:
-        v30 = sub_48CABC(this);
-        v29 = sub_48C89A(v4);
+        v30 = Player_GetActualEndurance(this);
+        v29 = Player_GetBaseEndurance(v4);
         goto LABEL_168;
       case 228:
-        v30 = sub_48CBB6(this);
-        v29 = sub_48C8C8(v4);
+        v30 = Player_GetActualSpeed(this);
+        v29 = Player_GetBaseSpeed(v4);
         goto LABEL_168;
       case 229:
-        v30 = sub_48CB39(this);
-        v29 = sub_48C8B1(v4);
+        v30 = Player_GetActualAccuracy(this);
+        v29 = Player_GetBaseAccuracy(v4);
         goto LABEL_168;
       case 230:
-        v30 = sub_48CC33((void *)this);
-        v29 = sub_48C8DF(v4);
+        v30 = Player_GetActualLuck((void *)this);
+        v29 = Player_GetBaseLuck(v4);
 LABEL_168:
         compile_error;//v9 = __SETO__(v30, v29);
         v8 = v30 - v29 < 0;
@@ -12603,7 +12603,7 @@ LABEL_14:
           v3 = *(_WORD *)(this + 220);
           goto LABEL_170;
         case 11:
-          v12 = sub_48E72C(this);
+          v12 = Player_GetActualAge(this);
           goto LABEL_67;
         case 12:
           v13 = 0x80u >> ((signed __int16)a3 - 1) % 8;
@@ -12725,25 +12725,25 @@ LABEL_132:
           v3 = *(_WORD *)(this + 6024);
           goto LABEL_170;
         case 39:
-          v12 = sub_48C93C(this);
+          v12 = Player_GetActualStrength(this);
           goto LABEL_67;
         case 40:
-          v12 = sub_48C9C2(this);
+          v12 = Player_GetActualIntelligence(this);
           goto LABEL_67;
         case 41:
-          v12 = sub_48CA3F(this);
+          v12 = Player_GetActualWillpower(this);
           goto LABEL_67;
         case 42:
-          v12 = sub_48CABC(this);
+          v12 = Player_GetActualEndurance(this);
           goto LABEL_67;
         case 43:
-          v12 = sub_48CBB6(this);
+          v12 = Player_GetActualSpeed(this);
           goto LABEL_67;
         case 44:
-          v12 = sub_48CB39(this);
+          v12 = Player_GetActualAccuracy(this);
           goto LABEL_67;
         case 45:
-          v12 = sub_48CC33((void *)this);
+          v12 = Player_GetActualLuck((void *)this);
 LABEL_67:
           v3 = v12;
           break;

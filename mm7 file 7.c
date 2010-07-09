@@ -4004,14 +4004,14 @@ LABEL_57:
               return (const CHAR *)v37;
             goto LABEL_40;
           case 22:
-            v22 = sub_48C883(v4);
+            v22 = Player_GetBaseWillpower(v4);
             goto LABEL_61;
           case 24:
             dword_F8B1B4 = 2500;
-            v22 = sub_48C89A(v4);
+            v22 = Player_GetBaseEndurance(v4);
             goto LABEL_61;
           case 36:
-            v22 = sub_48C86C(v4);
+            v22 = Player_GetBaseIntelligence(v4);
 LABEL_61:
             if ( v22 < 50 )
               return (const CHAR *)v37;
@@ -11924,11 +11924,11 @@ void __cdecl sub_4BC109()
 
   for (i = 0; i < 4; ++i)
   {
-    v4 = sub_48C90D(&pParty_global->pPlayers[i]);
+    v4 = Player_GetActualLevel(&pParty_global->pPlayers[i]);
     v3 = v29;
     if ( v4 > v29 )
     {
-      v29 = sub_48C90D(&pParty_global->pPlayers[i]);
+      v29 = Player_GetActualLevel(&pParty_global->pPlayers[i]);
       v3 = v29;
     }
   }
@@ -14180,7 +14180,7 @@ int __thiscall sub_4BF91E(void *this)
     //v5 = (&dword_AE31F0)[4 * *(_BYTE *)(v4 + 17)];
     v5 = aClassNames[*(_BYTE *)(v4 + 17)];
 
-    v6 = sub_48C8F6(v4 - 168);
+    v6 = Player_GetBaseLevel(v4 - 168);
     sprintfex(&TmpBuf, pGlobalTXT_LocalizationStrings[129], i, v6, v5);
     sub_44D406((int)&v18, v33, 1, v31 * (*(_BYTE *)(v33 + 5) - 2) + *(_BYTE *)(v33 + 5) + 46, 1u, &TmpBuf, 3);
     v7 = *(_DWORD *)(i - 8);
