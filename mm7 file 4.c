@@ -6912,14 +6912,14 @@ LABEL_733:
           pParty_global->dword_007778 |= 2;
           GUIWindowCreate(519, 136, 0, 0, 90, dword_507A14, 0);
           v212 = 131072;
-          v133 = (unsigned __int64)((signed __int64)struct_576FE8.dword_000024 << 17) >> 16;
+          v133 = (unsigned __int64)((signed __int64)struct_576FE8.uMinimapZoom << 17) >> 16;
           ++struct_576FE8.dword_000028;
-          struct_576FE8.dword_000024 = (unsigned __int64)((signed __int64)struct_576FE8.dword_000024 << 17) >> 16;
+          struct_576FE8.uMinimapZoom = (unsigned __int64)((signed __int64)struct_576FE8.uMinimapZoom << 17) >> 16;
           if ( dword_6BE360 != 2 )
           {
             if ( v133 > 4096 )
             {
-             struct_576FE8.dword_000024 = 4096;
+             struct_576FE8.uMinimapZoom = 4096;
              struct_576FE8.dword_000028 = 12;
             }
             goto LABEL_92;
@@ -6935,9 +6935,9 @@ LABEL_733:
           pParty_global->dword_007778 |= 2;
           GUIWindowCreate(574, 136, 0, 0, 90, dword_507A18, 0);
           v212 = 32768;
-          v133 = (unsigned __int64)((signed __int64)struct_576FE8.dword_000024 << 15) >> 16;
+          v133 = (unsigned __int64)((signed __int64)struct_576FE8.uMinimapZoom << 15) >> 16;
           --struct_576FE8.dword_000028;
-          struct_576FE8.dword_000024 = (unsigned __int64)((signed __int64)struct_576FE8.dword_000024 << 15) >> 16;
+          struct_576FE8.uMinimapZoom = (unsigned __int64)((signed __int64)struct_576FE8.uMinimapZoom << 15) >> 16;
           if ( dword_6BE360 == 2 )
           {
             v134 = 512;
@@ -6946,7 +6946,7 @@ LABEL_733:
              struct_576FE8.dword_000028 = 9;
 LABEL_788:
               v133 = v134;
-              struct_576FE8.dword_000024 = v134;
+              struct_576FE8.uMinimapZoom = v134;
             }
 LABEL_789:
             dword_576E2C = v133;
@@ -6956,7 +6956,7 @@ LABEL_789:
           {
             if ( v133 < 256 )
             {
-             struct_576FE8.dword_000024 = 256;
+             struct_576FE8.uMinimapZoom = 256;
              struct_576FE8.dword_000028 = 8;
             }
           }
@@ -9119,9 +9119,9 @@ LABEL_15:
 }
 
 //----- (00438250) --------------------------------------------------------
-void __thiscall sub_438250(int this)
+void sub_438250(struct class08 *_this)
 {
-  *(_DWORD *)(this + 0xE037C) = 0;
+ _this->dword_0E037C = 0;
 }
 
 //----- (00438258) --------------------------------------------------------

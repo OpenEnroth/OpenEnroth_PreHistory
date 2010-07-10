@@ -427,6 +427,8 @@ void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char
 void class08_sub_438240(struct class08 *_this);
 //void __fastcall sub_438141(int a1);
 void class08_sub_438141(struct class08 *_this);
+//void __thiscall sub_438250(int this);
+void sub_438250(struct class08 *_this);
 
 
 
@@ -1774,12 +1776,12 @@ struct Camera
  signed int   dword_000000;
  signed int   dword_000004;
  signed int   dword_000008;
- int          dword_00000C;
- int          dword_000010;
+ unsigned int uMapGridCellX;    // dword @ 00000C  coordinates on map grid (height and tile maps etc)
+ int          uMapGridCellZ;    // dword @ 000010
  signed int   sRotationX;       // dword @ 000014    dword @ 0006C4 in Player    camera euler angles
  signed int   sRotationY;       // dword @ 000018    dword @ 0006C0 in Player
- float        flt_00001C;    // related to viewport width ang viewing angle, perspective projection parameters
- float        flt_000020;    // inverted 00001C (65536 / [00001C])
+ float        flt_00001C;       // related to viewport width ang viewing angle, perspective projection parameters
+ float        flt_000020;       // inverted 00001C (65536 / [00001C])
  int          dword_000024;
  int          dword_000028;
  float        fRotationYSine;             // float @ 00002C    = sin(2ï * (sRotationY / 2048))
@@ -1838,10 +1840,10 @@ struct struct9
  int          dword_000010;
  int          dword_000014;
  int          dword_000018;
- int          dword_00001C;
- int          dword_000020;
- int          dword_000024;
- int          dword_000028;
+ int          camera_rotation_y_int_sine;   // dword @ 00001C  integer sine   65536*sin(camera->rot_y)
+ int          camera_rotation_y_int_cosine; // dword @ 000020
+ int          camera_rotation_x_int_sine;   // dword @ 000024
+ int          camera_rotation_x_int_cosine; // dword @ 000028
  int          dword_00002C;
  unsigned int uNumEdges; // dword @ 000030
  unsigned int uNumSurfs; // dword @ 000034
@@ -1854,8 +1856,8 @@ struct struct9
  int          dword_000050;
 };
 //sizeof ~ 54
-//int __thiscall sub_48600E(int this);
-void sub_48600E(struct struct9 *_this);
+//int __thiscall struct9_sub_47A59E_ComputeSinCos(int this);
+void struct9_sub_47A59E_ComputeSinCos(struct struct9 *_this);
 //int __thiscall sub_485F64(int this);
 int sub_485F64(struct struct9 *_this);
 

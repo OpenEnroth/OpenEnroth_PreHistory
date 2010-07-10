@@ -7506,7 +7506,9 @@ LABEL_38:
       v53 = 1;
     }
 LABEL_71:
-    sub_4A6776(pD3DRenderer, v52, v50, uTextureIdx_MapDirs[v53] != -1 ? 72 * uTextureIdx_MapDirs[v53] + 7145548 : 0);
+    ;
+     //MapDirs are altlased into uTextureID_MinimapDirections
+    //sub_4A6776(pD3DRenderer, v52, v50, uTextureIdx_MapDirs[v53] != -1 ? 72 * uTextureIdx_MapDirs[v53] + 7145548 : 0);
   }
   result = 0xFFFFFFFF;
   v98 = 0;
@@ -7810,7 +7812,7 @@ int __cdecl sub_4443D5()
   v24 = pParty_global->sPartyPosX;
   v2 = pParty_global->sPartyPosY;
   v1 = pClass51_global->uNumBModels;
-  *(float *)&v23 = (double)struct_576FE8.dword_000024 * 0.0000152587890625;
+  *(float *)&v23 = (double)struct_576FE8.uMinimapZoom * 0.0000152587890625;
   v0 = 0;
   v18 = pClass51_global->uNumBModels;
   v21 = 0;

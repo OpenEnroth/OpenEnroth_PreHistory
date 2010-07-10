@@ -1522,7 +1522,7 @@ int __thiscall sub_469E24(int this)
 }
 
 //----- (00469EA4) --------------------------------------------------------
-void __thiscall sub_469EA4(int this)
+void __thiscall sub_469EA4_LooksLikeDrawPickedItem(int this)
 {
   int v1; // esi@1
   int v2; // edi@2
@@ -5572,8 +5572,8 @@ signed __int64 __fastcall sub_46DCC8(signed int a1, signed int a2, int a3)
 
   v5 = a1;
   v6 = a2;
-  v7 = sub_47F44B(a1);
-  v8 = sub_47F458(v6) - 1;
+  v7 = WorldPosToGridCellX(a1);
+  v8 = WorldPosToGridCellZ(v6) - 1;
   v33 = sub_47F469(v7);
   v34 = sub_47F469(v7 + 1);
   v35 = sub_47F469(v7 + 1);
@@ -8003,8 +8003,8 @@ LABEL_121:
       if ( sub_47050A((int)&dword_721530, 0) )
         goto LABEL_107;
       sub_46E889((void *)1);
-      v32 = sub_47F458(*(_WORD *)(v1 + 144));
-      v33 = sub_47F44B(*(_WORD *)(v1 + 142));
+      v32 = WorldPosToGridCellZ(*(_WORD *)(v1 + 144));
+      v33 = WorldPosToGridCellX(*(_WORD *)(v1 + 142));
       sub_46E26D(v33, v32);
       sub_46EF01(0);
       sub_46ED8A((void *)(8 * v77 | 3));
@@ -8054,13 +8054,13 @@ LABEL_121:
         *(_WORD *)(v1 + 144) = dword_721574;
         *(_WORD *)(v1 + 146) = dword_721578 - (_WORD)dword_721534 - 1;
 LABEL_107:
-        v71 = sub_47F44B(v68);
-        v58 = sub_47F458(v67);
+        v71 = WorldPosToGridCellX(v68);
+        v58 = WorldPosToGridCellZ(v67);
         v59 = v58 - 1;
         v60 = *(_WORD *)(v1 + 142);
         v73 = v58 - 1;
-        v70 = sub_47F44B(v60);
-        v72 = sub_47F458(*(_WORD *)(v1 + 144)) - 1;
+        v70 = WorldPosToGridCellX(v60);
+        v72 = WorldPosToGridCellZ(*(_WORD *)(v1 + 144)) - 1;
         v57 = ((unsigned int)~class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pClass51_global, v71, v59) >> 1) & 1;
         v56 = ((unsigned int)~class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pClass51_global, v70, v72) >> 1) & 1;
         v55 = 0;
@@ -8868,10 +8868,10 @@ LABEL_92:
       if ( sub_47050A((int)&dword_721530, 0) )
         return;
       sub_46E889(0);
-      v16 = sub_47F458(*((_DWORD *)v5 + 2));
+      v16 = WorldPosToGridCellZ(*((_DWORD *)v5 + 2));
       v17 = *((_DWORD *)v5 + 1);
       v70 = v16;
-      v18 = sub_47F44B(v17);
+      v18 = WorldPosToGridCellX(v17);
       sub_46E26D(v18, v70);
       if ( (v5[88] & 7) != 4 )
         sub_46EF01(0);
@@ -12686,22 +12686,22 @@ void __cdecl sub_47A95E()
             if (pCamera->sRotationX)
             {
               v50 = (v44 - pCamera->dword_000004) << 16;
-              v19 = ((unsigned __int64)(v17 * pStruct9_global->dword_000020) >> 16) + ((unsigned __int64)(v50 * pStruct9_global->dword_00001C) >> 16);
+              v19 = ((unsigned __int64)(v17 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) + ((unsigned __int64)(v50 * pStruct9_global->camera_rotation_y_int_sine) >> 16);
               v52 = v19;
-              v54 = (unsigned __int64)(v17 * pStruct9_global->dword_00001C) >> 16;
-              v53 = (unsigned __int64)(v50 * pStruct9_global->dword_000020) >> 16;
+              v54 = (unsigned __int64)(v17 * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+              v53 = (unsigned __int64)(v50 * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
               v50 = (v46 - pCamera->dword_000008) << 16;
-              v51 = (unsigned __int64)(v50 * pStruct9_global->dword_000024) >> 16;
-              v20 = (unsigned __int64)(v19 * pStruct9_global->dword_000028) >> 16;
-              v18 = v20 + ((unsigned __int64)(v50 * pStruct9_global->dword_000024) >> 16);
-              v49 = v20 + ((unsigned __int64)(v50 * pStruct9_global->dword_000024) >> 16);
+              v51 = (unsigned __int64)(v50 * pStruct9_global->camera_rotation_x_int_sine) >> 16;
+              v20 = (unsigned __int64)(v19 * pStruct9_global->camera_rotation_x_int_cosine) >> 16;
+              v18 = v20 + ((unsigned __int64)(v50 * pStruct9_global->camera_rotation_x_int_sine) >> 16);
+              v49 = v20 + ((unsigned __int64)(v50 * pStruct9_global->camera_rotation_x_int_sine) >> 16);
               if ( v18 >= 262144 && v18 <= pStruct9_global->shading_dist_mist << 16 )
               {
                 v22 = v53 - v54;
                 v51 = v53 - v54;
-                v53 = (unsigned __int64)(v52 * pStruct9_global->dword_000024) >> 16;
-                v54 = (unsigned __int64)(v50 * pStruct9_global->dword_000028) >> 16;
-                v21 = ((unsigned __int64)(v50 * pStruct9_global->dword_000028) >> 16) - v53;
+                v53 = (unsigned __int64)(v52 * pStruct9_global->camera_rotation_x_int_sine) >> 16;
+                v54 = (unsigned __int64)(v50 * pStruct9_global->camera_rotation_x_int_cosine) >> 16;
+                v21 = ((unsigned __int64)(v50 * pStruct9_global->camera_rotation_x_int_cosine) >> 16) - v53;
 LABEL_30:
                 v52 = v21;
                 v50 = 2 * abs(v18);
@@ -12766,16 +12766,16 @@ LABEL_30:
             {
               v52 = (v43 - pCamera->dword_000000) << 16;
               v50 = (v44 - pCamera->dword_000004) << 16;
-              v54 = (unsigned __int64)(v17 * pStruct9_global->dword_000020) >> 16;
-              v53 = (unsigned __int64)(v50 * pStruct9_global->dword_00001C) >> 16;
-              v18 = v54 + ((unsigned __int64)(v50 * pStruct9_global->dword_00001C) >> 16);
-              v49 = v54 + ((unsigned __int64)(v50 * pStruct9_global->dword_00001C) >> 16);
+              v54 = (unsigned __int64)(v17 * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
+              v53 = (unsigned __int64)(v50 * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+              v18 = v54 + ((unsigned __int64)(v50 * pStruct9_global->camera_rotation_y_int_sine) >> 16);
+              v49 = v54 + ((unsigned __int64)(v50 * pStruct9_global->camera_rotation_y_int_sine) >> 16);
               if ( v18 >= 262144 && v18 <= pStruct9_global->shading_dist_mist << 16 )
               {
-                v53 = (unsigned __int64)(v52 * pStruct9_global->dword_00001C) >> 16;
-                v54 = (unsigned __int64)(v50 * pStruct9_global->dword_000020) >> 16;
-                v22 = ((unsigned __int64)(v50 * pStruct9_global->dword_000020) >> 16) - v53;
-                v51 = ((unsigned __int64)(v50 * pStruct9_global->dword_000020) >> 16) - v53;
+                v53 = (unsigned __int64)(v52 * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+                v54 = (unsigned __int64)(v50 * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
+                v22 = ((unsigned __int64)(v50 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v53;
+                v51 = ((unsigned __int64)(v50 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v53;
                 v21 = (v46 - pCamera->dword_000008) << 16;
                 goto LABEL_30;
               }
@@ -13745,15 +13745,15 @@ bool __thiscall sub_47F097(void *this, signed int a2, signed int a3)
 }
 
 //----- (0047F44B) --------------------------------------------------------
-int __stdcall sub_47F44B(signed int a1)
+unsigned int __stdcall WorldPosToGridCellX(signed int sWorldPosX)
 {
-  return (a1 / 512) + 64;
+  return (sWorldPosX / 512) + 64;
 }
 
 //----- (0047F458) --------------------------------------------------------
-int __stdcall sub_47F458(signed int a1)
+unsigned int __stdcall WorldPosToGridCellZ(signed int sWorldPosZ)
 {
-  return 64 - (a1 / 512);
+  return 64 - (sWorldPosZ / 512);
 }
 
 //----- (0047F469) --------------------------------------------------------
@@ -13976,11 +13976,11 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
               v101 = LODWORD(v13),
               v109 = (*(float *)v9 + *(float *)v8) * 0.5,
               v14 = *((float *)v10 + 1) + *(float *)(v8 + 4),
-              v89 = sub_47F44B(COERCE_UNSIGNED_INT64(v109 + 6.755399441055744e15)),
+              v89 = WorldPosToGridCellX(COERCE_UNSIGNED_INT64(v109 + 6.755399441055744e15)),
               v110 = v14 * 0.5,
-              v97 = sub_47F458(COERCE_UNSIGNED_INT64(v110 + 6.755399441055744e15)),
-              sub_47F44B(v98),
-              sub_47F458(v101),
+              v97 = WorldPosToGridCellZ(COERCE_UNSIGNED_INT64(v110 + 6.755399441055744e15)),
+              WorldPosToGridCellX(v98),
+              WorldPosToGridCellZ(v101),
               !byte_4D8410[572])
           || !(*(_BYTE *)(LODWORD(pGame) + 3616) & 0x80))
          && !sub_481EFA(v8, (int)v10, v104, v106, 1)) )*/
@@ -14778,8 +14778,8 @@ bool __fastcall sub_4823F4(signed int a1, signed int a2)
 
   v12 = a1;
   v11 = a2;
-  v3 = sub_47F44B(a1);
-  v4 = sub_47F458(v11) - 1;
+  v3 = WorldPosToGridCellX(a1);
+  v4 = WorldPosToGridCellZ(v11) - 1;
   dword_76D568 = sub_47F469(v3);
   dword_76D56C = sub_47F469(v3 + 1);
   dword_76D570 = sub_47F469(v3 + 1);
@@ -14914,8 +14914,8 @@ signed int __thiscall sub_482A94(int this)
   v28 = *(_DWORD *)(v4 + 40) << 16;
   v47 = *(_DWORD *)(v4 + 44) << 16;
   v11 = *(_WORD *)(v3 + 8);
-  v29 = pStruct9_global->dword_00001C;
-  v44 = pStruct9_global->dword_000020;
+  v29 = pStruct9_global->camera_rotation_y_int_sine;
+  v44 = pStruct9_global->camera_rotation_y_int_cosine;
   v37 = *(_WORD *)(v3 + 12);
   v12 = *(_DWORD *)(v4 + 36);
   v49 = pStruct9_global->dword_000018 * (class28_global.dword_000028 - v11);
@@ -16639,8 +16639,8 @@ signed int __fastcall sub_485044(int a1, int a2, int a3)
     v12 = *(_DWORD *)(v4 + 56);
     v42 = ((unsigned __int64)(*(_DWORD *)(*(_DWORD *)(v4 + 56) + 20) * v11) >> 16) + *(_DWORD *)(v12 + 12);
     v40 = ((unsigned __int64)(*(_DWORD *)(v12 + 32) * v11) >> 16) + *(_DWORD *)(*(_DWORD *)(v4 + 56) + 24);
-    v38 = pStruct9_global->dword_00001C;
-    HIDWORD(v35) = pStruct9_global->dword_000020;
+    v38 = pStruct9_global->camera_rotation_y_int_sine;
+    HIDWORD(v35) = pStruct9_global->camera_rotation_y_int_cosine;
     v45 = *(_WORD *)(v3 + 12);
     v10 = ((unsigned __int64)(*(_DWORD *)(v4 + 32) * v11) >> 16) + *(_DWORD *)(v4 + 24);
     v9 = 65536 / LODWORD(v35) * (class28_global.dword_000028 - *(_WORD *)(v3 + 8));
@@ -17790,8 +17790,8 @@ signed int __thiscall sub_4893CF(void *this, signed int a2, signed int a3, int a
   v4 = (int)this;
   if ( pParty_global->dword_007778 & 8 || (v15 = 0, v16 = 0, sub_46D49E(a2, a3, a4, pParty_global->uDefaultPartyHeight, (int)&v15, (int)&v16, 0), v16) || v15 )
     return 2;
-  v6 = sub_47F44B(pParty_global->sPartyPosX);
-  v7 = sub_47F458(pParty_global->sPartyPosY);
+  v6 = WorldPosToGridCellX(pParty_global->sPartyPosX);
+  v7 = WorldPosToGridCellZ(pParty_global->sPartyPosY);
   v8 = sub_47ED83(v4, v6, v7 - 1);
   v5 = *(_WORD *)(26 * sub_47ECC1(v4, v8) + pTileTable->pTiles + 20);
   if ( v5 )

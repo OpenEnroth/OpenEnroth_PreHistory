@@ -770,7 +770,7 @@ extern int dword_507988; // weak
 extern unsigned int uTextureIdx_ib_npcrd_a; // dword @ MM7.exe::0050798C
 extern unsigned int uTextureIdx_ib_npcld_a; // dword @ MM7.exe::00507990
 
-extern unsigned int uTextureIdx_MapDirs[8];  // dword[8] @ MM7.exe::00507994
+extern unsigned int uTextureID_MinimapDirections;
 extern unsigned int uTextureIdx_MinimapCompass; // dword @ MM7.exe::005079B4
 
 extern unsigned int uTextureIdx_UIBarRed;    // dword @ MM7.exe::005079B8
@@ -1242,7 +1242,7 @@ extern struct unnamed_576FE8
  int dword_000018;  //screen::vx2
  int dword_00001C;  //screen::vy2
  int dword_000020;
- int dword_000024;
+ unsigned int uMinimapZoom; // dword @ 000024    256/512/1024/2048/4096, 512 default
  int dword_000028;
  int dword_00002C;
  int dword_000030;
@@ -2384,8 +2384,8 @@ extern __int64 qword_ACD964; // weak
 extern __int16 word_ACD970; // weak
 extern char byte_ACD972; // weak
 extern char byte_ACD973; // weak
-extern __int64 qword_ACD974; // weak
-extern __int16 word_ACD97E; // weak
+extern __int64 qword_ACD974; // 0009BC
+extern __int16 word_ACD97E; // 0009C6
 //int dword_ACD984[array_size_unknown]; // pParty_global::pPlayers[0]::000000
 extern int dword_ACD988[array_size_unknown]; // weak
 extern int dword_ACD98C; // weak

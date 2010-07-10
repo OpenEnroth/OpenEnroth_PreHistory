@@ -390,13 +390,10 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
   double v29; // ST20_8@37
   signed int v30; // edi@40
   _UNKNOWN *v32; // ebx@43
-  int v37; // eax@50
-  signed int v38; // ecx@50
   int v44; // ebx@91
   int v45; // edi@91
   int v52; // ebx@114
   int v53; // ST64_4@114
-  signed int v61; // [sp-4h] [bp-58h]@54
   int v71; // [sp+20h] [bp-34h]@23
   int v73; // [sp+24h] [bp-30h]@23
   signed int v74; // [sp+24h] [bp-30h]@37
@@ -428,7 +425,7 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
 
   uMinimapCentreX = (uX + uZ) / 2;
   uMinimapCentreY = (uY + uW) / 2;
-  v84 = qword_ACD974 > 0;
+  v84 = *(__int64 *)(pParty_global->array_00088C + 0x130) > 0;
   v79 = (unsigned __int16)word_ACD97E;
   LOBYTE(v6) = sub_476395(0x26);
   if ( v6 )
@@ -560,58 +557,6 @@ LABEL_26:
   }
  }
 
-
-  v37 = pParty_global->sRotationY & pClass59_global->dword_00186C;
-  v38 = 0;
-  if ( (pParty_global->sRotationY & pClass59_global->dword_00186C) < 128 )
-    goto LABEL_66;
-  if ( v37 <= 384 )
-  {
-    v38 = 1;
-    goto LABEL_66;
-  }
-  if ( v37 >= 640 )
-  {
-    if ( v37 > 896 )
-    {
-      if ( v37 >= 1152 )
-      {
-        if ( v37 > 1408 )
-        {
-          if ( v37 >= 1664 )
-          {
-            if ( v37 > 1920 )
-              goto LABEL_66;
-            v61 = 7;
-          }
-          else
-          {
-            v61 = 6;
-          }
-        }
-        else
-        {
-          v61 = 5;
-        }
-      }
-      else
-      {
-        v61 = 4;
-      }
-    }
-    else
-    {
-      v61 = 3;
-    }
-  }
-  else
-  {
-    v61 = 2;
-  }
-  v38 = v61;
-
-LABEL_66:
- CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uMinimapCentreX - 3, uMinimapCentreY - 3, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_MapDirs[v38]]);
  if (v84)
  {
   for (i = 0; i < uNumElementsIn665230; ++i)
@@ -670,6 +615,9 @@ LABEL_66:
     }
    }
 
+ CD3DRenderer_DrawTransparentRect(pD3DRenderer, uMinimapCentreX - 3, uMinimapCentreY - 3,
+                                  7 * ((pParty_global->sRotationY % 2048) / (2048 / 8)), 0, 7, 7,
+                                  &pClass17_Icons_LOD->aLODHeaders[uTextureID_MinimapDirections]); // angle -> [0.. 7]
  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 468, 0, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_MinimapMask]);
 
  v105 = (double)pParty_global->sRotationY * 0.1171875;

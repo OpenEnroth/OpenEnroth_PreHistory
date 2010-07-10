@@ -604,8 +604,7 @@ void CD3DRenderer_DrawTransparentRect(struct CD3DRenderer *_this, unsigned int u
  unsigned int *pSurfacePtr;
  unsigned int  x, y;
  unsigned int  uSrcColor,
-               uDstColor,
-               uAlpha;
+               uDstColor;
 
  if (!_this->bSceneBegun || !pTexture)
    return;
@@ -614,10 +613,23 @@ void CD3DRenderer_DrawTransparentRect(struct CD3DRenderer *_this, unsigned int u
  for (y = 0; y < uSrcHeight; ++y)
    for (x = 0; x < uSrcWidth; ++x)
    {
+    float        src_alpha,
+                 dst_alpha;
+    unsigned int dst_channel[3];
     uSrcColor = pTexture->pTruecolorPixels[(y + uSrcY) * pTexture->uTextureWidth + x + uSrcX];
     uDstColor = pSurfacePtr[(y + uOutY) * _this->uTargetSurfacePitch + x + uOutX];
-    uAlpha = ((uSrcColor & 0xFF000000) >> 8) | ((uSrcColor & 0xFF000000) >> 16) | ((uSrcColor & 0xFF000000) >> 24);
-    pSurfacePtr[(y + uOutY) * _this->uTargetSurfacePitch + x + uOutX] = (uSrcColor & uAlpha) + (uDstColor & (0x00FFFFFF - uAlpha));
+
+    src_alpha = (uSrcColor >> 24) / 255.0f;
+    dst_alpha = 1.0f - src_alpha; //(uDstColor >> 24) / 255.0f
+
+    dst_channel[0] = (unsigned char)(src_alpha * ((uSrcColor >> 16) & 0xFF) + dst_alpha * ((uDstColor >> 16) & 0xFF));
+    dst_channel[1] = (unsigned char)(src_alpha * ((uSrcColor >> 8) & 0xFF) + dst_alpha * ((uDstColor >> 8) & 0xFF));
+    dst_channel[2] = (unsigned char)(src_alpha * (uSrcColor & 0xFF) + dst_alpha * (uDstColor & 0xFF));
+
+    pSurfacePtr[(y + uOutY) * _this->uTargetSurfacePitch + x + uOutX] = ((unsigned int)(src_alpha * 255.0f) << 24) |
+                                                                        (dst_channel[0] << 16) |
+                                                                        (dst_channel[1] << 8) |
+                                                                        dst_channel[2];
    }
 }
 

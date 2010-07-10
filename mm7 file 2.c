@@ -409,7 +409,7 @@ int __thiscall sub_443365(struct unnamed_576FE8 *_this)
       }
       while ( !v9 );
     }
-    _this->dword_000024 = 1024;
+    _this->uMinimapZoom = 1024;
     _this->dword_000028 = 10;
     _this->word_000038 = (v16 + v17) / 2;
     _this->word_00003A = (v14 + v15) / 2;
@@ -419,7 +419,7 @@ int __thiscall sub_443365(struct unnamed_576FE8 *_this)
   {
     _this->word_000038 = 0;
     _this->word_00003A = 0;
-    _this->dword_000024 = dword_576E2C;
+    _this->uMinimapZoom = dword_576E2C;
     _this->dword_000028 = dword_576E28;
     result = dword_576E28;
   }
@@ -906,7 +906,7 @@ LABEL_89:
           CD3DRenderer_BeginScene(v2);
           sub_469E3B(pGame->pClass03);
           sub_4BF08B(pVideoPlayer->dword_00006C, pVideoPlayer->hWnd);
-          sub_469EA4(pGame->pClass03);
+          sub_469EA4_LooksLikeDrawPickedItem(pGame->pClass03);
           CD3DRenderer_EndScene(v2);
         }
       }
@@ -917,7 +917,7 @@ LABEL_89:
           CD3DRenderer_BeginScene(v2);
           sub_469E3B(pGame->pClass03);
           compile_error;//nullsub_2(dword_F8BB78);
-          sub_469EA4(pGame->pClass03);
+          sub_469EA4_LooksLikeDrawPickedItem(pGame->pClass03);
           CD3DRenderer_EndScene(v2);
         }
       }
@@ -17161,7 +17161,7 @@ int sub_47A384(const char *pLevelFilename, void *a2)
   pCamera->sRotationX = pParty_global->sRotationX;
   pCamera->sRotationY = pParty_global->sRotationY;
 
-  sub_48600E(pStruct9_global);
+  struct9_sub_47A59E_ComputeSinCos(pStruct9_global);
   sub_4892E6(pClass51_global);
   pStruct9_global->dword_000014 = pCamera->flt_00001C;
   pStruct9_global->dword_000018 = pCamera->flt_000020;
@@ -18759,14 +18759,14 @@ LABEL_41:
 //----- (004226C2) --------------------------------------------------------
 bool __cdecl sub_4226C2()
 {
-  if ( dword_4E28F8 && dword_4E28F8 != 4 && dword_4E28F8 != 17 )
-  {
-    if ( dword_4E28F8 == 18 )
-      return pVideoPlayer->pSmackerMovie != 0;
-    if ( dword_4E28F8 != 19 )
-      return 1;
-  }
-  return 0;
+ if (dword_4E28F8 && dword_4E28F8 != 4 && dword_4E28F8 != 17)
+ {
+  if (dword_4E28F8 == 18)
+    return pVideoPlayer->pSmackerMovie != 0;
+  else if (dword_4E28F8 != 19)
+    return true;
+ }
+ return false;
 }
 
 //----- (00423B5D) --------------------------------------------------------

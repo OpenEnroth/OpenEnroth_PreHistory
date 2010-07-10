@@ -23,8 +23,8 @@ int class51_sub_488EB1_GetSomeOtherTileInfo(struct class51 *_this, int sX, int s
   int v3; // eax@1
   int v4; // edi@1
 
- v4 = sub_47F458(sY);
- v3 = sub_47F44B(sX);
+ v4 = WorldPosToGridCellZ(sY);
+ v3 = WorldPosToGridCellX(sX);
  if ( v3 < 0 || v3 > 127 || v4 < 0 || v4 > 127 )
    return 0;
 
@@ -53,8 +53,8 @@ int class51_sub_488EEF_GetSomeTileInfo(struct class51 *_this, int sX, int sY)
  int v3; // eax@1
  int v4; // edi@1
 
- v4 = sub_47F458(sY);
- v3 = sub_47F44B(sX);
+ v4 = WorldPosToGridCellZ(sY);
+ v3 = WorldPosToGridCellX(sX);
  if ( v3 < 0 || v3 > 127 || v4 < 0 || v4 > 127 )
    return -1;
  return class51_sub_47ED08_ActuallyGetSomeTileInfo(_this, v3, v4);

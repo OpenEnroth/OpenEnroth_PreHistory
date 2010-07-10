@@ -201,16 +201,18 @@ void __cdecl sub_4789DE()
 
  for (i = 0; i < pClass51_global->uNumBModels; ++i)
  {
-   v1 = &pClass51_global->pBModels[i].dword_00004C;
-   pModel = &pClass51_global->pBModels[i];
+  v1 = &pClass51_global->pBModels[i].dword_00004C;
+  pModel = &pClass51_global->pBModels[i];
 
-   if (sub_479089(i, &v87))
-   {
-    pClass51_global->pBModels[i].dword_000040 |= 0x0001;
-    v3 = pClass51_global->pBModels[i].ptr_000054;
+  if (!sub_479089(i, &v87))
+    continue;
 
-    for (j = 0; j < pClass51_global->pBModels[i].dword_00004C; ++j)
-    {
+  pClass51_global->pBModels[i].dword_000040 |= 0x0001;
+
+  for (j = 0; j < pClass51_global->pBModels[i].dword_00004C; ++j)
+  {
+   v3 = &pClass51_global->pBModels[i].ptr_000054[j];
+
       if ( !(pClass51_global->pBModels[i].ptr_000054[j].byte_000010[13] & 0x20))
       {
         v7 = pClass51_global->pBModels[i].ptr_000054[j].array_000020[0];
@@ -435,11 +437,7 @@ LABEL_71:
         sub_486B4E(array_508690, dword_50B638, dword_50B570, v14);
       }
     }
-
-
-
-    }
-    }
+   }
 }
 
 //----- (00438F8F) --------------------------------------------------------
@@ -699,80 +697,90 @@ int __fastcall sub_438F8F(int result)
 }
 
 //----- (0047A59E) --------------------------------------------------------
-void sub_47A59E(bool a1)
+void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
 {
   signed int v2; // edi@1
   int v4; // ST04_4@19
   int v5; // eax@19
+ float f;
 
-  v2 = 0;
-  if ( struct_576FE8.dword_000054 )
-    v2 = 2;
-  pCamera->sRotationX = pParty_global->sRotationX;
-  pCamera->sRotationY = pParty_global->sRotationY;
+ v2 = 0;
+ if (struct_576FE8.dword_000054)
+   v2 = 2;
 
-  pCamera->dword_000000 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY)) * pParty_global->dword_000018 >> 16);
-  pCamera->dword_000004 = pParty_global->sPartyPosY - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY - pClass59_global->uNumTableEntries)) * pParty_global->dword_000018 >> 16);
-  pCamera->dword_000008 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+ pCamera->sRotationX = pParty_global->sRotationX;
+ pCamera->sRotationY = pParty_global->sRotationY;
 
-  pCamera->dword_00004C = v2;
+ pCamera->dword_000000 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY)) * pParty_global->dword_000018 / 65536);
+ pCamera->dword_000004 = pParty_global->sPartyPosY - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY - pClass59_global->uNumTableEntries)) * pParty_global->dword_000018 / 65536);
+ //a good idea to do it this way
+ //pCamera->dword_000000 = pParty_global->sPartyPosX - pParty_global->dword_000018 * cos(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
+ //pCamera->dword_000004 = pParty_global->sPartyPosY - pParty_global->dword_000018 * sin(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
+ pCamera->dword_000008 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
 
-  if (a1 || pD3DRenderer->dword_040088 )
+ pCamera->dword_00004C = v2;
+
+ if (bRedraw || pD3DRenderer->dword_040088)
+ {
+  sub_481EB7_ResetStruct8Array();
+  struct9_sub_47A59E_ComputeSinCos(pStruct9_global);
+  sub_481ED9();
+ }
+
+ pCamera->uMapGridCellX = WorldPosToGridCellX(pParty_global->sPartyPosX);
+ pCamera->uMapGridCellZ = WorldPosToGridCellZ(pParty_global->sPartyPosY);
+
+ if (bRedraw)
+ {
+  sub_487DBE_LooksLikeResetNewEdgesBuf();
+  sub_487DA9_ResetSomeStruct8ArrayFlags();
+  ptr_80C978 = (int)pEdgesBuf;
+  ptr_80C97C = (int)pSurfsBuf;
+ }
+
+ if (pParty_global->dword_000720 != dword_6BD078)
+   sub_4892E6(pClass51_global);
+ sub_4893C1(pClass51_global);
+ sub_438250(pGame->class08_obj);
+
+ if (!bRedraw)
+ {
+  if (!pD3DRenderer->dword_040088)
   {
-    sub_481EB7();
-    sub_48600E(pStruct9_global);
-    sub_481ED9();
+   sub_479332();
+   goto LABEL_16;
   }
-  pCamera->dword_00000C = sub_47F44B(pParty_global->sPartyPosX);
-  pCamera->dword_000010 = sub_47F458(pParty_global->sPartyPosY);
-  if (a1)
-  {
-    sub_487DBE_LooksLikeResetNewEdgesBuf();
-    sub_487DA9();
-    ptr_80C978 = (int)pEdgesBuf;
-    ptr_80C97C = (int)pSurfsBuf;
-  }
-  if ( pParty_global->dword_000720 != dword_6BD078 )
-    sub_4892E6(pClass51_global);
-  sub_4893C1(pClass51_global);
-  sub_438250(pGame->class08_obj);
+  goto LABEL_14;
+ }
 
-  if (!a1)
-  {
-    if ( !pD3DRenderer->dword_040088 )
-    {
-      sub_479332();
-      goto LABEL_16;
-    }
-    goto LABEL_14;
-  }
-  if ( pD3DRenderer->dword_040088 )
-  {
+ if (pD3DRenderer->dword_040088)
+ {
 LABEL_14:
     sub_479543();
     RenderBuildings();
-    sub_47F5C6();
+    sub_47F5C6_MessWithTerrainDrawing();
     goto LABEL_16;
-  }
+ }
 
-  sub_4789DE();
-  sub_47F5C6();
+ sub_4789DE();
+ sub_47F5C6_MessWithTerrainDrawing();
   //sub_486F92_MessWithEdgesAndSpans();
-  sub_487355();
+ sub_487355();
+
 LABEL_16:
-  dword_51B6DC = 0;
-  dword_519AB4 = 0;
-  if ( !pD3DRenderer->dword_040088 )
-  {
-    sub_487389();
-    class08_sub_438240(pGame->class08_obj);
-  }
+ dword_51B6DC = 0;
+ dword_519AB4 = 0;
+ if (!pD3DRenderer->dword_040088)
+ {
+  sub_487389();
+  class08_sub_438240(pGame->class08_obj);
+ }
   CGame_sub_44F120_MaybeStackStationaryLights(pGame, -1);
   CGame_sub_44F192(pGame);
-  if (a1)
+  if (bRedraw)
   {
-    v4 = sub_47F458(pParty_global->sPartyPosY);
-    v5 = sub_47F44B(pParty_global->sPartyPosX);
+    v4 = WorldPosToGridCellZ(pParty_global->sPartyPosY);
+    v5 = WorldPosToGridCellX(pParty_global->sPartyPosX);
     class51_sub_47EF60(pClass51_global, v5, v4, 1);
   }
   pGame->dword_000E24 &= 0xFFFFFFFE;
@@ -1599,7 +1607,7 @@ int __fastcall sub_4C7C50(int a1, int a2)
 }
 
 //----- (0047F5C6) --------------------------------------------------------
-int __cdecl sub_47F5C6()
+int __cdecl sub_47F5C6_MessWithTerrainDrawing()
 {
   int v0; // eax@1
   int v1; // ebx@1
@@ -1716,8 +1724,8 @@ int __cdecl sub_47F5C6()
   v101 = pCamera->sRotationY / (pClass59_global->uNumTableEntries / 2);
   v1 = pClass59_global->dword_00186C & (pClass59_global->dword_001868 - pCamera->sRotationY);
   v2 = pClass59_global->dword_00186C & (pClass59_global->dword_001860 + v1);
-  v120 = ((pCamera->dword_00000C << 16) + 3 * class59_SinCos(pClass59_global, pClass59_global->dword_00186C & (pClass59_global->dword_001860 + v1))) >> 16;
-  v119 = ((pCamera->dword_000010 << 16) + 3 * class59_SinCos(pClass59_global, v2 - pClass59_global->uNumTableEntries)) >> 16;
+  v120 = ((pCamera->uMapGridCellX << 16) + 3 * class59_SinCos(pClass59_global, pClass59_global->dword_00186C & (pClass59_global->dword_001860 + v1))) >> 16;
+  v119 = ((pCamera->uMapGridCellZ << 16) + 3 * class59_SinCos(pClass59_global, v2 - pClass59_global->uNumTableEntries)) >> 16;
   v116 = pStruct9_global->dword_000048 + v120;
   v115 = pStruct9_global->dword_000048 + v119;
   v0 = pStruct9_global->dword_000010 + 15;
@@ -2292,8 +2300,8 @@ LABEL_173:
           v87++;
         }
       }
-      v98.v99 = abs(pCamera->dword_000010 - dword_76D9C8[i]);
-      v98.v100 = abs(pCamera->dword_00000C - dword_76DBC8[i]);
+      v98.v99 = abs(pCamera->uMapGridCellZ - dword_76D9C8[i]);
+      v98.v100 = abs(pCamera->uMapGridCellX - dword_76DBC8[i]);
       if ( pD3DRenderer->dword_040088 )
         sub_48034E(v107, 0, &v98);
       else
@@ -2345,8 +2353,8 @@ LABEL_173:
           v93 -= 512;
         }
       }
-      v98.v99 = abs(pCamera->dword_00000C - dword_76DBC8[i]);
-      v98.v100 = abs(pCamera->dword_000010 - dword_76D9C8[i]);
+      v98.v99 = abs(pCamera->uMapGridCellX - dword_76DBC8[i]);
+      v98.v100 = abs(pCamera->uMapGridCellZ - dword_76D9C8[i]);
       if ( pD3DRenderer->dword_040088 )
         sub_48034E(v107, 1, &v98);
       else
@@ -4229,29 +4237,29 @@ LABEL_25:
       if (pCamera->sRotationX)
       {
         v19 = (v55 - pCamera->dword_000004) << 16;
-        v47 = ((unsigned __int64)(v17 * pStruct9_global->dword_000020) >> 16) + ((unsigned __int64)(v19 * pStruct9_global->dword_00001C) >> 16);
-        v50 = (unsigned __int64)(v17 * pStruct9_global->dword_00001C) >> 16;
-        v53 = (unsigned __int64)(v19 * pStruct9_global->dword_000020) >> 16;
+        v47 = ((unsigned __int64)(v17 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) + ((unsigned __int64)(v19 * pStruct9_global->camera_rotation_y_int_sine) >> 16);
+        v50 = (unsigned __int64)(v17 * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+        v53 = (unsigned __int64)(v19 * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
         v44 = (v3 - pCamera->dword_000008) << 16;
-        v18 = ((unsigned __int64)(v44 * pStruct9_global->dword_000024) >> 16) + ((unsigned __int64)(v47 * pStruct9_global->dword_000028) >> 16);
-        v60 = ((unsigned __int64)(v44 * pStruct9_global->dword_000024) >> 16) + ((unsigned __int64)(v47 * pStruct9_global->dword_000028) >> 16);
+        v18 = ((unsigned __int64)(v44 * pStruct9_global->camera_rotation_x_int_sine) >> 16) + ((unsigned __int64)(v47 * pStruct9_global->camera_rotation_x_int_cosine) >> 16);
+        v60 = ((unsigned __int64)(v44 * pStruct9_global->camera_rotation_x_int_sine) >> 16) + ((unsigned __int64)(v47 * pStruct9_global->camera_rotation_x_int_cosine) >> 16);
         if ( v18 < 262144 || v18 > pStruct9_global->shading_dist_mist << 16 )
           goto LABEL_58;
         v21 = v53 - v50;
         v42 = v53 - v50;
-        v20 = ((unsigned __int64)(v44 * pStruct9_global->dword_000028) >> 16) - ((unsigned __int64)(v47 * pStruct9_global->dword_000024) >> 16);
+        v20 = ((unsigned __int64)(v44 * pStruct9_global->camera_rotation_x_int_cosine) >> 16) - ((unsigned __int64)(v47 * pStruct9_global->camera_rotation_x_int_sine) >> 16);
       }
       else
       {
         v48 = (v55 - pCamera->dword_000004) << 16;
-        v51 = (unsigned __int64)(v17 * pStruct9_global->dword_000020) >> 16;
-        v22 = (unsigned __int64)(v48 * pStruct9_global->dword_00001C) >> 16;
+        v51 = (unsigned __int64)(v17 * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
+        v22 = (unsigned __int64)(v48 * pStruct9_global->camera_rotation_y_int_sine) >> 16;
         v60 = v22 + v51;
         if ( v22 + v51 < 262144 || v22 + v51 > pStruct9_global->shading_dist_mist << 16 )
           goto LABEL_58;
-        v23 = (unsigned __int64)(((v56 - pCamera->dword_000000) << 16) * pStruct9_global->dword_00001C) >> 16;
-        v21 = ((unsigned __int64)(v48 * pStruct9_global->dword_000020) >> 16) - v23;
-        v42 = ((unsigned __int64)(v48 * pStruct9_global->dword_000020) >> 16) - v23;
+        v23 = (unsigned __int64)(((v56 - pCamera->dword_000000) << 16) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+        v21 = ((unsigned __int64)(v48 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v23;
+        v42 = ((unsigned __int64)(v48 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v23;
         v20 = (v3 - pCamera->dword_000008) << 16;
       }
       v45 = v20;
@@ -4385,14 +4393,15 @@ void sub_44103C()
     sub_469E3B(pGame->pClass03);
 
   if (!sub_4226C2() || struct_576FE8.dword_000048 == 1)
-    {
-      if ( pD3DRenderer->dword_040088 )
-      {
-        v2 = (double)((pClass24_global2->dword_000024 >> 2) & 0x1F) * 0.03225806355476379 * 6.0;
-        v3 = v2 + 6.755399441055744e15;
-        dword_EF5290 = LODWORD(v3);
-      }
-      if ( dword_6BE360 == 1 )
+  {
+   if (pD3DRenderer->dword_040088)
+   {
+    v2 = (double)((pClass24_global2->dword_000024 >> 2) & 0x1F) * 0.03225806355476379 * 6.0;
+    v3 = v2 + 6.755399441055744e15;
+    dword_EF5290 = LODWORD(v3);
+   }
+
+   if (dword_6BE360 == 1)
       {
         sub_441BD4();
       }
@@ -4418,25 +4427,24 @@ LABEL_22:
  CD3DRenderer_Set2DClippingRect(pD3DRenderer, 0, 0, 640, 480);
  if (pD3DRenderer->dword_040088)
    sub_469E3B(pGame->pClass03);
- if ( dword_5E5144)
+ if (dword_5E5144)
    struct_576FE8.dword_000044 = 1;
  v5 = struct_576FE8.dword_000044;
+
  GameUI_DrawStatusBar();
 
-  
-  if (!struct_576FE8.dword_000044)
-    sub_41AD6E();
-  else
-  {
-    GameUI_DrawFrames();
-    sub_41C047();
-    struct_576FE8.dword_000044 = 0;
-  }
-
+ if (!struct_576FE8.dword_000044)
+   sub_41AD6E();
+ else
+ {
+  GameUI_DrawFrames();
+  sub_41C047();
+  struct_576FE8.dword_000044 = 0;
+ }
  
   if (!pVideoPlayer->pSmackerMovie)
   {
-   GameUI_DrawMinimap(488, 16, 625, 133, struct_576FE8.dword_000024, pParty_global->dword_007778 & 2);
+   GameUI_DrawMinimap(488, 16, 625, 133, struct_576FE8.uMinimapZoom);
 
     if (v5)
     {
@@ -4465,10 +4473,10 @@ LABEL_22:
   GameUI_DrawPortraits((void *)v5);
   GameUI_DrawLifeManaBars();
   GameUI_DrawCharacterSelectionFrame();
-  if ( sub_44100D() )
+  if (sub_44100D())
     sub_41B3B6();
  
-  if ( !CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
+  if (!CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer))
   {
     class06_sub_4A902A_DrawSomeIcon(pGame->class06_obj);
     sub_441964(array_5E4D58, v5);
@@ -4485,13 +4493,13 @@ LABEL_22:
   dword_5B5924 = 0;
   if (v5)
     pGame->pClass03->dword_000014[0] = 1;
-  sub_469EA4(pGame->pClass03);
+  sub_469EA4_LooksLikeDrawPickedItem(pGame->pClass03);
   sub_469CCD(pGame->pClass03);
   sub_469E1C(pGame->pClass03);
   CD3DRenderer_EndScene(pD3DRenderer);
   CD3DRenderer_Present(pD3DRenderer);
 
-  pParty_global->dword_007778 &= 0xFFFFFFFDu;
+  pParty_global->dword_007778 &= 0xFFFFFFFD;
 }
 
 //----- (004917CE) --------------------------------------------------------
@@ -5921,7 +5929,7 @@ int __thiscall sub_40261D(void *this, __int16 a2, __int16 a3, __int16 a4, __int1
 }
 
 //----- (00487DA9) --------------------------------------------------------
-void __cdecl sub_487DA9()
+void __cdecl sub_487DA9_ResetSomeStruct8ArrayFlags()
 {
  int i;
 
@@ -6233,9 +6241,9 @@ int __fastcall sub_40281C(int a1, signed int a2, signed int a3, signed int a4, i
 }
 
 //----- (004893C1) --------------------------------------------------------
-void __cdecl sub_4893C1(char *_this)
+void __cdecl sub_4893C1(struct class51 *_this)
 {
-  *(float *)(_this + 0x1C284) = sub_488E23();
+ _this->flt_01C284 = sub_488E23();
 }
 
 //----- (00402968) --------------------------------------------------------
@@ -6399,7 +6407,7 @@ signed int __cdecl sub_465D0B()
 }
 
 //----- (00481EB7) --------------------------------------------------------
-void __cdecl sub_481EB7()
+void __cdecl sub_481EB7_ResetStruct8Array()
 {
  int i;
 
@@ -7368,8 +7376,8 @@ LABEL_151:
     if ( sub_47050A((int)&dword_721530, v28) )
       break;
     sub_46E889((void *)1);
-    v30 = sub_47F458(pParty_global->sPartyPosY);
-    v31 = sub_47F44B(pParty_global->sPartyPosX);
+    v30 = WorldPosToGridCellZ(pParty_global->sPartyPosY);
+    v31 = WorldPosToGridCellX(pParty_global->sPartyPosX);
     sub_46E26D(v31, v30);
     sub_46ED8A((void *)4);
     for ( i = 0; i < (signed int)uNumActors; ++i )
@@ -7615,8 +7623,8 @@ LABEL_234:
       v80 = 804;
       v78 = 1;
 LABEL_255:
-      v55 = sub_47F458(pParty_global->sPartyPosY) - 1;
-      v56 = sub_47F44B(pParty_global->sPartyPosX);
+      v55 = WorldPosToGridCellZ(pParty_global->sPartyPosY) - 1;
+      v56 = WorldPosToGridCellX(pParty_global->sPartyPosX);
       v79 = sub_47EE49(pClass51_global, v56, v55, v78);
       goto LABEL_257;
     }
@@ -7659,10 +7667,10 @@ LABEL_344:
     pParty_global->dword_007778 &= 0xFFFFFFF7u;
   else
     pParty_global->dword_007778 |= 8u;
-  v118 = sub_47F44B(pParty_global->sPartyPosX);
-  v59 = sub_47F458(pParty_global->sPartyPosY) - 1;
-  v106 = sub_47F44B(v108);
-  v60 = sub_47F458(v109) - 1;
+  v118 = WorldPosToGridCellX(pParty_global->sPartyPosX);
+  v59 = WorldPosToGridCellZ(pParty_global->sPartyPosY) - 1;
+  v106 = WorldPosToGridCellX(v108);
+  v60 = WorldPosToGridCellZ(v109) - 1;
   v119 = ((unsigned int)~class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pClass51_global, v118, v59) >> 1) & 1;
   v114 = ((unsigned int)~class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pClass51_global, v106, v59) >> 1) & 1;
   v61 = class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pClass51_global, v118, v60);
@@ -8170,8 +8178,8 @@ int __fastcall sub_48257A(signed int a1, signed int a2, int a3, int a4)
 
   v11 = a1;
   v12 = a2;
-  v4 = sub_47F44B(a1);
-  v5 = sub_47F458(v12) - 1;
+  v4 = WorldPosToGridCellX(a1);
+  v5 = WorldPosToGridCellZ(v12) - 1;
   dword_76D538 = sub_47F469(v4);
   dword_76D53C = sub_47F469(v4 + 1);
   dword_76D540 = sub_47F469(v4 + 1);
@@ -9297,8 +9305,8 @@ LABEL_20:
 void __cdecl sub_441CFF()
 {
   if ( !(pParty_global->dword_007778 & 2) && !(*(_BYTE *)(&pGame->dword_000E24) & 1) )
-    sub_47A59E(false);
-  else sub_47A59E(true);
+    sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(false);
+  else sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(true);
   sub_47A815();
   sub_4C2EFA(&struct_6BD080);
   sub_440F07(array_5118E8);
@@ -9349,7 +9357,7 @@ void __cdecl sub_486F92_MessWithEdgesAndSpans()
 
   v27 = class28_global.dword_000014;
 
-  if ( class28_global.dword_000014 > class28_global.dword_00001C )
+  if (class28_global.dword_000014 > class28_global.dword_00001C)
   {
 LABEL_51:
    pNewSpan->word_000008 = -1; 
@@ -16767,7 +16775,7 @@ int __fastcall sub_40368B(int a1, signed int a2, signed int a3)
 }
 
 //----- (00488E23) --------------------------------------------------------
-double __cdecl sub_488E23()
+float __cdecl sub_488E23()
 {
   int v0; // eax@3
   double v1; // st7@3
@@ -16779,8 +16787,7 @@ double __cdecl sub_488E23()
     if ( (unsigned int)pParty_global->dword_00071C < 0x14 )
     {
      struct_6BD080.dword_000FA4 = 0;
-      v1 = 0.0;
-      return v1 * 0.01666666753590107;
+     return 0.0;
     }
     if ( (unsigned int)pParty_global->dword_00071C < 0x15 )
     {

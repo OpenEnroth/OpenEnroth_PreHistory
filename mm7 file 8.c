@@ -154,14 +154,14 @@ void __fastcall sub_481212(int a1, int a2, int a3)
 
       v107 = (v11->x + v10->x) / 2;
       v90 = floorf(v107 + 0.5f);
-      v95 = sub_47F44B(v90);
+      v95 = WorldPosToGridCellX(v90);
 
       v108 = (v12->z + v10->z) / 2;
       v83 = floorf(v108 + 0.5f);
-      LODWORD(v100) = sub_47F458(v83);
+      LODWORD(v100) = WorldPosToGridCellZ(v83);
 
-      sub_47F44B(v102);
-      sub_47F458(v101);
+      WorldPosToGridCellX(v102);
+      WorldPosToGridCellZ(v101);
 
       if ((!byte_4D8410[572] || !(pGame->uSomeFlags & 0x80)) && !sub_481EFA(v10, v12, v11, v105, 1))
         goto LABEL_105;
@@ -2515,34 +2515,34 @@ void __cdecl sub_47AF11()
             if (pCamera->sRotationX)
             {
               v14 = (v43 - pCamera->dword_000004) << 16;
-              v30 = ((unsigned __int64)(v12 * pStruct9_global->dword_000020) >> 16) + ((unsigned __int64)(v14 * pStruct9_global->dword_00001C) >> 16);
-              v37 = (unsigned __int64)(v12 * pStruct9_global->dword_00001C) >> 16;
-              v39 = (unsigned __int64)(v14 * pStruct9_global->dword_000020) >> 16;
+              v30 = ((unsigned __int64)(v12 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) + ((unsigned __int64)(v14 * pStruct9_global->camera_rotation_y_int_sine) >> 16);
+              v37 = (unsigned __int64)(v12 * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+              v39 = (unsigned __int64)(v14 * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
               v33 = (v45 - pCamera->dword_000008) << 16;
-              v15 = (unsigned __int64)(v30 * pStruct9_global->dword_000028) >> 16;
-              v16 = (unsigned __int64)(v33 * pStruct9_global->dword_000024) >> 16;
+              v15 = (unsigned __int64)(v30 * pStruct9_global->camera_rotation_x_int_cosine) >> 16;
+              v16 = (unsigned __int64)(v33 * pStruct9_global->camera_rotation_x_int_sine) >> 16;
               v13 = v16 + v15;
               v42 = v16 + v15;
               if ( v16 + v15 >= 262144 && v13 <= pStruct9_global->shading_dist_mist << 16 )
               {
                 v18 = v39 - v37;
                 v40 = v39 - v37;
-                v17 = ((unsigned __int64)(v33 * pStruct9_global->dword_000028) >> 16) - ((unsigned __int64)(v30 * pStruct9_global->dword_000024) >> 16);
+                v17 = ((unsigned __int64)(v33 * pStruct9_global->camera_rotation_x_int_cosine) >> 16) - ((unsigned __int64)(v30 * pStruct9_global->camera_rotation_x_int_sine) >> 16);
                 goto LABEL_29;
               }
             }
             else
             {
               v34 = (v43 - pCamera->dword_000004) << 16;
-              v19 = (unsigned __int64)(v12 * pStruct9_global->dword_000020) >> 16;
-              v20 = (unsigned __int64)(v34 * pStruct9_global->dword_00001C) >> 16;
+              v19 = (unsigned __int64)(v12 * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
+              v20 = (unsigned __int64)(v34 * pStruct9_global->camera_rotation_y_int_sine) >> 16;
               v13 = v20 + v19;
               v42 = v20 + v19;
               if ( v20 + v19 >= 262144 && v13 <= pStruct9_global->shading_dist_mist << 16 )
               {
-                v21 = (unsigned __int64)(((v44 - pCamera->dword_000000) << 16) * pStruct9_global->dword_00001C) >> 16;
-                v18 = ((unsigned __int64)(v34 * pStruct9_global->dword_000020) >> 16) - v21;
-                v40 = ((unsigned __int64)(v34 * pStruct9_global->dword_000020) >> 16) - v21;
+                v21 = (unsigned __int64)(((v44 - pCamera->dword_000000) << 16) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+                v18 = ((unsigned __int64)(v34 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v21;
+                v40 = ((unsigned __int64)(v34 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v21;
                 v17 = (v45 - pCamera->dword_000008) << 16;
 LABEL_29:
                 v31 = v17;
@@ -8479,14 +8479,7 @@ void __cdecl UI_Initialize_Icons()
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "torchB"));
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "torchA"));
 
- uTextureIdx_MapDirs[0] = class17_LoadTexture_New(pClass17_Icons_LOD, L"MAPDIR8");
- uTextureIdx_MapDirs[1] = class17_LoadTexture_New(pClass17_Icons_LOD, L"MAPDIR1");
- uTextureIdx_MapDirs[2] = class17_LoadTexture_New(pClass17_Icons_LOD, L"MAPDIR2");
- uTextureIdx_MapDirs[3] = class17_LoadTexture_New(pClass17_Icons_LOD, L"MAPDIR3");
- uTextureIdx_MapDirs[4] = class17_LoadTexture_New(pClass17_Icons_LOD, L"MAPDIR4");
- uTextureIdx_MapDirs[5] = class17_LoadTexture_New(pClass17_Icons_LOD, L"MAPDIR5");
- uTextureIdx_MapDirs[6] = class17_LoadTexture_New(pClass17_Icons_LOD, L"MAPDIR6");
- uTextureIdx_MapDirs[7] = class17_LoadTexture_New(pClass17_Icons_LOD, L"MAPDIR7");
+ uTextureID_MinimapDirections = class17_LoadTexture_New(pClass17_Icons_LOD, L"Minimap Directions");
 
  uTextureIdx_UIBarRed = class17_LoadTexture_New(pClass17_Icons_LOD, L"ui-bar_red");
  uTextureIdx_UIBarYellow = class17_LoadTexture_New(pClass17_Icons_LOD, L"ui-bar_yellow");

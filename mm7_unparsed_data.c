@@ -827,8 +827,9 @@ unsigned int uTextureIdx_InventoryBackground; // dword @ MM7.exe::00507958
  unsigned int uTextureIdx_ib_npcrd_a; // dword @ MM7.exe::0050798C
  unsigned int uTextureIdx_ib_npcld_a; // dword @ MM7.exe::00507990
 
- unsigned int uTextureIdx_MapDirs[8];  // dword[8] @ MM7.exe::00507994
- unsigned int uTextureIdx_MinimapCompass; // dword @ MM7.exe::005079B4
+unsigned int uTextureID_MinimapDirections;
+//unsigned int uTextureIdx_MapDirs[8];     // dword[8] @ MM7.exe::00507994
+unsigned int uTextureIdx_MinimapCompass; // dword    @ MM7.exe::005079B4
 
  unsigned int uTextureIdx_UIBarRed;    // dword @ MM7.exe::005079B8
  unsigned int uTextureIdx_UIBarYellow; // dword @ MM7.exe::005079BC

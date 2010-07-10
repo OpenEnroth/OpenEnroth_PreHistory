@@ -8129,12 +8129,12 @@ void sub_486089_NormalizeVector(struct struct8 *_this)
 
 
 //----- (0048600E) --------------------------------------------------------
-void sub_48600E(struct struct9 *_this)
+void struct9_sub_47A59E_ComputeSinCos(struct struct9 *_this)
 {
- _this->dword_00001C = class59_SinCos(pClass59_global, pCamera->sRotationY - pClass59_global->uNumTableEntries);
- _this->dword_000020 = class59_SinCos(pClass59_global, pCamera->sRotationY);
- _this->dword_000024 = class59_SinCos(pClass59_global, pCamera->sRotationX - pClass59_global->uNumTableEntries);
- _this->dword_000028 = class59_SinCos(pClass59_global, pCamera->sRotationX);
+ _this->camera_rotation_y_int_sine = class59_SinCos(pClass59_global, pCamera->sRotationY - pClass59_global->uNumTableEntries);
+ _this->camera_rotation_x_int_sine = class59_SinCos(pClass59_global, pCamera->sRotationX - pClass59_global->uNumTableEntries);
+ _this->camera_rotation_y_int_cosine = class59_SinCos(pClass59_global, pCamera->sRotationY);
+ _this->camera_rotation_x_int_cosine = class59_SinCos(pClass59_global, pCamera->sRotationX);
 }
 
 //----- (0048616B) --------------------------------------------------------
@@ -8167,21 +8167,21 @@ int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, in
   int v30; // [sp+3Ch] [bp+14h]@10
 
   v1 = _this;
-  v25 = pStruct9_global->dword_000028;
-  v9 = pStruct9_global->dword_00001C;
-  v27 = pStruct9_global->dword_000024;
+  v25 = pStruct9_global->camera_rotation_x_int_cosine;
+  v9 = pStruct9_global->camera_rotation_y_int_sine;
+  v27 = pStruct9_global->camera_rotation_x_int_sine;
   v11 = -pCamera->dword_000004;
-  v10 = pStruct9_global->dword_000020;
+  v10 = pStruct9_global->camera_rotation_y_int_cosine;
   v26 = -pCamera->dword_000008;
   v24 = -pCamera->dword_000000;
-  v7 = pStruct9_global->dword_000020 * -pCamera->dword_000000;
-  v8 = v7 + pStruct9_global->dword_00001C * -pCamera->dword_000004;
+  v7 = pStruct9_global->camera_rotation_y_int_cosine * -pCamera->dword_000000;
+  v8 = v7 + pStruct9_global->camera_rotation_y_int_sine * -pCamera->dword_000004;
   if (pCamera->sRotationX)
   {
-    v14 = v7 + pStruct9_global->dword_00001C * -pCamera->dword_000004;
-    v15 = pStruct9_global->dword_000020 * v11 - pStruct9_global->dword_00001C * v24;
-    _this->dword_000000 = ((unsigned __int64)(v8 * pStruct9_global->dword_000028) >> 16)
-                    + ((unsigned __int64)(-65536 * pCamera->dword_000008 * pStruct9_global->dword_000024) >> 16);
+    v14 = v7 + pStruct9_global->camera_rotation_y_int_sine * -pCamera->dword_000004;
+    v15 = pStruct9_global->camera_rotation_y_int_cosine * v11 - pStruct9_global->camera_rotation_y_int_sine * v24;
+    _this->dword_000000 = ((unsigned __int64)(v8 * pStruct9_global->camera_rotation_x_int_cosine) >> 16)
+                    + ((unsigned __int64)(-65536 * pCamera->dword_000008 * pStruct9_global->camera_rotation_x_int_sine) >> 16);
     _this->dword_000004 = v15;
     v13 = v25;
     v12 = ((unsigned __int64)((v26 << 16) * v25) >> 16) - ((unsigned __int64)(v14 * v27) >> 16);
@@ -8189,37 +8189,37 @@ int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, in
   else
   {
     _this->dword_000000 = v8;
-    _this->dword_000004 = pStruct9_global->dword_000020 * v11 - pStruct9_global->dword_00001C * v24;
+    _this->dword_000004 = (__int64)pStruct9_global->camera_rotation_y_int_cosine * v11 - (__int64)pStruct9_global->camera_rotation_y_int_sine * v24;
     v13 = v25;
     v12 = v26 << 16;
   }
   _this->dword_000008 = v12;
   if (pCamera->sRotationX)
   {
-    v17 = ((unsigned __int64)(a2 * v10) >> 16) + ((unsigned __int64)(a3 * v9) >> 16);
-    _this->dword_00000C = ((unsigned __int64)(v17 * v13) >> 16) + ((unsigned __int64)(a4 * v27) >> 16);
-    _this->dword_000010 = ((unsigned __int64)(a3 * v10) >> 16) - ((unsigned __int64)(a2 * v9) >> 16);
-    v16 = ((unsigned __int64)(a4 * v13) >> 16) - ((unsigned __int64)(v17 * v27) >> 16);
+    v17 = ((unsigned __int64)(a2) * v10 >> 16) + ((unsigned __int64)(a3) * v9 >> 16);
+    _this->dword_00000C = ((unsigned __int64)(v17) * v13 >> 16) + ((unsigned __int64)(a4) * v27 >> 16);
+    _this->dword_000010 = ((unsigned __int64)(a3) * v10 >> 16) - ((unsigned __int64)(a2) * v9 >> 16);
+    v16 = ((unsigned __int64)(a4) * v13 >> 16) - ((unsigned __int64)(v17) * v27 >> 16);
   }
   else
   {
-    _this->dword_00000C = ((unsigned __int64)(a2 * v10) >> 16) + ((unsigned __int64)(a3 * v9) >> 16);
-    _this->dword_000010 = ((unsigned __int64)(a3 * v10) >> 16) - ((unsigned __int64)(a2 * v9) >> 16);
+    _this->dword_00000C = ((unsigned __int64)(a2) * v10 >> 16) + ((unsigned __int64)(a3) * v9 >> 16);
+    _this->dword_000010 = ((unsigned __int64)(a3) * v10 >> 16) - ((unsigned __int64)(a2) * v9 >> 16);
     v16 = a4;
   }
   _this->dword_000014 = v16;
   v28 = v10;
   if (pCamera->sRotationX)
   {
-    v19 = ((unsigned __int64)(a5 * v28) >> 16) + ((unsigned __int64)(a6 * v9) >> 16);
-    _this->dword_000018 = ((unsigned __int64)(v19 * v13) >> 16) + ((unsigned __int64)(a7 * v27) >> 16);
-    _this->dword_00001C = ((unsigned __int64)(a6 * v10) >> 16) - ((unsigned __int64)(a5 * v9) >> 16);
-    v18 = ((unsigned __int64)(a7 * v13) >> 16) - ((unsigned __int64)(v19 * v27) >> 16);
+    v19 = ((unsigned __int64)(a5) * v28 >> 16) + ((unsigned __int64)(a6) * v9 >> 16);
+    _this->dword_000018 = ((unsigned __int64)(v19) * v13 >> 16) + ((unsigned __int64)(a7) * v27 >> 16);
+    _this->dword_00001C = ((unsigned __int64)(a6) * v10 >> 16) - ((unsigned __int64)(a5) * v9 >> 16);
+    v18 = ((unsigned __int64)(a7) * v13 >> 16) - ((unsigned __int64)(v19) * v27 >> 16);
   }
   else
   {
-    _this->dword_000018 = ((unsigned __int64)(a5 * v28) >> 16) + ((unsigned __int64)(a6 * v9) >> 16);
-    _this->dword_00001C = ((unsigned __int64)(a6 * v10) >> 16) - ((unsigned __int64)(a5 * v9) >> 16);
+    _this->dword_000018 = ((unsigned __int64)(a5) * v28 >> 16) + ((unsigned __int64)(a6) * v9 >> 16);
+    _this->dword_00001C = ((unsigned __int64)(a6) * v10 >> 16) - ((unsigned __int64)(a5) * v9 >> 16);
     v18 = a7;
   }
  _this->dword_000018 = -_this->dword_000018;
@@ -8227,15 +8227,15 @@ int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, in
  _this->dword_000020 = v18;
   v21 = _this->dword_00000C;
  _this->dword_000020 = -_this->dword_000020;
- v22 = ((unsigned __int64)(v21 * _this->dword_000000) >> 16)
-      + ((unsigned __int64)(_this->dword_000010 * _this->dword_000004) >> 16)
-      + ((unsigned __int64)(_this->dword_000014 * _this->dword_000008) >> 16);
+ v22 = ((unsigned __int64)(v21) * _this->dword_000000 >> 16)
+      + ((unsigned __int64)(_this->dword_000010) * _this->dword_000004 >> 16)
+      + ((unsigned __int64)(_this->dword_000014) * _this->dword_000008 >> 16);
   v29 = _this->dword_000018;
   v23 = _this->dword_000000;
  _this->dword_000024 = v22;
-  v30 = (unsigned __int64)(v29 * v23) >> 16;
-  result = (unsigned __int64)(_this->dword_00001C * _this->dword_000004) >> 16;
- _this->dword_000028 = v30 + result + ((unsigned __int64)(_this->dword_000020 * _this->dword_000008) >> 16);
+  v30 = (unsigned __int64)(v29) * v23 >> 16;
+  result = (unsigned __int64)(_this->dword_00001C) * _this->dword_000004 >> 16;
+ _this->dword_000028 = v30 + result + ((unsigned __int64)(_this->dword_000020) * _this->dword_000008 >> 16);
   return result;
 }
 
@@ -8288,7 +8288,7 @@ int sub_485F64(struct struct9 *_this)
  _this->dword_00004C = 360000;
  _this->dword_000050 = 115;
   data_6BE060.dword_6BE064 = 1;
-  sub_48600E(_this);
+  struct9_sub_47A59E_ComputeSinCos(_this);
   return 0;
 }
 

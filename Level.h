@@ -135,7 +135,8 @@ struct class51
  int dword_000D34;
  int dword_000D38;
 
- int dword_01C288;
+ float flt_01C284;
+ int   dword_01C288;
 
  char maybe_more[0x30000];
 };
