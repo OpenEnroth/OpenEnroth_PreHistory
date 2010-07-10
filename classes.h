@@ -1371,17 +1371,17 @@ struct Player
    unsigned short   uStrength;       // word     @ 0000BC
    unsigned short   uStrengthBonus;  // word     @ 0000BE
    unsigned short   uIntelligence;   // word @ 0000C0
-   short            word_0000C2;
+   unsigned short   uIntelligenceBonus; // word @ 0000C2;
    unsigned short   uWillpower;      // word @ 0000C4
-   short            word_0000C6;
+   unsigned short   uWillpowerBonus; // word @ 0000C6
    unsigned short   uEndurance;      // word @ 0000C8
-   short            word_0000CA;
+   unsigned short   uEnduranceBonus; // word @ 0000CA
    unsigned short   uSpeed;          // word @ 0000CC
-   short            word_0000CE;
+   unsigned short   uSpeedBonus;     // word @ 0000CE
    unsigned short   uAccuracy;       // word @ 0000D0
-   short            word_0000D2;
+   unsigned short   uAccuracyBonus;  // word @ 0000D2
    unsigned short   uLuck;           // word @ 0000D4
-   short            word_0000D6;
+   unsigned short   uLuckBonus;      // word @ 0000D6
    short            word_0000D8;
    short            BaseLevel;       // word @ 0000DA
    short            TempLevelBonus;  // word @ 0000DC
@@ -1463,8 +1463,8 @@ struct Player
    short        word_001934;   // recovery delay ?
    char         array_001936[2];
    unsigned int uSkillPoints;           // dword @ 001938
-   int          uHealthMax;             // dword @ 00193C
-   int          uManaMax;               // dword @ 001940
+   int          sHealth;             // dword @ 00193C
+   int          sMana;               // dword @ 001940
    int          dword_001944; // birth year?
    int          array_001948[65]; // related to equipped items
 

@@ -3867,13 +3867,11 @@ int Player_GetActualStrength(struct Player *_this)
 {
   int v1; // eax@1
   signed int v2; // ecx@1
-  int v3; // esi@1
   signed int v4; // ebx@4
   int v6; // edi@5
   int v7; // ST14_4@5
 
-  v3 = _this;
-  v1 = *(_WORD *)((char *)_this + 222) + Player_GetBaseAge(_this);
+  v1 = Player_GetActualAge(_this);
   v2 = 0;
   while ( v1 >= dword_4EDFD0[v2] )
   {
@@ -3886,9 +3884,9 @@ int Player_GetActualStrength(struct Player *_this)
   }
   v4 = (unsigned __int8)byte_4EDFE0[v2];
 LABEL_5:
-  v6 = (unsigned __int8)byte_4EDF48[sub_48E9F4((void *)v3)];
-  v7 = Player_CalcParamBonus((void *)v3, 0, 0);
-  return v6 * v4 * *(_WORD *)(v3 + 188) / 100 / 100 + sub_48F73C(v3, 0) + v7 + _this->uStrengthBonus;
+  v6 = (unsigned __int8)byte_4EDF48[sub_48E9F4(_this)];
+  v7 = Player_MaybeGetWearItemsBonus(_this, 0, 0);
+  return v6 * v4 * _this->uStrength / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 0) + v7 + _this->uStrengthBonus;
 }
 
 //----- (00401221) --------------------------------------------------------
@@ -4470,8 +4468,8 @@ LABEL_22:
     GameUI_DrawTorchlightAndWizardEye();
   }
 
-  GameUI_DrawStatsTab(1);
-  GameUI_DrawAwardsTab(1);
+  //GameUI_DrawStatsTab(1);
+  //GameUI_DrawAwardsTab(1);
   //GameUI_DrawInventory(1, false);
 
   sub_4156F0();
@@ -6873,7 +6871,7 @@ LABEL_9:
             {
               if ( !sub_48D709((void *)*v4, 529, 8) )
               {
-                v97 = sub_48E4F8(*v4);
+                v97 = Player_GetMaxHealth(*v4);
                 sub_48DC1E(
                   *v4,
                   (signed int)((pParty_global->dword_000700 - v115) * (signed __int64)((double)v97 * *(double *)&byte_4D8410[112]))
@@ -7721,7 +7719,7 @@ LABEL_344:
                   v66 = pPlayers;
                   do
                   {
-                    v102 = sub_48E4F8(*v66);
+                    v102 = Player_GetMaxHealth(*v66);
                     sub_48DC1E(
                       *v66,
                       (signed int)((pParty_global->dword_000700 - v63) * (signed __int64)((double)v102 * *(double *)&byte_4D8410[112]))
@@ -7857,7 +7855,7 @@ LABEL_318:
                 v76 = pPlayers;
                 do
                 {
-                  v102 = sub_48E4F8(*v76);
+                  v102 = Player_GetMaxHealth(*v76);
                   sub_48DC1E(
                     *v76,
                     (signed int)((pParty_global->dword_000700 - v74) * (signed __int64)((double)v102 * *(double *)&byte_4D8410[112]))
@@ -9050,8 +9048,8 @@ LABEL_59:
             if ( !*(_QWORD *)(v22 + 128) )
             {
               ++*(_DWORD *)(v22 + 6460);
-              if ( *(_DWORD *)(v22 + 6460) > sub_48E4F8(v22) )
-                *(_DWORD *)(v22 + 6460) = sub_48E4F8(v22);
+              if ( *(_DWORD *)(v22 + 6460) > Player_GetMaxHealth(v22) )
+                *(_DWORD *)(v22 + 6460) = Player_GetMaxHealth(v22);
               if ( *(_QWORD *)(v22 + 104) )
               {
                 if ( *(_DWORD *)(v22 + 6460) > 0 )
@@ -9073,8 +9071,8 @@ LABEL_59:
               if ( !*(_QWORD *)(v22 + 128) )
               {
                 *(_DWORD *)(v22 + 6460) += 5 * *(_WORD *)(v22 + 6248);
-                if ( *(_DWORD *)(v22 + 6460) > sub_48E4F8(v22) )
-                  *(_DWORD *)(v22 + 6460) = sub_48E4F8(v22);
+                if ( *(_DWORD *)(v22 + 6460) > Player_GetMaxHealth(v22) )
+                  *(_DWORD *)(v22 + 6460) = Player_GetMaxHealth(v22);
                 if ( *(_QWORD *)(v22 + 104) )
                 {
                   if ( *(_DWORD *)(v22 + 6460) > 0 )
@@ -9092,8 +9090,8 @@ LABEL_59:
         {
           v34 = v22 + 6464;
           ++*(_DWORD *)v34;
-          if ( *(_DWORD *)(v22 + 6464) > sub_48E565(v22) )
-            *(_DWORD *)v34 = sub_48E565(v22);
+          if ( *(_DWORD *)(v22 + 6464) > Player_GetMaxMana(v22) )
+            *(_DWORD *)v34 = Player_GetMaxMana(v22);
           v69 = 1;
         }
         if ( v65 )
@@ -9112,7 +9110,7 @@ LABEL_59:
               }
               if ( v35 < 1 )
               {
-                if ( *(_DWORD *)(v22 + 6460) + *(_WORD *)(v22 + 200) + Player_CalcParamBonus((void *)v22, 3, 0) >= 1
+                if ( *(_DWORD *)(v22 + 6460) + *(_WORD *)(v22 + 200) + Player_MaybeGetWearItemsBonus((void *)v22, 3, 0) >= 1
                   || *(_QWORD *)(v22 + 6224) > 0i64 )
                 {
                   *(_QWORD *)(v22 + 104) = pParty_global->qword_00002C;
@@ -9131,8 +9129,8 @@ LABEL_59:
         {
           v37 = v22 + 6464;
           ++*(_DWORD *)v37;
-          if ( *(_DWORD *)(v22 + 6464) > sub_48E565(v22) )
-            *(_DWORD *)v37 = sub_48E565(v22);
+          if ( *(_DWORD *)(v22 + 6464) > Player_GetMaxMana(v22) )
+            *(_DWORD *)v37 = Player_GetMaxMana(v22);
         }
         if ( v66 )
         {
@@ -9141,10 +9139,10 @@ LABEL_59:
             if ( !*(_QWORD *)(v22 + 128) )
             {
               v38 = *(_DWORD *)(v22 + 6460);
-              if ( v38 > sub_48E4F8(v22) / 2 )
+              if ( v38 > Player_GetMaxHealth(v22) / 2 )
                 *(_DWORD *)(v22 + 6460) = v38 - 2;
               v39 = *(_DWORD *)(v22 + 6464);
-              if ( v39 > sub_48E565(v22) / 2 )
+              if ( v39 > Player_GetMaxMana(v22) / 2 )
                 *(_DWORD *)(v22 + 6464) = v39 - 2;
             }
           }
@@ -9156,7 +9154,7 @@ LABEL_59:
             if ( !*(_QWORD *)(v22 + 128) )
             {
               v40 = *(_DWORD *)(v22 + 6460);
-              if ( v40 > sub_48E4F8(v22) / 2 )
+              if ( v40 > Player_GetMaxHealth(v22) / 2 )
                 *(_DWORD *)(v22 + 6460) = v40 - 1;
               v41 = *(_DWORD *)(v22 + 6464);
               if ( v41 > 0 )
@@ -11897,7 +11895,7 @@ LABEL_462:
             SHIDWORD(v1));
           goto LABEL_83;
         }
-        if ( !sub_48E565(pPlayers[*(_WORD *)(v2 + 2)]) )
+        if ( !Player_GetMaxMana(pPlayers[*(_WORD *)(v2 + 2)]) )
         {
 LABEL_461:
           v184 = pGlobalTXT_LocalizationStrings[428];
@@ -12170,7 +12168,7 @@ LABEL_157:
         }
         goto LABEL_1056;
       case 27:
-        if ( !sub_48E565(pPlayers[*(_WORD *)(v2 + 2)]) )
+        if ( !Player_GetMaxMana(pPlayers[*(_WORD *)(v2 + 2)]) )
           goto LABEL_461;
         if ( v709 == 2 || v709 != 3 && v709 != 4 )
           LODWORD(v1) = 600 * v1;
@@ -13117,9 +13115,9 @@ LABEL_679:
             LODWORD(v1) = 4 * v639[LODWORD(v712)] + 10965188;
             *((_DWORD *)*(&ptr_A750C4 + v639[LODWORD(v712)]) + 1615) = v710;
             LODWORD(v704) = *(_DWORD *)v1;
-            v362 = sub_48E4F8(SLODWORD(v704));
+            v362 = Player_GetMaxHealth(SLODWORD(v704));
             if ( *(_DWORD *)(LODWORD(v704) + 6460) > v362 )
-              *(_DWORD *)(*(_DWORD *)v1 + 6460) = sub_48E4F8(SLODWORD(v704));
+              *(_DWORD *)(*(_DWORD *)v1 + 6460) = Player_GetMaxHealth(SLODWORD(v704));
             LODWORD(v1) = *(_DWORD *)v1;
             if ( *(_DWORD *)(v1 + 6460) > HIDWORD(v1) )
             {
@@ -14368,11 +14366,11 @@ LABEL_1000:
             *(_DWORD *)(v528 + v529 - 4) = HIDWORD(v1);
           }
           while ( v528 <= 128 );
-          compile_error;//v530 = sub_48E4F8(*LODWORD(v702));
+          compile_error;//v530 = Player_GetMaxHealth(*LODWORD(v702));
           v531 = (int *)LODWORD(v702);
           compile_error;//*(_DWORD *)(*LODWORD(v702) + 6460) = v530;
           v532 = n;
-          compile_error;//*(_DWORD *)(*LODWORD(v702) + 6464) = sub_48E565(*v531);
+          compile_error;//*(_DWORD *)(*LODWORD(v702) + 6464) = Player_GetMaxMana(*v531);
           v533 = *(_WORD *)v2;
           v534 = sub_42EB6A(pGame);
           sub_4A89BD((void *)v534, v533, v532);
@@ -14715,8 +14713,8 @@ LABEL_1087:
 
         for (i = 0; i < 4; ++i)
         {
-         pParty_global->pPlayers[i].uHealthMax = sub_48E4F8(&pParty_global->pPlayers[i]);
-         pParty_global->pPlayers[i].uManaMax = sub_48E565(&pParty_global->pPlayers[i]);
+         pParty_global->pPlayers[i].sHealth = Player_GetMaxHealth(&pParty_global->pPlayers[i]);
+         pParty_global->pPlayers[i].sMana = Player_GetMaxMana(&pParty_global->pPlayers[i]);
         }
 
         v576 = &unk_6A12B8;
@@ -14870,9 +14868,9 @@ LABEL_1119:
             v593 = (int)*(&ptr_A750C4 + v638[LODWORD(v712)]);
             *(_DWORD *)(v593 + 6460) += v710;
             LODWORD(v704) = *(_DWORD *)v592;
-            v594 = sub_48E4F8(SLODWORD(v704));
+            v594 = Player_GetMaxHealth(SLODWORD(v704));
             if ( *(_DWORD *)(LODWORD(v704) + 6460) > v594 )
-              *(_DWORD *)(*(_DWORD *)v592 + 6460) = sub_48E4F8(SLODWORD(v704));
+              *(_DWORD *)(*(_DWORD *)v592 + 6460) = Player_GetMaxHealth(SLODWORD(v704));
             v595 = LODWORD(v712);
             v596 = LOWORD(v712);
             v597 = *(_WORD *)v2;
@@ -14993,7 +14991,7 @@ LABEL_439:
 }
 
 //----- (0048EAAE) --------------------------------------------------------
-int Player_CalcParamBonus(struct Player *_this, signed int a2, int a3)
+int Player_MaybeGetWearItemsBonus(struct Player *_this, signed int a2, int a3) 
 {
   signed int v3; // eax@1
   void *v4; // ebx@1

@@ -2176,7 +2176,7 @@ LABEL_56:
 }
 
 //----- (0048E4F8) --------------------------------------------------------
-int sub_48E4F8(struct Player *_this)
+int Player_GetMaxHealth(struct Player *_this)
 {
   signed int result; // eax@1
   int v2; // esi@1
@@ -2188,7 +2188,7 @@ int sub_48E4F8(struct Player *_this)
   v4 = Player_GetActualEndurance(_this);
   v5 = sub_48EA1B(v4);
   v6 = byte_4ED768[_this->uClass] * (Player_GetActualLevel(_this) + v5);
-  v7 = Player_CalcParamBonus(_this, 7, 0) + v6;
+  v7 = Player_MaybeGetWearItemsBonus(_this, 7, 0) + v6;
   v2 = _this->byte_001A98
      + byte_4ED750[_this->uClass >> 2]
      + sub_48FC00(_this, 7)
@@ -6822,10 +6822,10 @@ LABEL_731:
         case 0x5D:
           v124 = pGlobalTXT_LocalizationStrings[212];
           v125 = (int)*(&ptr_A750C4 + v209);
-          v126 = sub_48E565(v125);
+          v126 = Player_GetMaxMana(v125);
           v127 = *(_DWORD *)(v125 + 6464);
           v128 = pGlobalTXT_LocalizationStrings[108];
-          v129 = sub_48E4F8(v125);
+          v129 = Player_GetMaxHealth(v125);
           sprintfex(
             &TmpBuf,
             "%d / %d %s    %d / %d %s",

@@ -624,8 +624,8 @@ LABEL_69:
         if ( *(_WORD *)(v8 + 40) > 0 )
         {
           *(_DWORD *)(v7 + 6460) += v65 / 5;
-          if ( *(_DWORD *)(v7 + 6460) > sub_48E4F8(v7) )
-            *(_DWORD *)(v7 + 6460) = sub_48E4F8(v7);
+          if ( *(_DWORD *)(v7 + 6460) > Player_GetMaxHealth(v7) )
+            *(_DWORD *)(v7 + 6460) = Player_GetMaxHealth(v7);
           v66 = 0;
         }
       }
@@ -646,8 +646,8 @@ LABEL_69:
             if ( *(_WORD *)(v8 + 40) > 0 )
             {
               *(_DWORD *)(v7 + 6460) += v65 / 5;
-              if ( *(_DWORD *)(v7 + 6460) > sub_48E4F8(v7) )
-                *(_DWORD *)(v7 + 6460) = sub_48E4F8(v7);
+              if ( *(_DWORD *)(v7 + 6460) > Player_GetMaxHealth(v7) )
+                *(_DWORD *)(v7 + 6460) = Player_GetMaxHealth(v7);
               v66 = 0;
             }
           }
@@ -1072,7 +1072,7 @@ LABEL_80:
       v80 = (int)v43;
       if ( v39 != 4 || *((_DWORD *)v38 + 18) != 100 )
       {
-        v70 = sub_48E4F8(v80);
+        v70 = Player_GetMaxHealth(v80);
         v68 = sub_43AFE3(*((_DWORD *)v38 + 18), *((_DWORD *)v38 + 19), *((_DWORD *)v38 + 20), v70);
         v69 = pSpellStats->pSpellInfos[*((_DWORD *)v38 + 18)].uSpellSchool;
       }
@@ -1475,12 +1475,12 @@ LABEL_43:
       if ( v77 )
       {
         v73 = (double)v75;
-        if ( (double)sub_48E4F8(v6) * *(double *)&byte_4D8410[464] < v73 )
+        if ( (double)Player_GetMaxHealth(v6) * *(double *)&byte_4D8410[464] < v73 )
         {
           v78 = *(_DWORD *)(v6 + 6460);
           if ( *(_DWORD *)(v6 + 6460) > 0 )
           {
-            if ( (double)sub_48E4F8(v6) * *(double *)&byte_4D8410[464] >= (double)v78 )
+            if ( (double)Player_GetMaxHealth(v6) * *(double *)&byte_4D8410[464] >= (double)v78 )
               sub_4948B1((void *)v6, 48, 0);
           }
         }
@@ -8296,16 +8296,16 @@ signed int __cdecl sub_444D80()
   int v4; // eax@7
 
   v0 = dword_6BD07C;
-  LOBYTE(v1) = sub_476395((void *)5);
+  LOBYTE(v1) = sub_476395(5);
   if ( v1 )
     --v0;
-  LOBYTE(v2) = sub_476395((void *)6);
+  LOBYTE(v2) = sub_476395(6);
   if ( v2 )
     v0 -= 2;
-  LOBYTE(v3) = sub_476395((void *)7);
+  LOBYTE(v3) = sub_476395(7);
   if ( v3 )
     v0 -= 3;
-  LOBYTE(v4) = sub_476395((void *)0x2C);
+  LOBYTE(v4) = sub_476395(0x2C);
   if ( v4 )
     --v0;
   if ( v0 < 1 )
@@ -12577,7 +12577,7 @@ LABEL_14:
           v3 = *(_DWORD *)(this + 6460);
           goto LABEL_170;
         case 4:
-          v10 = sub_48E4F8(this);
+          v10 = Player_GetMaxHealth(this);
           compile_error;//v9 = __SETO__(*(_DWORD *)(v4 + 6460), v10);
           v8 = *(_DWORD *)(v4 + 6460) - v10 < 0;
           goto LABEL_169;
@@ -12585,7 +12585,7 @@ LABEL_14:
           v3 = *(_DWORD *)(this + 6464);
           goto LABEL_170;
         case 6:
-          v11 = sub_48E565(this);
+          v11 = Player_GetMaxMana(this);
           compile_error;//v9 = __SETO__(*(_DWORD *)(v4 + 6464), v11);
           v8 = *(_DWORD *)(v4 + 6464) - v11 < 0;
           goto LABEL_169;
@@ -13087,13 +13087,13 @@ LABEL_169:
           *((_DWORD *)Dst + 1615) = a3;
           goto LABEL_124;
         case 4:
-          *((_DWORD *)Dst + 1615) = sub_48E4F8((int)Dst);
+          *((_DWORD *)Dst + 1615) = Player_GetMaxHealth((int)Dst);
           return;
         case 5:
           *((_DWORD *)Dst + 1616) = a3;
           goto LABEL_124;
         case 6:
-          *((_DWORD *)Dst + 1616) = sub_48E565((int)Dst);
+          *((_DWORD *)Dst + 1616) = Player_GetMaxMana((int)Dst);
           return;
         case 8:
           *((_WORD *)Dst + 108) = (unsigned __int8)a3;
@@ -13613,12 +13613,12 @@ LABEL_173:
         case 3:
           v8 = Dst + 6460;
           *(_DWORD *)v8 += a3;
-          if ( *((_DWORD *)Dst + 1615) <= sub_48E4F8((int)Dst) )
+          if ( *((_DWORD *)Dst + 1615) <= Player_GetMaxHealth((int)Dst) )
             goto LABEL_129;
-          v9 = sub_48E4F8(v5);
+          v9 = Player_GetMaxHealth(v5);
           goto LABEL_23;
         case 4:
-          v10 = sub_48E4F8((int)Dst);
+          v10 = Player_GetMaxHealth((int)Dst);
           *(_BYTE *)(v5 + 6809) = 0;
           *(_BYTE *)(v5 + 6808) = 0;
           *(_DWORD *)(v5 + 6460) = v10;
@@ -13626,15 +13626,15 @@ LABEL_173:
         case 5:
           v8 = Dst + 6464;
           *(_DWORD *)v8 += a3;
-          if ( *((_DWORD *)Dst + 1616) > sub_48E565((int)Dst) )
+          if ( *((_DWORD *)Dst + 1616) > Player_GetMaxMana((int)Dst) )
           {
-            v9 = sub_48E565(v5);
+            v9 = Player_GetMaxMana(v5);
 LABEL_23:
             *(_DWORD *)v8 = v9;
           }
           goto LABEL_129;
         case 6:
-          v11 = sub_48E565((int)Dst);
+          v11 = Player_GetMaxMana((int)Dst);
           *(_BYTE *)(v5 + 6811) = 0;
           *(_BYTE *)(v5 + 6810) = 0;
           *(_DWORD *)(v5 + 6464) = v11;

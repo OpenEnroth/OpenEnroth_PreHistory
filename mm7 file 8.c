@@ -992,8 +992,8 @@ LABEL_69:
           --v18;
         }
         while ( v18 );
-        pParty_global->pPlayers[i].uHealthMax = sub_48E4F8(&pParty_global->pPlayers[i]);
-        pParty_global->pPlayers[i].uManaMax = sub_48E565(&pParty_global->pPlayers[i]);
+        pParty_global->pPlayers[i].sHealth = Player_GetMaxHealth(&pParty_global->pPlayers[i]);
+        pParty_global->pPlayers[i].sMana = Player_GetMaxMana(&pParty_global->pPlayers[i]);
         v16 = v30;
       }
       ++v16;
@@ -6705,7 +6705,7 @@ int __cdecl sub_494035()
         if ( !sub_43EE77(v9) )
         {
           v11 = (int)*(&ptr_A750C4 + v9);
-          v12 = (double)sub_48E4F8((int)*(&ptr_A750C4 + v9)) * *(double *)&byte_4D8410[112];
+          v12 = (double)Player_GetMaxHealth((int)*(&ptr_A750C4 + v9)) * *(double *)&byte_4D8410[112];
           sub_48DC1E(v11, (signed __int64)v12, 0);
           if ( pParty_global->dword_007778 & 4 )
           {
@@ -6737,7 +6737,7 @@ LABEL_39:
         for (i = 0; i < 4; ++i)
         {
           v14 = pPlayers[i];
-          v15 = (double)sub_48E4F8(pPlayers[i]) * *(double *)&byte_4D8410[112];
+          v15 = (double)Player_GetMaxHealth(pPlayers[i]) * *(double *)&byte_4D8410[112];
           sub_48DC1E(v14, (signed __int64)v15, 0);
           if ( pParty_global->dword_007778 & 0x200 )
           {
@@ -6767,8 +6767,8 @@ LABEL_39:
     if (pPlayers[i]->word_001934)
       Player_sub_48E8F5(pPlayers[i], v61);
 
-    v19 = v18->uHealthMax;
-    if ( Player_CalcParamBonus(pPlayers[i], 3, 0) + v18->uHealthMax + v18->uEndurance >= 1 ||
+    v19 = v18->sHealth;
+    if ( Player_MaybeGetWearItemsBonus(pPlayers[i], 3, 0) + v18->sHealth + v18->uEndurance >= 1 ||
         *(_QWORD *)(v18 + 6224) > 0i64 )
     {
       if ( v19 >= 1 )

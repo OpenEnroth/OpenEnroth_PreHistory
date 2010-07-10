@@ -10454,7 +10454,7 @@ LABEL_82:
         if ( *(_BYTE *)(v3 + 185) == 35 || *(_QWORD *)(v3 + 128) || *(_QWORD *)(v3 + 136) || !*(_QWORD *)(v3 + 112) )
           goto LABEL_76;
         memset((void *)v3, 0, 0xA0u);
-        *(_DWORD *)(v3 + 6460) = sub_48E4F8(v3);
+        *(_DWORD *)(v3 + 6460) = Player_GetMaxHealth(v3);
         v18 = 0;
         *(_DWORD *)(v3 + 6440) = *(_BYTE *)(v3 + 186);
         v19 = *(_DWORD *)(v3 + 6432);
@@ -10843,10 +10843,10 @@ LABEL_36:
       }
       while ( v13 );
     }
-    _this->pPlayers[i].uHealthMax = sub_48E4F8(&_this->pPlayers[i]);
-    result = sub_48E565(&_this->pPlayers[i]);
+    _this->pPlayers[i].sHealth = Player_GetMaxHealth(&_this->pPlayers[i]);
+    result = Player_GetMaxMana(&_this->pPlayers[i]);
     v15 = v20-- == 1;
-    _this->pPlayers[i].uManaMax = result;
+    _this->pPlayers[i].sMana = result;
     if ( v15 )
       return result;
     v2 = 10;

@@ -6029,8 +6029,8 @@ LABEL_82:
             sub_4B1E92(*(_DWORD *)(dword_507BC0 + 28), 2);
             ++*(_WORD *)(v3 + 218);
             *(_DWORD *)(v3 + 6456) += *(_WORD *)(v3 + 218) / 10 + 5;
-            *(_DWORD *)(v3 + 6460) = sub_48E4F8(v3);
-            *(_DWORD *)(v3 + 6464) = sub_48E565(v3);
+            *(_DWORD *)(v3 + 6460) = Player_GetMaxHealth(v3);
+            *(_DWORD *)(v3 + 6464) = Player_GetMaxMana(v3);
             v40 = 0;
             v39 = (signed int)&unk_F8B148;
             do
@@ -7605,10 +7605,10 @@ void __cdecl sub_4B6943()
           v77 = (unsigned __int8)byte_4F09B8[v30];
           if ( *(_DWORD *)(dword_507BC0 + 28) >= 63 )
           {
-            LOBYTE(v32) = sub_476395((void *)8);
+            LOBYTE(v32) = sub_476395(8);
             if ( v32 )
               v77 -= 2;
-            LOBYTE(v33) = sub_476395((void *)9);
+            LOBYTE(v33) = sub_476395(9);
             if ( v33 )
               v77 -= 3;
             v56[1] = (const char *)45;
@@ -7617,10 +7617,10 @@ void __cdecl sub_4B6943()
           {
             v56[1] = (const char *)35;
           }
-          LOBYTE(v34) = sub_476395((void *)v56[1]);
+          LOBYTE(v34) = sub_476395(v56[1]);
           if ( v34 )
             v77 -= 2;
-          LOBYTE(v35) = sub_476395((void *)0x2C);
+          LOBYTE(v35) = sub_476395(0x2C);
           if ( v35 )
             --v77;
           if ( v77 < 1 )
@@ -7761,10 +7761,10 @@ LABEL_71:
         {
           v74 = 72;
           v13 = 2500;
-          LOBYTE(v14) = sub_476395((void *)8);
+          LOBYTE(v14) = sub_476395(8);
           if ( v14 )
             v12 -= 2;
-          LOBYTE(v15) = sub_476395((void *)9);
+          LOBYTE(v15) = sub_476395(9);
           if ( v15 )
             v12 -= 3;
           v56[1] = (const char *)45;
@@ -7775,10 +7775,10 @@ LABEL_71:
           v13 = 1500;
           v56[1] = (const char *)35;
         }
-        LOBYTE(v16) = sub_476395((void *)v56[1]);
+        LOBYTE(v16) = sub_476395(v56[1]);
         if ( v16 )
           v12 -= 2;
-        LOBYTE(v17) = sub_476395((void *)0x2C);
+        LOBYTE(v17) = sub_476395(0x2C);
         if ( v17 )
           --v12;
         if ( v12 < 1 )
@@ -7833,7 +7833,7 @@ signed int __thiscall sub_4B6FF9(void *this)
   if ( !v3 )
     return 1;
 LABEL_6:
-  if ( *(_DWORD *)(v2 + 6460) < sub_48E4F8(v2) || *(_DWORD *)(v2 + 6464) < sub_48E565(v2) )
+  if ( *(_DWORD *)(v2 + 6460) < Player_GetMaxHealth(v2) || *(_DWORD *)(v2 + 6464) < Player_GetMaxMana(v2) )
     return 1;
   return 0;
 }
@@ -8120,8 +8120,8 @@ LABEL_55:
     v62 = *(_QWORD *)(v1 + 128);
     v63 = *(_DWORD *)(v1 + 140);
     memset((void *)v1, 0, 0xA0u);
-    *(_DWORD *)(v1 + 6460) = sub_48E4F8(v1);
-    *(_DWORD *)(v1 + 6464) = sub_48E565(v1);
+    *(_DWORD *)(v1 + 6460) = Player_GetMaxHealth(v1);
+    *(_DWORD *)(v1 + 6464) = Player_GetMaxMana(v1);
     v35 = *(_DWORD *)(dword_507BC0 + 28);
     if ( v35 == 78 || v35 > 80 && v35 <= 82 )
     {
@@ -11495,7 +11495,7 @@ LABEL_40:
   if ( a1 == 10 )
   {
     for (i = 0; i < 4; ++i)
-      pParty_global->pPlayers[i].uHealthMax = sub_48E4F8(&pParty_global->pPlayers[i]);
+      pParty_global->pPlayers[i].sHealth = Player_GetMaxHealth(&pParty_global->pPlayers[i]);
     return 0;
   }
   if ( a1 == 11 )
@@ -11524,7 +11524,7 @@ LABEL_40:
       *(_DWORD *)(v7 + 16) = v16;
       *(_DWORD *)(v7 - 8) = v8;
       *(_DWORD *)(v7 + 20) = v17;
-      *(_DWORD *)(v7 + 6340) = sub_48E4F8(v7 - 120);
+      *(_DWORD *)(v7 + 6340) = Player_GetMaxHealth(v7 - 120);
       v7 += 6972;
     }
     //while ( v7 < (signed int)&unk_AD46EC );
@@ -11541,7 +11541,7 @@ LABEL_40:
       memset((void *)(v4 - 280), 0, 0xA0u);
       *(_DWORD *)v4 = v5;
       *(_DWORD *)(v4 + 4) = v6;
-      *(_DWORD *)(v4 + 6180) = sub_48E4F8(v4 - 280);
+      *(_DWORD *)(v4 + 6180) = Player_GetMaxHealth(v4 - 280);
       v4 += 6972;
     }
     while ( v4 < (signed int)&unk_AD478C );

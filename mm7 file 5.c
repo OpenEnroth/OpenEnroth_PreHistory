@@ -114,8 +114,8 @@ void __thiscall sub_4680ED(void *this, signed int a2, int a3)
         v27 = v3 + 6464;
         *(_DWORD *)v27 += 2;
 LABEL_170:
-        if ( *(_DWORD *)v27 > sub_48E565(v3) )
-          *(_DWORD *)v27 = sub_48E565(v3);
+        if ( *(_DWORD *)v27 > Player_GetMaxMana(v3) )
+          *(_DWORD *)v27 = Player_GetMaxMana(v3);
       }
       else
       {
@@ -9285,7 +9285,7 @@ LABEL_20:
             {
               if ( !sub_48D709((void *)*v7, 529, 8) )
               {
-                v8 = (signed __int64)((double)sub_48E4F8(*v7) * *(double *)&byte_4D8410[112]);
+                v8 = (signed __int64)((double)Player_GetMaxHealth(*v7) * *(double *)&byte_4D8410[112]);
                 sub_48DC1E(*v7, (pParty_global->dword_000700 - v87) * (_DWORD)v8 / 256, 4);
                 v9 = Player_GetActualEndurance(*v7);
                 v10 = (double)(20 - sub_48EA1B(v9)) * flt_6BE3A4 * *(double *)&byte_4D8410[40];
@@ -10382,7 +10382,7 @@ bool __cdecl sub_476387()
 
 
 //----- (00476395) --------------------------------------------------------
-char __thiscall sub_476395(void *this)
+char __thiscall sub_476395(int param)
 {
   int v1; // eax@2
   int v2; // esi@3
@@ -10396,16 +10396,16 @@ char __thiscall sub_476395(void *this)
     {
 LABEL_8:
       v4 = 0;
-      if (array_AD4674[0].dword_000018 != this )
+      if (array_AD4674[0].dword_000018 != param )
       {
-       LOBYTE(v1) = array_AD4674[1].dword_000018 == (_DWORD)this;
+       LOBYTE(v1) = array_AD4674[1].dword_000018 == param;
         return v1;
       }
     }
     else
     {
       v3 = (int)dword_72D694;
-      while ( *(void **)(v3 + 16) != this || !(*(_BYTE *)v3 & 0x80) )
+      while ( *(void **)(v3 + 16) != (void*)param || !(*(_BYTE *)v3 & 0x80) )
       {
         ++v2;
         v3 += 76;
@@ -10654,19 +10654,19 @@ int __cdecl sub_47752B()
   if ( dword_6BE360 != 2 )
     v0 = &unk_6BE68C;
   v1 = 0;
-  LOBYTE(v2) = sub_476395((void *)0x2D);
+  LOBYTE(v2) = sub_476395(0x2D);
   if ( v2 )
     v1 = 5;
-  LOBYTE(v3) = sub_476395((void *)0x33);
+  LOBYTE(v3) = sub_476395(0x33);
   if ( v3 )
     v1 += 5;
-  LOBYTE(v4) = sub_476395((void *)0x30);
+  LOBYTE(v4) = sub_476395(0x30);
   if ( v4 )
     v1 += 5;
-  LOBYTE(v5) = sub_476395((void *)0x32);
+  LOBYTE(v5) = sub_476395(0x32);
   if ( v5 )
     v1 += 5;
-  LOBYTE(v6) = sub_476395((void *)0x34);
+  LOBYTE(v6) = sub_476395(0x34);
   if ( v6 )
     v1 += 5;
   return v1 + *((_DWORD *)v0 + 2);

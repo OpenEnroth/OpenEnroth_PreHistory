@@ -474,57 +474,57 @@ char __thiscall sub_48F882(void *this, signed int a2)
     {
       if ( a2 == 32 )
       {
-        LOBYTE(v27) = sub_476395((void *)0x3A);
+        LOBYTE(v27) = sub_476395(0x3A);
         if ( v27 )
           v2 = 6;
-        LOBYTE(v28) = sub_476395((void *)0x39);
+        LOBYTE(v28) = sub_476395(0x39);
         if ( v28 )
           v2 += 6;
         goto LABEL_83;
       }
       if ( a2 == 33 )
       {
-        LOBYTE(v25) = sub_476395((void *)0xF);
+        LOBYTE(v25) = sub_476395(0xF);
         if ( v25 )
           v2 = 2;
-        LOBYTE(v26) = sub_476395((void *)0x10);
+        LOBYTE(v26) = sub_476395(0x10);
         if ( v26 )
           v2 += 3;
         goto LABEL_64;
       }
       if ( a2 == 34 )
       {
-        LOBYTE(v24) = sub_476395((void *)0x33);
+        LOBYTE(v24) = sub_476395(0x33);
         if ( v24 )
           v2 = 8;
         goto LABEL_64;
       }
       if ( a2 == 35 )
       {
-        LOBYTE(v22) = sub_476395((void *)0x17);
+        LOBYTE(v22) = sub_476395(0x17);
         if ( v22 )
           v2 = 4;
-        LOBYTE(v23) = sub_476395((void *)0x18);
+        LOBYTE(v23) = sub_476395(0x18);
         if ( v23 )
           v2 += 8;
         goto LABEL_64;
       }
       if ( a2 == 36 )
       {
-        LOBYTE(v19) = sub_476395((void *)0xD);
+        LOBYTE(v19) = sub_476395(0xD);
         if ( v19 )
           v2 = 10;
-        LOBYTE(v20) = sub_476395((void *)0xE);
+        LOBYTE(v20) = sub_476395(0xE);
         if ( v20 )
           v2 += 15;
-        LOBYTE(v21) = sub_476395((void *)4);
+        LOBYTE(v21) = sub_476395(4);
         if ( v21 )
           v2 += 5;
         goto LABEL_64;
       }
       goto LABEL_86;
     }
-    LOBYTE(v29) = sub_476395((void *)0x38);
+    LOBYTE(v29) = sub_476395(0x38);
     if ( !v29 )
       goto LABEL_112;
 LABEL_85:
@@ -533,7 +533,7 @@ LABEL_85:
   }
   if ( a2 == 30 )
   {
-    LOBYTE(v18) = sub_476395((void *)0x38);
+    LOBYTE(v18) = sub_476395(0x38);
     if ( !v18 )
       goto LABEL_112;
     v34 = 2;
@@ -549,10 +549,10 @@ LABEL_85:
       {
         if ( a2 <= 15 )
         {
-          LOBYTE(v6) = sub_476395((void *)0x11);
+          LOBYTE(v6) = sub_476395(0x11);
           if ( v6 )
             v2 = 2;
-          LOBYTE(v7) = sub_476395((void *)0x12);
+          LOBYTE(v7) = sub_476395(0x12);
           if ( v7 )
             v2 += 3;
           v33 = 19;
@@ -561,15 +561,15 @@ LABEL_85:
         {
           if ( a2 > 18 )
             goto LABEL_86;
-          LOBYTE(v3) = sub_476395((void *)0x35);
+          LOBYTE(v3) = sub_476395(0x35);
           if ( v3 )
             v2 = 2;
-          LOBYTE(v4) = sub_476395((void *)0x36);
+          LOBYTE(v4) = sub_476395(0x36);
           if ( v4 )
             v2 += 3;
           v33 = 55;
         }
-        LOBYTE(v5) = sub_476395((void *)v33);
+        LOBYTE(v5) = sub_476395(v33);
         if ( v5 )
           v2 += 4;
         if ( *((_BYTE *)v37 + 185) == 31 )
@@ -663,12 +663,12 @@ LABEL_64:
         }
         goto LABEL_125;
       }
-      LOBYTE(v8) = sub_476395((void *)0x2E);
+      LOBYTE(v8) = sub_476395(0x2E);
       if ( !v8 )
         goto LABEL_86;
       goto LABEL_85;
     }
-    LOBYTE(v9) = sub_476395((void *)0x39);
+    LOBYTE(v9) = sub_476395(0x39);
     if ( !v9 )
       goto LABEL_112;
     v34 = 6;
@@ -678,18 +678,18 @@ LABEL_51:
   }
   if ( a2 == 22 )
   {
-    LOBYTE(v14) = sub_476395((void *)0x14);
+    LOBYTE(v14) = sub_476395(0x14);
     if ( v14 )
       v2 = 4;
-    LOBYTE(v15) = sub_476395((void *)0x15);
+    LOBYTE(v15) = sub_476395(0x15);
     if ( v15 )
       v2 += 6;
-    LOBYTE(v16) = sub_476395((void *)0x30);
+    LOBYTE(v16) = sub_476395(0x30);
     if ( v16 )
       v2 += 3;
     v35 = 50;
 LABEL_47:
-    LOBYTE(v17) = sub_476395((void *)v35);
+    LOBYTE(v17) = sub_476395(v35);
     if ( v17 )
       v2 += 8;
     goto LABEL_112;
@@ -698,19 +698,19 @@ LABEL_47:
   {
     if ( a2 != 29 )
       goto LABEL_86;
-    LOBYTE(v10) = sub_476395((void *)0x19);
+    LOBYTE(v10) = sub_476395(0x19);
     if ( v10 )
       v2 = 4;
-    LOBYTE(v11) = sub_476395((void *)0x1A);
+    LOBYTE(v11) = sub_476395(0x1A);
     if ( v11 )
       v2 += 6;
     v35 = 51;
     goto LABEL_47;
   }
-  LOBYTE(v12) = sub_476395((void *)0x16);
+  LOBYTE(v12) = sub_476395(0x16);
   if ( v12 )
     v2 = 6;
-  LOBYTE(v13) = sub_476395((void *)0x2F);
+  LOBYTE(v13) = sub_476395(0x2F);
   if ( v13 )
     v2 += 5;
 LABEL_112:
@@ -735,7 +735,7 @@ LABEL_112:
       break;
   }
 LABEL_125:
-  v2 += Player_CalcParamBonus(v37, v36, 0);
+  v2 += Player_MaybeGetWearItemsBonus(v37, v36, 0);
 LABEL_126:
   v30 = *((_WORD *)v37 + a2 + 132);
   if ( v2 + (*((_WORD *)v37 + a2 + 132) & 0x3F) < 60 )
@@ -5745,13 +5745,11 @@ int Player_GetActualEndurance(struct Player *_this)
 {
   int v1; // eax@1
   signed int v2; // ecx@1
-  int v3; // esi@1
   signed int v4; // ebx@4
   int v6; // edi@5
   int v7; // ebp@5
 
-  v3 = _this;
-  v1 = Player_GetBaseAge(_this) + _this->AgeingAdd;
+  v1 = Player_GetActualAge(_this);
   v2 = 0;
   while ( v1 >= dword_4EDFD0[v2] )
   {
@@ -5765,8 +5763,8 @@ int Player_GetActualEndurance(struct Player *_this)
   v4 = (unsigned __int8)byte_4EDFEC[v2];
 LABEL_5:
   v6 = byte_4EDF81[sub_48E9F4(_this)];
-  v7 = Player_CalcParamBonus(_this, 3, 0);
-  return v6 * v4 * *(_WORD *)(v3 + 200) / 100 / 100 + sub_48F73C(v3, 3) + v7 + *(_WORD *)(v3 + 202);
+  v7 = Player_MaybeGetWearItemsBonus(_this, 3, 0);
+  return v6 * v4 * _this->uEndurance / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 3) + v7 + _this->uEnduranceBonus;
 }
 
 //----- (00491CB5) --------------------------------------------------------
@@ -8315,12 +8313,12 @@ int sub_49024A(struct Player *_this, char a2)
 
   _this->uClass = a2;
   _this->uStrengthBonus = 0;
-  _this->word_0000C2 = 0;
-  _this->word_0000C6 = 0;
-  _this->word_0000CA = 0;
-  _this->word_0000CE = 0;
-  _this->word_0000D2 = 0;
-  _this->word_0000D6 = 0;
+  _this->uIntelligenceBonus = 0;
+  _this->uWillpowerBonus = 0;
+  _this->uEnduranceBonus = 0;
+  _this->uSpeedBonus = 0;
+  _this->uAccuracyBonus = 0;
+  _this->uLuckBonus = 0;
   _this->BaseLevel = 1;
 
   _this->dword_001944 = 1147 - rand() % 6;
@@ -8395,8 +8393,8 @@ int sub_49024A(struct Player *_this, char a2)
     }
   }
 
-  _this->uHealthMax = sub_48E4F8(_this);
-  _this->uManaMax = sub_48E565(_this);
+  _this->sHealth = Player_GetMaxHealth(_this);
+  _this->sMana = Player_GetMaxMana(_this);
   return 0;
 }
 
@@ -13949,14 +13947,14 @@ void __cdecl sub_41A57E()
     if ( v43 == v0 )
       sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 22, v7, v0, pGlobalTXT_LocalizationStrings[107], 60, v0);
     sprintfex(&TmpBuf, "%d", *(_DWORD *)(v2 + 6460));
-    v9 = sub_48E4F8(v2);
+    v9 = Player_GetMaxHealth(v2);
     v10 = sub_4178FE_GetColor(*(_DWORD *)(v2 + 6460), v9);
     sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, v44, v7, v10, &TmpBuf, 84, v0);
     v8 = v45 + v7;
     if ( v43 == v0 )
       sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 22, v8, v0, pGlobalTXT_LocalizationStrings[209], 60, v0);
     sprintfex(&TmpBuf, "%d", *(_DWORD *)(v2 + 6464));
-    v12 = sub_48E565(v2);
+    v12 = Player_GetMaxMana(v2);
     v13 = sub_4178FE_GetColor(*(_DWORD *)(v2 + 6464), v12);
     sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, v44, v8, v13, &TmpBuf, 84, v0);
     v11 = v45 + v8;
@@ -14296,7 +14294,7 @@ void __cdecl GameUI_DrawLifeManaBars()
       goto LABEL_24;
     v11 = &pParty_global->pPlayers[v16];
     v3 = (double)*(signed int *)(v1 + 6460);
-    v2 = v3 / (double)sub_48E4F8(v1);
+    v2 = v3 / (double)Player_GetMaxHealth(v1);
     if ( v2 <= 0.5 )
     {
       if ( v2 <= 0.25 )
@@ -14355,7 +14353,7 @@ LABEL_24:
     if ( v12 > 0 )
     {
       v7 = (double)v12;
-      v6 = v7 / (double)sub_48E565(v5);
+      v6 = v7 / (double)Player_GetMaxMana(v5);
       if ( v6 > 1.0 )
         v6 = 1.0;
       v8 = v16 == 2;
@@ -15123,15 +15121,15 @@ void sub_41D3B7(int this)
 
   strcat(TmpBuf, pStringBuffer);
   strcat(TmpBuf, &byte_4E3294);
-  v18 = sub_48E4F8(v5);
+  v18 = Player_GetMaxHealth(v5);
   v19 = *(_DWORD *)(v5 + 6460);
-  v20 = sub_48E4F8(v5);
+  v20 = Player_GetMaxHealth(v5);
   v21 = sub_4178FE_GetColor(*(_DWORD *)(v5 + 6460), v20);
   sprintfex(pStringBuffer, (const char *)&unk_4E3278, pGlobalTXT_LocalizationStrings[108], v21, v19, v18);
   strcat(TmpBuf, pStringBuffer);
-  v22 = sub_48E565(v5);
+  v22 = Player_GetMaxMana(v5);
   v23 = *(_DWORD *)(v5 + 6464);
-  v24 = sub_48E565(v5);
+  v24 = Player_GetMaxMana(v5);
   v25 = sub_4178FE_GetColor(*(_DWORD *)(v5 + 6464), v24);
   sprintfex(pStringBuffer, (const char *)&unk_4E3278, pGlobalTXT_LocalizationStrings[212], v25, v23, v22);
   strcat(TmpBuf, pStringBuffer);
@@ -16750,13 +16748,13 @@ int __cdecl sub_41F6C1()
     ++dword_506F10;
   }
 LABEL_15:
-  LOBYTE(v1) = sub_476395((void *)0x1D);
+  LOBYTE(v1) = sub_476395(0x1D);
   if ( v1 )
     --dword_506F10;
-  LOBYTE(v2) = sub_476395((void *)0x1E);
+  LOBYTE(v2) = sub_476395(0x1E);
   if ( v2 )
     dword_506F10 -= 2;
-  LOBYTE(v3) = sub_476395((void *)0x30);
+  LOBYTE(v3) = sub_476395(0x30);
   if ( v3 )
     --dword_506F10;
   if ( dword_506F10 < 1 )
@@ -17962,13 +17960,13 @@ void __fastcall sub_420C05(int a1, int a2)
       }
       while ( v3 < v17 );
     }
-    LOBYTE(v14) = sub_476395((void *)0x1F);
+    LOBYTE(v14) = sub_476395(0x1F);
     if ( v14 )
       v4 += 10 * v4 / 100;
-    LOBYTE(v15) = sub_476395((void *)0x20);
+    LOBYTE(v15) = sub_476395(0x20);
     if ( v15 )
       v4 += 20 * v4 / 100;
-    LOBYTE(v16) = sub_476395((void *)0x2D);
+    LOBYTE(v16) = sub_476395(0x2D);
     if ( v16 )
       v4 += 10 * v4 / 100;
     if ( v2 )

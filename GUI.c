@@ -430,7 +430,7 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
   uMinimapCentreY = (uY + uW) / 2;
   v84 = qword_ACD974 > 0;
   v79 = (unsigned __int16)word_ACD97E;
-  LOBYTE(v6) = sub_476395((void *)0x26);
+  LOBYTE(v6) = sub_476395(0x26);
   if ( v6 )
   {
     v84 = 1;
@@ -2343,6 +2343,8 @@ void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, 
                 strncpy(&Dest, &v37[v12 + 1], 6);
                 v31 = 0;
                 sscanf(Dest,"%x",&uTextMainColor);
+                if(!uTextMainColor)
+                 uTextMainColor = 0xFFFFFF;
                 uTextMainColor|=0xFF000000;
                 v38 += 6;
                 break;
@@ -2596,19 +2598,19 @@ void GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
   FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v41, TmpBuf, 0xFFFFFFFF, 0, 0);
   v122 = "%s\f%06x\r424%d\f000000 /\t185%d\n";
   v5 = v41 + 5 + 2 * pFontArrus->uFontHeight;
-  if ( sub_48E4F8(pp) >= 1000 )
+  if ( Player_GetMaxHealth(pp) >= 1000 )
     v122 = "%s\f%06x\r388%d\f000000 / %d\n";
-  v47 = sub_48E4F8(pp);
-  v50 = sub_4178FE_GetColor(pp->uHealthMax, v47);
-  wsprintfA(TmpBuf, v122, pGlobalTXT_LocalizationStrings[108], v50, pp->uHealthMax, v47);
+  v47 = Player_GetMaxHealth(pp);
+  v50 = sub_4178FE_GetColor(pp->sHealth, v47);
+  wsprintfA(TmpBuf, v122, pGlobalTXT_LocalizationStrings[108], v50, pp->sHealth, v47);
   FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v5, TmpBuf, 0xFFFFFFFF, 0, 0);
   v123 = "%s\f%06x\r424%d\f000000 /\t185%d\n";
   v113 = v5 - 2 + pFontArrus->uFontHeight;
-  if ( sub_48E565(pp) >= 1000 )
+  if ( Player_GetMaxMana(pp) >= 1000 )
     v123 = "%s\f%06x\r388%d\f000000 / %d\n";
-  v53 = sub_48E565(pp);
-  v56 = sub_4178FE_GetColor(pp->uManaMax, v53);
-  wsprintfA(TmpBuf, v123, pGlobalTXT_LocalizationStrings[212], v56, pp->uManaMax, v53);
+  v53 = Player_GetMaxMana(pp);
+  v56 = sub_4178FE_GetColor(pp->sMana, v53);
+  wsprintfA(TmpBuf, v123, pGlobalTXT_LocalizationStrings[212], v56, pp->sMana, v53);
   FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v113, TmpBuf, 0xFFFFFFFF, 0, 0);
   v57 = v113 - 2 + pFontArrus->uFontHeight;
   v58 = sub_48E656(pp);
@@ -2672,8 +2674,8 @@ void GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
   FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v89, TmpBuf, 0xFFFFFFFF, 0, 0);
   v125 = "%s\f%06x\t110%d\f000000 / %d\n";
   v116 = v89 + 2 * pFontArrus->uFontHeight - 4;
-  v131 = sub_48E7D0(pp, 10);
-  v79 = sub_48E73F(pp, 10);
+  v131 = Player_GetActualResistance(pp, 10);
+  v79 = Player_GetBaseResistance(pp, 10);
   if ( v131 > 99 || v79 > 99 )
     v125 = "%s\f%06x\t180%d\f000000 / %d\n";
   v92 = v79;
@@ -2682,8 +2684,8 @@ void GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
   FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v116, TmpBuf, 0xFFFFFFFF, 0, 0);
   v126 = "%s\f%06x\t110%d\f000000 / %d\n";
   v117 = v116 + pFontArrus->uFontHeight - 2;
-  v132 = sub_48E7D0(pp, 11);
-  v91 = sub_48E73F(pp, 11);
+  v132 = Player_GetActualResistance(pp, 11);
+  v91 = Player_GetBaseResistance(pp, 11);
   if ( v132 > 99 || v91 > 99 )
     v126 = "%s\f%06x\t180%d\f000000 / %d\n";
   v96 = sub_4178FE_GetColor(v132, v91);
@@ -2691,8 +2693,8 @@ void GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
   FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v117, TmpBuf, 0xFFFFFFFF, 0, 0);
   v127 = "%s\f%06x\t110%d\f000000 / %d\n";
   v118 = v117 + pFontArrus->uFontHeight - 2;
-  v133 = sub_48E7D0(pp, 12);
-  v94 = sub_48E73F(pp, 12);
+  v133 = Player_GetActualResistance(pp, 12);
+  v94 = Player_GetBaseResistance(pp, 12);
   if ( v133 > 99 || v94 > 99 )
     v127 = "%s\f%06x\t180%d\f000000 / %d\n";
   v99 = sub_4178FE_GetColor(v133, v94);
@@ -2700,8 +2702,8 @@ void GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
   FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v118, TmpBuf, 0xFFFFFFFF, 0, 0);
   v128 = "%s\f%06x\t110%d\f000000 / %d\n";
   v119 = v118 + pFontArrus->uFontHeight - 2;
-  v134 = sub_48E7D0(pp, 13);
-  v97 = sub_48E73F(pp, 13);
+  v134 = Player_GetActualResistance(pp, 13);
+  v97 = Player_GetBaseResistance(pp, 13);
   if ( v134 > 99 )
     v128 = "%s\f%06x\t180%d\f000000 / %d\n";
   v102 = sub_4178FE_GetColor(v134, v97);
@@ -2709,8 +2711,8 @@ void GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
   FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v119, TmpBuf, 0xFFFFFFFF, 0, 0);
   v129 = "%s\f%06x\t110%d\f000000 / %d\n";
   v120 = v119 + pFontArrus->uFontHeight - 2;
-  v135 = sub_48E7D0(pp, 14);
-  v100 = sub_48E73F(pp, 14);
+  v135 = Player_GetActualResistance(pp, 14);
+  v100 = Player_GetBaseResistance(pp, 14);
   v137 = v100;
   if ( v135 > 99 || v100 > 99 )
     v129 = "%s\f%06x\t180%d\f000000 / %d\n";
@@ -2727,8 +2729,8 @@ void GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
   FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v120, TmpBuf, 0xFFFFFFFF, 0, 0);
   v130 = "%s\f%06x\t110%d\f000000 / %d\n";
   v121 = v120 + pFontArrus->uFontHeight - 2;
-  v136 = sub_48E7D0(pp, 15);
-  v107 = sub_48E73F(pp, 15);
+  v136 = Player_GetActualResistance(pp, 15);
+  v107 = Player_GetBaseResistance(pp, 15);
   v138 = v107;
   if ( v136 > 99 || v107 > 99 )
     v130 = "%s\f%06x\t180%d\f000000 / %d\n";
