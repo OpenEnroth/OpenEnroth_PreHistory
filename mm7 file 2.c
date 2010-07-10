@@ -1054,7 +1054,7 @@ LABEL_85:
         pParty_global->sPartyPosX = -17331;
         pParty_global->sPartyPosY = 12547;
         pParty_global->sPartyPosZ = 465;
-        pParty_global->dword_0006C0 = 0;
+        pParty_global->sRotationY = 0;
         v16 = "out02.odm";
       }
       else
@@ -1062,12 +1062,12 @@ LABEL_85:
         pParty_global->sPartyPosX = 12552;
         pParty_global->sPartyPosY = 1816;
         pParty_global->sPartyPosZ = 0;
-        pParty_global->dword_0006C0 = 512;
+        pParty_global->sRotationY = 512;
         v16 = "out01.odm";
       }
       strcpy(&Source, v16);
       pParty_global->dword_000700 = pParty_global->sPartyPosZ;
-      pParty_global->dword_0006C4 = 0;
+      pParty_global->sRotationX = 0;
       pParty_global->dword_0006E8 = 0;
       pParty_global->dword_0006E4 = 0;
       pParty_global->dword_0006E0 = 0;
@@ -1077,8 +1077,8 @@ LABEL_85:
         dword_5B65A8 = pParty_global->sPartyPosX;
         dword_5B65AC = pParty_global->sPartyPosY;
         dword_5B65B0 = pParty_global->sPartyPosZ;
-        dword_5B65B4 = pParty_global->dword_0006C0;
-        dword_5B65B8 = pParty_global->dword_0006C4;
+        dword_5B65B4 = pParty_global->sRotationY;
+        dword_5B65B8 = pParty_global->sRotationX;
         dword_5B65C0 = 1;
         sub_4646F0(1);
       }
@@ -9628,14 +9628,14 @@ int __fastcall SaveGame(int a1, int a2)
     v56 = pParty_global->sPartyPosX;
     v55 = pParty_global->sPartyPosY;
     v66 = pParty_global->sPartyPosZ;
-    v57 = pParty_global->dword_0006C0;
-    v58 = pParty_global->dword_0006C4;
-    pParty_global->sPartyPosX = pParty_global->dword_0006C8;
-    pParty_global->sPartyPosY = pParty_global->dword_0006CC;
-    pParty_global->sPartyPosZ = pParty_global->dword_0006D0;
-    pParty_global->dword_0006C0 = pParty_global->dword_0006D4;
-    pParty_global->dword_0006C4 = pParty_global->dword_0006D8;
-    pParty_global->dword_000700 = pParty_global->dword_0006D0;
+    v57 = pParty_global->sRotationY;
+    v58 = pParty_global->sRotationX;
+    pParty_global->sPartyPosX = pParty_global->sOldPosX;
+    pParty_global->sPartyPosY = pParty_global->sOldPosY;
+    pParty_global->sPartyPosZ = pParty_global->sOldPosZ;
+    pParty_global->sRotationY = pParty_global->sOldRotationY;
+    pParty_global->sRotationX = pParty_global->sOldRotationX;
+    pParty_global->dword_000700 = pParty_global->sOldPosZ;
 
     if (dword_6BE360 == 1)
       qword_6BE6B4 = pParty_global->qword_00002C;
@@ -9970,9 +9970,9 @@ int __fastcall SaveGame(int a1, int a2)
     pParty_global->sPartyPosY = v55;
     pParty_global->sPartyPosZ = v66;
     pParty_global->dword_000700 = v66;
-    pParty_global->dword_0006C0 = v57;
+    pParty_global->sRotationY = v57;
     result = v58;
-    pParty_global->dword_0006C4 = v58;
+    pParty_global->sRotationX = v58;
   }
   return result;
 }
@@ -11165,7 +11165,7 @@ LABEL_74:
         v40 = (int)&v56;
         v39 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
       }
-      sub_43AA99(64, pParty_global->dword_0006C0, pParty_global->dword_0006C4, pParty_global->sPartyPosX, pParty_global->sPartyPosY, v39, v40, v41, v42);
+      sub_43AA99(64, pParty_global->sRotationY, pParty_global->sRotationX, pParty_global->sPartyPosX, pParty_global->sPartyPosY, v39, v40, v41, v42);
       sub_42F7EB(1051, v56, v53, v55, 0, 1, 0, 0, 0);
       if ( dword_4E455C )
       {
@@ -17157,12 +17157,14 @@ int sub_47A384(const char *pLevelFilename, void *a2)
   strcpy(Source, &pLevelFilename[v8]);
   strcpy(pClass51_global->string_000000, Source);
   sub_4C2EA0(&struct_6BD080);
-  pClass55_global->dword_000014 = pParty_global->dword_0006C4;
-  pClass55_global->dword_000018 = pParty_global->dword_0006C0;
+
+  pCamera->sRotationX = pParty_global->sRotationX;
+  pCamera->sRotationY = pParty_global->sRotationY;
+
   sub_48600E(pStruct9_global);
   sub_4892E6(pClass51_global);
-  pStruct9_global->dword_000014 = pClass55_global->flt_00001C;
-  pStruct9_global->dword_000018 = pClass55_global->flt_000020;
+  pStruct9_global->dword_000014 = pCamera->flt_00001C;
+  pStruct9_global->dword_000018 = pCamera->flt_000020;
 
  pClass57_global = malloc(sizeof(struct class57));
  memset(pClass57_global, 0, sizeof(struct class57));
@@ -18251,7 +18253,7 @@ LABEL_15:
       v19 = 0;
       v18 = v8;
       memcpy(&v20, &dword_AD470C, 0x24u);
-      sub_42F5ED((int)&v10, pParty_global->dword_0006C0, 184, 200, 0);
+      sub_42F5ED((int)&v10, pParty_global->sRotationY, 184, 200, 0);
     }
     class03_sub_4698A6(pGame->pClass03);
 LABEL_18:
@@ -18654,7 +18656,7 @@ LABEL_18:
             memcpy(v24.Dst, &dword_AD470C, 0x24u);
             v8 = class03_GetMousePos(pGame->pClass03, (int)&v35);
             v9 = sub_46A0A1(*(void **)v8);
-            sub_42F5ED((int)&v24, pParty_global->dword_0006C0 + v9, 184, 200, 0);
+            sub_42F5ED((int)&v24, pParty_global->sRotationY + v9, 184, 200, 0);
             v10 = class17_LoadTexture(pClass17_Icons_LOD, pClass40->pItems[12 * dword_AD470C].pIconName, 2);
             sub_40F77C(v10 != -1 ? 72 * v10 + 7145548 : 0);
             class03_sub_4698A6(pGame->pClass03);

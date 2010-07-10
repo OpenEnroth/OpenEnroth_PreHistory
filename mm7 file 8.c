@@ -704,14 +704,14 @@ bool __cdecl MaybeDoAutosave()
     pParty_global->sPartyPosX = 12552;
     pParty_global->sPartyPosY = 1816;
     pParty_global->sPartyPosZ = 0;
-    pParty_global->dword_0006C0 = 512;
-    pParty_global->dword_0006C4 = 0;
+    pParty_global->sRotationX = 0;
+    pParty_global->sRotationY = 512;
 
-    pParty_global->dword_0006C8 = 12552;
-    pParty_global->dword_0006CC = 1816;
-    pParty_global->dword_0006D0 = 0;
-    pParty_global->dword_0006D4 = 512;
-    pParty_global->dword_0006D8 = 0;
+    pParty_global->sOldPosX = 12552;
+    pParty_global->sOldPosY = 1816;
+    pParty_global->sOldPosZ = 0;
+    pParty_global->sOldRotationY = 512;
+    pParty_global->sOldRotationX = 0;
 
     pParty_global->dword_000700 = 0;
 
@@ -2485,7 +2485,7 @@ void __cdecl sub_47AF11()
             v28 = v8;
             v36 = *(_DWORD *)(v8 + 44);
             v38 = *(_WORD *)(v8 + 48) * v0[3];
-            v9 = sub_45281E(pClass59_global, *((_DWORD *)v0 - 6) - pClass55_global->dword_000000, *((_DWORD *)v0 - 5) - pClass55_global->dword_000004);
+            v9 = sub_45281E(pClass59_global, *((_DWORD *)v0 - 6) - pCamera->dword_000000, *((_DWORD *)v0 - 5) - pCamera->dword_000004);
             LOWORD(v10) = *(v0 - 3);
             v4 = v36;
             v5 = ((pClass59_global->dword_001860 + (pClass59_global->dword_001860 >> 3) + v10 - v9) >> 8) & 7;
@@ -2511,14 +2511,14 @@ void __cdecl sub_47AF11()
               LOBYTE(v11) = byte_4E94D3;
               sub_467D88((int)&unk_519AB8, v44, v43, v45, v29, v38, -1, -1, -1, v11);
             }
-            v12 = (v44 - pClass55_global->dword_000000) << 16;
-            if ( pClass55_global->dword_000014 )
+            v12 = (v44 - pCamera->dword_000000) << 16;
+            if (pCamera->sRotationX)
             {
-              v14 = (v43 - pClass55_global->dword_000004) << 16;
+              v14 = (v43 - pCamera->dword_000004) << 16;
               v30 = ((unsigned __int64)(v12 * pStruct9_global->dword_000020) >> 16) + ((unsigned __int64)(v14 * pStruct9_global->dword_00001C) >> 16);
               v37 = (unsigned __int64)(v12 * pStruct9_global->dword_00001C) >> 16;
               v39 = (unsigned __int64)(v14 * pStruct9_global->dword_000020) >> 16;
-              v33 = (v45 - pClass55_global->dword_000008) << 16;
+              v33 = (v45 - pCamera->dword_000008) << 16;
               v15 = (unsigned __int64)(v30 * pStruct9_global->dword_000028) >> 16;
               v16 = (unsigned __int64)(v33 * pStruct9_global->dword_000024) >> 16;
               v13 = v16 + v15;
@@ -2533,17 +2533,17 @@ void __cdecl sub_47AF11()
             }
             else
             {
-              v34 = (v43 - pClass55_global->dword_000004) << 16;
+              v34 = (v43 - pCamera->dword_000004) << 16;
               v19 = (unsigned __int64)(v12 * pStruct9_global->dword_000020) >> 16;
               v20 = (unsigned __int64)(v34 * pStruct9_global->dword_00001C) >> 16;
               v13 = v20 + v19;
               v42 = v20 + v19;
               if ( v20 + v19 >= 262144 && v13 <= pStruct9_global->shading_dist_mist << 16 )
               {
-                v21 = (unsigned __int64)(((v44 - pClass55_global->dword_000000) << 16) * pStruct9_global->dword_00001C) >> 16;
+                v21 = (unsigned __int64)(((v44 - pCamera->dword_000000) << 16) * pStruct9_global->dword_00001C) >> 16;
                 v18 = ((unsigned __int64)(v34 * pStruct9_global->dword_000020) >> 16) - v21;
                 v40 = ((unsigned __int64)(v34 * pStruct9_global->dword_000020) >> 16) - v21;
-                v17 = (v45 - pClass55_global->dword_000008) << 16;
+                v17 = (v45 - pCamera->dword_000008) << 16;
 LABEL_29:
                 v31 = v17;
                 v22 = abs(v18);
@@ -2780,17 +2780,17 @@ bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
 
   v5 = &pClass51_global->pBModels[uModelIdx];
 
-  v4 = pClass51_global->pBModels[uModelIdx].dword_0000AC - pClass55_global->dword_000000;
-  v3 = pClass51_global->pBModels[uModelIdx].dword_0000B0 - pClass55_global->dword_000004;
+  v4 = pClass51_global->pBModels[uModelIdx].dword_0000AC - pCamera->dword_000000;
+  v3 = pClass51_global->pBModels[uModelIdx].dword_0000B0 - pCamera->dword_000004;
 
-  v6 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000018);
-  v21 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000018 - pClass59_global->dword_001864);
-  v18 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000014);
-  v16 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000014 - pClass59_global->dword_001864);
+  v6 = class59_SinCos(pClass59_global, pCamera->sRotationY);
+  v21 = class59_SinCos(pClass59_global, pCamera->sRotationY - pClass59_global->uNumTableEntries);
+  v18 = class59_SinCos(pClass59_global, pCamera->sRotationX);
+  v16 = class59_SinCos(pClass59_global, pCamera->sRotationX - pClass59_global->uNumTableEntries);
 
   v2 = v6;
   v17 = v4 * v6 + v3 * v21;
-  if (pClass55_global->dword_000014)
+  if (pCamera->sRotationX)
     v17 = (unsigned __int64)(v17) * v18 >> 16;
   v19 = v3 * v2 - v4 * v21;
   v8 = abs(v3);
@@ -2801,11 +2801,11 @@ bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
   if (v10 < pClass51_global->pBModels[uModelIdx].dword_0000B8 + 256)
     *a2 = 1;
 
-  v15 = class59_sub_402CAE(pClass59_global, v20 - pClass59_global->dword_001864);
+  v15 = class59_SinCos(pClass59_global, v20 - pClass59_global->uNumTableEntries);
   if ( v19 >= 0 )
-    v11 = ((unsigned __int64)(v15) * (unsigned __int64)(v17) / 65536) - ((unsigned __int64)(class59_sub_402CAE(pClass59_global, v20)) * v19 / 65536);
+    v11 = ((unsigned __int64)(v15) * (unsigned __int64)(v17) / 65536) - ((unsigned __int64)(class59_SinCos(pClass59_global, v20)) * v19 / 65536);
   else
-    v11 = ((unsigned __int64)(class59_sub_402CAE(pClass59_global, v20)) * v19 / 65536) + ((unsigned __int64)(v15) * v17 / 65536);
+    v11 = ((unsigned __int64)(class59_SinCos(pClass59_global, v20)) * v19 / 65536) + ((unsigned __int64)(v15) * v17 / 65536);
   v12 = v11 >> 16;
   if (v10 <= pStruct9_global->shading_dist_mist + 2048 )
   {
@@ -4533,9 +4533,9 @@ void __cdecl sub_4647AB()
  class28_fn0(&class28_global, struct_576FE8.dword_000000, struct_576FE8.dword_000004, struct_576FE8.dword_000008, struct_576FE8.dword_00000C);
  class28_fn2(&class28_global, (signed __int64)(flt_6BE3A0 * 65536.0));
 
- pClass55_global = malloc(sizeof(struct class55));
- memset(pClass55_global, 0, sizeof(struct class55));
- class55_sub_42394D(pClass55_global, 65, struct_576FE8.dword_000018 - struct_576FE8.dword_000010 + 1, struct_576FE8.dword_00001C - struct_576FE8.dword_000014 + 1);
+ pCamera = malloc(sizeof(struct Camera));
+ Camera_ctor(pCamera);
+ Camera_SetPerspective(pCamera, 65, struct_576FE8.dword_000018 - struct_576FE8.dword_000010 + 1, struct_576FE8.dword_00001C - struct_576FE8.dword_000014 + 1);
 
  sub_42F3D6();
  pClass17_Bitmaps_LOD->dword_011B84 = pClass17_Bitmaps_LOD->uNumLoadedFiles;
@@ -9116,8 +9116,8 @@ bool __fastcall sub_407A1C(int a1, int a2, int a3, int a4, int a5, int a6)
   v115 = v6;
   if ( dword_6BE360 != 2 )
   {
-    sub_43AA99(32, pClass59_global->dword_001864 + v6, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
-    sub_43AA99(32, pClass59_global->dword_001864 + v6, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
+    sub_43AA99(32, pClass59_global->uNumTableEntries + v6, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
+    sub_43AA99(32, pClass59_global->uNumTableEntries + v6, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
     v48 = v164 - v167;
     v47 = v162 - v165;
     v49 = v163 - v166;
@@ -9249,8 +9249,8 @@ LABEL_107:
       v55 = v167;
       v51 = v166;
     }
-    sub_43AA99(32, v115 - pClass59_global->dword_001864, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
-    sub_43AA99(32, v115 - pClass59_global->dword_001864, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
+    sub_43AA99(32, v115 - pClass59_global->uNumTableEntries, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
+    sub_43AA99(32, v115 - pClass59_global->uNumTableEntries, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
     v75 = v164 - v167;
     v74 = v162 - v165;
     v76 = v163 - v166;
@@ -9392,8 +9392,8 @@ LABEL_145:
         goto LABEL_148;
     }
   }
-  sub_43AA99(32, pClass59_global->dword_001864 + v6, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
-  sub_43AA99(32, pClass59_global->dword_001864 + v6, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
+  sub_43AA99(32, pClass59_global->uNumTableEntries + v6, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
+  sub_43AA99(32, pClass59_global->uNumTableEntries + v6, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
   v10 = v164 - v167;
   v9 = v162 - v165;
   v11 = v163 - v166;
@@ -9525,8 +9525,8 @@ LABEL_33:
     }
   }
 LABEL_37:
-  sub_43AA99(32, v115 - pClass59_global->dword_001864, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
-  sub_43AA99(32, v115 - pClass59_global->dword_001864, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
+  sub_43AA99(32, v115 - pClass59_global->uNumTableEntries, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
+  sub_43AA99(32, v115 - pClass59_global->uNumTableEntries, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
   v31 = v164 - v167;
   v30 = v162 - v165;
   v32 = v163 - v166;

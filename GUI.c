@@ -367,7 +367,7 @@ LABEL_19:
 }
 
 //----- (00441D38) --------------------------------------------------------
-void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW, unsigned int uMinimapZoom, int a6)
+void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW, unsigned int uMinimapZoom)
 {
   int v6; // eax@4
   int v8; // eax@8
@@ -561,9 +561,9 @@ LABEL_26:
  }
 
 
-  v37 = pParty_global->dword_0006C0 & pClass59_global->dword_00186C;
+  v37 = pParty_global->sRotationY & pClass59_global->dword_00186C;
   v38 = 0;
-  if ( (pParty_global->dword_0006C0 & pClass59_global->dword_00186C) < 128 )
+  if ( (pParty_global->sRotationY & pClass59_global->dword_00186C) < 128 )
     goto LABEL_66;
   if ( v37 <= 384 )
   {
@@ -672,7 +672,7 @@ LABEL_66:
 
  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 468, 0, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_MinimapMask]);
 
- v105 = (double)pParty_global->dword_0006C0 * 0.1171875;
+ v105 = (double)pParty_global->sRotationY * 0.1171875;
 
  CD3DRenderer_Set2DClippingRect(pD3DRenderer, 541, 0, 567, 480);
  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, v105 + 285, 136, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_MinimapCompass]);
@@ -1275,8 +1275,8 @@ void GUIWindowDelete(int this)
         dword_5C35D4 = 0;
         if ( dword_6BE380 )
         {
-          pClass55_global->dword_000018 = (pClass59_global->dword_001868 - 1) & (pClass59_global->dword_001860 + pClass55_global->dword_000018);
-          pParty_global->dword_0006C0 = pClass55_global->dword_000018;
+          pCamera->sRotationY = (pClass59_global->dword_001868 - 1) & (pClass59_global->dword_001860 + pCamera->sRotationY);
+          pParty_global->sRotationY = pCamera->sRotationY;
         }
         pParty_global->dword_007778 |= 2;
         goto LABEL_26;
@@ -2146,13 +2146,13 @@ void GameUI_DrawPortraits(void *this)
 
   for (i = 0; i < 4; ++i)
   {
-   v3 = &pParty_global->pPlayers[i].qword_000070;
+   v3 = &pParty_global->pPlayers[i].pConditions[14];
 
-   if (pParty_global->pPlayers[i].qword_000070 || pParty_global->pPlayers[i].qword_000080)
+   if (pParty_global->pPlayers[i].pConditions[14] || pParty_global->pPlayers[i].pConditions[16])
    {
-    if (pParty_global->pPlayers[i].qword_000070)
+    if (pParty_global->pPlayers[i].pConditions[14])
       v4 = &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_PlayerFaceEradicated];
-    else if (pParty_global->pPlayers[i].qword_000080)
+    else if (pParty_global->pPlayers[i].pConditions[16])
       v4 = &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_PlayerFaceDead];
 
 LABEL_27:
@@ -2649,7 +2649,7 @@ void GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
   wsprintfA(TmpBuf, v124, pGlobalTXT_LocalizationStrings[131], v77, v74, v73);
   FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 266, v114, TmpBuf, 0xFFFFFFFF, 0, 0);
   v115 = v114 + pFontArrus->uFontHeight - 2;
-  if ( pp->uExperience <= (signed __int64)(unsigned int)&unk_98967F )
+  if ( pp->uExperience <= 9999999)
     v78 = pGlobalTXT_LocalizationStrings[83];
   else
     v78 = pGlobalTXT_LocalizationStrings[17];

@@ -145,14 +145,14 @@ void sub_4CC31C(int a1)
 
 
 // sub_4CC3A8: using guessed type _DWORD __stdcall _eh vector constructor iterator_(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
-void __stdcall _eh_vector_constructor_iterator_(int a1, int a2, int a3, void (__fastcall *a4)(_DWORD), int a5)
+void __stdcall _eh_vector_constructor_iterator_(int a1, unsigned int uElementSize, unsigned int uNumElements, void (__fastcall *a4)(_DWORD), int a5)
 {
   int i; // [sp+4h] [bp-1Ch]@1
 
-  for ( i = 0; i < a3; ++i )
+  for ( i = 0; i < uNumElements; ++i )
   {
     a4(a1);
-    a1 += a2;
+    a1 += uElementSize;
   }
   //sub_4CC412(1);
 }

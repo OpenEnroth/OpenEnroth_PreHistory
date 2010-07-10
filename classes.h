@@ -304,28 +304,40 @@ void *class07_ctor(struct class07 *_this);
 void *class07_InitializeVectors(struct class07 *_this, float w);
 
 
-//class26
+//class26; 3d vector of some kind
 struct class26
 {
- int dword_000000;
- float array_000004[3];
+ unsigned char *ptr_000000;
+ float          array_000004[3];
 };
 //sizeof = 16
 //void *__thiscall sub_4C0376(void *this)
-struct class26 *class26_ctor(struct class26 *_this);
+void class26_ctor(struct class26 *_this);
 //void __thiscall sub_4C039C(void *this);
-void class26_sub_4C039C(struct class26 *_this);
+void class26_detor(struct class26 *_this);
+//custom
+float class26_DotProduct(struct class26 *v1, struct class26 *v2);
 
-
+struct class26_placeholder
+{
+ unsigned char  *ptr_000000;
+ struct class26  objClass26;  // struct @ 000004
+ float           flt_000014;  // float  @ 000014   looks like dot product with some other vec
+};
+//sizeof == 18
+//void __fastcall sub_498038(char *this)
+void __fastcall class26_placeholder_ctor(struct class26_placeholder *_this);
+//void __fastcall sub_498069(void *this)
+void __fastcall class26_placeholder_detor(struct class26_placeholder *_this);
 
 //class08
 struct class08
 {
- int   dword_000000;
- struct class26 class26_obj1;  //struct @ 000004
- struct class26 class26_obj2;  //struct @ 000014
- struct class26 class26_obj3;  //struct @ 000024
- int   std__vector_000034[36];       //std::vector
+ int                        dword_000000;
+ struct class26             class26_obj1;          // struct @ 000004   these 3 are a (world?) matrix
+ struct class26             class26_obj2;          // struct @ 000014
+ struct class26             class26_obj3;          // struct @ 000024
+ struct class26_placeholder std__vector_000034[6]; // std::vector<class26_placeholder> @ 000034
  float flt_0000C4;
  float flt_0000C8;
  float flt_0000CC;
@@ -402,13 +414,13 @@ struct class08
 //int __thiscall sub_4361EF(int this);
 struct class08 *class08_ctor(struct class08 *_this);
 //int __thiscall sub_4376E7(void *this);
-void class08_sub_4376E7(struct class08 *_this);
+void class08_CreateWorldMatrixAndSomeStuff(struct class08 *_this);
 //void __thiscall sub_4374E8(void *this);
-void class08_sub_4374E8(struct class08 *_this);
+void class08_PrepareSomeVectors(struct class08 *_this);
 //void __thiscall sub_437607(void *this, int a2, int a3);
 void class08_sub_437607(struct class08 *_this, struct class26 *a2, unsigned char *a3);
 //int __thiscall sub_437691(int this, int a2, int a3);
-void class08_sub_437691(struct class08 *_this, struct class26 *a2, float *a3);
+void class08_Vec3Transform(struct class08 *_this, struct class26 *pVec, struct class26 *pOut);
 //void __thiscall sub_436BB7(void *this, int a2, int a3, char a4);
 void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char a4);
 //void __thiscall sub_438240(int this);
@@ -1355,38 +1367,31 @@ struct Player
  {
   struct
   {
-   int              array_000000[20];
-   int              array_000050[6];
-   __int64          qword_000068;
-   __int64          qword_000070;
-   int              array_000078[2];
-   __int64          qword_000080;
-   int              array_000088[6];
-   unsigned __int64 uExperience;     // qword    @ 0000A0
-   unsigned char    sName[16];       // byte[16] @ 0000A8
-   unsigned char    uSex;            // byte     @ 0000B8    0 male 1 female
-   unsigned char    uClass;          // byte     @ 0000B9
-   unsigned char    uFace;           // byte     @ 0000BA
-   unsigned char    unknown;         // byte     @ 0000BB
-   unsigned short   uStrength;       // word     @ 0000BC
-   unsigned short   uStrengthBonus;  // word     @ 0000BE
-   unsigned short   uIntelligence;   // word @ 0000C0
-   unsigned short   uIntelligenceBonus; // word @ 0000C2;
-   unsigned short   uWillpower;      // word @ 0000C4
-   unsigned short   uWillpowerBonus; // word @ 0000C6
-   unsigned short   uEndurance;      // word @ 0000C8
-   unsigned short   uEnduranceBonus; // word @ 0000CA
-   unsigned short   uSpeed;          // word @ 0000CC
-   unsigned short   uSpeedBonus;     // word @ 0000CE
-   unsigned short   uAccuracy;       // word @ 0000D0
-   unsigned short   uAccuracyBonus;  // word @ 0000D2
-   unsigned short   uLuck;           // word @ 0000D4
-   unsigned short   uLuckBonus;      // word @ 0000D6
-   short            word_0000D8;
-   short            BaseLevel;       // word @ 0000DA
-   short            TempLevelBonus;  // word @ 0000DC
-   short            AgeingAdd;       // word @ 0000DE
-
+   __int64          pConditions[20];    // qword[20] @ 000000   [14] eradicated  [16] dead
+   unsigned __int64 uExperience;        // qword     @ 0000A0
+   unsigned char    sName[16];          // byte[16]  @ 0000A8
+   unsigned char    uSex;               // byte      @ 0000B8    0 male 1 female
+   unsigned char    uClass;             // byte      @ 0000B9
+   unsigned char    uFace;              // byte      @ 0000BA
+   unsigned char    unknown;            // byte      @ 0000BB
+   unsigned short   uStrength;          // word      @ 0000BC
+   unsigned short   uStrengthBonus;     // word      @ 0000BE
+   unsigned short   uIntelligence;      // word      @ 0000C0
+   unsigned short   uIntelligenceBonus; // word      @ 0000C2
+   unsigned short   uWillpower;         // word      @ 0000C4
+   unsigned short   uWillpowerBonus;    // word      @ 0000C6
+   unsigned short   uEndurance;         // word      @ 0000C8
+   unsigned short   uEnduranceBonus;    // word      @ 0000CA
+   unsigned short   uSpeed;             // word      @ 0000CC
+   unsigned short   uSpeedBonus;        // word      @ 0000CE
+   unsigned short   uAccuracy;          // word      @ 0000D0
+   unsigned short   uAccuracyBonus;     // word      @ 0000D2
+   unsigned short   uLuck;              // word      @ 0000D4
+   unsigned short   uLuckBonus;         // word      @ 0000D6
+   short            ArmourClassBonus;   // word      @ 0000D8
+   short            BaseLevel;          // word      @ 0000DA
+   short            TempLevelBonus;     // word      @ 0000DC
+   short            AgeingAdd;          // word      @ 0000DE
    int   dword_0000E0;
    int   dword_0000E4;
    int   dword_0000E8;
@@ -1517,14 +1522,14 @@ struct Party
  int           sPartyPosX;       // dword @ 0006B4     world coordinates are  x: -32768..  32767
  int           sPartyPosY;       // dword @ 0006B8                            y:  32767.. -32768
  int           sPartyPosZ;       // dword @ 0006BC
- int           dword_0006C0;     // related to compass on minimap
- int           dword_0006C4;
- int           dword_0006C8;
- int           dword_0006CC;
- int           dword_0006D0;
- int           dword_0006D4;
- int           dword_0006D8;
- int           dword_0006DC;
+ int           sRotationY;       // dword @ 0006C0     rotation about Y, angle is 2ï*(sRotationY/2048)    radians (0.. 2ï) -> (0.. 2048);  (0, ï/2, ï, 3ï/2, 2ï) -> (0, 512, 1024, 1536, 2048)
+ int           sRotationX;       // dword @ 0006C4     about X, bend
+ int           sOldPosX;         // dword @ 0006C8
+ int           sOldPosY;         // dword @ 0006CC
+ int           sOldPosZ;         // dword @ 0006D0
+ int           sOldRotationY;    // dword @ 0006D4
+ int           sOldRotationX;    // dword @ 0006D8
+ int           sOldEyelevel;     // dword @ 0006DC
  int           dword_0006E0;
  int           dword_0006E4;
  int           dword_0006E8;
@@ -1568,7 +1573,7 @@ struct Party
  char          array_00088C[20][16];
  struct Player pPlayers[4];          // struct[4] @ 0009CC
 
- int dword_007778;
+ int dword_007778;  // party flags;     0x02 - party position/direction/eyelevel changed
 
  char pad[100000];
 
@@ -1763,34 +1768,37 @@ void sub_48607B_MessWithStruct8(struct struct8 *_this, struct class57 *pClass57)
 
 
 
-struct class55
+//struct class55
+struct Camera
 {
  signed int   dword_000000;
  signed int   dword_000004;
  signed int   dword_000008;
  int          dword_00000C;
  int          dword_000010;
- signed int   dword_000014;
- signed int   dword_000018;
- float        flt_00001C;
- float        flt_000020;
-
- float fSomeSine;   // float @ 00002C
- float fSomeCosine; // float @ 000030
- float flt_000034;
- float flt_000038;
- int   dword_00003C;
- int   dword_000040;
- int   dword_000044;
- int   dword_000048;
- int   dword_00004C;
+ signed int   sRotationX;       // dword @ 000014    dword @ 0006C4 in Player    camera euler angles
+ signed int   sRotationY;       // dword @ 000018    dword @ 0006C0 in Player
+ float        flt_00001C;    // related to viewport width ang viewing angle, perspective projection parameters
+ float        flt_000020;    // inverted 00001C (65536 / [00001C])
+ int          dword_000024;
+ int          dword_000028;
+ float        fRotationYSine;             // float @ 00002C    = sin(2ï * (sRotationY / 2048))
+ float        fRotationYCosine;           // float @ 000030    = cos(2ï * (sRotationY / 2048))
+ float        fRotationXSine;             // float @ 000034    = +/- sin(2ï * (sRotationX / 2048))   sign depends on condition  (byte_4D8410[572] && *(_BYTE *)(&pGame->uSomeFlags) & 0x80 || dword_6BE360 == 1)
+ float        fRotationXCosine;           // float @ 000038    = +/- cos(2ï * (sRotationX / 2048))   -//-
+ int          some_angle_int_sine;         // dword @ 00003C   next four guys look like obsolete since are never used;  probably used in MM6 instead
+ int          some_angle_int_cosine;       // dword @ 000040   65536 * cos(sRotationY)
+ int          some_other_angle_int_sine;   // dword @ 000044   65536 * sin(sRotationX)
+ int          some_other_angle_int_cosine; // dword @ 000048   65536 * cos(sRotationX)
+ int          dword_00004C;
 };
 //sizeof == 50
 
+void Camera_ctor(struct Camera *);
 //void sub_4239A7(int this);
-void sub_4239A7(struct class55 *_this);
+void Camera_sub_4239A7(struct Camera *_this);
 //signed __int64 __thiscall sub_42394D(void *this, signed int a2, signed int a3, int a4);
-void class55_sub_42394D(struct class55 *_this, signed int a2, signed int a3, int a4);
+void Camera_SetPerspective(struct Camera *_this, signed int sViewingAngle, signed int sViewportWidth, signed int sViewportHeight);
 
 
 
@@ -1869,13 +1877,14 @@ struct class58
 void class58_sub_49B525(struct class58 *_this, int a2);
 
 
+//math predefines
 struct class59
 {
  int pTanTable[520];    // int[520] @ 000000
  int pCosTable[520];    // int[520] @ 000820
  int pInvCosTable[520]; // int[520] @ 001040
  int dword_001860;
- int dword_001864;
+ unsigned int uNumTableEntries; // dword @ 001864
  int dword_001868;
  int dword_00186C;
  int dword_001870;
@@ -1886,7 +1895,7 @@ struct class59
 //loc_452969()
 void class59_ctor(struct class59 *);
 //int __thiscall sub_402CAE(int this, int a2);
-int class59_sub_402CAE(struct class59 *_this, int a2);
+int class59_SinCos(struct class59 *_this, int a2);
 
 
 
@@ -1971,5 +1980,22 @@ struct StatTable
   unsigned char Ratio1;
   unsigned char Ratio2;
 };
+
+
+struct Matrix
+{
+ union
+ {
+  float v[3][3];
+  struct
+  {
+   float _11, _12, _13;
+   float _21, _22, _23;
+   float _31, _32, _33;
+  };
+ };
+};
+//int __stdcall sub_4378BA(int a1, int a2, int a3)
+void MatrixMultiply(struct Matrix *pM1, struct Matrix *pM2, struct Matrix *pResult);
 
 #pragma pack(pop)

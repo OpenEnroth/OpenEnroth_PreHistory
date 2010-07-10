@@ -233,8 +233,8 @@ int __fastcall sub_4AD504(int a1)
                   v22 = unk_F81020 >> i >> (11 - v19);
                   v17 = pClass59_global;
                   v122 = (char *)v21;
-                  v121 = (unk_F8101C >> i) + 4 * class59_sub_402CAE(pClass59_global, v104 + v22);
-                  v23 = class59_sub_402CAE(pClass59_global, v104 + (v20 >> (char)v122) - pClass59_global->dword_001864);
+                  v121 = (unk_F8101C >> i) + 4 * class59_SinCos(pClass59_global, v104 + v22);
+                  v23 = class59_SinCos(pClass59_global, v104 + (v20 >> (char)v122) - pClass59_global->uNumTableEntries);
                   v120 = v116 + 4 * v23;
                   if ( v123 < v117 )
                   {
@@ -262,8 +262,8 @@ int __fastcall sub_4AD504(int a1)
                       v102 = (signed int)*(_WORD *)(v4 + 34) >> v28 << (v28 + 16);
                       v32 = *(_DWORD *)v114 >> i;
                       v122 = (char *)(11 - v28);
-                      v116 = v31 + 4 * class59_sub_402CAE(v17, v104 + (v32 >> (11 - v28)));
-                      v90 = v32 + 4 * class59_sub_402CAE(v17, v104 + (v31 >> (char)v122) - pClass59_global->dword_001864);
+                      v116 = v31 + 4 * class59_SinCos(v17, v104 + (v32 >> (11 - v28)));
+                      v90 = v32 + 4 * class59_SinCos(v17, v104 + (v31 >> (char)v122) - pClass59_global->uNumTableEntries);
                       v108 = (signed int)(v116 - v121) >> 4;
                       v103 = (v90 - v120) >> 4;
                       v27 = v123 + 32;
@@ -2612,7 +2612,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                     v24 = GetTickCount() >> 2;
                     if ( v35 > 0 )
                     {
-                      v25 = v24 - pClass59_global->dword_001864;
+                      v25 = v24 - pClass59_global->uNumTableEntries;
                       v26 = &array_507D30[0].v;
                       v37 = v35;
                       for ( i = v25; ; v25 = i )
@@ -7745,15 +7745,15 @@ LABEL_71:
         else
         {
           v6 = *((_DWORD *)v5 + 3);
-          pParty_global->dword_0006C4 = 0;
+          pParty_global->sRotationX = 0;
           pParty_global->sPartyPosX = v6;
           v7 = *((_DWORD *)v5 + 4);
-          pClass55_global->dword_000018 = 0;
+          pCamera->sRotationY = 0;
           pParty_global->dword_007778 |= 2;
           pParty_global->sPartyPosY = v7;
           pParty_global->sPartyPosZ = *((_DWORD *)v5 + 5);
           pParty_global->dword_000700 = pParty_global->sPartyPosZ;
-          pParty_global->dword_0006C0 = *((_DWORD *)v5 + 6);
+          pParty_global->sRotationY = *((_DWORD *)v5 + 6);
         }
         sub_4B1E92(*(_DWORD *)(dword_507BC0 + 28), 2);
         v12 = (unsigned __int8)v5[8];
@@ -11713,8 +11713,8 @@ LABEL_23:
         pParty_global->sPartyPosY = 5770;
         pParty_global->sPartyPosZ = 1;
         pParty_global->dword_000700 = 1;
-        pParty_global->dword_0006C0 = 512;
-        pParty_global->dword_0006C4 = 0;
+        pParty_global->sRotationY = 512;
+        pParty_global->sRotationX = 0;
         pParty_global->dword_0006E8 = 0;
         AudioPlayer_sub_4AA306(pAudioPlayer, 14060, 0, 0, -1, 0, 0, 0, 0);
       }
@@ -11911,8 +11911,8 @@ void __cdecl sub_4BC109()
   pParty_global->sPartyPosY = 5770;
   pParty_global->sPartyPosZ = 1;
   pParty_global->dword_000700 = 1;
-  pParty_global->dword_0006C0 = 512;
-  pParty_global->dword_0006C4 = 0;
+  pParty_global->sRotationY = 512;
+  pParty_global->sRotationX = 0;
   pParty_global->dword_0006E8 = 0;
   if ( dword_50CBD0[0] < 40 )
   {
@@ -15911,14 +15911,14 @@ int __stdcall sub_4C248E(int a1, signed int a2, float a3, float a4)
   int v22; // [sp+98h] [bp-8h]@1
   int v23; // [sp+9Ch] [bp-4h]@1
 
-  v5 = pClass55_global->dword_000004;
-  v6 = pClass55_global->dword_000000;
-  v20 = pClass55_global->dword_000000;
-  v19 = pClass55_global->dword_000004;
-  v23 = pClass55_global->dword_000008;
-  v7 = pClass55_global->dword_000018 + sub_46A0A1((void *)(signed __int64)*(float *)&a2);
+  v5 = pCamera->dword_000004;
+  v6 = pCamera->dword_000000;
+  v20 = pCamera->dword_000000;
+  v19 = pCamera->dword_000004;
+  v23 = pCamera->dword_000008;
+  v7 = pCamera->sRotationY + sub_46A0A1((void *)(signed __int64)*(float *)&a2);
   v8 = v23;
-  v9 = pClass55_global->dword_000014 + sub_46A0F6((void *)(signed __int64)a3);
+  v9 = pCamera->sRotationX + sub_46A0F6((void *)(signed __int64)a3);
   v10 = sub_48B561(a4);
   sub_43AA99(v10, v7, v9, v6, v5, v8, (int)&a2, (int)&v22, (int)&v21);
   result = a1;

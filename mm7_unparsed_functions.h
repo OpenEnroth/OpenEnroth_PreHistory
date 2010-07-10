@@ -390,7 +390,7 @@ int __stdcall sub_437143(int a1, int a2, int a3, int a4);
 char __thiscall sub_4371C3(void *this, void *a2, int a3, int a4);
 char __stdcall sub_437285(int a1, int a2, void *a3, int a4, signed int a5, char a6, int a7);
 char __stdcall sub_437376(int a1, const void *a2, int *a3);
-int __stdcall sub_4378BA(int a1, int a2, int a3);
+void MatrixMultiply(int a1, int a2, int a3);
 char __thiscall sub_437906(void *this, int a2, int a3);
 char __thiscall sub_4379EE(void *this, int a2, int a3, int a4, float a5);
 void *__stdcall sub_437A55(const void *a1, int a2, int a3, float a4);
@@ -1108,8 +1108,8 @@ int __fastcall sub_495366(unsigned __int8 a1, unsigned __int8 a2);
 int __fastcall sub_495430(signed int a1);
 const CHAR *__fastcall sub_495461(char *lpsz, unsigned __int8 a2, int a3, int a4, int a5, __int64 *a6);
 int __cdecl sub_4979D2();
-void __fastcall sub_498038(void *); // weak
-void __fastcall sub_498069(void *this);
+void __fastcall class26_placeholder_ctor(struct class26_placeholder *_this); // weak
+void __fastcall class26_placeholder_detor(struct class26_placeholder *_this);
 char __stdcall sub_4980B9(int a1, signed int a2, float a3, float a4, float a5, int a6, int a7);
 __int64 __fastcall sub_49835A(int a1);
 char __stdcall sub_498377(int a1, signed int a2, int a3, int a4, int a5);

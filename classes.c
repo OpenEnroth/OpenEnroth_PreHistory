@@ -634,7 +634,7 @@ struct class08 *class08_ctor(struct class08 *_this)
   class26_ctor(&_this->class26_obj1);
   class26_ctor(&_this->class26_obj2);
   class26_ctor(&_this->class26_obj3);
-  compile_warning;//_eh_vector_constructor_iterator_(v3 + 52, 24, 6, sub_498038, sub_498069);
+  _eh_vector_constructor_iterator_(_this->std__vector_000034, sizeof(struct class26_placeholder), 6, class26_placeholder_ctor, class26_placeholder_detor);
 
   _this->flt_0000DC = dword_51B6E8;
   _this->flt_0000E0 = dword_51B6EC;
@@ -697,7 +697,7 @@ struct class08 *class08_ctor(struct class08 *_this)
   }
   while (v13-- != 1);
 
-  _this->dword_000000 = 5080468;
+  _this->dword_000000 = 0x4D8594;
   _this->dword_1A1380 = 0;
   return _this;
 }
@@ -2291,10 +2291,9 @@ __int64 class25_fn0(struct class25 *_this)
 }
 
 //----- (MM7.exe::004C0376) --------------------------------------------------------
-struct class26 *class26_ctor(struct class26 *_this)
+void class26_ctor(struct class26 *_this)
 {
- _this->dword_000000 = 5081596;
- return _this;
+ _this->ptr_000000 = memory_4D8410.byte_4D8410 + 0x5EC;
 }
 
 //----- (MM7.exe::004C0262) --------------------------------------------------------
@@ -2720,7 +2719,7 @@ __declspec(naked) void __fastcall class37_loc_43F2A9(char *_this)
  {
 loc_43F2A9:                             ; DATA XREF: .text:0043F266o
                                         ; sub_43F282+3o
-         push    offset sub_498069
+         push    offset class26_placeholder_detor
          push    4
          add     ecx, 7ACh
          push    18h
@@ -2737,8 +2736,8 @@ __declspec(naked) void __fastcall class37_loc_43F2BF(char *_this)
 loc_43F2BF:                             ; DATA XREF: sub_43F282+8o
          push    esi
          mov     esi, ecx
-         push    offset sub_498069
-         push    offset sub_498038
+         push    offset class26_placeholder_detor
+         push    offset class26_placeholder_ctor
          push    4
          lea     eax, [esi+7ACh]
          push    18h
@@ -7727,16 +7726,22 @@ bool Party_sub_497FC5(struct Party *_this)
 
 
 //----- (004376E7) --------------------------------------------------------
-void class08_sub_4376E7(struct class08 *_this)
+void class08_CreateWorldMatrixAndSomeStuff(struct class08 *_this)
 {
   void *v3; // esi@1
   double v4; // st7@1
   int result; // eax@5
-  char v8[0x24]; // [sp+10h] [bp-B8h]@1
-  float v9[4*array_size_unknown]; // [sp+34h] [bp-94h]@1
+
+  struct Matrix m0;
+  //char v8[0x24]; // [sp+10h] [bp-B8h]@1
+
+  struct Matrix m3;
+  /*float v9[4*array_size_unknown]; // [sp+34h] [bp-94h]@1
   char v10[12]; // [sp+38h] [bp-90h]@2
-  char v11[20]; // [sp+44h] [bp-84h]@2
-  float v12; // [sp+58h] [bp-70h]@1
+  char v11[20]; // [sp+44h] [bp-84h]@2*/
+
+  struct Matrix m4;
+  /*float v12; // [sp+58h] [bp-70h]@1
   float v13; // [sp+5Ch] [bp-6Ch]@1
   float v14; // [sp+60h] [bp-68h]@1
   float v15; // [sp+64h] [bp-64h]@1
@@ -7744,8 +7749,10 @@ void class08_sub_4376E7(struct class08 *_this)
   float v17; // [sp+6Ch] [bp-5Ch]@1
   float v18; // [sp+70h] [bp-58h]@1
   float v19; // [sp+74h] [bp-54h]@1
-  float v20; // [sp+78h] [bp-50h]@1
-  float v21; // [sp+7Ch] [bp-4Ch]@1
+  float v20; // [sp+78h] [bp-50h]@1*/
+
+  struct Matrix m1;
+   /*float v21; // [sp+7Ch] [bp-4Ch]@1
   float v22; // [sp+80h] [bp-48h]@1
   float v23; // [sp+84h] [bp-44h]@1
   float v24; // [sp+88h] [bp-40h]@1
@@ -7753,8 +7760,10 @@ void class08_sub_4376E7(struct class08 *_this)
   int v26; // [sp+90h] [bp-38h]@1
   float v27; // [sp+94h] [bp-34h]@1
   float v28; // [sp+98h] [bp-30h]@1
-  float v29; // [sp+9Ch] [bp-2Ch]@1
-  float v30; // [sp+A0h] [bp-28h]@1
+  float v29; // [sp+9Ch] [bp-2Ch]@1*/
+
+  struct Matrix m2;
+  /*float v30; // [sp+A0h] [bp-28h]@1
   float v31; // [sp+A4h] [bp-24h]@1
   float v32; // [sp+A8h] [bp-20h]@1
   float v33; // [sp+ACh] [bp-1Ch]@1
@@ -7762,158 +7771,129 @@ void class08_sub_4376E7(struct class08 *_this)
   float v35; // [sp+B4h] [bp-14h]@1
   float v36; // [sp+B8h] [bp-10h]@1
   float v37; // [sp+BCh] [bp-Ch]@1
-  float v38; // [sp+C0h] [bp-8h]@1
+  float v38; // [sp+C0h] [bp-8h]@1*/
+
   float v39; // [sp+C4h] [bp-4h]@1
  int i;
 
   v3 = _this;
-  v32 = 0.0;
-  v35 = 0.0;
-  v36 = 0.0;
-  v37 = 0.0;
-  v38 = 1.0;
-  v21 = 1.0;
-  v22 = 0.0;
-  v23 = 0.0;
-  v24 = 0.0;
-  v27 = 0.0;
-  v13 = 0.0;
-  v15 = 0.0;
-  v16 = 1.0;
-  v17 = 0.0;
-  v19 = 0.0;
+
   v39 = cos(0.0);
   v4 = sin(0.0);
-  v30 = v39;
-  v31 = v4;
-  v33 = -v4;
-  v34 = v39;
-  v25 = pClass55_global->flt_000038;
-  v28 = -pClass55_global->flt_000034;
-  v26 = pClass55_global->flt_000034;
-  v29 = pClass55_global->flt_000038;
-  v12 = pClass55_global->fSomeCosine;
-  v14 = -pClass55_global->fSomeSine;
-  v18 = pClass55_global->fSomeSine;
-  v20 = pClass55_global->fSomeCosine;
-  sub_4378BA((int)&v30, (int)&v12, v8);
-  sub_4378BA((int)&v21, v8, v9);
 
-  for (i = 0; i < 3; ++i)
-  {
-    _this->class26_obj1.array_000004[i] = *(float *)(v10 + i * 4);
-    _this->class26_obj2.array_000004[i] = *(float *)(v9 + i);
-    _this->class26_obj3.array_000004[i] = *(float *)(v11 + i * 4);
-  }
+ //RotationZ(0)
+ m2._11 = cos(0);                     m2._12 = sin(0);                      m2._13 = 0;
+ m2._21 = -sin(0);                    m2._22 = cos(0);                      m2._23 = 0;
+ m2._31 = 0;                          m2._32 = 0;                           m2._33 = 1;
 
-  _this->flt_0000D0 = (double)class28_global.dword_000020 * 0.8814736008644104;
-  _this->flt_0000D4 = 0.8814736008644104 * (double)class28_global.dword_000024;
-  _this->flt_0000D8 = 1.1344639f;
+ //RotationX(some_other_angle)
+ m1._11 = 1;                          m1._12 = 0;                           m1._13 = 0;
+ m1._21 = 0;                          m1._22 = pCamera->fRotationXCosine;   m1._23 = pCamera->fRotationXSine;
+ m1._31 = 0;                          m1._32 = -pCamera->fRotationXSine;    m1._33 = pCamera->fRotationXCosine;
+  
+ //RotationY(some_angle)
+ m4._11 = pCamera->fRotationYCosine;  m4._12 = 0;                           m4._13 = -pCamera->fRotationYSine;
+ m4._21 = 0;                          m4._22 = 1;                           m4._23 = 0;
+ m4._31 = pCamera->fRotationYSine;    m4._32 = 0;                           m4._33 = pCamera->fRotationYCosine;
 
-  _this->flt_0000C4 = max(_this->flt_0000D0, _this->flt_0000D4);
-  _this->flt_0000C8 = (double)class28_global.dword_000028;
-  _this->flt_0000CC = (double)(class28_global.dword_00002C - class28_global.dword_000004);
+
+ MatrixMultiply(&m2, &m4, &m0); //m0 = RotationZ(0) * RotationY(some_angle)
+ MatrixMultiply(&m1, &m0, &m3); //m3 = RotationX(some_other_angle) * RotationZ(0) * RotationY(some_angle)
+ 
+ for (i = 0; i < 3; ++i)
+ {
+  _this->class26_obj1.array_000004[i] = m3.v[1][i];
+  _this->class26_obj2.array_000004[i] = m3.v[0][i];
+  _this->class26_obj3.array_000004[i] = m3.v[2][i];
+ }
+
+ _this->flt_0000D0 = (double)class28_global.dword_000020 * 0.8814736008644104;
+ _this->flt_0000D4 = (double)class28_global.dword_000024 * 0.8814736008644104;
+ _this->flt_0000D8 = 1.1344639f;
+
+ _this->flt_0000C4 = max(_this->flt_0000D0, _this->flt_0000D4);
+ _this->flt_0000C8 = (double)class28_global.dword_000028;
+ _this->flt_0000CC = (double)(class28_global.dword_00002C - class28_global.dword_000004);
 }
 
 
 //----- (004374E8) --------------------------------------------------------
-void class08_sub_4374E8(struct class08 *_this)
+void class08_PrepareSomeVectors(struct class08 *_this)
 {
-  //double v2; // st7@1
-  double v3; // st7@1
-  double v4; // st7@1
-  double v5; // st7@1
-  double v6; // st7@1
+ double v3;
 
-  //class26
-  struct class26 local_0C;
+ struct class26 local_0C;
 /*  char v7[0x04]; // [sp+Ch] [bp-24h]@1
   float v8; // [sp+10h] [bp-20h]@1
   float v9; // [sp+14h] [bp-1Ch]@1
   float v10; // [sp+18h] [bp-18h]@1
 */
-  float v11; // [sp+1Ch] [bp-14h]@1
-  //float v12; // [sp+20h] [bp-10h]@1
-  int v13; // [sp+2Ch] [bp-4h]@1
+  //int v13; // [sp+2Ch] [bp-4h]@1
 
-  class26_ctor(&local_0C);
-  v13 = 0;
-  v3 = atan(memory_4D8410.fTwo / _this->flt_0000D8 * _this->flt_0000C4 / _this->flt_0000D0);
-  v11 = sin(v3);
-  v4 = cos(v3);
-  local_0C.array_000004[0] = -v11;
-  local_0C.array_000004[1] = 0;
-  local_0C.array_000004[2] = v4;
-  class08_sub_437607(_this, &local_0C, _this->std__vector_000034);
-  local_0C.array_000004[0] = v11;
-  class08_sub_437607(_this, &local_0C, _this->std__vector_000034 + 6);
+ class26_ctor(&local_0C);
+
+ v3 = atan(2.0 / _this->flt_0000D8 * _this->flt_0000C4 / _this->flt_0000D0);
+
+ local_0C.array_000004[0] = -sin(v3);
+ local_0C.array_000004[1] = 0;
+ local_0C.array_000004[2] = cos(v3);
+ class08_sub_437607(_this, &local_0C, &_this->std__vector_000034[0]);
+
+ local_0C.array_000004[0] = sin(v3);
+ class08_sub_437607(_this, &local_0C, &_this->std__vector_000034[1]);
 
 
-  v5 = atan(memory_4D8410.fTwo / _this->flt_0000D8 * _this->flt_0000C4 / (_this->flt_0000D4 + 0.5));
-  v11 = sin(v5);
-  v6 = cos(v5);
-  local_0C.array_000004[0] = 0;
-  local_0C.array_000004[1] = v11;
-  local_0C.array_000004[2] = v6;
-  class08_sub_437607(_this, &local_0C, _this->std__vector_000034 + 12);
-  local_0C.array_000004[1] = -v11;
-  class08_sub_437607(_this, &local_0C, _this->std__vector_000034 + 18);
-  v13 = -1;
-  class26_sub_4C039C(&local_0C);
+ v3 = atan(2.0 / _this->flt_0000D8 * _this->flt_0000C4 / (_this->flt_0000D4 + 0.5));
+
+ local_0C.array_000004[0] = 0;
+ local_0C.array_000004[1] = sin(v3);
+ local_0C.array_000004[2] = cos(v3);
+ class08_sub_437607(_this, &local_0C, &_this->std__vector_000034[2]);
+
+ local_0C.array_000004[1] = -sin(v3);
+ class08_sub_437607(_this, &local_0C, &_this->std__vector_000034[3]);
+
+ class26_detor(&local_0C);
 }
 
 //----- (00437607) --------------------------------------------------------
-void class08_sub_437607(struct class08 *_this, struct class26 *a2, unsigned char *a3)
+void class08_sub_437607(struct class08 *_this, struct class26 *a2, struct class26_placeholder *a3)
 {
-  int v3; // eax@1
-  signed int v4; // ecx@1
-  double v5; // st7@1
-  double v7; // st6@2
-  
-  struct class26 local_08;
-/*
-  char v8; // [sp+8h] [bp-1Ch]@1
-  float v9; // [sp+Ch] [bp-18h]@1
-  float v10; // [sp+10h] [bp-14h]@1
-  float v11; // [sp+14h] [bp-10h]@1
-*/
-  int v12; // [sp+20h] [bp-4h]@1
+ struct class26 local_08;
 
-  class26_ctor(&local_08);
-  v12 = 0;
-  local_08.array_000004[0] = (double)pClass55_global->dword_000000;
-  local_08.array_000004[1] = (double)pClass55_global->dword_000004;
-  local_08.array_000004[2] = (double)pClass55_global->dword_000008;
-  class08_sub_437691(_this, a2, a3 + 4);
-  v5 = 0.0;
-  v4 = 0;
-  v3 = a3 + 8;
-  do
-  {
-    v7 = *(local_08.array_000004 + v4++) * *(float *)v3;
-    v3 += 4;
-    v5 = v5 + v7;
-  }
-  while ( v4 < 3 );
-  v12 = -1;
-  *(float *)(a3 + 20) = v5 + 0.00009999999747378752;
-  class26_sub_4C039C(&local_08);
+ class08_Vec3Transform(_this, a2, &a3->objClass26);
+  
+ class26_ctor(&local_08);
+ local_08.array_000004[0] = (double)pCamera->dword_000000;
+ local_08.array_000004[1] = (double)pCamera->dword_000004;
+ local_08.array_000004[2] = (double)pCamera->dword_000008;
+
+ a3->flt_000014 = class26_DotProduct(&local_08, &a3->objClass26) + 0.00009999999747378752;
+
+ class26_detor(&local_08);
+}
+
+float class26_DotProduct(struct class26 *v1, struct class26 *v2)
+{
+ return v1->array_000004[0] * v2->array_000004[0] +
+        v1->array_000004[1] * v2->array_000004[1] +
+        v1->array_000004[2] * v2->array_000004[2];
 }
 
 //----- (00437691) --------------------------------------------------------
-void class08_sub_437691(struct class08 *_this, struct class26 *a2, float *a3)
+void class08_Vec3Transform(struct class08 *_this, struct class26 *pVec, struct class26 *pOut)
 {
- a3[1] = _this->class26_obj2.array_000004[2] * a2->array_000004[0] +
-         _this->class26_obj1.array_000004[2] * a2->array_000004[1] +
-         _this->class26_obj3.array_000004[2] * a2->array_000004[2];
+ pOut->array_000004[0] = _this->class26_obj2.array_000004[2] * pVec->array_000004[0] +
+                         _this->class26_obj1.array_000004[2] * pVec->array_000004[1] +
+                         _this->class26_obj3.array_000004[2] * pVec->array_000004[2];
 
- a3[2] = _this->class26_obj2.array_000004[0] * a2->array_000004[0] +
-         _this->class26_obj1.array_000004[0] * a2->array_000004[1] +
-         _this->class26_obj3.array_000004[0] * a2->array_000004[2];
+ pOut->array_000004[1] = _this->class26_obj2.array_000004[0] * pVec->array_000004[0] +
+                         _this->class26_obj1.array_000004[0] * pVec->array_000004[1] +
+                         _this->class26_obj3.array_000004[0] * pVec->array_000004[2];
 
- a3[3] = _this->class26_obj2.array_000004[1] * a2->array_000004[0] +
-         _this->class26_obj1.array_000004[1] * a2->array_000004[1] +
-         _this->class26_obj3.array_000004[1] * a2->array_000004[2];
+ pOut->array_000004[2] = _this->class26_obj2.array_000004[1] * pVec->array_000004[0] +
+                         _this->class26_obj1.array_000004[1] * pVec->array_000004[1] +
+                         _this->class26_obj3.array_000004[1] * pVec->array_000004[2];
 }
 
 
@@ -7971,65 +7951,69 @@ int sub_469E3B(struct class03 *_this)
 
 
 //----- (004239A7) --------------------------------------------------------
-void class55_sub_4239A7(struct class55 *_this)
+void Camera_CalculateSinCos(struct Camera *_this)
 {
  double angle;
 
- angle = 2.0 * memory_4D8410.fSomeAngle * (double)_this->dword_000018 * memory_4D8410.fOneOver2048;
+ angle = 2.0 * 3.1415926535897931 * ((double)_this->sRotationY / 2048);
+ _this->fRotationYSine = sin(angle);
+ _this->fRotationYCosine = cos(angle);
 
- _this->fSomeSine = sin(angle);
- _this->fSomeCosine = cos(angle);
 
-
- if ( byte_4D8410[572] && *(_BYTE *)(&pGame->uSomeFlags) & 0x80 || dword_6BE360 == 1 )
-   angle = 2 * memory_4D8410.fSomeAngle * (double)_this->dword_000014 * memory_4D8410.fOneOver2048;
+ if (byte_4D8410[572] && *(_BYTE *)(&pGame->uSomeFlags) & 0x80 || dword_6BE360 == 1)
+   angle = 2 * 3.1415926535897931 * ((double)_this->sRotationX / 2048);
  else
-   angle = -2 * memory_4D8410.fSomeAngle * (double)_this->dword_000014 * memory_4D8410.fOneOver2048;
+   angle = -2 * 3.1415926535897931 * ((double)_this->sRotationX / 2048);
 
- _this->flt_000034 = sin(angle);
- _this->flt_000038 = cos(angle);
+ _this->fRotationXSine = sin(angle);
+ _this->fRotationXCosine = cos(angle);
 
- _this->dword_00003C = class59_sub_402CAE(pClass59_global, _this->dword_000018 - pClass59_global->dword_001864);
- _this->dword_000040 = class59_sub_402CAE(pClass59_global, _this->dword_000018);
- _this->dword_000044 = class59_sub_402CAE(pClass59_global, _this->dword_000014 - pClass59_global->dword_001864);
- _this->dword_000048 = class59_sub_402CAE(pClass59_global, _this->dword_000014);
+ _this->some_angle_int_sine = class59_SinCos(pClass59_global, _this->sRotationY - pClass59_global->uNumTableEntries);
+ _this->some_angle_int_cosine = class59_SinCos(pClass59_global, _this->sRotationY);
+ _this->some_other_angle_int_sine = class59_SinCos(pClass59_global, _this->sRotationX - pClass59_global->uNumTableEntries);
+ _this->some_other_angle_int_cosine = class59_SinCos(pClass59_global, _this->sRotationX);
 }
 
 
 
 //----- (0042394D) --------------------------------------------------------
-void class55_sub_42394D(struct class55 *_this, signed int a2, signed int a3, int a4)
+void Camera_SetPerspective(struct Camera *_this, signed int sViewingAngle, signed int sViewportWidth, signed int sViewportHeight)
 {
-  signed __int64 result; // qax@1
-  double v6; // st7@1
+ int v0;
 
-  result = (double)(a3) * memory_4D8410.d_0_5 / tan((double)(a2 / 2) * memory_4D8410.double_0000F8) + memory_4D8410.d_0_5;
-  v6 = (double)(signed int)result;
-  _this->flt_00001C = v6;
-  _this->flt_000020 = 65536.0 / v6;
+ v0 = 0.5 * (double)(sViewportWidth) / tan((double)(sViewingAngle / 2) * 0.017453290000000000) + 0.5;
+
+ _this->flt_00001C = v0;
+ _this->flt_000020 = 65536.0 / v0;
+}
+
+void Camera_ctor(struct Camera *_this)
+{
+ memset(_this, 0, sizeof(struct Camera));
 }
 
 
 
 //----- (004C039C) --------------------------------------------------------
-void class26_sub_4C039C(struct class26 *_this)
+void class26_detor(struct class26 *_this)
 {
- _this->dword_000000 = 0x4D89FC;
+ _this->ptr_000000 = memory_4D8410.byte_4D8410 + 0x5EC;
 }
 
 
 //----- (00402CAE) --------------------------------------------------------
-int class59_sub_402CAE(struct class59 *_this, int a2)
+int class59_SinCos(struct class59 *_this, int a2)
 {
   int v2; // eax@1
-  int v3; // edx@1
 
-  v3 = _this->dword_001860;
+  //a2: (angle - uNumTableEntries)  for  sin(angle)
+  //    (angle)                     for  cos(angle)
+
   v2 = _this->dword_00186C & a2;
-  if ( v2 > v3 )
+  if ( v2 > _this->dword_001860 )
     v2 = _this->dword_001868 - v2;
-  if ( v2 >= _this->dword_001864 )
-    return -_this->pCosTable[v3 - v2];
+  if ( v2 >= _this->uNumTableEntries )
+    return -_this->pCosTable[_this->dword_001860 - v2];
   else
     return _this->pCosTable[v2];
 }
@@ -8147,10 +8131,10 @@ void sub_486089_NormalizeVector(struct struct8 *_this)
 //----- (0048600E) --------------------------------------------------------
 void sub_48600E(struct struct9 *_this)
 {
- _this->dword_00001C = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000018 - pClass59_global->dword_001864);
- _this->dword_000020 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000018);
- _this->dword_000024 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000014 - pClass59_global->dword_001864);
- _this->dword_000028 = class59_sub_402CAE(pClass59_global, pClass55_global->dword_000014);
+ _this->dword_00001C = class59_SinCos(pClass59_global, pCamera->sRotationY - pClass59_global->uNumTableEntries);
+ _this->dword_000020 = class59_SinCos(pClass59_global, pCamera->sRotationY);
+ _this->dword_000024 = class59_SinCos(pClass59_global, pCamera->sRotationX - pClass59_global->uNumTableEntries);
+ _this->dword_000028 = class59_SinCos(pClass59_global, pCamera->sRotationX);
 }
 
 //----- (0048616B) --------------------------------------------------------
@@ -8186,18 +8170,18 @@ int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, in
   v25 = pStruct9_global->dword_000028;
   v9 = pStruct9_global->dword_00001C;
   v27 = pStruct9_global->dword_000024;
-  v11 = -pClass55_global->dword_000004;
+  v11 = -pCamera->dword_000004;
   v10 = pStruct9_global->dword_000020;
-  v26 = -pClass55_global->dword_000008;
-  v24 = -pClass55_global->dword_000000;
-  v7 = pStruct9_global->dword_000020 * -pClass55_global->dword_000000;
-  v8 = v7 + pStruct9_global->dword_00001C * -pClass55_global->dword_000004;
-  if ( pClass55_global->dword_000014 )
+  v26 = -pCamera->dword_000008;
+  v24 = -pCamera->dword_000000;
+  v7 = pStruct9_global->dword_000020 * -pCamera->dword_000000;
+  v8 = v7 + pStruct9_global->dword_00001C * -pCamera->dword_000004;
+  if (pCamera->sRotationX)
   {
-    v14 = v7 + pStruct9_global->dword_00001C * -pClass55_global->dword_000004;
+    v14 = v7 + pStruct9_global->dword_00001C * -pCamera->dword_000004;
     v15 = pStruct9_global->dword_000020 * v11 - pStruct9_global->dword_00001C * v24;
     _this->dword_000000 = ((unsigned __int64)(v8 * pStruct9_global->dword_000028) >> 16)
-                    + ((unsigned __int64)(-65536 * pClass55_global->dword_000008 * pStruct9_global->dword_000024) >> 16);
+                    + ((unsigned __int64)(-65536 * pCamera->dword_000008 * pStruct9_global->dword_000024) >> 16);
     _this->dword_000004 = v15;
     v13 = v25;
     v12 = ((unsigned __int64)((v26 << 16) * v25) >> 16) - ((unsigned __int64)(v14 * v27) >> 16);
@@ -8210,7 +8194,7 @@ int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, in
     v12 = v26 << 16;
   }
   _this->dword_000008 = v12;
-  if ( pClass55_global->dword_000014 )
+  if (pCamera->sRotationX)
   {
     v17 = ((unsigned __int64)(a2 * v10) >> 16) + ((unsigned __int64)(a3 * v9) >> 16);
     _this->dword_00000C = ((unsigned __int64)(v17 * v13) >> 16) + ((unsigned __int64)(a4 * v27) >> 16);
@@ -8225,7 +8209,7 @@ int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, in
   }
   _this->dword_000014 = v16;
   v28 = v10;
-  if ( pClass55_global->dword_000014 )
+  if (pCamera->sRotationX)
   {
     v19 = ((unsigned __int64)(a5 * v28) >> 16) + ((unsigned __int64)(a6 * v9) >> 16);
     _this->dword_000018 = ((unsigned __int64)(v19 * v13) >> 16) + ((unsigned __int64)(a7 * v27) >> 16);
@@ -8292,7 +8276,7 @@ int sub_485F64(struct struct9 *_this)
 
  _this->dword_000010 = 75;
   v1 = pClass59_global->dword_001870 & 0xD5;
-  if ( v1 >= pClass59_global->dword_001864 )
+  if ( v1 >= pClass59_global->uNumTableEntries)
     v2 = -pClass59_global->pTanTable[pClass59_global->dword_001860 - v1];
   else
     v2 = pClass59_global->pTanTable[v1];
@@ -8326,9 +8310,6 @@ void class58_sub_49B525(struct class58 *_this, int a2)
 void class59_ctor(struct class59 *_this)
 {
   double v3; // ST18_8@2
-  signed int v4; // edx@3
-  int v5; // eax@4
-  int v6; // ecx@4
   signed int v8; // [sp+20h] [bp-4h]@1
  int i;
  unsigned char pTanTable[0x820] = 
@@ -8736,7 +8717,7 @@ void class59_ctor(struct class59 *_this)
  _this->pInvCosTable[0] = 65536;
 
  _this->dword_001860 = 1024;
- _this->dword_001864 = 512;
+ _this->uNumTableEntries = 512;
  _this->dword_001868 = 2048;
 
  _this->dword_00186C = 2047;
@@ -8755,21 +8736,12 @@ void class59_ctor(struct class59 *_this)
    _this->pInvCosTable[i] = memory_4D8410.f1_0 / cos(v3) * (double)_this->pCosTable[0] + memory_4D8410.d_0_5;
   }*/
 
-  v4 = _this->dword_001864;
-  if ( v4 < 520 )
-  {
-    v5 = (char *)_this + 4 * v4 + 2080;
-    v6 = 520 - v4;
-    do
-    {
-      *(_DWORD *)v5 = 0;
-      *(_DWORD *)(v5 + 2080) = -268435457;
-      *(_DWORD *)(v5 - 2080) = -268435457;
-      v5 += 4;
-      --v6;
-    }
-    while ( v6 );
-  }
+ for (i = _this->uNumTableEntries; i < 520; ++i)
+ {
+  _this->pTanTable[i] = -268435457;
+  _this->pCosTable[i] = 0;
+  _this->pInvCosTable[i] = -268435457;
+ }
 }
 
 

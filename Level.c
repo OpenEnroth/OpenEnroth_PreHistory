@@ -1528,10 +1528,10 @@ int __thiscall sub_4892E6(struct class51 *_this)
     {
       v3 = pParty_global->dword_000720 + 60 * (pParty_global->dword_00071C - 5);
       v4 = v3 * pClass59_global->dword_001860 / 960;
-      v5 = class59_sub_402CAE(pClass59_global, v3 * pClass59_global->dword_001860 / 960);
+      v5 = class59_SinCos(pClass59_global, v3 * pClass59_global->dword_001860 / 960);
       _this->dword_000D18 = v5;
       _this->dword_000D1C = 0;
-      v6 = class59_sub_402CAE(pClass59_global, v4 - pClass59_global->dword_001864);
+      v6 = class59_SinCos(pClass59_global, v4 - pClass59_global->uNumTableEntries);
       _this->dword_000D20 = v6;
       _this->dword_000D30 = -v5;
       _this->dword_000D34 = -_this->dword_000D1C;
@@ -1628,9 +1628,9 @@ bool sub_482170(struct class51_stru2 *_this, struct struct14 *a2, struct struct8
   v23 = v6->flt_000014 - a2->flt_000014;
  }
 
- if ((pClass55_global->dword_000000 - a2->x) * v26 +
-     (pClass55_global->dword_000008 - a2->y) * v25 +
-     (pClass55_global->dword_000004 - a2->z) * v24 > 0.0)
+ if ((pCamera->dword_000000 - a2->x) * v26 +
+     (pCamera->dword_000008 - a2->y) * v25 +
+     (pCamera->dword_000004 - a2->z) * v24 > 0.0)
  {
   v30 = v23 * v18 - v22 * v20;
   a3->dword_000018 = floorf(v30 + 0.5f);

@@ -234,14 +234,14 @@ LABEL_27:
           v42 = (int)&v54;
           v41 = (int)&v55;
           v40 = (int)&v56;
-          v18 = pParty_global->dword_0006C0 - pClass59_global->dword_001864;
+          v18 = pParty_global->sRotationY - pClass59_global->uNumTableEntries;
           v39 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
           goto LABEL_20;
         }
         v42 = (int)&v54;
         v41 = (int)&v55;
         v40 = (int)&v56;
-        v18 = pParty_global->dword_0006C0 - pClass59_global->dword_001864;
+        v18 = pParty_global->sRotationY - pClass59_global->uNumTableEntries;
         v39 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
       }
       else
@@ -250,7 +250,7 @@ LABEL_27:
         v41 = (int)&v55;
         v40 = (int)&v56;
         v39 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
-        v18 = pClass59_global->dword_001864 + pParty_global->dword_0006C0;
+        v18 = pClass59_global->uNumTableEntries + pParty_global->sRotationY;
       }
       v38 = pParty_global->sPartyPosY;
       v37 = pParty_global->sPartyPosX;
@@ -264,7 +264,7 @@ LABEL_21:
     v41 = (int)&v55;
     v40 = (int)&v56;
     v39 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
-    v18 = pClass59_global->dword_001864 + pParty_global->dword_0006C0;
+    v18 = pClass59_global->uNumTableEntries + pParty_global->sRotationY;
 LABEL_20:
     v38 = pParty_global->sPartyPosY;
     v37 = pParty_global->sPartyPosX;

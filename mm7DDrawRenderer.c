@@ -2412,8 +2412,6 @@ void CD3DRenderer_ClearZBuffer(struct CD3DRenderer *_this, int a2, int a3)
 
 
 //----- (004A1EB6) --------------------------------------------------------
-extern int dword_6BE360;
-extern int dword_F1B418;
 void *sub_4A1EB6(struct CD3DRenderer *_this)
 {
   int result; // eax@1

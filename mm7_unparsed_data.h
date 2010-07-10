@@ -896,7 +896,7 @@ extern int dword_507CD8; // weak
 
 
 
-extern struct class55 *pClass55_global;
+extern struct Camera *pCamera;
 
 extern struct struct14 array_507D30[];
 extern struct struct14 array_508690[];
@@ -1230,6 +1230,7 @@ extern struct class56 *pLoadingUI; // struct @ MM7.exe::00576E30
 //int dword_576E3C; // 00000C
 
 
+//definetly a viewport, used for initialization of game camera
 extern struct unnamed_576FE8
 {
  int dword_000000;
@@ -2176,7 +2177,6 @@ extern struct class35 class35_obj; // struct @ MM7.exe::0080D198
 //_UNKNOWN unk_80D198; // weak
 extern _UNKNOWN unk_816798; // weak
 extern _UNKNOWN unk_8DE798; // weak
-extern unsigned int unk_98967F; // weak
 extern _UNKNOWN unk_989680; // weak
 extern _UNKNOWN unk_9A6798; // weak
 extern _UNKNOWN unk_9EB9F1; // weak

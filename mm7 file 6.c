@@ -3565,8 +3565,8 @@ void sub_491BF9(struct Party *_this)
  _this->sPartyPosZ = 0;
 
  _this->dword_000700 = 0;
- _this->dword_0006C0 = 0;
- _this->dword_0006C4 = 0;
+ _this->sRotationX = 0;
+ _this->sRotationY = 0;
  _this->dword_0006E8 = 0;
 
  _this->dword_000028 = 0;
@@ -5373,10 +5373,10 @@ int __cdecl sub_4979D2()
 }
 
 //----- (00498069) --------------------------------------------------------
-void __fastcall sub_498069(void *this)
+void __fastcall class26_placeholder_detor(struct class26_placeholder *_this)
 {
-  *(_DWORD *)this = 5081236;
-  class26_sub_4C039C((char *)this + 4);
+ _this->ptr_000000 = 0x4D8894;
+ class26_detor(&_this->objClass26);
 }
 
 //----- (004980B9) --------------------------------------------------------
@@ -13266,7 +13266,7 @@ void sub_4A26BC(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
           CheckHRESULT(&a7, v49, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x398u, v7);
         }
       }
-      if (pClass55_global->dword_00004C & 2 || byte_51B6E4 & 2)
+      if (pCamera->dword_00004C & 2 || byte_51B6E4 & 2)
         sub_437A55(&unk_77E5C8, a3, 16777215, 0.0);
     }
   }
@@ -13834,10 +13834,10 @@ void __thiscall sub_4A354F(int this, int a2, int a3, int a4, int a5)
       v15 = v14;
       v16 = (double)(v9 - 12) - v12;
       v17 = (double)(v10 - 25) - v14;
-      v18 = class59_sub_402CAE(pClass59_global, a5);
-      v19 = class59_sub_402CAE(pClass59_global, a5 - pClass59_global->dword_001864);
-      v20 = class59_sub_402CAE(pClass59_global, a5 - pClass59_global->dword_001864);
-      v21 = class59_sub_402CAE(pClass59_global, a5);
+      v18 = class59_SinCos(pClass59_global, a5);
+      v19 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
+      v20 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
+      v21 = class59_SinCos(pClass59_global, a5);
       *(float *)(v8 + 15684288) = (((double)(unsigned __int16)v18 * 0.00001525902189314365 + (double)(v18 >> 16)) * v16
                                  - ((double)(unsigned __int16)v19 * 0.00001525902189314365 + (double)(v19 >> 16)) * v17)
                                 * v11
@@ -13856,10 +13856,10 @@ void __thiscall sub_4A354F(int this, int a2, int a3, int a4, int a5)
       *(float *)(v8 + 15684316) = 0.0;
       v23 = (double)(*(_DWORD *)(a2 + 8) - 12) - v13;
       v24 = (double)*(signed int *)(a2 + 12) - v15;
-      v25 = class59_sub_402CAE(pClass59_global, a5);
-      v26 = class59_sub_402CAE(pClass59_global, a5 - pClass59_global->dword_001864);
-      v27 = class59_sub_402CAE(pClass59_global, a5 - pClass59_global->dword_001864);
-      v28 = class59_sub_402CAE(pClass59_global, a5);
+      v25 = class59_SinCos(pClass59_global, a5);
+      v26 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
+      v27 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
+      v28 = class59_SinCos(pClass59_global, a5);
       *(float *)(v8 + 15684320) = (((double)(unsigned __int16)v25 * 0.00001525902189314365 + (double)(v25 >> 16)) * v23
                                  - ((double)(unsigned __int16)v26 * 0.00001525902189314365 + (double)(v26 >> 16)) * v24)
                                 * v11
@@ -13879,10 +13879,10 @@ void __thiscall sub_4A354F(int this, int a2, int a3, int a4, int a5)
       *(float *)(v8 + 15684348) = 1.0;
       v31 = (double)(*(_DWORD *)(a2 + 8) + 12) - v13;
       v32 = (double)*(signed int *)(a2 + 12) - v15;
-      v33 = class59_sub_402CAE(pClass59_global, a5);
-      v34 = class59_sub_402CAE(pClass59_global, a5 - pClass59_global->dword_001864);
-      v35 = class59_sub_402CAE(pClass59_global, a5 - pClass59_global->dword_001864);
-      v36 = class59_sub_402CAE(pClass59_global, a5);
+      v33 = class59_SinCos(pClass59_global, a5);
+      v34 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
+      v35 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
+      v36 = class59_SinCos(pClass59_global, a5);
       *(float *)(v8 + 15684352) = (((double)(unsigned __int16)v33 * 0.00001525902189314365 + (double)(v33 >> 16)) * v31
                                  - ((double)(unsigned __int16)v34 * 0.00001525902189314365 + (double)(v34 >> 16)) * v32)
                                 * v11
@@ -13902,10 +13902,10 @@ void __thiscall sub_4A354F(int this, int a2, int a3, int a4, int a5)
       *(float *)(v8 + 15684380) = 1.0;
       v39 = (double)(*(_DWORD *)(a2 + 8) + 12) - v13;
       v40 = (double)(*(_DWORD *)(a2 + 12) - 25) - v15;
-      v41 = class59_sub_402CAE(pClass59_global, a5);
-      v42 = class59_sub_402CAE(pClass59_global, a5 - pClass59_global->dword_001864);
-      v43 = class59_sub_402CAE(pClass59_global, a5 - pClass59_global->dword_001864);
-      v44 = class59_sub_402CAE(pClass59_global, a5);
+      v41 = class59_SinCos(pClass59_global, a5);
+      v42 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
+      v43 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
+      v44 = class59_SinCos(pClass59_global, a5);
       *(float *)(v8 + 15684384) = (((double)(unsigned __int16)v41 * 0.00001525902189314365 + (double)(v41 >> 16)) * v39
                                  - ((double)(unsigned __int16)v42 * 0.00001525902189314365 + (double)(v42 >> 16)) * v40)
                                 * v11
@@ -13995,11 +13995,11 @@ void __thiscall sub_4A3AD9(int this, int a2, int a3, int a4, int a5)
     v15 = v14;
     v16 = (double)(v9 - 12) - v12;
     v17 = (double)(v10 - 25) - v14;
-    v18 = class59_sub_402CAE(pClass59_global, a5);
-    v19 = a5 - pClass59_global->dword_001864;
-    v20 = class59_sub_402CAE(pClass59_global, a5 - pClass59_global->dword_001864);
-    v21 = class59_sub_402CAE(pClass59_global, v19);
-    v22 = class59_sub_402CAE(pClass59_global, a5);
+    v18 = class59_SinCos(pClass59_global, a5);
+    v19 = a5 - pClass59_global->uNumTableEntries;
+    v20 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
+    v21 = class59_SinCos(pClass59_global, v19);
+    v22 = class59_SinCos(pClass59_global, a5);
     *(float *)(v8 + 15684288) = (((double)(unsigned __int16)v18 * 0.00001525902189314365 + (double)(v18 >> 16)) * v16
                                - ((double)(unsigned __int16)v20 * 0.00001525902189314365 + (double)(v20 >> 16)) * v17)
                               * v11
@@ -14020,10 +14020,10 @@ void __thiscall sub_4A3AD9(int this, int a2, int a3, int a4, int a5)
     *(float *)(v8 + 15684316) = 0.0;
     v26 = (double)(*(_DWORD *)(a2 + 8) - 12) - v13;
     v27 = (double)*(signed int *)(a2 + 12) - v15;
-    v28 = class59_sub_402CAE(pClass59_global, a5);
-    v29 = class59_sub_402CAE(pClass59_global, v19);
-    v30 = class59_sub_402CAE(pClass59_global, v19);
-    v31 = class59_sub_402CAE(pClass59_global, a5);
+    v28 = class59_SinCos(pClass59_global, a5);
+    v29 = class59_SinCos(pClass59_global, v19);
+    v30 = class59_SinCos(pClass59_global, v19);
+    v31 = class59_SinCos(pClass59_global, a5);
     *(float *)(v8 + 15684320) = (((double)(unsigned __int16)v28 * 0.00001525902189314365 + (double)(v28 >> 16)) * v26
                                - ((double)(unsigned __int16)v29 * 0.00001525902189314365 + (double)(v29 >> 16)) * v27)
                               * v11
@@ -14042,10 +14042,10 @@ void __thiscall sub_4A3AD9(int this, int a2, int a3, int a4, int a5)
     *(float *)(v8 + 15684348) = 1.0;
     v33 = (double)(*(_DWORD *)(a2 + 8) + 12) - v13;
     v34 = (double)*(signed int *)(a2 + 12) - v15;
-    v35 = class59_sub_402CAE(pClass59_global, a5);
-    v36 = class59_sub_402CAE(pClass59_global, v19);
-    v37 = class59_sub_402CAE(pClass59_global, v19);
-    v38 = class59_sub_402CAE(pClass59_global, a5);
+    v35 = class59_SinCos(pClass59_global, a5);
+    v36 = class59_SinCos(pClass59_global, v19);
+    v37 = class59_SinCos(pClass59_global, v19);
+    v38 = class59_SinCos(pClass59_global, a5);
     *(float *)(v8 + 15684352) = (((double)(unsigned __int16)v35 * 0.00001525902189314365 + (double)(v35 >> 16)) * v33
                                - ((double)(unsigned __int16)v36 * 0.00001525902189314365 + (double)(v36 >> 16)) * v34)
                               * v11
@@ -14064,10 +14064,10 @@ void __thiscall sub_4A3AD9(int this, int a2, int a3, int a4, int a5)
     *(float *)(v8 + 15684380) = 1.0;
     v40 = (double)(*(_DWORD *)(a2 + 8) + 12) - v13;
     v41 = (double)(*(_DWORD *)(a2 + 12) - 25) - v15;
-    v42 = class59_sub_402CAE(pClass59_global, a5);
-    v43 = class59_sub_402CAE(pClass59_global, v19);
-    v44 = class59_sub_402CAE(pClass59_global, v19);
-    v45 = class59_sub_402CAE(pClass59_global, a5);
+    v42 = class59_SinCos(pClass59_global, a5);
+    v43 = class59_SinCos(pClass59_global, v19);
+    v44 = class59_SinCos(pClass59_global, v19);
+    v45 = class59_SinCos(pClass59_global, a5);
     *(float *)(v8 + 15684384) = (((double)(unsigned __int16)v42 * 0.00001525902189314365 + (double)(v42 >> 16)) * v40
                                - ((double)(unsigned __int16)v43 * 0.00001525902189314365 + (double)(v43 >> 16)) * v41)
                               * v11
@@ -17881,7 +17881,7 @@ int __fastcall sub_4AB66C(int a1, int a2)
 {
   int v2; // eax@1
 
-  v2 = pClass59_global->dword_00186C & (sub_45281E(pClass59_global, a1 - pParty_global->sPartyPosX, a2 - pParty_global->sPartyPosY) - pClass59_global->dword_001864 - pParty_global->dword_0006C0);
+  v2 = pClass59_global->dword_00186C & (sub_45281E(pClass59_global, a1 - pParty_global->sPartyPosX, a2 - pParty_global->sPartyPosY) - pClass59_global->uNumTableEntries - pParty_global->sRotationY);
   if ( v2 > pClass59_global->dword_001860 )
     v2 = 2 * pClass59_global->dword_001860 - v2;
   return (v2 >> 3) - (v2 >> 10);

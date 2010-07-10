@@ -953,8 +953,7 @@ int dword_507AF8; // idb
 
 
 
-struct class55 *pClass55_global = 0; // struct     @ MM7.exe::00507CE0
-
+struct Camera *pCamera = 0;          // struct     @ MM7.exe::00507CE0
 struct struct14 array_507D30[50];    // struct[50] @ MM7.exe::00507D30
 struct struct14 array_508690[50];    // struct[50] @ MM7.exe::00508690
 struct struct14 array_508FF0[50];    // struct[50] @ MM7.exe::00508FF0
@@ -2152,7 +2151,6 @@ struct class35 class35_obj; // struct @ MM7.exe::0080D198
 //_UNKNOWN unk_80D198; // weak
  _UNKNOWN unk_816798; // weak
  _UNKNOWN unk_8DE798; // weak
- unsigned int unk_98967F; // weak
  _UNKNOWN unk_989680; // weak
  _UNKNOWN unk_9A6798; // weak
  _UNKNOWN unk_9EB9F1; // weak
