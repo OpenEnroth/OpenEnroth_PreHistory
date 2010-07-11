@@ -2687,73 +2687,6 @@ LSTATUS __fastcall RegistryWriteInt(const CHAR *a1, int a2)
   return result;
 }
 
-//----- (0049289C) --------------------------------------------------------
-int sub_49289C(struct Player *_this, int a2, const void *Src)
-{
-  int v3; // eax@1
-  signed int v4; // ebx@1
-  int result; // eax@6
-  struct class18 *v6; // esi@7
-  int v7; // eax@7
-  int v8; // edx@9
-  void *v9; // esi@10
-  int v11; // [sp+4h] [bp-Ch]@7
-  int v12; // [sp+8h] [bp-8h]@7
-  void *v13; // [sp+Ch] [bp-4h]@1
-  int v14; // [sp+18h] [bp+8h]@10
- wchar_t pFilename[256];
-
-  v13 = _this;
-  v4 = 0;
-  v3 = _this->array_000214;
-  while ( *(_DWORD *)v3 )
-  {
-    ++v4;
-    v3 += 36;
-    if ( v4 >= 126 )
-    {
-      v4 = -1;
-      break;
-    }
-  }
-  if ( v4 == -1 )
-  {
-    result = 0;
-  }
-  else
-  {
-   wsprintfW(pFilename, L"%S", pClass40->pItems[*(_DWORD *)Src].pIconName);
-   v7 = class17_LoadTexture_New(pClass17_Icons_LOD, pFilename);
-   v6 = &pClass17_Icons_LOD->aLODHeaders[v7];
-
-   v11 = GetSizeInInventorySlots(v6->uTextureWidth);
-   v12 = GetSizeInInventorySlots(v6->uTextureHeight);
-
-    if ( !dword_506128 )
-    {
-      sub_40F77C(v6);
-      sub_40F9C5(pClass17_Icons_LOD);
-    }
-    v8 = a2;
-    if ( v12 > 0 )
-    {
-      v14 = v12;
-      v9 = &_this->array_00157C[v8];
-      do
-      {
-        if ( v11 > 0 )
-          memset(v9, -1 - v8, 4 * v11);
-        v9 = (char *)v9 + 56;
-      }
-      while ( v14-- != 1 );
-    }
-    _this->array_00157C[v8] = v4 + 1;
-    memcpy(&_this->array_000214[v4], Src, sizeof(struct Player_stru0));
-    result = v4 + 1;
-  }
-  return result;
-}
-
 //----- (00479089) --------------------------------------------------------
 bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
 {
@@ -8342,26 +8275,6 @@ void __thiscall Keyboard_resume(int this)
   }
 }
 
-//----- (00490109) --------------------------------------------------------
-int GetRaceByFace(struct Player *_this)
-{
-  signed int v2; // ecx@1
-
-  v2 = _this->uFace;
-  if ( v2 > 15 && v2 < 20)
-    return 2;
-  else if ( v2 > 12)
-    return 3;
-  else if ( v2 >= 0 )
-  {
-   if ( v2 <= 7 )
-     return 0;
-   else if ( v2 <= 11 )
-     return 1;
-  }
-  return 0;
-}
-
 //----- (0041B690) --------------------------------------------------------
 void __cdecl UI_Initialize_Icons()
 {
@@ -8641,23 +8554,6 @@ void __cdecl UI_Initialize_Icons()
 
  uIconIdx_Spell21 = CIconFrameTable_FindIcon(pIconFrameTable, "spell21");
  uIconIdx_Spell27 = CIconFrameTable_FindIcon(pIconFrameTable, "spell27");
-}
-
-//----- (0048E9F4) --------------------------------------------------------
-int __thiscall sub_48E9F4_GetConditionNameOffset(struct Player *_this)
-{
-  signed int v1; // edx@1
-
-  v1 = 0;
-  while (true)
-  {
-   if (*((int *)_this + 2 * dword_4EDEF8[v1]) | *((int *)_this + 2 * dword_4EDEF8[v1] + 1))
-     break;
-
-   if (++v1 >= 18)
-     return 18;
-  }
-  return dword_4EDEF8[v1];
 }
 
 //----- (00486B4E) --------------------------------------------------------
@@ -13399,7 +13295,7 @@ unsigned int PlayerCreationUI_GetStatColor(struct Player *_this, int Stat)
   default: v8 = Stat;                 break;
  }
 
- v7 = g_StatTable[GetRaceByFace(_this)][Stat].InitialStat;
+ v7 = g_StatTable[Player_GetRace(_this)][Stat].InitialStat;
 
  if (v8 == v7)
    return 0xFFFFFFFF;

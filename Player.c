@@ -1,0 +1,2609 @@
+#include "mm7_unparsed_data.h"
+#include "mm7_unparsed_functions.h"
+
+#include "defs.h"
+#include "mm7DDrawRenderer.h"
+#include "AIL.h"
+#include "Smacker.h"
+#include "Level.h"
+#include "FrameTables.h"
+
+#include "data.h"
+
+//----- (00490188) --------------------------------------------------------
+__int16 Player_SetInitialStats(struct Player *_this)
+{
+  int r = Player_GetRace(_this);
+  _this->uStrength = g_StatTable[r][0].InitialStat;
+  _this->uIntelligence = g_StatTable[r][1].InitialStat;
+  _this->uWillpower = g_StatTable[r][2].InitialStat;
+  _this->uEndurance = g_StatTable[r][3].InitialStat;
+  _this->uSpeed = g_StatTable[r][5].InitialStat;
+  _this->uAccuracy = g_StatTable[r][4].InitialStat;
+  _this->uLuck = g_StatTable[r][6].InitialStat;
+  return g_StatTable[r][6].InitialStat;
+}
+
+//----- (0048E9B7) --------------------------------------------------------
+void Player_RandomizeName(struct Player *_this)
+{
+ if ( !_this->word_001A9E)
+   strcpy(_this->sName, pNPCStats->pNPCNames[rand() % pNPCStats->uNumNPCNames[_this->uSex]][_this->uSex]);
+}
+
+//----- (00490109) --------------------------------------------------------
+int Player_GetRace(struct Player *_this)
+{
+  signed int v2; // ecx@1
+
+  v2 = _this->uFace;
+  if ( v2 > 15 && v2 < 20)
+    return 2;
+  else if ( v2 > 12)
+    return 3;
+  else if ( v2 >= 0 )
+  {
+   if ( v2 <= 7 )
+     return 0;
+   else if ( v2 <= 11 )
+     return 1;
+  }
+  return 0;
+}
+
+//----- (0048C855) --------------------------------------------------------
+int __thiscall Player_GetBaseStrength(struct Player *_this)
+{
+  return _this->uStrength + Player_MaybeGetWearItemsBonus(_this, 0, 0);
+}
+
+//----- (0048C86C) --------------------------------------------------------
+int __thiscall Player_GetBaseIntelligence(struct Player *_this)
+{
+  return _this->uIntelligence + Player_MaybeGetWearItemsBonus(_this, 1, 0);
+}
+
+//----- (0048C883) --------------------------------------------------------
+int __thiscall Player_GetBaseWillpower(struct Player *_this)
+{
+  return _this->uWillpower + Player_MaybeGetWearItemsBonus(_this, 2, 0);
+}
+
+//----- (0048C89A) --------------------------------------------------------
+int __thiscall Player_GetBaseEndurance(struct Player *_this)
+{
+  return _this->uEndurance + Player_MaybeGetWearItemsBonus(_this, 3, 0);
+}
+
+//----- (0048C8B1) --------------------------------------------------------
+int __thiscall Player_GetBaseAccuracy(struct Player *_this)
+{
+  return _this->uAccuracy + Player_MaybeGetWearItemsBonus(_this, 4, 0);
+}
+
+//----- (0048C8C8) --------------------------------------------------------
+int __thiscall Player_GetBaseSpeed(struct Player *_this)
+{
+  return _this->uSpeed + Player_MaybeGetWearItemsBonus(_this, 5, 0);
+}
+
+//----- (0048C8DF) --------------------------------------------------------
+int __thiscall Player_GetBaseLuck(struct Player *_this)
+{
+  return _this->uLuck + Player_MaybeGetWearItemsBonus(_this, 6, 0);
+}
+
+//----- (0048C8F6) --------------------------------------------------------
+int __thiscall Player_GetBaseLevel(struct Player *_this)
+{
+  return _this->BaseLevel + Player_MaybeGetWearItemsBonus(_this, 24, 0);
+}
+
+//----- (0048C93C) --------------------------------------------------------
+int Player_GetActualStrength(struct Player *_this)
+{
+  int v1; // eax@1
+  signed int v2; // ecx@1
+  signed int v4; // ebx@4
+  int v6; // edi@5
+  int v7; // ST14_4@5
+
+  v1 = Player_GetActualAge(_this);
+  v2 = 0;
+  while ( v1 >= dword_4EDFD0[v2] )
+  {
+    ++v2;
+    if ( v2 >= 4 )
+    {
+      v4 = 100;
+      goto LABEL_5;
+    }
+  }
+  v4 = (unsigned __int8)byte_4EDFE0[v2];
+LABEL_5:
+  v6 = (unsigned __int8)byte_4EDF48[sub_48E9F4_GetConditionNameOffset(_this)];
+  v7 = Player_MaybeGetWearItemsBonus(_this, 0, 0);
+  return v6 * v4 * _this->uStrength / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 0) + v7 + _this->uStrengthBonus;
+}
+
+//----- (0048CABC) --------------------------------------------------------
+int Player_GetActualEndurance(struct Player *_this)
+{
+  int v1; // eax@1
+  signed int v2; // ecx@1
+  signed int v4; // ebx@4
+  int v6; // edi@5
+  int v7; // ebp@5
+
+  v1 = Player_GetActualAge(_this);
+  v2 = 0;
+  while ( v1 >= dword_4EDFD0[v2] )
+  {
+    ++v2;
+    if ( v2 >= 4 )
+    {
+      v4 = 100;
+      goto LABEL_5;
+    }
+  }
+  v4 = (unsigned __int8)byte_4EDFEC[v2];
+LABEL_5:
+  v6 = byte_4EDF81[sub_48E9F4_GetConditionNameOffset(_this)];
+  v7 = Player_MaybeGetWearItemsBonus(_this, 3, 0);
+  return v6 * v4 * _this->uEndurance / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 3) + v7 + _this->uEnduranceBonus;
+}
+
+//----- (0048C90D) --------------------------------------------------------
+int Player_GetActualLevel(struct Player *_this)
+{
+  return Player_GetBaseLevel(_this) + _this->TempLevelBonus + Player_MaybeGetCastSpellBonus(_this, 24);
+}
+
+//----- (0048E72C) --------------------------------------------------------
+int __thiscall Player_GetActualAge(struct Player *_this)
+{
+  return Player_GetBaseAge(_this) + _this->AgeingAdd;
+}
+
+//----- (0048E6DC) --------------------------------------------------------
+int Player_GetBaseAge(struct Player *_this)
+{
+  double d = pParty_global->qword_00002C;
+  return (signed int)((unsigned int)((signed __int64)(d * 0.234375) / 60 / 60) / 0x18) / 7 / 4 / 12
+       - _this->dword_001944 + 1168;
+}
+
+//----- (0048C9C2) --------------------------------------------------------
+int __thiscall Player_GetActualIntelligence(struct Player *_this)
+{
+  int v1; // eax@1
+  signed int v2; // ecx@1
+  signed int v4; // ebx@4
+  int v6; // edi@5
+  int v7; // ebp@5
+
+  v1 = Player_GetActualAge(_this);
+  v2 = 0;
+  while ( v1 >= dword_4EDFD0[v2] )
+  {
+    ++v2;
+    if ( v2 >= 4 )
+    {
+      v4 = 100;
+      goto LABEL_5;
+    }
+  }
+  v4 = (unsigned __int8)byte_4EDFE4[v2];
+LABEL_5:
+  v6 = (unsigned __int8)byte_4EDF5B[sub_48E9F4_GetConditionNameOffset(_this)];
+  v7 = Player_MaybeGetWearItemsBonus(_this, 1, 0);
+  return v6 * v4 * _this->uIntelligence / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 1) + v7 + _this->uIntelligenceBonus;
+}
+
+//----- (0048CA3F) --------------------------------------------------------
+int __thiscall Player_GetActualWillpower(struct Player *_this)
+{
+  int v1; // eax@1
+  signed int v2; // ecx@1
+  signed int v4; // ebx@4
+  int v6; // edi@5
+  int v7; // ebp@5
+
+  v1 = Player_GetActualAge(_this);
+  v2 = 0;
+  while ( v1 >= dword_4EDFD0[v2] )
+  {
+    ++v2;
+    if ( v2 >= 4 )
+    {
+      v4 = 100;
+      goto LABEL_5;
+    }
+  }
+  v4 = (unsigned __int8)byte_4EDFE8[v2];
+LABEL_5:
+  v6 = (unsigned __int8)byte_4EDF6E[sub_48E9F4_GetConditionNameOffset(_this)];
+  v7 = Player_MaybeGetWearItemsBonus(_this, 2, 0);
+  return v6 * v4 * _this->uWillpower / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 2) + v7 + _this->uWillpowerBonus;
+}
+
+//----- (0048CB39) --------------------------------------------------------
+int __thiscall Player_GetActualAccuracy(struct Player *_this)
+{
+  int v1; // eax@1
+  signed int v2; // ecx@1
+  signed int v4; // ebx@4
+  int v6; // edi@5
+  int v7; // ebp@5
+
+  v1 = Player_GetActualAge(_this);
+  v2 = 0;
+  while ( v1 >= dword_4EDFD0[v2] )
+  {
+    ++v2;
+    if ( v2 >= 4 )
+    {
+      v4 = 100;
+      goto LABEL_5;
+    }
+  }
+  v4 = (unsigned __int8)byte_4EDFF0[v2];
+LABEL_5:
+  v6 = (unsigned __int8)byte_4EDF94[sub_48E9F4_GetConditionNameOffset(_this)];
+  v7 = Player_MaybeGetWearItemsBonus(_this, 4, 0);
+  return v6 * v4 * _this->uAccuracy / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 4) + v7 + _this->uAccuracyBonus;
+}
+
+//----- (0048CBB6) --------------------------------------------------------
+int __thiscall Player_GetActualSpeed(struct Player *_this)
+{
+  int v1; // eax@1
+  signed int v2; // ecx@1
+  signed int v4; // ebx@4
+  int v6; // edi@5
+  int v7; // ebp@5
+
+  v1 = Player_GetActualAge(_this);
+  v2 = 0;
+  while ( v1 >= dword_4EDFD0[v2] )
+  {
+    ++v2;
+    if ( v2 >= 4 )
+    {
+      v4 = 100;
+      goto LABEL_5;
+    }
+  }
+  v4 = (unsigned __int8)byte_4EDFF4[v2];
+LABEL_5:
+  v6 = (unsigned __int8)byte_4EDFA7[sub_48E9F4_GetConditionNameOffset(_this)];
+  v7 = Player_MaybeGetWearItemsBonus(_this, 5, 0);
+  return v6 * v4 * _this->uSpeed / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 5) + v7 + _this->uSpeedBonus;
+}
+
+//----- (0048CC33) --------------------------------------------------------
+int __thiscall Player_GetActualLuck(struct Player *_this)
+{
+  int v2; // eax@1
+  int v3; // eax@3
+  int v4; // eax@5
+  int v5; // eax@7
+  signed int v6; // ecx@7
+  signed int v7; // ebx@10
+  int v9; // edi@11
+  int v10; // ebp@11
+  signed int v11; // [sp+10h] [bp-4h]@1
+
+  v11 = 0;
+  LOBYTE(v2) = sub_476395(0x1B);
+  if ( v2 )
+    v11 = 5;
+  LOBYTE(v3) = sub_476395(0x1C);
+  if ( v3 )
+    v11 += 20;
+  LOBYTE(v4) = sub_476395(0x2F);
+  if ( v4 )
+    v11 += 10;
+  v5 = Player_GetActualAge(_this);
+  v6 = 0;
+  while ( v5 >= dword_4EDFD0[v6] )
+  {
+    ++v6;
+    if ( v6 >= 4 )
+    {
+      v7 = 100;
+      goto LABEL_11;
+    }
+  }
+  v7 = (unsigned __int8)byte_4EDFF8[v6];
+LABEL_11:
+  v9 = (unsigned __int8)byte_4EDFBA[sub_48E9F4_GetConditionNameOffset(_this)];
+  v10 = Player_MaybeGetWearItemsBonus(_this, 6, 0);
+  return Player_MaybeGetCastSpellBonus(_this, 6) + v10 + v11 + v9 * v7 * _this->uLuck / 100 / 100 + _this->uLuckBonus;
+}
+
+//----- (0048E4F8) --------------------------------------------------------
+int Player_GetMaxHealth(struct Player *_this)
+{
+  signed int result; // eax@1
+  int v2; // esi@1
+  int v4; // eax@1
+  int v5; // esi@1
+  int v6; // esi@1
+  int v7; // esi@1
+
+  v4 = Player_GetActualEndurance(_this);
+  v5 = sub_48EA1B(v4);
+  v6 = byte_4ED768[_this->uClass] * (Player_GetActualLevel(_this) + v5);
+  v7 = Player_MaybeGetWearItemsBonus(_this, 7, 0) + v6;
+  v2 = _this->byte_001A98
+     + byte_4ED750[_this->uClass >> 2]
+     + sub_48FC00(_this, 7)
+     + v7;
+  result = 1;
+  if ( v2 >= 1 )
+    result = v2;
+  return result;
+}
+
+//----- (0048E565) --------------------------------------------------------
+int __thiscall Player_GetMaxMana(int this)
+{
+  int v1; // edi@1
+  int v2; // eax@2
+  int v3; // esi@4
+  int v4; // eax@5
+  int v5; // esi@5
+  int v6; // eax@5
+  int v7; // esi@6
+  int v8; // esi@6
+  int v9; // esi@6
+  int result; // eax@7
+
+  v1 = this;
+  switch ( *(_BYTE *)(this + 185) )
+  {
+    case 5:
+    case 6:
+    case 7:
+    case 0x10:
+    case 0x11:
+    case 0x12:
+    case 0x13:
+    case 0x20:
+    case 0x21:
+    case 0x22:
+    case 0x23:
+      v2 = Player_GetActualIntelligence(this);
+      goto LABEL_4;
+    case 9:
+    case 0xA:
+    case 0xB:
+    case 0xC:
+    case 0xD:
+    case 0xE:
+    case 0xF:
+    case 0x18:
+    case 0x19:
+    case 0x1A:
+    case 0x1B:
+      v2 = Player_GetActualWillpower(this);
+LABEL_4:
+      v3 = sub_48EA1B(v2);
+      goto LABEL_6;
+    case 0x15:
+    case 0x16:
+    case 0x17:
+    case 0x1C:
+    case 0x1D:
+    case 0x1E:
+    case 0x1F:
+      v4 = Player_GetActualWillpower(this);
+      v5 = sub_48EA1B(v4);
+      v6 = Player_GetActualIntelligence(v1);
+      v3 = sub_48EA1B(v6) + v5;
+LABEL_6:
+      v8 = (unsigned __int8)byte_4ED78C[*(_BYTE *)(v1 + 185)] * (Player_GetActualLevel((void *)v1) + v3);
+      v9 = Player_MaybeGetWearItemsBonus((void *)v1, 8, 0) + v8;
+      v7 = *(_BYTE *)(v1 + 6810)
+         + (unsigned __int8)byte_4ED75C[(unsigned int)*(_BYTE *)(v1 + 185) >> 2]
+         + sub_48FC00((void *)v1, 8)
+         + v9;
+      if ( v7 < 1 )
+        goto LABEL_7;
+      result = v7;
+      break;
+    default:
+LABEL_7:
+      result = 0;
+      break;
+  }
+  return result;
+}
+
+//----- (0048E9F4) --------------------------------------------------------
+int __thiscall sub_48E9F4_GetConditionNameOffset(struct Player *_this)
+{
+  signed int v1; // edx@1
+
+  v1 = 0;
+  while (true)
+  {
+   if (*((int *)_this + 2 * dword_4EDEF8[v1]) | *((int *)_this + 2 * dword_4EDEF8[v1] + 1))
+     break;
+
+   if (++v1 >= 18)
+     return 18;
+  }
+  return dword_4EDEF8[v1];
+}
+
+//----- (0048CCF5) --------------------------------------------------------
+int __thiscall sub_48CCF5(int this, int a2)
+{
+  int v3; // esi@1
+  int v4; // eax@1
+  int v5; // edi@1
+  int v6; // ebx@1
+  int v7; // ebp@1
+
+  v3 = this;
+  v4 = Player_GetActualAccuracy(this);
+  v5 = sub_48EA1B(v4);
+  v6 = sub_48FC00((void *)v3, 25);
+  v7 = Player_MaybeGetWearItemsBonus((void *)v3, 25, a2);
+  return v5 + v6 + v7 + Player_MaybeGetCastSpellBonus(v3, 25) + *(_BYTE *)(v3 + 6800);
+}
+
+//----- (0048CD45) --------------------------------------------------------
+signed int __thiscall sub_48CD45(int this)
+{
+  signed int result; // eax@1
+  int v2; // esi@1
+  int v3; // edi@1
+  int v4; // eax@1
+  int v5; // esi@1
+  int v6; // esi@1
+  int v7; // esi@1
+
+  v3 = this;
+  v4 = Player_GetActualStrength(this);
+  v5 = sub_48EA1B(v4);
+  v6 = Player_MaybeGetWearItemsBonus((void *)v3, 27, 0) + v5;
+  v7 = sub_48FC00((void *)v3, 26) + v6;
+  v2 = *(_BYTE *)(v3 + 6802) + Player_MaybeGetCastSpellBonus(v3, 26) + v7;
+  result = 1;
+  if ( v2 >= 1 )
+    result = v2;
+  return result;
+}
+
+//----- (0048CD90) --------------------------------------------------------
+signed int __thiscall sub_48CD90(int this)
+{
+  signed int result; // eax@1
+  int v2; // esi@1
+  int v3; // edi@1
+  int v4; // eax@1
+  int v5; // esi@1
+  int v6; // esi@1
+  int v7; // esi@1
+
+  v3 = this;
+  v4 = Player_GetActualStrength(this);
+  v5 = sub_48EA1B(v4);
+  v6 = Player_MaybeGetWearItemsBonus((void *)v3, 28, 0) + v5;
+  v7 = sub_48FC00((void *)v3, 26) + v6;
+  v2 = *(_BYTE *)(v3 + 6802) + Player_MaybeGetCastSpellBonus(v3, 26) + v7;
+  result = 1;
+  if ( v2 >= 1 )
+    result = v2;
+  return result;
+}
+
+//----- (0048CDDB) --------------------------------------------------------
+signed int __thiscall sub_48CDDB(void *this, int a2, int a3, signed int a4)
+{
+  int v4; // edi@1
+  int v5; // esi@1
+  int v6; // eax@4
+  int v7; // ebx@4
+  int v8; // ebp@4
+  int v9; // esi@4
+  int v10; // eax@9
+  char v11; // zf@9
+  int v12; // esi@10
+  int v13; // eax@11
+  int v14; // edx@24
+  int v15; // ebx@35
+  int v16; // ebp@35
+  int v17; // esi@35
+  int v18; // edx@38
+  char v19; // zf@38
+  int v20; // eax@40
+  int v21; // edx@53
+  int v22; // esi@62
+  int v23; // eax@63
+  int v24; // ebx@63
+  int v25; // ebx@63
+  signed int result; // eax@64
+  signed int v27; // [sp-4h] [bp-24h]@20
+  signed int v28; // [sp-4h] [bp-24h]@49
+  int v29; // [sp+10h] [bp-10h]@1
+  int v30; // [sp+10h] [bp-10h]@33
+  signed int v31; // [sp+14h] [bp-Ch]@7
+  signed int v32; // [sp+14h] [bp-Ch]@36
+  int v33; // [sp+18h] [bp-8h]@1
+  int v34; // [sp+18h] [bp-8h]@8
+  int v35; // [sp+1Ch] [bp-4h]@1
+  int v36; // [sp+28h] [bp+8h]@37
+
+  v5 = 0;
+  v4 = (int)this;
+  v35 = 0;
+  v33 = 0;
+  v29 = 0;
+  if ( sub_48D676(this) == 1 )
+  {
+    v33 = rand() % 3 + 1;
+LABEL_61:
+    v35 = v5;
+    goto LABEL_62;
+  }
+  if ( sub_48D6AA((void *)v4, 1) )
+  {
+    v7 = v4 + 36 * *(_DWORD *)(v4 + 6476) + 496;
+    v8 = *(_DWORD *)v7;
+    v9 = 48 * *(_DWORD *)v7;
+    v6 = (unsigned __int8)byte_5D2A00[v9 + 2];
+    if ( byte_5D2A00[v9 + 1] == 4 )
+    {
+      if ( !*(_DWORD *)(v4 + 6472) )
+        ++v6;
+    }
+    v31 = (unsigned __int8)byte_5D2A00[v9 + 3];
+    if ( v6 > 0 )
+    {
+      v34 = v6;
+      do
+      {
+        v10 = rand();
+        v11 = v34-- == 1;
+        v29 += v10 % v31 + 1;
+      }
+      while ( !v11 );
+    }
+    v12 = (unsigned __int8)byte_5D2A00[v9 + 4] + v29;
+    if ( !a4 )
+      goto LABEL_28;
+    v13 = *(_DWORD *)(v7 + 12);
+    if ( v13 == 64 || v8 == 507 || v8 == 508 || v8 == 527 )
+    {
+      v14 = 1;
+    }
+    else
+    {
+      if ( v13 == 39 )
+      {
+        v27 = 2;
+      }
+      else
+      {
+        if ( v13 == 40 )
+        {
+          v27 = 3;
+        }
+        else
+        {
+          if ( v13 == 63 || v8 == 517 )
+          {
+            v27 = 4;
+          }
+          else
+          {
+            if ( v13 != 65 )
+            {
+LABEL_28:
+              if ( sub_458244(*(_WORD *)(v4 + 268)) >= 3 )
+              {
+                if ( byte_5D2A00[48 * *(_DWORD *)v7 + 1] == 2 )
+                {
+                  if ( rand() % 100 < 10 )
+                    v12 *= 3;
+                }
+              }
+              v33 = v12;
+              goto LABEL_33;
+            }
+            v27 = 7;
+          }
+        }
+      }
+      v14 = v27;
+    }
+    if ( sub_438BDF(a4, v14) )
+      v12 *= 2;
+    goto LABEL_28;
+  }
+LABEL_33:
+  v30 = 0;
+  if ( !a3 )
+  {
+    if ( sub_48D6AA((void *)v4, 0) )
+    {
+      v15 = v4 + 36 * *(_DWORD *)(v4 + 6472) + 496;
+      v16 = *(_DWORD *)v15;
+      v17 = 48 * *(_DWORD *)v15;
+      if ( byte_5D2A00[v17] != 4 )
+      {
+        v32 = (unsigned __int8)byte_5D2A00[v17 + 3];
+        if ( (signed int)(unsigned __int8)byte_5D2A00[v17 + 2] > 0 )
+        {
+          v36 = (unsigned __int8)byte_5D2A00[v17 + 2];
+          do
+          {
+            v18 = rand() % v32;
+            v19 = v36-- == 1;
+            v30 += v18 + 1;
+          }
+          while ( !v19 );
+        }
+        v5 = (unsigned __int8)byte_5D2A00[v17 + 4] + v30;
+        if ( !a4 )
+          goto LABEL_57;
+        v20 = *(_DWORD *)(v15 + 12);
+        if ( v20 == 64 || v16 == 507 || v16 == 508 || v16 == 527 )
+        {
+          v21 = 1;
+        }
+        else
+        {
+          if ( v20 == 39 )
+          {
+            v28 = 2;
+          }
+          else
+          {
+            if ( v20 == 40 )
+            {
+              v28 = 3;
+            }
+            else
+            {
+              if ( v20 == 63 || v16 == 517 )
+              {
+                v28 = 4;
+              }
+              else
+              {
+                if ( v20 != 65 )
+                {
+LABEL_57:
+                  if ( byte_5D2A00[48 * *(_DWORD *)v15 + 1] == 2 )
+                  {
+                    if ( sub_458244(*(_WORD *)(v4 + 268) >= 3u) )
+                    {
+                      if ( rand() % 100 < 10 )
+                        v5 *= 3;
+                    }
+                  }
+                  goto LABEL_61;
+                }
+                v28 = 7;
+              }
+            }
+          }
+          v21 = v28;
+        }
+        if ( sub_438BDF(a4, v21) )
+          v5 *= 2;
+        goto LABEL_57;
+      }
+    }
+  }
+LABEL_62:
+  v22 = v33 + v35;
+  if ( !a2 )
+  {
+    v23 = Player_GetActualStrength(v4);
+    v24 = sub_48EA1B(v23);
+    v25 = sub_48FC00((void *)v4, 26) + v24;
+    v22 += *(_BYTE *)(v4 + 6802) + Player_MaybeGetCastSpellBonus(v4, 26) + v25;
+  }
+  result = 1;
+  if ( v22 >= 1 )
+    result = v22;
+  return result;
+}
+
+//----- (0048D0B9) --------------------------------------------------------
+int __thiscall sub_48D0B9(int this)
+{
+  signed int v1; // eax@1
+  int v2; // esi@1
+  int v3; // edi@3
+  int v4; // eax@4
+  int v5; // edi@4
+  int v6; // edi@4
+  int v7; // edi@4
+
+  v2 = this;
+  v1 = *(_DWORD *)(this + 36 * *(_DWORD *)(this + 6476) + 496);
+  if ( v1 < 64 || v1 > 65 )
+  {
+    v4 = Player_GetActualAccuracy(this);
+    v5 = sub_48EA1B(v4);
+    v6 = Player_MaybeGetWearItemsBonus((void *)v2, 29, 0) + v5;
+    v7 = sub_48FC00((void *)v2, 29) + v6;
+    v3 = *(_BYTE *)(v2 + 6804) + Player_MaybeGetCastSpellBonus(v2, 29) + v7;
+  }
+  else
+  {
+    v3 = sub_48CCF5(this, 1);
+  }
+  return v3;
+}
+
+//----- (0048D124) --------------------------------------------------------
+int __thiscall sub_48D124(void *this)
+{
+  __int16 v1; // ax@1
+  int v2; // edi@1
+  int v3; // esi@1
+  int v4; // edi@1
+  int v5; // edi@1
+  int result; // eax@6
+
+  v3 = (int)this;
+  v4 = Player_MaybeGetWearItemsBonus(this, 31, 0);
+  v5 = sub_48FC00((void *)v3, 30) + v4;
+  v2 = *(_BYTE *)(v3 + 6806) + Player_MaybeGetCastSpellBonus(v3, 30) + v5;
+  v1 = *(_WORD *)(v3 + 274);
+  if ( v1 )
+  {
+    if ( sub_458244(v1) >= 4 )
+    {
+      if ( sub_48D6AA((void *)v3, 2) )
+        v2 += *(_BYTE *)(v3 + 274) & 0x3F;
+    }
+  }
+  if ( v2 >= 1 )
+    result = v2;
+  else
+    result = 0;
+  return result;
+}
+
+//----- (0048D191) --------------------------------------------------------
+int __thiscall sub_48D191(void *this)
+{
+  __int16 v1; // ax@1
+  int v2; // edi@1
+  int v3; // esi@1
+  int v4; // edi@1
+  int v5; // edi@1
+  int result; // eax@6
+
+  v3 = (int)this;
+  v4 = Player_MaybeGetWearItemsBonus(this, 32, 0);
+  v5 = sub_48FC00((void *)v3, 30) + v4;
+  v2 = *(_BYTE *)(v3 + 6806) + Player_MaybeGetCastSpellBonus(v3, 30) + v5;
+  v1 = *(_WORD *)(v3 + 274);
+  if ( v1 )
+  {
+    if ( sub_458244(v1) >= 4 )
+    {
+      if ( sub_48D6AA((void *)v3, 2) )
+        v2 += *(_BYTE *)(v3 + 274) & 0x3F;
+    }
+  }
+  if ( v2 >= 1 )
+    result = v2;
+  else
+    result = 0;
+  return result;
+}
+
+//----- (0048D2EA) --------------------------------------------------------
+char *__thiscall sub_48D2EA(int this)
+{
+  signed int v1; // eax@1
+  int v2; // esi@1
+  signed int v3; // eax@3
+  signed int v4; // edi@3
+  char *v5; // edi@6
+  signed int v6; // ST0C_4@6
+  signed int v7; // ST08_4@7
+  int v8; // eax@8
+  signed int v9; // esi@9
+
+  v2 = this;
+  v1 = *(_DWORD *)(this + 36 * *(_DWORD *)(this + 6476) + 496);
+  if ( v1 < 64 || v1 > 65 )
+  {
+    v4 = sub_48CD45(this);
+    v3 = sub_48CD90(v2);
+  }
+  else
+  {
+    v4 = Player_MaybeGetWearItemsBonus((void *)this, 27, 0);
+    v3 = Player_MaybeGetWearItemsBonus((void *)v2, 28, 0);
+  }
+  if ( v4 == v3 )
+  {
+    v6 = v4;
+    v5 = byte_A7509C;
+    sprintfex(byte_A7509C, "%d", v6);
+  }
+  else
+  {
+    v7 = v4;
+    v5 = byte_A7509C;
+    sprintfex(byte_A7509C, "%d - %d", v7, v3);
+  }
+  v8 = *(_DWORD *)(v2 + 6476);
+  if ( v8 )
+  {
+    v9 = *(_DWORD *)(v2 + 36 * v8 + 496);
+    if ( v9 >= 135 )
+    {
+      if ( v9 <= 159 )
+        strcpy(v5, pGlobalTXT_LocalizationStrings[595]);
+    }
+  }
+  return v5;
+}
+
+//----- (0048D396) --------------------------------------------------------
+char *__thiscall sub_48D396(int this)
+{
+  signed int v1; // eax@1
+  int v2; // esi@1
+  int v3; // eax@3
+  int v4; // edi@3
+  char *v5; // edi@6
+  int v6; // ST0C_4@8
+  int v7; // ST08_4@9
+  int v8; // eax@10
+  signed int v9; // esi@11
+
+  v2 = this;
+  v1 = *(_DWORD *)(this + 36 * *(_DWORD *)(this + 6476) + 496);
+  if ( v1 < 64 || v1 > 65 )
+  {
+    v4 = sub_48D124((void *)this);
+    v3 = sub_48D191((void *)v2);
+  }
+  else
+  {
+    v4 = Player_MaybeGetWearItemsBonus((void *)this, 27, 1);
+    v3 = Player_MaybeGetWearItemsBonus((void *)v2, 28, 1);
+  }
+  if ( v3 )
+  {
+    if ( v4 == v3 )
+    {
+      v6 = v4;
+      v5 = byte_A75074;
+      sprintfex(byte_A75074, "%d", v6);
+    }
+    else
+    {
+      v7 = v4;
+      v5 = byte_A75074;
+      sprintfex(byte_A75074, "%d - %d", v7, v3);
+    }
+  }
+  else
+  {
+    v5 = byte_A75074;
+    strcpy(byte_A75074, "N/A");
+  }
+  v8 = *(_DWORD *)(v2 + 6476);
+  if ( v8 )
+  {
+    v9 = *(_DWORD *)(v2 + 36 * v8 + 496);
+    if ( v9 >= 135 )
+    {
+      if ( v9 <= 159 )
+        strcpy(v5, pGlobalTXT_LocalizationStrings[595]);
+    }
+  }
+  return v5;
+}
+
+//----- (0048E8F5) --------------------------------------------------------
+bool Player_sub_48E8F5(struct Player *_this, signed int a2)
+{
+  signed __int64 v2; // qax@1
+  void *v3; // esi@1
+
+  v3 = _this;
+  v2 = (signed __int64)((double)(a2 * Player_sub_48EA46(_this, 17)) * memory_4D8410.f0_01 + (double)a2);
+  if ( *((_WORD *)v3 + 3226) - (_DWORD)v2 > 0 )
+  {
+    *((_WORD *)v3 + 3226) -= v2;
+    return true;
+  }
+  else
+  {
+    *((_WORD *)v3 + 3226) = 0;
+    struct_576FE8.dword_000044 = 1;
+    if ( !uMaybeSelectedCharacter )
+      uMaybeSelectedCharacter = Party_sub_49370F(pParty_global);
+    return false;
+  }
+}
+
+//----- (0048EA46) --------------------------------------------------------
+signed int Player_sub_48EA46(struct Player *_this, int a2)
+{
+  int v2; // edi@1
+  int v3; // esi@1
+  int v5; // eax@3
+  int v6; // eax@4
+
+  v2 = 0;
+  v3 = 0;
+  while ( 1 )
+  {
+    if ( !sub_48D6AA(_this, v3) )
+      goto LABEL_11;
+    v5 = _this->array_001948[0] - 1;
+    if ( a2 != 17 )
+      break;
+    v6 = (int)((char *)_this + 36 * v5);
+    if ( *(_DWORD *)(v6 + 532) == 533 || *(_DWORD *)(v6 + 544) == 17 )
+      return 50;
+LABEL_11:
+    ++v3;
+    if ( v3 >= 16 )
+      return v2;
+  }
+  if ( a2 != 24 || *((_DWORD *)_this + 9 * v5 + 136) != 24 )
+    goto LABEL_11;
+  return 5;
+}
+
+//----- (00492D65) --------------------------------------------------------
+signed int Player_sub_492D65(struct Player *_this, int a2, int a3)
+{
+  int v3; // esi@1
+  void *v5; // ecx@21
+  void *v6; // ecx@22
+  void *v7; // ecx@29
+  void *v8; // ecx@30
+  void *v9; // ecx@37
+  void *v10; // ecx@38
+  void *v11; // ecx@45
+  void *v12; // ecx@46
+  int v13; // eax@49
+  void *v14; // ecx@58
+  void *v15; // ecx@59
+  void *v16; // ecx@60
+  signed int result; // eax@76
+  signed int v18; // ecx@77
+  int v19; // eax@77
+  char v20; // al@80
+  signed int v21; // ebx@82
+  signed int v22; // esi@82
+  int v23; // [sp-8h] [bp-1Ch]@7
+  int v24; // [sp-8h] [bp-1Ch]@15
+  int v25; // [sp-8h] [bp-1Ch]@53
+  int v26; // [sp-4h] [bp-18h]@7
+  int v27; // [sp-4h] [bp-18h]@15
+  int v28; // [sp-4h] [bp-18h]@53
+  char *v29; // [sp+Ch] [bp-8h]@1
+  int v30; // [sp+10h] [bp-4h]@2
+  int v31; // [sp+20h] [bp+Ch]@82
+ int i;
+
+  v3 = (int)_this;
+  v29 = v3 + 8 * a2;
+  if ( *(_QWORD *)v29 )
+  {
+LABEL_76:
+    return 0;
+  }
+  else
+  {
+    v30 = 0;
+    for (i = 0; i < 4; ++i)
+    {
+      if ( sub_492C0B(pPlayers[i]) )
+        ++v30;
+    }
+
+    switch ( a2 )
+    {
+      case 0:
+        v26 = 0;
+        v23 = 30;
+        goto LABEL_81;
+      case 1:
+        if ( a3 == 1 && qword_ACD914 > 0 )
+          goto LABEL_10;
+        v26 = 0;
+        v23 = 25;
+        goto LABEL_81;
+      case 2:
+        if ( a3 != 1 )
+          goto LABEL_82;
+        if ( sub_48D6D0((void *)v3, 22) )
+          goto LABEL_76;
+        v27 = 3;
+        v24 = 505;
+        goto LABEL_16;
+      case 3:
+        v26 = 0;
+        v23 = 26;
+        goto LABEL_81;
+      case 4:
+        v26 = 0;
+        v23 = 31;
+        goto LABEL_81;
+      case 5:
+        if ( a3 == 1 && (sub_48D6D0((void *)v3, 19) || sub_48D709(v5, 505, 3) || sub_48D709(v6, 530, 6)) )
+          goto LABEL_76;
+        v26 = 0;
+        v23 = 29;
+        goto LABEL_81;
+      case 6:
+      case 8:
+      case 10:
+        if ( a3 == 1 )
+        {
+          if ( qword_ACD914 > 0 )
+          {
+            --word_ACD91C;
+            if ( (unsigned __int16)word_ACD91C < 1u )
+              sub_458585((int)&qword_ACD914);
+          }
+          if ( sub_48D6D0((void *)v3, 21) || sub_48D709(v7, 505, 3) || sub_48D709(v8, 530, 6) )
+            goto LABEL_76;
+        }
+        v26 = 0;
+        v23 = 27;
+        goto LABEL_81;
+      case 7:
+      case 9:
+      case 11:
+        if ( a3 != 1 )
+          goto LABEL_40;
+        if ( HIDWORD(qword_ACD914) >= 0 && (HIDWORD(qword_ACD914) > 0 || (_DWORD)qword_ACD914 > 0u) )
+          goto LABEL_10;
+        if ( sub_48D6D0((void *)v3, 18) || sub_48D709(v9, 505, 3) || sub_48D709(v10, 530, 6) )
+          goto LABEL_76;
+LABEL_40:
+        v26 = 0;
+        v23 = 28;
+        goto LABEL_81;
+      case 12:
+        if ( a3 != 1 )
+          goto LABEL_82;
+        if ( HIDWORD(qword_ACD914) >= 0 && (HIDWORD(qword_ACD914) > 0 || (_DWORD)qword_ACD914 > 0u) )
+          goto LABEL_10;
+        if ( sub_48D6D0((void *)v3, 20) || sub_48D709(v11, 505, 3) || sub_48D709(v12, 507, 16) )
+          goto LABEL_76;
+        v27 = 6;
+        v24 = 530;
+LABEL_16:
+        if ( sub_48D709((void *)v3, v24, v27) )
+          goto LABEL_76;
+        goto LABEL_82;
+      case 13:
+        sub_4948B1((void *)v3, 32, 0);
+        v13 = v3 + 6460;
+        goto LABEL_70;
+      case 14:
+        if ( a3 == 1 && qword_ACD914 > 0 && (unsigned __int16)word_ACD91E >= 4u )
+          goto LABEL_10;
+        v28 = 0;
+        v25 = 33;
+        goto LABEL_67;
+      case 15:
+        if ( a3 == 1
+          && (HIDWORD(qword_ACD914) >= 0 && (HIDWORD(qword_ACD914) > 0 || (_DWORD)qword_ACD914 > 0u)
+           || sub_48D6D0((void *)v3, 23)
+           || sub_48D709(v14, 520, 16)
+           || sub_48D709(v15, 505, 3)
+           || sub_48D709(v16, 530, 6)) )
+          goto LABEL_76;
+        v26 = 0;
+        v23 = 34;
+        goto LABEL_81;
+      case 16:
+        if ( a3 == 1 && qword_ACD914 > 0 && (unsigned __int16)word_ACD91E >= 4u )
+        {
+LABEL_10:
+          --word_ACD91C;
+          if ( (unsigned __int16)word_ACD91C < 1u )
+            sub_458585((int)&qword_ACD914);
+          goto LABEL_76;
+        }
+        v28 = 0;
+        v25 = 35;
+LABEL_67:
+        sub_4948B1((void *)v3, v25, v28);
+        if ( *(_DWORD *)(v3 + 6460) > 0 )
+          *(_DWORD *)(v3 + 6460) = 0;
+        v13 = v3 + 6464;
+LABEL_70:
+        if ( *(_DWORD *)v13 > 0 )
+          *(_DWORD *)v13 = 0;
+LABEL_82:
+        v21 = 0;
+        *(_QWORD *)v29 = pParty_global->qword_00002C;
+        v31 = 0;
+        v22 = 1;
+        do
+        {
+          //if ( sub_492C0B((int)*(&ptr_A750C4 + v22)) )
+          if ( sub_492C0B(pPlayers[v22 - 1]))
+          {
+            ++v31;
+            v21 = v22;
+          }
+          ++v22;
+        }
+        while ( v22 <= 4 );
+        if ( v30 == 2 )
+        {
+          if ( v31 == 1 )
+            sub_4948B1(pPlayers[v21 - 1], 107, 0);
+        }
+        result = 1;
+        break;
+      case 17:
+        if ( *(_BYTE *)(v3 + 185) == 35 || *(_QWORD *)(v3 + 128) || *(_QWORD *)(v3 + 136) || !*(_QWORD *)(v3 + 112) )
+          goto LABEL_76;
+        memset((void *)v3, 0, 0xA0u);
+        *(_DWORD *)(v3 + 6460) = Player_GetMaxHealth(v3);
+        v18 = 0;
+        *(_DWORD *)(v3 + 6440) = *(_BYTE *)(v3 + 186);
+        v19 = *(_DWORD *)(v3 + 6432);
+        *(_DWORD *)(v3 + 6464) = 0;
+        *(_DWORD *)(v3 + 6436) = v19;
+        switch ( v19 )
+        {
+          case 0:
+          case 1:
+          case 2:
+          case 3:
+          case 8:
+          case 9:
+          case 12:
+          case 13:
+          case 16:
+          case 17:
+          case 20:
+          case 23:
+            v18 = 0;
+            break;
+          case 4:
+          case 5:
+          case 6:
+          case 7:
+          case 10:
+          case 11:
+          case 14:
+          case 15:
+          case 18:
+          case 19:
+          case 21:
+          case 24:
+            v18 = 1;
+            break;
+          default:
+            break;
+        }
+        v26 = 0;
+        v20 = (v18 != 0) + 23;
+        v23 = 99;
+        *(_BYTE *)(v3 + 186) = v20;
+        *(_DWORD *)(v3 + 6432) = v20;
+LABEL_81:
+        sub_4948B1((void *)v3, v23, v26);
+        goto LABEL_82;
+      default:
+        goto LABEL_82;
+    }
+  }
+  return result;
+}
+
+//----- (0048E656) --------------------------------------------------------
+int __thiscall sub_48E656(int this)
+{
+  int v1; // esi@1
+  void *v2; // edi@1
+  int v3; // eax@1
+  int v4; // esi@1
+  int v5; // esi@1
+  int result; // eax@2
+
+  v2 = (void *)this;
+  v3 = Player_GetActualSpeed(this);
+  v4 = sub_48EA1B(v3);
+  v5 = Player_MaybeGetWearItemsBonus(v2, 9, 0) + v4;
+  v1 = sub_48FC00(v2, 9) + v5;
+  if ( v1 >= 1 )
+    result = v1;
+  else
+    result = 0;
+  return result;
+}
+
+//----- (0048E68F) --------------------------------------------------------
+int __thiscall sub_48E68F(int this)
+{
+  int v1; // esi@1
+  int v2; // edi@1
+  int v3; // eax@1
+  int v4; // esi@1
+  int v5; // esi@1
+  int v6; // esi@1
+  int result; // eax@2
+
+  v2 = this;
+  v3 = Player_GetActualSpeed(this);
+  v4 = sub_48EA1B(v3);
+  v5 = Player_MaybeGetWearItemsBonus((void *)v2, 9, 0) + v4;
+  v6 = sub_48FC00((void *)v2, 9) + v5;
+  v1 = *(_WORD *)(v2 + 216) + Player_MaybeGetCastSpellBonus(v2, 9) + v6;
+  if ( v1 >= 1 )
+    result = v1;
+  else
+    result = 0;
+  return result;
+}
+
+//----- (0048E73F) --------------------------------------------------------
+int __thiscall Player_GetBaseResistance(struct Player *_this, signed int a2)
+{
+  signed int v2; // eax@1
+  int v3; // ebx@1
+  signed int v4; // esi@1
+  signed int v5; // edi@8
+  char v6; // zf@9
+  int v7; // esi@20
+  int result; // eax@21
+  signed int v9; // [sp-4h] [bp-10h]@11
+
+  v3 = _this;
+  v4 = 0;
+  v2 = Player_GetRace(_this);
+  if ( a2 == 10 )
+  {
+    v5 = 0;
+    goto LABEL_16;
+  }
+  if ( a2 == 11 )
+  {
+    v5 = 1;
+LABEL_16:
+    v6 = v2 == 2;
+    goto LABEL_17;
+  }
+  if ( a2 == 12 )
+  {
+    v6 = v2 == 3;
+    v5 = 2;
+    goto LABEL_17;
+  }
+  if ( a2 == 13 )
+  {
+    v5 = 3;
+    v6 = v2 == 3;
+    goto LABEL_17;
+  }
+  if ( a2 == 14 )
+  {
+    v5 = 7;
+    if ( v2 != 1 )
+      goto LABEL_20;
+    v9 = 10;
+LABEL_19:
+    v4 = v9;
+    goto LABEL_20;
+  }
+  if ( a2 == 15 || a2 == 33 )
+  {
+    v5 = 8;
+    v6 = v2 == 0;
+LABEL_17:
+    if ( !v6 )
+      goto LABEL_20;
+    v9 = 5;
+    goto LABEL_19;
+  }
+  v5 = 0;
+LABEL_20:
+  v7 = Player_MaybeGetWearItemsBonus(_this, a2, 0) + v4;
+  if ( _this->uClass != 35 || (result = 200, v7 + *(_WORD *)(v3 + 2 * v5 + 6004) <= 200) )
+    result = v7 + *(_WORD *)(v3 + 2 * v5 + 6004);
+  return result;
+}
+
+//----- (0048E7D0) --------------------------------------------------------
+int __thiscall Player_GetActualResistance(struct Player *_this, signed int a2)
+{
+  signed int v2; // ebx@1
+  signed int v3; // edi@1
+  int v4; // esi@1
+  int v5; // eax@1
+  void *v6; // ecx@8
+  char v7; // zf@18
+  int result; // eax@28
+  int v9; // ebx@28
+  signed int v10; // [sp+10h] [bp-8h]@1
+  signed int v11; // [sp+14h] [bp-4h]@1
+
+  v3 = 0;
+  v4 = _this;
+  v11 = 0;
+  v10 = 0;
+  v2 = Player_GetRace(_this);
+  LOBYTE(v5) = sub_476395(0x25); 
+  if ( v5 )
+    v11 = 20;
+  if ( a2 == 10 || a2 == 11 || a2 == 12 || a2 == 13 )
+  {
+    if ( sub_458244(_this->ActiveSkills[SKILL_LEATHER]) == 4 )  // Grandmaster leather bonus
+    {  
+      if ( sub_48D6AA(_this, 3) ) // check equip?
+      {
+        if ( sub_48D651(v6, 3) == 9 )
+          v11 += _this->ActiveSkills[SKILL_LEATHER] & 0x3F;
+      }
+    }
+  }
+  if ( a2 == 10 )
+    goto LABEL_25;
+  if ( a2 == 11 )
+  {
+    v3 = 1;
+LABEL_25:
+    v7 = v2 == 2;
+LABEL_26:
+    if ( v7 )
+      v10 = 5;
+    goto LABEL_28;
+  }
+  if ( a2 == 12 )
+  {
+    v7 = v2 == 3;
+    v3 = 2;
+    goto LABEL_26;
+  }
+  switch ( a2 )
+  {
+    case 13:
+      v3 = 3;
+      if ( v2 == 3 )
+        v11 += 5;
+      break;
+    case 14:
+      v3 = 7;
+      if ( v2 == 1 )
+        v10 = 10;
+      break;
+    case 15:
+    case 33:
+      v3 = 8;
+      v7 = v2 == 0;
+      goto LABEL_26;
+  }
+LABEL_28:
+  v9 = Player_MaybeGetWearItemsBonus((void *)v4, a2, 0);
+  result = v11 + Player_MaybeGetCastSpellBonus(v4, a2) + v9 + v10 + *(_WORD *)(v4 + 2 * v3 + 6026) + *(_WORD *)(v4 + 2 * v3 + 6004);
+  if ( *(_BYTE *)(v4 + 185) == 35 )
+  {
+    if ( result > 200 )
+      result = 200;
+  }
+  return result;
+}
+
+//----- (0048E96A) --------------------------------------------------------
+signed int __thiscall sub_48E96A(int this, signed int a2)
+{
+  signed int v2; // edx@1
+  signed int result; // eax@8
+
+  v2 = a2;
+  if ( a2 < 0 )
+    v2 = 0;
+  if ( v2 > *(_WORD *)(this + 6452) )
+    *(_WORD *)(this + 6452) = v2;
+  if ( *(&ptr_A750C4 + uMaybeSelectedCharacter) == (void *)this )
+  {
+    if ( !dword_50C0C4 )
+      uMaybeSelectedCharacter = Party_sub_49370F(pParty_global);
+  }
+  result = 1;
+  struct_576FE8.dword_000044 = 1;
+  return result;
+}
+
+//----- (0048F73C) --------------------------------------------------------
+int Player_MaybeGetCastSpellBonus(struct Player *_this, signed int a2)
+{
+  int result; // eax@1
+  int v3; // eax@4
+  int v4; // ecx@5
+
+  result = 0;
+  if ( a2 > 10 )
+  {
+    if ( a2 <= 15 )
+    {
+      switch ( a2 )
+      {
+        case 15:
+          v3 = *(_WORD *)((char *)_this + 6088);
+          v4 = (unsigned __int16)word_ACD85C;
+          break;
+        case 11:
+          v3 = *(_WORD *)((char *)_this + 6056);
+          v4 = (unsigned __int16)word_ACD84C;
+          break;
+        case 12:
+          v3 = *(_WORD *)((char *)_this + 6408);
+          v4 = (unsigned __int16)word_ACD95C;
+          break;
+        case 13:
+          v3 = *(_WORD *)((char *)_this + 6104);
+          v4 = (unsigned __int16)word_ACD88C;
+          break;
+        default:
+          if ( a2 != 14 )
+            return result;
+          v3 = *(_WORD *)((char *)_this + 6200);
+          v4 = (unsigned __int16)word_ACD90C;
+          break;
+      }
+      return v4 + v3;
+    }
+    if ( a2 != 25 )
+    {
+      if ( a2 == 26 )
+      {
+        v3 = *(_WORD *)((char *)_this + 6184);
+        v4 = (unsigned __int16)word_ACD8DC;
+        return v4 + v3;
+      }
+      if ( a2 != 29 )
+        return result;
+    }
+    return *(_WORD *)((char *)_this + 6072);
+  }
+  if ( a2 == 10 )
+  {
+    v3 = *(_WORD *)((char *)_this + 6136);
+    v4 = (unsigned __int16)word_ACD8AC;
+    return v4 + v3;
+  }
+  switch ( a2 )
+  {
+    case 0:
+      v3 = *(_WORD *)((char *)_this + 6360);
+      goto LABEL_5;
+    case 1:
+      v3 = *(_WORD *)((char *)_this + 6328);
+      goto LABEL_5;
+    case 2:
+      v3 = *(_WORD *)((char *)_this + 6376);
+      goto LABEL_5;
+    case 3:
+      v3 = *(_WORD *)((char *)_this + 6312);
+      goto LABEL_5;
+    case 4:
+      v3 = *(_WORD *)((char *)_this + 6296);
+      goto LABEL_5;
+    case 5:
+      v3 = *(_WORD *)((char *)_this + 6392);
+      goto LABEL_5;
+    case 6:
+      v3 = *(_WORD *)((char *)_this + 6344);
+LABEL_5:
+      v4 = (unsigned __int16)word_ACD86C;
+      return v4 + v3;
+    case 9:
+      v3 = *(_WORD *)((char *)_this + 6280);
+      v4 = (unsigned __int16)word_ACD93C;
+      return v4 + v3;
+    default:
+      return result;
+  }
+  return result;
+}
+
+//----- (00490141) --------------------------------------------------------
+signed int __thiscall Player_GetVoiceSex(struct Player *_this) 
+{
+  signed int result; // eax@1
+
+  result = 0;
+  switch ( _this->dword_001920 )
+  {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 8:
+    case 9:
+    case 0xC:
+    case 0xD:
+    case 0x10:
+    case 0x11:
+    case 0x14:
+    case 0x17:
+      result = 0;
+      break;
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 0xA:
+    case 0xB:
+    case 0xE:
+    case 0xF:
+    case 0x12:
+    case 0x13:
+    case 0x15:
+    case 0x18:
+      result = 1;
+      break;
+    default:
+      return result;
+  }
+  return result;
+}
+
+//----- (0048EAAE) --------------------------------------------------------
+int Player_MaybeGetWearItemsBonus(struct Player *_this, signed int a2, int a3) 
+{
+  signed int v3; // eax@1
+  void *v4; // ebx@1
+  int v5; // edi@1
+  signed int v6; // esi@1
+  void *v8; // ecx@48
+  int v9; // eax@49
+  int v10; // edx@49
+  void *v11; // ecx@55
+  int v12; // eax@56
+  int v13; // edx@56
+  int v14; // eax@58
+  int v15; // ecx@58
+  void *v16; // ecx@61
+  int v17; // eax@62
+  void *v18; // ecx@66
+  int v19; // eax@67
+  int v20; // eax@69
+  void *v21; // ecx@75
+  int v22; // eax@76
+  int v23; // edx@76
+  int v24; // eax@79
+  int v25; // ecx@80
+  int v26; // edi@80
+  void *v27; // ecx@84
+  int v28; // eax@85
+  int v29; // edx@85
+  void *v30; // ecx@96
+  int v31; // ebp@97
+  int v32; // eax@98
+  int v33; // eax@100
+  int v34; // eax@103
+  char v35; // zf@104
+  char v36; // zf@107
+  unsigned __int8 v37; // zf@119
+  char v38; // sf@119
+  unsigned __int8 v39; // of@119
+  char v40; // zf@122
+  char v41; // zf@145
+  char v42; // zf@164
+  char v43; // zf@173
+  char v44; // zf@189
+  char v45; // zf@198
+  char v46; // zf@239
+  int v47; // eax@268
+  int v48; // eax@269
+  int v49; // eax@291
+  char v50; // zf@295
+  int v51; // eax@306
+  int v52; // eax@307
+  char v53; // zf@312
+  char v54; // zf@336
+  char v55; // zf@348
+  int v56; // eax@365
+  int v57; // ebx@368
+  signed int v58; // [sp-4h] [bp-20h]@10
+  signed int v59; // [sp-4h] [bp-20h]@71
+  signed int v60; // [sp-4h] [bp-20h]@347
+  int v61; // [sp+10h] [bp-Ch]@1
+  int v62; // [sp+14h] [bp-8h]@1
+  int v63; // [sp+18h] [bp-4h]@101
+  int v64; // [sp+20h] [bp+4h]@101
+  int v65; // [sp+24h] [bp+8h]@95
+
+  v6 = a2;
+  v3 = 36;
+  v5 = 0;
+  v4 = _this;
+  v62 = 0;
+  v61 = 0;
+  if ( a2 > 36 )
+  {
+    switch ( a2 )
+    {
+      case 37:
+        v58 = 15;
+        goto LABEL_35;
+      case 38:
+        v58 = 16;
+        goto LABEL_35;
+      case 39:
+        v58 = 17;
+        goto LABEL_35;
+      case 40:
+        v58 = 18;
+        goto LABEL_35;
+      case 41:
+        v58 = 19;
+        goto LABEL_35;
+      case 42:
+        v58 = 20;
+        goto LABEL_35;
+      case 43:
+        v58 = 25;
+        goto LABEL_35;
+      case 44:
+        v58 = 5;
+        goto LABEL_35;
+      case 45:
+        v58 = 8;
+        goto LABEL_35;
+      case 46:
+        goto LABEL_36;
+      default:
+        break;
+    }
+  }
+  else
+  {
+    if ( a2 == 36 )
+    {
+      v58 = 14;
+    }
+    else
+    {
+      if ( a2 > 21 )
+      {
+        switch ( a2 )
+        {
+          case 22:
+            v58 = 30;
+            break;
+          case 23:
+            v58 = 31;
+            break;
+          case 34:
+            v58 = 12;
+            break;
+          default:
+            if ( a2 != 35 )
+              goto LABEL_38;
+            v58 = 13;
+            break;
+        }
+      }
+      else
+      {
+        switch ( a2 )
+        {
+          case 21:
+            v58 = 33;
+            break;
+          case 16:
+            v58 = 35;
+            break;
+          case 17:
+            v58 = 34;
+            break;
+          case 18:
+            v58 = 29;
+            break;
+          case 19:
+            v58 = 21;
+            break;
+          default:
+            if ( a2 != 20 )
+              goto LABEL_38;
+            v58 = 32;
+            break;
+        }
+      }
+    }
+LABEL_35:
+    v3 = v58;
+LABEL_36:
+    if ( !*((_WORD *)_this + v3 + 132) )
+      return 0;
+  }
+LABEL_38:
+  if ( a2 > 28 )
+  {
+    if ( a2 < 29 )
+      return v5 + v62 + v61;
+    if ( a2 <= 30 )
+    {
+      if ( sub_48D6AA(_this, 2) )
+        v5 = (unsigned __int8)byte_5D2A00[48 * *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1620) + 124) + 4];
+      return v5 + v62 + v61;
+    }
+    if ( a2 == 31 )
+    {
+      if ( !sub_48D6AA(_this, 2) )
+        return v5 + v62 + v61;
+      v57 = *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1620) + 124);
+      v5 = (unsigned __int8)byte_5D2A00[48 * v57 + 4];
+      v56 = (unsigned __int8)byte_5D2A00[48 * v57 + 2];
+      goto LABEL_366;
+    }
+    if ( a2 == 32 )
+    {
+      if ( !sub_48D6AA(_this, 2) )
+        return v5 + v62 + v61;
+      v20 = 48 * *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1620) + 124);
+      v5 = (unsigned __int8)byte_5D2A00[v20 + 2] * (unsigned __int8)byte_5D2A00[v20 + 3];
+LABEL_365:
+      v56 = (unsigned __int8)byte_5D2A00[v20 + 4];
+LABEL_366:
+      v5 += v56;
+      return v5 + v62 + v61;
+    }
+    if ( a2 <= 33 || a2 > 46 )
+      return v5 + v62 + v61;
+LABEL_95:
+    v65 = 0;
+    while ( 1 )
+    {
+      if ( !sub_48D6AA(v4, v65) )
+        goto LABEL_361;
+      v31 = *((_DWORD *)v4 + v65 + 1618) - 1;
+      if ( v6 == 9 )
+      {
+        v32 = sub_48D62C(v30, v65);
+        if ( v32 >= 3 )
+        {
+          if ( v32 <= 11 )
+          {
+            v33 = 48 * *((_DWORD *)v4 + 9 * v31 + 133);
+            v5 += (unsigned __int8)byte_5D2A00[v33 + 2] + (unsigned __int8)byte_5D2A00[v33 + 4];
+          }
+        }
+      }
+      v63 = (int)((char *)v4 + 36 * v31);
+      v64 = v63 + 532;
+      if ( sub_456D5E(pClass40, v63 + 532) == 1 && !sub_456D43(pClass40, v64) )
+      {
+        v34 = *(_DWORD *)v64;
+        switch ( *(_DWORD *)v64 )
+        {
+          case 0x1F4:
+            v35 = v6 == 5;
+            goto LABEL_105;
+          case 0x1F5:
+            v36 = v6 == 0;
+            goto LABEL_108;
+          case 0x1F6:
+            if ( v6 == 21 )
+              v61 += 10;
+            v36 = v6 == 2;
+            goto LABEL_108;
+          case 0x1F7:
+            if ( v6 == 17 )
+              v61 += 5;
+            if ( v6 == 18 )
+              v61 += 5;
+            v36 = v6 == 6;
+            goto LABEL_108;
+          case 0x1F8:
+            goto LABEL_118;
+          case 0x1F9:
+            v40 = v6 == 3;
+            goto LABEL_123;
+          case 0x1FA:
+            v35 = v6 == 10;
+            goto LABEL_105;
+          case 0x1FE:
+            v35 = v6 == 4;
+            goto LABEL_105;
+          case 0x1FF:
+            if ( v6 == 23 )
+              v61 += 10;
+            if ( v6 == 22 )
+              v61 += 10;
+            goto LABEL_361;
+          case 0x200:
+            if ( v6 == 36 )
+            {
+              LOBYTE(v34) = *((_BYTE *)v4 + 292);
+              v62 = ((unsigned int)v34 >> 1) & 0x1F;
+            }
+            v36 = v6 == 5;
+LABEL_108:
+            if ( v36 )
+              v5 += 40;
+            goto LABEL_361;
+          case 0x201:
+            if ( v6 == 39 )
+            {
+              LOBYTE(v34) = *((_BYTE *)v4 + 298);
+              v34 = ((unsigned int)v34 >> 1) & 0x1F;
+              v62 = v34;
+            }
+            goto LABEL_136;
+          case 0x202:
+            if ( !v6 )
+              v5 += 150;
+            if ( v6 == 1 )
+              v5 -= 40;
+            if ( v6 == 2 )
+              v5 -= 40;
+            goto LABEL_145;
+          case 0x203:
+            if ( v6 == 42 )
+            {
+              LOBYTE(v34) = *((_BYTE *)v4 + 304);
+              v62 = ((unsigned int)v34 >> 1) & 0x1F;
+            }
+            if ( v6 == 43 )
+              v61 += 15;
+            goto LABEL_361;
+          case 0x204:
+            if ( v6 == 17 )
+              v61 += 5;
+            if ( v6 == 18 )
+              v61 += 5;
+            if ( v6 == 6 )
+              v5 += 50;
+            if ( v6 == 11 || v6 == 10 || v6 == 12 || v6 == 13 || v6 == 33 || v6 == 14 )
+              goto LABEL_166;
+            v42 = v6 == 15;
+            goto LABEL_165;
+          case 0x205:
+            if ( v6 == 18 )
+              v61 += 5;
+            goto LABEL_361;
+          case 0x206:
+            if ( !v6 )
+              v5 += 100;
+            if ( v6 == 3 )
+              v5 += 100;
+            v43 = v6 == 9;
+            goto LABEL_174;
+          case 0x207:
+            if ( v6 == 45 )
+              v61 += 5;
+            if ( v6 == 15 )
+              v5 -= 10;
+            v42 = v6 == 14;
+LABEL_165:
+            if ( v42 )
+LABEL_166:
+              v5 -= 10;
+            goto LABEL_361;
+          case 0x208:
+            v35 = v6 == 3;
+            goto LABEL_105;
+          case 0x209:
+            if ( v6 == 2 )
+              v5 += 15;
+            if ( !v6 )
+              v5 += 15;
+            v41 = v6 == 6;
+            goto LABEL_146;
+          case 0x20A:
+            if ( v6 == 46 )
+              v61 += 15;
+            v44 = v6 == 3;
+            goto LABEL_190;
+          case 0x20B:
+            if ( v6 == 34 )
+            {
+              LOBYTE(v34) = *((_BYTE *)v4 + 288);
+              v62 = ((unsigned int)v34 >> 1) & 0x1F;
+            }
+            if ( v6 == 12 )
+              v5 += 50;
+            if ( v6 == 2 )
+              v5 += 30;
+            v45 = v6 == 9;
+            goto LABEL_199;
+          case 0x20C:
+            if ( !v6 )
+              v5 += 75;
+            goto LABEL_145;
+          case 0x20D:
+            if ( v6 == 5 )
+              v5 += 50;
+            if ( v6 == 6 )
+              v5 += 50;
+            if ( v6 == 11 || v6 == 10 || v6 == 12 || v6 == 13 || v6 == 33 || v6 == 14 )
+              goto LABEL_374;
+            v43 = v6 == 15;
+LABEL_174:
+            if ( v43 )
+LABEL_374:
+              v5 -= 15;
+            goto LABEL_361;
+          case 0x20E:
+            if ( v6 == 4 )
+              v5 += 150;
+            if ( v6 == 44 )
+              v61 += 5;
+            if ( v6 == 9 )
+              v5 -= 25;
+            goto LABEL_361;
+          case 0x20F:
+            if ( v6 == 39 )
+            {
+              LOBYTE(v34) = *((_BYTE *)v4 + 298);
+              v34 = ((unsigned int)v34 >> 1) & 0x1F;
+              v62 = v34;
+            }
+            if ( v6 == 40 )
+            {
+              LOBYTE(v34) = *((_BYTE *)v4 + 300);
+              v62 = ((unsigned int)v34 >> 1) & 0x1F;
+            }
+LABEL_145:
+            v41 = v6 == 5;
+LABEL_146:
+            if ( v41 )
+              v5 -= 40;
+            goto LABEL_361;
+          case 0x210:
+            if ( v6 == 38 )
+            {
+              LOBYTE(v34) = *((_BYTE *)v4 + 296);
+              v62 = ((unsigned int)v34 >> 1) & 0x1F;
+            }
+            if ( !v6 )
+              v5 += 75;
+            v44 = v6 == 11;
+LABEL_190:
+            if ( v44 )
+              v5 -= 50;
+            goto LABEL_361;
+          case 0x211:
+            if ( v6 == 5 )
+              v5 += 100;
+            if ( v6 == 4 )
+              v5 += 50;
+            v35 = v6 == 11;
+LABEL_105:
+            if ( v35 )
+              v5 += 50;
+            goto LABEL_361;
+          case 0x212:
+            if ( v6 == 1 )
+              v5 -= 20;
+            v45 = v6 == 2;
+LABEL_199:
+            if ( v45 )
+              v5 -= 20;
+            goto LABEL_361;
+          case 0x214:
+            if ( v6 == 1 )
+              v5 += 15;
+            v46 = v6 == 2;
+            goto LABEL_240;
+          case 0x215:
+            if ( v6 == 5 )
+              v5 += 15;
+            v46 = v6 == 4;
+            goto LABEL_240;
+          case 0x216:
+            if ( v6 == 10 )
+              v5 += 30;
+            if ( !v6 )
+              v5 += 15;
+            goto LABEL_315;
+          case 0x217:
+            if ( v6 == 21 )
+              v61 += 5;
+            if ( !v6 )
+              v5 += 15;
+            goto LABEL_253;
+          case 0x218:
+            goto LABEL_253;
+          default:
+            goto LABEL_361;
+        }
+        goto LABEL_361;
+      }
+      if ( *(_DWORD *)(v63 + 536) == v6 + 1 )
+      {
+        if ( v6 >= 0 )
+        {
+          if ( v6 <= 15 )
+          {
+            v5 += *((_DWORD *)v4 + 9 * v31 + 135);
+          }
+          else
+          {
+            if ( v6 <= 23 )
+            {
+              if ( v5 < *((_DWORD *)v4 + 9 * v31 + 135) )
+                v5 = *((_DWORD *)v4 + 9 * v31 + 135);
+            }
+          }
+        }
+        goto LABEL_361;
+      }
+      v34 = *(_DWORD *)(v63 + 544);
+      if ( v34 > 48 )
+      {
+        switch ( v34 )
+        {
+          case 54:
+            goto LABEL_315;
+          case 49:
+            if ( v6 == 6 )
+              goto LABEL_121;
+            v50 = v6 == 1;
+            goto LABEL_296;
+          case 51:
+            if ( v6 != 5 && v6 != 1 )
+              goto LABEL_309;
+            goto LABEL_121;
+          case 52:
+            if ( v6 == 3 )
+              goto LABEL_121;
+            v50 = v6 == 4;
+            goto LABEL_296;
+          case 53:
+            if ( !v6 )
+              goto LABEL_121;
+            v50 = v6 == 2;
+            goto LABEL_296;
+          case 55:
+            v46 = v6 == 6;
+            goto LABEL_240;
+          case 56:
+            if ( !v6 )
+              goto LABEL_351;
+            v53 = v6 == 3;
+            goto LABEL_350;
+          case 57:
+            if ( v6 == 1 )
+              goto LABEL_351;
+            v53 = v6 == 2;
+            goto LABEL_350;
+          case 50:
+            if ( v6 == 10 )
+              v5 += 30;
+            goto LABEL_361;
+          case 60:
+            if ( v6 != 23 )
+              goto LABEL_336;
+            if ( v5 >= 3 )
+              goto LABEL_361;
+            v5 = 3;
+LABEL_336:
+            v54 = v6 == 22;
+            goto LABEL_345;
+          case 61:
+            if ( v6 != 17 )
+              goto LABEL_340;
+            if ( v5 >= 3 )
+              goto LABEL_361;
+            v5 = 3;
+LABEL_340:
+            v54 = v6 == 18;
+            goto LABEL_345;
+          case 62:
+            if ( v6 != 19 )
+              goto LABEL_344;
+            if ( v5 >= 3 )
+              goto LABEL_361;
+            v5 = 3;
+LABEL_344:
+            v54 = v6 == 20;
+LABEL_345:
+            if ( !v54 )
+              goto LABEL_361;
+            if ( v5 >= 3 )
+              goto LABEL_361;
+            v60 = 3;
+            goto LABEL_360;
+          case 67:
+            v55 = v6 == 18;
+            goto LABEL_357;
+          case 68:
+            v53 = v6 == 9;
+            goto LABEL_350;
+          case 69:
+            if ( v6 == 11 )
+              v5 += 20;
+            break;
+          case 70:
+            if ( v6 == 12 )
+              v5 += 10;
+            v55 = v6 == 16;
+LABEL_357:
+            if ( v55 && v5 < 2 )
+            {
+              v60 = 2;
+LABEL_360:
+              v5 = v60;
+            }
+            break;
+          default:
+            goto LABEL_361;
+        }
+        goto LABEL_361;
+      }
+      if ( v34 == 48 )
+      {
+        if ( v6 == 9 )
+          v5 += 5;
+LABEL_315:
+        v46 = v6 == 3;
+LABEL_240:
+        if ( v46 )
+          v5 += 15;
+        goto LABEL_361;
+      }
+      if ( v34 > 32 )
+      {
+        if ( v34 > 44 )
+        {
+          v51 = v34 - 45;
+          if ( !v51 )
+          {
+            if ( v6 == 5 )
+              goto LABEL_351;
+            v53 = v6 == 4;
+LABEL_350:
+            if ( v53 )
+LABEL_351:
+              v5 += 5;
+            goto LABEL_361;
+          }
+          v52 = v51 - 1;
+          if ( !v52 )
+          {
+            v40 = v6 == 0;
+LABEL_123:
+            if ( v40 )
+              v5 += 25;
+            goto LABEL_361;
+          }
+          if ( v52 == 1 )
+          {
+LABEL_309:
+            v50 = v6 == 8;
+            goto LABEL_296;
+          }
+        }
+        else
+        {
+          if ( v34 == 44 )
+          {
+            v50 = v6 == 7;
+            goto LABEL_296;
+          }
+          v34 -= 33;
+          if ( !v34 )
+          {
+            if ( v6 != 38 )
+              goto LABEL_361;
+            LOBYTE(v34) = *((_BYTE *)v4 + 296);
+            goto LABEL_138;
+          }
+          --v34;
+          if ( !v34 )
+          {
+            if ( v6 != 36 )
+              goto LABEL_361;
+            LOBYTE(v34) = *((_BYTE *)v4 + 292);
+            goto LABEL_138;
+          }
+          v49 = v34 - 8;
+          if ( !v49 )
+          {
+            if ( v6 >= 0 )
+            {
+              if ( v6 <= 15 )
+                ++v5;
+            }
+            goto LABEL_361;
+          }
+          if ( v49 == 1 )
+          {
+            if ( v6 != 3 && v6 != 7 )
+            {
+              v50 = v6 == 9;
+LABEL_296:
+              if ( !v50 )
+                goto LABEL_361;
+            }
+LABEL_121:
+            v5 += 10;
+            goto LABEL_361;
+          }
+        }
+      }
+      else
+      {
+        if ( v34 == 32 )
+        {
+          if ( v6 != 39 )
+            goto LABEL_361;
+          LOBYTE(v34) = *((_BYTE *)v4 + 298);
+          goto LABEL_138;
+        }
+        if ( v34 > 28 )
+        {
+          v34 -= 29;
+          if ( v34 )
+          {
+            --v34;
+            if ( v34 )
+            {
+              --v34;
+              if ( v34 || v6 != 41 )
+                goto LABEL_361;
+              LOBYTE(v34) = *((_BYTE *)v4 + 302);
+            }
+            else
+            {
+              if ( v6 != 34 )
+                goto LABEL_361;
+              LOBYTE(v34) = *((_BYTE *)v4 + 288);
+            }
+          }
+          else
+          {
+            if ( v6 != 37 )
+              goto LABEL_361;
+            LOBYTE(v34) = *((_BYTE *)v4 + 294);
+          }
+          goto LABEL_138;
+        }
+        if ( v34 == 28 )
+        {
+LABEL_136:
+          if ( v6 == 42 )
+          {
+            LOBYTE(v34) = *((_BYTE *)v4 + 304);
+LABEL_138:
+            v62 = ((unsigned int)v34 >> 1) & 0x1F;
+            goto LABEL_361;
+          }
+        }
+        else
+        {
+          v47 = v34 - 1;
+          if ( v47 )
+          {
+            v48 = v47 - 1;
+            if ( v48 )
+            {
+              v34 = v48 - 24;
+              if ( v34 )
+              {
+                --v34;
+                if ( v34 || v6 != 40 )
+                  goto LABEL_361;
+                LOBYTE(v34) = *((_BYTE *)v4 + 300);
+              }
+              else
+              {
+                if ( v6 != 35 )
+                  goto LABEL_361;
+                LOBYTE(v34) = *((_BYTE *)v4 + 290);
+              }
+              goto LABEL_138;
+            }
+LABEL_118:
+            if ( v6 < 0 )
+              goto LABEL_361;
+            compile_error;//v39 = __SETO__(v6, 6);
+            v37 = v6 == 6;
+            v38 = v6 - 6 < 0;
+          }
+          else
+          {
+LABEL_253:
+            if ( v6 < 10 )
+              goto LABEL_361;
+            compile_error;//v39 = __SETO__(v6, 15);
+            v37 = v6 == 15;
+            v38 = v6 - 15 < 0;
+          }
+          if ( (unsigned __int8)(v38 ^ v39) | v37 )
+            goto LABEL_121;
+        }
+      }
+LABEL_361:
+      ++v65;
+      if ( v65 >= 16 )
+        return v5 + v62 + v61;
+    }
+  }
+  if ( a2 == 28 )
+  {
+    if ( sub_48D676(_this) != 1 )
+    {
+      if ( sub_48D6AA(v4, 1) )
+      {
+        v22 = sub_48D62C(v21, 1);
+        if ( v22 >= 0 )
+        {
+          if ( v22 <= 2 )
+          {
+            if ( *((_DWORD *)v4 + 1618) || (v24 = 48 * v23, byte_5D2A00[48 * v23 + 1] != 4) )
+            {
+              v24 = 48 * v23;
+              v26 = (unsigned __int8)byte_5D2A00[48 * v23 + 3];
+              v25 = (unsigned __int8)byte_5D2A00[48 * v23 + 2];
+            }
+            else
+            {
+              v25 = (unsigned __int8)byte_5D2A00[v24 + 3];
+              v26 = (unsigned __int8)byte_5D2A00[v24 + 2] + 1;
+            }
+            v5 = (unsigned __int8)byte_5D2A00[v24 + 4] + v25 * v26;
+          }
+        }
+      }
+      if ( a3 || !sub_48D6AA(v4, 0) || (v28 = sub_48D62C(v27, 0), v28 < 0) || v28 > 2 )
+        return v5 + v62 + v61;
+      v14 = (unsigned __int8)byte_5D2A00[48 * v29 + 4];
+      v15 = (unsigned __int8)byte_5D2A00[48 * v29 + 2] * (unsigned __int8)byte_5D2A00[48 * v29 + 3];
+      goto LABEL_88;
+    }
+    v59 = 3;
+LABEL_74:
+    v5 = v59;
+    return v5 + v62 + v61;
+  }
+  if ( a2 < 0 )
+    return v5 + v62 + v61;
+  if ( a2 <= 23 )
+    goto LABEL_95;
+  if ( a2 == 24 )
+  {
+    if ( !sub_48D6D0(_this, 25) )
+      return v5 + v62 + v61;
+    v59 = 5;
+    goto LABEL_74;
+  }
+  if ( a2 <= 24 )
+    return v5 + v62 + v61;
+  if ( a2 <= 26 )
+  {
+    if ( sub_48D676(_this) == 1 )
+    {
+      v5 = 0;
+      return v5 + v62 + v61;
+    }
+    if ( sub_48D6AA(v4, 1) )
+    {
+      v17 = sub_48D62C(v16, 1);
+      if ( v17 >= 0 )
+      {
+        if ( v17 <= 2 )
+          v5 = (unsigned __int8)byte_5D2A00[48 * *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1619) + 124) + 4];
+      }
+    }
+    if ( a3 || !sub_48D6AA(v4, 0) || (v19 = sub_48D62C(v18, 0), v19 < 0) || v19 > 2 )
+      return v5 + v62 + v61;
+    v20 = 48 * *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1618) + 124);
+    goto LABEL_365;
+  }
+  if ( a2 == 27 )
+  {
+    if ( sub_48D676(_this) == 1 )
+    {
+      v5 = 1;
+      return v5 + v62 + v61;
+    }
+    if ( sub_48D6AA(v4, 1) )
+    {
+      v9 = sub_48D62C(v8, 1);
+      if ( v9 >= 0 )
+      {
+        if ( v9 <= 2 )
+        {
+          v5 = (unsigned __int8)byte_5D2A00[48 * v10 + 2] + (unsigned __int8)byte_5D2A00[48 * v10 + 4];
+          if ( !*((_DWORD *)v4 + 1618) )
+          {
+            if ( byte_5D2A00[48 * v10 + 1] == 4 )
+              ++v5;
+          }
+        }
+      }
+    }
+    if ( a3 || !sub_48D6AA(v4, 0) || (v12 = sub_48D62C(v11, 0), v12 < 0) || v12 > 2 )
+      return v5 + v62 + v61;
+    v15 = (unsigned __int8)byte_5D2A00[48 * v13 + 4];
+    v14 = (unsigned __int8)byte_5D2A00[48 * v13 + 2];
+LABEL_88:
+    v5 += v14 + v15;
+  }
+  return v5 + v62 + v61;
+}
+
+//----- (00492528) --------------------------------------------------------
+int MaybePlaceItemInInventory(struct Player *_this, signed int a2, int a3)
+{
+  unsigned int uNumSlotsX;
+  struct class18 *v4; // esi@1
+  int v5; // eax@1
+  int v6; // edi@5
+  int v7; // ecx@6
+  int v8; // edx@7
+  int v9; // eax@8
+  void *v11; // [sp+Ch] [bp-4h]@1
+  unsigned int uNumSlotsY;
+ wchar_t pFilename[256];
+
+  v11 = _this;
+
+ wsprintfW(pFilename, L"%S", pClass40->pItems[a3].pIconName);
+ v5 = class17_LoadTexture_New(pClass17_Icons_LOD, pFilename);
+ v4 = &pClass17_Icons_LOD->aLODHeaders[v5];
+
+ uNumSlotsX = GetSizeInInventorySlots(v4->uTextureWidth);
+ uNumSlotsY = GetSizeInInventorySlots(v4->uTextureHeight);
+
+  if ( !dword_506128 )
+  {
+   runtime_warning(When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the class17 containing the textures);
+   //sub_40F77C(v4);
+    sub_40F9C5(pClass17_Icons_LOD);
+  }
+  if ( uNumSlotsX + a2 % 14 <= 14 && uNumSlotsY + a2 / 14 <= 9 )
+  {
+    v6 = 0;
+    v7 = &_this->array_00157C[a2];
+    while ( 1 )
+    {
+      v8 = 0;
+      if ( uNumSlotsX > 0 )
+        break;
+LABEL_11:
+      ++v6;
+      v7 += 56;
+      if ( v6 >= uNumSlotsY )
+        return 1;
+    }
+    v9 = v7;
+    while ( !*(_DWORD *)v9 )
+    {
+      ++v8;
+      v9 += 4;
+      if ( v8 >= uNumSlotsX )
+        goto LABEL_11;
+    }
+  }
+  return 0;
+}
+
+//----- (00492826) --------------------------------------------------------
+int sub_492826(struct Player *_this, signed int a2, unsigned char *Src)
+{
+  int v3; // ebx@1
+  signed int v4; // edi@3
+  signed int v5; // esi@3
+  int v7; // [sp-8h] [bp-18h]@9
+  const void *v8; // [sp-4h] [bp-14h]@9
+  signed int v10; // [sp+18h] [bp+8h]@2
+
+  v3 = *(_DWORD *)Src;
+  sub_456D17(pClass40, Src);
+  if ( a2 == -1 )
+  {
+    v10 = 0;
+    while ( 2 )
+    {
+      v5 = v10;
+      v4 = 0;
+      do
+      {
+        if ( MaybePlaceItemInInventory(_this, v5, v3) )
+        {
+          v8 = (const void *)Src;
+          v7 = v5;
+          return sub_49289C(_this, v7, v8);
+        }
+        ++v4;
+        v5 += 14;
+      }
+      while ( v4 < 14 );
+      ++v10;
+      if ( v10 < 9 )
+        continue;
+      break;
+    }
+    return 0;
+  }
+  if ( !MaybePlaceItemInInventory(_this, a2, v3) )
+    return 0;
+  v8 = (const void *)Src;
+  v7 = a2;
+  return sub_49289C(_this, v7, v8);
+}
+
+//----- (0049289C) --------------------------------------------------------
+int sub_49289C(struct Player *_this, int a2, const void *Src)
+{
+  int v3; // eax@1
+  signed int v4; // ebx@1
+  int result; // eax@6
+  struct class18 *v6; // esi@7
+  int v7; // eax@7
+  int v8; // edx@9
+  void *v9; // esi@10
+  int v11; // [sp+4h] [bp-Ch]@7
+  int v12; // [sp+8h] [bp-8h]@7
+  void *v13; // [sp+Ch] [bp-4h]@1
+  int v14; // [sp+18h] [bp+8h]@10
+ wchar_t pFilename[256];
+
+  v13 = _this;
+  v4 = 0;
+  v3 = _this->array_000214;
+  while ( *(_DWORD *)v3 )
+  {
+    ++v4;
+    v3 += 36;
+    if ( v4 >= 126 )
+    {
+      v4 = -1;
+      break;
+    }
+  }
+  if ( v4 == -1 )
+  {
+    result = 0;
+  }
+  else
+  {
+   wsprintfW(pFilename, L"%S", pClass40->pItems[*(_DWORD *)Src].pIconName);
+   v7 = class17_LoadTexture_New(pClass17_Icons_LOD, pFilename);
+   v6 = &pClass17_Icons_LOD->aLODHeaders[v7];
+
+   v11 = GetSizeInInventorySlots(v6->uTextureWidth);
+   v12 = GetSizeInInventorySlots(v6->uTextureHeight);
+
+    if ( !dword_506128 )
+    {
+      sub_40F77C(v6);
+      sub_40F9C5(pClass17_Icons_LOD);
+    }
+    v8 = a2;
+    if ( v12 > 0 )
+    {
+      v14 = v12;
+      v9 = &_this->array_00157C[v8];
+      do
+      {
+        if ( v11 > 0 )
+          memset(v9, -1 - v8, 4 * v11);
+        v9 = (char *)v9 + 56;
+      }
+      while ( v14-- != 1 );
+    }
+    _this->array_00157C[v8] = v4 + 1;
+    memcpy(&_this->array_000214[v4], Src, sizeof(struct Player_stru0));
+    result = v4 + 1;
+  }
+  return result;
+}

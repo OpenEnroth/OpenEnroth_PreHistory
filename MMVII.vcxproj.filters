@@ -172,6 +172,9 @@
     <ClCompile Include="zlib\crc32.c">
       <Filter>zlib</Filter>
     </ClCompile>
+    <ClCompile Include="Player.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="_audio.h">
@@ -263,6 +266,9 @@
     </ClInclude>
     <ClInclude Include="zlib\zutil.h">
       <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Wight and Wagic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

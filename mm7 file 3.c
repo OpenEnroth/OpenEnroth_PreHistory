@@ -2649,348 +2649,6 @@ signed int __stdcall sub_43BC61(int a1, int a2)
   return result;
 }
 
-//----- (0043BCA7) --------------------------------------------------------
-int __cdecl GameUI_DrawPaperdoll()
-{
-  signed int v0; // eax@7
-  signed int v1; // ebx@7
-  int v2; // edi@7
-  int v3; // ebx@10
-  char v4; // cl@12
-  int v5; // edi@12
-  char v6; // al@16
-  int v7; // ebx@16
-  int v8; // edi@16
-  int v9; // ebx@16
-  signed int v10; // edi@21
-  int v12; // ebp@29
-  _UNKNOWN *v14; // edi@65
-  signed int v15; // ebx@66
-  int v16; // eax@67
-  int v17; // ecx@67
-  int v18; // ebx@68
-  _UNKNOWN *v19; // ebp@73
-  int v20; // edi@73
-  int v21; // eax@76
-  int v22; // ecx@76
-  int v23; // eax@78
-  int v24; // ecx@78
-  int v25; // ebx@79
-  int v26; // eax@80
-  int v27; // ecx@80
-  int result; // eax@83
-  int v29; // [sp+10h] [bp-28h]@5
-  signed int v30; // [sp+10h] [bp-28h]@68
-  signed int v31; // [sp+10h] [bp-28h]@75
-  signed int v32; // [sp+10h] [bp-28h]@77
-  int v33; // [sp+10h] [bp-28h]@79
-  _UNKNOWN *v34; // [sp+14h] [bp-24h]@65
-  int v35; // [sp+14h] [bp-24h]@75
-  int v36; // [sp+14h] [bp-24h]@77
-  signed int v37; // [sp+14h] [bp-24h]@79
-  int v38; // [sp+18h] [bp-20h]@66
-  int v39; // [sp+18h] [bp-20h]@73
-  _UNKNOWN *v40; // [sp+1Ch] [bp-1Ch]@73
-  int v41; // [sp+20h] [bp-18h]@6
-  int v42; // [sp+20h] [bp-18h]@73
-  CHAR Str1; // [sp+24h] [bp-14h]@12
- int i;
-
-  dword_5118CC = class17_LoadTexture(pClass17_Icons_LOD, "MAGNIF-B", 2);
-  if (pParty_global->uAlignment == 0 || pParty_global->uAlignment == 1 || pParty_global->uAlignment == 2 )
-    dword_5118D8 = class17_LoadTexture(pClass17_Icons_LOD, "BACKDOLL", 2);
-  dword_507B04 = dword_5079E4;
-  v29 = 0;
-  dword_5118DC = class17_LoadTexture(pClass17_Icons_LOD, "BACKHAND", 2);
-  dword_5118C8 = dword_506438;
-  do
-  {
-    v41 = v29 + 1;
-    if ( sub_43EE77(v29 + 1) )
-    {
-      v2 = 4 * v29;
-      v1 = GetRaceByFace(pPlayers[v29]);
-      v0 = Player_GetVoiceSex(pPlayers[v29]);
-      if ( v1 && v1 != 1 && v1 != 2 )
-        v3 = (v0 != 0) + 3;
-      else
-        v3 = (v0 != 0) + 1;
-      wsprintfA(&Str1, "pc23v%dBod", v3);
-      *(int *)((char *)dword_51127C + v2) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      wsprintfA(&Str1, "pc23v%dlad", v3);
-      *(int *)((char *)dword_5115D0 + v2) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      wsprintfA(&Str1, "pc23v%dlau", v3);
-      *(int *)((char *)dword_5115C0 + v2) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      wsprintfA(&Str1, "pc23v%drh", v3);
-      *(int *)((char *)dword_51124C + v2) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      wsprintfA(&Str1, "pc23v%dlh", v3);
-      *(int *)((char *)dword_51126C + v2) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      wsprintfA(&Str1, "pc23v%dlhu", v3);
-      *(int *)((char *)dword_51125C + v2) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      v5 = *(int *)((char *)pPlayers + v2);
-      v4 = *(_BYTE *)(v5 + 186);
-      if ( v4 == 12 || v4 == 13 )
-        dword_511208[v4] = 0;
-      dword_5115E0[*(_BYTE *)(v5 + 186)] = 0;
-      byte_5111B9[v29] = 1;
-    }
-    else
-    {
-      v8 = 4 * v29;
-      dword_51127C[v29] = class17_LoadTexture(pClass17_Icons_LOD, (&off_4ECD68)[4 * *(_BYTE *)(pPlayers[v29] + 186)], 2);
-      dword_5115D0[v29] = class17_LoadTexture(pClass17_Icons_LOD, (&off_4ECC98)[4 * *(_BYTE *)(pPlayers[v29] + 186)], 2);
-      dword_5115C0[v29] = class17_LoadTexture(pClass17_Icons_LOD, (&off_4ECD00)[4 * *(_BYTE *)(pPlayers[v29] + 186)], 2);
-      dword_51124C[v29] = class17_LoadTexture(pClass17_Icons_LOD, (&off_4ECDD0)[4 * *(_BYTE *)(pPlayers[v29] + 186)], 2);
-      dword_51126C[v29] = class17_LoadTexture(pClass17_Icons_LOD, (&off_4ECE38)[4 * *(_BYTE *)(pPlayers[v29] + 186)], 2);
-      v9 = pPlayers[v29];
-      dword_51125C[v29] = class17_LoadTexture(pClass17_Icons_LOD, (&off_4ECEA0)[4 * *(_BYTE *)(pPlayers[v29] + 186)], 2);
-      v7 = v9 + 186;
-      v6 = *(_BYTE *)v7;
-      if ( *(_BYTE *)v7 == 12 || v6 == 13 )
-      {
-        wsprintfA(&Str1, "pc%02dbrd", v6 + 1);
-        v7 = *(int *)((char *)pPlayers + v8) + 186;
-        dword_511208[*(_BYTE *)v7] = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      }
-      wsprintfA(&Str1, "item281pc%02d", *(_BYTE *)v7 + 1);
-      dword_5115E0[*(_BYTE *)(*(int *)((char *)pPlayers + v8) + 186)] = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      byte_5111B9[v29] = 0;
-    }
-    ++v29;
-  }
-  while ( v41 < 4 );
-  dword_507674 = class17_LoadTexture(pClass17_Icons_LOD, "ar_up_up", 2);
-  dword_507670 = class17_LoadTexture(pClass17_Icons_LOD, "ar_up_dn", 2);
-  dword_50766C = class17_LoadTexture(pClass17_Icons_LOD, "ar_dn_up", 2);
-  dword_507668 = class17_LoadTexture(pClass17_Icons_LOD, "ar_dn_dn", 2);
-  dword_51122C = class17_LoadTexture(pClass17_Icons_LOD, "ib-cd1-d", 2);
-  dword_511224 = class17_LoadTexture(pClass17_Icons_LOD, "ib-cd2-d", 2);
-  dword_51121C = class17_LoadTexture(pClass17_Icons_LOD, "ib-cd3-d", 2);
-  dword_511214 = class17_LoadTexture(pClass17_Icons_LOD, "ib-cd4-d", 2);
-  dword_51120C = class17_LoadTexture(pClass17_Icons_LOD, "ib-cd5-d", 2);
-  v10 = 0;
-  do
-  {
-    byte_5111C0[v10] = 0;
-    if ( dword_AD470C != v10 + 66 )
-    {
-     i = 0;
-      while ( !sub_43EE15(v10 + 66, &pParty_global->pPlayers[i], 0) )
-      {
-        if ( i >= 4)
-          goto LABEL_28;
-      }
-    }
-    byte_5111C0[v10] = 1;
-LABEL_28:
-    ++v10;
-  }
-  while ( v10 < 54 );
-  *(_DWORD *)&byte_5111F6 = 0;
-  *((_DWORD *)&byte_5111F6 + 1) = 0;
-  *((_DWORD *)&byte_5111F6 + 2) = 0;
-  *((_DWORD *)&byte_5111F6 + 3) = 0;
-  *((_DWORD *)&byte_5111F6 + 4) = 0;
-
-  v12 = 1;
-  for (i = 0; i < 4; ++i)
-  {
-    if ( sub_43EE15(516, &pParty_global->pPlayers[i], 1) )
-      byte_5111F8 = 1;
-    if ( sub_43EE15(504, &pParty_global->pPlayers[i], 1) )
-      byte_5111F6 = 1;
-    if ( sub_43EE15(505, &pParty_global->pPlayers[i], 1) )
-      byte_5111F7 = 1;
-    if ( sub_43EE15(533, &pParty_global->pPlayers[i], 1) )
-      byte_511206 = 1;
-    if ( sub_43EE15(512, &pParty_global->pPlayers[i], 1) )
-      byte_5111F9 = 1;
-    if ( sub_43EE15(521, &pParty_global->pPlayers[i], 1) )
-      byte_5111FA = 1;
-    if ( sub_43EE15(522, &pParty_global->pPlayers[i], 1) )
-      byte_5111FB = 1;
-    if ( sub_43EE15(523, &pParty_global->pPlayers[i], 1) )
-      byte_5111FC = 1;
-    if ( sub_43EE15(532, &pParty_global->pPlayers[i], 1) )
-      byte_5111FD = 1;
-    if ( sub_43EE15(544, &pParty_global->pPlayers[i], 1) )
-      byte_5111FE = 1;
-    if ( sub_43EE15(524, &pParty_global->pPlayers[i], 1) )
-      byte_5111FF = 1;
-    if ( sub_43EE15(535, &pParty_global->pPlayers[i], 1) )
-      byte_511200 = 1;
-    if ( sub_43EE15(525, &pParty_global->pPlayers[i], 1) )
-      byte_511201 = 1;
-    if ( sub_43EE15(530, &pParty_global->pPlayers[i], 1) )
-      byte_511202 = 1;
-    if ( sub_43EE15(547, &pParty_global->pPlayers[i], 1) )
-      byte_511203 = 1;
-    if ( sub_43EE15(548, &pParty_global->pPlayers[i], 1) )
-      byte_511204 = 1;
-    if ( sub_43EE15(550, &pParty_global->pPlayers[i], 1) )
-      byte_511205 = 1;
-  }
-
-  v14 = &unk_5116C4;
-  v34 = &unk_511730;
-  do
-  {
-    v15 = 0;
-    v38 = (int)((char *)v34 - 24);
-    do
-    {
-      sub_43C91D((int)&Str1, v15 + 100, v12, 0);
-      v16 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      ++v15;
-      v17 = v38;
-      v38 += 4;
-      *(_DWORD *)v17 = v16;
-    }
-    while ( v15 < 5 );
-    sub_43C91D((int)&Str1, 535, v12, 0);
-    v30 = 0;
-    v18 = (int)((char *)v14 - 44);
-    *(_DWORD *)v34 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-    do
-    {
-      sub_43C91D((int)&Str1, v30++ + 89, v12, 0);
-      *(_DWORD *)v18 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      v18 += 4;
-    }
-    while ( v30 < 11 );
-    sub_43C91D((int)&Str1, 521, v12, 0);
-    *(_DWORD *)v14 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-    sub_43C91D((int)&Str1, 522, v12, 0);
-    *((_DWORD *)v14 + 1) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-    sub_43C91D((int)&Str1, 523, v12, 0);
-    *((_DWORD *)v14 + 2) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-    sub_43C91D((int)&Str1, 532, v12, 0);
-    *((_DWORD *)v14 + 3) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-    sub_43C91D((int)&Str1, 544, v12, 0);
-    *((_DWORD *)v14 + 4) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-    if ( sub_43ED6F((void *)1) )
-      dword_511234 = class17_LoadTexture(pClass17_Icons_LOD, "item092v3", 2);
-    v34 = (char *)v34 + 28;
-    ++v12;
-    v14 = (char *)v14 + 64;
-  }
-  while ( v12 - 1 < 2 );
-  v42 = 0;
-  v20 = 1;
-  v39 = (int)dword_51164C;
-  v19 = &unk_51132C;
-  v40 = &unk_51172C;
-  do
-  {
-    if ( sub_43EDB9((void *)(v20 - 1)) )
-    {
-      sub_43C91D((int)&Str1, 524, v20, 0);
-      v31 = 66;
-      *(_DWORD *)v40 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      v35 = (int)((char *)v19 - 152);
-      do
-      {
-        sub_43C91D((int)&Str1, v31, v20, 0);
-        *(_DWORD *)(v35 - 4) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-        sub_43C91D((int)&Str1, v31, v20, 1);
-        *(_DWORD *)v35 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-        sub_43C91D((int)&Str1, v31, v20, 2);
-        v21 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-        v22 = v35;
-        v35 += 12;
-        ++v31;
-        *(_DWORD *)(v22 + 4) = v21;
-      }
-      while ( v31 - 66 < 13 );
-      sub_43C91D((int)&Str1, 516, v20, 0);
-      *(_DWORD *)v19 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 516, v20, 1);
-      *((_DWORD *)v19 + 1) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 516, v20, 2);
-      *((_DWORD *)v19 + 2) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 505, v20, 0);
-      *((_DWORD *)v19 + 3) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 505, v20, 1);
-      *((_DWORD *)v19 + 4) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 505, v20, 2);
-      *((_DWORD *)v19 + 5) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 504, v20, 0);
-      *((_DWORD *)v19 + 6) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 504, v20, 1);
-      *((_DWORD *)v19 + 7) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 504, v20, 2);
-      *((_DWORD *)v19 + 8) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 533, v20, 0);
-      *((_DWORD *)v19 + 9) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 533, v20, 1);
-      *((_DWORD *)v19 + 10) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 533, v20, 2);
-      *((_DWORD *)v19 + 11) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      v32 = 0;
-      v36 = v39 - 20;
-      do
-      {
-        sub_43C91D((int)&Str1, v32 + 115, v20, 0);
-        v23 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-        ++v32;
-        v24 = v36;
-        v36 += 4;
-        *(_DWORD *)v24 = v23;
-      }
-      while ( v32 < 5 );
-      sub_43C91D((int)&Str1, 512, v20, 0);
-      v25 = v42;
-      v37 = 105;
-      v33 = v42;
-      *(_DWORD *)v39 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      do
-      {
-        sub_43C91D((int)&Str1, v37, v20, 0);
-        *(int *)((char *)dword_511828 + v33) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-        sub_43C91D((int)&Str1, v37, v20, 1);
-        v26 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-        v27 = v33;
-        v33 += 4;
-        ++v37;
-        *(int *)((char *)dword_511788 + v27) = v26;
-      }
-      while ( v37 - 105 < 5 );
-      sub_43C91D((int)&Str1, 525, v20, 0);
-      *(int *)((char *)&dword_51183C + v42) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 530, v20, 0);
-      *(int *)((char *)&dword_511840 + v42) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 547, v20, 0);
-      *(int *)((char *)&dword_511844 + v42) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 548, v20, 0);
-      *(int *)((char *)&dword_511848 + v42) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 550, v20, 0);
-      *(int *)((char *)&dword_51184C + v42) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 525, v20, 1);
-      *(int *)((char *)&dword_51179C + v42) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 530, v20, 1);
-      *(int *)((char *)&dword_5117A0 + v42) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 547, v20, 1);
-      *(int *)((char *)&dword_5117A4 + v42) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 548, v20, 1);
-      *(int *)((char *)&dword_5117A8 + v42) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-      sub_43C91D((int)&Str1, 550, v20, 1);
-      *(int *)((char *)&dword_5117AC + v42) = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
-    }
-    else
-    {
-      v25 = v42;
-    }
-    v40 = (char *)v40 + 28;
-    v39 += 24;
-    v19 = (char *)v19 + 204;
-    ++v20;
-    result = v20 - 1;
-    v42 = v25 + 40;
-  }
-  while ( v20 - 1 < 4 );
-  return result;
-}
-
 //----- (0043C91D) --------------------------------------------------------
 int __fastcall sub_43C91D(int a1, signed int a2, int a3, int a4)
 {
@@ -3482,7 +3140,7 @@ void __fastcall sub_43CC7C(int a1)
   v275 = a1;
   v246 = (int)*(&ptr_A750C4 + a1);
   class17_LoadTexture(pClass17_Icons_LOD, "sptext01", 2);
-  v3 = GetRaceByFace(v2);
+  v3 = Player_GetRace(v2);
   v1 = Player_GetVoiceSex(v2);
   v279 = v1;
   if ( v3 && v3 != 1 && v3 != 2 )
@@ -5172,7 +4830,7 @@ char __thiscall sub_43ED6F(void *this)
   while ( 1 )
   {
     v4 = *v1;
-    v3 = GetRaceByFace(*v1);
+    v3 = Player_GetRace(*v1);
     Player_GetVoiceSex(v4);   // result not interested?
     if ( v3 && v3 != 1 && v3 != 2 )
       v5 = v2 == (void *)1;
@@ -5204,7 +4862,7 @@ char __thiscall sub_43EDB9(void *this)
   while ( 1 )
   {
     v5 = *v1;
-    v4 = GetRaceByFace(*v1);
+    v4 = Player_GetRace(*v1);
     v3 = Player_GetVoiceSex(v5);
     if ( !v4 )
       break;
@@ -5350,7 +5008,7 @@ void __fastcall sub_43EF2B(int a1)
   if ( a1 - 1 >= 0 )
   {
     v4 = (int *)(4 * a1 + 10965188);
-    v3 = GetRaceByFace((int)*(&ptr_A750C4 + a1));
+    v3 = Player_GetRace((int)*(&ptr_A750C4 + a1));
     v2 = Player_GetVoiceSex(*v4);
     if ( v3 && v3 != 1 && v3 != 2 )
       v5 = (v2 != 0) + 3;
@@ -6895,47 +6553,6 @@ bool __cdecl sub_44100D()
   return dword_4E28F8 == 4
       || dword_4E28F8 == 7
       || dword_4E28F8 > 12 && (dword_4E28F8 <= 14 || dword_4E28F8 > 16 && (dword_4E28F8 <= 18 || dword_4E28F8 == 23));
-}
-
-//----- (00441498) --------------------------------------------------------
-void __cdecl GameUI_DrawTorchlightAndWizardEye()
-{
-  signed int v0; // eax@15
-  int v1; // eax@15
-  signed int v2; // eax@19
-  int v3; // eax@19
-
-  if ( !dword_4E28F8
-    || dword_4E28F8 == 1
-    || dword_4E28F8 == 2
-    || dword_4E28F8 == 5
-    || dword_4E28F8 == 8
-    || dword_4E28F8 == 10
-    || dword_4E28F8 == 11
-    || dword_4E28F8 == 12
-    || dword_4E28F8 == 15
-    || dword_4E28F8 == 3
-    || dword_4E28F8 == 19 )
-  {
-    if ( HIDWORD(qword_ACD944) >= 0 )
-    {
-      if ( HIDWORD(qword_ACD944) > 0 || (_DWORD)qword_ACD944 )
-      {
-        v0 = class24_fn2(pClass24_global);
-        v1 = CIconFrameTable_GetFrame(pIconFrameTable, array_6A0D14[2].uIconIdx, v0);
-        CD3DRenderer_DrawTransparentTexture(pD3DRenderer, array_6A0D14[2].word_000008, array_6A0D14[2].word_00000A, 72 * *(_WORD *)(v1 + 30) + 0x6D084C);
-      }
-    }
-    if ( HIDWORD(qword_ACD974) >= 0 )
-    {
-      if (HIDWORD(qword_ACD974) > 0 || LODWORD(qword_ACD974))
-      {
-        v2 = class24_fn2(pClass24_global);
-        v3 = CIconFrameTable_GetFrame(pIconFrameTable, array_6A0D14[3].uIconIdx, v2);
-        CD3DRenderer_DrawTransparentTexture(pD3DRenderer, array_6A0D14[3].word_000008, array_6A0D14[3].word_00000A, 72 * *(_WORD *)(v3 + 30) + 0x6D084C);
-      }
-    }
-  }
 }
 
 //----- (004418B1) --------------------------------------------------------
@@ -12570,7 +12187,7 @@ LABEL_9:
           v7 = *(_BYTE *)(this + 185);
           goto LABEL_14;
         case 14:
-          v7 = GetRaceByFace(this);
+          v7 = Player_GetRace(this);
 LABEL_14:
           if ( a3 == (void *)v7 )
             goto LABEL_132;
