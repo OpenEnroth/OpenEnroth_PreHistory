@@ -9442,7 +9442,7 @@ int __fastcall sub_44622E(int a1)
   pStatusBarString[0] = 0;
   sub_44C175(Class, 2);
   if ( dword_50CBD0[0] )
-    dword_50CBD0[0] = dword_50CBDC != 0;
+    dword_50CBD0[0] = dword_50CBD0[3] != 0;
   struct_576FE8.dword_000044 = 1;
   dword_59108C = 0;
   sub_459ED1(&dword_69AE00, 3);
@@ -10984,7 +10984,7 @@ LABEL_280:
                   GUIWindowDelete(dword_507BC0);
                   dword_507BC0 = 0;
                   if ( dword_50CBD0[0] )
-                    dword_50CBD0[0] = dword_50CBDC != 0;
+                    dword_50CBD0[0] = dword_50CBD0[3] != 0;
                   dword_4E28F8 = 0;
                   struct_576FE8.dword_000044 = 1;
                   dword_5913F0 = 0;
@@ -12829,7 +12829,7 @@ LABEL_90:
       }
       goto LABEL_170;
     }
-    v3 = sub_48E9F4((void *)this);
+    v3 = sub_48E9F4_GetConditionNameOffset((void *)this);
     if ( v3 != 18 )
     {
 LABEL_170:

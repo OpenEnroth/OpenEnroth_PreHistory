@@ -1059,8 +1059,7 @@ struct unnamed_50C0C8 struct_50C0C8;
  int dword_50CBD0[array_size_unknown]; // weak
 //int dword_50CBD4[array_size_unknown]; // weak
 //int dword_50CBD8[array_size_unknown]; // weak
-
- int dword_50CBDC; // weak
+// int dword_50CBDC; // weak
  int dword_50CDC8; // weak
  int dword_50CDCC; // weak
  _UNKNOWN unk_50CDD0; // weak

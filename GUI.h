@@ -8,6 +8,20 @@
 #define MENU_MAIN        0
 #define MENU_CREATEPARTY 6
 
+
+struct GUIMessageQueue
+{
+ int dword_000000;
+ int dword_000004;
+ int dword_000008;
+ int dword_00000C;
+};
+
+//void __thiscall sub_4356B9(int this, int a2, int a3, int a4);
+bool GUIMessageQueue_GetMessage(struct GUIMessageQueue *_this, int *a2, int *a3, int *a4);
+
+
+
 struct GUIWindow
 {
  unsigned int uFrameX;      // dword @ 000000
@@ -181,6 +195,7 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
 void GameUI_DrawTorchlightAndWizardEye();
 void GameUI_DrawLifeManaBars();
 void GameUI_Update();
+void GameUI_Process();
 
 void __cdecl GameUI_SkillsTab_ShowHint();
 void GameUI_DrawSkillsTab(int a1);

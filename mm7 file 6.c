@@ -110,7 +110,7 @@ int __thiscall Player_GetActualIntelligence(struct Player *_this)
   }
   v4 = (unsigned __int8)byte_4EDFE4[v2];
 LABEL_5:
-  v6 = (unsigned __int8)byte_4EDF5B[sub_48E9F4(_this)];
+  v6 = (unsigned __int8)byte_4EDF5B[sub_48E9F4_GetConditionNameOffset(_this)];
   v7 = Player_MaybeGetWearItemsBonus(_this, 1, 0);
   return v6 * v4 * _this->uIntelligence / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 1) + v7 + _this->uIntelligenceBonus;
 }
@@ -137,7 +137,7 @@ int __thiscall Player_GetActualWillpower(struct Player *_this)
   }
   v4 = (unsigned __int8)byte_4EDFE8[v2];
 LABEL_5:
-  v6 = (unsigned __int8)byte_4EDF6E[sub_48E9F4(_this)];
+  v6 = (unsigned __int8)byte_4EDF6E[sub_48E9F4_GetConditionNameOffset(_this)];
   v7 = Player_MaybeGetWearItemsBonus(_this, 2, 0);
   return v6 * v4 * _this->uWillpower / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 2) + v7 + _this->uWillpowerBonus;
 }
@@ -164,7 +164,7 @@ int __thiscall Player_GetActualAccuracy(struct Player *_this)
   }
   v4 = (unsigned __int8)byte_4EDFF0[v2];
 LABEL_5:
-  v6 = (unsigned __int8)byte_4EDF94[sub_48E9F4(_this)];
+  v6 = (unsigned __int8)byte_4EDF94[sub_48E9F4_GetConditionNameOffset(_this)];
   v7 = Player_MaybeGetWearItemsBonus(_this, 4, 0);
   return v6 * v4 * _this->uAccuracy / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 4) + v7 + _this->uAccuracyBonus;
 }
@@ -191,7 +191,7 @@ int __thiscall Player_GetActualSpeed(struct Player *_this)
   }
   v4 = (unsigned __int8)byte_4EDFF4[v2];
 LABEL_5:
-  v6 = (unsigned __int8)byte_4EDFA7[sub_48E9F4(_this)];
+  v6 = (unsigned __int8)byte_4EDFA7[sub_48E9F4_GetConditionNameOffset(_this)];
   v7 = Player_MaybeGetWearItemsBonus(_this, 5, 0);
   return v6 * v4 * _this->uSpeed / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 5) + v7 + _this->uSpeedBonus;
 }
@@ -232,7 +232,7 @@ int __thiscall Player_GetActualLuck(struct Player *_this)
   }
   v7 = (unsigned __int8)byte_4EDFF8[v6];
 LABEL_11:
-  v9 = (unsigned __int8)byte_4EDFBA[sub_48E9F4(_this)];
+  v9 = (unsigned __int8)byte_4EDFBA[sub_48E9F4_GetConditionNameOffset(_this)];
   v10 = Player_MaybeGetWearItemsBonus(_this, 6, 0);
   return Player_MaybeGetCastSpellBonus(_this, 6) + v10 + v11 + v9 * v7 * _this->uLuck / 100 / 100 + _this->uLuckBonus;
 }
@@ -2729,7 +2729,7 @@ void __thiscall sub_4909F4(void *this)
     v12 = 4;
     do
     {
-      v2 = sub_48E9F4((void *)(v1 - 6812));
+      v2 = sub_48E9F4_GetConditionNameOffset((void *)(v1 - 6812));
       if ( v2 == 18 || v2 == 17 )
       {
         *(_WORD *)(v1 + 2) += pClass24_global2->int_00001C;
@@ -5244,7 +5244,7 @@ int __cdecl sub_4979D2()
   v38 = LoadFont("quick.fnt", "FONTPAL");
   v39 = LoadFont("cchar.fnt", "FONTPAL");
   if ( dword_50CBD0[0] )
-    dword_50CBD0[0] = dword_50CBDC != 0;
+    dword_50CBD0[0] = dword_50CBD0[3] != 0;
   ++pClass17_Icons_LOD->dword_011B9C;
   if ( !pClass17_Icons_LOD->dword_011B98 )
     pClass17_Icons_LOD->dword_011B98 = pClass17_Icons_LOD->uNumLoadedFiles;

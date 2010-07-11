@@ -1022,8 +1022,7 @@ extern int dword_50C9F0[array_size_unknown]; // weak
 extern int dword_50CBD0[array_size_unknown]; // weak
 //int dword_50CBD4[array_size_unknown]; // weak
 //int dword_50CBD8[array_size_unknown]; // weak
-
-extern int dword_50CBDC; // weak
+//int dword_50CBDC; // weak
 extern int dword_50CDC8; // weak
 extern int dword_50CDCC; // weak
 extern _UNKNOWN unk_50CDD0; // weak

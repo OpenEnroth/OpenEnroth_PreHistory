@@ -130,7 +130,7 @@ void class02_sub_48BEEF(struct class02 *_this);
 //class03
 struct class03
 {
- int dword_000000;
+ int dword_000000; // when in Game, mouse over player portrait, highlighted player id is placed here
  int dword_000004;
  int dword_000008;
  int dword_00000C;

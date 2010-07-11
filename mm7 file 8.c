@@ -7324,100 +7324,6 @@ LABEL_53:
   return 1;
 }
 
-//----- (004356B9) --------------------------------------------------------
-void __thiscall sub_4356B9(int this, int a2, int a3, int a4)
-{
-  int v4; // edx@1
-  int v5; // eax@2
-
-  v4 = 0;
-  if ( *(_DWORD *)this )
-  {
-    v5 = this + 4;
-    *(_DWORD *)a2 = *(_DWORD *)(this + 4);
-    *(_DWORD *)a3 = *(_DWORD *)(this + 8);
-    *(_DWORD *)a4 = *(_DWORD *)(this + 12);
-    if ( *(_DWORD *)this - 1 > 0 )
-    {
-      do
-      {
-        *(_DWORD *)v5 = *(_DWORD *)(v5 + 12);
-        *(_DWORD *)(v5 + 4) = *(_DWORD *)(v5 + 16);
-        *(_DWORD *)(v5 + 8) = *(_DWORD *)(v5 + 20);
-        ++v4;
-        v5 += 12;
-      }
-      while ( v4 < *(_DWORD *)this - 1 );
-    }
-    --*(_DWORD *)this;
-  }
-}
-
-//----- (004BF794) --------------------------------------------------------
-int __cdecl LoadMainMenu()
-{
-  signed int result; // eax@6
-  //int v1; // eax@6
- float fVolume; // qax@8
-
-  struct RGBTexture *pTitleScreen;//char v3; // [sp+Ch] [bp-30h]@1
-  //unsigned int v4; // [sp+30h] [bp-Ch]@6
-  int v5; // [sp+34h] [bp-8h]@8
-  int v6; // [sp+38h] [bp-4h]@8
-
- pVideoPlayer->dword_00006C = 0;
- pVideoPlayer->dword_000040 = 0;
- dword_F8BC10 = 1;
-
- bSkipVideo = true;
- if (!bSkipVideo)
- {
-  CD3DRenderer_ClearBackBufferAndPresent(pD3DRenderer);
-
-  PlayMovie(1, 1);
-
-  if (!pVideoPlayer->dword_00006C)
-  {
-   PlayMovie(2, 1);
-   if (!pVideoPlayer->dword_00006C)
-   {
-    PlayMovie(3, 1);
-    if (!pVideoPlayer->dword_00006C)
-      PlayMovie(5, 1);
-   }
-  }
- }
-
- pTitleScreen = malloc(sizeof(struct RGBTexture));
- RGBTexture_ctor(pTitleScreen);
- RGBTexture_Load(pTitleScreen, "mm7title", 0);
-
-
- CD3DRenderer_BeginScene(pD3DRenderer);
- {
-  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, pTitleScreen);
-
-  LoadFontsAndSomeStuff();
-  sub_415485();
- }
-
- CD3DRenderer_EndScene(pD3DRenderer);
- result = CD3DRenderer_Present(pD3DRenderer);
-
- if (!(dword_6BE364 & 0x10))
- {
-  if (pAudioPlayer->hAILRedbook)
-  {
-   fVolume = aMusicVolumeLevels[byte_6BE371] * 64.0;
-   AudioPlayer_SetVolume(pAudioPlayer, fVolume);
-   AIL_redbook_stop(pAudioPlayer->hAILRedbook);
-   AIL_redbook_track_info(pAudioPlayer->hAILRedbook, 14, &v5, &v6);
-   result = AIL_redbook_play(pAudioPlayer->hAILRedbook, v5 + 1, v6);
-  }
- }
- dword_F8BC10 = 0;
- return result;
-}
 
 //----- (00481E55) --------------------------------------------------------
 void __fastcall sub_481E55(int a1)
@@ -8507,10 +8413,13 @@ void __cdecl UI_Initialize_Icons()
 
  pGUIWindow0 = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
  GUIButtonCreate(pGUIWindow0, 7, 8, 460, 343, 1, 0, 10, 0, 0, "", 0);
- GUIButtonCreate(pGUIWindow0, 61, 424, 31, 40, 2, 94, 110, 1, 49, "", 0);
- GUIButtonCreate(pGUIWindow0, 177, 424, 31, 40, 2, 94, 110, 2, 50, "", 0);
- GUIButtonCreate(pGUIWindow0, 292, 424, 31, 40, 2, 94, 110, 3, 51, "", 0);
- GUIButtonCreate(pGUIWindow0, 407, 424, 31, 40, 2, 94, 110, 4, 52, "", 0);
+
+ //player portraits in Game screen
+ GUIButtonCreate(pGUIWindow0,  50, 424, 70, 90, 2, 94, 110, 1, 49, "p0", 0);
+ GUIButtonCreate(pGUIWindow0, 160, 424, 70, 90, 2, 94, 110, 2, 50, "p1", 0);
+ GUIButtonCreate(pGUIWindow0, 280, 424, 70, 90, 2, 94, 110, 3, 51, "p2", 0);
+ GUIButtonCreate(pGUIWindow0, 390, 424, 70, 90, 2, 94, 110, 4, 52, "p3", 0);
+
  GUIButtonCreate(pGUIWindow0, 24, 404, 5, 49, 1, 93, 0, 1, 0, "", 0);
  GUIButtonCreate(pGUIWindow0, 139, 404, 5, 49, 1, 93, 0, 2, 0, "", 0);
  GUIButtonCreate(pGUIWindow0, 255, 404, 5, 49, 1, 93, 0, 3, 0, "", 0);
@@ -8735,7 +8644,7 @@ void __cdecl UI_Initialize_Icons()
 }
 
 //----- (0048E9F4) --------------------------------------------------------
-int __thiscall sub_48E9F4(struct Player *_this)
+int __thiscall sub_48E9F4_GetConditionNameOffset(struct Player *_this)
 {
   signed int v1; // edx@1
 

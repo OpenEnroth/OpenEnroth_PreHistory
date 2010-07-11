@@ -3892,7 +3892,7 @@ int Player_GetActualStrength(struct Player *_this)
   }
   v4 = (unsigned __int8)byte_4EDFE0[v2];
 LABEL_5:
-  v6 = (unsigned __int8)byte_4EDF48[sub_48E9F4(_this)];
+  v6 = (unsigned __int8)byte_4EDF48[sub_48E9F4_GetConditionNameOffset(_this)];
   v7 = Player_MaybeGetWearItemsBonus(_this, 0, 0);
   return v6 * v4 * _this->uStrength / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 0) + v7 + _this->uStrengthBonus;
 }

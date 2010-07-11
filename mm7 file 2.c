@@ -843,7 +843,7 @@ int __cdecl sub_463149()
   {
     v19 = 1;
     if ( dword_50CBD0[0] )
-      dword_50CBD0[0] = dword_50CBDC != 0;
+      dword_50CBD0[0] = dword_50CBD0[3] != 0;
     dword_7215D8 = 0;
     if ( dword_ACD834 == 1 )
     {
@@ -889,7 +889,7 @@ int __cdecl sub_463149()
       CGame_sub_44EEA7(pGame);
       GameUI_Update();
       sub_42FC4E();
-      sub_4304E7();
+      GameUI_Process();
       if ( struct_505898.byte_505992 )
       {
         sub_409E6A();
@@ -5762,7 +5762,7 @@ int Player_GetActualEndurance(struct Player *_this)
   }
   v4 = (unsigned __int8)byte_4EDFEC[v2];
 LABEL_5:
-  v6 = byte_4EDF81[sub_48E9F4(_this)];
+  v6 = byte_4EDF81[sub_48E9F4_GetConditionNameOffset(_this)];
   v7 = Player_MaybeGetWearItemsBonus(_this, 3, 0);
   return v6 * v4 * _this->uEndurance / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 3) + v7 + _this->uEnduranceBonus;
 }
@@ -11849,8 +11849,8 @@ LABEL_50:
           v10 = dword_50CBD0[0];
           if ( dword_50CBD0[0] )
           {
-            v10 = dword_50CBDC != 0;
-            dword_50CBD0[0] = dword_50CBDC != 0;
+            v10 = dword_50CBD0[3] != 0;
+            dword_50CBD0[0] = dword_50CBD0[3] != 0;
           }
           v11 = i->dword_000024;
           if ( v10 < 40 )
@@ -14012,7 +14012,7 @@ void __cdecl sub_41A57E()
     sprintfex(&TmpBuf, (const char *)&off_4E3048, *(_DWORD *)(v2 + 6456));
     sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, v44, v31, *(_DWORD *)(v2 + 6456) != 0 ? v46 : 0, &TmpBuf, 84, 0);
     v32 = v45 + v31;
-    v48 = sub_48E9F4((void *)v2);
+    v48 = sub_48E9F4_GetConditionNameOffset((void *)v2);
     if ( !v43 )
       sub_44CB4F(pGUIWindow_PlayerCreation, pFontArrus, 22, v32, 0, pGlobalTXT_LocalizationStrings[45], 60, 0);
     //v34 = (&dword_AE3280)[4 * v48];
@@ -15133,7 +15133,7 @@ void sub_41D3B7(int this)
   v25 = sub_4178FE_GetColor(*(_DWORD *)(v5 + 6464), v24);
   sprintfex(pStringBuffer, (const char *)&unk_4E3278, pGlobalTXT_LocalizationStrings[212], v25, v23, v22);
   strcat(TmpBuf, pStringBuffer);
-  v26 = sub_48E9F4((void *)v5);
+  v26 = sub_48E9F4_GetConditionNameOffset((void *)v5);
   //v27 = (&dword_AE3280)[4 * v26];
   v27 = aCharacterConditionNames[v26];
 
@@ -18435,7 +18435,7 @@ void __cdecl sub_421EA6()
             dword_50C9A4 = (int)((char *)v0 + 36 * v6 + 496);
             dword_50C9A0 = 0;
             if ( dword_50CBD0[0] )
-              dword_50CBD0[0] = dword_50CBDC != 0;
+              dword_50CBD0[0] = dword_50CBD0[3] != 0;
             sub_469903(pGame->pClass03, "MICON1");
             dword_50C9D0 = 113;
             dword_50C9D4 = 0;

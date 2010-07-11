@@ -685,8 +685,8 @@ LABEL_67:
         return;
       }
 LABEL_89:
-      //v68 = (int)(&dword_AE3280)[4 * sub_48E9F4((void *)v3)];
-      v68 = (int)(aCharacterConditionNames[sub_48E9F4((void *)v3)]);
+      //v68 = (int)(&dword_AE3280)[4 * sub_48E9F4_GetConditionNameOffset((void *)v3)];
+      v68 = (int)(aCharacterConditionNames[sub_48E9F4_GetConditionNameOffset((void *)v3)]);
 
       v58 = pGlobalTXT_LocalizationStrings[382];
 LABEL_90:
@@ -723,8 +723,8 @@ LABEL_63:
     }
     if ( !sub_492C0B(&pParty_global->pPlayers[a2 - 1]))
     {
-      //v66 = (int)(&dword_AE3280)[4 * sub_48E9F4((void *)v3)];
-     v66 = (int)(aCharacterConditionNames[sub_48E9F4((void *)v3)]);
+      //v66 = (int)(&dword_AE3280)[4 * sub_48E9F4_GetConditionNameOffset((void *)v3)];
+     v66 = (int)(aCharacterConditionNames[sub_48E9F4_GetConditionNameOffset((void *)v3)]);
 
       v57 = pGlobalTXT_LocalizationStrings[382];
       goto LABEL_72;
@@ -1307,7 +1307,7 @@ LABEL_96:
     dword_50C9A4 = v38;
     dword_50C9A0 = 0;
     if ( dword_50CBD0[0] )
-      dword_50CBD0[0] = dword_50CBDC != 0;
+      dword_50CBD0[0] = dword_50CBD0[3] != 0;
     sub_469903(pGame->pClass03, "MICON1");
     dword_50C9D4 = 0;
     dword_50C9D0 = 113;

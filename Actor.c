@@ -188,7 +188,7 @@ void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a
   int v56; // [sp+48h] [bp-4h]@6
   float v57; // [sp+58h] [bp+Ch]@45
 
-  v4 = a1 >> 3;
+  v4 = a1 / 8;
   v5 = (a1 & 7) - 2;
   v6 = a2;
   if ( !v5 )
@@ -302,7 +302,7 @@ LABEL_24:
 LABEL_28:
   v21 = v6;
   v22 = v6 & 7;
-  v20 = v21 >> 3;
+  v20 = v21 / 8;
   if ( v22 == 2 )
   {
     v30 = 112 * v20;
@@ -366,7 +366,7 @@ LABEL_45:
   *(float *)&v53 = v33 * v33;
   *(float *)&v52 = v32 * v32;
   v31 = sqrt(v57 * v57 + *(float *)&v52 + *(float *)&v53);
-  if ( v31 <= memory_4D8410.f1_0 )
+  if (v31 <= 1.0)
   {
     v43 = 65536;
     v44 = 0;

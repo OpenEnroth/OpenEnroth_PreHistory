@@ -10,9 +10,112 @@
 #include "data.h"
 
 #include "FrameTables.h"
+#include "_audio.h"
+#include "_video.h"
 
 
 
+
+
+//----- (004356B9) --------------------------------------------------------
+bool GUIMessageQueue_GetMessage(struct GUIMessageQueue *_this, int *a2, int *a3, int *a4)
+{
+  int v4; // edx@1
+  int v5; // eax@2
+
+  v4 = 0;
+
+ if (!_this->dword_000000)
+   return false;
+
+
+    v5 = &_this->dword_000004;
+
+    *a2 = _this->dword_000004;
+    *a3 = _this->dword_000008;
+    *a4 = _this->dword_00000C;
+
+    if (_this->dword_000000 - 1 > 0)
+    {
+      do
+      {
+        *(_DWORD *)v5 = *(_DWORD *)(v5 + 12);
+        *(_DWORD *)(v5 + 4) = *(_DWORD *)(v5 + 16);
+        *(_DWORD *)(v5 + 8) = *(_DWORD *)(v5 + 20);
+        ++v4;
+        v5 += 12;
+      }
+      while ( v4 < _this->dword_000000 - 1);
+    }
+    --_this->dword_000000;
+   return true;
+}
+
+//----- (004BF794) --------------------------------------------------------
+int __cdecl LoadMainMenu()
+{
+  signed int result; // eax@6
+  //int v1; // eax@6
+ float fVolume; // qax@8
+
+  struct RGBTexture *pTitleScreen;//char v3; // [sp+Ch] [bp-30h]@1
+  //unsigned int v4; // [sp+30h] [bp-Ch]@6
+  int v5; // [sp+34h] [bp-8h]@8
+  int v6; // [sp+38h] [bp-4h]@8
+
+ pVideoPlayer->dword_00006C = 0;
+ pVideoPlayer->dword_000040 = 0;
+ dword_F8BC10 = 1;
+
+ bSkipVideo = true;
+ if (!bSkipVideo)
+ {
+  CD3DRenderer_ClearBackBufferAndPresent(pD3DRenderer);
+
+  PlayMovie(1, 1);
+
+  if (!pVideoPlayer->dword_00006C)
+  {
+   PlayMovie(2, 1);
+   if (!pVideoPlayer->dword_00006C)
+   {
+    PlayMovie(3, 1);
+    if (!pVideoPlayer->dword_00006C)
+      PlayMovie(5, 1);
+   }
+  }
+ }
+
+ pTitleScreen = malloc(sizeof(struct RGBTexture));
+ RGBTexture_ctor(pTitleScreen);
+ RGBTexture_Load(pTitleScreen, "mm7title", 0);
+
+
+ CD3DRenderer_BeginScene(pD3DRenderer);
+ {
+  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, pTitleScreen);
+
+  LoadFontsAndSomeStuff();
+  sub_415485();
+ }
+
+ CD3DRenderer_EndScene(pD3DRenderer);
+ result = CD3DRenderer_Present(pD3DRenderer);
+
+ if (!(dword_6BE364 & 0x10))
+ {
+  if (pAudioPlayer->hAILRedbook)
+  {
+   fVolume = aMusicVolumeLevels[byte_6BE371] * 64.0;
+   AudioPlayer_SetVolume(pAudioPlayer, fVolume);
+   AIL_redbook_stop(pAudioPlayer->hAILRedbook);
+   AIL_redbook_track_info(pAudioPlayer->hAILRedbook, 14, &v5, &v6);
+   result = AIL_redbook_play(pAudioPlayer->hAILRedbook, v5 + 1, v6);
+  }
+ }
+ dword_F8BC10 = 0;
+ return result;
+}
 
 //----- (00420EFF) --------------------------------------------------------
 void GameUI_Update()
@@ -28,7 +131,6 @@ void GameUI_Update()
   unsigned __int8 v10; // c3@23
   int v11; // esi@24
   int v12; // edx@25
-  char *v13; // ecx@28
   unsigned int v14; // eax@41
   void *v15; // ecx@44
   int v16; // ecx@46
@@ -57,7 +159,6 @@ void GameUI_Update()
   char Str1[200]; // [sp+Ch] [bp-D4h]@129
   int x; // [sp+D4h] [bp-Ch]@1
   int y; // [sp+D8h] [bp-8h]@1
- int i;
  struct GUIButton *pControl;
 
   pGame->pClass03->dword_000000 = 0;
@@ -99,7 +200,7 @@ LABEL_93:
       }
       v31 = sub_456499((char *)&unk_665254 + v30);
       v29 = TmpBuf;
-      sprintfex(TmpBuf, pGlobalTXT_LocalizationStrings[470], v31);
+      wsprintfA(TmpBuf, pGlobalTXT_LocalizationStrings[470], v31);
     }
     else
     {
@@ -224,8 +325,12 @@ _mouse_is_on_UI:
               y >= pControl->uY && y <= pControl->uW)
           {
             v37 = pControl->dword_00001C;
-            if ( v37 == 0 )
-              goto LABEL_28;
+            if (!v37)
+            {
+             sub_41C0B8(pControl->pButtonName);
+             dword_506578 = 1;
+             return;
+            }
             v38 = pControl->dword_000024;
             if ( dword_50CBD0[0] < 40 )
             {
@@ -233,20 +338,22 @@ _mouse_is_on_UI:
               dword_50CBD0[3 * dword_50CBD0[0] + 2] = v38;
               dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
             }
-            goto LABEL_131;
+            dword_506578 = 1;
+            return;
           }
         }
-        else
+        else if (pControl->dword_000018 == 2)
         {
-          if (pControl->dword_000018 == 2 )
-          {
            if (pControl->uWidth && pControl->uHeight)
            {
-            if (((float)(x) - pControl->uX) * ((float)(x) - pControl->uX) / (float)pControl->uWidth * pControl->uWidth +
-                ((float)(y) - pControl->uY) * ((float)(y) - pControl->uY) / (float)pControl->uHeight * pControl->uHeight >= 1.0)
+            // elliptic buttons
+            //if ((x - pControl->uX) * (x - pControl->uX) / (float)(pControl->uWidth * pControl->uWidth) +
+            //    (y - pControl->uY) * (y - pControl->uY) / (float)(pControl->uHeight * pControl->uHeight) < 1.0)
+            if (x >= pControl->uX && x <= pControl->uZ &&
+                y >= pControl->uY && y <= pControl->uW)
             {
                   v35 = pControl->dword_00001C;
-                  i = pControl;
+
                   if ( v35 != 0 )
                   {
                     v36 = pControl->dword_000024;
@@ -254,19 +361,19 @@ _mouse_is_on_UI:
                     {
                       dword_50CBD0[3 * dword_50CBD0[0] + 1] = v35;
                       dword_50CBD0[3 * dword_50CBD0[0] + 2] = v36;
-                      dword_50CBD0[3 * dword_50CBD0[0] + 3] = 0;
-                      goto LABEL_27;
+                      dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
                     }
                   }
-                  goto LABEL_28;
+              sub_41C0B8(pControl->pButtonName);
+              dword_506578 = 1;
+              return;
             }
            }
-          }
-          else if (pControl->dword_000018 == 3 &&
-                   x >= pControl->uX && x <= pControl->uZ &&
-                   y >= pControl->uY && y <= pControl->uW)
+         }
+         else if (pControl->dword_000018 == 3 &&
+                  x >= pControl->uX && x <= pControl->uZ &&
+                  y >= pControl->uY && y <= pControl->uW)
             goto LABEL_19;
-        }
       }
     }
     pGame->pClass03->dword_000000 = sub_46A99B();
@@ -277,65 +384,59 @@ _mouse_is_on_UI:
     v2 = &GUIWindow_List[array_5075E0[v1] - 1];
     if ( x >= *v2 && x <= v2[4] && y >= v2[1] && y <= v2[5] )
     {
-      for ( i = v2[19]; ; i = *(_DWORD *)(i + 52) )
+     for (pControl = GUIWindow_List[array_5075E0[v1] - 1].pControlsHead; pControl; pControl = pControl->pNext)
       {
-        if ( !i )
-          break;
-        if ( *(_DWORD *)(i + 24) == 1 )
+        if (pControl->dword_000018 == 1 )
         {
-          if (x >= *(_DWORD *)i && x <= *(_DWORD *)(i + 16) &&
-              y >= *(_DWORD *)(i + 4) && y <= *(_DWORD *)(i + 20))
+          if (x >= pControl->uX && x <= pControl->uZ &&
+              y >= pControl->uY && y <= pControl->uW)
           {
 LABEL_24:
-            v11 = *(_DWORD *)(i + 28);
+            v11 = pControl->dword_00001C;
             if ( v11 )
             {
-              v12 = *(_DWORD *)(i + 36);
+              v12 = pControl->dword_000024;
               if ( dword_50CBD0[0] < 40 )
               {
                 dword_50CBD0[3 * dword_50CBD0[0] + 1] = v11;
                 dword_50CBD0[3 * dword_50CBD0[0] + 2] = v12;
                 dword_50CBD0[3 * dword_50CBD0[0] + 3] = 0;
-LABEL_27:
                 ++dword_50CBD0[0];
               }
             }
-LABEL_28:
-            v13 = (char *)(i + 85);
-LABEL_130:
-            sub_41C0B8(v13);
-LABEL_131:
+
+            sub_41C0B8(pControl->pButtonName);
             dword_506578 = 1;
             return;
           }
         }
         else
         {
-          if ( *(_DWORD *)(i + 24) == 2 )
+          if (pControl->dword_000018 == 2 )
           {
            runtime_warning(decompilation error);
            compile_error;
-            //v45 = x - *(_DWORD *)i;
-            //v45 = y - *(_DWORD *)(i + 4);
-            if ( (double)*(signed int *)(i + 8) != 0.0 )
+            /*45 = x - pControl->uX;
+            v45 = y - pControl->uY;
+            if ( (double)pControl->uWidth != 0.0 )
             {
-              if ( (double)*(signed int *)(i + 12) != 0.0 )
+             if ( (double)pControl->uHeight != 0.0 )
               {
                 UNDEF(v8);
                 if ( v9 | v10 )
                   goto LABEL_24;
               }
-            }
+            }*/
           }
           else
           {
-            if (*(_DWORD *)(i + 24) == 3 &&
-                x >= *(_DWORD *)i && x <= *(_DWORD *)(i + 16) &&
-                y >= *(_DWORD *)(i + 4) && y <= *(_DWORD *)(i + 20))
+            if (pControl->dword_000018 == 3 &&
+                x >= pControl->uX && x <= pControl->uZ &&
+                y >= pControl->uY && y <= pControl->uW)
             {
 LABEL_19:
               v6 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter);
-              v7 = *(_BYTE *)(v6 + 2 * *(_DWORD *)(i + 36) + 264);
+              v7 = *(_BYTE *)(v6 + 2 * pControl->dword_000024 + 264);
               v4 = *(_DWORD *)(v6 + 6456);
               v5 = (v7 & 0x3F) + 1;
               if ( v4 < v5 )
@@ -349,8 +450,10 @@ LABEL_19:
                 v39 = pGlobalTXT_LocalizationStrings[468];
               }
               wsprintfA(Str1, (const char *)v39, v41);
-              v13 = Str1;
-              goto LABEL_130;
+
+              sub_41C0B8(Str1);
+              dword_506578 = 1;
+              return;
             }
           }
         }
@@ -1358,7 +1461,7 @@ void __cdecl PlayerCreationUI_Initialize()
  int i;
  wchar_t pFilename[256];
   if ( dword_50CBD0[0] )
-    dword_50CBD0[0] = dword_50CBDC != 0;
+    dword_50CBD0[0] = dword_50CBD0[3] != 0;
 
   AudioPlayer_SetVolume(pAudioPlayer, aMusicVolumeLevels[byte_6BE371] * 64.0);
 
@@ -2567,7 +2670,7 @@ void GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
   wsprintfA(TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n\n", pGlobalTXT_LocalizationStrings[12], v62, v59, v58);
   FontDrawText(pGUIWindow_PlayerCreation, pFontArrus, 26, v57, TmpBuf, 0xFFFFFFFF, 0, 0);
   v63 = v57 - 2 + 2 * pFontArrus->uFontHeight;
-  v64 = sub_48E9F4(pp);
+  v64 = sub_48E9F4_GetConditionNameOffset(pp);
   //v65 = (&dword_AE3280)[4 * v64];
   v65 = aCharacterConditionNames[v64];
 

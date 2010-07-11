@@ -7822,13 +7822,13 @@ signed int __thiscall sub_4B6FF9(void *this)
   v1 = *(_DWORD *)(dword_507BC0 + 28);
   if ( v1 == 78 || v1 > 80 && v1 <= 82 )
   {
-    if ( sub_48E9F4(this) == 18 )
+    if ( sub_48E9F4_GetConditionNameOffset(this) == 18 )
       goto LABEL_6;
-    v3 = sub_48E9F4((void *)v2) == 17;
+    v3 = sub_48E9F4_GetConditionNameOffset((void *)v2) == 17;
   }
   else
   {
-    v3 = sub_48E9F4(this) == 18;
+    v3 = sub_48E9F4_GetConditionNameOffset(this) == 18;
   }
   if ( !v3 )
     return 1;
@@ -8584,7 +8584,7 @@ int __thiscall sub_4B807C(void *this, float a2)
   unsigned int v11; // [sp+Ch] [bp-4h]@6
 
   v3 = this;
-  v2 = sub_48E9F4(this);
+  v2 = sub_48E9F4_GetConditionNameOffset(this);
   v4 = 0;
   if ( v2 >= 14 )
   {
@@ -8937,10 +8937,10 @@ void __cdecl sub_4B8285()
           GUIWindowDelete(dword_507BC0);
           dword_507BC0 = 0;
           if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBDC != 0;
+            dword_50CBD0[0] = dword_50CBD0[3] != 0;
           dword_50CBD0[0 + 1] = 409;
           dword_50CBD0[0 + 2] = v27;
-          dword_50CBDC = 1;
+          dword_50CBD0[0 + 3] = 1;
 LABEL_51:
           ++dword_50CBD0[0];
           return;
@@ -13012,7 +13012,7 @@ signed int __cdecl sub_4BD8B5()
   const char *v3; // ebx@31
 
   if ( dword_50CBD0[0] )
-    dword_50CBD0[0] = dword_50CBDC != 0;
+    dword_50CBD0[0] = dword_50CBD0[3] != 0;
   sub_459ED1(&dword_69AE00, 3);
   sub_459E3F();
   dword_5C3420 = 0;
@@ -14242,7 +14242,7 @@ int __thiscall sub_4BF91E(void *this)
     }
     if ( dword_50CBD0[0] )
     {
-      LOBYTE(v15) = dword_50CBDC != 0;
+      LOBYTE(v15) = dword_50CBD0[3] != 0;
       dword_50CBD0[0] = v15;
     }
     sub_459E3F();
@@ -14261,8 +14261,8 @@ int __thiscall sub_4BF91E(void *this)
     result = dword_50CBD0[0];
     if ( dword_50CBD0[0] )
     {
-      result = dword_50CBDC != 0;
-      dword_50CBD0[0] = dword_50CBDC != 0;
+      result = dword_50CBD0[3] != 0;
+      dword_50CBD0[0] = dword_50CBD0[3] != 0;
     }
   }
   if ( v26 )
