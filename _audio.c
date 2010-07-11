@@ -1602,8 +1602,8 @@ LABEL_89:
           goto LABEL_85;
       }
       LODWORD(v66) = 0;
-      if ( (unsigned int)pParty_global->dword_00071C >= 5 && (unsigned int)pParty_global->dword_00071C < 6
-        || (unsigned int)pParty_global->dword_00071C >= 0x14 && (unsigned int)pParty_global->dword_00071C < 0x15 )
+      if ( (unsigned int)pParty_global->uCurrentHour >= 5 && (unsigned int)pParty_global->uCurrentHour < 6
+        || (unsigned int)pParty_global->uCurrentHour >= 0x14 && (unsigned int)pParty_global->uCurrentHour < 0x15 )
       {
         if ( !v49[13] )
         {

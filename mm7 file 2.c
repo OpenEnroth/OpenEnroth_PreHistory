@@ -8842,13 +8842,13 @@ void __thiscall sub_413CC6(void *this)
 //----- (00413D3C) --------------------------------------------------------
 int __cdecl sub_413D3C()
 {
-  if ( (unsigned int)pParty_global->dword_00071C > 4 )
+  if ( (unsigned int)pParty_global->uCurrentHour > 4 )
   {
-    if ( pParty_global->dword_00071C == 5 )
+    if ( pParty_global->uCurrentHour == 5 )
       return pGlobalTXT_LocalizationStrings[55];
-    if ( pParty_global->dword_00071C == 20 )
+    if ( pParty_global->uCurrentHour == 20 )
       return pGlobalTXT_LocalizationStrings[566];
-    if ( (unsigned int)pParty_global->dword_00071C <= 0x14 || (unsigned int)pParty_global->dword_00071C > 0x17 )
+    if ( (unsigned int)pParty_global->uCurrentHour <= 0x14 || (unsigned int)pParty_global->uCurrentHour > 0x17 )
       return pGlobalTXT_LocalizationStrings[56];
   }
   return pGlobalTXT_LocalizationStrings[567];
@@ -8871,11 +8871,11 @@ void __cdecl sub_413D6F()
   int v12; // [sp+64h] [bp-8h]@1
   int v13; // [sp+68h] [bp-4h]@1
 
-  v0 = pParty_global->dword_00071C;
+  v0 = pParty_global->uCurrentHour;
   v11 = CMapStats_FindLocation(pMapStats, Str1);
   v13 = 0xFF4B4B4B; //colored or white text flag
   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, class28_global.dword_000010, class28_global.dword_000014, dword_5064D4);
-  v12 = (unsigned __int8)byte_4E1B18[pParty_global->dword_000718];
+  v12 = (unsigned __int8)byte_4E1B18[pParty_global->uDaysPlayed];
   if ( v0 <= 12 )
   {
     if ( !v0 )
@@ -8893,13 +8893,13 @@ void __cdecl sub_413D6F()
   v10 = 467;
   sub_44D406(&v5, dword_5C35F0, 0, 22, 0, pGlobalTXT_LocalizationStrings[186], 3);
   v1 = sub_413D3C();
-  wsprintfA(TmpBuf, "%s\t100:\t110%d:%02d %s - %s", pGlobalTXT_LocalizationStrings[526], v0, pParty_global->dword_000720, aAMPMNames[v2], v1);
+  wsprintfA(TmpBuf, "%s\t100:\t110%d:%02d %s - %s", pGlobalTXT_LocalizationStrings[526], v0, pParty_global->uCurrentMinute, aAMPMNames[v2], v1);
   FontDrawText(&v5, dword_5C35F4, 70, 55, TmpBuf, 0, 0, 0);
-  wsprintfA(TmpBuf, "%s\t100:\t110%d - %s", pGlobalTXT_LocalizationStrings[56], pParty_global->dword_000718 + 1, aDayNames[pParty_global->dword_000718 % 7]);
+  wsprintfA(TmpBuf, "%s\t100:\t110%d - %s", pGlobalTXT_LocalizationStrings[56], pParty_global->uDaysPlayed + 1, aDayNames[pParty_global->uDaysPlayed % 7]);
   FontDrawText(&v5, dword_5C35F4, 70, 2 * *(_BYTE *)(dword_5C35F4 + 5) + 49, TmpBuf, 0, 0, 0);
-  wsprintfA(TmpBuf, "%s\t100:\t110%d - %s", pGlobalTXT_LocalizationStrings[146], pParty_global->dword_000710 + 1, aMonthNames[pParty_global->dword_000710]);
+  wsprintfA(TmpBuf, "%s\t100:\t110%d - %s", pGlobalTXT_LocalizationStrings[146], pParty_global->uCurrentMonth + 1, aMonthNames[pParty_global->uCurrentMonth]);
   FontDrawText(&v5, dword_5C35F4, 70, 4 * *(_BYTE *)(dword_5C35F4 + 5) + 43, TmpBuf, 0, 0, 0);
-  wsprintfA(TmpBuf, "%s\t100:\t110%d", pGlobalTXT_LocalizationStrings[245], pParty_global->dword_00070C);
+  wsprintfA(TmpBuf, "%s\t100:\t110%d", pGlobalTXT_LocalizationStrings[245], pParty_global->uCurrentYear);
   FontDrawText(&v5, dword_5C35F4, 70, 6 * *(_BYTE *)(dword_5C35F4 + 5) + 37, TmpBuf, 0, 0, 0);
   wsprintfA(TmpBuf, "%s\t100:\t110%s", pGlobalTXT_LocalizationStrings[530], aMoonPhaseNames[v12]);
   FontDrawText(&v5, dword_5C35F4, 70, 8 * *(_BYTE *)(dword_5C35F4 + 5) + 31, TmpBuf, 0, 0, 0);
@@ -15342,7 +15342,7 @@ int __cdecl sub_41F54A()
   if ( dword_507BB0 )
     sub_40F77C(dword_507BB0);
   sub_40F9C5(pClass17_Icons_LOD);
-  sprintfex(&TmpBuf, "TERRA%03d", pParty_global->dword_000720 / 6u + 10 * pParty_global->dword_00071C);
+  sprintfex(&TmpBuf, "TERRA%03d", pParty_global->uCurrentMinute / 6u + 10 * pParty_global->uCurrentHour);
   result = 72 * class17_LoadTexture(pClass17_Icons_LOD, &TmpBuf, 2) + 7145548;
   dword_507BAC = result;
   return result;
@@ -15578,9 +15578,9 @@ void __cdecl sub_41FA01()
   if ( v1 )
   {
     CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 8, 8, dword_50765C != -1 ? 72 * dword_50765C + 7145548 : 0);
-    v17 = pParty_global->dword_00071C;
+    v17 = pParty_global->uCurrentHour;
     dword_506F1C = *(_DWORD *)(pGUIWindow_PlayerCreation + 44);
-    if ( pParty_global->dword_00071C <= 12 )
+    if ( pParty_global->uCurrentHour <= 12 )
     {
       if ( !v17 )
         v17 = 12;
@@ -15643,14 +15643,14 @@ void __cdecl sub_41FA01()
     v13 = *(_DWORD *)(dword_507640 + 56);
     sub_415180((int)&Dst, pGlobalTXT_LocalizationStrings[236], pFontCreate, v19, *(char **)v18);
     v13 = 0;
-    v6 = (unsigned int)pParty_global->dword_00071C >= 0xC && (unsigned int)pParty_global->dword_00071C < 0x18;
-    wsprintfA(TmpBuf, "%d:%02d %s", v17, pParty_global->dword_000720, aAMPMNames[v6]);
+    v6 = (unsigned int)pParty_global->uCurrentHour >= 0xC && (unsigned int)pParty_global->uCurrentHour < 0x18;
+    wsprintfA(TmpBuf, "%d:%02d %s", v17, pParty_global->uCurrentMinute, aAMPMNames[v6]);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, 368, 168, TmpBuf, 0, 0, *(char **)v18);
-    wsprintfA(TmpBuf, "%s\r190%d", pGlobalTXT_LocalizationStrings[56], pParty_global->dword_000718 + 1);
+    wsprintfA(TmpBuf, "%s\r190%d", pGlobalTXT_LocalizationStrings[56], pParty_global->uDaysPlayed + 1);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, 350, 190, TmpBuf, 0, 0, *(char **)v18);
-    wsprintfA(TmpBuf, "%s\r190%d", pGlobalTXT_LocalizationStrings[146], pParty_global->dword_000710 + 1);
+    wsprintfA(TmpBuf, "%s\r190%d", pGlobalTXT_LocalizationStrings[146], pParty_global->uCurrentMonth + 1);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, 350, 222, TmpBuf, 0, 0, *(char **)v18);
-    wsprintfA(TmpBuf, "%s\r190%d", pGlobalTXT_LocalizationStrings[245], pParty_global->dword_00070C);
+    wsprintfA(TmpBuf, "%s\r190%d", pGlobalTXT_LocalizationStrings[245], pParty_global->uCurrentYear);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, 350, 254, TmpBuf, 0, 0, *(char **)v18);
     if ( dword_506F14 )
       sub_41F5BE();

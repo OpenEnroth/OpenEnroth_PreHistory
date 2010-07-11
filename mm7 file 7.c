@@ -3313,12 +3313,12 @@ void __stdcall sub_4B1BDB(__int64 a1)
   v2 = (signed __int64)((double)pParty_global->qword_00002C * 0.234375);
   v3 = v2 / 60 / 60;
   v4 = (_DWORD)v3 / 0x18u / 0x1C;
-  pParty_global->dword_00070C = v4 / 0xC + 1168;
-  pParty_global->dword_000710 = v4 % 0xC;
-  pParty_global->dword_000714 = (_DWORD)v3 / 0x18u / 7 & 3;
-  pParty_global->dword_000718 = (_DWORD)v3 / 0x18u % 0x1C;
-  pParty_global->dword_00071C = v3 % 24;
-  pParty_global->dword_000720 = v2 / 60 % 60;
+  pParty_global->uCurrentYear = v4 / 0xC + 1168;
+  pParty_global->uCurrentMonth = v4 % 0xC;
+  pParty_global->uCurrentMonthWeek = (_DWORD)v3 / 0x18u / 7 & 3;
+  pParty_global->uDaysPlayed = (_DWORD)v3 / 0x18u % 0x1C;
+  pParty_global->uCurrentHour = v3 % 24;
+  pParty_global->uCurrentMinute = v2 / 60 % 60;
   pParty_global->dword_000724 = v2 % 60;
   sub_490D02(pParty_global);
   dword_507B94 = 1;
@@ -6044,9 +6044,9 @@ LABEL_82:
             ++*(&dword_F8B144 + uMaybeSelectedCharacter);
             if ( *(_DWORD *)v41 > v40 )
             {
-              v44 = sub_494820(pParty_global->dword_00071C);
+              v44 = sub_494820(pParty_global->uCurrentHour);
               v43 = *(_DWORD *)(dword_507BC0 + 28);
-              v42 = 60 * (v44 + 4) - pParty_global->dword_000720;
+              v42 = 60 * (v44 + 4) - pParty_global->uCurrentMinute;
               if ( v43 == 94 || v43 == 95 )
                 v42 += 720;
               sub_4B1BDB(v42 + 10080);
@@ -7449,7 +7449,7 @@ signed int __fastcall sub_4B68EA(int a1)
   while ( 1 )
   {
     v3 = 32 * *(_BYTE *)(v2 + v1);
-    if ( *(&byte_4F09B1[pParty_global->dword_000718 % 7u] + v3) )
+    if ( *(&byte_4F09B1[pParty_global->uDaysPlayed % 7u] + v3) )
     {
       if ( !*(_DWORD *)((char *)&unk_4F09CC + v3)
         || (unsigned __int16)sub_449B57((int)byte_ACD71D, *(_WORD *)((char *)&unk_4F09CC + v3)) )
@@ -7591,7 +7591,7 @@ void __cdecl sub_4B6943()
         v72 = (void *)(unsigned __int8)*(&byte_4F0D38[4 * v28] + v73);
         v26 = GUIWindow_GetChild(v20, v71);
         if ( v27 != v69
-          && (v76 >= 6 ? (v29 = 1) : (v29 = (unsigned __int8)*(&byte_4F09B1[32 * (_DWORD)v27] + pParty_global->dword_000718 % 7u)),
+          && (v76 >= 6 ? (v29 = 1) : (v29 = (unsigned __int8)*(&byte_4F09B1[32 * (_DWORD)v27] + pParty_global->uDaysPlayed % 7u)),
               v29
            && ((v30 = 32 * (_DWORD)v27, !*(_DWORD *)((char *)&unk_4F09CC + v30))
             || (unsigned __int16)sub_449B57((int)byte_ACD71D, *(_WORD *)((char *)&unk_4F09CC + v30)))) )
@@ -7722,7 +7722,7 @@ LABEL_71:
       sub_492BB6(v76);
       v56[1] = (const char *)7;
       v5 = &byte_4F09B0[32 * (unsigned __int8)*(&byte_4F0CCF[4 * *(_DWORD *)(dword_507BC0 + 28)] + dword_F8B19C)];
-      if ( v5[pParty_global->dword_000718 % 7u + 1] )
+      if ( v5[pParty_global->uDaysPlayed % 7u + 1] )
       {
         if ( _strcmpi(Str1, pMapStats->pMapInfos[(unsigned __int8)*v5].pLocationFilename))
         {
@@ -8054,18 +8054,18 @@ LABEL_78:
             *(_DWORD *)(v26 + 8) = -5;
         }
         v29 = uMaybeSelectedCharacter;
-        if ( (unsigned __int8)byte_F8B1EF[uMaybeSelectedCharacter] == pParty_global->dword_000718 % 7u )
+        if ( (unsigned __int8)byte_F8B1EF[uMaybeSelectedCharacter] == pParty_global->uDaysPlayed % 7u )
         {
           if ( *(_DWORD *)(v26 + 8) <= -5 )
           {
-            v30 = pParty_global->dword_000718 % 7u + 1;
+            v30 = pParty_global->uDaysPlayed % 7u + 1;
             LOBYTE(v30) = v30 | 0x80;
             sub_42777D(12, uMaybeSelectedCharacter - 1, v30, 48, 0);
             v29 = uMaybeSelectedCharacter;
           }
           if ( *(_DWORD *)(v26 + 8) <= -10 )
           {
-            v31 = pParty_global->dword_000718 % 7u + 1;
+            v31 = pParty_global->uDaysPlayed % 7u + 1;
             LOBYTE(v31) = v31 | 0x80;
             sub_42777D(50, v29 - 1, v31, 48, 0);
             v29 = uMaybeSelectedCharacter;
@@ -8073,7 +8073,7 @@ LABEL_78:
           }
           if ( *(_DWORD *)(v26 + 8) <= -15 )
           {
-            v32 = pParty_global->dword_000718 % 7u + 1;
+            v32 = pParty_global->uDaysPlayed % 7u + 1;
             LOBYTE(v32) = v32 | 0x80;
             sub_42777D(75, v29 - 1, v32, 48, 0);
             v29 = uMaybeSelectedCharacter;
@@ -8081,7 +8081,7 @@ LABEL_78:
           }
           if ( *(_DWORD *)(v26 + 8) <= -20 )
           {
-            v33 = pParty_global->dword_000718 % 7u + 1;
+            v33 = pParty_global->uDaysPlayed % 7u + 1;
             LOBYTE(v33) = v33 | 0x80;
             sub_42777D(86, v29 - 1, v33, 48, 0);
             v29 = uMaybeSelectedCharacter;
@@ -8089,7 +8089,7 @@ LABEL_78:
           }
           if ( *(_DWORD *)(v26 + 8) <= -25 )
           {
-            v34 = pParty_global->dword_000718 % 7u + 1;
+            v34 = pParty_global->uDaysPlayed % 7u + 1;
             LOBYTE(v34) = v34 | 0x80;
             sub_42777D(85, v29 - 1, v34, 48, 0);
             v29 = uMaybeSelectedCharacter;
@@ -11611,7 +11611,7 @@ int __cdecl sub_4BBA85()
     {
       word_ACD712[v1] = 0;
       v3 = (signed __int64)((double)(309657600
-                                   * ((unsigned int)pParty_global->dword_000710 + 12i64 * (unsigned int)pParty_global->dword_00070C - 14015))
+                                   * ((unsigned int)pParty_global->uCurrentMonth + 12i64 * (unsigned int)pParty_global->uCurrentYear - 14015))
                           * 0.03333333507180214);
       pParty_global->array_00003C[2 * v1] = v3;
       pParty_global->array_00003C[2 * v1 + 1] = HIDWORD(v3);
@@ -12494,7 +12494,7 @@ void __fastcall sub_4BCACC(signed int a1, int a2)
   if ( (dword_F8B198 == 27 || dword_F8B198 == 28)
     && (v3 = 0,
         *(&byte_4F09B1[32 * (unsigned __int8)*(&byte_4F0CCF[4 * *(_DWORD *)(dword_507BC0 + 28)] + v2)]
-        + pParty_global->dword_000718 % 7u))
+        + pParty_global->uDaysPlayed % 7u))
     || dword_F8B198 != 23
     || v61 != 10 )
   {
@@ -12610,8 +12610,8 @@ LABEL_15:
             v17 = 0;
             *(__int16 *)((char *)word_ACD712 + v18) = 0;
             *(_QWORD *)v14 = (signed __int64)((double)(309657600
-                                                     * ((unsigned int)pParty_global->dword_000710
-                                                      + 12i64 * (unsigned int)pParty_global->dword_00070C
+                                                     * ((unsigned int)pParty_global->uCurrentMonth
+                                                      + 12i64 * (unsigned int)pParty_global->uCurrentYear
                                                       - 14015))
                                             * 0.03333333507180214);
             v19 = rand() % 258;

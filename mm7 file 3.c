@@ -8892,7 +8892,7 @@ LABEL_17:
     {
       if ( !(v3[8] & 0x80) )
       {
-        if ( (unsigned int)pParty_global->dword_00071C < 5 || (unsigned int)pParty_global->dword_00071C > 0x15 )
+        if ( (unsigned int)pParty_global->uCurrentHour < 5 || (unsigned int)pParty_global->uCurrentHour > 0x15 )
         {
           v16 = 0;
           v14 = 23;
@@ -9083,12 +9083,12 @@ int __fastcall sub_44622E(int a1)
   v2 = v24;
   if ( v4 <= (signed int)v24 )
   {
-    if ( pParty_global->dword_00071C >= v24 )
+    if ( pParty_global->uCurrentHour >= v24 )
       goto LABEL_16;
   }
   else
   {
-    if ( pParty_global->dword_00071C < v24 )
+    if ( pParty_global->uCurrentHour < v24 )
     {
 LABEL_10:
       v8 = 0;
@@ -9112,7 +9112,7 @@ LABEL_10:
       return 0;
     }
   }
-  if ( pParty_global->dword_00071C > (unsigned int)v4 )
+  if ( pParty_global->uCurrentHour > (unsigned int)v4 )
     goto LABEL_10;
 LABEL_16:
   v10 = v25;
@@ -9222,8 +9222,8 @@ signed int __thiscall sub_4465DF(void *this)
   int v4; // ecx@3
   char v6; // zf@9
 
-  v1 = pParty_global->dword_000710 + 1;
-  v2 = pParty_global->dword_000718 + 1;
+  v1 = pParty_global->uCurrentMonth + 1;
+  v2 = pParty_global->uDaysPlayed + 1;
   if ( this )
   {
     v3 = (int)((char *)this - 1);
@@ -12080,7 +12080,7 @@ LABEL_125:
         while ( v24 < (signed int)&unk_AD4888 );
         goto LABEL_170;
       case 244:
-        v17 = pParty_global->dword_000710 == (_DWORD)a3;
+        v17 = pParty_global->uCurrentMonth == (_DWORD)a3;
         goto LABEL_146;
       case 240:
         compile_error;//if ( dword_ACD6BC && dword_ACD8B8 >= 0 && (dword_ACD8B8 > 0 || (unsigned int)dword_ACD8B4 > 0) )

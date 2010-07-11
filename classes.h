@@ -1403,12 +1403,12 @@ struct Party
  unsigned char byte_000709;
  unsigned char byte_00070A;
  unsigned char byte_00070B;
- int           dword_00070C;
- unsigned int  dword_000710; // related to month number
- int           dword_000714;
- int           dword_000718; // related to a day number
- int           dword_00071C;
- int           dword_000720;
+ unsigned int  uCurrentYear;      // dword @ 00070C
+ unsigned int  uCurrentMonth;     // dword @ 000710
+ int           uCurrentMonthWeek; // dword @ 000014
+ unsigned int  uDaysPlayed;       // dword @ 000718
+ int           uCurrentHour;      // dword @ 00071C
+ unsigned int  uCurrentMinute;    // dword @ 000720
  int           dword_000724;
  unsigned int  uNumFood;       // dword @ 000728
  int           dword_00072C;

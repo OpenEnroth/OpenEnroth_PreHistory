@@ -79,7 +79,7 @@ char __cdecl sub_408768()
       }
       pActor->byte_000024[2] &= 0x7Fu;
       if (pActor->byte_000024[2] & 0x40 )
-        LOBYTE(v1) = sub_4031C1(i, pParty_global->dword_00071C, 1);
+        LOBYTE(v1) = sub_4031C1(i, pParty_global->uCurrentHour, 1);
   }
   return v1;
 }

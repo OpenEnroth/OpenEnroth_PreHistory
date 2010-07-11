@@ -6532,20 +6532,20 @@ int __cdecl sub_494035()
   signed int v62; // [sp+1Ch] [bp-14h]@49
  int i, j;
 
-  v60 = pParty_global->dword_00071C;
-  v58 = pParty_global->dword_000718;
+  v60 = pParty_global->uCurrentHour;
+  v58 = pParty_global->uDaysPlayed;
   v57 = pClass24_global->int_00001C;
   pParty_global->qword_00002C += pClass24_global->int_00001C;
   v0 = (signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60;
   v1 = (unsigned int)(v0 / 60) / 0x18 / 0x1C;
-  pParty_global->dword_000714 = (unsigned int)(v0 / 60) / 0x18 / 7 & 3;
-  pParty_global->dword_000718 = (unsigned int)(v0 / 60) / 0x18 % 0x1C;
-  pParty_global->dword_00071C = v0 / 60 % 24;
-  pParty_global->dword_000720 = v0 % 60;
+  pParty_global->uCurrentMonthWeek = (unsigned int)(v0 / 60) / 0x18 / 7 & 3;
+  pParty_global->uDaysPlayed = (unsigned int)(v0 / 60) / 0x18 % 0x1C;
+  pParty_global->uCurrentHour = v0 / 60 % 24;
+  pParty_global->uCurrentMinute = v0 % 60;
   pParty_global->dword_000724 = (signed __int64)((double)pParty_global->qword_00002C * 0.234375) % 60;
-  pParty_global->dword_00070C = v1 / 0xC + 1168;
-  pParty_global->dword_000710 = v1 % 0xC;
-  if ( (unsigned int)pParty_global->dword_00071C >= 3 && (v60 < 3 || (unsigned int)(v0 / 60) / 0x18 % 0x1C > v58) )
+  pParty_global->uCurrentYear = v1 / 12 + 1168;
+  pParty_global->uCurrentMonth = v1 % 12;
+  if ( (unsigned int)pParty_global->uCurrentHour >= 3 && (v60 < 3 || (unsigned int)(v0 / 60) / 0x18 % 0x1C > v58) )
   {
     v2 = 0;
     array_AD4674[0].dword_000044 = 0;

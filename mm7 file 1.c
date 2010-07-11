@@ -738,7 +738,7 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
   ptr_80C97C = (int)pSurfsBuf;
  }
 
- if (pParty_global->dword_000720 != dword_6BD078)
+ if (pParty_global->uCurrentMinute != dword_6BD078)
    sub_4892E6(pClass51_global);
  sub_4893C1(pClass51_global);
  sub_438250(pGame->class08_obj);
@@ -2981,8 +2981,8 @@ LABEL_74:
   dword_8018E4 = 224 * pClass24_global2->dword_000024;
   dword_8018E8 = 224 * pClass24_global2->dword_000024;
   if ( dword_6BE030 & 1
-    && (LOWORD(v0) = pParty_global->dword_00071C, (unsigned int)pParty_global->dword_00071C >= 5)
-    && (unsigned int)pParty_global->dword_00071C < 0x15
+    && (LOWORD(v0) = pParty_global->uCurrentHour, (unsigned int)pParty_global->uCurrentHour >= 5)
+    && (unsigned int)pParty_global->uCurrentHour < 0x15
     || byte_6BE3C4 )
   {
     v0 = *(_WORD *)sub_47BE72(*(_WORD *)(dword_8018F8 + 38), 31, 1);
@@ -10372,14 +10372,14 @@ LABEL_47:
     v683 = v15;
     if ( !v13 )
       LODWORD(v706) = HIDWORD(v1);
-    if ( pParty_global->dword_00071C == HIDWORD(v1) )
+    if ( pParty_global->uCurrentHour == HIDWORD(v1) )
     {
-      if ( pParty_global->dword_000720 != HIDWORD(v1) )
+      if ( pParty_global->uCurrentMinute != HIDWORD(v1) )
         goto LABEL_62;
       if ( v703 == 20 )
         goto LABEL_61;
     }
-    if ( pParty_global->dword_00071C == 12 && pParty_global->dword_000720 == HIDWORD(v1) && v703 == 19 )
+    if ( pParty_global->uCurrentHour == 12 && pParty_global->uCurrentMinute == HIDWORD(v1) && v703 == 19 )
 LABEL_61:
       LODWORD(v706) = HIDWORD(v1);
 LABEL_62:
@@ -10764,7 +10764,7 @@ LABEL_139:
         goto LABEL_153;
       case 87:
         if ( dword_6BE360 == 1
-          || dword_6BE360 == 2 && ((unsigned int)pParty_global->dword_00071C < 5 || (unsigned int)pParty_global->dword_00071C >= 0x15) )
+          || dword_6BE360 == 2 && ((unsigned int)pParty_global->uCurrentHour < 5 || (unsigned int)pParty_global->uCurrentHour >= 0x15) )
           goto LABEL_200;
         if ( sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_152;
@@ -15811,19 +15811,19 @@ float __cdecl sub_488E23()
   int v0; // eax@3
   double v1; // st7@3
 
-  if ( (unsigned int)pParty_global->dword_00071C < 5 )
+  if ( (unsigned int)pParty_global->uCurrentHour < 5 )
     goto LABEL_9;
-  if ( (unsigned int)pParty_global->dword_00071C >= 6 )
+  if ( (unsigned int)pParty_global->uCurrentHour >= 6 )
   {
-    if ( (unsigned int)pParty_global->dword_00071C < 0x14 )
+    if ( (unsigned int)pParty_global->uCurrentHour < 0x14 )
     {
      struct_6BD080.dword_000FA4 = 0;
      return 0.0;
     }
-    if ( (unsigned int)pParty_global->dword_00071C < 0x15 )
+    if ( (unsigned int)pParty_global->uCurrentHour < 0x15 )
     {
       v0 = 0;
-      v1 = (double)(unsigned int)(pParty_global->dword_00071C - 20) * 60.0 + (double)pParty_global->dword_000720;
+      v1 = (double)(unsigned int)(pParty_global->uCurrentHour - 20) * 60.0 + (double)pParty_global->uCurrentMinute;
       goto LABEL_4;
     }
 LABEL_9:
@@ -15832,7 +15832,7 @@ LABEL_9:
     return v1 * 0.01666666753590107;
   }
   v0 = 0;
-  v1 = 60.0 - (double)(unsigned int)(60 * pParty_global->dword_00071C + pParty_global->dword_000720 - 300);
+  v1 = 60.0 - (double)(unsigned int)(60 * pParty_global->uCurrentHour + pParty_global->uCurrentMinute - 300);
 LABEL_4:
   struct_6BD080.dword_000FA4 = v0;
   return v1 * 0.01666666753590107;

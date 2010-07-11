@@ -2355,7 +2355,7 @@ LABEL_439:
           v175 = v201;
           v163 = pGlobalTXT_LocalizationStrings[475];
 LABEL_450:
-          sprintfex(&TmpBuf, (const char *)v163, v175, v191);
+          wsprintfA(TmpBuf, (const char *)v163, v175, v191);
           goto LABEL_521;
         case 0xB5:
           dword_50CDC8 = v0;
@@ -2776,7 +2776,7 @@ LABEL_577:
         case 0x199:
           dword_506F14 = 2;
           sub_41F6C1();
-          v98 = 60 * (sub_494820(pParty_global->dword_00071C) + 1) - pParty_global->dword_000720;
+          v98 = 60 * (sub_494820(pParty_global->uCurrentHour) + 1) - pParty_global->uCurrentMinute;
           dword_506F18 = v98;
           if ( v209 == 111 || v209 == 114 || v209 == 116 )
             dword_506F18 = v98 + 720;
@@ -2893,9 +2893,9 @@ LABEL_621:
             goto LABEL_622;
           }
           GUIWindowCreate(*(_DWORD *)dword_507640, *(_DWORD *)(dword_507640 + 4), 0, 0, 90, dword_507640, pGlobalTXT_LocalizationStrings[237]);
-          v109 = sub_494820(pParty_global->dword_00071C);
+          v109 = sub_494820(pParty_global->uCurrentHour);
           dword_506F14 = v0;
-          dword_506F18 = 60 * v109 - pParty_global->dword_000720;
+          dword_506F18 = 60 * v109 - pParty_global->uCurrentMinute;
           goto LABEL_92;
         case 0x4E:
           if ( dword_50654C && byte_506550 )
@@ -2904,7 +2904,7 @@ LABEL_621:
             compile_error;//v190 = dword_5CC030[9 * (dword_50654C + 11 * *((_BYTE *)*(&ptr_A750C4 + uMaybeSelectedCharacter) + 6734))];
             v174 = pGlobalTXT_LocalizationStrings[483];
 LABEL_520:
-            sprintfex(&TmpBuf, (const char *)v174, v190);
+            wsprintfA(TmpBuf, (const char *)v174, v190);
           }
           else
           {
@@ -3341,8 +3341,8 @@ LABEL_731:
           v163 = pGlobalTXT_LocalizationStrings[489];
           goto LABEL_450;
         case 0x5C:
-          v211 = pParty_global->dword_00071C;
-          if ( pParty_global->dword_00071C <= 12 )
+          v211 = pParty_global->uCurrentHour;
+          if ( pParty_global->uCurrentHour <= 12 )
           {
             if ( !v211 )
               v211 = 12;
@@ -3351,18 +3351,16 @@ LABEL_731:
           {
             v211 -= 12;
           }
-          if ( (unsigned int)pParty_global->dword_00071C < 0xC || (v212 = v0, (unsigned int)pParty_global->dword_00071C >= 0x18) )
+          if ( (unsigned int)pParty_global->uCurrentHour < 0xC || (v212 = v0, (unsigned int)pParty_global->uCurrentHour >= 0x18) )
             v212 = 0;
-          sprintfex(
-            &TmpBuf,
-            "%d:%02d%s %s %d %s %d",
+          wsprintfA(TmpBuf, "%d:%02d %s %s %d %s %d",
             v211,
-            pParty_global->dword_000720,
-            aAMPMNames[v212],//dword_5C35D8[v212],
-            aDayNames[pParty_global->dword_000718 % 7],//dword_507B38[dword_ACD6D0 % 7u],
-            7 * pParty_global->dword_000714 + pParty_global->dword_000718 % 7u + 1,
-            aMonthNames[pParty_global->dword_000710],//dword_507B08[dword_ACD6C8],
-            pParty_global->dword_00070C);
+            pParty_global->uCurrentMinute,
+            aAMPMNames[v212],
+            aDayNames[pParty_global->uDaysPlayed % 7],
+            7 * pParty_global->uCurrentMonthWeek + pParty_global->uDaysPlayed % 7 + 1,
+            aMonthNames[pParty_global->uCurrentMonth],
+            pParty_global->uCurrentYear);
           goto LABEL_521;
         case 0x64:
           v190 = pParty_global->uNumFood;

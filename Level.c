@@ -1082,7 +1082,7 @@ LABEL_150:
   if ( v111 | (_DWORD)v155 )
   {
     v120 = 28;
-    if ( (signed int)((signed int)(signed __int64)((double)v155 * 0.234375) / 60 / 60 / 0x18u) % 28 != pParty_global->dword_000718 )
+    if ( (signed int)((signed int)(signed __int64)((double)v155 * 0.234375) / 60 / 60 / 0x18u) % 28 != pParty_global->uDaysPlayed )
     {
       if ( rand() % 100 >= 20 )
         v120 = dword_4EC268[rand() % dword_4EC2A8];
@@ -1520,13 +1520,13 @@ int __thiscall sub_4892E6(struct class51 *_this)
   int v6; // eax@3
   double v8; // st7@4
 
-  result = pParty_global->dword_00071C;
+  result = pParty_global->uCurrentHour;
   v2 = _this;
-  if ( (unsigned int)pParty_global->dword_00071C >= 5 )
+  if ( (unsigned int)pParty_global->uCurrentHour >= 5 )
   {
-    if ( (unsigned int)pParty_global->dword_00071C < 0x15 )
+    if ( (unsigned int)pParty_global->uCurrentHour < 0x15 )
     {
-      v3 = pParty_global->dword_000720 + 60 * (pParty_global->dword_00071C - 5);
+      v3 = pParty_global->uCurrentMinute + 60 * (pParty_global->uCurrentHour - 5);
       v4 = v3 * pClass59_global->dword_001860 / 960;
       v5 = class59_SinCos(pClass59_global, v3 * pClass59_global->dword_001860 / 960);
       _this->dword_000D18 = v5;
@@ -1542,8 +1542,8 @@ int __thiscall sub_4892E6(struct class51 *_this)
         v8 = (double)v3;
       _this->dword_000CBC = (signed __int64)(*(double *)&byte_4D8410[1016]
                                              - v8 * *(double *)&byte_4D8410[1024] * *(double *)&byte_4D8410[1016]);
-      result = pParty_global->dword_000720;
-      _this->dword_01C288 = pParty_global->dword_000720;
+      result = pParty_global->uCurrentMinute;
+      _this->dword_01C288 = pParty_global->uCurrentMinute;
     }
   }
   return result;

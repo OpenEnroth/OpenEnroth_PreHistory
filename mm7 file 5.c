@@ -451,40 +451,40 @@ LABEL_147:
       {
         if ( dword_AD470C == 616 )
         {
-          v77 = pParty_global->dword_000714 + 1;
-          if (pParty_global->dword_000710 >= 7 )
+          v77 = pParty_global->uCurrentMonthWeek + 1;
+          if (pParty_global->uCurrentMonth >= 7 )
             v74 = 0;
           else
             //v74 = dword_507B78[dword_ACD6C8];
-            v74 = aAttributeNames[pParty_global->dword_000710 / 4];
-          switch (pParty_global->dword_000710)
+            v74 = aAttributeNames[pParty_global->uCurrentMonth / 4];
+          switch (pParty_global->uCurrentMonth)
           {
             case 0:
-              v6 = pParty_global->dword_000714 + 1;
+              v6 = pParty_global->uCurrentMonthWeek + 1;
               *(_WORD *)(v3 + 188) += v77;
               goto LABEL_33;
             case 1:
-              v6 = pParty_global->dword_000714 + 1;
+              v6 = pParty_global->uCurrentMonthWeek + 1;
               *(_WORD *)(v3 + 192) += v77;
               goto LABEL_33;
             case 2:
-              v6 = pParty_global->dword_000714 + 1;
+              v6 = pParty_global->uCurrentMonthWeek + 1;
               *(_WORD *)(v3 + 196) += v77;
               goto LABEL_33;
             case 3:
-              v6 = pParty_global->dword_000714 + 1;
+              v6 = pParty_global->uCurrentMonthWeek + 1;
               *(_WORD *)(v3 + 200) += v77;
               goto LABEL_33;
             case 4:
-              v6 = pParty_global->dword_000714 + 1;
+              v6 = pParty_global->uCurrentMonthWeek + 1;
               *(_WORD *)(v3 + 208) += v77;
               goto LABEL_33;
             case 5:
-              v6 = pParty_global->dword_000714 + 1;
+              v6 = pParty_global->uCurrentMonthWeek + 1;
               *(_WORD *)(v3 + 204) += v77;
               goto LABEL_33;
             case 6:
-              v6 = pParty_global->dword_000714 + 1;
+              v6 = pParty_global->uCurrentMonthWeek + 1;
               *(_WORD *)(v3 + 212) += v77;
 LABEL_33:
               v62 = pGlobalTXT_LocalizationStrings[121];
@@ -578,21 +578,21 @@ LABEL_54:
               sub_4A89BD(pGame->class06_obj, 151, a2 - 1);
               sub_4948B1((void *)v3, 93, 0);
               AudioPlayer_sub_4AA306(pAudioPlayer, 219, 0, 0, -1, 0, 0, 0, 0);
-              if ( pParty_global->dword_000718 == 6 || pParty_global->dword_000718 == 20 )
+              if ( pParty_global->uDaysPlayed == 6 || pParty_global->uDaysPlayed == 20 )
               {
                 v64 = 0;
                 v55 = 16;
               }
               else
               {
-                if ( pParty_global->dword_000718 == 12 || pParty_global->dword_000718 == 26 )
+                if ( pParty_global->uDaysPlayed == 12 || pParty_global->uDaysPlayed == 26 )
                 {
                   v64 = 0;
                   v55 = 14;
                 }
                 else
                 {
-                  if ( pParty_global->dword_000718 != 4 && pParty_global->dword_000718 != 25 )
+                  if ( pParty_global->uDaysPlayed != 4 && pParty_global->uDaysPlayed != 25 )
                     return;
                   v64 = 0;
                   v55 = 15;
@@ -12536,7 +12536,7 @@ signed int __thiscall sub_47A825(void *this)
 
   v1 = 0;
   v2 = this;
-  if ( (unsigned int)pParty_global->dword_00071C >= 1 || (unsigned __int16)sub_449B57((int)byte_ACD71D, 178) )
+  if ( (unsigned int)pParty_global->uCurrentHour >= 1 || (unsigned __int16)sub_449B57((int)byte_ACD71D, 178) )
   {
     v1 = 0;
   }
