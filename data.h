@@ -96,13 +96,7 @@ extern struct CVideoPlayer *pVideoPlayer;
 
 extern struct RGBTexture      *pClass33_global0;
 extern struct RGBTexture      *pClass33_global1;
-extern struct RGBTexture      *pRGBTexture_Menu;
 extern struct RGBTexture      *pClass33_global3;
-extern struct RGBTexture      *pTexture_StatusBar;
-extern struct RGBTexture      *pTexture_LeftFrame;
-extern struct RGBTexture      *pTexture_TopFrame;
-extern struct RGBTexture      *pTexture_BottomFrame;
-extern struct RGBTexture      *pTexture_RightFrame;
 
 extern struct CTextureFrameTable *pTextureFrameTable;
 extern struct CSpriteFrameTable  *pSpriteFrameTable;
@@ -146,7 +140,6 @@ extern struct GUIButton *pPlayerCreationUI_BtnOK;
 
 extern struct GUIButton *pPlayerCreationUI_BtnPlus;
 extern struct GUIButton *pPlayerCreationUI_BtnMinus;
-extern struct class18 *pPlayerCreationUI_PCPortraits[];
 extern struct class18 *pPlayerCreationUI_Sky;
 extern struct class18 *pPlayerCreationUI_Top;
 

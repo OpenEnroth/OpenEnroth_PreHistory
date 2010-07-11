@@ -759,7 +759,8 @@ int __fastcall MenuLoop_CharacterCreation()
  int i;
 
   v28 = 0;
-  RGBTexture_Load(pRGBTexture_Menu, "makeme", 0);
+  //RGBTexture_Load(pRGBTexture_Menu, "makeme", 0);
+ uTextureID_CurrentMenu = class17_LoadTexture_New(pClass17_Icons_LOD, L"MakeMe");
   CD3DRenderer_Set2DClippingRect(pD3DRenderer, 0, 0, 640, 480);
 
   if (dword_720010)
@@ -835,7 +836,7 @@ LABEL_27:
       }
     }
   }
-  //sub_40E51F(pRGBTexture_Menu);
+  //RGBTexture_Release(pRGBTexture_Menu);
   GUIWindowDelete(pGUIWindow_PlayerCreation);
   sub_4114F2(pClass17_Icons_LOD);
 
@@ -881,7 +882,7 @@ LABEL_27:
 
     pParty_global->pPlayers[i].word_001A9E = 0;
     v15 = 0;
-    v14 = &pParty_global->pPlayers[i].ActiveSkills[SKILL_FIREMAGIC]; // starting from first magic skill 
+    v14 = &pParty_global->pPlayers[i].pActiveSkills[SKILL_FIREMAGIC]; // starting from first magic skill 
     while (!*v14++)
     {
       ++v15;
@@ -897,7 +898,7 @@ LABEL_45:
     v30 = 0;
     do
     {
-      if (pParty_global->pPlayers[i].ActiveSkills[v16])
+      if (pParty_global->pPlayers[i].pActiveSkills[v16])
       {
         switch ( v16 )
         {
@@ -936,31 +937,31 @@ LABEL_45:
             goto LABEL_69;
           case 12:
             CreateItemInInventory(&pParty_global->pPlayers[i], -1, 401);
-            pParty_global->pPlayers[i].byte_000192 = 1;
+            pParty_global->pPlayers[i].cFireSpellbook.bIsSpellbookAvailable = true;
             break;
           case 13:
             CreateItemInInventory(&pParty_global->pPlayers[i], -1, 412);
-            pParty_global->pPlayers[i].byte_00019D = 1;
+            pParty_global->pPlayers[i].cAirSpellbook.bIsSpellbookAvailable = true;
             break;
           case 14:
             CreateItemInInventory(&pParty_global->pPlayers[i], -1, 423);
-            pParty_global->pPlayers[i].byte_0001A8 = 1;
+            pParty_global->pPlayers[i].cWaterSpellbook.bIsSpellbookAvailable = true;
             break;
           case 15:
             CreateItemInInventory(&pParty_global->pPlayers[i], -1, 434);
-            pParty_global->pPlayers[i].byte_0001B3 = 1;
+            pParty_global->pPlayers[i].cEarthSpellbook.bIsSpellbookAvailable = true;
             break;
           case 16:
             CreateItemInInventory(&pParty_global->pPlayers[i], -1, 445);
-            pParty_global->pPlayers[i].byte_0001BE = 1;
+            pParty_global->pPlayers[i].cSpiritSpellbook.bIsSpellbookAvailable = true;
             break;
           case 17:
             CreateItemInInventory(&pParty_global->pPlayers[i], -1, 456);
-            pParty_global->pPlayers[i].byte_0001C9 = 1;
+            pParty_global->pPlayers[i].cMindSpellbook.bIsSpellbookAvailable = true;
             break;
           case 18:
             CreateItemInInventory(&pParty_global->pPlayers[i], -1, 467);
-            pParty_global->pPlayers[i].byte_0001D4 = 1;
+            pParty_global->pPlayers[i].cBodySpellbook.bIsSpellbookAvailable = true;
             break;
           case 21:
           case 23:
@@ -1649,12 +1650,12 @@ signed int __thiscall sub_404544(int this)
   if ( (*(_BYTE *)(v1 + 32) & 7) == 4 )
   {
     result = (result >> 3) + 1;
-    uMaybeSelectedCharacter = result;
+    uActiveCharacter = result;
     *(_DWORD *)(v1 + 24) |= 4u;
   }
   else
   {
-    uMaybeSelectedCharacter = 0;
+    uActiveCharacter = 0;
     *(_DWORD *)(v1 + 24) &= 0xFFFFFFFBu;
   }
   v21 = 0;
@@ -2839,8 +2840,10 @@ int __cdecl MenuLoop_Main()
                                   "Exit",
                                   v7);
 
- sub_40E51F(pRGBTexture_Menu);
- RGBTexture_Load(pRGBTexture_Menu, "Title", 0);
+ //RGBTexture_Release(pRGBTexture_Menu);
+ //RGBTexture_Load(pRGBTexture_Menu, "Title", 0);
+ class17_ReleaseTexture(pClass17_Icons_LOD, uTextureID_CurrentMenu);
+ uTextureID_CurrentMenu = class17_LoadTexture_New(pClass17_Icons_LOD, L"Title");
 
  SetCurrentMenu(MENU_MAIN);
  SetForegroundWindow(hWnd_global);
@@ -2854,7 +2857,8 @@ int __cdecl MenuLoop_Main()
     {
       if ( dword_4E28F8 != 12 )
       {
-        RGBTexture_Load(pRGBTexture_Menu, "lsave640", 0);
+        //RGBTexture_Load(pRGBTexture_Menu, "lsave640", 0);
+       uTextureID_CurrentMenu = class17_LoadTexture_New(pClass17_Icons_LOD, L"lsave640");
         pGUIWindow2 = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
         dword_4E28F8 = 12;
         sub_45E361(0);
@@ -2876,7 +2880,8 @@ int __cdecl MenuLoop_Main()
     else
     {
       CD3DRenderer_BeginScene(pD3DRenderer);
-      CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, pRGBTexture_Menu);
+      CD3DRenderer_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
+
       if (dword_720010)
         sub_46B736(dword_720010, 1);
       sub_435748();
@@ -2940,7 +2945,7 @@ int __cdecl MenuLoop_Main()
   sub_4156F0();
   CD3DRenderer_EndScene(pD3DRenderer);
   CD3DRenderer_Present(pD3DRenderer);
-  //sub_40E51F(pRGBTexture_Menu);
+  //RGBTexture_Release(pRGBTexture_Menu);
   if ( pGUIWindow2 )
   {
     GUIWindowDelete(pGUIWindow2);
@@ -5276,11 +5281,11 @@ signed int __thiscall sub_4061CA(int this)
   if ( (*(_BYTE *)(v4 + 32) & 7) == 4 )
   {
     result = (result >> 3) + 1;
-    uMaybeSelectedCharacter = result;
+    uActiveCharacter = result;
   }
   else
   {
-    uMaybeSelectedCharacter = 0;
+    uActiveCharacter = 0;
   }
   struct_576FE8.dword_000044 = 1;
   if ( *(_DWORD *)(v4 + 28) )
@@ -5570,9 +5575,9 @@ int __thiscall sub_406457(void *this, int a2)
   *(_DWORD *)(16 * a2 + v3 + 36) = v4;
   sub_404544(v3);
   if ( (*(_BYTE *)(v3 + 32) & 7) == 4 )
-    uMaybeSelectedCharacter = (*(_DWORD *)(v3 + 32) >> 3) + 1;
+    uActiveCharacter = (*(_DWORD *)(v3 + 32) >> 3) + 1;
   else
-    uMaybeSelectedCharacter = 0;
+    uActiveCharacter = 0;
   result = v3 + 36;
   struct_576FE8.dword_000044 = 1;
   while ( *(_DWORD *)result > 0 )
@@ -5871,7 +5876,7 @@ __int16 __thiscall sub_4065B0(int this)
   v2 = this;
   LOWORD(v1) = sub_404544(this);
   if ( *(_DWORD *)(v2 + 36) <= 0
-    || ((sub_4063A1(v2), v1 = *(_DWORD *)(v2 + 32), (*(_BYTE *)(v2 + 32) & 7) != 4) ? (uMaybeSelectedCharacter = 0) : (v1 = (v1 >> 3) + 1, uMaybeSelectedCharacter = v1),
+    || ((sub_4063A1(v2), v1 = *(_DWORD *)(v2 + 32), (*(_BYTE *)(v2 + 32) & 7) != 4) ? (uActiveCharacter = 0) : (v1 = (v1 >> 3) + 1, uActiveCharacter = v1),
         struct_576FE8.dword_000044 = 1,
         *(_DWORD *)(v2 + 36) <= 0) )
   {
@@ -6229,7 +6234,7 @@ void __thiscall sub_406A63(int this)
   v2 = 0;
   *(_DWORD *)(this + 8) = 64;
   dword_50C994 = 0;
-  uMaybeSelectedCharacter = 0;
+  uActiveCharacter = 0;
   v3 = *(_DWORD *)(this + 12) == 0;
   v4 = *(_DWORD *)(this + 12) < 0;
   v9 = 0;
@@ -6947,12 +6952,12 @@ LABEL_137:
     }
   }
 
-  result = uMaybeSelectedCharacter;
-  if ( uMaybeSelectedCharacter )
+  result = uActiveCharacter;
+  if ( uActiveCharacter )
   {
     if ( dword_4E28F8 != 5 )
     {
-      result = pPlayers[uMaybeSelectedCharacter - 1];
+      result = pPlayers[uActiveCharacter - 1];
       if ( *(_QWORD *)(result + 16)
         || *(_QWORD *)(result + 96)
         || *(_QWORD *)(result + 104)
@@ -6962,7 +6967,7 @@ LABEL_137:
       {
         struct_576FE8.dword_000044 = 1;
         result = Party_sub_49370F(pParty_global);
-        uMaybeSelectedCharacter = result;
+        uActiveCharacter = result;
       }
     }
   }
@@ -11478,8 +11483,8 @@ LABEL_8:
     sub_409E3D(dword_720010, *(_BYTE *)(dword_720010 + 103));
     v1 = sub_46B944(dword_720010);
   }
-  v3 = sub_40E51F(pClass33_global0);
-  sub_40E51F(pClass33_global1);
+  v3 = RGBTexture_Release(pClass33_global0);
+  RGBTexture_Release(pClass33_global1);
   struct_505898.byte_505992 = 0;
   struct_576FE8.dword_000044 = 1;
   if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )

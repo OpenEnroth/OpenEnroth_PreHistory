@@ -1,12 +1,14 @@
 #pragma once
 #pragma pack(push, 1)
 
+#include <windows.h>
+
 struct IconFrame
 {
  unsigned char sIconName[12];    // byte[12] @ 000000
  unsigned char sTextureName[12]; // byte[12] @ 00000C
- short         word_000018; // frame time?
- short         word_00001A; // num frames?
+ short         word_000018;      // frame time?
+ short         word_00001A;      // num frames?
  short         word_00001C;
  short         uTextureIdx;      // word @ 00001E
 };
@@ -25,6 +27,8 @@ void *CIconFrameTable_Initialize(struct CIconFrameTable *_this, void *pSrc);
 int CIconFrameTable_InitializeFromTXT(struct CIconFrameTable *_this, const char *pSourceFile);
 //int __thiscall sub_494F3A(void *this, const char *Str1);
 unsigned int CIconFrameTable_FindIcon(struct CIconFrameTable *_this, const char *pIconName);
+//custom
+unsigned int CIconFrameTable_FindIcon_New(struct CIconFrameTable *_this, const wchar_t *pIconName);
 //void __thiscall sub_494FBF(int this, int a2);
 void CIconFrameTable_InitializeIcon(struct CIconFrameTable *_this, unsigned int uIconIdx);
 //int __thiscall sub_49500A(void *Str);

@@ -50,6 +50,20 @@
 #define SKILL_LEARNING		36
 
 
+#define CLASS_KNIGHT   0
+#define CLASS_THIEF    4
+#define CLASS_CLERIC   24
+#define CLASS_SORCERER 32
+
+#define RACE_HUMAN  0
+#define RACE_ELF    1
+#define RACE_GOBLIN 2
+#define RACE_DWARF  3
+#define RACE_UNDEAD 4
+
+
+extern unsigned int uTextureID_PCFaces[];
+
 
 struct Player_stru0
 {
@@ -60,37 +74,43 @@ struct Player_stru0
 };
 //sizeof == 24
 
+struct Spellbook
+{
+ unsigned char bIsSpellbookAvailable;
+ unsigned char bAvailableSpells[10];
+};
+
 struct Player
 {
  union
  {
   struct
   {
-   __int64          pConditions[20];    // qword[20] @ 000000   [14] eradicated  [16] dead
-   unsigned __int64 uExperience;        // qword     @ 0000A0
-   unsigned char    sName[16];          // byte[16]  @ 0000A8
-   unsigned char    uSex;               // byte      @ 0000B8    0 male 1 female
-   unsigned char    uClass;             // byte      @ 0000B9
-   unsigned char    uFace;              // byte      @ 0000BA
-   unsigned char    unknown;            // byte      @ 0000BB
-   unsigned short   uStrength;          // word      @ 0000BC
-   unsigned short   uStrengthBonus;     // word      @ 0000BE
-   unsigned short   uIntelligence;      // word      @ 0000C0
-   unsigned short   uIntelligenceBonus; // word      @ 0000C2
-   unsigned short   uWillpower;         // word      @ 0000C4
-   unsigned short   uWillpowerBonus;    // word      @ 0000C6
-   unsigned short   uEndurance;         // word      @ 0000C8
-   unsigned short   uEnduranceBonus;    // word      @ 0000CA
-   unsigned short   uSpeed;             // word      @ 0000CC
-   unsigned short   uSpeedBonus;        // word      @ 0000CE
-   unsigned short   uAccuracy;          // word      @ 0000D0
-   unsigned short   uAccuracyBonus;     // word      @ 0000D2
-   unsigned short   uLuck;              // word      @ 0000D4
-   unsigned short   uLuckBonus;         // word      @ 0000D6
-   short            ArmourClassBonus;   // word      @ 0000D8
-   short            BaseLevel;          // word      @ 0000DA
-   short            TempLevelBonus;     // word      @ 0000DC
-   short            AgeingAdd;          // word      @ 0000DE
+   __int64          pConditions[20];      // qword[20] @ 000000   [14] eradicated  [16] dead
+   unsigned __int64 uExperience;          // qword     @ 0000A0
+   unsigned char    sName[16];            // byte[16]  @ 0000A8
+   unsigned char    uSex;                 // byte      @ 0000B8    0 male 1 female
+   unsigned char    uClass;               // byte      @ 0000B9
+   unsigned char    uFace;                // byte      @ 0000BA
+   unsigned char    unknown;              // byte      @ 0000BB
+   unsigned short   uStrength;            // word      @ 0000BC
+   unsigned short   uStrengthBonus;       // word      @ 0000BE
+   unsigned short   uIntelligence;        // word      @ 0000C0
+   unsigned short   uIntelligenceBonus;   // word      @ 0000C2
+   unsigned short   uWillpower;           // word      @ 0000C4
+   unsigned short   uWillpowerBonus;      // word      @ 0000C6
+   unsigned short   uEndurance;           // word      @ 0000C8
+   unsigned short   uEnduranceBonus;      // word      @ 0000CA
+   unsigned short   uSpeed;               // word      @ 0000CC
+   unsigned short   uSpeedBonus;          // word      @ 0000CE
+   unsigned short   uAccuracy;            // word      @ 0000D0
+   unsigned short   uAccuracyBonus;       // word      @ 0000D2
+   unsigned short   uLuck;                // word      @ 0000D4
+   unsigned short   uLuckBonus;           // word      @ 0000D6
+   short            sArmourClassModifier; // word      @ 0000D8
+   unsigned short   uLevelBase;           // word      @ 0000DA
+   unsigned short   uLevelModifier;       // word      @ 0000DC
+   short            sAgeModifier;         // word      @ 0000DE
    int   dword_0000E0;
    int   dword_0000E4;
    int   dword_0000E8;
@@ -102,36 +122,20 @@ struct Player
    int   dword_000100;
    int   dword_000104;
 
-   short ActiveSkills[37];  // word[37] @ 000108
-   char array_000152[64];   // awards?
+   short pActiveSkills[37];  // word[37] @ 000108
+   char array_000152[64];    // awards?
 
-   char byte_000192;       // related to spells
-   char array_000193[10];  //
-
-   char byte_00019D;
-   char array_00019E[10];
-
-   char byte_0001A8;
-   char array_0001A9[10];
-
-   char byte_0001B3;
-   char array_0001B4[10];
-
-   char byte_0001BE;
-   char array_0001BF[10];
-
-   char byte_0001C9;
-   char array_0001CA[10];
-
-   char byte_0001D4;
-   char array_0001D5[10];
-
-   char byte_0001DF;
-   char array_0001E0[10];
-
-   char byte_0001EA;
-   char array_0001EB[41];
-
+   struct Spellbook cFireSpellbook;   // struct @ 000192
+   struct Spellbook cAirSpellbook;    // struct @ 00019D
+   struct Spellbook cWaterSpellbook;  // struct @ 0001A8
+   struct Spellbook cEarthSpellbook;  // struct @ 0001B3
+   struct Spellbook cSpiritSpellbook; // struct @ 0001BE
+   struct Spellbook cMindSpellbook;   // struct @ 0001C9
+   struct Spellbook cBodySpellbook;   // struct @ 0001D4
+   struct Spellbook cLightSpellbook;  // struct @ 0001DF
+   struct Spellbook cDarkSpellbook;   // struct @ 0001EA
+   
+   char array_0001F5[31];
 
    struct Player_stru0 array_000214[126]; // items in inventory
    char                array_0013CC[432];
@@ -169,7 +173,7 @@ struct Player
    unsigned int uSkillPoints;      // dword @ 001938
    int          sHealth;           // dword @ 00193C
    int          sMana;             // dword @ 001940
-   int          dword_001944;      // birth year?
+   unsigned int uBirthYear;        // dword @ 001944
    int          array_001948[65]; // related to equipped items
 
    char          byte_001A4E;
@@ -180,7 +184,7 @@ struct Player
    char array_001A99[3];
 
    short word_001A9C; //id in PlayerFrameTable, face set
-   short word_001A9E; //subframe in FrameTable, current face emotion?
+   short word_001A9E; //subframe in FrameTable, current face emotion?   doesnt generate random name if this is not zero
    short word_001AA0;
    short word_001AA2; //PlayerFrame::word_000002 - 1
    int dword_001AA4;
@@ -199,6 +203,9 @@ struct Player
 __int16 __thiscall Player_SetInitialStats(struct Player *_this);
 void Player_RandomizeName(struct Player *_this);
 
+//int __thiscall sub_49024A(int this, char a2);
+void Player_Reset(struct Player *_this, unsigned int uClass);
+
 int __thiscall Player_GetActualStrength(struct Player *_this);
 int __thiscall Player_GetActualIntelligence(struct Player *_this);
 int __thiscall Player_GetActualWillpower(struct Player *_this);
@@ -209,13 +216,15 @@ int __thiscall Player_GetActualLuck(struct Player *_this);
 int __thiscall Player_GetBaseResistance(struct Player *_this, signed int a2);
 int __thiscall Player_GetActualResistance(struct Player *_this, signed int a2);
 
-signed int __thiscall Player_GetMaxHealth(int this);
-int __thiscall Player_GetMaxMana(int this);
+int Player_GetMaxHealth(struct Player *_this);
+int Player_GetMaxMana(struct Player *_this);
 
 int __thiscall Player_MaybeGetCastSpellBonus(int this, signed int a2);
 signed int __thiscall Player_GetVoiceSex(struct Player *_this);
 
-int sub_490109(struct Player *_this);
+int Player_GetRace(struct Player *_this);
+int Player_GetSex(struct Player *_this);
+
 signed int Player_sub_48E8F5(struct Player *_this, signed int a2);
 signed int Player_sub_48EA46(struct Player *_this, int a2);
 signed int Player_sub_492D65(struct Player *_this, int a2, int a3);

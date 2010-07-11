@@ -58,21 +58,8 @@ void RtlCallCtors()
  RGBTexture_ctor(pClass33_global0);
  pClass33_global1 = malloc(sizeof(struct RGBTexture));
  RGBTexture_ctor(pClass33_global1);
- pRGBTexture_Menu = malloc(sizeof(struct RGBTexture));
- RGBTexture_ctor(pRGBTexture_Menu);
  pClass33_global3 = malloc(sizeof(struct RGBTexture));
  RGBTexture_ctor(pClass33_global3);
-
- pTexture_StatusBar = malloc(sizeof(struct RGBTexture));
- RGBTexture_ctor(pTexture_StatusBar);
- pTexture_LeftFrame = malloc(sizeof(struct RGBTexture));
- RGBTexture_ctor(pTexture_LeftFrame);
- pTexture_TopFrame = malloc(sizeof(struct RGBTexture));
- RGBTexture_ctor(pTexture_TopFrame);
- pTexture_BottomFrame = malloc(sizeof(struct RGBTexture));
- RGBTexture_ctor(pTexture_BottomFrame);
- pTexture_RightFrame = malloc(sizeof(struct RGBTexture));
- RGBTexture_ctor(pTexture_RightFrame);
 
  class36_ctor(&class36_global0);
 
@@ -869,7 +856,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *
    }
   }
 
-  LoadInterfaceTextures(1, 0);
+  SetupUserInterface(1);
   LoadMainMenu();
   RegistryWriteInt("Ran once", 1);
   dword_6BE364 |= 0x4000;
@@ -893,7 +880,7 @@ LABEL_21:
           if ( pAudioPlayer->hAILRedbook )
             AIL_redbook_stop(pAudioPlayer->hAILRedbook);
 
-          Party_CreateDefault(pParty_global);
+          Party_Reset(pParty_global);
 
           v9 = 0;
           do
@@ -941,7 +928,7 @@ LABEL_21:
             if (dword_69B00C)
               Keyboard_suspend(dword_69B00C);
           }
-          Party_CreateDefault(pParty_global);
+          Party_Reset(pParty_global);
           Party_CreateDefaultParty(pParty_global, 1);
           sub_46271C();
           if ( !GetOpenFileNameA(&stru_6A0DA0) )
@@ -4385,7 +4372,7 @@ LABEL_22:
   struct_576FE8.dword_000044 = v6;
   GameUI_DrawPartySpells();
   if (v5 || array_AD4674[0].dword_000030 || array_AD4674[1].dword_000030)
-    sub_491F87();
+    sub_491F87_DrawNPCs();
 
   GameUI_DrawPortraits((void *)v5);
   GameUI_DrawLifeManaBars();
@@ -6079,261 +6066,6 @@ void __cdecl sub_481ED9()
  pStruct9_global->dword_000044 = 0;
 }
 
-//----- (004226EF) --------------------------------------------------------
-void __fastcall LoadInterfaceTextures(unsigned int uAlignment, char a2)
-{
-  int v2; // ecx@2
-
-  unsigned int uTextureIdx_Endcap;
-
-                             //7145548 == pClass17_Icons_LOD::class18_array
-  if (uAlignment)
-  {
-    v2 = uAlignment - 1;
-    if (v2)
-    {
-      if (v2 != 1)
-        return;
-      if (a2)
-      {
-        sub_40F5F5(pTexture_RightFrame, "ib-r-C.pcx");
-        sub_40F5F5(pTexture_BottomFrame, "ib-b-C.pcx");
-        sub_40F5F5(pTexture_TopFrame, "ib-t-C.pcx");
-        sub_40F5F5(pTexture_LeftFrame, "ib-l-C.pcx");
-        sub_40F5F5(pTexture_StatusBar, "IB-Foot-c.pcx");
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_5079E4 + 7145548), "ib-mb-C", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_MinimapMask + 7145548), "ib-autmask-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_MinimapCompass + 7145548), "IB-COMP-C", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_SensorGreen + 7145548), "IB-InitG-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_5079C8 + 7145548), "IB-InitY-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_5079CC + 7145548), "IB-InitR-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_ib_npcld_a + 7145548), "IB-NPCLD-C", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_ib_npcrd_a + 7145548), "IB-NPCRD-C", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_ib_autout_a + 7145548), "ib-autout-C", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_ib_autin_a + 7145548), "ib-autin-C", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_CharacterSelectionFrame + 7145548), "IB-selec-C", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_ib_m1d_a + 7145548), "ib-m1d-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_ib_m2d_a + 7145548), "ib-m2d-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_ib_m3d_a + 7145548), "ib-m3d-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_ib_m4d_a + 7145548), "ib-m4d-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_50796C + 7145548), "isg-01-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_507968 + 7145548), "isg-02-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_507964 + 7145548), "isg-03-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_507960 + 7145548), "isg-04-c", 2);
-        array_6A0D14[3].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeC");
-        CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[3].uIconIdx);
-        array_6A0D14[2].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "torchC");
-        CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[2].uIconIdx);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_506438 + 7145548), "ib-bcu-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_50795C + 7145548), "evtnpc-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_InventoryBackground + 7145548), "fr_inven-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_Parchment + 7145548), "parchment", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_CornerLowerLeft + 7145548), "cornr_ll-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_CornerLowerRight + 7145548), "cornr_lr-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_CornerUpperLeft + 7145548), "cornr_ul-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_CornerUpperRight + 7145548), "cornr_ur-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_EdgeBottom + 7145548), "edge_btm-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_EdgeLeft + 7145548), "edge_lf-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_EdgeRight + 7145548), "edge_rt-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_EdgeTop + 7145548), "edge_top-c", 2);
-        sub_4101B1(pClass17_Icons_LOD, pClass18_EndcapTexture, "endcap-c", 2);
-      }
-      else
-      {
-        RGBTexture_Load(pTexture_RightFrame, "ib-r-C.pcx", 0);
-        RGBTexture_Load(pTexture_BottomFrame, "ib-b-c.pcx", 0);
-        RGBTexture_Load(pTexture_TopFrame, "ib-t-C.pcx", 0);
-        RGBTexture_Load(pTexture_LeftFrame, "ib-l-C.pcx", 0);
-        RGBTexture_Load(pTexture_StatusBar, "IB-Foot-c.pcx", 0);
-        dword_5079E4 = class17_LoadTexture(pClass17_Icons_LOD, "ib-mb-C", 2);
-        uTextureIdx_MinimapMask = class17_LoadTexture(pClass17_Icons_LOD, "ib-autmask-c", 2);
-        uTextureIdx_MinimapCompass = class17_LoadTexture(pClass17_Icons_LOD, "IB-COMP-C", 2);
-        uTextureIdx_SensorGreen = class17_LoadTexture(pClass17_Icons_LOD, "IB-InitG-c", 2);
-        dword_5079C8 = class17_LoadTexture(pClass17_Icons_LOD, "IB-InitY-c", 2);
-        dword_5079CC = class17_LoadTexture(pClass17_Icons_LOD, "IB-InitR-c", 2);
-        uTextureIdx_ib_npcld_a = class17_LoadTexture(pClass17_Icons_LOD, "IB-NPCLD-C", 2);
-        uTextureIdx_ib_npcrd_a = class17_LoadTexture(pClass17_Icons_LOD, "IB-NPCRD-C", 2);
-        uTextureIdx_ib_autout_a = class17_LoadTexture(pClass17_Icons_LOD, "ib-autout-C", 2);
-        uTextureIdx_ib_autin_a = class17_LoadTexture(pClass17_Icons_LOD, "ib-autin-C", 2);
-        uTextureIdx_CharacterSelectionFrame = class17_LoadTexture(pClass17_Icons_LOD, "IB-selec-C", 2);
-        uTextureIdx_ib_m1d_a = class17_LoadTexture(pClass17_Icons_LOD, "ib-m1d-c", 2);
-        uTextureIdx_ib_m2d_a = class17_LoadTexture(pClass17_Icons_LOD, "ib-m2d-c", 2);
-        uTextureIdx_ib_m3d_a = class17_LoadTexture(pClass17_Icons_LOD, "ib-m3d-c", 2);
-        uTextureIdx_ib_m4d_a = class17_LoadTexture(pClass17_Icons_LOD, "ib-m4d-c", 2);
-        dword_506438 = class17_LoadTexture(pClass17_Icons_LOD, "ib-bcu-c", 2);
-        dword_50796C = class17_LoadTexture(pClass17_Icons_LOD, "isg-01-c", 2);
-        dword_507968 = class17_LoadTexture(pClass17_Icons_LOD, "isg-02-c", 2);
-        dword_507964 = class17_LoadTexture(pClass17_Icons_LOD, "isg-03-c", 2);
-        dword_507960 = class17_LoadTexture(pClass17_Icons_LOD, "isg-04-c", 2);
-        dword_50795C = class17_LoadTexture(pClass17_Icons_LOD, "evtnpc-c", 2);
-        uTextureIdx_InventoryBackground = class17_LoadTexture_New(pClass17_Icons_LOD, L"fr_inven");
-
-        array_6A0D14[3].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeC");
-        CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[3].uIconIdx);
-        array_6A0D14[2].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "torchC");
-        CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[2].uIconIdx);
-      }
-      dword_507AFC = 0xFFC80000;
-      dword_507AF8 = 0xFF0A0000;
-    }
-    else
-    {/*
-      if ( a2 )
-      {
-        RGBTexture_Load(pTexture_RightFrame, "ib-r-A", 0);
-        RGBTexture_Load(pTexture_BottomFrame, "ib-b-A", 0);
-        RGBTexture_Load(pTexture_TopFrame, "ib-t-A", 0);
-        RGBTexture_Load(pTexture_LeftFrame, "ib-l-A", 0);
-        RGBTexture_Load(pTexture_StatusBar, "IB-Foot-a", 0);
-
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[dword_5079E4], "ib-mb-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_MinimapMask], "ib-autmask-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_MinimapCompass], "IB-COMP-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_SensorGreen], "IB-InitG-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[dword_5079C8], "IB-InitY-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[dword_5079CC], "IB-InitR-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_ib_npcld_a], "IB-NPCLD-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_ib_npcrd_a], "IB-NPCRD-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_ib_autout_a], "ib-autout-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_ib_autin_a], "ib-autin-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_CharacterSelectionFrame], "IB-selec-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_ib_m1d_a], "ib-m1d-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_ib_m2d_a], "ib-m2d-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_ib_m3d_a], "ib-m3d-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_ib_m4d_a], "ib-m4d-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[dword_50796C], "isg-01-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[dword_507968], "isg-02-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[dword_507964], "isg-03-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[dword_507960], "isg-04-a", 2);
-        array_6A0D14[3].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeA");
-        CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[3].uIconIdx);
-        array_6A0D14[2].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "torchA");
-        CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[2].uIconIdx);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[dword_506438], "ib-bcu-a", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[dword_50795C], "evtnpc", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_InventoryBackground], "fr_inven", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_Parchment], "parchment", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_CornerLowerLeft], "cornr_ll", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_CornerLowerRight], "cornr_lr", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_CornerUpperLeft], "cornr_ul", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_CornerUpperRight], "cornr_ur", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeBottom], "edge_btm", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeLeft], "edge_lf", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeRight], "edge_rt", 2);
-        sub_4101B1(pClass17_Icons_LOD, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeTop], "edge_top", 2);
-        sub_4101B1(pClass17_Icons_LOD, pClass18_EndcapTexture, "endcap", 2);
-      }
-      else*/
-      {
-        RGBTexture_Load(pTexture_RightFrame, "ib-r-A", 0);
-        RGBTexture_Load(pTexture_BottomFrame, "ib-b-A", 0);
-        RGBTexture_Load(pTexture_TopFrame, "ib-t-A", 0);
-        RGBTexture_Load(pTexture_LeftFrame, "ib-l-A", 0);
-        RGBTexture_Load(pTexture_StatusBar, "IB-Foot-a", 0);
-
-        dword_506438 = class17_LoadTexture(pClass17_Icons_LOD, "ib-bcu-a", 2);
-
-        uTextureIdx_EdgeTop = class17_LoadTexture_New(pClass17_Icons_LOD, L"Edge_Top");
-        uTextureIdx_EdgeBottom = class17_LoadTexture_New(pClass17_Icons_LOD, L"Edge_Bottom");
-        uTextureIdx_EdgeRight = class17_LoadTexture_New(pClass17_Icons_LOD, L"Edge_Right");
-        uTextureIdx_EdgeLeft = class17_LoadTexture_New(pClass17_Icons_LOD, L"Edge_Left");
-        uTextureIdx_CornerUpperRight = class17_LoadTexture_New(pClass17_Icons_LOD, L"Cornr_UR");
-        uTextureIdx_CornerUpperLeft = class17_LoadTexture_New(pClass17_Icons_LOD, L"Cornr_UL");
-        uTextureIdx_CornerLowerRight = class17_LoadTexture_New(pClass17_Icons_LOD, L"Cornr_LR");
-        uTextureIdx_CornerLowerLeft = class17_LoadTexture_New(pClass17_Icons_LOD, L"Cornr_LL");
-        uTextureIdx_Parchment = class17_LoadTexture_New(pClass17_Icons_LOD, L"Parchment");
-
-        uTextureIdx_InventoryBackground = class17_LoadTexture_New(pClass17_Icons_LOD, L"fr_inven");
-        dword_50795C = class17_LoadTexture(pClass17_Icons_LOD, "evtnpc", 2);
-        dword_507960 = class17_LoadTexture(pClass17_Icons_LOD, "isg-04-a", 2);
-        dword_507964 = class17_LoadTexture(pClass17_Icons_LOD, "isg-03-a", 2);
-        dword_507968 = class17_LoadTexture(pClass17_Icons_LOD, "isg-02-a", 2);
-        dword_50796C = class17_LoadTexture(pClass17_Icons_LOD, "isg-01-a", 2);
-
-        uTextureIdx_ib_m4d_a = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-m4d-a");
-        uTextureIdx_ib_m3d_a = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-m3d-a");
-        uTextureIdx_ib_m2d_a = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-m2d-a");
-        uTextureIdx_ib_m1d_a = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-m1d-a");
-
-        uTextureIdx_ib_autout_a = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-autout-a");
-        uTextureIdx_ib_autin_a = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-autin-A");
-
-        uTextureIdx_ib_npcrd_a = class17_LoadTexture_New(pClass17_Icons_LOD, L"IB-NPCRD-A");
-        uTextureIdx_ib_npcld_a = class17_LoadTexture_New(pClass17_Icons_LOD, L"IB-NPCLD-A");
-
-        uTextureIdx_MinimapCompass = class17_LoadTexture_New(pClass17_Icons_LOD, L"IB-COMP-A");
-        dword_5079C8 = class17_LoadTexture(pClass17_Icons_LOD, "IB-InitY-a", 2);
-        dword_5079CC = class17_LoadTexture(pClass17_Icons_LOD, "IB-InitR-a", 2);
-        uTextureIdx_SensorGreen = class17_LoadTexture_New(pClass17_Icons_LOD, L"IB-InitG-a");
-        uTextureIdx_MinimapMask = class17_LoadTexture_New(pClass17_Icons_LOD, L"ib-autmask-a");
-        dword_5079E4 = class17_LoadTexture(pClass17_Icons_LOD, "ib-mb-A", 2);
-
-        uTextureIdx_CharacterSelectionFrame = class17_LoadTexture_New(pClass17_Icons_LOD, L"IB-selec-A");
-
-        array_6A0D14[3].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeA");
-        CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[3].uIconIdx);
-
-        array_6A0D14[2].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "torchA");
-        CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[2].uIconIdx);
-
-        uTextureIdx_Endcap = class17_LoadTexture(pClass17_Icons_LOD, "endcap", 2);
-        pClass18_EndcapTexture = &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_Endcap];
-      }
-      dword_507AFC = 0xFF0A0000;
-      dword_507AF8 = 0xFFE6D6C1;
-    }
-  }
-  else
-  {
-    if ( a2 )
-    {
-      sub_40F5F5(pTexture_RightFrame, "ib-r-B.pcx");
-      sub_40F5F5(pTexture_BottomFrame, "ib-b-B.pcx");
-      sub_40F5F5(pTexture_TopFrame, "ib-t-B.pcx");
-      sub_40F5F5(pTexture_LeftFrame, "ib-l-B.pcx");
-      sub_40F5F5(pTexture_StatusBar, "IB-Foot-b.pcx");
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_5079E4 + 7145548), "ib-mb-B", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_MinimapMask + 7145548), "ib-autmask-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_MinimapCompass + 7145548), "IB-COMP-B", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_SensorGreen + 7145548), "IB-InitG-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_5079C8 + 7145548), "IB-InitY-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_5079CC + 7145548), "IB-InitR-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_ib_npcld_a + 7145548), "IB-NPCLD-B", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_ib_npcrd_a + 7145548), "IB-NPCRD-B", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_ib_autout_a + 7145548), "ib-autout-B", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_ib_autin_a + 7145548), "ib-autin-B", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_CharacterSelectionFrame + 7145548), "IB-selec-B", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_ib_m1d_a + 7145548), "ib-m1d-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_ib_m2d_a + 7145548), "ib-m2d-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_ib_m3d_a + 7145548), "ib-m3d-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_ib_m4d_a + 7145548), "ib-m4d-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_50796C + 7145548), "isg-01-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_507968 + 7145548), "isg-02-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_507964 + 7145548), "isg-03-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_507960 + 7145548), "isg-04-b", 2);
-      array_6A0D14[3].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeB");
-      CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[3].uIconIdx);
-      array_6A0D14[2].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, "torchB");
-      CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[2].uIconIdx);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_506438 + 7145548), "ib-bcu-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * dword_50795C + 7145548), "evtnpc-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_InventoryBackground + 7145548), "fr_inven-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_Parchment + 7145548), "parchment", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_CornerLowerLeft + 7145548), "cornr_ll-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_CornerLowerRight + 7145548), "cornr_lr-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_CornerUpperLeft + 7145548), "cornr_ul-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_CornerUpperRight + 7145548), "cornr_ur-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_EdgeBottom + 7145548), "edge_btm-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_EdgeLeft + 7145548), "edge_lf-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_EdgeRight + 7145548), "edge_rt-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, (char *)(72 * uTextureIdx_EdgeTop + 7145548), "edge_top-b", 2);
-      sub_4101B1(pClass17_Icons_LOD, pClass18_EndcapTexture, "endcap-b", 2);
-    }
-    dword_507AFC = 0xFF0000C8;
-    dword_507AF8 = 0xFFFFE1FF;
-  }
-}
-
 //----- (00473893) --------------------------------------------------------
 void __cdecl sub_473893()
 {
@@ -6819,8 +6551,8 @@ LABEL_86:
         v112 += (signed __int64)(flt_6BE150 * 25.0);
         if ( v112 > 128 )
           v112 = 128;
-        v22 = uMaybeSelectedCharacter;
-        if ( !uMaybeSelectedCharacter )
+        v22 = uActiveCharacter;
+        if ( !uActiveCharacter )
           goto LABEL_118;
         v87 = 0;
         v85 = 63;
@@ -6829,8 +6561,8 @@ LABEL_86:
         v112 += (signed __int64)(flt_6BE150 * -25.0);
         if ( v112 < -128 )
           v112 = -128;
-        v22 = uMaybeSelectedCharacter;
-        if ( uMaybeSelectedCharacter )
+        v22 = uActiveCharacter;
+        if ( uActiveCharacter )
         {
           v87 = 0;
           v85 = 64;
@@ -15291,7 +15023,7 @@ int __thiscall sub_4C2AA6(struct unnamed_6BD080 *_this)
 }
 
 //----- (00491F87) --------------------------------------------------------
-void __cdecl sub_491F87()
+void __cdecl sub_491F87_DrawNPCs()
 {
   _UNKNOWN *v4; // esi@7
   int v5; // ecx@13
@@ -15564,7 +15296,7 @@ LABEL_4:
 }
 
 //----- (00495B39) --------------------------------------------------------
-void *__cdecl PlayerCreationUI_Draw()
+void PlayerCreationUI_Draw()
 {
   struct IconFrame *v1;
   const char *v2; // ST10_4@3
@@ -15632,7 +15364,6 @@ void *__cdecl PlayerCreationUI_Draw()
   size_t v104; // eax@72
   signed int v105; // ecx@72
   signed int v106; // edi@72
-  //__int16 v107; // cx@79
   int v108; // edi@81
   __int16 v109; // ST0C_2@81
   int v110; // ST08_4@81
@@ -15667,7 +15398,7 @@ void *__cdecl PlayerCreationUI_Draw()
 
   CD3DRenderer_BeginScene(pD3DRenderer);
   {
-   CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, pRGBTexture_Menu);
+   CD3DRenderer_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
    CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_A74CCC, 2, pPlayerCreationUI_Sky);
    CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_A74CCC - 640, 2, pPlayerCreationUI_Sky);
 
@@ -15679,10 +15410,10 @@ void *__cdecl PlayerCreationUI_Draw()
 
    v3 = AlignText_Center(640, pGlobalTXT_LocalizationStrings[51], pFontCChar);
    FontDrawText(pGUIWindow_PlayerCreation, pFontCChar, v3 + 1, 3, pGlobalTXT_LocalizationStrings[51], 0xFFFFFFFF, 0, 0);
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 17, 35, pPlayerCreationUI_PCPortraits[pParty_global->pPlayers[0].uFace]);
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 176, 35, pPlayerCreationUI_PCPortraits[pParty_global->pPlayers[1].uFace]);
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 335, 35, pPlayerCreationUI_PCPortraits[pParty_global->pPlayers[2].uFace]);
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 494, 35, pPlayerCreationUI_PCPortraits[pParty_global->pPlayers[3].uFace]);
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer,  17, 35, &pClass17_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[0].uFace]]);
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 176, 35, &pClass17_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[1].uFace]]);
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 335, 35, &pClass17_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[2].uFace]]);
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 494, 35, &pClass17_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[3].uFace]]);
 
    v1 = CIconFrameTable_GetFrame(pIconFrameTable, uIconTableFrameID_CharacterFrame, pClass24_global->dword_00000C);
 
@@ -15708,8 +15439,8 @@ void *__cdecl PlayerCreationUI_Draw()
 
 
    v5 = GUIWindow_GetChild(pGUIWindow_PlayerCreation, pGUIWindow_PlayerCreation->dword_00002C);
-   CD3DRenderer_DrawTransparentRect(pD3DRenderer, v5->uZ - 4, v5->uY, 20 * dword_A74CD4, 0, 20, 16, &pClass17_Icons_LOD->aLODHeaders[uTextureID_Arrows]);
-   CD3DRenderer_DrawTransparentRect(pD3DRenderer, v5->uX - 12, v5->uY, 20 * dword_A74CD4, 16, 20, 16, &pClass17_Icons_LOD->aLODHeaders[uTextureID_Arrows]);
+   CD3DRenderer_DrawTransparentRect(pD3DRenderer, v5->uZ - 4, v5->uY, 20 * dword_A74CD4, 0, 20, 16, &pClass17_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
+   CD3DRenderer_DrawTransparentRect(pD3DRenderer, v5->uX - 12, v5->uY, 20 * dword_A74CD4, 16, 20, 16, &pClass17_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
 
    dword_A74CD4 = (GetTickCount() / 25) % 18;
 
@@ -15753,9 +15484,8 @@ void *__cdecl PlayerCreationUI_Draw()
    
    uClassIconCellX = (pParty_global->pPlayers[i].uClass / 4) % 3;
    uClassIconCellY = (pParty_global->pPlayers[i].uClass / 4) / 3;
-   //CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v143 + 77, 50, pPlayerCreationUI_ClassIcons[pParty_global->pPlayers[i].uClass / 4]);
    CD3DRenderer_DrawTransparentRect(pD3DRenderer, v143 + 77, 50,
-                                    uClassIconCellX * 48, uClassIconCellY * 52, 48, 52, &pClass17_Icons_LOD->aLODHeaders[uTextureID_ClassIcons]);
+                                    uClassIconCellX * 48, uClassIconCellY * 52, 48, 52, &pClass17_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_ClassIcons]);
 
    v12 = pGUIWindow_PlayerCreation->dword_000040;
    v13 = pGUIWindow_PlayerCreation->dword_00001C;
@@ -15810,9 +15540,10 @@ void *__cdecl PlayerCreationUI_Draw()
     }
     else
     {
-      //sub_44CB4F(pGUIWindow_PlayerCreation, pFontCreate, v143, 124, 0, pParty_global->pPlayers[i].sName, 130, 0);
       FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v143, 124, pParty_global->pPlayers[i].sName, 0xFFFFFFFF, 0, 0);
     }
+
+    
 
     v19 = Player_GetRace(&pParty_global->pPlayers[i]);
     switch (v19)
@@ -15825,7 +15556,6 @@ void *__cdecl PlayerCreationUI_Draw()
     };
     strcpy(TmpBuf, v119);
 
-    //sub_44CB4F(pGUIWindow_PlayerCreation, pFontCreate, v143 + 72, v137 + 12, 0, TmpBuf, 130, 0);
     FontDrawText(pGUIWindow_PlayerCreation, pFontCreate, v143 + 72, v137 + 12, TmpBuf, 0xFFFFFFFF, 0, 0);
     v23 = 0xFFD1BB61;
     v24 = AlignText_Center(150, Str1, pFontCreate);
@@ -16031,7 +15761,7 @@ LABEL_77:
     if ( v133 <= 3 )
       v136 = 0;
     uColor = 0xFF00F7F7;
-    if (!pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].ActiveSkills[v106])
+    if (!pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].pActiveSkills[v106])
       uColor = 0xFFFFFFFF;
     v108 = v143 / 3;
     v110 = v137 * (v143 % 3) + 417;
@@ -16062,7 +15792,7 @@ LABEL_77:
     v126 = 239;
     sub_415551((int)&v121, 0);
   }
-  return CD3DRenderer_EndScene(pD3DRenderer);
+  CD3DRenderer_EndScene(pD3DRenderer);
 }
 
 

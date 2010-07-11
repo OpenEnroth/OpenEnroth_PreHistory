@@ -725,6 +725,7 @@ int sub_4AC67E(struct class17 *_this, struct class18 *DstBuf, const char *pFilen
 
 unsigned int   class17_LoadTexture_New(struct class17 *_this, const wchar_t *pFilename);
 unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename);
+bool class17_ReleaseTexture(struct class17 *_this, unsigned int uTextureID);
 
 
 

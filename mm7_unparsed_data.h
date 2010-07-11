@@ -8,9 +8,6 @@
 #include "Level.h"
 #include "Actor.h"
 
-extern unsigned int uTextureID_ClassIcons;
-extern unsigned int uTextureID_Arrows;
-
 
 extern char aTooManyStation[]; // byte[] @ MM7.exe::004F0364
 
@@ -716,10 +713,10 @@ extern int dword_50768C; // weak
 extern int dword_507690; // weak
 extern int dword_507694; // weak
 
-extern unsigned int uTextureIdx_EdgeTop;          // dword @ MM7.exe::00507698
-extern unsigned int uTextureIdx_EdgeRight;        // dword @ MM7.exe::0050769C
-extern unsigned int uTextureIdx_EdgeLeft;         // dword @ MM7.exe::005076A0
-extern unsigned int uTextureIdx_EdgeBottom;       // dword @ MM7.exe::005076A4
+extern unsigned int uTextureID_WindowEdgeTop;          // dword @ MM7.exe::00507698
+extern unsigned int uTextureID_WindowEdgeRight;        // dword @ MM7.exe::0050769C
+extern unsigned int uTextureID_WindowEdgeLeft;         // dword @ MM7.exe::005076A0
+extern unsigned int uTextureID_WindowEdgeBottom;       // dword @ MM7.exe::005076A4
 extern unsigned int uTextureIdx_CornerUpperRight; // dword @ MM7.exe::005076A8
 extern unsigned int uTextureIdx_CornerUpperLeft;  // dword @ MM7.exe::005076AC
 extern unsigned int uTextureIdx_CornerLowerRight; // dword @ MM7.exe::005076B0
@@ -840,7 +837,7 @@ extern int dword_507BDC; // weak
 extern int dword_507BE0; // weak
 
 extern struct GUIWindow *pGUIWindow2;         // ptr   @ MM7.exe::00507BE4
-extern unsigned int      uMaybeSelectedCharacter; // dword @ MM7.exe::00507BEC
+extern unsigned int      uActiveCharacter; // dword @ MM7.exe::00507BEC
 extern int dword_507BF0; // weak
 extern int dword_507BF4; // weak
 extern int dword_507BF8; // weak

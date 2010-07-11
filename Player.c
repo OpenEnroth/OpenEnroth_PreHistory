@@ -10,6 +10,8 @@
 
 #include "data.h"
 
+unsigned int uTextureID_PCFaces[25];
+
 //----- (0048D6AA) --------------------------------------------------------
 bool sub_48D6AA(struct Player *_this, int a2)
 {
@@ -21,97 +23,63 @@ bool sub_48D6AA(struct Player *_this, int a2)
 
 
 //----- (0049024A) --------------------------------------------------------
-int sub_49024A(struct Player *_this, char a2)
+void Player_Reset(struct Player *_this, unsigned int uDesiredClass)
 {
  int i;
 
-  _this->uExperience = rand() % 100 + 251;
+ _this->uExperience = rand() % 100 + 251;
 
-  _this->uClass = a2;
-  _this->uStrengthBonus = 0;
-  _this->uIntelligenceBonus = 0;
-  _this->uWillpowerBonus = 0;
-  _this->uEnduranceBonus = 0;
-  _this->uSpeedBonus = 0;
-  _this->uAccuracyBonus = 0;
-  _this->uLuckBonus = 0;
-  _this->BaseLevel = 1;
+ _this->uClass = uDesiredClass;
+ _this->uStrengthBonus = 0;
+ _this->uIntelligenceBonus = 0;
+ _this->uWillpowerBonus = 0;
+ _this->uEnduranceBonus = 0;
+ _this->uSpeedBonus = 0;
+ _this->uAccuracyBonus = 0;
+ _this->uLuckBonus = 0;
+ _this->uLevelBase = 1;
 
-  _this->dword_001944 = 1147 - rand() % 6;
-  memset(_this->ActiveSkills, 0, 37 * 2);
-  memset(_this->array_000152, 0, 0x40);
+ _this->uBirthYear = 1147 - rand() % 6;
+ memset(_this->pActiveSkills, 0, 37 * sizeof(short));
+ memset(_this->array_000152, 0, 0x40);
 
-  _this->byte_000192 = 0;
-  memset(_this->array_000193, 0, 10);
+ memset(&_this->cFireSpellbook, 0, sizeof(struct Spellbook));
+ memset(&_this->cAirSpellbook, 0, sizeof(struct Spellbook));
+ memset(&_this->cWaterSpellbook, 0, sizeof(struct Spellbook));
+ memset(&_this->cEarthSpellbook, 0, sizeof(struct Spellbook));
+ memset(&_this->cSpiritSpellbook, 0, sizeof(struct Spellbook));
+ memset(&_this->cMindSpellbook, 0, sizeof(struct Spellbook));
+ memset(&_this->cBodySpellbook, 0, sizeof(struct Spellbook));
+ memset(&_this->cLightSpellbook, 0, sizeof(struct Spellbook));
+ memset(&_this->cDarkSpellbook, 0, sizeof(struct Spellbook));
 
-  _this->byte_00019D = 0;
-  memset(_this->array_00019E, 0, 10);
+ memset(_this->array_0001F5, 0, 31);
 
-  _this->byte_0001A8 = 0;
-  memset(_this->array_0001A9, 0, 10);
-
-  _this->byte_0001B3 = 0;
-  memset(_this->array_0001B4, 0, 10);
-
-  _this->byte_0001BE = 0;
-  memset(_this->array_0001BF, 0, 10);
-
-  _this->byte_0001C9 = 0;
-  memset(_this->array_0001CA, 0, 10);
-
-  _this->byte_0001D4 = 0;
-  memset(_this->array_0001D5, 0, 10);
-
-  _this->byte_0001DF = 0;
-  memset(_this->array_0001E0, 0, 10);
-
-  _this->byte_0001EA = 0;
-  memset(_this->array_0001EB, 0, 41);
-
-  for (i = 0; i < 37; ++i)
+ for (i = 0; i < 37; ++i)
+ {
+  if (AvailSkillPerClass[_this->uClass / 4][i] == 2)
   {
-    if (AvailSkillPerClass[_this->uClass >> 2][i] == 2 )
-    {
-     _this->ActiveSkills[i] = 1;
+   _this->pActiveSkills[i] = 1;
       if ( (unsigned int)(i - 12) <= 8 )
       {
-        switch ( i )
+        switch (i)
         {
-          case SKILL_FIREMAGIC:
-            _this->byte_000192 = 1;
-            break;
-          case SKILL_AIRMAGIC:
-            _this->byte_00019D = 1;
-            break;
-          case SKILL_WATERMAGIC:
-            _this->byte_0001A8 = 1;
-            break;
-          case SKILL_EARTHMAGIC:
-            _this->byte_0001B3 = 1;
-            break;
-          case SKILL_SPIRITMAGIC:
-            _this->byte_0001BE = 1;
-            break;
-          case SKILL_MINDMAGIC:
-            _this->byte_0001C9 = 1;
-            break;
-          case SKILL_BODYMAGIC:
-            _this->byte_0001D4 = 1;
-            break;
-          case SKILL_LIGHTMAGIC:
-            _this->byte_0001DF = 1;
-            break;
-          case SKILL_DARKMAGIC:
-            _this->byte_0001EA = 1;
-            break;
+          case SKILL_FIREMAGIC:   _this->cFireSpellbook.bIsSpellbookAvailable = true;   break;
+          case SKILL_AIRMAGIC:    _this->cAirSpellbook.bIsSpellbookAvailable = true;    break;
+          case SKILL_WATERMAGIC:  _this->cWaterSpellbook.bIsSpellbookAvailable = true;  break;
+          case SKILL_EARTHMAGIC:  _this->cEarthSpellbook.bIsSpellbookAvailable = true;  break;
+          case SKILL_SPIRITMAGIC: _this->cSpiritSpellbook.bIsSpellbookAvailable = true; break;
+          case SKILL_MINDMAGIC:   _this->cMindSpellbook.bIsSpellbookAvailable = true;   break;
+          case SKILL_BODYMAGIC:   _this->cBodySpellbook.bIsSpellbookAvailable = true;   break;
+          case SKILL_LIGHTMAGIC:  _this->cLightSpellbook.bIsSpellbookAvailable = true;  break;
+          case SKILL_DARKMAGIC:   _this->cDarkSpellbook.bIsSpellbookAvailable = true;   break;
         }
       }
     }
   }
 
-  _this->sHealth = Player_GetMaxHealth(_this);
-  _this->sMana = Player_GetMaxMana(_this);
-  return 0;
+ _this->sHealth = Player_GetMaxHealth(_this);
+ _this->sMana = Player_GetMaxMana(_this);
 }
 
 //----- (0048D6D0) --------------------------------------------------------
@@ -149,7 +117,7 @@ signed int __thiscall GetSkillIdxByOrder(struct Player *_this, int Order)
       
       for (i = 0; i < 37; ++i)
       {
-        if ( _this->ActiveSkills[skidx] &&  AvailSkillPerClass[_this->uClass >> 2][i] == 2 )
+        if ( _this->pActiveSkills[skidx] &&  AvailSkillPerClass[_this->uClass >> 2][i] == 2 )
         {
           if ( v8 == Order )
             return i;
@@ -166,7 +134,7 @@ signed int __thiscall GetSkillIdxByOrder(struct Player *_this, int Order)
         v6 = 0;
         for (i = 0; i < 37; ++i)
         {
-          if ( _this->ActiveSkills[skidx] && AvailSkillPerClass[_this->uClass >> 2][i] == 1 )
+          if ( _this->pActiveSkills[skidx] && AvailSkillPerClass[_this->uClass >> 2][i] == 1 )
           {
             if ( v6 == Order - 2 )
               return i;
@@ -215,28 +183,49 @@ __int16 Player_SetInitialStats(struct Player *_this)
 //----- (0048E9B7) --------------------------------------------------------
 void Player_RandomizeName(struct Player *_this)
 {
- if ( !_this->word_001A9E)
-   strcpy(_this->sName, pNPCStats->pNPCNames[rand() % pNPCStats->uNumNPCNames[_this->uSex]][_this->uSex]);
+ if (!_this->word_001A9E)
+   lstrcpyA(_this->sName, pNPCStats->pNPCNames[rand() % pNPCStats->uNumNPCNames[_this->uSex]][_this->uSex]);
 }
 
 //----- (00490109) --------------------------------------------------------
 int Player_GetRace(struct Player *_this)
 {
-  signed int v2; // ecx@1
+ /*faces are:  0  1  2  3   human males
+               4  5  6  7   human females
+                     8  9   elf males
+                    10 11   elf females
+                    12 13   dwarf males
+                    14 15   dwarf females
+                    16 17   goblin males
+                    18 19   goblin females
+                       20   lich male
+                       21   lich female
+                       22   underwater suits (unused)
+                       23   zombie male
+                       24   zombie female
+              */
 
-  v2 = _this->uFace;
-  if ( v2 > 15 && v2 < 20)
-    return 2;
-  else if ( v2 > 12)
-    return 3;
-  else if ( v2 >= 0 )
-  {
-   if ( v2 <= 7 )
-     return 0;
-   else if ( v2 <= 11 )
-     return 1;
-  }
-  return 0;
+ if (_this->uFace >= 0 && _this->uFace <= 7)
+   return RACE_HUMAN;
+ else if (_this->uFace > 7 && _this->uFace <= 11)
+   return RACE_ELF;
+ else if (_this->uFace > 11 && _this->uFace <= 15)
+   return RACE_DWARF;
+ else if (_this->uFace > 15 && _this->uFace <= 19)
+   return RACE_GOBLIN;
+ else if (_this->uFace > 19 && _this->uFace <= 25)
+   return RACE_UNDEAD;
+
+ return -1;
+}
+
+int Player_GetSex(struct Player *_this)
+{
+ if (_this->uFace < 4 || _this->uFace == 8 || _this->uFace == 9 || _this->uFace == 12 || _this->uFace == 13 ||
+     _this->uFace == 16 || _this->uFace == 17 || _this->uFace == 20 || _this->uFace == 23)
+   return 0;
+
+ return 1;
 }
 
 //----- (0048C855) --------------------------------------------------------
@@ -284,7 +273,7 @@ int __thiscall Player_GetBaseLuck(struct Player *_this)
 //----- (0048C8F6) --------------------------------------------------------
 int __thiscall Player_GetBaseLevel(struct Player *_this)
 {
-  return _this->BaseLevel + Player_MaybeGetWearItemsBonus(_this, 24, 0);
+  return _this->uLevelBase + Player_MaybeGetWearItemsBonus(_this, 24, 0);
 }
 
 //----- (0048C93C) --------------------------------------------------------
@@ -344,13 +333,13 @@ LABEL_5:
 //----- (0048C90D) --------------------------------------------------------
 int Player_GetActualLevel(struct Player *_this)
 {
-  return Player_GetBaseLevel(_this) + _this->TempLevelBonus + Player_MaybeGetCastSpellBonus(_this, 24);
+  return Player_GetBaseLevel(_this) + _this->uLevelModifier + Player_MaybeGetCastSpellBonus(_this, 24);
 }
 
 //----- (0048E72C) --------------------------------------------------------
 int __thiscall Player_GetActualAge(struct Player *_this)
 {
-  return Player_GetBaseAge(_this) + _this->AgeingAdd;
+  return Player_GetBaseAge(_this) + _this->sAgeModifier;
 }
 
 //----- (0048E6DC) --------------------------------------------------------
@@ -358,7 +347,7 @@ int Player_GetBaseAge(struct Player *_this)
 {
   double d = pParty_global->qword_00002C;
   return (signed int)((unsigned int)((signed __int64)(d * 0.234375) / 60 / 60) / 0x18) / 7 / 4 / 12
-       - _this->dword_001944 + 1168;
+       - _this->uBirthYear + 1168;
 }
 
 //----- (0048C9C2) --------------------------------------------------------
@@ -1668,8 +1657,8 @@ bool Player_sub_48E8F5(struct Player *_this, signed int a2)
   {
     *((_WORD *)v3 + 3226) = 0;
     struct_576FE8.dword_000044 = 1;
-    if ( !uMaybeSelectedCharacter )
-      uMaybeSelectedCharacter = Party_sub_49370F(pParty_global);
+    if ( !uActiveCharacter )
+      uActiveCharacter = Party_sub_49370F(pParty_global);
     return false;
   }
 }
@@ -2088,12 +2077,12 @@ int __thiscall Player_GetActualResistance(struct Player *_this, signed int a2)
     v11 = 20;
   if ( a2 == 10 || a2 == 11 || a2 == 12 || a2 == 13 )
   {
-    if ( sub_458244(_this->ActiveSkills[SKILL_LEATHER]) == 4 )  // Grandmaster leather bonus
+    if ( sub_458244(_this->pActiveSkills[SKILL_LEATHER]) == 4 )  // Grandmaster leather bonus
     {  
       if ( sub_48D6AA(_this, 3) ) // check equip?
       {
         if ( sub_48D651(v6, 3) == 9 )
-          v11 += _this->ActiveSkills[SKILL_LEATHER] & 0x3F;
+          v11 += _this->pActiveSkills[SKILL_LEATHER] & 0x3F;
       }
     }
   }
@@ -2155,10 +2144,10 @@ signed int __thiscall sub_48E96A(int this, signed int a2)
     v2 = 0;
   if ( v2 > *(_WORD *)(this + 6452) )
     *(_WORD *)(this + 6452) = v2;
-  if ( *(&ptr_A750C4 + uMaybeSelectedCharacter) == (void *)this )
+  if ( *(&ptr_A750C4 + uActiveCharacter) == (void *)this )
   {
     if ( !dword_50C0C4 )
-      uMaybeSelectedCharacter = Party_sub_49370F(pParty_global);
+      uActiveCharacter = Party_sub_49370F(pParty_global);
   }
   result = 1;
   struct_576FE8.dword_000044 = 1;

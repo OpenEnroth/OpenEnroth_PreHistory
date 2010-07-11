@@ -707,6 +707,44 @@ void *CD3DRenderer_UnlockBackBuffer(struct CD3DRenderer *_this)
  return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2560, 0);
 }
 
+
+
+void CD3DRenderer_DrawRGBTexture_New(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID)
+{
+ unsigned int   *pSurfacePtr;
+ unsigned int    uColor;
+ int             x, y;
+ struct class18 *pTexture;
+
+ if (!_this->bSceneBegun)
+   return;
+
+ if (uTextureID == -1)
+   return;
+
+ pTexture = &pClass17_Icons_LOD->aLODHeaders[uTextureID];
+
+
+ pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
+ for (y = 0; y < pTexture->uTextureHeight; ++y)
+ {
+  unsigned int startX,
+               endX;
+
+  if (y + uY < _this->uClipRectY)
+    continue;
+  else if (y + uY >= _this->uClipRectW)
+    return;
+
+  startX = max(_this->uClipRectX, uX);
+  endX = min(min(_this->uClipRectZ, uX + pTexture->uTextureWidth), 640);
+
+  memcpy(pSurfacePtr + (y + uY) * _this->uTargetSurfacePitch + startX,
+         pTexture->pTruecolorPixels + y * pTexture->uTextureWidth + startX - uX,
+         (endX - startX) * 4);
+ }
+}
+
 //----- (004A5BE3) --------------------------------------------------------
 void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct RGBTexture *pTexture)
 {
@@ -739,64 +777,6 @@ void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, un
 
  if (!pTexture)
    return;
- /*
- v5 = pTexture->uWidth;
- v24 = pTexture->uHeight;
- pSurfacePtr = (unsigned int *)(_this->pTargetSurface) + (uX + uY * _this->uTargetSurfacePitch);
- v6 = pTexture->pPixels;
- v20 = v5;
- v19 = v5;
-
- if (_this->dword_040104)
- {
-  v7 = _this->uClipRectX;
-  if (uX < v7)
-  {
-   v8 = v7 - uX;
-   v9 = uX - v7;
-   v5 += v9;
-   v6 += v8;
-   v20 += v9;
-   pSurfacePtr += v8;
-  }
-
-  v10 = _this->uClipRectY;
-  if (uY < v10)
-  {
-   v11 = v10 - uY;
-   v6 += v19 * v11;
-   v24 += uY - _this->uClipRectY;
-   v5 = v20;
-   pSurfacePtr += _this->uTargetSurfacePitch * v11;
-  }
-
-  v12 = _this->uClipRectX;
-  if ( v12 < uX)
-    v12 = uX;
-
-  v13 = _this->uClipRectZ;
-  if (v5 + v12 > v13)
-  {
-   v14 = _this->uClipRectX;
-   if (v14 < uX)
-     v14 = uX;
-   v5 = v13 - v14;
-  }
-
-  v15 = _this->uClipRectY;
-  if (v15 < uY)
-    v15 = uY;
-
-  v21 = _this->uClipRectW;
-  if (v15 + v24 > v21)
-  {
-   v16 = _this->uClipRectY;
-   if (v16 < uY)
-     v16 = uY;
-   v24 = v21 - v16;
-  }
- }
- */
 
 
  pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
@@ -813,35 +793,10 @@ void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, un
   startX = max(_this->uClipRectX, uX);
   endX = min(min(_this->uClipRectZ, uX + pTexture->uWidth), 640);
 
-  /*memcpy(pSurfacePtr + (y + uY) * _this->uTargetSurfacePitch + uX,
-         pTexture->pPixels + y * pTexture->uWidth,
-         pTexture->uWidth * 4);*/
   memcpy(pSurfacePtr + (y + uY) * _this->uTargetSurfacePitch + startX,
          pTexture->pPixels + y * pTexture->uWidth + startX - uX,
          (endX - startX) * 4);
  }
-
- /*
- if (v24 > 0)
- {
-  v22 = v24;
-  v23 = (v19 - v5);
-  do
-  {
-   for (x = 0; x < v5; ++x)
-   {
-    uColor = *v6 & 0x001F;
-    uColor |= ((unsigned int)(*v6) & 0x07E0 >> 5) << 8;
-    v6++;
-    *pSurfacePtr++ = uColor;
-   }
-
-   v6 += v23;
-   v18 = v22-- == 1;
-   pSurfacePtr += (_this->uTargetSurfacePitch - v5);
-  }
-  while ( !v18 );
- }*/
 }
 
 //----- (MM7.exe::0049FFFB) --------------------------------------------------------
@@ -2124,6 +2079,19 @@ LABEL_13:
 
 
 
+int RGBTexture_Load_New(struct RGBTexture *_this, const wchar_t *pTextureName)
+{
+ unsigned int uTextureID;
+
+ uTextureID = class17_LoadTexture_New(pClass17_Icons_LOD, pTextureName);
+
+ _this->pPixels = pClass17_Icons_LOD->aLODHeaders[uTextureID].pTruecolorPixels;
+ _this->uWidth = pClass17_Icons_LOD->aLODHeaders[uTextureID].uTextureWidth;
+ _this->uHeight = pClass17_Icons_LOD->aLODHeaders[uTextureID].uTextureHeight;
+ _this->uNumPixels = _this->uWidth * _this->uHeight;
+
+ return 0;
+}
 
 //----- (MM7.exe::0040F414) --------------------------------------------------------
 int RGBTexture_Load(struct RGBTexture *_this, const char *pContainerName, int a3)
@@ -2155,14 +2123,8 @@ int RGBTexture_Load(struct RGBTexture *_this, const char *pContainerName, int a3
  unsigned int uTextureID;
 
  wsprintfW(pFilepath, L"%S", pContainerName);
- uTextureID = class17_LoadTexture_New(pClass17_Icons_LOD, pFilepath);
 
- _this->pPixels = pClass17_Icons_LOD->aLODHeaders[uTextureID].pTruecolorPixels;
- _this->uWidth = pClass17_Icons_LOD->aLODHeaders[uTextureID].uTextureWidth;
- _this->uHeight = pClass17_Icons_LOD->aLODHeaders[uTextureID].uTextureHeight;
- _this->uNumPixels = _this->uWidth * _this->uHeight;
-
- return 0;
+ return RGBTexture_Load_New(_this, pFilepath);
 }
 
 //----- (MM7.exe::0040F037) --------------------------------------------------------

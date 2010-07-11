@@ -191,6 +191,8 @@ int CD3DRenderer_LockFrontBuffer(struct CD3DRenderer *_this, void **ppOutSurface
 void *CD3DRenderer_UnlockFrontBuffer(struct CD3DRenderer *_this);
 //void __thiscall sub_4A5BE3(int this, int a2, int a3, int a4);
 void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct RGBTexture *pClass33);
+//custom
+void CD3DRenderer_DrawRGBTexture_New(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID);
 //void __thiscall sub_4A6C4F(int this, int a2, int a3, int a4, int a5, int a6, int a7, __int16 a8, __int16 a9);
 void CD3DRenderer_DrawText(struct CD3DRenderer *_this, unsigned int uOutX, unsigned int uOutY, unsigned char *pFontPixels, unsigned int uCharWidth, unsigned int uCharHeight, unsigned short *pFontPalette, unsigned int uMainColor, unsigned int uShadowColor);
 //void __thiscall sub_4A5BB6(int this);
@@ -271,6 +273,8 @@ struct RGBTexture
 int RGBTexture_ctor(struct RGBTexture *_this);
 //signed int __thiscall sub_40F414(void *this, const char *Str1, int a3);
 int RGBTexture_Load(struct RGBTexture *_this, const char *pContainerName, int a3);
+//signed int __thiscall sub_40F414(void *this, const char *Str1, int a3);
+int RGBTexture_Load_New(struct RGBTexture *_this, const wchar_t *pTextureName);
 //signed int __thiscall sub_40F037(void *this, void *Src, int a3, int a4)
 int RGBTexture_DecodePCX(struct RGBTexture *_this, void *Src, void *a3, unsigned int uWidth);
 

@@ -141,6 +141,7 @@ struct class56
  struct RGBTexture loadprog;         // struct @ 000170
 
  unsigned int _addon_loadprog_id_in_Icons_LOD;
+ unsigned int uTextureID_Loading;
 };
 //sizeof ~ 198
 
@@ -175,10 +176,24 @@ int __fastcall sub_44C51E(unsigned char *pFontData, const char *pString);
 void __cdecl DeleteFontCChar();
 
 
+extern unsigned int uTextureID_CurrentMenu;
+
+void LoadMainMenu();
+
+extern unsigned int uTextureID_MainMenuUI_Title;
+
+
+
+void SetupUserInterface(unsigned int uPartyAlignment);
+
 void __cdecl PlayerCreationUI_Initialize();
 unsigned int PlayerCreationUI_GetStatColor(struct Player *_this, int Stat);
 __int16 __thiscall PartyCreation_BtnMinusClick(struct Player *_this, int a2);
 signed int __thiscall PartyCreation_BtnPlusClick(struct Player *_this, int a2);
+void PlayerCreationUI_Draw();
+
+extern unsigned int uTextureID_PartyCreationUI_ClassIcons;
+extern unsigned int uTextureID_PartyCreationUI_Arrows;
 
 
 bool LevelLoadingUI_Initialize(struct class56 *_this, int a2);
@@ -199,6 +214,12 @@ void GameUI_DrawLifeManaBars();
 void GameUI_Update();
 void GameUI_Process();
 
+extern unsigned int uTextureID_GameUI_StatusBar;
+extern unsigned int uTextureID_GameUI_ViewportTop;
+extern unsigned int uTextureID_GameUI_ViewportLeft;
+extern unsigned int uTextureID_GameUI_RightPanel;
+extern unsigned int uTextureID_GameUI_PartyFrame;
+
 
 void __cdecl GameUI_SkillsTab_ShowHint();
 void GameUI_DrawSkillsTab(int a1);
@@ -208,6 +229,5 @@ void GameUI_DrawStatsTab(unsigned int uSelectedCharacter);
 
 int __fastcall GameUI_DrawAwardsTab(int a1);
 void __fastcall GameUI_DrawInventory(unsigned int uSelectedCharacter, char a2);
-
 
 #pragma pack(pop)

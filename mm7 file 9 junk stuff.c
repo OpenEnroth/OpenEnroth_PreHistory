@@ -311,11 +311,11 @@ loc_41AE9C:                             ; CODE XREF: sub_41AD6E+7Bj
   pop     esi
   pop     ebx
   add     esp, 8
-  jmp     sub_491F87
+  jmp     sub_491F87_DrawNPCs
   }*/
 
   //CD3DRenderer_DrawRGBTexture(pD3DRenderer, 468, 0, pTexture_RightFrame);
-  sub_491F87();
+  sub_491F87_DrawNPCs();
   return;
  }
 
@@ -411,7 +411,7 @@ loc_41AE9C:                             ; CODE XREF: sub_41AD6E+7Bj
   pop     esi
   pop     ebx
   add     esp, 8
-  jmp     sub_491F87
+  jmp     sub_491F87_DrawNPCs
  }*/
 
  __asm loc_41AE97:

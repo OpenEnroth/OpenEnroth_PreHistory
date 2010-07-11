@@ -13,6 +13,10 @@
 
 
 
+bool class17_ReleaseTexture(struct class17 *_this, unsigned int uTextureID)
+{
+ return true;
+}
 
 //----- (MM7.exe::0044E4B7) --------------------------------------------------------
 void CGame_ctor(struct CGame *_this)

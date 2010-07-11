@@ -2109,7 +2109,7 @@ LABEL_56:
           pClass17_Icons_LOD->dword_011B98 = pClass17_Icons_LOD->uNumLoadedFiles;
         dword_507BD4 = sub_4219BE((void *)(20 * result + 5292232));
         dword_50C9A0 = 1;
-        dword_50C0C4 = uMaybeSelectedCharacter;
+        dword_50C0C4 = uActiveCharacter;
         return sub_421B2C();
       }
       if ( HIBYTE(v7) & 1 )
@@ -2345,10 +2345,10 @@ signed int __thiscall sub_42EBEE(void *this)
   int v7; // [sp+8h] [bp-4h]@1
   int v8; // [sp+8h] [bp-4h]@6
 
-  v3 = uMaybeSelectedCharacter;
+  v3 = uActiveCharacter;
   v7 = (int)this;
-  v2 =&pParty_global->pPlayers[uMaybeSelectedCharacter - 1];
-  result = sub_492C0B(&pParty_global->pPlayers[uMaybeSelectedCharacter - 1]);
+  v2 =&pParty_global->pPlayers[uActiveCharacter - 1];
+  result = sub_492C0B(&pParty_global->pPlayers[uActiveCharacter - 1]);
   if ( result )
   {
     sub_427D48(&struct_50C0C8, v3);
@@ -2412,10 +2412,10 @@ signed int __cdecl sub_42ECB5()
   int v35; // [sp+34h] [bp-8h]@7
   int v36; // [sp+38h] [bp-4h]@17
 
-  v1 = uMaybeSelectedCharacter;
-  v29 = 6972 * uMaybeSelectedCharacter;
-  v2 = &pParty_global->pPlayers[uMaybeSelectedCharacter - 1];
-  result = sub_492C0B(&pParty_global->pPlayers[uMaybeSelectedCharacter - 1]);
+  v1 = uActiveCharacter;
+  v29 = 6972 * uActiveCharacter;
+  v2 = &pParty_global->pPlayers[uActiveCharacter - 1];
+  result = sub_492C0B(&pParty_global->pPlayers[uActiveCharacter - 1]);
   if ( result )
   {
     sub_427D48(&struct_50C0C8, v1);
@@ -3633,10 +3633,10 @@ LABEL_75:
           case 4:
             if ( !dword_4E28F8 )
             {
-              if ( uMaybeSelectedCharacter )
+              if ( uActiveCharacter )
               {
                 sub_43AD34();
-                sub_4948B1(*(&ptr_A750C4 + uMaybeSelectedCharacter), 65, 0);
+                sub_4948B1(*(&ptr_A750C4 + uActiveCharacter), 65, 0);
               }
             }
             break;
@@ -3645,17 +3645,17 @@ LABEL_75:
               break;
             if ( dword_ACD834 == v1 && dword_4F885C == 3 )
               goto LABEL_118;
-            if ( uMaybeSelectedCharacter )
+            if ( uActiveCharacter )
             {
-              v6 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter);
+              v6 = (int)*(&ptr_A750C4 + uActiveCharacter);
               if ( !*(_WORD *)(v6 + 6452) )
               {
                 v24 = sub_48E1B5((void *)v6, 0);
                 if ( !dword_ACD834 )
                   sub_48E96A(
-                    (int)*(&ptr_A750C4 + uMaybeSelectedCharacter),
+                    (int)*(&ptr_A750C4 + uActiveCharacter),
                     (signed __int64)(flt_6BE3A4 * (double)v24 * *(double *)&byte_4D8410[40]));
-                sub_427D48(&struct_50C0C8, uMaybeSelectedCharacter);
+                sub_427D48(&struct_50C0C8, uActiveCharacter);
                 sub_40471C(&unk_4F8858);
               }
             }
@@ -3683,9 +3683,9 @@ LABEL_75:
               break;
             if ( dword_ACD834 == v1 && dword_4F885C == 3 )
               goto LABEL_118;
-            if ( !uMaybeSelectedCharacter )
+            if ( !uActiveCharacter )
               break;
-            v8 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter);
+            v8 = (int)*(&ptr_A750C4 + uActiveCharacter);
             v7 = *(_BYTE *)(v8 + 6735);
             if ( !v7
               || byte_6BE3C4
@@ -4242,8 +4242,10 @@ LABEL_93:
           {
             sub_4114F2(pClass17_Icons_LOD);
             v19 = (int)sub_45E006();
-            sub_40E51F(pRGBTexture_Menu);
-            RGBTexture_Load(pRGBTexture_Menu, "title.pcx", 0);
+            //RGBTexture_Release(pRGBTexture_Menu);
+            //RGBTexture_Load(pRGBTexture_Menu, "title.pcx", 0);
+            class17_ReleaseTexture(pClass17_Icons_LOD, uTextureID_CurrentMenu);
+            uTextureID_CurrentMenu = class17_LoadTexture_New(pClass17_Icons_LOD, L"Title");
             SetCurrentMenu(MENU_MAIN);
             v16 = 1;
 LABEL_81:
@@ -4384,7 +4386,7 @@ LABEL_105:
           {
             v6 = GetSkillIdxByOrder(v0 + 6972 * uPlayerCreationUI_SelectedCharacter, v48 + 4);
             if ( GetSkillIdxByOrder(v0 + 6972 * uPlayerCreationUI_SelectedCharacter, 3) == 37 ) // 37 - no more skills
-              pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].ActiveSkills[v6] = 1;
+              pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].pActiveSkills[v6] = 1;
             v46 = 0;
             v42 = 0;
             v40 = 0;
@@ -4397,7 +4399,7 @@ LABEL_105:
           }
           if ( v49 == 65 )
           {
-            sub_49024A(v0 + 6972 * uPlayerCreationUI_SelectedCharacter, v48);
+            Player_Reset(v0 + 6972 * uPlayerCreationUI_SelectedCharacter, v48);
             goto LABEL_36;
           }
           if ( v49 == 66 ) // Character Creation :: OK
@@ -4412,7 +4414,7 @@ LABEL_105:
           if ( v49 == 67 )
           {
             GUIWindowCreate(527, 431, 0, 0, 90, pPlayerCreationUI_BtnReset, 0);
-            Party_CreateDefault(pParty_global);
+            Party_Reset(pParty_global);
           }
           else
           {
@@ -4425,7 +4427,7 @@ LABEL_105:
               v4 = v5 % 7 + v50 + 7 * v48;
 LABEL_44:
               pGUIWindow_PlayerCreation->dword_00002C = v4;
-              pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].ActiveSkills[GetSkillIdxByOrder(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], v45)] = 0;
+              pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].pActiveSkills[GetSkillIdxByOrder(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], v45)] = 0;
               continue;
             }
           }
@@ -12584,7 +12586,7 @@ int __fastcall sub_45E361(int a1)
   }
   else
   {
-    CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, pRGBTexture_Menu);
+    CD3DRenderer_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
   }
   pGUIWindow_PlayerCreation = GUIWindowCreate(dword_4E94D4[v12], dword_4E94DC[v12], dword_4E94E4[v12], dword_4E94EC[v12], 24, 0, 0);
   FontDrawText(pGUIWindow_PlayerCreation, pFontSmallnum, 25, 199, pGlobalTXT_LocalizationStrings[505], 0, 0, 0);
@@ -13070,7 +13072,7 @@ LABEL_17:
       if (i >= 4)
         goto LABEL_46;
     }
-    uMaybeSelectedCharacter = v15 = 3;
+    uActiveCharacter = v15 = 3;
 
 LABEL_46:
     v19 = (int *)&unk_ACF3D3;
@@ -13117,7 +13119,7 @@ LABEL_55:
     {
       v22 = 0;
     }
-    LoadInterfaceTextures(v22, 1);
+    SetupUserInterface(v22);
     sub_426363(pClass24_global);
     sub_4263A0(pClass24_global);
     v23 = pAudioPlayer;
@@ -13143,7 +13145,7 @@ LABEL_55:
     v28 = (int)&unk_6A0118;
     do
     {
-      v26 = (char *)sub_40E51F(v28);
+      v26 = (char *)RGBTexture_Release(v28);
       ++v27;
       v28 += 40;
     }
@@ -13201,7 +13203,7 @@ int __fastcall sub_460078(int a1)
   struct_576FE8.dword_000044 = 1;
   do
   {
-    v3 = sub_40E51F(v4);
+    v3 = RGBTexture_Release(v4);
     v4 += 40;
   }
   while ( v4 < (signed int)&unk_6A0758 );
@@ -14573,7 +14575,7 @@ LABEL_52:
       }
       while ( v1 < pObjectDescriptionList->uNumObjects );
     }
-    LoadInterfaceTextures(pParty_global->uAlignment, 1);
+    SetupUserInterface(pParty_global->uAlignment);
     if ( pVideoPlayer->dword_000024 )
       RGBTexture_Load(pVideoPlayer->dword_00006C, (const char *)&unk_F8BBEC, 1);
     if ( uCurrentMenuID )
@@ -14584,18 +14586,23 @@ LABEL_52:
           dword_A74C88 = 1;
         goto LABEL_38;
       }
-      v5 = pRGBTexture_Menu;
-      sub_40E51F(pRGBTexture_Menu);
+      //v5 = pRGBTexture_Menu;
+      //RGBTexture_Release(pRGBTexture_Menu);
+      v5 = uTextureID_CurrentMenu;
+      class17_ReleaseTexture(pClass17_Icons_LOD, uTextureID_CurrentMenu);
       v8 = 0;
-      v7 = "makeme.pcx";
+      v7 = L"makeme";
     }
     else
     {
-      v5 = pRGBTexture_Menu;
-      sub_40E51F(pRGBTexture_Menu);
-      v6 = "title.pcx";
+      //v5 = pRGBTexture_Menu;
+      //RGBTexture_Release(pRGBTexture_Menu);
+      v5 = uTextureID_CurrentMenu;
+      class17_ReleaseTexture(pClass17_Icons_LOD, uTextureID_CurrentMenu);
+      
+      v6 = L"title";
       if ( uCurrentMenuID )
-        v6 = "lsave640.pcx";
+        v6 = L"lsave640";
       v8 = 0;
       v7 = v6;
     }
@@ -15024,7 +15031,7 @@ void __thiscall sub_467E7F(void *this)
   v4 = this;
   sub_402F07((int)&v9);
   v3 = *(_BYTE *)((_DWORD)byte_4E8398 + (_DWORD)v4);
-  v1 = *(&ptr_A750C4 + uMaybeSelectedCharacter);
+  v1 = *(&ptr_A750C4 + uActiveCharacter);
   v11 = v1;
   v13 = (int *)((char *)v1 + 4 * v3 + 6472);
   v2 = *v13;

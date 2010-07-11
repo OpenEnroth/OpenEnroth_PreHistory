@@ -44,19 +44,30 @@ void *CIconFrameTable_Initialize(struct CIconFrameTable *_this, void *pSrc)
 }
 
 //----- (MM7.exe::00494F3A) --------------------------------------------------------
-unsigned int CIconFrameTable_FindIcon(struct CIconFrameTable *_this, const char *pIconName)
+unsigned int CIconFrameTable_FindIcon_New(struct CIconFrameTable *_this, const wchar_t *pIconName)
 {
- int i;
+ char pIconNameA[256];
+ int  i;
 
  if (!_this->uNumIcons)
    return 0;
 
+ wsprintfA(pIconNameA, "%S", pIconName);
  for (i = 0; i < _this->uNumIcons; ++i)
  {
-  if (!_strcmpi(pIconName, _this->pIcons[i].sIconName))
+  if (!_strcmpi(pIconNameA, _this->pIcons[i].sIconName))
     return i;
  }
  return 0;
+}
+
+//----- (MM7.exe::00494F3A) --------------------------------------------------------
+unsigned int CIconFrameTable_FindIcon(struct CIconFrameTable *_this, const char *pIconName)
+{
+ wchar_t pIconNameW[256];
+
+ wsprintfW(pIconNameW, L"%S", pIconName);
+ return CIconFrameTable_FindIcon_New(_this, pIconNameW);
 }
 
 //----- (MM7.exe::00494FBF) --------------------------------------------------------

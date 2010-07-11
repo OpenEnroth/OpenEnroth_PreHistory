@@ -14,6 +14,20 @@
 #include "_video.h"
 
 
+unsigned int uTextureID_CurrentMenu;
+
+unsigned int uTextureID_MainMenuUI_Title;
+
+unsigned int uTextureID_PartyCreationUI_ClassIcons;
+unsigned int uTextureID_PartyCreationUI_Arrows;
+
+unsigned int uTextureID_GameUI_StatusBar;
+unsigned int uTextureID_GameUI_ViewportTop;
+unsigned int uTextureID_GameUI_ViewportLeft;
+unsigned int uTextureID_GameUI_RightPanel;
+unsigned int uTextureID_GameUI_PartyFrame;
+
+
 
 
 
@@ -52,14 +66,11 @@ bool GUIMessageQueue_GetMessage(struct GUIMessageQueue *_this, int *a2, int *a3,
 }
 
 //----- (004BF794) --------------------------------------------------------
-int __cdecl LoadMainMenu()
+void __cdecl LoadMainMenu()
 {
-  signed int result; // eax@6
   //int v1; // eax@6
  float fVolume; // qax@8
 
-  struct RGBTexture *pTitleScreen;//char v3; // [sp+Ch] [bp-30h]@1
-  //unsigned int v4; // [sp+30h] [bp-Ch]@6
   int v5; // [sp+34h] [bp-8h]@8
   int v6; // [sp+38h] [bp-4h]@8
 
@@ -86,21 +97,19 @@ int __cdecl LoadMainMenu()
   }
  }
 
- pTitleScreen = malloc(sizeof(struct RGBTexture));
- RGBTexture_ctor(pTitleScreen);
- RGBTexture_Load(pTitleScreen, "mm7title", 0);
+ uTextureID_MainMenuUI_Title = class17_LoadTexture_New(pClass17_Icons_LOD, L"mm7title");
 
 
  CD3DRenderer_BeginScene(pD3DRenderer);
  {
-  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, pTitleScreen);
+  CD3DRenderer_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_MainMenuUI_Title);
 
   LoadFontsAndSomeStuff();
   sub_415485();
  }
 
  CD3DRenderer_EndScene(pD3DRenderer);
- result = CD3DRenderer_Present(pD3DRenderer);
+ CD3DRenderer_Present(pD3DRenderer);
 
  if (!(dword_6BE364 & 0x10))
  {
@@ -110,11 +119,10 @@ int __cdecl LoadMainMenu()
    AudioPlayer_SetVolume(pAudioPlayer, fVolume);
    AIL_redbook_stop(pAudioPlayer->hAILRedbook);
    AIL_redbook_track_info(pAudioPlayer->hAILRedbook, 14, &v5, &v6);
-   result = AIL_redbook_play(pAudioPlayer->hAILRedbook, v5 + 1, v6);
+   AIL_redbook_play(pAudioPlayer->hAILRedbook, v5 + 1, v6);
   }
  }
  dword_F8BC10 = 0;
- return result;
 }
 
 //----- (00420EFF) --------------------------------------------------------
@@ -309,7 +317,7 @@ LABEL_123:
       v14 = pD3DRenderer->pActiveZBuffer[x + dword_5059A8[y]];
       if ( v14 == 0 || v14 == -65536 || v14 >= 0x1388 )
         goto LABEL_123;
-      v15 = *((char **)(&ptr_A750C4) + uMaybeSelectedCharacter) + 36 * v14 + 496;
+      v15 = *((char **)(&ptr_A750C4) + uActiveCharacter) + 36 * v14 + 496;
       goto LABEL_49;
     }
 
@@ -435,7 +443,7 @@ LABEL_24:
                 y >= pControl->uY && y <= pControl->uW)
             {
 LABEL_19:
-              v6 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter);
+              v6 = (int)*(&ptr_A750C4 + uActiveCharacter);
               v7 = *(_BYTE *)(v6 + 2 * pControl->dword_000024 + 264);
               v4 = *(_DWORD *)(v6 + 6456);
               v5 = (v7 & 0x3F) + 1;
@@ -738,7 +746,7 @@ void GameUI_Process()
           sub_409C8B();
           goto LABEL_92;
         case 0xA1:
-          if ( !uMaybeSelectedCharacter )
+          if ( !uActiveCharacter )
             goto LABEL_92;
           struct_576FE8.dword_000048 = v0;
           if ( dword_50CBD0[0] )
@@ -833,7 +841,7 @@ LABEL_188:
             dword_6BE138 = 124;
           }
 LABEL_189:
-          sub_40E51F(pClass33_global3);
+          RGBTexture_Release(pClass33_global3);
           goto LABEL_92;
         case 0x7D:
           sub_40F9C5(pClass17_Icons_LOD);
@@ -1599,8 +1607,8 @@ LABEL_232:
                       sub_4114F2(pClass17_Icons_LOD);
                       if ( dword_50C0C4 )
                       {
-                        uMaybeSelectedCharacter = dword_50C0C4;
-                        uMaybeSelectedCharacter = Party_sub_49370F(pParty_global);
+                        uActiveCharacter = dword_50C0C4;
+                        uActiveCharacter = Party_sub_49370F(pParty_global);
                         dword_50C0C4 = 0;
                         if ( dword_ACD834 )
                           sub_40471C(&unk_4F8858);
@@ -1684,7 +1692,7 @@ LABEL_262:
 LABEL_263:
                       v35 = RegistryWriteInt(v38, v37);
 LABEL_291:
-                      sub_40E51F(pClass33_global3);
+                      RGBTexture_Release(pClass33_global3);
                       break;
                     case 1:
                       sub_40F9C5(pClass17_Icons_LOD);
@@ -1858,8 +1866,8 @@ LABEL_322:
                   sub_4356FF();
                 }
               }
-              if ( uMaybeSelectedCharacter < v0 || uMaybeSelectedCharacter > 4 )
-                uMaybeSelectedCharacter = Party_sub_49370F(pParty_global);
+              if ( uActiveCharacter < v0 || uActiveCharacter > 4 )
+                uActiveCharacter = Party_sub_49370F(pParty_global);
               GUIWindowDelete(pGUIWindow_PlayerCreation);
               if ( pGUIWindow_PlayerCreation == dword_507BC0 )
                 dword_507BC0 = 0;
@@ -1969,7 +1977,7 @@ LABEL_322:
                                dword_507930 != -1 ? 72 * dword_507930 + 7145548 : 0);
               v45 = sub_41D08F(pGUIWindow_PlayerCreation, 6, v0, 0, 0);
               struct_576FE8.dword_000048 = v0;
-              sub_40E51F(pClass33_global3);
+              RGBTexture_Release(pClass33_global3);
               v46 = sub_45E03A_SomethingLikeCaptureAScreenshot(155, 117);
               v212 = v46;
               v47 = (int)sub_49F8B5(pD3DRenderer, &stru_4E4678, v46, 155, 117);
@@ -2006,7 +2014,7 @@ LABEL_92:
                 pParty_global->byte_000709 = 0;
             }
           }
-          sub_491F87();
+          sub_491F87_DrawNPCs();
           goto LABEL_92;
         case 0x19B:
           if ( dword_50CBD0[0] )
@@ -2247,7 +2255,7 @@ LABEL_333:
           {
             v50 = v209;
 LABEL_421:
-            uMaybeSelectedCharacter = v50;
+            uActiveCharacter = v50;
 LABEL_422:
             struct_576FE8.dword_000044 = v0;
           }
@@ -2550,7 +2558,8 @@ LABEL_771:
           }
           if ( !(unsigned __int16)sub_449B57((int)byte_ACD71D, v80) )
           {
-            CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 352, pTexture_StatusBar);
+            //CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 352, pTexture_StatusBar);
+            CD3DRenderer_DrawRGBTexture_New(pD3DRenderer, 0, 352, uTextureID_GameUI_StatusBar);
             goto LABEL_92;
           }
 LABEL_506:
@@ -2681,13 +2690,13 @@ LABEL_544:
         case 0x19:
           if ( byte_6BE3C4 == 1 )
             goto LABEL_682;
-          if ( !uMaybeSelectedCharacter || (v90 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter), *(_WORD *)(v90 + 6452)) )
+          if ( !uActiveCharacter || (v90 = (int)*(&ptr_A750C4 + uActiveCharacter), *(_WORD *)(v90 + 6452)) )
             goto LABEL_90;
           v92 = *(_BYTE *)(v90 + 6735);
-          v192 = uMaybeSelectedCharacter;
+          v192 = uActiveCharacter;
           v176 = 0;
           v164 = 0;
-          v91 = uMaybeSelectedCharacter - 1;
+          v91 = uActiveCharacter - 1;
           goto LABEL_679;
         case 0x46:
         case 0x8C:
@@ -2720,14 +2729,14 @@ LABEL_544:
           }
           goto LABEL_416;
         case 0x1C:
-          if ( !uMaybeSelectedCharacter || dword_4E28F8 )
+          if ( !uActiveCharacter || dword_4E28F8 )
             goto LABEL_90;
           dword_507BC8 = GUIWindowCreate(0, 0, 640, 480, 104, v209, 0);
           dword_4E28F8 = 25;
           class24_fn1(pClass24_global);
           goto LABEL_92;
         case 0x1B:
-          if ( !uMaybeSelectedCharacter )
+          if ( !uActiveCharacter )
             goto LABEL_90;
           if ( dword_ACD834 != v0 )
             goto LABEL_569;
@@ -2743,7 +2752,7 @@ LABEL_569:
           }
           goto LABEL_92;
         case 0x17:
-          if ( !uMaybeSelectedCharacter )
+          if ( !uActiveCharacter )
             goto LABEL_90;
           if ( dword_ACD834 != v0 )
             goto LABEL_577;
@@ -2806,8 +2815,8 @@ LABEL_595:
           if ( pParty_global->dword_007778 & 0x88 )
             v100 = pGlobalTXT_LocalizationStrings[479];
           sub_44C175(v100, 2);
-          v101 = uMaybeSelectedCharacter;
-          if ( !uMaybeSelectedCharacter )
+          v101 = uActiveCharacter;
+          if ( !uActiveCharacter )
             goto LABEL_90;
           v193 = 0;
           v177 = 13;
@@ -2818,9 +2827,9 @@ LABEL_595:
           if ( pParty_global->uNumFood < (unsigned int)dword_506F10 )
           {
             sub_44C175(pGlobalTXT_LocalizationStrings[482], 2);
-            if ( uMaybeSelectedCharacter && sub_492C0B((int)*(&ptr_A750C4 + uMaybeSelectedCharacter)) )
+            if ( uActiveCharacter && sub_492C0B((int)*(&ptr_A750C4 + uActiveCharacter)) )
             {
-              v101 = uMaybeSelectedCharacter;
+              v101 = uActiveCharacter;
               v193 = 0;
               v177 = 108;
 LABEL_619:
@@ -2901,14 +2910,14 @@ LABEL_621:
           if ( dword_50654C && byte_506550 )
           {
             //dword_5CC030 == pSpellStats
-            compile_error;//v190 = dword_5CC030[9 * (dword_50654C + 11 * *((_BYTE *)*(&ptr_A750C4 + uMaybeSelectedCharacter) + 6734))];
+            compile_error;//v190 = dword_5CC030[9 * (dword_50654C + 11 * *((_BYTE *)*(&ptr_A750C4 + uActiveCharacter) + 6734))];
             v174 = pGlobalTXT_LocalizationStrings[483];
 LABEL_520:
             wsprintfA(TmpBuf, (const char *)v174, v190);
           }
           else
           {
-            if ( *((_BYTE *)*(&ptr_A750C4 + uMaybeSelectedCharacter) + 6735) )
+            if ( *((_BYTE *)*(&ptr_A750C4 + uActiveCharacter) + 6735) )
               v194 = pGlobalTXT_LocalizationStrings[584];
             else
               v194 = pGlobalTXT_LocalizationStrings[484];
@@ -2918,8 +2927,8 @@ LABEL_521:
           sub_41C0B8(&TmpBuf);
           goto LABEL_92;
         case 0x4F:
-          if ( !uMaybeSelectedCharacter
-            || (v212 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter),
+          if ( !uActiveCharacter
+            || (v212 = (int)*(&ptr_A750C4 + uActiveCharacter),
                 !*(_BYTE *)(v212 + 11 * *(_BYTE *)(v212 + 6734) + v209 + 402)) )
             goto LABEL_92;
           if ( sub_4637E0() )
@@ -2942,9 +2951,9 @@ LABEL_521:
           goto LABEL_91;
         case 0x58:
           GUIWindowCreate(*(_DWORD *)dword_5064F8, *(_DWORD *)(dword_5064F8 + 4), 0, 0, 90, dword_5064F8, 0);
-          if ( !uMaybeSelectedCharacter )
+          if ( !uActiveCharacter )
             goto LABEL_92;
-          v207 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter);
+          v207 = (int)*(&ptr_A750C4 + uActiveCharacter);
           if ( !byte_506550 || !dword_50654C )
           {
             v182 = 0;
@@ -2959,17 +2968,17 @@ LABEL_521:
             v144 = 203;
             goto LABEL_721;
           }
-          v111 = dword_50654C + 11 * *((_BYTE *)*(&ptr_A750C4 + uMaybeSelectedCharacter) + 6734);
-          *((_BYTE *)*(&ptr_A750C4 + uMaybeSelectedCharacter) + 6735) = v111;
-          sub_494836((char *)&unk_A96080 + 45016 * uMaybeSelectedCharacter, v111, uMaybeSelectedCharacter);
-          if ( uMaybeSelectedCharacter )
+          v111 = dword_50654C + 11 * *((_BYTE *)*(&ptr_A750C4 + uActiveCharacter) + 6734);
+          *((_BYTE *)*(&ptr_A750C4 + uActiveCharacter) + 6735) = v111;
+          sub_494836((char *)&unk_A96080 + 45016 * uActiveCharacter, v111, uActiveCharacter);
+          if ( uActiveCharacter )
             sub_4948B1((void *)v207, 12, 0);
           byte_506550 = 0;
           goto LABEL_92;
         case 0x33:
-          if ( !uMaybeSelectedCharacter )
+          if ( !uActiveCharacter )
             goto LABEL_92;
-          v112 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter);
+          v112 = (int)*(&ptr_A750C4 + uActiveCharacter);
           v211 = 0;
           v210 = 0;
           v113 = 0;
@@ -3002,13 +3011,13 @@ LABEL_521:
               v210 = 0;
           }
           sub_41140B();
-          *((_BYTE *)*(&ptr_A750C4 + uMaybeSelectedCharacter) + 6734) = LOBYTE(v236[v210]);
+          *((_BYTE *)*(&ptr_A750C4 + uActiveCharacter) + 6734) = LOBYTE(v236[v210]);
           goto LABEL_661;
         case 0x57:
-          if ( dword_4F885C == 3 || !uMaybeSelectedCharacter || v209 == *((_BYTE *)*(&ptr_A750C4 + uMaybeSelectedCharacter) + 6734) )
+          if ( dword_4F885C == 3 || !uActiveCharacter || v209 == *((_BYTE *)*(&ptr_A750C4 + uActiveCharacter) + 6734) )
             goto LABEL_92;
           sub_41140B();
-          *((_BYTE *)*(&ptr_A750C4 + uMaybeSelectedCharacter) + 6734) = v209;
+          *((_BYTE *)*(&ptr_A750C4 + uActiveCharacter) + 6734) = v209;
 LABEL_661:
           sub_411621((void *)pGUIWindow_PlayerCreation);
 LABEL_662:
@@ -3024,9 +3033,9 @@ LABEL_662:
         case 0x56:
           if ( dword_4F885C != 3 )
           {
-            if ( uMaybeSelectedCharacter )
+            if ( uActiveCharacter )
             {
-              v212 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter);
+              v212 = (int)*(&ptr_A750C4 + uActiveCharacter);
               if ( *(_BYTE *)(v212 + 11 * *(_BYTE *)(v212 + 6734) + v209 + 402) )
               {
                 if ( dword_50654C - 1 == v209 )
@@ -3041,7 +3050,7 @@ LABEL_662:
                   {
                     dword_50C9EC[3 * dword_50C9E8[0]] = 142;
                     dword_50C9F0[3 * dword_50C9E8[0]] = v116;
-                    dword_50C9E8[3 * dword_50C9E8[0]++ + 3] = uMaybeSelectedCharacter - 1;
+                    dword_50C9E8[3 * dword_50C9E8[0]++ + 3] = uActiveCharacter - 1;
                   }
                 }
                 else
@@ -3098,7 +3107,7 @@ LABEL_721:
           {
             if ( dword_50CBD0[0] )
               dword_50CBD0[0] = dword_50CBD0[3] != 0;
-            if ( uMaybeSelectedCharacter && !*((_WORD *)*(&ptr_A750C4 + uMaybeSelectedCharacter) + 3226) )
+            if ( uActiveCharacter && !*((_WORD *)*(&ptr_A750C4 + uActiveCharacter) + 3226) )
             {
               if ( !dword_4E28F8 )
                 goto LABEL_693;
@@ -3154,7 +3163,7 @@ LABEL_693:
             dword_4E28F8 = 0;
             struct_576FE8.dword_000044 = v0;
           }
-          sub_40E51F(pClass33_global3);
+          RGBTexture_Release(pClass33_global3);
           v117 = sub_45E03A_SomethingLikeCaptureAScreenshot(155, 117);
           v212 = v117;
           v118 = (int)sub_49F8B5(pD3DRenderer, &stru_4E4678, v117, 155, 117);
@@ -3219,7 +3228,7 @@ LABEL_709:
           v97 = dword_507688;
           goto LABEL_716;
         case 0x79:
-          v120 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter);
+          v120 = (int)*(&ptr_A750C4 + uActiveCharacter);
           v119 = v120 + 2 * v209 + 264;
           LOWORD(v3) = *(_WORD *)v119;
           v212 = v3;
@@ -3875,13 +3884,13 @@ void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigne
  {
   CD3DRenderer_Set2DClippingRect(pD3DRenderer, uWindowX + 32, uWindowY, uWindowX + uWindowWidth - 32, uWindowY + uWindowHeight);
 
-  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + 32, uWindowY, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeTop]);
-  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + 32, uWindowY + uWindowHeight - 10, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeBottom]);
+  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + 32, uWindowY, &pClass17_Icons_LOD->aLODHeaders[uTextureID_WindowEdgeTop]);
+  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + 32, uWindowY + uWindowHeight - 10, &pClass17_Icons_LOD->aLODHeaders[uTextureID_WindowEdgeBottom]);
 
   if (uWindowWidth > 512)
   {
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + 544, uWindowY, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeTop]);
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + 544, uWindowY + uWindowHeight - 10, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeBottom]);
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + 544, uWindowY, &pClass17_Icons_LOD->aLODHeaders[uTextureID_WindowEdgeTop]);
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + 544, uWindowY + uWindowHeight - 10, &pClass17_Icons_LOD->aLODHeaders[uTextureID_WindowEdgeBottom]);
   }
  }
 
@@ -3890,8 +3899,8 @@ void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigne
  {
   CD3DRenderer_Set2DClippingRect(pD3DRenderer, uWindowX, uWindowY + 32, uWindowX + uWindowWidth, uWindowY + uWindowHeight - 32);
 
-  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX, uWindowY + 32, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeLeft]);
-  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + uWindowWidth - 10, uWindowY + 32, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_EdgeRight]);
+  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX, uWindowY + 32, &pClass17_Icons_LOD->aLODHeaders[uTextureID_WindowEdgeLeft]);
+  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, uWindowX + uWindowWidth - 10, uWindowY + 32, &pClass17_Icons_LOD->aLODHeaders[uTextureID_WindowEdgeRight]);
  }
 
  CD3DRenderer_Reset2DClippingRect(pD3DRenderer);
@@ -4483,7 +4492,7 @@ LABEL_26:
     {
       v12 = array_5075E0[v11 + 1];
       array_5075E0[v11] = v12;
-      --*((_DWORD *)pRGBTexture_Menu->word_000018 + 21 * v12);
+      compile_error;//--*((_DWORD *)pRGBTexture_Menu->word_000018 + 21 * v12);
       ++v11;
     }
     array_5075E0[v10] = 0;
@@ -4561,15 +4570,15 @@ void __cdecl PlayerCreationUI_Initialize()
   uPlayerCreationUI_SelectedCharacter = 0;
   v1 = pFontCreate->uFontHeight - 2;
 
-  uTextureID_ClassIcons = class17_LoadTexture_New(pClass17_Icons_LOD, L"Class Icons");
+  uTextureID_PartyCreationUI_ClassIcons = class17_LoadTexture_New(pClass17_Icons_LOD, L"Class Icons");
 
   pPlayerCreationUI_Sky = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, L"MAKESKY")];
   pPlayerCreationUI_Top = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, L"MAKETOP")];
 
-  for (i = 0; i < 22; ++i)
+  for (i = 0; i < 25; ++i)
   {
    wsprintfW(pFilename, L"pc%02u-01", i + 1);
-   pPlayerCreationUI_PCPortraits[i] = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, pFilename)];
+   uTextureID_PCFaces[i] = class17_LoadTexture_New(pClass17_Icons_LOD, pFilename);
   }
 
   uTextureID_PlayerCreationUI_FaceMask = &pClass17_Icons_LOD->aLODHeaders[class17_LoadTexture_New(pClass17_Icons_LOD, L"FACEMASK")];
@@ -4579,7 +4588,7 @@ void __cdecl PlayerCreationUI_Initialize()
   uTextureID_PlayerCreationUI_BtnMinus = class17_LoadTexture_New(pClass17_Icons_LOD, L"buttminu");
   uTextureID_PlayerCreationUI_BtnPlus = class17_LoadTexture_New(pClass17_Icons_LOD, L"buttplus");
 
-  uTextureID_Arrows = class17_LoadTexture_New(pClass17_Icons_LOD, L"Arrows");
+  uTextureID_PartyCreationUI_Arrows = class17_LoadTexture_New(pClass17_Icons_LOD, L"Arrows");
 
   pGUIWindow_PlayerCreation = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
   v8 = 0;
@@ -4865,6 +4874,7 @@ bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarT
   int v7; // edx@14
   const char *v8; // [sp-8h] [bp-84h]@20
   char Str1[32]; // [sp+4h] [bp-78h]@16
+  wchar_t Str1W[32];
  int i;
 
   v2 = _this;
@@ -4894,7 +4904,9 @@ bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarT
       while ( *(_BYTE *)(v6 + v7) == 1 );
     }
     wsprintfA(Str1, "loading%d", v7);
-    RGBTexture_Load(&_this->loading, Str1, 2);
+    wsprintfW(Str1W, L"loading%d", v7);
+
+    _this->uTextureID_Loading = class17_LoadTexture_New(pClass17_Icons_LOD, Str1W);
     _this->_addon_loadprog_id_in_Icons_LOD = class17_LoadTexture_New(pClass17_Icons_LOD, L"loadprog");
 
     _this->uX = 122;
@@ -4958,7 +4970,7 @@ void DrawLoadingScreen(struct class56 *_this)
     return;
   }
 
-  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, &_this->loading);
+  CD3DRenderer_DrawRGBTexture_New(pD3DRenderer, 0, 0, _this->uTextureID_Loading);
   CD3DRenderer_sub_4A0E97(pD3DRenderer, 0, 0, 639, 479);
   CD3DRenderer_Set2DClippingRect(pD3DRenderer, 172, 459,
     172 + 300 * ((float)(_this->uProgressCurrent) / (float)_this->uProgressMax),
@@ -4997,7 +5009,8 @@ void __cdecl GameUI_DrawStatusBar()
   v0 = *(char **)&dword_507AF8;
   if ( pStatusBarString[0] || dword_5C35B8 || dword_5C35BC )
   {
-    CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 352, pTexture_StatusBar);
+    //CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 352, pTexture_StatusBar);
+    CD3DRenderer_DrawRGBTexture_New(pD3DRenderer, 0, 352, uTextureID_GameUI_StatusBar);
     if ( dword_5C35B8 )
     {
       v2 = &byte_5C3428;
@@ -5090,10 +5103,10 @@ int __fastcall sub_44C51E(struct Font *_this, const char *pString)
 //----- (0041B3E2) --------------------------------------------------------
 void GameUI_DrawFrames()
 {
- CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, pTexture_TopFrame);
- CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 8, pTexture_LeftFrame);
- CD3DRenderer_DrawRGBTexture(pD3DRenderer, 468, 0, pTexture_RightFrame);
- CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 352, pTexture_BottomFrame);
+ CD3DRenderer_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_GameUI_ViewportTop);
+ CD3DRenderer_DrawRGBTexture_New(pD3DRenderer, 0, 8, uTextureID_GameUI_ViewportLeft);
+ CD3DRenderer_DrawRGBTexture_New(pD3DRenderer, 468, 0, uTextureID_GameUI_RightPanel);
+ CD3DRenderer_DrawRGBTexture_New(pD3DRenderer, 0, 352, uTextureID_GameUI_PartyFrame);
 
  GameUI_DrawFoodAndGold();
 
@@ -5547,8 +5560,8 @@ LABEL_36:
 //----- (0044158F) --------------------------------------------------------
 void GameUI_DrawCharacterSelectionFrame()
 {
- if (uMaybeSelectedCharacter)
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, off_4ED748[uMaybeSelectedCharacter - 1] - 9, 380, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_CharacterSelectionFrame]);
+ if (uActiveCharacter)
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, off_4ED748[uActiveCharacter - 1] - 9, 380, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_CharacterSelectionFrame]);
 }
 
 //----- (0041B0C9) --------------------------------------------------------
@@ -7239,7 +7252,7 @@ void __cdecl GameUI_SkillsTab_ShowHint()
             {
               if ( v0 <= *(_DWORD *)(i + 20) )
               {
-                v3 = (const char *)sub_417BB5(uMaybeSelectedCharacter - 1, *(_DWORD *)(i + 36));
+                v3 = (const char *)sub_417BB5(uActiveCharacter - 1, *(_DWORD *)(i + 36));
                 sub_4179BC(aSkillNames[*(_DWORD *)(i + 36)], v3);//sub_4179BC((int)(&dword_AE32D0)[4 * *(_DWORD *)(i + 36)], v3);
                 v0 = v6;
                 v1 = v5;
@@ -7345,8 +7358,8 @@ void __cdecl GameUI_StatsTab_ShowHint()
       v22 = pStringBuffer;
       strcat(pStringBuffer, L"\n");
       v25 = (void **)dword_4EDEF8;
-      v0 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter);
-      v23 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter);
+      v0 = (int)*(&ptr_A750C4 + uActiveCharacter);
+      v23 = (int)*(&ptr_A750C4 + uActiveCharacter);
       do
       {
         if ( *(_QWORD *)(v0 + 8 * (_DWORD)*v25) )
@@ -7396,7 +7409,7 @@ void __cdecl GameUI_StatsTab_ShowHint()
       v26 = pGlobalTXT_LocalizationStrings[131];
       goto LABEL_49;
     case 14:
-      v15 = (int)*(&ptr_A750C4 + uMaybeSelectedCharacter);
+      v15 = (int)*(&ptr_A750C4 + uActiveCharacter);
       v26 = pGlobalTXT_LocalizationStrings[83];
       v14 = *(_WORD *)(v15 + 218);
       do
@@ -7477,7 +7490,7 @@ void __cdecl GameUI_StatsTab_ShowHint()
       v26 = pGlobalTXT_LocalizationStrings[207];
       goto LABEL_49;
     case 26:
-      v0 = 4 * *((_BYTE *)*(&ptr_A750C4 + uMaybeSelectedCharacter) + 185);
+      v0 = 4 * *((_BYTE *)*(&ptr_A750C4 + uActiveCharacter) + 185);
       v6 = (int)(aClassNames[v0 / 4]);
 
       v7 = *(int *)((char *)pClassDescriptions + v0);
@@ -7751,4 +7764,165 @@ unsigned int PlayerCreationUI_GetStatColor(struct Player *_this, int Stat)
    return 0xFF00FF00;
  else
    return 0xFFFF2300;
+}
+
+
+//----- (004226EF) --------------------------------------------------------
+void SetupUserInterface(unsigned int uAlignment)
+{
+  int v2; // ecx@2
+
+  unsigned int uTextureIdx_Endcap;
+
+ const wchar_t *pGoodInterface[] =
+ {
+  L"ib-RightPanel-A", L"ib-PartyFrame-A", L"ib-EdgeTop-A", L"ib-EdgeLeft-A", L"ib-StatusBar-A",
+  L"ib-bcu-A",
+  L"WindowEdge_top-A", L"WindowEdge_bottom-A", L"WindowEdge_left-A", L"WindowEdge_right-A",
+  L"Corner_UpLeft-A", L"Corner_UpRight-A", L"Corner_LowLeft-A", L"Corner_LowRight-A",
+  L"Parchment",
+  L"fr_inven-A",
+  L"NPCSlot-A",
+  L"iSg-04-A", L"iSg-03-A", L"iSg-02-A", L"iSg-01-A",
+  L"ib-m4d-A", L"ib-m3d-A", L"ib-m2d-A", L"ib-m1d-A",
+  L"ib-MinimapZoomIn-A", L"ib-MinimapZoomOut-A",
+  L"ib-NPCScrollLeft0-A", L"ib-NPCScrollLeft1-A", L"ib-NPCScrollRight0-A", L"ib-NPCScrollRight1-A",
+  L"ib-Compass-A",
+  L"ib-InitG-A", L"ib-InitY-A", L"ib-InitR-A",
+  L"ib-MinimapMask-A",
+  L"ib-mb-A",
+  L"ib-Selec-A",
+  L"WizEyeA", L"TorchA",
+  L"endcap-A",
+ },
+               *pNeutralInterface[] =
+ {
+  L"ib-RightPanel-B", L"ib-PartyFrame-B", L"ib-EdgeTop-B", L"ib-EdgeLeft-B", L"ib-StatusBar-B",
+  L"ib-bcu-B",
+  L"WindowEdge_top-B", L"WindowEdge_bottom-B", L"WindowEdge_left-B", L"WindowEdge_right-B",
+  L"Corner_UpLeft-B", L"Corner_UpRight-B", L"Corner_LowLeft-B", L"Corner_LowRight-B",
+  L"Parchment",
+  L"fr_inven-B",
+  L"NPCSlot-B",
+  L"iSg-04-B", L"iSg-03-B", L"iSg-02-B", L"iSg-01-B",
+  L"ib-m4d-B", L"ib-m3d-B", L"ib-m2d-B", L"ib-m1d-B",
+  L"ib-MinimapZoomIn-B", L"ib-MinimapZoomOut-B",
+  L"ib-NPCScrollLeft0-B", L"ib-NPCScrollLeft1-B", L"ib-NPCScrollRight0-B", L"ib-NPCScrollRight1-B",
+  L"ib-Compass-B",
+  L"ib-InitG-B", L"ib-InitY-B", L"ib-InitR-B",
+  L"ib-MinimapMask-B",
+  L"ib-mb-B",
+  L"ib-Selec-B",
+  L"WizEyeB", L"TorchB",
+  L"endcap-B",
+ },
+               *pEvilInterface[] =
+ {
+  L"ib-RightPanel-C", L"ib-PartyFrame-C", L"ib-EdgeTop-C", L"ib-EdgeLeft-C", L"ib-StatusBar-C",
+  L"ib-bcu-C",
+  L"WindowEdge_top-C", L"WindowEdge_bottom-C", L"WindowEdge_left-C", L"WindowEdge_right-C",
+  L"Corner_UpLeft-C", L"Corner_UpRight-C", L"Corner_LowLeft-C", L"Corner_LowRight-C",
+  L"Parchment",
+  L"fr_inven-C",
+  L"NPCSlot-C",
+  L"iSg-04-C", L"iSg-03-C", L"iSg-02-C", L"iSg-01-C",
+  L"ib-m4d-C", L"ib-m3d-C", L"ib-m2d-C", L"ib-m1d-C",
+  L"ib-MinimapZoomIn-C", L"ib-MinimapZoomOut-C",
+  L"ib-NPCScrollLeft0-C", L"ib-NPCScrollLeft1-C", L"ib-NPCScrollRight0-C", L"ib-NPCScrollRight1-C",
+  L"ib-Compass-C",
+  L"ib-InitG-C", L"ib-InitY-C", L"ib-InitR-C",
+  L"ib-MinimapMask-C",
+  L"ib-mb-C",
+  L"ib-Selec-C",
+  L"WizEyeC", L"TorchC",
+  L"endcap-C",
+ },
+               **pRequestedInterface;
+
+
+ switch (uAlignment)
+ {
+  case 0:
+    pRequestedInterface = pGoodInterface;
+
+    dword_507AFC = 0xFF0000C8;
+    dword_507AF8 = 0xFFFFE1FF;
+  break;
+
+  default:
+  case 1:
+    pRequestedInterface = pNeutralInterface;
+
+    dword_507AFC = 0xFF0A0000;
+    dword_507AF8 = 0xFFE6D6C1;
+  break;
+
+  case 2:
+    pRequestedInterface = pEvilInterface;
+
+    dword_507AFC = 0xFFC80000;
+    dword_507AF8 = 0xFF0A0000;
+  break;
+ }
+
+
+ uTextureID_GameUI_RightPanel = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[0]);
+ uTextureID_GameUI_PartyFrame = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[1]);
+ uTextureID_GameUI_ViewportTop = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[2]);
+ uTextureID_GameUI_ViewportLeft = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[3]);
+ uTextureID_GameUI_StatusBar = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[4]);
+
+ dword_506438 = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[5]);
+
+ uTextureID_WindowEdgeTop = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[6]);
+ uTextureID_WindowEdgeBottom = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[7]);
+ uTextureID_WindowEdgeLeft = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[8]);
+ uTextureID_WindowEdgeRight = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[9]);
+ 
+ uTextureIdx_CornerUpperLeft = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[10]);
+ uTextureIdx_CornerUpperRight = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[11]);
+ uTextureIdx_CornerLowerLeft = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[12]);
+ uTextureIdx_CornerLowerRight = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[13]);
+
+ uTextureIdx_Parchment = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[14]);
+
+ uTextureIdx_InventoryBackground = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[15]);
+
+ dword_50795C = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[16]);
+
+ dword_507960 = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[17]);
+ dword_507964 = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[18]);
+ dword_507968 = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[19]);
+ dword_50796C = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[20]);
+
+ uTextureIdx_ib_m4d_a = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[21]);
+ uTextureIdx_ib_m3d_a = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[22]);
+ uTextureIdx_ib_m2d_a = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[23]);
+ uTextureIdx_ib_m1d_a = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[24]);
+ 
+ uTextureIdx_ib_autin_a = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[25]);
+ uTextureIdx_ib_autout_a = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[26]);
+ 
+ uTextureIdx_ib_npcld_a = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[28]);
+ uTextureIdx_ib_npcrd_a = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[30]);
+
+ uTextureIdx_MinimapCompass = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[31]);
+ 
+ uTextureIdx_SensorGreen = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[32]);
+ dword_5079C8 = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[33]);
+ dword_5079CC = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[34]);
+
+ uTextureIdx_MinimapMask = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[35]);
+ dword_5079E4 = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[36]);
+
+ uTextureIdx_CharacterSelectionFrame = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[37]);
+
+ array_6A0D14[3].uIconIdx = CIconFrameTable_FindIcon_New(pIconFrameTable, pRequestedInterface[38]);
+ CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[3].uIconIdx);
+
+ array_6A0D14[2].uIconIdx = CIconFrameTable_FindIcon_New(pIconFrameTable, pRequestedInterface[39]);
+ CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[2].uIconIdx);
+
+ uTextureIdx_Endcap = class17_LoadTexture_New(pClass17_Icons_LOD, pRequestedInterface[40]);
+ pClass18_EndcapTexture = &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_Endcap];
 }

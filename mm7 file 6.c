@@ -1797,7 +1797,7 @@ signed int __stdcall sub_4910D3(int a1)
   int v7; // eax@7
   signed int v9; // [sp-4h] [bp-14h]@2
 
-  LOBYTE(v1) = sub_48F882(*(&ptr_A750C4 + uMaybeSelectedCharacter), 21);
+  LOBYTE(v1) = sub_48F882(*(&ptr_A750C4 + uActiveCharacter), 21);
   v2 = v1;
   if ( HIBYTE(v1) & 1 )
   {
@@ -2233,9 +2233,9 @@ int __thiscall sub_492600(void *this, int a2, unsigned int uItemID)
 LABEL_5:
   if ( v13 == -1 )
   {
-    if ( uMaybeSelectedCharacter )
-      //sub_4948B1(*(&ptr_A750C4 + uMaybeSelectedCharacter), 15, 0);
-      sub_4948B1(pPlayers[uMaybeSelectedCharacter - 1], 15, 0);
+    if ( uActiveCharacter )
+      //sub_4948B1(*(&ptr_A750C4 + uActiveCharacter), 15, 0);
+      sub_4948B1(pPlayers[uActiveCharacter - 1], 15, 0);
     result = 0;
   }
   else
@@ -2803,7 +2803,7 @@ signed int __thiscall sub_49387A(void *this)
   signed int v2; // ecx@2
   signed int v3; // ecx@8
 
-  result = uMaybeSelectedCharacter;
+  result = uActiveCharacter;
   if ( this )
   {
     v2 = 0;
@@ -2816,7 +2816,7 @@ signed int __thiscall sub_49387A(void *this)
         break;
       ++v2;
       if ( v2 >= 4 )
-        return uMaybeSelectedCharacter;
+        return uActiveCharacter;
     }
   }
   else
@@ -2831,7 +2831,7 @@ signed int __thiscall sub_49387A(void *this)
         break;
       ++v3;
       if ( v3 >= 4 )
-        return uMaybeSelectedCharacter;
+        return uActiveCharacter;
     }
   }
   return result;
@@ -3750,8 +3750,8 @@ int __cdecl sub_4979D2()
   class23_DeleteBuffer(class23_instance, v39);
   GUIWindowDelete(pGUIWindow_MainMenu);
   v14 = sub_4114F2(pClass17_Icons_LOD);
-  v15 = sub_40E51F((int)&v19);
-  sub_40E51F((int)&v29);
+  v15 = RGBTexture_Release((int)&v19);
+  RGBTexture_Release((int)&v29);
   return sub_466CA0() - 8;
 }
 

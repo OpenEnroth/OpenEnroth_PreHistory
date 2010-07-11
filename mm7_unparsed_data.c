@@ -1,10 +1,6 @@
 #include "mm7_unparsed_data.h"
 
 
-unsigned int uTextureID_ClassIcons;
-unsigned int uTextureID_Arrows;
-
-
 
 char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004F0364
 
@@ -773,10 +769,10 @@ struct unnamed_505898 struct_505898;
  int dword_507690; // weak
  int dword_507694; // weak
 
- unsigned int uTextureIdx_EdgeTop;          // dword @ MM7.exe::00507698
- unsigned int uTextureIdx_EdgeRight;        // dword @ MM7.exe::0050769C
- unsigned int uTextureIdx_EdgeLeft;         // dword @ MM7.exe::005076A0
- unsigned int uTextureIdx_EdgeBottom;       // dword @ MM7.exe::005076A4
+ unsigned int uTextureID_WindowEdgeTop;          // dword @ MM7.exe::00507698
+ unsigned int uTextureID_WindowEdgeRight;        // dword @ MM7.exe::0050769C
+ unsigned int uTextureID_WindowEdgeLeft;         // dword @ MM7.exe::005076A0
+ unsigned int uTextureID_WindowEdgeBottom;       // dword @ MM7.exe::005076A4
  unsigned int uTextureIdx_CornerUpperRight; // dword @ MM7.exe::005076A8
  unsigned int uTextureIdx_CornerUpperLeft;  // dword @ MM7.exe::005076AC
  unsigned int uTextureIdx_CornerLowerRight; // dword @ MM7.exe::005076B0
@@ -810,8 +806,8 @@ struct unnamed_505898 struct_505898;
  unsigned int uTextureIdx_ib_td1_A; // dword @ MM7.exe::00507954
 
 unsigned int uTextureIdx_InventoryBackground; // dword @ MM7.exe::00507958
- int dword_50795C; // weak
- int dword_507960; // weak
+ int dword_50795C; // weak NPC slot texture
+ int dword_507960; // weak 4 small spell icons around player portrait
  int dword_507964; // weak
  int dword_507968; // weak
  int dword_50796C; // weak
@@ -898,7 +894,7 @@ int dword_507AF8; // idb
  int dword_507BE0; // weak
 
  struct GUIWindow *pGUIWindow2 = 0;         // ptr   @ MM7.exe::00507BE4
- unsigned int      uMaybeSelectedCharacter; // dword @ MM7.exe::00507BEC
+ unsigned int      uActiveCharacter; // dword @ MM7.exe::00507BEC
  int dword_507BF0; // weak
  int dword_507BF4; // weak
  int dword_507BF8; // weak
