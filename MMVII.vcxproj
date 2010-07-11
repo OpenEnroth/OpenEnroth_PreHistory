@@ -112,6 +112,7 @@
     <ClCompile Include="mm7 file 8.c" />
     <ClCompile Include="mm7 file 9 junk stuff.c" />
     <ClCompile Include="mm7_unparsed_data.c" />
+    <ClCompile Include="Party.c" />
     <ClCompile Include="Player.c" />
     <ClCompile Include="zlib\adler32.c" />
     <ClCompile Include="zlib\compress.c" />
@@ -147,6 +148,7 @@
     <ClInclude Include="libpng143\pngpriv.h" />
     <ClInclude Include="mm7_unparsed_data.h" />
     <ClInclude Include="mm7_unparsed_functions.h" />
+    <ClInclude Include="Party.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="zlib\deflate.h" />
     <ClInclude Include="zlib\infblock.h" />

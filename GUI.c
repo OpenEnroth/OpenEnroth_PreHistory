@@ -7495,3 +7495,260 @@ LABEL_49:
   }
 }
 
+
+
+//----- (0049048D) --------------------------------------------------------
+__int16 __thiscall PartyCreation_BtnMinusClick(struct Player *_this, int a2)
+{
+  int v2;
+  int v4; // ecx@1
+  int r1; // ebx@1
+  int r2; // esi@1
+  int v7; // edi@8
+  int v8; // edi@12
+  int v9; // edi@16
+  int v10; // edi@20
+  int v11; // edi@24
+  int v12; // edi@28
+  int v13; // edi@32
+  int v15; // [sp+Ch] [bp-4h]@1
+  int r;
+
+  r = Player_GetRace(_this);
+  v4 = g_StatTable[r][a2].InitialStat; 
+  r1 = g_StatTable[r][a2].Ratio1;
+  v15 = v4 - 2;
+  r2 = g_StatTable[r][a2].Ratio2;
+  HIWORD(v2) = HIWORD(a2);
+  if ( a2 )
+  {
+    v2 = a2 - 1;
+    if ( a2 == 1 )
+    {
+      LOWORD(v2) = _this->uIntelligence;
+      v12 = _this->uIntelligence;
+      if ( v12 <= v4 )
+        r2 = r1;
+      if ( v12 - r2 >= v15 )
+      {
+        v2 -= r2;
+        _this->uIntelligence = v2;
+      }
+    }
+    else
+    {
+      v2 = a2 - 2;
+      if ( a2 == 2 )
+      {
+        LOWORD(v2) = _this->uWillpower;
+        v11 = _this->uWillpower;
+        if ( v11 <= v4 )
+          r2 = r1;
+        if ( v11 - r2 >= v15 )
+        {
+          v2 -= r2;
+          _this->uWillpower = v2;
+        }
+      }
+      else
+      {
+        v2 = a2 - 3;
+        if ( a2 == 3 )
+        {
+          LOWORD(v2) = _this->uEndurance;
+          v10 = _this->uEndurance;
+          if ( v10 <= v4 )
+            r2 = r1;
+          if ( v10 - r2 >= v15 )
+          {
+            v2 -= r2;
+            _this->uEndurance = v2;
+          }
+        }
+        else
+        {
+          v2 = a2 - 4;
+          if ( a2 == 4 )
+          {
+            LOWORD(v2) = _this->uAccuracy;
+            v9 = _this->uAccuracy;
+            if ( v9 <= v4 )
+              r2 = r1;
+            if ( v9 - r2 >= v15 )
+            {
+              v2 -= r2;
+              _this->uAccuracy = v2;
+            }
+          }
+          else
+          {
+            v2 = a2 - 5;
+            if ( a2 == 5 )
+            {
+              LOWORD(v2) = _this->uSpeed;
+              v8 = _this->uSpeed;
+              if ( v8 <= v4 )
+                r2 = r1;
+              if ( v8 - r2 >= v15 )
+              {
+                v2 -= r2;
+                _this->uSpeed = v2;
+              }
+            }
+            else
+            {
+              v2 = a2 - 6;
+              if ( a2 == 6 )
+              {
+                LOWORD(v2) = _this->uLuck;
+                v7 = _this->uLuck;
+                if ( v7 <= v4 )
+                  r2 = r1;
+                if ( v7 - r2 >= v15 )
+                {
+                  v2 -= r2;
+                  _this->uLuck = v2;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  else
+  {
+    LOWORD(v2) = _this->uStrength;
+    v13 = _this->uStrength;
+    if ( v13 <= v4 )
+      r2 = r1;
+    if ( v13 - r2 >= v15 )
+    {
+      v2 -= r2;
+      _this->uStrength = v2;
+    }
+  }
+  return v2;
+}
+
+//----- (004905F5) --------------------------------------------------------
+signed int __thiscall PartyCreation_BtnPlusClick(struct Player *_this, int a2)
+{
+  int v2; // ebx@1
+  signed int v3; // edi@1
+  int v4; // esi@1
+  int v6; // eax@8
+  signed int v7; // eax@17
+  signed int result; // eax@18
+  int v9; // [sp+Ch] [bp-8h]@1
+  signed int v10; // [sp+10h] [bp-4h]@1
+  int r;
+
+  v4 = _this;
+  
+  r = Player_GetRace(_this);
+  v2 = g_StatTable[r][a2].MaxStat;
+  v3 = g_StatTable[r][a2].Ratio2;
+  v9 = g_StatTable[r][a2].InitialStat; 
+  v10 = g_StatTable[r][a2].Ratio1;
+  PlayerCreation_ComputeAttributeBonus();
+  switch ( a2 )
+  {
+      case 0:
+        v6 = _this->uStrength;
+        break;
+      case 1:
+        v6 = _this->uIntelligence;
+        break;
+      case 2:
+        v6 = _this->uWillpower;
+        break;
+      case 3:
+        v6 = _this->uEndurance;
+        break;
+      case 4:
+        v6 = _this->uAccuracy;
+        break;
+      case 5:
+        v6 = _this->uSpeed;
+        break;
+      case 6:
+        v6 = _this->uLuck;
+        break;
+      default:
+        v6 = a2;
+        break;
+  }
+  if ( v6 < v9 )
+  {
+    v7 = v3;
+    v3 = v10;
+    v10 = v7;
+  }
+  result = PlayerCreation_ComputeAttributeBonus();
+  if ( result >= v10 )
+  {
+    if ( a2 )
+    {
+      switch ( a2 )
+      {
+        case 1:
+          result = v4 + 192;
+          break;
+        case 2:
+          result = v4 + 196;
+          break;
+        case 3:
+          result = v4 + 200;
+          break;
+        case 4:
+          result = v4 + 208;
+          break;
+        case 5:
+          result = v4 + 204;
+          break;
+        default:
+          result = a2 - 6;
+          if ( a2 != 6 )
+            return result;
+          result = v4 + 212;
+          break;
+      }
+    }
+    else
+    {
+      result = v4 + 188;
+    }
+    if ( v3 + *(_WORD *)result <= v2 )
+      *(_WORD *)result += v3;
+  }
+  return result;
+}
+
+//----- (004907E7) --------------------------------------------------------
+unsigned int PlayerCreationUI_GetStatColor(struct Player *_this, int Stat)
+{
+  int v7; // eax@1
+  int v8; // edx@1
+
+ switch (Stat)
+ {
+  case 0:  v8 = _this->uStrength;     break;
+  case 1:  v8 = _this->uIntelligence; break;
+  case 2:  v8 = _this->uWillpower;    break;
+  case 3:  v8 = _this->uEndurance;    break;
+  case 4:  v8 = _this->uAccuracy;     break;
+  case 5:  v8 = _this->uSpeed;        break;
+  case 6:  v8 = _this->uLuck;         break;
+  default: v8 = Stat;                 break;
+ }
+
+ v7 = g_StatTable[Player_GetRace(_this)][Stat].InitialStat;
+
+ if (v8 == v7)
+   return 0xFFFFFFFF;
+ else if (v8 > v7)
+   return 0xFF00FF00;
+ else
+   return 0xFFFF2300;
+}

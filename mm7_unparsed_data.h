@@ -219,7 +219,7 @@ extern int dword_4E94EC[array_size_unknown]; // weak
 extern int dword_4E98BC; // weak
 extern _UNKNOWN unk_4E98D4; // weak
 extern char *off_4EB080; // idb
-extern _UNKNOWN unk_4EB084; // weak
+extern const unsigned char *pTransitionStrings[]; // dword[464] @ MM7.exe::004EB084
 extern _UNKNOWN unk_4EB8BC; // weak
 extern _UNKNOWN unk_4EBBD0; // weak
 extern int dword_4EC268[array_size_unknown]; // weak
@@ -2366,7 +2366,7 @@ extern int dword_ACD8E8; // weak
 extern __int16 word_ACD8EC; // weak
 extern __int16 word_ACD8EE; // weak
 extern char byte_ACD8F2; // weak
-extern __int64 qword_ACD8F4; // weak
+extern __int64 qword_ACD8F4; // 00093C
 extern _UNKNOWN unk_ACD904; // weak
 extern __int16 word_ACD90C; // weak
 extern __int64 qword_ACD914; // 00095C

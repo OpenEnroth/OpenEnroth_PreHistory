@@ -177,6 +177,8 @@ void __cdecl DeleteFontCChar();
 
 void __cdecl PlayerCreationUI_Initialize();
 unsigned int PlayerCreationUI_GetStatColor(struct Player *_this, int Stat);
+__int16 __thiscall PartyCreation_BtnMinusClick(struct Player *_this, int a2);
+signed int __thiscall PartyCreation_BtnPlusClick(struct Player *_this, int a2);
 
 
 bool LevelLoadingUI_Initialize(struct class56 *_this, int a2);
@@ -196,6 +198,7 @@ void GameUI_DrawTorchlightAndWizardEye();
 void GameUI_DrawLifeManaBars();
 void GameUI_Update();
 void GameUI_Process();
+
 
 void __cdecl GameUI_SkillsTab_ShowHint();
 void GameUI_DrawSkillsTab(int a1);

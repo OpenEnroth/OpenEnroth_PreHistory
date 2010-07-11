@@ -4419,276 +4419,6 @@ LABEL_22:
   pParty_global->dword_007778 &= 0xFFFFFFFD;
 }
 
-//----- (004917CE) --------------------------------------------------------
-int Party_CreateDefault(struct Party *_this)
-{
-  int v3; // esi@1
-  int v4; // edi@1
-  struct Player *v9; // ebx@15
-  signed int v10; // eax@16
-  int v11; // edx@17
-  signed int v12; // edi@18
-  int v16; // esi@23
- int i;
-
-  v3 = _this;
-  v4 = (char *)_this + 44;
-
-  runtime_warning(some fields like dword_007778 were not zeroed as shuould have been);
-  //memset(&_this->qword_00002C, 0, 0x1620C);
-  memset(&_this->qword_00002C, 0, sizeof(struct Party) - 0x2C);
-
-  pParty_global->uEyelevel = 160;
-
-  _this->byte_000708 = 15;
-
-  _this->uNumFood = 7;
-  _this->uNumGold = 200;
-  _this->uNumGoldInBank = 0;
-  _this->dword_000884 = 0;
-  _this->uAlignment = 1;
-
-  LoadInterfaceTextures(1, 1);
-
-  _this->qword_00002C = 138240;
-  _this->qword_000034 = 138240;
-
-  _this->dword_00087C = 0;
-
-  uMaybeSelectedCharacter = 1;
-  ptr_A750C4 = &_this->pPlayers[0];
-
-  for (i = 0; i < 4; ++i)
-  {
-   pPlayers[i] = &_this->pPlayers[i];
-   sub_49024A(&_this->pPlayers[i], i == 0 ? 0 :
-                                   i == 1 ? 4 :
-                                   i == 2 ? 24 : 32);
-  }
-
-  _this->pPlayers[0].uFace = 17;
-  _this->pPlayers[0].dword_001920 = 17;
-  _this->pPlayers[0].dword_001924 = 17;
-  Player_SetInitialStats(&_this->pPlayers[0]);
-  switch (_this->pPlayers[0].dword_001920)
-  {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 8:
-    case 9:
-    case 0xC:
-    case 0xD:
-    case 0x10:
-    case 0x11:
-    case 0x14:
-    case 0x17:
-      _this->pPlayers[0].uSex = 0;
-      break;
-
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 0xA:
-    case 0xB:
-    case 0xE:
-    case 0xF:
-    case 0x12:
-    case 0x13:
-    case 0x15:
-    case 0x18:
-      _this->pPlayers[0].uSex = 1;
-      break;
-    default:
-      break;
-  }
-  Player_RandomizeName(&_this->pPlayers[0]);
-  strcpy(_this->pPlayers[0].sName, pGlobalTXT_LocalizationStrings[509]);
-
-
-
-  _this->pPlayers[1].uFace = 3;
-  _this->pPlayers[1].dword_001920 = 3;
-  _this->pPlayers[1].dword_001924 = 3;
-  Player_SetInitialStats(&_this->pPlayers[1]);
-  switch (_this->pPlayers[1].dword_001920)
-  {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 8:
-    case 9:
-    case 0xC:
-    case 0xD:
-    case 0x10:
-    case 0x11:
-    case 0x14:
-    case 0x17:
-      _this->pPlayers[1].uSex = 0;
-      break;
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 0xA:
-    case 0xB:
-    case 0xE:
-    case 0xF:
-    case 0x12:
-    case 0x13:
-    case 0x15:
-    case 0x18:
-      _this->pPlayers[1].uSex = 1;
-      break;
-    default:
-      break;
-  }
-  Player_RandomizeName(&_this->pPlayers[1]);
-  strcpy(_this->pPlayers[1].sName, pGlobalTXT_LocalizationStrings[506]);
-
-
-
-  _this->pPlayers[2].uFace = 14;
-  _this->pPlayers[2].dword_001920 = 14;
-  _this->pPlayers[2].dword_001924 = 14;
-  Player_SetInitialStats(&_this->pPlayers[2]);
-  switch (_this->pPlayers[2].dword_001920)
-  {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 8:
-    case 9:
-    case 0xC:
-    case 0xD:
-    case 0x10:
-    case 0x11:
-    case 0x14:
-    case 0x17:
-      _this->pPlayers[2].uSex = 0;
-      break;
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 0xA:
-    case 0xB:
-    case 0xE:
-    case 0xF:
-    case 0x12:
-    case 0x13:
-    case 0x15:
-    case 0x18:
-      _this->pPlayers[2].uSex = 1;
-      break;
-    default:
-      break;
-  }
-  Player_RandomizeName(&_this->pPlayers[2]);
-  strcpy(_this->pPlayers[2].sName, pGlobalTXT_LocalizationStrings[508]);
-
-
-
-  _this->pPlayers[3].uFace = 10;
-  _this->pPlayers[3].dword_001920 = 10;
-  _this->pPlayers[3].dword_001924 = 10;
-  Player_SetInitialStats(&_this->pPlayers[3]);
-  switch (_this->pPlayers[3].dword_001920)
-  {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 8:
-    case 9:
-    case 0xC:
-    case 0xD:
-    case 0x10:
-    case 0x11:
-    case 0x14:
-    case 0x17:
-      _this->pPlayers[3].uSex = 0;
-      break;
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 0xA:
-    case 0xB:
-    case 0xE:
-    case 0xF:
-    case 0x12:
-    case 0x13:
-    case 0x15:
-    case 0x18:
-      _this->pPlayers[3].uSex = 1;
-      break;
-    default:
-      break;
-  }
-  Player_RandomizeName(&_this->pPlayers[3]);
-  strcpy(_this->pPlayers[3].sName, pGlobalTXT_LocalizationStrings[507]);
-
-
-  for (i = 0; i < 4; ++i)
-  {
-   v9 = pPlayers[i];
-   v9->word_001934 = 0;
-
-    v10 = 0;
-    do
-    {
-     v9->pConditions[v10++] = 0;
-    }
-    while (v10 < 20);
-
-    v10 = 0;
-    do
-    {
-     sub_458585(v9->array_0017A0[v10++]);
-    }
-    while ( v10 < 24 );
-  }
-
-  v10 = 1;
-  do
-  {
-   sub_458585(_this->array_00088C[v10++]);
-  }
-  while (v10 < 20);
-
-  dword_506F48 = 100;
-  _this->dword_007778 = 0;
-
-  v16 = v3 + 1893;
-  sub_449B7E(_this->unk_000765, 1, 1);
-  sub_449B7E(_this->unk_000765, 2, 1);
-  sub_449B7E(_this->unk_000765, 3, 1);
-  sub_449B7E(_this->unk_000765, 4, 1);
-  sub_449B7E(_this->unk_000765, 5, 1);
-  sub_449B7E(_this->unk_000765, 6, 1);
-
- for (i = 0; i < 4; ++i)
- {
-  v9 = pPlayers[i];
-
-  v9->word_001A9C = 1;
-  v9->word_001A9E = 0;
-  v9->word_001AA0 = rand() % 256 + 128;
- }
-
- memcpy(pNPCStats->pNPCData2, pNPCStats->pNPCData, 501 * sizeof(struct NPCData));
- memcpy(pNPCStats->word_017F5A, pNPCStats->array_017EF4, 51 * sizeof(short));
- dword_72D778 |= 0x80u;
- sub_494035();
- class24_fn1(pClass24_global);
- return 0;
-}
-
 //----- (004014E6) --------------------------------------------------------
 int __cdecl sub_4014E6()
 {
@@ -8605,15 +8335,6 @@ int __fastcall sub_4032B2(int a1, int a2, int a3, int a4)
   return sub_45976D(v7);
 }
 
-//----- (0048D6AA) --------------------------------------------------------
-bool sub_48D6AA(struct Player *_this, int a2)
-{
-  int v2; // eax@1
-
-  v2 = _this->array_001948[a2];
-  return v2 && !(*((_BYTE *)_this + 36 * v2 + 0x204) & 2);
-}
-
 //----- (004A952D) --------------------------------------------------------
 void __stdcall PlayMovie(unsigned int uVideoID, char a2)
 {
@@ -10145,7 +9866,6 @@ void __thiscall sub_427E01(struct unnamed_50C0C8 *_this)
   void *v672; // [sp+D90h] [bp-F4h]@1
   __int64 v673; // [sp+D94h] [bp-F0h]@991
   int v674; // [sp+D9Ch] [bp-E8h]@324
-  //int v675; // [sp+DA0h] [bp-E4h]@1
   char v676; // [sp+DA4h] [bp-E0h]@21
   char v677; // [sp+DB0h] [bp-D4h]@74
   int v678; // [sp+DB8h] [bp-CCh]@22
@@ -10175,11 +9895,14 @@ void __thiscall sub_427E01(struct unnamed_50C0C8 *_this)
    int v695; // [sp+E24h] [bp-60h]@72
    int v696; // [sp+E28h] [bp-5Ch]@72
    int v697; // [sp+E2Ch] [bp-58h]@72
-  } v686;
-
+  int dummy_0E30;
   int v698; // [sp+E34h] [bp-50h]@74
   int v699; // [sp+E38h] [bp-4Ch]@74
   char v700; // [sp+E3Ch] [bp-48h]@74
+  char dummy_E3D[3]; //?
+  } v686;
+
+
   int v701; // [sp+E4Ch] [bp-38h]@1
   float v702; // [sp+E50h] [bp-34h]@23
   int v703; // [sp+E54h] [bp-30h]@23
@@ -10209,8 +9932,10 @@ void __thiscall sub_427E01(struct unnamed_50C0C8 *_this)
   if (_this->array_000000[i].word_000000 == WORD2(v1) )
     continue;
 
-  if (sub_42EB31(&qword_ACD8F4))
-    sub_458585((int)&qword_ACD8F4);
+  //if (sub_42EB31(&qword_ACD8F4)) 
+  //  sub_458585((int)&qword_ACD8F4);
+  if (sub_42EB31(pParty_global->array_00088C + 0xB0))
+    sub_458585(pParty_global->array_00088C + 0xB0);
 
   if (_this->array_000000[i].word_000008 & 0x03CA)
   {
@@ -10426,9 +10151,9 @@ LABEL_69:
         HIDWORD(v686.v688) = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
         v17 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v17) = v17 | 4;
-        v698 = v17;
-        v699 = n;
-        v700 = v677;
+        v686.v698 = v17;
+        v686.v699 = n;
+        v686.v700 = v677;
         v686.v689 = v678;
         v686.v690 = *(_WORD *)(v2 + 16);
         v18 = &pParty_global->pPlayers[1743 * *(_WORD *)(v2 + 2)];
@@ -10467,9 +10192,9 @@ LABEL_69:
         HIDWORD(v686.v688) = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 2;
         v20 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v20) = v20 | 4;
-        v698 = v20;
-        v699 = n;
-        v700 = v677;
+        v686.v698 = v20;
+        v686.v699 = n;
+        v686.v700 = v677;
         v686.v689 = v678;
         v686.v690 = *(_WORD *)(v2 + 16);
         memcpy(v686.v694,
@@ -10575,9 +10300,9 @@ LABEL_69:
         v686.v693 = WORD2(v1);
         v33 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v33) = v33 | 4;
-        v698 = v33;
-        v699 = n;
-        v700 = v677;
+        v686.v698 = v33;
+        v686.v699 = n;
+        v686.v700 = v677;
         v686.v689 = v678;
         v686.v690 = *(_WORD *)(v2 + 16);
         if ( dword_ACD834 == 1 )
@@ -10605,11 +10330,11 @@ LABEL_69:
         v686.v692 = WORD2(v1);
         v686.v693 = WORD2(v1);
         v39 = *(_WORD *)(v2 + 2);
-        v700 = 0;
+        v686.v700 = 0;
         v39 *= 8;
         LOBYTE(v39) = v39 | 4;
         v686.v689 = WORD2(v1);
-        v698 = v39;
+        v686.v698 = v39;
         LODWORD(v1) = n >> 3;
         v686.v690 = *(_WORD *)(v2 + 16);
         v40 = 836 * (n >> 3);
@@ -10619,7 +10344,7 @@ LABEL_69:
         v42 = 8 * (n >> 3);
         LODWORD(v686.v688) = v41;
         LOBYTE(v42) = v42 | 3;
-        v699 = v42;
+        v686.v699 = v42;
         v36 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
         v37 = &v656;
         goto LABEL_133;
@@ -10650,12 +10375,12 @@ LABEL_69:
         v686.v692 = WORD2(v1);
         v686.v693 = WORD2(v1);
         v43 = *(_WORD *)(v2 + 2);
-        v700 = 0;
+        v686.v700 = 0;
         v686.v689 = WORD2(v1);
         v43 *= 8;
         LOBYTE(v43) = v43 | 4;
         LODWORD(v1) = LODWORD(v704);
-        v698 = v43;
+        v686.v698 = v43;
         v686.v690 = *(_WORD *)(v2 + 16);
         v686.v687 = pActors[LODWORD(v712) / sizeof(struct Actor)].sActorPosX;
         v44 = pActors[LODWORD(v712) / sizeof(struct Actor)].sActorPosY;
@@ -10663,7 +10388,7 @@ LABEL_69:
         v45 = 8 * LODWORD(v704);
         LODWORD(v686.v688) = v44;
         LOBYTE(v45) = 8 * LOBYTE(v704) | 3;
-        v699 = v45;
+        v686.v699 = v45;
         v36 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
         v37 = &v665;
 LABEL_133:
@@ -10692,9 +10417,9 @@ LABEL_133:
         v686.v693 = WORD2(v1);
         v48 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v48) = v48 | 4;
-        v698 = v48;
-        v699 = n;
-        v700 = v677;
+        v686.v698 = v48;
+        v686.v699 = n;
+        v686.v700 = v677;
         v686.v689 = v678;
         LOWORD(v48) = *(_WORD *)(v2 + 16);
         LOBYTE(v686.v691) = v686.v691 | 0x80;
@@ -10736,9 +10461,9 @@ LABEL_139:
         v686.v693 = WORD2(v1);
         v49 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v49) = v49 | 4;
-        v698 = v49;
-        v699 = n;
-        v700 = v677;
+        v686.v698 = v49;
+        v686.v699 = n;
+        v686.v700 = v677;
         v686.v689 = v678;
         v686.v690 = *(_WORD *)(v2 + 16);
         if ( dword_ACD834 == 1 )
@@ -10887,9 +10612,9 @@ LABEL_174:
         v686.v693 = WORD2(v1);
         v58 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v58) = v58 | 4;
-        v698 = v58;
-        v699 = n;
-        v700 = v677;
+        v686.v698 = v58;
+        v686.v699 = n;
+        v686.v700 = v677;
         v686.v689 = v678;
         v686.v690 = *(_WORD *)(v2 + 16);
         v686.v697 = v709;
@@ -11302,8 +11027,8 @@ LABEL_269:
                 v686.v693 = 0;
                 v116 = 8 * *(_WORD *)(v115 + 2);
                 LOBYTE(v116) = v116 | 4;
-                v700 = 0;
-                v698 = v116;
+                v686.v700 = 0;
+                v686.v698 = v116;
                 v686.v689 = 0;
                 v686.v690 = *(_WORD *)(v115 + 16);
                 v686.v687 = *((_WORD *)v111 + 71);
@@ -11313,7 +11038,7 @@ LABEL_269:
                 HIDWORD(v686.v688) = *((_WORD *)v111 + 73)
                               - (unsigned int)(signed __int64)((double)SLODWORD(v704) * *(double *)&byte_4D8410[312]);
                 LOBYTE(v117) = 8 * n | 3;
-                v699 = v117;
+                v686.v699 = v117;
                 v118 = sub_42F5ED((int)&v686, 0, 0, 0, 0);
                 DamageMonsterFromParty(8 * v118 | 2, v708, (int)&v662);
                 LODWORD(v705) = 1;
@@ -11506,9 +11231,9 @@ LABEL_304:
             v686.v692 = WORD2(v1);
             HIDWORD(v686.v688) = n + v674;
             v686.v693 = WORD2(v1);
-            v698 = 8 * *(_WORD *)(v2 + 2) | 4;
-            v699 = v708;
-            v700 = sub_427546(n + 2500);
+            v686.v698 = 8 * *(_WORD *)(v2 + 2) | 4;
+            v686.v699 = v708;
+            v686.v700 = sub_427546(n + 2500);
             v686.v689 = v645;
             v686.v690 = *(_WORD *)(v2 + 16);
             if ( dword_ACD834 == 1 )
@@ -11553,11 +11278,11 @@ LABEL_304:
         v686.v692 = WORD2(v1);
         v686.v693 = WORD2(v1);
         v158 = *(_WORD *)(v2 + 2);
-        v700 = 0;
+        v686.v700 = 0;
         v686.v689 = WORD2(v1);
         v158 *= 8;
         LOBYTE(v158) = v158 | 4;
-        v698 = v158;
+        v686.v698 = v158;
         v686.v690 = *(_WORD *)(v2 + 16);
         n = HIDWORD(v1);
         if ( LODWORD(v704) > HIDWORD(v1) )
@@ -11572,7 +11297,7 @@ LABEL_304:
                           - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
             v159 = 8 * dword_50BF30[n];
             LOBYTE(v159) = v159 | 3;
-            v699 = v159;
+            v686.v699 = v159;
             v160 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v161 = n;
             DamageMonsterFromParty(8 * v160 | 2, dword_50BF30[n], (int)&v659);
@@ -11698,9 +11423,9 @@ LABEL_353:
         v686.v693 = WORD2(v1);
         v181 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v181) = v181 | 4;
-        v698 = v181;
-        v699 = n;
-        v700 = v677;
+        v686.v698 = v181;
+        v686.v699 = n;
+        v686.v700 = v677;
         v686.v690 = *(_WORD *)(v2 + 16);
         if ( dword_ACD834 == 1 )
           LOBYTE(v686.v691) = v686.v691 | 4;
@@ -11930,9 +11655,9 @@ LABEL_104:
           v686.v692 = WORD2(v1);
           HIDWORD(v686.v688) = LODWORD(v702) + v703;
           v686.v693 = WORD2(v1);
-          v698 = 8 * *(_WORD *)(v2 + 2) | 4;
-          v699 = v708;
-          v700 = sub_427546(LODWORD(v702) + 2500);
+          v686.v698 = 8 * *(_WORD *)(v2 + 2) | 4;
+          v686.v699 = v708;
+          v686.v700 = sub_427546(LODWORD(v702) + 2500);
           v686.v689 = v642;
           v686.v690 = *(_WORD *)(v2 + 16);
           if ( dword_ACD834 == 1 )
@@ -12029,9 +11754,9 @@ LABEL_153:
           v686.v692 = v51;
           v52 = 8 * *(_WORD *)(v2 + 2);
           LOBYTE(v52) = v52 | 4;
-          v698 = v52;
-          v699 = n;
-          v700 = v677;
+          v686.v698 = v52;
+          v686.v699 = n;
+          v686.v700 = v677;
           v686.v689 = v678;
           v686.v690 = *(_WORD *)(v2 + 16);
 LABEL_154:
@@ -12065,9 +11790,9 @@ LABEL_157:
           v686.v693 = WORD2(v1);
           v218 = 8 * *(_WORD *)(v2 + 2);
           LOBYTE(v218) = v218 | 4;
-          v698 = v218;
-          v699 = n;
-          v700 = v677;
+          v686.v698 = v218;
+          v686.v699 = n;
+          v686.v700 = v677;
           v686.v690 = *(_WORD *)(v2 + 16);
           if ( dword_ACD834 == 1 )
             LOBYTE(v686.v691) = v686.v691 | 4;
@@ -12662,9 +12387,9 @@ LABEL_634:
         v686.v693 = WORD2(v1);
         v309 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v309) = v309 | 4;
-        v698 = v309;
-        v699 = n;
-        v700 = v677;
+        v686.v698 = v309;
+        v686.v699 = n;
+        v686.v700 = v677;
         v686.v689 = pParty_global->sRotationY;
         v686.v690 = *(_WORD *)(v2 + 16);
         if ( dword_ACD834 == 1 )
@@ -12692,9 +12417,9 @@ LABEL_634:
         HIDWORD(v686.v688) = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
         v310 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v310) = v310 | 4;
-        v700 = 0;
-        v698 = v310;
-        v699 = n;
+        v686.v700 = 0;
+        v686.v698 = v310;
+        v686.v699 = n;
         v686.v689 = pParty_global->sRotationY;
         v686.v690 = *(_WORD *)(v2 + 16);
         if ( dword_ACD834 == 1 )
@@ -12919,11 +12644,11 @@ LABEL_679:
         v686.v692 = WORD2(v1);
         v686.v693 = WORD2(v1);
         v346 = *(_WORD *)(v2 + 2);
-        v700 = 0;
+        v686.v700 = 0;
         v686.v689 = WORD2(v1);
         v346 *= 8;
         LOBYTE(v346) = v346 | 4;
-        v698 = v346;
+        v686.v698 = v346;
         v686.v690 = *(_WORD *)(v2 + 16);
         for ( n = HIDWORD(v1); n < LODWORD(v704); ++n )
         {
@@ -12937,7 +12662,7 @@ LABEL_679:
                           - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
             v347 = 8 * dword_50BF30[n];
             LOBYTE(v347) = v347 | 3;
-            v699 = v347;
+            v686.v699 = v347;
             sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v710 = v711 << 7;
             sub_4584E0(
@@ -13375,11 +13100,11 @@ LABEL_813:
         v686.v692 = WORD2(v1);
         v686.v693 = WORD2(v1);
         v407 = *(_WORD *)(v2 + 2);
-        v700 = 0;
+        v686.v700 = 0;
         v686.v689 = WORD2(v1);
         v407 *= 8;
         LOBYTE(v407) = v407 | 4;
-        v698 = v407;
+        v686.v698 = v407;
         v686.v690 = *(_WORD *)(v2 + 16);
         for ( n = HIDWORD(v1); n < LODWORD(v704); ++n )
         {
@@ -13393,7 +13118,7 @@ LABEL_813:
                         - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
           v408 = 8 * dword_50BF30[n];
           LOBYTE(v408) = v408 | 3;
-          v699 = v408;
+          v686.v699 = v408;
           sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
           if ( sub_427662(v1, 7) )
           {
@@ -13854,11 +13579,11 @@ LABEL_641:
         v686.v692 = WORD2(v1);
         v686.v693 = WORD2(v1);
         v475 = *(_WORD *)(v2 + 2);
-        v700 = 0;
+        v686.v700 = 0;
         v686.v689 = WORD2(v1);
         v475 *= 8;
         LOBYTE(v475) = v475 | 4;
-        v698 = v475;
+        v686.v698 = v475;
         v686.v690 = *(_WORD *)(v2 + 16);
         n = HIDWORD(v1);
         if ( LODWORD(v712) > HIDWORD(v1) )
@@ -13873,7 +13598,7 @@ LABEL_641:
                           - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
             v476 = 8 * dword_50BF30[n];
             LOBYTE(v476) = v476 | 3;
-            v699 = v476;
+            v686.v699 = v476;
             v477 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v478 = n;
             DamageMonsterFromParty(8 * v477 | 2, dword_50BF30[n], (int)&v647);
@@ -13891,7 +13616,7 @@ LABEL_641:
                         - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
           v480 = 8 * dword_50BF30[n];
           LOBYTE(v480) = v480 | 3;
-          v699 = v480;
+          v686.v699 = v480;
           sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
           v479 = v1 + 212;
           LODWORD(v704) = 22;
@@ -14034,11 +13759,11 @@ LABEL_973:
         v686.v692 = WORD2(v1);
         v686.v693 = WORD2(v1);
         v501 = *(_WORD *)(v2 + 2);
-        v700 = 0;
+        v686.v700 = 0;
         v686.v689 = WORD2(v1);
         v501 *= 8;
         LOBYTE(v501) = v501 | 4;
-        v698 = v501;
+        v686.v698 = v501;
         v686.v690 = *(_WORD *)(v2 + 16);
         n = HIDWORD(v1);
         if ( LODWORD(v704) > HIDWORD(v1) )
@@ -14053,7 +13778,7 @@ LABEL_973:
                           - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
             v502 = 8 * dword_50BF30[n];
             LOBYTE(v502) = v502 | 3;
-            v699 = v502;
+            v686.v699 = v502;
             v503 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v504 = n;
             DamageMonsterFromParty(8 * v503 | 2, dword_50BF30[n], (int)&v653);
@@ -14359,12 +14084,12 @@ LABEL_1000:
         v686.v692 = WORD2(v1);
         v686.v693 = WORD2(v1);
         v544 = *(_WORD *)(v2 + 2);
-        v700 = 0;
+        v686.v700 = 0;
         LODWORD(v1) = LODWORD(v685);
         v544 *= 8;
         LOBYTE(v544) = v544 | 4;
         v686.v689 = WORD2(v1);
-        v698 = v544;
+        v686.v698 = v544;
         v686.v690 = *(_WORD *)(v2 + 16);
         v686.v687 = *(_WORD *)(LODWORD(v685) + 142);
         LODWORD(v686.v688) = *(_WORD *)(LODWORD(v685) + 144);
@@ -14373,7 +14098,7 @@ LABEL_1000:
         HIDWORD(v686.v688) = *(_WORD *)(LODWORD(v685) + 146)
                       - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
         LOBYTE(v545) = 8 * LOBYTE(v704) | 3;
-        v699 = v545;
+        v686.v699 = v545;
         sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
         if ( *(_BYTE *)(v1 + 52) > v714 )
           goto LABEL_83;
@@ -14466,9 +14191,9 @@ LABEL_1062:
         v686.v693 = WORD2(v1);
         v559 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v559) = v559 | 4;
-        v698 = v559;
-        v699 = n;
-        v700 = v677;
+        v686.v698 = v559;
+        v686.v699 = n;
+        v686.v700 = v677;
         v686.v690 = *(_WORD *)(v2 + 16);
         if ( dword_ACD834 == 1 )
           LOBYTE(v686.v691) = v686.v691 | 4;
@@ -14556,9 +14281,9 @@ LABEL_1087:
         v686.v693 = WORD2(v1);
         v568 = 8 * *(_WORD *)(v2 + 2);
         LOBYTE(v568) = v568 | 4;
-        v698 = v568;
-        v699 = n;
-        v700 = v677;
+        v686.v698 = v568;
+        v686.v699 = n;
+        v686.v700 = v677;
         v686.v689 = v678;
         LOWORD(v568) = *(_WORD *)(v2 + 16);
         LOBYTE(v686.v691) = v686.v691 | 0x80;
@@ -14712,11 +14437,11 @@ LABEL_1119:
         v686.v692 = WORD2(v1);
         v686.v693 = WORD2(v1);
         v585 = *(_WORD *)(v2 + 2);
-        v700 = 0;
+        v686.v700 = 0;
         v686.v689 = WORD2(v1);
         v585 *= 8;
         LOBYTE(v585) = v585 | 4;
-        v698 = v585;
+        v686.v698 = v585;
         v686.v690 = *(_WORD *)(v2 + 16);
         n = HIDWORD(v1);
         if ( LODWORD(v712) > HIDWORD(v1) )
@@ -14732,7 +14457,7 @@ LABEL_1119:
                           - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
             v586 = 8 * dword_50BF30[n];
             LOBYTE(v586) = v586 | 3;
-            v699 = v586;
+            v686.v699 = v586;
             v587 = sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
             v588 = n;
             DamageMonsterFromParty(8 * v587 | 2, dword_50BF30[n], (int)&v668);

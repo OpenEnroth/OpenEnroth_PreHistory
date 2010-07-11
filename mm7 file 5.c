@@ -10511,8 +10511,8 @@ void __cdecl InitializeTransitions()
   char v3; // dl@5
   char *v4; // ecx@5
   int v5; // esi@9
-  signed int v6; // [sp+10h] [bp-8h]@3
   signed int v7; // [sp+14h] [bp-4h]@4
+ int i;
 
  if (pTransitionsTXT_Raw)
    class23_DeleteBuffer(class23_instance, pTransitionsTXT_Raw);
@@ -10520,10 +10520,8 @@ void __cdecl InitializeTransitions()
  pTransitionsTXT_Raw = class17_fn1(pClass17_Events_LOD, "trans.txt", 0);
  strtok(pTransitionsTXT_Raw, "\r");
 
-  //v6 = (signed int)&unk_4EB084;
- v6 = 0;
-  do
-  {
+ for (i = 0; i < 464; ++i)
+ {
     result = strtok(0, "\r") + 1;
     v2 = 0;
     v7 = 0;
@@ -10553,16 +10551,13 @@ void __cdecl InitializeTransitions()
       else
       {
         if ( v2 == 1 )
-          *(_DWORD *)(&unk_4EB084 + v6) = sub_452C30(result);
+          pTransitionStrings[i] = sub_452C30(result);
       }
       ++v2;
       result = (char *)(v5 + 1);
     }
     while ( v2 - 1 <= 1 && !v7);
-    v6 += 4;
   }
-  //while ( v6 < (signed int)"awards.txt" );
- while (v6 < 0x740);
 }
 
 //----- (00476C60) --------------------------------------------------------

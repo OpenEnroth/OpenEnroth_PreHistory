@@ -235,7 +235,7 @@ unsigned char data_4E7168[116] =
  int dword_4E98BC; // weak
  _UNKNOWN unk_4E98D4; // weak
  char *off_4EB080; // idb
- _UNKNOWN unk_4EB084; // weak
+const unsigned char *pTransitionStrings[464]; // dword[464] @ MM7.exe::004EB084
  _UNKNOWN unk_4EB8BC; // weak
  _UNKNOWN unk_4EBBD0; // weak
  int dword_4EC268[array_size_unknown]; // weak

@@ -9,6 +9,48 @@
 
 #pragma pack(push, 1)
 
+
+
+#define SKILL_STAFF         0
+#define SKILL_SWORD		    1
+#define SKILL_DAGGER		2
+#define SKILL_AXE		    3
+#define SKILL_SPEAR		    4
+#define SKILL_BOW		    5
+#define SKILL_MACE		    6
+#define SKILL_BLASTER		7
+#define SKILL_SHIELD		8
+#define SKILL_LEATHER		9
+#define SKILL_CHAIN		    10
+#define SKILL_PLATE		    11
+#define SKILL_FIREMAGIC		12
+#define SKILL_AIRMAGIC		13
+#define SKILL_WATERMAGIC	14
+#define SKILL_EARTHMAGIC	15
+#define SKILL_SPIRITMAGIC	16
+#define SKILL_MINDMAGIC		17
+#define SKILL_BODYMAGIC		18
+#define SKILL_LIGHTMAGIC	19
+#define SKILL_DARKMAGIC		20
+#define SKILL_IDITEM		21
+#define SKILL_MERCHANT		22
+#define SKILL_REPAIR		23
+#define SKILL_BODYBUILDING	24
+#define SKILL_MEDITATION    25
+#define SKILL_PERCEPTION	26
+#define SKILL_DIPLOMACY		27
+#define SKILL_THIEVERY		28 // NOT USED
+#define SKILL_DISARMTRAP	29
+#define SKILL_DODGING		30
+#define SKILL_UNARMED		31
+#define SKILL_IDMONSTER		32
+#define SKILL_ARMSMASTER	33
+#define SKILL_STEALING		34
+#define SKILL_ALCHEMY		35
+#define SKILL_LEARNING		36
+
+
+
 struct Player_stru0
 {
  unsigned int  uItemID; // dword @ 000000
@@ -124,10 +166,10 @@ struct Player
    int          dword_001930;
    short        word_001934;   // recovery delay ?
    char         array_001936[2];
-   unsigned int uSkillPoints;           // dword @ 001938
-   int          sHealth;             // dword @ 00193C
-   int          sMana;               // dword @ 001940
-   int          dword_001944; // birth year?
+   unsigned int uSkillPoints;      // dword @ 001938
+   int          sHealth;           // dword @ 00193C
+   int          sMana;             // dword @ 001940
+   int          dword_001944;      // birth year?
    int          array_001948[65]; // related to equipped items
 
    char          byte_001A4E;
@@ -179,5 +221,11 @@ signed int Player_sub_48EA46(struct Player *_this, int a2);
 signed int Player_sub_492D65(struct Player *_this, int a2, int a3);
 int MaybePlaceItemInInventory(struct Player *_this, signed int a2, int a3);
 
+signed int __thiscall GetSkillIdxByOrder(struct Player *_this, int Order);
+int __thiscall sub_48E9F4_GetConditionNameOffset(void *this);
+int __thiscall WearItem(void *this, int a2);
+int __thiscall CreateItemInInventory(struct Player *_this, signed int a2, int itemid);
+int __thiscall sub_49107D(void *this);
+int __thiscall sub_48FC00(void *this, signed int a2);
 
 #pragma pack(pop)
