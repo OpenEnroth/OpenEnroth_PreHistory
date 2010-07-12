@@ -1533,7 +1533,7 @@ int chest_descriptor[2];   //struct @ MM7.exe::005FF144
 //int dword_5FF144; // weak
 //int dword_5FF148; // weak
 
-int monster_list[2]; // struct @ MM7.exe::05FF14C
+struct MonsterDescriptionList *pMonsterDescriptionList = 0; // struct @ MM7.exe::05FF14C
 //int dword_5FF14C; // weak
 //int dword_5FF150; // weak
 

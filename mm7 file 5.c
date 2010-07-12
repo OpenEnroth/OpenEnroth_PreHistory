@@ -944,7 +944,7 @@ void __cdecl sub_468F8A()
   int v58; // [sp+48h] [bp-4h]@1
 
   v55 = 0;
-  sub_402F07((int)&v50);
+  ItemGen_Reset((int)&v50);
   v1 = (int)*(&ptr_A750C4 + uActiveCharacter);
   v0 = *(_DWORD *)(v1 + 6476);
   v2 = *(_DWORD *)(v1 + 6472);
@@ -1039,7 +1039,7 @@ LABEL_33:
           memcpy(&v50, &dword_AD470C, 0x24u);
           v10 = v1 + 36 * v56;
           *(_BYTE *)(v10 + 556) = 0;
-          sub_402F07((int)&dword_AD470C);
+          ItemGen_Reset((int)&dword_AD470C);
           sub_4936E1(pParty_global, (const void *)(v10 + 532));
           v51 = 16;
           v11 = v56 + 1;
@@ -1058,7 +1058,7 @@ LABEL_33:
           memcpy(&v50, &dword_AD470C, 0x24u);
           v12 = v1 + 36 * v58;
           *(_BYTE *)(v12 + 556) = 0;
-          sub_402F07((int)&dword_AD470C);
+          ItemGen_Reset((int)&dword_AD470C);
           sub_4936E1(pParty_global, (const void *)(v12 + 532));
           v51 = 1;
           v13 = v58 + 1;
@@ -1084,7 +1084,7 @@ LABEL_33:
           memcpy(&v50, &dword_AD470C, 0x24u);
           v15 = v1 + 36 * (v57 - 1);
           *(_BYTE *)(v15 + 556) = 0;
-          sub_402F07((int)&dword_AD470C);
+          ItemGen_Reset((int)&dword_AD470C);
           sub_4936E1(pParty_global, (const void *)(v15 + 532));
           v51 = 1;
           v16 = v56 + 1;
@@ -1124,7 +1124,7 @@ LABEL_33:
                 memcpy(&v50, &dword_AD470C, 0x24u);
                 v20 = v1 + 36 * v58;
                 *(_BYTE *)(v20 + 556) = 0;
-                sub_402F07((int)&dword_AD470C);
+                ItemGen_Reset((int)&dword_AD470C);
                 sub_4936E1(pParty_global, (const void *)(v20 + 532));
                 v51 = 1;
                 v21 = v58 + 1;
@@ -1169,7 +1169,7 @@ LABEL_71:
         memcpy(&v50, &dword_AD470C, 0x24u);
         v25 = v1 + 36 * v57;
         *(_BYTE *)(v25 + 556) = 0;
-        sub_402F07((int)&dword_AD470C);
+        ItemGen_Reset((int)&dword_AD470C);
         sub_4936E1(pParty_global, (const void *)(v25 + 532));
         v51 = 2;
         v26 = v57 + 1;
@@ -1206,7 +1206,7 @@ LABEL_74:
           memcpy(&v50, &dword_AD470C, 0x24u);
           v29 = v1 + 36 * v57;
           *(_BYTE *)(v29 + 556) = 0;
-          sub_402F07((int)&dword_AD470C);
+          ItemGen_Reset((int)&dword_AD470C);
           sub_4936E1(pParty_global, (const void *)(v29 + 532));
           v51 = 2;
           v30 = v57 + 1;
@@ -1223,7 +1223,7 @@ LABEL_74:
               memcpy(&v50, &dword_AD470C, 0x24u);
               v31 = v1 + 36 * (v58 - 1);
               *(_BYTE *)(v31 + 556) = 0;
-              sub_402F07((int)&dword_AD470C);
+              ItemGen_Reset((int)&dword_AD470C);
               sub_4936E1(pParty_global, (const void *)(v31 + 532));
               v51 = 2;
               v32 = v56 + 1;
@@ -1268,7 +1268,7 @@ LABEL_45:
     if ( v37 )
     {
       sub_4936E1(pParty_global, (const void *)(v1 + 36 * v37 + 496));
-      sub_402F07(v1 + 36 * *(_DWORD *)(v1 + 6480) + 496);
+      ItemGen_Reset(v1 + 36 * *(_DWORD *)(v1 + 6480) + 496);
       *(_DWORD *)(v1 + 6480) = 0;
     }
     return;
@@ -1319,7 +1319,7 @@ LABEL_96:
     {
       sub_4936E1(pParty_global, (const void *)v38);
       *(_DWORD *)(v1 + 4 * *(_BYTE *)(v54 + 556) + 6468) = 0;
-      sub_402F07(v38);
+      ItemGen_Reset(v38);
     }
   }
 }
@@ -1927,9 +1927,9 @@ char __fastcall sub_46A334(int a1, int a2)
         {
           if ( !(*(_BYTE *)(v14 + 38) & 8) )
           {
-            if ( sub_40894B(v14) )
+            if ( Actor_sub_40894B(v14) )
             {
-              sub_404030(v13, 4, 0, 0);
+              Actor_sub_404030(v13, 4, 0, 0);
               if ( *(_WORD *)(v14 + 32) )
               {
                 if ( dword_50CBD0[0] < 40 )
@@ -3714,7 +3714,7 @@ void __thiscall sub_46BEF1(void *this)
     v2 = &pActors[0].sActorPosY;
     do
     {
-      if ( sub_40894B(v2 - 144) )
+      if ( Actor_sub_40894B(v2 - 144) )
       {
         UNDEF(v3);
         if ( !(v4 | v5) )
@@ -3945,7 +3945,7 @@ signed int __fastcall sub_46BFFA(int a1, signed int a2)
     a1 = *(_DWORD *)(v3 + 88);
     if ( (*(_BYTE *)(v3 + 88) & 7) != 4 )
     {
-      a1 = pActors[a1 >> 3].byte_000024;
+      a1 = &pActors[a1 >> 3].dword_000024;
       *(_BYTE *)(a1 + 2) |= 4u;
     }
   }
@@ -4078,7 +4078,7 @@ LABEL_246:
             if ( v169 >= 3 )
               v167 = 4;
           }
-          pActors[v156].byte_000024[2] |= 8u;
+          pActors[v156].dword_000024 |= 0x00080000;
         }
         if ( v5 == 6040 )
         {
@@ -4106,7 +4106,7 @@ LABEL_222:
                   {
                     //*(__int16 *)((char *)word_5FF208 + v123) = 0;
                    pActors[v156].word_0000B0 = 0;
-                    sub_45976D(&pActors[v156]);
+                    Actor_sub_45976D(&pActors[v156]);
                   }
                   sub_4584E0(
                     (int)((char *)&unk_5FF22C + 16 * v153 + v123),
@@ -7206,7 +7206,7 @@ void __cdecl sub_46F90C()
       v3 = *(_BYTE *)(v1 + 58);
       v58 = v2;
       v64 = v3;
-      if ( !sub_40894B(v1) )
+      if ( !Actor_sub_40894B(v1) )
         v64 = 0;
       v4 = *(_WORD *)(v1 + 146);
       v61 = 0;
@@ -7380,7 +7380,7 @@ LABEL_123:
               if ( v56 != v65 )
               {
                 v28 = 836 * v56;
-                v29 = abs(pActors[v56].word_000092 - *(_WORD *)(v1 + 146));
+                v29 = abs(pActors[v56].sActorPosZ - *(_WORD *)(v1 + 146));
                 v30 = abs(pActors[v56].sActorPosY - *(_WORD *)(v1 + 144));
                 v31 = abs(pActors[v56].sActorPosX - *(_WORD *)(v1 + 142));
                 if ( sub_4621DA(v31, v30, v29) >= *(_WORD *)(v1 + 136) + pActors[v56].word_000088)
@@ -7561,7 +7561,7 @@ LABEL_119:
               }
               v40 = dword_7215A8;
 LABEL_118:
-              sub_404030(v65, v40, v23, v23);
+              Actor_sub_404030(v65, v40, v23, v23);
               goto LABEL_119;
             }
             if ( dword_ACD834 == 1 && (dword_4F885C == 2 || dword_4F885C == 3) )
@@ -7578,11 +7578,11 @@ LABEL_118:
                 if ( !byte_5FF195[836 * v41] )
                   goto LABEL_118;
 LABEL_114:
-                sub_402968(v65, v40, v23, (char *)v23);
+                Actor_sub_402968(v65, v40, v23, (char *)v23);
                 goto LABEL_119;
               }
             }
-            sub_403F58(v65, 4, v23, (signed int)&v55);
+            Actor_sub_403F58(v65, 4, v23, (signed int)&v55);
             goto LABEL_119;
           }
           if ( *(_BYTE *)(v1 + 142) & 1 )
@@ -7596,7 +7596,7 @@ LABEL_114:
             goto LABEL_123;
           if ( !*(_BYTE *)(v1 + 61) || v58 != v23 )
           {
-            sub_403F58(v65, 4, v23, (signed int)&v54);
+            Actor_sub_403F58(v65, 4, v23, (signed int)&v54);
             goto LABEL_123;
           }
         }
@@ -7820,7 +7820,7 @@ void __cdecl sub_4706C6()
       v4 = *(_BYTE *)(v1 + 58);
       *(_WORD *)(v1 + 158) = 0;
       v76 = v4;
-      if ( !sub_40894B(v1) )
+      if ( !Actor_sub_40894B(v1) )
         v76 = 0;
       v72 = sub_4823F4(*(_WORD *)(v1 + 142), *(_WORD *)(v1 + 144));
       v6 = sub_46D49E(
@@ -7952,7 +7952,7 @@ LABEL_121:
     }
     if ( dword_AE30F4 != v16 )
     {
-      if ( sub_40894B(v1) )
+      if ( Actor_sub_40894B(v1) )
       {
         *(_WORD *)(v1 + 148) += rand() % 100 - 50;
         *(_WORD *)(v1 + 150) += rand() % 100 - 50;
@@ -7960,7 +7960,7 @@ LABEL_121:
         v25 = rand();
         *(_WORD *)(v1 + 176) = 8;
         *(_WORD *)(v1 + 154) += v25 % 32 - 16;
-        sub_45976D(v1);
+        Actor_sub_45976D(v1);
       }
     }
     if ( *(_WORD *)(v1 + 148) * (signed int)*(_WORD *)(v1 + 148)
@@ -8089,7 +8089,7 @@ LABEL_107:
               {
                 *(_WORD *)(v1 + 142) = v68;
                 *(_WORD *)(v1 + 144) = v67;
-                if ( sub_40894B(v1) )
+                if ( Actor_sub_40894B(v1) )
                 {
                   *(_WORD *)(v1 + 154) -= 32;
                   *(_DWORD *)(v1 + 184) &= v56;
@@ -8125,7 +8125,7 @@ LABEL_97:
               if ( v73 == v36 )
                 goto LABEL_99;
 LABEL_101:
-              sub_403F58(v77, 4, v36, v36);
+              Actor_sub_403F58(v77, 4, v36, v36);
               break;
             }
             if ( v73 != v36 )
@@ -8133,11 +8133,11 @@ LABEL_101:
             if ( byte_5FF195[836 * v40] )
             {
 LABEL_99:
-              sub_402968(v77, v39, v36, (char *)v36);
+              Actor_sub_402968(v77, v39, v36, (char *)v36);
               break;
             }
 LABEL_103:
-            sub_404030(v77, v39, v36, v36);
+            Actor_sub_404030(v77, v39, v36, v36);
             break;
           }
           break;
@@ -8366,7 +8366,7 @@ LABEL_25:
               v14 = (signed __int64)((double)v49 * *(double *)&byte_4D8410[640]);
               v49 = *(_WORD *)(v47 - 38) - 1;
               if ( v14 != (unsigned int)(signed __int64)((double)v49 * *(double *)&byte_4D8410[640]) )
-                sub_46DF1A(v50, *(_WORD *)(152 * *(_WORD *)v47 + monster_list[1] - 146));
+                sub_46DF1A(v50, *(_WORD *)(152 * *(_WORD *)v47 + pMonsterDescriptionList->pDescriptions - 146));
               ++v50;
               v47 += 836;
             }
@@ -8381,7 +8381,7 @@ LABEL_25:
             v47 = (int)&unk_5FF1DE;
             do
             {
-              sub_46DF1A(v50++, *(_WORD *)(152 * *(_WORD *)v47 + monster_list[1] - 146));
+              sub_46DF1A(v50++, *(_WORD *)(152 * *(_WORD *)v47 + pMonsterDescriptionList->pDescriptions - 146));
               v47 += 836;
             }
             while ( v50 < (signed int)uNumActors );
@@ -17722,13 +17722,13 @@ void __thiscall sub_48917E(int this)
   v3 = this;
   v2 = (int *)(this + 3268);
   *(_DWORD *)(this + 3268) = -1;
-  *(_DWORD *)(this + 3276) = CSpriteFrameTable_fn5(pSpriteFrameTable, "LUN1-4");
-  *(_DWORD *)(v3 + 3284) = CSpriteFrameTable_fn5(pSpriteFrameTable, "LUN1-2");
-  *(_DWORD *)(v3 + 3292) = CSpriteFrameTable_fn5(pSpriteFrameTable, "LUN3-4");
-  *(_DWORD *)(v3 + 3300) = CSpriteFrameTable_fn5(pSpriteFrameTable, "LUNFULL");
-  *(_DWORD *)(v3 + 3308) = CSpriteFrameTable_fn5(pSpriteFrameTable, "LUN3-4");
-  *(_DWORD *)(v3 + 3316) = CSpriteFrameTable_fn5(pSpriteFrameTable, "LUN1-2");
-  v4 = CSpriteFrameTable_fn5(pSpriteFrameTable, "LUN1-4");
+  *(_DWORD *)(this + 3276) = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "LUN1-4");
+  *(_DWORD *)(v3 + 3284) = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "LUN1-2");
+  *(_DWORD *)(v3 + 3292) = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "LUN3-4");
+  *(_DWORD *)(v3 + 3300) = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "LUNFULL");
+  *(_DWORD *)(v3 + 3308) = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "LUN3-4");
+  *(_DWORD *)(v3 + 3316) = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "LUN1-2");
+  v4 = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "LUN1-4");
   *(_DWORD *)(v3 + 3424) = -1;
   *(_DWORD *)(v3 + 3324) = v4;
   *(_DWORD *)(v3 + 3312) = 4;
@@ -17747,7 +17747,7 @@ void __thiscall sub_48917E(int this)
   *(_DWORD *)(v3 + 3404) = 131072;
   *(_DWORD *)(v3 + 3420) = 0;
   *(_DWORD *)(v3 + 3428) = 0;
-  v5 = CSpriteFrameTable_fn5(pSpriteFrameTable, "LUN-SUN");
+  v5 = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "LUN-SUN");
   *(_DWORD *)(v3 + 3368) = -1;
   *(_DWORD *)(v3 + 3336) = 0;
   *(_DWORD *)(v3 + 3340) = 0;
@@ -18785,7 +18785,7 @@ void *__thiscall sub_48C6AF(void *this)
   v2 = (int)((char *)this + 532);
   do
   {
-    sub_402F07(v2);
+    ItemGen_Reset(v2);
     v2 += 36;
     --v1;
   }

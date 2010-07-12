@@ -328,7 +328,7 @@ int Party_AddItem(struct Party *_this, int a2)
       }
     }
     memcpy((void *)(v10 + 36 * v9 + 496), (const void *)a2, 0x24u);
-    sub_402F07(a2);
+    ItemGen_Reset(a2);
     AudioPlayer_sub_4AA306(pAudioPlayer, 200, 0, 0, -1, 0, 0, 0, 0);
     sub_4948B1(v22, 60, 0);
     if ( !v24 )
@@ -481,7 +481,7 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
 
 LABEL_10:
     _this->pPlayers[i].word_001A9E = 0;
-    sub_402F07(Dst);
+    ItemGen_Reset(Dst);
     if ( a2 )
     {
       sub_456620(pClass40, 2, 40, Dst);
@@ -629,13 +629,13 @@ void Party_ctor(struct Party *_this)
   for (i = 0; i < 4; ++i)
     sub_48C6AF(&_this->pPlayers[i]);
 
-  sub_402F07(v3 + 0x7754);
+  ItemGen_Reset(v3 + 0x7754);
   v6 = 636;
   v8 = v3 + 0x777C;
   v7 = 636;
   do
   {
-    sub_402F07(v8);
+    ItemGen_Reset(v8);
     v8 += 36;
     --v7;
   }
@@ -644,7 +644,7 @@ void Party_ctor(struct Party *_this)
   v9 = v3 + 0xD0EC;
   do
   {
-    sub_402F07(v9);
+    ItemGen_Reset(v9);
     v9 += 36;
     --v6;
   }
@@ -654,7 +654,7 @@ void Party_ctor(struct Party *_this)
   v10 = 384;
   do
   {
-    sub_402F07(v11);
+    ItemGen_Reset(v11);
     v11 += 36;
     --v10;
   }

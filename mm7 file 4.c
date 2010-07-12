@@ -1042,7 +1042,7 @@ void __stdcall sub_426A5A(int a1)
   int v16; // [sp+34h] [bp-4h]@1
 
   sub_421B2C();
-  sub_402F07((int)Dst);
+  ItemGen_Reset((int)Dst);
   v1 = 0;
   v2 = ((unsigned int)&unk_800000 & *(_DWORD *)(a1 + 36)) == 0;
   v15 = 0;
@@ -1063,7 +1063,7 @@ void __stdcall sub_426A5A(int a1)
     if ( byte_5D2A00[48 * *(_DWORD *)(a1 + 672)] != 18 )
       goto LABEL_9;
     v16 = *(_DWORD *)(a1 + 684);
-    sub_402F07(a1 + 672);
+    ItemGen_Reset(a1 + 672);
   }
   if ( v16 )
   {
@@ -1073,7 +1073,7 @@ void __stdcall sub_426A5A(int a1)
 LABEL_9:
   if ( *(_WORD *)(a1 + 180) )
   {
-    sub_402F07((int)Dst);
+    ItemGen_Reset((int)Dst);
     *(_DWORD *)Dst = *(_WORD *)(a1 + 180);
     v8 = dword_5D29EC[12 * *(_DWORD *)Dst];
     if ( v16 )
@@ -1107,7 +1107,7 @@ LABEL_9:
         sub_421B2C();
         sub_4936E1(pParty_global, (const void *)(a1 + 564));
       }
-      sub_402F07(a1 + 564);
+      ItemGen_Reset(a1 + 564);
     }
     if ( *(_DWORD *)(a1 + 600) )
     {
@@ -1116,7 +1116,7 @@ LABEL_9:
         sub_421B2C();
         sub_4936E1(pParty_global, (const void *)(a1 + 600));
       }
-      sub_402F07(a1 + 600);
+      ItemGen_Reset(a1 + 600);
     }
 LABEL_55:
     sub_459667(a1);
@@ -1127,7 +1127,7 @@ LABEL_55:
     if ( *(_DWORD *)(a1 + 672) )
     {
       memcpy(Dst, (const void *)(a1 + 672), 0x24u);
-      sub_402F07(a1 + 672);
+      ItemGen_Reset(a1 + 672);
       v10 = dword_5D29EC[12 * *(_DWORD *)Dst];
       if ( v16 )
         sprintfex(pStringBuffer, pGlobalTXT_LocalizationStrings[490], v16, v10);
@@ -1166,7 +1166,7 @@ LABEL_45:
       sub_4936E1(v7, (const void *)(a1 + 564));
       v15 = 1;
     }
-    sub_402F07(a1 + 564);
+    ItemGen_Reset(a1 + 564);
   }
   if ( *(_DWORD *)(a1 + 600) )
   {
@@ -1176,7 +1176,7 @@ LABEL_45:
       sub_4936E1(v7, (const void *)(a1 + 600));
       v15 = 1;
     }
-    sub_402F07(a1 + 600);
+    ItemGen_Reset(a1 + 600);
   }
   if ( !v15 || rand() % 100 < 90 )
     goto LABEL_55;
@@ -2242,7 +2242,7 @@ int __thiscall sub_42EB25(int this)
   int v2; // esi@1
 
   v2 = this;
-  sub_402F07(this);
+  ItemGen_Reset(this);
   return v2;
 }
 
@@ -2462,7 +2462,7 @@ signed int __cdecl sub_42ECB5()
     v30 = 0;
     v7 = pGame->pClass03->dword_000000;
     if ( ((_BYTE)v7 & 7) != 3
-     || (v36 = pGame->pClass03->dword_000000, !sub_40894B((int)((char *)pActors + 836 * (v7 >> 3)))) )
+     || (v36 = pGame->pClass03->dword_000000, !Actor_sub_40894B((int)((char *)pActors + 836 * (v7 >> 3)))) )
       v36 = sub_42F184(&unk_50C198, 0x1400u, 0, 0);
     v27 = 0;
     v26 = 0;
@@ -2852,7 +2852,7 @@ void __cdecl sub_42F3D6()
  dword_50C990 = CIconFrameTable_FindIcon(pIconFrameTable, "turnstart");
  CIconFrameTable_InitializeIcon(pIconFrameTable, dword_50C990);
 
- dword_50C99C = CSpriteFrameTable_fn5(pSpriteFrameTable, "spell11");
+ dword_50C99C = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell11");
 }
 
 //----- (0042F4DA) --------------------------------------------------------
@@ -3097,7 +3097,7 @@ signed int __fastcall sub_42F7EB(int a1, int a2, signed int a3, int a4, int a5, 
   v37 = a2;
   v38 = a1;
   sub_404828(&v20);
-  sub_402F07((int)&v30);
+  ItemGen_Reset((int)&v30);
   if ( a9 )
   {
     memcpy(&v30, a9, 0x24u);
@@ -3216,7 +3216,7 @@ void __fastcall sub_42F960(int a1, signed int a2, int a3)
   v4 = a1;
   v5 = a2;
   sub_404828(&v10);
-  sub_402F07((int)&v19);
+  ItemGen_Reset((int)&v19);
   v3 = 0;
   v22 = 0;
   v21 = 0;
@@ -3324,7 +3324,7 @@ signed int __fastcall sub_42FA66(int a1, signed int a2, int a3, int a4, __int16 
   v7 = a2;
   sub_404828(&v13);
   v13 = 600;
-  sub_402F07((int)&v23);
+  ItemGen_Reset((int)&v23);
   v24 = 6;
   v25 = 8;
   v26 = 3;
@@ -8856,48 +8856,6 @@ void __thiscall sub_459667(int this)
   *(_WORD *)(this + 176) = 11;
 }
 
-//----- (00459671) --------------------------------------------------------
-void *__thiscall sub_459671(int this)
-{
-  *(_BYTE *)this = 0;
-  *(_WORD *)(this + 134) = 0;
-  *(_WORD *)(this + 32) = 0;
-  *(_WORD *)(this + 146) = 0;
-  *(_WORD *)(this + 144) = 0;
-  *(_WORD *)(this + 142) = 0;
-  *(_WORD *)(this + 152) = 0;
-  *(_WORD *)(this + 150) = 0;
-  *(_WORD *)(this + 148) = 0;
-  *(_WORD *)(this + 154) = 0;
-  *(_WORD *)(this + 156) = 0;
-  *(_DWORD *)(this + 36) = 0;
-  *(_WORD *)(this + 158) = 0;
-  *(_DWORD *)(this + 184) = 0;
-  *(_WORD *)(this + 166) = 0;
-  *(_WORD *)(this + 164) = 0;
-  *(_WORD *)(this + 162) = 0;
-  *(_WORD *)(this + 172) = 0;
-  *(_WORD *)(this + 170) = 0;
-  *(_WORD *)(this + 168) = 0;
-  *(_WORD *)(this + 174) = 256;
-  *(_WORD *)(this + 136) = 32;
-  *(_WORD *)(this + 138) = 128;
-  *(_WORD *)(this + 176) = 0;
-  *(_WORD *)(this + 178) = 0;
-  *(_WORD *)(this + 140) = 200;
-  *(_WORD *)(this + 180) = 0;
-  *(_DWORD *)(this + 708) = 0;
-  *(_DWORD *)(this + 712) = 0;
-  *(_DWORD *)(this + 812) = 0;
-  *(_DWORD *)(this + 816) = 0;
-  *(_DWORD *)(this + 820) = 0;
-  *(_DWORD *)(this + 188) = 0;
-  *(_DWORD *)(this + 192) = 0;
-  *(_DWORD *)(this + 196) = 0;
-  *(_DWORD *)(this + 200) = 0;
-  return memset((void *)(this + 212), 0, 0x160u);
-}
-
 //----- (00459860) --------------------------------------------------------
 int __thiscall sub_459860(void *Str)
 {
@@ -13567,7 +13525,7 @@ char __thiscall sub_460A78(void *this)
     {
       v8 = dword_6BE688 + v7;
       if ( *(_WORD *)(dword_6BE688 + v7 + 14) == 3 )
-        sub_44F57C(v3, v8, 0, 0, 0);
+        sub_44F57C_MaybeCreateRandomMonster(v3, v8, 0, 0, 0);
       else
         sub_44FFD8(v3, v8);
       ++i;
@@ -13728,7 +13686,7 @@ LABEL_43:
   i = v13;
   if ( (signed int)uNumActors > v13 )
   {
-   v26 = pActors->byte_000024;
+   v26 = &pActors->dword_000024;
     do
     {
       v27 = *(_DWORD *)v26;
@@ -13744,7 +13702,7 @@ LABEL_43:
       }
       if ( !v28 )
       {
-        sub_45959A((int)((char *)v26 - 36), 0);
+        Actor_LinkSprites((int)((char *)v26 - 36), 0);
         v29 = *((_WORD *)v26 + 70);
         *((_BYTE *)v26 + 25) = 0;
         if ( v29 != 11 )
@@ -13754,7 +13712,7 @@ LABEL_43:
             if ( !*((_WORD *)v26 + 2) || !*((_DWORD *)v26 + 18) )
             {
               *((_WORD *)v26 + 70) = 5;
-              sub_45976D((int)((char *)v26 - 36));
+              Actor_sub_45976D((int)((char *)v26 - 36));
             }
           }
         }
@@ -13770,9 +13728,9 @@ LABEL_90:
     while ( i < (signed int)uNumActors );
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-  sub_41F4C1(&v35);
+  Actor_TotalReset(&v35);
   v36 = 45;
-  sub_45959A((int)&v35, 0);
+  Actor_LinkSprites((int)&v35, 0);
   if ( !v41 )
   {
     pParty_global->sRotationX = 0;
@@ -15029,7 +14987,7 @@ void __thiscall sub_467E7F(void *this)
   int *v13; // [sp+38h] [bp-4h]@1
 
   v4 = this;
-  sub_402F07((int)&v9);
+  ItemGen_Reset((int)&v9);
   v3 = *(_BYTE *)((_DWORD)byte_4E8398 + (_DWORD)v4);
   v1 = *(&ptr_A750C4 + uActiveCharacter);
   v11 = v1;
@@ -15053,7 +15011,7 @@ void __thiscall sub_467E7F(void *this)
     memcpy(&v9, &dword_AD470C, 0x24u);
     v6 = (int)((char *)v1 + 4 * (9 * v2 - 9));
     *(_BYTE *)(v6 + 556) = 0;
-    sub_402F07((int)&dword_AD470C);
+    ItemGen_Reset((int)&dword_AD470C);
     sub_4936E1(pParty_global, (const void *)(v6 + 532));
     v7 = v12;
     v10 = v3 + 1;

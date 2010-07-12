@@ -3,6 +3,29 @@
 
 #include <windows.h>
 
+struct MonsterDescription
+{
+ short         word_000000;
+ short         word_000002;
+ char          byte_000004[8];
+ short         arrray_00000C[4];
+ char          byte_000014[32];
+ unsigned char pSpriteNames[8][10]; // byte[10] @ 000034
+ char          byte_000084[20];
+};
+//sizeof = 98
+
+struct MonsterDescriptionList
+{
+ unsigned int               uNumDescriptions; // dword @ 000000
+ struct MonsterDescription *pDescriptions;    // dword @ 000004
+};
+//sizeof == 08
+void MonsterDescriptionList_ctor(struct MonsterDescriptionList *_this);
+//void *__thiscall sub_4598AF(void *Dst, void *Src);
+void MonsterDescriptionList_Initialize(struct MonsterDescriptionList *_this, void *pSrc);
+
+
 struct IconFrame
 {
  unsigned char sIconName[12];    // byte[12] @ 000000
@@ -22,7 +45,7 @@ struct CIconFrameTable
 //sizeof ~ ?
 void CIconFrameTable_ctor(struct CIconFrameTable *_this);
 //void *__thiscall sub_495056(void *Dst, void *Src);
-void *CIconFrameTable_Initialize(struct CIconFrameTable *_this, void *pSrc);
+void CIconFrameTable_Initialize(struct CIconFrameTable *_this, void *pSrc);
 //signed int __thiscall sub_49509D(int this, const char *Args);
 int CIconFrameTable_InitializeFromTXT(struct CIconFrameTable *_this, const char *pSourceFile);
 //int __thiscall sub_494F3A(void *this, const char *Str1);
@@ -57,7 +80,7 @@ struct CTextureFrameTable
 void CTextureFrameTable_ctor(struct CTextureFrameTable *_this);
 
 //void *__thiscall sub_44E0A0(struct unk_class *Dst, void *Src);
-void *CTextureFrameTable_Initialize(struct CTextureFrameTable *_this, unsigned char *pSrc);
+void CTextureFrameTable_Initialize(struct CTextureFrameTable *_this, unsigned char *pSrc);
 //signed int __thiscall sub_44E1EC(int this, const char *Args);
 int CTextureFrameTable_InitializeFromTXT(struct CTextureFrameTable *_this, const char *pSourceFile);
 
@@ -73,8 +96,7 @@ struct SpriteFrame
 {
  unsigned char  sIconName[12];    // byte[12] @ 000000
  unsigned char  sTextureName[12]; // byte[12] @ 00000C
- unsigned short uSpriteIDs[8];    // word     @ 000018
- //short          array_00001A[7];
+ unsigned short uSpriteIDs[8];    // word[8]  @ 000018
  int            dword_000028;
  int            dword_00002C;  // some flags   0x01 next frame sequence is a part of a current (animated sqeuences)   0x10 single frame per frame sequence
  short          word_000030;
@@ -88,12 +110,12 @@ struct SpriteFrame
 
 struct CSpriteFrameTable
 {
- unsigned int    uNumSpriteFrames; // dword @ 000000
- int             dword_000004;
- int             dword_000008;
- struct SpriteFrame *pSpriteSFrames; // ptr @ 00000C
- struct SpriteFrame **pSpritePFrames; // ptr @ 000010
- unsigned short *pSpriteEFrames; // ptr @ 000014
+ unsigned int         uNumSpriteFrames; // dword @ 000000
+ int                  dword_000004;
+ int                  dword_000008;   // result of binary search. indexing E-Frames with this yeild actual sprite in S-Frames
+ struct SpriteFrame *pSpriteSFrames;  // dword @ 00000C
+ struct SpriteFrame **pSpritePFrames; // dword @ 000010   optimized for binary search S-Frames?
+ unsigned short      *pSpriteEFrames; // dword @ 000014   after binary search, idx returned index this array here to get idx of sprite in S-Frames:   SFrames[EFrames[dword_000008]] == desired sprite
 };
 //sizeof ~ 18
 void CSpriteFrameTable_ctor(struct CSpriteFrameTable *_this);
@@ -114,7 +136,9 @@ void CSpriteFrameTable_fn3(struct CSpriteFrameTable *_this);
 //void __thiscall class29_fn4(int this, int a2);
 void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, int a2);
 //int __thiscall class29_fn5(int this, const char *Str1);
-int CSpriteFrameTable_fn5(struct CSpriteFrameTable *_this, const char *Str1);
+unsigned int CSpriteFrameTable_FastFindSprite(struct CSpriteFrameTable *_this, const char *Str1); // find sprite using biary search, returns sprite ID
+//int __thiscall sub_44D83A(void *this, int a2, int a3, const char *pSpriteName)
+void CSpriteFrameTablsub_SpriteBinarySearch(struct CSpriteFrameTable *_this, int a2, int a3, const char *pSpriteName);
 
 
 

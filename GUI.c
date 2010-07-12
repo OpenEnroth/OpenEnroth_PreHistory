@@ -721,7 +721,7 @@ void GameUI_Process()
   }
   if ( dword_5C35C4 )
   {
-    sub_41F4C1(&Dst);
+    Actor_TotalReset(&Dst);
     memset(&Dst, 0, 0x344u);
     dword_5B65D0 = dword_5C35C4;
     v241 = dword_5C35C4;
@@ -796,7 +796,7 @@ void GameUI_Process()
               }
               if ( v212 + (unsigned __int8)pParty_global->byte_000709 < v210 )
               {
-                sub_41F4C1(&Dst);
+                Actor_TotalReset(&Dst);
                 memset(&Dst, 0, 0x344u);
                 v241 += -1 - (unsigned __int8)pParty_global->byte_000709 - v212;
                 v4 = &Dst;
@@ -3777,10 +3777,10 @@ LABEL_26:
 
   for (i = 0; i < uNumActors; ++i)
   {
-   if (pActors[i].word_0000B0 == 11  || pActors[i].word_0000B0 == 19)
+   if (pActors[i].word_0000B0 == 11 || pActors[i].word_0000B0 == 19)
      continue;
 
-   if (pActors[i].word_0000B0 == 5 || *((char *)&pActors[i] + 37) & 0x80 )
+   if (pActors[i].word_0000B0 == 5 || pActors[i].dword_000024 & 0x8000)
    {
     v45 = uMinimapCentreX + uMinimapZoom * (pActors[i].sActorPosX - pParty_global->sPartyPosX) / 65535;
     v44 = uMinimapCentreY - uMinimapZoom * (pActors[i].sActorPosY - pParty_global->sPartyPosY) / 65535;

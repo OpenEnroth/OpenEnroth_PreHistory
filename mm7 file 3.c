@@ -763,7 +763,7 @@ LABEL_69:
   }
   if ( v57 != v43 )
   {
-    if ( sub_40894B(v8) )
+    if ( Actor_sub_40894B(v8) )
     {
       if ( sub_427662(v8, 3) )
       {
@@ -1622,7 +1622,7 @@ void __fastcall sub_43AC45(int a1, int a2)
     v3 = &pActors[0].sActorPosY;
     do
     {
-      if ( sub_40894B(v3 - 144) )
+      if ( Actor_sub_40894B(v3 - 144) )
       {
         if ( v9 != v8 )
         {
@@ -1666,7 +1666,7 @@ void __cdecl sub_43AD34()
       v0 = (int)byte_5FF193;
       do
       {
-        if ( sub_40894B(v0 - 59) )
+        if ( Actor_sub_40894B(v0 - 59) )
         {
           if ( *(_BYTE *)(v0 + 2) != 4 )
           {
@@ -1676,7 +1676,7 @@ void __cdecl sub_43AD34()
               v2 = abs(*(_WORD *)(v0 + 85) - pParty_global->sPartyPosY);
               v3 = abs(*(_WORD *)(v0 + 87) - pParty_global->sPartyPosZ);
               if ( (double)sub_4621DA(v1, v2, v3) < 512.0 )
-                sub_402968(v4, 4, 0, 0);
+                Actor_sub_402968(v4, 4, 0, 0);
             }
           }
         }
@@ -5771,7 +5771,7 @@ int __fastcall sub_43FDED(int a1)
   if ( (signed int)uNumActors > 0 )
   {
     v40 = 0;
-    v2 = pActors->byte_000024;
+    v2 = &pActors->dword_000024;
     do
     {
       v3 = *((_WORD *)v2 + 70);
@@ -5904,7 +5904,7 @@ LABEL_44:
       *(_WORD *)(a1 + 40) = v42;
       LOWORD(v28) = 0;
       *(_DWORD *)(a1 + 16) = v28 + (8 * v39 | 3);
-      v29 = monster_list[1];
+      v29 = pMonsterDescriptionList->pDescriptions;
       v30 = 152 * *((_WORD *)v2 + 30);
       v26 = *((_DWORD *)v2 + 65) == 0;
       v27 = *((_DWORD *)v2 + 65) < 0;
@@ -9710,7 +9710,7 @@ LABEL_47:
           case 0x16:
             if ( a3 )
             {
-              sub_41F4C1(&Dst);
+              Actor_TotalReset(&Dst);
               memset(&Dst, 0, 0x344u);
               dword_5B65D0 = *(_BYTE *)(pSomeEVT + v10 + 5)
                            + ((*(_BYTE *)(pSomeEVT + v10 + 6)
@@ -10629,7 +10629,7 @@ LABEL_280:
                  + ((*(_BYTE *)(v11 + 6) + ((*(_BYTE *)(v11 + 7) + (*(_BYTE *)(v11 + 8) << 8)) << 8)) << 8);
             goto LABEL_280;
           case 0x29:
-            sub_402F07((int)&v144);
+            ItemGen_Reset((int)&v144);
             v106 = pSomeEVT + v10;
             v105 = *(_BYTE *)(v106 + 7)
                  + ((*(_BYTE *)(v106 + 8) + ((*(_BYTE *)(v106 + 9) + (*(_BYTE *)(v106 + 10) << 8)) << 8)) << 8);
@@ -10732,7 +10732,7 @@ int __fastcall sub_448518(int a1, int a2, int a3)
         if ( *(_DWORD *)((char *)&unk_5FF38C + result) == a2
           || (v6 = (char *)&unk_5FF3B0 + result, *(_DWORD *)((char *)&unk_5FF3B0 + result) == a2) )
         {
-          sub_402F07((int)v6);
+          ItemGen_Reset((int)v6);
           result = v6;
         }
       }
@@ -10787,7 +10787,7 @@ int __fastcall sub_4485A7(signed int a1, int a2, int a3)
           if ( *(_DWORD *)((char *)&unk_5FF38C + result) == a2
             || (v5 = (char *)&unk_5FF3B0 + result, *(_DWORD *)((char *)&unk_5FF3B0 + result) == a2) )
           {
-           sub_402F07((int)v5);
+           ItemGen_Reset((int)v5);
            result = v5;
           }
         }
@@ -11095,7 +11095,7 @@ void __fastcall sub_448A40(signed int a1, int a2, int a3)
     {
       if ( a3 )
       {
-       *(int *)pActors[a1].byte_000024 | a2;
+       *(int *)&pActors[a1].dword_000024 |= a2;
       }
       else
       {
@@ -11105,7 +11105,7 @@ void __fastcall sub_448A40(signed int a1, int a2, int a3)
           if ( *v3 == 19 )
             *v3 = 0;
         }
-        *(int *)pActors[a1].byte_000024 &= ~a2;
+        *(int *)&pActors[a1].dword_000024 &= ~a2;
       }
     }
   }
@@ -11131,7 +11131,7 @@ void __fastcall sub_448A98(int a1, int a2, int a3)
     {
       if ( (signed int)uNumActors > 0 )
       {
-       v6 = pActors->byte_000024;
+       v6 = &pActors->dword_000024;
         do
         {
           if ( *((_DWORD *)v6 + 168) == v4 )
@@ -11140,7 +11140,7 @@ void __fastcall sub_448A98(int a1, int a2, int a3)
             if ( v3 == 65536 )
             {
               *((_WORD *)v6 + 70) = 19;
-              sub_45976D((int)((char *)v6 - 36));
+              Actor_sub_45976D((int)((char *)v6 - 36));
             }
           }
           ++v5;
@@ -11216,7 +11216,7 @@ const void *__fastcall sub_448CF4(__int16 a1, __int16 a2, signed int a3, int a4,
   if ( result )
   {
     v11 = uNumActors;
-    sub_44F57C((int)&pMapStats->pMapInfos[(_DWORD)result], (int)&v17, 0, a3, 0);
+    sub_44F57C_MaybeCreateRandomMonster((int)&pMapStats->pMapInfos[(_DWORD)result], (int)&v17, 0, a3, 0);
     result = sub_4040E9(8 * v11 | 3, 4, &v14, 1);
     memcpy(&v15, result, 0x1Cu);
     v12 = v11;
@@ -11225,7 +11225,7 @@ const void *__fastcall sub_448CF4(__int16 a1, __int16 a2, signed int a3, int a4,
       v13 = (char *)&unk_5FF1F2 + 836 * v11;
       do
       {
-        sub_45959A((int)(v13 - 154), 0);
+        Actor_LinkSprites((int)(v13 - 154), 0);
         ++v12;
         *(_WORD *)v13 = v16;
         result = a8;
@@ -11434,7 +11434,7 @@ LABEL_116:
       case 32:
       case 39:
       case 41:
-        sub_402F07((int)&v66);
+        ItemGen_Reset((int)&v66);
         v15 = 0;
         v67 = v75;
         v68 = a3;
@@ -11472,7 +11472,7 @@ LABEL_20:
         if ( v74 != 1 )
         {
           v83 = v80 / (v74 - 1);
-          sub_402F07((int)&v66);
+          ItemGen_Reset((int)&v66);
           v20 = 0;
           v67 = v75;
           v68 = a3;
@@ -11516,7 +11516,7 @@ LABEL_41:
           }
           goto LABEL_139;
         }
-        sub_402F07((int)&v66);
+        ItemGen_Reset((int)&v66);
         v15 = 0;
         v67 = v75;
         v68 = a3;
@@ -11569,7 +11569,7 @@ LABEL_35:
         }
         v81 = 60 * pClass59_global->dword_001868 / 360;
         v84 = 60 * pClass59_global->dword_001868 / 360 / (v74 - 1);
-        sub_402F07((int)&v66);
+        ItemGen_Reset((int)&v66);
         v24 = 0;
         v67 = v75;
         v68 = a3;
@@ -11614,7 +11614,7 @@ LABEL_60:
       case 43:
         if ( dword_6BE360 == 1 )
           return;
-        sub_402F07((int)&v66);
+        ItemGen_Reset((int)&v66);
         v28 = 0;
         v67 = v75;
         v68 = a3;
@@ -12762,8 +12762,8 @@ LABEL_51:
           sub_449B7E(v13, a3, 1);
           goto LABEL_168;
         case 17:
-          sub_402F07((int)&v28);
-          sub_402F07((int)&v28);
+          ItemGen_Reset((int)&v28);
+          ItemGen_Reset((int)&v28);
           v28 = a3;
           v29 = 1;
           sub_4936E1(pParty_global, &v28);
@@ -13319,8 +13319,8 @@ LABEL_44:
           sub_449B7E(v15, a3, 1);
           goto LABEL_173;
         case 17:
-          sub_402F07((int)&v32);
-          sub_402F07((int)&v32);
+          ItemGen_Reset((int)&v32);
+          ItemGen_Reset((int)&v32);
           v34 = 1;
           v32 = a3;
           if ( a3 >= 500 )
@@ -14612,65 +14612,6 @@ char *__fastcall sub_44D2FD(int a1, int a2, int Str, int a4, int a5, int a6, uns
   return result;
 }
 
-//----- (0044D83A) --------------------------------------------------------
-int __thiscall sub_44D83A(void *this, int a2, int a3, const char *Str1)
-{
-  int v4; // ebx@1
-  void *v5; // edi@1
-  int result; // eax@2
-  int v7; // esi@2
-  int v8; // [sp+14h] [bp+8h]@2
-
-  v4 = a2;
-  v5 = this;
-  while ( 1 )
-  {
-    v8 = a3 - v4;
-    v7 = (a3 - v4) / 2 + v4;
-    result = _strcmpi(Str1, *(const char **)(*((_DWORD *)v5 + 4) + 4 * v7));
-    if ( !result )
-      *((_DWORD *)v5 + 2) = v7;
-    if ( v4 == a3 )
-      break;
-    if ( result >= 0 )
-    {
-      if ( v8 <= 4 )
-      {
-        while ( v4 < a3 )
-        {
-          result = _strcmpi(Str1, *(const char **)(*((_DWORD *)v5 + 4) + 4 * v4));
-          if ( !result )
-          {
-LABEL_19:
-            *((_DWORD *)v5 + 2) = v4;
-            return result;
-          }
-          ++v4;
-        }
-        break;
-      }
-      v4 += (a3 - v4) / 2;
-    }
-    else
-    {
-      if ( v8 <= 4 )
-      {
-        while ( v4 < a3 )
-        {
-          result = _strcmpi(Str1, *(const char **)(*((_DWORD *)v5 + 4) + 4 * v4));
-          if ( !result )
-            goto LABEL_19;
-          ++v4;
-        }
-        break;
-      }
-      a3 = (a3 - v4) / 2 + v4;
-    }
-  }
-  *((_DWORD *)v5 + 2) = -1;
-  return result;
-}
-
 //----- (0044E054) --------------------------------------------------------
 int __thiscall sub_44E054(void *Str)
 {
@@ -15286,7 +15227,7 @@ LABEL_9:
 }
 
 //----- (0044F57C) --------------------------------------------------------
-int __fastcall sub_44F57C(int a1, int a2, int a3, signed int a4, int a5)
+int __fastcall sub_44F57C_MaybeCreateRandomMonster(int a1, int a2, int a3, signed int a4, int a5)
 {
   int v5; // ebx@1
   int v6; // esi@1
@@ -15475,7 +15416,7 @@ LABEL_26:
     do
     {
       v25 = (int)((char *)pActors + 836 * uNumActors);
-      sub_459671((int)((char *)pActors + 836 * uNumActors));
+      Actor_Reset((int)((char *)pActors + 836 * uNumActors));
       if ( v60 )
       {
         v26 = rand() % 100;
@@ -15510,21 +15451,21 @@ LABEL_26:
             v47 = "%s C";
           }
         }
-        sprintfex(&Str2, v47, v48);
+        wsprintfA(Str2, v47, v48);
       }
-      v29 = sub_44FA08(monster_list, &Str2);
+      v29 = sub_44FA08(pMonsterDescriptionList, Str2);
       v53 = v29;
       v48 = (signed int)&Str2;
       if ( v29 == -1 )
       {
-        sprintfex(&Str, "Can't create random monster: '%s'! See MapStats.txt and Monsters.txt!", v48);
+        wsprintfA(Str, "Can't create random monster: '%s'! See MapStats.txt and Monsters.txt!", v48);
         v48 = 216;
         v47 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Generate.cpp";
         v69 = &v43;
         sub_40E2C8(&v43, &Str, (int)((char *)&a3 + 3));
         return (int)sub_466D09(&a4, *(int *)&v43, v44, (int)v45, v46, v47, v48);
       }
-      v31 = monster_list[1] + 152 * v29;
+      v31 = pMonsterDescriptionList->pDescriptions + 152 * v29;
       v30 = sub_4563FF(pMonsterStats->pMonsterInfos, (const char *)v48);
       if ( !v30 )
         v30 = 1;
@@ -15552,7 +15493,7 @@ LABEL_26:
       *(_WORD *)(v25 + 146) = v62;
       *(_WORD *)(v25 + 158) = v57;
       *(_DWORD *)(v25 + 708) = *(_DWORD *)(v5 + 20);
-      sub_45959A(v25, v48);
+      Actor_LinkSprites(v25, v48);
       *(_BYTE *)(v25 + 61) = 0;
       v36 = rand();
       v37 = v36 % 2048;
@@ -15655,7 +15596,7 @@ int __fastcall sub_44FA4C(int a1, int a2, int a3)
     else
       v15 = "Elemental Light A";
   }
-  v23 = sub_44FA08(monster_list, v15);
+  v23 = sub_44FA08(pMonsterDescriptionList, v15);
   v3 = 0;
   v20 = uNumActors;
   if ( (signed int)uNumActors > 0 )
@@ -15681,8 +15622,8 @@ LABEL_12:
     //v9 = (char *)&unk_5CCE98 + 88 * v23;
     v9 = &pMonsterStats->pMonsterInfos[v23 + 1];
     v19 = (((dword_6BE360 != 2) - 1) & 0x40) + 64;
-    sub_459671(v8);
-    v10 = monster_list[1] + 152 * v23;
+    Actor_Reset(v8);
+    v10 = pMonsterDescriptionList->pDescriptions + 152 * v23;
     strcpy((char *)v8, *(const char **)v9);
     *(_WORD *)(v8 + 40) = *((_WORD *)v9 + 32);
     memcpy((void *)(v8 + 44), v9, 0x58u);
@@ -15711,14 +15652,14 @@ LABEL_12:
     *(_WORD *)(v8 + 144) = v6;
     *(_WORD *)(v8 + 174) = 256;
     *(_WORD *)(v8 + 158) = v13;
-    sub_45959A(v8, 0);
+    Actor_LinkSprites(v8, 0);
     *(_BYTE *)(v8 + 61) = 0;
     *(_DWORD *)(v8 + 712) = 9999;
     *(_DWORD *)(v8 + 708) = 0;
     *(_DWORD *)(v8 + 184) = 0;
     *(_WORD *)(v8 + 176) = 17;
     *(_WORD *)(v8 + 160) = 256;
-    sub_45976D(v8);
+    Actor_sub_45976D(v8);
     if ( dword_6BE360 == 2
       || (v22 = pParty_global->sPartyPosZ, result = sub_49AC17((int)byte_6BE3C8, v7, v6, pParty_global->sPartyPosZ), result == v21)
       && (result = sub_46CEC3(v7, v6, v22, result, (int)&v18), result != -30000)
@@ -15807,8 +15748,8 @@ int __fastcall sub_44FD29(int a1, int a2)
   v29 = v12;
   //v13 = (char *)&unk_5CCE98 + 88 * v12;
   v13 = &pMonsterStats->pMonsterInfos[v12 + 1];
-  sub_459671((int)((char *)pActors + 836 * uNumActors));
-  v14 = monster_list[1] + 152 * v12;
+  Actor_Reset((int)((char *)pActors + 836 * uNumActors));
+  v14 = pMonsterDescriptionList->pDescriptions + 152 * v12;
   strcpy((char *)v11, *(const char **)v13);
   *(_WORD *)(v11 + 40) = *((_WORD *)v13 + 32);
   memcpy((void *)(v11 + 44), v13, 0x58u);
@@ -15839,7 +15780,7 @@ int __fastcall sub_44FD29(int a1, int a2)
   *(_WORD *)(v11 + 144) = v9;
   *(_WORD *)(v11 + 174) = 256;
   *(_WORD *)(v11 + 158) = v19;
-  sub_45959A(v11, 0);
+  Actor_LinkSprites(v11, 0);
   v8 = v30;
   *(_BYTE *)(v11 + 61) = 0;
   LODWORD(v7) = *(_DWORD *)(v8 + 712);
@@ -15855,7 +15796,7 @@ int __fastcall sub_44FD29(int a1, int a2)
   *(_DWORD *)(v11 + 708) = v20;
   *(_WORD *)(v11 + 176) = 17;
   *(_WORD *)(v11 + 160) = 256;
-  sub_45976D(v11);
+  Actor_sub_45976D(v11);
   if ( dword_6BE360 == 2
     || (v22 = *(_WORD *)(v30 + 146),
         v27 = *(_WORD *)(v30 + 146),
@@ -15932,7 +15873,7 @@ int __fastcall sub_44FFD8(int a1, int a2)
   v5 = a1;
   v4 = a2;
   sub_404828(&v31);
-  sub_402F07((int)&v40);
+  ItemGen_Reset((int)&v40);
   v6 = rand();
   v50 = 0;
   v7 = v6 % 100;
@@ -16049,7 +15990,7 @@ LABEL_33:
     v26 = v24;
   }
   v32 = v26;
-  sub_402F07((int)&v40);
+  ItemGen_Reset((int)&v40);
 LABEL_35:
   v27 = *(_DWORD *)(v4 + 4);
   v28 = *(_DWORD *)v4;
@@ -16146,7 +16087,7 @@ signed int __thiscall sub_4505CC(void *this)
     ++v1;
   }
   while ( v1 < 529 );
-  sub_402F07(v2);
+  ItemGen_Reset(v2);
   if ( v3 )
   {
     *(_DWORD *)v2 = v5[rand() % v3];
@@ -16206,7 +16147,7 @@ int __fastcall sub_45063B(int a1, int a2)
     v4 = (signed __int64)((double)v25 * *(double *)&byte_4D8410[640]);
     if ( (_DWORD)v4 != 40 )
     {
-      if ( (_DWORD)v4 != 41 && (_DWORD)v4 != 44 && sub_40894B(v3) )
+      if ( (_DWORD)v4 != 41 && (_DWORD)v4 != 44 && Actor_sub_40894B(v3) )
         break;
     }
     ++v2;
@@ -16304,7 +16245,7 @@ LABEL_8:
   }
   else
   {
-    sub_44F57C(v24, (int)&v19, 0, 0, 1);
+    sub_44F57C_MaybeCreateRandomMonster(v24, (int)&v19, 0, 0, 1);
     result = v27;
   }
   return result;
@@ -16502,12 +16443,12 @@ signed int __fastcall sub_450B0A(int a1)
   }
   else
   {
-    if ( a1 >= monster_list[0] )
+   if ( a1 >= pMonsterDescriptionList->uNumDescriptions )
       v1 = 0;
-    v4 = monster_list[1] + 152 * v1;
+    v4 = pMonsterDescriptionList->pDescriptions + 152 * v1;
     //v5 = (char *)&unk_5CCE98 + 88 * v1;
     v5 = &pMonsterStats->pMonsterInfos[v1 + 1];
-    sub_41F4C1(&Dest);
+    Actor_TotalReset(&Dest);
     memset(&Dest, 0, 0x344u);
     strcpy(&Dest, *(const char **)v5);
     v8 = *((_WORD *)v5 + 32);
@@ -16535,7 +16476,7 @@ signed int __fastcall sub_450B0A(int a1)
     }
     v6 = (char *)pActors + 836 * v3;
     memcpy(v6, &Dest, 0x344u);
-    sub_45959A((int)v6, 1);
+    Actor_LinkSprites((int)v6, 1);
     result = 1;
   }
   return result;

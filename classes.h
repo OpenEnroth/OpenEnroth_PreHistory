@@ -1369,8 +1369,19 @@ struct struct2
 
 struct ItemGen
 {
- int dword_000000[9];
+ int  dword_000000;
+ int  dword_000004;
+ int  dword_000008;
+ int  dword_00000C;
+ int  dword_000010;
+ int  dword_000014;
+ char byte_000018;
+ char byte_00001A;
+ int  dword_00001C;
+ int  dword_000020;
 };
+//sizeof = 24
+
 struct struct3
 {
  short          word_000000;

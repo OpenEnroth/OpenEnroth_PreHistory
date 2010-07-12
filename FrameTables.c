@@ -4,14 +4,31 @@
 #include "data.h"
 
 
+
+void MonsterDescriptionList_ctor(struct MonsterDescriptionList *_this)
+{
+ _this->uNumDescriptions = 0;
+ _this->pDescriptions = 0;
+}
+
+//----- (004598AF) --------------------------------------------------------
+void MonsterDescriptionList_Initialize(struct MonsterDescriptionList *_this, unsigned char *pSrc)
+{
+ _this->uNumDescriptions = *(unsigned int *)(pSrc);
+ _this->pDescriptions = class23_AllocatedNamedBuffer(class23_instance, _this->pDescriptions, _this->uNumDescriptions * sizeof(struct MonsterDescription), "Mon Race");
+
+ memcpy(_this->pDescriptions, pSrc + 4, _this->uNumDescriptions * sizeof(struct MonsterDescription));
+}
+
+
+
 //----- (0044E0A0) --------------------------------------------------------
-extern char class23_instance[];
-void *CTextureFrameTable_Initialize(struct CTextureFrameTable *_this, unsigned char *pSrc)
+void CTextureFrameTable_Initialize(struct CTextureFrameTable *_this, unsigned char *pSrc)
 {
  _this->uNumTextures = *(int *)(pSrc);
  _this->pTextures = class23_AllocatedNamedBuffer(class23_instance, _this->pTextures, _this->uNumTextures * sizeof(struct TextureFrame), "Txt Frames");
+
  memcpy(_this->pTextures, pSrc + 4, _this->uNumTextures * sizeof(struct TextureFrame));
- return 0;
 }
 
 
@@ -33,14 +50,12 @@ void CIconFrameTable_ctor(struct CIconFrameTable *_this)
 }
 
 //----- (MM7.exe::00495056) --------------------------------------------------------
-void *CIconFrameTable_Initialize(struct CIconFrameTable *_this, void *pSrc)
+void CIconFrameTable_Initialize(struct CIconFrameTable *_this, void *pSrc)
 {
  _this->uNumIcons = *(int *)pSrc;
 
  _this->pIcons = class23_AllocatedNamedBuffer(class23_instance, _this->pIcons, _this->uNumIcons * sizeof(struct IconFrame), "I Frames");
  memcpy(_this->pIcons, (char *)pSrc + 4, _this->uNumIcons * sizeof(struct IconFrame));
-
- return _this->pIcons;
 }
 
 //----- (MM7.exe::00494F3A) --------------------------------------------------------
@@ -260,7 +275,6 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
   char Str; // [sp+Ch] [bp-3Ch]@19
   char Size[20]; // [sp+2Ch] [bp-1Ch]@15
   char Source[4]; // [sp+40h] [bp-8h]@19
-  int v33; // [sp+50h] [bp+8h]@4
  int i, j;
 
   v2 = _this;
@@ -271,10 +285,6 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
     return;
 
    _this->pSpriteSFrames[uSpriteFrameID].dword_00002C |= 0x80;
-        //v33 = 30 * uSpriteFrameID + 12;
-   v33 = uSpriteFrameID;
-
-        i = uSpriteFrameID;
 
  for (i = uSpriteFrameID; true; ++i)
  {
@@ -312,7 +322,7 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
 
               v12 = class17_LoadSprite(pClass17_Sprites_LOD, &Size, _this->pSpriteSFrames[i].word_000032);
 
-              _this->pSpriteSFrames[v33].uSpriteIDs[v11++] = v12;
+              _this->pSpriteSFrames[i].uSpriteIDs[v11++] = v12;
             }
             while ( v11 < 8 );
   }
@@ -328,7 +338,7 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
 
     v20 = class17_LoadSprite(pClass17_Sprites_LOD, Size, _this->pSpriteSFrames[i].word_000032);
 
-    _this->pSpriteSFrames[i].uSpriteIDs[j]= v20;
+    _this->pSpriteSFrames[i].uSpriteIDs[j] = v20;
    }
   }
   else
@@ -372,7 +382,7 @@ LABEL_26:
             }
             v16 = class17_LoadSprite(pClass17_Sprites_LOD, &Size, _this->pSpriteSFrames[i].word_000032);
 
-            _this->pSpriteSFrames[v33].uSpriteIDs[v14++] = v16;
+            _this->pSpriteSFrames[i].uSpriteIDs[v14++] = v16;
           }
           while ( v14 < 8 );
   }
@@ -383,9 +393,9 @@ LABEL_26:
 }
 
 //----- (0044D813) --------------------------------------------------------
-int CSpriteFrameTable_fn5(struct CSpriteFrameTable *_this, const char *Str1)
+unsigned int CSpriteFrameTable_FastFindSprite(struct CSpriteFrameTable *_this, const char *pSpriteName)
 {
- sub_44D83A(_this, 0, _this->dword_000004, Str1);
+ CSpriteFrameTablsub_SpriteBinarySearch(_this, 0, _this->dword_000004, pSpriteName);
  if (_this->dword_000008 < 0)
    return 0;
  else return _this->pSpriteEFrames[_this->dword_000008];
@@ -403,7 +413,57 @@ int CSpriteFrameTable_sub_44D4D8(struct CSpriteFrameTable *_this)
  return 0;
 }
 
+//----- (0044D83A) --------------------------------------------------------
+void CSpriteFrameTablsub_SpriteBinarySearch(struct CSpriteFrameTable *_this, int a2, int a3, const char *pSpriteName)
+{
+  int v4; // ebx@1
+  void *v5; // edi@1
+  int result; // eax@2
+  int v7; // esi@2
+  int v8; // [sp+14h] [bp+8h]@2
 
+  v4 = a2;
+  v5 = _this;
+  while ( 1 )
+  {
+    v8 = a3 - v4;
+    v7 = (a3 - v4) / 2 + v4;
+
+    result = strcmpi(pSpriteName, _this->pSpritePFrames[v7]->sIconName);
+    if (!result)
+      _this->dword_000008 = v7;
+
+    if ( v4 == a3 )
+      break;
+
+
+      if ( v8 <= 4 )
+      {
+        while ( v4 < a3 )
+        {
+          result = strcmpi(pSpriteName, _this->pSpritePFrames[v4]->sIconName);
+          if ( !result )
+          {
+            _this->dword_000008 = v4;
+            return;
+          }
+          ++v4;
+        }
+        break;
+      }
+
+      if (result >= 0)
+      {
+       v4 += (a3 - v4) / 2;
+      }
+      else
+      {
+       a3 = (a3 - v4) / 2 + v4;
+      }
+  }
+
+ _this->dword_000008 = -1;
+}
 
 
 

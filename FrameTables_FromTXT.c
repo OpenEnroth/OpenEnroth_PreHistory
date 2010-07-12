@@ -1570,7 +1570,7 @@ int CDecorationDescriptionList_InitializeFromTXT(struct CDecorationDescriptionLi
         if ( v37 >= 3 )
         {
           strcpy((char *)(*(_DWORD *)(v3 + 4) + 84 * *(_DWORD *)v3), Source);
-          v8 = CSpriteFrameTable_fn5(pSpriteFrameTable, (const char *)(*(_DWORD *)(v3 + 4) + 84 * *(_DWORD *)v3));
+          v8 = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, (const char *)(*(_DWORD *)(v3 + 4) + 84 * *(_DWORD *)v3));
           v9 = v40;
           *(_WORD *)(84 * *(_DWORD *)v3 + *(_DWORD *)(v3 + 4) + 72) = v8;
           strcpy((char *)(84 * *(_DWORD *)v3 + *(_DWORD *)(v3 + 4) + 32), v9);
@@ -1820,7 +1820,7 @@ int CObjectDescriptionList_InitializeFromTXT(struct CObjectDescriptionList *_thi
       if ( *Source != 47 )
       {
         strcpy((char *)(*(_DWORD *)(v3 + 4) + 56 * *(_DWORD *)v3), Source);
-        v9 = CSpriteFrameTable_fn5(pSpriteFrameTable, v44);
+        v9 = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, v44);
         v10 = Str;
         *(_WORD *)(56 * *(_DWORD *)v3 + *(_DWORD *)(v3 + 4) + 40) = v9;
         v11 = v46;
@@ -2012,7 +2012,7 @@ int COverlayDescriptionList_InitializeFromTXT(struct COverlayDescriptionList *_t
         {
           *(_WORD *)(*(_DWORD *)(v3 + 4) + 8 * *(_DWORD *)v3 + 2) = 0;
         }
-        *(_WORD *)(*(_DWORD *)(v3 + 4) + 8 * *(_DWORD *)v3++ + 4) = CSpriteFrameTable_fn5(pSpriteFrameTable, v21);
+        *(_WORD *)(*(_DWORD *)(v3 + 4) + 8 * *(_DWORD *)v3++ + 4) = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, v21);
       }
     }
   }

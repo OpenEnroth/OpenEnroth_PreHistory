@@ -438,7 +438,7 @@ LABEL_43:
         }
         else
         {
-          sub_402F07((int)&v26);
+          ItemGen_Reset((int)&v26);
           v13 = 0;
           v11 = 0;
           v12 = (int)(v4 + 564);
@@ -454,7 +454,7 @@ LABEL_21:
           v14 = *((_WORD *)v4 + 90);
           if ( v14 || v13 )
           {
-            sub_402F07((int)&v26);
+            ItemGen_Reset((int)&v26);
             if ( v14 )
             {
               v15 = v14;
@@ -473,7 +473,7 @@ LABEL_21:
             {
               v17 = (int)&v4[36 * rand() % 4 + 564];
               memcpy(&v26, (const void *)v17, 0x24u);
-              sub_402F07(v17);
+              ItemGen_Reset(v17);
               v15 = v26;
             }
             sub_421B2C();
@@ -2339,7 +2339,7 @@ int __thiscall sub_492A36(void *_this, int a2)
   v4 = (int)((char *)_this + 4 * a2 + 5500);
   v6 = (int)((char *)_this + 36 * *(_DWORD *)v4 + 496);
   v7 = *(_DWORD *)v6;
-  sub_402F07(v6);
+  ItemGen_Reset(v6);
   v8 = class17_LoadTexture(pClass17_Icons_LOD, pClass40->pItems[v7].pIconName, 2);
   v5 = v8 != -1 ? 72 * v8 + 7145548 : 0;
   v10 = GetSizeInInventorySlots(*(_WORD *)(v8 != -1 ? 72 * v8 + 7145548 + 0x18 : 24));
@@ -15814,7 +15814,7 @@ int __thiscall sub_4A8BFC(void *this)
   void *v2; // esi@1
 
   v2 = this;
-  result = 8 * *(_WORD *)(60 * CSpriteFrameTable_fn5(pSpriteFrameTable, "spell84") + (unsigned int)(pSpriteFrameTable->pSpriteSFrames) + 56);
+  result = 8 * *(_WORD *)(60 * CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell84") + (unsigned int)(pSpriteFrameTable->pSpriteSFrames) + 56);
 
   *((_DWORD *)v2 + 373) = result;
   return result;

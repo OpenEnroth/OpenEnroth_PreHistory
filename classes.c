@@ -459,7 +459,7 @@ void sub_469903(struct class03 *_this, const char *pSource)
 //----- (004698A6) --------------------------------------------------------
 void class03_sub_4698A6(struct class03 *_this)
 {
- sub_402F07(&dword_AD470C);
+ ItemGen_Reset(&dword_AD470C);
  if (_strcmpi(_this->array_0000F5, "MICON2"))
    sub_469903(_this, "MICON1");
 }
@@ -4737,9 +4737,9 @@ LABEL_185:
                       {
                         *(_BYTE *)(v75 + 47) = 0;
                       }
-                      if ( monster_list[0] )
+                      if (pMonsterDescriptionList->uNumDescriptions)
                       {
-                        LOWORD(v77) = sub_44FA08(monster_list, &TmpBuf);
+                        LOWORD(v77) = sub_44FA08(pMonsterDescriptionList, &TmpBuf);
                         ++v77;
                         *(_WORD *)(v75 + 60) = v77;
                         if ( (_WORD)v77 == -1 )
@@ -6581,18 +6581,18 @@ int class35_sub_48A8A3(struct class35 *_this)
 
 
 //----- (00402F07) --------------------------------------------------------
-void sub_402F07(struct ItemGen *_this)
+void ItemGen_Reset(struct ItemGen *_this)
 {
- _this->dword_000000[0] = 0;
- _this->dword_000000[1] = 0;
- _this->dword_000000[2] = 0;
- _this->dword_000000[3] = 0;
- _this->dword_000000[4] = 0;
- _this->dword_000000[5] = 0;
- ((char *)(_this))[24] = 0;
- ((char *)(_this))[26] = 0;
- _this->dword_000000[7] = 0;
- _this->dword_000000[8] = 0;
+ _this->dword_000000 = 0;
+ _this->dword_000004 = 0;
+ _this->dword_000008 = 0;
+ _this->dword_00000C = 0;
+ _this->dword_000010 = 0;
+ _this->dword_000014 = 0;
+ _this->byte_000018 = 0;
+ _this->byte_00001A = 0;
+ _this->dword_00001C = 0;
+ _this->dword_000020 = 0;
 }
 
 
@@ -7165,20 +7165,14 @@ void sub_40F77C(struct class18 *_this)
 
 
 //----- (004547A3) --------------------------------------------------------
-int CMapStats_FindLocation(struct CMapStats *_this, const char *pLocationFilename)
+unsigned int CMapStats_FindLocation(struct CMapStats *_this, const char *pLocationName)
 {
-  signed int v2; // edi@1
+ int i;
 
-  if (_this->uNumMaps <= 1 )
-   return 0;
-
-  v2 = 0;
-  while (strcmpi(_this->pMapInfos[v2++].pLocationFilename, pLocationFilename) )
-    {
-      if ( v2 >= _this->uNumMaps )
-        return 0;
-    }
-    return v2 - 1;
+ for (i = 0; i < _this->uNumMaps; ++i)
+   if (!lstrcmpiA(_this->pMapInfos[i].pLocationFilename, pLocationName))
+      return i;
+ return 0;
 }
 
 
@@ -9776,9 +9770,9 @@ int class06_sub_4A8C27(struct class06 *_this)
   //maybe the following code in never executed at all
   if (_this->dword_0005D4 > 0 )
   {
-    v9 = 8 * *(_WORD *)(60 * CSpriteFrameTable_fn5(pSpriteFrameTable, "spell84") + (unsigned int)(pSpriteFrameTable->pSpriteSFrames) + 56) - *(_DWORD *)(v1 + 1492);
+    v9 = 8 * *(_WORD *)(60 * CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell84") + (unsigned int)(pSpriteFrameTable->pSpriteSFrames) + 56) - *(_DWORD *)(v1 + 1492);
 
-    v10 = CSpriteFrameTable_fn5(pSpriteFrameTable, "spell84");
+    v10 = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell84");
     v11 = CSpriteFrameTable_fn1(pSpriteFrameTable, v10, v9);
     v8 = *(_WORD *)(v11 + 24);
     v69 = v11;

@@ -1146,8 +1146,8 @@ extern int dword_5187E8; // weak
 extern int dword_5187EC; // weak
 extern _UNKNOWN unk_5187F0; // weak
 
-struct struct7 array_5187F4[400]; // struct[400] @ MM7.exe::005187F4
-extern int dword_519AB4; // num of elements in array_5187F4
+extern struct struct7 array_5187F4[400]; // struct[400] @ MM7.exe::005187F4
+extern int            dword_519AB4; // num of elements in array_5187F4
 
 extern _UNKNOWN unk_519AB8; // weak
 
@@ -1531,7 +1531,7 @@ extern int chest_descriptor[2];   //struct @ MM7.exe::005FF144
 //int dword_5FF144; // weak
 //int dword_5FF148; // weak
 
-extern int monster_list[2]; // struct @ MM7.exe::05FF14C
+extern struct MonsterDescriptionList *pMonsterDescriptionList; // struct @ MM7.exe::05FF14C
 //int dword_5FF14C; // weak
 //int dword_5FF150; // weak
 

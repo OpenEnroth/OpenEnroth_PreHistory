@@ -9305,7 +9305,7 @@ LABEL_13:
           dword_AD4748[9 * (v1 + 12 * *(_DWORD *)(dword_507BC0 + 28))] = 1;
           goto LABEL_14;
         }
-        sub_402F07(36 * (v1 + 12 * v2) + 11355956);
+        ItemGen_Reset(36 * (v1 + 12 * v2) + 11355956);
         v0 = dword_507BC0;
         dword_AD4734[9 * (v1 + 12 * *(_DWORD *)(dword_507BC0 + 28))] = 220;
       }
@@ -9382,7 +9382,7 @@ LABEL_13:
           dword_ADA0B8[9 * (v1 + 12 * *(_DWORD *)(dword_507BC0 + 28))] = 1;
           goto LABEL_14;
         }
-        sub_402F07(36 * (v1 + 12 * v3) + 11378852);
+        ItemGen_Reset(36 * (v1 + 12 * v3) + 11378852);
         v0 = v2 + 28;
         v2 = dword_507BC0;
         *(&dword_ADA0A4 + 9 * (v1 + 12 * *(_DWORD *)v0)) = rand() % 32 + 740;
@@ -11790,10 +11790,10 @@ void __fastcall sub_4BBF61(int a1, __int16 a2, signed int a3, int a4)
         v16 = sub_49AC17((int)byte_6BE3C8, a2, a3, a4);
       }
       v8 = (int)((char *)pActors + 836 * v5);
-      sub_459671(v8);
+      Actor_Reset(v8);
       v9 = v4;
       v7 = &pMonsterStats->pMonsterInfos[v4];
-      v10 = 152 * v9 + monster_list[1] - 152;
+      v10 = 152 * v9 + pMonsterDescriptionList->pDescriptions - 152;
       strcpy((char *)v8, (const char *)*v7);
       *(_WORD *)(v8 + 40) = *((_WORD *)v7 + 32);
       memcpy((void *)(v8 + 44), v7, 0x58u);
@@ -11817,7 +11817,7 @@ void __fastcall sub_4BBF61(int a1, __int16 a2, signed int a3, int a4)
       *(_WORD *)(v8 + 158) = v16;
       *(_DWORD *)(v8 + 708) = 1;
       *(_BYTE *)(v8 + 61) = 4;
-      sub_45959A(v8, 0);
+      Actor_LinkSprites(v8, 0);
       v6 = (int *)(v10 + 12);
       v17 = 4;
       do
@@ -12360,7 +12360,7 @@ LABEL_12:
         --v2;
     }
     v7 = dword_507BC0;
-    sub_402F07(36 * (v1 + 12 * *(_DWORD *)(dword_507BC0 + 28)) + 11341700);
+    ItemGen_Reset(36 * (v1 + 12 * *(_DWORD *)(dword_507BC0 + 28)) + 11341700);
     dword_AD0F84[9 * (v1 + 12 * *(_DWORD *)(v7 + 28))] = v2;
     dword_AD0F98[9 * (v1++ + 12 * *(_DWORD *)(v7 + 28))] = 1;
     result = 72 * class17_LoadTexture(pClass17_Icons_LOD, pClass40->pItems[v2].pIconName, 2) + 7145548;
@@ -13448,7 +13448,7 @@ LABEL_42:
       sub_492BB6(v81);
 LABEL_43:
       struct_576FE8.dword_000044 = v26;
-      sub_402F07(v82);
+      ItemGen_Reset(v82);
       CD3DRenderer_ClearZBuffer(pD3DRenderer, 0, 479);
       v27 = (void *)v78;
       v54 = 0;

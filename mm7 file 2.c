@@ -258,89 +258,70 @@ LABEL_23:
 }
 
 //----- (0047F2D3) --------------------------------------------------------
-bool __stdcall sub_47F2D3(unsigned int uLocationID)
+bool InitializeActors(unsigned int uLocationID)
 {
-  int v1; // ebx@1
-  _UNKNOWN *v2; // esi@2
-  int v3; // eax@3
-  __int16 v4; // ax@11
-
-  struct //looks like struct Actor
+ int          i;
+ struct Actor v6;
+  /*struct //looks like struct Actor
   {
   char v6[0x60]; // [sp+4h] [bp-34Ch]@18
   __int16 v7[370]; // [sp+64h] [bp-2ECh]@18
-  int v8; // [sp+348h] [bp-8h]@1
-  } v6;
+  } v6;*/
+ int v8; // [sp+348h] [bp-8h]@1
 
-  int v9; // [sp+34Ch] [bp-4h]@1
-
- struct Actor *pActor;
-
-  v1 = 0;
-  v6.v8 = 0;
-  v9 = 0;
-  pActor = pActors;
-  if ( (signed int)uNumActors > 0 )
-  {
-   v2 = pActors->byte_000024;
-    while ( 1 )
-    {
-      v3 = *(_DWORD *)v2;
-      if ( !(v3 & 0x100000) )
-        break;
-      if ( uLocationID == v1 )
+ v8 = 0;
+ for (i = 0; i < uNumActors; ++i)
+ {
+      if ( !(pActors[i].dword_000024 & 0x100000) )
+        goto LABEL_7;
+      if ( uLocationID == 0 )
         goto LABEL_8;
-      if ( v6.v8 != v1 )
+      if (v8)
         goto LABEL_9;
-      *((_WORD *)v2 + 70) = 19;
-      *(_DWORD *)v2 = v3 | 0x10000;
-      v6.v8 = sub_450DA3();
+      pActors[i].word_0000B0 = 19;
+      pActors[i].dword_000024 |= 0x10000;
+      v8 = sub_450DA3();
+
 LABEL_17:
-      ++v9;
-      v2 = (char *)v2 + 836;
-      pActor++;
-      if ( v9 >= (signed int)uNumActors )
-        goto LABEL_18;
-    }
-    if ( v6.v8 != 1 )
+  continue;
+
+LABEL_7:
+    if (v8 != 1)
     {
 LABEL_9:
-      *((_DWORD *)v2 + 37) = v1;
-      *((_WORD *)v2 + 62) = v1;
-      if ( v3 & 0x10000 )
-        *((_WORD *)v2 + 70) = 19;
-      v4 = *((_WORD *)v2 + 70);
-      if ( v4 != 11 )
+      pActors[i].dword_0000B8 = 0;
+      pActors[i].word_0000A0 = 0;
+      if ( pActors[i].dword_000024 & 0x10000 )
+        pActors[i].word_0000B0 = 19;
+
+      if (pActors[i].word_0000B0 != 11 && pActors[i].word_0000B0 != 19)
       {
-        if ( v4 != 19 )
-        {
-          if ( *((_WORD *)v2 + 2) == (_WORD)v1 || *((_DWORD *)v2 + 18) == v1 )
-            *((_WORD *)v2 + 70) = 5;
-        }
+          if (!pActors[i].word_000028 || *(int *)&pActors[i].word_00006C == 0 )
+            pActors[i].word_0000B0 = 5;
       }
-      *((_WORD *)v2 + 56) = v1;
-      *((_WORD *)v2 + 57) = v1;
-      *((_WORD *)v2 + 58) = v1;
-      sub_45976D(pActor);
-      *((_BYTE *)v2 + 25) = 0;
+      pActors[i].word_000094 = 0;
+      pActors[i].word_000096 = 0;
+      pActors[i].word_000098 = 0;
+      Actor_sub_45976D(&pActors[i]);
+      pActors[i].byte_00003D = 0;
 
-      runtime_warning(mess with sprites, doesnt work);
-       //sub_45959A(pActor, 0);
-      v1 = 0;
-      goto LABEL_17;
+      Actor_LinkSprites(&pActors[i], 0);
     }
+    else
+    {
 LABEL_8:
-    *((_WORD *)v2 + 70) = 19;
-    *(_DWORD *)v2 = v3 | 0x10000;
-    goto LABEL_17;
+     pActors[i].word_0000B0 = 19;
+     pActors[i].dword_000024 |= 0x10000;
+    }
   }
-LABEL_18:
-  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-  sub_41F4C1(&v6);
-  v6.v7[0] = 45;
 
-  runtime_warning();
-  sub_45959A(&v6, v1);
+  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
+
+  Actor_TotalReset(&v6);
+  v6.uMonsterID = 45;
+
+  //initialize light elemental, probably since it's not on the map but can be summoned at any time
+  Actor_LinkSprites(&v6, 0);
   return true;
 }
 
@@ -3416,30 +3397,30 @@ void sub_4A90A0(struct class06 *_this)
 
  runtime_warning();
 /*
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell02"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell03"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell09"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell11"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell18"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell22"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell26"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell29"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell39"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell39c"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell41"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell57c"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell62"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell65"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell66"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell70"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell76"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell84"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell90"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell92"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell93"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell97"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell97c"));
- CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell97c"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell02"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell03"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell09"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell11"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell18"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell22"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell26"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell29"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell39"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell39c"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell41"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell57c"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell62"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell65"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell66"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell70"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell76"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell84"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell90"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell92"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell93"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell97"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell97c"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell97c"));
 */
 }
 
@@ -10086,7 +10067,7 @@ LABEL_152:
                 FontDrawText(pWnd, pFontLucida, 10, 40, &byte_69AF00, 0, 0, 0);
                 if ( !dword_69B004 )
                 {
-                  sub_402F07((int)&v61);
+                  ItemGen_Reset((int)&v61);
                   GUIWindowDelete(pWnd);
                   sub_426363(pClass24_global);
                   dword_4E28F8 = 0;
@@ -10159,7 +10140,7 @@ LABEL_138:
           FontDrawText(pWnd, pFontLucida, 10, 40, &byte_69AF00, 0, 0, 0);
           if ( !dword_69B004 )
           {
-            sub_402F07((int)&v49);
+            ItemGen_Reset((int)&v49);
             GUIWindowDelete(pWnd);
             sub_426363(pClass24_global);
             dword_4E28F8 = 0;
@@ -14486,7 +14467,7 @@ char *__fastcall sub_41E360(int a1, int a2)
   if ( !(byte_5068C4 & 1) )
   {
     byte_5068C4 |= 1u;
-    sub_41F4C1(&unk_506580);
+    Actor_TotalReset(&unk_506580);
     atexit(0);
   }
   v128 = -1;
@@ -15190,43 +15171,6 @@ LABEL_144:
   return result;
 }
 
-//----- (0041F4C1) --------------------------------------------------------
-int __thiscall sub_41F4C1(void *this)
-{
-  int v1; // eax@1
-  signed int v2; // edx@1
-  int v3; // esi@1
-  signed int v4; // ebx@3
-  int v5; // edi@3
-
-  v3 = (int)this;
-  v1 = (int)((char *)this + 212);
-  v2 = 22;
-  do
-  {
-    *(_WORD *)(v1 + 10) = 0;
-    *(_WORD *)(v1 + 8) = 0;
-    *(_DWORD *)v1 = 0;
-    *(_DWORD *)(v1 + 4) = 0;
-    *(_BYTE *)(v1 + 14) = 0;
-    *(_BYTE *)(v1 + 15) = 0;
-    v1 += 16;
-    --v2;
-  }
-  while ( v2 );
-  v5 = (int)((char *)this + 564);
-  v4 = 4;
-  do
-  {
-    sub_402F07(v5);
-    v5 += 36;
-    --v4;
-  }
-  while ( v4 );
-  sub_459671(v3);
-  return v3;
-}
-
 //----- (0041F50D) --------------------------------------------------------
 char *__fastcall sub_41F50D(int a1, int a2, char a3)
 {
@@ -15689,15 +15633,16 @@ int sub_47A384(const char *pLevelFilename, void *a2)
   if ( qword_A750D8 )
     qword_A750D8 = 0i64;
   v3 = CMapStats_FindLocation(pMapStats, Str1);
-  v2 = 0;
+
   if ( v3 )
   {
-   v4 = (int)pMapStats->pMapInfos[v3].pLocationName;
-    v2 = *(_DWORD *)(v4 + 28);
+   v4 = &pMapStats->pMapInfos[v3];
+   v2 = pMapStats->pMapInfos[v3].uRespawnInterval;
   }
   else
   {
-    v4 = (int)a2;
+   v4 = 1;
+   v2 = 0;
   }
   dword_6BE030 &= 0xFFFFFFFEu;
   dword_6BE13C = v3;
@@ -15728,7 +15673,7 @@ int sub_47A384(const char *pLevelFilename, void *a2)
       {
         v6 = dword_6A12B4 + v13;
         if ( *(_WORD *)(dword_6A12B4 + v13 + 14) == 3 )
-          sub_44F57C(v4, v6, v5, v5, v5);
+          sub_44F57C_MaybeCreateRandomMonster(v4, v6, v5, v5, v5);
         else
           sub_44FFD8(v4, v6);
         ++v14;
@@ -15745,7 +15690,7 @@ int sub_47A384(const char *pLevelFilename, void *a2)
 
   sub_47F138();
   sub_47F223_LooksLikeGenerateMonsterLoot(pClass51_global);
-  sub_47F2D3(v3);
+  InitializeActors(v3);
   sub_48917E(pClass51_global);
   v8 = strlen("levels\\");
   strcpy(Source, &pLevelFilename[v8]);
@@ -16222,7 +16167,7 @@ signed int __fastcall sub_42041E(int a1)
     v24 = &v44 + v50;
     sub_42F7EB(*v24, v51, v53, v52, 0, 1, 0, 48, 0);
     sub_404828(&v27);
-    sub_402F07((int)&v37);
+    ItemGen_Reset((int)&v37);
     v23 = *(_WORD *)v24;
     v22 = 0;
     v40 = 0;
@@ -16467,7 +16412,7 @@ int __fastcall sub_420B13(int a1, int a2)
     }
     while ( v24-- != 1 );
   }
-  sub_402F07(v4);
+  ItemGen_Reset(v4);
   return v4;
 }
 
@@ -16997,7 +16942,7 @@ void __cdecl sub_421EA6()
   int v16; // [sp+40h] [bp-8h]@2
   int v17; // [sp+44h] [bp-4h]@2
 
-  sub_402F07((int)&v11);
+  ItemGen_Reset((int)&v11);
   v0 = *(&ptr_A750C4 + uActiveCharacter);
   if ( dword_506F48 == 103 )
   {
@@ -17295,10 +17240,10 @@ LABEL_13:
     {
       if ( (unsigned int)v0 >= 0x2000000 )
         goto LABEL_13;
-      if ( !sub_40894B(v17) )
+      if ( !Actor_sub_40894B(v17) )
         return;
       v18 = v37;
-      sub_404030(v37, 4, 0, 0);
+      Actor_sub_404030(v37, 4, 0, 0);
       if ( !*(_WORD *)(v17 + 32) )
       {
         v19 = pNPCStats->word_017F5A[*(_DWORD *)(v17 + 708)];
