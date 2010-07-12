@@ -216,7 +216,7 @@ int Party_Reset(struct Party *_this)
 
  for (i = 0; i < 4; ++i)
  {
-  pPlayers[i]->word_001934 = 0;
+  pPlayers[i]->uTimeToRecovery = 0;
 
   memset(pPlayers[i]->pConditions, 0, 20 * sizeof(__int64));
 

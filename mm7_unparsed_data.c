@@ -1155,9 +1155,9 @@ struct unnamed_50C0C8 struct_50C0C8;
  int dword_511848; // weak
  int dword_51184C; // weak
  int dword_5118C8; // weak
- int dword_5118CC; // weak
- int dword_5118D8; // weak
- int dword_5118DC; // weak
+unsigned int uTextureID_GameUI_MagnifyingGlass;         // dword @ MM7.exe::005118CC
+unsigned int uTextureID_GameUI_PaperdollBackground;     // dword @ MM7.exe::005118D8
+unsigned int uTextureID_GameUI_PaperdollJewelryOverlay; // dword @ MM7.exe::005118DC
  int dword_5118E0; // weak
 
 struct struct5 array_5118E8[100]; // struct[100] @ MM7.exe::005118E8
@@ -1398,7 +1398,7 @@ unsigned char *p2DEventsTXT_Raw = 0; // ptr @ MM7.exe::005C35CC
  int dword_5C35F4; // weak
 
 
- int dword_5C3610[256*array_size_unknown]; // weak
+ int dword_5C3610[1000 + array_size_unknown]; // weak
  char byte_5C45AF[array_size_unknown]; // weak
 unsigned char byte_5C45B0[2048];
 //char byte_5C45B1[array_size_unknown]; // weak

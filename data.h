@@ -125,7 +125,7 @@ extern unsigned int uTextureID_PlayerCreationUI_BtnRight;
 extern unsigned int uTextureID_PlayerCreationUI_BtnMinus;
 extern unsigned int uTextureID_PlayerCreationUI_BtnPlus;
 
-extern struct GUIWindow *pGUIWindow_PlayerCreation;
+extern struct GUIWindow *pGUIWindow_CurrentMenu;
 
 extern unsigned int uTextureIdx_BtnEsc2;
 extern unsigned int uTextureIdx_BtnXxU;

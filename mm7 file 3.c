@@ -3156,7 +3156,7 @@ void __fastcall sub_43CC7C(int a1)
   v268 = v5;
   v273 = *(_BYTE *)(*(_DWORD *)v4 + 186);
   CD3DRenderer_Reset2DClippingRect(pD3DRenderer);
-  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 467, 0, dword_5118D8 != -1 ? 72 * dword_5118D8 + 7145548 : 0);
+  CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 467, 0, uTextureID_GameUI_PaperdollBackground != -1 ? 72 * uTextureID_GameUI_PaperdollBackground + 7145548 : 0);
   if ( !byte_5111B8[v275] )
   {
     v23 = *(_DWORD *)(v2 + 6480);
@@ -4502,7 +4502,7 @@ LABEL_393:
         *(int *)((char *)dword_51125C + v269) != -1 ? 72 * *(int *)((char *)dword_51125C + v269) + 7145548 : 0);
   }
   if ( !dword_5118E0 )
-    CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 603, 299, dword_5118CC != -1 ? 72 * dword_5118CC + 7145548 : 0);
+    CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 603, 299, uTextureID_GameUI_MagnifyingGlass != -1 ? 72 * uTextureID_GameUI_MagnifyingGlass + 7145548 : 0);
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 468, 0, dword_507B04 != -1 ? 72 * dword_507B04 + 7145548 : 0);
 }
 
@@ -4573,7 +4573,7 @@ void __fastcall sub_43E825(int a1)
   v56 = (int)*(&ptr_A750C4 + a1);
   class17_LoadTexture(pClass17_Icons_LOD, "sptext01", 2);
   sub_43CC7C(v3);
-  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 473, 0, dword_5118DC != -1 ? 72 * dword_5118DC + 7145548 : 0);
+  CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 473, 0, uTextureID_GameUI_PaperdollJewelryOverlay != -1 ? 72 * uTextureID_GameUI_PaperdollJewelryOverlay + 7145548 : 0);
   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 468, 0, dword_507B04 != -1 ? 72 * dword_507B04 + 7145548 : 0);
   CD3DRenderer_DrawIndexedTexture(
     pD3DRenderer,

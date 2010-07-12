@@ -775,7 +775,7 @@ LABEL_173:
               if ( v36 != 13 )
               {
 LABEL_178:
-                if ( pGUIWindow_PlayerCreation && *(_DWORD *)(pGUIWindow_PlayerCreation + 24) )
+                if ( pGUIWindow_CurrentMenu && *(_DWORD *)(pGUIWindow_CurrentMenu + 24) )
                 {
                   if ( !v73 )
                     goto LABEL_187;
@@ -846,7 +846,7 @@ LABEL_178:
   if ( dword_AD470C == 329 || v24 == 4 || v24 == 91 || v24 == 28 )
   {
     class03_sub_4698A6(pGame->pClass03);
-    GUIWindowDelete(pGUIWindow_PlayerCreation);
+    GUIWindowDelete(pGUIWindow_CurrentMenu);
     sub_4114F2(pClass17_Icons_LOD);
     dword_4E28F8 = 0;
     struct_576FE8.dword_000044 = 1;
@@ -864,9 +864,9 @@ LABEL_178:
     }
     if ( dword_4E28F8 )
     {
-      if ( pGUIWindow_PlayerCreation )
+      if ( pGUIWindow_CurrentMenu )
       {
-        if ( *(_DWORD *)(pGUIWindow_PlayerCreation + 24) )
+        if ( *(_DWORD *)(pGUIWindow_CurrentMenu + 24) )
         {
           if ( dword_50CBD0[0] < 40 )
           {

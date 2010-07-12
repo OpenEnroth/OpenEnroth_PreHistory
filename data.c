@@ -1240,7 +1240,7 @@ unsigned int uTextureID_PlayerCreationUI_BtnRight = 0; // ptr @ MM7.exe::0050792
 unsigned int uTextureID_PlayerCreationUI_BtnMinus = 0; // ptr @ MM7.exe::00507924
 unsigned int uTextureID_PlayerCreationUI_BtnPlus = 0; // ptr @ MM7.exe::00507928
 
-struct GUIWindow *pGUIWindow_PlayerCreation = 0; // ptr @ MM7.exe::00507BCC
+struct GUIWindow *pGUIWindow_CurrentMenu = 0; // ptr @ MM7.exe::00507BCC
 
 unsigned int uTextureIdx_BtnEsc2 = 0;  // dword @ MM7.exe::005076D4
 unsigned int uTextureIdx_BtnXxU = 0;   // dword @ MM7.exe::005076D8

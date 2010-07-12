@@ -4043,9 +4043,9 @@ void __cdecl sub_435748()
           {
             v47 = 0;
             v43 = dword_69BD64;
-            v9 = pGUIWindow_PlayerCreation->uFrameY + 302;
+            v9 = pGUIWindow_CurrentMenu->uFrameY + 302;
             v41 = 94;
-            v20 = pGUIWindow_PlayerCreation->uFrameX + 241;
+            v20 = pGUIWindow_CurrentMenu->uFrameX + 241;
 LABEL_133:
             v39 = 28;
             v37 = 61;
@@ -4055,7 +4055,7 @@ LABEL_134:
           }
           if ( v49 == 165 )
           {
-            if ( pGUIWindow_PlayerCreation->dword_000040 == 1 )
+            if ( pGUIWindow_CurrentMenu->dword_000040 == 1 )
               sub_459ED1(&dword_69AE00, 0);
             if ( dword_4E28F8 != 11 || dword_6A0CA0 != v48 + dword_6A0C9C )
             {
@@ -4083,7 +4083,7 @@ LABEL_134:
             }
             else
             {
-              sub_459E5A((int)&dword_69AE00, 0, 19, pGUIWindow_PlayerCreation);
+              sub_459E5A((int)&dword_69AE00, 0, 19, pGUIWindow_CurrentMenu);
               strcpy(&byte_69AF00, (const char *)&unk_69BD68 + 100 * dword_6A0CA0);
               byte_69B001 = strlen(&byte_69AF00);
             }
@@ -4093,9 +4093,9 @@ LABEL_134:
           {
             v47 = 0;
             v43 = dword_69BD60;
-            v9 = pGUIWindow_PlayerCreation->uFrameY + 302;
+            v9 = pGUIWindow_CurrentMenu->uFrameY + 302;
             v41 = 95;
-            v20 = pGUIWindow_PlayerCreation->uFrameX + 350;
+            v20 = pGUIWindow_CurrentMenu->uFrameX + 350;
             goto LABEL_133;
           }
           if ( v49 == 171 ) // change face button (left)
@@ -4110,8 +4110,8 @@ LABEL_134:
             sub_4901FC(v26);
             Player_RandomizeName(v26);
             v28 = v48;
-            pGUIWindow_PlayerCreation->dword_00002C = (pGUIWindow_PlayerCreation->dword_00002C - pGUIWindow_PlayerCreation->dword_000038) % 7
-                                           + pGUIWindow_PlayerCreation->dword_000038
+            pGUIWindow_CurrentMenu->dword_00002C = (pGUIWindow_CurrentMenu->dword_00002C - pGUIWindow_CurrentMenu->dword_000038) % 7
+                                           + pGUIWindow_CurrentMenu->dword_000038
                                            + 7 * v48;
             uPlayerCreationUI_SelectedCharacter = v28;
             GUIWindowCreate(*(_DWORD *)array_A74CAC[v28], *(_DWORD *)(array_A74CAC[v28] + 4), 0, 0, 92, array_A74CAC[v28], 1);
@@ -4130,8 +4130,8 @@ LABEL_134:
             sub_4901FC(v22);
             Player_RandomizeName(v22);
             v24 = v48;
-            pGUIWindow_PlayerCreation->dword_00002C = (pGUIWindow_PlayerCreation->dword_00002C - pGUIWindow_PlayerCreation->dword_000038) % 7
-                                           + pGUIWindow_PlayerCreation->dword_000038
+            pGUIWindow_CurrentMenu->dword_00002C = (pGUIWindow_CurrentMenu->dword_00002C - pGUIWindow_CurrentMenu->dword_000038) % 7
+                                           + pGUIWindow_CurrentMenu->dword_000038
                                            + 7 * v48;
             uPlayerCreationUI_SelectedCharacter = v24;
             GUIWindowCreate(*(_DWORD *)array_A74CBC[v24], *(_DWORD *)(array_A74CBC[v24] + 4), 0, 0, 92, array_A74CBC[v24], 1);
@@ -4166,10 +4166,10 @@ LABEL_90:
             dword_6A0C9C = v48 - 1;
           if ( dword_6A0C9C < 1 )
             dword_6A0C9C = 0;
-          v8 = pGUIWindow_PlayerCreation;
+          v8 = pGUIWindow_CurrentMenu;
           v47 = 0;
           v43 = dword_69BD58;
-          v9 = pGUIWindow_PlayerCreation->uFrameY + 323;
+          v9 = pGUIWindow_CurrentMenu->uFrameY + 323;
           goto LABEL_105;
         }
         if ( v49 == 82 )
@@ -4184,7 +4184,7 @@ LABEL_99:
         {
           if ( dword_4E28F8 )
           {
-            GUIWindowDelete(pGUIWindow_PlayerCreation);
+            GUIWindowDelete(pGUIWindow_CurrentMenu);
             sub_426363(pClass24_global);
             dword_4E28F8 = 0;
             struct_576FE8.dword_000044 = 1;
@@ -4249,7 +4249,7 @@ LABEL_93:
             SetCurrentMenu(MENU_MAIN);
             v16 = 1;
 LABEL_81:
-            GUIWindowDelete(pGUIWindow_PlayerCreation);
+            GUIWindowDelete(pGUIWindow_CurrentMenu);
             GUIWindowDelete(pGUIWindow2);
             pGUIWindow2 = 0;
             sub_426363(pClass24_global);
@@ -4273,8 +4273,8 @@ LABEL_81:
           if ( v49 == 118 )
           {
             v15 = v48;
-            pGUIWindow_PlayerCreation->dword_00002C = (pGUIWindow_PlayerCreation->dword_00002C - pGUIWindow_PlayerCreation->dword_000038) % 7
-                                           + pGUIWindow_PlayerCreation->dword_000038
+            pGUIWindow_CurrentMenu->dword_00002C = (pGUIWindow_CurrentMenu->dword_00002C - pGUIWindow_CurrentMenu->dword_000038) % 7
+                                           + pGUIWindow_CurrentMenu->dword_000038
                                            + 7 * v48;
             uPlayerCreationUI_SelectedCharacter = v15;
 LABEL_36:
@@ -4327,10 +4327,10 @@ LABEL_60:
             v7 = dword_6A0C9C-- - 1 < 0;
             if ( v7 )
               dword_6A0C9C = 0;
-            v8 = pGUIWindow_PlayerCreation;
+            v8 = pGUIWindow_CurrentMenu;
             v47 = 0;
             v43 = dword_69BD5C;
-            v9 = pGUIWindow_PlayerCreation->uFrameY + 197;
+            v9 = pGUIWindow_CurrentMenu->uFrameY + 197;
 LABEL_105:
             v41 = 90;
             v39 = 0;
@@ -4347,8 +4347,8 @@ LABEL_105:
           uPlayerCreationUI_SelectedCharacter = v48;
           v45 = 3;
           v0 = (int)&pParty_global->pPlayers[0];
-          v4 = (pGUIWindow_PlayerCreation->dword_00002C - pGUIWindow_PlayerCreation->dword_000038) % 7
-             + pGUIWindow_PlayerCreation->dword_000038
+          v4 = (pGUIWindow_CurrentMenu->dword_00002C - pGUIWindow_CurrentMenu->dword_000038) % 7
+             + pGUIWindow_CurrentMenu->dword_000038
              + 7 * v48;
           goto LABEL_44;
         }
@@ -4357,7 +4357,7 @@ LABEL_105:
           if ( v49 == 62 )
           {
             GUIWindowCreate(613, 393, 0, 0, 90, pPlayerCreationUI_BtnPlus, 1);
-            PartyCreation_BtnPlusClick(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], (pGUIWindow_PlayerCreation->dword_00002C - pGUIWindow_PlayerCreation->dword_000038) % 7);
+            PartyCreation_BtnPlusClick(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], (pGUIWindow_CurrentMenu->dword_00002C - pGUIWindow_CurrentMenu->dword_000038) % 7);
             v46 = 0;
             v42 = 0;
             v40 = 0;
@@ -4371,7 +4371,7 @@ LABEL_105:
           if ( v49 == 63 )
           {
             GUIWindowCreate(523, 393, 0, 0, 90, pPlayerCreationUI_BtnMinus, 1);            
-            PartyCreation_BtnMinusClick(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], (pGUIWindow_PlayerCreation->dword_00002C - pGUIWindow_PlayerCreation->dword_000038) % 7);
+            PartyCreation_BtnMinusClick(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], (pGUIWindow_CurrentMenu->dword_00002C - pGUIWindow_CurrentMenu->dword_000038) % 7);
             v46 = 0;
             v42 = 0;
             v40 = 0;
@@ -4421,12 +4421,12 @@ LABEL_105:
             if ( v49 == 74 )
             {
               uPlayerCreationUI_SelectedCharacter = v48;
-              v5 = pGUIWindow_PlayerCreation->dword_00002C - pGUIWindow_PlayerCreation->dword_000038;
-              v50 = pGUIWindow_PlayerCreation->dword_000038;
+              v5 = pGUIWindow_CurrentMenu->dword_00002C - pGUIWindow_CurrentMenu->dword_000038;
+              v50 = pGUIWindow_CurrentMenu->dword_000038;
               v45 = 2;
               v4 = v5 % 7 + v50 + 7 * v48;
 LABEL_44:
-              pGUIWindow_PlayerCreation->dword_00002C = v4;
+              pGUIWindow_CurrentMenu->dword_00002C = v4;
               pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter].pActiveSkills[GetSkillIdxByOrder(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], v45)] = 0;
               continue;
             }
@@ -4440,8 +4440,8 @@ LABEL_44:
               AudioPlayer_sub_4AA306(v1, 24, 0, 0, -1, 0, 0, 0, 0);
               v3 = v48;
               uPlayerCreationUI_SelectedCharacter = v48;
-              sub_459E5A((int)&dword_69AE00, 0, 15, pGUIWindow_PlayerCreation);
-              pGUIWindow_PlayerCreation->dword_00001C = v3;
+              sub_459E5A((int)&dword_69AE00, 0, 15, pGUIWindow_CurrentMenu);
+              pGUIWindow_CurrentMenu->dword_00001C = v3;
               break;
             case 5:
               dword_6A0D48 = 1;
@@ -12546,8 +12546,8 @@ int __fastcall sub_45E361(int a1)
   {
     CD3DRenderer_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
   }
-  pGUIWindow_PlayerCreation = GUIWindowCreate(dword_4E94D4[v12], dword_4E94DC[v12], dword_4E94E4[v12], dword_4E94EC[v12], 24, 0, 0);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontSmallnum, 25, 199, pGlobalTXT_LocalizationStrings[505], 0, 0, 0);
+  pGUIWindow_CurrentMenu = GUIWindowCreate(dword_4E94D4[v12], dword_4E94DC[v12], dword_4E94E4[v12], dword_4E94EC[v12], 24, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, 25, 199, pGlobalTXT_LocalizationStrings[505], 0, 0, 0);
   CD3DRenderer_Present(pD3DRenderer);
   sub_45E297(0);
   if ( dword_6A0C9C > dword_69CF24 )
@@ -12614,14 +12614,14 @@ LABEL_24:
   dword_69CF10 = class17_LoadTexture(pClass17_Icons_LOD, v9, v11);
   dword_69CF0C = class17_LoadTexture(pClass17_Icons_LOD, "AR_UP_DN", 2);
   dword_69CF08 = class17_LoadTexture(pClass17_Icons_LOD, "AR_DN_DN", 2);
-  GUIButtonCreate(pGUIWindow_PlayerCreation, 21, 198, 191, 18, 1, 0, 165, 0, 0, Class, 0);
-  GUIButtonCreate(pGUIWindow_PlayerCreation, 21, 219, 191, 18, 1, 0, 165, 1, 0, Class, 0);
-  GUIButtonCreate(pGUIWindow_PlayerCreation, 21, 240, 191, 18, 1, 0, 165, 2, 0, Class, 0);
-  GUIButtonCreate(pGUIWindow_PlayerCreation, 21, 261, 191, 18, 1, 0, 165, 3, 0, Class, 0);
-  GUIButtonCreate(pGUIWindow_PlayerCreation, 21, 282, 191, 18, 1, 0, 165, 4, 0, Class, 0);
-  GUIButtonCreate(pGUIWindow_PlayerCreation, 21, 303, 191, 18, 1, 0, 165, 5, 0, Class, 0);
-  GUIButtonCreate(pGUIWindow_PlayerCreation, 21, 324, 191, 18, 1, 0, 165, 6, 0, Class, 0);
-  dword_69BD64 = GUIButtonCreate(pGUIWindow_PlayerCreation,
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 198, 191, 18, 1, 0, 165, 0, 0, Class, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 219, 191, 18, 1, 0, 165, 1, 0, Class, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 240, 191, 18, 1, 0, 165, 2, 0, Class, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 261, 191, 18, 1, 0, 165, 3, 0, Class, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 282, 191, 18, 1, 0, 165, 4, 0, Class, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 303, 191, 18, 1, 0, 165, 5, 0, Class, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 324, 191, 18, 1, 0, 165, 6, 0, Class, 0);
+  dword_69BD64 = GUIButtonCreate(pGUIWindow_CurrentMenu,
                    241,
                    302,
                    105,
@@ -12633,7 +12633,7 @@ LABEL_24:
                    0,
                    Class,
                    dword_69CF10 != -1 ? 72 * dword_69CF10 + 7145548 : 0);
-  dword_69BD60 = GUIButtonCreate(pGUIWindow_PlayerCreation,
+  dword_69BD60 = GUIButtonCreate(pGUIWindow_CurrentMenu,
                    350,
                    302,
                    105,
@@ -12645,7 +12645,7 @@ LABEL_24:
                    0,
                    Class,
                    dword_69CF14 != -1 ? 72 * dword_69CF14 + 7145548 : 0);
-  dword_69BD5C = GUIButtonCreate(pGUIWindow_PlayerCreation,
+  dword_69BD5C = GUIButtonCreate(pGUIWindow_CurrentMenu,
                    215,
                    199,
                    17,
@@ -12657,7 +12657,7 @@ LABEL_24:
                    0,
                    Class,
                    dword_69CF0C != -1 ? 72 * dword_69CF0C + 7145548 : 0);
-  v8 = GUIButtonCreate(pGUIWindow_PlayerCreation,
+  v8 = GUIButtonCreate(pGUIWindow_CurrentMenu,
          215,
          323,
          17,
@@ -12718,7 +12718,7 @@ int __cdecl sub_45E93E()
   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 241, 302, v0 != -1 ? 72 * v0 + 7145548 : 0);
   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 351, 302, dword_69CEFC != -1 ? 72 * dword_69CEFC + 7145548 : 0);
   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, 18, 141, v1 != -1 ? 72 * v1 + 7145548 : 0);
-  FontDrawText(pGUIWindow_PlayerCreation, pFontSmallnum, 25, 199, pGlobalTXT_LocalizationStrings[505], 0, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, 25, 199, pGlobalTXT_LocalizationStrings[505], 0, 0, 0);
   CD3DRenderer_Present(pD3DRenderer);
   sub_45E297((void *)1);
   class17_AllocateSubidexAndIOBuffer((int)&v12, 300, 0);
@@ -12766,16 +12766,16 @@ int __cdecl sub_45E93E()
   dword_69CF10 = class17_LoadTexture(pClass17_Icons_LOD, "LS_saveD", 2);
   dword_69CF0C = class17_LoadTexture(pClass17_Icons_LOD, "AR_UP_DN", 2);
   dword_69CF08 = class17_LoadTexture(pClass17_Icons_LOD, "AR_DN_DN", 2);
-  pGUIWindow_PlayerCreation = GUIWindowCreate(0, 0, 640, 480, 23, 0, 0);
-  GUIButtonCreate(pGUIWindow_PlayerCreation, 21, 198, 191, 18, 1, 0, 165, 0, 0, Class, 0);
-  GUIButtonCreate(pGUIWindow_PlayerCreation, 21, 218, 191, 18, 1, 0, 165, 1, 0, Class, 0);
-  GUIButtonCreate(pGUIWindow_PlayerCreation, 21, 238, 191, 18, 1, 0, 165, 2, 0, Class, 0);
-  GUIButtonCreate(pGUIWindow_PlayerCreation, 21, 258, 191, 18, 1, 0, 165, 3, 0, Class, 0);
-  GUIButtonCreate(pGUIWindow_PlayerCreation, 21, 278, 191, 18, 1, 0, 165, 4, 0, Class, 0);
-  GUIButtonCreate(pGUIWindow_PlayerCreation, 21, 298, 191, 18, 1, 0, 165, 5, 0, Class, 0);
-  GUIButtonCreate(pGUIWindow_PlayerCreation, 21, 318, 191, 18, 1, 0, 165, 6, 0, Class, 0);
+  pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 23, 0, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 198, 191, 18, 1, 0, 165, 0, 0, Class, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 218, 191, 18, 1, 0, 165, 1, 0, Class, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 238, 191, 18, 1, 0, 165, 2, 0, Class, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 258, 191, 18, 1, 0, 165, 3, 0, Class, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 278, 191, 18, 1, 0, 165, 4, 0, Class, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 298, 191, 18, 1, 0, 165, 5, 0, Class, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 318, 191, 18, 1, 0, 165, 6, 0, Class, 0);
   dword_69BD64 = GUIButtonCreate(
-                   pGUIWindow_PlayerCreation,
+                   pGUIWindow_CurrentMenu,
                    241,
                    302,
                    105,
@@ -12788,7 +12788,7 @@ int __cdecl sub_45E93E()
                    Class,
                    dword_69CF10 != -1 ? 72 * dword_69CF10 + 7145548 : 0);
   dword_69BD60 = GUIButtonCreate(
-                   pGUIWindow_PlayerCreation,
+                   pGUIWindow_CurrentMenu,
                    350,
                    302,
                    105,
@@ -12801,7 +12801,7 @@ int __cdecl sub_45E93E()
                    Class,
                    dword_69CF14 != -1 ? 72 * dword_69CF14 + 7145548 : 0);
   dword_69BD5C = GUIButtonCreate(
-                   pGUIWindow_PlayerCreation,
+                   pGUIWindow_CurrentMenu,
                    215,
                    199,
                    17,
@@ -12814,7 +12814,7 @@ int __cdecl sub_45E93E()
                    Class,
                    dword_69CF0C != -1 ? 72 * dword_69CF0C + 7145548 : 0);
   v8 = GUIButtonCreate(
-         pGUIWindow_PlayerCreation,
+         pGUIWindow_CurrentMenu,
          215,
          323,
          17,
@@ -13064,7 +13064,7 @@ LABEL_55:
       v17 += 45016;
     }
     while ( v18 - 9 < 4 );
-    GUIWindowDelete(pGUIWindow_PlayerCreation);
+    GUIWindowDelete(pGUIWindow_CurrentMenu);
     dword_4E28F8 = 0;
     v22 = 1;
     struct_576FE8.dword_000044 = 1;
@@ -13155,7 +13155,7 @@ int __fastcall sub_460078(int a1)
     CopyFileA("data\\new.lod", &TmpBuf, 0);
   }
   sub_4156F0();
-  GUIWindowDelete(pGUIWindow_PlayerCreation);
+  GUIWindowDelete(pGUIWindow_CurrentMenu);
   dword_4E28F8 = 0;
   v4 = (int)&unk_6A0118;
   struct_576FE8.dword_000044 = 1;
@@ -13248,8 +13248,8 @@ void *__fastcall sub_4601B7(int a1)
   if ( dword_69CF28[dword_6A0CA0] )
   {
     memset(&Dst, 0, 0x54u);
-    Dst = pGUIWindow_PlayerCreation->uFrameX + 240;
-    v5 = pGUIWindow_PlayerCreation->uFrameY - *(_BYTE *)(pFontSmallnum + 5);
+    Dst = pGUIWindow_CurrentMenu->uFrameX + 240;
+    v5 = pGUIWindow_CurrentMenu->uFrameY - *(_BYTE *)(pFontSmallnum + 5);
     v31 = 220;
     v5 += 157;
     v30 = v5;
@@ -13262,8 +13262,8 @@ void *__fastcall sub_4601B7(int a1)
     {
       CD3DRenderer_DrawRGBTexture(
         pD3DRenderer,
-        pGUIWindow_PlayerCreation->uFrameX + 276,
-        pGUIWindow_PlayerCreation->uFrameY + 171,
+        pGUIWindow_CurrentMenu->uFrameX + 276,
+        pGUIWindow_CurrentMenu->uFrameY + 171,
         (int)((char *)&unk_6A0118 + 40 * dword_6A0CA0));
       v4 = dword_6A0CA0;
     }
@@ -13293,7 +13293,7 @@ void *__fastcall sub_4601B7(int a1)
     HIDWORD(v7) = v37 % 0x1C;
     v39 += 1168;
     v9 = v16 & 3;
-    v30 = pGUIWindow_PlayerCreation->uFrameY + 261;
+    v30 = pGUIWindow_CurrentMenu->uFrameY + 261;
     HIDWORD(v38) = v8 >= 0 && (v8 > 0 || (_DWORD)v7 >= 0xCu) && v8 <= 0 && (v8 < 0 || (_DWORD)v7 < 0x18u);
     if ( v8 < 0 || v8 <= 0 && (_DWORD)v7 <= 0xCu )
     {
@@ -13326,9 +13326,9 @@ LABEL_23:
     sub_44D406((int)&Dst, pFontSmallnum, 0, 0, 0, &TmpBuf, 3);
     v1 = 255;
   }
-  if ( pGUIWindow_PlayerCreation->dword_000040 == 2 )
+  if ( pGUIWindow_CurrentMenu->dword_000040 == 2 )
   {
-    pGUIWindow_PlayerCreation->dword_000040 = 0;
+    pGUIWindow_CurrentMenu->dword_000040 = 0;
     strcpy((char *)&unk_69BD68 + 100 * dword_6A0CA0, &byte_69AF00);
     if ( dword_50CBD0[0] < 40 )
     {
@@ -13339,20 +13339,20 @@ LABEL_23:
   }
   else
   {
-    if ( pGUIWindow_PlayerCreation->dword_000040 == 3 )
-      pGUIWindow_PlayerCreation->dword_000040 = 0;
+    if ( pGUIWindow_CurrentMenu->dword_000040 == 3 )
+      pGUIWindow_CurrentMenu->dword_000040 = 0;
   }
   if ( sub_466CA0() == 9 )
   {
     v20 = pGlobalTXT_LocalizationStrings[135];
     v21 = AlignText_Center(186, pGlobalTXT_LocalizationStrings[135], pFontSmallnum);
-    FontDrawText(pGUIWindow_PlayerCreation, pFontSmallnum, v21 + 25, 220, v20, 0, 0, 0);
+    FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, v21 + 25, 220, v20, 0, 0, 0);
     v22 = (char *)&unk_69BD68 + 100 * dword_6A0CA0;
     v23 = AlignText_Center(186, (const char *)&unk_69BD68 + 100 * dword_6A0CA0, pFontSmallnum);
-    sub_44CB4F(pGUIWindow_PlayerCreation, pFontSmallnum, v23 + 25, 262, 0, v22, 185, 0);
+    sub_44CB4F(pGUIWindow_CurrentMenu, pFontSmallnum, v23 + 25, 262, 0, v22, 185, 0);
     v24 = pGlobalTXT_LocalizationStrings[165];
     v25 = AlignText_Center(186, pGlobalTXT_LocalizationStrings[165], pFontSmallnum);
-    FontDrawText(pGUIWindow_PlayerCreation, pFontSmallnum, v25 + 25, 304, v24, 0, 0, 0);
+    FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, v25 + 25, 304, v24, 0, 0, 0);
   }
   else
   {
@@ -13368,14 +13368,14 @@ LABEL_23:
       if ( v39 >= (signed int)v37 )
         break;
       HIDWORD(v38) = v39 == dword_6A0CA0 ? 0xFF000064 | (v1 << 16) | (v1 << 8) : 0;
-      if ( pGUIWindow_PlayerCreation->dword_000040 != 1 || v39 != dword_6A0CA0 )
+      if ( pGUIWindow_CurrentMenu->dword_000040 != 1 || v39 != dword_6A0CA0 )
       {
-        sub_44CB4F(pGUIWindow_PlayerCreation, pFontSmallnum, 27, v40, SWORD2(v38), v26, 185, 0);
+        sub_44CB4F(pGUIWindow_CurrentMenu, pFontSmallnum, 27, v40, SWORD2(v38), v26, 185, 0);
       }
       else
       {
-        v27 = sub_44CB4F(pGUIWindow_PlayerCreation, pFontSmallnum, 27, v40, SWORD2(v38), &byte_69AF00, 175, 1);
-        sub_459C2B(pGUIWindow_PlayerCreation, v27 + 27, v40, pFontSmallnum);
+        v27 = sub_44CB4F(pGUIWindow_CurrentMenu, pFontSmallnum, 27, v40, SWORD2(v38), &byte_69AF00, 175, 1);
+        sub_459C2B(pGUIWindow_CurrentMenu, v27 + 27, v40, pFontSmallnum);
       }
       v40 += 21;
       ++v39;

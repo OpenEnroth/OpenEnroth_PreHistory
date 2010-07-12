@@ -651,7 +651,7 @@ int __fastcall MenuLoop_CharacterCreation()
     sub_46B105(dword_720010);
 
   v3 = MENU_CREATEPARTY;
-  pGUIWindow_PlayerCreation->dword_000040 = 0;
+  pGUIWindow_CurrentMenu->dword_000040 = 0;
 LABEL_27:
   SetCurrentMenu(v3);
   while (true)
@@ -664,7 +664,7 @@ LABEL_27:
 
     class03_GetMouseClickPos(pGame->pClass03, &v6, &v4);
 
-    v5 = pGUIWindow_PlayerCreation->pControlsHead;
+    v5 = pGUIWindow_CurrentMenu->pControlsHead;
     if ( v5 != 0)
     {
       v7 = dword_50CBD0[0];
@@ -721,7 +721,7 @@ LABEL_27:
     }
   }
   //RGBTexture_Release(pRGBTexture_Menu);
-  GUIWindowDelete(pGUIWindow_PlayerCreation);
+  GUIWindowDelete(pGUIWindow_CurrentMenu);
   sub_4114F2(pClass17_Icons_LOD);
 
   v22 = 0;
@@ -2430,7 +2430,7 @@ int __cdecl MenuLoop_Main()
         dword_4E28F8 = 12;
         sub_45E361(0);
       }
-      v17 = pGUIWindow_PlayerCreation;
+      v17 = pGUIWindow_CurrentMenu;
     }
 
     while (PeekMessageA(&Msg, 0, 0, 0, PM_REMOVE))
@@ -2459,8 +2459,8 @@ int __cdecl MenuLoop_Main()
       {
           sub_4114F2(pClass17_Icons_LOD);
           sub_45E006();
-          GUIWindowDelete(pGUIWindow_PlayerCreation);
-          pGUIWindow_PlayerCreation = 0;
+          GUIWindowDelete(pGUIWindow_CurrentMenu);
+          pGUIWindow_CurrentMenu = 0;
           dword_4E28F8 = 0;
           struct_576FE8.dword_000044 = 1;
       }
@@ -2493,8 +2493,8 @@ int __cdecl MenuLoop_Main()
           {
            sub_4114F2(pClass17_Icons_LOD);
            sub_45E006();
-           GUIWindowDelete(pGUIWindow_PlayerCreation);
-           pGUIWindow_PlayerCreation = 0;
+           GUIWindowDelete(pGUIWindow_CurrentMenu);
+           pGUIWindow_CurrentMenu = 0;
            dword_4E28F8 = 0;
            struct_576FE8.dword_000044 = 1;
           }
@@ -6251,7 +6251,7 @@ LABEL_39:
   {
    v18 = pPlayers[i];
 
-    if (pPlayers[i]->word_001934)
+    if (pPlayers[i]->uTimeToRecovery)
       Player_sub_48E8F5(pPlayers[i], v61);
 
     v19 = v18->sHealth;
