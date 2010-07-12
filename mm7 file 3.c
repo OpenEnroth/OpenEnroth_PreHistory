@@ -6468,7 +6468,7 @@ void __cdecl sub_440CB8()
       {
         if ( pD3DRenderer->dword_040088 )
         {
-          sub_4A43B1(pD3DRenderer, (int)&v6, pClass17_Sprites_LOD->dword_00ECB0 + 40 * v2, *((_WORD *)v1 + 1));
+          sub_4A43B1(pD3DRenderer, (int)&v6, pClass17_Sprites_LOD->pHardwareSprites + 40 * v2, *((_WORD *)v1 + 1));
         }
         else
         {
@@ -10827,7 +10827,7 @@ void __fastcall sub_44861E(int a1, const char *a2)
     v12 = v2;
     if ( v2 != -1 ? 72 * v2 + 7278780 : 0 )
     {
-      *(_WORD *)(v2 != -1 ? 72 * v2 + 7278780 + 0x26 : 38) = class35_sub_48A3BC(
+      *(_WORD *)(v2 != -1 ? 72 * v2 + 7278780 + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(
                                                                &class35_obj,
                                                                *(_WORD *)(v2 != -1 ? 72 * v2 + 7278780 + 0x24 : 36));
       if ( dword_6BE360 == 1 )
@@ -14710,7 +14710,7 @@ int __thiscall sub_44E0ED(void *this, int a2)
         if ( *(_WORD *)(*((_DWORD *)v3 + 1) + i + 12) != -1 ? 72 * *(_WORD *)(*((_DWORD *)v3 + 1) + i + 12) + 7278780 : 0 )
           *(_WORD *)(*(_WORD *)(*((_DWORD *)v3 + 1) + i + 12) != -1 ? 72 * *(_WORD *)(*((_DWORD *)v3 + 1) + i + 12)
                                                                     + 7278780
-                                                                    + 0x26 : 38) = class35_sub_48A3BC(
+                                                                    + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(
                                                                                      &class35_obj,
                                                                                      *(_WORD *)(*(_WORD *)(*((_DWORD *)v3 + 1) + i + 12) != -1 ? 72 * *(_WORD *)(*((_DWORD *)v3 + 1) + i + 12) + 7278780 + 0x24 : 36));
         result = *((_DWORD *)v3 + 1);

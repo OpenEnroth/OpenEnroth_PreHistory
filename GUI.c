@@ -5335,10 +5335,8 @@ LABEL_27:
       }
 
     if (pParty_global->pPlayers[i].word_001A9C == 21)
-      pPlayerFaceIcon = sub_494B5E(pPlayerFrameTable,
-                      &pParty_global->pPlayers[i].dword_001AA8,
-                      &pParty_global->pPlayers[i].dword_001AA4,
-                      pClass24_global2->int_00001C);
+      pPlayerFaceIcon = sub_494B5E(pPlayerFrameTable, &pParty_global->pPlayers[i].dword_001AA8,
+                                   &pParty_global->pPlayers[i].dword_001AA4, pClass24_global2->int_00001C);
     else
       pPlayerFaceIcon = CPlayerFrameTable_GetFrame(pPlayerFrameTable, v7, pParty_global->pPlayers[i].word_001A9E);
 

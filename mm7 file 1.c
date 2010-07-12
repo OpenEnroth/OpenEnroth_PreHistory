@@ -6027,9 +6027,9 @@ signed int __cdecl sub_465D0B()
  pClass17_Bitmaps_LOD->dword_011B80 = pClass17_Bitmaps_LOD->uNumLoadedFiles;
  if (pClass17_Bitmaps_LOD->dword_011B84 < pClass17_Bitmaps_LOD->uNumLoadedFiles)
    pClass17_Bitmaps_LOD->dword_011B84 = pClass17_Bitmaps_LOD->uNumLoadedFiles;
- pClass17_Sprites_LOD->dword_00ECA4 = pClass17_Sprites_LOD->dword_00EC9C;
- if (pClass17_Sprites_LOD->dword_00ECA0 < pClass17_Sprites_LOD->dword_00EC9C)
-   pClass17_Sprites_LOD->dword_00ECA0 = pClass17_Sprites_LOD->dword_00EC9C;
+ pClass17_Sprites_LOD->dword_00ECA4 = pClass17_Sprites_LOD->uNumLoadedSprites;
+ if (pClass17_Sprites_LOD->dword_00ECA0 < pClass17_Sprites_LOD->uNumLoadedSprites)
+   pClass17_Sprites_LOD->dword_00ECA0 = pClass17_Sprites_LOD->uNumLoadedSprites;
 
  class35_sub_48A8A3(&class35_obj);
  _mkdir("Saves");
@@ -7785,7 +7785,7 @@ void __cdecl sub_47BACF()
         {
           v24 = v2;
           v25 = v3;
-          sub_4A4023(pD3DRenderer, (int)&v16, pClass17_Sprites_LOD->dword_00ECB0 + 40 * v4, v8, (int)((char *)v1 - 40));
+          sub_4A4023(pD3DRenderer, (int)&v16, pClass17_Sprites_LOD->pHardwareSprites + 40 * v4, v8, (int)((char *)v1 - 40));
         }
         else
         {

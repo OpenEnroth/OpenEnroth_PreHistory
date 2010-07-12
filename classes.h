@@ -230,7 +230,7 @@ __int64 class25_fn0(struct class25 *_this);
 struct class05
 {
  int            dword_000000;
- struct class25 class25_obj;     //struct ptr [0004]
+ struct class25 class25_obj;     // struct @ 000004
  float          flt_00200C[12];
  float          flt_00203C[12];
  float          flt_00206C[12];
@@ -290,12 +290,12 @@ void class06_sub_4A902A_DrawSomeIcon(struct class06 *_this);
 //class07
 struct class07
 {
- int    uNumVec4InArray1; //dword ptr [0000]
- float *pFloatArray1;     //dword ptr [0004]
- int    uNumVec3InArray2; //dword ptr [0008]
- float *pFloatArray2;     //dword ptr [000C]
- int dword_000010;
- int dword_000014[80];
+ int    uNumVec4InArray1; // dword @ 000000
+ float *pFloatArray1;     // dword @ 000004
+ int    uNumVec3InArray2; // dword @ 000008
+ float *pFloatArray2;     // dword @ 00000C
+ int    dword_000010;
+ int    dword_000014[80];
 };
 //sizeof = 154
 //int __thiscall sub_4775B1(int this);
@@ -553,37 +553,51 @@ struct class16 *class16_ctor(struct class16 *_this, unsigned int uBlockSize);
 
 
 
+struct SomeSpriteData
+{
+ int            dword_000000;
+ unsigned char *ptr_000004;
+};
+
 //class18
 struct class18
 {
  char  sContainerName[8];
  int   dword_000008;
- int   dword_00000C;
+ int   dword_00000C;  // sprite: resource size;  actual size stored in dword_00001C (if compressed), otherwise this is actual size
  union
  {
   int     dword_000010;
   struct
   {
-   short  word_000010;
-   short  word_000012;
+   short  word_000010; // sprite width?
+   short  word_000012; // * 8 for sprite size
   };
  };
- unsigned int   uCompressedSize; // dword @ 000014
+ union
+ {
+  unsigned int   uCompressedSize; // dword @ 000014
+  struct
+  {
+   short uPaletteID; // word @ 000014   sprite: pal%d for sprite
+   short word_000016;
+  };
+ };
  unsigned short uTextureWidth;   // word @ 000018
  unsigned short uTextureHeight;  // word @ 00001A
  union
  {
-  int dword_00001C;
+  int dword_00001C;   // sprite:  0 if uncompressed, otherwise decompressed size
   struct
   {
    short  word_00001C;
    short  word_00001E;
   };
  };
- unsigned char *ptr_000020;
+ struct SomeSpriteData *pSomeSpriteData;  // dword @ 000020   sprite: some data ptr
  union
  {
-  unsigned char *ptr_000024;
+  unsigned char *ptr_000024; // dword @ 000024  sprite: decompressed sprite data
   struct
   {
    short  word_000024;
@@ -603,6 +617,7 @@ struct class18
  unsigned int *pTruecolorPixels;
 };
 //sizeof = 000048
+//sizeof = 28 for Sprites_LOD
 //int __thiscall sub_40F5BE(int this);
 void *class18_ctor(struct class18 *_this);
 //int __thiscall sub_40F77C(int this);
@@ -650,16 +665,16 @@ struct class17
  int   dword_000234;
  int   dword_000238;
 
- struct class18 aLODHeaders[2500];  // class18[~ 1000] @ 00023C
+ struct class18 aLODHeaders[2500];  // class18[~ 1000] @ 00023C   1500 i sprites.lod
  //char   byte_00023C[16];
  //short  array_00024C[0x7528];
 
- int   dword_00EC9C;
+ unsigned int   uNumLoadedSprites;  // dword @ 00EC9C
  int   dword_00ECA0;
  int   dword_00ECA4;
  int   dword_00ECA8;
  int   dword_00ECAC;
- int   dword_00ECB0;
+ unsigned char *pHardwareSprites; // dword @ 00ECB0    1500 structs 40 bytes long, maybe only for pClass17_Sprites_LOD
 
  char byte_00ECB4[0x2EC8];
 
@@ -722,6 +737,7 @@ int sub_4645DC(struct class17 *_this);
 bool class17_Games_LOD_FindLeveL(struct class17 *_this, const char *pLevelName);
 //signed int __thiscall sub_4AC67E(int this, char *DstBuf, const char *Size);
 int sub_4AC67E(struct class17 *_this, struct class18 *DstBuf, const char *pFilename);
+unsigned int class17_LoadSprite(struct class17 *_this, const char *pSourceFile, int a3);
 
 unsigned int   class17_LoadTexture_New(struct class17 *_this, const wchar_t *pFilename);
 unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename);
@@ -891,7 +907,7 @@ int class35_sub_48A614(struct class35 *_this);
 //int __thiscall sub_489BE0(int this, int a2);
 int class35_sub_489BE0(struct class35 *_this, unsigned int idx);
 //signed int __thiscall sub_48A3BC(void *this, int a2)
-int class35_sub_48A3BC(struct class35 *_this, int a2);
+int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2);
 //int __thiscall sub_48A8A3(int this);
 int class35_sub_48A8A3(struct class35 *_this);
 //signed int __thiscall sub_48A336(void *this);

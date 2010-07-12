@@ -3386,7 +3386,7 @@ void sub_4A90A0(struct class06 *_this)
  _this->dword_0005EC = class17_LoadTexture_New(pClass17_Bitmaps_LOD, L"effpar03");
 
  runtime_warning();
- _this->dword_0005F0 = sub_4AC7C0(pClass17_Sprites_LOD, "sp57c", 6);
+ _this->dword_0005F0 = class17_LoadSprite(pClass17_Sprites_LOD, "sp57c", 6);
 
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "zapp"));
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spheal1"));
@@ -3416,30 +3416,30 @@ void sub_4A90A0(struct class06 *_this)
 
  runtime_warning();
 /*
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell02"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell03"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell09"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell11"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell18"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell22"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell26"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell29"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell39"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell39c"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell41"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell57c"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell62"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell65"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell66"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell70"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell76"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell84"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell90"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell92"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell93"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell97"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell97c"));
- CSpriteFrameTable_fn4(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell97c"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell02"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell03"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell09"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell11"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell18"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell22"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell26"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell29"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell39"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell39c"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell41"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell57c"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell62"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell65"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell66"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell70"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell76"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell84"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell90"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell92"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell93"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell97"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell97c"));
+ CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_fn5(pSpriteFrameTable, "spell97c"));
 */
 }
 
@@ -14561,7 +14561,7 @@ char *__fastcall sub_41E360(int a1, int a2)
   CD3DRenderer_FillRect(pD3DRenderer, v124 - 1, v127 + 1, v124 - 1, v125 - 1, v144);
   if ( pD3DRenderer->dword_040088 )
   {
-    v13 = pClass17_Sprites_LOD->dword_00ECB0 + 40 * *(_WORD *)(v10 + 24);
+    v13 = pClass17_Sprites_LOD->pHardwareSprites + 40 * *(_WORD *)(v10 + 24);
     v117 = v137 + v125 + *(_DWORD *)(v13 + 28);
     v135 = *(_DWORD *)(v13 + 8);
     memset(&Dst, 0, 0x64u);

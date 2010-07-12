@@ -242,61 +242,54 @@ void CSpriteFrameTable_fn3(struct CSpriteFrameTable *_this)
 }
 
 //----- (0044D513) --------------------------------------------------------
-void CSpriteFrameTable_fn4(struct CSpriteFrameTable *_this, int a2)
+void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, unsigned int uSpriteFrameID)
 {
   int v2; // esi@1
   __int16 v10; // ax@6
   signed int v11; // edi@10
   __int16 v12; // ax@16
-  int v13; // ecx@16
   signed int v14; // edi@19
   size_t v15; // eax@19
   __int16 v16; // ax@27
-  int v17; // ecx@27
-  signed int v18; // edi@29
-  int v19; // eax@30
+  struct SpriteFrame *v19; // eax@30
   __int16 v20; // ax@45
-  int v21; // ecx@45
   const char *v22; // [sp-8h] [bp-50h]@12
   const char *v23; // [sp-8h] [bp-50h]@21
-  const char *v24; // [sp-8h] [bp-50h]@37
   char *v26; // [sp-4h] [bp-4Ch]@21
-  int v27; // [sp-4h] [bp-4Ch]@37
   char v28; // [sp+9h] [bp-3Fh]@19
   char Str; // [sp+Ch] [bp-3Ch]@19
   char Size[20]; // [sp+2Ch] [bp-1Ch]@15
   char Source[4]; // [sp+40h] [bp-8h]@19
-  int v32; // [sp+44h] [bp-4h]@19
   int v33; // [sp+50h] [bp+8h]@4
  int i, j;
 
   v2 = _this;
-  if ( a2 > _this->uNumSpriteFrames)
+  if (uSpriteFrameID > _this->uNumSpriteFrames)
     return;
 
-  if (_this->pSpriteSFrames[a2].dword_00002C >= 0 )
+  if (_this->pSpriteSFrames[uSpriteFrameID].dword_00002C & 0x80000000)
+    return;
+
+   _this->pSpriteSFrames[uSpriteFrameID].dword_00002C |= 0x80;
+        //v33 = 30 * uSpriteFrameID + 12;
+   v33 = uSpriteFrameID;
+
+        i = uSpriteFrameID;
+
+ for (i = uSpriteFrameID; true; ++i)
+ {
+  _this->pSpriteSFrames[i].word_000034 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, _this->pSpriteSFrames[i].word_000032);
+
+  if (_this->pSpriteSFrames[i].dword_00002C & 0x10)
   {
-   _this->pSpriteSFrames[a2].dword_00002C |= 0x80;
-        v33 = 30 * a2 + 12;
+   v10 = class17_LoadSprite(pClass17_Sprites_LOD, _this->pSpriteSFrames[i].sTextureName, _this->pSpriteSFrames[i].word_000032);
 
-        i = a2;
-        while ( 1 )
-        {
-          _this->pSpriteSFrames[i].word_000034 = class35_sub_48A3BC(&class35_obj,
-                                                             _this->pSpriteSFrames[i].word_000032);
+   for (j = 0; j < 8; ++j)
+     _this->pSpriteSFrames[i].uSpriteIDs[j] = v10;
 
-          if (_this->pSpriteSFrames[i].dword_00002C & 0x10)
-          {
-           v10 = sub_4AC7C0(pClass17_Sprites_LOD, _this->pSpriteSFrames[i].sTextureName, _this->pSpriteSFrames[i].word_000032);
-
-           _this->pSpriteSFrames[i].word_000018 = v10;
-           for (j = 0; j < 7; ++j)
-             _this->pSpriteSFrames[i].array_00001A[j] = v10;
-           goto LABEL_46;
-          }
-
-          if (_this->pSpriteSFrames[i].dword_00002C & 0x10000)
-          {
+  }
+  else if (_this->pSpriteSFrames[i].dword_00002C & 0x10000)
+  {
             v11 = 0;
             do
             {
@@ -315,20 +308,32 @@ void CSpriteFrameTable_fn4(struct CSpriteFrameTable *_this, int a2)
                   v22 = (const char *)&unk_4E7E20;
                   break;
               }
-              sprintfex(&Size, v22, _this->pSpriteSFrames[i].sTextureName);
+              wsprintfA(Size, v22, _this->pSpriteSFrames[i].sTextureName);
 
-              v12 = sub_4AC7C0(pClass17_Sprites_LOD, &Size, _this->pSpriteSFrames[i].word_000032);
-              v13 = v11++ + v33;
-              *(_WORD *)(*(_DWORD *)(v2 + 12) + 2 * v13) = v12;
+              v12 = class17_LoadSprite(pClass17_Sprites_LOD, &Size, _this->pSpriteSFrames[i].word_000032);
+
+              _this->pSpriteSFrames[v33].uSpriteIDs[v11++] = v12;
             }
             while ( v11 < 8 );
-            goto LABEL_46;
-          }
-          if (!(_this->pSpriteSFrames[i].dword_00002C & 0x40))
-            break;
+  }
+  else if (!(_this->pSpriteSFrames[i].dword_00002C & 0x40))
+  {
+   for (j = 0; j < 8; ++j)
+   {
+    v19 = &_this->pSpriteSFrames[i];
+    if ( !((0x100 << j) & v19->dword_00002C) )
+      wsprintfA(Size, "%s%i", v19->sTextureName, j);
+    else
+      wsprintfA(Size, "%s%i", v19->sTextureName, 8 - j);
 
+    v20 = class17_LoadSprite(pClass17_Sprites_LOD, Size, _this->pSpriteSFrames[i].word_000032);
+
+    _this->pSpriteSFrames[i].uSpriteIDs[j]= v20;
+   }
+  }
+  else
+  {
           strcpy(Source, "stA");
-          v32 = 0;
           strcpy(&Str, _this->pSpriteSFrames[i].sTextureName);
           v15 = strlen(&Str);
           strcpy(&v28 + v15, Source);
@@ -360,78 +365,21 @@ void CSpriteFrameTable_fn4(struct CSpriteFrameTable *_this, int a2)
                v26 = _this->pSpriteSFrames[i].sTextureName;
                 v23 = "%s1";
 LABEL_26:
-                sprintfex(&Size, v23, v26);
+                wsprintfA(Size, v23, v26);
                 break;
               default:
                 break;
             }
-            v16 = sub_4AC7C0(pClass17_Sprites_LOD, &Size, _this->pSpriteSFrames[i].word_000032);
-            v17 = v14++ + v33;
-            *(_WORD *)(*(_DWORD *)(v2 + 12) + 2 * v17) = v16;
+            v16 = class17_LoadSprite(pClass17_Sprites_LOD, &Size, _this->pSpriteSFrames[i].word_000032);
+
+            _this->pSpriteSFrames[v33].uSpriteIDs[v14++] = v16;
           }
           while ( v14 < 8 );
-LABEL_46:
-          if (!(_this->pSpriteSFrames[i].dword_00002C & 1))
-            return;
-          v33 += 30;
-          ++i;
-        }
+  }
 
-
-
-        v18 = 0;
-        while ( 1 )
-        {
-          v19 = &_this->pSpriteSFrames[a2];
-          if ( !((256 << v18) & *(_DWORD *)(v19 + 44)) )
-          {
-            wsprintfA(Size, "%s%i", v19 + 12, v18);
-            goto LABEL_45;
-          }
-          if ( v18 == 1 )
-          {
-            v27 = v19 + 12;
-            v24 = "%s7";
-            goto LABEL_42;
-          }
-          if ( v18 == 2 )
-          {
-            v27 = v19 + 12;
-            v24 = "%s6";
-            goto LABEL_42;
-          }
-          if ( v18 == 3 )
-          {
-            v27 = v19 + 12;
-            v24 = "%s5";
-            goto LABEL_42;
-          }
-          if ( v18 == 5 )
-          {
-            v27 = v19 + 12;
-            v24 = "%s3";
-            goto LABEL_42;
-          }
-          if ( v18 == 6 )
-            break;
-          if ( v18 == 7 )
-          {
-            v27 = v19 + 12;
-            v24 = "%s1";
-LABEL_42:
-            wsprintfA(Size, v24, v27);
-          }
-LABEL_45:
-          v20 = sub_4AC7C0(pClass17_Sprites_LOD, &Size, _this->pSpriteSFrames[a2].word_000032);
-          v21 = v18++ + v33;
-          *(_WORD *)(*(_DWORD *)(v2 + 12) + 2 * v21) = v20;
-          if ( v18 >= 8 )
-            goto LABEL_46;
-        }
-        v27 = v19 + 12;
-        v24 = (const char *)&unk_4E7E24;
-        goto LABEL_42;
-      }
+  if (!(_this->pSpriteSFrames[i].dword_00002C & 0x01))
+    break;
+  }
 }
 
 //----- (0044D813) --------------------------------------------------------
@@ -540,7 +488,7 @@ void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2)
     _this->pTiles[i].word_000012 = class17_LoadTexture_New(pClass17_Bitmaps_LOD, pFilename);
 
     if (_this->pTiles[i].word_000012 != -1)
-      pClass17_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026 = class35_sub_48A3BC(&class35_obj, pClass17_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026);
+      pClass17_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, pClass17_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026);
    }
   }
  }
@@ -636,7 +584,7 @@ __int16 sub_4488B6(struct CDecorationDescriptionList *_this, const char *Str1)
 //----- (00458693) --------------------------------------------------------
 void sub_458693(struct CDecorationDescriptionList *_this, unsigned int uDecorationDescriptionID)
 {
-  CSpriteFrameTable_fn4(pSpriteFrameTable, _this->pDescriptions[uDecorationDescriptionID].word_000048);
+  CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[uDecorationDescriptionID].word_000048);
 }
 
 
@@ -667,7 +615,7 @@ void sub_459064(struct CObjectDescriptionList *_this)
  int i;
 
  for (i = 0; i < _this->uNumObjects; ++i)
-   CSpriteFrameTable_fn4(pSpriteFrameTable, _this->pDescriptions[i].word_000028);
+   CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[i].word_000028);
 }
 
 
@@ -695,6 +643,6 @@ void sub_458D97(struct COverlayDescriptionList *_this)
  int i;
 
  for (i = 0; i < _this->uNumOverlays; ++i)
-   CSpriteFrameTable_fn4(pSpriteFrameTable, _this->pDescriptions[i].word_000004);
+   CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[i].word_000004);
 }
 

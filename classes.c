@@ -5717,7 +5717,7 @@ int StorylineText_Initialize(struct StorylineText *_this)
 
 
 //----- (0048A3BC) --------------------------------------------------------
-int class35_sub_48A3BC(struct class35 *_this, int a2)
+int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2)
 {
   signed int result; // eax@1
   int v3; // ecx@1
@@ -5826,11 +5826,9 @@ int class35_sub_48A3BC(struct class35 *_this, int a2)
 
 
 //----- (004AC7C0) --------------------------------------------------------
-int sub_4AC7C0(struct class17 *_this, const char *pSourceFile, int a3)
+unsigned int class17_LoadSprite(struct class17 *_this, const char *pSourceFile, int a3)
 {
-  int v3; // edi@1
   int v4; // esi@1
-  int v5; // eax@6
   signed int v6; // ecx@10
   int v7; // eax@11
   int v8; // eax@12
@@ -5844,62 +5842,40 @@ int sub_4AC7C0(struct class17 *_this, const char *pSourceFile, int a3)
   __int16 v19; // [sp+26h] [bp-22h]@12
   int v20; // [sp+2Ch] [bp-1Ch]@12
   int v21; // [sp+30h] [bp-18h]@12
-  char *Str1; // [sp+34h] [bp-14h]@24
-  const char *v23; // [sp+38h] [bp-10h]@3
   int v24; // [sp+44h] [bp-4h]@12
+ int i;
 
- v3 = 0;
+
  v4 = _this;
  if (pD3DRenderer->dword_040088)
  {
-  if ( *(_DWORD *)((char *)_this + 60572) > 0 )
-    {
-      v23 = 0;
-      while ( _strcmpi(*(const char **)&v23[*(_DWORD *)(v4 + 60592)], pSourceFile) )
-      {
-        v23 += 40;
-        ++v3;
-        if ( v3 >= *(_DWORD *)(v4 + 60572) )
-          goto LABEL_6;
-      }
-      return v3;
-    }
-  }
-  else
-  {
-    if (_this->dword_00EC9C > 0)
-    {
-      v23 = (const char *)((char *)_this + 572);
-      while ( _strcmpi(v23, pSourceFile) )
-      {
-        v23 += 40;
-        ++v3;
-        if ( v3 >= *(_DWORD *)(v4 + 60572) )
-          goto LABEL_6;
-      }
-      return v3;
-    }
-  }
+  for (i = 0; i < _this->uNumLoadedSprites; ++i)
+    if (!strcmpi(&_this->pHardwareSprites[i * 40], pSourceFile))
+      return i;
+ }
+ else for (i = 0; i < _this->uNumLoadedSprites; ++i)
+   if (!strcmpi(_this->aLODHeaders[i].sContainerName, pSourceFile))
+     return i;
 
-LABEL_6:
- v5 = _this->dword_00EC9C;
- if ( v5 == 1500 )
+
+ if (_this->uNumLoadedSprites >= 2500)
    return -1;
+
  if (pD3DRenderer->dword_040088 && _this->dword_00ECAC)
  {
-  if (!_this->dword_00ECB0)
+  if (!_this->pHardwareSprites)
   {
-   _this->dword_00ECB0 = class23_AllocatedNamedBuffer(class23_instance, 0, 1500 * 40, "hardSprites");
+   _this->pHardwareSprites = class23_AllocatedNamedBuffer(class23_instance, 0, 1500 * 40, "hardwareSprites");
    v6 = 0;
    do
    {
-        v7 = v6++ * 40 + _this->dword_00ECB0;
+        v7 = v6++ * 40 + _this->pHardwareSprites;
         *(_DWORD *)v7 = 0;
         *(_DWORD *)(v7 + 8) = 0;
         *(_DWORD *)(v7 + 12) = 0;
-      }
-      while (v6 < 1500 );
-    }
+   }
+   while (v6 < 1500 );
+  }
 
     v17 = 0;
     v18 = 0;
@@ -5926,15 +5902,13 @@ LABEL_6:
     goto LABEL_29;
   }
 
-  //v12 = sub_4AC67E(_this, (char *)(_this + 40 * v5 + 0x23C), pSourceFile);
-  v12 = sub_4AC67E(_this, &_this->aLODHeaders[v5], pSourceFile);
-  //*(_WORD *)(v4 + 40 * _this->dword_00EC9C + 0x256) = 0;
-  _this->aLODHeaders[_this->dword_00EC9C].uTextureHeight = 0;
+  v12 = sub_4AC67E_LoadSpriteFromFile(_this, &_this->aLODHeaders[_this->uNumLoadedSprites], pSourceFile);
+  _this->aLODHeaders[_this->uNumLoadedSprites].uTextureHeight = 0;
   if ( v12 != -1 )
   {
 LABEL_28:
-    *(_WORD *)(&_this->aLODHeaders[_this->dword_00EC9C].uCompressedSize) = class35_sub_48A3BC(&class35_obj,
-                                                            *(_WORD *)(&_this->aLODHeaders[_this->dword_00EC9C].uCompressedSize));
+   _this->aLODHeaders[_this->uNumLoadedSprites].uPaletteID = class35_sub_48A3BC_MessWithPalettes(&class35_obj, _this->aLODHeaders[_this->uNumLoadedSprites].uPaletteID);
+
 LABEL_29:
     if ( pD3DRenderer->dword_040088 )
     {
@@ -5948,26 +5922,22 @@ LABEL_29:
       *(_DWORD *)(*(_DWORD *)(v4 + 60592) + 40 * *(_DWORD *)(v4 + 60572) + 4) = a3;
       sub_4A5048(pD3DRenderer, *(_DWORD *)(v4 + 60592) + 40 * *(_DWORD *)(v4 + 60572));
     }
-    ++_this->dword_00EC9C;
-    return _this->dword_00EC9C - 1;
+    ++_this->uNumLoadedSprites;
+    return _this->uNumLoadedSprites - 1;
   }
-  v23 = 0;
-  if (_this->dword_00EC9C <= 0)
+  if (!_this->uNumLoadedSprites)
   {
 LABEL_27:
-    if ( sub_4AC67E(v4, &_this->aLODHeaders[_this->dword_00EC9C], "pending") == -1 )
+    if ( sub_4AC67E_LoadSpriteFromFile(_this, &_this->aLODHeaders[_this->uNumLoadedSprites], "pending") == -1 )
       return -1;
     goto LABEL_28;
   }
-  Str1 = (char *)(v4 + 572);
-  while ( _strcmpi(Str1, "pending") )
-  {
-    ++v23;
-    Str1 += 40;
-    if ( (signed int)v23 >= *(_DWORD *)(v4 + 60572) )
-      goto LABEL_27;
-  }
-  return (int)v23;
+
+ for (i = 0; i < _this->uNumLoadedSprites; ++i)
+   if (!strcmpi(_this->aLODHeaders[i].sContainerName, "pending"))
+     return i;
+
+ goto LABEL_27;
 }
 
 
@@ -7282,13 +7252,11 @@ bool class17_Games_LOD_FindLeveL(struct class17 *_this, const char *pLevelName)
 
 
 //----- (004AC67E) --------------------------------------------------------
-int sub_4AC67E(struct class17 *_this, struct class18 *pDstBuf, const char *pFilename)
+int sub_4AC67E_LoadSpriteFromFile(struct class17 *_this, struct class18 *pDstBuf, const char *pFilename)
 {
   signed int v6; // eax@3
   char *v8; // esi@3
-  unsigned int v12; // eax@6
   int i; // edx@6
-  int v14; // ecx@6
   int v16; // [sp+10h] [bp+8h]@4
  FILE *f;
 
@@ -7299,8 +7267,8 @@ int sub_4AC67E(struct class17 *_this, struct class18 *pDstBuf, const char *pFile
    v8 = pDstBuf;
    locked_fread(pDstBuf, 1, 0x20, f);
    strcpy(pDstBuf->sContainerName, pFilename);
-   pDstBuf->ptr_000020 = class23_AllocatedNamedBuffer(class23_instance, pDstBuf->ptr_000020, 8 * pDstBuf->word_000012, pDstBuf->sContainerName);
-   locked_fread(pDstBuf->ptr_000020, 1, 8 * pDstBuf->word_000012, f);
+   pDstBuf->pSomeSpriteData = class23_AllocatedNamedBuffer(class23_instance, pDstBuf->pSomeSpriteData, 8 * pDstBuf->word_000012, pDstBuf->sContainerName);
+   locked_fread(pDstBuf->pSomeSpriteData, 1, 8 * pDstBuf->word_000012, f);
    v6 = pDstBuf->dword_00001C;
     if ( v6 )
     {
@@ -7316,14 +7284,10 @@ int sub_4AC67E(struct class17 *_this, struct class18 *pDstBuf, const char *pFile
      pDstBuf->ptr_000024 = class23_AllocatedNamedBuffer(class23_instance, pDstBuf->ptr_000024, pDstBuf->dword_00000C, pDstBuf->sContainerName);
      locked_fread(pDstBuf->ptr_000024, 1, pDstBuf->dword_00000C, f);
     }
-    v12 = pDstBuf->ptr_000020;
-    v14 = pDstBuf->ptr_000024;
 
-    for ( i = v12 + 8 * pDstBuf->word_000012; v12 < i; i = pDstBuf->ptr_000020 + 8 * pDstBuf->word_000012)
-    {
-      *(_DWORD *)(v12 + 4) += v14;
-      v12 += 8;
-    }
+
+    for (i = 0; i < pDstBuf->word_000012; ++i)
+      pDstBuf->pSomeSpriteData[i].ptr_000004 += (unsigned int)pDstBuf->ptr_000024;
  
   return 1;
 }
@@ -8678,8 +8642,9 @@ void class08_sub_438240(struct class08 *_this)
   class08_sub_438141(_this);
   v13 = 0;
   v6 = v7;
-  if ( *(_DWORD *)(v7 + 1708928) > 0 )
-  {
+  if (!_this->dword_1A1380)
+    return;
+
     v1 = v7 + 921476;
     do
     {
@@ -8718,7 +8683,6 @@ void class08_sub_438240(struct class08 *_this)
       v1 += 3088;
     }
     while ( v13 < *(_DWORD *)(v6 + 1708928) );
-  }
 }
 
 
@@ -8739,8 +8703,9 @@ void class08_sub_438141(struct class08 *_this)
 
   v2 = _this;
   v1 = 0;
-  if ( *(_DWORD *)(v2 + 918396) > 0 )
-  {
+  if (!_this->dword_0E037C)
+    return;
+
     v3 = v2 + 924;
     do
     {
@@ -8768,7 +8733,7 @@ void class08_sub_438141(struct class08 *_this)
       v3 += 56;
     }
     while ( v1 < *(_DWORD *)(v2 + 918396) );
-  }
+
 }
 
 //----- (0048607B) --------------------------------------------------------
@@ -9503,7 +9468,7 @@ void class02_sub_48BBA6(struct class02 *_this)
                       sub_4A354F(
                         v6,
                         (int)&v18,
-                        *(_DWORD *)(pClass17_Sprites_LOD->dword_00ECB0 + 40 * *(_DWORD *)(v7 - 50) + 12),
+                        *(_DWORD *)(pClass17_Sprites_LOD->pHardwareSprites + 40 * *(_DWORD *)(v7 - 50) + 12),
                         *(_DWORD *)(v7 + 14),
                         *(_DWORD *)(v7 - 26));
                     }
@@ -9657,7 +9622,7 @@ void class02_sub_48BEEF(struct class02 *_this)
             sub_4A3AD9(
               v6,
               (int)&v17,
-              *(_DWORD *)(pClass17_Sprites_LOD->dword_00ECB0 + 40 * *(_DWORD *)(v7 - 46) + 12),
+              *(_DWORD *)(pClass17_Sprites_LOD->pHardwareSprites + 40 * *(_DWORD *)(v7 - 46) + 12),
               *(_DWORD *)(v7 + 18),
               *(_DWORD *)(v7 - 22));
           }
@@ -9860,7 +9825,7 @@ int class06_sub_4A8C27(struct class06 *_this)
       (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 152))(
         *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
         0,
-        *(_DWORD *)(pClass17_Sprites_LOD->dword_00ECB0 + 40 * v8 + 12));
+        *(_DWORD *)(pClass17_Sprites_LOD->pHardwareSprites + 40 * v8 + 12));
       (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 88))(
         *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
         28,

@@ -400,7 +400,7 @@ LABEL_25:
 LABEL_19:
           *(_WORD *)(v23 + 272) = v22;
           v168 = v22 != -1 ? 72 * v22 + 7278780 : 0;
-          *(_WORD *)(v22 != -1 ? 72 * v22 + 7278780 + 0x26 : 38) = class35_sub_48A3BC(
+          *(_WORD *)(v22 != -1 ? 72 * v22 + 7278780 + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(
                                                                      &class35_obj,
                                                                      *(_WORD *)(v22 != -1 ? 72 * v22 + 7278780 + 0x24 : 36));
           goto LABEL_20;
@@ -532,12 +532,12 @@ LABEL_33:
 
     _this->dword_0000EC = class17_LoadTexture(pClass17_Bitmaps_LOD, (const char *)v38, 0);
     if ( _this->uSkyTextureID != -1 )
-      *(_WORD *)(_this->uSkyTextureID != -1 ? 72 * _this->uSkyTextureID + 0x6F10BC + 0x26 : 38) = class35_sub_48A3BC(
+      *(_WORD *)(_this->uSkyTextureID != -1 ? 72 * _this->uSkyTextureID + 0x6F10BC + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(
                                                                  &class35_obj,
                                                                  *(_WORD *)(_this->uSkyTextureID != -1 ? 72 * _this->uSkyTextureID + 0x6F10BC + 0x24 : 36));
     v39 = _this->dword_0000EC;
     if ( v39 != -1 )
-      *(_WORD *)(v39 != -1 ? 72 * v39 + 7278780 + 0x26 : 38) = class35_sub_48A3BC(
+      *(_WORD *)(v39 != -1 ? 72 * v39 + 7278780 + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(
                                                                  &class35_obj,
                                                                  *(_WORD *)(v39 != -1 ? 72 * v39 + 7278780 + 0x24 : 36));
     sub_47F0E2();
@@ -719,7 +719,7 @@ LABEL_74:
         *(_WORD *)(v66 + 272) = v65;
         v158 = v65 != -1 ? 72 * v65 + 7278780 : 0;
         v120 = *(_WORD *)(v65 != -1 ? 72 * v65 + 7278780 + 0x24 : 36);
-        *(_WORD *)(v65 != -1 ? 72 * v65 + 7278780 + 0x26 : 38) = class35_sub_48A3BC(&class35_obj, v120);
+        *(_WORD *)(v65 != -1 ? 72 * v65 + 7278780 + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(&class35_obj, v120);
         goto LABEL_69;
       }
       v120 = _this->pBModels[v51 / 188].ptr_000054[v168 / 308].uTextureID;
@@ -747,7 +747,7 @@ LABEL_69:
     if (v66->uTextureID != -1)
     {
      v158 = &pClass17_Bitmaps_LOD->aLODHeaders[v66->uTextureID];
-     v158->word_000026 = class35_sub_48A3BC(&class35_obj, v158->word_000024);
+     v158->word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, v158->word_000024);
     }
     goto LABEL_69;
   }
@@ -1071,7 +1071,7 @@ LABEL_120:
   }
   _this->dword_0000EC = v106;
   if ( v106 != -1 )
-    pClass17_Bitmaps_LOD->aLODHeaders[v106].word_000026 = class35_sub_48A3BC(&class35_obj, pClass17_Bitmaps_LOD->aLODHeaders[v106].word_000024);
+    pClass17_Bitmaps_LOD->aLODHeaders[v106].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, pClass17_Bitmaps_LOD->aLODHeaders[v106].word_000024);
 
   sub_47F0E2();
 
@@ -1105,7 +1105,7 @@ LABEL_150:
 
   v158 = &pClass17_Bitmaps_LOD->aLODHeaders[_this->uSkyTextureID];
   v120 = v158->word_000024;
-  v158->word_000026 = class35_sub_48A3BC(&class35_obj, v158->word_000024);
+  v158->word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, v158->word_000024);
 
   class35_sub_48A614(&class35_obj);
   sub_4A9A67(pSoundList, 53, 0);

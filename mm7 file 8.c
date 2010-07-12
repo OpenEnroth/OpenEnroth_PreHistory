@@ -4477,7 +4477,7 @@ void __cdecl sub_4647AB()
 
  sub_42F3D6();
  pClass17_Bitmaps_LOD->dword_011B84 = pClass17_Bitmaps_LOD->uNumLoadedFiles;
- pClass17_Sprites_LOD->dword_00ECA0 = pClass17_Sprites_LOD->dword_00EC9C;
+ pClass17_Sprites_LOD->dword_00ECA0 = pClass17_Sprites_LOD->uNumLoadedSprites;
  pClass17_Icons_LOD->dword_011B84 = pClass17_Icons_LOD->uNumLoadedFiles;
 }
 
@@ -8281,7 +8281,7 @@ void __thiscall Keyboard_resume(int this)
 }
 
 //----- (0041B690) --------------------------------------------------------
-void __cdecl UI_Initialize_Icons()
+void UI_Initialize_Icons()
 {
   char v11; // al@1
   int v12; // eax@1

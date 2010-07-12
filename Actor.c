@@ -483,7 +483,7 @@ __int16 __thiscall sub_45959A(struct Actor *_this, char a2)
     strcpy(Str1, Source);
     v4 = CSpriteFrameTable_fn5(pSpriteFrameTable, Str1);
     *(_WORD *)v14 = v4;
-    CSpriteFrameTable_fn4(pSpriteFrameTable, v4);
+    CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, v4);
     v14 += 2;
     Source += 10;
   }

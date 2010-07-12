@@ -71,18 +71,18 @@ int CTextureFrameTable_InitializeFromTXT(struct CTextureFrameTable *_this, const
 
 struct SpriteFrame
 {
- unsigned char sIconName[12];    // byte[12] @ 000000
- unsigned char sTextureName[12]; // byte[12] @ 00000C
- short         word_000018;
- short         array_00001A[7];
- int           dword_000028;
- int           dword_00002C;
- short         word_000030;
- short         word_000032;
- short         word_000034;
- short         word_000036;
- short         word_000038;
- short         word_00003A;
+ unsigned char  sIconName[12];    // byte[12] @ 000000
+ unsigned char  sTextureName[12]; // byte[12] @ 00000C
+ unsigned short uSpriteIDs[8];    // word     @ 000018
+ //short          array_00001A[7];
+ int            dword_000028;
+ int            dword_00002C;  // some flags   0x01 next frame sequence is a part of a current (animated sqeuences)   0x10 single frame per frame sequence
+ short          word_000030;
+ short          word_000032;
+ short          word_000034; // some palette info returned from sub_48A3BC
+ short          word_000036;
+ short          word_000038;
+ short          word_00003A;
 };
 //sizeof == 3C
 
@@ -112,7 +112,7 @@ int CSpriteFrameTable_fn2(struct CSpriteFrameTable *_this, int a2, signed int a3
 //int __thiscall class29_fn3(int this);
 void CSpriteFrameTable_fn3(struct CSpriteFrameTable *_this);
 //void __thiscall class29_fn4(int this, int a2);
-void CSpriteFrameTable_fn4(struct CSpriteFrameTable *_this, int a2);
+void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, int a2);
 //int __thiscall class29_fn5(int this, const char *Str1);
 int CSpriteFrameTable_fn5(struct CSpriteFrameTable *_this, const char *Str1);
 

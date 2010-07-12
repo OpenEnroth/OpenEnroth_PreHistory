@@ -12716,7 +12716,7 @@ LABEL_30:
                   if ( pD3DRenderer->dword_040088 )
                   {
                     v26 = v51;
-                    v52 = *(_DWORD *)(pClass17_Sprites_LOD->dword_00ECB0 + 40 * *(_WORD *)v47 + 24) >> 1;
+                    v52 = *(_DWORD *)(pClass17_Sprites_LOD->pHardwareSprites + 40 * *(_WORD *)v47 + 24) >> 1;
                     v54 = (unsigned __int64)(v52 * v51) >> 16;
                   }
                   else
@@ -17759,12 +17759,12 @@ void __thiscall sub_48917E(int this)
   v1 = 8;
   do
   {
-    CSpriteFrameTable_fn4(pSpriteFrameTable, *v2);
+    CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, *v2);
     v2 += 2;
     --v1;
   }
   while ( v1 );
-  CSpriteFrameTable_fn4(pSpriteFrameTable, *(_WORD *)(v3 + 3332));
+  CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, *(_WORD *)(v3 + 3332));
 }
 
 //----- (004893CF) --------------------------------------------------------

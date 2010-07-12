@@ -13617,7 +13617,7 @@ LABEL_43:
     do
     {
       if ( *(_WORD *)(dword_6BE644 + v12 + 74) != -1 ? 72 * *(_WORD *)(dword_6BE644 + v12 + 74) + 7278780 : 0 )
-        *(_WORD *)(*(_WORD *)(dword_6BE644 + v12 + 74) != -1 ? 72 * *(_WORD *)(dword_6BE644 + v12 + 74) + 7278780 + 0x26 : 38) = class35_sub_48A3BC(&class35_obj, *(_WORD *)(*(_WORD *)(dword_6BE644 + v12 + 74) != -1 ? 72 * *(_WORD *)(dword_6BE644 + v12 + 74) + 7278780 + 0x24 : 36));
+        *(_WORD *)(*(_WORD *)(dword_6BE644 + v12 + 74) != -1 ? 72 * *(_WORD *)(dword_6BE644 + v12 + 74) + 7278780 + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(&class35_obj, *(_WORD *)(*(_WORD *)(dword_6BE644 + v12 + 74) != -1 ? 72 * *(_WORD *)(dword_6BE644 + v12 + 74) + 7278780 + 0x24 : 36));
       ++i;
       v12 += 96;
     }

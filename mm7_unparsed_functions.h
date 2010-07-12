@@ -1220,7 +1220,7 @@ signed int __thiscall sub_4AC0A2(void *this);
 int __thiscall sub_4AC277(void *this, int a2);
 int __stdcall sub_4AC33A(int a1);
 int __stdcall sub_4AC4FD(int a1);
-int __thiscall sub_4AC7C0(int this, const char *Source, int a3);
+int __thiscall class17_LoadSprite(int this, const char *Source, int a3);
 void __thiscall sub_4ACADA(int this);
 void __thiscall sub_4ACB70(int this);
 void *__thiscall sub_4ACBE0(int this);
