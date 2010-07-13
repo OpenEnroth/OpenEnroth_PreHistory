@@ -3476,7 +3476,7 @@ LABEL_731:
           wsprintfA(TmpBuf, pGlobalTXT_LocalizationStrings[429], pPlayers[v209 - 1]->sName, aClassNames[pPlayers[v209 - 1]->uClass]);
           strcat(TmpBuf, ": ");
 
-          v122 = sub_48E9F4_GetConditionNameOffset(&pPlayers[v209 - 1]);
+          v122 = Player_GetConditionIdx(&pPlayers[v209 - 1]);
           strcat(TmpBuf, aCharacterConditionNames[v122]);
 
           sub_41C0B8(TmpBuf);
@@ -6018,7 +6018,7 @@ void GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
   wsprintfA(TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n\n", pGlobalTXT_LocalizationStrings[12], v62, v59, v58);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v57, TmpBuf, 0xFFFFFFFF, 0, 0);
   v63 = v57 - 2 + 2 * pFontArrus->uFontHeight;
-  v64 = sub_48E9F4_GetConditionNameOffset(pp);
+  v64 = Player_GetConditionIdx(pp);
   //v65 = (&dword_AE3280)[4 * v64];
   v65 = aCharacterConditionNames[v64];
 

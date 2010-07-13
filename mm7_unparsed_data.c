@@ -328,27 +328,24 @@ unsigned char AvailSkillPerClass[9][37] =  // byte[] @ MM7.exe::004ED820
  __int16 word_4EDEDC; // weak
  int dword_4EDEF8[array_size_unknown]; // weak
  _UNKNOWN unk_4EDF40; // weak
- char byte_4EDF48[array_size_unknown]; // weak
- char byte_4EDF5B[array_size_unknown]; // weak
- char byte_4EDF6E[array_size_unknown]; // weak
+ 
+ unsigned char uConditionStrengthMultiplier[19] = {100, 100, 100, 120, 50, 200, 75, 60, 50, 30, 25, 10, 100, 100, 100, 100, 100, 100, 100};
+ unsigned char uConditionIntelligenceMultiplier[19] = {100, 100, 100, 50, 25, 10, 100, 100, 75, 60, 50, 30, 100, 100, 100, 100, 100, 1, 100};
+ unsigned char uConditionWillpowerMultiplier[19] = {100, 100, 100, 50, 25, 10, 100, 100, 75, 60, 50, 30, 100, 100, 100, 100, 100, 1, 100};
+ unsigned char uConditionEnduranceMultiplier[19] = {100, 100, 100, 100, 50, 150, 75, 60, 50, 30, 25, 10, 100, 100, 100, 100, 100, 100, 100};
+ unsigned char uConditionAccuracyMultiplier[19] = {100, 100, 100, 50, 10, 100, 75, 60, 50, 30, 25, 10, 100, 100, 100, 100, 100, 50, 100};
+ unsigned char uConditionSpeedMultiplier[19] = {100, 100, 100, 120, 20, 120, 75, 60, 50, 30, 25, 10, 100, 100, 100, 100, 100, 50, 100};
+ unsigned char uConditionLuckMultiplier[19] = {100, 100, 100, 100, 200, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100};
 
- unsigned char byte_4EDF81[0x13] =
-{
- 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 0x64,
- 0x64, 0x64, 0x64
-};
-
- char byte_4EDF94[array_size_unknown]; // weak
- char byte_4EDFA7[array_size_unknown]; // weak
- char byte_4EDFBA[array_size_unknown]; // weak
- int dword_4EDFD0[array_size_unknown]; // weak
- char byte_4EDFE0[array_size_unknown]; // weak
- char byte_4EDFE4[array_size_unknown]; // weak
- char byte_4EDFE8[array_size_unknown]; // weak
- char byte_4EDFEC[array_size_unknown]; // weak
- char byte_4EDFF0[array_size_unknown]; // weak
- char byte_4EDFF4[array_size_unknown]; // weak
- char byte_4EDFF8[array_size_unknown]; // weak
+ unsigned int uAgeingTable[4] = {50, 100, 150, 0xFFFF};  // player age
+ unsigned char uAgeingStrengthMultiplier[4] = {100, 75, 40, 10}; // player weakens upon ageing
+ unsigned char uAgeingIntelligenceMultiplier[4] = {100, 150, 100, 10};
+ unsigned char uAgeingWillpowerMultiplier[4] = {100, 150, 100, 10}; 
+ unsigned char uAgeingEnduranceMultiplier[4] = {100, 75, 40, 10}; 
+ unsigned char uAgeingAccuracyMultiplier[4] = {100, 100, 40, 10};
+ unsigned char uAgeingSpeedMultiplier[4] = {100, 100, 40, 10};
+ unsigned char uAgeingLuckMultiplier[4] = {100, 100, 100, 100};
+ 
  int dword_4EDFFC; // weak
  char byte_4EE038[array_size_unknown]; // weak
  int dword_4EE06C[array_size_unknown]; // weak

@@ -12447,7 +12447,7 @@ LABEL_90:
       }
       goto LABEL_170;
     }
-    v3 = sub_48E9F4_GetConditionNameOffset((void *)this);
+    v3 = Player_GetConditionIdx((void *)this);
     if ( v3 != 18 )
     {
 LABEL_170:

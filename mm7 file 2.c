@@ -12715,7 +12715,7 @@ void __cdecl sub_41A57E()
     sprintfex(&TmpBuf, (const char *)&off_4E3048, *(_DWORD *)(v2 + 6456));
     sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v31, *(_DWORD *)(v2 + 6456) != 0 ? v46 : 0, &TmpBuf, 84, 0);
     v32 = v45 + v31;
-    v48 = sub_48E9F4_GetConditionNameOffset((void *)v2);
+    v48 = Player_GetConditionIdx((void *)v2);
     if ( !v43 )
       sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v32, 0, pGlobalTXT_LocalizationStrings[45], 60, 0);
     //v34 = (&dword_AE3280)[4 * v48];
@@ -13710,7 +13710,7 @@ void sub_41D3B7(int this)
   v25 = sub_4178FE_GetColor(*(_DWORD *)(v5 + 6464), v24);
   sprintfex(pStringBuffer, (const char *)&unk_4E3278, pGlobalTXT_LocalizationStrings[212], v25, v23, v22);
   strcat(TmpBuf, pStringBuffer);
-  v26 = sub_48E9F4_GetConditionNameOffset((void *)v5);
+  v26 = Player_GetConditionIdx((void *)v5);
   //v27 = (&dword_AE3280)[4 * v26];
   v27 = aCharacterConditionNames[v26];
 

@@ -287,7 +287,7 @@ int Player_GetActualStrength(struct Player *_this)
 
   v1 = Player_GetActualAge(_this);
   v2 = 0;
-  while ( v1 >= dword_4EDFD0[v2] )
+  while ( v1 >= uAgeingTable[v2] )
   {
     ++v2;
     if ( v2 >= 4 )
@@ -296,9 +296,9 @@ int Player_GetActualStrength(struct Player *_this)
       goto LABEL_5;
     }
   }
-  v4 = (unsigned __int8)byte_4EDFE0[v2];
+  v4 = uAgeingStrengthMultiplier[v2];
 LABEL_5:
-  v6 = (unsigned __int8)byte_4EDF48[sub_48E9F4_GetConditionNameOffset(_this)];
+  v6 = uConditionStrengthMultiplier[Player_GetConditionIdx(_this)];
   v7 = Player_MaybeGetWearItemsBonus(_this, 0, 0);
   return v6 * v4 * _this->uStrength / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 0) + v7 + _this->uStrengthBonus;
 }
@@ -314,7 +314,7 @@ int Player_GetActualEndurance(struct Player *_this)
 
   v1 = Player_GetActualAge(_this);
   v2 = 0;
-  while ( v1 >= dword_4EDFD0[v2] )
+  while ( v1 >= uAgeingTable[v2] )
   {
     ++v2;
     if ( v2 >= 4 )
@@ -323,9 +323,9 @@ int Player_GetActualEndurance(struct Player *_this)
       goto LABEL_5;
     }
   }
-  v4 = (unsigned __int8)byte_4EDFEC[v2];
+  v4 = uAgeingEnduranceMultiplier[v2];
 LABEL_5:
-  v6 = byte_4EDF81[sub_48E9F4_GetConditionNameOffset(_this)];
+  v6 = uConditionEnduranceMultiplier[Player_GetConditionIdx(_this)];
   v7 = Player_MaybeGetWearItemsBonus(_this, 3, 0);
   return v6 * v4 * _this->uEndurance / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 3) + v7 + _this->uEnduranceBonus;
 }
@@ -361,7 +361,7 @@ int __thiscall Player_GetActualIntelligence(struct Player *_this)
 
   v1 = Player_GetActualAge(_this);
   v2 = 0;
-  while ( v1 >= dword_4EDFD0[v2] )
+  while ( v1 >= uAgeingTable[v2] )
   {
     ++v2;
     if ( v2 >= 4 )
@@ -370,9 +370,9 @@ int __thiscall Player_GetActualIntelligence(struct Player *_this)
       goto LABEL_5;
     }
   }
-  v4 = (unsigned __int8)byte_4EDFE4[v2];
+  v4 = uAgeingIntelligenceMultiplier[v2];
 LABEL_5:
-  v6 = (unsigned __int8)byte_4EDF5B[sub_48E9F4_GetConditionNameOffset(_this)];
+  v6 = uConditionIntelligenceMultiplier[Player_GetConditionIdx(_this)];
   v7 = Player_MaybeGetWearItemsBonus(_this, 1, 0);
   return v6 * v4 * _this->uIntelligence / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 1) + v7 + _this->uIntelligenceBonus;
 }
@@ -388,7 +388,7 @@ int __thiscall Player_GetActualWillpower(struct Player *_this)
 
   v1 = Player_GetActualAge(_this);
   v2 = 0;
-  while ( v1 >= dword_4EDFD0[v2] )
+  while ( v1 >= uAgeingTable[v2] )
   {
     ++v2;
     if ( v2 >= 4 )
@@ -397,9 +397,9 @@ int __thiscall Player_GetActualWillpower(struct Player *_this)
       goto LABEL_5;
     }
   }
-  v4 = (unsigned __int8)byte_4EDFE8[v2];
+  v4 = uAgeingWillpowerMultiplier[v2];
 LABEL_5:
-  v6 = (unsigned __int8)byte_4EDF6E[sub_48E9F4_GetConditionNameOffset(_this)];
+  v6 = uConditionWillpowerMultiplier[Player_GetConditionIdx(_this)];
   v7 = Player_MaybeGetWearItemsBonus(_this, 2, 0);
   return v6 * v4 * _this->uWillpower / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 2) + v7 + _this->uWillpowerBonus;
 }
@@ -415,7 +415,7 @@ int __thiscall Player_GetActualAccuracy(struct Player *_this)
 
   v1 = Player_GetActualAge(_this);
   v2 = 0;
-  while ( v1 >= dword_4EDFD0[v2] )
+  while ( v1 >= uAgeingTable[v2] )
   {
     ++v2;
     if ( v2 >= 4 )
@@ -424,9 +424,9 @@ int __thiscall Player_GetActualAccuracy(struct Player *_this)
       goto LABEL_5;
     }
   }
-  v4 = (unsigned __int8)byte_4EDFF0[v2];
+  v4 = uAgeingAccuracyMultiplier[v2];
 LABEL_5:
-  v6 = (unsigned __int8)byte_4EDF94[sub_48E9F4_GetConditionNameOffset(_this)];
+  v6 = uConditionAccuracyMultiplier[Player_GetConditionIdx(_this)];
   v7 = Player_MaybeGetWearItemsBonus(_this, 4, 0);
   return v6 * v4 * _this->uAccuracy / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 4) + v7 + _this->uAccuracyBonus;
 }
@@ -442,7 +442,7 @@ int __thiscall Player_GetActualSpeed(struct Player *_this)
 
   v1 = Player_GetActualAge(_this);
   v2 = 0;
-  while ( v1 >= dword_4EDFD0[v2] )
+  while ( v1 >= uAgeingTable[v2] )
   {
     ++v2;
     if ( v2 >= 4 )
@@ -451,9 +451,9 @@ int __thiscall Player_GetActualSpeed(struct Player *_this)
       goto LABEL_5;
     }
   }
-  v4 = (unsigned __int8)byte_4EDFF4[v2];
+  v4 = uAgeingSpeedMultiplier[v2];
 LABEL_5:
-  v6 = (unsigned __int8)byte_4EDFA7[sub_48E9F4_GetConditionNameOffset(_this)];
+  v6 = uConditionSpeedMultiplier[Player_GetConditionIdx(_this)];
   v7 = Player_MaybeGetWearItemsBonus(_this, 5, 0);
   return v6 * v4 * _this->uSpeed / 100 / 100 + Player_MaybeGetCastSpellBonus(_this, 5) + v7 + _this->uSpeedBonus;
 }
@@ -483,7 +483,7 @@ int __thiscall Player_GetActualLuck(struct Player *_this)
     v11 += 10;
   v5 = Player_GetActualAge(_this);
   v6 = 0;
-  while ( v5 >= dword_4EDFD0[v6] )
+  while ( v5 >= uAgeingTable[v6] )
   {
     ++v6;
     if ( v6 >= 4 )
@@ -492,9 +492,9 @@ int __thiscall Player_GetActualLuck(struct Player *_this)
       goto LABEL_11;
     }
   }
-  v7 = (unsigned __int8)byte_4EDFF8[v6];
+  v7 = uAgeingLuckMultiplier[v6];
 LABEL_11:
-  v9 = (unsigned __int8)byte_4EDFBA[sub_48E9F4_GetConditionNameOffset(_this)];
+  v9 = uConditionLuckMultiplier[Player_GetConditionIdx(_this)];
   v10 = Player_MaybeGetWearItemsBonus(_this, 6, 0);
   return Player_MaybeGetCastSpellBonus(_this, 6) + v10 + v11 + v9 * v7 * _this->uLuck / 100 / 100 + _this->uLuckBonus;
 }
@@ -599,7 +599,7 @@ LABEL_7:
 }
 
 //----- (0048E9F4) --------------------------------------------------------
-int __thiscall sub_48E9F4_GetConditionNameOffset(struct Player *_this)
+int __thiscall Player_GetConditionIdx(struct Player *_this)
 {
   signed int v1; // edx@1
 

@@ -231,7 +231,7 @@ signed int Player_sub_492D65(struct Player *_this, int a2, int a3);
 int MaybePlaceItemInInventory(struct Player *_this, signed int a2, int a3);
 
 signed int __thiscall GetSkillIdxByOrder(struct Player *_this, int Order);
-int __thiscall sub_48E9F4_GetConditionNameOffset(void *this);
+int __thiscall Player_GetConditionIdx(void *this);
 int __thiscall WearItem(void *this, int a2);
 int __thiscall CreateItemInInventory(struct Player *_this, signed int a2, int itemid);
 int __thiscall sub_49107D(void *this);

@@ -7822,13 +7822,13 @@ signed int __thiscall sub_4B6FF9(void *this)
   v1 = *(_DWORD *)(dword_507BC0 + 28);
   if ( v1 == 78 || v1 > 80 && v1 <= 82 )
   {
-    if ( sub_48E9F4_GetConditionNameOffset(this) == 18 )
+    if ( Player_GetConditionIdx(this) == 18 )
       goto LABEL_6;
-    v3 = sub_48E9F4_GetConditionNameOffset((void *)v2) == 17;
+    v3 = Player_GetConditionIdx((void *)v2) == 17;
   }
   else
   {
-    v3 = sub_48E9F4_GetConditionNameOffset(this) == 18;
+    v3 = Player_GetConditionIdx(this) == 18;
   }
   if ( !v3 )
     return 1;
@@ -8584,7 +8584,7 @@ int __thiscall sub_4B807C(void *this, float a2)
   unsigned int v11; // [sp+Ch] [bp-4h]@6
 
   v3 = this;
-  v2 = sub_48E9F4_GetConditionNameOffset(this);
+  v2 = Player_GetConditionIdx(this);
   v4 = 0;
   if ( v2 >= 14 )
   {

@@ -1303,7 +1303,7 @@ void __thiscall sub_4909F4(void *this)
     v12 = 4;
     do
     {
-      v2 = sub_48E9F4_GetConditionNameOffset((void *)(v1 - 6812));
+      v2 = Player_GetConditionIdx((void *)(v1 - 6812));
       if ( v2 == 18 || v2 == 17 )
       {
         *(_WORD *)(v1 + 2) += pClass24_global2->int_00001C;

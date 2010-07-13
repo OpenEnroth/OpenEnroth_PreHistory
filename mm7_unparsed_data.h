@@ -273,23 +273,24 @@ extern __int16 word_4EDED8[array_size_unknown]; // weak
 extern __int16 word_4EDEDC; // weak
 extern int dword_4EDEF8[array_size_unknown]; // weak
 extern _UNKNOWN unk_4EDF40; // weak
-extern char byte_4EDF48[array_size_unknown]; // weak
-extern char byte_4EDF5B[array_size_unknown]; // weak
-extern char byte_4EDF6E[array_size_unknown]; // weak
 
-extern unsigned char byte_4EDF81[0x13];
+extern unsigned char uConditionStrengthMultiplier[19]; 
+extern unsigned char uConditionIntelligenceMultiplier[19];
+extern unsigned char uConditionWillpowerMultiplier[19];
+extern unsigned char uConditionEnduranceMultiplier[19];
+extern unsigned char uConditionAccuracyMultiplier[19];
+extern unsigned char uConditionSpeedMultiplier[19]; 
+extern unsigned char uConditionLuckMultiplier[19]; 
 
-extern char byte_4EDF94[array_size_unknown]; // weak
-extern char byte_4EDFA7[array_size_unknown]; // weak
-extern char byte_4EDFBA[array_size_unknown]; // weak
-extern int dword_4EDFD0[array_size_unknown]; // weak
-extern char byte_4EDFE0[array_size_unknown]; // weak
-extern char byte_4EDFE4[array_size_unknown]; // weak
-extern char byte_4EDFE8[array_size_unknown]; // weak
-extern char byte_4EDFEC[array_size_unknown]; // weak
-extern char byte_4EDFF0[array_size_unknown]; // weak
-extern char byte_4EDFF4[array_size_unknown]; // weak
-extern char byte_4EDFF8[array_size_unknown]; // weak
+extern unsigned int uAgeingTable[4];
+extern unsigned char uAgeingStrengthMultiplier[4]; 
+extern unsigned char uAgeingIntelligenceMultiplier[4]; 
+extern unsigned char uAgeingWillpowerMultiplier[4]; 
+extern unsigned char uAgeingEnduranceMultiplier[4]; 
+extern unsigned char uAgeingAccuracyMultiplier[4]; 
+extern unsigned char uAgeingSpeedMultiplier[4]; 
+extern unsigned char uAgeingLuckMultiplier[4]; 
+
 extern int dword_4EDFFC; // weak
 extern char byte_4EE038[array_size_unknown]; // weak
 extern int dword_4EE06C[array_size_unknown]; // weak
