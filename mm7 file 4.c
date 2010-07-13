@@ -169,125 +169,80 @@ LABEL_21:
 signed int __fastcall sub_4250FE(int a1)
 {
   int v1; // edx@1
-  float *v2; // ecx@5
-  _UNKNOWN *v3; // edi@5
-  _UNKNOWN *v4; // esi@5
-  int v5; // ebx@6
-  double v6; // st5@11
+  struct struct14 *v3; // edi@5
   double v7; // st6@11
   double v8; // st6@12
-  unsigned __int8 v9; // c2@16
-  unsigned __int8 v10; // c3@16
-  void *v11; // edi@23
   double v12; // st6@23
-  _UNKNOWN *v13; // ecx@23
-  char v14; // zf@24
   signed int result; // eax@25
-  int v16; // [sp+8h] [bp-28h]@5
   bool v17; // [sp+Ch] [bp-24h]@2
   bool v18; // [sp+10h] [bp-20h]@7
-  _UNKNOWN *v19; // [sp+14h] [bp-1Ch]@5
-  _UNKNOWN *v20; // [sp+18h] [bp-18h]@5
   signed int v21; // [sp+1Ch] [bp-14h]@1
-  _UNKNOWN *v22; // [sp+20h] [bp-10h]@5
-  _UNKNOWN *v23; // [sp+24h] [bp-Ch]@5
-  _UNKNOWN *v24; // [sp+28h] [bp-8h]@5
-  _UNKNOWN *v25; // [sp+2Ch] [bp-4h]@5
+ int i;
 
-  v1 = a1;
   memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct struct14));
   v21 = 0;
   v17 = array_50AC10[0].flt_00000C >= 8.0;
   if ( a1 + 1 <= 1 )
     return 0;
-  v3 = &array_507D30[0].flt_000014;
-  v4 = &array_507D30[0].flt_000010;
-  v24 = &array_507D30[0].flt_000020;
-  v22 = array_507D30;
-  v19 = &array_507D30[0].flt_000014;
-  v20 = &array_507D30[0].flt_000010;
-  v23 = &array_507D30[0].flt_00000C;
-  v25 = &array_507D30[0].flt_00002C;
-  v2 = &array_50AC10[0].flt_00000C;
-  v16 = v1;
-  do
-  {
-    v5 = (int)(v2 + 12);
-    v18 = v2[12] >= 8.0;
-    if ( v17 != v18 )
-    {
-      if ( v18 )
-      {
-        v7 = (8.0 - *v2) / (*(float *)v5 - *v2);
-        *(float *)v4 = (v2[13] - v2[1]) * v7 + v2[1];
-        *(float *)v3 = (v2[14] - v2[2]) * v7 + v2[2];
-        v6 = (v2[20] - v2[8]) * v7 + v2[8];
-      }
-      else
-      {
-        v8 = (8.0 - *(float *)v5) / (*v2 - *(float *)v5);
-        *(float *)v4 = (v2[1] - v2[13]) * v8 + v2[13];
-        *(float *)v3 = (v2[2] - v2[14]) * v8 + v2[14];
-        v6 = (v2[8] - v2[20]) * v8 + v2[20];
-      }
-      *(float *)v25 = v6;
-      *(float *)v23 = 8.0;
-      *(_DWORD *)v24 = 1040187392;
-      if ( v17 )
-      {
-        if ( 8.0 == *v2 && *(float *)v4 == v2[1] )
-        {
-          v9 = 0;
-          v10 = *(float *)v3 == v2[2];
-          goto LABEL_20;
-        }
-      }
-      else
-      {
-        if ( 8.0 == *(float *)v5 && *(float *)v4 == v2[13] )
-        {
-          v9 = 0;
-          v10 = *(float *)v3 == v2[14];
-LABEL_20:
-          if ( v10 | v9 )
-            goto LABEL_22;
-          goto LABEL_21;
-        }
-      }
-LABEL_21:
-      v22 = (char *)v22 + 48;
-      v23 = (char *)v23 + 48;
-      v25 = (char *)v25 + 48;
-      v4 = (char *)v4 + 48;
-      v3 = (char *)v3 + 48;
-      ++v21;
-      v24 = (char *)v24 + 48;
-      v20 = v4;
-      v19 = v3;
-    }
-LABEL_22:
+  v3 = array_507D30;
+
+ for (i = 0; i < a1; ++i)
+ {
+    v18 = array_50AC10[i + 1].flt_00000C >= 8.0;
+    if ( v17 == v18 )
+      goto LABEL_22;
+
     if ( v18 )
+      {
+        v7 = (8.0 - array_50AC10[i].flt_00000C) /
+             (array_50AC10[i + 1].flt_00000C - array_50AC10[i].flt_00000C);
+        v3->flt_000010 = (array_50AC10[i + 1].flt_000010 - array_50AC10[i].flt_000010) * v7 + array_50AC10[i].flt_000010;
+        v3->flt_000014 = (array_50AC10[i + 1].flt_000014 - array_50AC10[i].flt_000014) * v7 + array_50AC10[i].flt_000014;
+        v3->flt_00002C = (array_50AC10[i + 1].flt_00002C - array_50AC10[i].flt_00002C) * v7 + array_50AC10[i].flt_00002C;
+      }
+      else
+      {
+        v8 = (8.0 - array_50AC10[i + 1].flt_00000C) /
+             (array_50AC10[i].flt_00000C - array_50AC10[i + 1].flt_00000C);
+        v3->flt_000010 = (array_50AC10[i].flt_000010 - array_50AC10[i + 1].flt_000010) * v8 + array_50AC10[i + 1].flt_000010;
+        v3->flt_000014 = (array_50AC10[i].flt_000014 - array_50AC10[i + 1].flt_000014) * v8 + array_50AC10[i + 1].flt_000014;
+        v3->flt_00002C = (array_50AC10[i].flt_00002C - array_50AC10[i + 1].flt_00002C) * v8 + array_50AC10[i + 1].flt_00002C;
+      }
+
+      v3->flt_00000C = 8.0;
+      v3->flt_000020 = 0.12500000;
+
+      if (v17)
+      {
+        if (array_50AC10[i].flt_00000C != 8.0 ||
+            v3->flt_000010 != array_50AC10[i].flt_000010 ||
+            v3->flt_000014 != array_50AC10[i].flt_000014)
+        {
+         v3++;
+         ++v21;
+        }
+      }
+      else if (array_50AC10[i + 1].flt_00000C != 8.0 ||
+            v3->flt_000010 != array_50AC10[i + 1].flt_000010 ||
+            v3->flt_000014 != array_50AC10[i + 1].flt_000014)
+        {
+         v3++;
+         ++v21;
+        }
+
+LABEL_22:
+    if (v18)
     {
-      v11 = v22;
-      v20 = (char *)v20 + 48;
-      v19 = (char *)v19 + 48;
-      v12 = 1.0 / (*(float *)v5 + 0.0000001000000011686097);
+     v12 = 1.0 / (array_50AC10[i + 1].flt_00000C + 0.0000001000000011686097);
       ++v21;
-      v25 = (char *)v25 + 48;
-      v23 = (char *)v23 + 48;
-      v22 = (char *)v22 + 48;
-      memcpy(v11, v2 + 9, 0x30u);
-      v13 = v24;
-      v24 = (char *)v24 + 48;
-      v4 = v20;
-      v3 = v19;
-      *(float *)v13 = v12;
+      memcpy(v3, &array_50AC10[i + 1], sizeof(struct struct14));
+      v3->flt_000020 = v12;
+      v3++;
     }
-    v14 = v16-- == 1;
+
     v17 = v18;
-    v2 = (float *)v5;
   }
-  while ( !v14 );
+
   result = v21;
   if ( v21 < 3 )
     return 0;
@@ -343,34 +298,35 @@ signed int __fastcall sub_4252E8(int a1)
 
   v5->flt_00000C = pStruct9_global->shading_dist_mist;
   v5->flt_000020 = 1.0 / (float)pStruct9_global->shading_dist_mist;
+
+  //if vertices are identical, count them as one?
   if (v18)
   {
-   if (pStruct9_global->shading_dist_mist == array_50AC10[i].flt_00000C && v5->flt_000010 == array_50AC10[i].flt_000010)
+   if (pStruct9_global->shading_dist_mist != array_50AC10[i].flt_00000C ||
+       v5->flt_000010 != array_50AC10[i].flt_000010 ||
+       v5->flt_000014 != array_50AC10[i].flt_000014)
    {
-    if (v5->flt_000014 != array_50AC10[i].flt_000014)
-    {
-      v5++;
-      ++v22;
-    }
+    v5++;
+    ++v22;
    }
   }
-  else if (pStruct9_global->shading_dist_mist == array_50AC10[i + 1].flt_00000C && v5->flt_000010 == array_50AC10[i + 1].flt_000010)
+  else if (pStruct9_global->shading_dist_mist != array_50AC10[i + 1].flt_00000C ||
+           v5->flt_000010 != array_50AC10[i + 1].flt_000010 ||
+           v5->flt_000014 != array_50AC10[i + 1].flt_000014)
   {
-    if (v5->flt_000014 != array_50AC10[i + 1].flt_000014)
-    {
-      v5++;
-      ++v22;
-    }
+   v5++;
+   ++v22;
   }
 
 
 LABEL_22:
-    if ( v19 )
+    if (v19)
     {
       v13 = 1.0 / (array_50AC10[i + 1].flt_00000C + 0.0000001000000011686097);
       ++v22;
+      memcpy(v5, &array_50AC10[i + 1], sizeof(struct struct14));
       v5->flt_000020 = v13;
-      memcpy(v5++, &array_50AC10[i + 1], sizeof(struct struct14));
+      v5++;
     }
 
     v18 = v19;
@@ -524,7 +480,6 @@ LABEL_25:
  v134 = array_50A2B0;
  v127 = array_509950;
 
- runtime_warning(i <= v115 ?);
  for (i = 0; i < v115; ++i)
  {
   v29 = (int)(floorf(array_50A2B0[i + 1].flt_000018 + 0.5f)) <= class28_global.dword_000018;
@@ -532,7 +487,7 @@ LABEL_25:
   if (v25 == v29)
     goto LABEL_43;
 
-  if ((int)(floorf(array_50A2B0[i + 1].flt_000018 + 0.5f)) <= class28_global.dword_000018)
+  if (v29)
   {
    v32 = (class28_global.dword_000018 - array_50A2B0[i].flt_000018) /
          (array_50A2B0[i + 1].flt_000018 - array_50A2B0[i].flt_000018);
@@ -552,7 +507,7 @@ LABEL_25:
   }
 
   v127->flt_000018 = class28_global.dword_000018;
-  if ( v25 )
+  if (v25)
   {
    if (floorf(v127->flt_00001C + 0.5f) != floorf(array_50A2B0[i].flt_00001C + 0.5f) ||
        floorf(v127->flt_000018 + 0.5f) != floorf(array_50A2B0[i].flt_000018 + 0.5f))
@@ -716,17 +671,15 @@ LABEL_43:
  {
   array_508690[i].flt_00000C = 1.0 / array_508690[i].flt_000020;
 
-  if (floorf(array_508690[i].flt_000018 + 0.5f) > class28_global.dword_000010 &&
-      floorf(array_508690[i].flt_000018 + 0.5f) <= class28_global.dword_000018)
+  if (floorf(array_508690[i].flt_000018 + 0.5f) < class28_global.dword_000010)
     array_508690[i].flt_000018 = v106;
-  else
+  else if (floorf(array_508690[i].flt_000018 + 0.5f) > class28_global.dword_000018)
     array_508690[i].flt_000018 = v105;
 
   if (floorf(array_508690[i].flt_00001C + 0.5f) > class28_global.dword_00001C)
     array_508690[i].flt_00001C = v107;
   else if (floorf(array_508690[i].flt_00001C + 0.5f) < class28_global.dword_000014)
     array_508690[i].flt_00001C = v109;
-
  }
 
  if (v121 > 3)
@@ -762,10 +715,10 @@ LABEL_43:
   while ( v110 - 1 < v121);
  }
 
- if (v121 > 3)
-   return 0;
- else
+ if (v121 >= 3)
    return v121;
+ else
+   return 0;
 }
 
 //----- (0042620A) --------------------------------------------------------

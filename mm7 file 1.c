@@ -131,8 +131,9 @@ void sub_4829B9(struct struct14 *a1, struct struct14 *a2, struct struct14 *a3, s
  a4->flt_000008 = v17;
 }
 
+
 //----- (004789DE) --------------------------------------------------------
-void __cdecl sub_4789DE()
+void sub_4789DE()
 {
   int v1; // ebx@2
   struct class51_stru2 *v3; // edi@4
@@ -195,11 +196,10 @@ void __cdecl sub_4789DE()
     continue;
 
   pClass51_global->pBModels[i].dword_000040 |= 0x0001;
-
   for (j = 0; j < pClass51_global->pBModels[i].dword_00004C; ++j)
   {
    v3 = &pClass51_global->pBModels[i].ptr_000054[j];
-
+ 
       if ( !(pClass51_global->pBModels[i].ptr_000054[j].byte_000010[13] & 0x20))
       {
         v7 = pClass51_global->pBModels[i].ptr_000054[j].array_000020[0];
@@ -209,7 +209,7 @@ void __cdecl sub_4789DE()
         v77 = 0;
 
         v10 = (double)v8;
-
+        
         for (k = 0; k < pClass51_global->pBModels[i].ptr_000054[j].byte_00012E; ++k)
         {
          v11 = &pModel->ptr_000048[v3->array_000020[k]];
@@ -324,8 +324,12 @@ LABEL_71:
             //*(float *)(v32 + 0x50AC00) = v34;
          array_50AC10[k].flt_000020 = 1.0 / (array_73D150[k].flt_00000C + 0.0000001000000011686097);
 
-         v86 = p14->dword_000028 + v3->array_000020[20 + i];
-         v35 = p14->dword_00002C + v3->array_000020[40 + i];
+         //          v33 = v3 + 0x70;
+            //v86 = *(_DWORD *)(v14 + 40) + *(_WORD *)(v33 - 40);
+            //*(float *)(v32 + 5286916) = (double)v86 * v30;
+            //v35 = *(_DWORD *)(v14 + 44) + *(_WORD *)v33;
+         v86 = p14->dword_000028 + (signed int)v3->array_000048[k];
+         v35 = p14->dword_00002C + (signed int)v3->array_000070[k];
 
             //*(float *)(v32 + 0x50AC04) = (double)v86 * v30;
          array_50AC10[k].u = v86 * (1.0 / p14->ptr_00003C->uTextureWidth);
@@ -358,8 +362,16 @@ LABEL_71:
         {
           v38 = sub_4250FE(pClass51_global->pBModels[i].ptr_000054[j].byte_00012E);
           v39 = v38;
-          if ( !v38 || (sub_481E55(v38), v40 = sub_4254D2(v39), *(_DWORD *)(v14 + 20) = v40, !v40) )
+          if ( !v38)
             goto LABEL_71;
+
+          sub_481E55(v38);
+          v40 = sub_4254D2(v39);
+          p14->dword_000014 = v40;
+          if (!v40)
+            goto LABEL_71;
+
+
           sub_48276F(v14);
           v41 = 0;
           if ( *(_DWORD *)(v14 + 20) > 0 )
@@ -751,7 +763,7 @@ LABEL_14:
 
  sub_4789DE();
  sub_47F5C6_MessWithTerrainDrawing();
-  //sub_486F92_MessWithEdgesAndSpans();
+ sub_486F92_MessWithEdgesAndSpans();
  sub_487355();
 
 LABEL_16:

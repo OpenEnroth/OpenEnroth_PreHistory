@@ -1690,8 +1690,8 @@ struct struct14
  float flt_00000C;
  float flt_000010;
  float flt_000014;
- float flt_000018;
- float flt_00001C;
+ float flt_000018;  // value lies between class28_global.dword_000010 and class28_global.dword_000018
+ float flt_00001C; //  value lies between class28_global.dword_000014 and class28_global.dword_00001C
  float flt_000020;
  float u;          // float @ 000024   looks like texture coordinates
  float v;          // float @ 000028
