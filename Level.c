@@ -1586,7 +1586,7 @@ bool sub_482170(struct class51_stru2 *_this, struct struct14 *a2, struct struct8
   if (a2[0].y == a2[1].y)
   {
     if (a2[1].y == a2[v3 - 1].y)
-      a3->dword_000030 |= 0x10;
+      a3->word_000030 |= 0x10;
   }
 
   v19 = a2[1].flt_00000C - a2->flt_00000C;

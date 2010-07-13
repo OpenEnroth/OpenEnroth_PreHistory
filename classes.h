@@ -594,7 +594,17 @@ struct class18
    short  word_00001E;
   };
  };
- struct SomeSpriteData *pSomeSpriteData;  // dword @ 000020   sprite: some data ptr
+
+ union
+ {
+  struct SomeSpriteData *pSomeSpriteData;  // dword @ 000020   sprite: some data ptr
+  struct
+  {
+   short word_000020;
+   short word_000022;
+  };
+ };
+
  union
  {
   unsigned char *ptr_000024; // dword @ 000024  sprite: decompressed sprite data
@@ -1457,12 +1467,13 @@ struct struct8
  int                    dword_000024;
  int                    dword_000028;
  int                    dword_00002C;
- int                    dword_000030;   // word_000018 in struct TileDesc
+ short                  word_000030;  // word_000018 in struct TileDesc  0x4000 flag -> TextureFrameTable unsupported
+ short                  word_000032;
  int                    dword_000034;
  struct class57        *ptr_000038;
  struct class18        *ptr_00003C;
- struct Span           *ptr_000040;
- struct Span           *ptr_000044;
+ struct Span           *ptr_000040; // head  ?
+ struct Span           *ptr_000044;  // and tail ?
  int                  **ptr_000048;
  short                  word_00004C;    // word_000012 in struct TileDesc
  short                  word_00004E;
@@ -1648,10 +1659,10 @@ struct Span
 {
  struct Span    *pNext;        // dword @ 000000
  struct struct8 *pParent;      // dword @ 000004
- short           word_000008;  // -1 here for final span
- short           word_00000A;
+ short           word_000008;  //  screen-space x?  -1 for final span
+ short           word_00000A;  //  screen-space y?
  short           word_00000C;
- short           word_00000E;
+ short           word_00000E;  // data_6BE060.dword_6BE064 goes here
  char            byte_000010[8];
 };
 //sizeof == 18

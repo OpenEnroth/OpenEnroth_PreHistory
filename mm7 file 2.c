@@ -15712,7 +15712,8 @@ int sub_47A384(const char *pLevelFilename, void *a2)
 
  for (i = 0; i < 2000; ++i)
  {
-  array_77EC08[i].dword_000030 = 0;
+  array_77EC08[i].word_000030 = 0;
+  array_77EC08[i].word_000032 = 0;
   array_77EC08[i].ptr_000038 = pClass57_global;
   array_77EC08[i].ptr_000040 = 0;
   array_77EC08[i].ptr_000044 = 0;
@@ -17454,7 +17455,7 @@ int __fastcall sub_423B5D(int a1)
       else
       {
         LOBYTE(v23) = *(int *)((char *)dword_50B918 + v22) >= 0;
-        v25 = ((unsigned int)&unk_800000 & (v23 - 1)) - 4194304;
+        v25 = (0x00800000 & (v23 - 1)) - 4194304;
       }
     }
     v28 = *(int *)((char *)dword_50B738 + v22);
@@ -17477,7 +17478,7 @@ int __fastcall sub_423B5D(int a1)
       else
       {
         LOBYTE(v29) = *(int *)((char *)dword_50B918 + v22) >= v24;
-        v30 = ((unsigned int)&unk_800000 & (v29 - 1)) - 4194304;
+        v30 = (0x00800000 & (v29 - 1)) - 4194304;
       }
     }
     *(int *)((char *)&dword_50BA08 + v22) = v30;

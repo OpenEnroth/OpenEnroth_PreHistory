@@ -997,7 +997,7 @@ void __stdcall sub_426A5A(int a1)
   sub_421B2C();
   ItemGen_Reset((int)Dst);
   v1 = 0;
-  v2 = ((unsigned int)&unk_800000 & *(_DWORD *)(a1 + 36)) == 0;
+  v2 = (0x00800000 & *(_DWORD *)(a1 + 36)) == 0;
   v15 = 0;
   v16 = 0;
   if ( v2 )
@@ -1075,7 +1075,7 @@ LABEL_55:
     sub_459667(a1);
     return;
   }
-  if ( (unsigned int)&unk_800000 & *(_DWORD *)(a1 + 36) )
+  if (0x00800000 & *(_DWORD *)(a1 + 36) )
   {
     if ( *(_DWORD *)(a1 + 672) )
     {
@@ -1083,9 +1083,9 @@ LABEL_55:
       ItemGen_Reset(a1 + 672);
       v10 = dword_5D29EC[12 * *(_DWORD *)Dst];
       if ( v16 )
-        sprintfex(pStringBuffer, pGlobalTXT_LocalizationStrings[490], v16, v10);
+        wsprintfA(pStringBuffer, pGlobalTXT_LocalizationStrings[490], v16, v10);
       else
-        sprintfex(pStringBuffer, pGlobalTXT_LocalizationStrings[471], v10);
+        wsprintfA(pStringBuffer, pGlobalTXT_LocalizationStrings[471], v10);
       sub_44C175(pStringBuffer, 2);
       if ( !Party_AddItem(pParty_global, (int)Dst) )
         sub_4936E1(pParty_global, Dst);

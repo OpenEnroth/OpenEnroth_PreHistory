@@ -177,7 +177,7 @@ void __fastcall sub_481212(int a1, int a2, int a3)
       if ( v17 != -1 )
       {
         v20 = LODWORD(v100);
-        array_77EC08[pStruct9_global->dword_00002C].dword_000030 = 0x8010 | class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v102, v101);
+        array_77EC08[pStruct9_global->dword_00002C].word_000030 = 0x8010 | class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v102, v101);
         array_77EC08[pStruct9_global->dword_00002C].byte_000059 = 1;
         array_77EC08[pStruct9_global->dword_00002C].byte_00005C = v95;
         array_77EC08[pStruct9_global->dword_00002C].byte_00005D = v20;
@@ -297,7 +297,7 @@ LABEL_105:
     v40 = 0x80 | class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v102, v101);
 
     v41 = LODWORD(v100);
-    array_77EC08[pStruct9_global->dword_00002C].dword_000030 = v40;
+    array_77EC08[pStruct9_global->dword_00002C].word_000030 = v40;
     v42 = v93;
     *(_BYTE *)(v37 + 89) = 1;
     *(_BYTE *)(v37 + 93) = v41;
@@ -8114,12 +8114,11 @@ void UI_Initialize_Icons()
 void __fastcall sub_486B4E(struct struct14 *a1, int *a2, int *a3, struct struct8 *a4)
 {
  int v0;
+  float v4;
+  float v5;
   int v10; // ebx@8
   int v11; // eax@10
-  double v22; // st7@16
-  double v26; // st7@18
   int i; // edx@20
-  double v28; // st7@28
   char v31; // [sp-18h] [bp-98h]@2
   int v32; // [sp-14h] [bp-94h]@2
   int v33; // [sp-10h] [bp-90h]@2
@@ -8131,12 +8130,11 @@ void __fastcall sub_486B4E(struct struct14 *a1, int *a2, int *a3, struct struct8
   int v52; // [sp+5Ch] [bp-24h]@14
   int v53; // [sp+60h] [bp-20h]@6
   int v54; // [sp+64h] [bp-1Ch]@6
-  float v59; // [sp+78h] [bp-8h]@10
   char *v61; // [sp+8Ch] [bp+Ch]@2
  struct Edge *pEdge;
 
 
-  if (a4->dword_000030 & 0x4000)
+  if (a4->word_000030 & 0x4000)
   {
     v61 = &v31;
     sub_40E2C8(&v31, "The Texture Frame Table is not a supported feature.", (int)((char *)&a4 + 3));
@@ -8177,20 +8175,19 @@ void __fastcall sub_486B4E(struct struct14 *a1, int *a2, int *a3, struct struct8
   if (a3[i] < v53)
     v53 = a3[i];
 
-  v59 = a3[v10];
-
-  v52 = floorf(v59 - a3[i] + 0.5f);
+  v52 = floorf(a3[v10] - a3[i] + 0.5f);
   if (!v52)
     continue;
 
-  if (v52 > 0)
+  if (v52 >= 0)
   {
+   v4 = a3[i];
+   v5 = a3[v10];
+
    ptr_80C978->dword_000008 = 1;
 
-   v26 = (double)(a2[v10] - a2[i]) / (double)(a3[v10] - a3[i]);
-   
-   ptr_80C978->flt_000000 = (a3[v10] - a3[i]) * v26 + a2[i];
-   ptr_80C978->flt_000004 = v26;
+   ptr_80C978->flt_000004 = (double)(a2[v10] - a2[i]) / (double)(a3[v10] - a3[i]);
+   ptr_80C978->flt_000000 = (a3[i] - a3[i]) * ptr_80C978->flt_000004 + a2[i];
 
    if (v0)
    {
@@ -8205,14 +8202,13 @@ void __fastcall sub_486B4E(struct struct14 *a1, int *a2, int *a3, struct struct8
   }
   else
   {
-   v59 = a3[i];
+   v4 = a3[v10];
+   v5 = a3[i];
 
    ptr_80C978->dword_000008 = 0;
-
-   v22 = (double)(a2[i] - a2[v10]) / (double)(a3[i] - a3[v10]);
    
-   ptr_80C978->flt_000000 = (a3[i] - a3[v10]) * v22 + a2[v10];
-   ptr_80C978->flt_000004 = v22;
+   ptr_80C978->flt_000004 = (double)(a2[i] - a2[v10]) / (double)(a3[i] - a3[v10]);
+   ptr_80C978->flt_000000 = (a3[v10] - a3[v10]) * ptr_80C978->flt_000004 + a2[v10];
 
    if (v0)
    {
@@ -8226,8 +8222,8 @@ void __fastcall sub_486B4E(struct struct14 *a1, int *a2, int *a3, struct struct8
    }
   }
 
-  v46 = floorf(a3[i] + 0.5f);
-  for (pEdge = &pNewEdgesBuf[a3[i]]; pEdge->pNext->flt_000000 < ptr_80C978->flt_000000; pEdge = pEdge->pNext)
+  v46 = floorf(v4 + 0.5f);
+  for (pEdge = &pNewEdgesBuf[v46]; pEdge->pNext->flt_000000 < ptr_80C978->flt_000000; pEdge = pEdge->pNext)
     ;
 
   if (pEdge->flt_000000 != ptr_80C978->flt_000000 || pEdge->dword_000008 || ptr_80C978->dword_000008 != 1 )
@@ -8240,9 +8236,8 @@ void __fastcall sub_486B4E(struct struct14 *a1, int *a2, int *a3, struct struct8
    ptr_80C978->pNext = pEdge;
    pEdge->pPrev->pNext = ptr_80C978;
   }
-  v28 = v59 - 1.0;
 
-  v45 = floorf(v28 + 0.5f);
+  v45 = floorf(v5 - 1.0 + 0.5f); 
   ptr_80C978->ptr_000018 = ptr_80CA10[v45];
   ptr_80CA10[v45] = ptr_80C978;
 
@@ -8273,7 +8268,7 @@ void __fastcall sub_486B4E(struct struct14 *a1, int *a2, int *a3, struct struct8
    pStruct9_global->uNumSurfs++;
   }
 
-  if (a4->byte_000108)
+  if (v0)
     a4->byte_000108 = 1;
  }
 }

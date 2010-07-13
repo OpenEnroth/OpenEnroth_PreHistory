@@ -920,7 +920,7 @@ signed int __thiscall sub_484442(int this);
 signed int __thiscall sub_4847EB(int this);
 signed int __fastcall sub_485044(int a1, int a2, int a3);
 signed int __fastcall sub_485407(int a1);
-signed int __fastcall sub_48585C(int a1, int a2, int a3);
+signed int __fastcall sub_48585C_MaybeDrawSpan(int a1, int a2, int a3);
 int __fastcall sub_485975(int a1, int a2);
 int __fastcall sub_485A24(int a1, int a2);
 int __fastcall sub_485AFF(int a1, int a2);
@@ -934,7 +934,7 @@ int __thiscall sub_48653D(void *this, int a2, int a3, int a4, int a5, int a6, in
 void __fastcall sub_486B4E(int a1, int a2, int *a3, int a4);
 void __cdecl sub_486F92_MessWithEdgesAndSpans();
 void __cdecl sub_487355();
-__int16 __cdecl sub_487389();
+void sub_487389();
 void __cdecl sub_487DA9_ResetSomeStruct8ArrayFlags();
 int __thiscall sub_487E1D(int this);
 int __thiscall sub_487E3B(int this, int a2);

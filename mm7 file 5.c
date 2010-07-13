@@ -14578,7 +14578,7 @@ bool sub_481FC9(struct struct14 *a1, struct struct14 *a2, struct struct14 *a3, s
   }
   */
   if (a1->y == a2->y && a2->y == a3->y)
-    a4->dword_000030 |= 0x10;
+    a4->word_000030 |= 0x10;
 
   
     //fld     a1->flt_00000C
@@ -16953,7 +16953,7 @@ LABEL_12:
 }
 
 //----- (0048585C) --------------------------------------------------------
-signed int __fastcall sub_48585C(int a1, int a2, int a3)
+signed int __fastcall sub_48585C_MaybeDrawSpan(int a1, int a2, int a3)
 {
   int v3; // edi@1
   int v4; // esi@1

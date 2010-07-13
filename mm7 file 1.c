@@ -226,9 +226,9 @@ void sub_4789DE()
 
 
         v14 = p14 = &array_77EC08[pStruct9_global->dword_00002C];
-        p14->dword_000030 = 0;
+        p14->word_000030 = 0;
         if ( v84 == pClass51_global->pBModels[i].ptr_000054[j].byte_00012E)
-          p14->dword_000030 = 65536;
+          p14->word_000030 = 65536;
 
         p14->ptr_000054 = v3;
         p14->dword_000014 = pClass51_global->pBModels[i].ptr_000054[j].byte_00012E;
@@ -293,19 +293,19 @@ LABEL_71:
         LOBYTE(v24) = v24 | 6;
         p14->word_00004C = v24;
         if (v3->byte_000010[12] & 0x10)
-          p14->dword_000030 |= 0x02;
+          p14->word_000030 |= 0x02;
         if (v3->byte_000010[14] & 0x40)
-          p14->dword_000030 |= 0x0400;
+          p14->word_000030 |= 0x0400;
 
         if (v3->byte_000010[12] & 0x04)
-          p14->dword_000030 |= 0x0400;
+          p14->word_000030 |= 0x0400;
         else if (v3->byte_000010[12] & 0x20)
-          p14->dword_000030 |= 0x0800;
+          p14->word_000030 |= 0x0800;
 
         if (v3->byte_000010[13] & 0x08)
-          p14->dword_000030 |= 0x2000;
+          p14->word_000030 |= 0x2000;
         else if (v3->byte_000010[12] & 0x40)
-          p14->dword_000030 |= 0x1000;
+          p14->word_000030 |= 0x1000;
 
         for (k = 0; k < pClass51_global->pBModels[i].ptr_000054[j].byte_00012E; ++k)
         {
@@ -741,7 +741,7 @@ LABEL_14:
 
  sub_4789DE();
  sub_47F5C6_MessWithTerrainDrawing();
- //sub_486F92_MessWithEdgesAndSpans();
+ sub_486F92_MessWithEdgesAndSpans();
  sub_487355();
 
 LABEL_16:
@@ -749,7 +749,7 @@ LABEL_16:
  dword_519AB4 = 0;
  if (!pD3DRenderer->dword_040088)
  {
-  sub_487389();
+  //sub_487389_DrawSpansAndAll();
   class08_sub_438240(pGame->class08_obj);
  }
   CGame_sub_44F120_MaybeStackStationaryLights(pGame, -1);
@@ -2579,54 +2579,37 @@ int __fastcall sub_46BE0A(unsigned int a1)
 }
 
 //----- (00487389) --------------------------------------------------------
-__int16 __cdecl sub_487389()
+void sub_487389_DrawSpansAndAll()
 {
  struct struct8 *v0; // eax@1
-  int v1; // ebx@1
-  int v3; // edi@6
-  int v4; // esi@9
+ struct Span *pSpan; // edi@6
+ struct struct8 * v4; // esi@9
   int v5; // ebp@10
-  int v6; // edx@16
-  int v7; // esi@16
-  _UNKNOWN *v8; // ecx@17
   int v9; // edi@22
-  int v10; // eax@26
-  int v11; // eax@27
   int v12; // ebp@32
   int v13; // esi@33
-  int v14; // ecx@37
-  int v15; // eax@39
   int v16; // eax@39
   int v17; // eax@39
   int v18; // ebp@51
   int v19; // eax@51
-  int v20; // eax@54
-  char v21; // al@56
   unsigned int v22; // eax@57
-  int v23; // ecx@57
   unsigned int v24; // eax@57
-  int v25; // eax@65
-  int v26; // eax@67
-  int v27; // eax@78
   signed int v28; // edx@79
   signed int v29; // ecx@79
   int v30; // eax@106
   int v31; // ebp@117
   char *v32; // esi@118
   unsigned int v33; // ST04_4@124
-  int v35; // [sp+18h] [bp-44h]@80
-  signed int v37; // [sp+20h] [bp-3Ch]@79
   int v38; // [sp+24h] [bp-38h]@4
-  int v40; // [sp+2Ch] [bp-30h]@1
   int v41; // [sp+2Ch] [bp-30h]@26
   int v42; // [sp+2Ch] [bp-30h]@116
-  char v43; // [sp+30h] [bp-2Ch]@57
- int i;
+
+  //char v43; // [sp+30h] [bp-2Ch]@57
+  struct class57 local_30;
+
+ int i, j, k;
  struct struct8 *pStruct8Array;
  unsigned int    uNumStructs;
-
- v1 = pD3DRenderer->pTargetSurface;
- v40 = pD3DRenderer->pTargetSurface;
 
  pStruct8Array = array_77EC08;
  uNumStructs = pStruct9_global->dword_00002C;
@@ -2643,334 +2626,324 @@ __int16 __cdecl sub_487389()
   v38 = &pStruct8Array[i].ptr_000040;
 
   if (pParty_global->dword_007778 & 2)
-    v3 = pStruct8Array[i].ptr_000040;
+    pSpan = pStruct8Array[i].ptr_000040;
   else
-    v3 = *(_DWORD *)(dword_80AA28[i] + 64);
+    pSpan = dword_80AA28[i]->ptr_000040;
 
-  if (!v3)
+  if (!pSpan)
     continue;
 
-  v4 = *(_DWORD *)(v3 + 4);
-  if (!v4)
+  v4 = pSpan->pParent;
+  if (!pSpan->pParent)
     continue;
 
-      v5 = *(_DWORD *)(v4 + 60);
-      if (!v5)
-        continue;
+  v5 = pSpan->pParent->ptr_00003C;
+  if (!v5)
+    continue;
 
-      if ( *(_WORD *)(v3 + 8) >= class28_global.dword_000010 || *(_WORD *)(v3 + 12) != class28_global.dword_000010 )
-      {
-        *(_BYTE *)(v4 + 50) |= 2;
-        v14 = *(_DWORD *)(v4 + 48);
-        if ( v14 & 0x10 && *(_BYTE *)(v4 + 89) != 5 )
-        {
-          v16 = (*(_BYTE *)(v4 + 92) - 64) << 25;
-          dword_80AA20 = v16;
-          dword_80AA1C = v16 + 33488896;
-          v17 = (*(_BYTE *)(v4 + 93) << 25) + 2147418112;
-          dword_80AA14 = v17;
-          dword_80AA18 = v17 - 33488896;
-          byte_80AA10 = ((unsigned int)class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(
-                                         pClass51_global,
-                                         *(_BYTE *)(v4 + 92),
-                                         *(_BYTE *)(v4 + 93) - 1) >> 9) & 1;
-          v15 = *(_DWORD *)(v4 + 48);
-          if ( *(_DWORD *)(v4 + 48) & 2 || BYTE1(v15) & 1 )
-          {
-            if ( *(_DWORD *)(v4 + 48) & 2 )
-            {
-              while ( 1 )
-              {
-                if ( dword_6BE0D4 )
-                  sub_48408A(v3);
-                else
-                  sub_485407(v3);
-                *(_WORD *)(v3 + 14) = data_6BE060.dword_6BE064;
-                if ( *(_DWORD *)(v4 + 68) == v3 )
-                  break;
-                v3 = *(_DWORD *)v3;
-              }
-            }
-            else
-            {
-              while ( 1 )
-              {
-                v18 = *(_DWORD *)(v4 + 60);
-                v19 = class17_LoadTexture(pClass17_Bitmaps_LOD, "wtrtyl", 0);
-                *(_DWORD *)(v4 + 60) = v19 != -1 ? 72 * v19 + 7278780 : 0;
-                if ( dword_6BE0D4 )
-                  sub_48408A(v3);
-                else
-                  sub_485407(v3);
-                v20 = *(_BYTE *)(v4 + 92) - 64;
-                *(_DWORD *)(v4 + 60) = v18;
-                dword_80AA20 = v20 << 25;
-                dword_80AA1C = dword_80AA20 + 33488896;
-                dword_80AA14 = (*(_BYTE *)(v4 + 93) << 25) + 2147418112;
-                dword_80AA18 = dword_80AA14 - 33488896;
-                byte_80AA10 = ((unsigned int)class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(
-                                               pClass51_global,
-                                               *(_BYTE *)(v4 + 92),
-                                               *(_BYTE *)(v4 + 93) - 1) >> 9) & 1;
-                sub_484442(v3);
-                *(_WORD *)(v3 + 14) = data_6BE060.dword_6BE064;
-                if ( *(_DWORD *)(v4 + 68) == v3 )
-                  break;
-                v3 = *(_DWORD *)v3;
-              }
-            }
-          }
-          else
-          {
-            while ( sub_48408A(v3) )
-            {
-              *(_WORD *)(v3 + 14) = data_6BE060.dword_6BE064;
-              if ( *(_DWORD *)(v4 + 68) == v3 )
-                break;
-              v3 = *(_DWORD *)v3;
-            }
-          }
-        }
-        else
-        {
-          v21 = *(_BYTE *)(v4 + 89);
-          if ( v21 != 5 )
-          {
-            if ( v14 & 2 )
-            {
-              while ( 1 )
-              {
-                v30 = class17_LoadTexture(pClass17_Bitmaps_LOD, "wtrtyla", 0);
-                *(_DWORD *)(v4 + 60) = v30 != -1 ? 72 * v30 + 7278780 : 0;
-                if ( !sub_4847EB(v3) )
-                  break;
-                *(_DWORD *)(v4 + 60) = v5;
-                if ( !sub_484442(v3) )
-                  break;
-                *(_WORD *)(v3 + 14) = data_6BE060.dword_6BE064;
-                if ( *(_DWORD *)(v4 + 68) == v3 )
-                  break;
-                v3 = *(_DWORD *)v3;
-                v5 = *(_DWORD *)(v4 + 60);
-              }
-            }
-            else
-            {
-              if ( v21 == 1 )
-              {
-                dword_80AA20 = (*(_BYTE *)(v4 + 92) - 64) << 25;
-                dword_80AA1C = dword_80AA20 + 33488896;
-                dword_80AA14 = (*(_BYTE *)(v4 + 93) << 25) + 2147418112;
-                dword_80AA18 = dword_80AA14 - 33488896;
-                byte_80AA10 = ((unsigned int)class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(
-                                               pClass51_global,
-                                               *(_BYTE *)(v4 + 92),
-                                               *(_BYTE *)(v4 + 93) - 1) >> 9) & 1;
-                while ( 1 )
-                {
-                  if ( !sub_4847EB(v3) )
-                    sub_48585C(v3, pD3DRenderer->pTargetSurface + (*(_WORD *)(v3 + 8) + 640 * *(_WORD *)(v3 + 10)), 0);
-                  *(_WORD *)(v3 + 14) = data_6BE060.dword_6BE064;
-                  if ( *(_DWORD *)(v4 + 68) == v3 )
-                    break;
-                  v3 = *(_DWORD *)v3;
-                }
-              }
-            }
-            continue;
-          }
-          *(_DWORD *)(v4 + 56) = &v43;
-          sub_479295(v4);
-          v24 = GetTickCount();
-          v23 = *(_DWORD *)(v4 + 48);
-          v22 = v24 >> 3;
-          if ( BYTE1(v23) & 4 )
-          {
-            *(_DWORD *)(v4 + 44) -= v22 & *(_WORD *)(*(_DWORD *)(v4 + 60) + 34);
-          }
-          else
-          {
-            if ( BYTE1(v23) & 8 )
-              *(_DWORD *)(v4 + 44) += v22 & *(_WORD *)(*(_DWORD *)(v4 + 60) + 34);
-          }
-          if ( BYTE1(v23) & 0x10 )
-          {
-            *(_DWORD *)(v4 + 40) -= v22 & *(_WORD *)(*(_DWORD *)(v4 + 60) + 32);
-          }
-          else
-          {
-            if ( BYTE1(v23) & 0x20 )
-              *(_DWORD *)(v4 + 40) += v22 & *(_WORD *)(*(_DWORD *)(v4 + 60) + 32);
-          }
-          v25 = *(_DWORD *)(v4 + 56);
-          *(_WORD *)(v4 + 82) = 32;
-          *(_BYTE *)(v4 + 90) = 5;
-          if ( (double)abs(*(_DWORD *)(v25 + 12)) > *(double *)&byte_4D8410[992] )
-          {
-            *(_WORD *)(v4 + 82) = 8;
-            *(_BYTE *)(v4 + 90) = 3;
-          }
-          v26 = *(_DWORD *)(v4 + 48);
-          if ( !(v26 & 0x10000) )
-          {
-            if ( !(v26 & 2) )
-            {
-              v27 = *(_DWORD *)(v4 + 84);
-              if ( *(_BYTE *)(v27 + 303) == 1 )
-              {
-                v28 = *(_WORD *)(v27 + 72);
-                dword_80AA1C = v28;
-                dword_80AA20 = v28;
-                v29 = *(_WORD *)(v27 + 112);
-                dword_80AA14 = v29;
-                dword_80AA18 = v29;
-                v37 = 1;
-                if ( *(_BYTE *)(v27 + 302) > 1u )
-                {
-                  v35 = v27 + 114;
-                  do
-                  {
-                    if ( dword_80AA20 > *(_WORD *)(v35 - 40) )
-                      dword_80AA20 = *(_WORD *)(v35 - 40);
-                    if ( v28 < *(_WORD *)(v35 - 40) )
-                    {
-                      v28 = *(_WORD *)(v35 - 40);
-                      dword_80AA1C = *(_WORD *)(v35 - 40);
-                    }
-                    if ( dword_80AA18 > *(_WORD *)v35 )
-                      dword_80AA18 = *(_WORD *)v35;
-                    if ( v29 < *(_WORD *)v35 )
-                    {
-                      v29 = *(_WORD *)v35;
-                      dword_80AA14 = *(_WORD *)v35;
-                    }
-                    ++v37;
-                    v35 += 2;
-                  }
-                  while ( v37 < *(_BYTE *)(v27 + 302) );
-                  v1 = v40;
-                }
-                dword_80AA20 = (dword_80AA20 + *(_DWORD *)(v4 + 40)) << 16;
-                dword_80AA1C = ((v28 + *(_DWORD *)(v4 + 40)) << 16) - 65536;
-                dword_80AA18 = (dword_80AA18 + *(_DWORD *)(v4 + 44)) << 16;
-                dword_80AA14 = ((v29 + *(_DWORD *)(v4 + 44)) << 16) - 65536;
-              }
-              while ( 1 )
-              {
-                if ( !sub_482E07(v3, v1) )
-                  sub_48585C(v3, v1 + 2 * (*(_WORD *)(v3 + 8) + 640 * *(_WORD *)(v3 + 10)), 0);
-                *(_WORD *)(v3 + 14) = data_6BE060.dword_6BE064;
-                if ( *(_DWORD *)(v4 + 68) == v3 )
-                  break;
-                v3 = *(_DWORD *)v3;
-              }
-              continue;
-            }
-            while ( 1 )
-            {
-LABEL_74:
-              if ( !sub_4839BD(v3, v1) )
-                sub_48585C(v3, v1 + 2 * (*(_WORD *)(v3 + 8) + 640 * *(_WORD *)(v3 + 10)), 0);
-              *(_WORD *)(v3 + 14) = data_6BE060.dword_6BE064;
-              if ( *(_DWORD *)(v4 + 68) == v3 )
-                break;
-              v3 = *(_DWORD *)v3;
-            }
-            continue;
-          }
-          if ( v26 & 2 )
-            goto LABEL_74;
-          while ( 1 )
-          {
-            if ( !sub_482A94(v3) )
-              sub_48585C(v3, v1 + 2 * (*(_WORD *)(v3 + 8) + 640 * *(_WORD *)(v3 + 10)), 0);
-            *(_WORD *)(v3 + 14) = data_6BE060.dword_6BE064;
-            if ( *(_DWORD *)(v4 + 68) == v3 )
-              break;
-            v3 = *(_DWORD *)v3;
-          }
-        }
-      }
-      else
-      {
-        *(_WORD *)(v3 + 14) = data_6BE060.dword_6BE064;
-      }
-  }
-
-
-
-  if ( pParty_global->dword_007778 & 2 )
+  if (!(pSpan->word_000008 >= class28_global.dword_000010 || pSpan->word_00000C != class28_global.dword_000010))
   {
-    v7 = pStruct9_global->dword_00002C;
-    v6 = 0;
-    dword_80AA24[0] = 0;
-    if ( pStruct9_global->dword_00002C > 0 )
-    {
-      v8 = &array_77EC08[0].dword_000030;
-      do
-      {
-        v0 = *(_DWORD *)v8;
-        if ( (int)v0 & 0x20000 )
-        {
-          ++v6;
-          *(_DWORD *)v8 = (int)v0 & 0xFFFDFFFF;
-          v0 = (int)((char *)v8 - 48);
-          dword_80AA24[v6] = (int)((char *)v8 - 48);
-        }
-        v8 = (char *)v8 + 268;
-        --v7;
-      }
-      while ( v7 );
-      dword_80AA24[0] = v6;
-    }
+   pSpan->word_00000E = data_6BE060.dword_6BE064;
+   continue;
   }
-  v9 = pStruct9_global->uNumSpans;
-  data_6BE060.dword_6BE060 = pStruct9_global->uNumSpans;
-  if ( pStruct9_global->dword_00002C >= 1999 )
-    return v0;
-  sub_48607B_MessWithStruct8(&array_77EC08[1999], pClass57_global);
-  class57_sub_48694B(array_77EC08[1999].ptr_000038);
-  v0 = &pClass17_Bitmaps_LOD->aLODHeaders[pClass51_global->dword_0000EC];
-  dword_8018F8 = pClass51_global->dword_0000EC != -1 ? v0 : 0;
-  if ( !(pClass51_global->dword_0000EC != -1 ? v0 : 0) )
-    return v0;
-  byte_801914 = 23
-              - ((signed int)((unsigned __int64)(1310720i64
-                                               * (signed int)((unsigned __int64)((signed __int64)-pClass51_global->dword_000D38 << 16) >> 16)) >> 16) >> 16);
-  if ( byte_801914 > 20 )
-    byte_801914 = 20;
-  v10 = class59_SinCos(pClass59_global, pCamera->sRotationX - pClass59_global->uNumTableEntries);
-  dword_8018D8 = 0;
-  dword_8018D4 = v10;
-  dword_8018DC = class59_SinCos(pClass59_global, pCamera->sRotationX);
-  dword_8018E0 = 2048 - (pCamera->dword_000008 << 16);
-  v41 = (signed __int64)((double)(pCamera->dword_000008 * pStruct9_global->dword_000014) / ((double)pStruct9_global->dword_000014 + 8192.0) + (double)class28_global.dword_00002C);
+
+  v4->word_000032 |= 0x0002;
+  if (v4->word_000030 & 0x0010 && v4->byte_000059 != 5)
+  {
+   v16 = (v4->byte_00005C - 64) << 25;
+   dword_80AA20 = v16;
+   dword_80AA1C = v16 + 0x1FF0000;
+   v17 = ((unsigned int)(v4->byte_00005D) << 25) + 0x7FFF0000;
+   dword_80AA14 = v17;
+   dword_80AA18 = v17 - 0x1FF0000;
+
+   byte_80AA10 = ((unsigned int)class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pClass51_global, v4->byte_00005C, v4->byte_00005D - 1) / 512) & 1;
+
+   if (v4->word_000030 & 0x0002 || v4->word_000030 & 0x0100)
+   {
+    if (v4->word_000030 & 0x0002)
+    {
+     while (true)
+     {
+      if (dword_6BE0D4)
+        sub_48408A(pSpan);
+      else
+        sub_485407(pSpan);
+
+      pSpan->word_00000E = data_6BE060.dword_6BE064;
+      if (pSpan == v4->ptr_000044)
+        break;
+      pSpan = pSpan->pNext;
+     }
+    }
+    else
+    {
+     while (true)
+     {
+      v18 = v4->ptr_00003C;
+      v19 = class17_LoadTexture_New(pClass17_Bitmaps_LOD, L"wtrtyl"); // temporarely replace texture with a water tile
+
+      v4->ptr_00003C = &pClass17_Bitmaps_LOD->aLODHeaders[v19];
+      if (dword_6BE0D4)
+        sub_48408A(pSpan);
+      else
+        sub_485407(pSpan);
+
+      v4->ptr_00003C = v18;
+      dword_80AA20 = (v4->byte_00005C - 64) << 25;
+      dword_80AA1C = dword_80AA20 + 33488896;
+      dword_80AA14 = ((unsigned int)(v4->byte_00005D) << 25) + 2147418112;
+      dword_80AA18 = dword_80AA14 - 33488896;
+      byte_80AA10 = ((unsigned int)class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(
+                                               pClass51_global,
+                                               *(_BYTE *)(v4 + 92),
+                                               *(_BYTE *)(v4 + 93) - 1) >> 9) & 1;
+      sub_484442(pSpan);
+      pSpan->word_00000E = data_6BE060.dword_6BE064;
+      if (pSpan == v4->ptr_000044)
+        break;
+      pSpan = pSpan->pNext;
+     }
+    }
+   }
+   else
+   {
+    while (sub_48408A(pSpan))
+    {
+     pSpan->word_00000E = data_6BE060.dword_6BE064;
+     if (pSpan == v4->ptr_000044)
+       break;
+     pSpan = pSpan->pNext;
+    }
+   }
+  }
+  else
+  {
+   if (v4->byte_000059 != 5)
+   {
+    if (v4->word_000030 & 0x0002)
+    {
+     while (1)
+     {
+      v30 = class17_LoadTexture_New(pClass17_Bitmaps_LOD, L"wtrtyla");
+      v4->ptr_00003C = &pClass17_Bitmaps_LOD->aLODHeaders[v30];
+      if (!sub_4847EB(pSpan))
+        break;
+
+      v4->ptr_00003C = v5;
+      if (!sub_484442(pSpan))
+        break;
+
+      pSpan->word_00000E = data_6BE060.dword_6BE064;
+      if (pSpan == v4->ptr_000044)
+        break;
+
+      pSpan = pSpan->pNext;
+      v5 = v4->ptr_00003C;
+     }
+    }
+    else
+    {
+     if (v4->byte_000059 == 1)
+     {
+      dword_80AA20 = (v4->byte_00005C - 64) << 25;
+      dword_80AA1C = dword_80AA20 + 33488896;
+      dword_80AA14 = ((unsigned int)(v4->byte_00005D) << 25) + 2147418112;
+      dword_80AA18 = dword_80AA14 - 33488896;
+      byte_80AA10 = ((unsigned int)class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(pClass51_global,
+                                               v4->byte_00005C,
+                                               v4->byte_00005D - 1) >> 9) & 1;
+
+      while (true)
+      {
+       if (!sub_4847EB(pSpan))
+         sub_48585C_MaybeDrawSpan(pSpan, pD3DRenderer->pTargetSurface + (pSpan->word_000008 + 640 * pSpan->word_00000A), 0);
+
+       pSpan->word_00000E = data_6BE060.dword_6BE064;
+       if (pSpan == v4->ptr_000044)
+         break;
+       pSpan = pSpan->pNext;
+      }
+     }
+    }
+    continue;
+   }
+
+   v4->ptr_000038 = &local_30;
+   sub_479295(v4);
+
+   v24 = GetTickCount();
+   v22 = v24 / 8;
+
+   if (v4->word_000030 & 0x0400)
+     v4->dword_00002C -= v22 & v4->ptr_00003C->word_000022;
+   else if (v4->word_000030 & 0x0800)
+     v4->dword_00002C += v22 & v4->ptr_00003C->word_000022;
+
+   if (v4->word_000030 & 0x1000)
+     v4->dword_000028 -= v22 & v4->ptr_00003C->word_000020;
+   else if (v4->word_000030 & 0x2000)
+     v4->dword_000028 += v22 & v4->ptr_00003C->word_000020;
+
+   v4->word_000052 = 32;
+   v4->byte_00005A = 5;
+
+   if ((double)abs(v4->ptr_000038->dword_00000C) > *(double *)&byte_4D8410[992])
+   {
+    v4->word_000052 = 8;
+    v4->byte_00005A = 3;
+   }
+
+   //if ( !(v4->word_000032 & 0x1) )
+   if (~v4->word_000032 & 0x0001)
+   {
+    //if ( !(v4->word_000030 & 0x0002) )
+    if (~v4->word_000030 & 0x0002)
+    {
+     if (v4->ptr_000054->byte_00012F == 1)
+     {
+      v28 = v4->ptr_000054->array_000048[0];
+      dword_80AA1C = v28;
+      dword_80AA20 = v28;
+
+      v29 = v4->ptr_000054->array_000070[0];
+      dword_80AA14 = v29;
+      dword_80AA18 = v29;
+      
+      for (k = 1; k < v4->ptr_000054->byte_00012E; ++k)
+      {
+       if (dword_80AA20 > v4->ptr_000054->array_000048[k])
+         dword_80AA20 = v4->ptr_000054->array_000048[k];
+       if (v28 < v4->ptr_000054->array_000048[k])
+       {
+        v28 = v4->ptr_000054->array_000048[k];
+        dword_80AA1C = v4->ptr_000054->array_000048[k];
+       }
+
+       if (dword_80AA18 > v4->ptr_000054->array_000070[k])
+         dword_80AA18 = v4->ptr_000054->array_000070[k];
+       if ( v29 < v4->ptr_000054->array_000070[k])
+       {
+        v29 = v4->ptr_000054->array_000070[k];
+        dword_80AA14 = v4->ptr_000054->array_000070[k];
+       }
+      }
+
+      dword_80AA20 = (dword_80AA20 + v4->dword_000028) << 16;
+      dword_80AA1C = ((v28 + v4->dword_000028) << 16) - 65536;
+      dword_80AA18 = (dword_80AA18 + v4->dword_00002C) << 16;
+      dword_80AA14 = ((v29 + v4->dword_00002C) << 16) - 65536;
+     }
+
+     while (true)
+     {
+      if (!sub_482E07(pSpan, pD3DRenderer->pTargetSurface))
+       sub_48585C_MaybeDrawSpan(pSpan, pD3DRenderer->pTargetSurface + (pSpan->word_000008 + 640 * pSpan->word_00000A), 0);
+
+      pSpan->word_00000E = data_6BE060.dword_6BE064;
+      if (pSpan == v4->ptr_000044)
+        break;
+      pSpan = pSpan->pNext;
+     }
+     continue;
+    }
+
+    while (true)
+    {
+LABEL_74:
+     if (!sub_4839BD(pSpan, pD3DRenderer->pTargetSurface))
+       sub_48585C_MaybeDrawSpan(pSpan, pD3DRenderer->pTargetSurface + (pSpan->word_000008 + 640 * pSpan->word_00000A), 0);
+
+     pSpan->word_00000E = data_6BE060.dword_6BE064;
+     if (pSpan == v4->ptr_000044)
+       break;
+     pSpan = pSpan->pNext;
+    }
+    continue;
+   }
+
+   if (v4->word_000030 & 0x0002)
+     goto LABEL_74;
+
+   while (true)
+   {
+    if (!sub_482A94(pSpan))
+      sub_48585C_MaybeDrawSpan(pSpan, pD3DRenderer->pTargetSurface + (pSpan->word_000008 + 640 * pSpan->word_00000A), 0);
+
+    pSpan->word_00000E = data_6BE060.dword_6BE064;
+    if (pSpan == v4->ptr_000044)
+      break;
+    pSpan = pSpan->pNext;
+   }
+  }
+ }
+
+
+ if (pParty_global->dword_007778 & 2)
+ {
+  dword_80AA24[0] = 0;
+  for (i = 0; i < pStruct9_global->dword_00002C; ++i)
+  {
+   if (array_77EC08[i].word_000032 & 0x0002)
+   {
+    array_77EC08[i].word_000032 &= 0xFFFD;
+    dword_80AA24[dword_80AA24[0]++] = &array_77EC08[i];
+   }
+  }
+ }
+
+ data_6BE060.dword_6BE060 = pStruct9_global->uNumSpans;
+ if ( pStruct9_global->dword_00002C >= 1999 )
+   return;
+
+ sub_48607B_MessWithStruct8(&array_77EC08[1999], pClass57_global);
+ class57_sub_48694B(array_77EC08[1999].ptr_000038);
+
+ if (pClass51_global->dword_0000EC == -1)
+   return;
+ array_77EC08[1999].ptr_00003C = &pClass17_Bitmaps_LOD->aLODHeaders[pClass51_global->dword_0000EC];
+
+ array_77EC08[1999].byte_000058 = 23 - ((signed int)((unsigned __int64)(1310720i64
+                                               * (signed int)((unsigned __int64)((signed __int64)(-pClass51_global->dword_000D38) << 16) >> 16)) >> 16) >> 16);
+ if (array_77EC08[1999].byte_000058 > 20)
+   array_77EC08[1999].byte_000058 = 20;
+
+ array_77EC08[1999].dword_000018 = class59_SinCos(pClass59_global, pCamera->sRotationX - pClass59_global->uNumTableEntries);
+ array_77EC08[1999].dword_00001C = 0;
+ array_77EC08[1999].dword_000020 = class59_SinCos(pClass59_global, pCamera->sRotationX);
+ array_77EC08[1999].dword_000024 = 2048 - pCamera->dword_000008 * 65536;
+
+ v41 = (signed __int64)((double)(pCamera->dword_000008 * pStruct9_global->dword_000014) / ((double)pStruct9_global->dword_000014 + 8192.0) + (double)class28_global.dword_00002C);
+
   cos((double)pCamera->sRotationX * 0.003066406352445483);
   sin((double)pCamera->sRotationX * 0.003066406352445483);
-  sub_48607B_MessWithStruct8(&array_77EC08[1999], pClass57_global);
-  class57_sub_48694B(array_77EC08[1999].ptr_000038);
-  v0 = 72 * dword_6A0ED8 + 7278780;
-  dword_8018F8 = dword_6A0ED8 != -1 ? v0 : 0;
-  if ( !(dword_6A0ED8 != -1 ? v0 : 0) )
-    return v0;
-  byte_801914 = 0;
-  v11 = class59_SinCos(pClass59_global, pCamera->sRotationX + 16 - pClass59_global->uNumTableEntries);
-  dword_8018D8 = 0;
-  dword_8018D4 = -v11;
-  dword_8018DC = -class59_SinCos(pClass59_global, pCamera->sRotationX + 16);
-  LOWORD(v0) = 224 * pClass24_global2->dword_000024;
-  dword_8018E0 = 33554432;
-  dword_8018E4 = 224 * pClass24_global2->dword_000024;
-  dword_8018E8 = 224 * pClass24_global2->dword_000024;
-  if ( dword_6BE030 & 1
-    && (LOWORD(v0) = pParty_global->uCurrentHour, (unsigned int)pParty_global->uCurrentHour >= 5)
-    && (unsigned int)pParty_global->uCurrentHour < 0x15
-    || byte_6BE3C4 )
+
+ sub_48607B_MessWithStruct8(&array_77EC08[1999], pClass57_global);
+ class57_sub_48694B(array_77EC08[1999].ptr_000038);
+
+
+ if (dword_6A0ED8 == -1)
+    return;
+
+ array_77EC08[1999].ptr_00003C = &pClass17_Bitmaps_LOD->aLODHeaders[dword_6A0ED8];
+ array_77EC08[1999].byte_000058 = 0;
+
+
+ array_77EC08[1999].dword_000018 = -class59_SinCos(pClass59_global, pCamera->sRotationX + 16 - pClass59_global->uNumTableEntries);
+ array_77EC08[1999].dword_00001C = 0;
+ array_77EC08[1999].dword_000020 = -class59_SinCos(pClass59_global, pCamera->sRotationX + 16);
+ array_77EC08[1999].dword_000024 = 0x2000000;
+
+ array_77EC08[1999].dword_000028 = 224 * pClass24_global2->dword_000024;
+ array_77EC08[1999].dword_00002C = 224 * pClass24_global2->dword_000024;
+ 
+ v9 = pStruct9_global->uNumSpans;
+ if (dword_6BE030 & 1 && pParty_global->uCurrentHour >= 5 && pParty_global->uCurrentHour < 21 || byte_6BE3C4)
   {
-    v0 = *(_WORD *)sub_47BE72(*(_WORD *)(dword_8018F8 + 38), 31, 1);
-    v42 = v0;
+    v42 = *(_WORD *)sub_47BE72(array_77EC08[1999].ptr_00003C->word_000026, 31, 1);
     if ( v9 <= 0 )
-      return v0;
+      return;
+
     v31 = 24 * v9;
     while ( 1 )
     {
@@ -5801,7 +5774,8 @@ void __cdecl sub_481EB7_ResetStruct8Array()
 
  for (i = 0; i < pStruct9_global->dword_00002C; ++i)
  {
-  array_77EC08[i].dword_000030 = 0;
+  array_77EC08[i].word_000030 = 0;
+  array_77EC08[i].word_000032 = 0;
   array_77EC08[i].ptr_000040 = 0;
   array_77EC08[i].ptr_000044 = 0;
  }

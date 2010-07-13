@@ -57,7 +57,7 @@ struct Party
  unsigned int  uCurrentMonth;     // dword @ 000710
  int           uCurrentMonthWeek; // dword @ 000014
  unsigned int  uDaysPlayed;       // dword @ 000718
- int           uCurrentHour;      // dword @ 00071C
+ unsigned int  uCurrentHour;      // dword @ 00071C
  unsigned int  uCurrentMinute;    // dword @ 000720
  int           dword_000724;
  unsigned int  uNumFood;       // dword @ 000728

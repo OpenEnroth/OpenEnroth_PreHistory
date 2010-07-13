@@ -2095,34 +2095,12 @@ int dword_76E3C8[128]; // dword[128] @ MM7.exe::0076E3C8
  _UNKNOWN unk_77E5D8; // weak
  _UNKNOWN unk_77E5DC; // weak
 
-struct struct8 array_77EC08[2000]; //struct[2000] @ MM7.exe::0077EC08
-//_UNKNOWN unk_77EC08; // weak
-//_UNKNOWN unk_77EC38; // weak
-//_UNKNOWN unk_77EC40; // ::ptr_000038
-//_UNKNOWN unk_77EC4C; // ::dword_000044
-//_UNKNOWN unk_77EC5C; // ::byte_000048[12]
-//_UNKNOWN unk_77ED10; // weak
-//             7E7E5C     &array_77EC08[1607]
-//_UNKNOWN unk_7E7E7E; // array_77EC08[1607]::000022
-//_UNKNOWN unk_7F7F7F; // weak
- _UNKNOWN unk_800000; // weak
-//_UNKNOWN unk_8018BC; // &array_77EC08[1999]
- int dword_8018D4; // weak
- int dword_8018D8; // weak
- int dword_8018DC; // weak
- int dword_8018E0; // weak
- int dword_8018E4; // weak
- int dword_8018E8; // weak
-//int dword_8018F4; // array_77EC08[1999]::000038
- int dword_8018F8; // weak
- char byte_801914; // weak
-
-
-struct class57 *pClass57_global;   // struct @ MM7.exe::008019C8
-struct struct14 *ptr_801A04;       // ptr @ MM7.exe::00801A04
-struct struct14 *ptr_801A08;       // ptr @ MM7.exe::00801A08
-struct struct14 array_801A10[384]; // struct[384] @ MM7.exe::00801A10
-struct struct14 array_806210[384]; // struct[384] @ MM7.exe::00806210
+struct struct8 array_77EC08[2000]; // struct[2000] @ MM7.exe::0077EC08
+struct class57 *pClass57_global;   // struct       @ MM7.exe::008019C8
+struct struct14 *ptr_801A04;       // ptr          @ MM7.exe::00801A04
+struct struct14 *ptr_801A08;       // ptr          @ MM7.exe::00801A08
+struct struct14 array_801A10[384]; // struct[384]  @ MM7.exe::00801A10
+struct struct14 array_806210[384]; // struct[384]  @ MM7.exe::00806210
 
 
  char byte_80AA10; // weak

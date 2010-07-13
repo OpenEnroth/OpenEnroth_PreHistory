@@ -2136,15 +2136,15 @@ extern struct struct8 array_77EC08[2000]; //struct[2000] @ MM7.exe::0077EC08
 //_UNKNOWN unk_7F7F7F; // weak
 extern _UNKNOWN unk_800000; // weak
 //_UNKNOWN unk_8018BC; // &array_77EC08[1999]
-extern int dword_8018D4; // weak
-extern int dword_8018D8; // weak
-extern int dword_8018DC; // weak
-extern int dword_8018E0; // weak
-extern int dword_8018E4; // weak
-extern int dword_8018E8; // weak
+//extern int dword_8018D4; // array_77EC08[1999]::000018
+//extern int dword_8018D8; // array_77EC08[1999]::00001C
+//extern int dword_8018DC; // array_77EC08[1999]::000020
+//extern int dword_8018E0; // array_77EC08[1999]::000024
+//extern int dword_8018E4; // array_77EC08[1999]::000028
+//extern int dword_8018E8; // array_77EC08[1999]::00002C
 //int dword_8018F4; // array_77EC08[1999]::000038
-extern int dword_8018F8; // weak
-extern char byte_801914; // weak
+//extern struct class18 *dword_8018F8; // 00003C
+//extern char byte_801914; // 000058
 
 
 
