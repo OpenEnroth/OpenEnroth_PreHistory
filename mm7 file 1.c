@@ -153,23 +153,14 @@ void sub_4789DE()
   int v38; // eax@53
   signed int v39; // esi@53
   int v40; // eax@54
-  int v41; // edx@55
-  _UNKNOWN *v42; // ecx@56
-  double v43; // ST1C_8@57
-  double v44; // ST24_8@57
   int v45; // eax@60
   signed int v46; // esi@60
   int v47; // eax@61
-  int v48; // edx@62
   int v52; // eax@66
   float v57; // [sp+44h] [bp-7Ch]@50
   float v58; // [sp+48h] [bp-78h]@50
   float v59; // [sp+4Ch] [bp-74h]@50
-  float v65; // [sp+64h] [bp-5Ch]@57
-  float v66; // [sp+68h] [bp-58h]@57
-  int v71; // [sp+7Ch] [bp-44h]@57
   int v73; // [sp+84h] [bp-3Ch]@23
-  int v75; // [sp+8Ch] [bp-34h]@57
   int v76; // [sp+90h] [bp-30h]@6
   int v77; // [sp+94h] [bp-2Ch]@6
   int v83;
@@ -373,23 +364,10 @@ LABEL_71:
 
 
           sub_48276F(v14);
-          v41 = 0;
-          if ( *(_DWORD *)(v14 + 20) > 0 )
+          for (k = 0; k < p14->dword_000014; ++k)
           {
-           v42 = &array_508690[0].flt_00001C;
-            do
-            {
-              LODWORD(v66) = *((_DWORD *)v42 - 1);
-              v43 = v66 + 6.755399441055744e15;
-              v71 = LODWORD(v43);
-              dword_50B638[v41] = LODWORD(v43);
-              LODWORD(v65) = *(_DWORD *)v42;
-              v44 = v65 + 6.755399441055744e15;
-              v75 = LODWORD(v44);
-              v42 = (char *)v42 + 48;
-              dword_50B570[v41++] = LODWORD(v44);
-            }
-            while ( v41 < *(_DWORD *)(v14 + 20) );
+              dword_50B638[k] = floorf(array_508690[k].flt_000018 + 0.5f);
+              dword_50B570[k] = floorf(array_508690[k].flt_00001C + 0.5f);
           }
         }
         else
@@ -401,6 +379,7 @@ LABEL_71:
 
             if ( !v45)
               goto LABEL_71;
+
             sub_481E55(v45);
             v47 = sub_4254D2(v46);
             p14->dword_000014 = v47;
@@ -408,12 +387,11 @@ LABEL_71:
               goto LABEL_71;
 
             sub_48276F(v14);
-            v48 = 0;
             
             for (k = 0; k < p14->dword_000014; ++k)
             {
-             dword_50B638[v48] = floorf(array_508690[i].flt_000018 + 0.5f);
-             dword_50B570[v48++] = floorf(array_508690[i].flt_00001C + 0.5f);
+             dword_50B638[k] = floorf(array_508690[k].flt_000018 + 0.5f);
+             dword_50B570[k] = floorf(array_508690[k].flt_00001C + 0.5f);
             }
           }
           else
@@ -763,7 +741,7 @@ LABEL_14:
 
  sub_4789DE();
  sub_47F5C6_MessWithTerrainDrawing();
- sub_486F92_MessWithEdgesAndSpans();
+ //sub_486F92_MessWithEdgesAndSpans();
  sub_487355();
 
 LABEL_16:

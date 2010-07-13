@@ -8170,11 +8170,7 @@ void __fastcall sub_486B4E(struct struct14 *a1, int *a2, int *a3, struct struct8
     v10 = 0;
 
   v11 = a3[i];
-            /*
-            v14 = __SETO__(*v9, v54);
-            v12 = *v9 == v54;
-            v13 = *v9 - v54 < 0;
-            if ( !((unsigned __int8)(v13 ^ v14) | v12) )*/
+
   if (a3[i] > v54)
     v54 = a3[i];
 
@@ -10839,7 +10835,6 @@ void __thiscall sub_409E3D(int this, char a2)
 void __thiscall sub_48276F(struct struct8 *_this)
 {
   double v3; // st7@2
-  _UNKNOWN *v4; // ecx@3
   int v8; // ecx@13
   int i; // eax@16
   int v10; // edx@20
@@ -10852,6 +10847,10 @@ void __thiscall sub_48276F(struct struct8 *_this)
   double v17; // st5@28
   double v18; // st6@28
 
+  int v23;
+  int v24;
+  int v25;
+  int v29;
   struct
   {
    int v19; // [sp+4h] [bp-2Ch]@20
@@ -10869,76 +10868,74 @@ void __thiscall sub_48276F(struct struct8 *_this)
 
    float uncharted_stack[16*array_size_unknown]; //[sp+2C+edx*4]
   } v19;
-
-  runtime_warning(some stack troubles here);
+  int uncharted_stack[16*array_size_unknown];
 
   v19.v22 = _this;
-  if (_this->dword_000014 >= 3 )
-  {
+  if (_this->dword_000014 < 3)
+    return;
+
     v19.v26 = 10000.0;
     v19.v28 = 10000.0;
     v3 = -10000.0;
     v19.v27 = -10000.0;
 
-    v4 = &array_508690[0].flt_00001C;
       for (i = 0; i < _this->dword_000014; ++i)
       {
-        if ( *((float *)v4 - 1) < (double)v19.v26 )
+        if (array_508690[i].flt_000018 < (double)v19.v26 )
         {
-          LODWORD(v19.v25) = i;
-          v19.v26 = *((_DWORD *)v4 - 1);
+          v25 = i;
+          v19.v26 = array_508690[i].flt_000018;
         }
-        if ( *((float *)v4 - 1) > (double)v19.v27 )
+        if (array_508690[i].flt_000018 > (double)v19.v27 )
         {
-          LODWORD(v19.v24) = i;
-          v19.v27 = *((_DWORD *)v4 - 1);
+          v24 = i;
+          v19.v27 = array_508690[i].flt_000018;
         }
 
-        if ( *(float *)v4 < (double)v19.v28 )
+        if (array_508690[i].flt_00001C < (double)v19.v28 )
         {
-          LODWORD(v19.v29) = i;
-          v19.v28 = *(_DWORD *)v4;
+          v29 = i;
+          v19.v28 = array_508690[i].flt_00001C;
         }
-        if ( v3 < *(float *)v4 )
+        if (array_508690[i].flt_00001C > v3)
         {
-          v3 = *(float *)v4;
-          v19.v23 = i;
+          v23 = i;
+          v3 = array_508690[i].flt_00001C;
         }
-        v4 = (char *)v4 + 48;
       }
 
-    v8 = LODWORD(v19.v29);
-    if ( LODWORD(v19.v29) == LODWORD(v19.v25) || LODWORD(v19.v29) == LODWORD(v19.v24) )
-      v8 = v19.v23;
-    LODWORD(v19.v29) = 0;
-    for (i = 0; i < _this->dword_000014; ++i )
+    v8 = v29;
+    if (v29 == v25 || v29 == v24)
+      v8 = v23;
+    v29 = 0;
+
+    for (i = 0; i < _this->dword_000014; ++i)
     {
-      if ( i == LODWORD(v19.v25) || i == LODWORD(v19.v24) || i == v8 )
+      if (i == v25 || i == v24 || i == v8)
       {
-        v10 = LODWORD(v19.v29)++;
-        (&v19.v19)[i] = i;
+        v10 = v29;
+        uncharted_stack[v29++] = i;
       }
-      else 
-        (&v19.v19)[i] = 0;
     }
     //v12 = (int)&flt_508690[12 * v19.v19];
     //v11 = (int)&flt_508690[12 * v19.v20];
     //v13 = &flt_508690[12 * v19.v21];
-    v12 = &array_508690[v19.v19];
-    v11 = &array_508690[v19.v20];
-    v13 = &array_508690[v19.v21];
-    if ( LODWORD(v19.v29) != 3 )
+    v12 = &array_508690[uncharted_stack[0]];
+    v11 = &array_508690[uncharted_stack[1]];
+    v13 = &array_508690[uncharted_stack[2]];
+
+    if (v29 != 3)
     {
-      //v13 = &flt_508690[4 * (3 * _this->dword_000014 - 3)];
-     v13 = &((float *)(array_508690))[4 * (3 * _this->dword_000014 - 3)];
+      v13 = &array_508690[_this->dword_000014 - 1];
       v12 = &array_508690[0];
       v11 = &array_508690[1];
+
       v19.v28 = array_508690[1].x - array_508690[0].x;
       v19.v27 = array_508690[1].z - array_508690[0].z;
       v19.v29 = array_508690[1].y - array_508690[0].y;
-      v19.v26 = v13[0] - array_508690[0].x;
-      v19.v25 = v13[1] - array_508690[0].z;
-      v19.v24 = v13[2] - array_508690[0].y;
+      v19.v26 = array_508690[_this->dword_000014 - 1].x - array_508690[0].x;
+      v19.v25 = array_508690[_this->dword_000014 - 1].z - array_508690[0].z;
+      v19.v24 = array_508690[_this->dword_000014 - 1].y - array_508690[0].y;
       if ( v19.v24 * v19.v27 - v19.v25 * v19.v29 == 0.0 )
       {
         if ( v19.v26 * v19.v29 - v19.v24 * v19.v28 == 0.0 )
@@ -10972,8 +10969,7 @@ void __thiscall sub_48276F(struct struct8 *_this)
       }
     }
     //sub_4829B9(v12, v11, (int)v13, &v19.v22, 1);
-    sub_4829B9(v12, v11, (int)v13, _this, 1);
-  }
+ sub_4829B9(v12, v11, v13, _this, 1);
 }
 
 //----- (00409E6A) --------------------------------------------------------
