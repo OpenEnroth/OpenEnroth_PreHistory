@@ -2108,8 +2108,8 @@ struct struct14 array_806210[384]; // struct[384]  @ MM7.exe::00806210
  int dword_80AA18; // weak
  int dword_80AA1C; // weak
  int dword_80AA20; // weak
- int dword_80AA24[array_size_unknown]; // weak
- struct struct8 *dword_80AA28[array_size_unknown]; // weak
+unsigned int    uNumElementsIn80AA28; // dword        @ MM7.exe::0080AA24
+struct struct8 *array_80AA28[2000];   // dword[~2000] @ MM7.exe::0080AA28
 struct Edge *ptr_80C978; // ptr    @ MM7.exe::0080C978
 struct Surf *ptr_80C97C; // ptr    @ MM7.exe::0080C97C
 struct Surf someSurf;    // struct @ MM7.exe::0080C980

@@ -5159,7 +5159,6 @@ int __fastcall AlignText_Center(int a1, const char *pString, struct Font *pFont)
 }
 
 //----- (0044C51E) --------------------------------------------------------
-bool __fastcall sub_44C4DE(unsigned __int8 a1, int a2);
 int __fastcall sub_44C51E(struct Font *_this, const char *pString)
 {
   signed int i; // ebx@3

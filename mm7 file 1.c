@@ -2581,12 +2581,10 @@ int __fastcall sub_46BE0A(unsigned int a1)
 //----- (00487389) --------------------------------------------------------
 void sub_487389_DrawSpansAndAll()
 {
- struct struct8 *v0; // eax@1
  struct Span *pSpan; // edi@6
  struct struct8 * v4; // esi@9
   int v5; // ebp@10
   int v9; // edi@22
-  int v12; // ebp@32
   int v13; // esi@33
   int v16; // eax@39
   int v17; // eax@39
@@ -2597,10 +2595,6 @@ void sub_487389_DrawSpansAndAll()
   signed int v28; // edx@79
   signed int v29; // ecx@79
   int v30; // eax@106
-  int v31; // ebp@117
-  char *v32; // esi@118
-  unsigned int v33; // ST04_4@124
-  int v38; // [sp+24h] [bp-38h]@4
   int v41; // [sp+2Ch] [bp-30h]@26
   int v42; // [sp+2Ch] [bp-30h]@116
 
@@ -2611,24 +2605,24 @@ void sub_487389_DrawSpansAndAll()
  struct struct8 *pStruct8Array;
  unsigned int    uNumStructs;
 
- pStruct8Array = array_77EC08;
- uNumStructs = pStruct9_global->dword_00002C;
 
- if (!(pParty_global->dword_007778 & 2))
+ if (pParty_global->dword_007778 & 2)
  {
-  uNumStructs = dword_80AA24[0];
-  pStruct8Array = dword_80AA28[0];
+  uNumStructs = pStruct9_global->dword_00002C;
+  pStruct8Array = array_77EC08;
+ }
+ else
+ {
+  uNumStructs = uNumElementsIn80AA28;
+  pStruct8Array = array_80AA28[0];
  }
 
  for (i = 0; i < uNumStructs; ++i)
  {
-    //v38 = v0 + 64;
-  v38 = &pStruct8Array[i].ptr_000040;
-
   if (pParty_global->dword_007778 & 2)
     pSpan = pStruct8Array[i].ptr_000040;
   else
-    pSpan = dword_80AA28[i]->ptr_000040;
+    pSpan = array_80AA28[i]->ptr_000040;
 
   if (!pSpan)
     continue;
@@ -2838,7 +2832,7 @@ void sub_487389_DrawSpansAndAll()
      while (true)
      {
       if (!sub_482E07(pSpan, pD3DRenderer->pTargetSurface))
-       sub_48585C_MaybeDrawSpan(pSpan, pD3DRenderer->pTargetSurface + (pSpan->word_000008 + 640 * pSpan->word_00000A), 0);
+        sub_48585C_MaybeDrawSpan(pSpan, pD3DRenderer->pTargetSurface + (pSpan->word_000008 + 640 * pSpan->word_00000A), 0);
 
       pSpan->word_00000E = data_6BE060.dword_6BE064;
       if (pSpan == v4->ptr_000044)
@@ -2881,13 +2875,13 @@ LABEL_74:
 
  if (pParty_global->dword_007778 & 2)
  {
-  dword_80AA24[0] = 0;
+  uNumElementsIn80AA28 = 0;
   for (i = 0; i < pStruct9_global->dword_00002C; ++i)
   {
    if (array_77EC08[i].word_000032 & 0x0002)
    {
     array_77EC08[i].word_000032 &= 0xFFFD;
-    dword_80AA24[dword_80AA24[0]++] = &array_77EC08[i];
+    array_80AA28[uNumElementsIn80AA28++] = &array_77EC08[i];
    }
   }
  }
@@ -2938,70 +2932,62 @@ LABEL_74:
  array_77EC08[1999].dword_00002C = 224 * pClass24_global2->dword_000024;
  
  v9 = pStruct9_global->uNumSpans;
- if (dword_6BE030 & 1 && pParty_global->uCurrentHour >= 5 && pParty_global->uCurrentHour < 21 || byte_6BE3C4)
-  {
-    v42 = *(_WORD *)sub_47BE72(array_77EC08[1999].ptr_00003C->word_000026, 31, 1);
-    if ( v9 <= 0 )
-      return;
+ if (!v9)
+   return;
 
-    v31 = 24 * v9;
+ if (dword_6BE030 & 1 && pParty_global->uCurrentHour >= 5 && pParty_global->uCurrentHour < 21 || byte_6BE3C4)
+ {
+    v42 = *(_WORD *)sub_47BE72(array_77EC08[1999].ptr_00003C->word_000026, 31, 1);
+
     while ( 1 )
     {
-      v32 = (char *)pSpansBuf + v31 - 24;
-      v0 = *((_WORD *)v32 + 7);
-      if ( v0 != data_6BE060.dword_6BE064 )
+      pSpan = &pSpansBuf[v9 - 1];
+
+      if (pSpan->word_00000E != data_6BE060.dword_6BE064 )
       {
-        LOWORD(v0) = class28_global.dword_000010;
-        if ( *((_WORD *)v32 + 4) >= class28_global.dword_000010 )
+        class28_global.dword_000010;
+        if (pSpan->word_000008 >= class28_global.dword_000010 )
           goto LABEL_124;
-        if ( *((_WORD *)v32 + 6) == class28_global.dword_000010 )
+
+        if (pSpan->word_00000C == class28_global.dword_000010 )
         {
-          *((_WORD *)v32 + 7) = data_6BE060.dword_6BE064;
+         pSpan->word_00000E = data_6BE060.dword_6BE064;
         }
         else
         {
-          *((_WORD *)v32 + 4) = class28_global.dword_000010;
-          *((_WORD *)v32 + 6) -= class28_global.dword_000010;
-          if ( *((_WORD *)v32 + 6) >= 0 )
+         pSpan->word_000008 = class28_global.dword_000010;
+         pSpan->word_00000C -= class28_global.dword_000010;
+          if (pSpan->word_00000C >= 0 )
           {
 LABEL_124:
-            v33 = *((_WORD *)v32 + 6);
-            *((_DWORD *)v32 + 1) = &array_77EC08[1999];
-            sub_452AF3(v42, pD3DRenderer->pTargetSurface + (*((_WORD *)v32 + 4) + pD3DRenderer->uTargetSurfacePitch * *((_WORD *)v32 + 5)), v33);
-            LOWORD(v0) = sub_452B58(
-                           -65536,
-                           (void *)(pD3DRenderer->pActiveZBuffer + 4 * (*((_WORD *)v32 + 4) + 640 * *((_WORD *)v32 + 5))),
-                           *((_WORD *)v32 + 6));
+            pSpan->pParent = &array_77EC08[1999];
+            sub_452AF3(v42, pD3DRenderer->pTargetSurface + (pSpan->word_000008 + pD3DRenderer->uTargetSurfacePitch * pSpan->word_00000A), pSpan->word_00000C);
+            sub_452B58(-65536, pD3DRenderer->pActiveZBuffer + (pSpan->word_000008 + 640 * pSpan->word_00000A), pSpan->word_00000C);
             goto LABEL_125;
           }
-          LOWORD(v0) = data_6BE060.dword_6BE064;
-          *((_WORD *)v32 + 7) = data_6BE060.dword_6BE064;
+          pSpan->word_00000E = data_6BE060.dword_6BE064;
         }
       }
 LABEL_125:
-      v31 -= 24;
       --v9;
       if ( !v9 )
-        return v0;
+        return;
     }
   }
-  if ( v9 > 0 )
+ else
   {
-    v12 = 24 * v9;
     do
     {
-      v13 = (int)((char *)pSpansBuf + v12 - 24);
-      v0 = *(_WORD *)(v13 + 14);
-      if ( v0 != data_6BE060.dword_6BE064 )
+      pSpan = &pSpansBuf[v9 - 1];
+      if (pSpan->word_00000E != data_6BE060.dword_6BE064)
       {
-        LOWORD(v0) = class28_global.dword_000010;
-        if ( *(_WORD *)(v13 + 8) >= class28_global.dword_000010 )
+       if (pSpan->word_000008 >= class28_global.dword_000010 )
           goto LABEL_109;
-        if ( *(_WORD *)(v13 + 12) != class28_global.dword_000010 )
+        if (pSpan->word_00000C != class28_global.dword_000010 )
         {
-          *(_WORD *)(v13 + 8) = class28_global.dword_000010;
-          *(_WORD *)(v13 + 12) -= class28_global.dword_000010;
-          if ( *(_WORD *)(v13 + 12) >= 0 )
+          pSpan->word_000008 = class28_global.dword_000010;
+          pSpan->word_00000C -= class28_global.dword_000010;
+          if (pSpan->word_00000C >= 0 )
           {
 LABEL_109:
             if ( dword_6BE0C4 )
@@ -3010,27 +2996,21 @@ LABEL_109:
             }
             else
             {
-              *(_DWORD *)(v13 + 4) = &array_77EC08[1999];
-              if ( !sub_485044(v13, &array_77EC08[1999], v41) )
-                sub_452B58(
-                  -65536,
-                  (void *)(pD3DRenderer->pActiveZBuffer + 4 * (*(_WORD *)(v13 + 8) + 640 * *(_WORD *)(v13 + 10))),
-                  *(_WORD *)(v13 + 12));
+             pSpan->pParent = &array_77EC08[1999];
+              if ( !sub_485044(pSpan, &array_77EC08[1999], v41))
+                sub_452B58(-65536, pD3DRenderer->pActiveZBuffer + (pSpan->word_000008 + 640 * pSpan->word_00000A), pSpan->word_00000C);
             }
           }
-          LOWORD(v0) = data_6BE060.dword_6BE064;
-          *(_WORD *)(v13 + 14) = data_6BE060.dword_6BE064;
+          pSpan->word_00000E = data_6BE060.dword_6BE064;
           goto LABEL_114;
         }
-        *(_WORD *)(v13 + 14) = data_6BE060.dword_6BE064;
+        pSpan->word_00000E = data_6BE060.dword_6BE064;
       }
 LABEL_114:
-      v12 -= 24;
       --v9;
     }
     while ( v9 );
   }
-  return v0;
 }
 
 //----- (0047A815) --------------------------------------------------------
@@ -4355,7 +4335,7 @@ LABEL_22:
     GameUI_DrawTorchlightAndWizardEye();
   }
 
-  GameUI_DrawStatsTab(2);
+  //GameUI_DrawStatsTab(2);
   //GameUI_DrawAwardsTab(1);
   //GameUI_DrawInventory(1, false);
 

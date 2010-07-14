@@ -8170,27 +8170,29 @@ int __fastcall sub_452AE2(int a1)
 }
 
 //----- (00452AF3) --------------------------------------------------------
-int __fastcall sub_452AF3(int a1, int a2, unsigned int a3)
+int __fastcall sub_452AF3(int a1, unsigned int *pRenderTarget, unsigned int a3)
 {
   int result; // eax@1
   void *v4; // edi@1
   int i; // ecx@3
   int v6; // edi@3
 
-  v4 = (void *)a2;
+  v4 = (void *)pRenderTarget;
   result = a1 | (a1 << 16);
-  if ( a2 & 2 )
+  if ( (unsigned int)pRenderTarget & 2 )
   {
-    *(_WORD *)a2 = result;
-    v4 = (void *)(a2 + 2);
+    *pRenderTarget = result;
+    v4 = pRenderTarget + 1;
     --a3;
   }
-  memset(v4, result, 4 * (a3 >> 1));
-  v6 = (int)((char *)v4 + 4 * (a3 >> 1));
+
+  memset(v4, result, 4 * 2 * (a3 / 2));
+
+  v6 = (int)((char *)v4 + 4 * 2 * (a3 / 2));
   for ( i = a3 & 1; i; --i )
   {
-    *(_WORD *)v6 = result;
-    v6 += 2;
+    *(_DWORD *)v6 = result;
+    v6 += 4;
   }
   return result;
 }

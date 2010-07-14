@@ -15178,11 +15178,16 @@ char *__fastcall sub_41F50D(int a1, int a2, char a3)
 {
   int v3; // eax@4
 
-  if ( a3 & 2 || byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3618) & 4 )
-    v3 = 32 * a1 + a2 + 3275;
+  if (a3 & 2 || byte_4D8410[572] && pGame->uSomeFlags & 0x040000)
+  {
+   v3 = 32 * a1 + a2 + 0xCCB;
+   return (char *)&class35_obj + 512 * v3;
+  }
   else
-    v3 = 32 * a1 + a2 + 75;
-  return (char *)&class35_obj + 512 * v3;
+  {
+   v3 = 32 * a1 + a2 + 0x4B;
+   return (char *)&class35_obj + 512 * v3;
+  }
 }
 
 //----- (0041F54A) --------------------------------------------------------

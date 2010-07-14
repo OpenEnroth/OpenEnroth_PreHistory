@@ -917,7 +917,7 @@ signed int __thiscall sub_484442(int this);
 bool sub_4847EB(struct Span *_this);
 signed int __fastcall sub_485044(int a1, int a2, int a3);
 signed int __fastcall sub_485407(int a1);
-signed int __fastcall sub_48585C_MaybeDrawSpan(int a1, int a2, int a3);
+bool sub_48585C_MaybeDrawSpan(int a1, int a2, int a3);
 int __fastcall sub_485975(int a1, int a2);
 int __fastcall sub_485A24(int a1, int a2);
 int __fastcall sub_485AFF(int a1, int a2);

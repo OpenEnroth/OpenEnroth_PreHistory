@@ -2160,8 +2160,8 @@ extern int dword_80AA14; // weak
 extern int dword_80AA18; // weak
 extern int dword_80AA1C; // weak
 extern int dword_80AA20; // weak
-extern int dword_80AA24[array_size_unknown]; // weak
-extern struct struct8 *dword_80AA28[array_size_unknown]; // weak
+extern unsigned int    uNumElementsIn80AA28; // dword        @ MM7.exe::0080AA24
+extern struct struct8 *array_80AA28[2000];   // dword[~2000] @ MM7.exe::0080AA28
 extern struct Edge *ptr_80C978; // ptr @ MM7.exe::0080C978
 extern struct Surf *ptr_80C97C; // ptr @ MM7.exe::0080C97C
 

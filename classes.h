@@ -624,11 +624,11 @@ struct class18
  union
  {
   unsigned char  *pIndexedPixels; // ptr @ 000030
-  unsigned int    dword_000030;
+  unsigned int    dword_000030;    //
  };
- int             dword_000034;
- int             dword_000038;
- int             dword_00003C;
+ int             dword_000034;   //  
+ int             dword_000038;  // looks like pixels (4 lods - levels of details) for bitmaps.lod textures
+ int             dword_00003C;   //
  unsigned short *pPalette; // ptr @ 000040
  unsigned char  *ptr_000044;
 
@@ -897,9 +897,8 @@ struct class35
  short array_0D1600[50][256 * 32]; // array @ 0D1600
  short array_199600[50][256 * 32]; // array @ 199600
  short array_261600[50][256];      // array @ 261600
-                                   // 267A00
-
- int array_267A04[50];
+ int   dword_267A00;
+ int  array_267A04[50];
 
  char byte_267AD0;
  char byte_267AD1;
@@ -1650,5 +1649,44 @@ struct Matrix
 };
 //int __stdcall sub_4378BA(int a1, int a2, int a3)
 void MatrixMultiply(struct Matrix *pM1, struct Matrix *pM2, struct Matrix *pResult);
+
+
+
+
+
+struct sub_485975_stru0
+{
+ int    dword_000000;
+ int    dword_000004;
+ int    dword_000008;
+ int    dword_00000C;
+ int    dword_000010;
+ int    dword_000014;
+ int    dword_000018;
+ int    dword_00001C;
+ int    dword_000020;
+ int    dword_000024;  // depth value/zid
+ int    dword_000028;  // num pixels?
+ int    dword_00002C;
+ int    dword_000030;
+ int    dword_000034;
+ int    dword_000038;
+ unsigned int *pDepthBuffer; // dword @ 00003C
+ unsigned int *pColorBuffer; // dword @ 000040
+};
+
+struct sub_485975_stru1
+{
+ int dword_000000;
+ int dword_000004;
+ int dword_000008;
+ int dword_00000C;
+ int dword_000010;
+ int dword_000014;
+ int dword_000018;
+ int dword_00001C;
+ int dword_000020;
+ int dword_000024;
+};
 
 #pragma pack(pop)
