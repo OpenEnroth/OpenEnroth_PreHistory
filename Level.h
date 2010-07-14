@@ -76,7 +76,8 @@ struct class51_stru2
  short array_0000C0[20];
  char  byte_0000E8[40];
  short uTextureID;      // word @ 000110
- char  byte_000112[4];
+ short word_000012;
+ short word_000014;
  short word_000116;
  short word_000118;
  short word_00011A;

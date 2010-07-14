@@ -2696,8 +2696,8 @@ void sub_487389_DrawSpansAndAll()
       dword_80AA18 = dword_80AA14 - 33488896;
       byte_80AA10 = ((unsigned int)class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(
                                                pClass51_global,
-                                               *(_BYTE *)(v4 + 92),
-                                               *(_BYTE *)(v4 + 93) - 1) >> 9) & 1;
+                                               v4->byte_00005C,
+                                               v4->byte_00005D - 1) >> 9) & 1;
       sub_484442(pSpan);
       pSpan->word_00000E = data_6BE060.dword_6BE064;
       if (pSpan == v4->ptr_000044)
@@ -2765,12 +2765,12 @@ void sub_487389_DrawSpansAndAll()
        pSpan = pSpan->pNext;
       }
      }
-    }
+    } 
     continue;
    }
 
    v4->ptr_000038 = &local_30;
-   sub_479295(v4);
+   struct8_sub_479295(v4);
 
    v24 = GetTickCount();
    v22 = v24 / 8;

@@ -617,7 +617,11 @@ struct class18
  unsigned int    uDecompressedSize;   // dword @ 000028
  short           word_00002C;
  char            byte_00002E[2];
- unsigned char  *pIndexedPixels; // ptr @ 000030
+ union
+ {
+  unsigned char  *pIndexedPixels; // ptr @ 000030
+  unsigned int    dword_000030;
+ };
  int             dword_000034;
  int             dword_000038;
  int             dword_00003C;
@@ -1475,7 +1479,7 @@ struct struct8
  struct Span           *ptr_000040; // head  ?
  struct Span           *ptr_000044;  // and tail ?
  int                  **ptr_000048;
- short                  word_00004C;    // word_000012 in struct TileDesc
+ short                  word_00004C;    // word_000012 in struct TileDesc, texture id in bitmaps.lod
  short                  word_00004E;
  short                  word_000050;
  short                  word_000052;
@@ -1502,6 +1506,8 @@ void sub_486089_NormalizeVector(struct struct8 *_this);
 bool __stdcall sub_45D3C7(struct struct8 *_this);
 //int __thiscall sub_48607B(int this, int a2);
 void sub_48607B_MessWithStruct8(struct struct8 *_this, struct class57 *pClass57);
+//signed int __thiscall sub_479295(int this);
+bool struct8_sub_479295(struct struct8 *_this);
 
 
 
@@ -1663,7 +1669,8 @@ struct Span
  short           word_00000A;  //  screen-space y?
  short           word_00000C;
  short           word_00000E;  // data_6BE060.dword_6BE064 goes here
- char            byte_000010[8];
+ float           flt_000010;
+ float           flt_000014;
 };
 //sizeof == 18
 

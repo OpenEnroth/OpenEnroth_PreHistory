@@ -14113,10 +14113,9 @@ signed int __thiscall sub_44C2F4(void *this)
 }
 
 //----- (0044C362) --------------------------------------------------------
-int __thiscall sub_44C362(int this)
+void sub_44C362_NormalizeIntVector(int *_this)
 {
   int result; // eax@1
-  int v2; // esi@1
   double v3; // st6@1
   float v4; // ST20_4@1
   double v5; // st5@1
@@ -14125,31 +14124,28 @@ int __thiscall sub_44C362(int this)
   float v8; // ST14_4@1
   float v9; // ST24_4@1
   float v10; // ST20_4@1
-  double v11; // ST0C_8@1
   float v12; // ST18_4@1
-  double v13; // ST0C_8@1
   float v14; // ST14_4@1
-  double v15; // ST0C_8@1
 
-  v2 = this;
-  v3 = (double)*(signed int *)this * 0.0000152587890625;
+  v3 = (double)_this[0] / 65536.0;
   v4 = v3;
-  v5 = (double)*(signed int *)(this + 4) * 0.0000152587890625;
+
+  v5 = (double)_this[1] / 65536.0;
   v6 = v5;
-  v7 = (double)*(signed int *)(this + 8) * 0.0000152587890625;
+
+  v7 = (double)_this[2] / 65536.0;
   v8 = v7;
-  v9 = 1.0 / sqrt(v7 * v7 + v5 * v5 + v3 * v3);
-  v10 = v9 * v4 * 65536.0;
-  v11 = v10 + 6.755399441055744e15;
-  *(_DWORD *)v2 = LODWORD(v11);
-  v12 = v9 * v6 * 65536.0;
-  v13 = v12 + 6.755399441055744e15;
-  *(_DWORD *)(v2 + 4) = LODWORD(v13);
-  v14 = v9 * v8 * 65536.0;
-  v15 = v14 + 6.755399441055744e15;
-  result = LODWORD(v15);
-  *(_DWORD *)(v2 + 8) = LODWORD(v15);
-  return result;
+
+  v9 = 65536.0 / sqrt(v7 * v7 + v5 * v5 + v3 * v3);
+
+  v10 = v9 * v4;
+  _this[0] = floorf(v10 + 0.5f);
+
+  v12 = v9 * v6;
+  _this[1] = floorf(v12 + 0.5f);
+
+  v14 = v9 * v8;
+  _this[2] = floorf(v14 + 0.5f);
 }
 
 //----- (0044C62E) --------------------------------------------------------
