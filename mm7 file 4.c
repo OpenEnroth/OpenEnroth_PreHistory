@@ -8179,7 +8179,7 @@ int __fastcall sub_452AF3(int a1, unsigned int *pRenderTarget, unsigned int a3)
 
   v4 = (void *)pRenderTarget;
   result = a1 | (a1 << 16);
-  if ( (unsigned int)pRenderTarget & 2 )
+  if ( (unsigned int)pRenderTarget & 4)
   {
     *pRenderTarget = result;
     v4 = pRenderTarget + 1;

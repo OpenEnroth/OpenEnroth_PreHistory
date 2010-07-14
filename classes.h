@@ -1670,7 +1670,7 @@ struct sub_485975_stru0
  int    dword_00002C;
  int    dword_000030;
  int    dword_000034;
- int    dword_000038;
+ int    dword_000038; // some pixels pointer too, source texture?
  unsigned int *pDepthBuffer; // dword @ 00003C
  unsigned int *pColorBuffer; // dword @ 000040
 };
