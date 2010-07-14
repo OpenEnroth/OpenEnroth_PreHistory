@@ -2456,9 +2456,7 @@ extern _UNKNOWN unk_AD4338; // weak
 extern int dword_AD4650; // weak
 extern int dword_AD4654[array_size_unknown]; // weak
 extern int dword_AD4658; // weak
-
-// maybe currently hired npcs
-extern struct NPCData array_AD4674[]; // struct[2] @ MM7.exe::00AD4674
+//extern struct NPCData array_AD4674[]; // struct[2] @ MM7.exe::00AD4674, party+76BC, maybe currently hired npcs
 /*
 extern struct unnamed_AD4674
 {
@@ -2480,7 +2478,6 @@ extern struct unnamed_AD4674
  //_UNKNOWN unk_AD46EC; // weak
  //int dword_AD46F0; // weak
  //int dword_AD4704; // [1]:000044
-
 extern int dword_AD470C; // weak
 extern int dword_AD4710; // weak
 extern _UNKNOWN unk_AD4714; // weak
@@ -2511,7 +2508,7 @@ extern int dword_ADA0B8[array_size_unknown]; // weak
 extern int dword_ADA17C[array_size_unknown]; // weak
 extern char byte_AE302C[100]; // idb
 extern _UNKNOWN unk_AE3090; // weak
-extern int dword_AE30F4; // weak
+//extern int dword_AE30F4; // 01613C
 extern int dword_AE30F8[array_size_unknown]; // weak
 extern int dword_AE30FC[array_size_unknown]; // weak
 extern int dword_AE310C[array_size_unknown]; // weak

@@ -3669,7 +3669,7 @@ void __cdecl sub_464479()
   dword_6BE360 = 0;
   CSpriteFrameTable_fn3(pSpriteFrameTable);
   v0 = uNumGUIWindows;
-  dword_AE30F4 = uNumGUIWindows;
+  pParty_global->dword_01613C = uNumGUIWindows;
   while ( v0 > 0 )
     GUIWindowDelete(&GUIWindow_List[array_5075E0[v0--] - 1]);
 }
@@ -6103,8 +6103,8 @@ int __cdecl sub_494035()
   if ( (unsigned int)pParty_global->uCurrentHour >= 3 && (v60 < 3 || (unsigned int)(v0 / 60) / 0x18 % 0x1C > v58) )
   {
     v2 = 0;
-    array_AD4674[0].dword_000044 = 0;
-    array_AD4674[1].dword_000044 = 0;
+    pParty_global->array_AD4674[0].dword_000044 = 0;
+    pParty_global->array_AD4674[1].dword_000044 = 0;
     if (pNPCStats->dword_017FC4 > 0)
     {
       v3 = &unk_72D6D0;

@@ -601,7 +601,7 @@ int __fastcall sub_438F8F(int result)
               ++v25;
             }
             //while ( v26 < (signed int)&unk_AD46EC );
-            while (v26 < &array_AD4674[1].dword_00002C);
+            while (v26 < &pParty_global->array_AD4674[1].dword_00002C);
           }
         }
         v45 = 0;
@@ -749,7 +749,7 @@ LABEL_16:
  dword_519AB4 = 0;
  if (!pD3DRenderer->dword_040088)
  {
-  //sub_487389_DrawSpansAndAll();
+  sub_487389_DrawSpansAndAll();
   class08_sub_438240(pGame->class08_obj);
  }
   CGame_sub_44F120_MaybeStackStationaryLights(pGame, -1);
@@ -4339,7 +4339,7 @@ LABEL_22:
   dword_5E5144 = 0;
   struct_576FE8.dword_000044 = v6;
   GameUI_DrawPartySpells();
-  if (v5 || array_AD4674[0].dword_000030 || array_AD4674[1].dword_000030)
+  if (v5 || pParty_global->array_AD4674[0].dword_000030 || pParty_global->array_AD4674[1].dword_000030)
     sub_491F87_DrawNPCs();
 
   GameUI_DrawPortraits((void *)v5);
@@ -4892,11 +4892,11 @@ void __cdecl sub_401A91()
   v0 = 0;
   if ( dword_6BE360 != 1 )
   {
-    if ( dword_AE30F4 > 0 )
+    if ( pParty_global->dword_01613C > 0 )
     {
-      if ( dword_AE30F4 > 417 )
+      if ( pParty_global->dword_01613C > 417 )
       {
-        dword_AE30F4 = 0;
+        pParty_global->dword_01613C = 0;
       }
       else
       {
@@ -4908,11 +4908,11 @@ void __cdecl sub_401A91()
         if ( v1 > 128 || (v2 = -128, v1 < -128) )
           pParty_global->sRotationX = v2;
         pParty_global->dword_007778 |= 2;
-        dword_AE30F4 -= pClass24_global2->int_00001C;
+        pParty_global->dword_01613C -= pClass24_global2->int_00001C;
         v4 = dword_AE30F8[0] + 50;
-        if ( dword_AE30F4 <= 0 )
+        if ( pParty_global->dword_01613C <= 0 )
         {
-          dword_AE30F4 = 0;
+          pParty_global->dword_01613C = 0;
           v87 = 0;
           if ( (signed int)uNumActors > 0 )
           {
@@ -10139,7 +10139,7 @@ LABEL_254:
             v89 += 6972;
           }
           //while ( v89 < (signed int)&unk_AD467C );
-          while (v89 < &array_AD4674[0].dword_000008);
+          while (v89 < &pParty_global->array_AD4674[0].dword_000008);
 
           if ( LODWORD(v705) != HIDWORD(v1) )
           {
@@ -13199,7 +13199,7 @@ LABEL_1000:
           LODWORD(v1) = v1 + 6972;
         }
         //while ( (_DWORD)v1 < (signed int)&unk_AD467C );
-        while ((_DWORD)v1 < &array_AD4674[0].dword_000008);
+        while ((_DWORD)v1 < &pParty_global->array_AD4674[0].dword_000008);
 
 
         LOWORD(v1) = v709;
@@ -13554,7 +13554,7 @@ LABEL_1087:
 
         for (i = 0; i < 2; ++i)
         {
-          if (array_AD4674[i].pNPCName != HIDWORD(v1) )
+          if (pParty_global->array_AD4674[i].pNPCName != HIDWORD(v1) )
           {
             v570 = LODWORD(v712)++;
             dword_5C3610[v570] = LODWORD(v702) + 1;
@@ -13571,9 +13571,9 @@ LABEL_1087:
           {
             if ( *(_BYTE *)(v708 + 8) & 0x80 )
             {
-             if (array_AD4674[0].pNPCName == HIDWORD(v1) || strcmp(*(const char **)v708, array_AD4674[0].pNPCName))
+             if (pParty_global->array_AD4674[0].pNPCName == HIDWORD(v1) || strcmp(*(const char **)v708, pParty_global->array_AD4674[0].pNPCName))
               {
-               if (array_AD4674[1].pNPCName == HIDWORD(v1) || strcmp(*(const char **)v708, array_AD4674[1].pNPCName))
+               if (pParty_global->array_AD4674[1].pNPCName == HIDWORD(v1) || strcmp(*(const char **)v708, pParty_global->array_AD4674[1].pNPCName))
                 {
                   v571 = LODWORD(v712);
                   LODWORD(v712) += 4;
@@ -13782,11 +13782,11 @@ LABEL_1119:
         v600 = v11 - 2;
         if ( !v600 || (v601 = v600 - 1, !v601) || (v714 = 4, v601 != 1) )
           v714 = 3;
-        if ( *(_BYTE *)(v707 + 6969) >= v714 || dword_AE30F4 > HIDWORD(v1) )
+        if ( *(_BYTE *)(v707 + 6969) >= v714 || pParty_global->dword_01613C > HIDWORD(v1) )
           goto LABEL_200;
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
-        dword_AE30F4 = 256;
+        pParty_global->dword_01613C = 256;
         dword_AE30F8[0] = v1;
         ++*(_BYTE *)(v707 + 6969);
         if ( dword_ACD834 == 1 )
@@ -13844,7 +13844,7 @@ LABEL_439:
 
       runtime_warning();
       //if ( (_DWORD)v1 >= (signed int)&dword_AD4674 )
-      if ((_DWORD)v1 >= &array_AD4674[0])
+      if ((_DWORD)v1 >= &pParty_global->array_AD4674[0])
         goto LABEL_1056;
       continue;
     }
@@ -14463,9 +14463,9 @@ void __cdecl sub_491F87_DrawNPCs()
     v25 = 0;
     v24 = 0;
 
- if (array_AD4674[0].pNPCName)
+ if (pParty_global->array_AD4674[0].pNPCName)
    TmpBuf[v24++] = 0;
- if (array_AD4674[1].pNPCName)
+ if (pParty_global->array_AD4674[1].pNPCName)
    TmpBuf[v24++] = 1;
 
  for (i = 0; i < pNPCStats->dword_017FC4; ++i)
@@ -14473,11 +14473,11 @@ void __cdecl sub_491F87_DrawNPCs()
   v4 = &pNPCStats->pNPCData2[i];
   if ( *((_BYTE *)v4 + 8) & 0x80 )
   {
-   if (!array_AD4674[0].pNPCName ||
-       strcmp(pNPCStats->pNPCData2[i].pNPCName, array_AD4674[0].pNPCName))
+   if (!pParty_global->array_AD4674[0].pNPCName ||
+       strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->array_AD4674[0].pNPCName))
    {
-    if (!array_AD4674[1].pNPCName ||
-        strcmp(pNPCStats->pNPCData2[i].pNPCName, array_AD4674[1].pNPCName))
+    if (!pParty_global->array_AD4674[1].pNPCName ||
+        strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->array_AD4674[1].pNPCName))
     {
      v5 = v24++;
      TmpBuf[v5] = i + 2;
@@ -14504,7 +14504,7 @@ void __cdecl sub_491F87_DrawNPCs()
         }
         else
         {
-          wsprintfA(Str1, "NPC%03d", array_AD4674[v7].uPortraitID);
+          wsprintfA(Str1, "NPC%03d", pParty_global->array_AD4674[v7].uPortraitID);
           v10 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
           v9 = 4 * v25;
           CD3DRenderer_DrawIndexedTexture(pD3DRenderer,
@@ -14513,9 +14513,9 @@ void __cdecl sub_491F87_DrawNPCs()
             v10 != -1 ? 72 * v10 + 7145548 : 0);
 
           v8 = 76 * (unsigned __int8)TmpBuf[v21];
-          if (array_AD4674[v8].dword_000028 == 1 )
+          if (pParty_global->array_AD4674[v8].dword_000028 == 1 )
           {
-           v20 = array_AD4674[v8].dword_00002C;
+           v20 = pParty_global->array_AD4674[v8].dword_00002C;
             v12 = *(int *)((char *)dword_4EE06C + v9);
             v11 = *(int *)((char *)dword_4EE074 + v9);
             v19 = v12;

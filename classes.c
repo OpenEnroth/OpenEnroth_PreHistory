@@ -98,6 +98,58 @@ void CGame_ctor(struct CGame *_this)
    dword_4E800C = 0;
 }
 
+//----- (0044EC23) --------------------------------------------------------
+signed int Game_sub_44ED0A(struct CGame *_this, struct struct8 *a2, int *a3, signed int a4)
+{
+  double v4; // st7@4
+  signed int v6; // eax@5
+  signed int result; // eax@8
+  float v11; // [sp+14h] [bp+8h]@4
+  float v12; // [sp+18h] [bp+Ch]@4
+  float v13; // [sp+18h] [bp+Ch]@6
+  float v14; // [sp+1Ch] [bp+10h]@9
+  float v15; // [sp+1Ch] [bp+10h]@11
+
+ if (_this->dword_000E24 & 0x00000002 && a2->byte_000059 == 5 && a2->ptr_000054->byte_000010[12] & 0x02)
+ {
+    v4 = (double)a4;
+    v11 = v4;
+    *a3 |= 2;
+    v12 = (1.0 - _this->flt_000E28) * v4;
+    if ((int)(floorf(v12 + 0.5f)) >= 0 )
+    {
+      v13 = (1.0 - _this->flt_000E28) * v11;
+      v6 = floorf(v13 + 0.5f);
+    }
+    else
+    {
+      v6 = 0;
+    }
+    if ( a4 >= v6 )
+    {
+      v14 = (1.0 - _this->flt_000E28) * v11;
+      if ((int)(floorf(v14 + 0.5f)) >= 0 )
+      {
+        v15 = (1.0 - _this->flt_000E28) * v11;
+        result = floorf(v15 + 0.5f);
+      }
+      else
+      {
+        result = 0;
+      }
+    }
+    else
+    {
+      result = a4;
+    }
+  }
+  else
+  {
+    result = -1;
+  }
+  return result;
+}
+
 //----- (MM7.exe::0044F0FD) --------------------------------------------------------
 int CGame_fn0(struct CGame *_this)
 {

@@ -860,7 +860,7 @@ void GameUI_Process()
               v212 = uControlID - 134;
 
               for (i = 0; i < 2; ++i)
-                if (array_AD4674[i].pNPCName)
+                if (pParty_global->array_AD4674[i].pNPCName)
                 {
                   v7 = v210++;
                   TmpBuf[v7] = i;
@@ -874,9 +874,9 @@ void GameUI_Process()
                 {
                   if ( *(_BYTE *)(v211 + 8) & 0x80 )
                   {
-                    if (!array_AD4674[0].pNPCName || strcmp(*(const char **)v211, array_AD4674[0].pNPCName))
+                    if (!pParty_global->array_AD4674[0].pNPCName || strcmp(*(const char **)v211, pParty_global->array_AD4674[0].pNPCName))
                     {
-                     if (!array_AD4674[1].pNPCName || strcmp(*(const char **)v211, array_AD4674[1].pNPCName))
+                     if (!pParty_global->array_AD4674[1].pNPCName || strcmp(*(const char **)v211, pParty_global->array_AD4674[1].pNPCName))
                       {
                         v8 = v210++;
                         TmpBuf[v8] = v196 + 2;
@@ -2090,7 +2090,7 @@ LABEL_92:
           if ( v209 )
           {
             GUIWindowCreate(626, 179, 0, 0, 90, dword_5079E8, 0);
-            v48 = (array_AD4674[0].pNPCName != 0) + (array_AD4674[1].pNPCName != 0) + (unsigned __int8)pParty_global->byte_00070A - 2;
+            v48 = (pParty_global->array_AD4674[0].pNPCName != 0) + (pParty_global->array_AD4674[1].pNPCName != 0) + (unsigned __int8)pParty_global->byte_00070A - 2;
             if (pParty_global->byte_000709 < v48 )
             {
               ++pParty_global->byte_000709;

@@ -971,8 +971,8 @@ LABEL_85:
         goto LABEL_89;
       }
       AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-      memset(&array_AD4674[0], 0, sizeof(struct NPCData));
-      memset(&array_AD4674[1], 0, sizeof(struct NPCData));
+      memset(&pParty_global->array_AD4674[0], 0, sizeof(struct NPCData));
+      memset(&pParty_global->array_AD4674[1], 0, sizeof(struct NPCData));
       v6 = 0;
       if (pNPCStats->dword_017FC4 > 0)
       {
@@ -11042,7 +11042,7 @@ void __thiscall sub_416B01(void *this)
 
     for (i = 0; i < 2; ++i)
     {
-     if (array_AD4674[i].pNPCName)
+     if (pParty_global->array_AD4674[i].pNPCName)
         TmpBuf[v3++] = i;
     }
 
@@ -11054,9 +11054,9 @@ void __thiscall sub_416B01(void *this)
       {
         if ( *((_BYTE *)v4 + 8) & 0x80 )
         {
-         if (!array_AD4674[0].pNPCName || strcmp(*(const char **)v4, array_AD4674[0].pNPCName))
+         if (!pParty_global->array_AD4674[0].pNPCName || strcmp(*(const char **)v4, pParty_global->array_AD4674[0].pNPCName))
           {
-           if (!array_AD4674[1].pNPCName || strcmp(*(const char **)v4, array_AD4674[1].pNPCName))
+           if (!pParty_global->array_AD4674[1].pNPCName || strcmp(*(const char **)v4, pParty_global->array_AD4674[1].pNPCName))
               TmpBuf[v3++] = (_BYTE)lpsz + 2;
           }
         }
@@ -16458,7 +16458,7 @@ void __fastcall sub_420C05(int a1, int a2)
     v17 = 0;
     for (i = 0; i < 2; ++i)
     {
-      if (array_AD4674[i].pNPCName)
+      if (pParty_global->array_AD4674[i].pNPCName)
       {
         v7 = v17++;
         TmpBuf[v7] = i;
@@ -16474,9 +16474,9 @@ void __fastcall sub_420C05(int a1, int a2)
       {
         if ( *((_BYTE *)v9 + 8) & 0x80 )
         {
-         if (!array_AD4674[0].pNPCName || strcmp(*(const char **)v9, array_AD4674[0].pNPCName))
+         if (!pParty_global->array_AD4674[0].pNPCName || strcmp(*(const char **)v9, pParty_global->array_AD4674[0].pNPCName))
           {
-           if (!array_AD4674[1].pNPCName || strcmp(*(const char **)v9, array_AD4674[1].pNPCName))
+           if (!pParty_global->array_AD4674[1].pNPCName || strcmp(*(const char **)v9, pParty_global->array_AD4674[1].pNPCName))
             {
               v10 = v17++;
               TmpBuf[v10] = v8 + 2;
@@ -16496,7 +16496,7 @@ void __fastcall sub_420C05(int a1, int a2)
         v11 = 76 * TmpBuf[v3];
         v12 = &pNPCStats->pNPCData[499 + v11 / 76];
         if ( TmpBuf[v3] < 2 )
-         v12 = (char *)&(&array_AD4674->pNPCName)[v11];
+         v12 = (char *)&(&pParty_global->array_AD4674->pNPCName)[v11];
         v13 = *((_DWORD *)v12 + 6);
         if ( v13 )
           v2 += dword_737C28[5 * v13];

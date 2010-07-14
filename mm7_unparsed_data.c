@@ -2369,9 +2369,7 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  int dword_AD4650; // weak
  int dword_AD4654[array_size_unknown]; // weak
  int dword_AD4658; // weak
- 
-struct NPCData array_AD4674[2];
-
+//struct NPCData array_AD4674[2];
  int dword_AD470C; // weak
  int dword_AD4710; // weak
  _UNKNOWN unk_AD4714; // weak
@@ -2402,7 +2400,6 @@ struct NPCData array_AD4674[2];
  int dword_ADA17C[array_size_unknown]; // weak
  char byte_AE302C[100]; // idb
  _UNKNOWN unk_AE3090; // weak
- int dword_AE30F4; // weak
  int dword_AE30F8[array_size_unknown]; // weak
  int dword_AE30FC[array_size_unknown]; // weak
  int dword_AE310C[array_size_unknown]; // weak

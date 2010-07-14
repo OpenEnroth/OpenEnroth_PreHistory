@@ -2,6 +2,7 @@
 
 #include "defs.h"
 #include "Player.h"
+#include "NPC.h"
 
 
 #pragma pack(push, 1)
@@ -80,11 +81,14 @@ struct Party
  unsigned int uAlignment;   // dword @ 000888   enum (0, 1, 2) = (good, neutral, evil)
 
  char          array_00088C[20][16];
- struct Player pPlayers[4];          // struct[4] @ 0009CC
+ struct Player  pPlayers[4];      // struct[4] @ 0009CC
+ struct NPCData array_AD4674[2];  // struct[2] @ 0076BC  currently hired npcs?
 
  int dword_007778;  // party flags;     0x02 - party position/direction/eyelevel changed
 
  char pad[100000];
+
+ int dword_01613C;
 
  float flt_01622C;
  float flt_016230;

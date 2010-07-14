@@ -2041,7 +2041,7 @@ LABEL_16:
                 }
 LABEL_24:
                 v135 = 1;
-                sub_44ED0A(pGame, v3, (int)&v135, 31);
+                Game_sub_44ED0A(pGame, v3, (int)&v135, 31);
                 v104 = sub_47C24C(v3, v109, 0, 1);
                 v134 = dword_F8AD6C;
                 v106 = dword_F8AD70;
@@ -3307,8 +3307,8 @@ void __stdcall sub_4B1BDB(__int64 a1)
   signed __int64 v3; // ST1C_8@1
   unsigned int v4; // ebx@1
 
-  array_AD4674[0].dword_000044 = 0;
-  array_AD4674[1].dword_000044 = 0;
+  pParty_global->array_AD4674[0].dword_000044 = 0;
+  pParty_global->array_AD4674[1].dword_000044 = 0;
   pParty_global->qword_00002C += (signed __int64)((double)(7680 * a1) * 0.03333333507180214);
   v2 = (signed __int64)((double)pParty_global->qword_00002C * 0.234375);
   v3 = v2 / 60 / 60;
@@ -3775,7 +3775,7 @@ LABEL_50:
     }
     return sub_4BF5B2(pVideoPlayer);
   }
-  if (array_AD4674[0].pNPCName && array_AD4674[1].pNPCName)
+  if (pParty_global->array_AD4674[0].pNPCName && pParty_global->array_AD4674[1].pNPCName)
   {
     v19 = pGlobalTXT_LocalizationStrings[533];
 LABEL_77:
@@ -3803,15 +3803,15 @@ LABEL_77:
   *(_BYTE *)(v2 + 8) |= 0x80u;
   pParty_global->byte_000709 = 0;
   sub_44A56A();
-  if (array_AD4674[0].pNPCName)
+  if (pParty_global->array_AD4674[0].pNPCName)
   {
-    memcpy(&array_AD4674[1], v2, sizeof(struct NPCData));
+    memcpy(&pParty_global->array_AD4674[1], v2, sizeof(struct NPCData));
     v25 = *(const char **)v2;
     v23 = (char *)&unk_AE3090;
   }
   else
   {
-    memcpy(&array_AD4674[0], v2, sizeof(struct NPCData));
+    memcpy(&pParty_global->array_AD4674[0], v2, sizeof(struct NPCData));
     v25 = *(const char **)v2;
     v23 = byte_AE302C;
   }
@@ -11528,7 +11528,7 @@ LABEL_40:
       v7 += 6972;
     }
     //while ( v7 < (signed int)&unk_AD46EC );
-    while (v7 < array_AD4674[1].dword_00002C);
+    while (v7 < pParty_global->array_AD4674[1].dword_00002C);
     return 0;
   }
   if ( a1 == 12 )
@@ -12128,19 +12128,19 @@ void __thiscall sub_4BC49B(void *this)
         goto LABEL_43;
       }
 LABEL_44:
-      if (!array_AD4674[0].pNPCName || strcmpi(array_AD4674[0].pNPCName, *(const char **)v2))
+      if (!pParty_global->array_AD4674[0].pNPCName || strcmpi(pParty_global->array_AD4674[0].pNPCName, *(const char **)v2))
       {
-        if (!array_AD4674[1].pNPCName || strcmpi(array_AD4674[1].pNPCName, *(const char **)v2))
+        if (!pParty_global->array_AD4674[1].pNPCName || strcmpi(pParty_global->array_AD4674[1].pNPCName, *(const char **)v2))
           goto LABEL_51;
         v14 = 76;
         v12 = 0;
-        v11 = &array_AD4674[1];
+        v11 = &pParty_global->array_AD4674[1];
       }
       else
       {
         v14 = 76;
         v12 = 0;
-        v11 = &array_AD4674[0];
+        v11 = &pParty_global->array_AD4674[0];
       }
       memset(v11, v12, v14);
 LABEL_51:
@@ -12155,7 +12155,7 @@ LABEL_51:
       }
       goto LABEL_89;
     }
-    if (array_AD4674[0].pNPCName && array_AD4674[1].pNPCName)
+    if (pParty_global->array_AD4674[0].pNPCName && pParty_global->array_AD4674[1].pNPCName)
     {
       v7 = pGlobalTXT_LocalizationStrings[533];
 LABEL_64:
@@ -12179,15 +12179,15 @@ LABEL_64:
       sub_492BB6(v10);
     }
     v2[8] |= 0x80u;
-    if (array_AD4674[0].pNPCName)
+    if (pParty_global->array_AD4674[0].pNPCName)
     {
-      memcpy(&array_AD4674[1], v2, sizeof(struct NPCData));
+      memcpy(&pParty_global->array_AD4674[1], v2, sizeof(struct NPCData));
       v15 = *(const char **)v2;
       v13 = (char *)&unk_AE3090;
     }
     else
     {
-      memcpy(&array_AD4674[0], v2, sizeof(struct NPCData));
+      memcpy(&pParty_global->array_AD4674[0], v2, sizeof(struct NPCData));
       v15 = *(const char **)v2;
       v13 = byte_AE302C;
     }

@@ -940,7 +940,7 @@ int __fastcall sub_4269A2(int a1)
     v3 += 4;
   }
   //while ( HIDWORD(v1) < (signed int)&unk_AD46E4 );
-  while (HIWORD(v1) < &array_AD4674[1].dword_000024);
+  while (HIWORD(v1) < &pParty_global->array_AD4674[1].dword_000024);
 
   if ( v2 )
   {

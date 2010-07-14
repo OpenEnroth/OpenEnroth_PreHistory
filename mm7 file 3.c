@@ -8587,7 +8587,7 @@ char *__fastcall sub_4459F9(signed int a1)
 
     for (i = 0; i < 4; ++i)
     {
-      if (array_AD4674[i].pNPCName)
+      if (pParty_global->array_AD4674[i].pNPCName)
         TmpBuf[v5++] = i;
     }
 
@@ -8601,9 +8601,9 @@ char *__fastcall sub_4459F9(signed int a1)
       {
         if ( *((_BYTE *)v8 + 8) & 0x80 )
         {
-         if (!array_AD4674[0].pNPCName || strcmp(*(const char **)v8, array_AD4674[0].pNPCName))
+         if (!pParty_global->array_AD4674[0].pNPCName || strcmp(*(const char **)v8, pParty_global->array_AD4674[0].pNPCName))
           {
-           if (!array_AD4674[1].pNPCName || strcmp(*(const char **)v8, array_AD4674[1].pNPCName))
+           if (!pParty_global->array_AD4674[1].pNPCName || strcmp(*(const char **)v8, pParty_global->array_AD4674[1].pNPCName))
               *v7++ = (_BYTE)v16 + 2;
           }
         }
@@ -8616,7 +8616,7 @@ char *__fastcall sub_4459F9(signed int a1)
     if ( v9 >= 2 )
      result = &pNPCStats->pNPCData[499 + v9];
     else
-      result = &array_AD4674[v9];
+      result = &pParty_global->array_AD4674[v9];
   }
   return result;
 }
@@ -8676,7 +8676,7 @@ LABEL_7:
 
     for (i = 0; i < 2; ++i)
     {
-      if (array_AD4674[i].pNPCName)
+      if (pParty_global->array_AD4674[i].pNPCName)
         TmpBuf[v7++] = i;
     }
 
@@ -8689,9 +8689,9 @@ LABEL_7:
       {
         if ( *((_BYTE *)v9 + 8) & 0x80 )
         {
-         if (!array_AD4674[0].pNPCName || strcmp(*(const char **)v9, array_AD4674[0].pNPCName))
+         if (!pParty_global->array_AD4674[0].pNPCName || strcmp(*(const char **)v9, pParty_global->array_AD4674[0].pNPCName))
           {
-           if (!array_AD4674[1].pNPCName || strcmp(*(const char **)v9, array_AD4674[1].pNPCName))
+           if (!pParty_global->array_AD4674[1].pNPCName || strcmp(*(const char **)v9, pParty_global->array_AD4674[1].pNPCName))
             {
               v10 = (int)v19++;
               *(_BYTE *)v10 = v20 + 2;
@@ -8713,7 +8713,7 @@ LABEL_7:
     else
     {
       *(_DWORD *)v2 = v11;
-      result = &array_AD4674[(unsigned __int8)TmpBuf[v8]];
+      result = &pParty_global->array_AD4674[(unsigned __int8)TmpBuf[v8]];
     }
   }
   return result;
@@ -8743,7 +8743,7 @@ int __fastcall sub_445C8B(signed int a1)
 
   for (i = 0; i < 2; ++i)
   {
-   if (array_AD4674[i].pNPCName)
+   if (pParty_global->array_AD4674[i].pNPCName)
       TmpBuf[v5++] = i;
   }
 
@@ -8755,9 +8755,9 @@ int __fastcall sub_445C8B(signed int a1)
     {
       if ( *((_BYTE *)v8 + 8) & 0x80 )
       {
-       if (!array_AD4674[0].pNPCName || strcmp(*(const char **)v8, array_AD4674[0].pNPCName))
+       if (!pParty_global->array_AD4674[0].pNPCName || strcmp(*(const char **)v8, pParty_global->array_AD4674[0].pNPCName))
         {
-         if (!array_AD4674[1].pNPCName || strcmp(*(const char **)v8, array_AD4674[1].pNPCName))
+         if (!pParty_global->array_AD4674[1].pNPCName || strcmp(*(const char **)v8, pParty_global->array_AD4674[1].pNPCName))
             *v7++ = v1 + 2;
         }
       }
@@ -11652,7 +11652,7 @@ LABEL_60:
           v31 += 6972;
         }
         //while ( v31 < (signed int)&unk_AD467C );
-        while (v31 < &array_AD4674[0].dword_000008);
+        while (v31 < &pParty_global->array_AD4674[0].dword_000008);
 
         if ( !v76 )
           return;
@@ -12476,9 +12476,9 @@ void __cdecl sub_44A56A()
     {
       if ( *((_BYTE *)v1 + 8) & 0x80 )
       {
-       if (!array_AD4674[0].pNPCName || strcmp(*(const char **)v1, array_AD4674[0].pNPCName))
+       if (!pParty_global->array_AD4674[0].pNPCName || strcmp(*(const char **)v1, pParty_global->array_AD4674[0].pNPCName))
         {
-         if (!array_AD4674[1].pNPCName || strcmp(*(const char **)v1, array_AD4674[1].pNPCName))
+         if (!pParty_global->array_AD4674[1].pNPCName || strcmp(*(const char **)v1, pParty_global->array_AD4674[1].pNPCName))
             ++pParty_global->byte_00070A;
         }
       }
@@ -13682,10 +13682,10 @@ LABEL_8:
                 }
                 while ( v18 < pNPCStats->dword_017FC4);
               }
-              if (array_AD4674[0].dword_000018 == v19 )
-                memset(&array_AD4674[0], 0, sizeof(struct NPCData));
-              if (array_AD4674[1].dword_000018 == v19 )
-                memset(&array_AD4674[1], 0, sizeof(struct NPCData));
+              if (pParty_global->array_AD4674[0].dword_000018 == v19 )
+                memset(&pParty_global->array_AD4674[0], 0, sizeof(struct NPCData));
+              if (pParty_global->array_AD4674[1].dword_000018 == v19 )
+                memset(&pParty_global->array_AD4674[1], 0, sizeof(struct NPCData));
               pParty_global->byte_000709 = 0;
               sub_44A56A();
               break;
@@ -14984,126 +14984,6 @@ void *__thiscall CGame_outline_selection(int this)
 char __cdecl sub_44EC20()
 {
   return 1;
-}
-
-//----- (0044EC23) --------------------------------------------------------
-signed int __thiscall sub_44EC23(int this, int a2, int a3, signed int a4)
-{
-  double v4; // st7@4
-  double v5; // ST00_8@4
-  signed int v6; // eax@5
-  double v7; // ST00_8@6
-  signed int result; // eax@8
-  double v9; // ST00_8@9
-  double v10; // ST00_8@11
-  float v11; // [sp+14h] [bp+8h]@4
-  float v12; // [sp+18h] [bp+Ch]@4
-  float v13; // [sp+18h] [bp+Ch]@6
-  float v14; // [sp+1Ch] [bp+10h]@9
-  float v15; // [sp+1Ch] [bp+10h]@11
-
-  if ( *(_BYTE *)(this + 3620) & 2 && *(_BYTE *)(a2 + 89) == 5 && *(_BYTE *)(*(_DWORD *)(a2 + 84) + 28) & 2 )
-  {
-    v4 = (double)a4;
-    v11 = v4;
-    *(_DWORD *)a3 |= 2;
-    v12 = (1.0 - *(float *)(this + 3624)) * v4;
-    v5 = v12 + 6.755399441055744e15;
-    if ( LODWORD(v5) >= 0 )
-    {
-      v13 = (1.0 - *(float *)(this + 3624)) * v11;
-      v7 = v13 + 6.755399441055744e15;
-      v6 = LODWORD(v7);
-    }
-    else
-    {
-      v6 = 0;
-    }
-    if ( a4 >= v6 )
-    {
-      v14 = (1.0 - *(float *)(this + 3624)) * v11;
-      v9 = v14 + 6.755399441055744e15;
-      if ( LODWORD(v9) >= 0 )
-      {
-        v15 = (1.0 - *(float *)(this + 3624)) * v11;
-        v10 = v15 + 6.755399441055744e15;
-        result = LODWORD(v10);
-      }
-      else
-      {
-        result = 0;
-      }
-    }
-    else
-    {
-      result = a4;
-    }
-  }
-  else
-  {
-    result = -1;
-  }
-  return result;
-}
-
-//----- (0044ED0A) --------------------------------------------------------
-signed int __thiscall sub_44ED0A(int this, int a2, int a3, signed int a4)
-{
-  double v4; // st7@3
-  double v5; // ST00_8@3
-  signed int v6; // eax@4
-  double v7; // ST00_8@5
-  signed int result; // eax@7
-  double v9; // ST00_8@8
-  double v10; // ST00_8@10
-  float v11; // [sp+14h] [bp+8h]@3
-  float v12; // [sp+18h] [bp+Ch]@3
-  float v13; // [sp+18h] [bp+Ch]@5
-  float v14; // [sp+1Ch] [bp+10h]@8
-  float v15; // [sp+1Ch] [bp+10h]@10
-
-  if ( *(_BYTE *)(this + 3620) & 2 && *(_BYTE *)(a2 + 44) & 2 )
-  {
-    v4 = (double)a4;
-    v11 = v4;
-    *(_DWORD *)a3 |= 2;
-    v12 = (1.0 - *(float *)(this + 3624)) * v4;
-    v5 = v12 + 6.755399441055744e15;
-    if ( LODWORD(v5) >= 0 )
-    {
-      v13 = (1.0 - *(float *)(this + 3624)) * v11;
-      v7 = v13 + 6.755399441055744e15;
-      v6 = LODWORD(v7);
-    }
-    else
-    {
-      v6 = 0;
-    }
-    if ( a4 >= v6 )
-    {
-      v14 = (1.0 - *(float *)(this + 3624)) * v11;
-      v9 = v14 + 6.755399441055744e15;
-      if ( LODWORD(v9) >= 0 )
-      {
-        v15 = (1.0 - *(float *)(this + 3624)) * v11;
-        v10 = v15 + 6.755399441055744e15;
-        result = LODWORD(v10);
-      }
-      else
-      {
-        result = 0;
-      }
-    }
-    else
-    {
-      result = a4;
-    }
-  }
-  else
-  {
-    result = -1;
-  }
-  return result;
 }
 
 //----- (0044EDE4) --------------------------------------------------------
