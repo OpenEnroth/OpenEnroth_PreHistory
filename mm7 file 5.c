@@ -13136,7 +13136,7 @@ char *__fastcall sub_47C1CA(struct struct8 *a1, char a2, int a3, signed int a4)
   }
   else
   {
-    v6 = sub_44EC23(pGame, a1, (int)&v8, a4);
+    v6 = Game_sub_44EC23(pGame, a1, (int)&v8, a4);
     if ( v6 == -1 )
       v6 = a3;
     if ( v9 == 1 )
@@ -13197,7 +13197,7 @@ char *__fastcall sub_47C28C(int a1, char a2, signed int a3, signed int a4)
   }
   else
   {
-    v6 = sub_44EC23(pGame, a1, (int)&v8, a4);
+    v6 = Game_sub_44EC23(pGame, a1, (int)&v8, a4);
     if ( v6 != -1 )
       a3 = v6;
     if ( v9 == 1 )

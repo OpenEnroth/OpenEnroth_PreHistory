@@ -84,6 +84,8 @@ void CGame_sub_44F192(struct CGame *_this);
 void sub_44E904(struct CGame *_this);
 //signed int __thiscall sub_44ED0A(int this, int a2, int a3, signed int a4);
 signed int Game_sub_44ED0A(struct CGame *_this, struct struct8 *a2, int *a3, signed int a4);
+//signed int __thiscall sub_44EC23(int this, int a2, int a3, signed int a4);
+signed int __thiscall Game_sub_44EC23(int this, int a2, int a3, signed int a4);
 //void __thiscall sub_40E2F6(int this, char a2);
 void CGame_stru0_sub_40E2F6(struct CGame_stru0 *_this, char a2);
 

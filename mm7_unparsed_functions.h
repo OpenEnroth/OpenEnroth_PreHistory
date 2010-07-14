@@ -535,7 +535,6 @@ int __thiscall TextureFrameTable_GetFrame(int this, int a2, signed int a3);
 char __thiscall sub_44EB12(int this, char a2, int a3, int a4);
 void *__thiscall CGame_outline_selection(int this);
 char __cdecl sub_44EC20();
-signed int __thiscall sub_44EC23(int this, int a2, int a3, signed int a4);
 char __thiscall sub_44EDE4(int this, int a2, void **a3);
 char __thiscall sub_44EE30(int this, int a2, void **a3);
 char __cdecl sub_44EE7C();

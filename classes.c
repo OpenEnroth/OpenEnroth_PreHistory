@@ -99,7 +99,7 @@ void CGame_ctor(struct CGame *_this)
 }
 
 //----- (0044EC23) --------------------------------------------------------
-signed int Game_sub_44ED0A(struct CGame *_this, struct struct8 *a2, int *a3, signed int a4)
+signed int Game_sub_44EC23(struct CGame *_this, struct struct8 *a2, int *a3, signed int a4)
 {
   double v4; // st7@4
   signed int v6; // eax@5
@@ -149,6 +149,70 @@ signed int Game_sub_44ED0A(struct CGame *_this, struct struct8 *a2, int *a3, sig
   }
   return result;
 }
+
+
+//----- (0044ED0A) --------------------------------------------------------
+signed int __thiscall Game_sub_44ED0A(int this, int a2, int a3, signed int a4)
+{
+  double v4; // st7@3
+  double v5; // ST00_8@3
+  signed int v6; // eax@4
+  double v7; // ST00_8@5
+  signed int result; // eax@7
+  double v9; // ST00_8@8
+  double v10; // ST00_8@10
+  float v11; // [sp+14h] [bp+8h]@3
+  float v12; // [sp+18h] [bp+Ch]@3
+  float v13; // [sp+18h] [bp+Ch]@5
+  float v14; // [sp+1Ch] [bp+10h]@8
+  float v15; // [sp+1Ch] [bp+10h]@10
+
+  if ( *(_BYTE *)(this + 3620) & 2 && *(_BYTE *)(a2 + 44) & 2 )
+  {
+    v4 = (double)a4;
+    v11 = v4;
+    *(_DWORD *)a3 |= 2;
+    v12 = (1.0 - *(float *)(this + 3624)) * v4;
+    v5 = v12 + 6.755399441055744e15;
+    if ( LODWORD(v5) >= 0 )
+    {
+      v13 = (1.0 - *(float *)(this + 3624)) * v11;
+      v7 = v13 + 6.755399441055744e15;
+      v6 = LODWORD(v7);
+    }
+    else
+    {
+      v6 = 0;
+    }
+
+    if ( a4 >= v6 )
+    {
+      v14 = (1.0 - *(float *)(this + 3624)) * v11;
+      v9 = v14 + 6.755399441055744e15;
+      if ( LODWORD(v9) >= 0 )
+      {
+        v15 = (1.0 - *(float *)(this + 3624)) * v11;
+        v10 = v15 + 6.755399441055744e15;
+        result = LODWORD(v10);
+      }
+      else
+      {
+        result = 0;
+      }
+    }
+    else
+    {
+      result = a4;
+    }
+  }
+  else
+  {
+    result = -1;
+  }
+
+  return result;
+}
+
 
 //----- (MM7.exe::0044F0FD) --------------------------------------------------------
 int CGame_fn0(struct CGame *_this)
