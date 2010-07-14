@@ -472,13 +472,13 @@ int __thiscall Player_GetActualLuck(struct Player *_this)
   signed int v11; // [sp+10h] [bp-4h]@1
 
   v11 = 0;
-  LOBYTE(v2) = sub_476395(0x1B);
+  v2 = CheckHiredNPCSpeciality(0x1B);
   if ( v2 )
     v11 = 5;
-  LOBYTE(v3) = sub_476395(0x1C);
+  v3 = CheckHiredNPCSpeciality(0x1C);
   if ( v3 )
     v11 += 20;
-  LOBYTE(v4) = sub_476395(0x2F);
+  v4 = CheckHiredNPCSpeciality(0x2F);
   if ( v4 )
     v11 += 10;
   v5 = Player_GetActualAge(_this);
@@ -1989,7 +1989,7 @@ int __thiscall sub_48E68F(int this)
 //----- (0048E73F) --------------------------------------------------------
 int __thiscall Player_GetBaseResistance(struct Player *_this, signed int a2)
 {
-  signed int v2; // eax@1
+  unsigned int uRace; // eax@1
   int v3; // ebx@1
   signed int v4; // esi@1
   signed int v5; // edi@8
@@ -2000,35 +2000,35 @@ int __thiscall Player_GetBaseResistance(struct Player *_this, signed int a2)
 
   v3 = _this;
   v4 = 0;
-  v2 = Player_GetRace(_this);
+  uRace = Player_GetRace(_this);
   if ( a2 == 10 )
   {
     v5 = 0;
-    goto LABEL_16;
+    v6 = (uRace == RACE_GOBLIN);
+    goto LABEL_17;
   }
   if ( a2 == 11 )
   {
     v5 = 1;
-LABEL_16:
-    v6 = v2 == 2;
+    v6 = (uRace == RACE_GOBLIN);
     goto LABEL_17;
   }
   if ( a2 == 12 )
   {
-    v6 = v2 == 3;
+    v6 = (uRace == RACE_DWARF);
     v5 = 2;
     goto LABEL_17;
   }
   if ( a2 == 13 )
   {
     v5 = 3;
-    v6 = v2 == 3;
+    v6 = (uRace == RACE_DWARF);
     goto LABEL_17;
   }
   if ( a2 == 14 )
   {
     v5 = 7;
-    if ( v2 != 1 )
+    if ( uRace != RACE_ELF )
       goto LABEL_20;
     v9 = 10;
 LABEL_19:
@@ -2038,7 +2038,7 @@ LABEL_19:
   if ( a2 == 15 || a2 == 33 )
   {
     v5 = 8;
-    v6 = v2 == 0;
+    v6 = (uRace == RACE_HUMAN);
 LABEL_17:
     if ( !v6 )
       goto LABEL_20;
@@ -2056,7 +2056,7 @@ LABEL_20:
 //----- (0048E7D0) --------------------------------------------------------
 int __thiscall Player_GetActualResistance(struct Player *_this, signed int a2)
 {
-  signed int v2; // ebx@1
+  unsigned int uRace; // ebx@1
   signed int v3; // edi@1
   int v4; // esi@1
   int v5; // eax@1
@@ -2071,8 +2071,8 @@ int __thiscall Player_GetActualResistance(struct Player *_this, signed int a2)
   v4 = _this;
   v11 = 0;
   v10 = 0;
-  v2 = Player_GetRace(_this);
-  LOBYTE(v5) = sub_476395(0x25); 
+  uRace = Player_GetRace(_this);
+  v5 = CheckHiredNPCSpeciality(0x25); 
   if ( v5 )
     v11 = 20;
   if ( a2 == 10 || a2 == 11 || a2 == 12 || a2 == 13 )
@@ -2092,7 +2092,7 @@ int __thiscall Player_GetActualResistance(struct Player *_this, signed int a2)
   {
     v3 = 1;
 LABEL_25:
-    v7 = v2 == 2;
+    v7 = uRace == 2;
 LABEL_26:
     if ( v7 )
       v10 = 5;
@@ -2100,7 +2100,7 @@ LABEL_26:
   }
   if ( a2 == 12 )
   {
-    v7 = v2 == 3;
+    v7 = uRace == 3;
     v3 = 2;
     goto LABEL_26;
   }
@@ -2108,18 +2108,18 @@ LABEL_26:
   {
     case 13:
       v3 = 3;
-      if ( v2 == 3 )
+      if ( uRace == 3 )
         v11 += 5;
       break;
     case 14:
       v3 = 7;
-      if ( v2 == 1 )
+      if ( uRace == 1 )
         v10 = 10;
       break;
     case 15:
     case 33:
       v3 = 8;
-      v7 = v2 == 0;
+      v7 = uRace == 0;
       goto LABEL_26;
   }
 LABEL_28:

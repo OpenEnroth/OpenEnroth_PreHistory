@@ -82,7 +82,7 @@ struct Party
 
  char          array_00088C[20][16];
  struct Player  pPlayers[4];      // struct[4] @ 0009CC
- struct NPCData array_AD4674[2];  // struct[2] @ 0076BC  currently hired npcs?
+ struct NPCData HiredNPC[2];  // struct[2] @ 0076BC  currently hired npcs?
 
  int dword_007778;  // party flags;     0x02 - party position/direction/eyelevel changed
 

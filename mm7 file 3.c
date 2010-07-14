@@ -7915,16 +7915,16 @@ signed int __cdecl sub_444D80()
   int v4; // eax@7
 
   v0 = dword_6BD07C;
-  LOBYTE(v1) = sub_476395(5);
+  v1 = CheckHiredNPCSpeciality(5);
   if ( v1 )
     --v0;
-  LOBYTE(v2) = sub_476395(6);
+  v2 = CheckHiredNPCSpeciality(6);
   if ( v2 )
     v0 -= 2;
-  LOBYTE(v3) = sub_476395(7);
+  v3 = CheckHiredNPCSpeciality(7);
   if ( v3 )
     v0 -= 3;
-  LOBYTE(v4) = sub_476395(0x2C);
+  v4 = CheckHiredNPCSpeciality(0x2C);
   if ( v4 )
     --v0;
   if ( v0 < 1 )
@@ -8587,7 +8587,7 @@ char *__fastcall sub_4459F9(signed int a1)
 
     for (i = 0; i < 4; ++i)
     {
-      if (pParty_global->array_AD4674[i].pNPCName)
+      if (pParty_global->HiredNPC[i].pNPCName)
         TmpBuf[v5++] = i;
     }
 
@@ -8596,14 +8596,14 @@ char *__fastcall sub_4459F9(signed int a1)
     if (pNPCStats->dword_017FC4 > 0)
     {
       v7 = TmpBuf + v5;
-      v8 = pNPCStats->pNPCData2;
+      v8 = &pNPCStats->pNPCData2;
       do
       {
         if ( *((_BYTE *)v8 + 8) & 0x80 )
         {
-         if (!pParty_global->array_AD4674[0].pNPCName || strcmp(*(const char **)v8, pParty_global->array_AD4674[0].pNPCName))
+         if (!pParty_global->HiredNPC[0].pNPCName || strcmp(*(const char **)v8, pParty_global->HiredNPC[0].pNPCName))
           {
-           if (!pParty_global->array_AD4674[1].pNPCName || strcmp(*(const char **)v8, pParty_global->array_AD4674[1].pNPCName))
+           if (!pParty_global->HiredNPC[1].pNPCName || strcmp(*(const char **)v8, pParty_global->HiredNPC[1].pNPCName))
               *v7++ = (_BYTE)v16 + 2;
           }
         }
@@ -8616,7 +8616,7 @@ char *__fastcall sub_4459F9(signed int a1)
     if ( v9 >= 2 )
      result = &pNPCStats->pNPCData[499 + v9];
     else
-      result = &pParty_global->array_AD4674[v9];
+      result = &pParty_global->HiredNPC[v9];
   }
   return result;
 }
@@ -8676,7 +8676,7 @@ LABEL_7:
 
     for (i = 0; i < 2; ++i)
     {
-      if (pParty_global->array_AD4674[i].pNPCName)
+      if (pParty_global->HiredNPC[i].pNPCName)
         TmpBuf[v7++] = i;
     }
 
@@ -8689,9 +8689,9 @@ LABEL_7:
       {
         if ( *((_BYTE *)v9 + 8) & 0x80 )
         {
-         if (!pParty_global->array_AD4674[0].pNPCName || strcmp(*(const char **)v9, pParty_global->array_AD4674[0].pNPCName))
+         if (!pParty_global->HiredNPC[0].pNPCName || strcmp(*(const char **)v9, pParty_global->HiredNPC[0].pNPCName))
           {
-           if (!pParty_global->array_AD4674[1].pNPCName || strcmp(*(const char **)v9, pParty_global->array_AD4674[1].pNPCName))
+           if (!pParty_global->HiredNPC[1].pNPCName || strcmp(*(const char **)v9, pParty_global->HiredNPC[1].pNPCName))
             {
               v10 = (int)v19++;
               *(_BYTE *)v10 = v20 + 2;
@@ -8713,7 +8713,7 @@ LABEL_7:
     else
     {
       *(_DWORD *)v2 = v11;
-      result = &pParty_global->array_AD4674[(unsigned __int8)TmpBuf[v8]];
+      result = &pParty_global->HiredNPC[(unsigned __int8)TmpBuf[v8]];
     }
   }
   return result;
@@ -8743,7 +8743,7 @@ int __fastcall sub_445C8B(signed int a1)
 
   for (i = 0; i < 2; ++i)
   {
-   if (pParty_global->array_AD4674[i].pNPCName)
+   if (pParty_global->HiredNPC[i].pNPCName)
       TmpBuf[v5++] = i;
   }
 
@@ -8755,9 +8755,9 @@ int __fastcall sub_445C8B(signed int a1)
     {
       if ( *((_BYTE *)v8 + 8) & 0x80 )
       {
-       if (!pParty_global->array_AD4674[0].pNPCName || strcmp(*(const char **)v8, pParty_global->array_AD4674[0].pNPCName))
+       if (!pParty_global->HiredNPC[0].pNPCName || strcmp(*(const char **)v8, pParty_global->HiredNPC[0].pNPCName))
         {
-         if (!pParty_global->array_AD4674[1].pNPCName || strcmp(*(const char **)v8, pParty_global->array_AD4674[1].pNPCName))
+         if (!pParty_global->HiredNPC[1].pNPCName || strcmp(*(const char **)v8, pParty_global->HiredNPC[1].pNPCName))
             *v7++ = v1 + 2;
         }
       }
@@ -9746,7 +9746,7 @@ LABEL_47:
                  + ((*(_BYTE *)(v11 + 6) + ((*(_BYTE *)(v11 + 7) + (*(_BYTE *)(v11 + 8) << 8)) << 8)) << 8));
             v31 = *(_BYTE *)(v11 + 9)
                 + ((*(_BYTE *)(v11 + 10) + ((*(_BYTE *)(v11 + 11) + (*(_BYTE *)(v11 + 12) << 8)) << 8)) << 8);
-            *(int *)((char *)dword_72D694 + v30) &= 0xFFFFFFFCu;
+            pNPCStats->pNPCData2[1].dword_000008 &= 0xFFFFFFFCu;
             *(int *)((char *)&dword_72D6A8 + v30) = v31;
             goto LABEL_291;
           case 0x27:
@@ -11652,7 +11652,7 @@ LABEL_60:
           v31 += 6972;
         }
         //while ( v31 < (signed int)&unk_AD467C );
-        while (v31 < &pParty_global->array_AD4674[0].dword_000008);
+        while (v31 < &pParty_global->HiredNPC[0].dword_000008);
 
         if ( !v76 )
           return;
@@ -12089,10 +12089,10 @@ LABEL_125:
           goto LABEL_132;
         goto LABEL_130;
       case 241:
-        LOBYTE(v6) = sub_476395(a3);
+        v6 = CheckHiredNPCSpeciality(a3);
         return v6;
       case 232:
-        return dword_72D694[19 * (_DWORD)a3] & 0x80;
+        return pNPCStats->pNPCData2[(_DWORD)a3].dword_000008 & 0x80;
       case 231:
         v13 = 0x80u >> ((signed __int16)a3 - 1) % 8;
         v14 = *(_BYTE *)((((signed __int16)a3 - 1) >> 3) + this + 6736);
@@ -12476,9 +12476,9 @@ void __cdecl sub_44A56A()
     {
       if ( *((_BYTE *)v1 + 8) & 0x80 )
       {
-       if (!pParty_global->array_AD4674[0].pNPCName || strcmp(*(const char **)v1, pParty_global->array_AD4674[0].pNPCName))
+       if (!pParty_global->HiredNPC[0].pNPCName || strcmp(*(const char **)v1, pParty_global->HiredNPC[0].pNPCName))
         {
-         if (!pParty_global->array_AD4674[1].pNPCName || strcmp(*(const char **)v1, pParty_global->array_AD4674[1].pNPCName))
+         if (!pParty_global->HiredNPC[1].pNPCName || strcmp(*(const char **)v1, pParty_global->HiredNPC[1].pNPCName))
             ++pParty_global->byte_00070A;
         }
       }
@@ -12569,7 +12569,7 @@ LABEL_8:
               break;
             case 232:
               pParty_global->byte_000709 = 0;
-              LOBYTE(dword_72D694[19 * a3]) |= 0x80u;
+              pNPCStats->pNPCData2[a3].dword_000008 |= 0x80u;
               sub_44A56A();
               struct_576FE8.dword_000044 = 1;
               break;
@@ -13106,7 +13106,7 @@ LABEL_8:
               break;
             case 232:
               pParty_global->byte_000709 = 0;
-              LOBYTE(dword_72D694[19 * a3]) |= 0x80u;
+              pNPCStats->pNPCData2[a3].dword_000008 |= 0x80u;
               sub_44A56A();
               struct_576FE8.dword_000044 = 1;
               break;
@@ -13597,7 +13597,6 @@ void __thiscall sub_44B9C4(int this, signed int a2, signed int a3)
   int v17; // ecx@94
   int v18; // edx@97
   signed int v19; // esi@97
-  int v20; // ecx@98
   int v21; // eax@100
   int v22; // edx@112
   int v23; // [sp-8h] [bp-14h]@45
@@ -13655,7 +13654,7 @@ LABEL_8:
               else
               {
                 pParty_global->byte_000709 = 0;
-                LOBYTE(dword_72D694[19 * a3]) &= 0x7Fu;
+                pNPCStats->pNPCData2[a3].dword_000008 &= 0x7Fu;
                 sub_44A56A();
                 struct_576FE8.dword_000044 = 1;
               }
@@ -13665,27 +13664,25 @@ LABEL_8:
               v18 = 0;
               if (pNPCStats->dword_017FC4 > 0)
               {
-                v20 = (int)dword_72D694;
                 do
                 {
-                  if ( *(_DWORD *)(v20 + 16) == v19 )
+                  if ( pNPCStats->pNPCData2[v18].dword_000018 == v19 )
                   {
-                    v21 = *(_DWORD *)v20;
-                    if ( (char)*(_DWORD *)v20 < 0 )
+                    v21 = pNPCStats->pNPCData2[v18].dword_000008;
+                    if ( (char)v21 < 0 )
                     {
                       LOBYTE(v21) = v21 & 0x7F;
-                      *(_DWORD *)v20 = v21;
+                      pNPCStats->pNPCData2[v18].dword_000008 = v21;
                     }
                   }
                   ++v18;
-                  v20 += 76;
                 }
                 while ( v18 < pNPCStats->dword_017FC4);
               }
-              if (pParty_global->array_AD4674[0].dword_000018 == v19 )
-                memset(&pParty_global->array_AD4674[0], 0, sizeof(struct NPCData));
-              if (pParty_global->array_AD4674[1].dword_000018 == v19 )
-                memset(&pParty_global->array_AD4674[1], 0, sizeof(struct NPCData));
+              if (pParty_global->HiredNPC[0].dword_000018 == v19 )
+                memset(&pParty_global->HiredNPC[0], 0, sizeof(struct NPCData));
+              if (pParty_global->HiredNPC[1].dword_000018 == v19 )
+                memset(&pParty_global->HiredNPC[1], 0, sizeof(struct NPCData));
               pParty_global->byte_000709 = 0;
               sub_44A56A();
               break;

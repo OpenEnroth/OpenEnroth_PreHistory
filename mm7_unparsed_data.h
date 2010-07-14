@@ -2026,7 +2026,7 @@ extern struct CNPCStats *pNPCStats; // struct @ MM7.exe::007241D0
 //extern _UNKNOWN unk_72D5F4; // 009424, pNPCStats::pNPCData[499]
 extern int dword_72D5F8[array_size_unknown]; // weak
 //extern struct NPCData array_72D68C[]; // 0094BC, struct[] @ MM7.exe::0072D68C
-extern int dword_72D694[array_size_unknown]; // weak
+//extern int dword_72D694[array_size_unknown]; // weak
 extern int dword_72D6A0[array_size_unknown]; // weak
 extern int dword_72D6A8; // weak
 extern _UNKNOWN unk_72D6D0; // weak

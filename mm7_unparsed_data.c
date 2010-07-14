@@ -2004,7 +2004,7 @@ struct CNPCStats *pNPCStats = 0; // struct @ MM7.exe::007241D0
 //looks like unnamed_AD4674 around here
 // _UNKNOWN unk_72D5F4; // weak
  int dword_72D5F8[array_size_unknown]; // weak
- int dword_72D694[array_size_unknown]; // weak
+ //int dword_72D694[array_size_unknown]; // weak
  int dword_72D6A0[array_size_unknown]; // weak
  int dword_72D6A8; // weak
  _UNKNOWN unk_72D6D0; // weak
@@ -2369,7 +2369,7 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  int dword_AD4650; // weak
  int dword_AD4654[array_size_unknown]; // weak
  int dword_AD4658; // weak
-//struct NPCData array_AD4674[2];
+//struct NPCData HiredNPC[2];
  int dword_AD470C; // weak
  int dword_AD4710; // weak
  _UNKNOWN unk_AD4714; // weak

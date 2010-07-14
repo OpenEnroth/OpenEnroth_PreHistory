@@ -455,57 +455,57 @@ char __thiscall sub_48F882(void *this, signed int a2)
     {
       if ( a2 == 32 )
       {
-        LOBYTE(v27) = sub_476395(0x3A);
+        v27 = CheckHiredNPCSpeciality(0x3A);
         if ( v27 )
           v2 = 6;
-        LOBYTE(v28) = sub_476395(0x39);
+        v28 = CheckHiredNPCSpeciality(0x39);
         if ( v28 )
           v2 += 6;
         goto LABEL_83;
       }
       if ( a2 == 33 )
       {
-        LOBYTE(v25) = sub_476395(0xF);
+        v25 = CheckHiredNPCSpeciality(0xF);
         if ( v25 )
           v2 = 2;
-        LOBYTE(v26) = sub_476395(0x10);
+        v26 = CheckHiredNPCSpeciality(0x10);
         if ( v26 )
           v2 += 3;
         goto LABEL_64;
       }
       if ( a2 == 34 )
       {
-        LOBYTE(v24) = sub_476395(0x33);
+        v24 = CheckHiredNPCSpeciality(0x33);
         if ( v24 )
           v2 = 8;
         goto LABEL_64;
       }
       if ( a2 == 35 )
       {
-        LOBYTE(v22) = sub_476395(0x17);
+        v22 = CheckHiredNPCSpeciality(0x17);
         if ( v22 )
           v2 = 4;
-        LOBYTE(v23) = sub_476395(0x18);
+        v23 = CheckHiredNPCSpeciality(0x18);
         if ( v23 )
           v2 += 8;
         goto LABEL_64;
       }
       if ( a2 == 36 )
       {
-        LOBYTE(v19) = sub_476395(0xD);
+        v19 = CheckHiredNPCSpeciality(0xD);
         if ( v19 )
           v2 = 10;
-        LOBYTE(v20) = sub_476395(0xE);
+        v20 = CheckHiredNPCSpeciality(0xE);
         if ( v20 )
           v2 += 15;
-        LOBYTE(v21) = sub_476395(4);
+        v21 = CheckHiredNPCSpeciality(4);
         if ( v21 )
           v2 += 5;
         goto LABEL_64;
       }
       goto LABEL_86;
     }
-    LOBYTE(v29) = sub_476395(0x38);
+    v29 = CheckHiredNPCSpeciality(0x38);
     if ( !v29 )
       goto LABEL_112;
 LABEL_85:
@@ -514,7 +514,7 @@ LABEL_85:
   }
   if ( a2 == 30 )
   {
-    LOBYTE(v18) = sub_476395(0x38);
+    v18 = CheckHiredNPCSpeciality(0x38);
     if ( !v18 )
       goto LABEL_112;
     v34 = 2;
@@ -530,10 +530,10 @@ LABEL_85:
       {
         if ( a2 <= 15 )
         {
-          LOBYTE(v6) = sub_476395(0x11);
+          v6 = CheckHiredNPCSpeciality(0x11);
           if ( v6 )
             v2 = 2;
-          LOBYTE(v7) = sub_476395(0x12);
+          v7 = CheckHiredNPCSpeciality(0x12);
           if ( v7 )
             v2 += 3;
           v33 = 19;
@@ -542,15 +542,15 @@ LABEL_85:
         {
           if ( a2 > 18 )
             goto LABEL_86;
-          LOBYTE(v3) = sub_476395(0x35);
+          v3 = CheckHiredNPCSpeciality(0x35);
           if ( v3 )
             v2 = 2;
-          LOBYTE(v4) = sub_476395(0x36);
+          v4 = CheckHiredNPCSpeciality(0x36);
           if ( v4 )
             v2 += 3;
           v33 = 55;
         }
-        LOBYTE(v5) = sub_476395(v33);
+        v5 = CheckHiredNPCSpeciality(v33);
         if ( v5 )
           v2 += 4;
         if ( *((_BYTE *)v37 + 185) == 31 )
@@ -644,12 +644,12 @@ LABEL_64:
         }
         goto LABEL_125;
       }
-      LOBYTE(v8) = sub_476395(0x2E);
+      v8 = CheckHiredNPCSpeciality(0x2E);
       if ( !v8 )
         goto LABEL_86;
       goto LABEL_85;
     }
-    LOBYTE(v9) = sub_476395(0x39);
+    v9 = CheckHiredNPCSpeciality(0x39);
     if ( !v9 )
       goto LABEL_112;
     v34 = 6;
@@ -659,18 +659,18 @@ LABEL_51:
   }
   if ( a2 == 22 )
   {
-    LOBYTE(v14) = sub_476395(0x14);
+    v14 = CheckHiredNPCSpeciality(0x14);
     if ( v14 )
       v2 = 4;
-    LOBYTE(v15) = sub_476395(0x15);
+    v15 = CheckHiredNPCSpeciality(0x15);
     if ( v15 )
       v2 += 6;
-    LOBYTE(v16) = sub_476395(0x30);
+    v16 = CheckHiredNPCSpeciality(0x30);
     if ( v16 )
       v2 += 3;
     v35 = 50;
 LABEL_47:
-    LOBYTE(v17) = sub_476395(v35);
+    v17 = CheckHiredNPCSpeciality(v35);
     if ( v17 )
       v2 += 8;
     goto LABEL_112;
@@ -679,19 +679,19 @@ LABEL_47:
   {
     if ( a2 != 29 )
       goto LABEL_86;
-    LOBYTE(v10) = sub_476395(0x19);
+    v10 = CheckHiredNPCSpeciality(0x19);
     if ( v10 )
       v2 = 4;
-    LOBYTE(v11) = sub_476395(0x1A);
+    v11 = CheckHiredNPCSpeciality(0x1A);
     if ( v11 )
       v2 += 6;
     v35 = 51;
     goto LABEL_47;
   }
-  LOBYTE(v12) = sub_476395(0x16);
+  v12 = CheckHiredNPCSpeciality(0x16);
   if ( v12 )
     v2 = 6;
-  LOBYTE(v13) = sub_476395(0x2F);
+  v13 = CheckHiredNPCSpeciality(0x2F);
   if ( v13 )
     v2 += 5;
 LABEL_112:
@@ -787,7 +787,6 @@ int __cdecl sub_463149()
   int v2; // edi@7
   int v5; // eax@46
   int v6; // ecx@58
-  int v7; // eax@59
   signed int v9; // edi@67
   int v10; // esi@67
   int v11; // edi@69
@@ -971,18 +970,16 @@ LABEL_85:
         goto LABEL_89;
       }
       AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-      memset(&pParty_global->array_AD4674[0], 0, sizeof(struct NPCData));
-      memset(&pParty_global->array_AD4674[1], 0, sizeof(struct NPCData));
+      memset(&pParty_global->HiredNPC[0], 0, sizeof(struct NPCData));
+      memset(&pParty_global->HiredNPC[1], 0, sizeof(struct NPCData));
       v6 = 0;
       if (pNPCStats->dword_017FC4 > 0)
       {
-        v7 = (int)dword_72D694;
         do
         {
-          if ( *(_DWORD *)(v7 + 24) )
-            *(_BYTE *)v7 &= 0x7Fu;
+         if ( pNPCStats->pNPCData2[v6].dword_000020 )
+            pNPCStats->pNPCData2[v6].dword_000008 &= 0x7Fu;
           ++v6;
-          v7 += 76;
         }
         while ( v6 < pNPCStats->dword_017FC4);
       }
@@ -11042,21 +11039,21 @@ void __thiscall sub_416B01(void *this)
 
     for (i = 0; i < 2; ++i)
     {
-     if (pParty_global->array_AD4674[i].pNPCName)
+     if (pParty_global->HiredNPC[i].pNPCName)
         TmpBuf[v3++] = i;
     }
 
     lpsz = 0;
     if (pNPCStats->dword_017FC4 > 0)
     {
-      v4 = pNPCStats->pNPCData2;
+      v4 = &pNPCStats->pNPCData2;
       do
       {
         if ( *((_BYTE *)v4 + 8) & 0x80 )
         {
-         if (!pParty_global->array_AD4674[0].pNPCName || strcmp(*(const char **)v4, pParty_global->array_AD4674[0].pNPCName))
+         if (!pParty_global->HiredNPC[0].pNPCName || strcmp(*(const char **)v4, pParty_global->HiredNPC[0].pNPCName))
           {
-           if (!pParty_global->array_AD4674[1].pNPCName || strcmp(*(const char **)v4, pParty_global->array_AD4674[1].pNPCName))
+           if (!pParty_global->HiredNPC[1].pNPCName || strcmp(*(const char **)v4, pParty_global->HiredNPC[1].pNPCName))
               TmpBuf[v3++] = (_BYTE)lpsz + 2;
           }
         }
@@ -15293,13 +15290,13 @@ int __cdecl sub_41F6C1()
     ++dword_506F10;
   }
 LABEL_15:
-  LOBYTE(v1) = sub_476395(0x1D);
+  v1 = CheckHiredNPCSpeciality(0x1D);
   if ( v1 )
     --dword_506F10;
-  LOBYTE(v2) = sub_476395(0x1E);
+  v2 = CheckHiredNPCSpeciality(0x1E);
   if ( v2 )
     dword_506F10 -= 2;
-  LOBYTE(v3) = sub_476395(0x30);
+  v3 = CheckHiredNPCSpeciality(0x30);
   if ( v3 )
     --dword_506F10;
   if ( dword_506F10 < 1 )
@@ -16463,7 +16460,7 @@ void __fastcall sub_420C05(int a1, int a2)
     v17 = 0;
     for (i = 0; i < 2; ++i)
     {
-      if (pParty_global->array_AD4674[i].pNPCName)
+      if (pParty_global->HiredNPC[i].pNPCName)
       {
         v7 = v17++;
         TmpBuf[v7] = i;
@@ -16474,14 +16471,14 @@ void __fastcall sub_420C05(int a1, int a2)
     v8 = 0;
     if (pNPCStats->dword_017FC4 > 0)
     {
-      v9 = pNPCStats->pNPCData2;
+      v9 = &pNPCStats->pNPCData2;
       do
       {
         if ( *((_BYTE *)v9 + 8) & 0x80 )
         {
-         if (!pParty_global->array_AD4674[0].pNPCName || strcmp(*(const char **)v9, pParty_global->array_AD4674[0].pNPCName))
+         if (!pParty_global->HiredNPC[0].pNPCName || strcmp(*(const char **)v9, pParty_global->HiredNPC[0].pNPCName))
           {
-           if (!pParty_global->array_AD4674[1].pNPCName || strcmp(*(const char **)v9, pParty_global->array_AD4674[1].pNPCName))
+           if (!pParty_global->HiredNPC[1].pNPCName || strcmp(*(const char **)v9, pParty_global->HiredNPC[1].pNPCName))
             {
               v10 = v17++;
               TmpBuf[v10] = v8 + 2;
@@ -16501,7 +16498,7 @@ void __fastcall sub_420C05(int a1, int a2)
         v11 = 76 * TmpBuf[v3];
         v12 = &pNPCStats->pNPCData[499 + v11 / 76];
         if ( TmpBuf[v3] < 2 )
-         v12 = (char *)&(&pParty_global->array_AD4674->pNPCName)[v11];
+         v12 = (char *)&(&pParty_global->HiredNPC[0].pNPCName)[v11];
         v13 = *((_DWORD *)v12 + 6);
         if ( v13 )
           v2 += dword_737C28[5 * v13];
@@ -16509,13 +16506,13 @@ void __fastcall sub_420C05(int a1, int a2)
       }
       while ( v3 < v17 );
     }
-    LOBYTE(v14) = sub_476395(0x1F);
+    v14 = CheckHiredNPCSpeciality(0x1F);
     if ( v14 )
       v4 += 10 * v4 / 100;
-    LOBYTE(v15) = sub_476395(0x20);
+    v15 = CheckHiredNPCSpeciality(0x20);
     if ( v15 )
       v4 += 20 * v4 / 100;
-    LOBYTE(v16) = sub_476395(0x2D);
+    v16 = CheckHiredNPCSpeciality(0x2D);
     if ( v16 )
       v4 += 10 * v4 / 100;
     if ( v2 )

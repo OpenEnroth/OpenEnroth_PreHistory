@@ -830,7 +830,7 @@ signed int __fastcall sub_475F30(int a1, int a2, int a3, int a4, int a5, int a6,
 int __thiscall sub_4760C1(void *this, int a2);
 int __thiscall sub_4760D5(int this);
 bool __cdecl sub_476387();
-char __thiscall sub_476395(int param);
+bool CheckHiredNPCSpeciality(int param);
 void __thiscall sub_476C60(int this);
 int __thiscall sub_477266(int this);
 signed int __stdcall sub_47730C(int a1);

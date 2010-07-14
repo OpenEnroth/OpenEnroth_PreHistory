@@ -10382,7 +10382,7 @@ bool __cdecl sub_476387()
 
 
 //----- (00476395) --------------------------------------------------------
-char __thiscall sub_476395(int param)
+bool CheckHiredNPCSpeciality(int param)
 {
   int v1; // eax@2
   int v2; // esi@3
@@ -10396,19 +10396,16 @@ char __thiscall sub_476395(int param)
     {
 LABEL_8:
       v4 = 0;
-      if (pParty_global->array_AD4674[0].dword_000018 != param )
+      if (pParty_global->HiredNPC[0].dword_000018 != param )
       {
-       LOBYTE(v1) = pParty_global->array_AD4674[1].dword_000018 == param;
-        return v1;
+        return (pParty_global->HiredNPC[1].dword_000018 == param);
       }
     }
     else
     {
-      v3 = (int)dword_72D694;
-      while ( *(void **)(v3 + 16) != (void*)param || !(*(_BYTE *)v3 & 0x80) )
+      while (  pNPCStats->pNPCData2[v2].dword_000018 != param || !(pNPCStats->pNPCData2[2].dword_000008 & 0x80) )
       {
         ++v2;
-        v3 += 76;
         if ( v2 >= pNPCStats->dword_017FC4)
           goto LABEL_8;
       }
@@ -10581,10 +10578,10 @@ void __thiscall sub_476C60(int this)
     }
     while ( v1 < *(_DWORD *)(this + 98244) );
   }
-  if (pParty_global->array_AD4674[0].pNPCName)
-    pParty_global->array_AD4674[0].pNPCName = byte_AE302C;
-  if (pParty_global->array_AD4674[1].pNPCName)
-    pParty_global->array_AD4674[1].pNPCName = (char *)&unk_AE3090;
+  if (pParty_global->HiredNPC[0].pNPCName)
+    pParty_global->HiredNPC[0].pNPCName = byte_AE302C;
+  if (pParty_global->HiredNPC[1].pNPCName)
+    pParty_global->HiredNPC[1].pNPCName = (char *)&unk_AE3090;
 }
 
 //----- (00477266) --------------------------------------------------------
@@ -10649,19 +10646,19 @@ int __cdecl sub_47752B()
   if ( dword_6BE360 != 2 )
     v0 = &unk_6BE68C;
   v1 = 0;
-  LOBYTE(v2) = sub_476395(0x2D);
+  v2 = CheckHiredNPCSpeciality(0x2D);
   if ( v2 )
     v1 = 5;
-  LOBYTE(v3) = sub_476395(0x33);
+  v3 = CheckHiredNPCSpeciality(0x33);
   if ( v3 )
     v1 += 5;
-  LOBYTE(v4) = sub_476395(0x30);
+  v4 = CheckHiredNPCSpeciality(0x30);
   if ( v4 )
     v1 += 5;
-  LOBYTE(v5) = sub_476395(0x32);
+  v5 = CheckHiredNPCSpeciality(0x32);
   if ( v5 )
     v1 += 5;
-  LOBYTE(v6) = sub_476395(0x34);
+  v6 = CheckHiredNPCSpeciality(0x34);
   if ( v6 )
     v1 += 5;
   return v1 + *((_DWORD *)v0 + 2);

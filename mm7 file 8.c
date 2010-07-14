@@ -6103,8 +6103,8 @@ int __cdecl sub_494035()
   if ( (unsigned int)pParty_global->uCurrentHour >= 3 && (v60 < 3 || (unsigned int)(v0 / 60) / 0x18 % 0x1C > v58) )
   {
     v2 = 0;
-    pParty_global->array_AD4674[0].dword_000044 = 0;
-    pParty_global->array_AD4674[1].dword_000044 = 0;
+    pParty_global->HiredNPC[0].dword_000044 = 0;
+    pParty_global->HiredNPC[1].dword_000044 = 0;
     if (pNPCStats->dword_017FC4 > 0)
     {
       v3 = &unk_72D6D0;

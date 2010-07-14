@@ -601,7 +601,7 @@ int __fastcall sub_438F8F(int result)
               ++v25;
             }
             //while ( v26 < (signed int)&unk_AD46EC );
-            while (v26 < &pParty_global->array_AD4674[1].dword_00002C);
+            while (v26 < &pParty_global->HiredNPC[1].dword_00002C);
           }
         }
         v45 = 0;
@@ -4319,7 +4319,7 @@ LABEL_22:
   dword_5E5144 = 0;
   struct_576FE8.dword_000044 = v6;
   GameUI_DrawPartySpells();
-  if (v5 || pParty_global->array_AD4674[0].dword_000030 || pParty_global->array_AD4674[1].dword_000030)
+  if (v5 || pParty_global->HiredNPC[0].dword_000030 || pParty_global->HiredNPC[1].dword_000030)
     sub_491F87_DrawNPCs();
 
   GameUI_DrawPortraits((void *)v5);
@@ -10119,7 +10119,7 @@ LABEL_254:
             v89 += 6972;
           }
           //while ( v89 < (signed int)&unk_AD467C );
-          while (v89 < &pParty_global->array_AD4674[0].dword_000008);
+          while (v89 < &pParty_global->HiredNPC[0].dword_000008);
 
           if ( LODWORD(v705) != HIDWORD(v1) )
           {
@@ -13179,7 +13179,7 @@ LABEL_1000:
           LODWORD(v1) = v1 + 6972;
         }
         //while ( (_DWORD)v1 < (signed int)&unk_AD467C );
-        while ((_DWORD)v1 < &pParty_global->array_AD4674[0].dword_000008);
+        while ((_DWORD)v1 < &pParty_global->HiredNPC[0].dword_000008);
 
 
         LOWORD(v1) = v709;
@@ -13534,7 +13534,7 @@ LABEL_1087:
 
         for (i = 0; i < 2; ++i)
         {
-          if (pParty_global->array_AD4674[i].pNPCName != HIDWORD(v1) )
+          if (pParty_global->HiredNPC[i].pNPCName != HIDWORD(v1) )
           {
             v570 = LODWORD(v712)++;
             dword_5C3610[v570] = LODWORD(v702) + 1;
@@ -13551,9 +13551,9 @@ LABEL_1087:
           {
             if ( *(_BYTE *)(v708 + 8) & 0x80 )
             {
-             if (pParty_global->array_AD4674[0].pNPCName == HIDWORD(v1) || strcmp(*(const char **)v708, pParty_global->array_AD4674[0].pNPCName))
+             if (pParty_global->HiredNPC[0].pNPCName == HIDWORD(v1) || strcmp(*(const char **)v708, pParty_global->HiredNPC[0].pNPCName))
               {
-               if (pParty_global->array_AD4674[1].pNPCName == HIDWORD(v1) || strcmp(*(const char **)v708, pParty_global->array_AD4674[1].pNPCName))
+               if (pParty_global->HiredNPC[1].pNPCName == HIDWORD(v1) || strcmp(*(const char **)v708, pParty_global->HiredNPC[1].pNPCName))
                 {
                   v571 = LODWORD(v712);
                   LODWORD(v712) += 4;
@@ -13824,7 +13824,7 @@ LABEL_439:
 
       runtime_warning();
       //if ( (_DWORD)v1 >= (signed int)&dword_AD4674 )
-      if ((_DWORD)v1 >= &pParty_global->array_AD4674[0])
+      if ((_DWORD)v1 >= &pParty_global->HiredNPC[0])
         goto LABEL_1056;
       continue;
     }
@@ -14443,9 +14443,9 @@ void __cdecl sub_491F87_DrawNPCs()
     v25 = 0;
     v24 = 0;
 
- if (pParty_global->array_AD4674[0].pNPCName)
+ if (pParty_global->HiredNPC[0].pNPCName)
    TmpBuf[v24++] = 0;
- if (pParty_global->array_AD4674[1].pNPCName)
+ if (pParty_global->HiredNPC[1].pNPCName)
    TmpBuf[v24++] = 1;
 
  for (i = 0; i < pNPCStats->dword_017FC4; ++i)
@@ -14453,11 +14453,11 @@ void __cdecl sub_491F87_DrawNPCs()
   v4 = &pNPCStats->pNPCData2[i];
   if ( *((_BYTE *)v4 + 8) & 0x80 )
   {
-   if (!pParty_global->array_AD4674[0].pNPCName ||
-       strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->array_AD4674[0].pNPCName))
+   if (!pParty_global->HiredNPC[0].pNPCName ||
+       strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->HiredNPC[0].pNPCName))
    {
-    if (!pParty_global->array_AD4674[1].pNPCName ||
-        strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->array_AD4674[1].pNPCName))
+    if (!pParty_global->HiredNPC[1].pNPCName ||
+        strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->HiredNPC[1].pNPCName))
     {
      v5 = v24++;
      TmpBuf[v5] = i + 2;
@@ -14484,7 +14484,7 @@ void __cdecl sub_491F87_DrawNPCs()
         }
         else
         {
-          wsprintfA(Str1, "NPC%03d", pParty_global->array_AD4674[v7].uPortraitID);
+          wsprintfA(Str1, "NPC%03d", pParty_global->HiredNPC[v7].uPortraitID);
           v10 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
           v9 = 4 * v25;
           CD3DRenderer_DrawIndexedTexture(pD3DRenderer,
@@ -14493,9 +14493,9 @@ void __cdecl sub_491F87_DrawNPCs()
             v10 != -1 ? 72 * v10 + 7145548 : 0);
 
           v8 = 76 * (unsigned __int8)TmpBuf[v21];
-          if (pParty_global->array_AD4674[v8].dword_000028 == 1 )
+          if (pParty_global->HiredNPC[v8].dword_000028 == 1 )
           {
-           v20 = pParty_global->array_AD4674[v8].dword_00002C;
+           v20 = pParty_global->HiredNPC[v8].dword_00002C;
             v12 = *(int *)((char *)dword_4EE06C + v9);
             v11 = *(int *)((char *)dword_4EE074 + v9);
             v19 = v12;

@@ -1490,25 +1490,25 @@ LABEL_56:
 
     for (i = 0; i < 2; ++i)
     {
-      v9 = pParty_global->array_AD4674[i].dword_000030;
+      v9 = pParty_global->HiredNPC[i].dword_000030;
       if ( v9 )
       {
-        v10 = pParty_global->array_AD4674[i].dword_000028;
-        v11 = pClass24_global2->int_00001C + pParty_global->array_AD4674[i].dword_00002C;
+        v10 = pParty_global->HiredNPC[i].dword_000028;
+        v11 = pClass24_global2->int_00001C + pParty_global->HiredNPC[i].dword_00002C;
         if ( v11 >= v9 )
         {
           v10 = 0;
           v9 = 0;
           v11 = 0;
-          memset(&pParty_global->array_AD4674[i], 0, sizeof(struct NPCData));
+          memset(&pParty_global->HiredNPC[i], 0, sizeof(struct NPCData));
           pParty_global->byte_000709 = 0;
           sub_44A56A();
           struct_576FE8.dword_000044 = 1;
         }
 
-        pParty_global->array_AD4674[i].dword_000028 = v10;
-        pParty_global->array_AD4674[i].dword_00002C = v11;
-        pParty_global->array_AD4674[i].dword_000030 = v9;
+        pParty_global->HiredNPC[i].dword_000028 = v10;
+        pParty_global->HiredNPC[i].dword_00002C = v11;
+        pParty_global->HiredNPC[i].dword_000030 = v9;
       }
     }
   }
@@ -1817,7 +1817,7 @@ LABEL_7:
   v5 = v3 * (v2 & 0x3F);
   v4 = 0;
   v6 = &pClass40->pItems[*(_DWORD *)a1].pIconName;
-  LOBYTE(v7) = sub_476395(4);
+  v7 = CheckHiredNPCSpeciality(4);
   if ( v7 )
     goto LABEL_15;
   if ( sub_458244(v2) >= 4 )
@@ -1862,10 +1862,10 @@ LABEL_7:
   v6 = v4 * (v3 & 0x3F);
   v5 = 0;
   v7 = &pClass40->pItems[*(_DWORD *)a2].pIconName;
-  LOBYTE(v8) = sub_476395(1);
+  v8 = CheckHiredNPCSpeciality(1);
   if ( v8 && *((_BYTE *)v7 + 28) <= 2 )
     goto LABEL_21;
-  LOBYTE(v9) = sub_476395(2);
+  v9 = CheckHiredNPCSpeciality(2);
   if ( v9 )
   {
     v10 = *((_BYTE *)v7 + 28);
@@ -1875,7 +1875,7 @@ LABEL_7:
         goto LABEL_21;
     }
   }
-  LOBYTE(v11) = sub_476395(3);
+  v11 = CheckHiredNPCSpeciality(3);
   if ( v11 )
   {
     if ( *((_BYTE *)v7 + 28) >= 9u )

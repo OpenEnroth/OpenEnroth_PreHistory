@@ -860,7 +860,7 @@ void GameUI_Process()
               v212 = uControlID - 134;
 
               for (i = 0; i < 2; ++i)
-                if (pParty_global->array_AD4674[i].pNPCName)
+                if (pParty_global->HiredNPC[i].pNPCName)
                 {
                   v7 = v210++;
                   TmpBuf[v7] = i;
@@ -874,9 +874,9 @@ void GameUI_Process()
                 {
                   if ( *(_BYTE *)(v211 + 8) & 0x80 )
                   {
-                    if (!pParty_global->array_AD4674[0].pNPCName || strcmp(*(const char **)v211, pParty_global->array_AD4674[0].pNPCName))
+                    if (!pParty_global->HiredNPC[0].pNPCName || strcmp(*(const char **)v211, pParty_global->HiredNPC[0].pNPCName))
                     {
-                     if (!pParty_global->array_AD4674[1].pNPCName || strcmp(*(const char **)v211, pParty_global->array_AD4674[1].pNPCName))
+                     if (!pParty_global->HiredNPC[1].pNPCName || strcmp(*(const char **)v211, pParty_global->HiredNPC[1].pNPCName))
                       {
                         v8 = v210++;
                         TmpBuf[v8] = v196 + 2;
@@ -1907,7 +1907,7 @@ LABEL_306:
                       if ( dword_5B65CC )
                       {
                         pParty_global->byte_000709 = 0;
-                        LOBYTE(dword_72D694[19 * dword_5B65CC]) &= 0x7Fu;
+                        pNPCStats->pNPCData2[dword_5B65CC].dword_000008 &= 0x7Fu;
                         sub_44A56A();
                         struct_576FE8.dword_000044 = v0;
                         dword_5B65CC = 0;
@@ -2090,7 +2090,7 @@ LABEL_92:
           if ( v209 )
           {
             GUIWindowCreate(626, 179, 0, 0, 90, dword_5079E8, 0);
-            v48 = (pParty_global->array_AD4674[0].pNPCName != 0) + (pParty_global->array_AD4674[1].pNPCName != 0) + (unsigned __int8)pParty_global->byte_00070A - 2;
+            v48 = (pParty_global->HiredNPC[0].pNPCName != 0) + (pParty_global->HiredNPC[1].pNPCName != 0) + (unsigned __int8)pParty_global->byte_00070A - 2;
             if (pParty_global->byte_000709 < v48 )
             {
               ++pParty_global->byte_000709;
@@ -3721,7 +3721,7 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
   uMinimapCentreY = (uY + uW) / 2;
   v84 = *(__int64 *)(pParty_global->array_00088C + 0x130) > 0;
   v79 = (unsigned __int16)word_ACD97E;
-  LOBYTE(v6) = sub_476395(0x26);
+  v6 = CheckHiredNPCSpeciality(0x26);
   if ( v6 )
   {
     v84 = 1;
