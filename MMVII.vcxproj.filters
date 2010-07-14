@@ -276,5 +276,8 @@
     <ClInclude Include="Party.h">
       <Filter>Wight and Wagic</Filter>
     </ClInclude>
+    <ClInclude Include="NPC.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

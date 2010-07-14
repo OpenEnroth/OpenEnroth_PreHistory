@@ -33,7 +33,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\</OutDir>
@@ -148,6 +148,7 @@
     <ClInclude Include="libpng143\pngpriv.h" />
     <ClInclude Include="mm7_unparsed_data.h" />
     <ClInclude Include="mm7_unparsed_functions.h" />
+    <ClInclude Include="NPC.h" />
     <ClInclude Include="Party.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="zlib\deflate.h" />
