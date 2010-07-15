@@ -80,6 +80,8 @@ void RtlCallCtors()
  struct_50C0C8_ctor(&struct_50C0C8);
 
  unnamed_505898_ctor(&struct_505898);
+
+ class35_ctor(&class35_obj);
 }
 
 __declspec(naked) void loc_47907F(void)
@@ -5675,7 +5677,7 @@ signed int __cdecl sub_465D0B()
   class17_SetupPalettes(pClass17_Bitmaps_LOD, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
   class17_SetupPalettes(pClass17_Icons_LOD, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
 
-  class35_sub_48A8F5(&class35_obj, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
+  class35_SetColorChannelInfo(&class35_obj, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
   class35_obj.byte_267AD0 = -128;
   class35_obj.byte_267AD1 = -128;
   class35_obj.byte_267AD2 = -128;
@@ -7425,7 +7427,7 @@ void __cdecl sub_47BACF()
           v10 = (*((_BYTE *)v1 - 9) & 1) == 0;
           v22 = v9;
           if ( !v10 )
-            v22 = (char *)&unk_A6E798 + 512 * *((_WORD *)v1 - 7);
+            v22 = (char *)class35_obj.pColorPalette3 + 512 * *((_WORD *)v1 - 7);
           if ( !(v25 & 0x40) )
           {
             if ( v25 & 0x80 )

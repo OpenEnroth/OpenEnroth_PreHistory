@@ -2172,12 +2172,12 @@ extern struct Edge *ptr_80CA10[];
 
 extern struct class35 class35_obj; // struct @ MM7.exe::0080D198
 //_UNKNOWN unk_80D198; // weak
-extern _UNKNOWN unk_816798; // weak
-extern _UNKNOWN unk_8DE798; // weak
-extern _UNKNOWN unk_989680; // weak
-extern _UNKNOWN unk_9A6798; // weak
-extern _UNKNOWN unk_9EB9F1; // weak
-extern _UNKNOWN unk_A6E798; // weak
+//extern _UNKNOWN unk_816798; // 009600
+//extern _UNKNOWN unk_8DE798; // 0D1600
+//extern _UNKNOWN unk_989680; // 17C4E8
+//extern _UNKNOWN unk_9A6798; // 199600
+//extern _UNKNOWN unk_9EB9F1; // 1DE859
+//extern _UNKNOWN unk_A6E798; // 261600
 //char byte_A74C68; // class35_obj::byte_267AD0
 //char byte_A74C69; // class35_obj::byte_267AD1
 //char byte_A74C6A; // class35_obj::byte_267AD2

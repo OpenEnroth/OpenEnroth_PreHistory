@@ -8151,7 +8151,7 @@ signed int __fastcall sub_452A9E(signed int a1)
 }
 
 //----- (00452AE2) --------------------------------------------------------
-int __fastcall sub_452AE2(int a1)
+int __fastcall MakeColorMaskFromBitDepth(int a1)
 {
   signed __int64 v1; // qax@1
 
@@ -14466,9 +14466,9 @@ LABEL_52:
       sub_410423(pClass17_Bitmaps_LOD);
       sub_4ACBE0(pClass17_Sprites_LOD);
     }
-    if ( class35_obj.dword_267AE0 == pD3DRenderer->uNumTargetBBits && class35_obj.dword_267ADC == pD3DRenderer->uNumTargetGBits && class35_obj.dword_267AD8 == pD3DRenderer->uNumTargetRBits )
+    if ( class35_obj.uNumTargetBBits == pD3DRenderer->uNumTargetBBits && class35_obj.uNumTargetGBits == pD3DRenderer->uNumTargetGBits && class35_obj.uNumTargetRBits == pD3DRenderer->uNumTargetRBits )
       goto LABEL_38;
-    class35_sub_48A8F5(&class35_obj, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
+    class35_SetColorChannelInfo(&class35_obj, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
     class35_sub_48A614(&class35_obj);
     class17_SetupPalettes(pClass17_Bitmaps_LOD, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
     class17_SetupPalettes(pClass17_Icons_LOD, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);

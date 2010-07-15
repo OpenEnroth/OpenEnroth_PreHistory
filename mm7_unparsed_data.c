@@ -2120,12 +2120,6 @@ struct Edge *ptr_80CA10[480]; // dword[480] @ MM7.exe::0080CA10
 
 struct class35 class35_obj; // struct @ MM7.exe::0080D198
 //_UNKNOWN unk_80D198; // weak
- _UNKNOWN unk_816798; // weak
- _UNKNOWN unk_8DE798; // weak
- _UNKNOWN unk_989680; // weak
- _UNKNOWN unk_9A6798; // weak
- _UNKNOWN unk_9EB9F1; // weak
- _UNKNOWN unk_A6E798; // weak
 //char byte_A74C68; // class35_obj::byte_267AD0
 //char byte_A74C69; // class35_obj::byte_267AD1
 //char byte_A74C6A; // class35_obj::byte_267AD2

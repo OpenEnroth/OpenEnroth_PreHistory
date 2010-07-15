@@ -12903,9 +12903,9 @@ char *__fastcall sub_47BC6F(int a1, int a2, signed int a3, int a4)
 }
 
 //----- (0047BE67) --------------------------------------------------------
-char *__fastcall sub_47BE67(int a1)
+short *__fastcall sub_47BE67(int a1)
 {
-  return (char *)&unk_9A6798 + 16384 * a1;
+  return class35_obj.pColorPalette2[a1];
 }
 
 //----- (0047BE72) --------------------------------------------------------
@@ -13176,7 +13176,7 @@ char *__fastcall sub_47C24C(int a1, int a2, int a3, char a4)
 }
 
 //----- (0047C28C) --------------------------------------------------------
-char *__fastcall sub_47C28C(int a1, char a2, signed int a3, signed int a4)
+short *__fastcall sub_47C28C(int a1, char a2, signed int a3, signed int a4)
 {
   int v4; // esi@1
   char *result; // eax@2
@@ -13190,7 +13190,7 @@ char *__fastcall sub_47C28C(int a1, char a2, signed int a3, signed int a4)
   v8 = 1;
   if ( pParty_global->dword_01613C )
   {
-    result = (char *)&unk_9A6798 + 16384 * *(_WORD *)(*(_DWORD *)(a1 + 60) + 38);
+    result = class35_obj.pColorPalette2[*(_WORD *)(*(_DWORD *)(a1 + 60) + 38)];
   }
   else
   {
@@ -13214,26 +13214,26 @@ char *__fastcall sub_47C28C(int a1, char a2, signed int a3, signed int a4)
 }
 
 //----- (0047C30E) --------------------------------------------------------
-char *__fastcall sub_47C30E(int a1, char a2)
+short *__fastcall sub_47C30E(int a1, char a2)
 {
   char *result; // eax@4
 
   if ( a2 & 2 || byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3618) & 4 )
-    result = (char *)&unk_9A6798 + 16384 * a1;
+    result = class35_obj.pColorPalette2[a1];
   else
-    result = (char *)&unk_8DE798 + 16384 * a1;
+    result = class35_obj.pColorPalette1[a1];
   return result;
 }
 
 //----- (0047C33F) --------------------------------------------------------
-char *__fastcall sub_47C33F(int a1, char a2)
+short *__fastcall sub_47C33F(int a1, char a2)
 {
   char *result; // eax@4
 
   if ( a2 & 2 || byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3618) & 4 )
-    result = (char *)&unk_9A6798 + 16384 * a1;
+    result = class35_obj.pColorPalette2[a1];
   else
-    result = (char *)&unk_816798 + 16384 * a1;
+    result = class35_obj.pColorPalette0[a1];
   return result;
 }
 

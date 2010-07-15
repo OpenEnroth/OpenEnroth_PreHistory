@@ -2497,16 +2497,24 @@ int class28_fn2(struct class28 *_this, int a2)
 
 
 //----- (0048A8F5) --------------------------------------------------------
-int class35_sub_48A8F5(struct class35 *_this, int a2, int a3, int a4)
+void class35_SetColorChannelInfo(struct class35 *_this, unsigned int uNumRBits, unsigned int uNumGBits, unsigned int uNumBBits)
 {
- _this->dword_267AD8 = a2;
- _this->dword_267ADC = a3;
- _this->dword_267AE0 = a4;
+ /*_this->uNumTargetRBits = uNumRBits;
+ _this->uNumTargetGBits = uNumGBits;
+ _this->uNumTargetBBits = uNumBBits;
 
- _this->dword_267AE4 = sub_452AE2(a2) << (a3 + (unsigned char)_this->dword_267AE0);
- _this->dword_267AE8 = sub_452AE2(a3) << a4;
- _this->dword_267AEC = sub_452AE2(a4);
- return _this->dword_267AEC;
+ _this->uTargetRMask = MakeColorMaskFromBitDepth(uNumRBits) << (uNumGBits + uNumBBits);
+ _this->uTargetGMask = MakeColorMaskFromBitDepth(uNumGBits) << (uNumBBits);
+ _this->uTargetBMask = MakeColorMaskFromBitDepth(uNumBBits);*/
+
+ //maintain original setup data so the code can generate correct colors. covert to R8G8B8 on the fly during render
+ _this->uNumTargetRBits = 5;
+ _this->uNumTargetGBits = 6;
+ _this->uNumTargetBBits = 5;
+
+ _this->uTargetRMask = 0xF800;
+ _this->uTargetGMask = 0x07E0;
+ _this->uTargetBMask = 0x001F;
 }
 
 //----- (0048A614) --------------------------------------------------------
@@ -2518,16 +2526,32 @@ int class35_sub_48A614(struct class35 *_this)
  result = class35_sub_489BE0(_this, 0);
  for (i = 1; i < 50; ++i)
  {
-  if (_this->array_267A04[i])
+  if (_this->array_267A00[i])
     result = class35_sub_489BE0(_this, i);
  }
 
  return result;
 }
 
+//----- (0048A300) -----
+void class35_ctor(struct class35 *_this) // missing constructor from rtl
+{
+ int i;
+
+ for (i = 0; i < 256; ++i)
+ {
+  _this->pBaseColors[0][i * 3 + 0] = i;
+  _this->pBaseColors[0][i * 3 + 1] = i;
+  _this->pBaseColors[0][i * 3 + 2] = i;
+ }
+
+ class35_sub_489BE0(_this, 0);
+
+ memset(_this->array_267A00, 0, 50 * sizeof(int));
+}
+
+
 //----- (00489BE0) --------------------------------------------------------
-signed int __fastcall sub_48A643(float *a1, float *a2, float *a3, float a4, float a5, float a6);
-void __fastcall sub_48A7AA(int a1, int a2, float a3, float a4, float a5, int a6);
 int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
 {
   float v5; // ST08_4@5
@@ -2537,7 +2561,6 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
   int v10; // ST0C_4@8
   int v11; // ecx@8
   double v21; // st5@11
-  int v22; // eax@13
   __int16 v24; // bx@16
   int v25; // eax@16
    double v28; // st7@20
@@ -2600,70 +2623,65 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
  short             *v81;
  int                i, j;
 
- v2 = _this->aSomeCoords[idx];
+ v2 = _this->pBaseColors[idx];
  if (_this->byte_267AD3 || _this->byte_267AD4 || _this->byte_267AD5)
  {
-  scale = *(double *)(byte_4D8410 + 1096);
-
   for (i = 0; i < 256; ++i)
   {
-   v5 = (double)(v2[i * 3 + 2] + _this->byte_267AD5) * scale;
-   v6 = (double)(v2[i * 3 + 1] + _this->byte_267AD4) * scale;
-   v7 = (double)(v2[i * 3 + 0] + _this->byte_267AD3) * scale;
+   v5 = (double)(v2[i * 3 + 2] + _this->byte_267AD5) / 510.0;
+   v6 = (double)(v2[i * 3 + 1] + _this->byte_267AD4) / 510.0;
+   v7 = (double)(v2[i * 3 + 0] + _this->byte_267AD3) / 510.0;
    sub_48A7AA(&local_0[i].y, &local_0[i].x, v7, v6, v5, &local_0[i].z);
    v2 += 3;
   }
  }
  else
  {
-  scale = *(double *)(byte_4D8410 + 1104);
-
   for (i = 0; i < 256; ++i)
   {
-   v5 = (double)v2[i * 3 + 2] * scale;
-   v6 = (double)v2[i * 3 + 1] * scale;
-   v7 = (double)v2[i * 3 + 0] * scale;
+   v5 = (double)v2[i * 3 + 2] / 255.0;
+   v6 = (double)v2[i * 3 + 1] / 255.0;
+   v7 = (double)v2[i * 3 + 0] / 255.0;
    sub_48A7AA(&local_0[i].y, &local_0[i].x, v7, v6, v5, &local_0[i].z);
    v2 += 3;
   }
  }
 
 
- v81 = _this->aSomeIndices[idx];
+ v81 = _this->pColorPalette0[idx];
  for (i = 0; i < 32; ++i)
  {
-  scale = memory_4D8410.f1_0 - (double)i * *(double *)&byte_4D8410[1088];
+  scale = 1.0 - (double)i / 31.0;
 
   for (j = 0; j < 256; ++j)
   {
    v21 = local_0[j].z * scale;
 
-   if (v21 < *(double *)(byte_4D8410 + 176))
+   if (v21 < 0)
      v21 = 0.0;
    sub_48A643(&v85, &v84, &v86, local_0[j].y, local_0[j].x, v21);
 
-   v22 = _this->dword_267ADC;
-   if (v22 == 6)
+   if (_this->uNumTargetGBits == 6)
    {
-    v85 *= *(double *)(byte_4D8410 + 1080);
-    v84 *= *(double *)(byte_4D8410 + 1072);
-    v86 *= *(double *)(byte_4D8410 + 1080);
+    v85 *= 31.0;
+    v84 *= 62.0;
+    v86 *= 31.0;
    }
    else
    {
-    v85 *= *(double *)(byte_4D8410 + 1080);
-    v84 *= *(double *)(byte_4D8410 + 1080);
-    v86 *= *(double *)(byte_4D8410 + 1080);
+    v85 *= 31.0;
+    v84 *= 31.0;
+    v86 *= 31.0;
    }
 
-   v24 = (signed __int64)v86 | ((unsigned __int16)(signed __int64)v84 << _this->dword_267AE0) | (unsigned __int16)((unsigned __int16)(signed __int64)v85 << (_this->dword_267AE0 + v22));
+   v24 = (signed __int64)v86 | ((unsigned __int16)(signed __int64)v84 << _this->uNumTargetBBits) | (unsigned __int16)((unsigned __int16)(signed __int64)v85 << (_this->uNumTargetBBits + _this->uNumTargetGBits));
    v81[i * 256 + j] = v24;
   }
  }
 
 
 
- v81 = _this->array_199600[idx];
+ v81 = _this->pColorPalette2[idx];
  for (i = 0; i < 32; ++i)
  {
   scale = memory_4D8410.f1_0 - (double)i * *(double *)&byte_4D8410[1088];
@@ -2676,7 +2694,7 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
      v28 = 0.0;
    sub_48A643(&v85, &v84, &v86, 1.0, 1.0, v28);
 
-   v29 = _this->dword_267ADC;
+   v29 = _this->uNumTargetGBits;
    if ( v29 == 6 )
    {
     v85 *= *(double *)&byte_4D8410[1080];
@@ -2690,13 +2708,13 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
     v86 *= *(double *)&byte_4D8410[1080];
    }
 
-   v24 = (signed __int64)*(float *)&v86 | ((unsigned __int16)(signed __int64)v84 << _this->dword_267AE0) | (unsigned __int16)((unsigned __int16)(signed __int64)v85 << (_this->dword_267AE0 + v29));
+   v24 = (signed __int64)*(float *)&v86 | ((unsigned __int16)(signed __int64)v84 << _this->uNumTargetBBits) | (unsigned __int16)((unsigned __int16)(signed __int64)v85 << (_this->uNumTargetBBits + v29));
    v81[i * 256 + j] = v24;
   }
  }
 
 
- v81 = _this->array_261600[idx];
+ v81 = _this->pColorPalette3[idx];
  for (i = 0; i < 256; ++i)
  {
   v36 = (local_0[i].z - *(double *)&byte_4D8410[1056]) * *(double *)&byte_4D8410[1048] + *(double *)&byte_4D8410[1056];
@@ -2706,7 +2724,7 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
   v39 = local_0[i].x * *(double *)&byte_4D8410[1064];
   sub_48A643(&v85, &v84, &v86, local_0[i].y, v39, v36);
 
-  if (_this->dword_267ADC == 6)
+  if (_this->uNumTargetGBits == 6)
   {
    v85 *= *(double *)&byte_4D8410[1080];
    v84 *= *(double *)&byte_4D8410[1072];
@@ -2720,20 +2738,20 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
   }
 
   v44 = (signed __int64)((v85 + v84 + v86) * *(double *)&byte_4D8410[640] * 8.0);
-  v40 = (_DWORD)v44 >> (8 - (unsigned __int8)_this->dword_267AD8);
-  v45 = 8 - _this->dword_267ADC;
-  v42 = _this->dword_267AE0;
+  v40 = (_DWORD)v44 >> (8 - (unsigned __int8)_this->uNumTargetRBits);
+  v45 = 8 - _this->uNumTargetGBits;
+  v42 = _this->uNumTargetBBits;
   v43 = (_DWORD)v44 >> v45;
-  v41 = _this->dword_267AD8;
+  v41 = _this->uNumTargetRBits;
   v87 = (_DWORD)v44 >> (8 - v42);
   if ( v40 > (1 << v41) - 1 )
     v40 = (1 << v41) - 1;
-  v46 = _this->dword_267ADC;
+  v46 = _this->uNumTargetGBits;
   if ( v43 > (1 << v46) - 1 )
     v43 = (1 << v46) - 1;
   if ( v87 > (1 << v42) - 1 )
     v87 = (1 << v42) - 1;
-  v48 = v40 << (v42 + (unsigned char)_this->dword_267ADC);
+  v48 = v40 << (v42 + (unsigned char)_this->uNumTargetGBits);
 
   v81[i] = v87 | ((_WORD)v43 << v42) | (_WORD)v48;
  }
@@ -2750,7 +2768,7 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
  }
 
 
- v81 = _this->array_0D1600[idx];
+ v81 = _this->pColorPalette1[idx];
  for (i = 0; i < 32; ++i)
  {
   for (j = 0; j < 256; ++j)
@@ -2761,7 +2779,7 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
      v55 = 0.0;
 
    sub_48A643(&v85, &v84, &v86, local_0[j].y, v55, local_0[j].z);
-   if (_this->dword_267ADC == 6 )
+   if (_this->uNumTargetGBits == 6 )
    {
     v85 *= *(double *)&byte_4D8410[1080];
     v84 *= *(double *)&byte_4D8410[1072];
@@ -2777,9 +2795,9 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
    if (_this->byte_267AD0 || _this->byte_267AD1 || _this->byte_267AD2)
    {
     v61 = (double)i * *(double *)&byte_4D8410[1088];
-    v60 = (signed __int64)((double)(1 << _this->dword_267AD8) * v78 * v61 + v85 * (1.0 - v61));
-    v59 = (signed __int64)((double)(1 << _this->dword_267ADC) * v79 * v61 + v84 * (1.0 - v61));
-    v58 = (signed __int64)((double)(1 << _this->dword_267AE0) * v83 * v61 + v86 * (1.0 - v61));
+    v60 = (signed __int64)((double)(1 << _this->uNumTargetRBits) * v78 * v61 + v85 * (1.0 - v61));
+    v59 = (signed __int64)((double)(1 << _this->uNumTargetGBits) * v79 * v61 + v84 * (1.0 - v61));
+    v58 = (signed __int64)((double)(1 << _this->uNumTargetBBits) * v83 * v61 + v86 * (1.0 - v61));
    }
    else
    {
@@ -2788,21 +2806,21 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
     v58 = (signed __int64)v86;
    }
 
-   v62 = _this->dword_267AD8;
+   v62 = _this->uNumTargetRBits;
    v90 = v58;
    if ( v60 > (1 << v62) - 1 )
      v60 = (1 << v62) - 1;
 
-   v63 = _this->dword_267ADC;
+   v63 = _this->uNumTargetGBits;
    if ( v59 > (1 << v63) - 1 )
      v59 = (1 << v63) - 1;
 
-   v64 = _this->dword_267AE0;
-   v65 = _this->dword_267AE0;
+   v64 = _this->uNumTargetBBits;
+   v65 = _this->uNumTargetBBits;
    if ( v90 > (1 << v65) - 1 )
      v90 = (1 << v65) - 1;
 
-   v66 = _this->dword_267ADC;
+   v66 = _this->uNumTargetGBits;
    v68 = v64 + v66;
 
    v81[i * 256 + j] = v90 | ((_WORD)v59 << v64) | (unsigned __int16)((_WORD)v60 << v68);
@@ -9267,7 +9285,7 @@ LABEL_171:
         return 0;
 LABEL_89:
       v59 = *(_DWORD *)(v3 + 1508);
-      v8 = (int)&unk_9EB9F1;
+      v8 = (char *)(&class35_obj.pColorPalette2[17][73 * 32 + 12]) + 1;
       goto LABEL_146;
     }
     if ( v2 > 4000 )
@@ -9294,7 +9312,7 @@ LABEL_89:
     if ( v23 != 1 )
       return 0;
     v56 = *(_DWORD *)(v3 + 1508);
-    v50 = (int)&unk_9EB9F1;
+    v50 = (char *)(&class35_obj.pColorPalette2[17][73 * 32 + 12]) + 1;
 LABEL_8:
     sub_4A73AA((void *)v3, a2, v50, v56);
     return 0;

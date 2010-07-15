@@ -12816,7 +12816,7 @@ int __stdcall sub_47CB57(unsigned char *pIndexedPixels, int a2, unsigned int uNu
       v6 = v19;
     }
     result = 0;
-    v16 = (signed int)&unk_989680;
+    v16 = (signed int)&class35_obj.pColorPalette1[42][187 * 32 + 20];
     v15 = 0;
     do
     {

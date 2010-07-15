@@ -892,14 +892,14 @@ int class28_fn2(struct class28 *_this, int a2);
 //class35
 struct class35
 {
- char  aSomeCoords[50][256 * 3];   // array @ 000000
- short aSomeIndices[50][256 * 32]; // array @ 009600
- short array_0D1600[50][256 * 32]; // array @ 0D1600
- short array_199600[50][256 * 32]; // array @ 199600
- short array_261600[50][256];      // array @ 261600
- int   dword_267A00;
- int  array_267A04[50];
-
+ char  pBaseColors[50][256 * 3];     // array @ 000000
+ short pColorPalette0[50][256 * 32]; // array @ 009600
+ short pColorPalette1[50][256 * 32]; // array @ 0D1600
+ short pColorPalette2[50][256 * 32]; // array @ 199600
+ short pColorPalette3[50][256];      // array @ 261600
+ int   array_267A00[50];
+ int   dword_267AC8;
+ int   dword_267ACC;
  char byte_267AD0;
  char byte_267AD1;
  char byte_267AD2;
@@ -909,16 +909,18 @@ struct class35
  char byte_267AD6;
  char byte_267AD7;
 
- int dword_267AD8;
- int dword_267ADC;
- int dword_267AE0;
- int dword_267AE4;
- int dword_267AE8;
- int dword_267AEC;
+ unsigned int uNumTargetRBits; // dword @ 267AD8
+ unsigned int uNumTargetGBits; // dword @ 267ADC
+ unsigned int uNumTargetBBits; // dword @ 267AE0
+ unsigned int uTargetRMask;    // dword @ 267AE4
+ unsigned int uTargetGMask;    // dword @ 267AE8
+ unsigned int uTargetBMask;    // dword @ 267AEC
 };
 //sizeof ~ ?
+//nt __thiscall sub_48A300(void *this)
+void class35_ctor(struct class35 *_this);
 //int __thiscall sub_48A8F5(int this, int a2, int a3, int a4)
-int class35_sub_48A8F5(struct class35 *_this, int a2, int a3, int a4);
+void class35_SetColorChannelInfo(struct class35 *_this, int a2, int a3, int a4);
 //int __thiscall sub_48A614(int this);
 int class35_sub_48A614(struct class35 *_this);
 //int __thiscall sub_489BE0(int this, int a2);

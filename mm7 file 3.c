@@ -6476,7 +6476,7 @@ void __cdecl sub_440CB8()
           v4 = (*((_BYTE *)v1 - 9) & 1) == 0;
           v12 = v3;
           if ( !v4 )
-            v12 = (char *)&unk_A6E798 + 512 * *((_WORD *)v1 - 7);
+            v12 = (char *)class35_obj.pColorPalette3 + 512 * *((_WORD *)v1 - 7);
           if ( !(v15 & 0x40) )
           {
             if ( v15 & 0x80 )

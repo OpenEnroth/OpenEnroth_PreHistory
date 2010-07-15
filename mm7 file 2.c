@@ -219,13 +219,13 @@ void __fastcall sub_48A7AA(float *a1, float *a2, float a3, float a4, float a5, f
 
  *a6 = v6;
 
- if ( v6 == *(double *)&byte_4D8410[176] )
+ if ( v6 == 0.0)
    v8 = 0.0;
  else
    v8 = (v6 - v7) / v6;
  *a2 = v8;
 
-  if ( v8 == *(double *)&byte_4D8410[176] )
+  if ( v8 == 0.0)
   {
     v9 = 0.0;
 LABEL_23:
@@ -13044,7 +13044,7 @@ int __cdecl LoadFontsAndSomeStuff()
  int i;
 
  class17_SetupPalettes(pClass17_Icons_LOD, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
- class35_sub_48A8F5(&class35_obj, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
+ class35_SetColorChannelInfo(&class35_obj, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
  class35_sub_48A614(&class35_obj);
 
  for (i = 0; i < 480; ++i)
