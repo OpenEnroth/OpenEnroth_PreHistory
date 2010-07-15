@@ -11046,21 +11046,17 @@ void __thiscall sub_416B01(void *this)
     lpsz = 0;
     if (pNPCStats->dword_017FC4 > 0)
     {
-      v4 = &pNPCStats->pNPCData2;
-      do
+      for (i = 0; i < pNPCStats->dword_017FC4; ++i)
       {
-        if ( *((_BYTE *)v4 + 8) & 0x80 )
+        if (pNPCStats->pNPCData2[i].dword_000008 & 0x80)
         {
-         if (!pParty_global->HiredNPC[0].pNPCName || strcmp(*(const char **)v4, pParty_global->HiredNPC[0].pNPCName))
+          if (!pParty_global->HiredNPC[0].pNPCName || strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->HiredNPC[0].pNPCName))
           {
-           if (!pParty_global->HiredNPC[1].pNPCName || strcmp(*(const char **)v4, pParty_global->HiredNPC[1].pNPCName))
-              TmpBuf[v3++] = (_BYTE)lpsz + 2;
+            if (!pParty_global->HiredNPC[1].pNPCName || strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->HiredNPC[1].pNPCName))
+              TmpBuf[v3++] = i + 2;
           }
         }
-        ++lpsz;
-        v4 = (char *)v4 + 76;
       }
-      while ( (signed int)lpsz < pNPCStats->dword_017FC4);
     }
     if ( (signed int)((char *)v22 + (unsigned __int8)pParty_global->byte_000709) < v3 )
     {

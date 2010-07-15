@@ -1990,66 +1990,54 @@ int __thiscall sub_48E68F(int this)
 int __thiscall Player_GetBaseResistance(struct Player *_this, signed int a2)
 {
   unsigned int uRace; // eax@1
-  int v3; // ebx@1
-  signed int v4; // esi@1
-  signed int v5; // edi@8
-  char v6; // zf@9
-  int v7; // esi@20
   int result; // eax@21
-  signed int v9; // [sp-4h] [bp-10h]@11
+  int ResValue, ResRaceBonus;
 
-  v3 = _this;
-  v4 = 0;
+  ResValue = 0;
+  ResRaceBonus = 0;
   uRace = Player_GetRace(_this);
-  if ( a2 == 10 )
+
+  switch ( a2 )
   {
-    v5 = 0;
-    v6 = (uRace == RACE_GOBLIN);
-    goto LABEL_17;
+    case 10:
+      ResValue = _this->sFireResistanceBase;
+      if (uRace == RACE_GOBLIN)
+        ResRaceBonus = 5;
+      break;
+    case 11:
+      ResValue = _this->sAirResistanceBase;
+      if (uRace == RACE_GOBLIN)
+        ResRaceBonus = 5;
+      break;
+    case 12:
+      ResValue = _this->sWaterResistanceBase;
+      if (uRace == RACE_DWARF)
+        ResRaceBonus = 5;
+      break;
+    case 13:
+      ResValue = _this->sEarthResistanceBase;
+      if (uRace == RACE_DWARF)
+        ResRaceBonus = 5;
+      break;
+    case 14:
+      ResValue = _this->sMindResistanceBase;
+      if (uRace == RACE_ELF)
+        ResRaceBonus = 10;
+      break;
+    case 15:
+    case 33:
+      ResValue = _this->sBodyResistanceBase;
+      if (uRace == RACE_HUMAN)
+        ResRaceBonus = 5;
+      break;
   }
-  if ( a2 == 11 )
+
+  result = ResValue + ResRaceBonus + Player_MaybeGetWearItemsBonus(_this, a2, 0);
+  if ( _this->uClass == 35 )
   {
-    v5 = 1;
-    v6 = (uRace == RACE_GOBLIN);
-    goto LABEL_17;
+    if ( result > 200 )
+      result = 200;
   }
-  if ( a2 == 12 )
-  {
-    v6 = (uRace == RACE_DWARF);
-    v5 = 2;
-    goto LABEL_17;
-  }
-  if ( a2 == 13 )
-  {
-    v5 = 3;
-    v6 = (uRace == RACE_DWARF);
-    goto LABEL_17;
-  }
-  if ( a2 == 14 )
-  {
-    v5 = 7;
-    if ( uRace != RACE_ELF )
-      goto LABEL_20;
-    v9 = 10;
-LABEL_19:
-    v4 = v9;
-    goto LABEL_20;
-  }
-  if ( a2 == 15 || a2 == 33 )
-  {
-    v5 = 8;
-    v6 = (uRace == RACE_HUMAN);
-LABEL_17:
-    if ( !v6 )
-      goto LABEL_20;
-    v9 = 5;
-    goto LABEL_19;
-  }
-  v5 = 0;
-LABEL_20:
-  v7 = Player_MaybeGetWearItemsBonus(_this, a2, 0) + v4;
-  if ( _this->uClass != 35 || (result = 200, v7 + *(_WORD *)(v3 + 2 * v5 + 6004) <= 200) )
-    result = v7 + *(_WORD *)(v3 + 2 * v5 + 6004);
   return result;
 }
 
@@ -2057,75 +2045,62 @@ LABEL_20:
 int __thiscall Player_GetActualResistance(struct Player *_this, signed int a2)
 {
   unsigned int uRace; // ebx@1
-  signed int v3; // edi@1
-  int v4; // esi@1
-  int v5; // eax@1
-  void *v6; // ecx@8
-  char v7; // zf@18
   int result; // eax@28
-  int v9; // ebx@28
-  signed int v10; // [sp+10h] [bp-8h]@1
-  signed int v11; // [sp+14h] [bp-4h]@1
+  int ResValue, ResBonus, ResRaceBonus;
 
-  v3 = 0;
-  v4 = _this;
-  v11 = 0;
-  v10 = 0;
+  ResValue = 0;
+  ResBonus = 0;
+  ResRaceBonus = 0;
   uRace = Player_GetRace(_this);
-  v5 = CheckHiredNPCSpeciality(0x25); 
-  if ( v5 )
-    v11 = 20;
+  if (CheckHiredNPCSpeciality(0x25))
+    ResBonus = 20;
   if ( a2 == 10 || a2 == 11 || a2 == 12 || a2 == 13 )
   {
     if ( sub_458244(_this->pActiveSkills[SKILL_LEATHER]) == 4 )  // Grandmaster leather bonus
     {  
       if ( sub_48D6AA(_this, 3) ) // check equip?
       {
-        if ( sub_48D651(v6, 3) == 9 )
-          v11 += _this->pActiveSkills[SKILL_LEATHER] & 0x3F;
+        if ( sub_48D651(_this, 3) == 9 )
+          ResBonus += _this->pActiveSkills[SKILL_LEATHER] & 0x3F;
       }
     }
   }
-  if ( a2 == 10 )
-    goto LABEL_25;
-  if ( a2 == 11 )
-  {
-    v3 = 1;
-LABEL_25:
-    v7 = uRace == 2;
-LABEL_26:
-    if ( v7 )
-      v10 = 5;
-    goto LABEL_28;
-  }
-  if ( a2 == 12 )
-  {
-    v7 = uRace == 3;
-    v3 = 2;
-    goto LABEL_26;
-  }
   switch ( a2 )
   {
+    case 10:
+      ResValue = _this->sFireResistanceBase + _this->sFireResistanceBonus;
+      if (uRace == RACE_GOBLIN)
+        ResRaceBonus = 5;
+      break;
+    case 11:
+      ResValue = _this->sAirResistanceBase + _this->sAirResistanceBonus;
+      if (uRace == RACE_GOBLIN)
+        ResRaceBonus = 5;
+      break;
+    case 12:
+      ResValue = _this->sWaterResistanceBase + _this->sWaterResistanceBonus;
+      if (uRace == RACE_DWARF)
+        ResRaceBonus = 5;
+      break;
     case 13:
-      v3 = 3;
-      if ( uRace == 3 )
-        v11 += 5;
+      ResValue = _this->sEarthResistanceBase + _this->sEarthResistanceBonus;
+      if (uRace == RACE_DWARF)
+        ResRaceBonus = 5;
       break;
     case 14:
-      v3 = 7;
-      if ( uRace == 1 )
-        v10 = 10;
+      ResValue = _this->sMindResistanceBase + _this->sMindResistanceBonus;
+      if (uRace == RACE_ELF)
+        ResRaceBonus = 10;
       break;
     case 15:
     case 33:
-      v3 = 8;
-      v7 = uRace == 0;
-      goto LABEL_26;
+      ResValue = _this->sBodyResistanceBase + _this->sBodyResistanceBonus;
+      if (uRace == RACE_HUMAN)
+        ResRaceBonus = 5;
+      break;
   }
-LABEL_28:
-  v9 = Player_MaybeGetWearItemsBonus((void *)v4, a2, 0);
-  result = v11 + Player_MaybeGetCastSpellBonus(v4, a2) + v9 + v10 + *(_WORD *)(v4 + 2 * v3 + 6026) + *(_WORD *)(v4 + 2 * v3 + 6004);
-  if ( *(_BYTE *)(v4 + 185) == 35 )
+  result = ResValue + ResBonus + ResRaceBonus + Player_MaybeGetCastSpellBonus(_this, a2) + Player_MaybeGetWearItemsBonus(_this, a2, 0);
+  if ( _this->uClass == 35 )
   {
     if ( result > 200 )
       result = 200;

@@ -8591,27 +8591,21 @@ char *__fastcall sub_4459F9(signed int a1)
         TmpBuf[v5++] = i;
     }
 
-
-    v16 = 0;
     if (pNPCStats->dword_017FC4 > 0)
     {
-      v7 = TmpBuf + v5;
-      v8 = &pNPCStats->pNPCData2;
-      do
+      for (i = 0; i < pNPCStats->dword_017FC4; ++i)
       {
-        if ( *((_BYTE *)v8 + 8) & 0x80 )
+        if (pNPCStats->pNPCData2[i].dword_000008 & 0x80)
         {
-         if (!pParty_global->HiredNPC[0].pNPCName || strcmp(*(const char **)v8, pParty_global->HiredNPC[0].pNPCName))
+          if (!pParty_global->HiredNPC[0].pNPCName || strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->HiredNPC[0].pNPCName))
           {
-           if (!pParty_global->HiredNPC[1].pNPCName || strcmp(*(const char **)v8, pParty_global->HiredNPC[1].pNPCName))
-              *v7++ = (_BYTE)v16 + 2;
+            if (!pParty_global->HiredNPC[1].pNPCName || strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->HiredNPC[1].pNPCName))
+              TmpBuf[v5++] = i + 2;
           }
         }
-        ++v16;
-        v8 = (char *)v8 + 76;
       }
-      while ( (signed int)v16 < pNPCStats->dword_017FC4);
     }
+
     v9 = TmpBuf[v6];
     if ( v9 >= 2 )
      result = &pNPCStats->pNPCData[499 + v9];

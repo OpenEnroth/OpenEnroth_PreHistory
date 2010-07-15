@@ -4337,7 +4337,7 @@ LABEL_22:
     GameUI_DrawTorchlightAndWizardEye();
   }
 
-  //GameUI_DrawStatsTab(2);
+  GameUI_DrawStatsTab(2);
   //GameUI_DrawAwardsTab(1);
   //GameUI_DrawInventory(1, false);
 
