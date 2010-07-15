@@ -2559,7 +2559,7 @@ int __fastcall sub_46BE0A(unsigned int a1)
   {
    strcpy(pClass51_global->string_000000, Str1);
    v1 = sub_48902E(pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, (char *)&v3, 32);
-    if ( !byte_6BE3C4 && (pParty_global->dword_007778 & 0x8C || pParty_global->dword_007778 & 0x0200 || pParty_global->dword_000704) || !v1 )
+    if ( !byte_6BE3C4_MaybeDrowningFlag && (pParty_global->dword_007778 & 0x8C || pParty_global->dword_007778 & 0x0200 || pParty_global->dword_000704) || !v1 )
     {
       if (pParty_global->sPartyPosX < -22528)
         pParty_global->sPartyPosX = -22528;
@@ -2937,7 +2937,7 @@ LABEL_74:
  if (!v9)
    return;
 
- if (dword_6BE030 & 1 && pParty_global->uCurrentHour >= 5 && pParty_global->uCurrentHour < 21 || byte_6BE3C4)
+ if (dword_6BE030 & 1 && pParty_global->uCurrentHour >= 5 && pParty_global->uCurrentHour < 21 || byte_6BE3C4_MaybeDrowningFlag)
  {
     v42 = *(_WORD *)sub_47BE72(array_77EC08[1999].ptr_00003C->word_000026, 31, 1);
 
@@ -4337,7 +4337,7 @@ LABEL_22:
     GameUI_DrawTorchlightAndWizardEye();
   }
 
-  GameUI_DrawStatsTab(2);
+  //GameUI_DrawStatsTab(2);
   //GameUI_DrawAwardsTab(1);
   //GameUI_DrawInventory(1, false);
 
@@ -6013,7 +6013,7 @@ LABEL_9:
     if (pParty_global->dword_0006F8 > v2)
       pParty_global->dword_0006F8 -= pClass24_global->int_00001C;
   }
-  if ( !byte_6BE3C4 )
+  if ( !byte_6BE3C4_MaybeDrowningFlag )
   {
     if ( HIDWORD(qword_ACD8B4) <= v2 )
     {
@@ -6052,10 +6052,10 @@ LABEL_118:
     switch ( sub_4760D5((int)&dword_7215D8) )
     {
       case 13:
-        if ( qword_ACD8B4 > 0 || byte_6BE3C4 == 1 )
+        if ( qword_ACD8B4 > 0 || byte_6BE3C4_MaybeDrowningFlag == 1 )
         {
           pParty_global->dword_000704 = 0;
-          if ( byte_6BE3C4 || byte_ACD8C3 & 1 || dword_ACD788[1743 * (unsigned __int8)byte_ACD8C2] > 0 )
+          if ( byte_6BE3C4_MaybeDrowningFlag || byte_ACD8C3 & 1 || dword_ACD788[1743 * (unsigned __int8)byte_ACD8C2] > 0 )
           {
             if ( pParty_global->sPartyPosZ < 4000 || v104 )
             {
@@ -6096,10 +6096,10 @@ LABEL_118:
         }
         goto LABEL_118;
       case 14:
-        if ( qword_ACD8B4 > 0 || byte_6BE3C4 == 1 )
+        if ( qword_ACD8B4 > 0 || byte_6BE3C4_MaybeDrowningFlag == 1 )
         {
           pParty_global->dword_000704 = 0;
-          if ( byte_6BE3C4 || byte_ACD8C3 & 1 || dword_ACD788[1743 * (unsigned __int8)byte_ACD8C2] > 0 )
+          if ( byte_6BE3C4_MaybeDrowningFlag || byte_ACD8C3 & 1 || dword_ACD788[1743 * (unsigned __int8)byte_ACD8C2] > 0 )
           {
             v115 -= 30;
             v105 -= 30;
@@ -6393,7 +6393,7 @@ LABEL_149:
   }
   v25 = v113;
 LABEL_164:
-  if ( !byte_6BE3C4 && v25 <= v24 )
+  if ( !byte_6BE3C4_MaybeDrowningFlag && v25 <= v24 )
   {
     if ( v25 < -500 )
     {
@@ -6502,7 +6502,7 @@ LABEL_151:
     }
     v36 = 1;
     v35 = 1;
-    if ( byte_6BE3C4 )
+    if ( byte_6BE3C4_MaybeDrowningFlag )
       goto LABEL_197;
     if ( !v99 )
       goto LABEL_197;
@@ -6592,7 +6592,7 @@ LABEL_199:
         v38 = *(_DWORD *)(v39 + 8);
         v121 = (unsigned __int8)(v43 ^ v44 | v42);
         v111 = v38 < 46378;
-        if ( byte_6BE3C4 == 1 )
+        if ( byte_6BE3C4_MaybeDrowningFlag == 1 )
           v111 = 0;
         v45 = *(_BYTE *)(v39 + 303);
         if ( v45 == 3 )
@@ -6811,7 +6811,7 @@ LABEL_344:
           {
             if ( v63 <= v97 )
             {
-              if ( !byte_6BE3C4 )
+              if ( !byte_6BE3C4_MaybeDrowningFlag )
               {
                 if ( pParty_global->dword_007778 & 0x100 )
                 {
@@ -6947,7 +6947,7 @@ LABEL_318:
         {
           if ( v74 <= v97 )
           {
-            if ( !byte_6BE3C4 )
+            if ( !byte_6BE3C4_MaybeDrowningFlag )
             {
               if ( pParty_global->dword_007778 & 0x100 )
               {

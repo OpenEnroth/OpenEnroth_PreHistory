@@ -683,8 +683,7 @@ int sub_48FC00(struct Player *_this, signed int a2)
   char v4; // di@1
   void *v5; // esi@1
   signed int v6; // eax@2
-  unsigned __int8 v7; // sf@5
-  unsigned __int8 v8; // of@5
+  int v7;
   int v9; // ebx@19
   void *v10; // ecx@20
   int v11; // edi@21
@@ -765,8 +764,9 @@ int sub_48FC00(struct Player *_this, signed int a2)
     {
       if ( v6 >= 4 )
         goto LABEL_4;
-      compile_error;//v8 = __SETO__(v6, 3);
-      v7 = v6 - 3 < 0;
+      //v8 = __SETO__(v6, 3);
+      //v7 = v6 - 3 < 0;
+      v7 = v6 < 3;
     }
     else
     {
@@ -780,10 +780,11 @@ LABEL_11:
         v70 = (char *)(v72 * (v4 & 0x3F));
         goto LABEL_12;
       }
-      compile_error;//v8 = __SETO__(v6, 2);
-      v7 = v6 - 2 < 0;
+      //v8 = __SETO__(v6, 2);
+      //v7 = v6 - 2 < 0;
+      v7 = v6 < 2;
     }
-    if ( !(v7 ^ v8) )
+    if ( !(v7) )
       v72 = 1;
     goto LABEL_11;
   }
@@ -1561,13 +1562,13 @@ char *__thiscall sub_48D2EA(int this)
   {
     v6 = v4;
     v5 = byte_A7509C;
-    sprintfex(byte_A7509C, "%d", v6);
+    wsprintfA(byte_A7509C, "%d", v6);
   }
   else
   {
     v7 = v4;
     v5 = byte_A7509C;
-    sprintfex(byte_A7509C, "%d - %d", v7, v3);
+    wsprintfA(byte_A7509C, "%d - %d", v7, v3);
   }
   v8 = *(_DWORD *)(v2 + 6476);
   if ( v8 )

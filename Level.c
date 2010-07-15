@@ -224,7 +224,7 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
 
   v5 = _this;
   strcpy(Str, Source);
-  if ( byte_6BE3C4 )
+  if ( byte_6BE3C4_MaybeDrowningFlag )
   {
     class35_obj.byte_267AD3 = 16;
     class35_obj.byte_267AD4 = -62;

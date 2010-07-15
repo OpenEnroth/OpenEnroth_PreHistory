@@ -1079,7 +1079,7 @@ extern char byte_511205; // weak
 extern char byte_511206; // weak
 extern int dword_511208[array_size_unknown]; // weak
 extern int dword_51120C; // weak
-extern int dword_511210; // weak
+extern unsigned int uTextureID_ButtExit1; // weak
 extern int dword_511214; // weak
 extern int dword_511218; // weak
 extern int dword_51121C; // weak
@@ -1863,7 +1863,7 @@ extern float flt_6BE3A4; // weak
 extern float flt_6BE3A8; // weak
 extern float flt_6BE3AC; // weak
 extern char byte_6BE3B0[20]; // idb
-extern char byte_6BE3C4; // weak
+extern char byte_6BE3C4_MaybeDrowningFlag; // underwater flag?
 extern char byte_6BE3C5; // weak
 extern char byte_6BE3C8[604]; // idb
 extern size_t Size; // idb

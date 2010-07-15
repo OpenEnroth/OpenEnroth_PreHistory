@@ -64,10 +64,10 @@ struct GUIButton
  int dword_000024;
  int dword_000028;
  int dword_00002C;
- struct GUIButton *pPrev;         // ptr @ 000030
- struct GUIButton *pNext;         // ptr @ 000034
- struct GUIWindow *pParentWindow; // ptr @ 000038
- int dword_00003C;
+ struct GUIButton *pPrev;         // ptr   @ 000030
+ struct GUIButton *pNext;         // ptr   @ 000034
+ struct GUIWindow *pParentWindow; // ptr   @ 000038
+ unsigned int      uTextureID;    // dword @ 00003C
  int dword_000040;
  int dword_000044;
  int dword_000048;

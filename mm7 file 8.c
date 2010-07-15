@@ -964,7 +964,7 @@ int __fastcall sub_44CB4F(int a1, int a2, signed int a3, int a4, __int16 a5, con
   {
     if ( v11 >= Source )
       break;
-    if ( sub_44C4DE(pStringBuffer[i], v9) )
+    if (v12 = sub_44C4DE(pStringBuffer[i], v9) )
     {
       if ( v12 < 9u )
         goto LABEL_12;
@@ -1003,7 +1003,7 @@ LABEL_12:
     v33 = pStringBuffer + 1;
     do
     {
-      if ( sub_44C4DE(pStringBuffer[v32], v9) )
+      if ( v15 = sub_44C4DE(pStringBuffer[v32], v9) )
       {
         v16 = v15;
         v17 = v15 - 9;
@@ -2485,7 +2485,7 @@ int __cdecl MenuLoop_Main()
                  ;
           }
 
-          CD3DRenderer_DrawIndexedTexture(pD3DRenderer, v8->uX + 1, v8->uY + 1, &pLODFile_Icons_LOD->aLODHeaders[v8->dword_00003C]);
+          CD3DRenderer_DrawIndexedTexture(pD3DRenderer, v8->uX + 1, v8->uY + 1, &pLODFile_Icons_LOD->aLODHeaders[v8->uTextureID]);
          }
          v8 = v8->pNext;
          if (!v8)
@@ -7910,7 +7910,7 @@ void UI_Initialize_Icons()
                    0,
                    v11,
                    pGlobalTXT_LocalizationStrings[174],
-                   &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td1_A]);
+                   uTextureIdx_ib_td1_A);
 
 
 
@@ -7927,7 +7927,7 @@ void UI_Initialize_Icons()
                    0,
                    v16,
                    pGlobalTXT_LocalizationStrings[154],
-                   &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td2_A]);
+                   uTextureIdx_ib_td2_A);
 
 
 
@@ -7944,7 +7944,7 @@ void UI_Initialize_Icons()
                    0,
                    v21,
                    pGlobalTXT_LocalizationStrings[139],
-                   &pLODFile_Icons_LOD->aLODHeaders[v17]);
+                   v17);
 
 
 
@@ -7961,7 +7961,7 @@ void UI_Initialize_Icons()
                    0,
                    v26,
                    pGlobalTXT_LocalizationStrings[78],
-                   &pLODFile_Icons_LOD->aLODHeaders[v22]);
+                   v22);
 
 
 
@@ -7977,7 +7977,7 @@ void UI_Initialize_Icons()
                    0,
                    72,
                    pGlobalTXT_LocalizationStrings[159],
-                   &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td5_A]);
+                   uTextureIdx_ib_td5_A);
 
 
 
@@ -7996,7 +7996,7 @@ void UI_Initialize_Icons()
                    0,
                    v31,
                    pGlobalTXT_LocalizationStrings[252],
-                   &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_autout_a]);
+                   uTextureIdx_ib_autout_a);
 
 
 
@@ -8012,7 +8012,7 @@ void UI_Initialize_Icons()
                    0,
                    v36,
                    pGlobalTXT_LocalizationStrings[251],
-                   &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_autin_a]);
+                   uTextureIdx_ib_autin_a);
 
 
 
@@ -8033,7 +8033,7 @@ void UI_Initialize_Icons()
                    0,
                    67,
                    pGlobalTXT_LocalizationStrings[38],
-                   &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_m1d_a]);
+                   uTextureIdx_ib_m1d_a);
 
   dword_5079FC = GUIButtonCreate(pGUIWindow0,
                    518,
@@ -8046,7 +8046,7 @@ void UI_Initialize_Icons()
                    0,
                    82,
                    pGlobalTXT_LocalizationStrings[182],
-                   &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_m2d_a]);
+                   uTextureIdx_ib_m2d_a);
 
   dword_5079F4 = GUIButtonCreate(pGUIWindow0,
                    560,
@@ -8059,7 +8059,7 @@ void UI_Initialize_Icons()
                    0,
                    90,
                    pGlobalTXT_LocalizationStrings[173],
-                   &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_m3d_a]);
+                   uTextureIdx_ib_m3d_a);
 
   dword_5079F0 = GUIButtonCreate(pGUIWindow0,
                    602,
@@ -8072,7 +8072,7 @@ void UI_Initialize_Icons()
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[93],
-                   &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_m4d_a]);
+                   uTextureIdx_ib_m4d_a);
 
   dword_5079EC = GUIButtonCreate(pGUIWindow0,
                    469,
@@ -8085,7 +8085,7 @@ void UI_Initialize_Icons()
                    0,
                    0,
                    "",
-                   &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_npcld_a]);
+                   uTextureIdx_ib_npcld_a);
 
   dword_5079E8 = GUIButtonCreate(pGUIWindow0,
                    626,
@@ -8098,7 +8098,7 @@ void UI_Initialize_Icons()
                    1,
                    0,
                    "",
-                   &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_npcrd_a]);
+                   uTextureIdx_ib_npcrd_a);
 
 
  for (i = 0; i < 14; ++i)
@@ -9042,13 +9042,13 @@ int __fastcall sub_464866(int a1, int a2)
 
 
  uLevelMapStatsID = CMapStats_FindLocation(pMapStats, Str1);
-  byte_6BE3C4 = 0;
+  byte_6BE3C4_MaybeDrowningFlag = 0;
 
   pGame->dword_000E24 &= 0xFFFFFFF7;
 
   if ( !strcmpi(Str1, "out15.odm") )
   {
-    byte_6BE3C4 = 1;
+    byte_6BE3C4_MaybeDrowningFlag = 1;
     pGame->dword_000E24 |= 8;
   }
 

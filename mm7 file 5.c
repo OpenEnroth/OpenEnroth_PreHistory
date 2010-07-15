@@ -836,7 +836,7 @@ LABEL_178:
     return;
   if ( !sub_492C0B(&pParty_global->pPlayers[a2 - 1]) )
     goto LABEL_89;
-  if ( byte_6BE3C4 == 1 )
+  if ( byte_6BE3C4_MaybeDrowningFlag == 1 )
   {
     v23 = pGlobalTXT_LocalizationStrings[652];
     goto LABEL_91;
@@ -1003,7 +1003,7 @@ LABEL_16:
       case 11:
         if ( !sub_492700((void *)v1, v4) )
           goto LABEL_8;
-        if ( sub_43EE77(uActiveCharacter) && (v6 != (void *)3 || byte_6BE3C4) )
+        if ( sub_43EE77(uActiveCharacter) && (v6 != (void *)3 || byte_6BE3C4_MaybeDrowningFlag) )
           goto LABEL_95;
         sub_467E7F(v6);
         if ( dword_AD470C == 604 )
@@ -1281,7 +1281,7 @@ LABEL_45:
   v56 = (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v38];
   if ( v41 )
   {
-    if ( byte_6BE3C4 )
+    if ( byte_6BE3C4_MaybeDrowningFlag )
     {
 LABEL_95:
       v49 = 0;
@@ -12959,11 +12959,11 @@ LABEL_46:
     v8 = a2->dword_000034 << 16;
   }
   v10 = struct_6BD080.dword_000FA4;
-  if ( byte_6BE3C4 == 1 )
+  if ( byte_6BE3C4_MaybeDrowningFlag == 1 )
     v10 = 0;
   if ( !v10 )
   {
-    if ( !(dword_6BE030 & 1) && !byte_6BE3C4 )
+    if ( !(dword_6BE030 & 1) && !byte_6BE3C4_MaybeDrowningFlag )
     {
       v14 = a5;
       v15 = a6;
@@ -13243,7 +13243,7 @@ unsigned int __cdecl sub_47C370()
   unsigned int result; // eax@2
   signed __int64 v1; // qax@5
 
-  if ( byte_6BE3C4 )
+  if ( byte_6BE3C4_MaybeDrowningFlag )
   {
     result = -14315684;
   }
@@ -13283,9 +13283,9 @@ int __fastcall sub_47C3D7(int a1, int a2, float a3)
   double v12; // ST08_8@17
 
   v3 = struct_6BD080.dword_000FA4;
-  if ( byte_6BE3C4 == 1 )
+  if ( byte_6BE3C4_MaybeDrowningFlag == 1 )
     v3 = 0;
-  if ( pParty_global->dword_01613C || !(dword_6BE030 & 1) && !byte_6BE3C4 )
+  if ( pParty_global->dword_01613C || !(dword_6BE030 & 1) && !byte_6BE3C4_MaybeDrowningFlag )
     return -16777216;
   if ( v3 )
   {
@@ -13370,7 +13370,7 @@ signed int __fastcall sub_47C4FC(int a1, int a2, float a3, int a4, int a5)
   if ( dword_6BE360 == 1 )
     return 8 * (31 - a1) | ((8 * (31 - a1) | ((31 - a1) << 11)) << 8);
   v8 = struct_6BD080.dword_000FA4;
-  if ( byte_6BE3C4 == 1 )
+  if ( byte_6BE3C4_MaybeDrowningFlag == 1 )
     v8 = 0;
   if ( pParty_global->dword_01613C )
     return 16711680;
@@ -13450,7 +13450,7 @@ LABEL_20:
       v5 = v12;
     if ( v5 > 8 * pClass51_global->dword_000CBC )
       v5 = 8 * pClass51_global->dword_000CBC;
-    if ( !byte_6BE3C4 )
+    if ( !byte_6BE3C4_MaybeDrowningFlag )
       return (255 - v5) | ((255 - v5) << 16) | ((255 - v5) << 8);
     v15 = (double)(255 - v5) * 0.003921568859368563;
     v23 = v15;

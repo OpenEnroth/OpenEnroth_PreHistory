@@ -1111,7 +1111,7 @@ struct unnamed_50C0C8 struct_50C0C8;
  char byte_511206; // weak
  int dword_511208[array_size_unknown]; // weak
  int dword_51120C; // weak
- int dword_511210; // weak
+unsigned int uTextureID_ButtExit1; // dword @ MM7.exe::00511210
  int dword_511214; // weak
  int dword_511218; // weak
  int dword_51121C; // weak
@@ -1836,7 +1836,7 @@ unsigned int uLevelMapStatsID; // dword @ MM7.exe::006BE358
  float flt_6BE3A8; // weak
  float flt_6BE3AC; // weak
  char byte_6BE3B0[20]; // idb
- char byte_6BE3C4; // weak
+ char byte_6BE3C4_MaybeDrowningFlag; // weak
  char byte_6BE3C5; // weak
  char byte_6BE3C8[604]; // idb
  size_t Size; // idb

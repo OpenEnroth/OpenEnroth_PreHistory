@@ -3641,7 +3641,7 @@ LABEL_75:
             v8 = (int)*(&ptr_A750C4 + uActiveCharacter);
             v7 = *(_BYTE *)(v8 + 6735);
             if ( !v7
-              || byte_6BE3C4
+              || byte_6BE3C4_MaybeDrowningFlag
               || ((v9 = *(_WORD *)(v8 + 2 * ((unsigned __int8)v7 / 11 + 12) + 264), !(HIBYTE(v9) & 1)) ? ((_BYTE)v9 >= 0 ? (!(v9 & 0x40) ? (v10 = (unsigned __int16)word_4E3C68[10 * (unsigned __int8)v7]) : (v10 = (unsigned __int16)word_4E3C6A[10 * (unsigned __int8)v7])) : (v10 = (unsigned __int16)word_4E3C6C[10 * (unsigned __int8)v7])) : (v10 = (unsigned __int16)word_4E3C6E[10 * (unsigned __int8)v7]),
                   v10 > *(_DWORD *)(v8 + 6464)) )
             {
@@ -13405,7 +13405,7 @@ char __thiscall sub_460A78(void *this)
   v1 = 0;
   v39 = 0;
   LevelLoadingUI_Reset(pLoadingUI, 32);
-  byte_6BE3C4 = 0;
+  byte_6BE3C4_MaybeDrowningFlag = 0;
   byte_6BE3C5 = 0;
   v42 = 0;
   v44 = 1;
@@ -13413,7 +13413,7 @@ char __thiscall sub_460A78(void *this)
   *(_DWORD *)(LODWORD(pGame) + 3620) &= 0xFFFFFFF7u;
   if ( sub_464839() )
   {
-    byte_6BE3C4 = 1;
+    byte_6BE3C4_MaybeDrowningFlag = 1;
     *(_DWORD *)(LODWORD(pGame) + 3620) |= 8u;
   }
   if ( !_strcmpi(Str1, "out15.odm") || !_strcmpi(Str1, "d23.blv") )

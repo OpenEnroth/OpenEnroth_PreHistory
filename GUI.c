@@ -112,7 +112,7 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(void *this)
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[79],
-                   dword_511210 != -1 ? 72 * dword_511210 + 7145548 : 0);
+                   uTextureID_ButtExit1 != -1 ? 72 * uTextureID_ButtExit1 + 7145548 : 0);
   GUIButtonCreate(pCharacterWindow, 0, 0, 476, 345, 1, 122, 120, 0, 0, Class, 0);
   dword_507694 = GUIButtonCreate(pCharacterWindow, 600, 300, 30, 30, 1, 0, 85, 0, 0, pGlobalTXT_LocalizationStrings[64], 0);
   dword_507690 = GUIButtonCreate(pCharacterWindow, 476, 0, 164, 345, 1, 0, 133, 0, 0, Class, 0);
@@ -2188,7 +2188,7 @@ LABEL_92:
           sub_42FBDD();
           v211 = sub_444D80();
           strcpy(pClass51_global->string_000000, Str1);
-          if ( byte_6BE3C4 != 1 && pParty_global->dword_000704
+          if ( byte_6BE3C4_MaybeDrowningFlag != 1 && pParty_global->dword_000704
            || sub_48902E(pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, &Source, 20) != v0 )
           {
             struct_576FE8.dword_000044 = v0;
@@ -2245,12 +2245,12 @@ LABEL_317:
             class58_sub_49B525(pClass58_global, 0);
             LoadLevel_InitializeLevelEvt();
             uLevelMapStatsID = CMapStats_FindLocation(pMapStats, Str1);
-            byte_6BE3C4 = 0;
+            byte_6BE3C4_MaybeDrowningFlag = 0;
             byte_6BE3C5 = 0;
             *(_DWORD *)(LODWORD(pGame) + 3620) &= 0xFFFFFFF7u;
             if ( sub_464839() )
             {
-              byte_6BE3C4 = 1;
+              byte_6BE3C4_MaybeDrowningFlag = 1;
               *(_DWORD *)(LODWORD(pGame) + 3620) |= 8u;
             }
             if ( !_strcmpi(Str1, "out15.odm") || !_strcmpi(Str1, "d47.blv") )
@@ -2782,7 +2782,7 @@ LABEL_544:
           sub_44C175(v85, 6);
           goto LABEL_90;
         case 0x19:
-          if ( byte_6BE3C4 == 1 )
+          if ( byte_6BE3C4_MaybeDrowningFlag == 1 )
             goto LABEL_682;
           if ( !uActiveCharacter || (v90 = (int)*(&ptr_A750C4 + uActiveCharacter), *(_WORD *)(v90 + 6452)) )
             goto LABEL_90;
@@ -3179,7 +3179,7 @@ LABEL_679:
         case 0x69:
           if ( dword_4F885C == 3 )
             goto LABEL_92;
-          if ( byte_6BE3C4 == 1 )
+          if ( byte_6BE3C4_MaybeDrowningFlag == 1 )
           {
 LABEL_682:
             v108 = pGlobalTXT_LocalizationStrings[652];
@@ -3201,7 +3201,7 @@ LABEL_721:
           {
             if ( dword_50CBD0[0] )
               dword_50CBD0[0] = dword_50CBD0[3] != 0;
-            if ( uActiveCharacter && !*((_WORD *)*(&ptr_A750C4 + uActiveCharacter) + 3226) )
+            if ( uActiveCharacter && !pPlayers[uActiveCharacter - 1]->array_000214[74].word_00001E)
             {
               if ( !dword_4E28F8 )
                 goto LABEL_693;
@@ -3234,7 +3234,7 @@ LABEL_693:
           AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
           dword_4E28F8 = 104;
           pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 12, 5, 0);
-          dword_511210 = LODFile_LoadTexture(pLODFile_Icons_LOD, "BUTTEXI1", 2);
+          uTextureID_ButtExit1 = LODFile_LoadTexture(pLODFile_Icons_LOD, "BUTTEXI1", 2);
           dword_5076F4 = GUIButtonCreate(
                            pGUIWindow_CurrentMenu,
                            391,
@@ -3247,7 +3247,7 @@ LABEL_693:
                            0,
                            0,
                            pGlobalTXT_LocalizationStrings[79],
-                           uTextureIdx_BtnEsc2 + 1 != 0 ? 72 * (_DWORD)uTextureIdx_BtnEsc2 + 7145548 : 0);
+                           uTextureIdx_BtnEsc2);
           goto LABEL_92;
         case 0x6B:
           if ( dword_4E28F8 )
@@ -4077,7 +4077,7 @@ struct GUIButton *__fastcall GUIButtonCreate(struct GUIWindow *pParentWindow,
  pButton->dword_000050 = 0;
  //if (pTexture)
  //{
-  pButton->dword_00003C = uTextureID;
+  pButton->uTextureID = uTextureID;
   pButton->dword_000040 = 0xFEAFEAFE;
   pButton->dword_000044 = 0xFEAFEAFE;
   pButton->dword_000048 = 0xFEAFEAFE;
@@ -4588,7 +4588,7 @@ LABEL_26:
     {
       v12 = array_5075E0[v11 + 1];
       array_5075E0[v11] = v12;
-      compile_error;//--*((_DWORD *)pRGBTexture_Menu->word_000018 + 21 * v12);
+      runtime_warning();//--*((_DWORD *)pRGBTexture_Menu->word_000018 + 21 * v12);
       ++v11;
     }
     array_5075E0[v10] = 0;

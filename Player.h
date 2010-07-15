@@ -70,7 +70,9 @@ struct Player_stru0
  unsigned int  uItemID; // dword @ 000000
  int           dword_000004[3];
  int           dword_000014;
- int           dword_00001C[4];
+ short         word_00001C;
+ short         word_00001E;
+ int           dword_000020[3];
 };
 //sizeof == 24
 

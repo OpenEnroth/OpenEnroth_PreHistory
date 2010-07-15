@@ -458,6 +458,69 @@ void CD3DRenderer_Set2DClippingRect(struct CD3DRenderer *_this, unsigned int uX,
  _this->dword_040104 = 1;
 }
 
+extern struct class18 pending_texture;
+void CD3DRenderer_DrawIndexedTextureHandle(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID)
+{
+  //int v5; // eax@4
+  int v6; // ebx@4
+  //int v7; // edx@5
+  int v8; // edx@6
+  //int v9; // edx@7
+  int v10; // edx@8
+  int v11; // edx@9
+  int v12; // esi@12
+  int v13; // esi@15
+  int v14; // edx@17
+  int v15; // esi@18
+  int v16; // edx@22
+  char v18; // zf@26
+  int v19; // [sp+10h] [bp-10h]@4
+  int v20; // [sp+18h] [bp-8h]@4
+  int v21; // [sp+1Ch] [bp-4h]@4
+  int v22; // [sp+28h] [bp+8h]@24
+  int v23; // [sp+2Ch] [bp+Ch]@22
+  int v24; // [sp+30h] [bp+10h]@11
+  int v25; // [sp+30h] [bp+10h]@22
+ unsigned int   *pSurfacePtr;
+ unsigned int    y,
+                 x;
+ unsigned int    uSrcColor,
+                 uDstColor,
+                 uAlpha;
+ struct class18 *pTexture;
+
+ if (uTextureID != -1)
+   pTexture = &pLODFile_Icons_LOD->aLODHeaders[uTextureID];
+ else pTexture = &pending_texture;
+
+ if (!_this->bSceneBegun || !pTexture)
+   return;
+
+
+ pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
+
+ for (y = 0; y < pTexture->uTextureHeight; ++y)
+ {
+  if (y + uY < _this->uClipRectY)
+    continue;
+  if (y + uY >= _this->uClipRectW)
+    continue;
+
+  for (x = 0; x < pTexture->uTextureWidth; ++x)
+  {
+   if (x + uX < _this->uClipRectX)
+     continue;
+   if (x + uX >= _this->uClipRectZ)
+     continue;
+
+   uSrcColor = pTexture->pTruecolorPixels[y * pTexture->uTextureWidth + x];
+   uDstColor = pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX];
+   uAlpha = ((uSrcColor & 0xFF000000) >> 8) | ((uSrcColor & 0xFF000000) >> 16) | ((uSrcColor & 0xFF000000) >> 24);
+   pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX] = (uSrcColor & uAlpha) + (uDstColor & (0x00FFFFFF - uAlpha));
+  }
+ }
+}
+
 //----- (004A5EB2) --------------------------------------------------------
 void CD3DRenderer_DrawIndexedTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class18 *pTexture)
 {
