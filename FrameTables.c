@@ -98,7 +98,7 @@ void CIconFrameTable_InitializeIcon(struct CIconFrameTable *_this, unsigned int 
  do
  {
   wsprintfW(pFilepath, L"%S", _this->pIcons[i].sTextureName);
-  _this->pIcons[i].uTextureIdx = class17_LoadTexture_New(pClass17_Icons_LOD, pFilepath);
+  _this->pIcons[i].uTextureIdx = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pFilepath);
  }
  while (_this->pIcons[i++].word_00001C & 1);
 }
@@ -292,7 +292,7 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
 
   if (_this->pSpriteSFrames[i].dword_00002C & 0x10)
   {
-   v10 = class17_LoadSprite(pClass17_Sprites_LOD, _this->pSpriteSFrames[i].sTextureName, _this->pSpriteSFrames[i].word_000032);
+   v10 = LODFile_LoadSprite(pLODFile_Sprites_LOD, _this->pSpriteSFrames[i].sTextureName, _this->pSpriteSFrames[i].word_000032);
 
    for (j = 0; j < 8; ++j)
      _this->pSpriteSFrames[i].uSpriteIDs[j] = v10;
@@ -320,7 +320,7 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
               }
               wsprintfA(Size, v22, _this->pSpriteSFrames[i].sTextureName);
 
-              v12 = class17_LoadSprite(pClass17_Sprites_LOD, &Size, _this->pSpriteSFrames[i].word_000032);
+              v12 = LODFile_LoadSprite(pLODFile_Sprites_LOD, &Size, _this->pSpriteSFrames[i].word_000032);
 
               _this->pSpriteSFrames[i].uSpriteIDs[v11++] = v12;
             }
@@ -336,7 +336,7 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
     else
       wsprintfA(Size, "%s%i", v19->sTextureName, 8 - j);
 
-    v20 = class17_LoadSprite(pClass17_Sprites_LOD, Size, _this->pSpriteSFrames[i].word_000032);
+    v20 = LODFile_LoadSprite(pLODFile_Sprites_LOD, Size, _this->pSpriteSFrames[i].word_000032);
 
     _this->pSpriteSFrames[i].uSpriteIDs[j] = v20;
    }
@@ -380,7 +380,7 @@ LABEL_26:
               default:
                 break;
             }
-            v16 = class17_LoadSprite(pClass17_Sprites_LOD, &Size, _this->pSpriteSFrames[i].word_000032);
+            v16 = LODFile_LoadSprite(pLODFile_Sprites_LOD, &Size, _this->pSpriteSFrames[i].word_000032);
 
             _this->pSpriteSFrames[i].uSpriteIDs[v14++] = v16;
           }
@@ -545,10 +545,10 @@ void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2)
    if (_this->pTiles[i].sTileName[0])
    {
     wsprintfW(pFilename, L"%S", _this->pTiles[i].sTileName);
-    _this->pTiles[i].word_000012 = class17_LoadTexture_New(pClass17_Bitmaps_LOD, pFilename);
+    _this->pTiles[i].word_000012 = LODFile_LoadTexture_New(pLODFile_Bitmaps_LOD, pFilename);
 
     if (_this->pTiles[i].word_000012 != -1)
-      pClass17_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, pClass17_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026);
+      pLODFile_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, pLODFile_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026);
    }
   }
  }

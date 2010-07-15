@@ -87,10 +87,10 @@ extern PCMWAVEFORMAT sPCMWaveFormat;
 
 
 extern struct CD3DRenderer *pD3DRenderer;
-extern struct class17      *pClass17_Icons_LOD;
-extern struct class17      *pClass17_Events_LOD;
-extern struct class17      *pClass17_Bitmaps_LOD;
-extern struct class17      *pClass17_Sprites_LOD;
+extern struct LODFile      *pLODFile_Icons_LOD;
+extern struct LODFile      *pLODFile_Events_LOD;
+extern struct LODFile      *pLODFile_Bitmaps_LOD;
+extern struct LODFile      *pLODFile_Sprites_LOD;
 extern struct AudioPlayer  *pAudioPlayer;
 extern struct CVideoPlayer *pVideoPlayer;
 

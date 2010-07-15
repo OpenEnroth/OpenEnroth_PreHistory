@@ -339,7 +339,7 @@ loc_41AE9C:                             ; CODE XREF: sub_41AD6E+7Bj
   call    CD3DRenderer_DrawTransparentTexture
  }*/
  if (byte_50794A)
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 493, 355, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_ib_td1_A]);
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 493, 355, &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td1_A]);
 
  /*__asm
  {
@@ -361,7 +361,7 @@ loc_41AE33:                             ; CODE XREF: sub_41AD6E+99j
   call    CD3DRenderer_DrawTransparentTexture
  }*/
  if (byte_507949)
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 527, 353, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_ib_td2_A]);
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 527, 353, &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td2_A]);
 
  /*__asm
  {
@@ -383,7 +383,7 @@ loc_41AE65:                             ; CODE XREF: sub_41AD6E+CBj
   call    CD3DRenderer_DrawTransparentTexture
  }*/
  if (byte_507948)
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 600, 361, &pClass17_Icons_LOD->aLODHeaders[uTextureIdx_ib_td5_A]);
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 600, 361, &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td5_A]);
  return;
  /*
  __asm

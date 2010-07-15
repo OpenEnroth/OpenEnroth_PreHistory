@@ -81,7 +81,12 @@ void CD3DRenderer_ctor(struct CD3DRenderer *_this)
  v3 = _this->bStartInWindow == 0;
 
  _this->bStartInWindow = v3 && v1 != 1;
- _this->bUseDirect3DDevice = v1;
+ _this->uDirect3DDeviceToUse = v1;
+
+  //force d3d
+ //_this->bUseDirect3D = true;
+ //_this->uDirect3DDeviceToUse = true;
+
  _this->dword_000010 = 640;
  _this->dword_000014 = 480;
  _this->dword_00001C = 0;
@@ -99,7 +104,7 @@ void CD3DRenderer_ctor(struct CD3DRenderer *_this)
  _this->dword_040044 = 2;
  _this->dword_040048 = 6;
 
- _this->dword_040088 = 0;
+ _this->pDirect3DDevice3 = 0;
 
  _this->bSceneBegun = 0;
 
@@ -136,10 +141,10 @@ int sub_49FBCD(struct CD3DRenderer *_this, int a2)
   int v4; // ecx@4
 
  result = _this;
- if (_this->dword_040088)
+ if (_this->pDirect3DDevice3)
  {
   if (_this->dword_040110)
-    result = sub_49E4FC(_this->dword_040088, 1, a2, 0, 0.0);
+    result = sub_49E4FC(_this->pDirect3DDevice3, 1, a2, 0, 0.0);
  }
  else
  {
@@ -164,7 +169,7 @@ unsigned int CD3DRenderer_BeginScene(struct CD3DRenderer *_this)
  v1 = _this->bSceneBegun++;
  if (!v1)
  {
-  if (_this->dword_040088)
+  if (_this->pDirect3DDevice3)
   {
    if (_this->dword_040108)
    {
@@ -678,7 +683,7 @@ HRESULT CD3DRenderer_EndScene(struct CD3DRenderer *_this)
    _this->bSceneBegun--;
     if (!_this->bSceneBegun)
     {
-      if (_this->dword_040088)
+      if (_this->pDirect3DDevice3)
       {
         if (_this->dword_040108)
         {
@@ -736,7 +741,7 @@ void CD3DRenderer_DrawRGBTexture_New(struct CD3DRenderer *_this, unsigned int uX
  if (uTextureID == -1)
    return;
 
- pTexture = &pClass17_Icons_LOD->aLODHeaders[uTextureID];
+ pTexture = &pLODFile_Icons_LOD->aLODHeaders[uTextureID];
 
 
  pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
@@ -1059,7 +1064,7 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
 
   CD3DRenderer_sub_4A0EB6(_this);
   CD3DRenderer_sub_49EBF1(_this);
-  if (_this->dword_040088)
+  if (_this->pDirect3DDevice3)
   {
     v19 = sub_49E756(*(void **)(v3 + 262284));
     v20 = *(_DWORD *)(v3 + 12) == v18;
@@ -1110,12 +1115,30 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
   return v18;
 }
 
+//----- (0049DC58) --------------------------------------------------------
+void sub_49DC58(struct D3DRenderer_D3D3DeviceInfo *_this)
+{
+ _this->dword_000020 = 0;
+ _this->dword_000024 = 0;
+ _this->dword_000028 = 0;
+ _this->dword_000030 = 0;
+ _this->dword_000034 = 0;
+ _this->dword_000038 = 0;
+ _this->dword_00003C = 0;
+ _this->dword_000040 = 1;
+ _this->dword_000044 = 10;
+
+ _this->ptr_00001C = malloc(sizeof(struct D3DRenderer_stru1));
+ memset(_this->ptr_00001C, 0, sizeof(struct D3DRenderer_stru1));
+
+ DirectDrawEnumerateA((LPDDENUMCALLBACKA)(DDrawEnumCallback), _this->ptr_00001C);
+}
+
 //----- (004A05F3) --------------------------------------------------------
 int CD3DRenderer_InitWindowed(struct CD3DRenderer *_this, HWND hwnd)
 {
   int v2; // esi@1
   int v3; // eax@1
-  int v4; // eax@2
   int v6; // edx@5
   int v7; // ecx@5
   signed int v8; // eax@7
@@ -1157,39 +1180,41 @@ int CD3DRenderer_InitWindowed(struct CD3DRenderer *_this, HWND hwnd)
 
   pParty_global->dword_007778 |= 2;
   v2 = (int)_this;
-  LODWORD(flt_6BE3A0) = 1057803469;
+  flt_6BE3A0 = 0.55000001;
   v3 = class28_fn2(&class28_global, 36044);
-  *(_DWORD *)(v2 + 262416) = 0;
-  sub_49FE05(v3, v2);
-  *(_DWORD *)(v2 + 262296) = 0;
-  *(_DWORD *)(v2 + 262292) = 0;
-  *(_DWORD *)(v2 + 262288) = 0;
-  *(_DWORD *)(v2 + 262284) = 0;
-  *(_DWORD *)(v2 + 262408) = 0;
-  CD3DRenderer_Initialize_ZBuffer(_this);
+
+ _this->dword_040108 = 0;
+ _this->dword_040110 = 0;
+ sub_49FE05(v3, _this);
+
+ _this->pdd4 = 0;
+ _this->pdds4_FrontBuffer = 0;
+ _this->pdds4_BackBuffer = 0;
+ _this->dword_040098 = 0;
+
+ CD3DRenderer_Initialize_ZBuffer(_this);
 
  if (_this->bUseDirect3D)
  {
-    v4 = malloc(0x148);//v4 = (int)operator new(0x148u);
-    v43 = v4;
-    v44 = 0;
-    if ( v4 )
-      sub_49DC58(v4);
+  _this->pDirect3DDevice3 = malloc(sizeof(struct D3DRenderer_D3D3DeviceInfo));//v4 = (int)operator new(0x148u);
+  v43 = _this->pDirect3DDevice3;
+  v44 = 0;
+  if (_this->pDirect3DDevice3)
+    sub_49DC58(_this->pDirect3DDevice3);
 
-    v6 = *(_DWORD *)(v2 + 8);
+    v6 = _this->uDirect3DDeviceToUse;
     v44 = -1;
-    *(_DWORD *)(v2 + 262280) = v4;
-    v7 = *(_DWORD *)(v4 + 28);
+    v7 = _this->pDirect3DDevice3->ptr_00001C;
     if ( *(_DWORD *)(v7 + 40 * v6) && v6 != 1 )
     {
-      v8 = sub_49DE14(v4, v6, 1, hwnd);
+      v8 = sub_49DE14(_this->pDirect3DDevice3, v6, 1, hwnd);
       *(_DWORD *)(v2 + 12) = *(_DWORD *)(v2 + 8);
     }
     else
     {
       if ( !*(_DWORD *)v7 )
         erroneous_printf("There aren't any D3D devices to init.");
-      v8 = sub_49DE14(v4, 0, 1, hwnd);
+      v8 = sub_49DE14(_this->pDirect3DDevice3, 0, 1, hwnd);
       *(_DWORD *)(v2 + 12) = 0;
     }
     if ( !v8 )
@@ -1717,16 +1742,16 @@ int CD3DRenderer_Present(struct CD3DRenderer *_this)
   struct tagPOINT Point; // [sp+28h] [bp-8h]@11
 
 
- if (pD3DRenderer->dword_040088 && !_this->dword_040110)
+ if (pD3DRenderer->pDirect3DDevice3 && !_this->dword_040110)
    return false;
 
  (_this->pfn_1036C0)();
 
- if (_this->dword_040088)
+ if (_this->pDirect3DDevice3)
  {
   if (dword_720010)
     sub_46BAEC(dword_720010);
-  sub_49E54D(_this->dword_040088, 0);
+  sub_49E54D(_this->pDirect3DDevice3, 0);
   if (dword_720010)
     sub_46BB0A(dword_720010);
  }
@@ -2008,7 +2033,7 @@ int __stdcall LockSurface_DDraw4(struct IDirectDrawSurface4 *pdds4, DDSURFACEDES
    return false;
   }
 
-  if (pD3DRenderer->dword_040088)
+  if (pD3DRenderer->pDirect3DDevice3)
     sub_4A5190();
   (pD3DRenderer->pdd4->lpVtbl->RestoreAllSurfaces)(pD3DRenderer->pdd4);
   if (dword_720010)
@@ -2097,11 +2122,11 @@ int RGBTexture_Load_New(struct RGBTexture *_this, const wchar_t *pTextureName)
 {
  unsigned int uTextureID;
 
- uTextureID = class17_LoadTexture_New(pClass17_Icons_LOD, pTextureName);
+ uTextureID = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pTextureName);
 
- _this->pPixels = pClass17_Icons_LOD->aLODHeaders[uTextureID].pTruecolorPixels;
- _this->uWidth = pClass17_Icons_LOD->aLODHeaders[uTextureID].uTextureWidth;
- _this->uHeight = pClass17_Icons_LOD->aLODHeaders[uTextureID].uTextureHeight;
+ _this->pPixels = pLODFile_Icons_LOD->aLODHeaders[uTextureID].pTruecolorPixels;
+ _this->uWidth = pLODFile_Icons_LOD->aLODHeaders[uTextureID].uTextureWidth;
+ _this->uHeight = pLODFile_Icons_LOD->aLODHeaders[uTextureID].uTextureHeight;
  _this->uNumPixels = _this->uWidth * _this->uHeight;
 
  return 0;
@@ -2424,12 +2449,12 @@ void *sub_4A1EB6(struct CD3DRenderer *_this)
   result = _this->dword_04010C++;
   if ( !result )
   {
-    v3 = _this->dword_040088;
-    if (_this->dword_040088)
+    v3 = _this->pDirect3DDevice3;
+    if (_this->pDirect3DDevice3)
     {
       sub_49E4FC(v3, 1, result, 1, 1.0);
       dword_F1B418 = 0;
-      (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(_this->dword_040088 + 56) + 36))(*(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56));
+      (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(_this->pDirect3DDevice3 + 56) + 36))(*(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56));
       if ( !sub_44EC20() )
       {
         v16 = &v10;
@@ -2440,7 +2465,7 @@ void *sub_4A1EB6(struct CD3DRenderer *_this)
         v4 = sub_47C370();
       else
         v4 = 0;
-      v5 = *(_DWORD *)(_this->dword_040088 + 56);
+      v5 = *(_DWORD *)(_this->pDirect3DDevice3 + 56);
       v6 = *(_DWORD *)v5;
       if ( v4 & 0xFF000000 )
       {
@@ -2494,12 +2519,12 @@ void CD3DRenderer_sub_4A1FE1_MaybeRenderSpecialEffects(struct CD3DRenderer *_thi
 {
  if (_this->dword_04010C-- == 1)
  {
-    if (_this->dword_040088)
+    if (_this->pDirect3DDevice3)
     {
       sub_44EE7C();
       sub_4A1C1E();
       class06_sub_4A8C27(pGame->class06_obj);
-      (*(int (__stdcall **)(_DWORD))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 40))(*(_DWORD *)(pD3DRenderer->dword_040088 + 56));
+      (*(int (__stdcall **)(_DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 40))(*(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56));
     }
     else
       class06_sub_4A8C27(pGame->class06_obj);

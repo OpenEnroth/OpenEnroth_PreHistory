@@ -157,7 +157,7 @@ int __fastcall sub_4AD504(int a1)
     {
       v3 = dword_6BE644 + 96 * a1;
       v91 = dword_6BE644 + 96 * a1;
-      if ( !pD3DRenderer->dword_040088 )
+      if ( !pD3DRenderer->pDirect3DDevice3 )
       {
         result = sub_423B5D(a1);
         if ( result )
@@ -619,7 +619,7 @@ void __fastcall sub_4ADD1D(int a1)
     if ( a1 < dword_6BE640 )
     {
       v2 = dword_6BE644 + 96 * a1;
-      if ( pD3DRenderer->dword_040088 )
+      if ( pD3DRenderer->pDirect3DDevice3 )
       {
         v3 = sub_424579(a1, (int)&dword_F8AD28);
         v62 = v3;
@@ -631,13 +631,13 @@ void __fastcall sub_4ADD1D(int a1)
       }
       if ( v3 )
       {
-        if ( pD3DRenderer->dword_040088 || sub_424829(v3, (int)&dword_F8A590, dword_51B75C, v1) )
+        if ( pD3DRenderer->pDirect3DDevice3 || sub_424829(v3, (int)&dword_F8A590, dword_51B75C, v1) )
         {
           v5 = sub_4AE5BA(v2);
           v4 = 0;
           if ( v5 )
           {
-            if ( pD3DRenderer->dword_040088 )
+            if ( pD3DRenderer->pDirect3DDevice3 )
             {
               if ( v3 > 0 )
               {
@@ -668,7 +668,7 @@ void __fastcall sub_4ADD1D(int a1)
                 v43 = sub_4AE5BA(v2);
                 v9 = *(_WORD *)(v2 + 74);
               }
-              sub_4A2FC0(pD3DRenderer, v3, v2, *(_DWORD *)(pClass17_Bitmaps_LOD->dword_011BB0 + 4 * v9), v43, v44, -1, 0);
+              sub_4A2FC0(pD3DRenderer, v3, v2, *(_DWORD *)(pLODFile_Bitmaps_LOD->dword_011BB0 + 4 * v9), v43, v44, -1, 0);
             }
             else
             {
@@ -1946,7 +1946,7 @@ void __fastcall sub_4AFF79(int a1)
           sub_4ADD1D(a1);
           return;
         }
-        if ( !(v2 & 0x10) || (sub_4AD504(a1), pD3DRenderer->dword_040088) )
+        if ( !(v2 & 0x10) || (sub_4AD504(a1), pD3DRenderer->pDirect3DDevice3) )
         {
           v4 = sub_4AE5BA(v3);
           ++dword_51B760;
@@ -2618,7 +2618,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                       for ( i = v25; ; v25 = i )
                       {
                        compile_error;
-                        //*(float *)v26 = (double)(pClass17_Bitmaps_LOD->array_00024C[9 + 36 * *(_WORD *)(v9 + 74)] & (class59_class59_sub_402CAE(
+                        //*(float *)v26 = (double)(pLODFile_Bitmaps_LOD->array_00024C[9 + 36 * *(_WORD *)(v9 + 74)] & (class59_class59_sub_402CAE(
                         //                                                                    pClass59_global,
                         //                                                                    v25) >> 8))
                         //              + *(float *)v26;
@@ -2635,7 +2635,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                     {
                       v23 = TextureFrameTable_GetFrame(pTextureFrameTable, *(_WORD *)(v9 + 74), dword_51B6E0);
 LABEL_42:
-                      v28 = *(_DWORD *)(pClass17_Bitmaps_LOD->dword_011BB0 + 4 * v23);
+                      v28 = *(_DWORD *)(pLODFile_Bitmaps_LOD->dword_011BB0 + 4 * v23);
                       if ( *(_BYTE *)(v9 + 46) & 0x40 )
                         sub_479A53(v35, v34);
                       else
@@ -11889,7 +11889,7 @@ void __cdecl sub_4BC109()
   }
   CD3DRenderer_sub_4A1FE1_MaybeRenderSpecialEffects(pD3DRenderer);
   CD3DRenderer_BeginScene(pD3DRenderer);
-  if ( pD3DRenderer->dword_040088 )
+  if ( pD3DRenderer->pDirect3DDevice3 )
     sub_4A6D87(pD3DRenderer,
       1,
       class28_global.dword_000010,
@@ -12363,7 +12363,7 @@ LABEL_12:
     ItemGen_Reset(36 * (v1 + 12 * *(_DWORD *)(dword_507BC0 + 28)) + 11341700);
     dword_AD0F84[9 * (v1 + 12 * *(_DWORD *)(v7 + 28))] = v2;
     dword_AD0F98[9 * (v1++ + 12 * *(_DWORD *)(v7 + 28))] = 1;
-    result = 72 * class17_LoadTexture(pClass17_Icons_LOD, pClass40->pItems[v2].pIconName, 2) + 7145548;
+    result = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, pClass40->pItems[v2].pIconName, 2) + 7145548;
     dword_F8B164[v1] = result;
   }
   while ( v1 < 12 );
@@ -12530,7 +12530,7 @@ LABEL_13:
   dword_F8B19C = v61;
   if ( v4 < 19 )
   {
-    v12 = class17_LoadTexture(pClass17_Icons_LOD, (&off_4F03B8)[4 * v4], 2);
+    v12 = LODFile_LoadTexture(pLODFile_Icons_LOD, (&off_4F03B8)[4 * v4], 2);
     v4 = dword_F8B198;
     dword_F8B164[0] = 72 * v12 + 7145548;
 LABEL_15:
@@ -12572,7 +12572,7 @@ LABEL_15:
               if ( v40 )
               {
                 v11 = dword_507BC0;
-                dword_F8B168[v39] = 72 * class17_LoadTexture(pClass17_Icons_LOD, pClass40->pItems[v40].pIconName, 2)
+                dword_F8B168[v39] = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, pClass40->pItems[v40].pIconName, 2)
                                   + 7145548;
               }
               ++v39;
@@ -12932,7 +12932,7 @@ LABEL_200:
         v53 = dword_AD4734[9 * (v52 + 12 * v50)];
         if ( v53 )
         {
-          v54 = class17_LoadTexture(pClass17_Icons_LOD, pClass40->pItems[v53].pIconName, 2);
+          v54 = LODFile_LoadTexture(pLODFile_Icons_LOD, pClass40->pItems[v53].pIconName, 2);
           v4 = dword_F8B198;
           v11 = dword_507BC0;
           dword_F8B168[v52] = 72 * v54 + 7145548;
@@ -12971,7 +12971,7 @@ LABEL_200:
         v57 = *(&dword_ADA0A4 + 9 * (v52 + 12 * v50));
         if ( v57 )
         {
-          v58 = class17_LoadTexture(pClass17_Icons_LOD, pClass40->pItems[v57].pIconName, 2);
+          v58 = LODFile_LoadTexture(pLODFile_Icons_LOD, pClass40->pItems[v57].pIconName, 2);
           v4 = dword_F8B198;
           v11 = dword_507BC0;
           dword_F8B168[v52] = 72 * v58 + 7145548;
@@ -13083,7 +13083,7 @@ LABEL_28:
     GUIWindowDelete(dword_507BBC);
     dword_F8B19C = 0;
     dword_507BBC = 0;
-    sub_40F9C5(pClass17_Icons_LOD);
+    sub_40F9C5(pLODFile_Icons_LOD);
     v1 = dword_591424;
     if ( dword_591424 != 1 )
     {
@@ -14218,7 +14218,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *this)
   BYTE1(dword_6BE364) |= 0x40u;
   CD3DRenderer_EndScene(pD3DRenderer);
   CD3DRenderer_Present(pD3DRenderer);
-  if ( pD3DRenderer->dword_040088 )
+  if ( pD3DRenderer->pDirect3DDevice3 )
     dword_EF52A8();
   sub_49F1BC(pD3DRenderer, "MM7_Win.Pcx");
   class23_DeleteBuffer(class23_instance, v33);

@@ -1396,7 +1396,7 @@ LABEL_21:
               v68 = v58 - (double)pParty_global->sPartyPosX;
               *(float *)&v67 = v59 - (double)pParty_global->sPartyPosY;
               v20 = v60 - (double)pParty_global->sPartyPosZ;
-              if ( pD3DRenderer->dword_040088 )
+              if ( pD3DRenderer->pDirect3DDevice3 )
               {
                 v22 = *(float *)&v67 * v66 + v68 * v65;
                 v21 = v68 * v66 - *(float *)&v67 * v65;
@@ -1414,7 +1414,7 @@ LABEL_21:
             {
               v68 = v58 - (double)pParty_global->sPartyPosX;
               *(float *)&v67 = v59 - (double)pParty_global->sPartyPosY;
-              if ( pD3DRenderer->dword_040088 )
+              if ( pD3DRenderer->pDirect3DDevice3 )
               {
                 v61 = *(float *)&v67 * v66 + v68 * v65;
                 v23 = v68 * v66 - *(float *)&v67 * v65;

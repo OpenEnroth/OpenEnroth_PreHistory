@@ -305,7 +305,7 @@ int Party_AddItem(struct Party *_this, int a2)
   v5 = *(const char **)(pClass40->pItems[0].pIconName + v2);
   if ( v5 )
   {
-    v8 = class17_LoadTexture(pClass17_Icons_LOD, v5, 2);
+    v8 = LODFile_LoadTexture(pLODFile_Icons_LOD, v5, 2);
     v6 = v8 != -1 ? 72 * v8 + 7145548 : 0;
     v24 = dword_506128;
     v7 = 0;
@@ -322,7 +322,7 @@ int Party_AddItem(struct Party *_this, int a2)
         if ( v24 == v9 )
         {
           sub_40F77C(v6);
-          sub_40F9C5(pClass17_Icons_LOD);
+          sub_40F9C5(pLODFile_Icons_LOD);
         }
         goto LABEL_15;
       }
@@ -334,7 +334,7 @@ int Party_AddItem(struct Party *_this, int a2)
     if ( !v24 )
     {
       sub_40F77C(v6);
-      sub_40F9C5(pClass17_Icons_LOD);
+      sub_40F9C5(pLODFile_Icons_LOD);
     }
     result = 1;
   }

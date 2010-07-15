@@ -3160,17 +3160,17 @@ int MaybePlaceItemInInventory(struct Player *_this, signed int a2, int a3)
   v11 = _this;
 
  wsprintfW(pFilename, L"%S", pClass40->pItems[a3].pIconName);
- v5 = class17_LoadTexture_New(pClass17_Icons_LOD, pFilename);
- v4 = &pClass17_Icons_LOD->aLODHeaders[v5];
+ v5 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pFilename);
+ v4 = &pLODFile_Icons_LOD->aLODHeaders[v5];
 
  uNumSlotsX = GetSizeInInventorySlots(v4->uTextureWidth);
  uNumSlotsY = GetSizeInInventorySlots(v4->uTextureHeight);
 
   if ( !dword_506128 )
   {
-   runtime_warning(When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the class17 containing the textures);
+   runtime_warning(When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures);
    //sub_40F77C(v4);
-    sub_40F9C5(pClass17_Icons_LOD);
+    sub_40F9C5(pLODFile_Icons_LOD);
   }
   if ( uNumSlotsX + a2 % 14 <= 14 && uNumSlotsY + a2 / 14 <= 9 )
   {
@@ -3280,8 +3280,8 @@ int sub_49289C(struct Player *_this, int a2, const void *Src)
   else
   {
    wsprintfW(pFilename, L"%S", pClass40->pItems[*(_DWORD *)Src].pIconName);
-   v7 = class17_LoadTexture_New(pClass17_Icons_LOD, pFilename);
-   v6 = &pClass17_Icons_LOD->aLODHeaders[v7];
+   v7 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pFilename);
+   v6 = &pLODFile_Icons_LOD->aLODHeaders[v7];
 
    v11 = GetSizeInInventorySlots(v6->uTextureWidth);
    v12 = GetSizeInInventorySlots(v6->uTextureHeight);
@@ -3289,7 +3289,7 @@ int sub_49289C(struct Player *_this, int a2, const void *Src)
     if ( !dword_506128 )
     {
       sub_40F77C(v6);
-      sub_40F9C5(pClass17_Icons_LOD);
+      sub_40F9C5(pLODFile_Icons_LOD);
     }
     v8 = a2;
     if ( v12 > 0 )

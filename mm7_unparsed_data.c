@@ -1660,11 +1660,11 @@ struct struct0 array_6836D0[3000];
  _UNKNOWN unk_6A0758; // weak
  _UNKNOWN unk_6A07A4; // weak
 
-struct class17 *pClass17_New_LOD = 0; // struct @ MM7.exe::006A0820
+struct LODFile *pLODFile_New_LOD = 0; // struct @ MM7.exe::006A0820
 //_UNKNOWN unk_6A0820; // weak
  int dword_6A0A4C; // weak
 
-struct class17 *pClass17_Games_LOD = 0; // struct @ MM7.exe::006A0A60
+struct LODFile *pLODFile_Games_LOD = 0; // struct @ MM7.exe::006A0A60
 //_UNKNOWN unk_6A0A60; // weak
  int dword_6A0C8C; // weak
  int dword_6A0C90; // weak

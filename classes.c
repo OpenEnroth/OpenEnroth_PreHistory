@@ -13,7 +13,7 @@
 
 
 
-bool class17_ReleaseTexture(struct class17 *_this, unsigned int uTextureID)
+bool LODFile_ReleaseTexture(struct LODFile *_this, unsigned int uTextureID)
 {
  return true;
 }
@@ -331,7 +331,7 @@ bool CGame_Pick(struct CGame *_this, float a2, signed int a3, signed int a4, cha
   int v17; // [sp+1Fh] [bp-1h]@5
 
   v7 = _this;
-  if (!dword_4E28F8 && pD3DRenderer->dword_040088)
+  if (!dword_4E28F8 && pD3DRenderer->pDirect3DDevice3)
   {
     if ( !_this->class05_obj)
     {
@@ -510,7 +510,7 @@ void sub_469903(struct class03 *_this, const char *pSource)
 
  if (_strnicmp(pSource, "MICON1", 5))
  {
-  v9 = class17_LoadTexture(pClass17_Icons_LOD, pSource, 2);
+  v9 = LODFile_LoadTexture(pLODFile_Icons_LOD, pSource, 2);
   *(_DWORD *)(_this + 36) = v9;
   *(_DWORD *)(_this + 40) = v9;
   sub_469BE6(_this);
@@ -520,7 +520,7 @@ void sub_469903(struct class03 *_this, const char *pSource)
   if ( !dword_506128 )
   {
    sub_40F77C(*(_DWORD *)(_this + 36) != -1 ? 72 * *(_DWORD *)(_this + 36) + 7145548 : 0);
-   sub_40F9C5(pClass17_Icons_LOD);
+   sub_40F9C5(pLODFile_Icons_LOD);
   }
   return;
  }
@@ -1000,36 +1000,36 @@ struct class16 *class16_ctor(struct class16 *_this, unsigned int uBlockSize)
 }
 
 //----- (MM7.exe::0040FAEE) --------------------------------------------------------
-int class17_LoadLOD_Icons_Events(struct class17 *_this, const char *pFilename)
+int LODFile_LoadLOD_Icons_Events(struct LODFile *_this, const char *pFilename)
 {
- class17_fn4(_this);
- if (class17_MaybeLoadLODHeader(_this, pFilename, 1))
+ LODFile_fn4(_this);
+ if (LODFile_MaybeLoadLODHeader(_this, pFilename, 1))
    return 0;
   
- return class17_fn6(_this, "icons") == 0;
+ return LODFile_fn6(_this, "icons") == 0;
 }
 
 //----- (MM7.exe::0040FA2E) --------------------------------------------------------
-int class17_LoadLOD_Bitmaps(struct class17 *_this, const char *pFilename)
+int LODFile_LoadLOD_Bitmaps(struct LODFile *_this, const char *pFilename)
 {
- class17_fn4(_this);
- if (class17_MaybeLoadLODHeader(_this, pFilename, 1))
+ LODFile_fn4(_this);
+ if (LODFile_MaybeLoadLODHeader(_this, pFilename, 1))
    return 0;
 
- return class17_fn6(_this, "bitmaps") == 0;
+ return LODFile_fn6(_this, "bitmaps") == 0;
 }
 
 //----- (MM7.exe::004AC795) --------------------------------------------------------
-int class17_LoadLOD_Sprites(struct class17 *_this, const char *pFilename)
+int LODFile_LoadLOD_Sprites(struct LODFile *_this, const char *pFilename)
 {
- if (class17_MaybeLoadLODHeader(_this, pFilename, 1))
+ if (LODFile_MaybeLoadLODHeader(_this, pFilename, 1))
    return 0;
 
- return class17_fn6(_this, "sprites08") == 0;
+ return LODFile_fn6(_this, "sprites08") == 0;
 }
 
 //----- (MM7.exe::0041088B) --------------------------------------------------------
-void *class17_fn1(struct class17 *_this, const char *pContainer, int a3)
+void *LODFile_LoadRaw(struct LODFile *_this, const char *pContainer, int a3)
 {
   unsigned char *result; // ebx@7
   unsigned char *v8; // edi@7
@@ -1044,7 +1044,7 @@ void *class17_fn1(struct class17 *_this, const char *pContainer, int a3)
 
   class18_ctor(&class18_obj);
 
-  pContainerFile = class17_FindContainer(_this, pContainer, 0);
+  pContainerFile = LODFile_FindContainer(_this, pContainer, 0);
   if (!pContainerFile)
     erroneous_printf("Unable to load %s", pContainer);
 
@@ -1091,7 +1091,7 @@ void *class17_fn1(struct class17 *_this, const char *pContainer, int a3)
 }
 
 //----- (MM7.exe::00461580) --------------------------------------------------------
-FILE *class17_FindContainer(struct class17 *_this, const char *pContainerName, int a3)
+FILE *LODFile_FindContainer(struct LODFile *_this, const char *pContainerName, int a3)
 {
   int v4; // eax@4
   int v5; // edi@5
@@ -1117,7 +1117,7 @@ FILE *class17_FindContainer(struct class17 *_this, const char *pContainerName, i
     }
     return 0;
   }
-  class17_fn3(_this, 0, _this->uNumSubidices, pContainerName);
+  LODFile_fn3(_this, 0, _this->uNumSubidices, pContainerName);
   if ( dword_6A0CA4 < 0 )
     return 0;
   v4 = *(_DWORD *)((char *)_this->pLODSubIndexNamedBuffer + 32 * dword_6A0CA4 + 16);
@@ -1128,7 +1128,7 @@ LABEL_12:
 }
 
 //----- (MM7.exe::0046165E) --------------------------------------------------------
-int class17_fn3(struct class17 *_this, int a2, int a3, const char *pContainerName)
+int LODFile_fn3(struct LODFile *_this, int a2, int a3, const char *pContainerName)
 {
   int v4; // esi@1
   int result; // eax@2
@@ -1198,7 +1198,7 @@ LABEL_21:
 }
 
 //----- (MM7.exe::0040FA60) --------------------------------------------------------
-void class17_fn4(struct class17 *_this)
+void LODFile_fn4(struct LODFile *_this)
 {
   int v1; // edi@1
   int v2; // esi@1
@@ -1253,7 +1253,7 @@ void class17_fn4(struct class17 *_this)
 }
 
 //----- (MM7.exe::004617D5) --------------------------------------------------------
-int class17_MaybeLoadLODHeader(struct class17 *_this, const char *pFilename, char a3)
+int LODFile_MaybeLoadLODHeader(struct LODFile *_this, const char *pFilename, char a3)
 {
   int v3; // esi@1
   const char *v7; // [sp-4h] [bp-Ch]@4
@@ -1289,7 +1289,7 @@ int class17_MaybeLoadLODHeader(struct class17 *_this, const char *pFilename, cha
 }
 
 //----- (MM7.exe::0046188A) --------------------------------------------------------
-int class17_fn6(struct class17 *_this, const char *pContainer)
+int LODFile_fn6(struct LODFile *_this, const char *pContainer)
 {
   int v2; // edi@1
   int v3; // esi@1
@@ -1300,7 +1300,7 @@ int class17_fn6(struct class17 *_this, const char *pContainer)
   __int32 v9; // edx@7
 
  v3 = _this;
- class17_fn7(_this);
+ LODFile_fn7(_this);
  v2 = 0;
 
  if (_this->sLODFileHeader.uNumFiles <= 0)
@@ -1341,7 +1341,7 @@ LABEL_5:
 }
 
 //----- (0046153F) --------------------------------------------------------
-int class17_fn7(struct class17 *_this)
+int LODFile_fn7(struct LODFile *_this)
 {
  int result; // eax@2
 
@@ -1360,13 +1360,13 @@ int class17_fn7(struct class17 *_this)
  return result;
 }
 
-void class17_ctor(struct class17 *_this)
+void LODFile_ctor(struct LODFile *_this)
 {
- memset(_this, 0, sizeof(struct class17));
+ memset(_this, 0, sizeof(struct LODFile));
 }
 
 //----- (MM7.exe::0040FB20) --------------------------------------------------------
-int class17_LoadTexture(struct class17 *_this, const char *pContainerName, unsigned int a3)
+int LODFile_LoadTexture(struct LODFile *_this, const char *pContainerName, unsigned int a3)
 {
   int v3; // edi@1
   struct class18 *pClass18; // ebx@2
@@ -1380,7 +1380,7 @@ LABEL_5:
   if (_this->uNumLoadedFiles >= 1000)
     sub_466B8C();
 
-  if (class17_LoadPalette(_this, &_this->aLODHeaders[_this->uNumLoadedFiles], pContainerName, a3) == -1)
+  if (LODFile_LoadPalette(_this, &_this->aLODHeaders[_this->uNumLoadedFiles], pContainerName, a3) == -1)
   {
    v6 = 0;
    if (_this->uNumLoadedFiles > 0)
@@ -1397,7 +1397,7 @@ LABEL_5:
    }
 
 LABEL_15:
-   class17_LoadPalette(_this, &_this->aLODHeaders[_this->uNumLoadedFiles], "pending", a3);
+   LODFile_LoadPalette(_this, &_this->aLODHeaders[_this->uNumLoadedFiles], "pending", a3);
   }
   dword_506128 = 0;
   _this->uNumLoadedFiles++;
@@ -1420,7 +1420,7 @@ LABEL_15:
 
 
 //----- (00461954) --------------------------------------------------------
-void class17_AllocateSubidexAndIOBuffer(struct class17 *_this, unsigned int uNumSubIndices, signed int uIOBufferSize)
+void LODFile_AllocateSubidexAndIOBuffer(struct LODFile *_this, unsigned int uNumSubIndices, signed int uIOBufferSize)
 {
  if (_this->pLODSubIndexNamedBuffer)
  {
@@ -1445,7 +1445,7 @@ void class17_AllocateSubidexAndIOBuffer(struct class17 *_this, unsigned int uNum
 }
 
 //----- (00461A43) --------------------------------------------------------
-int class17_LoadLOD_Games(struct class17 *_this, const char *pLODFilename, unsigned char uFileFlags)
+int LODFile_LoadLOD_Games(struct LODFile *_this, const char *pLODFilename, unsigned char uFileFlags)
 {
   char DstBuf[32]; // [sp+Ch] [bp-20h]@5
 
@@ -1487,7 +1487,7 @@ int class17_LoadLOD_Games(struct class17 *_this, const char *pLODFilename, unsig
 }
 
 //----- (00461B48) --------------------------------------------------------
-signed int sub_461B48(struct class17 *_this, const char *Count, const void *a3, FILE *File)
+signed int sub_461B48(struct LODFile *_this, const char *Count, const void *a3, FILE *File)
 {
   int v4; // ebx@1
   int v5; // esi@1
@@ -1674,7 +1674,7 @@ LABEL_22:
           remove(NewFilename);
           rename(Filename, NewFilename);
           sub_461EE9(v4);
-          class17_LoadLOD_Games((void *)v4, (const char *)(v4 + 4), 0);
+          LODFile_LoadLOD_Games((void *)v4, (const char *)(v4 + 4), 0);
           return 0;
         }
         if ( File == (FILE *)2 )
@@ -1693,7 +1693,7 @@ LABEL_22:
 }
 
 //----- (MM7.exe::0040FC08) --------------------------------------------------------
-int class17_LoadPalette(struct class17 *_this, struct class18 *pClass18, const char *pContainerName, unsigned int uSomeInt)
+int LODFile_LoadPalette(struct LODFile *_this, struct class18 *pClass18, const char *pContainerName, unsigned int uSomeInt)
 {
   //int v4; // eax@1
   int v5; // ebx@1
@@ -1731,14 +1731,14 @@ int class17_LoadPalette(struct class17 *_this, struct class18 *pClass18, const c
   v6 = _this;
  v8 = pClass18;
 
- f = class17_FindContainer(_this, pContainerName, 0);
+ f = LODFile_FindContainer(_this, pContainerName, 0);
  if (!f)
    return -1;
 
  locked_fread(pClass18, 1, 0x30, f);
  strcpy(pClass18->sContainerName, pContainerName);
 
- if (pD3DRenderer->dword_040088 && pClass18->word_00002C & 0x0002 && _this->dword_011BA8)
+ if (pD3DRenderer->pDirect3DDevice3 && pClass18->word_00002C & 0x0002 && _this->dword_011BA8)
   {
     if ( !*(_DWORD *)(v6 + 72620) || !*(_DWORD *)(v6 + 72624) )
     {
@@ -1945,7 +1945,7 @@ LABEL_53:
 
 
 //----- (0041097D) --------------------------------------------------------
-int class17_SetupPalettes(struct class17 *_this, int a2, int a3, int a4)
+int LODFile_SetupPalettes(struct LODFile *_this, int a2, int a3, int a4)
 {
  unsigned int v14;
  unsigned int v15;
@@ -1973,7 +1973,7 @@ int class17_SetupPalettes(struct class17 *_this, int a2, int a3, int a4)
    if (!pClass18->pPalette)
      continue;
 
-   f = class17_FindContainer(_this, pClass18->sContainerName, 0);
+   f = LODFile_FindContainer(_this, pClass18->sContainerName, 0);
    if (!f)
      continue;
 
@@ -2000,7 +2000,7 @@ int class17_SetupPalettes(struct class17 *_this, int a2, int a3, int a4)
 }
 
 //----- (004114F2) --------------------------------------------------------
-int sub_4114F2(struct class17 *_this)
+int sub_4114F2(struct LODFile *_this)
 {
   int result; // eax@1
   int v2; // ecx@1
@@ -2445,7 +2445,7 @@ int class28_fn0(struct class28 *_this, int a2, int a3, int a4, int a5)
   _this->dword_00000C = v7;
   _this->dword_000020 = v6 - v5 + 1;
   _this->dword_000028 = (v6 + v5) >> 1;
-  if (!pD3DRenderer->dword_040088)
+  if (!pD3DRenderer->pDirect3DDevice3)
   {
     v10 = v7 - v8 + 1;
     _this->dword_000024 = v10;
@@ -3009,7 +3009,7 @@ char *sub_456D84(struct class40 *_this)
   pStorylineText = malloc(sizeof(struct StorylineText));
   StorylineText_Initialize(pStorylineText);
 
-  _this->pStdItemsTXT_Raw = class17_fn1(pClass17_Events_LOD, "stditems.txt", 0);
+  _this->pStdItemsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "stditems.txt", 0);
 
   strtok(_this->pStdItemsTXT_Raw, "\r");
   strtok(0, "\r");
@@ -3111,7 +3111,7 @@ char *sub_456D84(struct class40 *_this)
 
 
 
-  _this->pSpcItemsTXT_Raw = class17_fn1(pClass17_Events_LOD, "spcitems.txt", 0);
+  _this->pSpcItemsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "spcitems.txt", 0);
   strtok(_this->pSpcItemsTXT_Raw, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
@@ -3203,7 +3203,7 @@ LABEL_63:
   sub_443801();
 
 
-  _this->pItemsTXT_Raw = class17_fn1(pClass17_Events_LOD, "items.txt", 0);
+  _this->pItemsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "items.txt", 0);
   strtok(_this->pItemsTXT_Raw, "\r");
   v28 = 0;
   strtok(0, "\r");
@@ -3406,7 +3406,7 @@ LABEL_196:
   }
   _this->uNumItems = v28;
 
-  _this->pRndItemsTXT_Raw = class17_fn1(pClass17_Events_LOD, "rnditems.txt", 0);
+  _this->pRndItemsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "rnditems.txt", 0);
   strtok(_this->pRndItemsTXT_Raw, "\r");
   v39 = 0;
   strtok(0, "\r");
@@ -3620,7 +3620,7 @@ LABEL_196:
   while ( v94 < 3 );
 
 
-  pSkillDescTXT_Raw = class17_fn1(pClass17_Events_LOD, "skilldes.txt", 0);
+  pSkillDescTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "skilldes.txt", 0);
   strtok(pSkillDescTXT_Raw, "\r");
   v53 = 0;
   do
@@ -3677,8 +3677,8 @@ LABEL_196:
 
 
 
-  //pStatsTXT_Raw = class17_fn1(pClass17_Events_LOD, "stats.txt", 0);
-  pStatsTXT_Raw = class17_LoadEvent(pClass17_Events_LOD, L"stats.txt");
+  //pStatsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "stats.txt", 0);
+  pStatsTXT_Raw = LODFile_LoadEvent(pLODFile_Events_LOD, L"stats.txt");
   strtok(pStatsTXT_Raw, "\r");
   v77 = 0;
   do
@@ -3759,7 +3759,7 @@ LABEL_196:
 
 
 
- pClassTXT_Raw = class17_LoadEvent(pClass17_Events_LOD, L"class.txt");
+ pClassTXT_Raw = LODFile_LoadEvent(pLODFile_Events_LOD, L"class.txt");
 
  v78 = strstr(pClassTXT_Raw, "\n") + 1;
  for (i = 0; i < 36; ++i)
@@ -3818,7 +3818,7 @@ int CMapStats_Initialize(struct CMapStats *_this)
  if (pMapStatsTXT_Raw)
    class23_DeleteBuffer(class23_instance, pMapStatsTXT_Raw);
 
- pMapStatsTXT_Raw = class17_fn1(pClass17_Events_LOD, "MapStats.txt", 0);
+ pMapStatsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "MapStats.txt", 0);
  strtok(pMapStatsTXT_Raw, "\r");
  strtok(0, "\r");
  strtok(0, "\r");
@@ -4121,7 +4121,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
  if (pMonstersTXT_Raw)
    class23_DeleteBuffer(class23_instance, pMonstersTXT_Raw);
 
- pMonstersTXT_Raw = class17_fn1(pClass17_Events_LOD, "monsters.txt", 0);
+ pMonstersTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "monsters.txt", 0);
  strtok(pMonstersTXT_Raw, "\r");
  strtok(0, "\r");
  strtok(0, "\r");
@@ -5244,7 +5244,7 @@ char *CMonsterStats_LoadMonsterPlacements(struct CMonsterStats *_this)
 
   v1 = 0;
 
- pMonsterPlacementTXT_Raw = class17_fn1(pClass17_Events_LOD, "placemon.txt", 0);
+ pMonsterPlacementTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "placemon.txt", 0);
  strtok(pMonsterPlacementTXT_Raw, "\r");
 
  v8 = 30;
@@ -5330,7 +5330,7 @@ char *CSpellStats_Initialize(struct CSpellStats *_this)
  if (pSpellsTXT_Raw)
    class23_DeleteBuffer(class23_instance, pSpellsTXT_Raw);
 
- pSpellsTXT_Raw = class17_fn1(pClass17_Events_LOD, "spells.txt", 0);
+ pSpellsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "spells.txt", 0);
  strtok(pSpellsTXT_Raw, "\r");
  strtok(0, "\r");
 
@@ -5492,7 +5492,7 @@ void class40_LoadPotionsTable(struct class40 *_this)
  if (pPotionsTXT_Raw)
    class23_DeleteBuffer(class23_instance, pPotionsTXT_Raw);
 
- pPotionsTXT_Raw = class17_fn1(pClass17_Events_LOD, "potion.txt", 0);
+ pPotionsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "potion.txt", 0);
  for (i = strtok(pPotionsTXT_Raw, "\t\r\n"); ; i = strtok(0, "\t\r\n"))
  {
   if (!strcmp(i, "222"))
@@ -5593,7 +5593,7 @@ void class40_LoadPotionNotes(struct class40 *_this)
    class23_DeleteBuffer(class23_instance, pPotionNotesTXT_Raw);
 
  pPotionNotesTXT_Raw = 0;
- pPotionNotesTXT_Raw = class17_fn1(pClass17_Events_LOD, "potnotes.txt", 0);
+ pPotionNotesTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "potnotes.txt", 0);
 
  for ( i = strtok(pPotionNotesTXT_Raw, "\t\r\n"); ; i = strtok(0, "\t\r\n") )
  {
@@ -5704,7 +5704,7 @@ int class48_Initialize(struct class48 *_this)
  if (pHostileTXT_Raw)
    class23_DeleteBuffer(class23_instance, pHostileTXT_Raw);
 
- pHostileTXT_Raw = class17_fn1(pClass17_Events_LOD, "hostile.txt", 0);
+ pHostileTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "hostile.txt", 0);
 
  strtok(pHostileTXT_Raw, "\r");
  v9 = 0;
@@ -5786,7 +5786,7 @@ int StorylineText_Initialize(struct StorylineText *_this)
  if (pHistoryTXT_Raw)
     class23_DeleteBuffer(class23_instance, pHistoryTXT_Raw);
 
- pHistoryTXT_Raw = class17_fn1(pClass17_Events_LOD, "history.txt", 0);
+ pHistoryTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "history.txt", 0);
  strtok(pHistoryTXT_Raw, "\r");
 
   v12 = (int)((char *)v2 + 20);
@@ -5890,7 +5890,7 @@ int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2)
     {
       sprintf(Source, "pal%03i", a2);
       class18_ctor(&class18_obj);
-      if ( class17_LoadPalette(pClass17_Bitmaps_LOD, &class18_obj, Source, 1u) == 1 )
+      if ( LODFile_LoadPalette(pLODFile_Bitmaps_LOD, &class18_obj, Source, 1u) == 1 )
       {
         v4 = 0;
         v18 = 1 - (_DWORD)&v10;
@@ -5960,7 +5960,7 @@ int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2)
 
 
 //----- (004AC7C0) --------------------------------------------------------
-unsigned int class17_LoadSprite(struct class17 *_this, const char *pSourceFile, int a3)
+unsigned int LODFile_LoadSprite(struct LODFile *_this, const char *pSourceFile, int a3)
 {
   int v4; // esi@1
   signed int v6; // ecx@10
@@ -5981,7 +5981,7 @@ unsigned int class17_LoadSprite(struct class17 *_this, const char *pSourceFile, 
 
 
  v4 = _this;
- if (pD3DRenderer->dword_040088)
+ if (pD3DRenderer->pDirect3DDevice3)
  {
   for (i = 0; i < _this->uNumLoadedSprites; ++i)
     if (!strcmpi(&_this->pHardwareSprites[i * 40], pSourceFile))
@@ -5995,7 +5995,7 @@ unsigned int class17_LoadSprite(struct class17 *_this, const char *pSourceFile, 
  if (_this->uNumLoadedSprites >= 2500)
    return -1;
 
- if (pD3DRenderer->dword_040088 && _this->dword_00ECAC)
+ if (pD3DRenderer->pDirect3DDevice3 && _this->dword_00ECAC)
  {
   if (!_this->pHardwareSprites)
   {
@@ -6017,7 +6017,7 @@ unsigned int class17_LoadSprite(struct class17 *_this, const char *pSourceFile, 
     v20 = 0;
     v21 = 0;
     v24 = 0;
-    v8 = class17_FindContainer(_this, pSourceFile, 0);
+    v8 = LODFile_FindContainer(_this, pSourceFile, 0);
     if ( !v8 )
     {
       v24 = -1;
@@ -6044,7 +6044,7 @@ LABEL_28:
    _this->aLODHeaders[_this->uNumLoadedSprites].uPaletteID = class35_sub_48A3BC_MessWithPalettes(&class35_obj, _this->aLODHeaders[_this->uNumLoadedSprites].uPaletteID);
 
 LABEL_29:
-    if ( pD3DRenderer->dword_040088 )
+    if ( pD3DRenderer->pDirect3DDevice3 )
     {
       *(_DWORD *)(*(_DWORD *)(v4 + 60592) + 40 * *(_DWORD *)(v4 + 60572)) = class23_AllocatedNamedBuffer(
                                                                               &class23_instance,
@@ -6121,7 +6121,7 @@ void CNPCStats_Initialize(struct CNPCStats *_this)
 
   _this->dword_017FC0 = 0;
 
- _this->pNPCNamesTXT_Raw = class17_fn1(pClass17_Events_LOD, "npcnames.txt", 0);
+ _this->pNPCNamesTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npcnames.txt", 0);
  strtok(_this->pNPCNamesTXT_Raw, "\r");
 
   v19 = 0;
@@ -6183,7 +6183,7 @@ LABEL_45:
 
 
 
-  _this->pNPCProfTXT_Raw = class17_fn1(pClass17_Events_LOD, "npcprof.txt", 0);
+  _this->pNPCProfTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npcprof.txt", 0);
   strtok(_this->pNPCProfTXT_Raw, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
@@ -6286,7 +6286,7 @@ void *CNPCStats_sub_476CB5(struct CNPCStats *_this)
 
   v2 = _this;
 
- _this->pNPCDataTXT_Raw = class17_fn1(pClass17_Events_LOD, "npcdata.txt", 0);
+ _this->pNPCDataTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npcdata.txt", 0);
  strtok(_this->pNPCDataTXT_Raw, "\r");
  strtok(0, "\r");
 
@@ -6362,7 +6362,7 @@ void *CNPCStats_sub_476CB5(struct CNPCStats *_this)
  _this->dword_017FC4 = 501;
 
 
- _this->pNPCGreetTXT_Raw = class17_fn1(pClass17_Events_LOD, "npcgreet.txt", 0);
+ _this->pNPCGreetTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npcgreet.txt", 0);
  strtok(_this->pNPCGreetTXT_Raw, "\r");
 
  for (i = 0; i < 206; ++i)
@@ -6396,7 +6396,7 @@ void *CNPCStats_sub_476CB5(struct CNPCStats *_this)
     while ( v41 <= 2 && !v37 );
   }
 
- _this->pNCPGroupTXT_Raw = class17_fn1(pClass17_Events_LOD, "npcgroup.txt", 0);
+ _this->pNCPGroupTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npcgroup.txt", 0);
  strtok(_this->pNCPGroupTXT_Raw, "\r");
 
  for (i = 0; i < 51; ++i)
@@ -6428,7 +6428,7 @@ void *CNPCStats_sub_476CB5(struct CNPCStats *_this)
     while ( v42 <= 1 && !v38 );
   }
 
- _this->pNPCNewsTXT_Raw = class17_fn1(pClass17_Events_LOD, "npcnews.txt", 0);
+ _this->pNPCNewsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npcnews.txt", 0);
  strtok(_this->pNPCNewsTXT_Raw, "\r");
 
  for (i = 0; i < 52; ++i)
@@ -6503,7 +6503,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
   if (_this->pNPCTextTXT_Raw)
     class23_DeleteBuffer(class23_instance, _this->pNPCTextTXT_Raw);
 
-  _this->pNPCTextTXT_Raw = class17_fn1(pClass17_Events_LOD, "npctext.txt", 0);
+  _this->pNPCTextTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npctext.txt", 0);
   strtok(_this->pNPCTextTXT_Raw, "\r");
   //v29 = (signed int)&unk_72166C;
   v29 = 0;
@@ -6552,7 +6552,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
  if (_this->pNPCTopicTXT_Raw)
    class23_DeleteBuffer(class23_instance, _this->pNPCTopicTXT_Raw);
 
- _this->pNPCTopicTXT_Raw = class17_fn1(pClass17_Events_LOD, "npctopic.txt", 0);
+ _this->pNPCTopicTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npctopic.txt", 0);
  strtok(_this->pNPCTopicTXT_Raw, "\r");
 
   //v30 = (signed int)&unk_721668;
@@ -6603,7 +6603,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
  if (_this->pNPCDistTXT_Raw)
    class23_DeleteBuffer(class23_instance, _this->pNPCDistTXT_Raw);
 
- _this->pNPCDistTXT_Raw = class17_fn1(pClass17_Events_LOD, "npcdist.txt", 0);
+ _this->pNPCDistTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npcdist.txt", 0);
  strtok(_this->pNPCDistTXT_Raw, "\r");
  strtok(0, "\r");
 
@@ -7189,7 +7189,7 @@ int sub_48A336(struct class35 *_this)
 }
 
 //----- (0046454B) --------------------------------------------------------
-int sub_46454B(struct class17 *_this)
+int sub_46454B(struct LODFile *_this)
 {
   int v1; // edi@1
   int v2; // esi@1
@@ -7243,7 +7243,7 @@ int sub_46454B(struct class17 *_this)
 }
 
 //----- (004645DC) --------------------------------------------------------
-int sub_4645DC(struct class17 *_this)
+int sub_4645DC(struct LODFile *_this)
 {
   int result; // eax@1
   int v1;
@@ -7362,7 +7362,7 @@ int sub_47CF9C(struct class51 *_this)
 }
 
 //----- (0046161C) --------------------------------------------------------
-bool class17_Games_LOD_FindLeveL(struct class17 *_this, const char *pLevelName)
+bool LODFile_Games_LOD_FindLeveL(struct LODFile *_this, const char *pLevelName)
 {
   int v2; // ebx@1
 
@@ -7380,7 +7380,7 @@ bool class17_Games_LOD_FindLeveL(struct class17 *_this, const char *pLevelName)
 
 
 //----- (004AC67E) --------------------------------------------------------
-int sub_4AC67E_LoadSpriteFromFile(struct class17 *_this, struct class18 *pDstBuf, const char *pFilename)
+int sub_4AC67E_LoadSpriteFromFile(struct LODFile *_this, struct class18 *pDstBuf, const char *pFilename)
 {
   signed int v6; // eax@3
   char *v8; // esi@3
@@ -7388,7 +7388,7 @@ int sub_4AC67E_LoadSpriteFromFile(struct class17 *_this, struct class18 *pDstBuf
   int v16; // [sp+10h] [bp+8h]@4
  FILE *f;
 
-  f = class17_FindContainer(_this, pFilename, 0);
+  f = LODFile_FindContainer(_this, pFilename, 0);
   if (!f)
     return -1;
 
@@ -7492,7 +7492,7 @@ char CGame_sub_44EEA7(struct CGame *_this)
   {
     if (pGame->uSomeFlags & 0x08)
       _this->class10_obj->dword_000004 &= 0xFFFFFF00;
-    if ( pD3DRenderer->dword_040088 )
+    if ( pD3DRenderer->pDirect3DDevice3 )
     {
       if ( dword_6BE360 == 2 )
       {
@@ -7502,7 +7502,7 @@ char CGame_sub_44EEA7(struct CGame *_this)
     }
     if ( *(_BYTE *)(v1 + 0xE21) & 4 )
       _this->dword_000E24 |= 0x01;
-    if ( !pD3DRenderer->dword_040088 )
+    if ( !pD3DRenderer->pDirect3DDevice3 )
     {
       if ( dword_6BE360 == 2 )
       {
@@ -9183,7 +9183,7 @@ LABEL_154:
         goto LABEL_32;
       }
       sub_4A7A27(a2, 0xFFFFFFu, 128);
-      if ( !pD3DRenderer->dword_040088 )
+      if ( !pD3DRenderer->pDirect3DDevice3 )
         return 1;
       v62 = -1;
       v55 = 100;
@@ -9239,7 +9239,7 @@ LABEL_32:
               return 0;
             if ( v2 <= 2081 )
             {
-              if ( pD3DRenderer->dword_040088 )
+              if ( pD3DRenderer->pDirect3DDevice3 )
                 sub_4A77FD((void *)v3, a2);
               else
                 sub_4A80DC((void *)v3, a2);
@@ -9250,14 +9250,14 @@ LABEL_32:
           }
           goto LABEL_67;
         }
-        if ( !pD3DRenderer->dword_040088 )
+        if ( !pD3DRenderer->pDirect3DDevice3 )
           return 1;
         Str1 = *(_DWORD *)"sp18h1";
         v64 = *(_WORD *)&"sp18h1"[4];
         v65 = "sp18h1"[6];
         sub_4BE59E((int)&unk_F8BAD8, 1, 6);
         HIBYTE(v64) = sub_4BE623((int)&unk_F8BAD8) + 48;
-        v62 = class17_LoadTexture(pClass17_Bitmaps_LOD, (const char *)&Str1, 0);
+        v62 = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, (const char *)&Str1, 0);
         v55 = 100;
         v49 = a2;
 LABEL_157:
@@ -9298,7 +9298,7 @@ LABEL_89:
     }
     if ( v2 == 4000 )
     {
-      if ( !pD3DRenderer->dword_040088 )
+      if ( !pD3DRenderer->pDirect3DDevice3 )
         return 1;
       sub_4A7C07((void *)v3, a2);
       return 0;
@@ -9385,7 +9385,7 @@ LABEL_84:
       if ( v17 != 929 )
         return 0;
 LABEL_63:
-      if ( !pD3DRenderer->dword_040088 )
+      if ( !pD3DRenderer->pDirect3DDevice3 )
         return 1;
       sub_4A78AE(a2);
       v58 = 128;
@@ -9402,7 +9402,7 @@ LABEL_117:
   if ( v2 == 1051 )
   {
     sub_4A7A27(a2, 0xFF3C1Eu, 256);
-    if ( pD3DRenderer->dword_040088 )
+    if ( pD3DRenderer->pDirect3DDevice3 )
     {
       v9 = *(_DWORD *)(a2 + 88) & 7;
       if ( v9 != 3 )
@@ -9527,7 +9527,7 @@ void class02_sub_48BBA6(struct class02 *_this)
               {
                 if ( v8 < dword_51B740 )
                 {
-                  if ( pD3DRenderer->dword_040088 )
+                  if ( pD3DRenderer->pDirect3DDevice3 )
                   {
                     v9 = *(_DWORD *)(v7 - 86);
                     if ( BYTE1(v9) & 1 )
@@ -9582,7 +9582,7 @@ void class02_sub_48BBA6(struct class02 *_this)
                       sub_4A354F(
                         v6,
                         (int)&v18,
-                        *(_DWORD *)(pClass17_Bitmaps_LOD->dword_011BB0 + 4 * *(_DWORD *)(v7 - 50)),
+                        *(_DWORD *)(pLODFile_Bitmaps_LOD->dword_011BB0 + 4 * *(_DWORD *)(v7 - 50)),
                         *(_DWORD *)(v7 + 14),
                         *(_DWORD *)(v7 - 26));
                     }
@@ -9596,7 +9596,7 @@ void class02_sub_48BBA6(struct class02 *_this)
                       sub_4A354F(
                         v6,
                         (int)&v18,
-                        *(_DWORD *)(pClass17_Sprites_LOD->pHardwareSprites + 40 * *(_DWORD *)(v7 - 50) + 12),
+                        *(_DWORD *)(pLODFile_Sprites_LOD->pHardwareSprites + 40 * *(_DWORD *)(v7 - 50) + 12),
                         *(_DWORD *)(v7 + 14),
                         *(_DWORD *)(v7 - 26));
                     }
@@ -9679,7 +9679,7 @@ void class02_sub_48BEEF(struct class02 *_this)
     {
       if ( *(_DWORD *)(v7 - 82) && sub_48B5B3((void *)v2, v1) )
       {
-        if ( pD3DRenderer->dword_040088 )
+        if ( pD3DRenderer->pDirect3DDevice3 )
         {
           v8 = *(_DWORD *)(v7 - 82);
           if ( BYTE1(v8) & 1 )
@@ -9736,7 +9736,7 @@ void class02_sub_48BEEF(struct class02 *_this)
             sub_4A3AD9(
               v6,
               (int)&v17,
-              *(_DWORD *)(pClass17_Bitmaps_LOD->dword_011BB0 + 4 * *(_DWORD *)(v7 - 46)),
+              *(_DWORD *)(pLODFile_Bitmaps_LOD->dword_011BB0 + 4 * *(_DWORD *)(v7 - 46)),
               *(_DWORD *)(v7 + 18),
               *(_DWORD *)(v7 - 22));
           }
@@ -9750,7 +9750,7 @@ void class02_sub_48BEEF(struct class02 *_this)
             sub_4A3AD9(
               v6,
               (int)&v17,
-              *(_DWORD *)(pClass17_Sprites_LOD->pHardwareSprites + 40 * *(_DWORD *)(v7 - 46) + 12),
+              *(_DWORD *)(pLODFile_Sprites_LOD->pHardwareSprites + 40 * *(_DWORD *)(v7 - 46) + 12),
               *(_DWORD *)(v7 + 18),
               *(_DWORD *)(v7 - 22));
           }
@@ -9911,7 +9911,7 @@ int class06_sub_4A8C27(struct class06 *_this)
     v8 = *(_WORD *)(v11 + 24);
     v69 = v11;
     *(_DWORD *)(v1 + 1492) -= pClass24_global->int_00001C;
-    if ( pD3DRenderer->dword_040088 )
+    if ( pD3DRenderer->pDirect3DDevice3 )
     {
       v12 = (double)class28_global.dword_000010;
       v36 = v12;
@@ -9950,74 +9950,74 @@ int class06_sub_4A8C27(struct class06 *_this)
       v51 = 1.0;
       v59 = 1.0;
       v67 = 0.0;
-      (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 152))(
-        *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+      (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 152))(
+        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
         0,
-        *(_DWORD *)(pClass17_Sprites_LOD->pHardwareSprites + 40 * v8 + 12));
-      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+        *(_DWORD *)(pLODFile_Sprites_LOD->pHardwareSprites + 40 * v8 + 12));
+      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
         28,
         0);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
         27,
         1);
-      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
         14,
         0);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
         19,
         2);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
         20,
         2);
-      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
         26,
         0);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
         23,
         8);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int, float *, signed int, signed int))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56)
+      (*(void (__stdcall **)(_DWORD, signed int, signed int, float *, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56)
                                                                                              + 112))(
-        *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
         6,
         452,
         &v36,
         4,
         28);
-      v16 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56)
+      v16 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56)
                                                                                              + 88))(
-              *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+              *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
               19,
               2,
               "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\seffects.cpp",
               1348,
               0);
       CheckHRESULT(&v69, v16, v17, v18, v19);
-      v20 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 88))(
-              *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+      v20 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
+              *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
               20,
               1);
       CheckHRESULT(&v69, v20, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\seffects.cpp", 0x545u, 0);
-      (*(void (__cdecl **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+      (*(void (__cdecl **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
         27,
         0);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
         14,
         1);
-      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
         26,
         1);
-      result = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 88))(
-                 *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+      result = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
+                 *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
                  23,
                  2);
     }
@@ -10118,7 +10118,7 @@ int class06_sub_4A7298(struct class06 *_this)
       if ( v9 == -1 )
         v12 = 0;
       else
-        v12 = *(_DWORD *)(pClass17_Bitmaps_LOD->dword_011BB0 + 4 * v9);
+        v12 = *(_DWORD *)(pLODFile_Bitmaps_LOD->dword_011BB0 + 4 * v9);
       v10 = v26 / v23 * 20.0;
       v11 = v26 / v16 * 20.0;
       sub_4A49D0(v17, v18, v16, v11, v24, v25, v23, v10, v12);
@@ -10145,7 +10145,7 @@ void class06_sub_4A902A_DrawSomeIcon(struct class06 *_this)
    if (_this->array_000208[i].dword_000004 <= _this->array_000208[i].dword_000008)
    {
     pIcon = CIconFrameTable_GetFrame(pIconFrameTable, _this->array_000208[i].dword_00000C, _this->array_000208[i].dword_000004);
-    CD3DRenderer_DrawTransparentTexture(pD3DRenderer, off_4ED748[i], 385, &pClass17_Icons_LOD->aLODHeaders[pIcon->uTextureIdx]);
+    CD3DRenderer_DrawTransparentTexture(pD3DRenderer, off_4ED748[i], 385, &pLODFile_Icons_LOD->aLODHeaders[pIcon->uTextureIdx]);
     dword_5E5144 = 1;
    }
    else
@@ -10183,7 +10183,7 @@ int class18_UnzipPalette(struct class18 *_this)
 
 struct class18 pending_texture;
 void *hStdHandle = 0;
-unsigned int class17_LoadTexture_New(struct class17 *_this, const wchar_t *pFilename)
+unsigned int LODFile_LoadTexture_New(struct LODFile *_this, const wchar_t *pFilename)
 {
  void    *hFile;
  DWORD    w;
@@ -10243,7 +10243,7 @@ unsigned int class17_LoadTexture_New(struct class17 *_this, const wchar_t *pFile
 }
 
 
-unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename)
+unsigned char *LODFile_LoadEvent(struct LODFile *_this, const wchar_t *pFilename)
 {
  DWORD          w;
  void          *hFile;
@@ -10256,7 +10256,7 @@ unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename
  if (hFile == INVALID_HANDLE_VALUE)
  {
   wsprintfA(pFilenameA, "%S", pFilename);
-  return class17_fn1(_this, pFilenameA, 0);
+  return LODFile_LoadRaw(_this, pFilenameA, 0);
  }
 
  pOut = malloc(GetFileSize(hFile, 0));

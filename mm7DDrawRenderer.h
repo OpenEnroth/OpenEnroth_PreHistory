@@ -51,63 +51,79 @@ struct HWLBitmap
  unsigned char *pData;        // dword    @ 000038
 };
 
-struct D3DRenderer_struct0
+struct D3DRenderer_stru1
 {
+ unsigned char *ptr_000000;
+ unsigned char *ptr_000004;
+ int            dword_000008;
+ int            dword_00000C;
  int            dword_000010;
- int            dword_000014;
- int            dword_000018;
- unsigned char *ptr_00001C;
- int            dword_000020;
- int            dword_000024;
- int            dword_000028;
- int            dword_00002C;
- int            dword_000030;
- int            dword_000034;
+ int            dword_000014[35];
+};
+
+struct D3DRenderer_D3D3DeviceInfo
+{
+ int                       dword_000000;
+ int                       dword_000004;
+ int                       dword_000008;
+ int                       dword_00000C;
+ int                       dword_000010;
+ int                       dword_000014;
+ int                       dword_000018;
+ struct D3DRenderer_stru1 *ptr_00001C;
+ int                       dword_000020;
+ int                       dword_000024;
+ int                       dword_000028;
+ int                       dword_00002C;
+ int                       dword_000030;
+ int                       dword_000034;
+ int                       dword_000038;
+ int                       dword_00003C;
+ int                       dword_000040;
+ int                       dword_000044;
 };
 //sizeof = 0148
 //int __thiscall sub_49DC58(int this);
-void sub_49DC58(struct D3DRenderer_struct0 *_this);
+void sub_49DC58(struct D3DRenderer_D3D3DeviceInfo *_this);
 
 struct CD3DRenderer
 {
- unsigned int                bUseDirect3D;       // dword @ 000000
- unsigned int                bStartInWindow;     // dword @ 000004
- unsigned int                bUseDirect3DDevice; // dword @ 000008
- int                         dword_00000C;
- int                         dword_000010;
- int                         dword_000014;
- int                         dword_000018; // related to currently locked surface pitch
- int                         dword_00001C; // ->
- int                         dword_000020;   // some kind
- int                         dword_000024;   // of clipping rect
- int                         dword_000028; // <-
-
- unsigned short              array_00002C[65536]; //byte[?] @ 00002C
- unsigned short              array_02002C[65536]; //byte[?] @ 02002C
-
- int                         dword_04002C;
- int                         dword_040030;
- int                        *pActiveZBuffer;     // ptr @ 040034
- int                        *pDefaultZBuffer;    // ptr @ 040038
- int                         dword_04003C;
- int                         dword_040040;
- int                         dword_040044;
- int                         dword_040048;
- int                         dword_04004C;
- HWND                        hWnd;               // ptr @ 040050
- int                         dword_040054;
- int                         dword_040058;       //maybe windowed flag
- int                         dword_04005C[11];   // for struct align
- int                         dword_040088;       // some D3D interface
- struct IDirectDraw4        *pdd4;               // ptr @ 04008C
- struct IDirectDrawSurface4 *pdds4_FrontBuffer;  // ptr @ 040090
- struct IDirectDrawSurface4 *pdds4_BackBuffer;   // ptr @ 040094
- int                         dword_040098;
- struct IDirectDraw2        *pdd2;               // ptr @ 04009C
- struct IDirectDrawSurface2 *pdds2_FrontBuffer;  // ptr @ 0400A0
- struct IDirectDrawSurface2 *pdds2_BackBuffer;   // ptr @ 0400A4
- int                         dword_0400A8;
- DDPIXELFORMAT               ddpfPrimarySurface; // struct[32] @ 0400AC
+ unsigned int                   bUseDirect3D;         // dword @ 000000
+ unsigned int                   bStartInWindow;       // dword @ 000004
+ unsigned int                   uDirect3DDeviceToUse; // dword @ 000008
+ int                            dword_00000C;
+ int                            dword_000010;
+ int                            dword_000014;
+ int                            dword_000018; // related to currently locked surface pitch
+ int                            dword_00001C; // ->
+ int                            dword_000020;   // some kind
+ int                            dword_000024;   // of clipping rect
+ int                            dword_000028; // <-
+ unsigned short                 array_00002C[65536]; //byte[?] @ 00002C
+ unsigned short                 array_02002C[65536]; //byte[?] @ 02002C
+ int                            dword_04002C;
+ int                            dword_040030;
+ int                           *pActiveZBuffer;     // ptr @ 040034
+ int                           *pDefaultZBuffer;    // ptr @ 040038
+ int                            dword_04003C;
+ int                            dword_040040;
+ int                            dword_040044;
+ int                            dword_040048;
+ int                            dword_04004C;
+ HWND                           hWnd;               // ptr @ 040050
+ int                            dword_040054;
+ int                            dword_040058;       //maybe windowed flag
+ int                            dword_04005C[11];   // for struct align
+ struct D3DRenderer_D3D3DeviceInfo *pDirect3DDevice3; // dword @ 040088
+ struct IDirectDraw4               *pdd4;               // ptr @ 04008C
+ struct IDirectDrawSurface4        *pdds4_FrontBuffer;  // ptr @ 040090
+ struct IDirectDrawSurface4        *pdds4_BackBuffer;   // ptr @ 040094
+ int                                dword_040098;
+ struct IDirectDraw2               *pdd2;               // ptr @ 04009C
+ struct IDirectDrawSurface2        *pdds2_FrontBuffer;  // ptr @ 0400A0
+ struct IDirectDrawSurface2        *pdds2_BackBuffer;   // ptr @ 0400A4
+ int                                dword_0400A8;
+ DDPIXELFORMAT                      ddpfPrimarySurface; // struct[32] @ 0400AC
 
  unsigned int                uNumTargetRBits;    // dword @ 0400CC
  unsigned int                uNumTargetGBits;    // dword @ 0400D0

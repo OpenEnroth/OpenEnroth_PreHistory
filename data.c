@@ -1211,10 +1211,10 @@ PCMWAVEFORMAT sPCMWaveFormat;  // struct @ MM7.exe::00F1B4B8
 
 
 struct CD3DRenderer *pD3DRenderer = 0;
-struct class17      *pClass17_Events_LOD = 0;   // struct @ MM7.exe::006BEA58
-struct class17      *pClass17_Icons_LOD = 0;    // struct @ MM7.exe::006D0610
-struct class17      *pClass17_Sprites_LOD = 0;  // struct @ MM7.exe::006E21C8
-struct class17      *pClass17_Bitmaps_LOD = 0;  // struct @ MM7.exe::006F0E80
+struct LODFile      *pLODFile_Events_LOD = 0;   // struct @ MM7.exe::006BEA58
+struct LODFile      *pLODFile_Icons_LOD = 0;    // struct @ MM7.exe::006D0610
+struct LODFile      *pLODFile_Sprites_LOD = 0;  // struct @ MM7.exe::006E21C8
+struct LODFile      *pLODFile_Bitmaps_LOD = 0;  // struct @ MM7.exe::006F0E80
 struct AudioPlayer  *pAudioPlayer = 0;          // struct @ MM7.exe::00F790D8
 struct CVideoPlayer *pVideoPlayer = 0;          // struct @ MM7.exe::00F8BB08
 

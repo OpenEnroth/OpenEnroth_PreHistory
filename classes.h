@@ -662,8 +662,8 @@ struct LODFileHeader
 };
 //sizeof == 100
 
-//class17
-struct class17
+//LODFile
+struct LODFile
 {
  FILE *pLODFile;               //dword ptr [0000]
  char  sLODName[32];           //dword ptr [0004]
@@ -692,7 +692,7 @@ struct class17
  int   dword_00ECA4;
  int   dword_00ECA8;
  int   dword_00ECAC;
- unsigned char *pHardwareSprites; // dword @ 00ECB0    1500 structs 40 bytes long, maybe only for pClass17_Sprites_LOD
+ unsigned char *pHardwareSprites; // dword @ 00ECB0    1500 structs 40 bytes long, maybe only for pLODFile_Sprites_LOD
 
  char byte_00ECB4[0x2EC8];
 
@@ -714,52 +714,52 @@ struct class17
 };
 //sizeof = 011BB8
 
-void class17_ctor(struct class17 *_this);
+void LODFile_ctor(struct LODFile *_this);
 //bool __thiscall sub_40FAEE(int this, const char *Filename);
-int class17_LoadLOD_Icons_Events(struct class17 *_this, const char *pLODFilename);
+int LODFile_LoadLOD_Icons_Events(struct LODFile *_this, const char *pLODFilename);
 //bool __thiscall sub_40FA2E(int this, const char *Filename);
-int class17_LoadLOD_Bitmaps(struct class17 *_this, const char *pLODFilename);
+int LODFile_LoadLOD_Bitmaps(struct LODFile *_this, const char *pLODFilename);
 //bool __thiscall sub_4AC795(int this, const char *Filename);
-int class17_LoadLOD_Sprites(struct class17 *_this, const char *pLODFilename);
+int LODFile_LoadLOD_Sprites(struct LODFile *_this, const char *pLODFilename);
 //int __thiscall sub_41088B(void *this, const char *Args, int a3);
-void *class17_fn1(struct class17 *_this, const char *pLODContainer, int a3);
+void *LODFile_LoadRaw(struct LODFile *_this, const char *pLODContainer, int a3);
 //int __thiscall sub_461580(int this, const char *Str1, int a3);
-FILE *class17_FindContainer(struct class17 *_this, const char *pContainerName, int a3);
+FILE *LODFile_FindContainer(struct LODFile *_this, const char *pContainerName, int a3);
 //int __thiscall sub_46165E(void *this, int a2, int a3, const char *Str1);
-int class17_fn3(struct class17 *_this, int a2, int a3, const char *pContainerName);
+int LODFile_fn3(struct LODFile *_this, int a2, int a3, const char *pContainerName);
 //void __thiscall sub_40FA60(int this);
-void class17_fn4(struct class17 *_this);
+void LODFile_fn4(struct LODFile *_this);
 //signed int __thiscall sub_4617D5(int this, const char *Filename, char a3)
-int class17_MaybeLoadLODHeader(struct class17 *_this, const char *pFilename, char a3);
+int LODFile_MaybeLoadLODHeader(struct LODFile *_this, const char *pFilename, char a3);
 //signed int __thiscall sub_46188A(int this, const char *Source);
-int class17_fn6(struct class17 *_this, const char *pContainer);
+int LODFile_fn6(struct LODFile *_this, const char *pContainer);
 //int __thiscall sub_46153F(int this);
-int class17_fn7(struct class17 *_this);
+int LODFile_fn7(struct LODFile *_this);
 //int __thiscall sub_40FB20(int this, const char *Source, unsigned int a3)
-int class17_LoadTexture(struct class17 *_this, const char *pContainerName, unsigned int a3);
+int LODFile_LoadTexture(struct LODFile *_this, const char *pContainerName, unsigned int a3);
 //signed int __thiscall sub_40FC08(int this, void *Dest, int Source, unsigned int DstBuf);
-int class17_LoadPalette(struct class17 *_this, struct class18 *pClass18, const char *pContainerName, unsigned int DstBuf);
+int LODFile_LoadPalette(struct LODFile *_this, struct class18 *pClass18, const char *pContainerName, unsigned int DstBuf);
 //int __thiscall sub_41097D(void *this, int a2, int a3, int a4);
-int class17_SetupPalettes(struct class17 *_this, int a2, int a3, int a4);
+int LODFile_SetupPalettes(struct LODFile *_this, int a2, int a3, int a4);
 //int __thiscall sub_461954(int this, int a2, signed int Size);
-void class17_AllocateSubidexAndIOBuffer(struct class17 *_this, unsigned int uNumSubIndices, signed int uIOBufferSize);
+void LODFile_AllocateSubidexAndIOBuffer(struct LODFile *_this, unsigned int uNumSubIndices, signed int uIOBufferSize);
 //signed int __thiscall sub_461A43(void *this, const char *Filename, char a3);
-int class17_LoadLOD_Games(struct class17 *_this, const char *pLODFilename, unsigned char uFileFlags);
+int LODFile_LoadLOD_Games(struct LODFile *_this, const char *pLODFilename, unsigned char uFileFlags);
 //int __thiscall sub_4114F2(_DWORD);
-int sub_4114F2(struct class17 *_this);
+int sub_4114F2(struct LODFile *_this);
 //int __thiscall sub_46454B(int this);
-int sub_46454B(struct class17 *_this);
+int sub_46454B(struct LODFile *_this);
 //int __thiscall sub_4645DC(int this);
-int sub_4645DC(struct class17 *_this);
+int sub_4645DC(struct LODFile *_this);
 //signed int __thiscall sub_46161C(int this, const char *Str1);
-bool class17_Games_LOD_FindLeveL(struct class17 *_this, const char *pLevelName);
+bool LODFile_Games_LOD_FindLeveL(struct LODFile *_this, const char *pLevelName);
 //signed int __thiscall sub_4AC67E(int this, char *DstBuf, const char *Size);
-int sub_4AC67E(struct class17 *_this, struct class18 *DstBuf, const char *pFilename);
-unsigned int class17_LoadSprite(struct class17 *_this, const char *pSourceFile, int a3);
+int sub_4AC67E(struct LODFile *_this, struct class18 *DstBuf, const char *pFilename);
+unsigned int LODFile_LoadSprite(struct LODFile *_this, const char *pSourceFile, int a3);
 
-unsigned int   class17_LoadTexture_New(struct class17 *_this, const wchar_t *pFilename);
-unsigned char *class17_LoadEvent(struct class17 *_this, const wchar_t *pFilename);
-bool class17_ReleaseTexture(struct class17 *_this, unsigned int uTextureID);
+unsigned int   LODFile_LoadTexture_New(struct LODFile *_this, const wchar_t *pFilename);
+unsigned char *LODFile_LoadEvent(struct LODFile *_this, const wchar_t *pFilename);
+bool LODFile_ReleaseTexture(struct LODFile *_this, unsigned int uTextureID);
 
 
 

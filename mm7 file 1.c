@@ -264,11 +264,11 @@ void sub_4789DE()
          runtime_warning(sometiems negative index returned, function unstable);
          runtime_error;
          //for now let's pretend there's no required texture
-         p14->ptr_00003C = &pClass17_Bitmaps_LOD->aLODHeaders[1];
+         p14->ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[1];
          v18 = 0;
         }
         else
-          p14->ptr_00003C = &pClass17_Bitmaps_LOD->aLODHeaders[v18];
+          p14->ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[v18];
 
         if (pStruct9_global->dword_00002C > 1999)
           return;
@@ -699,7 +699,7 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
 
  pCamera->dword_00004C = v2;
 
- if (bRedraw || pD3DRenderer->dword_040088)
+ if (bRedraw || pD3DRenderer->pDirect3DDevice3)
  {
   sub_481EB7_ResetStruct8Array();
   struct9_sub_47A59E_ComputeSinCos(pStruct9_global);
@@ -724,7 +724,7 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
 
  if (!bRedraw)
  {
-  if (!pD3DRenderer->dword_040088)
+  if (!pD3DRenderer->pDirect3DDevice3)
   {
    sub_479332();
    goto LABEL_16;
@@ -732,7 +732,7 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
   goto LABEL_14;
  }
 
- if (pD3DRenderer->dword_040088)
+ if (pD3DRenderer->pDirect3DDevice3)
  {
 LABEL_14:
     sub_479543();
@@ -749,7 +749,7 @@ LABEL_14:
 LABEL_16:
  dword_51B6DC = 0;
  dword_519AB4 = 0;
- if (!pD3DRenderer->dword_040088)
+ if (!pD3DRenderer->pDirect3DDevice3)
  {
   sub_487389_DrawSpansAndAll();
   class08_sub_438240(pGame->class08_obj);
@@ -763,7 +763,7 @@ LABEL_16:
     class51_sub_47EF60(pClass51_global, v5, v4, 1);
   }
   pGame->dword_000E24 &= 0xFFFFFFFE;
-  if ( pD3DRenderer->dword_040088 && pD3DRenderer->dword_103660)
+  if ( pD3DRenderer->pDirect3DDevice3 && pD3DRenderer->dword_103660)
     pGame->class04_obj->dword_3CBC34 |= 1;
   else
     pGame->class04_obj->dword_3CBC34 &= 0xFFFFFFFE;
@@ -1337,17 +1337,17 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
 
  ShowWindow(hWnd_global, SW_SHOWNORMAL);
 
- pClass17_Icons_LOD = malloc(sizeof(struct class17));
- class17_ctor(pClass17_Icons_LOD);
- if (!class17_LoadLOD_Icons_Events(pClass17_Icons_LOD, "data\\icons.lod"))
+ pLODFile_Icons_LOD = malloc(sizeof(struct LODFile));
+ LODFile_ctor(pLODFile_Icons_LOD);
+ if (!LODFile_LoadLOD_Icons_Events(pLODFile_Icons_LOD, "data\\icons.lod"))
  {
   MessageBoxW(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
   return 0;
  }
 
- pClass17_Events_LOD = malloc(sizeof(struct class17));
- class17_ctor(pClass17_Events_LOD);
- if (!class17_LoadLOD_Icons_Events(pClass17_Events_LOD, "data\\events.lod"))
+ pLODFile_Events_LOD = malloc(sizeof(struct LODFile));
+ LODFile_ctor(pLODFile_Events_LOD);
+ if (!LODFile_LoadLOD_Icons_Events(pLODFile_Events_LOD, "data\\events.lod"))
  {
   MessageBoxW(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
   return 0;
@@ -1355,23 +1355,23 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
 
  InitializeGameText();
 
- pClass17_Bitmaps_LOD = malloc(sizeof(struct class17));
- class17_ctor(pClass17_Bitmaps_LOD);
- if (!class17_LoadLOD_Bitmaps(pClass17_Bitmaps_LOD, "data\\bitmaps.lod"))
+ pLODFile_Bitmaps_LOD = malloc(sizeof(struct LODFile));
+ LODFile_ctor(pLODFile_Bitmaps_LOD);
+ if (!LODFile_LoadLOD_Bitmaps(pLODFile_Bitmaps_LOD, "data\\bitmaps.lod"))
  {
    MessageBoxW(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
    return 0;
  }
 
- pClass17_Icons_LOD->dword_011BA4 = 0;
+ pLODFile_Icons_LOD->dword_011BA4 = 0;
  bUseRegistry = GetPrivateProfileIntA("settings", "registry", 1, pConfigFilename);
  if (!bUseRegistry)
    bUseLoResSprites = GetPrivateProfileIntA("settings", "resolution", 0, pConfigFilename);
  else bUseLoResSprites = ReadWindowsRegistry("resolution", 0);
 
- pClass17_Sprites_LOD = malloc(sizeof(struct class17));
- class17_ctor(pClass17_Sprites_LOD);
- if (!class17_LoadLOD_Sprites(pClass17_Sprites_LOD, bUseLoResSprites ? "data\\spriteLO.lod" : "data\\sprites.lod") )
+ pLODFile_Sprites_LOD = malloc(sizeof(struct LODFile));
+ LODFile_ctor(pLODFile_Sprites_LOD);
+ if (!LODFile_LoadLOD_Sprites(pLODFile_Sprites_LOD, bUseLoResSprites ? "data\\spriteLO.lod" : "data\\sprites.lod") )
  {
   MessageBoxW(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
   return 0;
@@ -1408,66 +1408,66 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
  {
   pSpriteFrameTable = malloc(sizeof(struct CSpriteFrameTable));
   CSpriteFrameTable_ctor(pSpriteFrameTable);
-  v22 = class17_fn1(pClass17_Events_LOD, "dsft.bin", 1);
+  v22 = LODFile_LoadRaw(pLODFile_Events_LOD, "dsft.bin", 1);
   CSpriteFrameTable_Initialize(pSpriteFrameTable, v22);
   call_delete(0, v22);
 
   pTextureFrameTable = malloc(sizeof(struct CTextureFrameTable));
   CTextureFrameTable_ctor(pTextureFrameTable);
-  v25 = class17_fn1(pClass17_Events_LOD, "dtft.bin", 1);
+  v25 = LODFile_LoadRaw(pLODFile_Events_LOD, "dtft.bin", 1);
   CTextureFrameTable_Initialize(pTextureFrameTable, v25);
   call_delete(0, v25);
 
   pTileTable = malloc(sizeof(struct CTileTable));
   CTileTable_ctor(pTileTable);
-  v28 = class17_fn1(pClass17_Events_LOD, "dtile.bin", 1);
+  v28 = LODFile_LoadRaw(pLODFile_Events_LOD, "dtile.bin", 1);
   CTileTable_Initialize(pTileTable, v28);
   call_delete(0, v28);
 
   pPlayerFrameTable = malloc(sizeof(struct CPlayerFrameTable));
   CPlayerFrameTable_ctor(pPlayerFrameTable);
-  v31 = class17_fn1(pClass17_Events_LOD, "dpft.bin", 1);
+  v31 = LODFile_LoadRaw(pLODFile_Events_LOD, "dpft.bin", 1);
   CPlayerFrameTable_Initialize(pPlayerFrameTable, v31);
   call_delete(0, v31);
 
   pIconFrameTable = malloc(sizeof(struct CIconFrameTable));
   CIconFrameTable_ctor(pIconFrameTable);
-  v34 = class17_fn1(pClass17_Events_LOD, "dift.bin", 1);
+  v34 = LODFile_LoadRaw(pLODFile_Events_LOD, "dift.bin", 1);
   CIconFrameTable_Initialize(pIconFrameTable, v34);
   call_delete(0, v34);
 
   pDecorationDescriptionList = malloc(sizeof(struct CDecorationDescriptionList));
   CDecorationDescriptionList_ctor(pDecorationDescriptionList);
-  v37 = class17_fn1(pClass17_Events_LOD, "ddeclist.bin", 1);
+  v37 = LODFile_LoadRaw(pLODFile_Events_LOD, "ddeclist.bin", 1);
   CDecorationDescriptionList_Initialize(pDecorationDescriptionList, v37);
   call_delete(0, v37);
 
   pObjectDescriptionList = malloc(sizeof(struct CObjectDescriptionList));
   CObjectDescriptionList_ctor(pObjectDescriptionList);
-  v40 = class17_fn1(pClass17_Events_LOD, "dobjlist.bin", 1);
+  v40 = LODFile_LoadRaw(pLODFile_Events_LOD, "dobjlist.bin", 1);
   CObjectDescriptionList_Initialize(pObjectDescriptionList, v40);
   call_delete(0, v40);
 
   pMonsterDescriptionList = malloc(sizeof(struct MonsterDescriptionList));
   MonsterDescriptionList_ctor(pMonsterDescriptionList);
-  v43 = class17_fn1(pClass17_Events_LOD, "dmonlist.bin", 1);
+  v43 = LODFile_LoadRaw(pLODFile_Events_LOD, "dmonlist.bin", 1);
   MonsterDescriptionList_Initialize(pMonsterDescriptionList, v43);
   call_delete(0, v43);
 
   //chest descriptor
-  v46 = class17_fn1(pClass17_Events_LOD, "dchest.bin", 1);
+  v46 = LODFile_LoadRaw(pLODFile_Events_LOD, "dchest.bin", 1);
   sub_458B4F(chest_descriptor, v46);
   call_delete(0, v46);
 
   pOverlayDescriptionList = malloc(sizeof(struct COverlayDescriptionList));
   COverlayDescriptionList_ctor(pOverlayDescriptionList);
-  v49 = class17_fn1(pClass17_Events_LOD, "doverlay.bin", 1);
+  v49 = LODFile_LoadRaw(pLODFile_Events_LOD, "doverlay.bin", 1);
   COverlayDescriptionList_Initialize(pOverlayDescriptionList, v49);
   call_delete(0, v49);
 
   pSoundList = malloc(sizeof(struct CSoundList));
   CSoundList_ctor(pSoundList);
-  v51 = class17_fn1(pClass17_Events_LOD, "dsounds.bin", 1);
+  v51 = LODFile_LoadRaw(pLODFile_Events_LOD, "dsounds.bin", 1);
   CSoundList_Initialize(pSoundList, v51);
   call_delete(0, v51);
  }
@@ -1487,7 +1487,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   CSoundList_SaveToBIN(pSoundList);
  }
 
- if (!(dword_6BE368 & 1))  // if (dword_6BE364 & 2 || !windowed)
+ if (~dword_6BE368 & 1)  // if (!windowed)
  {
   SetMenu(hWnd_global, 0);
   SetWindowLongA(hWnd_global, GWL_EXSTYLE, 0);
@@ -2286,7 +2286,7 @@ LABEL_173:
       }
       v98.v99 = abs(pCamera->uMapGridCellZ - dword_76D9C8[i]);
       v98.v100 = abs(pCamera->uMapGridCellX - dword_76DBC8[i]);
-      if ( pD3DRenderer->dword_040088 )
+      if ( pD3DRenderer->pDirect3DDevice3 )
         sub_48034E(v107, 0, &v98);
       else
         sub_481212(v107, 0, &v98);
@@ -2339,7 +2339,7 @@ LABEL_173:
       }
       v98.v99 = abs(pCamera->uMapGridCellX - dword_76DBC8[i]);
       v98.v100 = abs(pCamera->uMapGridCellZ - dword_76D9C8[i]);
-      if ( pD3DRenderer->dword_040088 )
+      if ( pD3DRenderer->pDirect3DDevice3 )
         sub_48034E(v107, 1, &v98);
       else
         sub_481212(v107, 1, &v98);
@@ -2456,7 +2456,7 @@ void __fastcall MoviePlayerLoop(const char *pMovieName, int a2, int a3, int a4)
  pVideoPlayer->dword_000058 = 1;
  pVideoPlayer->dword_000044 = v4;
 
- if (pD3DRenderer->dword_040088)
+ if (pD3DRenderer->pDirect3DDevice3)
    sub_49FBCD(pD3DRenderer, 0);
  else
  {
@@ -2677,9 +2677,9 @@ void sub_487389_DrawSpansAndAll()
      while (true)
      {
       v18 = v4->ptr_00003C;
-      v19 = class17_LoadTexture_New(pClass17_Bitmaps_LOD, L"wtrtyl"); // temporarely replace texture with a water tile
+      v19 = LODFile_LoadTexture_New(pLODFile_Bitmaps_LOD, L"wtrtyl"); // temporarely replace texture with a water tile
 
-      v4->ptr_00003C = &pClass17_Bitmaps_LOD->aLODHeaders[v19];
+      v4->ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[v19];
       if (dword_6BE0D4)
         sub_48408A(pSpan);
       else
@@ -2721,8 +2721,8 @@ void sub_487389_DrawSpansAndAll()
     {
      while (1)
      {
-      v30 = class17_LoadTexture_New(pClass17_Bitmaps_LOD, L"wtrtyla");
-      v4->ptr_00003C = &pClass17_Bitmaps_LOD->aLODHeaders[v30];
+      v30 = LODFile_LoadTexture_New(pLODFile_Bitmaps_LOD, L"wtrtyla");
+      v4->ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[v30];
       if (!sub_4847EB(pSpan))
         break;
 
@@ -2897,7 +2897,7 @@ LABEL_74:
 
  if (pClass51_global->dword_0000EC == -1)
    return;
- array_77EC08[1999].ptr_00003C = &pClass17_Bitmaps_LOD->aLODHeaders[pClass51_global->dword_0000EC];
+ array_77EC08[1999].ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[pClass51_global->dword_0000EC];
 
  array_77EC08[1999].byte_000058 = 23 - ((signed int)((unsigned __int64)(1310720i64
                                                * (signed int)((unsigned __int64)((signed __int64)(-pClass51_global->dword_000D38) << 16) >> 16)) >> 16) >> 16);
@@ -2921,7 +2921,7 @@ LABEL_74:
  if (dword_6A0ED8 == -1)
     return;
 
- array_77EC08[1999].ptr_00003C = &pClass17_Bitmaps_LOD->aLODHeaders[dword_6A0ED8];
+ array_77EC08[1999].ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[dword_6A0ED8];
  array_77EC08[1999].byte_000058 = 0;
 
 
@@ -3028,17 +3028,17 @@ void __cdecl sub_47A815()
   else
     class02_sub_48BEEF(pGame->class02_obj);
 
-  if ( pD3DRenderer->dword_040088 )
+  if ( pD3DRenderer->pDirect3DDevice3 )
   {
     if ( *(_DWORD *)(v0 + 52000) )
     {
-      (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56) + 152))(
-        *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+      (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 152))(
+        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
         0,
         0);
-      (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->dword_040088 + 56)
+      (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56)
                                                                                     + 112))(
-                 *(_DWORD *)(pD3DRenderer->dword_040088 + 56),
+                 *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
                  2,
                  452,
                  &pGame->class02_obj->dword_000CB20[1],
@@ -3258,7 +3258,7 @@ LABEL_238:
         struct_505898.dword_5058A0 = 8;
         return DefWindowProcA(hWnd, Msg, wParam, v5);
       case WM_MBUTTONDOWN:
-        if (pD3DRenderer->dword_040088)
+        if (pD3DRenderer->pDirect3DDevice3)
         {
           if (pGame && !dword_720010)
           {
@@ -3731,7 +3731,7 @@ LABEL_184:
       }
       else
       {
-        if ( !pD3DRenderer->dword_040088 && !sub_4A169E(pD3DRenderer) || !sub_4A16A5() )
+        if ( !pD3DRenderer->pDirect3DDevice3 && !sub_4A169E(pD3DRenderer) || !sub_4A16A5() )
           goto LABEL_20;
       }
       CD3DRenderer_Present(pD3DRenderer);
@@ -4219,7 +4219,7 @@ void sub_44103C()
 
  if (CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer))
  {
-  if (pD3DRenderer->dword_040088)
+  if (pD3DRenderer->pDirect3DDevice3)
     goto LABEL_22;
   sub_4A1EB6(pD3DRenderer);
   sub_469E3B(pGame->pClass03);
@@ -4243,12 +4243,12 @@ void sub_44103C()
 
   sub_4A1EB6(pD3DRenderer);
 
-  if (!pD3DRenderer->dword_040088)
+  if (!pD3DRenderer->pDirect3DDevice3)
     sub_469E3B(pGame->pClass03);
 
   if (!sub_4226C2() || struct_576FE8.dword_000048 == 1)
   {
-   if (pD3DRenderer->dword_040088)
+   if (pD3DRenderer->pDirect3DDevice3)
    {
     v2 = (double)((pClass24_global2->dword_000024 >> 2) & 0x1F) * 0.03225806355476379 * 6.0;
     v3 = v2 + 6.755399441055744e15;
@@ -4264,10 +4264,10 @@ void sub_44103C()
         if ( dword_6BE360 == 2 )
           sub_441CFF();
       }
-      if ( pD3DRenderer->dword_040088 )
+      if ( pD3DRenderer->pDirect3DDevice3 )
       {
         sub_49C304(pClass58_global, 0, (unsigned int)pD3DRenderer);
-        if ( pD3DRenderer->dword_040088 )
+        if ( pD3DRenderer->pDirect3DDevice3 )
           sub_45D73F(2);
       }
     }
@@ -4279,7 +4279,7 @@ void sub_44103C()
 LABEL_22:
  CD3DRenderer_BeginScene(pD3DRenderer);
  CD3DRenderer_Set2DClippingRect(pD3DRenderer, 0, 0, 640, 480);
- if (pD3DRenderer->dword_040088)
+ if (pD3DRenderer->pDirect3DDevice3)
    sub_469E3B(pGame->pClass03);
  if (dword_5E5144)
    struct_576FE8.dword_000044 = 1;
@@ -4304,7 +4304,7 @@ LABEL_22:
     {
       if ( !sub_4226C2() )
       {
-        if ( pD3DRenderer->dword_040088)
+        if ( pD3DRenderer->pDirect3DDevice3)
           sub_4A6D87(pD3DRenderer,
             0,
             class28_global.dword_000010,
@@ -5606,7 +5606,7 @@ __int16 __thiscall sub_441A4E(void *this)
             v19 = 0;
             v6 = pOverlayDescriptionList->pDescriptions[v9].word_000002;
             if ( !v6 || v6 == 2 )
-              compile_error;//v14 += pClass17_Sprites_LOD->array_00024C[1 + 20 * *(_WORD *)(v7 + 24)] >> 1;
+              compile_error;//v14 += pLODFile_Sprites_LOD->array_00024C[1 + 20 * *(_WORD *)(v7 + 24)] >> 1;
             LOWORD(v1) = sub_4AD2D1(40 * *(_WORD *)(v7 + 24) + 7218180, (int)&v11, 0);
             ++v27;
             if ( v27 == 5 )
@@ -5672,17 +5672,17 @@ signed int __cdecl sub_465D0B()
   pClass40 = malloc(sizeof(struct class40));
   sub_456D84(pClass40);
   
-  pClass17_Bitmaps_LOD->dword_011BA8 = 1;
+  pLODFile_Bitmaps_LOD->dword_011BA8 = 1;
 
-  class17_SetupPalettes(pClass17_Bitmaps_LOD, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
-  class17_SetupPalettes(pClass17_Icons_LOD, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
+  LODFile_SetupPalettes(pLODFile_Bitmaps_LOD, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
+  LODFile_SetupPalettes(pLODFile_Icons_LOD, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
 
   class35_SetColorChannelInfo(&class35_obj, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
   class35_obj.byte_267AD0 = -128;
   class35_obj.byte_267AD1 = -128;
   class35_obj.byte_267AD2 = -128;
   class35_sub_48A614(&class35_obj);
-  pClass17_Sprites_LOD->dword_00ECAC = 1;
+  pLODFile_Sprites_LOD->dword_00ECAC = 1;
 
   runtime_warning();
   sub_459064(pObjectDescriptionList);
@@ -5724,7 +5724,7 @@ signed int __cdecl sub_465D0B()
   for (i = 0; i < 8; ++i)
   {
    wsprintfW(pWaterTileName, L"HDWTR%03u", i);
-   uTextureID_WaterTiles[i] = class17_LoadTexture_New(pClass17_Bitmaps_LOD, pWaterTileName);
+   uTextureID_WaterTiles[i] = LODFile_LoadTexture_New(pLODFile_Bitmaps_LOD, pWaterTileName);
   }
 
  pNPCStats = malloc(sizeof(struct CNPCStats));
@@ -5733,12 +5733,12 @@ signed int __cdecl sub_465D0B()
 
  Initialize_GlobalEVT();
 
- pClass17_Bitmaps_LOD->dword_011B80 = pClass17_Bitmaps_LOD->uNumLoadedFiles;
- if (pClass17_Bitmaps_LOD->dword_011B84 < pClass17_Bitmaps_LOD->uNumLoadedFiles)
-   pClass17_Bitmaps_LOD->dword_011B84 = pClass17_Bitmaps_LOD->uNumLoadedFiles;
- pClass17_Sprites_LOD->dword_00ECA4 = pClass17_Sprites_LOD->uNumLoadedSprites;
- if (pClass17_Sprites_LOD->dword_00ECA0 < pClass17_Sprites_LOD->uNumLoadedSprites)
-   pClass17_Sprites_LOD->dword_00ECA0 = pClass17_Sprites_LOD->uNumLoadedSprites;
+ pLODFile_Bitmaps_LOD->dword_011B80 = pLODFile_Bitmaps_LOD->uNumLoadedFiles;
+ if (pLODFile_Bitmaps_LOD->dword_011B84 < pLODFile_Bitmaps_LOD->uNumLoadedFiles)
+   pLODFile_Bitmaps_LOD->dword_011B84 = pLODFile_Bitmaps_LOD->uNumLoadedFiles;
+ pLODFile_Sprites_LOD->dword_00ECA4 = pLODFile_Sprites_LOD->uNumLoadedSprites;
+ if (pLODFile_Sprites_LOD->dword_00ECA0 < pLODFile_Sprites_LOD->uNumLoadedSprites)
+   pLODFile_Sprites_LOD->dword_00ECA0 = pLODFile_Sprites_LOD->uNumLoadedSprites;
 
  class35_sub_48A8A3(&class35_obj);
  _mkdir("Saves");
@@ -7412,11 +7412,11 @@ void __cdecl sub_47BACF()
       if ( v4 != -1 )
       {
         v8 = *((_WORD *)v1 + 1);
-        if ( pD3DRenderer->dword_040088 )
+        if ( pD3DRenderer->pDirect3DDevice3 )
         {
           v24 = v2;
           v25 = v3;
-          sub_4A4023(pD3DRenderer, (int)&v16, pClass17_Sprites_LOD->pHardwareSprites + 40 * v4, v8, (int)((char *)v1 - 40));
+          sub_4A4023(pD3DRenderer, (int)&v16, pLODFile_Sprites_LOD->pHardwareSprites + 40 * v4, v8, (int)((char *)v1 - 40));
         }
         else
         {
@@ -13926,7 +13926,6 @@ int __stdcall sub_48EA1B(signed int a1)
 }
 
 //----- (0049FE05) --------------------------------------------------------
-function_error;//int __usercall sub_49FE05<eax>(int result<eax>, int a2<ecx>)
 int sub_49FE05(int result, struct CD3DRenderer *pD3DRenderer)
 {
   int v3; // esi@1
@@ -13943,13 +13942,13 @@ int sub_49FE05(int result, struct CD3DRenderer *pD3DRenderer)
   unsigned int *v14; // esi@29
 
  v3 = pD3DRenderer;
- if (pD3DRenderer->dword_040088)
+ if (pD3DRenderer->pDirect3DDevice3)
  {
   if (pD3DRenderer->dword_040110)
   {
-   sub_49E4FC(pD3DRenderer->dword_040088, 1, 0, 0, 1.0);
-   sub_49E54D(pD3DRenderer->dword_040088, 0);
-   result = sub_49E4FC(pD3DRenderer->dword_040088, 1, 0, 0, 1.0);
+   sub_49E4FC(pD3DRenderer->pDirect3DDevice3, 1, 0, 0, 1.0);
+   sub_49E54D(pD3DRenderer->pDirect3DDevice3, 0);
+   result = sub_49E4FC(pD3DRenderer->pDirect3DDevice3, 1, 0, 0, 1.0);
   }
 
     *(_DWORD *)(v3 + 262296) = 0;
@@ -14207,7 +14206,7 @@ LABEL_12:
 
   struct_576FE8.dword_000044 = 1;
   dword_6BE35C = 0;
-  sub_461397(pClass17_Sprites_LOD);
+  sub_461397(pLODFile_Sprites_LOD);
   sub_48A8CC(&class35_obj);
   if (dword_AD470C)
     sub_4698D8(dword_AD470C);
@@ -14481,13 +14480,13 @@ void __cdecl sub_491F87_DrawNPCs()
         if ( v7 >= 2 )
         {
           wsprintfA(Str1, "NPC%03d", dword_72D5F8[19 * v7]);
-          v15 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
+          v15 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
           CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_4EE06C[v25], dword_4EE074[v25], v15 != -1 ? 72 * v15 + 7145548 : 0);
         }
         else
         {
           wsprintfA(Str1, "NPC%03d", pParty_global->HiredNPC[v7].uPortraitID);
-          v10 = class17_LoadTexture(pClass17_Icons_LOD, &Str1, 2);
+          v10 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
           v9 = 4 * v25;
           CD3DRenderer_DrawIndexedTexture(pD3DRenderer,
             *(int *)((char *)dword_4EE06C + v9),
@@ -14699,10 +14698,10 @@ void PlayerCreationUI_Draw()
 
    v3 = AlignText_Center(640, pGlobalTXT_LocalizationStrings[51], pFontCChar);
    FontDrawText(pGUIWindow_CurrentMenu, pFontCChar, v3 + 1, 3, pGlobalTXT_LocalizationStrings[51], 0xFFFFFFFF, 0, 0);
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer,  17, 35, &pClass17_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[0].uFace]]);
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 176, 35, &pClass17_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[1].uFace]]);
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 335, 35, &pClass17_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[2].uFace]]);
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 494, 35, &pClass17_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[3].uFace]]);
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer,  17, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[0].uFace]]);
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 176, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[1].uFace]]);
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 335, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[2].uFace]]);
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 494, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[3].uFace]]);
 
    v1 = CIconFrameTable_GetFrame(pIconFrameTable, uIconTableFrameID_CharacterFrame, pClass24_global->dword_00000C);
 
@@ -14724,12 +14723,12 @@ void PlayerCreationUI_Draw()
         v4 = v132; 
         break;
    }
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v4, 29, &pClass17_Icons_LOD->aLODHeaders[v1->uTextureIdx]);
+   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v4, 29, &pLODFile_Icons_LOD->aLODHeaders[v1->uTextureIdx]);
 
 
    v5 = GUIWindow_GetChild(pGUIWindow_CurrentMenu, pGUIWindow_CurrentMenu->dword_00002C);
-   CD3DRenderer_DrawTransparentRect(pD3DRenderer, v5->uZ - 4, v5->uY, 20 * dword_A74CD4, 0, 20, 16, &pClass17_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
-   CD3DRenderer_DrawTransparentRect(pD3DRenderer, v5->uX - 12, v5->uY, 20 * dword_A74CD4, 16, 20, 16, &pClass17_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
+   CD3DRenderer_DrawTransparentRect(pD3DRenderer, v5->uZ - 4, v5->uY, 20 * dword_A74CD4, 0, 20, 16, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
+   CD3DRenderer_DrawTransparentRect(pD3DRenderer, v5->uX - 12, v5->uY, 20 * dword_A74CD4, 16, 20, 16, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
 
    dword_A74CD4 = (GetTickCount() / 25) % 18;
 
@@ -14774,7 +14773,7 @@ void PlayerCreationUI_Draw()
    uClassIconCellX = (pParty_global->pPlayers[i].uClass / 4) % 3;
    uClassIconCellY = (pParty_global->pPlayers[i].uClass / 4) / 3;
    CD3DRenderer_DrawTransparentRect(pD3DRenderer, v143 + 77, 50,
-                                    uClassIconCellX * 48, uClassIconCellY * 52, 48, 52, &pClass17_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_ClassIcons]);
+                                    uClassIconCellX * 48, uClassIconCellY * 52, 48, 52, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_ClassIcons]);
 
    v12 = pGUIWindow_CurrentMenu->dword_000040;
    v13 = pGUIWindow_CurrentMenu->dword_00001C;

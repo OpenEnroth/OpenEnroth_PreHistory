@@ -1662,11 +1662,11 @@ extern int dword_6A013C[array_size_unknown]; // weak
 extern _UNKNOWN unk_6A0758; // weak
 extern _UNKNOWN unk_6A07A4; // weak
 
-extern struct class17 *pClass17_New_LOD; // struct @ MM7.exe::006A0820
+extern struct LODFile *pLODFile_New_LOD; // struct @ MM7.exe::006A0820
 //_UNKNOWN unk_6A0820; // weak
 extern int dword_6A0A4C; // weak
 
-extern struct class17 *pClass17_Games_LOD; // struct @ MM7.exe::006A0A60
+extern struct LODFile *pLODFile_Games_LOD; // struct @ MM7.exe::006A0A60
 //_UNKNOWN unk_6A0A60; // weak
 extern int dword_6A0C8C; // weak
 extern int dword_6A0C90; // weak
