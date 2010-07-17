@@ -1,6 +1,6 @@
 #include "defs.h"
 
-#include "mm7DDrawRenderer.h"
+#include "RenderD3D3.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -307,14 +307,14 @@ loc_41AE9C:                             ; CODE XREF: sub_41AD6E+7Bj
   push    ebx
   push    468
   mov ecx, dword ptr [pD3DRenderer]
-  call    CD3DRenderer_DrawRGBTexture
+  call    Render_DrawRGBTexture
   pop     esi
   pop     ebx
   add     esp, 8
   jmp     sub_491F87_DrawNPCs
   }*/
 
-  //CD3DRenderer_DrawRGBTexture(pD3DRenderer, 468, 0, pTexture_RightFrame);
+  //Render_DrawRGBTexture(pD3DRenderer, 468, 0, pTexture_RightFrame);
   sub_491F87_DrawNPCs();
   return;
  }
@@ -336,10 +336,10 @@ loc_41AE9C:                             ; CODE XREF: sub_41AD6E+7Bj
   push    163h
   push    1EDh
   mov     ecx, esi
-  call    CD3DRenderer_DrawTransparentTexture
+  call    Render_DrawTransparentTexture
  }*/
  if (byte_50794A)
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 493, 355, &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td1_A]);
+   Render_DrawTransparentTexture(pD3DRenderer, 493, 355, &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td1_A]);
 
  /*__asm
  {
@@ -358,10 +358,10 @@ loc_41AE33:                             ; CODE XREF: sub_41AD6E+99j
   push    161h
   push    20Fh
   mov     ecx, esi
-  call    CD3DRenderer_DrawTransparentTexture
+  call    Render_DrawTransparentTexture
  }*/
  if (byte_507949)
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 527, 353, &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td2_A]);
+   Render_DrawTransparentTexture(pD3DRenderer, 527, 353, &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td2_A]);
 
  /*__asm
  {
@@ -380,10 +380,10 @@ loc_41AE65:                             ; CODE XREF: sub_41AD6E+CBj
   push    169h
   push    258h
   mov     ecx, esi
-  call    CD3DRenderer_DrawTransparentTexture
+  call    Render_DrawTransparentTexture
  }*/
  if (byte_507948)
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 600, 361, &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td5_A]);
+   Render_DrawTransparentTexture(pD3DRenderer, 600, 361, &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td5_A]);
  return;
  /*
  __asm
@@ -407,7 +407,7 @@ loc_41AE9C:                             ; CODE XREF: sub_41AD6E+7Bj
   push    ebx
   push    468
   mov ecx, dword ptr [pD3DRenderer]
-  call    CD3DRenderer_DrawRGBTexture
+  call    Render_DrawRGBTexture
   pop     esi
   pop     ebx
   add     esp, 8
@@ -1090,7 +1090,7 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
   }
   if (pD3DRenderer)
   {
-    if (pD3DRenderer->dword_00000C == 1 )
+    if (pD3DRenderer->uAcquiredDirect3DDevice == 1 )
       SetWindowPos(hWnd_global, (HWND)0xFFFFFFFE, 0, 0, 0, 0, 0x18u);
   }
   ClipCursor(0);

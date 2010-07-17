@@ -114,6 +114,8 @@
     <ClCompile Include="mm7_unparsed_data.c" />
     <ClCompile Include="Party.c" />
     <ClCompile Include="Player.c" />
+    <ClCompile Include="Render.c" />
+    <ClCompile Include="RenderD3D3.c" />
     <ClCompile Include="zlib\adler32.c" />
     <ClCompile Include="zlib\compress.c" />
     <ClCompile Include="zlib\crc32.c" />
@@ -139,7 +141,6 @@
     <ClCompile Include="FrameTables_FromTXT.c" />
     <ClCompile Include="GUI.c" />
     <ClCompile Include="Level.c" />
-    <ClCompile Include="mm7DDrawRenderer.c" />
     <ClCompile Include="Smacker.c" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +152,8 @@
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Party.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Render.h" />
+    <ClInclude Include="RenderD3D3.h" />
     <ClInclude Include="zlib\deflate.h" />
     <ClInclude Include="zlib\infblock.h" />
     <ClInclude Include="zlib\infcodes.h" />
@@ -174,7 +177,6 @@
     <ClInclude Include="FrameTables.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="Level.h" />
-    <ClInclude Include="mm7DDrawRenderer.h" />
     <ClInclude Include="Smacker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

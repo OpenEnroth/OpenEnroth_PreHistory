@@ -9,7 +9,7 @@
 
 #include "Actor.h"
 
-#include "mm7DDrawRenderer.h"
+#include "RenderD3D3.h"
 
 
 bool __cdecl TryLoadLevelFromFile(); // internal
@@ -1726,9 +1726,9 @@ bool __stdcall sub_45CE50(struct struct7 *_this, struct class51_stru2 *a2, int *
     v11 = pD3DRenderer->dword_103660;
     dword_F8AF18[*(_DWORD *)a3] = abs(v8);
     byte_F8B0F8[*(_DWORD *)a3] = _this->byte_00000B;
-    v10 = pD3DRenderer->pDirect3DDevice3;
+    v10 = pD3DRenderer->pRendererD3D3;
     v9 = byte_F8B0F8[*(_DWORD *)a3];
-    if ( pD3DRenderer->pDirect3DDevice3 )
+    if ( pD3DRenderer->pRendererD3D3 )
     {
       if ( v11 )
       {

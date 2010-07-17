@@ -86,7 +86,7 @@ extern PCMWAVEFORMAT sPCMWaveFormat;
 
 
 
-extern struct CD3DRenderer *pD3DRenderer;
+extern struct Render *pD3DRenderer;
 extern struct LODFile      *pLODFile_Icons_LOD;
 extern struct LODFile      *pLODFile_Events_LOD;
 extern struct LODFile      *pLODFile_Bitmaps_LOD;

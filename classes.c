@@ -2,7 +2,7 @@
 #include "mm7_unparsed_functions.h"
 
 #include "defs.h"
-#include "mm7DDrawRenderer.h"
+#include "RenderD3D3.h"
 #include "AIL.h"
 #include "Smacker.h"
 #include "Level.h"
@@ -331,7 +331,7 @@ bool CGame_Pick(struct CGame *_this, float a2, signed int a3, signed int a4, cha
   int v17; // [sp+1Fh] [bp-1h]@5
 
   v7 = _this;
-  if (!dword_4E28F8 && pD3DRenderer->pDirect3DDevice3)
+  if (!dword_4E28F8 && pD3DRenderer->pRendererD3D3)
   {
     if ( !_this->class05_obj)
     {
@@ -1738,7 +1738,7 @@ int LODFile_LoadPalette(struct LODFile *_this, struct class18 *pClass18, const c
  locked_fread(pClass18, 1, 0x30, f);
  strcpy(pClass18->sContainerName, pContainerName);
 
- if (pD3DRenderer->pDirect3DDevice3 && pClass18->word_00002C & 0x0002 && _this->dword_011BA8)
+ if (pD3DRenderer->pRendererD3D3 && pClass18->word_00002C & 0x0002 && _this->dword_011BA8)
   {
     if ( !*(_DWORD *)(v6 + 72620) || !*(_DWORD *)(v6 + 72624) )
     {
@@ -2445,7 +2445,7 @@ int class28_fn0(struct class28 *_this, int a2, int a3, int a4, int a5)
   _this->dword_00000C = v7;
   _this->dword_000020 = v6 - v5 + 1;
   _this->dword_000028 = (v6 + v5) >> 1;
-  if (!pD3DRenderer->pDirect3DDevice3)
+  if (!pD3DRenderer->pRendererD3D3)
   {
     v10 = v7 - v8 + 1;
     _this->dword_000024 = v10;
@@ -5981,7 +5981,7 @@ unsigned int LODFile_LoadSprite(struct LODFile *_this, const char *pSourceFile, 
 
 
  v4 = _this;
- if (pD3DRenderer->pDirect3DDevice3)
+ if (pD3DRenderer->pRendererD3D3)
  {
   for (i = 0; i < _this->uNumLoadedSprites; ++i)
     if (!strcmpi(&_this->pHardwareSprites[i * 40], pSourceFile))
@@ -5995,7 +5995,7 @@ unsigned int LODFile_LoadSprite(struct LODFile *_this, const char *pSourceFile, 
  if (_this->uNumLoadedSprites >= 2500)
    return -1;
 
- if (pD3DRenderer->pDirect3DDevice3 && _this->dword_00ECAC)
+ if (pD3DRenderer->pRendererD3D3 && _this->dword_00ECAC)
  {
   if (!_this->pHardwareSprites)
   {
@@ -6044,7 +6044,7 @@ LABEL_28:
    _this->aLODHeaders[_this->uNumLoadedSprites].uPaletteID = class35_sub_48A3BC_MessWithPalettes(&class35_obj, _this->aLODHeaders[_this->uNumLoadedSprites].uPaletteID);
 
 LABEL_29:
-    if ( pD3DRenderer->pDirect3DDevice3 )
+    if ( pD3DRenderer->pRendererD3D3 )
     {
       *(_DWORD *)(*(_DWORD *)(v4 + 60592) + 40 * *(_DWORD *)(v4 + 60572)) = class23_AllocatedNamedBuffer(
                                                                               &class23_instance,
@@ -7492,7 +7492,7 @@ char CGame_sub_44EEA7(struct CGame *_this)
   {
     if (pGame->uSomeFlags & 0x08)
       _this->class10_obj->dword_000004 &= 0xFFFFFF00;
-    if ( pD3DRenderer->pDirect3DDevice3 )
+    if ( pD3DRenderer->pRendererD3D3 )
     {
       if ( dword_6BE360 == 2 )
       {
@@ -7502,7 +7502,7 @@ char CGame_sub_44EEA7(struct CGame *_this)
     }
     if ( *(_BYTE *)(v1 + 0xE21) & 4 )
       _this->dword_000E24 |= 0x01;
-    if ( !pD3DRenderer->pDirect3DDevice3 )
+    if ( !pD3DRenderer->pRendererD3D3 )
     {
       if ( dword_6BE360 == 2 )
       {
@@ -9183,7 +9183,7 @@ LABEL_154:
         goto LABEL_32;
       }
       sub_4A7A27(a2, 0xFFFFFFu, 128);
-      if ( !pD3DRenderer->pDirect3DDevice3 )
+      if ( !pD3DRenderer->pRendererD3D3 )
         return 1;
       v62 = -1;
       v55 = 100;
@@ -9239,7 +9239,7 @@ LABEL_32:
               return 0;
             if ( v2 <= 2081 )
             {
-              if ( pD3DRenderer->pDirect3DDevice3 )
+              if ( pD3DRenderer->pRendererD3D3 )
                 sub_4A77FD((void *)v3, a2);
               else
                 sub_4A80DC((void *)v3, a2);
@@ -9250,7 +9250,7 @@ LABEL_32:
           }
           goto LABEL_67;
         }
-        if ( !pD3DRenderer->pDirect3DDevice3 )
+        if ( !pD3DRenderer->pRendererD3D3 )
           return 1;
         Str1 = *(_DWORD *)"sp18h1";
         v64 = *(_WORD *)&"sp18h1"[4];
@@ -9298,7 +9298,7 @@ LABEL_89:
     }
     if ( v2 == 4000 )
     {
-      if ( !pD3DRenderer->pDirect3DDevice3 )
+      if ( !pD3DRenderer->pRendererD3D3 )
         return 1;
       sub_4A7C07((void *)v3, a2);
       return 0;
@@ -9385,7 +9385,7 @@ LABEL_84:
       if ( v17 != 929 )
         return 0;
 LABEL_63:
-      if ( !pD3DRenderer->pDirect3DDevice3 )
+      if ( !pD3DRenderer->pRendererD3D3 )
         return 1;
       sub_4A78AE(a2);
       v58 = 128;
@@ -9402,7 +9402,7 @@ LABEL_117:
   if ( v2 == 1051 )
   {
     sub_4A7A27(a2, 0xFF3C1Eu, 256);
-    if ( pD3DRenderer->pDirect3DDevice3 )
+    if ( pD3DRenderer->pRendererD3D3 )
     {
       v9 = *(_DWORD *)(a2 + 88) & 7;
       if ( v9 != 3 )
@@ -9527,7 +9527,7 @@ void class02_sub_48BBA6(struct class02 *_this)
               {
                 if ( v8 < dword_51B740 )
                 {
-                  if ( pD3DRenderer->pDirect3DDevice3 )
+                  if ( pD3DRenderer->pRendererD3D3 )
                   {
                     v9 = *(_DWORD *)(v7 - 86);
                     if ( BYTE1(v9) & 1 )
@@ -9679,7 +9679,7 @@ void class02_sub_48BEEF(struct class02 *_this)
     {
       if ( *(_DWORD *)(v7 - 82) && sub_48B5B3((void *)v2, v1) )
       {
-        if ( pD3DRenderer->pDirect3DDevice3 )
+        if ( pD3DRenderer->pRendererD3D3 )
         {
           v8 = *(_DWORD *)(v7 - 82);
           if ( BYTE1(v8) & 1 )
@@ -9911,7 +9911,7 @@ int class06_sub_4A8C27(struct class06 *_this)
     v8 = *(_WORD *)(v11 + 24);
     v69 = v11;
     *(_DWORD *)(v1 + 1492) -= pClass24_global->int_00001C;
-    if ( pD3DRenderer->pDirect3DDevice3 )
+    if ( pD3DRenderer->pRendererD3D3 )
     {
       v12 = (double)class28_global.dword_000010;
       v36 = v12;
@@ -9950,74 +9950,74 @@ int class06_sub_4A8C27(struct class06 *_this)
       v51 = 1.0;
       v59 = 1.0;
       v67 = 0.0;
-      (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 152))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 152))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         0,
         *(_DWORD *)(pLODFile_Sprites_LOD->pHardwareSprites + 40 * v8 + 12));
-      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         28,
         0);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         27,
         1);
-      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         14,
         0);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         19,
         2);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         20,
         2);
-      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         26,
         0);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         23,
         8);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int, float *, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56)
+      (*(void (__stdcall **)(_DWORD, signed int, signed int, float *, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56)
                                                                                              + 112))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         6,
         452,
         &v36,
         4,
         28);
-      v16 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56)
+      v16 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56)
                                                                                              + 88))(
-              *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+              *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
               19,
               2,
               "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\seffects.cpp",
               1348,
               0);
       CheckHRESULT(&v69, v16, v17, v18, v19);
-      v20 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-              *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      v20 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+              *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
               20,
               1);
       CheckHRESULT(&v69, v20, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\seffects.cpp", 0x545u, 0);
-      (*(void (__cdecl **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__cdecl **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         27,
         0);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         14,
         1);
-      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         26,
         1);
-      result = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-                 *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      result = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+                 *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
                  23,
                  2);
     }
@@ -10145,7 +10145,7 @@ void class06_sub_4A902A_DrawSomeIcon(struct class06 *_this)
    if (_this->array_000208[i].dword_000004 <= _this->array_000208[i].dword_000008)
    {
     pIcon = CIconFrameTable_GetFrame(pIconFrameTable, _this->array_000208[i].dword_00000C, _this->array_000208[i].dword_000004);
-    CD3DRenderer_DrawTransparentTexture(pD3DRenderer, off_4ED748[i], 385, &pLODFile_Icons_LOD->aLODHeaders[pIcon->uTextureIdx]);
+    Render_DrawTransparentTexture(pD3DRenderer, off_4ED748[i], 385, &pLODFile_Icons_LOD->aLODHeaders[pIcon->uTextureIdx]);
     dword_5E5144 = 1;
    }
    else

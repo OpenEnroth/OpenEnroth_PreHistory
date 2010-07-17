@@ -49,9 +49,6 @@
     <ClCompile Include="Level.c">
       <Filter>Wight and Wagic</Filter>
     </ClCompile>
-    <ClCompile Include="mm7DDrawRenderer.c">
-      <Filter>Wight and Wagic</Filter>
-    </ClCompile>
     <ClCompile Include="Smacker.c">
       <Filter>Wight and Wagic</Filter>
     </ClCompile>
@@ -178,6 +175,12 @@
     <ClCompile Include="Party.c">
       <Filter>Wight and Wagic</Filter>
     </ClCompile>
+    <ClCompile Include="Render.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderD3D3.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="_audio.h">
@@ -214,9 +217,6 @@
       <Filter>Wight and Wagic</Filter>
     </ClInclude>
     <ClInclude Include="Level.h">
-      <Filter>Wight and Wagic</Filter>
-    </ClInclude>
-    <ClInclude Include="mm7DDrawRenderer.h">
       <Filter>Wight and Wagic</Filter>
     </ClInclude>
     <ClInclude Include="Smacker.h">
@@ -277,6 +277,12 @@
       <Filter>Wight and Wagic</Filter>
     </ClInclude>
     <ClInclude Include="NPC.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderD3D3.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="Render.h">
       <Filter>Wight and Wagic</Filter>
     </ClInclude>
   </ItemGroup>

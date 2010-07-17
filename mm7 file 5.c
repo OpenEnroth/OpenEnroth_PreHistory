@@ -8,7 +8,7 @@
 #include "AIL.h"
 
 #include "data.h"
-#include "mm7DDrawRenderer.h"
+#include "RenderD3D3.h"
 #include "_audio.h"
 #include "_video.h"
 #include "FrameTables.h"
@@ -1647,7 +1647,7 @@ void __thiscall sub_469EA4_LooksLikeDrawPickedItem(int this)
         else
         {
           if ( byte_AD4720 & 1 )
-            CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v16, v6, v2);
+            Render_DrawTransparentTexture(pD3DRenderer, v16, v6, v2);
           else
             sub_4A68EF(pD3DRenderer, v16, v6, v2);
         }
@@ -1673,7 +1673,7 @@ int __thiscall sub_46A0A1(void *this)
 
   if ( dword_6BE360 == 1 )
   {
-    if ( pD3DRenderer->pDirect3DDevice3 )
+    if ( pD3DRenderer->pRendererD3D3 )
       v1 = *(float *)(pGame->class08_obj + 196);
     else
       v1 = pCamera->flt_00001C;
@@ -1694,7 +1694,7 @@ int __thiscall sub_46A0F6(void *this)
 
   if ( dword_6BE360 == 1 )
   {
-    if ( pD3DRenderer->pDirect3DDevice3 )
+    if ( pD3DRenderer->pRendererD3D3 )
       v1 = *(float *)(pGame->class08_obj + 196);
     else
       v1 = pCamera->flt_00001C;
@@ -1733,7 +1733,7 @@ char __cdecl sub_46A14B()
   int v22; // [sp+18h] [bp-8h]@7
   int v23; // [sp+1Ch] [bp-4h]@4
 
-  if ( pD3DRenderer->pDirect3DDevice3 )
+  if ( pD3DRenderer->pRendererD3D3 )
   {
     v1 = GetAsyncKeyState(17);
     sub_44EB12(pGame, (v1 & 0x8001) != 0, (int)&dword_F93E6C, (int)&dword_F93E58);
@@ -2035,7 +2035,7 @@ int __fastcall sub_46A6AC(int a1, int a2, signed int a3)
 
   v12 = a2;
   v15 = a1;
-  if ( pD3DRenderer->pDirect3DDevice3 )
+  if ( pD3DRenderer->pRendererD3D3 )
   {
     result = sub_46A7C8(a1, a2, a3);
   }
@@ -6945,10 +6945,10 @@ LABEL_18:
           {
             v27 = (int)v90;
           }
-          if ( *(_BYTE *)(v19 + 46) & 4 || pD3DRenderer->pDirect3DDevice3 )
+          if ( *(_BYTE *)(v19 + 46) & 4 || pD3DRenderer->pRendererD3D3 )
             sub_498A41(v19, (int)&v73, (int)&v70);
           v30 = dword_6BE64C + 36 * *(_WORD *)(v19 + 72);
-          if ( !pD3DRenderer->pDirect3DDevice3 )
+          if ( !pD3DRenderer->pRendererD3D3 )
           {
             if ( !(*(_BYTE *)(v19 + 46) & 4) )
               goto LABEL_59;
@@ -11046,7 +11046,7 @@ signed int __thiscall sub_477C61(void *this)
         {
           v6 = v4 - (double)dword_51B6E8;
           v5 = v38 - (double)dword_51B6EC;
-          if ( pD3DRenderer->pDirect3DDevice3 )
+          if ( pD3DRenderer->pRendererD3D3 )
           {
             v42 = *(float *)&dword_51B714 * v5 + flt_51B710 * v6;
             v7 = *(float *)&dword_51B714 * v6 - flt_51B710 * v5;
@@ -11066,7 +11066,7 @@ signed int __thiscall sub_477C61(void *this)
         {
           v43 = v4 - (double)dword_51B6E8;
           v40 = v38 - (double)dword_51B6EC;
-          if ( pD3DRenderer->pDirect3DDevice3 )
+          if ( pD3DRenderer->pRendererD3D3 )
           {
             v10 = *(float *)&dword_51B714 * v40 + flt_51B710 * v43;
             v9 = *(float *)&dword_51B714 * v43 - flt_51B710 * v40;
@@ -11229,7 +11229,7 @@ signed int __fastcall sub_47802A(int a1)
       {
         LODWORD(v5) = *(_DWORD *)(v4 - 8);
         v6 = (double)unk_51B720 * 0.0000152587890625 / *(float *)(v4 - 8);
-        if ( pD3DRenderer->pDirect3DDevice3 )
+        if ( pD3DRenderer->pRendererD3D3 )
         {
           v7 = v5 + 6.755399441055744e15;
           compile_error;
@@ -11441,7 +11441,7 @@ char __cdecl RenderBuildings()
   int v63; // [sp+50h] [bp-8h]@3
   int v64; // [sp+57h] [bp-1h]@2
 
-  if ( !pD3DRenderer->pDirect3DDevice3 )
+  if ( !pD3DRenderer->pRendererD3D3 )
   {
     v45 = 73;
     v44 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odbuild.cpp";
@@ -12663,7 +12663,7 @@ void __cdecl sub_47A95E()
               LOBYTE(v48) = v48 | 0x80;
             if ( v53 )
             {
-              if ( pD3DRenderer->pDirect3DDevice3 && pD3DRenderer->bUseColoredLights )
+              if ( pD3DRenderer->pRendererD3D3 && pD3DRenderer->bUseColoredLights )
               {
                 v16 = *(_BYTE *)(v2 + 80);
                 v15 = *(_BYTE *)(v2 + 81);
@@ -12714,7 +12714,7 @@ LABEL_30:
                   v52 = *(_DWORD *)(v6 + 40);
                   v51 = (unsigned __int64)(v52 * (signed int)(v25 / v49)) >> 16;
                   v47 = v6 + 2 * v47 + 24;
-                  if ( pD3DRenderer->pDirect3DDevice3 )
+                  if ( pD3DRenderer->pRendererD3D3 )
                   {
                     v26 = v51;
                     v52 = *(_DWORD *)(pLODFile_Sprites_LOD->pHardwareSprites + 40 * *(_WORD *)v47 + 24) >> 1;
@@ -14417,8 +14417,8 @@ void __thiscall sub_4811A3(void *this)
   int v1; // esi@1
 
   v1 = (int)this;
-  (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     14,
     0);
   sub_4A26BC(
@@ -14429,8 +14429,8 @@ void __thiscall sub_4811A3(void *this)
     *(_DWORD *)(pLODFile_Bitmaps_LOD->dword_011BB0 + 4 * uTextureID_WaterTiles[dword_EF5290]),
     0,
     0);
-  (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     14,
     1);
   sub_4A26BC(
@@ -18375,7 +18375,7 @@ signed int __thiscall sub_48AE74(void *this, float a2)
   v46 = a2 + 6.755399441055744e15;
   LODWORD(a2) = *(_DWORD *)(v2 + 12);
   v49 = a2 + 6.755399441055744e15;
-  if ( !pD3DRenderer->pDirect3DDevice3 )
+  if ( !pD3DRenderer->pRendererD3D3 )
   {
     if ( dword_51B6F8 )
     {

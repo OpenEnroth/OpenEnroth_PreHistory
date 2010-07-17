@@ -2578,7 +2578,7 @@ extern struct class58 *pClass58_global; // struct @ MM7.exe::00AE5BA8
 extern int dword_DF1BB4; // weak
 extern IDirectDrawClipper *pDDrawClipper; // dword @ MM7.exe::00FD1BE0
 
-//struct CD3DRenderer *pD3DRenderer = 0;  // struct @ MM7.exe::00DF1BE8
+//struct Render *pD3DRenderer = 0;  // struct @ MM7.exe::00DF1BE8
 //int dword_DF1BE8; // @ pD3DRenderer::bUseDirect3D
 //int dword_DF1BF4; // @ pD3DRenderer::dword_00000C
 //int dword_DF1BF8; // @ pD3DRenderer::dword_000010

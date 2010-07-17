@@ -8,7 +8,7 @@
 #include "AIL.h"
 
 #include "data.h"
-#include "mm7DDrawRenderer.h"
+#include "RenderD3D3.h"
 #include "_audio.h"
 #include "_video.h"
 #include "FrameTables.h"
@@ -3676,17 +3676,17 @@ int __cdecl sub_4979D2()
   GUIButtonCreate(pGUIWindow_MainMenu, 0, 0, 0, 0, 1, 0, 113, 0, 27, "", 0);
   dword_4E28F8 = 9;
   SetCurrentMenu(8);
-  CD3DRenderer_BeginScene(pD3DRenderer);
-  CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, (int)&v19);
-  CD3DRenderer_Set2DClippingRect(pD3DRenderer, v23, v24, v23 + v25, v24 + v26);
+  Render_BeginScene(pD3DRenderer);
+  Render_DrawRGBTexture(pD3DRenderer, 0, 0, (int)&v19);
+  Render_Set2DClippingRect(pD3DRenderer, v23, v24, v23 + v25, v24 + v26);
   sub_4A5D33(pD3DRenderer, v23, v24, 0, 0, (int)&v29);
-  CD3DRenderer_Reset2DClippingRect(pD3DRenderer);
-  CD3DRenderer_EndScene(pD3DRenderer);
+  Render_Reset2DClippingRect(pD3DRenderer);
+  Render_EndScene(pD3DRenderer);
   Dest = (char *)1148846080;
   v20 = 1000.0 + 6.755399441055744e15;
   v22 = LODWORD(v20);
   GetTickCount();
-  CD3DRenderer_Present(pD3DRenderer);
+  Render_Present(pD3DRenderer);
   do
   {
     while ( PeekMessageA(&Msg, 0, 0, 0, 1u) )
@@ -3715,35 +3715,35 @@ int __cdecl sub_4979D2()
         strncpy((char *)&TmpBuf, Source, 0x7D0u);
         sub_44D2FD(v38, v39, 0, v26, v31, v32, v28, v27[0], &TmpBuf, v34, v31);
         dword_A74C88 = 0;
-        CD3DRenderer_BeginScene(pD3DRenderer);
-        CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, (int)&v19);
-        CD3DRenderer_Set2DClippingRect(pD3DRenderer, v23, v24, v23 + v25, v23 + v26);
+        Render_BeginScene(pD3DRenderer);
+        Render_DrawRGBTexture(pD3DRenderer, 0, 0, (int)&v19);
+        Render_Set2DClippingRect(pD3DRenderer, v23, v24, v23 + v25, v23 + v26);
         sub_4A5D33(pD3DRenderer, v23, v24, 0, v35, (int)&v29);
-        CD3DRenderer_Reset2DClippingRect(pD3DRenderer);
-        CD3DRenderer_EndScene(pD3DRenderer);
-        CD3DRenderer_Present(pD3DRenderer);
+        Render_Reset2DClippingRect(pD3DRenderer);
+        Render_EndScene(pD3DRenderer);
+        Render_Present(pD3DRenderer);
       }
       timeGetTime();
-      CD3DRenderer_BeginScene(pD3DRenderer);
-      CD3DRenderer_DrawRGBTexture(pD3DRenderer, 0, 0, (int)&v19);
-      CD3DRenderer_Set2DClippingRect(pD3DRenderer, v23, v24, v23 + v25, v24 + v26);
+      Render_BeginScene(pD3DRenderer);
+      Render_DrawRGBTexture(pD3DRenderer, 0, 0, (int)&v19);
+      Render_Set2DClippingRect(pD3DRenderer, v23, v24, v23 + v25, v24 + v26);
       sub_4A5D33(pD3DRenderer, v23, v24, 0, v35, (int)&v29);
-      CD3DRenderer_Reset2DClippingRect(pD3DRenderer);
-      CD3DRenderer_EndScene(pD3DRenderer);
+      Render_Reset2DClippingRect(pD3DRenderer);
+      Render_EndScene(pD3DRenderer);
       ++v35;
       if ( v35 >= v32 )
         SetCurrentMenu(MENU_MAIN);
       timeGetTime();
-      CD3DRenderer_Present(pD3DRenderer);
+      Render_Present(pD3DRenderer);
       sub_435748();
     }
   }
   while ( sub_466CA0() == 8 );
   sub_435748();
-  CD3DRenderer_BeginScene(pD3DRenderer);
+  Render_BeginScene(pD3DRenderer);
   sub_4156F0();
-  CD3DRenderer_EndScene(pD3DRenderer);
-  CD3DRenderer_Present(pD3DRenderer);
+  Render_EndScene(pD3DRenderer);
+  Render_Present(pD3DRenderer);
   sub_4AA258(pAudioPlayer, 1);
   class23_DeleteBuffer(class23_instance, (int)Source);
   class23_DeleteBuffer(class23_instance, v38);
@@ -7206,9 +7206,9 @@ void __stdcall sub_49C095(int a1, float a2)
       v22 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp";
       v21 = 16;
     }
-    v20 = (*(int (__stdcall **)(_DWORD, signed int, signed int, char *, _DWORD, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56)
+    v20 = (*(int (__stdcall **)(_DWORD, signed int, signed int, char *, _DWORD, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56)
                                                                                            + 112))(
-            *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+            *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
             6,
             452,
             &v25,
@@ -7269,85 +7269,85 @@ void sub_49C304(int a1, int a2, unsigned int a3)
   if ( !v3 )
   {
     if ( pD3DRenderer->dword_103660 )
-      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         28,
         0);
-    v5 = (*(int (__stdcall **)(_DWORD, _DWORD, signed int, signed int, _DWORD, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56)
+    v5 = (*(int (__stdcall **)(_DWORD, _DWORD, signed int, signed int, _DWORD, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56)
                                                                                           + 160))(
-           *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+           *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
            0,
            12,
            3,
            "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp",
            560);
     CheckHRESULT(&v20, v5, 0, a3, a2);
-    v6 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-           *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    v6 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+           *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
            27,
            1);
     CheckHRESULT(&v20, v6, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp", 0x231u, 0);
-    v7 = (*(int (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-           *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    v7 = (*(int (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+           *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
            14,
            0);
     CheckHRESULT(&v20, v7, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp", 0x232u, 0);
-    v8 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-           *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    v8 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+           *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
            22,
            1);
     CheckHRESULT(&v20, v8, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp", 0x233u, 0);
-    v9 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-           *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    v9 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+           *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
            19,
            2);
     CheckHRESULT(&v20, v9, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp", 0x234u, 0);
-    v10 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-            *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    v10 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+            *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
             20,
             2);
     CheckHRESULT(&v20, v10, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp", 0x235u, 0);
-    v11 = (*(int (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-            *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    v11 = (*(int (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+            *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
             26,
             0);
     CheckHRESULT(&v20, v11, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp", 0x236u, 0);
     v4 = dword_AE5B98;
     if ( !dword_AE5B98 )
       v4 = byte_4D8410 + 736;
-    v12 = **(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56);
+    v12 = **(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56);
     v13 = sub_436A24(v4);
-    v14 = (*(int (__stdcall **)(_DWORD))(v12 + 152))(*(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56));
+    v14 = (*(int (__stdcall **)(_DWORD))(v12 + 152))(*(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56));
     CheckHRESULT(&v20, v14, 0, v13, (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp");
     sub_49C2CD(v21, 0.0003999999898951501);
-    v15 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-            *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    v15 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+            *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
             22,
             2);
     CheckHRESULT(&v20, v15, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp", 0x23Bu, 0);
-    v16 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-            *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    v16 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+            *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
             14,
             1);
     CheckHRESULT(&v20, v16, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp", 0x23Cu, 0);
-    v17 = (*(int (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-            *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    v17 = (*(int (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+            *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
             27,
             0);
     CheckHRESULT(&v20, v17, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp", 0x23Du, 0);
-    v18 = (*(int (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-            *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    v18 = (*(int (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+            *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
             19,
             2);
     CheckHRESULT(&v20, v18, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp", 0x23Eu, 0);
-    v19 = (*(int (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-            *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    v19 = (*(int (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+            *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
             20,
             1);
     CheckHRESULT(&v20, v19, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp", 0x23Fu, 0);
     if ( pD3DRenderer->dword_103660 )
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         28,
         1);
   }
@@ -8785,267 +8785,6 @@ LABEL_6:
   return 1;
 }
 
-struct D3DRenderer_stru2
-{
- unsigned char *ptr_000000;
- unsigned char *ptr_000004;
-};
-
-//----- (0049D784) --------------------------------------------------------
-bool __stdcall Direct3D3EnumDevicesCallback(GUID *pGUID, const char *pDeviceDescription, const char *pDeviceName, D3DDEVICEDESC *a4, D3DDEVICEDESC *a5, struct D3DRenderer_stru2 *a6)
-//bool __stdcall Direct3D3EnumDevicesCallback(GUID *pGUID, const char *pDeviceDescription, const char *pDeviceName, unsigned char *a4, unsigned char *a5, struct D3DRenderer_stru3 *a6)
-{
-  int v6; // eax@1
-  signed int v7; // edi@1
-  int v8; // edi@14
-  size_t v9; // eax@30
-  size_t v10; // eax@30
-  size_t v11; // eax@30
-  size_t v12; // eax@30
-  size_t v13; // eax@30
-
-  v6 = a4->dwFlags;
-  v7 = -1;
-  if ( v6 )
-  {
-   if ( !*(_DWORD *)(a6->ptr_000004 + 32) )
-      v7 = 0;
-    if ( v6 )
-    {
-      if ( *(_DWORD *)(a6->ptr_000004 + 32) )
-        v7 = 1;
-    }
-  }
-  if ( !strcmp(pDeviceName, "RGB Emulation") )
-  {
-    if ( !*(_DWORD *)(a6->ptr_000004 + 32) )
-      v7 = 2;
-  }
-  if ( !strcmp(pDeviceName, "Reference Rasterizer") )
-  {
-    if ( !*(_DWORD *)(a6->ptr_000004 + 32) )
-      v7 = 3;
-  }
-  if ( v7 != -1 )
-  {
-    v8 = 40 * v7;
-    *(_DWORD *)(v8 + a6->ptr_000000) = 1;
-    *(_DWORD *)(v8 + a6->ptr_000000 + 16) = 0;
-    //if ( !(*(_BYTE *)(a4 + 0x74) & 0x10) )
-    if (~a4->dpcTriCaps.dwSrcBlendCaps & 0x10)
-      *(_DWORD *)(v8 + a6->ptr_000000 + 16) |= 0x02;
-    if (~a4->dpcTriCaps.dwSrcBlendCaps & 0x02)
-      *(_DWORD *)(v8 + a6->ptr_000000 + 16) |= 0x04;
-    if (~a4->dpcTriCaps.dwSrcBlendCaps & 0x01)
-      *(_DWORD *)(v8 + a6->ptr_000000 + 16) |= 0x08;
-    if (~a4->dpcTriCaps.dwDestBlendCaps & 0x20)
-      *(_DWORD *)(v8 + a6->ptr_000000 + 16) |= 0x10;
-    if (~a4->dpcTriCaps.dwDestBlendCaps & 0x02)
-      *(_DWORD *)(v8 + a6->ptr_000000 + 16) |= 0x20;
-    if (~a4->dpcTriCaps.dwDestBlendCaps & 0x04)
-      *(_DWORD *)(v8 + a6->ptr_000000 + 16) |= 0x40;
-    if (~a4->dwDevCaps & 0x1000)
-      *(_BYTE *)(v8 + a6->ptr_000000 + 17) |= 0x01;
-    if (a4->dpcTriCaps.dwTextureCaps & 0x20)
-      *(_BYTE *)(v8 + a6->ptr_000000 + 16) |= 0x80;
-
-    v9 = strlen(pDeviceName);
-    *(_DWORD *)(v8 + a6->ptr_000000 + 4) = malloc(v9 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 4) = operator new(v9 + 1);
-    strcpy(*(char **)(v8 + a6->ptr_000000 + 4), pDeviceName);
-
-    v10 = strlen(pDeviceDescription);
-    *(_DWORD *)(v8 + a6->ptr_000000 + 8) = malloc(v10 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 8) = operator new(v10 + 1);
-    strcpy(*(char **)(v8 + a6->ptr_000000 + 8), pDeviceDescription);
-
-    *(_DWORD *)(v8 + a6->ptr_000000 + 12) = malloc(0x10);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 12) = operator new(0x10u);
-    memcpy(*(void **)(v8 + a6->ptr_000000 + 12), pGUID, 0x10u);
-
-    v11 = strlen(*(const char **)(a6->ptr_000004 + 20));
-    *(_DWORD *)(v8 + a6->ptr_000000 + 20) = malloc(v11 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 20) = operator new(v11 + 1);
-    strcpy(*(char **)(v8 + a6->ptr_000000 + 20), *(const char **)(a6->ptr_000004 + 20));
-
-    v12 = strlen(*(const char **)(a6->ptr_000004 + 24));
-    *(_DWORD *)(v8 + a6->ptr_000000 + 24) = malloc(v12 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 24) = operator new(v12 + 1);
-    strcpy(*(char **)(v8 + a6->ptr_000000 + 24), *(const char **)(a6->ptr_000004 + 24));
-
-    v13 = strlen(*(const char **)(a6->ptr_000004 + 28));
-    *(_DWORD *)(v8 + a6->ptr_000000 + 28) = malloc(v13 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 28) = operator new(v13 + 1);
-    strcpy(*(char **)(v8 + a6->ptr_000000 + 28), *(const char **)(a6->ptr_000004 + 28));
-    if ( *(_DWORD *)(a6->ptr_000004 + 32) )
-    {
-      *(_DWORD *)(v8 + a6->ptr_000000 + 32) = malloc(0x10);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 32) = operator new(0x10u);
-      memcpy(*(void **)(v8 + a6->ptr_000000 + 32), *(const void **)(a6->ptr_000004 + 32), 0x10u);
-    }
-    else
-    {
-      *(_DWORD *)(v8 + a6->ptr_000000 + 32) = 0;
-    }
-    *(_DWORD *)(v8 + a6->ptr_000000 + 36) = *(_DWORD *)(a6->ptr_000004 + 36);
-  }
-  return 1;
-}
-
-bool __stdcall DDrawEnumDisplayModesCallback(DDSURFACEDESC2 *pDDSurfaceDesc, unsigned short *a2)
-{
- if (*(_DWORD *)((char *)pDDSurfaceDesc + 0x68) | 0x2000 && *(_DWORD *)((char *)pDDSurfaceDesc + 84) == 16 )
- {
-  a2 = 1;
-    return 0;
- }
- else
-   return 1;
-}
-
-//----- (0049D9BC) --------------------------------------------------------
-bool __stdcall DDrawEnumCallback(GUID *pGUID, const char *pDriverDescription, const char *pDriverName, struct D3DRenderer_stru1 *a4)
-{
-
-  size_t v4; // eax@1
-  size_t v5; // eax@1
-  size_t v13; // eax@13
-  int v18; // eax@24
-  int v19; // eax@24
-  DDDEVICEIDENTIFIER ddDeviceId;
-  char v22; // [sp+204h] [bp-2F8h]@13
-  struct
-  {
-   int v23; // [sp+42Ch] [bp-D0h]@16
-   int v24; // [sp+430h] [bp-CCh]@16
-   int v25; // [sp+434h] [bp-C8h]@16
-   int v26; // [sp+438h] [bp-C4h]@16
-   int a_43C[14];
-   int v27; // [sp+474h] [bp-88h]@16
-   int a_478[12];
-  } local_42C;
-
-  DDSCAPS2 ddsCaps2;
-  struct
-  {
-   unsigned char *v30;
-   char *v31; // [sp+4C0h] [bp-3Ch]@19
-  } local_4BC;
-
-   short v33; // [sp+4C8h] [bp-34h]@16
-   
-  struct
-  {
-   char v34[4]; // [sp+4CCh] [bp-30h]@19
-   int dword_4D0;
-   int dword_4D4;
-   int dword_4D8;
-   int dword_4DC;
-
-   char *Dest; // [sp+4E0h] [bp-1Ch]@1
-   char *v36; // [sp+4E4h] [bp-18h]@1
-   char *v37; // [sp+4E8h] [bp-14h]@12
-   GUID *lpGUID; // [sp+4ECh] [bp-10h]@2
-  } local_4CC;
-  
-
- IDirectDraw  *pDirectDraw;
- IDirectDraw4 *pDirectDraw4;
- IDirect3D3   *pDirect3D3;
- HRESULT       hr;
- unsigned int  uTotalVideoMem,
-               uFreeVideoMem;
-
- memset(&local_4CC, 0, 36);
-
- v4 = strlen(pDriverName);
- local_4CC.Dest = malloc(v4 + 1);//Dest = (char *)operator new(v4 + 1);
- strcpy(local_4CC.Dest, pDriverName);
-
- v5 = strlen(pDriverDescription);
- local_4CC.v36 = malloc(v5 + 1);//v36 = (char *)operator new(v5 + 1);
- strcpy(local_4CC.v36, pDriverDescription);
-
- if (pGUID)
- {
-  local_4CC.lpGUID = malloc(sizeof(GUID));//lpGUID = (GUID *)operator new(0x10u);
-  memcpy(local_4CC.lpGUID, pGUID, sizeof(GUID));
- }
- else
-   local_4CC.lpGUID = 0;
-
- hr = DirectDrawCreate(pGUID, &pDirectDraw, 0);
- if (FAILED(hr))
- {
-  operator_delete(0, local_4CC.Dest);
-  operator_delete(0, local_4CC.v36);
-  if (local_4CC.lpGUID)
-    operator_delete(0, local_4CC.lpGUID);
- }
-
- hr = (pDirectDraw->lpVtbl->QueryInterface)(pDirectDraw, &IID_IDirectDraw4, &pDirectDraw4);
- if (FAILED(hr))
- {
-  operator_delete(0, local_4CC.Dest);
-  operator_delete(0, local_4CC.v36);
-  if (local_4CC.lpGUID)
-    operator_delete(0, local_4CC.lpGUID);
-
-  (pDirectDraw->lpVtbl->Release)(pDirectDraw);
-  return 1;
- }
-
- (pDirectDraw->lpVtbl->Release)(pDirectDraw);
-
- hr = (pDirectDraw4->lpVtbl->GetDeviceIdentifier)(pDirectDraw4, &ddDeviceId, DDGDI_GETHOSTIDENTIFIER);
- if (FAILED(hr))
-   local_4CC.v37 = 0;
- else
- {
-  v13 = strlen(ddDeviceId.szDescription);
-  local_4CC.v37 = malloc(v13 + 1);//v37 = (char *)operator new(v13 + 1);
-  strcpy(local_4CC.v37, ddDeviceId.szDescription);
- }
- 
- memset(&ddsCaps2, 0, sizeof(DDSCAPS2));
- //hr = (pDirectDraw4->lpVtvl->GetAvailableVidMem)(pDirectDraw4, &ddsCaps2, &uTotalVideoMem, &uFreeVideoMem);
- if (FAILED(hr))
-   uTotalVideoMem = 0;
-
- memset(&local_42C, 0, 0x7Cu);
-      local_42C.v23 = 124;
-      local_42C.v24 = 6;
-      local_42C.v25 = 640;
-      local_42C.v26 = 480;
-      local_42C.v27 = 32;
-      v33 = 0;
-
- hr = (pDirectDraw4->lpVtbl->EnumDisplayModes)(pDirectDraw4, 0, 0, &v33, DDrawEnumDisplayModesCallback);
- (pDirectDraw4->lpVtbl->QueryInterface)(pDirectDraw4, &memory_4D8410.IID_IDirect3D3, &pDirect3D3);
- //if (FAILED(hr) || !v33 || !pDirect3D3)
- if (FAILED(hr) || !pDirect3D3)
- {
-  operator_delete(0, local_4CC.Dest);
-  operator_delete(0, local_4CC.v36);
-  if (local_4CC.v37)
-    operator_delete(0, local_4CC.v37);
-  if (local_4CC.lpGUID)
-    operator_delete(0, local_4CC.lpGUID);
-
-  (pDirectDraw4->lpVtbl->Release)(pDirectDraw4);
-  return 1;
- }
-
- local_4BC.v30 = a4;
- local_4BC.v31 = &local_4CC;
- hr = (pDirect3D3->lpVtbl->EnumDevices)(pDirect3D3, Direct3D3EnumDevicesCallback, &local_4BC);
-
- operator_delete(0, local_4CC.Dest);
- operator_delete(0, local_4CC.v36);
- if (local_4CC.v37)
-   operator_delete(0, local_4CC.v37);
- if (local_4CC.lpGUID)
-   operator_delete(0, local_4CC.lpGUID);
-
- (pDirectDraw4->lpVtbl->Release)(pDirectDraw4);
- (pDirect3D3->lpVtbl->Release)(pDirect3D3);
-
-
- return 1;
-}
 
 //----- (0049DC28) --------------------------------------------------------
 HRESULT __stdcall sub_49DC28(LPVOID *a1)
@@ -9193,344 +8932,6 @@ int __thiscall sub_49DC90(int this)
     *(_DWORD *)(v1 + 32) = 0;
   }
   return result;
-}
-
-//----- (0049DE14) --------------------------------------------------------
-signed int __thiscall sub_49DE14(int this, int a2, int a3, int a4)
-{
- compile_error;
- /*
-  int v4; // esi@1
-  int v5; // ecx@1
-  int v6; // edi@3
-  int v7; // eax@11
-  int v8; // eax@12
-  int v9; // eax@16
-  int v10; // eax@20
-  int v11; // eax@20
-  int v12; // ecx@20
-  int v13; // eax@35
-  int v14; // eax@37
-  int v15; // eax@39
-  int v16; // ecx@39
-  int v17; // eax@54
-  int v18; // edx@54
-  int v19; // esi@63
-  int v21; // edi@68
-  int v22; // esi@68
-  const char *v23; // [sp-4h] [bp-DCh]@9
-  const char *v24; // [sp-4h] [bp-DCh]@13
-  const char *v25; // [sp-4h] [bp-DCh]@19
-  signed int v26; // [sp-4h] [bp-DCh]@30
-  int v27; // [sp+Ch] [bp-CCh]@37
-  int Dst; // [sp+1Ch] [bp-BCh]@11
-  int v29; // [sp+20h] [bp-B8h]@11
-  int v30; // [sp+24h] [bp-B4h]@16
-  int v31; // [sp+28h] [bp-B0h]@16
-  int v32; // [sp+30h] [bp-A8h]@35
-  char v33; // [sp+64h] [bp-74h]@20
-  int v34; // [sp+70h] [bp-68h]@12
-  int v35; // [sp+84h] [bp-54h]@11
-  int v36; // [sp+98h] [bp-40h]@28
-  int v37; // [sp+A4h] [bp-34h]@54
-  int v38; // [sp+A8h] [bp-30h]@54
-  int v39; // [sp+ACh] [bp-2Ch]@54
-  float v40; // [sp+B0h] [bp-28h]@28
-  float v41; // [sp+B4h] [bp-24h]@28
-  float v42; // [sp+B8h] [bp-20h]@28
-  float v43; // [sp+BCh] [bp-1Ch]@28
-  float v44; // [sp+C0h] [bp-18h]@28
-  int v45; // [sp+C4h] [bp-14h]@18
-  LPDIRECTDRAW lpDD; // [sp+C8h] [bp-10h]@1
-  int v47; // [sp+CCh] [bp-Ch]@1
-  int v48; // [sp+D0h] [bp-8h]@27
-  int v49; // [sp+D4h] [bp-4h]@11
-  int v50; // [sp+E0h] [bp+8h]@25
-  int v51; // [sp+E4h] [bp+Ch]@16
-  int v52; // [sp+E8h] [bp+10h]@20
-
-  v4 = this;
-  *(_DWORD *)this = a3;
-  *(_DWORD *)(this + 12) = a4;
-  v5 = *(_DWORD *)(this + 28);
-  v47 = 40 * a2;
-  if ( DirectDrawCreate(*(GUID **)(v5 + 40 * a2 + 32), &lpDD, 0) )
-  {
-    sprintfex(v4 + 72, "Init - Failed to create DirectDraw interface.\n");
-    return 0;
-  }
-  v6 = v4 + 32;
-  if ( (*(int (__stdcall **)(LPDIRECTDRAW, signed int, int))lpDD->lpVtbl)(lpDD, 5085080, v4 + 32) )
-  {
-    sprintfex(v4 + 72, "Init - Failed to create DirectDraw4 interface.\n");
-    if ( lpDD )
-      (*(void (__stdcall **)(LPDIRECTDRAW))((void (__stdcall **)(_DWORD))lpDD->lpVtbl + 2))(lpDD);
-    return 0;
-  }
-  (*(void (__stdcall **)(LPDIRECTDRAW))((void (__stdcall **)(_DWORD))lpDD->lpVtbl + 2))(lpDD);
-  lpDD = 0;
-  if ( a3 && !*(_DWORD *)(*(_DWORD *)(v4 + 28) + v47 + 32) )
-  {
-    if ( (*(int (__stdcall **)(_DWORD, int, signed int))(**(_DWORD **)v6 + 80))(*(_DWORD *)v6, a4, 1032) )
-    {
-LABEL_9:
-      v23 = "Init - Failed to set cooperative level.\n";
-LABEL_10:
-      sprintfex(v4 + 72, v23);
-LABEL_65:
-      if ( *(_DWORD *)v6 )
-      {
-        (*(void (__stdcall **)(_DWORD))(**(_DWORD **)v6 + 8))(*(_DWORD *)v6);
-        *(_DWORD *)v6 = 0;
-      }
-      return 0;
-    }
-    memset(&Dst, 0, 0x7Cu);
-    v7 = *(_DWORD *)v6;
-    Dst = 124;
-    v49 = v4 + 48;
-    v29 = 1;
-    v35 = 512;
-    if ( !(*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v7 + 24))(v7, &Dst, v4 + 48, 0) )
-    {
-      v8 = *(_DWORD *)v6;
-      Dst = 124;
-      (*(void (__stdcall **)(int, int *))(*(_DWORD *)v8 + 48))(v8, &Dst);
-      if ( v34 != 16 )
-      {
-        v24 = "Init - Desktop isn't in 16 bit mode.\n";
-        goto LABEL_14;
-      }
-      v9 = *(_DWORD *)v6;
-      v51 = v4 + 44;
-      v29 = 7;
-      v35 = 8256;
-      v31 = 640;
-      v30 = 480;
-      if ( (*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v9 + 24))(v9, &Dst, v4 + 44, 0) )
-      {
-        v24 = "Init - Failed to create back buffer.\n";
-LABEL_14:
-        sprintfex(v4 + 72, v24);
-        if ( *(_DWORD *)v49 )
-        {
-          (*(void (__stdcall **)(_DWORD))(**(_DWORD **)v49 + 8))(*(_DWORD *)v49);
-          *(_DWORD *)v49 = 0;
-        }
-        goto LABEL_65;
-      }
-      if ( (*(int (__stdcall **)(_DWORD, _DWORD, int *, _DWORD))(**(_DWORD **)v6 + 16))(*(_DWORD *)v6, 0, &v45, 0) )
-      {
-        v25 = "Init - Failed to create clipper.\n";
-        goto LABEL_45;
-      }
-      (*(void (__stdcall **)(int, _DWORD, int))(*(_DWORD *)v45 + 32))(v45, 0, a4);
-      (*(void (__stdcall **)(_DWORD, int))(**(_DWORD **)v49 + 112))(*(_DWORD *)v49, v45);
-      (*(void (__stdcall **)(int))(*(_DWORD *)v45 + 8))(v45);
-      v10 = *(_DWORD *)v6;
-      v45 = 0;
-      v52 = v4 + 36;
-      (**(void (__stdcall ***)(_DWORD, _DWORD, _DWORD))v10)(v10, 5085880, v4 + 36);
-      v29 = 4103;
-      v11 = *(_DWORD *)(v4 + 36);
-      v12 = *(_DWORD *)(v4 + 28);
-      v35 = 131072;
-      v31 = 640;
-      v30 = 480;
-      if ( (*(int (__fastcall **)(int, int, _DWORD, _DWORD, int (__stdcall *)(void *, void *), char *))(*(_DWORD *)v11 + 40))(
-             v52,
-             v47,
-             *(_DWORD *)v52,
-             *(_DWORD *)(v12 + v47 + 12),
-             sub_49D717,
-             &v33) )
-        goto LABEL_21;
-      if ( a2 == 2 || a2 == 3 )
-        BYTE1(v35) |= 8u;
-      v50 = v4 + 52;
-      if ( !(*(int (__stdcall **)(_DWORD, int *, int, _DWORD))(**(_DWORD **)v6 + 24))(*(_DWORD *)v6, &Dst, v4 + 52, 0) )
-      {
-        if ( !(*(int (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)v51 + 12))(*(_DWORD *)v51, *(_DWORD *)v50) )
-        {
-          v48 = v4 + 56;
-          if ( !(*(int (__fastcall **)(int, int, _DWORD, _DWORD, _DWORD, int, _DWORD))(**(_DWORD **)v52 + 32))(
-                  v52,
-                  v47,
-                  *(_DWORD *)v52,
-                  *(_DWORD *)(*(_DWORD *)(v4 + 28) + v47 + 12),
-                  *(_DWORD *)v51,
-                  v4 + 56,
-                  0) )
-          {
-            memset(&v36, 0, 0x2Cu);
-            v41 = 2.0;
-            v40 = 1.0;
-            v42 = 2.0;
-            v44 = 1.0;
-            v43 = 0.0;
-            goto LABEL_54;
-          }
-LABEL_51:
-          sprintfex(v4 + 72, "Init - Failed to create D3D device.\n");
-          if ( *(_DWORD *)v52 )
-          {
-            (*(void (__stdcall **)(_DWORD))(**(_DWORD **)v52 + 8))(*(_DWORD *)v52);
-            *(_DWORD *)v52 = 0;
-          }
-          goto LABEL_59;
-        }
-LABEL_48:
-        sprintfex(v4 + 72, "Init - Failed to attach z-buffer to back buffer.\n");
-        if ( *(_DWORD *)v50 )
-        {
-          (*(void (__stdcall **)(_DWORD))(**(_DWORD **)v50 + 8))(*(_DWORD *)v50);
-          *(_DWORD *)v50 = 0;
-        }
-        goto LABEL_61;
-      }
-      goto LABEL_44;
-    }
-LABEL_36:
-    v23 = "Init - Failed to create front buffer.\n";
-    goto LABEL_10;
-  }
-  if ( a2 == 1 )
-    v26 = 1045;
-  else
-    v26 = 1041;
-  if ( (*(int (__stdcall **)(_DWORD, int, signed int))(**(_DWORD **)v6 + 80))(*(_DWORD *)v6, a4, v26) )
-    goto LABEL_9;
-  if ( (*(int (__stdcall **)(_DWORD, signed int, signed int, signed int, _DWORD, _DWORD))(**(_DWORD **)v6 + 84))(
-         *(_DWORD *)v6,
-         640,
-         480,
-         16,
-         0,
-         0) )
-  {
-    v23 = "Init - Failed to set display mode.\n";
-    goto LABEL_10;
-  }
-  memset(&Dst, 0, 0x7Cu);
-  v13 = *(_DWORD *)v6;
-  Dst = 124;
-  v49 = v4 + 48;
-  v29 = 33;
-  v35 = 8728;
-  v32 = 1;
-  if ( (*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v13 + 24))(v13, &Dst, v4 + 48, 0) )
-    goto LABEL_36;
-  v51 = v4 + 44;
-  v14 = *(_DWORD *)v49;
-  v27 = 4;
-  v48 = (*(int (__stdcall **)(int, int *, int))(*(_DWORD *)v14 + 48))(v14, &v27, v4 + 44);
-  v52 = v4 + 36;
-  (***(void (__stdcall ****)(_DWORD, _DWORD, _DWORD))v6)(*(_DWORD *)v6, 5085880, v4 + 36);
-  if ( v48 )
-  {
-    v25 = "Init - Failed to get D3D interface.\n";
-    goto LABEL_45;
-  }
-  v29 = 4103;
-  v15 = *(_DWORD *)v52;
-  v16 = *(_DWORD *)(v4 + 28);
-  v35 = 131072;
-  v31 = 640;
-  v30 = 480;
-  if ( (*(int (__fastcall **)(int, int, _DWORD, _DWORD, int (__stdcall *)(void *, void *), char *))(*(_DWORD *)v15 + 40))(
-         v52,
-         v47,
-         *(_DWORD *)v52,
-         *(_DWORD *)(v16 + v47 + 12),
-         sub_49D717,
-         &v33) )
-  {
-LABEL_21:
-    v25 = "Init - Failed to enumerate Z buffer formats.\n";
-    goto LABEL_45;
-  }
-  if ( a2 == 2 || a2 == 3 )
-    BYTE1(v35) |= 8u;
-  v50 = v4 + 52;
-  if ( (*(int (__stdcall **)(_DWORD, int *, int, _DWORD))(**(_DWORD **)v6 + 24))(*(_DWORD *)v6, &Dst, v4 + 52, 0) )
-  {
-LABEL_44:
-    v25 = "Init - Failed to create z-buffer.\n";
-LABEL_45:
-    sprintfex(v4 + 72, v25);
-    if ( *(_DWORD *)v51 )
-    {
-      (*(void (__stdcall **)(_DWORD))(**(_DWORD **)v51 + 8))(*(_DWORD *)v51);
-      *(_DWORD *)v51 = 0;
-    }
-LABEL_63:
-    v19 = v49;
-    if ( *(_DWORD *)v49 )
-    {
-      (*(void (__stdcall **)(_DWORD))(**(_DWORD **)v49 + 8))(*(_DWORD *)v49);
-      *(_DWORD *)v19 = 0;
-    }
-    goto LABEL_65;
-  }
-  if ( (*(int (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)v51 + 12))(*(_DWORD *)v51, *(_DWORD *)v50) )
-    goto LABEL_48;
-  v48 = v4 + 56;
-  if ( (*(int (__fastcall **)(int, int, _DWORD, _DWORD, _DWORD, int, _DWORD))(**(_DWORD **)v52 + 32))(
-         v52,
-         v47,
-         *(_DWORD *)v52,
-         *(_DWORD *)(*(_DWORD *)(v4 + 28) + v47 + 12),
-         *(_DWORD *)v51,
-         v4 + 56,
-         0) )
-    goto LABEL_51;
-  memset(&v36, 0, 0x2Cu);
-  v41 = 2.0;
-  v40 = 1.0;
-  v42 = 2.0;
-  v44 = 1.0;
-LABEL_54:
-  v36 = 44;
-  v17 = *(_DWORD *)v52;
-  v37 = 640;
-  v38 = 480;
-  v39 = -1082130432;
-  v18 = *(_DWORD *)v17;
-  v47 = v4 + 60;
-  if ( (*(int (__stdcall **)(int, int, _DWORD))(v18 + 24))(v17, v4 + 60, 0) )
-  {
-    sprintfex(v4 + 72, "Init - Failed to create viewport.\n");
-    if ( *(_DWORD *)v48 )
-    {
-      (*(void (__stdcall **)(_DWORD))(**(_DWORD **)v48 + 8))(*(_DWORD *)v48);
-      *(_DWORD *)v48 = 0;
-    }
-    if ( *(_DWORD *)v52 )
-    {
-      (*(void (__stdcall **)(_DWORD))(**(_DWORD **)v52 + 8))(*(_DWORD *)v52);
-      *(_DWORD *)v52 = 0;
-    }
-LABEL_59:
-    if ( *(_DWORD *)v50 )
-    {
-      (*(void (__stdcall **)(_DWORD))(**(_DWORD **)v50 + 8))(*(_DWORD *)v50);
-      *(_DWORD *)v50 = 0;
-    }
-LABEL_61:
-    if ( *(_DWORD *)v51 )
-    {
-      (*(void (__stdcall **)(_DWORD))(**(_DWORD **)v51 + 8))(*(_DWORD *)v51);
-      *(_DWORD *)v51 = 0;
-    }
-    goto LABEL_63;
-  }
-  v21 = v48;
-  v22 = v47;
-  (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)v48 + 20))(*(_DWORD *)v48, *(_DWORD *)v47);
-  (*(void (__stdcall **)(_DWORD, int *))(**(_DWORD **)v22 + 68))(*(_DWORD *)v22, &v36);
-  (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)v21 + 48))(*(_DWORD *)v21, *(_DWORD *)v22);
-*/
-  return 1;
 }
 
 //----- (0049E444) --------------------------------------------------------
@@ -9783,95 +9184,95 @@ signed int __cdecl sub_49E79F()
   int v6; // [sp+1Ch] [bp-4h]@1
 
   v0 = 0;
-  sub_49E5D4((void *)pD3DRenderer->pDirect3DDevice3, (void *)0x40, (void *)0x40, (int)&v3, (int)&v6, 1, 0, (void *)0x20);
-  sub_49E5D4((void *)pD3DRenderer->pDirect3DDevice3, (void *)0x40, (void *)0x40, (int)&v2, (int)&v5, 1, 0, (void *)0x20);
-  (*(void (__stdcall **)(_DWORD, _DWORD, int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 152))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  sub_49E5D4((void *)pD3DRenderer->pRendererD3D3, (void *)0x40, (void *)0x40, (int)&v3, (int)&v6, 1, 0, (void *)0x20);
+  sub_49E5D4((void *)pD3DRenderer->pRendererD3D3, (void *)0x40, (void *)0x40, (int)&v2, (int)&v5, 1, 0, (void *)0x20);
+  (*(void (__stdcall **)(_DWORD, _DWORD, int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 152))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     0,
     v6);
-  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 160))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 160))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     0,
     12,
     1);
-  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 160))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 160))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     0,
     1,
     2);
-  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 160))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 160))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     0,
     2,
     2);
-  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 160))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 160))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     0,
     16,
     2);
-  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 160))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 160))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     0,
     17,
     2);
-  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 160))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 160))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     0,
     18,
     1);
-  (*(void (__stdcall **)(_DWORD, _DWORD, int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 152))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, _DWORD, int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 152))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     0,
     v5);
-  (*(void (__stdcall **)(_DWORD, signed int, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 160))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 160))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     1,
     12,
     3);
-  (*(void (__stdcall **)(_DWORD, signed int, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 160))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 160))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     1,
     11,
     1);
-  (*(void (__stdcall **)(_DWORD, signed int, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 160))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 160))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     1,
     1,
     7);
-  (*(void (__stdcall **)(_DWORD, signed int, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 160))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 160))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     1,
     2,
     2);
-  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 160))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 160))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     1,
     3,
     1);
-  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 160))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 160))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     1,
     16,
     2);
-  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 160))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 160))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     1,
     17,
     2);
-  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 160))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 160))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     1,
     18,
     1);
-  if ( !(*(int (__stdcall **)(_DWORD, int *))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 164))(
-          *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  if ( !(*(int (__stdcall **)(_DWORD, int *))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 164))(
+          *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
           &v4) )
   {
     if ( v4 == 1 )
       v0 = 1;
   }
-  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 160))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 160))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     1,
     1,
     1);
@@ -10001,7 +9402,7 @@ void __thiscall sub_49EDB6(int this)
       }
       else
       {
-        CD3DRenderer_BeginScene(pD3DRenderer);
+        Render_BeginScene(pD3DRenderer);
         v42 = pD3DRenderer->pTargetSurface;
         v5 = pD3DRenderer->uTargetSurfacePitch;
       }
@@ -10111,7 +9512,7 @@ void __thiscall sub_49EDB6(int this)
       }
       else
       {
-        CD3DRenderer_EndScene(pD3DRenderer);
+        Render_EndScene(pD3DRenderer);
       }
       class23_DeleteBuffer(class23_instance, v41);
       fclose(v6);
@@ -10195,7 +9596,7 @@ void __thiscall sub_49F1BC(int this, const char *Filename)
       }
       else
       {
-        CD3DRenderer_BeginScene(pD3DRenderer);
+        Render_BeginScene(pD3DRenderer);
         v42 = pD3DRenderer->pTargetSurface;
         v6 = pD3DRenderer->uTargetSurfacePitch;
       }
@@ -10305,7 +9706,7 @@ void __thiscall sub_49F1BC(int this, const char *Filename)
       }
       else
       {
-        CD3DRenderer_EndScene(pD3DRenderer);
+        Render_EndScene(pD3DRenderer);
       }
       class23_DeleteBuffer(class23_instance, v41);
       fclose(v7);
@@ -10694,21 +10095,21 @@ int __cdecl sub_4A1C1E()
   int v6; // [sp+58h] [bp-4h]@2
 
   v0 = -1;
-  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 160))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 160))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     0,
     12,
     3);
-  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     27,
     1);
-  (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     14,
     0);
-  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     22,
     1);
   if ( dword_F1B418 - 1 >= 0 )
@@ -10717,8 +10118,8 @@ int __cdecl sub_4A1C1E()
     v6 = dword_F1B418;
     do
     {
-      (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 152))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 152))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         0,
         *(v1 - 35));
       if ( *v1 != v0 )
@@ -10726,9 +10127,9 @@ int __cdecl sub_4A1C1E()
         v0 = *v1;
         sub_4A1DA8(*v1);
       }
-      (*(void (__stdcall **)(_DWORD, signed int, signed int, int *, _DWORD, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56)
+      (*(void (__stdcall **)(_DWORD, signed int, signed int, int *, _DWORD, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56)
                                                                                        + 112))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         6,
         452,
         v1 - 33,
@@ -10741,43 +10142,43 @@ int __cdecl sub_4A1C1E()
   if ( dword_EF52B0 )
   {
     dword_EF52B0 = 0;
-    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       28,
       1);
-    v3 = **(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56);
+    v3 = **(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56);
     v4 = sub_47C370();
     (*(void (__stdcall **)(_DWORD, signed int, unsigned int))(v3 + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       34,
       v4 & 0xFFFFFF);
-    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       35,
       0);
   }
-  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     22,
     2);
-  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     14,
     1);
-  (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     27,
     0);
-  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     19,
     2);
-  (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     20,
     1);
-  return (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-           *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  return (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+           *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
            26,
            1);
 }
@@ -10795,28 +10196,28 @@ void __fastcall sub_4A1DA8(signed int a1)
     if ( dword_EF52B0 )
     {
       dword_EF52B0 = 0;
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         28,
         1);
-      v2 = **(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56);
+      v2 = **(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56);
       v3 = sub_47C370();
       (*(void (__stdcall **)(_DWORD, signed int, unsigned int))(v2 + 88))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         34,
         v3 & 0xFFFFFF);
-      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         35,
         0);
     }
-    (*(void (__stdcall **)(_DWORD, signed int, signed int, int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, signed int, signed int, int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       19,
       5,
       v4);
-    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       20,
       6);
     goto LABEL_11;
@@ -10828,24 +10229,24 @@ void __fastcall sub_4A1DA8(signed int a1)
       if ( !dword_EF52B0 )
       {
         dword_EF52B0 = 1;
-        (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-          *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+        (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+          *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
           28,
           0);
       }
     }
-    (*(void (__stdcall **)(_DWORD, signed int, signed int, int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, signed int, signed int, int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       19,
       2,
       v1);
-    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       20,
       2);
 LABEL_11:
-    (*(void (__stdcall **)(_DWORD, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       26);
   }
 }
@@ -11009,12 +10410,12 @@ void __thiscall sub_4A2050(int this, signed int a2, int a3, int a4, int a5)
             }
             while ( !v54 );
           }
-          (*(void (__stdcall **)(_DWORD, _DWORD, int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 152))(
-            *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+          (*(void (__stdcall **)(_DWORD, _DWORD, int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 152))(
+            *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
             0,
             a5);
-          (*(void (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 112))(
-            *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+          (*(void (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 112))(
+            *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
             6,
             452,
             &unk_77E5C8,
@@ -11076,8 +10477,8 @@ void __thiscall sub_4A2050(int this, signed int a2, int a3, int a4, int a5)
                   1);
           CheckHRESULT(&a3, v20, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x219u, 0);
           if ( pD3DRenderer->dword_103660 )
-            (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-              *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+            (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+              *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
               28,
               0);
           v23 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56)
@@ -11213,29 +10614,29 @@ void __thiscall sub_4A2050(int this, signed int a2, int a3, int a4, int a5)
                     a2,
                     16);
             CheckHRESULT(&a2, v44, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x252u, 0);
-            (*(void (__cdecl **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-              *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+            (*(void (__cdecl **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+              *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
               28,
               1);
-            v45 = **(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56);
+            v45 = **(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56);
             v46 = sub_47C370();
             (*(void (__stdcall **)(_DWORD, signed int, unsigned int))(v45 + 88))(
-              *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+              *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
               34,
               v46 & 0xFFFFFF);
             v5 = 0;
-            (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-              *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+            (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+              *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
               35,
               0);
           }
-          v47 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-                  *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+          v47 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+                  *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
                   19,
                   2);
           CheckHRESULT(&a2, v47, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x25Au, v5);
-          v48 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-                  *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+          v48 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+                  *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
                   20,
                   1);
           CheckHRESULT(&a2, v48, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x25Bu, v5);
@@ -11405,12 +10806,12 @@ void sub_4A26BC(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
               LODWORD(v54) = a7;
             }
           }
-          (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 152))(
-            *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+          (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 152))(
+            *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
             0);
-          (*(void (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56)
+          (*(void (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56)
                                                                                              + 112))(
-            *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+            *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
             6,
             452,
             &unk_77E5C8,
@@ -11489,8 +10890,8 @@ void sub_4A26BC(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
                   1);
           CheckHRESULT(&a7, v22, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x350u, 0);
           if ( pD3DRenderer->dword_103660 )
-            (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-              *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+            (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+              *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
               28,
               0);
           v24 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v8 + 262280) + 56)
@@ -11629,28 +11030,28 @@ void sub_4A26BC(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
                     a3,
                     16);
             CheckHRESULT(&a7, v44, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x38Du, 0);
-            (*(void (__cdecl **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-              *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+            (*(void (__cdecl **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+              *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
               28,
               1);
-            v45 = **(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56);
+            v45 = **(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56);
             v46 = sub_47C370();
             (*(void (__stdcall **)(_DWORD, signed int, unsigned int))(v45 + 88))(
-              *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+              *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
               34,
               v46 & 0xFFFFFF);
             v7 = 0;
-            (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-              *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+            (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+              *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
               35,
               0);
           }
-          v47 = (*(int (__stdcall **)(_DWORD, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-                  *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+          v47 = (*(int (__stdcall **)(_DWORD, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+                  *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
                   19);
           CheckHRESULT(&a7, v47, (const char *)2, (unsigned int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 918);
-          v48 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-                  *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+          v48 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+                  *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
                   20,
                   1);
           CheckHRESULT(&a7, v48, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x397u, v7);
@@ -11737,13 +11138,13 @@ void __thiscall sub_4A2DA3(int this, signed int a2, int a3, int a4)
         }
         while ( v14-- != 1 );
       }
-      (*(void (__stdcall **)(_DWORD, _DWORD, int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 152))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, _DWORD, int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 152))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         0,
         a4);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56)
+      (*(void (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56)
                                                                                                 + 112))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         6,
         452,
         &unk_77E5C8,
@@ -11803,15 +11204,15 @@ void __thiscall sub_4A2ED5(int this, signed int a2, int a3, int a4)
         }
         while ( v4 );
       }
-      (*(void (__fastcall **)(_DWORD, int, _DWORD, _DWORD, int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 152))(
-        **(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__fastcall **)(_DWORD, int, _DWORD, _DWORD, int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 152))(
+        **(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56),
         v6,
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         0,
         a4);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56)
+      (*(void (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56)
                                                                                                 + 112))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         6,
         452,
         &unk_77E5C8,
@@ -12138,13 +11539,13 @@ void __thiscall sub_4A2FC0(int this, signed int a2, int a3, signed int a4, signe
                   a2,
                   28);
           CheckHRESULT(&a2, v50, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x604u, 0);
-          v51 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-                  *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+          v51 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+                  *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
                   19,
                   2);
           CheckHRESULT(&a2, v51, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x606u, 0);
-          v52 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-                  *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+          v52 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+                  *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
                   20,
                   1);
           CheckHRESULT(&a2, v52, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x607u, 0);
@@ -12956,64 +12357,64 @@ int __stdcall sub_4A49D0(float a1, float a2, float a3, float a4, float a5, float
   v54 = v16 + a2;
   v59 = 0.0;
   v60 = 0.0;
-  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     27,
     1);
-  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     19,
     2);
-  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     20,
     2);
-  (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     26,
     0);
-  (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     14,
     0);
-  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     22,
     1);
-  (*(void (__stdcall **)(_DWORD, _DWORD, int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 152))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, _DWORD, int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 152))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     0,
     a9);
-  (*(void (__stdcall **)(_DWORD, signed int, signed int, float *, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56)
+  (*(void (__stdcall **)(_DWORD, signed int, signed int, float *, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56)
                                                                                          + 112))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     6,
     452,
     &v29,
     4,
     24);
-  (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     27,
     0);
-  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     19,
     2);
-  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     20,
     1);
-  (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     26,
     1);
-  (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+    *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
     14,
     1);
-  return (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-           *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+  return (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+           *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
            22,
            2);
 }
@@ -13449,62 +12850,62 @@ int __thiscall sub_4A52F1(int this, int a2, float a3)
     v63 = 1.0;
     v66 = 0.0;
     v67 = 0.0;
-    (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 152))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 152))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       0,
       0);
-    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       28,
       0);
-    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       27,
       1);
-    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       14,
       0);
-    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       19,
       5);
-    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       20,
       6);
-    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       26,
       0);
-    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       23,
       8);
-    (*(void (__stdcall **)(_DWORD, signed int, signed int, float *, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56)
+    (*(void (__stdcall **)(_DWORD, signed int, signed int, float *, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56)
                                                                                            + 112))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       6,
       452,
       &v36,
       4,
       28);
-    v11 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56)
+    v11 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56)
                                                                                            + 88))(
-            *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+            *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
             19,
             2,
             "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp",
             297,
             0);
     CheckHRESULT(&a2, v11, v12, v13, v14);
-    v15 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-            *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    v15 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+            *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
             20,
             1);
     CheckHRESULT(&a2, v15, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 0x12Au, 0);
-    (*(void (__cdecl **)(_DWORD, signed int, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, int, int, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, int, int, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, int, int, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, int, int, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__cdecl **)(_DWORD, signed int, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, int, int, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, int, int, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, int, int, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, int, int, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       27,
       0,
       LODWORD(v36),
@@ -13539,16 +12940,16 @@ int __thiscall sub_4A52F1(int this, int a2, float a3)
       v65,
       LODWORD(v66),
       LODWORD(v67));
-    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       14,
       1);
-    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-      *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+      *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
       26,
       1);
-    result = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 88))(
-               *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+    result = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
+               *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
                23,
                2);
   }
@@ -14671,7 +14072,7 @@ void __thiscall sub_4A6A68(void *this, int a2, int a3, int a4, __int16 a5)
   memcpy(class18_obj, (const void *)a4, 0x48u);
   v8 = v6;
   if ( v6 > 0 )
-    CD3DRenderer_DrawIndexedTexture(v5, a2, a3, class18_obj);
+    Render_DrawIndexedTexture(v5, a2, a3, class18_obj);
 }
 
 //----- (004A6D87) --------------------------------------------------------
@@ -16236,7 +15637,7 @@ int __fastcall sub_4AAEA6(int a1)
     v13 = *(float *)a1 - (double)pParty_global->sPartyPosX;
     v11 = *(float *)(a1 + 4) - (double)pParty_global->sPartyPosY;
     v4 = *(float *)(a1 + 8) - (double)pParty_global->sPartyPosZ;
-    if ( pD3DRenderer->pDirect3DDevice3 )
+    if ( pD3DRenderer->pRendererD3D3 )
     {
       v6 = v11 * *(float *)&dword_51B714 + v13 * flt_51B710;
       v5 = v13 * *(float *)&dword_51B714 - v11 * flt_51B710;
@@ -16255,7 +15656,7 @@ int __fastcall sub_4AAEA6(int a1)
     v14 = *(float *)a1 - (double)pParty_global->sPartyPosX;
     v12 = *(float *)(a1 + 4) - (double)pParty_global->sPartyPosY;
     v7 = *(float *)(a1 + 8) - (double)pParty_global->sPartyPosZ;
-    if ( pD3DRenderer->pDirect3DDevice3 )
+    if ( pD3DRenderer->pRendererD3D3 )
     {
       *(float *)(a1 + 12) = v12 * *(float *)&dword_51B714 + v14 * flt_51B710;
       v8 = v14 * v10 - v12 * v9;

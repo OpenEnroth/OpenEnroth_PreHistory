@@ -3,7 +3,7 @@
 
 #include "defs.h"
 
-#include "mm7DDrawRenderer.h"
+#include "RenderD3D3.h"
 
 #define MENU_MAIN        0
 #define MENU_CREATEPARTY 6

@@ -1210,7 +1210,7 @@ PCMWAVEFORMAT sPCMWaveFormat;  // struct @ MM7.exe::00F1B4B8
 
 
 
-struct CD3DRenderer *pD3DRenderer = 0;
+struct Render *pD3DRenderer = 0;
 struct LODFile      *pLODFile_Events_LOD = 0;   // struct @ MM7.exe::006BEA58
 struct LODFile      *pLODFile_Icons_LOD = 0;    // struct @ MM7.exe::006D0610
 struct LODFile      *pLODFile_Sprites_LOD = 0;  // struct @ MM7.exe::006E21C8

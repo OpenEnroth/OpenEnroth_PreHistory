@@ -1098,7 +1098,6 @@ signed int __stdcall sub_49D379(int a1, int a2);
 int __thiscall sub_49D700(void *this);
 int __stdcall sub_49D717(void *Src, void *Dst); // idb
 int __thiscall sub_49DC90(int this);
-signed int __thiscall sub_49DE14(int this, int a2, int a3, int a4);
 signed int __thiscall sub_49E444(void *this);
 int __thiscall sub_49E4FC(int this, int a2, int a3, int a4, float a5);
 int __thiscall sub_49E54D(int this, char a2);

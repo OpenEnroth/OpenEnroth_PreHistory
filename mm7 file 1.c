@@ -23,7 +23,7 @@ int (__cdecl *sprintfex)(char *, const char *, ...) = 0;
 #include "AIL.h"
 
 #include "data.h"
-#include "mm7DDrawRenderer.h"
+#include "RenderD3D3.h"
 #include "_audio.h"
 #include "_video.h"
 #include "FrameTables.h"
@@ -48,8 +48,8 @@ void RtlCallCtors()
  sprintfex = sprintf;
 
  //moved creation of d3d here since sub_40DEF3 uses it
- pD3DRenderer = malloc(sizeof(struct CD3DRenderer));
- CD3DRenderer_ctor(pD3DRenderer);
+ pD3DRenderer = malloc(sizeof(struct Render));
+ Render_ctor(pD3DRenderer);
 
  dword_507AFC = 0xFF0A0000;
  dword_507AF8 = 0xFFE6D6C1;
@@ -699,7 +699,7 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
 
  pCamera->dword_00004C = v2;
 
- if (bRedraw || pD3DRenderer->pDirect3DDevice3)
+ if (bRedraw || pD3DRenderer->pRendererD3D3)
  {
   sub_481EB7_ResetStruct8Array();
   struct9_sub_47A59E_ComputeSinCos(pStruct9_global);
@@ -724,7 +724,7 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
 
  if (!bRedraw)
  {
-  if (!pD3DRenderer->pDirect3DDevice3)
+  if (!pD3DRenderer->pRendererD3D3)
   {
    sub_479332();
    goto LABEL_16;
@@ -732,7 +732,7 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
   goto LABEL_14;
  }
 
- if (pD3DRenderer->pDirect3DDevice3)
+ if (pD3DRenderer->pRendererD3D3)
  {
 LABEL_14:
     sub_479543();
@@ -749,7 +749,7 @@ LABEL_14:
 LABEL_16:
  dword_51B6DC = 0;
  dword_519AB4 = 0;
- if (!pD3DRenderer->pDirect3DDevice3)
+ if (!pD3DRenderer->pRendererD3D3)
  {
   sub_487389_DrawSpansAndAll();
   class08_sub_438240(pGame->class08_obj);
@@ -763,7 +763,7 @@ LABEL_16:
     class51_sub_47EF60(pClass51_global, v5, v4, 1);
   }
   pGame->dword_000E24 &= 0xFFFFFFFE;
-  if ( pD3DRenderer->pDirect3DDevice3 && pD3DRenderer->dword_103660)
+  if ( pD3DRenderer->pRendererD3D3 && pD3DRenderer->dword_103660)
     pGame->class04_obj->dword_3CBC34 |= 1;
   else
     pGame->class04_obj->dword_3CBC34 &= 0xFFFFFFFE;
@@ -840,7 +840,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *
   class24_fn1(pClass24_global);
   if (pD3DRenderer)
   {
-   if (pD3DRenderer->dword_00000C == 1)
+   if (pD3DRenderer->uAcquiredDirect3DDevice == 1)
    {
     SetWindowPos(hWnd_global, (HWND)((unsigned int)(HWND_MESSAGE)|0x2), 320, 240, 640, 480, 0);
     Rect.left = 325;
@@ -859,7 +859,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *
   sub_44EA17(pGame);
   sub_465D0B();
 
-  CD3DRenderer_sub_4A0E97(pD3DRenderer, 0, 0, 639, 479);
+  Render_sub_4A0E97(pD3DRenderer, 0, 0, 639, 479);
   sub_4647AB();
   while (true)
     {
@@ -1494,12 +1494,12 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   SetWindowLongA(hWnd_global, GWL_STYLE, WS_VISIBLE);
   if (dword_720010)
     sub_46BBD0();
-  CD3DRenderer_Initialize(pD3DRenderer, hWnd_global);
+  Render_Initialize(pD3DRenderer, hWnd_global);
  }
  else
  {
   ClipCursor(0);
-  CD3DRenderer_InitWindowed(pD3DRenderer, hWnd_global);
+  Render_InitWindowed(pD3DRenderer, hWnd_global);
  }
 
  byte_6BE36F = ReadWindowsRegistry("soundflag", 9);
@@ -2286,7 +2286,7 @@ LABEL_173:
       }
       v98.v99 = abs(pCamera->uMapGridCellZ - dword_76D9C8[i]);
       v98.v100 = abs(pCamera->uMapGridCellX - dword_76DBC8[i]);
-      if ( pD3DRenderer->pDirect3DDevice3 )
+      if ( pD3DRenderer->pRendererD3D3 )
         sub_48034E(v107, 0, &v98);
       else
         sub_481212(v107, 0, &v98);
@@ -2339,7 +2339,7 @@ LABEL_173:
       }
       v98.v99 = abs(pCamera->uMapGridCellX - dword_76DBC8[i]);
       v98.v100 = abs(pCamera->uMapGridCellZ - dword_76D9C8[i]);
-      if ( pD3DRenderer->pDirect3DDevice3 )
+      if ( pD3DRenderer->pRendererD3D3 )
         sub_48034E(v107, 1, &v98);
       else
         sub_481212(v107, 1, &v98);
@@ -2456,13 +2456,13 @@ void __fastcall MoviePlayerLoop(const char *pMovieName, int a2, int a3, int a4)
  pVideoPlayer->dword_000058 = 1;
  pVideoPlayer->dword_000044 = v4;
 
- if (pD3DRenderer->pDirect3DDevice3)
+ if (pD3DRenderer->pRendererD3D3)
    sub_49FBCD(pD3DRenderer, 0);
  else
  {
-  CD3DRenderer_BeginScene(pD3DRenderer);
+  Render_BeginScene(pD3DRenderer);
   sub_49FBCD(pD3DRenderer, 0);
-  CD3DRenderer_EndScene(pD3DRenderer);
+  Render_EndScene(pD3DRenderer);
  }
  dword_4E28F8 = 16;
 
@@ -3028,17 +3028,17 @@ void __cdecl sub_47A815()
   else
     class02_sub_48BEEF(pGame->class02_obj);
 
-  if ( pD3DRenderer->pDirect3DDevice3 )
+  if ( pD3DRenderer->pRendererD3D3 )
   {
     if ( *(_DWORD *)(v0 + 52000) )
     {
-      (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 152))(
-        *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+      (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 152))(
+        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
         0,
         0);
-      (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56)
+      (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56)
                                                                                     + 112))(
-                 *(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56),
+                 *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
                  2,
                  452,
                  &pGame->class02_obj->dword_000CB20[1],
@@ -3258,7 +3258,7 @@ LABEL_238:
         struct_505898.dword_5058A0 = 8;
         return DefWindowProcA(hWnd, Msg, wParam, v5);
       case WM_MBUTTONDOWN:
-        if (pD3DRenderer->pDirect3DDevice3)
+        if (pD3DRenderer->pRendererD3D3)
         {
           if (pGame && !dword_720010)
           {
@@ -3611,7 +3611,7 @@ LABEL_179:
           struct_576FE8.dword_000044 = 1;
           if ( pVideoPlayer->pSmackerMovie )
           {
-            CD3DRenderer_RestoreFrontBuffer(pD3DRenderer);
+            Render_RestoreFrontBuffer(pD3DRenderer);
             sub_4A184C(pD3DRenderer);
             sub_4BF5B2(pVideoPlayer);
           }
@@ -3640,7 +3640,7 @@ LABEL_179:
           Mouse_suspend(dword_720010);
         if ( pD3DRenderer->bUseDirect3D )
         {
-          if ( pD3DRenderer->dword_00000C == 1 )
+          if ( pD3DRenderer->uAcquiredDirect3DDevice == 1 )
             SetWindowPos(hWnd, (HWND)0xFFFFFFFE, 0, 0, 0, 0, 0x18u);
         }
         ClipCursor(0);
@@ -3703,7 +3703,7 @@ LABEL_179:
       dword_4E98BC = 0;
       if ( pD3DRenderer->bUseDirect3D )
       {
-        if ( pD3DRenderer->dword_00000C == 1 )
+        if ( pD3DRenderer->uAcquiredDirect3DDevice == 1 )
           SetWindowPos(hWnd, (HWND)0xFFFFFFFE, 0, 0, 0, 0, 0x18u);
       }
       ClipCursor(0);
@@ -3731,10 +3731,10 @@ LABEL_184:
       }
       else
       {
-        if ( !pD3DRenderer->pDirect3DDevice3 && !sub_4A169E(pD3DRenderer) || !sub_4A16A5() )
+        if ( !pD3DRenderer->pRendererD3D3 && !sub_4A169E(pD3DRenderer) || !sub_4A16A5() )
           goto LABEL_20;
       }
-      CD3DRenderer_Present(pD3DRenderer);
+      Render_Present(pD3DRenderer);
 LABEL_20:
       EndPaint(hWnd, &Paint);
       return 0;
@@ -4219,7 +4219,7 @@ void sub_44103C()
 
  if (CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer))
  {
-  if (pD3DRenderer->pDirect3DDevice3)
+  if (pD3DRenderer->pRendererD3D3)
     goto LABEL_22;
   sub_4A1EB6(pD3DRenderer);
   sub_469E3B(pGame->pClass03);
@@ -4243,12 +4243,12 @@ void sub_44103C()
 
   sub_4A1EB6(pD3DRenderer);
 
-  if (!pD3DRenderer->pDirect3DDevice3)
+  if (!pD3DRenderer->pRendererD3D3)
     sub_469E3B(pGame->pClass03);
 
   if (!sub_4226C2() || struct_576FE8.dword_000048 == 1)
   {
-   if (pD3DRenderer->pDirect3DDevice3)
+   if (pD3DRenderer->pRendererD3D3)
    {
     v2 = (double)((pClass24_global2->dword_000024 >> 2) & 0x1F) * 0.03225806355476379 * 6.0;
     v3 = v2 + 6.755399441055744e15;
@@ -4264,22 +4264,22 @@ void sub_44103C()
         if ( dword_6BE360 == 2 )
           sub_441CFF();
       }
-      if ( pD3DRenderer->pDirect3DDevice3 )
+      if ( pD3DRenderer->pRendererD3D3 )
       {
         sub_49C304(pClass58_global, 0, (unsigned int)pD3DRenderer);
-        if ( pD3DRenderer->pDirect3DDevice3 )
+        if ( pD3DRenderer->pRendererD3D3 )
           sub_45D73F(2);
       }
     }
   }
 
 
-  CD3DRenderer_sub_4A1FE1_MaybeRenderSpecialEffects(pD3DRenderer);
+  Render_sub_4A1FE1_MaybeRenderSpecialEffects(pD3DRenderer);
 
 LABEL_22:
- CD3DRenderer_BeginScene(pD3DRenderer);
- CD3DRenderer_Set2DClippingRect(pD3DRenderer, 0, 0, 640, 480);
- if (pD3DRenderer->pDirect3DDevice3)
+ Render_BeginScene(pD3DRenderer);
+ Render_Set2DClippingRect(pD3DRenderer, 0, 0, 640, 480);
+ if (pD3DRenderer->pRendererD3D3)
    sub_469E3B(pGame->pClass03);
  if (dword_5E5144)
    struct_576FE8.dword_000044 = 1;
@@ -4304,7 +4304,7 @@ LABEL_22:
     {
       if ( !sub_4226C2() )
       {
-        if ( pD3DRenderer->pDirect3DDevice3)
+        if ( pD3DRenderer->pRendererD3D3)
           sub_4A6D87(pD3DRenderer,
             0,
             class28_global.dword_000010,
@@ -4350,8 +4350,8 @@ LABEL_22:
   sub_469EA4_LooksLikeDrawPickedItem(pGame->pClass03);
   sub_469CCD(pGame->pClass03);
   sub_469E1C(pGame->pClass03);
-  CD3DRenderer_EndScene(pD3DRenderer);
-  CD3DRenderer_Present(pD3DRenderer);
+  Render_EndScene(pD3DRenderer);
+  Render_Present(pD3DRenderer);
 
   pParty_global->dword_007778 &= 0xFFFFFFFD;
 }
@@ -7412,7 +7412,7 @@ void __cdecl sub_47BACF()
       if ( v4 != -1 )
       {
         v8 = *((_WORD *)v1 + 1);
-        if ( pD3DRenderer->pDirect3DDevice3 )
+        if ( pD3DRenderer->pRendererD3D3 )
         {
           v24 = v2;
           v25 = v3;
@@ -13926,7 +13926,7 @@ int __stdcall sub_48EA1B(signed int a1)
 }
 
 //----- (0049FE05) --------------------------------------------------------
-int sub_49FE05(int result, struct CD3DRenderer *pD3DRenderer)
+int sub_49FE05(int result, struct Render *pD3DRenderer)
 {
   int v3; // esi@1
   char v4; // zf@4
@@ -13942,13 +13942,13 @@ int sub_49FE05(int result, struct CD3DRenderer *pD3DRenderer)
   unsigned int *v14; // esi@29
 
  v3 = pD3DRenderer;
- if (pD3DRenderer->pDirect3DDevice3)
+ if (pD3DRenderer->pRendererD3D3)
  {
   if (pD3DRenderer->dword_040110)
   {
-   sub_49E4FC(pD3DRenderer->pDirect3DDevice3, 1, 0, 0, 1.0);
-   sub_49E54D(pD3DRenderer->pDirect3DDevice3, 0);
-   result = sub_49E4FC(pD3DRenderer->pDirect3DDevice3, 1, 0, 0, 1.0);
+   sub_49E4FC(pD3DRenderer->pRendererD3D3, 1, 0, 0, 1.0);
+   sub_49E54D(pD3DRenderer->pRendererD3D3, 0);
+   result = sub_49E4FC(pD3DRenderer->pRendererD3D3, 1, 0, 0, 1.0);
   }
 
     *(_DWORD *)(v3 + 262296) = 0;
@@ -14481,14 +14481,14 @@ void __cdecl sub_491F87_DrawNPCs()
         {
           wsprintfA(Str1, "NPC%03d", dword_72D5F8[19 * v7]);
           v15 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-          CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_4EE06C[v25], dword_4EE074[v25], v15 != -1 ? 72 * v15 + 7145548 : 0);
+          Render_DrawIndexedTexture(pD3DRenderer, dword_4EE06C[v25], dword_4EE074[v25], v15 != -1 ? 72 * v15 + 7145548 : 0);
         }
         else
         {
           wsprintfA(Str1, "NPC%03d", pParty_global->HiredNPC[v7].uPortraitID);
           v10 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
           v9 = 4 * v25;
-          CD3DRenderer_DrawIndexedTexture(pD3DRenderer,
+          Render_DrawIndexedTexture(pD3DRenderer,
             *(int *)((char *)dword_4EE06C + v9),
             *(int *)((char *)dword_4EE074 + v9),
             v10 != -1 ? 72 * v10 + 7145548 : 0);
@@ -14521,7 +14521,7 @@ LABEL_23:
               v13 = v23;
             }
             v14 = CIconFrameTable_GetFrame(pIconFrameTable, v13, v20);
-            CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v19, v11, 72 * *(_WORD *)(v14 + 30) + 7145548);
+            Render_DrawTransparentTexture(pD3DRenderer, v19, v11, 72 * *(_WORD *)(v14 + 30) + 7145548);
           }
         }
         ++v25;
@@ -14684,24 +14684,24 @@ void PlayerCreationUI_Draw()
  int i;
  unsigned int uColor;
 
-  CD3DRenderer_BeginScene(pD3DRenderer);
+  Render_BeginScene(pD3DRenderer);
   {
-   CD3DRenderer_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
-   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_A74CCC, 2, pPlayerCreationUI_Sky);
-   CD3DRenderer_DrawIndexedTexture(pD3DRenderer, dword_A74CCC - 640, 2, pPlayerCreationUI_Sky);
+   Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
+   Render_DrawIndexedTexture(pD3DRenderer, dword_A74CCC, 2, pPlayerCreationUI_Sky);
+   Render_DrawIndexedTexture(pD3DRenderer, dword_A74CCC - 640, 2, pPlayerCreationUI_Sky);
 
    dword_A74CCC = (GetTickCount() / 20) % 640;
 
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 0, 0, pPlayerCreationUI_Top);
+   Render_DrawTransparentTexture(pD3DRenderer, 0, 0, pPlayerCreationUI_Top);
 
    uPlayerCreationUI_SelectedCharacter = (pGUIWindow_CurrentMenu->dword_00002C - pGUIWindow_CurrentMenu->dword_000038) / 7;
 
    v3 = AlignText_Center(640, pGlobalTXT_LocalizationStrings[51], pFontCChar);
    FontDrawText(pGUIWindow_CurrentMenu, pFontCChar, v3 + 1, 3, pGlobalTXT_LocalizationStrings[51], 0xFFFFFFFF, 0, 0);
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer,  17, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[0].uFace]]);
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 176, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[1].uFace]]);
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 335, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[2].uFace]]);
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, 494, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[3].uFace]]);
+   Render_DrawTransparentTexture(pD3DRenderer,  17, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[0].uFace]]);
+   Render_DrawTransparentTexture(pD3DRenderer, 176, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[1].uFace]]);
+   Render_DrawTransparentTexture(pD3DRenderer, 335, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[2].uFace]]);
+   Render_DrawTransparentTexture(pD3DRenderer, 494, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[3].uFace]]);
 
    v1 = CIconFrameTable_GetFrame(pIconFrameTable, uIconTableFrameID_CharacterFrame, pClass24_global->dword_00000C);
 
@@ -14723,12 +14723,12 @@ void PlayerCreationUI_Draw()
         v4 = v132; 
         break;
    }
-   CD3DRenderer_DrawTransparentTexture(pD3DRenderer, v4, 29, &pLODFile_Icons_LOD->aLODHeaders[v1->uTextureIdx]);
+   Render_DrawTransparentTexture(pD3DRenderer, v4, 29, &pLODFile_Icons_LOD->aLODHeaders[v1->uTextureIdx]);
 
 
    v5 = GUIWindow_GetChild(pGUIWindow_CurrentMenu, pGUIWindow_CurrentMenu->dword_00002C);
-   CD3DRenderer_DrawTransparentRect(pD3DRenderer, v5->uZ - 4, v5->uY, 20 * dword_A74CD4, 0, 20, 16, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
-   CD3DRenderer_DrawTransparentRect(pD3DRenderer, v5->uX - 12, v5->uY, 20 * dword_A74CD4, 16, 20, 16, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
+   Render_DrawTransparentRect(pD3DRenderer, v5->uZ - 4, v5->uY, 20 * dword_A74CD4, 0, 20, 16, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
+   Render_DrawTransparentRect(pD3DRenderer, v5->uX - 12, v5->uY, 20 * dword_A74CD4, 16, 20, 16, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
 
    dword_A74CD4 = (GetTickCount() / 25) % 18;
 
@@ -14772,7 +14772,7 @@ void PlayerCreationUI_Draw()
    
    uClassIconCellX = (pParty_global->pPlayers[i].uClass / 4) % 3;
    uClassIconCellY = (pParty_global->pPlayers[i].uClass / 4) / 3;
-   CD3DRenderer_DrawTransparentRect(pD3DRenderer, v143 + 77, 50,
+   Render_DrawTransparentRect(pD3DRenderer, v143 + 77, 50,
                                     uClassIconCellX * 48, uClassIconCellY * 52, 48, 52, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_ClassIcons]);
 
    v12 = pGUIWindow_CurrentMenu->dword_000040;
@@ -15080,7 +15080,7 @@ LABEL_77:
     v126 = 239;
     sub_415551((int)&v121, 0);
   }
-  CD3DRenderer_EndScene(pD3DRenderer);
+  Render_EndScene(pD3DRenderer);
 }
 
 

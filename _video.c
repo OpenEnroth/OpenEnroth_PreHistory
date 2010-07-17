@@ -5,7 +5,7 @@
 
 #include "AIL.h"
 #include "_audio.h"
-#include "mm7DDrawRenderer.h"
+#include "RenderD3D3.h"
 
 #include "data.h"
 #include "mm7_unparsed_data.h"
@@ -386,7 +386,7 @@ void sub_4BEE6B(struct CVideoPlayer *_this, HWND hWnd, int a3, int a4)
     SmackBlitSetPalette(_this->pSmackMoviekBlit, _this->pSmackerMovie->Palette, _this->pSmackerMovie->PalType);
   SmackDoFrame(_this->pSmackerMovie);
 
-  CD3DRenderer_LockFrontBuffer(pD3DRenderer, &pSurfaceData, &uSurfacePitch);
+  Render_LockFrontBuffer(pD3DRenderer, &pSurfaceData, &uSurfacePitch);
 
   if (_this->dword_00005C)
   {
@@ -410,7 +410,7 @@ void sub_4BEE6B(struct CVideoPlayer *_this, HWND hWnd, int a3, int a4)
    _this->dword_00005C = 0;
   }
 
-  CD3DRenderer_RestoreFrontBuffer(pD3DRenderer);
+  Render_RestoreFrontBuffer(pD3DRenderer);
   if (pD3DRenderer->dword_040058)
   {
    Point.y = 0;
@@ -473,7 +473,7 @@ void sub_4BEE6B(struct CVideoPlayer *_this, HWND hWnd, int a3, int a4)
      pSurfaceData[y * 1280 + x] = uColor;
     }
 
-  CD3DRenderer_UnlockFrontBuffer(pD3DRenderer);
+  Render_UnlockFrontBuffer(pD3DRenderer);
   if (_this->pSmackerMovie->FrameNum != _this->pSmackerMovie->Frames - 1 || _this->dword_000064)
     SmackNextFrame(_this->pSmackerMovie);
   else CVideoPlayer_UnloadAll(_this);
@@ -503,7 +503,7 @@ int __cdecl VideoPlayer_Smacker_CheckSurfaceFromat()
  ddpsFrontBuffer.dwSize = sizeof(DDPIXELFORMAT);
  ddpsFrontBuffer.dwFlags = DDPF_RGB;
 
- CD3DRenderer_GetPrimarySurfacePixelFormat(pD3DRenderer, &ddpsFrontBuffer);
+ Render_GetPrimarySurfacePixelFormat(pD3DRenderer, &ddpsFrontBuffer);
 
  return 0xC0000000;
  if (ddpsFrontBuffer.dwFourCC != 8)

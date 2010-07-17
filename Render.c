@@ -5,13 +5,13 @@
 
 #include "data.h"
 
-#include "mm7DDrawRenderer.h"
+#include "RenderD3D3.h"
 
 
 
 
 //----- (MM7exe::00452347) --------------------------------------------------------
-void CD3DRenderer_HWLContainer_ctor(struct CD3DRenderer_HWLContainer *_this)
+void Render_HWLContainer_ctor(struct Render_HWLContainer *_this)
 {
  _this->pHWLFile = 0;
  _this->dword_000004 = 0;
@@ -25,7 +25,7 @@ void CD3DRenderer_HWLContainer_ctor(struct CD3DRenderer_HWLContainer *_this)
 }
 
 //----- (MM7.exe::0045237F) --------------------------------------------------------
-int CD3DRenderer_HWLContainer_LoadHWLHeaders(struct CD3DRenderer_HWLContainer *_this, const char *pFilename)
+int Render_HWLContainer_LoadHWLHeaders(struct Render_HWLContainer *_this, const char *pFilename)
 {
  int i;
 
@@ -53,12 +53,12 @@ int CD3DRenderer_HWLContainer_LoadHWLHeaders(struct CD3DRenderer_HWLContainer *_
 }
 
 //----- (MM7.exe::0049E992) --------------------------------------------------------
-void CD3DRenderer_ctor(struct CD3DRenderer *_this)
+void Render_ctor(struct Render *_this)
 {
   int v1; // eax@1
   char v3; // zf@1
 
- memset(_this, 0, sizeof(struct CD3DRenderer));
+ memset(_this, 0, sizeof(struct Render));
 
 
  _this->pdd4 = 0;
@@ -70,8 +70,8 @@ void CD3DRenderer_ctor(struct CD3DRenderer *_this)
  _this->pdds2_BackBuffer = 0;
  _this->dword_0400A8 = 0;
 
- CD3DRenderer_HWLContainer_ctor(&_this->struct_040114);
- CD3DRenderer_HWLContainer_ctor(&_this->struct_0A1BAC);
+ Render_HWLContainer_ctor(&_this->struct_040114);
+ Render_HWLContainer_ctor(&_this->struct_0A1BAC);
 
  _this->dword_040054 = 0;
  _this->dword_040058 = 1;
@@ -81,11 +81,10 @@ void CD3DRenderer_ctor(struct CD3DRenderer *_this)
  v3 = _this->bStartInWindow == 0;
 
  _this->bStartInWindow = v3 && v1 != 1;
- _this->uDirect3DDeviceToUse = v1;
+ _this->uDesiredDirect3DDevice = v1;
 
   //force d3d
  //_this->bUseDirect3D = true;
- //_this->uDirect3DDeviceToUse = true;
 
  _this->dword_000010 = 640;
  _this->dword_000014 = 480;
@@ -104,7 +103,7 @@ void CD3DRenderer_ctor(struct CD3DRenderer *_this)
  _this->dword_040044 = 2;
  _this->dword_040048 = 6;
 
- _this->pDirect3DDevice3 = 0;
+ _this->pRendererD3D3 = 0;
 
  _this->bSceneBegun = 0;
 
@@ -130,21 +129,21 @@ void CD3DRenderer_ctor(struct CD3DRenderer *_this)
 
  _this->dword_1036B8 = 0;
  _this->dword_1036BC = 0;
- CD3DRenderer_HWLContainer_LoadHWLHeaders(&_this->struct_040114, "data\\d3dbitmap.hwl");
- CD3DRenderer_HWLContainer_LoadHWLHeaders(&_this->struct_0A1BAC, "data\\d3dsprite.hwl");
+ Render_HWLContainer_LoadHWLHeaders(&_this->struct_040114, "data\\d3dbitmap.hwl");
+ Render_HWLContainer_LoadHWLHeaders(&_this->struct_0A1BAC, "data\\d3dsprite.hwl");
 }
 
 //----- (MM7.exe::0049FBCD) --------------------------------------------------------
-int sub_49FBCD(struct CD3DRenderer *_this, int a2)
+int sub_49FBCD(struct Render *_this, int a2)
 {
  int result;
   int v4; // ecx@4
 
  result = _this;
- if (_this->pDirect3DDevice3)
+ if (_this->pRendererD3D3)
  {
   if (_this->dword_040110)
-    result = sub_49E4FC(_this->pDirect3DDevice3, 1, a2, 0, 0.0);
+    result = sub_49E4FC(_this->pRendererD3D3, 1, a2, 0, 0.0);
  }
  else
  {
@@ -157,7 +156,7 @@ int sub_49FBCD(struct CD3DRenderer *_this, int a2)
 }
 
 //----- (MM7.exe::004A51CB) --------------------------------------------------------
-unsigned int CD3DRenderer_BeginScene(struct CD3DRenderer *_this)
+unsigned int Render_BeginScene(struct Render *_this)
 {
   int v1; // eax@1
   //int Dst; // [sp+Ch] [bp-7Ch]@4
@@ -169,7 +168,7 @@ unsigned int CD3DRenderer_BeginScene(struct CD3DRenderer *_this)
  v1 = _this->bSceneBegun++;
  if (!v1)
  {
-  if (_this->pDirect3DDevice3)
+  if (_this->pRendererD3D3)
   {
    if (_this->dword_040108)
    {
@@ -192,7 +191,7 @@ unsigned int CD3DRenderer_BeginScene(struct CD3DRenderer *_this)
   {
    if (!_this->pTargetSurface)
    {
-    LOBYTE(v1) = CD3DRenderer_LockBackBuffer(_this, &_this->pTargetSurface, &_this->uTargetSurfacePitch);
+    LOBYTE(v1) = Render_LockBackBuffer(_this, &_this->pTargetSurface, &_this->uTargetSurfacePitch);
     if (_this->pTargetSurface)
     {
      _this->dword_000018 = _this->uTargetSurfacePitch;
@@ -204,13 +203,13 @@ unsigned int CD3DRenderer_BeginScene(struct CD3DRenderer *_this)
   }
 
 LABEL_11:
-  LOBYTE(v1) = CD3DRenderer_RestoreFrontBuffer(_this);
+  LOBYTE(v1) = Render_RestoreFrontBuffer(_this);
  }
  return v1;
 }
 
 //----- (004A0BEE) --------------------------------------------------------
-char CD3DRenderer_FillRect(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW, unsigned int uColor)
+char Render_FillRect(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW, unsigned int uColor)
 {
   int v13; // edi@21
   int v14; // eax@21
@@ -417,7 +416,7 @@ LABEL_24:
 }
 
 //----- (MM7.exe::004A1605) --------------------------------------------------------
-int CD3DRenderer_LockBackBuffer(struct CD3DRenderer *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth)
+int Render_LockBackBuffer(struct Render *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth)
 {
   DDSURFACEDESC2 ddsd2;
   //int v6; // [sp+4h] [bp-7Ch]@4
@@ -449,7 +448,7 @@ int CD3DRenderer_LockBackBuffer(struct CD3DRenderer *_this, void **ppOutSurfaceP
 }
 
 //----- (004A5B81) --------------------------------------------------------
-void CD3DRenderer_Set2DClippingRect(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW)
+void Render_Set2DClippingRect(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW)
 {
  _this->uClipRectX = uX;
  _this->uClipRectY = uY;
@@ -459,7 +458,7 @@ void CD3DRenderer_Set2DClippingRect(struct CD3DRenderer *_this, unsigned int uX,
 }
 
 extern struct class18 pending_texture;
-void CD3DRenderer_DrawIndexedTextureHandle(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID)
+void Render_DrawIndexedTextureHandle(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID)
 {
   //int v5; // eax@4
   int v6; // ebx@4
@@ -522,7 +521,7 @@ void CD3DRenderer_DrawIndexedTextureHandle(struct CD3DRenderer *_this, unsigned 
 }
 
 //----- (004A5EB2) --------------------------------------------------------
-void CD3DRenderer_DrawIndexedTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class18 *pTexture)
+void Render_DrawIndexedTexture(struct Render *_this, unsigned int uX, unsigned int uY, struct class18 *pTexture)
 {
   //int v5; // eax@4
   int v6; // ebx@4
@@ -581,7 +580,7 @@ void CD3DRenderer_DrawIndexedTexture(struct CD3DRenderer *_this, unsigned int uX
 
 
 //----- (004A6C4F) --------------------------------------------------------
-void CD3DRenderer_DrawText(struct CD3DRenderer *_this, unsigned int uOutX, unsigned int uOutY,
+void Render_DrawText(struct Render *_this, unsigned int uOutX, unsigned int uOutY,
                 unsigned char *pFontPixels, unsigned int uCharWidth, unsigned int uCharHeight,
                 unsigned short *pFontPalette, unsigned int uMainColor, unsigned int uShadowColor)
 {
@@ -611,7 +610,7 @@ void CD3DRenderer_DrawText(struct CD3DRenderer *_this, unsigned int uOutX, unsig
 
 
 //----- (004A6274) --------------------------------------------------------
-void CD3DRenderer_DrawTransparentTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct class18 *pTexture)
+void Render_DrawTransparentTexture(struct Render *_this, unsigned int uX, unsigned int uY, struct class18 *pTexture)
 {
   int v5; // eax@4
   int v6; // ebx@4
@@ -679,7 +678,7 @@ void CD3DRenderer_DrawTransparentTexture(struct CD3DRenderer *_this, unsigned in
  }
 }
 
-void CD3DRenderer_DrawTransparentRect(struct CD3DRenderer *_this, unsigned int uOutX, unsigned int uOutY,
+void Render_DrawTransparentRect(struct Render *_this, unsigned int uOutX, unsigned int uOutY,
                                       unsigned int uSrcX, unsigned int uSrcY, unsigned int uSrcWidth, unsigned int uSrcHeight,
                                       struct class18 *pTexture)
 {
@@ -716,7 +715,7 @@ void CD3DRenderer_DrawTransparentRect(struct CD3DRenderer *_this, unsigned int u
 }
 
 //----- (004A172E) --------------------------------------------------------
-int CD3DRenderer_LockFrontBuffer(struct CD3DRenderer *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth)
+int Render_LockFrontBuffer(struct Render *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth)
 {
  DDSURFACEDESC2 ddsd2;
 
@@ -736,7 +735,7 @@ int CD3DRenderer_LockFrontBuffer(struct CD3DRenderer *_this, void **ppOutSurface
 }
 
 //----- (004A527D) --------------------------------------------------------
-HRESULT CD3DRenderer_EndScene(struct CD3DRenderer *_this)
+HRESULT Render_EndScene(struct Render *_this)
 {
  HRESULT hr;
  char    local_0[128];
@@ -746,7 +745,7 @@ HRESULT CD3DRenderer_EndScene(struct CD3DRenderer *_this)
    _this->bSceneBegun--;
     if (!_this->bSceneBegun)
     {
-      if (_this->pDirect3DDevice3)
+      if (_this->pRendererD3D3)
       {
         if (_this->dword_040108)
         {
@@ -765,7 +764,7 @@ HRESULT CD3DRenderer_EndScene(struct CD3DRenderer *_this)
         _this->pTargetSurface = 0;
         _this->uTargetSurfacePitch = 0;
         _this->dword_000018 = 0;
-        return CD3DRenderer_UnlockBackBuffer(_this);
+        return Render_UnlockBackBuffer(_this);
       }
     }
   }
@@ -773,7 +772,7 @@ HRESULT CD3DRenderer_EndScene(struct CD3DRenderer *_this)
 }
 
 //----- (004A16E1) --------------------------------------------------------
-void *CD3DRenderer_UnlockBackBuffer(struct CD3DRenderer *_this)
+void *Render_UnlockBackBuffer(struct Render *_this)
 {
  IDirectDrawSurface *v1;
  HRESULT             hr;
@@ -791,7 +790,7 @@ void *CD3DRenderer_UnlockBackBuffer(struct CD3DRenderer *_this)
 
 
 
-void CD3DRenderer_DrawRGBTexture_New(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID)
+void Render_DrawRGBTexture_New(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID)
 {
  unsigned int   *pSurfacePtr;
  unsigned int    uColor;
@@ -828,7 +827,7 @@ void CD3DRenderer_DrawRGBTexture_New(struct CD3DRenderer *_this, unsigned int uX
 }
 
 //----- (004A5BE3) --------------------------------------------------------
-void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, unsigned int uY, struct RGBTexture *pTexture)
+void Render_DrawRGBTexture(struct Render *_this, unsigned int uX, unsigned int uY, struct RGBTexture *pTexture)
 {
  unsigned int *pSurfacePtr;
  unsigned int uColor;
@@ -882,7 +881,7 @@ void CD3DRenderer_DrawRGBTexture(struct CD3DRenderer *_this, unsigned int uX, un
 }
 
 //----- (MM7.exe::0049FFFB) --------------------------------------------------------
-int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
+int Render_Initialize(struct Render *_this, HWND hwnd)
 {
   int v3; // esi@1
   int v4; // eax@2
@@ -935,7 +934,7 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
   //try_catch session
   sub_49FE05(unknown_libname_107, _this);
   _this->hWnd = hwnd;
-  CD3DRenderer_Initialize_ZBuffer(_this);
+  Render_Initialize_ZBuffer(_this);
 
   if (_this->bUseDirect3D)
   {
@@ -943,7 +942,7 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
     v42 = v4;
     v43 = 0;
     if ( v4 )
-      sub_49DC58(v4);
+      RendererD3D3_FindAvailableDevices(v4);
 
     v6 = *(_DWORD *)(v3 + 8);
     v43 = -1;
@@ -951,21 +950,21 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
     v7 = *(_DWORD *)(v4 + 28);
     if ( *(_DWORD *)(v7 + 40 * v6) )
     {
-      v8 = sub_49DE14(v4, v6, 0, hwnd);
+      v8 = RendererD3D3_Initialize(v4, v6, 0, hwnd);
       *(_DWORD *)(v3 + 12) = *(_DWORD *)(v3 + 8);
     }
     else
     {
       if ( *(_DWORD *)(v7 + 40) )
       {
-        v8 = sub_49DE14(v4, 1, 0, hwnd);
+        v8 = RendererD3D3_Initialize(v4, 1, 0, hwnd);
         *(_DWORD *)(v3 + 12) = 1;
       }
       else
       {
         if ( !*(_DWORD *)v7 )
           erroneous_printf("There aren't any D3D devices to create.");
-        v8 = sub_49DE14(v4, 0, 0, hwnd);
+        v8 = RendererD3D3_Initialize(v4, 0, 0, hwnd);
         *(_DWORD *)(v3 + 12) = 0;
       }
     }
@@ -1116,18 +1115,18 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
   }
   else
   {
-    CD3DRenderer_CreateDirectDraw(_this);
-    CD3DRenderer_SetCooperativeLevel(_this, _this->hWnd, true);
-    CD3DRenderer_SetDisplayMode(_this, 1280, 1024, 16);
-    CD3DRenderer_CreatePrimarySurface(_this);
+    Render_CreateDirectDraw(_this);
+    Render_SetCooperativeLevel(_this, _this->hWnd, true);
+    Render_SetDisplayMode(_this, 1280, 1024, 16);
+    Render_CreatePrimarySurface(_this);
     v18 = 1;
   }
   _this->ddpfPrimarySurface.dwSize = sizeof(DDPIXELFORMAT);
   (_this->pdds4_FrontBuffer->lpVtbl->GetPixelFormat)(_this->pdds4_FrontBuffer, &_this->ddpfPrimarySurface);
 
-  CD3DRenderer_sub_4A0EB6(_this);
-  CD3DRenderer_sub_49EBF1(_this);
-  if (_this->pDirect3DDevice3)
+  Render_sub_4A0EB6(_this);
+  Render_sub_49EBF1(_this);
+  if (_this->pRendererD3D3)
   {
     v19 = sub_49E756(*(void **)(v3 + 262284));
     v20 = *(_DWORD *)(v3 + 12) == v18;
@@ -1178,31 +1177,11 @@ int CD3DRenderer_Initialize(struct CD3DRenderer *_this, HWND hwnd)
   return v18;
 }
 
-//----- (0049DC58) --------------------------------------------------------
-void sub_49DC58(struct D3DRenderer_D3D3DeviceInfo *_this)
-{
- _this->dword_000020 = 0;
- _this->dword_000024 = 0;
- _this->dword_000028 = 0;
- _this->dword_000030 = 0;
- _this->dword_000034 = 0;
- _this->dword_000038 = 0;
- _this->dword_00003C = 0;
- _this->dword_000040 = 1;
- _this->dword_000044 = 10;
-
- _this->ptr_00001C = malloc(sizeof(struct D3DRenderer_stru1));
- memset(_this->ptr_00001C, 0, sizeof(struct D3DRenderer_stru1));
-
- DirectDrawEnumerateA((LPDDENUMCALLBACKA)(DDrawEnumCallback), _this->ptr_00001C);
-}
-
 //----- (004A05F3) --------------------------------------------------------
-int CD3DRenderer_InitWindowed(struct CD3DRenderer *_this, HWND hwnd)
+int Render_InitWindowed(struct Render *_this, HWND hwnd)
 {
   int v2; // esi@1
   int v3; // eax@1
-  int v6; // edx@5
   int v7; // ecx@5
   signed int v8; // eax@7
   signed int v9; // eax@12
@@ -1255,31 +1234,32 @@ int CD3DRenderer_InitWindowed(struct CD3DRenderer *_this, HWND hwnd)
  _this->pdds4_BackBuffer = 0;
  _this->dword_040098 = 0;
 
- CD3DRenderer_Initialize_ZBuffer(_this);
+ Render_Initialize_ZBuffer(_this);
 
  if (_this->bUseDirect3D)
  {
-  _this->pDirect3DDevice3 = malloc(sizeof(struct D3DRenderer_D3D3DeviceInfo));//v4 = (int)operator new(0x148u);
-  v43 = _this->pDirect3DDevice3;
+  _this->pRendererD3D3 = malloc(sizeof(struct RendererD3D3));//v4 = (int)operator new(0x148u);
+  v43 = _this->pRendererD3D3;
   v44 = 0;
-  if (_this->pDirect3DDevice3)
-    sub_49DC58(_this->pDirect3DDevice3);
+  if (_this->pRendererD3D3)
+    RendererD3D3_FindAvailableDevices(_this->pRendererD3D3);
 
-    v6 = _this->uDirect3DDeviceToUse;
     v44 = -1;
-    v7 = _this->pDirect3DDevice3->ptr_00001C;
-    if ( *(_DWORD *)(v7 + 40 * v6) && v6 != 1 )
+    v7 = _this->pRendererD3D3->pAvailableDevices;
+    if (_this->pRendererD3D3->pAvailableDevices[_this->uDesiredDirect3DDevice].bDeviceIsValid &&
+        _this->uDesiredDirect3DDevice != 1)
     {
-      v8 = sub_49DE14(_this->pDirect3DDevice3, v6, 1, hwnd);
-      *(_DWORD *)(v2 + 12) = *(_DWORD *)(v2 + 8);
+     v8 = RendererD3D3_Initialize(_this->pRendererD3D3, _this->uDesiredDirect3DDevice, true, hwnd);
+     _this->uAcquiredDirect3DDevice = _this->uDesiredDirect3DDevice;
+    }
+    else if (_this->pRendererD3D3->pAvailableDevices[0].bDeviceIsValid)
+    {
+      v8 = RendererD3D3_Initialize(_this->pRendererD3D3, 0, true, hwnd);
+     _this->uAcquiredDirect3DDevice = 0;
     }
     else
-    {
-      if ( !*(_DWORD *)v7 )
-        erroneous_printf("There aren't any D3D devices to init.");
-      v8 = sub_49DE14(_this->pDirect3DDevice3, 0, 1, hwnd);
-      *(_DWORD *)(v2 + 12) = 0;
-    }
+      erroneous_printf("There aren't any D3D devices to init.");
+
     if ( !v8 )
       erroneous_printf("D3Drend->Init failed.");
     v10 = *(_DWORD *)(v2 + 262280);
@@ -1421,19 +1401,19 @@ int CD3DRenderer_InitWindowed(struct CD3DRenderer *_this, HWND hwnd)
   }
   else
   {
-    CD3DRenderer_CreateDirectDraw(_this);
-    CD3DRenderer_SetCooperativeLevel(_this, hwnd, 0);
+    Render_CreateDirectDraw(_this);
+    Render_SetCooperativeLevel(_this, hwnd, 0);
     *(_DWORD *)(v2 + 262220) = 1;
-    CD3DRenderer_CreateSurface(_this);
-    CD3DRenderer_CreateClipper(_this, hwnd);
-    CD3DRenderer_CreateWndSurface(_this);
+    Render_CreateSurface(_this);
+    Render_CreateClipper(_this, hwnd);
+    Render_CreateWndSurface(_this);
     *(_DWORD *)(v2 + 262192) = 0;
     *(_DWORD *)(v2 + 24) = 0;
   }
   *(_DWORD *)(v2 + 262316) = 32;
-  CD3DRenderer_GetPrimarySurfacePixelFormat(_this, v2 + 262316);
-  CD3DRenderer_sub_4A0EB6(_this);
-  CD3DRenderer_sub_49EBF1(_this);
+  Render_GetPrimarySurfacePixelFormat(_this, v2 + 262316);
+  Render_sub_4A0EB6(_this);
+  Render_sub_49EBF1(_this);
   if ( !*(_DWORD *)(v2 + 262280) )
   {
     _this->pfn_1036C0 = nullsub_1;
@@ -1500,7 +1480,7 @@ LABEL_47:
 }
 
 //----- (004A0E97) --------------------------------------------------------
-void CD3DRenderer_sub_4A0E97(struct CD3DRenderer *_this, int a2, int a3, int a4, int a5)
+void Render_sub_4A0E97(struct Render *_this, int a2, int a3, int a4, int a5)
 {
  _this->dword_00001C = a2;
  _this->dword_000020 = a3;
@@ -1509,7 +1489,7 @@ void CD3DRenderer_sub_4A0E97(struct CD3DRenderer *_this, int a2, int a3, int a4,
 }
 
 //----- (MM7.exe::0049FDBF) --------------------------------------------------------
-void CD3DRenderer_Initialize_ZBuffer(struct CD3DRenderer *_this)
+void Render_Initialize_ZBuffer(struct Render *_this)
 {
  if (!_this->pDefaultZBuffer)
  {
@@ -1520,7 +1500,7 @@ void CD3DRenderer_Initialize_ZBuffer(struct CD3DRenderer *_this)
 }
 
 //----- (MM7.exe::004A10E4) --------------------------------------------------------
-int CD3DRenderer_CreateDirectDraw(struct CD3DRenderer *_this)
+int Render_CreateDirectDraw(struct Render *_this)
 {
  HRESULT      hr;
  IDirectDraw *pdd;
@@ -1544,7 +1524,7 @@ int CD3DRenderer_CreateDirectDraw(struct CD3DRenderer *_this)
 }
 
 //----- (MM7.exe::004A1169) --------------------------------------------------------
-void *CD3DRenderer_SetCooperativeLevel(struct CD3DRenderer *_this, HWND hWnd, int bFullscreen)
+void *Render_SetCooperativeLevel(struct Render *_this, HWND hWnd, int bFullscreen)
 {
  IDirectDraw *pdd;
  HRESULT      hr;
@@ -1569,7 +1549,7 @@ void *CD3DRenderer_SetCooperativeLevel(struct CD3DRenderer *_this, HWND hWnd, in
 }
 
 //----- (MM7.exe::004A11C6) --------------------------------------------------------
-void *CD3DRenderer_SetDisplayMode(struct CD3DRenderer *_this, unsigned int uWidth, unsigned int uHeight, unsigned int uBPP)
+void *Render_SetDisplayMode(struct Render *_this, unsigned int uWidth, unsigned int uHeight, unsigned int uBPP)
 {
  IDirectDraw *pdd;
  HRESULT      hr;
@@ -1592,7 +1572,7 @@ void *CD3DRenderer_SetDisplayMode(struct CD3DRenderer *_this, unsigned int uWidt
 }
 
 //----- (M7.exe::004A139A) --------------------------------------------------------
-void *CD3DRenderer_CreatePrimarySurface(struct CD3DRenderer *_this)
+void *Render_CreatePrimarySurface(struct Render *_this)
 {
   HRESULT hr;
   void           *result; // eax@5
@@ -1631,7 +1611,7 @@ void *CD3DRenderer_CreatePrimarySurface(struct CD3DRenderer *_this)
 }
 
 //----- (MM7.exe::004A15D8) --------------------------------------------------------
-HRESULT CD3DRenderer_GetPrimarySurfacePixelFormat(struct CD3DRenderer *_this, DDPIXELFORMAT *pddpf)
+HRESULT Render_GetPrimarySurfacePixelFormat(struct Render *_this, DDPIXELFORMAT *pddpf)
 {
  IDirectDrawSurface *pdds;
 
@@ -1644,7 +1624,7 @@ HRESULT CD3DRenderer_GetPrimarySurfacePixelFormat(struct CD3DRenderer *_this, DD
 }
 
 //----- (MM7.exe::004A5BB6) --------------------------------------------------------
-void CD3DRenderer_Reset2DClippingRect(struct CD3DRenderer *_this)
+void Render_Reset2DClippingRect(struct Render *_this)
 {
  _this->uClipRectY = 0;
  _this->uClipRectX = 0;
@@ -1654,7 +1634,7 @@ void CD3DRenderer_Reset2DClippingRect(struct CD3DRenderer *_this)
 }
 
 //----- (004A0EB6) --------------------------------------------------------
-void *CD3DRenderer_sub_4A0EB6(struct CD3DRenderer *_this)
+void *Render_sub_4A0EB6(struct Render *_this)
 {
   void *result; // eax@1
   int v2; // edx@1
@@ -1708,7 +1688,7 @@ void *CD3DRenderer_sub_4A0EB6(struct CD3DRenderer *_this)
 }
 
 //----- (MM7.exe::0049EBF1) --------------------------------------------------------
-int CD3DRenderer_sub_49EBF1(struct CD3DRenderer *_this)
+int Render_sub_49EBF1(struct Render *_this)
 {
   int result; // eax@1
   signed int v2; // edx@1
@@ -1770,7 +1750,7 @@ int CD3DRenderer_sub_49EBF1(struct CD3DRenderer *_this)
 
 
 //----- (MM7.exe::0049ED18) --------------------------------------------------------
-int CD3DRenderer_ClearBackBufferAndPresent(struct CD3DRenderer *_this)
+int Render_ClearBackBufferAndPresent(struct Render *_this)
 {
  IDirectDrawSurface *v1; // eax@3
  HRESULT hr;
@@ -1794,27 +1774,27 @@ int CD3DRenderer_ClearBackBufferAndPresent(struct CD3DRenderer *_this)
  ddblt.dwFillColor = 0x00000000;
  
  hr = (pD3DRenderer->pdds4_BackBuffer->lpVtbl->Blt)(pD3DRenderer->pdds4_BackBuffer, &rcDst, 0, 0, DDBLT_COLORFILL, &ddblt);
- return CD3DRenderer_Present(pD3DRenderer);
+ return Render_Present(pD3DRenderer);
 }
 
 //----- (MM7.exe::0049FC37) --------------------------------------------------------
-int CD3DRenderer_Present(struct CD3DRenderer *_this)
+int Render_Present(struct Render *_this)
 {
   struct tagRECT Rect; // [sp+8h] [bp-28h]@11
   struct tagRECT rc;
   struct tagPOINT Point; // [sp+28h] [bp-8h]@11
 
 
- if (pD3DRenderer->pDirect3DDevice3 && !_this->dword_040110)
+ if (pD3DRenderer->pRendererD3D3 && !_this->dword_040110)
    return false;
 
  (_this->pfn_1036C0)();
 
- if (_this->pDirect3DDevice3)
+ if (_this->pRendererD3D3)
  {
   if (dword_720010)
     sub_46BAEC(dword_720010);
-  sub_49E54D(_this->pDirect3DDevice3, 0);
+  sub_49E54D(_this->pRendererD3D3, 0);
   if (dword_720010)
     sub_46BB0A(dword_720010);
  }
@@ -1825,7 +1805,7 @@ int CD3DRenderer_Present(struct CD3DRenderer *_this)
   rc.right = 640;
   rc.bottom = 480;
 
-  CD3DRenderer_RestoreFrontBuffer(_this);
+  Render_RestoreFrontBuffer(_this);
   if (_this->dword_040058)
   {
    GetClientRect(_this->hWnd, &Rect);
@@ -1833,15 +1813,15 @@ int CD3DRenderer_Present(struct CD3DRenderer *_this)
    Point.x = 0;
    ClientToScreen(_this->hWnd, &Point);
    OffsetRect(&Rect, Point.x, Point.y);
-   CD3DRenderer_PresentRegion(_this, &Rect, &rc);
+   Render_PresentRegion(_this, &Rect, &rc);
   }
-  else CD3DRenderer_PresentBackBuffer(_this, 0, 0, &rc);
+  else Render_PresentBackBuffer(_this, 0, 0, &rc);
  }
  return true;
 }
 
 //----- (004A17C7) --------------------------------------------------------
-void *CD3DRenderer_UnlockFrontBuffer(struct CD3DRenderer *_this)
+void *Render_UnlockFrontBuffer(struct Render *_this)
 {
  IDirectDrawSurface *v1;
  HRESULT             hr;
@@ -1860,7 +1840,7 @@ void *CD3DRenderer_UnlockFrontBuffer(struct CD3DRenderer *_this)
 }
 
 //----- (MM7.exe::004A194A) --------------------------------------------------------
-HRESULT CD3DRenderer_PresentBackBuffer(struct CD3DRenderer *_this, int a2, int a3, RECT *pRect)
+HRESULT Render_PresentBackBuffer(struct Render *_this, int a2, int a3, RECT *pRect)
 {
  IDirectDrawSurface *v4,
                     *v6;
@@ -1881,7 +1861,7 @@ HRESULT CD3DRenderer_PresentBackBuffer(struct CD3DRenderer *_this, int a2, int a
 }
 
 //----- (MM7.exe::004A1814) --------------------------------------------------------
-HRESULT CD3DRenderer_RestoreFrontBuffer(struct CD3DRenderer *_this)
+HRESULT Render_RestoreFrontBuffer(struct Render *_this)
 {
  IDirectDrawSurface *v1;
  HRESULT             hr;
@@ -2096,7 +2076,7 @@ int __stdcall LockSurface_DDraw4(struct IDirectDrawSurface4 *pdds4, DDSURFACEDES
    return false;
   }
 
-  if (pD3DRenderer->pDirect3DDevice3)
+  if (pD3DRenderer->pRendererD3D3)
     sub_4A5190();
   (pD3DRenderer->pdd4->lpVtbl->RestoreAllSurfaces)(pD3DRenderer->pdd4);
   if (dword_720010)
@@ -2479,7 +2459,7 @@ int RGBTexture_ctor(struct RGBTexture *_this)
 
 
 //----- (004A0E80) --------------------------------------------------------
-void CD3DRenderer_ClearZBuffer(struct CD3DRenderer *_this, int a2, int a3)
+void Render_ClearZBuffer(struct Render *_this, int a2, int a3)
 {
   memset(_this->pActiveZBuffer, -65536, 640 * 480 * 4);
 }
@@ -2488,7 +2468,7 @@ void CD3DRenderer_ClearZBuffer(struct CD3DRenderer *_this, int a2, int a3)
 
 
 //----- (004A1EB6) --------------------------------------------------------
-void *sub_4A1EB6(struct CD3DRenderer *_this)
+void *sub_4A1EB6(struct Render *_this)
 {
   int result; // eax@1
   int v2; // esi@1
@@ -2512,12 +2492,12 @@ void *sub_4A1EB6(struct CD3DRenderer *_this)
   result = _this->dword_04010C++;
   if ( !result )
   {
-    v3 = _this->pDirect3DDevice3;
-    if (_this->pDirect3DDevice3)
+    v3 = _this->pRendererD3D3;
+    if (_this->pRendererD3D3)
     {
       sub_49E4FC(v3, 1, result, 1, 1.0);
       dword_F1B418 = 0;
-      (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(_this->pDirect3DDevice3 + 56) + 36))(*(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56));
+      (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(_this->pRendererD3D3 + 56) + 36))(*(_DWORD *)(*(_DWORD *)(v2 + 262280) + 56));
       if ( !sub_44EC20() )
       {
         v16 = &v10;
@@ -2528,7 +2508,7 @@ void *sub_4A1EB6(struct CD3DRenderer *_this)
         v4 = sub_47C370();
       else
         v4 = 0;
-      v5 = *(_DWORD *)(_this->pDirect3DDevice3 + 56);
+      v5 = *(_DWORD *)(_this->pRendererD3D3 + 56);
       v6 = *(_DWORD *)v5;
       if ( v4 & 0xFF000000 )
       {
@@ -2559,7 +2539,7 @@ void *sub_4A1EB6(struct CD3DRenderer *_this)
     }
     else
     {
-      result = CD3DRenderer_LockBackBuffer(_this, &_this->pTargetSurface, &_this->uTargetSurfacePitch);
+      result = Render_LockBackBuffer(_this, &_this->pTargetSurface, &_this->uTargetSurfacePitch);
       if (_this->pTargetSurface)
       {
         result = _this->uTargetSurfacePitch;
@@ -2578,16 +2558,16 @@ void *sub_4A1EB6(struct CD3DRenderer *_this)
 
 //----- (004A1FE1) --------------------------------------------------------
 extern struct CGame *pGame;
-void CD3DRenderer_sub_4A1FE1_MaybeRenderSpecialEffects(struct CD3DRenderer *_this)
+void Render_sub_4A1FE1_MaybeRenderSpecialEffects(struct Render *_this)
 {
  if (_this->dword_04010C-- == 1)
  {
-    if (_this->pDirect3DDevice3)
+    if (_this->pRendererD3D3)
     {
       sub_44EE7C();
       sub_4A1C1E();
       class06_sub_4A8C27(pGame->class06_obj);
-      (*(int (__stdcall **)(_DWORD))(**(_DWORD **)(pD3DRenderer->pDirect3DDevice3 + 56) + 40))(*(_DWORD *)(pD3DRenderer->pDirect3DDevice3 + 56));
+      (*(int (__stdcall **)(_DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 40))(*(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56));
     }
     else
       class06_sub_4A8C27(pGame->class06_obj);
@@ -2595,7 +2575,7 @@ void CD3DRenderer_sub_4A1FE1_MaybeRenderSpecialEffects(struct CD3DRenderer *_thi
 }
 
 //----- (004A121C) --------------------------------------------------------
-void *CD3DRenderer_CreateSurface(struct CD3DRenderer *_this)
+void *Render_CreateSurface(struct Render *_this)
 {
  char    local_0[128];
  HRESULT hr; 
@@ -2611,7 +2591,7 @@ void *CD3DRenderer_CreateSurface(struct CD3DRenderer *_this)
 }
 
 //----- (004A12CD) --------------------------------------------------------
-void *CD3DRenderer_CreateWndSurface(struct CD3DRenderer *_this)
+void *Render_CreateWndSurface(struct Render *_this)
 {
  char    local_0[128];
  HRESULT hr; 
@@ -2630,7 +2610,7 @@ void *CD3DRenderer_CreateWndSurface(struct CD3DRenderer *_this)
 
 //----- (004A14F4) --------------------------------------------------------
 extern IDirectDrawClipper *pDDrawClipper;
-void *CD3DRenderer_CreateClipper(struct CD3DRenderer *_this, HWND hClipWnd)
+void *Render_CreateClipper(struct Render *_this, HWND hClipWnd)
 {
  char    local_0[128];
  HRESULT hr; 
@@ -2646,11 +2626,175 @@ void *CD3DRenderer_CreateClipper(struct CD3DRenderer *_this, HWND hClipWnd)
 }
 
 //----- (004A1884) --------------------------------------------------------
-void *CD3DRenderer_PresentRegion(struct CD3DRenderer *_this, RECT *pDestRect, RECT *pSrcRect)
+void *Render_PresentRegion(struct Render *_this, RECT *pDestRect, RECT *pSrcRect)
 {
  HRESULT hr;
  char    local_0[128];
 
   hr = (pD3DRenderer->pdds4_FrontBuffer->lpVtbl->Blt)(pD3DRenderer->pdds4_FrontBuffer, pDestRect, pD3DRenderer->pdds4_BackBuffer, pSrcRect, DDBLT_WAIT, 0);
   return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", __LINE__, 0);
+}
+
+
+
+bool __stdcall DDrawEnumDisplayModesCallback(DDSURFACEDESC2 *pDDSurfaceDesc, unsigned short *a2)
+{
+ if (*(_DWORD *)((char *)pDDSurfaceDesc + 0x68) | 0x2000 && *(_DWORD *)((char *)pDDSurfaceDesc + 84) == 16 )
+ {
+  a2 = 1;
+    return 0;
+ }
+ else
+   return 1;
+}
+
+//----- (0049D9BC) --------------------------------------------------------
+bool __stdcall DDrawEnumCallback(GUID *pGUID, const char *pDriverDescription, const char *pDriverName, struct RendererD3D3_DeviceDescription *a4)
+{
+
+  size_t v4; // eax@1
+  size_t v5; // eax@1
+  size_t v13; // eax@13
+  int v18; // eax@24
+  int v19; // eax@24
+  DDDEVICEIDENTIFIER ddDeviceId;
+  char v22; // [sp+204h] [bp-2F8h]@13
+  struct
+  {
+   int v23; // [sp+42Ch] [bp-D0h]@16
+   int v24; // [sp+430h] [bp-CCh]@16
+   int v25; // [sp+434h] [bp-C8h]@16
+   int v26; // [sp+438h] [bp-C4h]@16
+   int a_43C[14];
+   int v27; // [sp+474h] [bp-88h]@16
+   int a_478[12];
+  } local_42C;
+
+  DDSCAPS2 ddsCaps2;
+  struct
+  {
+   unsigned char *v30;
+   char *v31; // [sp+4C0h] [bp-3Ch]@19
+  } local_4BC;
+
+   short v33; // [sp+4C8h] [bp-34h]@16
+   
+  struct
+  {
+   char v34[4]; // [sp+4CCh] [bp-30h]@19
+   int dword_4D0;
+   int dword_4D4;
+   int dword_4D8;
+   int dword_4DC;
+
+   char *Dest; // [sp+4E0h] [bp-1Ch]@1
+   char *v36; // [sp+4E4h] [bp-18h]@1
+   char *v37; // [sp+4E8h] [bp-14h]@12
+   GUID *lpGUID; // [sp+4ECh] [bp-10h]@2
+  } local_4CC;
+  
+
+ IDirectDraw  *pDirectDraw;
+ IDirectDraw4 *pDirectDraw4;
+ IDirect3D3   *pDirect3D3;
+ HRESULT       hr;
+ unsigned int  uTotalVideoMem,
+               uFreeVideoMem;
+
+ memset(&local_4CC, 0, 36);
+
+ v4 = strlen(pDriverName);
+ local_4CC.Dest = malloc(v4 + 1);//Dest = (char *)operator new(v4 + 1);
+ strcpy(local_4CC.Dest, pDriverName);
+
+ v5 = strlen(pDriverDescription);
+ local_4CC.v36 = malloc(v5 + 1);//v36 = (char *)operator new(v5 + 1);
+ strcpy(local_4CC.v36, pDriverDescription);
+
+ if (pGUID)
+ {
+  local_4CC.lpGUID = malloc(sizeof(GUID));//lpGUID = (GUID *)operator new(0x10u);
+  memcpy(local_4CC.lpGUID, pGUID, sizeof(GUID));
+ }
+ else
+   local_4CC.lpGUID = 0;
+
+ hr = DirectDrawCreate(pGUID, &pDirectDraw, 0);
+ if (FAILED(hr))
+ {
+  operator_delete(0, local_4CC.Dest);
+  operator_delete(0, local_4CC.v36);
+  if (local_4CC.lpGUID)
+    operator_delete(0, local_4CC.lpGUID);
+ }
+
+ hr = (pDirectDraw->lpVtbl->QueryInterface)(pDirectDraw, &IID_IDirectDraw4, &pDirectDraw4);
+ if (FAILED(hr))
+ {
+  operator_delete(0, local_4CC.Dest);
+  operator_delete(0, local_4CC.v36);
+  if (local_4CC.lpGUID)
+    operator_delete(0, local_4CC.lpGUID);
+
+  (pDirectDraw->lpVtbl->Release)(pDirectDraw);
+  return 1;
+ }
+
+ (pDirectDraw->lpVtbl->Release)(pDirectDraw);
+
+ hr = (pDirectDraw4->lpVtbl->GetDeviceIdentifier)(pDirectDraw4, &ddDeviceId, DDGDI_GETHOSTIDENTIFIER);
+ if (FAILED(hr))
+   local_4CC.v37 = 0;
+ else
+ {
+  v13 = strlen(ddDeviceId.szDescription);
+  local_4CC.v37 = malloc(v13 + 1);//v37 = (char *)operator new(v13 + 1);
+  strcpy(local_4CC.v37, ddDeviceId.szDescription);
+ }
+ 
+ memset(&ddsCaps2, 0, sizeof(DDSCAPS2));
+ //hr = (pDirectDraw4->lpVtvl->GetAvailableVidMem)(pDirectDraw4, &ddsCaps2, &uTotalVideoMem, &uFreeVideoMem);
+ if (FAILED(hr))
+   uTotalVideoMem = 0;
+
+ memset(&local_42C, 0, 0x7Cu);
+      local_42C.v23 = 124;
+      local_42C.v24 = 6;
+      local_42C.v25 = 640;
+      local_42C.v26 = 480;
+      local_42C.v27 = 32;
+      v33 = 0;
+
+ hr = (pDirectDraw4->lpVtbl->EnumDisplayModes)(pDirectDraw4, 0, 0, &v33, DDrawEnumDisplayModesCallback);
+ (pDirectDraw4->lpVtbl->QueryInterface)(pDirectDraw4, &memory_4D8410.IID_IDirect3D3, &pDirect3D3);
+ //if (FAILED(hr) || !v33 || !pDirect3D3)
+ if (FAILED(hr) || !pDirect3D3)
+ {
+  operator_delete(0, local_4CC.Dest);
+  operator_delete(0, local_4CC.v36);
+  if (local_4CC.v37)
+    operator_delete(0, local_4CC.v37);
+  if (local_4CC.lpGUID)
+    operator_delete(0, local_4CC.lpGUID);
+
+  (pDirectDraw4->lpVtbl->Release)(pDirectDraw4);
+  return 1;
+ }
+
+ local_4BC.v30 = a4;
+ local_4BC.v31 = &local_4CC;
+ hr = (pDirect3D3->lpVtbl->EnumDevices)(pDirect3D3, Direct3D3EnumDevicesCallback, &local_4BC);
+
+ operator_delete(0, local_4CC.Dest);
+ operator_delete(0, local_4CC.v36);
+ if (local_4CC.v37)
+   operator_delete(0, local_4CC.v37);
+ if (local_4CC.lpGUID)
+   operator_delete(0, local_4CC.lpGUID);
+
+ (pDirectDraw4->lpVtbl->Release)(pDirectDraw4);
+ (pDirect3D3->lpVtbl->Release)(pDirect3D3);
+
+
+ return 1;
 }
