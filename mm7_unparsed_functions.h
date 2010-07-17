@@ -420,7 +420,7 @@ void __fastcall sub_43CC7C(int a1);
 void __fastcall sub_43E825(int a1);
 char __thiscall sub_43ED6F(void *this);
 char __thiscall sub_43EDB9(void *this);
-char __fastcall sub_43EE15(int a1, int a2, char a3);
+bool __fastcall sub_43EE15(int a1, struct Player *pp, char a3);
 char __fastcall sub_43EE77(signed int a1);
 char __thiscall sub_43EEF3(void *this);
 void __fastcall sub_43EF2B(int a1);

@@ -4889,37 +4889,32 @@ LABEL_11:
 }
 
 //----- (0043EE15) --------------------------------------------------------
-char __fastcall sub_43EE15(int a1, int a2, char a3)
+bool __fastcall sub_43EE15(int a1, struct Player *pp, char a3) // find item in inventory and paperdoll
 {
-  signed int v3; // edi@3
-  int v4; // esi@3
-  signed int v5; // edi@7
-  int v6; // esi@7
+  int v3; 
+  int v5;
+  char *a2 = pp;
 
   if ( !a3 || dword_AD470C != a1 )
   {
     v3 = 0;
-    v4 = a2 + 5500;
-    while ( !*(_DWORD *)v4 || *(_DWORD *)(a2 + 36 * *(_DWORD *)v4 + 496) != a1 )
+    while ( !pp->array_00157C[v3] || pp->array_000214[pp->array_00157C[v3]].uItemID != a1 ) 
     {
       ++v3;
-      v4 += 4;
       if ( v3 >= 126 )
       {
         v5 = 0;
-        v6 = a2 + 6472;
-        while ( !*(_DWORD *)v6 || *(_DWORD *)(a2 + 36 * *(_DWORD *)v6 + 496) != a1 )
+        while ( !pp->array_001948[v5] || pp->array_000214[pp->array_001948[v5]].uItemID != a1 )
         {
           ++v5;
-          v6 += 4;
           if ( v5 >= 16 )
-            return 0;
+            return false;
         }
-        return 1;
+        return true;
       }
     }
   }
-  return 1;
+  return true;
 }
 
 //----- (0043EE77) --------------------------------------------------------
@@ -4955,9 +4950,13 @@ char __fastcall sub_43EE77(signed int a1)
     }
     return 0;
   }
-  if ( !sub_43EE15(604, (int)*(&ptr_A750C4 + a1), 0)
-    || (v3 = *(_DWORD *)(v1 + 6484), !v3)
-    || *(_DWORD *)(v1 + 36 * v3 + 496) != v2 )
+  if ( !sub_43EE15(604, pPlayers[a1], 0))
+    return 0;
+  v1 = pPlayers[a1];
+  v3 = *(_DWORD *)(v1 + 0x1954);
+  if(!v3)
+    return 0;
+  if(*(_DWORD *)(v1 + 36 * v3 + 496) != v2 )
     return 0;
   return 1;
 }
