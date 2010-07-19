@@ -699,7 +699,7 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
 
  pCamera->dword_00004C = v2;
 
- if (bRedraw || pD3DRenderer->pRendererD3D3)
+ if (bRedraw || pD3DRenderer->pRenderD3D3)
  {
   sub_481EB7_ResetStruct8Array();
   struct9_sub_47A59E_ComputeSinCos(pStruct9_global);
@@ -722,34 +722,26 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
  sub_4893C1(pClass51_global);
  sub_438250(pGame->class08_obj);
 
- if (!bRedraw)
- {
-  if (!pD3DRenderer->pRendererD3D3)
-  {
+ if (!bRedraw && !pD3DRenderer->pRenderD3D3)
    sub_479332();
-   goto LABEL_16;
-  }
-  goto LABEL_14;
- }
-
- if (pD3DRenderer->pRendererD3D3)
+ else if (pD3DRenderer->pRenderD3D3)
  {
-LABEL_14:
     sub_479543();
-    RenderBuildings();
-    sub_47F5C6_MessWithTerrainDrawing();
-    goto LABEL_16;
+    //RenderBuildings();
+    //sub_47F5C6_MessWithTerrainDrawing();
+ }
+ else
+ {
+  sub_4789DE();
+  sub_47F5C6_MessWithTerrainDrawing();
+  sub_486F92_MessWithEdgesAndSpans();
+  sub_487355();
  }
 
- sub_4789DE();
- sub_47F5C6_MessWithTerrainDrawing();
- sub_486F92_MessWithEdgesAndSpans();
- sub_487355();
 
-LABEL_16:
  dword_51B6DC = 0;
  dword_519AB4 = 0;
- if (!pD3DRenderer->pRendererD3D3)
+ if (!pD3DRenderer->pRenderD3D3)
  {
   sub_487389_DrawSpansAndAll();
   class08_sub_438240(pGame->class08_obj);
@@ -763,7 +755,7 @@ LABEL_16:
     class51_sub_47EF60(pClass51_global, v5, v4, 1);
   }
   pGame->dword_000E24 &= 0xFFFFFFFE;
-  if ( pD3DRenderer->pRendererD3D3 && pD3DRenderer->dword_103660)
+  if ( pD3DRenderer->pRenderD3D3 && pD3DRenderer->bUsingSpecular)
     pGame->class04_obj->dword_3CBC34 |= 1;
   else
     pGame->class04_obj->dword_3CBC34 &= 0xFFFFFFFE;
@@ -979,7 +971,7 @@ LABEL_53:
       {
         if ( pAudioPlayer->hAILRedbook )
         {
-          v12 = (signed __int64)(aMusicVolumeLevels[byte_6BE371] * 64.0);
+          v12 = (signed __int64)(aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
           AudioPlayer_SetVolume(pAudioPlayer, SHIDWORD(v12), v12);
           AIL_redbook_stop(pAudioPlayer->hAILRedbook);
           AIL_redbook_track_info(pAudioPlayer->hAILRedbook, 14, &v16, &hInstance);
@@ -1502,17 +1494,18 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   Render_InitWindowed(pD3DRenderer, hWnd_global);
  }
 
- byte_6BE36F = ReadWindowsRegistry("soundflag", 9);
- if (byte_6BE36F < 0 || byte_6BE36F > 9)
-   byte_6BE36F = 9;
+ uSoundVolumeMultiplier = ReadWindowsRegistry("soundflag", 9);
+ if (uSoundVolumeMultiplier < 0 || uSoundVolumeMultiplier > 9)
+   uSoundVolumeMultiplier = 9;
+ 
+ uVoicesVolumeMultiplier = ReadWindowsRegistry("CharVoices", 9);
+ if (uVoicesVolumeMultiplier < 0 || uVoicesVolumeMultiplier > 9)
+   uVoicesVolumeMultiplier = 9;
 
- byte_6BE371 = ReadWindowsRegistry("musicflag", 9);
- if (byte_6BE371 < 0 || byte_6BE371 > 9)
-   byte_6BE371 = 9;
+ uMusicVolimeMultiplier = ReadWindowsRegistry("musicflag", 9);
+ if (uMusicVolimeMultiplier < 0 || uMusicVolimeMultiplier > 9)
+   uMusicVolimeMultiplier = 9;
 
- byte_6BE370 = ReadWindowsRegistry("CharVoices", 9);
- if (byte_6BE370 < 0 || byte_6BE370 > 9)
-   byte_6BE370 = 9;
 
  dword_6BE374 = ReadWindowsRegistry("WalkSound", 1) != 0;
  dword_6BE378 = ReadWindowsRegistry("ShowDamage", 1) != 0;
@@ -2286,7 +2279,7 @@ LABEL_173:
       }
       v98.v99 = abs(pCamera->uMapGridCellZ - dword_76D9C8[i]);
       v98.v100 = abs(pCamera->uMapGridCellX - dword_76DBC8[i]);
-      if ( pD3DRenderer->pRendererD3D3 )
+      if ( pD3DRenderer->pRenderD3D3 )
         sub_48034E(v107, 0, &v98);
       else
         sub_481212(v107, 0, &v98);
@@ -2339,7 +2332,7 @@ LABEL_173:
       }
       v98.v99 = abs(pCamera->uMapGridCellX - dword_76DBC8[i]);
       v98.v100 = abs(pCamera->uMapGridCellZ - dword_76D9C8[i]);
-      if ( pD3DRenderer->pRendererD3D3 )
+      if ( pD3DRenderer->pRenderD3D3 )
         sub_48034E(v107, 1, &v98);
       else
         sub_481212(v107, 1, &v98);
@@ -2456,12 +2449,12 @@ void __fastcall MoviePlayerLoop(const char *pMovieName, int a2, int a3, int a4)
  pVideoPlayer->dword_000058 = 1;
  pVideoPlayer->dword_000044 = v4;
 
- if (pD3DRenderer->pRendererD3D3)
-   sub_49FBCD(pD3DRenderer, 0);
+ if (pD3DRenderer->pRenderD3D3)
+   Render_ClearTarget(pD3DRenderer, 0);
  else
  {
   Render_BeginScene(pD3DRenderer);
-  sub_49FBCD(pD3DRenderer, 0);
+  Render_ClearTarget(pD3DRenderer, 0);
   Render_EndScene(pD3DRenderer);
  }
  dword_4E28F8 = 16;
@@ -3028,17 +3021,17 @@ void __cdecl sub_47A815()
   else
     class02_sub_48BEEF(pGame->class02_obj);
 
-  if ( pD3DRenderer->pRendererD3D3 )
+  if ( pD3DRenderer->pRenderD3D3 )
   {
     if ( *(_DWORD *)(v0 + 52000) )
     {
-      (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 152))(
-        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+      (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 152))(
+        *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
         0,
         0);
-      (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56)
+      (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56)
                                                                                     + 112))(
-                 *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+                 *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
                  2,
                  452,
                  &pGame->class02_obj->dword_000CB20[1],
@@ -3258,7 +3251,7 @@ LABEL_238:
         struct_505898.dword_5058A0 = 8;
         return DefWindowProcA(hWnd, Msg, wParam, v5);
       case WM_MBUTTONDOWN:
-        if (pD3DRenderer->pRendererD3D3)
+        if (pD3DRenderer->pRenderD3D3)
         {
           if (pGame && !dword_720010)
           {
@@ -3731,7 +3724,7 @@ LABEL_184:
       }
       else
       {
-        if ( !pD3DRenderer->pRendererD3D3 && !sub_4A169E(pD3DRenderer) || !sub_4A16A5() )
+        if ( !pD3DRenderer->pRenderD3D3 && !sub_4A169E(pD3DRenderer) || !sub_4A16A5() )
           goto LABEL_20;
       }
       Render_Present(pD3DRenderer);
@@ -4219,9 +4212,9 @@ void sub_44103C()
 
  if (CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer))
  {
-  if (pD3DRenderer->pRendererD3D3)
+  if (pD3DRenderer->pRenderD3D3)
     goto LABEL_22;
-  sub_4A1EB6(pD3DRenderer);
+  Render_BeginScene2(pD3DRenderer);
   sub_469E3B(pGame->pClass03);
  }
  else
@@ -4241,14 +4234,14 @@ void sub_44103C()
   pParty_global->sOldRotationX = pParty_global->sRotationX;
   pParty_global->sOldEyelevel = pParty_global->uEyelevel;
 
-  sub_4A1EB6(pD3DRenderer);
+  Render_BeginScene2(pD3DRenderer);
 
-  if (!pD3DRenderer->pRendererD3D3)
+  if (!pD3DRenderer->pRenderD3D3)
     sub_469E3B(pGame->pClass03);
 
   if (!sub_4226C2() || struct_576FE8.dword_000048 == 1)
   {
-   if (pD3DRenderer->pRendererD3D3)
+   if (pD3DRenderer->pRenderD3D3)
    {
     v2 = (double)((pClass24_global2->dword_000024 >> 2) & 0x1F) * 0.03225806355476379 * 6.0;
     v3 = v2 + 6.755399441055744e15;
@@ -4264,22 +4257,23 @@ void sub_44103C()
         if ( dword_6BE360 == 2 )
           sub_441CFF();
       }
-      if ( pD3DRenderer->pRendererD3D3 )
+      if ( pD3DRenderer->pRenderD3D3 )
       {
         sub_49C304(pClass58_global, 0, (unsigned int)pD3DRenderer);
-        if ( pD3DRenderer->pRendererD3D3 )
-          sub_45D73F(2);
+        if ( pD3DRenderer->pRenderD3D3 )
+          sub_45D73F(pGame->class04_obj, 2);
       }
     }
   }
 
 
-  Render_sub_4A1FE1_MaybeRenderSpecialEffects(pD3DRenderer);
+ runtime_warning(d3d: to fix);
+ //Render_sub_4A1FE1_MaybeRenderSpecialEffects(pD3DRenderer);
 
 LABEL_22:
  Render_BeginScene(pD3DRenderer);
  Render_Set2DClippingRect(pD3DRenderer, 0, 0, 640, 480);
- if (pD3DRenderer->pRendererD3D3)
+ if (pD3DRenderer->pRenderD3D3)
    sub_469E3B(pGame->pClass03);
  if (dword_5E5144)
    struct_576FE8.dword_000044 = 1;
@@ -4304,7 +4298,7 @@ LABEL_22:
     {
       if ( !sub_4226C2() )
       {
-        if ( pD3DRenderer->pRendererD3D3)
+        if ( pD3DRenderer->pRenderD3D3)
           sub_4A6D87(pD3DRenderer,
             0,
             class28_global.dword_000010,
@@ -7412,7 +7406,7 @@ void __cdecl sub_47BACF()
       if ( v4 != -1 )
       {
         v8 = *((_WORD *)v1 + 1);
-        if ( pD3DRenderer->pRendererD3D3 )
+        if ( pD3DRenderer->pRenderD3D3 )
         {
           v24 = v2;
           v25 = v3;
@@ -13942,13 +13936,13 @@ int sub_49FE05(int result, struct Render *pD3DRenderer)
   unsigned int *v14; // esi@29
 
  v3 = pD3DRenderer;
- if (pD3DRenderer->pRendererD3D3)
+ if (pD3DRenderer->pRenderD3D3)
  {
   if (pD3DRenderer->dword_040110)
   {
-   sub_49E4FC(pD3DRenderer->pRendererD3D3, 1, 0, 0, 1.0);
-   sub_49E54D(pD3DRenderer->pRendererD3D3, 0);
-   result = sub_49E4FC(pD3DRenderer->pRendererD3D3, 1, 0, 0, 1.0);
+   RenderD3D3_ClearTarget(pD3DRenderer->pRenderD3D3, 1, 0, 0, 1.0);
+   RenderD3D3_Present(pD3DRenderer->pRenderD3D3, 0);
+   RenderD3D3_ClearTarget(pD3DRenderer->pRenderD3D3, 1, 0, 0, 1.0);
   }
 
     *(_DWORD *)(v3 + 262296) = 0;
@@ -13958,7 +13952,7 @@ int sub_49FE05(int result, struct Render *pD3DRenderer)
     *(_DWORD *)(v3 + 262284) = 0;
     if ( !v4 )
     {
-      result = operator_delete(result, *(_DWORD *)(v3 + 262376));
+      operator_delete(0, *(_DWORD *)(v3 + 262376));
       *(_DWORD *)(v3 + 262380) = 0;
       *(_DWORD *)(v3 + 262376) = 0;
     }
@@ -13966,7 +13960,7 @@ int sub_49FE05(int result, struct Render *pD3DRenderer)
     if ( v5 )
     {
       v6 = sub_49DC90(*(_DWORD *)(v3 + 262280));
-      result = operator_delete(v6, v5);
+      operator_delete(0, v5);
     }
     *(_DWORD *)(v3 + 262280) = 0;
   }
@@ -13974,9 +13968,8 @@ int sub_49FE05(int result, struct Render *pD3DRenderer)
  {
   if (dword_4E800C == 1)
   {
-   result = pD3DRenderer->pdd2;
-   if (!result)
-     return result;
+   if (!pD3DRenderer->pdd2)
+     return 0;
 
       (*(void (__stdcall **)(int, _DWORD, signed int))(*(_DWORD *)result + 80))(result, *(_DWORD *)(v3 + 262224), 8);
       (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(v3 + 262300) + 40))(*(_DWORD *)(v3 + 262300));
@@ -14007,9 +14000,8 @@ int sub_49FE05(int result, struct Render *pD3DRenderer)
     }
     else
     {
-     result = pD3DRenderer->pdd4;
-     if ( !result )
-       return result;
+     if (!pD3DRenderer->pdd4)
+       return 0;
 
       (*(void (__stdcall **)(int, _DWORD, signed int))(*(_DWORD *)result + 80))(result, *(_DWORD *)(v3 + 262224), 1032);
       (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(v3 + 262284) + 40))(*(_DWORD *)(v3 + 262284));
@@ -14042,12 +14034,11 @@ int sub_49FE05(int result, struct Render *pD3DRenderer)
     if ( *(_DWORD *)(v3 + 262380) )
     {
       v14 = (unsigned int *)(v3 + 262376);
-      result = operator_delete(result, *v14);
+      operator_delete(0, *v14);
       *(_DWORD *)v13 = 0;
       *v14 = 0;
     }
   }
-  return result;
 }
 
 //----- (0044C4DE) --------------------------------------------------------

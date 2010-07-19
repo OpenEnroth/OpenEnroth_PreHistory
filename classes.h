@@ -230,20 +230,34 @@ __int64 class25_fn0(struct class25 *_this);
 
 
 
+struct class05_stru0
+{
+ float flt_000000;
+ float flt_000004;
+ float flt_000008;
+ int   unk_00000C[8];
+ float flt_00002C;
+};
+//sizeof == 30
+
 //class05
 struct class05
 {
- int            dword_000000;
- struct class25 class25_obj;     // struct @ 000004
- float          flt_00200C[12];
- float          flt_00203C[12];
- float          flt_00206C[12];
- float          flt_00209C[12];
- int            dword_0020CC;
+ int                  dword_000000;
+ struct class25       class25_obj;    // struct @ 000004
+ struct class05_stru0 struct_00200C;
+ struct class05_stru0 struct_00203C;
+ struct class05_stru0 struct_00206C;
+ struct class05_stru0 struct_00209C;
+ int                  dword_0020CC;
 };
 //sizeof = 0020D0
 //int __thiscall sub_4C04AF(int this);
-void *class05_ctor(struct class05 *_this);
+void class05_ctor(struct class05 *_this);
+//int __thiscall sub_4C1A02(int this);
+void class05_sub_4C1A02(struct class05 *_this);
+//char __thiscall sub_4C0646(int this, float a2, float a3, float a4, int a5, int a6);
+bool class05_sub_4C0646(struct class05 *_this, float a2, float fMouseX, float fMouseY, int a5, int a6);
 
 
 struct class06_stru0
@@ -662,6 +676,22 @@ struct LODFileHeader
 };
 //sizeof == 100
 
+
+struct HardwareSprite
+{
+ unsigned char *pSpriteName; // dword @ 000000
+ int dword_000004;
+ struct IDirectDrawSurface4 *pTextureSurface; // dword @ 000008
+ struct IDirect3DTexture2   *pTexture;        // dword @ 00000C
+ int dword_000010;
+ int dword_000014;
+ int dword_000018;
+ int dword_00001C;
+ int dword_000020;
+ int dword_000024;
+};
+//sizeof ==  28
+
 //LODFile
 struct LODFile
 {
@@ -692,25 +722,25 @@ struct LODFile
  int   dword_00ECA4;
  int   dword_00ECA8;
  int   dword_00ECAC;
- unsigned char *pHardwareSprites; // dword @ 00ECB0    1500 structs 40 bytes long, maybe only for pLODFile_Sprites_LOD
+ struct HardwareSprite *pHardwareSprites; // dword @ 00ECB0    1500 structs 40 bytes long, maybe only for pLODFile_Sprites_LOD
 
  char byte_00ECB4[0x2EC8];
 
  unsigned int uNumLoadedFiles; // dword @ 011B7C
- int   dword_011B80;
- int   dword_011B84;
- int   dword_011B88;
- int   dword_011B8C;
- int   dword_011B90;
- int   dword_011B94;
- int   dword_011B98;
- int   dword_011B9C;
- int   dword_011BA0;
- int   dword_011BA4;
- int   dword_011BA8;
- int   dword_011BAC;
- int   dword_011BB0;
- int   dword_011BB4;
+ int     dword_011B80;
+ int     dword_011B84;
+ int     dword_011B88;
+ int     dword_011B8C;
+ int     dword_011B90;
+ int     dword_011B94;
+ int     dword_011B98;
+ int     dword_011B9C;
+ int     dword_011BA0;
+ int     dword_011BA4;
+ int     dword_011BA8;
+ struct IDirectDrawSurface4 **pHardwareSurfaces; // dword @ 011BAC   1000 of them
+ struct IDirect3DTexture2   **pHardwareTextures; // dword @ 011BB0   1000
+ void  **dword_011BB4;          //                  250
 };
 //sizeof = 011BB8
 

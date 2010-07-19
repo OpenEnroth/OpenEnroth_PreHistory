@@ -146,7 +146,7 @@ void AudioPlayer_sub_4AA306(struct AudioPlayer *_this, int a2, signed int a3, in
   v99 = _this;
   v92 = 0.0;
   LODWORD(v97) = 10000;
-  if ( v10 || !byte_6BE36F || !_this->hDigDriver || !a2 )
+  if ( v10 || !uSoundVolumeMultiplier || !_this->hDigDriver || !a2 )
     return;
   v11 = 0;
   if ( pSoundList->uNumSounds <= 0 )
@@ -812,11 +812,11 @@ int AudioPlayer_Initialize(struct AudioPlayer *_this, HWND hWnd)
 
  pAudioPlayer->dword_000218 = AIL_redbook_volume(pAudioPlayer->hAILRedbook);
 
- AudioPlayer_sub_4AA214(pAudioPlayer, 128.0 * aMusicVolumeLevels[byte_6BE36F]);
+ AudioPlayer_sub_4AA214(pAudioPlayer, 128.0 * aMusicVolumeLevels[uSoundVolumeMultiplier]);
  if (pAudioPlayer->dword_00029C)
  {
   if (pAudioPlayer->hAILRedbook)
-    AIL_redbook_set_volume(pAudioPlayer->hAILRedbook, 64.0 * aMusicVolumeLevels[byte_6BE371]);
+    AIL_redbook_set_volume(pAudioPlayer->hAILRedbook, 64.0 * aMusicVolumeLevels[uMusicVolimeMultiplier]);
  }
  AudioPlayer_LoadSoundHeaders(_this);
 
@@ -1396,7 +1396,7 @@ LABEL_21:
               v68 = v58 - (double)pParty_global->sPartyPosX;
               *(float *)&v67 = v59 - (double)pParty_global->sPartyPosY;
               v20 = v60 - (double)pParty_global->sPartyPosZ;
-              if ( pD3DRenderer->pRendererD3D3 )
+              if ( pD3DRenderer->pRenderD3D3 )
               {
                 v22 = *(float *)&v67 * v66 + v68 * v65;
                 v21 = v68 * v66 - *(float *)&v67 * v65;
@@ -1414,7 +1414,7 @@ LABEL_21:
             {
               v68 = v58 - (double)pParty_global->sPartyPosX;
               *(float *)&v67 = v59 - (double)pParty_global->sPartyPosY;
-              if ( pD3DRenderer->pRendererD3D3 )
+              if ( pD3DRenderer->pRenderD3D3 )
               {
                 v61 = *(float *)&v67 * v66 + v68 * v65;
                 v23 = v68 * v66 - *(float *)&v67 * v65;

@@ -8,7 +8,7 @@
 
 int __cdecl CheckIfDeviceSupportsGammaControl();
 double __stdcall sub_44F377(DDGAMMARAMP *pddGammaRamp);
-int __stdcall LockSurface_DDraw4(struct IDirectDrawSurface4 *, DDSURFACEDESC2 *, unsigned int uLockFlags);
+bool __stdcall LockSurface_DDraw4(struct IDirectDrawSurface4 *, DDSURFACEDESC2 *, unsigned int uLockFlags);
 int __stdcall LockSurface_DDraw2(struct IDirectDrawSurface2 *, DDSURFACEDESC *, unsigned int uLockFlags);
 void *__stdcall BltToFrontBuffer(RECT *pDestRect, IDirectDrawSurface *pddsSrc, RECT *pSrcRect, unsigned int uFlags);
 
@@ -24,8 +24,8 @@ struct Render_HWLContainer
  int   dword_000004;
  int   dword_000008;
  int   uNumElements;
- unsigned char *array_000010[50000];
- int   array_030D50[50000];
+ unsigned char *pSriteNames[50000];        // dword[50000] @ 000010
+ unsigned int   pSpriteFileOffsets[50000]; // dword[50000] @ 030D50
  int   dword_061A90;
  int   dword_061A94;
 };
@@ -34,6 +34,31 @@ struct Render_HWLContainer
 void Render_HWLContainer_ctor(struct Render_HWLContainer *_this);
 //signed int __thiscall sub_45237F(void *this, const char *Filename);
 int Render_HWLContainer_LoadHWLHeaders(struct Render_HWLContainer *_this, const char *pFilename);
+//void *__thiscall sub_4524D8(void *this, int a2, int a3);
+struct Render_HWLBitmap *Render_LoadHWLTexture(struct Render_HWLContainer *_this, unsigned char *a2, int a3);
+
+
+struct Render_HWLBitmap
+{
+ int dword_000000;
+ int dword_000004;
+ int dword_000008;
+ int dword_00000C;
+ int dword_000010;
+ int dword_000014;
+ int dword_000018;
+ int dword_00001C;
+ int dword_000020;
+ int dword_000024;
+ unsigned int uWidth;  // dword @ 000028
+ unsigned int uHeight; // dword @ 00002C
+ int dword_000030;
+ int dword_000034;
+ unsigned short *pPixels;  // dword @ 000038
+
+ unsigned int *pTruecolorPixels; // new
+};
+//sizeof == 3C
 
 
 
@@ -65,14 +90,14 @@ struct Render
  int                          dword_040054;
  int                          dword_040058;       //maybe windowed flag
  int                          dword_04005C[11];   // for struct align ?
- struct RendererD3D3         *pRendererD3D3;      // dword @ 040088
+ struct RenderD3D3           *pRenderD3D3;        // dword @ 040088
  struct IDirectDraw4         *pdd4;               // ptr   @ 04008C
  struct IDirectDrawSurface4  *pdds4_FrontBuffer;  // ptr   @ 040090
  struct IDirectDrawSurface4  *pdds4_BackBuffer;   // ptr   @ 040094
  int                          dword_040098;
- struct IDirectDraw2         *pdd2;               // ptr @ 04009C
- struct IDirectDrawSurface2  *pdds2_FrontBuffer;  // ptr @ 0400A0
- struct IDirectDrawSurface2  *pdds2_BackBuffer;   // ptr @ 0400A4
+ struct IDirectDraw2         *pdd2;               // ptr   @ 04009C
+ struct IDirectDrawSurface2  *pdds2_FrontBuffer;  // ptr   @ 0400A0
+ struct IDirectDrawSurface2  *pdds2_BackBuffer;   // ptr   @ 0400A4
  int                          dword_0400A8;
  DDPIXELFORMAT                ddpfPrimarySurface; // struct[32] @ 0400AC
 
@@ -83,8 +108,7 @@ struct Render
  unsigned int                uTargetGMask;       // dword @ 0400DC
  unsigned int                uTargetBMask;       // dword @ 0400E0
  unsigned int                bSceneBegun;        // dword @ 0400E4
- int                         dword_0400E8;
-
+ int                         ptr_0400E8;
  unsigned int               *pTargetSurface;      // ptr   @ 0400EC
  unsigned int                uTargetSurfacePitch; // dword @ 0400F0
  unsigned int                uClipRectY;          // dword @ 0400F4
@@ -96,21 +120,31 @@ struct Render
  int                         dword_04010C;
  int                         dword_040110;
 
- struct Render_HWLContainer struct_040114;
- struct Render_HWLContainer struct_0A1BAC;
+ struct Render_HWLContainer struct_040114;  // d3dbitmap
+ struct Render_HWLContainer struct_0A1BAC;  // d3dsprite
 
- unsigned int                bUseColoredLights; // dword @ 103644
- int                         dword_103648;
+ unsigned int                bUseColoredLights;               // dword @ 103644
+ unsigned int                bRequiredTextureStagesAvailable; // dword @ 103648
  int                         dword_10364C;
- unsigned int                uLevelOfDetail;    // dword @ 103650
-
- int                         dword_103660;
+ unsigned int                uLevelOfDetail;       // dword @ 103650
+ unsigned int                uMaxDeviceTextureDim; // dword @ 103654
+ unsigned int                uMinDeviceTextureDim; // dword @ 103658
+ int                         dword_10365C;
+ unsigned int                bUsingSpecular;       // dword @ 103660
 
  char                        byte_103668[4];
 
+ struct IDirectDrawSurface4 *ptr_1036B0;
+ struct IDirect3DTexture2   *ptr_1036B4;
  int                         dword_1036B8;
  int                         dword_1036BC;
  int               (__cdecl *pfn_1036C0)();
+ 
+ int dword_129830;
+
+ int dword_129838;  // dst pitch
+ int dword_12983C;  // dst buffer
+ int dword_129840;  // src buffer
 };
 //int __thiscall sub_49E992(int this)
 void Render_ctor(struct Render *_this);
@@ -120,6 +154,8 @@ int Render_Initialize(struct Render *_this, HWND hwnd);
 int Render_InitWindowed(struct Render *_this, HWND hwnd);
 //signed int __thiscall sub_49FDBF(int this)
 void Render_Initialize_ZBuffer(struct Render *_this);
+//signed int __thiscall sub_49FFD7(int this);
+bool Render_sub_49FFD7(struct Render *_this);
 //int __thiscall sub_4A10E4(void *this)
 int Render_CreateDirectDraw(struct Render *_this);
 //void *__thiscall sub_4A1169(int this, int a2, char a3)
@@ -145,7 +181,7 @@ HRESULT Render_PresentBackBuffer(struct Render *_this, int a2, int a3, RECT *pRe
 //char __thiscall sub_4A51CB(int this)
 unsigned int Render_BeginScene(struct Render *_this);
 //int __thiscall sub_49FBCD(int this, int a2);
-int sub_49FBCD(struct Render *_this, int a2);
+void Render_ClearTarget(struct Render *_this, int a2);
 //signed int __thiscall sub_4A1605(void *this, int a2, int a3);
 int Render_LockBackBuffer(struct Render *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth);
 //void *__thiscall sub_4A527D(int this);
@@ -176,7 +212,7 @@ void Render_sub_4A0E97(struct Render *_this, int a2, int a3, int a4, int a5);
 //signed int __thiscall sub_4A0E80(int this, int a2, int a3);
 void Render_ClearZBuffer(struct Render *_this, int a2, int a3);
 //int __thiscall sub_4A1EB6(int this);
-void *sub_4A1EB6(struct Render *_this);
+void Render_BeginScene2(struct Render *_this);
 //int __thiscall sub_4A1FE1(int this);
 void Render_sub_4A1FE1_MaybeRenderSpecialEffects(struct Render *_this);
 //void *__thiscall sub_4A121C(void *this);
@@ -188,10 +224,17 @@ void *Render_CreateClipper(struct Render *_this, HWND ClipWnd);
 void *Render_PresentRegion(struct Render *_this, RECT *pDestRect, RECT *pSrcRect);
 //char __thiscall sub_4A0BEE(int this, int a2, int a3, int a4, int a5, __int16 a6);
 char Render_FillRect(struct Render *_this, int a2, int a3, int a4, int a5, unsigned int uColor);
+//signed int __cdecl sub_49E79F();
+bool Render_ValidateTextureStages();
+//void *__thiscall sub_4A5048(int this, int a2);
+bool Render_MoveHWSpriteToVideoMemory(struct Render *_this, struct HardwareSprite *pSprite);
+//void __thiscall sub_4A2DA3(int this, signed int a2, int a3, int a4);
+void Render_DrawSomeFan(struct Render *_this, unsigned int uNumVertices, int a3, struct IDirect3DTexture2 *pTexture);
 
 void Render_DrawTransparentRect(struct Render *_this, unsigned int uOutX, unsigned int uOutY,
                                       unsigned int uSrcX, unsigned int uSrcY, unsigned int uSrcWidth, unsigned int uSrcHeight,
                                       struct class18 *pTexture);
+bool Render_MoveToGPU(struct Render *_this, unsigned int uWidth, unsigned int uHeight, unsigned int *pData, struct IDirectDrawSurface4 **pOutSurface, struct IDirect3DTexture2 **pOutTexture);
 
 //class15
 struct CGammaController

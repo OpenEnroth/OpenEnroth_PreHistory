@@ -562,7 +562,6 @@ void *__thiscall sub_450DF1(void *Dst, const void *Src, const void *a3);
 unsigned int __thiscall sub_450F55(int this, int a2);
 int __thiscall sub_450FB1(int this, int a2);
 signed int __thiscall sub_451007(int this, int a2, signed int a3, signed int a4, int a5, signed int a6, signed int a7, signed int a8, int a9, int a10, int a11);
-void *__thiscall sub_4524D8(void *this, int a2, int a3);
 signed int __thiscall sub_45271F(int this);
 int __thiscall sub_45281E(void *this, int X, int a3);
 signed int __fastcall sub_452A9E(signed int a1);
@@ -647,11 +646,12 @@ char __stdcall sub_45D0D5(struct struct7 *a1, struct Normal *pNormal, int a3, st
 char __stdcall sub_45D426(int a1, int a2, signed int a3, struct Edge *a4, signed int a5);
 double __stdcall sub_45D643(int a1, float a2);
 char __thiscall sub_45D698(int this, char a2);
-_DWORD __stdcall sub_45D73F(_DWORD); // weak
+void __stdcall sub_45D73F(int, _DWORD); // weak
 char __thiscall sub_45D74F(float this, int a2, int a3);
 char __thiscall sub_45DA56(int this, float a2);
 char __stdcall sub_45DAE8(int a1, int a2, float a3);
 int sub_45DF13(); // weak
+void __fastcall sub_45DCA9(unsigned int a1, const char *a2, int a3, int a4, int a5, int a6);
 void __fastcall sub_45DF48(void *this);
 void *__cdecl sub_45E006();
 int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed int a2);
@@ -1096,21 +1096,14 @@ char __thiscall sub_49C9E3(void *this, int a2, int a3, int a4, int a5);
 void __stdcall sub_49CE9E(int a1, int a2, signed int a3, int a4);
 signed int __stdcall sub_49D379(int a1, int a2);
 int __thiscall sub_49D700(void *this);
-int __stdcall sub_49D717(void *Src, void *Dst); // idb
 int __thiscall sub_49DC90(int this);
-signed int __thiscall sub_49E444(void *this);
-int __thiscall sub_49E4FC(int this, int a2, int a3, int a4, float a5);
-int __thiscall sub_49E54D(int this, char a2);
-signed int __thiscall sub_49E5D4(void *this, void *a2, void *a3, int a4, int a5, int a6, int a7, void *a8);
 bool __thiscall sub_49E756(void *this);
-signed int __cdecl sub_49E79F();
 int __thiscall sub_49EB79(int this);
 int __thiscall sub_49ECC4(int this);
 void __thiscall sub_49EDB6(int this);
 void __thiscall sub_49F1BC(int this, const char *Filename);
 int __thiscall sub_49F5A2(void *this, int a2, int a3, int a4, void *Dst, int a6, int a7);
 FILE *__thiscall sub_49F8B5(void *this, FILE *Filename, int a3, int a4, int a5);
-signed int __thiscall sub_49FFD7(int this);
 char __thiscall sub_4A169E(void *this);
 char __cdecl sub_4A16A5();
 int __thiscall sub_4A184C(void *this);
@@ -1123,7 +1116,6 @@ int __stdcall sub_4A1EA3(int a1);
 int __stdcall sub_4A2031(float, int, int, int, int); // idb
 void __thiscall sub_4A2050(int this, signed int a2, int a3, int a4, int a5);
 // void __userpurge sub_4A26BC(int a1<ecx>, int a2<esi>, int a3, int a4, int a5, int a6, int a7);
-void __thiscall sub_4A2DA3(int this, signed int a2, int a3, int a4);
 void __thiscall sub_4A2ED5(int this, signed int a2, int a3, int a4);
 void __thiscall sub_4A2FC0(int this, signed int a2, int a3, signed int a4, signed int a5, int a6, signed int a7, int a8);
 void __thiscall sub_4A354F(int this, int a2, int a3, int a4, int a5);
@@ -1135,11 +1127,9 @@ signed int __stdcall sub_4A48E4(int a1, int a2, int a3, int a4, signed int a5);
 int __stdcall sub_4A49D0(float, float, float, float, float, float, float, float, int); // idb
 int __stdcall sub_4A4CC9(int a1, int a2);
 signed int __thiscall sub_4A4DE1(int this, int a2, int a3, int a4, int a5);
-void *__thiscall sub_4A5048(int this, int a2);
 void __cdecl sub_4A5190();
 int __thiscall sub_4A52F1(int this, int a2, float a3);
 void __cdecl sub_4A57E9();
-char __cdecl sub_4A597D();
 void __thiscall sub_4A5D33(int this, int a2, int a3, int a4, int a5, int a6);
 void __thiscall sub_4A601E(int this, int a2, int a3, int a4, int a5);
 void __thiscall sub_4A612A(int this, int a2, int a3, int a4, int a5);
@@ -1301,7 +1291,6 @@ int __thiscall sub_4BF91E_GameOverMenu(void *this);
 int __thiscall sub_4C0312(int this, int a2, int a3, int a4, int a5);
 void __thiscall sub_4C05BE(int this);
 char __thiscall sub_4C05CC(int this, int a2, int a3, int a4);
-char __thiscall sub_4C0646(int this, float a2, float a3, float a4, int a5, int a6);
 void __thiscall sub_4C06F8(void *this, float a2, int a3, int a4);
 char __stdcall sub_4C0791(int a1, int a2);
 char __thiscall sub_4C091D(void *this, float a2, int a3);
@@ -1321,7 +1310,6 @@ char __thiscall sub_4C17CF(void *this, char a2, int a3, int a4, int a5, char a6)
 char __thiscall sub_4C1930(void *this, float a2, int a3);
 signed int __thiscall sub_4C1944(void *this, int a2, unsigned int a3, int a4, int a5, int a6);
 void __cdecl loc_4C19F7(); // idb
-int __thiscall sub_4C1A02(int this);
 char __thiscall sub_4C1ABA(void *this, int a2, int a3, int a4);
 signed int __thiscall sub_4C1BAA(void *this, int a2);
 signed int __thiscall sub_4C1BF1(int this);
@@ -1329,7 +1317,7 @@ char __stdcall sub_4C1C0C(int a1, int a2, int a3, int a4, int a5, int a6);
 signed int __stdcall sub_4C1D2B(int a1, signed int a2, __int16 a3, int a4);
 char __stdcall sub_4C1EE5(int a1, int a2, int a3, int a4, int a5, int a6);
 char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
-int __stdcall sub_4C248E(int a1, signed int a2, float a3, float a4);
+int __stdcall sub_4C248E(int a1, float a2, float a3, float a4);
 int __thiscall sub_4C2551(int this, int a2, int a3);
 void *__thiscall sub_4C2591(int this, int a2);
 // int __userpurge sub_4C264A<eax>(int result<eax>, int a2, int a3, int a4);

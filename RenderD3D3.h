@@ -8,6 +8,21 @@
 
 
 bool __stdcall Direct3D3EnumDevicesCallback(GUID *pGUID, const char *pDeviceDescription, const char *pDeviceName, D3DDEVICEDESC *a4, D3DDEVICEDESC *a5, int a6);
+int __stdcall Direct3D3EnumDeviceZBufferFormatsCallback(void *Src, void *Dst); // idb
+
+char __cdecl sub_4A597D();
+
+
+// RenderD3D3_GetDeviceCaps returned flags
+#define CAPS_NO_CAPS 0x01
+#define CAPS_FLAG0   0x02
+#define CAPS_FLAG1   0x04
+#define CAPS_FLAG2   0x08
+#define CAPS_FLAG3   0x10
+#define CAPS_FLAG4   0x20
+#define CAPS_FLAG5   0x40
+#define CAPS_FLAG6   0x80
+
 
 
 
@@ -28,7 +43,7 @@ struct HWLBitmap
 
 
 
-struct RendererD3D3_DeviceDescription
+struct RenderD3D3_DeviceDescription
 {
  unsigned int   bDeviceIsValid;     // dword @ 000000   if device meets required caps
  unsigned char *pDeviceName;        // dword @ 000004
@@ -43,7 +58,7 @@ struct RendererD3D3_DeviceDescription
 };
 //sizeof == 28
 
-struct RendererD3D3
+struct RenderD3D3
 {
  unsigned int               bWindowMode;  // dword @ 000000
  int                        dword_000004;
@@ -52,21 +67,29 @@ struct RendererD3D3
  int                        dword_000010;
  int                        dword_000014;
  int                        dword_000018;
- struct RendererD3D3_DeviceDescription *pAvailableDevices; // dword @ 00001C
- IDirectDraw4                          *pHostInterface;    // dword @ 000020
- int                        dword_000024;
+ struct RenderD3D3_DeviceDescription *pAvailableDevices; // dword @ 00001C
+ IDirectDraw4                        *pHostInterface;    // dword @ 000020
+ IDirect3D3                *pDirect3D3;   // dword @ 000024
  int                        dword_000028;
- int                        dword_00002C;
- int                        dword_000030;
- int                        dword_000034;
- int                        dword_000038;
- int                        dword_00003C;
+ IDirectDrawSurface4       *pBackBuffer; // dword @ 00002C
+ IDirectDrawSurface4       *pFontBuffer; // dword @ 000030
+ IDirectDrawSurface4       *pZBuffer;    // dword @ 000034
+ IDirect3DDevice3          *pDevice;     // dword @ 000038
+ IDirect3DViewport3        *pViewport;   // dword @ 00003C
  int                        dword_000040;
  int                        dword_000044;
  unsigned char              pStatusMessage[48 + array_size_unknown];
 };
 //sizeof = 0148
 //int __thiscall sub_49DC58(int this);
-void RendererD3D3_FindAvailableDevices(struct RendererD3D3 *_this);
+void RenderD3D3_FindAvailableDevices(struct RenderD3D3 *_this);
 //signed int __thiscall sub_49DE14(int this, int a2, int a3, int a4);
-bool RendererD3D3_Initialize(struct RendererD3D3 *_this, unsigned int uDeviceID, unsigned int bWindowMode, HWND hwnd);
+bool RenderD3D3_Initialize(struct RenderD3D3 *_this, unsigned int uDeviceID, unsigned int bWindowMode, HWND hwnd);
+//signed int __thiscall sub_49E444(void *this)
+unsigned int RenderD3D3_GetDeviceCaps(struct RenderD3D3 *_this);
+//signed int __thiscall sub_49E5D4(void *this, void *a2, void *a3, int a4, int a5, int a6, int a7, void *a8);
+bool RenderD3D3_CreateTexture(struct RenderD3D3 *_this, unsigned int uTextureWidth, unsigned int uTextureHeight, IDirectDrawSurface4 **pOutSurface, IDirect3DTexture2 **pOutTexture, bool bAlphaChannel, bool a7, void *a8);
+//int __thiscall RenderD3D3_Present(int this, char a2);
+HRESULT RenderD3D3_Present(struct RenderD3D3 *_this, char a2);
+//int __thiscall sub_49E4FC(int this, int a2, int a3, int a4, float a5);
+void RenderD3D3_ClearTarget(struct RenderD3D3 *_this, int a2, D3DCOLOR uClearColor, int a4, float a5);

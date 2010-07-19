@@ -317,51 +317,31 @@ void CGame_stru0_sub_40E2F6(struct CGame_stru0 *_this, char a2)
 }
 
 //----- (0044EA5E) --------------------------------------------------------
-bool CGame_Pick(struct CGame *_this, float a2, signed int a3, signed int a4, char a5, int a6, int a7)
+bool CGame_Pick(struct CGame *_this, float a2, unsigned int uMouseX, unsigned int uMouseY, char a5, int a6, int a7)
 {
-  int v7; // esi@1
-  int v9; // ecx@10
   char v10; // [sp-4h] [bp-24h]@5
   int v11; // [sp+0h] [bp-20h]@5
-  int v12; // [sp+4h] [bp-1Ch]@5
-  int v13; // [sp+8h] [bp-18h]@5
-  const char *v14; // [sp+Ch] [bp-14h]@5
-  int v15; // [sp+10h] [bp-10h]@5
   char *v16; // [sp+18h] [bp-8h]@5
   int v17; // [sp+1Fh] [bp-1h]@5
 
-  v7 = _this;
-  if (!dword_4E28F8 && pD3DRenderer->pRendererD3D3)
+  if (!dword_4E28F8 && pD3DRenderer->pRenderD3D3)
   {
     if ( !_this->class05_obj)
     {
-      v15 = 230;
-      v14 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Game.cpp";
       v16 = &v10;
       sub_40E2C8(
         &v10,
         "The 'Vis' object pointer has not been instatiated, but CGame::Pick() is trying to call through it.",
         (int)&v17);
-      sub_466D09(&v16, *(int *)&v10, v11, v12, v13, v14, v15);
+      sub_466D09(&v16, *(int *)&v10, v11, 0, 0, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Game.cpp", __LINE__);
     }
-    if ( a3 >= class28_global.dword_000000 )
+    if (uMouseX >= class28_global.dword_000000 && uMouseX <= class28_global.dword_000008 &&
+        uMouseY >= class28_global.dword_000004 && uMouseY <= class28_global.dword_00000C)
     {
-      if ( a3 <= class28_global.dword_000008 )
-      {
-        if ( a4 >= class28_global.dword_000004 )
-        {
-          if ( a4 <= class28_global.dword_00000C )
-          {
-            v15 = a7;
-            v9 = *(_DWORD *)(v7 + 3660);
-            *(float *)&v13 = (double)a4;
-            *(float *)&v12 = (double)a3;
-            sub_4C0646(v9, a2, *(float *)&v12, *(float *)&v13, a6, a7);
+     runtime_warning(too much code there. left for future parse);
+     //       class05_sub_4C0646(_this->class05_obj, a2, uMouseX, uMouseY, a6, a7);
             if (a5)
-              CGame_outline_selection(v7);
-          }
-        }
-      }
+              CGame_outline_selection(_this);
     }
     return true;
   }
@@ -637,42 +617,48 @@ void *class04_ctor(struct class04 *_this)
 }
 
 //----- (MM7.exe::004C04AF) --------------------------------------------------------
-void *class05_ctor(struct class05 *_this)
+void class05_ctor(struct class05 *_this)
 {
- float v3; // [sp+Ch] [bp-60h]@1
- float v4; // [sp+10h] [bp-5Ch]@1
- float v5; // [sp+14h] [bp-58h]@1
- float v6; // [sp+38h] [bp-34h]@1
- float v7; // [sp+3Ch] [bp-30h]@1
- float v8; // [sp+40h] [bp-2Ch]@1
- float v9; // [sp+44h] [bp-28h]@1
- float v10; // [sp+68h] [bp-4h]@1
+ struct class05_stru0 local_0C;
+ //float v3; // [sp+Ch] [bp-60h]@1
+ //float v4; // [sp+10h] [bp-5Ch]@1
+ //float v5; // [sp+14h] [bp-58h]@1
+ //float v6; // [sp+38h] [bp-34h]@1
+
+ struct class05_stru0 local_3C;
+ //float v7; // [sp+3Ch] [bp-30h]@1
+ //float v8; // [sp+40h] [bp-2Ch]@1
+ //float v9; // [sp+44h] [bp-28h]@1
+ //float v10; // [sp+68h] [bp-4h]@1
 
  class25_fn0(&_this->class25_obj);
- v6 = 0.0;
- v3 = 0.0;
- v4 = 65536.0;
- v5 = 0.0;
- v10 = 0.0;
- v7 = 65536.0;
- v8 = 0.0;
- v9 = 0.0;
- memcpy((char *)_this + 8204, &v7, 0x30u);
- v10 = 0.0;
- v7 = 0.0;
- v8 = 65536.0;
- v9 = 0.0;
- memcpy((char *)_this + 8252, &v3, 0x30u);
- v6 = 0.0;
- v3 = 65536.0;
- v4 = 0.0;
- v5 = 0.0;
- memcpy((char *)_this + 8300, &v3, 0x30u);
- memcpy((char *)_this + 8348, &v7, 0x30u);
 
- _this->dword_000000 = 5081604;
+ local_3C.flt_000000 = 65536.0;
+ local_3C.flt_000004 = 0.0;
+ local_3C.flt_000008 = 0.0;
+ local_3C.flt_00002C = 0.0;
+ memcpy(&_this->struct_00200C, &local_3C, sizeof(struct class05_stru0));
+ 
+ local_0C.flt_000000 = 0.0;
+ local_0C.flt_000004 = 65536.0;
+ local_0C.flt_000008 = 0.0;
+ local_0C.flt_00002C = 0.0;
+ memcpy(&_this->struct_00203C, &local_0C, sizeof(struct class05_stru0));
+ 
+ local_0C.flt_000000 = 65536.0;
+ local_0C.flt_000004 = 0.0;
+ local_0C.flt_000008 = 0.0;
+ local_0C.flt_00002C = 0.0;
+ memcpy(&_this->struct_00206C, &local_0C, sizeof(struct class05_stru0));
+ 
+ local_3C.flt_000000 = 0.0;
+ local_3C.flt_000004 = 65536.0;
+ local_3C.flt_000008 = 0.0;
+ local_3C.flt_00002C = 0.0;
+ memcpy(&_this->struct_00209C, &local_3C, sizeof(struct class05_stru0));
+
+ _this->dword_000000 = 0x4D8A04;
  _this->dword_0020CC = 512;
- return _this;
 }
 
 //----- (MM7.exe::004A7155) --------------------------------------------------------
@@ -1005,6 +991,11 @@ int LODFile_LoadLOD_Icons_Events(struct LODFile *_this, const char *pFilename)
  LODFile_fn4(_this);
  if (LODFile_MaybeLoadLODHeader(_this, pFilename, 1))
    return 0;
+ 
+ //excess stuff related to palettes, to be cut
+ _this->pHardwareSurfaces = malloc(1000 * sizeof(void *));
+ _this->pHardwareTextures = malloc(1000 * sizeof(void *));
+ _this->dword_011BB4 = malloc(250 * sizeof(void *));
   
  return LODFile_fn6(_this, "icons") == 0;
 }
@@ -1015,6 +1006,11 @@ int LODFile_LoadLOD_Bitmaps(struct LODFile *_this, const char *pFilename)
  LODFile_fn4(_this);
  if (LODFile_MaybeLoadLODHeader(_this, pFilename, 1))
    return 0;
+
+ //excess stuff related to palettes, to be cut
+ _this->pHardwareSurfaces = malloc(1000 * sizeof(void *));
+ _this->pHardwareTextures = malloc(1000 * sizeof(void *));
+ _this->dword_011BB4 = malloc(250 * sizeof(void *));
 
  return LODFile_fn6(_this, "bitmaps") == 0;
 }
@@ -1218,7 +1214,7 @@ void LODFile_fn4(struct LODFile *_this)
   do
   {
    sub_40F77C(v3);
-   v4 = _this->dword_011BB0;
+   v4 = _this->pHardwareTextures;
    if (v4)
    {
     v5 = *(_DWORD *)(v4 + 4 * v1);
@@ -1738,14 +1734,14 @@ int LODFile_LoadPalette(struct LODFile *_this, struct class18 *pClass18, const c
  locked_fread(pClass18, 1, 0x30, f);
  strcpy(pClass18->sContainerName, pContainerName);
 
- if (pD3DRenderer->pRendererD3D3 && pClass18->word_00002C & 0x0002 && _this->dword_011BA8)
+ if (pD3DRenderer->pRenderD3D3 && pClass18->word_00002C & 0x0002 && _this->dword_011BA8)
   {
-    if ( !*(_DWORD *)(v6 + 72620) || !*(_DWORD *)(v6 + 72624) )
+    if ( !*(_DWORD *)(v6 + 0x11BAC) || !*(_DWORD *)(v6 + 0x11BB0) )
     {
-      compile_error;//*(_DWORD *)(v6 + 72620) = new char[0xFA0u];
-      compile_error;//*(_DWORD *)(v6 + 72624) = new char[0xFA0u];
+      compile_error;//*(_DWORD *)(v6 + 0x11BAC) = new char[0xFA0u];
+      compile_error;//*(_DWORD *)(v6 + 0x11BB0) = new char[0xFA0u];
       v9 = *(void **)(v6 + 72620);
-      compile_error;//*(_DWORD *)(v6 + 72628) = new char[0x3E8u];
+      compile_error;//*(_DWORD *)(v6 + 0x11BB4) = new char[0x3E8u];
       memset(v9, 0, 0xFA0u);
       memset(*(void **)(v6 + 72624), 0, 0xFA0u);
       memset(*(void **)(v6 + 72628), 0, 0x3E8u);
@@ -2029,7 +2025,7 @@ int sub_4114F2(struct LODFile *_this)
         do
         {
           sub_40F77C(v6);
-          v7 = _this->dword_011BB0;
+          v7 = _this->pHardwareTextures;
           if ( v7 )
           {
             v8 = *(_DWORD *)(v7 + 4 * v5);
@@ -2445,7 +2441,7 @@ int class28_fn0(struct class28 *_this, int a2, int a3, int a4, int a5)
   _this->dword_00000C = v7;
   _this->dword_000020 = v6 - v5 + 1;
   _this->dword_000028 = (v6 + v5) >> 1;
-  if (!pD3DRenderer->pRendererD3D3)
+  if (!pD3DRenderer->pRenderD3D3)
   {
     v10 = v7 - v8 + 1;
     _this->dword_000024 = v10;
@@ -5963,25 +5959,28 @@ int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2)
 unsigned int LODFile_LoadSprite(struct LODFile *_this, const char *pSourceFile, int a3)
 {
   int v4; // esi@1
-  signed int v6; // ecx@10
-  int v7; // eax@11
   int v8; // eax@12
-  int v10; // edx@21
-  int v11; // eax@21
   signed int v12; // eax@22
-  char DstBuf; // [sp+Ch] [bp-3Ch]@13
+  struct
+  {
+   char DstBuf[0x10]; // [sp+Ch] [bp-3Ch]@13
   __int16 v16; // [sp+1Ch] [bp-2Ch]@21
   __int16 v17; // [sp+1Eh] [bp-2Ah]@12
   __int16 v18; // [sp+20h] [bp-28h]@12
+  short _22;
+  short _24;
   __int16 v19; // [sp+26h] [bp-22h]@12
+   short _28;
+   short _2A;
   int v20; // [sp+2Ch] [bp-1Ch]@12
   int v21; // [sp+30h] [bp-18h]@12
+  } local_0C;
   int v24; // [sp+44h] [bp-4h]@12
  int i;
 
 
  v4 = _this;
- if (pD3DRenderer->pRendererD3D3)
+ if (pD3DRenderer->pRenderD3D3)
  {
   for (i = 0; i < _this->uNumLoadedSprites; ++i)
     if (!strcmpi(&_this->pHardwareSprites[i * 40], pSourceFile))
@@ -5991,48 +5990,45 @@ unsigned int LODFile_LoadSprite(struct LODFile *_this, const char *pSourceFile, 
    if (!strcmpi(_this->aLODHeaders[i].sContainerName, pSourceFile))
      return i;
 
-
  if (_this->uNumLoadedSprites >= 2500)
    return -1;
 
- if (pD3DRenderer->pRendererD3D3 && _this->dword_00ECAC)
+
+ if (pD3DRenderer->pRenderD3D3 && _this->dword_00ECAC)
  {
   if (!_this->pHardwareSprites)
   {
-   _this->pHardwareSprites = class23_AllocatedNamedBuffer(class23_instance, 0, 1500 * 40, "hardwareSprites");
-   v6 = 0;
-   do
+   _this->pHardwareSprites = class23_AllocatedNamedBuffer(class23_instance, 0, 1500 * sizeof(struct HardwareSprite), "hardwareSprites");
+
+   for (i = 0; i < 150; ++i)
    {
-        v7 = v6++ * 40 + _this->pHardwareSprites;
-        *(_DWORD *)v7 = 0;
-        *(_DWORD *)(v7 + 8) = 0;
-        *(_DWORD *)(v7 + 12) = 0;
+    _this->pHardwareSprites[i].pSpriteName = 0;
+    _this->pHardwareSprites[i].pTexture = 0;
+    _this->pHardwareSprites[i].pTextureSurface = 0;
    }
-   while (v6 < 1500 );
   }
 
-    v17 = 0;
-    v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    v21 = 0;
+    local_0C.v17 = 0;
+    local_0C.v18 = 0;
+    local_0C.v19 = 0;
+    local_0C.v20 = 0;
+    local_0C.v21 = 0;
     v24 = 0;
     v8 = LODFile_FindContainer(_this, pSourceFile, 0);
     if ( !v8 )
     {
       v24 = -1;
-      sub_462463((int)&DstBuf);
+      //sub_462463((int)&local_0C);
       return -1;
     }
-    locked_fread(&DstBuf, 1u, 0x20u, (FILE *)v8);
-    v10 = *(_DWORD *)(v4 + 60592);
-    v11 = 5 * *(_DWORD *)(v4 + 60572);
+
+    locked_fread(&local_0C, 1u, 0x20, v8);
     v24 = -1;
-    *(_DWORD *)(v10 + 8 * v11 + 24) = v16;
-    *(_DWORD *)(*(_DWORD *)(v4 + 60592) + 40 * *(_DWORD *)(v4 + 60572) + 28) = v17;
-    *(_WORD *)(v4 + 40 * *(_DWORD *)(v4 + 60572) + 588) = v16;
-    *(_WORD *)(v4 + 40 * *(_DWORD *)(v4 + 60572) + 590) = v17;
-    sub_462463((int)&DstBuf);
+    _this->pHardwareSprites[_this->uNumLoadedSprites].dword_000018 = local_0C.v16;
+    _this->pHardwareSprites[_this->uNumLoadedSprites].dword_00001C = local_0C.v17;
+    _this->aLODHeaders[_this->uNumLoadedSprites].word_000010 = local_0C.v16;
+    _this->aLODHeaders[_this->uNumLoadedSprites].word_000012 = local_0C.v17;
+    //sub_462463(&local_0C);
     goto LABEL_29;
   }
 
@@ -6044,17 +6040,12 @@ LABEL_28:
    _this->aLODHeaders[_this->uNumLoadedSprites].uPaletteID = class35_sub_48A3BC_MessWithPalettes(&class35_obj, _this->aLODHeaders[_this->uNumLoadedSprites].uPaletteID);
 
 LABEL_29:
-    if ( pD3DRenderer->pRendererD3D3 )
+    if (pD3DRenderer->pRenderD3D3)
     {
-      *(_DWORD *)(*(_DWORD *)(v4 + 60592) + 40 * *(_DWORD *)(v4 + 60572)) = class23_AllocatedNamedBuffer(
-                                                                              &class23_instance,
-                                                                              *(_DWORD *)(*(_DWORD *)(v4 + 60592)
-                                                                                        + 40 * *(_DWORD *)(v4 + 60572)),
-                                                                              20,
-                                                                              pSourceFile);
-      strcpy(*(char **)(*(_DWORD *)(v4 + 60592) + 40 * *(_DWORD *)(v4 + 60572)), pSourceFile);
-      *(_DWORD *)(*(_DWORD *)(v4 + 60592) + 40 * *(_DWORD *)(v4 + 60572) + 4) = a3;
-      sub_4A5048(pD3DRenderer, *(_DWORD *)(v4 + 60592) + 40 * *(_DWORD *)(v4 + 60572));
+     _this->pHardwareSprites[_this->uNumLoadedSprites].pSpriteName = class23_AllocatedNamedBuffer(&class23_instance, _this->pHardwareSprites[_this->uNumLoadedSprites].pSpriteName, 20, pSourceFile);
+     strcpy(_this->pHardwareSprites[_this->uNumLoadedSprites].pSpriteName, pSourceFile);
+     _this->pHardwareSprites[_this->uNumLoadedSprites].dword_000004 = a3;
+     Render_MoveHWSpriteToVideoMemory(pD3DRenderer, &_this->pHardwareSprites[_this->uNumLoadedSprites]);
     }
     ++_this->uNumLoadedSprites;
     return _this->uNumLoadedSprites - 1;
@@ -7435,7 +7426,6 @@ char CGame_sub_44EEA7(struct CGame *_this)
   int v6; // eax@21
   int v7; // [sp+4h] [bp-24h]@2
   int v8; // [sp+8h] [bp-20h]@2
-  char v9; // [sp+Ch] [bp-1Ch]@2
   int *v10; // [sp+10h] [bp-18h]@2
   int v11; // [sp+14h] [bp-14h]@2
   POINT pt;
@@ -7448,7 +7438,6 @@ char CGame_sub_44EEA7(struct CGame *_this)
   {
     v11 = (int)&dword_F93E44;
     v10 = &dword_F93E30;
-    v9 = 0;
     v8 = pt.y;
     v7 = pt.x;
     v2 = sub_43643E();
@@ -7476,13 +7465,12 @@ char CGame_sub_44EEA7(struct CGame *_this)
       v10 = &dword_5C6DD8;
     }
     v2 = 5120.0;
-    v9 = 0;
     v8 = pt.y;
     v7 = pt.x;
   }
 
  v4 = v2;
- CGame_Pick(pGame, v4, v7, v8, v9, (int)v10, v11);
+ CGame_Pick(pGame, v4, v7, v8, false, (int)v10, v11);
   _this->class04_obj->dword_183804 = 0;
   _this->class04_obj->dword_3C8C08 = 0;
   pClass58_global->dword_308004 = 0;
@@ -7492,7 +7480,7 @@ char CGame_sub_44EEA7(struct CGame *_this)
   {
     if (pGame->uSomeFlags & 0x08)
       _this->class10_obj->dword_000004 &= 0xFFFFFF00;
-    if ( pD3DRenderer->pRendererD3D3 )
+    if ( pD3DRenderer->pRenderD3D3 )
     {
       if ( dword_6BE360 == 2 )
       {
@@ -7502,7 +7490,7 @@ char CGame_sub_44EEA7(struct CGame *_this)
     }
     if ( *(_BYTE *)(v1 + 0xE21) & 4 )
       _this->dword_000E24 |= 0x01;
-    if ( !pD3DRenderer->pRendererD3D3 )
+    if ( !pD3DRenderer->pRenderD3D3 )
     {
       if ( dword_6BE360 == 2 )
       {
@@ -9183,7 +9171,7 @@ LABEL_154:
         goto LABEL_32;
       }
       sub_4A7A27(a2, 0xFFFFFFu, 128);
-      if ( !pD3DRenderer->pRendererD3D3 )
+      if ( !pD3DRenderer->pRenderD3D3 )
         return 1;
       v62 = -1;
       v55 = 100;
@@ -9239,7 +9227,7 @@ LABEL_32:
               return 0;
             if ( v2 <= 2081 )
             {
-              if ( pD3DRenderer->pRendererD3D3 )
+              if ( pD3DRenderer->pRenderD3D3 )
                 sub_4A77FD((void *)v3, a2);
               else
                 sub_4A80DC((void *)v3, a2);
@@ -9250,7 +9238,7 @@ LABEL_32:
           }
           goto LABEL_67;
         }
-        if ( !pD3DRenderer->pRendererD3D3 )
+        if ( !pD3DRenderer->pRenderD3D3 )
           return 1;
         Str1 = *(_DWORD *)"sp18h1";
         v64 = *(_WORD *)&"sp18h1"[4];
@@ -9298,7 +9286,7 @@ LABEL_89:
     }
     if ( v2 == 4000 )
     {
-      if ( !pD3DRenderer->pRendererD3D3 )
+      if ( !pD3DRenderer->pRenderD3D3 )
         return 1;
       sub_4A7C07((void *)v3, a2);
       return 0;
@@ -9385,7 +9373,7 @@ LABEL_84:
       if ( v17 != 929 )
         return 0;
 LABEL_63:
-      if ( !pD3DRenderer->pRendererD3D3 )
+      if ( !pD3DRenderer->pRenderD3D3 )
         return 1;
       sub_4A78AE(a2);
       v58 = 128;
@@ -9402,7 +9390,7 @@ LABEL_117:
   if ( v2 == 1051 )
   {
     sub_4A7A27(a2, 0xFF3C1Eu, 256);
-    if ( pD3DRenderer->pRendererD3D3 )
+    if ( pD3DRenderer->pRenderD3D3 )
     {
       v9 = *(_DWORD *)(a2 + 88) & 7;
       if ( v9 != 3 )
@@ -9527,7 +9515,7 @@ void class02_sub_48BBA6(struct class02 *_this)
               {
                 if ( v8 < dword_51B740 )
                 {
-                  if ( pD3DRenderer->pRendererD3D3 )
+                  if ( pD3DRenderer->pRenderD3D3 )
                   {
                     v9 = *(_DWORD *)(v7 - 86);
                     if ( BYTE1(v9) & 1 )
@@ -9582,7 +9570,7 @@ void class02_sub_48BBA6(struct class02 *_this)
                       sub_4A354F(
                         v6,
                         (int)&v18,
-                        *(_DWORD *)(pLODFile_Bitmaps_LOD->dword_011BB0 + 4 * *(_DWORD *)(v7 - 50)),
+                        pLODFile_Bitmaps_LOD->pHardwareTextures[*(_DWORD *)(v7 - 50)],
                         *(_DWORD *)(v7 + 14),
                         *(_DWORD *)(v7 - 26));
                     }
@@ -9679,7 +9667,7 @@ void class02_sub_48BEEF(struct class02 *_this)
     {
       if ( *(_DWORD *)(v7 - 82) && sub_48B5B3((void *)v2, v1) )
       {
-        if ( pD3DRenderer->pRendererD3D3 )
+        if ( pD3DRenderer->pRenderD3D3 )
         {
           v8 = *(_DWORD *)(v7 - 82);
           if ( BYTE1(v8) & 1 )
@@ -9733,10 +9721,9 @@ void class02_sub_48BEEF(struct class02 *_this)
             v18 = *(_DWORD *)(v7 - 18);
             v19 = *(_DWORD *)(v7 - 14);
             v22 = *(_DWORD *)(v7 - 2);
-            sub_4A3AD9(
-              v6,
+            sub_4A3AD9(v6,
               (int)&v17,
-              *(_DWORD *)(pLODFile_Bitmaps_LOD->dword_011BB0 + 4 * *(_DWORD *)(v7 - 46)),
+              pLODFile_Bitmaps_LOD->pHardwareTextures[*(_DWORD *)(v7 - 46)],
               *(_DWORD *)(v7 + 18),
               *(_DWORD *)(v7 - 22));
           }
@@ -9911,7 +9898,7 @@ int class06_sub_4A8C27(struct class06 *_this)
     v8 = *(_WORD *)(v11 + 24);
     v69 = v11;
     *(_DWORD *)(v1 + 1492) -= pClass24_global->int_00001C;
-    if ( pD3DRenderer->pRendererD3D3 )
+    if ( pD3DRenderer->pRenderD3D3 )
     {
       v12 = (double)class28_global.dword_000010;
       v36 = v12;
@@ -9950,74 +9937,74 @@ int class06_sub_4A8C27(struct class06 *_this)
       v51 = 1.0;
       v59 = 1.0;
       v67 = 0.0;
-      (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 152))(
-        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+      (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 152))(
+        *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
         0,
         *(_DWORD *)(pLODFile_Sprites_LOD->pHardwareSprites + 40 * v8 + 12));
-      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
         28,
         0);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
         27,
         1);
-      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
         14,
         0);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
         19,
         2);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
         20,
         2);
-      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
         26,
         0);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
         23,
         8);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int, float *, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56)
+      (*(void (__stdcall **)(_DWORD, signed int, signed int, float *, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56)
                                                                                              + 112))(
-        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+        *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
         6,
         452,
         &v36,
         4,
         28);
-      v16 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56)
+      v16 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56)
                                                                                              + 88))(
-              *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+              *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
               19,
               2,
               "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\seffects.cpp",
               1348,
               0);
       CheckHRESULT(&v69, v16, v17, v18, v19);
-      v20 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
-              *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+      v20 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
+              *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
               20,
               1);
       CheckHRESULT(&v69, v20, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\seffects.cpp", 0x545u, 0);
-      (*(void (__cdecl **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+      (*(void (__cdecl **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
         27,
         0);
-      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
         14,
         1);
-      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
-        *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+      (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
+        *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
         26,
         1);
-      result = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRendererD3D3 + 56) + 88))(
-                 *(_DWORD *)(pD3DRenderer->pRendererD3D3 + 56),
+      result = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
+                 *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
                  23,
                  2);
     }
@@ -10118,7 +10105,7 @@ int class06_sub_4A7298(struct class06 *_this)
       if ( v9 == -1 )
         v12 = 0;
       else
-        v12 = *(_DWORD *)(pLODFile_Bitmaps_LOD->dword_011BB0 + 4 * v9);
+        v12 = pLODFile_Bitmaps_LOD->pHardwareTextures[v9];
       v10 = v26 / v23 * 20.0;
       v11 = v26 / v16 * 20.0;
       sub_4A49D0(v17, v18, v16, v11, v24, v25, v23, v10, v12);
@@ -10220,16 +10207,19 @@ unsigned int LODFile_LoadTexture_New(struct LODFile *_this, const wchar_t *pFile
    wsprintfW(pFilePath, L".\\Data\\%S\\%s.png", _this->sContainerName, pFilename);
    if (LoadPNG(pFilePath, &uCBMWdith, &uCBMHeight, &_this->aLODHeaders[_this->uNumLoadedFiles].pTruecolorPixels))
    {
-    if (!hStdHandle)
-      hStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-    wsprintfW(pFileNotFound, L"Texture not found: %s\n", pFilename);
-    WriteConsoleW(hStdHandle, pFileNotFound, lstrlenW(pFileNotFound), &w, 0);
+    if (LoadHWL(pFilename, &uCBMWdith, &uCBMHeight, &_this->aLODHeaders[_this->uNumLoadedFiles].pTruecolorPixels))
+    {
+     if (!hStdHandle)
+       hStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+     wsprintfW(pFileNotFound, L"Texture not found: %s\n", pFilename);
+     WriteConsoleW(hStdHandle, pFileNotFound, lstrlenW(pFileNotFound), &w, 0);
 
-    if (!pending_texture.pTruecolorPixels)
-      pending_texture.pTruecolorPixels = malloc(52 * 53 * 4);
-    pending_texture.uTextureWidth = 52;
-    pending_texture.uTextureHeight = 53;
-    return -1;
+     if (!pending_texture.pTruecolorPixels)
+       pending_texture.pTruecolorPixels = malloc(52 * 53 * 4);
+     pending_texture.uTextureWidth = 52;
+     pending_texture.uTextureHeight = 53;
+     return -1;
+    }
    }
   }
  }
@@ -10237,6 +10227,8 @@ unsigned int LODFile_LoadTexture_New(struct LODFile *_this, const wchar_t *pFile
  wsprintfA(_this->aLODHeaders[_this->uNumLoadedFiles].sContainerName, "%S", pFilename);
  _this->aLODHeaders[_this->uNumLoadedFiles].uTextureWidth = uCBMWdith;
  _this->aLODHeaders[_this->uNumLoadedFiles].uTextureHeight = uCBMHeight;
+
+ Render_MoveToGPU(pD3DRenderer, uCBMWdith, uCBMHeight, _this->aLODHeaders[_this->uNumLoadedFiles].pTruecolorPixels, &_this->pHardwareSurfaces[_this->uNumLoadedFiles], &_this->pHardwareTextures[_this->uNumLoadedFiles]);
 
  _this->uNumLoadedFiles++;
  return _this->uNumLoadedFiles - 1;

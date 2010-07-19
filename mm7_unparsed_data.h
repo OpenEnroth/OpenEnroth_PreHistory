@@ -1848,9 +1848,9 @@ extern int dword_6BE360; // weak
 extern int dword_6BE364; // weak
 extern int dword_6BE368; // weak
 
-extern char byte_6BE36F; // weak
-extern char byte_6BE370; // weak
-extern char byte_6BE371; // weak
+extern unsigned char uSoundVolumeMultiplier;
+extern unsigned char uVoicesVolumeMultiplier;
+extern unsigned char uMusicVolimeMultiplier;
 extern int dword_6BE374; // weak
 extern int dword_6BE378; // weak
 extern int dword_6BE37C; // weak
@@ -2119,10 +2119,18 @@ extern int dword_76DFC8[];
 extern int dword_76E1C8[];
 extern int dword_76E3C8[];
 extern _BYTE byte_76E5C8[]; // idb
-extern _UNKNOWN unk_77E5C8; // weak
-extern _UNKNOWN unk_77E5CC; // weak
-extern _UNKNOWN unk_77E5D8; // weak
-extern _UNKNOWN unk_77E5DC; // weak
+
+struct D3DVERTEX
+{
+ float x, y, z, rhw;
+ DWORD diffuse;
+ DWORD specular;
+ float u, v;
+} pVertices[50];  // struct[50] @ MM7.exe::0077E5C8
+//extern _UNKNOWN unk_77E5C8; // x
+//extern _UNKNOWN unk_77E5CC; // y
+//extern _UNKNOWN unk_77E5D8; // diffuse
+//extern _UNKNOWN unk_77E5DC; // specular
 
 extern struct struct8 array_77EC08[2000]; //struct[2000] @ MM7.exe::0077EC08
 //_UNKNOWN unk_77EC08; // weak
@@ -2587,7 +2595,6 @@ extern IDirectDrawClipper *pDDrawClipper; // dword @ MM7.exe::00FD1BE0
 //int dword_DF1C08; // @ pD3DRenderer::dword_000020
 //int dword_DF1C0C; // @ pD3DRenderer::dword_000024
 //int dword_DF1C10; // @ pD3DRenderer::dword_000028
-extern _UNKNOWN unk_E0E0E1; // weak
 //int dword_E31C1C; // @ pD3DRenderer::dword_040034
 //int dword_E31C40; // @ pD3DRenderer::dword_040058
 //int dword_E31C70; // @ pD3DRenderer::dword_040088
@@ -2647,10 +2654,10 @@ extern int dword_EF5348; // weak
 extern int dword_EF534C; // weak
 extern int dword_EF5350[array_size_unknown]; // weak
 extern _UNKNOWN unk_F00000; // weak
-extern int dword_F1B418; // weak
-extern int dword_F1B420; // weak
-extern int dword_F1B424; // weak
-extern int dword_F1B428; // weak
+//int pD3DRenderer->dword_129830; // 129830
+//int dword_F1B420; // 129838
+//int dword_F1B424; // 12983C
+//int dword_F1B428; // 129840
 extern _UNKNOWN unk_F1B430; // weak
 extern BYTE dword_F1B4B0; // idb
 extern BYTE Data; // idb
@@ -2874,7 +2881,6 @@ extern _UNKNOWN unk_F8F200; // weak
 extern _UNKNOWN unk_F8F204; // weak
 extern float flt_F8F20C; // weak
 extern _UNKNOWN unk_F8F22C; // weak
-extern _UNKNOWN unk_F8F8F8; // weak
 extern int dword_F8FE00; // weak
 extern int dword_F91604; // weak
 extern int dword_F91E04; // weak

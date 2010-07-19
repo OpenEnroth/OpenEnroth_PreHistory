@@ -424,10 +424,12 @@ void __fastcall sub_43B569(void *_this)
  return 0;
 }
 
-int __stdcall sub_45D73F(long a1)
+void __stdcall sub_45D73F(struct class04 *_this, long a1)
 {
- __asm int 3
- return 0;
+ if (a1 - 2)
+   return;
+
+ sub_45DCA9(_this, 0, 0, 0, 0, 0); // only first arg is checked, the rest may be redudant
 }
 
 int sub_48AAF1(long a1)
@@ -503,7 +505,8 @@ void *CheckHRESULT(void **pSmthn, HRESULT hr, const char *pSourceFile, unsigned 
 
  //v5 = this;
  //*(_DWORD *)this = 5080748;
- *pSmthn = &byte_4D8410[668];
+ if (pSmthn)
+   *pSmthn = &byte_4D8410[668];
 
  if (a5)
  {

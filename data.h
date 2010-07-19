@@ -40,7 +40,9 @@ extern union unnamed_4D8410
   GUID   IID_IDirectDrawGammaControl; // struct @ 1468     IID_IDirectDrawGammaControl
   char   unk_4D8410_1478[560];
   GUID   IID_IDirect3D3;              // struct @ 16A8     IID_IDirect3D3
-  char   unk_4D8410_16B8[11596];
+  char   unk_4D8410_16B8[160];
+  GUID   IID_IDirect3DTexture2;       // struct @ 1758     IID_IDirect3DTexture2
+  char   unk_4D8410_1768[11420];
  };
 } memory_4D8410;
 

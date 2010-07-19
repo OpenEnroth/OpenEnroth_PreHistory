@@ -816,7 +816,7 @@ int __cdecl sub_463149()
   LoadPlayerPortraintsAndVoices();
   pLODFile_Icons_LOD->dword_011B84 = pLODFile_Icons_LOD->uNumLoadedFiles;
 
-  AudioPlayer_SetVolume(pAudioPlayer, aMusicVolumeLevels[byte_6BE371] * 64.0);
+  AudioPlayer_SetVolume(pAudioPlayer, aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
 
   v2 = pD3DRenderer;
   while ( 2 )
@@ -845,8 +845,8 @@ int __cdecl sub_463149()
       if (dword_69B00C)
         Keyboard_resume(dword_69B00C);
     }
-    if ( pD3DRenderer->pRendererD3D3 )
-      sub_4C1A02(pGame->class05_obj);
+    if (pD3DRenderer->pRenderD3D3)
+      class05_sub_4C1A02(pGame->class05_obj);
     v18 = 0;
 
 
@@ -9159,7 +9159,7 @@ void __cdecl sub_414D9A()
       sub_44D406((int)&v3, pFontSmallnum, 0, 0, v1, v0, 3);
     }
   }
-  if ( !pD3DRenderer->pRendererD3D3 )
+  if ( !pD3DRenderer->pRenderD3D3 )
   {
     Render_DrawIndexedTexture(pD3DRenderer, 20, 281, dword_507C50 != -1 ? 72 * dword_507C50 + 7145548 : 0);
     Render_DrawIndexedTexture(pD3DRenderer, 20, 303, dword_507C54 != -1 ? 72 * dword_507C54 + 7145548 : 0);
@@ -9308,19 +9308,19 @@ void __cdecl sub_414F82()
     Render_DrawIndexedTexture(pD3DRenderer, 20, 325, dword_507CB0 != -1 ? 72 * dword_507CB0 + 7145548 : 0);
   Render_DrawIndexedTexture(
     pD3DRenderer,
-    17 * byte_6BE36F + 265,
+    17 * uSoundVolumeMultiplier + 265,
     162,
-    dword_507C88[byte_6BE36F] != -1 ? 72 * dword_507C88[byte_6BE36F] + 7145548 : 0);
+    dword_507C88[uSoundVolumeMultiplier] != -1 ? 72 * dword_507C88[uSoundVolumeMultiplier] + 7145548 : 0);
   Render_DrawIndexedTexture(
     pD3DRenderer,
-    17 * byte_6BE371 + 265,
+    17 * uMusicVolimeMultiplier + 265,
     216,
-    dword_507C88[byte_6BE371] != -1 ? 72 * dword_507C88[byte_6BE371] + 7145548 : 0);
+    dword_507C88[uMusicVolimeMultiplier] != -1 ? 72 * dword_507C88[uMusicVolimeMultiplier] + 7145548 : 0);
   Render_DrawIndexedTexture(
     pD3DRenderer,
-    17 * byte_6BE370 + 265,
+    17 * uVoicesVolumeMultiplier + 265,
     270,
-    dword_507C88[byte_6BE370] != -1 ? 72 * dword_507C88[byte_6BE370] + 7145548 : 0);
+    dword_507C88[uVoicesVolumeMultiplier] != -1 ? 72 * dword_507C88[uVoicesVolumeMultiplier] + 7145548 : 0);
 }
 
 //----- (00415180) --------------------------------------------------------
@@ -9349,8 +9349,6 @@ void sub_415180(int a1, const char *a2, int a3, __int16 a4, char *a5)
 int __fastcall SaveGame(int a1, int a2)
 {
   int result; // eax@1
-  int v3; // edi@5
-  int v4; // eax@5
   int v5; // eax@6
   int v6; // eax@6
   int v7; // eax@6
@@ -9452,10 +9450,12 @@ int __fastcall SaveGame(int a1, int a2)
     else
       qword_6A12E0 = pParty_global->qword_00002C;
 
-    v3 = sub_45E03A_SomethingLikeCaptureAScreenshot(150, 112);
+    runtime_warning(aint workin);
+    //v3 = sub_45E03A_SomethingLikeCaptureAScreenshot(150, 112);
+    //sub_49F5A2(pD3DRenderer, v3, 150, 112, DstBuf, 1000000, (int)&ElementSize);
+    //operator_delete(0, v3);
+
     strcpy(Str2, "image.pcx");
-    v4 = sub_49F5A2(pD3DRenderer, v3, 150, 112, DstBuf, 1000000, (int)&ElementSize);
-    operator_delete(v4, v3);
     if ( dword_4E28F8 == 11 )
     {
       Render_DrawIndexedTexture(pD3DRenderer, 8, 8, dword_69CF20 != -1 ? 72 * dword_69CF20 + 7145548 : 0);
@@ -11358,7 +11358,7 @@ LABEL_42:
         v4 = v38 + 30;
       v26 = v4;
       v27 = 40;
-      if ( pD3DRenderer->pRendererD3D3 )
+      if ( pD3DRenderer->pRenderD3D3 )
         LOWORD(v5) = sub_4C1BF1(pGame->class05_obj);
       else
         v5 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (v38 + dword_5059A8[v39]));
@@ -11587,7 +11587,7 @@ void __thiscall OnMouseLeftClick(void *_this)
         click_y = v13;
         if ( v13 >= class28_global.dword_000014 && v13 <= class28_global.dword_00001C )
         {
-          if ( pD3DRenderer->pRendererD3D3 )
+          if ( pD3DRenderer->pRenderD3D3 )
             v5 = sub_4C1BF1(pGame->class05_obj);
           else
             v5 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (v12 + dword_5059A8[v13]));
@@ -11687,7 +11687,7 @@ int __thiscall sub_417871(int this)
   int v4; // [sp+10h] [bp-8h]@3
   int v5; // [sp+14h] [bp-4h]@3
 
-  if ( !pD3DRenderer->pRendererD3D3 )
+  if ( !pD3DRenderer->pRenderD3D3 )
   {
     if ( this )
     {
@@ -12471,7 +12471,7 @@ __int16 __thiscall sub_4948B1(void *this, int a2, int a3)
   v6 = 0;
   v23 = 0;
   v5 = byte_4ED3D8 + 8 * v4; // + 5166040;
-  if ( byte_6BE370 )
+  if ( uVoicesVolumeMultiplier )
   {
     v7 = 0;
     do
@@ -12494,7 +12494,7 @@ __int16 __thiscall sub_4948B1(void *this, int a2, int a3)
             + 4998;
         v12 = 8 * v22 + 312;
         LOBYTE(v12) = v12 | 4;
-        AudioPlayer_sub_4AA306(pAudioPlayer, v23, v12, 0, -1, 0, 0, (signed __int64)(aMusicVolumeLevels[byte_6BE370] * 128.0), 0);
+        AudioPlayer_sub_4AA306(pAudioPlayer, v23, v12, 0, -1, 0, 0, (signed __int64)(aMusicVolumeLevels[uVoicesVolumeMultiplier] * 128.0), 0);
       }
     }
   }
@@ -14533,7 +14533,7 @@ char *__fastcall sub_41E360(int a1, int a2)
   Render_FillRect(pD3DRenderer, v124 + 129, v125 - 1, v124 + 129, v127 + 1, v144);
   Render_FillRect(pD3DRenderer, v124 + 129, v127 + 1, v124 - 1, v127 + 1, v144);
   Render_FillRect(pD3DRenderer, v124 - 1, v127 + 1, v124 - 1, v125 - 1, v144);
-  if ( pD3DRenderer->pRendererD3D3 )
+  if ( pD3DRenderer->pRenderD3D3 )
   {
     v13 = pLODFile_Sprites_LOD->pHardwareSprites + 40 * *(_WORD *)(v10 + 24);
     v117 = v137 + v125 + *(_DWORD *)(v13 + 28);
@@ -16995,7 +16995,7 @@ void __cdecl sub_42213C()
  POINT pt;
 
   sub_404828(&v24);
-  if ( pD3DRenderer->pRendererD3D3 )
+  if ( pD3DRenderer->pRenderD3D3 )
   {
     v0 = sub_4C1BF1(pGame->class05_obj);
   }
@@ -17673,7 +17673,7 @@ int __fastcall sub_423B5D(int a1)
   while ( v94 <= v52 );
   if ( !v60 )
     return 0;
-  v65 = pD3DRenderer->pRendererD3D3 == 0;
+  v65 = pD3DRenderer->pRenderD3D3 == 0;
   dword_50BAC8[v60] = dword_50BAC8[0];
   dword_50B9D8[v60] = dword_50B9D8[0];
   if ( v65 )

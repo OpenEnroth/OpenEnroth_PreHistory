@@ -192,8 +192,6 @@ void __cdecl LoadMainMenu()
  }
 
  uTextureID_MainMenuUI_Title = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"mm7title");
-
-
  Render_BeginScene(pD3DRenderer);
  {
   Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_MainMenuUI_Title);
@@ -209,7 +207,7 @@ void __cdecl LoadMainMenu()
  {
   if (pAudioPlayer->hAILRedbook)
   {
-   fVolume = aMusicVolumeLevels[byte_6BE371] * 64.0;
+   fVolume = aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0;
    AudioPlayer_SetVolume(pAudioPlayer, fVolume);
    AIL_redbook_stop(pAudioPlayer->hAILRedbook);
    AIL_redbook_track_info(pAudioPlayer->hAILRedbook, 14, &v5, &v6);
@@ -274,7 +272,7 @@ void GameUI_Update()
     if (x > 467 || y > 351)  //if pointer isn't inside game viewport
       goto _mouse_is_on_UI;
 
-    if ( pD3DRenderer->pRendererD3D3 )
+    if ( pD3DRenderer->pRenderD3D3 )
     {
       v18 = sub_4C1BF1(pGame->class05_obj);
       if (x < class28_global.dword_000000 || x > class28_global.dword_000008 ||
@@ -1329,7 +1327,7 @@ LABEL_60:
           dword_507C58 = LODFile_LoadTexture(pLODFile_Icons_LOD, "opvdG-tn", 2);
           pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 106, 0, 0);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 241, 302, 214, 40, v0, 0, 113, 0, 0, v1, 0);
-          if ( pD3DRenderer->pRendererD3D3 )
+          if ( pD3DRenderer->pRenderD3D3 )
           {
             GUIButtonCreate(pGUIWindow_CurrentMenu, 19, 280, 214, 18, v0, 0, 422, 0, 0, v1, 0);
             GUIButtonCreate(pGUIWindow_CurrentMenu, 19, 302, 214, 18, v0, 0, 423, 0, 0, v1, 0);
@@ -1436,9 +1434,9 @@ LABEL_128:
         case 0x70:
           if ( v209 == 4 )
           {
-            --byte_6BE371;
-            if ( byte_6BE371 < 1 )
-              byte_6BE371 = 0;
+            --uMusicVolimeMultiplier;
+            if ( uMusicVolimeMultiplier < 1 )
+              uMusicVolimeMultiplier = 0;
             v184 = v0;
             v28 = 243;
             v170 = dword_50C9CC;
@@ -1448,29 +1446,29 @@ LABEL_136:
           }
           if ( v209 == 5 )
           {
-            ++byte_6BE371;
-            if ( byte_6BE371 > 9 )
-              byte_6BE371 = 9;
+            ++uMusicVolimeMultiplier;
+            if ( uMusicVolimeMultiplier > 9 )
+              uMusicVolimeMultiplier = 9;
             v184 = v0;
             v28 = 435;
             v170 = dword_50C9C8;
             goto LABEL_136;
           }
-          byte_6BE371 = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v218) - 263) / 17;
-          if ( byte_6BE371 > 9 )
-            byte_6BE371 = 9;
+          uMusicVolimeMultiplier = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v218) - 263) / 17;
+          if ( uMusicVolimeMultiplier > 9 )
+            uMusicVolimeMultiplier = 9;
 LABEL_143:
-          if ( byte_6BE371 )
-            AudioPlayer_sub_4AA306(pAudioPlayer, 217, -1, 0, -1, 0, 0, (signed __int64)(aMusicVolumeLevels[byte_6BE371] * 64.0), 0);
-          v29 = (signed __int64)(aMusicVolumeLevels[byte_6BE371] * 64.0);
+          if ( uMusicVolimeMultiplier )
+            AudioPlayer_sub_4AA306(pAudioPlayer, 217, -1, 0, -1, 0, 0, (signed __int64)(aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0), 0);
+          v29 = (signed __int64)(aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
           AudioPlayer_SetVolume(pAudioPlayer, SHIDWORD(v29), v29);
           goto LABEL_92;
         case 0x6F:
           if ( v209 == 4 )
           {
-            --byte_6BE36F;
-            if ( byte_6BE36F < 1 )
-              byte_6BE36F = 0;
+            --uSoundVolumeMultiplier;
+            if ( uSoundVolumeMultiplier < 1 )
+              uSoundVolumeMultiplier = 0;
             v185 = v0;
             v30 = 243;
             v171 = dword_50C9CC;
@@ -1480,19 +1478,19 @@ LABEL_150:
           }
           if ( v209 == 5 )
           {
-            ++byte_6BE36F;
-            if ( byte_6BE36F > 8 )
-              byte_6BE36F = 9;
+            ++uSoundVolumeMultiplier;
+            if ( uSoundVolumeMultiplier > 8 )
+              uSoundVolumeMultiplier = 9;
             v185 = v0;
             v30 = 435;
             v171 = dword_50C9C8;
             goto LABEL_150;
           }
-          byte_6BE36F = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v223) - 263) / 17;
-          if ( byte_6BE36F > 8 )
-            byte_6BE36F = 9;
+          uSoundVolumeMultiplier = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v223) - 263) / 17;
+          if ( uSoundVolumeMultiplier > 8 )
+            uSoundVolumeMultiplier = 9;
 LABEL_157:
-          AudioPlayer_sub_4AA214(pAudioPlayer, (signed __int64)(aMusicVolumeLevels[byte_6BE36F] * 128.0));
+          AudioPlayer_sub_4AA214(pAudioPlayer, (signed __int64)(aMusicVolumeLevels[uSoundVolumeMultiplier] * 128.0));
           v182 = 0;
           v168 = 0;
           v161 = 0;
@@ -1517,9 +1515,9 @@ LABEL_157:
         case 0xBA:
           if ( v209 == 4 )
           {
-            --byte_6BE370;
-            if ( byte_6BE370 < 1 )
-              byte_6BE370 = 0;
+            --uVoicesVolumeMultiplier;
+            if ( uVoicesVolumeMultiplier < 1 )
+              uVoicesVolumeMultiplier = 0;
             v186 = v0;
             v31 = 243;
             v172 = dword_50C9CC;
@@ -1529,22 +1527,22 @@ LABEL_166:
           }
           if ( v209 == 5 )
           {
-            ++byte_6BE370;
-            if ( byte_6BE370 > 8 )
-              byte_6BE370 = 9;
+            ++uVoicesVolumeMultiplier;
+            if ( uVoicesVolumeMultiplier > 8 )
+              uVoicesVolumeMultiplier = 9;
             v186 = v0;
             v31 = 435;
             v172 = dword_50C9C8;
             goto LABEL_166;
           }
-          byte_6BE370 = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v221) - 263) / 17;
-          if ( byte_6BE370 > 8 )
-            byte_6BE370 = 9;
+          uVoicesVolumeMultiplier = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v221) - 263) / 17;
+          if ( uVoicesVolumeMultiplier > 8 )
+            uVoicesVolumeMultiplier = 9;
 LABEL_173:
-          if ( !byte_6BE370 )
+          if ( !uVoicesVolumeMultiplier )
             goto LABEL_92;
           v182 = 0;
-          v168 = (signed __int64)(aMusicVolumeLevels[byte_6BE370] * 128.0);
+          v168 = (signed __int64)(aMusicVolumeLevels[uVoicesVolumeMultiplier] * 128.0);
           v161 = 0;
           v156 = 0;
           v152 = -1;
@@ -1757,9 +1755,9 @@ LABEL_249:
                       while ( v197 < (signed int)&dword_507CBC );
                       memset(&dword_507C60, 0, 0x5Cu);
                       sub_40F9C5(pLODFile_Icons_LOD);
-                      RegistryWriteInt("soundflag", byte_6BE36F);
-                      RegistryWriteInt("musicflag", byte_6BE371);
-                      RegistryWriteInt("CharVoices", byte_6BE370);
+                      RegistryWriteInt("soundflag", uSoundVolumeMultiplier);
+                      RegistryWriteInt("musicflag", uMusicVolimeMultiplier);
+                      RegistryWriteInt("CharVoices", uVoicesVolumeMultiplier);
                       RegistryWriteInt("WalkSound", dword_6BE374);
                       RegistryWriteInt("ShowDamage", dword_6BE378);
                       RegistryWriteInt("graphicsmode", (unsigned __int8)byte_6BE388);
@@ -1795,7 +1793,7 @@ LABEL_291:
                       v35 = sub_4114F2(pLODFile_Icons_LOD);
                       goto LABEL_291;
                     case 28:
-                      if ( pD3DRenderer->pRendererD3D3 )
+                      if ( pD3DRenderer->pRenderD3D3 )
                       {
                         RegistryWriteInt("Colored Lights", pD3DRenderer->bUseColoredLights);
                         RegistryWriteInt("Tinting", pD3DRenderer->dword_10364C);
@@ -2274,7 +2272,7 @@ LABEL_317:
         case 0x5B:
           goto LABEL_387;
         case 0xBE:
-          if ( pD3DRenderer->pRendererD3D3 )
+          if ( pD3DRenderer->pRenderD3D3 )
           {
             LOWORD(v54) = sub_4C1BF1(pGame->class05_obj);
           }
@@ -2794,7 +2792,7 @@ LABEL_544:
           goto LABEL_679;
         case 0x46:
         case 0x8C:
-          if ( pD3DRenderer->pRendererD3D3 )
+          if ( pD3DRenderer->pRenderD3D3 )
           {
             v93 = sub_4C1BF1(pGame->class05_obj);
           }
@@ -3504,7 +3502,7 @@ LABEL_762:
           sub_421EA6();
           goto LABEL_92;
         case 0xA:
-          if ( !pD3DRenderer->pRendererD3D3 )
+          if ( !pD3DRenderer->pRenderD3D3 )
             goto LABEL_772;
           v130 = dword_50CBD0[0];
           if ( !dword_50CBD0[0] )
@@ -3532,7 +3530,7 @@ LABEL_772:
           sub_42213C();
           goto LABEL_92;
         case 0xF:
-          if ( pD3DRenderer->pRendererD3D3 )
+          if ( pD3DRenderer->pRenderD3D3 )
           {
             LOWORD(v131) = sub_4C1BF1(pGame->class05_obj);
           }
@@ -4654,7 +4652,7 @@ void __cdecl PlayerCreationUI_Initialize()
   if ( dword_50CBD0[0] )
     dword_50CBD0[0] = dword_50CBD0[3] != 0;
 
-  AudioPlayer_SetVolume(pAudioPlayer, aMusicVolumeLevels[byte_6BE371] * 64.0);
+  AudioPlayer_SetVolume(pAudioPlayer, aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
 
   ++pLODFile_Icons_LOD->dword_011B9C;
   if ( !pLODFile_Icons_LOD->dword_011B98 )
@@ -5047,7 +5045,7 @@ void DrawLoadingScreen(struct class56 *_this)
   {
     if ( *(_DWORD *)(v1 + 344) )
     {
-      if ( pD3DRenderer->pRendererD3D3 )
+      if ( pD3DRenderer->pRenderD3D3 )
       {
         if ( !pD3DRenderer->dword_040058 )
           sub_49FD3A(pD3DRenderer, v1);
@@ -5273,7 +5271,7 @@ void __cdecl GameUI_DrawPartySpells()
       else
         v6 = 0;
       v7 = &pLODFile_Icons_LOD->aLODHeaders[CIconFrameTable_GetFrame(pIconFrameTable, uIconIdx_Spell21, v6)->uTextureIdx];
-      if ( pD3DRenderer->pRendererD3D3 )
+      if ( pD3DRenderer->pRenderD3D3 )
         Render_DrawIndexedTexture(pD3DRenderer, 8, 8, v7);
       else
         Render_DrawTransparentTexture(pD3DRenderer, 8, 8, v7);
@@ -5287,7 +5285,7 @@ void __cdecl GameUI_DrawPartySpells()
         else
           v8 = 0;
         v9 = 72 * *(_WORD *)(CIconFrameTable_GetFrame(pIconFrameTable, uIconIdx_Spell27, v8) + 30) + 7145548;
-        if ( pD3DRenderer->pRendererD3D3 )
+        if ( pD3DRenderer->pRenderD3D3 )
           Render_DrawIndexedTexture(pD3DRenderer, 396, 8, v9);
         else
           Render_DrawTransparentTexture(pD3DRenderer, 396, 8, v9);

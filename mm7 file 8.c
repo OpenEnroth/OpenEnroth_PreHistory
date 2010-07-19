@@ -2151,7 +2151,7 @@ LABEL_29:
                   *((_DWORD *)v7 + 11) = 0;
                   if ( !v27 )
                   {
-                    if ( !pD3DRenderer->pRendererD3D3 )
+                    if ( !pD3DRenderer->pRenderD3D3 )
                       *((_DWORD *)v7 + 4) = 0;
                   }
                 }
@@ -3649,7 +3649,7 @@ void __cdecl sub_464479()
   sub_46454B(pLODFile_Bitmaps_LOD);
   sub_4645DC(pLODFile_Sprites_LOD);
   sub_46454B(pLODFile_Icons_LOD);
-  if ( pD3DRenderer->pRendererD3D3 )
+  if ( pD3DRenderer->pRenderD3D3 )
   {
     dword_EF52A0 = 0;
     dword_EF52A4 = 0;
@@ -4998,8 +4998,8 @@ int __cdecl sub_4645FA()
   if (pGame->pClass03)
     sub_469CC2(pGame->pClass03);
   sub_4ABD5B(pAudioPlayer);
-  sub_461A11(pLODFile_New_LOD);
-  sub_461A11(pLODFile_Games_LOD);
+  //sub_461A11(pLODFile_New_LOD);
+  //sub_461A11(pLODFile_Games_LOD);
   ClipCursor(0);
   return sub_465CF3();
 }
@@ -5897,9 +5897,9 @@ int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed 
   v27 = 336.0 / (double)a2;
   v24 = malloc(a1 * a2 * 2);//v24 = operator new(2 * a2 * a1);
   v2 = v24;
-  if ( pD3DRenderer->pRendererD3D3 )
+  if ( pD3DRenderer->pRenderD3D3 )
   {
-    sub_4A1EB6(pD3DRenderer);
+    Render_BeginScene2(pD3DRenderer);
     if ( dword_6BE360 == 1 )
     {
       sub_441BD4();
@@ -12759,7 +12759,7 @@ int __stdcall sub_47CB57(unsigned char *pIndexedPixels, int a2, unsigned int uNu
   float v30; // [sp+138h] [bp+10h]@7
   int v31; // [sp+138h] [bp+10h]@9
 
-  if ( pD3DRenderer->pRendererD3D3 )
+  if ( pD3DRenderer->pRenderD3D3 )
   {
     result = 0;
   }

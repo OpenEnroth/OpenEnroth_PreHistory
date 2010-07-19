@@ -1821,9 +1821,9 @@ unsigned int uLevelMapStatsID; // dword @ MM7.exe::006BE358
                    // 0x0008: no decorations
                    // 0x0010: no damage
 
- char byte_6BE36F; // weak
- char byte_6BE370; // weak
- char byte_6BE371; // weak
+unsigned char uSoundVolumeMultiplier;  // byte @ 6BE36F  0..9
+unsigned char uVoicesVolumeMultiplier; // byte @ 6BE370  0..9
+unsigned char uMusicVolimeMultiplier;  // byte @ 6BE371  0..9
  int dword_6BE374; // weak
  int dword_6BE378; // weak
  int dword_6BE37C; // weak
@@ -2090,17 +2090,14 @@ int dword_76DFC8[128]; // dword[128] @ MM7.exe::0076DFC8
 int dword_76E1C8[128]; // dword[128] @ MM7.exe::0076E1C8
 int dword_76E3C8[128]; // dword[128] @ MM7.exe::0076E3C8
  _BYTE byte_76E5C8[64 * 1024]; // idb
- _UNKNOWN unk_77E5C8; // weak
- _UNKNOWN unk_77E5CC; // weak
- _UNKNOWN unk_77E5D8; // weak
- _UNKNOWN unk_77E5DC; // weak
 
-struct struct8 array_77EC08[2000]; // struct[2000] @ MM7.exe::0077EC08
-struct class57 *pClass57_global;   // struct       @ MM7.exe::008019C8
-struct struct14 *ptr_801A04;       // ptr          @ MM7.exe::00801A04
-struct struct14 *ptr_801A08;       // ptr          @ MM7.exe::00801A08
-struct struct14 array_801A10[384]; // struct[384]  @ MM7.exe::00801A10
-struct struct14 array_806210[384]; // struct[384]  @ MM7.exe::00806210
+struct D3DVERTEX  pVertices[50];      // struct[50]   @ MM7.exe::0077E5C8
+struct struct8    array_77EC08[2000]; // struct[2000] @ MM7.exe::0077EC08
+struct class57   *pClass57_global;    // struct       @ MM7.exe::008019C8
+struct struct14  *ptr_801A04;         // ptr          @ MM7.exe::00801A04
+struct struct14  *ptr_801A08;         // ptr          @ MM7.exe::00801A08
+struct struct14   array_801A10[384];  // struct[384]  @ MM7.exe::00801A10
+struct struct14   array_806210[384];  // struct[384]  @ MM7.exe::00806210
 
 
  char byte_80AA10; // weak
@@ -2472,7 +2469,6 @@ IDirectDrawClipper *pDDrawClipper = 0; // dword @ MM7.exe::00FD1BE0
 //int dword_DF1C08; // @ pD3DRenderer::dword_000020
 //int dword_DF1C0C; // @ pD3DRenderer::dword_000024
 //int dword_DF1C10; // @ pD3DRenderer::dword_000028
- _UNKNOWN unk_E0E0E1; // weak
 //int dword_E31C1C; // @ pD3DRenderer::dword_040034
 //int dword_E31C40; // @ pD3DRenderer::dword_040058
 //int dword_E31C70; // @ pD3DRenderer::dword_040088
@@ -2532,10 +2528,6 @@ IDirectDrawClipper *pDDrawClipper = 0; // dword @ MM7.exe::00FD1BE0
  int dword_EF534C; // weak
  int dword_EF5350[array_size_unknown]; // weak
  _UNKNOWN unk_F00000; // weak
- int dword_F1B418; // weak
- int dword_F1B420; // weak
- int dword_F1B424; // weak
- int dword_F1B428; // weak
  _UNKNOWN unk_F1B430; // weak
  BYTE dword_F1B4B0; // idb
  BYTE Data; // idb
@@ -2769,7 +2761,6 @@ struct class28 class28_global;  // struct @ MM7.exe::00F8BC14
  _UNKNOWN unk_F8F204; // weak
  float flt_F8F20C; // weak
  _UNKNOWN unk_F8F22C; // weak
- _UNKNOWN unk_F8F8F8; // weak
  int dword_F8FE00; // weak
  int dword_F91604; // weak
  int dword_F91E04; // weak

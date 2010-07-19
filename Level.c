@@ -1723,12 +1723,12 @@ bool __stdcall sub_45CE50(struct struct7 *_this, struct class51_stru2 *a2, int *
     flt_F8B008[*(_DWORD *)a3] = (double)_this->byte_000008 * 0.003921568859368563;
     flt_F8B058[*(_DWORD *)a3] = (double)_this->byte_000009 * 0.003921568859368563;
     flt_F8B0A8[*(_DWORD *)a3] = (double)_this->byte_00000A * 0.003921568859368563;
-    v11 = pD3DRenderer->dword_103660;
+    v11 = pD3DRenderer->bUsingSpecular;
     dword_F8AF18[*(_DWORD *)a3] = abs(v8);
     byte_F8B0F8[*(_DWORD *)a3] = _this->byte_00000B;
-    v10 = pD3DRenderer->pRendererD3D3;
+    v10 = pD3DRenderer->pRenderD3D3;
     v9 = byte_F8B0F8[*(_DWORD *)a3];
-    if ( pD3DRenderer->pRendererD3D3 )
+    if ( pD3DRenderer->pRenderD3D3 )
     {
       if ( v11 )
       {

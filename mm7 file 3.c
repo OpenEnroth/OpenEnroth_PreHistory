@@ -691,7 +691,7 @@ LABEL_69:
       else
         v35 = *(_WORD *)(v8 + 136);
       v59 = v35;
-      if ( pD3DRenderer->pRendererD3D3 )
+      if ( pD3DRenderer->pRenderD3D3 )
       {
         if ( *(_BYTE *)(LODWORD(pGame) + 3620) & 0x20 )
         {
@@ -1229,7 +1229,7 @@ LABEL_133:
                     else
                       v57 = *(_WORD *)(v44 + 136);
                     v75 = v57;
-                    if ( pD3DRenderer->pRendererD3D3 )
+                    if ( pD3DRenderer->pRenderD3D3 )
                     {
                       if ( *(_BYTE *)(LODWORD(pGame) + 3620) & 0x20 )
                       {
@@ -1425,7 +1425,7 @@ LABEL_43:
                       else
                         v27 = *(_WORD *)(v7 + 136);
                       v74 = v27;
-                      if ( pD3DRenderer->pRendererD3D3 )
+                      if ( pD3DRenderer->pRenderD3D3 )
                       {
                         if ( *(_BYTE *)(LODWORD(pGame) + 3620) & 0x20 )
                         {
@@ -5639,7 +5639,7 @@ void __fastcall sub_43FA33(int a1, int a2)
             {
               ++dword_5187E0;
               ++dword_5187EC;
-              v16 = pD3DRenderer->pRendererD3D3 == 0;
+              v16 = pD3DRenderer->pRenderD3D3 == 0;
               *((_WORD *)v15 + 12) = *(_WORD *)(v11 + 2 * v6 + 24);
               *((_WORD *)v15 + 13) = *(_WORD *)(v11 + 52);
               *((_WORD *)v15 + 14) = LOWORD(v41);
@@ -5850,7 +5850,7 @@ LABEL_12:
       ++dword_5187E4;
       v13 = (int)((char *)v2 - 36);
       *(_DWORD *)v2 |= 8u;
-      v14 = pD3DRenderer->pRendererD3D3 == 0;
+      v14 = pD3DRenderer->pRenderD3D3 == 0;
       *(_WORD *)(a1 + 24) = *(_WORD *)(v11 + 2 * v32 + 24);
       *(_WORD *)(a1 + 26) = *(_WORD *)(v11 + 52);
       *(_WORD *)(a1 + 28) = v36;
@@ -6038,7 +6038,7 @@ void __cdecl sub_44028F()
               ++dword_5187E0;
               ++dword_5187E4;
               *((_BYTE *)v0 - 2) |= 1u;
-              v12 = pD3DRenderer->pRendererD3D3 == 0;
+              v12 = pD3DRenderer->pRenderD3D3 == 0;
               *((_WORD *)v7 + 13) = *(_WORD *)(v25 + 52);
               *((_WORD *)v7 + 14) = v27;
               if ( v12 )
@@ -6081,7 +6081,7 @@ void __cdecl sub_44028F()
               *((_DWORD *)v7 + 4) = v21 + v23;
               if ( !v24 )
               {
-                if ( !pD3DRenderer->pRendererD3D3 )
+                if ( !pD3DRenderer->pRenderD3D3 )
                   *((_DWORD *)v7 + 4) = 0;
               }
             }
@@ -6104,7 +6104,7 @@ char __fastcall sub_440639(signed int a1, int a2)
   LOBYTE(v2) = -52 * a1;
   v4 = 0;
   v5 = dword_6BE654 + 116 * word_51C720[1126 * a1];
-  if ( pD3DRenderer->pRendererD3D3 )
+  if ( pD3DRenderer->pRenderD3D3 )
   {
     if ( *(_WORD *)(v5 + 46) > 0 )
     {
@@ -6172,7 +6172,7 @@ char __fastcall sub_4406BC(signed int a1, int a2)
       LOBYTE(v6) = sub_4406BC(v11, v6);
     v8 = *(_WORD *)(v4 + 4);
     v7 = v8 + *(_WORD *)(v4 + 6);
-    if ( pD3DRenderer->pRendererD3D3 )
+    if ( pD3DRenderer->pRenderD3D3 )
     {
       while ( v8 < v7 )
         LOBYTE(v6) = sub_4B0EA8(&class37_global0, v11, *(_WORD *)(*(_DWORD *)(v5 + 48) + 2 * v8++));
@@ -6245,7 +6245,7 @@ int __thiscall sub_4407D9(int this, int a2)
     *(_DWORD *)(v3 + 12) = pParty_global->sPartyPosY;
     *(_DWORD *)(v3 + 28) = sub_49AC17((int)byte_6BE3C8, v10, v9, v8);
   }
-  if ( pD3DRenderer->pRendererD3D3 )
+  if ( pD3DRenderer->pRenderD3D3 )
   {
     *(_DWORD *)(v3 + 32) = class59_SinCos(pClass59_global, *(_DWORD *)(v3 + 20));
     *(_DWORD *)(v3 + 36) = class59_SinCos(pClass59_global, *(_DWORD *)(v3 + 20) - pClass59_global->uNumTableEntries);
@@ -6375,9 +6375,9 @@ void __thiscall sub_440BED(int this)
 
   sub_43F39E(this);
   if ( dword_51B6FC )
-    sub_440B44(pD3DRenderer->pRendererD3D3 != 0);
+    sub_440B44(pD3DRenderer->pRenderD3D3 != 0);
   sub_440CB8();
-  if ( !pD3DRenderer->pRendererD3D3 )
+  if ( !pD3DRenderer->pRenderD3D3 )
   {
     if ( byte_51B6E4 & 2 )
       sub_4B0967();
@@ -6465,7 +6465,7 @@ void __cdecl sub_440CB8()
       v2 = *((_WORD *)v1 - 8);
       if ( v2 != -1 )
       {
-        if ( pD3DRenderer->pRendererD3D3 )
+        if ( pD3DRenderer->pRenderD3D3 )
         {
           sub_4A43B1(pD3DRenderer, (int)&v6, pLODFile_Sprites_LOD->pHardwareSprites + 40 * v2, *((_WORD *)v1 + 1));
         }
@@ -6658,7 +6658,7 @@ LABEL_12:
     v4 = CIconFrameTable_GetFrame(v3, v5, v6);
 LABEL_14:
     v7 = 72 * *(_WORD *)(v4 + 30) + 7145548;
-    if ( pD3DRenderer->pRendererD3D3 )
+    if ( pD3DRenderer->pRenderD3D3 )
       Render_DrawIndexedTexture(pD3DRenderer, 394, 288, v7);
     else
       Render_DrawTransparentTexture(pD3DRenderer, 394, 288, v7);
@@ -10510,7 +10510,7 @@ LABEL_248:
             v138 = v101 + ((*(_BYTE *)(v11 + 26) + ((*(_BYTE *)(v11 + 27) + (*(_BYTE *)(v11 + 28) << 8)) << 8)) << 8);
             if ( *(_BYTE *)(v11 + 29) || *(_BYTE *)(v11 + 30) )
             {
-              if ( pD3DRenderer->pRendererD3D3 )
+              if ( pD3DRenderer->pRenderD3D3 )
               {
                 if ( !pD3DRenderer->dword_040058 )
                   sub_49FD3A(pD3DRenderer, v10);
@@ -10636,7 +10636,7 @@ LABEL_280:
                  + ((*(_BYTE *)(v11 + 6) + ((*(_BYTE *)(v11 + 7) + (*(_BYTE *)(v11 + 8) << 8)) << 8)) << 8);
             if ( sub_44622E(v107) )
             {
-              if ( pD3DRenderer->pRendererD3D3 )
+              if ( pD3DRenderer->pRenderD3D3 )
               {
                 if ( !pD3DRenderer->dword_040058 )
                   sub_49FD3A(pD3DRenderer, v107);
@@ -14870,7 +14870,7 @@ LABEL_12:
   {
     v10 = 1.0;
   }
-  if ( pD3DRenderer->pRendererD3D3 )
+  if ( pD3DRenderer->pRenderD3D3 )
     *((float *)v4 + 906) = v10;
   else
     *((float *)v4 + 906) = (1.0 - 0.5) * v10 + 0.5;
@@ -14884,7 +14884,7 @@ char __thiscall sub_44EB12(int this, char a2, int a3, int a4)
   char result; // al@4
 
   v4 = this;
-  if ( !dword_4E28F8 && (v5 = *(_DWORD *)(this + 3660)) != 0 && pD3DRenderer->pRendererD3D3 )
+  if ( !dword_4E28F8 && (v5 = *(_DWORD *)(this + 3660)) != 0 && pD3DRenderer->pRenderD3D3 )
   {
     sub_4C05CC(v5, v5 + 4, a3, a4);
     if ( a2 )
