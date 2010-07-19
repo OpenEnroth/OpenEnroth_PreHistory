@@ -3199,7 +3199,7 @@ LABEL_721:
           {
             if ( dword_50CBD0[0] )
               dword_50CBD0[0] = dword_50CBD0[3] != 0;
-            if ( uActiveCharacter && !pPlayers[uActiveCharacter - 1]->array_000214[74].word_00001E)
+            if ( uActiveCharacter && !pPlayers[uActiveCharacter - 1]->cInventorySlots[74].word_00001E)
             {
               if ( !dword_4E28F8 )
                 goto LABEL_693;
@@ -6148,7 +6148,7 @@ void __fastcall GameUI_DrawInventory(unsigned int uSelectedCharacter, bool a2) /
 {
   struct Player *v2; // esi@1
   int v4; // eax@2
-  struct Player_stru0 *v6; // ebx@5
+  struct InventorySlot *v6; // ebx@5
   signed int v8; // edx@6
   signed int v13; // eax@11
   int v14; // eax@13
@@ -6178,11 +6178,11 @@ void __fastcall GameUI_DrawInventory(unsigned int uSelectedCharacter, bool a2) /
 
   for (i = 0; i < 126; ++i)
   {
-    if (v2->array_00157C[i] > 0)
+    if (v2->sInventoryIndexes[i] > 0)
     {
-      v28 = v2->array_00157C[i] - 1;
+      v28 = v2->sInventoryIndexes[i] - 1;
       v33 = 32 * (i / 14) + 17;
-      v6 = &v2->array_000214[v28];
+      v6 = &v2->cInventorySlots[v28];
       v32 = 32 * (i % 14) + 14;
 
       if (v6->uItemID)
@@ -7061,19 +7061,25 @@ int GameUI_DrawPaperdoll()
     }
     else
     {
+      int uFace = pPlayers[v29]->uFace;
       v8 = 4 * v29;
-      dword_51127C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, (&off_4ECD68)[4 * *(_BYTE *)(pPlayers[v29] + 186)], 2);
-      dword_5115D0[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, (&off_4ECC98)[4 * *(_BYTE *)(pPlayers[v29] + 186)], 2);
-      dword_5115C0[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, (&off_4ECD00)[4 * *(_BYTE *)(pPlayers[v29] + 186)], 2);
-      dword_51124C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, (&off_4ECDD0)[4 * *(_BYTE *)(pPlayers[v29] + 186)], 2);
-      dword_51126C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, (&off_4ECE38)[4 * *(_BYTE *)(pPlayers[v29] + 186)], 2);
+      wsprintfA(&Str1, "pc%0dbod", uFace + 1);
+      dword_51127C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      wsprintfA(&Str1, "pc%0dlad", uFace + 1);
+      dword_5115D0[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      wsprintfA(&Str1, "pc%0dlau", uFace + 1);
+      dword_5115C0[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      wsprintfA(&Str1, "pc%0drh", uFace + 1);
+      dword_51124C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      wsprintfA(&Str1, "pc%0dlh", uFace + 1);
+      dword_51126C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      wsprintfA(&Str1, "pc%0dlhu", uFace + 1); // something strange with pc20lhu, needs to check
+      dword_51125C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
       v9 = pPlayers[v29];
-      dword_51125C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, (&off_4ECEA0)[4 * *(_BYTE *)(pPlayers[v29] + 186)], 2);
       v7 = v9 + 186;
-      v6 = *(_BYTE *)v7;
-      if ( *(_BYTE *)v7 == 12 || v6 == 13 )
+      if ( uFace == 12 || uFace == 13 )
       {
-        wsprintfA(&Str1, "pc%02dbrd", v6 + 1);
+        wsprintfA(&Str1, "pc%02dbrd", uFace + 1);
         v7 = *(int *)((char *)pPlayers + v8) + 186;
         dword_511208[*(_BYTE *)v7] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
       }

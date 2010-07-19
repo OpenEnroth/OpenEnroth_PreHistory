@@ -65,7 +65,7 @@
 extern unsigned int uTextureID_PCFaces[];
 
 
-struct Player_stru0
+struct InventorySlot
 {
  unsigned int  uItemID; // dword @ 000000
  int           dword_000004[3];
@@ -74,7 +74,7 @@ struct Player_stru0
  short         word_00001E;
  int           dword_000020[3];
 };
-//sizeof == 24
+//sizeof == 0x24
 
 struct Spellbook
 {
@@ -137,11 +137,11 @@ struct Player
    struct Spellbook cLightSpellbook;  // struct @ 0001DF
    struct Spellbook cDarkSpellbook;   // struct @ 0001EA
    
-   char array_0001F5[31];
+   char           array_0001F5[31];
 
-   struct Player_stru0 array_000214[126]; // items in inventory
-   char                array_0013CC[432];
-   int            array_00157C[126];
+   struct InventorySlot cInventorySlots[126]; // struct[14*9] @ 000214 
+   char           array_0013CC[432];
+   int            sInventoryIndexes[126]; // dword[14*9] @ 00157C
    short          sFireResistanceBase;    // word @ 001774
    short          sAirResistanceBase;     // word @ 001776
    short          sWaterResistanceBase;   // word @ 001778
@@ -176,7 +176,8 @@ struct Player
    int            sHealth;           // dword @ 00193C
    int            sMana;             // dword @ 001940
    unsigned int   uBirthYear;        // dword @ 001944
-   int            array_001948[65]; // related to equipped items
+   int            sEquppedItemIndexes[16]; // dword[16] @ 001948
+   int            array_001988[65]; // dword[] @ 001988
 
    char          byte_001A4E;
    unsigned char uQuickSpell;     // byte  @ 001A4F
@@ -230,7 +231,7 @@ int Player_GetSex(struct Player *_this);
 signed int Player_sub_48E8F5(struct Player *_this, signed int a2);
 signed int Player_sub_48EA46(struct Player *_this, int a2);
 signed int Player_sub_492D65(struct Player *_this, int a2, int a3);
-int MaybePlaceItemInInventory(struct Player *_this, signed int a2, int a3);
+int CanPlaceItemInInventory(struct Player *_this, signed int a2, int a3);
 
 signed int __thiscall GetSkillIdxByOrder(struct Player *_this, int Order);
 int __thiscall Player_GetConditionIdx(void *this);

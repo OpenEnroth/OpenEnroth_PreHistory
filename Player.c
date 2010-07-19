@@ -17,7 +17,7 @@ bool sub_48D6AA(struct Player *_this, int a2)
 {
   int v2; // eax@1
 
-  v2 = _this->array_001948[a2];
+  v2 = _this->sEquppedItemIndexes[a2];
   return v2 && !(*((_BYTE *)_this + 36 * v2 + 0x204) & 2);
 }
 
@@ -89,7 +89,7 @@ bool sub_48D6D0(struct Player *_this, int a2)
   int v3; // edx@2
 
   v2 = 0;
-  while (!sub_48D6AA(_this, v2) || *((int *)((char *)_this + 0x2FC) + 9 * _this->array_001948[v2]) != a2)
+  while (!sub_48D6AA(_this, v2) || *((int *)((char *)_this + 0x2FC) + 9 * _this->sEquppedItemIndexes[v2]) != a2)
   {
     ++v2;
     if ( v2 >= 16 )
@@ -1145,7 +1145,7 @@ int __thiscall CreateItemInInventory(struct Player *_this, signed int a2, int it
       v5 = v3;
       do
       {
-        if ( MaybePlaceItemInInventory(_this, v5, itemid) )
+        if ( CanPlaceItemInInventory(_this, v5, itemid) )
           return sub_492600(_this, v5, itemid);
         
         ++v4;
@@ -1159,7 +1159,7 @@ int __thiscall CreateItemInInventory(struct Player *_this, signed int a2, int it
     }
     return 0;
   }
-  if ( !MaybePlaceItemInInventory(_this, a2, itemid) )
+  if ( !CanPlaceItemInInventory(_this, a2, itemid) )
   {
     AudioPlayer_sub_4AA306(pAudioPlayer, 27, 0, 0, -1, 0, 0, 0, 0);
     return 0;
@@ -1678,7 +1678,7 @@ signed int Player_sub_48EA46(struct Player *_this, int a2)
   {
     if ( !sub_48D6AA(_this, v3) )
       goto LABEL_11;
-    v5 = _this->array_001948[0] - 1;
+    v5 = _this->sEquppedItemIndexes[0] - 1;
     if ( a2 != 17 )
       break;
     v6 = (int)((char *)_this + 36 * v5);
@@ -3145,7 +3145,7 @@ LABEL_88:
 }
 
 //----- (00492528) --------------------------------------------------------
-int MaybePlaceItemInInventory(struct Player *_this, signed int a2, int a3)
+int CanPlaceItemInInventory(struct Player *_this, signed int a2, int a3)
 {
   unsigned int uNumSlotsX;
   struct class18 *v4; // esi@1
@@ -3176,7 +3176,7 @@ int MaybePlaceItemInInventory(struct Player *_this, signed int a2, int a3)
   if ( uNumSlotsX + a2 % 14 <= 14 && uNumSlotsY + a2 / 14 <= 9 )
   {
     v6 = 0;
-    v7 = &_this->array_00157C[a2];
+    v7 = &_this->sInventoryIndexes[a2];
     while ( 1 )
     {
       v8 = 0;
@@ -3221,7 +3221,7 @@ int sub_492826(struct Player *_this, signed int a2, unsigned char *Src)
       v4 = 0;
       do
       {
-        if ( MaybePlaceItemInInventory(_this, v5, v3) )
+        if ( CanPlaceItemInInventory(_this, v5, v3) )
         {
           v8 = (const void *)Src;
           v7 = v5;
@@ -3238,7 +3238,7 @@ int sub_492826(struct Player *_this, signed int a2, unsigned char *Src)
     }
     return 0;
   }
-  if ( !MaybePlaceItemInInventory(_this, a2, v3) )
+  if ( !CanPlaceItemInInventory(_this, a2, v3) )
     return 0;
   v8 = (const void *)Src;
   v7 = a2;
@@ -3248,22 +3248,20 @@ int sub_492826(struct Player *_this, signed int a2, unsigned char *Src)
 //----- (0049289C) --------------------------------------------------------
 int sub_49289C(struct Player *_this, int a2, const void *Src)
 {
-  int v3; // eax@1
+  int v3, i, x; // eax@1
   signed int v4; // ebx@1
   int result; // eax@6
   struct class18 *v6; // esi@7
   int v7; // eax@7
-  int v8; // edx@9
   void *v9; // esi@10
   int v11; // [sp+4h] [bp-Ch]@7
   int v12; // [sp+8h] [bp-8h]@7
   void *v13; // [sp+Ch] [bp-4h]@1
-  int v14; // [sp+18h] [bp+8h]@10
- wchar_t pFilename[256];
+  wchar_t pFilename[256];
 
   v13 = _this;
   v4 = 0;
-  v3 = _this->array_000214;
+  v3 = _this->cInventorySlots;
   while ( *(_DWORD *)v3 )
   {
     ++v4;
@@ -3292,22 +3290,83 @@ int sub_49289C(struct Player *_this, int a2, const void *Src)
       sub_40F77C(v6);
       sub_40F9C5(pLODFile_Icons_LOD);
     }
-    v8 = a2;
-    if ( v12 > 0 )
+    if ( v12 > 0 ) // reserving space for large items in inventory
     {
-      v14 = v12;
-      v9 = &_this->array_00157C[v8];
-      do
+      for(x = a2; v12-- != 1; x+=14) // 14 is the columns count, so getting to next row
       {
-        if ( v11 > 0 )
-          memset(v9, -1 - v8, 4 * v11);
-        v9 = (char *)v9 + 56;
+        for(i = 0; i < v11; i++) // filling number of columns horizontally
+         _this->sInventoryIndexes[x + i] = -1 - a2;
       }
-      while ( v14-- != 1 );
     }
-    _this->array_00157C[v8] = v4 + 1;
-    memcpy(&_this->array_000214[v4], Src, sizeof(struct Player_stru0));
+    _this->sInventoryIndexes[a2] = v4 + 1;
+    memcpy(&_this->cInventorySlots[v4], Src, sizeof(struct InventorySlot));
     result = v4 + 1;
+  }
+  return result;
+}
+
+//----- (00492600) --------------------------------------------------------
+int __thiscall sub_492600(struct Player *_this, int a2, unsigned int uItemID) // place item to inventory
+{
+  int v3, i, x; // eax@1
+  signed int v4; // edx@1
+  int result; // eax@8
+ struct class18 *v7; // esi@10
+  int v8; // eax@10
+  void *v9; // esi@13
+  int v11; // [sp+0h] [bp-Ch]@10
+  void *v12; // [sp+4h] [bp-8h]@1
+  signed int v13; // [sp+8h] [bp-4h]@4
+  int v14; // [sp+18h] [bp+Ch]@10
+ wchar_t pItemIconNameW[64];
+
+  v12 = _this;
+  v4 = 0;
+  v3 = (int)((char *)_this + 532);
+  while ( *(_DWORD *)v3 )
+  {
+    ++v4;
+    v3 += 36;
+    if ( v4 >= 126 )
+    {
+      v13 = -1;
+      goto LABEL_5;
+    }
+  }
+  v13 = v4;
+LABEL_5:
+  if ( v13 == -1 )
+  {
+    if ( uActiveCharacter )
+      sub_4948B1(pPlayers[uActiveCharacter - 1], 15, 0);
+    result = 0;
+  }
+  else
+  {
+    MultiByteToWideChar(CP_ACP, 0, pClass40->pItems[uItemID].pIconName, -1, pItemIconNameW, 64);
+    v8 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pItemIconNameW);
+
+    v7 = &pLODFile_Icons_LOD->aLODHeaders[v8];
+    v11 = GetSizeInInventorySlots(v7->uTextureWidth);
+    v14 = GetSizeInInventorySlots(v7->uTextureHeight);
+    if ( !dword_506128 )
+    {
+     runtime_warning(When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures);
+      //sub_40F77C(v7);
+      sub_40F9C5(pLODFile_Icons_LOD);
+    }
+
+    if ( v14 > 0 ) // reserving space for large items in inventory
+    {
+      for(x = a2; v14-- != 1; x+=14) // 14 is the columns count, so getting to next row
+      {
+        for(i = 0; i < v11; i++) // filling number of columns horizontally
+         _this->sInventoryIndexes[x + i] = -1 - a2;
+      }
+    }
+    result = v13 + 1;
+    *((_DWORD *)v12 + a2 + 1375) = v13 + 1;
+    *((_DWORD *)v12 + 9 * v13 + 133) = uItemID;
   }
   return result;
 }

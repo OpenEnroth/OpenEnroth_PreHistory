@@ -1019,7 +1019,7 @@ int __fastcall sub_491DE7(int a1, int a2);
 int __cdecl sub_491E3A();
 void __cdecl sub_491F87_DrawNPCs();
 signed int __thiscall sub_4925E6(void *this);
-int __thiscall sub_492600(void *this, int a2, unsigned int uItemID);
+int __thiscall sub_492600(struct Player *_this, int a2, unsigned int uItemID);
 signed int __thiscall sub_492700(void *this, signed int a2);
 int __thiscall sub_492826(void *this, signed int a2, int Src);
 int __thiscall sub_49289C(void *this, int a2, const void *Src);

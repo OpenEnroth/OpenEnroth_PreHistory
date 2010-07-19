@@ -4898,13 +4898,13 @@ bool __fastcall sub_43EE15(int a1, struct Player *pp, char a3) // find item in i
   if ( !a3 || dword_AD470C != a1 )
   {
     v3 = 0;
-    while ( !pp->array_00157C[v3] || pp->array_000214[pp->array_00157C[v3]].uItemID != a1 ) 
+    while ( pp->sInventoryIndexes[v3] <= 0 || pp->cInventorySlots[pp->sInventoryIndexes[v3]].uItemID != a1 ) 
     {
       ++v3;
       if ( v3 >= 126 )
       {
         v5 = 0;
-        while ( !pp->array_001948[v5] || pp->array_000214[pp->array_001948[v5]].uItemID != a1 )
+        while ( pp->sEquppedItemIndexes[v5] <= 0 || pp->cInventorySlots[pp->sEquppedItemIndexes[v5]].uItemID != a1 )
         {
           ++v5;
           if ( v5 >= 16 )
@@ -4950,9 +4950,9 @@ char __fastcall sub_43EE77(signed int a1)
     }
     return 0;
   }
-  if ( !sub_43EE15(604, pPlayers[a1], 0))
+  if ( !sub_43EE15(604, pPlayers[a1 - 1], 0))
     return 0;
-  v1 = pPlayers[a1];
+  v1 = pPlayers[a1 - 1];
   v3 = *(_DWORD *)(v1 + 0x1954);
   if(!v3)
     return 0;
