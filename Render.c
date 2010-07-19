@@ -88,7 +88,7 @@ void Render_ctor(struct Render *_this)
  _this->uDesiredDirect3DDevice = v1;
 
   //force d3d
- _this->bUseDirect3D = false;
+ _this->bUseDirect3D = true;
 
  _this->dword_000010 = 640;
  _this->dword_000014 = 480;
@@ -121,7 +121,7 @@ void Render_ctor(struct Render *_this)
  _this->dword_040104 = 1;
 
  _this->dword_040108 = 0;
- _this->dword_04010C = 0;
+ _this->uD3D3SceneBegun = 0;
  _this->dword_040110 = 0;
 
  _this->bUseColoredLights = ReadWindowsRegistry("Colored Lights", false);
@@ -546,8 +546,7 @@ void Render_DrawIndexedTexture(struct Render *_this, unsigned int uX, unsigned i
  unsigned int  y,
                x;
  unsigned int  uSrcColor,
-               uDstColor,
-               uAlpha;
+               uDstColor;
 
  if (!_this->bSceneBegun || !pTexture)
    return;
@@ -571,8 +570,7 @@ void Render_DrawIndexedTexture(struct Render *_this, unsigned int uX, unsigned i
 
    uSrcColor = pTexture->pTruecolorPixels[y * pTexture->uTextureWidth + x];
    uDstColor = pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX];
-   uAlpha = ((uSrcColor & 0xFF000000) >> 8) | ((uSrcColor & 0xFF000000) >> 16) | ((uSrcColor & 0xFF000000) >> 24);
-   pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX] = (uSrcColor & uAlpha) + (uDstColor & (0x00FFFFFF - uAlpha));
+   pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX] = uSrcColor;
   }
  }
 }
@@ -669,10 +667,10 @@ void Render_DrawTransparentTexture(struct Render *_this, unsigned int uX, unsign
    dst_channel[1] = (unsigned char)(src_alpha * ((uSrcColor >> 8) & 0xFF) + dst_alpha * ((uDstColor >> 8) & 0xFF));
    dst_channel[2] = (unsigned char)(src_alpha * (uSrcColor & 0xFF) + dst_alpha * (uDstColor & 0xFF));
 
-   pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX] = ((unsigned int)(src_alpha * 255.0f) << 24) |
-                                                                       (dst_channel[0] << 16) |
-                                                                       (dst_channel[1] << 8) |
-                                                                       dst_channel[2];
+   pSurfacePtr[(y + uY) * _this->uTargetSurfacePitch + x + uX] = 0xFF000000 |
+                                                                 (dst_channel[0] << 16) |
+                                                                 (dst_channel[1] << 8) |
+                                                                 dst_channel[2];
   }
  }
 }
@@ -706,7 +704,7 @@ void Render_DrawTransparentRect(struct Render *_this, unsigned int uOutX, unsign
     dst_channel[1] = (unsigned char)(src_alpha * ((uSrcColor >> 8) & 0xFF) + dst_alpha * ((uDstColor >> 8) & 0xFF));
     dst_channel[2] = (unsigned char)(src_alpha * (uSrcColor & 0xFF) + dst_alpha * (uDstColor & 0xFF));
 
-    pSurfacePtr[(y + uOutY) * _this->uTargetSurfacePitch + x + uOutX] = ((unsigned int)(src_alpha * 255.0f) << 24) |
+    pSurfacePtr[(y + uOutY) * _this->uTargetSurfacePitch + x + uOutX] = 0xFF000000 |
                                                                         (dst_channel[0] << 16) |
                                                                         (dst_channel[1] << 8) |
                                                                         dst_channel[2];
@@ -736,38 +734,17 @@ int Render_LockFrontBuffer(struct Render *_this, void **ppOutSurfacePtr, unsigne
 //----- (004A527D) --------------------------------------------------------
 HRESULT Render_EndScene(struct Render *_this)
 {
- HRESULT hr;
- char    local_0[128];
+ if (_this->pRenderD3D3)
+   return RenderD3D3_EndScene(_this->pRenderD3D3);
 
-  if (_this->bSceneBegun)
-  {
-   _this->bSceneBegun--;
-    if (!_this->bSceneBegun)
-    {
-      if (_this->pRenderD3D3)
-      {
-        if (_this->dword_040108)
-        {
-          _this->pTargetSurface = 0;
-          _this->uTargetSurfacePitch = 0;
-          _this->dword_000018 = 0;
-          compile_error;
-          //hr = (**(_DWORD **)(_this->dword_040098) + 128)(
-          //       *(_DWORD *)(_this + 262296),
-          //       0);
-          return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 207, 0);
-        }
-      }
-      else
-      {
-        _this->pTargetSurface = 0;
-        _this->uTargetSurfacePitch = 0;
-        _this->dword_000018 = 0;
-        return Render_UnlockBackBuffer(_this);
-      }
-    }
-  }
-  return E_FAIL;
+ if (!_this->bSceneBegun)
+   return E_FAIL;
+
+ _this->bSceneBegun--;
+ _this->pTargetSurface = 0;
+ _this->uTargetSurfacePitch = 0;
+ _this->dword_000018 = 0;
+ return Render_UnlockBackBuffer(_this);
 }
 
 //----- (004A16E1) --------------------------------------------------------
@@ -931,7 +908,7 @@ int Render_Initialize(struct Render *_this, HWND hwnd)
   _this->dword_040110 = 0;
 
   //try_catch session
-  sub_49FE05(unknown_libname_107, _this);
+  sub_49FE05(_this);
   _this->hWnd = hwnd;
   Render_Initialize_ZBuffer(_this);
 
@@ -1172,7 +1149,7 @@ int Render_Initialize(struct Render *_this, HWND hwnd)
   _this->dword_040058 = 0;
   pParty_global->dword_007778 |= 2u;
   flt_6BE3A0 = 0.55f;
-  class28_fn2(&class28_global, 36044);
+  Viewport_fn2(pViewport, 36044);
   return v18;
 }
 
@@ -1180,7 +1157,6 @@ int Render_Initialize(struct Render *_this, HWND hwnd)
 int Render_InitWindowed(struct Render *_this, HWND hwnd)
 {
   int v2; // esi@1
-  int v3; // eax@1
   int v7; // ecx@5
   signed int v8; // eax@7
   int v11; // eax@14
@@ -1222,11 +1198,13 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
   pParty_global->dword_007778 |= 2;
   v2 = (int)_this;
   flt_6BE3A0 = 0.55000001;
-  v3 = class28_fn2(&class28_global, 36044);
+
+
+ Viewport_fn2(pViewport, 36044);
 
  _this->dword_040108 = 0;
  _this->dword_040110 = 0;
- sub_49FE05(v3, _this);
+ sub_49FE05(_this);
 
  _this->pdd4 = 0;
  _this->pdds4_FrontBuffer = 0;
@@ -2424,7 +2402,7 @@ void Render_ClearZBuffer(struct Render *_this, int a2, int a3)
 
 
 //----- (004A1EB6) --------------------------------------------------------
-void Render_BeginScene2(struct Render *_this)
+void Render_BeginSceneD3D3(struct Render *_this)
 {
   int result; // eax@1
   int v2; // esi@1
@@ -2437,7 +2415,7 @@ void Render_BeginScene2(struct Render *_this)
   int v17; // [sp+17h] [bp-1h]@4
 
   v2 = _this;
-  result = _this->dword_04010C++;
+  result = _this->uD3D3SceneBegun++;
   if ( !result )
   {
     if (_this->pRenderD3D3)
@@ -2472,7 +2450,7 @@ void Render_BeginScene2(struct Render *_this)
       }
       else
       {
-        --_this->dword_04010C;
+        --_this->uD3D3SceneBegun;
       }
     }
   }
@@ -2481,12 +2459,12 @@ void Render_BeginScene2(struct Render *_this)
 
 
 //----- (004A1FE1) --------------------------------------------------------
-extern struct CGame *pGame;
-void Render_sub_4A1FE1_MaybeRenderSpecialEffects(struct Render *_this)
+void Render_EndSceneD3D3_AND_MaybeRenderSpecialEffects(struct Render *_this)
 {
- if (_this->dword_04010C-- == 1)
+ if (_this->uD3D3SceneBegun-- == 1)
  {
-    if (_this->pRenderD3D3)
+  runtime_warning(crashy crashes);
+    /*if (_this->pRenderD3D3)
     {
       sub_44EE7C();
       sub_4A1C1E();
@@ -2494,7 +2472,7 @@ void Render_sub_4A1FE1_MaybeRenderSpecialEffects(struct Render *_this)
       (*(int (__stdcall **)(_DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 40))(*(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56));
     }
     else
-      class06_sub_4A8C27(pGame->class06_obj);
+      class06_sub_4A8C27(pGame->class06_obj);*/
  }
 }
 
@@ -3104,7 +3082,7 @@ bool __thiscall sub_49E756(IDirectDraw4 *pdd4)
 
 
 //----- (004A2DA3) --------------------------------------------------------
-void Render_DrawSomeFan(struct Render *_this, unsigned int uNumVertices, int a3, IDirect3DTexture2 *pTexture)
+void Render_DrawStrip(struct Render *_this, unsigned int uNumVertices, struct struct8 *a3, IDirect3DTexture2 *pTexture)
 {
   int v4; // ebx@1
   int v7; // eax@7
@@ -3112,7 +3090,52 @@ void Render_DrawSomeFan(struct Render *_this, unsigned int uNumVertices, int a3,
  int i;
 
   v4 = _this;
- if (!_this->dword_04010C)
+ if (!_this->uD3D3SceneBegun)
+   return;
+
+ if (uNumVertices >= 3)
+ {
+  (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 12, 1);
+  if (_this->bUsingSpecular)
+  {
+   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 27, 1);
+   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 19, 2);
+   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 20, 1);
+  }
+  
+  for (i = 0; i < uNumVertices; ++i)
+  {
+   pVertices[i].x = array_50AC10[i].flt_000018;
+   pVertices[i].y = array_50AC10[i].flt_00001C;
+   pVertices[i].z = 0.99989998;
+   pVertices[i].rhw = array_50AC10[i].flt_000020;
+
+   pVertices[i].diffuse = sub_47C4FC(31, 0, array_50AC10[i].flt_00000C, 1, 0);
+   v7 = 0;
+   if (_this->bUsingSpecular)
+   {
+    v12 = array_50AC10[i].flt_00000C;
+    v7 = sub_47C3D7(0, 1, v12);
+   }
+   pVertices[i].specular = v7;
+   pVertices[i].u = array_50AC10[i].u;
+   pVertices[i].v = array_50AC10[i].v;
+  }
+  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTexture)(pD3DRenderer->pRenderD3D3->pDevice, 0, pTexture);
+  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->DrawPrimitive)(pD3DRenderer->pRenderD3D3->pDevice, D3DPT_TRIANGLESTRIP, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, uNumVertices, D3DDP_DONOTUPDATEEXTENTS | D3DDP_DONOTLIGHT);
+ }
+}
+
+//----- (004A2DA3) --------------------------------------------------------
+void Render_DrawSomeFan(struct Render *_this, unsigned int uNumVertices, struct struct8 *a3, IDirect3DTexture2 *pTexture)
+{
+  int v4; // ebx@1
+  int v7; // eax@7
+  float v12; // ST3C_4@8
+ int i;
+
+  v4 = _this;
+ if (!_this->uD3D3SceneBegun)
    return;
 
  if (uNumVertices >= 3)
@@ -3146,4 +3169,140 @@ void Render_DrawSomeFan(struct Render *_this, unsigned int uNumVertices, int a3,
   (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTexture)(pD3DRenderer->pRenderD3D3->pDevice, 0, pTexture);
   (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->DrawPrimitive)(pD3DRenderer->pRenderD3D3->pDevice, D3DPT_TRIANGLEFAN, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, uNumVertices, D3DDP_DONOTUPDATEEXTENTS | D3DDP_DONOTLIGHT);
  }
+}
+
+
+
+//----- (004A6D87) --------------------------------------------------------
+void Render_FillRect2(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int a5, int a6, unsigned int a7)
+{
+ int y, x;
+
+ if (!_this->bSceneBegun)
+   return;
+
+ for (y = uY; y < uY + a6; ++y)
+   for (x = uX; x < uX + a5; ++x)
+     _this->pTargetSurface[x + y * _this->uTargetSurfacePitch] = a7;
+}
+
+
+//----- (0049FE05) --------------------------------------------------------
+void sub_49FE05(struct Render *pD3DRenderer)
+{
+  int v3; // esi@1
+  char v4; // zf@4
+  unsigned int v5; // ebx@6
+  int v6; // eax@7
+  int v7; // eax@11
+  int v8; // eax@13
+  int v9; // eax@15
+  int v10; // eax@20
+  int v11; // eax@22
+  int v12; // eax@24
+  int v13; // ebx@28
+  unsigned int *v14; // esi@29
+
+ v3 = pD3DRenderer;
+ if (pD3DRenderer->pRenderD3D3)
+ {
+  if (pD3DRenderer->dword_040110)
+  {
+   RenderD3D3_ClearTarget(pD3DRenderer->pRenderD3D3, 1, 0, 0, 1.0);
+   RenderD3D3_Present(pD3DRenderer->pRenderD3D3, 0);
+   RenderD3D3_ClearTarget(pD3DRenderer->pRenderD3D3, 1, 0, 0, 1.0);
+  }
+
+    *(_DWORD *)(v3 + 262296) = 0;
+    *(_DWORD *)(v3 + 262292) = 0;
+    v4 = *(_DWORD *)(v3 + 262380) == 0;
+    *(_DWORD *)(v3 + 262288) = 0;
+    *(_DWORD *)(v3 + 262284) = 0;
+    if ( !v4 )
+    {
+      operator_delete(0, *(_DWORD *)(v3 + 262376));
+      *(_DWORD *)(v3 + 262380) = 0;
+      *(_DWORD *)(v3 + 262376) = 0;
+    }
+    v5 = *(_DWORD *)(v3 + 262280);
+    if ( v5 )
+    {
+      v6 = sub_49DC90(*(_DWORD *)(v3 + 262280));
+      operator_delete(0, v5);
+    }
+    *(_DWORD *)(v3 + 262280) = 0;
+  }
+ else
+ {
+  if (dword_4E800C == 1)
+  {
+   if (!pD3DRenderer->pdd2)
+     return 0;
+
+      (*(void (__stdcall **)(int, _DWORD, signed int))(*(_DWORD *)pD3DRenderer->pdd2 + 80))(pD3DRenderer->pdd2, *(_DWORD *)(v3 + 262224), 8);
+      (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(v3 + 262300) + 40))(*(_DWORD *)(v3 + 262300));
+      v7 = *(_DWORD *)(v3 + 262312);
+      if ( v7 )
+      {
+        (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v7 + 8))(*(_DWORD *)(v3 + 262312));
+        *(_DWORD *)(v3 + 262312) = 0;
+      }
+      v8 = *(_DWORD *)(v3 + 262308);
+      if ( v8 )
+      {
+        (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v8 + 8))(*(_DWORD *)(v3 + 262308));
+        *(_DWORD *)(v3 + 262308) = 0;
+      }
+      v9 = *(_DWORD *)(v3 + 262304);
+      if ( v9 )
+      {
+        (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v9 + 8))(*(_DWORD *)(v3 + 262304));
+        *(_DWORD *)(v3 + 262304) = 0;
+      }
+      if (*(_DWORD *)(v3 + 262300))
+      {
+        (*(int (__stdcall **)(_DWORD))(*(_DWORD *)(*(_DWORD *)(v3 + 262300)) + 8))(*(_DWORD *)(v3 + 262300));
+        *(_DWORD *)(v3 + 262300) = 0;
+      }
+    }
+    else
+    {
+     if (!pD3DRenderer->pdd4)
+       return 0;
+
+      (*(void (__stdcall **)(int, _DWORD, signed int))(*(_DWORD *)pD3DRenderer->pdd4 + 80))(pD3DRenderer->pdd4, *(_DWORD *)(v3 + 262224), 1032);
+      (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(v3 + 262284) + 40))(*(_DWORD *)(v3 + 262284));
+      v10 = *(_DWORD *)(v3 + 262296);
+      if ( v10 )
+      {
+        (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v10 + 8))(*(_DWORD *)(v3 + 262296));
+        *(_DWORD *)(v3 + 262296) = 0;
+      }
+      v11 = *(_DWORD *)(v3 + 262292);
+      if ( v11 )
+      {
+        (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v11 + 8))(*(_DWORD *)(v3 + 262292));
+        *(_DWORD *)(v3 + 262292) = 0;
+      }
+      v12 = *(_DWORD *)(v3 + 262288);
+      if ( v12 )
+      {
+        (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v12 + 8))(*(_DWORD *)(v3 + 262288));
+        *(_DWORD *)(v3 + 262288) = 0;
+      }
+      if (*(_DWORD *)(v3 + 262284))
+      {
+        (*(int (__stdcall **)(_DWORD))(*(_DWORD *)(*(_DWORD *)(v3 + 262284)) + 8))(*(_DWORD *)(v3 + 262284));
+        *(_DWORD *)(v3 + 262284) = 0;
+      }
+    }
+    v13 = v3 + 262380;
+    if ( *(_DWORD *)(v3 + 262380) )
+    {
+      v14 = (unsigned int *)(v3 + 262376);
+      operator_delete(0, *v14);
+      *(_DWORD *)v13 = 0;
+      *v14 = 0;
+    }
+  }
 }

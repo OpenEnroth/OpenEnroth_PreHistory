@@ -1,6 +1,26 @@
 #include "RenderD3D3.h"
 
 
+HRESULT RenderD3D3_EndScene(struct RenderD3D3 *_this)
+{
+ if (!pD3DRenderer->bSceneBegun)
+   return E_FAIL;
+
+ pD3DRenderer->bSceneBegun--;
+ if (pD3DRenderer->dword_040108)
+ {
+  HRESULT hr;
+
+  pD3DRenderer->pTargetSurface = 0;
+  pD3DRenderer->uTargetSurfacePitch = 0;
+  pD3DRenderer->dword_000018 = 0;
+
+  compile_error;
+  //hr = (**(_DWORD **)(pD3DRenderer->dword_040098) + 128)(*(_DWORD *)(pD3DRenderer + 262296), 0);
+  return CheckHRESULT(0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 207, 0);
+ }
+ return S_OK;
+}
 
 //----- (0049DE14) --------------------------------------------------------
 bool RenderD3D3_Initialize(struct RenderD3D3 *_this, unsigned int uDeviceID, unsigned int bWindowMode, HWND hwnd)
@@ -709,7 +729,7 @@ char __cdecl sub_4A597D()
   int v28; // [sp+98h] [bp-Ch]@4
   int v29; // [sp+9Ch] [bp-8h]@10
   int v30; // [sp+A0h] [bp-4h]@4
- int y;
+ int x, y;
 
  if (pD3DRenderer->bSceneBegun || !pD3DRenderer->dword_040110)
    return 0;
@@ -719,9 +739,32 @@ char __cdecl sub_4A597D()
   if (!LockSurface_DDraw4(pD3DRenderer->pdds4_BackBuffer, &ddsd, 1))
     return 0;
 
-  runtime_warning(screw it, some really weird working-surface-to-back-buffer update. for now make it plain and simple);
-        memcpy(ddsd.lpSurface, pD3DRenderer->pTargetSurface, 640 * 480 * 4);
-        (pD3DRenderer->pdds4_BackBuffer->lpVtbl->Unlock)(pD3DRenderer->pdds4_BackBuffer, 0);
+  runtime_warning(here software pixels like gui and other are alpha-tested with key color uTargetGMask|uTargetBMask and stenciled on the 3d render);
+  /*
+  for (y = 0; y < 480; ++y)
+    for (x = 0; x < 640; ++x)
+    {
+     float          src_alpha;
+     unsigned char *pSrc, *pDst;
+     
+     pSrc = pD3DRenderer->pTargetSurface + y * 640 + x;
+     pDst = (unsigned int *)((char *)ddsd.lpSurface + y * ddsd.lPitch) + x;
+
+     src_alpha = pSrc[3] / 255.0f;
+     pDst[0] = src_alpha * pSrc[0] + (1.0f - src_alpha) * pDst[0];
+     pDst[1] = src_alpha * pSrc[1] + (1.0f - src_alpha) * pDst[1];
+     pDst[2] = src_alpha * pSrc[2] + (1.0f - src_alpha) * pDst[2];
+    }*/
+  for (x = 0; x < 640 * 480; ++x)
+  {
+   if (!(pD3DRenderer->pTargetSurface[x] & 0xFF000000))
+     continue;
+
+   *((unsigned int *)ddsd.lpSurface + x) = pD3DRenderer->pTargetSurface[x];
+  }
+
+
+    (pD3DRenderer->pdds4_BackBuffer->lpVtbl->Unlock)(pD3DRenderer->pdds4_BackBuffer, 0);
         /*
         v1 = pD3DRenderer->pTargetSurface;
         v30 = ddsd.lpSurface;
@@ -779,16 +822,16 @@ char __cdecl sub_4A597D()
         }
         while ( v9 );
 
-        v29 = v1 + 4 * ((class28_global.dword_000010 >> 1) + 320 * class28_global.dword_000014);
-        v27 = v30 + 4 * ((class28_global.dword_000010 >> 1) + (ddsd.lPitch >> 2) * class28_global.dword_000014);
-        v14 = (class28_global.dword_000010 >> 1) - (class28_global.dword_000018 >> 1);
-        v24 = (class28_global.dword_000018 >> 1) - (class28_global.dword_000010 >> 1);
+        v29 = v1 + 4 * ((pViewport->uGameX >> 1) + 320 * pViewport->uGameY);
+        v27 = v30 + 4 * ((pViewport->uGameX >> 1) + (ddsd.lPitch >> 2) * pViewport->uGameY);
+        v14 = (pViewport->uGameX >> 1) - (pViewport->uGameZ >> 1);
+        v24 = (pViewport->uGameZ >> 1) - (pViewport->uGameX >> 1);
         v26 = 4 * ((ddsd.lPitch >> 2) + v14);
         v25 = 4 * v14 + 1280;
-        v30 = class28_global.dword_00001C - class28_global.dword_000014 + 1;
+        v30 = pViewport->uGameW - pViewport->uGameY + 1;
         v13 = v29;
         v12 = v27;
-        v10 = (class28_global.dword_000018 >> 1) - (class28_global.dword_000010 >> 1);
+        v10 = (pViewport->uGameZ >> 1) - (pViewport->uGameX >> 1);
         v11 = v28;
         while ( 1 )
         {
@@ -860,6 +903,7 @@ void RenderD3D3_ClearTarget(struct RenderD3D3 *_this, int a2, D3DCOLOR uClearCol
 {
  signed int v5; // esi@1
  D3DRECT d3drc;
+ HRESULT hr;
 
 
  v5 = 0;
@@ -874,6 +918,183 @@ void RenderD3D3_ClearTarget(struct RenderD3D3 *_this, int a2, D3DCOLOR uClearCol
   d3drc.x2 = 640;
   d3drc.y2 = 480;
 
-  (_this->pViewport->lpVtbl->Clear2)(_this->pViewport, 1, &d3drc, v5, uClearColor, a5, 0);
+  hr = (_this->pViewport->lpVtbl->Clear2)(_this->pViewport, 1, &d3drc, v5, 0xFF000000 | uClearColor, a5, 0);
  }
+}
+
+
+//----- (00479543) --------------------------------------------------------
+void RenderSky()
+{
+ double v47_d;
+  int v8; // ebx@4
+  int v10; // eax@4
+  int v11; // ecx@6
+  int v12; // edi@6
+  signed __int64 v13; // qax@6
+  double v14; // st7@6
+  int v15; // eax@8
+  int v16; // eax@12
+  int v17; // ecx@13
+  signed __int64 v18; // qtt@13
+
+  struct struct8 local_14;
+  //char v25; // [sp+14h] [bp-150h]@1
+  //int v26; // [sp+28h] [bp-13Ch]@2
+  //int v27; // [sp+2Ch] [bp-138h]@2
+  //int v28; // [sp+30h] [bp-134h]@2
+  //int v29; // [sp+34h] [bp-130h]@2
+  //int v30; // [sp+38h] [bp-12Ch]@2
+  //int v31; // [sp+3Ch] [bp-128h]@2
+  //int v32; // [sp+40h] [bp-124h]@2
+  //int v33; // [sp+4Ch] [bp-118h]@1
+
+  char v36; // [sp+6Ch] [bp-F8h]@2
+  int v39; // [sp+12Ch] [bp-38h]@2
+  int v40; // [sp+130h] [bp-34h]@4
+  int v41; // [sp+134h] [bp-30h]@1
+  int v43; // [sp+13Ch] [bp-28h]@6
+  int v44; // [sp+140h] [bp-24h]@2
+  int v45; // [sp+144h] [bp-20h]@1
+  int v46; // [sp+148h] [bp-1Ch]@4
+  int v47; // [sp+14Ch] [bp-18h]@2
+           // [sp+150h]
+  int v48; // [sp+154h] [bp-10h]@8
+  int v49; // [sp+158h] [bp-Ch]@1
+  int v50; // [sp+15Ch] [bp-8h]@1
+  int v51; // [sp+160h] [bp-4h]@7
+ int i;
+
+ v41 = ((double)pStruct9_global->dword_000014 * pCamera->dword_000008) /
+       ((double)pStruct9_global->dword_000014 + 8192.0) + pViewport->dword_00002C;
+
+ v39 =  pViewport->dword_00002C -
+        pStruct9_global->dword_000014 / (pStruct9_global->shading_dist_mist * cos(pCamera->sRotationX * 0.003066406352445483) + 0.0000001000000011686097) *
+        (pStruct9_global->shading_dist_mist * -sin(pCamera->sRotationX * 0.003066406352445483) - pCamera->dword_000008);
+  sub_48607B_MessWithStruct8(&local_14, pClass57_global);
+  class57_sub_48694B(local_14.ptr_000038);
+
+  if (pClass51_global->uSkyTextureID == -1)
+    return;
+  
+    v36 = 0;
+    local_14.dword_000014 = 4;
+    local_14.dword_000018 = -class59_SinCos(pClass59_global, pCamera->sRotationX - pClass59_global->uNumTableEntries + 16);
+    local_14.dword_00001C = 0;
+    local_14.dword_000020 = -class59_SinCos(pClass59_global, pCamera->sRotationX + 16);
+    local_14.dword_000024 = 0x2000000;
+    local_14.dword_000028 = 224 * pClass24_global2->dword_000024;
+    local_14.dword_00002C = 224 * pClass24_global2->dword_000024;
+
+    array_50AC10[0].flt_000018 = pViewport->uGameX;
+    array_50AC10[0].flt_00001C = pViewport->uGameY;
+
+    array_50AC10[1].flt_000018 = pViewport->uGameX;
+    array_50AC10[1].flt_00001C = v39;
+    
+    array_50AC10[2].flt_000018 = pViewport->uGameZ;
+    array_50AC10[2].flt_00001C = pViewport->uGameY;
+
+    array_50AC10[3].flt_000018 = pViewport->uGameZ;
+    array_50AC10[3].flt_00001C = v39;
+    
+    /*
+    v47_d = (double)(pViewport->uGameZ - pViewport->uGameX) * 0.5;
+    v44 = 65536 / (signed int)(v47_d / tan(0.64577174186706543) + 0.5);
+
+ for (i = 0; i < local_14.dword_000014; ++i)
+ {
+      v40 = floorf(array_50AC10[i].flt_00001C + 0.5f);
+      v50 = (unsigned __int64)(local_14.ptr_000038->dword_000014 * v44 * (v41 - v40)) / 65536;
+      v46 = v50 + pClass57_global->dword_00000C;
+
+      v50 = (unsigned __int64)(local_14.ptr_000038->dword_000020 * v44 * (v41 - v40)) / 65536;
+      v47 = v50 + pClass57_global->dword_000018;
+
+      v10 = (unsigned __int64)(local_14.dword_000020 * v44 * (v41 - v40)) / 65536;
+      v8 = local_14.dword_000018 + v10;
+      v50 = local_14.dword_000018 + v10;
+      if (local_14.dword_000018 + v10 > 0 )
+      {
+        v8 = 0;
+        v50 = 0;
+      }
+      v13 = (signed __int64)array_50AC10[i].flt_000018;
+      v49 = v8;
+      v14 = array_50AC10[i].flt_00001C - 1.0;
+      v12 = v44 * (pViewport->dword_000028 - v13);
+      v45 = -local_14.dword_000024;
+      v43 = (signed __int64)v14;
+      v11 = v44 * (v41 - v43);
+      while ( 1 )
+      {
+        v51 = v11;
+        if ( !v8 )
+          goto LABEL_12;
+        v48 = abs(v45 >> 14);
+        v15 = abs(v8);
+        if ( v48 <= v15 || v43 <= pViewport->uGameY )
+        {
+          if ( v50 <= 0 )
+            break;
+        }
+        v11 = v51;
+LABEL_12:
+        v48 = local_14.dword_000020;
+        v16 = (unsigned __int64)(local_14.dword_000020 * v11) >> 16;
+        --v43;
+        v11 += v44;
+        v8 = local_14.dword_000018 + v16;
+        v50 = local_14.dword_000018 + v16;
+        v49 = local_14.dword_000018 + v16;
+      }
+      LODWORD(v18) = v45 << 16;
+      HIDWORD(v18) = v45 >> 16;
+      v17 = (__int64)(v18 / v49);
+      if (v17 < 0)
+        v17 = pStruct9_global->shading_dist_mist;
+
+
+      v46 += ((unsigned __int64)(pClass57_global->dword_000010 * v12) >> 16);
+      v47 += ((unsigned __int64)(pClass57_global->dword_00001C * v12) >> 16);
+      v46 = 224 * pClass24_global2->dword_000024 + (signed int)((unsigned __int64)(v46 * v17) >> 16) / 8;
+      v47 = 224 * pClass24_global2->dword_000024 + (signed int)((unsigned __int64)(v47 * v17) >> 16) / 8;
+      
+      array_50AC10[i].flt_00000C = pStruct9_global->shading_dist_mist;
+      array_50AC10[i].flt_000020 = 1.0 / (double)(v17 / 65536);
+      array_50AC10[i].u = (double)v46 / (65536.0 * pLODFile_Bitmaps_LOD->aLODHeaders[pClass51_global->uSkyTextureID].uTextureWidth);
+      array_50AC10[i].v = (double)v47 / (65536.0 * pLODFile_Bitmaps_LOD->aLODHeaders[pClass51_global->uSkyTextureID].uTextureHeight);
+ }*/
+        
+    //1.5f * cos(pCamera->sRotationX * 0.003066406352445483)
+    {
+     float t = (GetTickCount() % 96000) / 96000.0f;
+
+ array_50AC10[0].flt_00000C = pStruct9_global->shading_dist_mist;
+ array_50AC10[0].flt_000020 = 1;
+ array_50AC10[0].u = 0;
+ array_50AC10[0].v = 0 + t;
+
+ array_50AC10[1].flt_00000C = pStruct9_global->shading_dist_mist;
+ array_50AC10[1].flt_000020 = 1;
+ array_50AC10[1].u = 0;
+ array_50AC10[1].v = 1 + t;
+ 
+ array_50AC10[2].flt_00000C = pStruct9_global->shading_dist_mist;
+ array_50AC10[2].flt_000020 = 1;
+ array_50AC10[2].u = 1;
+ array_50AC10[2].v = 0 + t;
+
+ array_50AC10[3].flt_00000C = pStruct9_global->shading_dist_mist;
+ array_50AC10[3].flt_000020 = 1;
+ array_50AC10[3].u = 1;
+ array_50AC10[3].v = 1 + t;
+    }
+
+ Render_DrawStrip(pD3DRenderer, local_14.dword_000014, &local_14, pLODFile_Bitmaps_LOD->pHardwareTextures[pClass51_global->uSkyTextureID]);
+ /*array_50AC10[0].flt_00001C = v39;
+ array_50AC10[1].flt_00001C += 30.0;
+ array_50AC10[2].flt_00001C += 30.0;
+ array_50AC10[3].flt_00001C = v39;
+ Render_DrawSomeFan(pD3DRenderer, local_14.dword_000014, &local_14, pLODFile_Bitmaps_LOD->pHardwareTextures[pClass51_global->uSkyTextureID]);*/
 }

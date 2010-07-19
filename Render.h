@@ -117,7 +117,7 @@ struct Render
  unsigned int                uClipRectZ;          // dword @ 040100
  int                         dword_040104;
  int                         dword_040108;
- int                         dword_04010C;
+ unsigned int                uD3D3SceneBegun;     // dword @ 04010C
  int                         dword_040110;
 
  struct Render_HWLContainer struct_040114;  // d3dbitmap
@@ -212,9 +212,9 @@ void Render_sub_4A0E97(struct Render *_this, int a2, int a3, int a4, int a5);
 //signed int __thiscall sub_4A0E80(int this, int a2, int a3);
 void Render_ClearZBuffer(struct Render *_this, int a2, int a3);
 //int __thiscall sub_4A1EB6(int this);
-void Render_BeginScene2(struct Render *_this);
+void Render_BeginSceneD3D3(struct Render *_this);
 //int __thiscall sub_4A1FE1(int this);
-void Render_sub_4A1FE1_MaybeRenderSpecialEffects(struct Render *_this);
+void Render_EndSceneD3D3_AND_MaybeRenderSpecialEffects(struct Render *_this);
 //void *__thiscall sub_4A121C(void *this);
 void *Render_CreateSurface(struct Render *_this);
 //void *__thiscall sub_4A12CD(void *this);
@@ -229,7 +229,11 @@ bool Render_ValidateTextureStages();
 //void *__thiscall sub_4A5048(int this, int a2);
 bool Render_MoveHWSpriteToVideoMemory(struct Render *_this, struct HardwareSprite *pSprite);
 //void __thiscall sub_4A2DA3(int this, signed int a2, int a3, int a4);
-void Render_DrawSomeFan(struct Render *_this, unsigned int uNumVertices, int a3, struct IDirect3DTexture2 *pTexture);
+void Render_DrawSomeFan(struct Render *_this, unsigned int uNumVertices, struct struct8 *a3, struct IDirect3DTexture2 *pTexture);
+// void __userpurge sub_4A6D87(int a1<ecx>, int a2<ebx>, int a3, int a4, unsigned int a5, int a6, __int16 a7);
+void Render_FillRect2(struct Render *_this, int a3, int a4, unsigned int a5, int a6, unsigned int a7);
+//int sub_49FE05(int, void *this)
+void sub_49FE05(struct Render *pD3DRenderer);
 
 void Render_DrawTransparentRect(struct Render *_this, unsigned int uOutX, unsigned int uOutY,
                                       unsigned int uSrcX, unsigned int uSrcY, unsigned int uSrcWidth, unsigned int uSrcHeight,

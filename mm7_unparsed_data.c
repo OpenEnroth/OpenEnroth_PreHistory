@@ -1692,7 +1692,6 @@ struct class51 *pClass51_global = &class51_6A0DA0_dwReserved; // struct @ stru_6
 //int dword_6A0EC8; // ::ptr_0000D8
  int dword_6A0ED0; // weak
  int dword_6A0ED4; // weak
- int dword_6A0ED8; // weak
 //int dword_6A0EDC; // ::0000EC
  int dword_6A12B0; // weak
  int dword_6A12B4; // weak
@@ -2722,7 +2721,7 @@ HANDLE hObject; // idb*/
 _UNKNOWN unk_F8BBEC; // weak
 int dword_F8BC10; // weak
 
-struct class28 class28_global;  // struct @ MM7.exe::00F8BC14
+struct Viewport *pViewport = 0;  // struct @ MM7.exe::00F8BC14
 // int dword_F8BC14; // 000000
 // int dword_F8BC18; // 000004
 // int dword_F8BC1C; // 000008
@@ -2735,7 +2734,7 @@ struct class28 class28_global;  // struct @ MM7.exe::00F8BC14
 // int dword_F8BC38; // 000024
 // int dword_F8BC3C; // 000028
 // int dword_F8BC40; // 00002C
-// int class28_global.dword_000030; // 000030
+// int dword_F8BC44; // 000030
 
 
  __int16 word_F8BC48[array_size_unknown]; // weak

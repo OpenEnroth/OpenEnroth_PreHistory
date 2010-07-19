@@ -2124,8 +2124,8 @@ LABEL_29:
                   v25 = v24 / v42;
                   LODWORD(v24) = 0;
                   HIDWORD(v24) = pStruct9_global->dword_000014 << 16 >> 16;
-                  v35 = class28_global.dword_000028 - ((signed int)(((unsigned __int64)(v25 * v40) >> 16) + 32768) >> 16);
-                  v32 = class28_global.dword_00002C - ((signed int)(((unsigned __int64)(v24 / v42 * v31) >> 16) + 32768) >> 16);
+                  v35 = pViewport->dword_000028 - ((signed int)(((unsigned __int64)(v25 * v40) >> 16) + 32768) >> 16);
+                  v32 = pViewport->dword_00002C - ((signed int)(((unsigned __int64)(v24 / v42 * v31) >> 16) + 32768) >> 16);
                   if ( dword_5187E0 >= 500 )
                     return;
                   ++dword_5187E0;
@@ -2167,10 +2167,8 @@ LABEL_34:
 }
 
 //----- (004666D5) --------------------------------------------------------
-int __cdecl sub_4666D5()
+void sub_4666D5()
 {
-  int result; // eax@6
-
   if ( dword_6BE360 == 2 )
   {
     if ( !byte_6BE388 )
@@ -2210,11 +2208,13 @@ int __cdecl sub_4666D5()
   struct_576FE8.dword_000004 = struct_576FE8.dword_000014;
   struct_576FE8.dword_000008 = struct_576FE8.dword_000018;
   struct_576FE8.dword_00000C = struct_576FE8.dword_00001C;
-  result = class28_fn0(&class28_global, struct_576FE8.dword_000010, struct_576FE8.dword_000014, struct_576FE8.dword_000018, struct_576FE8.dword_00001C);
+
+  pViewport = malloc(sizeof(struct Viewport));
+  memset(pViewport, 0, sizeof(struct Viewport));
+  Viewport_fn0(pViewport, struct_576FE8.dword_000010, struct_576FE8.dword_000014, struct_576FE8.dword_000018, struct_576FE8.dword_00001C);
 
   if ( dword_6BE360 == 2 )
-    result = sub_485F64(pStruct9_global);
-  return result;
+    sub_485F64(pStruct9_global);
 }
 
 //----- (00464D32) --------------------------------------------------------
@@ -4034,10 +4034,10 @@ LABEL_8:
 }
 
 //----- (004647AB) --------------------------------------------------------
-void __cdecl sub_4647AB()
+void InitializeCameraAndViewport()
 {
- class28_fn0(&class28_global, struct_576FE8.dword_000000, struct_576FE8.dword_000004, struct_576FE8.dword_000008, struct_576FE8.dword_00000C);
- class28_fn2(&class28_global, (signed __int64)(flt_6BE3A0 * 65536.0));
+ Viewport_fn0(pViewport, struct_576FE8.dword_000000, struct_576FE8.dword_000004, struct_576FE8.dword_000008, struct_576FE8.dword_00000C);
+ Viewport_fn2(pViewport, (signed __int64)(flt_6BE3A0 * 65536.0));
 
  pCamera = malloc(sizeof(struct Camera));
  Camera_ctor(pCamera);
@@ -5899,7 +5899,7 @@ int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed 
   v2 = v24;
   if ( pD3DRenderer->pRenderD3D3 )
   {
-    Render_BeginScene2(pD3DRenderer);
+    Render_BeginSceneD3D3(pD3DRenderer);
     if ( dword_6BE360 == 1 )
     {
       sub_441BD4();
@@ -5909,7 +5909,7 @@ int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed 
       if ( dword_6BE360 == 2 )
         sub_441CFF();
     }
-    Render_sub_4A1FE1_MaybeRenderSpecialEffects(pD3DRenderer);
+    Render_EndSceneD3D3_AND_MaybeRenderSpecialEffects(pD3DRenderer);
     memset(&Dst, 0, 0x7Cu);
     Dst = 124;
     if ( LockSurface_DDraw4(pD3DRenderer->pdds4_BackBuffer, &Dst, 1) )
@@ -6829,8 +6829,8 @@ void __fastcall sub_481E55(int a1)
   if ( a1 > 0 )
   {
     v5 = (double)pStruct9_global->dword_000014;
-    v4 = (double)class28_global.dword_000028;
-    v3 = (double)class28_global.dword_00002C;
+    v4 = (double)pViewport->dword_000028;
+    v3 = (double)pViewport->dword_00002C;
     v1 = 0;
     v2 = a1;
     do
@@ -7206,7 +7206,7 @@ LABEL_55:
 }
 
 //----- (00466082) --------------------------------------------------------
-int __cdecl sub_466082()
+void sub_466082()
 {
   unsigned int v1; // eax@18
   size_t v2; // eax@31
@@ -7331,7 +7331,7 @@ int __cdecl sub_466082()
   pParty_global->uEyelevel = pParty_global->uDefaultEyelevel = GetPrivateProfileIntA("party", "eyelevel", 160, pIniFile);
   pParty_global->uPartyHeight = pParty_global->uDefaultPartyHeight = GetPrivateProfileIntA("party", "height", 192, pIniFile);
 
-  return sub_4666D5();
+ sub_4666D5();
 }
 
 //----- (0047F138) --------------------------------------------------------

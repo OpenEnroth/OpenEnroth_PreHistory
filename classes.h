@@ -889,17 +889,16 @@ struct class27
 
 
 
-//class28       a viewport or smthn
-struct class28
+struct Viewport
 {
- int  dword_000000;
- int  dword_000004;
- int  dword_000008;
- int  dword_00000C;
- int  dword_000010;
- int  dword_000014;
- int  dword_000018;
- int  dword_00001C;
+ unsigned int uScreenX; // dword @ 000000  screen dimensions
+ unsigned int uScreenY; // dword @ 000004
+ unsigned int uScreenZ; // dword @ 000008
+ unsigned int uScreenW; // dword @ 00000C
+ unsigned int uGameX;   // dword @ 000010  game viewport dimensions
+ unsigned int uGameY;   // dword @ 000014
+ unsigned int uGameZ;   // dword @ 000018
+ unsigned int uGameW;   // dword @ 00001C
  int  dword_000020;
  int  dword_000024;
  int  dword_000028;
@@ -908,11 +907,11 @@ struct class28
 };
 //sizeof ~ 34
 //int __thiscall sub_4C0262(int this, int a2, int a3, int a4, int a5);
-int class28_fn0(struct class28 *_this, int a2, int a3, int a4, int a5);
+void Viewport_fn0(struct Viewport *_this, int a2, int a3, int a4, int a5);
 //int __thiscall sub_4C0312(int this, int a2, int a3, int a4, int a5)
-int class28_fn1(struct class28 *_this, int a2, int a3, int a4, int a5);
+void Viewport_SetGameViewport(struct Viewport *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW);
 //int __thiscall sub_4C02F8(int this, int a2)
-int class28_fn2(struct class28 *_this, int a2);
+void Viewport_fn2(struct Viewport *_this, int a2);
 
 
 
@@ -1404,7 +1403,7 @@ struct struct8
  float                  flt_000008;
  float                  flt_00000C;
  float                  flt_000010;
- int                    dword_000014;
+ int                    dword_000014; // num vertices ?
  int                    dword_000018;
  int                    dword_00001C;
  int                    dword_000020;
@@ -1648,8 +1647,8 @@ struct struct14
  float flt_00000C;
  float flt_000010;
  float flt_000014;
- float flt_000018;  // value lies between class28_global.dword_000010 and class28_global.dword_000018
- float flt_00001C; //  value lies between class28_global.dword_000014 and class28_global.dword_00001C
+ float flt_000018;  // value lies between pViewport->uGameX and pViewport->uGameZ
+ float flt_00001C; //  value lies between pViewport->uGameY and pViewport->uGameW
  float flt_000020;
  float u;          // float @ 000024   looks like texture coordinates
  float v;          // float @ 000028

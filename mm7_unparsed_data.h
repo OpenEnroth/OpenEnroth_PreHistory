@@ -1227,7 +1227,7 @@ extern struct class56 *pLoadingUI; // struct @ MM7.exe::00576E30
 //int dword_576E3C; // 00000C
 
 
-//definetly a viewport, used for initialization of game camera
+//definetly a viewport, used for initialization of game camera; maybe Viewport class instance
 extern struct unnamed_576FE8
 {
  int dword_000000;
@@ -1721,8 +1721,8 @@ extern struct tagOFNA stru_6A0DA0; // idb
 //int dword_6A0EC8; // ::ptr_0000D8
 extern int dword_6A0ED0; // weak
 extern int dword_6A0ED4; // weak
-extern int dword_6A0ED8; // weak
-//int dword_6A0EDC; // ::0000EC
+//int dword_6A0ED8; // 0000E8
+//int dword_6A0EDC; // 0000EC
 extern int dword_6A12B0; // weak
 extern int dword_6A12B4; // weak
 extern _UNKNOWN unk_6A12B8; // weak
@@ -2157,7 +2157,7 @@ extern _UNKNOWN unk_800000; // weak
 
 
 
-extern struct class57  *pClass57_global;
+extern struct class57  *pClass57_global; // struct @ MM7.exe::008019C8
 extern struct struct14 *ptr_801A04;
 extern struct struct14 *ptr_801A08;
 extern struct struct14  array_801A10[384];
@@ -2856,7 +2856,7 @@ HANDLE hObject; // idb*/
 extern _UNKNOWN unk_F8BBEC; // weak
 extern int dword_F8BC10; // weak
 
-extern struct class28 class28_global;  // struct @ MM7.exe::00F8BC14
+extern struct Viewport *pViewport;  // struct @ MM7.exe::00F8BC14
 
 extern __int16 word_F8BC48[array_size_unknown]; // weak
 extern __int16 word_F8BC4A; // weak

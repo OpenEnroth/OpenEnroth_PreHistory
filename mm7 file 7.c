@@ -11877,7 +11877,7 @@ void __cdecl sub_4BC109()
   v25 = 460;
   v26 = 452;
   v0 = sub_44C59D(pFontArrus, pGlobalTXT_LocalizationStrings[575], (int)&v24, 13, 0) + 7;
-  Render_BeginScene2(pD3DRenderer);
+  Render_BeginSceneD3D3(pD3DRenderer);
   if ( dword_6BE360 == 1 )
   {
     sub_441BD4();
@@ -11887,15 +11887,15 @@ void __cdecl sub_4BC109()
     if ( dword_6BE360 == 2 )
       sub_441CFF();
   }
-  Render_sub_4A1FE1_MaybeRenderSpecialEffects(pD3DRenderer);
+  Render_EndSceneD3D3_AND_MaybeRenderSpecialEffects(pD3DRenderer);
   Render_BeginScene(pD3DRenderer);
   if ( pD3DRenderer->pRenderD3D3 )
-    sub_4A6D87(pD3DRenderer,
+    Render_FillRect2(pD3DRenderer,
       1,
-      class28_global.dword_000010,
-      class28_global.dword_000014,
-      class28_global.dword_000018 - class28_global.dword_000010,
-      class28_global.dword_00001C - class28_global.dword_000014 + 1,
+      pViewport->uGameX,
+      pViewport->uGameY,
+      pViewport->uGameZ - pViewport->uGameX,
+      pViewport->uGameW - pViewport->uGameY + 1,
       pD3DRenderer->uTargetGMask | pD3DRenderer->uTargetBMask);
   sub_4A6A68(pD3DRenderer,
     8,
@@ -14565,10 +14565,10 @@ LABEL_49:
     sub_4C264A(dword_F93E14 - 1, (int)&dword_F93614, 0, dword_F93E14 - 1);
     if ( dword_F93E14
       && (dword_F93E14 <= 0 ? (v8 = 0) : (v8 = dword_F93614), v9 = *(_DWORD *)(v8 + 4), LOWORD(v9) = 0, v9 <= v37)
-      || (double)(class28_global.dword_000000) > *(float *)&v35
-      || (double)class28_global.dword_000008 < *(float *)&v35
-      || (double)class28_global.dword_000004 > *(float *)&v36
-      || (double)class28_global.dword_00000C < *(float *)&v36 )
+      || (double)(pViewport->uScreenX) > *(float *)&v35
+      || (double)pViewport->uScreenZ < *(float *)&v35
+      || (double)pViewport->uScreenY > *(float *)&v36
+      || (double)pViewport->uScreenW < *(float *)&v36 )
     {
       v40 = 0;
       v10 = (int)((char *)dword_EF52C4 + v4);
@@ -14579,13 +14579,13 @@ LABEL_49:
         v11 = *(float *)v10;
         v13 = *(float *)(v10 - 4);
         dword_F93E14 = 0;
-        if ( v13 >= (double)(class28_global.dword_000000))
+        if ( v13 >= (double)(pViewport->uScreenX))
         {
-          if ( v12 <= (double)class28_global.dword_000008 )
+          if ( v12 <= (double)pViewport->uScreenZ )
           {
-            if ( v11 >= (double)class28_global.dword_000004 )
+            if ( v11 >= (double)pViewport->uScreenY )
             {
-              if ( v11 <= (double)class28_global.dword_00000C )
+              if ( v11 <= (double)pViewport->uScreenW )
               {
                 v14 = v11;
                 v15 = v12;
@@ -14636,10 +14636,10 @@ LABEL_49:
             v41 = v38;
           dword_F93E14 = 0;
           v23 = (v20 - v21) * 0.5;
-          if ( v23 < (double)(class28_global.dword_000000)
-            || v23 > (double)class28_global.dword_000008
-            || (double)class28_global.dword_000004 > v41
-            || (double)class28_global.dword_00000C < v41
+          if ( v23 < (double)(pViewport->uScreenX)
+            || v23 > (double)pViewport->uScreenZ
+            || (double)pViewport->uScreenY > v41
+            || (double)pViewport->uScreenW < v41
             || ((v24 = v39, v25 = v23, sub_4C248E((int)&v32, SLODWORD(v25), v41, a2), dword_6BE360 != 1) ? (v27 = a2, sub_4C17CF(v24, SLOBYTE(v27), (int)&v32, (int)&class25_global, (int)&dword_F93E44, 0)) : (v26 = a2, sub_4C16B4(v24, SLOBYTE(v26), (int)&v32, (int)&class25_global, (int)&dword_F93E44)),
                 (sub_4C2591((int)&class25_global, 0),
                  sub_4C264A(dword_F93E14 - 1, (int)&dword_F93614, 0, dword_F93E14 - 1),

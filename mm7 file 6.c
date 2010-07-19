@@ -9430,7 +9430,7 @@ int sub_49FC23(int a1, int a2)
   int v3; // esi@1
 
   v3 = a2;
-  result = sub_49FE05(a1, a2);
+  sub_49FE05(a2);
   *(_DWORD *)(v3 + 262232) = 1;
   return result;
 }
@@ -12187,11 +12187,11 @@ int __thiscall sub_4A52F1(int this, int a2, float a3)
     a3 = v4 * 255.0;
     v70 = a3 + 6.755399441055744e15;
     LODWORD(v71) = LODWORD(v70);
-    v6 = (double)class28_global.dword_000010;
+    v6 = (double)pViewport->uGameX;
     v36 = v6;
-    v7 = (double)class28_global.dword_000014;
+    v7 = (double)pViewport->uGameY;
     v8 = a2 | (LODWORD(v70) << 24);
-    a2 = class28_global.dword_00001C + 1;
+    a2 = pViewport->uGameW + 1;
     v41 = 0;
     v37 = v7;
     v40 = v8;
@@ -12206,13 +12206,13 @@ int __thiscall sub_4A52F1(int this, int a2, float a3)
     v65 = 0;
     v43 = 0.0;
     v44 = v6;
-    v9 = (double)(class28_global.dword_00001C + 1);
+    v9 = (double)(pViewport->uGameW + 1);
     v45 = v9;
     v46 = 0.0;
     v47 = 1.0;
     v50 = 0.0;
     v51 = 0.0;
-    v10 = (double)class28_global.dword_000018;
+    v10 = (double)pViewport->uGameZ;
     v52 = v10;
     v53 = v9;
     v54 = 0.0;
@@ -12333,10 +12333,10 @@ int __thiscall sub_4A52F1(int this, int a2, float a3)
     v71 = (memory_4D8410.f1_0 - a3) * *(double *)&byte_4D8410[560];
     v70 = v71 + 6.755399441055744e15;
     LODWORD(a3) = LODWORD(v70);
-    v69 = (class28_global.dword_000018 - class28_global.dword_000010) >> 1;
-    HIDWORD(v70) = class28_global.dword_00001C - class28_global.dword_000014 + 1;
-    v17 = class28_global.dword_000010 + *(_DWORD *)(this + 262384) - class28_global.dword_000018;
-    v18 = *(_DWORD *)(this + 262380) + 2 * (class28_global.dword_000010 + class28_global.dword_000014 * *(_DWORD *)(this + 262384));
+    v69 = (pViewport->uGameZ - pViewport->uGameX) >> 1;
+    HIDWORD(v70) = pViewport->uGameW - pViewport->uGameY + 1;
+    v17 = pViewport->uGameX + *(_DWORD *)(this + 262384) - pViewport->uGameZ;
+    v18 = *(_DWORD *)(this + 262380) + 2 * (pViewport->uGameX + pViewport->uGameY * *(_DWORD *)(this + 262384));
     v68 = 2 * v17;
     LODWORD(v71) = v18;
     v16 = (signed int)&unk_F1B430;
@@ -12434,7 +12434,7 @@ void __cdecl sub_4A57E9()
   {
     if ( pD3DRenderer->dword_040110 )
     {
-      v7 = class28_global.dword_000014;
+      v7 = pViewport->uGameY;
       v5 = 0;
       v6 = 2748779069440i64;
       v0 = (*(int (__stdcall **)(int, _DWORD, _DWORD, int, int *, signed int))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 28))(
@@ -12447,47 +12447,47 @@ void __cdecl sub_4A57E9()
       CheckHRESULT(&v8, v0, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 0x39Eu, 0);
       HIDWORD(v6) = 640;
       v5 = 0;
-      LODWORD(v6) = class28_global.dword_00001C + 1;
+      LODWORD(v6) = pViewport->uGameW + 1;
       v7 = 480;
       v1 = (*(int (__stdcall **)(int, _DWORD, int, int, int *, signed int))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 28))(
              pD3DRenderer->pdds4_BackBuffer,
              0,
-             class28_global.dword_00001C + 1,
+             pViewport->uGameW + 1,
              pD3DRenderer->dword_040098,
              &v5,
              16);
       CheckHRESULT(&v8, v1, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 0x3A9u, 0);
-      HIDWORD(v6) = class28_global.dword_000010;
-      v7 = class28_global.dword_00001C + 1;
+      HIDWORD(v6) = pViewport->uGameX;
+      v7 = pViewport->uGameW + 1;
       v5 = 0;
-      LODWORD(v6) = class28_global.dword_000014;
+      LODWORD(v6) = pViewport->uGameY;
       v2 = (*(int (__stdcall **)(int, _DWORD, _DWORD, int, int *, signed int))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 28))(
              pD3DRenderer->pdds4_BackBuffer,
              0,
-             class28_global.dword_000014,
+             pViewport->uGameY,
              pD3DRenderer->dword_040098,
              &v5,
              16);
       CheckHRESULT(&v8, v2, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 0x3B4u, 0);
-      v5 = class28_global.dword_000018;
-      LODWORD(v6) = class28_global.dword_000014;
+      v5 = pViewport->uGameZ;
+      LODWORD(v6) = pViewport->uGameY;
       HIDWORD(v6) = 640;
-      v7 = class28_global.dword_00001C + 1;
+      v7 = pViewport->uGameW + 1;
       v3 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 28))(
              pD3DRenderer->pdds4_BackBuffer,
-             class28_global.dword_000018,
-             class28_global.dword_000014,
+             pViewport->uGameZ,
+             pViewport->uGameY,
              pD3DRenderer->dword_040098,
              &v5,
              16);
       CheckHRESULT(&v8, v3, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 0x3BFu, 0);
-      v7 = class28_global.dword_00001C + 1;
-      v5 = class28_global.dword_000010;
-      v6 = class28_global.dword_000014;
+      v7 = pViewport->uGameW + 1;
+      v5 = pViewport->uGameX;
+      v6 = pViewport->uGameY;
       v4 = (*(int (__stdcall **)(int, int, _DWORD, int, int *, signed int))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 28))(
              pD3DRenderer->pdds4_BackBuffer,
-             class28_global.dword_000010,
-             class28_global.dword_000014,
+             pViewport->uGameX,
+             pViewport->uGameY,
              pD3DRenderer->dword_040098,
              &v5,
              17);
@@ -13277,54 +13277,6 @@ void __thiscall sub_4A6A68(void *this, int a2, int a3, int a4, __int16 a5)
   v8 = v6;
   if ( v6 > 0 )
     Render_DrawIndexedTexture(v5, a2, a3, class18_obj);
-}
-
-//----- (004A6D87) --------------------------------------------------------
-void sub_4A6D87(int a1, int a2, int a3, int a4, unsigned int a5, int a6, short a7)
-{
-  int v7; // esi@1
-  void *v8; // edx@2
-  unsigned int v9; // ecx@3
-  int i; // ecx@5
-  int v11; // edi@5
-  unsigned __int8 v12; // cf@5
-  unsigned int v13; // ecx@5
-  char v14; // zf@9
-  int v15; // [sp+10h] [bp+Ch]@3
-
-  v7 = a1;
-  if ( *(_DWORD *)(a1 + 262372) )
-  {
-    v8 = (void *)(*(_DWORD *)(a1 + 262380) + 2 * (a3 + a4 * *(_DWORD *)(a1 + 262384)));
-    if ( a6 > 0 )
-    {
-      v9 = a5;
-      v15 = a6;
-      do
-      {
-        if ( (signed int)v9 > 0 )
-        {
-          LOWORD(a2) = a7;
-          a2 <<= 16;
-          LOWORD(a2) = a7;
-          v12 = v9 & 1;
-          v13 = v9 >> 1;
-          memset(v8, a2, 4 * v13);
-          v11 = (int)((char *)v8 + 4 * v13);
-          for ( i = 2 * v12; i; --i )
-          {
-            *(_WORD *)v11 = a7;
-            v11 += 2;
-          }
-          v9 = a5;
-          v8 = (char *)v8 + 2 * a5;
-        }
-        v14 = v15-- == 1;
-        v8 = (char *)v8 + 2 * (*(_DWORD *)(v7 + 262384) - v9);
-      }
-      while ( !v14 );
-    }
-  }
 }
 
 //----- (004A6DF5) --------------------------------------------------------

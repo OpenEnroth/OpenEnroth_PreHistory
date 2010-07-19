@@ -6713,11 +6713,11 @@ void __cdecl sub_441BD4()
   v6 = pParty_global->sRotationY;
   v7 = pParty_global->sRotationX;
   v9 = pD3DRenderer->pTargetSurface;
-  v12 = class28_global.dword_000000;
-  v13 = class28_global.dword_000004;
-  v14 = class28_global.dword_000008;
-  v15 = class28_global.dword_00000C;
-  v16 = class28_global.dword_000030;
+  v12 = pViewport->uScreenX;
+  v13 = pViewport->uScreenY;
+  v14 = pViewport->uScreenZ;
+  v15 = pViewport->uScreenW;
+  v16 = pViewport->dword_000030;
   v5 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
   v10 = 640;
   v11 = 480;

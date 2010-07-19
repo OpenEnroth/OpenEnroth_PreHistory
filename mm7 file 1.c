@@ -69,6 +69,7 @@ void RtlCallCtors()
  class59_ctor(pClass59_global);
 
  pClass24_global2 = malloc(sizeof(struct class24));
+ class24_ctor(pClass24_global2);
 
  struct_50C0C8_ctor(&struct_50C0C8);
 
@@ -251,15 +252,6 @@ void sub_4789DE()
 
         if (v18 == -1)
           p14->ptr_00003C = 0;
-        else if (v18 < 0 || v18 > 1999)
-        {
-         __asm int 3
-         runtime_warning(sometiems negative index returned, function unstable);
-         runtime_error;
-         //for now let's pretend there's no required texture
-         p14->ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[1];
-         v18 = 0;
-        }
         else
           p14->ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[v18];
 
@@ -719,7 +711,7 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
    sub_479332();
  else if (pD3DRenderer->pRenderD3D3)
  {
-    sub_479543();
+    RenderSky();
     //RenderBuildings();
     //sub_47F5C6_MessWithTerrainDrawing();
  }
@@ -845,7 +837,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *
   sub_465D0B();
 
   Render_sub_4A0E97(pD3DRenderer, 0, 0, 639, 479);
-  sub_4647AB();
+  InitializeCameraAndViewport();
   while (true)
     {
       MenuLoop_Main();
@@ -872,7 +864,7 @@ LABEL_21:
           Party_CreateDefaultParty(pParty_global, 0);
 
           PlayerCreationUI_Initialize();
-          if ( MenuLoop_CharacterCreation() )
+          if (MenuLoop_CharacterCreation())
           {
             DeleteFontCChar();
             goto LABEL_53;
@@ -2623,7 +2615,7 @@ void sub_487389_DrawSpansAndAll()
   if (!v5)
     continue;
 
-  if (!(pSpan->word_000008 >= class28_global.dword_000010 || pSpan->word_00000C != class28_global.dword_000010))
+  if (!(pSpan->word_000008 >= pViewport->uGameX || pSpan->word_00000C != pViewport->uGameX))
   {
    pSpan->word_00000E = data_6BE060.dword_6BE064;
    continue;
@@ -2895,7 +2887,7 @@ LABEL_74:
  array_77EC08[1999].dword_000020 = class59_SinCos(pClass59_global, pCamera->sRotationX);
  array_77EC08[1999].dword_000024 = 2048 - pCamera->dword_000008 * 65536;
 
- v41 = (signed __int64)((double)(pCamera->dword_000008 * pStruct9_global->dword_000014) / ((double)pStruct9_global->dword_000014 + 8192.0) + (double)class28_global.dword_00002C);
+ v41 = (signed __int64)((double)(pCamera->dword_000008 * pStruct9_global->dword_000014) / ((double)pStruct9_global->dword_000014 + 8192.0) + (double)pViewport->dword_00002C);
 
   cos((double)pCamera->sRotationX * 0.003066406352445483);
   sin((double)pCamera->sRotationX * 0.003066406352445483);
@@ -2904,10 +2896,10 @@ LABEL_74:
  class57_sub_48694B(array_77EC08[1999].ptr_000038);
 
 
- if (dword_6A0ED8 == -1)
+ if (pClass51_global->uSkyTextureID == -1)
     return;
 
- array_77EC08[1999].ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[dword_6A0ED8];
+ array_77EC08[1999].ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[pClass51_global->uSkyTextureID];
  array_77EC08[1999].byte_000058 = 0;
 
 
@@ -2933,18 +2925,18 @@ LABEL_74:
 
       if (pSpan->word_00000E != data_6BE060.dword_6BE064 )
       {
-        class28_global.dword_000010;
-        if (pSpan->word_000008 >= class28_global.dword_000010 )
+        pViewport->uGameX;
+        if (pSpan->word_000008 >= pViewport->uGameX )
           goto LABEL_124;
 
-        if (pSpan->word_00000C == class28_global.dword_000010 )
+        if (pSpan->word_00000C == pViewport->uGameX )
         {
          pSpan->word_00000E = data_6BE060.dword_6BE064;
         }
         else
         {
-         pSpan->word_000008 = class28_global.dword_000010;
-         pSpan->word_00000C -= class28_global.dword_000010;
+         pSpan->word_000008 = pViewport->uGameX;
+         pSpan->word_00000C -= pViewport->uGameX;
           if (pSpan->word_00000C >= 0 )
           {
 LABEL_124:
@@ -2969,12 +2961,12 @@ LABEL_125:
       pSpan = &pSpansBuf[v9 - 1];
       if (pSpan->word_00000E != data_6BE060.dword_6BE064)
       {
-       if (pSpan->word_000008 >= class28_global.dword_000010 )
+       if (pSpan->word_000008 >= pViewport->uGameX )
           goto LABEL_109;
-        if (pSpan->word_00000C != class28_global.dword_000010 )
+        if (pSpan->word_00000C != pViewport->uGameX )
         {
-          pSpan->word_000008 = class28_global.dword_000010;
-          pSpan->word_00000C -= class28_global.dword_000010;
+          pSpan->word_000008 = pViewport->uGameX;
+          pSpan->word_00000C -= pViewport->uGameX;
           if (pSpan->word_00000C >= 0 )
           {
 LABEL_109:
@@ -4113,9 +4105,9 @@ LABEL_25:
         LODWORD(v27) = 0;
         HIDWORD(v27) = pStruct9_global->dword_000014 << 16 >> 16;
         v57 = v27 / v60;
-        v25 = class28_global.dword_000028 - ((signed int)(((unsigned __int64)(v28 * v42) >> 16) + 32768) >> 16);
-        v43 = class28_global.dword_000028 - ((signed int)(((unsigned __int64)(v28 * v42) >> 16) + 32768) >> 16);
-        v46 = class28_global.dword_00002C - ((signed int)(((unsigned __int64)(v27 / v60 * v45) >> 16) + 32768) >> 16);
+        v25 = pViewport->dword_000028 - ((signed int)(((unsigned __int64)(v28 * v42) >> 16) + 32768) >> 16);
+        v43 = pViewport->dword_000028 - ((signed int)(((unsigned __int64)(v28 * v42) >> 16) + 32768) >> 16);
+        v46 = pViewport->dword_00002C - ((signed int)(((unsigned __int64)(v27 / v60 * v45) >> 16) + 32768) >> 16);
 
         v26 = &array_512250[dword_5187E0];
         if ( dword_5187E0 >= 500 )
@@ -4207,7 +4199,7 @@ void sub_44103C()
  {
   if (pD3DRenderer->pRenderD3D3)
     goto LABEL_22;
-  Render_BeginScene2(pD3DRenderer);
+  Render_BeginSceneD3D3(pD3DRenderer);
   sub_469E3B(pGame->pClass03);
  }
  else
@@ -4227,7 +4219,7 @@ void sub_44103C()
   pParty_global->sOldRotationX = pParty_global->sRotationX;
   pParty_global->sOldEyelevel = pParty_global->uEyelevel;
 
-  Render_BeginScene2(pD3DRenderer);
+  Render_BeginSceneD3D3(pD3DRenderer);
 
   if (!pD3DRenderer->pRenderD3D3)
     sub_469E3B(pGame->pClass03);
@@ -4260,8 +4252,7 @@ void sub_44103C()
   }
 
 
- runtime_warning(d3d: to fix);
- //Render_sub_4A1FE1_MaybeRenderSpecialEffects(pD3DRenderer);
+ Render_EndSceneD3D3_AND_MaybeRenderSpecialEffects(pD3DRenderer);
 
 LABEL_22:
  Render_BeginScene(pD3DRenderer);
@@ -4289,16 +4280,11 @@ LABEL_22:
 
     if (v5)
     {
-      if ( !sub_4226C2() )
+      if (!sub_4226C2())
       {
+       //looks like make entire viewport transparent, e.g. discard the area
         if ( pD3DRenderer->pRenderD3D3)
-          sub_4A6D87(pD3DRenderer,
-            0,
-            class28_global.dword_000010,
-            class28_global.dword_000014,
-            class28_global.dword_000018 - class28_global.dword_000010,
-            class28_global.dword_00001C - class28_global.dword_000014 + 1,
-            pD3DRenderer->uTargetGMask | pD3DRenderer->uTargetBMask);
+          Render_FillRect2(pD3DRenderer, pViewport->uGameX, pViewport->uGameY, pViewport->uGameZ - pViewport->uGameX, pViewport->uGameW - pViewport->uGameY + 1, 0x0000FFFF/*pD3DRenderer->uTargetGMask | pD3DRenderer->uTargetBMask*/);
       }
       struct_576FE8.dword_000048 = 0;
     }
@@ -7371,10 +7357,10 @@ void __cdecl sub_47BACF()
   v16 = pD3DRenderer->pTargetSurface;
   v17 = pD3DRenderer->pActiveZBuffer;
   v26 = pD3DRenderer->uTargetSurfacePitch;
-  v27 = class28_global.dword_000010;
-  v28 = class28_global.dword_000014;
-  v29 = class28_global.dword_000018 - 1;
-  v30 = class28_global.dword_00001C;
+  v27 = pViewport->uGameX;
+  v28 = pViewport->uGameY;
+  v29 = pViewport->uGameZ - 1;
+  v30 = pViewport->uGameW;
   pStruct9_global->dword_00003C = dword_5187E0;
 
     v35 = 0;
@@ -8166,9 +8152,12 @@ LABEL_20:
 //----- (00441CFF) --------------------------------------------------------
 void __cdecl sub_441CFF()
 {
-  if ( !(pParty_global->dword_007778 & 2) && !(*(_BYTE *)(&pGame->dword_000E24) & 1) )
-    sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(false);
-  else sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(true);
+ //force redraw each frame
+ pParty_global->dword_007778 |= 2;
+  //if ( !(pParty_global->dword_007778 & 2) && !(*(_BYTE *)(&pGame->dword_000E24) & 1) )
+  //  sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(false);
+  /*else */sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(true);
+
   sub_47A815();
   sub_4C2EFA(&struct_6BD080);
   sub_440F07(array_5118E8);
@@ -8199,7 +8188,7 @@ void __cdecl sub_486F92_MessWithEdgesAndSpans()
 
  pNewSpan = pSpansBuf;
 
- someEdge1.flt_000000 = class28_global.dword_000018;
+ someEdge1.flt_000000 = pViewport->uGameZ;
  someEdge1.dword_000008 = 0;
  someEdge1.pSurf = &someSurf;
  someEdge1.pNext = 0;
@@ -8211,15 +8200,15 @@ void __cdecl sub_486F92_MessWithEdgesAndSpans()
  someSurf.pNext = &someSurf;
  someSurf.pPrev = &someSurf;
   
- someEdge2.flt_000000 = class28_global.dword_000010;
+ someEdge2.flt_000000 = pViewport->uGameX;
  someEdge2.dword_000008 = 1;
  someEdge2.pSurf = &someSurf;
  someEdge2.pNext = &someEdge1;
  someEdge2.pPrev = 0;
 
-  v27 = class28_global.dword_000014;
+  v27 = pViewport->uGameY;
 
-  if (class28_global.dword_000014 > class28_global.dword_00001C)
+  if (pViewport->uGameY > pViewport->uGameW)
   {
 LABEL_51:
    pNewSpan->word_000008 = -1; 
@@ -8375,7 +8364,7 @@ LABEL_51:
 LABEL_50:
       ++v27;
 
-      if ( v27 > class28_global.dword_00001C )
+      if ( v27 > pViewport->uGameW )
         goto LABEL_51;
     }
 
@@ -13889,12 +13878,12 @@ int sub_4C2EA0(struct unnamed_6BD080 *_this)
  int i;
 
   v3 = _this;
-  v1 = class28_global.dword_000008 - class28_global.dword_000000 - 4;
-  v2 = class28_global.dword_00000C - class28_global.dword_000004 - 4;
+  v1 = pViewport->uScreenZ - pViewport->uScreenX - 4;
+  v2 = pViewport->uScreenW - pViewport->uScreenY - 4;
  for (i = 0; i < 1000; ++i)
  {
-  _this->word_000000[i * 2 + 0] = class28_global.dword_000010 + rand() % v1;
-  _this->word_000000[i * 2 + 1] = class28_global.dword_000014 + rand() % v2;
+  _this->word_000000[i * 2 + 0] = pViewport->uGameX + rand() % v1;
+  _this->word_000000[i * 2 + 1] = pViewport->uGameY + rand() % v2;
  }
  return 0;
 }
@@ -13910,128 +13899,6 @@ int __stdcall sub_48EA1B(signed int a1)
   while ( a1 < v2 && v2 )
     v2 = *((_WORD *)&dword_4EDFFC + v1++ + 1);
   return byte_4EE038[v1];
-}
-
-//----- (0049FE05) --------------------------------------------------------
-int sub_49FE05(int result, struct Render *pD3DRenderer)
-{
-  int v3; // esi@1
-  char v4; // zf@4
-  unsigned int v5; // ebx@6
-  int v6; // eax@7
-  int v7; // eax@11
-  int v8; // eax@13
-  int v9; // eax@15
-  int v10; // eax@20
-  int v11; // eax@22
-  int v12; // eax@24
-  int v13; // ebx@28
-  unsigned int *v14; // esi@29
-
- v3 = pD3DRenderer;
- if (pD3DRenderer->pRenderD3D3)
- {
-  if (pD3DRenderer->dword_040110)
-  {
-   RenderD3D3_ClearTarget(pD3DRenderer->pRenderD3D3, 1, 0, 0, 1.0);
-   RenderD3D3_Present(pD3DRenderer->pRenderD3D3, 0);
-   RenderD3D3_ClearTarget(pD3DRenderer->pRenderD3D3, 1, 0, 0, 1.0);
-  }
-
-    *(_DWORD *)(v3 + 262296) = 0;
-    *(_DWORD *)(v3 + 262292) = 0;
-    v4 = *(_DWORD *)(v3 + 262380) == 0;
-    *(_DWORD *)(v3 + 262288) = 0;
-    *(_DWORD *)(v3 + 262284) = 0;
-    if ( !v4 )
-    {
-      operator_delete(0, *(_DWORD *)(v3 + 262376));
-      *(_DWORD *)(v3 + 262380) = 0;
-      *(_DWORD *)(v3 + 262376) = 0;
-    }
-    v5 = *(_DWORD *)(v3 + 262280);
-    if ( v5 )
-    {
-      v6 = sub_49DC90(*(_DWORD *)(v3 + 262280));
-      operator_delete(0, v5);
-    }
-    *(_DWORD *)(v3 + 262280) = 0;
-  }
- else
- {
-  if (dword_4E800C == 1)
-  {
-   if (!pD3DRenderer->pdd2)
-     return 0;
-
-      (*(void (__stdcall **)(int, _DWORD, signed int))(*(_DWORD *)result + 80))(result, *(_DWORD *)(v3 + 262224), 8);
-      (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(v3 + 262300) + 40))(*(_DWORD *)(v3 + 262300));
-      v7 = *(_DWORD *)(v3 + 262312);
-      if ( v7 )
-      {
-        (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v7 + 8))(*(_DWORD *)(v3 + 262312));
-        *(_DWORD *)(v3 + 262312) = 0;
-      }
-      v8 = *(_DWORD *)(v3 + 262308);
-      if ( v8 )
-      {
-        (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v8 + 8))(*(_DWORD *)(v3 + 262308));
-        *(_DWORD *)(v3 + 262308) = 0;
-      }
-      v9 = *(_DWORD *)(v3 + 262304);
-      if ( v9 )
-      {
-        (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v9 + 8))(*(_DWORD *)(v3 + 262304));
-        *(_DWORD *)(v3 + 262304) = 0;
-      }
-      result = *(_DWORD *)(v3 + 262300);
-      if ( result )
-      {
-        result = (*(int (__stdcall **)(_DWORD))(*(_DWORD *)result + 8))(*(_DWORD *)(v3 + 262300));
-        *(_DWORD *)(v3 + 262300) = 0;
-      }
-    }
-    else
-    {
-     if (!pD3DRenderer->pdd4)
-       return 0;
-
-      (*(void (__stdcall **)(int, _DWORD, signed int))(*(_DWORD *)result + 80))(result, *(_DWORD *)(v3 + 262224), 1032);
-      (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(v3 + 262284) + 40))(*(_DWORD *)(v3 + 262284));
-      v10 = *(_DWORD *)(v3 + 262296);
-      if ( v10 )
-      {
-        (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v10 + 8))(*(_DWORD *)(v3 + 262296));
-        *(_DWORD *)(v3 + 262296) = 0;
-      }
-      v11 = *(_DWORD *)(v3 + 262292);
-      if ( v11 )
-      {
-        (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v11 + 8))(*(_DWORD *)(v3 + 262292));
-        *(_DWORD *)(v3 + 262292) = 0;
-      }
-      v12 = *(_DWORD *)(v3 + 262288);
-      if ( v12 )
-      {
-        (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v12 + 8))(*(_DWORD *)(v3 + 262288));
-        *(_DWORD *)(v3 + 262288) = 0;
-      }
-      result = *(_DWORD *)(v3 + 262284);
-      if ( result )
-      {
-        result = (*(int (__stdcall **)(_DWORD))(*(_DWORD *)result + 8))(*(_DWORD *)(v3 + 262284));
-        *(_DWORD *)(v3 + 262284) = 0;
-      }
-    }
-    v13 = v3 + 262380;
-    if ( *(_DWORD *)(v3 + 262380) )
-    {
-      v14 = (unsigned int *)(v3 + 262376);
-      operator_delete(0, *v14);
-      *(_DWORD *)v13 = 0;
-      *v14 = 0;
-    }
-  }
 }
 
 //----- (0044C4DE) --------------------------------------------------------

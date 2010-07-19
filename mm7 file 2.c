@@ -7114,8 +7114,8 @@ int __thiscall sub_411621(void *this)
       v4 = 8 * (12 * *(_BYTE *)(v2 + 6734) + (unsigned __int8)*(&byte_4E2431[12 * *(_BYTE *)(v2 + 6734)] + v1));
       GUIButtonCreate(
         v3,
-        class28_global.dword_000010 + *(int *)((char *)&dword_4E20D0 + v4),
-        class28_global.dword_000014 + *(int *)((char *)&dword_4E20D4 + v4),
+        pViewport->uGameX + *(int *)((char *)&dword_4E20D0 + v4),
+        pViewport->uGameY + *(int *)((char *)&dword_4E20D4 + v4),
         *(_WORD *)(dword_50640C[v1] + 24),
         *(_WORD *)(dword_50640C[v1] + 26),
         1,
@@ -7387,8 +7387,8 @@ int __thiscall sub_411BFC(void *this)
         dword_506398 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-7a", 2) + 7145548;
         dword_506518 = GUIButtonCreate(
                          v1,
-                         class28_global.dword_000010 + 398,
-                         class28_global.dword_000014 + 1,
+                         pViewport->uGameX + 398,
+                         pViewport->uGameY + 1,
                          *(_WORD *)(dword_5063A4 + 24),
                          *(_WORD *)(dword_5063A4 + 26),
                          1,
@@ -7400,8 +7400,8 @@ int __thiscall sub_411BFC(void *this)
                          dword_5063A4);
         dword_506514 = GUIButtonCreate(
                          v1,
-                         class28_global.dword_000010 + 398,
-                         class28_global.dword_000014 + 38,
+                         pViewport->uGameX + 398,
+                         pViewport->uGameY + 38,
                          *(_WORD *)(dword_5063A0 + 26),
                          *(_WORD *)(dword_5063A0 + 26),
                          1,
@@ -7450,8 +7450,8 @@ int __thiscall sub_411BFC(void *this)
           dword_506368 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-8a", 2) + 7145548;
           dword_506518 = GUIButtonCreate(
                            v1,
-                           class28_global.dword_000010 + 398,
-                           class28_global.dword_000014 + 1,
+                           pViewport->uGameX + 398,
+                           pViewport->uGameY + 1,
                            50,
                            34,
                            1,
@@ -7463,8 +7463,8 @@ int __thiscall sub_411BFC(void *this)
                            dword_5063A4);
           dword_506514 = GUIButtonCreate(
                            v1,
-                           class28_global.dword_000010 + 398,
-                           class28_global.dword_000014 + 38,
+                           pViewport->uGameX + 398,
+                           pViewport->uGameY + 38,
                            50,
                            34,
                            1,
@@ -7476,8 +7476,8 @@ int __thiscall sub_411BFC(void *this)
                            dword_5063A0);
           dword_506510 = GUIButtonCreate(
                            v1,
-                           class28_global.dword_000010 + 398,
-                           class28_global.dword_000014 + 113,
+                           pViewport->uGameX + 398,
+                           pViewport->uGameY + 113,
                            50,
                            34,
                            1,
@@ -7489,8 +7489,8 @@ int __thiscall sub_411BFC(void *this)
                            dword_506394);
           dword_50650C = GUIButtonCreate(
                            v1,
-                           class28_global.dword_000010 + 399,
-                           class28_global.dword_000014 + 150,
+                           pViewport->uGameX + 399,
+                           pViewport->uGameY + 150,
                            50,
                            34,
                            1,
@@ -7502,8 +7502,8 @@ int __thiscall sub_411BFC(void *this)
                            dword_50638C);
           dword_506508 = GUIButtonCreate(
                            v1,
-                           class28_global.dword_000010 + 397,
-                           class28_global.dword_000014 + 188,
+                           pViewport->uGameX + 397,
+                           pViewport->uGameY + 188,
                            50,
                            34,
                            1,
@@ -7515,8 +7515,8 @@ int __thiscall sub_411BFC(void *this)
                            dword_506384);
           dword_506504 = GUIButtonCreate(
                            v1,
-                           class28_global.dword_000010 + 397,
-                           class28_global.dword_000014 + 226,
+                           pViewport->uGameX + 397,
+                           pViewport->uGameY + 226,
                            50,
                            34,
                            1,
@@ -7528,8 +7528,8 @@ int __thiscall sub_411BFC(void *this)
                            dword_50637C);
           dword_506500 = GUIButtonCreate(
                            v1,
-                           class28_global.dword_000010 + 397,
-                           class28_global.dword_000014 + 264,
+                           pViewport->uGameX + 397,
+                           pViewport->uGameY + 264,
                            50,
                            34,
                            1,
@@ -7542,8 +7542,8 @@ int __thiscall sub_411BFC(void *this)
           v10 = dword_506528;
           dword_5064FC = GUIButtonCreate(
                            v1,
-                           class28_global.dword_000010 + 397,
-                           class28_global.dword_000014 + 302,
+                           pViewport->uGameX + 397,
+                           pViewport->uGameY + 302,
                            50,
                            34,
                            1,
@@ -7594,8 +7594,8 @@ int __thiscall sub_411BFC(void *this)
             dword_506378 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tabWoff", 2) + 7145548;
             dword_506518 = GUIButtonCreate(
                              v1,
-                             class28_global.dword_000010 + 398,
-                             class28_global.dword_000014 + 1,
+                             pViewport->uGameX + 398,
+                             pViewport->uGameY + 1,
                              50,
                              34,
                              1,
@@ -7607,8 +7607,8 @@ int __thiscall sub_411BFC(void *this)
                              dword_5063A4);
             dword_506514 = GUIButtonCreate(
                              v1,
-                             class28_global.dword_000010 + 398,
-                             class28_global.dword_000014 + 38,
+                             pViewport->uGameX + 398,
+                             pViewport->uGameY + 38,
                              50,
                              34,
                              1,
@@ -7620,8 +7620,8 @@ int __thiscall sub_411BFC(void *this)
                              dword_5063A0);
             dword_506510 = GUIButtonCreate(
                              v1,
-                             class28_global.dword_000010 + 397,
-                             class28_global.dword_000014 + 113,
+                             pViewport->uGameX + 397,
+                             pViewport->uGameY + 113,
                              50,
                              34,
                              1,
@@ -7633,8 +7633,8 @@ int __thiscall sub_411BFC(void *this)
                              (int)Class);
             dword_50650C = GUIButtonCreate(
                              v1,
-                             class28_global.dword_000010 + 397,
-                             class28_global.dword_000014 + 150,
+                             pViewport->uGameX + 397,
+                             pViewport->uGameY + 150,
                              50,
                              34,
                              1,
@@ -7646,8 +7646,8 @@ int __thiscall sub_411BFC(void *this)
                              (int)Class);
             dword_506508 = GUIButtonCreate(
                              v1,
-                             class28_global.dword_000010 + 397,
-                             class28_global.dword_000014 + 188,
+                             pViewport->uGameX + 397,
+                             pViewport->uGameY + 188,
                              50,
                              34,
                              1,
@@ -7659,8 +7659,8 @@ int __thiscall sub_411BFC(void *this)
                              (int)Class);
             result = GUIButtonCreate(
                        v1,
-                       class28_global.dword_000010 + 397,
-                       class28_global.dword_000014 + 226,
+                       pViewport->uGameX + 397,
+                       pViewport->uGameY + 226,
                        50,
                        34,
                        1,
@@ -7694,8 +7694,8 @@ int __thiscall sub_411BFC(void *this)
           dword_506398 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-7a", 2) + 7145548;
           dword_506518 = GUIButtonCreate(
                            v1,
-                           class28_global.dword_000010 + 398,
-                           class28_global.dword_000014 + 1,
+                           pViewport->uGameX + 398,
+                           pViewport->uGameY + 1,
                            *(_WORD *)(dword_5063A4 + 24),
                            *(_WORD *)(dword_5063A4 + 26),
                            1,
@@ -7707,8 +7707,8 @@ int __thiscall sub_411BFC(void *this)
                            dword_5063A4);
           dword_506514 = GUIButtonCreate(
                            v1,
-                           class28_global.dword_000010 + 398,
-                           class28_global.dword_000014 + 38,
+                           pViewport->uGameX + 398,
+                           pViewport->uGameY + 38,
                            *(_WORD *)(dword_5063A0 + 26),
                            *(_WORD *)(dword_5063A0 + 26),
                            1,
@@ -7847,8 +7847,8 @@ void __cdecl sub_412B58()
           if ( *(_DWORD *)(v6 + 48) )
           {
             v7 = 8 * (12 * *(_BYTE *)(v0 + 6734) + (unsigned __int8)*(&byte_4E2430[12 * *(_BYTE *)(v0 + 6734)] + v3));
-            v19 = class28_global.dword_000014 + *(int *)((char *)&dword_4E20D4 + v7);
-            v17 = class28_global.dword_000010 + *(int *)((char *)&dword_4E20D0 + v7);
+            v19 = pViewport->uGameY + *(int *)((char *)&dword_4E20D4 + v7);
+            v17 = pViewport->uGameX + *(int *)((char *)&dword_4E20D0 + v7);
             if ( *(_BYTE *)(v6 + 45) & 2 )
               Render_DrawTransparentTexture(pD3DRenderer, v17, v19, v6);
             else
@@ -7877,8 +7877,8 @@ void __cdecl sub_412B58()
     {
       v21 = dword_5063D8[v9];
       v12 = 8 * (12 * *(_BYTE *)(v0 + 6734) + (unsigned __int8)*(&byte_4E2430[12 * *(_BYTE *)(v0 + 6734)] + v9));
-      v20 = class28_global.dword_000014 + *(int *)((char *)&dword_4E20D4 + v12);
-      v18 = class28_global.dword_000010 + *(int *)((char *)&dword_4E20D0 + v12);
+      v20 = pViewport->uGameY + *(int *)((char *)&dword_4E20D4 + v12);
+      v18 = pViewport->uGameX + *(int *)((char *)&dword_4E20D0 + v12);
       if ( *(_BYTE *)(v11 + 45) & 2 )
         Render_DrawTransparentTexture(pD3DRenderer, v18, v20, v21);
       else
@@ -8016,31 +8016,31 @@ void __cdecl sub_412E85()
   int v19; // [sp+18h] [bp-44h]@10
   int v20; // [sp+1Ch] [bp-40h]@10
 
-  Render_DrawIndexedTexture(pD3DRenderer, class28_global.dword_000010, class28_global.dword_000014, dword_5064CC);
+  Render_DrawIndexedTexture(pD3DRenderer, pViewport->uGameX, pViewport->uGameY, dword_5064CC);
   if ( dword_506548 || !dword_506528 )
   {
     v13 = dword_50639C;
-    v11 = class28_global.dword_000014 + 2;
-    v0 = class28_global.dword_000010 + 407;
+    v11 = pViewport->uGameY + 2;
+    v0 = pViewport->uGameX + 407;
   }
   else
   {
     v13 = dword_5063A4;
-    v11 = class28_global.dword_000014 + 1;
-    v0 = class28_global.dword_000010 + 398;
+    v11 = pViewport->uGameY + 1;
+    v0 = pViewport->uGameX + 398;
   }
   Render_DrawTransparentTexture(pD3DRenderer, v0, v11, v13);
   if ( dword_506544 || dword_506528 + dword_506520 >= dword_506524 )
   {
     v14 = dword_506398;
-    v12 = class28_global.dword_000014 + 38;
-    v1 = class28_global.dword_000010 + 407;
+    v12 = pViewport->uGameY + 38;
+    v1 = pViewport->uGameX + 407;
   }
   else
   {
     v14 = dword_5063A0;
-    v12 = class28_global.dword_000014 + 38;
-    v1 = class28_global.dword_000010 + 398;
+    v12 = pViewport->uGameY + 38;
+    v1 = pViewport->uGameX + 398;
   }
   Render_DrawTransparentTexture(pD3DRenderer, v1, v12, v14);
   if ( !byte_5C6D50[dword_506528] )
@@ -8124,31 +8124,31 @@ void __cdecl sub_413126()
   int v16; // [sp+1Ch] [bp-44h]@9
   int v17; // [sp+20h] [bp-40h]@9
 
-  Render_DrawIndexedTexture(pD3DRenderer, class28_global.dword_000010, class28_global.dword_000014, dword_5064DC);
+  Render_DrawIndexedTexture(pD3DRenderer, pViewport->uGameX, pViewport->uGameY, dword_5064DC);
   if ( dword_506548 || !dword_506528 )
   {
     v10 = dword_50639C;
-    v8 = class28_global.dword_000014 + 2;
-    v0 = class28_global.dword_000010 + 407;
+    v8 = pViewport->uGameY + 2;
+    v0 = pViewport->uGameX + 407;
   }
   else
   {
     v10 = dword_5063A4;
-    v8 = class28_global.dword_000014 + 1;
-    v0 = class28_global.dword_000010 + 398;
+    v8 = pViewport->uGameY + 1;
+    v0 = pViewport->uGameX + 398;
   }
   Render_DrawTransparentTexture(pD3DRenderer, v0, v8, v10);
   if ( dword_506544 || dword_506528 + dword_506520 >= dword_506524 )
   {
     v11 = dword_506398;
-    v9 = class28_global.dword_000014 + 38;
-    v1 = class28_global.dword_000010 + 407;
+    v9 = pViewport->uGameY + 38;
+    v1 = pViewport->uGameX + 407;
   }
   else
   {
     v11 = dword_5063A0;
-    v9 = class28_global.dword_000014 + 38;
-    v1 = class28_global.dword_000010 + 398;
+    v9 = pViewport->uGameY + 38;
+    v1 = pViewport->uGameX + 398;
   }
   Render_DrawTransparentTexture(pD3DRenderer, v1, v9, v11);
   v14 = 460;
@@ -8252,38 +8252,38 @@ void __cdecl sub_41338E()
   int v38; // [sp+28h] [bp-40h]@46
 
   v31 = 0;
-  Render_DrawIndexedTexture(pD3DRenderer, class28_global.dword_000010, class28_global.dword_000014, dword_5064D8);
+  Render_DrawIndexedTexture(pD3DRenderer, pViewport->uGameX, pViewport->uGameY, dword_5064D8);
   if ( dword_506548 || !dword_506528 )
   {
     v24 = dword_50639C;
-    v17 = class28_global.dword_000014 + 2;
-    v0 = class28_global.dword_000010 + 407;
+    v17 = pViewport->uGameY + 2;
+    v0 = pViewport->uGameX + 407;
   }
   else
   {
     v24 = dword_5063A4;
-    v17 = class28_global.dword_000014 + 1;
-    v0 = class28_global.dword_000010 + 398;
+    v17 = pViewport->uGameY + 1;
+    v0 = pViewport->uGameX + 398;
   }
   Render_DrawTransparentTexture(pD3DRenderer, v0, v17, v24);
   if ( dword_506544 || dword_506528 + dword_506520 >= dword_506524 )
   {
     v25 = dword_506398;
-    v18 = class28_global.dword_000014 + 38;
-    v1 = class28_global.dword_000010 + 407;
+    v18 = pViewport->uGameY + 38;
+    v1 = pViewport->uGameX + 407;
   }
   else
   {
     v25 = dword_5063A0;
-    v18 = class28_global.dword_000014 + 38;
-    v1 = class28_global.dword_000010 + 398;
+    v18 = pViewport->uGameY + 38;
+    v1 = pViewport->uGameX + 398;
   }
   Render_DrawTransparentTexture(pD3DRenderer, v1, v18, v25);
   if ( !dword_506540 )
   {
     if ( dword_506568 )
     {
-      Render_DrawTransparentTexture(pD3DRenderer, class28_global.dword_000010 + 408, class28_global.dword_000014 + 113, dword_506390);
+      Render_DrawTransparentTexture(pD3DRenderer, pViewport->uGameX + 408, pViewport->uGameY + 113, dword_506390);
       v2 = 1;
       goto LABEL_16;
     }
@@ -8300,7 +8300,7 @@ LABEL_14:
   AudioPlayer_sub_4AA306(pAudioPlayer, 75, 0, 0, -1, 0, 0, 0, 0);
 LABEL_15:
   dword_506568 = 0;
-  Render_DrawTransparentTexture(pD3DRenderer, class28_global.dword_000010 + 398, class28_global.dword_000014 + 113, dword_506394);
+  Render_DrawTransparentTexture(pD3DRenderer, pViewport->uGameX + 398, pViewport->uGameY + 113, dword_506394);
 LABEL_16:
   if ( dword_50653C )
   {
@@ -8315,15 +8315,15 @@ LABEL_16:
     if ( dword_506568 != v2 )
     {
       v26 = dword_506388;
-      v19 = class28_global.dword_000014 + 150;
-      v3 = class28_global.dword_000010 + 408;
+      v19 = pViewport->uGameY + 150;
+      v3 = pViewport->uGameX + 408;
       goto LABEL_22;
     }
   }
   v26 = dword_50638C;
   dword_506568 = v2;
-  v19 = class28_global.dword_000014 + 150;
-  v3 = class28_global.dword_000010 + 399;
+  v19 = pViewport->uGameY + 150;
+  v3 = pViewport->uGameX + 399;
 LABEL_22:
   Render_DrawTransparentTexture(pD3DRenderer, v3, v19, v26);
   if ( dword_506538 )
@@ -8339,15 +8339,15 @@ LABEL_22:
     if ( dword_506568 != 2 )
     {
       v27 = dword_506380;
-      v20 = class28_global.dword_000014 + 188;
-      v4 = class28_global.dword_000010 + 408;
+      v20 = pViewport->uGameY + 188;
+      v4 = pViewport->uGameX + 408;
       goto LABEL_28;
     }
   }
   v27 = dword_506384;
   dword_506568 = 2;
-  v20 = class28_global.dword_000014 + 188;
-  v4 = class28_global.dword_000010 + 397;
+  v20 = pViewport->uGameY + 188;
+  v4 = pViewport->uGameX + 397;
 LABEL_28:
   Render_DrawTransparentTexture(pD3DRenderer, v4, v20, v27);
   if ( dword_506534 )
@@ -8363,15 +8363,15 @@ LABEL_28:
     if ( dword_506568 != 3 )
     {
       v28 = dword_506378;
-      v21 = class28_global.dword_000014 + 226;
-      v5 = class28_global.dword_000010 + 408;
+      v21 = pViewport->uGameY + 226;
+      v5 = pViewport->uGameX + 408;
       goto LABEL_34;
     }
   }
   v28 = dword_50637C;
   dword_506568 = 3;
-  v21 = class28_global.dword_000014 + 226;
-  v5 = class28_global.dword_000010 + 397;
+  v21 = pViewport->uGameY + 226;
+  v5 = pViewport->uGameX + 397;
 LABEL_34:
   Render_DrawTransparentTexture(pD3DRenderer, v5, v21, v28);
   if ( dword_506530 )
@@ -8387,15 +8387,15 @@ LABEL_34:
     if ( dword_506568 != 4 )
     {
       v29 = dword_506370;
-      v22 = class28_global.dword_000014 + 263;
-      v6 = class28_global.dword_000010 + 408;
+      v22 = pViewport->uGameY + 263;
+      v6 = pViewport->uGameX + 408;
       goto LABEL_40;
     }
   }
   v29 = dword_506374;
   dword_506568 = 4;
-  v22 = class28_global.dword_000014 + 264;
-  v6 = class28_global.dword_000010 + 397;
+  v22 = pViewport->uGameY + 264;
+  v6 = pViewport->uGameX + 397;
 LABEL_40:
   Render_DrawTransparentTexture(pD3DRenderer, v6, v22, v29);
   if ( dword_50652C )
@@ -8411,15 +8411,15 @@ LABEL_40:
     if ( dword_506568 != 5 )
     {
       v30 = dword_506368;
-      v23 = class28_global.dword_000014 + 302;
-      v7 = class28_global.dword_000010 + 408;
+      v23 = pViewport->uGameY + 302;
+      v7 = pViewport->uGameX + 408;
       goto LABEL_46;
     }
   }
   v30 = dword_50636C;
   dword_506568 = 5;
-  v23 = class28_global.dword_000014 + 302;
-  v7 = class28_global.dword_000010 + 397;
+  v23 = pViewport->uGameY + 302;
+  v7 = pViewport->uGameX + 397;
 LABEL_46:
   Render_DrawTransparentTexture(pD3DRenderer, v7, v23, v30);
   v35 = 460;
@@ -8549,83 +8549,83 @@ char *__cdecl sub_413980()
   int v26; // [sp+94h] [bp-44h]@35
   int v27; // [sp+98h] [bp-40h]@35
 
-  Render_DrawIndexedTexture(pD3DRenderer, class28_global.dword_000010, class28_global.dword_000014, dword_5064D0);
+  Render_DrawIndexedTexture(pD3DRenderer, pViewport->uGameX, pViewport->uGameY, dword_5064D0);
   if ( dword_506548 || struct_576FE8.dword_00002C / 128 >= 12 )
   {
     v15 = dword_50639C;
-    v9 = class28_global.dword_000014 + 2;
-    v0 = class28_global.dword_000010 + 408;
+    v9 = pViewport->uGameY + 2;
+    v0 = pViewport->uGameX + 408;
   }
   else
   {
     v15 = dword_5063A4;
-    v9 = class28_global.dword_000014 + 1;
-    v0 = class28_global.dword_000010 + 398;
+    v9 = pViewport->uGameY + 1;
+    v0 = pViewport->uGameX + 398;
   }
   Render_DrawTransparentTexture(pD3DRenderer, v0, v9, v15);
   if ( dword_506544 || struct_576FE8.dword_00002C / 128 <= 3 )
   {
     v16 = dword_506398;
-    v10 = class28_global.dword_000014 + 38;
-    v1 = class28_global.dword_000010 + 408;
+    v10 = pViewport->uGameY + 38;
+    v1 = pViewport->uGameX + 408;
   }
   else
   {
     v16 = dword_5063A0;
-    v10 = class28_global.dword_000014 + 38;
-    v1 = class28_global.dword_000010 + 398;
+    v10 = pViewport->uGameY + 38;
+    v1 = pViewport->uGameX + 398;
   }
   Render_DrawTransparentTexture(pD3DRenderer, v1, v10, v16);
   if ( dword_506540 )
   {
     v17 = dword_506390;
-    v11 = class28_global.dword_000014 + 113;
-    v2 = class28_global.dword_000010 + 408;
+    v11 = pViewport->uGameY + 113;
+    v2 = pViewport->uGameX + 408;
   }
   else
   {
     v17 = dword_506394;
-    v11 = class28_global.dword_000014 + 113;
-    v2 = class28_global.dword_000010 + 398;
+    v11 = pViewport->uGameY + 113;
+    v2 = pViewport->uGameX + 398;
   }
   Render_DrawTransparentTexture(pD3DRenderer, v2, v11, v17);
   if ( dword_50653C )
   {
     v18 = dword_506388;
-    v12 = class28_global.dword_000010 + 150;
-    v3 = class28_global.dword_000014 + 408;
+    v12 = pViewport->uGameX + 150;
+    v3 = pViewport->uGameY + 408;
   }
   else
   {
     v18 = dword_50638C;
-    v12 = class28_global.dword_000010 + 150;
-    v3 = class28_global.dword_000014 + 399;
+    v12 = pViewport->uGameX + 150;
+    v3 = pViewport->uGameY + 399;
   }
   Render_DrawTransparentTexture(pD3DRenderer, v3, v12, v18);
   if ( dword_506538 )
   {
     v19 = dword_506380;
-    v13 = class28_global.dword_000014 + 188;
-    v4 = class28_global.dword_000010 + 408;
+    v13 = pViewport->uGameY + 188;
+    v4 = pViewport->uGameX + 408;
   }
   else
   {
     v19 = dword_506384;
-    v13 = class28_global.dword_000014 + 188;
-    v4 = class28_global.dword_000010 + 397;
+    v13 = pViewport->uGameY + 188;
+    v4 = pViewport->uGameX + 397;
   }
   Render_DrawTransparentTexture(pD3DRenderer, v4, v13, v19);
   if ( dword_506534 )
   {
     v20 = dword_506378;
-    v14 = class28_global.dword_000014 + 226;
-    v5 = class28_global.dword_000010 + 408;
+    v14 = pViewport->uGameY + 226;
+    v5 = pViewport->uGameX + 408;
   }
   else
   {
     v20 = dword_50637C;
-    v14 = class28_global.dword_000014 + 226;
-    v5 = class28_global.dword_000010 + 397;
+    v14 = pViewport->uGameY + 226;
+    v5 = pViewport->uGameX + 397;
   }
   Render_DrawTransparentTexture(pD3DRenderer, v5, v14, v20);
   if ( dword_506544 )
@@ -8756,7 +8756,7 @@ void __cdecl sub_413D6F()
   v0 = pParty_global->uCurrentHour;
   v11 = CMapStats_FindLocation(pMapStats, Str1);
   v13 = 0xFF4B4B4B; //colored or white text flag
-  Render_DrawIndexedTexture(pD3DRenderer, class28_global.dword_000010, class28_global.dword_000014, dword_5064D4);
+  Render_DrawIndexedTexture(pD3DRenderer, pViewport->uGameX, pViewport->uGameY, dword_5064D4);
   v12 = (unsigned __int8)byte_4E1B18[pParty_global->uDaysPlayed];
   if ( v0 <= 12 )
   {
@@ -9852,10 +9852,10 @@ void __thiscall sub_415551(int *_this, int a2)
   v3 = 0;
   if ( a2 )
   {
-    v5 = class28_global.dword_000010;
-    v4 = class28_global.dword_000018;
-    v3 = class28_global.dword_000014;
-    v27 = class28_global.dword_00001C;
+    v5 = pViewport->uGameX;
+    v4 = pViewport->uGameZ;
+    v3 = pViewport->uGameY;
+    v27 = pViewport->uGameW;
   }
   else
   {
@@ -10478,8 +10478,8 @@ LABEL_142:
             continue;
           }
           v46 = dword_507944 != -1 ? 72 * dword_507944 + 7145548 : 0;
-          v45 = class28_global.dword_000014;
-          v44 = class28_global.dword_000010;
+          v45 = pViewport->uGameY;
+          v44 = pViewport->uGameX;
           goto LABEL_18;
         }
         sub_445350();
@@ -11278,10 +11278,10 @@ LABEL_125:
           goto LABEL_126;
         }
         if ( !dword_506364
-          || v38 < class28_global.dword_000010
-          || v38 > class28_global.dword_000018
-          || v39 < class28_global.dword_000014
-          || v39 > class28_global.dword_00001C
+          || v38 < pViewport->uGameX
+          || v38 > pViewport->uGameZ
+          || v39 < pViewport->uGameY
+          || v39 > pViewport->uGameW
           || (v2 = sub_444564(), Str1 = v2, !v2) )
           goto LABEL_132;
         v37 = (double)(sub_44C51E(pFontArrus, v2) + 32);
@@ -11294,7 +11294,7 @@ LABEL_125:
       }
       if ( sub_466CA0() >= 0 )
         goto LABEL_132;
-      if ( v39 > class28_global.dword_00001C )
+      if ( v39 > pViewport->uGameW )
       {
         v32 = v38 / 118;
         if ( v38 / 118 < 4 )
@@ -11309,7 +11309,7 @@ LABEL_125:
         }
         goto LABEL_132;
       }
-      if ( v38 > class28_global.dword_000018 )
+      if ( v38 > pViewport->uGameZ )
       {
         if ( v39 >= 130 )
         {
@@ -11578,14 +11578,14 @@ void __thiscall OnMouseLeftClick(void *_this)
     {
       v4 = sub_466CA0();
       click_x = v12;
-      if ( v4 >= 0 || v12 < class28_global.dword_000010 || v12 > class28_global.dword_000018 )
+      if ( v4 >= 0 || v12 < pViewport->uGameX || v12 > pViewport->uGameZ )
       {
         click_y = v13;
       }
       else
       {
         click_y = v13;
-        if ( v13 >= class28_global.dword_000014 && v13 <= class28_global.dword_00001C )
+        if ( v13 >= pViewport->uGameY && v13 <= pViewport->uGameW )
         {
           if ( pD3DRenderer->pRenderD3D3 )
             v5 = sub_4C1BF1(pGame->class05_obj);
@@ -12941,7 +12941,7 @@ void __cdecl InitializeAwards()
 //----- (0041B3B6) --------------------------------------------------------
 void __cdecl sub_41B3B6()
 {
-  Render_DrawTransparentTexture(pD3DRenderer, class28_global.dword_000018, 0, dword_5079E4 != -1 ? 72 * dword_5079E4 + 7145548 : 0);
+  Render_DrawTransparentTexture(pD3DRenderer, pViewport->uGameZ, 0, dword_5079E4 != -1 ? 72 * dword_5079E4 + 7145548 : 0);
 }
 
 //----- (0041B438) --------------------------------------------------------
@@ -14573,8 +14573,8 @@ char *__fastcall sub_41E360(int a1, int a2)
       v138 = v126;
     if ( v141 > v127 )
       v141 = v127;
-    sub_4A6D87(pD3DRenderer, 0, v124, v125, v126 - v124, v127 - v125, pD3DRenderer->uTargetBMask | pD3DRenderer->uTargetGMask);
-    sub_4A6D87(pD3DRenderer, 0, v124, v125, v126 - v124, v127 - v125, pD3DRenderer->uTargetBMask | pD3DRenderer->uTargetGMask);
+    Render_FillRect2(pD3DRenderer, 0, v124, v125, v126 - v124, v127 - v125, pD3DRenderer->uTargetBMask | pD3DRenderer->uTargetGMask);
+    Render_FillRect2(pD3DRenderer, 0, v124, v125, v126 - v124, v127 - v125, pD3DRenderer->uTargetBMask | pD3DRenderer->uTargetGMask);
     v89 = v124;
     v90 = v125;
     v91 = v126;
@@ -14691,7 +14691,7 @@ LABEL_37:
   }
   else
   {
-    sub_4A6D87(pD3DRenderer, 0, v124, v125, v126 - v124, v127 - v125, 0);
+    Render_FillRect2(pD3DRenderer, 0, v124, v125, v126 - v124, v127 - v125, 0);
     v35 = *(_WORD *)(v10 + 24);
     if ( v35 >= 0 )
       sub_4ACC38(40 * v35 + 7218180, (int)&v114, 0);
@@ -15609,7 +15609,7 @@ LABEL_5:
 }
 
 //----- (0047A384) --------------------------------------------------------
-int sub_47A384(const char *pLevelFilename, void *a2)
+void sub_47A384(const char *pLevelFilename, void *a2)
 {
   signed int v2; // eax@3
   int v3; // ebx@3
@@ -15715,7 +15715,7 @@ int sub_47A384(const char *pLevelFilename, void *a2)
   array_77EC08[i].ptr_000044 = 0;
  }
 
- return sub_4666D5();
+ sub_4666D5();
 }
 
 //----- (0041FFA2) --------------------------------------------------------
