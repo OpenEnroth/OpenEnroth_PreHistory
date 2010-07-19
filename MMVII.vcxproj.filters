@@ -11,6 +11,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="legacy dx">
+      <UniqueIdentifier>{2f3132dc-3b18-483c-ac67-848809d0451b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_audio.c">
@@ -285,5 +288,88 @@
     <ClInclude Include="Render.h">
       <Filter>Wight and Wagic</Filter>
     </ClInclude>
+    <ClInclude Include="legacy dx\d3d.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\d3dcaps.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\d3drm.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\d3drmdef.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\d3drmobj.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\d3drmwin.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\d3dtypes.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\ddraw.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\dinput.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\dinputd.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\dmdls.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\dmerror.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\dmksctrl.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\dmplugin.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\dmusbuff.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\dmusicc.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\dmusicf.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\dmusici.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\dmusics.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\dsconf.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\dsound.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\dvoice.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\multimon.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\rmxfguid.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\rmxftmpl.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy dx\strsafe.h">
+      <Filter>legacy dx</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="legacy dx\d3dvec.inl">
+      <Filter>legacy dx</Filter>
+    </None>
   </ItemGroup>
 </Project>

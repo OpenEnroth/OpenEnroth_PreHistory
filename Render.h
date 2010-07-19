@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <windows.h>
 
-#include <ddraw.h>
+#include "legacy dx\ddraw.h"
 
 int __cdecl CheckIfDeviceSupportsGammaControl();
 double __stdcall sub_44F377(DDGAMMARAMP *pddGammaRamp);

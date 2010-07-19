@@ -8,6 +8,10 @@
 #include "RenderD3D3.h"
 
 
+#pragma comment(lib, "legacy dx\\lib\\ddraw.lib")
+#pragma comment(lib, "legacy dx\\lib\\dxguid.lib")
+#pragma comment(lib, "legacy dx\\lib\\dinput8.lib")
+
 
 
 //----- (MM7exe::00452347) --------------------------------------------------------

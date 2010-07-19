@@ -7,13 +7,6 @@
 int (__cdecl *sprintfex)(char *, const char *, ...) = 0;
 
 
-#include <ddraw.h>
-#pragma comment(lib, "ddraw.lib")
-
-#include <dinput.h>
-#pragma comment(lib, "dxguid.lib")
-#pragma comment(lib, "dinput8.lib")
-
 #pragma comment(lib, "winmm.lib")
 
 #include "defs.h"

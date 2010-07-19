@@ -144,6 +144,32 @@
     <ClCompile Include="Smacker.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="legacy dx\d3d.h" />
+    <ClInclude Include="legacy dx\d3dcaps.h" />
+    <ClInclude Include="legacy dx\d3drm.h" />
+    <ClInclude Include="legacy dx\d3drmdef.h" />
+    <ClInclude Include="legacy dx\d3drmobj.h" />
+    <ClInclude Include="legacy dx\d3drmwin.h" />
+    <ClInclude Include="legacy dx\d3dtypes.h" />
+    <ClInclude Include="legacy dx\ddraw.h" />
+    <ClInclude Include="legacy dx\dinput.h" />
+    <ClInclude Include="legacy dx\dinputd.h" />
+    <ClInclude Include="legacy dx\dmdls.h" />
+    <ClInclude Include="legacy dx\dmerror.h" />
+    <ClInclude Include="legacy dx\dmksctrl.h" />
+    <ClInclude Include="legacy dx\dmplugin.h" />
+    <ClInclude Include="legacy dx\dmusbuff.h" />
+    <ClInclude Include="legacy dx\dmusicc.h" />
+    <ClInclude Include="legacy dx\dmusicf.h" />
+    <ClInclude Include="legacy dx\dmusici.h" />
+    <ClInclude Include="legacy dx\dmusics.h" />
+    <ClInclude Include="legacy dx\dsconf.h" />
+    <ClInclude Include="legacy dx\dsound.h" />
+    <ClInclude Include="legacy dx\dvoice.h" />
+    <ClInclude Include="legacy dx\multimon.h" />
+    <ClInclude Include="legacy dx\rmxfguid.h" />
+    <ClInclude Include="legacy dx\rmxftmpl.h" />
+    <ClInclude Include="legacy dx\strsafe.h" />
     <ClInclude Include="libpng143\png.h" />
     <ClInclude Include="libpng143\pngconf.h" />
     <ClInclude Include="libpng143\pngpriv.h" />
@@ -178,6 +204,9 @@
     <ClInclude Include="GUI.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Smacker.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="legacy dx\d3dvec.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

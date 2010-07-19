@@ -1,6 +1,7 @@
 #pragma once
 #include "Render.h"
-#include <d3d.h>
+#include "legacy dx\d3d.h"
+#include "legacy dx\dinput.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
