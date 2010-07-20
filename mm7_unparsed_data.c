@@ -1092,7 +1092,7 @@ struct unnamed_50C0C8 struct_50C0C8;
  char byte_5111B8[array_size_unknown]; // weak
  char byte_5111B9[array_size_unknown]; // weak
  char byte_5111C0[array_size_unknown]; // weak
- char byte_5111F6; // weak
+ char byte_5111F6[array_size_unknown]; // weak
  char byte_5111F7; // weak
  char byte_5111F8; // weak
  char byte_5111F9; // weak

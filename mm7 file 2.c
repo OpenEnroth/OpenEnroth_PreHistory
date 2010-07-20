@@ -7747,7 +7747,7 @@ int __thiscall sub_411BFC(void *this)
                   v7 = v6 + 1;
                   if ( (_DWORD)v6 + 1 > 0 )
                   {
-                    memset(&dword_5C3610[dword_506520], v24, 4 * v7);
+                    memset_dw(&dword_5C3610[dword_506520], v24, 4 * v7);
                     do
                     {
                       LODWORD(v6) = dword_506520++;
@@ -15800,7 +15800,7 @@ LABEL_8:
           LOWORD(v8) = -1 - v22;
           v8 <<= 16;
           LOWORD(v8) = -1 - v22;
-          memset(v16, v8, 4 * (v12 >> 1));
+          memset_dw(v16, v8, 4 * (v12 >> 1));
           v15 = (int)((char *)v16 + 4 * (v12 >> 1));
           for ( i = 2 * (v12 & 1); i; --i )
           {
@@ -15903,7 +15903,7 @@ int __fastcall sub_42013E(int a1, int a2, int a3)
         LOWORD(v5) = -1 - v22;
         v5 <<= 16;
         LOWORD(v5) = -1 - v22;
-        memset(v16, v5, 4 * (v10 >> 1));
+        memset_dw(v16, v5, 4 * (v10 >> 1));
         v15 = (int)((char *)v16 + 4 * (v10 >> 1));
         for ( i = 2 * (v10 & 1); i; --i )
         {

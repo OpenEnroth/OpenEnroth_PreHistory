@@ -8018,7 +8018,7 @@ int __fastcall sub_452AF3(int a1, unsigned int *pRenderTarget, unsigned int a3)
     --a3;
   }
 
-  memset(v4, result, 4 * 2 * (a3 / 2));
+  memset_dw(v4, result, 4 * 2 * (a3 / 2));
 
   v6 = (int)((char *)v4 + 4 * 2 * (a3 / 2));
   for ( i = a3 & 1; i; --i )
@@ -8061,13 +8061,14 @@ int __fastcall sub_452B2E(int a1, signed int a2)
 }
 
 //----- (00452B58) --------------------------------------------------------
-int __fastcall sub_452B58(int a1, void *a2, int a3)
+int __fastcall memset_dw(void *a2, int a1, int a3)
 {
-  int result; // eax@1
+  int i; 
 
-  result = a1;
-  memset(a2, a1, 4 * a3);
-  return result;
+  for(i = 0;i < a3; i++)
+    *((_DWORD*)a2 + i) = a1;
+  //memset(a2, a1, 4 * a3);
+  return a1;
 }
 
 //----- (004563FF) --------------------------------------------------------

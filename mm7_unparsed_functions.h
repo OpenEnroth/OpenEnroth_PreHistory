@@ -568,7 +568,7 @@ signed int __fastcall sub_452A9E(signed int a1);
 int __fastcall MakeColorMaskFromBitDepth(int a1);
 int __fastcall sub_452AF3(int a1, int a2, unsigned int a3);
 int __fastcall sub_452B2E(int a1, signed int a2);
-int __fastcall sub_452B58(int a1, void *a2, int a3);
+int __fastcall memset_dw(void *a2, int a1, int a3);
 char *__fastcall sub_452C30(char *Str);
 const char *__thiscall sub_453CE5(void *this);
 int __thiscall sub_453E6D(void *this);

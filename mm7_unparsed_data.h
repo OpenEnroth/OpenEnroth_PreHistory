@@ -1060,7 +1060,7 @@ extern char byte_51117E[array_size_unknown]; // weak
 extern char byte_5111B8[array_size_unknown]; // weak
 extern char byte_5111B9[array_size_unknown]; // weak
 extern char byte_5111C0[array_size_unknown]; // weak
-extern char byte_5111F6; // weak
+extern char byte_5111F6[array_size_unknown]; // weak
 extern char byte_5111F7; // weak
 extern char byte_5111F8; // weak
 extern char byte_5111F9; // weak
@@ -1320,7 +1320,7 @@ extern int dword_597F18; // weak
 
 extern unsigned int  uLevelStrOffsets[500]; // dword[500] @ MM7.exe::00597F20
 
-extern struct Event  pGlobalEVT_Events[];  // struct[4400] @ MM7.exe::005986F0
+extern struct Event  pGlobalEVT_Events[4400];  // struct[4400] @ MM7.exe::005986F0
 extern unsigned int  uGlobalEVT_NumEvents; // dword        @ MM7.exe::005A5530
 extern unsigned int  uGlobalEVT_Size;      // dword        @ MM7.exe::005A5534
 extern unsigned char pGlobalEVT[];         // byte[46080]  @ MM7.exe::005A5538
@@ -1391,7 +1391,7 @@ extern int dword_5C35F0; // weak
 extern int dword_5C35F4; // weak
 
 
-extern int dword_5C3610[]; // weak
+extern int dword_5C3610[1000 + array_size_unknown]; // weak
 extern char byte_5C45AF[array_size_unknown]; // weak
 extern unsigned char byte_5C45B0[2048];
 //char byte_5C45B1[array_size_unknown]; // weak

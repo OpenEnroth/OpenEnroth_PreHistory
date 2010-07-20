@@ -1818,7 +1818,7 @@ int __cdecl sub_47F5C6_MessWithTerrainDrawing()
       if ( v116 > v112 )
       {
         v121 = v116;
-        memset(dword_76D9C8, v115 + 1, 4 * (v116 - v112 + 1));
+        memset_dw(dword_76D9C8, v115 + 1, 4 * (v116 - v112 + 1));
         v25 = v116;
         do
           dword_76DBC8[v122++] = v25--;
@@ -1866,7 +1866,7 @@ int __cdecl sub_47F5C6_MessWithTerrainDrawing()
       if ( v116 > v30 )
       {
         v121 = v116;
-        memset(dword_76D5C8, v118, 4 * (v116 - v30 + 1));
+        memset_dw(dword_76D5C8, v118, 4 * (v116 - v30 + 1));
         do
         {
           v31 = v122;
@@ -1915,7 +1915,7 @@ int __cdecl sub_47F5C6_MessWithTerrainDrawing()
       v112 = dword_76DDC8[v23];
       if ( v118 < v112 )
       {
-        memset(dword_76DBC8, v116 + 1, 4 * (v112 - v118 + 1));
+        memset_dw(dword_76DBC8, v116 + 1, 4 * (v112 - v118 + 1));
         v38 = v118;
         do
         {
@@ -1965,7 +1965,7 @@ int __cdecl sub_47F5C6_MessWithTerrainDrawing()
       if ( v118 < v44 )
       {
         v109 = v118;
-        memset(dword_76D7C8, i, 4 * (v44 - v118 + 1));
+        memset_dw(dword_76D7C8, i, 4 * (v44 - v118 + 1));
         do
         {
           v45 = v122;
@@ -2015,7 +2015,7 @@ int __cdecl sub_47F5C6_MessWithTerrainDrawing()
       v112 = dword_76DDC8[v23];
       if ( v115 > v112 )
       {
-        memset(dword_76DBC8, i, 4 * (v115 - v112 + 1));
+        memset_dw(dword_76DBC8, i, 4 * (v115 - v112 + 1));
         v52 = v115;
         do
           dword_76D9C8[v122++] = v52--;
@@ -2062,7 +2062,7 @@ int __cdecl sub_47F5C6_MessWithTerrainDrawing()
       if ( v115 > v57 )
       {
         v121 = v115;
-        memset(dword_76D7C8, v116 + 1, 4 * (v115 - v57 + 1));
+        memset_dw(dword_76D7C8, v116 + 1, 4 * (v115 - v57 + 1));
         do
         {
           v58 = v122;
@@ -2111,7 +2111,7 @@ int __cdecl sub_47F5C6_MessWithTerrainDrawing()
       v112 = dword_76DFC8[v23];
       if ( i < v112 )
       {
-        memset(dword_76D9C8, v118, 4 * (v112 - i + 1));
+        memset_dw(dword_76D9C8, v118, 4 * (v112 - i + 1));
         v64 = i;
         do
         {
@@ -2162,7 +2162,7 @@ int __cdecl sub_47F5C6_MessWithTerrainDrawing()
       if ( i < v70 )
       {
         v109 = i;
-        memset(dword_76D5C8, v115 + 1, 4 * (v70 - i + 1));
+        memset_dw(dword_76D5C8, v115 + 1, 4 * (v70 - i + 1));
         do
         {
           v71 = v122;
@@ -2942,7 +2942,7 @@ LABEL_74:
 LABEL_124:
             pSpan->pParent = &array_77EC08[1999];
             sub_452AF3(v42, pD3DRenderer->pTargetSurface + (pSpan->word_000008 + pD3DRenderer->uTargetSurfacePitch * pSpan->word_00000A), pSpan->word_00000C);
-            sub_452B58(-65536, pD3DRenderer->pActiveZBuffer + (pSpan->word_000008 + 640 * pSpan->word_00000A), pSpan->word_00000C);
+            memset_dw(pD3DRenderer->pActiveZBuffer + (pSpan->word_000008 + 640 * pSpan->word_00000A), -65536, pSpan->word_00000C);
             goto LABEL_125;
           }
           pSpan->word_00000E = data_6BE060.dword_6BE064;
@@ -2978,7 +2978,7 @@ LABEL_109:
             {
              pSpan->pParent = &array_77EC08[1999];
               if ( !sub_485044(pSpan, &array_77EC08[1999], v41))
-                sub_452B58(-65536, pD3DRenderer->pActiveZBuffer + (pSpan->word_000008 + 640 * pSpan->word_00000A), pSpan->word_00000C);
+                memset_dw(pD3DRenderer->pActiveZBuffer + (pSpan->word_000008 + 640 * pSpan->word_00000A), -65536, pSpan->word_00000C);
             }
           }
           pSpan->word_00000E = data_6BE060.dword_6BE064;

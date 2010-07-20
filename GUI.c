@@ -800,7 +800,7 @@ void GameUI_Process()
   char v237; // [sp+17Ch] [bp-480h]@524
   char v238; // [sp+1F8h] [bp-404h]@467
   char Str2; // [sp+238h] [bp-3C4h]@527
-  char Dst; // [sp+2B8h] [bp-344h]@4
+  struct Actor Dst; // [sp+2B8h] [bp-344h]@4
   __int16 v241; // [sp+2D8h] [bp-324h]@4
  int i;
  unsigned int uControlID;
@@ -814,17 +814,16 @@ void GameUI_Process()
   if ( dword_5C35C4 )
   {
     Actor_TotalReset(&Dst);
-    memset(&Dst, 0, 0x344u);
+    memset(&Dst, 0, sizeof(struct Actor));
     dword_5B65D0 = dword_5C35C4;
     v241 = dword_5C35C4;
-    sub_445D4A((int)&Dst, 0);
+    sub_445D4A(&Dst, 0);
     dword_5C35C4 = 0;
   }
 
-
-    v0 = 1;
-    v1 = Class;
-   while (GUIMessageQueue_GetMessage(dword_50CBD0, &uControlID, &v209, &v215))
+  v0 = 1;
+  v1 = Class;
+  while (GUIMessageQueue_GetMessage(dword_50CBD0, &uControlID, &v209, &v215))
    {
       v2 = uControlID - 5;
       switch (uControlID)
@@ -889,7 +888,7 @@ void GameUI_Process()
               if ( v212 + (unsigned __int8)pParty_global->byte_000709 < v210 )
               {
                 Actor_TotalReset(&Dst);
-                memset(&Dst, 0, 0x344u);
+                memset(&Dst, 0, sizeof(struct Actor));
                 v241 += -1 - (unsigned __int8)pParty_global->byte_000709 - v212;
                 v4 = &Dst;
 LABEL_33:
@@ -7018,7 +7017,7 @@ int GameUI_DrawPaperdoll()
   _UNKNOWN *v40; // [sp+1Ch] [bp-1Ch]@73
   int v41; // [sp+20h] [bp-18h]@6
   int v42; // [sp+20h] [bp-18h]@73
-  CHAR Str1; // [sp+24h] [bp-14h]@12
+  CHAR Str1[100]; // [sp+24h] [bp-14h]@12
  int i;
 
  uTextureID_GameUI_MagnifyingGlass = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"MAGNIF");
@@ -7062,7 +7061,7 @@ int GameUI_DrawPaperdoll()
     else
     {
       int uFace = pPlayers[v29]->uFace;
-      v8 = 4 * v29;
+      v8 = v29; 
       wsprintfA(&Str1, "pc%0dbod", uFace + 1);
       dword_51127C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
       wsprintfA(&Str1, "pc%0dlad", uFace + 1);
@@ -7077,14 +7076,13 @@ int GameUI_DrawPaperdoll()
       dword_51125C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
       v9 = pPlayers[v29];
       v7 = v9 + 186;
-      if ( uFace == 12 || uFace == 13 )
+      if ( uFace == 12 || uFace == 13 ) // dwarf male, load beard?
       {
         wsprintfA(&Str1, "pc%02dbrd", uFace + 1);
-        v7 = *(int *)((char *)pPlayers + v8) + 186;
-        dword_511208[*(_BYTE *)v7] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+        dword_511208[uFace] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
       }
-      wsprintfA(&Str1, "item281pc%02d", *(_BYTE *)v7 + 1);
-      dword_5115E0[*(_BYTE *)(*(int *)((char *)pPlayers + v8) + 186)] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      wsprintfA(&Str1, "item281pc%02d", uFace + 1);
+      dword_5115E0[uFace] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
       byte_5111B9[v29] = 0;
     }
     ++v29;
@@ -7129,7 +7127,7 @@ LABEL_28:
     if ( sub_43EE15(516, &pParty_global->pPlayers[i], 1) )
       byte_5111F8 = 1;
     if ( sub_43EE15(504, &pParty_global->pPlayers[i], 1) )
-      byte_5111F6 = 1;
+      byte_5111F6[0] = 1;
     if ( sub_43EE15(505, &pParty_global->pPlayers[i], 1) )
       byte_5111F7 = 1;
     if ( sub_43EE15(533, &pParty_global->pPlayers[i], 1) )

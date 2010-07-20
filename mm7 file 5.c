@@ -16757,7 +16757,7 @@ bool sub_48585C_MaybeDrawSpan(struct Span *pSpan, unsigned int *pRenderTarget, i
   sub_452AF3(v10[v3->ptr_00003C->uDecompressedSize], pRenderTarget, pSpan->word_00000C);
   HIWORD(v11) = HIWORD(v6);
   LOWORD(v11) = 0;
-  sub_452B58(v11, pD3DRenderer->pActiveZBuffer + (pSpan->word_000008 + 640 * pSpan->word_00000A), pSpan->word_00000C);
+  memset_dw(pD3DRenderer->pActiveZBuffer + (pSpan->word_000008 + 640 * pSpan->word_00000A), v11, pSpan->word_00000C);
 
   return true;
 }
