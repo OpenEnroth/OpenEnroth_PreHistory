@@ -190,21 +190,21 @@ void sub_4789DE()
       if ( !(pClass51_global->pBModels[i].ptr_000054[j].byte_000010[13] & 0x20))
       {
         v7 = pClass51_global->pBModels[i].ptr_000054[j].array_000020[0];
-        v8 = pClass51_global->pBModels[i].ptr_000048[v7].int_000008 + 4;
+        v8 = pClass51_global->pBModels[i].ptr_000048[v7].y + 4;
         v84 = 0;
         v76 = 0;
         v77 = 0;
 
         v10 = (double)v8;
         
-        for (k = 0; k < pClass51_global->pBModels[i].ptr_000054[j].byte_00012E; ++k)
+        for (k = 0; k < pClass51_global->pBModels[i].ptr_000054[j].uNumVertices; ++k)
         {
          v11 = &pModel->ptr_000048[v3->array_000020[k]];
 
-         array_73D150[k].x = v11->int_000000 + 4.0;
-         array_73D150[k].z = v11->int_000004 + 4.0;
-         array_73D150[k].y = v11->int_000008 + 4.0;
-         if (v10 == v11->int_000008 + 4.0)
+         array_73D150[k].x = v11->x + 4.0;
+         array_73D150[k].z = v11->z + 4.0;
+         array_73D150[k].y = v11->y + 4.0;
+         if (v10 == v11->y + 4.0)
            ++v84;
 
          sub_436523(&array_73D150[k], 1);
@@ -223,11 +223,11 @@ void sub_4789DE()
 
         v14 = p14 = &array_77EC08[pStruct9_global->dword_00002C];
         p14->word_000030 = 0;
-        if ( v84 == pClass51_global->pBModels[i].ptr_000054[j].byte_00012E)
+        if ( v84 == pClass51_global->pBModels[i].ptr_000054[j].uNumVertices)
           p14->word_000030 = 65536;
 
         p14->ptr_000054 = v3;
-        p14->dword_000014 = pClass51_global->pBModels[i].ptr_000054[j].byte_00012E;
+        p14->uNumVertices = pClass51_global->pBModels[i].ptr_000054[j].uNumVertices;
         p14->byte_000059 = 5;
         v85 = (unsigned __int64)(v3->dword_000000) * -pClass51_global->dword_000D30 / 65536;
         v84 = (unsigned __int64)(v3->dword_000004) * -pClass51_global->dword_000D34 / 65536;
@@ -294,7 +294,7 @@ LABEL_71:
         else if (v3->byte_000010[12] & 0x40)
           p14->word_000030 |= 0x1000;
 
-        for (k = 0; k < pClass51_global->pBModels[i].ptr_000054[j].byte_00012E; ++k)
+        for (k = 0; k < pClass51_global->pBModels[i].ptr_000054[j].uNumVertices; ++k)
         {
             //memcpy((char *)&unk_50AC10 + v32, &array_73D150[v32 / 48], 0x30u);
          memcpy(&array_50AC10[k], &array_73D150[k], sizeof(struct struct14));
@@ -334,24 +334,24 @@ LABEL_71:
           v57 = flt_73C81C;
           v58 = flt_73C820;
           v59 = flt_73C824;
-          sub_45CA88(pGame->class04_obj, (int)&dword_F8AD28, array_50AC10, pClass51_global->pBModels[i].ptr_000054[j].byte_00012E, (int)&v57);
+          sub_45CA88(pGame->class04_obj, (int)&dword_F8AD28, array_50AC10, pClass51_global->pBModels[i].ptr_000054[j].uNumVertices, (int)&v57);
         }
         if (v76)
         {
-          v38 = sub_4250FE(pClass51_global->pBModels[i].ptr_000054[j].byte_00012E);
+          v38 = sub_4250FE(pClass51_global->pBModels[i].ptr_000054[j].uNumVertices);
           v39 = v38;
           if ( !v38)
             goto LABEL_71;
 
           sub_481E55(v38);
           v40 = sub_4254D2(v39);
-          p14->dword_000014 = v40;
+          p14->uNumVertices = v40;
           if (!v40)
             goto LABEL_71;
 
 
           sub_48276F(v14);
-          for (k = 0; k < p14->dword_000014; ++k)
+          for (k = 0; k < p14->uNumVertices; ++k)
           {
               dword_50B638[k] = floorf(array_508690[k].flt_000018 + 0.5f);
               dword_50B570[k] = floorf(array_508690[k].flt_00001C + 0.5f);
@@ -361,7 +361,7 @@ LABEL_71:
         {
           if (v77)
           {
-            v45 = sub_4252E8(pClass51_global->pBModels[i].ptr_000054[j].byte_00012E);
+            v45 = sub_4252E8(pClass51_global->pBModels[i].ptr_000054[j].uNumVertices);
             v46 = v45;
 
             if ( !v45)
@@ -369,13 +369,13 @@ LABEL_71:
 
             sub_481E55(v45);
             v47 = sub_4254D2(v46);
-            p14->dword_000014 = v47;
+            p14->uNumVertices = v47;
             if (!v47)
               goto LABEL_71;
 
             sub_48276F(v14);
             
-            for (k = 0; k < p14->dword_000014; ++k)
+            for (k = 0; k < p14->uNumVertices; ++k)
             {
              dword_50B638[k] = floorf(array_508690[k].flt_000018 + 0.5f);
              dword_50B570[k] = floorf(array_508690[k].flt_00001C + 0.5f);
@@ -383,15 +383,15 @@ LABEL_71:
           }
           else
           {
-            v52 = sub_4254D2(pClass51_global->pBModels[i].ptr_000054[j].byte_00012E);
-            p14->dword_000014 = v52;
+            v52 = sub_4254D2(pClass51_global->pBModels[i].ptr_000054[j].uNumVertices);
+            p14->uNumVertices = v52;
             if (!v52)
               goto LABEL_71;
 
             sub_4829B9(&array_73D150[v3->byte_00012A], &array_73D150[v3->byte_00012B], &array_73D150[v3->byte_00012C],
                        p14, 0);
 
-            for (k = 0; k < p14->dword_000014; ++k)
+            for (k = 0; k < p14->uNumVertices; ++k)
             {
              dword_50B638[k] = floorf(array_508690[k].flt_000018 + 0.5f);
              dword_50B570[k] = floorf(array_508690[k].flt_00001C + 0.5f);
@@ -712,7 +712,7 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
  else if (pD3DRenderer->pRenderD3D3)
  {
     RenderSky();
-    //RenderBuildings();
+    RenderBuildings();
     //sub_47F5C6_MessWithTerrainDrawing();
  }
  else
@@ -2784,7 +2784,7 @@ void sub_487389_DrawSpansAndAll()
       dword_80AA14 = v29;
       dword_80AA18 = v29;
       
-      for (k = 1; k < v4->ptr_000054->byte_00012E; ++k)
+      for (k = 1; k < v4->ptr_000054->uNumVertices; ++k)
       {
        if (dword_80AA20 > v4->ptr_000054->array_000048[k])
          dword_80AA20 = v4->ptr_000054->array_000048[k];

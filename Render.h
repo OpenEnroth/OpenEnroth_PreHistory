@@ -234,6 +234,8 @@ void Render_DrawSomeFan(struct Render *_this, unsigned int uNumVertices, struct 
 void Render_FillRect2(struct Render *_this, int a3, int a4, unsigned int a5, int a6, unsigned int a7);
 //int sub_49FE05(int, void *this)
 void sub_49FE05(struct Render *pD3DRenderer);
+//void __thiscall sub_4A2050(int this, signed int a2, int a3, int a4, int a5);
+void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct struct8 *a3, struct class51_stru2 *a4, struct IDirect3DTexture2 *pTexture);
 
 void Render_DrawTransparentRect(struct Render *_this, unsigned int uOutX, unsigned int uOutY,
                                       unsigned int uSrcX, unsigned int uSrcY, unsigned int uSrcWidth, unsigned int uSrcHeight,

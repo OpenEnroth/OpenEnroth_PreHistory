@@ -2566,7 +2566,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                   sub_4364C5((int)&unk_F7B628, v35, array_507D30, (int)&dword_F8AD28);
                   class08_sub_436BB7(v32, array_507D30, v35, 0);
                   *(_DWORD *)(v31 + 1587204) = 0;
-                  if ( dword_F8ADD4 > 0 || dword_DF1BB4 > 0 )
+                  if ( dword_F8ADD4 > 0 || pClass58_global->std__vector_30B00C_size > 0 )
                   {
                     v18 = *(float *)(v9 + 12);
                     v19 = *(float *)(v9 + 8);
@@ -2590,7 +2590,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                         *(float *)&v33,
                         0);
                   }
-                  if ( dword_DF1BB4 > 0 )
+                  if ( pClass58_global->std__vector_30B00C_size > 0 )
                     sub_49B540(
                       pClass58_global,
                       v36,

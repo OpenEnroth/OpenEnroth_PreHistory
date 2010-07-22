@@ -38,7 +38,7 @@ struct CGame
  int  dword_000E14;
  int  dword_000E18;
  int  dword_000E1C;
- int  uSomeFlags;              //dword @ 000E20
+ int  uSomeFlags;              //dword @ 000E20   & 0x01 == lighing on?
  int  dword_000E24;
  float flt_000E28;
  __int64  qword_000E2C;
@@ -88,6 +88,8 @@ signed int Game_sub_44ED0A(struct CGame *_this, struct struct8 *a2, int *a3, sig
 signed int __thiscall Game_sub_44EC23(int this, int a2, int a3, signed int a4);
 //void __thiscall sub_40E2F6(int this, char a2);
 void CGame_stru0_sub_40E2F6(struct CGame_stru0 *_this, char a2);
+//char __thiscall sub_44EE30(int this, int a2, void **a3);
+bool Game_sub_44EE30(struct CGame *_this, struct class51_stru2 *a2, void **a3);
 
 
 
@@ -200,20 +202,35 @@ int sub_469E3B(struct class03 *_this);
 
 
 
+struct class04_stru0
+{
+ char *ptr_000000;
+ int   dword_000004;
+ char  unk_000008[16];
+ float unk_000018[64][12]; //some struct of 40 bytes width array[64], where it start is unknown
+ int   dword_000C18;
+};
+//sizeof == C1C
+//int __fastcall sub_45DF13(char *_this)
+void __fastcall class04_stru0_ctor(struct class04_stru0 *_this);
+//void __fastcall sub_45DF48(void *this)
+void __fastcall class04_stru0_detor(struct class04_stru0 *_this);
+//int __fastcall sub_40E4C2(int a1);
+void sub_40E4C2(struct class04_stru0 *_this);
 
 //class04
 struct class04
 {
  int dword_000000;
- int dword_000004[3100 * 512 / 4];          //std::vector @ 000004
- int dword_183804;                          //std::vector::size ?
- int dword_183808[3100 * 768 / 4];          //std::vector @ 183808
- int dword_3C8C08;                          //std::vector::size ?
- int dword_3CBC34;
+ struct class04_stru0 std__vector_000004[512]; // struct[512] @ 000004
+ unsigned int         std__vector_000004_size; // dword       @ 183804
+ struct class04_stru0 std__vector_183808[768]; // struct[768] @ 183808
+ unsigned int         std__vector_183808_size; // dword       @ 3C8C08
+ int                  dword_3CBC34;
 };
 //sizeof = 3CBC38
 //void *__thiscall sub_45BB06(void *this);
-void *class04_ctor(struct class04 *_this);
+void class04_ctor(struct class04 *_this);
 
 
 
@@ -964,18 +981,28 @@ int sub_48A336(struct class35 *_this);
 
 
 
+struct class36_stru0
+{
+ float flt_000000;
+ float flt_000004;
+ float flt_000008;
+ float flt_00000C;
+ float flt_000010;
+ char  unk_000014[0x14];
+};
+//sizeof == 28
+
 //class36
 struct class36
 {
- int  dword_000000;
- char vector_000004[2560];
-
- int dword_000A04;
- int dword_000A08;
+ int                  dword_000000;
+ struct class36_stru0 std__vector_000004[40];  // struct[40] @ 000004
+ unsigned int         std__vector_000004_size; // dword      @ 000A04
+ int                  dword_000A08;
 };
 //sizeof ~ ?
 //void *__thiscall sub_43B688(void *this);
-void *class36_ctor(struct class36 *_this);
+void class36_ctor(struct class36 *_this);
 //char __thiscall sub_43B6EF(int this, int a2, int a3, int a4, int a5, char a6, char a7, char a8);
 bool class36_sub_43B6EF(struct class36 *_this, int a2, int a3, int a4, int a5, char a6, char a7, char a8);
 
@@ -1403,14 +1430,14 @@ struct struct8
  float                  flt_000008;
  float                  flt_00000C;
  float                  flt_000010;
- int                    dword_000014; // num vertices ?
+ unsigned int           uNumVertices; // dword @ 000014
  int                    dword_000018;
  int                    dword_00001C;
  int                    dword_000020;
  int                    dword_000024;
  int                    dword_000028;
  int                    dword_00002C;
- short                  word_000030;  // word_000018 in struct TileDesc  0x4000 flag -> TextureFrameTable unsupported
+ short                  word_000030;  // word_000018 in struct TileDesc  0x4000 flag -> TextureFrameTable unsupported  0x0002 -> water tile
  short                  word_000032;
  int                    dword_000034;
  struct class57        *ptr_000038;
@@ -1551,8 +1578,10 @@ struct class58
  char unk_1A0858[0x6405];
  char unk_1A6C5D[0xF];
  char unk_1A6C6C[0x161398];
- int  dword_308004;
- int  dword_308008;
+ int  std__vector_30B00C[1024]; // dword[1024] @ 30B00C   template<int>
+ //int  dword_308004;
+ //int  dword_308008;
+ int  std__vector_30B00C_size;  // dword @ 30800C
 };
 //sizeof == ?
 //int __thiscall sub_49B525(int this, int a2);
@@ -1647,8 +1676,8 @@ struct struct14
  float flt_00000C;
  float flt_000010;
  float flt_000014;
- float flt_000018;  // value lies between pViewport->uGameX and pViewport->uGameZ
- float flt_00001C; //  value lies between pViewport->uGameY and pViewport->uGameW
+ float flt_000018;  // value lies between pViewport->uGameX and pViewport->uGameZ  screen-space transformed x
+ float flt_00001C; //  value lies between pViewport->uGameY and pViewport->uGameW  screen-space transformed y
  float flt_000020;
  float u;          // float @ 000024   looks like texture coordinates
  float v;          // float @ 000028

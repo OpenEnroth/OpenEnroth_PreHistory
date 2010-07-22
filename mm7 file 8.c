@@ -257,7 +257,7 @@ void __fastcall sub_481212(int a1, int a2, int a3)
               v31 >= v105->flt_00000C)
           {
             v32 = sub_4254D2(4);
-            v16->dword_000014 = v32;
+            v16->uNumVertices = v32;
             if ( !v32 )
               goto LABEL_104;
             v33 = v12;
@@ -276,7 +276,7 @@ LABEL_41:
         sub_481E55(v36);
 LABEL_102:
         v32 = sub_4254D2(v36);
-        v16->dword_000014 = v32;
+        v16->uNumVertices = v32;
         if ( !v32 )
           goto LABEL_104;
         sub_48276F(v16);
@@ -373,7 +373,7 @@ LABEL_105:
       if (v52 >= v10->flt_00000C && v52 >= v12->flt_00000C && v52 >= v105->flt_00000C)
       {
         v53 = sub_4254D2(3);
-        v37->dword_000014 = v53;
+        v37->uNumVertices = v53;
         if ( v53 )
         {
           sub_4829B9(v12, v51, v10, v37, 0);
@@ -469,7 +469,7 @@ LABEL_104:
             goto LABEL_41;
           }
           v32 = sub_4254D2(3);
-          v16->dword_000014 = v32;
+          v16->uNumVertices = v32;
           if ( !v32 )
             goto LABEL_104;
           v33 = v10;
@@ -492,7 +492,7 @@ LABEL_38:
     {
       sub_481E55(v54);
       v53 = sub_4254D2(v55);
-      v37->dword_000014 = v53;
+      v37->uNumVertices = v53;
       if ( v53 )
       {
         sub_48276F(v37);
@@ -5272,7 +5272,7 @@ int __fastcall sub_46D49E(signed int a1, signed int a2, int a3, int a4, int a5, 
                     {
                         if (v8 <= v12->word_00011C && v8 >= v12->word_00011A)
                           {
-                            for (j = 0; j < v12->byte_00012E; ++j)
+                            for (j = 0; j < v12->uNumVertices; ++j)
                             {
                                 word_721040[2 * j + 0] = v12->array_000098[j] + *(_WORD *)(v10->ptr_000048 + 12 * v12->array_000020[j]);
                                 word_721040[2 * j + 1] = v12->array_000098[j] + *(_WORD *)(v10->ptr_000048 + 12 * v12->array_000020[j + 1]);
@@ -5281,9 +5281,9 @@ int __fastcall sub_46D49E(signed int a1, signed int a2, int a3, int a4, int a5, 
                                 word_720F70[2 * j + 1] = v12->array_0000C0[j] + *(_WORD *)(v10->ptr_000048 + 12 * v12->array_000020[j + 1] + 4);
                               v7 = v42;
                             }
-                            word_721040[2 * v12->byte_00012E] = word_721040[0];
-                            word_720F70[2 * v12->byte_00012E] = word_720F70[0];
-                            v37 = 2 * v12->byte_00012E;
+                            word_721040[2 * v12->uNumVertices] = word_721040[0];
+                            word_720F70[2 * v12->uNumVertices] = word_720F70[0];
+                            v37 = 2 * v12->uNumVertices;
                             v15 = 0;
                             v45 = word_720F70[0] >= v47;
                             v50 = 0;
@@ -8145,7 +8145,7 @@ void __fastcall sub_486B4E(struct struct14 *a1, int *a2, int *a3, struct struct8
  v0 = a4->byte_000108;
  a4->byte_000108 = 0;
 
- if (a4->dword_000014 <= 0)
+ if (a4->uNumVertices <= 0)
    return v0;
 
  if (pStruct9_global->uNumSurfs >= 1999 || pStruct9_global->uNumEdges >= 5979)
@@ -8157,15 +8157,15 @@ void __fastcall sub_486B4E(struct struct14 *a1, int *a2, int *a3, struct struct8
  v54 = -1;
  v53 = 10000;
 
- sub_45CB89(a1, a4->dword_000014);
+ sub_45CB89(a1, a4->uNumVertices);
 
 
- for (i = 0; i < a4->dword_000014; ++i)
+ for (i = 0; i < a4->uNumVertices; ++i)
  {
   ++pStruct9_global->uNumEdges;
 
   v10 = i + 1;
-  if (v10 >= a4->dword_000014)
+  if (v10 >= a4->uNumVertices)
     v10 = 0;
 
   v11 = a3[i];
@@ -8249,7 +8249,7 @@ void __fastcall sub_486B4E(struct struct14 *a1, int *a2, int *a3, struct struct8
 
 
 
- if (a4->dword_000014 > 0)
+ if (a4->uNumVertices > 0)
  {
   a4->ptr_000048 = 0;
 
@@ -10867,7 +10867,7 @@ void __thiscall sub_48276F(struct struct8 *_this)
   int uncharted_stack[16*array_size_unknown];
 
   v19.v22 = _this;
-  if (_this->dword_000014 < 3)
+  if (_this->uNumVertices < 3)
     return;
 
     v19.v26 = 10000.0;
@@ -10875,7 +10875,7 @@ void __thiscall sub_48276F(struct struct8 *_this)
     v3 = -10000.0;
     v19.v27 = -10000.0;
 
-      for (i = 0; i < _this->dword_000014; ++i)
+      for (i = 0; i < _this->uNumVertices; ++i)
       {
         if (array_508690[i].flt_000018 < (double)v19.v26 )
         {
@@ -10905,7 +10905,7 @@ void __thiscall sub_48276F(struct struct8 *_this)
       v8 = v23;
     v29 = 0;
 
-    for (i = 0; i < _this->dword_000014; ++i)
+    for (i = 0; i < _this->uNumVertices; ++i)
     {
       if (i == v25 || i == v24 || i == v8)
       {
@@ -10922,23 +10922,23 @@ void __thiscall sub_48276F(struct struct8 *_this)
 
     if (v29 != 3)
     {
-      v13 = &array_508690[_this->dword_000014 - 1];
+      v13 = &array_508690[_this->uNumVertices - 1];
       v12 = &array_508690[0];
       v11 = &array_508690[1];
 
       v19.v28 = array_508690[1].x - array_508690[0].x;
       v19.v27 = array_508690[1].z - array_508690[0].z;
       v19.v29 = array_508690[1].y - array_508690[0].y;
-      v19.v26 = array_508690[_this->dword_000014 - 1].x - array_508690[0].x;
-      v19.v25 = array_508690[_this->dword_000014 - 1].z - array_508690[0].z;
-      v19.v24 = array_508690[_this->dword_000014 - 1].y - array_508690[0].y;
+      v19.v26 = array_508690[_this->uNumVertices - 1].x - array_508690[0].x;
+      v19.v25 = array_508690[_this->uNumVertices - 1].z - array_508690[0].z;
+      v19.v24 = array_508690[_this->uNumVertices - 1].y - array_508690[0].y;
       if ( v19.v24 * v19.v27 - v19.v25 * v19.v29 == 0.0 )
       {
         if ( v19.v26 * v19.v29 - v19.v24 * v19.v28 == 0.0 )
         {
           if ( v19.v25 * v19.v28 - v19.v26 * v19.v27 == 0.0 )
           {
-            v14 = _this->dword_000014 - 2;
+            v14 = _this->uNumVertices - 2;
             LODWORD(v19.v26) = v14;
             if ( v14 >= 2 )
             {

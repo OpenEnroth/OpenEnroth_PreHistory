@@ -592,18 +592,21 @@ int sub_469BA3(struct class03 *_this)
 
 
 //----- (MM7.exe::0045BB06) --------------------------------------------------------
-void *class04_ctor(struct class04 *_this)
+void class04_ctor(struct class04 *_this)
 {
   int v1; // eax@1
   signed int v2; // ecx@1
 
- compile_warning;//_eh_vector_constructor_iterator_((char *)_this + 4, 3100, 512, sub_45DF13, sub_45DF48);
- //*((_DWORD *)_this + 396801) = 0;
- _this->dword_183804 = 0;
- compile_warning;//_eh_vector_constructor_iterator_((char *)_this + 1587208, 3100, 768, sub_45DF13, sub_45DF48);
- //*((_DWORD *)_this + 992002) = 0;
- _this->dword_3C8C08 = 0;
- v1 = (int)((char *)_this + 0x0F2318);
+ _eh_vector_constructor_iterator_(_this->std__vector_000004, sizeof(struct class04_stru0), 512, class04_stru0_ctor, class04_stru0_detor);
+ _this->std__vector_000004_size = 0;
+
+ _eh_vector_constructor_iterator_(_this->std__vector_183808, sizeof(struct class04_stru0), 768, class04_stru0_ctor, class04_stru0_detor);
+ _this->std__vector_183808_size = 0;
+
+ 
+  runtime_warning(struct shape and place is unknown, access to a random member);
+ //v1 = (int)((char *)_this + 0x0F2314 + 4);  //::000808 inside[321]
+  v1 = (char *)&_this->std__vector_000004[321] + 0x808;
  v2 = 256;
  do
  {
@@ -612,8 +615,7 @@ void *class04_ctor(struct class04 *_this)
  }
  while (--v2);
 
- _this->dword_000000 = 5080800;
- return _this;
+ _this->dword_000000 = 0x4D86E0;
 }
 
 //----- (MM7.exe::004C04AF) --------------------------------------------------------
@@ -2829,13 +2831,13 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
 
 
 //----- (0043B688) --------------------------------------------------------
-void *class36_ctor(struct class36 *_this)
+void class36_ctor(struct class36 *_this)
 {
  _this->dword_000000 = 0x4D8600;
- _eh_vector_constructor_iterator_(_this->vector_000004, 40, 64, sub_43B538, sub_43B569);
- _this->dword_000A04 = 0;
+ _eh_vector_constructor_iterator_(_this->std__vector_000004, 40, 64, sub_43B538, sub_43B569);
+ _this->std__vector_000004_size = 0;
+
  _this->dword_000A08 = 0;
- return _this;
 }
 
 
@@ -7467,10 +7469,15 @@ char CGame_sub_44EEA7(struct CGame *_this)
 
  v4 = v2;
  CGame_Pick(pGame, v4, v7, v8, false, (int)v10, v11);
-  _this->class04_obj->dword_183804 = 0;
-  _this->class04_obj->dword_3C8C08 = 0;
-  pClass58_global->dword_308004 = 0;
-  pClass58_global->dword_308008 = 0;
+ _this->class04_obj->std__vector_000004_size = 0;
+ _this->class04_obj->std__vector_183808_size = 0;
+
+  runtime_warning(seems odd);
+  //pClass58_global->dword_308004 = 0;
+  //pClass58_global->dword_308008 = 0;
+  pClass58_global->std__vector_30B00C[1022] = 0;
+  pClass58_global->std__vector_30B00C[1023] = 0;
+
   result = CGame_sub_44F07B(_this);
   if ( result )
   {
@@ -8258,10 +8265,13 @@ void class58_sub_49B525(struct class58 *_this, int a2)
 {
  if (!a2)
  {
-  class36_global0.dword_000A04 = 0;
+  class36_global0.std__vector_000004_size = 0;
   class36_global0.dword_000A08 = 0;
  }
- _this->dword_308004 = 0;
+
+ runtime_warning(seems odd);
+ //_this->dword_308004 = 0;
+ _this->std__vector_30B00C[1022] = 0;
 }
 
 

@@ -3081,98 +3081,6 @@ bool __thiscall sub_49E756(IDirectDraw4 *pdd4)
 
 
 
-//----- (004A2DA3) --------------------------------------------------------
-void Render_DrawStrip(struct Render *_this, unsigned int uNumVertices, struct struct8 *a3, IDirect3DTexture2 *pTexture)
-{
-  int v4; // ebx@1
-  int v7; // eax@7
-  float v12; // ST3C_4@8
- int i;
-
-  v4 = _this;
- if (!_this->uD3D3SceneBegun)
-   return;
-
- if (uNumVertices >= 3)
- {
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 12, 1);
-  if (_this->bUsingSpecular)
-  {
-   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 27, 1);
-   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 19, 2);
-   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 20, 1);
-  }
-  
-  for (i = 0; i < uNumVertices; ++i)
-  {
-   pVertices[i].x = array_50AC10[i].flt_000018;
-   pVertices[i].y = array_50AC10[i].flt_00001C;
-   pVertices[i].z = 0.99989998;
-   pVertices[i].rhw = array_50AC10[i].flt_000020;
-
-   pVertices[i].diffuse = sub_47C4FC(31, 0, array_50AC10[i].flt_00000C, 1, 0);
-   v7 = 0;
-   if (_this->bUsingSpecular)
-   {
-    v12 = array_50AC10[i].flt_00000C;
-    v7 = sub_47C3D7(0, 1, v12);
-   }
-   pVertices[i].specular = v7;
-   pVertices[i].u = array_50AC10[i].u;
-   pVertices[i].v = array_50AC10[i].v;
-  }
-  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTexture)(pD3DRenderer->pRenderD3D3->pDevice, 0, pTexture);
-  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->DrawPrimitive)(pD3DRenderer->pRenderD3D3->pDevice, D3DPT_TRIANGLESTRIP, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, uNumVertices, D3DDP_DONOTUPDATEEXTENTS | D3DDP_DONOTLIGHT);
- }
-}
-
-//----- (004A2DA3) --------------------------------------------------------
-void Render_DrawSomeFan(struct Render *_this, unsigned int uNumVertices, struct struct8 *a3, IDirect3DTexture2 *pTexture)
-{
-  int v4; // ebx@1
-  int v7; // eax@7
-  float v12; // ST3C_4@8
- int i;
-
-  v4 = _this;
- if (!_this->uD3D3SceneBegun)
-   return;
-
- if (uNumVertices >= 3)
- {
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 12, 1);
-  if (_this->bUsingSpecular)
-  {
-   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 27, 1);
-   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 19, 2);
-   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 20, 1);
-  }
-  
-  for (i = 0; i < uNumVertices; ++i)
-  {
-   pVertices[i].x = array_50AC10[i].flt_000018;
-   pVertices[i].y = array_50AC10[i].flt_00001C;
-   pVertices[i].z = 0.99989998;
-   pVertices[i].rhw = array_50AC10[i].flt_000020;
-
-   pVertices[i].diffuse = sub_47C4FC(31, 0, array_50AC10[i].flt_00000C, 1, 0);
-   v7 = 0;
-   if (_this->bUsingSpecular)
-   {
-    v12 = array_50AC10[i].flt_00000C;
-    v7 = sub_47C3D7(0, 1, v12);
-   }
-   pVertices[i].specular = v7;
-   pVertices[i].u = array_50AC10[i].u;
-   pVertices[i].v = array_50AC10[i].v;
-  }
-  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTexture)(pD3DRenderer->pRenderD3D3->pDevice, 0, pTexture);
-  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->DrawPrimitive)(pD3DRenderer->pRenderD3D3->pDevice, D3DPT_TRIANGLEFAN, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, uNumVertices, D3DDP_DONOTUPDATEEXTENTS | D3DDP_DONOTLIGHT);
- }
-}
-
-
-
 //----- (004A6D87) --------------------------------------------------------
 void Render_FillRect2(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int a5, int a6, unsigned int a7)
 {
@@ -3305,4 +3213,311 @@ void sub_49FE05(struct Render *pD3DRenderer)
       *v14 = 0;
     }
   }
+}
+
+
+
+
+//----- (004A2050) --------------------------------------------------------
+void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct struct8 *a3, struct class51_stru2 *a4, IDirect3DTexture2 *pTexture)
+{
+  int v5; // ebx@1
+  int v6; // edi@1
+  int v8; // eax@7
+  float v9; // eax@12
+  float *v10; // esi@12
+  float v11; // ecx@14
+  double v12; // st7@14
+  double v13; // st7@14
+  double v14; // st7@14
+  signed int v15; // eax@14
+  int v16; // eax@15
+  float v17; // ST48_4@15
+  char v18; // zf@17
+  int v19; // eax@18
+  int v20; // eax@18
+  int v21; // edx@20
+  signed int v22; // ecx@20
+  int v23; // eax@20
+  const char *v24; // ST4C_4@20
+  unsigned int v25; // ST50_4@20
+  int v26; // ST54_4@20
+  int v27; // eax@20
+  _UNKNOWN *v28; // eax@21
+  int v29; // ecx@23
+  int v30; // eax@23
+  int v31; // eax@23
+  int v32; // eax@24
+  int v33; // eax@25
+  int v34; // eax@25
+  int v35; // eax@25
+  int v36; // eax@25
+  signed int v37; // ecx@26
+  int v38; // eax@26
+  _UNKNOWN *v39; // eax@27
+  int v40; // edx@28
+  int v41; // eax@29
+  int v42; // eax@29
+  int v43; // eax@29
+  int v44; // eax@29
+  unsigned int v46; // eax@29
+  int v47; // eax@30
+  int v48; // eax@30
+  int v49; // eax@30
+  double v52; // st6@35
+  const char *v55; // [sp+4Ch] [bp-1Ch]@20
+  int v57; // [sp+5Ch] [bp-Ch]@3
+  signed int v59; // [sp+60h] [bp-8h]@12
+  int v61; // [sp+64h] [bp-4h]@4
+ int i;
+
+  v6 = _this;
+  v5 = 0;
+ if (!_this->uD3D3SceneBegun)
+   return;
+
+ if (uNumVertices < 3)
+   return;
+ 
+   v57 = pGame->class04_obj->std__vector_000004_size;
+   if (pGame->class04_obj->std__vector_000004_size)
+     v61 = -1;
+
+   Game_sub_44EE30(pGame, a4, (void **)&v61);
+   if (byte_4D8410[572] && pGame->uSomeFlags & 0x01)
+   {
+    v8 = sub_47C4FC(*(_BYTE *)(a3 + 88), 0, array_50AC10[0].flt_00000C, 0, 0);
+    sub_45D74F_MessWithLight(pGame->class04_obj, v8, 0);
+   }
+   else
+   {
+    if ( !v57 || byte_4D8410[572] && pGame->uSomeFlags & 0x02)
+    {
+     (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 12, 1);
+     (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 22, 2);
+     if (_this->bUsingSpecular)
+     {
+      (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 27, 1);
+      (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 19, 2);
+      (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 20, 1);
+     }
+     
+     for (i = 0; i < uNumVertices; ++i)
+     {
+      v61 = sub_47C4FC(a3->byte_000058, 0, array_50AC10[i].flt_00000C, 0, 0);
+       Game_sub_44EE30(pGame, a4, (void **)&v61);
+
+       v52 = 1000 * array_50AC10[i].flt_00000C / (double)pStruct9_global->shading_dist_mist;
+       pVertices[i].x = array_50AC10[i].flt_000018;
+       pVertices[i].y = array_50AC10[i].flt_00001C;
+       pVertices[i].z = 1.0 - 1.0 / v52;
+       pVertices[i].rhw = 1.0 / (array_50AC10[i].flt_00000C + 0.0000001000000011686097);
+              
+       pVertices[i].diffuse = sub_47C4FC(a3->byte_000058, 0, array_50AC10[i].flt_00000C, 0, 0);
+       if (_this->bUsingSpecular)
+         pVertices[i].specular = sub_47C3D7(0, 0, array_50AC10[i].flt_00000C);
+       else
+         pVertices[i].specular = 0;
+
+       pVertices[i].u = array_50AC10[i].u;
+       pVertices[i].v = array_50AC10[i].v;
+     }
+
+     (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTexture)(pD3DRenderer->pRenderD3D3->pDevice, 0, pTexture);
+     (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->DrawPrimitive)(pD3DRenderer->pRenderD3D3->pDevice, D3DPT_TRIANGLEFAN, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, uNumVertices, D3DDP_DONOTLIGHT);
+    }
+    else
+        {
+          if (uNumVertices > 0)
+          {
+            LODWORD(v9) = &pVertices->y;
+            v10 = &array_50AC10[0].flt_00000C;
+            a4 = (int)&pVertices->y;
+            v59 = uNumVertices;
+            while ( 1 )
+            {
+              v13 = *v10 * 1000.0;
+              *(_DWORD *)(LODWORD(v9) - 4) = *((_DWORD *)v10 + 3);
+              v14 = v13 / (double)pStruct9_global->shading_dist_mist;
+              compile_error;//*LODWORD(v9) = *((_DWORD *)v10 + 4);
+              *(float *)(LODWORD(v9) + 4) = 1.0 - 1.0 / v14;
+              *(float *)(LODWORD(v9) + 8) = 1.0 / (*v10 + 0.0000001000000011686097);
+              v15 = sub_47C4FC(*(_BYTE *)(a3 + 88), 0, *v10, 0, 0);
+              LODWORD(v11) = a4;
+              v12 = *v10;
+              *(_DWORD *)(a4 + 12) = v15;
+              if ( *(_DWORD *)(v6 + 1062496) )
+              {
+                v17 = v12;
+                v16 = sub_47C3D7(0, 0, v17);
+                LODWORD(v11) = a4;
+              }
+              else
+              {
+                v16 = 0;
+              }
+              *(_DWORD *)(LODWORD(v11) + 16) = v16;
+              *(_DWORD *)(LODWORD(v11) + 20) = *((_DWORD *)v10 + 6);
+              *(_DWORD *)(LODWORD(v11) + 24) = *((_DWORD *)v10 + 7);
+              v10 += 12;
+              v18 = v59-- == 1;
+              a4 = LODWORD(v11) + 32;
+              if ( v18 )
+                break;
+              LODWORD(v9) = a4;
+            }
+          }
+          v19 = (*(int (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56) + 88))(
+                  *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
+                  14,
+                  0);
+          CheckHRESULT(&a3, v19, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+
+          v20 = (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 12, 1);
+          CheckHRESULT(&a3, v20, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+
+          if (pD3DRenderer->bUsingSpecular)
+            (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 28, 0);
+
+          v23 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56)
+                                                                                         + 152))(
+                  *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
+                  0,
+                  0,
+                  "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp",
+                  543,
+                  0);
+          CheckHRESULT(&a3, v23, v24, v25, v26);
+          v27 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56) + 112))(
+                  *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
+                  6,
+                  452,
+                  pVertices,
+                  uNumVertices,
+                  16);
+          CheckHRESULT(&a3, v27, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+          v55 = *(const char **)(*(_DWORD *)(v6 + 262280) + 56);
+          (*(void (**)(void))(*(_DWORD *)v55 + 88))();
+          sub_45D74F_MessWithLight(pGame->class04_obj, -1, 0);
+          v22 = uNumVertices;
+          if (uNumVertices > 0)
+          {
+            v28 = &pVertices->diffuse;
+            do
+            {
+              v21 = v61;
+              *(_DWORD *)v28 = v61;
+              v28 = (char *)v28 + 32;
+              --v22;
+            }
+            while ( v22 );
+          }
+          v29 = **(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56);
+          v30 = (*(int (__fastcall **)(int, int, _DWORD, _DWORD, int))(v29 + 152))(
+                  v29,
+                  v21,
+                  *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
+                  0,
+                  pTexture);
+          CheckHRESULT(&a3, v30, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+
+          v31 = (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 12, 1);
+          CheckHRESULT(&a3, v31, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+          if ( !pD3DRenderer->bUsingSpecular )
+          {
+            v32 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 14, 1);
+            CheckHRESULT(&a3, v32, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+          }
+          v33 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
+                  27,
+                  1);
+          CheckHRESULT(&a3, v33, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+          v34 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
+                  19,
+                  1);
+          CheckHRESULT(&a3, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+          v35 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
+                  20,
+                  3);
+          CheckHRESULT(&a3, v35, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+          v36 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56) + 112))(
+                  *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
+                  6,
+                  452,
+                  pVertices,
+                  uNumVertices,
+                  16);
+          CheckHRESULT(&a3, v36, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+          if ( pD3DRenderer->bUsingSpecular )
+          {
+            v38 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
+                    14,
+                    1);
+            CheckHRESULT(&a3, v38, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+            v37 = uNumVertices;
+            if (uNumVertices > 0)
+            {
+              v39 = &pVertices->specular;
+              do
+              {
+                v40 = *(_DWORD *)v39;
+                *(_DWORD *)v39 = 0;
+                v39 = (char *)v39 + 32;
+                --v37;
+                *((_DWORD *)v39 - 9) = dword_EF524C | v40 & 0xFF000000;
+              }
+              while ( v37 );
+            }
+            v41 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56)
+                                                                                           + 152))(
+                    *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
+                    0,
+                    0,
+                    "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp",
+                    __LINE__,
+                    0);
+            CheckHRESULT(&a3, v41, v55, 0x16u, 1);
+            v42 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
+                    19,
+                    6);
+            CheckHRESULT(&a3, v42, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+            v43 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
+                    20,
+                    5);
+            CheckHRESULT(&a3, v43, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+            v44 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56)
+                                                                                       + 112))(
+                    *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
+                    6,
+                    452,
+                    pVertices,
+                    uNumVertices,
+                    16);
+            CheckHRESULT(0, v44, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+            (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
+              28,
+              1);
+            v46 = sub_47C370();
+            (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
+              34,
+              v46 & 0xFFFFFF);
+            v5 = 0;
+            (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
+              35,
+              0);
+          }
+          v47 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
+                  19,
+                  2);
+          CheckHRESULT(0, v47, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, v5);
+          v48 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
+                  20,
+                  1);
+          CheckHRESULT(0, v48, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, v5);
+          v49 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
+                  27,
+                  v5);
+          CheckHRESULT(0, v49, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, v5);
+        }
+      }
 }

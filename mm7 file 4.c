@@ -10276,8 +10276,8 @@ int __thiscall sub_45BBAA(void *this)
 
   v2 = this;
   *(_DWORD *)this = 5080800;
-  _eh_vector_destructor_iterator_((char *)this + 1587208, 3100, 768, sub_45DF48);
-  _eh_vector_destructor_iterator_((char *)v2 + 4, 3100, 512, sub_45DF48);
+  _eh_vector_destructor_iterator_((char *)this + 1587208, 3100, 768, class04_stru0_detor);
+  _eh_vector_destructor_iterator_((char *)v2 + 4, 3100, 512, class04_stru0_detor);
 }
 
 //----- (0045BC07) --------------------------------------------------------
@@ -11706,7 +11706,7 @@ function_error;
 //#error "45D747: call analysis failed (funcsize=6)"
 
 //----- (0045D74F) --------------------------------------------------------
-char __thiscall sub_45D74F(float this, int a2, int a3)
+char __thiscall sub_45D74F_MessWithLight(struct class04 *this, int a2, int a3)
 {
   char v3; // zf@1
   const char *v4; // eax@2
@@ -11744,7 +11744,7 @@ char __thiscall sub_45D74F(float this, int a2, int a3)
   float v37; // [sp+84h] [bp-4h]@1
 
   v3 = *(_DWORD *)(LODWORD(this) + 1587204) == 0;
-  v37 = this;
+  v37 = *(float *)&this;
   if ( !v3 )
   {
     v29 = 0;
@@ -12201,9 +12201,9 @@ void __fastcall sub_45DCA9(unsigned int a1, const char *a2, int a3, int a4, int 
 }
 
 //----- (0045DF48) --------------------------------------------------------
-void __fastcall sub_45DF48(void *this)
+void __fastcall class04_stru0_detor(struct class04_stru0 *_this)
 {
-  *(_DWORD *)this = 5080824;
+ _this->ptr_000000 = 5080824;
   compile_error;//JUMPOUT(*(unsigned int *)loc_40E4FC);
 }
 

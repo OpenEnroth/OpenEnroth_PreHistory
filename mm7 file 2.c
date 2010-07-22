@@ -4966,25 +4966,15 @@ LABEL_20:
 }
 
 //----- (0040E4C2) --------------------------------------------------------
-int __fastcall sub_40E4C2(int a1)
+void sub_40E4C2(struct class04_stru0 *_this)
 {
-  int result; // eax@1
-  signed int v2; // edx@1
-  int v3; // ecx@1
+ int i;
 
-  result = a1;
-  v2 = 64;
-  *(_DWORD *)(a1 + 4) = -1;
-  v3 = a1 + 52;
-  do
-  {
-    *(float *)v3 = 0.0;
-    v3 += 48;
-    --v2;
-  }
-  while ( v2 );
-  *(_DWORD *)result = 5080236;
-  return result;
+ _this->dword_000004 = -1;
+ for (i = 0; i < 64; ++i)
+   _this->unk_000018[i][0] = 0;
+
+ _this->ptr_000000 = 0x4D84AC;
 }
 
 //----- (0040E51F) --------------------------------------------------------

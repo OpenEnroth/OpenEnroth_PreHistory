@@ -176,7 +176,6 @@ int __thiscall sub_40E2A7(int this);
 int __thiscall sub_40E2C8(void *this, const char *Src, int a3);
 int __thiscall sub_40E32E(int this, const void *Src, size_t Size);
 char __thiscall sub_40E363(int this, unsigned int a2, char a3);
-int __fastcall sub_40E4C2(int a1);
 int loc_40E4FC(); // weak
 int __fastcall RGBTexture_Release(int a2);
 signed int __thiscall sub_40E55E(void *Source, unsigned int Filename, unsigned int a3);
@@ -536,7 +535,6 @@ char __thiscall sub_44EB12(int this, char a2, int a3, int a4);
 void *__thiscall CGame_outline_selection(int this);
 char __cdecl sub_44EC20();
 char __thiscall sub_44EDE4(int this, int a2, void **a3);
-char __thiscall sub_44EE30(int this, int a2, void **a3);
 char __cdecl sub_44EE7C();
 void *__thiscall sub_44F408(int this, char *a2);
 int __thiscall sub_44F45B(int this, int a2);
@@ -647,10 +645,10 @@ char __stdcall sub_45D426(int a1, int a2, signed int a3, struct Edge *a4, signed
 double __stdcall sub_45D643(int a1, float a2);
 char __thiscall sub_45D698(int this, char a2);
 void __stdcall sub_45D73F(int, _DWORD); // weak
-char __thiscall sub_45D74F(float this, int a2, int a3);
+char __thiscall sub_45D74F_MessWithLight(struct class04 *this, int a2, int a3);
 char __thiscall sub_45DA56(int this, float a2);
 char __stdcall sub_45DAE8(int a1, int a2, float a3);
-int sub_45DF13(); // weak
+int __fastcall sub_45DF13(void *); // weak
 void __fastcall sub_45DCA9(unsigned int a1, const char *a2, int a3, int a4, int a5, int a6);
 void __fastcall sub_45DF48(void *this);
 void *__cdecl sub_45E006();
@@ -950,7 +948,7 @@ signed int __thiscall sub_48A5A4(void *this, int a2, int a3);
 signed int __fastcall sub_48A643(int a1, int a2, int a3, float a4, float a5, float a6);
 void __fastcall sub_48A7AA(int a1, int a2, float a3, float a4, float a5, int a6);
 int __thiscall sub_48A8CC(int this);
-int __thiscall sub_48A959(void *this, float a2, int a3, int a4);
+int __thiscall sub_48A959(void *this, float a2, float a3, float a4);
 int __thiscall sub_48AAF1(_DWORD); // weak
 void __thiscall sub_48AB23(int this, int a2);
 signed int __thiscall sub_48AE74(void *this, float a2);
@@ -1082,7 +1080,7 @@ char __thiscall sub_49B540(void *this, signed int a2, char a3, int a4, signed in
 void __cdecl loc_49B785(); // idb
 char __thiscall sub_49B790(int this, int a2, char a3, int a4, int a5, int a6, int a7, int a8, int a9, signed int a10, int a11, char a12);
 char __thiscall sub_49BBBD(int this, int a2);
-char __thiscall sub_49BCEB(int this, int a2);
+bool __thiscall sub_49BCEB(int this, int a2);
 char __thiscall sub_49BE8A(int this, int a2, float a3, int a4, int a5, int a6, char a7);
 void __stdcall sub_49C095(int a1, float a2);
 void __thiscall sub_49C2CD(int this, float a2);
@@ -1114,7 +1112,6 @@ void __fastcall sub_4A1DA8(signed int a1);
 int __cdecl sub_4A1E9D();
 int __stdcall sub_4A1EA3(int a1);
 int __stdcall sub_4A2031(float, int, int, int, int); // idb
-void __thiscall sub_4A2050(int this, signed int a2, int a3, int a4, int a5);
 // void __userpurge sub_4A26BC(int a1<ecx>, int a2<esi>, int a3, int a4, int a5, int a6, int a7);
 void __thiscall sub_4A2ED5(int this, signed int a2, int a3, int a4);
 void __thiscall sub_4A2FC0(int this, signed int a2, int a3, signed int a4, signed int a5, int a6, signed int a7, int a8);

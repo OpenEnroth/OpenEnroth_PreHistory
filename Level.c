@@ -1578,8 +1578,8 @@ bool sub_482170(struct class51_stru2 *_this, struct struct14 *a2, struct struct8
   float v32; // [sp+48h] [bp+8h]@17
   float v33; // [sp+48h] [bp+8h]@17
 
- v3 = a3->dword_000014;
- if (a3->dword_000014 < 3)
+ v3 = a3->uNumVertices;
+ if (a3->uNumVertices < 3)
    return false;
 
   v6 = &a2[v3 - 1];

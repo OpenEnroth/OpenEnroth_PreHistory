@@ -22,11 +22,13 @@ struct class51_Geodata
 };
 //sizeof == 20
 
+
+
 struct class51_stru3
 {
- signed int int_000000;
- signed int int_000004;
- signed int int_000008;
+ signed int x; // dword @ 000000
+ signed int z; // dword @ 000004
+ signed int y; // dword @ 000008
 };
 //sizeof == 0C
 
@@ -76,20 +78,22 @@ struct class51_stru2
  short array_0000C0[20];
  char  byte_0000E8[40];
  short uTextureID;      // word @ 000110
- short word_000012;
- short word_000014;
- short word_000116;
- short word_000118;
- short word_00011A;
- short word_00011C;
- char  byte_00011E[6];
+ short word_000112;
+ short word_000114;
+ short word_000116; // x1..
+ short word_000118; //  ..x2
+ short word_00011A; // y1..
+ short word_00011C; //  ..y2
+ short word_00011E; // z1..
+ short word_000120; //  ..z2  some boundaries
+ char  byte_000122[2];
  short word_000124;     //related to Event::dword_000000
  char  byte_000126[4];
  char  byte_00012A;
  char  byte_00012B;
  char  byte_00012C;
  char  byte_00012D;
- char  byte_00012E;
+ unsigned char uNumVertices; // byte @ 00012E
  char  byte_00012F;
  char  byte_000130;
  char  byte_000131;

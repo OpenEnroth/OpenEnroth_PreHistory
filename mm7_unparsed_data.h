@@ -1052,11 +1052,11 @@ extern unsigned char pStartMapName[36]; // idb
 
 extern struct class36 class36_global0; // struct @ MM7.exe::005107A8
 //_UNKNOWN unk_5107A8;
-extern _UNKNOWN unk_5107B4; // weak
-extern float flt_5107B8[620]; // idb
+//_UNKNOWN unk_5107B4; // 000008
+//float flt_5107B8[620]; // 000010
 extern char byte_51117E[array_size_unknown]; // weak
-//int dword_5111AC; // class36_global0::dword_000A04
-//int dword_5111B0; // class36_global0::dword_000A08
+//int dword_5111AC; // 000A04
+//int dword_5111B0; // 000A08
 extern char byte_5111B8[array_size_unknown]; // weak
 extern char byte_5111B9[array_size_unknown]; // weak
 extern char byte_5111C0[array_size_unknown]; // weak
@@ -2583,7 +2583,7 @@ extern struct class58 *pClass58_global; // struct @ MM7.exe::00AE5BA8
 //_UNKNOWN unk_C8C814; // weak
 //int dword_DEDBAC; // ::dword_308004
 //int dword_DEDBB0; // ::dword_308008
-extern int dword_DF1BB4; // weak
+//int dword_DF1BB4; // 30800C
 extern IDirectDrawClipper *pDDrawClipper; // dword @ MM7.exe::00FD1BE0
 
 //struct Render *pD3DRenderer = 0;  // struct @ MM7.exe::00DF1BE8

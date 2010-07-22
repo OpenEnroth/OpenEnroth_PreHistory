@@ -14994,20 +14994,14 @@ char __thiscall sub_44EDE4(int this, int a2, void **a3)
 }
 
 //----- (0044EE30) --------------------------------------------------------
-char __thiscall sub_44EE30(int this, int a2, void **a3)
+bool Game_sub_44EE30(struct CGame *_this, struct class51_stru2 *a2, void **a3)
 {
-  char result; // al@3
-
-  if ( *(_BYTE *)(LODWORD(pGame) + 3620) & 2 && *(_BYTE *)(a2 + 28) & 2 )
-  {
-    compile_error;//*a3 = (void *)sub_48A959(*a3, 1.0, COERCE_INT(*(float *)(this + 3624)), COERCE_INT(-1.0));
-    result = 1;
-  }
-  else
-  {
-    result = 0;
-  }
-  return result;
+ if (_this->dword_000E24 & 2 && a2->byte_000010[12] & 2)
+ {
+  *a3 = (void *)sub_48A959(*a3, 1.0, _this->flt_000E28, -1.0);
+  return true;
+ }
+ else return false;
 }
 
 //----- (0044EE7C) --------------------------------------------------------

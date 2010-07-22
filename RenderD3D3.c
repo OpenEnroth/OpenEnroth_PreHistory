@@ -755,13 +755,14 @@ char __cdecl sub_4A597D()
      pDst[1] = src_alpha * pSrc[1] + (1.0f - src_alpha) * pDst[1];
      pDst[2] = src_alpha * pSrc[2] + (1.0f - src_alpha) * pDst[2];
     }*/
-  for (x = 0; x < 640 * 480; ++x)
-  {
-   if (!(pD3DRenderer->pTargetSurface[x] & 0xFF000000))
-     continue;
+  for (y = 0; y < 480; ++y)
+    for (x = 0; x < 640; ++x)
+    {
+     if (!(pD3DRenderer->pTargetSurface[y * 640 + x] & 0xFF000000))
+       continue;
 
-   *((unsigned int *)ddsd.lpSurface + x) = pD3DRenderer->pTargetSurface[x];
-  }
+     *(unsigned int *)((char *)ddsd.lpSurface + y * ddsd.lPitch + 4 * x) = pD3DRenderer->pTargetSurface[y * 640 + x];
+    }
 
 
     (pD3DRenderer->pdds4_BackBuffer->lpVtbl->Unlock)(pD3DRenderer->pdds4_BackBuffer, 0);
@@ -923,6 +924,97 @@ void RenderD3D3_ClearTarget(struct RenderD3D3 *_this, int a2, D3DCOLOR uClearCol
 }
 
 
+
+//----- (004A2DA3) --------------------------------------------------------
+void Render_DrawStrip(struct Render *_this, unsigned int uNumVertices, struct struct8 *a3, IDirect3DTexture2 *pTexture)
+{
+  int v4; // ebx@1
+  int v7; // eax@7
+  float v12; // ST3C_4@8
+ int i;
+
+  v4 = _this;
+ if (!_this->uD3D3SceneBegun)
+   return;
+
+ if (uNumVertices >= 3)
+ {
+  (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 12, 1);
+  if (_this->bUsingSpecular)
+  {
+   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 27, 1);
+   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 19, 2);
+   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 20, 1);
+  }
+  
+  for (i = 0; i < uNumVertices; ++i)
+  {
+   pVertices[i].x = array_50AC10[i].flt_000018;
+   pVertices[i].y = array_50AC10[i].flt_00001C;
+   pVertices[i].z = 0.99989998;
+   pVertices[i].rhw = array_50AC10[i].flt_000020;
+
+   pVertices[i].diffuse = sub_47C4FC(31, 0, array_50AC10[i].flt_00000C, 1, 0);
+   v7 = 0;
+   if (_this->bUsingSpecular)
+   {
+    v12 = array_50AC10[i].flt_00000C;
+    v7 = sub_47C3D7(0, 1, v12);
+   }
+   pVertices[i].specular = v7;
+   pVertices[i].u = array_50AC10[i].u;
+   pVertices[i].v = array_50AC10[i].v;
+  }
+  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTexture)(pD3DRenderer->pRenderD3D3->pDevice, 0, pTexture);
+  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->DrawPrimitive)(pD3DRenderer->pRenderD3D3->pDevice, D3DPT_TRIANGLESTRIP, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, uNumVertices, D3DDP_DONOTUPDATEEXTENTS | D3DDP_DONOTLIGHT);
+ }
+}
+
+//----- (004A2DA3) --------------------------------------------------------
+void Render_DrawSomeFan(struct Render *_this, unsigned int uNumVertices, struct struct8 *a3, IDirect3DTexture2 *pTexture)
+{
+  int v4; // ebx@1
+  int v7; // eax@7
+  float v12; // ST3C_4@8
+ int i;
+
+  v4 = _this;
+ if (!_this->uD3D3SceneBegun)
+   return;
+
+ if (uNumVertices >= 3)
+ {
+  (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 12, 1);
+  if (_this->bUsingSpecular)
+  {
+   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 27, 1);
+   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 19, 2);
+   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 20, 1);
+  }
+  
+  for (i = 0; i < uNumVertices; ++i)
+  {
+   pVertices[i].x = array_50AC10[i].flt_000018;
+   pVertices[i].y = array_50AC10[i].flt_00001C;
+   pVertices[i].z = 0.99989998;
+   pVertices[i].rhw = array_50AC10[i].flt_000020;
+
+   pVertices[i].diffuse = sub_47C4FC(31, 0, array_50AC10[i].flt_00000C, 1, 0);
+   v7 = 0;
+   if (_this->bUsingSpecular)
+   {
+    v12 = array_50AC10[i].flt_00000C;
+    v7 = sub_47C3D7(0, 1, v12);
+   }
+   pVertices[i].specular = v7;
+   pVertices[i].u = array_50AC10[i].u;
+   pVertices[i].v = array_50AC10[i].v;
+  }
+  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTexture)(pD3DRenderer->pRenderD3D3->pDevice, 0, pTexture);
+  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->DrawPrimitive)(pD3DRenderer->pRenderD3D3->pDevice, D3DPT_TRIANGLEFAN, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, uNumVertices, D3DDP_DONOTUPDATEEXTENTS | D3DDP_DONOTLIGHT);
+ }
+}
+
 //----- (00479543) --------------------------------------------------------
 void RenderSky()
 {
@@ -978,7 +1070,7 @@ void RenderSky()
     return;
   
     v36 = 0;
-    local_14.dword_000014 = 4;
+    local_14.uNumVertices = 4;
     local_14.dword_000018 = -class59_SinCos(pClass59_global, pCamera->sRotationX - pClass59_global->uNumTableEntries + 16);
     local_14.dword_00001C = 0;
     local_14.dword_000020 = -class59_SinCos(pClass59_global, pCamera->sRotationX + 16);
@@ -1091,7 +1183,7 @@ LABEL_12:
  array_50AC10[3].v = 1 + t;
     }
 
- Render_DrawStrip(pD3DRenderer, local_14.dword_000014, &local_14, pLODFile_Bitmaps_LOD->pHardwareTextures[pClass51_global->uSkyTextureID]);
+ Render_DrawStrip(pD3DRenderer, local_14.uNumVertices, &local_14, pLODFile_Bitmaps_LOD->pHardwareTextures[pClass51_global->uSkyTextureID]);
  /*array_50AC10[0].flt_00001C = v39;
  array_50AC10[1].flt_00001C += 30.0;
  array_50AC10[2].flt_00001C += 30.0;

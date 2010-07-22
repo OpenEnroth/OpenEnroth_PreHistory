@@ -1083,8 +1083,6 @@ struct unnamed_50C0C8 struct_50C0C8;
  unsigned char pStartMapName[36]; // idb
 
  struct class36 class36_global0; // struct @ MM7.exe::005107A8
-//_UNKNOWN unk_5107A8;
- _UNKNOWN unk_5107B4; // weak
  float flt_5107B8[620]; // idb
  char byte_51117E[array_size_unknown]; // weak
 //int dword_5111AC; // class36_global0::dword_000A04
@@ -2454,9 +2452,9 @@ struct class58 *pClass58_global = 0; // struct @ MM7.exe::00AE5BA8
 //_UNKNOWN unk_C86400; // weak
 //_UNKNOWN unk_C8C805; // weak
 //_UNKNOWN unk_C8C814; // weak
-//int dword_DEDBAC; // ::dword_308004
-//int dword_DEDBB0; // ::dword_308008
- int dword_DF1BB4; // weak
+//int dword_DEDBAC; // 308004
+//int dword_DEDBB0; // 308008
+//int dword_DF1BB4; // 30800C
 IDirectDrawClipper *pDDrawClipper = 0; // dword @ MM7.exe::00FD1BE0
 
 //struct Render *pD3DRenderer = 0;  // struct @ MM7.exe::00DF1BE8
