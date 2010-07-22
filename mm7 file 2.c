@@ -8931,7 +8931,7 @@ void __cdecl sub_4142D3()
   dword_507C08 = v3;
   if ( *(_DWORD *)(pGUIWindow_CurrentMenu + 64) == 2 )
   {
-    dword_506E90[dword_506E68] = (unsigned __int8)byte_69AF00;
+    dword_506E90[dword_506E68] = pKeyboardController->pPressedKeysBuffer[0];
     memset(byte_506E6C, 0, 0x1Cu);
     v4 = 0;
     do
@@ -9989,7 +9989,7 @@ void __cdecl sub_4156F0()
   char v61; // [sp+E4h] [bp-24h]@129
 
   if ( sub_466CA0() != MENU_CREATEPARTY )
-    sub_41CD4F(VK_NEXT);
+    sub_41CD4F_OnKeyDown(VK_NEXT);
   for ( i = 1; i <= uNumGUIWindows; ++i )
   {
     pWnd = &GUIWindow_List[array_5075E0[i] - 1];
@@ -10049,7 +10049,7 @@ LABEL_152:
               {
                 sub_415551(pWnd, 0);
                 FontDrawText(pWnd, pFontLucida, 10, 20, "Making item number", 0, 0, 0);
-                FontDrawText(pWnd, pFontLucida, 10, 40, &byte_69AF00, 0, 0, 0);
+                FontDrawText(pWnd, pFontLucida, 10, 40, pKeyboardController->pPressedKeysBuffer, 0, 0, 0);
                 if ( !dword_69B004 )
                 {
                   ItemGen_Reset((int)&v61);
@@ -10057,7 +10057,7 @@ LABEL_152:
                   sub_426363(pClass24_global);
                   dword_4E28F8 = 0;
                   struct_576FE8.dword_000044 = 1;
-                  v39 = atoi(&byte_69AF00);
+                  v39 = atoi(pKeyboardController->pPressedKeysBuffer);
                   if ( v39 > 0 )
                   {
                     if ( v39 < 800 )
@@ -10122,7 +10122,7 @@ LABEL_138:
         {
           sub_415551(pWnd, 0);
           FontDrawText(pWnd, pFontLucida, 10, 20, "Making item number", 0, 0, 0);
-          FontDrawText(pWnd, pFontLucida, 10, 40, &byte_69AF00, 0, 0, 0);
+          FontDrawText(pWnd, pFontLucida, 10, 40, pKeyboardController->pPressedKeysBuffer, 0, 0, 0);
           if ( !dword_69B004 )
           {
             ItemGen_Reset((int)&v49);
@@ -10130,7 +10130,7 @@ LABEL_138:
             sub_426363(pClass24_global);
             dword_4E28F8 = 0;
             struct_576FE8.dword_000044 = 1;
-            v26 = atoi(&byte_69AF00);
+            v26 = atoi(pKeyboardController->pPressedKeysBuffer);
             if ( v26 > 0 )
             {
               if ( v26 < 800 )
@@ -10268,9 +10268,9 @@ LABEL_82:
         if ( *(_DWORD *)(dword_507BD0 + 64) == 1 )
         {
           sub_415551(dword_507BD0, 0);
-          FontDrawText(dword_507BD0, pFontCreate, 30, 40, &byte_69AF00, 0, 0, 0);
+          FontDrawText(dword_507BD0, pFontCreate, 30, 40, pKeyboardController->pPressedKeysBuffer, 0, 0, 0);
           v30 = pFontCreate;
-          v31 = sub_44C51E(pFontCreate, &byte_69AF00);
+          v31 = sub_44C51E(pFontCreate, pKeyboardController->pPressedKeysBuffer);
           sub_459C2B(dword_507BD0, v31 + 30, 40, v30);
           continue;
         }
@@ -13123,7 +13123,7 @@ void __thiscall sub_41C0B8(const char *Str1)
 }
 
 //----- (0041CD4F) --------------------------------------------------------
-signed int __thiscall sub_41CD4F(unsigned char Key)
+signed int __thiscall sub_41CD4F_OnKeyDown(unsigned char Key)
 {
   signed int v1; // edi@1
   int v2; // eax@2
@@ -18004,7 +18004,7 @@ LABEL_16:
       fstp    st
     }
   }
-  memcpy(&array_507D30[result], array_507D30, sizeof(struct struct14));
+  memcpy(&array_507D30[result], array_507D30, sizeof(struct RenderVertex));
   return result;
 }
 
@@ -18461,7 +18461,7 @@ signed int __fastcall sub_424CD7(int a1)
   _UNKNOWN *v26; // [sp+2Ch] [bp-4h]@4
 
   v1 = a1;
-  memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct struct14));
+  memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct RenderVertex));
   v2 = 0;
   v21 = 0;
   if ( array_50AC10[0].flt_00000C >= 8.0 )

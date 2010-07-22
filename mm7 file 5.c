@@ -3212,7 +3212,7 @@ void __cdecl sub_46B76F()
       {
         CGame_Pick(pGame, 512.0, *v4, *(_DWORD *)(v1 + 16), 0, (int)&dword_F93E6C, (int)&dword_F93E58);
         if ( sub_466CA0() == MENU_CREATEPARTY )
-          sub_41CD4F(VK_SELECT);
+          sub_41CD4F_OnKeyDown(VK_SELECT);
         OnMouseLeftClick((void *)(v1 + 12));
       }
       else
@@ -11576,7 +11576,7 @@ LABEL_30:
         
         for (k = 0; k < v20; ++k)
         {
-         memcpy(&array_50AC10[k], &array_73D150[k], sizeof(struct struct14));
+         memcpy(&array_50AC10[k], &array_73D150[k], sizeof(struct RenderVertex));
          array_50AC10[k].flt_000020 = 1.0 / (array_73D150[k].flt_00000C + 0.0000001000000011686097);
         }
 
@@ -11628,7 +11628,7 @@ LABEL_30:
         }
         if ( v54 )
         {
-          v37 = sub_424EE0(v62);
+          v37 = sub_424EE0_MakeFanFromTriangle(v62);
 LABEL_76:
           *(_DWORD *)(v8 + 20) = v37;
           v62 = v37;
@@ -11754,7 +11754,7 @@ signed int __cdecl sub_479332()
         break;
       if ( v3 == 1 )
       {
-        v9 = (unsigned __int16)word_75D514[((*((_DWORD *)v2 - 9) >> 15) & 1)
+        v9 = (unsigned __int16)uTerrainNormalIndices[((*((_DWORD *)v2 - 9) >> 15) & 1)
                                          + 2 * (*((_BYTE *)v2 + 9) + (*((_BYTE *)v2 + 8) << 7))];
         if ( v9 > uNumTerrainNormals - 1 )
           v10 = 0;
@@ -11967,7 +11967,7 @@ void __fastcall sub_479A53(int a1, int a2)
   v69 = -v9;
   LODWORD(v71) = -class59_SinCos(pClass59_global, v8 + 16);
   v10 = dword_51B73C - dword_51B734;
-  memcpy(&array_507D30[v3], array_507D30, sizeof(struct struct14));
+  memcpy(&array_507D30[v3], array_507D30, sizeof(struct RenderVertex));
   LODWORD(v94) = v10;
   v72 = 33554432;
   v78 = (double)v10 * memory_4D8410.d_0_5;
@@ -13518,31 +13518,23 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
   int v4; // esi@1
   int v5; // ebx@2
   int v6; // eax@2
-  int v8; // edi@3
-  char *v9; // ecx@4
-  char *v10; // ebx@4
-  float v11; // eax@6
-  double v14; // st7@6
-  int v15; // ebx@12
-  __int16 v16; // ax@12
+ struct RenderVertex *v8; // edi@3
+ struct struct8 *v15; // ebx@12
   int v17; // eax@13
-  int v18; // eax@13
   int v19; // ecx@13
   int v20; // eax@13
   int v21; // eax@13
-  int v22; // eax@15
+ struct Normal *pNormal; // eax@15
   double v23; // st6@17
-  double v24; // ST54_8@17
   double v27; // st5@19
   double v28; // st5@19
   double v29; // st5@19
   double v30; // st5@19
-  int v31; // esi@21
+ struct struct8 *v31; // esi@21
   double v32; // st7@32
   int v33; // edi@38
   int v34; // ecx@47
   int v35; // eax@50
-  int v36; // eax@54
   void *v37; // ecx@55
   int v38; // eax@59
   int v39; // ebx@62
@@ -13553,7 +13545,6 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
   int v44; // eax@63
   int v45; // eax@63
   int v46; // eax@63
-  int v47; // eax@65
   double v48; // st6@67
   double v49; // ST4C_8@67
   double v50; // st5@71
@@ -13564,13 +13555,10 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
   int v55; // eax@101
   int v56; // eax@105
   int v57; // eax@109
-  int v58; // esi@112
-  __int16 v59; // ax@112
+ struct struct8 *v58; // esi@112
   int v60; // eax@113
   int v61; // eax@113
-  int v62; // eax@114
   double v63; // st6@116
-  double v64; // ST3C_8@116
   double v65; // st5@120
   double v66; // st5@120
   double v67; // st5@120
@@ -13583,7 +13571,6 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
   int v76; // [sp-10h] [bp-E0h]@61
   int v77; // [sp-Ch] [bp-DCh]@61
   int v78; // [sp-8h] [bp-D8h]@61
-  int v79; // [sp-4h] [bp-D4h]@61
   int v80; // [sp+0h] [bp-D0h]@59
   int v81; // [sp+0h] [bp-D0h]@109
   int v82; // [sp+54h] [bp-7Ch]@1
@@ -13606,15 +13593,12 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
   int v99; // [sp+A8h] [bp-28h]@73
   int v100; // [sp+ACh] [bp-24h]@122
   int v101; // [sp+B0h] [bp-20h]@6
-  int v102; // [sp+B4h] [bp-1Ch]@3
+ struct RenderVertex *v102; // [sp+B4h] [bp-1Ch]@3
   int v103; // [sp+B8h] [bp-18h]@21
-  int v104; // [sp+BCh] [bp-14h]@6
-  float v105; // [sp+C0h] [bp-10h]@17
-  int v106; // [sp+C4h] [bp-Ch]@6
-  int v107; // [sp+C8h] [bp-8h]@6
+ struct RenderVertex *v104; // [sp+BCh] [bp-14h]@6
+ struct RenderVertex *v106; // [sp+C4h] [bp-Ch]@6
+ struct RenderVertex *v107; // [sp+C8h] [bp-8h]@6
   char v108; // [sp+CFh] [bp-1h]@36
-  float v109; // [sp+D8h] [bp+8h]@6
-  float v110; // [sp+D8h] [bp+8h]@6
   float v111; // [sp+D8h] [bp+8h]@17
   void *v112; // [sp+D8h] [bp+8h]@23
   float v113; // [sp+D8h] [bp+8h]@67
@@ -13624,6 +13608,7 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
   char v117; // [sp+DBh] [bp+Bh]@30
   char v118; // [sp+DBh] [bp+Bh]@82
   char v119; // [sp+DBh] [bp+Bh]@131
+ int i;
 
   v4 = a1;
   v82 = a2;
@@ -13635,7 +13620,9 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
   v90 = (double)pClass51_global->dword_000D30 * 0.0000152587890625;
   v91 = (double)pClass51_global->dword_000D34 * 0.0000152587890625;
   v92 = (double)pClass51_global->dword_000D38 * 0.0000152587890625;
-  if ( v4 - 1 > 0 )
+
+ //for (i = 0; i < a1 - 1; ++i)
+ if ( v4 - 1 > 0 )
   {
     while ( 1 )
     {
@@ -13649,92 +13636,83 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
         goto LABEL_162;
 
       v8 = &array_806210[v3];
+      v106 = &array_801A10[v3 + 1];
       v102 = v8;
       if (!v82)
       {
-       v10 = &array_801A10[v3];
-       v9 = &array_806210[v3 + 1];
+       v107 = &array_801A10[v3];
+       v104 = &array_806210[v3 + 1];
       }
       else
       {
-       v10 = &array_806210[v3 + 1];
-       v9 = &array_801A10[v3];
+       v107 = &array_806210[v3 + 1];
+       v104 = &array_801A10[v3];
       }
 
-      v107 = (int)v10;
-      v106 = &array_801A10[v3 + 1];
-      LODWORD(v11) = *(_DWORD *)v8;
-      v104 = (int)v9;
-      v98 = floorf(v11 + 0.5f);
-      v101 = floorf(*(float *)(v8 + 4) + 0.5f);
-      v109 = (*(float *)v9 + *(float *)v8) * 0.5;
-      v14 = *((float *)v10 + 1) + *(float *)(v8 + 4);
-      v89 = WorldPosToGridCellX(floorf(v109 + 0.5f));
-      v110 = v14 * 0.5;
-      v97 = WorldPosToGridCellZ(floorf(v110 + 0.5f));
+      v98 = floorf(v8->x + 0.5f);
+      v101 = floorf(v8->z + 0.5f);
+
+      v89 = WorldPosToGridCellX(floorf((v104->x + v8->x) / 2 + 0.5f));
+      v97 = WorldPosToGridCellZ(floorf((v107->z + v8->z) / 2 + 0.5f));
       WorldPosToGridCellX(v98);
       WorldPosToGridCellZ(v101);
 
-      if ( (!byte_4D8410[572]
-          || !(*(_BYTE *)(LODWORD(pGame) + 3616) & 0x80))
-         && !sub_481EFA(v8, (int)v10, v104, v106, 1) )
-      if ( *(float *)(v8 + 8) != *((float *)v10 + 2)
-        || *((float *)v10 + 2) != *(float *)(v106 + 8)
-        || *(float *)(v106 + 8) != *(float *)(v104 + 8) )
-        break;
+      if ((!byte_4D8410[572] || !(pGame->uSomeFlags & 0x80)) && !sub_481EFA(v8, v107, v104, v106, 1))
+        if (v8->y != v107->y ||
+            v107->y != v106->y ||
+            v106->y != v104->y)
+          break;
+
       v15 = &array_77EC08[pStruct9_global->dword_00002C];
-      v16 = class51_sub_488EEF_GetSomeTileInfo(pClass51_global, v98, v101);
-      *(_WORD *)(v15 + 76) = v16;
-      if ( v16 != -1 )
+      v15->uTextureID = class51_GetTileTexture(pClass51_global, v98, v101);
+      if (v15->uTextureID != -1)
       {
-        v18 = class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v98, v101);
-        LOWORD(v18) = v18 | 0x8010;
         v19 = v97;
-        *(_DWORD *)(v15 + 48) = v18;
+        v15->word_000030 = 0x8010 | class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v98, v101);
+        v15->word_000032 = 0;
         v20 = v93;
-        *(_BYTE *)(v15 + 89) = 1;
-        *(_BYTE *)(v15 + 93) = v19;
-        *(_DWORD *)(v15 + 52) = *(_WORD *)(v20 + 2);
+        v15->byte_000059 = 1;
+        v15->byte_00005D = v19;
+        v15->dword_000034 = *(_WORD *)(v20 + 2);
         v21 = v89;
-        *(_BYTE *)(v15 + 92) = v89;
-        v17 = (unsigned __int16)word_75D514[2 * (v19 + (v21 << 7)) + 1];
-        if ( v17 < 0 || v17 > uNumTerrainNormals - 1 )
-          v22 = 0;
+        v15->byte_00005C = v89;
+        v17 = uTerrainNormalIndices[2 * (v19 + v21 * 128) + 1];
+        if (v17 < 0 || v17 > uNumTerrainNormals - 1)
+          pNormal = 0;
         else
-          v22 = pTerrainNormals + v17;
-        v23 = v92 * *(float *)(v22 + 8);
-        LODWORD(v105) = v22;
-        v111 = 20.0 - (-v23 - v91 * *(float *)(v22 + 4) - v90 * *(float *)v22) * 20.0;
-        v24 = v111 + 6.755399441055744e15;
+          pNormal = pTerrainNormals + v17;
+        v23 = v92 * pNormal->y;
+        v111 = 20.0 - (-v23 - v91 * pNormal->z - v90 * pNormal->x) * 20.0;
+
         //v26 = __SETO__(pStruct9_global->dword_00002C, 1999);
         //v25 = pStruct9_global->dword_00002C - 1999 < 0;
-        *(_BYTE *)(v15 + 88) = LOBYTE(v24);
+        v15->byte_000058 = floorf(v111 + 0.5f);
         if (pStruct9_global->dword_00002C >= 1999)
           return;
         ++pStruct9_global->dword_00002C;
         if ( !sub_481FC9(v8, v107, v104, v15) )
           goto LABEL_126;
 
-        v27 = 1.0 / (*(float *)(v102 + 12) + 0.0000001000000011686097);
-        memcpy(&array_50AC10[0], v102, sizeof(struct struct14));
+        v27 = 1.0 / (v102->flt_00000C + 0.0000001000000011686097);
+        memcpy(&array_50AC10[0], v102, sizeof(struct RenderVertex));
         array_50AC10[0].flt_000020 = v27;
         array_50AC10[0].u = 0.0;
         array_50AC10[0].v = 0.0;
 
-        v28 = *(float *)(v107 + 12) + 0.0000001000000011686097;
-        memcpy(&array_50AC10[1], v107, sizeof(struct struct14));
+        v28 = v107->flt_00000C + 0.0000001000000011686097;
+        memcpy(&array_50AC10[1], v107, sizeof(struct RenderVertex));
         array_50AC10[1].flt_000020 = 1.0 / v28;
         array_50AC10[1].u = 0.0;
         array_50AC10[1].v = 1.0;
 
-        v29 = *(float *)(v106 + 12) + 0.0000001000000011686097;
-        memcpy(&array_50AC10[2], v106, sizeof(struct struct14));
+        v29 = v106->flt_00000C + 0.0000001000000011686097;
+        memcpy(&array_50AC10[2], v106, sizeof(struct RenderVertex));
         array_50AC10[2].flt_000020 = 1.0 / v29;
         array_50AC10[2].u = 1.0;
         array_50AC10[2].v = 1.0;
 
-        v30 = *(float *)(v104 + 12) + 0.0000001000000011686097;
-        memcpy(&array_50AC10[3], v104, sizeof(struct struct14));
+        v30 = v104->flt_00000C + 0.0000001000000011686097;
+        memcpy(&array_50AC10[3], v104, sizeof(struct RenderVertex));
         array_50AC10[3].flt_000020 = 1.0 / v30;
         array_50AC10[3].u = 1.0;
         array_50AC10[3].v = 0.0;
@@ -13747,8 +13725,8 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
         }
         v31 = array_50AC10;
         v97 = pGame->class04_obj;
-        sub_45D036(SLODWORD(v105), (int)&v95, array_50AC10, 4, 1);
-        sub_49BE8A(pClass58_global, v15, v105, (int)&v95, array_50AC10, 4, 1);
+        sub_45D036(pNormal, (int)&v95, array_50AC10, 4, 1);
+        sub_49BE8A(pClass58_global, v15, pNormal, (int)&v95, array_50AC10, 4, 1);
         v103 = 4;
         if ( byte_4D8410[572] && pGame->uSomeFlags & 0x80)
         {
@@ -13758,28 +13736,28 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
           sub_436523(array_50AC10, v103);
           class08_sub_436BB7(v112, array_50AC10, v103, 0);
         }
-        v117 = *(float *)(v102 + 12) < 8.0
-            || *(float *)(v107 + 12) < 8.0
-            || *(float *)(v104 + 12) < 8.0
-            || *(float *)(v106 + 12) < 8.0;
+        v117 = v102->flt_00000C < 8.0 ||
+               v107->flt_00000C < 8.0 ||
+               v104->flt_00000C < 8.0 ||
+               v106->flt_00000C < 8.0;
         v32 = (double)pStruct9_global->shading_dist_mist;
-        v108 = v32 < *(float *)(v102 + 12)
-            || v32 < *(float *)(v107 + 12)
-            || v32 < *(float *)(v104 + 12)
-            || v32 < *(float *)(v106 + 12);
+        v108 = v32 < v102->flt_00000C ||
+               v32 < v107->flt_00000C ||
+               v32 < v104->flt_00000C ||
+               v32 < v106->flt_00000C;
         v33 = 0;
-        *(_DWORD *)(v97 + 1587204) = 0;
+        pGame->class04_obj->std__vector_000004_size = 0;
         if ( dword_F8ADD4 > 0 || pClass58_global->std__vector_30B00C_size > 0 )
         {
           if ( v117 )
             v33 = 3;
           else
             v33 = v108 != 0 ? 5 : 0;
-          sub_49B0C9((int)&unk_76D5A8, SLODWORD(v105), v95);
+          sub_49B0C9((int)&unk_76D5A8, pNormal, v95);
           if ( pClass58_global->std__vector_30B00C_size > 0 )
             sub_49B540(
               pClass58_global,
-              31 - *(_BYTE *)(v15 + 88),
+              31 - v15->byte_000058 ,
               4,
               (int)&unk_76D5A8,
               v103,
@@ -13791,8 +13769,8 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
         if ( dword_F8ADD4 > 0 )
           sub_45BC07((void *)v97, (int)&dword_F8AD28, (int)&unk_76D5A8, v103, array_50AC10, 0.0, v33);
         v34 = v103;
-        *(_DWORD *)(v15 + 20) = v103;
-        if ( !byte_4D8410[572] || !(*(_BYTE *)(LODWORD(pGame) + 3616) & 0x80) )
+        v15->uNumVertices = v103;
+        if (!byte_4D8410[572] || ~pGame->uSomeFlags & 0x80)
         {
           if ( v117 )
           {
@@ -13801,31 +13779,30 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
           }
           if ( v108 )
           {
-            v35 = sub_424EE0(v34);
+            v35 = sub_424EE0_MakeFanFromTriangle(v34);
 LABEL_53:
-            *(_DWORD *)(v15 + 20) = v35;
+            v15->uNumVertices = v35;
             sub_481E55(v35);
           }
         }
-        v36 = *(_DWORD *)(v15 + 48);
-        if ( !(BYTE1(v36) & 1) )
+
+        if (~v15->word_000030 & 0x0100)
         {
-          if ( v36 & 2 && *(_WORD *)(v15 + 76) == dword_EF5294 )
+         if (v15->word_000030 & 0x0002 && v15->uTextureID == dword_EF5294 )
           {
-            v80 = 0;
+            v80 = false;
             v38 = uTextureID_WaterTiles[dword_EF5290];
           }
           else
           {
-            v38 = *(_WORD *)(v15 + 76);
-            v80 = 1;
+            v38 = v15->uTextureID;
+            v80 = true;
           }
-          v79 = 0;
           v78 = pLODFile_Bitmaps_LOD->pHardwareTextures[v38];
           v77 = v15;
-          v76 = *(_DWORD *)(v15 + 20);
+          v76 = v15->uNumVertices;
 LABEL_161:
-          sub_4A26BC(pD3DRenderer, v31, v76, v77, v78, v79, v80);
+          Render_DrawTerrainPolygon(pD3DRenderer, v31, v76, v77, v78, false, v80);
           goto LABEL_162;
         }
         v37 = (void *)v15;
@@ -13840,7 +13817,7 @@ LABEL_162:
         return;
     }
     v39 = &array_77EC08[pStruct9_global->dword_00002C];
-    v40 = class51_sub_488EEF_GetSomeTileInfo(pClass51_global, v98, v101);
+    v40 = class51_GetTileTexture(pClass51_global, v98, v101);
     *(_WORD *)(v39 + 76) = v40;
     if ( v40 == -1 )
       goto LABEL_162;
@@ -13856,14 +13833,14 @@ LABEL_162:
     *(_BYTE *)(v39 + 92) = v89;
     v46 = 4 * (v43 + (v45 << 7));
     v85 = v46;
-    v41 = *(unsigned __int16 *)((char *)word_75D514 + v46 + 2);
+    v41 = *(unsigned __int16 *)((char *)uTerrainNormalIndices + v46 + 2);
     if ( v41 < 0 || v41 > uNumTerrainNormals - 1 )
-      v47 = 0;
+      pNormal = 0;
     else
-      v47 = pTerrainNormals + v41;
-    v48 = v92 * *(float *)(v47 + 8);
-    LODWORD(v105) = v47;
-    v113 = 20.0 - (-v48 - v91 * *(float *)(v47 + 4) - v90 * *(float *)v47) * 20.0;
+      pNormal = pTerrainNormals + v41;
+    v48 = v92 * pNormal->y;
+
+    v113 = 20.0 - (-v48 - v91 * pNormal->z - v90 * pNormal->x) * 20.0;
     v49 = v113 + 6.755399441055744e15;
     *(_BYTE *)(v39 + 88) = LOBYTE(v49);
     if ( LOBYTE(v49) < 0 )
@@ -13874,20 +13851,20 @@ LABEL_162:
     if ( !sub_481FC9(v107, v106, v8, v39) )
       goto LABEL_77;
 
-    v50 = 1.0 / (*(float *)(v102 + 12) + 0.0000001000000011686097);
-    memcpy(&array_50AC10[0], v102, sizeof(struct struct14));
+    v50 = 1.0 / (v102->flt_00000C + 0.0000001000000011686097);
+    memcpy(&array_50AC10[0], v102, sizeof(struct RenderVertex));
     array_50AC10[0].flt_000020 = v50;
     array_50AC10[0].u = 0.0;
     array_50AC10[0].v = 0.0;
 
-    v51 = *(float *)(v107 + 12) + 0.0000001000000011686097;
-    memcpy(&array_50AC10[1], v107, sizeof(struct struct14));
+    v51 = v107->flt_00000C + 0.0000001000000011686097;
+    memcpy(&array_50AC10[1], v107, sizeof(struct RenderVertex));
     array_50AC10[1].flt_000020 = 1.0 / v51;
     array_50AC10[1].u = 0.0;
     array_50AC10[1].v = 1.0;
 
-    v52 = *(float *)(v106 + 12) + 0.0000001000000011686097;
-    memcpy(&array_50AC10[2], v106, sizeof(struct struct14));
+    v52 = v106->flt_00000C + 0.0000001000000011686097;
+    memcpy(&array_50AC10[2], v106, sizeof(struct RenderVertex));
     array_50AC10[2].flt_000020 = 1.0 / v52;
     array_50AC10[2].u = 1.0;
     array_50AC10[2].v = 1.0;
@@ -13899,8 +13876,8 @@ LABEL_162:
       runtime_warning();//atexit(loc_48118F);
     }
     v96 = pGame->class04_obj;
-    sub_45D036(SLODWORD(v105), (int)&v86, array_50AC10, 3, 0);
-    sub_49BE8A(pClass58_global, v39, v105, (int)&v86, array_50AC10, 3, 0);
+    sub_45D036(pNormal, (int)&v86, array_50AC10, 3, 0);
+    sub_49BE8A(pClass58_global, v39, pNormal, (int)&v86, array_50AC10, 3, 0);
     v99 = 3;
     if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3616) & 0x80 )
     {
@@ -13914,18 +13891,18 @@ LABEL_77:
       sub_436523(array_50AC10, v99);
       class08_sub_436BB7(v114, array_50AC10, v99, 0);
     }
-    v118 = *(float *)(v102 + 12) < 8.0 || *(float *)(v107 + 12) < 8.0 || *(float *)(v106 + 12) < 8.0;
+    v118 = v102->flt_00000C < 8.0 || v107->flt_00000C < 8.0 || v106->flt_00000C < 8.0;
     v53 = (double)pStruct9_global->shading_dist_mist;
-    v108 = v53 < *(float *)(v102 + 12) || v53 < *(float *)(v107 + 12) || v53 < *(float *)(v106 + 12);
+    v108 = v53 < v102->flt_00000C || v53 < v107->flt_00000C || v53 < v106->flt_00000C;
     v107 = 0;
-    *(_DWORD *)(v96 + 1587204) = 0;
+    pGame->class04_obj->std__vector_000004_size = 0;
     if ( dword_F8ADD4 > 0 || pClass58_global->std__vector_30B00C_size > 0 )
     {
       if ( v118 )
         v107 = 3;
       else
         v107 = v108 != 0 ? 5 : 0;
-      sub_49B0C9((int)&unk_76D590, SLODWORD(v105), v86);
+      sub_49B0C9((int)&unk_76D590, pNormal, v86);
       if ( pClass58_global->std__vector_30B00C_size > 0 )
         sub_49B540(
           pClass58_global,
@@ -13952,7 +13929,7 @@ LABEL_77:
       {
         if ( !v108 )
           goto LABEL_105;
-        v55 = sub_424EE0(v54);
+        v55 = sub_424EE0_MakeFanFromTriangle(v54);
       }
       *(_DWORD *)(v39 + 20) = v55;
       sub_481E55(v55);
@@ -13975,7 +13952,7 @@ LABEL_105:
         v57 = *(_WORD *)(v39 + 76);
         v81 = 1;
       }
-      sub_4A26BC(pD3DRenderer, array_50AC10,
+      Render_DrawTerrainPolygon(pD3DRenderer, array_50AC10,
         *(_DWORD *)(v39 + 20),
         v39,
         pLODFile_Bitmaps_LOD->pHardwareTextures[v57],
@@ -13984,29 +13961,28 @@ LABEL_105:
     }
 LABEL_112:
     v58 = &array_77EC08[pStruct9_global->dword_00002C];
-    v107 = &array_77EC08[pStruct9_global->dword_00002C];
-    v59 = class51_sub_488EEF_GetSomeTileInfo(pClass51_global, v98, v101);
-    *(_WORD *)(v58 + 76) = v59;
-    if ( v59 == -1 )
+    v58->uTextureID = class51_GetTileTexture(pClass51_global, v98, v101);
+    if (v58->uTextureID == -1)
       goto LABEL_162;
-    *(_DWORD *)(v58 + 48) = class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v98, v101);
+
+    v58->word_000030 = class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v98, v101);
+    v58->word_000032 = 0;
     v61 = v93;
-    *(_BYTE *)(v58 + 89) = 1;
-    *(_DWORD *)(v58 + 52) = *(_WORD *)(v61 + 2);
-    *(_BYTE *)(v58 + 92) = v89;
-    *(_BYTE *)(v58 + 93) = v97;
-    v60 = *(unsigned __int16 *)((char *)word_75D514 + v85);
+    v58->byte_000059 = 1;
+    v58->dword_000034 = *(_WORD *)(v61 + 2);
+    v58->byte_00005C = v89;
+    v58->byte_00005D = v97;
+    v60 = *(unsigned __int16 *)((char *)uTerrainNormalIndices + v85);
     if ( v60 > uNumTerrainNormals - 1 )
-      v62 = 0;
+      pNormal = 0;
     else
-      v62 = pTerrainNormals + v60;
-    v63 = v92 * *(float *)(v62 + 8);
-    LODWORD(v105) = v62;
-    v115 = 20.0 - (-v63 - v91 * *(float *)(v62 + 4) - v90 * *(float *)v62) * 20.0;
-    v64 = v115 + 6.755399441055744e15;
-    *(_BYTE *)(v58 + 88) = LOBYTE(v64);
-    if ( LOBYTE(v64) < 0 )
-      *(_BYTE *)(v58 + 88) = 0;
+      pNormal = pTerrainNormals + v60;
+    v63 = v92 * pNormal->y;
+
+    v115 = 20.0 - (-v63 - v91 * pNormal->z - v90 * pNormal->x) * 20.0;
+    v58->byte_000058 = floorf(v115 + 0.5f);
+    if (v58->byte_000058 < 0)
+      v58->byte_000058 = 0;
     if ( pStruct9_global->dword_00002C >= 1999 )
       return;
     ++pStruct9_global->dword_00002C;
@@ -14017,20 +13993,20 @@ LABEL_126:
       goto LABEL_162;
     }
 
-    v65 = 1.0 / (*(float *)(v102 + 12) + 0.0000001000000011686097);
-    memcpy(&array_50AC10[0], v102, sizeof(struct struct14));
+    v65 = 1.0 / (v102->flt_00000C + 0.0000001000000011686097);
+    memcpy(&array_50AC10[0], v102, sizeof(struct RenderVertex));
     array_50AC10[0].flt_000020 = v65;
     array_50AC10[0].u = 0.0;
     array_50AC10[0].v = 0.0;
 
-    v66 = *(float *)(v106 + 12) + 0.0000001000000011686097;
-    memcpy(&array_50AC10[1], v106, sizeof(struct struct14));
+    v66 = v106->flt_00000C + 0.0000001000000011686097;
+    memcpy(&array_50AC10[1], v106, sizeof(struct RenderVertex));
     array_50AC10[1].flt_000020 = 1.0 / v66;
     array_50AC10[1].u = 1.0;
     array_50AC10[1].v = 1.0;
 
-    v67 = *(float *)(v104 + 12) + 0.0000001000000011686097;
-    memcpy(&array_50AC10[2], v104, sizeof(struct struct14));
+    v67 = v104->flt_00000C + 0.0000001000000011686097;
+    memcpy(&array_50AC10[2], v104, sizeof(struct RenderVertex));
     array_50AC10[2].flt_000020 = 1.0 / v67;
     array_50AC10[2].u = 1.0;
     array_50AC10[2].v = 0.0;
@@ -14042,10 +14018,10 @@ LABEL_126:
       runtime_warning();//atexit(loc_481185);
     }
     v96 = pGame->class04_obj;
-    sub_45D036(SLODWORD(v105), (int)&v87, array_50AC10, 3, 1);
-    sub_49BE8A(pClass58_global, v39, v105, (int)&v87, array_50AC10, 3, 1);
+    sub_45D036(pNormal, (int)&v87, array_50AC10, 3, 1);
+    sub_49BE8A(pClass58_global, v39, pNormal, (int)&v87, array_50AC10, 3, 1);
     v100 = 3;
-    if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3616) & 0x80 )
+    if ( byte_4D8410[572] && pGame->uSomeFlags & 0x80)
     {
       v116 = pGame->class08_obj;
       if ( sub_4371C3(pGame->class08_obj, array_50AC10, (int)&v100, 0) == 1 && !v100 )
@@ -14053,18 +14029,18 @@ LABEL_126:
       sub_436523(array_50AC10, v100);
       class08_sub_436BB7(v116, array_50AC10, v100, 0);
     }
-    v119 = *(float *)(v102 + 12) < 8.0 || *(float *)(v106 + 12) < 8.0 || *(float *)(v104 + 12) < 8.0;
+    v119 = v102->flt_00000C < 8.0 || v106->flt_00000C < 8.0 || v104->flt_00000C < 8.0;
     v68 = (double)pStruct9_global->shading_dist_mist;
-    v108 = v68 < *(float *)(v102 + 12) || v68 < *(float *)(v106 + 12) || v68 < *(float *)(v104 + 12);
+    v108 = v68 < v102->flt_00000C || v68 < v106->flt_00000C || v68 < v104->flt_00000C;
     v69 = 0;
-    *(_DWORD *)(v96 + 1587204) = 0;
+    pGame->class04_obj->std__vector_000004_size = 0;
     if ( dword_F8ADD4 > 0 || pClass58_global->std__vector_30B00C_size > 0 )
     {
       if ( v119 )
         v69 = 3;
       else
         v69 = v108 != 0 ? 5 : 0;
-      sub_49B0C9((int)&unk_76D578, SLODWORD(v105), v87);
+      sub_49B0C9((int)&unk_76D578, pNormal, v87);
       if ( pClass58_global->std__vector_30B00C_size > 0 )
         sub_49B540(
           pClass58_global,
@@ -14079,10 +14055,10 @@ LABEL_126:
     }
     if ( dword_F8ADD4 > 0 )
       sub_45BC07((void *)v96, (int)&dword_F8AD28, (int)&unk_76D578, v100, array_50AC10, 0.0, v69);
-    v31 = v107;
+    v31 = v58;
     v70 = v100;
-    *(_DWORD *)(v107 + 20) = v100;
-    if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3616) & 0x80 )
+    v58->uNumVertices = v100;
+    if (byte_4D8410[572] && pGame->uSomeFlags & 0x80)
       goto LABEL_154;
     if ( v119 )
     {
@@ -14098,15 +14074,14 @@ LABEL_154:
         {
           if ( v72 & 2 && *(_WORD *)(v31 + 76) == dword_EF5294 )
           {
-            v80 = 0;
+            v80 = false;
             v73 = uTextureID_WaterTiles[dword_EF5290];
           }
           else
           {
             v73 = *(_WORD *)(v31 + 76);
-            v80 = 1;
+            v80 = true;
           }
-          v79 = 0;
           v78 = pLODFile_Bitmaps_LOD->pHardwareTextures[v73];
           v77 = v31;
           v76 = *(_DWORD *)(v31 + 20);
@@ -14115,9 +14090,9 @@ LABEL_154:
         v37 = (void *)v31;
         goto LABEL_56;
       }
-      v71 = sub_424EE0(v70);
+      v71 = sub_424EE0_MakeFanFromTriangle(v70);
     }
-    *(_DWORD *)(v31 + 20) = v71;
+    v31->uNumVertices = v71;
     sub_481E55(v71);
     goto LABEL_154;
   }
@@ -14133,7 +14108,7 @@ void __thiscall sub_4811A3(void *this)
     *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
     14,
     0);
-  sub_4A26BC(pD3DRenderer,
+  Render_DrawTerrainPolygon(pD3DRenderer,
     v1,
     *(_DWORD *)(v1 + 20),
     v1,
@@ -14144,7 +14119,7 @@ void __thiscall sub_4811A3(void *this)
     *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
     14,
     1);
-  sub_4A26BC(pD3DRenderer,
+  Render_DrawTerrainPolygon(pD3DRenderer,
     v1,
     *(_DWORD *)(v1 + 20),
     v1,
@@ -14154,7 +14129,7 @@ void __thiscall sub_4811A3(void *this)
 }
 
 //----- (00481CCE) --------------------------------------------------------
-void sub_481CCE(struct struct14 *a1)
+void sub_481CCE(struct RenderVertex *a1)
 {
   double v2; // st4@1
   double v5; // st7@1
@@ -14187,7 +14162,7 @@ void sub_481CCE(struct struct14 *a1)
 }
 
 //----- (00481D77) --------------------------------------------------------
-void sub_481D77(struct struct14 *_this)
+void sub_481D77(struct RenderVertex *_this)
 {
  double v1; // st7@1
  double v2; // st7@1
@@ -14200,7 +14175,7 @@ void sub_481D77(struct struct14 *_this)
 }
 
 //----- (00481DB2) --------------------------------------------------------
-void __fastcall sub_481DB2(struct struct14 *a1, signed int a2, struct struct8 *a3)
+void __fastcall sub_481DB2(struct RenderVertex *a1, signed int a2, struct struct8 *a3)
 {
   char result; // al@5
  int i;
@@ -14209,7 +14184,7 @@ void __fastcall sub_481DB2(struct struct14 *a1, signed int a2, struct struct8 *a
     return;
 
     a3->ptr_000038 = pClass57_global;
-    a3->ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[a3->word_00004C];
+    a3->ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[a3->uTextureID];
 
     for (i = 0; i < a3->uNumVertices; ++i)
     {
@@ -14220,7 +14195,7 @@ void __fastcall sub_481DB2(struct struct14 *a1, signed int a2, struct struct8 *a
 }
 
 //----- (00481EFA) --------------------------------------------------------
-bool sub_481EFA(struct struct14 *a1, struct struct14 *a2, struct struct14 *a3, struct struct14 *a4, int a5)
+bool sub_481EFA(struct RenderVertex *a1, struct RenderVertex *a2, struct RenderVertex *a3, struct RenderVertex *a4, int a5)
 {
  double v11; // st7@14
 
@@ -14230,7 +14205,7 @@ bool sub_481EFA(struct struct14 *a1, struct struct14 *a2, struct struct14 *a3, s
 }
 
 //----- (00481FC9) --------------------------------------------------------
-bool sub_481FC9(struct struct14 *a1, struct struct14 *a2, struct struct14 *a3, struct struct8 *a4)
+bool sub_481FC9(struct RenderVertex *a1, struct RenderVertex *a2, struct RenderVertex *a3, struct struct8 *a4)
 {
  float arg_0, arg_4, var_4, var_8, var_c, var_10, var_14;
 

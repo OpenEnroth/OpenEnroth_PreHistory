@@ -6068,7 +6068,7 @@ void __cdecl sub_444FBE()
     if ( *(_DWORD *)(pGUIWindow2 + 64) == 2 )
     {
       *(_DWORD *)(pGUIWindow2 + 64) = 0;
-      strcpy(&byte_5C3428, &byte_69AF00);
+      strcpy(&byte_5C3428, pKeyboardController->pPressedKeysBuffer);
 LABEL_16:
       sub_4452BB();
       return;
@@ -6082,15 +6082,15 @@ LABEL_15:
   }
   if ( *(_DWORD *)(pGUIWindow2 + 28) == 26 )
   {
-    wsprintfA(&Str1, "%s %s", &byte_5C3428, &byte_69AF00);
+    wsprintfA(&Str1, "%s %s", &byte_5C3428, pKeyboardController->pPressedKeysBuffer);
     v3 = sub_44C51E(pFontLucida, &Str1);
     FontDrawText(pGUIWindow2, pFontLucida, 13, 357, &Str1, 0, 0, 0);
     sub_459C2B(pGUIWindow2, v3 + 13, 357, pFontLucida);
     return;
   }
-  if ( byte_69AF00 )
+  if (pKeyboardController->pPressedKeysBuffer[0])
   {
-    sub_459ED1(&dword_69AE00, 0);
+    sub_459ED1(pKeyboardController, 0);
     goto LABEL_15;
   }
 }
@@ -7092,7 +7092,7 @@ int __fastcall sub_44622E(int a1)
     dword_50CBD0[0] = dword_50CBD0[3] != 0;
   struct_576FE8.dword_000044 = 1;
   dword_59108C = 0;
-  sub_459ED1(&dword_69AE00, 3);
+  sub_459ED1(pKeyboardController, 3);
   sub_459E3F();
   if ( v1 == 600 || v1 == 601 )
   {

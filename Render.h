@@ -62,6 +62,24 @@ struct Render_HWLBitmap
 
 
 
+struct RenderVertex
+{
+ float x; // float @ 000000   looks like world coordinates
+ float z; // float @ 000004
+ float y; // float @ 000008
+ float flt_00000C;
+ float flt_000010;
+ float flt_000014;
+ float flt_000018;  // value lies between pViewport->uGameX and pViewport->uGameZ  screen-space transformed x
+ float flt_00001C; //  value lies between pViewport->uGameY and pViewport->uGameW  screen-space transformed y
+ float flt_000020;
+ float u;          // float @ 000024   looks like texture coordinates
+ float v;          // float @ 000028
+ float flt_00002C;
+};
+//sizeof == 30
+
+
 struct Render
 {
  unsigned int                 bUseDirect3D;            // dword @ 000000
@@ -236,6 +254,8 @@ void Render_FillRect2(struct Render *_this, int a3, int a4, unsigned int a5, int
 void sub_49FE05(struct Render *pD3DRenderer);
 //void __thiscall sub_4A2050(int this, signed int a2, int a3, int a4, int a5);
 void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct struct8 *a3, struct class51_stru2 *a4, struct IDirect3DTexture2 *pTexture);
+//void sub_4A26BC(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
+void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, unsigned int uNumVertices, int a4, struct IDirect3DTexture2 *pTexture, bool a6, bool a7);
 
 void Render_DrawTransparentRect(struct Render *_this, unsigned int uOutX, unsigned int uOutY,
                                       unsigned int uSrcX, unsigned int uSrcY, unsigned int uSrcWidth, unsigned int uSrcHeight,

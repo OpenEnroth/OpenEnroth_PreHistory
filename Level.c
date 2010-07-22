@@ -48,7 +48,7 @@ int class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(struct class51 *_this, unsig
 }
 
 //----- (00488EEF) --------------------------------------------------------
-int class51_sub_488EEF_GetSomeTileInfo(struct class51 *_this, int sX, int sY)
+int class51_GetTileTexture(struct class51 *_this, int sX, int sY)
 {
  int v3; // eax@1
  int v4; // edi@1
@@ -57,11 +57,11 @@ int class51_sub_488EEF_GetSomeTileInfo(struct class51 *_this, int sX, int sY)
  v3 = WorldPosToGridCellX(sX);
  if ( v3 < 0 || v3 > 127 || v4 < 0 || v4 > 127 )
    return -1;
- return class51_sub_47ED08_ActuallyGetSomeTileInfo(_this, v3, v4);
+ return class51_GetTileTexture2(_this, v3, v4);
 }
 
 //----- (0047ED08) --------------------------------------------------------
-int class51_sub_47ED08_ActuallyGetSomeTileInfo(struct class51 *_this, unsigned int uX, unsigned int uY)
+int class51_GetTileTexture2(struct class51 *_this, unsigned int uX, unsigned int uY)
 {
  int v3; // esi@5
 
@@ -299,7 +299,7 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
     fseek(v7, v149, v120);
     locked_fread(&uNumTerrainNormals, 4u, 1u, v7);
     locked_fread(&unk_73D514, 1u, 0x20000u, v7);
-    locked_fread(word_75D514, 1u, 0x10000u, v7);
+    locked_fread(uTerrainNormalIndices, 1u, 0x10000u, v7);
     pTerrainNormals = class23_AllocatedNamedBuffer(&class23_instance, pTerrainNormals, uNumTerrainNormals * sizeof(struct Normal), "TerNorm");
     locked_fread(pTerrainNormals, 1u, uNumTerrainNormals * sizeof(struct Normal), v7);
     v11 = class23_AllocatedNamedBuffer(&class23_instance, *(_DWORD *)(v5 + 216), 188 * *(_DWORD *)(v5 + 176), "BDdata");
@@ -625,7 +625,7 @@ LABEL_33:
   memcpy(unk_73D514, v42, 0x20000);
   v42 += 0x20000;
 
-  memcpy(word_75D514, v42, 0x10000);
+  memcpy(uTerrainNormalIndices, v42, 0x10000);
   v42 += 0x10000;
 
   pTerrainNormals = class23_AllocatedNamedBuffer(class23_instance, pTerrainNormals, uNumTerrainNormals * sizeof(struct Normal), "TerNorm");
@@ -1551,10 +1551,10 @@ int __thiscall sub_4892E6(struct class51 *_this)
 
 
 //----- (00482170) --------------------------------------------------------
-bool sub_482170(struct class51_stru2 *_this, struct struct14 *a2, struct struct8 *a3)
+bool sub_482170(struct class51_stru2 *_this, struct RenderVertex *a2, struct struct8 *a3)
 {
   signed int v3; // edx@1
-  struct struct14 *v6; // ecx@2
+  struct RenderVertex *v6; // ecx@2
   double v7; // st7@5
   double v8; // st6@5
   double v9; // st5@5

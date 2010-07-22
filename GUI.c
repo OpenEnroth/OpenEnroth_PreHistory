@@ -1014,7 +1014,7 @@ LABEL_60:
           goto LABEL_733;
         case 0xA5:
           if ( pGUIWindow_CurrentMenu->dword_000040 == v0 )
-            sub_459ED1(&dword_69AE00, 0);
+            sub_459ED1(pKeyboardController, 0);
           if ( dword_4E28F8 != 11 || dword_6A0CA0 != dword_6A0C9C + v209 )
           {
             v12 = dword_6A0C9C + v209;
@@ -1041,10 +1041,10 @@ LABEL_60:
           }
           else
           {
-            sub_459E5A((int)&dword_69AE00, 0, 19, pGUIWindow_CurrentMenu);
+            sub_459E5A(pKeyboardController, 0, 19, pGUIWindow_CurrentMenu);
             if ( strcmp((const char *)&unk_69BD68 + 100 * dword_6A0CA0, pGlobalTXT_LocalizationStrings[72]) )
-              strcpy(&byte_69AF00, (const char *)&unk_69BD68 + 100 * dword_6A0CA0);
-            byte_69B001 = strlen(&byte_69AF00);
+              strcpy(pKeyboardController->pPressedKeysBuffer, (const char *)&unk_69BD68 + 100 * dword_6A0CA0);
+            pKeyboardController->uNumKeysPressed = strlen(pKeyboardController->pPressedKeysBuffer);
           }
           goto LABEL_92;
         case 0x52:
@@ -1057,8 +1057,8 @@ LABEL_60:
         case 0x53:
           if ( pGUIWindow_CurrentMenu->dword_000040 == v0 )
           {
-            sub_459ED1(&dword_69AE00, 0);
-            strcpy((char *)&unk_69BD68 + 100 * dword_6A0CA0, &byte_69AF00);
+            sub_459ED1(pKeyboardController, 0);
+            strcpy((char *)&unk_69BD68 + 100 * dword_6A0CA0, pKeyboardController->pPressedKeysBuffer);
           }
           v2 = sub_460078(dword_6A0CA0);
           goto LABEL_189;
@@ -1243,7 +1243,7 @@ LABEL_60:
           dword_506F08 = 1;
           memset(byte_506E6C, 0, 0x1Cu);
           byte_506E6C[14] = 0;
-          memcpy(dword_506E90, &vKey, 0x78u);
+          memcpy(dword_506E90, pKeyboardController->array_00000C_vkeys, 30 * 4);
           goto LABEL_90;
         default:
           goto LABEL_92;
@@ -1254,30 +1254,30 @@ LABEL_60:
           if ( dword_506F08 != v0 )
             v16 = v209 + 14;
           dword_506E68 = v16;
-          sub_459E5A((int)&dword_69AE00, 0, v0, pGUIWindow_CurrentMenu);
+          sub_459E5A(pKeyboardController, 0, v0, pGUIWindow_CurrentMenu);
           goto LABEL_92;
         case 0x1A2:
           v213 = 1;
-          sub_459CC4((int)&dword_69AE00);
+          sub_459CC4(pKeyboardController);
           v210 = 0;
           do
           {
-            v17 = sub_459C82(&dword_69AE00, v210);
+            v17 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, v210);
             if ( v17 != dword_506E90[v210] )
             {
               if ( v213 )
               {
-                v18 = sub_459C82(&dword_69AE00, v210);
+                v18 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, v210);
                 sub_41B4E1(LOBYTE(dword_506E90[v210]), v18, v0);
                 v213 = 0;
               }
               else
               {
-                v19 = sub_459C82(&dword_69AE00, v210);
+                v19 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, v210);
                 sub_41B4E1(LOBYTE(dword_506E90[v210]), v19, 0);
               }
             }
-            dword_506E90[v210] = sub_459C82(&dword_69AE00, v210);
+            dword_506E90[v210] = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, v210);
             v20 = v210++;
             compile_error;//v22 = __SETO__(v210, 28);
             v21 = v210 - 28 < 0;
@@ -1824,18 +1824,18 @@ LABEL_291:
                           v210 = 0;
                           do
                           {
-                            v40 = sub_459C82(&dword_69AE00, v210);
+                            v40 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, v210);
                             if ( v40 != dword_506E90[v210] )
                             {
                               if ( v213 )
                               {
-                                v41 = sub_459C82(&dword_69AE00, v210);
+                                v41 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, v210);
                                 sub_41B4E1(v41, LOBYTE(dword_506E90[v210]), v0);
                                 v213 = 0;
                               }
                               else
                               {
-                                v42 = sub_459C82(&dword_69AE00, v210);
+                                v42 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, v210);
                                 sub_41B4E1(v42, LOBYTE(dword_506E90[v210]), 0);
                               }
                             }
@@ -1843,11 +1843,11 @@ LABEL_291:
                               v189 = v0;
                             else
                               v189 = 0;
-                            sub_459C68(&dword_69AE00, v210, dword_506E90[v210], v189);
+                            sub_459C68(pKeyboardController, v210, dword_506E90[v210], v189);
                             ++v210;
                           }
                           while ( v210 < 28 );
-                          v35 = sub_45A960((const CHAR *)&dword_69AE00, v43);
+                          v35 = sub_45A960(pKeyboardController, v43);
                           goto LABEL_291;
                         }
                       }
@@ -2687,18 +2687,18 @@ LABEL_519:
           v174 = pGlobalTXT_LocalizationStrings[35];
           goto LABEL_520;
         case 0xC5:
-          sprintfex(&unk_5C4DB0, "%s\n \n%s\n \n%s", pGlobalTXT_LocalizationStrings[151], pGlobalTXT_LocalizationStrings[118], pGlobalTXT_LocalizationStrings[167]);
+          wsprintfA(&unk_5C4DB0, "%s\n \n%s\n \n%s", pGlobalTXT_LocalizationStrings[151], pGlobalTXT_LocalizationStrings[118], pGlobalTXT_LocalizationStrings[167]);
           sub_4141CA((int)&unk_5C4DB0, 196);
           dword_6A0D48 = 9;
           goto LABEL_92;
         case 0xC4:
           dword_6A0D48 = 0;
-          strcpy(&byte_69AF00, L"2");
+          strcpy(pKeyboardController->pPressedKeysBuffer, "2");
           goto LABEL_524;
         case 0xDD:
 LABEL_524:
-          sprintfex(&TmpBuf, "%s", &byte_69AF00);
-          memcpy(&v232, sub_4BE3BF(&byte_69AF00, &v237), 0x7Cu);
+          wsprintfA(&TmpBuf, "%s", pKeyboardController->pPressedKeysBuffer);
+          memcpy(&v232, sub_4BE3BF(pKeyboardController->pPressedKeysBuffer, &v237), 0x7Cu);
           if ( v232 == 1 )
           {
             v211 = dword_6A0C8C / 2;
@@ -4319,7 +4319,7 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
           break;
         case 19:
           dword_506978 = dword_4E28F8;
-          sub_459E5A((int)&dword_69AE00, 0, 15, v9);
+          sub_459E5A(pKeyboardController, 0, 15, v9);
           dword_4E28F8 = 19;
           break;
       }
@@ -4499,7 +4499,7 @@ void GUIWindowDelete(int this)
       {
         sub_40F9C5(pLODFile_Icons_LOD);
         dword_4E28F8 = dword_506978;
-        sub_459ED1(&dword_69AE00, 3);
+        sub_459ED1(pKeyboardController, 3);
         goto LABEL_26;
       }
       v6 = v5 - 6;

@@ -681,7 +681,7 @@ struct unnamed_505898 struct_505898;
 
  int dword_506E68; // weak
  _WORD byte_506E6C[18]; // idb
- int dword_506E90[array_size_unknown]; // weak
+ int dword_506E90[30]; // weak
  int dword_506E94; // weak
  int dword_506E98; // weak
  int dword_506E9C; // weak
@@ -948,12 +948,12 @@ int dword_507AF8; // idb
 
 
 struct Camera *pCamera = 0;          // struct     @ MM7.exe::00507CE0
-struct struct14 array_507D30[50];    // struct[50] @ MM7.exe::00507D30
-struct struct14 array_508690[50];    // struct[50] @ MM7.exe::00508690
-struct struct14 array_508FF0[50];    // struct[50] @ MM7.exe::00508FF0
-struct struct14 array_509950[50];    // struct[50] @ MM7.exe::00509950
-struct struct14 array_50A2B0[50];    // struct[50] @ MM7.exe::0050A2B0
-struct struct14 array_50AC10[50];    // struct[50] @ MM7.exe::0050AC10
+struct RenderVertex array_507D30[50];    // struct[50] @ MM7.exe::00507D30
+struct RenderVertex array_508690[50];    // struct[50] @ MM7.exe::00508690
+struct RenderVertex array_508FF0[50];    // struct[50] @ MM7.exe::00508FF0
+struct RenderVertex array_509950[50];    // struct[50] @ MM7.exe::00509950
+struct RenderVertex array_50A2B0[50];    // struct[50] @ MM7.exe::0050A2B0
+struct RenderVertex array_50AC10[50];    // struct[50] @ MM7.exe::0050AC10
 
 
  int dword_50B570[array_size_unknown]; // weak
@@ -1593,11 +1593,12 @@ struct struct0 array_6836D0[3000];
  size_t dword_69ADD0; // idb
 
  char word_69ADE0; // idb
- int dword_69AE00; // weak
- int vKey[30]; // dword[30] @ MM7.exe::0069AE0C
- int dword_69AE84[array_size_unknown]; // weak
- char byte_69AF00; // idb
- char byte_69B001; // weak
+struct KeyboardController *pKeyboardController = 0; // struct @ MM7.exe::0069AE00
+// int dword_69AE00; // weak
+// int vKey[30]; // dword[30] @ MM7.exe::0069AE0C
+// int dword_69AE84[array_size_unknown]; // weak
+//unsigned char byte_69AF00[256]; // idb
+// char byte_69B001; // weak
  int dword_69B004; // weak
  int dword_69B00C; // weak
  int dword_69B010[array_size_unknown]; // weak
@@ -2029,7 +2030,7 @@ unsigned char *pQuestsTXT_Raw = 0;      // ptr @ MM7.exe::0073C400
 
 unsigned int uNumTerrainNormals; // dword @ MM7.exe::0073D510
  _UNKNOWN unk_73D514[0x20000]; // weak
-unsigned short word_75D514[32768]; // weak
+unsigned short uTerrainNormalIndices[128 * 128 * 2]; // word[32768] @ MM7.exe::0075D514
 
 struct Normal *pTerrainNormals = 0;         // ptr @ MM7.exe::0076D514
 
@@ -2075,10 +2076,10 @@ int dword_76E3C8[128]; // dword[128] @ MM7.exe::0076E3C8
 struct D3DVERTEX  pVertices[50];      // struct[50]   @ MM7.exe::0077E5C8
 struct struct8    array_77EC08[2000]; // struct[2000] @ MM7.exe::0077EC08
 struct class57   *pClass57_global;    // struct       @ MM7.exe::008019C8
-struct struct14  *ptr_801A04;         // ptr          @ MM7.exe::00801A04
-struct struct14  *ptr_801A08;         // ptr          @ MM7.exe::00801A08
-struct struct14   array_801A10[384];  // struct[384]  @ MM7.exe::00801A10
-struct struct14   array_806210[384];  // struct[384]  @ MM7.exe::00806210
+struct RenderVertex  *ptr_801A04;         // ptr          @ MM7.exe::00801A04
+struct RenderVertex  *ptr_801A08;         // ptr          @ MM7.exe::00801A08
+struct RenderVertex   array_801A10[384];  // struct[384]  @ MM7.exe::00801A10
+struct RenderVertex   array_806210[384];  // struct[384]  @ MM7.exe::00806210
 
 
  char byte_80AA10; // weak

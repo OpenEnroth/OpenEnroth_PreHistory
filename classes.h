@@ -457,7 +457,7 @@ void class08_sub_437607(struct class08 *_this, struct class26 *a2, unsigned char
 //int __thiscall sub_437691(int this, int a2, int a3);
 void class08_Vec3Transform(struct class08 *_this, struct class26 *pVec, struct class26 *pOut);
 //void __thiscall sub_436BB7(void *this, int a2, int a3, char a4);
-void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char a4);
+void class08_sub_436BB7(struct class08 *_this, struct RenderVertex *a2, int a3, char a4);
 //void __thiscall sub_438240(int this);
 void class08_sub_438240(struct class08 *_this);
 //void __fastcall sub_438141(int a1);
@@ -1445,7 +1445,7 @@ struct struct8
  struct Span           *ptr_000040; // head  ?
  struct Span           *ptr_000044;  // and tail ?
  int                  **ptr_000048;
- short                  word_00004C;    // word_000012 in struct TileDesc, texture id in bitmaps.lod
+ short                  uTextureID; // word @ 00004C    word_000012 in struct TileDesc, texture id in bitmaps.lod
  short                  word_00004E;
  short                  word_000050;
  short                  word_000052;
@@ -1666,24 +1666,6 @@ struct Event
 };
 //sizeof == 0C
 
-
-
-struct struct14
-{
- float x; // float @ 000000   looks like world coordinates
- float z; // float @ 000004
- float y; // float @ 000008
- float flt_00000C;
- float flt_000010;
- float flt_000014;
- float flt_000018;  // value lies between pViewport->uGameX and pViewport->uGameZ  screen-space transformed x
- float flt_00001C; //  value lies between pViewport->uGameY and pViewport->uGameW  screen-space transformed y
- float flt_000020;
- float u;          // float @ 000024   looks like texture coordinates
- float v;          // float @ 000028
- float flt_00002C;
-};
-//sizeof == 30
 
 struct StatTable
 {

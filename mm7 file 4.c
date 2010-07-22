@@ -21,143 +21,89 @@
 
 
 //----- (00424EE0) --------------------------------------------------------
-signed int __fastcall sub_424EE0(int a1)
+signed int __fastcall sub_424EE0_MakeFanFromTriangle(int a1)
 {
   int v1; // edx@1
   signed int v2; // edi@1
   double v3; // st7@1
-  float *v4; // edx@4
-  _UNKNOWN *v5; // ecx@4
-  _UNKNOWN *v6; // esi@4
+ struct RenderVertex *v5; // ecx@4
   int v7; // eax@4
-  double v8; // st5@10
   double v9; // st6@10
   double v10; // st6@11
-  unsigned __int8 v11; // c2@15
   unsigned __int8 v12; // c3@15
-  void *v13; // edi@22
-  _UNKNOWN *v14; // eax@22
   double v15; // st6@22
-  _UNKNOWN *v16; // ecx@22
   signed int result; // eax@24
-  int v19; // [sp+8h] [bp-2Ch]@4
   bool v20; // [sp+Ch] [bp-28h]@6
-  _UNKNOWN *v21; // [sp+10h] [bp-24h]@4
-  _UNKNOWN *v22; // [sp+14h] [bp-20h]@4
   signed int v23; // [sp+18h] [bp-1Ch]@1
-  _UNKNOWN *v24; // [sp+1Ch] [bp-18h]@4
-  _UNKNOWN *v25; // [sp+20h] [bp-14h]@4
-  _UNKNOWN *v26; // [sp+24h] [bp-10h]@4
-  _UNKNOWN *v27; // [sp+28h] [bp-Ch]@4
-  _UNKNOWN *v28; // [sp+2Ch] [bp-8h]@4
-  _UNKNOWN *v29; // [sp+30h] [bp-4h]@4
+ int i;
 
   v1 = a1;
   v3 = (double)pStruct9_global->shading_dist_mist;
-  memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct struct14));
+  memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct RenderVertex));
   v2 = 0;
   v23 = 0;
   if ( array_50AC10[0].flt_00000C <= v3 )
     v2 = 1;
   if ( a1 + 1 <= 1 )
     return 0;
-  v6 = &array_507D30[0].flt_000014;
-  v5 = &array_507D30[0].flt_000010;
+  
   v7 = v1;
-  v24 = &array_507D30[0].flt_00002C;
-  v27 = &array_507D30[0].flt_000020;
-  v25 = array_507D30;
-  v21 = &array_507D30[0].flt_000014;
-  v22 = &array_507D30[0].flt_000010;
-  v26 = &array_507D30[0].flt_00000C;
-  v28 = &array_507D30[0].v;
-  v29 = &array_507D30[0].u;
-  v4 = &array_50AC10[0].v;
-  v19 = v7;
-  do
+  v5 = array_507D30;
+  for (i = 0; i < a1 - 1; ++i)
   {
-    v20 = v3 >= v4[5];
-    if ( v2 != v20 )
-    {
+    v20 = v3 >= array_50AC10[i + 1].flt_00000C;
+    if ( v2 == v20 )
+      goto LABEL_21;
+
       if ( v20 )
       {
-        v9 = (v3 - *(v4 - 7)) / (v4[5] - *(v4 - 7));
-        *(float *)v5 = (v4[6] - *(v4 - 6)) * v9 + *(v4 - 6);
-        *(float *)v6 = (v4[7] - *(v4 - 5)) * v9 + *(v4 - 5);
-        *(float *)v29 = (v4[11] - *(v4 - 1)) * v9 + *(v4 - 1);
-        v8 = (v4[12] - *v4) * v9 + *v4;
+       v9 = (v3 - array_50AC10[i].flt_00000C) /
+            (array_50AC10[i + 1].flt_00000C - array_50AC10[i].flt_00000C);
+       v5->flt_000010 = (array_50AC10[i + 1].flt_000010 - array_50AC10[i].flt_000010) * v9 + array_50AC10[i].flt_000010;
+       v5->flt_000014 = (array_50AC10[i + 1].flt_000014 - array_50AC10[i].flt_000014) * v9 + array_50AC10[i].flt_000014;
+       v5->u = (array_50AC10[i + 1].u - array_50AC10[i].u) * v9 + array_50AC10[i].u;
+       v5->v  = (array_50AC10[i + 1].v - array_50AC10[i].v) * v9 + array_50AC10[i].v;
       }
       else
       {
-        v10 = (v3 - v4[5]) / (*(v4 - 7) - v4[5]);
-        *(float *)v5 = (*(v4 - 6) - v4[6]) * v10 + v4[6];
-        *(float *)v6 = (*(v4 - 5) - v4[7]) * v10 + v4[7];
-        *(float *)v29 = (*(v4 - 1) - v4[11]) * v10 + v4[11];
-        v8 = (*v4 - v4[12]) * v10 + v4[12];
+        v10 = (v3 - array_50AC10[i + 1].flt_00000C) / (array_50AC10[i].flt_00000C - array_50AC10[i + 1].flt_00000C);
+       v5->flt_000010 = (array_50AC10[i].flt_000010 - array_50AC10[i + 1].flt_000010) * v10 + array_50AC10[i + 1].flt_000010;
+       v5->flt_000014 = (array_50AC10[i].flt_000014 - array_50AC10[i + 1].flt_000014) * v10 + array_50AC10[i + 1].flt_000014;
+       v5->u = (array_50AC10[i].u - array_50AC10[i + 1].u) * v10 + array_50AC10[i + 1].u;
+       v5->v  = (array_50AC10[i].v - array_50AC10[i + 1].v) * v10 + array_50AC10[i + 1].v;
       }
-      *(float *)v28 = v8;
-      *(float *)v26 = v3;
-      *(float *)v27 = 1.0 / v3;
+
+      v5->flt_00000C = v3;
+      v5->flt_000020 = 1.0 / v3;
       if ( v2 )
       {
-        if ( v3 == *(v4 - 7) && *(float *)v5 == *(v4 - 6) )
+        if (v3 != array_50AC10[i].flt_00000C || v5->flt_000010 != array_50AC10[i].flt_000010 ||
+            v5->flt_000014 == array_50AC10[i].flt_000014)
         {
-          v11 = 0;
-          v12 = *(float *)v6 == *(v4 - 5);
-          goto LABEL_19;
-        }
-      }
-      else
-      {
-        if ( v3 == v4[5] && *(float *)v5 == v4[6] )
-        {
-          v11 = 0;
-          v12 = *(float *)v6 == v4[7];
-LABEL_19:
-          if ( v12 | v11 )
-            goto LABEL_21;
-          goto LABEL_20;
-        }
-      }
-LABEL_20:
-      v27 = (char *)v27 + 48;
-      v25 = (char *)v25 + 48;
-      v26 = (char *)v26 + 48;
-      v28 = (char *)v28 + 48;
-      v29 = (char *)v29 + 48;
-      v5 = (char *)v5 + 48;
-      v6 = (char *)v6 + 48;
+      v5++;
       ++v23;
-      v24 = (char *)v24 + 48;
-      v22 = v5;
-      v21 = v6;
-    }
+        }
+      }
+      else if (v3 != array_50AC10[i + 1].flt_00000C || v5->flt_000010 != array_50AC10[i + 1].flt_000010 ||
+               v5->flt_000014 == array_50AC10[i + 1].flt_000014)
+      {
+      v5++;
+      ++v23;
+      }
+
 LABEL_21:
     if ( v20 )
     {
-      v13 = v25;
-      v14 = v27;
-      v22 = (char *)v22 + 48;
-      v15 = 1.0 / (v4[5] + 0.0000001000000011686097);
-      v21 = (char *)v21 + 48;
+      v15 = 1.0 / (array_50AC10[i + 1].flt_00000C + 0.0000001000000011686097);
       ++v23;
-      v29 = (char *)v29 + 48;
-      v28 = (char *)v28 + 48;
-      v26 = (char *)v26 + 48;
-      v25 = (char *)v25 + 48;
-      v27 = (char *)v27 + 48;
-      memcpy(v13, v4 + 2, 0x30u);
-      v16 = v24;
-      v24 = (char *)v24 + 48;
-      v6 = v21;
-      *(float *)v14 = v15;
-      *(_DWORD *)v16 = *((_DWORD *)v4 + 13);
-      v5 = v22;
+      memcpy(v5, &array_50AC10[i + 1], sizeof(struct RenderVertex));
+      v5->flt_000020 = v15;
+      v5->flt_00002C = array_50AC10[i + 1].flt_00002C;
+      v5++;
     }
     v2 = v20;
-    v4 += 12;
   }
-  while ( v19-- != 1 );
+
   result = v23;
   if ( v23 < 3 )
     return 0;
@@ -168,7 +114,7 @@ LABEL_21:
 signed int __fastcall sub_4250FE(int a1)
 {
   int v1; // edx@1
-  struct struct14 *v3; // edi@5
+  struct RenderVertex *v3; // edi@5
   double v7; // st6@11
   double v8; // st6@12
   double v12; // st6@23
@@ -178,7 +124,7 @@ signed int __fastcall sub_4250FE(int a1)
   signed int v21; // [sp+1Ch] [bp-14h]@1
  int i;
 
-  memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct struct14));
+  memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct RenderVertex));
   v21 = 0;
   v17 = array_50AC10[0].flt_00000C >= 8.0;
   if ( a1 + 1 <= 1 )
@@ -234,7 +180,7 @@ LABEL_22:
     {
      v12 = 1.0 / (array_50AC10[i + 1].flt_00000C + 0.0000001000000011686097);
       ++v21;
-      memcpy(v3, &array_50AC10[i + 1], sizeof(struct struct14));
+      memcpy(v3, &array_50AC10[i + 1], sizeof(struct RenderVertex));
       v3->flt_000020 = v12;
       v3++;
     }
@@ -252,7 +198,7 @@ LABEL_22:
 signed int __fastcall sub_4252E8(int a1)
 {
   int v1; // edx@1
-  struct struct14 *v5; // esi@5
+  struct RenderVertex *v5; // esi@5
   double v8; // st6@11
   double v9; // st6@12
   double v13; // st6@23
@@ -264,7 +210,7 @@ signed int __fastcall sub_4252E8(int a1)
  int i;
 
   v1 = a1;
-  memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct struct14));
+  memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct RenderVertex));
   v22 = 0;
   v18 = array_50AC10[0].flt_00000C <= pStruct9_global->shading_dist_mist;
   if ( a1 + 1 <= 1 )
@@ -323,7 +269,7 @@ LABEL_22:
     {
       v13 = 1.0 / (array_50AC10[i + 1].flt_00000C + 0.0000001000000011686097);
       ++v22;
-      memcpy(v5, &array_50AC10[i + 1], sizeof(struct struct14));
+      memcpy(v5, &array_50AC10[i + 1], sizeof(struct RenderVertex));
       v5->flt_000020 = v13;
       v5++;
     }
@@ -372,13 +318,13 @@ int sub_4254D2(signed int a1)
   signed int v115; // [sp+B0h] [bp-28h]@12
   signed int v120; // [sp+BCh] [bp-1Ch]@29
   signed int v121; // [sp+BCh] [bp-1Ch]@64
-  struct struct14 *v127; // [sp+C4h] [bp-14h]@30
+  struct RenderVertex *v127; // [sp+C4h] [bp-14h]@30
   signed int v128; // [sp+C4h] [bp-14h]@47
   signed int v132; // [sp+CCh] [bp-Ch]@2
-  struct struct14 *v133;
-  struct struct14 *v134; // [sp+CCh] [bp-Ch]@30
-  struct struct14 *v139; // [sp+D0h] [bp-8h]@48
-  struct struct14 *v140; // [sp+D0h] [bp-8h]@65
+  struct RenderVertex *v133;
+  struct RenderVertex *v134; // [sp+CCh] [bp-Ch]@30
+  struct RenderVertex *v139; // [sp+D0h] [bp-8h]@48
+  struct RenderVertex *v140; // [sp+D0h] [bp-8h]@65
   signed int v141; // [sp+D4h] [bp-4h]@1
  int i;
 
@@ -393,7 +339,7 @@ int sub_4254D2(signed int a1)
   v132 = a1;
   
  v141 = 1;
- memcpy(array_508690, array_50AC10, a1 * sizeof(struct struct14));
+ memcpy(array_508690, array_50AC10, a1 * sizeof(struct RenderVertex));
  for (i = 0; i < a1; ++i)
  {
   if (array_50AC10[i].flt_000018 < pViewport->uGameX || array_50AC10[i].flt_000018 > pViewport->uGameZ)
@@ -406,7 +352,7 @@ int sub_4254D2(signed int a1)
    return a1;
 
  v115 = 0;
- memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct struct14));
+ memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct RenderVertex));
 
  v5 = (int)(floorf(array_50AC10[0].flt_000018 + 0.5f)) >= pViewport->uGameX;
  if (a1 < 1)
@@ -459,7 +405,7 @@ LABEL_25:
   if (v111)
   {
    v115++;
-   memcpy(v133++, &array_50AC10[i + 1], sizeof(struct struct14));
+   memcpy(v133++, &array_50AC10[i + 1], sizeof(struct RenderVertex));
   }
 
   v5 = v111;
@@ -469,7 +415,7 @@ LABEL_25:
  if ( v115 < 3)
    return 0;
 
- memcpy(&array_50A2B0[v115], array_50A2B0, sizeof(struct struct14));
+ memcpy(&array_50A2B0[v115], array_50A2B0, sizeof(struct RenderVertex));
  if (v115 < 1)
    return 0;
 
@@ -532,7 +478,7 @@ LABEL_43:
   {
    ++v120;
    v134++;
-   memcpy(v127++, &array_50A2B0[i + 1], sizeof(struct struct14));
+   memcpy(v127++, &array_50A2B0[i + 1], sizeof(struct RenderVertex));
   }
 
   v25 = v112;
@@ -543,7 +489,7 @@ LABEL_43:
    return 0;
 
  v128 = 0;
- memcpy(&array_509950[v120], array_509950, sizeof(struct struct14));
+ memcpy(&array_509950[v120], array_509950, sizeof(struct RenderVertex));
 
  v45 = (int)(floorf(array_509950[0].flt_00001C + 0.5f)) >= pViewport->uGameY;
  if (v120 < 1)
@@ -594,7 +540,7 @@ LABEL_43:
   if (v49)
   {
    ++v128;
-   memcpy(v139++, &array_509950[i + 1], sizeof(struct struct14));
+   memcpy(v139++, &array_509950[i + 1], sizeof(struct RenderVertex));
   }
 
   v45 = v113;
@@ -605,7 +551,7 @@ LABEL_43:
    return 0;
 
  v121 = 0,
- memcpy(&array_508FF0[v128], array_508FF0, sizeof(struct struct14));
+ memcpy(&array_508FF0[v128], array_508FF0, sizeof(struct RenderVertex));
  v65 = (int)(floorf(array_508FF0[0].flt_00001C + 0.5f)) <= pViewport->uGameW;
 
  if (v128 < 1)
@@ -655,7 +601,7 @@ LABEL_43:
   if (v69)
   {
    ++v121;
-   memcpy(v140++, &array_508FF0[i + 1], sizeof(struct struct14));
+   memcpy(v140++, &array_508FF0[i + 1], sizeof(struct RenderVertex));
   }
 
   v65 = v114;
@@ -664,7 +610,7 @@ LABEL_43:
  if (v121 < 3)
    return 0;
 
- memcpy(&array_508690[v121], array_508690, sizeof(struct struct14));
+ memcpy(&array_508690[v121], array_508690, sizeof(struct RenderVertex));
 
  for (i = 0; i < v121; ++i)
  {
@@ -683,7 +629,7 @@ LABEL_43:
 
  if (v121 > 3)
  {
-  memcpy(&array_508690[v121 + 1], &array_508690[1], sizeof(struct struct14));
+  memcpy(&array_508690[v121 + 1], &array_508690[1], sizeof(struct RenderVertex));
 
   v110 = 1;
   do
@@ -707,7 +653,7 @@ LABEL_43:
    {
     v101 = v110;
     if (v110 < v121 || (v101 = v110 - v121, v110 - v121 < v121))
-      memcpy(&array_508690[v101], &array_508690[v101 + 1], (v121 - v101) * sizeof(struct struct14));
+      memcpy(&array_508690[v101], &array_508690[v101 + 1], (v121 - v101) * sizeof(struct RenderVertex));
           --v121;
    }
   }
@@ -3457,8 +3403,8 @@ LABEL_6:
     while ( 1 )
     {
      v3 = pGame->class14_obj;
-      v17 = *(&vKey + v23);
-      if ( dword_69AE84[v23] )
+      v17 = pKeyboardController->array_00000C_vkeys[v23];
+      if (pKeyboardController->unk_000084[v23] )
         v4 = class14_IsKeyPressed(v3, v17);
       else
         v4 = class14_IsKeyHeld(v3, v17);
@@ -3773,9 +3719,9 @@ LABEL_155:
   v12 = 0;
   do
   {
-    v22 = *(&vKey + v12);
+    v22 = pKeyboardController->array_00000C_vkeys[v12];
     v13 = pGame->class14_obj;
-    if ( dword_69AE84[v12] )
+    if (pKeyboardController->unk_000084[v12] )
       v14 = class14_IsKeyPressed(v13, v22);
     else
       v14 = class14_IsKeyHeld(v13, v22);
@@ -4008,7 +3954,7 @@ LABEL_134:
           if ( v49 == 165 )
           {
             if ( pGUIWindow_CurrentMenu->dword_000040 == 1 )
-              sub_459ED1(&dword_69AE00, 0);
+              sub_459ED1(pKeyboardController, 0);
             if ( dword_4E28F8 != 11 || dword_6A0CA0 != v48 + dword_6A0C9C )
             {
               v29 = v48 + dword_6A0C9C;
@@ -4035,9 +3981,9 @@ LABEL_134:
             }
             else
             {
-              sub_459E5A((int)&dword_69AE00, 0, 19, pGUIWindow_CurrentMenu);
-              strcpy(&byte_69AF00, (const char *)&unk_69BD68 + 100 * dword_6A0CA0);
-              byte_69B001 = strlen(&byte_69AF00);
+              sub_459E5A(pKeyboardController, 0, 19, pGUIWindow_CurrentMenu);
+              strcpy(pKeyboardController->pPressedKeysBuffer, (const char *)&unk_69BD68 + 100 * dword_6A0CA0);
+              pKeyboardController->uNumKeysPressed = strlen(pKeyboardController->pPressedKeysBuffer);
             }
             continue;
           }
@@ -4392,7 +4338,7 @@ LABEL_44:
               AudioPlayer_sub_4AA306(v1, 24, 0, 0, -1, 0, 0, 0, 0);
               v3 = v48;
               uPlayerCreationUI_SelectedCharacter = v48;
-              sub_459E5A((int)&dword_69AE00, 0, 15, pGUIWindow_CurrentMenu);
+              sub_459E5A(pKeyboardController, 0, 15, pGUIWindow_CurrentMenu);
               pGUIWindow_CurrentMenu->dword_00001C = v3;
               break;
             case 5:
@@ -4530,7 +4476,7 @@ void __stdcall sub_4364C5(int a1, int a2, int a3, int a4)
 }
 
 //----- (00436523) --------------------------------------------------------
-void __stdcall sub_436523(struct struct14 *a1, unsigned int uNumStructs)
+void __stdcall sub_436523(struct RenderVertex *a1, unsigned int uNumStructs)
 {
   int v2; // esi@4
   int v3; // ecx@7
@@ -11326,7 +11272,7 @@ double __stdcall sub_45CC0C(float a1, float a2, float a3, float a4, float a5, in
 }
 
 //----- (0045D036) --------------------------------------------------------
-char __stdcall sub_45D036(struct Normal *pNormal, int a2, struct struct14 *a3, int a4, signed int X)
+bool __stdcall sub_45D036(struct Normal *pNormal, int a2, struct RenderVertex *a3, int a4, signed int X)
 {
   float v6; // ebx@2
   int v10; // [sp+Ch] [bp-4h]@1
@@ -11338,22 +11284,22 @@ char __stdcall sub_45D036(struct Normal *pNormal, int a2, struct struct14 *a3, i
   {
       if ( v10 >= 20 )
         break;
-      sub_45D0D5(&array_519ABC[i], a1, a2, a3, a4, X, &v10);
+      sub_45D0D5(&array_519ABC[i], pNormal, a2, a3, a4, X, &v10);
   }
 
   for (i = 0; i < dword_519AB4; ++i)
   {
       if ( v10 >= 20 )
         break;
-      sub_45D0D5(&array_5187F4[i], a1, a2, a3, a4, X, &v10);
+      sub_45D0D5(&array_5187F4[i], pNormal, a2, a3, a4, X, &v10);
   }
 
   dword_F8ADD4 = v10;
-  return 1;
+  return true;
 }
 
 //----- (0045D0D5) --------------------------------------------------------
-char __stdcall sub_45D0D5(struct struct6 *a1, struct Normal *pNormal, int a3, struct struct14 *a4, float a5, signed int X, int a7)
+char __stdcall sub_45D0D5(struct struct6 *a1, struct Normal *pNormal, int a3, struct RenderVertex *a4, float a5, signed int X, int a7)
 {
   float v7; // edi@1
   int v8; // eax@1
@@ -13115,7 +13061,7 @@ LABEL_23:
   if ( pGUIWindow_CurrentMenu->dword_000040 == 2 )
   {
     pGUIWindow_CurrentMenu->dword_000040 = 0;
-    strcpy((char *)&unk_69BD68 + 100 * dword_6A0CA0, &byte_69AF00);
+    strcpy((char *)&unk_69BD68 + 100 * dword_6A0CA0, pKeyboardController->pPressedKeysBuffer);
     if ( dword_50CBD0[0] < 40 )
     {
       dword_50CBD0[3 * dword_50CBD0[0] + 1] = 83;
@@ -13160,7 +13106,7 @@ LABEL_23:
       }
       else
       {
-        v27 = sub_44CB4F(pGUIWindow_CurrentMenu, pFontSmallnum, 27, v40, SWORD2(v38), &byte_69AF00, 175, 1);
+        v27 = sub_44CB4F(pGUIWindow_CurrentMenu, pFontSmallnum, 27, v40, SWORD2(v38), pKeyboardController->pPressedKeysBuffer, 175, 1);
         sub_459C2B(pGUIWindow_CurrentMenu, v27 + 27, v40, pFontSmallnum);
       }
       v40 += 21;

@@ -629,7 +629,7 @@ extern _UNKNOWN unk_506990; // weak
 
 extern int dword_506E68; // weak
 extern _WORD byte_506E6C[18]; // idb
-extern int dword_506E90[array_size_unknown]; // weak
+extern int dword_506E90[]; // weak
 extern int dword_506E94; // weak
 extern int dword_506E98; // weak
 extern int dword_506E9C; // weak
@@ -896,12 +896,12 @@ extern int dword_507CD8; // weak
 
 extern struct Camera *pCamera;
 
-extern struct struct14 array_507D30[];
-extern struct struct14 array_508690[];
-extern struct struct14 array_508FF0[];
-extern struct struct14 array_509950[];
-extern struct struct14 array_50A2B0[];
-extern struct struct14 array_50AC10[];
+extern struct RenderVertex array_507D30[];
+extern struct RenderVertex array_508690[];
+extern struct RenderVertex array_508FF0[];
+extern struct RenderVertex array_509950[];
+extern struct RenderVertex array_50A2B0[];
+extern struct RenderVertex array_50AC10[];
 
 extern int dword_50B570[array_size_unknown]; // weak
 extern int dword_50B638[array_size_unknown]; // weak
@@ -1597,11 +1597,28 @@ extern size_t dword_69ADD0; // idb
 
 
 extern char word_69ADE0; // idb
-extern int dword_69AE00; // weak
-extern int vKey[30]; // dword[30] @ MM7.exe::0069AE0C
-extern int dword_69AE84[array_size_unknown]; // weak
-extern char byte_69AF00; // idb
-extern char byte_69B001; // weak
+extern struct KeyboardController
+{
+ unsigned int  uLastKeyPressed; // dword @ 000000
+ unsigned int  dword_000004;
+ unsigned int  dword_000008;
+ unsigned int  array_00000C_vkeys[30]; // dword[30] @ 00000C
+ int           unk_000084[30];
+ int           dword_0000FC;
+ unsigned char pPressedKeysBuffer[256]; // byte[256] @ 000100
+ char          byte_0000200;
+ unsigned char uNumKeysPressed;         // byte @ 000201
+ char          byte_0000202;
+ char          byte_0000203;
+ int           dword_000204;
+ int          *ptr_000208;
+} *pKeyboardController; // struct @ MM7.exe::0069AE00
+//extern int dword_69AE00; // last pressed key
+//extern int vKey[30]; // dword[30] @ MM7.exe::0069AE0C
+//extern int dword_69AE84[array_size_unknown]; // weak
+//extern unsigned char byte_69AF00[256]; // pressed keys buffer
+//extern char byte_69B000;
+//extern char byte_69B001; // num keys in buffer
 extern int dword_69B004; // weak
 extern int dword_69B00C; // weak
 extern int dword_69B010[array_size_unknown]; // weak
@@ -2057,7 +2074,7 @@ extern char byte_73C84C; // weak
 
 extern unsigned int uNumTerrainNormals;
 extern _UNKNOWN unk_73D514[0x20000]; // weak
-extern unsigned short word_75D514[]; // weak
+extern unsigned short uTerrainNormalIndices[]; // weak
 
 extern struct Normal
 {
@@ -2142,10 +2159,10 @@ extern _UNKNOWN unk_800000; // weak
 
 
 extern struct class57  *pClass57_global; // struct @ MM7.exe::008019C8
-extern struct struct14 *ptr_801A04;
-extern struct struct14 *ptr_801A08;
-extern struct struct14  array_801A10[384];
-extern struct struct14  array_806210[384];
+extern struct RenderVertex *ptr_801A04;
+extern struct RenderVertex *ptr_801A08;
+extern struct RenderVertex  array_801A10[384];
+extern struct RenderVertex  array_806210[384];
 
 extern char byte_80AA10; // weak
 extern int dword_80AA14; // weak

@@ -8354,15 +8354,15 @@ void __cdecl sub_4B7911()
       {
         sprintfex(&TmpBuf, "%s\n%s", pGlobalTXT_LocalizationStrings[163], pGlobalTXT_LocalizationStrings[112]);
         sub_44D406((int)&v31, pFontArrus, 0, 146, v36[0], &TmpBuf, 3);
-        sub_44D406((int)&v31, pFontArrus, 0, 186, v34[0], &byte_69AF00, 3);
+        sub_44D406((int)&v31, pFontArrus, 0, 186, v34[0], pKeyboardController->pPressedKeysBuffer, 3);
         v4 = pFontArrus;
-        v5 = sub_44C51E(pFontArrus, &byte_69AF00);
+        v5 = sub_44C51E(pFontArrus, pKeyboardController->pPressedKeysBuffer);
         sub_459C2B((int)&v31, v5 / 2 + 80, 185, v4);
         return;
       }
       if ( *(_DWORD *)(dword_507BC0 + 64) == 2 )
       {
-        v1 = atoi(&byte_69AF00);
+        v1 = atoi(pKeyboardController->pPressedKeysBuffer);
         v2 = v1;
         if ( v1 <= 0 )
         {
@@ -8470,7 +8470,7 @@ void __cdecl sub_4B7D7E()
         v1 = *(_DWORD *)(dword_507BC0 + 64) - 2;
         if ( *(_DWORD *)(dword_507BC0 + 64) == 2 )
         {
-          v6 = atoi(&byte_69AF00);
+          v6 = atoi(pKeyboardController->pPressedKeysBuffer);
           v7 = v6;
           if ( !v6 )
           {
@@ -8523,7 +8523,7 @@ LABEL_15:
         if ( *(_DWORD *)(dword_507BC0 + 64) == 2 )
         {
           *(_DWORD *)(dword_507BC0 + 64) = 0;
-          v2 = atoi(&byte_69AF00);
+          v2 = atoi(pKeyboardController->pPressedKeysBuffer);
           v3 = v2;
           if ( v2 )
           {
@@ -8547,9 +8547,9 @@ LABEL_15:
     }
     sprintfex(&TmpBuf, "%s\n%s", v11, v12);
     sub_44D406((int)&v13, pFontArrus, 0, 146, v17[0], &TmpBuf, 3);
-    sub_44D406((int)&v13, pFontArrus, 0, 186, v16[0], &byte_69AF00, 3);
+    sub_44D406((int)&v13, pFontArrus, 0, 186, v16[0], pKeyboardController->pPressedKeysBuffer, 3);
     v4 = pFontArrus;
-    v5 = sub_44C51E(pFontArrus, &byte_69AF00);
+    v5 = sub_44C51E(pFontArrus, pKeyboardController->pPressedKeysBuffer);
     sub_459C2B((int)&v13, v5 / 2 + 80, 185, v4);
     return;
   }
@@ -12543,7 +12543,7 @@ LABEL_15:
       if ( dword_F8B19C >= 7 )
       {
         if ( dword_F8B19C <= 8 )
-          sub_459E5A((int)&dword_69AE00, 1, 10, v11);
+          sub_459E5A(pKeyboardController, 1, 10, v11);
       }
       return;
     }
@@ -12796,7 +12796,7 @@ LABEL_15:
         }
         if ( v61 == 100 )
         {
-          sub_459E5A((int)&dword_69AE00, 1, 10, v11);
+          sub_459E5A(pKeyboardController, 1, 10, v11);
           goto LABEL_200;
         }
       }
@@ -13013,7 +13013,7 @@ signed int __cdecl sub_4BD8B5()
 
   if ( dword_50CBD0[0] )
     dword_50CBD0[0] = dword_50CBD0[3] != 0;
-  sub_459ED1(&dword_69AE00, 3);
+  sub_459ED1(pKeyboardController, 3);
   sub_459E3F();
   dword_5C3420 = 0;
   dword_F8B1E8 = 0;
@@ -14249,7 +14249,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *this)
       dword_50CBD0[0] = v15;
     }
     sub_459E3F();
-    dword_69AE00 = 0;
+    pKeyboardController->uLastKeyPressed = 0;
     do
     {
       while ( PeekMessageA(&Msg, 0, 0, 0, 1u) )
@@ -14260,7 +14260,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *this)
         DispatchMessageA(&Msg);
       }
     }
-    while ( !dword_69AE00 );
+    while ( !pKeyboardController->uLastKeyPressed );
     result = dword_50CBD0[0];
     if ( dword_50CBD0[0] )
     {

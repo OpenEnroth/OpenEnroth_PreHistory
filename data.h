@@ -159,7 +159,7 @@ extern struct COverlayDescriptionList    *pOverlayDescriptionList;
 extern struct CObjectDescriptionList     *pObjectDescriptionList;
 extern struct CDecorationDescriptionList *pDecorationDescriptionList;
 
-extern struct struct14 array_73D150[];
+extern struct RenderVertex array_73D150[];
 
 extern struct CIconFrameTable *pIconFrameTable;
 

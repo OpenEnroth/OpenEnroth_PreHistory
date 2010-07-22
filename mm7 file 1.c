@@ -90,7 +90,7 @@ __declspec(naked) void loc_47907F(void)
 
 
 //----- (004829B9) --------------------------------------------------------
-void sub_4829B9(struct struct14 *a1, struct struct14 *a2, struct struct14 *a3, struct struct8 *a4, int a5)
+void sub_4829B9(struct RenderVertex *a1, struct RenderVertex *a2, struct RenderVertex *a3, struct struct8 *a4, int a5)
 {
   double v6; // st6@1
   double v7; // st7@1
@@ -278,7 +278,7 @@ LABEL_71:
         LOWORD(v22) = (unsigned __int8)v22;
         v24 = 8 * (v22 | (v23 << 6));
         LOBYTE(v24) = v24 | 6;
-        p14->word_00004C = v24;
+        p14->uTextureID = v24;
         if (v3->byte_000010[12] & 0x10)
           p14->word_000030 |= 0x02;
         if (v3->byte_000010[14] & 0x40)
@@ -297,7 +297,7 @@ LABEL_71:
         for (k = 0; k < pClass51_global->pBModels[i].ptr_000054[j].uNumVertices; ++k)
         {
             //memcpy((char *)&unk_50AC10 + v32, &array_73D150[v32 / 48], 0x30u);
-         memcpy(&array_50AC10[k], &array_73D150[k], sizeof(struct struct14));
+         memcpy(&array_50AC10[k], &array_73D150[k], sizeof(struct RenderVertex));
 
             //*(float *)(v32 + 0x50AC00) = v34;
          array_50AC10[k].flt_000020 = 1.0 / (array_73D150[k].flt_00000C + 0.0000001000000011686097);
@@ -828,6 +828,9 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *
    }
   }
 
+  pKeyboardController = malloc(sizeof(struct KeyboardController));
+  memset(pKeyboardController, 0, sizeof(struct KeyboardController));
+
   SetupUserInterface(1);
   LoadMainMenu();
   RegistryWriteInt("Ran once", 1);
@@ -975,7 +978,7 @@ LABEL_68:
 }
 
 //----- (0045CB89) --------------------------------------------------------
-void __stdcall sub_45CB89(struct struct14 * a1, int a2)
+void __stdcall sub_45CB89(struct RenderVertex * a1, int a2)
 {
   double v10; // st7@5
   double v11; // st7@6
@@ -2264,7 +2267,7 @@ LABEL_173:
       }
       v98.v99 = abs(pCamera->uMapGridCellZ - dword_76D9C8[i]);
       v98.v100 = abs(pCamera->uMapGridCellX - dword_76DBC8[i]);
-      if ( pD3DRenderer->pRenderD3D3 )
+      if (pD3DRenderer->pRenderD3D3)
         sub_48034E(v107, 0, &v98);
       else
         sub_481212(v107, 0, &v98);
@@ -2352,68 +2355,70 @@ int __stdcall sub_401000(int a1, int a2, int a3, int (__thiscall *a4)(_DWORD))
 }
 
 //----- (00459F10) --------------------------------------------------------
-signed int __thiscall sub_459F10(int this, signed int a2)
+bool sub_459F10(struct KeyboardController *_this, unsigned int uKey)
 {
   int v3; // [sp-4h] [bp-4h]@3
 
-  dword_69AE00 = a2;
+ _this->uLastKeyPressed = uKey;
   if ( dword_506E68 == -1 )
   {
     if ( dword_69B004 == 1 )
     {
-      if ( a2 != 8 )
+      if ( uKey != 8 )
       {
-        if ( a2 == 9 )
+        if ( uKey == 9 )
           return 1;
-        if ( a2 == 13 )
+        if ( uKey == 13 )
           goto LABEL_3;
-        if ( a2 == 27 )
+        if ( uKey == 27 )
           goto LABEL_15;
-        if ( (signed int)*(_BYTE *)(this + 513) >= *(_DWORD *)(this + 252) )
-          return 1;
-        *(&byte_69AF00 + (unsigned __int8)byte_69B001++) = a2;
+        if (_this->uNumKeysPressed >= _this->dword_0000FC)
+          return true;
+        _this->pPressedKeysBuffer[_this->uNumKeysPressed++] = uKey;
 LABEL_24:
-        *(&byte_69AF00 + (unsigned __int8)byte_69B001) = 0;
-        return 1;
+        _this->pPressedKeysBuffer[_this->uNumKeysPressed] = 0;
+        return true;
       }
     }
     else
     {
       if ( dword_69B004 != 2 )
         return 0;
-      if ( a2 != 8 )
+      if ( uKey != 8 )
       {
-        if ( a2 == 13 )
+        if ( uKey == 13 )
           goto LABEL_3;
-        if ( a2 != 27 )
+        if ( uKey != 27 )
         {
-          if ( a2 >= 48 )
+          if ( uKey >= 48 )
           {
-            if ( a2 <= 57 )
+            if ( uKey <= 57 )
             {
-              if ( (signed int)(unsigned __int8)byte_69B001 < *(_DWORD *)(this + 252) )
-                *(&byte_69AF00 + (unsigned __int8)byte_69B001++) = a2;
+              if ( (signed int)(unsigned __int8)_this->uNumKeysPressed < _this->dword_0000FC)
+                _this->pPressedKeysBuffer[_this->uNumKeysPressed++] = uKey;
             }
           }
-          return 1;
+          return true;
         }
 LABEL_15:
         v3 = 3;
         goto LABEL_4;
       }
     }
-    if ( !byte_69B001 )
-      return 1;
-    --byte_69B001;
+    if (!_this->uNumKeysPressed)
+      return true;
+    --_this->uNumKeysPressed;
     goto LABEL_24;
   }
-  *(&byte_69AF00 + (unsigned __int8)byte_69B001++) = a2;
-  *(&byte_69AF00 + (unsigned __int8)byte_69B001) = 0;
+ _this->pPressedKeysBuffer[_this->uNumKeysPressed++] = uKey;
+ _this->pPressedKeysBuffer[_this->uNumKeysPressed] = 0;
+
 LABEL_3:
   v3 = 2;
+
 LABEL_4:
-  sub_459ED1(&dword_69AE00, v3);
-  return 1;
+ sub_459ED1(_this, v3);
+ return true;
 }
 
 //----- (004BE70E) --------------------------------------------------------
@@ -3178,7 +3183,7 @@ LABEL_216:
         if ( !dword_720010 )
         {
 LABEL_227:
-          sub_41CD4F(VK_SELECT);
+          sub_41CD4F_OnKeyDown(VK_SELECT);
 LABEL_228:
           if (!dword_720010)
             class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, lParam >> 16);
@@ -3303,7 +3308,7 @@ LABEL_261:
     {
       if ( Msg == WM_KEYUP )
       {
-        if ( wParam == 17 )
+        if ( wParam == VK_CONTROL )
         {
           dword_507B98 = 0;
           return DefWindowProcA(hWnd, Msg, wParam, v5);
@@ -3311,7 +3316,7 @@ LABEL_261:
         goto LABEL_184;
       }
       if ( Msg == WM_CHAR )
-        sub_459F10((int)&dword_69AE00, wParam);
+        sub_459F10(pKeyboardController, wParam);
       if ( Msg != WM_COMMAND )
         goto LABEL_184;
       if ( wParam != 101 )
@@ -3340,19 +3345,19 @@ LABEL_104:
       return 0;
     }
     if ( dword_506E68 != -1 )
-      sub_459F10((int)&dword_69AE00, wParam);
+      sub_459F10(pKeyboardController, wParam);
     if ( !struct_505898.byte_505992 )
     {
       if ( pVideoPlayer->dword_000024 )
         pVideoPlayer->dword_00006C = 1;
-      if ( wParam != 13 )
+      if (wParam != VK_RETURN)
       {
-        if ( wParam == 17 )
+        if (wParam == VK_CONTROL)
         {
           dword_507B98 = 1;
           return 0;
         }
-        if ( wParam == 27 )
+        if (wParam == VK_ESCAPE)
         {
           if ( dword_50CBD0[0] < 40 )
           {
@@ -3363,9 +3368,9 @@ LABEL_104:
           }
           return 0;
         }
-        if ( (unsigned int)wParam <= 0x24 )
+        if ( (unsigned int)wParam <= VK_HOME)
           return 0;
-        if ( (unsigned int)wParam > 0x28 )
+        if ( (unsigned int)wParam > VK_DOWN)
         {
           if ( wParam != 115 || CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
             return 0;
@@ -3380,7 +3385,7 @@ LABEL_124:
           return 0;
       }
       if ( !struct_576FE8.dword_00004C )
-        sub_41CD4F(wParam);
+        sub_41CD4F_OnKeyDown(wParam);
       return 0;
     }
     struct_505898.dword_5058A0 = 1;
@@ -13851,22 +13856,18 @@ char *__fastcall sub_452C30(char *pStr)
 
 
 //----- (00459ED1) --------------------------------------------------------
-void __thiscall sub_459ED1(void *this, int a2)
+void __thiscall sub_459ED1(struct KeyboardController *_this, int a2)
 {
-  void *v2; // esi@1
-  int v3; // esi@4
-
-  v2 = this;
- if ((char)pGame->class14_obj->dword_000004)
+ if (pGame->class14_obj->dword_000004)
  {
   if (dword_69B00C)
     Keyboard_resume(dword_69B00C);
  }
 
- *((_DWORD *)v2 + 129) = 0;
- v3 = *((_DWORD *)v2 + 130);
- if (v3)
-   *(_DWORD *)(v3 + 64) = a2;
+ _this->dword_000204 = 0;
+
+ if (_this->ptr_000208)
+   _this->ptr_000208[16] = a2;
 }
 
 //----- (004C2EA0) --------------------------------------------------------
@@ -14648,24 +14649,24 @@ void PlayerCreationUI_Draw()
         else
         {
           pGUIWindow_CurrentMenu->dword_000040 = 0;
-          v129 = strlen(&byte_69AF00);
+          v129 = strlen(pKeyboardController->pPressedKeysBuffer);
           v135 = 0;
           v142 = 0;
-          if ( strlen(&byte_69AF00) )
+          if ( strlen(pKeyboardController->pPressedKeysBuffer) )
           {
             do
             {
-              if ( *(&byte_69AF00 + v142) == 32 )
+              if (pKeyboardController->pPressedKeysBuffer[v142] == 32 )
                 ++v135;
               ++v142;
-              v17 = strlen(&byte_69AF00);
+              v17 = strlen(pKeyboardController->pPressedKeysBuffer);
             }
             while ( v142 < v17 );
           }
           if ( v129 )
           {
             if ( v135 != v129 )
-              strcpy(Str, &byte_69AF00);
+              strcpy(Str, pKeyboardController->pPressedKeysBuffer);
           }
           sub_44CB4F(pGUIWindow_CurrentMenu, pFontCreate, v143, 124, 0, Str, 130, 0);
           *((_WORD *)Str + 3323) = 1;
@@ -14673,7 +14674,7 @@ void PlayerCreationUI_Draw()
       }
       else
       {
-        v18 = sub_44CB4F(pGUIWindow_CurrentMenu, pFontCreate, 159 * v13 + 18, 124, 0, &byte_69AF00, 120, 1);
+        v18 = sub_44CB4F(pGUIWindow_CurrentMenu, pFontCreate, 159 * v13 + 18, 124, 0, pKeyboardController->pPressedKeysBuffer, 120, 1);
         sub_459C2B(pGUIWindow_CurrentMenu, 159 * *(_DWORD *)(pGUIWindow_CurrentMenu + 28) + v18 + 20, 124, pFontCreate);
       }
     }

@@ -32,9 +32,9 @@ void __fastcall sub_481212(int a1, int a2, int a3)
   int v6; // ST10_4@1
   int v7; // ebx@2
   int v8; // eax@2
-  struct struct14 *v10; // edi@3
-  struct struct14 *v11; // ecx@4
-  struct struct14 *v12; // ebx@4
+  struct RenderVertex *v10; // edi@3
+  struct RenderVertex *v11; // ecx@4
+  struct RenderVertex *v12; // ebx@4
   struct struct8 *v16; // ebx@12
   __int16 v17; // ax@12
   int v18; // eax@13
@@ -53,7 +53,6 @@ void __fastcall sub_481212(int a1, int a2, int a3)
   signed int v35; // eax@39
   int v36; // esi@40
   struct struct8 *v37; // ebx@43
-  __int16 v38; // ax@43
   int v39; // eax@44
   int v40; // eax@44
   int v41; // ecx@44
@@ -70,7 +69,6 @@ void __fastcall sub_481212(int a1, int a2, int a3)
   int v53; // esi@66
   int v54; // eax@69
   signed int v55; // esi@71
-  __int16 v56; // ax@75
   int v57; // eax@76
   int v58; // eax@76
   struct Normal *pNormal; // eax@77
@@ -108,7 +106,7 @@ void __fastcall sub_481212(int a1, int a2, int a3)
   float v100; // [sp+9Ch] [bp-1Ch]@6
   int v101; // [sp+A0h] [bp-18h]@6
   int v102; // [sp+A4h] [bp-14h]@6
-  struct struct14 *v105; // [sp+B0h] [bp-8h]@6
+  struct RenderVertex *v105; // [sp+B0h] [bp-8h]@6
   float v107; // [sp+C0h] [bp+8h]@6
   float v108; // [sp+C0h] [bp+8h]@6
 
@@ -172,8 +170,8 @@ void __fastcall sub_481212(int a1, int a2, int a3)
         break;
 
       v16 = &array_77EC08[pStruct9_global->dword_00002C];
-      v17 = class51_sub_488EEF_GetSomeTileInfo(pClass51_global, v102, v101);
-      array_77EC08[pStruct9_global->dword_00002C].word_00004C = v17;
+      v17 = class51_GetTileTexture(pClass51_global, v102, v101);
+      array_77EC08[pStruct9_global->dword_00002C].uTextureID = v17;
       if ( v17 != -1 )
       {
         v20 = LODWORD(v100);
@@ -182,7 +180,7 @@ void __fastcall sub_481212(int a1, int a2, int a3)
         array_77EC08[pStruct9_global->dword_00002C].byte_00005C = v95;
         array_77EC08[pStruct9_global->dword_00002C].byte_00005D = v20;
         array_77EC08[pStruct9_global->dword_00002C].dword_000034 = *(_WORD *)(v93 + 2);
-        v18 = (unsigned __int16)word_75D514[2 * (v20 + (v95 * 128)) + 1];
+        v18 = (unsigned __int16)uTerrainNormalIndices[2 * (v20 + (v95 * 128)) + 1];
         if (v18 < 0 || v18 > uNumTerrainNormals - 1)
           pNormal = 0;
         else
@@ -207,25 +205,25 @@ void __fastcall sub_481212(int a1, int a2, int a3)
           goto LABEL_104;
 
         v25 = 1.0 / (v10->flt_00000C + 0.0000001000000011686097);
-        memcpy(&array_50AC10[0], v10, sizeof(struct struct14));
+        memcpy(&array_50AC10[0], v10, sizeof(struct RenderVertex));
         array_50AC10[0].flt_000020 = v25;
         array_50AC10[0].u = 0.0;
         array_50AC10[0].v = 0.0;
 
         v26 = v12->flt_00000C + 0.0000001000000011686097;
-        memcpy(&array_50AC10[1], v12, sizeof(struct struct14));
+        memcpy(&array_50AC10[1], v12, sizeof(struct RenderVertex));
         array_50AC10[1].flt_000020 = 1.0 / v26;
         array_50AC10[1].u = 0.0;
         array_50AC10[1].v = 1.0;
 
         v27 = v105->flt_00000C + 0.0000001000000011686097;
-        memcpy(&array_50AC10[2], v105, sizeof(struct struct14));
+        memcpy(&array_50AC10[2], v105, sizeof(struct RenderVertex));
         array_50AC10[2].flt_000020 = 1.0 / v27;
         array_50AC10[2].u = 1.0;
         array_50AC10[2].v = 1.0;
 
         v28 = v11->flt_00000C + 0.0000001000000011686097;
-        memcpy(&array_50AC10[3], v11, sizeof(struct struct14));
+        memcpy(&array_50AC10[3], v11, sizeof(struct RenderVertex));
         array_50AC10[3].flt_000020 = 1.0 / v28;
         array_50AC10[3].u = 1.0;
         array_50AC10[3].v = 0.0;
@@ -290,9 +288,8 @@ LABEL_105:
         return;
     }
     v37 = &array_77EC08[pStruct9_global->dword_00002C];
-    v38 = class51_sub_488EEF_GetSomeTileInfo(pClass51_global, v102, v101);
-    array_77EC08[pStruct9_global->dword_00002C].word_00004C = v38;
-    if ( v38 == -1 )
+    array_77EC08[pStruct9_global->dword_00002C].uTextureID = class51_GetTileTexture(pClass51_global, v102, v101);
+    if (array_77EC08[pStruct9_global->dword_00002C].uTextureID == -1)
       goto LABEL_105;
     v40 = 0x80 | class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v102, v101);
 
@@ -306,7 +303,7 @@ LABEL_105:
     v37->byte_00005C = v95;
     v44 = 4 * (v41 + (v43 << 7));
     LODWORD(v94) = v44;
-    v39 = *(unsigned __int16 *)((char *)word_75D514 + v44 + 2);
+    v39 = *(unsigned __int16 *)((char *)uTerrainNormalIndices + v44 + 2);
     if ( v39 < 0 || v39 > uNumTerrainNormals - 1 )
       pNormal = 0;
     else
@@ -335,19 +332,19 @@ LABEL_105:
       goto LABEL_74;
 
     v47 = 1.0 / (v10->flt_00000C + 0.0000001000000011686097);
-    memcpy(&array_50AC10[0], v10, sizeof(struct struct14));
+    memcpy(&array_50AC10[0], v10, sizeof(struct RenderVertex));
     array_50AC10[0].flt_000020 = v47;
     array_50AC10[0].u = 0.0;
     array_50AC10[0].v = 0.0;
 
     v48 = v12->flt_00000C + 0.0000001000000011686097;
-    memcpy(&array_50AC10[1], v12, sizeof(struct struct14));
+    memcpy(&array_50AC10[1], v12, sizeof(struct RenderVertex));
     array_50AC10[1].flt_000020 = 1.0 / v48;
     array_50AC10[1].u = 0.0;
     array_50AC10[1].v = 1.0;
 
     v49 = v105->flt_00000C + 0.0000001000000011686097;
-    memcpy(&array_50AC10[2], v105, sizeof(struct struct14));
+    memcpy(&array_50AC10[2], v105, sizeof(struct RenderVertex));
     array_50AC10[2].flt_000020 = 1.0 / v49;
     array_50AC10[2].u = 1.0;
     array_50AC10[2].v = 1.0;
@@ -381,9 +378,8 @@ LABEL_68:
           sub_481DB2(array_508690, v53, v37);
 LABEL_75:
           v16 = &array_77EC08[pStruct9_global->dword_00002C];
-          v56 = class51_sub_488EEF_GetSomeTileInfo(pClass51_global, v102, v101);
-          v16->word_00004C = v56;
-          if ( v56 == -1 )
+          v16->uTextureID = class51_GetTileTexture(pClass51_global, v102, v101);
+          if (v16->uTextureID == -1)
             goto LABEL_105;
           v16->word_000030 = class51_sub_488EB1_GetSomeOtherTileInfo(pClass51_global, v102, v101);
           v16->word_000032 = 0;
@@ -392,7 +388,7 @@ LABEL_75:
           v16->dword_000034 = *(_WORD *)(v58 + 2);
           v16->byte_00005C = v95;
           v16->byte_00005D = LOBYTE(v100);
-          v57 = *(unsigned __int16 *)((char *)word_75D514 + LODWORD(v94));
+          v57 = *(unsigned __int16 *)((char *)uTerrainNormalIndices + LODWORD(v94));
           if ( v57 > uNumTerrainNormals - 1 )
              pNormal = 0;
           else
@@ -424,19 +420,19 @@ LABEL_104:
           }
 
           v61 = 1.0 / (v10->flt_00000C + 0.0000001000000011686097);
-          memcpy(&array_50AC10[0], v10, sizeof(struct struct14));
+          memcpy(&array_50AC10[0], v10, sizeof(struct RenderVertex));
           array_50AC10[0].flt_000020 = v61;
           array_50AC10[0].u = 0.0;
           array_50AC10[0].v = 0.0;
 
           v62 = v105->flt_00000C + 0.0000001000000011686097;
-          memcpy(&array_50AC10[1], v105, sizeof(struct struct14));
+          memcpy(&array_50AC10[1], v105, sizeof(struct RenderVertex));
           array_50AC10[1].flt_000020 = 1.0 / v62;
           array_50AC10[1].u = 1.0;
           array_50AC10[1].v = 1.0;
 
           v63 = v11->flt_00000C + 0.0000001000000011686097;
-          memcpy(&array_50AC10[2], v11, sizeof(struct struct14));
+          memcpy(&array_50AC10[2], v11, sizeof(struct RenderVertex));
           array_50AC10[2].flt_000020 = 1.0 / v63;
           array_50AC10[2].u = 1.0;
           array_50AC10[2].v = 0.0;
@@ -6837,7 +6833,7 @@ void __fastcall sub_481E55(int a1)
     {
       v6 = v5 * array_507D30[v1 / 48].flt_000020;
       v7 = v6 * array_507D30[v1 / 48].flt_000010;
-      memcpy(&array_50AC10[v1 / 48], &array_507D30[v1 / 48], sizeof(struct struct14));
+      memcpy(&array_50AC10[v1 / 48], &array_507D30[v1 / 48], sizeof(struct RenderVertex));
       array_50AC10[v1 / 48].flt_000018 = v4 - v7;
       array_50AC10[v1 / 48].flt_00001C = v3 - v6 * array_507D30[v1 / 48].flt_000014;
       v1 += 48;
@@ -7898,7 +7894,7 @@ void UI_Initialize_Icons()
  GUIButtonCreate(pGUIWindow0, 443, 404, 5, 49, 1, 93, 0, 4, 0, "", 0);
 
  uTextureIdx_ib_td1_A = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-td1-A");
- v11 = sub_459C82(&dword_69AE00, 13);
+ v11 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, 13);
  dword_507A10 = GUIButtonCreate(pGUIWindow0,
                    491,
                    353,
@@ -7915,7 +7911,7 @@ void UI_Initialize_Icons()
 
 
   uTextureIdx_ib_td2_A = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-td2-A");
-  v16 = sub_459C82(&dword_69AE00, 17);
+  v16 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, 17);
   dword_507A0C = GUIButtonCreate(pGUIWindow0,
                    527,
                    353,
@@ -7932,7 +7928,7 @@ void UI_Initialize_Icons()
 
 
   v17 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-td3-A");
-  v21 = sub_459C82(&dword_69AE00, 18);
+  v21 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, 18);
   dword_507A08 = GUIButtonCreate(pGUIWindow0,
                    546,
                    353,
@@ -7949,7 +7945,7 @@ void UI_Initialize_Icons()
 
 
   v22 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-td4-A");
-  v26 = sub_459C82(&dword_69AE00, 16);
+  v26 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, 16);
   dword_507A04 = GUIButtonCreate(pGUIWindow0,
                    570,
                    353,
@@ -7984,7 +7980,7 @@ void UI_Initialize_Icons()
   byte_507948 = 0;
   byte_507949 = 0;
   byte_50794A = 0;
-  v31 = sub_459C82(&dword_69AE00, 23);
+  v31 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, 23);
   dword_507A18 = GUIButtonCreate(pGUIWindow0,
                    574,
                    136,
@@ -8000,7 +7996,7 @@ void UI_Initialize_Icons()
 
 
 
-  v36 = sub_459C82(&dword_69AE00, 24);
+  v36 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, 24);
   dword_507A14 = GUIButtonCreate(pGUIWindow0,
                    519,
                    136,
@@ -8112,7 +8108,7 @@ void UI_Initialize_Icons()
 }
 
 //----- (00486B4E) --------------------------------------------------------
-void __fastcall sub_486B4E(struct struct14 *a1, int *a2, int *a3, struct struct8 *a4)
+void __fastcall sub_486B4E(struct RenderVertex *a1, int *a2, int *a3, struct struct8 *a4)
 {
  int v0;
   float v4;
@@ -9005,9 +9001,9 @@ LABEL_68:
 }
 
 //----- (00459C82) --------------------------------------------------------
-int sub_459C82(int *_this, int a2)
+int KeyboardController_sub_459C82_LooksLikeBindKey(struct KeyboardController *_this, unsigned int uKey)
 {
-  return _this[a2 + 3];
+  return _this->array_00000C_vkeys[uKey];
 }
 
 //----- (00464866) --------------------------------------------------------

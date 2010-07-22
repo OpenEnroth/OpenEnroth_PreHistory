@@ -7117,18 +7117,15 @@ LABEL_119:
 
 
 //----- (00459E3F) --------------------------------------------------------
-SHORT __cdecl sub_459E3F()
+int __cdecl sub_459E3F()
 {
-  int *v0; // esi@1
-  SHORT result; // ax@2
+ int i;
+ int result;
 
-  v0 = vKey;
-  do
-  {
-    result = GetAsyncKeyState(*v0++);
-  }
-  while ( (signed int)v0 < vKey + 30);
-  return result;
+ for (i = 0; i < 30; ++i)
+   result = GetAsyncKeyState(pKeyboardController->array_00000C_vkeys[i]);
+
+ return result;
 }
 
 //----- (00426363) --------------------------------------------------------
@@ -7986,7 +7983,7 @@ int class59_SinCos(struct class59 *_this, int a2)
 
 
 //----- (00436BB7) --------------------------------------------------------
-void class08_sub_436BB7(struct class08 *_this, struct struct14 *a2, int a3, char a4)
+void class08_sub_436BB7(struct class08 *_this, struct RenderVertex *a2, int a3, char a4)
 {
   double v7; // st7@7
   double v8; // st7@9
