@@ -13518,7 +13518,6 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
   int v4; // esi@1
   int v5; // ebx@2
   int v6; // eax@2
-  int v7; // eax@3
   int v8; // edi@3
   char *v9; // ecx@4
   char *v10; // ebx@4
@@ -13581,8 +13580,6 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
   int v71; // eax@150
   int v72; // eax@154
   int v73; // eax@158
-  unsigned __int8 v74; // sf@162
-  unsigned __int8 v75; // of@162
   int v76; // [sp-10h] [bp-E0h]@61
   int v77; // [sp-Ch] [bp-DCh]@61
   int v78; // [sp-8h] [bp-D8h]@61
@@ -13645,28 +13642,27 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
       v5 = abs(X);
       v6 = abs(v83);
       --X;
-      v93 = 4 * ((v5 << 7) + v6) + 7792072;
+      v93 = 4 * ((v5 << 7) + v6) + byte_76E5C8;
 
 
       if ( !byte_76E5C8[4 * ((v5 << 7) + v6)])
         goto LABEL_162;
 
-      v7 = 48 * v3;
-      v8 = (int)((char *)&array_806210[0] + 48 * v3);
+      v8 = &array_806210[v3];
       v102 = v8;
       if (!v82)
       {
-       v10 = (char *)&array_801A10[0] + v7;
-       v9 = (char *)&array_806210[1] + v7;
+       v10 = &array_801A10[v3];
+       v9 = &array_806210[v3 + 1];
       }
       else
       {
-       v10 = (char *)&array_806210[1] + v7;
-       v9 = (char *)&array_801A10[0] + v7;
+       v10 = &array_806210[v3 + 1];
+       v9 = &array_801A10[v3];
       }
 
       v107 = (int)v10;
-      v106 = (int)((char *)&array_801A10[1] + v7);
+      v106 = &array_801A10[v3 + 1];
       LODWORD(v11) = *(_DWORD *)v8;
       v104 = (int)v9;
       v98 = floorf(v11 + 0.5f);
@@ -13747,14 +13743,14 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
         {
           byte_76D5C0 |= 1u;
           sub_49B001(&unk_76D5A8);
-          compile_error;//atexit(loc_481199);
+          runtime_warning();//atexit(loc_481199);
         }
         v31 = array_50AC10;
         v97 = pGame->class04_obj;
-        compile_error;//sub_45D036(SLODWORD(v105), (int)&v95, COERCE_FLOAT(&unk_50AC10), COERCE_FLOAT(4), 1);
+        sub_45D036(SLODWORD(v105), (int)&v95, array_50AC10, 4, 1);
         sub_49BE8A(pClass58_global, v15, v105, (int)&v95, array_50AC10, 4, 1);
         v103 = 4;
-        if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3616) & 0x80 )
+        if ( byte_4D8410[572] && pGame->uSomeFlags & 0x80)
         {
           v112 = pGame->class08_obj;
           if ( sub_4371C3(pGame->class08_obj, array_50AC10, (int)&v103, 0) == 1 && !v103 )
@@ -13838,9 +13834,9 @@ LABEL_56:
       }
 LABEL_162:
       v3 = v88 + 1;
-      compile_error;//v75 = __SETO__(v88 + 1, v84);
-      v74 = v88++ + 1 - v84 < 0;
-      if ( !(v74 ^ v75) )
+      //v75 = __SETO__(v88 + 1, v84);
+      //v74 = v88++ + 1 - v84 < 0;
+      if (++v88 >= v84)
         return;
     }
     v39 = &array_77EC08[pStruct9_global->dword_00002C];
@@ -13900,10 +13896,10 @@ LABEL_162:
     {
       byte_76D5C0 |= 2;
       sub_49B001(&unk_76D590);
-      compile_error;//atexit(loc_48118F);
+      runtime_warning();//atexit(loc_48118F);
     }
     v96 = pGame->class04_obj;
-    compile_error;//sub_45D036(SLODWORD(v105), (int)&v86, COERCE_FLOAT(&unk_50AC10), COERCE_FLOAT(3), 0);
+    sub_45D036(SLODWORD(v105), (int)&v86, array_50AC10, 3, 0);
     sub_49BE8A(pClass58_global, v39, v105, (int)&v86, array_50AC10, 3, 0);
     v99 = 3;
     if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3616) & 0x80 )
@@ -14043,10 +14039,10 @@ LABEL_126:
     {
       byte_76D5C0 |= 4u;
       sub_49B001(&unk_76D578);
-      compile_error;//atexit(loc_481185);
+      runtime_warning();//atexit(loc_481185);
     }
     v96 = pGame->class04_obj;
-    compile_error;//sub_45D036(SLODWORD(v105), (int)&v87, COERCE_FLOAT(&unk_50AC10), COERCE_FLOAT(3), 1);
+    sub_45D036(SLODWORD(v105), (int)&v87, array_50AC10, 3, 1);
     sub_49BE8A(pClass58_global, v39, v105, (int)&v87, array_50AC10, 3, 1);
     v100 = 3;
     if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3616) & 0x80 )
