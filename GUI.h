@@ -214,7 +214,9 @@ void GameUI_DrawLifeManaBars();
 void GameUI_Update();
 void GameUI_Process();
 void GameUI_OnPlayerPortraitLeftClick(unsigned int uCharacterCLicked);
-int GameUI_DrawPaperdoll();
+int GameUI_LoadPaperdollTextures();
+void __fastcall GameUI_DrawPaperdoll(int a1);
+void __fastcall GameUI_DrawPaperdoll2(int a1);
 
 extern unsigned int uTextureID_GameUI_StatusBar;
 extern unsigned int uTextureID_GameUI_ViewportTop;

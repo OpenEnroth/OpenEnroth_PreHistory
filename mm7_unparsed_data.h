@@ -1060,23 +1060,7 @@ extern char byte_51117E[array_size_unknown]; // weak
 extern char byte_5111B8[array_size_unknown]; // weak
 extern char byte_5111B9[array_size_unknown]; // weak
 extern char byte_5111C0[array_size_unknown]; // weak
-extern char byte_5111F6[array_size_unknown]; // weak
-extern char byte_5111F7; // weak
-extern char byte_5111F8; // weak
-extern char byte_5111F9; // weak
-extern char byte_5111FA; // weak
-extern char byte_5111FB; // weak
-extern char byte_5111FC; // weak
-extern char byte_5111FD; // weak
-extern char byte_5111FE; // weak
-extern char byte_5111FF; // weak
-extern char byte_511200; // weak
-extern char byte_511201; // weak
-extern char byte_511202; // weak
-extern char byte_511203; // weak
-extern char byte_511204; // weak
-extern char byte_511205; // weak
-extern char byte_511206; // weak
+extern char byte_5111F6[17]; 
 extern int dword_511208[array_size_unknown]; // weak
 extern int dword_51120C; // weak
 extern unsigned int uTextureID_ButtExit1; // weak
@@ -1103,10 +1087,10 @@ extern int dword_5115E0[array_size_unknown]; // weak
 extern int dword_511638[array_size_unknown]; // weak
 extern int dword_51164C[array_size_unknown]; // weak
 extern int dword_511698[array_size_unknown]; // weak
-extern _UNKNOWN unk_5116C4; // weak
+extern int dword_5116C4[41];
 extern int dword_511718[array_size_unknown]; // weak
-extern _UNKNOWN unk_51172C; // weak
-extern _UNKNOWN unk_511730; // weak
+//extern _UNKNOWN unk_51172C; // weak
+//extern _UNKNOWN unk_511730; // weak
 extern int dword_511788[array_size_unknown]; // weak
 extern int dword_51179C; // weak
 extern int dword_5117A0; // weak

@@ -10322,7 +10322,7 @@ LABEL_110:
                 Render_ClearZBuffer(pD3DRenderer, 0, 479);
                 sub_41A556();
                 GameUI_DrawInventory(uActiveCharacter, 1);
-                sub_43CC7C(uActiveCharacter);
+                GameUI_DrawPaperdoll(uActiveCharacter);
                 Render_DrawTransparentTexture(
                   pD3DRenderer,
                   *(_DWORD *)dword_5076F4,
@@ -12796,9 +12796,9 @@ void __thiscall sub_41ABFD(int a1)
     Render_DrawIndexedTexture(pD3DRenderer, *(_DWORD *)v2, *(_DWORD *)(v2 + 4), v3);
 LABEL_13:
     if ( dword_5118E0 )
-      sub_43E825(v1);
+      GameUI_DrawPaperdoll2(v1);
     else
-      sub_43CC7C(v1);
+      GameUI_DrawPaperdoll(v1);
   }
 }
 
@@ -16577,7 +16577,7 @@ int __thiscall sub_4219BE(void *this)
   class24_fn1(pClass24_global);
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
   dword_5118E0 = 0;
-  GameUI_DrawPaperdoll();
+  GameUI_LoadPaperdollTextures();
   dword_4E28F8 = 23;
   v3 = GUIWindowCreate(0, 0, 640, 480, 31, v2, 0);
   dword_50767C = GUIButtonCreate(

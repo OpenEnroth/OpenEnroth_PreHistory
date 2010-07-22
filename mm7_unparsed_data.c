@@ -1090,23 +1090,7 @@ struct unnamed_50C0C8 struct_50C0C8;
  char byte_5111B8[array_size_unknown]; // weak
  char byte_5111B9[array_size_unknown]; // weak
  char byte_5111C0[array_size_unknown]; // weak
- char byte_5111F6[array_size_unknown]; // weak
- char byte_5111F7; // weak
- char byte_5111F8; // weak
- char byte_5111F9; // weak
- char byte_5111FA; // weak
- char byte_5111FB; // weak
- char byte_5111FC; // weak
- char byte_5111FD; // weak
- char byte_5111FE; // weak
- char byte_5111FF; // weak
- char byte_511200; // weak
- char byte_511201; // weak
- char byte_511202; // weak
- char byte_511203; // weak
- char byte_511204; // weak
- char byte_511205; // weak
- char byte_511206; // weak
+ char byte_5111F6[17]; 
  int dword_511208[array_size_unknown]; // weak
  int dword_51120C; // weak
 unsigned int uTextureID_ButtExit1; // dword @ MM7.exe::00511210
@@ -1133,10 +1117,10 @@ unsigned int uTextureID_ButtExit1; // dword @ MM7.exe::00511210
  int dword_511638[array_size_unknown]; // weak
  int dword_51164C[array_size_unknown]; // weak
  int dword_511698[array_size_unknown]; // weak
- _UNKNOWN unk_5116C4; // weak
+ int dword_5116C4[41]; 
  int dword_511718[array_size_unknown]; // weak
- _UNKNOWN unk_51172C; // weak
- _UNKNOWN unk_511730; // weak
+ //_UNKNOWN unk_51172C; // weak
+ //_UNKNOWN unk_511730; // weak
  int dword_511788[array_size_unknown]; // weak
  int dword_51179C; // weak
  int dword_5117A0; // weak

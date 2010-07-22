@@ -415,8 +415,6 @@ int __thiscall sub_43BB18(int this);
 char __thiscall sub_43BB89(int this);
 signed int __stdcall sub_43BC61(int a1, int a2);
 int __fastcall sub_43C91D(int a1, signed int a2, int a3, int a4);
-void __fastcall sub_43CC7C(int a1);
-void __fastcall sub_43E825(int a1);
 char __thiscall sub_43ED6F(void *this);
 char __thiscall sub_43EDB9(void *this);
 bool __fastcall sub_43EE15(int a1, struct Player *pp, char a3);
