@@ -15685,13 +15685,13 @@ void sub_47A384(const char *pLevelFilename, void *a2)
   strcpy(pClass51_global->string_000000, Source);
   sub_4C2EA0(&struct_6BD080);
 
-  pCamera->sRotationX = pParty_global->sRotationX;
-  pCamera->sRotationY = pParty_global->sRotationY;
+  pOldCamera->sRotationX = pParty_global->sRotationX;
+  pOldCamera->sRotationY = pParty_global->sRotationY;
 
   struct9_sub_47A59E_ComputeSinCos(pStruct9_global);
   sub_4892E6(pClass51_global);
-  pStruct9_global->dword_000014 = pCamera->flt_00001C;
-  pStruct9_global->dword_000018 = pCamera->flt_000020;
+  pStruct9_global->dword_000014 = pOldCamera->flt_00001C;
+  pStruct9_global->dword_000018 = pOldCamera->flt_000020;
 
  pClass57_global = malloc(sizeof(struct class57));
  memset(pClass57_global, 0, sizeof(struct class57));

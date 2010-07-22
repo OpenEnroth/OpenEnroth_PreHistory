@@ -1628,9 +1628,9 @@ bool sub_482170(struct class51_stru2 *_this, struct RenderVertex *a2, struct str
   v23 = v6->flt_000014 - a2->flt_000014;
  }
 
- if ((pCamera->dword_000000 - a2->x) * v26 +
-     (pCamera->dword_000008 - a2->y) * v25 +
-     (pCamera->dword_000004 - a2->z) * v24 > 0.0)
+ if ((pOldCamera->dword_000000 - a2->x) * v26 +
+     (pOldCamera->dword_000008 - a2->y) * v25 +
+     (pOldCamera->dword_000004 - a2->z) * v24 > 0.0)
  {
   v30 = v23 * v18 - v22 * v20;
   a3->dword_000018 = floorf(v30 + 0.5f);

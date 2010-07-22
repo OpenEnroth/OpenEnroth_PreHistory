@@ -138,7 +138,10 @@ int Party_Reset(struct Party *_this)
 
  memset(&_this->qword_00002C, 0, sizeof(struct Party) - 0x2C);
 
+ 
  _this->uEyelevel = 160;
+ _this->pCamera = CreateCamera();
+ Camera_SetProjection(_this->pCamera, 3.14159f * 0.361 /*65 deg*/, 640.0 / 480.0, 0.01, 100);
 
   _this->byte_000708 = 15;
 

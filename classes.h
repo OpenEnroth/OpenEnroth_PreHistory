@@ -1478,14 +1478,14 @@ bool struct8_sub_479295(struct struct8 *_this);
 
 
 //struct class55
-struct Camera
+struct OldCamera
 {
  signed int   dword_000000;
  signed int   dword_000004;
  signed int   dword_000008;
  unsigned int uMapGridCellX;    // dword @ 00000C  coordinates on map grid (height and tile maps etc)
  int          uMapGridCellZ;    // dword @ 000010
- signed int   sRotationX;       // dword @ 000014    dword @ 0006C4 in Player    camera euler angles
+ signed int   sRotationX;       // dword @ 000014    dword @ 0006C4 in Player    OldCamera euler angles
  signed int   sRotationY;       // dword @ 000018    dword @ 0006C0 in Player
  float        flt_00001C;       // related to viewport width ang viewing angle, perspective projection parameters
  float        flt_000020;       // inverted 00001C (65536 / [00001C])
@@ -1503,11 +1503,11 @@ struct Camera
 };
 //sizeof == 50
 
-void Camera_ctor(struct Camera *);
+void OldCamera_ctor(struct OldCamera *);
 //void sub_4239A7(int this);
-void Camera_sub_4239A7(struct Camera *_this);
+void Camera_sub_4239A7(struct OldCamera *_this);
 //signed __int64 __thiscall sub_42394D(void *this, signed int a2, signed int a3, int a4);
-void Camera_SetPerspective(struct Camera *_this, signed int sViewingAngle, signed int sViewportWidth, signed int sViewportHeight);
+void OldCamera_SetPerspective(struct OldCamera *_this, signed int sViewingAngle, signed int sViewportWidth, signed int sViewportHeight);
 
 
 
@@ -1547,7 +1547,7 @@ struct struct9
  int          dword_000010;
  int          dword_000014;
  int          dword_000018;
- int          camera_rotation_y_int_sine;   // dword @ 00001C  integer sine   65536*sin(camera->rot_y)
+ int          camera_rotation_y_int_sine;   // dword @ 00001C  integer sine   65536*sin(OldCamera->rot_y)
  int          camera_rotation_y_int_cosine; // dword @ 000020
  int          camera_rotation_x_int_sine;   // dword @ 000024
  int          camera_rotation_x_int_cosine; // dword @ 000028

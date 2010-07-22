@@ -87,6 +87,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="libpng143\png.c" />
     <ClCompile Include="libpng143\pngerror.c" />
     <ClCompile Include="libpng143\pngget.c" />
@@ -145,6 +146,7 @@
     <ClCompile Include="Smacker.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="legacy dx\d3d.h" />
     <ClInclude Include="legacy dx\d3dcaps.h" />
     <ClInclude Include="legacy dx\d3drm.h" />
@@ -174,6 +176,7 @@
     <ClInclude Include="libpng143\png.h" />
     <ClInclude Include="libpng143\pngconf.h" />
     <ClInclude Include="libpng143\pngpriv.h" />
+    <ClInclude Include="Math\Math.h" />
     <ClInclude Include="mm7_unparsed_data.h" />
     <ClInclude Include="mm7_unparsed_functions.h" />
     <ClInclude Include="NPC.h" />
@@ -193,6 +196,7 @@
     <ClInclude Include="zlib\zlib.h" />
     <ClInclude Include="zlib\zutil.h" />
     <ClInclude Include="_audio.h" />
+    <ClInclude Include="_c_interface.h" />
     <ClInclude Include="_video.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="AIL.h" />
@@ -208,6 +212,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="legacy dx\d3dvec.inl" />
+    <ClInclude Include="Math\Math.inl">
+      <FileType>Document</FileType>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

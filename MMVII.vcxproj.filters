@@ -14,6 +14,9 @@
     <Filter Include="legacy dx">
       <UniqueIdentifier>{2f3132dc-3b18-483c-ac67-848809d0451b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{998d8af0-d002-4b73-ab1a-5797ee240fbf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_audio.c">
@@ -182,6 +185,9 @@
       <Filter>Wight and Wagic</Filter>
     </ClCompile>
     <ClCompile Include="RenderD3D3.c">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
       <Filter>Wight and Wagic</Filter>
     </ClCompile>
   </ItemGroup>
@@ -365,6 +371,18 @@
     </ClInclude>
     <ClInclude Include="legacy dx\strsafe.h">
       <Filter>legacy dx</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Math.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="_c_interface.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Math.inl">
+      <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

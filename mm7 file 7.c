@@ -7748,7 +7748,7 @@ LABEL_71:
           pParty_global->sRotationX = 0;
           pParty_global->sPartyPosX = v6;
           v7 = *((_DWORD *)v5 + 4);
-          pCamera->sRotationY = 0;
+          pOldCamera->sRotationY = 0;
           pParty_global->dword_007778 |= 2;
           pParty_global->sPartyPosY = v7;
           pParty_global->sPartyPosZ = *((_DWORD *)v5 + 5);
@@ -15934,14 +15934,14 @@ int __stdcall sub_4C248E(int a1, float a2, float a3, float a4)
   int v22; // [sp+98h] [bp-8h]@1
   int v23; // [sp+9Ch] [bp-4h]@1
 
-  v5 = pCamera->dword_000004;
-  v6 = pCamera->dword_000000;
-  v20 = pCamera->dword_000000;
-  v19 = pCamera->dword_000004;
-  v23 = pCamera->dword_000008;
-  v7 = pCamera->sRotationY + sub_46A0A1((void *)(signed __int64)*(float *)&a2);
+  v5 = pOldCamera->dword_000004;
+  v6 = pOldCamera->dword_000000;
+  v20 = pOldCamera->dword_000000;
+  v19 = pOldCamera->dword_000004;
+  v23 = pOldCamera->dword_000008;
+  v7 = pOldCamera->sRotationY + sub_46A0A1((void *)(signed __int64)*(float *)&a2);
   v8 = v23;
-  v9 = pCamera->sRotationX + sub_46A0F6((void *)(signed __int64)a3);
+  v9 = pOldCamera->sRotationX + sub_46A0F6((void *)(signed __int64)a3);
   v10 = sub_48B561(a4);
   sub_43AA99(v10, v7, v9, v6, v5, v8, (int)&a2, (int)&v22, (int)&v21);
   result = a1;

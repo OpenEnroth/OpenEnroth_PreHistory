@@ -1057,12 +1057,12 @@ void RenderSky()
   int v51; // [sp+160h] [bp-4h]@7
  int i;
 
- v41 = ((double)pStruct9_global->dword_000014 * pCamera->dword_000008) /
+ v41 = ((double)pStruct9_global->dword_000014 * pOldCamera->dword_000008) /
        ((double)pStruct9_global->dword_000014 + 8192.0) + pViewport->dword_00002C;
 
  v39 =  pViewport->dword_00002C -
-        pStruct9_global->dword_000014 / (pStruct9_global->shading_dist_mist * cos(pCamera->sRotationX * 0.003066406352445483) + 0.0000001000000011686097) *
-        (pStruct9_global->shading_dist_mist * -sin(pCamera->sRotationX * 0.003066406352445483) - pCamera->dword_000008);
+        pStruct9_global->dword_000014 / (pStruct9_global->shading_dist_mist * cos(pOldCamera->sRotationX * 0.003066406352445483) + 0.0000001000000011686097) *
+        (pStruct9_global->shading_dist_mist * -sin(pOldCamera->sRotationX * 0.003066406352445483) - pOldCamera->dword_000008);
   sub_48607B_MessWithStruct8(&local_14, pClass57_global);
   class57_sub_48694B(local_14.ptr_000038);
 
@@ -1071,9 +1071,9 @@ void RenderSky()
   
     v36 = 0;
     local_14.uNumVertices = 4;
-    local_14.dword_000018 = -class59_SinCos(pClass59_global, pCamera->sRotationX - pClass59_global->uNumTableEntries + 16);
+    local_14.dword_000018 = -class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uNumTableEntries + 16);
     local_14.dword_00001C = 0;
-    local_14.dword_000020 = -class59_SinCos(pClass59_global, pCamera->sRotationX + 16);
+    local_14.dword_000020 = -class59_SinCos(pClass59_global, pOldCamera->sRotationX + 16);
     local_14.dword_000024 = 0x2000000;
     local_14.dword_000028 = 224 * pClass24_global2->dword_000024;
     local_14.dword_00002C = 224 * pClass24_global2->dword_000024;
@@ -1158,7 +1158,7 @@ LABEL_12:
       array_50AC10[i].v = (double)v47 / (65536.0 * pLODFile_Bitmaps_LOD->aLODHeaders[pClass51_global->uSkyTextureID].uTextureHeight);
  }*/
         
-    //1.5f * cos(pCamera->sRotationX * 0.003066406352445483)
+    //1.5f * cos(pOldCamera->sRotationX * 0.003066406352445483)
     {
      float t = (GetTickCount() % 96000) / 96000.0f;
 
@@ -1554,6 +1554,6 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
           CheckHRESULT(&a7, v49, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x398u, v7);
         }
       }
-      if (pCamera->dword_00004C & 2 || byte_51B6E4 & 2)
+      if (pOldCamera->dword_00004C & 2 || byte_51B6E4 & 2)
         sub_437A55(pVertices, uNumVertices, 0x00FFFFFF, 0.0);
 }

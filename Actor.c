@@ -746,7 +746,7 @@ void Actor_sub_402F87(unsigned int uActorID, signed int a2, signed int a3)
  pActor->word_00009A = *((_WORD *)v5 + 10);
  pActor->word_0000A0 = 8 * pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[7]].word_000038;
 
-  v7 = sub_45281E(pClass59_global, *(_WORD *)(v3 + 142) - pCamera->dword_000000, *(_WORD *)(v3 + 144) - pCamera->dword_000004);
+  v7 = sub_45281E(pClass59_global, *(_WORD *)(v3 + 142) - pOldCamera->dword_000000, *(_WORD *)(v3 + 144) - pOldCamera->dword_000004);
   LOWORD(v8) = *(_WORD *)(v3 + 154);
   v9 = pClass59_global->dword_001860 + v8 + (pClass59_global->dword_001860 >> 3) - v7;
   if ( BYTE1(v9) & 7 )

@@ -80,6 +80,13 @@ struct RenderVertex
 //sizeof == 30
 
 
+//
+struct Render_Camera
+{
+ int a;
+};
+
+
 struct Render
 {
  unsigned int                 bUseDirect3D;            // dword @ 000000

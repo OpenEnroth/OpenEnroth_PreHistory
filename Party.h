@@ -29,6 +29,10 @@ struct Party
  int           array_00052C[38];
  char          byte_0005C4[2];
  char          byte_0005C6[238];
+
+ runtime_warning(addition)
+ struct Camera *pCamera;
+ runtime_warning(deprication)
  int           sPartyPosX;       // dword @ 0006B4     world coordinates are  x: -32768..  32767
  int           sPartyPosY;       // dword @ 0006B8                            y:  32767.. -32768
  int           sPartyPosZ;       // dword @ 0006BC
@@ -40,6 +44,7 @@ struct Party
  int           sOldRotationY;    // dword @ 0006D4
  int           sOldRotationX;    // dword @ 0006D8
  int           sOldEyelevel;     // dword @ 0006DC
+
  int           dword_0006E0;
  int           dword_0006E4;
  int           dword_0006E8;

@@ -947,7 +947,7 @@ int dword_507AF8; // idb
 
 
 
-struct Camera *pCamera = 0;          // struct     @ MM7.exe::00507CE0
+struct OldCamera *pOldCamera = 0;          // struct     @ MM7.exe::00507CE0
 struct RenderVertex array_507D30[50];    // struct[50] @ MM7.exe::00507D30
 struct RenderVertex array_508690[50];    // struct[50] @ MM7.exe::00508690
 struct RenderVertex array_508FF0[50];    // struct[50] @ MM7.exe::00508FF0

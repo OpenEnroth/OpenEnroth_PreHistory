@@ -2050,7 +2050,7 @@ void __cdecl sub_47AF11()
             v28 = v8;
             v36 = *(_DWORD *)(v8 + 44);
             v38 = *(_WORD *)(v8 + 48) * v0[3];
-            v9 = sub_45281E(pClass59_global, *((_DWORD *)v0 - 6) - pCamera->dword_000000, *((_DWORD *)v0 - 5) - pCamera->dword_000004);
+            v9 = sub_45281E(pClass59_global, *((_DWORD *)v0 - 6) - pOldCamera->dword_000000, *((_DWORD *)v0 - 5) - pOldCamera->dword_000004);
             LOWORD(v10) = *(v0 - 3);
             v4 = v36;
             v5 = ((pClass59_global->dword_001860 + (pClass59_global->dword_001860 >> 3) + v10 - v9) >> 8) & 7;
@@ -2076,14 +2076,14 @@ void __cdecl sub_47AF11()
               LOBYTE(v11) = byte_4E94D3;
               sub_467D88((int)&unk_519AB8, v44, v43, v45, v29, v38, -1, -1, -1, v11);
             }
-            v12 = (v44 - pCamera->dword_000000) << 16;
-            if (pCamera->sRotationX)
+            v12 = (v44 - pOldCamera->dword_000000) << 16;
+            if (pOldCamera->sRotationX)
             {
-              v14 = (v43 - pCamera->dword_000004) << 16;
+              v14 = (v43 - pOldCamera->dword_000004) << 16;
               v30 = ((unsigned __int64)(v12 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) + ((unsigned __int64)(v14 * pStruct9_global->camera_rotation_y_int_sine) >> 16);
               v37 = (unsigned __int64)(v12 * pStruct9_global->camera_rotation_y_int_sine) >> 16;
               v39 = (unsigned __int64)(v14 * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
-              v33 = (v45 - pCamera->dword_000008) << 16;
+              v33 = (v45 - pOldCamera->dword_000008) << 16;
               v15 = (unsigned __int64)(v30 * pStruct9_global->camera_rotation_x_int_cosine) >> 16;
               v16 = (unsigned __int64)(v33 * pStruct9_global->camera_rotation_x_int_sine) >> 16;
               v13 = v16 + v15;
@@ -2098,17 +2098,17 @@ void __cdecl sub_47AF11()
             }
             else
             {
-              v34 = (v43 - pCamera->dword_000004) << 16;
+              v34 = (v43 - pOldCamera->dword_000004) << 16;
               v19 = (unsigned __int64)(v12 * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
               v20 = (unsigned __int64)(v34 * pStruct9_global->camera_rotation_y_int_sine) >> 16;
               v13 = v20 + v19;
               v42 = v20 + v19;
               if ( v20 + v19 >= 262144 && v13 <= pStruct9_global->shading_dist_mist << 16 )
               {
-                v21 = (unsigned __int64)(((v44 - pCamera->dword_000000) << 16) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+                v21 = (unsigned __int64)(((v44 - pOldCamera->dword_000000) << 16) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
                 v18 = ((unsigned __int64)(v34 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v21;
                 v40 = ((unsigned __int64)(v34 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v21;
-                v17 = (v45 - pCamera->dword_000008) << 16;
+                v17 = (v45 - pOldCamera->dword_000008) << 16;
 LABEL_29:
                 v31 = v17;
                 v22 = abs(v18);
@@ -2278,17 +2278,17 @@ bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
 
   v5 = &pClass51_global->pBModels[uModelIdx];
 
-  v4 = pClass51_global->pBModels[uModelIdx].dword_0000AC - pCamera->dword_000000;
-  v3 = pClass51_global->pBModels[uModelIdx].dword_0000B0 - pCamera->dword_000004;
+  v4 = pClass51_global->pBModels[uModelIdx].dword_0000AC - pOldCamera->dword_000000;
+  v3 = pClass51_global->pBModels[uModelIdx].dword_0000B0 - pOldCamera->dword_000004;
 
-  v6 = class59_SinCos(pClass59_global, pCamera->sRotationY);
-  v21 = class59_SinCos(pClass59_global, pCamera->sRotationY - pClass59_global->uNumTableEntries);
-  v18 = class59_SinCos(pClass59_global, pCamera->sRotationX);
-  v16 = class59_SinCos(pClass59_global, pCamera->sRotationX - pClass59_global->uNumTableEntries);
+  v6 = class59_SinCos(pClass59_global, pOldCamera->sRotationY);
+  v21 = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uNumTableEntries);
+  v18 = class59_SinCos(pClass59_global, pOldCamera->sRotationX);
+  v16 = class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uNumTableEntries);
 
   v2 = v6;
   v17 = v4 * v6 + v3 * v21;
-  if (pCamera->sRotationX)
+  if (pOldCamera->sRotationX)
     v17 = (unsigned __int64)(v17) * v18 >> 16;
   v19 = v3 * v2 - v4 * v21;
   v8 = abs(v3);
@@ -4029,15 +4029,20 @@ LABEL_8:
  return v9;
 }
 
+void *pCamera;
+#include "_c_interface.h"
 //----- (004647AB) --------------------------------------------------------
 void InitializeCameraAndViewport()
 {
  Viewport_fn0(pViewport, struct_576FE8.dword_000000, struct_576FE8.dword_000004, struct_576FE8.dword_000008, struct_576FE8.dword_00000C);
  Viewport_fn2(pViewport, (signed __int64)(flt_6BE3A0 * 65536.0));
 
- pCamera = malloc(sizeof(struct Camera));
- Camera_ctor(pCamera);
- Camera_SetPerspective(pCamera, 65, struct_576FE8.dword_000018 - struct_576FE8.dword_000010 + 1, struct_576FE8.dword_00001C - struct_576FE8.dword_000014 + 1);
+ runtime_warning(deprication)
+ {
+  pOldCamera = malloc(sizeof(struct OldCamera));
+  OldCamera_ctor(pOldCamera);
+  OldCamera_SetPerspective(pOldCamera, 65, struct_576FE8.dword_000018 - struct_576FE8.dword_000010 + 1, struct_576FE8.dword_00001C - struct_576FE8.dword_000014 + 1);
+ } 
 
  sub_42F3D6();
  pLODFile_Bitmaps_LOD->dword_011B84 = pLODFile_Bitmaps_LOD->uNumLoadedFiles;

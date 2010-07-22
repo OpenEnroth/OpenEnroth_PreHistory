@@ -672,17 +672,17 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
  if (struct_576FE8.dword_000054)
    v2 = 2;
 
- pCamera->sRotationX = pParty_global->sRotationX;
- pCamera->sRotationY = pParty_global->sRotationY;
+ pOldCamera->sRotationX = pParty_global->sRotationX;
+ pOldCamera->sRotationY = pParty_global->sRotationY;
 
- pCamera->dword_000000 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY)) * pParty_global->dword_000018 / 65536);
- pCamera->dword_000004 = pParty_global->sPartyPosY - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY - pClass59_global->uNumTableEntries)) * pParty_global->dword_000018 / 65536);
+ pOldCamera->dword_000000 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY)) * pParty_global->dword_000018 / 65536);
+ pOldCamera->dword_000004 = pParty_global->sPartyPosY - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY - pClass59_global->uNumTableEntries)) * pParty_global->dword_000018 / 65536);
  //a good idea to do it this way
- //pCamera->dword_000000 = pParty_global->sPartyPosX - pParty_global->dword_000018 * cos(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
- //pCamera->dword_000004 = pParty_global->sPartyPosY - pParty_global->dword_000018 * sin(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
- pCamera->dword_000008 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+ //pOldCamera->dword_000000 = pParty_global->sPartyPosX - pParty_global->dword_000018 * cos(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
+ //pOldCamera->dword_000004 = pParty_global->sPartyPosY - pParty_global->dword_000018 * sin(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
+ pOldCamera->dword_000008 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
 
- pCamera->dword_00004C = v2;
+ pOldCamera->dword_00004C = v2;
 
  if (bRedraw || pD3DRenderer->pRenderD3D3)
  {
@@ -691,8 +691,8 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
   sub_481ED9();
  }
 
- pCamera->uMapGridCellX = WorldPosToGridCellX(pParty_global->sPartyPosX);
- pCamera->uMapGridCellZ = WorldPosToGridCellZ(pParty_global->sPartyPosY);
+ pOldCamera->uMapGridCellX = WorldPosToGridCellX(pParty_global->sPartyPosX);
+ pOldCamera->uMapGridCellZ = WorldPosToGridCellZ(pParty_global->sPartyPosY);
 
  if (bRedraw)
  {
@@ -1510,7 +1510,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
  if (dword_4E2900 < 0 || dword_4E2900 > 9)
    dword_4E2900 = 4;
 
- v58 = (double)dword_4E2900 * *(double *)&byte_4D8410[112] + *(double *)&byte_4D8410[352];
+ v58 = (double)dword_4E2900 * 0.10000000000000001 + 0.59999999999999998;
  sub_44F4D9(pGame->pGammaController, v58);
 
  if (ReadWindowsRegistry("Bloodsplats", 1))
@@ -1686,11 +1686,11 @@ int __cdecl sub_47F5C6_MessWithTerrainDrawing()
   int v122; // [sp+70h] [bp-4h]@9
  int j;
 
-  v101 = pCamera->sRotationY / (pClass59_global->uNumTableEntries / 2);
-  v1 = pClass59_global->dword_00186C & (pClass59_global->dword_001868 - pCamera->sRotationY);
+  v101 = pOldCamera->sRotationY / (pClass59_global->uNumTableEntries / 2);
+  v1 = pClass59_global->dword_00186C & (pClass59_global->dword_001868 - pOldCamera->sRotationY);
   v2 = pClass59_global->dword_00186C & (pClass59_global->dword_001860 + v1);
-  v120 = ((pCamera->uMapGridCellX << 16) + 3 * class59_SinCos(pClass59_global, pClass59_global->dword_00186C & (pClass59_global->dword_001860 + v1))) >> 16;
-  v119 = ((pCamera->uMapGridCellZ << 16) + 3 * class59_SinCos(pClass59_global, v2 - pClass59_global->uNumTableEntries)) >> 16;
+  v120 = ((pOldCamera->uMapGridCellX << 16) + 3 * class59_SinCos(pClass59_global, pClass59_global->dword_00186C & (pClass59_global->dword_001860 + v1))) >> 16;
+  v119 = ((pOldCamera->uMapGridCellZ << 16) + 3 * class59_SinCos(pClass59_global, v2 - pClass59_global->uNumTableEntries)) >> 16;
   v116 = pStruct9_global->dword_000048 + v120;
   v115 = pStruct9_global->dword_000048 + v119;
   v0 = pStruct9_global->dword_000010 + 15;
@@ -2265,8 +2265,8 @@ LABEL_173:
           v87++;
         }
       }
-      v98.v99 = abs(pCamera->uMapGridCellZ - dword_76D9C8[i]);
-      v98.v100 = abs(pCamera->uMapGridCellX - dword_76DBC8[i]);
+      v98.v99 = abs(pOldCamera->uMapGridCellZ - dword_76D9C8[i]);
+      v98.v100 = abs(pOldCamera->uMapGridCellX - dword_76DBC8[i]);
       if (pD3DRenderer->pRenderD3D3)
         sub_48034E(v107, 0, &v98);
       else
@@ -2318,8 +2318,8 @@ LABEL_173:
           v93 -= 512;
         }
       }
-      v98.v99 = abs(pCamera->uMapGridCellX - dword_76DBC8[i]);
-      v98.v100 = abs(pCamera->uMapGridCellZ - dword_76D9C8[i]);
+      v98.v99 = abs(pOldCamera->uMapGridCellX - dword_76DBC8[i]);
+      v98.v100 = abs(pOldCamera->uMapGridCellZ - dword_76D9C8[i]);
       if ( pD3DRenderer->pRenderD3D3 )
         sub_48034E(v107, 1, &v98);
       else
@@ -2887,15 +2887,15 @@ LABEL_74:
  if (array_77EC08[1999].byte_000058 > 20)
    array_77EC08[1999].byte_000058 = 20;
 
- array_77EC08[1999].dword_000018 = class59_SinCos(pClass59_global, pCamera->sRotationX - pClass59_global->uNumTableEntries);
+ array_77EC08[1999].dword_000018 = class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uNumTableEntries);
  array_77EC08[1999].dword_00001C = 0;
- array_77EC08[1999].dword_000020 = class59_SinCos(pClass59_global, pCamera->sRotationX);
- array_77EC08[1999].dword_000024 = 2048 - pCamera->dword_000008 * 65536;
+ array_77EC08[1999].dword_000020 = class59_SinCos(pClass59_global, pOldCamera->sRotationX);
+ array_77EC08[1999].dword_000024 = 2048 - pOldCamera->dword_000008 * 65536;
 
- v41 = (signed __int64)((double)(pCamera->dword_000008 * pStruct9_global->dword_000014) / ((double)pStruct9_global->dword_000014 + 8192.0) + (double)pViewport->dword_00002C);
+ v41 = (signed __int64)((double)(pOldCamera->dword_000008 * pStruct9_global->dword_000014) / ((double)pStruct9_global->dword_000014 + 8192.0) + (double)pViewport->dword_00002C);
 
-  cos((double)pCamera->sRotationX * 0.003066406352445483);
-  sin((double)pCamera->sRotationX * 0.003066406352445483);
+  cos((double)pOldCamera->sRotationX * 0.003066406352445483);
+  sin((double)pOldCamera->sRotationX * 0.003066406352445483);
 
  sub_48607B_MessWithStruct8(&array_77EC08[1999], pClass57_global);
  class57_sub_48694B(array_77EC08[1999].ptr_000038);
@@ -2908,9 +2908,9 @@ LABEL_74:
  array_77EC08[1999].byte_000058 = 0;
 
 
- array_77EC08[1999].dword_000018 = -class59_SinCos(pClass59_global, pCamera->sRotationX + 16 - pClass59_global->uNumTableEntries);
+ array_77EC08[1999].dword_000018 = -class59_SinCos(pClass59_global, pOldCamera->sRotationX + 16 - pClass59_global->uNumTableEntries);
  array_77EC08[1999].dword_00001C = 0;
- array_77EC08[1999].dword_000020 = -class59_SinCos(pClass59_global, pCamera->sRotationX + 16);
+ array_77EC08[1999].dword_000020 = -class59_SinCos(pClass59_global, pOldCamera->sRotationX + 16);
  array_77EC08[1999].dword_000024 = 0x2000000;
 
  array_77EC08[1999].dword_000028 = 224 * pClass24_global2->dword_000024;
@@ -4015,7 +4015,7 @@ void __cdecl sub_47B42C()
           }
         }
       }
-      v9 = sub_45281E(pClass59_global, *(_WORD *)(v1 - 4) - pCamera->dword_000000, *(_WORD *)(v1 - 2) - pCamera->dword_000004);
+      v9 = sub_45281E(pClass59_global, *(_WORD *)(v1 - 4) - pOldCamera->dword_000000, *(_WORD *)(v1 - 2) - pOldCamera->dword_000004);
       LOWORD(v10) = *(_WORD *)(v1 + 8);
       v41 = ((pClass59_global->dword_001860 + (pClass59_global->dword_001860 >> 3) + v10 - v9) >> 8) & 7;
       v8 = *(_WORD *)(v1 + 32);
@@ -4070,14 +4070,14 @@ LABEL_25:
         LOBYTE(v15) = byte_4E94D3;
         sub_467D88((int)&unk_519AB8, v56, v55, v3, 0, *(_WORD *)(v16 + 48), -1, -1, -1, v15);
       }
-      v17 = (v56 - pCamera->dword_000000) << 16;
-      if (pCamera->sRotationX)
+      v17 = (v56 - pOldCamera->dword_000000) << 16;
+      if (pOldCamera->sRotationX)
       {
-        v19 = (v55 - pCamera->dword_000004) << 16;
+        v19 = (v55 - pOldCamera->dword_000004) << 16;
         v47 = ((unsigned __int64)(v17 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) + ((unsigned __int64)(v19 * pStruct9_global->camera_rotation_y_int_sine) >> 16);
         v50 = (unsigned __int64)(v17 * pStruct9_global->camera_rotation_y_int_sine) >> 16;
         v53 = (unsigned __int64)(v19 * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
-        v44 = (v3 - pCamera->dword_000008) << 16;
+        v44 = (v3 - pOldCamera->dword_000008) << 16;
         v18 = ((unsigned __int64)(v44 * pStruct9_global->camera_rotation_x_int_sine) >> 16) + ((unsigned __int64)(v47 * pStruct9_global->camera_rotation_x_int_cosine) >> 16);
         v60 = ((unsigned __int64)(v44 * pStruct9_global->camera_rotation_x_int_sine) >> 16) + ((unsigned __int64)(v47 * pStruct9_global->camera_rotation_x_int_cosine) >> 16);
         if ( v18 < 262144 || v18 > pStruct9_global->shading_dist_mist << 16 )
@@ -4088,16 +4088,16 @@ LABEL_25:
       }
       else
       {
-        v48 = (v55 - pCamera->dword_000004) << 16;
+        v48 = (v55 - pOldCamera->dword_000004) << 16;
         v51 = (unsigned __int64)(v17 * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
         v22 = (unsigned __int64)(v48 * pStruct9_global->camera_rotation_y_int_sine) >> 16;
         v60 = v22 + v51;
         if ( v22 + v51 < 262144 || v22 + v51 > pStruct9_global->shading_dist_mist << 16 )
           goto LABEL_58;
-        v23 = (unsigned __int64)(((v56 - pCamera->dword_000000) << 16) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+        v23 = (unsigned __int64)(((v56 - pOldCamera->dword_000000) << 16) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
         v21 = ((unsigned __int64)(v48 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v23;
         v42 = ((unsigned __int64)(v48 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v23;
-        v20 = (v3 - pCamera->dword_000008) << 16;
+        v20 = (v3 - pOldCamera->dword_000008) << 16;
       }
       v45 = v20;
       v24 = abs(v21);
@@ -4190,13 +4190,13 @@ void sub_44103C()
   if ( Party_sub_497FC5(pParty_global) )
     pGame->dword_000E24 |= 2;
 
- pCamera->sRotationX = pParty_global->sRotationX;
- pCamera->sRotationY = pParty_global->sRotationY;
- pCamera->dword_000000 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY)) * pParty_global->dword_000018 / 65536);
- pCamera->dword_000004 = pParty_global->sPartyPosY - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY - pClass59_global->uNumTableEntries)) * pParty_global->dword_000018 / 65536);
- pCamera->dword_000008 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+ pOldCamera->sRotationX = pParty_global->sRotationX;
+ pOldCamera->sRotationY = pParty_global->sRotationY;
+ pOldCamera->dword_000000 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY)) * pParty_global->dword_000018 / 65536);
+ pOldCamera->dword_000004 = pParty_global->sPartyPosY - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY - pClass59_global->uNumTableEntries)) * pParty_global->dword_000018 / 65536);
+ pOldCamera->dword_000008 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
 
- Camera_CalculateSinCos(pCamera);
+ Camera_CalculateSinCos(pOldCamera);
  class08_CreateWorldMatrixAndSomeStuff(pGame->class08_obj);
  class08_PrepareSomeVectors(pGame->class08_obj);
 
@@ -14050,11 +14050,11 @@ LABEL_12:
 
 
 
-  pCamera->dword_000000 = 0;
-  pCamera->dword_000004 = 0;
-  pCamera->dword_000008 = 100;
-  pCamera->sRotationX = 0;
-  pCamera->sRotationY = 0;
+  pOldCamera->dword_000000 = 0;
+  pOldCamera->dword_000004 = 0;
+  pOldCamera->dword_000008 = 100;
+  pOldCamera->sRotationX = 0;
+  pOldCamera->sRotationY = 0;
 
   struct_576FE8.dword_000044 = 1;
   dword_6BE35C = 0;

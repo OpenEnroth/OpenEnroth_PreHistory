@@ -7749,14 +7749,14 @@ void class08_CreateWorldMatrixAndSomeStuff(struct class08 *_this)
  m2._31 = 0;                          m2._32 = 0;                           m2._33 = 1;
 
  //RotationX(some_other_angle)
- m1._11 = 1;                          m1._12 = 0;                           m1._13 = 0;
- m1._21 = 0;                          m1._22 = pCamera->fRotationXCosine;   m1._23 = pCamera->fRotationXSine;
- m1._31 = 0;                          m1._32 = -pCamera->fRotationXSine;    m1._33 = pCamera->fRotationXCosine;
+ m1._11 = 1;                          m1._12 = 0;                              m1._13 = 0;
+ m1._21 = 0;                          m1._22 = pOldCamera->fRotationXCosine;   m1._23 = pOldCamera->fRotationXSine;
+ m1._31 = 0;                          m1._32 = -pOldCamera->fRotationXSine;    m1._33 = pOldCamera->fRotationXCosine;
   
  //RotationY(some_angle)
- m4._11 = pCamera->fRotationYCosine;  m4._12 = 0;                           m4._13 = -pCamera->fRotationYSine;
- m4._21 = 0;                          m4._22 = 1;                           m4._23 = 0;
- m4._31 = pCamera->fRotationYSine;    m4._32 = 0;                           m4._33 = pCamera->fRotationYCosine;
+ m4._11 = pOldCamera->fRotationYCosine;  m4._12 = 0;                           m4._13 = -pOldCamera->fRotationYSine;
+ m4._21 = 0;                             m4._22 = 1;                           m4._23 = 0;
+ m4._31 = pOldCamera->fRotationYSine;    m4._32 = 0;                           m4._33 = pOldCamera->fRotationYCosine;
 
 
  MatrixMultiply(&m2, &m4, &m0); //m0 = RotationZ(0) * RotationY(some_angle)
@@ -7826,9 +7826,9 @@ void class08_sub_437607(struct class08 *_this, struct class26 *a2, struct class2
  class08_Vec3Transform(_this, a2, &a3->objClass26);
   
  class26_ctor(&local_08);
- local_08.array_000004[0] = (double)pCamera->dword_000000;
- local_08.array_000004[1] = (double)pCamera->dword_000004;
- local_08.array_000004[2] = (double)pCamera->dword_000008;
+ local_08.array_000004[0] = (double)pOldCamera->dword_000000;
+ local_08.array_000004[1] = (double)pOldCamera->dword_000004;
+ local_08.array_000004[2] = (double)pOldCamera->dword_000008;
 
  a3->flt_000014 = class26_DotProduct(&local_08, &a3->objClass26) + 0.00009999999747378752;
 
@@ -7913,7 +7913,7 @@ int sub_469E3B(struct class03 *_this)
 
 
 //----- (004239A7) --------------------------------------------------------
-void Camera_CalculateSinCos(struct Camera *_this)
+void Camera_CalculateSinCos(struct OldCamera *_this)
 {
  double angle;
 
@@ -7939,7 +7939,7 @@ void Camera_CalculateSinCos(struct Camera *_this)
 
 
 //----- (0042394D) --------------------------------------------------------
-void Camera_SetPerspective(struct Camera *_this, signed int sViewingAngle, signed int sViewportWidth, signed int sViewportHeight)
+void OldCamera_SetPerspective(struct OldCamera *_this, signed int sViewingAngle, signed int sViewportWidth, signed int sViewportHeight)
 {
  int v0;
 
@@ -7949,9 +7949,9 @@ void Camera_SetPerspective(struct Camera *_this, signed int sViewingAngle, signe
  _this->flt_000020 = 65536.0 / v0;
 }
 
-void Camera_ctor(struct Camera *_this)
+void OldCamera_ctor(struct OldCamera *_this)
 {
- memset(_this, 0, sizeof(struct Camera));
+ memset(_this, 0, sizeof(struct OldCamera));
 }
 
 
@@ -8093,10 +8093,10 @@ void sub_486089_NormalizeVector(struct struct8 *_this)
 //----- (0048600E) --------------------------------------------------------
 void struct9_sub_47A59E_ComputeSinCos(struct struct9 *_this)
 {
- _this->camera_rotation_y_int_sine = class59_SinCos(pClass59_global, pCamera->sRotationY - pClass59_global->uNumTableEntries);
- _this->camera_rotation_x_int_sine = class59_SinCos(pClass59_global, pCamera->sRotationX - pClass59_global->uNumTableEntries);
- _this->camera_rotation_y_int_cosine = class59_SinCos(pClass59_global, pCamera->sRotationY);
- _this->camera_rotation_x_int_cosine = class59_SinCos(pClass59_global, pCamera->sRotationX);
+ _this->camera_rotation_y_int_sine = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uNumTableEntries);
+ _this->camera_rotation_x_int_sine = class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uNumTableEntries);
+ _this->camera_rotation_y_int_cosine = class59_SinCos(pClass59_global, pOldCamera->sRotationY);
+ _this->camera_rotation_x_int_cosine = class59_SinCos(pClass59_global, pOldCamera->sRotationX);
 }
 
 //----- (0048616B) --------------------------------------------------------
@@ -8132,18 +8132,18 @@ int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, in
   v25 = pStruct9_global->camera_rotation_x_int_cosine;
   v9 = pStruct9_global->camera_rotation_y_int_sine;
   v27 = pStruct9_global->camera_rotation_x_int_sine;
-  v11 = -pCamera->dword_000004;
+  v11 = -pOldCamera->dword_000004;
   v10 = pStruct9_global->camera_rotation_y_int_cosine;
-  v26 = -pCamera->dword_000008;
-  v24 = -pCamera->dword_000000;
-  v7 = pStruct9_global->camera_rotation_y_int_cosine * -pCamera->dword_000000;
-  v8 = v7 + pStruct9_global->camera_rotation_y_int_sine * -pCamera->dword_000004;
-  if (pCamera->sRotationX)
+  v26 = -pOldCamera->dword_000008;
+  v24 = -pOldCamera->dword_000000;
+  v7 = pStruct9_global->camera_rotation_y_int_cosine * -pOldCamera->dword_000000;
+  v8 = v7 + pStruct9_global->camera_rotation_y_int_sine * -pOldCamera->dword_000004;
+  if (pOldCamera->sRotationX)
   {
-    v14 = v7 + pStruct9_global->camera_rotation_y_int_sine * -pCamera->dword_000004;
+    v14 = v7 + pStruct9_global->camera_rotation_y_int_sine * -pOldCamera->dword_000004;
     v15 = pStruct9_global->camera_rotation_y_int_cosine * v11 - pStruct9_global->camera_rotation_y_int_sine * v24;
     _this->dword_000000 = ((unsigned __int64)(v8 * pStruct9_global->camera_rotation_x_int_cosine) >> 16)
-                    + ((unsigned __int64)(-65536 * pCamera->dword_000008 * pStruct9_global->camera_rotation_x_int_sine) >> 16);
+                    + ((unsigned __int64)(-65536 * pOldCamera->dword_000008 * pStruct9_global->camera_rotation_x_int_sine) >> 16);
     _this->dword_000004 = v15;
     v13 = v25;
     v12 = ((unsigned __int64)((v26 << 16) * v25) >> 16) - ((unsigned __int64)(v14 * v27) >> 16);
@@ -8156,7 +8156,7 @@ int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, in
     v12 = v26 << 16;
   }
   _this->dword_000008 = v12;
-  if (pCamera->sRotationX)
+  if (pOldCamera->sRotationX)
   {
     v17 = ((unsigned __int64)(a2) * v10 >> 16) + ((unsigned __int64)(a3) * v9 >> 16);
     _this->dword_00000C = ((unsigned __int64)(v17) * v13 >> 16) + ((unsigned __int64)(a4) * v27 >> 16);
@@ -8171,7 +8171,7 @@ int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, in
   }
   _this->dword_000014 = v16;
   v28 = v10;
-  if (pCamera->sRotationX)
+  if (pOldCamera->sRotationX)
   {
     v19 = ((unsigned __int64)(a5) * v28 >> 16) + ((unsigned __int64)(a6) * v9 >> 16);
     _this->dword_000018 = ((unsigned __int64)(v19) * v13 >> 16) + ((unsigned __int64)(a7) * v27 >> 16);

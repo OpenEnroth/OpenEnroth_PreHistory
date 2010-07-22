@@ -4492,8 +4492,8 @@ void __stdcall sub_436523(struct RenderVertex *a1, unsigned int uNumStructs)
   */
 
     v3 = uNumStructs;
-    v6 = *(int *)&pCamera->fRotationXSine;
-    if (pCamera->sRotationX)
+    v6 = *(int *)&pOldCamera->fRotationXSine;
+    if (pOldCamera->sRotationX)
     {
       if ( uNumStructs > 0 )
       {
@@ -4503,13 +4503,13 @@ void __stdcall sub_436523(struct RenderVertex *a1, unsigned int uNumStructs)
           __asm
           {
            int 3
-            //fild    pCamera->dword_000000
+            //fild    pOldCamera->dword_000000
             fsubr   dword ptr [eax]
             //fstp    [ebp+arg_0]
-            //fild    pCamera->dword_000004
+            //fild    pOldCamera->dword_000004
             fsubr   dword ptr [eax+4]
             //fstp    [ebp+arg_4]
-            //fild    pCamera->dword_000008
+            //fild    pOldCamera->dword_000008
             fsubr   dword ptr [eax+8]
           }
           if ( pD3DRenderer->pRenderD3D3 )
@@ -4585,13 +4585,13 @@ void __stdcall sub_436523(struct RenderVertex *a1, unsigned int uNumStructs)
           __asm
           {
            int 3
-            //fild    pCamera->dword_000000
+            //fild    pOldCamera->dword_000000
             fsubr   dword ptr [eax]
             //fstp    [ebp+arg_0]
-            //fild    pCamera->dword_000004
+            //fild    pOldCamera->dword_000004
             fsubr   dword ptr [eax+4]
             //fstp    [ebp+arg_4]
-            //fild    pCamera->dword_000008
+            //fild    pOldCamera->dword_000008
             fsubr   dword ptr [eax+8]
           }
           if ( pD3DRenderer->pRenderD3D3 )
@@ -5903,9 +5903,9 @@ char __stdcall sub_438258(int a1, int a2)
 {
   char result; // al@2
 
-  if ( (*(float *)(a2 + 8) - (double)pCamera->dword_000008) * (double)*(signed int *)(a1 + 24)
-     + (*(float *)(a2 + 4) - (double)pCamera->dword_000004) * (double)*(signed int *)(a1 + 20)
-     + (*(float *)a2 - (double)pCamera->dword_000000) * (double)*(signed int *)(a1 + 16) < 0.0
+  if ( (*(float *)(a2 + 8) - (double)pOldCamera->dword_000008) * (double)*(signed int *)(a1 + 24)
+     + (*(float *)(a2 + 4) - (double)pOldCamera->dword_000004) * (double)*(signed int *)(a1 + 20)
+     + (*(float *)a2 - (double)pOldCamera->dword_000000) * (double)*(signed int *)(a1 + 16) < 0.0
     || (result = 1, *(_BYTE *)(a1 + 44) & 1) )
     result = 0;
   return result;

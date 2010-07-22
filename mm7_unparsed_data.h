@@ -894,7 +894,7 @@ extern int dword_507CD8; // weak
 
 
 
-extern struct Camera *pCamera;
+extern struct OldCamera *pOldCamera;
 
 extern struct RenderVertex array_507D30[];
 extern struct RenderVertex array_508690[];
@@ -1211,7 +1211,7 @@ extern struct class56 *pLoadingUI; // struct @ MM7.exe::00576E30
 //int dword_576E3C; // 00000C
 
 
-//definetly a viewport, used for initialization of game camera; maybe Viewport class instance
+//definetly a viewport, used for initialization of game OldCamera; maybe Viewport class instance
 extern struct unnamed_576FE8
 {
  int dword_000000;
