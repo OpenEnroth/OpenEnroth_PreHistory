@@ -25,6 +25,19 @@ struct Actor_struct0
 };
 //sizeof == 10
 
+struct Actor_struct1
+{
+  //possibly some of this members have word type instead of dword (due to alignment)
+  int   dword_000000;
+  int   dword_000004;
+  int   dword_000008;
+  int   dword_00000C;
+  int   X;            //@ dword 000010
+  int   dword_000014;
+  int   dword_000018;  
+};
+//sizeof == 1C
+
 
 struct Actor
 {

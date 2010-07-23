@@ -8,7 +8,6 @@
 #include "data.h"
 
 
-
 //----- (0040894B) --------------------------------------------------------
 bool Actor_sub_40894B(struct Actor *_this)
 {
@@ -23,8 +22,6 @@ bool Actor_sub_40894B(struct Actor *_this)
           v3 == 4 || v3 == 5 || v3 == 11 || v3 == 17 || v3 == 19) == 0;
 }
 
-
-
 //----- (00408768) --------------------------------------------------------
 char __cdecl sub_408768()
 {
@@ -34,8 +31,8 @@ char __cdecl sub_408768()
   signed int v7; // [sp+14h] [bp-8h]@1
   signed int v8; // [sp+18h] [bp-4h]@1
 
- struct Actor *pActor;
- int           i;
+  struct Actor *pActor;
+  int i;
 
   v8 = 0;
   v6 = 0;
@@ -85,47 +82,35 @@ char __cdecl sub_408768()
 }
 
 
-
-
-
 //----- (00403EB6) --------------------------------------------------------
 void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, char *a4)
 {
-  char *v4; // eax@1
-  int v5; // ebx@1
-  int v6; // esi@1
-  void *v7; // esi@2
+  char *v4; // eax@1    
+  char v9[0x1C]; // [sp+Ch] [bp-38h]@2  TODO: change to Actor_struct1
+  char v10[0x1C]; // [sp+28h] [bp-1Ch]@2 TODO: change to Actor_struct1
+  struct Actor *pActor;
 
-  struct
-  {
-   char v9[0x1C]; // [sp+Ch] [bp-38h]@2
-   char v10[0x1C + array_size_unknown]; // [sp+28h] [bp-1Ch]@2
-  } v9;
-
- struct Actor *pActor;
-
-  v4 = a4;
-  v6 = 0;
-  v5 = pActor = &pActors[uActorID];
+  v4 = a4;  
+  pActor = &pActors[uActorID];
   if ( !a4 )
   {
-    v7 = sub_4040E9(8 * uActorID | 3, a2, &v9, 0);
-    v4 = &v9.v10;
-    memcpy(&v9.v10, v7, 0x1Cu);
-    v6 = 0;
+    void* ptr = sub_4040E9(8 * uActorID | 3, a2, &v9, 0);    
+    memcpy(v10, ptr, 0x1Cu);    
+    v4 = v10;
   }
+
   pActor->word_00009A = *((_WORD *)v4 + 10);
-  if ( a3 == v6 )
+  if ( a3 == 0 )
     pActor->word_0000A0 = rand() % 256 + 256;
   else
     pActor->word_0000A0 = a3;
 
-  pActor->word_0000B0 = v6;
-  pActor->word_000094 = v6;
-  pActor->word_000096 = v6;
-  pActor->word_000098 = v6;
-
-  *(_DWORD *)(v5 + 184) = v6;
+  pActor->word_0000B0 = 0;
+  pActor->word_000094 = 0;
+  pActor->word_000096 = 0;
+  pActor->word_000098 = 0;
+  pActor->dword_0000B8 = 0;
+    
   Actor_sub_45976D(pActor);
 }
 
@@ -172,13 +157,16 @@ void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a
   int v40; // [sp-4h] [bp-50h]@15
   int v41; // [sp+0h] [bp-4Ch]@15
   int v42; // [sp+4h] [bp-48h]@15
-  int v43; // [sp+14h] [bp-38h]@46
+  
+  /*int v43; // [sp+14h] [bp-38h]@46
   int v44; // [sp+18h] [bp-34h]@46
   int v45; // [sp+1Ch] [bp-30h]@46
   int v46; // [sp+20h] [bp-2Ch]@46
   int X; // [sp+24h] [bp-28h]@46
   int v48; // [sp+28h] [bp-24h]@46
-  int v49; // [sp+2Ch] [bp-20h]@46
+  int v49; // [sp+2Ch] [bp-20h]@46*/
+  struct Actor_struct1 struct1; //TODO: rename
+
   float v50; // [sp+30h] [bp-1Ch]@23
   float v51; // [sp+34h] [bp-18h]@45
   int v52; // [sp+38h] [bp-14h]@33
@@ -368,26 +356,26 @@ LABEL_45:
   v31 = sqrt(v57 * v57 + *(float *)&v52 + *(float *)&v53);
   if (v31 <= 1.0)
   {
-    v43 = 65536;
-    v44 = 0;
-    v45 = 0;
-    v46 = 1;
-    X = 1;
-    v48 = 0;
-    v49 = 0;
+    struct1.dword_000000 = 65536;
+    struct1.dword_000004 = 0;
+    struct1.dword_000008 = 0;
+    struct1.dword_00000C = 1;
+    struct1.X = 1;
+    struct1.dword_000014 = 0;
+    struct1.dword_000018 = 0;
   }
   else
   {
-    v43 = (signed __int64)(1.0 / v31 * v50 * 65536.0);
-    v44 = (signed __int64)(1.0 / v31 * v51 * 65536.0);
-    v45 = (signed __int64)(1.0 / v31 * v57 * 65536.0);
-    v46 = (signed __int64)v31;
-    X = (signed __int64)sqrt(*(float *)&v52 + *(float *)&v53);
-    v48 = sub_45281E(pClass59_global, (signed __int64)v50, (signed __int64)v51);
-    v49 = sub_45281E(pClass59_global, X, (signed __int64)v57);
+    struct1.dword_000000 = (signed __int64)(1.0 / v31 * v50 * 65536.0);
+    struct1.dword_000004 = (signed __int64)(1.0 / v31 * v51 * 65536.0);
+    struct1.dword_000008 = (signed __int64)(1.0 / v31 * v57 * 65536.0);
+    struct1.dword_00000C = (signed __int64)v31;
+    struct1.X = (signed __int64)sqrt(*(float *)&v52 + *(float *)&v53);
+    struct1.dword_000014 = sub_45281E(pClass59_global, (signed __int64)v50, (signed __int64)v51);
+    struct1.dword_000018 = sub_45281E(pClass59_global, struct1.X, (signed __int64)v57);
   }
   result = a3;
-  memcpy(a3, &v43, 0x1Cu);
+  memcpy(a3, &struct1, sizeof(struct Actor_struct1));
   return result;
 }
 
@@ -607,7 +595,7 @@ LABEL_55:
 //----- (00403C6C) --------------------------------------------------------
 void Actor_sub_403C6C(unsigned int uActorID, int a2, char *a3)
 {
-  int v3; // ebx@1
+  int pActor; // ebx@1
   char v4; // zf@1
   int v6; // edi@6
   int v7; // esi@6
@@ -629,11 +617,13 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, char *a3)
   int v23; // [sp+50h] [bp-4h]@1
   signed int v24; // [sp+5Ch] [bp+8h]@13
 
-  v3 = (int)((char *)pActors + 836 * uActorID);
+  //pActor = (int)((char *)pActors + 836 * uActorID);
+  pActor = (int)(&pActors[uActorID]);
+
   v21 = a2;
-  v4 = *(_BYTE *)(v3 + 59) == 5;
+  v4 = *(_BYTE *)(pActor + 59) == 5;
   v23 = uActorID;
-  if ( v4 && *(_BYTE *)(v3 + 60) == 1 )
+  if ( v4 && *(_BYTE *)(pActor + 60) == 1 )
   {
     Actor_sub_403EB6(uActorID, a2, 0, a3);
   }
@@ -644,7 +634,7 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, char *a3)
       v8 = 836 * (a2 >> 3);
       v7 = pActors[a2 >> 3].sActorPosX;
       v6 = pActors[a2 >> 3].sActorPosY;
-      v22 = (signed __int64)((double)pActors[a2 >> 3].word_00008A * *(double *)&byte_4D8410[72]
+      v22 = (signed __int64)((double)pActors[a2 >> 3].word_00008A * 0.75
                            + (double)pActors[a2 >> 3].sActorPosZ);
     }
     else
@@ -661,10 +651,10 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, char *a3)
         v6 = (int)a3;
       }
     }
-    v20 = *(_WORD *)(v3 + 138);
+    v20 = *(_WORD *)(pActor + 138);
     v9 = (double)v20 * *(double *)&byte_4D8410[72];
-    v20 = *(_WORD *)(v3 + 146);
-    if ( sub_407A1C(v7, v6, v22, *(_WORD *)(v3 + 142), *(_WORD *)(v3 + 144), (signed __int64)(v9 + (double)v20)) )
+    v20 = *(_WORD *)(pActor + 146);
+    if ( sub_407A1C(v7, v6, v22, *(_WORD *)(pActor + 142), *(_WORD *)(pActor + 144), (signed __int64)(v9 + (double)v20)) )
     {
       v11 = a3;
       v12 = 0;
@@ -678,30 +668,30 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, char *a3)
       //v15 = dword_5C6DCC;
       v15 = pSpriteFrameTable->pSpriteSFrames;
 
-      *(_WORD *)(v3 + 154) = *((_WORD *)v11 + 10);
-      v16 = *(_WORD *)(60 * *(_WORD *)(v3 + 192) + v15 + 56);
+      *(_WORD *)(pActor + 154) = *((_WORD *)v11 + 10);
+      v16 = *(_WORD *)(60 * *(_WORD *)(pActor + 192) + v15 + 56);
       v17 = v23;
-      *(_WORD *)(v3 + 160) = 8 * v16;
-      *(_DWORD *)(v3 + 184) = v12;
-      *(_WORD *)(v3 + 176) = 2;
+      *(_WORD *)(pActor + 160) = 8 * v16;
+      *(_DWORD *)(pActor + 184) = v12;
+      *(_WORD *)(pActor + 176) = 2;
       sub_402CED(v17, 0);
-      LODWORD(v14) = pMonsterStats->pMonsterInfos[*(_WORD *)(v3 + 96)].dword_000050;
-      v24 = pMonsterStats->pMonsterInfos[*(_WORD *)(v3 + 96)].dword_000050;
-      if ( *(_DWORD *)(v3 + 328) >= (signed int)v12 )
+      LODWORD(v14) = pMonsterStats->pMonsterInfos[*(_WORD *)(pActor + 96)].dword_000050;
+      v24 = pMonsterStats->pMonsterInfos[*(_WORD *)(pActor + 96)].dword_000050;
+      if ( *(_DWORD *)(pActor + 328) >= (signed int)v12 )
       {
-        if ( *(_DWORD *)(v3 + 328) > (signed int)v12 || *(_DWORD *)(v3 + 324) > v12 )
+        if ( *(_DWORD *)(pActor + 328) > (signed int)v12 || *(_DWORD *)(pActor + 324) > v12 )
         {
           LODWORD(v14) = 2 * v14;
           v24 = v14;
         }
       }
       if ( dword_ACD834 != 1 )
-        v14 = (signed __int64)(flt_6BE3A8 * (double)v24 * *(double *)&byte_4D8410[40]);
-      *(_DWORD *)(v3 + 124) = v14;
-      *(_WORD *)(v3 + 152) = v12;
-      *(_WORD *)(v3 + 150) = v12;
-      *(_WORD *)(v3 + 148) = v12;
-      Actor_sub_45976D(v3);
+        v14 = (signed __int64)(flt_6BE3A8 * (double)v24 * 2.133333333333333);
+      *(_DWORD *)(pActor + 124) = v14;
+      *(_WORD *)(pActor + 152) = v12;
+      *(_WORD *)(pActor + 150) = v12;
+      *(_WORD *)(pActor + 148) = v12;
+      Actor_sub_45976D(pActor);
     }
     else
     {
@@ -715,53 +705,48 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, char *a3)
 //----- (00402F87) --------------------------------------------------------
 void Actor_sub_402F87(unsigned int uActorID, signed int a2, signed int a3)
 {
-  int v3; // ebx@1
-  int v4; // edi@1
+  int v3; // ebx@1  
   char *v5; // esi@1
-  int v6; // ecx@3
   int v7; // eax@3
-  int v8; // edx@3
   int v9; // eax@3
-  char v11[0x1C]; // [sp+Ch] [bp-5Ch]@2
-  char v12[0x1C]; // [sp+28h] [bp-40h]@2
-  char v13[0x1C]; // [sp+44h] [bp-24h]@2
-  int v14; // [sp+60h] [bp-8h]@1
-  int v15; // [sp+64h] [bp-4h]@1
- struct Actor *pActor;
-
-  v4 = uActorID;
+  char v11[0x1C]; // [sp+Ch] [bp-5Ch]@2   TODO: change to Actor_struct1
+  char v12[0x1C]; // [sp+28h] [bp-40h]@2  TODO: change to Actor_struct1 
+  char v13[0x1C]; // [sp+44h] [bp-24h]@2  TODO: change to Actor_struct1 
+  struct Actor *pActor;
+    
   v5 = (char *)a3;
-  v3 = pActor = &pActors[uActorID];
-  v14 = a2;
-  v15 = uActorID;
+  pActor = &pActors[uActorID];  
   if ( !a3 )
   {
     memcpy(v13, sub_4040E9(8 * uActorID | 3, a2, v11, a3), 0x1Cu);
-    memcpy(v12, v13, 0x1Cu);
-    v4 = v15;
+    memcpy(v12, v13, 0x1Cu);    
     v5 = v12;
   }
-  v6 = pSpriteFrameTable->pSpriteSFrames;
 
- pActor->word_00009A = *((_WORD *)v5 + 10);
- pActor->word_0000A0 = 8 * pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[7]].word_000038;
+  pActor->word_00009A = *((_WORD *)v5 + 10);
+  pActor->word_0000A0 = 8 * pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[7]].word_000038;
 
-  v7 = sub_45281E(pClass59_global, *(_WORD *)(v3 + 142) - pOldCamera->dword_000000, *(_WORD *)(v3 + 144) - pOldCamera->dword_000004);
-  LOWORD(v8) = *(_WORD *)(v3 + 154);
-  v9 = pClass59_global->dword_001860 + v8 + (pClass59_global->dword_001860 >> 3) - v7;
+  v7 = sub_45281E(pClass59_global, 
+                  pActor->sActorPosX - pOldCamera->dword_000000, 
+                  pActor->sActorPosY - pOldCamera->dword_000004);
+    
+  v9 = pClass59_global->dword_001860 + pActor->word_00009A + (pClass59_global->dword_001860 >> 3) - v7;
   if ( BYTE1(v9) & 7 )
   {
-    Actor_sub_403EB6(v4, v14, pActor->word_0000A0, v5);
+    Actor_sub_403EB6(uActorID, a2, pActor->word_0000A0, v5);
   }
   else
   {
-    *(_WORD *)(v3 + 176) = 9;
-    *(_DWORD *)(v3 + 184) = 0;
-    *(_WORD *)(v3 + 152) = 0;
-    *(_WORD *)(v3 + 150) = 0;
-    *(_WORD *)(v3 + 148) = 0;
+    pActor->word_0000B0 = 9;
+    pActor->dword_0000B8 = 0;
+    pActor->word_000098 = 0;
+    pActor->word_000096 = 0;
+    pActor->word_000098 = 0;
+    pActor->word_000094 = 0;
+    
     if ( rand() % 100 < 5 )
-      sub_402CED(v4, 3);
+      sub_402CED(uActorID, 3);
+
     Actor_sub_45976D(pActor);
   }
 }
@@ -769,47 +754,45 @@ void Actor_sub_402F87(unsigned int uActorID, signed int a2, signed int a3)
 
 //----- (00403F58) --------------------------------------------------------
 void Actor_sub_403F58(unsigned int uActorID, int a2, int a3, signed int a4)
-{
-  int v4; // esi@1
-  int result; // eax@2
-  char *v6; // eax@3
-  int v7; // ebx@3
-  int v8; // edi@3
+{  
+  char *v6; // eax@3  
   void *v9; // esi@4
-  char v10[0x1C]; // [sp+4h] [bp-3Ch]@4
-  char v11[0x1C]; // [sp+20h] [bp-20h]@4
-  int v12; // [sp+3Ch] [bp-4h]@1
+  char v10[0x1C]; // [sp+4h] [bp-3Ch]@4   TODO: change to Actor_struct1
+  char v11[0x1C]; // [sp+20h] [bp-20h]@4  TODO: change to Actor_struct1
 
-  v12 = a2;
-  v4 = uActorID;
+  struct Actor* pActor;
+  
   if ( rand() % 2 )
   {
-    Actor_sub_402F87(v4, v12, a4);
+    Actor_sub_402F87(uActorID, a2, a4);
   }
   else
   {
     v6 = (char *)a4;
-    v8 = 0;
-    v7 = &pActors[v4];
+
+    pActor = &pActors[uActorID];
     if ( !a4 )
     {
-      v9 = sub_4040E9(8 * v4 | 3, v12, v10, 0);
+      v9 = sub_4040E9(8 * uActorID | 3, a2, v10, 0);
       v6 = v11;
       memcpy(v11, v9, 0x1Cu);
-      v8 = 0;
     }
-    *(_WORD *)(v7 + 154) = *((_WORD *)v6 + 10);
-    *(_WORD *)(v7 + 156) = *((_WORD *)v6 + 12);
-    if ( a3 == v8 )
-      *(_WORD *)(v7 + 160) = rand() % 256 + 256;
+
+    pActor->word_00009A = *((_WORD *)v6 + 10);
+    pActor->word_00009C = *((_WORD *)v6 + 12);
+
+    if ( a3 == 0 )      
+      pActor->word_0000A0 = rand() % 256 + 256;
     else
-      *(_WORD *)(v7 + 160) = a3;
-    *(_DWORD *)(v7 + 184) = v8;
-    *(_WORD *)(v7 + 176) = v8;
-    *(_WORD *)(v7 + 152) = v8;
-    *(_WORD *)(v7 + 150) = v8;
-    *(_WORD *)(v7 + 148) = v8;
-    Actor_sub_45976D(v7);
+      pActor->word_0000A0 = a3;
+      
+    pActor->dword_0000B8 = 0;
+    pActor->word_0000B0 = 0;
+    pActor->word_000098 = 0;
+    pActor->word_000096 = 0;
+    pActor->word_000094 = 0;
+
+    Actor_sub_45976D(pActor);
   }
 }
 
