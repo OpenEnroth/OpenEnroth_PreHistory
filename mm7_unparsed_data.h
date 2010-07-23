@@ -2915,6 +2915,6 @@ extern int dword_F94500; // weak
 extern HANDLE hHeap; // idb
 
 extern int dword_F94508; // weak
-extern const void* pCGame_dtor;
+extern const void* pCGame_scalar_dtor;
 
 #pragma pack(pop)

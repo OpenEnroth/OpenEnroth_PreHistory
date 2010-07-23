@@ -23,7 +23,7 @@ void CGame_ctor(struct CGame *_this)
 {
  void *v1, *v2;
 
- _this->dword_000000 = (int)&pCGame_dtor;
+ _this->dword_000000 = (int)&pCGame_scalar_dtor;
  _this->dword_000704 = 0;
  _this->dword_000E08 = 0;
  _this->dword_000E0C = 0;
@@ -100,15 +100,103 @@ void CGame_ctor(struct CGame *_this)
 
 //----- (0044E7D7) --------------------------------------------------------
 
-int CGame_dtor(struct CGame *_this, char flag)
+int CGame_scalar_deleting_destructor(struct CGame *_this, char flag)
 {
   int v2; // eax@1
   
-  v2 = sub_44E7F3((int)_this);
+  v2 = CGame_dtor((int)_this);
   if ( flag & 1 )
     operator_delete(v2, _this);
 
   return (int)_this;
+}
+
+//----- (0044E7F3) --------------------------------------------------------
+
+int CGame_dtor(struct CGame *_this)
+{
+  int v1; // ecx@1
+  unsigned int v2; // esi@1
+  int v3; // ecx@3
+  int v4; // ecx@5
+  unsigned int v5; // edi@7
+  int result = 0; // eax@8
+  int v7; // eax@8
+  unsigned int v8; // edi@9
+  int v9; // eax@10
+  int v10; // ecx@11
+  int v11; // ecx@13
+  int v12; // ecx@15
+  unsigned int v13; // edi@17
+  int v14; // eax@18
+  int v15; // ecx@19
+  int v16; // ecx@21
+  unsigned int v17; // edi@23
+  int v18; // eax@24
+  unsigned int v19; // edi@25
+  int v20; // eax@26
+  int v21; // ecx@27
+
+  v2 = _this;
+  v1 = *(_DWORD *)((DWORD)_this + 3696);
+  *(_DWORD *)v2 = 5080668;
+  if ( v1 )
+    result = (**(int (__stdcall ***)(_DWORD))v1)(1);
+  v3 = *(_DWORD *)(v2 + 3692);
+  if ( v3 )
+    result = (**(int (__stdcall ***)(_DWORD))v3)(1);
+  v4 = *(_DWORD *)(v2 + 3688);
+  if ( v4 )
+    result = (**(int (__stdcall ***)(_DWORD))v4)(1);
+  v5 = *(_DWORD *)(v2 + 3684);
+  if ( v5 )
+  {
+    v7 = sub_489810(result, *(_DWORD *)(v2 + 3684));
+    result = operator_delete(v7, v5);
+  }
+  v8 = *(_DWORD *)(v2 + 3680);
+  if ( v8 )
+  {
+    compile_error;//v9 = nullsub_1(*(_DWORD *)(v3 + 3680));
+    result = operator_delete(v9, v8);
+  }
+  v10 = *(_DWORD *)(v2 + 3676);
+  if ( v10 )
+    result = (**(int (__stdcall ***)(_DWORD))v10)(1);
+  v11 = *(_DWORD *)(v2 + 3672);
+  if ( v11 )
+    result = (**(int (__stdcall ***)(_DWORD))v11)(1);
+  v12 = *(_DWORD *)(v2 + 3668);
+  if ( v12 )
+    result = (**(int (__stdcall ***)(_DWORD))v12)(1);
+  v13 = *(_DWORD *)(v2 + 3664);
+  if ( v13 )
+  {
+    sub_4A71DC(*(_DWORD *)(v2 + 3664));
+    result = operator_delete(v14, v13);
+  }
+  v15 = *(_DWORD *)(v2 + 3660);
+  if ( v15 )
+    result = (**(int (__stdcall ***)(_DWORD))v15)(1);
+  v16 = *(_DWORD *)(v2 + 3656);
+  if ( v16 )
+    result = (**(int (__stdcall ***)(_DWORD))v16)(1);
+  v17 = *(_DWORD *)(v2 + 3652);
+  if ( v17 )
+  {
+    v18 = sub_467E7A(*(_DWORD *)(v2 + 3652));
+    result = operator_delete(v18, v17);
+  }
+  v19 = *(_DWORD *)(v2 + 3648);
+  if ( v19 )
+  {
+    v20 = sub_48AAF1(*(_DWORD *)(v2 + 3648));
+    result = operator_delete(v20, v19);
+  }
+  v21 = *(_DWORD *)(v2 + 3644);
+  if ( v21 )
+    result = (**(int (__stdcall ***)(_DWORD))v21)(1);
+  return result;
 }
 
 //----- (0044EC23) --------------------------------------------------------

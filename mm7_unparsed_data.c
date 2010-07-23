@@ -2776,4 +2776,4 @@ int dword_F91E10; // weak
  HANDLE hHeap; // idb
  int dword_F94508; // weak
  
- const void* pCGame_dtor = &CGame_dtor;
+ const void* pCGame_scalar_dtor = &CGame_scalar_deleting_destructor;
