@@ -11362,11 +11362,11 @@ int __thiscall sub_4A52F1(int this, int a2, float a3)
     a3 = v4 * 255.0;
     v70 = a3 + 6.755399441055744e15;
     LODWORD(v71) = LODWORD(v70);
-    v6 = (double)pViewport->uGameX;
+    v6 = (double)pOldViewport->uGameX;
     v36 = v6;
-    v7 = (double)pViewport->uGameY;
+    v7 = (double)pOldViewport->uGameY;
     v8 = a2 | (LODWORD(v70) << 24);
-    a2 = pViewport->uGameW + 1;
+    a2 = pOldViewport->uGameW + 1;
     v41 = 0;
     v37 = v7;
     v40 = v8;
@@ -11381,13 +11381,13 @@ int __thiscall sub_4A52F1(int this, int a2, float a3)
     v65 = 0;
     v43 = 0.0;
     v44 = v6;
-    v9 = (double)(pViewport->uGameW + 1);
+    v9 = (double)(pOldViewport->uGameW + 1);
     v45 = v9;
     v46 = 0.0;
     v47 = 1.0;
     v50 = 0.0;
     v51 = 0.0;
-    v10 = (double)pViewport->uGameZ;
+    v10 = (double)pOldViewport->uGameZ;
     v52 = v10;
     v53 = v9;
     v54 = 0.0;
@@ -11508,10 +11508,10 @@ int __thiscall sub_4A52F1(int this, int a2, float a3)
     v71 = (memory_4D8410.f1_0 - a3) * *(double *)&byte_4D8410[560];
     v70 = v71 + 6.755399441055744e15;
     LODWORD(a3) = LODWORD(v70);
-    v69 = (pViewport->uGameZ - pViewport->uGameX) >> 1;
-    HIDWORD(v70) = pViewport->uGameW - pViewport->uGameY + 1;
-    v17 = pViewport->uGameX + *(_DWORD *)(this + 262384) - pViewport->uGameZ;
-    v18 = *(_DWORD *)(this + 262380) + 2 * (pViewport->uGameX + pViewport->uGameY * *(_DWORD *)(this + 262384));
+    v69 = (pOldViewport->uGameZ - pOldViewport->uGameX) >> 1;
+    HIDWORD(v70) = pOldViewport->uGameW - pOldViewport->uGameY + 1;
+    v17 = pOldViewport->uGameX + *(_DWORD *)(this + 262384) - pOldViewport->uGameZ;
+    v18 = *(_DWORD *)(this + 262380) + 2 * (pOldViewport->uGameX + pOldViewport->uGameY * *(_DWORD *)(this + 262384));
     v68 = 2 * v17;
     LODWORD(v71) = v18;
     v16 = (signed int)&unk_F1B430;
@@ -11609,7 +11609,7 @@ void __cdecl sub_4A57E9()
   {
     if ( pD3DRenderer->dword_040110 )
     {
-      v7 = pViewport->uGameY;
+      v7 = pOldViewport->uGameY;
       v5 = 0;
       v6 = 2748779069440i64;
       v0 = (*(int (__stdcall **)(int, _DWORD, _DWORD, int, int *, signed int))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 28))(
@@ -11622,47 +11622,47 @@ void __cdecl sub_4A57E9()
       CheckHRESULT(&v8, v0, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 0x39Eu, 0);
       HIDWORD(v6) = 640;
       v5 = 0;
-      LODWORD(v6) = pViewport->uGameW + 1;
+      LODWORD(v6) = pOldViewport->uGameW + 1;
       v7 = 480;
       v1 = (*(int (__stdcall **)(int, _DWORD, int, int, int *, signed int))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 28))(
              pD3DRenderer->pdds4_BackBuffer,
              0,
-             pViewport->uGameW + 1,
+             pOldViewport->uGameW + 1,
              pD3DRenderer->dword_040098,
              &v5,
              16);
       CheckHRESULT(&v8, v1, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 0x3A9u, 0);
-      HIDWORD(v6) = pViewport->uGameX;
-      v7 = pViewport->uGameW + 1;
+      HIDWORD(v6) = pOldViewport->uGameX;
+      v7 = pOldViewport->uGameW + 1;
       v5 = 0;
-      LODWORD(v6) = pViewport->uGameY;
+      LODWORD(v6) = pOldViewport->uGameY;
       v2 = (*(int (__stdcall **)(int, _DWORD, _DWORD, int, int *, signed int))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 28))(
              pD3DRenderer->pdds4_BackBuffer,
              0,
-             pViewport->uGameY,
+             pOldViewport->uGameY,
              pD3DRenderer->dword_040098,
              &v5,
              16);
       CheckHRESULT(&v8, v2, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 0x3B4u, 0);
-      v5 = pViewport->uGameZ;
-      LODWORD(v6) = pViewport->uGameY;
+      v5 = pOldViewport->uGameZ;
+      LODWORD(v6) = pOldViewport->uGameY;
       HIDWORD(v6) = 640;
-      v7 = pViewport->uGameW + 1;
+      v7 = pOldViewport->uGameW + 1;
       v3 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 28))(
              pD3DRenderer->pdds4_BackBuffer,
-             pViewport->uGameZ,
-             pViewport->uGameY,
+             pOldViewport->uGameZ,
+             pOldViewport->uGameY,
              pD3DRenderer->dword_040098,
              &v5,
              16);
       CheckHRESULT(&v8, v3, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 0x3BFu, 0);
-      v7 = pViewport->uGameW + 1;
-      v5 = pViewport->uGameX;
-      v6 = pViewport->uGameY;
+      v7 = pOldViewport->uGameW + 1;
+      v5 = pOldViewport->uGameX;
+      v6 = pOldViewport->uGameY;
       v4 = (*(int (__stdcall **)(int, int, _DWORD, int, int *, signed int))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 28))(
              pD3DRenderer->pdds4_BackBuffer,
-             pViewport->uGameX,
-             pViewport->uGameY,
+             pOldViewport->uGameX,
+             pOldViewport->uGameY,
              pD3DRenderer->dword_040098,
              &v5,
              17);

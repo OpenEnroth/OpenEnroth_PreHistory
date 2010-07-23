@@ -53,8 +53,8 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(void *this)
 
  runtime_warning(textures created in GameUI_LoadPaperdollTextures, or actually not created, used here and lead to crash. fix needed.);
   dword_50768C = GUIButtonCreate(pCharacterWindow,
-                   pViewport->uGameX + 12,
-                   pViewport->uGameY + 308,
+                   pOldViewport->uGameX + 12,
+                   pOldViewport->uGameY + 308,
                    *(_WORD *)(dword_51122C != -1 ? 72 * dword_51122C + 7145548 + 0x18 : 24),
                    *(_WORD *)(dword_51122C != -1 ? 72 * dword_51122C + 7145548 + 0x1A : 26),
                    1,
@@ -65,8 +65,8 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(void *this)
                    pGlobalTXT_LocalizationStrings[216],
                    dword_511230 != -1 ? 72 * dword_511230 + 7145548 : 0);
   dword_507688 = GUIButtonCreate(pCharacterWindow,
-                   pViewport->uGameX + 102,
-                   pViewport->uGameY + 308,
+                   pOldViewport->uGameX + 102,
+                   pOldViewport->uGameY + 308,
                    *(_WORD *)(dword_511224 != -1 ? 72 * dword_511224 + 7145548 + 0x18 : 24),
                    *(_WORD *)(dword_511224 != -1 ? 72 * dword_511224 + 7145548 + 0x1A : 26),
                    1,
@@ -77,8 +77,8 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(void *this)
                    pGlobalTXT_LocalizationStrings[205],
                    dword_511228 != -1 ? 72 * dword_511228 + 7145548 : 0);
   dword_507684 = GUIButtonCreate(pCharacterWindow,
-                   pViewport->uGameX + 192,
-                   pViewport->uGameY + 308,
+                   pOldViewport->uGameX + 192,
+                   pOldViewport->uGameY + 308,
                    *(_WORD *)(dword_51121C != -1 ? 72 * dword_51121C + 7145548 + 0x18 : 24),
                    *(_WORD *)(dword_51121C != -1 ? 72 * dword_51121C + 7145548 + 0x1A : 26),
                    1,
@@ -90,8 +90,8 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(void *this)
                    dword_511220 != -1 ? 72 * dword_511220 + 7145548 : 0);
   dword_507680 = GUIButtonCreate(
                    pCharacterWindow,
-                   pViewport->uGameX + 282,
-                   pViewport->uGameY + 308,
+                   pOldViewport->uGameX + 282,
+                   pOldViewport->uGameY + 308,
                    *(_WORD *)(dword_511214 != -1 ? 72 * dword_511214 + 7145548 + 0x18 : 24),
                    *(_WORD *)(dword_511214 != -1 ? 72 * dword_511214 + 7145548 + 0x1A : 26),
                    1,
@@ -102,8 +102,8 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(void *this)
                    pGlobalTXT_LocalizationStrings[22],
                    dword_511218 != -1 ? 72 * dword_511218 + 7145548 : 0);
   dword_50767C = GUIButtonCreate(pCharacterWindow,
-                   pViewport->uGameX + 371,
-                   pViewport->uGameY + 308,
+                   pOldViewport->uGameX + 371,
+                   pOldViewport->uGameY + 308,
                    *(_WORD *)(dword_51120C != -1 ? 72 * dword_51120C + 7145548 + 0x18 : 24),
                    *(_WORD *)(dword_51120C != -1 ? 72 * dword_51120C + 7145548 + 0x1A : 26),
                    1,
@@ -269,14 +269,14 @@ void GameUI_Update()
 
   if ( !dword_4E28F8 )
   {
-    if (x > 467 || y > 351)  //if pointer isn't inside game viewport
+    if (x > 467 || y > 351)  //if pointer isn't inside game OldViewport
       goto _mouse_is_on_UI;
 
     if ( pD3DRenderer->pRenderD3D3 )
     {
       v18 = sub_4C1BF1(pGame->class05_obj);
-      if (x < pViewport->uScreenX || x > pViewport->uScreenZ ||
-          y < pViewport->uScreenY || y > pViewport->uScreenW)
+      if (x < pOldViewport->uScreenX || x > pOldViewport->uScreenZ ||
+          y < pOldViewport->uScreenY || y > pOldViewport->uScreenW)
         v18 = -1;
       if ( v18 == -1 )
         goto LABEL_61;

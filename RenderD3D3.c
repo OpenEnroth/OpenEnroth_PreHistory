@@ -310,9 +310,9 @@ LABEL_54:
   d3dViewport.dwHeight = 480;
   d3dViewport.dvClipX = -1.0;
 
-  if (FAILED((_this->pDirect3D3->lpVtbl->CreateViewport)(_this->pDirect3D3, &_this->pViewport, 0)))
+  if (FAILED((_this->pDirect3D3->lpVtbl->CreateViewport)(_this->pDirect3D3, &_this->pOldViewport, 0)))
   {
-    wsprintfA(_this->pStatusMessage, "Init - Failed to create viewport.\n");
+    wsprintfA(_this->pStatusMessage, "Init - Failed to create OldViewport.\n");
     if (_this->pDevice)
     {
      (_this->pDevice->lpVtbl->Release)(_this->pDevice);
@@ -338,9 +338,9 @@ LABEL_61:
     goto LABEL_63;
   }
 
- (_this->pDevice->lpVtbl->AddViewport)(_this->pDevice, _this->pViewport);
- (_this->pViewport->lpVtbl->SetViewport2)(_this->pViewport, &d3dViewport);
- (_this->pDevice->lpVtbl->SetCurrentViewport)(_this->pDevice, _this->pViewport);
+ (_this->pDevice->lpVtbl->AddViewport)(_this->pDevice, _this->pOldViewport);
+ (_this->pOldViewport->lpVtbl->SetViewport2)(_this->pOldViewport, &d3dViewport);
+ (_this->pDevice->lpVtbl->SetCurrentViewport)(_this->pDevice, _this->pOldViewport);
  return true;
 }
 
@@ -354,7 +354,7 @@ void RenderD3D3_FindAvailableDevices(struct RenderD3D3 *_this)
  _this->pFontBuffer = 0;
  _this->pZBuffer = 0;
  _this->pDevice = 0;
- _this->pViewport = 0;
+ _this->pOldViewport = 0;
  _this->dword_000040 = 1;
  _this->dword_000044 = 10;
 
@@ -823,16 +823,16 @@ char __cdecl sub_4A597D()
         }
         while ( v9 );
 
-        v29 = v1 + 4 * ((pViewport->uGameX >> 1) + 320 * pViewport->uGameY);
-        v27 = v30 + 4 * ((pViewport->uGameX >> 1) + (ddsd.lPitch >> 2) * pViewport->uGameY);
-        v14 = (pViewport->uGameX >> 1) - (pViewport->uGameZ >> 1);
-        v24 = (pViewport->uGameZ >> 1) - (pViewport->uGameX >> 1);
+        v29 = v1 + 4 * ((pOldViewport->uGameX >> 1) + 320 * pOldViewport->uGameY);
+        v27 = v30 + 4 * ((pOldViewport->uGameX >> 1) + (ddsd.lPitch >> 2) * pOldViewport->uGameY);
+        v14 = (pOldViewport->uGameX >> 1) - (pOldViewport->uGameZ >> 1);
+        v24 = (pOldViewport->uGameZ >> 1) - (pOldViewport->uGameX >> 1);
         v26 = 4 * ((ddsd.lPitch >> 2) + v14);
         v25 = 4 * v14 + 1280;
-        v30 = pViewport->uGameW - pViewport->uGameY + 1;
+        v30 = pOldViewport->uGameW - pOldViewport->uGameY + 1;
         v13 = v29;
         v12 = v27;
-        v10 = (pViewport->uGameZ >> 1) - (pViewport->uGameX >> 1);
+        v10 = (pOldViewport->uGameZ >> 1) - (pOldViewport->uGameX >> 1);
         v11 = v28;
         while ( 1 )
         {
@@ -919,7 +919,7 @@ void RenderD3D3_ClearTarget(struct RenderD3D3 *_this, int a2, D3DCOLOR uClearCol
   d3drc.x2 = 640;
   d3drc.y2 = 480;
 
-  hr = (_this->pViewport->lpVtbl->Clear2)(_this->pViewport, 1, &d3drc, v5, 0xFF000000 | uClearColor, a5, 0);
+  hr = (_this->pOldViewport->lpVtbl->Clear2)(_this->pOldViewport, 1, &d3drc, v5, 0xFF000000 | uClearColor, a5, 0);
  }
 }
 
@@ -1058,9 +1058,9 @@ void RenderSky()
  int i;
 
  v41 = ((double)pStruct9_global->dword_000014 * pOldCamera->dword_000008) /
-       ((double)pStruct9_global->dword_000014 + 8192.0) + pViewport->dword_00002C;
+       ((double)pStruct9_global->dword_000014 + 8192.0) + pOldViewport->dword_00002C;
 
- v39 =  pViewport->dword_00002C -
+ v39 =  pOldViewport->dword_00002C -
         pStruct9_global->dword_000014 / (pStruct9_global->shading_dist_mist * cos(pOldCamera->sRotationX * 0.003066406352445483) + 0.0000001000000011686097) *
         (pStruct9_global->shading_dist_mist * -sin(pOldCamera->sRotationX * 0.003066406352445483) - pOldCamera->dword_000008);
   sub_48607B_MessWithStruct8(&local_14, pClass57_global);
@@ -1078,20 +1078,20 @@ void RenderSky()
     local_14.dword_000028 = 224 * pClass24_global2->dword_000024;
     local_14.dword_00002C = 224 * pClass24_global2->dword_000024;
 
-    array_50AC10[0].flt_000018 = pViewport->uGameX;
-    array_50AC10[0].flt_00001C = pViewport->uGameY;
+    array_50AC10[0].flt_000018 = pOldViewport->uGameX;
+    array_50AC10[0].flt_00001C = pOldViewport->uGameY;
 
-    array_50AC10[1].flt_000018 = pViewport->uGameX;
+    array_50AC10[1].flt_000018 = pOldViewport->uGameX;
     array_50AC10[1].flt_00001C = v39;
     
-    array_50AC10[2].flt_000018 = pViewport->uGameZ;
-    array_50AC10[2].flt_00001C = pViewport->uGameY;
+    array_50AC10[2].flt_000018 = pOldViewport->uGameZ;
+    array_50AC10[2].flt_00001C = pOldViewport->uGameY;
 
-    array_50AC10[3].flt_000018 = pViewport->uGameZ;
+    array_50AC10[3].flt_000018 = pOldViewport->uGameZ;
     array_50AC10[3].flt_00001C = v39;
     
     /*
-    v47_d = (double)(pViewport->uGameZ - pViewport->uGameX) * 0.5;
+    v47_d = (double)(pOldViewport->uGameZ - pOldViewport->uGameX) * 0.5;
     v44 = 65536 / (signed int)(v47_d / tan(0.64577174186706543) + 0.5);
 
  for (i = 0; i < local_14.dword_000014; ++i)
@@ -1114,7 +1114,7 @@ void RenderSky()
       v13 = (signed __int64)array_50AC10[i].flt_000018;
       v49 = v8;
       v14 = array_50AC10[i].flt_00001C - 1.0;
-      v12 = v44 * (pViewport->dword_000028 - v13);
+      v12 = v44 * (pOldViewport->dword_000028 - v13);
       v45 = -local_14.dword_000024;
       v43 = (signed __int64)v14;
       v11 = v44 * (v41 - v43);
@@ -1125,7 +1125,7 @@ void RenderSky()
           goto LABEL_12;
         v48 = abs(v45 >> 14);
         v15 = abs(v8);
-        if ( v48 <= v15 || v43 <= pViewport->uGameY )
+        if ( v48 <= v15 || v43 <= pOldViewport->uGameY )
         {
           if ( v50 <= 0 )
             break;

@@ -328,10 +328,10 @@ int sub_4254D2(signed int a1)
   signed int v141; // [sp+D4h] [bp-4h]@1
  int i;
 
- v106 = pViewport->uGameX;
- v109 = pViewport->uGameY;
- v105 = pViewport->uGameZ;
- v107 = pViewport->uGameW + 1;
+ v106 = pOldViewport->uGameX;
+ v109 = pOldViewport->uGameY;
+ v105 = pOldViewport->uGameZ;
+ v107 = pOldViewport->uGameW + 1;
 
  if (a1 <= 0)
    return a1;
@@ -342,9 +342,9 @@ int sub_4254D2(signed int a1)
  memcpy(array_508690, array_50AC10, a1 * sizeof(struct RenderVertex));
  for (i = 0; i < a1; ++i)
  {
-  if (array_50AC10[i].flt_000018 < pViewport->uGameX || array_50AC10[i].flt_000018 > pViewport->uGameZ)
+  if (array_50AC10[i].flt_000018 < pOldViewport->uGameX || array_50AC10[i].flt_000018 > pOldViewport->uGameZ)
     v141 = 0;
-  if (array_50AC10[i].flt_00001C < pViewport->uGameY || array_50AC10[i].flt_00001C > pViewport->uGameW + 1)
+  if (array_50AC10[i].flt_00001C < pOldViewport->uGameY || array_50AC10[i].flt_00001C > pOldViewport->uGameW + 1)
     v141 = 0;
  }
 
@@ -354,21 +354,21 @@ int sub_4254D2(signed int a1)
  v115 = 0;
  memcpy(&array_50AC10[a1], array_50AC10, sizeof(struct RenderVertex));
 
- v5 = (int)(floorf(array_50AC10[0].flt_000018 + 0.5f)) >= pViewport->uGameX;
+ v5 = (int)(floorf(array_50AC10[0].flt_000018 + 0.5f)) >= pOldViewport->uGameX;
  if (a1 < 1)
    return 0;
 
  v133 = array_50A2B0;
  for (i = 0; i < a1; ++i)
  {
-  v111 = (int)(floorf(array_50AC10[i + 1].flt_000018 + 0.5f)) >= pViewport->uGameX;
+  v111 = (int)(floorf(array_50AC10[i + 1].flt_000018 + 0.5f)) >= pOldViewport->uGameX;
 
   if (v5 == v111)
     goto LABEL_25;
 
   if (v111)
   {
-   v11 = (pViewport->uGameX - array_50AC10[i].flt_000018) /
+   v11 = (pOldViewport->uGameX - array_50AC10[i].flt_000018) /
          (array_50AC10[i + 1].flt_000018 - array_50AC10[i].flt_000018);
 
    v133->flt_00001C = (array_50AC10[i + 1].flt_00001C - array_50AC10[i].flt_00001C) * v11 + array_50AC10[i].flt_00001C;
@@ -377,7 +377,7 @@ int sub_4254D2(signed int a1)
   }
   else
   {
-   v12 = (pViewport->uGameX - array_50AC10[i + 1].flt_000018) /
+   v12 = (pOldViewport->uGameX - array_50AC10[i + 1].flt_000018) /
          (array_50AC10[i].flt_000018 - array_50AC10[i + 1].flt_000018);
 
    v133->flt_00001C = (array_50AC10[i].flt_00001C - array_50AC10[i + 1].flt_00001C) * v12 + array_50AC10[i + 1].flt_00001C;
@@ -385,7 +385,7 @@ int sub_4254D2(signed int a1)
    v133->flt_00002C = (array_50AC10[i].flt_00002C - array_50AC10[i + 1].flt_00002C) * v12 + array_50AC10[i + 1].flt_00002C;
   }
 
-  v133->flt_000018 = pViewport->uGameX;
+  v133->flt_000018 = pOldViewport->uGameX;
   if (v5)
   {
    if (floorf(v133->flt_00001C + 0.5f) == floorf(array_50AC10[i].flt_00001C + 0.5f) &&
@@ -420,21 +420,21 @@ LABEL_25:
    return 0;
 
   
- v25 = (int)(floorf(array_50A2B0[0].flt_000018 + 0.5f)) <= pViewport->uGameZ;
+ v25 = (int)(floorf(array_50A2B0[0].flt_000018 + 0.5f)) <= pOldViewport->uGameZ;
  
  v134 = array_50A2B0;
  v127 = array_509950;
 
  for (i = 0; i < v115; ++i)
  {
-  v29 = (int)(floorf(array_50A2B0[i + 1].flt_000018 + 0.5f)) <= pViewport->uGameZ;
-  v112 = (int)(floorf(array_50A2B0[i + 1].flt_000018 + 0.5f)) <= pViewport->uGameZ;
+  v29 = (int)(floorf(array_50A2B0[i + 1].flt_000018 + 0.5f)) <= pOldViewport->uGameZ;
+  v112 = (int)(floorf(array_50A2B0[i + 1].flt_000018 + 0.5f)) <= pOldViewport->uGameZ;
   if (v25 == v29)
     goto LABEL_43;
 
   if (v29)
   {
-   v32 = (pViewport->uGameZ - array_50A2B0[i].flt_000018) /
+   v32 = (pOldViewport->uGameZ - array_50A2B0[i].flt_000018) /
          (array_50A2B0[i + 1].flt_000018 - array_50A2B0[i].flt_000018);
 
    v127->flt_00001C = (array_50A2B0[i + 1].flt_00001C - array_50A2B0[i].flt_00001C) * v32 + array_50A2B0[i].flt_00001C;
@@ -443,7 +443,7 @@ LABEL_25:
   }
   else
   {
-   v33 = (pViewport->uGameZ - array_50A2B0[i + 1].flt_000018) /
+   v33 = (pOldViewport->uGameZ - array_50A2B0[i + 1].flt_000018) /
          (array_50A2B0[i].flt_000018 - array_50A2B0[i + 1].flt_000018);
 
    v127->flt_00001C = (array_50A2B0[i].flt_00001C - array_50A2B0[i + 1].flt_00001C) * v33 + array_50A2B0[i + 1].flt_00001C;
@@ -451,7 +451,7 @@ LABEL_25:
    v127->flt_00002C = (array_50A2B0[i].flt_00002C - array_50A2B0[i + 1].flt_00002C) * v33 + array_50A2B0[i + 1].flt_00002C;
   }
 
-  v127->flt_000018 = pViewport->uGameZ;
+  v127->flt_000018 = pOldViewport->uGameZ;
   if (v25)
   {
    if (floorf(v127->flt_00001C + 0.5f) != floorf(array_50A2B0[i].flt_00001C + 0.5f) ||
@@ -491,7 +491,7 @@ LABEL_43:
  v128 = 0;
  memcpy(&array_509950[v120], array_509950, sizeof(struct RenderVertex));
 
- v45 = (int)(floorf(array_509950[0].flt_00001C + 0.5f)) >= pViewport->uGameY;
+ v45 = (int)(floorf(array_509950[0].flt_00001C + 0.5f)) >= pOldViewport->uGameY;
  if (v120 < 1)
    return 0;
 
@@ -499,37 +499,37 @@ LABEL_43:
  v139 = array_508FF0;
  for (i = 0; i < v120; ++i)
  {
-  v49 = (int)(floorf(array_509950[i + 1].flt_00001C + 0.5f)) >= pViewport->uGameY;
-  v113 = (int)(floorf(array_509950[i + 1].flt_00001C + 0.5f)) >= pViewport->uGameY;
+  v49 = (int)(floorf(array_509950[i + 1].flt_00001C + 0.5f)) >= pOldViewport->uGameY;
+  v113 = (int)(floorf(array_509950[i + 1].flt_00001C + 0.5f)) >= pOldViewport->uGameY;
 
   if (v45 != v49)
   {
-   if (floorf(array_509950[i + 1].flt_00001C + 0.5f) >= pViewport->uGameY)
+   if (floorf(array_509950[i + 1].flt_00001C + 0.5f) >= pOldViewport->uGameY)
    {
-    v52 = (pViewport->uGameY - array_509950[i].flt_00001C) / (array_509950[i + 1].flt_00001C - array_509950[i].flt_00001C);
+    v52 = (pOldViewport->uGameY - array_509950[i].flt_00001C) / (array_509950[i + 1].flt_00001C - array_509950[i].flt_00001C);
     v139->flt_000018 = (array_509950[i].flt_000018 - array_509950[i].flt_000018) * v52 + array_509950[i].flt_000018;
     v139->flt_000020 = (array_509950[i + 1].flt_000020 - array_509950[i].flt_000020) * v52 + array_509950[i].flt_000020;
     v139->flt_00002C = (array_509950[i + 1].flt_00002C - array_509950[i].flt_00002C) * v52 + array_509950[i].flt_00002C;
    }
    else
    {
-    v53 = (pViewport->uGameY - array_509950[i + 1].flt_00001C) / (array_509950[i].flt_00001C - array_509950[i + 1].flt_00001C);
+    v53 = (pOldViewport->uGameY - array_509950[i + 1].flt_00001C) / (array_509950[i].flt_00001C - array_509950[i + 1].flt_00001C);
     v139->flt_000018 = (array_509950[i].flt_000018 - array_509950[i + 1].flt_000018) * v53 + array_509950[i + 1].flt_000018;
     v139->flt_000020 = (array_509950[i].flt_000020 - array_509950[i + 1].flt_000020) * v53 + array_509950[i + 1].flt_000020;
     v139->flt_00002C = (array_509950[i].flt_00002C - array_509950[i + 1].flt_00002C) * v53 + array_509950[i + 1].flt_00002C;
    }
 
-   v139->flt_00001C = pViewport->uGameY;
+   v139->flt_00001C = pOldViewport->uGameY;
    if (v45)
    {
-    if (floorf(pViewport->uGameY) != floorf(array_509950[i].flt_00001C + 0.5f) ||
+    if (floorf(pOldViewport->uGameY) != floorf(array_509950[i].flt_00001C + 0.5f) ||
         floorf(v139->flt_000018 + 0.5f) != floorf(array_509950[i].flt_000018 + 0.5f))
     {
      v139++;
      ++v128;
     }
    }
-   else if (floorf(pViewport->uGameY) != floorf(array_509950[i + 1].flt_00001C + 0.5f) ||
+   else if (floorf(pOldViewport->uGameY) != floorf(array_509950[i + 1].flt_00001C + 0.5f) ||
             floorf(v139->flt_000018 + 0.5f) != floorf(array_509950[i + 1].flt_000018 + 0.5f))
    {
     v139++;
@@ -552,7 +552,7 @@ LABEL_43:
 
  v121 = 0,
  memcpy(&array_508FF0[v128], array_508FF0, sizeof(struct RenderVertex));
- v65 = (int)(floorf(array_508FF0[0].flt_00001C + 0.5f)) <= pViewport->uGameW;
+ v65 = (int)(floorf(array_508FF0[0].flt_00001C + 0.5f)) <= pOldViewport->uGameW;
 
  if (v128 < 1)
    return 0;
@@ -561,11 +561,11 @@ LABEL_43:
  v140 = array_508690;
  for (i = 0; i < v128; ++i)
  {
-  v69 = floorf(array_508FF0[i + 1].flt_00001C + 0.5f) <= pViewport->uGameW;
-  v114 = floorf(array_508FF0[i + 1].flt_00001C + 0.5f) <= pViewport->uGameW;
+  v69 = floorf(array_508FF0[i + 1].flt_00001C + 0.5f) <= pOldViewport->uGameW;
+  v114 = floorf(array_508FF0[i + 1].flt_00001C + 0.5f) <= pOldViewport->uGameW;
   if (v65 != v69)
   {
-   if (floorf(array_508FF0[i + 1].flt_00001C + 0.5f) <= pViewport->uGameW )
+   if (floorf(array_508FF0[i + 1].flt_00001C + 0.5f) <= pOldViewport->uGameW )
    {
     v72 = (v107 - array_508FF0[i].flt_00001C) / (array_508FF0[i + 1].flt_00001C - array_508FF0[i].flt_00001C);
     v140->flt_000018 = (array_508FF0[i + 1].flt_000018 - array_508FF0[i].flt_000018) * v72 + array_508FF0[i].flt_000018;
@@ -616,14 +616,14 @@ LABEL_43:
  {
   array_508690[i].flt_00000C = 1.0 / array_508690[i].flt_000020;
 
-  if (floorf(array_508690[i].flt_000018 + 0.5f) < pViewport->uGameX)
+  if (floorf(array_508690[i].flt_000018 + 0.5f) < pOldViewport->uGameX)
     array_508690[i].flt_000018 = v106;
-  else if (floorf(array_508690[i].flt_000018 + 0.5f) > pViewport->uGameZ)
+  else if (floorf(array_508690[i].flt_000018 + 0.5f) > pOldViewport->uGameZ)
     array_508690[i].flt_000018 = v105;
 
-  if (floorf(array_508690[i].flt_00001C + 0.5f) > pViewport->uGameW)
+  if (floorf(array_508690[i].flt_00001C + 0.5f) > pOldViewport->uGameW)
     array_508690[i].flt_00001C = v107;
-  else if (floorf(array_508690[i].flt_00001C + 0.5f) < pViewport->uGameY)
+  else if (floorf(array_508690[i].flt_00001C + 0.5f) < pOldViewport->uGameY)
     array_508690[i].flt_00001C = v109;
  }
 
@@ -4852,8 +4852,8 @@ int __thiscall sub_436A9A(int this, signed int a2, signed int a3, signed int a4,
     *(_DWORD *)a5 = LODWORD(v8);
     v13 = (double)a4 * *(float *)(this + 196) * v7 + *(float *)(this + 204);
     v9 = v13 + 6.755399441055744e15;
-    result = pViewport->uGameW - LODWORD(v9);
-    *(_DWORD *)a6 = pViewport->uGameW - LODWORD(v9);
+    result = pOldViewport->uGameW - LODWORD(v9);
+    *(_DWORD *)a6 = pOldViewport->uGameW - LODWORD(v9);
   }
   else
   {
@@ -5092,10 +5092,10 @@ int __stdcall sub_437143(int a1, int a2, int a3, int a4)
       *(float *)v5 = 1.0 / (*(float *)(v5 - 20) + 0.0000001000000011686097);
       memcpy((void *)(v6 - 28), (const void *)(v5 - 32), 0x30u);
       v8 = (double)pStruct9_global->dword_000014 * *(float *)(v7 + v5);
-      v9 = (double)pViewport->dword_000028 - v8 * *(float *)(v5 - 16);
+      v9 = (double)pOldViewport->dword_000028 - v8 * *(float *)(v5 - 16);
       v5 += 48;
       *(float *)(v6 - 4) = v9;
-      *(float *)v6 = (double)pViewport->dword_00002C - v8 * *(float *)(v5 - 60);
+      *(float *)v6 = (double)pOldViewport->dword_00002C - v8 * *(float *)(v5 - 60);
       v6 += 48;
     }
     while ( v12-- != 1 );
@@ -5817,13 +5817,13 @@ LABEL_15:
     }
     else
     {
-      if ( (double)pViewport->uGameX <= v25 - 1.0 )
+      if ( (double)pOldViewport->uGameX <= v25 - 1.0 )
       {
-        if ( (double)pViewport->uGameZ > v25 + 2.0 )
+        if ( (double)pOldViewport->uGameZ > v25 + 2.0 )
         {
-          if ( (double)pViewport->uGameY <= v26 - 1.0 )
+          if ( (double)pOldViewport->uGameY <= v26 - 1.0 )
           {
-            if ( (double)pViewport->uGameW > v26 + 2.0 )
+            if ( (double)pOldViewport->uGameW > v26 + 2.0 )
             {
               if ( v12 > 0 )
               {

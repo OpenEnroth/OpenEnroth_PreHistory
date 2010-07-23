@@ -89,6 +89,272 @@ __declspec(naked) void loc_47907F(void)
 }
 
 
+
+
+
+#include "_c_interface.h"
+ void *pNewDxWindow = 0;
+ void *pNewOglWindow = 0;
+ void *pNewRender = 0;
+
+//----- (00462C94) --------------------------------------------------------
+int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *lpCmdLine, int nShowCmd)
+{
+  long pWindowDims[4];
+
+  signed int v9; // edi@44
+  signed __int64 v12; // qax@55
+  signed int v13; // ecx@56
+  HANDLE hProcess; // eax@68
+  int v16; // [sp+8h] [bp-24h]@55
+  RECT Rect; // [sp+Ch] [bp-20h]@15
+  HWND hActiveWindow;
+
+ struct Viewport renderArea;
+ 
+ {
+  renderArea.x = 0;
+  renderArea.y = 0;
+  renderArea.z = 1024;
+  renderArea.w = 768;
+
+  pNewDxWindow = Window_Initialize(L"MM7w2dx", L"MM7 C++ Direct3D10", true);
+  Window_SetClientArea(pNewDxWindow, &renderArea);
+  Window_Show(pNewDxWindow);
+
+  pNewRender = NewRender_CreateD3D10();
+  NewRender_Initialize(pNewRender);
+
+  NewRender_Reset(pNewRender, pNewDxWindow, false, &renderArea);
+ }
+
+ {
+  renderArea.x = 0;
+  renderArea.y = 0;
+  renderArea.z = 1024;
+  renderArea.w = 768;
+
+  pNewOglWindow = Window_Initialize(L"MM7w2ogl", L"MM7 C++ OpenGL", true);
+  Window_SetClientArea(pNewOglWindow, &renderArea);
+  Window_Show(pNewOglWindow);
+
+  pNewRender = NewRender_CreateOGL();
+  NewRender_Initialize(pNewRender);
+
+  NewRender_Reset(pNewRender, pNewOglWindow, false, &renderArea);
+ }
+  
+ RtlCallCtors();
+ AllocConsole();
+/*
+ HWND hMM7Window = FindWindowA("MM7", 0);
+ if (hMM7Window)
+ {
+  if (IsIconic(hMM7Window))
+    ShowWindow(hMM7Window, SW_RESTORE);
+  SetForegroundWindow(GetLastActivePopup(hMM7Window));
+  return 0;
+ }*/
+
+ if (lpCmdLine)
+ {
+  if (lpCmdLine[0])
+  {
+   if (strstr(lpCmdLine, "-usedefs"))
+     dword_720008 = true;
+   if (strstr(lpCmdLine, "-window"))
+     dword_6BE368 |= 1u;
+   if (strstr(lpCmdLine, "-nosound"))
+     dword_6BE364 |= 0x10u;
+   if (strstr(lpCmdLine, "-noanim"))
+   {
+    dword_6BE364 |= 0x40u;
+    bSkipVideo = true;
+   }
+  }
+ }
+
+ //ACHTUNG    4AC1C9 needs refactoring
+ sub_4AC1C9(0, 1, 0, 0, 0, 0, pWindowDims);
+ Rect.left = pWindowDims[0];
+ Rect.top = pWindowDims[1];
+ Rect.right = pWindowDims[2];
+ Rect.bottom = pWindowDims[3];
+ dword_6A0D00 = Rect.bottom;
+
+ hActiveWindow = GetActiveWindow();
+ if (sub_4651F4(hInstance, lpCmdLine))
+ {
+  class24_fn1(pClass24_global);
+  if (pD3DRenderer)
+  {
+   if (pD3DRenderer->uAcquiredDirect3DDevice == 1)
+   {
+    SetWindowPos(hWnd_global, (HWND)((unsigned int)(HWND_MESSAGE)|0x2), 320, 240, 640, 480, 0);
+    Rect.left = 325;
+    Rect.top = 245;
+    Rect.right = 326;
+    Rect.bottom = 246;
+    ClipCursor(&Rect);
+   }
+  }
+
+  pKeyboardController = malloc(sizeof(struct KeyboardController));
+  memset(pKeyboardController, 0, sizeof(struct KeyboardController));
+
+  SetupUserInterface(1);
+  LoadMainMenu();
+  RegistryWriteInt("Ran once", 1);
+  dword_6BE364 |= 0x4000;
+
+  sub_44EA17(pGame);
+  sub_465D0B();
+
+  Render_sub_4A0E97(pD3DRenderer, 0, 0, 639, 479);
+  InitializeCameraAndViewport();
+  while (true)
+    {
+      MenuLoop_Main();
+LABEL_21:
+      dword_6A0D48 = 0;
+      while ( 1 )
+      {
+        if ( dword_6A0D48 == 1 )
+          goto LABEL_68;
+        if ( uCurrentMenuID == 1 )
+        {
+          if ( pAudioPlayer->hAILRedbook )
+            AIL_redbook_stop(pAudioPlayer->hAILRedbook);
+
+          Party_Reset(pParty_global);
+
+          for (v9 = 0; v9 < 50; ++v9)
+            sub_45855F(array_5E4D58[v9++]);
+
+          strcpy(Str1, pStartMapName);
+          Party_CreateDefaultParty(pParty_global, 0);
+
+          PlayerCreationUI_Initialize();
+          if (MenuLoop_CharacterCreation())
+          {
+            DeleteFontCChar();
+            goto LABEL_53;
+          }
+
+          //DeleteFontCChar();
+          byte_50794A = 1;
+          //PlayMovie(4, 0);
+           MaybeDoAutosave();
+          sub_463149();
+          goto LABEL_49;
+        }
+        if ( uCurrentMenuID == 2 )
+          break;
+        if ( uCurrentMenuID == 4 )
+        {
+          dword_6A0D48 = 1;
+          goto LABEL_49;
+        }
+        if ( uCurrentMenuID == 5 || uCurrentMenuID == 9 )
+        {
+          dword_6A0D48 = 0;
+        }
+        else
+        {
+          if ( uCurrentMenuID != 10 )
+            goto LABEL_49;
+          class03_fn1(pGame->pClass03, 0);
+          if (dword_720010)
+            Mouse_suspend(dword_720010);
+          if (pGame->class14_obj->dword_000004 & 0xFF)
+          {
+            if (dword_69B00C)
+              Keyboard_suspend(dword_69B00C);
+          }
+          Party_Reset(pParty_global);
+          Party_CreateDefaultParty(pParty_global, 1);
+          sub_46271C();
+          if ( !GetOpenFileNameA(&stru_6A0DA0) )
+          {
+            class03_fn1(pGame->pClass03, 1);
+            if (dword_720010)
+              sub_46B105(dword_720010);
+            if (pGame->class14_obj->dword_000004 & 0xFF)
+            {
+              if (dword_69B00C)
+                Keyboard_resume(dword_69B00C);
+            }
+            goto LABEL_53;
+          }
+          _chdir("..\\");
+          strcpy(Str1, stru_6A0DA0.lpstrFileTitle);
+          class03_fn1(pGame->pClass03, 1);
+          if (dword_720010)
+            sub_46B105(dword_720010);
+          if (pGame->class14_obj->dword_000004 & 0xFF)
+          {
+            if (dword_69B00C)
+              Keyboard_resume(dword_69B00C);
+          }
+        }
+        sub_463149();
+
+LABEL_49:
+        if ( dword_6A0D48 == 3 )
+        {
+          v13 = 5;
+          goto LABEL_57;
+        }
+        if ( dword_6A0D48 == 4 )
+        {
+          v13 = 1;
+LABEL_57:
+          SetCurrentMenu(v13);
+          goto LABEL_21;
+        }
+        if ( dword_6A0D48 == 7 )
+        {
+          AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
+          dword_6A0D48 = 0;
+          goto LABEL_53;
+        }
+      }
+      if ( pAudioPlayer->hAILRedbook )
+        AIL_redbook_stop(pAudioPlayer->hAILRedbook);
+      sub_4BF919();
+LABEL_53:
+      if ( !(dword_6BE364 & 0x10) )
+      {
+        if ( pAudioPlayer->hAILRedbook )
+        {
+          v12 = (signed __int64)(aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
+          AudioPlayer_SetVolume(pAudioPlayer, SHIDWORD(v12), v12);
+          AIL_redbook_stop(pAudioPlayer->hAILRedbook);
+          AIL_redbook_track_info(pAudioPlayer->hAILRedbook, 14, &v16, &hInstance);
+          AIL_redbook_play(pAudioPlayer->hAILRedbook, v16 + 1, hInstance);
+        }
+      }
+    }
+  }
+LABEL_68:
+  hProcess = GetCurrentProcess();
+  SetPriorityClass(hProcess, NORMAL_PRIORITY_CLASS);
+  sub_4645FA();
+  if (hActiveWindow)
+    SetActiveWindow(hActiveWindow);
+  return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
 //----- (004829B9) --------------------------------------------------------
 void sub_4829B9(struct RenderVertex *a1, struct RenderVertex *a2, struct RenderVertex *a3, struct struct8 *a4, int a5)
 {
@@ -660,6 +926,7 @@ int __fastcall sub_438F8F(int result)
   return result;
 }
 
+#include "_c_interface.h"
 //----- (0047A59E) --------------------------------------------------------
 void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
 {
@@ -675,11 +942,8 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
  pOldCamera->sRotationX = pParty_global->sRotationX;
  pOldCamera->sRotationY = pParty_global->sRotationY;
 
- pOldCamera->dword_000000 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY)) * pParty_global->dword_000018 / 65536);
- pOldCamera->dword_000004 = pParty_global->sPartyPosY - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY - pClass59_global->uNumTableEntries)) * pParty_global->dword_000018 / 65536);
- //a good idea to do it this way
- //pOldCamera->dword_000000 = pParty_global->sPartyPosX - pParty_global->dword_000018 * cos(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
- //pOldCamera->dword_000004 = pParty_global->sPartyPosY - pParty_global->dword_000018 * sin(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
+ pOldCamera->dword_000000 = pParty_global->sPartyPosX - pParty_global->dword_000018 * cosf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
+ pOldCamera->dword_000004 = pParty_global->sPartyPosY - pParty_global->dword_000018 * sinf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
  pOldCamera->dword_000008 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
 
  pOldCamera->dword_00004C = v2;
@@ -715,7 +979,7 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
     RenderBuildings();
     sub_47F5C6_MessWithTerrainDrawing();
  }
- else
+ else // software
  {
   sub_4789DE();
   sub_47F5C6_MessWithTerrainDrawing();
@@ -757,225 +1021,6 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
   sub_485F53(&data_6BE060);
 }
 
-
-
-
-//----- (00462C94) --------------------------------------------------------
-int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *lpCmdLine, int nShowCmd)
-{
-  long pWindowDims[4];
-
-  signed int v9; // edi@44
-  signed __int64 v12; // qax@55
-  signed int v13; // ecx@56
-  HANDLE hProcess; // eax@68
-  int v16; // [sp+8h] [bp-24h]@55
-  RECT Rect; // [sp+Ch] [bp-20h]@15
-  HWND hActiveWindow;
-  
- RtlCallCtors();
- AllocConsole();
-/*
- HWND hMM7Window = FindWindowA("MM7", 0);
- if (hMM7Window)
- {
-  if (IsIconic(hMM7Window))
-    ShowWindow(hMM7Window, SW_RESTORE);
-  SetForegroundWindow(GetLastActivePopup(hMM7Window));
-  return 0;
- }*/
-
- if (lpCmdLine)
- {
-  if (lpCmdLine[0])
-  {
-   if (strstr(lpCmdLine, "-usedefs"))
-     dword_720008 = true;
-   if (strstr(lpCmdLine, "-window"))
-     dword_6BE368 |= 1u;
-   if (strstr(lpCmdLine, "-nosound"))
-     dword_6BE364 |= 0x10u;
-   if (strstr(lpCmdLine, "-noanim"))
-   {
-    dword_6BE364 |= 0x40u;
-    bSkipVideo = true;
-   }
-  }
- }
-
- //ACHTUNG    4AC1C9 needs refactoring
- sub_4AC1C9(0, 1, 0, 0, 0, 0, pWindowDims);
- Rect.left = pWindowDims[0];
- Rect.top = pWindowDims[1];
- Rect.right = pWindowDims[2];
- Rect.bottom = pWindowDims[3];
- dword_6A0D00 = Rect.bottom;
-
- hActiveWindow = GetActiveWindow();
- if (sub_4651F4(hInstance, lpCmdLine))
- {
-  class24_fn1(pClass24_global);
-  if (pD3DRenderer)
-  {
-   if (pD3DRenderer->uAcquiredDirect3DDevice == 1)
-   {
-    SetWindowPos(hWnd_global, (HWND)((UINT_PTR)(HWND_MESSAGE)|0x2), 320, 240, 640, 480, 0);
-    Rect.left = 325;
-    Rect.top = 245;
-    Rect.right = 326;
-    Rect.bottom = 246;
-    ClipCursor(&Rect);
-   }
-  }
-
-  pKeyboardController = malloc(sizeof(struct KeyboardController));
-  memset(pKeyboardController, 0, sizeof(struct KeyboardController));
-
-  SetupUserInterface(1);
-  LoadMainMenu();
-  RegistryWriteInt("Ran once", 1);
-  dword_6BE364 |= 0x4000;
-
-  sub_44EA17(pGame);
-  sub_465D0B();
-
-  Render_sub_4A0E97(pD3DRenderer, 0, 0, 639, 479);
-  InitializeCameraAndViewport();
-  while (true)
-  {
-      MenuLoop_Main();
-LABEL_21:
-      dword_6A0D48 = 0;
-      while ( 1 )
-      {
-        if ( dword_6A0D48 == 1 )
-          goto LABEL_68;
-        if ( uCurrentMenuID == 1 )
-        {
-          if ( pAudioPlayer->hAILRedbook )
-            AIL_redbook_stop(pAudioPlayer->hAILRedbook);
-
-          Party_Reset(pParty_global);
-
-          for (v9 = 0; v9 < 50; ++v9)
-          {
-              sub_45855F(array_5E4D58[v9]);
-          }
-
-          strcpy(Str1, pStartMapName);
-          Party_CreateDefaultParty(pParty_global, 0);
-
-          PlayerCreationUI_Initialize();
-          if (MenuLoop_CharacterCreation())
-          {
-            DeleteFontCChar();
-            goto LABEL_53;
-          }
-
-          //DeleteFontCChar();
-          byte_50794A = 1;
-          //PlayMovie(4, 0);
-           MaybeDoAutosave();
-          sub_463149();
-          goto LABEL_49;
-        }
-        if ( uCurrentMenuID == 2 )
-          break;
-        if ( uCurrentMenuID == 4 )
-        {
-          dword_6A0D48 = 1;
-          goto LABEL_49;
-        }
-        if ( uCurrentMenuID == 5 || uCurrentMenuID == 9 )
-        {
-          dword_6A0D48 = 0;
-        }
-        else
-        {
-          if ( uCurrentMenuID != 10 )
-            goto LABEL_49;
-          class03_fn1(pGame->pClass03, 0);
-          if (dword_720010)
-            Mouse_suspend(dword_720010);
-          if (pGame->class14_obj->dword_000004 & 0xFF)
-          {
-            if (dword_69B00C)
-              Keyboard_suspend(dword_69B00C);
-          }
-          Party_Reset(pParty_global);
-          Party_CreateDefaultParty(pParty_global, 1);
-          sub_46271C();
-          if ( !GetOpenFileNameA(&stru_6A0DA0) )
-          {
-            class03_fn1(pGame->pClass03, 1);
-            if (dword_720010)
-              sub_46B105(dword_720010);
-            if (pGame->class14_obj->dword_000004 & 0xFF)
-            {
-              if (dword_69B00C)
-                Keyboard_resume(dword_69B00C);
-            }
-            goto LABEL_53;
-          }
-          _chdir("..\\");
-          strcpy(Str1, stru_6A0DA0.lpstrFileTitle);
-          class03_fn1(pGame->pClass03, 1);
-          if (dword_720010)
-            sub_46B105(dword_720010);
-          if (pGame->class14_obj->dword_000004 & 0xFF)
-          {
-            if (dword_69B00C)
-              Keyboard_resume(dword_69B00C);
-          }
-        }
-        sub_463149();
-
-LABEL_49:
-        if ( dword_6A0D48 == 3 )
-        {
-          v13 = 5;
-          goto LABEL_57;
-        }
-        if ( dword_6A0D48 == 4 )
-        {
-          v13 = 1;
-LABEL_57:
-          SetCurrentMenu(v13);
-          goto LABEL_21;
-        }
-        if ( dword_6A0D48 == 7 )
-        {
-          AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-          dword_6A0D48 = 0;
-          goto LABEL_53;
-        }
-      }
-      if ( pAudioPlayer->hAILRedbook )
-        AIL_redbook_stop(pAudioPlayer->hAILRedbook);
-      sub_4BF919();
-LABEL_53:
-      if ( !(dword_6BE364 & 0x10) )
-      {
-        if ( pAudioPlayer->hAILRedbook )
-        {
-          v12 = (signed __int64)(aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
-          AudioPlayer_SetVolume(pAudioPlayer, SHIDWORD(v12), v12);
-          AIL_redbook_stop(pAudioPlayer->hAILRedbook);
-          AIL_redbook_track_info(pAudioPlayer->hAILRedbook, 14, &v16, &hInstance);
-          AIL_redbook_play(pAudioPlayer->hAILRedbook, v16 + 1, hInstance);
-        }
-      }
-    }
-  }
-LABEL_68:
-  hProcess = GetCurrentProcess();  
-  SetPriorityClass(hProcess, NORMAL_PRIORITY_CLASS);
-
-  sub_4645FA();
-  if (hActiveWindow)
-    SetActiveWindow(hActiveWindow);
-  return 0;
-}
 
 //----- (0045CB89) --------------------------------------------------------
 void __stdcall sub_45CB89(struct RenderVertex * a1, int a2)
@@ -2620,7 +2665,7 @@ void sub_487389_DrawSpansAndAll()
   if (!v5)
     continue;
 
-  if (!(pSpan->word_000008 >= pViewport->uGameX || pSpan->word_00000C != pViewport->uGameX))
+  if (!(pSpan->word_000008 >= pOldViewport->uGameX || pSpan->word_00000C != pOldViewport->uGameX))
   {
    pSpan->word_00000E = data_6BE060.dword_6BE064;
    continue;
@@ -2892,7 +2937,7 @@ LABEL_74:
  array_77EC08[1999].dword_000020 = class59_SinCos(pClass59_global, pOldCamera->sRotationX);
  array_77EC08[1999].dword_000024 = 2048 - pOldCamera->dword_000008 * 65536;
 
- v41 = (signed __int64)((double)(pOldCamera->dword_000008 * pStruct9_global->dword_000014) / ((double)pStruct9_global->dword_000014 + 8192.0) + (double)pViewport->dword_00002C);
+ v41 = (signed __int64)((double)(pOldCamera->dword_000008 * pStruct9_global->dword_000014) / ((double)pStruct9_global->dword_000014 + 8192.0) + (double)pOldViewport->dword_00002C);
 
   cos((double)pOldCamera->sRotationX * 0.003066406352445483);
   sin((double)pOldCamera->sRotationX * 0.003066406352445483);
@@ -2930,18 +2975,18 @@ LABEL_74:
 
       if (pSpan->word_00000E != data_6BE060.dword_6BE064 )
       {
-        pViewport->uGameX;
-        if (pSpan->word_000008 >= pViewport->uGameX )
+        pOldViewport->uGameX;
+        if (pSpan->word_000008 >= pOldViewport->uGameX )
           goto LABEL_124;
 
-        if (pSpan->word_00000C == pViewport->uGameX )
+        if (pSpan->word_00000C == pOldViewport->uGameX )
         {
          pSpan->word_00000E = data_6BE060.dword_6BE064;
         }
         else
         {
-         pSpan->word_000008 = pViewport->uGameX;
-         pSpan->word_00000C -= pViewport->uGameX;
+         pSpan->word_000008 = pOldViewport->uGameX;
+         pSpan->word_00000C -= pOldViewport->uGameX;
           if (pSpan->word_00000C >= 0 )
           {
 LABEL_124:
@@ -2966,12 +3011,12 @@ LABEL_125:
       pSpan = &pSpansBuf[v9 - 1];
       if (pSpan->word_00000E != data_6BE060.dword_6BE064)
       {
-       if (pSpan->word_000008 >= pViewport->uGameX )
+       if (pSpan->word_000008 >= pOldViewport->uGameX )
           goto LABEL_109;
-        if (pSpan->word_00000C != pViewport->uGameX )
+        if (pSpan->word_00000C != pOldViewport->uGameX )
         {
-          pSpan->word_000008 = pViewport->uGameX;
-          pSpan->word_00000C -= pViewport->uGameX;
+          pSpan->word_000008 = pOldViewport->uGameX;
+          pSpan->word_00000C -= pOldViewport->uGameX;
           if (pSpan->word_00000C >= 0 )
           {
 LABEL_109:
@@ -4110,9 +4155,9 @@ LABEL_25:
         LODWORD(v27) = 0;
         HIDWORD(v27) = pStruct9_global->dword_000014 << 16 >> 16;
         v57 = v27 / v60;
-        v25 = pViewport->dword_000028 - ((signed int)(((unsigned __int64)(v28 * v42) >> 16) + 32768) >> 16);
-        v43 = pViewport->dword_000028 - ((signed int)(((unsigned __int64)(v28 * v42) >> 16) + 32768) >> 16);
-        v46 = pViewport->dword_00002C - ((signed int)(((unsigned __int64)(v27 / v60 * v45) >> 16) + 32768) >> 16);
+        v25 = pOldViewport->dword_000028 - ((signed int)(((unsigned __int64)(v28 * v42) >> 16) + 32768) >> 16);
+        v43 = pOldViewport->dword_000028 - ((signed int)(((unsigned __int64)(v28 * v42) >> 16) + 32768) >> 16);
+        v46 = pOldViewport->dword_00002C - ((signed int)(((unsigned __int64)(v27 / v60 * v45) >> 16) + 32768) >> 16);
 
         v26 = &array_512250[dword_5187E0];
         if ( dword_5187E0 >= 500 )
@@ -4192,8 +4237,10 @@ void sub_44103C()
 
  pOldCamera->sRotationX = pParty_global->sRotationX;
  pOldCamera->sRotationY = pParty_global->sRotationY;
- pOldCamera->dword_000000 = pParty_global->sPartyPosX - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY)) * pParty_global->dword_000018 / 65536);
- pOldCamera->dword_000004 = pParty_global->sPartyPosY - ((unsigned __int64)(class59_SinCos(pClass59_global, pParty_global->sRotationY - pClass59_global->uNumTableEntries)) * pParty_global->dword_000018 / 65536);
+
+ pOldCamera->dword_000000 = pParty_global->sPartyPosX - pParty_global->dword_000018 * cosf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
+ pOldCamera->dword_000004 = pParty_global->sPartyPosY - pParty_global->dword_000018 * sinf(2 * 3.141592653589 * pParty_global->sRotationY / 2048.0);
+
  pOldCamera->dword_000008 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
 
  Camera_CalculateSinCos(pOldCamera);
@@ -4287,9 +4334,9 @@ LABEL_22:
     {
       if (!sub_4226C2())
       {
-       //looks like make entire viewport transparent, e.g. discard the area
+       //looks like make entire OldViewport transparent, e.g. discard the area
         if ( pD3DRenderer->pRenderD3D3)
-          Render_FillRect2(pD3DRenderer, pViewport->uGameX, pViewport->uGameY, pViewport->uGameZ - pViewport->uGameX, pViewport->uGameW - pViewport->uGameY + 1, 0x0000FFFF/*pD3DRenderer->uTargetGMask | pD3DRenderer->uTargetBMask*/);
+          Render_FillRect2(pD3DRenderer, pOldViewport->uGameX, pOldViewport->uGameY, pOldViewport->uGameZ - pOldViewport->uGameX, pOldViewport->uGameW - pOldViewport->uGameY + 1, 0x0000FFFF/*pD3DRenderer->uTargetGMask | pD3DRenderer->uTargetBMask*/);
       }
       struct_576FE8.dword_000048 = 0;
     }
@@ -7362,10 +7409,10 @@ void __cdecl sub_47BACF()
   v16 = pD3DRenderer->pTargetSurface;
   v17 = pD3DRenderer->pActiveZBuffer;
   v26 = pD3DRenderer->uTargetSurfacePitch;
-  v27 = pViewport->uGameX;
-  v28 = pViewport->uGameY;
-  v29 = pViewport->uGameZ - 1;
-  v30 = pViewport->uGameW;
+  v27 = pOldViewport->uGameX;
+  v28 = pOldViewport->uGameY;
+  v29 = pOldViewport->uGameZ - 1;
+  v30 = pOldViewport->uGameW;
   pStruct9_global->dword_00003C = dword_5187E0;
 
     v35 = 0;
@@ -8193,7 +8240,7 @@ void __cdecl sub_486F92_MessWithEdgesAndSpans()
 
  pNewSpan = pSpansBuf;
 
- someEdge1.flt_000000 = pViewport->uGameZ;
+ someEdge1.flt_000000 = pOldViewport->uGameZ;
  someEdge1.dword_000008 = 0;
  someEdge1.pSurf = &someSurf;
  someEdge1.pNext = 0;
@@ -8205,15 +8252,15 @@ void __cdecl sub_486F92_MessWithEdgesAndSpans()
  someSurf.pNext = &someSurf;
  someSurf.pPrev = &someSurf;
   
- someEdge2.flt_000000 = pViewport->uGameX;
+ someEdge2.flt_000000 = pOldViewport->uGameX;
  someEdge2.dword_000008 = 1;
  someEdge2.pSurf = &someSurf;
  someEdge2.pNext = &someEdge1;
  someEdge2.pPrev = 0;
 
-  v27 = pViewport->uGameY;
+  v27 = pOldViewport->uGameY;
 
-  if (pViewport->uGameY > pViewport->uGameW)
+  if (pOldViewport->uGameY > pOldViewport->uGameW)
   {
 LABEL_51:
    pNewSpan->word_000008 = -1; 
@@ -8369,7 +8416,7 @@ LABEL_51:
 LABEL_50:
       ++v27;
 
-      if ( v27 > pViewport->uGameW )
+      if ( v27 > pOldViewport->uGameW )
         goto LABEL_51;
     }
 
@@ -13879,12 +13926,12 @@ int sub_4C2EA0(struct unnamed_6BD080 *_this)
  int i;
 
   v3 = _this;
-  v1 = pViewport->uScreenZ - pViewport->uScreenX - 4;
-  v2 = pViewport->uScreenW - pViewport->uScreenY - 4;
+  v1 = pOldViewport->uScreenZ - pOldViewport->uScreenX - 4;
+  v2 = pOldViewport->uScreenW - pOldViewport->uScreenY - 4;
  for (i = 0; i < 1000; ++i)
  {
-  _this->word_000000[i * 2 + 0] = pViewport->uGameX + rand() % v1;
-  _this->word_000000[i * 2 + 1] = pViewport->uGameY + rand() % v2;
+  _this->word_000000[i * 2 + 0] = pOldViewport->uGameX + rand() % v1;
+  _this->word_000000[i * 2 + 1] = pOldViewport->uGameY + rand() % v2;
  }
  return 0;
 }

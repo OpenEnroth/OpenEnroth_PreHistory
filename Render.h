@@ -70,8 +70,8 @@ struct RenderVertex
  float flt_00000C;
  float flt_000010;
  float flt_000014;
- float flt_000018;  // value lies between pViewport->uGameX and pViewport->uGameZ  screen-space transformed x
- float flt_00001C; //  value lies between pViewport->uGameY and pViewport->uGameW  screen-space transformed y
+ float flt_000018;  // value lies between pOldViewport->uGameX and pOldViewport->uGameZ  screen-space transformed x
+ float flt_00001C; //  value lies between pOldViewport->uGameY and pOldViewport->uGameW  screen-space transformed y
  float flt_000020;
  float u;          // float @ 000024   looks like texture coordinates
  float v;          // float @ 000028

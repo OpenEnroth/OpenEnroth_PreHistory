@@ -1683,7 +1683,7 @@ int __thiscall sub_46A0A1(void *this)
   {
     v3 = pStruct9_global->dword_000014;
   }
-  return sub_45281E(pClass59_global, (int)((char *)this - pViewport->dword_000028), v3) - pClass59_global->uNumTableEntries;
+  return sub_45281E(pClass59_global, (int)((char *)this - pOldViewport->dword_000028), v3) - pClass59_global->uNumTableEntries;
 }
 
 //----- (0046A0F6) --------------------------------------------------------
@@ -1704,7 +1704,7 @@ int __thiscall sub_46A0F6(void *this)
   {
     v3 = pStruct9_global->dword_000014;
   }
-  return sub_45281E(pClass59_global, (int)((char *)this - pViewport->dword_00002C), v3) - pClass59_global->uNumTableEntries;
+  return sub_45281E(pClass59_global, (int)((char *)this - pOldViewport->dword_00002C), v3) - pClass59_global->uNumTableEntries;
 }
 
 //----- (0046A14B) --------------------------------------------------------
@@ -11253,13 +11253,13 @@ signed int __fastcall sub_47802A(int a1)
           *(float *)(v4 + 76) = v8 - v9;
         }
         *(_DWORD *)(v4 + 84) = *(_DWORD *)(v4 + 4);
-        if ( (double)pViewport->uGameX <= *(float *)(v4 + 72) )
+        if ( (double)pOldViewport->uGameX <= *(float *)(v4 + 72) )
         {
-          if ( (double)pViewport->uGameZ > *(float *)(v4 + 72) )
+          if ( (double)pOldViewport->uGameZ > *(float *)(v4 + 72) )
           {
-            if ( (double)pViewport->uGameY <= *(float *)(v4 + 76) )
+            if ( (double)pOldViewport->uGameY <= *(float *)(v4 + 76) )
             {
-              if ( (double)pViewport->uGameW > *(float *)(v4 + 76) )
+              if ( (double)pOldViewport->uGameW > *(float *)(v4 + 76) )
                 v16 = 1;
             }
           }
@@ -11279,19 +11279,19 @@ signed int __fastcall sub_47802A(int a1)
       {
         LODWORD(v11) = *(_DWORD *)v10;
         v12 = (double)pStruct9_global->dword_000014 / *(float *)v10;
-        *(float *)(v10 + 80) = (double)pViewport->dword_000028 - v12 * *(float *)(v10 + 4);
-        v13 = (double)pViewport->dword_00002C;
+        *(float *)(v10 + 80) = (double)pOldViewport->dword_000028 - v12 * *(float *)(v10 + 4);
+        v13 = (double)pOldViewport->dword_00002C;
         v14 = v12 * *(float *)(v10 + 8);
         *(_DWORD *)(v10 + 88) = LODWORD(v11);
         *(_DWORD *)(v10 + 92) = *(_DWORD *)(v10 + 12);
         *(float *)(v10 + 84) = v13 - v14;
-        if ( (double)pViewport->uGameX <= *(float *)(v10 + 80) )
+        if ( (double)pOldViewport->uGameX <= *(float *)(v10 + 80) )
         {
-          if ( (double)pViewport->uGameZ > *(float *)(v10 + 80) )
+          if ( (double)pOldViewport->uGameZ > *(float *)(v10 + 80) )
           {
-            if ( (double)pViewport->uGameY <= *(float *)(v10 + 84) )
+            if ( (double)pOldViewport->uGameY <= *(float *)(v10 + 84) )
             {
-              if ( (double)pViewport->uGameW > *(float *)(v10 + 84) )
+              if ( (double)pOldViewport->uGameW > *(float *)(v10 + 84) )
                 v16 = 1;
             }
           }
@@ -11417,6 +11417,7 @@ char __cdecl RenderBuildings()
     sub_466D09(0, *(int *)&v40, v41, v42, v43, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odbuild.cpp", __LINE__);
   }
 
+  pParty_global->sRotationY = 2048 * ((GetTickCount() % 4000) / 4000.0f);
 
   v63 = 0;
   v1 = pGame->class08_obj;
@@ -12022,7 +12023,7 @@ LABEL_17:
       v22 = abs(v17 >> 14);
       if ( v22 <= abs(X) )
         break;
-      if ( (signed int)v90 <= pViewport->uGameY )
+      if ( (signed int)v90 <= pOldViewport->uGameY )
         break;
       v17 = v91;
       v16 = (int)v93;
@@ -12140,7 +12141,7 @@ LABEL_28:
       v42 = abs(X);
       if ( abs(v79) <= v42 )
         break;
-      if ( (signed int)v90 <= pViewport->uGameY )
+      if ( (signed int)v90 <= pOldViewport->uGameY )
         break;
       v37 = v92;
 LABEL_36:
@@ -12420,10 +12421,10 @@ LABEL_30:
                   LODWORD(v25) = 0;
                   HIDWORD(v25) = pStruct9_global->dword_000014 << 16 >> 16;
                   v53 = v25 / v49;
-                  v24 = pViewport->dword_000028 - ((signed int)(((unsigned __int64)(v25 / v49 * v51) >> 16) + 32768) >> 16);
+                  v24 = pOldViewport->dword_000028 - ((signed int)(((unsigned __int64)(v25 / v49 * v51) >> 16) + 32768) >> 16);
                   v54 = (unsigned __int64)(v53 * v52) >> 16;
                   v51 = v25 / v49;
-                  v50 = pViewport->dword_00002C - ((signed int)(((unsigned __int64)(v53 * v52) >> 16) + 32768) >> 16);
+                  v50 = pOldViewport->dword_00002C - ((signed int)(((unsigned __int64)(v53 * v52) >> 16) + 32768) >> 16);
                   v52 = *(_DWORD *)(v6 + 40);
                   v51 = (unsigned __int64)(v52 * (signed int)(v25 / v49)) >> 16;
                   v47 = v6 + 2 * v47 + 24;
@@ -12439,7 +12440,7 @@ LABEL_30:
                     compile_error;//v52 = pLODFile_Sprites_LOD->array_00024C[20 * *(_WORD *)v47] >> 1;
                     v54 = (unsigned __int64)(v52 * v51) >> 16;
                   }
-                  if ( v54 + v24 >= pViewport->uGameX && v24 - v54 <= pViewport->uGameZ )
+                  if ( v54 + v24 >= pOldViewport->uGameX && v24 - v54 <= pOldViewport->uGameZ )
                   {
                     if ( dword_5187E0 >= 500 )
                       return;
@@ -14169,8 +14170,8 @@ void sub_481D77(struct RenderVertex *_this)
  v1 = 1.0 / (_this->flt_00000C + 0.0000001000000011686097);
  _this->flt_000020 = v1;
  v2 = v1 * (double)pStruct9_global->dword_000014;
- _this->flt_000018 = pViewport->dword_000028 - v2 * _this->flt_000010;
- _this->flt_00001C = pViewport->dword_00002C - v2 * _this->flt_000014;
+ _this->flt_000018 = pOldViewport->dword_000028 - v2 * _this->flt_000010;
+ _this->flt_00001C = pOldViewport->dword_00002C - v2 * _this->flt_000014;
 }
 
 //----- (00481DB2) --------------------------------------------------------
@@ -14543,7 +14544,7 @@ signed int __thiscall sub_482A94(int this)
 
   v3 = this;
   v4 = *(_DWORD *)(this + 4);
-  v5 = pStruct9_global->dword_000018 * (pViewport->dword_00002C - *(_WORD *)(this + 10));
+  v5 = pStruct9_global->dword_000018 * (pOldViewport->dword_00002C - *(_WORD *)(this + 10));
   v6 = *(_DWORD *)(v4 + 56);
   v50 = v5;
   v49 = *(_DWORD *)(v6 + 20);
@@ -14565,7 +14566,7 @@ signed int __thiscall sub_482A94(int this)
   v44 = pStruct9_global->camera_rotation_y_int_cosine;
   v37 = *(_WORD *)(v3 + 12);
   v12 = *(_DWORD *)(v4 + 36);
-  v49 = pStruct9_global->dword_000018 * (pViewport->dword_000028 - v11);
+  v49 = pStruct9_global->dword_000018 * (pOldViewport->dword_000028 - v11);
   v13 = *(_DWORD *)(v4 + 28);
   v1 = -v12;
   v48 = v1;
@@ -14755,7 +14756,7 @@ bool sub_482E07(struct Span *pSpan, unsigned int *pRenderTarget)
 
   v103 = pSpan->word_00000C;
   v5 = pSpan->pParent;
-  v6 = pViewport->dword_00002C - pSpan->word_00000A;
+  v6 = pOldViewport->dword_00002C - pSpan->word_00000A;
   v95 = pRenderTarget;
   v7 = pStruct9_global->dword_000018 * v6;
 
@@ -14773,7 +14774,7 @@ bool sub_482E07(struct Span *pSpan, unsigned int *pRenderTarget)
   v70 = v5->dword_000028 << 16;
   v71 = v5->dword_00002C << 16;
   v74 = -v5->dword_000024;
-  v4 = pStruct9_global->dword_000018 * (pViewport->dword_000028 - pSpan->word_000008);
+  v4 = pStruct9_global->dword_000018 * (pOldViewport->dword_000028 - pSpan->word_000008);
   v12 = v5->dword_00001C;
   v68 = v99 + v5->dword_000018;
   v101 = v4;
@@ -15233,10 +15234,10 @@ signed int __fastcall sub_4839BD(int a1, int a2)
   v76 = a2 + 2 * v8;
   v86 = v9;
   v75 = pD3DRenderer->pActiveZBuffer + 4 * (v7 + 640 * v6);
-  v2 = pStruct9_global->dword_000018 * (pViewport->dword_000028 - v7);
-  v10 = pStruct9_global->dword_000018 * (pViewport->dword_00002C - v6);
+  v2 = pStruct9_global->dword_000018 * (pOldViewport->dword_000028 - v7);
+  v10 = pStruct9_global->dword_000018 * (pOldViewport->dword_00002C - v6);
   v11 = *(_DWORD *)(*(_DWORD *)(v5 + 56) + 20);
-  v88 = pStruct9_global->dword_000018 * (pViewport->dword_000028 - v7);
+  v88 = pStruct9_global->dword_000018 * (pOldViewport->dword_000028 - v7);
   v84 = v11;
   v93 = (unsigned __int64)(v11 * v10) >> 16;
   v12 = *(_DWORD *)(v5 + 56);
@@ -15516,7 +15517,7 @@ signed int __thiscall sub_48408A(int this)
 
   v4 = this;
   v5 = *(_DWORD *)(this + 4);
-  v6 = pStruct9_global->dword_000018 * (pViewport->dword_00002C - *(_WORD *)(this + 10));
+  v6 = pStruct9_global->dword_000018 * (pOldViewport->dword_00002C - *(_WORD *)(this + 10));
   v7 = *(_DWORD *)(v5 + 56);
   v60 = v6;
   v58 = *(_DWORD *)(v7 + 20);
@@ -15536,7 +15537,7 @@ signed int __thiscall sub_48408A(int this)
   v13 = *(_WORD *)(v4 + 8);
   v36 = v12;
   v48 = *(_WORD *)(v4 + 12);
-  v14 = pViewport->dword_000028 - v13;
+  v14 = pOldViewport->dword_000028 - v13;
   v15 = *(_DWORD *)(v5 + 36);
   v58 = pStruct9_global->dword_000018 * v14;
   v16 = *(_DWORD *)(v5 + 28);
@@ -15709,7 +15710,7 @@ signed int __thiscall sub_484442(int this)
 
   v4 = this;
   v5 = *(_DWORD *)(this + 4);
-  v6 = pStruct9_global->dword_000018 * (pViewport->dword_00002C - *(_WORD *)(this + 10));
+  v6 = pStruct9_global->dword_000018 * (pOldViewport->dword_00002C - *(_WORD *)(this + 10));
   v7 = *(_DWORD *)(v5 + 56);
   v57 = v6;
   v56 = *(_DWORD *)(v7 + 20);
@@ -15729,7 +15730,7 @@ signed int __thiscall sub_484442(int this)
   v13 = *(_WORD *)(v4 + 8);
   v34 = v12;
   v46 = *(_WORD *)(v4 + 12);
-  v14 = pViewport->dword_000028 - v13;
+  v14 = pOldViewport->dword_000028 - v13;
   v15 = *(_DWORD *)(v5 + 36);
   v58 = pStruct9_global->dword_000018 * v14;
   v1 = -v15;
@@ -15940,21 +15941,21 @@ bool sub_4847EB(struct Span *pSpan)
   v6 = pSpan->word_00000C - v89;
   v67 = v6 >> dword_6BE054;
   v62 = v6 - (v6 >> dword_6BE054 << dword_6BE054);
-  v8 = pStruct9_global->dword_000018 * (pViewport->dword_000028 - v92);
+  v8 = pStruct9_global->dword_000018 * (pOldViewport->dword_000028 - v92);
 
-  v95 = pStruct9_global->dword_000018 * (pViewport->dword_000028 - v92);
-  v94 = pStruct9_global->dword_000018 * (pViewport->dword_00002C - v3);
+  v95 = pStruct9_global->dword_000018 * (pOldViewport->dword_000028 - v92);
+  v94 = pStruct9_global->dword_000018 * (pOldViewport->dword_00002C - v3);
   v92 = v5->ptr_000038->dword_000014;
-  v94 = ((unsigned __int64)(v92) * pStruct9_global->dword_000018 * (pViewport->dword_00002C - v3)) >> 16;
+  v94 = ((unsigned __int64)(v92) * pStruct9_global->dword_000018 * (pOldViewport->dword_00002C - v3)) >> 16;
 
   v11 = v94 + v5->ptr_000038->dword_00000C;
   v92 = v5->ptr_000038->dword_000020;
   v65 = v11;
-  v12 = (((unsigned __int64)(v92) * pStruct9_global->dword_000018 * (pViewport->dword_00002C - v3)) >> 16) + v5->ptr_000038->dword_000018;
-  v94 = pStruct9_global->dword_000018 * (pViewport->dword_00002C - v3);
+  v12 = (((unsigned __int64)(v92) * pStruct9_global->dword_000018 * (pOldViewport->dword_00002C - v3)) >> 16) + v5->ptr_000038->dword_000018;
+  v94 = pStruct9_global->dword_000018 * (pOldViewport->dword_00002C - v3);
   v64 = v12;
   v92 = v5->dword_000020;
-  v94 = ((unsigned __int64)(v92) * pStruct9_global->dword_000018 * (pViewport->dword_00002C - v3)) >> 16;
+  v94 = ((unsigned __int64)(v92) * pStruct9_global->dword_000018 * (pOldViewport->dword_00002C - v3)) >> 16;
   v7 = -v5->dword_000024;
   v63 = v94 + v5->dword_000018;
   v66 = -v5->dword_000024;
@@ -16270,7 +16271,7 @@ signed int __fastcall sub_485044(struct Span *pSpan, struct struct8 *a2, int a3)
   int v56; // [sp+54h] [bp+8h]@11
   int v57; // [sp+54h] [bp+8h]@11
 
-  v5 = (double)(pViewport->uGameZ - pViewport->uGameX) * 0.5 / tan(0.64577174186706543) + 0.5;
+  v5 = (double)(pOldViewport->uGameZ - pOldViewport->uGameX) * 0.5 / tan(0.64577174186706543) + 0.5;
   if ((int)(floorf(v5 + 0.5f)))
   {
     v55 = 65536 / floorf(v5 + 0.5f);
@@ -16280,9 +16281,9 @@ signed int __fastcall sub_485044(struct Span *pSpan, struct struct8 *a2, int a3)
     v40 = (((unsigned __int64)(a2->ptr_000038->dword_000020) * v11) / 65536) + a2->ptr_000038->dword_000018;
     v45 = pSpan->word_00000C;
     v10 = (((unsigned __int64)(a2->dword_000020) * v11) / 65536) + a2->dword_000018;
-    v9 = 65536 / floorf(v5 + 0.5f) * (pViewport->dword_000028 - pSpan->word_000008);
+    v9 = 65536 / floorf(v5 + 0.5f) * (pOldViewport->dword_000028 - pSpan->word_000008);
     v48 = 0;
-    v50 = 65536 / floorf(v5 + 0.5f) * (pViewport->dword_000028 - pSpan->word_000008);
+    v50 = 65536 / floorf(v5 + 0.5f) * (pOldViewport->dword_000028 - pSpan->word_000008);
     v46 = -a2->dword_000024;
     v8 = pSpan->word_00000A - 1;
     v54 = v8;
@@ -16301,7 +16302,7 @@ signed int __fastcall sub_485044(struct Span *pSpan, struct struct8 *a2, int a3)
           break;
         v7 = v53;
       }
-      if ( v8 <= pViewport->uGameY )
+      if ( v8 <= pOldViewport->uGameY )
         break;
       v10 = (((unsigned __int64)(a2->dword_000020) * v7) / 65536) + a2->dword_000018;
       --v54;
@@ -16454,8 +16455,8 @@ signed int __fastcall sub_485407(int a1)
   v8 = *(_WORD *)(a1 + 12);
   v55 = pD3DRenderer->pTargetSurface + v7;
   v59 = v8;
-  v1 = pStruct9_global->dword_000018 * (pViewport->dword_000028 - v6);
-  v9 = pStruct9_global->dword_000018 * (pViewport->dword_00002C - v5);
+  v1 = pStruct9_global->dword_000018 * (pOldViewport->dword_000028 - v6);
+  v9 = pStruct9_global->dword_000018 * (pOldViewport->dword_00002C - v5);
   v54 = pD3DRenderer->pActiveZBuffer + 4 * (v6 + 640 * v5);
   v10 = *(_DWORD *)(v4 + 56);
   v60 = v1;
@@ -16611,8 +16612,8 @@ bool sub_48585C_MaybeDrawSpan(struct Span *pSpan, unsigned int *pRenderTarget, i
 
   v3 = pSpan->pParent;
   v13 = -v3->dword_000024;
-  v14 = (((unsigned __int64)(pStruct9_global->dword_000018) * v3->dword_00001C * (pViewport->dword_000028 - (signed int)pSpan->word_000008)) / 65536) +
-        (((unsigned __int64)(pStruct9_global->dword_000018) * v3->dword_000020 * (pViewport->dword_00002C - (signed int)pSpan->word_00000A)) / 65536) + v3->dword_000018;
+  v14 = (((unsigned __int64)(pStruct9_global->dword_000018) * v3->dword_00001C * (pOldViewport->dword_000028 - (signed int)pSpan->word_000008)) / 65536) +
+        (((unsigned __int64)(pStruct9_global->dword_000018) * v3->dword_000020 * (pOldViewport->dword_00002C - (signed int)pSpan->word_00000A)) / 65536) + v3->dword_000018;
 
   v5 = abs(-v3->dword_000024 >> 14);
   if ( v14 && v5 <= abs(v14))
@@ -17630,8 +17631,8 @@ int __thiscall sub_4898E6(int this)
         {
           *(_DWORD *)v2 = 0;
           v12 = v5 / (*(float *)v6 + 0.0000001000000011686097) * (double)pStruct9_global->dword_000014;
-          *(float *)(v18 + v2) = (double)pViewport->dword_000028 - v12 * *(float *)(v4 + v2);
-          *(float *)(v17 + v2) = (double)pViewport->dword_00002C - v12 * *(float *)(v3 + v2);
+          *(float *)(v18 + v2) = (double)pOldViewport->dword_000028 - v12 * *(float *)(v4 + v2);
+          *(float *)(v17 + v2) = (double)pOldViewport->dword_00002C - v12 * *(float *)(v3 + v2);
           *(float *)(v16 + v2) = v5 - v5 / (*(float *)v6 * 1000.0 / (double)pStruct9_global->shading_dist_mist);
           *(float *)(v15 + v2) = v5 / (*(float *)v6 + 0.0000001000000011686097);
           v13 = *(float *)v6 + 6.755399441055744e15;
@@ -18302,11 +18303,11 @@ signed int __thiscall sub_48B5B3(void *this, int a2)
       v14 = v13 / SHIDWORD(v12);
       *(_DWORD *)(v5 + 88) = v14;
       v15 = *(_DWORD *)(v5 + 88);
-      *(_DWORD *)(v5 + 64) = pViewport->dword_000028
+      *(_DWORD *)(v5 + 64) = pOldViewport->dword_000028
                            - ((signed int)((unsigned __int64)(v14
                                                             * (signed int)(((unsigned __int64)(v10 * v4) >> 16)
                                                                          - HIDWORD(v8))) >> 16) >> 16);
-      *(_DWORD *)(v5 + 68) = pViewport->dword_00002C
+      *(_DWORD *)(v5 + 68) = pOldViewport->dword_00002C
                            - ((signed int)((unsigned __int64)(v15
                                                             * (signed int)(((unsigned __int64)(v48 * v3) >> 16)
                                                                          - ((unsigned __int64)(v11 * v42) >> 16))) >> 16) >> 16);
@@ -18337,11 +18338,11 @@ signed int __thiscall sub_48B5B3(void *this, int a2)
       v23 = v22 / (signed int)(((unsigned __int64)(v20 * v2) >> 16) + ((unsigned __int64)(v51 * v4) >> 16));
       *(_DWORD *)(v5 + 88) = v23;
       v24 = *(_DWORD *)(v5 + 88);
-      *(_DWORD *)(v5 + 64) = pViewport->dword_000028
+      *(_DWORD *)(v5 + 64) = pOldViewport->dword_000028
                            - ((signed int)((unsigned __int64)(v23
                                                             * (signed int)(((unsigned __int64)(v20 * v4) >> 16)
                                                                          - ((unsigned __int64)(v51 * v2) >> 16))) >> 16) >> 16);
-      v25 = pViewport->dword_00002C - ((signed int)((unsigned __int64)(v24 * SLODWORD(v21)) >> 16) >> 16);
+      v25 = pOldViewport->dword_00002C - ((signed int)((unsigned __int64)(v24 * SLODWORD(v21)) >> 16) >> 16);
       *(_DWORD *)(v5 + 80) = ((unsigned __int64)(v20 * v2) >> 16) + ((unsigned __int64)(v51 * v4) >> 16);
       *(_DWORD *)(v5 + 68) = v25;
     }
@@ -18364,21 +18365,21 @@ signed int __thiscall sub_48B5B3(void *this, int a2)
     v31 = v30 / v44;
     *(_DWORD *)(v5 + 88) = v31;
     v32 = *(_DWORD *)(v5 + 88);
-    *(_DWORD *)(v5 + 64) = pViewport->dword_000028 - ((signed int)((unsigned __int64)(v31 * v17) >> 16) >> 16);
+    *(_DWORD *)(v5 + 64) = pOldViewport->dword_000028 - ((signed int)((unsigned __int64)(v31 * v17) >> 16) >> 16);
     v33 = *(float *)(v5 + 40);
-    *(_DWORD *)(v5 + 68) = pViewport->dword_00002C - ((signed int)((unsigned __int64)(v32 * v38) >> 16) >> 16);
+    *(_DWORD *)(v5 + 68) = pOldViewport->dword_00002C - ((signed int)((unsigned __int64)(v32 * v38) >> 16) >> 16);
     v34 = v33;
     *(_DWORD *)(v5 + 88) = (unsigned __int64)(sub_48B561(v34) * *(_DWORD *)(v5 + 88)) >> 16;
     *(_DWORD *)(v5 + 80) = v44;
     v29 = *(_DWORD *)(v5 + 64);
-    if ( v29 >= pViewport->uGameX )
+    if ( v29 >= pOldViewport->uGameX )
     {
-      if ( v29 < pViewport->uGameZ )
+      if ( v29 < pOldViewport->uGameZ )
       {
         v35 = *(_DWORD *)(v5 + 68);
-        if ( v35 >= pViewport->uGameY )
+        if ( v35 >= pOldViewport->uGameY )
         {
-          if ( v35 < pViewport->uGameW )
+          if ( v35 < pOldViewport->uGameW )
             return 1;
         }
       }

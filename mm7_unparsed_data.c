@@ -2704,7 +2704,7 @@ HANDLE hObject; // idb*/
 _UNKNOWN unk_F8BBEC; // weak
 int dword_F8BC10; // weak
 
-struct Viewport *pViewport = 0;  // struct @ MM7.exe::00F8BC14
+struct OldViewport *pOldViewport = 0;  // struct @ MM7.exe::00F8BC14
 // int dword_F8BC14; // 000000
 // int dword_F8BC18; // 000004
 // int dword_F8BC1C; // 000008

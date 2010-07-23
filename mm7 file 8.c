@@ -501,6 +501,7 @@ LABEL_74:
   }
 }
 
+#include "_c_interface.h"
 //----- (0046086A) --------------------------------------------------------
 bool __cdecl MaybeDoAutosave()
 {
@@ -585,8 +586,14 @@ bool __cdecl MaybeDoAutosave()
     pParty_global->sPartyPosX = 12552;
     pParty_global->sPartyPosY = 1816;
     pParty_global->sPartyPosZ = 0;
-    pParty_global->sRotationX = 0;
-    pParty_global->sRotationY = 512;
+
+
+    Camera_SetDirection(pParty_global->pCamera, 0, 0, 1);
+    runtime_warning(deprication);
+    {
+     pParty_global->sRotationX = 0;
+     pParty_global->sRotationY = 512;
+    }
 
     pParty_global->sOldPosX = 12552;
     pParty_global->sOldPosY = 1816;
@@ -2120,8 +2127,8 @@ LABEL_29:
                   v25 = v24 / v42;
                   LODWORD(v24) = 0;
                   HIDWORD(v24) = pStruct9_global->dword_000014 << 16 >> 16;
-                  v35 = pViewport->dword_000028 - ((signed int)(((unsigned __int64)(v25 * v40) >> 16) + 32768) >> 16);
-                  v32 = pViewport->dword_00002C - ((signed int)(((unsigned __int64)(v24 / v42 * v31) >> 16) + 32768) >> 16);
+                  v35 = pOldViewport->dword_000028 - ((signed int)(((unsigned __int64)(v25 * v40) >> 16) + 32768) >> 16);
+                  v32 = pOldViewport->dword_00002C - ((signed int)(((unsigned __int64)(v24 / v42 * v31) >> 16) + 32768) >> 16);
                   if ( dword_5187E0 >= 500 )
                     return;
                   ++dword_5187E0;
@@ -2205,9 +2212,9 @@ void sub_4666D5()
   struct_576FE8.dword_000008 = struct_576FE8.dword_000018;
   struct_576FE8.dword_00000C = struct_576FE8.dword_00001C;
 
-  pViewport = malloc(sizeof(struct Viewport));
-  memset(pViewport, 0, sizeof(struct Viewport));
-  Viewport_fn0(pViewport, struct_576FE8.dword_000010, struct_576FE8.dword_000014, struct_576FE8.dword_000018, struct_576FE8.dword_00001C);
+  pOldViewport = malloc(sizeof(struct OldViewport));
+  memset(pOldViewport, 0, sizeof(struct OldViewport));
+  Viewport_fn0(pOldViewport, struct_576FE8.dword_000010, struct_576FE8.dword_000014, struct_576FE8.dword_000018, struct_576FE8.dword_00001C);
 
   if ( dword_6BE360 == 2 )
     sub_485F64(pStruct9_global);
@@ -4034,8 +4041,8 @@ void *pCamera;
 //----- (004647AB) --------------------------------------------------------
 void InitializeCameraAndViewport()
 {
- Viewport_fn0(pViewport, struct_576FE8.dword_000000, struct_576FE8.dword_000004, struct_576FE8.dword_000008, struct_576FE8.dword_00000C);
- Viewport_fn2(pViewport, (signed __int64)(flt_6BE3A0 * 65536.0));
+ Viewport_fn0(pOldViewport, struct_576FE8.dword_000000, struct_576FE8.dword_000004, struct_576FE8.dword_000008, struct_576FE8.dword_00000C);
+ Viewport_fn2(pOldViewport, (signed __int64)(flt_6BE3A0 * 65536.0));
 
  runtime_warning(deprication)
  {
@@ -6830,8 +6837,8 @@ void __fastcall sub_481E55(int a1)
   if ( a1 > 0 )
   {
     v5 = (double)pStruct9_global->dword_000014;
-    v4 = (double)pViewport->dword_000028;
-    v3 = (double)pViewport->dword_00002C;
+    v4 = (double)pOldViewport->dword_000028;
+    v3 = (double)pOldViewport->dword_00002C;
     v1 = 0;
     v2 = a1;
     do

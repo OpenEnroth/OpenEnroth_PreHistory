@@ -4749,11 +4749,11 @@ void __cdecl sub_441BD4()
   v6 = pParty_global->sRotationY;
   v7 = pParty_global->sRotationX;
   v9 = pD3DRenderer->pTargetSurface;
-  v12 = pViewport->uScreenX;
-  v13 = pViewport->uScreenY;
-  v14 = pViewport->uScreenZ;
-  v15 = pViewport->uScreenW;
-  v16 = pViewport->dword_000030;
+  v12 = pOldViewport->uScreenX;
+  v13 = pOldViewport->uScreenY;
+  v14 = pOldViewport->uScreenZ;
+  v15 = pOldViewport->uScreenW;
+  v16 = pOldViewport->dword_000030;
   v5 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
   v10 = 640;
   v11 = 480;

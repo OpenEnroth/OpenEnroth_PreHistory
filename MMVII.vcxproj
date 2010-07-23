@@ -118,6 +118,9 @@
     <ClCompile Include="Player.c" />
     <ClCompile Include="Render.c" />
     <ClCompile Include="RenderD3D3.c" />
+    <ClCompile Include="Render\RenderD3D10.cpp" />
+    <ClCompile Include="Render\RenderOGL.cpp" />
+    <ClCompile Include="Window.cpp" />
     <ClCompile Include="zlib\adler32.c" />
     <ClCompile Include="zlib\compress.c" />
     <ClCompile Include="zlib\crc32.c" />
@@ -184,6 +187,10 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="RenderD3D3.h" />
+    <ClInclude Include="Render\Render.h" />
+    <ClInclude Include="Render\RenderD3D10.h" />
+    <ClInclude Include="Render\RenderOGL.h" />
+    <ClInclude Include="Window.h" />
     <ClInclude Include="zlib\deflate.h" />
     <ClInclude Include="zlib\infblock.h" />
     <ClInclude Include="zlib\infcodes.h" />

@@ -335,8 +335,8 @@ bool CGame_Pick(struct CGame *_this, float a2, unsigned int uMouseX, unsigned in
         (int)&v17);
       sub_466D09(&v16, *(int *)&v10, v11, 0, 0, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Game.cpp", __LINE__);
     }
-    if (uMouseX >= pViewport->uScreenX && uMouseX <= pViewport->uScreenZ &&
-        uMouseY >= pViewport->uScreenY && uMouseY <= pViewport->uScreenW)
+    if (uMouseX >= pOldViewport->uScreenX && uMouseX <= pOldViewport->uScreenZ &&
+        uMouseY >= pOldViewport->uScreenY && uMouseY <= pOldViewport->uScreenW)
     {
      runtime_warning(too much code there. left for future parse);
      //       class05_sub_4C0646(_this->class05_obj, a2, uMouseX, uMouseY, a6, a7);
@@ -2415,7 +2415,7 @@ void class26_ctor(struct class26 *_this)
 }
 
 //----- (MM7.exe::004C0262) --------------------------------------------------------
-void Viewport_fn0(struct Viewport *_this, int a2, int a3, int a4, int a5)
+void Viewport_fn0(struct OldViewport *_this, int a2, int a3, int a4, int a5)
 {
   int v5; // edx@1
   int v6; // esi@1
@@ -2458,7 +2458,7 @@ void Viewport_fn0(struct Viewport *_this, int a2, int a3, int a4, int a5)
 }
 
 //----- (MM7.exe::004C0312) --------------------------------------------------------
-void Viewport_SetGameViewport(struct Viewport *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW)
+void Viewport_SetGameViewport(struct OldViewport *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW)
 {
  _this->uGameX = uX;
  if (_this->uGameX < _this->uScreenX)
@@ -2478,7 +2478,7 @@ void Viewport_SetGameViewport(struct Viewport *_this, unsigned int uX, unsigned 
 }
 
 //----- (MM7.exe::004C02F8) --------------------------------------------------------
-void Viewport_fn2(struct Viewport *_this, int a2)
+void Viewport_fn2(struct OldViewport *_this, int a2)
 {
  _this->dword_000030 = a2;
  Viewport_fn0(_this, _this->uScreenX, _this->uScreenY, _this->uScreenZ, _this->uScreenW);
@@ -7769,13 +7769,13 @@ void class08_CreateWorldMatrixAndSomeStuff(struct class08 *_this)
   _this->class26_obj3.array_000004[i] = m3.v[2][i];
  }
 
- _this->flt_0000D0 = (double)pViewport->dword_000020 * 0.8814736008644104;
- _this->flt_0000D4 = (double)pViewport->dword_000024 * 0.8814736008644104;
+ _this->flt_0000D0 = (double)pOldViewport->dword_000020 * 0.8814736008644104;
+ _this->flt_0000D4 = (double)pOldViewport->dword_000024 * 0.8814736008644104;
  _this->flt_0000D8 = 1.1344639f;
 
  _this->flt_0000C4 = max(_this->flt_0000D0, _this->flt_0000D4);
- _this->flt_0000C8 = (double)pViewport->dword_000028;
- _this->flt_0000CC = (double)(pViewport->dword_00002C - pViewport->uScreenY);
+ _this->flt_0000C8 = (double)pOldViewport->dword_000028;
+ _this->flt_0000CC = (double)(pOldViewport->dword_00002C - pOldViewport->uScreenY);
 }
 
 
@@ -8002,7 +8002,7 @@ void class08_sub_436BB7(struct class08 *_this, struct RenderVertex *a2, int a3, 
       {
         v7 = 1.0 / a2[i].flt_00000C;
         a2[i].flt_000018 = a2[i].flt_000010 * _this->flt_0000C4 * v7 + _this->flt_0000C8;
-        a2[i].flt_00001C = (double)pViewport->uGameW
+        a2[i].flt_00001C = (double)pOldViewport->uGameW
                            - (a2[i].flt_000014 * _this->flt_0000C4 * v7 + _this->flt_0000CC);
       }
       else
@@ -8011,12 +8011,12 @@ void class08_sub_436BB7(struct class08 *_this, struct RenderVertex *a2, int a3, 
       }
       if ( a4 )
       {
-        v8 = (double)pViewport->uGameZ;
+        v8 = (double)pOldViewport->uGameZ;
         if ( v8 >= a2[i].flt_000018)
           v9 = a2[i].flt_000018;
         else
           v9 = v8;
-        v10 = (double)pViewport->uGameX;
+        v10 = (double)pOldViewport->uGameX;
         v14 = v10;
         if ( v10 <= v9 )
         {
@@ -8027,12 +8027,12 @@ void class08_sub_436BB7(struct class08 *_this, struct RenderVertex *a2, int a3, 
            v8 = v14;
         a2[i].flt_000018 = v8;
 
-        v11 = (double)pViewport->uGameW;
+        v11 = (double)pOldViewport->uGameW;
         if ( v11 >= a2[i].flt_00001C)
           v12 = a2[i].flt_00001C;
         else
           v12 = v11;
-        v13 = (double)pViewport->uGameY;
+        v13 = (double)pOldViewport->uGameY;
         v15 = v13;
         if ( v13 <= v12 )
         {
@@ -9599,10 +9599,10 @@ void class02_sub_48BBA6(struct class02 *_this)
                       v11 = 30;
                     v13 = v8 - v11;
                     v12 = v25 - (v11 >> 1);
-                    if ( v12 + v11 < pViewport->uGameX
-                      || v12 >= pViewport->uGameZ
-                      || v13 + v11 < pViewport->uGameY
-                      || v13 >= pViewport->uGameW )
+                    if ( v12 + v11 < pOldViewport->uGameX
+                      || v12 >= pOldViewport->uGameZ
+                      || v13 + v11 < pOldViewport->uGameY
+                      || v13 >= pOldViewport->uGameW )
                     {
                       v6 = pD3DRenderer;
                     }
@@ -9752,10 +9752,10 @@ void class02_sub_48BEEF(struct class02 *_this)
             v10 = 30;
           v12 = *(_DWORD *)(v7 - 18) - (v10 >> 1);
           v11 = *(_DWORD *)(v7 - 14) - v10;
-          if ( v12 + v10 < pViewport->uGameX
-            || v12 >= pViewport->uGameZ
-            || *(_DWORD *)(v7 - 14) < pViewport->uGameY
-            || v11 >= pViewport->uGameW )
+          if ( v12 + v10 < pOldViewport->uGameX
+            || v12 >= pOldViewport->uGameZ
+            || *(_DWORD *)(v7 - 14) < pOldViewport->uGameY
+            || v11 >= pOldViewport->uGameW )
           {
             v6 = pD3DRenderer;
           }
@@ -9903,22 +9903,22 @@ int class06_sub_4A8C27(struct class06 *_this)
     *(_DWORD *)(v1 + 1492) -= pClass24_global->int_00001C;
     if ( pD3DRenderer->pRenderD3D3 )
     {
-      v12 = (double)pViewport->uGameX;
+      v12 = (double)pOldViewport->uGameX;
       v36 = v12;
       v44 = v12;
-      v13 = (double)pViewport->uGameZ;
-      v70 = pViewport->uGameW + 1;
+      v13 = (double)pOldViewport->uGameZ;
+      v70 = pOldViewport->uGameW + 1;
       v40 = 0x7F7F7F;
       v48 = 0x7F7F7F;
       v52 = v13;
       v60 = v13;
-      v14 = (double)pViewport->uGameY;
+      v14 = (double)pOldViewport->uGameY;
       v56 = 0x7F7F7F;
       v64 = 0x7F7F7F;
       v41 = 0;
       v49 = 0;
       v37 = v14;
-      v15 = (double)(pViewport->uGameW + 1);
+      v15 = (double)(pOldViewport->uGameW + 1);
       v57 = 0;
       v65 = 0;
       v45 = v15;
@@ -10016,24 +10016,24 @@ int class06_sub_4A8C27(struct class06 *_this)
      v22 = pD3DRenderer->pTargetSurface;
       v35 = -1;
       v23 = pD3DRenderer->pActiveZBuffer;
-      v24 = (pViewport->uGameZ - pViewport->uGameX) / 2;
-      v25 = pViewport->uGameW;
+      v24 = (pOldViewport->uGameZ - pOldViewport->uGameX) / 2;
+      v25 = pOldViewport->uGameW;
       LODWORD(v21) = 0;
-      HIDWORD(v21) = (pViewport->uGameZ - pViewport->uGameX) << 16 >> 16;
+      HIDWORD(v21) = (pOldViewport->uGameZ - pOldViewport->uGameX) << 16 >> 16;
       v68 = 16777216;
       v26 = v21 / 16777216;
       LODWORD(v21) = 0;
-      HIDWORD(v21) = (pViewport->uGameW - pViewport->uGameY) << 16 >> 16;
+      HIDWORD(v21) = (pOldViewport->uGameW - pOldViewport->uGameY) << 16 >> 16;
       v70 = v21 / 16777216;
       v27 = v21 / 16777216;
       v28 = sub_41F50D(*(_WORD *)(v69 + 52), 0, 1);
       v31 = pD3DRenderer->uTargetSurfacePitch;
       v35 = -1;
-      v32 = pViewport->uGameX;
-      v33 = pViewport->uGameY;
-      result = pViewport->uGameW;
+      v32 = pOldViewport->uGameX;
+      v33 = pOldViewport->uGameY;
+      result = pOldViewport->uGameW;
       v29 = 0;
-      v34 = pViewport->uGameW;
+      v34 = pOldViewport->uGameW;
       v30 = 0;
       if ( v8 >= 0 )
         result = sub_4ACC38(40 * v8 + 7218180, (int)&v22, 1);

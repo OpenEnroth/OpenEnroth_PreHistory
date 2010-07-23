@@ -76,7 +76,7 @@ struct RenderD3D3
  IDirectDrawSurface4       *pFontBuffer; // dword @ 000030
  IDirectDrawSurface4       *pZBuffer;    // dword @ 000034
  IDirect3DDevice3          *pDevice;     // dword @ 000038
- IDirect3DViewport3        *pViewport;   // dword @ 00003C
+ IDirect3DViewport3        *pOldViewport;   // dword @ 00003C
  int                        dword_000040;
  int                        dword_000044;
  unsigned char              pStatusMessage[48 + array_size_unknown];

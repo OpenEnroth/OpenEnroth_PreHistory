@@ -1211,7 +1211,7 @@ extern struct class56 *pLoadingUI; // struct @ MM7.exe::00576E30
 //int dword_576E3C; // 00000C
 
 
-//definetly a viewport, used for initialization of game OldCamera; maybe Viewport class instance
+//definetly a OldViewport, used for initialization of game OldCamera; maybe OldViewport class instance
 extern struct unnamed_576FE8
 {
  int dword_000000;
@@ -2857,7 +2857,7 @@ HANDLE hObject; // idb*/
 extern _UNKNOWN unk_F8BBEC; // weak
 extern int dword_F8BC10; // weak
 
-extern struct Viewport *pViewport;  // struct @ MM7.exe::00F8BC14
+extern struct OldViewport *pOldViewport;  // struct @ MM7.exe::00F8BC14
 
 extern __int16 word_F8BC48[array_size_unknown]; // weak
 extern __int16 word_F8BC4A; // weak

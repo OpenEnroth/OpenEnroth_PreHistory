@@ -1149,7 +1149,7 @@ int Render_Initialize(struct Render *_this, HWND hwnd)
   _this->dword_040058 = 0;
   pParty_global->dword_007778 |= 2u;
   flt_6BE3A0 = 0.55f;
-  Viewport_fn2(pViewport, 36044);
+  Viewport_fn2(pOldViewport, 36044);
   return v18;
 }
 
@@ -1200,7 +1200,7 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
   flt_6BE3A0 = 0.55000001;
 
 
- Viewport_fn2(pViewport, 36044);
+ Viewport_fn2(pOldViewport, 36044);
 
  _this->dword_040108 = 0;
  _this->dword_040110 = 0;

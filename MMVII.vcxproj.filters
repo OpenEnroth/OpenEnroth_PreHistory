@@ -17,6 +17,9 @@
     <Filter Include="Math">
       <UniqueIdentifier>{998d8af0-d002-4b73-ab1a-5797ee240fbf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Render">
+      <UniqueIdentifier>{e8f69a95-f23e-4864-9765-1b400bbd1202}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_audio.c">
@@ -188,6 +191,15 @@
       <Filter>Wight and Wagic</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\RenderD3D10.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\RenderOGL.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
       <Filter>Wight and Wagic</Filter>
     </ClCompile>
   </ItemGroup>
@@ -383,6 +395,18 @@
     </ClInclude>
     <ClInclude Include="Math\Math.inl">
       <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Render.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\RenderD3D10.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\RenderOGL.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Wight and Wagic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -906,13 +906,13 @@ struct class27
 
 
 
-struct Viewport
+struct OldViewport
 {
  unsigned int uScreenX; // dword @ 000000  screen dimensions
  unsigned int uScreenY; // dword @ 000004
  unsigned int uScreenZ; // dword @ 000008
  unsigned int uScreenW; // dword @ 00000C
- unsigned int uGameX;   // dword @ 000010  game viewport dimensions
+ unsigned int uGameX;   // dword @ 000010  game OldViewport dimensions
  unsigned int uGameY;   // dword @ 000014
  unsigned int uGameZ;   // dword @ 000018
  unsigned int uGameW;   // dword @ 00001C
@@ -924,11 +924,11 @@ struct Viewport
 };
 //sizeof ~ 34
 //int __thiscall sub_4C0262(int this, int a2, int a3, int a4, int a5);
-void Viewport_fn0(struct Viewport *_this, int a2, int a3, int a4, int a5);
+void Viewport_fn0(struct OldViewport *_this, int a2, int a3, int a4, int a5);
 //int __thiscall sub_4C0312(int this, int a2, int a3, int a4, int a5)
-void Viewport_SetGameViewport(struct Viewport *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW);
+void Viewport_SetGameViewport(struct OldViewport *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW);
 //int __thiscall sub_4C02F8(int this, int a2)
-void Viewport_fn2(struct Viewport *_this, int a2);
+void Viewport_fn2(struct OldViewport *_this, int a2);
 
 
 
@@ -1487,7 +1487,7 @@ struct OldCamera
  int          uMapGridCellZ;    // dword @ 000010
  signed int   sRotationX;       // dword @ 000014    dword @ 0006C4 in Player    OldCamera euler angles
  signed int   sRotationY;       // dword @ 000018    dword @ 0006C0 in Player
- float        flt_00001C;       // related to viewport width ang viewing angle, perspective projection parameters
+ float        flt_00001C;       // related to OldViewport width ang viewing angle, perspective projection parameters
  float        flt_000020;       // inverted 00001C (65536 / [00001C])
  int          dword_000024;
  int          dword_000028;
