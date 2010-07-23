@@ -707,7 +707,7 @@ signed int __stdcall DialogFunc(HWND hDlg, int a2, __int16 a3, int a4);
 signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine);
 void __cdecl sub_465C2C();
 void __cdecl sub_465C53();
-int __cdecl sub_465CF3();
+int __cdecl DestroyGame();
 signed int __cdecl sub_465D0B();
 void __cdecl sub_465F5A();
 void __cdecl sub_465FF0();

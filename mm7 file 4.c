@@ -14165,13 +14165,14 @@ void __cdecl sub_465C53()
 }
 
 //----- (00465CF3) --------------------------------------------------------
-int __cdecl sub_465CF3()
+int __cdecl DestroyGame()
 {
-  int result; // eax@2
+  int result = 0; // eax@2
 
-  if ( LODWORD(pGame) )
-    compile_error;//result = (*(int (__stdcall **)(_DWORD))*LODWORD(pGame))(1);
-  LODWORD(pGame) = 0;
+  if ( pGame )
+    result = (*(int (__cdecl **)(struct CGame*, char))pGame->dword_000000)(pGame, 1); //indirect call of CGame the destructor
+    
+  pGame = 0;
   return result;
 }
 

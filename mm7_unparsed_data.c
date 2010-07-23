@@ -2774,5 +2774,6 @@ int dword_F91E10; // weak
  LPVOID lpMem; // idb
  int dword_F94500; // weak
  HANDLE hHeap; // idb
-
  int dword_F94508; // weak
+ 
+ const void* pCGame_dtor = &CGame_dtor;

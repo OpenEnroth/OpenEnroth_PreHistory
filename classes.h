@@ -19,7 +19,7 @@ struct CGame_stru0
 
 struct CGame
 {
- int  dword_000000;
+ int  dword_000000;  //pointer to pointer to destructor of the class
  int  dword_000004;
  int  dword_000008[699];
  int  dword_000704;     //num stationary lights?
@@ -91,6 +91,7 @@ void CGame_stru0_sub_40E2F6(struct CGame_stru0 *_this, char a2);
 //char __thiscall sub_44EE30(int this, int a2, void **a3);
 bool Game_sub_44EE30(struct CGame *_this, struct class51_stru2 *a2, void **a3);
 
+int CGame_dtor(struct CGame *_this, char flag);
 
 
 

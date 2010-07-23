@@ -5009,7 +5009,7 @@ int __cdecl sub_4645FA()
   //sub_461A11(pLODFile_New_LOD);
   //sub_461A11(pLODFile_Games_LOD);
   ClipCursor(0);
-  return sub_465CF3();
+  return DestroyGame();
 }
 
 //----- (004063A1) --------------------------------------------------------

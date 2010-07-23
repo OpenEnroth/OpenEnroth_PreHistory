@@ -23,7 +23,7 @@ void CGame_ctor(struct CGame *_this)
 {
  void *v1, *v2;
 
- _this->dword_000000 = 0x4D865C;
+ _this->dword_000000 = (int)&pCGame_dtor;
  _this->dword_000704 = 0;
  _this->dword_000E08 = 0;
  _this->dword_000E0C = 0;
@@ -96,6 +96,19 @@ void CGame_ctor(struct CGame *_this)
  CGame_fn0(_this);
  if (dword_F79D7C != 2 || (dword_4E800C = 1, dword_F79D70 != 4))
    dword_4E800C = 0;
+}
+
+//----- (0044E7D7) --------------------------------------------------------
+
+int CGame_dtor(struct CGame *_this, char flag)
+{
+  int v2; // eax@1
+  
+  v2 = sub_44E7F3((int)_this);
+  if ( flag & 1 )
+    operator_delete(v2, _this);
+
+  return (int)_this;
 }
 
 //----- (0044EC23) --------------------------------------------------------

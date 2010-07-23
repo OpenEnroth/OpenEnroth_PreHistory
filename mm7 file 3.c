@@ -12751,14 +12751,15 @@ int __thiscall TextureFrameTable_GetFrame(int this, int a2, signed int a3)
 }
 
 //----- (0044E7F3) --------------------------------------------------------
-function_error;//int __usercall sub_44E7F3<eax>(int result<eax>, int a2<ecx>)
-int __fastcall sub_44E7F3(int result, int a2)
+
+int __thiscall sub_44E7F3(int this)
 {
-  int v2; // ecx@1
-  int v3; // esi@1
-  int v4; // ecx@3
-  int v5; // ecx@5
-  unsigned int v6; // edi@7
+  int v1; // ecx@1
+  int v2; // esi@1
+  int v3; // ecx@3
+  int v4; // ecx@5
+  unsigned int v5; // edi@7
+  int result = 0; // eax@8
   int v7; // eax@8
   unsigned int v8; // edi@9
   int v9; // eax@10
@@ -12775,67 +12776,68 @@ int __fastcall sub_44E7F3(int result, int a2)
   int v20; // eax@26
   int v21; // ecx@27
 
-  v3 = a2;
-  v2 = *(_DWORD *)(a2 + 3696);
-  *(_DWORD *)v3 = 5080668;
-  if ( v2 )
-    result = (**(int (__stdcall ***)(_DWORD))v2)(1);
-  v4 = *(_DWORD *)(v3 + 3692);
+  v2 = this;
+  v1 = *(_DWORD *)(this + 3696);
+  *(_DWORD *)v2 = 5080668;
+  if ( v1 )
+    result = (**(int (__stdcall ***)(_DWORD))v1)(1);
+  v3 = *(_DWORD *)(v2 + 3692);
+  if ( v3 )
+    result = (**(int (__stdcall ***)(_DWORD))v3)(1);
+  v4 = *(_DWORD *)(v2 + 3688);
   if ( v4 )
     result = (**(int (__stdcall ***)(_DWORD))v4)(1);
-  v5 = *(_DWORD *)(v3 + 3688);
+  v5 = *(_DWORD *)(v2 + 3684);
   if ( v5 )
-    result = (**(int (__stdcall ***)(_DWORD))v5)(1);
-  v6 = *(_DWORD *)(v3 + 3684);
-  if ( v6 )
   {
-    v7 = sub_489810(result, *(_DWORD *)(v3 + 3684));
-    result = operator_delete(v7, v6);
+    v7 = sub_489810(result, *(_DWORD *)(v2 + 3684));
+    result = operator_delete(v7, v5);
   }
-  v8 = *(_DWORD *)(v3 + 3680);
+  v8 = *(_DWORD *)(v2 + 3680);
   if ( v8 )
   {
     compile_error;//v9 = nullsub_1(*(_DWORD *)(v3 + 3680));
     result = operator_delete(v9, v8);
   }
-  v10 = *(_DWORD *)(v3 + 3676);
+  v10 = *(_DWORD *)(v2 + 3676);
   if ( v10 )
     result = (**(int (__stdcall ***)(_DWORD))v10)(1);
-  v11 = *(_DWORD *)(v3 + 3672);
+  v11 = *(_DWORD *)(v2 + 3672);
   if ( v11 )
     result = (**(int (__stdcall ***)(_DWORD))v11)(1);
-  v12 = *(_DWORD *)(v3 + 3668);
+  v12 = *(_DWORD *)(v2 + 3668);
   if ( v12 )
     result = (**(int (__stdcall ***)(_DWORD))v12)(1);
-  v13 = *(_DWORD *)(v3 + 3664);
+  v13 = *(_DWORD *)(v2 + 3664);
   if ( v13 )
   {
-    sub_4A71DC(*(_DWORD *)(v3 + 3664));
+    sub_4A71DC(*(_DWORD *)(v2 + 3664));
     result = operator_delete(v14, v13);
   }
-  v15 = *(_DWORD *)(v3 + 3660);
+  v15 = *(_DWORD *)(v2 + 3660);
   if ( v15 )
     result = (**(int (__stdcall ***)(_DWORD))v15)(1);
-  v16 = *(_DWORD *)(v3 + 3656);
+  v16 = *(_DWORD *)(v2 + 3656);
   if ( v16 )
     result = (**(int (__stdcall ***)(_DWORD))v16)(1);
-  v17 = *(_DWORD *)(v3 + 3652);
+  v17 = *(_DWORD *)(v2 + 3652);
   if ( v17 )
   {
-    v18 = sub_467E7A(*(_DWORD *)(v3 + 3652));
+    v18 = sub_467E7A(*(_DWORD *)(v2 + 3652));
     result = operator_delete(v18, v17);
   }
-  v19 = *(_DWORD *)(v3 + 3648);
+  v19 = *(_DWORD *)(v2 + 3648);
   if ( v19 )
   {
-    v20 = sub_48AAF1(*(_DWORD *)(v3 + 3648));
+    v20 = sub_48AAF1(*(_DWORD *)(v2 + 3648));
     result = operator_delete(v20, v19);
   }
-  v21 = *(_DWORD *)(v3 + 3644);
+  v21 = *(_DWORD *)(v2 + 3644);
   if ( v21 )
     result = (**(int (__stdcall ***)(_DWORD))v21)(1);
   return result;
 }
+
 
 //----- (0044E904) --------------------------------------------------------
 void __thiscall sub_44E904(void *this)
