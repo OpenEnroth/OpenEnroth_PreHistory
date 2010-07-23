@@ -768,7 +768,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *
   signed int v9; // edi@44
   signed __int64 v12; // qax@55
   signed int v13; // ecx@56
-  HANDLE v14; // eax@68
+  HANDLE hProcess; // eax@68
   int v16; // [sp+8h] [bp-24h]@55
   RECT Rect; // [sp+Ch] [bp-20h]@15
   HWND hActiveWindow;
@@ -819,7 +819,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *
   {
    if (pD3DRenderer->uAcquiredDirect3DDevice == 1)
    {
-    SetWindowPos(hWnd_global, (HWND)((unsigned int)(HWND_MESSAGE)|0x2), 320, 240, 640, 480, 0);
+    SetWindowPos(hWnd_global, (HWND)((UINT_PTR)(HWND_MESSAGE)|0x2), 320, 240, 640, 480, 0);
     Rect.left = 325;
     Rect.top = 245;
     Rect.right = 326;
@@ -842,7 +842,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *
   Render_sub_4A0E97(pD3DRenderer, 0, 0, 639, 479);
   InitializeCameraAndViewport();
   while (true)
-    {
+  {
       MenuLoop_Main();
 LABEL_21:
       dword_6A0D48 = 0;
@@ -857,12 +857,11 @@ LABEL_21:
 
           Party_Reset(pParty_global);
 
-          v9 = 0;
-          do
+          for (v9 = 0; v9 < 50; ++v9)
           {
-            sub_45855F(array_5E4D58[v9++]);
+              sub_45855F(array_5E4D58[v9]);
           }
-          while ( v9 < 50);
+
           strcpy(Str1, pStartMapName);
           Party_CreateDefaultParty(pParty_global, 0);
 
@@ -969,8 +968,9 @@ LABEL_53:
     }
   }
 LABEL_68:
-  v14 = GetCurrentProcess();
-  SetPriorityClass(v14, 0x20u);
+  hProcess = GetCurrentProcess();  
+  SetPriorityClass(hProcess, NORMAL_PRIORITY_CLASS);
+
   sub_4645FA();
   if (hActiveWindow)
     SetActiveWindow(hActiveWindow);

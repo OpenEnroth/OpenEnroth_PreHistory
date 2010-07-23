@@ -5996,7 +5996,7 @@ unsigned int LODFile_LoadSprite(struct LODFile *_this, const char *pSourceFile, 
  {
   if (!_this->pHardwareSprites)
   {
-   _this->pHardwareSprites = class23_AllocatedNamedBuffer(class23_instance, 0, 1500 * sizeof(struct HardwareSprite), "hardwareSprites");
+   _this->pHardwareSprites = class23_AllocatedNamedBuffer(class23_instance, 0, 2500 * sizeof(struct HardwareSprite), "hardwareSprites");
 
    for (i = 0; i < 150; ++i)
    {
