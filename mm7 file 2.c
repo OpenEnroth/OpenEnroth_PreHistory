@@ -780,15 +780,6 @@ void __fastcall sub_42F933(int a1)
 }
 
 
-#include "_c_interface.h"
-extern void *pNewDxWindow;
-extern void *pNewOglWindow;
-void SecondWnd_Process()
-{
- while (Window_Update(pNewDxWindow, 0));
- while (Window_Update(pNewOglWindow, 0));
-}
-
 //----- (00463149) --------------------------------------------------------
 int __cdecl sub_463149()
 {
@@ -880,7 +871,7 @@ int __cdecl sub_463149()
       GameUI_Update();
       sub_42FC4E();
       GameUI_Process();
-      SecondWnd_Process();
+      Game_Process_cpp();
       if ( struct_505898.byte_505992 )
       {
         sub_409E6A();

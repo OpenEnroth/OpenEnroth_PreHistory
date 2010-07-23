@@ -1,14 +1,45 @@
 #include "RenderOGL.h"
 #include "wgl\\wglext.h"
-#include "..\\Window.h"
+#include "TextureOGL.h"
+
+
+unsigned int RenderOGL::GetPrimaryDepthTarget(Texture **pOut)
+{
+ if (pOut)
+ {
+  *pOut = pPrimaryDepthTarget;
+  return 0;
+ }
+ return -1;
+}
+
+unsigned int RenderOGL::GetPrimaryColorTarget(Texture **pOut)
+{
+ if (pOut)
+ {
+  *pOut = pPrimaryColorTarget;
+  return 0;
+ }
+ return -1;
+}
+
+unsigned int RenderOGL::CreateTexture(unsigned int uWidth, unsigned int uDepth, enum TextureFormat eFormat, Texture **)
+{
+ return -1;
+}
+
+unsigned int RenderOGL::CreateTexture(const wchar_t *pName, Texture **)
+{
+ return -1;
+}
+
 
 
 
 unsigned int RenderOGL::Reset(Window *pOutputWindow, bool bFullscreen, struct Viewport *pOutputArea)
 {
  pTargetWindow = pOutputWindow;
-
- hTargetWindowDC = GetDC((HWND)(pTargetWindow->GetAPIHandle()));
+ memcpy(&defaultViewport, pOutputArea, sizeof(struct Viewport));
 
  PIXELFORMATDESCRIPTOR pfd =
  {
@@ -29,6 +60,8 @@ unsigned int RenderOGL::Reset(Window *pOutputWindow, bool bFullscreen, struct Vi
   0,                     // reserved  
   0, 0, 0                // layer masks ignored  
  };
+ 
+ hTargetWindowDC = GetDC((HWND)(pTargetWindow->GetAPIHandle()));
 
  int iPixelFormat = ChoosePixelFormat(hTargetWindowDC, &pfd);
  if (!iPixelFormat)
@@ -75,7 +108,28 @@ unsigned int RenderOGL::Reset(Window *pOutputWindow, bool bFullscreen, struct Vi
  wglDeleteContext(hLegacyRC);
  wglMakeCurrent(hTargetWindowDC, hTargetWindowRC);
 
+ struct Viewport windowClientArea;
+ pTargetWindow->GetClientArea(&windowClientArea);
+ if (bFullscreen)
+ {
+  DEVMODE devmod;
+  memset(&devmod, 0, sizeof(DEVMODE));
+
+  EnumDisplaySettings(0, ENUM_CURRENT_SETTINGS, &devmod);
+  devmod.dmPelsWidth = windowClientArea.z - windowClientArea.x;
+  devmod.dmPelsHeight = windowClientArea.w - windowClientArea.y;
+
+  ChangeDisplaySettings(&devmod, CDS_FULLSCREEN);
+ }
+
+ pPrimaryColorTarget = new TextureOGL;
+ pPrimaryColorTarget->eFormat = TF_R8G8B8A8_int;
+ 
+ pPrimaryDepthTarget = new TextureOGL;
+ pPrimaryDepthTarget->eFormat = TF_D32_float;
+
  glClearColor(0, 0, 0, 1);
+ glClear(GL_COLOR_BUFFER_BIT);
  SwapBuffers(hTargetWindowDC);
 
  return 0;
@@ -88,40 +142,10 @@ unsigned int RenderOGL::Initialize()
 
 
 
-Render *CreateOpenGLRender()
+Render *CreateOpenGL32Render()
 {
  return new RenderOGL;
 }
 
 
 #pragma comment(lib, "OpenGL32.lib")
-
-
-
-
-
-
-
-
-
-
-void *NewRender_CreateD3D10()
-{
- return CreateDirect3D10Render();
-}
-
-void *NewRender_CreateOGL()
-{
- return CreateOpenGLRender();
-}
-unsigned int NewRender_Initialize(void *_this)
-{
- Render *pRender = (Render *)_this;
- return pRender->Initialize();
-}
-
-unsigned int NewRender_Reset(void *_this, Window *pWindow, bool bFullscreen, struct Viewport *pViewport)
-{
- Render *pRender = (Render *)_this;
- return pRender->Reset(pWindow, bFullscreen, pViewport);
-}

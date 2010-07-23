@@ -1,5 +1,40 @@
 #include "RenderD3D10.h"
+#include "TextureD3D10.h"
 #include "..\\Window.h"
+
+
+
+
+unsigned int RenderD3D10::GetPrimaryDepthTarget(Texture **pOut)
+{
+ if (pOut)
+ {
+  *pOut = pPrimaryDepthTarget;
+  return 0;
+ }
+ return -1;
+}
+
+unsigned int RenderD3D10::GetPrimaryColorTarget(Texture **pOut)
+{
+ if (pOut)
+ {
+  *pOut = pPrimaryColorTarget;
+  return 0;
+ }
+ return -1;
+}
+
+
+unsigned int RenderD3D10::CreateTexture(unsigned int uWidth, unsigned int uDepth, enum TextureFormat eFormat, Texture **)
+{
+ return -1;
+}
+
+unsigned int RenderD3D10::CreateTexture(const wchar_t *pName, Texture **)
+{
+ return -1;
+}
 
 
 
@@ -58,13 +93,18 @@ unsigned int RenderD3D10::Reset(Window *pOutputWindow, bool bFullscreen, struct 
  sDepthDesc.CPUAccessFlags = 0;
  sDepthDesc.MiscFlags = 0;
  pDevice->CreateTexture2D(&sDepthDesc, 0, &pDepthRT);
+ 
+ pPrimaryColorTarget = new TextureD3D10;
+ pPrimaryColorTarget->eFormat = TF_R8G8B8A8_int;
+ pPrimaryColorTarget->pResource = pColorRT;
+ pDevice->CreateRenderTargetView(pColorRT, 0, (ID3D10RenderTargetView **)(&pPrimaryColorTarget->pResourceView));
+ 
+ pPrimaryDepthTarget = new TextureD3D10;
+ pPrimaryDepthTarget->eFormat = TF_D32_float;
+ pPrimaryDepthTarget->pResource = pDepthRT;
+ pDevice->CreateDepthStencilView(pDepthRT, 0, (ID3D10DepthStencilView **)(&pPrimaryDepthTarget->pResourceView));
 
- pDevice->CreateRenderTargetView(pColorRT, 0, (ID3D10RenderTargetView **)(&pDefaultRenderTargetView));
- pColorRT->Release();
- pDevice->CreateDepthStencilView(pDepthRT, 0, (ID3D10DepthStencilView **)(&pDefaultDepthStencilView));
- pDepthRT->Release();
-
- pDevice->OMSetRenderTargets(1, (ID3D10RenderTargetView **)(&pDefaultRenderTargetView), (ID3D10DepthStencilView *)(pDefaultDepthStencilView));
+ pDevice->OMSetRenderTargets(1, (ID3D10RenderTargetView **)(&pPrimaryColorTarget->pResourceView), (ID3D10DepthStencilView *)(pPrimaryDepthTarget->pResourceView));
 
 
 
@@ -120,8 +160,8 @@ unsigned int RenderD3D10::Reset(Window *pOutputWindow, bool bFullscreen, struct 
 
 
  float pClearColor[] = {0, 0, 0, 0};
- pDevice->ClearRenderTargetView((ID3D10RenderTargetView *)(pDefaultRenderTargetView), pClearColor);
- pDevice->ClearDepthStencilView((ID3D10DepthStencilView *)(pDefaultDepthStencilView), D3D10_CLEAR_DEPTH, 1, 0);
+ pDevice->ClearRenderTargetView((ID3D10RenderTargetView *)(pPrimaryColorTarget->pResourceView), pClearColor);
+ pDevice->ClearDepthStencilView((ID3D10DepthStencilView *)(pPrimaryDepthTarget->pResourceView), D3D10_CLEAR_DEPTH, 1, 0);
  pSwapChain->Present(0, 0);
 
  return 0;

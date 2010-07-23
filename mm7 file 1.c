@@ -92,11 +92,6 @@ __declspec(naked) void loc_47907F(void)
 
 
 
-#include "_c_interface.h"
- void *pNewDxWindow = 0;
- void *pNewOglWindow = 0;
- void *pNewRender = 0;
-
 //----- (00462C94) --------------------------------------------------------
 int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *lpCmdLine, int nShowCmd)
 {
@@ -110,39 +105,8 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *
   RECT Rect; // [sp+Ch] [bp-20h]@15
   HWND hActiveWindow;
 
- struct Viewport renderArea;
- 
- {
-  renderArea.x = 0;
-  renderArea.y = 0;
-  renderArea.z = 1024;
-  renderArea.w = 768;
 
-  pNewDxWindow = Window_Initialize(L"MM7w2dx", L"MM7 C++ Direct3D10", true);
-  Window_SetClientArea(pNewDxWindow, &renderArea);
-  Window_Show(pNewDxWindow);
-
-  pNewRender = NewRender_CreateD3D10();
-  NewRender_Initialize(pNewRender);
-
-  NewRender_Reset(pNewRender, pNewDxWindow, false, &renderArea);
- }
-
- {
-  renderArea.x = 0;
-  renderArea.y = 0;
-  renderArea.z = 1024;
-  renderArea.w = 768;
-
-  pNewOglWindow = Window_Initialize(L"MM7w2ogl", L"MM7 C++ OpenGL", true);
-  Window_SetClientArea(pNewOglWindow, &renderArea);
-  Window_Show(pNewOglWindow);
-
-  pNewRender = NewRender_CreateOGL();
-  NewRender_Initialize(pNewRender);
-
-  NewRender_Reset(pNewRender, pNewOglWindow, false, &renderArea);
- }
+  Game_Initialize();
   
  RtlCallCtors();
  AllocConsole();

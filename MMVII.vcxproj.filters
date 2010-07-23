@@ -202,6 +202,15 @@
     <ClCompile Include="Window.cpp">
       <Filter>Wight and Wagic</Filter>
     </ClCompile>
+    <ClCompile Include="Render\RenderOperatorsD3D10.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\RenderOperatorsOGL.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Driver.cpp">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="_audio.h">
@@ -407,6 +416,24 @@
     </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Texture.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\RenderOperators.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\RenderOperatorsD3D10.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\RenderOperatorsOGL.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\TextureD3D10.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\TextureOGL.h">
+      <Filter>Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

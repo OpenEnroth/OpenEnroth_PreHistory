@@ -39,14 +39,3 @@ class Window: public EventHandler
    wchar_t     pClassName[256];
    HWND        hWindow;
 };
-
-
-
-
-extern "C"
-{
- void         *Window_Initialize(const wchar_t *pClass, const wchar_t *pWindow, bool bFrame);
- unsigned int  Window_SetClientArea(void *, struct Viewport *);
- unsigned int  Window_Show(void *);
- unsigned int  Window_Update(void *, float);
-};

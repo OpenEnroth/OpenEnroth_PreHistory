@@ -135,38 +135,3 @@ long *__stdcall wDefaultWinProc(HWND hwnd, unsigned int msg, unsigned int wparam
  else return (long *)DefWindowProcW(hwnd, msg, wparam, (LPARAM)(lparam));
 }
 
-
-
-
-
-
-
-
-
-
-void *Window_Initialize(const wchar_t *pClassName, const wchar_t *pWindowName, bool bFrame)
-{
- Window *pWindow = new Window;
- pWindow->Initialize(pClassName, pWindowName, bFrame);
-
- return pWindow;
-}
-
-
-unsigned int Window_SetClientArea(void *_this, struct Viewport *pArea)
-{
- Window *pWindow = (Window *)_this;
- return pWindow->SetClientArea(pArea);
-}
-
-unsigned int Window_Show(void *_this)
-{
- Window *pWindow = (Window *)_this;
- return pWindow->Show();
-}
-
-unsigned int Window_Update(void *_this, float dt)
-{
- Window *pWindow = (Window *)_this;
- return pWindow->Update(dt);
-}

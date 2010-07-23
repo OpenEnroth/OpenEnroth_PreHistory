@@ -88,6 +88,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Driver.cpp" />
     <ClCompile Include="libpng143\png.c" />
     <ClCompile Include="libpng143\pngerror.c" />
     <ClCompile Include="libpng143\pngget.c" />
@@ -120,6 +121,8 @@
     <ClCompile Include="RenderD3D3.c" />
     <ClCompile Include="Render\RenderD3D10.cpp" />
     <ClCompile Include="Render\RenderOGL.cpp" />
+    <ClCompile Include="Render\RenderOperatorsD3D10.cpp" />
+    <ClCompile Include="Render\RenderOperatorsOGL.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="zlib\adler32.c" />
     <ClCompile Include="zlib\compress.c" />
@@ -190,6 +193,12 @@
     <ClInclude Include="Render\Render.h" />
     <ClInclude Include="Render\RenderD3D10.h" />
     <ClInclude Include="Render\RenderOGL.h" />
+    <ClInclude Include="Render\RenderOperators.h" />
+    <ClInclude Include="Render\RenderOperatorsD3D10.h" />
+    <ClInclude Include="Render\RenderOperatorsOGL.h" />
+    <ClInclude Include="Render\Texture.h" />
+    <ClInclude Include="Render\TextureD3D10.h" />
+    <ClInclude Include="Render\TextureOGL.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="zlib\deflate.h" />
     <ClInclude Include="zlib\infblock.h" />
