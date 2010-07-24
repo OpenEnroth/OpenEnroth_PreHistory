@@ -5125,7 +5125,7 @@ void __cdecl sub_401A91()
       if ( !(v30 & 0x8000) )
         *(_DWORD *)(v21 + 36) = v30 | 0x8000;
       v80 = 8 * v86 | 3;
-      v31 = sub_4040E9(8 * v86 | 3, v88, v75, 0);
+      v31 = Actor_sub_4040E9(8 * v86 | 3, v88, v75, 0);
       v32 = *(_BYTE *)(v21 + 61) == 0;
       memcpy(&v77, v31, 0x1Cu);
       memcpy(&v82, &v77, 0x1Cu);
@@ -5427,7 +5427,7 @@ LABEL_254:
         if ( *(_BYTE *)(v21 + 59) == 5 )
         {
           v60 = (double)*(signed int *)(v21 + 124) * *(double *)&byte_4D8410[40];
-          memcpy(v76, sub_4040E9(v80, 4, v74, 0), 0x1Cu);
+          memcpy(v76, Actor_sub_4040E9(v80, 4, v74, 0), 0x1Cu);
           memcpy(&v82, v76, 0x1Cu);
           v71 = &v82;
           v55 = v86;
@@ -7476,7 +7476,7 @@ __int16 __fastcall sub_4030AD(int a1, int a2, int a3)
     && result != 18
     && result != 2 )
   {
-    memcpy(&v10, sub_4040E9(8 * v4 | 3, v13, &v9, 0), 0x1Cu);
+    memcpy(&v10, Actor_sub_4040E9(8 * v4 | 3, v13, &v9, 0), 0x1Cu);
     //v6 = dword_5C6DCC;
     v6 = pSpriteFrameTable->pSpriteSFrames;
 
@@ -9201,7 +9201,7 @@ LABEL_18:
     {
       if ( (n & 7) == 3 )
       {
-        memcpy(&v676, sub_4040E9((8 * *(_WORD *)(v2 + 2) + 8) | 4, n, &v637, 0), 0x1Cu);
+        memcpy(&v676, Actor_sub_4040E9((8 * *(_WORD *)(v2 + 2) + 8) | 4, n, &v637, 0), 0x1Cu);
         v1 = (unsigned int)v701;
       }
       else

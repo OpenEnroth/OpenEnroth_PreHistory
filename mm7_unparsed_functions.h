@@ -70,7 +70,6 @@ int __fastcall sub_402F27(int this);
 __int16 __fastcall sub_4030AD(int a1, int a2, int a3);
 char __fastcall sub_4031C1(int a1, signed int a2, int a3);
 int __fastcall sub_403E61(int this);
-void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a4);
 signed int __thiscall sub_404544(int this);
 int __thiscall sub_40471C(void *this);
 signed int __fastcall sub_404736(int a1);
@@ -707,7 +706,7 @@ signed int __stdcall DialogFunc(HWND hDlg, int a2, __int16 a3, int a4);
 signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine);
 void __cdecl sub_465C2C();
 void __cdecl sub_465C53();
-int __cdecl DestroyGame();
+int __cdecl GameDestroy();
 signed int __cdecl sub_465D0B();
 void __cdecl sub_465F5A();
 void __cdecl sub_465FF0();
@@ -922,7 +921,7 @@ int __fastcall sub_485C89(int a1, int a2);
 int __fastcall sub_485D3E(int a1, int a2);
 char *__fastcall sub_485E1F(int a1, int a2, signed int a3, int a4, int a5, unsigned __int8 a6, char a7);
 void __thiscall sub_485F53(int this);
-int __thiscall sub_486009(_DWORD); // weak
+int __thiscall sub_486009(); // weak
 int __thiscall sub_48653D(void *this, int a2, int a3, int a4, int a5, int a6, int a7);
 void __fastcall sub_486B4E(int a1, int a2, int *a3, int a4);
 void __cdecl sub_486F92_MessWithEdgesAndSpans();

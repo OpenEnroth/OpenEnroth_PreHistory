@@ -83,23 +83,22 @@ char __cdecl sub_408768()
 
 
 //----- (00403EB6) --------------------------------------------------------
-void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, char *a4)
+void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, struct Actor_struct1 *pStruc1)
 {
-  char *v4; // eax@1    
-  char v9[0x1C]; // [sp+Ch] [bp-38h]@2  TODO: change to Actor_struct1
-  char v10[0x1C]; // [sp+28h] [bp-1Ch]@2 TODO: change to Actor_struct1
+  struct Actor_struct1 v9;  // [sp+Ch] [bp-38h]@2
+  struct Actor_struct1 v10; // [sp+28h] [bp-1Ch]@2
   struct Actor *pActor;
 
-  v4 = a4;  
   pActor = &pActors[uActorID];
-  if ( !a4 )
+  if ( !pStruc1 )
   {
-    void* ptr = sub_4040E9(8 * uActorID | 3, a2, &v9, 0);    
-    memcpy(v10, ptr, 0x1Cu);    
-    v4 = v10;
+    struct Actor_struct1* p = Actor_sub_4040E9(8 * uActorID | 3, a2, &v9, 0);
+    memcpy(&v10, p, sizeof(struct Actor_struct1));    
+    pStruc1 = &v10;
   }
+    
+  pActor->word_00009A = LOWORD(pStruc1->dword_000014);
 
-  pActor->word_00009A = *((_WORD *)v4 + 10);
   if ( a3 == 0 )
     pActor->word_0000A0 = rand() % 256 + 256;
   else
@@ -116,7 +115,7 @@ void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, char *a4)
 
 
 //----- (004040E9) --------------------------------------------------------
-void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a4)
+void *__fastcall Actor_sub_4040E9(signed int a1, signed int a2, struct Actor_struct1 *pStruc1, signed int a4)
 {
   signed int v4; // eax@1
   int v5; // ecx@1
@@ -147,8 +146,7 @@ void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a
   int v30; // eax@42
   double v31; // st7@45
   double v32; // st7@45
-  double v33; // st6@45
-  void *result; // eax@48
+  double v33; // st6@45  
   int v35; // [sp-18h] [bp-64h]@17
   int v36; // [sp-14h] [bp-60h]@17
   int v37; // [sp-10h] [bp-5Ch]@17
@@ -158,14 +156,7 @@ void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a
   int v41; // [sp+0h] [bp-4Ch]@15
   int v42; // [sp+4h] [bp-48h]@15
   
-  /*int v43; // [sp+14h] [bp-38h]@46
-  int v44; // [sp+18h] [bp-34h]@46
-  int v45; // [sp+1Ch] [bp-30h]@46
-  int v46; // [sp+20h] [bp-2Ch]@46
-  int X; // [sp+24h] [bp-28h]@46
-  int v48; // [sp+28h] [bp-24h]@46
-  int v49; // [sp+2Ch] [bp-20h]@46*/
-  struct Actor_struct1 struct1; //TODO: rename
+  struct Actor_struct1 struc1; //TODO: rename
 
   float v50; // [sp+30h] [bp-1Ch]@23
   float v51; // [sp+34h] [bp-18h]@45
@@ -356,29 +347,28 @@ LABEL_45:
   v31 = sqrt(v57 * v57 + *(float *)&v52 + *(float *)&v53);
   if (v31 <= 1.0)
   {
-    struct1.dword_000000 = 65536;
-    struct1.dword_000004 = 0;
-    struct1.dword_000008 = 0;
-    struct1.dword_00000C = 1;
-    struct1.X = 1;
-    struct1.dword_000014 = 0;
-    struct1.dword_000018 = 0;
+    struc1.dword_000000 = 65536;
+    struc1.dword_000004 = 0;
+    struc1.dword_000008 = 0;
+    struc1.dword_00000C = 1;
+    struc1.X = 1;
+    struc1.dword_000014 = 0;
+    struc1.dword_000018 = 0;
   }
   else
   {
-    struct1.dword_000000 = (signed __int64)(1.0 / v31 * v50 * 65536.0);
-    struct1.dword_000004 = (signed __int64)(1.0 / v31 * v51 * 65536.0);
-    struct1.dword_000008 = (signed __int64)(1.0 / v31 * v57 * 65536.0);
-    struct1.dword_00000C = (signed __int64)v31;
-    struct1.X = (signed __int64)sqrt(*(float *)&v52 + *(float *)&v53);
-    struct1.dword_000014 = sub_45281E(pClass59_global, (signed __int64)v50, (signed __int64)v51);
-    struct1.dword_000018 = sub_45281E(pClass59_global, struct1.X, (signed __int64)v57);
+    struc1.dword_000000 = (signed __int64)(1.0 / v31 * v50 * 65536.0);
+    struc1.dword_000004 = (signed __int64)(1.0 / v31 * v51 * 65536.0);
+    struc1.dword_000008 = (signed __int64)(1.0 / v31 * v57 * 65536.0);
+    struc1.dword_00000C = (signed __int64)v31;
+    struc1.X = (signed __int64)sqrt(*(float *)&v52 + *(float *)&v53);
+    struc1.dword_000014 = sub_45281E(pClass59_global, (signed __int64)v50, (signed __int64)v51);
+    struc1.dword_000018 = sub_45281E(pClass59_global, struc1.X, (signed __int64)v57);
   }
-  result = a3;
-  memcpy(a3, &struct1, sizeof(struct Actor_struct1));
-  return result;
-}
 
+  memcpy(pStruc1, &struc1, sizeof(struct Actor_struct1));
+  return pStruc1;
+}
 
 
 //----- (0045976D) --------------------------------------------------------
@@ -437,9 +427,6 @@ int Actor_sub_45976D(struct Actor *_this)
 }
 
 
-
-
-
 //----- (0045959A) --------------------------------------------------------
 void Actor_LinkSprites(struct Actor *_this, char a2)
 {
@@ -465,25 +452,22 @@ void Actor_LinkSprites(struct Actor *_this, char a2)
      _this->array_0000CC[i] = pActorDescription->arrray_00000C[i];
 }
 
-
 //----- (0040104C) --------------------------------------------------------
 signed int Actor_sub_40104C(struct Actor *pActor1, struct Actor *pActor2)
-{
-  int v2; // esi@1
+{  
   int v3; // ebp@5
   int v4; // edi@11
-  int v5; // edx@15
-  int v6; // eax@16
   int v7; // ebp@19
   int v8; // eax@22
-  int v9; // edx@25
-  int v10; // edx@33
-
-  v2 = pActor2;
+    
   if (pActor1)
   {
-    if ( *(_DWORD *)((char *)pActor1 + 360) >= 0 && (*(_DWORD *)((char *)pActor1 + 360) > 0 || *(_DWORD *)((char *)pActor1 + 356) > 0))
+    //if ( *(_DWORD *)((char *)pActor1 + 360) >= 0 && (*(_DWORD *)((char *)pActor1 + 360) > 0 || *(_DWORD *)((char *)pActor1 + 356) > 0))
+    if ( pActor1->array_0000D4[9].qword_000000 > 0i64)
+    {
       return 4;
+    }
+
     v3 = pActor1->uMonsterID - 1;
   }
   else
@@ -491,239 +475,223 @@ signed int Actor_sub_40104C(struct Actor *pActor1, struct Actor *pActor2)
  
   if (pActor2)
   {
-    if ( *(_DWORD *)((char *)pActor2 + 360) >= 0 && (*(_DWORD *)((char *)pActor2 + 360) > 0 || *(_DWORD *)((char *)pActor2 + 356) > 0))
+    //if ( *(_DWORD *)((char *)pActor2 + 360) >= 0 && (*(_DWORD *)((char *)pActor2 + 360) > 0 || *(_DWORD *)((char *)pActor2 + 356) > 0))        
+    if ( pActor2->array_0000D4[9].qword_000000 > 0i64)
+    {
       return 4;
+    }
+
     v4 = pActor2->uMonsterID - 1;
   }
   else
     v4 = 0;
 
-  if (pActor2)
+  if ( pActor2 && pActor1 )
   {
-    if (pActor1)
+    int v5 = pActor2->dword_0002C4;
+    int v6 = pActor1->dword_0002C4;
+
+    if ( (v5 > 0) && (v6 > 0) && (v5 == v6) )
     {
-      v5 = *(_DWORD *)((char *)pActor2 + 708);
-      if ( v5 )
-      {
-        v6 = *(_DWORD *)((char *)pActor1 + 708);
-        if ( v6 )
-        {
-          if ( v5 == v6 )
-            return 0;
-        }
-      }
+      return 0;        
     }
   }
+
   if ( v3 )
     v7 = (v3 - 1) / 3 + 1;
   else
     v7 = 0;
+
   if ( v4 )
     v8 = (v4 - 1) / 3 + 1;
   else
     v8 = 0;
+
   if (pActor1)
-  {
-    v9 = *(_DWORD *)((char *)pActor1 + 712);
-    if ( v9 <= 0 )
+  {    
+    if (( pActor1->dword_0002C8 > 0 ) && ( pActor1->dword_0002C8 != 9999 ))
     {
-      if ( v9 != 9999 )
-        goto LABEL_30;
+      v7 = pActor1->dword_0002C8;
     }
     else
     {
-      if ( v9 != 9999 )
-      {
-        v7 = *(_DWORD *)((char *)pActor1 + 712);
-        goto LABEL_30;
-      }
+      v7 = 0;
     }
-    v7 = 0;
-LABEL_30:
-    if ( *(_QWORD *)((char *)pActor1 + 404) > 0i64 )
+    
+    //if ( *(_QWORD *)((char *)pActor1 + 404) > 0i64 )
+    if ( pActor1->array_0000D4[12].qword_000000 > 0i64 )
       v7 = 0;
   }
-  if ( !v2 )
-    goto LABEL_40;
-  v10 = *(_DWORD *)((char *)pActor2 + 712);
-  if ( v10 <= 0 )
-  {
-    if ( v10 != 9999 )
-      goto LABEL_38;
-  }
-  else
-  {
-    if ( v10 != 9999 )
+
+  if ( pActor2 )
+  {    
+    if (( pActor2->dword_0002C8 > 0 ) && ( pActor2->dword_0002C8 != 9999 ))   
     {
-      v8 = *(_DWORD *)(v2 + 712);
-      goto LABEL_38;
+      v8 = pActor2->dword_0002C8;       
     }
+    else    
+    {
+      v8 = 0;
+    }
+    
+    //if ( *(_QWORD *)(v2 + 404) > 0i64 )
+    if ( pActor2->array_0000D4[12].qword_000000 > 0i64 )
+      v8 = 0;
   }
-  v8 = 0;
-LABEL_38:
-  if ( *(_QWORD *)(v2 + 404) > 0i64 )
-    v8 = 0;
-LABEL_40:
-  if (pActor1 && *(_QWORD *)((char *)pActor1 + 228) > 0i64 && !v8 || v2 && *(_QWORD *)(v2 + 228) > 0i64 && !v7 )
+    
+  //if (pActor1 && *(_QWORD *)((char *)pActor1 + 228) > 0i64 && !v8 || v2 && *(_QWORD *)(v2 + 228) > 0i64 && !v7 )
+  if ( (pActor1 && (pActor1->array_0000D4[1].qword_000000 > 0i64) && !v8) || 
+       (pActor2 && (pActor2->array_0000D4[1].qword_000000 > 0i64) && !v7) )
+  {
     return 0;
-  if (pActor1 && *(_QWORD *)((char *)pActor1 + 404) <= 0i64 && *(_DWORD *)((char *)pActor1 + 36) & 0x80000 && !v8 )
+  }
+
+  //if (pActor1 && *(_QWORD *)((char *)pActor1 + 404) <= 0i64 && *(_DWORD *)((char *)pActor1 + 36) & 0x80000 && !v8 )
+  if ( pActor1 && (pActor1->array_0000D4[12].qword_000000 <= 0i64) && 
+       (pActor1->dword_000024 & 0x80000) && !v8 )
+  {
     return 4;
-  if ( v2 && pActor1 && *(_QWORD *)((char *)pActor1 + 404) <= 0i64 && *(_DWORD *)(v2 + 36) & 0x80000 )
+  }
+
+  //if ( v2 && pActor1 && *(_QWORD *)((char *)pActor1 + 404) <= 0i64 && *(_DWORD *)(v2 + 36) & 0x80000 )
+  if ( pActor2 && pActor1 && (pActor1->array_0000D4[12].qword_000000 <= 0i64) && 
+       (pActor2->dword_000024 & 0x80000))  
   {
     if ( v7 )
-      goto LABEL_55;
+    {
+      if (v7 < 89 && v8 < 89)
+        return pClass48->array_000000[v7][v8];      
+      
+      return 0;
+    }
+
     return 4;
   }
+
   if ( !v7 )
   {
-    if ( (!v2 || *(_QWORD *)(v2 + 404) > 0i64 || !(*(_DWORD *)(v2 + 36) & 0x80000)) && !pClass48->array_000000[v8][0] )
+    //if ( (!v2 || *(_QWORD *)(v2 + 404) > 0i64 || !(*(_DWORD *)(v2 + 36) & 0x80000)) && !pClass48->array_000000[v8][0] )
+    if ( (!pActor2 || pActor2->array_0000D4[12].qword_000000 > 0i64 || !(pActor2->dword_000024 & 0x80000)) && 
+          !pClass48->array_000000[v8][0] )
     {
-LABEL_56:
       if ( v8 < 89 )
         return pClass48->array_000000[v7][v8];
       return 0;
     }
+
     return 4;
   }
-LABEL_55:
-  if ( v7 < 89 )
-    goto LABEL_56;
+
   return 0;
 }
 
 
 //----- (00403C6C) --------------------------------------------------------
-void Actor_sub_403C6C(unsigned int uActorID, int a2, char *a3)
+void Actor_sub_403C6C(unsigned int uActorID, int a2, struct Actor_struct1 *pStruc1)
 {
-  int pActor; // ebx@1
-  char v4; // zf@1
+  struct Actor *pActor;
+  struct Actor_struct1 v18;
+  struct Actor_struct1 v19;
+  
   int v6; // edi@6
-  int v7; // esi@6
-  int v8; // eax@7
-  double v9; // st7@9
-  int v10; // eax@10
-  char *v11; // eax@11
-  unsigned int v12; // esi@11
-  void *v13; // esi@12
-  signed __int64 v14; // qax@13
-  int v15; // ecx@13
-  __int16 v16; // ax@13
-  signed int v17; // ecx@13
-  char v18; // [sp+Ch] [bp-48h]@12
-  char v19; // [sp+28h] [bp-2Ch]@12
-  int v20; // [sp+44h] [bp-10h]@9
-  int v21; // [sp+48h] [bp-Ch]@1
-  int v22; // [sp+4Ch] [bp-8h]@6
-  int v23; // [sp+50h] [bp-4h]@1
-  signed int v24; // [sp+5Ch] [bp+8h]@13
+  int v7; // esi@6       
+  int v14; // qax@13
+  short v16; // ax@13  
+  int v22; // [sp+4Ch] [bp-8h]@6  
+    
+  pActor = &pActors[uActorID];
 
-  //pActor = (int)((char *)pActors + 836 * uActorID);
-  pActor = (int)(&pActors[uActorID]);
-
-  v21 = a2;
-  v4 = *(_BYTE *)(pActor + 59) == 5;
-  v23 = uActorID;
-  if ( v4 && *(_BYTE *)(pActor + 60) == 1 )
+  if ( (pActor->byte_00002A[17] == 5) && (pActor->byte_00002A[18] == 1) )
   {
-    Actor_sub_403EB6(uActorID, a2, 0, a3);
+    Actor_sub_403EB6(uActorID, a2, 0, pStruc1);
+    return;
+  }
+ 
+  if ( (a2 & 7) == 3 )
+  {      
+    v7 = pActors[a2 >> 3].sActorPosX;
+    v6 = pActors[a2 >> 3].sActorPosY;
+    v22 = (signed __int64)((double)pActors[a2 >> 3].word_00008A * 0.75 + 
+          (double)pActors[a2 >> 3].sActorPosZ);
   }
   else
   {
-    if ( (a2 & 7) == 3 )
+    if ( (a2 & 7) == 4 )
     {
-      v8 = 836 * (a2 >> 3);
-      v7 = pActors[a2 >> 3].sActorPosX;
-      v6 = pActors[a2 >> 3].sActorPosY;
-      v22 = (signed __int64)((double)pActors[a2 >> 3].word_00008A * 0.75
-                           + (double)pActors[a2 >> 3].sActorPosZ);
+      v7 = pParty_global->sPartyPosX;
+      v6 = pParty_global->sPartyPosY;
+      v22 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
     }
     else
     {
-      if ( (a2 & 7) == 4 )
-      {
-        v7 = pParty_global->sPartyPosX;
-        v6 = pParty_global->sPartyPosY;
-        v22 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
-      }
-      else
-      {
-        v7 = (int)a3;
-        v6 = (int)a3;
-      }
+      v7 = (int)pStruc1;
+      v6 = (int)pStruc1;
     }
-    v20 = *(_WORD *)(pActor + 138);
-    v9 = (double)v20 * *(double *)&byte_4D8410[72];
-    v20 = *(_WORD *)(pActor + 146);
-    if ( sub_407A1C(v7, v6, v22, *(_WORD *)(pActor + 142), *(_WORD *)(pActor + 144), (signed __int64)(v9 + (double)v20)) )
-    {
-      v11 = a3;
-      v12 = 0;
-      if ( !a3 )
-      {
-        v13 = sub_4040E9(8 * v23 | 3, v21, &v18, 0);
-        v11 = &v19;
-        memcpy(&v19, v13, 0x1Cu);
-        v12 = 0;
-      }
-      //v15 = dword_5C6DCC;
-      v15 = pSpriteFrameTable->pSpriteSFrames;
+  }
+    
+  if ( sub_407A1C(v7, v6, v22, pActor->sActorPosX, pActor->sActorPosY, 
+                 (int)((double)pActor->word_00008A * 0.75 + (double)pActor->sActorPosZ)) )
+  {
+    if ( !pStruc1 )
+    { 
+      struct Actor_struct1* p = Actor_sub_4040E9(8 * uActorID | 3, a2, &v18, 0);
+      memcpy(&v19, p, sizeof(struct Actor_struct1));
+      pStruc1 = &v19;
+    }
+    
+    pActor->word_00009A = LOWORD(pStruc1->dword_000014);
+    
+    //v15 = pSpriteFrameTable->pSpriteSFrames;
+    //v16 = *(_WORD *)(60 * *(_WORD *)(v3 + 192) + v15 + 56);
+    v16 = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[2]].word_000038;
 
-      *(_WORD *)(pActor + 154) = *((_WORD *)v11 + 10);
-      v16 = *(_WORD *)(60 * *(_WORD *)(pActor + 192) + v15 + 56);
-      v17 = v23;
-      *(_WORD *)(pActor + 160) = 8 * v16;
-      *(_DWORD *)(pActor + 184) = v12;
-      *(_WORD *)(pActor + 176) = 2;
-      sub_402CED(v17, 0);
-      LODWORD(v14) = pMonsterStats->pMonsterInfos[*(_WORD *)(pActor + 96)].dword_000050;
-      v24 = pMonsterStats->pMonsterInfos[*(_WORD *)(pActor + 96)].dword_000050;
-      if ( *(_DWORD *)(pActor + 328) >= (signed int)v12 )
-      {
-        if ( *(_DWORD *)(pActor + 328) > (signed int)v12 || *(_DWORD *)(pActor + 324) > v12 )
-        {
-          LODWORD(v14) = 2 * v14;
-          v24 = v14;
-        }
-      }
-      if ( dword_ACD834 != 1 )
-        v14 = (signed __int64)(flt_6BE3A8 * (double)v24 * 2.133333333333333);
-      *(_DWORD *)(pActor + 124) = v14;
-      *(_WORD *)(pActor + 152) = v12;
-      *(_WORD *)(pActor + 150) = v12;
-      *(_WORD *)(pActor + 148) = v12;
-      Actor_sub_45976D(pActor);
-    }
-    else
+    pActor->word_0000A0 = 8 * v16;
+    pActor->dword_0000B8 = 0;
+    pActor->word_0000B0 = 2;
+
+    sub_402CED(uActorID, 0);
+
+    //???
+    v14 = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].dword_000050;
+    if ( pActor->array_0000D4[7].qword_000000 > 0i64 )
     {
-      v10 = rand();
-      Actor_sub_402AD7(v23, v21, v10 % 2, 64, (signed int)a3);
+      v14 *= 2;   
     }
+
+    if ( dword_ACD834 != 1 )
+      v14 = (int)(flt_6BE3A8 * (double)v14 * 2.133333333333333);
+
+    pActor->dword_00007C = v14;
+    pActor->word_000098 = 0;
+    pActor->word_000096 = 0;
+    pActor->word_000094 = 0;
+    Actor_sub_45976D(pActor);
+  }
+  else
+  {
+    Actor_sub_402AD7(uActorID, a2, rand() % 2, 64, (signed int)pStruc1);
   }
 }
 
-
 //----- (00402F87) --------------------------------------------------------
-void Actor_sub_402F87(unsigned int uActorID, signed int a2, signed int a3)
+void Actor_sub_402F87(unsigned int uActorID, signed int a2, struct Actor_struct1* pStruc1)
 {
-  int v3; // ebx@1  
-  char *v5; // esi@1
   int v7; // eax@3
   int v9; // eax@3
-  char v11[0x1C]; // [sp+Ch] [bp-5Ch]@2   TODO: change to Actor_struct1
-  char v12[0x1C]; // [sp+28h] [bp-40h]@2  TODO: change to Actor_struct1 
-  char v13[0x1C]; // [sp+44h] [bp-24h]@2  TODO: change to Actor_struct1 
-  struct Actor *pActor;
+
+  struct Actor *pActor;  
+  struct Actor_struct1 v11; // [sp+Ch] [bp-5Ch]@2
+  struct Actor_struct1 v12; // [sp+28h] [bp-40h]@2
     
-  v5 = (char *)a3;
   pActor = &pActors[uActorID];  
-  if ( !a3 )
+  if ( !pStruc1 )
   {
-    memcpy(v13, sub_4040E9(8 * uActorID | 3, a2, v11, a3), 0x1Cu);
-    memcpy(v12, v13, 0x1Cu);    
-    v5 = v12;
+    struct Actor_struct1* p = Actor_sub_4040E9(8 * uActorID | 3, a2, &v11, 0);    
+    memcpy(&v12, p, sizeof(struct Actor_struct1));    
+    pStruc1 = &v12;
   }
 
-  pActor->word_00009A = *((_WORD *)v5 + 10);
+  pActor->word_00009A = LOWORD(pStruc1->dword_000014);
   pActor->word_0000A0 = 8 * pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[7]].word_000038;
 
   v7 = sub_45281E(pClass59_global, 
@@ -733,7 +701,7 @@ void Actor_sub_402F87(unsigned int uActorID, signed int a2, signed int a3)
   v9 = pClass59_global->dword_001860 + pActor->word_00009A + (pClass59_global->dword_001860 >> 3) - v7;
   if ( BYTE1(v9) & 7 )
   {
-    Actor_sub_403EB6(uActorID, a2, pActor->word_0000A0, v5);
+    Actor_sub_403EB6(uActorID, a2, pActor->word_0000A0, pStruc1);
   }
   else
   {
@@ -753,33 +721,27 @@ void Actor_sub_402F87(unsigned int uActorID, signed int a2, signed int a3)
 
 
 //----- (00403F58) --------------------------------------------------------
-void Actor_sub_403F58(unsigned int uActorID, int a2, int a3, signed int a4)
-{  
-  char *v6; // eax@3  
-  void *v9; // esi@4
-  char v10[0x1C]; // [sp+4h] [bp-3Ch]@4   TODO: change to Actor_struct1
-  char v11[0x1C]; // [sp+20h] [bp-20h]@4  TODO: change to Actor_struct1
+void Actor_sub_403F58(unsigned int uActorID, int a2, int a3, struct Actor_struct1* pStruc1)
+{ 
+  struct Actor_struct1 v10; // [sp+4h] [bp-3Ch]@4
+  struct Actor_struct1 v11; // [sp+20h] [bp-20h]@4
 
-  struct Actor* pActor;
-  
   if ( rand() % 2 )
   {
-    Actor_sub_402F87(uActorID, a2, a4);
+    Actor_sub_402F87(uActorID, a2, pStruc1);
   }
   else
-  {
-    v6 = (char *)a4;
-
-    pActor = &pActors[uActorID];
-    if ( !a4 )
+  {    
+    struct Actor* pActor = &pActors[uActorID];    
+    if ( !pStruc1 )
     {
-      v9 = sub_4040E9(8 * uActorID | 3, a2, v10, 0);
-      v6 = v11;
-      memcpy(v11, v9, 0x1Cu);
+      struct Actor_struct1* p = Actor_sub_4040E9(8 * uActorID | 3, a2, &v10, 0);      
+      memcpy(&v11, p, 0x1Cu);
+      pStruc1 = &v11;
     }
 
-    pActor->word_00009A = *((_WORD *)v6 + 10);
-    pActor->word_00009C = *((_WORD *)v6 + 12);
+    pActor->word_00009A = LOWORD(pStruc1->dword_000014);
+    pActor->word_00009C = LOWORD(pStruc1->dword_000018);
 
     if ( a3 == 0 )      
       pActor->word_0000A0 = rand() % 256 + 256;
@@ -798,295 +760,226 @@ void Actor_sub_403F58(unsigned int uActorID, int a2, int a3, signed int a4)
 
   
 //----- (00404030) --------------------------------------------------------
-void Actor_sub_404030(unsigned int uActorID, signed int a2, int a3, signed int a4)
+void Actor_sub_404030(unsigned int uActorID, signed int a2, int a3, struct Actor_struct1 *pStruc1)
 {
-  signed int v4; // edi@1
-  int v5; // esi@1
-  int result; // eax@2
-  char *v7; // eax@3
-  int v8; // ecx@3
-  int v9; // ebx@3
-  void *v10; // esi@4
-  __int16 v11; // ax@5
-  char v12; // [sp+8h] [bp-38h]@4
-  char v13; // [sp+24h] [bp-1Ch]@4
+  struct Actor_struct1 v12;
+  struct Actor_struct1 v13;
 
-  v4 = a2;
-  v5 = uActorID;
   if ( rand() % 100 >= 5 )
   {
-    v7 = (char *)a4;
-    v8 = 0;
-    v9 = (int)((char *)pActors + 836 * v5);
-    if ( !a4 )
+    struct Actor *pActor = &pActors[uActorID]; 
+    if ( !pStruc1 )
     {
-      v10 = sub_4040E9(8 * v5 | 3, v4, &v12, 0);
-      v7 = &v13;
-      memcpy(&v13, v10, 0x1Cu);
-      v8 = 0;
+      struct Actor_struct1* p = Actor_sub_4040E9(8 * uActorID | 3, a2, &v12, 0);      
+      memcpy(&v13, p, 0x1Cu);
+      pStruc1 = &v13;
     }
-    *(_WORD *)(v9 + 154) = *((_WORD *)v7 + 10);
-    v11 = *((_WORD *)v7 + 12);
-    *(_DWORD *)(v9 + 184) = v8;
-    *(_WORD *)(v9 + 152) = v8;
-    *(_WORD *)(v9 + 150) = v8;
-    *(_WORD *)(v9 + 148) = v8;
-    *(_WORD *)(v9 + 156) = v11;
-    *(_WORD *)(v9 + 160) = 256;
-    *(_WORD *)(v9 + 176) = 10;
-    Actor_sub_45976D(v9);
+
+    pActor->word_00009A = LOWORD(pStruc1->dword_000014);   
+    pActor->dword_0000B8 = 0;
+    pActor->word_000098 = 0;
+    pActor->word_000096 = 0;
+    pActor->word_000094 = 0;
+    pActor->word_00009C = LOWORD(pStruc1->dword_000018);
+    pActor->word_0000A0 = 256;
+    pActor->word_0000B0 = 10;
+    Actor_sub_45976D(pActor);
   }
   else
-    Actor_sub_402F87(v5, v4, a4);
+    Actor_sub_402F87(uActorID, a2, pStruc1);
 }
 
 
-
-
 //----- (00402968) --------------------------------------------------------
-void Actor_sub_402968(unsigned int uActorID, int a2, int a3, char *a4)
+void Actor_sub_402968(unsigned int uActorID, int a2, int a3, struct Actor_struct1 *pStruc1)
 {
-  int result; // eax@1
-  int v5; // ebx@1
-  int v6; // esi@1
-  int v7; // ecx@2
-  __int16 v8; // cx@10
-  __int16 v9; // ax@15
-  char v10; // [sp+8h] [bp-7Ch]@4
-  char v11; // [sp+24h] [bp-60h]@3
-  char v12; // [sp+40h] [bp-44h]@3
-  char v13; // [sp+5Ch] [bp-28h]@4
-  int v14; // [sp+68h] [bp-1Ch]@6
-  int v15; // [sp+78h] [bp-Ch]@2
-  int v16; // [sp+7Ch] [bp-8h]@1
-  int v17; // [sp+80h] [bp-4h]@1
-
-  v6 = a1;
-  v17 = a2;
-  v16 = a1;
-  v5 = (int)((char *)pActors + 836 * uActorID);
-  result = Actor_sub_40894B((int)((char *)pActors + 836 * uActorID));
-  if ( result )
+  struct Actor *pActor;
+  struct Actor_struct1 v10; // [sp+8h] [bp-7Ch]@4
+  struct Actor_struct1 v11; // [sp+24h] [bp-60h]@3
+  struct Actor_struct1 v12; // [sp+40h] [bp-44h]@3
+  struct Actor_struct1 v13; // [sp+5Ch] [bp-28h]@4
+  
+  pActor = &pActors[uActorID];
+  if ( !Actor_sub_40894B(pActor) )
   {
-    v7 = 8 * v6 | 3;
-    v15 = 8 * v6 | 3;
-    if ( !a4 )
-    {
-      a4 = &v12;
-      memcpy(&v12, sub_4040E9(v7, v17, &v11, *(_BYTE *)(v5 + 58)), 0x1Cu);
-      v7 = v15;
-    }
-    memcpy(&v11, sub_4040E9(v7, 4, &v10, 0), 0x1Cu);
-    memcpy(&v13, &v11, 0x1Cu);
-    if ( sub_438BDF(*(_WORD *)(v5 + 96), 6) || (v17 & 7) == 3 && (double)v14 < *(double *)&byte_4D8410[32] )
-    {
-      if ( !a3 )
-        a3 = 256;
-      Actor_sub_403F58(v16, 4, a3, (signed int)&v13);
-    }
+    return;
+  }
+
+  if ( !pStruc1 )
+  {
+    pStruc1 = &v12;
+    memcpy(&v12, Actor_sub_4040E9(8 * uActorID | 3, a2, &v11, pActor->byte_00002A[16]), 
+           sizeof(struct Actor_struct1));
+  }
+
+  memcpy(&v11, Actor_sub_4040E9(8 * uActorID | 3, 4, &v10, 0), sizeof(struct Actor_struct1));
+  memcpy(&v13, &v11, sizeof(struct Actor_struct1));
+
+  //uMonsterID ?
+  if ( sub_438BDF(pActor->uMonsterID, 6) || ((a2 & 7) == 3 && (double)v13.dword_00000C < 307.2) )
+  {
+    if ( !a3 )
+      a3 = 256;
+    Actor_sub_403F58(uActorID, 4, a3, &v13);
+  }
+  else
+  {
+    if ( pActor->word_00008C )
+      pActor->word_0000A0 = (pStruc1->X << 7) / (signed int)pActor->word_00008C;      
     else
-    {
-      v8 = *(_WORD *)(v5 + 140);
-      if ( v8 )
-        *(_WORD *)(v5 + 160) = (*((_DWORD *)a4 + 4) << 7) / (signed int)v8;
-      else
-        *(_WORD *)(v5 + 160) = 0;
-      if ( *(_WORD *)(v5 + 160) > 256 )
-        *(_WORD *)(v5 + 160) = 256;
-      *(_WORD *)(v5 + 154) = pClass59_global->uNumTableEntries + *((_WORD *)a4 + 10);
-      *(_WORD *)(v5 + 154) = pClass59_global->dword_00186C & (*(_WORD *)(v5 + 154) + rand() % pClass59_global->dword_001860);
-      v9 = *((_WORD *)a4 + 12);
-      *(_DWORD *)(v5 + 184) = 0;
-      *(_WORD *)(v5 + 156) = v9;
-      *(_WORD *)(v5 + 176) = 7;
-      Actor_sub_45976D(v5);
-    }
+      pActor->word_0000A0 = 0;
+    
+    if ( pActor->word_0000A0 > 256 )
+      pActor->word_0000A0 = 256;
+
+    pActor->word_00009A = pClass59_global->uNumTableEntries + LOWORD(pStruc1->dword_000014);
+    pActor->word_00009A = pClass59_global->dword_00186C & (pActor->word_00009A + rand() % pClass59_global->dword_001860);
+
+    pActor->dword_0000B8 = 0;
+    pActor->word_00009C = LOWORD(pStruc1->dword_000018);
+    pActor->word_0000B0 = 7;
+    Actor_sub_45976D(pActor);
   }
 }
 
 
 //----- (00402686) --------------------------------------------------------
-void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, signed int a4)
+void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struct Actor_struct1 *pStruc1)
 {
-  signed int v4; // eax@1
-  int v5; // ecx@1
-  int v6; // ebx@1
-  int v7; // edi@1
-  char v8; // zf@1
-  signed int v9; // esi@7
-  int v10; // edx@12
-  __int16 v12; // cx@19
-  __int16 v13; // ax@25
-  int v14; // edx@25
-  __int16 v15; // ax@26
-  __int16 v16; // ax@28
-  int v17; // [sp-8h] [bp-54h]@12
-  signed int v18; // [sp-4h] [bp-50h]@12
-  char v19; // [sp+Ch] [bp-40h]@8
-  char v20; // [sp+28h] [bp-24h]@8
-  int v21; // [sp+44h] [bp-8h]@1
-  int v22; // [sp+48h] [bp-4h]@1
+  signed int v4;
+  struct Actor* pActor; 
 
-  v7 = uActorID;
+  struct Actor_struct1 v19;
+  struct Actor_struct1 v20;
+
   v4 = 0;
-  v6 = (int)((char *)pActors + 836 * uActorID);
-  v21 = a2;
-  v5 = 8 * uActorID | 3;
-  v8 = *(_BYTE *)(v6 + 58) == 0;
-  v22 = v7;
-  if ( !v8 )
+  pActor = &pActors[uActorID];
+  if ((pActor->byte_00002A[16] != 0 ) && (!pParty_global->dword_000704))
   {
-    if (!pParty_global->dword_000704)
-    {
-      if ( *(_BYTE *)(v6 + 69) && dword_6BE360 == 2 )
-        v4 = *(_WORD *)(v6 + 136) + 512;
-      else
-       v4 = pParty_global->uPartyHeight;
-    }
+    if (pActor->byte_00003E[7] && (dword_6BE360 == 2))
+      v4 = pActor->word_000088 + 512;      
+    else
+      v4 = pParty_global->uPartyHeight;
   }
-  v9 = a4;
-  if ( !a4 )
+
+  if ( !pStruc1 )
   {
-    memcpy(&v20, sub_4040E9(v5, a2, &v19, v4), 0x1Cu);
-    memcpy(0, &v20, 0x1Cu);
-    v9 = 0;
-    v7 = v22;
+    memcpy(&v20, Actor_sub_4040E9(8 * uActorID | 3, a2, &v19, v4), sizeof(struct Actor_struct1));
+    pStruc1 = &v20;
   }
-  if ( sub_438BDF(*(_WORD *)(v6 + 96), 6) )
+
+  //??? uMonsterID
+  if ( sub_438BDF(pActor->uMonsterID, 6) )
   {
     if ( !a3 )
       a3 = 256;
-    v18 = v9;
-    v17 = a3;
-    v10 = 4;
-    Actor_sub_403F58(v7, v10, v17, v18);
+    Actor_sub_403F58(uActorID, 4, a3, pStruc1);
     return;
   }
-  if ( (double)*(signed int *)(v9 + 12) < *(double *)&byte_4D8410[32] )
+
+  if ( (double)pStruc1->dword_00000C < 307.2 )
   {
     if ( !a3 )
       a3 = 256;
-    v10 = v21;
-    v18 = v9;
-    v17 = a3;
-    Actor_sub_403F58(v7, v10, v17, v18);
+
+    Actor_sub_403F58(uActorID, a2, a3, pStruc1);
     return;
   }
+
   if ( a3 )
   {
-    *(_WORD *)(v6 + 160) = a3 + rand() % a3;
+    pActor->word_0000A0 = a3 + rand() % a3;    
   }
   else
-  {
-    v12 = *(_WORD *)(v6 + 140);
-    if ( v12 )
-      *(_WORD *)(v6 + 160) = (*(_DWORD *)(v9 + 16) << 7) / (signed int)v12;
+  {    
+    if ( pActor->word_00008C )
+      pActor->word_0000A0 = (pStruc1->X << 7) / (signed int)pActor->word_00008C;
     else
-      *(_WORD *)(v6 + 160) = 0;
-    if ( *(_WORD *)(v6 + 160) > 128 )
-      *(_WORD *)(v6 + 160) = 128;
+      pActor->word_0000A0 = 0;
+
+    if ( pActor->word_0000A0 > 128 )
+      pActor->word_0000A0 = 128;
   }
-  v14 = rand() % 2;
-  v13 = *(_WORD *)(v9 + 20);
-  if ( v14 )
-    v15 = v13 + 256;
+  
+  if ( rand() % 2 )
+    pActor->word_00009A = LOWORD(pStruc1->dword_000014) + 256;
   else
-    v15 = v13 - 256;
-  *(_WORD *)(v6 + 154) = v15;
-  v16 = *(_WORD *)(v9 + 24);
-  *(_DWORD *)(v6 + 184) = 0;
-  *(_WORD *)(v6 + 156) = v16;
-  *(_WORD *)(v6 + 176) = 6;
+    pActor->word_00009A = LOWORD(pStruc1->dword_000014) - 256;
+  
+  pActor->dword_0000B8 = 0;
+  pActor->word_00009C = LOWORD(pStruc1->dword_000018);
+  pActor->word_0000B0 = 6;
+  
   if ( rand() % 100 < 2 )
-    sub_402CED(v7, 2);
-  Actor_sub_45976D(v6);
+    sub_402CED(uActorID, 2);
+
+  Actor_sub_45976D(pActor);
 }
 
 
 //----- (0040281C) --------------------------------------------------------
-void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, signed int a4, int a5)
+void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struct Actor_struct1 *pStruc1, int a5)
 {
-  signed int v5; // eax@1
-  int v6; // ecx@1
-  int v7; // ebx@1
-  int v8; // edi@1
-  char v9; // zf@1
-  signed int v10; // esi@7
-  int v11; // edx@12
-  __int16 v13; // cx@19
-  __int16 v14; // ax@25
-  int v15; // [sp-8h] [bp-54h]@12
-  signed int v16; // [sp-4h] [bp-50h]@12
-  char v17; // [sp+Ch] [bp-40h]@8
-  char v18; // [sp+28h] [bp-24h]@8
-  int v19; // [sp+44h] [bp-8h]@1
-  int v20; // [sp+48h] [bp-4h]@1
-
-  v8 = uActorID;
+  signed int v5;
+  struct Actor* pActor;
+  struct Actor_struct1 v17;
+  struct Actor_struct1 v18;
+    
   v5 = 0;
-  v7 = (int)((char *)pActors + 836 * uActorID);
-  v19 = a2;
-  v6 = 8 * uActorID | 3;
-  v9 = *(_BYTE *)(v7 + 58) == 0;
-  v20 = v8;
-  if ( !v9 )
+  pActor = &pActors[uActorID];
+  if ((pActor->byte_00002A[16] != 0 ) && (!pParty_global->dword_000704))
   {
-    if (!pParty_global->dword_000704)
-    {
-      if ( *(_BYTE *)(v7 + 69) && dword_6BE360 == 2 )
-        v5 = *(_WORD *)(v7 + 136) + 512;
-      else
-        v5 = pParty_global->uPartyHeight;
-    }
+    if (pActor->byte_00003E[7] && (dword_6BE360 == 2))
+      v5 = pActor->word_000088 + 512;      
+    else
+      v5 = pParty_global->uPartyHeight;
   }
-  v10 = a4;
-  if ( !a4 )
+
+  if ( !pStruc1 )
   {
-    memcpy(&v18, sub_4040E9(v6, a2, &v17, v5), 0x1Cu);
-    memcpy(0, &v18, 0x1Cu);
-    v10 = 0;
-    v8 = v20;
+    memcpy(&v18, Actor_sub_4040E9(8 * uActorID | 3, a2, &v17, v5), 0x1Cu);
+    pStruc1 = &v18;
   }
-  if ( sub_438BDF(*(_WORD *)(v7 + 96), 6) )
+
+  //??? uMonsterID
+  if ( sub_438BDF(pActor->uMonsterID, 6) )
   {
     if ( !a3 )
       a3 = 256;
-    v16 = v10;
-    v15 = a3;
-    v11 = 4;
-    Actor_sub_403F58(v8, v11, v15, v16);
+    Actor_sub_403F58(uActorID, 4, a3, pStruc1);
     return;
   }
-  if ( *(_DWORD *)(v10 + 12) < a5 )
+
+  if ( pStruc1->dword_00000C < a5 )
   {
     if ( !a3 )
       a3 = 256;
-    v11 = v19;
-    v16 = v10;
-    v15 = a3;
-    Actor_sub_403F58(v8, v11, v15, v16);
+
+    Actor_sub_403F58(uActorID, a2, a3, pStruc1);
     return;
   }
+
   if ( a3 )
   {
-    *(_WORD *)(v7 + 160) = a3;
+    pActor->word_0000A0 = a3;
   }
   else
   {
-    v13 = *(_WORD *)(v7 + 140);
-    if ( v13 )
-      *(_WORD *)(v7 + 160) = (*(_DWORD *)(v10 + 16) << 7) / (signed int)v13;
+    if ( pActor->word_00008C )
+      pActor->word_0000A0 = (pStruc1->X << 7) / (signed int)pActor->word_00008C;
     else
-      *(_WORD *)(v7 + 160) = 0;
-    if ( *(_WORD *)(v7 + 160) > 32 )
-      *(_WORD *)(v7 + 160) = 32;
+      pActor->word_0000A0 = 0;
+
+    if ( pActor->word_0000A0 > 32 )
+      pActor->word_0000A0 = 32;
   }
-  *(_WORD *)(v7 + 154) = *(_WORD *)(v10 + 20);
-  v14 = *(_WORD *)(v10 + 24);
-  *(_DWORD *)(v7 + 184) = 0;
-  *(_WORD *)(v7 + 156) = v14;
-  *(_WORD *)(v7 + 176) = 6;
-  Actor_sub_45976D(v7);
+
+  pActor->word_00009A = LOWORD(pStruc1->dword_000014);  
+  pActor->dword_0000B8 = 0;
+  pActor->word_00009C = LOWORD(pStruc1->dword_000018);
+  pActor->word_0000B0 = 6;
+
+  Actor_sub_45976D(pActor);
 }
 
 //----- (00402AD7) --------------------------------------------------------
@@ -1127,7 +1020,7 @@ void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a
   v10 = a5;
   if ( !a5 )
   {
-    memcpy(&v15, sub_4040E9(v6, a2, &v14, v5), 0x1Cu);
+    memcpy(&v15, Actor_sub_4040E9(v6, a2, &v14, v5), 0x1Cu);
     memcpy(&v16, &v15, 0x1Cu);
     v8 = v17;
     v10 = (signed int)&v16;
@@ -1236,7 +1129,7 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, signed int a3)
     v9 = 0;
     if ( !a3 )
     {
-      v10 = sub_4040E9(8 * v21 | 3, v19, &v16, 0);
+      v10 = Actor_sub_4040E9(8 * v21 | 3, v19, &v16, 0);
       v8 = &v17;
       memcpy(&v17, v10, 0x1Cu);
       v9 = 0;
@@ -1351,7 +1244,7 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, signed int a3)
     v9 = 0;
     if ( !a3 )
     {
-      v10 = sub_4040E9(8 * v20 | 3, v18, &v15, 0);
+      v10 = Actor_sub_4040E9(8 * v20 | 3, v18, &v15, 0);
       v8 = &v16;
       memcpy(&v16, v10, 0x1Cu);
       v9 = 0;
@@ -1459,7 +1352,7 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, signed int a3)
     v9 = 0;
     if ( !a3 )
     {
-      v10 = sub_4040E9(8 * v19 | 3, v18, &v15, 0);
+      v10 = Actor_sub_4040E9(8 * v19 | 3, v18, &v15, 0);
       v8 = &v16;
       memcpy(&v16, v10, 0x1Cu);
       v9 = 0;
@@ -1562,7 +1455,7 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, signed int a3)
     v9 = 0;
     if ( !a3 )
     {
-      v10 = sub_4040E9(8 * v21 | 3, v19, &v16, 0);
+      v10 = Actor_sub_4040E9(8 * v21 | 3, v19, &v16, 0);
       v8 = &v17;
       memcpy(&v17, v10, 0x1Cu);
       v9 = 0;
@@ -1695,8 +1588,7 @@ void Actor_TotalReset(struct Actor *_this)
 
  for (i = 0; i < 22; ++i)
  {
-  _this->array_0000D4[i].dword_000000 = 0;
-  _this->array_0000D4[i].dword_000004 = 0;
+  _this->array_0000D4[i].qword_000000 = 0i64;  
   _this->array_0000D4[i].word_000008 = 0;
   _this->array_0000D4[i].word_00000A = 0;
   _this->array_0000D4[i].byte_00000E = 0;

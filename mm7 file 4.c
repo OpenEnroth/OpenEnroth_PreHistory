@@ -14164,18 +14164,6 @@ void __cdecl sub_465C53()
   }
 }
 
-//----- (00465CF3) --------------------------------------------------------
-int __cdecl DestroyGame()
-{
-  int result = 0; // eax@2
-
-  if ( pGame )
-    result = (*(int (__cdecl **)(struct CGame*, char))pGame->dword_000000)(pGame, 1); //indirect call of CGame the destructor
-    
-  pGame = 0;
-  return result;
-}
-
 //----- (004667E9) --------------------------------------------------------
 void __cdecl sub_4667E9()
 {

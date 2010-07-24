@@ -17235,7 +17235,7 @@ int __thiscall sub_487E1D(int this)
 signed int __thiscall sub_48901B(char *this)
 {
   sub_47CF9C(this);
-  sub_486009(pStruct9_global);
+  sub_486009();
   return 1;
 }
 

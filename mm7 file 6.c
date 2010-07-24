@@ -9400,7 +9400,7 @@ FILE *__thiscall sub_49F8B5(void *this, FILE *Filename, int a3, int a4, int a5)
 function_error;//int __usercall sub_49FC23<eax>(int a1<eax>, int a2<ecx>)
 int sub_49FC23(int a1, int a2)
 {
-  int result; // eax@1
+  int result = 0; // eax@1
   int v3; // esi@1
 
   v3 = a2;

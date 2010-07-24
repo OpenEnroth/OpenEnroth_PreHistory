@@ -9246,7 +9246,7 @@ const void *__fastcall sub_448CF4(__int16 a1, __int16 a2, signed int a3, int a4,
   {
     v11 = uNumActors;
     sub_44F57C_MaybeCreateRandomMonster((int)&pMapStats->pMapInfos[(_DWORD)result], (int)&v17, 0, a3, 0);
-    result = sub_4040E9(8 * v11 | 3, 4, &v14, 1);
+    result = Actor_sub_4040E9(8 * v11 | 3, 4, &v14, 1);
     memcpy(&v15, result, 0x1Cu);
     v12 = v11;
     if ( v11 < (signed int)uNumActors )

@@ -457,10 +457,10 @@ int sub_4BF919()
  return 0;
 }
 
-int sub_486009(long a1)
+int sub_486009()
 {
- __asm int 3
- return 0;
+  ReleaseDrawBuffers();
+  return 0;
 }
 
 void __fastcall sub_43B60C(void *_this)
