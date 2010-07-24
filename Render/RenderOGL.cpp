@@ -128,6 +128,9 @@ unsigned int RenderOGL::Reset(Window *pOutputWindow, bool bFullscreen, struct Vi
  pPrimaryDepthTarget = new TextureOGL;
  pPrimaryDepthTarget->eFormat = TF_D32_float;
 
+ glViewport(defaultViewport.x, defaultViewport.y,
+            defaultViewport.z - defaultViewport.x, defaultViewport.w - defaultViewport.y);
+
  glClearColor(0, 0, 0, 1);
  glClear(GL_COLOR_BUFFER_BIT);
  SwapBuffers(hTargetWindowDC);

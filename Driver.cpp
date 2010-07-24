@@ -8,6 +8,8 @@ Render *pDxRender = 0,
 
 extern "C" void Game_Initialize()
 {
+ return;
+
  struct Viewport dxWindowArea =
  {
   50,    0,
@@ -78,6 +80,8 @@ RenderOperator_Present *pOglPresentOperator = 0;
 
 extern "C" void Game_Process_cpp()
 {
+ return;
+
  while (pDxWindow->Update(0));
  pDxRoot->Execute(pDxRender);
 

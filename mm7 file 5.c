@@ -11373,6 +11373,56 @@ int __thiscall sub_478389(int this)
   return result;
 }
 
+
+
+#pragma pack(push, 1)
+struct TGAHeader
+{
+ unsigned char  tgaSkip;
+ unsigned char  tgaDontCare1;
+ unsigned char  tgaType;
+ unsigned char  tgaDontCare2[9];
+ unsigned short tgaWidth;
+ unsigned short tgaHeight;
+ unsigned char  tgaBPP;
+ unsigned char  tgaDontCare3;
+};
+#pragma pack(pop)
+
+void SaveColormap(const wchar_t *pFile, unsigned char *pBits)
+{
+ int i, j, x, y;
+ struct TGAHeader tgaHeader =
+ {
+  0, 0,
+  2, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  128 * 128, 128 * 128, 32, 0
+ };
+ DWORD  w;
+ unsigned int *pColormap;
+ void  *hFile = CreateFileW(pFile, GENERIC_WRITE, FILE_SHARE_READ, 0, CREATE_ALWAYS, 0, 0);
+ if (hFile == INVALID_HANDLE_VALUE)
+   return;
+ 
+ WriteFile(hFile, &tgaHeader, sizeof(struct TGAHeader), &w, 0);
+
+ pColormap = malloc(128 * (128 * 128) * 4);
+ for (i = 0; i < 128; ++i)
+ {
+   for (j = 0; j < 128; ++j)
+   {
+    struct class18 *pTexture = &pLODFile_Bitmaps_LOD->aLODHeaders[TileTable_GetTile(pTileTable, pBits[i * 128 + j])->word_000012];
+    for (y = 0; y < 128; ++y)
+      memcpy(pColormap + j * 128 * 128 + y * 128, pTexture->pTruecolorPixels + y * 128, 128 * 4);
+   }
+   WriteFile(hFile, pColormap, 128 * 128 * 128 * 4, &w, 0); 
+ }
+
+ CloseHandle(hFile);
+}
+
+
+extern FILE *f = 0;
 //----- (0047840D) --------------------------------------------------------
 char __cdecl RenderBuildings()
 {
@@ -11417,12 +11467,66 @@ char __cdecl RenderBuildings()
     sub_466D09(0, *(int *)&v40, v41, v42, v43, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Odbuild.cpp", __LINE__);
   }
 
-  pParty_global->sRotationY = 2048 * ((GetTickCount() % 4000) / 4000.0f);
+  //pParty_global->sRotationY = 2048 * ((GetTickCount() % 4000) / 4000.0f);
 
   v63 = 0;
   v1 = pGame->class08_obj;
   v52 = (void *)v1;
   result = pClass51_global->pBModels;
+
+  /*
+ SaveHeighmap(L"Emerald Island.tga", pClass51_global->struct_0000B4.pHeightmap);
+ SaveColormap(L"Emerald Island_c.tga", pClass51_global->struct_0000B4.pTilemap);
+ f = fopen("Emerald Island_tilemap.txt", "w+t");
+ for (i = 0; i < 128; ++i)
+ {
+   for (j = 0; j < 128; ++j)
+   {
+    unsigned char *p = TileTable_GetTile(pTileTable, pClass51_global->struct_0000B4.pTilemap[i * 128 + j])->sTileName;
+    fprintf(f, "\"%s\"\t", p);
+   }
+   fprintf(f, "\n");
+ }
+ fclose(f);
+
+ for (i = 0; i < pClass51_global->uNumBModels; ++i)
+ {
+   char msg[257];
+   wsprintfA(msg, "model %02u.txt", i);
+   f = fopen(msg, "w+t");
+   fprintf(f, "Name: \"%s\"\nNum submodels: %u\n", pClass51_global->pBModels[i].pModelName, pClass51_global->pBModels[i].dword_00004C);
+   for (j = 0; j < pClass51_global->pBModels[i].dword_00004C; ++j)
+   {
+    struct class18 *pTex;
+    v4 = &pClass51_global->pBModels[i].ptr_000054[j];
+
+    fprintf(f, "\nSubmodel[%u]\n{\n", j);
+    if (pClass51_global->pBModels[i].ptr_000054[j].byte_000010[13] & 0x40)
+    {
+     fprintf(f, " TextureFrame \"%s\" frame %u\n", pTextureFrameTable->pTextures[pClass51_global->pBModels[i].ptr_000054[j].uTextureID].sTextureName, pClass24_global->dword_000024);
+     pTex = TextureFrameTable_GetFrame(pTextureFrameTable, pClass51_global->pBModels[i].ptr_000054[j].uTextureID, pClass24_global->dword_000024);
+    }
+    else
+    {
+     fprintf(f, " Texture \"%s\"\n", pLODFile_Bitmaps_LOD->aLODHeaders[pClass51_global->pBModels[i].ptr_000054[j].uTextureID].sContainerName);
+     pTex = &pLODFile_Bitmaps_LOD->aLODHeaders[pClass51_global->pBModels[i].ptr_000054[j].uTextureID];
+    }
+    fprintf(f, " Num vertices: %u\n\n", pClass51_global->pBModels[i].ptr_000054[j].uNumVertices);
+
+      for (k = 0; k < pClass51_global->pBModels[i].ptr_000054[j].uNumVertices; ++k)
+      {
+        array_73D150[k].x = pClass51_global->pBModels[i].ptr_000048[v4->array_000020[k]].x;
+        array_73D150[k].z = pClass51_global->pBModels[i].ptr_000048[v4->array_000020[k]].z;
+        array_73D150[k].y = pClass51_global->pBModels[i].ptr_000048[v4->array_000020[k]].y;
+
+        array_73D150[k].u = (double)(pClass51_global->pBModels[i].ptr_000054[j].word_000112+ v4->array_000048[k]) / (double)(pTex->uTextureWidth);
+        array_73D150[k].v = (double)(pClass51_global->pBModels[i].ptr_000054[j].word_000114 + v4->array_000070[k]) / (double)(pTex->uTextureHeight);
+
+        fprintf(f, " (%f\t%f\t%f)\t(%.8f %.8f)\n", array_73D150[k].x, array_73D150[k].y, array_73D150[k].z, array_73D150[k].u, array_73D150[k].v);
+      }
+   }
+ fclose(f);
+ }*/
 
  for (i = 0; i < pClass51_global->uNumBModels; ++i)
  {
@@ -14104,10 +14208,7 @@ void __thiscall sub_4811A3(void *this)
   int v1; // esi@1
 
   v1 = (int)this;
-  (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
-    14,
-    0);
+  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, 14, 0);
   Render_DrawTerrainPolygon(pD3DRenderer,
     v1,
     *(_DWORD *)(v1 + 20),
@@ -14115,8 +14216,7 @@ void __thiscall sub_4811A3(void *this)
     pLODFile_Bitmaps_LOD->pHardwareTextures[uTextureID_WaterTiles[dword_EF5290]],
     0,
     0);
-  (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
-    *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
+  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice,
     14,
     1);
   Render_DrawTerrainPolygon(pD3DRenderer,

@@ -42,7 +42,44 @@ unsigned char *rle16_decompress(const unsigned char *pSource, unsigned long ulCo
 
 
 
+extern "C" void SaveHeighmap(const wchar_t *pFile, unsigned char *pBits)
+{
+ DWORD  w;
+ void  *hFile = CreateFileW(pFile, GENERIC_WRITE, FILE_SHARE_READ, 0, CREATE_ALWAYS, 0, 0);
+ if (hFile == INVALID_HANDLE_VALUE)
+   return;
 
+ struct TGAHeader tgaHeader =
+ {
+  0, 0,
+  2, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  128, 128, 32, 0
+ };
+
+ int ppixels[128 * 128];
+ for (int i = 0; i < 128 * 128; ++i)
+   ppixels[i] = 0xFF000000 | (unsigned int)(pBits[i] * 3) | ((unsigned int)(pBits[i] * 3) << 8) | ((unsigned int)(pBits[i] * 3) << 16);
+
+ WriteFile(hFile, &tgaHeader, sizeof(struct TGAHeader), &w, 0);
+ WriteFile(hFile, ppixels, 128 * 128 * 4, &w, 0);
+ CloseHandle(hFile);
+ //SetFilePointer(hFile, tgaHeader.tgaSkip, 0, FILE_CURRENT);
+ /*
+ if (tgaHeader.tgaBPP != 32)
+ {
+  MessageBoxW(0, L"Invalid Targa format", L"LoadTGA", 0);
+
+  CloseHandle(hFile);
+  return 1;
+ }
+
+ *pWidth = tgaHeader.tgaWidth;
+ *pHeight = tgaHeader.tgaHeight;
+ *pPixels = new unsigned int[*pWidth * *pHeight];
+
+ ReadFile(hFile, *pPixels, *pWidth * *pHeight * sizeof(__int32), &w, 0);
+ CloseHandle(hFile);*/
+}
 
 
 extern "C" unsigned int LoadTGA(const wchar_t *pFile, unsigned int *pWidth, unsigned int *pHeight, unsigned int **pPixels)
