@@ -2650,81 +2650,79 @@ signed int __stdcall sub_43BC61(int a1, int a2)
 }
 
 //----- (0043C91D) --------------------------------------------------------
-int __fastcall sub_43C91D(int a1, signed int a2, int a3, int a4)
+void __fastcall sub_43C91D_FormTextureFileName(char *a1, signed int a2, int a3, int a4)
 {
-  int result; // eax@2
-  char v5; // zf@3
-  const char *v6; // [sp-Ch] [bp-18h]@88
-  signed int v7; // [sp-8h] [bp-14h]@61
-  int v8; // [sp-4h] [bp-10h]@61
-  signed int v9; // [sp-4h] [bp-10h]@69
+  char v4; // zf@3
+  const char *v5; // [sp-Ch] [bp-18h]@88
+  signed int v6; // [sp-8h] [bp-14h]@61
+  int v7; // [sp-4h] [bp-10h]@61
+  signed int v8; // [sp-4h] [bp-10h]@69
+
 
   if ( a2 > 500 )
   {
-    result = a2 - 504;
     switch ( a2 )
     {
       case 516:
-        v5 = (byte_5111F6[2] == 0);
+        v4 = (byte_5111F6[2] == 0);
         goto LABEL_21;
       case 505:
-        v5 = (byte_5111F6[1] == 0);
+        v4 = (byte_5111F6[1] == 0);
         goto LABEL_21;
       case 504:
-        v5 = (byte_5111F6[0] == 0);
+        v4 = (byte_5111F6[0] == 0);
         goto LABEL_21;
       case 533:
-        v5 = (byte_5111F6[16] == 0);
+        v4 = (byte_5111F6[16] == 0);
         goto LABEL_21;
       case 512:
-        v5 = (byte_5111F6[3] == 0);
+        v4 = (byte_5111F6[3] == 0);
         goto LABEL_21;
       case 521:
-        v5 = (byte_5111F6[4] == 0);
+        v4 = (byte_5111F6[4] == 0);
         goto LABEL_21;
       case 522:
-        v5 = (byte_5111F6[5] == 0);
+        v4 = (byte_5111F6[5] == 0);
         goto LABEL_21;
       case 523:
-        v5 = (byte_5111F6[6] == 0);
+        v4 = (byte_5111F6[6] == 0);
         goto LABEL_21;
       case 532:
-        v5 = (byte_5111F6[7] == 0);
+        v4 = (byte_5111F6[7] == 0);
         goto LABEL_21;
       case 544:
-        v5 = (byte_5111F6[8] == 0);
+        v4 = (byte_5111F6[8] == 0);
         goto LABEL_21;
       case 524:
-        v5 = (byte_5111F6[9] == 0);
+        v4 = (byte_5111F6[9] == 0);
         goto LABEL_21;
       case 535:
-        v5 = (byte_5111F6[10] == 0);
+        v4 = (byte_5111F6[10] == 0);
         goto LABEL_21;
       case 525:
-        v5 = (byte_5111F6[11] == 0);
+        v4 = (byte_5111F6[11] == 0);
         goto LABEL_21;
       case 530:
-        v5 = (byte_5111F6[12] == 0);
+        v4 = (byte_5111F6[12] == 0);
         goto LABEL_21;
       case 547:
-        v5 = (byte_5111F6[13] == 0);
+        v4 = (byte_5111F6[13] == 0);
         goto LABEL_21;
       case 548:
-        v5 = (byte_5111F6[14] == 0);
+        v4 = (byte_5111F6[14] == 0);
         goto LABEL_21;
       case 550:
-        v5 = (byte_5111F6[15] == 0);
+        v4 = (byte_5111F6[15] == 0);
         goto LABEL_21;
       default:
-        return result;
+        return;
     }
-    return result;
+    return;
   }
-  v5 = (byte_51117E[a2] == 0);
+  v4 = (byte_5111C0[a2 - 66] == 0);
 LABEL_21:
-  if ( !v5 )
+  if ( !v4 )
   {
-    result = 516;
     if ( a2 < 66 || a2 > 78 )
     {
       if ( a2 == 516 )
@@ -2741,9 +2739,8 @@ LABEL_21:
           }
           if ( (a2 < 89 || a2 > 99) && a2 != 521 && a2 != 522 && a2 != 523 && a2 != 532 && a2 != 544 )
           {
-            result = 525;
             if ( (a2 < 105 || a2 > 109) && a2 != 525 && a2 != 530 && a2 != 547 && a2 != 548 && a2 != 550 )
-              return result;
+              return;
             switch ( a2 )
             {
               case 525:
@@ -2762,13 +2759,17 @@ LABEL_21:
                 a2 = 350;
                 break;
             }
-            v8 = a3;
-            v7 = a2;
+            v7 = a3;
+            v6 = a2;
             if ( !a4 )
-              goto LABEL_88;
-LABEL_91:
-            v6 = "item%3.3dv%da1";
-            return sprintfex(a1, v6, v7, v8);
+            {
+              v5 = "item%3.3dv%d";
+              sprintfex(a1, v5, v6, v7);
+              return;
+            }
+            v5 = "item%3.3dv%da1";
+            sprintfex(a1, v5, v6, v7);
+            return;
           }
           if ( a2 == 521 )
           {
@@ -2791,7 +2792,7 @@ LABEL_91:
               a2 = 344;
             goto LABEL_87;
           }
-          v9 = 93;
+          v8 = 93;
           goto LABEL_70;
         }
         if ( a2 == 524 )
@@ -2801,16 +2802,16 @@ LABEL_91:
         }
         if ( a2 == 535 )
         {
-          v9 = 104;
+          v8 = 104;
 LABEL_70:
-          a2 = v9;
+          a2 = v8;
         }
 LABEL_87:
-        v8 = a3;
-        v7 = a2;
-LABEL_88:
-        v6 = "item%3.3dv%d";
-        return sprintfex(a1, v6, v7, v8);
+        v7 = a3;
+        v6 = a2;
+        v5 = "item%3.3dv%d";
+        sprintfex(a1, v5, v6, v7);
+        return;
       }
     }
     if ( a2 != 516 )
@@ -2833,15 +2834,18 @@ LABEL_86:
         if ( a4 != 1 )
         {
           if ( a4 != 2 )
-            return result;
-          v8 = a3;
-          v7 = a2;
-          v6 = "item%3.3dv%da2";
-          return sprintfex(a1, v6, v7, v8);
+            return;
+          v7 = a3;
+          v6 = a2;
+          v5 = "item%3.3dv%da2";
+          sprintfex(a1, v5, v6, v7);
+          return;
         }
-        v8 = a3;
-        v7 = a2;
-        goto LABEL_91;
+        v7 = a3;
+        v6 = a2;
+        v5 = "item%3.3dv%da1";
+        sprintfex(a1, v5, v6, v7);
+        return;
       }
       goto LABEL_87;
     }
@@ -2849,7 +2853,6 @@ LABEL_79:
     a2 = 234;
     goto LABEL_86;
   }
-  return result;
 }
 
 //----- (0043ED6F) --------------------------------------------------------
@@ -3066,7 +3069,7 @@ void __fastcall sub_43EF2B(int a1)
     if ( v6 == 12 || v6 == 13 )
       dword_511208[*((_BYTE *)*(&ptr_A750C4 + v8) + 186)] = 0;
     dword_5115E0[*((_BYTE *)*(&ptr_A750C4 + v8) + 186)] = 0;
-    byte_5111B8[v8] = 1;
+    byte_5111B9[v8 - 1] = 1;
   }
 }
 
@@ -3122,7 +3125,7 @@ int __fastcall sub_43F0BD(int a1)
     wsprintfA(&Str1, "item281pc%02d", *(_BYTE *)v3 + 1);
     dword_5115E0[*(_BYTE *)(*(_DWORD *)v4 + 186)] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
     result = v7;
-    byte_5111B8[v7] = 0;
+    byte_5111B9[v7 - 1] = 0;
   }
   return result;
 }

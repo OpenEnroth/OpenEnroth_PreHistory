@@ -1084,13 +1084,13 @@ struct unnamed_50C0C8 struct_50C0C8;
 
  struct class36 class36_global0; // struct @ MM7.exe::005107A8
  float flt_5107B8[620]; // idb
- char byte_51117E[array_size_unknown]; // weak
+ //char byte_51117E[array_size_unknown]; // byte_5111C0 - 66
 //int dword_5111AC; // class36_global0::dword_000A04
 //int dword_5111B0; // class36_global0::dword_000A08
- char byte_5111B8[array_size_unknown]; // weak
- char byte_5111B9[array_size_unknown]; // weak
- char byte_5111C0[array_size_unknown]; // weak
- char byte_5111F6[17]; 
+// char byte_5111B8[4]; // shifted byte_5111B9
+ char byte_5111B9[4]; // some bitmask for 4 players in party
+ char byte_5111C0[54]; 
+ char byte_5111F6[18]; 
  int dword_511208[array_size_unknown]; // weak
  int dword_51120C; // weak
 unsigned int uTextureID_ButtExit1; // dword @ MM7.exe::00511210
@@ -1107,21 +1107,24 @@ unsigned int uTextureID_ButtExit1; // dword @ MM7.exe::00511210
  int dword_51125C[array_size_unknown]; // weak
  int dword_51126C[array_size_unknown]; // weak
  int dword_51127C[array_size_unknown]; // weak
- int dword_511290[array_size_unknown]; // weak
- int dword_511294[array_size_unknown]; // weak
- int dword_511298[array_size_unknown]; // weak
- _UNKNOWN unk_51132C; // weak
+ 
+ int dword_511290[204]; // texture ids for players in party (ends at 5115C0)
+ //int dword_511294[array_size_unknown]; // weak
+ //int dword_511298[array_size_unknown]; // weak
+ //int dword_51132C; 
+ //---------------------------------------------------------------
  int dword_5115C0[array_size_unknown]; // weak
  int dword_5115D0[array_size_unknown]; // weak
  int dword_5115E0[array_size_unknown]; // weak
- int dword_511638[array_size_unknown]; // weak
- int dword_51164C[array_size_unknown]; // weak
- int dword_511698[array_size_unknown]; // weak
- int dword_5116C4[41]; 
- int dword_511718[array_size_unknown]; // weak
- //_UNKNOWN unk_51172C; // weak
+
+ unsigned int uTextureListForPaperdoll[89];  // dword @ MM7.exe::00511638
+ //int dword_51164C[array_size_unknown]; // 00511638 + 20
+ //int dword_511698[52];  // 00511638 + 96 
+ //int dword_511718[array_size_unknown]; // weak
+ //int dword_51172C[]; 
  //_UNKNOWN unk_511730; // weak
- int dword_511788[array_size_unknown]; // weak
+ //int dword_511788[array_size_unknown]; // weak
+
  int dword_51179C; // weak
  int dword_5117A0; // weak
  int dword_5117A4; // weak

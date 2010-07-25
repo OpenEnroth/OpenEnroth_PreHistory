@@ -222,7 +222,7 @@ int __thiscall Player_GetActualResistance(struct Player *_this, signed int a2);
 int Player_GetMaxHealth(struct Player *_this);
 int Player_GetMaxMana(struct Player *_this);
 
-int __thiscall Player_MaybeGetCastSpellBonus(int this, signed int a2);
+int __thiscall Player_MaybeGetCastSpellBonus(struct Player *_this, signed int a2);
 signed int __thiscall Player_GetVoiceSex(struct Player *_this);
 
 int Player_GetRace(struct Player *_this);
