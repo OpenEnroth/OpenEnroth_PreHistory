@@ -1,0 +1,19 @@
+sampler sCubemapSampler: register(s0);
+
+TextureCube<float4> tCubemap: register(t0);
+
+struct Input
+{
+ float4 vPosition: SV_Position0;
+ float4 vTexCoord: TEXCOORD0;
+};
+
+
+
+ 
+float4 main(Input psin): SV_Target0
+{
+ return tCubemap.Sample(sCubemapSampler, psin.vTexCoord.xyz);
+// return psin.vTexCoord;
+// return float4(psin.vTexCoord.x, 0, 0, 1);
+}

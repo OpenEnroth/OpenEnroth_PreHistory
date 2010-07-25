@@ -3,6 +3,16 @@
 #include "TextureOGL.h"
 
 
+unsigned int RenderOGL::CreateTextureCube(const wchar_t *pTextureName, Texture **pOut)
+{
+ if (!pOut)
+   return -1;
+
+ *pOut = 0;
+ return -1;
+}
+
+
 unsigned int RenderOGL::GetPrimaryDepthTarget(Texture **pOut)
 {
  if (pOut)

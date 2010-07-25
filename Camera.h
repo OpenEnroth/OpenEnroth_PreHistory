@@ -16,7 +16,11 @@ class Camera
     vRight = Vec3(0, 0, -1);
    }
    
+   unsigned int Initialize(const Vec3 *pPosition, const Quaternion *pOrientation);
+
    void             SetProjection(float fovy, float viewportAspect, float znear, float zfar);
+   unsigned int     GetViewOrientation(Matrix4x4 *);  // view lacking position info
+   unsigned int     GetView(Matrix4x4 *);             // complete view matrix
    const Matrix4x4 *GetProjection();
    const Matrix4x4 *GetViewProjection();
 
@@ -26,7 +30,8 @@ class Camera
    void        SetDirection(const Vec3 *);
    const Vec3 *GetDirection();
 
-   void        SetOrientation(const Quaternion *);
+   unsigned int SetOrientation(const Quaternion *);
+   unsigned int GetOrientation(Quaternion *);
 
    void        Rotate(const Vec3 *pAxis, float angle);
 

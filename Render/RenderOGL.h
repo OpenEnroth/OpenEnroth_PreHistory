@@ -7,20 +7,23 @@
 class TextureOGL;
 class RenderOGL: public Render
 {
- friend struct RenderOperatorOGL_Clear;
- friend struct RenderOperatorOGL_Present;
+ friend class RenderOperatorOGL_Clear;
+ friend class RenderOperatorOGL_Present;
+ friend class RenderOperatorOGL_DrawEnvironment;
  public:
    virtual unsigned int Initialize();
    virtual unsigned int Reset(Window *pTargetWindow, bool bFullscreen, struct Viewport *pOutputArea);
    
    virtual unsigned int CreateTexture(unsigned int uWidth, unsigned int uDepth, enum TextureFormat eFormat, Texture **pOut);
    virtual unsigned int CreateTexture(const wchar_t *pTextureName, Texture **pOut);
+   virtual unsigned int CreateTextureCube(const wchar_t *pFilename, Texture **pOut);
 
    virtual unsigned int GetPrimaryColorTarget(Texture **pOut);
    virtual unsigned int GetPrimaryDepthTarget(Texture **pOut);
 
-   virtual RenderOperator_Clear   *CreateClearOperator();
-   virtual RenderOperator_Present *CreatePresentOperator();
+   virtual RenderOperator_Clear           *CreateClearOperator();
+   virtual RenderOperator_Present         *CreatePresentOperator();
+   virtual RenderOperator_DrawEnvironment *CreateDrawEnvironmentOperator();
 
  protected:
    Window *pTargetWindow;

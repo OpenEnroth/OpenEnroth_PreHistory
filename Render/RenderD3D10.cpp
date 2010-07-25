@@ -3,6 +3,48 @@
 #include "..\\Window.h"
 
 
+#include <d3dx10.h>
+unsigned int RenderD3D10::CreateTextureCube(const wchar_t *pTextureName, Texture **pOut)
+{/*
+ D3DX10_IMAGE_LOAD_INFO imageLoadInfo;
+ imageLoadInfo.Width = 512;
+ imageLoadInfo.Height = 512;
+ imageLoadInfo.Depth = 0;
+ imageLoadInfo.FirstMipLevel = 0;
+ imageLoadInfo.MipLevels = 1;
+ imageLoadInfo.Usage = D3D10_USAGE_STAGING;
+ imageLoadInfo.BindFlags = 0;
+ imageLoadInfo.CpuAccessFlags = D3D10_CPU_ACCESS_READ;
+ imageLoadInfo.MiscFlags = 0;
+ imageLoadInfo.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+ imageLoadInfo.Filter = D3DX10_FILTER_NONE;
+ imageLoadInfo.MipFilter = D3DX10_FILTER_NONE;
+ imageLoadInfo.pSrcInfo = 0;*/
+
+ ID3D10Texture2D *pCubemapFaces;
+ D3DX10CreateTextureFromFileW(pDevice, pTextureName, 0, 0, (ID3D10Resource **)&pCubemapFaces, 0);
+
+ D3D10_TEXTURE2D_DESC texDesc;
+ pCubemapFaces->GetDesc(&texDesc);
+
+ D3D10_SHADER_RESOURCE_VIEW_DESC srvDesc;
+ srvDesc.Format = texDesc.Format;
+ srvDesc.ViewDimension = D3D10_SRV_DIMENSION_TEXTURECUBE;
+ srvDesc.TextureCube.MipLevels = 1;
+ srvDesc.TextureCube.MostDetailedMip = 0;
+
+ ID3D10ShaderResourceView *pView;
+ pDevice->CreateShaderResourceView(pCubemapFaces, &srvDesc, &pView);
+
+ TextureD3D10 *pNewTexture = new TextureD3D10;
+ pNewTexture->eFormat = TF_R32G32B32A32_float;
+ pNewTexture->pResource = pCubemapFaces;
+ pNewTexture->pResourceView = pView;
+
+ *pOut = pNewTexture;
+ return 0;
+}
+
 
 
 unsigned int RenderD3D10::GetPrimaryDepthTarget(Texture **pOut)

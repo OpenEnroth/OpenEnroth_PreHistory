@@ -1,5 +1,8 @@
 #include "Render\\Render.h"
 #include "Window.h"
+#include "Camera.h"
+
+Camera *pGameCamera = 0;
 
 Window *pDxWindow = 0,
        *pOglWindow = 0;
@@ -8,12 +11,13 @@ Render *pDxRender = 0,
 
 extern "C" void Game_Initialize()
 {
- return;
+ pGameCamera = new Camera;
+ pGameCamera->Initialize(&Vec3(0, 0, 0), &Quaternion(1, 0, 0, 0));
 
  struct Viewport dxWindowArea =
  {
-  50,    0,
-  850,  600,
+  400,  0,
+  1200, 600,
   0,    0
  };
 
@@ -36,7 +40,7 @@ extern "C" void Game_Initialize()
 
 
 
-
+ /*
  struct Viewport oglWindowArea =
  {
   450,   300,
@@ -59,7 +63,7 @@ extern "C" void Game_Initialize()
  pOglRender = CreateOpenGL32Render();
  pOglRender->Initialize();
  pOglRender->Reset(pOglWindow, false, &oglRenderArea);
-
+ */
  extern void InitializeRenderOperators();
  InitializeRenderOperators();
 }
@@ -68,10 +72,12 @@ extern "C" void Game_Initialize()
 
 
 
-RenderOperator         *pDxRoot = 0;
-RenderOperator_Clear   *pDxClearColorOperator = 0,
-                       *pDxClearDepthOperator = 0;
-RenderOperator_Present *pDxPresentOperator = 0;
+RenderOperator                 *pDxRoot = 0;
+RenderOperator_Clear           *pDxClearColorOperator = 0,
+                               *pDxClearDepthOperator = 0;
+RenderOperator_DrawEnvironment *pDxDrawEnvironmentOperator = 0;
+RenderOperator_Present         *pDxPresentOperator = 0;
+Texture                        *pDxEnvTexture;
 
 RenderOperator         *pOglRoot = 0;
 RenderOperator_Clear   *pOglClearColorOperator = 0,
@@ -80,13 +86,34 @@ RenderOperator_Present *pOglPresentOperator = 0;
 
 extern "C" void Game_Process_cpp()
 {
- return;
+ //dirty dirty hack
+ {
+  static bool first_run = true;
+  static POINT old_pos = {0},
+               new_pos = {0};
+  if (!first_run)
+  {
+   first_run = true;
+   GetCursorPos(&old_pos);
+   GetCursorPos(&new_pos);
+  }
+  old_pos.x = new_pos.x;
+  old_pos.y = new_pos.y;
+  GetCursorPos(&new_pos);
+  
+  if (old_pos.y - new_pos.y)
+    pGameCamera->Rotate(&Vec3(1, 0, 0), (old_pos.y - new_pos.y) * 0.0125f);
+  if (old_pos.x - new_pos.x)
+    pGameCamera->Rotate(&Vec3(0, 1, 0), (old_pos.x - new_pos.x) * 0.0125f);
+ }
+
+
 
  while (pDxWindow->Update(0));
- pDxRoot->Execute(pDxRender);
-
+ pDxRoot->Execute();
+ /*
  while (pOglWindow->Update(0));
- pOglRoot->Execute(pOglRender);
+ pOglRoot->Execute();*/
 }
 
 
@@ -95,6 +122,8 @@ extern "C" void Game_Process_cpp()
 
 extern "C" void InitializeRenderOperators()
 {
+ pDxRender->CreateTextureCube(L"data\\new\\cubemap-evul.dds", &pDxEnvTexture);
+
  Texture *pDxPrimaryColorTarget,
          *pDxPrimaryDepthTarget;
  pDxRender->GetPrimaryColorTarget(&pDxPrimaryColorTarget);
@@ -104,21 +133,29 @@ extern "C" void InitializeRenderOperators()
        pDxDepthClear[4] = {1, 0, 0, 0};
 
  pDxClearColorOperator = pDxRender->CreateClearOperator();
- pDxClearColorOperator->Initialize(pDxPrimaryColorTarget, pDxColorClear);
+ pDxClearColorOperator->Initialize(pDxRender, pDxPrimaryColorTarget, pDxColorClear);
 
  pDxClearDepthOperator = pDxRender->CreateClearOperator();
- pDxClearDepthOperator->Initialize(pDxPrimaryDepthTarget, pDxDepthClear);
+ pDxClearDepthOperator->Initialize(pDxRender, pDxPrimaryDepthTarget, pDxDepthClear);
+
+ pDxDrawEnvironmentOperator = pDxRender->CreateDrawEnvironmentOperator();
+ pDxDrawEnvironmentOperator->Initialize(pDxRender, pDxEnvTexture, pGameCamera);
 
  pDxPresentOperator = pDxRender->CreatePresentOperator();
+ pDxPresentOperator->Initialize(pDxRender);
 
- pDxRoot = pDxClearColorOperator;
- pDxClearColorOperator->pChildren = pDxClearDepthOperator;
- pDxClearDepthOperator->pChildren = pDxPresentOperator;
+ 
+ pDxRoot = pDxDrawEnvironmentOperator;
+
+ //pDxRoot = pDxClearColorOperator;
+ //pDxRoot->pChildren = pDxClearDepthOperator;
+ //pDxClearDepthOperator->pChildren = pDxDrawEnvironmentOperator;
+ pDxDrawEnvironmentOperator->pChildren = pDxPresentOperator;
  pDxPresentOperator->pChildren = 0;
 
 
 
-
+ /*
  Texture *pOglPrimaryColorTarget,
          *pOglPrimaryDepthTarget;
  pOglRender->GetPrimaryColorTarget(&pOglPrimaryColorTarget);
@@ -128,15 +165,16 @@ extern "C" void InitializeRenderOperators()
        pOglDepthClear[4] = {1, 0, 0, 0};
 
  pOglClearColorOperator = pOglRender->CreateClearOperator();
- pOglClearColorOperator->Initialize(pOglPrimaryColorTarget, pOglColorClear);
+ pOglClearColorOperator->Initialize(pOglRender, pOglPrimaryColorTarget, pOglColorClear);
 
  pOglClearDepthOperator = pOglRender->CreateClearOperator();
- pOglClearDepthOperator->Initialize(pOglPrimaryDepthTarget, pOglDepthClear);
+ pOglClearDepthOperator->Initialize(pOglRender, pOglPrimaryDepthTarget, pOglDepthClear);
 
  pOglPresentOperator = pOglRender->CreatePresentOperator();
+ pOglPresentOperator->Initialize(pOglRender);
 
  pOglRoot = pOglClearColorOperator;
  pOglClearColorOperator->pChildren = pOglClearDepthOperator;
  pOglClearDepthOperator->pChildren = pOglPresentOperator;
- pOglPresentOperator->pChildren = 0;
+ pOglPresentOperator->pChildren = 0;*/
 }

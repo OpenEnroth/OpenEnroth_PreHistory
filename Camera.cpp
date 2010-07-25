@@ -1,9 +1,30 @@
 #include "Camera.h"
 
 
+unsigned int Camera::GetViewOrientation(Matrix4x4 *pOutMatrix)
+{
+ if (!pOutMatrix)
+   return -1;
+
+ (*pOutMatrix)[0][0] = vRight.x; (*pOutMatrix)[0][1] = vUp.x; (*pOutMatrix)[0][2] = vDirection.x; (*pOutMatrix)[0][3] = 0;
+ (*pOutMatrix)[1][0] = vRight.y; (*pOutMatrix)[1][1] = vUp.y; (*pOutMatrix)[1][2] = vDirection.y; (*pOutMatrix)[1][3] = 0;
+ (*pOutMatrix)[2][0] = vRight.z; (*pOutMatrix)[2][1] = vUp.z; (*pOutMatrix)[2][2] = vDirection.z; (*pOutMatrix)[2][3] = 0;
+ (*pOutMatrix)[3][0] = 0;        (*pOutMatrix)[3][1] = 0;     (*pOutMatrix)[3][2] = 0;            (*pOutMatrix)[3][3] = 1;
+ return 0;
+}
 
 
-void Camera::SetOrientation(const Quaternion *qNewOrientation)
+unsigned int Camera::Initialize(const Vec3 *pPosition, const Quaternion *pOrientation)
+{
+ vPosition = *pPosition;
+ SetOrientation(pOrientation);
+
+ return 0;
+}
+
+
+
+unsigned int Camera::SetOrientation(const Quaternion *qNewOrientation)
 {
  qOrientation = *qNewOrientation;
 
@@ -26,6 +47,8 @@ newup = cross(dir, right)
  mView[1][0] = vRight.y;                mView[1][1] = vUp.y;                mView[1][2] = vDirection.z;                mView[0][3] = 0;
  mView[2][0] = vRight.z;                mView[2][1] = vUp.z;                mView[2][2] = vDirection.z;                mView[2][3] = 0;
  mView[3][0] = -Dot(vRight, vPosition); mView[3][1] = -Dot(vUp, vPosition); mView[3][2] = -Dot(vDirection, vPosition); mView[3][3] = 1;
+
+ return 0;
 }
 
 void Camera::Rotate(const Vec3 *pAxis, float angle)

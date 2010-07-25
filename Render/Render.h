@@ -12,12 +12,14 @@ class Render
 
    virtual unsigned int CreateTexture(unsigned int uWidth, unsigned int uDepth, enum TextureFormat eFormat, Texture **pOut) = 0;
    virtual unsigned int CreateTexture(const wchar_t *pTextureName, Texture **pOut) = 0;
+   virtual unsigned int CreateTextureCube(const wchar_t *pFilename, Texture **pOut) = 0;
 
    virtual unsigned int GetPrimaryColorTarget(Texture **pOut) = 0;
    virtual unsigned int GetPrimaryDepthTarget(Texture **pOut) = 0;
 
-   virtual RenderOperator_Clear   *CreateClearOperator() = 0;
-   virtual RenderOperator_Present *CreatePresentOperator() = 0;
+   virtual RenderOperator_Clear           *CreateClearOperator() = 0;
+   virtual RenderOperator_DrawEnvironment *CreateDrawEnvironmentOperator() = 0;
+   virtual RenderOperator_Present         *CreatePresentOperator() = 0;
 };
 
 

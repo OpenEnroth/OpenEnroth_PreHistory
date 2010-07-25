@@ -3,10 +3,20 @@
 
 
 
-unsigned int RenderOperatorOGL_Clear::Execute(Render *pRender)
+unsigned int RenderOperatorOGL_DrawEnvironment::Initialize(Render *pRender, Texture *pTexture, Camera *pObserver)
 {
- RenderOGL *pRenderOGL = (RenderOGL *)pRender;
+ return -1;
+}
 
+unsigned int RenderOperatorOGL_DrawEnvironment::Execute()
+{
+ return -1;
+}
+
+
+
+unsigned int RenderOperatorOGL_Clear::Execute()
+{
  if (pTexture->eFormat == TF_D32_float)
  {
   glClearDepth(pClearColor[0]);
@@ -19,13 +29,14 @@ unsigned int RenderOperatorOGL_Clear::Execute(Render *pRender)
  }
 
  if (pChildren)
-   return pChildren->Execute(pRender);
+   return pChildren->Execute();
  else return 0;
 };
 
 
-unsigned int RenderOperatorOGL_Clear::Initialize(Texture *pTargetTexture, float pColor[4])
+unsigned int RenderOperatorOGL_Clear::Initialize(Render *pHostRender, Texture *pTargetTexture, float pColor[4])
 {
+ pRender = (RenderOGL *)pHostRender;
  pTexture = (TextureOGL *)pTargetTexture;
  memcpy(pClearColor, pColor, 16);
  return 0;
@@ -36,24 +47,24 @@ unsigned int RenderOperatorOGL_Clear::Initialize(Texture *pTargetTexture, float 
 
 
 
-unsigned int RenderOperatorOGL_Present::Execute(Render *pRender)
+unsigned int RenderOperatorOGL_Present::Execute()
 {
- RenderOGL *pRenderOGL = (RenderOGL *)pRender;
-
- SwapBuffers(pRenderOGL->hTargetWindowDC);
+ SwapBuffers(pRender->hTargetWindowDC);
 
  if (pChildren)
-   return pChildren->Execute(pRender);
+   return pChildren->Execute();
  else return 0;
 }
 
-unsigned int RenderOperatorOGL_Present::Initialize()
+unsigned int RenderOperatorOGL_Present::Initialize(Render *pHostRender)
 {
+ pRender = (RenderOGL *)pHostRender;
  return 0;
 }
 
 
 
 
-RenderOperator_Clear   *RenderOGL::CreateClearOperator()   {return new RenderOperatorOGL_Clear;}
-RenderOperator_Present *RenderOGL::CreatePresentOperator() {return new RenderOperatorOGL_Present;}
+RenderOperator_Clear           *RenderOGL::CreateClearOperator()           {return new RenderOperatorOGL_Clear;}
+RenderOperator_Present         *RenderOGL::CreatePresentOperator()         {return new RenderOperatorOGL_Present;}
+RenderOperator_DrawEnvironment *RenderOGL::CreateDrawEnvironmentOperator() {return new RenderOperatorOGL_DrawEnvironment;}
