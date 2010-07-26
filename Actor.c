@@ -98,7 +98,7 @@ void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, struct Actor
     pStruc1 = &v10;
   }
     
-  pActor->word_00009A = LOWORD(pStruc1->uYawAngle);
+  pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);
 
   if ( a3 == 0 )
     pActor->word_0000A0 = rand() % 256 + 256;
@@ -150,7 +150,7 @@ void *__fastcall Actor_sub_4040E9(signed int a1, signed int a2, struct Actor_str
   {
     x0 = pActors[idx1].sActorPosX;
     y0 = pActors[idx1].sActorPosY;    
-    z0 = pActors[idx1].sActorPosZ - (unsigned int)((double)pActors[idx1].word_00008A * -0.75);
+    z0 = pActors[idx1].sActorPosZ - (unsigned int)((double)pActors[idx1].uActorHeight * -0.75);
   }
   else if ( type1 == 4 )
   {
@@ -232,7 +232,7 @@ void *__fastcall Actor_sub_4040E9(signed int a1, signed int a2, struct Actor_str
   {
     x1 = pActors[idx2].sActorPosX;
     y1 = pActors[idx2].sActorPosY;
-    z1 = pActors[idx2].word_00008A - (unsigned int)(signed __int64)((double)pActors[idx2].word_00008A * -0.75);    
+    z1 = pActors[idx2].sActorPosZ - (unsigned int)(signed __int64)((double)pActors[idx2].uActorHeight * -0.75);    
   }
   else if ( type2 == 4 )
   {
@@ -369,8 +369,8 @@ void Actor_LinkSprites(struct Actor *_this, char a2)
  }
  
  _this->word_000088 = pActorDescription->word_000002;
- _this->word_00008A = pActorDescription->word_000000;
- _this->word_00008C = pActorInfo->uSpeed;
+ _this->uActorHeight = pActorDescription->uMonsterHeight;
+ _this->uSpeed = pActorInfo->uSpeed;
  if (~a2 & 1)
    for (i = 0; i < 4; ++i)
      _this->array_0000CC[i] = pActorDescription->arrray_00000C[i];
@@ -535,7 +535,7 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct Actor_struct1 *pStru
   {      
     v7 = pActors[a2 >> 3].sActorPosX;
     v6 = pActors[a2 >> 3].sActorPosY;
-    v22 = (signed __int64)((double)pActors[a2 >> 3].word_00008A * 0.75 + 
+    v22 = (signed __int64)((double)pActors[a2 >> 3].uActorHeight * 0.75 + 
           (double)pActors[a2 >> 3].sActorPosZ);
   }
   else
@@ -555,7 +555,7 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct Actor_struct1 *pStru
   }
     
   if ( sub_407A1C(v7, v6, v22, pActor->sActorPosX, pActor->sActorPosY, 
-                 (int)((double)pActor->word_00008A * 0.75 + (double)pActor->sActorPosZ)) )
+                 (int)((double)pActor->uActorHeight * 0.75 + (double)pActor->sActorPosZ)) )
   {
     if ( !pStruc1 )
     { 
@@ -568,7 +568,7 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct Actor_struct1 *pStru
     //v16 = *(_WORD *)(60 * *(_WORD *)(v3 + 192) + v15 + 56);
     v16 = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[2]].word_000038;
 
-    pActor->word_00009A = LOWORD(pStruc1->uYawAngle);
+    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);
     pActor->word_0000A0 = 8 * v16;
     pActor->dword_0000B8 = 0;
     pActor->word_0000B0 = 2;
@@ -614,14 +614,14 @@ void Actor_sub_402F87(unsigned int uActorID, signed int a2, struct Actor_struct1
     pStruc1 = &v12;
   }
 
-  pActor->word_00009A = LOWORD(pStruc1->uYawAngle);
+  pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);
   pActor->word_0000A0 = 8 * pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[7]].word_000038;
 
   v7 = class59_Atan2(pClass59_global, 
                   pActor->sActorPosX - pOldCamera->dword_000000, 
                   pActor->sActorPosY - pOldCamera->dword_000004);
     
-  v9 = pClass59_global->uIntegerPi + pActor->word_00009A + (pClass59_global->uIntegerPi >> 3) - v7;
+  v9 = pClass59_global->uIntegerPi + pActor->uYawAngle + (pClass59_global->uIntegerPi >> 3) - v7;
   if ( BYTE1(v9) & 7 )
   {
     Actor_sub_403EB6(uActorID, a2, pActor->word_0000A0, pStruc1);
@@ -663,8 +663,8 @@ void Actor_sub_403F58(unsigned int uActorID, int a2, int a3, struct Actor_struct
       pStruc1 = &v11;
     }
 
-    pActor->word_00009A = LOWORD(pStruc1->uYawAngle);
-    pActor->word_00009C = LOWORD(pStruc1->uPitchAngle);
+    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);
+    pActor->uPitchAngle = LOWORD(pStruc1->uPitchAngle);
 
     if ( a3 == 0 )      
       pActor->word_0000A0 = rand() % 256 + 256;
@@ -698,12 +698,12 @@ void Actor_sub_404030(unsigned int uActorID, signed int a2, int a3, struct Actor
       pStruc1 = &v13;
     }
 
-    pActor->word_00009A = LOWORD(pStruc1->uYawAngle);   
+    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);   
     pActor->dword_0000B8 = 0;
     pActor->word_000098 = 0;
     pActor->word_000096 = 0;
     pActor->word_000094 = 0;
-    pActor->word_00009C = LOWORD(pStruc1->uPitchAngle);
+    pActor->uPitchAngle = LOWORD(pStruc1->uPitchAngle);
     pActor->word_0000A0 = 256;
     pActor->word_0000B0 = 10;
     Actor_sub_45976D(pActor);
@@ -749,19 +749,19 @@ void Actor_sub_402968(unsigned int uActorID, int a2, int a3, struct Actor_struct
   }
   else
   {
-    if ( pActor->word_00008C )
-      pActor->word_0000A0 = (pStruc1->uDistanceXY << 7) / (signed int)pActor->word_00008C;      
+    if ( pActor->uSpeed )
+      pActor->word_0000A0 = (pStruc1->uDistanceXY << 7) / (signed int)pActor->uSpeed;      
     else
       pActor->word_0000A0 = 0;
     
     if ( pActor->word_0000A0 > 256 )
       pActor->word_0000A0 = 256;
 
-    pActor->word_00009A = pClass59_global->uIntegerHalfPi + LOWORD(pStruc1->uYawAngle);
-    pActor->word_00009A = pClass59_global->uDoublePiMask & (pActor->word_00009A + rand() % pClass59_global->uIntegerPi);
+    pActor->uYawAngle = pClass59_global->uIntegerHalfPi + LOWORD(pStruc1->uYawAngle);
+    pActor->uYawAngle = pClass59_global->uDoublePiMask & (pActor->uYawAngle + rand() % pClass59_global->uIntegerPi);
 
     pActor->dword_0000B8 = 0;
-    pActor->word_00009C = LOWORD(pStruc1->uPitchAngle);
+    pActor->uPitchAngle = LOWORD(pStruc1->uPitchAngle);
     pActor->word_0000B0 = 7;
     Actor_sub_45976D(pActor);
   }
@@ -817,8 +817,8 @@ void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struc
   }
   else
   {    
-    if ( pActor->word_00008C )
-      pActor->word_0000A0 = (pStruc1->uDistanceXY << 7) / (signed int)pActor->word_00008C;
+    if ( pActor->uSpeed )
+      pActor->word_0000A0 = (pStruc1->uDistanceXY << 7) / (signed int)pActor->uSpeed;
     else
       pActor->word_0000A0 = 0;
 
@@ -827,12 +827,12 @@ void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struc
   }
   
   if ( rand() % 2 )
-    pActor->word_00009A = LOWORD(pStruc1->uYawAngle) + 256;
+    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle) + 256;
   else
-    pActor->word_00009A = LOWORD(pStruc1->uYawAngle) - 256;
+    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle) - 256;
   
   pActor->dword_0000B8 = 0;
-  pActor->word_00009C = LOWORD(pStruc1->uPitchAngle);
+  pActor->uPitchAngle = LOWORD(pStruc1->uPitchAngle);
   pActor->word_0000B0 = 6;
   
   if ( rand() % 100 < 2 )
@@ -890,8 +890,8 @@ void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struc
   }
   else
   {
-    if ( pActor->word_00008C )
-      pActor->word_0000A0 = (pStruc1->uDistanceXY << 7) / (signed int)pActor->word_00008C;
+    if ( pActor->uSpeed )
+      pActor->word_0000A0 = (pStruc1->uDistanceXY << 7) / (signed int)pActor->uSpeed;
     else
       pActor->word_0000A0 = 0;
 
@@ -899,9 +899,9 @@ void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struc
       pActor->word_0000A0 = 32;
   }
 
-  pActor->word_00009A = LOWORD(pStruc1->uYawAngle);  
+  pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);  
   pActor->dword_0000B8 = 0;
-  pActor->word_00009C = LOWORD(pStruc1->uPitchAngle);
+  pActor->uPitchAngle = LOWORD(pStruc1->uPitchAngle);
   pActor->word_0000B0 = 6;
 
   Actor_sub_45976D(pActor);
@@ -949,25 +949,33 @@ void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a
     Actor_sub_403EB6(uActorID, a2, a4, pStruc1);
     return;
   }
-  else if ( !pActor->word_00008C)
+  else if ( !pActor->uSpeed)
   {
     Actor_sub_403EB6(uActorID, a2, a4, pStruc1);
     return;
   }
 
   {
+    int tmpCos;
+    int tmpSin;
+    int deltaX;
+    int deltaY;
+    int tmpX;
+    int tmpY;
+
     int v18 = ( a3 % 2 ) ? -16 : 16;
 
-    int tmp = class59_SinCos(pClass59_global, v18 + pClass59_global->uIntegerPi + pStruc1->uYawAngle);
-    int v12 = ((unsigned __int64)(tmp * pStruc1->uDistanceXY) >> 16) + pParty_global->sPartyPosX;
+    //-cos(pStruc1->uYawAngle + v18)
+    tmpCos = class59_SinCos(pClass59_global, v18 + pStruc1->uYawAngle + pClass59_global->uIntegerPi); 
+    deltaX = ((unsigned __int64)(tmpCos * pStruc1->uDistanceXY) >> 16);
+    tmpX = pParty_global->sPartyPosX + deltaX - pActor->sActorPosX;
   
-    tmp = pClass59_global->uIntegerPi + pStruc1->uYawAngle;
-    tmp = class59_SinCos(pClass59_global, v18 + tmp - pClass59_global->uIntegerHalfPi);
-    tmp = pParty_global->sPartyPosY + 
-          ((unsigned __int64)(tmp * pStruc1->uDistanceXY) >> 16) - //why X? mm7 programmer's bug?     
-          pActor->sActorPosY;       
+    //-sin(pStruc1->uYawAngle + v18)
+    tmpSin = class59_SinCos(pClass59_global, v18 + pStruc1->uYawAngle + pClass59_global->uIntegerHalfPi);
+    deltaY =  ((unsigned __int64)(tmpSin * pStruc1->uDistanceXY) >> 16);
+    tmpY = pParty_global->sPartyPosY + deltaY - pActor->sActorPosY;
     
-    pActor->word_00009A = class59_Atan2(pClass59_global, v12 - pActor->sActorPosX, tmp);
+    pActor->uYawAngle = class59_Atan2(pClass59_global, tmpX, tmpY);
   }
 
   if ( a4 )
@@ -975,7 +983,7 @@ void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a
   else
     pActor->word_0000A0 = 128;
 
-  pActor->word_00009C = LOWORD(pStruc1->uPitchAngle);
+  pActor->uPitchAngle = LOWORD(pStruc1->uPitchAngle);
   pActor->word_0000B0 = 6;
   Actor_sub_45976D(pActor);
 }
@@ -997,7 +1005,7 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct Actor_struct1
   {
     v5 = pActors[a2 >> 3].sActorPosX;
     v4 = pActors[a2 >> 3].sActorPosY;
-    v20 = (signed __int64)((double)pActors[a2 >> 3].word_00008A * 0.75
+    v20 = (signed __int64)((double)pActors[a2 >> 3].uActorHeight * 0.75
                          + (double)pActors[a2 >> 3].sActorPosZ);
   }
   else
@@ -1017,7 +1025,7 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct Actor_struct1
   }
 
   if ( sub_407A1C(v5, v4, v20, pActor->sActorPosX, pActor->sActorPosY,
-                  pActor->sActorPosZ - (int)((double)pActor->word_00008A * -0.75)) )
+                  pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75)) )
   {
     if ( !pStruc1 )
     { 
@@ -1030,7 +1038,7 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct Actor_struct1
     //v13 = *(_WORD *)(60 * *(_WORD *)(pActor + 194) + v12 + 56);
     v13 = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[3]].word_000038;
 
-    pActor->word_00009A = LOWORD(pStruc1->uYawAngle);        
+    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);        
     pActor->word_0000A0 = 8 * v13;
     pActor->dword_0000B8 = 0;
     pActor->word_0000B0 = 13;
@@ -1088,7 +1096,7 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct Actor_struct1
   {    
     v5 = pActors[a2 >> 3].sActorPosX;
     v4 = pActors[a2 >> 3].sActorPosY;
-    v19 = (signed __int64)((double)pActors[a2 >> 3].word_00008A * 0.75
+    v19 = (signed __int64)((double)pActors[a2 >> 3].uActorHeight * 0.75
       + (double)pActors[a2 >> 3].sActorPosZ);
   }
   else
@@ -1108,7 +1116,7 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct Actor_struct1
   }
 
   if ( sub_407A1C(v5, v4, v19, pActor->sActorPosX, pActor->sActorPosY,
-                  pActor->sActorPosZ - (int)((double)pActor->word_00008A * -0.75)) )
+                  pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75)) )
   {
     if ( !pStruc1 )
     {
@@ -1121,7 +1129,7 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct Actor_struct1
     //v13 = *(_WORD *)(60 * *(_WORD *)(pActor + 194) + v12 + 56);
     v13 = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[3]].word_000038;
 
-    pActor->word_00009A = LOWORD(pStruc1->uYawAngle);    
+    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);    
     pActor->word_0000A0 = 8 * v13;
     pActor->dword_0000B8 = 0;
     pActor->word_0000B0 = 12;
@@ -1165,7 +1173,7 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct Actor_struct1
   {
     v5 = pActors[a2 >> 3].sActorPosX;
     v4 = pActors[a2 >> 3].sActorPosY;
-    v20 = (signed __int64)((double)pActors[a2 >> 3].word_00008A * 0.75
+    v20 = (signed __int64)((double)pActors[a2 >> 3].uActorHeight * 0.75
                          + (double)pActors[a2 >> 3].sActorPosZ);
   }
   else
@@ -1185,10 +1193,10 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct Actor_struct1
   }
 
   if ( sub_407A1C(v5, v4, v20, pActor->sActorPosX, pActor->sActorPosY, 
-                 pActor->sActorPosZ - (int)((double)pActor->word_00008A * -0.75)) 
+                 pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75)) 
        ||
        sub_407A1C(pActor->sActorPosX, pActor->sActorPosY, 
-                  pActor->sActorPosZ - (int)((double)pActor->word_00008A * -0.75),
+                  pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75),
                   v5, v4, v20) )
   {
     if ( !pStruc1 )
@@ -1202,7 +1210,7 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct Actor_struct1
     //v13 = *(_WORD *)(60 * *(_WORD *)(pActor + 194) + v12 + 56);
     v13 = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[3]].word_000038;
 
-    pActor->word_00009A = LOWORD(pStruc1->uYawAngle);
+    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);
     pActor->word_0000A0 = 8 * v13;
     pActor->dword_0000B8 = 0;
     pActor->word_0000B0 = 3;
@@ -1246,7 +1254,7 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct Actor_struct1
   {
     v5 = pActors[a2 >> 3].sActorPosX;
     v4 = pActors[a2 >> 3].sActorPosY;
-    v20 = (signed __int64)((double)pActors[a2 >> 3].word_00008A * 0.75
+    v20 = (signed __int64)((double)pActors[a2 >> 3].uActorHeight * 0.75
                          + (double)pActors[a2 >> 3].sActorPosZ);
   }
   else
@@ -1266,7 +1274,7 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct Actor_struct1
   }
 
   if ( sub_407A1C(v5, v4, v20, pActor->sActorPosX, pActor->sActorPosY, 
-                  pActor->sActorPosZ - (int)((double)pActor->word_00008A * -0.75)) )
+                  pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75)) )
   {
     if ( !pStruc1 )
     {
@@ -1279,7 +1287,7 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct Actor_struct1
     //v13 = *(_WORD *)(60 * *(_WORD *)(pActor + 194) + v12 + 56);
     v13 = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[3]].word_000038;
 
-    pActor->word_00009A = LOWORD(pStruc1->uYawAngle);
+    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);
     pActor->word_0000A0 = 8 * v13;
     pActor->dword_0000B8 = 0;
     pActor->word_0000B0 = 18;
@@ -1367,16 +1375,16 @@ void Actor_sub_4032B2(unsigned int uActorID, int a2, int a3, int a4)
   }
 
   v11 = v10 + rand() % 256 - 128;
-  if ( abs(v11 - pActor->word_00009A) > 256 && !(pActor->dword_000024 & 0x00200000) )
+  if ( abs(v11 - pActor->uYawAngle) > 256 && !(pActor->dword_000024 & 0x00200000) )
   {
     Actor_sub_403EB6(uActorID, a2, 256, &v15);
     return;
   }
 
-  pActor->word_00009A = v11;
+  pActor->uYawAngle = v11;
 
-  if ( pActor->word_00008C )
-    pActor->word_0000A0 = 32 * v20 / pActor->word_00008C;
+  if ( pActor->uSpeed )
+    pActor->word_0000A0 = 32 * v20 / pActor->uSpeed;
   else
     pActor->word_0000A0 = 0;
 
@@ -1420,8 +1428,8 @@ void Actor_Reset(struct Actor *_this)
  
  _this->word_000086 = 0;
  _this->word_000088 = 32;
- _this->word_00008A = 128;
- _this->word_00008C = 200;
+ _this->uActorHeight = 128;
+ _this->uSpeed = 200;
 
  _this->sActorPosX = 0;
  _this->sActorPosY = 0;
@@ -1430,8 +1438,8 @@ void Actor_Reset(struct Actor *_this)
  _this->word_000094 = 0;
  _this->word_000096 = 0;
  _this->word_000098 = 0;
- _this->word_00009A = 0;
- _this->word_00009C = 0;
+ _this->uYawAngle = 0;
+ _this->uPitchAngle = 0;
  _this->word_00009E = 0;
  
  _this->word_0000A2 = 0;

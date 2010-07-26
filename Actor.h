@@ -33,8 +33,8 @@ struct Actor_struct1
 
   unsigned int uDistance; //@ 00000C distance between the objects 
   unsigned int uDistanceXY;//@ 000010 projection of distance to the XY plane
-  unsigned int   uYawAngle;//@ 000014  yaw angle calculated from direction vector
-  unsigned int   uPitchAngle;//@ 000018 pitch angle calculated from direction vector
+  unsigned int uYawAngle;//@ 000014  yaw angle calculated from direction vector
+  unsigned int uPitchAngle;//@ 000018 pitch angle calculated from direction vector
 };
 //sizeof == 1C
 
@@ -60,16 +60,16 @@ struct Actor
  char           byte_000080[6];
  short          word_000086;
  short          word_000088;
- short          word_00008A;
- short          word_00008C; // related to monster speed from MosnterInfo
+ unsigned short uActorHeight; //word @ 00008A
+ unsigned short uSpeed; // //word @ 00008C related to monster speed from MosnterInfo
  short          sActorPosX; // word @ 00008E
  short          sActorPosY; // word @ 000090
  short          sActorPosZ; // word @ 000092
  short          word_000094;
  short          word_000096;
  short          word_000098;
- short          word_00009A;
- short          word_00009C;
+ unsigned short uYawAngle; // word @ 00009A
+ unsigned short uPitchAngle;//word @ 00009C
  short          word_00009E;
  short          word_0000A0;
  short          word_0000A2;

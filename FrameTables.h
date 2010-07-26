@@ -5,7 +5,7 @@
 
 struct MonsterDescription
 {
- short         word_000000;
+ short         uMonsterHeight;
  short         word_000002;
  char          byte_000004[8];
  short         arrray_00000C[4];

@@ -1080,7 +1080,7 @@ void __fastcall sub_47253E(unsigned int a1)
           v5 = 836 * (*(_DWORD *)((char *)v2 + 62) >> 3);
           array_665230[i].sItemPosX = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosX;
           array_665230[i].sItemPosY = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosY;
-          array_665230[i].sItemPosZ = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosZ + pActors[*(_DWORD *)((char *)v2 + 62) >> 3].word_00008A;
+          array_665230[i].sItemPosZ = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosZ + pActors[*(_DWORD *)((char *)v2 + 62) >> 3].uActorHeight;
           if ( !v4 )
             continue;
           v6 = pClass24_global->int_00001C + *(_WORD *)v2;
@@ -10521,7 +10521,7 @@ LABEL_304:
             LODWORD(v1) = 836 * dword_50BF30[n];
             v686.v687 = pActors[dword_50BF30[n]].sActorPosX;
             LODWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosY;
-            v710 = pActors[dword_50BF30[n]].word_00008A;
+            v710 = pActors[dword_50BF30[n]].uActorHeight;
             HIDWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosZ
                           - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
             v159 = 8 * dword_50BF30[n];
@@ -12822,7 +12822,7 @@ LABEL_641:
             LODWORD(v1) = 836 * dword_50BF30[n];
             v686.v687 = pActors[dword_50BF30[n]].sActorPosX;
             LODWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosY;
-            v710 = pActors[dword_50BF30[n]].word_00008A;
+            v710 = pActors[dword_50BF30[n]].uActorHeight;
             HIDWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosZ
                           - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
             v476 = 8 * dword_50BF30[n];
@@ -13002,7 +13002,7 @@ LABEL_973:
             LODWORD(v1) = 836 * dword_50BF30[n];
             v686.v687 = pActors[dword_50BF30[n]].sActorPosX;
             LODWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosY;
-            v710 = pActors[dword_50BF30[n]].word_00008A;
+            v710 = pActors[dword_50BF30[n]].uActorHeight;
             HIDWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosZ
                           - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
             v502 = 8 * dword_50BF30[n];
@@ -13497,7 +13497,7 @@ LABEL_1086:
         v565 = pActors[v57 / sizeof(struct Actor)].sActorPosX;
         HIWORD(v686) = v56;
         v686.v687 = v565;
-        v566 = pActors[v57 / sizeof(struct Actor)].word_00008A;
+        v566 = pActors[v57 / sizeof(struct Actor)].uActorHeight;
         v567 = pActors[v57 / sizeof(struct Actor)].sActorPosZ;
         LODWORD(v686.v688) = v564;
         v633 = v567 + v566;
@@ -13681,7 +13681,7 @@ LABEL_1119:
             LODWORD(v1) = 836 * dword_50BF30[n];
             v686.v687 = pActors[dword_50BF30[n]].sActorPosX;
             LODWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosY;
-            v710 = pActors[dword_50BF30[n]].word_00008A;
+            v710 = pActors[dword_50BF30[n]].uActorHeight;
             HIDWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosZ
                           - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
             v586 = 8 * dword_50BF30[n];

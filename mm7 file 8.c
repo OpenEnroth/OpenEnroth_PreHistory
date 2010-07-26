@@ -7039,7 +7039,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
     {
       v63 = pActors[v2].sActorPosX;
       v64 = pActors[v2].sActorPosY;
-      v8 = (double)pActors[v2].word_00008A * 0.699999988079071;
+      v8 = (double)pActors[v2].uActorHeight * 0.699999988079071;
       v9 = v8 + 6.755399441055744e15;
       v65 = LODWORD(v9) + pActors[v2].sActorPosZ;
       v6 = word_5FF1F6[418 * v2];
@@ -7086,7 +7086,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
     {
       v60 = pActors[v12].sActorPosY;
       v18 = pActors[v12].sActorPosX;
-      v20 = (double)pActors[v12].word_00008A * 0.699999988079071;
+      v20 = (double)pActors[v12].uActorHeight * 0.699999988079071;
       v21 = v20 + 6.755399441055744e15;
       v17 = LODWORD(v21) + pActors[v12].sActorPosZ;
       v19 = word_5FF1F6[418 * v12];
