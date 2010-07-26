@@ -16103,7 +16103,7 @@ signed int __fastcall sub_42041E(int a1)
       v14 = array_6836D0[v5].sPosX;
       v55 = array_6836D0[v5].sPosY;
       v17 = *(_WORD *)((char *)&pDecorationDescriptionList->pDescriptions[array_6836D0[v5].uDecorationDescriptionID] + 66);
-      v15 = array_6836D0[v5].dword_00000C + (((_DWORD)v17 - HIDWORD(v17)) >> 1);
+      v15 = array_6836D0[v5].sPosZ + (((_DWORD)v17 - HIDWORD(v17)) >> 1);
     }
     else
     {

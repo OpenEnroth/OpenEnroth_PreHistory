@@ -1080,7 +1080,7 @@ void __fastcall sub_47253E(unsigned int a1)
           v5 = 836 * (*(_DWORD *)((char *)v2 + 62) >> 3);
           array_665230[i].sItemPosX = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosX;
           array_665230[i].sItemPosY = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosY;
-          array_665230[i].dword_00000C = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosZ + pActors[*(_DWORD *)((char *)v2 + 62) >> 3].word_00008A;
+          array_665230[i].sItemPosZ = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosZ + pActors[*(_DWORD *)((char *)v2 + 62) >> 3].word_00008A;
           if ( !v4 )
             continue;
           v6 = pClass24_global->int_00001C + *(_WORD *)v2;
@@ -8126,7 +8126,7 @@ void __thiscall sub_4498D5(void *this)
       v8 = 32 * v5;
       pParty_global->sPartyPosX = array_6836D0[v5].sPosX;
       pParty_global->sPartyPosY = array_6836D0[v5].sPosY;
-      pParty_global->sPartyPosZ = array_6836D0[v5].dword_00000C;
+      pParty_global->sPartyPosZ = array_6836D0[v5].sPosZ;
       pParty_global->dword_000700 = pParty_global->sPartyPosZ;
       v9 = pClass59_global->uNumTableEntries * array_6836D0[v5].word_00001A / 90;
       v7 = array_6836D0[v5].dword_000010;

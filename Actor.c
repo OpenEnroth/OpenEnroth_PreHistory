@@ -118,259 +118,182 @@ void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, struct Actor
 //----- (004040E9) --------------------------------------------------------
 void *__fastcall Actor_sub_4040E9(signed int a1, signed int a2, struct Actor_struct1 *pStruc1, signed int a4)
 {
-  signed int v4; // eax@1
-  int v5; // ecx@1
-  signed int v6; // ebx@1
-  int v7; // ecx@2
-  int v8; // ecx@3
-  int v9; // ecx@4
-  int v10; // ecx@8
-  int v11; // eax@8
-  int v12; // eax@9
-  int v13; // eax@9
-  int v14; // ecx@9
-  int v15; // eax@11
-  int v16; // eax@12
-  int v17; // eax@13
-  int v18; // edx@15
-  int v19; // eax@25
-  signed int v20; // eax@28
-  signed int v21; // eax@28
-  int v22; // ebx@28
-  int v23; // ecx@35
-  int v24; // eax@35
-  int v25; // edx@35
-  signed int v26; // eax@36
-  int v27; // eax@36
-  int v28; // ecx@36
-  signed int v29; // eax@37
-  int v30; // eax@42
-  double v31; // st7@45
-  double v32; // st7@45
-  double v33; // st6@45  
-  int v35; // [sp-18h] [bp-64h]@17
-  int v36; // [sp-14h] [bp-60h]@17
-  int v37; // [sp-10h] [bp-5Ch]@17
-  int v38; // [sp-Ch] [bp-58h]@17
-  int v39; // [sp-8h] [bp-54h]@15
-  int v40; // [sp-4h] [bp-50h]@15
-  int v41; // [sp+0h] [bp-4Ch]@15
-  int v42; // [sp+4h] [bp-48h]@15
+  int type1;
+  int type2;  
+  int idx1;
+  int idx2;  
+
+  int x0;
+  int z0;
+  int y0;  
+  int x1;
+  int y1;
+  int z1;
+
+  double deltaX;
+  double deltaY;
+  double deltaZ;
+  double distance;
+
+  struct Actor_struct1 struc1;
+
+  idx1 = a1 >> 3;
+  type1 = (a1 & 7);
+
+  if ( type1 == 2 )
+  {    
+    x0 = array_665230[idx1].sItemPosX;
+    y0 = array_665230[idx1].sItemPosY;
+    z0 = array_665230[idx1].sItemPosZ;
+  }  
+  else if ( type1 == 3 )
+  {
+    x0 = pActors[idx1].sActorPosX;
+    y0 = pActors[idx1].sActorPosY;    
+    z0 = pActors[idx1].sActorPosZ - (unsigned int)((double)pActors[idx1].word_00008A * -0.75);
+  }
+  else if ( type1 == 4 )
+  {
+    if ( idx1 == 0 )
+    {
+      x0 = pParty_global->sPartyPosX;
+      y0 = pParty_global->sPartyPosY;
+      z0 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
+    }
+    else if (idx1 < 5)
+    {
+      int sub_43AA99_p0;
+      int sub_43AA99_p1;
+
+      switch (idx1)
+      {
+      case 1:
+        sub_43AA99_p0 = 24;
+        sub_43AA99_p1 = pClass59_global->uNumTableEntries + pParty_global->sRotationY; 
+        break;
+      case 2:
+        sub_43AA99_p0 = 8;
+        sub_43AA99_p1 = pClass59_global->uNumTableEntries + pParty_global->sRotationY;  
+        break;
+      case 3:
+        sub_43AA99_p0 = 24;
+        sub_43AA99_p1 = pParty_global->sRotationY - pClass59_global->uNumTableEntries;
+        break;
+      case 4:
+        sub_43AA99_p0 = 8;
+        sub_43AA99_p1 = pParty_global->sRotationY - pClass59_global->uNumTableEntries;
+        break;
+      }
+
+      sub_43AA99(sub_43AA99_p0, 
+                 sub_43AA99_p1,         
+                 0, 
+                 pParty_global->sPartyPosX, 
+                 pParty_global->sPartyPosY, 
+                 pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3, 
+                 (int)&x0, 
+                 (int)&y0, 
+                 (int)&z0);
+    }   
+  }
+  else if ( type1 == 5 )
+  {
+    x0 = array_6836D0[idx1].sPosX;
+    y0 = array_6836D0[idx1].sPosY;
+    z0 = array_6836D0[idx1].sPosZ;
+  }
+  else if ( type1 == 6 )
+  {
+    if ( dword_6BE360 == 1 )
+    {
+      char* ptr = dword_6BE644 + 96 * idx1;
+      x0 = (*(_WORD *)(ptr + 80) + (signed int)*(_WORD *)(ptr + 82)) >> 1;
+      y0 = (*(_WORD *)(ptr + 84) + (signed int)*(_WORD *)(ptr + 86)) >> 1;
+      z0 = (*(_WORD *)(ptr + 88) + (signed int)*(_WORD *)(ptr + 90)) >> 1;
+    }
+  }
+  else   
+  {
+    z0 = 0;
+    y0 = 0;
+    x0 = 0;
+  }
+    
+  type2 = a2 >> 3;
+  idx2 = a2 / 8;
+
+  if ( type2 == 2 )
+  {
+    x1 = array_665230[idx2].sItemPosX;
+    y1 = array_665230[idx2].sItemPosY;
+    z1 = array_665230[idx2].sItemPosZ;    
+  }
+  else if ( type2 == 3 )
+  {
+    x1 = pActors[idx2].sActorPosX;
+    y1 = pActors[idx2].sActorPosY;
+    z1 = pActors[idx2].word_00008A - (unsigned int)(signed __int64)((double)pActors[idx2].word_00008A * -0.75);    
+  }
+  else if ( type2 == 4 )
+  {
+    x1 = pParty_global->sPartyPosX;
+    y1 = pParty_global->sPartyPosY;   
+    z1 = a4;
+    if ( !z1 )
+      z1 = pParty_global->uEyelevel;
+
+    z1 += pParty_global->sPartyPosZ;
+  }
+  else if ( type2 == 5 )
+  {    
+    x1 = array_6836D0[idx2].sPosX;
+    y1 = array_6836D0[idx2].sPosY;
+    z1 = array_6836D0[idx2].sPosZ;
+  }
+  else if ( type2 == 6 )
+  {
+    char* ptr = dword_6BE644 + 96 * idx2;
+    x1 = (*(_WORD *)(ptr + 80) + *(_WORD *)(ptr + 82)) >> 1;
+    y1 = (*(_WORD *)(ptr + 84) + *(_WORD *)(ptr + 86)) >> 1;
+    z1 = (*(_WORD *)(ptr + 88) + *(_WORD *)(ptr + 90)) >> 1;     
+  }
+  else
+  {
+    x1 = 0;
+    y1 = 0;
+    z1 = 0;
+  }
   
-  struct Actor_struct1 struc1; //TODO: rename
+  deltaX = (double)x1 - (double)x0;
+  deltaY = (double)y1 - (double)y0;
+  deltaZ = (double)z1 - (double)z0;
 
-  float v50; // [sp+30h] [bp-1Ch]@23
-  float v51; // [sp+34h] [bp-18h]@45
-  int v52; // [sp+38h] [bp-14h]@33
-  int v53; // [sp+3Ch] [bp-10h]@33
-  int v54; // [sp+40h] [bp-Ch]@6
-  int v55; // [sp+44h] [bp-8h]@6
-  int v56; // [sp+48h] [bp-4h]@6
-  float v57; // [sp+58h] [bp+Ch]@45
+  distance = sqrt(deltaZ * deltaZ + deltaY * deltaY + deltaX * deltaX);
 
-  v4 = a1 / 8;
-  v5 = (a1 & 7) - 2;
-  v6 = a2;
-  if ( !v5 )
-  {
-    v19 = 112 * v4;
-    v56 = array_665230[v4].sItemPosX;
-    v14 = array_665230[v4].sItemPosY;
-    v12 = array_665230[v4].dword_00000C;
-    goto LABEL_26;
-  }
-  v7 = v5 - 1;
-  if ( !v7 )
-  {
-    v56 = pActors[v4].sActorPosX;
-    v55 = pActors[v4].sActorPosY;
-    LODWORD(v50) = pActors[v4].word_00008A;
-    v10 = pActors[v4].sActorPosZ - (unsigned int)((double)SLODWORD(v50) * -0.75);
-    goto LABEL_24;
-  }
-  v8 = v7 - 1;
-  if ( !v8 )
-  {
-    if ( !v4 )
-    {
-      v56 = pParty_global->sPartyPosX;
-      v55 = pParty_global->sPartyPosY;
-      v12 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
-LABEL_27:
-      v54 = v12;
-      goto LABEL_28;
-    }
-    v15 = v4 - 1;
-    if ( v15 )
-    {
-      v16 = v15 - 1;
-      if ( v16 )
-      {
-        v17 = v16 - 1;
-        if ( v17 )
-        {
-          if ( v17 != 1 )
-            goto LABEL_28;
-          v42 = (int)&v54;
-          v41 = (int)&v55;
-          v40 = (int)&v56;
-          v18 = pParty_global->sRotationY - pClass59_global->uNumTableEntries;
-          v39 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
-          goto LABEL_20;
-        }
-        v42 = (int)&v54;
-        v41 = (int)&v55;
-        v40 = (int)&v56;
-        v18 = pParty_global->sRotationY - pClass59_global->uNumTableEntries;
-        v39 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
-      }
-      else
-      {
-        v42 = (int)&v54;
-        v41 = (int)&v55;
-        v40 = (int)&v56;
-        v39 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
-        v18 = pClass59_global->uNumTableEntries + pParty_global->sRotationY;
-      }
-      v38 = pParty_global->sPartyPosY;
-      v37 = pParty_global->sPartyPosX;
-      v36 = 0;
-      v35 = 8;
-LABEL_21:
-      sub_43AA99(v35, v18, v36, v37, v38, v39, v40, v41, v42);
-      goto LABEL_28;
-    }
-    v42 = (int)&v54;
-    v41 = (int)&v55;
-    v40 = (int)&v56;
-    v39 = pParty_global->sPartyPosZ + pParty_global->uPartyHeight / 3;
-    v18 = pClass59_global->uNumTableEntries + pParty_global->sRotationY;
-LABEL_20:
-    v38 = pParty_global->sPartyPosY;
-    v37 = pParty_global->sPartyPosX;
-    v36 = 0;
-    v35 = 24;
-    goto LABEL_21;
-  }
-  v9 = v8 - 1;
-  if ( !v9 )
-  {
-    v13 = 32 * v4;
-    v56 = array_6836D0[v4].sPosX;
-    v14 = array_6836D0[v4].sPosY;
-    v12 = array_6836D0[v4].dword_00000C;
-LABEL_26:
-    v55 = v14;
-    goto LABEL_27;
-  }
-  if ( v9 != 1 )
-  {
-    v54 = 0;
-    v55 = 0;
-    v56 = 0;
-    goto LABEL_28;
-  }
-  if ( dword_6BE360 == 1 )
-  {
-    v11 = dword_6BE644 + 96 * v4;
-    v56 = (*(_WORD *)(v11 + 80) + (signed int)*(_WORD *)(v11 + 82)) >> 1;
-    v55 = (*(_WORD *)(v11 + 84) + (signed int)*(_WORD *)(v11 + 86)) >> 1;
-    v10 = (*(_WORD *)(v11 + 88) + (signed int)*(_WORD *)(v11 + 90)) >> 1;
-LABEL_24:
-    v54 = v10;
-  }
-LABEL_28:
-  v21 = v6;
-  v22 = v6 & 7;
-  v20 = v21 / 8;
-  if ( v22 == 2 )
-  {
-    v30 = 112 * v20;
-    v53 = array_665230[v20].sItemPosX;
-    v28 = array_665230[v20].sItemPosY;
-    v26 = array_665230[v20].dword_00000C;
-    goto LABEL_43;
-  }
-  if ( v22 == 3 )
-  {
-    v53 = pActors[v20].sActorPosX;
-    v52 = pActors[v20].sActorPosY;
-    v23 = pActors[v20].word_00008A - (unsigned int)(signed __int64)((double)pActors[v20].word_00008A * -0.75);
-    goto LABEL_41;
-  }
-  if ( v22 == 4 )
-  {
-    v53 = pParty_global->sPartyPosX;
-    v52 = pParty_global->sPartyPosY;
-    v29 = a4;
-    if ( !a4 )
-      v29 = pParty_global->uEyelevel;
-    v26 = pParty_global->sPartyPosZ + v29;
-    goto LABEL_44;
-  }
-  if ( v22 == 5 )
-  {
-    v27 = 32 * v20;
-    v53 = array_6836D0[v20].sPosX;
-    v28 = array_6836D0[v20].sPosY;
-    v26 = array_6836D0[v20].dword_00000C;
-LABEL_43:
-    v52 = v28;
-LABEL_44:
-    a4 = v26;
-    goto LABEL_45;
-  }
-  if ( v22 != 6 )
-  {
-    a4 = 0;
-    v52 = 0;
-    v53 = 0;
-    goto LABEL_45;
-  }
-  if ( dword_6BE360 == 1 )
-  {
-    v24 = dword_6BE644 + 96 * v20;
-    v25 = *(_WORD *)(v24 + 84);
-    v53 = (*(_WORD *)(v24 + 80) + (signed int)*(_WORD *)(v24 + 82)) >> 1;
-    v52 = (v25 + *(_WORD *)(v24 + 86)) >> 1;
-    v23 = (*(_WORD *)(v24 + 88) + (signed int)*(_WORD *)(v24 + 90)) >> 1;
-LABEL_41:
-    a4 = v23;
-  }
-LABEL_45:
-  v32 = (double)v53 - (double)v56;
-  v50 = v32;
-  v33 = (double)v52 - (double)v55;
-  v51 = v33;
-  v57 = (double)a4 - (double)v54;
-  *(float *)&v53 = v33 * v33;
-  *(float *)&v52 = v32 * v32;
-  v31 = sqrt(v57 * v57 + *(float *)&v52 + *(float *)&v53);
-  if (v31 <= 1.0)
+  if (distance <= 1.0)
   {
     struc1.dword_000000 = 65536;
     struc1.dword_000004 = 0;
     struc1.dword_000008 = 0;
     struc1.dword_00000C = 1;
-    struc1.X = 1;
+    struc1.dword_000010 = 1;
     struc1.dword_000014 = 0;
     struc1.dword_000018 = 0;
   }
   else
   {
-    struc1.dword_000000 = (signed __int64)(1.0 / v31 * v50 * 65536.0);
-    struc1.dword_000004 = (signed __int64)(1.0 / v31 * v51 * 65536.0);
-    struc1.dword_000008 = (signed __int64)(1.0 / v31 * v57 * 65536.0);
-    struc1.dword_00000C = (signed __int64)v31;
-    struc1.X = (signed __int64)sqrt(*(float *)&v52 + *(float *)&v53);
-    struc1.dword_000014 = sub_45281E(pClass59_global, (signed __int64)v50, (signed __int64)v51);
-    struc1.dword_000018 = sub_45281E(pClass59_global, struc1.X, (signed __int64)v57);
+    struc1.dword_000000 = (int)(1.0 / distance * deltaX * 65536.0);
+    struc1.dword_000004 = (int)(1.0 / distance * deltaY * 65536.0);
+    struc1.dword_000008 = (int)(1.0 / distance * deltaZ * 65536.0);
+    struc1.dword_00000C = (int)distance;
+    struc1.dword_000010 = (int)sqrt(deltaX * deltaX + deltaY * deltaY);
+    struc1.dword_000014 = sub_45281E(pClass59_global, (int)deltaX, (int)deltaY);
+    struc1.dword_000018 = sub_45281E(pClass59_global, struc1.dword_000010, (int)deltaZ);
   }
 
   memcpy(pStruc1, &struc1, sizeof(struct Actor_struct1));
   return pStruc1;
 }
-
 
 //----- (0045976D) --------------------------------------------------------
 int Actor_sub_45976D(struct Actor *_this)
@@ -827,7 +750,7 @@ void Actor_sub_402968(unsigned int uActorID, int a2, int a3, struct Actor_struct
   else
   {
     if ( pActor->word_00008C )
-      pActor->word_0000A0 = (pStruc1->X << 7) / (signed int)pActor->word_00008C;      
+      pActor->word_0000A0 = (pStruc1->dword_000010 << 7) / (signed int)pActor->word_00008C;      
     else
       pActor->word_0000A0 = 0;
     
@@ -895,7 +818,7 @@ void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struc
   else
   {    
     if ( pActor->word_00008C )
-      pActor->word_0000A0 = (pStruc1->X << 7) / (signed int)pActor->word_00008C;
+      pActor->word_0000A0 = (pStruc1->dword_000010 << 7) / (signed int)pActor->word_00008C;
     else
       pActor->word_0000A0 = 0;
 
@@ -968,7 +891,7 @@ void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struc
   else
   {
     if ( pActor->word_00008C )
-      pActor->word_0000A0 = (pStruc1->X << 7) / (signed int)pActor->word_00008C;
+      pActor->word_0000A0 = (pStruc1->dword_000010 << 7) / (signed int)pActor->word_00008C;
     else
       pActor->word_0000A0 = 0;
 
@@ -1036,12 +959,12 @@ void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a
     int v18 = ( a3 % 2 ) ? -16 : 16;
 
     int tmp = class59_SinCos(pClass59_global, v18 + pClass59_global->dword_001860 + pStruc1->dword_000014);
-    int v12 = ((unsigned __int64)(tmp * pStruc1->X) >> 16) + pParty_global->sPartyPosX;
+    int v12 = ((unsigned __int64)(tmp * pStruc1->dword_000010) >> 16) + pParty_global->sPartyPosX;
   
     tmp = pClass59_global->dword_001860 + pStruc1->dword_000014;
     tmp = class59_SinCos(pClass59_global, v18 + tmp - pClass59_global->uNumTableEntries);
     tmp = pParty_global->sPartyPosY + 
-          ((unsigned __int64)(tmp * pStruc1->X) >> 16) - //why X? mm7 programmer's bug?     
+          ((unsigned __int64)(tmp * pStruc1->dword_000010) >> 16) - //why X? mm7 programmer's bug?     
           pActor->sActorPosY;       
     
     pActor->word_00009A = sub_45281E(pClass59_global, v12 - pActor->sActorPosX, tmp);

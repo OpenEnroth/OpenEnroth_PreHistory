@@ -1322,7 +1322,7 @@ struct struct0
  short word_000002;
  int   sPosX; // dword @ 000004
  int   sPosY; // dword @ 000008
- int   dword_00000C; // z?
+ int   sPosZ; // dword @ 00000C
  int   dword_000010;
  short word_000014;
  short word_000016;
@@ -1339,7 +1339,7 @@ struct struct2
  short uObjectDescriptionID; // word @ 000002
  int   sItemPosX;            // dword @ 000004
  int   sItemPosY;            // dword @ 000008
- int   dword_00000C;
+ int   sItemPosZ;
  short uObjectDescriptionID2; // word @ 000010
  char  byte_000012[10];
  short word_00001C;

@@ -7032,7 +7032,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
       v7 = 32 * v2;
       v63 = array_6836D0[v2].sPosX;
       v64 = array_6836D0[v2].sPosY;
-      v65 = array_6836D0[v2].dword_00000C;
+      v65 = array_6836D0[v2].sPosZ;
       v6 = sub_49AC17((int)byte_6BE3C8, v63, v64, v65);
     }
     else
@@ -7050,7 +7050,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
     v10 = 112 * v2;
     v63 = array_665230[v2].sItemPosX;
     v64 = array_665230[v2].sItemPosY;
-    v11 = array_665230[v2].dword_00000C;
+    v11 = array_665230[v2].sItemPosZ;
     v6 = array_665230[v2].word_00001C;
     v65 = v11;
   }
@@ -7070,7 +7070,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
         v16 = 32 * v12;
         v18 = array_6836D0[v12].sPosX;
         v43 = v60 = array_6836D0[v12].sPosY;
-        v17 = v44 = array_6836D0[v12].dword_00000C;
+        v17 = v44 = array_6836D0[v12].sPosZ;
       }
       else
       {
@@ -7097,7 +7097,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
     v22 = 112 * v12;
     v18 = array_665230[v12].sItemPosX;
     v17 = array_665230[v12].sItemPosY;
-    v60 = array_665230[v12].dword_00000C;
+    v60 = array_665230[v12].sItemPosZ;
     v19 = array_665230[v12].word_00001C;
   }
   v62 = v19;

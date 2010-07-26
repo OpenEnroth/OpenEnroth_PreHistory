@@ -32,7 +32,7 @@ struct Actor_struct1
   int   dword_00000C;
 
   //its very likely that 3 following members have word type instead of dword (due to alignment)
-  int   X;            //@ dword 000010 
+  int   dword_000010;
   int   dword_000014;
   int   dword_000018;  
 };
