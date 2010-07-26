@@ -4,6 +4,12 @@
 #include "Render.h"
 #include "..\\Window.h"
 
+class DepthStencilStateOGL: public DepthStencilState
+{
+ public:
+   virtual unsigned int Initialize(Render *pRender, bool bZTest, bool bZWrite, DepthOperator::Op eOperator);
+};
+
 class TextureOGL;
 class RenderOGL: public Render
 {
@@ -14,6 +20,8 @@ class RenderOGL: public Render
    virtual unsigned int Initialize();
    virtual unsigned int Reset(Window *pTargetWindow, bool bFullscreen, struct Viewport *pOutputArea);
    
+   virtual unsigned int CreateDepthStencilState(DepthStencilState **pOut);
+
    virtual unsigned int CreateTexture(unsigned int uWidth, unsigned int uDepth, enum TextureFormat eFormat, Texture **pOut);
    virtual unsigned int CreateTexture(const wchar_t *pTextureName, Texture **pOut);
    virtual unsigned int CreateTextureCube(const wchar_t *pFilename, Texture **pOut);

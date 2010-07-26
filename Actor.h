@@ -132,7 +132,7 @@ void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struc
 //int __fastcall sub_40281C(int a1, signed int a2, signed int a3, signed int a4, int a5);
 void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struct Actor_struct1 *pStruc1, int a5);
 //int __fastcall sub_402AD7(int a1, signed int a2, signed int a3, int a4, signed int a5);
-void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a4, struct Actor_struct1 *pStruc1);
+void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a4, signed int a5);
 //int __fastcall sub_403854(int a1, signed int a2, signed int a3);
 void Actor_sub_403854(unsigned int uActorID, signed int a2, signed int a3);
 //int __fastcall sub_40368B(int a1, signed int a2, signed int a3);

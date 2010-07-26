@@ -52,5 +52,5 @@ class RenderOperatorD3D10_DrawEnvironment: public RenderOperator_DrawEnvironment
    ID3D10PixelShader  *pPixelShader;
    ID3D10SamplerState *pPixelShaderSampler0;
 
-   ID3D10DepthStencilState *pScreenQuadClearingZ;
+   DepthStencilStateD3D10 *pDepthState_ScreenQuadClearingZ;
 };

@@ -6988,12 +6988,12 @@ int GameUI_LoadPaperdollTextures()
   int v9; // ebx@16
   signed int v10; // edi@21
   int v12; // ebp@29
-  int *v14; // edi@65
+  _UNKNOWN *v14; // edi@65
   signed int v15; // ebx@66
   int v16; // eax@67
   int v17; // ecx@67
   int v18; // ebx@68
-  int v19; // ebp@73
+  _UNKNOWN *v19; // ebp@73
   int v20; // edi@73
   int v21; // eax@76
   int v22; // ecx@76
@@ -7008,13 +7008,13 @@ int GameUI_LoadPaperdollTextures()
   signed int v31; // [sp+10h] [bp-28h]@75
   signed int v32; // [sp+10h] [bp-28h]@77
   int v33; // [sp+10h] [bp-28h]@79
-  char *v34; // [sp+14h] [bp-24h]@65
+  _UNKNOWN *v34; // [sp+14h] [bp-24h]@65
   int v35; // [sp+14h] [bp-24h]@75
   int v36; // [sp+14h] [bp-24h]@77
   signed int v37; // [sp+14h] [bp-24h]@79
   int v38; // [sp+18h] [bp-20h]@66
-  int *v39; // [sp+18h] [bp-20h]@73
-  int *v40; // [sp+1Ch] [bp-1Ch]@73
+  int v39; // [sp+18h] [bp-20h]@73
+  _UNKNOWN *v40; // [sp+1Ch] [bp-1Ch]@73
   int v41; // [sp+20h] [bp-18h]@6
   int v42; // [sp+20h] [bp-18h]@73
   CHAR Str1[100]; // [sp+24h] [bp-14h]@12
@@ -7039,17 +7039,17 @@ int GameUI_LoadPaperdollTextures()
         v3 = (v0 != 0) + 3;
       else
         v3 = (v0 != 0) + 1;
-      wsprintfA(Str1, "pc23v%dBod", v3);
+      wsprintfA(&Str1, "pc23v%dBod", v3);
       *(int *)((char *)dword_51127C + v2) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc23v%dlad", v3);
+      wsprintfA(&Str1, "pc23v%dlad", v3);
       *(int *)((char *)dword_5115D0 + v2) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc23v%dlau", v3);
+      wsprintfA(&Str1, "pc23v%dlau", v3);
       *(int *)((char *)dword_5115C0 + v2) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc23v%drh", v3);
+      wsprintfA(&Str1, "pc23v%drh", v3);
       *(int *)((char *)dword_51124C + v2) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc23v%dlh", v3);
+      wsprintfA(&Str1, "pc23v%dlh", v3);
       *(int *)((char *)dword_51126C + v2) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc23v%dlhu", v3);
+      wsprintfA(&Str1, "pc23v%dlhu", v3);
       *(int *)((char *)dword_51125C + v2) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
       v5 = *(int *)((char *)pPlayers + v2);
       v4 = *(_BYTE *)(v5 + 186);
@@ -7062,26 +7062,26 @@ int GameUI_LoadPaperdollTextures()
     {
       int uFace = pPlayers[v29]->uFace;
       v8 = v29; 
-      wsprintfA(Str1, "pc%0dbod", uFace + 1);
+      wsprintfA(&Str1, "pc%0dbod", uFace + 1);
       dword_51127C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc%0dlad", uFace + 1);
+      wsprintfA(&Str1, "pc%0dlad", uFace + 1);
       dword_5115D0[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc%0dlau", uFace + 1);
+      wsprintfA(&Str1, "pc%0dlau", uFace + 1);
       dword_5115C0[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc%0drh", uFace + 1);
+      wsprintfA(&Str1, "pc%0drh", uFace + 1);
       dword_51124C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc%0dlh", uFace + 1);
+      wsprintfA(&Str1, "pc%0dlh", uFace + 1);
       dword_51126C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc%0dlhu", uFace + 1); // something strange with pc20lhu, needs to check
+      wsprintfA(&Str1, "pc%0dlhu", uFace + 1); // something strange with pc20lhu, needs to check
       dword_51125C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
       v9 = pPlayers[v29];
       v7 = v9 + 186;
       if ( uFace == 12 || uFace == 13 ) // dwarf male, load beard?
       {
-        wsprintfA(Str1, "pc%02dbrd", uFace + 1);
+        wsprintfA(&Str1, "pc%02dbrd", uFace + 1);
         dword_511208[uFace] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
       }
-      wsprintfA(Str1, "item281pc%02d", uFace + 1);
+      wsprintfA(&Str1, "item281pc%02d", uFace + 1);
       dword_5115E0[uFace] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
       byte_5111B9[v29] = 0;
     }
@@ -7097,8 +7097,8 @@ int GameUI_LoadPaperdollTextures()
   dword_51121C = LODFile_LoadTexture(pLODFile_Icons_LOD, "ib-cd3-d", 2);
   dword_511214 = LODFile_LoadTexture(pLODFile_Icons_LOD, "ib-cd4-d", 2);
   dword_51120C = LODFile_LoadTexture(pLODFile_Icons_LOD, "ib-cd5-d", 2);
-  
-  for(v10 = 0; v10 < 54; ++v10)
+  v10 = 0;
+  do
   {
     byte_5111C0[v10] = 0;
     if ( dword_AD470C != v10 + 66 )
@@ -7106,15 +7106,15 @@ int GameUI_LoadPaperdollTextures()
      i = 0;
       while ( !sub_43EE15(v10 + 66, &pParty_global->pPlayers[i], 0) )
       {
-        i++;
         if ( i >= 4)
           goto LABEL_28;
       }
     }
     byte_5111C0[v10] = 1;
 LABEL_28:
-    ;
+    ++v10;
   }
+  while ( v10 < 54 );
 
   memset(byte_5111F6, 0, sizeof(byte_5111F6));
 
@@ -7157,15 +7157,15 @@ LABEL_28:
       byte_5111F6[15] = 1;
   }
 
-  v14 = &uTextureListForPaperdoll[35];
-  v34 = &uTextureListForPaperdoll[62];
+  v14 = &dword_5116C4;
+  v34 = &dword_5116C4[27];
   do
   {
     v15 = 0;
-    v38 = (int)(v34 - 24);
+    v38 = (int)((char *)v34 - 24);
     do
     {
-      sub_43C91D_FormTextureFileName(Str1, v15 + 100, v12, 0);
+      sub_43C91D((int)&Str1, v15 + 100, v12, 0);
       v16 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
       ++v15;
       v17 = v38;
@@ -7173,88 +7173,90 @@ LABEL_28:
       *(_DWORD *)v17 = v16;
     }
     while ( v15 < 5 );
-    sub_43C91D_FormTextureFileName(Str1, 535, v12, 0);
+    sub_43C91D((int)&Str1, 535, v12, 0);
     v30 = 0;
-    v18 = (int)(v14 - 11);
+    v18 = (int)((char *)v14 - 44);
     *(_DWORD *)v34 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
     do
     {
-      sub_43C91D_FormTextureFileName(Str1, v30++ + 89, v12, 0);
+      sub_43C91D((int)&Str1, v30++ + 89, v12, 0);
       *(_DWORD *)v18 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
       v18 += 4;
     }
     while ( v30 < 11 );
-    sub_43C91D_FormTextureFileName(Str1, 521, v12, 0);
-    v14[0] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-    sub_43C91D_FormTextureFileName(Str1, 522, v12, 0);
-    v14[1] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-    sub_43C91D_FormTextureFileName(Str1, 523, v12, 0);
-    v14[2] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-    sub_43C91D_FormTextureFileName(Str1, 532, v12, 0);
-    v14[3] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-    sub_43C91D_FormTextureFileName(Str1, 544, v12, 0);
-    v14[4] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+    sub_43C91D((int)&Str1, 521, v12, 0);
+    *(_DWORD *)v14 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+    sub_43C91D((int)&Str1, 522, v12, 0);
+    *((_DWORD *)v14 + 1) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+    sub_43C91D((int)&Str1, 523, v12, 0);
+    *((_DWORD *)v14 + 2) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+    sub_43C91D((int)&Str1, 532, v12, 0);
+    *((_DWORD *)v14 + 3) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+    sub_43C91D((int)&Str1, 544, v12, 0);
+    *((_DWORD *)v14 + 4) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
     if ( sub_43ED6F((void *)1) )
       dword_511234 = LODFile_LoadTexture(pLODFile_Icons_LOD, "item092v3", 2);
-    v34 += 28;
+    v34 = (char *)v34 + 28;
     ++v12;
-    v14 += 16;
+    v14 = (char *)v14 + 64;
   }
   while ( v12 - 1 < 2 );
   v42 = 0;
   v20 = 1;
-  v39 = &uTextureListForPaperdoll[5];
-  v19 = 0;
-  v40 = &uTextureListForPaperdoll[61];
+  v39 = (int)dword_51164C;
+  v19 = &unk_51132C;
+  v40 = &dword_5116C4[26];
   do
   {
     if ( sub_43EDB9((void *)(v20 - 1)) )
     {
-      sub_43C91D_FormTextureFileName(Str1, 524, v20, 0);
+      sub_43C91D((int)&Str1, 524, v20, 0);
       v31 = 66;
-      *v40 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      v35 = 0;
+      *(_DWORD *)v40 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      v35 = (int)((char *)v19 - 152);
       do
       {
-        sub_43C91D_FormTextureFileName(Str1, v31, v20, 0);
-        dword_511290[v19 + v35 + 1] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-        sub_43C91D_FormTextureFileName(Str1, v31, v20, 1);
-        dword_511290[v19 + v35] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-        sub_43C91D_FormTextureFileName(Str1, v31, v20, 2);
-        dword_511290[v19 + v35 + 2] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-        v35 += 3;
+        sub_43C91D((int)&Str1, v31, v20, 0);
+        *(_DWORD *)(v35 - 4) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+        sub_43C91D((int)&Str1, v31, v20, 1);
+        *(_DWORD *)v35 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+        sub_43C91D((int)&Str1, v31, v20, 2);
+        v21 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+        v22 = v35;
+        v35 += 12;
         ++v31;
+        *(_DWORD *)(v22 + 4) = v21;
       }
       while ( v31 - 66 < 13 );
-      sub_43C91D_FormTextureFileName(Str1, 516, v20, 0);
-      dword_511290[v19+39] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 516, v20, 1);
-      dword_511290[v19+40] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 516, v20, 2);
-      dword_511290[v19+41] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 505, v20, 0);
-      dword_511290[v19+42] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 505, v20, 1);
-      dword_511290[v19+43] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 505, v20, 2);
-      dword_511290[v19+44] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 504, v20, 0);
-      dword_511290[v19+45] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 504, v20, 1);
-      dword_511290[v19+46] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 504, v20, 2);
-      dword_511290[v19+47] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 533, v20, 0);
-      dword_511290[v19+48] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 533, v20, 1);
-      dword_511290[v19+49] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 533, v20, 2);
-      dword_511290[v19+50] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      sub_43C91D((int)&Str1, 516, v20, 0);
+      *(_DWORD *)v19 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      sub_43C91D((int)&Str1, 516, v20, 1);
+      *((_DWORD *)v19 + 1) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      sub_43C91D((int)&Str1, 516, v20, 2);
+      *((_DWORD *)v19 + 2) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      sub_43C91D((int)&Str1, 505, v20, 0);
+      *((_DWORD *)v19 + 3) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      sub_43C91D((int)&Str1, 505, v20, 1);
+      *((_DWORD *)v19 + 4) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      sub_43C91D((int)&Str1, 505, v20, 2);
+      *((_DWORD *)v19 + 5) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      sub_43C91D((int)&Str1, 504, v20, 0);
+      *((_DWORD *)v19 + 6) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      sub_43C91D((int)&Str1, 504, v20, 1);
+      *((_DWORD *)v19 + 7) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      sub_43C91D((int)&Str1, 504, v20, 2);
+      *((_DWORD *)v19 + 8) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      sub_43C91D((int)&Str1, 533, v20, 0);
+      *((_DWORD *)v19 + 9) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      sub_43C91D((int)&Str1, 533, v20, 1);
+      *((_DWORD *)v19 + 10) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      sub_43C91D((int)&Str1, 533, v20, 2);
+      *((_DWORD *)v19 + 11) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
       v32 = 0;
-      v36 = (int)(v39 - 5);
+      v36 = v39 - 20;
       do
       {
-        sub_43C91D_FormTextureFileName(Str1, v32 + 115, v20, 0);
+        sub_43C91D((int)&Str1, v32 + 115, v20, 0);
         v23 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
         ++v32;
         v24 = v36;
@@ -7262,51 +7264,51 @@ LABEL_28:
         *(_DWORD *)v24 = v23;
       }
       while ( v32 < 5 );
-      sub_43C91D_FormTextureFileName(Str1, 512, v20, 0);
+      sub_43C91D((int)&Str1, 512, v20, 0);
       v25 = v42;
       v37 = 105;
       v33 = v42;
-      v39 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      *(_DWORD *)v39 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
       do
       {
-        sub_43C91D_FormTextureFileName(Str1, v37, v20, 0);
+        sub_43C91D((int)&Str1, v37, v20, 0);
         *(int *)((char *)dword_511828 + v33) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-        sub_43C91D_FormTextureFileName(Str1, v37, v20, 1);
+        sub_43C91D((int)&Str1, v37, v20, 1);
         v26 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
         v27 = v33;
         v33 += 4;
         ++v37;
-        *(int *)((char *)&uTextureListForPaperdoll[84] + v27) = v26;
+        *(int *)((char *)dword_511788 + v27) = v26;
       }
       while ( v37 - 105 < 5 );
-      sub_43C91D_FormTextureFileName(Str1, 525, v20, 0);
+      sub_43C91D((int)&Str1, 525, v20, 0);
       *(int *)((char *)&dword_51183C + v42) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 530, v20, 0);
+      sub_43C91D((int)&Str1, 530, v20, 0);
       *(int *)((char *)&dword_511840 + v42) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 547, v20, 0);
+      sub_43C91D((int)&Str1, 547, v20, 0);
       *(int *)((char *)&dword_511844 + v42) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 548, v20, 0);
+      sub_43C91D((int)&Str1, 548, v20, 0);
       *(int *)((char *)&dword_511848 + v42) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 550, v20, 0);
+      sub_43C91D((int)&Str1, 550, v20, 0);
       *(int *)((char *)&dword_51184C + v42) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 525, v20, 1);
+      sub_43C91D((int)&Str1, 525, v20, 1);
       *(int *)((char *)&dword_51179C + v42) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 530, v20, 1);
+      sub_43C91D((int)&Str1, 530, v20, 1);
       *(int *)((char *)&dword_5117A0 + v42) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 547, v20, 1);
+      sub_43C91D((int)&Str1, 547, v20, 1);
       *(int *)((char *)&dword_5117A4 + v42) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 548, v20, 1);
+      sub_43C91D((int)&Str1, 548, v20, 1);
       *(int *)((char *)&dword_5117A8 + v42) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      sub_43C91D_FormTextureFileName(Str1, 550, v20, 1);
+      sub_43C91D((int)&Str1, 550, v20, 1);
       *(int *)((char *)&dword_5117AC + v42) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
     }
     else
     {
       v25 = v42;
     }
-    v40 += 7;
-    v39 += 6;
-    v19 += 51;
+    v40 = (char *)v40 + 28;
+    v39 += 24;
+    v19 = (char *)v19 + 204;
     ++v20;
     result = v20 - 1;
     v42 = v25 + 40;
@@ -7619,7 +7621,7 @@ void __fastcall GameUI_DrawPaperdoll(int a1)
   v273 = *(_BYTE *)(*(_DWORD *)v4 + 186);
   Render_Reset2DClippingRect(pD3DRenderer);
   Render_DrawIndexedTexture(pD3DRenderer, 467, 0, uTextureID_GameUI_PaperdollBackground != -1 ? 72 * uTextureID_GameUI_PaperdollBackground + 7145548 : 0);
-  if ( !byte_5111B9[v275 - 1] )
+  if ( !byte_5111B8[v275] )
   {
     v23 = *(_DWORD *)(v2 + 6480);
     if ( !v23 )
@@ -7930,7 +7932,7 @@ LABEL_127:
                   {
                     v227 = dword_4E4C2C + dword_4E54C4[14 * v268];
                     v239 = dword_4E4C28 + dword_4E54C0[14 * v268];
-                    v68 = uTextureListForPaperdoll[6 * v268 + 5];
+                    v68 = dword_51164C[6 * v268];
                   }
                   else
                   {
@@ -7939,14 +7941,14 @@ LABEL_127:
                     {
                       v239 = 0;
                       v227 = 0;
-                      v68 = uTextureListForPaperdoll[6 * v268];
+                      v68 = dword_511638[6 * v268];
                     }
                     else
                     {
                       v70 = 8 * (v69 + 7 * v268);
                       v227 = dword_4E4C2C + *(int *)((char *)&dword_4E5494 + v70);
                       v239 = dword_4E4C28 + *(int *)((char *)&dword_4E5490 + v70);
-                      v68 = uTextureListForPaperdoll[v69 + 6 * v268];
+                      v68 = dword_511638[v69 + 6 * v268];
                     }
                   }
                 }
@@ -8013,9 +8015,9 @@ LABEL_168:
                       v240 = dword_4E4C28 + dword_4E57F0[2 * v85];
                       v228 = dword_4E4C2C + dword_4E57F4[2 * v85];
                       if ( v277 != 1 || v84 == 5 )
-                        v86 = uTextureListForPaperdoll[56 + v85];
+                        v86 = dword_511718[v85];
                       else
-                        v86 = uTextureListForPaperdoll[56 + (v84 + 7 * (v268 - 2))];
+                        v86 = dword_511718[v84 + 7 * (v268 - 2)];
                       v87 = *(_DWORD *)(v246 + 36 * v82 + 516);
                       if ( !(*(_DWORD *)(v246 + 36 * v82 + 516) & 0xF0) )
                       {
@@ -8151,7 +8153,7 @@ LABEL_272:
                                     {
 LABEL_274:
                                       v136 = v133 + 10 * v268;
-                                      v134 = uTextureListForPaperdoll[v136 + 84];
+                                      v134 = dword_511788[v136];
                                       v136 *= 8;
                                       v135 = dword_4E4C28 + *(int *)((char *)&dword_4E56B0 + v136);
                                       v242 = dword_4E4C28 + *(int *)((char *)&dword_4E56B0 + v136);
@@ -8271,7 +8273,7 @@ LABEL_312:
                                       v244 = dword_4E4C28 + *(int *)((char *)&dword_4E58D0 + v148);
                                       v231 = dword_4E4C2C + *(int *)((char *)&dword_4E58D4 + v148);
                                       if ( v277 != 1 || *(_DWORD *)v146 != 92 )
-                                        v149 = uTextureListForPaperdoll[24 + (v147 + 16 * v279)];
+                                        v149 = dword_511698[v147 + 16 * v279];
                                       else
                                         v149 = dword_511234;
                                       v150 = *(_DWORD *)(v146 + 20);
@@ -8579,11 +8581,11 @@ LABEL_209:
                           {
                             v105 = 17 * v268 + v103;
                             v104 = 12 * v105;
-                            v252 = dword_511290[3 * v105 + 2];
+                            v252 = dword_511298[3 * v105];
                             if ( v252 == sub_40F9F0(pLODFile_Icons_LOD, "pending") )
                             {
                               v108 = 8 * v105;
-                              v107 = *(int *)((char *)&dword_511290[1] + v104);
+                              v107 = *(int *)((char *)dword_511294 + v104);
                               v241 = dword_4E4C28 + *(int *)((char *)dword_4E5050 + v108);
                               v106 = *(int *)((char *)dword_4E5054 + v108);
                             }
@@ -8675,7 +8677,7 @@ LABEL_234:
                             goto LABEL_255;
                           }
                           v119 = 17 * v268 + v103;
-                          v107 = dword_511290[3 * v119 + 1];
+                          v107 = dword_511294[3 * v119];
                           if ( v107 == sub_40F9F0(pLODFile_Icons_LOD, "pending") )
                           {
 LABEL_258:

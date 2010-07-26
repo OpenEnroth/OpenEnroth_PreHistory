@@ -3,6 +3,43 @@
 #include "..\\Window.h"
 
 
+
+
+
+unsigned int DepthStencilStateD3D10::Initialize(Render *pRender, bool bZTest, bool bZWrite, DepthOperator::Op eOperator)
+{
+ D3D10_DEPTH_STENCIL_DESC depthStateDesc;
+ depthStateDesc.DepthEnable = bZTest;
+ depthStateDesc.DepthWriteMask = bZWrite ? D3D10_DEPTH_WRITE_MASK_ALL : D3D10_DEPTH_WRITE_MASK_ZERO;
+ switch (eOperator)
+ {
+  case DepthOperator::Equal:        depthStateDesc.DepthFunc = D3D10_COMPARISON_EQUAL;         break;
+  case DepthOperator::NotEqual:     depthStateDesc.DepthFunc = D3D10_COMPARISON_NOT_EQUAL;     break;
+  case DepthOperator::Greater:      depthStateDesc.DepthFunc = D3D10_COMPARISON_GREATER;       break;
+  default:
+  case DepthOperator::GreaterEqual: depthStateDesc.DepthFunc = D3D10_COMPARISON_GREATER_EQUAL; break;
+  case DepthOperator::Less:         depthStateDesc.DepthFunc = D3D10_COMPARISON_LESS;          break;
+  case DepthOperator::LessEqual:    depthStateDesc.DepthFunc = D3D10_COMPARISON_LESS_EQUAL;    break;
+  case DepthOperator::Always:       depthStateDesc.DepthFunc = D3D10_COMPARISON_ALWAYS;        break;
+  case DepthOperator::Never:        depthStateDesc.DepthFunc = D3D10_COMPARISON_NEVER;         break;
+ }
+
+ depthStateDesc.StencilEnable = false;
+
+ HRESULT hr = ((RenderD3D10 *)pRender)->pDevice->CreateDepthStencilState(&depthStateDesc, &pState);
+ return hr != S_OK;
+}
+
+
+unsigned int RenderD3D10::CreateDepthStencilState(DepthStencilState **pOut)
+{
+ if (!pOut)
+   return -1;
+
+ *pOut = new DepthStencilStateD3D10;
+ return 0;
+}
+
 #include <d3dx10.h>
 unsigned int RenderD3D10::CreateTextureCube(const wchar_t *pTextureName, Texture **pOut)
 {/*

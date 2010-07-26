@@ -1054,12 +1054,13 @@ extern struct class36 class36_global0; // struct @ MM7.exe::005107A8
 //_UNKNOWN unk_5107A8;
 //_UNKNOWN unk_5107B4; // 000008
 //float flt_5107B8[620]; // 000010
-//extern char byte_51117E[array_size_unknown]; // weak
+extern char byte_51117E[array_size_unknown]; // weak
 //int dword_5111AC; // 000A04
 //int dword_5111B0; // 000A08
-extern char byte_5111B9[4]; // weak
-extern char byte_5111C0[54];
-extern char byte_5111F6[18]; 
+extern char byte_5111B8[array_size_unknown]; // weak
+extern char byte_5111B9[array_size_unknown]; // weak
+extern char byte_5111C0[array_size_unknown]; // weak
+extern char byte_5111F6[17]; 
 extern int dword_511208[array_size_unknown]; // weak
 extern int dword_51120C; // weak
 extern unsigned int uTextureID_ButtExit1; // weak
@@ -1076,13 +1077,21 @@ extern int dword_51124C[array_size_unknown]; // weak
 extern int dword_51125C[array_size_unknown]; // weak
 extern int dword_51126C[array_size_unknown]; // weak
 extern int dword_51127C[array_size_unknown]; // weak
-extern int dword_511290[204]; 
-//extern int dword_511294[array_size_unknown]; // weak
-//extern int dword_511298[array_size_unknown]; // weak
+extern int dword_511290[array_size_unknown]; // weak
+extern int dword_511294[array_size_unknown]; // weak
+extern int dword_511298[array_size_unknown]; // weak
+extern _UNKNOWN unk_51132C; // weak
 extern int dword_5115C0[array_size_unknown]; // weak
 extern int dword_5115D0[array_size_unknown]; // weak
 extern int dword_5115E0[array_size_unknown]; // weak
-extern unsigned int uTextureListForPaperdoll[89];  // dword @ MM7.exe::00511638
+extern int dword_511638[array_size_unknown]; // weak
+extern int dword_51164C[array_size_unknown]; // weak
+extern int dword_511698[array_size_unknown]; // weak
+extern int dword_5116C4[41];
+extern int dword_511718[array_size_unknown]; // weak
+//extern _UNKNOWN unk_51172C; // weak
+//extern _UNKNOWN unk_511730; // weak
+extern int dword_511788[array_size_unknown]; // weak
 extern int dword_51179C; // weak
 extern int dword_5117A0; // weak
 extern int dword_5117A4; // weak

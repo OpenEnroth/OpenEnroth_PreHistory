@@ -42,13 +42,8 @@ unsigned int RenderOperatorD3D10_DrawEnvironment::Initialize(Render *pHostRender
  pRender->pDevice->CreateSamplerState(&sdCubeSampler, &pPixelShaderSampler0);
 
 
- D3D10_DEPTH_STENCIL_DESC depthStateDesc;
- depthStateDesc.DepthEnable = true;
- depthStateDesc.DepthWriteMask = D3D10_DEPTH_WRITE_MASK_ALL;
- depthStateDesc.DepthFunc = D3D10_COMPARISON_ALWAYS;
- depthStateDesc.StencilEnable = false;
- pRender->pDevice->CreateDepthStencilState(&depthStateDesc, &pScreenQuadClearingZ);
-
+ pRender->CreateDepthStencilState((DepthStencilState **)&pDepthState_ScreenQuadClearingZ);
+ pDepthState_ScreenQuadClearingZ->Initialize(pRender, true, true, DepthOperator::Always);
 
 
 
@@ -159,7 +154,7 @@ unsigned int RenderOperatorD3D10_DrawEnvironment::Execute()
 
  pRender->pDevice->OMSetBlendState(pRender->pBlendState_Default, 0, 0xFFFFFF);
 
- pRender->pDevice->OMSetDepthStencilState(pScreenQuadClearingZ, 0);
+ pRender->pDevice->OMSetDepthStencilState(pDepthState_ScreenQuadClearingZ->pState, 0);
 
  pRender->pDevice->Draw(6, 0);
 

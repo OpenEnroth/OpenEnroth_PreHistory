@@ -3,6 +3,26 @@
 #include "TextureOGL.h"
 
 
+
+
+
+
+unsigned int DepthStencilStateOGL::Initialize(Render *pRender, bool bZTest, bool bZWrite, DepthOperator::Op eOperator)
+{
+ return -1;
+}
+
+
+unsigned int RenderOGL::CreateDepthStencilState(DepthStencilState **pOut)
+{
+ if (!pOut)
+   return -1;
+
+ *pOut = new DepthStencilStateOGL;
+ return 0;
+}
+
+
 unsigned int RenderOGL::CreateTextureCube(const wchar_t *pTextureName, Texture **pOut)
 {
  if (!pOut)

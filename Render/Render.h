@@ -3,12 +3,35 @@
 #include "RenderOperators.h"
 
 
+namespace DepthOperator
+{
+ enum Op
+ {
+  Equal = 0,
+  NotEqual,
+  Greater,
+  GreaterEqual,
+  Less,
+  LessEqual,
+  Always,
+  Never
+ };
+};
+
+class DepthStencilState
+{
+ public:
+   virtual unsigned int Initialize(Render *pRender, bool bZTest, bool bZWrite, DepthOperator::Op eOperator) = 0;
+};
+
 class Window;
 class Render
 {
  public:
    virtual unsigned int Initialize() = 0;
    virtual unsigned int Reset(Window *pTargetWindow, bool bFullscreen, struct Viewport *pOutputArea) = 0;
+
+   virtual unsigned int CreateDepthStencilState(DepthStencilState **pOut) = 0;
 
    virtual unsigned int CreateTexture(unsigned int uWidth, unsigned int uDepth, enum TextureFormat eFormat, Texture **pOut) = 0;
    virtual unsigned int CreateTexture(const wchar_t *pTextureName, Texture **pOut) = 0;
