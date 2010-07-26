@@ -8031,9 +8031,9 @@ void Camera_CalculateSinCos(struct OldCamera *_this)
  _this->fRotationXSine = sin(angle);
  _this->fRotationXCosine = cos(angle);
 
- _this->some_angle_int_sine = class59_SinCos(pClass59_global, _this->sRotationY - pClass59_global->uNumTableEntries);
+ _this->some_angle_int_sine = class59_SinCos(pClass59_global, _this->sRotationY - pClass59_global->uIntegerHalfPi);
  _this->some_angle_int_cosine = class59_SinCos(pClass59_global, _this->sRotationY);
- _this->some_other_angle_int_sine = class59_SinCos(pClass59_global, _this->sRotationX - pClass59_global->uNumTableEntries);
+ _this->some_other_angle_int_sine = class59_SinCos(pClass59_global, _this->sRotationX - pClass59_global->uIntegerHalfPi);
  _this->some_other_angle_int_cosine = class59_SinCos(pClass59_global, _this->sRotationX);
 }
 
@@ -8069,18 +8069,126 @@ int class59_SinCos(struct class59 *_this, int a2)
 {
   int v2; // eax@1
 
-  //a2: (angle - uNumTableEntries)  for  sin(angle)
+  //a2: (angle - uIntegerHalfPi)    for  sin(angle)
   //    (angle)                     for  cos(angle)
 
-  v2 = _this->dword_00186C & a2;
-  if ( v2 > _this->dword_001860 )
-    v2 = _this->dword_001868 - v2;
-  if ( v2 >= _this->uNumTableEntries )
-    return -_this->pCosTable[_this->dword_001860 - v2];
+  v2 = _this->uDoublePiMask & a2;
+  
+  if ( v2 > _this->uIntegerPi )
+    v2 = _this->uIntegerDoublePi - v2;
+  if ( v2 >= _this->uIntegerHalfPi )
+    return -_this->pCosTable[_this->uIntegerPi - v2];
   else
     return _this->pCosTable[v2];
 }
 
+//----- (0045281E) --------------------------------------------------------
+
+//Calculates atan2(y/x)
+//return value: angle in integer format (multiplier of Pi/1024)  
+int class59_Atan2(struct class59 *_this, int X, int Y)
+{
+  signed int quadrant;
+  __int64 dividend;
+  int quotient;
+  int lowIdx;
+  int highIdx;
+  int angle;
+
+  if ( abs(X) < 65536 )
+  {
+    if ( (abs(Y) >> 15) >= abs(X) )
+      X = 0;
+  }
+
+  if ( !X )
+  {
+    if ( Y > 0 )
+    {
+      return _this->uIntegerHalfPi;   //Pi/2
+    }
+    else
+    {
+      return _this->uIntegerHalfPi + _this->uIntegerPi; //3*(Pi/2)
+    }
+  }
+
+  if ( Y )
+  {
+    if ( X < 0 )
+    {
+      X = -X;
+      if ( Y > 0 )
+      {
+        quadrant = 4;        
+      }
+      else
+      {
+        quadrant = 3;        
+      }      
+    }
+    else
+    {
+      if ( Y > 0 )
+      {
+        quadrant = 1;       
+      }
+      else
+      {
+        quadrant = 2;
+      }      
+    }
+
+    if ( Y < 0 )
+      Y = -Y;
+
+    LODWORD(dividend) = Y << 16;
+    HIDWORD(dividend) = Y >> 16;
+    quotient = dividend / X;        
+
+    //looks like binary search
+    {
+      int i;
+      highIdx = _this->uIntegerHalfPi;
+      lowIdx = 0;
+
+      for (i = 0; i < 6; ++i)
+      {        
+        if (quotient <= _this->pTanTable[(lowIdx + highIdx) / 2])      
+          highIdx = (lowIdx + highIdx) / 2;
+        else
+          lowIdx = (lowIdx + highIdx) / 2;    
+      }
+    }
+
+    angle = lowIdx + 1;
+    while ( angle < (highIdx - 1) && quotient >= _this->pTanTable[angle] )
+      ++angle;
+
+    switch (quadrant)
+    {
+    case 1: //X > 0, Y > 0
+      return angle;        
+
+    case 2: //X > 0, Y < 0
+      return _this->uIntegerDoublePi - angle;   //2*Pi - angle
+
+    case 3: //X > 0, Y < 0
+      return _this->uIntegerPi + angle;        //Pi + angle 
+
+    case 4: //X < 0, Y > 0
+      return _this->uIntegerPi - angle;        //Pi - angle  
+    }
+
+    //should newer get here
+    return 0;
+  }
+
+  if ( X < 0 )    //Y == 0, X < 0
+    return _this->uIntegerPi;  
+
+  return 0;
+}
 
 
 //----- (00436BB7) --------------------------------------------------------
@@ -8194,8 +8302,8 @@ void sub_486089_NormalizeVector(struct struct8 *_this)
 //----- (0048600E) --------------------------------------------------------
 void struct9_sub_47A59E_ComputeSinCos(struct struct9 *_this)
 {
- _this->camera_rotation_y_int_sine = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uNumTableEntries);
- _this->camera_rotation_x_int_sine = class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uNumTableEntries);
+ _this->camera_rotation_y_int_sine = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uIntegerHalfPi);
+ _this->camera_rotation_x_int_sine = class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uIntegerHalfPi);
  _this->camera_rotation_y_int_cosine = class59_SinCos(pClass59_global, pOldCamera->sRotationY);
  _this->camera_rotation_x_int_cosine = class59_SinCos(pClass59_global, pOldCamera->sRotationX);
 }
@@ -8338,9 +8446,9 @@ int sub_485F64(struct struct9 *_this)
 
 
  _this->dword_000010 = 75;
-  v1 = pClass59_global->dword_001870 & 0xD5;
-  if ( v1 >= pClass59_global->uNumTableEntries)
-    v2 = -pClass59_global->pTanTable[pClass59_global->dword_001860 - v1];
+  v1 = pClass59_global->uPiMask & 0xD5;
+  if ( v1 >= pClass59_global->uIntegerHalfPi)
+    v2 = -pClass59_global->pTanTable[pClass59_global->uIntegerPi - v1];
   else
     v2 = pClass59_global->pTanTable[v1];
   LODWORD(v4) = (struct_576FE8.dword_000008 - struct_576FE8.dword_000000) << 31;
@@ -8782,13 +8890,13 @@ void class59_ctor(struct class59 *_this)
  _this->pCosTable[0] = 65536;
  _this->pInvCosTable[0] = 65536;
 
- _this->dword_001860 = 1024;
- _this->uNumTableEntries = 512;
- _this->dword_001868 = 2048;
+ _this->uIntegerPi = 1024;
+ _this->uIntegerHalfPi = 512;
+ _this->uIntegerDoublePi = 2048;
 
- _this->dword_00186C = 2047;
- _this->dword_001870 = 1023;
- _this->dword_001874 = 511;
+ _this->uDoublePiMask = 2047;
+ _this->uPiMask = 1023;
+ _this->uHalfPiMask = 511;
 
  memcpy(_this->pTanTable, pTanTable, 0x820);
  memcpy(_this->pCosTable, pCosTable, 0x820);
@@ -8802,7 +8910,7 @@ void class59_ctor(struct class59 *_this)
    _this->pInvCosTable[i] = memory_4D8410.f1_0 / cos(v3) * (double)_this->pCosTable[0] + memory_4D8410.d_0_5;
   }*/
 
- for (i = _this->uNumTableEntries; i < 520; ++i)
+ for (i = _this->uIntegerHalfPi; i < 520; ++i)
  {
   _this->pTanTable[i] = -268435457;
   _this->pCosTable[i] = 0;

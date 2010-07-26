@@ -2887,7 +2887,7 @@ signed int __fastcall sub_42F5ED(int a1, int a2, int a3, int a4, int a5)
     v17 = *(_DWORD *)(v5 + 8);
     v16 = *(_DWORD *)(v5 + 4);
     v15 = 0;
-    v10 = pClass59_global->uNumTableEntries + *((_WORD *)v9 + 11);
+    v10 = pClass59_global->uIntegerHalfPi + *((_WORD *)v9 + 11);
     goto LABEL_16;
   }
   if ( a5 == 2 )
@@ -2899,7 +2899,7 @@ signed int __fastcall sub_42F5ED(int a1, int a2, int a3, int a4, int a5)
     v17 = *(_DWORD *)(v5 + 8);
     v16 = *(_DWORD *)(v5 + 4);
     v15 = 0;
-    v10 = pClass59_global->uNumTableEntries + *((_WORD *)v9 + 11);
+    v10 = pClass59_global->uIntegerHalfPi + *((_WORD *)v9 + 11);
     goto LABEL_14;
   }
   if ( a5 == 3 )
@@ -2911,7 +2911,7 @@ signed int __fastcall sub_42F5ED(int a1, int a2, int a3, int a4, int a5)
     v17 = *(_DWORD *)(v5 + 8);
     v16 = *(_DWORD *)(v5 + 4);
     v15 = 0;
-    v10 = *((_WORD *)v9 + 11) - pClass59_global->uNumTableEntries;
+    v10 = *((_WORD *)v9 + 11) - pClass59_global->uIntegerHalfPi;
 LABEL_14:
     v14 = 8;
 LABEL_17:
@@ -2927,7 +2927,7 @@ LABEL_17:
     v17 = *(_DWORD *)(v5 + 8);
     v16 = *(_DWORD *)(v5 + 4);
     v15 = 0;
-    v10 = *((_WORD *)v9 + 11) - pClass59_global->uNumTableEntries;
+    v10 = *((_WORD *)v9 + 11) - pClass59_global->uIntegerHalfPi;
 LABEL_16:
     v14 = 24;
     goto LABEL_17;
@@ -2939,9 +2939,9 @@ LABEL_18:
   {
     v24 = class59_SinCos(pClass59_global, v23);
     v13 = (unsigned __int64)(v24 * class59_SinCos(pClass59_global, a3)) >> 16;
-    v25 = class59_SinCos(pClass59_global, v23 - pClass59_global->uNumTableEntries);
+    v25 = class59_SinCos(pClass59_global, v23 - pClass59_global->uIntegerHalfPi);
     v27 = (unsigned __int64)(v25 * class59_SinCos(pClass59_global, a3)) >> 16;
-    v26 = class59_SinCos(pClass59_global, a3 - pClass59_global->uNumTableEntries);
+    v26 = class59_SinCos(pClass59_global, a3 - pClass59_global->uIntegerHalfPi);
     *((_WORD *)v9 + 8) = (unsigned int)(v13 * v12) >> 16;
     *((_WORD *)v9 + 9) = (unsigned int)(v27 * v12) >> 16;
     v11 = (unsigned int)(v26 * v12) >> 16;
@@ -3058,9 +3058,9 @@ LABEL_16:
     {
       do
       {
-        v25 = rand() % pClass59_global->dword_001868;
+        v25 = rand() % pClass59_global->uIntegerDoublePi;
         v16 = rand();
-        sub_42F5ED((int)&v20, v25, (pClass59_global->uNumTableEntries >> 1) + (v16 % pClass59_global->uNumTableEntries >> 1), a5, 0);
+        sub_42F5ED((int)&v20, v25, (pClass59_global->uIntegerHalfPi >> 1) + (v16 % pClass59_global->uIntegerHalfPi >> 1), a5, 0);
         --v15;
       }
       while ( v15 );
@@ -3069,7 +3069,7 @@ LABEL_16:
   else
   {
     v17 = a6;
-    v18 = pClass59_global->uNumTableEntries;
+    v18 = pClass59_global->uIntegerHalfPi;
     v25 = 0;
     if ( a6 > 0 )
     {
@@ -7776,118 +7776,117 @@ signed int __thiscall sub_45271F(int this)
   return 1;
 }
 
-//----- (0045281E) --------------------------------------------------------
-int __thiscall sub_45281E(void *this, int X, int a3)
-{
-  int v3; // eax@1
-  int v4; // ecx@1
-  int v5; // ebx@1
-  signed int v6; // edi@1
-  void *v7; // esi@1
-  int result; // eax@5
-  signed int v9; // ebx@14
-  int v10; // eax@20
-  int v11; // edx@20
-  signed __int64 v12; // qtt@20
-  int v13; // eax@38
-  int v14; // ecx@38
-  int v15; // eax@43
-  signed int v16; // [sp-4h] [bp-10h]@13
-
-  v7 = this;
-  v6 = a3;
-  v5 = abs(X);
-  v3 = abs(a3);
-  v4 = 0;
-  if ( v5 < 65536 )
-  {
-    if ( v3 >> 15 >= v5 )
-      X = 0;
-  }
-  if ( !X )
-  {
-    result = *((_DWORD *)v7 + 1561);
-    if ( a3 <= 0 )
-      result += *((_DWORD *)v7 + 1560);
-    return result;
-  }
-  if ( a3 )
-  {
-    if ( X <= 0 )
-    {
-      X = -X;
-      if ( a3 >= 0 )
-      {
-        v16 = 4;
-        goto LABEL_19;
-      }
-      v16 = 3;
-    }
-    else
-    {
-      if ( a3 >= 0 )
-      {
-        v9 = 1;
-        goto LABEL_20;
-      }
-      v16 = 2;
-    }
-    v6 = -a3;
-LABEL_19:
-    v9 = v16;
-LABEL_20:
-    LODWORD(v12) = v6 << 16;
-    HIDWORD(v12) = v6 >> 16;
-    v10 = *((_DWORD *)v7 + 1561);
-    v11 = v12 / X;
-    if ( v11 <= *((_DWORD *)v7 + (*((_DWORD *)v7 + 1561) >> 1)) )
-      v10 = *((_DWORD *)v7 + 1561) >> 1;
-    else
-      v4 = *((_DWORD *)v7 + 1561) >> 1;
-    if ( v11 <= *((_DWORD *)v7 + ((v4 + v10) >> 1)) )
-      v10 = (v4 + v10) >> 1;
-    else
-      v4 = (v4 + v10) >> 1;
-    if ( v11 <= *((_DWORD *)v7 + ((v4 + v10) >> 1)) )
-      v10 = (v4 + v10) >> 1;
-    else
-      v4 = (v4 + v10) >> 1;
-    if ( v11 <= *((_DWORD *)v7 + ((v4 + v10) >> 1)) )
-      v10 = (v4 + v10) >> 1;
-    else
-      v4 = (v4 + v10) >> 1;
-    if ( v11 <= *((_DWORD *)v7 + ((v4 + v10) >> 1)) )
-      v10 = (v4 + v10) >> 1;
-    else
-      v4 = (v4 + v10) >> 1;
-    if ( v11 <= *((_DWORD *)v7 + ((v4 + v10) >> 1)) )
-      v10 = (v4 + v10) >> 1;
-    else
-      v4 = (v4 + v10) >> 1;
-    v14 = v4 + 1;
-    v13 = v10 - 1;
-    while ( v14 < v13 && v11 >= *((_DWORD *)v7 + v14) )
-      ++v14;
-    if ( v9 == 2 )
-    {
-      v15 = *((_DWORD *)v7 + 1562);
-    }
-    else
-    {
-      if ( v9 == 3 )
-        return v14 + *((_DWORD *)v7 + 1560);
-      if ( v9 != 4 )
-        return v14;
-      v15 = *((_DWORD *)v7 + 1560);
-    }
-    return v15 - v14;
-  }
-  if ( X <= 0 )
-    result = *((_DWORD *)v7 + 1560);
-  else
-    result = 0;
-  return result;
-}
+//int __thiscall sub_45281E(void *this, int X, int a3)
+//{
+//  int v3; // eax@1
+//  int v4; // ecx@1
+//  int v5; // ebx@1
+//  signed int v6; // edi@1
+//  void *v7; // esi@1
+//  int result; // eax@5
+//  signed int v9; // ebx@14
+//  int v10; // eax@20
+//  int v11; // edx@20
+//  signed __int64 v12; // qtt@20
+//  int v13; // eax@38
+//  int v14; // ecx@38
+//  int v15; // eax@43
+//  signed int v16; // [sp-4h] [bp-10h]@13
+//
+//  v7 = this;
+//  v6 = a3;
+//  v5 = abs(X);
+//  v3 = abs(a3);
+//  v4 = 0;
+//  if ( v5 < 65536 )
+//  {
+//    if ( v3 >> 15 >= v5 )
+//      X = 0;
+//  }
+//  if ( !X )
+//  {
+//    result = *((_DWORD *)v7 + 1561);
+//    if ( a3 <= 0 )
+//      result += *((_DWORD *)v7 + 1560);
+//    return result;
+//  }
+//  if ( a3 )
+//  {
+//    if ( X <= 0 )
+//    {
+//      X = -X;
+//      if ( a3 >= 0 )
+//      {
+//        v16 = 4;
+//        goto LABEL_19;
+//      }
+//      v16 = 3;
+//    }
+//    else
+//    {
+//      if ( a3 >= 0 )
+//      {
+//        v9 = 1;
+//        goto LABEL_20;
+//      }
+//      v16 = 2;
+//    }
+//    v6 = -a3;
+//LABEL_19:
+//    v9 = v16;
+//LABEL_20:
+//    LODWORD(v12) = v6 << 16;
+//    HIDWORD(v12) = v6 >> 16;
+//    v10 = *((_DWORD *)v7 + 1561);
+//    v11 = v12 / X;
+//    if ( v11 <= *((_DWORD *)v7 + (*((_DWORD *)v7 + 1561) >> 1)) )
+//      v10 = *((_DWORD *)v7 + 1561) >> 1;
+//    else
+//      v4 = *((_DWORD *)v7 + 1561) >> 1;
+//    if ( v11 <= *((_DWORD *)v7 + ((v4 + v10) >> 1)) )
+//      v10 = (v4 + v10) >> 1;
+//    else
+//      v4 = (v4 + v10) >> 1;
+//    if ( v11 <= *((_DWORD *)v7 + ((v4 + v10) >> 1)) )
+//      v10 = (v4 + v10) >> 1;
+//    else
+//      v4 = (v4 + v10) >> 1;
+//    if ( v11 <= *((_DWORD *)v7 + ((v4 + v10) >> 1)) )
+//      v10 = (v4 + v10) >> 1;
+//    else
+//      v4 = (v4 + v10) >> 1;
+//    if ( v11 <= *((_DWORD *)v7 + ((v4 + v10) >> 1)) )
+//      v10 = (v4 + v10) >> 1;
+//    else
+//      v4 = (v4 + v10) >> 1;
+//    if ( v11 <= *((_DWORD *)v7 + ((v4 + v10) >> 1)) )
+//      v10 = (v4 + v10) >> 1;
+//    else
+//      v4 = (v4 + v10) >> 1;
+//    v14 = v4 + 1;
+//    v13 = v10 - 1;
+//    while ( v14 < v13 && v11 >= *((_DWORD *)v7 + v14) )
+//      ++v14;
+//    if ( v9 == 2 )
+//    {
+//      v15 = *((_DWORD *)v7 + 1562);
+//    }
+//    else
+//    {
+//      if ( v9 == 3 )
+//        return v14 + *((_DWORD *)v7 + 1560);
+//      if ( v9 != 4 )
+//        return v14;
+//      v15 = *((_DWORD *)v7 + 1560);
+//    }
+//    return v15 - v14;
+//  }
+//  if ( X <= 0 )
+//    result = *((_DWORD *)v7 + 1560);
+//  else
+//    result = 0;
+//  return result;
+//}
 
 //----- (00452A9E) --------------------------------------------------------
 signed int __fastcall sub_452A9E(signed int a1)

@@ -558,7 +558,6 @@ unsigned int __thiscall sub_450F55(int this, int a2);
 int __thiscall sub_450FB1(int this, int a2);
 signed int __thiscall sub_451007(int this, int a2, signed int a3, signed int a4, int a5, signed int a6, signed int a7, signed int a8, int a9, int a10, int a11);
 signed int __thiscall sub_45271F(int this);
-int __thiscall sub_45281E(void *this, int X, int a3);
 signed int __fastcall sub_452A9E(signed int a1);
 int __fastcall MakeColorMaskFromBitDepth(int a1);
 int __fastcall sub_452AF3(int a1, int a2, unsigned int a3);

@@ -1071,7 +1071,7 @@ void RenderSky()
   
     v36 = 0;
     local_14.uNumVertices = 4;
-    local_14.dword_000018 = -class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uNumTableEntries + 16);
+    local_14.dword_000018 = -class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uIntegerHalfPi + 16);
     local_14.dword_00001C = 0;
     local_14.dword_000020 = -class59_SinCos(pClass59_global, pOldCamera->sRotationX + 16);
     local_14.dword_000024 = 0x2000000;

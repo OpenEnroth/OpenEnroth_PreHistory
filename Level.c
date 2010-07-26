@@ -1527,11 +1527,11 @@ int __thiscall sub_4892E6(struct class51 *_this)
     if ( (unsigned int)pParty_global->uCurrentHour < 0x15 )
     {
       v3 = pParty_global->uCurrentMinute + 60 * (pParty_global->uCurrentHour - 5);
-      v4 = v3 * pClass59_global->dword_001860 / 960;
-      v5 = class59_SinCos(pClass59_global, v3 * pClass59_global->dword_001860 / 960);
+      v4 = v3 * pClass59_global->uIntegerPi / 960;
+      v5 = class59_SinCos(pClass59_global, v3 * pClass59_global->uIntegerPi / 960);
       _this->dword_000D18 = v5;
       _this->dword_000D1C = 0;
-      v6 = class59_SinCos(pClass59_global, v4 - pClass59_global->uNumTableEntries);
+      v6 = class59_SinCos(pClass59_global, v4 - pClass59_global->uIntegerHalfPi);
       _this->dword_000D20 = v6;
       _this->dword_000D30 = -v5;
       _this->dword_000D34 = -_this->dword_000D1C;

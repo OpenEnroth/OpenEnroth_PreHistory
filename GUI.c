@@ -4514,7 +4514,7 @@ void GUIWindowDelete(int this)
         dword_5C35D4 = 0;
         if ( dword_6BE380 )
         {
-          pOldCamera->sRotationY = (pClass59_global->dword_001868 - 1) & (pClass59_global->dword_001860 + pOldCamera->sRotationY);
+          pOldCamera->sRotationY = (pClass59_global->uIntegerDoublePi - 1) & (pClass59_global->uIntegerPi + pOldCamera->sRotationY);
           pParty_global->sRotationY = pOldCamera->sRotationY;
         }
         pParty_global->dword_007778 |= 2;

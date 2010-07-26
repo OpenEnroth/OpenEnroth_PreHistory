@@ -1683,7 +1683,7 @@ int __thiscall sub_46A0A1(void *this)
   {
     v3 = pStruct9_global->dword_000014;
   }
-  return sub_45281E(pClass59_global, (int)((char *)this - pOldViewport->dword_000028), v3) - pClass59_global->uNumTableEntries;
+  return class59_Atan2(pClass59_global, (int)((char *)this - pOldViewport->dword_000028), v3) - pClass59_global->uIntegerHalfPi;
 }
 
 //----- (0046A0F6) --------------------------------------------------------
@@ -1704,7 +1704,7 @@ int __thiscall sub_46A0F6(void *this)
   {
     v3 = pStruct9_global->dword_000014;
   }
-  return sub_45281E(pClass59_global, (int)((char *)this - pOldViewport->dword_00002C), v3) - pClass59_global->uNumTableEntries;
+  return class59_Atan2(pClass59_global, (int)((char *)this - pOldViewport->dword_00002C), v3) - pClass59_global->uIntegerHalfPi;
 }
 
 //----- (0046A14B) --------------------------------------------------------
@@ -4267,7 +4267,7 @@ LABEL_111:
           *(_WORD *)(v3 + 2) = v69;
           if ( !v69 )
             sub_42F933(v170);
-          v71 = *(_WORD *)(v3 + 22) - pClass59_global->dword_001868;
+          v71 = *(_WORD *)(v3 + 22) - pClass59_global->uIntegerDoublePi;
           v72 = *(_DWORD *)(v3 + 80) == 4;
           *(_WORD *)(v3 + 20) = 0;
           *(_WORD *)(v3 + 18) = 0;
@@ -4280,7 +4280,7 @@ LABEL_111:
             v158 = v70;
             do
             {
-              v71 += pClass59_global->uNumTableEntries >> 1;
+              v71 += pClass59_global->uIntegerHalfPi >> 1;
               sub_42F5ED(v3, v71, 0, 1000, 0);
             }
             while ( v158-- != 1 );
@@ -4375,7 +4375,7 @@ LABEL_155:
         *(_WORD *)(v3 + 2) = v102;
         if ( !v102 )
           sub_42F933(v170);
-        v103 = *(_WORD *)(v3 + 22) - pClass59_global->dword_001868;
+        v103 = *(_WORD *)(v3 + 22) - pClass59_global->uIntegerDoublePi;
         *(_WORD *)(v3 + 20) = 0;
         *(_WORD *)(v3 + 18) = 0;
         *(_WORD *)(v3 + 16) = 0;
@@ -4387,7 +4387,7 @@ LABEL_155:
           v104 = sub_4BE623((int)&unk_F8BAD8);
           sub_4BE59E((int)&unk_F8BAD8, 5, 500);
           v105 = sub_4BE623((int)&unk_F8BAD8);
-          v159 += pClass59_global->uNumTableEntries >> 1;
+          v159 += pClass59_global->uIntegerHalfPi >> 1;
           sub_42F5ED(v3, v104 + v159, 0, v105, 0);
         }
         while ( v165-- != 1 );
@@ -7258,13 +7258,13 @@ void __cdecl sub_46F90C()
         v13 = v12 * v8;
         v63 = v13 >> 16;
         *(_WORD *)(v1 + 148) = WORD1(v13);
-        v57 = class59_SinCos(pClass59_global, *(_WORD *)(v1 + 154) - pClass59_global->uNumTableEntries);
+        v57 = class59_SinCos(pClass59_global, *(_WORD *)(v1 + 154) - pClass59_global->uIntegerHalfPi);
         v63 = (unsigned __int64)(v57 * v8) >> 16;
         v14 = v64 == 0;
         *(_WORD *)(v1 + 150) = (unsigned int)(v57 * v8) >> 16;
         if ( !v14 )
         {
-          v57 = class59_SinCos(pClass59_global, *(_WORD *)(v1 + 156) - pClass59_global->uNumTableEntries);
+          v57 = class59_SinCos(pClass59_global, *(_WORD *)(v1 + 156) - pClass59_global->uIntegerHalfPi);
           v63 = (unsigned __int64)(v57 * v8) >> 16;
           *(_WORD *)(v1 + 152) = (unsigned int)(v57 * v8) >> 16;
         }
@@ -7457,13 +7457,13 @@ LABEL_123:
                 {
                   v59 = (void *)sub_452A9E(*(_WORD *)(v1 + 148) * *(_WORD *)(v1 + 148) + *(_WORD *)(v1 + 150)
                                                                                        * *(_WORD *)(v1 + 150));
-                  v49 = sub_45281E(
+                  v49 = class59_Atan2(
                           pClass59_global,
                           *(_WORD *)(v1 + 142) - array_6836D0[v41].sPosX,
                           *(_WORD *)(v1 + 144) - array_6836D0[v41].sPosY);
                   v56 = class59_SinCos(pClass59_global, v49);
                   v58 = (unsigned __int64)(v56 * (signed int)v59) >> 16;
-                  v50 = v49 - pClass59_global->uNumTableEntries;
+                  v50 = v49 - pClass59_global->uIntegerHalfPi;
                   *(_WORD *)(v1 + 148) = (unsigned int)(v56 * (_DWORD)v59) >> 16;
                   v56 = class59_SinCos(pClass59_global, v50);
                   v58 = (unsigned __int64)(v56 * (signed int)v59) >> 16;
@@ -7522,7 +7522,7 @@ LABEL_123:
                           *(_WORD *)(v1 + 144) += v48 * *(_DWORD *)(v42 + 20) >> 16;
                           *(_WORD *)(v1 + 146) = v47 + (v48 * *(_DWORD *)(v42 + 24) >> 16);
                         }
-                        *(_WORD *)(v1 + 154) = sub_45281E(pClass59_global, *(_WORD *)(v1 + 148), *(_WORD *)(v1 + 150));
+                        *(_WORD *)(v1 + 154) = class59_Atan2(pClass59_global, *(_WORD *)(v1 + 148), *(_WORD *)(v1 + 150));
                       }
                     }
                   }
@@ -7878,13 +7878,13 @@ LABEL_121:
       v13 = v12 * v10;
       v75 = v13 >> 16;
       *(_WORD *)(v1 + 148) = WORD1(v13);
-      v71 = class59_SinCos(pClass59_global, *(_WORD *)(v1 + 154) - pClass59_global->uNumTableEntries);
+      v71 = class59_SinCos(pClass59_global, *(_WORD *)(v1 + 154) - pClass59_global->uIntegerHalfPi);
       v75 = (unsigned __int64)(v71 * v10) >> 16;
       v14 = v76 == 0;
       *(_WORD *)(v1 + 150) = (unsigned int)(v71 * v10) >> 16;
       if ( !v14 )
       {
-        v71 = class59_SinCos(pClass59_global, *(_WORD *)(v1 + 156) - pClass59_global->uNumTableEntries);
+        v71 = class59_SinCos(pClass59_global, *(_WORD *)(v1 + 156) - pClass59_global->uIntegerHalfPi);
         v75 = (unsigned __int64)(v71 * v10) >> 16;
         *(_WORD *)(v1 + 152) = (unsigned int)(v71 * v10) >> 16;
       }
@@ -8160,13 +8160,13 @@ LABEL_103:
           break;
         case 5:
           v48 = sub_452A9E(*(_WORD *)(v1 + 148) * *(_WORD *)(v1 + 148) + *(_WORD *)(v1 + 150) * *(_WORD *)(v1 + 150));
-          v49 = sub_45281E(
+          v49 = class59_Atan2(
                   pClass59_global,
                   *(_WORD *)(v1 + 142) - array_6836D0[v40].sPosX,
                   *(_WORD *)(v1 + 144) - array_6836D0[v40].sPosY);
           v73 = class59_SinCos(pClass59_global, v49);
           v72 = (unsigned __int64)(v73 * v48) >> 16;
-          v50 = v49 - pClass59_global->uNumTableEntries;
+          v50 = v49 - pClass59_global->uIntegerHalfPi;
           *(_WORD *)(v1 + 148) = (unsigned int)(v73 * v48) >> 16;
           v73 = class59_SinCos(pClass59_global, v50);
           v72 = (unsigned __int64)(v73 * v48) >> 16;
@@ -8219,7 +8219,7 @@ LABEL_103:
                   *(_WORD *)(v1 + 144) += v47 * *(_DWORD *)(v42 + 4) >> 16;
                   *(_WORD *)(v1 + 146) = v46 + (v47 * *(_DWORD *)(v42 + 8) >> 16);
                 }
-                *(_WORD *)(v1 + 154) = sub_45281E(pClass59_global, *(_WORD *)(v1 + 148), *(_WORD *)(v1 + 150));
+                *(_WORD *)(v1 + 154) = class59_Atan2(pClass59_global, *(_WORD *)(v1 + 148), *(_WORD *)(v1 + 150));
               }
             }
           }
@@ -8444,13 +8444,13 @@ LABEL_25:
       if ( (dword_7215A8 & 7) == 5 )
       {
         v48 = sub_452A9E(*((_WORD *)v2 + 8) * *((_WORD *)v2 + 8) + *((_WORD *)v2 + 9) * *((_WORD *)v2 + 9));
-        v23 = sub_45281E(
+        v23 = class59_Atan2(
                 pClass59_global,
                 *((_DWORD *)v2 + 1) - array_6836D0[v15].sPosX,
                 *((_DWORD *)v2 + 2) - array_6836D0[v15].sPosY);
         v50 = class59_SinCos(pClass59_global, v23);
         v49 = (unsigned __int64)(v50 * v48) >> 16;
-        v24 = v23 - pClass59_global->uNumTableEntries;
+        v24 = v23 - pClass59_global->uIntegerHalfPi;
         *((_WORD *)v2 + 8) = (unsigned int)(v50 * v48) >> 16;
         v50 = class59_SinCos(pClass59_global, v24);
         v49 = (unsigned __int64)(v50 * v48) >> 16;
@@ -9047,7 +9047,7 @@ LABEL_74:
         return;
     }
     v69 = sub_452A9E(*((_WORD *)v5 + 9) * *((_WORD *)v5 + 9) + *((_WORD *)v5 + 8) * *((_WORD *)v5 + 8));
-    v38 = sub_45281E(
+    v38 = class59_Atan2(
             pClass59_global,
             *((_DWORD *)v5 + 1) - array_6836D0[v30].sPosX,
             *((_DWORD *)v5 + 2) - array_6836D0[v30].sPosY);
@@ -9057,7 +9057,7 @@ LABEL_74:
     v40 = v39 * v69;
     v70 = v40 >> 16;
     *((_WORD *)v5 + 8) = WORD1(v40);
-    v41 = class59_SinCos(pClass59_global, v68 - pClass59_global->uNumTableEntries);
+    v41 = class59_SinCos(pClass59_global, v68 - pClass59_global->uIntegerHalfPi);
     v72 = v41;
     v35 = (unsigned __int64)(v41 * v69) >> 16;
     v70 = v35;
@@ -9338,7 +9338,7 @@ LABEL_45:
   v81 = pParty_global->uWalkSpeed;
   v90 = pParty_global->sRotationY;
   v83 = pParty_global->sRotationX;
-  v82 = ((unsigned __int64)(pClass24_global->dword_000020) * pParty_global->dword_000020 * pClass59_global->dword_001860 / 180) >> 16;
+  v82 = ((unsigned __int64)(pClass24_global->dword_000020) * pParty_global->dword_000020 * pClass59_global->uIntegerPi / 180) >> 16;
 LABEL_87:
   while ( dword_7215D8 )
   {
@@ -9369,7 +9369,7 @@ LABEL_58:
 LABEL_51:
           v14 = v90 + (signed __int64)v13;
         }
-        v90 = pClass59_global->dword_00186C & v14;
+        v90 = pClass59_global->uDoublePiMask & v14;
         goto LABEL_87;
       case 19:
         LODWORD(v15) = dword_6BE38C;
@@ -9380,11 +9380,11 @@ LABEL_55:
           v15 = (signed __int64)v16;
         }
 LABEL_56:
-        v90 = pClass59_global->dword_00186C & (v90 - v15);
+        v90 = pClass59_global->uDoublePiMask & (v90 - v15);
         goto LABEL_87;
       case 3:
         v17 = (double)v81;
-        v18 = class59_SinCos(pClass59_global, v90 - pClass59_global->uNumTableEntries);
+        v18 = class59_SinCos(pClass59_global, v90 - pClass59_global->uIntegerHalfPi);
         v88 = v17;
         v78 = (unsigned __int64)(v18 * ((signed int)(signed __int64)(v17 * flt_6BE144) >> 1)) >> 16;
         v1 -= v78;
@@ -9393,7 +9393,7 @@ LABEL_56:
         goto LABEL_63;
       case 4:
         v20 = (double)v81;
-        v21 = class59_SinCos(pClass59_global, v90 - pClass59_global->uNumTableEntries);
+        v21 = class59_SinCos(pClass59_global, v90 - pClass59_global->uIntegerHalfPi);
         v88 = v20;
         v78 = (unsigned __int64)(v21 * ((signed int)(signed __int64)(v20 * flt_6BE144) >> 1)) >> 16;
         v1 += v78;
@@ -9406,7 +9406,7 @@ LABEL_56:
         v88 = v23;
         v78 = (unsigned __int64)(v24 * (signed int)(signed __int64)(v23 * flt_6BE144)) >> 16;
         v1 += v78;
-        v25 = class59_SinCos(pClass59_global, v90 - pClass59_global->uNumTableEntries);
+        v25 = class59_SinCos(pClass59_global, v90 - pClass59_global->uIntegerHalfPi);
         v78 = (unsigned __int64)(v25 * (signed int)(signed __int64)(v88 * flt_6BE144)) >> 16;
 LABEL_63:
         v0 += v78;
@@ -9417,7 +9417,7 @@ LABEL_63:
         v88 = v26;
         v78 = (unsigned __int64)(v27 * (signed int)(signed __int64)(v26 * flt_6BE148)) >> 16;
         v1 -= v78;
-        v28 = class59_SinCos(pClass59_global, v90 - pClass59_global->uNumTableEntries);
+        v28 = class59_SinCos(pClass59_global, v90 - pClass59_global->uIntegerHalfPi);
         v78 = (unsigned __int64)(v28 * (signed int)(signed __int64)(v88 * flt_6BE148)) >> 16;
 LABEL_68:
         v0 -= v78;
@@ -9429,7 +9429,7 @@ LABEL_64:
         v30 = class59_SinCos(pClass59_global, v90);
         v88 = v29;
         v1 += (unsigned __int64)(v30 * (signed int)(2 * (signed __int64)(v29 * flt_6BE144))) >> 16;
-        v31 = class59_SinCos(pClass59_global, v90 - pClass59_global->uNumTableEntries);
+        v31 = class59_SinCos(pClass59_global, v90 - pClass59_global->uIntegerHalfPi);
         v0 += (unsigned __int64)(v31 * (signed int)(2 * (signed __int64)(v88 * flt_6BE144))) >> 16;
         goto LABEL_70;
       case 17:
@@ -9437,7 +9437,7 @@ LABEL_64:
         v33 = class59_SinCos(pClass59_global, v90);
         v88 = v32;
         v1 -= (unsigned __int64)(v33 * (signed int)(signed __int64)(v32 * flt_6BE148)) >> 16;
-        v34 = class59_SinCos(pClass59_global, v90 - pClass59_global->uNumTableEntries);
+        v34 = class59_SinCos(pClass59_global, v90 - pClass59_global->uIntegerHalfPi);
         v0 -= (unsigned __int64)(v34 * (signed int)(signed __int64)(v88 * flt_6BE148)) >> 16;
 LABEL_70:
         v72 = 1;
@@ -9611,12 +9611,12 @@ LABEL_93:
     {
       v53 = sub_452A9E(v1 * v1 + v0 * v0);
       i = v53;
-      v54 = sub_45281E(
+      v54 = class59_Atan2(
               pClass59_global,
               v86 - array_6836D0[(dword_7215A8 >> 3)].sPosX,
               v85 - array_6836D0[(dword_7215A8 >> 3)].sPosY);
       v1 = (unsigned __int64)(class59_SinCos(pClass59_global, v54) * v53) >> 16;
-      v55 = class59_SinCos(pClass59_global, v54 - pClass59_global->uNumTableEntries);
+      v55 = class59_SinCos(pClass59_global, v54 - pClass59_global->uIntegerHalfPi);
       v0 = (unsigned __int64)(v55 * i) >> 16;
     }
     else
@@ -11097,11 +11097,11 @@ signed int __thiscall sub_477C61(void *this)
     do
     {
       v41 = (double)class59_SinCos(pClass59_global, pOldCamera->sRotationX) * *(double *)&byte_4D8410[840];
-      v32 = (double)class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uNumTableEntries) * *(double *)&byte_4D8410[840];
+      v32 = (double)class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uIntegerHalfPi) * *(double *)&byte_4D8410[840];
       v34 = (double)class59_SinCos(pClass59_global, pOldCamera->sRotationY) * *(double *)&byte_4D8410[840];
       LODWORD(v39) = *(_DWORD *)v15;
       LODWORD(v37) = *(_DWORD *)(v15 + 4);
-      v33 = (double)class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uNumTableEntries) * *(double *)&byte_4D8410[840];
+      v33 = (double)class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uIntegerHalfPi) * *(double *)&byte_4D8410[840];
       UNDEF(v17);
       v16 = *(float *)(v15 - 4) - (double)pOldCamera->dword_000000;
       if ( v19 | v18 )
@@ -12066,7 +12066,7 @@ void __fastcall sub_479A53(int a1, int a2)
   v8 = dword_51B6F8;
   v76 = 0;
   v68 = v3;
-  v9 = class59_SinCos(pClass59_global, dword_51B6F8 - pClass59_global->uNumTableEntries + 16);
+  v9 = class59_SinCos(pClass59_global, dword_51B6F8 - pClass59_global->uIntegerHalfPi + 16);
   v70 = 0;
   v69 = -v9;
   LODWORD(v71) = -class59_SinCos(pClass59_global, v8 + 16);
@@ -12464,12 +12464,12 @@ void __cdecl sub_47A95E()
             v6 = v11;
             v52 = *(_DWORD *)(v11 + 44);
             v53 = *(_WORD *)(v11 + 48);
-            v12 = sub_45281E(pClass59_global, *(_DWORD *)(v0 - 4) - pOldCamera->dword_000000, *(_DWORD *)v0 - pOldCamera->dword_000004);
+            v12 = class59_Atan2(pClass59_global, *(_DWORD *)(v0 - 4) - pOldCamera->dword_000000, *(_DWORD *)v0 - pOldCamera->dword_000004);
             v13 = *(_DWORD *)(v0 + 8);
             v47 = v12;
             v4 = v52;
             v48 = 0;
-            v5 = ((pClass59_global->dword_001860 + (pClass59_global->dword_001860 >> 3) + v13 - v47) >> 8) & 7;
+            v5 = ((pClass59_global->uIntegerPi + (pClass59_global->uIntegerPi >> 3) + v13 - v47) >> 8) & 7;
             v47 = v5;
             if ( v52 & 2 )
               v48 = 2;
@@ -15475,7 +15475,7 @@ LABEL_12:
         v65 = (v41 - v27) >> 4;
         v64 = (v91 - v80) >> 4;
         v72 = v27 + 4 * class59_SinCos(pClass59_global, v93 + (v80 >> v78));
-        v44 = class59_SinCos(pClass59_global, v93 + (v27 >> v78) - pClass59_global->uNumTableEntries);
+        v44 = class59_SinCos(pClass59_global, v93 + (v27 >> v78) - pClass59_global->uIntegerHalfPi);
         v71 = v80 + 4 * v44;
         if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3617) & 8 )
           sub_485975((int)&v64, (int)&v77);
@@ -15495,7 +15495,7 @@ LABEL_12:
       return 1;
     v78 = 12 - v87;
     v72 = v27 + 4 * class59_SinCos(pClass59_global, v93 + (v26 >> (12 - v87)));
-    v47 = class59_SinCos(pClass59_global, v93 + (v27 >> v78) - pClass59_global->uNumTableEntries);
+    v47 = class59_SinCos(pClass59_global, v93 + (v27 >> v78) - pClass59_global->uIntegerHalfPi);
     v71 = v80 + 4 * v47;
     v91 = *(_DWORD *)(v5 + 28);
     v92 = (unsigned __int64)(v91 * v85) >> 16;
@@ -15632,7 +15632,7 @@ signed int __thiscall sub_48408A(int this)
   v58 = *(_DWORD *)(v5 + 32);
   v60 = (unsigned __int64)(v58 * v6) >> 16;
   v11 = v60 + *(_DWORD *)(v5 + 24);
-  v35 = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uNumTableEntries);
+  v35 = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uIntegerHalfPi);
   v12 = class59_SinCos(pClass59_global, pOldCamera->sRotationY);
   v13 = *(_WORD *)(v4 + 8);
   v36 = v12;
@@ -15825,7 +15825,7 @@ signed int __thiscall sub_484442(int this)
   v56 = *(_DWORD *)(v5 + 32);
   v57 = (unsigned __int64)(v56 * v6) >> 16;
   v11 = v57 + *(_DWORD *)(v5 + 24);
-  v33 = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uNumTableEntries);
+  v33 = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uIntegerHalfPi);
   v12 = class59_SinCos(pClass59_global, pOldCamera->sRotationY);
   v13 = *(_WORD *)(v4 + 8);
   v34 = v12;
@@ -16656,7 +16656,7 @@ LABEL_12:
   v46 = v32 - 1;
   i = (unsigned __int64)(pStruct9_global->dword_000018 * i) >> 16;
   v60 = i >> v57;
-  v35 = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uNumTableEntries);
+  v35 = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uIntegerHalfPi);
   v36 = v60 * v35;
   i = v36 >> 16;
   v44 = v36 >> 16;
@@ -16671,7 +16671,7 @@ LABEL_12:
     for ( i = 12 - v62; ; LOBYTE(v39) = i )
     {
       v51 = v25 + 4 * class59_SinCos(pClass59_global, X + (v26 >> v39));
-      v50 = v26 + 4 * class59_SinCos(pClass59_global, X + (v25 >> i) - pClass59_global->uNumTableEntries);
+      v50 = v26 + 4 * class59_SinCos(pClass59_global, X + (v25 >> i) - pClass59_global->uIntegerHalfPi);
       if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3617) & 8 )
         sub_485975((int)&v43, (int)&v42);
       else
@@ -16688,7 +16688,7 @@ LABEL_12:
   {
     i = 12 - v62;
     v51 = v25 + 4 * class59_SinCos(pClass59_global, X + (v26 >> (12 - v62)));
-    v50 = v26 + 4 * class59_SinCos(pClass59_global, X + (v25 >> i) - pClass59_global->uNumTableEntries);
+    v50 = v26 + 4 * class59_SinCos(pClass59_global, X + (v25 >> i) - pClass59_global->uIntegerHalfPi);
     v49 = v61;
     if ( byte_4D8410[572] && *(_BYTE *)(LODWORD(pGame) + 3617) & 8 )
       sub_485975((int)&v43, (int)&v42);
@@ -17243,9 +17243,9 @@ int __thiscall sub_48653D(void *this, int a2, int a3, int a4, int a5, int a6, in
 
   v11 = this;
   v10 = class59_SinCos(pClass59_global, dword_51B6F4);
-  v29 = class59_SinCos(pClass59_global, dword_51B6F4 - pClass59_global->uNumTableEntries);
+  v29 = class59_SinCos(pClass59_global, dword_51B6F4 - pClass59_global->uIntegerHalfPi);
   v28 = class59_SinCos(pClass59_global, dword_51B6F8);
-  v12 = class59_SinCos(pClass59_global, dword_51B6F8 - pClass59_global->uNumTableEntries);
+  v12 = class59_SinCos(pClass59_global, dword_51B6F8 - pClass59_global->uIntegerHalfPi);
   v9 = -dword_51B6EC;
   v26 = -dword_51B6E8;
   v27 = v12;
@@ -18375,9 +18375,9 @@ signed int __thiscall sub_48B5B3(void *this, int a2)
 
   v6 = this;
   v3 = class59_SinCos(pClass59_global, pOldCamera->sRotationX);
-  v42 = class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uNumTableEntries);
+  v42 = class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uIntegerHalfPi);
   v4 = class59_SinCos(pClass59_global, pOldCamera->sRotationY);
-  v2 = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uNumTableEntries);
+  v2 = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uIntegerHalfPi);
   v5 = (int)((char *)v6 + 104 * a2);
   if ( !*(_DWORD *)v5 )
     return 0;

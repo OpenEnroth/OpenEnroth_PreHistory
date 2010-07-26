@@ -2057,10 +2057,10 @@ void __cdecl sub_47AF11()
             v28 = v8;
             v36 = *(_DWORD *)(v8 + 44);
             v38 = *(_WORD *)(v8 + 48) * v0[3];
-            v9 = sub_45281E(pClass59_global, *((_DWORD *)v0 - 6) - pOldCamera->dword_000000, *((_DWORD *)v0 - 5) - pOldCamera->dword_000004);
+            v9 = class59_Atan2(pClass59_global, *((_DWORD *)v0 - 6) - pOldCamera->dword_000000, *((_DWORD *)v0 - 5) - pOldCamera->dword_000004);
             LOWORD(v10) = *(v0 - 3);
             v4 = v36;
-            v5 = ((pClass59_global->dword_001860 + (pClass59_global->dword_001860 >> 3) + v10 - v9) >> 8) & 7;
+            v5 = ((pClass59_global->uIntegerPi + (pClass59_global->uIntegerPi >> 3) + v10 - v9) >> 8) & 7;
             v3 = *(_WORD *)(v6 + 2 * v5 + 24);
             *((_WORD *)v7 + 12) = v3;
             if ( v36 & 0x20 )
@@ -2289,9 +2289,9 @@ bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
   v3 = pClass51_global->pBModels[uModelIdx].dword_0000B0 - pOldCamera->dword_000004;
 
   v6 = class59_SinCos(pClass59_global, pOldCamera->sRotationY);
-  v21 = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uNumTableEntries);
+  v21 = class59_SinCos(pClass59_global, pOldCamera->sRotationY - pClass59_global->uIntegerHalfPi);
   v18 = class59_SinCos(pClass59_global, pOldCamera->sRotationX);
-  v16 = class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uNumTableEntries);
+  v16 = class59_SinCos(pClass59_global, pOldCamera->sRotationX - pClass59_global->uIntegerHalfPi);
 
   v2 = v6;
   v17 = v4 * v6 + v3 * v21;
@@ -2306,7 +2306,7 @@ bool __fastcall sub_479089(unsigned int uModelIdx, int *a2)
   if (v10 < pClass51_global->pBModels[uModelIdx].dword_0000B8 + 256)
     *a2 = 1;
 
-  v15 = class59_SinCos(pClass59_global, v20 - pClass59_global->uNumTableEntries);
+  v15 = class59_SinCos(pClass59_global, v20 - pClass59_global->uIntegerHalfPi);
   if ( v19 >= 0 )
     v11 = ((unsigned __int64)(v15) * (unsigned __int64)(v17) / 65536) - ((unsigned __int64)(class59_SinCos(pClass59_global, v20)) * v19 / 65536);
   else
@@ -2758,9 +2758,9 @@ LABEL_20:
               }
               v10 = v109[0];
 LABEL_29:
-              v142 = 60 * pClass59_global->dword_001868 / 360;
+              v142 = 60 * pClass59_global->uIntegerDoublePi / 360;
               v119 = word_4E3B08;
-              v139 = 60 * pClass59_global->dword_001868 / 360 / (v10 - 1);
+              v139 = 60 * pClass59_global->uIntegerDoublePi / 360 / (v10 - 1);
               v11 = 0;
               if ( pObjectDescriptionList->uNumObjects <= 0 )
               {
@@ -2985,8 +2985,8 @@ LABEL_48:
               {
                 v31 = (signed __int64)sqrt(v140 + v141);
                 v29 = v27;
-                v30 = sub_45281E(pClass59_global, (signed __int64)v114, (signed __int64)v29);
-                v113 = sub_45281E(pClass59_global, v31, (signed __int64)v144);
+                v30 = class59_Atan2(pClass59_global, (signed __int64)v114, (signed __int64)v29);
+                v113 = class59_Atan2(pClass59_global, v31, (signed __int64)v144);
               }
               ItemGen_Reset((int)&v129);
               v119 = word_4E3AF0;
@@ -3534,9 +3534,9 @@ LABEL_171:
   }
   v70 = v112;
 LABEL_179:
-  v146 = 60 * pClass59_global->dword_001868 / 360;
+  v146 = 60 * pClass59_global->uIntegerDoublePi / 360;
   v119 = word_4E3C40;
-  v137 = 60 * pClass59_global->dword_001868 / 360 / (v70 - 1);
+  v137 = 60 * pClass59_global->uIntegerDoublePi / 360 / (v70 - 1);
   v71 = 0;
   if ( pObjectDescriptionList->uNumObjects <= 0 )
   {
@@ -8475,14 +8475,14 @@ bool __fastcall sub_407A1C(int a1, int a2, int a3, int a4, int a5, int a6)
 
   v113 = a1;
   v114 = a2;
-  v6 = sub_45281E(pClass59_global, a4 - a1, a5 - a2);
+  v6 = class59_Atan2(pClass59_global, a4 - a1, a5 - a2);
   v112 = 0;
   v111 = 0;
   v115 = v6;
   if ( dword_6BE360 != 2 )
   {
-    sub_43AA99(32, pClass59_global->uNumTableEntries + v6, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
-    sub_43AA99(32, pClass59_global->uNumTableEntries + v6, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
+    sub_43AA99(32, pClass59_global->uIntegerHalfPi + v6, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
+    sub_43AA99(32, pClass59_global->uIntegerHalfPi + v6, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
     v48 = v164 - v167;
     v47 = v162 - v165;
     v49 = v163 - v166;
@@ -8614,8 +8614,8 @@ LABEL_107:
       v55 = v167;
       v51 = v166;
     }
-    sub_43AA99(32, v115 - pClass59_global->uNumTableEntries, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
-    sub_43AA99(32, v115 - pClass59_global->uNumTableEntries, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
+    sub_43AA99(32, v115 - pClass59_global->uIntegerHalfPi, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
+    sub_43AA99(32, v115 - pClass59_global->uIntegerHalfPi, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
     v75 = v164 - v167;
     v74 = v162 - v165;
     v76 = v163 - v166;
@@ -8757,8 +8757,8 @@ LABEL_145:
         goto LABEL_148;
     }
   }
-  sub_43AA99(32, pClass59_global->uNumTableEntries + v6, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
-  sub_43AA99(32, pClass59_global->uNumTableEntries + v6, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
+  sub_43AA99(32, pClass59_global->uIntegerHalfPi + v6, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
+  sub_43AA99(32, pClass59_global->uIntegerHalfPi + v6, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
   v10 = v164 - v167;
   v9 = v162 - v165;
   v11 = v163 - v166;
@@ -8890,8 +8890,8 @@ LABEL_33:
     }
   }
 LABEL_37:
-  sub_43AA99(32, v115 - pClass59_global->uNumTableEntries, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
-  sub_43AA99(32, v115 - pClass59_global->uNumTableEntries, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
+  sub_43AA99(32, v115 - pClass59_global->uIntegerHalfPi, 0, v113, v114, a3, (int)&v166, (int)&v167, (int)&v165);
+  sub_43AA99(32, v115 - pClass59_global->uIntegerHalfPi, 0, a4, a5, a6, (int)&v163, (int)&v164, (int)&v162);
   v31 = v164 - v167;
   v30 = v162 - v165;
   v32 = v163 - v166;

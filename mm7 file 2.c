@@ -16148,8 +16148,8 @@ signed int __fastcall sub_42041E(int a1)
     else
     {
       X = (signed __int64)sqrt(*(float *)&v56 + *(float *)&X);
-      v56 = sub_45281E(pClass59_global, (signed __int64)v54, (signed __int64)v48);
-      X = sub_45281E(pClass59_global, X, (signed __int64)v58);
+      v56 = class59_Atan2(pClass59_global, (signed __int64)v54, (signed __int64)v48);
+      X = class59_Atan2(pClass59_global, X, (signed __int64)v58);
     }
     v21 = 256;
     if ( v57 < 256.0 )

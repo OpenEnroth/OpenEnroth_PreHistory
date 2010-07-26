@@ -234,7 +234,7 @@ int __fastcall sub_4AD504(int a1)
                   v17 = pClass59_global;
                   v122 = (char *)v21;
                   v121 = (unk_F8101C >> i) + 4 * class59_SinCos(pClass59_global, v104 + v22);
-                  v23 = class59_SinCos(pClass59_global, v104 + (v20 >> (char)v122) - pClass59_global->uNumTableEntries);
+                  v23 = class59_SinCos(pClass59_global, v104 + (v20 >> (char)v122) - pClass59_global->uIntegerHalfPi);
                   v120 = v116 + 4 * v23;
                   if ( v123 < v117 )
                   {
@@ -263,7 +263,7 @@ int __fastcall sub_4AD504(int a1)
                       v32 = *(_DWORD *)v114 >> i;
                       v122 = (char *)(11 - v28);
                       v116 = v31 + 4 * class59_SinCos(v17, v104 + (v32 >> (11 - v28)));
-                      v90 = v32 + 4 * class59_SinCos(v17, v104 + (v31 >> (char)v122) - pClass59_global->uNumTableEntries);
+                      v90 = v32 + 4 * class59_SinCos(v17, v104 + (v31 >> (char)v122) - pClass59_global->uIntegerHalfPi);
                       v108 = (signed int)(v116 - v121) >> 4;
                       v103 = (v90 - v120) >> 4;
                       v27 = v123 + 32;
@@ -2612,7 +2612,7 @@ void __fastcall sub_4B0A25(int a1, int a2, int a3, int a4)
                     v24 = GetTickCount() >> 2;
                     if ( v35 > 0 )
                     {
-                      v25 = v24 - pClass59_global->uNumTableEntries;
+                      v25 = v24 - pClass59_global->uIntegerHalfPi;
                       v26 = &array_507D30[0].v;
                       v37 = v35;
                       for ( i = v25; ; v25 = i )

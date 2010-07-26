@@ -10264,8 +10264,8 @@ void __thiscall sub_4A354F(int this, int a2, int a3, int a4, int a5)
       v16 = (double)(v9 - 12) - v12;
       v17 = (double)(v10 - 25) - v14;
       v18 = class59_SinCos(pClass59_global, a5);
-      v19 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
-      v20 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
+      v19 = class59_SinCos(pClass59_global, a5 - pClass59_global->uIntegerHalfPi);
+      v20 = class59_SinCos(pClass59_global, a5 - pClass59_global->uIntegerHalfPi);
       v21 = class59_SinCos(pClass59_global, a5);
       *(float *)(v8 + 15684288) = (((double)(unsigned __int16)v18 * 0.00001525902189314365 + (double)(v18 >> 16)) * v16
                                  - ((double)(unsigned __int16)v19 * 0.00001525902189314365 + (double)(v19 >> 16)) * v17)
@@ -10286,8 +10286,8 @@ void __thiscall sub_4A354F(int this, int a2, int a3, int a4, int a5)
       v23 = (double)(*(_DWORD *)(a2 + 8) - 12) - v13;
       v24 = (double)*(signed int *)(a2 + 12) - v15;
       v25 = class59_SinCos(pClass59_global, a5);
-      v26 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
-      v27 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
+      v26 = class59_SinCos(pClass59_global, a5 - pClass59_global->uIntegerHalfPi);
+      v27 = class59_SinCos(pClass59_global, a5 - pClass59_global->uIntegerHalfPi);
       v28 = class59_SinCos(pClass59_global, a5);
       *(float *)(v8 + 15684320) = (((double)(unsigned __int16)v25 * 0.00001525902189314365 + (double)(v25 >> 16)) * v23
                                  - ((double)(unsigned __int16)v26 * 0.00001525902189314365 + (double)(v26 >> 16)) * v24)
@@ -10309,8 +10309,8 @@ void __thiscall sub_4A354F(int this, int a2, int a3, int a4, int a5)
       v31 = (double)(*(_DWORD *)(a2 + 8) + 12) - v13;
       v32 = (double)*(signed int *)(a2 + 12) - v15;
       v33 = class59_SinCos(pClass59_global, a5);
-      v34 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
-      v35 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
+      v34 = class59_SinCos(pClass59_global, a5 - pClass59_global->uIntegerHalfPi);
+      v35 = class59_SinCos(pClass59_global, a5 - pClass59_global->uIntegerHalfPi);
       v36 = class59_SinCos(pClass59_global, a5);
       *(float *)(v8 + 15684352) = (((double)(unsigned __int16)v33 * 0.00001525902189314365 + (double)(v33 >> 16)) * v31
                                  - ((double)(unsigned __int16)v34 * 0.00001525902189314365 + (double)(v34 >> 16)) * v32)
@@ -10332,8 +10332,8 @@ void __thiscall sub_4A354F(int this, int a2, int a3, int a4, int a5)
       v39 = (double)(*(_DWORD *)(a2 + 8) + 12) - v13;
       v40 = (double)(*(_DWORD *)(a2 + 12) - 25) - v15;
       v41 = class59_SinCos(pClass59_global, a5);
-      v42 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
-      v43 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
+      v42 = class59_SinCos(pClass59_global, a5 - pClass59_global->uIntegerHalfPi);
+      v43 = class59_SinCos(pClass59_global, a5 - pClass59_global->uIntegerHalfPi);
       v44 = class59_SinCos(pClass59_global, a5);
       *(float *)(v8 + 15684384) = (((double)(unsigned __int16)v41 * 0.00001525902189314365 + (double)(v41 >> 16)) * v39
                                  - ((double)(unsigned __int16)v42 * 0.00001525902189314365 + (double)(v42 >> 16)) * v40)
@@ -10425,8 +10425,8 @@ void __thiscall sub_4A3AD9(int this, int a2, int a3, int a4, int a5)
     v16 = (double)(v9 - 12) - v12;
     v17 = (double)(v10 - 25) - v14;
     v18 = class59_SinCos(pClass59_global, a5);
-    v19 = a5 - pClass59_global->uNumTableEntries;
-    v20 = class59_SinCos(pClass59_global, a5 - pClass59_global->uNumTableEntries);
+    v19 = a5 - pClass59_global->uIntegerHalfPi;
+    v20 = class59_SinCos(pClass59_global, a5 - pClass59_global->uIntegerHalfPi);
     v21 = class59_SinCos(pClass59_global, v19);
     v22 = class59_SinCos(pClass59_global, a5);
     *(float *)(v8 + 15684288) = (((double)(unsigned __int16)v18 * 0.00001525902189314365 + (double)(v18 >> 16)) * v16
@@ -14008,9 +14008,9 @@ int __fastcall sub_4AB66C(int a1, int a2)
 {
   int v2; // eax@1
 
-  v2 = pClass59_global->dword_00186C & (sub_45281E(pClass59_global, a1 - pParty_global->sPartyPosX, a2 - pParty_global->sPartyPosY) - pClass59_global->uNumTableEntries - pParty_global->sRotationY);
-  if ( v2 > pClass59_global->dword_001860 )
-    v2 = 2 * pClass59_global->dword_001860 - v2;
+  v2 = pClass59_global->uDoublePiMask & (class59_Atan2(pClass59_global, a1 - pParty_global->sPartyPosX, a2 - pParty_global->sPartyPosY) - pClass59_global->uIntegerHalfPi - pParty_global->sRotationY);
+  if ( v2 > pClass59_global->uIntegerPi )
+    v2 = 2 * pClass59_global->uIntegerPi - v2;
   return (v2 >> 3) - (v2 >> 10);
 }
 

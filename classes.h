@@ -1597,12 +1597,12 @@ struct class59
  int pTanTable[520];    // int[520] @ 000000
  int pCosTable[520];    // int[520] @ 000820
  int pInvCosTable[520]; // int[520] @ 001040
- int dword_001860;
- unsigned int uNumTableEntries; // dword @ 001864
- int dword_001868;
- int dword_00186C;
- int dword_001870;
- int dword_001874;
+ unsigned int uIntegerPi;     // dword @ 001860
+ unsigned int uIntegerHalfPi; // dword @ 001864   
+ unsigned int uIntegerDoublePi;// dword @ 001868
+ unsigned int uDoublePiMask;  // dword @ 00186C
+ unsigned int uPiMask;        // dword @ 001870
+ unsigned int uHalfPiMask;    // dword @ 001874
 };
 //sizeof ~
 //
@@ -1610,7 +1610,8 @@ struct class59
 void class59_ctor(struct class59 *);
 //int __thiscall sub_402CAE(int this, int a2);
 int class59_SinCos(struct class59 *_this, int a2);
-
+//int __thiscall sub_45281E(void *this, int X, int a3);
+int class59_Atan2(struct class59 *_this, int X, int Y);
 
 
 

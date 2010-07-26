@@ -26,15 +26,15 @@ struct Actor_struct0
 
 struct Actor_struct1
 {
-  int   dword_000000;
-  int   dword_000004;
-  int   dword_000008;
-  int   dword_00000C;
+  //normalized vector of direction from second object to first object
+  int   uVecX;  //@ 000000
+  int   uVecY;  //@ 000000
+  int   uVecZ;  //@ 000000
 
-  //its very likely that 3 following members have word type instead of dword (due to alignment)
-  int   dword_000010;
-  int   dword_000014;
-  int   dword_000018;  
+  unsigned int uDistance; //@ 00000C distance between the objects 
+  unsigned int uDistanceXY;//@ 000010 projection of distance to the XY plane
+  unsigned int   uYawAngle;//@ 000014  yaw angle calculated from direction vector
+  unsigned int   uPitchAngle;//@ 000018 pitch angle calculated from direction vector
 };
 //sizeof == 1C
 
