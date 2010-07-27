@@ -7194,7 +7194,7 @@ LABEL_28:
     v14[3] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
     sub_43C91D_FormTextureFileName(Str1, 544, v12, 0);
     v14[4] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-    if ( sub_43ED6F((void *)1) )
+    if ( sub_43ED6F(1) )
       dword_511234 = LODFile_LoadTexture(pLODFile_Icons_LOD, "item092v3", 2);
     v34 += 28;
     ++v12;
@@ -7208,7 +7208,7 @@ LABEL_28:
   v40 = &uTextureListForPaperdoll[61];
   do
   {
-    if ( sub_43EDB9((void *)(v20 - 1)) )
+    if ( sub_43EDB9(v20 - 1) )
     {
       sub_43C91D_FormTextureFileName(Str1, 524, v20, 0);
       v31 = 66;
@@ -7266,7 +7266,7 @@ LABEL_28:
       v25 = v42;
       v37 = 105;
       v33 = v42;
-      v39 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      *v39 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
       do
       {
         sub_43C91D_FormTextureFileName(Str1, v37, v20, 0);

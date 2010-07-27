@@ -2008,7 +2008,7 @@ extern int dword_72371C[array_size_unknown]; // weak
 extern _UNKNOWN unk_723724[]; // weak
 extern char *dword_723D38; // idb
 extern _UNKNOWN unk_723D3C; // weak
-extern int dword_723E80[array_size_unknown]; // weak
+extern int dword_723E80[210]; // weak
 extern int dword_723E84[array_size_unknown]; // weak
 extern _UNKNOWN unk_723E88; // weak
 extern int dword_7241C8; // weak

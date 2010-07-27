@@ -2764,11 +2764,11 @@ LABEL_21:
             if ( !a4 )
             {
               v5 = "item%3.3dv%d";
-              sprintfex(a1, v5, v6, v7);
+              wsprintfA(a1, v5, v6, v7);
               return;
             }
             v5 = "item%3.3dv%da1";
-            sprintfex(a1, v5, v6, v7);
+            wsprintfA(a1, v5, v6, v7);
             return;
           }
           if ( a2 == 521 )
@@ -2807,10 +2807,7 @@ LABEL_70:
           a2 = v8;
         }
 LABEL_87:
-        v7 = a3;
-        v6 = a2;
-        v5 = "item%3.3dv%d";
-        sprintfex(a1, v5, v6, v7);
+        wsprintfA(a1, "item%3.3dv%d", a2, a3);
         return;
       }
     }
@@ -2837,14 +2834,12 @@ LABEL_86:
             return;
           v7 = a3;
           v6 = a2;
-          v5 = "item%3.3dv%da2";
-          sprintfex(a1, v5, v6, v7);
+          wsprintfA(a1, "item%3.3dv%da2", v6, v7);
           return;
         }
         v7 = a3;
         v6 = a2;
-        v5 = "item%3.3dv%da1";
-        sprintfex(a1, v5, v6, v7);
+        wsprintfA(a1, "item%3.3dv%da1", v6, v7);
         return;
       }
       goto LABEL_87;
@@ -2856,72 +2851,59 @@ LABEL_79:
 }
 
 //----- (0043ED6F) --------------------------------------------------------
-char __thiscall sub_43ED6F(void *this)
+char __thiscall sub_43ED6F(int a1)
 {
-  int *v1; // ebx@1
-  void *v2; // ebp@1
-  signed int v3; // edi@2
-  int v4; // esi@2
+  int r; 
   char v5; // zf@5
+  int i = 0;
 
-  v2 = this;
-  v1 = pPlayers;
   while ( 1 )
   {
-    v4 = *v1;
-    v3 = Player_GetRace(*v1);
-    Player_GetVoiceSex(v4);   // result not interested?
-    if ( v3 && v3 != 1 && v3 != 2 )
-      v5 = v2 == (void *)1;
+    r = Player_GetRace(pPlayers[i]);
+    //Player_GetVoiceSex(pPlayers[i]);   // result not interested?
+    if ( r != RACE_HUMAN && r != RACE_ELF && r != RACE_GOBLIN )
+      v5 = (a1 == 1);
     else
-      v5 = v2 == 0;
+      v5 = (a1 == 0);
     if ( v5 )
       break;
-    ++v1;
 
-    compile_error;//if ( (signed int)v1 >= (signed int)&dword_A750D8 )
-    if (0)
+    ++i;
+    if (i >= 4)
       return 0;
   }
   return 1;
 }
 
 //----- (0043EDB9) --------------------------------------------------------
-char __thiscall sub_43EDB9(void *this)
+char __thiscall sub_43EDB9(int a1)
 {
-  int *v1; // ebx@1
-  void *v2; // ebp@1
-  signed int v3; // eax@2
-  signed int v4; // edi@2
+  int sex; // eax@2
+  int r; 
   int v5; // esi@2
   char v6; // zf@7
+  int i = 0;
 
-  v2 = this;
-  v1 = pPlayers;
   while ( 1 )
   {
-    v5 = *v1;
-    v4 = Player_GetRace(*v1);
-    v3 = Player_GetVoiceSex(v5);
-    if ( !v4 )
+    r = Player_GetRace(pPlayers[i]);
+    sex = Player_GetVoiceSex(pPlayers[i]);
+    if ( r == RACE_HUMAN || r == RACE_ELF || r == RACE_GOBLIN )
       break;
-    if ( v4 == 1 || v4 == 2 )
-      break;
-    if ( !v3 && v2 == (void *)2 )
+    if ( sex == SEX_MALE && a1 == 2 )
       return 1;
-    v6 = v2 == (void *)3;
+    v6 = (a1 == 3);
 LABEL_11:
     if ( v6 )
       return 1;
-    ++v1;
+    ++i;
 
-    compile_error;//if ( (signed int)v1 >= (signed int)&dword_A750D8 )
-    if (0)
+    if (i >= 4)
       return 0;
   }
-  if ( v3 || v2 )
+  if ( sex == SEX_FEMALE || a1 )
   {
-    v6 = v2 == (void *)1;
+    v6 = (a1 == 1);
     goto LABEL_11;
   }
   return 1;

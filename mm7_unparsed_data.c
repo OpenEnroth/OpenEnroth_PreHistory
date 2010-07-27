@@ -1979,7 +1979,7 @@ struct CGame *pGame = 0; //struct @ MM7.exe::00720014
  _UNKNOWN unk_723724[128 * array_size_unknown]; // weak
  char *dword_723D38; // idb
  _UNKNOWN unk_723D3C; // weak
- int dword_723E80[array_size_unknown]; // weak
+ int dword_723E80[210]; // weak
  int dword_723E84[array_size_unknown]; // weak
  _UNKNOWN unk_723E88; // weak
  int dword_7241C8; // weak
@@ -2159,7 +2159,7 @@ struct Player *pPlayers[4]; // ptr[4] @ MM7.exe::00A750C8
 //int dword_A750D0; // weak
 int dword_A750D4; // looks like pPlayers[5] indexing
 
- __int64 qword_A750D8; // weak
+ __int64 qword_A750D8; // points to the end of Players[4], used in *pPlayers++ loops to stop
  __int16 word_A750E0; // weak
  __int16 word_A750E2; // weak
 

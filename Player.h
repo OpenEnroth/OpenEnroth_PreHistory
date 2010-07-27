@@ -61,6 +61,8 @@
 #define RACE_DWARF  3
 #define RACE_UNDEAD 4
 
+#define SEX_MALE    0
+#define SEX_FEMALE  1
 
 extern unsigned int uTextureID_PCFaces[];
 
