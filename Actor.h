@@ -27,9 +27,9 @@ struct Actor_struct0
 struct Actor_struct1
 {
   //normalized vector of direction from second object to first object
-  int   uVecX;  //@ 000000
-  int   uVecY;  //@ 000000
-  int   uVecZ;  //@ 000000
+  int   uVecX;  //@ 000000  fixed-point format 16.16
+  int   uVecY;  //@ 000004  fixed-point format 16.16
+  int   uVecZ;  //@ 000008  fixed-point format 16.16
 
   unsigned int uDistance; //@ 00000C distance between the objects 
   unsigned int uDistanceXY;//@ 000010 projection of distance to the XY plane
@@ -89,8 +89,8 @@ struct Actor
                                // e.g.   m342wa0 - frameset "m342" walking animation frame 0 towards player
                                //        m342wa4 - frameset "m342" walking animation frame 0 away from player
                                //        m342wb4 - frameset "m342" walking animation frame 1 away from player
-                               // uSpriteIDs[0]: S - standing seqence
-                               // uSpriteIDs[1]: W - walking seqence
+                               // uSpriteIDs[0]: S - standing sequence
+                               // uSpriteIDs[1]: W - walking sequence
                                // uSpriteIDs[2]: ?
                                // uSpriteIDs[3]: ?
                                // uSpriteIDs[4]: N - got hit

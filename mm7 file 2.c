@@ -260,35 +260,16 @@ LABEL_23:
 //----- (0047F2D3) --------------------------------------------------------
 bool InitializeActors(unsigned int uLocationID)
 {
- int          i;
- struct Actor v6;
-  /*struct //looks like struct Actor
+  int          i;
+  struct Actor v6;
+  int v8; // [sp+348h] [bp-8h]@1
+  
+  v8 = 0;
+  for (i = 0; i < uNumActors; ++i)
   {
-  char v6[0x60]; // [sp+4h] [bp-34Ch]@18
-  __int16 v7[370]; // [sp+64h] [bp-2ECh]@18
-  } v6;*/
- int v8; // [sp+348h] [bp-8h]@1
-
- v8 = 0;
- for (i = 0; i < uNumActors; ++i)
- {
-      if ( !(pActors[i].dword_000024 & 0x100000) )
-        goto LABEL_7;
-      if ( uLocationID == 0 )
-        goto LABEL_8;
-      if (v8)
-        goto LABEL_9;
-      pActors[i].word_0000B0 = 19;
-      pActors[i].dword_000024 |= 0x10000;
-      v8 = sub_450DA3();
-
-LABEL_17:
-  continue;
-
-LABEL_7:
-    if (v8 != 1)
+    bool bIsSomeFlagSet = pActors[i].dword_000024 & 0x100000;
+    if ( (!bIsSomeFlagSet && v8 != 1) || (uLocationID != 0 && v8 != 0) )
     {
-LABEL_9:
       pActors[i].dword_0000B8 = 0;
       pActors[i].word_0000A0 = 0;
       if ( pActors[i].dword_000024 & 0x10000 )
@@ -296,8 +277,8 @@ LABEL_9:
 
       if (pActors[i].word_0000B0 != 11 && pActors[i].word_0000B0 != 19)
       {
-          if (!pActors[i].word_000028 || *(int *)&pActors[i].word_00006C == 0 )
-            pActors[i].word_0000B0 = 5;
+        if (!pActors[i].word_000028 || *(int *)&pActors[i].word_00006C == 0 )
+          pActors[i].word_0000B0 = 5;
       }
       pActors[i].word_000094 = 0;
       pActors[i].word_000096 = 0;
@@ -309,9 +290,12 @@ LABEL_9:
     }
     else
     {
-LABEL_8:
-     pActors[i].word_0000B0 = 19;
-     pActors[i].dword_000024 |= 0x10000;
+      pActors[i].word_0000B0 = 19;
+      pActors[i].dword_000024 |= 0x10000;
+      if (bIsSomeFlagSet && (uLocationID != 0) && !v8)
+      {
+        v8 = sub_450DA3();
+      }
     }
   }
 
@@ -321,6 +305,8 @@ LABEL_8:
   v6.uMonsterID = 45;
 
   //initialize light elemental, probably since it's not on the map but can be summoned at any time
+
+  //[inviZ_khv] WTF? v6 is local variable and it's destroyed when function returns
   Actor_LinkSprites(&v6, 0);
   return true;
 }
