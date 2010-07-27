@@ -17,13 +17,14 @@ unsigned int Camera::GetViewOrientation(Matrix4x4 *pOutMatrix)
 unsigned int Camera::Initialize(const Vec3 *pPosition, const Quaternion *pOrientation)
 {
  vPosition = *pPosition;
- SetOrientation(pOrientation);
+ pOrientation->ToMatrix(&mOrientation);
+ //SetOrientation(pOrientation);
 
  return 0;
 }
 
 
-
+/*
 unsigned int Camera::SetOrientation(const Quaternion *qNewOrientation)
 {
  qOrientation = *qNewOrientation;
@@ -32,28 +33,61 @@ unsigned int Camera::SetOrientation(const Quaternion *qNewOrientation)
  vRight = qOrientation.Transform(Vec3(1, 0, 0));
  vUp = qOrientation.Transform(Vec3(0, 1, 0));
 
- /*
-  view matrix:
+//  view matrix:
 
-dir = normal(At - Eye)
-right = normal(cross(Up, dir))
-newup = cross(dir, right)
+//dir = normal(At - Eye)
+//right = normal(cross(Up, dir))
+//newup = cross(dir, right)
 
- right.x           newup.x           dir.x          0
- right.y           newup.y           dir.y          0
- right.z           newup.z           dir.z          0
--dot(right, eye)  -dot(newup, eye)  -dot(dir, eye)  1 */
- mView[0][0] = vRight.x;                mView[0][1] = vUp.x;                mView[0][2] = vDirection.z;                mView[1][3] = 0;
- mView[1][0] = vRight.y;                mView[1][1] = vUp.y;                mView[1][2] = vDirection.z;                mView[0][3] = 0;
+// right.x           newup.x           dir.x          0
+// right.y           newup.y           dir.y          0
+// right.z           newup.z           dir.z          0
+//-dot(right, eye)  -dot(newup, eye)  -dot(dir, eye)  1
+ mView[0][0] = vRight.x;                mView[0][1] = vUp.x;                mView[0][2] = vDirection.x;                mView[1][3] = 0;
+ mView[1][0] = vRight.y;                mView[1][1] = vUp.y;                mView[1][2] = vDirection.y;                mView[0][3] = 0;
  mView[2][0] = vRight.z;                mView[2][1] = vUp.z;                mView[2][2] = vDirection.z;                mView[2][3] = 0;
  mView[3][0] = -Dot(vRight, vPosition); mView[3][1] = -Dot(vUp, vPosition); mView[3][2] = -Dot(vDirection, vPosition); mView[3][3] = 1;
 
  return 0;
-}
+}*/
 
 void Camera::Move(float fAmount)
 {
  vPosition += vDirection * fAmount;
+}
+
+void Camera::RotateX(float angle)
+{
+ fRotationX += angle;
+ if (fRotationX >= 3.14159 * 0.5 - 0.01)
+ {
+  angle -= fRotationX - (3.141519 * 0.5f - 0.01);
+  fRotationX = 3.141519 * 0.5f - 0.01;
+ }
+ else if (fRotationX < -3.14159 * 0.5 + 0.01)
+ {
+  angle += fRotationX - (-3.141519 * 0.5f + 0.01);
+  fRotationX = -3.141519 * 0.5f + 0.01;
+ }
+
+ Matrix4x4 rx;
+ rx.RotateX(angle);
+ mOrientation =  mOrientation * rx;
+
+ vDirection = mOrientation.Transofrm(&Vec3(0, 0, 1));
+ vUp = mOrientation.Transofrm(&Vec3(0, 1, 0));
+ vRight = mOrientation.Transofrm(&Vec3(1, 0, 0));
+}
+
+void Camera::RotateY(float angle)
+{
+ Matrix4x4 ry;
+ ry.RotateY(angle);
+ mOrientation = mOrientation * ry;
+
+ vDirection = mOrientation.Transofrm(&Vec3(0, 0, 1));
+ vUp = mOrientation.Transofrm(&Vec3(0, 1, 0));
+ vRight = mOrientation.Transofrm(&Vec3(1, 0, 0));
 }
 
 void Camera::Rotate(const Vec3 *pAxis, float angle)
@@ -62,10 +96,11 @@ void Camera::Rotate(const Vec3 *pAxis, float angle)
  qRotation.Rotate(*pAxis, angle);
 
  Matrix4x4 mIncementalRotation;
+
  mOrientation = qRotation.ToMatrix(&mIncementalRotation) * mOrientation;
 
- qRotation = qRotation * qOrientation;
- SetOrientation(&qRotation);
+ //qRotation = qRotation * qOrientation;
+ //SetOrientation(&qRotation);
 }
 
 void Camera::SetDirection(const Vec3 *pNewDirection)
@@ -74,17 +109,18 @@ void Camera::SetDirection(const Vec3 *pNewDirection)
  vDirection.Normalize();
 
  qOrientation.Rotate(Cross(Vec3(0, 0, 1), vDirection), vDirection.z); // (1 0 0) cross dir, (1 0 0) dot dir
- SetOrientation(&qOrientation);
+ qOrientation.ToMatrix(&mOrientation);
+ //SetOrientation(&qOrientation);
 }
 
 
-#include <d3dx9.h>
-#pragma comment(lib, "d3dx9.lib")
+//#include <d3dx9.h>
+//#pragma comment(lib, "d3dx9.lib")
 
 void Camera::SetProjection(float fovy, float viewportAspect, float znear, float zfar)
 {
  float yScale = 1.0 / tan(0.5f * fovy);//cos(0.5f * fovy) / sin(0.5f * fovy);
- float xScale = viewportAspect / yScale;
+ float xScale = yScale / viewportAspect;
  float zdif = zfar - znear;
 
  mProjection.m[0][0] = xScale; mProjection.m[0][1] = 0;      mProjection.m[0][2] = 0;                    mProjection.m[0][3] = 0;
@@ -92,7 +128,7 @@ void Camera::SetProjection(float fovy, float viewportAspect, float znear, float 
  mProjection.m[2][0] = 0;      mProjection.m[2][1] = 0;      mProjection.m[2][2] = zfar / zdif;          mProjection.m[2][3] = 1;
  mProjection.m[3][0] = 0;      mProjection.m[3][1] = 0;      mProjection.m[3][2] = -znear * zfar / zdif; mProjection.m[3][3] = 0;
 
- D3DXMatrixPerspectiveFovLH((D3DXMATRIX *)&mProjection.m, fovy, viewportAspect, znear, zfar);
+ //D3DXMatrixPerspectiveFovLH((D3DXMATRIX *)&mProjection.m, fovy, viewportAspect, znear, zfar);
 }
 
 const Matrix4x4 *Camera::GetProjection()
@@ -105,16 +141,18 @@ unsigned int Camera::GetViewProjection(Matrix4x4 *pOut)
  if (!pOut)
    return -1;
 
- Vec3 vd = mOrientation.Transofrm(&Vec3(0, 0, 1)),
-      vu = mOrientation.Transofrm(&Vec3(0, 1, 0));
+ mView[0][0] = vRight.x;                mView[0][1] = vUp.x;                mView[0][2] = vDirection.x;                mView[1][3] = 0;
+ mView[1][0] = vRight.y;                mView[1][1] = vUp.y;                mView[1][2] = vDirection.y;                mView[0][3] = 0;
+ mView[2][0] = vRight.z;                mView[2][1] = vUp.z;                mView[2][2] = vDirection.z;                mView[2][3] = 0;
+ mView[3][0] = -Dot(vRight, vPosition); mView[3][1] = -Dot(vUp, vPosition); mView[3][2] = -Dot(vDirection, vPosition); mView[3][3] = 1;
+ 
+ //Vec3 vd = mOrientation.Transofrm(&Vec3(0, 0, 1)),
+ //     vu = mOrientation.Transofrm(&Vec3(0, 1, 0));
 
- Vec3 vLookAt = vPosition + vDirection;
- D3DXMatrixLookAtLH((D3DXMATRIX *)&mView, (D3DXVECTOR3 *)&vPosition, (D3DXVECTOR3 *)&vLookAt, (D3DXVECTOR3 *)&vu);
- D3DXMatrixPerspectiveFovLH((D3DXMATRIX *)&mProjection, 3.14159 * (45 / 360.0), 1.33, 0.1, 1000);
- D3DXMatrixMultiply((D3DXMATRIX *)&mViewProjection, (D3DXMATRIX *)&mView, (D3DXMATRIX *)&mProjection);
+ //Vec3 vLookAt = vPosition + vd;
+ //D3DXMatrixLookAtLH((D3DXMATRIX *)&mView, (D3DXVECTOR3 *)&vPosition, (D3DXVECTOR3 *)&vLookAt, (D3DXVECTOR3 *)&vu);
 
- //mViewProjection = mView * mProjection;
- //mViewProjection = mOrientation * mProjection;
+ mViewProjection = mView * mProjection;
  *pOut = mViewProjection;
  return 0;
 }

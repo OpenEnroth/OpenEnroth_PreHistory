@@ -16,6 +16,8 @@ class Camera
     vRight = Vec3(1, 0, 0);
 
     mOrientation.Identity();
+    fRotationX = 0;
+    fRotationY = 0;
    }
    
    unsigned int Initialize(const Vec3 *pPosition, const Quaternion *pOrientation);
@@ -32,10 +34,9 @@ class Camera
    void        SetDirection(const Vec3 *);
    const Vec3 *GetDirection();
 
-   unsigned int SetOrientation(const Quaternion *);
-   unsigned int GetOrientation(Quaternion *);
-
    void         Move(float);
+   void         RotateX(float angle);
+   void         RotateY(float angle);
    void         Rotate(const Vec3 *pAxis, float angle);
 
  protected:
@@ -50,6 +51,8 @@ class Camera
    Matrix4x4  mViewProjection;
 
    Matrix4x4 mOrientation;
+   float     fRotationX;
+   float     fRotationY;
 };
 
 extern "C"

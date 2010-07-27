@@ -107,9 +107,9 @@ extern "C" void Game_Process_cpp()
    GetCursorPos(&new_pos);
   
    if (old_pos.x - new_pos.x)
-     pGameCamera->Rotate(&Vec3(0, 1, 0), -(old_pos.x - new_pos.x) * 0.0125f);
+     pGameCamera->RotateY(-(old_pos.x - new_pos.x) * 0.0125f);
    if (old_pos.y - new_pos.y)
-     pGameCamera->Rotate(&Vec3(1, 0, 0), -(old_pos.y - new_pos.y) * 0.0125f);
+     pGameCamera->RotateX(-(old_pos.y - new_pos.y) * 0.0125f);
 
    float fMovementAmount = 7.5;
    if (GetAsyncKeyState(VK_LSHIFT))
@@ -122,7 +122,7 @@ extern "C" void Game_Process_cpp()
   }
  }
 
- //pGameCamera->Rotate(&Vec3(-1, 0, 0), 0.00250f);
+ //pGameCamera->RotateX(0.01250f);
 
  while (pDxWindow->Update(0));
  pDxRoot->Execute();
