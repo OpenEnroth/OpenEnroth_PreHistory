@@ -122,6 +122,35 @@ inline Vec3 &Vec3::operator =(const Vec3 &v)
  return *this;
 }
 
+
+inline Vec3 operator +(const Vec3 &lh, const Vec3 &rh)
+{
+ return Vec3(lh.x + rh.x, lh.y + rh.y, lh.z + rh.z);
+}
+
+inline Vec3 &Vec3::operator +=(const Vec3 &v)
+{
+ x += v.x;
+ y += v.y;
+ z += v.z;
+ return *this;
+}
+
+
+inline Vec3 operator *(const Vec3 &lh, float scale)
+{
+ return Vec3(lh.x * scale, lh.y * scale, lh.z * scale);
+}
+
+inline Vec3 &Vec3::operator *=(const float scale)
+{
+ x *= scale;
+ y *= scale;
+ z *= scale;
+ return *this;
+}
+
+
 inline float &Vec3::operator [](unsigned int uCol)
 {
  return v[uCol];
@@ -150,7 +179,64 @@ inline Quaternion &Quaternion::operator =(const Quaternion &q)
  return *this;
 }
 
+inline Matrix4x4 &Quaternion::ToMatrix(Matrix4x4 *pOut) const
+{
+ (*pOut)[0][0] = 1 - 2 * (y * y + z * z);
+ (*pOut)[0][1] = 2 * (x * y + z * s);
+ (*pOut)[0][2] = 2 * (x * z - y * s);
+ (*pOut)[0][3] = 0;
 
+ (*pOut)[1][0] = 2 * (x * y - z * s);
+ (*pOut)[1][1] = 1 - 2 * (x * x + z * z);
+ (*pOut)[1][2] = 2 * (z * y + x * s);
+ (*pOut)[1][3] = 0;
+
+ (*pOut)[2][0] = 2 * (x * z + y * s);
+ (*pOut)[2][1] = 2 * (y * z - x * s);
+ (*pOut)[2][2] = 1 - 2 * (x * x + y * y);
+ (*pOut)[2][3] = 0;
+
+ (*pOut)[3][0] = 0;
+ (*pOut)[3][1] = 0;
+ (*pOut)[3][2] = 0;
+ (*pOut)[3][3] = 1;
+
+ return *pOut;
+}
+
+
+
+
+
+
+inline Matrix4x4 &Matrix4x4::Identity()
+{
+ m[0][0] = 1;    m[0][1] = 0;   m[0][2] = 0;   m[0][3] = 0;
+ m[1][0] = 0;    m[1][1] = 1;   m[1][2] = 0;   m[1][3] = 0;
+ m[2][0] = 0;    m[2][1] = 0;   m[2][2] = 1;   m[2][3] = 0;
+ m[3][0] = 0;    m[3][1] = 0;   m[3][2] = 0;   m[3][3] = 1;
+ return *this;
+}
+
+inline Matrix4x4 &Matrix4x4::RotateX(float a)
+{
+ m[0][0] = 1;    m[0][1] =  0;         m[0][2] = 0;        m[0][3] = 0;
+ m[1][0] = 0;    m[1][1] =  cosf(a);   m[1][2] = sinf(a);  m[1][3] = 0;
+ m[2][0] = 0;    m[2][1] = -sinf(a);   m[2][2] = cosf(a);  m[2][3] = 0;
+ m[3][0] = 0;    m[3][1] =  0;         m[3][2] = 0;        m[3][3] = 1;
+ return *this;
+}
+
+
+
+inline Matrix4x4 &Matrix4x4::RotateY(float a)
+{
+ m[0][0] = cosf(a);    m[0][1] = 0;   m[0][2] = -sinf(a);  m[0][3] = 0;
+ m[1][0] = 0;          m[1][1] = 1;   m[1][2] =  0;        m[1][3] = 0;
+ m[2][0] = sinf(a);    m[2][1] = 0;   m[2][2] =  cosf(a);  m[2][3] = 0;
+ m[3][0] = 0;          m[3][1] = 0;   m[3][2] =  0;        m[3][3] = 1;
+ return *this;
+}
 
 
 inline Vec4 &Matrix4x4::operator [](unsigned int uRow)
@@ -183,11 +269,11 @@ inline Matrix4x4 Matrix4x4::operator *(Matrix4x4 &rv)
 }
 
 
-inline Vec3 Matrix4x4::Transofrm(Vec3 &vVec)
+inline Vec3 Matrix4x4::Transofrm(Vec3 *vVec)
 {
- Vec4 v(vVec.x * m[0][0] + vVec.y * m[1][0] + vVec.z * m[2][0] + m[3][0],
-        vVec.x * m[0][1] + vVec.y * m[1][1] + vVec.z * m[2][1] + m[3][1],
-        vVec.x * m[0][2] + vVec.y * m[1][2] + vVec.z * m[2][2] + m[3][2],
-        vVec.x * m[0][3] + vVec.y * m[1][3] + vVec.z * m[2][3] + m[3][3]);
+ Vec4 v(vVec->x * m[0][0] + vVec->y * m[1][0] + vVec->z * m[2][0] + m[3][0],
+        vVec->x * m[0][1] + vVec->y * m[1][1] + vVec->z * m[2][1] + m[3][1],
+        vVec->x * m[0][2] + vVec->y * m[1][2] + vVec->z * m[2][2] + m[3][2],
+        vVec->x * m[0][3] + vVec->y * m[1][3] + vVec->z * m[2][3] + m[3][3]);
  return Vec3(v.x / v.w, v.y / v.w, v.z / v.w);
 }
