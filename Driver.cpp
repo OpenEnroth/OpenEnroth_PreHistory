@@ -13,6 +13,7 @@ extern "C" void Game_Initialize()
 {
  pGameCamera = new Camera;
  pGameCamera->Initialize(&Vec3(0, 0, 0), &Quaternion(1, 0, 0, 0));
+ pGameCamera->SetProjection(3.14159f * (45.0 / 360.0), 1024.0 / 768.0, 0.1, 1000.0);
 
  struct Viewport dxWindowArea =
  {
@@ -76,8 +77,10 @@ RenderOperator                 *pDxRoot = 0;
 RenderOperator_Clear           *pDxClearColorOperator = 0,
                                *pDxClearDepthOperator = 0;
 RenderOperator_DrawEnvironment *pDxDrawEnvironmentOperator = 0;
+RenderOperator_DrawTerrain     *pDxDrawTerrainOperator = 0;
 RenderOperator_Present         *pDxPresentOperator = 0;
-Texture                        *pDxEnvTexture;
+Texture                        *pDxEnvTexture,
+                               *pDxHeightmapTexture;
 
 RenderOperator         *pOglRoot = 0;
 RenderOperator_Clear   *pOglClearColorOperator = 0,
@@ -91,23 +94,35 @@ extern "C" void Game_Process_cpp()
   static bool first_run = true;
   static POINT old_pos = {0},
                new_pos = {0};
-  if (!first_run)
+  if (first_run)
   {
-   first_run = true;
+   first_run = false;
    GetCursorPos(&old_pos);
    GetCursorPos(&new_pos);
   }
-  old_pos.x = new_pos.x;
-  old_pos.y = new_pos.y;
-  GetCursorPos(&new_pos);
+  else
+  {
+   old_pos.x = new_pos.x;
+   old_pos.y = new_pos.y;
+   GetCursorPos(&new_pos);
   
-  if (old_pos.y - new_pos.y)
-    pGameCamera->Rotate(&Vec3(1, 0, 0), (old_pos.y - new_pos.y) * 0.0125f);
-  if (old_pos.x - new_pos.x)
-    pGameCamera->Rotate(&Vec3(0, 1, 0), (old_pos.x - new_pos.x) * 0.0125f);
+   if (old_pos.x - new_pos.x)
+     pGameCamera->Rotate(&Vec3(0, 1, 0), -(old_pos.x - new_pos.x) * 0.0125f);
+   if (old_pos.y - new_pos.y)
+     pGameCamera->Rotate(&Vec3(1, 0, 0), -(old_pos.y - new_pos.y) * 0.0125f);
+
+   float fMovementAmount = 7.5;
+   if (GetAsyncKeyState(VK_LSHIFT))
+     fMovementAmount *= 2.25f;
+
+   if (GetAsyncKeyState('W'))
+     pGameCamera->Move(fMovementAmount);
+   else if (GetAsyncKeyState('S'))
+     pGameCamera->Move(-fMovementAmount);
+  }
  }
 
-
+ //pGameCamera->Rotate(&Vec3(-1, 0, 0), 0.00250f);
 
  while (pDxWindow->Update(0));
  pDxRoot->Execute();
@@ -123,6 +138,7 @@ extern "C" void Game_Process_cpp()
 extern "C" void InitializeRenderOperators()
 {
  pDxRender->CreateTextureCube(L"data\\new\\cubemap-evul.dds", &pDxEnvTexture);
+ pDxRender->CreateTexture(L"data\\new\\Emerald Island.png", &pDxHeightmapTexture);
 
  Texture *pDxPrimaryColorTarget,
          *pDxPrimaryDepthTarget;
@@ -141,6 +157,9 @@ extern "C" void InitializeRenderOperators()
  pDxDrawEnvironmentOperator = pDxRender->CreateDrawEnvironmentOperator();
  pDxDrawEnvironmentOperator->Initialize(pDxRender, pDxEnvTexture, pGameCamera);
 
+ pDxDrawTerrainOperator = pDxRender->CreateDrawTerrainOperator();
+ pDxDrawTerrainOperator->Initialize(pDxRender, pDxHeightmapTexture, 256, 256, pGameCamera);
+
  pDxPresentOperator = pDxRender->CreatePresentOperator();
  pDxPresentOperator->Initialize(pDxRender);
 
@@ -150,7 +169,8 @@ extern "C" void InitializeRenderOperators()
  //pDxRoot = pDxClearColorOperator;
  //pDxRoot->pChildren = pDxClearDepthOperator;
  //pDxClearDepthOperator->pChildren = pDxDrawEnvironmentOperator;
- pDxDrawEnvironmentOperator->pChildren = pDxPresentOperator;
+ pDxDrawEnvironmentOperator->pChildren = pDxDrawTerrainOperator;
+ pDxDrawTerrainOperator->pChildren = pDxPresentOperator;
  pDxPresentOperator->pChildren = 0;
 
 

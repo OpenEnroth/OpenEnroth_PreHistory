@@ -3,6 +3,15 @@
 #include "TextureOGL.h"
 
 class RenderOGL;
+
+
+class RenderOperatorOGL_DrawTerrain: public RenderOperator_DrawTerrain
+{
+ public:
+   virtual unsigned int Initialize(Render *pRender, Texture *pHeightmap, unsigned int uResolutionX, unsigned int uResolutionZ, Camera *pObserver);
+   virtual unsigned int Execute();
+};
+
 class RenderOperatorOGL_Clear: public RenderOperator_Clear
 {
  public:

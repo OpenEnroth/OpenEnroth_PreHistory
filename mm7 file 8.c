@@ -588,7 +588,7 @@ bool __cdecl MaybeDoAutosave()
     pParty_global->sPartyPosZ = 0;
 
 
-    Camera_SetDirection(pParty_global->pCamera, 0, 0, 1);
+    //Camera_SetDirection(pParty_global->pCamera, 0, 0, 1);
     runtime_warning(deprication);
     {
      pParty_global->sRotationX = 0;

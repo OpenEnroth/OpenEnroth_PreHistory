@@ -18,6 +18,7 @@ class RenderD3D10: public Render
  friend class RenderOperatorD3D10_Clear;
  friend class RenderOperatorD3D10_Present;
  friend class RenderOperatorD3D10_DrawEnvironment;
+ friend class RenderOperatorD3D10_DrawTerrain;
 
  friend class DepthStencilStateD3D10;
  public:
@@ -38,6 +39,7 @@ class RenderD3D10: public Render
 
    virtual RenderOperator_Clear           *CreateClearOperator();
    virtual RenderOperator_Present         *CreatePresentOperator();
+   virtual RenderOperator_DrawTerrain     *CreateDrawTerrainOperator();
    virtual RenderOperator_DrawEnvironment *CreateDrawEnvironmentOperator();
 
  protected:
@@ -49,8 +51,9 @@ class RenderD3D10: public Render
    D3D10_VIEWPORT         defaultViewport;
    Window                *pTargetWindow;
    
-   TextureD3D10          *pPrimaryColorTarget;
-   TextureD3D10          *pPrimaryDepthTarget;
-   ID3D10BlendState      *pBlendState_Default;
-   ID3D10RasterizerState *pRasterizerState_Default;
+   TextureD3D10            *pPrimaryColorTarget;
+   TextureD3D10            *pPrimaryDepthTarget;
+   ID3D10BlendState        *pBlendState_Default;
+   ID3D10RasterizerState   *pRasterizerState_Default;
+   ID3D10DepthStencilState *pDepthStencilState_Default;
 };

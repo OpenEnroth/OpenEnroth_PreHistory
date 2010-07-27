@@ -21,7 +21,7 @@ Output main(Input vsin)
  Output vsout;
  vsout.vPosition = float4(vsin.vPosition, 1, 1);
 
- vsout.vTexCoord = normalize(mul(mView, float4(vsin.vPosition, 1, 1)));
+ vsout.vTexCoord = normalize(mul(mView, float4(-vsin.vPosition, 1, 1)));
 
  return vsout;
 }

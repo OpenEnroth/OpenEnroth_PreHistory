@@ -2,6 +2,15 @@
 #include "RenderOGL.h"
 
 
+unsigned int RenderOperatorOGL_DrawTerrain::Initialize(Render *pRender, Texture *pHeightmap, unsigned int uResolutionX, unsigned int uResolutionZ, Camera *pObserver)
+{
+ return -1;
+}
+
+unsigned int RenderOperatorOGL_DrawTerrain::Execute()
+{
+ return -1;
+}
 
 unsigned int RenderOperatorOGL_DrawEnvironment::Initialize(Render *pRender, Texture *pTexture, Camera *pObserver)
 {
@@ -68,3 +77,4 @@ unsigned int RenderOperatorOGL_Present::Initialize(Render *pHostRender)
 RenderOperator_Clear           *RenderOGL::CreateClearOperator()           {return new RenderOperatorOGL_Clear;}
 RenderOperator_Present         *RenderOGL::CreatePresentOperator()         {return new RenderOperatorOGL_Present;}
 RenderOperator_DrawEnvironment *RenderOGL::CreateDrawEnvironmentOperator() {return new RenderOperatorOGL_DrawEnvironment;}
+RenderOperator_DrawTerrain     *RenderOGL::CreateDrawTerrainOperator()     {return new RenderOperatorOGL_DrawTerrain;}

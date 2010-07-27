@@ -11,9 +11,11 @@ class Camera
 
     qOrientation.Identity();
 
-    vDirection = Vec3(1, 0, 0);
+    vDirection = Vec3(0, 0, 1);
     vUp = Vec3(0, 1, 0);
-    vRight = Vec3(0, 0, -1);
+    vRight = Vec3(1, 0, 0);
+
+    mOrientation.Identity();
    }
    
    unsigned int Initialize(const Vec3 *pPosition, const Quaternion *pOrientation);
@@ -22,7 +24,7 @@ class Camera
    unsigned int     GetViewOrientation(Matrix4x4 *);  // view lacking position info
    unsigned int     GetView(Matrix4x4 *);             // complete view matrix
    const Matrix4x4 *GetProjection();
-   const Matrix4x4 *GetViewProjection();
+   unsigned int     GetViewProjection(Matrix4x4 *);
 
    void        SetPosition(const Vec3 *);
    const Vec3 *GetPosition();
@@ -33,7 +35,8 @@ class Camera
    unsigned int SetOrientation(const Quaternion *);
    unsigned int GetOrientation(Quaternion *);
 
-   void        Rotate(const Vec3 *pAxis, float angle);
+   void         Move(float);
+   void         Rotate(const Vec3 *pAxis, float angle);
 
  protected:
    Vec3       vPosition;
@@ -45,6 +48,8 @@ class Camera
    Matrix4x4  mProjection;
    Matrix4x4  mView;
    Matrix4x4  mViewProjection;
+
+   Matrix4x4 mOrientation;
 };
 
 extern "C"

@@ -4,9 +4,6 @@
 
 
 
-
-
-
 unsigned int DepthStencilStateOGL::Initialize(Render *pRender, bool bZTest, bool bZWrite, DepthOperator::Op eOperator)
 {
  return -1;

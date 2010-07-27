@@ -8,6 +8,161 @@
 
 
 
+
+unsigned int RenderOperatorD3D10_DrawTerrain::Execute()
+{
+ float *pConstants;
+ pVertexConstants->Map(D3D10_MAP_WRITE_DISCARD, 0, (void **)&pConstants);
+ {
+  pCamera->GetViewProjection((Matrix4x4 *)pConstants);
+
+  pConstants[16] = 1.0f / uResolutionX;
+  pConstants[17] = 1.0f / uResolutionZ;
+  pConstants[18] = 0;
+  pConstants[19] = 0;
+ }
+ pVertexConstants->Unmap();
+
+
+ unsigned int pStrides[] = {2 * sizeof(float)},
+              pOffsets[] = {0};
+
+ pRender->pDevice->IASetInputLayout(pInputLayout);
+ pRender->pDevice->IASetVertexBuffers(0, 1, &pTerrain, pStrides, pOffsets);
+ pRender->pDevice->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+ pRender->pDevice->IASetIndexBuffer(pTerrainLOD0, DXGI_FORMAT_R16_UINT, 0);
+
+ pRender->pDevice->VSSetShader(pVertexShader);
+ pRender->pDevice->VSSetConstantBuffers(0, 1, &pVertexConstants);
+ pRender->pDevice->VSSetShaderResources(0, 1, (ID3D10ShaderResourceView **)&pHeightmap->pResourceView);
+
+ pRender->pDevice->GSSetShader(0);
+
+ pRender->pDevice->PSSetShader(pPixelShader);
+
+ pRender->pDevice->OMSetBlendState(pRender->pBlendState_Default, 0, 0xFFFFFFFF);
+
+ pRender->pDevice->OMSetDepthStencilState(pRender->pDepthStencilState_Default, 0);
+
+ pRender->pDevice->DrawIndexed((uResolutionX - 1) * (uResolutionZ - 1) * 6, 0, 0);
+
+ if (pChildren)
+   return pChildren->Execute();
+ else return 0;
+}
+
+unsigned int RenderOperatorD3D10_DrawTerrain::Initialize(Render *pHostRender, Texture *pTerrainHeightmap, unsigned int uResX, unsigned int uResZ, Camera *pObserver)
+{
+ pRender = (RenderD3D10 *)pHostRender;
+ pHeightmap = (TextureD3D10 *)pTerrainHeightmap;
+ pCamera = pObserver;
+
+ uResolutionX = uResX;
+ uResolutionZ = uResZ;
+
+
+ ID3D10Blob *pShader,
+            *pErrors;
+ D3DX10CompileFromFileW(L"data\\new\\shaders\\DrawTerrain.psh", 0, 0, "main", "ps_4_0", 0, 0, 0, &pShader, &pErrors, 0);
+ if (pErrors)
+ {
+  MessageBoxA(0, (const char *)pErrors->GetBufferPointer(), "Pixel shader error", 0);
+  ExitProcess(0);
+ }
+ pRender->pDevice->CreatePixelShader(pShader->GetBufferPointer(), pShader->GetBufferSize(), &pPixelShader);
+ pShader->Release();
+
+
+
+ D3DX10CompileFromFileW(L"data\\new\\shaders\\DrawTerrain.vsh", 0, 0, "main", "vs_4_0", 0, 0, 0, &pShader, &pErrors, 0);
+ if (pErrors)
+ {
+  MessageBoxA(0, (const char *)pErrors->GetBufferPointer(), "Vertex shader error", 0);
+  ExitProcess(0);
+ }
+ pRender->pDevice->CreateVertexShader(pShader->GetBufferPointer(), pShader->GetBufferSize(), &pVertexShader);
+
+ D3D10_BUFFER_DESC bdVertexConstants;
+ bdVertexConstants.ByteWidth = (16 + 4) * sizeof(float);
+ bdVertexConstants.Usage = D3D10_USAGE_DYNAMIC;
+ bdVertexConstants.BindFlags = D3D10_BIND_CONSTANT_BUFFER;
+ bdVertexConstants.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE;
+ bdVertexConstants.MiscFlags = 0;
+ pRender->pDevice->CreateBuffer(&bdVertexConstants, 0, &pVertexConstants);
+
+ D3D10_INPUT_ELEMENT_DESC layout[] =
+ {
+  {"SV_Position", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 0, D3D10_INPUT_PER_VERTEX_DATA, 0}
+ };
+ pRender->pDevice->CreateInputLayout(layout, 1, pShader->GetBufferPointer(), pShader->GetBufferSize(), &pInputLayout);
+ pShader->Release();
+
+
+
+ struct TerrainVertex *pTerrainVertices = new struct TerrainVertex[uResolutionX * uResolutionZ];
+ for (int z = 0; z < uResolutionZ; ++z)
+   for (int x = 0; x < uResolutionX; ++x)
+   {
+    pTerrainVertices[z * uResolutionX + x].x = (float)(x) - uResolutionX / 2;
+    //pTerrainVertices[z * uResolutionX + x].y = -25;
+    pTerrainVertices[z * uResolutionX + x].z = (float)(z) - uResolutionZ / 2;
+   }
+
+ D3D10_BUFFER_DESC bdTerrain;
+ bdTerrain.ByteWidth = uResolutionX * uResolutionZ * sizeof(struct TerrainVertex);
+ bdTerrain.Usage = D3D10_USAGE_DEFAULT;
+ bdTerrain.BindFlags = D3D10_BIND_VERTEX_BUFFER;
+ bdTerrain.CPUAccessFlags = 0;
+ bdTerrain.MiscFlags = 0;
+
+ D3D10_SUBRESOURCE_DATA srdTerrainInitializator;
+ srdTerrainInitializator.pSysMem = pTerrainVertices;
+ srdTerrainInitializator.SysMemPitch = uResolutionX * uResolutionZ * sizeof(struct TerrainVertex);
+ srdTerrainInitializator.SysMemSlicePitch = 0;
+
+ pRender->pDevice->CreateBuffer(&bdTerrain, &srdTerrainInitializator, &pTerrain);
+
+
+
+
+
+ unsigned short *pTerrainLOD0Indices = new unsigned short[(uResolutionX - 1) * (uResolutionZ - 1) * 6];
+ unsigned short *pIndexData = pTerrainLOD0Indices;
+ for (int z = 0; z < uResolutionZ - 1; ++z)
+   for (int x = 0; x < uResolutionX - 1; ++x)
+   {
+    *pIndexData++ = z * uResolutionX + x;
+    *pIndexData++ = (z + 1) * uResolutionX + x;
+    *pIndexData++ = z * uResolutionX + x + 1;
+    
+    *pIndexData++ = z * uResolutionX + x + 1;
+    *pIndexData++ = (z + 1) * uResolutionX + x;
+    *pIndexData++ = (z + 1) * uResolutionX + x + 1;
+   }
+
+ D3D10_BUFFER_DESC bdTerrainLOD0;
+ bdTerrainLOD0.ByteWidth = (uResolutionX - 1) * (uResolutionZ - 1) * 6 * sizeof(short);
+ bdTerrainLOD0.Usage = D3D10_USAGE_DEFAULT;
+ bdTerrainLOD0.BindFlags = D3D10_BIND_INDEX_BUFFER;
+ bdTerrainLOD0.CPUAccessFlags = 0;
+ bdTerrainLOD0.MiscFlags = 0;
+
+ D3D10_SUBRESOURCE_DATA srdTerrainLOD0Initializator;
+ srdTerrainLOD0Initializator.pSysMem = pTerrainLOD0Indices;
+ srdTerrainLOD0Initializator.SysMemPitch = (uResolutionX - 1) * (uResolutionZ - 1) * 6 * sizeof(short);
+ srdTerrainLOD0Initializator.SysMemSlicePitch = 0;
+
+ pRender->pDevice->CreateBuffer(&bdTerrainLOD0, &srdTerrainLOD0Initializator, &pTerrainLOD0);
+
+ delete [] pTerrainVertices;
+ delete [] pTerrainLOD0Indices;
+ return 0;
+}
+
+
+
+
+
 unsigned int RenderOperatorD3D10_DrawEnvironment::Initialize(Render *pHostRender, Texture *pTargetTexture, Camera *pObserver)
 {
  pRender = (RenderD3D10 *)pHostRender;
@@ -107,31 +262,6 @@ unsigned int RenderOperatorD3D10_DrawEnvironment::Execute()
  pVertexShaderConstants->Map(D3D10_MAP_WRITE_DISCARD, 0, (void **)&pNewView);
  {
   pCamera->GetViewOrientation(pNewView);
-  /*Matrix4x4 rx;
-  rx.RotateX(0.25f * 3.14159 * (GetTickCount() % 1000) / 1000.0f);
-  pNewView->RotateY(3.14159 * (GetTickCount() % 1000) / 1000.0f);
-
-  (*pNewView) = *pNewView * rx;*/
-
-    //pNewView->RotateY(3.14159 * (GetTickCount() % 1000) / 1000.0f);
-
-  //pNewView->RotateY(3.1415f / 8);
-  DWORD w;
-  char str[256];
-  wsprintfA(str, "draw env: angle == 0.%04uï (%u)\n", GetTickCount() % 1000, (int)(3.14159 * (GetTickCount() % 1000)));
-  WriteConsole(GetStdHandle(STD_OUTPUT_HANDLE), str, strlen(str), &w, 0);
-  /*
-  memset(pNewView, 0, 16 * 4);
-  (*pNewView)[0][0] = 1;
-  (*pNewView)[1][1] = 1;
-  (*pNewView)[2][2] = 1;
-  (*pNewView)[3][3] = 1;
-
-  (*pNewView)[0][0] = cosf(2 * 3.14159 * (GetTickCount() % 2500) / 2500.0f);
-  (*pNewView)[2][0] = sinf(2 * 3.14159 * (GetTickCount() % 2500) / 2500.0f);
-
-  (*pNewView)[2][0] = -sinf(2 * 3.14159 * (GetTickCount() % 2500) / 2500.0f);
-  (*pNewView)[2][2] = cosf(2 * 3.14159 * (GetTickCount() % 2500) / 2500.0f);*/
  }
  pVertexShaderConstants->Unmap();
 
@@ -152,7 +282,7 @@ unsigned int RenderOperatorD3D10_DrawEnvironment::Execute()
  pRender->pDevice->PSSetShaderResources(0, 1, (ID3D10ShaderResourceView **)&pEnvTexture->pResourceView);
  pRender->pDevice->PSSetSamplers(0, 1, &pPixelShaderSampler0);
 
- pRender->pDevice->OMSetBlendState(pRender->pBlendState_Default, 0, 0xFFFFFF);
+ pRender->pDevice->OMSetBlendState(pRender->pBlendState_Default, 0, 0xFFFFFFFF);
 
  pRender->pDevice->OMSetDepthStencilState(pDepthState_ScreenQuadClearingZ->pState, 0);
 
@@ -210,3 +340,4 @@ unsigned int RenderOperatorD3D10_Present::Initialize(Render *pHostRender)
 RenderOperator_Clear           *RenderD3D10::CreateClearOperator()           {return new RenderOperatorD3D10_Clear;}
 RenderOperator_Present         *RenderD3D10::CreatePresentOperator()         {return new RenderOperatorD3D10_Present;}
 RenderOperator_DrawEnvironment *RenderD3D10::CreateDrawEnvironmentOperator() {return new RenderOperatorD3D10_DrawEnvironment;}
+RenderOperator_DrawTerrain     *RenderD3D10::CreateDrawTerrainOperator()     {return new RenderOperatorD3D10_DrawTerrain;}

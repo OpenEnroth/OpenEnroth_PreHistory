@@ -31,6 +31,7 @@ class RenderOGL: public Render
 
    virtual RenderOperator_Clear           *CreateClearOperator();
    virtual RenderOperator_Present         *CreatePresentOperator();
+   virtual RenderOperator_DrawTerrain     *CreateDrawTerrainOperator();
    virtual RenderOperator_DrawEnvironment *CreateDrawEnvironmentOperator();
 
  protected:

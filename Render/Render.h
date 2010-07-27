@@ -42,6 +42,7 @@ class Render
 
    virtual RenderOperator_Clear           *CreateClearOperator() = 0;
    virtual RenderOperator_DrawEnvironment *CreateDrawEnvironmentOperator() = 0;
+   virtual RenderOperator_DrawTerrain     *CreateDrawTerrainOperator() = 0;
    virtual RenderOperator_Present         *CreatePresentOperator() = 0;
 };
 

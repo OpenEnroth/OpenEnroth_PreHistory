@@ -110,9 +110,33 @@ unsigned int RenderD3D10::CreateTexture(unsigned int uWidth, unsigned int uDepth
  return -1;
 }
 
-unsigned int RenderD3D10::CreateTexture(const wchar_t *pName, Texture **)
+unsigned int RenderD3D10::CreateTexture(const wchar_t *pTextureName, Texture **pOut)
 {
- return -1;
+ if (!pOut)
+   return -1;
+
+ ID3D10Texture2D *pTexture2D;
+ D3DX10CreateTextureFromFileW(pDevice, pTextureName, 0, 0, (ID3D10Resource **)&pTexture2D, 0);
+
+ D3D10_TEXTURE2D_DESC texDesc;
+ pTexture2D->GetDesc(&texDesc);
+
+ D3D10_SHADER_RESOURCE_VIEW_DESC srvDesc;
+ srvDesc.Format = texDesc.Format;
+ srvDesc.ViewDimension = D3D10_SRV_DIMENSION_TEXTURE2D;
+ srvDesc.TextureCube.MipLevels = 1;
+ srvDesc.TextureCube.MostDetailedMip = 0;
+
+ ID3D10ShaderResourceView *pView;
+ pDevice->CreateShaderResourceView(pTexture2D, &srvDesc, &pView);
+
+ TextureD3D10 *pNewTexture = new TextureD3D10;
+ pNewTexture->eFormat = TF_undefined;
+ pNewTexture->pResource = pTexture2D;
+ pNewTexture->pResourceView = pView;
+
+ *pOut = pNewTexture;
+ return 0;
 }
 
 
@@ -236,6 +260,15 @@ unsigned int RenderD3D10::Reset(Window *pOutputWindow, bool bFullscreen, struct 
  defaultViewport.MinDepth = 0.0f;
  defaultViewport.MaxDepth = 1.0f;
  pDevice->RSSetViewports(1, &defaultViewport);
+
+
+ D3D10_DEPTH_STENCIL_DESC depthStateDesc;
+ depthStateDesc.DepthEnable = true;
+ depthStateDesc.DepthWriteMask = D3D10_DEPTH_WRITE_MASK_ALL;
+ depthStateDesc.DepthFunc = D3D10_COMPARISON_LESS_EQUAL;
+ depthStateDesc.StencilEnable = false;
+ pDevice->CreateDepthStencilState(&depthStateDesc, &pDepthStencilState_Default);
+
 
 
  float pClearColor[] = {0, 0, 0, 0};
