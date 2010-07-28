@@ -11609,7 +11609,7 @@ int __cdecl sub_4BBA85()
   {
     if ( v0 < HIDWORD(pParty_global->qword_00002C) || pParty_global->array_00003C[2 * v1] < (_DWORD)pParty_global->qword_00002C )
     {
-      word_ACD712[v1] = 0;
+      pParty_global->array_00075A[v1] = 0;
       v3 = (signed __int64)((double)(309657600
                                    * ((unsigned int)pParty_global->uCurrentMonth + 12i64 * (unsigned int)pParty_global->uCurrentYear - 14015))
                           * 0.03333333507180214);
@@ -11618,7 +11618,8 @@ int __cdecl sub_4BBA85()
       for ( i = rand(); ; i = rand() )
       {
         v4 = i % 258 + 1;
-        word_ACD708[v1] = v4;
+        pParty_global->array_000750[v1] = v4;
+
         if ( (_WORD)v4 < 0x73u || (_WORD)v4 > 0x84u )
         {
           if ( ((_WORD)v4 < 0xEBu || (_WORD)v4 > 0xFCu)
@@ -11631,9 +11632,9 @@ int __cdecl sub_4BBA85()
     }
   }
   v6 = 2 * v1;
-  v5 = *(__int16 *)((char *)word_ACD708 + v6);
-  v7 = *(__int16 *)((char *)word_ACD712 + v6) == 0;
-  word_F8B1A0 = *(__int16 *)((char *)word_ACD708 + v6);
+  v5 = *(__int16 *)((char *)pParty_global->array_000750 + v6);
+  v7 = *(__int16 *)((char *)pParty_global->array_00075A + v6) == 0;
+  word_F8B1A0 = *(__int16 *)((char *)pParty_global->array_000750 + v6);
   if ( v7 )
   {
     v10 = v5 == 0;
@@ -11650,9 +11651,9 @@ int __cdecl sub_4BBA85()
       for (i = 0; i < 4; ++i)
         sub_44A5CB(&pParty_global->pPlayers[i], 12, 86);
 
-      pParty_global->dword_000748 += 100 * pMonsterStats->pMonsterInfos[*(unsigned __int16 *)((char *)word_ACD708 + v6)].uLevel;
-      *(__int16 *)((char *)word_ACD708 + v6) = 0;
-      *(__int16 *)((char *)word_ACD712 + v6) = 0;
+      pParty_global->dword_000748 += 100 * pMonsterStats->pMonsterInfos[*(unsigned __int16 *)((char *)pParty_global->array_000750 + v6)].uLevel;
+      *(__int16 *)((char *)pParty_global->array_000750 + v6) = 0;
+      *(__int16 *)((char *)pParty_global->array_00075A + v6) = 0;
     }
     result = dword_72216C;
   }
@@ -12608,7 +12609,7 @@ LABEL_15:
           {
             v18 = 2 * v15;
             v17 = 0;
-            *(__int16 *)((char *)word_ACD712 + v18) = 0;
+            *(__int16 *)((char *)pParty_global->array_00075A + v18) = 0;
             *(_QWORD *)v14 = (signed __int64)((double)(309657600
                                                      * ((unsigned int)pParty_global->uCurrentMonth
                                                       + 12i64 * (unsigned int)pParty_global->uCurrentYear
@@ -12616,7 +12617,7 @@ LABEL_15:
                                             * 0.03333333507180214);
             v19 = rand() % 258;
             v20 = dword_507BC0;
-            *(__int16 *)((char *)word_ACD708 + v18) = v19 + 1;
+            *(__int16 *)((char *)pParty_global->array_000750 + v18) = v19 + 1;
             v16 = *(_DWORD *)(v20 + 28) - 102;
             if ( v16 )
             {
@@ -12633,7 +12634,7 @@ LABEL_15:
                     {
                       while ( 1 )
                       {
-                        v24 = *(__int16 *)((char *)word_ACD708 + v18);
+                        v24 = *(__int16 *)((char *)pParty_global->array_000750 + v18);
                         if ( v24 < 0x73u || v24 > 0x84u )
                         {
                           if ( (v24 < 0xE8u || v24 > 0xF9u)
@@ -12656,7 +12657,7 @@ LABEL_15:
                             && (v24 < 0x10u || v24 > 0x12u) )
                             break;
                         }
-                        *(__int16 *)((char *)word_ACD708 + v18) = rand() % 258 + 1;
+                        *(__int16 *)((char *)pParty_global->array_000750 + v18) = rand() % 258 + 1;
                       }
                     }
                   }
@@ -12664,7 +12665,7 @@ LABEL_15:
                   {
                     while ( 1 )
                     {
-                      v25 = *(__int16 *)((char *)word_ACD708 + v18);
+                      v25 = *(__int16 *)((char *)pParty_global->array_000750 + v18);
                       if ( v25 < 0x73u || v25 > 0x84u )
                       {
                         if ( (v25 < 0xE8u || v25 > 0xF9u)
@@ -12683,7 +12684,7 @@ LABEL_15:
                           && (v25 < 0x6Au || v25 > 0x6Cu) )
                           break;
                       }
-                      *(__int16 *)((char *)word_ACD708 + v18) = rand() % 258 + 1;
+                      *(__int16 *)((char *)pParty_global->array_000750 + v18) = rand() % 258 + 1;
                     }
                   }
                 }
@@ -12691,7 +12692,7 @@ LABEL_15:
                 {
                   while ( 1 )
                   {
-                    v26 = *(__int16 *)((char *)word_ACD708 + v18);
+                    v26 = *(__int16 *)((char *)pParty_global->array_000750 + v18);
                     if ( v26 < 0x73u || v26 > 0x84u )
                     {
                       if ( (v26 < 0xE8u || v26 > 0xF9u)
@@ -12707,7 +12708,7 @@ LABEL_15:
                         && (v26 < 0x1Cu || v26 > 0x1Eu) )
                         break;
                     }
-                    *(__int16 *)((char *)word_ACD708 + v18) = rand() % 258 + 1;
+                    *(__int16 *)((char *)pParty_global->array_000750 + v18) = rand() % 258 + 1;
                   }
                 }
               }
@@ -12715,7 +12716,7 @@ LABEL_15:
               {
                 while ( 1 )
                 {
-                  v27 = *(__int16 *)((char *)word_ACD708 + v18);
+                  v27 = *(__int16 *)((char *)pParty_global->array_000750 + v18);
                   if ( v27 < 0x73u || v27 > 0x84u )
                   {
                     if ( (v27 < 0xE8u || v27 > 0xF9u)
@@ -12734,7 +12735,7 @@ LABEL_15:
                       && (v27 < 0xCDu || v27 > 0xCFu) )
                       break;
                   }
-                  *(__int16 *)((char *)word_ACD708 + v18) = rand() % 258 + 1;
+                  *(__int16 *)((char *)pParty_global->array_000750 + v18) = rand() % 258 + 1;
                 }
               }
             }
@@ -12742,7 +12743,7 @@ LABEL_15:
             {
               while ( 1 )
               {
-                v28 = *(__int16 *)((char *)word_ACD708 + v18);
+                v28 = *(__int16 *)((char *)pParty_global->array_000750 + v18);
                 if ( v28 < 0x73u || v28 > 0x84u )
                 {
                   if ( (v28 < 0xEBu || v28 > 0xFCu)
@@ -12758,15 +12759,15 @@ LABEL_15:
                     && (v28 < 0x61u || v28 > 0x63u) )
                     break;
                 }
-                *(__int16 *)((char *)word_ACD708 + v18) = rand() % 258 + 1;
+                *(__int16 *)((char *)pParty_global->array_000750 + v18) = rand() % 258 + 1;
               }
             }
             v15 = v62;
           }
           v30 = 2 * v15;
-          v29 = *(__int16 *)((char *)word_ACD708 + v30);
-          v31 = *(__int16 *)((char *)word_ACD712 + v30) == v17;
-          word_F8B1A0 = *(__int16 *)((char *)word_ACD708 + v30);
+          v29 = *(__int16 *)((char *)pParty_global->array_000750 + v30);
+          v31 = *(__int16 *)((char *)pParty_global->array_00075A + v30) == v17;
+          word_F8B1A0 = *(__int16 *)((char *)pParty_global->array_000750 + v30);
           if ( v31 )
           {
             v3 = 0;
@@ -12785,9 +12786,9 @@ LABEL_15:
               for (i = 0; i < 4; ++i)
                 sub_44A5CB(&pParty_global->pPlayers[i], 12, 86);
 
-              pParty_global->dword_000748 += 100 * pMonsterStats->pMonsterInfos[*(unsigned __int16 *)((char *)word_ACD708 + v30)].uLevel;
-              *(__int16 *)((char *)word_ACD708 + v30) = v17;
-              *(__int16 *)((char *)word_ACD712 + v30) = v17;
+              pParty_global->dword_000748 += 100 * pMonsterStats->pMonsterInfos[*(unsigned __int16 *)((char *)pParty_global->array_000750 + v30)].uLevel;
+              *(__int16 *)((char *)pParty_global->array_000750 + v30) = v17;
+              *(__int16 *)((char *)pParty_global->array_00075A + v30) = v17;
             }
             v3 = 0;
             dword_F8B1A4 = dword_72216C;

@@ -75,6 +75,8 @@ struct Party
  int           dword_000740;
  int           dword_000744;
  int           dword_000748;
+ short         array_000750[5];
+ short         array_00075A[5];
 
  char unk_000765[0x100];
 

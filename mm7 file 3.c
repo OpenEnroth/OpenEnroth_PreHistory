@@ -714,7 +714,7 @@ LABEL_69:
         }
       }
     }
-    sub_402D6E(v64);
+    Actor_sub_402D6E(v64);
     sub_438CF3(v64);
     sub_43AC45(v64, 1);
     if ( *(_DWORD *)(v8 + 116) )
@@ -1246,7 +1246,7 @@ LABEL_133:
                       }
                     }
                   }
-                  sub_402D6E(v76);
+                  Actor_sub_402D6E(v76);
                   sub_438CF3(v76);
                   sub_43AC45(v76, 1);
                   if ( *(_DWORD *)(v44 + 116) )
@@ -1442,7 +1442,7 @@ LABEL_43:
                         }
                       }
                     }
-                    sub_402D6E(v76);
+                    Actor_sub_402D6E(v76);
                     sub_438CF3(v76);
                     sub_43AC45(v76, 1);
                     if ( *(_DWORD *)(v7 + 116) )
@@ -1905,7 +1905,7 @@ __int16 __fastcall sub_43B057(int a1, int a2, int a3)
           if ( *(_WORD *)(v4 + 40) > 0 )
             sub_4030AD(v9, v10, 0);
           else
-            sub_402D6E(v9);
+            Actor_sub_402D6E(v9);
           v11 = 20 * v6 / *(_DWORD *)(v4 + 108);
           if ( 20 * v6 / *(_DWORD *)(v4 + 108) > 10 )
             v11 = 10;
@@ -2027,7 +2027,7 @@ LABEL_30:
           if ( *(_WORD *)(v8 + 40) > 0 )
             sub_4030AD(v16, v17, 0);
           else
-            sub_402D6E(v16);
+            Actor_sub_402D6E(v16);
           sub_43AC45(v16, 0);
           v18 = 20 * v14 / *(_DWORD *)(v8 + 108);
           if ( 20 * v14 / *(_DWORD *)(v8 + 108) > 10 )
@@ -9231,7 +9231,7 @@ const void *__fastcall sub_448CF4(__int16 a1, __int16 a2, signed int a3, int a4,
   {
     v11 = uNumActors;
     sub_44F57C_MaybeCreateRandomMonster((int)&pMapStats->pMapInfos[(_DWORD)result], (int)&v17, 0, a3, 0);
-    result = Actor_sub_4040E9(8 * v11 | 3, 4, &v14, 1);
+    result = GetDirectionInfo(8 * v11 | 3, 4, &v14, 1);
     memcpy(&v15, result, 0x1Cu);
     v12 = v11;
     if ( v11 < (signed int)uNumActors )

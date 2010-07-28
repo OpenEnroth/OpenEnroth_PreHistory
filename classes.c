@@ -4354,6 +4354,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
                 if ( v21 >= v113 )
                   break;
               }
+
               v23 = *(_BYTE *)(v21 + v2 + 1);
               v22 = (const char *)(v21 + v2 + 2);
               pMonsterInfo->byte_00000C = v23 - 48;

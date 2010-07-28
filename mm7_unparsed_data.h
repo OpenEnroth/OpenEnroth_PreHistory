@@ -2316,8 +2316,8 @@ extern struct Party *pParty_global; // struct @ MM7.exe::00ACCFB8
 //int dword_ACD6F4; // 00073C
 //int dword_ACD6FC; // 000744
 //int dword_ACD700; // 000748
-extern __int16 word_ACD708[array_size_unknown]; // weak
-extern __int16 word_ACD712[array_size_unknown]; // weak
+//extern __int16 word_ACD708[array_size_unknown]; // 000750
+//extern __int16 word_ACD712[array_size_unknown]; // 00075A
 extern char byte_ACD719[array_size_unknown]; // weak
 extern char byte_ACD71C; // weak
 extern char byte_ACD71D[array_size_unknown]; // weak

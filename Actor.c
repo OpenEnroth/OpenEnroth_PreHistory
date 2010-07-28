@@ -26,7 +26,7 @@ bool Actor_sub_40894B(struct Actor *_this)
 //----- (00408768) --------------------------------------------------------
 char __cdecl sub_408768()
 {
-  __int16 v1; // ax@7
+  char v1;
   signed int v5; // [sp+Ch] [bp-10h]@1
   signed int v6; // [sp+10h] [bp-Ch]@1
   signed int v7; // [sp+14h] [bp-8h]@1
@@ -44,9 +44,8 @@ char __cdecl sub_408768()
   if ( !_strcmpi(Str1, "d26.blv") )
     v6 = 1;
   if ( (unsigned __int16)sub_449B57((int)byte_ACD71D, 99) )
-    v7 = 1;
-  v1 = sub_449B57((int)byte_ACD71D, 100);
-  if ( v1 )
+    v7 = 1;  
+  if ( sub_449B57((int)byte_ACD71D, 100) )
     v5 = 1;
 
   for (i = 0; i < uNumActors; ++i)
@@ -65,40 +64,38 @@ char __cdecl sub_408768()
 
     pActor->byte_00002A[19] = 0;
 
-    LOBYTE(v1) = 0;
+    v1 = 0;
     if ( !v8 || v7 )
     {
       if ( !v6 || v5 )
       {
-        LOBYTE(v1) = sub_438B9B(pActor);
-        if ( (_BYTE)v1 )
+        v1 = sub_438B9B(pActor);
+        if ( v1 )
           pActor->dword_000024 &= 0xFFF7FFFF;
       }
     }
     pActor->dword_000024 &= 0xFF7FFFFF;
     if (pActor->dword_000024 & 0x400000 )
-      LOBYTE(v1) = sub_4031C1(i, pParty_global->uCurrentHour, 1);
+      v1 = sub_4031C1(i, pParty_global->uCurrentHour, 1);
   }
   return v1;
 }
 
 
 //----- (00403EB6) --------------------------------------------------------
-void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, struct Actor_struct1 *pStruc1)
+void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, struct DirectionInfo *pDirectionInfo)
 {
-  struct Actor_struct1 v9;  // [sp+Ch] [bp-38h]@2
-  struct Actor_struct1 v10; // [sp+28h] [bp-1Ch]@2
+  struct DirectionInfo v9;
   struct Actor *pActor;
 
   pActor = &pActors[uActorID];
-  if ( !pStruc1 )
+  if ( !pDirectionInfo )
   {
-    struct Actor_struct1* p = Actor_sub_4040E9(8 * uActorID | 3, a2, &v9, 0);
-    memcpy(&v10, p, sizeof(struct Actor_struct1));    
-    pStruc1 = &v10;
+    GetDirectionInfo(8 * uActorID | 3, a2, &v9, 0);    
+    pDirectionInfo = &v9;
   }
     
-  pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);
+  pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);
 
   if ( a3 == 0 )
     pActor->word_0000A0 = rand() % 256 + 256;
@@ -116,7 +113,20 @@ void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, struct Actor
 
 
 //----- (004040E9) --------------------------------------------------------
-void *__fastcall Actor_sub_4040E9(signed int a1, signed int a2, struct Actor_struct1 *pStruc1, signed int a4)
+
+// Get direction vector from object1 to object2,
+// distance from object1 to object2 and Euler angles of the direction vector
+//
+//
+// object1 & object2 format :  objectType | (objectID << 3)
+//    objectType == 3 - Actor
+//    objectType == 4 - Party
+//
+// originally this function had following prototype:
+// struct DirectionInfo GetDirectionInfo(signed int object1, signed int object2, signed int a4)
+// but compiler converts functions returning structures by value in the such way
+
+struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, struct DirectionInfo *pDirectionInfo, signed int a4)
 {
   int type1;
   int type2;  
@@ -135,10 +145,10 @@ void *__fastcall Actor_sub_4040E9(signed int a1, signed int a2, struct Actor_str
   double deltaZ;
   double distance;
 
-  struct Actor_struct1 struc1;
+  struct DirectionInfo direction;
 
-  idx1 = a1 >> 3;
-  type1 = (a1 & 7);
+  idx1 = object1 >> 3;
+  type1 = (object1 & 7);
 
   if ( type1 == 2 )
   {    
@@ -219,8 +229,8 @@ void *__fastcall Actor_sub_4040E9(signed int a1, signed int a2, struct Actor_str
     x0 = 0;
   }
     
-  type2 = a2 >> 3;
-  idx2 = a2 / 8;
+  type2 = object2 >> 3;
+  idx2 = object2 / 8;
 
   if ( type2 == 2 )
   {
@@ -272,27 +282,27 @@ void *__fastcall Actor_sub_4040E9(signed int a1, signed int a2, struct Actor_str
 
   if (distance <= 1.0)
   {
-    struc1.uVecX = 65536;
-    struc1.uVecY = 0;
-    struc1.uVecZ = 0;
-    struc1.uDistance = 1;
-    struc1.uDistanceXY = 1;
-    struc1.uYawAngle = 0;
-    struc1.uPitchAngle = 0;
+    direction.sVecX = 65536;
+    direction.sVecY = 0;
+    direction.sVecZ = 0;
+    direction.uDistance = 1;
+    direction.uDistanceXY = 1;
+    direction.uYawAngle = 0;
+    direction.uPitchAngle = 0;
   }
   else
   {
-    struc1.uVecX = (int)(1.0 / distance * deltaX * 65536.0);
-    struc1.uVecY = (int)(1.0 / distance * deltaY * 65536.0);
-    struc1.uVecZ = (int)(1.0 / distance * deltaZ * 65536.0);
-    struc1.uDistance = (unsigned int)distance;
-    struc1.uDistanceXY = (unsigned int)sqrt(deltaX * deltaX + deltaY * deltaY);
-    struc1.uYawAngle = class59_Atan2(pClass59_global, (int)deltaX, (int)deltaY);
-    struc1.uPitchAngle = class59_Atan2(pClass59_global, struc1.uDistanceXY, (int)deltaZ);
+    direction.sVecX = (int)(1.0 / distance * deltaX * 65536.0);
+    direction.sVecY = (int)(1.0 / distance * deltaY * 65536.0);
+    direction.sVecZ = (int)(1.0 / distance * deltaZ * 65536.0);
+    direction.uDistance = (unsigned int)distance;
+    direction.uDistanceXY = (unsigned int)sqrt(deltaX * deltaX + deltaY * deltaY);
+    direction.uYawAngle = class59_Atan2(pClass59_global, (int)deltaX, (int)deltaY);
+    direction.uPitchAngle = class59_Atan2(pClass59_global, direction.uDistanceXY, (int)deltaZ);
   }
 
-  memcpy(pStruc1, &struc1, sizeof(struct Actor_struct1));
-  return pStruc1;
+  memcpy(pDirectionInfo, &direction, sizeof(struct DirectionInfo));
+  return pDirectionInfo;
 }
 
 //----- (0045976D) --------------------------------------------------------
@@ -354,39 +364,40 @@ int Actor_sub_45976D(struct Actor *_this)
 //----- (0045959A) --------------------------------------------------------
 void Actor_LinkSprites(struct Actor *_this, char a2)
 {
- int i;
+  int i;
 
- struct MonsterDescription *pActorDescription;
- struct MonsterInfo        *pActorInfo;
+  struct MonsterDescription *pActorDescription;
+  struct MonsterInfo        *pActorInfo;
 
- pActorDescription = &pMonsterDescriptionList->pDescriptions[_this->uMonsterID - 1];
- pActorInfo = &pMonsterStats->pMonsterInfos[_this->uMonsterID - 1];
+  pActorDescription = &pMonsterDescriptionList->pDescriptions[_this->uMonsterID - 1];
+  pActorInfo = &pMonsterStats->pMonsterInfos[_this->uMonsterID - 1];
 
- for (i = 0; i < 8; ++i)
- {
-  _this->pSpriteIDs[i] = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, pActorDescription->pSpriteNames[i]);
-  CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pSpriteIDs[i]);
- }
- 
- _this->word_000088 = pActorDescription->word_000002;
- _this->uActorHeight = pActorDescription->uMonsterHeight;
- _this->uSpeed = pActorInfo->uSpeed;
- if (~a2 & 1)
-   for (i = 0; i < 4; ++i)
-     _this->array_0000CC[i] = pActorDescription->arrray_00000C[i];
+  for (i = 0; i < 8; ++i)
+  {
+    _this->pSpriteIDs[i] = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, pActorDescription->pSpriteNames[i]);
+    CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pSpriteIDs[i]);
+  }
+
+  _this->word_000088 = pActorDescription->word_000002;
+  _this->uActorHeight = pActorDescription->uMonsterHeight;
+  _this->uSpeed = pActorInfo->uSpeed;
+  if (~a2 & 1)
+  {
+    for (i = 0; i < 4; ++i)
+      _this->array_0000CC[i] = pActorDescription->arrray_00000C[i];
+  }
 }
 
 //----- (0040104C) --------------------------------------------------------
 signed int Actor_sub_40104C(struct Actor *pActor1, struct Actor *pActor2)
 {  
-  int v3; // ebp@5
-  int v4; // edi@11
-  int v7; // ebp@19
-  int v8; // eax@22
+  int v3;
+  int v4;
+  int v7;
+  int v8;
     
   if (pActor1)
-  {
-    //if ( *(_DWORD *)((char *)pActor1 + 360) >= 0 && (*(_DWORD *)((char *)pActor1 + 360) > 0 || *(_DWORD *)((char *)pActor1 + 356) > 0))
+  {   
     if ( pActor1->array_0000D4[9].qword_000000 > 0i64)
     {
       return 4;
@@ -398,8 +409,7 @@ signed int Actor_sub_40104C(struct Actor *pActor1, struct Actor *pActor2)
     v3 = 0;
  
   if (pActor2)
-  {
-    //if ( *(_DWORD *)((char *)pActor2 + 360) >= 0 && (*(_DWORD *)((char *)pActor2 + 360) > 0 || *(_DWORD *)((char *)pActor2 + 356) > 0))        
+  {    
     if ( pActor2->array_0000D4[9].qword_000000 > 0i64)
     {
       return 4;
@@ -422,12 +432,12 @@ signed int Actor_sub_40104C(struct Actor *pActor1, struct Actor *pActor2)
   }
 
   if ( v3 )
-    v7 = (v3 - 1) / 3 + 1;
+    v7 = (v3 - 1) / 3 + 1; //are -1 and +1 needed? 
   else
     v7 = 0;
 
   if ( v4 )
-    v8 = (v4 - 1) / 3 + 1;
+    v8 = (v4 - 1) / 3 + 1; //are -1 and +1 needed? 
   else
     v8 = 0;
 
@@ -442,7 +452,6 @@ signed int Actor_sub_40104C(struct Actor *pActor1, struct Actor *pActor2)
       v7 = 0;
     }
     
-    //if ( *(_QWORD *)((char *)pActor1 + 404) > 0i64 )
     if ( pActor1->array_0000D4[12].qword_000000 > 0i64 )
       v7 = 0;
   }
@@ -458,26 +467,22 @@ signed int Actor_sub_40104C(struct Actor *pActor1, struct Actor *pActor2)
       v8 = 0;
     }
     
-    //if ( *(_QWORD *)(v2 + 404) > 0i64 )
     if ( pActor2->array_0000D4[12].qword_000000 > 0i64 )
       v8 = 0;
   }
     
-  //if (pActor1 && *(_QWORD *)((char *)pActor1 + 228) > 0i64 && !v8 || v2 && *(_QWORD *)(v2 + 228) > 0i64 && !v7 )
   if ( (pActor1 && (pActor1->array_0000D4[1].qword_000000 > 0i64) && !v8) || 
        (pActor2 && (pActor2->array_0000D4[1].qword_000000 > 0i64) && !v7) )
   {
     return 0;
   }
 
-  //if (pActor1 && *(_QWORD *)((char *)pActor1 + 404) <= 0i64 && *(_DWORD *)((char *)pActor1 + 36) & 0x80000 && !v8 )
   if ( pActor1 && (pActor1->array_0000D4[12].qword_000000 <= 0i64) && 
        (pActor1->dword_000024 & 0x80000) && !v8 )
   {
     return 4;
   }
 
-  //if ( v2 && pActor1 && *(_QWORD *)((char *)pActor1 + 404) <= 0i64 && *(_DWORD *)(v2 + 36) & 0x80000 )
   if ( pActor2 && pActor1 && (pActor1->array_0000D4[12].qword_000000 <= 0i64) && 
        (pActor2->dword_000024 & 0x80000))  
   {
@@ -494,7 +499,6 @@ signed int Actor_sub_40104C(struct Actor *pActor1, struct Actor *pActor2)
 
   if ( !v7 )
   {
-    //if ( (!v2 || *(_QWORD *)(v2 + 404) > 0i64 || !(*(_DWORD *)(v2 + 36) & 0x80000)) && !pClass48->array_000000[v8][0] )
     if ( (!pActor2 || pActor2->array_0000D4[12].qword_000000 > 0i64 || !(pActor2->dword_000024 & 0x80000)) && 
           !pClass48->array_000000[v8][0] )
     {
@@ -511,23 +515,22 @@ signed int Actor_sub_40104C(struct Actor *pActor1, struct Actor *pActor2)
 
 
 //----- (00403C6C) --------------------------------------------------------
-void Actor_sub_403C6C(unsigned int uActorID, int a2, struct Actor_struct1 *pStruc1)
+void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDirectionInfo)
 {
   struct Actor *pActor;
-  struct Actor_struct1 v18;
-  struct Actor_struct1 v19;
+  struct DirectionInfo v18;
   
-  int v6; // edi@6
-  int v7; // esi@6       
-  int v14; // qax@13
-  short v16; // ax@13  
-  int v22; // [sp+4Ch] [bp-8h]@6  
+  int v6;
+  int v7; 
+  int v14; 
+  short v16;
+  int v22;
     
   pActor = &pActors[uActorID];
 
   if ( (pActor->byte_00002A[17] == 5) && (pActor->byte_00002A[18] == 1) )
   {
-    Actor_sub_403EB6(uActorID, a2, 0, pStruc1);
+    Actor_sub_403EB6(uActorID, a2, 0, pDirectionInfo);
     return;
   }
  
@@ -549,31 +552,30 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct Actor_struct1 *pStru
     else
     {
       //WTF? something illogical happens here
-      v7 = (int)pStruc1; 
-      v6 = (int)pStruc1;
+      v7 = (int)pDirectionInfo; 
+      v6 = (int)pDirectionInfo;
     }
   }
     
   if ( sub_407A1C(v7, v6, v22, pActor->sActorPosX, pActor->sActorPosY, 
                  (int)((double)pActor->uActorHeight * 0.75 + (double)pActor->sActorPosZ)) )
   {
-    if ( !pStruc1 )
+    if ( !pDirectionInfo )
     { 
-      struct Actor_struct1* p = Actor_sub_4040E9(8 * uActorID | 3, a2, &v18, 0);
-      memcpy(&v19, p, sizeof(struct Actor_struct1));
-      pStruc1 = &v19;
+      GetDirectionInfo(8 * uActorID | 3, a2, &v18, 0);      
+      pDirectionInfo = &v18;
     }
     
     //v15 = pSpriteFrameTable->pSpriteSFrames;
     //v16 = *(_WORD *)(60 * *(_WORD *)(v3 + 192) + v15 + 56);
     v16 = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[2]].word_000038;
 
-    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);
+    pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);
     pActor->word_0000A0 = 8 * v16;
     pActor->dword_0000B8 = 0;
     pActor->word_0000B0 = 2;
 
-    sub_402CED(uActorID, 0);
+    Actor_sub_402CED(uActorID, 0);
 
     v14 = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].dword_000050;
     if ( pActor->array_0000D4[7].qword_000000 > 0i64 )
@@ -592,29 +594,27 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct Actor_struct1 *pStru
   }
   else
   {
-    Actor_sub_402AD7(uActorID, a2, rand() % 2, 64, pStruc1);
+    Actor_sub_402AD7(uActorID, a2, rand() % 2, 64, pDirectionInfo);
   }
 }
 
 //----- (00402F87) --------------------------------------------------------
-void Actor_sub_402F87(unsigned int uActorID, signed int a2, struct Actor_struct1* pStruc1)
+void Actor_sub_402F87(unsigned int uActorID, signed int a2, struct DirectionInfo* pDirectionInfo)
 {
-  int v7; // eax@3
-  int v9; // eax@3
+  int v7;
+  int v9;
 
   struct Actor *pActor;  
-  struct Actor_struct1 v11; // [sp+Ch] [bp-5Ch]@2
-  struct Actor_struct1 v12; // [sp+28h] [bp-40h]@2
-    
+  struct DirectionInfo v11;
+      
   pActor = &pActors[uActorID];  
-  if ( !pStruc1 )
+  if ( !pDirectionInfo )
   {
-    struct Actor_struct1* p = Actor_sub_4040E9(8 * uActorID | 3, a2, &v11, 0);    
-    memcpy(&v12, p, sizeof(struct Actor_struct1));    
-    pStruc1 = &v12;
+    GetDirectionInfo(8 * uActorID | 3, a2, &v11, 0);    
+    pDirectionInfo = &v11;
   }
 
-  pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);
+  pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);
   pActor->word_0000A0 = 8 * pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[7]].word_000038;
 
   v7 = class59_Atan2(pClass59_global, 
@@ -622,9 +622,11 @@ void Actor_sub_402F87(unsigned int uActorID, signed int a2, struct Actor_struct1
                   pActor->sActorPosY - pOldCamera->dword_000004);
     
   v9 = pClass59_global->uIntegerPi + pActor->uYawAngle + (pClass59_global->uIntegerPi >> 3) - v7;
-  if ( BYTE1(v9) & 7 )
+  
+  //if ( BYTE1(v9) & 7 )
+  if (v9 & 0x700)
   {
-    Actor_sub_403EB6(uActorID, a2, pActor->word_0000A0, pStruc1);
+    Actor_sub_403EB6(uActorID, a2, pActor->word_0000A0, pDirectionInfo);
   }
   else
   {
@@ -636,7 +638,7 @@ void Actor_sub_402F87(unsigned int uActorID, signed int a2, struct Actor_struct1
     pActor->word_000094 = 0;
     
     if ( rand() % 100 < 5 )
-      sub_402CED(uActorID, 3);
+      Actor_sub_402CED(uActorID, 3);
 
     Actor_sub_45976D(pActor);
   }
@@ -644,27 +646,25 @@ void Actor_sub_402F87(unsigned int uActorID, signed int a2, struct Actor_struct1
 
 
 //----- (00403F58) --------------------------------------------------------
-void Actor_sub_403F58(unsigned int uActorID, int a2, int a3, struct Actor_struct1* pStruc1)
+void Actor_sub_403F58(unsigned int uActorID, int a2, int a3, struct DirectionInfo* pDirectionInfo)
 { 
-  struct Actor_struct1 v10; // [sp+4h] [bp-3Ch]@4
-  struct Actor_struct1 v11; // [sp+20h] [bp-20h]@4
+  struct DirectionInfo v10;
 
   if ( rand() % 2 )
   {
-    Actor_sub_402F87(uActorID, a2, pStruc1);
+    Actor_sub_402F87(uActorID, a2, pDirectionInfo);
   }
   else
   {    
     struct Actor* pActor = &pActors[uActorID];    
-    if ( !pStruc1 )
+    if ( !pDirectionInfo )
     {
-      struct Actor_struct1* p = Actor_sub_4040E9(8 * uActorID | 3, a2, &v10, 0);      
-      memcpy(&v11, p, 0x1Cu);
-      pStruc1 = &v11;
+      GetDirectionInfo(8 * uActorID | 3, a2, &v10, 0);            
+      pDirectionInfo = &v10;
     }
 
-    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);
-    pActor->uPitchAngle = LOWORD(pStruc1->uPitchAngle);
+    pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);
+    pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
 
     if ( a3 == 0 )      
       pActor->word_0000A0 = rand() % 256 + 256;
@@ -683,46 +683,42 @@ void Actor_sub_403F58(unsigned int uActorID, int a2, int a3, struct Actor_struct
 
   
 //----- (00404030) --------------------------------------------------------
-void Actor_sub_404030(unsigned int uActorID, signed int a2, int a3, struct Actor_struct1 *pStruc1)
+void Actor_sub_404030(unsigned int uActorID, signed int a2, int a3, struct DirectionInfo *pDirectionInfo)
 {
-  struct Actor_struct1 v12;
-  struct Actor_struct1 v13;
+  struct DirectionInfo v12;
 
   if ( rand() % 100 >= 5 )
   {
     struct Actor *pActor = &pActors[uActorID]; 
-    if ( !pStruc1 )
+    if ( !pDirectionInfo )
     {
-      struct Actor_struct1* p = Actor_sub_4040E9(8 * uActorID | 3, a2, &v12, 0);      
-      memcpy(&v13, p, 0x1Cu);
-      pStruc1 = &v13;
+      GetDirectionInfo(8 * uActorID | 3, a2, &v12, 0);      
+      pDirectionInfo = &v12;
     }
 
-    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);   
+    pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);   
     pActor->dword_0000B8 = 0;
     pActor->word_000098 = 0;
     pActor->word_000096 = 0;
     pActor->word_000094 = 0;
-    pActor->uPitchAngle = LOWORD(pStruc1->uPitchAngle);
+    pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
     pActor->word_0000A0 = 256;
     pActor->word_0000B0 = 10;
     Actor_sub_45976D(pActor);
   }
   else
   {
-    Actor_sub_402F87(uActorID, a2, pStruc1);
+    Actor_sub_402F87(uActorID, a2, pDirectionInfo);
   }
 }
 
 
 //----- (00402968) --------------------------------------------------------
-void Actor_sub_402968(unsigned int uActorID, int a2, int a3, struct Actor_struct1 *pStruc1)
+void Actor_sub_402968(unsigned int uActorID, int a2, int a3, struct DirectionInfo *pDirectionInfo)
 {
   struct Actor *pActor;
-  struct Actor_struct1 v10; // [sp+8h] [bp-7Ch]@4
-  struct Actor_struct1 v11; // [sp+24h] [bp-60h]@3
-  struct Actor_struct1 v12; // [sp+40h] [bp-44h]@3
-  struct Actor_struct1 v13; // [sp+5Ch] [bp-28h]@4
+  struct DirectionInfo v10;
+  struct DirectionInfo v11;
   
   pActor = &pActors[uActorID];
   if ( !Actor_sub_40894B(pActor) )
@@ -730,38 +726,36 @@ void Actor_sub_402968(unsigned int uActorID, int a2, int a3, struct Actor_struct
     return;
   }
 
-  if ( !pStruc1 )
+  if ( !pDirectionInfo )
   {
-    pStruc1 = &v12;
-    memcpy(&v12, Actor_sub_4040E9(8 * uActorID | 3, a2, &v11, pActor->byte_00002A[16]), 
-           sizeof(struct Actor_struct1));
+    GetDirectionInfo(8 * uActorID | 3, a2, &v11, pActor->byte_00002A[16]);
+    pDirectionInfo = &v11;    
   }
 
-  memcpy(&v11, Actor_sub_4040E9(8 * uActorID | 3, 4, &v10, 0), sizeof(struct Actor_struct1));
-  memcpy(&v13, &v11, sizeof(struct Actor_struct1));
+  GetDirectionInfo(8 * uActorID | 3, 4, &v10, 0);
 
   //uMonsterID - 1 ?
-  if ( sub_438BDF(pActor->uMonsterID, 6) || ((a2 & 7) == 3 && (double)v13.uDistance < 307.2) )
+  if ( sub_438BDF(pActor->uMonsterID, 6) || ((a2 & 7) == 3 && (double)v10.uDistance < 307.2) )
   {
     if ( !a3 )
       a3 = 256;
-    Actor_sub_403F58(uActorID, 4, a3, &v13);
+    Actor_sub_403F58(uActorID, 4, a3, &v10);
   }
   else
   {
     if ( pActor->uSpeed )
-      pActor->word_0000A0 = (pStruc1->uDistanceXY << 7) / (signed int)pActor->uSpeed;      
+      pActor->word_0000A0 = (pDirectionInfo->uDistanceXY << 7) / (signed int)pActor->uSpeed;      
     else
       pActor->word_0000A0 = 0;
     
     if ( pActor->word_0000A0 > 256 )
       pActor->word_0000A0 = 256;
 
-    pActor->uYawAngle = pClass59_global->uIntegerHalfPi + LOWORD(pStruc1->uYawAngle);
+    pActor->uYawAngle = pClass59_global->uIntegerHalfPi + LOWORD(pDirectionInfo->uYawAngle);
     pActor->uYawAngle = pClass59_global->uDoublePiMask & (pActor->uYawAngle + rand() % pClass59_global->uIntegerPi);
 
     pActor->dword_0000B8 = 0;
-    pActor->uPitchAngle = LOWORD(pStruc1->uPitchAngle);
+    pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
     pActor->word_0000B0 = 7;
     Actor_sub_45976D(pActor);
   }
@@ -769,13 +763,11 @@ void Actor_sub_402968(unsigned int uActorID, int a2, int a3, struct Actor_struct
 
 
 //----- (00402686) --------------------------------------------------------
-void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struct Actor_struct1 *pStruc1)
+void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struct DirectionInfo *pDirectionInfo)
 {
   signed int v4;
-  struct Actor* pActor; 
-
-  struct Actor_struct1 v19;
-  struct Actor_struct1 v20;
+  struct Actor* pActor;
+  struct DirectionInfo v19;
 
   v4 = 0;
   pActor = &pActors[uActorID];
@@ -787,27 +779,26 @@ void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struc
       v4 = pParty_global->uPartyHeight;
   }
 
-  if ( !pStruc1 )
+  if ( !pDirectionInfo )
   {
-    memcpy(&v20, Actor_sub_4040E9(8 * uActorID | 3, a2, &v19, v4), sizeof(struct Actor_struct1));
-    pStruc1 = &v20;
+    GetDirectionInfo(8 * uActorID | 3, a2, &v19, v4);
+    pDirectionInfo = &v19;
   }
-
-  //uMonsterID - 1 ?
-  if ( sub_438BDF(pActor->uMonsterID, 6) )
+    
+  if ( sub_438BDF(pActor->uMonsterID - 1, 6) )
   {
     if ( !a3 )
       a3 = 256;
-    Actor_sub_403F58(uActorID, 4, a3, pStruc1);
+    Actor_sub_403F58(uActorID, 4, a3, pDirectionInfo);
     return;
   }
 
-  if ( (double)pStruc1->uDistance < 307.2 )
+  if ( (double)pDirectionInfo->uDistance < 307.2 )
   {
     if ( !a3 )
       a3 = 256;
 
-    Actor_sub_403F58(uActorID, a2, a3, pStruc1);
+    Actor_sub_403F58(uActorID, a2, a3, pDirectionInfo);
     return;
   }
 
@@ -818,7 +809,7 @@ void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struc
   else
   {    
     if ( pActor->uSpeed )
-      pActor->word_0000A0 = (pStruc1->uDistanceXY << 7) / (signed int)pActor->uSpeed;
+      pActor->word_0000A0 = (pDirectionInfo->uDistanceXY << 7) / (signed int)pActor->uSpeed;
     else
       pActor->word_0000A0 = 0;
 
@@ -827,28 +818,27 @@ void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struc
   }
   
   if ( rand() % 2 )
-    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle) + 256;
+    pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle) + 256;
   else
-    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle) - 256;
+    pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle) - 256;
   
   pActor->dword_0000B8 = 0;
-  pActor->uPitchAngle = LOWORD(pStruc1->uPitchAngle);
+  pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
   pActor->word_0000B0 = 6;
   
   if ( rand() % 100 < 2 )
-    sub_402CED(uActorID, 2);
+    Actor_sub_402CED(uActorID, 2);
 
   Actor_sub_45976D(pActor);
 }
 
 
 //----- (0040281C) --------------------------------------------------------
-void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struct Actor_struct1 *pStruc1, int a5)
+void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struct DirectionInfo *pDirectionInfo, int a5)
 {
   signed int v5;
   struct Actor* pActor;
-  struct Actor_struct1 v17;
-  struct Actor_struct1 v18;
+  struct DirectionInfo v17;
     
   v5 = 0;
   pActor = &pActors[uActorID];
@@ -860,27 +850,26 @@ void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struc
       v5 = pParty_global->uPartyHeight;
   }
 
-  if ( !pStruc1 )
+  if ( !pDirectionInfo )
   {
-    memcpy(&v18, Actor_sub_4040E9(8 * uActorID | 3, a2, &v17, v5), sizeof(struct Actor_struct1));
-    pStruc1 = &v18;
+    GetDirectionInfo(8 * uActorID | 3, a2, &v17, v5);  
+    pDirectionInfo = &v17;
   }
-
-  //uMonsterID - 1 ?
-  if ( sub_438BDF(pActor->uMonsterID, 6) )
+    
+  if ( sub_438BDF(pActor->uMonsterID - 1, 6) )
   {
     if ( !a3 )
       a3 = 256;
-    Actor_sub_403F58(uActorID, 4, a3, pStruc1);
+    Actor_sub_403F58(uActorID, 4, a3, pDirectionInfo);
     return;
   }
 
-  if ( pStruc1->uDistance < a5 )
+  if ( pDirectionInfo->uDistance < a5 )
   {
     if ( !a3 )
       a3 = 256;
 
-    Actor_sub_403F58(uActorID, a2, a3, pStruc1);
+    Actor_sub_403F58(uActorID, a2, a3, pDirectionInfo);
     return;
   }
 
@@ -891,7 +880,7 @@ void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struc
   else
   {
     if ( pActor->uSpeed )
-      pActor->word_0000A0 = (pStruc1->uDistanceXY << 7) / (signed int)pActor->uSpeed;
+      pActor->word_0000A0 = (pDirectionInfo->uDistanceXY << 7) / (signed int)pActor->uSpeed;
     else
       pActor->word_0000A0 = 0;
 
@@ -899,21 +888,20 @@ void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struc
       pActor->word_0000A0 = 32;
   }
 
-  pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);  
+  pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);  
   pActor->dword_0000B8 = 0;
-  pActor->uPitchAngle = LOWORD(pStruc1->uPitchAngle);
+  pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
   pActor->word_0000B0 = 6;
 
   Actor_sub_45976D(pActor);
 }
 
 //----- (00402AD7) --------------------------------------------------------
-void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a4, struct Actor_struct1 *pStruc1)
+void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a4, struct DirectionInfo *pDirectionInfo)
 {
   struct Actor *pActor;
   int v5;
-  struct Actor_struct1 v14;
-  struct Actor_struct1 v15;
+  struct DirectionInfo v14;
 
   pActor = &pActors[uActorID];
   v5 = 0;
@@ -926,32 +914,31 @@ void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a
       v5 = pParty_global->uPartyHeight;
   }
 
-  if ( !pStruc1 )
+  if ( !pDirectionInfo )
   {
-    memcpy(&v15, Actor_sub_4040E9(8 * uActorID | 3, a2, &v14, v5), sizeof(struct Actor_struct1));       
-    pStruc1 = &v15;
+    GetDirectionInfo(8 * uActorID | 3, a2, &v14, v5);    
+    pDirectionInfo = &v14;
   }
-
-  //uMonsterID - 1?
-  if ( sub_438BDF(pActor->uMonsterID, 6) )  
+    
+  if ( sub_438BDF(pActor->uMonsterID - 1, 6) )  
   {
     if ( !a4 )
       a4 = 256;
 
-    Actor_sub_403F58(uActorID, 4, a4, pStruc1);
+    Actor_sub_403F58(uActorID, 4, a4, pDirectionInfo);
     return;
   }
-  else if ( (double)pStruc1->uDistance < 307.2 )
+  else if ( (double)pDirectionInfo->uDistance < 307.2 )
   {
     if ( !a4 )
       a4 = 256;
 
-    Actor_sub_403EB6(uActorID, a2, a4, pStruc1);
+    Actor_sub_403EB6(uActorID, a2, a4, pDirectionInfo);
     return;
   }
   else if ( !pActor->uSpeed)
   {
-    Actor_sub_403EB6(uActorID, a2, a4, pStruc1);
+    Actor_sub_403EB6(uActorID, a2, a4, pDirectionInfo);
     return;
   }
 
@@ -965,14 +952,14 @@ void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a
 
     int v18 = ( a3 % 2 ) ? -16 : 16;
 
-    //-cos(pStruc1->uYawAngle + v18)
-    tmpCos = class59_SinCos(pClass59_global, v18 + pStruc1->uYawAngle + pClass59_global->uIntegerPi); 
-    deltaX = ((unsigned __int64)(tmpCos * pStruc1->uDistanceXY) >> 16);
+    //-cos(pDirectionInfo->uYawAngle + v18)
+    tmpCos = class59_SinCos(pClass59_global, v18 + pDirectionInfo->uYawAngle + pClass59_global->uIntegerPi); 
+    deltaX = ((unsigned __int64)(tmpCos * pDirectionInfo->uDistanceXY) >> 16);
     tmpX = pParty_global->sPartyPosX + deltaX - pActor->sActorPosX;
   
-    //-sin(pStruc1->uYawAngle + v18)
-    tmpSin = class59_SinCos(pClass59_global, v18 + pStruc1->uYawAngle + pClass59_global->uIntegerHalfPi);
-    deltaY =  ((unsigned __int64)(tmpSin * pStruc1->uDistanceXY) >> 16);
+    //-sin(pDirectionInfo->uYawAngle + v18)
+    tmpSin = class59_SinCos(pClass59_global, v18 + pDirectionInfo->uYawAngle + pClass59_global->uIntegerHalfPi);
+    deltaY =  ((unsigned __int64)(tmpSin * pDirectionInfo->uDistanceXY) >> 16);
     tmpY = pParty_global->sPartyPosY + deltaY - pActor->sActorPosY;
     
     pActor->uYawAngle = class59_Atan2(pClass59_global, tmpX, tmpY);
@@ -983,21 +970,20 @@ void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a
   else
     pActor->word_0000A0 = 128;
 
-  pActor->uPitchAngle = LOWORD(pStruc1->uPitchAngle);
+  pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
   pActor->word_0000B0 = 6;
   Actor_sub_45976D(pActor);
 }
 
 //----- (00403854) --------------------------------------------------------
-void Actor_sub_403854(unsigned int uActorID, signed int a2, struct Actor_struct1 *pStruc1)
+void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo *pDirectionInfo)
 {
   struct Actor *pActor;
   int v4;
   int v5;
   int v11;
   short v13;
-  struct Actor_struct1 v16;
-  struct Actor_struct1 v17;
+  struct DirectionInfo v16;
   int v20;
 
   pActor = &pActors[uActorID];
@@ -1019,31 +1005,30 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct Actor_struct1
     else
     {
       //WTF? something illogical happens here
-      v5 = (int)pStruc1;
-      v4 = (int)pStruc1;
+      v5 = (int)pDirectionInfo;
+      v4 = (int)pDirectionInfo;
     }
   }
 
   if ( sub_407A1C(v5, v4, v20, pActor->sActorPosX, pActor->sActorPosY,
                   pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75)) )
   {
-    if ( !pStruc1 )
+    if ( !pDirectionInfo )
     { 
-      struct Actor_struct1* p = Actor_sub_4040E9(8 * uActorID | 3, a2, &v16, 0);
-      memcpy(&v17, p, sizeof(struct Actor_struct1));
-      pStruc1 = &v17;      
+      GetDirectionInfo(8 * uActorID | 3, a2, &v16, 0);      
+      pDirectionInfo = &v16;      
     }
 
     //v12 = pSpriteFrameTable->pSpriteSFrames;
     //v13 = *(_WORD *)(60 * *(_WORD *)(pActor + 194) + v12 + 56);
     v13 = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[3]].word_000038;
 
-    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);        
+    pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);        
     pActor->word_0000A0 = 8 * v13;
     pActor->dword_0000B8 = 0;
     pActor->word_0000B0 = 13;
 
-    sub_402CED(uActorID, 0);
+    Actor_sub_402CED(uActorID, 0);
 
     v11 = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].dword_000050;    
     if ( pActor->array_0000D4[7].qword_000000 > 0i64 )
@@ -1074,21 +1059,20 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct Actor_struct1
   }
   else
   {
-    Actor_sub_402AD7(uActorID, a2, uActorID, 64, pStruc1);
+    Actor_sub_402AD7(uActorID, a2, uActorID, 64, pDirectionInfo);
   }
 }
 
 
 //----- (0040368B) --------------------------------------------------------
-void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct Actor_struct1 *pStruc1)
+void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct DirectionInfo *pDirectionInfo)
 {
   struct Actor *pActor;  
   int v4;
   int v5;
   int v11;
   short v13;
-  struct Actor_struct1 v15;
-  struct Actor_struct1 v16;
+  struct DirectionInfo v15;
   int v19;
     
   pActor = &pActors[uActorID];  
@@ -1110,31 +1094,30 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct Actor_struct1
     else
     {
       //WTF? something illogical happens here
-      v5 = (int)pStruc1;
-      v4 = (int)pStruc1;
+      v5 = (int)pDirectionInfo;
+      v4 = (int)pDirectionInfo;
     }
   }
 
   if ( sub_407A1C(v5, v4, v19, pActor->sActorPosX, pActor->sActorPosY,
                   pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75)) )
   {
-    if ( !pStruc1 )
+    if ( !pDirectionInfo )
     {
-      struct Actor_struct1* p = Actor_sub_4040E9(8 * uActorID | 3, a2, &v15, 0);      
-      memcpy(&v16, p, sizeof(struct Actor_struct1));
-      pStruc1 = &v16;      
+      GetDirectionInfo(8 * uActorID | 3, a2, &v15, 0);      
+      pDirectionInfo = &v15;      
     }
 
     //v12 = pSpriteFrameTable->pSpriteSFrames;
     //v13 = *(_WORD *)(60 * *(_WORD *)(pActor + 194) + v12 + 56);
     v13 = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[3]].word_000038;
 
-    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);    
+    pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);    
     pActor->word_0000A0 = 8 * v13;
     pActor->dword_0000B8 = 0;
     pActor->word_0000B0 = 12;
 
-    sub_402CED(uActorID, 0);
+    Actor_sub_402CED(uActorID, 0);
 
     v11 = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].dword_000050;    
     if ( pActor->array_0000D4[7].qword_000000 > 0i64 )
@@ -1152,20 +1135,19 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct Actor_struct1
   }
   else
   {
-    Actor_sub_402AD7(uActorID, a2, uActorID, 64, pStruc1);
+    Actor_sub_402AD7(uActorID, a2, uActorID, 64, pDirectionInfo);
   }
 }
 
 //----- (00403476) --------------------------------------------------------
-void Actor_sub_403476(unsigned int uActorID, signed int a2, struct Actor_struct1 *pStruc1)
+void Actor_sub_403476(unsigned int uActorID, signed int a2, struct DirectionInfo *pDirectionInfo)
 {
   struct Actor *pActor; 
   int v4;
   int v5;
   int v11;
   short v13;
-  struct Actor_struct1 v15;
-  struct Actor_struct1 v16;  
+  struct DirectionInfo v15;
   int v20;
 
   pActor = &pActors[uActorID];  
@@ -1187,8 +1169,8 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct Actor_struct1
     else
     {
       //WTF? something illogical happens here
-      v5 = (int)pStruc1;
-      v4 = (int)pStruc1;
+      v5 = (int)pDirectionInfo;
+      v4 = (int)pDirectionInfo;
     }
   }
 
@@ -1199,23 +1181,22 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct Actor_struct1
                   pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75),
                   v5, v4, v20) )
   {
-    if ( !pStruc1 )
+    if ( !pDirectionInfo )
     {
-      struct Actor_struct1* p = Actor_sub_4040E9(8 * uActorID | 3, a2, &v15, 0);
-      memcpy(&v16, p, sizeof(struct Actor_struct1));
-      pStruc1 = &v16;      
+      GetDirectionInfo(8 * uActorID | 3, a2, &v15, 0);
+      pDirectionInfo = &v15; 
     }
 
     //v12 = pSpriteFrameTable->pSpriteSFrames;
     //v13 = *(_WORD *)(60 * *(_WORD *)(pActor + 194) + v12 + 56);
     v13 = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[3]].word_000038;
 
-    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);
+    pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);
     pActor->word_0000A0 = 8 * v13;
     pActor->dword_0000B8 = 0;
     pActor->word_0000B0 = 3;
 
-    sub_402CED(uActorID, 0);
+    Actor_sub_402CED(uActorID, 0);
 
     v11 = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].dword_000050;    
     if ( pActor->array_0000D4[7].qword_000000 > 0i64 )
@@ -1234,19 +1215,18 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct Actor_struct1
     Actor_sub_45976D(pActor);
   }
   else
-    Actor_sub_402AD7(uActorID, a2, uActorID, 64, pStruc1);
+    Actor_sub_402AD7(uActorID, a2, uActorID, 64, pDirectionInfo);
 }
 
 //----- (00403A60) --------------------------------------------------------
-void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct Actor_struct1 *pStruc1)
+void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct DirectionInfo *pDirectionInfo)
 {
   struct Actor *pActor; 
   int v4;
   int v5;
   int v11;
   short v13;
-  struct Actor_struct1 v16;
-  struct Actor_struct1 v17;
+  struct DirectionInfo v16;
   int v20;
 
   pActor = &pActors[uActorID];
@@ -1268,31 +1248,30 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct Actor_struct1
     else
     {
       //WTF? something illogical happens here
-      v5 = (int)pStruc1;
-      v4 = (int)pStruc1;
+      v5 = (int)pDirectionInfo;
+      v4 = (int)pDirectionInfo;
     }
   }
 
   if ( sub_407A1C(v5, v4, v20, pActor->sActorPosX, pActor->sActorPosY, 
                   pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75)) )
   {
-    if ( !pStruc1 )
+    if ( !pDirectionInfo )
     {
-      struct Actor_struct1* p = Actor_sub_4040E9(8 * uActorID | 3, a2, &v16, 0);      
-      memcpy(&v17, p, sizeof(struct Actor_struct1));
-      pStruc1 = &v17;
+      GetDirectionInfo(8 * uActorID | 3, a2, &v16, 0);      
+      pDirectionInfo = &v16;
     }
 
     //v12 = pSpriteFrameTable->pSpriteSFrames;
     //v13 = *(_WORD *)(60 * *(_WORD *)(pActor + 194) + v12 + 56);
     v13 = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[3]].word_000038;
 
-    pActor->uYawAngle = LOWORD(pStruc1->uYawAngle);
+    pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);
     pActor->word_0000A0 = 8 * v13;
     pActor->dword_0000B8 = 0;
     pActor->word_0000B0 = 18;
 
-    sub_402CED(uActorID, 0);
+    Actor_sub_402CED(uActorID, 0);
 
     v11 = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].dword_000050;    
     if ( pActor->array_0000D4[7].qword_000000 > 0i64 )
@@ -1308,6 +1287,7 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct Actor_struct1
     pActor->word_000098 = 0;
     pActor->word_000096 = 0;
     pActor->word_000094 = 0;
+
     if ( sub_42FB5C(pActor->byte_00003E[17]) )
     {
       pActor->word_0000A0 = 64;
@@ -1322,7 +1302,7 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct Actor_struct1
     }
   }
   else
-    Actor_sub_402AD7(uActorID, a2, uActorID, 64, pStruc1);
+    Actor_sub_402AD7(uActorID, a2, uActorID, 64, pDirectionInfo);
 }
 
 
@@ -1335,7 +1315,7 @@ void Actor_sub_4032B2(unsigned int uActorID, int a2, int a3, int a4)
   int deltaY;
   int v10;
   int v11;
-  struct Actor_struct1 v15;
+  struct DirectionInfo v15;
   int v16;    
   int v20;
 
@@ -1350,9 +1330,8 @@ void Actor_sub_4032B2(unsigned int uActorID, int a2, int a3, int a4)
     v20 = v4 + (v20 >> 1);
   else
     v20 = v20 + (v4 >> 1);
-
-  //? uMonsterID - 1  
-  if ( sub_438BDF(pActor->uMonsterID, 6) )
+    
+  if ( sub_438BDF(pActor->uMonsterID - 1, 6) )
   {
     if ( !a4 )
       a4 = 256;
@@ -1392,9 +1371,130 @@ void Actor_sub_4032B2(unsigned int uActorID, int a2, int a3, int a4)
   pActor->word_0000B0 = 1;  
   
   if ( rand() % 100 < 2 )
-    sub_402CED(uActorID, 3);
+    Actor_sub_402CED(uActorID, 3);
 
   Actor_sub_45976D(pActor);
+}
+
+//----- (00402CED) --------------------------------------------------------
+void Actor_sub_402CED(unsigned int uActorID, int a2)
+{
+  struct Actor *pActor;
+  signed int v8;
+  int v12;
+
+  pActor = &pActors[uActorID];  
+  if ( pActor->array_0000CC[a2] )
+  {
+    if ( pActor->array_0000D4[3].qword_000000 <= 0i64 )
+    {
+      v12 = 0;
+      v8 = -1;
+    }
+    else
+    {
+      switch (pActor->array_0000D4[3].word_000008)
+      {
+      case 2:
+        v12 = 33075;
+        break;
+
+      case 3:
+        v12 = 44100;
+        break;
+
+      case 4:
+        v12 = 55125;
+        break;
+        
+      default:
+        v12 = uActorID;
+        break;
+      }
+            
+      v8 = 0;
+    }
+    
+    AudioPlayer_sub_4AA306(pAudioPlayer, pActor->array_0000CC[a2], 
+                           (uActorID * 8) | 3, 0, v8, 0, 0, 0, v12);
+  }
+}
+
+//----- (00402D6E) --------------------------------------------------------
+void Actor_sub_402D6E(unsigned int uActorID)
+{  
+  unsigned short monsterID;  
+  struct ItemGen itemGen;
+  struct Actor *pActor;
+  int i;
+
+  pActor = &pActors[uActorID];
+      
+  pActor->word_0000B0 = 4;
+  pActor->word_0000B2 = 5;
+  pActor->dword_0000B8 = 0;  
+  pActor->word_000028 = 0;
+  pActor->word_0000A0 = 8 * pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[5]].word_000038;
+  
+  sub_458585(LODWORD(pActor->array_0000D4[6].qword_000000));
+  sub_458585(LODWORD(pActor->array_0000D4[5].qword_000000));
+
+  Actor_sub_402CED(uActorID, 1);
+  Actor_sub_45976D(pActor);
+
+  monsterID = pActor->uMonsterID - 1;  
+  for (i = 0; i < 5; ++i)
+  {
+    if ( monsterID == pParty_global->array_000750[i] )
+      pParty_global->array_00075A[i] = 1;
+  }
+  
+  for (i = 0; i < 22; ++i)
+    sub_458585(&pActor->array_0000D4[i].qword_000000);
+
+  ItemGen_Reset(&itemGen);
+  ItemGen_Reset(&itemGen);
+  
+  if (monsterID >= 20 && monsterID <= 22) //devil worker, devil warrior, devil captain
+  {
+    itemGen.dword_000000 = 214;  
+  }
+  else if (monsterID >= 24 && monsterID <= 26) //green dragon, blue dragon, red dragon
+  {
+    itemGen.dword_000000 = 204;
+  }
+  else if (monsterID >= 84  && monsterID <= 86) //harpy, harpy hag, harpy queen
+  {
+    itemGen.dword_000000 = 207;
+  }
+  else if (monsterID >= 111 && monsterID <= 113) //emerald ooze, sapphire ooze, bloodstone ooze
+  {
+    itemGen.dword_000000 = 217;
+  }
+  else if (monsterID >= 249 && monsterID <= 251) //swamp troll, river troll, mountain troll
+  {
+    itemGen.dword_000000 = 202;
+  }
+
+  if ( itemGen.dword_000000 )
+  {
+    if ( (rand() % 100) < 20 )
+    {
+      sub_42F7EB(
+        (unsigned __int16)word_5D29F8[24 * itemGen.dword_000000],
+        pActor->sActorPosX,
+        pActor->sActorPosY,
+        pActor->sActorPosZ + 16,
+        rand() % 200 + 200,
+        1,
+        1,
+        0,
+        &itemGen);
+    }
+  }
+
+  if ( pActor->byte_00003E[28] == 3 )
+    sub_404736(uActorID);
 }
 
 //----- (0041F4C1) --------------------------------------------------------
@@ -1464,4 +1564,58 @@ void Actor_Reset(struct Actor *_this)
  _this->dword_000334 = 0;
 
  memset(_this->array_0000D4, 0, 22 * sizeof(struct Actor_struct0));
+}
+
+//----- (0047F2D3) --------------------------------------------------------
+bool InitializeActors(unsigned int uLocationID)
+{
+  int          i;
+  struct Actor v6;
+  int v8; // [sp+348h] [bp-8h]@1
+
+  v8 = 0;
+  for (i = 0; i < uNumActors; ++i)
+  {
+    bool bIsSomeFlagSet = pActors[i].dword_000024 & 0x100000;
+    if ( (!bIsSomeFlagSet && v8 != 1) || (uLocationID != 0 && v8 != 0) )
+    {
+      pActors[i].dword_0000B8 = 0;
+      pActors[i].word_0000A0 = 0;
+      if ( pActors[i].dword_000024 & 0x10000 )
+        pActors[i].word_0000B0 = 19;
+
+      if (pActors[i].word_0000B0 != 11 && pActors[i].word_0000B0 != 19)
+      {
+        if (!pActors[i].word_000028 || *(int *)&pActors[i].word_00006C == 0 )
+          pActors[i].word_0000B0 = 5;
+      }
+      pActors[i].word_000094 = 0;
+      pActors[i].word_000096 = 0;
+      pActors[i].word_000098 = 0;
+      Actor_sub_45976D(&pActors[i]);
+      pActors[i].byte_00003D = 0;
+
+      Actor_LinkSprites(&pActors[i], 0);
+    }
+    else
+    {
+      pActors[i].word_0000B0 = 19;
+      pActors[i].dword_000024 |= 0x10000;
+      if (bIsSomeFlagSet && (uLocationID != 0) && !v8)
+      {
+        v8 = sub_450DA3();
+      }
+    }
+  }
+
+  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
+
+  Actor_TotalReset(&v6);
+  v6.uMonsterID = 45;
+
+  //initialize light elemental, probably since it's not on the map but can be summoned at any time
+
+  //[inviZ_khv] WTF? v6 is local variable and it's destroyed when function returns
+  Actor_LinkSprites(&v6, 0);
+  return true;
 }

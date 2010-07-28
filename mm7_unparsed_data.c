@@ -2206,8 +2206,8 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
 //int dword_ACD6D8; // pParty_global::dword_000720
 //int dword_ACD6E0; // ::000728
 //int dword_ACD6EC; // ::000734
- __int16 word_ACD708[array_size_unknown]; // weak
- __int16 word_ACD712[array_size_unknown]; // weak
+ //__int16 word_ACD708[array_size_unknown]; // pParty_global::array_000750
+ //__int16 word_ACD712[array_size_unknown]; // pParty_global::array_00075A
  char byte_ACD719[array_size_unknown]; // weak
  char byte_ACD71C; // weak
  char byte_ACD71D[array_size_unknown]; // weak

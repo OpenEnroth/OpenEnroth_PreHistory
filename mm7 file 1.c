@@ -4903,7 +4903,7 @@ void __cdecl sub_401A91()
                   }
                   else
                   {
-                    sub_402D6E(v87);
+                    Actor_sub_402D6E(v87);
                     if ( *((_DWORD *)v5 + 19) )
                       sub_4269A2(pMonsterStats->pMonsterInfos[*((_WORD *)v5 + 28)].uExp);
                   }
@@ -4962,7 +4962,7 @@ void __cdecl sub_401A91()
       if ( !*(_WORD *)(LODWORD(v82.v83) - 136) )
       {
         if ( pActors[i].word_0000B0 != 4 )
-          sub_402D6E(i);
+          Actor_sub_402D6E(i);
       }
       v87 = *(_QWORD *)(LODWORD(v82.v83) + 84) <= 0i64 ? 0 : 1;
       v85 = *(_QWORD *)(LODWORD(v82.v83) + 52) <= 0i64 ? 0 : 1;
@@ -5055,7 +5055,7 @@ void __cdecl sub_401A91()
       if ( v23 == 4 || v23 == 5 || v23 == 11 || v23 == 19 || v23 == 17 )
         goto LABEL_255;
       if ( !*(_WORD *)(v21 + 40) )
-        sub_402D6E(v86);
+        Actor_sub_402D6E(v86);
       if ( *(_QWORD *)(v21 + 260) <= 0i64 )
       {
         v87 = 0;
@@ -5125,8 +5125,9 @@ void __cdecl sub_401A91()
       if ( !(v30 & 0x8000) )
         *(_DWORD *)(v21 + 36) = v30 | 0x8000;
       v80 = 8 * v86 | 3;
-      v31 = Actor_sub_4040E9(8 * v86 | 3, v88, v75, 0);
+      v31 = GetDirectionInfo(8 * v86 | 3, v88, v75, 0);
       v32 = *(_BYTE *)(v21 + 61) == 0;
+
       memcpy(&v77, v31, 0x1Cu);
       memcpy(&v82, &v77, 0x1Cu);
       if ( !v32 )
@@ -5427,7 +5428,7 @@ LABEL_254:
         if ( *(_BYTE *)(v21 + 59) == 5 )
         {
           v60 = (double)*(signed int *)(v21 + 124) * *(double *)&byte_4D8410[40];
-          memcpy(v76, Actor_sub_4040E9(v80, 4, v74, 0), 0x1Cu);
+          memcpy(v76, GetDirectionInfo(v80, 4, v74, 0), 0x1Cu);
           memcpy(&v82, v76, 0x1Cu);
           v71 = &v82;
           v55 = v86;
@@ -6981,184 +6982,6 @@ LABEL_318:
   }
 }
 
-//----- (00402CED) --------------------------------------------------------
-void __fastcall sub_402CED(signed int a1, int a2)
-{
-  char *v2; // eax@1
-  __int16 v3; // dx@1
-  int v4; // eax@3
-  int v5; // eax@4
-  signed int v6; // eax@6
-  signed int v7; // eax@12
-  signed int v8; // [sp-18h] [bp-1Ch]@10
-  int v9; // [sp-14h] [bp-18h]@10
-  int v10; // [sp-10h] [bp-14h]@10
-  int v11; // [sp-Ch] [bp-10h]@10
-  int v12; // [sp-8h] [bp-Ch]@10
-
-  v2 = (char *)pActors + 836 * a1;
-  v3 = *(_WORD *)&v2[2 * a2 + 204];
-  if ( v3 )
-  {
-    if ( *(_QWORD *)(v2 + 260) <= 0i64 )
-    {
-      v12 = 0;
-      v11 = 0;
-      v10 = 0;
-      v9 = 0;
-      v8 = -1;
-    }
-    else
-    {
-      v4 = *((_WORD *)v2 + 134) - 2;
-      if ( v4 )
-      {
-        v5 = v4 - 1;
-        if ( v5 )
-        {
-          if ( v5 == 1 )
-            v6 = 55125;
-          else
-            v6 = a1;
-        }
-        else
-        {
-          v6 = 44100;
-        }
-      }
-      else
-      {
-        v6 = 33075;
-      }
-      v12 = v6;
-      v11 = 0;
-      v10 = 0;
-      v9 = 0;
-      v8 = 0;
-    }
-    v7 = 8 * a1;
-    LOBYTE(v7) = 8 * a1 | 3;
-    AudioPlayer_sub_4AA306(pAudioPlayer, v3, v7, 0, v8, v9, v10, v11, v12);
-  }
-}
-
-//----- (00402D6E) --------------------------------------------------------
-int __fastcall sub_402D6E(int a1)
-{
-  signed int v1; // eax@1
-  int v2; // ecx@1
-  int v3; // esi@1
-  int v4; // ecx@1
-  int v5; // eax@1
-//  signed int v6; // ebx@5
-//  int v7; // edi@5
-  int result; // eax@7
-  int v9; // eax@22
-  signed __int64 v10; // qtt@22
-  int v11; // eax@23
-  int v12[0x24]; // [sp+8h] [bp-28h]@7
-  int v13; // [sp+2Ch] [bp-4h]@1
- struct Actor *pActor;
- int           i;
-
-  v3 = pActor = &pActors[a1];
-  v13 = a1;
-  v4 = pSpriteFrameTable->pSpriteSFrames;
-
-  v5 = 60 * pActors[a1].pSpriteIDs[5];
-  pActor->word_0000B0 = 4;
-  pActor->word_0000B2 = 5;
-  *(_DWORD *)(v3 + 184) = 0;
-  LOWORD(v5) = pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[5]].word_000038;
-  pActor->word_000028 = 0;
-  pActor->word_0000A0 = 8 * v5;
-  sub_458585(v3 + 308);
-  sub_458585(v3 + 292);
-  sub_402CED(a1, 1);
-  Actor_sub_45976D(pActor);
-  v2 = pActor->uMonsterID - 1;
-
-
-  v1 = 0;
-  do
-  {
-    if ( v2 == *(_WORD *)((char *)word_ACD712 + v1 - 10) )
-      *(_WORD *)((char *)word_ACD712 + v1) = 1;
-    v1 += 2;
-  }
-  while (v1 < 10);
-
-
-  for (i = 0; i < 22; ++i)
-    sub_458585(&pActor->array_0000D4[i]);
-
-  ItemGen_Reset(v12);
-  ItemGen_Reset(v12);
-  result = pActor->uMonsterID - 1;
-  if ( result > 87 )
-  {
-    if ( result < 112 )
-      goto LABEL_21;
-    if ( result <= 114 )
-    {
-      v12[0] = 217;
-      goto LABEL_21;
-    }
-    if ( result <= 249 || result > 252 )
-    {
-LABEL_21:
-      if ( !v12[0] )
-        goto LABEL_24;
-      goto LABEL_22;
-    }
-    v12[0] = 202;
-  }
-  else
-  {
-    if ( result >= 85 )
-    {
-      v12[0] = 207;
-    }
-    else
-    {
-      if ( result < 22 )
-        goto LABEL_21;
-      if ( result > 24 )
-      {
-        if ( result <= 27 )
-        {
-          v12[0] = 204;
-          goto LABEL_22;
-        }
-        goto LABEL_21;
-      }
-      v12[0] = 214;
-    }
-  }
-LABEL_22:
-  v9 = rand();
-  v10 = v9;
-  result = v9 / 100;
-  if ( (signed int)(v10 % 100) < 20 )
-  {
-    v11 = rand();
-    result = sub_42F7EB(
-               (unsigned __int16)word_5D29F8[24 * v12[0]],
-               *(_WORD *)(v3 + 142),
-               *(_WORD *)(v3 + 144),
-               *(_WORD *)(v3 + 146) + 16,
-               v11 % 200 + 200,
-               1,
-               1,
-               0,
-               v12);
-  }
-LABEL_24:
-  if ( *(_BYTE *)(v3 + 90) == 3 )
-    result = sub_404736(v13);
-  return result;
-}
-
 //----- (0048257A) --------------------------------------------------------
 int __fastcall sub_48257A(signed int a1, signed int a2, int a3, int a4)
 {
@@ -7315,7 +7138,7 @@ int __fastcall sub_402F27(int this)
   *(_WORD *)(v2 + 178) = 5;
   *(_WORD *)(v2 + 160) = 8 * *(_WORD *)(v4 + v3 + 56);
   *(_WORD *)(v2 + 40) = *(_WORD *)(v2 + 108);
-  sub_402CED(this, 1);
+  Actor_sub_402CED(this, 1);
   return Actor_sub_45976D(v2);
 }
 
@@ -7476,7 +7299,7 @@ __int16 __fastcall sub_4030AD(int a1, int a2, int a3)
     && result != 18
     && result != 2 )
   {
-    memcpy(&v10, Actor_sub_4040E9(8 * v4 | 3, v13, &v9, 0), 0x1Cu);
+    memcpy(&v10, GetDirectionInfo(8 * v4 | 3, v13, &v9, 0), 0x1Cu);
     //v6 = dword_5C6DCC;
     v6 = pSpriteFrameTable->pSpriteSFrames;
 
@@ -7486,7 +7309,7 @@ __int16 __fastcall sub_4030AD(int a1, int a2, int a3)
     *(_DWORD *)(v3 + 184) = 0;
     *(_WORD *)(v3 + 176) = 8;
     *(_WORD *)(v3 + 160) = 8 * v7;
-    sub_402CED(v8, 2);
+    Actor_sub_402CED(v8, 2);
     result = Actor_sub_45976D(v3);
   }
   return result;
@@ -9201,7 +9024,7 @@ LABEL_18:
     {
       if ( (n & 7) == 3 )
       {
-        memcpy(&v676, Actor_sub_4040E9((8 * *(_WORD *)(v2 + 2) + 8) | 4, n, &v637, 0), 0x1Cu);
+        memcpy(&v676, GetDirectionInfo((8 * *(_WORD *)(v2 + 2) + 8) | 4, n, &v637, 0), 0x1Cu);
         v1 = (unsigned int)v701;
       }
       else

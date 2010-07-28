@@ -3770,7 +3770,7 @@ signed int __thiscall sub_4059DB(void *this)
             LOBYTE(v7) = v7 | 0x80;
             *((_DWORD *)v5 + 9) = v7;
             v37 = 8 * v6 | 3;
-            memcpy(&v33, Actor_sub_4040E9(8 * v6 | 3, v8, &v35, 0), 0x1Cu);
+            memcpy(&v33, GetDirectionInfo(8 * v6 | 3, v8, &v35, 0), 0x1Cu);
             memcpy(&v32, &v33, 0x1Cu);
             Actor_sub_403F58(v41, 4, 32, (signed int)&v32);
             *(_DWORD *)(16 * (*(_DWORD *)(v1 + 12) + 2) + v1) = v37;
@@ -4532,7 +4532,7 @@ void __thiscall sub_405E14(void *this)
             if ( *(_DWORD *)(v4 + 184) >= v5 )
             {
               v17 = dword_4F6E08[v20];
-              v7 = Actor_sub_4040E9(8 * v20 | 3, v17, &v13, v1);
+              v7 = GetDirectionInfo(8 * v20 | 3, v17, &v13, v1);
               v8 = *(_WORD *)(v4 + 176);
               memcpy(&v15, v7, 0x1Cu);
               v6 = v8 - 4;
@@ -5520,7 +5520,7 @@ void sub_406648(void *this, int a2)
     v2 >>= 3;
     v4 = v2;
     v29 = dword_4F6E08[v2];
-    memcpy(&v26, Actor_sub_4040E9(*(_DWORD *)v3, dword_4F6E08[v2], &v26, 0), 0x1Cu);
+    memcpy(&v26, GetDirectionInfo(*(_DWORD *)v3, dword_4F6E08[v2], &v26, 0), 0x1Cu);
     memcpy(&v27, &v26, 0x1Cu);
     v5 = (char *)pActors + 836 * v2;
     LOWORD(v2) = *((_WORD *)v5 + 88);
@@ -5673,7 +5673,7 @@ __int16 __thiscall sub_40680F(void *this, int a2)
             *(_BYTE *)(v4 + 61) = 0;
         }
         v22 = dword_4F6E08[v5];
-        v7 = Actor_sub_4040E9(8 * v5 | 3, v22, &v16, 0);
+        v7 = GetDirectionInfo(8 * v5 | 3, v22, &v16, 0);
         v8 = *(_WORD *)(v4 + 136);
         memcpy(&v16, v7, 0x1Cu);
         memcpy(&v18, &v16, 0x1Cu);
@@ -5818,7 +5818,7 @@ void __thiscall sub_406A63(int this)
       if ( (*(_BYTE *)v10 & 7) == 3 )
       {
         v8 = dword_4F6E08[v5 >> 3];
-        memcpy(&v7, Actor_sub_4040E9(v5, v8, &v6, v2), 0x1Cu);
+        memcpy(&v7, GetDirectionInfo(v5, v8, &v6, v2), 0x1Cu);
         if ( !sub_406D10((void *)v1, v9) )
           Actor_sub_403EB6(*v10 >> 3, v8, 32, &v7);
       }
@@ -5861,7 +5861,7 @@ void __thiscall sub_406AFE(int this)
         {
           v4 = *(_DWORD *)v2;
           v9 = dword_4F6E08[v3];
-          memcpy(&v6, Actor_sub_4040E9(v4, v9, &v5, 0), 0x1Cu);
+          memcpy(&v6, GetDirectionInfo(v4, v9, &v5, 0), 0x1Cu);
           Actor_sub_403EB6(v8, v9, 32, &v6);
           *(_DWORD *)(v2 + 12) = 0;
           *(_DWORD *)(v2 + 8) = 0;
@@ -6595,7 +6595,7 @@ signed int __thiscall sub_406B9F(int this)
         if ( !(v14 | result | *(_WORD *)(v5 + 176) == 5 | *(_WORD *)(v5 + 176) == 11 | *(_WORD *)(v5 + 176) == 19) )
         {
           v14 = dword_4F6E08[v6];
-          memcpy(&v9, Actor_sub_4040E9(v11, v14, &v8, 0), 0x1Cu);
+          memcpy(&v9, GetDirectionInfo(v11, v14, &v8, 0), 0x1Cu);
           v7 = *(_WORD *)(v5 + 176);
           if ( (v7 == 6 || v7 == 1) && (double)v10 < *(double *)&byte_4D8410[32] )
             goto LABEL_26;
@@ -6688,7 +6688,7 @@ signed int __thiscall sub_406D10(void *this, int a2)
     if ( !*(_DWORD *)v7 )
       v5[61] = 0;
   }
-  v10 = Actor_sub_4040E9(*v6, v32, &v25, 0);
+  v10 = GetDirectionInfo(*v6, v32, &v25, 0);
   v11 = *((_WORD *)v5 + 68);
   memcpy(&v25, v10, 0x1Cu);
   memcpy(&v27, &v25, 0x1Cu);
@@ -6918,7 +6918,7 @@ void __thiscall sub_406FA8(int this)
                 v16 = dword_4F6E08[v4];
                 v7 = v16;
                 sub_401221(v4, 4 * v4 + 5205512, 1);
-                memcpy(&v11, Actor_sub_4040E9(*(_DWORD *)(v18 + v3), v7, &v10, 0), 0x1Cu);
+                memcpy(&v11, GetDirectionInfo(*(_DWORD *)(v18 + v3), v7, &v10, 0), 0x1Cu);
                 memcpy(&v12, &v11, 0x1Cu);
                 *(_DWORD *)(v6 + 184) += pClass24_global2->int_00001C;
                 if ( *(_DWORD *)(v6 + 184) >= (signed int)*(_WORD *)(v6 + 160) )

@@ -63,8 +63,6 @@ int __cdecl sub_4014E6();
 int __cdecl sub_4016FA();
 void __cdecl sub_401A91();
 int __thiscall sub_40261D(void *this, __int16 a2, __int16 a3, __int16 a4, __int16 a5, __int16 a6, char a7, char a8);
-void __fastcall sub_402CED(signed int a1, int a2);
-int __fastcall sub_402D6E(int a1);
 void ItemGen_Reset(int *_this);
 int __fastcall sub_402F27(int this);
 __int16 __fastcall sub_4030AD(int a1, int a2, int a3);

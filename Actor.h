@@ -24,12 +24,12 @@ struct Actor_struct0
 };
 //sizeof == 10
 
-struct Actor_struct1
+struct DirectionInfo
 {
-  //normalized vector of direction from second object to first object
-  int   uVecX;  //@ 000000  fixed-point format 16.16
-  int   uVecY;  //@ 000004  fixed-point format 16.16
-  int   uVecZ;  //@ 000008  fixed-point format 16.16
+  //normalized vector of direction from first object to second object
+  int   sVecX;  //@ 000000  fixed-point format 16.16
+  int   sVecY;  //@ 000004  fixed-point format 16.16
+  int   sVecZ;  //@ 000008  fixed-point format 16.16
 
   unsigned int uDistance; //@ 00000C distance between the objects 
   unsigned int uDistanceXY;//@ 000010 projection of distance to the XY plane
@@ -37,7 +37,6 @@ struct Actor_struct1
   unsigned int uPitchAngle;//@ 000018 pitch angle calculated from direction vector
 };
 //sizeof == 1C
-
 
 struct Actor
 {
@@ -116,23 +115,23 @@ int Actor_sub_45976D(struct Actor *_this);
 //signed int __fastcall sub_40104C(int a1, int a2);
 signed int Actor_sub_40104C(struct Actor *pActor1, struct Actor *pActor2);
 //int __fastcall sub_403EB6(unsigned int uActorID, signed int a2, int a3, char *a4);
-void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, struct Actor_struct1 *pStruc1);
+void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_403C6C(int a1, int a2, char *a3);
-void Actor_sub_403C6C(unsigned int uActorID, int a2, struct Actor_struct1 *pStruc1);
+void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_402F87(int a1, signed int a2, signed int a3);
-void Actor_sub_402F87(unsigned int uActorID, signed int a2, struct Actor_struct1 *pStruc1);
+void Actor_sub_402F87(unsigned int uActorID, signed int a2, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_403F58(int a1, int a2, int a3, signed int a4);
-void Actor_sub_403F58(unsigned int uActorID, int a2, int a3, struct Actor_struct1 *pStruc1);
+void Actor_sub_403F58(unsigned int uActorID, int a2, int a3, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_404030(int a1, signed int a2, int a3, signed int a4);
-void Actor_sub_404030(unsigned int uActorID, signed int a2, int a3, struct Actor_struct1 *pStruc1);
+void Actor_sub_404030(unsigned int uActorID, signed int a2, int a3, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_402968(int a1, int a2, int a3, char *a4);
-void Actor_sub_402968(unsigned int uActorID, int a2, int a3, struct Actor_struct1 *pStruc1);
+void Actor_sub_402968(unsigned int uActorID, int a2, int a3, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_402686(int a1, signed int a2, signed int a3, signed int a4);
-void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struct Actor_struct1 *pStruc1);
+void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_40281C(int a1, signed int a2, signed int a3, signed int a4, int a5);
-void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struct Actor_struct1 *pStruc1, int a5);
+void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struct DirectionInfo *pDirectionInfo, int a5);
 //int __fastcall sub_402AD7(int a1, signed int a2, signed int a3, int a4, signed int a5);
-void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a4, struct Actor_struct1 *pStruc1);
+void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a4, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_403854(int a1, signed int a2, signed int a3);
 void Actor_sub_403854(unsigned int uActorID, signed int a2, signed int a3);
 //int __fastcall sub_40368B(int a1, signed int a2, signed int a3);
@@ -150,7 +149,11 @@ void Actor_Reset(struct Actor *_this);
 //int __thiscall sub_41F4C1(void *this);
 void Actor_TotalReset(struct Actor *_this);
 //void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a4);
-void *__fastcall Actor_sub_4040E9(signed int a1, signed int a2, struct Actor_struct1 *pStruc1, signed int a4);
+struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, struct DirectionInfo *pDirectionInfo, signed int a4);
+//void *__fastcall sub_402CED(signed int a1, int a2);
+void Actor_sub_402CED(signed int a1, int a2);
+//int __fastcall sub_402D6E(int a1);
+void Actor_sub_402D6E(unsigned int uActorID);
 
 
 #pragma pack(pop)
