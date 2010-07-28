@@ -9,7 +9,7 @@ class RenderD3D10;
 class RenderOperatorD3D10_DrawTerrain: public RenderOperator_DrawTerrain
 {
  public:
-   virtual unsigned int Initialize(Render *pRender, Texture *pHeightmap, unsigned int uResolutionX, unsigned int uResolutionZ, Camera *pObserver);
+   virtual unsigned int Initialize(Render *pRender, Texture *pHeightmap, unsigned int uResolutionX, unsigned int uResolutionZ, float fCellScale, Camera *pObserver);
    virtual unsigned int Execute();
 
  protected:
@@ -19,6 +19,11 @@ class RenderOperatorD3D10_DrawTerrain: public RenderOperator_DrawTerrain
    TextureD3D10 *pHeightmap;
    unsigned int  uResolutionX,
                  uResolutionZ;
+   float         fTerrainCellScale;
+   
+   unsigned int  uHeightmapDimX,
+                 uHeightmapDimY;
+   unsigned int *pHeights;
 
    struct TerrainVertex
    {
@@ -32,6 +37,7 @@ class RenderOperatorD3D10_DrawTerrain: public RenderOperator_DrawTerrain
    ID3D10Buffer       *pVertexConstants;
 
    ID3D10PixelShader *pPixelShader;
+   TextureD3D10      *_pmarkup;
 };
 
 

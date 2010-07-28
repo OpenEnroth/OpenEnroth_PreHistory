@@ -2,7 +2,7 @@
 #include "RenderOGL.h"
 
 
-unsigned int RenderOperatorOGL_DrawTerrain::Initialize(Render *pRender, Texture *pHeightmap, unsigned int uResolutionX, unsigned int uResolutionZ, Camera *pObserver)
+unsigned int RenderOperatorOGL_DrawTerrain::Initialize(Render *pRender, Texture *pHeightmap, unsigned int uResolutionX, unsigned int uResolutionZ, float fCellScale, Camera *pObserver)
 {
  return -1;
 }

@@ -55,10 +55,10 @@ struct Quaternion
  inline Quaternion() {}
  inline Quaternion(float a, float b, float c, float d): s(a), x(b), y(c), z(d) {}
 
- inline void       Identity();
- inline void       Rotate(const Vec3 &vAxis, float angle);
- inline void       Rotate(float lattitude, float longitude);
- inline Matrix4x4 &ToMatrix(Matrix4x4 *pOut) const;
+ inline void        Identity();
+ inline Quaternion &Rotate(const Vec3 *pAxis, float angle);
+ inline void        Rotate(float lattitude, float longitude);
+ inline Matrix4x4  &ToMatrix(Matrix4x4 *pOut) const;
 
  inline Quaternion Conjugate();
  inline Vec3       Transform(const Vec3 &v);

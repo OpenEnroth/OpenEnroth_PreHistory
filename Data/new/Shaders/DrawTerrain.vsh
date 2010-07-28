@@ -23,7 +23,8 @@ struct Output
 {
  float4 vPos:    SV_Position0;
  float4 vNormal: NORMAL0;
- float3 vUV:     TEXCOORD0;
+ float4 vUV:     TEXCOORD0;
+ float4 trash:   TEXCOORD1;
 };
 
 
@@ -34,14 +35,16 @@ Output main(in Input vsin)
 // float2 vCentreUV = vsin.vPos * vLODSize.xy;
  float2 vCentreUV = vsin.vPos * vLODSize.xy;
 // float4 vCentreHeight = tHeightmap.Load(float3(vCentreUV, 0));
- float4 vCentreHeight = tHeightmap.Load(float3(vsin.vPos + float2(128, 128), 0));
+ float4 vCentreHeight = tHeightmap.Load(float3(vsin.vPos / 4.0, 0));
 
 // vsout.vPos = mul(mViewProjection, float4(vsin.vPos.x, vCentreHeight.x * 32 - 100, vsin.vPos.y, 1));
 // vsout.vPos = mul(mViewProjection, float4(vsin.vPos.x, -300, vsin.vPos.y, , 1));
- float4 vPos = float4(vsin.vPos.x, 64 * vCentreHeight.x, vsin.vPos.y, 1);
+ float4 vPos = float4(vsin.vPos.x, 128 * vCentreHeight.x, vsin.vPos.y, 1);
  vsout.vPos = mul(mViewProjection, vPos);
- vsout.vUV.xy = vCentreUV;
- vsout.vUV.z = vCentreHeight.x;
+ vsout.vUV.xy = vsin.vPos * vLODSize.xy;
+
+ vsout.trash.xy = (vsin.vPos.xy + 128.0 * 16.0) / (256.0 * 16.0);
+ vsout.trash.z = vCentreHeight.x;
 
 /*
  float4 vUpHeight = tHeightmap.Sample(sHeightmapSampler, (vsin.vPos + float2(0, 1) * vLODSize.xy);

@@ -45,5 +45,5 @@ class RenderOperator_DrawTerrain: public RenderOperator
  public:
    RenderOperator_DrawTerrain(): RenderOperator() {}
 
-   virtual unsigned int Initialize(Render *pRender, Texture *pHeightmap, unsigned int uResolutionX, unsigned int uResolutionZ, Camera *pObserver) = 0;
+   virtual unsigned int Initialize(Render *pRender, Texture *pHeightmap, unsigned int uResolutionX, unsigned int uResolutionZ, float fCellScale, Camera *pObserver) = 0;
 };

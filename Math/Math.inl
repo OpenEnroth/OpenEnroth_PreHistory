@@ -37,12 +37,14 @@ inline float Dot(const Vec4 &v1, const Vec4 &v2)
 }
 
 
-inline void Quaternion::Rotate(const Vec3 &vAxis, float angle)
+inline Quaternion &Quaternion::Rotate(const Vec3 *vAxis, float angle)
 {
  s = cosf(angle * 0.5f);
- x = vAxis.x * sinf(angle * 0.5f);
- y = vAxis.y * sinf(angle * 0.5f);
- z = vAxis.z * sinf(angle * 0.5f);
+ x = vAxis->x * sinf(angle * 0.5f);
+ y = vAxis->y * sinf(angle * 0.5f);
+ z = vAxis->z * sinf(angle * 0.5f);
+
+ return *this;
 }
 
 
@@ -80,7 +82,7 @@ inline void Quaternion::Rotate(float lattitude, float longitude)
                    -sinf(lattitude) * cosf(longitude),
                    sinf(longitude));
  vAxis.Normalize();
- Rotate(vAxis, angle);
+ Rotate(&vAxis, angle);
 }
 
 inline Quaternion Quaternion::operator *(const Quaternion &q) const

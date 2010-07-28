@@ -1,13 +1,16 @@
+Texture2D<float4> markup: register(t0);
+SamplerState samp: register(s0);
 
 struct Input
 {
  float4 vPos:    SV_Position0;
  float4 vNormal: NORMAL0;
- float3 vUV:     TEXCOORD0;
+ float4 vUV:     TEXCOORD0;
+ float4 trash:   TEXCOORD1;
 };
 
 
 float4 main(in Input psin): SV_Target0
 {
- return float4(psin.vUV.z, 0, 0, 1);
+ return markup.Sample(samp, psin.vUV.xy) + float4(4 * psin.trash.z, 0, 0, 0);
 }

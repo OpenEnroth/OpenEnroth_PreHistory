@@ -11,13 +11,45 @@
 
 unsigned int RenderOperatorD3D10_DrawTerrain::Execute()
 {
+ Vec3 vCameraPos = *pCamera->GetPosition();
+ float fHeightmapPosX = (float)(uHeightmapDimX) * (vCameraPos.x / fTerrainCellScale) / uResolutionX,
+       fHeightmapPosZ = (float)(uHeightmapDimY) * (vCameraPos.z / fTerrainCellScale) / uResolutionZ;
+
+ if (fHeightmapPosX < 0)
+ {
+  fHeightmapPosX = 0;
+  vCameraPos.x = 0;
+ }
+ else if (fHeightmapPosX >= uHeightmapDimX)
+ {
+  fHeightmapPosX = uHeightmapDimX - 1;
+  vCameraPos.x = uResolutionX * fTerrainCellScale;
+ }
+
+ if (fHeightmapPosZ < 0)
+ {
+  fHeightmapPosZ = 0;
+  vCameraPos.z = 0;
+ }
+ else if (fHeightmapPosZ >= uHeightmapDimY)
+ {
+  fHeightmapPosZ = uHeightmapDimY - 1;
+  vCameraPos.z = uResolutionZ * fTerrainCellScale;
+ }
+
+
+ //vCameraPos.y = 5 + 128 * (unsigned char)pHeights[(unsigned int)(fHeightmapPosZ * uHeightmapDimX + fHeightmapPosX)] / 255.0f;
+ pCamera->SetPosition(&vCameraPos);
+
+
+
  float *pConstants;
  pVertexConstants->Map(D3D10_MAP_WRITE_DISCARD, 0, (void **)&pConstants);
  {
   pCamera->GetViewProjection((Matrix4x4 *)pConstants);
 
-  pConstants[16] = 1.0f / uResolutionX;
-  pConstants[17] = 1.0f / uResolutionZ;
+  pConstants[16] = 1.0f / (uResolutionX * fTerrainCellScale);
+  pConstants[17] = 1.0f / (uResolutionZ * fTerrainCellScale);
   pConstants[18] = 0;
   pConstants[19] = 0;
  }
@@ -39,6 +71,7 @@ unsigned int RenderOperatorD3D10_DrawTerrain::Execute()
  pRender->pDevice->GSSetShader(0);
 
  pRender->pDevice->PSSetShader(pPixelShader);
+ pRender->pDevice->PSSetShaderResources(0, 1, (ID3D10ShaderResourceView **)&_pmarkup->pResourceView);
 
  pRender->pDevice->OMSetBlendState(pRender->pBlendState_Default, 0, 0xFFFFFFFF);
 
@@ -51,14 +84,17 @@ unsigned int RenderOperatorD3D10_DrawTerrain::Execute()
  else return 0;
 }
 
-unsigned int RenderOperatorD3D10_DrawTerrain::Initialize(Render *pHostRender, Texture *pTerrainHeightmap, unsigned int uResX, unsigned int uResZ, Camera *pObserver)
+unsigned int RenderOperatorD3D10_DrawTerrain::Initialize(Render *pHostRender, Texture *pTerrainHeightmap, unsigned int uResX, unsigned int uResZ, float fCellScale, Camera *pObserver)
 {
  pRender = (RenderD3D10 *)pHostRender;
  pHeightmap = (TextureD3D10 *)pTerrainHeightmap;
  pCamera = pObserver;
 
+ fTerrainCellScale = fCellScale;
  uResolutionX = uResX;
  uResolutionZ = uResZ;
+
+ pRender->CreateTexture(L".\\data\\new\\markup.png", (Texture **)&_pmarkup);
 
 
  ID3D10Blob *pShader,
@@ -103,9 +139,8 @@ unsigned int RenderOperatorD3D10_DrawTerrain::Initialize(Render *pHostRender, Te
  for (int z = 0; z < uResolutionZ; ++z)
    for (int x = 0; x < uResolutionX; ++x)
    {
-    pTerrainVertices[z * uResolutionX + x].x = (float)(x) - uResolutionX / 2;
-    //pTerrainVertices[z * uResolutionX + x].y = -25;
-    pTerrainVertices[z * uResolutionX + x].z = (float)(z) - uResolutionZ / 2;
+    pTerrainVertices[z * uResolutionX + x].x = x * fTerrainCellScale;
+    pTerrainVertices[z * uResolutionX + x].z = z * fTerrainCellScale;
    }
 
  D3D10_BUFFER_DESC bdTerrain;
@@ -156,6 +191,48 @@ unsigned int RenderOperatorD3D10_DrawTerrain::Initialize(Render *pHostRender, Te
 
  delete [] pTerrainVertices;
  delete [] pTerrainLOD0Indices;
+
+
+
+
+#pragma pack(push, 1)
+struct TGAHeader
+{
+ unsigned char  tgaSkip;
+ unsigned char  tgaDontCare1;
+ unsigned char  tgaType;
+ unsigned char  tgaDontCare2[9];
+ unsigned short tgaWidth;
+ unsigned short tgaHeight;
+ unsigned char  tgaBPP;
+ unsigned char  tgaDontCare3;
+};
+#pragma pack(pop)
+
+ DWORD  w;
+ void  *hFile = CreateFileW(L".\\data\\new\\Emerald Island.tga", GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
+ if (hFile == INVALID_HANDLE_VALUE)
+   return 1;
+
+ struct TGAHeader tgaHeader;
+ ReadFile(hFile, &tgaHeader, sizeof(struct TGAHeader), &w, 0);
+ SetFilePointer(hFile, tgaHeader.tgaSkip, 0, FILE_CURRENT);
+
+ if (tgaHeader.tgaBPP != 32)
+ {
+  MessageBoxW(0, L"Invalid Targa format", L"LoadTGA", 0);
+
+  CloseHandle(hFile);
+  return 1;
+ }
+
+ uHeightmapDimX = tgaHeader.tgaWidth;
+ uHeightmapDimY = tgaHeader.tgaHeight;
+ pHeights = new unsigned int[uHeightmapDimX * uHeightmapDimY];
+
+ ReadFile(hFile, pHeights, uHeightmapDimX * uHeightmapDimY * sizeof(__int32), &w, 0);
+ CloseHandle(hFile);
+
  return 0;
 }
 
@@ -261,7 +338,7 @@ unsigned int RenderOperatorD3D10_DrawEnvironment::Execute()
  Matrix4x4 *pNewView;
  pVertexShaderConstants->Map(D3D10_MAP_WRITE_DISCARD, 0, (void **)&pNewView);
  {
-  pCamera->GetViewOrientation(pNewView);
+  pCamera->GetEnvironmentMatrix(pNewView);
  }
  pVertexShaderConstants->Unmap();
 
