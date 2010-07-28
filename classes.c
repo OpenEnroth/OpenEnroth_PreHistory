@@ -4642,10 +4642,8 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
             }
           break;
 
-
-
           case 14:
-            pMonsterInfo->dword_000050 = atoi(v2);
+            pMonsterInfo->uRecoveryTime = atoi(v2);
           break;
 
           case 16:
@@ -6808,7 +6806,7 @@ int class35_sub_48A8A3(struct class35 *_this)
 //----- (00402F07) --------------------------------------------------------
 void ItemGen_Reset(struct ItemGen *_this)
 {
- _this->dword_000000 = 0;
+ _this->uItemID = 0;
  _this->dword_000004 = 0;
  _this->dword_000008 = 0;
  _this->dword_00000C = 0;

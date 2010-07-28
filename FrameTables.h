@@ -5,13 +5,13 @@
 
 struct MonsterDescription
 {
- short         uMonsterHeight;
- short         word_000002;
- char          byte_000004[8];
- short         arrray_00000C[4];
- char          byte_000014[32];
- unsigned char pSpriteNames[8][10]; // byte[10] @ 000034
- char          byte_000084[20];
+ short          uMonsterHeight;
+ short          word_000002;
+ char           byte_000004[8];
+ unsigned short pSoundSampleIDs[4];
+ char           byte_000014[32];
+ unsigned char  pSpriteNames[8][10]; // byte[10] @ 000034
+ char           byte_000084[20];
 };
 //sizeof = 98
 

@@ -13243,7 +13243,7 @@ char __thiscall sub_460A78(void *this)
     erroneous_printf("Out of memory loading indoor level");
   if ( !(BYTE1(dword_6BE364) & 0x20) )
   {
-    sub_408768();
+    UpdateActors();
     sub_408896();
   }
   BYTE1(dword_6BE364) &= 0xDFu;

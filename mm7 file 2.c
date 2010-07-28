@@ -994,7 +994,7 @@ LABEL_85:
         dword_5B65C0 = 1;
         sub_4646F0(1);
       }
-      sub_408768();
+      UpdateActors();
       v13 = 0;
       do
       {
@@ -15578,7 +15578,7 @@ void sub_47A384(const char *pLevelFilename, void *a2)
 
   if ( !(dword_6BE364 & 0x2000) )
   {
-    sub_408768();
+    UpdateActors();
     sub_408896();
   }
   dword_6BE364 &= 0xFFFFDFFF; //clear 0x4000 flag

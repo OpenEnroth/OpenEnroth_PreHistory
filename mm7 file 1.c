@@ -3743,182 +3743,6 @@ LABEL_20:
   return DefWindowProcA(hWnd, Msg, wParam, v5);
 }
 
-//----- (00401221) --------------------------------------------------------
-__int16 __fastcall sub_401221(unsigned int uActorID, int a2, int a3)
-{
-  int v3; // eax@1
-  int v4; // ecx@1
-  int v5; // ebx@1
-  int v6; // esi@1
-  int v7; // edi@2
-  int v8; // eax@10
-  int v9; // ebx@16
-  int v12; // edi@43
-  int v13; // ebx@45
-  int v14; // ecx@48
-  int v16; // [sp+Ch] [bp-24h]@16
-  int v17; // [sp+10h] [bp-20h]@1
-  int v18; // [sp+14h] [bp-1Ch]@1
-  int v19; // [sp+18h] [bp-18h]@1
-  int v20; // [sp+1Ch] [bp-14h]@16
-  int v21; // [sp+20h] [bp-10h]@1
-  int v22; // [sp+24h] [bp-Ch]@1
-  int v23; // [sp+28h] [bp-8h]@1
-  int v24; // [sp+2Ch] [bp-4h]@16
-  int v25; // [sp+2Ch] [bp-4h]@45
-
-  v22 = -1;
-  v19 = uActorID;
-  v6 = &pActors[uActorID];
-  v5 = 0;
-  v4 = 0;
-  v3 = *(_DWORD *)(v6 + 816);
-  *(_DWORD *)a2 = 0;
-  v17 = a2;
-  v18 = 0;
-  v21 = v3;
-  v23 = 0;
-
-  if (uNumActors > 0)
-  {
-   v7 = &pActors[0].word_0000B0;
-    while ( 1 )
-    {
-     v7 = &pActors[v23].word_0000B0;
-
-      LOWORD(v3) = pActors[v23].word_0000B0;
-      if (pActors[v23].word_0000B0 == 5 || pActors[v23].word_0000B0 == 4 ||
-          pActors[v23].word_0000B0 == 11 || pActors[v23].word_0000B0 == 17 ||
-          pActors[v23].word_0000B0 == 19 || v19 == v4 )
-        goto LABEL_23;
-
-      if ( v21 != v5 )
-      {
-        v8 = 8 * v4;
-        LOBYTE(v8) = 8 * v4 | 3;
-        if ( v21 == v8 )
-        {
-          if ( sub_4089C7(&pActors[v23]) != 1 )
-          {
-            v3 = *(_DWORD *)(v7 + 532);
-            if ( (v3 != v5 || *(_DWORD *)(v6 + 708) != v5) && v3 == *(_DWORD *)(v6 + 708) )
-              goto LABEL_23;
-            v3 = 4;
-LABEL_14:
-            if ( *(_BYTE *)(v6 + 61) )
-             v3 = pMonsterStats->pMonsterInfos[pActors[uActorID].uMonsterID - 1].byte_000011;
-            v9 = dword_4DF380[v3];
-            v20 = abs(pActors[uActorID].sActorPosX - pActors[v23].sActorPosX);
-            v24 = abs(pActors[uActorID].sActorPosY - pActors[v23].sActorPosY);
-            v3 = abs(pActors[uActorID].sActorPosZ - pActors[v23].sActorPosZ);
-            v16 = v3;
-            if ( v20 <= v9 )
-            {
-              if ( v24 <= v9 )
-              {
-                if ( v3 <= v9 )
-                {
-                  v3 = sub_4070EF(8 * v23 | 3, 8 * v19 | 3);
-                  if ( v3 )
-                  {
-                    v3 = v20 * v20 + v24 * v24 + v16 * v16;
-                    if ( v3 < (unsigned int)v22 )
-                    {
-                      v22 = v20 * v20 + v24 * v24 + v16 * v16;
-                      LOWORD(v3) = v23;
-                      v18 = v23;
-                    }
-                  }
-                }
-              }
-            }
-            v5 = 0;
-            goto LABEL_23;
-          }
-          v21 = v5;
-          *(_DWORD *)(v6 + 816) = v5;
-        }
-      }
-      v3 = Actor_sub_40104C(&pActors[uActorID], &pActors[v23]);
-      if ( v3 != v5 )
-        goto LABEL_14;
-LABEL_23:
-      v7 += 836;
-      v4 = v23 + 1;
-      //v11 = __SETO__(v23 + 1, uNumActors);
-      //v10 = (signed int)(v23++ + 1 - uNumActors) < 0;
-      if (++v23 >= uNumActors)
-      {
-        if ( v22 != -1 )
-        {
-          v3 = 8 * v18;
-          LOBYTE(v3) = 8 * v18 | 3;
-          *(_DWORD *)v17 = v3;
-        }
-        break;
-      }
-    }
-  }
-
-
-
-  if ( HIDWORD(qword_ACD8F4) >= v5 )
-  {
-    if ( HIDWORD(qword_ACD8F4) > v5 || (_DWORD)qword_ACD8F4 > (unsigned int)v5 )
-      a3 = v5;
-  }
-  if ( a3 != v5 )
-  {
-    v3 = Actor_sub_40104C(v6, 0);
-    if ( *(_BYTE *)(v6 + 38) & 8 )
-    {
-      if ( *(_DWORD *)(v6 + 408) <= v5 )
-      {
-        if ( *(_DWORD *)(v6 + 408) < v5 || *(_DWORD *)(v6 + 404) <= (unsigned int)v5 )
-        {
-          if ( *(_DWORD *)(v6 + 232) <= v5 )
-          {
-            if ( *(_DWORD *)(v6 + 232) < v5 || *(_DWORD *)(v6 + 228) <= (unsigned int)v5 )
-            {
-              if ( *(_DWORD *)(v6 + 248) <= v5 )
-              {
-                if ( *(_DWORD *)(v6 + 248) < v5 || *(_DWORD *)(v6 + 244) <= (unsigned int)v5 )
-                  v3 = 4;
-              }
-            }
-          }
-        }
-      }
-    }
-    if ( v3 != v5 )
-    {
-      v12 = dword_4DF390;
-      if ( !*(_BYTE *)(v6 + 61) )
-        v12 = dword_4DF380[v3];
-      v13 = abs(*(_WORD *)(v6 + 142) - pParty_global->sPartyPosX);
-      v25 = abs(*(_WORD *)(v6 + 144) - pParty_global->sPartyPosY);
-      v3 = abs(*(_WORD *)(v6 + 146) - pParty_global->sPartyPosZ);
-      if ( v13 <= v12 )
-      {
-        if ( v25 <= v12 )
-        {
-          if ( v3 <= v12 )
-          {
-            v14 = v25 * v25 + v3 * v3;
-            LOWORD(v3) = v13 * v13;
-            if ( v13 * v13 + v14 < (unsigned int)v22 )
-            {
-              LOWORD(v3) = v17;
-              *(_DWORD *)v17 = 4;
-            }
-          }
-        }
-      }
-    }
-  }
-  return v3;
-}
-
 //----- (0047B42C) --------------------------------------------------------
 void __cdecl sub_47B42C()
 {
@@ -4903,7 +4727,7 @@ void __cdecl sub_401A91()
                   }
                   else
                   {
-                    Actor_sub_402D6E(v87);
+                    Actor_Die(v87);
                     if ( *((_DWORD *)v5 + 19) )
                       sub_4269A2(pMonsterStats->pMonsterInfos[*((_WORD *)v5 + 28)].uExp);
                   }
@@ -4962,7 +4786,7 @@ void __cdecl sub_401A91()
       if ( !*(_WORD *)(LODWORD(v82.v83) - 136) )
       {
         if ( pActors[i].word_0000B0 != 4 )
-          Actor_sub_402D6E(i);
+          Actor_Die(i);
       }
       v87 = *(_QWORD *)(LODWORD(v82.v83) + 84) <= 0i64 ? 0 : 1;
       v85 = *(_QWORD *)(LODWORD(v82.v83) + 52) <= 0i64 ? 0 : 1;
@@ -5004,7 +4828,7 @@ void __cdecl sub_401A91()
       v16 = v11 + 124;
       *(_DWORD *)(v11 + 184) += pClass24_global2->int_00001C;
       v17 = *(_DWORD *)(v11 + 184);
-      v18 = pActors[i].dword_00007C;
+      v18 = pActors[i].uRecoveryTime;
       if ( v18 > 0 )
         *(_DWORD *)v16 = v18 - v19;
       if ( *(_DWORD *)v16 < 0 )
@@ -5055,7 +4879,7 @@ void __cdecl sub_401A91()
       if ( v23 == 4 || v23 == 5 || v23 == 11 || v23 == 19 || v23 == 17 )
         goto LABEL_255;
       if ( !*(_WORD *)(v21 + 40) )
-        Actor_sub_402D6E(v86);
+        Actor_Die(v86);
       if ( *(_QWORD *)(v21 + 260) <= 0i64 )
       {
         v87 = 0;
@@ -7138,7 +6962,7 @@ int __fastcall sub_402F27(int this)
   *(_WORD *)(v2 + 178) = 5;
   *(_WORD *)(v2 + 160) = 8 * *(_WORD *)(v4 + v3 + 56);
   *(_WORD *)(v2 + 40) = *(_WORD *)(v2 + 108);
-  Actor_sub_402CED(this, 1);
+  Actor_PlaySound(this, 1);
   return Actor_sub_45976D(v2);
 }
 
@@ -7309,7 +7133,7 @@ __int16 __fastcall sub_4030AD(int a1, int a2, int a3)
     *(_DWORD *)(v3 + 184) = 0;
     *(_WORD *)(v3 + 176) = 8;
     *(_WORD *)(v3 + 160) = 8 * v7;
-    Actor_sub_402CED(v8, 2);
+    Actor_PlaySound(v8, 2);
     result = Actor_sub_45976D(v3);
   }
   return result;

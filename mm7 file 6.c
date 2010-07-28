@@ -2777,7 +2777,7 @@ int __fastcall sub_4938D1(unsigned int a1)
 
   v1 = a1;
   if ( a1 > 0xF0 )
-    sub_408768();
+    UpdateActors();
   v3 = (double)(7680 * v1) * 0.03333333507180214;
   pParty_global->qword_00002C += (signed __int64)v3;
   v2 = (void **)pPlayers;

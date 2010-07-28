@@ -1233,7 +1233,7 @@ struct MonsterInfo
  unsigned int         uAC;           // dword @ 000044
  unsigned int         uExp;          // dword @ 000048
  unsigned int         uSpeed;        // dword @ 00004C
- unsigned int         dword_000050;  // dword @ 000050
+ unsigned int         uRecoveryTime;  // dword @ 000050
 
  unsigned char        byte_000054;
  unsigned char        byte_000055;
@@ -1350,7 +1350,7 @@ struct struct2
 
 struct ItemGen
 {
-  int  dword_000000;
+  unsigned int uItemID;
   int  dword_000004;
   int  dword_000008;
   int  dword_00000C;

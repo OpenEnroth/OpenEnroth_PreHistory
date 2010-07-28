@@ -1650,12 +1650,12 @@ char __cdecl sub_450218()
     v3 = &array_5E5150[i].stru_000004;
     for (j = 0; j < 140; ++j)
     {
-     if (array_5E5150[i].stru_000004.dword_000000 >= 0)
+     if (array_5E5150[i].stru_000004.uItemID >= 0)
         goto LABEL_56;
 
       v5 = rand() % 5 + 1;
-      v6 = data_4E7168[2 * (v2->byte_00002F + 7 * abs(array_5E5150[i].stru_000004.dword_000000)) + 2];
-      v7 = data_4E7168[2 * (v2->byte_00002F + 7 * abs(array_5E5150[i].stru_000004.dword_000000)) + 3];
+      v6 = data_4E7168[2 * (v2->byte_00002F + 7 * abs(array_5E5150[i].stru_000004.uItemID)) + 2];
+      v7 = data_4E7168[2 * (v2->byte_00002F + 7 * abs(array_5E5150[i].stru_000004.uItemID)) + 3];
       v8 = rand();
       v9 = v7 - v6 + 1;
       v4 = v6 + v8 % v9;
@@ -5144,7 +5144,7 @@ int __thiscall sub_406457(void *this, int a2)
   }
   else
   {
-    v4 = pMonsterStats->pMonsterInfos[word_5FF1B8[418 * (v2 >> 3)]].dword_000050;
+    v4 = pMonsterStats->pMonsterInfos[word_5FF1B8[418 * (v2 >> 3)]].uRecoveryTime;
   }
   *(_DWORD *)(16 * a2 + v3 + 36) = v4;
   sub_404544(v3);
@@ -5202,7 +5202,7 @@ void __thiscall sub_40652A(int this)
         v3 = *((_WORD *)v2 + 88);
         if ( !v3 || v3 == 9 || v3 == 7 )
         {
-         v4 = pMonsterStats->pMonsterInfos[*((_WORD *)v2 + 48)].dword_000050;
+         v4 = pMonsterStats->pMonsterInfos[*((_WORD *)v2 + 48)].uRecoveryTime;
           *(_DWORD *)v1 = v4;
           if ( *(_QWORD *)(v2 + 324) > 0i64 )
             *(_DWORD *)v1 = 2 * v4;
@@ -9056,12 +9056,10 @@ int __fastcall sub_464866(int a1, int a2)
  sscanf(Str1, "%[^.].%s", pLevelName, pLevelType);
  Level_LoadEvtAndStr(pLevelName);
  LoadLevel_InitializeLevelEvt();
-
-
+ 
  for (i = 0; i < 1000; ++i)
    array_665230[i].uObjectDescriptionID = 0;
-
-
+ 
  uLevelMapStatsID = CMapStats_FindLocation(pMapStats, Str1);
   byte_6BE3C4_MaybeDrowningFlag = 0;
 
@@ -9083,12 +9081,12 @@ int __fastcall sub_464866(int a1, int a2)
   sub_461103();
   if (!strcmpi(Str1, "d11.blv") || !strcmpi(Str1, "d10.blv"))
   {
-   for (i = 0; i < uNumActors; ++i)
-   {
-     pActors[i].byte_00002A[12] = 0;
-     pActors[i].byte_00002A[15] = 0;
-     pActors[i].dword_000074 = 0;
-   }
+    for (i = 0; i < uNumActors; ++i)
+    {
+      pActors[i].byte_00002A[12] = 0;
+      pActors[i].byte_00002A[15] = 0;
+      pActors[i].uExperience = 0;
+    }
   }
   LODWORD(v6) = &pActors[uNumActors].byte_00002A[15];
 

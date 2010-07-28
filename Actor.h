@@ -7,10 +7,8 @@
 #include "classes.h"
 
 
-char __cdecl sub_408768();
-
 bool InitializeActors(unsigned int uLocationID);
-
+void __cdecl UpdateActors();
 
 struct Actor_struct0
 {
@@ -44,23 +42,23 @@ struct Actor
  short          word_000020;
  short          word_000022;
  int            dword_000024; // some flags
- short          word_000028;
+ short          sCurrentHP;   //word @ 000028
  char           byte_00002A[19];
  char           byte_00003D;
  char           byte_00003E[34];
  unsigned short uMonsterID;     // word @ 000060   (uMonsterID - 1) == monster id in MonsterDescriptionList and MonsterStats  (originally (- 0) in MonsterStats since 0th entry was dummy)
  char           byte_000062[10];
- short          word_00006C;
+ short          sTotalHP;       //word @ 00006C
  char           maybe_hiword_of_dword_00006C[2];
  char           byte_000070[4];
- int            dword_000074;
- int            dword_000078;
- int            dword_00007C;
+ unsigned int   uExperience;    //dword @ 000074
+ unsigned int   uBaseSpeed;     //dword @ 000078
+ unsigned int   uRecoveryTime;  //dword @ 00007C
  char           byte_000080[6];
  short          word_000086;
  short          word_000088;
  unsigned short uActorHeight; //word @ 00008A
- unsigned short uSpeed; // //word @ 00008C related to monster speed from MosnterInfo
+ unsigned short uSpeed;  //word @ 00008C related to monster speed from MosnterInfo
  short          sActorPosX; // word @ 00008E
  short          sActorPosY; // word @ 000090
  short          sActorPosZ; // word @ 000092
@@ -71,9 +69,9 @@ struct Actor
  unsigned short uPitchAngle;//word @ 00009C
  short          word_00009E;
  short          word_0000A0;
- short          word_0000A2;
- short          word_0000A4;
- short          word_0000A6;
+ short          sInitialPosX; // word @ 0000A2
+ short          sInitialPosY; // word @ 0000A4
+ short          sInitialPosZ; // word @ 0000A6
  short          word_0000A8;
  short          word_0000AA;
  short          word_0000AC;
@@ -96,7 +94,7 @@ struct Actor
                                // uSpriteIDs[5]: ?
                                // uSpriteIDs[6]: X - dead
                                // uSpriteIDs[7]: F - bored, no direction
- short                array_0000CC[4];
+ unsigned short       pSoundSampleIDs[4];
  struct Actor_struct0 array_0000D4[22];
  struct ItemGen       array_000234[4];
  int   dword_0002C4;
@@ -151,9 +149,9 @@ void Actor_TotalReset(struct Actor *_this);
 //void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a4);
 struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, struct DirectionInfo *pDirectionInfo, signed int a4);
 //void *__fastcall sub_402CED(signed int a1, int a2);
-void Actor_sub_402CED(signed int a1, int a2);
+void Actor_PlaySound(unsigned int uActorID, int soundId);
 //int __fastcall sub_402D6E(int a1);
-void Actor_sub_402D6E(unsigned int uActorID);
+void Actor_Die(unsigned int uActorID);
 
 
 #pragma pack(pop)

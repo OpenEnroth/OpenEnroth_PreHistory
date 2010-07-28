@@ -2591,7 +2591,7 @@ LABEL_486:
                     v78 = word_4ECBC6[10 * v209];
                     dword_5B65B4 = word_4ECBC4[10 * v209];
                     dword_5B65B8 = v78;
-                    sub_408768();
+                    UpdateActors();
                   }
                   v79 = pGUIWindow_CurrentMenu->dword_000048;
                   if ( v79 )

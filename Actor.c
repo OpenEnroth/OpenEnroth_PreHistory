@@ -24,7 +24,7 @@ bool Actor_sub_40894B(struct Actor *_this)
 }
 
 //----- (00408768) --------------------------------------------------------
-char __cdecl sub_408768()
+void __cdecl UpdateActors()
 {
   char v1;
   signed int v5; // [sp+Ch] [bp-10h]@1
@@ -39,9 +39,10 @@ char __cdecl sub_408768()
   v6 = 0;
   v7 = 0;
   v5 = 0;
-  if ( !_strcmpi(Str1, "d25.blv") )
+
+  if ( !_strcmpi(Str1, "d25.blv") ) //Celeste
     v8 = 1;
-  if ( !_strcmpi(Str1, "d26.blv") )
+  if ( !_strcmpi(Str1, "d26.blv") ) //The Pit
     v6 = 1;
   if ( (unsigned __int16)sub_449B57((int)byte_ACD71D, 99) )
     v7 = 1;  
@@ -54,12 +55,12 @@ char __cdecl sub_408768()
 
     if ( Actor_sub_40894B(pActor) || pActor->word_0000B0 == 19 )
     {
-      pActor->sActorPosX = pActor->word_0000A2;
-      pActor->sActorPosY = pActor->word_0000A4;
-      pActor->sActorPosZ = pActor->word_0000A6;
-      pActor->word_000028 = pActor->word_00006C;
+      pActor->sActorPosX = pActor->sInitialPosX;
+      pActor->sActorPosY = pActor->sInitialPosY;
+      pActor->sActorPosZ = pActor->sInitialPosZ;
+      pActor->sCurrentHP = pActor->sTotalHP;
       if (pActor->word_0000B0 != 19)
-        Actor_sub_403EB6(i, dword_4F6E08[i], pActor->dword_00007C, 0);
+        Actor_sub_403EB6(i, dword_4F6E08[i], pActor->uRecoveryTime, 0);
     }
 
     pActor->byte_00002A[19] = 0;
@@ -69,16 +70,14 @@ char __cdecl sub_408768()
     {
       if ( !v6 || v5 )
       {
-        v1 = sub_438B9B(pActor);
-        if ( v1 )
+        if ( sub_438B9B(pActor) )
           pActor->dword_000024 &= 0xFFF7FFFF;
       }
     }
     pActor->dword_000024 &= 0xFF7FFFFF;
     if (pActor->dword_000024 & 0x400000 )
-      v1 = sub_4031C1(i, pParty_global->uCurrentHour, 1);
+      sub_4031C1(i, pParty_global->uCurrentHour, 1);
   }
-  return v1;
 }
 
 
@@ -384,7 +383,7 @@ void Actor_LinkSprites(struct Actor *_this, char a2)
   if (~a2 & 1)
   {
     for (i = 0; i < 4; ++i)
-      _this->array_0000CC[i] = pActorDescription->arrray_00000C[i];
+      _this->pSoundSampleIDs[i] = pActorDescription->pSoundSampleIDs[i];
   }
 }
 
@@ -518,16 +517,14 @@ signed int Actor_sub_40104C(struct Actor *pActor1, struct Actor *pActor2)
 void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDirectionInfo)
 {
   struct Actor *pActor;
-  struct DirectionInfo v18;
-  
-  int v6;
-  int v7; 
-  int v14; 
+  struct DirectionInfo directionInfo;  
+  int x1; 
+  int y1;
+  int z1;
+  unsigned int recoveryTime; 
   short v16;
-  int v22;
-    
+      
   pActor = &pActors[uActorID];
-
   if ( (pActor->byte_00002A[17] == 5) && (pActor->byte_00002A[18] == 1) )
   {
     Actor_sub_403EB6(uActorID, a2, 0, pDirectionInfo);
@@ -536,34 +533,34 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDire
  
   if ( (a2 & 7) == 3 )
   {      
-    v7 = pActors[a2 >> 3].sActorPosX;
-    v6 = pActors[a2 >> 3].sActorPosY;
-    v22 = (signed __int64)((double)pActors[a2 >> 3].uActorHeight * 0.75 + 
-          (double)pActors[a2 >> 3].sActorPosZ);
+    x1 = pActors[a2 >> 3].sActorPosX;
+    y1 = pActors[a2 >> 3].sActorPosY;
+    z1 = (int)((double)pActors[a2 >> 3].uActorHeight * 0.75 + 
+               (double)pActors[a2 >> 3].sActorPosZ);
   }
   else
   {
     if ( (a2 & 7) == 4 )
     {
-      v7 = pParty_global->sPartyPosX;
-      v6 = pParty_global->sPartyPosY;
-      v22 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+      x1 = pParty_global->sPartyPosX;
+      y1 = pParty_global->sPartyPosY;
+      z1 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
     }
     else
     {
       //WTF? something illogical happens here
-      v7 = (int)pDirectionInfo; 
-      v6 = (int)pDirectionInfo;
+      x1 = (int)pDirectionInfo; 
+      y1 = (int)pDirectionInfo;
     }
   }
     
-  if ( sub_407A1C(v7, v6, v22, pActor->sActorPosX, pActor->sActorPosY, 
+  if ( sub_407A1C(x1, y1, z1, pActor->sActorPosX, pActor->sActorPosY, 
                  (int)((double)pActor->uActorHeight * 0.75 + (double)pActor->sActorPosZ)) )
   {
     if ( !pDirectionInfo )
     { 
-      GetDirectionInfo(8 * uActorID | 3, a2, &v18, 0);      
-      pDirectionInfo = &v18;
+      GetDirectionInfo(8 * uActorID | 3, a2, &directionInfo, 0);      
+      pDirectionInfo = &directionInfo;
     }
     
     //v15 = pSpriteFrameTable->pSpriteSFrames;
@@ -575,18 +572,18 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDire
     pActor->dword_0000B8 = 0;
     pActor->word_0000B0 = 2;
 
-    Actor_sub_402CED(uActorID, 0);
+    Actor_PlaySound(uActorID, 0);
 
-    v14 = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].dword_000050;
+    recoveryTime = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].uRecoveryTime;
     if ( pActor->array_0000D4[7].qword_000000 > 0i64 )
     {
-      v14 *= 2;   
+      recoveryTime *= 2;   
     }
 
     if ( dword_ACD834 != 1 )
-      v14 = (int)(flt_6BE3A8 * (double)v14 * 2.133333333333333);
+      recoveryTime = (int)(flt_6BE3A8 * (double)recoveryTime * 2.133333333333333);
 
-    pActor->dword_00007C = v14;
+    pActor->uRecoveryTime = recoveryTime;
     pActor->word_000098 = 0;
     pActor->word_000096 = 0;
     pActor->word_000094 = 0;
@@ -638,7 +635,7 @@ void Actor_sub_402F87(unsigned int uActorID, signed int a2, struct DirectionInfo
     pActor->word_000094 = 0;
     
     if ( rand() % 100 < 5 )
-      Actor_sub_402CED(uActorID, 3);
+      Actor_PlaySound(uActorID, 3);
 
     Actor_sub_45976D(pActor);
   }
@@ -827,7 +824,7 @@ void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struc
   pActor->word_0000B0 = 6;
   
   if ( rand() % 100 < 2 )
-    Actor_sub_402CED(uActorID, 2);
+    Actor_PlaySound(uActorID, 2);
 
   Actor_sub_45976D(pActor);
 }
@@ -978,45 +975,45 @@ void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a
 //----- (00403854) --------------------------------------------------------
 void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo *pDirectionInfo)
 {
-  struct Actor *pActor;
-  int v4;
-  int v5;
-  int v11;
+  struct Actor *pActor;  
+  struct DirectionInfo directionInfo;
+  unsigned int recoveryTime;
+  int x1;
+  int y1;
+  int z1;  
   short v13;
-  struct DirectionInfo v16;
-  int v20;
-
+    
   pActor = &pActors[uActorID];
   if ( (a2 & 7) == 3 )
   {
-    v5 = pActors[a2 >> 3].sActorPosX;
-    v4 = pActors[a2 >> 3].sActorPosY;
-    v20 = (signed __int64)((double)pActors[a2 >> 3].uActorHeight * 0.75
+    x1 = pActors[a2 >> 3].sActorPosX;
+    y1 = pActors[a2 >> 3].sActorPosY;
+    z1 = (signed __int64)((double)pActors[a2 >> 3].uActorHeight * 0.75
                          + (double)pActors[a2 >> 3].sActorPosZ);
   }
   else
   {
     if ( (a2 & 7) == 4 )
     {
-      v5 = pParty_global->sPartyPosX;
-      v4 = pParty_global->sPartyPosY;
-      v20 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+      x1 = pParty_global->sPartyPosX;
+      y1 = pParty_global->sPartyPosY;
+      z1 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
     }
     else
     {
       //WTF? something illogical happens here
-      v5 = (int)pDirectionInfo;
-      v4 = (int)pDirectionInfo;
+      x1 = (int)pDirectionInfo;
+      y1 = (int)pDirectionInfo;
     }
   }
 
-  if ( sub_407A1C(v5, v4, v20, pActor->sActorPosX, pActor->sActorPosY,
+  if ( sub_407A1C(x1, y1, z1, pActor->sActorPosX, pActor->sActorPosY,
                   pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75)) )
   {
     if ( !pDirectionInfo )
     { 
-      GetDirectionInfo(8 * uActorID | 3, a2, &v16, 0);      
-      pDirectionInfo = &v16;      
+      GetDirectionInfo(8 * uActorID | 3, a2, &directionInfo, 0);      
+      pDirectionInfo = &directionInfo;      
     }
 
     //v12 = pSpriteFrameTable->pSpriteSFrames;
@@ -1028,19 +1025,19 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo
     pActor->dword_0000B8 = 0;
     pActor->word_0000B0 = 13;
 
-    Actor_sub_402CED(uActorID, 0);
+    Actor_PlaySound(uActorID, 0);
 
-    v11 = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].dword_000050;    
+    recoveryTime = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].uRecoveryTime;    
     if ( pActor->array_0000D4[7].qword_000000 > 0i64 )
     {
-      v11 *= 2;    
+      recoveryTime *= 2;    
     }
     
     if ( dword_ACD834 == 1 )
-      pActor->dword_00007C = v11;
+      pActor->uRecoveryTime = recoveryTime;
     else
-      pActor->dword_00007C = pActor->word_0000A0 - 
-                             (int)(flt_6BE3A8 * (double)v11 * -2.133333333333333);        
+      pActor->uRecoveryTime = pActor->word_0000A0 - 
+                             (int)(flt_6BE3A8 * (double)recoveryTime * -2.133333333333333);        
     pActor->word_000098 = 0;
     pActor->word_000096 = 0;
     pActor->word_000094 = 0;
@@ -1068,44 +1065,44 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo
 void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct DirectionInfo *pDirectionInfo)
 {
   struct Actor *pActor;  
-  int v4;
-  int v5;
-  int v11;
-  short v13;
-  struct DirectionInfo v15;
-  int v19;
+  struct DirectionInfo directionInfo;
+  int x1;
+  int y1;    
+  int z1;
+  unsigned int recoveryTime;
+  short v13;    
     
   pActor = &pActors[uActorID];  
   if ( (a2 & 7) == 3 )
   {    
-    v5 = pActors[a2 >> 3].sActorPosX;
-    v4 = pActors[a2 >> 3].sActorPosY;
-    v19 = (signed __int64)((double)pActors[a2 >> 3].uActorHeight * 0.75
+    x1 = pActors[a2 >> 3].sActorPosX;
+    y1 = pActors[a2 >> 3].sActorPosY;
+    z1 = (int)((double)pActors[a2 >> 3].uActorHeight * 0.75
       + (double)pActors[a2 >> 3].sActorPosZ);
   }
   else
   {
     if ( (a2 & 7) == 4 )
     {
-      v5 = pParty_global->sPartyPosX;
-      v4 = pParty_global->sPartyPosY;
-      v19 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+      x1 = pParty_global->sPartyPosX;
+      y1 = pParty_global->sPartyPosY;
+      z1 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
     }
     else
     {
       //WTF? something illogical happens here
-      v5 = (int)pDirectionInfo;
-      v4 = (int)pDirectionInfo;
+      x1 = (int)pDirectionInfo;
+      y1 = (int)pDirectionInfo;
     }
   }
 
-  if ( sub_407A1C(v5, v4, v19, pActor->sActorPosX, pActor->sActorPosY,
+  if ( sub_407A1C(x1, y1, z1, pActor->sActorPosX, pActor->sActorPosY,
                   pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75)) )
   {
     if ( !pDirectionInfo )
     {
-      GetDirectionInfo(8 * uActorID | 3, a2, &v15, 0);      
-      pDirectionInfo = &v15;      
+      GetDirectionInfo(8 * uActorID | 3, a2, &directionInfo, 0);      
+      pDirectionInfo = &directionInfo;      
     }
 
     //v12 = pSpriteFrameTable->pSpriteSFrames;
@@ -1117,16 +1114,16 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct DirectionInfo
     pActor->dword_0000B8 = 0;
     pActor->word_0000B0 = 12;
 
-    Actor_sub_402CED(uActorID, 0);
+    Actor_PlaySound(uActorID, 0);
 
-    v11 = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].dword_000050;    
+    recoveryTime = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].uRecoveryTime;    
     if ( pActor->array_0000D4[7].qword_000000 > 0i64 )
     {
-      v11 *= 2;
+      recoveryTime *= 2;
     }
 
     if ( dword_ACD834 != 1 )
-      pActor->dword_00007C = (int)(flt_6BE3A8 * (double)v11 * 2.133333333333333);
+      pActor->uRecoveryTime = (int)(flt_6BE3A8 * (double)recoveryTime * 2.133333333333333);
         
     pActor->word_000098 = 0;
     pActor->word_000096 = 0;
@@ -1142,49 +1139,49 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct DirectionInfo
 //----- (00403476) --------------------------------------------------------
 void Actor_sub_403476(unsigned int uActorID, signed int a2, struct DirectionInfo *pDirectionInfo)
 {
-  struct Actor *pActor; 
-  int v4;
-  int v5;
-  int v11;
+  struct Actor *pActor;   
+  struct DirectionInfo directionInfo;
+  unsigned int recoveryTime;
+  int x1;
+  int y1;
+  int z1;  
   short v13;
-  struct DirectionInfo v15;
-  int v20;
 
   pActor = &pActors[uActorID];  
   if ( (a2 & 7) == 3 )
   {
-    v5 = pActors[a2 >> 3].sActorPosX;
-    v4 = pActors[a2 >> 3].sActorPosY;
-    v20 = (signed __int64)((double)pActors[a2 >> 3].uActorHeight * 0.75
+    x1 = pActors[a2 >> 3].sActorPosX;
+    y1 = pActors[a2 >> 3].sActorPosY;
+    z1 = (signed __int64)((double)pActors[a2 >> 3].uActorHeight * 0.75
                          + (double)pActors[a2 >> 3].sActorPosZ);
   }
   else
   {
     if ( (a2 & 7) == 4 )
     {
-      v5 = pParty_global->sPartyPosX;
-      v4 = pParty_global->sPartyPosY;
-      v20 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+      x1 = pParty_global->sPartyPosX;
+      y1 = pParty_global->sPartyPosY;
+      z1 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
     }
     else
     {
       //WTF? something illogical happens here
-      v5 = (int)pDirectionInfo;
-      v4 = (int)pDirectionInfo;
+      x1 = (int)pDirectionInfo;
+      y1 = (int)pDirectionInfo;
     }
   }
 
-  if ( sub_407A1C(v5, v4, v20, pActor->sActorPosX, pActor->sActorPosY, 
+  if ( sub_407A1C(x1, y1, z1, pActor->sActorPosX, pActor->sActorPosY, 
                  pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75)) 
        ||
        sub_407A1C(pActor->sActorPosX, pActor->sActorPosY, 
                   pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75),
-                  v5, v4, v20) )
+                  x1, y1, z1) )
   {
     if ( !pDirectionInfo )
     {
-      GetDirectionInfo(8 * uActorID | 3, a2, &v15, 0);
-      pDirectionInfo = &v15; 
+      GetDirectionInfo(8 * uActorID | 3, a2, &directionInfo, 0);
+      pDirectionInfo = &directionInfo; 
     }
 
     //v12 = pSpriteFrameTable->pSpriteSFrames;
@@ -1196,19 +1193,19 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct DirectionInfo
     pActor->dword_0000B8 = 0;
     pActor->word_0000B0 = 3;
 
-    Actor_sub_402CED(uActorID, 0);
+    Actor_PlaySound(uActorID, 0);
 
-    v11 = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].dword_000050;    
+    recoveryTime = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].uRecoveryTime;    
     if ( pActor->array_0000D4[7].qword_000000 > 0i64 )
     {
-      v11 *= 2;    
+      recoveryTime *= 2;    
     }
 
     if ( dword_ACD834 == 1 )
-      pActor->dword_00007C = v11;
+      pActor->uRecoveryTime = recoveryTime;
     else
-      pActor->dword_00007C = pActor->word_0000A0 - 
-                             (int)(flt_6BE3A8 * (double)v11 * -2.133333333333333);
+      pActor->uRecoveryTime = pActor->word_0000A0 - 
+                             (int)(flt_6BE3A8 * (double)recoveryTime * -2.133333333333333);
     pActor->word_000098 = 0;
     pActor->word_000096 = 0;
     pActor->word_000094 = 0;
@@ -1222,44 +1219,44 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct DirectionInfo
 void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct DirectionInfo *pDirectionInfo)
 {
   struct Actor *pActor; 
-  int v4;
-  int v5;
-  int v11;
-  short v13;
-  struct DirectionInfo v16;
-  int v20;
+  struct DirectionInfo directionInfo;  
+  unsigned int recoveryTime;
+  int x1;
+  int y1;  
+  int z1;
+  short v13;  
 
   pActor = &pActors[uActorID];
   if ( (a2 & 7) == 3 )
   {
-    v5 = pActors[a2 >> 3].sActorPosX;
-    v4 = pActors[a2 >> 3].sActorPosY;
-    v20 = (signed __int64)((double)pActors[a2 >> 3].uActorHeight * 0.75
+    x1 = pActors[a2 >> 3].sActorPosX;
+    y1 = pActors[a2 >> 3].sActorPosY;
+    z1 = (signed __int64)((double)pActors[a2 >> 3].uActorHeight * 0.75
                          + (double)pActors[a2 >> 3].sActorPosZ);
   }
   else
   {
     if ( (a2 & 7) == 4 )
     {
-      v5 = pParty_global->sPartyPosX;
-      v4 = pParty_global->sPartyPosY;
-      v20 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
+      x1 = pParty_global->sPartyPosX;
+      y1 = pParty_global->sPartyPosY;
+      z1 = pParty_global->sPartyPosZ + pParty_global->uEyelevel;
     }
     else
     {
       //WTF? something illogical happens here
-      v5 = (int)pDirectionInfo;
-      v4 = (int)pDirectionInfo;
+      x1 = (int)pDirectionInfo;
+      y1 = (int)pDirectionInfo;
     }
   }
 
-  if ( sub_407A1C(v5, v4, v20, pActor->sActorPosX, pActor->sActorPosY, 
+  if ( sub_407A1C(x1, y1, z1, pActor->sActorPosX, pActor->sActorPosY, 
                   pActor->sActorPosZ - (int)((double)pActor->uActorHeight * -0.75)) )
   {
     if ( !pDirectionInfo )
     {
-      GetDirectionInfo(8 * uActorID | 3, a2, &v16, 0);      
-      pDirectionInfo = &v16;
+      GetDirectionInfo(8 * uActorID | 3, a2, &directionInfo, 0);      
+      pDirectionInfo = &directionInfo;
     }
 
     //v12 = pSpriteFrameTable->pSpriteSFrames;
@@ -1271,19 +1268,19 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct DirectionInfo
     pActor->dword_0000B8 = 0;
     pActor->word_0000B0 = 18;
 
-    Actor_sub_402CED(uActorID, 0);
+    Actor_PlaySound(uActorID, 0);
 
-    v11 = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].dword_000050;    
+    recoveryTime = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].uRecoveryTime;    
     if ( pActor->array_0000D4[7].qword_000000 > 0i64 )
     {
-      v11 *= 2;    
+      recoveryTime *= 2;    
     }
 
     if ( dword_ACD834 == 1 )
-      pActor->dword_00007C = v11;
+      pActor->uRecoveryTime = recoveryTime;
     else
-      pActor->dword_00007C = pActor->word_0000A0 - 
-                             (int)(flt_6BE3A8 * (double)v11 * -2.133333333333333);
+      pActor->uRecoveryTime = pActor->word_0000A0 - 
+                             (int)(flt_6BE3A8 * (double)recoveryTime * -2.133333333333333);
     pActor->word_000098 = 0;
     pActor->word_000096 = 0;
     pActor->word_000094 = 0;
@@ -1321,8 +1318,8 @@ void Actor_sub_4032B2(unsigned int uActorID, int a2, int a3, int a4)
 
   pActor = &pActors[uActorID];
 
-  deltaX = pActor->word_0000A2 - pActor->sActorPosX;
-  deltaY = pActor->word_0000A4 - pActor->sActorPosY;
+  deltaX = pActor->sInitialPosX - pActor->sActorPosX;
+  deltaY = pActor->sInitialPosY - pActor->sActorPosY;
   v20 = abs(deltaX);
   v4 = abs(deltaY);
 
@@ -1371,20 +1368,23 @@ void Actor_sub_4032B2(unsigned int uActorID, int a2, int a3, int a4)
   pActor->word_0000B0 = 1;  
   
   if ( rand() % 100 < 2 )
-    Actor_sub_402CED(uActorID, 3);
+    Actor_PlaySound(uActorID, 3);
 
   Actor_sub_45976D(pActor);
 }
 
 //----- (00402CED) --------------------------------------------------------
-void Actor_sub_402CED(unsigned int uActorID, int a2)
+
+//soundID (0-4): 
+//1 - die sound
+void Actor_PlaySound(unsigned int uActorID, int soundId)
 {
   struct Actor *pActor;
   signed int v8;
   int v12;
 
   pActor = &pActors[uActorID];  
-  if ( pActor->array_0000CC[a2] )
+  if ( pActor->pSoundSampleIDs[soundId] )
   {
     if ( pActor->array_0000D4[3].qword_000000 <= 0i64 )
     {
@@ -1415,13 +1415,13 @@ void Actor_sub_402CED(unsigned int uActorID, int a2)
       v8 = 0;
     }
     
-    AudioPlayer_sub_4AA306(pAudioPlayer, pActor->array_0000CC[a2], 
+    AudioPlayer_sub_4AA306(pAudioPlayer, pActor->pSoundSampleIDs[soundId], 
                            (uActorID * 8) | 3, 0, v8, 0, 0, 0, v12);
   }
 }
 
 //----- (00402D6E) --------------------------------------------------------
-void Actor_sub_402D6E(unsigned int uActorID)
+void Actor_Die(unsigned int uActorID)
 {  
   unsigned short monsterID;  
   struct ItemGen itemGen;
@@ -1433,13 +1433,13 @@ void Actor_sub_402D6E(unsigned int uActorID)
   pActor->word_0000B0 = 4;
   pActor->word_0000B2 = 5;
   pActor->dword_0000B8 = 0;  
-  pActor->word_000028 = 0;
+  pActor->sCurrentHP = 0;
   pActor->word_0000A0 = 8 * pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[5]].word_000038;
   
   sub_458585(LODWORD(pActor->array_0000D4[6].qword_000000));
   sub_458585(LODWORD(pActor->array_0000D4[5].qword_000000));
 
-  Actor_sub_402CED(uActorID, 1);
+  Actor_PlaySound(uActorID, 1);
   Actor_sub_45976D(pActor);
 
   monsterID = pActor->uMonsterID - 1;  
@@ -1457,31 +1457,31 @@ void Actor_sub_402D6E(unsigned int uActorID)
   
   if (monsterID >= 20 && monsterID <= 22) //devil worker, devil warrior, devil captain
   {
-    itemGen.dword_000000 = 214;  
+    itemGen.uItemID = 214;  //Vial of Devil Ichorg
   }
   else if (monsterID >= 24 && monsterID <= 26) //green dragon, blue dragon, red dragon
   {
-    itemGen.dword_000000 = 204;
+    itemGen.uItemID = 204; //Dragon's Eye
   }
   else if (monsterID >= 84  && monsterID <= 86) //harpy, harpy hag, harpy queen
   {
-    itemGen.dword_000000 = 207;
+    itemGen.uItemID = 207;  //Harpy Feather
   }
   else if (monsterID >= 111 && monsterID <= 113) //emerald ooze, sapphire ooze, bloodstone ooze
   {
-    itemGen.dword_000000 = 217;
+    itemGen.uItemID = 217; //Vial of Ooze Endoplasm
   }
   else if (monsterID >= 249 && monsterID <= 251) //swamp troll, river troll, mountain troll
   {
-    itemGen.dword_000000 = 202;
+    itemGen.uItemID = 202; //Vial of Troll Blood
   }
 
-  if ( itemGen.dword_000000 )
+  if ( itemGen.uItemID )
   {
     if ( (rand() % 100) < 20 )
     {
       sub_42F7EB(
-        (unsigned __int16)word_5D29F8[24 * itemGen.dword_000000],
+        (unsigned __int16)word_5D29F8[24 * itemGen.uItemID],
         pActor->sActorPosX,
         pActor->sActorPosY,
         pActor->sActorPosZ + 16,
@@ -1495,6 +1495,182 @@ void Actor_sub_402D6E(unsigned int uActorID)
 
   if ( pActor->byte_00003E[28] == 3 )
     sub_404736(uActorID);
+}
+
+//----- (00401221) --------------------------------------------------------
+__int16 __fastcall sub_401221(unsigned int uActorID, int a2, int a3)
+{
+  int v3; // eax@1
+  int v4; // ecx@1
+  int v5; // ebx@1
+  int v6; // esi@1
+  int v7; // edi@2
+  int v8; // eax@10
+  int v9; // ebx@16
+  int v12; // edi@43
+  int v13; // ebx@45
+  int v14; // ecx@48
+  int v16; // [sp+Ch] [bp-24h]@16
+  int v17; // [sp+10h] [bp-20h]@1
+  int v18; // [sp+14h] [bp-1Ch]@1
+  int v19; // [sp+18h] [bp-18h]@1
+  int v20; // [sp+1Ch] [bp-14h]@16
+  int v21; // [sp+20h] [bp-10h]@1
+  int v22; // [sp+24h] [bp-Ch]@1
+  int v23; // [sp+28h] [bp-8h]@1
+  int v24; // [sp+2Ch] [bp-4h]@16
+  int v25; // [sp+2Ch] [bp-4h]@45
+
+  v22 = -1;
+  v19 = uActorID;
+  v6 = &pActors[uActorID];
+  v5 = 0;
+  v4 = 0;
+  v3 = *(_DWORD *)(v6 + 816);
+  *(_DWORD *)a2 = 0;
+  v17 = a2;
+  v18 = 0;
+  v21 = v3;
+  v23 = 0;
+
+  if (uNumActors > 0)
+  {
+    v7 = &pActors[0].word_0000B0;
+    while ( 1 )
+    {
+      v7 = &pActors[v23].word_0000B0;
+
+      LOWORD(v3) = pActors[v23].word_0000B0;
+      if (pActors[v23].word_0000B0 == 5 || pActors[v23].word_0000B0 == 4 ||
+        pActors[v23].word_0000B0 == 11 || pActors[v23].word_0000B0 == 17 ||
+        pActors[v23].word_0000B0 == 19 || v19 == v4 )
+        goto LABEL_23;
+
+      if ( v21 != v5 )
+      {
+        v8 = 8 * v4;
+        LOBYTE(v8) = 8 * v4 | 3;
+        if ( v21 == v8 )
+        {
+          if ( sub_4089C7(&pActors[v23]) != 1 )
+          {
+            v3 = *(_DWORD *)(v7 + 532);
+            if ( (v3 != v5 || *(_DWORD *)(v6 + 708) != v5) && v3 == *(_DWORD *)(v6 + 708) )
+              goto LABEL_23;
+            v3 = 4;
+LABEL_14:
+            if ( *(_BYTE *)(v6 + 61) )
+              v3 = pMonsterStats->pMonsterInfos[pActors[uActorID].uMonsterID - 1].byte_000011;
+            v9 = dword_4DF380[v3];
+            v20 = abs(pActors[uActorID].sActorPosX - pActors[v23].sActorPosX);
+            v24 = abs(pActors[uActorID].sActorPosY - pActors[v23].sActorPosY);
+            v3 = abs(pActors[uActorID].sActorPosZ - pActors[v23].sActorPosZ);
+            v16 = v3;
+            if ( v20 <= v9 )
+            {
+              if ( v24 <= v9 )
+              {
+                if ( v3 <= v9 )
+                {
+                  v3 = sub_4070EF(8 * v23 | 3, 8 * v19 | 3);
+                  if ( v3 )
+                  {
+                    v3 = v20 * v20 + v24 * v24 + v16 * v16;
+                    if ( v3 < (unsigned int)v22 )
+                    {
+                      v22 = v20 * v20 + v24 * v24 + v16 * v16;
+                      LOWORD(v3) = v23;
+                      v18 = v23;
+                    }
+                  }
+                }
+              }
+            }
+            v5 = 0;
+            goto LABEL_23;
+          }
+          v21 = v5;
+          *(_DWORD *)(v6 + 816) = v5;
+        }
+      }
+      v3 = Actor_sub_40104C(&pActors[uActorID], &pActors[v23]);
+      if ( v3 != v5 )
+        goto LABEL_14;
+LABEL_23:
+      v7 += 836;
+      v4 = v23 + 1;
+      //v11 = __SETO__(v23 + 1, uNumActors);
+      //v10 = (signed int)(v23++ + 1 - uNumActors) < 0;
+      if (++v23 >= uNumActors)
+      {
+        if ( v22 != -1 )
+        {
+          v3 = 8 * v18;
+          LOBYTE(v3) = 8 * v18 | 3;
+          *(_DWORD *)v17 = v3;
+        }
+        break;
+      }
+    }
+  }
+
+
+
+  if ( HIDWORD(qword_ACD8F4) >= v5 )
+  {
+    if ( HIDWORD(qword_ACD8F4) > v5 || (_DWORD)qword_ACD8F4 > (unsigned int)v5 )
+      a3 = v5;
+  }
+  if ( a3 != v5 )
+  {
+    v3 = Actor_sub_40104C(v6, 0);
+    if ( *(_BYTE *)(v6 + 38) & 8 )
+    {
+      if ( *(_DWORD *)(v6 + 408) <= v5 )
+      {
+        if ( *(_DWORD *)(v6 + 408) < v5 || *(_DWORD *)(v6 + 404) <= (unsigned int)v5 )
+        {
+          if ( *(_DWORD *)(v6 + 232) <= v5 )
+          {
+            if ( *(_DWORD *)(v6 + 232) < v5 || *(_DWORD *)(v6 + 228) <= (unsigned int)v5 )
+            {
+              if ( *(_DWORD *)(v6 + 248) <= v5 )
+              {
+                if ( *(_DWORD *)(v6 + 248) < v5 || *(_DWORD *)(v6 + 244) <= (unsigned int)v5 )
+                  v3 = 4;
+              }
+            }
+          }
+        }
+      }
+    }
+    if ( v3 != v5 )
+    {
+      v12 = dword_4DF390;
+      if ( !*(_BYTE *)(v6 + 61) )
+        v12 = dword_4DF380[v3];
+      v13 = abs(*(_WORD *)(v6 + 142) - pParty_global->sPartyPosX);
+      v25 = abs(*(_WORD *)(v6 + 144) - pParty_global->sPartyPosY);
+      v3 = abs(*(_WORD *)(v6 + 146) - pParty_global->sPartyPosZ);
+      if ( v13 <= v12 )
+      {
+        if ( v25 <= v12 )
+        {
+          if ( v3 <= v12 )
+          {
+            v14 = v25 * v25 + v3 * v3;
+            LOWORD(v3) = v13 * v13;
+            if ( v13 * v13 + v14 < (unsigned int)v22 )
+            {
+              LOWORD(v3) = v17;
+              *(_DWORD *)v17 = 4;
+            }
+          }
+        }
+      }
+    }
+  }
+  return v3;
 }
 
 //----- (0041F4C1) --------------------------------------------------------
@@ -1542,9 +1718,9 @@ void Actor_Reset(struct Actor *_this)
  _this->uPitchAngle = 0;
  _this->word_00009E = 0;
  
- _this->word_0000A2 = 0;
- _this->word_0000A4 = 0;
- _this->word_0000A6 = 0;
+ _this->sInitialPosX = 0;
+ _this->sInitialPosY = 0;
+ _this->sInitialPosZ = 0;
  _this->word_0000A8 = 0;
  _this->word_0000AA = 0;
  _this->word_0000AC = 0;
@@ -1586,7 +1762,7 @@ bool InitializeActors(unsigned int uLocationID)
 
       if (pActors[i].word_0000B0 != 11 && pActors[i].word_0000B0 != 19)
       {
-        if (!pActors[i].word_000028 || *(int *)&pActors[i].word_00006C == 0 )
+        if (!pActors[i].sCurrentHP || !pActors[i].sTotalHP)
           pActors[i].word_0000B0 = 5;
       }
       pActors[i].word_000094 = 0;
