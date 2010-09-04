@@ -4392,9 +4392,9 @@ void __thiscall sub_4363C6(void *this)
   v1 = this;
   *(_DWORD *)this = 5080468;
   _eh_vector_destructor_iterator_((char *)this + 52, 24, 6, class26_placeholder_detor);
-  class26_detor((char *)v1 + 36);
-  class26_detor((char *)v1 + 20);
-  class26_detor((char *)v1 + 4);
+  class26_default_ctor((char *)v1 + 36);
+  class26_default_ctor((char *)v1 + 20);
+  class26_default_ctor((char *)v1 + 4);
 }
 
 //----- (00436427) --------------------------------------------------------
@@ -5912,177 +5912,81 @@ char __stdcall sub_438258(int a1, int a2)
 }
 
 //----- (004382BC) --------------------------------------------------------
-char __fastcall sub_4382BC(char _CF, char _ZF, char _SF, char _OF, int a5)
-{
-  int v5; // ST00_4@1
-  char result; // al@4
-  unsigned __int16 v11; // ST02_2@8
-  __int16 v24; // sp@11
-  int v25; // ST00_4@11
-  signed __int16 v30; // [sp+4h] [bp-4h]@1
-  signed __int16 v31; // [sp+4h] [bp-4h]@8
-  signed __int16 v32; // [sp+4h] [bp-4h]@11
-
-  v30 = 1;
-  compile_error;//__asm { pushf }
-  compile_error;//if ( v5 == (v5 ^ 0x200000) )
-    compile_error;//v30 = 0;
-  if ( v30 )
-  {
-    result = sub_43847A(a5);
-  }
-  else
-  {
-    UNDEF(_ZF);
-    UNDEF(_SF);
-    UNDEF(_OF);
-    _CF = 0;
-    if ( !_ZF )
-      _CF = 1;
-    compile_error;//__asm { pushfw }
-    dword_50FDEC = (v11 & 1 ^ 1) & 1;
-    _OF = 0;
-    _CF = 0;
-    _ZF = 0;
-    _SF = 1;
-    compile_error;//__asm { pushfw }
-    v31 = 2;
-    if ( (v11 | 0xF000) & 0xF000 )
-      v31 = -1;
-    compile_error;//__asm { popfw }
-    result = v31;
-    if ( v31 != 2 )
-    {
-      _OF = 0;
-      _CF = 0;
-      _ZF = v24 == 0;
-      _SF = v24 < 0;
-      compile_error;//__asm { pushf }
-      v32 = 3;
-      if ( v25 != (v25 ^ 0x40000) )
-        v32 = -1;
-      compile_error;//__asm { popf }
-      result = v32;
-      if ( v32 != 3 )
-        result = 4;
-    }
-  }
-  return result;
-}
+//depricated
 
 //----- (004383ED) --------------------------------------------------------
 funciton_call;//int __usercall sub_4383ED<eax>(int a1<ebx>)
-int __fastcall sub_4383ED(int a1)
+int __fastcall sub_4383ED()
 {
-  int v5; // ST00_4@1
-  signed int v6; // eax@4
-  int v18; // [sp+Ch] [bp-28h]@1
-  int v19; // [sp+10h] [bp-24h]@1
-  int v20; // [sp+14h] [bp-20h]@1
-  char v21; // [sp+18h] [bp-1Ch]@1
-  char v22; // [sp+19h] [bp-1Bh]@1
-  int v23; // [sp+1Ch] [bp-18h]@1
-  int v24; // [sp+20h] [bp-14h]@1
-  int v25; // [sp+24h] [bp-10h]@1
-  char v26; // [sp+28h] [bp-Ch]@1
-  int v27; // [sp+2Ch] [bp-8h]@1
+ unsigned char pVendor[16];
   int v28; // [sp+30h] [bp-4h]@1
 
-  v18 = *(_DWORD *)"------------";
-  v19 = *(_DWORD *)&"------------"[4];
-  v20 = *(_DWORD *)&"------------"[8];
-  v21 = "------------"[12];
-  v22 = 0;
-  v28 = 0;
-  v23 = *(_DWORD *)"GenuineIntel";
-  v24 = *(_DWORD *)&"GenuineIntel"[4];
-  v25 = *(_DWORD *)&"GenuineIntel"[8];
-  v26 = "GenuineIntel"[12];
-  compile_error;//_CF = 0;
-  compile_error;//_OF = 0;
-  compile_error;//_ZF = 0;
-  compile_error;//_SF = 0;
-  v27 = 1;
-  compile_error;//__asm { pushf }
-  compile_error;//if ( v5 == (v5 ^ 0x200000) )
-    compile_error;//v27 = 0;
-  if ( (_WORD)v27 )
-  {
-    compile_error;//_EAX = 0;
-    __asm { cpuid }
-    v18 = a1;
-    compile_error;//v19 = _EDX;
-    compile_error;//v20 = _ECX;
-    v6 = 0;
-    do
-    {
-      if ( *((_BYTE *)&v18 + v6) != *((_BYTE *)&v23 + v6) )
-        dword_50FDEC = 1;
-      ++v6;
-    }
-    while ( v6 < 12 );
-    if ( v6 >= 1 )
-    {
-      compile_error;//_EAX = 1;
-      __asm { cpuid }
-      compile_error;//v28 = _EDX;
-    }
-  }
-  return v28;
+ __asm
+ {
+  xor eax, eax
+  cpuid
+  mov dword ptr [pVendor], ebx
+  mov dword ptr [pVendor + 4], edx
+  mov dword ptr [pVendor + 8], ecx
+  mov dword ptr [pVendor + 12], 0
+ }
+
+ if (lstrcmpA((const char *)pVendor, "GenuineIntel"))
+   bNotIntelCPU = true;
+
+ __asm
+ {
+  xor eax, eax
+  inc eax
+  cpuid
+
+  mov dword ptr [v28], edx
+ }
+
+ return v28;
 }
 
 //----- (0043847A) --------------------------------------------------------
 function_error;//__int16 __usercall sub_43847A<ax>(int a1<ebx>)
-__int16 __fastcall sub_43847A(int a1)
+__int16 __fastcall sub_43847A()
 {
-  signed int v1; // eax@1
-  int v13; // [sp+Ch] [bp-28h]@1
-  int v14; // [sp+10h] [bp-24h]@1
-  int v15; // [sp+14h] [bp-20h]@1
-  char v16; // [sp+18h] [bp-1Ch]@1
-  char v17; // [sp+19h] [bp-1Bh]@1
-  int v18; // [sp+1Ch] [bp-18h]@1
-  int v19; // [sp+20h] [bp-14h]@1
-  int v20; // [sp+24h] [bp-10h]@1
-  char v21; // [sp+28h] [bp-Ch]@1
+ unsigned int  v0;
+ unsigned char pVendor[16];
+
   int v22; // [sp+2Eh] [bp-6h]@1
   char v23; // [sp+32h] [bp-2h]@6
   char v24; // [sp+33h] [bp-1h]@1
 
-  v13 = *(_DWORD *)"------------";
-  v14 = *(_DWORD *)&"------------"[4];
-  v15 = *(_DWORD *)&"------------"[8];
-  v16 = "------------"[12];
-  v17 = 0;
-  v24 = 0;
-  v18 = *(_DWORD *)"GenuineIntel";
-  v19 = *(_DWORD *)&"GenuineIntel"[4];
-  v20 = *(_DWORD *)&"GenuineIntel"[8];
-  v22 = 65535;
-  v21 = "GenuineIntel"[12];
-  compile_error;//_EAX = 0;
-  __asm { cpuid }
-  v13 = a1;
-  compile_error;//v14 = _EDX;
-  compile_error;//v15 = _ECX;
-  v1 = 0;
-  do
+
+
+ {
+  __asm
   {
-    if ( *((_BYTE *)&v13 + v1) != *((_BYTE *)&v18 + v1) )
-      dword_50FDEC = 1;
-    ++v1;
+   xor eax, eax
+   cpuid
+   mov dword ptr [pVendor], ebx
+   mov dword ptr [pVendor + 4], edx
+   mov dword ptr [pVendor + 8], ecx
+   mov dword ptr [pVendor + 12], 0
   }
-  while ( v1 < 12 );
-  if ( v1 >= 1 )
-  {
-    compile_error;//_EAX = 1;
-    __asm { cpuid }
-    compile_error;//v24 = _EAX & 0xF;
-    compile_error;//LOBYTE(_EAX) = (unsigned __int8)(_EAX & 0xF0) >> 4;
-    compile_error;//v23 = _EAX;
-    compile_error;//LOWORD(v22) = ((_EAX & 0xF00u) >> 8) & 0xF;
-  }
-  return v22;
+ }
+
+ if (lstrcmpA((const char *)pVendor, "GenuineIntel"))
+   bNotIntelCPU = true;
+
+ __asm
+ {
+  xor eax, eax
+  inc eax
+  cpuid
+
+  mov dword ptr [v0], eax
+ }
+ v24 = (v0 & 0x00F);
+ v23 = (v0 & 0x0F0) >> 4;
+ v22 = (v0 & 0xF00) >> 8;
+
+ return v22;
 }
 
 //----- (00438659) --------------------------------------------------------

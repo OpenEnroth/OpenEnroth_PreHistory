@@ -338,7 +338,7 @@ unsigned int RenderOperatorD3D10_DrawEnvironment::Execute()
  Matrix4x4 *pNewView;
  pVertexShaderConstants->Map(D3D10_MAP_WRITE_DISCARD, 0, (void **)&pNewView);
  {
-  pCamera->GetEnvironmentMatrix(pNewView);
+  pCamera->GetViewOrientation(pNewView);
  }
  pVertexShaderConstants->Unmap();
 

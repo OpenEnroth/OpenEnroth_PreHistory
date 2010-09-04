@@ -317,7 +317,7 @@ extern __int16 word_4F0040[array_size_unknown]; // weak
 extern int dword_4F00DC;
 extern int dword_4F00E0; // weak
 extern int dword_4F00E4; // weak
-extern int dword_4F031C[array_size_unknown]; // weak
+extern int array_4F031C[]; // weak
 extern char *off_4F03B8; // idb
 extern __int16 word_4F03FE[array_size_unknown]; // weak
 extern __int16 word_4F0400[array_size_unknown]; // weak
@@ -1036,7 +1036,7 @@ extern _UNKNOWN unk_50E5FC; // weak
 extern _UNKNOWN unk_50E600; // weak
 extern _UNKNOWN unk_50E60C; // weak
 extern char byte_50F1E0; // weak
-extern int dword_50FDEC; // weak
+extern unsigned int bNotIntelCPU; // dword @ MM7.exe::0050FDEC
 extern int dword_50FDFC; // weak
 extern int dword_50FE00; // weak
 extern int dword_50FE04; // weak
@@ -1888,7 +1888,7 @@ extern char byte_6BE6EC[array_size_unknown]; // weak
 extern char class23_instance[26 * 1024 * 1024];  // struct @ MM7.exe::00702B28
 extern int dword_71FFF4; // weak
 extern int dword_71FFF8; // weak
-extern int dword_720008; // weak
+extern int bUseOverrideData; // weak
 extern unsigned int bSkipVideo; // dword @ MM7.exe::0072000C
 extern int dword_720010; // idb
 
@@ -2873,17 +2873,16 @@ extern _UNKNOWN unk_F8F200; // weak
 extern _UNKNOWN unk_F8F204; // weak
 extern float flt_F8F20C; // weak
 extern _UNKNOWN unk_F8F22C; // weak
-extern int dword_F8FE00; // weak
-extern int dword_F91604; // weak
-extern int dword_F91E04; // weak
-extern char byte_F91E08; // weak
 
-extern struct class25 class25_global;  //struct @ MM7.exe::00F91E10
-/*
-int dword_F91E10; // weak
-*/
-extern int dword_F93614; // weak
-extern int dword_F93E14; // weak
+extern struct class25 class25_F8FE00; // struct @ MM7.exe::00F8FE00
+//extern int dword_F8FE00; // 000000
+//extern int dword_F91604; // 001804
+//extern int dword_F91E04; // 002004
+extern char byte_F91E08; // weak
+extern struct class25 class25_F91E10;  //struct @ MM7.exe::00F91E10
+//extern int dword_F91E10; // 000000
+//extern int dword_F93614; // 001804
+//extern int class25_F91E10.dword_002004; // 002004
 extern char byte_F93E18; // weak
 extern int dword_F93E1C; // weak
 extern int dword_F93E30; // weak

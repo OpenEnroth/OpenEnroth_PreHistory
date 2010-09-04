@@ -238,11 +238,12 @@ void class04_ctor(struct class04 *_this);
 //class25
 struct class25
 {
- int dword_000000;
- int dword_000004[2048];
- int dword_002004;
+ void (*detor_ptr)(struct class25 *, unsigned int); // dword @ 000000
+ int    array_000004[2048];
+ int    dword_002004;
 };
-//sizeof ~ ?
+//sizeof == 2008
+void class25_detor(struct class25 *_this , unsigned int a2);
 //__int64 __thiscall sub_4C055C(void *this);
 __int64 class25_fn0(struct class25 *_this);
 
@@ -261,17 +262,18 @@ struct class05_stru0
 //class05
 struct class05
 {
- int                  dword_000000;
- struct class25       class25_obj;    // struct @ 000004
- struct class05_stru0 struct_00200C;
- struct class05_stru0 struct_00203C;
- struct class05_stru0 struct_00206C;
- struct class05_stru0 struct_00209C;
- int                  dword_0020CC;
+ void                 (*detor_ptr)(struct class05 *, unsigned int); // dword  @ 000000
+ struct class25         class25_obj;                                // struct @ 000004
+ struct class05_stru0   struct_00200C;
+ struct class05_stru0   struct_00203C;
+ struct class05_stru0   struct_00206C;
+ struct class05_stru0   struct_00209C;
+ int                    dword_0020CC;
 };
 //sizeof = 0020D0
 //int __thiscall sub_4C04AF(int this);
 void class05_ctor(struct class05 *_this);
+void class05_detor(struct class05 *_this, unsigned int a2);
 //int __thiscall sub_4C1A02(int this);
 void class05_sub_4C1A02(struct class05 *_this);
 //char __thiscall sub_4C0646(int this, float a2, float a3, float a4, int a5, int a6);
@@ -343,33 +345,39 @@ void *class07_InitializeVectors(struct class07 *_this, float w);
 //class26; 3d vector of some kind
 struct class26
 {
- unsigned char *ptr_000000;
- float          array_000004[3];
+ void  (*detor_ptr)(struct class26 *, unsigned int); // dword @ 000000
+ float   array_000004[3];
 };
 //sizeof = 16
 //void *__thiscall sub_4C0376(void *this)
 void class26_ctor(struct class26 *_this);
 //void __thiscall sub_4C039C(void *this);
-void class26_detor(struct class26 *_this);
+void class26_default_ctor(struct class26 *_this);
+void class26_detor(struct class26 *_this, unsigned int a2);
 //custom
 float class26_DotProduct(struct class26 *v1, struct class26 *v2);
 
 struct class26_placeholder
 {
- unsigned char  *ptr_000000;
- struct class26  objClass26;  // struct @ 000004
- float           flt_000014;  // float  @ 000014   looks like dot product with some other vec
+ void (__fastcall *detor_ptr)(struct class26_placeholder *, unsigned int); // dword @ 000000
+ struct class26    objClass26;  // struct @ 000004
+ float             flt_000014;  // float  @ 000014   looks like dot product with some other vec
 };
 //sizeof == 18
 //void __fastcall sub_498038(char *this)
 void __fastcall class26_placeholder_ctor(struct class26_placeholder *_this);
 //void __fastcall sub_498069(void *this)
-void __fastcall class26_placeholder_detor(struct class26_placeholder *_this);
+void __fastcall class26_placeholder_default_ctor(struct class26_placeholder *_this);
+void __fastcall class26_placeholder_detor(struct class26_placeholder *_this, unsigned int a2);
+//void __thiscall sub_498069(int this)
+void sub_498069(struct class26_placeholder *_this);
+
+
 
 //class08
 struct class08
 {
- int                        dword_000000;
+ void                     (*detor_ptr)(struct class08 *, unsigned int); // dword @ 000000
  struct class26             class26_obj1;          // struct @ 000004   these 3 are a (world?) matrix
  struct class26             class26_obj2;          // struct @ 000014
  struct class26             class26_obj3;          // struct @ 000024
@@ -449,6 +457,7 @@ struct class08
 //sizeof = 1A1384
 //int __thiscall sub_4361EF(int this);
 struct class08 *class08_ctor(struct class08 *_this);
+void class08_detor(struct class08 *_this, unsigned int a2);
 //int __thiscall sub_4376E7(void *this);
 void class08_CreateWorldMatrixAndSomeStuff(struct class08 *_this);
 //void __thiscall sub_4374E8(void *this);

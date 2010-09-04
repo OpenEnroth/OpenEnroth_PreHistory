@@ -375,7 +375,11 @@ unsigned char AvailSkillPerClass[9][37] =  // byte[] @ MM7.exe::004ED820
  int dword_4F00DC = 0x5622;
  int dword_4F00E0 = 16; // weak
  int dword_4F00E4 = 2; // weak
- int dword_4F031C[array_size_unknown]; // weak
+unsigned int array_4F031C[12] =
+{
+ 0x00000000, 0x00000000, 0x00000000, 0x00000073, 0x0000002F, 0x0000002B, 0x00000026, 0x00000026,
+ 0x00000026, 0x00000026, 0x00000026, 0x00000026
+};
  char *off_4F03B8; // idb
  __int16 word_4F03FE[array_size_unknown]; // weak
  __int16 word_4F0400[array_size_unknown]; // weak
@@ -1068,7 +1072,7 @@ struct unnamed_50C0C8 struct_50C0C8;
  _UNKNOWN unk_50E600; // weak
  _UNKNOWN unk_50E60C; // weak
  char byte_50F1E0; // weak
- int dword_50FDEC; // weak
+unsigned int bNotIntelCPU; // dword @ MM7.exe::0050FDEC
  int dword_50FDFC; // weak
  int dword_50FE00; // weak
  int dword_50FE04; // weak
@@ -1854,8 +1858,8 @@ unsigned char uMusicVolimeMultiplier;  // byte @ 6BE371  0..9
 char class23_instance[26 * 1024 * 1024];  // struct @ MM7.exe::00702B28
  int dword_71FFF4; // weak
  int dword_71FFF8; // weak
- int dword_720008; // weak
-unsigned int bSkipVideo; // dword @ MM7.exe::0072000C
+unsigned int bUseOverrideData; // dword @ MM7.exe::00720008
+unsigned int bSkipVideo;       // dword @ MM7.exe::0072000C
  int dword_720010; // idb
 
 struct CGame *pGame = 0; //struct @ MM7.exe::00720014
@@ -2746,17 +2750,10 @@ struct OldViewport *pOldViewport = 0;  // struct @ MM7.exe::00F8BC14
  _UNKNOWN unk_F8F204; // weak
  float flt_F8F20C; // weak
  _UNKNOWN unk_F8F22C; // weak
- int dword_F8FE00; // weak
- int dword_F91604; // weak
- int dword_F91E04; // weak
+ 
+struct class25 class25_F8FE00;  // struct @ MM7.exe::00F8FE00
  char byte_F91E08; // weak
-
-struct class25 class25_global;  //struct @ MM7.exe::00F91E10
-/*
-int dword_F91E10; // weak
-*/
- int dword_F93614; // weak
- int dword_F93E14; // weak
+struct class25 class25_F91E10;  // struct @ MM7.exe::00F91E10
  char byte_F93E18; // weak
  int dword_F93E1C; // weak
  int dword_F93E30; // weak

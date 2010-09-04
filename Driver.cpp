@@ -158,7 +158,7 @@ extern "C" void InitializeRenderOperators()
  pDxDrawEnvironmentOperator->Initialize(pDxRender, pDxEnvTexture, pGameCamera);
 
  pDxDrawTerrainOperator = pDxRender->CreateDrawTerrainOperator();
- pDxDrawTerrainOperator->Initialize(pDxRender, pDxHeightmapTexture, 256, 256, pGameCamera);
+ pDxDrawTerrainOperator->Initialize(pDxRender, pDxHeightmapTexture, 256, 256, 15, pGameCamera);
 
  pDxPresentOperator = pDxRender->CreatePresentOperator();
  pDxPresentOperator->Initialize(pDxRender);

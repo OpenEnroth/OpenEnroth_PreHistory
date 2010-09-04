@@ -719,6 +719,14 @@ void class04_ctor(struct class04 *_this)
  _this->dword_000000 = 0x4D86E0;
 }
 
+//----- (MM7.exe::004C05A2) --------------------------------------------------------
+void class05_detor(struct class05 *_this, unsigned int a2)
+{
+ sub_4C05BE(_this);
+ if (a2 & 1)
+   operator_delete(0, _this);
+}
+
 //----- (MM7.exe::004C04AF) --------------------------------------------------------
 void class05_ctor(struct class05 *_this)
 {
@@ -733,6 +741,8 @@ void class05_ctor(struct class05 *_this)
  //float v8; // [sp+40h] [bp-2Ch]@1
  //float v9; // [sp+44h] [bp-28h]@1
  //float v10; // [sp+68h] [bp-4h]@1
+ 
+ _this->detor_ptr = class05_detor;
 
  class25_fn0(&_this->class25_obj);
 
@@ -760,7 +770,6 @@ void class05_ctor(struct class05 *_this)
  local_3C.flt_00002C = 0.0;
  memcpy(&_this->struct_00209C, &local_3C, sizeof(struct class05_stru0));
 
- _this->dword_000000 = 0x4D8A04;
  _this->dword_0020CC = 512;
 }
 
@@ -822,6 +831,14 @@ void *class07_InitializeVectors(struct class07 *_this, float w)
  while (++v2 < _this->uNumVec4InArray1);
 
  return memcpy(_this->pFloatArray2, &unk_4EBBD0, 12 * _this->uNumVec3InArray2);
+}
+
+
+void class08_detor(struct class08 *_this, unsigned int a2)
+{
+ sub_4363C6(_this);
+ if (a2 & 1)
+   operator_delete(0, _this);
 }
 
 //----- (MM7.exe::004361EF) --------------------------------------------------------
@@ -906,9 +923,9 @@ struct class08 *class08_ctor(struct class08 *_this)
   }
   while (v13-- != 1);
 
-  _this->dword_000000 = 0x4D8594;
-  _this->dword_1A1380 = 0;
-  return _this;
+ _this->detor_ptr = class08_detor;
+ _this->dword_1A1380 = 0;
+ return _this;
 }
 
 //----- (MM7.exe::00498093) --------------------------------------------------------
@@ -2488,6 +2505,15 @@ __int64 class24_fn2(struct class24 *_this)
 
 
 
+//----- (MM7.exe::004C0585) --------------------------------------------------------
+void class25_detor(struct class25 *_this , unsigned int a2)
+{
+ _this->detor_ptr = class25_detor;
+ if (a2 & 1)
+   operator_delete(0, _this);
+}
+
+
 //----- (MM7.exe::004C055C) --------------------------------------------------------
 __int64 class25_fn0(struct class25 *_this)
 {
@@ -2504,15 +2530,23 @@ __int64 class25_fn0(struct class25 *_this)
     result += 51539607552i64;
   }
   while ( --v2 );
-  _this->dword_000000 = 5081608;
+  _this->detor_ptr = class25_detor;
   _this->dword_002004 = 0;
   return result;
+}
+
+//----- (MM7.exe::004D89FC) --------------------------------------------------------
+void class26_detor(struct class26 *_this, unsigned int a2)
+{
+ _this->detor_ptr = class26_detor;
+ if (a2 & 1)
+   operator_delete(0, _this);
 }
 
 //----- (MM7.exe::004C0376) --------------------------------------------------------
 void class26_ctor(struct class26 *_this)
 {
- _this->ptr_000000 = memory_4D8410.byte_4D8410 + 0x5EC;
+ _this->detor_ptr = class26_detor;
 }
 
 //----- (MM7.exe::004C0262) --------------------------------------------------------
@@ -7915,7 +7949,7 @@ void class08_PrepareSomeVectors(struct class08 *_this)
  local_0C.array_000004[1] = -sin(v3);
  class08_sub_437607(_this, &local_0C, &_this->std__vector_000034[3]);
 
- class26_detor(&local_0C);
+ class26_default_ctor(&local_0C);
 }
 
 //----- (00437607) --------------------------------------------------------
@@ -7932,7 +7966,7 @@ void class08_sub_437607(struct class08 *_this, struct class26 *a2, struct class2
 
  a3->flt_000014 = class26_DotProduct(&local_08, &a3->objClass26) + 0.00009999999747378752;
 
- class26_detor(&local_08);
+ class26_default_ctor(&local_08);
 }
 
 float class26_DotProduct(struct class26 *v1, struct class26 *v2)
@@ -8057,9 +8091,9 @@ void OldCamera_ctor(struct OldCamera *_this)
 
 
 //----- (004C039C) --------------------------------------------------------
-void class26_detor(struct class26 *_this)
+void class26_default_ctor(struct class26 *_this)
 {
- _this->ptr_000000 = memory_4D8410.byte_4D8410 + 0x5EC;
+ _this->detor_ptr = class26_detor;
 }
 
 

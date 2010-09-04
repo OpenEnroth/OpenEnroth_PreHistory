@@ -92,7 +92,7 @@ __declspec(naked) void loc_47907F(void)
 
 
 
-//----- (00462C94) --------------------------------------------------------
+//----- (00 ) --------------------------------------------------------
 int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *lpCmdLine, int nShowCmd)
 {
   long pWindowDims[4];
@@ -125,7 +125,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *
   if (lpCmdLine[0])
   {
    if (strstr(lpCmdLine, "-usedefs"))
-     dword_720008 = true;
+     bUseOverrideData = true;
    if (strstr(lpCmdLine, "-window"))
      dword_6BE368 |= 1u;
    if (strstr(lpCmdLine, "-nosound"))
@@ -139,7 +139,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *
  }
 
  //ACHTUNG    4AC1C9 needs refactoring
- sub_4AC1C9(0, 1, 0, 0, 0, 0, pWindowDims);
+ sub_4AC1C9(0, pWindowDims);
  Rect.left = pWindowDims[0];
  Rect.top = pWindowDims[1];
  Rect.right = pWindowDims[2];
@@ -1368,7 +1368,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
 
  sub_466082();
 
- if (dword_720008)
+ if (bUseOverrideData)
  {
   if (!CSpriteFrameTable_LoadFromTXT(pSpriteFrameTable, "data\\sft.txt"))
     erroneous_printf("Unable to open sft.txt");
@@ -1461,7 +1461,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   call_delete(0, v51);
  }
 
- if ( dword_720008 )
+ if ( bUseOverrideData )
  {
   CSpriteFrameTable_SaveToBIN(pSpriteFrameTable);
   CDecorationDescriptionList_SaveToBIN(pDecorationDescriptionList);

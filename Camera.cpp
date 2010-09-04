@@ -93,7 +93,7 @@ void Camera::RotateY(float angle)
 void Camera::Rotate(const Vec3 *pAxis, float angle)
 {
  Quaternion qRotation;
- qRotation.Rotate(*pAxis, angle);
+ qRotation.Rotate(pAxis, angle);
 
  Matrix4x4 mIncementalRotation;
 
@@ -108,7 +108,7 @@ void Camera::SetDirection(const Vec3 *pNewDirection)
  vDirection = *pNewDirection;
  vDirection.Normalize();
 
- qOrientation.Rotate(Cross(Vec3(0, 0, 1), vDirection), vDirection.z); // (1 0 0) cross dir, (1 0 0) dot dir
+ qOrientation.Rotate(&Cross(Vec3(0, 0, 1), vDirection), vDirection.z); // (1 0 0) cross dir, (1 0 0) dot dir
  qOrientation.ToMatrix(&mOrientation);
  //SetOrientation(&qOrientation);
 }

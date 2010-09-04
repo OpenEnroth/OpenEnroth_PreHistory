@@ -1910,16 +1910,14 @@ void __cdecl InitializeQuests()
 }
 
 //----- (004AC1C9) --------------------------------------------------------
-long *sub_4AC1C9(char a1, char a2, char a3, char a4, int a5, int a6, int a7)
+long *sub_4AC1C9(int a5, int a7)
 {
   signed int v7; // ebx@1
   unsigned __int16 v8; // di@1
-  signed int v9; // esi@1
-  unsigned __int16 v10; // ax@1
   int v11; // ecx@3
   int v12; // eax@10
   char *v13; // esi@14
-  char v16; // [sp+Ch] [bp-34h]@10
+  char v16[16]; // [sp+Ch] [bp-34h]@10
   int v17; // [sp+1Ch] [bp-24h]@14
   int v18; // [sp+20h] [bp-20h]@14
   int v19; // [sp+24h] [bp-1Ch]@14
@@ -1928,45 +1926,44 @@ long *sub_4AC1C9(char a1, char a2, char a3, char a4, int a5, int a6, int a7)
   int v22; // [sp+3Ch] [bp-4h]@1
   long *pWindowDims;
 
-  v9 = a5;
-  v10 = 0;//LOBYTE(v10) = sub_4382BC(a1, a2, a3, a4, a6);
-  v8 = v10;
-  v22 = 0;//v22 = sub_4383ED(a6);
-  v7 = 0;
-  memset(Dst, 0, 0x10u);
+ bNotIntelCPU = false;
+ v8 = sub_43847A();
+ v22 = sub_4383ED();
+ v7 = 0;
+ memset(Dst, 0, 0x10u);
   if ( (signed __int16)v8 < 0 )
     goto LABEL_19;
-  if ( v9 > 0 )
+  if ( a5 > 0 )
   {
-    if ( v9 > 150 )
+    if ( a5 > 150 )
     {
       v11 = a7;
     }
     else
     {
-      v11 = 4000 * v9;
+      v11 = 4000 * a5;
       v7 = 1;
     }
   }
   else
   {
-    v11 = 4000 * dword_4F031C[v8];
+    v11 = 4000 * array_4F031C[v8];
   }
   if ( v22 & 0x10 && !v7 )
   {
-    if ( v9 )
-      v12 = sub_4AC4FD((int)&v16);
+    if ( a5 )
+      v12 = sub_4AC4FD(v16);
     else
-      v12 = sub_4AC33A((int)&v16);
+      v12 = sub_4AC33A(v16);
     goto LABEL_14;
   }
   if ( v8 < 3u )
   {
 LABEL_19:
-    v13 = Dst;
+    v13 = *(int *)Dst;
     goto LABEL_16;
   }
-  v12 = sub_4AC277((void *)v11, (int)&v16);
+  v12 = sub_4AC277((void *)v11, v16);
 LABEL_14:
   v17 = *(_DWORD *)v12;
   v18 = *(_DWORD *)(v12 + 4);

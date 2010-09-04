@@ -3686,11 +3686,25 @@ int __cdecl sub_4979D2()
   return sub_466CA0() - 8;
 }
 
-//----- (00498069) --------------------------------------------------------
-void __fastcall class26_placeholder_detor(struct class26_placeholder *_this)
+void sub_498069(struct class26_placeholder *_this)
 {
- _this->ptr_000000 = 0x4D8894;
- class26_detor(&_this->objClass26);
+ _this->detor_ptr = class26_placeholder_detor;
+ _this->objClass26.detor_ptr = class26_detor;
+}
+
+//----- (0049804D) --------------------------------------------------------
+void __fastcall class26_placeholder_detor(struct class26_placeholder *_this, unsigned int a2)
+{
+ sub_498069(_this);
+ if (a2 & 1)
+   operator_delete(0, _this);
+}
+
+//----- (00498069) --------------------------------------------------------
+void __fastcall class26_placeholder_default_ctor(struct class26_placeholder *_this)
+{
+ _this->detor_ptr = class26_placeholder_detor;
+ class26_default_ctor(&_this->objClass26);
 }
 
 //----- (004980B9) --------------------------------------------------------
@@ -14490,10 +14504,10 @@ int __stdcall sub_4AC33A(int a1)
   int v11; // eax@14
   unsigned int v12; // ecx@19
   int result; // eax@24
-  unsigned int Dst; // [sp+Ch] [bp-4Ch]@1
-  unsigned int v15; // [sp+10h] [bp-48h]@23
-  unsigned int v16; // [sp+14h] [bp-44h]@21
-  unsigned int v17; // [sp+18h] [bp-40h]@21
+  unsigned int Dst[4]; // [sp+Ch] [bp-4Ch]@1
+  //unsigned int v15; // [sp+10h] [bp-48h]@23
+  //unsigned int v16; // [sp+14h] [bp-44h]@21
+  //unsigned int v17; // [sp+18h] [bp-40h]@21
   LARGE_INTEGER Frequency; // [sp+1Ch] [bp-3Ch]@1
   LARGE_INTEGER PerformanceCount; // [sp+24h] [bp-34h]@2
   LARGE_INTEGER v20; // [sp+2Ch] [bp-2Ch]@2
@@ -14513,7 +14527,7 @@ int __stdcall sub_4AC33A(int a1)
   v27 = 0;
   v26 = 0;
   hThread = GetCurrentThread();
-  memset(&Dst, 0, 0x10u);
+  memset(Dst, 0, 0x10u);
   if ( QueryPerformanceFrequency(&Frequency) )
   {
     do
@@ -14529,14 +14543,24 @@ int __stdcall sub_4AC33A(int a1)
       while ( v20.LowPart - PerformanceCount.LowPart < 0x32 )
       {
         QueryPerformanceCounter(&v20);
-        compile_error;//v3 = RDTSC();
+        //v3 = RDTSC();
+        __asm
+        {
+         rdtsc
+         mov dword ptr [v3], eax
+        }
         v23 = v3;
       }
       PerformanceCount = v20;
       do
       {
         QueryPerformanceCounter(&v20);
-        compile_error;//v6 = RDTSC();
+        //v6 = RDTSC();
+        __asm
+        {
+         rdtsc
+         mov dword ptr [v6], eax
+        }
         v24 = v6;
         v5 = v20.LowPart;
         v4 = PerformanceCount.LowPart;
@@ -14568,18 +14592,18 @@ int __stdcall sub_4AC33A(int a1)
     v12 = 10 * v27 / v26;
     if ( 100 * v27 / v26 - 10 * v12 >= 6 )
       ++v12;
-    v16 = v27 / v26;
-    v17 = v27 / v26;
+    Dst[2] = v27 / v26;
+    Dst[3] = v27 / v26;
     if ( v12 - 10 * v27 / v26 >= 6 )
-      v17 = v27 / v26 + 1;
-    v15 = v26;
-    Dst = v27;
+      Dst[3] = v27 / v26 + 1;
+    Dst[1] = v26;
+    Dst[0] = v27;
   }
   result = a1;
-  *(_DWORD *)a1 = Dst;
-  *(_DWORD *)(a1 + 4) = v15;
-  *(_DWORD *)(a1 + 8) = v16;
-  *(_DWORD *)(a1 + 12) = v17;
+  *(_DWORD *)a1 = Dst[0];
+  *(_DWORD *)(a1 + 4) = Dst[1];
+  *(_DWORD *)(a1 + 8) = Dst[2];
+  *(_DWORD *)(a1 + 12) = Dst[3];
   return result;
 }
 

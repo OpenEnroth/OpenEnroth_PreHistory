@@ -2179,7 +2179,7 @@ double __thiscall sub_43B570(int this)
 
 void __fastcall class26_placeholder_ctor(struct class26_placeholder *_this)
 {
- _this->ptr_000000 = 0x4D8894;
+ _this->detor_ptr = class26_placeholder_detor;
  class26_ctor(&_this->objClass26);
 }
 

@@ -236,9 +236,9 @@ unsigned int __fastcall sub_417AD4(signed int a1, int a2, signed int a3);
 _UNKNOWN *__fastcall sub_417BB5(int a1, int a2);
 int __cdecl sub_419100();
 void __cdecl sub_419220();
-void __cdecl sub_419379();
+int __cdecl sub_419379();
 int __cdecl sub_419401();
-void __cdecl sub_4196A0();
+int __cdecl sub_4196A0();
 void __cdecl sub_41A556();
 void __cdecl sub_41A57E();
 void __thiscall sub_41ABFD(int a1);
@@ -1044,8 +1044,6 @@ int __fastcall sub_495366(unsigned __int8 a1, unsigned __int8 a2);
 int __fastcall sub_495430(signed int a1);
 const CHAR *__fastcall sub_495461(char *lpsz, unsigned __int8 a2, int a3, int a4, int a5, __int64 *a6);
 int __cdecl sub_4979D2();
-void __fastcall class26_placeholder_ctor(struct class26_placeholder *_this); // weak
-void __fastcall class26_placeholder_detor(struct class26_placeholder *_this);
 char __stdcall sub_4980B9(int a1, signed int a2, float a3, float a4, float a5, int a6, int a7);
 __int64 __fastcall sub_49835A(int a1);
 char __stdcall sub_498377(int a1, signed int a2, int a3, int a4, int a5);
@@ -1289,7 +1287,7 @@ int __thiscall sub_4C0D32(void *this, float a2, int a3, int a4);
 int __thiscall sub_4C0DEA(void *this, float a2, int a3, int a4);
 int __thiscall sub_4C0EF2(int this, int a2);
 int __thiscall sub_4C1026(void *this, int a2, int a3, float a4);
-void __cdecl sub_4C12B8(); // idb
+void __cdecl sub_4C12B8_ResetClass25_F8FE00DtorPtr(); // idb
 char __stdcall sub_4C12C3(int a1, int a2, float a3, float a4);
 int __thiscall sub_4C1417(void *this, const void *Src, int a3, int a4, int a5);
 int __thiscall sub_4C1495(void *this, const void *Src, int a3, int a4, int a5);
@@ -1377,7 +1375,7 @@ void RtlCallCtors();
 
 
 
-__int16 __fastcall sub_43847A(int a1);
+__int16 __fastcall sub_43847A();
 char __fastcall sub_438992(int a1, int a2);
 int __fastcall sub_438A67(int a1, int a2);
 int __fastcall sub_43FDED(int a1);
@@ -1392,7 +1390,6 @@ void __fastcall sub_47253E(unsigned int a1);
 int __fastcall sub_46BE0A(unsigned int a1);
 int __fastcall sub_46BDF1(unsigned int a1);
 void sub_49C304(int a1, int a2, unsigned int a3);
-long *sub_4AC1C9(char a1, char a2, char a3, char a4, int a5, int a6, int a7);
-char __fastcall sub_4382BC(char _CF, char _ZF, char _SF, char _OF, int a5);
-int __fastcall sub_4383ED(int a1);
+long *sub_4AC1C9(int a5, int a7);
+int __fastcall sub_4383ED();
 long *__stdcall wWndProc(HWND hWnd, UINT Msg, signed int wParam, unsigned int lParam);
