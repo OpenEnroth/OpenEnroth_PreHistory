@@ -12157,10 +12157,9 @@ void __cdecl sub_419220()
 }
 
 //----- (00419379) --------------------------------------------------------
-int __cdecl sub_419379()
+void __cdecl sub_419379()
 {
-  int result; // eax@2
-  int i; // esi@2
+  struct GUIButton *pControl;
 
   if ( dword_507CBC )
   {
@@ -12168,22 +12167,20 @@ int __cdecl sub_419379()
     sub_41D0D8(dword_507BA4);
     sub_41D0D8(dword_507B9C);
     sub_41D0D8(dword_507BA0);
-    result = pGUIWindow_CurrentMenu;
     dword_507BA0 = 0;
     dword_507B9C = 0;
-    for ( i = *(_DWORD *)(pGUIWindow_CurrentMenu + 76); i; i = *(_DWORD *)(i + 52) )
+    for ( pControl = pGUIWindow_CurrentMenu->pControlsHead; pControl; pControl = pControl->pNext)
     {
-      if ( *(_DWORD *)(i + 32) == 120 )
+      if ( pControl->dword_000020 == 120 )
       {
-        *(_DWORD *)i = dword_50698C;
-        *(_DWORD *)(i + 4) = dword_506988;
-        *(_DWORD *)(i + 16) = dword_506984;
-        *(_DWORD *)(i + 20) = dword_506980;
-        result = sub_41D08F(pGUIWindow_CurrentMenu, 1, 0, 0, 0);
+        pControl->uX = dword_50698C;
+        pControl->uY = dword_506988;
+        pControl->uZ = dword_506984;
+        pControl->uW = dword_506980;
+        sub_41D08F(pGUIWindow_CurrentMenu, 1, 0, 0, 0);
       }
     }
   }
-  return result;
 }
 
 //----- (0046172B) --------------------------------------------------------
@@ -12327,34 +12324,30 @@ int __cdecl sub_419401()
 }
 
 //----- (004196A0) --------------------------------------------------------
-int __cdecl sub_4196A0()
+void __cdecl sub_4196A0()
 {
-  int i; // esi@2
-  int result; // eax@7
-  int j; // esi@7
+  struct GUIButton *pControl;
 
   if ( dword_507CC0 )
   {
     dword_507CC0 = 0;
-    for ( i = *(_DWORD *)(pGUIWindow_CurrentMenu + 76); i; i = *(_DWORD *)(i + 52) )
+    for ( pControl = pGUIWindow_CurrentMenu->pControlsHead; pControl; pControl = pControl->pNext)
     {
-      if ( *(_BYTE *)(i + 29) & 0x80 )
-        sub_41D0D8(i);
+      if ( *(_BYTE *)((char*)pControl + 29) & 0x80 )
+        sub_41D0D8(pControl);
     }
-    result = pGUIWindow_CurrentMenu;
-    for ( j = *(_DWORD *)(pGUIWindow_CurrentMenu + 76); j; j = *(_DWORD *)(j + 52) )
+    for ( pControl = pGUIWindow_CurrentMenu->pControlsHead; pControl; pControl = pControl->pNext)
     {
-      if ( *(_DWORD *)(j + 32) == 120 )
+      if ( pControl->dword_000020 == 120 )
       {
-        *(_DWORD *)j = dword_50698C;
-        *(_DWORD *)(j + 4) = dword_506988;
-        *(_DWORD *)(j + 16) = dword_506984;
-        *(_DWORD *)(j + 20) = dword_506980;
-        result = sub_41D08F(pGUIWindow_CurrentMenu, 1, 0, 0, 0);
+        pControl->uX = dword_50698C;
+        pControl->uY = dword_506988;
+        pControl->uZ = dword_506984;
+        pControl->uW = dword_506980;
+        sub_41D08F(pGUIWindow_CurrentMenu, 1, 0, 0, 0);
       }
     }
   }
-  return result;
 }
 
 //----- (004948B1) --------------------------------------------------------
@@ -12863,9 +12856,9 @@ void __cdecl InitializeAwards()
 }
 
 //----- (0041B3B6) --------------------------------------------------------
-void __cdecl sub_41B3B6()
+void __cdecl sub_41B3B6() // draw hud
 {
-  Render_DrawTransparentTexture(pD3DRenderer, pOldViewport->uGameZ, 0, dword_5079E4 != -1 ? 72 * dword_5079E4 + 7145548 : 0);
+  Render_DrawTransparentTexture(pD3DRenderer, pOldViewport->uGameZ, 0, &pLODFile_Icons_LOD->aLODHeaders[dword_5079E4]);
 }
 
 //----- (0041B438) --------------------------------------------------------

@@ -215,7 +215,7 @@ void GameUI_Update();
 void GameUI_Process();
 void GameUI_OnPlayerPortraitLeftClick(unsigned int uCharacterCLicked);
 int GameUI_LoadPaperdollTextures();
-void __fastcall GameUI_DrawPaperdoll(int a1);
+void __fastcall GameUI_DrawPaperdoll(unsigned int uSelectedCharacter);
 void __fastcall GameUI_DrawPaperdoll2(int a1);
 
 extern unsigned int uTextureID_GameUI_StatusBar;
@@ -225,7 +225,7 @@ extern unsigned int uTextureID_GameUI_RightPanel;
 extern unsigned int uTextureID_GameUI_PartyFrame;
 
 
-struct GUIWindow *GameUI_InitializeCharacterWindow(void *this);
+struct GUIWindow *GameUI_InitializeCharacterWindow(int a1);
 
 void __cdecl GameUI_SkillsTab_ShowHint();
 void GameUI_DrawSkillsTab(int a1);
