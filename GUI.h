@@ -3,8 +3,6 @@
 
 #include "defs.h"
 
-#include "RenderD3D3.h"
-
 #define MENU_MAIN        0
 #define MENU_CREATEPARTY 6
 
@@ -16,7 +14,7 @@ struct GUIMessageQueue
  int dword_000008;
  int dword_00000C;
 };
-
+//sizeof ==
 //void __thiscall sub_4356B9(int this, int a2, int a3, int a4);
 bool GUIMessageQueue_GetMessage(struct GUIMessageQueue *_this, int *a2, int *a3, int *a4);
 
@@ -126,19 +124,19 @@ struct Font
 //LoadingUI
 struct class56
 {
- unsigned short    uX;               // word @ 000000
- unsigned short    uY;               // word @ 000002
- unsigned short    uWidth;           // word @ 000004
- unsigned short    uHeight;          // word @ 000006
- char              byte_000008;
- char              byte_000009;
- unsigned char     uProgressMax;     // byte @ 00000A
- unsigned char     uProgressCurrent; // byte @ 00000B
- int               uProgressBarType; // dword @ 00000C   loading screen, small loading window or whatever to render
- char              array_000010[8];
- struct RGBTexture loading;          // struct @ 000018
- char              byte_000040[304];
- struct RGBTexture loadprog;         // struct @ 000170
+ unsigned short     uX;               // word @ 000000
+ unsigned short     uY;               // word @ 000002
+ unsigned short     uWidth;           // word @ 000004
+ unsigned short     uHeight;          // word @ 000006
+ char               byte_000008;
+ char               byte_000009;
+ unsigned char      uProgressMax;     // byte @ 00000A
+ unsigned char      uProgressCurrent; // byte @ 00000B
+ int                uProgressBarType; // dword @ 00000C   loading screen, small loading window or whatever to render
+ char               array_000010[8];
+ struct RGBTexture *loading;          // struct @ 000018
+ char               byte_000040[304];
+ struct RGBTexture *loadprog;         // struct @ 000170
 
  unsigned int _addon_loadprog_id_in_Icons_LOD;
  unsigned int uTextureID_Loading;

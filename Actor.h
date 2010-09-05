@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 #include "defs.h"
-#include "classes.h"
+#include "Items.h"
 
 
 bool InitializeActors(unsigned int uLocationID);

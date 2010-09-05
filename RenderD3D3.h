@@ -59,6 +59,15 @@ struct RenderD3D3_DeviceDescription
 };
 //sizeof == 28
 
+struct D3DVERTEX
+{
+ float x, y, z, rhw;
+ DWORD diffuse;
+ DWORD specular;
+ float u, v;
+};
+//sizeof == 20
+
 struct RenderD3D3
 {
  unsigned int               bWindowMode;  // dword @ 000000
@@ -95,3 +104,79 @@ HRESULT RenderD3D3_EndScene(struct RenderD3D3 *_this);
 HRESULT RenderD3D3_Present(struct RenderD3D3 *_this, char a2);
 //int __thiscall sub_49E4FC(int this, int a2, int a3, int a4, float a5);
 void RenderD3D3_ClearTarget(struct RenderD3D3 *_this, int a2, D3DCOLOR uClearColor, int a4, float a5);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+struct class02_stru0
+{
+ int   dword_000000;
+ float flt_000004;
+ float flt_000008;
+ float flt_00000C;
+ float flt_000010;
+ float flt_000014;
+ float flt_000018;
+ char  byte_00001C;
+ char  byte_00001D;
+ char  byte_00001E;
+ char  byte_00001F;
+ int   dword_000020;
+
+ float flt_00002C;
+ float flt_000030;
+ float flt_000034;
+ int   dword_000038;
+ int   dword_00003Ñ;
+
+ int   dword_000064;
+};
+//sizeof == 68
+
+struct class02_LineList
+{
+ unsigned int     uNumLines;   // dword      @ 000000
+ struct D3DVERTEX pLines[48];  // struct[48] @ 000004
+ unsigned char    padding[60];
+};
+//sizeof == 640
+
+//class02
+struct class02
+{
+ struct class02_stru0    array_000000[500];
+ struct class02_LineList lineList;          // struct @ 00BC20
+ int                  dword_00E420;
+ int                  dword_00E424;
+ int                  dword_00E428;
+ int                  dword_00E42C;
+};
+//sizeof = E430
+//void *__thiscall sub_48AAC5(void *Dst);
+void *class02_ctor(struct class02 *_this);
+//void *__thiscall sub_48AAF6(void *Dst);
+void *class02_fn0(struct class02 *_this);
+//signed int __thiscall sub_48AC65(int this);
+int class02_sub_48AC65(struct class02 *_this);
+//void __thiscall sub_48BBA6(int this);
+void class02_sub_48BBA6(struct class02 *_this);
+//void __thiscall sub_48BEEF(int this);
+void class02_sub_48BEEF(struct class02 *_this);

@@ -1,11 +1,10 @@
 #pragma once
 
 #include <stdio.h>
-#include <windows.h>
 
 #include "AIL.h"
-#include "defs.h"
 #include "Party.h"
+#include "Items.h"
 
 #pragma pack(push, 1)
 //class00
@@ -107,30 +106,6 @@ struct class01
 //sizeof = 0064
 //int __thiscall sub_438B0B(int this);
 void *class01_ctor(struct class01 *_this);
-
-
-
-//class02
-struct class02
-{
- int dword_000000[500][26];
- int dword_000CB20[1600];
- int dword_000E420;
- int dword_000E424;
- int dword_000E428;
- int dword_000E42C;
-};
-//sizeof = E430
-//void *__thiscall sub_48AAC5(void *Dst);
-void *class02_ctor(struct class02 *_this);
-//void *__thiscall sub_48AAF6(void *Dst);
-void *class02_fn0(struct class02 *_this);
-//signed int __thiscall sub_48AC65(int this);
-int class02_sub_48AC65(struct class02 *_this);
-//void __thiscall sub_48BBA6(int this);
-void class02_sub_48BBA6(struct class02 *_this);
-//void __thiscall sub_48BEEF(int this);
-void class02_sub_48BEEF(struct class02 *_this);
 
 
 
@@ -987,6 +962,8 @@ int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2);
 int class35_sub_48A8A3(struct class35 *_this);
 //signed int __thiscall sub_48A336(void *this);
 int sub_48A336(struct class35 *_this);
+//int __thiscall sub_48A8CC(int this)
+int class35_sub_48A8CC(struct class35 *_this);
 
 
 
@@ -1357,23 +1334,6 @@ struct struct2
 //sizeof == 70
 
 
-struct ItemGen
-{
-  unsigned int uItemID;
-  int  dword_000004;
-  int  dword_000008;
-  int  dword_00000C;
-  int  dword_000010;
-  int  dword_000014;
-  char byte_000018;
-  char byte_000019; //alignment byte
-  char byte_00001A;
-  char byte_00001B; //alignment byte
-  int  dword_00001C;
-  int  dword_000020;
-};
-//sizeof = 24
-
 struct struct3
 {
  short          word_000000;
@@ -1623,54 +1583,6 @@ int class59_SinCos(struct class59 *_this, int a2);
 int class59_Atan2(struct class59 *_this, int X, int Y);
 
 
-
-struct Edge
-{
- float        flt_000000;
- float        flt_000004;
- int          dword_000008;
- struct Surf *pSurf;            // ptr @ 00000C
- struct Edge *pNext;            // ptr @ 000010
- struct Edge *pPrev;            // ptr @ 000014
- struct Edge *ptr_000018;
- float        flt_00001C;
- float        flt_000020;
- float        flt_000024;
- float        flt_000028;
- float        flt_00002C;
- float        flt_000030;
-};
-//sizeof == 34
-
-struct Span
-{
- struct Span    *pNext;        // dword @ 000000
- struct struct8 *pParent;      // dword @ 000004
- short           word_000008;  //  screen-space x?  -1 for final span
- short           word_00000A;  //  screen-space y?
- short           word_00000C;
- short           word_00000E;  // data_6BE060.dword_6BE064 goes here
- float           flt_000010;
- float           flt_000014;
-};
-//sizeof == 18
-
-struct Surf
-{
- float           flt_000000;
- float           flt_000004;
- float           flt_000008;
- float           flt_00000C;
- float           flt_000010;
- struct Surf    *pNext;      // dword @ 000014
- struct Surf    *pPrev;      // dword @ 000018
- struct struct8 *ptr_00001C;
- short           word_000020;
- short           word_000022;
-};
-//sizeof == 24
-
-
 struct Event
 {
  int dword_000000;
@@ -1678,15 +1590,6 @@ struct Event
  int dword_000008;
 };
 //sizeof == 0C
-
-
-struct StatTable
-{
-  unsigned char InitialStat;
-  unsigned char MaxStat;
-  unsigned char Ratio1;
-  unsigned char Ratio2;
-};
 
 
 struct Matrix

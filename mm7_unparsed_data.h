@@ -3,10 +3,13 @@
 
 #include "defs.h"
 #include "data.h"
-#include "classes.h"
+#include "RenderD3D3.h"
+#include "RenderSoftware.h"
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
+#include "Player.h"
+#include "classes.h"
 
 
 extern char aTooManyStation[]; // byte[] @ MM7.exe::004F0364
@@ -2112,13 +2115,7 @@ extern int dword_76E1C8[];
 extern int dword_76E3C8[];
 extern _BYTE byte_76E5C8[]; // idb
 
-struct D3DVERTEX
-{
- float x, y, z, rhw;
- DWORD diffuse;
- DWORD specular;
- float u, v;
-} pVertices[50];  // struct[50] @ MM7.exe::0077E5C8
+struct D3DVERTEX pVertices[50];  // struct[50] @ MM7.exe::0077E5C8
 //extern _UNKNOWN unk_77E5C8; // x
 //extern _UNKNOWN unk_77E5CC; // y
 //extern _UNKNOWN unk_77E5D8; // diffuse

@@ -1792,11 +1792,9 @@ bool class51_sub_47EF60(struct class51 *_this, int a2, int a3, int a4)
   int v16; // [sp+4h] [bp-14h]@7
   int v17; // [sp+8h] [bp-10h]@5
   int v18; // [sp+Ch] [bp-Ch]@2
-  void *v19; // [sp+10h] [bp-8h]@1
   int v20; // [sp+14h] [bp-4h]@2
   int i; // [sp+24h] [bp+Ch]@5
 
-  v19 = _this;
   v4 = a3 - 10;
   if ( a3 - 10 < a3 + 10 )
   {
@@ -1829,9 +1827,11 @@ bool class51_sub_47EF60(struct class51 *_this, int a2, int a3, int a4)
                   {
                     v13 = (v6 + v9 - 20) >> 3;
                     v12 = 1 << (8 - (v6 + v9 - 20) % 8 - 1);
-                    *((_BYTE *)v19 + v13 + 2288) |= v12;
+                    //*((_BYTE *)v19 + v13 + 0x8F0) |= v12;
+                    _this->array_0008F0[v13] |= v12;
                     if ( v16 <= 49 )
-                      *((_BYTE *)v19 + v13 + 1320) |= v12;
+                      //*((_BYTE *)v19 + v13 + 0x528) |= v12;
+                      _this->array_000528[v13] |= v12;
                     v7 = a2;
                   }
                 }

@@ -8,7 +8,6 @@
 #include "AIL.h"
 
 #include "data.h"
-#include "RenderD3D3.h"
 #include "_audio.h"
 #include "_video.h"
 #include "FrameTables.h"

@@ -469,7 +469,7 @@ void *class01_ctor(struct class01 *_this)
 //----- (MM7.exe::0048AAC5) --------------------------------------------------------
 void *class02_ctor(struct class02 *_this)
 {
-  memset(_this->dword_000000, 0, 500 * 26 * 4);
+  memset(_this->array_000000, 0, 500 * sizeof(struct class02_stru0));
 
   class02_fn0(_this);
   return _this;
@@ -478,10 +478,10 @@ void *class02_ctor(struct class02 *_this)
 //----- (MM7.exe::0048AAF6) --------------------------------------------------------
 void *class02_fn0(struct class02 *_this)
 {
- _this->dword_000E424 = 500;
- _this->dword_000E428 = 0;
- _this->dword_000E42C = 0;
- return memset(_this->dword_000000, 0, 500 * 26 * 4);
+ _this->dword_00E424 = 500;
+ _this->dword_00E428 = 0;
+ _this->dword_00E42C = 0;
+ return memset(_this->array_000000, 0, 500 * sizeof(struct class02_stru0));
 }
 
 //----- (MM7.exe::00467E4E) --------------------------------------------------------
@@ -7278,34 +7278,30 @@ void sub_426363(struct class24 *_this)
 //----- (0048A336) --------------------------------------------------------
 int sub_48A336(struct class35 *_this)
 {
-  int v1; // eax@1
-  signed int v2; // ecx@1
+ int i;
   int v3; // esi@1
   signed int result; // eax@3
   void *v5; // edi@4
-  int v6; // ecx@4
 
   v3 = (int)_this;
-  v2 = 0;
-  v1 = v3 + 1;
-  do
-  {
-    *(_BYTE *)(v1 + 1) = v2;
-    *(_BYTE *)v1 = v2;
-    *(_BYTE *)(v1 - 1) = v2++;
-    v1 += 3;
-  }
-  while ( v2 < 256 );
-  class35_sub_489BE0(v3, 0);
-  result = *(_DWORD *)(v3 + 0x267AC8);
-  if ( result < 50 )
-  {
-    v5 = (void *)(v3 + 4 * result + 0x267A00);
-    v6 = 50 - result;
-    result = 0;
-    memset(v5, 0, 4 * v6);
-  }
-  return result;
+
+ for (i = 0; i < 256; ++i)
+ {
+  _this->pBaseColors[0][i * 3 + 0] = i;
+  _this->pBaseColors[0][i * 3 + 1] = i;
+  _this->pBaseColors[0][i * 3 + 2] = i;
+ }
+ class35_sub_489BE0(_this, 0);
+
+ result = _this->dword_267AC8;
+ if (_this->dword_267AC8 < 50)
+ {
+  v5 = &_this->array_267A00[result];
+  memset(v5, 0, 4 * (50 - result));
+
+  result = 0;
+ }
+ return result;
 }
 
 //----- (0046454B) --------------------------------------------------------
@@ -7657,101 +7653,84 @@ char CGame_sub_44EEA7(struct CGame *_this)
 //----- (0048AC65) --------------------------------------------------------
 int class02_sub_48AC65(struct class02 *_this)
 {
-  int v1; // eax@1
-  int v2; // ebx@1
   int v3; // edi@1
-  int v4; // esi@2
+  struct class02_stru0 *v4; // esi@2
   int v5; // eax@3
   char v6; // sf@4
-  float v7; // ST4C_4@11
   double v8; // st7@12
   int v9; // eax@12
   double v10; // st7@14
-  float v11; // ST4C_4@14
   float v12; // ST3C_4@14
-  double v13; // ST20_8@14
   float v14; // ST3C_4@14
-  double v15; // ST18_8@14
   float v16; // ST3C_4@14
-  double v17; // ST10_8@14
-  signed int result; // eax@19
   signed int v19; // [sp+38h] [bp-14h]@1
   signed int v20; // [sp+3Ch] [bp-10h]@1
   int v21; // [sp+40h] [bp-Ch]@1
   int v22; // [sp+44h] [bp-8h]@12
-  signed int v23; // [sp+48h] [bp-4h]@1
+ int i;
+
+  v3 = pClass24_global2->dword_000004 == 0 ? pClass24_global->int_00001C : 0;
 
   v20 = 0;
-  v2 = _this;
-  v3 = pClass24_global2->dword_000004 == 0 ? pClass24_global->int_00001C : 0;
-  v1 = *(_DWORD *)(v2 + 58404);
   v19 = 500;
+
   v21 = pClass24_global2->dword_000004 == 0 ? pClass24_global->int_00001C : 0;
-  v23 = *(_DWORD *)(v2 + 58404);
-  if ( v1 <= *(_DWORD *)(v2 + 58408) )
-  {
-    v4 = 104 * v1 + v2 + 29;
-    do
+  
+ for (i = _this->dword_00E424; i <= _this->dword_00E428; ++i)
+ {
+  v4 = &_this->array_000000[i];
+
+   v5 = v4->dword_000000;
+    if (v5)
     {
-      v5 = *(_DWORD *)(v4 - 29);
-      if ( v5 )
-      {
-        v6 = *(_DWORD *)(v4 + 3) - v3 < 0;
-        *(_DWORD *)(v4 + 3) -= v3;
+     v6 = v4->dword_000020 - v3 < 0;
+        v4->dword_000020 -= v3;
         if ( v6 )
         {
-          *(_DWORD *)(v4 - 29) = 0;
+          v4->dword_000000 = 0;
         }
         else
         {
           if ( BYTE1(v5) & 2 )
           {
-            *(_DWORD *)(v4 + 15) = *(_DWORD *)(v4 - 25);
-            *(_DWORD *)(v4 + 19) = *(_DWORD *)(v4 - 21);
-            *(_DWORD *)(v4 + 23) = *(_DWORD *)(v4 - 17);
+           v4->flt_00002C = v4->flt_000004;
+            v4->flt_000030 = v4->flt_000008;
+            v4->flt_000034 = v4->flt_00000C;
           }
           if ( v5 & 1 )
-            *(float *)(v4 - 5) = *(float *)(v4 - 5) - (double)v21 * 5.0;
+            v4->flt_000018 -= (double)v21 * 5.0;
           if ( v5 & 8 )
           {
-            v7 = (double)v21;
-            *(float *)(v4 - 25) = (double)(rand() % 5 - 2) * v7 * 0.0625 + *(float *)(v4 - 25);
-            *(float *)(v4 - 21) = (double)(rand() % 5 - 2) * v7 * 0.0625 + *(float *)(v4 - 21);
-            *(float *)(v4 - 17) = (double)(rand() % 5 + 4) * v7 * 0.0625 + *(float *)(v4 - 17);
+            v4->flt_000004 += (double)(rand() % 5 - 2) * (double)v21 / 16;
+            v4->flt_000008 += (double)(rand() % 5 - 2) * (double)v21 / 16;
+            v4->flt_00000C += (double)(rand() % 5 + 4) * (double)v21 / 16;
           }
-          v8 = (double)v21 * 0.0078125;
-          v9 = v3 * *(_DWORD *)(v4 + 27) / 16;
-          *(float *)(v4 - 25) = v8 * *(float *)(v4 - 13) + *(float *)(v4 - 25);
-          *(float *)(v4 - 21) = v8 * *(float *)(v4 - 9) + *(float *)(v4 - 21);
-          *(float *)(v4 - 17) = v8 * *(float *)(v4 - 5) + *(float *)(v4 - 17);
-          *(_DWORD *)(v4 + 31) += v9;
-          v22 = 2 * *(_DWORD *)(v4 + 3);
-          if ( 2 * *(_DWORD *)(v4 + 3) >= 255 )
+          v8 = (double)v21 / 128.0;
+          v9 = v3 * v4->dword_000038 / 16;
+          v4->flt_000004 += v8 * v4->flt_000010;
+          v4->flt_000008 += v8 * v4->flt_000014;
+          v4->flt_00000C += v8 * v4->flt_000018;
+          v4->dword_00003Ñ += v9;
+          v22 = 2 * v4->dword_000020;
+          if (v22 > 255)
             v22 = 255;
-          v10 = (double)v22 * 0.003921568859368563;
-          v11 = v10;
-          v12 = (double)*(_BYTE *)(v4 + 1) * v10;
-          v13 = v12 + 6.755399441055744e15;
-          v14 = (double)*(_BYTE *)v4 * v11;
-          v15 = v14 + 6.755399441055744e15;
-          v16 = (double)(*(_DWORD *)(v4 - 1) & 0xFFi64) * v11;
-          v17 = v16 + 6.755399441055744e15;
-          *(_DWORD *)(v4 + 71) = LODWORD(v17) | ((LODWORD(v15) | (LODWORD(v13) << 8)) << 8);
-          if ( v23 < v19 )
-            v19 = v23;
-          if ( v23 > v20 )
-            v20 = v23;
+
+          v10 = (double)v22 / 255.0;
+          v12 = floorf((double)v4->byte_00001E * v10 + 1);
+          v14 = floorf((double)v4->byte_00001D * v10 + 1);
+          v16 = floorf((double)v4->byte_00001C * v10 + 1);
+          v4->dword_000064 = (unsigned int)(v16) | (((unsigned int)(v14) | ((unsigned int)(v12) << 8)) << 8);
+          if ( i < v19 )
+            v19 = i;
+          if ( i > v20 )
+            v20 = i;
         }
-      }
-      ++v23;
-      v4 += 104;
     }
-    while ( v23 <= *(_DWORD *)(v2 + 58408) );
-  }
-  *(_DWORD *)(v2 + 58408) = v20;
-  result = v19;
-  *(_DWORD *)(v2 + 58404) = v19;
-  return result;
+ }
+ 
+ _this->dword_00E424 = v19;
+ _this->dword_00E428 = v20;
+ return v19;
 }
 
 
@@ -9735,12 +9714,12 @@ void class02_sub_48BBA6(struct class02 *_this)
 
   v24 = -1;
   v2 = _this;
-  LODWORD(v1) = _this->dword_000E424;
+  LODWORD(v1) = _this->dword_00E424;
   //v5 = __SETO__(LODWORD(v1), *(_DWORD *)(this + 58408));
   //v3 = LODWORD(v1) == *(_DWORD *)(v2 + 58408);
   //v4 = LODWORD(v1) - *(_DWORD *)(v2 + 58408) < 0;
-  v26 = _this->dword_000E424;
-  if (LODWORD(v1) <= _this->dword_000E428)
+  v26 = _this->dword_00E424;
+  if (LODWORD(v1) <= _this->dword_00E428)
   {
     v6 = pD3DRenderer;
     v7 = 104 * LODWORD(v1) + v2 + 86;
@@ -9899,12 +9878,12 @@ void class02_sub_48BEEF(struct class02 *_this)
 
   v23 = -1;
   v2 = _this;
-  v1 = _this->dword_000E424;
+  v1 = _this->dword_00E424;
   //v5 = __SETO__(v1, *(_DWORD *)(v2 + 58408));
   //v3 = v1 == *(_DWORD *)(v2 + 58408);
   //v4 = v1 - *(_DWORD *)(v2 + 58408) < 0;
-  v25 = _this->dword_000E424;
-  if (v1 <= _this->dword_000E428)
+  v25 = _this->dword_00E424;
+  if (v1 <= _this->dword_00E428)
   {
     v6 = pD3DRenderer;
     v7 = 104 * v1 + v2 + 82;

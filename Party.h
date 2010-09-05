@@ -95,7 +95,7 @@ struct Party
 
  char pad[100000];
 
- int dword_01613C;
+ int dword_01613C; // connected to uNumGUIWindows
 
  float flt_01622C;
  float flt_016230;

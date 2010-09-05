@@ -8,14 +8,12 @@
 #include "AIL.h"
 
 #include "data.h"
-#include "RenderD3D3.h"
 #include "_audio.h"
 #include "_video.h"
 #include "FrameTables.h"
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-//#include "codec.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -1643,14 +1641,13 @@ char __cdecl sub_450218()
  v0 = CMapStats_FindLocation(pMapStats, Str1);
  v2 = v50 = &pMapStats->pMapInfos[v0];
  v51 = array_5E5150;
- i = 0;
 
   for (i = 0; i < 20; ++i)
   {
-    v3 = &array_5E5150[i].stru_000004;
+    v3 = &array_5E5150[0].stru_000004;
     for (j = 0; j < 140; ++j)
     {
-     if (array_5E5150[i].stru_000004.uItemID >= 0)
+     if (array_5E5150[j].stru_000004.uItemID >= 0)
         goto LABEL_56;
 
       v5 = rand() % 5 + 1;
@@ -4055,8 +4052,8 @@ void InitializeCameraAndViewport()
 }
 
 //----- (00443FDC) --------------------------------------------------------
-function_error;//void __usercall sub_443FDC(signed __int64 a1<edx:eax>)
-void __fastcall sub_443FDC(__int64 a1)
+function_error;//void __usercall sub_443FDC_MessWithEvents(signed __int64 a1<edx:eax>)
+void __fastcall sub_443FDC_MessWithEvents(__int64 a1)
 {
   int v1; // esi@1
   _UNKNOWN *v2; // ebx@2
@@ -9088,7 +9085,7 @@ int __fastcall sub_464866(int a1, int a2)
   LODWORD(v6) = &pActors[uNumActors].byte_00002A[15];
 
   dword_5C35C4 = 0;
-  sub_443FDC(v6);
+  sub_443FDC_MessWithEvents(v6);
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
   LevelLoadingUI_Release(pLoadingUI);
   return _flushall();

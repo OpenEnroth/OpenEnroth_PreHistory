@@ -2253,7 +2253,7 @@ LABEL_317:
             PrepareToLoadODM(1, (void *)1);
             LODWORD(v53) = AudioPlayer_sub_4AC041(pAudioPlayer);
             dword_5C35C4 = 0;
-            sub_443FDC(v53);
+            sub_443FDC_MessWithEvents(v53);
             sub_489487();
             sub_4498D5((void *)dword_6BE35C);
             pParty_global->sPartyPosZ = sub_48257A(pParty_global->sPartyPosX, pParty_global->sPartyPosY, (int)&v229, 0);
@@ -5317,33 +5317,6 @@ void LevelLoadingUI_Release(struct class56 *_this)
   v1 = _this;
  if (dword_720010)
    sub_46B105(dword_720010);
-
- if (_this->uProgressBarType == 1 )
- {
-  if (_this->loading.pPixels)
-    return;
-
-  if (_this->uProgressCurrent != _this->uProgressMax)
-  {
-   _this->uProgressCurrent = _this->uProgressMax - 1;
-    LevelLoadingUI_UpdateAndDrawProgressBar(_this);
-  }
-  call_delete(0, _this->loading.pPixels);
-  _this->loading.pPixels = 0;
-
-  operator_delete(0, _this->loading.pPixels);
-  _this->loading.pPixels = 0;
- }
- else
- {
-    v6 = *((_DWORD *)v1 + 86);
-    if ( !v6 )
-      return;
-    v7 = operator_delete(v6, *((_DWORD *)v1 + 86));
-    operator_delete(v7, *((_DWORD *)v1 + 90));
-    *((_DWORD *)v1 + 86) = 0;
-    *(_DWORD *)(int)((char *)v1 + 360) = 0;
-  }
 }
 
 

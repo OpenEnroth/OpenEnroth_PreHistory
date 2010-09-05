@@ -9,21 +9,17 @@ int (__cdecl *sprintfex)(char *, const char *, ...) = 0;
 
 #pragma comment(lib, "winmm.lib")
 
-#include "defs.h"
-
-
 
 #include "AIL.h"
 
+#include "classes.h"
 #include "data.h"
-#include "RenderD3D3.h"
 #include "_audio.h"
 #include "_video.h"
 #include "FrameTables.h"
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-//#include "codec.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -959,6 +955,7 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
   sub_487389_DrawSpansAndAll();
   class08_sub_438240(pGame->class08_obj);
  }
+
   CGame_sub_44F120_MaybeStackStationaryLights(pGame, -1);
   CGame_sub_44F192(pGame);
   if (bRedraw)
@@ -977,7 +974,7 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
   dword_5187E8 = 0;
   dword_5187E4 = 0;
   dword_5187E0 = 0;
-  sub_47B42C();
+  sub_47B42C_MaybeDrawActors();
   if ( !dword_6BE0C8 )
     sub_47A95E();
   sub_47AF11();
@@ -3013,31 +3010,21 @@ void __cdecl sub_47A815()
   int v0; // ecx@1
 
   v0 = pGame->class02_obj;
-  pGame->class02_obj->dword_000E42C += pClass24_global->int_00001C;
-  pGame->class02_obj->dword_000CB20[0] = 0;
-  if ( dword_6BE360 == 1 )
+  pGame->class02_obj->dword_00E42C += pClass24_global->int_00001C;
+  pGame->class02_obj->lineList.uNumLines = 0;
+  if (dword_6BE360 == 1)
     class02_sub_48BBA6(pGame->class02_obj);
   else
     class02_sub_48BEEF(pGame->class02_obj);
 
-  if ( pD3DRenderer->pRenderD3D3 )
-  {
-    if ( *(_DWORD *)(v0 + 52000) )
-    {
-      (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 152))(
-        *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
-        0,
-        0);
-      (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56)
-                                                                                    + 112))(
-                 *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
-                 2,
-                 452,
-                 &pGame->class02_obj->dword_000CB20[1],
-                 pGame->class02_obj->dword_000CB20[0],
-                 16);
-    }
-  }
+ if (pD3DRenderer->pRenderD3D3 && pGame->class02_obj->lineList.uNumLines)
+ {
+  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTexture)(pD3DRenderer->pRenderD3D3->pDevice, 0, 0);
+  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->DrawPrimitive)(pD3DRenderer->pRenderD3D3->pDevice, D3DPT_LINELIST,
+                                                              D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1,
+                                                              &pGame->class02_obj->lineList.pLines,
+                                                              pGame->class02_obj->lineList.uNumLines, D3DDP_DONOTLIGHT);
+ }
 }
 
 //----- (004637EB) --------------------------------------------------------
@@ -3744,7 +3731,7 @@ LABEL_20:
 }
 
 //----- (0047B42C) --------------------------------------------------------
-void __cdecl sub_47B42C()
+void __cdecl sub_47B42C_MaybeDrawActors()
 {
   int v1; // edi@2
   __int16 v2; // ax@3
@@ -13570,7 +13557,6 @@ bool __fastcall sub_44C4DE(unsigned char a1, unsigned char *a2)
 void __cdecl sub_461103()
 {
   void *v0; // ebx@1
-  int v2; // esi@2
   __int16 v3; // cx@3
   int v4; // edx@8
   signed int v6; // esi@14
@@ -13590,7 +13576,7 @@ void __cdecl sub_461103()
 
 
   runtime_warning(Random item generation? randomly crashes);
-  //sub_450218();
+  sub_450218();
 
   v0 = pLoadingUI;
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
@@ -13602,39 +13588,37 @@ void __cdecl sub_461103()
 
   for (i = 0; i < uNumActors; ++i)
   {
-   v2 = (int)&pActors[i].word_000020;
-
-      v3 = *(_WORD *)(v2 + 64);
+      v3 = pActors[i].uMonsterID;
       v18 = 0;
       if ( v3 >= 115 && v3 <= 186 || v3 >= 232 && v3 <= 249 )
         v18 = 1;
       v4 = (v3 - 1) % 3;
-      if ( 2 == v4 )
+      if (v4 == 2)
       {
-        if ( *(_WORD *)v2 && *(_WORD *)v2 < 5000 )
+        if (pActors[i].word_000020 && pActors[i].word_000020 < 5000)
           continue;
       }
       else
       {
         if ( v4 != 1 )
         {
-          if ( v4 != 0 || *(_WORD *)v2 )
+          if ( v4 != 0 || pActors[i].word_000020)
             continue;
           else goto LABEL_12;
         }
       }
-      if ( *(_WORD *)v2 > 0 && *(_WORD *)v2 < 5000 )
+      if (pActors[i].word_000020 > 0 && pActors[i].word_000020 < 5000)
         continue;
       if ( v18 )
       {
        runtime_warning(decompilation error);
         //sub_47732C(&pNPCStats->array_0013EF4[pNPCStats->dword_017FC0], v3, 0, v20);
         v15 = pNPCStats->dword_017FC0++ + 5000;
-        *(_WORD *)v2 = v15;
+        pActors[i].word_000020 = v15;
         continue;
       }
 LABEL_12:
-      *(_WORD *)v2 = 0;
+      pActors[i].word_000020 = 0;
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
@@ -13717,7 +13701,7 @@ LABEL_12:
   struct_576FE8.dword_000044 = 1;
   dword_6BE35C = 0;
   sub_461397(pLODFile_Sprites_LOD);
-  sub_48A8CC(&class35_obj);
+  class35_sub_48A8CC(&class35_obj);
   if (dword_AD470C)
     sub_4698D8(dword_AD470C);
 }

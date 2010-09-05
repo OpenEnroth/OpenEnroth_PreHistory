@@ -66,6 +66,13 @@
 
 extern unsigned int uTextureID_PCFaces[];
 
+struct StatTable
+{
+  unsigned char InitialStat;
+  unsigned char MaxStat;
+  unsigned char Ratio1;
+  unsigned char Ratio2;
+};
 
 struct InventorySlot
 {

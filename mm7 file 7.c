@@ -1,21 +1,15 @@
 #include <ddraw.h>
 #include <dinput.h>
 
-#include "defs.h"
-
-
-
 #include "AIL.h"
 
 #include "data.h"
-#include "RenderD3D3.h"
 #include "_audio.h"
 #include "_video.h"
 #include "FrameTables.h"
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-//#include "codec.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"

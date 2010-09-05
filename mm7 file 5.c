@@ -8,7 +8,6 @@
 #include "AIL.h"
 
 #include "data.h"
-#include "RenderD3D3.h"
 #include "_audio.h"
 #include "_video.h"
 #include "FrameTables.h"
@@ -17966,22 +17965,19 @@ LABEL_20:
 }
 
 //----- (0048A8CC) --------------------------------------------------------
-int __thiscall sub_48A8CC(int this)
+int class35_sub_48A8CC(struct class35 *_this)
 {
   signed int v1; // eax@1
-  int v2; // edx@1
 
-  v2 = this + 2521604;
   v1 = 1;
   do
   {
-    if ( *(_DWORD *)v2 )
-      *(_DWORD *)(this + 2521804) = v1 + 1;
+    if (_this->array_267A00[v1])
+      _this->dword_267ACC = v1 + 1;
     ++v1;
-    v2 += 4;
   }
-  while ( v1 < 50 );
-  return *(_DWORD *)(this + 2521804);
+  while (v1 < 50);
+ return _this->dword_267ACC;
 }
 
 //----- (0048A959) --------------------------------------------------------
