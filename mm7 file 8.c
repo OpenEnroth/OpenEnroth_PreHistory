@@ -705,7 +705,7 @@ LABEL_27:
       PlayerCreationUI_Draw();
       sub_435748();
       Render_BeginScene(pD3DRenderer);
-      sub_4156F0();
+      sub_4156F0_LooksLike_UI_ProcessCallbacks();
       Render_EndScene(pD3DRenderer);
       Render_Present(pD3DRenderer);
       if ( dword_6A0D48 == 1 )
@@ -2450,7 +2450,7 @@ int __cdecl MenuLoop_Main()
       if (dword_720010)
         sub_46B736(dword_720010, 1);
       sub_435748();
-      sub_4156F0();
+      sub_4156F0_LooksLike_UI_ProcessCallbacks();
       if ( dword_720010)
         sub_46B736(dword_720010, 1);
       if ( uCurrentMenuID == 9 )
@@ -2507,7 +2507,7 @@ int __cdecl MenuLoop_Main()
   }
   sub_435748();
   Render_BeginScene(pD3DRenderer);
-  sub_4156F0();
+  sub_4156F0_LooksLike_UI_ProcessCallbacks();
   Render_EndScene(pD3DRenderer);
   Render_Present(pD3DRenderer);
   //RGBTexture_Release(pRGBTexture_Menu);

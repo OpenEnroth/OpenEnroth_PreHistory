@@ -3032,21 +3032,21 @@ void __fastcall sub_43EF2B(int a1)
       v5 = (v2 != 0) + 1;
     v9 = v5;
     wsprintfA(&Str1, "pc23v%dBod", v5);
-    dword_51127C[v1] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+    pPaperdollTextures_Bodies[v1] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
     wsprintfA(&Str1, "pc23v%dlad", v9);
-    dword_5115D0[v1] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+    pPaperdollTextures_LeftArmsEmpty[v1] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
     wsprintfA(&Str1, "pc23v%dlau", v9);
-    dword_5115C0[v1] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+    pPaperdollTextures_LeftArmsWeapon[v1] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
     wsprintfA(&Str1, "pc23v%drh", v9);
-    dword_51124C[v1] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+    pPaperdollTextures_RightHands[v1] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
     wsprintfA(&Str1, "pc23v%dlh", v9);
-    dword_51126C[v1] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+    pPaperdollTextures_LeftHandsEmpty[v1] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
     wsprintfA(&Str1, "pc23v%dlhu", v9);
-    dword_51125C[v1] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+    pPaperdollTextures_LeftHandsWeapon[v1] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
     v6 = *(_BYTE *)(pPlayers[v1] + 186);
     if ( v6 == 12 || v6 == 13 )
-      dword_511208[*((_BYTE *)*(&ptr_A750C4 + v8) + 186)] = 0;
-    dword_5115E0[*((_BYTE *)*(&ptr_A750C4 + v8) + 186)] = 0;
+      pPaperdollTextures_Beards[*((_BYTE *)*(&ptr_A750C4 + v8) + 186)] = 0;
+    pPaperdollTextures_Feet[*((_BYTE *)*(&ptr_A750C4 + v8) + 186)] = 0;
     byte_5111B9[v8 - 1] = 1;
   }
 }
@@ -3068,27 +3068,27 @@ int __fastcall sub_43F0BD(int a1)
   {
     v4 = 4 * a1 + 10965188;
     v5 = 4 * (a1 - 1);
-    *(int *)((char *)dword_51127C + v5) = LODFile_LoadTexture(
+    *(int *)((char *)pPaperdollTextures_Bodies + v5) = LODFile_LoadTexture(
                                             pLODFile_Icons_LOD,
                                             (&off_4ECD68)[4 * *((_BYTE *)*(&ptr_A750C4 + a1) + 186)],
                                             2);
-    *(int *)((char *)dword_5115D0 + v5) = LODFile_LoadTexture(
+    *(int *)((char *)pPaperdollTextures_LeftArmsEmpty + v5) = LODFile_LoadTexture(
                                             pLODFile_Icons_LOD,
                                             (&off_4ECC98)[4 * *(_BYTE *)(*(_DWORD *)v4 + 186)],
                                             2);
-    *(int *)((char *)dword_5115C0 + v5) = LODFile_LoadTexture(
+    *(int *)((char *)pPaperdollTextures_LeftArmsWeapon + v5) = LODFile_LoadTexture(
                                             pLODFile_Icons_LOD,
                                             (&off_4ECD00)[4 * *(_BYTE *)(*(_DWORD *)v4 + 186)],
                                             2);
-    *(int *)((char *)dword_51124C + v5) = LODFile_LoadTexture(
+    *(int *)((char *)pPaperdollTextures_RightHands + v5) = LODFile_LoadTexture(
                                             pLODFile_Icons_LOD,
                                             (&off_4ECDD0)[4 * *(_BYTE *)(*(_DWORD *)v4 + 186)],
                                             2);
-    *(int *)((char *)dword_51126C + v5) = LODFile_LoadTexture(
+    *(int *)((char *)pPaperdollTextures_LeftHandsEmpty + v5) = LODFile_LoadTexture(
                                             pLODFile_Icons_LOD,
                                             (&off_4ECE38)[4 * *(_BYTE *)(*(_DWORD *)v4 + 186)],
                                             2);
-    *(int *)((char *)dword_51125C + v5) = LODFile_LoadTexture(
+    *(int *)((char *)pPaperdollTextures_LeftHandsWeapon + v5) = LODFile_LoadTexture(
                                             pLODFile_Icons_LOD,
                                             (&off_4ECEA0)[4 * *(_BYTE *)(*(_DWORD *)v4 + 186)],
                                             2);
@@ -3098,10 +3098,10 @@ int __fastcall sub_43F0BD(int a1)
     {
       wsprintfA(&Str1, "pc%02dbrd", v2 + 1);
       v3 = *(_DWORD *)v4 + 186;
-      dword_511208[*(_BYTE *)v3] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+      pPaperdollTextures_Beards[*(_BYTE *)v3] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
     }
     wsprintfA(&Str1, "item281pc%02d", *(_BYTE *)v3 + 1);
-    dword_5115E0[*(_BYTE *)(*(_DWORD *)v4 + 186)] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+    pPaperdollTextures_Feet[*(_BYTE *)(*(_DWORD *)v4 + 186)] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
     result = v7;
     byte_5111B9[v7 - 1] = 0;
   }
@@ -4741,7 +4741,7 @@ void __cdecl sub_441BD4()
   v17 = pD3DRenderer->pActiveZBuffer;
   sub_440BED((int)&v1);
   pParty_global->dword_007778 &= 0xFFFFFFFDu;
-  sub_47A815();
+  sub_47A815_DrawClass02Lines();
   sub_440F07(array_5118E8);
 }
 

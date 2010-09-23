@@ -44,14 +44,12 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
 
  dword_5118E0 = 0;
- GameUI_LoadPaperdollTextures();
+ CharacterUI_LoadPaperdollTextures();
  dword_4E28F8 = a1;
 
  pCharacterWindow = GUIWindowCreate(0, 0, 640, 480, 4, uActiveCharacter, 0);
 
-  dword_50768C = GUIButtonCreate(pCharacterWindow,
-                   pOldViewport->uGameX + 12,
-                   pOldViewport->uGameY + 308,
+ pCharacterUI_BtnStats = GUIButtonCreate(pCharacterWindow, pOldViewport->uGameX + 12, pOldViewport->uGameY + 308,
                    pLODFile_Icons_LOD->aLODHeaders[dword_51122C].uTextureWidth,
                    pLODFile_Icons_LOD->aLODHeaders[dword_51122C].uTextureHeight,
                    1,
@@ -60,10 +58,8 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    0,
                    83,
                    pGlobalTXT_LocalizationStrings[216],
-                   dword_511230 != -1 ? 72 * dword_511230 + 7145548 : 0);
-  dword_507688 = GUIButtonCreate(pCharacterWindow,
-                   pOldViewport->uGameX + 102,
-                   pOldViewport->uGameY + 308,
+                   dword_511230);
+ pCharacterUI_BtnSkills = GUIButtonCreate(pCharacterWindow, pOldViewport->uGameX + 102, pOldViewport->uGameY + 308,
                    pLODFile_Icons_LOD->aLODHeaders[dword_511224].uTextureWidth,
                    pLODFile_Icons_LOD->aLODHeaders[dword_511224].uTextureHeight,
                    1,
@@ -72,10 +68,8 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    0,
                    75,
                    pGlobalTXT_LocalizationStrings[205],
-                   dword_511228 != -1 ? 72 * dword_511228 + 7145548 : 0);
-  dword_507684 = GUIButtonCreate(pCharacterWindow,
-                   pOldViewport->uGameX + 192,
-                   pOldViewport->uGameY + 308,
+                   dword_511228);
+ pCharacterUI_BtnInventory = GUIButtonCreate(pCharacterWindow, pOldViewport->uGameX + 192, pOldViewport->uGameY + 308,
                    pLODFile_Icons_LOD->aLODHeaders[dword_51121C].uTextureWidth,
                    pLODFile_Icons_LOD->aLODHeaders[dword_51121C].uTextureHeight,
                    1,
@@ -84,11 +78,8 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    0,
                    73,
                    pGlobalTXT_LocalizationStrings[120],
-                   dword_511220 != -1 ? 72 * dword_511220 + 7145548 : 0);
-  dword_507680 = GUIButtonCreate(
-                   pCharacterWindow,
-                   pOldViewport->uGameX + 282,
-                   pOldViewport->uGameY + 308,
+                   dword_511220);
+ pCharacterUI_BtnAwards = GUIButtonCreate(pCharacterWindow, pOldViewport->uGameX + 282, pOldViewport->uGameY + 308,
                    pLODFile_Icons_LOD->aLODHeaders[dword_511214].uTextureWidth,
                    pLODFile_Icons_LOD->aLODHeaders[dword_511214].uTextureHeight,
                    1,
@@ -97,10 +88,8 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    0,
                    65,
                    pGlobalTXT_LocalizationStrings[22],
-                   dword_511218 != -1 ? 72 * dword_511218 + 7145548 : 0);
-  dword_50767C = GUIButtonCreate(pCharacterWindow,
-                   pOldViewport->uGameX + 371,
-                   pOldViewport->uGameY + 308,
+                   dword_511218);
+ pCharacterUI_BtnExit = GUIButtonCreate(pCharacterWindow, pOldViewport->uGameX + 371, pOldViewport->uGameY + 308,
                    pLODFile_Icons_LOD->aLODHeaders[dword_51120C].uTextureWidth,
                    pLODFile_Icons_LOD->aLODHeaders[dword_51120C].uTextureHeight,
                    1,
@@ -109,7 +98,7 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[79],
-                   uTextureID_ButtExit1 != -1 ? 72 * uTextureID_ButtExit1 + 7145548 : 0);
+                   uTextureID_ButtExit1);
   GUIButtonCreate(pCharacterWindow, 0, 0, 476, 345, 1, 122, 120, 0, 0, Class, 0);
   dword_507694 = GUIButtonCreate(pCharacterWindow, 600, 300, 30, 30, 1, 0, 85, 0, 0, pGlobalTXT_LocalizationStrings[64], 0);
   dword_507690 = GUIButtonCreate(pCharacterWindow, 476, 0, 164, 345, 1, 0, 133, 0, 0, Class, 0);
@@ -3306,14 +3295,14 @@ LABEL_709:
           dword_506F48 = 100;
           sub_4196A0();
           sub_419379();
-          v97 = dword_50768C;
+          v97 = pCharacterUI_BtnStats;
           goto LABEL_716;
         case 0x72:
           dword_506F48 = 101;
           sub_4196A0();
           sub_419379();
           sub_419401();
-          v97 = dword_507688;
+          v97 = pCharacterUI_BtnSkills;
           goto LABEL_716;
         case 0x79:
           v120 = (int)*(&ptr_A750C4 + uActiveCharacter);
@@ -3350,16 +3339,16 @@ LABEL_723:
           dword_506F48 = 103;
           sub_419379();
           sub_4196A0();
-          v97 = dword_507684;
+          v97 = pCharacterUI_BtnInventory;
 LABEL_716:
           v180 = 0;
           v166 = v97;
           v159 = 91;
           goto LABEL_731;
         case 0xA8:
-          v97 = dword_50767C;
+          v97 = pCharacterUI_BtnExit;
           v180 = 0;
-          v166 = dword_50767C;
+          v166 = pCharacterUI_BtnExit;
           v159 = 97;
           goto LABEL_731;
         case 0x75:
@@ -3367,7 +3356,7 @@ LABEL_716:
           sub_4196A0();
           sub_419220();
           dword_506F48 = 102;
-          GUIWindowCreate(*(_DWORD *)dword_507680, *(_DWORD *)(dword_507680 + 4), 0, 0, 91, dword_507680, 0);
+          GUIWindowCreate(*(_DWORD *)pCharacterUI_BtnAwards, *(_DWORD *)(pCharacterUI_BtnAwards + 4), 0, 0, 91, pCharacterUI_BtnAwards, 0);
           sub_419100();
           goto LABEL_92;
         case 0x47:
@@ -5779,7 +5768,7 @@ void __cdecl GameUI_DrawTorchlightAndWizardEye()
 }
 
 //----- (00418511) --------------------------------------------------------
-void GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
+void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
 {
   struct Player *pp; // edi@1
   int v2; // eax@1
@@ -6113,7 +6102,7 @@ void GameUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stats tab
 }
 
 //----- (0041A2D1) --------------------------------------------------------
-void __fastcall GameUI_DrawInventory(unsigned int uSelectedCharacter, bool a2) // character inventory tab
+void __fastcall CharacterUI_DrawInventoryTab(unsigned int uSelectedCharacter, bool a2) // character inventory tab
 {
   struct Player *v2; // esi@1
   int v4; // eax@2
@@ -6244,7 +6233,7 @@ LABEL_33:
 }
 
 //----- (0041A000) --------------------------------------------------------
-int __fastcall GameUI_DrawAwardsTab(unsigned int uCharacter)
+int __fastcall CharacterUI_DrawAwardsTab(unsigned int uCharacter)
 {
   int result; // eax@1
   unsigned int v3; // ebx@1
@@ -6429,7 +6418,7 @@ LABEL_41:
 }
 
 //----- (00419719) --------------------------------------------------------
-void GameUI_DrawSkillsTab(int a1) // character skills tab
+void CharacterUI_DrawSkillsTab(int a1) // character skills tab
 {
   signed int v1; // ecx@1
   char *v2; // ebp@1
@@ -6944,18 +6933,11 @@ LABEL_119:
 }
 
 //----- (0043BCA7) --------------------------------------------------------
-int GameUI_LoadPaperdollTextures()
+int CharacterUI_LoadPaperdollTextures()
 {
   signed int v0; // eax@7
   signed int v1; // ebx@7
-  int v2; // edi@7
-  int v3; // ebx@10
-  char v4; // cl@12
-  int v5; // edi@12
   char v6; // al@16
-  int v7; // ebx@16
-  int v8; // edi@16
-  int v9; // ebx@16
   signed int v10; // edi@21
   int v12; // ebp@29
   int *v14; // edi@65
@@ -6973,7 +6955,6 @@ int GameUI_LoadPaperdollTextures()
   int v26; // eax@80
   int v27; // ecx@80
   int result; // eax@83
-  int v29; // [sp+10h] [bp-28h]@5
   signed int v30; // [sp+10h] [bp-28h]@68
   signed int v31; // [sp+10h] [bp-28h]@75
   signed int v32; // [sp+10h] [bp-28h]@77
@@ -6985,88 +6966,85 @@ int GameUI_LoadPaperdollTextures()
   int v38; // [sp+18h] [bp-20h]@66
   int *v39; // [sp+18h] [bp-20h]@73
   int *v40; // [sp+1Ch] [bp-1Ch]@73
-  int v41; // [sp+20h] [bp-18h]@6
   int v42; // [sp+20h] [bp-18h]@73
   CHAR Str1[100]; // [sp+24h] [bp-14h]@12
  int i;
+ unsigned int uPlayer;
 
  uTextureID_GameUI_MagnifyingGlass = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"MAGNIF");
  uTextureID_GameUI_PaperdollBackground = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"Paperdoll Background");
  uTextureID_GameUI_PaperdollJewelryOverlay = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"BACKHAND");
 
   dword_507B04 = dword_5079E4;
-  v29 = 0;
+
   dword_5118C8 = dword_506438;
-  do
-  {
-    v41 = v29 + 1;
-    if ( sub_43EE77(v29 + 1) )
+ for (uPlayer = 0; uPlayer < 4; ++uPlayer)
+ {
+  unsigned int uFace;
+    if ( sub_43EE77(uPlayer + 1) )
     {
-      v2 = 4 * v29;
-      v1 = Player_GetRace(pPlayers[v29]);
-      v0 = Player_GetVoiceSex(pPlayers[v29]);
+      v1 = Player_GetRace(pPlayers[uPlayer]);
+      v0 = Player_GetVoiceSex(pPlayers[uPlayer]);
       if ( v1 && v1 != 1 && v1 != 2 )
-        v3 = (v0 != 0) + 3;
+        uFace = (v0 != 0) + 3;
       else
-        v3 = (v0 != 0) + 1;
-      wsprintfA(Str1, "pc23v%dBod", v3);
-      *(int *)((char *)dword_51127C + v2) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc23v%dlad", v3);
-      *(int *)((char *)dword_5115D0 + v2) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc23v%dlau", v3);
-      *(int *)((char *)dword_5115C0 + v2) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc23v%drh", v3);
-      *(int *)((char *)dword_51124C + v2) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc23v%dlh", v3);
-      *(int *)((char *)dword_51126C + v2) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc23v%dlhu", v3);
-      *(int *)((char *)dword_51125C + v2) = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      v5 = *(int *)((char *)pPlayers + v2);
-      v4 = *(_BYTE *)(v5 + 186);
-      if ( v4 == 12 || v4 == 13 )
-        dword_511208[v4] = 0;
-      dword_5115E0[*(_BYTE *)(v5 + 186)] = 0;
-      byte_5111B9[v29] = 1;
+        uFace = (v0 != 0) + 1;
+      wsprintfW(Str1, L"pc23v%dBod", uFace);
+      pPaperdollTextures_Bodies[uPlayer] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1, 2);
+      wsprintfW(Str1, L"pc23v%dlad", uFace);
+      pPaperdollTextures_LeftArmsEmpty[uPlayer] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1, 2);
+      wsprintfW(Str1, L"pc23v%dlau", uFace);
+      pPaperdollTextures_LeftArmsWeapon[uPlayer] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1, 2);
+      wsprintfW(Str1, L"pc23v%drh", uFace);
+      pPaperdollTextures_RightHands[uPlayer] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1, 2);
+      wsprintfW(Str1, L"pc23v%dlh", uFace);
+      pPaperdollTextures_LeftHandsEmpty[uPlayer] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1, 2);
+      wsprintfW(Str1, L"pc23v%dlhu", uFace);
+      pPaperdollTextures_LeftHandsWeapon[uPlayer] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1, 2);
+
+      uFace = pPlayers[uPlayer]->uFace;
+      if ( uFace == 12 || uFace == 13 )
+        pPaperdollTextures_Beards[uFace] = 0;
+      pPaperdollTextures_Feet[uFace] = 0;
+      byte_5111B9[uPlayer] = 1;
     }
     else
     {
-      int uFace = pPlayers[v29]->uFace;
-      v8 = v29; 
-      wsprintfA(Str1, "pc%0dbod", uFace + 1);
-      dword_51127C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc%0dlad", uFace + 1);
-      dword_5115D0[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc%0dlau", uFace + 1);
-      dword_5115C0[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc%0drh", uFace + 1);
-      dword_51124C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc%0dlh", uFace + 1);
-      dword_51126C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      wsprintfA(Str1, "pc%0dlhu", uFace + 1); // something strange with pc20lhu, needs to check
-      dword_51125C[v29] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      v9 = pPlayers[v29];
-      v7 = v9 + 186;
-      if ( uFace == 12 || uFace == 13 ) // dwarf male, load beard?
+     uFace = pPlayers[uPlayer]->uFace;
+
+      wsprintfW(Str1, L"pc%0dbod", uFace + 1);
+      pPaperdollTextures_Bodies[uPlayer] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1, 2);
+      wsprintfW(Str1, L"pc%0dlad", uFace + 1);
+      pPaperdollTextures_LeftArmsEmpty[uPlayer] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1, 2);
+      wsprintfW(Str1, L"pc%0dlau", uFace + 1);
+      pPaperdollTextures_LeftArmsWeapon[uPlayer] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1, 2);
+      wsprintfW(Str1, L"pc%0drh", uFace + 1);
+      pPaperdollTextures_RightHands[uPlayer] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1, 2);
+      wsprintfW(Str1, L"pc%0dlh", uFace + 1);
+      pPaperdollTextures_LeftHandsEmpty[uPlayer] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1, 2);
+      wsprintfW(Str1, L"pc%0dlhu", uFace + 1); // something strange with pc20lhu, needs to check
+      pPaperdollTextures_LeftHandsWeapon[uPlayer] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1, 2);
+
+      if (uFace == 12 || uFace == 13) // dwarf male, load beard
       {
-        wsprintfA(Str1, "pc%02dbrd", uFace + 1);
-        dword_511208[uFace] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+        wsprintfW(Str1, L"pc%02dbrd", uFace + 1);
+        pPaperdollTextures_Beards[uFace] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1, 2);
       }
-      wsprintfA(Str1, "item281pc%02d", uFace + 1);
-      dword_5115E0[uFace] = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
-      byte_5111B9[v29] = 0;
+      wsprintfW(Str1, L"item281pc%02d", uFace + 1);
+      pPaperdollTextures_Feet[uFace] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1, 2);
+      byte_5111B9[uPlayer] = 0;
     }
-    ++v29;
   }
-  while ( v41 < 4 );
-  dword_507674 = LODFile_LoadTexture(pLODFile_Icons_LOD, "ar_up_up", 2);
-  dword_507670 = LODFile_LoadTexture(pLODFile_Icons_LOD, "ar_up_dn", 2);
-  dword_50766C = LODFile_LoadTexture(pLODFile_Icons_LOD, "ar_dn_up", 2);
-  dword_507668 = LODFile_LoadTexture(pLODFile_Icons_LOD, "ar_dn_dn", 2);
-  dword_51122C = LODFile_LoadTexture(pLODFile_Icons_LOD, "ib-cd1-d", 2);
-  dword_511224 = LODFile_LoadTexture(pLODFile_Icons_LOD, "ib-cd2-d", 2);
-  dword_51121C = LODFile_LoadTexture(pLODFile_Icons_LOD, "ib-cd3-d", 2);
-  dword_511214 = LODFile_LoadTexture(pLODFile_Icons_LOD, "ib-cd4-d", 2);
-  dword_51120C = LODFile_LoadTexture(pLODFile_Icons_LOD, "ib-cd5-d", 2);
+
+  dword_507674 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ar_up_up");
+  dword_507670 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ar_up_dn");
+  dword_50766C = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ar_dn_up");
+  dword_507668 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ar_dn_dn");
+  dword_51122C = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-cd1-d");
+  dword_511224 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-cd2-d");
+  dword_51121C = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-cd3-d");
+  dword_511214 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-cd4-d");
+  dword_51120C = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-cd5-d");
   
   for(v10 = 0; v10 < 54; ++v10)
   {
@@ -7284,8 +7262,66 @@ LABEL_28:
   while ( v20 - 1 < 4 );
   return result;
 }
+
+
+//----- (0041ABFD) --------------------------------------------------------
+void CharacterUI_DoDrawCharacterScreen(unsigned int uCharacter)
+{
+ struct GUIButton *v2; // eax@6
+  int v3; // ecx@6
+
+  if (!uCharacter)
+    return;
+
+    Render_ClearZBuffer(pD3DRenderer, 0, 479);
+    switch ( dword_506F48 )
+    {
+      case 100: // stats 
+        sub_4196A0();
+        sub_419379();
+        CharacterUI_DrawStatsTab(uCharacter);
+        v3 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-cd1-d");
+        v2 = pCharacterUI_BtnStats;
+        break;
+      case 101: // skills
+        if ( dword_507CC0 != uCharacter )
+        {
+          sub_4196A0();
+          sub_419401();
+        }
+        sub_419379();
+        CharacterUI_DrawSkillsTab(uCharacter);
+        v3 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-cd2-d");
+        v2 = pCharacterUI_BtnSkills;
+        break;
+      case 102: // awards
+        sub_4196A0();
+        sub_419379();
+        sub_419220();
+        CharacterUI_DrawAwardsTab(uCharacter);
+        v3 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-cd4-d");
+        v2 = pCharacterUI_BtnAwards;
+        break;
+      default:
+        if ( dword_506F48 != 103 )
+          goto LABEL_13;
+        sub_4196A0();
+        sub_419379();
+        CharacterUI_DrawInventoryTab(uCharacter, 0);
+        v3 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-cd3-d");
+        v2 = pCharacterUI_BtnInventory;
+        break;
+    }
+    Render_DrawIndexedTexture(pD3DRenderer, v2->uX, v2->uY, &pLODFile_Icons_LOD->aLODHeaders[v3]);
+LABEL_13:
+    if ( dword_5118E0 )
+      CharacterUI_DrawPaperdoll2(uCharacter);
+    else
+      CharacterUI_DrawPaperdoll(uCharacter);
+}
+
 //----- (0043CC7C) --------------------------------------------------------
-void __fastcall GameUI_DrawPaperdoll(unsigned int uSelectedCharacter)
+void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
 {
   struct Player *pp; // edi@1
   int sex; // eax@1
@@ -7762,7 +7798,8 @@ LABEL_93:
                 pD3DRenderer,
                 dword_4E4C28,
                 dword_4E4C2C,
-                *(int *)((char *)dword_51127C + v269) != -1 ? 72 * *(int *)((char *)dword_51127C + v269) + 7145548 : 0);
+                //*(int *)((char *)pPaperdollTextures_Bodies + v269) != -1 ? 72 * *(int *)((char *)pPaperdollTextures_Bodies + v269) + 7145548 : 0);
+                &pLODFile_Icons_LOD->aLODHeaders[pPaperdollTextures_Bodies[uSelectedCharacter - 1]]);
               v49 = *(_DWORD *)(v246 + 6484);
               if ( !v49 )
                 goto LABEL_127;
@@ -7888,7 +7925,7 @@ LABEL_127:
                 {
                   v227 = dword_4E4C2C + dword_4E54BC[14 * v268];
                   v239 = dword_4E4C28 + dword_4E54B8[14 * v268];
-                  v68 = dword_5115E0[pp->uFace];
+                  v68 = pPaperdollTextures_Feet[pp->uFace];
                 }
                 else
                 {
@@ -7952,7 +7989,7 @@ LABEL_155:
                       pD3DRenderer,
                       dword_4E4C28 + dword_4E5AE0[2 * v268],
                       dword_4E4C2C + dword_4E5AE4[2 * v268],
-                      *(int *)((char *)dword_5115D0 + v269) != -1 ? 72 * *(int *)((char *)dword_5115D0 + v269) + 7145548 : 0);
+                      *(int *)((char *)pPaperdollTextures_LeftArmsEmpty + v269) != -1 ? 72 * *(int *)((char *)pPaperdollTextures_LeftArmsEmpty + v269) + 7145548 : 0);
                   v82 = *(_DWORD *)(v246 + 6492);
                   if ( v82 )
                   {
@@ -8064,7 +8101,7 @@ LABEL_192:
                         pD3DRenderer,
                         dword_4E4C28 + *(int *)((char *)&dword_4E5B00 + v276),
                         dword_4E4C2C + *(int *)((char *)&dword_4E5B04 + v276),
-                        *(int *)((char *)dword_5115C0 + v269) != -1 ? 72 * *(int *)((char *)dword_5115C0 + v269)
+                        *(int *)((char *)pPaperdollTextures_LeftArmsWeapon + v269) != -1 ? 72 * *(int *)((char *)pPaperdollTextures_LeftArmsWeapon + v269)
                                                                     + 7145548 : 0);
                   }
                   v98 = *(_DWORD *)(v80 + 6484);
@@ -8192,7 +8229,7 @@ LABEL_284:
 LABEL_293:
                                     if ( pp->uFace == 12 || pp->uFace == 13 )
                                     {
-                                      v144 = dword_511208[pp->uFace];
+                                      v144 = pPaperdollTextures_Beards[pp->uFace];
                                       if ( v144 != sub_40F9F0(pLODFile_Icons_LOD, "Pending") )
                                         Render_DrawTransparentTexture(
                                           pD3DRenderer,
@@ -8460,7 +8497,7 @@ LABEL_391:
                                                         pD3DRenderer,
                                                         dword_4E4C28 + *(int *)((char *)&dword_4E5B40 + v276),
                                                         dword_4E4C2C + *(int *)((char *)&dword_4E5B44 + v276),
-                                                        *(int *)((char *)dword_51126C + v269) != -1 ? 72 * *(int *)((char *)dword_51126C + v269) + 7145548 : 0);
+                                                        *(int *)((char *)pPaperdollTextures_LeftHandsEmpty + v269) != -1 ? 72 * *(int *)((char *)pPaperdollTextures_LeftHandsEmpty + v269) + 7145548 : 0);
                                                     goto LABEL_393;
                                                   }
 LABEL_380:
@@ -8810,12 +8847,12 @@ LABEL_48:
     pD3DRenderer,
     dword_4E4C28,
     dword_4E4C2C,
-    *(int *)((char *)dword_51127C + v269) != -1 ? 72 * *(int *)((char *)dword_51127C + v269) + 7145548 : 0);
+    *(int *)((char *)pPaperdollTextures_Bodies + v269) != -1 ? 72 * *(int *)((char *)pPaperdollTextures_Bodies + v269) + 7145548 : 0);
   if ( !dword_5118E0 )
     sub_4A612A(pD3DRenderer,
       v234,
       v222,
-      *(int *)((char *)dword_51127C + v269) != -1 ? 72 * *(int *)((char *)dword_51127C + v269) + 7145548 : 0,
+      *(int *)((char *)pPaperdollTextures_Bodies + v269) != -1 ? 72 * *(int *)((char *)pPaperdollTextures_Bodies + v269) + 7145548 : 0,
       *(_DWORD *)(v2 + 6484));
   v276 = 8 * v5;
   v6 = *(_DWORD *)(v2 + 6476);
@@ -8826,7 +8863,7 @@ LABEL_48:
       pD3DRenderer,
       dword_4E4C28 + dword_4E5AE0[2 * v5],
       dword_4E4C2C + dword_4E5AE4[2 * v5],
-      *(int *)((char *)dword_5115D0 + v269) != -1 ? 72 * *(int *)((char *)dword_5115D0 + v269) + 7145548 : 0);
+      *(int *)((char *)pPaperdollTextures_LeftArmsEmpty + v269) != -1 ? 72 * *(int *)((char *)pPaperdollTextures_LeftArmsEmpty + v269) + 7145548 : 0);
   v8 = *(_DWORD *)(v2 + 6476);
   if ( v8 )
   {
@@ -8917,25 +8954,26 @@ LABEL_393:
     pD3DRenderer,
     dword_4E4C28 + *(int *)((char *)&dword_4E5B20 + v276),
     dword_4E4C2C + *(int *)((char *)&dword_4E5B24 + v276),
-    *(int *)((char *)dword_51124C + v269) != -1 ? 72 * *(int *)((char *)dword_51124C + v269) + 7145548 : 0);
+    //*(int *)((char *)pPaperdollTextures_RightHands + v269) != -1 ? 72 * *(int *)((char *)pPaperdollTextures_RightHands + v269) + 7145548 : 0);
+    &pLODFile_Icons_LOD->aLODHeaders[pPaperdollTextures_RightHands[v269/4]]);
   v190 = *(_DWORD *)(v246 + 6476);
   if ( v190 )
   {
     v191 = 48 * *(_DWORD *)(v246 + 36 * v190 + 496);
     if ( byte_5D2A00[v191] == 1 || byte_5D2A00[v191 + 1] == 4 && !*(_DWORD *)(v246 + 6472) )
-      Render_DrawTransparentTexture(
-        pD3DRenderer,
+      Render_DrawTransparentTexture(pD3DRenderer,
         dword_4E4C28 + *(int *)((char *)&dword_4E5B00 + v276),
         dword_4E4C2C + *(int *)((char *)&dword_4E5B04 + v276),
-        *(int *)((char *)dword_51125C + v269) != -1 ? 72 * *(int *)((char *)dword_51125C + v269) + 7145548 : 0);
+        //*(int *)((char *)pPaperdollTextures_LeftHandsWeapon + v269) != -1 ? 72 * *(int *)((char *)pPaperdollTextures_LeftHandsWeapon + v269) + 7145548 : 0);
+        &pLODFile_Icons_LOD->aLODHeaders[pPaperdollTextures_LeftHandsWeapon[v269/4]]);
   }
   if ( !dword_5118E0 )
-    Render_DrawTransparentTexture(pD3DRenderer, 603, 299, uTextureID_GameUI_MagnifyingGlass != -1 ? 72 * uTextureID_GameUI_MagnifyingGlass + 7145548 : 0);
-  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, dword_507B04 != -1 ? 72 * dword_507B04 + 7145548 : 0);
+    Render_DrawTransparentTexture(pD3DRenderer, 603, 299, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_GameUI_MagnifyingGlass]);
+  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, &pLODFile_Icons_LOD->aLODHeaders[dword_507B04]);
 }
 
 //----- (0043E825) --------------------------------------------------------
-void __fastcall GameUI_DrawPaperdoll2(int a1)
+void __fastcall CharacterUI_DrawPaperdoll2(int a1)
 {
   int v1; // ecx@1
   int v2; // edi@1
@@ -9000,7 +9038,7 @@ void __fastcall GameUI_DrawPaperdoll2(int a1)
   v2 = (int)*(&ptr_A750C4 + a1);
   v56 = (int)*(&ptr_A750C4 + a1);
   LODFile_LoadTexture(pLODFile_Icons_LOD, "sptext01", 2);
-  GameUI_DrawPaperdoll(v3);
+  CharacterUI_DrawPaperdoll(v3);
   Render_DrawTransparentTexture(pD3DRenderer, 473, 0, uTextureID_GameUI_PaperdollJewelryOverlay != -1 ? 72 * uTextureID_GameUI_PaperdollJewelryOverlay + 7145548 : 0);
   Render_DrawTransparentTexture(pD3DRenderer, 468, 0, dword_507B04 != -1 ? 72 * dword_507B04 + 7145548 : 0);
   Render_DrawIndexedTexture(
@@ -9245,7 +9283,7 @@ LABEL_58:
 }
 
 //----- (00417FE5) --------------------------------------------------------
-void __cdecl GameUI_SkillsTab_ShowHint()
+void __cdecl CharacterUI_SkillsTab_ShowHint()
 {
   int v0; // eax@1
   int v1; // ecx@1
@@ -9289,7 +9327,7 @@ void __cdecl GameUI_SkillsTab_ShowHint()
 }
 
 //----- (00418083) --------------------------------------------------------
-void __cdecl GameUI_StatsTab_ShowHint()
+void __cdecl CharacterUI_StatsTab_ShowHint()
 {
   int v0; // eax@1
   signed int v1; // ecx@1

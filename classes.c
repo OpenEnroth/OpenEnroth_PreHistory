@@ -382,7 +382,7 @@ void CGame_sub_44F192(struct CGame *_this)
 }
 
 //----- (0044EA17) --------------------------------------------------------
-bool sub_44EA17(struct CGame *_this)
+bool Game_InitializeGammaController(struct CGame *_this)
 {
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
    CGammaController_InitializeFromSurface(_this->pGammaController, pD3DRenderer->pdds4_FrontBuffer);
@@ -9853,7 +9853,6 @@ void class02_sub_48BBA6(struct class02 *_this)
 //----- (0048BEEF) --------------------------------------------------------
 void class02_sub_48BEEF(struct class02 *_this)
 {
-  int v1; // eax@1
   int v2; // esi@1
   int v6; // ebx@2
   int v7; // edi@2
@@ -9862,9 +9861,6 @@ void class02_sub_48BEEF(struct class02 *_this)
   int v10; // eax@14
   int v11; // edx@16
   int v12; // ecx@16
-  unsigned __int8 v13; // zf@22
-  char v14; // sf@22
-  unsigned __int8 v15; // of@22
   int v16; // eax@24
   char v17; // [sp+Ch] [bp-58h]@11
   int v18; // [sp+14h] [bp-50h]@11
@@ -9874,29 +9870,23 @@ void class02_sub_48BEEF(struct class02 *_this)
   int v22; // [sp+34h] [bp-30h]@11
   int v23; // [sp+54h] [bp-10h]@1
   int v24; // [sp+5Ch] [bp-8h]@9
-  int v25; // [sp+60h] [bp-4h]@1
+ int i;
 
   v23 = -1;
   v2 = _this;
-  v1 = _this->dword_00E424;
-  //v5 = __SETO__(v1, *(_DWORD *)(v2 + 58408));
-  //v3 = v1 == *(_DWORD *)(v2 + 58408);
-  //v4 = v1 - *(_DWORD *)(v2 + 58408) < 0;
-  v25 = _this->dword_00E424;
-  if (v1 <= _this->dword_00E428)
-  {
+
     v6 = pD3DRenderer;
-    v7 = 104 * v1 + v2 + 82;
-    do
-    {
-      if ( *(_DWORD *)(v7 - 82) && sub_48B5B3((void *)v2, v1) )
+ for (i = _this->dword_00E424; i <= _this->dword_00E428; ++i)
+ {
+    v7 = 104 * i + v2 + 82;
+      if ( *(_DWORD *)(v7 - 82) && sub_48B5B3((void *)v2, i) )
       {
         if ( pD3DRenderer->pRenderD3D3 )
         {
           v8 = *(_DWORD *)(v7 - 82);
           if ( BYTE1(v8) & 1 )
           {
-            v16 = v2 + 104 * v25;
+            v16 = v2 + 104 * i;
             v20 = *(_DWORD *)(v16 + 88) >> 2;
             v21 = *(_DWORD *)(v16 + 88) >> 2;
             v18 = *(_DWORD *)(v16 + 64);
@@ -9987,13 +9977,6 @@ void class02_sub_48BEEF(struct class02 *_this)
           }
         }
       }
-      v7 += 104;
-      v1 = v25 + 1;
-      compile_error;//v15 = __SETO__(v25 + 1, *(_DWORD *)(v2 + 58408));
-      v13 = v25 + 1 == *(_DWORD *)(v2 + 58408);
-      v14 = v25++ + 1 - *(_DWORD *)(v2 + 58408) < 0;
-    }
-    while ( (unsigned __int8)(v14 ^ v15) | v13 );
   }
 }
 

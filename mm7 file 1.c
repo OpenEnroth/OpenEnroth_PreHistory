@@ -167,7 +167,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *
   RegistryWriteInt("Ran once", 1);
   dword_6BE364 |= 0x4000;
 
-  sub_44EA17(pGame);
+  Game_InitializeGammaController(pGame);
   sub_465D0B();
 
   Render_sub_4A0E97(pD3DRenderer, 0, 0, 639, 479);
@@ -1267,7 +1267,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   wsprintfA(pConfigFilename, "%s\\mm6.ini", v64);
   dwNewLong = WS_CAPTION | WS_SYSMENU | WS_GROUP;
   hWnd_global = CreateWindowExW(0, pWindowClassName,
-           "Might and Magic® VII 7",
+           "Might and Magic® VII",
            WS_CAPTION | WS_SYSMENU | WS_GROUP,
            uWindowPosX,
            uWindowPosY,
@@ -3005,7 +3005,7 @@ LABEL_114:
 }
 
 //----- (0047A815) --------------------------------------------------------
-void __cdecl sub_47A815()
+void __cdecl sub_47A815_DrawClass02Lines()
 {
   int v0; // ecx@1
 
@@ -4137,11 +4137,11 @@ LABEL_22:
     GameUI_DrawTorchlightAndWizardEye();
   }
 
-  //GameUI_DrawStatsTab(2);
-  //GameUI_DrawAwardsTab(1);
-  //GameUI_DrawInventory(1, false);
+  //CharacterUI_DrawStatsTab(2);
+  //CharacterUI_DrawAwardsTab(1);
+  //CharacterUI_DrawInventoryTab(1, false);
 
-  sub_4156F0();
+  sub_4156F0_LooksLike_UI_ProcessCallbacks();
   sub_4909F4(pParty_global);
   ++dword_510774;
   dword_5B5924 = 0;
@@ -7808,7 +7808,7 @@ void __cdecl sub_441CFF()
   //  sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(false);
   /*else */sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(true);
 
-  sub_47A815();
+  sub_47A815_DrawClass02Lines();
   sub_4C2EFA(&struct_6BD080);
   sub_440F07(array_5118E8);
 }
@@ -13800,7 +13800,6 @@ int __thiscall sub_4C2AA6(struct unnamed_6BD080 *_this)
       _this->word_000000[i * 2 + 1] = v28;
       _this->word_000000[i * 2 + 0] = v29 + v5;
     }
-    //*(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * _this->word_000000[i * 2 + 1]) = 0xFFFF;
     pSurfacePtr[640 * _this->word_000000[i * 2 + 1] + _this->word_000000[i * 2 + 0]] = 0xFFFFFFFF;
 
   }
@@ -13833,11 +13832,7 @@ int __thiscall sub_4C2AA6(struct unnamed_6BD080 *_this)
       v11 = rand() % (v24 - 2);
       _this->word_000000[i * 2 + 1] = v28;
       _this->word_000000[i * 2 + 0] = v29 + v11;
-    }/*
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * _this->word_000000[i * 2 + 1]) + 2) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * _this->word_000000[i * 2 + 1]) + 1282) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * (_this->word_000000[i * 2 + 1] + 1))) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * _this->word_000000[i * 2 + 1])) = -1;*/
+    }
 
     pSurfacePtr[640 * _this->word_000000[i * 2 + 1] + _this->word_000000[i * 2 + 0]] = 0xFFFFFFFF;
     pSurfacePtr[640 * _this->word_000000[i * 2 + 1] + _this->word_000000[i * 2 + 0] + 1] = 0xFFFFFFFF;
@@ -13865,23 +13860,7 @@ int __thiscall sub_4C2AA6(struct unnamed_6BD080 *_this)
       v18 = rand() % (v24 - 5);
       _this->word_000000[i * 2 + 1] = v28;
       _this->word_000000[i * 2 + 0] = v29 + v18;
-    }/*
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * _this->word_000000[i * 2 + 1]) + 2) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * _this->word_000000[i * 2 + 1]) + 1282) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * (_this->word_000000[i * 2 + 1] + 1))) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * _this->word_000000[i * 2 + 1])) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * _this->word_000000[i * 2 + 1]) + 2562) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * _this->word_000000[i * 2 + 1]) + 3842) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * (_this->word_000000[i * 2 + 1] + 3))) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * (_this->word_000000[i * 2 + 1] + 2))) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * _this->word_000000[i * 2 + 1]) + 6) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * _this->word_000000[i * 2 + 1]) + 1286) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * _this->word_000000[i * 2 + 1]) + 1284) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * _this->word_000000[i * 2 + 1]) + 4) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * _this->word_000000[i * 2 + 1]) + 2566) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * _this->word_000000[i * 2 + 1]) + 3846) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 * _this->word_000000[i * 2 + 1]) + 3844) = -1;
-    *(_WORD *)(v1 + 2 * (_this->word_000000[i * 2 + 0] + 640 *_this->word_000000[i * 2 + 1]) + 2564) = -1;*/
+    }
 
     pSurfacePtr[640 * _this->word_000000[i * 2 + 1] + _this->word_000000[i * 2 + 0]] = 0xFFFFFFFF;
     pSurfacePtr[640 * _this->word_000000[i * 2 + 1] + _this->word_000000[i * 2 + 0] + 1] = 0xFFFFFFFF;

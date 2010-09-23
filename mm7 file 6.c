@@ -3671,7 +3671,7 @@ int __cdecl sub_4979D2()
   while ( sub_466CA0() == 8 );
   sub_435748();
   Render_BeginScene(pD3DRenderer);
-  sub_4156F0();
+  sub_4156F0_LooksLike_UI_ProcessCallbacks();
   Render_EndScene(pD3DRenderer);
   Render_Present(pD3DRenderer);
   sub_4AA258(pAudioPlayer, 1);

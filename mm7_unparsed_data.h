@@ -709,11 +709,11 @@ extern int dword_507668; // weak
 extern int dword_50766C; // weak
 extern int dword_507670; // weak
 extern int dword_507674; // weak
-extern int dword_50767C; // weak
-extern int dword_507680; // weak
-extern int dword_507684; // weak
-extern int dword_507688; // weak
-extern int dword_50768C; // weak
+extern struct GUIButton *pCharacterUI_BtnExit;      // dword @ MM7.exe::0050767C
+extern struct GUIButton *pCharacterUI_BtnAwards;    // dword @ MM7.exe::00507680
+extern struct GUIButton *pCharacterUI_BtnInventory; // dword @ MM7.exe::00507684
+extern struct GUIButton *pCharacterUI_BtnSkills;    // dword @ MM7.exe::00507688
+extern struct GUIButton *pCharacterUI_BtnStats;     // dword @ MM7.exe::0050768C
 extern int dword_507690; // weak
 extern int dword_507694; // weak
 
@@ -1063,7 +1063,7 @@ extern struct class36 class36_global0; // struct @ MM7.exe::005107A8
 extern char byte_5111B9[4]; // weak
 extern char byte_5111C0[54];
 extern char byte_5111F6[18]; 
-extern int dword_511208[array_size_unknown]; // weak
+extern unsigned int pPaperdollTextures_Beards[]; // dword[4] @ MM7.exe::00511208
 extern int dword_51120C; // weak
 extern unsigned int uTextureID_ButtExit1; // weak
 extern int dword_511214; // weak
@@ -1075,16 +1075,17 @@ extern int dword_511228; // weak
 extern int dword_51122C; // weak
 extern int dword_511230; // weak
 extern int dword_511234; // weak
-extern int dword_51124C[array_size_unknown]; // weak
-extern int dword_51125C[array_size_unknown]; // weak
-extern int dword_51126C[array_size_unknown]; // weak
-extern int dword_51127C[array_size_unknown]; // weak
+extern unsigned int pPaperdollTextures_RightHands[]; // dword[4] @ MM7.exe::0051124C
+extern unsigned int pPaperdollTextures_LeftHandsWeapon[]; // weak
+extern unsigned int pPaperdollTextures_LeftHandsEmpty[]; // dword[4] @ MM7.exe::0051126C
+extern unsigned int pPaperdollTextures_Bodies[]; // dword[4] @ MM7.exe::0051127C
 extern int dword_511290[204]; 
 //extern int dword_511294[array_size_unknown]; // weak
 //extern int dword_511298[array_size_unknown]; // weak
-extern int dword_5115C0[array_size_unknown]; // weak
-extern int dword_5115D0[array_size_unknown]; // weak
-extern int dword_5115E0[array_size_unknown]; // weak
+extern unsigned int pPaperdollTextures_LeftArmsWeapon[]; // dword[4] @ MM7.exe::005115C0
+extern unsigned int pPaperdollTextures_LeftArmsEmpty[];  // dword[4] @ MM7.exe::005115D0
+extern unsigned int pPaperdollTextures_Feet[];           // dword[4] @ MM7.exe::005115E0
+
 extern unsigned int uTextureListForPaperdoll[89];  // dword @ MM7.exe::00511638
 extern int dword_51179C; // weak
 extern int dword_5117A0; // weak

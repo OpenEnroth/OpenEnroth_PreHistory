@@ -895,7 +895,7 @@ LABEL_85:
           continue;
         }
         Render_BeginScene(v2);
-        sub_4156F0();
+        sub_4156F0_LooksLike_UI_ProcessCallbacks();
         Render_EndScene(v2);
         goto LABEL_89;
       }
@@ -9853,7 +9853,7 @@ LABEL_14:
 }
 
 //----- (004156F0) --------------------------------------------------------
-void __cdecl sub_4156F0()
+void __cdecl sub_4156F0_LooksLike_UI_ProcessCallbacks()
 {
   signed int v0; // eax@4
  struct GUIWindow *pWnd; // esi@4
@@ -10251,8 +10251,8 @@ LABEL_110:
               {
                 Render_ClearZBuffer(pD3DRenderer, 0, 479);
                 sub_41A556();
-                GameUI_DrawInventory(uActiveCharacter, 1);
-                GameUI_DrawPaperdoll(uActiveCharacter);
+                CharacterUI_DrawInventoryTab(uActiveCharacter, 1);
+                CharacterUI_DrawPaperdoll(uActiveCharacter);
                 Render_DrawTransparentTexture(
                   pD3DRenderer,
                   *(_DWORD *)dword_5076F4,
@@ -10302,7 +10302,7 @@ LABEL_110:
                 {
                   Render_ClearZBuffer(pD3DRenderer, 0, 479);
                   sub_41A556();
-                  GameUI_DrawInventory(uActiveCharacter, 1);
+                  CharacterUI_DrawInventoryTab(uActiveCharacter, 1);
                   Render_DrawIndexedTexture(
                     pD3DRenderer,
                     *(_DWORD *)dword_5076F4,
@@ -10393,7 +10393,7 @@ LABEL_142:
             }
             else
             {
-              sub_41ABFD(uActiveCharacter);
+              CharacterUI_DoDrawCharacterScreen(uActiveCharacter);
             }
             continue;
           }
@@ -11183,12 +11183,12 @@ LABEL_126:
             goto LABEL_132;
           if ( dword_506F48 == 100 )
           {
-            GameUI_StatsTab_ShowHint();
+            CharacterUI_StatsTab_ShowHint();
             goto LABEL_132;
           }
           if ( dword_506F48 == 101 )
           {
-            GameUI_SkillsTab_ShowHint();
+            CharacterUI_SkillsTab_ShowHint();
             goto LABEL_132;
           }
           v11 = dword_506F48 == 103;
@@ -12657,72 +12657,6 @@ void __cdecl sub_41A57E()
   v42 = sub_49135E(pParty_global);
   wsprintfA(TmpBuf, "\r261%s: %d", pGlobalTXT_LocalizationStrings[84], v42);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 0, 323, TmpBuf, 0, 0, 0);
-}
-
-//----- (0041ABFD) --------------------------------------------------------
-void __thiscall sub_41ABFD(int a1)
-{
-  int v1; // edi@1
-  int v2; // eax@6
-  int v3; // ecx@6
-  int v4; // eax@6
-  int v5; // eax@7
-  int v6; // eax@10
-  int v7; // eax@11
-
-  v1 = a1;
-  if ( a1 )
-  {
-    Render_ClearZBuffer(pD3DRenderer, 0, 479);
-    switch ( dword_506F48 )
-    {
-      case 100: // stats 
-        sub_4196A0();
-        sub_419379();
-        GameUI_DrawStatsTab(v1);
-        v7 = LODFile_LoadTexture(pLODFile_Icons_LOD, "ib-cd1-d", 2);
-        v3 = v7 != -1 ? 72 * v7 + 7145548 : 0;
-        v2 = dword_50768C;
-        break;
-      case 101: // skills
-        if ( dword_507CC0 != uActiveCharacter )
-        {
-          sub_4196A0();
-          sub_419401();
-        }
-        sub_419379();
-        GameUI_DrawSkillsTab(v1);
-        v6 = LODFile_LoadTexture(pLODFile_Icons_LOD, "ib-cd2-d", 2);
-        v3 = v6 != -1 ? 72 * v6 + 7145548 : 0;
-        v2 = dword_507688;
-        break;
-      case 102: // awards
-        sub_4196A0();
-        sub_419379();
-        sub_419220();
-        GameUI_DrawAwardsTab(v1);
-        v5 = LODFile_LoadTexture(pLODFile_Icons_LOD, "ib-cd4-d", 2);
-        v3 = v5 != -1 ? 72 * v5 + 7145548 : 0;
-        v2 = dword_507680;
-        break;
-      default:
-        if ( dword_506F48 != 103 )
-          goto LABEL_13;
-        sub_4196A0();
-        sub_419379();
-        GameUI_DrawInventory(v1, 0);
-        v4 = LODFile_LoadTexture(pLODFile_Icons_LOD, "ib-cd3-d", 2);
-        v3 = v4 != -1 ? 72 * v4 + 7145548 : 0;
-        v2 = dword_507684;
-        break;
-    }
-    Render_DrawIndexedTexture(pD3DRenderer, *(_DWORD *)v2, *(_DWORD *)(v2 + 4), v3);
-LABEL_13:
-    if ( dword_5118E0 )
-      GameUI_DrawPaperdoll2(v1);
-    else
-      GameUI_DrawPaperdoll(v1);
-  }
 }
 
 //----- (0041AF52) --------------------------------------------------------
@@ -16500,10 +16434,10 @@ int __thiscall sub_4219BE(void *this)
   class24_fn1(pClass24_global);
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
   dword_5118E0 = 0;
-  GameUI_LoadPaperdollTextures();
+  CharacterUI_LoadPaperdollTextures();
   dword_4E28F8 = 23;
   v3 = GUIWindowCreate(0, 0, 640, 480, 31, v2, 0);
-  dword_50767C = GUIButtonCreate(
+  pCharacterUI_BtnExit = GUIButtonCreate(
                    v3,
                    394,
                    318,
@@ -16515,7 +16449,7 @@ int __thiscall sub_4219BE(void *this)
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[79],
-                   uTextureID_ButtExit1 != -1 ? 72 * uTextureID_ButtExit1 + 7145548 : 0);
+                   uTextureID_ButtExit1);
   GUIButtonCreate(v3, 0, 0, 476, 345, 1, 122, 120, 0, 0, Class, 0);
   dword_507690 = GUIButtonCreate(v3, 476, 0, 164, 345, 1, 0, 133, 0, 0, Class, 0);
   GUIButtonCreate(v3, 61, 424, 31, 0, 2, 94, 110, 1, 49, Class, 0);

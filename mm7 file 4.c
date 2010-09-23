@@ -12788,7 +12788,7 @@ int __fastcall sub_460078(int a1)
     sub_461EE9(pLODFile_New_LOD);
     CopyFileA("data\\new.lod", &TmpBuf, 0);
   }
-  sub_4156F0();
+  sub_4156F0_LooksLike_UI_ProcessCallbacks();
   GUIWindowDelete(pGUIWindow_CurrentMenu);
   dword_4E28F8 = 0;
   v4 = (int)&unk_6A0118;

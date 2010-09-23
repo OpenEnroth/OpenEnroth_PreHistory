@@ -212,9 +212,6 @@ void GameUI_DrawLifeManaBars();
 void GameUI_Update();
 void GameUI_Process();
 void GameUI_OnPlayerPortraitLeftClick(unsigned int uCharacterCLicked);
-int GameUI_LoadPaperdollTextures();
-void __fastcall GameUI_DrawPaperdoll(unsigned int uSelectedCharacter);
-void __fastcall GameUI_DrawPaperdoll2(int a1);
 
 extern unsigned int uTextureID_GameUI_StatusBar;
 extern unsigned int uTextureID_GameUI_ViewportTop;
@@ -225,13 +222,15 @@ extern unsigned int uTextureID_GameUI_PartyFrame;
 
 struct GUIWindow *GameUI_InitializeCharacterWindow(int a1);
 
-void __cdecl GameUI_SkillsTab_ShowHint();
-void GameUI_DrawSkillsTab(int a1);
-
-void __cdecl GameUI_StatsTab_ShowHint();
-void GameUI_DrawStatsTab(unsigned int uSelectedCharacter);
-
-int __fastcall GameUI_DrawAwardsTab(int a1);
-void __fastcall GameUI_DrawInventory(unsigned int uSelectedCharacter, char a2);
+void __cdecl CharacterUI_SkillsTab_ShowHint();
+void CharacterUI_DrawSkillsTab(int a1);
+void __cdecl CharacterUI_StatsTab_ShowHint();
+void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter);
+int __fastcall CharacterUI_DrawAwardsTab(int a1);
+void __fastcall CharacterUI_DrawInventoryTab(unsigned int uSelectedCharacter, char a2);
+void CharacterUI_DoDrawCharacterScreen(unsigned int uActiveCharacter);
+int CharacterUI_LoadPaperdollTextures();
+void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter);
+void __fastcall CharacterUI_DrawPaperdoll2(int a1);
 
 #pragma pack(pop)

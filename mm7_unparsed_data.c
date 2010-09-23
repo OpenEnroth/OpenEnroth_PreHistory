@@ -762,11 +762,11 @@ struct unnamed_505898 struct_505898;
  int dword_50766C; // weak
  int dword_507670; // weak
  int dword_507674; // weak
- int dword_50767C; // weak
- int dword_507680; // weak
- int dword_507684; // weak
- int dword_507688; // weak
- int dword_50768C; // weak
+struct GUIButton *pCharacterUI_BtnExit;      // dword @ MM7.exe::0050767C
+struct GUIButton *pCharacterUI_BtnAwards;    // dword @ MM7.exe::00507680
+struct GUIButton *pCharacterUI_BtnInventory; // dword @ MM7.exe::00507684
+struct GUIButton *pCharacterUI_BtnSkills;    // dword @ MM7.exe::00507688
+struct GUIButton *pCharacterUI_BtnStats;     // dword @ MM7.exe::0050768C
  int dword_507690; // weak
  int dword_507694; // weak
 
@@ -1095,7 +1095,7 @@ unsigned int bNotIntelCPU; // dword @ MM7.exe::0050FDEC
  char byte_5111B9[4]; // some bitmask for 4 players in party
  char byte_5111C0[54]; 
  char byte_5111F6[18]; 
- int dword_511208[array_size_unknown]; // weak
+unsigned int pPaperdollTextures_Beards[4]; // dword[4] @ MM7.exe::00511208
  int dword_51120C; // weak
 unsigned int uTextureID_ButtExit1; // dword @ MM7.exe::00511210
  int dword_511214; // weak
@@ -1107,21 +1107,21 @@ unsigned int uTextureID_ButtExit1; // dword @ MM7.exe::00511210
  int dword_51122C; // weak
  int dword_511230; // weak
  int dword_511234; // weak
- int dword_51124C[array_size_unknown]; // weak
- int dword_51125C[array_size_unknown]; // weak
- int dword_51126C[array_size_unknown]; // weak
- int dword_51127C[array_size_unknown]; // weak
+unsigned int pPaperdollTextures_RightHands[4];      // dword[4] @ MM7.exe::0051124C
+unsigned int pPaperdollTextures_LeftHandsWeapon[4]; // dword[4] @ MM7.exe::0051125C
+unsigned int pPaperdollTextures_LeftHandsEmpty[4];  // dword[4] @ MM7.exe::0051126C
+unsigned int pPaperdollTextures_Bodies[4];          // dword[4] @ MM7.exe::0051127C
  
  int dword_511290[204]; // texture ids for players in party (ends at 5115C0)
  //int dword_511294[array_size_unknown]; // weak
  //int dword_511298[array_size_unknown]; // weak
  //int dword_51132C; 
- //---------------------------------------------------------------
- int dword_5115C0[array_size_unknown]; // weak
- int dword_5115D0[array_size_unknown]; // weak
- int dword_5115E0[array_size_unknown]; // weak
 
- unsigned int uTextureListForPaperdoll[89];  // dword @ MM7.exe::00511638
+unsigned int pPaperdollTextures_LeftArmsWeapon[4]; // dword[4] @ MM7.exe::005115C0
+unsigned int pPaperdollTextures_LeftArmsEmpty[4];  // dword[4] @ MM7.exe::005115D0
+unsigned int pPaperdollTextures_Feet[4];           // dword[4] @ MM7.exe::005115E0
+
+unsigned int uTextureListForPaperdoll[89]; // dword @ MM7.exe::00511638
  //int dword_51164C[array_size_unknown]; // 00511638 + 20
  //int dword_511698[52];  // 00511638 + 96 
  //int dword_511718[array_size_unknown]; // weak
