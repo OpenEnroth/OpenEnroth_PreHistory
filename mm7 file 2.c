@@ -9919,7 +9919,7 @@ void __cdecl sub_4156F0_LooksLike_UI_ProcessCallbacks()
   char v61; // [sp+E4h] [bp-24h]@129
 
   if ( sub_466CA0() != MENU_CREATEPARTY )
-    sub_41CD4F_OnKeyDown(VK_NEXT);
+    sub_41CD4F_MaybeOnlyUI_OnKeyDown(VK_NEXT);
   for ( i = 1; i <= uNumGUIWindows; ++i )
   {
     pWnd = &GUIWindow_List[array_5075E0[i] - 1];
@@ -11494,7 +11494,7 @@ void __thiscall OnMouseLeftClick(void *_this)
       v13 = click_y;
       v12 = click_x;
     }
-    if ( !dword_4E28F8 && dword_507B98 )
+    if ( !dword_4E28F8 && dword_507B98_bCtrlPressed )
     {
       v4 = sub_466CA0();
       click_x = v12;
@@ -12980,7 +12980,7 @@ void __thiscall sub_41C0B8(const char *Str1)
 }
 
 //----- (0041CD4F) --------------------------------------------------------
-signed int __thiscall sub_41CD4F_OnKeyDown(unsigned char Key)
+signed int __thiscall sub_41CD4F_MaybeOnlyUI_OnKeyDown(unsigned char Key)
 {
   signed int v1; // edi@1
   int v2; // eax@2

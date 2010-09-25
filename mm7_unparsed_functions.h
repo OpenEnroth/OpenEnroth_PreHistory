@@ -248,7 +248,7 @@ int __fastcall sub_41B438(unsigned __int8 a1);
 int __fastcall sub_41B4E1(unsigned __int8 a1, unsigned __int8 a2, char a3);
 void __cdecl sub_41C047();
 void __thiscall sub_41C0B8(const char *Str1);
-signed int __thiscall sub_41CD4F_OnKeyDown(unsigned char Key);
+signed int __thiscall sub_41CD4F_MaybeOnlyUI_OnKeyDown(unsigned char Key);
 int __thiscall sub_41D08F(int this, int a2, int a3, int a4, int a5);
 void __thiscall sub_41D0D8(int this);
 void sub_41D20D(int a1, int a2, __int64 a3, int a4);

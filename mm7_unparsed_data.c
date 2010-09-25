@@ -869,7 +869,7 @@ int dword_507AF8; // idb
 
 
  int dword_507B94; // weak
- int dword_507B98; // weak
+ int dword_507B98_bCtrlPressed; // weak
  int dword_507B9C; // weak
  int dword_507BA0; // weak
  int dword_507BA4; // weak

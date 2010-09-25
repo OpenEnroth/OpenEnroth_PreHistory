@@ -500,8 +500,7 @@ LABEL_24:
         {
           if (pControl->dword_000018 == 2 )
           {
-           runtime_warning(decompilation error);
-           compile_error;
+           //decompilation error
             /*45 = x - pControl->uX;
             v45 = y - pControl->uY;
             if ( (double)pControl->uWidth != 0.0 )
@@ -513,6 +512,13 @@ LABEL_24:
                   goto LABEL_24;
               }
             }*/
+
+            // elliptic buttons
+            //if ((x - pControl->uX) * (x - pControl->uX) / (float)(pControl->uWidth * pControl->uWidth) +
+            //    (y - pControl->uY) * (y - pControl->uY) / (float)(pControl->uHeight * pControl->uHeight) < 1.0)
+            if (x >= pControl->uX && x <= pControl->uZ &&
+                y >= pControl->uY && y <= pControl->uW)
+              goto LABEL_24;
           }
           else
           {
@@ -7989,7 +7995,8 @@ LABEL_155:
                       pD3DRenderer,
                       dword_4E4C28 + dword_4E5AE0[2 * v268],
                       dword_4E4C2C + dword_4E5AE4[2 * v268],
-                      *(int *)((char *)pPaperdollTextures_LeftArmsEmpty + v269) != -1 ? 72 * *(int *)((char *)pPaperdollTextures_LeftArmsEmpty + v269) + 7145548 : 0);
+                      //*(int *)((char *)pPaperdollTextures_LeftArmsEmpty + v269) != -1 ? 72 * *(int *)((char *)pPaperdollTextures_LeftArmsEmpty + v269) + 7145548 : 0);
+                      &pLODFile_Icons_LOD->aLODHeaders[pPaperdollTextures_LeftArmsEmpty[v269/4]]);
                   v82 = *(_DWORD *)(v246 + 6492);
                   if ( v82 )
                   {

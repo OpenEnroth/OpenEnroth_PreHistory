@@ -3074,7 +3074,7 @@ long *__stdcall wWndProc(HWND hWnd, UINT Msg, signed int wParam, unsigned int lP
   __asm
   {
    mov eax, dword ptr [Msg]
-   cmp eax, WM_TIMER
+   cmp eax, WM_NULL
      jnz __continue
 
    int 3
@@ -3179,7 +3179,7 @@ LABEL_216:
         if ( !dword_720010 )
         {
 LABEL_227:
-          sub_41CD4F_OnKeyDown(VK_SELECT);
+          sub_41CD4F_MaybeOnlyUI_OnKeyDown(VK_SELECT);
 LABEL_228:
           if (!dword_720010)
             class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, lParam >> 16);
@@ -3306,7 +3306,7 @@ LABEL_261:
       {
         if ( wParam == VK_CONTROL )
         {
-          dword_507B98 = 0;
+          dword_507B98_bCtrlPressed = 0;
           return DefWindowProcA(hWnd, Msg, wParam, v5);
         }
         goto LABEL_184;
@@ -3346,28 +3346,44 @@ LABEL_104:
     {
       if ( pVideoPlayer->dword_000024 )
         pVideoPlayer->dword_00006C = 1;
-      if (wParam != VK_RETURN)
+
+      if (wParam == VK_RETURN)
       {
-        if (wParam == VK_CONTROL)
-        {
-          dword_507B98 = 1;
+       if (!struct_576FE8.dword_00004C)
+       sub_41CD4F_MaybeOnlyUI_OnKeyDown(wParam);
+       return 0;
+      }
+      else if (wParam == VK_CONTROL)
+      {
+       dword_507B98_bCtrlPressed = 1;
+       return 0;
+      }
+      else if (wParam == VK_ESCAPE)
+      {
+       if ( dword_50CBD0[0] < 40 )
+       {
+        v13 = dword_507BC0 == 0;
+        dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
+        dword_50CBD0[3 * dword_50CBD0[0] + 2] = !v13;
+        dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
+       }
+       return 0;
+      }
+      else if (wParam < VK_LEFT)
+        return 0;
+      else if (wParam >= VK_LEFT && wParam <= VK_DOWN)
+      {
+        if (dword_4E28F8 && dword_4E28F8 != 21 )
           return 0;
-        }
-        if (wParam == VK_ESCAPE)
-        {
-          if ( dword_50CBD0[0] < 40 )
-          {
-            v13 = dword_507BC0 == 0;
-            dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
-            dword_50CBD0[3 * dword_50CBD0[0] + 2] = !v13;
-            dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-          }
+
+        if (struct_576FE8.dword_00004C)
           return 0;
-        }
-        if ( (unsigned int)wParam <= VK_HOME)
-          return 0;
-        if ( (unsigned int)wParam > VK_DOWN)
-        {
+
+       sub_41CD4F_MaybeOnlyUI_OnKeyDown(wParam);
+       return 0;
+      }
+      if ( (unsigned int)wParam > VK_DOWN)
+      {
           if ( wParam != 115 || CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
             return 0;
           v39 = 0;
@@ -3376,13 +3392,7 @@ LABEL_124:
           v37 = 273;
           v36 = hWnd;
           goto LABEL_104;
-        }
-        if ( dword_4E28F8 && dword_4E28F8 != 21 )
-          return 0;
       }
-      if ( !struct_576FE8.dword_00004C )
-        sub_41CD4F_OnKeyDown(wParam);
-      return 0;
     }
     struct_505898.dword_5058A0 = 1;
     if ( (unsigned __int16)GetAsyncKeyState(16) >> 8 >= 0 )

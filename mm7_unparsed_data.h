@@ -815,7 +815,7 @@ extern int dword_507B04; // weak
 
 
 extern int dword_507B94; // weak
-extern int dword_507B98; // weak
+extern int dword_507B98_bCtrlPressed; // weak
 extern int dword_507B9C; // weak
 extern int dword_507BA0; // weak
 extern int dword_507BA4; // weak
