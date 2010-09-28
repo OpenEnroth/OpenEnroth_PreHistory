@@ -4605,7 +4605,7 @@ void __thiscall sub_4B3157(const void *this)
         pD3DRenderer,
         dword_4E5E50 - 4,
         dword_4E5EE0 - 4,
-        dword_50795C != -1 ? 72 * dword_50795C + 7145548 : 0);
+        dword_50795C_TextureID != -1 ? 72 * dword_50795C_TextureID + 7145548 : 0);
       Render_DrawIndexedTexture(pD3DRenderer, dword_4E5E50, dword_4E5EE0, dword_59140C[v4]);
       if ( dword_4E28F8 == 14 )
       {
@@ -4701,7 +4701,7 @@ LABEL_58:
       }
       else
       {
-        v16 = dword_506438 != -1 ? 72 * dword_506438 + 7145548 : 0;
+        v16 = dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0;
         v14 = 445;
         v12 = 471;
       }
@@ -4739,7 +4739,7 @@ LABEL_36:
         pD3DRenderer,
         *(&dword_4E5E50 + v8 + 6 * dword_591424 - 6) - 4,
         *(&dword_4E5EE0 + v8 + 6 * dword_591424 - 6) - 4,
-        dword_50795C != -1 ? 72 * dword_50795C + 7145548 : 0);
+        dword_50795C_TextureID != -1 ? 72 * dword_50795C_TextureID + 7145548 : 0);
       Render_DrawIndexedTexture(
         pD3DRenderer,
         *(&dword_4E5E50 + v8 + 6 * dword_591424 - 6),
@@ -5501,7 +5501,7 @@ int __fastcall sub_4B3EF0(int a1)
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[34],
-                   dword_506438 != -1 ? 72 * dword_506438 + 7145548 : 0);
+                   dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
   GUIButtonCreate(dword_507BBC, 0, 0, 0, 0, 1, 0, 81, 0, 0, Class, 0);
   GUIButtonCreate(dword_507BBC, 480, 160, 140, 30, 1, 0, 175, 82, 0, pGlobalTXT_LocalizationStrings[122], 0);
   result = sub_41D08F(dword_507BBC, 1, 1, 0, 2);
@@ -5535,7 +5535,7 @@ int __fastcall sub_4B3FE5(void *a1)
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[34],
-                   dword_506438 != -1 ? 72 * dword_506438 + 7145548 : 0);
+                   dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
   GUIButtonCreate(dword_507BBC, 0, 0, 0, 0, 1, 0, 81, 0, 0, Class, 0);
   if ( dword_F8B1A8 )
     v1 = pGlobalTXT_LocalizationStrings[535];
@@ -5568,7 +5568,7 @@ int __cdecl sub_4B40E6()
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[34],
-                   dword_506438 != -1 ? 72 * dword_506438 + 7145548 : 0);
+                   dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
   GUIButtonCreate(dword_507BBC, 0, 0, 0, 0, 1, 0, 81, 0, 0, Class, 0);
   if ( (&dword_737C2C)[20 * *(_DWORD *)(v1 + 24)] )
   {
@@ -5664,7 +5664,7 @@ int __thiscall sub_4B4224(void *this)
                      0,
                      0,
                      pGlobalTXT_LocalizationStrings[74],
-                     dword_506438 != -1 ? 72 * dword_506438 + 7145548 : 0);
+                     dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
     GUIButtonCreate(dword_507BBC, 8, 8, 450, 320, 1, 0, 81, 0, 0, Class, 0);
     if ( dword_5913F0 == 1 && dword_591080 )
     {
@@ -11592,7 +11592,7 @@ int __cdecl sub_4BBA85()
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[34],
-                   dword_506438 != -1 ? 72 * dword_506438 + 7145548 : 0);
+                   dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
   GUIButtonCreate(dword_507BBC, 0, 0, 0, 0, 1, 0, 81, 0, 0, Class, 0);
   GUIButtonCreate(dword_507BBC, 480, 160, 140, 30, 1, 0, 0, 83, 0, Class, 0);
   sub_41D08F(dword_507BBC, 1, 1, 0, 2);
@@ -11744,7 +11744,7 @@ LABEL_23:
                      0,
                      0,
                      pGlobalTXT_LocalizationStrings[79],
-                     dword_506438 != -1 ? 72 * dword_506438 + 7145548 : 0);
+                     dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
     GUIButtonCreate(dword_507BBC, 480, 160, 140, 30, 1, 0, 136, 85, 0, Class, 0);
     GUIButtonCreate(dword_507BBC, 480, 190, 140, 30, 1, 0, 136, 86, 0, Class, 0);
     GUIButtonCreate(dword_507BBC, 480, 220, 140, 30, 1, 0, 136, 87, 0, Class, 0);
@@ -12382,7 +12382,7 @@ int __cdecl sub_4BCA33()
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[74],
-                   dword_506438 != -1 ? 72 * dword_506438 + 7145548 : 0);
+                   dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
   return GUIButtonCreate(dword_507BBC, 8, 8, 450, 320, 1, 0, 81, 0, 0, Class, 0);
 }
 

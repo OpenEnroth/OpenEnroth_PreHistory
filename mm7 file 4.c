@@ -2037,7 +2037,7 @@ LABEL_56:
         if ( !dword_507BD4 )
         {
           dword_507BD4 = GUIWindowCreate(0, 0, 640, 480, 27, 20 * result + 5292232, 0);
-          dword_5079EC = GUIButtonCreate(
+          pBtn_Game_NPCScrollLeftDown = GUIButtonCreate(
                            dword_507BD4,
                            469,
                            178,
@@ -2050,7 +2050,7 @@ LABEL_56:
                            0,
                            Class,
                            uTextureIdx_ib_npcld_a != -1 ? 72 * uTextureIdx_ib_npcld_a + 7145548 : 0);
-          dword_5079E8 = GUIButtonCreate(
+          pBtn_Game_NPCScrollRightDown = GUIButtonCreate(
                            dword_507BD4,
                            626,
                            178,
@@ -4086,7 +4086,7 @@ LABEL_99:
             dword_4E28F8 = 0;
             struct_576FE8.dword_000044 = 1;
           }
-          GUIWindowCreate(602, 450, 0, 0, 92, dword_5079F0, 0);
+          GUIWindowCreate(602, 450, 0, 0, 92, pBtn_Game_Options, 0);
           if ( dword_50CBD0[0] >= 40 )
             continue;
           dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;

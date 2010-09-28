@@ -145,6 +145,251 @@ bool GUIMessageQueue_GetMessage(struct GUIMessageQueue *_this, int *a2, int *a3,
    return true;
 }
 
+
+//----- (0041B690) --------------------------------------------------------
+void UI_Initialize_Icons()
+{
+  int v12; // eax@1
+  int v17; // eax@1
+  int v22; // eax@1
+ int i;
+ wchar_t pFilepath[256];
+
+
+ CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeC"));
+ CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeB"));
+ CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeA"));
+ CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "torchC"));
+ CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "torchB"));
+ CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "torchA"));
+
+ uTextureID_MinimapDirections = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"Minimap Directions");
+
+ uTextureIdx_UIBarRed = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ui-bar_red");
+ uTextureIdx_UIBarYellow = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ui-bar_yellow");
+ uTextureIdx_UIBarGreen = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ui-bar_green");
+ uTextureIdx_UIBarBlue = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ui-bar_blue");
+
+ uTextureIdx_MonsterHP_BarYellow = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ui-MonsterHP_BarYellow");
+ uTextureIdx_MonsterHP_BarRed = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ui-MonsterHP_BarRed");
+ uTextureIdx_MonsterHP_BarGreen = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ui-MonsterHP_BarGreen");
+ uTextureIdx_MonsterHP_CapRight = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ui-MonsterHP_CapRight");
+ uTextureIdx_MonsterHP_CapLeft = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ui-MonsterHP_CapLeft");
+ uTextureIdx_MonsterHP_Bg = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ui-MonsterHP_Bg");
+
+ uTextureIdx_Leather = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"LEATHER");
+
+ //pClass18_ibground = &pLODFile_Icons_LOD->aLODHeaders[LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ibground")];
+ uTextureID_ibground = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ibground");
+
+ uTextureIdx_BtnMake = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ButtMake");
+ uTextureIdx_BtnYes2 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ButtYes2");
+ uTextureIdx_BtnXokU = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"x_ok_u");
+
+ uTextureIdx_BtnEsc2 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ButtEsc2");
+ uTextureIdx_BtnXxU = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"x_x_u");
+ uTextureIdx_BtnMake2 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ButtMake2");
+
+ pGUIWindow0 = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
+ GUIButtonCreate(pGUIWindow0, 7, 8, 460, 343, 1, 0, 10, 0, 0, "", 0);
+
+ //player portraits in Game screen
+ GUIButtonCreate(pGUIWindow0,  50, 424, 70, 90, 2, 94, 110, 1, 49, "p0", 0);
+ GUIButtonCreate(pGUIWindow0, 160, 424, 70, 90, 2, 94, 110, 2, 50, "p1", 0);
+ GUIButtonCreate(pGUIWindow0, 280, 424, 70, 90, 2, 94, 110, 3, 51, "p2", 0);
+ GUIButtonCreate(pGUIWindow0, 390, 424, 70, 90, 2, 94, 110, 4, 52, "p3", 0);
+
+ GUIButtonCreate(pGUIWindow0, 24, 404, 5, 49, 1, 93, 0, 1, 0, "", 0);
+ GUIButtonCreate(pGUIWindow0, 139, 404, 5, 49, 1, 93, 0, 2, 0, "", 0);
+ GUIButtonCreate(pGUIWindow0, 255, 404, 5, 49, 1, 93, 0, 3, 0, "", 0);
+ GUIButtonCreate(pGUIWindow0, 370, 404, 5, 49, 1, 93, 0, 4, 0, "", 0);
+ GUIButtonCreate(pGUIWindow0, 97, 404, 5, 49, 1, 93, 0, 1, 0, "", 0);
+ GUIButtonCreate(pGUIWindow0, 212, 404, 5, 49, 1, 93, 0, 2, 0, "", 0);
+ GUIButtonCreate(pGUIWindow0, 328, 404, 5, 49, 1, 93, 0, 3, 0, "", 0);
+ GUIButtonCreate(pGUIWindow0, 443, 404, 5, 49, 1, 93, 0, 4, 0, "", 0);
+
+ uTextureIdx_ib_td1_A = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-td1-A");
+ pBtn_Game_Quests = GUIButtonCreate(pGUIWindow0, 491, 353,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td1_A].uTextureWidth,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td1_A].uTextureHeight,
+                   1,
+                   0,
+                   200,
+                   0,
+                   KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_RETURN),
+                   pGlobalTXT_LocalizationStrings[174],
+                   uTextureIdx_ib_td1_A);
+
+
+
+  uTextureIdx_ib_td2_A = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-td2-A");
+  pBtn_Game_Autonotes = GUIButtonCreate(pGUIWindow0, 527, 353,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td1_A].uTextureWidth,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td1_A].uTextureHeight,
+                   1,
+                   0,
+                   201,
+                   0,
+                   KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_CONTROL),
+                   pGlobalTXT_LocalizationStrings[154],
+                   uTextureIdx_ib_td2_A);
+
+
+
+  v17 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-td3-A");
+  pBtn_Game_Maps = GUIButtonCreate(pGUIWindow0, 546, 353,
+                   pLODFile_Icons_LOD->aLODHeaders[v17].uTextureWidth,
+                   pLODFile_Icons_LOD->aLODHeaders[v17].uTextureHeight,
+                   1,
+                   0,
+                   202,
+                   0,
+                   KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_MENU),
+                   pGlobalTXT_LocalizationStrings[139],
+                   v17);
+
+
+
+  v22 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-td4-A");
+  pBtn_Game_Calendar = GUIButtonCreate(pGUIWindow0, 570, 353,
+                   pLODFile_Icons_LOD->aLODHeaders[v22].uTextureWidth,
+                   pLODFile_Icons_LOD->aLODHeaders[v22].uTextureHeight,
+                   1,
+                   0,
+                   203,
+                   0,
+                   KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_SHIFT),
+                   pGlobalTXT_LocalizationStrings[78],
+                   v22);
+
+
+
+  uTextureIdx_ib_td5_A = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"ib-td5-A");
+  pBtn_Game_Inventory = GUIButtonCreate(pGUIWindow0, 600, 361,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td5_A].uTextureWidth,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td5_A].uTextureHeight,
+                   1,
+                   0,
+                   224,
+                   0,
+                   72,
+                   pGlobalTXT_LocalizationStrings[159],
+                   uTextureIdx_ib_td5_A);
+
+
+
+  byte_507948 = 0;
+  byte_507949 = 0;
+  byte_50794A = 0;
+  pBtn_Game_MinimapZoomOut = GUIButtonCreate(pGUIWindow0, 574, 136,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_autout_a].uTextureWidth,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_autout_a].uTextureHeight,
+                   2,
+                   0,
+                   368,
+                   0,
+                   KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_JUNJA),
+                   pGlobalTXT_LocalizationStrings[252],
+                   uTextureIdx_ib_autout_a);
+
+
+
+  pBtn_Game_MinimapZoomIn = GUIButtonCreate(pGUIWindow0, 519, 136,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_autin_a].uTextureWidth,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_autin_a].uTextureHeight,
+                   2,
+                   0,
+                   367,
+                   0,
+                   KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_FINAL),
+                   pGlobalTXT_LocalizationStrings[251],
+                   uTextureIdx_ib_autin_a);
+
+
+
+  GUIButtonCreate(pGUIWindow0, 481, 0, 153, 67, 1, 92, 0, 0, 0, "", 0);
+  GUIButtonCreate(pGUIWindow0, 491, 149, 64, 74, 1, 0, 134, 0, 53, "", 0);
+  GUIButtonCreate(pGUIWindow0, 561, 149, 64, 74, 1, 0, 135, 0, 54, "", 0);
+  GUIButtonCreate(pGUIWindow0, 476, 322, 77, 17, 1, 100, 0, 0, 0, "", 0);
+  GUIButtonCreate(pGUIWindow0, 555, 322, 77, 17, 1, 101, 0, 0, 0, "", 0);
+
+  pBtn_Game_CastSpell = GUIButtonCreate(pGUIWindow0, 476, 450,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_m1d_a].uTextureWidth,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_m1d_a].uTextureHeight,
+                   1,
+                   0,
+                   105,
+                   0,
+                   67,
+                   pGlobalTXT_LocalizationStrings[38],
+                   uTextureIdx_ib_m1d_a);
+
+  pBtn_Game_Rest = GUIButtonCreate(pGUIWindow0, 518, 450,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_m2d_a].uTextureWidth,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_m2d_a].uTextureHeight,
+                   1,
+                   0,
+                   104,
+                   0,
+                   82,
+                   pGlobalTXT_LocalizationStrings[182],
+                   uTextureIdx_ib_m2d_a);
+
+  pBtn_Game_QuickRef = GUIButtonCreate(pGUIWindow0, 560, 450,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_m3d_a].uTextureWidth,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_m3d_a].uTextureHeight,
+                   1,
+                   0,
+                   106,
+                   0,
+                   90,
+                   pGlobalTXT_LocalizationStrings[173],
+                   uTextureIdx_ib_m3d_a);
+
+  pBtn_Game_Options = GUIButtonCreate(pGUIWindow0, 602, 450,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_m4d_a].uTextureWidth,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_m4d_a].uTextureHeight,
+                   1,
+                   0,
+                   107,
+                   0,
+                   0,
+                   pGlobalTXT_LocalizationStrings[93],
+                   uTextureIdx_ib_m4d_a);
+
+  pBtn_Game_NPCScrollLeftDown = GUIButtonCreate(pGUIWindow0, 469, 178,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_npcld_a].uTextureWidth,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_npcld_a].uTextureHeight,
+                   1,
+                   0,
+                   188,
+                   0,
+                   0,
+                   "",
+                   uTextureIdx_ib_npcld_a);
+
+  pBtn_Game_NPCScrollRightDown = GUIButtonCreate(pGUIWindow0, 626, 178,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_npcrd_a].uTextureWidth,
+                   pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_npcrd_a].uTextureHeight,
+                   1,
+                   0,
+                   188,
+                   1,
+                   0,
+                   "",
+                   uTextureIdx_ib_npcrd_a);
+
+
+ for (i = 0; i < 14; ++i)
+ {
+  wsprintfW(pFilepath, L"isn-%02d", i + 1);
+  uTextureIdx_SpellEffecIcons[i] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pFilepath);
+ }
+
+ uIconIdx_Spell21 = CIconFrameTable_FindIcon(pIconFrameTable, "spell21");
+ uIconIdx_Spell27 = CIconFrameTable_FindIcon(pIconFrameTable, "spell27");
+}
+
 //----- (004BF794) --------------------------------------------------------
 void __cdecl LoadMainMenu()
 {
@@ -189,7 +434,7 @@ void __cdecl LoadMainMenu()
  Render_EndScene(pD3DRenderer);
  Render_Present(pD3DRenderer);
 
- if (!(dword_6BE364 & 0x10))
+ if (~dword_6BE364 & 0x10) // if (!nosound)
  {
   if (pAudioPlayer->hAILRedbook)
   {
@@ -1582,7 +1827,7 @@ LABEL_184:
           class24_fn1(pClass24_global);
           AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
           pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 9, uControlID, 0);
-          dword_507BE0 = GUIWindowCreate(493, 355, 0, 0, 99, dword_507A10, 0);
+          dword_507BE0 = GUIWindowCreate(493, 355, 0, 0, 99, pBtn_Game_Quests, 0);
           byte_50794A = 0;
           goto LABEL_92;
         case 0xC9:
@@ -1593,7 +1838,7 @@ LABEL_184:
           class24_fn1(pClass24_global);
           AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
           pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 9, uControlID, 0);
-          dword_507BE0 = GUIWindowCreate(527, 353, 0, 0, 99, dword_507A0C, 0);
+          dword_507BE0 = GUIWindowCreate(527, 353, 0, 0, 99, pBtn_Game_Autonotes, 0);
           byte_507949 = 0;
           goto LABEL_92;
         case 0xCA:
@@ -1609,7 +1854,7 @@ LABEL_184:
           v33 = 353;
           v34 = 546;
           v187 = 0;
-          v173 = dword_507A08;
+          v173 = pBtn_Game_Maps;
           goto LABEL_210;
         case 0xCB:
           if ( dword_50CBD0[0] )
@@ -1622,7 +1867,7 @@ LABEL_184:
           v33 = 354;
           v34 = 570;
           v187 = 0;
-          v173 = dword_507A04;
+          v173 = pBtn_Game_Calendar;
 LABEL_210:
           pGUIWindow_CurrentMenu = v32;
           dword_507BE0 = GUIWindowCreate(v34, v33, 0, 0, 99, v173, v187);
@@ -1635,7 +1880,7 @@ LABEL_210:
           class24_fn1(pClass24_global);
           AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
           pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 9, uControlID, 0);
-          dword_507BE0 = GUIWindowCreate(600, 361, 0, 0, 99, dword_507A00, 0);
+          dword_507BE0 = GUIWindowCreate(600, 361, 0, 0, 99, pBtn_Game_Inventory, 0);
           byte_507948 = 0;
           goto LABEL_92;
         case 0x71:
@@ -1965,7 +2210,7 @@ LABEL_322:
             if ( !dword_507BD4 )
             {
               dword_6BE138 = -1;
-              GUIWindowCreate(602, 450, 0, 0, 90, dword_5079F0, v0);
+              GUIWindowCreate(602, 450, 0, 0, 90, pBtn_Game_Options, v0);
               class24_fn1(pClass24_global);
               AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
               ++pLODFile_Icons_LOD->dword_011B9C;
@@ -2078,7 +2323,7 @@ LABEL_92:
         case 0xBC:
           if ( v209 )
           {
-            GUIWindowCreate(626, 179, 0, 0, 90, dword_5079E8, 0);
+            GUIWindowCreate(626, 179, 0, 0, 90, pBtn_Game_NPCScrollRightDown, 0);
             v48 = (pParty_global->HiredNPC[0].pNPCName != 0) + (pParty_global->HiredNPC[1].pNPCName != 0) + (unsigned __int8)pParty_global->byte_00070A - 2;
             if (pParty_global->byte_000709 < v48 )
             {
@@ -2089,7 +2334,7 @@ LABEL_92:
           }
           else
           {
-            GUIWindowCreate(469, 179, 0, 0, 90, dword_5079EC, 0);
+            GUIWindowCreate(469, 179, 0, 0, 90, pBtn_Game_NPCScrollLeftDown, 0);
             if (pParty_global->byte_000709)
             {
               --pParty_global->byte_000709;
@@ -3198,7 +3443,7 @@ LABEL_721:
               {
                 GUIWindowDelete(pGUIWindow_CurrentMenu);
 LABEL_693:
-                GUIWindowCreate(476, 450, 0, 0, 90, dword_5079F8, 0);
+                GUIWindowCreate(476, 450, 0, 0, 90, pBtn_Game_CastSpell, 0);
                 dword_4E28F8 = 8;
                 class24_fn1(pClass24_global);
                 pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 18, 0, 0);
@@ -3217,7 +3462,7 @@ LABEL_693:
           ++pLODFile_Icons_LOD->dword_011B9C;
           if ( !pLODFile_Icons_LOD->dword_011B98 )
             pLODFile_Icons_LOD->dword_011B98 = pLODFile_Icons_LOD->uNumLoadedFiles;
-          GUIWindowCreate(560, 450, 0, 0, 90, dword_5079F4, 0);
+          GUIWindowCreate(560, 450, 0, 0, 90, pBtn_Game_QuickRef, 0);
           struct_576FE8.dword_000044 = v0;
           class24_fn1(pClass24_global);
           AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
@@ -3252,7 +3497,7 @@ LABEL_693:
           v118 = (int)sub_49F8B5(pD3DRenderer, &stru_4E4678, v117, 155, 117);
           operator_delete(v118, v212);
           sub_40E55E(pClass33_global3, (unsigned int)&stru_4E4678, 0);
-          GUIWindowCreate(602, 450, 0, 0, 92, dword_5079F0, 0);
+          GUIWindowCreate(602, 450, 0, 0, 92, pBtn_Game_Options, 0);
 LABEL_453:
           if ( dword_50CBD0[0] >= 40 )
             goto LABEL_92;
@@ -3557,7 +3802,7 @@ LABEL_733:
           if ( dword_4E28F8 )
             goto LABEL_92;
           pParty_global->dword_007778 |= 2;
-          GUIWindowCreate(519, 136, 0, 0, 90, dword_507A14, 0);
+          GUIWindowCreate(519, 136, 0, 0, 90, pBtn_Game_MinimapZoomIn, 0);
           v212 = 131072;
           v133 = (unsigned __int64)((signed __int64)struct_576FE8.uMinimapZoom << 17) >> 16;
           ++struct_576FE8.dword_000028;
@@ -3580,7 +3825,7 @@ LABEL_733:
           if ( dword_4E28F8 )
             goto LABEL_92;
           pParty_global->dword_007778 |= 2;
-          GUIWindowCreate(574, 136, 0, 0, 90, dword_507A18, 0);
+          GUIWindowCreate(574, 136, 0, 0, 90, pBtn_Game_MinimapZoomOut, 0);
           v212 = 32768;
           v133 = (unsigned __int64)((signed __int64)struct_576FE8.uMinimapZoom << 15) >> 16;
           --struct_576FE8.dword_000028;
@@ -4036,7 +4281,7 @@ void SetCurrentMenu(unsigned int uMenuID)
 struct GUIButton *__fastcall GUIButtonCreate(struct GUIWindow *pParentWindow,
                                              unsigned int uX, unsigned int uY,
                                              unsigned int uWidth, unsigned int uHeight,
-                                             int a6, int a7, unsigned int uControlID, int a9, char a10, const char *pName, unsigned int uTextureID)
+                                             int a6, int a7, unsigned int uControlID, int a9, unsigned int uHotkey, const char *pName, unsigned int uTextureID)
 {
   int *v19; // edx@5
   struct class18 **v20; // ecx@5
@@ -4060,7 +4305,7 @@ struct GUIButton *__fastcall GUIButtonCreate(struct GUIWindow *pParentWindow,
  pButton->dword_00002C = 0;
  pButton->pParentWindow = pParentWindow;
 
- pButton->byte_000054 = a10;
+ pButton->uHotkey = uHotkey;
  strcpy(pButton->pButtonName, pName);
 
  pButton->dword_000050 = 0;
@@ -4178,7 +4423,7 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
                            0,
                            0,
                            pGlobalTXT_LocalizationStrings[79],
-                           dword_506438 != -1 ? 72 * dword_506438 + 0x6D084C : 0);
+                           dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 0x6D084C : 0);
           if ( *(_DWORD *)(v9 + 28) != 1 )
           {
             v33 = 0;
@@ -4340,7 +4585,7 @@ LABEL_62:
                      0,
                      0,
                      pGlobalTXT_LocalizationStrings[80],
-                     dword_506438 != -1 ? 72 * dword_506438 + 7145548 : 0);
+                     dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
     v25 = dword_591424;
     v26 = 0;
     if ( dword_591424 > 0 )
@@ -5290,13 +5535,13 @@ void __cdecl GameUI_DrawPartySpells()
   {
     v5 = pPlayers[i];
     if ( *(_QWORD *)(v5 + 6144) > 0i64 )
-      Render_DrawIndexedTexture(pD3DRenderer, *(_WORD *)v4 + 72, 427, &pLODFile_Icons_LOD->aLODHeaders[dword_507964]);
+      Render_DrawIndexedTexture(pD3DRenderer, *(_WORD *)v4 + 72, 427, &pLODFile_Icons_LOD->aLODHeaders[dword_507964_TextureID]);
     if ( *(_QWORD *)(v5 + 6064) > 0i64 )
-      Render_DrawIndexedTexture(pD3DRenderer, *(_WORD *)v4 + 72, 393, &pLODFile_Icons_LOD->aLODHeaders[dword_50796C]);
+      Render_DrawIndexedTexture(pD3DRenderer, *(_WORD *)v4 + 72, 393, &pLODFile_Icons_LOD->aLODHeaders[dword_50796C_TextureID]);
     if ( *(_QWORD *)(v5 + 6224) > 0i64 )
-      Render_DrawIndexedTexture(pD3DRenderer, *(_WORD *)v4 + 72, 410, &pLODFile_Icons_LOD->aLODHeaders[dword_507968]);
+      Render_DrawIndexedTexture(pD3DRenderer, *(_WORD *)v4 + 72, 410, &pLODFile_Icons_LOD->aLODHeaders[dword_507968_TextureID]);
     if ( *(_QWORD *)(v5 + 6208) > 0i64 )
-      Render_DrawIndexedTexture(pD3DRenderer, *(_WORD *)v4 + 72, 444, &pLODFile_Icons_LOD->aLODHeaders[dword_507960]);
+      Render_DrawIndexedTexture(pD3DRenderer, *(_WORD *)v4 + 72, 444, &pLODFile_Icons_LOD->aLODHeaders[dword_507960_TextureID]);
     v4 += 2;
   }
 }
@@ -6983,7 +7228,7 @@ int CharacterUI_LoadPaperdollTextures()
 
   dword_507B04 = dword_5079E4;
 
-  dword_5118C8 = dword_506438;
+  dword_5118C8 = dword_506438_TextureID;
  for (uPlayer = 0; uPlayer < 4; ++uPlayer)
  {
   unsigned int uFace;
@@ -9834,9 +10079,7 @@ unsigned int PlayerCreationUI_GetStatColor(struct Player *_this, int Stat)
 //----- (004226EF) --------------------------------------------------------
 void SetupUserInterface(unsigned int uAlignment)
 {
-  int v2; // ecx@2
-
-  unsigned int uTextureIdx_Endcap;
+ unsigned int uTextureIdx_Endcap;
 
  const wchar_t *pGoodInterface[] =
  {
@@ -9936,7 +10179,7 @@ void SetupUserInterface(unsigned int uAlignment)
  uTextureID_GameUI_ViewportLeft = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[3]);
  uTextureID_GameUI_StatusBar = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[4]);
 
- dword_506438 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[5]);
+ dword_506438_TextureID = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[5]);
 
  uTextureID_WindowEdgeTop = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[6]);
  uTextureID_WindowEdgeBottom = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[7]);
@@ -9952,12 +10195,12 @@ void SetupUserInterface(unsigned int uAlignment)
 
  uTextureIdx_InventoryBackground = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[15]);
 
- dword_50795C = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[16]);
+ dword_50795C_TextureID = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[16]);
 
- dword_507960 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[17]);
- dword_507964 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[18]);
- dword_507968 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[19]);
- dword_50796C = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[20]);
+ dword_507960_TextureID = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[17]);
+ dword_507964_TextureID = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[18]);
+ dword_507968_TextureID = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[19]);
+ dword_50796C_TextureID = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[20]);
 
  uTextureIdx_ib_m4d_a = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[21]);
  uTextureIdx_ib_m3d_a = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[22]);

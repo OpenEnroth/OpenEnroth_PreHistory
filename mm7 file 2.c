@@ -3293,7 +3293,6 @@ void sub_4A90A0(struct class06 *_this)
  _this->dword_0005E8 = LODFile_LoadTexture_New(pLODFile_Bitmaps_LOD, L"effpar02");
  _this->dword_0005EC = LODFile_LoadTexture_New(pLODFile_Bitmaps_LOD, L"effpar03");
 
- runtime_warning();
  _this->dword_0005F0 = LODFile_LoadSprite(pLODFile_Sprites_LOD, "sp57c", 6);
 
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "zapp"));
@@ -3322,8 +3321,6 @@ void sub_4A90A0(struct class06 *_this)
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell75"));
  CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell96"));
 
- runtime_warning();
-/*
  CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell02"));
  CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell03"));
  CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell09"));
@@ -3348,7 +3345,6 @@ void sub_4A90A0(struct class06 *_this)
  CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell97"));
  CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell97c"));
  CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell97c"));
-*/
 }
 
 //----- (mm7.exe::00464B02) --------------------------------------------------------
@@ -6214,30 +6210,26 @@ void __fastcall sub_44D1E7(unsigned char *pFontData, int a2, int a3, int a4, con
 }
 
 //----- (00443DA1) --------------------------------------------------------
-int __cdecl Initialize_GlobalEVT()
+int Initialize_GlobalEVT()
 {
  int result;
   int v1; // esi@1
+ struct Event *pEvent;
 
-  uGlobalEVT_Size = LoadFileToBuffer("global.evt", pGlobalEVT, 46080);
-  v1 = 0;
-  if (uGlobalEVT_Size)
-  {
-    uGlobalEVT_NumEvents = 0;
-    memset(pGlobalEVT_Events, 128, 4400 * sizeof(struct Event));
-    result = 12 * uGlobalEVT_NumEvents + (pGlobalEVT_Events + 4);
-    do
-    {
+ uGlobalEVT_Size = LoadFileToBuffer("global.evt", pGlobalEVT, 46080);
+
+ uGlobalEVT_NumEvents = 0;
+ memset(pGlobalEVT_Events, 128, 4400 * sizeof(struct Event));
+ pEvent = pGlobalEVT_Events + uGlobalEVT_NumEvents; //result = 12 * uGlobalEVT_NumEvents + (pGlobalEVT_Events + 4);
+ for (v1 = 0; v1 < uGlobalEVT_Size; v1 += pGlobalEVT[v1] + 1)
+ {
       uGlobalEVT_NumEvents++;
-      *(_DWORD *)(result - 4) = pGlobalEVT[v1 + 1] + (pGlobalEVT[v1 + 2] << 8);
-      *(_DWORD *)result = pGlobalEVT[v1 + 3];
-      *(_DWORD *)(result + 4) = v1;
-      result += 12;
-      v1 += pGlobalEVT[v1] + 1;
-    }
-    while (v1 < uGlobalEVT_Size);
-  }
-  return uGlobalEVT_Size;
+      pEvent->dword_000000 /**(_DWORD *)(result - 4)*/ = pGlobalEVT[v1 + 1] + (pGlobalEVT[v1 + 2] << 8);
+      pEvent->dword_000004 /**(_DWORD *)result*/ = pGlobalEVT[v1 + 3];
+      pEvent->dword_000008 /**(_DWORD *)(result + 4)*/ = v1;
+      pEvent++;//result += 12;
+ }
+ return uGlobalEVT_Size;
 }
 
 //----- (00410522) --------------------------------------------------------
@@ -6786,7 +6778,7 @@ char *__cdecl sub_411150()
 
   Render_ClearZBuffer(pD3DRenderer, 0, 479);
   Render_DrawTransparentTexture(pD3DRenderer, 8, 8, dword_5064DC);
-  Render_DrawTransparentTexture(pD3DRenderer, 471, 445, dword_506438 != -1 ? 72 * dword_506438 + 7145548 : 0);
+  Render_DrawTransparentTexture(pD3DRenderer, 471, 445, dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
   v6 = 8;
   v7 = 8;
   v8 = 460;
@@ -8594,7 +8586,7 @@ void __thiscall sub_413CC6(void *this)
   void *v1; // esi@1
 
   v1 = this;
-  Render_DrawIndexedTexture(pD3DRenderer, 471, 445, dword_506438 != -1 ? 72 * dword_506438 + 7145548 : 0);
+  Render_DrawIndexedTexture(pD3DRenderer, 471, 445, dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
   if ( v1 == (void *)177 )
   {
     sub_410DEC();
@@ -10307,7 +10299,7 @@ LABEL_110:
                     pD3DRenderer,
                     *(_DWORD *)dword_5076F4,
                     *(_DWORD *)(dword_5076F4 + 4),
-                    dword_506438 != -1 ? 72 * dword_506438 + 7145548 : 0);
+                    dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
                 }
               }
             }
@@ -15113,7 +15105,7 @@ int __cdecl sub_41F6C1()
   }
   class24_fn1(pClass24_global);
   if ( dword_506F14 != 2 )
-    GUIWindowCreate(518, 450, 0, 0, 90, dword_5079FC, 0);
+    GUIWindowCreate(518, 450, 0, 0, 90, pBtn_Game_Rest, 0);
   dword_506F18 = 0;
   dword_506F14 = 0;
   dword_506F10 = 2;
@@ -16095,7 +16087,7 @@ LABEL_12:
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[79],
-                   dword_506438 != -1 ? 72 * dword_506438 + 7145548 : 0);
+                   dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
   GUIButtonCreate(dword_507BB8, 7, 8, 460, 343, 1, 0, 12, 0, 0, Class, 0);
   dword_4E28F8 = 10;
   class24_fn1(pClass24_global);
@@ -16180,7 +16172,7 @@ void __fastcall sub_42092D(int a1)
     v2,
     *(_DWORD *)dword_5076F4,
     *(_DWORD *)(dword_5076F4 + 4),
-    dword_506438 != -1 ? 72 * dword_506438 + 7145548 : 0);
+    dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
 }
 
 //----- (00420B13) --------------------------------------------------------

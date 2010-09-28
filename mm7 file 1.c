@@ -164,7 +164,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *
 
   SetupUserInterface(1);
   LoadMainMenu();
-  RegistryWriteInt("Ran once", 1);
+  RegistryWriteInt("Ran once", true);
   dword_6BE364 |= 0x4000;
 
   Game_InitializeGammaController(pGame);
@@ -3024,36 +3024,15 @@ __continue:
   }
 
  if (Msg == WM_CREATE)
+   return 0;
+
+
+ switch (Msg)
  {
-  hDC = GetDC(hWnd);
-  if ( GetDeviceCaps(hDC, BITSPIXEL) < 8 )
-  {
-   ReleaseDC(hWnd, hDC);
-   erroneous_printf("You must be running in 256 color mode or higher. You can change the screen depth with the control panel display icon.");
-  }
-  ReleaseDC(hWnd, hDC);
-  return 0;
- }
-
-
-
-  if ( Msg > 0x112 )
-  {
-    LODWORD(a1) = Msg - 512;
-    switch ( Msg )
+  case WM_LBUTTONDOWN:
+    v29 = 0;
+    if (struct_505898. byte_505992 )
     {
-      default:
-        goto LABEL_184;
-      case WM_DEVICECHANGE:
-        if ( wParam == 32768 )
-          PostMessageA(dword_6A0CFC, 0x401u, 0, 0);
-        return 0;
-      case WM_SIZING:
-        return 1;
-      case WM_LBUTTONDOWN:
-        v29 = 0;
-        if (struct_505898. byte_505992 )
-        {
           if (dword_720010)
             goto LABEL_184;
           struct_505898.dword_5058A0 = 7;
@@ -3070,6 +3049,21 @@ LABEL_208:
           goto LABEL_228;
         else goto LABEL_227;
 
+      case WM_DEVICECHANGE:
+        if ( wParam == 32768 )
+          PostMessageA(dword_6A0CFC, WM_USER + 1, 0, 0);
+        return 0;
+      case WM_SIZING:
+        return 1;
+ }
+
+  if ( Msg > 0x112 )
+  {
+    LODWORD(a1) = Msg - 512;
+    switch ( Msg )
+    {
+      default:
+        goto LABEL_184;
       case WM_RBUTTONDOWN:
         v31 = 0;
         if ( !struct_505898.byte_505992 )
@@ -5437,10 +5431,9 @@ signed int __cdecl sub_465D0B()
   class35_sub_48A614(&class35_obj);
   pLODFile_Sprites_LOD->dword_00ECAC = 1;
 
-  runtime_warning();
   sub_459064(pObjectDescriptionList);
   sub_458D97(pOverlayDescriptionList);
-  if (!(dword_6BE364 & 0x10))  //if (!nosound)
+  if (~dword_6BE364 & 0x10)  //if (!nosound)
   {
    runtime_warning(Soundy crashes);
     //sub_4A9953(pSoundList);

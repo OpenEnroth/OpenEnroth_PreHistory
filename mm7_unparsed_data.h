@@ -563,7 +563,7 @@ extern int dword_506404; // weak
 extern int dword_506408[array_size_unknown]; // weak
 extern int dword_50640C[array_size_unknown]; // weak
 extern int dword_506434; // weak
-extern int dword_506438; // weak
+extern int dword_506438_TextureID; // weak
 extern int dword_50643C; // weak
 extern int dword_506440; // idb
 extern int dword_506444; // idb
@@ -754,11 +754,11 @@ extern unsigned int uTextureIdx_ib_td2_A; // dword @ MM7.exe::00507950
 extern unsigned int uTextureIdx_ib_td1_A; // dword @ MM7.exe::00507954
 
 extern unsigned int uTextureIdx_InventoryBackground; // dword @ MM7.exe::00507958
-extern int dword_50795C; // weak
-extern int dword_507960; // weak
-extern int dword_507964; // weak
-extern int dword_507968; // weak
-extern int dword_50796C; // weak
+extern int dword_50795C_TextureID; // weak
+extern int dword_507960_TextureID; // weak
+extern int dword_507964_TextureID; // weak
+extern int dword_507968_TextureID; // weak
+extern int dword_50796C_TextureID; // weak
 
 extern unsigned int uTextureIdx_ib_m4d_a;    // dword @ MM7.exe::00507970
 extern unsigned int uTextureIdx_ib_m3d_a;    // dword @ MM7.exe::00507974
@@ -784,19 +784,19 @@ extern int dword_5079CC; // weak
 extern unsigned int uTextureIdx_SensorGreen; // dword @ MM7.exe::005079D0
 extern unsigned int uTextureIdx_MinimapMask; // dword @ MM7.exe::005079D8
 extern int dword_5079E4; // weak
-extern int dword_5079E8; // weak
-extern int dword_5079EC; // weak
-extern int dword_5079F0; // weak
-extern int dword_5079F4; // weak
-extern int dword_5079F8; // weak
-extern int dword_5079FC; // weak
-extern int dword_507A00; // weak
-extern int dword_507A04; // weak
-extern int dword_507A08; // weak
-extern int dword_507A0C; // weak
-extern int dword_507A10; // weak
-extern int dword_507A14; // weak
-extern int dword_507A18; // weak
+extern struct GUIButton *pBtn_Game_NPCScrollRightDown; // dword @ MM7.exe::005079E8
+extern struct GUIButton *pBtn_Game_NPCScrollLeftDown;  // dword @ MM7.exe::005079EC
+extern struct GUIButton *pBtn_Game_Options;            // dword @ MM7.exe::005079F0
+extern struct GUIButton *pBtn_Game_QuickRef;           // dword @ MM7.exe::005079F4
+extern struct GUIButton *pBtn_Game_CastSpell;          // dword @ MM7.exe::005079F8
+extern struct GUIButton *pBtn_Game_Rest;               // dword @ MM7.exe::005079FC
+extern struct GUIButton *pBtn_Game_Inventory;          // dword @ MM7.exe::00507A00
+extern struct GUIButton *pBtn_Game_Calendar;           // dword @ MM7.exe::00507A04
+extern struct GUIButton *pBtn_Game_Maps;               // dword @ MM7.exe::00507A08
+extern struct GUIButton *pBtn_Game_Autonotes;          // dword @ MM7.exe::00507A0C
+extern struct GUIButton *pBtn_Game_Quests;             // dword @ MM7.exe::00507A10
+extern struct GUIButton *pBtn_Game_MinimapZoomIn;      // dword @ MM7.exe::00507A14
+extern struct GUIButton *pBtn_Game_MinimapZoomOut;     // dword @ MM7.exe::00507A18
 
 extern struct GUIButton *pMainMenu_Exit;     // ptr @ MM7.exe::00507AE4
 extern struct GUIButton *pMainMenu_Credits;  // ptr @ MM7.exe::00507AE8
@@ -820,8 +820,8 @@ extern int dword_507B9C; // weak
 extern int dword_507BA0; // weak
 extern int dword_507BA4; // weak
 
-extern struct class18 *pClass18_ibground; // ptr @ MM7.exe::00507BA8
-//int dword_507BA8; // weak
+//extern struct class18 *pClass18_ibground; // ptr @ MM7.exe::00507BA8
+extern unsigned int uTextureID_ibground; // dword @ MM7.exe::00507BA8 addon, used to be obj ptr
 
 extern int dword_507BAC; // weak
 extern int dword_507BB0; // weak

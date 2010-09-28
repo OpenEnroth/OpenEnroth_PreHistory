@@ -6819,20 +6819,15 @@ LABEL_54:
 //----- (0048A8A3) --------------------------------------------------------
 int class35_sub_48A8A3(struct class35 *_this)
 {
-  signed int v1; // eax@1
-  int v2; // edx@1
+ unsigned int i;
 
-  v2 = (char *)_this + 0x267A04;
-  v1 = 1;
- do
+ for (i = 1; i < 50; ++i)
  {
-  if ( *(_DWORD *)v2 )
-    *(_DWORD *)((char *)_this + 0x267AC8) = v1 + 1;
-  ++v1;
-  v2 += 4;
+  if (_this->array_267A00[i])
+    _this->dword_267AC8 = i + 1;
  }
- while ( v1 < 50 );
- return *(_DWORD *)((char *)_this + 0x267AC8);
+
+ return _this->dword_267AC8;
 }
 
 

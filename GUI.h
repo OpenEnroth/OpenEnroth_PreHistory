@@ -72,7 +72,7 @@ struct GUIButton
  int dword_00004C;
  int dword_000050;
 // int dword_000054;
- unsigned char byte_000054;
+ unsigned char uHotkey; // byte @ 000054   hotkey shortcut
  unsigned char pButtonName[3]; // byte[?] @ 000055
  int dword_000058;
  int dword_00005C;
