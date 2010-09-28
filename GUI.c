@@ -2524,7 +2524,7 @@ LABEL_317:
           v58 = v56 >> 3;
           if ( v57 == 3 )
           {
-            v59 = pActors[v58].word_0000B0 == 5;
+            v59 = pActors[v58].word_0000B0_state == 5;
             goto LABEL_400;
           }
           if ( v57 == 2 )
@@ -3073,7 +3073,7 @@ LABEL_544:
           if ( !(dword_4F8870 & 2) )
           {
 LABEL_569:
-            if ( pActors[v209].word_0000B0 == 5 )
+            if ( pActors[v209].word_0000B0_state == 5 )
               sub_426A5A((int)((char *)pActors + 836 * v209));
             else
               sub_42EBEE((void *)v209);
@@ -4107,10 +4107,10 @@ LABEL_26:
 
   for (i = 0; i < uNumActors; ++i)
   {
-   if (pActors[i].word_0000B0 == 11 || pActors[i].word_0000B0 == 19)
+   if (pActors[i].word_0000B0_state == 11 || pActors[i].word_0000B0_state == 19)
      continue;
 
-   if (pActors[i].word_0000B0 == 5 || pActors[i].dword_000024 & 0x8000)
+   if (pActors[i].word_0000B0_state == 5 || pActors[i].dword_000024 & 0x8000)
    {
     v45 = uMinimapCentreX + uMinimapZoom * (pActors[i].sActorPosX - pParty_global->sPartyPosX) / 65535;
     v44 = uMinimapCentreY - uMinimapZoom * (pActors[i].sActorPosY - pParty_global->sPartyPosY) / 65535;
@@ -4121,7 +4121,7 @@ LABEL_26:
      v104 = 0xFF00FF00;
      if (*((char *)&pActors[i] + 47) & 1 )
        v104 = 0xFFFF0000;
-     if (pActors[i].word_0000B0 == 5 )
+     if (pActors[i].word_0000B0_state == 5 )
        v104 = 0xFFFFFF00;
 
      Render_FillRect(pD3DRenderer, v45 - 1, v44 - 1, v45 + 1, v44 + 1, v104);

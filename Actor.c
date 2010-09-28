@@ -19,7 +19,7 @@ bool Actor_sub_40894B(struct Actor *_this)
   if (_this->array_0000D4[5].qword_000000 > 0i64 || _this->array_0000D4[6].qword_000000 > 0i64 )  
     v1 = true;
 
-  v3 = _this->word_0000B0;
+  v3 = _this->word_0000B0_state;
   return !(v1 || v3 == 4 || v3 == 5 || v3 == 11 || v3 == 17 || v3 == 19);
 }
 
@@ -53,13 +53,13 @@ void __cdecl UpdateActors()
   {
     pActor = &pActors[i];
 
-    if ( Actor_sub_40894B(pActor) || pActor->word_0000B0 == 19 )
+    if ( Actor_sub_40894B(pActor) || pActor->word_0000B0_state == 19 )
     {
       pActor->sActorPosX = pActor->sInitialPosX;
       pActor->sActorPosY = pActor->sInitialPosY;
       pActor->sActorPosZ = pActor->sInitialPosZ;
       pActor->sCurrentHP = pActor->sTotalHP;
-      if (pActor->word_0000B0 != 19)
+      if (pActor->word_0000B0_state != 19)
         Actor_sub_403EB6(i, dword_4F6E08[i], pActor->uRecoveryTime, 0);
     }
 
@@ -101,7 +101,7 @@ void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, struct Direc
   else
     pActor->word_0000A0 = a3;
 
-  pActor->word_0000B0 = 0;
+  pActor->word_0000B0_state = 0;
   pActor->word_000094 = 0;
   pActor->word_000096 = 0;
   pActor->word_000098 = 0;
@@ -308,52 +308,52 @@ struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, s
 int Actor_sub_45976D(struct Actor *_this)
 {
   _this->dword_000024 &= 0xFFDFFFFF;
-  switch (_this->word_0000B0)
+  switch (_this->word_0000B0_state)
   {
     case 1:
-      _this->word_0000B2 = 1;
+      _this->word_0000B2_looks_like_current_sprite_frame = 1;
       break;
 
     case 2:
-      _this->word_0000B2 = 2;
+      _this->word_0000B2_looks_like_current_sprite_frame = 2;
       _this->dword_000024 |= 0x200000; break;
 
     case 3:
     case 12:
     case 13:
     case 18:
-      _this->word_0000B2 = 3;
+      _this->word_0000B2_looks_like_current_sprite_frame = 3;
       _this->dword_000024 |= 0x200000; break;
 
     case 4:
     case 16:
-      _this->word_0000B2 = 5;
+      _this->word_0000B2_looks_like_current_sprite_frame = 5;
       _this->dword_000024 |= 0x200000; break;
 
     case 6:
     case 7:
-      _this->word_0000B2 = 1;
+      _this->word_0000B2_looks_like_current_sprite_frame = 1;
       _this->dword_000024 |= 0x200000; break;
 
     case 8:
-      _this->word_0000B2 = 4;
+      _this->word_0000B2_looks_like_current_sprite_frame = 4;
       _this->dword_000024 |= 0x200000; break;
 
     case 9:
-      _this->word_0000B2 = 7;
+      _this->word_0000B2_looks_like_current_sprite_frame = 7;
       _this->dword_000024 |= 0x200000; break;
 
     case 0:
     case 10:
     case 17:
-      _this->word_0000B2 = 0;
+      _this->word_0000B2_looks_like_current_sprite_frame = 0;
       _this->dword_000024 |= 0x200000; break;
 
     case 5:
-      if (pSpriteFrameTable->pSpriteSFrames[_this->pSpriteIDs[6]].uSpriteIDs[0] <= 0)
-        _this->word_0000B0 = 11;
+      if (pSpriteFrameTable->pSpriteSFrames[_this->pSpriteIDs[6]].pSpriteIDs[0] <= 0)
+        _this->word_0000B0_state = 11;
       else
-        _this->word_0000B2 = 6;
+        _this->word_0000B2_looks_like_current_sprite_frame = 6;
   }
   //probably void fucntion
  return _this->dword_000024;
@@ -570,7 +570,7 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDire
     pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);
     pActor->word_0000A0 = 8 * v16;
     pActor->dword_0000B8 = 0;
-    pActor->word_0000B0 = 2;
+    pActor->word_0000B0_state = 2;
 
     Actor_PlaySound(uActorID, 0);
 
@@ -627,7 +627,7 @@ void Actor_sub_402F87(unsigned int uActorID, signed int a2, struct DirectionInfo
   }
   else
   {
-    pActor->word_0000B0 = 9;
+    pActor->word_0000B0_state = 9;
     pActor->dword_0000B8 = 0;
     pActor->word_000098 = 0;
     pActor->word_000096 = 0;
@@ -669,7 +669,7 @@ void Actor_sub_403F58(unsigned int uActorID, int a2, int a3, struct DirectionInf
       pActor->word_0000A0 = a3;
       
     pActor->dword_0000B8 = 0;
-    pActor->word_0000B0 = 0;
+    pActor->word_0000B0_state = 0;
     pActor->word_000098 = 0;
     pActor->word_000096 = 0;
     pActor->word_000094 = 0;
@@ -700,7 +700,7 @@ void Actor_sub_404030(unsigned int uActorID, signed int a2, int a3, struct Direc
     pActor->word_000094 = 0;
     pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
     pActor->word_0000A0 = 256;
-    pActor->word_0000B0 = 10;
+    pActor->word_0000B0_state = 10;
     Actor_sub_45976D(pActor);
   }
   else
@@ -753,7 +753,7 @@ void Actor_sub_402968(unsigned int uActorID, int a2, int a3, struct DirectionInf
 
     pActor->dword_0000B8 = 0;
     pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
-    pActor->word_0000B0 = 7;
+    pActor->word_0000B0_state = 7;
     Actor_sub_45976D(pActor);
   }
 }
@@ -821,7 +821,7 @@ void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struc
   
   pActor->dword_0000B8 = 0;
   pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
-  pActor->word_0000B0 = 6;
+  pActor->word_0000B0_state = 6;
   
   if ( rand() % 100 < 2 )
     Actor_PlaySound(uActorID, 2);
@@ -888,7 +888,7 @@ void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struc
   pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);  
   pActor->dword_0000B8 = 0;
   pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
-  pActor->word_0000B0 = 6;
+  pActor->word_0000B0_state = 6;
 
   Actor_sub_45976D(pActor);
 }
@@ -968,7 +968,7 @@ void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a
     pActor->word_0000A0 = 128;
 
   pActor->uPitchAngle = LOWORD(pDirectionInfo->uPitchAngle);
-  pActor->word_0000B0 = 6;
+  pActor->word_0000B0_state = 6;
   Actor_sub_45976D(pActor);
 }
 
@@ -1023,7 +1023,7 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo
     pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);        
     pActor->word_0000A0 = 8 * v13;
     pActor->dword_0000B8 = 0;
-    pActor->word_0000B0 = 13;
+    pActor->word_0000B0_state = 13;
 
     Actor_PlaySound(uActorID, 0);
 
@@ -1045,9 +1045,9 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo
     {
       pActor->word_0000A0 = 64;
       pActor->dword_0000B8 = 0;
-      pActor->word_0000B0 = 9;
+      pActor->word_0000B0_state = 9;
       Actor_sub_45976D(pActor);
-      pActor->word_0000B0 = 13;
+      pActor->word_0000B0_state = 13;
     }
     else
     {
@@ -1112,7 +1112,7 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct DirectionInfo
     pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);    
     pActor->word_0000A0 = 8 * v13;
     pActor->dword_0000B8 = 0;
-    pActor->word_0000B0 = 12;
+    pActor->word_0000B0_state = 12;
 
     Actor_PlaySound(uActorID, 0);
 
@@ -1191,7 +1191,7 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct DirectionInfo
     pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);
     pActor->word_0000A0 = 8 * v13;
     pActor->dword_0000B8 = 0;
-    pActor->word_0000B0 = 3;
+    pActor->word_0000B0_state = 3;
 
     Actor_PlaySound(uActorID, 0);
 
@@ -1266,7 +1266,7 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct DirectionInfo
     pActor->uYawAngle = LOWORD(pDirectionInfo->uYawAngle);
     pActor->word_0000A0 = 8 * v13;
     pActor->dword_0000B8 = 0;
-    pActor->word_0000B0 = 18;
+    pActor->word_0000B0_state = 18;
 
     Actor_PlaySound(uActorID, 0);
 
@@ -1289,9 +1289,9 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct DirectionInfo
     {
       pActor->word_0000A0 = 64;
       pActor->dword_0000B8 = 0;
-      pActor->word_0000B0 = 9;
+      pActor->word_0000B0_state = 9;
       Actor_sub_45976D(pActor);
-      pActor->word_0000B0 = 18;
+      pActor->word_0000B0_state = 18;
     }
     else
     {
@@ -1365,7 +1365,7 @@ void Actor_sub_4032B2(unsigned int uActorID, int a2, int a3, int a4)
     pActor->word_0000A0 = 0;
 
   pActor->dword_0000B8 = 0;
-  pActor->word_0000B0 = 1;  
+  pActor->word_0000B0_state = 1;  
   
   if ( rand() % 100 < 2 )
     Actor_PlaySound(uActorID, 3);
@@ -1430,8 +1430,8 @@ void Actor_Die(unsigned int uActorID)
 
   pActor = &pActors[uActorID];
       
-  pActor->word_0000B0 = 4;
-  pActor->word_0000B2 = 5;
+  pActor->word_0000B0_state = 4;
+  pActor->word_0000B2_looks_like_current_sprite_frame = 5;
   pActor->dword_0000B8 = 0;  
   pActor->sCurrentHP = 0;
   pActor->word_0000A0 = 8 * pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[5]].word_000038;
@@ -1535,15 +1535,15 @@ __int16 __fastcall sub_401221(unsigned int uActorID, int a2, int a3)
 
   if (uNumActors > 0)
   {
-    v7 = &pActors[0].word_0000B0;
+    v7 = &pActors[0].word_0000B0_state;
     while ( 1 )
     {
-      v7 = &pActors[v23].word_0000B0;
+      v7 = &pActors[v23].word_0000B0_state;
 
-      LOWORD(v3) = pActors[v23].word_0000B0;
-      if (pActors[v23].word_0000B0 == 5 || pActors[v23].word_0000B0 == 4 ||
-        pActors[v23].word_0000B0 == 11 || pActors[v23].word_0000B0 == 17 ||
-        pActors[v23].word_0000B0 == 19 || v19 == v4 )
+      LOWORD(v3) = pActors[v23].word_0000B0_state;
+      if (pActors[v23].word_0000B0_state == 5 || pActors[v23].word_0000B0_state == 4 ||
+        pActors[v23].word_0000B0_state == 11 || pActors[v23].word_0000B0_state == 17 ||
+        pActors[v23].word_0000B0_state == 19 || v19 == v4 )
         goto LABEL_23;
 
       if ( v21 != v5 )
@@ -1725,8 +1725,8 @@ void Actor_Reset(struct Actor *_this)
  _this->word_0000AA = 0;
  _this->word_0000AC = 0;
  _this->word_0000AE = 256;
- _this->word_0000B0 = 0;
- _this->word_0000B2 = 0;
+ _this->word_0000B0_state = 0;
+ _this->word_0000B2_looks_like_current_sprite_frame = 0;
  _this->word_0000B4 = 0;
  _this->dword_0000B8 = 0;
 
@@ -1758,12 +1758,12 @@ bool InitializeActors(unsigned int uLocationID)
       pActors[i].dword_0000B8 = 0;
       pActors[i].word_0000A0 = 0;
       if ( pActors[i].dword_000024 & 0x10000 )
-        pActors[i].word_0000B0 = 19;
+        pActors[i].word_0000B0_state = 19;
 
-      if (pActors[i].word_0000B0 != 11 && pActors[i].word_0000B0 != 19)
+      if (pActors[i].word_0000B0_state != 11 && pActors[i].word_0000B0_state != 19)
       {
         if (!pActors[i].sCurrentHP || !pActors[i].sTotalHP)
-          pActors[i].word_0000B0 = 5;
+          pActors[i].word_0000B0_state = 5;
       }
       pActors[i].word_000094 = 0;
       pActors[i].word_000096 = 0;
@@ -1775,7 +1775,7 @@ bool InitializeActors(unsigned int uLocationID)
     }
     else
     {
-      pActors[i].word_0000B0 = 19;
+      pActors[i].word_0000B0_state = 19;
       pActors[i].dword_000024 |= 0x10000;
       if (bIsSomeFlagSet && (uLocationID != 0) && !v8)
       {

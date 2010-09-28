@@ -2060,7 +2060,7 @@ int __fastcall sub_46A6AC(int a1, int a2, signed int a3)
               if ( *(_DWORD *)v6 <= a3 << 16 )
               {
                 v8 = (signed int)(unsigned __int16)*(_DWORD *)v6 >> 3;
-                v7 = pActors[v8].word_0000B0;
+                v7 = pActors[v8].word_0000B0_state;
                 if ( v7 != 5 )
                 {
                   if ( v7 != 4 )
@@ -2140,7 +2140,7 @@ int __fastcall sub_46A7C8(int a1, int a2, signed int a3)
         {
           v7 = v3 >> 3;
           v8 = v7;
-          v6 = pActors[v7].word_0000B0;
+          v6 = pActors[v7].word_0000B0_state;
           if ( v6 != 5 )
           {
             if ( v6 != 4 )
@@ -2200,7 +2200,7 @@ int __fastcall sub_46A89E(int a1, int a2, signed int a3)
   v19 = 0;
   if ( (signed int)uNumActors > 0 )
   {
-    v4 = &pActors[0].word_0000B0;
+    v4 = &pActors[0].word_0000B0_state;
     do
     {
       v8 = abs(*(_WORD *)(v4 - 34) - pParty_global->sPartyPosX);
@@ -4104,7 +4104,7 @@ LABEL_222:
                   if ( *(_WORD *)v3 == 8030 )
                   {
                     //*(__int16 *)((char *)word_5FF208 + v123) = 0;
-                   pActors[v156].word_0000B0 = 0;
+                   pActors[v156].word_0000B0_state = 0;
                     Actor_sub_45976D(&pActors[v156]);
                   }
                   sub_4584E0(
@@ -13062,7 +13062,7 @@ unsigned int __cdecl sub_47C370()
 
   if ( byte_6BE3C4_MaybeDrowningFlag )
   {
-    result = -14315684;
+    result = 0xFF258F5C;
   }
   else
   {

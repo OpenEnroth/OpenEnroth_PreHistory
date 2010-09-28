@@ -295,7 +295,7 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
    v10 = LODFile_LoadSprite(pLODFile_Sprites_LOD, _this->pSpriteSFrames[i].sTextureName, _this->pSpriteSFrames[i].word_000032);
 
    for (j = 0; j < 8; ++j)
-     _this->pSpriteSFrames[i].uSpriteIDs[j] = v10;
+     _this->pSpriteSFrames[i].pSpriteIDs[j] = v10;
 
   }
   else if (_this->pSpriteSFrames[i].dword_00002C & 0x10000)
@@ -322,7 +322,7 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
 
               v12 = LODFile_LoadSprite(pLODFile_Sprites_LOD, &Size, _this->pSpriteSFrames[i].word_000032);
 
-              _this->pSpriteSFrames[i].uSpriteIDs[v11++] = v12;
+              _this->pSpriteSFrames[i].pSpriteIDs[v11++] = v12;
             }
             while ( v11 < 8 );
   }
@@ -338,7 +338,7 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
 
     v20 = LODFile_LoadSprite(pLODFile_Sprites_LOD, Size, _this->pSpriteSFrames[i].word_000032);
 
-    _this->pSpriteSFrames[i].uSpriteIDs[j] = v20;
+    _this->pSpriteSFrames[i].pSpriteIDs[j] = v20;
    }
   }
   else
@@ -382,7 +382,7 @@ LABEL_26:
             }
             v16 = LODFile_LoadSprite(pLODFile_Sprites_LOD, &Size, _this->pSpriteSFrames[i].word_000032);
 
-            _this->pSpriteSFrames[i].uSpriteIDs[v14++] = v16;
+            _this->pSpriteSFrames[i].pSpriteIDs[v14++] = v16;
           }
           while ( v14 < 8 );
   }

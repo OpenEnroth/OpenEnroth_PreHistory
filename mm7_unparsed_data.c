@@ -2479,11 +2479,13 @@ IDirectDrawClipper *pDDrawClipper = 0; // dword @ MM7.exe::00FD1BE0
  int dword_EF52CC; // weak
  int dword_EF52D0; // weak
  int dword_EF52D4; // weak
+ _UNKNOWN unk_EF52E0; // weak
  int dword_EF52E4[array_size_unknown]; // weak
  int dword_EF52E8; // weak
  int dword_EF52EC; // weak
  int dword_EF52F0; // weak
  int dword_EF52F4; // weak
+ _UNKNOWN unk_EF5300; // weak
  int dword_EF5308; // weak
  int dword_EF530C; // weak
  int dword_EF5310; // weak

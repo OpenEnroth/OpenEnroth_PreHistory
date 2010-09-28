@@ -7626,16 +7626,16 @@ char CGame_sub_44EEA7(struct CGame *_this)
         }
       }
     }
-    v6 = qword_5C6DF0 - *(_DWORD *)(v1 + 3600);
+    v6 = qword_5C6DF0 - _this->dword_000E10;
     if ( v6 == 1 )
     {
-      if ( !((unsigned __int64)(qword_5C6DF0 - *(_QWORD *)(v1 + 3600)) >> 32) )
-        *(_DWORD *)(v1 + 3620) |= v6;
+      if ( !((unsigned __int64)(qword_5C6DF0 - *(unsigned __int64 *)&_this->dword_000E10) >> 32) )
+        _this->dword_000E24 |= v6;
     }
-    if ( *(_DWORD *)(v1 + 3608) != dword_519AB4 )
+    if (_this->dword_000E18 != dword_519AB4 )
     {
-      *(_DWORD *)(v1 + 3620) |= 1u;
-      *(_DWORD *)(v1 + 3608) = dword_519AB4;
+      _this->dword_000E24 |= 1;
+      _this->dword_000E18 = dword_519AB4;
     }
     sub_44E904(_this);
     result = 1;

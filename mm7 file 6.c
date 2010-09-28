@@ -3509,7 +3509,7 @@ LABEL_116:
 }
 
 //----- (004979D2) --------------------------------------------------------
-int __cdecl sub_4979D2()
+int CreditsMenuLoop()
 {
   int v0; // eax@5
   const char *v1; // edi@5
@@ -3518,7 +3518,6 @@ int __cdecl sub_4979D2()
   char v4; // dl@9
   int v5; // ecx@9
   __int16 v6; // ax@9
-  int v7; // eax@9
   unsigned int v8; // ST2C_4@9
   int v9; // eax@9
   int v10; // eax@9
@@ -3529,7 +3528,8 @@ int __cdecl sub_4979D2()
   char class18_obj[128]; // [sp+Ch] [bp-130h]@5
   int v17; // [sp+20h] [bp-11Ch]@8
   size_t Count; // [sp+34h] [bp-108h]@7
-  char v19; // [sp+54h] [bp-E8h]@1
+  struct RGBTexture v19;
+  //char v19; // [sp+54h] [bp-E8h]@1
   double v20; // [sp+7Ch] [bp-C0h]@9
   MSG Msg; // [sp+84h] [bp-B8h]@10
   int v22; // [sp+A0h] [bp-9Ch]@9
@@ -3539,20 +3539,21 @@ int __cdecl sub_4979D2()
   int v26; // [sp+B0h] [bp-8Ch]@9
   __int16 v27[2]; // [sp+F8h] [bp-44h]@9
   int v28; // [sp+FCh] [bp-40h]@9
-  char v29; // [sp+100h] [bp-3Ch]@1
-  unsigned int v30; // [sp+110h] [bp-2Ch]@9
-  __int16 v31; // [sp+114h] [bp-28h]@9
-  __int16 v32; // [sp+116h] [bp-26h]@9
-  int v33; // [sp+120h] [bp-1Ch]@9
-  int v34; // [sp+124h] [bp-18h]@9
+  //char v29; // [sp+100h] [bp-3Ch]@1
+  struct RGBTexture v29;
+  //unsigned int v30; // [sp+110h] [bp-2Ch]@9
+  //__int16 v31; // [sp+114h] [bp-28h]@9
+  //__int16 v32; // [sp+116h] [bp-26h]@9
+  //int v33; // [sp+120h] [bp-1Ch]@9
+  //int v34; // [sp+124h] [bp-18h]@9
   int v35; // [sp+128h] [bp-14h]@1
   char *Dest; // [sp+12Ch] [bp-10h]@9
   char *Source; // [sp+130h] [bp-Ch]@5
   int v38; // [sp+134h] [bp-8h]@1
   int v39; // [sp+138h] [bp-4h]@1
 
-  RGBTexture_ctor((int)&v19);
-  RGBTexture_ctor((int)&v29);
+  RGBTexture_ctor(&v19);
+  RGBTexture_ctor(&v29);
   v35 = 0;
   v38 = LoadFont("quick.fnt", "FONTPAL");
   v39 = LoadFont("cchar.fnt", "FONTPAL");
@@ -3583,23 +3584,23 @@ int __cdecl sub_4979D2()
   v26 = 440;
   v23 = 389;
   v24 = 19;
-  v31 = 250;
+  v29.uWidth = 250;
   v6 = sub_44C62E(v5, v4, v1, (int)&v23, 0, 1);
-  v32 = v6 + 2 * v26;
-  v30 = v31 * v32;
-  v7 = class23_AllocatedNamedBuffer(class23_instance, v34, 2 * v30, "scrollermap");
-  v8 = v30;
-  v34 = v7;
+  v29.uHeight = v6 + 2 * v26;
+  v29.uNumPixels = v29.uWidth * v29.uHeight;
+  v29.pPixels = class23_AllocatedNamedBuffer(class23_instance, v29.pPixels, 2 * v29.uNumPixels, "scrollermap");
+  v8 = v29.uNumPixels;
   v9 = 0xFF00FFFF;
-  sub_452AF3(v9, v34, v8);
-  v33 = 0;
+  sub_452AF3(v9, v29.pPixels, v8);
+  v29.word_000020 = 0;
+  v29.word_000022 = 0;
   v28 = 0xFF708FFE;
   *(_DWORD *)v27 = 0xFFECE69C;
   compile_error;//Dest = (char *)operator new(2 * v3);
   strncpy(Dest, Source, v3);
-  sub_44D2FD(v38, v39, 1, v26 + 1, v31, v32, 1u, 1u, Dest, v34, v31);
+  sub_44D2FD(v38, v39, 1, v26 + 1, v29.uWidth, v29.uHeight, 1u, 1u, Dest, v29.pPixels, v29.uWidth);
   strncpy(Dest, Source, v3);
-  v10 = (int)sub_44D2FD(v38, v39, 0, v26, v31, v32, v28, v27[0], Dest, v34, v31);
+  v10 = (int)sub_44D2FD(v38, v39, 0, v26, v29.uWidth, v29.uHeight, v28, v27[0], Dest, v29.pPixels, v29.uWidth);
   operator_delete(v10, (unsigned int)Dest);
 
   pGUIWindow_MainMenu = GUIWindowCreate(0, 0, 640, 480, 1, 0, (int)Source);
@@ -3637,13 +3638,13 @@ int __cdecl sub_4979D2()
       if ( dword_A74C88 )
       {
         RGBTexture_Load(&v19, "mm6title.pcx", 1);
-        v11 = v30;
+        v11 = v29.uNumPixels;
         v12 = 0xFF00FFFF;
-        sub_452AF3(v12, v34, v11);
+        sub_452AF3(v12, v29.pPixels, v11);
         strncpy((char *)&TmpBuf, Source, 0x7D0u);
-        sub_44D2FD(v38, v39, 1, v26 + 1, v31, v32, 1u, 1u, &TmpBuf, v34, v31);
+        sub_44D2FD(v38, v39, 1, v26 + 1, v29.uWidth, v29.uHeight, 1u, 1u, &TmpBuf, v29.pPixels, v29.uWidth);
         strncpy((char *)&TmpBuf, Source, 0x7D0u);
-        sub_44D2FD(v38, v39, 0, v26, v31, v32, v28, v27[0], &TmpBuf, v34, v31);
+        sub_44D2FD(v38, v39, 0, v26, v29.uWidth, v29.uHeight, v28, v27[0], &TmpBuf, v29.pPixels, v29.uWidth);
         dword_A74C88 = 0;
         Render_BeginScene(pD3DRenderer);
         Render_DrawRGBTexture(pD3DRenderer, 0, 0, (int)&v19);
@@ -3661,7 +3662,7 @@ int __cdecl sub_4979D2()
       Render_Reset2DClippingRect(pD3DRenderer);
       Render_EndScene(pD3DRenderer);
       ++v35;
-      if ( v35 >= v32 )
+      if ( v35 >= v29.uHeight )
         SetCurrentMenu(MENU_MAIN);
       timeGetTime();
       Render_Present(pD3DRenderer);
@@ -3680,8 +3681,8 @@ int __cdecl sub_4979D2()
   class23_DeleteBuffer(class23_instance, v39);
   GUIWindowDelete(pGUIWindow_MainMenu);
   v14 = sub_4114F2(pLODFile_Icons_LOD);
-  v15 = RGBTexture_Release((int)&v19);
-  RGBTexture_Release((int)&v29);
+  v15 = RGBTexture_Release(&v19);
+  RGBTexture_Release(&v29);
   return sub_466CA0() - 8;
 }
 
@@ -10533,13 +10534,11 @@ void __thiscall sub_4A3AD9(int this, int a2, int a3, int a4, int a5)
 }
 
 //----- (004A4023) --------------------------------------------------------
-void __thiscall sub_4A4023(int this, int a2, int a3, int a4, int a5)
+void Render_sub_4A4023(struct Render *_this, struct Render_sub_4A4023_stru0 *a2, struct HardwareSprite *pSprite, int a4, struct unnamed_512250 *pEntity)
 {
-  int v5; // ebx@2
   int v6; // esi@2
   double v7; // st7@2
   int v8; // ST08_4@2
-  int v9; // edi@5
   signed int v10; // eax@9
   signed int v11; // eax@9
   int v12; // eax@12
@@ -10558,7 +10557,6 @@ void __thiscall sub_4A4023(int this, int a2, int a3, int a4, int a5)
   float v25; // [sp+1Ch] [bp-14h]@12
   float v26; // [sp+20h] [bp-10h]@5
   float v27; // [sp+20h] [bp-10h]@12
-  int v28; // [sp+24h] [bp-Ch]@1
   float v29; // [sp+28h] [bp-8h]@5
   float v30; // [sp+2Ch] [bp-4h]@5
   float v31; // [sp+38h] [bp+8h]@2
@@ -10567,53 +10565,52 @@ void __thiscall sub_4A4023(int this, int a2, int a3, int a4, int a5)
   float v34; // [sp+40h] [bp+10h]@12
   float v35; // [sp+44h] [bp+14h]@12
 
-  v28 = this;
-  if ( *(_DWORD *)(this + 262412) )
-  {
-    v5 = a2;
-    v7 = (double)*(_WORD *)(a2 + 42);
+  if (!_this->uD3D3SceneBegun)
+    return;
+
+    v7 = (double)a2->word_00002A;
     v31 = v7;
     *(float *)&v8 = v7;
     v6 = 156 * sub_4A1B22(v8);
-    if ( *(_BYTE *)(v5 + 79) )
+    if (a2->dword_00004C & 0xFF000000)
       *(int *)((char *)dword_EF5344 + v6) = 3;
     else
       *(int *)((char *)dword_EF5344 + v6) = 0;
-    v9 = a3;
-    *(int *)((char *)&dword_EF5348 + v6) = *(_DWORD *)(v5 + 68);
-    *(int *)((char *)&dword_EF534C + v6) = *(_DWORD *)(v5 + 40);
-    *(int *)((char *)dword_EF5350 + v6) = *(_DWORD *)(v5 + 72);
-    v24 = *(_DWORD *)(v5 + 8);
-    v23 = *(_DWORD *)(v5 + 12);
-    v30 = (double)(*(_DWORD *)(v5 + 16) & 0xFFFF) * 0.00001526018604636192 + (double)*(_WORD *)(v5 + 18);
-    v29 = (double)(*(_DWORD *)(v5 + 20) & 0xFFFF) * 0.00001526018604636192 + (double)*(_WORD *)(v5 + 22);
-    v32 = (double)((*(_DWORD *)(v9 + 24) >> 1) - *(_DWORD *)(v9 + 16));
-    v26 = (double)(*(_DWORD *)(v9 + 28) - *(_DWORD *)(v9 + 20));
-    if ( *(_BYTE *)(v5 + 44) & 4 )
+
+    *(int *)((char *)&dword_EF5348 + v6) = a2->dword_000044;
+    *(int *)((char *)&dword_EF534C + v6) = a2->dword_000028;
+    *(int *)((char *)dword_EF5350 + v6) = a2->dword_000048;
+    v24 = a2->dword_000008;
+    v23 = a2->dword_00000C;
+    v30 = (double)(a2->dword_000010 & 0xFFFF) * 0.00001526018604636192 + (double)a2->word_000012;
+    v29 = (double)(a2->dword_000014 & 0xFFFF) * 0.00001526018604636192 + (double)a2->word_000016;
+    v32 = (double)((pSprite->dword_000018 / 2) - pSprite->dword_000010);
+    v26 = (double)(pSprite->dword_00001C - pSprite->dword_000014);
+    if (a2->dword_00002C & 0x04)
       v32 = v32 * -1.0;
-    if ( *(_DWORD *)(v5 + 76) & 0xFFFFFF && *(_DWORD *)(v28 + 1062476) )
+    if (a2->dword_00004C & 0x00FFFFFF && _this->bTinting)
     {
-      v11 = sub_47C4FC(a4, 0, v31, 0, a5);
-      v10 = sub_4A19D8(*(_DWORD *)(v5 + 76), v11);
-      if ( *(_BYTE *)(v5 + 79) )
+      v11 = sub_47C4FC(a4, 0, v31, 0, pEntity);
+      v10 = sub_4A19D8(a2->dword_00004C, v11);
+      if (a2->dword_00004C & 0xFF000000)
         v10 = 0x7F7F7F & ((unsigned int)v10 >> 1);
     }
     else
     {
-      v10 = sub_47C4FC(a4, 0, v31, 0, a5);
+      v10 = sub_47C4FC(a4, 0, v31, 0, pEntity);
     }
     *(int *)((char *)&dword_EF52D0 + v6) = v10;
     v12 = 0;
     v35 = (double)v24;
-    *(float *)(v6 + 15684288) = v35 - v32 * v30;
+    *(float *)(v6 + &unk_EF52C0) = v35 - v32 * v30;
     v34 = (double)v23;
-    *(float *)(v6 + 15684292) = v34 - v26 * v29;
+    *(float *)(v6 + &unk_EF52C0 + 4) = v34 - v26 * v29;
     v27 = v31 * 1000.0;
     v13 = 1.0;
-    *(float *)(v6 + 15684296) = 1.0 - 1.0 / (v27 / (double)pStruct9_global->shading_dist_mist);
+    *(float *)(v6 + &unk_EF52C0 + 8) = 1.0 - 1.0 / (v27 / (double)pStruct9_global->shading_dist_mist);
     v25 = 1.0 / v31;
-    *(float *)(v6 + 15684300) = v25;
-    if ( *(_DWORD *)(v28 + 1062496) )
+    *(float *)(v6 + &unk_EF52C0 + 12) = v25;
+    if (_this->bUsingSpecular)
     {
       v12 = sub_47C3D7(0, 0, v31);
       v13 = 1.0;
@@ -10622,49 +10619,48 @@ void __thiscall sub_4A4023(int this, int a2, int a3, int a4, int a5)
     v33 = v12;
     *(float *)(v6 + 15684312) = 0.0;
     *(float *)(v6 + 15684316) = 0.0;
-    v15 = (double)((*(_DWORD *)(v9 + 24) >> 1) - *(_DWORD *)(v9 + 16));
-    v14 = (double)(*(_DWORD *)(v9 + 28) - *(_DWORD *)(v9 + 36) - *(_DWORD *)(v9 + 20));
-    if ( *(_BYTE *)(v5 + 44) & 4 )
+    v15 = (double)((pSprite->dword_000018 / 2) - pSprite->dword_000010);
+    v14 = (double)(pSprite->dword_00001C - pSprite->dword_000024 - pSprite->dword_000014);
+    if (a2->dword_00002C & 0x04)
       v15 = v15 * -1.0;
     v16 = *(int *)((char *)&dword_EF52D0 + v6);
     *(int *)((char *)&dword_EF52F4 + v6) = v12;
     *(int *)((char *)&dword_EF52F0 + v6) = v16;
-    *(float *)(v6 + 15684320) = v35 - v15 * v30;
-    *(float *)(v6 + 15684324) = v34 - v14 * v29;
+    *(float *)(v6 + &unk_EF52E0) = v35 - v15 * v30;
+    *(float *)(v6 + &unk_EF52E0 + 4) = v34 - v14 * v29;
     v19 = v13 - v13 / (v27 / (double)pStruct9_global->shading_dist_mist);
-    *(float *)(v6 + 15684328) = v19;
-    *(float *)(v6 + 15684332) = v25;
-    *(float *)(v6 + 15684344) = 0.0;
-    *(float *)(v6 + 15684348) = 1.0;
-    v18 = (double)(*(_DWORD *)(v9 + 32) + *(_DWORD *)(v9 + 16) + (*(_DWORD *)(v9 + 24) >> 1) - *(_DWORD *)(v9 + 24));
-    v17 = (double)(*(_DWORD *)(v9 + 28) - *(_DWORD *)(v9 + 36) - *(_DWORD *)(v9 + 20));
-    if ( *(_BYTE *)(v5 + 44) & 4 )
+    *(float *)(v6 + &unk_EF52E0 + 8) = v19;
+    *(float *)(v6 + &unk_EF52E0 + 12) = v25;
+    *(float *)(v6 + &unk_EF52E0 + 24) = 0.0;
+    *(float *)(v6 + &unk_EF52E0 + 28) = 1.0;
+    v18 = (double)(pSprite->dword_000020 + pSprite->dword_000010 + (pSprite->dword_000018 / 2) - pSprite->dword_000018);
+    v17 = (double)(pSprite->dword_00001C - pSprite->dword_000024 - pSprite->dword_000014);
+    if (a2->dword_00002C & 0x04)
       v18 = v18 * -1.0;
     *(int *)((char *)&dword_EF5310 + v6) = v16;
     *(int *)((char *)&dword_EF5314 + v6) = v33;
-    *(float *)(v6 + 15684352) = v18 * v30 + v35;
-    *(float *)(v6 + 15684356) = v34 - v17 * v29;
-    *(float *)(v6 + 15684360) = v19;
-    *(float *)(v6 + 15684364) = v25;
-    *(float *)(v6 + 15684376) = 1.0;
-    *(float *)(v6 + 15684380) = 1.0;
-    v21 = (double)(*(_DWORD *)(v9 + 32) + *(_DWORD *)(v9 + 16) + (*(_DWORD *)(v9 + 24) >> 1) - *(_DWORD *)(v9 + 24));
-    v20 = (double)(*(_DWORD *)(v9 + 28) - *(_DWORD *)(v9 + 20));
-    if ( *(_BYTE *)(v5 + 44) & 4 )
+    *(float *)(v6 + &unk_EF5300) = v18 * v30 + v35;
+    *(float *)(v6 + &unk_EF5300 + 4) = v34 - v17 * v29;
+    *(float *)(v6 + &unk_EF5300 + 8) = v19;
+    *(float *)(v6 + &unk_EF5300 + 12) = v25;
+    *(float *)(v6 + &unk_EF5300 + 24) = 1.0;
+    *(float *)(v6 + &unk_EF5300 + 28) = 1.0;
+    v21 = (double)(pSprite->dword_000020 + pSprite->dword_000010 + (pSprite->dword_000018 / 2) - pSprite->dword_000018);
+    v20 = (double)(pSprite->dword_00001C - pSprite->dword_000014);
+    if (a2->dword_00002C & 0x04)
       v21 = v21 * -1.0;
     *(int *)((char *)&dword_EF5330 + v6) = v16;
     *(int *)((char *)&dword_EF5334 + v6) = v33;
-    *(float *)(v6 + 15684384) = v21 * v30 + v35;
-    *(float *)(v6 + 15684388) = v34 - v20 * v29;
-    *(float *)(v6 + 15684392) = v19;
-    *(float *)(v6 + 15684396) = v25;
-    *(float *)(v6 + 15684408) = 1.0;
-    *(float *)(v6 + 15684412) = 0.0;
-    v22 = *(_DWORD *)(v9 + 12);
+    *(float *)(v6 + &unk_EF5320) = v21 * v30 + v35;
+    *(float *)(v6 + &unk_EF5320 + 4) = v34 - v20 * v29;
+    *(float *)(v6 + &unk_EF5320 + 8) = v19;
+    *(float *)(v6 + &unk_EF5320 + 12) = v25;
+    *(float *)(v6 + &unk_EF5320 + 24) = 1.0;
+    *(float *)(v6 + &unk_EF5320 + 28) = 0.0;
+    v22 = pSprite->pTexture;
     *(int *)((char *)&dword_EF52BC + v6) = 4;
     *(int *)((char *)dword_EF52B8 + v6) = v22;
     *(int *)((char *)dword_EF5340 + v6) = LODWORD(v31);
-  }
 }
 
 //----- (004A43B1) --------------------------------------------------------
@@ -14824,7 +14820,7 @@ void *__thiscall sub_4ACBE0(int this)
 }
 
 //----- (004ACC38) --------------------------------------------------------
-int __thiscall sub_4ACC38(int this, int a2, char a3)
+int __thiscall sub_4ACC38(int this, struct Render_sub_4A4023_stru0 *a2, char a3)
 {
   int result; // eax@1
   int v4; // edi@1

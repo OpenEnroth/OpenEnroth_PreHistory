@@ -2709,7 +2709,7 @@ int __thiscall sub_42F184(void *this, unsigned int a2, int a3, int a4)
       v21 = 0;
       for ( *((_DWORD *)v5 + 500) = v4; v21 < v4; ++v21 )
       {
-        v22 = pActors[*((_DWORD *)v5 + v21)].word_0000B0;
+        v22 = pActors[*((_DWORD *)v5 + v21)].word_0000B0_state;
         if ( v22 != 4 && v22 != 5 )
           break;
       }
@@ -2781,7 +2781,7 @@ LABEL_20:
   }
   else
   {
-    v1 = &pActors[0].word_0000B0;
+    v1 = &pActors[0].word_0000B0_state;
     while ( 1 )
     {
       v5 = abs(*(_WORD *)(v1 - 34) - pParty_global->sPartyPosX);
@@ -14159,9 +14159,9 @@ LABEL_52:
     SetupUserInterface(pParty_global->uAlignment);
     if ( pVideoPlayer->dword_000024 )
       RGBTexture_Load(pVideoPlayer->dword_00006C, (const char *)&unk_F8BBEC, 1);
-    if ( uCurrentMenuID )
+    if (uCurrentMenuID != MENU_MAIN)
     {
-      if ( uCurrentMenuID != 6 )
+      if ( uCurrentMenuID != MENU_CREATEPARTY)
       {
         if ( uCurrentMenuID == 8 )
           dword_A74C88 = 1;
@@ -14182,7 +14182,7 @@ LABEL_52:
       LODFile_ReleaseTexture(pLODFile_Icons_LOD, uTextureID_CurrentMenu);
       
       v6 = L"title";
-      if ( uCurrentMenuID )
+      if ( uCurrentMenuID != MENU_MAIN)
         v6 = L"lsave640";
       v8 = 0;
       v7 = v6;

@@ -4393,7 +4393,7 @@ void __thiscall sub_440BED(int this)
   sub_43F39E(this);
   if ( dword_51B6FC )
     sub_440B44(pD3DRenderer->pRenderD3D3 != 0);
-  sub_440CB8();
+  sub_440CB8_ProbablyDrawActors();
   if ( !pD3DRenderer->pRenderD3D3 )
   {
     if ( byte_51B6E4 & 2 )
@@ -4434,7 +4434,7 @@ void __thiscall sub_440BED(int this)
 }
 
 //----- (00440CB8) --------------------------------------------------------
-void __cdecl sub_440CB8()
+void sub_440CB8_ProbablyDrawActors()
 {
   _UNKNOWN *v1; // esi@2
   __int16 v2; // ax@3
@@ -4470,7 +4470,7 @@ void __cdecl sub_440CB8()
 
  for (i = 0; i < dword_5187E0; ++i)
   {
-    v1 = &array_512250[i].byte_000014[20];
+    v1 = &array_512250[i].word_000028;
 
       v8 = *((_WORD *)v1 - 1);
       v9 = *(_WORD *)v1;
@@ -6479,7 +6479,7 @@ LABEL_79:
         v64 = 0;
         if ( (signed int)uNumActors > 0 )
         {
-          v62 = &pActors[0].word_0000B0;
+          v62 = &pActors[0].word_0000B0_state;
           *(_DWORD *)v61 = uNumActors;
           do
           {
@@ -9111,7 +9111,7 @@ void __fastcall sub_448A40(signed int a1, int a2, int a3)
       {
         if ( a2 == 65536 )
         {
-          v3 = &pActors[a1].word_0000B0;
+          v3 = &pActors[a1].word_0000B0_state;
           if ( *v3 == 19 )
             *v3 = 0;
         }
@@ -9164,7 +9164,7 @@ void __fastcall sub_448A98(int a1, int a2, int a3)
       v7 = uNumActors;
       if ( (signed int)uNumActors > 0 )
       {
-        v8 = &pActors[0].word_0000B0;
+        v8 = &pActors[0].word_0000B0_state;
         do
         {
           if ( *(_DWORD *)(v8 + 532) == v4 )
@@ -13391,7 +13391,7 @@ int __fastcall sub_44FA4C(int a1, int a2, int a3)
   v20 = uNumActors;
   if ( (signed int)uNumActors > 0 )
   {
-    v4 = &pActors[0].word_0000B0;
+    v4 = &pActors[0].word_0000B0_state;
     while ( *(_WORD *)v4 != 11 )
     {
       ++v3;

@@ -717,12 +717,12 @@ LABEL_27:
       if ( dword_6A0D48 == 6 )
       {
         dword_6A0D48 = 0;
-        v3 = 1;
+        v3 = MENU_NEWGAME;
         goto LABEL_27;
       }
     }
   }
-  //RGBTexture_Release(pRGBTexture_Menu);
+
   GUIWindowDelete(pGUIWindow_CurrentMenu);
   sub_4114F2(pLODFile_Icons_LOD);
 
@@ -1979,7 +1979,7 @@ LABEL_16:
 }
 
 //----- (0047AF11) --------------------------------------------------------
-void __cdecl sub_47AF11()
+void __cdecl sub_47AF11_ProbablyDrawObjects()
 {
   __int16 *v0; // edi@2
   int v1; // ebx@4
@@ -2354,8 +2354,7 @@ int __cdecl MenuLoop_Main()
  pGUIWindow_MainMenu = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
 
  v4 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"title_new");
- pMainMenu_NewGame = GUIButtonCreate(pGUIWindow_MainMenu,
-                                     494, 172,
+ pMainMenu_NewGame = GUIButtonCreate(pGUIWindow_MainMenu, 494, 172,
                                      pLODFile_Icons_LOD->aLODHeaders[v4].uTextureWidth,
                                      pLODFile_Icons_LOD->aLODHeaders[v4].uTextureHeight,
                                      1,
@@ -2367,8 +2366,7 @@ int __cdecl MenuLoop_Main()
                                      v4);
 
  v5 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"title_load");
- pMainMenu_LoadGame = GUIButtonCreate(pGUIWindow_MainMenu,
-                                      494, 227,
+ pMainMenu_LoadGame = GUIButtonCreate(pGUIWindow_MainMenu, 494, 227,
                                       pLODFile_Icons_LOD->aLODHeaders[v5].uTextureWidth,
                                       pLODFile_Icons_LOD->aLODHeaders[v5].uTextureHeight,
                                       1,
@@ -2380,8 +2378,7 @@ int __cdecl MenuLoop_Main()
                                       v5);
 
  v6 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"title_cred");
- pMainMenu_Credits = GUIButtonCreate(pGUIWindow_MainMenu,
-                                     494, 282,
+ pMainMenu_Credits = GUIButtonCreate(pGUIWindow_MainMenu, 494, 282,
                                      pLODFile_Icons_LOD->aLODHeaders[v6].uTextureWidth,
                                      pLODFile_Icons_LOD->aLODHeaders[v6].uTextureHeight,
                                      1,
@@ -2393,8 +2390,7 @@ int __cdecl MenuLoop_Main()
                                      v6);
 
  v7 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"title_exit");
- pMainMenu_Exit = GUIButtonCreate(pGUIWindow_MainMenu,
-                                  494, 337,
+ pMainMenu_Exit = GUIButtonCreate(pGUIWindow_MainMenu, 494, 337,
                                   pLODFile_Icons_LOD->aLODHeaders[v7].uTextureWidth,
                                   pLODFile_Icons_LOD->aLODHeaders[v7].uTextureHeight,
                                   1,
@@ -2405,20 +2401,17 @@ int __cdecl MenuLoop_Main()
                                   "Exit",
                                   v7);
 
- //RGBTexture_Release(pRGBTexture_Menu);
- //RGBTexture_Load(pRGBTexture_Menu, "Title", 0);
- LODFile_ReleaseTexture(pLODFile_Icons_LOD, uTextureID_CurrentMenu);
  uTextureID_CurrentMenu = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"Title");
 
  SetCurrentMenu(MENU_MAIN);
  SetForegroundWindow(hWnd_global);
  SendMessageA(hWnd_global, WM_ACTIVATEAPP, 1, 0);
 
- while (uCurrentMenuID == MENU_MAIN || uCurrentMenuID == 3)
+ while (uCurrentMenuID == MENU_MAIN || uCurrentMenuID == MENU_LOAD)
  {
   class03_GetMousePos(pGame->pClass03, &ptMouse);
   v17 = pGUIWindow_MainMenu;
-    if ( uCurrentMenuID == 3 )
+    if (uCurrentMenuID == MENU_LOAD)
     {
       if ( dword_4E28F8 != 12 )
       {
@@ -8779,7 +8772,7 @@ int __fastcall sub_464866(int a1, int a2)
 
   if ( !strcmpi(Str1, "out15.odm") )
   {
-    byte_6BE3C4_MaybeDrowningFlag = 1;
+    byte_6BE3C4_MaybeDrowningFlag = true;
     pGame->dword_000E24 |= 8;
   }
 

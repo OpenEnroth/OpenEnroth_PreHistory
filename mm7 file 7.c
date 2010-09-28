@@ -11678,7 +11678,7 @@ void __cdecl sub_4BBCDD()
       v0 = 0;
       if ( (signed int)uNumActors <= 0 )
         goto LABEL_23;
-      v1 = &pActors[0].word_0000B0;
+      v1 = &pActors[0].word_0000B0_state;
       v8 = uNumActors;
       do
       {

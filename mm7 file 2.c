@@ -748,7 +748,7 @@ int __cdecl sub_463149()
   AudioPlayer_SetVolume(pAudioPlayer, aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
 
   v2 = pD3DRenderer;
-  while ( 2 )
+  while (true)
   {
     v19 = 1;
     if ( dword_50CBD0[0] )

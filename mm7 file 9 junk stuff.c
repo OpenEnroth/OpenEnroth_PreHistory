@@ -449,12 +449,6 @@ void __fastcall class04_stru0_ctor(struct class04_stru0 *_this)
  _this->ptr_000000 = 0x4D86F8;
 }
 
-int sub_4BF919()
-{
- __asm int 3
- return 0;
-}
-
 int sub_486009()
 {
   ReleaseDrawBuffers();

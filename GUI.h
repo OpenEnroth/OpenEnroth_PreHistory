@@ -4,6 +4,9 @@
 #include "defs.h"
 
 #define MENU_MAIN        0
+#define MENU_NEWGAME     1
+#define MENU_CREDITS     2
+#define MENU_LOAD        3
 #define MENU_CREATEPARTY 6
 
 

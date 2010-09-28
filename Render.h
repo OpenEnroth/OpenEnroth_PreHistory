@@ -323,4 +323,63 @@ int RGBTexture_Load_New(struct RGBTexture *_this, const wchar_t *pTextureName);
 int RGBTexture_DecodePCX(struct RGBTexture *_this, void *Src, void *a3, unsigned int uWidth);
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+struct Render_sub_4A4023_stru0
+{
+ unsigned int *pDestSurface; // dword @ 000000
+ int          *pDestZBuffer; // dword @ 000004
+ int dword_000008;
+ int dword_00000C;
+ union
+ {
+  struct
+  {
+   int dword_000010;
+   int dword_000014;
+  };
+  struct
+  {
+   short word_000010;
+   short word_000012;
+   short word_000014;
+   short word_000016;
+  };
+ };
+ char byte_000018[8];
+ int dword_000020;  // palette ptr
+ int dword_000024;
+ union
+ {
+  int    dword_000028;
+  struct
+  {
+   short word_000028;
+   short word_00002A;
+  };
+ };
+ int          dword_00002C; // flags
+ unsigned int uDestSurfacePitch; // dword @ 000030
+ unsigned int uGameX;            // dword @ 000034
+ unsigned int uGameY;            // dword @ 000038
+ unsigned int uGameZ;            // dword @ 00003C
+ unsigned int uGameW;            // dword @ 000040
+ int          dword_000044;
+ int          dword_000048;
+ int          dword_00004C; // tint color?
+};
+//sizeof ~ 50
+
+
 #pragma pack(pop)

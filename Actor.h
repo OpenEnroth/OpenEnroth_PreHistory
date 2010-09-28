@@ -42,7 +42,7 @@ struct Actor
  short          word_000020;
  short          word_000022;
  int            dword_000024; // some flags
- short          sCurrentHP;   //word @ 000028
+ short          sCurrentHP;   // word @ 000028
  char           byte_00002A[19];
  char           byte_00003D;
  char           byte_00003E[34];
@@ -76,8 +76,8 @@ struct Actor
  short          word_0000AA;
  short          word_0000AC;
  short          word_0000AE;
- short          word_0000B0; // if == 5 then monster is rendered as dead on minimap
- short          word_0000B2;
+ short          word_0000B0_state; // if == 5 then monster is rendered as dead on minimap
+ short          word_0000B2_looks_like_current_sprite_frame;
  short          word_0000B4;
  char           byte_0000B6[2];
  int            dword_0000B8;
@@ -94,7 +94,7 @@ struct Actor
                                // uSpriteIDs[5]: ?
                                // uSpriteIDs[6]: X - dead
                                // uSpriteIDs[7]: F - bored, no direction
- unsigned short       pSoundSampleIDs[4];
+ unsigned short       pSoundSampleIDs[4]; // word[4] @ 0000CC
  struct Actor_struct0 array_0000D4[22];
  struct ItemGen       array_000234[4];
  int   dword_0002C4;

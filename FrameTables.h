@@ -7,8 +7,9 @@ struct MonsterDescription
 {
  short          uMonsterHeight;
  short          word_000002;
- char           byte_000004[8];
- unsigned short pSoundSampleIDs[4];
+ char           byte_000004[4];
+ int            dword_000008;      // hw tint color?
+ unsigned short pSoundSampleIDs[4];  // word[4] @ 00000C
  char           byte_000014[32];
  unsigned char  pSpriteNames[8][10]; // byte[10] @ 000034
  char           byte_000084[20];
@@ -96,7 +97,7 @@ struct SpriteFrame
 {
  unsigned char  sIconName[12];    // byte[12] @ 000000
  unsigned char  sTextureName[12]; // byte[12] @ 00000C
- unsigned short uSpriteIDs[8];    // word[8]  @ 000018
+ unsigned short pSpriteIDs[8];    // word[8]  @ 000018
  int            dword_000028;
  int            dword_00002C;  // some flags   0x01 next frame sequence is a part of a current (animated sqeuences)   0x10 single frame per frame sequence
  short          word_000030;

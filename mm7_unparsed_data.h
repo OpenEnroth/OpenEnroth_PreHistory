@@ -1110,9 +1110,23 @@ extern struct struct5 array_5118E8[100]; // struct[100] @ MM7.exe::005118E8
 
 extern struct unnamed_512250 //sizeof == 34
 {
- char byte_000000[16];
- int  dword_000010;
- char byte_000014[32];
+ int   dword_000000;
+ int   dword_000004;
+ char  byte_000008[8];
+ int   dword_000010;
+ int   dword_000014;
+ unsigned short uHardwareSpriteID; // word @ 000018
+ short word_00001A;
+ short word_00001C;
+ short word_00001E;
+ short word_000020;
+ short word_000022;
+ short word_000024;
+ short word_000026;
+ short word_000028;
+ short word_00002A;
+ int   dword_00002C; // MonsterDescription::dword_000008   tint color?
+ struct SpriteFrame *pSpriteFrame;  // dword  @ 000030
 } array_512250[500];              // struct[500] @ MM7.exe::00512250
 //_UNKNOWN unk_512250;
 //_UNKNOWN unk_512254; // weak
@@ -2624,11 +2638,13 @@ extern int dword_EF52C8; // weak
 extern int dword_EF52CC; // weak
 extern int dword_EF52D0; // weak
 extern int dword_EF52D4; // weak
+extern _UNKNOWN unk_EF52E0; // weak
 extern int dword_EF52E4[array_size_unknown]; // weak
 extern int dword_EF52E8; // weak
 extern int dword_EF52EC; // weak
 extern int dword_EF52F0; // weak
 extern int dword_EF52F4; // weak
+extern _UNKNOWN unk_EF5300; // weak
 extern int dword_EF5308; // weak
 extern int dword_EF530C; // weak
 extern int dword_EF5310; // weak
