@@ -1362,13 +1362,13 @@ LABEL_117:
         case 0x1A9:
           if ( v209 == 4 )
           {
-            v23 = dword_4E2900-- - 1 < 0;
+            v23 = dword_4E2900_GammaPos-- - 1 < 0;
             if ( v23 )
             {
-              dword_4E2900 = 0;
+              dword_4E2900_GammaPos = 0;
               goto LABEL_128;
             }
-            v25 = (double)dword_4E2900 * *(double *)&byte_4D8410[112] + *(double *)&byte_4D8410[352];
+            v25 = (double)dword_4E2900_GammaPos * *(double *)&byte_4D8410[112] + *(double *)&byte_4D8410[352];
             sub_44F4D9(*(_DWORD *)(LODWORD(pGame) + 3696), v25);
             v183 = v0;
             v169 = dword_50C9CC;
@@ -1380,10 +1380,10 @@ LABEL_117:
           }
           if ( v209 == 5 )
           {
-            ++dword_4E2900;
-            if ( dword_4E2900 <= 9 )
+            ++dword_4E2900_GammaPos;
+            if ( dword_4E2900_GammaPos <= 9 )
             {
-              v26 = (double)dword_4E2900 * *(double *)&byte_4D8410[112] + *(double *)&byte_4D8410[352];
+              v26 = (double)dword_4E2900_GammaPos * *(double *)&byte_4D8410[112] + *(double *)&byte_4D8410[352];
               sub_44F4D9(*(_DWORD *)(LODWORD(pGame) + 3696), v26);
               v24 = 213;
               v183 = v0;
@@ -1395,12 +1395,12 @@ LABEL_122:
               GUIWindowCreate(v24, 161, v153, v157, v162, v169, v183);
               goto LABEL_128;
             }
-            dword_4E2900 = 9;
+            dword_4E2900_GammaPos = 9;
           }
           else
           {
-            dword_4E2900 = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v219) - 42) / 17;
-            v27 = (double)dword_4E2900 * *(double *)&byte_4D8410[112] + *(double *)&byte_4D8410[352];
+            dword_4E2900_GammaPos = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (int)&v219) - 42) / 17;
+            v27 = (double)dword_4E2900_GammaPos * *(double *)&byte_4D8410[112] + *(double *)&byte_4D8410[352];
             sub_44F4D9(*(_DWORD *)(LODWORD(pGame) + 3696), v27);
           }
 LABEL_128:
@@ -1420,7 +1420,7 @@ LABEL_128:
           pD3DRenderer->bUseColoredLights = pD3DRenderer->bUseColoredLights == 0;
           goto LABEL_92;
         case 0x1A8:
-          pD3DRenderer->dword_10364C = pD3DRenderer->dword_10364C == 0;
+          pD3DRenderer->bTinting = pD3DRenderer->bTinting == 0;
           goto LABEL_92;
         case 0x70:
           if ( v209 == 4 )
@@ -1498,10 +1498,10 @@ LABEL_157:
           dword_6BE37C = dword_6BE37C == 0;
           goto LABEL_92;
         case 0xB9:
-          dword_6BE374 = dword_6BE374 == 0;
+          dword_6BE374_WalkSoundFlag = dword_6BE374_WalkSoundFlag == 0;
           goto LABEL_92;
         case 0xBB:
-          dword_6BE378 = dword_6BE378 == 0;
+          dword_6BE378_ShowDamageFlag = dword_6BE378_ShowDamageFlag == 0;
           goto LABEL_92;
         case 0xBA:
           if ( v209 == 4 )
@@ -1544,12 +1544,12 @@ LABEL_173:
         case 0xB8:
           if ( v209 )
             pParty_global->sRotationY = v209 * pParty_global->sRotationY / v209;
-          dword_6BE38C = v209;
+          dword_6BE38C_TurnDelta = v209;
           goto LABEL_92;
         case 0x83:
           if ( !bUseLoResSprites )
           {
-            byte_6BE388 = v209;
+            byte_6BE388_graphicsmode = v209;
 LABEL_184:
             sub_4666D5();
             goto LABEL_92;
@@ -1558,13 +1558,13 @@ LABEL_184:
           {
             if ( v209 == 1 )
             {
-              byte_6BE388 = 0;
+              byte_6BE388_graphicsmode = 0;
             }
             else
             {
               if ( v209 != 2 )
                 goto LABEL_92;
-              byte_6BE388 = 1;
+              byte_6BE388_graphicsmode = 1;
             }
             goto LABEL_184;
           }
@@ -1749,25 +1749,25 @@ LABEL_249:
                       RegistryWriteInt("soundflag", uSoundVolumeMultiplier);
                       RegistryWriteInt("musicflag", uMusicVolimeMultiplier);
                       RegistryWriteInt("CharVoices", uVoicesVolumeMultiplier);
-                      RegistryWriteInt("WalkSound", dword_6BE374);
-                      RegistryWriteInt("ShowDamage", dword_6BE378);
-                      RegistryWriteInt("graphicsmode", (unsigned __int8)byte_6BE388);
+                      RegistryWriteInt("WalkSound", dword_6BE374_WalkSoundFlag);
+                      RegistryWriteInt("ShowDamage", dword_6BE378_ShowDamageFlag);
+                      RegistryWriteInt("graphicsmode", (unsigned __int8)byte_6BE388_graphicsmode);
                       RegistryWriteInt("valAlwaysRun", dword_6BE37C);
                       RegistryWriteInt("FlipOnExit", dword_6BE380);
-                      if ( !dword_6BE38C )
+                      if ( !dword_6BE38C_TurnDelta )
                       {
                         v188 = 3;
                         goto LABEL_261;
                       }
-                      if ( dword_6BE38C == 64 )
+                      if ( dword_6BE38C_TurnDelta == 64 )
                       {
                         v188 = 2;
 LABEL_261:
                         v37 = v188;
                         goto LABEL_262;
                       }
-                      v35 = dword_6BE38C - 128;
-                      if ( dword_6BE38C != 128 )
+                      v35 = dword_6BE38C_TurnDelta - 128;
+                      if ( dword_6BE38C_TurnDelta != 128 )
                         goto LABEL_291;
                       v37 = v0;
 LABEL_262:
@@ -1787,12 +1787,12 @@ LABEL_291:
                       if ( pD3DRenderer->pRenderD3D3 )
                       {
                         RegistryWriteInt("Colored Lights", pD3DRenderer->bUseColoredLights);
-                        RegistryWriteInt("Tinting", pD3DRenderer->dword_10364C);
+                        RegistryWriteInt("Tinting", pD3DRenderer->bTinting);
                         v35 = RegistryWriteInt("Bloodsplats", (*(_BYTE *)(LODWORD(pGame) + 3620) >> 5) & 1);
                       }
                       if ( pD3DRenderer->dword_040058 )
                         goto LABEL_291;
-                      v37 = dword_4E2900;
+                      v37 = dword_4E2900_GammaPos;
                       v38 = "GammaPos";
                       goto LABEL_263;
                     case 26:
@@ -2467,7 +2467,7 @@ LABEL_450:
           }
           else
           {
-            sub_48E96A(v202, (signed __int64)(flt_6BE3A4 * (double)dword_506340 * *(double *)&byte_4D8410[40]));
+            sub_48E96A(v202, (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)dword_506340 * *(double *)&byte_4D8410[40]));
           }
           AudioPlayer_sub_4AA306(pAudioPlayer, word_4EE088[dword_506338], 0, 0, -1, 0, dword_50633C, 0, 0);
           if ( byte_50656C )

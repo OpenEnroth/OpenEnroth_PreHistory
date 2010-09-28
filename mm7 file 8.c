@@ -2168,7 +2168,7 @@ void sub_4666D5()
 {
   if ( dword_6BE360 == 2 )
   {
-    if ( !byte_6BE388 )
+    if ( !byte_6BE388_graphicsmode )
     {
       dword_6BE0FC = 10;
       dword_6BE100 = 15;
@@ -6622,7 +6622,7 @@ LABEL_26:
 }
 
 //----- (00448B45) --------------------------------------------------------
-void sub_448B45(bool a1)
+void sub_448B45_LooksLikeResetSomeTimer(bool a1)
 {
  if (a1 || dword_5C35B8 && GetTickCount() >= dword_5C35B8 )
    dword_5C35B8 = 0;
@@ -7221,25 +7221,22 @@ LABEL_55:
 }
 
 //----- (00466082) --------------------------------------------------------
-void sub_466082()
+void ReadMM6_ini(const wchar_t *pMM6ConfigFilename)
 {
   unsigned int v1; // eax@18
   size_t v2; // eax@31
   size_t v3; // ebx@32
   size_t v4; // edi@36
   char String[32]; // [sp+84h] [bp-104h]@32
-  CHAR Str[16]; // [sp+FCh] [bp-8Ch]@32
-  //const CHAR FileName; // [sp+10Ch] [bp-7Ch]@1
   unsigned int v12; // [sp+184h] [bp-4h]@28
-  char pCurrentDirectory[121];
-  char pIniFile[132];
 
-  GetCurrentDirectoryA(120, pCurrentDirectory);
-  wsprintfA(pIniFile, "%s\\mm6.ini", pCurrentDirectory);
-  struct_576FE8.dword_000010 = GetPrivateProfileIntA("screen", "vx1", 8, pIniFile);
-  struct_576FE8.dword_000014 = GetPrivateProfileIntA("screen", "vy1", 8, pIniFile);
-  struct_576FE8.dword_000018 = GetPrivateProfileIntA("screen", "vx2", 468, pIniFile);
-  struct_576FE8.dword_00001C = GetPrivateProfileIntA("screen", "vy2", 351, pIniFile);
+ char pIniFile[256];
+
+ wsprintfA(pIniFile, "%S", pMM6ConfigFilename);
+ struct_576FE8.dword_000010 = GetPrivateProfileIntA("screen", "vx1", 8, pIniFile);
+ struct_576FE8.dword_000014 = GetPrivateProfileIntA("screen", "vy1", 8, pIniFile);
+ struct_576FE8.dword_000018 = GetPrivateProfileIntA("screen", "vx2", 468, pIniFile);
+ struct_576FE8.dword_00001C = GetPrivateProfileIntA("screen", "vy2", 351, pIniFile);
 
   if (GetPrivateProfileIntA("settings", "nointro", 0, pIniFile))
     dword_6BE364 |= 4;
@@ -7249,12 +7246,14 @@ void sub_466082()
     dword_6BE364 |= 16;
   if (GetPrivateProfileIntA("settings", "nowalksound", 0, pIniFile))
     dword_6BE364 |= 32;
+
   if (bUseRegistry)
     v1 = ReadWindowsRegistry("startinwindow", 0);
   else
     v1 = GetPrivateProfileIntA("debug", "startinwindow", 0, pIniFile);
   if ( v1 )
     dword_6BE368 |= 1;
+
   if ( GetPrivateProfileIntA("debug", "showFR", 0, pIniFile) )
     dword_6BE368 |= 2;
   if ( GetPrivateProfileIntA("debug", "nomonster", 0, pIniFile) )
@@ -7309,34 +7308,34 @@ void sub_466082()
   pStruct9_global->shading_dist_shademist = GetPrivateProfileIntA("shading", "dist_shademist", 4096, pIniFile);
   pStruct9_global->shading_dist_mist = GetPrivateProfileIntA("shading", "dist_mist", 8192, pIniFile);
 
-  GetPrivateProfileStringA("textures", "sky", "plansky1", byte_6BE114, 0x10u, pIniFile);
-  GetPrivateProfileStringA("textures", "default", "dirt", Str, 0x10u, pIniFile);
-  GetPrivateProfileStringA("debug", "recmod1", "1.0", String, 0x10u, pIniFile);
-  flt_6BE3A4 = atof(String);
-  GetPrivateProfileStringA("debug", "recmod2", "1.0", String, 0x10u, pIniFile);
-  flt_6BE3A8 = atof(String);
-  flt_6BE3AC = flt_6BE3A4 * *(double *)&byte_4D8410[768];
+  GetPrivateProfileStringA("textures", "sky", "plansky1", byte_6BE114_cfg_textures_DefaultSkyTexture, 16, pIniFile);
+  GetPrivateProfileStringA("textures", "default", "dirt", byte_6BE124_cfg_textures_DefaultGroundTexture, 16, pIniFile);
+  GetPrivateProfileStringA("debug", "recmod1", "1.0", String, 16, pIniFile);
+  flt_6BE3A4_debug_recmod1 = atof(String);
+  GetPrivateProfileStringA("debug", "recmod2", "1.0", String, 16, pIniFile);
+  flt_6BE3A8_debug_recmod2 = atof(String);
+  flt_6BE3AC_debug_recmod1_x_1_6 = flt_6BE3A4_debug_recmod1 * 1.6666666666666667;
   v3 = 0;
-  if ( strlen(byte_6BE114) )
+  if ( strlen(byte_6BE114_cfg_textures_DefaultSkyTexture) )
   {
     do
     {
-      if ( byte_6BE114[v3] == 32 )
-        byte_6BE114[v3] = 0;
+      if ( byte_6BE114_cfg_textures_DefaultSkyTexture[v3] == 32 )
+        byte_6BE114_cfg_textures_DefaultSkyTexture[v3] = 0;
       ++v3;
     }
-    while ( v3 < strlen(byte_6BE114) );
+    while ( v3 < strlen(byte_6BE114_cfg_textures_DefaultSkyTexture) );
   }
   v4 = 0;
-  if ( strlen(Str) )
+  if ( strlen(byte_6BE124_cfg_textures_DefaultGroundTexture) )
   {
     do
     {
-      if ( Str[v4] == 32 )
-        Str[v4] = 0;
+      if ( byte_6BE124_cfg_textures_DefaultGroundTexture[v4] == 32 )
+        byte_6BE124_cfg_textures_DefaultGroundTexture[v4] = 0;
       ++v4;
     }
-    while ( v4 < strlen(Str) );
+    while ( v4 < strlen(byte_6BE124_cfg_textures_DefaultGroundTexture) );
   }
   dword_6BE050 = GetPrivateProfileIntA("texmapping", "terrain_subdivsize", 16, pIniFile);
   dword_6BE054 = GetPrivateProfileIntA("texmapping", "terrain_subdivpow2", 4, pIniFile);
@@ -9092,7 +9091,7 @@ int __fastcall sub_464866(int a1, int a2)
 }
 
 //----- (00448B67) --------------------------------------------------------
-void __thiscall sub_448B67(void *this)
+void sub_448B67(bool a1)
 {
   int v1; // ebp@1
   unsigned int v2; // ebx@4
@@ -9112,19 +9111,19 @@ void __thiscall sub_448B67(void *this)
   v1 = 0;
   if (!pClass24_global->dword_000004)
   {
-    if ( this )
+    if ( a1 )
       dword_5773C0 = 0;
     v2 = pParty_global->qword_00002C;
     v3 = HIDWORD(pParty_global->qword_00002C);
-    v14 = (pParty_global->qword_00002C - qword_5773B8) >> 7;
-    if ( v14 )
+    v14 = (pParty_global->qword_00002C - qword_5773B8) / 128;
+    if (v14)
     {
-      qword_5773B8 = pParty_global->qword_00002C;
+     qword_5773B8 = pParty_global->qword_00002C;
       v13 = 0;
       if ( dword_5B65C8 > 0 )
       {
         v4 = &unk_5B5934;
-        while ( 1 )
+        while (true)
         {
           v5 = *(_WORD *)v4;
           if ( *(_WORD *)v4 != (_WORD)v1 )
@@ -9134,13 +9133,13 @@ void __thiscall sub_448B67(void *this)
           {
             if ( *((_WORD *)v4 + 2) )
             {
-              v8 = 29030400;
+              v8 = 0x1BAF800;
             }
             else
             {
               if ( *((_WORD *)v4 + 3) )
               {
-                v8 = 2419200;
+                v8 = 0x0024EA00;
               }
               else
               {
@@ -10356,260 +10355,260 @@ void __cdecl InitializeGameText()
   }
   
 
-  aMonthNames[0] = pGlobalTXT_LocalizationStrings[415];  aMonthNames[1] = pGlobalTXT_LocalizationStrings[416];
-  aMonthNames[2] = pGlobalTXT_LocalizationStrings[417];  aMonthNames[3] = pGlobalTXT_LocalizationStrings[418];
-  aMonthNames[4] = pGlobalTXT_LocalizationStrings[419];  aMonthNames[5] = pGlobalTXT_LocalizationStrings[420];
-  aMonthNames[6] = pGlobalTXT_LocalizationStrings[421];  aMonthNames[7] = pGlobalTXT_LocalizationStrings[422];
-  aMonthNames[8] = pGlobalTXT_LocalizationStrings[423];  aMonthNames[9] = pGlobalTXT_LocalizationStrings[424];
-  aMonthNames[10] = pGlobalTXT_LocalizationStrings[425]; aMonthNames[11] = pGlobalTXT_LocalizationStrings[426];
+ aMonthNames[0] = pGlobalTXT_LocalizationStrings[415];  aMonthNames[1] = pGlobalTXT_LocalizationStrings[416];
+ aMonthNames[2] = pGlobalTXT_LocalizationStrings[417];  aMonthNames[3] = pGlobalTXT_LocalizationStrings[418];
+ aMonthNames[4] = pGlobalTXT_LocalizationStrings[419];  aMonthNames[5] = pGlobalTXT_LocalizationStrings[420];
+ aMonthNames[6] = pGlobalTXT_LocalizationStrings[421];  aMonthNames[7] = pGlobalTXT_LocalizationStrings[422];
+ aMonthNames[8] = pGlobalTXT_LocalizationStrings[423];  aMonthNames[9] = pGlobalTXT_LocalizationStrings[424];
+ aMonthNames[10] = pGlobalTXT_LocalizationStrings[425]; aMonthNames[11] = pGlobalTXT_LocalizationStrings[426];
 
-  aDayNames[0] = pGlobalTXT_LocalizationStrings[145];  aDayNames[1] = pGlobalTXT_LocalizationStrings[230];
-  aDayNames[2] = pGlobalTXT_LocalizationStrings[243];  aDayNames[3] = pGlobalTXT_LocalizationStrings[227];
-  aDayNames[4] = pGlobalTXT_LocalizationStrings[91];   aDayNames[5] = pGlobalTXT_LocalizationStrings[188];
-  aDayNames[6] = pGlobalTXT_LocalizationStrings[222];
+ aDayNames[0] = pGlobalTXT_LocalizationStrings[145];  aDayNames[1] = pGlobalTXT_LocalizationStrings[230];
+ aDayNames[2] = pGlobalTXT_LocalizationStrings[243];  aDayNames[3] = pGlobalTXT_LocalizationStrings[227];
+ aDayNames[4] = pGlobalTXT_LocalizationStrings[91];   aDayNames[5] = pGlobalTXT_LocalizationStrings[188];
+ aDayNames[6] = pGlobalTXT_LocalizationStrings[222];
 
-  dword_5E4C18 = pGlobalTXT_LocalizationStrings[568];
-  dword_5E4C1C = pGlobalTXT_LocalizationStrings[271];
-  dword_5E4C20 = pGlobalTXT_LocalizationStrings[272];
-  dword_5E4C24 = pGlobalTXT_LocalizationStrings[273];
-  dword_5E4C28 = pGlobalTXT_LocalizationStrings[274];
-  dword_5E4C2C = pGlobalTXT_LocalizationStrings[275];
-  dword_5E4C30 = pGlobalTXT_LocalizationStrings[276];
-  dword_5E4C34 = pGlobalTXT_LocalizationStrings[277];
-  dword_5E4C38 = pGlobalTXT_LocalizationStrings[278];
-  dword_5E4C3C = pGlobalTXT_LocalizationStrings[279];
-  dword_5E4C40 = pGlobalTXT_LocalizationStrings[280];
-  dword_5E4C44 = pGlobalTXT_LocalizationStrings[281];
-  dword_5E4C48 = pGlobalTXT_LocalizationStrings[282];
-  dword_5E4C4C = pGlobalTXT_LocalizationStrings[143];
+ pSomeItemsNames[0] = pGlobalTXT_LocalizationStrings[568];
+ pSomeItemsNames[1] = pGlobalTXT_LocalizationStrings[271];
+ pSomeItemsNames[2] = pGlobalTXT_LocalizationStrings[272];
+ pSomeItemsNames[3] = pGlobalTXT_LocalizationStrings[273];
+ pSomeItemsNames[4] = pGlobalTXT_LocalizationStrings[274];
+ pSomeItemsNames[5] = pGlobalTXT_LocalizationStrings[275];
+ pSomeItemsNames[6] = pGlobalTXT_LocalizationStrings[276];
+ pSomeItemsNames[7] = pGlobalTXT_LocalizationStrings[277];
+ pSomeItemsNames[8] = pGlobalTXT_LocalizationStrings[278];
+ pSomeItemsNames[9] = pGlobalTXT_LocalizationStrings[279];
+ pSomeItemsNames[10] = pGlobalTXT_LocalizationStrings[280];
+ pSomeItemsNames[11] = pGlobalTXT_LocalizationStrings[281];
+ pSomeItemsNames[12] = pGlobalTXT_LocalizationStrings[282];
+ pSomeItemsNames[13] = pGlobalTXT_LocalizationStrings[143];
 
-  aClassNames[0] = pGlobalTXT_LocalizationStrings[253];
-  aClassNames[1] = pGlobalTXT_LocalizationStrings[254];
-  aClassNames[2] = pGlobalTXT_LocalizationStrings[255];
-  aClassNames[3] = pGlobalTXT_LocalizationStrings[2];
-  aClassNames[4] = pGlobalTXT_LocalizationStrings[307];
-  aClassNames[5] = pGlobalTXT_LocalizationStrings[114];
-  aClassNames[6] = pGlobalTXT_LocalizationStrings[3];
-  aClassNames[7] = pGlobalTXT_LocalizationStrings[13];
-  aClassNames[8] = pGlobalTXT_LocalizationStrings[21];
-  aClassNames[9] = pGlobalTXT_LocalizationStrings[26];
-  aClassNames[10] = pGlobalTXT_LocalizationStrings[432];
-  aClassNames[11] = pGlobalTXT_LocalizationStrings[27];
-  aClassNames[12] = pGlobalTXT_LocalizationStrings[262];
-  aClassNames[13] = pGlobalTXT_LocalizationStrings[263];
-  aClassNames[14] = pGlobalTXT_LocalizationStrings[264];
-  aClassNames[15] = pGlobalTXT_LocalizationStrings[28];
-  aClassNames[16] = pGlobalTXT_LocalizationStrings[265];
-  aClassNames[17] = pGlobalTXT_LocalizationStrings[267];
-  aClassNames[18] = pGlobalTXT_LocalizationStrings[119];
-  aClassNames[19] = pGlobalTXT_LocalizationStrings[124];
-  aClassNames[20] = pGlobalTXT_LocalizationStrings[31];
-  aClassNames[21] = pGlobalTXT_LocalizationStrings[370];
-  aClassNames[22] = pGlobalTXT_LocalizationStrings[33];
-  aClassNames[23] = pGlobalTXT_LocalizationStrings[40];
-  aClassNames[24] = pGlobalTXT_LocalizationStrings[256];
-  aClassNames[25] = pGlobalTXT_LocalizationStrings[257];
-  aClassNames[26] = pGlobalTXT_LocalizationStrings[44];
-  aClassNames[27] = pGlobalTXT_LocalizationStrings[46];
-  aClassNames[28] = pGlobalTXT_LocalizationStrings[268];
-  aClassNames[29] = pGlobalTXT_LocalizationStrings[269];
-  aClassNames[30] = pGlobalTXT_LocalizationStrings[270];
-  aClassNames[31] = pGlobalTXT_LocalizationStrings[48];
-  aClassNames[32] = pGlobalTXT_LocalizationStrings[259];
-  aClassNames[33] = pGlobalTXT_LocalizationStrings[260];
-  aClassNames[34] = pGlobalTXT_LocalizationStrings[261];
-  aClassNames[35] = pGlobalTXT_LocalizationStrings[49];
+ aClassNames[0] = pGlobalTXT_LocalizationStrings[253];
+ aClassNames[1] = pGlobalTXT_LocalizationStrings[254];
+ aClassNames[2] = pGlobalTXT_LocalizationStrings[255];
+ aClassNames[3] = pGlobalTXT_LocalizationStrings[2];
+ aClassNames[4] = pGlobalTXT_LocalizationStrings[307];
+ aClassNames[5] = pGlobalTXT_LocalizationStrings[114];
+ aClassNames[6] = pGlobalTXT_LocalizationStrings[3];
+ aClassNames[7] = pGlobalTXT_LocalizationStrings[13];
+ aClassNames[8] = pGlobalTXT_LocalizationStrings[21];
+ aClassNames[9] = pGlobalTXT_LocalizationStrings[26];
+ aClassNames[10] = pGlobalTXT_LocalizationStrings[432];
+ aClassNames[11] = pGlobalTXT_LocalizationStrings[27];
+ aClassNames[12] = pGlobalTXT_LocalizationStrings[262];
+ aClassNames[13] = pGlobalTXT_LocalizationStrings[263];
+ aClassNames[14] = pGlobalTXT_LocalizationStrings[264];
+ aClassNames[15] = pGlobalTXT_LocalizationStrings[28];
+ aClassNames[16] = pGlobalTXT_LocalizationStrings[265];
+ aClassNames[17] = pGlobalTXT_LocalizationStrings[267];
+ aClassNames[18] = pGlobalTXT_LocalizationStrings[119];
+ aClassNames[19] = pGlobalTXT_LocalizationStrings[124];
+ aClassNames[20] = pGlobalTXT_LocalizationStrings[31];
+ aClassNames[21] = pGlobalTXT_LocalizationStrings[370];
+ aClassNames[22] = pGlobalTXT_LocalizationStrings[33];
+ aClassNames[23] = pGlobalTXT_LocalizationStrings[40];
+ aClassNames[24] = pGlobalTXT_LocalizationStrings[256];
+ aClassNames[25] = pGlobalTXT_LocalizationStrings[257];
+ aClassNames[26] = pGlobalTXT_LocalizationStrings[44];
+ aClassNames[27] = pGlobalTXT_LocalizationStrings[46];
+ aClassNames[28] = pGlobalTXT_LocalizationStrings[268];
+ aClassNames[29] = pGlobalTXT_LocalizationStrings[269];
+ aClassNames[30] = pGlobalTXT_LocalizationStrings[270];
+ aClassNames[31] = pGlobalTXT_LocalizationStrings[48];
+ aClassNames[32] = pGlobalTXT_LocalizationStrings[259];
+ aClassNames[33] = pGlobalTXT_LocalizationStrings[260];
+ aClassNames[34] = pGlobalTXT_LocalizationStrings[261];
+ aClassNames[35] = pGlobalTXT_LocalizationStrings[49];
 
-  aCharacterConditionNames[0] = pGlobalTXT_LocalizationStrings[52];
-  aCharacterConditionNames[1] = pGlobalTXT_LocalizationStrings[241];
-  aCharacterConditionNames[2] = pGlobalTXT_LocalizationStrings[14];
-  aCharacterConditionNames[3] = pGlobalTXT_LocalizationStrings[4];
-  aCharacterConditionNames[4] = pGlobalTXT_LocalizationStrings[69];
-  aCharacterConditionNames[5] = pGlobalTXT_LocalizationStrings[117];
-  aCharacterConditionNames[6] = pGlobalTXT_LocalizationStrings[166];
-  aCharacterConditionNames[7] = pGlobalTXT_LocalizationStrings[65];
-  aCharacterConditionNames[8] = pGlobalTXT_LocalizationStrings[166];
-  aCharacterConditionNames[9] = pGlobalTXT_LocalizationStrings[65];
-  aCharacterConditionNames[10] = pGlobalTXT_LocalizationStrings[166];
-  aCharacterConditionNames[11] = pGlobalTXT_LocalizationStrings[65];
-  aCharacterConditionNames[12] = pGlobalTXT_LocalizationStrings[162];
-  aCharacterConditionNames[13] = pGlobalTXT_LocalizationStrings[231];
-  aCharacterConditionNames[14] = pGlobalTXT_LocalizationStrings[58];
-  aCharacterConditionNames[15] = pGlobalTXT_LocalizationStrings[220];
-  aCharacterConditionNames[16] = pGlobalTXT_LocalizationStrings[76];
-  aCharacterConditionNames[17] = pGlobalTXT_LocalizationStrings[601];
-  aCharacterConditionNames[18] = pGlobalTXT_LocalizationStrings[98];
+ aCharacterConditionNames[0] = pGlobalTXT_LocalizationStrings[52];
+ aCharacterConditionNames[1] = pGlobalTXT_LocalizationStrings[241];
+ aCharacterConditionNames[2] = pGlobalTXT_LocalizationStrings[14];
+ aCharacterConditionNames[3] = pGlobalTXT_LocalizationStrings[4];
+ aCharacterConditionNames[4] = pGlobalTXT_LocalizationStrings[69];
+ aCharacterConditionNames[5] = pGlobalTXT_LocalizationStrings[117];
+ aCharacterConditionNames[6] = pGlobalTXT_LocalizationStrings[166];
+ aCharacterConditionNames[7] = pGlobalTXT_LocalizationStrings[65];
+ aCharacterConditionNames[8] = pGlobalTXT_LocalizationStrings[166];
+ aCharacterConditionNames[9] = pGlobalTXT_LocalizationStrings[65];
+ aCharacterConditionNames[10] = pGlobalTXT_LocalizationStrings[166];
+ aCharacterConditionNames[11] = pGlobalTXT_LocalizationStrings[65];
+ aCharacterConditionNames[12] = pGlobalTXT_LocalizationStrings[162];
+ aCharacterConditionNames[13] = pGlobalTXT_LocalizationStrings[231];
+ aCharacterConditionNames[14] = pGlobalTXT_LocalizationStrings[58];
+ aCharacterConditionNames[15] = pGlobalTXT_LocalizationStrings[220];
+ aCharacterConditionNames[16] = pGlobalTXT_LocalizationStrings[76];
+ aCharacterConditionNames[17] = pGlobalTXT_LocalizationStrings[601];
+ aCharacterConditionNames[18] = pGlobalTXT_LocalizationStrings[98];
 
-  aSkillNames[0] = pGlobalTXT_LocalizationStrings[271];
-  aSkillNames[1] = pGlobalTXT_LocalizationStrings[272];
-  aSkillNames[2] = pGlobalTXT_LocalizationStrings[273];
-  aSkillNames[3] = pGlobalTXT_LocalizationStrings[274];
-  aSkillNames[4] = pGlobalTXT_LocalizationStrings[275];
-  aSkillNames[5] = pGlobalTXT_LocalizationStrings[276];
-  aSkillNames[6] = pGlobalTXT_LocalizationStrings[277];
-  aSkillNames[7] = pGlobalTXT_LocalizationStrings[278];
-  aSkillNames[8] = pGlobalTXT_LocalizationStrings[279];
-  aSkillNames[9] = pGlobalTXT_LocalizationStrings[280];
-  aSkillNames[10] = pGlobalTXT_LocalizationStrings[281];
-  aSkillNames[11] = pGlobalTXT_LocalizationStrings[282];
-  aSkillNames[12] = pGlobalTXT_LocalizationStrings[283];
-  aSkillNames[13] = pGlobalTXT_LocalizationStrings[284];
-  aSkillNames[14] = pGlobalTXT_LocalizationStrings[285];
-  aSkillNames[15] = pGlobalTXT_LocalizationStrings[286];
-  aSkillNames[16] = pGlobalTXT_LocalizationStrings[289];
-  aSkillNames[17] = pGlobalTXT_LocalizationStrings[290];
-  aSkillNames[18] = pGlobalTXT_LocalizationStrings[291];
-  aSkillNames[19] = pGlobalTXT_LocalizationStrings[287];
-  aSkillNames[20] = pGlobalTXT_LocalizationStrings[288];
-  aSkillNames[21] = pGlobalTXT_LocalizationStrings[292];
-  aSkillNames[22] = pGlobalTXT_LocalizationStrings[293];
-  aSkillNames[23] = pGlobalTXT_LocalizationStrings[294];
-  aSkillNames[24] = pGlobalTXT_LocalizationStrings[295];
-  aSkillNames[25] = pGlobalTXT_LocalizationStrings[296];
-  aSkillNames[26] = pGlobalTXT_LocalizationStrings[297];
-  aSkillNames[27] = pGlobalTXT_LocalizationStrings[298];
-  aSkillNames[28] = pGlobalTXT_LocalizationStrings[299];
-  aSkillNames[29] = pGlobalTXT_LocalizationStrings[300];
-  aSkillNames[30] = pGlobalTXT_LocalizationStrings[50];
-  aSkillNames[31] = pGlobalTXT_LocalizationStrings[77];
-  aSkillNames[32] = pGlobalTXT_LocalizationStrings[88];
-  aSkillNames[33] = pGlobalTXT_LocalizationStrings[89];
-  aSkillNames[34] = pGlobalTXT_LocalizationStrings[90];
-  aSkillNames[35] = pGlobalTXT_LocalizationStrings[95];
-  aSkillNames[36] = pGlobalTXT_LocalizationStrings[301];
-  aSkillNames[37] = pGlobalTXT_LocalizationStrings[153];
+ aSkillNames[0] = pGlobalTXT_LocalizationStrings[271];
+ aSkillNames[1] = pGlobalTXT_LocalizationStrings[272];
+ aSkillNames[2] = pGlobalTXT_LocalizationStrings[273];
+ aSkillNames[3] = pGlobalTXT_LocalizationStrings[274];
+ aSkillNames[4] = pGlobalTXT_LocalizationStrings[275];
+ aSkillNames[5] = pGlobalTXT_LocalizationStrings[276];
+ aSkillNames[6] = pGlobalTXT_LocalizationStrings[277];
+ aSkillNames[7] = pGlobalTXT_LocalizationStrings[278];
+ aSkillNames[8] = pGlobalTXT_LocalizationStrings[279];
+ aSkillNames[9] = pGlobalTXT_LocalizationStrings[280];
+ aSkillNames[10] = pGlobalTXT_LocalizationStrings[281];
+ aSkillNames[11] = pGlobalTXT_LocalizationStrings[282];
+ aSkillNames[12] = pGlobalTXT_LocalizationStrings[283];
+ aSkillNames[13] = pGlobalTXT_LocalizationStrings[284];
+ aSkillNames[14] = pGlobalTXT_LocalizationStrings[285];
+ aSkillNames[15] = pGlobalTXT_LocalizationStrings[286];
+ aSkillNames[16] = pGlobalTXT_LocalizationStrings[289];
+ aSkillNames[17] = pGlobalTXT_LocalizationStrings[290];
+ aSkillNames[18] = pGlobalTXT_LocalizationStrings[291];
+ aSkillNames[19] = pGlobalTXT_LocalizationStrings[287];
+ aSkillNames[20] = pGlobalTXT_LocalizationStrings[288];
+ aSkillNames[21] = pGlobalTXT_LocalizationStrings[292];
+ aSkillNames[22] = pGlobalTXT_LocalizationStrings[293];
+ aSkillNames[23] = pGlobalTXT_LocalizationStrings[294];
+ aSkillNames[24] = pGlobalTXT_LocalizationStrings[295];
+ aSkillNames[25] = pGlobalTXT_LocalizationStrings[296];
+ aSkillNames[26] = pGlobalTXT_LocalizationStrings[297];
+ aSkillNames[27] = pGlobalTXT_LocalizationStrings[298];
+ aSkillNames[28] = pGlobalTXT_LocalizationStrings[299];
+ aSkillNames[29] = pGlobalTXT_LocalizationStrings[300];
+ aSkillNames[30] = pGlobalTXT_LocalizationStrings[50];
+ aSkillNames[31] = pGlobalTXT_LocalizationStrings[77];
+ aSkillNames[32] = pGlobalTXT_LocalizationStrings[88];
+ aSkillNames[33] = pGlobalTXT_LocalizationStrings[89];
+ aSkillNames[34] = pGlobalTXT_LocalizationStrings[90];
+ aSkillNames[35] = pGlobalTXT_LocalizationStrings[95];
+ aSkillNames[36] = pGlobalTXT_LocalizationStrings[301];
+ aSkillNames[37] = pGlobalTXT_LocalizationStrings[153];
 
-  aSpellSchoolNames[0] = pGlobalTXT_LocalizationStrings[87];
-  aSpellSchoolNames[1] = pGlobalTXT_LocalizationStrings[6];
-  aSpellSchoolNames[2] = pGlobalTXT_LocalizationStrings[240];
-  aSpellSchoolNames[3] = pGlobalTXT_LocalizationStrings[70];
-  aSpellSchoolNames[4] = pGlobalTXT_LocalizationStrings[214];
-  aSpellSchoolNames[5] = pGlobalTXT_LocalizationStrings[142];
-  aSpellSchoolNames[6] = pGlobalTXT_LocalizationStrings[29];
-  aSpellSchoolNames[7] = pGlobalTXT_LocalizationStrings[133];
-  aSpellSchoolNames[8] = pGlobalTXT_LocalizationStrings[54];
+ aSpellSchoolNames[0] = pGlobalTXT_LocalizationStrings[87];
+ aSpellSchoolNames[1] = pGlobalTXT_LocalizationStrings[6];
+ aSpellSchoolNames[2] = pGlobalTXT_LocalizationStrings[240];
+ aSpellSchoolNames[3] = pGlobalTXT_LocalizationStrings[70];
+ aSpellSchoolNames[4] = pGlobalTXT_LocalizationStrings[214];
+ aSpellSchoolNames[5] = pGlobalTXT_LocalizationStrings[142];
+ aSpellSchoolNames[6] = pGlobalTXT_LocalizationStrings[29];
+ aSpellSchoolNames[7] = pGlobalTXT_LocalizationStrings[133];
+ aSpellSchoolNames[8] = pGlobalTXT_LocalizationStrings[54];
 
-  aAttributeNames[0] = pGlobalTXT_LocalizationStrings[144];
-  aAttributeNames[1] = pGlobalTXT_LocalizationStrings[116];
-  aAttributeNames[2] = pGlobalTXT_LocalizationStrings[163];
-  aAttributeNames[3] = pGlobalTXT_LocalizationStrings[75];
-  aAttributeNames[4] = pGlobalTXT_LocalizationStrings[1];
-  aAttributeNames[5] = pGlobalTXT_LocalizationStrings[211];
-  aAttributeNames[6] = pGlobalTXT_LocalizationStrings[136];
+ aAttributeNames[0] = pGlobalTXT_LocalizationStrings[144];
+ aAttributeNames[1] = pGlobalTXT_LocalizationStrings[116];
+ aAttributeNames[2] = pGlobalTXT_LocalizationStrings[163];
+ aAttributeNames[3] = pGlobalTXT_LocalizationStrings[75];
+ aAttributeNames[4] = pGlobalTXT_LocalizationStrings[1];
+ aAttributeNames[5] = pGlobalTXT_LocalizationStrings[211];
+ aAttributeNames[6] = pGlobalTXT_LocalizationStrings[136];
 
-  aAMPMNames[0] = pGlobalTXT_LocalizationStrings[472];
-  aAMPMNames[1] = pGlobalTXT_LocalizationStrings[473];
+ aAMPMNames[0] = pGlobalTXT_LocalizationStrings[472];
+ aAMPMNames[1] = pGlobalTXT_LocalizationStrings[473];
 
-  aNPCProfessionNames[0] = pGlobalTXT_LocalizationStrings[153];
-  aNPCProfessionNames[1] = pGlobalTXT_LocalizationStrings[308];
-  aNPCProfessionNames[2] = pGlobalTXT_LocalizationStrings[309];
-  aNPCProfessionNames[3] = pGlobalTXT_LocalizationStrings[7];
-  aNPCProfessionNames[4] = pGlobalTXT_LocalizationStrings[306];
-  aNPCProfessionNames[5] = pGlobalTXT_LocalizationStrings[310];
-  aNPCProfessionNames[6] = pGlobalTXT_LocalizationStrings[311];
-  aNPCProfessionNames[7] = pGlobalTXT_LocalizationStrings[312];
-  aNPCProfessionNames[8] = pGlobalTXT_LocalizationStrings[313];
-  aNPCProfessionNames[9] = pGlobalTXT_LocalizationStrings[314];
-  aNPCProfessionNames[10] = pGlobalTXT_LocalizationStrings[105];
-  aNPCProfessionNames[11] = pGlobalTXT_LocalizationStrings[315];
-  aNPCProfessionNames[12] = pGlobalTXT_LocalizationStrings[316];
-  aNPCProfessionNames[13] = pGlobalTXT_LocalizationStrings[317];
-  aNPCProfessionNames[14] = pGlobalTXT_LocalizationStrings[115];
-  aNPCProfessionNames[15] = pGlobalTXT_LocalizationStrings[318];
-  aNPCProfessionNames[16] = pGlobalTXT_LocalizationStrings[319];
-  aNPCProfessionNames[17] = pGlobalTXT_LocalizationStrings[320];
-  aNPCProfessionNames[18] = pGlobalTXT_LocalizationStrings[321];
-  aNPCProfessionNames[19] = pGlobalTXT_LocalizationStrings[322];
-  aNPCProfessionNames[20] = pGlobalTXT_LocalizationStrings[323];
-  aNPCProfessionNames[21] = pGlobalTXT_LocalizationStrings[293];
-  aNPCProfessionNames[22] = pGlobalTXT_LocalizationStrings[324];
-  aNPCProfessionNames[23] = pGlobalTXT_LocalizationStrings[498];
-  aNPCProfessionNames[24] = pGlobalTXT_LocalizationStrings[525];
-  aNPCProfessionNames[25] = pGlobalTXT_LocalizationStrings[327];
-  aNPCProfessionNames[26] = pGlobalTXT_LocalizationStrings[328];
-  aNPCProfessionNames[27] = pGlobalTXT_LocalizationStrings[329];
-  aNPCProfessionNames[28] = pGlobalTXT_LocalizationStrings[330];
-  aNPCProfessionNames[29] = pGlobalTXT_LocalizationStrings[331];
-  aNPCProfessionNames[20] = pGlobalTXT_LocalizationStrings[332];
-  aNPCProfessionNames[31] = pGlobalTXT_LocalizationStrings[333];
-  aNPCProfessionNames[32] = pGlobalTXT_LocalizationStrings[334];
-  aNPCProfessionNames[33] = pGlobalTXT_LocalizationStrings[335];
-  aNPCProfessionNames[34] = pGlobalTXT_LocalizationStrings[336];
-  aNPCProfessionNames[35] = pGlobalTXT_LocalizationStrings[337];
-  aNPCProfessionNames[36] = pGlobalTXT_LocalizationStrings[338];
-  aNPCProfessionNames[37] = pGlobalTXT_LocalizationStrings[339];
-  aNPCProfessionNames[38] = pGlobalTXT_LocalizationStrings[340];
-  aNPCProfessionNames[39] = pGlobalTXT_LocalizationStrings[341];
-  aNPCProfessionNames[40] = pGlobalTXT_LocalizationStrings[342];
-  aNPCProfessionNames[41] = pGlobalTXT_LocalizationStrings[343];
-  aNPCProfessionNames[42] = pGlobalTXT_LocalizationStrings[596];
-  aNPCProfessionNames[43] = pGlobalTXT_LocalizationStrings[345];
-  aNPCProfessionNames[44] = pGlobalTXT_LocalizationStrings[346];
-  aNPCProfessionNames[45] = pGlobalTXT_LocalizationStrings[347];
-  aNPCProfessionNames[46] = pGlobalTXT_LocalizationStrings[348];
-  aNPCProfessionNames[47] = pGlobalTXT_LocalizationStrings[349];  
-  aNPCProfessionNames[48] = pGlobalTXT_LocalizationStrings[350];
-  aNPCProfessionNames[49] = pGlobalTXT_LocalizationStrings[597];
-  aNPCProfessionNames[50] = pGlobalTXT_LocalizationStrings[352];
-  aNPCProfessionNames[51] = pGlobalTXT_LocalizationStrings[353];
-  aNPCProfessionNames[52] = pGlobalTXT_LocalizationStrings[598];
-  aNPCProfessionNames[53] = pGlobalTXT_LocalizationStrings[344];
-  aNPCProfessionNames[54] = pGlobalTXT_LocalizationStrings[26];
-  aNPCProfessionNames[55] = pGlobalTXT_LocalizationStrings[599];
-  aNPCProfessionNames[56] = pGlobalTXT_LocalizationStrings[21];
-  aNPCProfessionNames[57] = pGlobalTXT_LocalizationStrings[600];
-  aNPCProfessionNames[58] = pGlobalTXT_LocalizationStrings[370];
+ aNPCProfessionNames[0] = pGlobalTXT_LocalizationStrings[153];
+ aNPCProfessionNames[1] = pGlobalTXT_LocalizationStrings[308];
+ aNPCProfessionNames[2] = pGlobalTXT_LocalizationStrings[309];
+ aNPCProfessionNames[3] = pGlobalTXT_LocalizationStrings[7];
+ aNPCProfessionNames[4] = pGlobalTXT_LocalizationStrings[306];
+ aNPCProfessionNames[5] = pGlobalTXT_LocalizationStrings[310];
+ aNPCProfessionNames[6] = pGlobalTXT_LocalizationStrings[311];
+ aNPCProfessionNames[7] = pGlobalTXT_LocalizationStrings[312];
+ aNPCProfessionNames[8] = pGlobalTXT_LocalizationStrings[313];
+ aNPCProfessionNames[9] = pGlobalTXT_LocalizationStrings[314];
+ aNPCProfessionNames[10] = pGlobalTXT_LocalizationStrings[105];
+ aNPCProfessionNames[11] = pGlobalTXT_LocalizationStrings[315];
+ aNPCProfessionNames[12] = pGlobalTXT_LocalizationStrings[316];
+ aNPCProfessionNames[13] = pGlobalTXT_LocalizationStrings[317];
+ aNPCProfessionNames[14] = pGlobalTXT_LocalizationStrings[115];
+ aNPCProfessionNames[15] = pGlobalTXT_LocalizationStrings[318];
+ aNPCProfessionNames[16] = pGlobalTXT_LocalizationStrings[319];
+ aNPCProfessionNames[17] = pGlobalTXT_LocalizationStrings[320];
+ aNPCProfessionNames[18] = pGlobalTXT_LocalizationStrings[321];
+ aNPCProfessionNames[19] = pGlobalTXT_LocalizationStrings[322];
+ aNPCProfessionNames[20] = pGlobalTXT_LocalizationStrings[323];
+ aNPCProfessionNames[21] = pGlobalTXT_LocalizationStrings[293];
+ aNPCProfessionNames[22] = pGlobalTXT_LocalizationStrings[324];
+ aNPCProfessionNames[23] = pGlobalTXT_LocalizationStrings[498];
+ aNPCProfessionNames[24] = pGlobalTXT_LocalizationStrings[525];
+ aNPCProfessionNames[25] = pGlobalTXT_LocalizationStrings[327];
+ aNPCProfessionNames[26] = pGlobalTXT_LocalizationStrings[328];
+ aNPCProfessionNames[27] = pGlobalTXT_LocalizationStrings[329];
+ aNPCProfessionNames[28] = pGlobalTXT_LocalizationStrings[330];
+ aNPCProfessionNames[29] = pGlobalTXT_LocalizationStrings[331];
+ aNPCProfessionNames[20] = pGlobalTXT_LocalizationStrings[332];
+ aNPCProfessionNames[31] = pGlobalTXT_LocalizationStrings[333];
+ aNPCProfessionNames[32] = pGlobalTXT_LocalizationStrings[334];
+ aNPCProfessionNames[33] = pGlobalTXT_LocalizationStrings[335];
+ aNPCProfessionNames[34] = pGlobalTXT_LocalizationStrings[336];
+ aNPCProfessionNames[35] = pGlobalTXT_LocalizationStrings[337];
+ aNPCProfessionNames[36] = pGlobalTXT_LocalizationStrings[338];
+ aNPCProfessionNames[37] = pGlobalTXT_LocalizationStrings[339];
+ aNPCProfessionNames[38] = pGlobalTXT_LocalizationStrings[340];
+ aNPCProfessionNames[39] = pGlobalTXT_LocalizationStrings[341];
+ aNPCProfessionNames[40] = pGlobalTXT_LocalizationStrings[342];
+ aNPCProfessionNames[41] = pGlobalTXT_LocalizationStrings[343];
+ aNPCProfessionNames[42] = pGlobalTXT_LocalizationStrings[596];
+ aNPCProfessionNames[43] = pGlobalTXT_LocalizationStrings[345];
+ aNPCProfessionNames[44] = pGlobalTXT_LocalizationStrings[346];
+ aNPCProfessionNames[45] = pGlobalTXT_LocalizationStrings[347];
+ aNPCProfessionNames[46] = pGlobalTXT_LocalizationStrings[348];
+ aNPCProfessionNames[47] = pGlobalTXT_LocalizationStrings[349];  
+ aNPCProfessionNames[48] = pGlobalTXT_LocalizationStrings[350];
+ aNPCProfessionNames[49] = pGlobalTXT_LocalizationStrings[597];
+ aNPCProfessionNames[50] = pGlobalTXT_LocalizationStrings[352];
+ aNPCProfessionNames[51] = pGlobalTXT_LocalizationStrings[353];
+ aNPCProfessionNames[52] = pGlobalTXT_LocalizationStrings[598];
+ aNPCProfessionNames[53] = pGlobalTXT_LocalizationStrings[344];
+ aNPCProfessionNames[54] = pGlobalTXT_LocalizationStrings[26];
+ aNPCProfessionNames[55] = pGlobalTXT_LocalizationStrings[599];
+ aNPCProfessionNames[56] = pGlobalTXT_LocalizationStrings[21];
+ aNPCProfessionNames[57] = pGlobalTXT_LocalizationStrings[600];
+ aNPCProfessionNames[58] = pGlobalTXT_LocalizationStrings[370];
 
-  aMoonPhaseNames[0] = pGlobalTXT_LocalizationStrings[150];
-  aMoonPhaseNames[1] = pGlobalTXT_LocalizationStrings[171];
-  aMoonPhaseNames[2] = pGlobalTXT_LocalizationStrings[102];
-  aMoonPhaseNames[3] = pGlobalTXT_LocalizationStrings[169];
-  aMoonPhaseNames[4] = pGlobalTXT_LocalizationStrings[92];
+ aMoonPhaseNames[0] = pGlobalTXT_LocalizationStrings[150];
+ aMoonPhaseNames[1] = pGlobalTXT_LocalizationStrings[171];
+ aMoonPhaseNames[2] = pGlobalTXT_LocalizationStrings[102];
+ aMoonPhaseNames[3] = pGlobalTXT_LocalizationStrings[169];
+ aMoonPhaseNames[4] = pGlobalTXT_LocalizationStrings[92];
 
-  aSpellNames[0] = pGlobalTXT_LocalizationStrings[202];
-  aSpellNames[1] = pGlobalTXT_LocalizationStrings[204];
-  aSpellNames[2] = pGlobalTXT_LocalizationStrings[219];
-  aSpellNames[3] = pGlobalTXT_LocalizationStrings[215];
-  aSpellNames[4] = pGlobalTXT_LocalizationStrings[208];
-  aSpellNames[5] = pGlobalTXT_LocalizationStrings[454];
-  aSpellNames[6] = pGlobalTXT_LocalizationStrings[24];
-  aSpellNames[7] = pGlobalTXT_LocalizationStrings[455];
-  aSpellNames[8] = pGlobalTXT_LocalizationStrings[441];
-  aSpellNames[9] = pGlobalTXT_LocalizationStrings[440];
-  aSpellNames[10] = pGlobalTXT_LocalizationStrings[218];
-  aSpellNames[11] = pGlobalTXT_LocalizationStrings[217];
-  aSpellNames[12] = pGlobalTXT_LocalizationStrings[213];
-  aSpellNames[13] = pGlobalTXT_LocalizationStrings[462];
-  aSpellNames[14] = pGlobalTXT_LocalizationStrings[279];
-  aSpellNames[15] = pGlobalTXT_LocalizationStrings[442];
-  aSpellNames[16] = pGlobalTXT_LocalizationStrings[452];
-  aSpellNames[17] = pGlobalTXT_LocalizationStrings[194];
-  aSpellNames[18] = pGlobalTXT_LocalizationStrings[456];
-  aSpellNames[19] = pGlobalTXT_LocalizationStrings[453];
-  aSpellNames[20] = pGlobalTXT_LocalizationStrings[202];
-  aSpellNames[21] = pGlobalTXT_LocalizationStrings[443];
-  aSpellNames[22] = pGlobalTXT_LocalizationStrings[204];
-  aSpellNames[23] = pGlobalTXT_LocalizationStrings[208];
-  aSpellNames[24] = pGlobalTXT_LocalizationStrings[221];
-  aSpellNames[25] = pGlobalTXT_LocalizationStrings[24];
-  aSpellNames[26] = pGlobalTXT_LocalizationStrings[228];
-  aSpellNames[27] = pGlobalTXT_LocalizationStrings[441];
-  aSpellNames[28] = pGlobalTXT_LocalizationStrings[440];
-  aSpellNames[29] = pGlobalTXT_LocalizationStrings[213];
-  aSpellNames[30] = pGlobalTXT_LocalizationStrings[229];
-  aSpellNames[31] = pGlobalTXT_LocalizationStrings[233];
-  aSpellNames[32] = pGlobalTXT_LocalizationStrings[234];
-  aSpellNames[33] = pGlobalTXT_LocalizationStrings[279];
-  aSpellNames[34] = pGlobalTXT_LocalizationStrings[442];
-  aSpellNames[35] = pGlobalTXT_LocalizationStrings[235];
-  aSpellNames[36] = pGlobalTXT_LocalizationStrings[246];
-  aSpellNames[37] = pGlobalTXT_LocalizationStrings[247];
-  aSpellNames[38] = pGlobalTXT_LocalizationStrings[248];
-  aSpellNames[39] = pGlobalTXT_LocalizationStrings[674];
-  aSpellNames[40] = pGlobalTXT_LocalizationStrings[249];
-  aSpellNames[41] = pGlobalTXT_LocalizationStrings[258];
-  aSpellNames[42] = pGlobalTXT_LocalizationStrings[194];
-  aSpellNames[43] = pGlobalTXT_LocalizationStrings[657];
+ aSpellNames[0] = pGlobalTXT_LocalizationStrings[202];
+ aSpellNames[1] = pGlobalTXT_LocalizationStrings[204];
+ aSpellNames[2] = pGlobalTXT_LocalizationStrings[219];
+ aSpellNames[3] = pGlobalTXT_LocalizationStrings[215];
+ aSpellNames[4] = pGlobalTXT_LocalizationStrings[208];
+ aSpellNames[5] = pGlobalTXT_LocalizationStrings[454];
+ aSpellNames[6] = pGlobalTXT_LocalizationStrings[24];
+ aSpellNames[7] = pGlobalTXT_LocalizationStrings[455];
+ aSpellNames[8] = pGlobalTXT_LocalizationStrings[441];
+ aSpellNames[9] = pGlobalTXT_LocalizationStrings[440];
+ aSpellNames[10] = pGlobalTXT_LocalizationStrings[218];
+ aSpellNames[11] = pGlobalTXT_LocalizationStrings[217];
+ aSpellNames[12] = pGlobalTXT_LocalizationStrings[213];
+ aSpellNames[13] = pGlobalTXT_LocalizationStrings[462];
+ aSpellNames[14] = pGlobalTXT_LocalizationStrings[279];
+ aSpellNames[15] = pGlobalTXT_LocalizationStrings[442];
+ aSpellNames[16] = pGlobalTXT_LocalizationStrings[452];
+ aSpellNames[17] = pGlobalTXT_LocalizationStrings[194];
+ aSpellNames[18] = pGlobalTXT_LocalizationStrings[456];
+ aSpellNames[19] = pGlobalTXT_LocalizationStrings[453];
+ aSpellNames[20] = pGlobalTXT_LocalizationStrings[202];
+ aSpellNames[21] = pGlobalTXT_LocalizationStrings[443];
+ aSpellNames[22] = pGlobalTXT_LocalizationStrings[204];
+ aSpellNames[23] = pGlobalTXT_LocalizationStrings[208];
+ aSpellNames[24] = pGlobalTXT_LocalizationStrings[221];
+ aSpellNames[25] = pGlobalTXT_LocalizationStrings[24];
+ aSpellNames[26] = pGlobalTXT_LocalizationStrings[228];
+ aSpellNames[27] = pGlobalTXT_LocalizationStrings[441];
+ aSpellNames[28] = pGlobalTXT_LocalizationStrings[440];
+ aSpellNames[29] = pGlobalTXT_LocalizationStrings[213];
+ aSpellNames[30] = pGlobalTXT_LocalizationStrings[229];
+ aSpellNames[31] = pGlobalTXT_LocalizationStrings[233];
+ aSpellNames[32] = pGlobalTXT_LocalizationStrings[234];
+ aSpellNames[33] = pGlobalTXT_LocalizationStrings[279];
+ aSpellNames[34] = pGlobalTXT_LocalizationStrings[442];
+ aSpellNames[35] = pGlobalTXT_LocalizationStrings[235];
+ aSpellNames[36] = pGlobalTXT_LocalizationStrings[246];
+ aSpellNames[37] = pGlobalTXT_LocalizationStrings[247];
+ aSpellNames[38] = pGlobalTXT_LocalizationStrings[248];
+ aSpellNames[39] = pGlobalTXT_LocalizationStrings[674];
+ aSpellNames[40] = pGlobalTXT_LocalizationStrings[249];
+ aSpellNames[41] = pGlobalTXT_LocalizationStrings[258];
+ aSpellNames[42] = pGlobalTXT_LocalizationStrings[194];
+ aSpellNames[43] = pGlobalTXT_LocalizationStrings[657];
 }
 
 //----- (MM7.exe::00465061) --------------------------------------------------------

@@ -51,7 +51,7 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  int dword_4E2544[array_size_unknown]; // weak
  int dword_4E28F8; // weak
  char byte_4E28FC; // weak
- int dword_4E2900; // weak
+ int dword_4E2900_GammaPos; // weak
  int dword_4E2910[array_size_unknown]; // weak
  __int16 word_4E2930[array_size_unknown]; // weak
  __int16 word_4E2938[array_size_unknown]; // weak
@@ -1465,21 +1465,7 @@ char byte_5D2A00[48*array_size_unknown]; // weak
 
  _UNKNOWN unk_5E4C14; // weak
  char byte_5E4C15[array_size_unknown]; // weak
- char *dword_5E4C18; // weak
- char *dword_5E4C1C; // weak
- char *dword_5E4C20; // weak
- char *dword_5E4C24; // weak
- char *dword_5E4C28; // weak
- char *dword_5E4C2C; // weak
- char *dword_5E4C30; // weak
- char *dword_5E4C34; // weak
- char *dword_5E4C38; // weak
- char *dword_5E4C3C; // weak
- char *dword_5E4C40; // weak
- char *dword_5E4C44; // weak
- char *dword_5E4C48; // weak
- char *dword_5E4C4C; // weak
-
+unsigned char *pSomeItemsNames[14]; // dword[14] @ MM7.exe::005E4C18
 unsigned char *pGlobalTXT_Raw = 0; // ptr @ MM7.exe::005E4C68
 unsigned char *pMonstersTXT_Raw = 0; // ptr @ MM7.exe::005E4C6C
 unsigned char *pMonsterPlacementTXT_Raw = 0; // ptr @ MM7.exe::005E4C70
@@ -1768,8 +1754,8 @@ union unnamed_6BE060 data_6BE060;
  char byte_6BE111; // weak
  char byte_6BE112; // weak
  char byte_6BE113; // weak
- char byte_6BE114[16]; // idb
- char byte_6BE124[16]; // idb
+ char byte_6BE114_cfg_textures_DefaultSkyTexture[16]; // idb
+ char byte_6BE124_cfg_textures_DefaultGroundTexture[16]; // idb
  int dword_6BE134; // weak
  int dword_6BE138; // weak
  int dword_6BE13C; // weak
@@ -1793,8 +1779,8 @@ wchar_t pWindowClassName[20];
 unsigned int uLevelMapStatsID; // dword @ MM7.exe::006BE358
  int dword_6BE35C; // weak
  int dword_6BE360; // weak
- int dword_6BE364; // startup flags
-                   // 0x0002: desktop color depth == 32
+ int dword_6BE364; // game settings
+                   // 0x0002: desktop color depth != 16, unable to start in window
                    // 0x0004: no intro
                    // 0x0008: no logo
                    // 0x0010: no sound
@@ -1813,17 +1799,17 @@ unsigned int uLevelMapStatsID; // dword @ MM7.exe::006BE358
 unsigned char uSoundVolumeMultiplier;  // byte @ 6BE36F  0..9
 unsigned char uVoicesVolumeMultiplier; // byte @ 6BE370  0..9
 unsigned char uMusicVolimeMultiplier;  // byte @ 6BE371  0..9
- int dword_6BE374; // weak
- int dword_6BE378; // weak
+ int dword_6BE374_WalkSoundFlag; // weak
+ int dword_6BE378_ShowDamageFlag; // weak
  int dword_6BE37C; // weak
  int dword_6BE380; // weak
- int dword_6BE384; // weak
- char byte_6BE388; // weak
- int dword_6BE38C; // weak
+ int dword_6BE384_2dacceloff; // weak
+ char byte_6BE388_graphicsmode; // weak
+ int dword_6BE38C_TurnDelta; // weak
  float flt_6BE3A0; // weak
- float flt_6BE3A4; // weak
- float flt_6BE3A8; // weak
- float flt_6BE3AC; // weak
+ float flt_6BE3A4_debug_recmod1; // weak
+ float flt_6BE3A8_debug_recmod2; // weak
+ float flt_6BE3AC_debug_recmod1_x_1_6; // weak
  char byte_6BE3B0[20]; // idb
  char byte_6BE3C4_MaybeDrowningFlag; // weak
  char byte_6BE3C5; // weak

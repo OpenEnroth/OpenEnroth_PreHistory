@@ -30,7 +30,9 @@ extern union unnamed_4D8410
   double dPi;                         // double @ 0178     ï (3.1415926535897931)
   char   unk_4D8410_0180[32];
   double fTwo;                        // double @ 01A0     2.0
-  char   unk_4D8410_01A8[896];
+  char   unk_4D8410_01A8[344];
+  double d_1_6_;                      // double @ 0300     1.(6)7
+  char   unk_4D8410_0308[544];
   double f10_0;                       // double @ 0528     10.0
   double f0_9;                        // double @ 0530     0.9
   char   unk_4D8410_0538[3648];

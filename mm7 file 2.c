@@ -835,7 +835,7 @@ LABEL_89:
       class24_sub_4263B7(pClass24_global);
       class24_sub_4263B7(pClass24_global2);
       sub_448B67(0);
-      sub_448B45(false);
+      sub_448B45_LooksLikeResetSomeTimer(false);
       if (pClass24_global2->dword_000004)
       {
         if ( !pClass24_global->dword_000004 )
@@ -9064,9 +9064,9 @@ void __cdecl sub_414D9A()
     {
       Render_DrawIndexedTexture(
         pD3DRenderer,
-        17 * dword_4E2900 + 42,
+        17 * dword_4E2900_GammaPos + 42,
         162,
-        dword_507C28[dword_4E2900] != -1 ? 72 * dword_507C28[dword_4E2900] + 7145548 : 0);
+        dword_507C28[dword_4E2900_GammaPos] != -1 ? 72 * dword_507C28[dword_4E2900_GammaPos] + 7145548 : 0);
       Render_DrawRGBTexture(pD3DRenderer, 274, 169, pClass33_global3);
       v3 = 22;
       v0 = pGlobalTXT_LocalizationStrings[226];
@@ -9090,7 +9090,7 @@ void __cdecl sub_414D9A()
     Render_DrawIndexedTexture(pD3DRenderer, 20, 281, dword_507C14 != -1 ? 72 * dword_507C14 + 7145548 : 0);
   if ( pD3DRenderer->bUseColoredLights )
     Render_DrawIndexedTexture(pD3DRenderer, 20, 303, dword_507C18 != -1 ? 72 * dword_507C18 + 7145548 : 0);
-  if ( pD3DRenderer->dword_10364C )
+  if ( pD3DRenderer->bTinting )
   {
     v2 = dword_507C1C;
 LABEL_12:
@@ -9208,19 +9208,19 @@ void __cdecl sub_414F82()
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, dword_507944 != -1 ? 72 * dword_507944 + 7145548 : 0);
   Render_DrawIndexedTexture(pD3DRenderer, 8, 132, dword_507C60 != -1 ? 72 * dword_507C60 + 7145548 : 0);
   v0 = 0;
-  if ( dword_6BE38C == 128 )
+  if ( dword_6BE38C_TurnDelta == 128 )
   {
     v0 = 2;
   }
   else
   {
-    if ( dword_6BE38C == 64 )
+    if ( dword_6BE38C_TurnDelta == 64 )
       v0 = 1;
   }
   Render_DrawIndexedTexture(pD3DRenderer, dword_4E2910[v0], 270, dword_507C64[v0] != -1 ? 72 * dword_507C64[v0] + 7145548 : 0);
-  if ( dword_6BE374 )
+  if ( dword_6BE374_WalkSoundFlag )
     Render_DrawIndexedTexture(pD3DRenderer, 20, 303, dword_507CB4 != -1 ? 72 * dword_507CB4 + 7145548 : 0);
-  if ( dword_6BE378 )
+  if ( dword_6BE378_ShowDamageFlag )
     Render_DrawIndexedTexture(pD3DRenderer, 128, 303, dword_507CB8 != -1 ? 72 * dword_507CB8 + 7145548 : 0);
   if ( dword_6BE380 )
     Render_DrawIndexedTexture(pD3DRenderer, 128, 325, dword_507C84 != -1 ? 72 * dword_507C84 + 7145548 : 0);

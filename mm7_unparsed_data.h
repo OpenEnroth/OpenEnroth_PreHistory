@@ -61,7 +61,7 @@ extern char *dword_4E24E8; // idb
 extern int dword_4E2544[array_size_unknown]; // weak
 extern int dword_4E28F8; // weak
 extern char byte_4E28FC; // weak
-extern int dword_4E2900; // weak
+extern int dword_4E2900_GammaPos; // [0..9]
 extern int dword_4E2910[array_size_unknown]; // weak
 extern __int16 word_4E2930[array_size_unknown]; // weak
 extern __int16 word_4E2938[array_size_unknown]; // weak
@@ -1457,8 +1457,8 @@ extern int dword_5E4178; // weak
 
 extern _UNKNOWN unk_5E4C14; // weak
 extern char byte_5E4C15[array_size_unknown]; // weak
-extern char *dword_5E4C18; // weak
-extern char *dword_5E4C1C; // weak
+extern unsigned char *pSomeItemsNames[]; // dword[14] @ MM7.exe::005E4C18
+/*extern char *dword_5E4C1C; // weak
 extern char *dword_5E4C20; // weak
 extern char *dword_5E4C24; // weak
 extern char *dword_5E4C28; // weak
@@ -1471,7 +1471,7 @@ extern char *dword_5E4C40; // weak
 extern char *dword_5E4C44; // weak
 extern char *dword_5E4C48; // weak
 extern char *dword_5E4C4C; // weak
-
+*/
 extern unsigned char *pGlobalTXT_Raw;           // ptr @ MM7.exe::005E4C68
 extern unsigned char *pMonstersTXT_Raw;         // ptr @ MM7.exe::005E4C6C
 extern unsigned char *pMonsterPlacementTXT_Raw; // ptr @ MM7.exe::005E4C70
@@ -1816,8 +1816,8 @@ extern char byte_6BE110; // weak
 extern char byte_6BE111; // weak
 extern char byte_6BE112; // weak
 extern char byte_6BE113; // weak
-extern char byte_6BE114[16]; // idb
-extern char byte_6BE124[16]; // idb
+extern char byte_6BE114_cfg_textures_DefaultSkyTexture[16]; // idb
+extern char byte_6BE124_cfg_textures_DefaultGroundTexture[16]; // idb
 extern int dword_6BE134; // weak
 extern int dword_6BE138; // weak
 extern int dword_6BE13C; // weak
@@ -1847,17 +1847,17 @@ extern int dword_6BE368; // weak
 extern unsigned char uSoundVolumeMultiplier;
 extern unsigned char uVoicesVolumeMultiplier;
 extern unsigned char uMusicVolimeMultiplier;
-extern int dword_6BE374; // weak
-extern int dword_6BE378; // weak
+extern int dword_6BE374_WalkSoundFlag; // weak
+extern int dword_6BE378_ShowDamageFlag; // weak
 extern int dword_6BE37C; // weak
 extern int dword_6BE380; // weak
-extern int dword_6BE384; // weak
-extern char byte_6BE388; // weak
-extern int dword_6BE38C; // weak
+extern int dword_6BE384_2dacceloff; // weak
+extern char byte_6BE388_graphicsmode; // weak
+extern int dword_6BE38C_TurnDelta; // weak
 extern float flt_6BE3A0; // weak
-extern float flt_6BE3A4; // weak
-extern float flt_6BE3A8; // weak
-extern float flt_6BE3AC; // weak
+extern float flt_6BE3A4_debug_recmod1; // weak
+extern float flt_6BE3A8_debug_recmod2; // weak
+extern float flt_6BE3AC_debug_recmod1_x_1_6; // weak
 extern char byte_6BE3B0[20]; // idb
 extern char byte_6BE3C4_MaybeDrowningFlag; // underwater flag?
 extern char byte_6BE3C5; // weak

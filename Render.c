@@ -126,7 +126,7 @@ void Render_ctor(struct Render *_this)
 
  _this->bUseColoredLights = ReadWindowsRegistry("Colored Lights", false);
  _this->bRequiredTextureStagesAvailable = false;
- _this->dword_10364C = 1;
+ _this->bTinting = true;
  _this->uLevelOfDetail = ReadWindowsRegistry("Detail Level", 1);
 
  _this->byte_103668[0] = 0;

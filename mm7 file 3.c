@@ -664,7 +664,7 @@ LABEL_69:
   {
     sub_4030AD(v64, v58, 0);
     sub_43AC45(v64, 1);
-    if ( dword_6BE378 )
+    if ( dword_6BE378_ShowDamageFlag )
     {
       v54 = v67;
       v53 = v8;
@@ -720,7 +720,7 @@ LABEL_69:
       v42 = (*(_DWORD *)(v8 + 108) >= 100) + 1;
     sub_4948B1((void *)v7, v42, 0);
     v43 = 0;
-    if ( dword_6BE378 )
+    if ( dword_6BE378_ShowDamageFlag )
     {
       v54 = v8;
       v53 = v67;
@@ -746,9 +746,9 @@ LABEL_69:
       LODWORD(v44) = 20;
       v63 = 10;
       if ( dword_ACD834 == v43 )
-        v44 = (signed __int64)(flt_6BE3A8 * *(double *)&byte_4D8410[456]);
+        v44 = (signed __int64)(flt_6BE3A8_debug_recmod2 * *(double *)&byte_4D8410[456]);
       *(_DWORD *)(v8 + 124) += v44;
-      if ( dword_6BE378 != v43 )
+      if ( dword_6BE378_ShowDamageFlag != v43 )
       {
         v54 = v8;
         v53 = v7 + 168;
@@ -775,7 +775,7 @@ LABEL_69:
           0,
           0,
           0);
-        if ( dword_6BE378 )
+        if ( dword_6BE378_ShowDamageFlag )
         {
           v54 = v8;
           v53 = v7 + 168;
@@ -1272,7 +1272,7 @@ LABEL_133:
     if ( !dword_ACD834 )
     {
       v65 = Player_GetActualEndurance(v46);
-      v66 = (double)(20 - sub_48EA1B(v65)) * flt_6BE3A4 * *(double *)&byte_4D8410[40];
+      v66 = (double)(20 - sub_48EA1B(v65)) * flt_6BE3A4_debug_recmod1 * *(double *)&byte_4D8410[40];
       sub_48E96A(v46, (signed __int64)v66);
     }
     return;
@@ -1465,7 +1465,7 @@ LABEL_43:
       if ( !dword_ACD834 )
       {
         v35 = Player_GetActualEndurance(v6);
-        v36 = (double)(20 - sub_48EA1B(v35)) * flt_6BE3A4 * *(double *)&byte_4D8410[40];
+        v36 = (double)(20 - sub_48EA1B(v35)) * flt_6BE3A4_debug_recmod1 * *(double *)&byte_4D8410[40];
         sub_48E96A(v6, (signed __int64)v36);
       }
       if ( v77 )

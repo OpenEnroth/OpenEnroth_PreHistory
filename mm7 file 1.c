@@ -143,7 +143,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *
  dword_6A0D00 = Rect.bottom;
 
  hActiveWindow = GetActiveWindow();
- if (sub_4651F4(hInstance, lpCmdLine))
+ if (CreateWindowAndBasicInitialization(hInstance, lpCmdLine))
  {
   class24_fn1(pClass24_global);
   if (pD3DRenderer)
@@ -287,11 +287,12 @@ LABEL_53:
       {
         if ( pAudioPlayer->hAILRedbook )
         {
+         unsigned int local0;
           v12 = (signed __int64)(aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
           AudioPlayer_SetVolume(pAudioPlayer, SHIDWORD(v12), v12);
           AIL_redbook_stop(pAudioPlayer->hAILRedbook);
-          AIL_redbook_track_info(pAudioPlayer->hAILRedbook, 14, &v16, &hInstance);
-          AIL_redbook_play(pAudioPlayer->hAILRedbook, v16 + 1, hInstance);
+          AIL_redbook_track_info(pAudioPlayer->hAILRedbook, 14, &v16, &local0);
+          AIL_redbook_play(pAudioPlayer->hAILRedbook, v16 + 1, local0);
         }
       }
     }
@@ -1162,14 +1163,10 @@ LABEL_34:
 }
 
 //----- (004651F4) --------------------------------------------------------
-signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
+signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const char *pCmdLine)
 {
-  int v5; // edi@4
   HINSTANCE v6; // edi@4
   int v8; // ST2C_4@4
-  int v10; // eax@7
-  int v11; // edi@7
-  int v12; // esi@7
   signed int v13; // esi@8
   signed int v14; // eax@10
   int v15; // edi@10
@@ -1185,135 +1182,82 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   void *v46; // eax@69
   void *v49; // eax@69
   void *v51; // eax@69
-  float v58; // ST2C_4@94
   HWND v59; // [sp-Ch] [bp-170h]@3
   const CHAR *v60; // [sp-8h] [bp-16Ch]@3
   const CHAR *v61; // [sp-4h] [bp-168h]@3
   UINT v62; // [sp+0h] [bp-164h]@3
   //const char *v63; // [sp+0h] [bp-164h]@39
-  char v64[120]; // [sp+10h] [bp-154h]@21
-  const char pConfigFilename[120]; // [sp+88h] [bp-DCh]@21
-  DWORD TotalNumberOfClusters; // [sp+100h] [bp-64h]@1
-  WNDCLASSEXW wcxw; // [sp+104h] [bp-60h]@4
+ wchar_t pGameDirectory[256];
+ wchar_t pMM6ConfigFilename[120]; // [sp+88h] [bp-DCh]@21
+ WNDCLASSEXW wcxw; // [sp+104h] [bp-60h]@4
   RECT rcWindow, rcClient;
-  DWORD BytesPerSector; // [sp+154h] [bp-10h]@1
-  DWORD SectorsPerCluster; // [sp+158h] [bp-Ch]@1
-  DWORD hdc; // [sp+160h] [bp-4h]@1
 
-  srand(GetTickCount());
-  GetDiskFreeSpaceA(0, &SectorsPerCluster, &BytesPerSector, &hdc, &TotalNumberOfClusters);
-  if ( hdc * BytesPerSector * SectorsPerCluster < 0x1E00000 )
-  {
-   //some visual studio bug sometimes return 0 disk space, so skip this check for now
-  }
-  hInstance = hInst;
-  pCommand = pCmdLine;
-  lstrcpyW(pWindowClassName, L"MM VII");
+ srand(GetTickCount());
 
-  wcxw.cbSize = sizeof(WNDCLASSEXW);
-  wcxw.style = CS_VREDRAW | CS_HREDRAW | CS_DBLCLKS;
-  wcxw.lpfnWndProc = (WNDPROC)wWndProc;
-  wcxw.cbClsExtra = 0;
-  wcxw.cbWndExtra = 0;
-  wcxw.hInstance = hInst;
-  wcxw.hCursor = LoadCursorW(0, IDC_ARROW);
-  wcxw.hIcon = wcxw.hIconSm = LoadIconW(hInst, L"MM7_ICON");
-  wcxw.lpszMenuName = 0;
-  wcxw.hbrBackground = GetStockObject(LTGRAY_BRUSH);
-  wcxw.lpszClassName = pWindowClassName;
-  RegisterClassExW(&wcxw);
+ hInstance = hInst;
+ pCommand = pCmdLine;
+ lstrcpyW(pWindowClassName, L"MM VII");
+
+ wcxw.cbSize = sizeof(WNDCLASSEXW);
+ wcxw.style = CS_VREDRAW | CS_HREDRAW | CS_DBLCLKS;
+ wcxw.lpfnWndProc = (WNDPROC)wWndProc;
+ wcxw.cbClsExtra = 0;
+ wcxw.cbWndExtra = 0;
+ wcxw.hInstance = hInst;
+ wcxw.hCursor = LoadCursorW(0, IDC_ARROW);
+ wcxw.hIcon = wcxw.hIconSm = LoadIconW(hInst, L"MM7_ICON");
+ wcxw.lpszMenuName = 0;
+ wcxw.hbrBackground = GetStockObject(LTGRAY_BRUSH);
+ wcxw.lpszClassName = pWindowClassName;
+ RegisterClassExW(&wcxw);
+
+ uWindowPosX = ReadWindowsRegistry("window X", 0);
+ uWindowPosY = ReadWindowsRegistry("window Y", 0);
+ dword_51076C = ReadWindowsRegistry("debug flags", 0);
+ if (uWindowPosX < 0 || uWindowPosX > GetSystemMetrics(SM_CXSCREEN) ||
+     uWindowPosY < 0 || uWindowPosY > GetSystemMetrics(SM_CYSCREEN))
+ {
+  uWindowPosX = 0;
+  uWindowPosY = 0;
+ }
+
+ hWnd_global = CreateWindowExW(0, pWindowClassName, "Might and Magic® VII",
+                               dwNewLong = WS_CAPTION | WS_SYSMENU | WS_GROUP,
+                               uWindowPosX, uWindowPosY,
+                               640, 480,
+                               0, hMenu = 0,
+                               hInst, 0);
+ SetPriorityClass(GetCurrentProcess(), NORMAL_PRIORITY_CLASS);
  
-  hMenu = 0;
-  v5 = 2 * GetSystemMetrics(SM_CYFRAME);
-  hdc = (DWORD)GetDC(0);
-  SectorsPerCluster = GetDeviceCaps((HDC)hdc, BITSPIXEL);
-  //if ( SectorsPerCluster != 16 || GetDeviceCaps((HDC)hdc, PLANES) != 1 )
-  //  dword_6BE364 |= 2;
-  ReleaseDC(0, (HDC)hdc);
+ GetCurrentDirectoryW(255, pGameDirectory);
+ wsprintfA(pMM6ConfigFilename, "%S\\mm6.ini", pGameDirectory);
 
-  v12 = v5 + 640;
-  v11 = GetSystemMetrics(SM_CYCAPTION) + v5 + 480;
-  v10 = (signed int)(GetDeviceCaps((HDC)hdc, HORZRES) - v12) / 2;
-  hdc = v10;
-  if ( v10 >= 0 )
-  {
-    v13 = 0;
-  }
-  else
-  {
-    v13 = 0;
-    v10 = 0;
-  }
-  uWindowPosX = ReadWindowsRegistry("window X", v10);
-  v14 = GetDeviceCaps((HDC)hdc, VERTRES) - v11 - ((unsigned __int64)(signed int)(GetDeviceCaps((HDC)hdc, VERTRES) - v11) >> 32);
-  v15 = v14 >> 1;
-  if ( v14 >> 1 >= 0 )
-    v16 = v14 >> 1;
-  else
-    v16 = 0;
-  uWindowPosY = ReadWindowsRegistry("window Y", v16);
-  dword_51076C = ReadWindowsRegistry("debug flags", 0);
-  if (uWindowPosX < 0 || uWindowPosX > GetDeviceCaps((HDC)hdc, HORZRES) ||
-      uWindowPosY < 0 || uWindowPosY > GetDeviceCaps((HDC)hdc, VERTRES))
-  {
-   uWindowPosX = 0;
-   if ((signed int)hdc >= 0)
-     uWindowPosX = hdc;
-   uWindowPosY = 0;
-   if (v15 >= 0)
-     uWindowPosY = v15;
-  }
-  GetCurrentDirectoryA(120, v64);
-  wsprintfA(pConfigFilename, "%s\\mm6.ini", v64);
-  dwNewLong = WS_CAPTION | WS_SYSMENU | WS_GROUP;
-  hWnd_global = CreateWindowExW(0, pWindowClassName,
-           "Might and Magic® VII",
-           WS_CAPTION | WS_SYSMENU | WS_GROUP,
-           uWindowPosX,
-           uWindowPosY,
-           640,
-           480,
-           0,
-           hMenu,
-           hInst,
-           0);
- SetPriorityClass(GetCurrentProcess(), 0x20u);
 
- if (true)
+ if (!class23_AllocateBigBuffer(class23_instance, 27000))
  {
-  if (!class23_AllocateBigBuffer(class23_instance, 27000))
-  {
-   MessageBoxW(0, L"Unable to Allocate 26MB of RAM", L"More RAM Memory Required", 48);
-   return 0;
-  }
+  MessageBoxW(0, L"Unable to Allocate 26MB of RAM", L"More RAM Memory Required", 48);
+  return 0;
  }
- else
- {
-  if (!class23_AllocateBigBuffer(class23_instance, 17000))
-  {
-   MessageBoxW(0, L"Unable to Allocate 16MB of RAM", L"More RAM Memory Required", 48);
-   return 0;
-  }
- }
+
 
  pClass24_global = malloc(sizeof(struct class24));
  class24_ctor(pClass24_global);
 
-  sub_448B67((void *)1);
-  sub_448B45((void *)1);
-  GameInitialize();
-  pGame->pClass03 = pGame->class03_obj;
+ sub_448B67(true);
+ sub_448B45_LooksLikeResetSomeTimer(true);
+ GameInitialize();
+ pGame->pClass03 = pGame->class03_obj;
 
-  GetWindowRect(hWnd_global, &rcWindow);
-  GetClientRect(hWnd_global, &rcClient);
-  uWindowWidth = (rcWindow.right - rcWindow.left) - (rcClient.right - rcClient.left) + 640;
-  uWindowHeight = (rcWindow.bottom - rcWindow.top) - (rcClient.bottom - rcClient.top) + 480;
+ GetWindowRect(hWnd_global, &rcWindow);
+ GetClientRect(hWnd_global, &rcClient);
+ uWindowWidth = (rcWindow.right - rcWindow.left) - (rcClient.right - rcClient.left) + 640;
+ uWindowHeight = (rcWindow.bottom - rcWindow.top) - (rcClient.bottom - rcClient.top) + 480;
 
   //here occurs WM_WINDOWPOSCHANGED which tries to access pVideoPlayer which was not created til this moment
   //added check of pVideoPlayer pointer in wWinProc
-  MoveWindow(hWnd_global, 16 + uWindowPosX, 16 + uWindowPosY, uWindowWidth, uWindowHeight, false);
+ MoveWindow(hWnd_global, 16 + uWindowPosX, 16 + uWindowPosY, uWindowWidth, uWindowHeight, false);
 
-  bLoadingFromCD = GetPrivateProfileIntA("settings", "use_cd", true, pConfigFilename);
+  bLoadingFromCD = GetPrivateProfileIntW(L"settings", L"use_cd", true, pMM6ConfigFilename);
   if (bLoadingFromCD)
   {
    if (!CheckForCD(hWnd_global, &cGameCDDriveLetter))
@@ -1350,9 +1294,9 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
  }
 
  pLODFile_Icons_LOD->dword_011BA4 = 0;
- bUseRegistry = GetPrivateProfileIntA("settings", "registry", 1, pConfigFilename);
+ bUseRegistry = GetPrivateProfileIntW(L"settings", L"registry", 1, pMM6ConfigFilename);
  if (!bUseRegistry)
-   bUseLoResSprites = GetPrivateProfileIntA("settings", "resolution", 0, pConfigFilename);
+   bUseLoResSprites = GetPrivateProfileIntW(L"settings", L"resolution", 0, pMM6ConfigFilename);
  else bUseLoResSprites = ReadWindowsRegistry("resolution", 0);
 
  pLODFile_Sprites_LOD = malloc(sizeof(struct LODFile));
@@ -1363,7 +1307,7 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
   return 0;
  }
 
- sub_466082();
+ ReadMM6_ini(pMM6ConfigFilename);
 
  if (bUseOverrideData)
  {
@@ -1475,7 +1419,6 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
 
  if (~dword_6BE368 & 1)  // if (!windowed)
  {
-  SetMenu(hWnd_global, 0);
   SetWindowLongA(hWnd_global, GWL_EXSTYLE, 0);
   SetWindowLongA(hWnd_global, GWL_STYLE, WS_VISIBLE);
   if (dword_720010)
@@ -1501,30 +1444,29 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
    uMusicVolimeMultiplier = 9;
 
 
- dword_6BE374 = ReadWindowsRegistry("WalkSound", 1) != 0;
- dword_6BE378 = ReadWindowsRegistry("ShowDamage", 1) != 0;
+ dword_6BE374_WalkSoundFlag = ReadWindowsRegistry("WalkSound", true) != 0;
+ dword_6BE378_ShowDamageFlag = ReadWindowsRegistry("ShowDamage", true) != 0;
 
- dword_6BE384 = ReadWindowsRegistry("2dacceloff", 0);
- byte_6BE388 = ReadWindowsRegistry("graphicsmode", 1);
- if (byte_6BE388 < 0 || byte_6BE388 > 2)
-   byte_6BE388 = 0;
- dword_6BE38C = ReadWindowsRegistry("TurnDelta", 0);
+ dword_6BE384_2dacceloff = ReadWindowsRegistry("2dacceloff", false);
+ byte_6BE388_graphicsmode = ReadWindowsRegistry("graphicsmode", true);
+ if (byte_6BE388_graphicsmode < 0 || byte_6BE388_graphicsmode > 2)
+   byte_6BE388_graphicsmode = 0;
+ dword_6BE38C_TurnDelta = ReadWindowsRegistry("TurnDelta", 0);
 
- pD3DRenderer->dword_10364C = ReadWindowsRegistry("Tinting", 1) != 0;
+ pD3DRenderer->bTinting = ReadWindowsRegistry("Tinting", true);
 
- dword_4E2900 = ReadWindowsRegistry("GammaPos", 4);
- if (dword_4E2900 < 0 || dword_4E2900 > 9)
-   dword_4E2900 = 4;
+ dword_4E2900_GammaPos = ReadWindowsRegistry("GammaPos", 4);
+ if (dword_4E2900_GammaPos < 0 || dword_4E2900_GammaPos > 9)
+   dword_4E2900_GammaPos = 4;
 
- v58 = (double)dword_4E2900 * 0.10000000000000001 + 0.59999999999999998;
- sub_44F4D9(pGame->pGammaController, v58);
+ sub_44F4D9(pGame->pGammaController, (double)dword_4E2900_GammaPos * 0.10000000000000001 + 0.59999999999999998);
 
  if (ReadWindowsRegistry("Bloodsplats", 1))
    pGame->dword_000E24 |= 0x20;
  else
    pGame->dword_000E24 &= 0xFFFFFFDF;
 
- if (!(dword_6BE364 & 0x10))  //if (!nosound)
+ if (~dword_6BE364 & 0x10)  //if (!nosound)
  {
   pAudioPlayer = malloc(sizeof(struct AudioPlayer));
   AudioPlayer_ctor(pAudioPlayer);
@@ -1534,22 +1476,22 @@ signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine)
  dword_6BE364 |= 0x4000;
 
 
- switch (dword_6BE38C)
+ switch (dword_6BE38C_TurnDelta)
  {
   case 0:
-    dword_6BE38C = (unsigned int)dword_6A0D00 < 0xC7 ? 128 : 64;
+    dword_6BE38C_TurnDelta = (unsigned int)dword_6A0D00 < 0xC7 ? 128 : 64;
   break;
 
   case 1:
-    dword_6BE38C = 128;
+    dword_6BE38C_TurnDelta = 128;
   break;
 
   case 2:
-    dword_6BE38C = 64;
+    dword_6BE38C_TurnDelta = 64;
   break;
 
   case 3:
-    dword_6BE38C = 0;
+    dword_6BE38C_TurnDelta = 0;
   break;
  }
 
@@ -5793,7 +5735,7 @@ LABEL_9:
                   4);
                 v5 = Player_GetActualEndurance(*v4);
                 v97 = 20 - sub_48EA1B(v5);
-                sub_48E96A(*v4, (signed __int64)((double)v97 * flt_6BE3A4 * *(double *)&byte_4D8410[40]));
+                sub_48E96A(*v4, (signed __int64)((double)v97 * flt_6BE3A4_debug_recmod1 * *(double *)&byte_4D8410[40]));
               }
             }
             ++v4;
@@ -5819,7 +5761,7 @@ LABEL_9:
     v104 = 1;
   }
   v93 = v115 - v103 <= 32;
-  if ( dword_6BE374 != v2 )
+  if ( dword_6BE374_WalkSoundFlag != v2 )
   {
     if (pParty_global->dword_0006F8 > v2)
       pParty_global->dword_0006F8 -= pClass24_global->int_00001C;
@@ -5927,20 +5869,20 @@ LABEL_118:
         }
         goto LABEL_118;
       case 1:
-        v8 = dword_6BE38C;
-        if ( dword_6BE38C )
+        v8 = dword_6BE38C_TurnDelta;
+        if ( dword_6BE38C_TurnDelta )
           goto LABEL_80;
         v9 = (double)v111 * flt_6BE14C;
         goto LABEL_73;
       case 2:
-        LODWORD(v10) = dword_6BE38C;
-        if ( dword_6BE38C )
+        LODWORD(v10) = dword_6BE38C_TurnDelta;
+        if ( dword_6BE38C_TurnDelta )
           goto LABEL_77;
         v11 = (double)v111 * flt_6BE14C;
         goto LABEL_76;
       case 18:
-        v8 = dword_6BE38C;
-        if ( dword_6BE38C )
+        v8 = dword_6BE38C_TurnDelta;
+        if ( dword_6BE38C_TurnDelta )
         {
 LABEL_80:
           v12 = v8 + v117;
@@ -5955,8 +5897,8 @@ LABEL_73:
         }
         goto LABEL_118;
       case 19:
-        LODWORD(v10) = dword_6BE38C;
-        if ( !dword_6BE38C )
+        LODWORD(v10) = dword_6BE38C_TurnDelta;
+        if ( !dword_6BE38C_TurnDelta )
         {
           v11 = (flt_6BE14C + flt_6BE14C) * (double)v111;
 LABEL_76:
@@ -6490,7 +6432,7 @@ LABEL_234:
     v113 = (unsigned __int64)(58500i64 * v113) >> 16;
   }
   while ( v118 < 100 );
-  if (dword_6BE374 && pParty_global->dword_0006F8 <= 0)
+  if (dword_6BE374_WalkSoundFlag && pParty_global->dword_0006F8 <= 0)
   {
     v114 = abs(pParty_global->sPartyPosX - v108);
     v118 = abs(pParty_global->sPartyPosY - v109);
@@ -6641,7 +6583,7 @@ LABEL_344:
                       4);
                     v67 = Player_GetActualEndurance(*v66);
                     v102 = 20 - sub_48EA1B(v67);
-                    sub_48E96A(*v66, (signed __int64)((double)v102 * flt_6BE3A4 * *(double *)&byte_4D8410[40]));
+                    sub_48E96A(*v66, (signed __int64)((double)v102 * flt_6BE3A4_debug_recmod1 * *(double *)&byte_4D8410[40]));
                     ++v66;
                   }
                   while ( (signed int)v66 <= (signed int)&dword_A750D4 );
@@ -6714,7 +6656,7 @@ LABEL_313:
     }
     goto LABEL_318;
   }
-  if ( dword_6BE374 )
+  if ( dword_6BE374_WalkSoundFlag )
   {
     if (pParty_global->dword_0006F8 <= 0)
     {
@@ -6777,7 +6719,7 @@ LABEL_318:
                     4);
                   v77 = Player_GetActualEndurance(*v76);
                   v102 = 20 - sub_48EA1B(v77);
-                  sub_48E96A(*v76, (signed __int64)((double)v102 * flt_6BE3A4 * *(double *)&byte_4D8410[40]));
+                  sub_48E96A(*v76, (signed __int64)((double)v102 * flt_6BE3A4_debug_recmod1 * *(double *)&byte_4D8410[40]));
                   ++v76;
                 }
                 while ( (signed int)v76 <= (signed int)&dword_A750D4 );
@@ -9575,7 +9517,7 @@ LABEL_1162:
                       }
                       else
                       {
-                        sub_48E96A(v707, (signed __int64)(flt_6BE3A4 * (double)v683 * *(double *)&byte_4D8410[40]));
+                        sub_48E96A(v707, (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v683 * *(double *)&byte_4D8410[40]));
                       }
                       if ( LODWORD(v705) )
                       {
@@ -13470,7 +13412,7 @@ LABEL_439:
   if ( dword_ACD834 == HIDWORD(v1) )
   {
     v606 = v707;
-    sub_48E96A(v707, (signed __int64)(flt_6BE3A4 * *(double *)&byte_4D8410[296]));
+    sub_48E96A(v707, (signed __int64)(flt_6BE3A4_debug_recmod1 * *(double *)&byte_4D8410[296]));
     LODWORD(v1) = i;
   }
   else

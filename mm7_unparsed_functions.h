@@ -49,6 +49,7 @@ void __cdecl LoadLevel_InitializeLevelStr();
 void __cdecl LoadLevel_InitializeLevelEvt();
 void __cdecl ReleaseDrawBuffers();
 void AllocateDrawBuffers(void *this);
+void ReadMM6_ini(const wchar_t *);
 
 
 
@@ -489,7 +490,7 @@ int __fastcall sub_44892E(int a1, int a2, int a3);
 void __fastcall sub_448A17(signed int a1, __int16 a2, int a3);
 void __fastcall sub_448A40(signed int a1, int a2, int a3);
 void __fastcall sub_448A98(int a1, int a2, int a3);
-void sub_448B45(bool);
+void sub_448B45_LooksLikeResetSomeTimer(bool);
 void __thiscall sub_448B67(void *this);
 const void *__fastcall sub_448CF4(__int16 a1, __int16 a2, signed int a3, int a4, int a5, int a6, int a7, const void *a8);
 int __thiscall sub_448DD6(int this);
@@ -699,14 +700,13 @@ void __cdecl sub_464851();
 int __fastcall sub_464866(int a1, int a2);
 int __fastcall sub_464BEF(const CHAR *a1, BYTE *a2, DWORD Count, const char *Source);
 signed int __stdcall DialogFunc(HWND hDlg, int a2, __int16 a3, int a4);
-signed int __fastcall sub_4651F4(HINSTANCE hInst, const char *pCmdLine);
+signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const char *pCmdLine);
 void __cdecl sub_465C2C();
 void __cdecl sub_465C53();
 int __cdecl GameDestroy();
 signed int __cdecl sub_465D0B();
 void __cdecl sub_465F5A();
 void __cdecl sub_465FF0();
-void sub_466082();
 void sub_4666D5();
 void __cdecl sub_4667E9();
 int __cdecl sub_466B8C();

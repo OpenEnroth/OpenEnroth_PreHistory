@@ -150,7 +150,7 @@ struct Render
 
  unsigned int                bUseColoredLights;               // dword @ 103644
  unsigned int                bRequiredTextureStagesAvailable; // dword @ 103648
- int                         dword_10364C;
+ unsigned int                bTinting;             // dword @ 10364C
  unsigned int                uLevelOfDetail;       // dword @ 103650
  unsigned int                uMaxDeviceTextureDim; // dword @ 103654
  unsigned int                uMinDeviceTextureDim; // dword @ 103658

@@ -2261,7 +2261,7 @@ signed int __thiscall sub_42EBEE(void *this)
     if ( v8 < 30 )
       v8 = 30;
     if ( !dword_ACD834 )
-      sub_48E96A((int)v2, (signed __int64)(flt_6BE3A4 * (double)v8 * *(double *)&byte_4D8410[40]));
+      sub_48E96A((int)v2, (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v8 * *(double *)&byte_4D8410[40]));
     sub_40471C(&unk_4F8858);
     result = 1;
   }
@@ -2528,7 +2528,7 @@ LABEL_39:
         if ( v33 < 30 )
           v33 = 30;
         if ( dword_ACD834 == v3 )
-          sub_48E96A(v2, (signed __int64)(flt_6BE3A4 * (double)v33 * *(double *)&byte_4D8410[40]));
+          sub_48E96A(v2, (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v33 * *(double *)&byte_4D8410[40]));
         goto LABEL_29;
       }
       v23 = 0;
@@ -3551,7 +3551,7 @@ LABEL_75:
                 if ( !dword_ACD834 )
                   sub_48E96A(
                     (int)*(&ptr_A750C4 + uActiveCharacter),
-                    (signed __int64)(flt_6BE3A4 * (double)v24 * *(double *)&byte_4D8410[40]));
+                    (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v24 * *(double *)&byte_4D8410[40]));
                 sub_427D48(&struct_50C0C8, uActiveCharacter);
                 sub_40471C(&unk_4F8858);
               }
@@ -12750,8 +12750,8 @@ LABEL_55:
   AudioPlayer_SetVolume(v23, SHIDWORD(v29), v36);
   v36 = (signed __int64)(aMusicVolumeLevels[uSoundVolumeMultiplier] * 128.0);
   AudioPlayer_sub_4AA214(v23, v36);
-  if ( dword_6BE38C )
-    pParty_global->sRotationY = dword_6BE38C * pParty_global->sRotationY / dword_6BE38C;
+  if ( dword_6BE38C_TurnDelta )
+    pParty_global->sRotationY = dword_6BE38C_TurnDelta * pParty_global->sRotationY / dword_6BE38C_TurnDelta;
   sub_4666D5();
   byte_50794A = 0;
   struct_576FE8.dword_000044 = 1;
@@ -14119,7 +14119,7 @@ LABEL_52:
       SetWindowLongA(hWnd_global, -20, 0);
       SetWindowLongA(hWnd_global, -16, 268435456);
       Render_Initialize(pD3DRenderer, hWnd_global);
-      v0 = (double)dword_4E2900 * *(double *)&byte_4D8410[112] + *(double *)&byte_4D8410[352];
+      v0 = (double)dword_4E2900_GammaPos * *(double *)&byte_4D8410[112] + *(double *)&byte_4D8410[352];
       sub_44F4D9(*(_DWORD *)(LODWORD(pGame) + 3696), v0);
     }
     else

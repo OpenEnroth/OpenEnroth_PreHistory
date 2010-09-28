@@ -524,10 +524,10 @@ LABEL_33:
     else
     {
       v120 = 0;
-      v119 = (signed int)byte_6BE114;
+      v119 = (signed int)byte_6BE114_cfg_textures_DefaultSkyTexture;
     }
     _this->uSkyTextureID = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, (const char *)v119, v120);
-    strcpy(_this->pGroundTileset, byte_6BE124);
+    strcpy(_this->pGroundTileset, byte_6BE124_cfg_textures_DefaultGroundTexture);
     v38 = TileTable_GetTile(pTileTable, _this->array_0000A0[1]);
 
     _this->dword_0000EC = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, (const char *)v38, 0);
@@ -1059,7 +1059,7 @@ LABEL_120:
   CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[4]);
   CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[6]);
 
-  strcpy(_this->pGroundTileset, byte_6BE124);
+  strcpy(_this->pGroundTileset, byte_6BE124_cfg_textures_DefaultGroundTexture);
   v109 = _this->array_0000A0[1];
   v120 = 0;
   v110 = TileTable_GetTile(pTileTable, _this->array_0000A0[1]);

@@ -568,7 +568,7 @@ void *__fastcall sub_4BFE2D(HWND hWnd, unsigned int uWidth, unsigned int uHeight
   ddsd2.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN | DDSCAPS_VIDEOMEMORY;
 
   hr = (pD3DRenderer->pdd4->lpVtbl->CreateSurface)(pD3DRenderer->pdd4, &ddsd2, &pdds, 0);
-  if (dword_6BE384 || FAILED(hr))
+  if (dword_6BE384_2dacceloff || FAILED(hr))
   {
    memset(&ddsd2.ddpfPixelFormat, 0, sizeof(DDPIXELFORMAT));
 

@@ -581,7 +581,7 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDire
     }
 
     if ( dword_ACD834 != 1 )
-      recoveryTime = (int)(flt_6BE3A8 * (double)recoveryTime * 2.133333333333333);
+      recoveryTime = (int)(flt_6BE3A8_debug_recmod2 * (double)recoveryTime * 2.133333333333333);
 
     pActor->uRecoveryTime = recoveryTime;
     pActor->word_000098 = 0;
@@ -1037,7 +1037,7 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo
       pActor->uRecoveryTime = recoveryTime;
     else
       pActor->uRecoveryTime = pActor->word_0000A0 - 
-                             (int)(flt_6BE3A8 * (double)recoveryTime * -2.133333333333333);        
+                             (int)(flt_6BE3A8_debug_recmod2 * (double)recoveryTime * -2.133333333333333);        
     pActor->word_000098 = 0;
     pActor->word_000096 = 0;
     pActor->word_000094 = 0;
@@ -1123,7 +1123,7 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct DirectionInfo
     }
 
     if ( dword_ACD834 != 1 )
-      pActor->uRecoveryTime = (int)(flt_6BE3A8 * (double)recoveryTime * 2.133333333333333);
+      pActor->uRecoveryTime = (int)(flt_6BE3A8_debug_recmod2 * (double)recoveryTime * 2.133333333333333);
         
     pActor->word_000098 = 0;
     pActor->word_000096 = 0;
@@ -1205,7 +1205,7 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct DirectionInfo
       pActor->uRecoveryTime = recoveryTime;
     else
       pActor->uRecoveryTime = pActor->word_0000A0 - 
-                             (int)(flt_6BE3A8 * (double)recoveryTime * -2.133333333333333);
+                             (int)(flt_6BE3A8_debug_recmod2 * (double)recoveryTime * -2.133333333333333);
     pActor->word_000098 = 0;
     pActor->word_000096 = 0;
     pActor->word_000094 = 0;
@@ -1280,7 +1280,7 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct DirectionInfo
       pActor->uRecoveryTime = recoveryTime;
     else
       pActor->uRecoveryTime = pActor->word_0000A0 - 
-                             (int)(flt_6BE3A8 * (double)recoveryTime * -2.133333333333333);
+                             (int)(flt_6BE3A8_debug_recmod2 * (double)recoveryTime * -2.133333333333333);
     pActor->word_000098 = 0;
     pActor->word_000096 = 0;
     pActor->word_000094 = 0;

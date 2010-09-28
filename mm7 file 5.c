@@ -795,7 +795,7 @@ LABEL_178:
                   }
                   else
                   {
-                    sub_48E96A(v76, (signed __int64)(flt_6BE3A4 * *(double *)&byte_4D8410[296]));
+                    sub_48E96A(v76, (signed __int64)(flt_6BE3A4_debug_recmod1 * *(double *)&byte_4D8410[296]));
                   }
                 }
                 goto LABEL_187;
@@ -7248,7 +7248,7 @@ void __cdecl sub_46F90C()
         if ( dword_ACD834 == 1 )
         {
           if ( dword_4F885C == 1 )
-            v8 = (signed __int64)((double)v63 * flt_6BE3AC);
+            v8 = (signed __int64)((double)v63 * flt_6BE3AC_debug_recmod1_x_1_6);
         }
         if ( v8 > 1000 )
           v8 = 1000;
@@ -7868,7 +7868,7 @@ LABEL_121:
       if ( dword_ACD834 == 1 )
       {
         if ( dword_4F885C == 1 )
-          v10 = (signed __int64)((double)v75 * flt_6BE3AC);
+          v10 = (signed __int64)((double)v75 * flt_6BE3AC_debug_recmod1_x_1_6);
       }
       if ( v10 > 1000 )
         v10 = 1000;
@@ -9287,7 +9287,7 @@ LABEL_20:
                 v8 = (signed __int64)((double)Player_GetMaxHealth(*v7) * *(double *)&byte_4D8410[112]);
                 sub_48DC1E(*v7, (pParty_global->dword_000700 - v87) * (_DWORD)v8 / 256, 4);
                 v9 = Player_GetActualEndurance(*v7);
-                v10 = (double)(20 - sub_48EA1B(v9)) * flt_6BE3A4 * *(double *)&byte_4D8410[40];
+                v10 = (double)(20 - sub_48EA1B(v9)) * flt_6BE3A4_debug_recmod1 * *(double *)&byte_4D8410[40];
                 sub_48E96A(*v7, (signed __int64)v10);
               }
             }
@@ -9303,7 +9303,7 @@ LABEL_20:
   v76 = v87 - i <= 32;
   if ( v87 - i <= 32 )
     pParty_global->dword_000700 = v87;
-  if ( dword_6BE374 )
+  if ( dword_6BE374_WalkSoundFlag )
   {
     if (pParty_global->dword_0006F8 > 0)
       pParty_global->dword_0006F8 -= pClass24_global->int_00001C;
@@ -9344,20 +9344,20 @@ LABEL_87:
     switch ( sub_4760D5((int)&dword_7215D8) )
     {
       case 1:
-        v12 = dword_6BE38C;
-        if ( dword_6BE38C )
+        v12 = dword_6BE38C_TurnDelta;
+        if ( dword_6BE38C_TurnDelta )
           goto LABEL_58;
         v13 = (double)v82 * flt_6BE14C;
         goto LABEL_51;
       case 2:
-        LODWORD(v15) = dword_6BE38C;
-        if ( dword_6BE38C )
+        LODWORD(v15) = dword_6BE38C_TurnDelta;
+        if ( dword_6BE38C_TurnDelta )
           goto LABEL_56;
         v16 = (double)v82 * flt_6BE14C;
         goto LABEL_55;
       case 18:
-        v12 = dword_6BE38C;
-        if ( dword_6BE38C )
+        v12 = dword_6BE38C_TurnDelta;
+        if ( dword_6BE38C_TurnDelta )
         {
 LABEL_58:
           v14 = v90 + v12;
@@ -9371,8 +9371,8 @@ LABEL_51:
         v90 = pClass59_global->uDoublePiMask & v14;
         goto LABEL_87;
       case 19:
-        LODWORD(v15) = dword_6BE38C;
-        if ( !dword_6BE38C )
+        LODWORD(v15) = dword_6BE38C_TurnDelta;
+        if ( !dword_6BE38C_TurnDelta )
         {
           v16 = (flt_6BE14C + flt_6BE14C) * (double)v82;
 LABEL_55:
@@ -9704,7 +9704,7 @@ LABEL_152:
       break;
     }
   }
-  if ( dword_6BE374 && pParty_global->dword_0006F8 <= 0)
+  if ( dword_6BE374_WalkSoundFlag && pParty_global->dword_0006F8 <= 0)
   {
     if ( sub_452A9E((pParty_global->sPartyPosX - v86) * (pParty_global->sPartyPosX - v86) + (pParty_global->sPartyPosY - v85) * (pParty_global->sPartyPosY - v85)
                                                                 + (pParty_global->sPartyPosZ - v38) * (pParty_global->sPartyPosZ - v38)) <= 16 )
@@ -13362,9 +13362,9 @@ int __thiscall sub_47CDE2(int Dest)
   v7 = class23_AllocatedNamedBuffer(class23_instance, 0, 2, "IDLIST");
   *(_DWORD *)(v2 + 224) = v7;
   *(_WORD *)v7 = 0;
-  strcpy((char *)(v2 + 96), byte_6BE114);
+  strcpy((char *)(v2 + 96), byte_6BE114_cfg_textures_DefaultSkyTexture);
   *(_DWORD *)(v2 + 232) = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, (const char *)(v2 + 96), 0);
-  strcpy((char *)(v2 + 128), byte_6BE124);
+  strcpy((char *)(v2 + 128), byte_6BE124_cfg_textures_DefaultGroundTexture);
   result = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, (const char *)(v2 + 128), 0);
   v8 = *(_DWORD *)(v2 + 232) == -1;
   *(_DWORD *)(v2 + 236) = result;
