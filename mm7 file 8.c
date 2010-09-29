@@ -1979,17 +1979,15 @@ LABEL_16:
 }
 
 //----- (0047AF11) --------------------------------------------------------
-void __cdecl sub_47AF11_ProbablyDrawObjects()
+void sub_47AF11_PrepareObjectsRenderList()
 {
   __int16 *v0; // edi@2
-  int v1; // ebx@4
+  struct ObjectDescription *v1; // ebx@4
   __int16 v2; // cx@5
-  __int16 v3; // ax@10
   int v4; // edx@10
   int v5; // ecx@10
-  int v6; // ebx@10
-  char *v7; // esi@10
-  int v8; // eax@10
+ struct unnamed_512250 *v7; // esi@10
+ struct SpriteFrame    *pSprite;
   int v9; // eax@10
   int v10; // ecx@10
   char *v11; // eax@14
@@ -2009,7 +2007,6 @@ void __cdecl sub_47AF11_ProbablyDrawObjects()
   int v25; // ST3C_4@30
   int v26; // eax@31
   char v27; // zf@31
-  int v28; // [sp+Ch] [bp-34h]@10
   __int16 v29; // [sp+10h] [bp-30h]@10
   int v30; // [sp+14h] [bp-2Ch]@23
   int v31; // [sp+14h] [bp-2Ch]@29
@@ -2032,35 +2029,35 @@ void __cdecl sub_47AF11_ProbablyDrawObjects()
   for (i = 0; i < uNumElementsIn665230; ++i)
   {
    v0 = &array_665230[i].word_00001C;
-      if (array_665230[i].uObjectDescriptionID)
-      {
-        v1 = &pObjectDescriptionList->pDescriptions[array_665230[i].uObjectDescriptionID];
-        if ( !(*(_BYTE *)(v1 + 38) & 1) )
-        {
-         v2 = *(v0 - 14);
-          if ( (v2 < 1000 || v2 >= 10000) && (v2 < 500 || v2 >= 600)
-            || class06_sub_4A81CA(pGame->class06_obj, (int)(v0 - 14)) )
-          {
-            v29 = *v0;
-            v44 = *((_DWORD *)v0 - 6);
-            v43 = *((_DWORD *)v0 - 5);
-            v45 = *((_DWORD *)v0 - 4);
-            v7 = &array_512250[dword_5187E0];
-            v8 = CSpriteFrameTable_fn1(pSpriteFrameTable, *(_WORD *)(v1 + 40), v0[1]);
-            v6 = v8;
-            v28 = v8;
-            v36 = *(_DWORD *)(v8 + 44);
-            v38 = *(_WORD *)(v8 + 48) * v0[3];
-            v9 = class59_Atan2(pClass59_global, *((_DWORD *)v0 - 6) - pOldCamera->dword_000000, *((_DWORD *)v0 - 5) - pOldCamera->dword_000004);
-            LOWORD(v10) = *(v0 - 3);
+
+   if (array_665230[i].uObjectDescriptionID)
+   {
+    v1 = &pObjectDescriptionList->pDescriptions[array_665230[i].uObjectDescriptionID];
+    if (~v1->byte_000026 & 0x01)
+    {
+     v2 = array_665230[i].word_000000;
+     if ( (v2 < 1000 || v2 >= 10000) && (v2 < 500 || v2 >= 600) || class06_sub_4A81CA(pGame->class06_obj, &array_665230[i]))
+     {
+      v29 = array_665230[i].word_00001C;
+      v44 = array_665230[i].sItemPosX;
+      v43 = array_665230[i].sItemPosY;
+      v45 = array_665230[i].sItemPosZ;
+      v7 = &array_512250[dword_5187E0];
+      pSprite = CSpriteFrameTable_fn1(pSpriteFrameTable, v1->uSpriteID, array_665230[i].uSpriteFrameID);
+
+            v36 = pSprite->dword_00002C;
+            v38 = pSprite->word_000030 * array_665230[i].word_000022;
+            v9 = class59_Atan2(pClass59_global, array_665230[i].sItemPosX - pOldCamera->dword_000000, array_665230[i].sItemPosY - pOldCamera->dword_000004);
+            LOWORD(v10) = array_665230[i].word_000016;
             v4 = v36;
+
             v5 = ((pClass59_global->uIntegerPi + (pClass59_global->uIntegerPi >> 3) + v10 - v9) >> 8) & 7;
-            v3 = *(_WORD *)(v6 + 2 * v5 + 24);
-            *((_WORD *)v7 + 12) = v3;
+            array_512250[dword_5187E0].uHardwareSpriteID = pSprite->pSpriteIDs[v5];
+
             if ( v36 & 0x20 )
             {
               v4 = v36;
-              v45 -= (signed int)((unsigned __int64)(*(_DWORD *)(v6 + 40) * *(int *)&pLODFile_Sprites_LOD->aLODHeaders[1 + 20 * v3].word_000010) >> 16) >> 1;
+              v45 -= (signed int)(((unsigned __int64)(pSprite->dword_000028) * *(int *)&pLODFile_Sprites_LOD->aLODHeaders[1 + 20 * pSprite->pSpriteIDs[v5]].word_000010) >> 16) >> 1;
             }
             v46 = 0;
             if ( v4 & 2 )
@@ -2081,12 +2078,12 @@ void __cdecl sub_47AF11_ProbablyDrawObjects()
             if (pOldCamera->sRotationX)
             {
               v14 = (v43 - pOldCamera->dword_000004) << 16;
-              v30 = ((unsigned __int64)(v12 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) + ((unsigned __int64)(v14 * pStruct9_global->camera_rotation_y_int_sine) >> 16);
-              v37 = (unsigned __int64)(v12 * pStruct9_global->camera_rotation_y_int_sine) >> 16;
-              v39 = (unsigned __int64)(v14 * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
+              v30 = (((unsigned __int64)(v12) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) + (((unsigned __int64)(v14) * pStruct9_global->camera_rotation_y_int_sine) >> 16);
+              v37 = ((unsigned __int64)(v12) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+              v39 = ((unsigned __int64)(v14) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
               v33 = (v45 - pOldCamera->dword_000008) << 16;
-              v15 = (unsigned __int64)(v30 * pStruct9_global->camera_rotation_x_int_cosine) >> 16;
-              v16 = (unsigned __int64)(v33 * pStruct9_global->camera_rotation_x_int_sine) >> 16;
+              v15 = ((unsigned __int64)(v30) * pStruct9_global->camera_rotation_x_int_cosine) >> 16;
+              v16 = ((unsigned __int64)(v33) * pStruct9_global->camera_rotation_x_int_sine) >> 16;
               v13 = v16 + v15;
               v42 = v16 + v15;
               if ( v16 + v15 >= 262144 && v13 <= pStruct9_global->shading_dist_mist << 16 )
@@ -2100,15 +2097,15 @@ void __cdecl sub_47AF11_ProbablyDrawObjects()
             else
             {
               v34 = (v43 - pOldCamera->dword_000004) << 16;
-              v19 = (unsigned __int64)(v12 * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
-              v20 = (unsigned __int64)(v34 * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+              v19 = ((unsigned __int64)(v12) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
+              v20 = ((unsigned __int64)(v34) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
               v13 = v20 + v19;
               v42 = v20 + v19;
               if ( v20 + v19 >= 262144 && v13 <= pStruct9_global->shading_dist_mist << 16 )
               {
-                v21 = (unsigned __int64)(((v44 - pOldCamera->dword_000000) << 16) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
-                v18 = ((unsigned __int64)(v34 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v21;
-                v40 = ((unsigned __int64)(v34 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v21;
+                v21 = ((unsigned __int64)(((v44) - pOldCamera->dword_000000) << 16) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+                v18 = (((unsigned __int64)(v34) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v21;
+                v40 = (((unsigned __int64)(v34) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v21;
                 v17 = (v45 - pOldCamera->dword_000008) << 16;
 LABEL_29:
                 v31 = v17;
@@ -2121,19 +2118,19 @@ LABEL_29:
                   v25 = v24 / v42;
                   LODWORD(v24) = 0;
                   HIDWORD(v24) = pStruct9_global->dword_000014 << 16 >> 16;
-                  v35 = pOldViewport->dword_000028 - ((signed int)(((unsigned __int64)(v25 * v40) >> 16) + 32768) >> 16);
-                  v32 = pOldViewport->dword_00002C - ((signed int)(((unsigned __int64)(v24 / v42 * v31) >> 16) + 32768) >> 16);
+                  v35 = pOldViewport->dword_000028 - ((signed int)((((unsigned __int64)(v25) * v40) >> 16) + 32768) >> 16);
+                  v32 = pOldViewport->dword_00002C - ((signed int)((((unsigned __int64)(v24) / v42 * v31) >> 16) + 32768) >> 16);
                   if ( dword_5187E0 >= 500 )
                     return;
                   ++dword_5187E0;
                   ++dword_5187E4;
                   *((_BYTE *)v0 - 2) |= 1u;
-                  *((_WORD *)v7 + 13) = *(_WORD *)(v28 + 52);
-                  *((_WORD *)v7 + 14) = v29;
-                  *(_DWORD *)v7 = (unsigned __int64)(*(_DWORD *)(v28 + 40) * v23) >> 16;
-                  v26 = (unsigned __int64)(*(_DWORD *)(v28 + 40) * v23) >> 16;
-                  *((_DWORD *)v7 + 12) = v28;
-                  *((_DWORD *)v7 + 1) = v26;
+                  v7->word_00001A = pSprite->word_000034;
+                  v7->word_00001C = v29;
+                  v7->dword_000000 = ((unsigned __int64)(pSprite->dword_000028) * v23) >> 16;
+                  v26 = ((unsigned __int64)(pSprite->dword_000028) * v23) >> 16;
+                  v7->pSpriteFrame = pSprite;
+                  v7->dword_000004 = v26;
                   *((_WORD *)v7 + 15) = v46;
                   *((_WORD *)v7 + 16) = v44;
                   *((_WORD *)v7 + 17) = v43;
@@ -2143,13 +2140,13 @@ LABEL_29:
                   HIWORD(v26) = HIWORD(v42);
                   LOWORD(v26) = 0;
                   v27 = (*((_BYTE *)v0 - 2) & 0x20) == 0;
-                  *((_DWORD *)v7 + 4) = v26 + (8 * i | 2);
-                  *((_WORD *)v7 + 21) = 0;
-                  *((_DWORD *)v7 + 11) = 0;
+                  v7->dword_000010 = v26 + (8 * i | 2);
+                  v7->word_00002A = 0;
+                  v7->dword_00002C = 0;
                   if ( !v27 )
                   {
                     if ( !pD3DRenderer->pRenderD3D3 )
-                      *((_DWORD *)v7 + 4) = 0;
+                     v7->dword_000010 = 0;
                   }
                 }
                 goto LABEL_34;
@@ -5917,7 +5914,7 @@ int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed 
       if ( dword_6BE360 == 2 )
         sub_441CFF();
     }
-    Render_EndSceneD3D3_AND_MaybeRenderSpecialEffects(pD3DRenderer);
+    RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(pD3DRenderer);
     memset(&Dst, 0, 0x7Cu);
     Dst = 124;
     if ( LockSurface_DDraw4(pD3DRenderer->pdds4_BackBuffer, &Dst, 1) )

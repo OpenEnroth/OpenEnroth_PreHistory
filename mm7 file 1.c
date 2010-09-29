@@ -972,11 +972,11 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
   dword_5187E8 = 0;
   dword_5187E4 = 0;
   dword_5187E0 = 0;
-  sub_47B42C_MaybeDrawActors();
+  sub_47B42C_ClipActorsAgainsFrustrum();
   if ( !dword_6BE0C8 )
     sub_47A95E();
-  sub_47AF11_ProbablyDrawObjects();
-  sub_47BACF_ProbablyDrawActors();
+  sub_47AF11_PrepareObjectsRenderList();
+  sub_47BACF_PrepareActorRenderList();
   sub_485F53(&data_6BE060);
 }
 
@@ -1058,7 +1058,7 @@ void __fastcall sub_47253E(unsigned int a1)
 
   for (i = 0; i < uNumElementsIn665230; ++i)
   {
-   v2 = array_665230[i].byte_00001E;
+   v2 = &array_665230[i].uSpriteFrameID;
 
    LOWORD(a1) = array_665230[i].word_00001C;
       if ( a1 & 0x40 )
@@ -3674,7 +3674,7 @@ LABEL_20:
 }
 
 //----- (0047B42C) --------------------------------------------------------
-void __cdecl sub_47B42C_MaybeDrawActors()
+void __cdecl sub_47B42C_ClipActorsAgainsFrustrum()
 {
   int v1; // edi@2
   signed int v3; // esi@5
@@ -4002,7 +4002,7 @@ void sub_44103C()
   }
 
 
- Render_EndSceneD3D3_AND_MaybeRenderSpecialEffects(pD3DRenderer);
+ RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(pD3DRenderer);
 
 LABEL_22:
  Render_BeginScene(pD3DRenderer);
@@ -6888,7 +6888,7 @@ signed int __thiscall sub_492C0B(int this)
 }
 
 //----- (0047BACF) --------------------------------------------------------
-void __cdecl sub_47BACF_ProbablyDrawActors()
+void __cdecl sub_47BACF_PrepareActorRenderList()
 {
   _UNKNOWN *v1; // esi@2
   int v3; // edx@3

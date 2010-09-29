@@ -676,7 +676,7 @@ void sub_459064(struct CObjectDescriptionList *_this)
  int i;
 
  for (i = 0; i < _this->uNumObjects; ++i)
-   CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[i].word_000028);
+   CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[i].uSpriteID);
 }
 
 

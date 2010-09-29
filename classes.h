@@ -1325,14 +1325,20 @@ struct struct0
 struct struct2
 {
  short word_000000;
- short uObjectDescriptionID; // word @ 000002
- int   sItemPosX;            // dword @ 000004
- int   sItemPosY;            // dword @ 000008
- int   sItemPosZ;
- short uObjectDescriptionID2; // word @ 000010
- char  byte_000012[10];
+ short uObjectDescriptionID;  // word  @ 000002
+ int   sItemPosX;             // dword @ 000004
+ int   sItemPosY;             // dword @ 000008
+ int   sItemPosZ;             // dword @ 00000C
+ short uObjectDescriptionID2; // word  @ 000010
+ char  byte_000012[4];
+ short word_000016;
+ short word_000018;
+ short word_00001A;
  short word_00001C;
- char  byte_00001E[82];
+ unsigned short uSpriteFrameID; // word @ 00001E
+ short word_000020;
+ short word_000022;
+ char  byte_000024[76];
 };
 //sizeof == 70
 

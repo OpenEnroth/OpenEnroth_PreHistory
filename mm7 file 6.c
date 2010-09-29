@@ -9616,7 +9616,7 @@ LABEL_23:
 }
 
 //----- (004A1C1E) --------------------------------------------------------
-void sub_4A1C1E()
+void D3D_DoRenderBillboards()
 {
  int v0;
  struct unnamed_EF52B8 *v1;

@@ -2459,14 +2459,14 @@ void Render_BeginSceneD3D3(struct Render *_this)
 
 
 //----- (004A1FE1) --------------------------------------------------------
-void Render_EndSceneD3D3_AND_MaybeRenderSpecialEffects(struct Render *_this)
+void RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(struct Render *_this)
 {
  if (_this->uD3D3SceneBegun-- == 1)
  {
     if (_this->pRenderD3D3)
     {
       sub_44EE7C();
-      sub_4A1C1E();
+      D3D_DoRenderBillboards();
       class06_sub_4A8C27(pGame->class06_obj);
       (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->EndScene)(pD3DRenderer->pRenderD3D3->pDevice);
     }

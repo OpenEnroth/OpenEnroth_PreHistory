@@ -11882,7 +11882,7 @@ void __cdecl sub_4BC109()
     if ( dword_6BE360 == 2 )
       sub_441CFF();
   }
-  Render_EndSceneD3D3_AND_MaybeRenderSpecialEffects(pD3DRenderer);
+  RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(pD3DRenderer);
   Render_BeginScene(pD3DRenderer);
   if ( pD3DRenderer->pRenderD3D3 )
     Render_FillRect2(pD3DRenderer,

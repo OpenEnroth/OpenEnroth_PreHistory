@@ -250,7 +250,7 @@ struct ObjectDescription
  char b[6];
  char     byte_000026;
  char     byte_000027;
- short    word_000028;
+ unsigned short uSpriteID; // word @ 000028
  short    word_00002A;
  int      dword_00002C;
  char     byte_000030;

@@ -239,7 +239,7 @@ void Render_ClearZBuffer(struct Render *_this, int a2, int a3);
 //int __thiscall sub_4A1EB6(int this);
 void Render_BeginSceneD3D3(struct Render *_this);
 //int __thiscall sub_4A1FE1(int this);
-void Render_EndSceneD3D3_AND_MaybeRenderSpecialEffects(struct Render *_this);
+void RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(struct Render *_this);
 //void *__thiscall sub_4A121C(void *this);
 void *Render_CreateSurface(struct Render *_this);
 //void *__thiscall sub_4A12CD(void *this);
