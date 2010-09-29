@@ -151,9 +151,9 @@ struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, s
 
   if ( type1 == 2 )
   {    
-    x0 = array_665230[idx1].sItemPosX;
-    y0 = array_665230[idx1].sItemPosY;
-    z0 = array_665230[idx1].sItemPosZ;
+    x0 = pLayingItemsList[idx1].sItemPosX;
+    y0 = pLayingItemsList[idx1].sItemPosY;
+    z0 = pLayingItemsList[idx1].sItemPosZ;
   }  
   else if ( type1 == 3 )
   {
@@ -207,9 +207,9 @@ struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, s
   }
   else if ( type1 == 5 )
   {
-    x0 = array_6836D0[idx1].sPosX;
-    y0 = array_6836D0[idx1].sPosY;
-    z0 = array_6836D0[idx1].sPosZ;
+    x0 = pLevelDecorations[idx1].sPosX;
+    y0 = pLevelDecorations[idx1].sPosY;
+    z0 = pLevelDecorations[idx1].sPosZ;
   }
   else if ( type1 == 6 )
   {
@@ -233,9 +233,9 @@ struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, s
 
   if ( type2 == 2 )
   {
-    x1 = array_665230[idx2].sItemPosX;
-    y1 = array_665230[idx2].sItemPosY;
-    z1 = array_665230[idx2].sItemPosZ;    
+    x1 = pLayingItemsList[idx2].sItemPosX;
+    y1 = pLayingItemsList[idx2].sItemPosY;
+    z1 = pLayingItemsList[idx2].sItemPosZ;    
   }
   else if ( type2 == 3 )
   {
@@ -255,9 +255,9 @@ struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, s
   }
   else if ( type2 == 5 )
   {    
-    x1 = array_6836D0[idx2].sPosX;
-    y1 = array_6836D0[idx2].sPosY;
-    z1 = array_6836D0[idx2].sPosZ;
+    x1 = pLevelDecorations[idx2].sPosX;
+    y1 = pLevelDecorations[idx2].sPosY;
+    z1 = pLevelDecorations[idx2].sPosZ;
   }
   else if ( type2 == 6 )
   {

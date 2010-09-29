@@ -1779,7 +1779,7 @@ char __cdecl sub_46A14B()
       {
         v17 = (unsigned int)v6 >> 3;
         if ( (*(_DWORD *)v22 >> 16)
-           - (signed int)*(_WORD *)((char *)&pDecorationDescriptionList->pDescriptions[array_6836D0[((unsigned int)v6 >> 3)].uDecorationDescriptionID] + 68) > 512 )
+           - (signed int)*(_WORD *)((char *)&pDecorationDescriptionList->pDescriptions[pLevelDecorations[((unsigned int)v6 >> 3)].uDecorationDescriptionID] + 68) > 512 )
           goto LABEL_18;
       }
       else
@@ -1881,12 +1881,12 @@ char __fastcall sub_46A334(int a1, int a2)
       v18 = a1 >> 3;
       v29 = (char *)(a1 >> 3);
       v17 = 112 * (a1 >> 3);
-      if ( *(_BYTE *)(56 * array_665230[a1 >> 3].uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 38) & 0x10
+      if ( *(_BYTE *)(56 * pLayingItemsList[a1 >> 3].uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 38) & 0x10
         || v18 >= 1000
-        || !array_665230[a1 >> 3].uObjectDescriptionID)
+        || !pLayingItemsList[a1 >> 3].uObjectDescriptionID)
         return 1;
-      v20 = (int)((char *)&unk_665254 + v17);
-      v19 = 48 * *(_DWORD *)((char *)&unk_665254 + v17);
+      v20 = (int)&pLayingItemsList[v17/112].dword_000024;
+      v19 = 48 * pLayingItemsList[v17/112].dword_000024;
       if ( byte_5D2A00[v19] == 18 )
       {
         sub_420C05(*(_DWORD *)(v20 + 12), 0);
@@ -1898,7 +1898,7 @@ char __fastcall sub_46A334(int a1, int a2)
         if ( dword_AD470C )
           return 1;
         v27 = *(int *)((char *)dword_5D29EC + v19);
-        sprintfex(pStringBuffer, pGlobalTXT_LocalizationStrings[471], v27);
+        wsprintfA(pStringBuffer, pGlobalTXT_LocalizationStrings[471], v27);
         sub_44C175(pStringBuffer, 2);
         if ( *(_DWORD *)v20 == 506 )
           sub_449B7E((int)byte_ACD71D, 184, 1);
@@ -1958,7 +1958,7 @@ char __fastcall sub_46A334(int a1, int a2)
       }
       break;
     case 5:
-      v9 = &array_6836D0[(a1 >> 3)];
+      v9 = &pLevelDecorations[(a1 >> 3)];
       v8 = v9[11];
       if ( v8 )
       {
@@ -1967,7 +1967,7 @@ char __fastcall sub_46A334(int a1, int a2)
       }
       else
       {
-        if ( !sub_44C2F4(&array_6836D0[(a1 >> 3)]) )
+        if ( !sub_44C2F4(&pLevelDecorations[(a1 >> 3)]) )
           return 1;
         v10 = v9[14];
         v27 = 1;
@@ -2132,8 +2132,8 @@ int __fastcall sub_46A7C8(int a1, int a2, signed int a3)
     do
     {
       v5 = sub_4A1EA3(v16);
-      v4 = array_512250[v5].dword_000010;
-      v3 = (unsigned __int16)array_512250[v5].dword_000010;
+      v4 = pBillboardRenderList[v5].dword_000010;
+      v3 = (unsigned __int16)pBillboardRenderList[v5].dword_000010;
       if ( (v3 & 7) == 3 )
       {
         if ( v4 <= (unsigned int)(a3 << 16) )
@@ -2397,9 +2397,9 @@ LABEL_18:
     {
       if ( v19 >= 0x3E8 )
         return 0;
-      if ( !(byte_66524A[112 * v19] & 0x10) )
+      if (~pLayingItemsList[v19].word_00001A & 0x0010)
       {
-        v23 = (char *)sub_456499((char *)&unk_665254 + 112 * v19);
+        v23 = (char *)sub_456499(pLayingItemsList[v19].dword_000024);
 LABEL_36:
         v24 = v23;
         goto LABEL_51;
@@ -2446,7 +2446,7 @@ LABEL_41:
     if ( v18 >= v2 )
       return 0;
   }
-  v26 = &array_6836D0[v19];
+  v26 = &pLevelDecorations[v19];
   v27 = v26;
   v25 = v26[11];
   if ( v25 )
@@ -3911,7 +3911,7 @@ signed int __fastcall sub_46BFFA(int a1, signed int a2)
   int v170; // [sp+28h] [bp-4h]@1
 
   v170 = a1;
-  v3 = (int)((char *)array_665230 + 112 * a1);
+  v3 = (int)((char *)pLayingItemsList + 112 * a1);
   v2 = pObjectDescriptionList->pDescriptions + 56 * *(_WORD *)(v3 + 2);
   v162 = a2;
   v168 = a2 & 7;
@@ -4855,7 +4855,7 @@ int __cdecl sub_46CC4B()
   {
     do
     {
-      v3 = &array_6836D0[dword_6807E8[result]];
+      v3 = &pLevelDecorations[dword_6807E8[result]];
       v2 = v3[12];
       v1 = *((_DWORD *)v3 + 2);
       v35 = *((_DWORD *)v3 + 1);
@@ -4933,9 +4933,9 @@ int __cdecl sub_46CC4B()
       if ( *((_BYTE *)v3 + 2) & 4 )
       {
         v40 = 0;
-        if ( (signed int)uNumElementsIn665230 > 0 )
+        if ( (signed int)uNumLayingItems > 0 )
         {
-          v17 = &array_665230[0].sItemPosY;
+          v17 = &pLayingItemsList[0].sItemPosY;
           do
           {
             v21 = abs(v35 - *(v17 - 1));
@@ -4967,7 +4967,7 @@ int __cdecl sub_46CC4B()
             ++v40;
             v17 += 28;
           }
-          while ( v40 < (signed int)uNumElementsIn665230 );
+          while ( v40 < (signed int)uNumLayingItems );
         }
       }
       result = v36 + 1;
@@ -5641,7 +5641,7 @@ signed int __fastcall sub_46DEF2(int a1, signed int a2)
   signed int result; // eax@1
 
   result = a2;
-  if ( *(_BYTE *)(56 * array_665230[a2].uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 38) & 0x10 )
+  if ( *(_BYTE *)(56 * pLayingItemsList[a2].uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 38) & 0x10 )
     result = sub_46BFFA(a2, a1);
   return result;
 }
@@ -5748,7 +5748,7 @@ void __cdecl sub_46E0B2()
   v0 = dword_6BE654 + 116 * dword_7215A4;
   for ( i = 0; i < *(_WORD *)(v0 + 68); ++i )
   {
-    v1 = &array_6836D0[*(_WORD *)(*(_DWORD *)(v0 + 72) + 2 * i)];
+    v1 = &pLevelDecorations[*(_WORD *)(*(_DWORD *)(v0 + 72) + 2 * i)];
     if ( !(*((_BYTE *)v1 + 2) & 0x20) )
     {
       v2 = 84 * *v1 + pDecorationDescriptionList->pDescriptions;
@@ -5855,7 +5855,7 @@ void __fastcall sub_46E26D(signed int a1, signed int a2)
               v4 = *(_WORD *)v2;
               if ( (v4 & 7) == 5 )
               {
-                v5 = &array_6836D0[(v4 >> 3)];
+                v5 = &pLevelDecorations[(v4 >> 3)];
                 if ( !(*((_BYTE *)v5 + 2) & 0x20) )
                 {
                   v6 = 84 * *v5 + pDecorationDescriptionList->pDescriptions;
@@ -6469,10 +6469,10 @@ void __thiscall sub_46ED8A(void *this)
 
   v15 = 0;
   v12 = (int)this;
-  if ( (signed int)uNumElementsIn665230 > 0 )
+  if ( (signed int)uNumLayingItems > 0 )
   {
-   v1 = &array_665230[0].uObjectDescriptionID;
-   v14 = &array_665230[0].uObjectDescriptionID;
+   v1 = &pLayingItemsList[0].uObjectDescriptionID;
+   v14 = &pLayingItemsList[0].uObjectDescriptionID;
     do
     {
       if ( *(_WORD *)v1 )
@@ -6528,7 +6528,7 @@ void __thiscall sub_46ED8A(void *this)
       v1 = v14 + 112;
       v14 += 112;
     }
-    while ( v15 < (signed int)uNumElementsIn665230 );
+    while ( v15 < (signed int)uNumLayingItems );
   }
 }
 
@@ -7458,8 +7458,8 @@ LABEL_123:
                                                                                        * *(_WORD *)(v1 + 150));
                   v49 = class59_Atan2(
                           pClass59_global,
-                          *(_WORD *)(v1 + 142) - array_6836D0[v41].sPosX,
-                          *(_WORD *)(v1 + 144) - array_6836D0[v41].sPosY);
+                          *(_WORD *)(v1 + 142) - pLevelDecorations[v41].sPosX,
+                          *(_WORD *)(v1 + 144) - pLevelDecorations[v41].sPosY);
                   v56 = class59_SinCos(pClass59_global, v49);
                   v58 = (unsigned __int64)(v56 * (signed int)v59) >> 16;
                   v50 = v49 - pClass59_global->uIntegerHalfPi;
@@ -8161,8 +8161,8 @@ LABEL_103:
           v48 = sub_452A9E(*(_WORD *)(v1 + 148) * *(_WORD *)(v1 + 148) + *(_WORD *)(v1 + 150) * *(_WORD *)(v1 + 150));
           v49 = class59_Atan2(
                   pClass59_global,
-                  *(_WORD *)(v1 + 142) - array_6836D0[v40].sPosX,
-                  *(_WORD *)(v1 + 144) - array_6836D0[v40].sPosY);
+                  *(_WORD *)(v1 + 142) - pLevelDecorations[v40].sPosX,
+                  *(_WORD *)(v1 + 144) - pLevelDecorations[v40].sPosY);
           v73 = class59_SinCos(pClass59_global, v49);
           v72 = (unsigned __int64)(v73 * v48) >> 16;
           v50 = v49 - pClass59_global->uIntegerHalfPi;
@@ -8300,7 +8300,7 @@ void __fastcall sub_47136C(int a1)
   int v50; // [sp+8Ch] [bp-4h]@4
 
   v44 = a1;
-  v2 = (char *)array_665230 + 112 * a1;
+  v2 = (char *)pLayingItemsList + 112 * a1;
   v1 = pObjectDescriptionList->pDescriptions + 56 * *((_WORD *)v2 + 1);
   v3 = *((_DWORD *)v2 + 1);
   v45 = pObjectDescriptionList->pDescriptions + 56 * *((_WORD *)v2 + 1);
@@ -8445,8 +8445,8 @@ LABEL_25:
         v48 = sub_452A9E(*((_WORD *)v2 + 8) * *((_WORD *)v2 + 8) + *((_WORD *)v2 + 9) * *((_WORD *)v2 + 9));
         v23 = class59_Atan2(
                 pClass59_global,
-                *((_DWORD *)v2 + 1) - array_6836D0[v15].sPosX,
-                *((_DWORD *)v2 + 2) - array_6836D0[v15].sPosY);
+                *((_DWORD *)v2 + 1) - pLevelDecorations[v15].sPosX,
+                *((_DWORD *)v2 + 2) - pLevelDecorations[v15].sPosY);
         v50 = class59_SinCos(pClass59_global, v23);
         v49 = (unsigned __int64)(v50 * v48) >> 16;
         v24 = v23 - pClass59_global->uIntegerHalfPi;
@@ -8698,7 +8698,7 @@ void __fastcall sub_471C03(int a1)
   int v72; // [sp+A4h] [bp-4h]@11
 
   v65 = a1;
-  v5 = (char *)array_665230 + 112 * a1;
+  v5 = (char *)pLayingItemsList + 112 * a1;
   v70 = 0;
   v3 = pObjectDescriptionList->pDescriptions + 56 * *((_WORD *)v5 + 1);
   v69 = sub_4823F4(*((_DWORD *)v5 + 1), *((_DWORD *)v5 + 2));
@@ -9048,8 +9048,8 @@ LABEL_74:
     v69 = sub_452A9E(*((_WORD *)v5 + 9) * *((_WORD *)v5 + 9) + *((_WORD *)v5 + 8) * *((_WORD *)v5 + 8));
     v38 = class59_Atan2(
             pClass59_global,
-            *((_DWORD *)v5 + 1) - array_6836D0[v30].sPosX,
-            *((_DWORD *)v5 + 2) - array_6836D0[v30].sPosY);
+            *((_DWORD *)v5 + 1) - pLevelDecorations[v30].sPosX,
+            *((_DWORD *)v5 + 2) - pLevelDecorations[v30].sPosY);
     v68 = v38;
     v39 = class59_SinCos(pClass59_global, v38);
     v72 = v39;
@@ -9612,8 +9612,8 @@ LABEL_93:
       i = v53;
       v54 = class59_Atan2(
               pClass59_global,
-              v86 - array_6836D0[(dword_7215A8 >> 3)].sPosX,
-              v85 - array_6836D0[(dword_7215A8 >> 3)].sPosY);
+              v86 - pLevelDecorations[(dword_7215A8 >> 3)].sPosX,
+              v85 - pLevelDecorations[(dword_7215A8 >> 3)].sPosY);
       v1 = (unsigned __int64)(class59_SinCos(pClass59_global, v54) * v53) >> 16;
       v55 = class59_SinCos(pClass59_global, v54 - pClass59_global->uIntegerHalfPi);
       v0 = (unsigned __int64)(v55 * i) >> 16;
@@ -12380,20 +12380,18 @@ signed int __thiscall sub_47A825(void *this)
 }
 
 //----- (0047A95E) --------------------------------------------------------
-void __cdecl sub_47A95E()
+void __cdecl sub_47A95E_PrepareDecorationsRenderList()
 {
   int v0; // esi@2
   __int16 v1; // ax@6
-  int v2; // ebx@6
+ struct DecorationDescription *v2; // ebx@6
   double v3; // st7@7
   int v4; // eax@9
   int v5; // ecx@9
-  int v6; // edi@9
   int v7; // eax@9
   int v8; // edx@9
   int v9; // edi@9
   int v10; // eax@9
-  int v11; // eax@9
   int v12; // eax@9
   int v13; // ecx@9
   signed int v14; // eax@20
@@ -12409,7 +12407,7 @@ void __cdecl sub_47A95E()
   int v24; // ebx@31
   signed __int64 v25; // qtt@31
   int v26; // ecx@32
-  char *v27; // eax@37
+  struct RenderBillboard *v27; // eax@37
   __int16 v28; // dx@37
   __int16 v29; // cx@37
   int v30; // ecx@37
@@ -12437,34 +12435,37 @@ void __cdecl sub_47A95E()
   int v52; // [sp+98h] [bp-Ch]@9
   int v53; // [sp+9Ch] [bp-8h]@9
   int v54; // [sp+A0h] [bp-4h]@22
+ struct SpriteFrame *pSprite;
+ unsigned int i = -1;
 
   v45 = 0;
-  if ( (signed int)dword_69ADD0 > 0 )
+  if ( (signed int)uNumLevelDecorations > 0 )
   {
-   v0 = (int)&array_6836D0[0].sPosY;
     do
     {
-      if ( (!(*(_BYTE *)(v0 - 6) & 0x40) || sub_47A825((void *)(v0 - 8))) && !(*(_BYTE *)(v0 - 6) & 0x20) )
+     v0 = (int)&pLevelDecorations[++i].sPosY;
+
+      if ( (~pLevelDecorations[i].word_000002 & 0x40 || sub_47A825(&pLevelDecorations[i])) && ~pLevelDecorations[i].word_000002)
       {
-        v2 = pDecorationDescriptionList->pDescriptions + 84 * *(_WORD *)(v0 - 8);
-        v1 = *(_WORD *)(v2 + 74);
+       v2 = &pDecorationDescriptionList->pDescriptions[pLevelDecorations[i].uDecorationDescriptionID];
+        v1 = v2->word_00004A;
         if ( (_BYTE)v1 >= 0 )
         {
-          if ( !(v1 & 0x22) )
+          if (~v1 & 0x22)
           {
-            v7 = *(_DWORD *)(v0 - 4);
-            v8 = *(_DWORD *)(v0 + 4);
+            v7 = pLevelDecorations[i].sPosX;
+            v44 = pLevelDecorations[i].sPosY;
+            v8 = pLevelDecorations[i].sPosZ;
             v9 = pClass24_global2->dword_000024;
-            v44 = *(_DWORD *)v0;
             v43 = v7;
             v46 = v8;
             v10 = abs(v7 + v44);
-            v11 = CSpriteFrameTable_fn1(pSpriteFrameTable, *(_WORD *)(v2 + 72), v9 + v10);
-            v6 = v11;
-            v52 = *(_DWORD *)(v11 + 44);
-            v53 = *(_WORD *)(v11 + 48);
-            v12 = class59_Atan2(pClass59_global, *(_DWORD *)(v0 - 4) - pOldCamera->dword_000000, *(_DWORD *)v0 - pOldCamera->dword_000004);
-            v13 = *(_DWORD *)(v0 + 8);
+            pSprite = CSpriteFrameTable_fn1(pSpriteFrameTable, v2->uSpriteID, v9 + v10);
+
+            v52 = pSprite->dword_00002C;
+            v53 = pSprite->word_000030;
+            v12 = class59_Atan2(pClass59_global, pLevelDecorations[i].sPosX - pOldCamera->dword_000000, pLevelDecorations[i].sPosY - pOldCamera->dword_000004);
+            v13 = pLevelDecorations[i].dword_000010;
             v47 = v12;
             v4 = v52;
             v48 = 0;
@@ -12482,15 +12483,15 @@ void __cdecl sub_47A95E()
             {
               if ( pD3DRenderer->pRenderD3D3 && pD3DRenderer->bUseColoredLights )
               {
-                v16 = *(_BYTE *)(v2 + 80);
-                v15 = *(_BYTE *)(v2 + 81);
-                v14 = *(_BYTE *)(v2 + 82);
+                v16 = v2->uColoredLightRed;
+                v15 = v2->uColoredLightGreen;
+                v14 = v2->uColoredLightBlue;
               }
               else
               {
                 v14 = 255;
                 v16 = 255;
-                v15 = -1;
+                v15 = 255;
               }
               v54 = v14;
               sub_4AD3C8_MaybePlaceStationaryLights((int)&unk_5187F0, v43, v44, v46 + *(_WORD *)(v2 + 66) / 2, v53, v16, v15, v14, byte_4E94D0);
@@ -12499,22 +12500,22 @@ void __cdecl sub_47A95E()
             if (pOldCamera->sRotationX)
             {
               v50 = (v44 - pOldCamera->dword_000004) << 16;
-              v19 = ((unsigned __int64)(v17 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) + ((unsigned __int64)(v50 * pStruct9_global->camera_rotation_y_int_sine) >> 16);
+              v19 = (((unsigned __int64)(v17) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) + (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_sine) >> 16);
               v52 = v19;
-              v54 = (unsigned __int64)(v17 * pStruct9_global->camera_rotation_y_int_sine) >> 16;
-              v53 = (unsigned __int64)(v50 * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
+              v54 = ((unsigned __int64)(v17) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+              v53 = ((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
               v50 = (v46 - pOldCamera->dword_000008) << 16;
-              v51 = (unsigned __int64)(v50 * pStruct9_global->camera_rotation_x_int_sine) >> 16;
-              v20 = (unsigned __int64)(v19 * pStruct9_global->camera_rotation_x_int_cosine) >> 16;
-              v18 = v20 + ((unsigned __int64)(v50 * pStruct9_global->camera_rotation_x_int_sine) >> 16);
-              v49 = v20 + ((unsigned __int64)(v50 * pStruct9_global->camera_rotation_x_int_sine) >> 16);
+              v51 = ((unsigned __int64)(v50) * pStruct9_global->camera_rotation_x_int_sine) >> 16;
+              v20 = ((unsigned __int64)(v19) * pStruct9_global->camera_rotation_x_int_cosine) >> 16;
+              v18 = v20 + (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_x_int_sine) >> 16);
+              v49 = v20 + (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_x_int_sine) >> 16);
               if ( v18 >= 262144 && v18 <= pStruct9_global->shading_dist_mist << 16 )
               {
                 v22 = v53 - v54;
                 v51 = v53 - v54;
-                v53 = (unsigned __int64)(v52 * pStruct9_global->camera_rotation_x_int_sine) >> 16;
-                v54 = (unsigned __int64)(v50 * pStruct9_global->camera_rotation_x_int_cosine) >> 16;
-                v21 = ((unsigned __int64)(v50 * pStruct9_global->camera_rotation_x_int_cosine) >> 16) - v53;
+                v53 = ((unsigned __int64)(v52) * pStruct9_global->camera_rotation_x_int_sine) >> 16;
+                v54 = ((unsigned __int64)(v50) * pStruct9_global->camera_rotation_x_int_cosine) >> 16;
+                v21 = (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_x_int_cosine) >> 16) - v53;
 LABEL_30:
                 v52 = v21;
                 v50 = 2 * abs(v18);
@@ -12524,33 +12525,33 @@ LABEL_30:
                   LODWORD(v25) = 0;
                   HIDWORD(v25) = pStruct9_global->dword_000014 << 16 >> 16;
                   v53 = v25 / v49;
-                  v24 = pOldViewport->dword_000028 - ((signed int)(((unsigned __int64)(v25 / v49 * v51) >> 16) + 32768) >> 16);
-                  v54 = (unsigned __int64)(v53 * v52) >> 16;
+                  v24 = pOldViewport->dword_000028 - ((signed int)((((unsigned __int64)(v25) / v49 * v51) >> 16) + 32768) >> 16);
+                  v54 = ((unsigned __int64)(v53) * v52) >> 16;
                   v51 = v25 / v49;
-                  v50 = pOldViewport->dword_00002C - ((signed int)(((unsigned __int64)(v53 * v52) >> 16) + 32768) >> 16);
-                  v52 = *(_DWORD *)(v6 + 40);
-                  v51 = (unsigned __int64)(v52 * (signed int)(v25 / v49)) >> 16;
-                  v47 = v6 + 2 * v47 + 24;
-                  if ( pD3DRenderer->pRenderD3D3 )
+                  v50 = pOldViewport->dword_00002C - ((signed int)((((unsigned __int64)(v53) * v52) >> 16) + 32768) >> 16);
+                  v52 = pSprite->dword_000028;
+                  v51 = ((unsigned __int64)(v52) * (signed int)(v25 / v49)) >> 16;
+                  v47 = &pSprite->pSpriteIDs[v47];
+                  //if ( pD3DRenderer->pRenderD3D3 )
+                  //{
+                    v26 = v51;
+                    v52 = pLODFile_Sprites_LOD->pHardwareSprites[*(short *)v47].dword_000018 >> 1;
+                    v54 = ((unsigned __int64)(v52) * v51) >> 16;
+                  /*}
+                  else // software
                   {
                     v26 = v51;
-                    v52 = *(_DWORD *)(pLODFile_Sprites_LOD->pHardwareSprites + 40 * *(_WORD *)v47 + 24) >> 1;
-                    v54 = (unsigned __int64)(v52 * v51) >> 16;
-                  }
-                  else
-                  {
-                    v26 = v51;
-                    compile_error;//v52 = pLODFile_Sprites_LOD->array_00024C[20 * *(_WORD *)v47] >> 1;
-                    v54 = (unsigned __int64)(v52 * v51) >> 16;
-                  }
+                    v52 = pLODFile_Sprites_LOD->array_00024C[20 * *(_WORD *)v47] >> 1;
+                    v54 = ((unsigned __int64)(v52) * v51) >> 16;
+                  }*/
                   if ( v54 + v24 >= pOldViewport->uGameX && v24 - v54 <= pOldViewport->uGameZ )
                   {
-                    if ( dword_5187E0 >= 500 )
+                    if ( uNumBillboardsToDraw >= 500 )
                       return;
-                    v27 = &array_512250[dword_5187E0++];
+                    v27 = &pBillboardRenderList[uNumBillboardsToDraw++];
                     ++dword_5187EC;
-                    *((_WORD *)v27 + 12) = *(_WORD *)v47;
-                    v28 = *(_WORD *)(v6 + 52);
+                    v27->uHardwareSpriteID = *(short *)v47;
+                    v28 = pSprite->word_000034;
                     *(_DWORD *)v27 = v26;
                     *((_DWORD *)v27 + 1) = v26;
                     v29 = v48;
@@ -12568,7 +12569,7 @@ LABEL_30:
                     *((_WORD *)v27 + 14) = 0;
                     *((_DWORD *)v27 + 4) = v31;
                     *((_WORD *)v27 + 21) = 0;
-                    *((_DWORD *)v27 + 12) = v6;
+                    v27->pSpriteFrame = pSprite;
                     *((_DWORD *)v27 + 11) = 0;
                   }
                 }
@@ -12579,16 +12580,16 @@ LABEL_30:
             {
               v52 = (v43 - pOldCamera->dword_000000) << 16;
               v50 = (v44 - pOldCamera->dword_000004) << 16;
-              v54 = (unsigned __int64)(v17 * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
-              v53 = (unsigned __int64)(v50 * pStruct9_global->camera_rotation_y_int_sine) >> 16;
-              v18 = v54 + ((unsigned __int64)(v50 * pStruct9_global->camera_rotation_y_int_sine) >> 16);
-              v49 = v54 + ((unsigned __int64)(v50 * pStruct9_global->camera_rotation_y_int_sine) >> 16);
+              v54 = ((unsigned __int64)(v17) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
+              v53 = ((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+              v18 = v54 + (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_sine) >> 16);
+              v49 = v54 + (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_sine) >> 16);
               if ( v18 >= 262144 && v18 <= pStruct9_global->shading_dist_mist << 16 )
               {
-                v53 = (unsigned __int64)(v52 * pStruct9_global->camera_rotation_y_int_sine) >> 16;
-                v54 = (unsigned __int64)(v50 * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
-                v22 = ((unsigned __int64)(v50 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v53;
-                v51 = ((unsigned __int64)(v50 * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v53;
+                v53 = ((unsigned __int64)(v52) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+                v54 = ((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_cosine) >> 16;
+                v22 = (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v53;
+                v51 = (((unsigned __int64)(v50) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v53;
                 v21 = (v46 - pOldCamera->dword_000008) << 16;
                 goto LABEL_30;
               }
@@ -12617,7 +12618,7 @@ LABEL_38:
       ++v45;
       v0 += 32;
     }
-    while ( v45 < (signed int)dword_69ADD0 );
+    while ( v45 < (signed int)uNumLevelDecorations );
   }
 }
 

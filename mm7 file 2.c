@@ -688,15 +688,13 @@ signed int __cdecl sub_4908DE()
 //----- (0042F933) --------------------------------------------------------
 void __fastcall sub_42F933(int a1)
 {
-  int v1; // ecx@1
   __int16 v2; // ax@2
   char *v3; // ecx@2
 
-  v1 = 112 * a1;
-  array_665230[a1].uObjectDescriptionID = 0;
+  pLayingItemsList[a1].uObjectDescriptionID = 0;
   if ( dword_ACD834 == 1 )
   {
-    v3 = &byte_66524A[v1];
+   v3 = &pLayingItemsList[a1].word_00001A;
     v2 = *(_WORD *)v3;
     if ( *(_WORD *)v3 & 4 )
     {
@@ -9509,7 +9507,7 @@ int __fastcall SaveGame(int a1, int a2)
         v13 = DstBuf;
         dword_6BE69C = dword_6BE640;
         dword_6BE6A4 = 0;
-        dword_6BE6A0 = dword_69ADD0;
+        dword_6BE6A0 = uNumLevelDecorations;
         memcpy(DstBuf, &unk_6BE68C, 0x28u);
         v13 = (char *)v13 + 40;
         memcpy(v13, byte_6BE6EC, 0x36Bu);
@@ -9529,9 +9527,9 @@ int __fastcall SaveGame(int a1, int a2)
           while ( v75 < dword_6BE640 );
         }
         v75 = 0;
-        if ( (signed int)dword_69ADD0 > 0 )
+        if ( (signed int)uNumLevelDecorations > 0 )
         {
-         v73 = &array_6836D0[0].word_000002;
+         v73 = &pLevelDecorations[0].word_000002;
           do
           {
             memcpy(v12, v73, 2);
@@ -9539,16 +9537,16 @@ int __fastcall SaveGame(int a1, int a2)
             v12 = (char *)v12 + 2;
             ++v75;
           }
-          while ( v75 < (signed int)dword_69ADD0 );
+          while ( v75 < (signed int)uNumLevelDecorations );
         }
         memcpy(v12, &uNumActors, 4u);
         v15 = (char *)v12 + 4;
         memcpy(v15, pActors, 836 * uNumActors);
         v16 = (char *)v15 + 836 * uNumActors;
-        memcpy(v16, &uNumElementsIn665230, 4);
+        memcpy(v16, &uNumLayingItems, 4);
         v16 = (char *)v16 + 4;
-        memcpy(v16, array_665230, 112 * uNumElementsIn665230);
-        v17 = (char *)v16 + 112 * uNumElementsIn665230;
+        memcpy(v16, pLayingItemsList, 112 * uNumLayingItems);
+        v17 = (char *)v16 + 112 * uNumLayingItems;
         memcpy(v17, &dword_5FF140, 4u);
         v17 = (char *)v17 + 4;
         memcpy(v17, array_5E5150, 5324 * dword_5FF140);
@@ -9580,7 +9578,7 @@ int __fastcall SaveGame(int a1, int a2)
         }
         v24 = DstBuf;
         dword_6A12D0 = pClass51_global->uNumBModels;
-        dword_6A12CC = dword_69ADD0;
+        dword_6A12CC = uNumLevelDecorations;
         memcpy(DstBuf, &unk_6A12B8, 0x28u);
         v24 = (char *)v24 + 40;
         memcpy(v24, &unk_6A1318, 0x3C8u);
@@ -9617,9 +9615,9 @@ int __fastcall SaveGame(int a1, int a2)
           while ( v75 < pClass51_global->uNumBModels );
         }
         v29 = 0;
-        if ( (signed int)dword_69ADD0 > 0 )
+        if ( (signed int)uNumLevelDecorations > 0 )
         {
-         v71 = (int)&array_6836D0[0].word_000002;
+         v71 = (int)&pLevelDecorations[0].word_000002;
           do
           {
             memcpy(v23, (const void *)v71, 2);
@@ -9627,16 +9625,16 @@ int __fastcall SaveGame(int a1, int a2)
             v23 = (char *)v23 + 2;
             ++v29;
           }
-          while ( v29 < (signed int)dword_69ADD0 );
+          while ( v29 < (signed int)uNumLevelDecorations );
         }
         memcpy(v23, &uNumActors, 4u);
         v30 = (char *)v23 + 4;
         memcpy(v30, pActors, 836 * uNumActors);
         v31 = (char *)v30 + 836 * uNumActors;
-        memcpy(v31, &uNumElementsIn665230, 4u);
+        memcpy(v31, &uNumLayingItems, 4u);
         v31 = (char *)v31 + 4;
-        memcpy(v31, array_665230, 112 * uNumElementsIn665230);
-        v32 = (char *)v31 + 112 * uNumElementsIn665230;
+        memcpy(v31, pLayingItemsList, 112 * uNumLayingItems);
+        v32 = (char *)v31 + 112 * uNumLayingItems;
         memcpy(v32, &dword_5FF140, 4u);
         v32 = (char *)v32 + 4;
         memcpy(v32, array_5E5150, 5324 * dword_5FF140);
@@ -11295,9 +11293,9 @@ LABEL_42:
         goto LABEL_132;
       }
       v7 = 112 * (v6 >> 3);
-      if ( *(_BYTE *)(56 * array_665230[v6 >> 3].uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 38) & 0x10 )
+      if ( *(_BYTE *)(56 * pLayingItemsList[v6 >> 3].uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 38) & 0x10 )
         goto LABEL_132;
-      v8 = (char *)&unk_665254 + v7;
+      v8 = &pLayingItemsList[v7/112].dword_000024;
     }
     sub_41D895(v8);
     goto LABEL_132;
@@ -15947,10 +15945,10 @@ signed int __fastcall sub_42041E(int a1)
     if ( (dword_5B5920 & 7) == 5 )
     {
       v16 = 32 * v5;
-      v14 = array_6836D0[v5].sPosX;
-      v55 = array_6836D0[v5].sPosY;
-      v17 = *(_WORD *)((char *)&pDecorationDescriptionList->pDescriptions[array_6836D0[v5].uDecorationDescriptionID] + 66);
-      v15 = array_6836D0[v5].sPosZ + (((_DWORD)v17 - HIDWORD(v17)) >> 1);
+      v14 = pLevelDecorations[v5].sPosX;
+      v55 = pLevelDecorations[v5].sPosY;
+      v17 = *(_WORD *)((char *)&pDecorationDescriptionList->pDescriptions[pLevelDecorations[v5].uDecorationDescriptionID] + 66);
+      v15 = pLevelDecorations[v5].sPosZ + (((_DWORD)v17 - HIDWORD(v17)) >> 1);
     }
     else
     {
@@ -16848,13 +16846,13 @@ void __cdecl sub_42213C()
   {
     v37 = (signed int)(unsigned __int16)v0 >> 3;
     v21 = 112 * ((signed int)(unsigned __int16)v0 >> 3);
-    if ( !(*(_BYTE *)(56 * array_665230[(unsigned __int16)v0 >> 3].uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 38) & 0x10)
+    if ( !(*(_BYTE *)(56 * pLayingItemsList[(unsigned __int16)v0 >> 3].uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 38) & 0x10)
       && v37 < 1000
-      && array_665230[(unsigned __int16)v0 >> 3].uObjectDescriptionID
+      && pLayingItemsList[(unsigned __int16)v0 >> 3].uObjectDescriptionID
       && (unsigned int)v0 < 0x2000000 )
     {
-      v23 = (int)((char *)&unk_665254 + v21);
-      v22 = 48 * *(_DWORD *)((char *)&unk_665254 + v21);
+      v23 = &pLayingItemsList[v21/112].dword_000024;
+      v22 = 48 * pLayingItemsList[v21/112].dword_000024;
       if ( byte_5D2A00[v22] == 18 )
       {
         sub_420C05(*(_DWORD *)(v23 + 12), 0);
@@ -16880,16 +16878,16 @@ void __cdecl sub_42213C()
   {
     if ( (v0 & 7) == 5 )
     {
-      v13 = &array_6836D0[((signed int)(unsigned __int16)v0 >> 3)];
+      v13 = &pLevelDecorations[((signed int)(unsigned __int16)v0 >> 3)];
       if ( (signed int)(((unsigned int)v0 >> 16) - *(_WORD *)(84 * *v13 + pDecorationDescriptionList->pDescriptions + 68)) >= 512 )
         goto LABEL_13;
       v14 = v13[11];
       if ( !v14 )
       {
-        if ( sub_44C2F4(&array_6836D0[((signed int)(unsigned __int16)v0 >> 3)]) )
+        if ( sub_44C2F4(&pLevelDecorations[((signed int)(unsigned __int16)v0 >> 3)]) )
         {
           v15 = (unsigned __int8)global_5E4C90.byte_000000[v13[14]];
-          dword_5C3420 = (int)&array_6836D0[((signed int)(unsigned __int16)v0 >> 3)];
+          dword_5C3420 = (int)&pLevelDecorations[((signed int)(unsigned __int16)v0 >> 3)];
           sub_44684A_LooksLikeEventProcessor(v15 + 380, 0, 1);
           dword_5C3420 = 0;
         }

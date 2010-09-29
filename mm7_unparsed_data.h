@@ -1108,32 +1108,13 @@ extern struct struct5 array_5118E8[100]; // struct[100] @ MM7.exe::005118E8
 //_UNKNOWN unk_5118E8; // weak
 //_UNKNOWN unk_5118F4; // weak
 
-extern struct unnamed_512250 //sizeof == 34
-{
- int   dword_000000;
- int   dword_000004;
- char  byte_000008[8];
- int   dword_000010;
- int   dword_000014;
- unsigned short uHardwareSpriteID; // word @ 000018
- short word_00001A;
- short word_00001C;
- short word_00001E;
- short word_000020;
- short word_000022;
- short word_000024;
- short word_000026;
- short word_000028;
- short word_00002A;
- int   dword_00002C; // MonsterDescription::dword_000008   tint color?
- struct SpriteFrame *pSpriteFrame;  // dword  @ 000030
-} array_512250[500];              // struct[500] @ MM7.exe::00512250
+extern struct RenderBillboard pBillboardRenderList[500];              // struct[500] @ MM7.exe::00512250
 //_UNKNOWN unk_512250;
 //_UNKNOWN unk_512254; // weak
 //int dword_512260[array_size_unknown]; // weak
 //_UNKNOWN unk_512278; // weak
-extern _UNKNOWN unk_51227A; // weak
-extern int dword_5187E0; // some index addressing 512250 array
+//extern _UNKNOWN unk_51227A; // weak
+extern unsigned int uNumBillboardsToDraw; // dword @ MM7.exe::005187E0
 
 extern int dword_5187E4; // weak
 extern int dword_5187E8; // weak
@@ -1567,31 +1548,31 @@ extern int dword_5FF41C[array_size_unknown]; // weak
 extern _UNKNOWN unk_5FF420; // weak
 extern _UNKNOWN unk_64640F; // weak
 
-extern unsigned int uNumActors;           // dword        @ MM7.exe::00665228
-extern unsigned int uNumElementsIn665230; // dword        @ MM7.exe::0066522C
-extern struct struct2 array_665230[1000]; // struct[1000] @ MM7.exe::00665230
-//_UNKNOWN unk_665230; // weak
-//__int16 word_665232[56000 + array_size_unknown]; // weak
-//int dword_665234; // weak
-//int dword_665238; // weak
-//int dword_66523C; // weak
-extern __int16 word_665240; // weak
-extern __int16 word_665242; // weak
-extern __int16 word_665244; // weak
-extern char byte_66524A[array_size_unknown]; // weak
+extern unsigned int      uNumActors;             // dword        @ MM7.exe::00665228
+extern unsigned int      uNumLayingItems;        // dword        @ MM7.exe::0066522C
+extern struct LayingItem pLayingItemsList[1000]; // struct[1000] @ MM7.exe::00665230
+//_UNKNOWN unk_665230; // 000000
+//__int16 word_665232[56000 + array_size_unknown]; // 000002
+//int dword_665234; // 000004
+//int dword_665238; // 000008
+//int dword_66523C; // 00000C
+//__int16 word_665240; // 000010
+//__int16 word_665242; // 000012
+//__int16 word_665244; // 000014
+//char byte_66524A[array_size_unknown]; // 00001A
 //__int16 word_66524C; // 00001C
 //_UNKNOWN unk_66524E; // 00001E
-extern _UNKNOWN unk_665254; // weak
-extern _UNKNOWN unk_665278; // weak
-extern int dword_665288[array_size_unknown]; // weak
-extern char byte_665291[array_size_unknown]; // weak
+//_UNKNOWN unk_665254; // 000024
+//_UNKNOWN unk_665278; // 000048
+//int dword_665288[array_size_unknown]; // 000058
+//char byte_665291[array_size_unknown]; // 000061
 
 extern int dword_6807B8[array_size_unknown]; // weak
 extern int dword_6807E0; // weak
 extern int dword_6807E8[array_size_unknown]; // weak
 extern int dword_6836C8; // weak
 
-extern struct struct0 array_6836D0[3000];
+extern struct LevelDecoration pLevelDecorations[3000];
 //__int16 word_6836D0[array_size_unknown]; // weak
 //_UNKNOWN unk_6836D2; // weak
 //int dword_6836D4[array_size_unknown]; // weak
@@ -1601,8 +1582,7 @@ extern struct struct0 array_6836D0[3000];
 //__int16 word_6836E4; // weak
 //__int16 word_6836E6[array_size_unknown]; // weak
 //__int16 word_6836EA; // weak
-
-extern size_t dword_69ADD0; // idb
+extern unsigned int uNumLevelDecorations; // dword @ MM7.exe::0069ADD0
 
 
 extern char word_69ADE0; // idb
@@ -1804,7 +1784,7 @@ extern struct struct9 *pStruct9_global; // struct @ MM7.exe::006BE070
 //int dword_6BE0B4; // weak
 //int dword_6BE0B8; // 000048
 extern int dword_6BE0C4; // weak
-extern int dword_6BE0C8; // weak
+//int dword_6BE0C8; // 000058
 extern int dword_6BE0D4; // weak
 extern int dword_6BE0D8; // weak
 extern int dword_6BE0DC; // idb
@@ -2631,24 +2611,8 @@ extern int dword_EF52A4; // weak
 extern int (*dword_EF52A8)(void); // weak
 extern int dword_EF52B0; // weak
 
-
+extern struct RenderBillboardD3D3 pBillboardRenderListD3D3[]; // struct[1000] @ MM7.exe::00EF52B8
 //extern int dword_EF52B8[array_size_unknown]; // weak
-extern struct unnamed_EF52B8
-{
- IDirect3DTexture2 *pTexture;     // dword @ 000000          dword_EF52B8
- unsigned int       uNumVertices; // dword @ 000004          dword_EF52BC
- struct D3DVERTEX   pQuad[4];     // struct[4] @ 000008      struct @ MM7.exe::00EF52C0
-                                  //                         struct @ MM7.exe::00EF52E0
-                                  //                         struct @ MM7.exe::00EF5300
-                                  //                         struct @ MM7.exe::00EF5320
- float            flt_000088;     // dword_EF5340[]
- int              int_00008C;     // dword_EF5344[]
- int              dword_000090;   // dword_EF5348
- int              dword_000094;   // dword_EF534C
- int              dword_000098;   // dword_EF5350[]     index in array_512250
-} stru_EF52B8[]; // struct[1000] @ MM7.exe::00EF52B8
-//sizeof = 9C
-
 //extern int dword_EF52BC; // weak
 //extern struct unnamed_EF52C0 stru_EF52C0;  // struct @ MM7.exe::00EF52C0
 //extern _UNKNOWN unk_EF52C0; // weak

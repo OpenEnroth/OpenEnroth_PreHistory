@@ -80,6 +80,33 @@ struct RenderVertex
 //sizeof == 30
 
 
+struct RenderBillboard
+{
+ int                 dword_000000;
+ int                 dword_000004;
+ char                byte_000008[8];
+ int                 dword_000010;
+ int                 dword_000014;
+ unsigned short      uHardwareSpriteID; // word @ 000018
+ short               word_00001A;
+ short               word_00001C;
+ short               word_00001E;
+ short               word_000020;
+ short               word_000022;
+ short               word_000024;
+ short               word_000026;
+ short               word_000028;
+ short               word_00002A;
+ int                 dword_00002C; // MonsterDescription::dword_000008   tint color?
+ struct SpriteFrame *pSpriteFrame;  // dword  @ 000030
+};
+//sizeof = 34
+
+
+
+
+
+
 //
 struct Render_Camera
 {
@@ -263,6 +290,8 @@ void sub_49FE05(struct Render *pD3DRenderer);
 void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct struct8 *a3, struct class51_stru2 *a4, struct IDirect3DTexture2 *pTexture);
 //void sub_4A26BC(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
 void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, unsigned int uNumVertices, int a4, struct IDirect3DTexture2 *pTexture, bool a6, bool a7);
+//void __thiscall sub_4A4023(int this, int a2, int a3, int a4, int a5);
+void Render_BillboardTransform(struct Render *_this, struct Render_BillboardTransform_stru0 *a2, struct HardwareSprite *pSprite, int a4, struct RenderBillboard *pBillboard);
 
 void Render_DrawTransparentRect(struct Render *_this, unsigned int uOutX, unsigned int uOutY,
                                       unsigned int uSrcX, unsigned int uSrcY, unsigned int uSrcWidth, unsigned int uSrcHeight,
@@ -336,7 +365,7 @@ int RGBTexture_DecodePCX(struct RGBTexture *_this, void *Src, void *a3, unsigned
 
 
 
-struct Render_sub_4A4023_stru0
+struct Render_BillboardTransform_stru0
 {
  unsigned int *pDestSurface; // dword @ 000000
  int          *pDestZBuffer; // dword @ 000004

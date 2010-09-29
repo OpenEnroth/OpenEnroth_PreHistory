@@ -369,7 +369,7 @@ __int16 __fastcall DamageMonsterFromParty(signed int a1, int a2, int a3)
   v66 = 0;
   if ( (a1 & 7) == 2 )
   {
-    v4 = (int)((char *)array_665230 + 112 * (a1 >> 3));
+    v4 = (int)((char *)pLayingItemsList + 112 * (a1 >> 3));
     v67 = v4;
     v65 = *(_BYTE *)(v4 + 96);
     v3 = *(_DWORD *)(v4 + 88);
@@ -1029,7 +1029,7 @@ void __fastcall sub_439FCB(signed int a1, int a2, int a3, int a4)
   v76 = v5;
   if ( !v4 )
   {
-    v38 = (char *)array_665230 + 112 * v76;
+    v38 = (char *)pLayingItemsList + 112 * v76;
     v39 = *((_DWORD *)v38 + 22) & 7;
     v40 = *((_DWORD *)v38 + 22) >> 3;
     v41 = *((_DWORD *)v38 + 22) & 7;
@@ -1499,29 +1499,29 @@ void __fastcall sub_43A97E(int a1, signed int a2)
   v6 = a1;
   v5 = 112 * a1;
   v3 = a2 >> 3;
-  v4 = dword_665288[28 * a1] & 7;
+  v4 = pLayingItemsList[a1].dword_000058 & 7;
   v2 = (a2 & 7) - 3;
   if ( v2 )
   {
     if ( v2 == 1 )
     {
-      dword_50FDFC = *(__int16 *)((char *)&word_665240 + v5);
-      dword_50FE00 = *(__int16 *)((char *)&word_665242 + v5);
-      dword_50FE04 = *(__int16 *)((char *)&word_665244 + v5);
+      dword_50FDFC = pLayingItemsList[a1].uObjectDescriptionID2;
+      dword_50FE00 = pLayingItemsList[a1].word_000012;
+      dword_50FE04 = pLayingItemsList[a1].word_000014;
       sub_43AB61((int)&dword_50FDFC, (int)&dword_50FE00, (int)&dword_50FE04);
-      sub_439FCB(8 * v6 | 2, (unsigned __int8)byte_665291[v5], (int)&dword_50FDFC, -1);
+      sub_439FCB(8 * v6 | 2, pLayingItemsList[a1].byte_000061, (int)&dword_50FDFC, -1);
     }
   }
   else
   {
-    dword_50FDFC = *(__int16 *)((char *)&word_665240 + v5);
-    dword_50FE00 = *(__int16 *)((char *)&word_665242 + v5);
-    dword_50FE04 = *(__int16 *)((char *)&word_665244 + v5);
+    dword_50FDFC = pLayingItemsList[a1].uObjectDescriptionID2;
+    dword_50FE00 = pLayingItemsList[a1].word_000012;
+    dword_50FE04 = pLayingItemsList[a1].word_000014;
     sub_43AB61((int)&dword_50FDFC, (int)&dword_50FE00, (int)&dword_50FE04);
     switch ( v4 )
     {
       case 3:
-        sub_43B1B0(8 * v6 | 2, v3, (int)&dword_50FDFC, (unsigned __int8)byte_665291[v5]);
+        sub_43B1B0(8 * v6 | 2, v3, (int)&dword_50FDFC, pLayingItemsList[a1].byte_000061);
         break;
       case 4:
         DamageMonsterFromParty(8 * v6 | 2, v3, (int)&dword_50FDFC);
@@ -1889,7 +1889,7 @@ __int16 __fastcall sub_43B057(int a1, int a2, int a3)
     LOWORD(v3) = v10 & 7;
     if ( v3 == 2 )
     {
-      v3 = (bool)((char *)array_665230 + 112 * (v10 >> 3));
+      v3 = (bool)((char *)pLayingItemsList + 112 * (v10 >> 3));
       v5 = *(_DWORD *)(v3 + 72);
       if ( v5 )
       {
@@ -1949,7 +1949,7 @@ __int16 __fastcall sub_43B1B0(signed int a1, int a2, int a3, signed int a4)
   v17 = a1;
   if ( (a1 & 7) == 2 )
   {
-    v5 = (char *)array_665230 + 112 * (a1 >> 3);
+    v5 = (char *)pLayingItemsList + 112 * (a1 >> 3);
     v4 = (unsigned __int8)v5[96];
     v17 = *((_DWORD *)v5 + 22);
   }
@@ -3181,7 +3181,7 @@ void __thiscall sub_43F39E(int this)
   dword_5187EC = 0;
   dword_5187E8 = 0;
   dword_5187E4 = 0;
-  dword_5187E0 = 0;
+  uNumBillboardsToDraw = 0;
   if ( !byte_4D8410[572] || !(*(_BYTE *)(LODWORD(pGame) + 3617) & 0x10) )
   {
     v2 = *(float *)&dword_AE31EC + 6.755399441055744e15;
@@ -3241,9 +3241,9 @@ void __cdecl sub_43F515()
   _UNKNOWN *v1; // esi@2
 
   v0 = 0;
-  if ( dword_5187E0 > 0 )
+  if ( uNumBillboardsToDraw > 0 )
   {
-    v1 = &unk_51227A;
+    v1 = &pBillboardRenderList[0].word_00002A;
     do
     {
       if ( *((_BYTE *)v1 - 12) & 2 || dword_6BE360 == 1 && !*((_WORD *)v1 - 7) )
@@ -3253,7 +3253,7 @@ void __cdecl sub_43F515()
       ++v0;
       v1 = (char *)v1 + 52;
     }
-    while ( v0 < dword_5187E0 );
+    while ( v0 < uNumBillboardsToDraw );
   }
 }
 
@@ -3611,7 +3611,7 @@ void __fastcall sub_43FA33(int a1, int a2)
 
   v36 = a1;
   LODWORD(v41) = a2;
-  v2 = &array_6836D0[a1];
+  v2 = &pLevelDecorations[a1];
   if ( !(*((_BYTE *)v2 + 2) & 0x20) )
   {
     v4 = pDecorationDescriptionList->pDescriptions + 84 * *v2;
@@ -3651,10 +3651,10 @@ void __fastcall sub_43FA33(int a1, int a2)
           if ( v14 >= abs(v45) )
           {
             sub_436A9A(pGame->class08_obj, X, v45, v43, (int)&v42, (int)&v44);
-            v15 = &array_512250[dword_5187E0];
-            if ( dword_5187E0 < 500 )
+            v15 = &pBillboardRenderList[uNumBillboardsToDraw];
+            if ( uNumBillboardsToDraw < 500 )
             {
-              ++dword_5187E0;
+              ++uNumBillboardsToDraw;
               ++dword_5187EC;
               v16 = pD3DRenderer->pRenderD3D3 == 0;
               *((_WORD *)v15 + 12) = *(_WORD *)(v11 + 2 * v6 + 24);
@@ -3859,11 +3859,11 @@ LABEL_12:
       if ( !sub_43669D(v35, v34, v33, &X, (int)&v45, (int)&v44, 1) || (a1 = abs(X), a1 < abs(v45)) )
         goto LABEL_48;
       sub_436A9A(pGame->class08_obj, X, v45, v44, (int)&v43, (int)&v42);
-      result = dword_5187E0;
-      a1 = &array_512250[dword_5187E0];
-      if ( dword_5187E0 >= 500 )
+      result = uNumBillboardsToDraw;
+      a1 = &pBillboardRenderList[uNumBillboardsToDraw];
+      if ( uNumBillboardsToDraw >= 500 )
         return result;
-      ++dword_5187E0;
+      ++uNumBillboardsToDraw;
       ++dword_5187E4;
       v13 = (int)((char *)v2 - 36);
       *(_DWORD *)v2 |= 8u;
@@ -3988,9 +3988,9 @@ void __cdecl sub_44028F()
   int v40; // [sp+58h] [bp-4h]@24
  int i;
 
-  for (i = 0; i < uNumElementsIn665230; ++i)
+  for (i = 0; i < uNumLayingItems; ++i)
   {
-   v0 = &array_665230[i].word_00001C;
+   v0 = &pLayingItemsList[i].word_00001C;
 
       if ( *(v0 - 13) )
       {
@@ -4005,7 +4005,7 @@ void __cdecl sub_44028F()
             v30 = *((_DWORD *)v0 - 6);
             v29 = *((_DWORD *)v0 - 5);
             v34 = *((_DWORD *)v0 - 4);
-            v7 = &array_512250[dword_5187E0];
+            v7 = &pBillboardRenderList[uNumBillboardsToDraw];
             v8 = CSpriteFrameTable_fn1(pSpriteFrameTable, *(_WORD *)(v1 + 40), v0[1]);
             v6 = v8;
             v25 = v8;
@@ -4050,9 +4050,9 @@ void __cdecl sub_44028F()
             if ( sub_43669D(v30, v29, v34, &v40, (int)&v39, (int)&v38, 1) )
             {
               sub_436A9A(pGame->class08_obj, v40, v39, v38, (int)&v37, (int)&v36);
-              if ( dword_5187E0 >= 500 )
+              if ( uNumBillboardsToDraw >= 500 )
                 return;
-              ++dword_5187E0;
+              ++uNumBillboardsToDraw;
               ++dword_5187E4;
               *((_BYTE *)v0 - 2) |= 1u;
               v12 = pD3DRenderer->pRenderD3D3 == 0;
@@ -4466,11 +4466,11 @@ void sub_440CB8_ProbablyDrawActors()
   v18 = dword_51B738;
   v19 = dword_51B73C - 1;
   v20 = dword_51B740;
-  pStruct9_global->dword_00003C = dword_5187E0;
+  pStruct9_global->dword_00003C = uNumBillboardsToDraw;
 
- for (i = 0; i < dword_5187E0; ++i)
+ for (i = 0; i < uNumBillboardsToDraw; ++i)
   {
-    v1 = &array_512250[i].word_000028;
+    v1 = &pBillboardRenderList[i].word_000028;
 
       v8 = *((_WORD *)v1 - 1);
       v9 = *(_WORD *)v1;
@@ -5146,9 +5146,9 @@ LABEL_71:
   result = 0xFFFFFFFF;
   v98 = 0;
   v89 = result;
-  if ( (signed int)dword_69ADD0 > 0 )
+  if ( (signed int)uNumLevelDecorations > 0 )
   {
-   v97 = (int)&array_6836D0[0].sPosX;
+   v97 = (int)&pLevelDecorations[0].sPosX;
     do
     {
       if ( *(_BYTE *)(v97 - 2) & 8 )
@@ -5196,7 +5196,7 @@ LABEL_71:
       result = v98;
       v97 += 32;
     }
-    while ( v98 < (signed int)dword_69ADD0 );
+    while ( v98 < (signed int)uNumLevelDecorations );
   }
   if ( dword_6BE360 == 2 )
   {
@@ -8943,9 +8943,9 @@ void __fastcall sub_44882F(int a1, int a2, const char *Str1)
   v3 = 0;
   v7 = a2;
   v6 = a1;
-  if ( (signed int)dword_69ADD0 > 0 )
+  if ( (signed int)uNumLevelDecorations > 0 )
   {
-   v4 = &array_6836D0[0].word_000002;
+   v4 = &pLevelDecorations[0].word_000002;
     do
     {
       if ( *((_WORD *)v4 + 9) == v6 )
@@ -8968,7 +8968,7 @@ void __fastcall sub_44882F(int a1, int a2, const char *Str1)
       ++v3;
       v4 = (char *)v4 + 32;
     }
-    while ( v3 < (signed int)dword_69ADD0 );
+    while ( v3 < (signed int)uNumLevelDecorations );
   }
 }
 
@@ -14173,9 +14173,9 @@ void *__cdecl sub_450AAA()
   v2 = 0;
   result = memset(global_5E4C90.byte_000000 + 75, 0, 125);
   v1 = 0;
-  if ( (signed int)dword_69ADD0 > 0 )
+  if ( (signed int)uNumLevelDecorations > 0 )
   {
-    v3 = (int)array_6836D0;
+    v3 = (int)pLevelDecorations;
     do
     {
       if ( !*(_WORD *)(v3 + 22) )
@@ -14194,7 +14194,7 @@ void *__cdecl sub_450AAA()
       ++v1;
       v3 += 32;
     }
-    while ( v1 < (signed int)dword_69ADD0 );
+    while ( v1 < (signed int)uNumLevelDecorations );
   }
   return result;
 }

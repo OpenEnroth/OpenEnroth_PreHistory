@@ -1979,15 +1979,15 @@ LABEL_16:
 }
 
 //----- (0047AF11) --------------------------------------------------------
-void sub_47AF11_PrepareObjectsRenderList()
+void sub_47AF11_PrepareItemsRenderList()
 {
   __int16 *v0; // edi@2
   struct ObjectDescription *v1; // ebx@4
   __int16 v2; // cx@5
   int v4; // edx@10
   int v5; // ecx@10
- struct unnamed_512250 *v7; // esi@10
- struct SpriteFrame    *pSprite;
+ struct RenderBillboard *v7; // esi@10
+ struct SpriteFrame     *pSprite;
   int v9; // eax@10
   int v10; // ecx@10
   char *v11; // eax@14
@@ -2026,33 +2026,33 @@ void sub_47AF11_PrepareObjectsRenderList()
   signed __int16 v46; // [sp+3Ch] [bp-4h]@12
  int i;
 
-  for (i = 0; i < uNumElementsIn665230; ++i)
+  for (i = 0; i < uNumLayingItems; ++i)
   {
-   v0 = &array_665230[i].word_00001C;
+   v0 = &pLayingItemsList[i].word_00001C;
 
-   if (array_665230[i].uObjectDescriptionID)
+   if (pLayingItemsList[i].uObjectDescriptionID)
    {
-    v1 = &pObjectDescriptionList->pDescriptions[array_665230[i].uObjectDescriptionID];
+    v1 = &pObjectDescriptionList->pDescriptions[pLayingItemsList[i].uObjectDescriptionID];
     if (~v1->byte_000026 & 0x01)
     {
-     v2 = array_665230[i].word_000000;
-     if ( (v2 < 1000 || v2 >= 10000) && (v2 < 500 || v2 >= 600) || class06_sub_4A81CA(pGame->class06_obj, &array_665230[i]))
+     v2 = pLayingItemsList[i].word_000000;
+     if ( (v2 < 1000 || v2 >= 10000) && (v2 < 500 || v2 >= 600) || class06_sub_4A81CA(pGame->class06_obj, &pLayingItemsList[i]))
      {
-      v29 = array_665230[i].word_00001C;
-      v44 = array_665230[i].sItemPosX;
-      v43 = array_665230[i].sItemPosY;
-      v45 = array_665230[i].sItemPosZ;
-      v7 = &array_512250[dword_5187E0];
-      pSprite = CSpriteFrameTable_fn1(pSpriteFrameTable, v1->uSpriteID, array_665230[i].uSpriteFrameID);
+      v29 = pLayingItemsList[i].word_00001C;
+      v44 = pLayingItemsList[i].sItemPosX;
+      v43 = pLayingItemsList[i].sItemPosY;
+      v45 = pLayingItemsList[i].sItemPosZ;
+      v7 = &pBillboardRenderList[uNumBillboardsToDraw];
+      pSprite = CSpriteFrameTable_fn1(pSpriteFrameTable, v1->uSpriteID, pLayingItemsList[i].uSpriteFrameID);
 
             v36 = pSprite->dword_00002C;
-            v38 = pSprite->word_000030 * array_665230[i].word_000022;
-            v9 = class59_Atan2(pClass59_global, array_665230[i].sItemPosX - pOldCamera->dword_000000, array_665230[i].sItemPosY - pOldCamera->dword_000004);
-            LOWORD(v10) = array_665230[i].word_000016;
+            v38 = pSprite->word_000030 * pLayingItemsList[i].word_000022;
+            v9 = class59_Atan2(pClass59_global, pLayingItemsList[i].sItemPosX - pOldCamera->dword_000000, pLayingItemsList[i].sItemPosY - pOldCamera->dword_000004);
+            LOWORD(v10) = pLayingItemsList[i].word_000016;
             v4 = v36;
 
             v5 = ((pClass59_global->uIntegerPi + (pClass59_global->uIntegerPi >> 3) + v10 - v9) >> 8) & 7;
-            array_512250[dword_5187E0].uHardwareSpriteID = pSprite->pSpriteIDs[v5];
+            pBillboardRenderList[uNumBillboardsToDraw].uHardwareSpriteID = pSprite->pSpriteIDs[v5];
 
             if ( v36 & 0x20 )
             {
@@ -2090,7 +2090,7 @@ void sub_47AF11_PrepareObjectsRenderList()
               {
                 v18 = v39 - v37;
                 v40 = v39 - v37;
-                v17 = ((unsigned __int64)(v33 * pStruct9_global->camera_rotation_x_int_cosine) >> 16) - ((unsigned __int64)(v30 * pStruct9_global->camera_rotation_x_int_sine) >> 16);
+                v17 = ((unsigned __int64)(v33 * pStruct9_global->camera_rotation_x_int_cosine) >> 16) - (((unsigned __int64)(v30) * pStruct9_global->camera_rotation_x_int_sine) >> 16);
                 goto LABEL_29;
               }
             }
@@ -2103,7 +2103,7 @@ void sub_47AF11_PrepareObjectsRenderList()
               v42 = v20 + v19;
               if ( v20 + v19 >= 262144 && v13 <= pStruct9_global->shading_dist_mist << 16 )
               {
-                v21 = ((unsigned __int64)(((v44) - pOldCamera->dword_000000) << 16) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
+                v21 = ((unsigned __int64)((v44 - pOldCamera->dword_000000) << 16) * pStruct9_global->camera_rotation_y_int_sine) >> 16;
                 v18 = (((unsigned __int64)(v34) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v21;
                 v40 = (((unsigned __int64)(v34) * pStruct9_global->camera_rotation_y_int_cosine) >> 16) - v21;
                 v17 = (v45 - pOldCamera->dword_000008) << 16;
@@ -2120,9 +2120,9 @@ LABEL_29:
                   HIDWORD(v24) = pStruct9_global->dword_000014 << 16 >> 16;
                   v35 = pOldViewport->dword_000028 - ((signed int)((((unsigned __int64)(v25) * v40) >> 16) + 32768) >> 16);
                   v32 = pOldViewport->dword_00002C - ((signed int)((((unsigned __int64)(v24) / v42 * v31) >> 16) + 32768) >> 16);
-                  if ( dword_5187E0 >= 500 )
+                  if ( uNumBillboardsToDraw >= 500 )
                     return;
-                  ++dword_5187E0;
+                  ++uNumBillboardsToDraw;
                   ++dword_5187E4;
                   *((_BYTE *)v0 - 2) |= 1u;
                   v7->word_00001A = pSprite->word_000034;
@@ -3914,10 +3914,10 @@ void __thiscall sub_405CFF(int this, int a2)
     }
     while ( v4 < *(_DWORD *)(v3 + 12) );
   }
-  if ( (signed int)uNumElementsIn665230 > 0 )
+  if ( (signed int)uNumLayingItems > 0 )
   {
-    v9 = (int)byte_66524A;
-    v8 = uNumElementsIn665230;
+   v9 = (int)&pLayingItemsList[0].word_00001A;
+    v8 = uNumLayingItems;
     do
     {
       v10 = *(_WORD *)v9;
@@ -4815,9 +4815,9 @@ void __cdecl sub_4613C4()
   v3 = sub_4488B6(pDecorationDescriptionList, "Event Trigger");
   v2 = v3;
 
-  for (i = 0; i < dword_69ADD0; ++i)
+  for (i = 0; i < uNumLevelDecorations; ++i)
   {
-    v4 = &array_6836D0[i];
+    v4 = &pLevelDecorations[i];
 
       if ( *(_WORD *)v4 == v2 )
       {
@@ -7014,9 +7014,9 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
       if ( v5 != 2 )
         return 0;
       v7 = 32 * v2;
-      v63 = array_6836D0[v2].sPosX;
-      v64 = array_6836D0[v2].sPosY;
-      v65 = array_6836D0[v2].sPosZ;
+      v63 = pLevelDecorations[v2].sPosX;
+      v64 = pLevelDecorations[v2].sPosY;
+      v65 = pLevelDecorations[v2].sPosZ;
       v6 = sub_49AC17((int)byte_6BE3C8, v63, v64, v65);
     }
     else
@@ -7032,10 +7032,10 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
   else
   {
     v10 = 112 * v2;
-    v63 = array_665230[v2].sItemPosX;
-    v64 = array_665230[v2].sItemPosY;
-    v11 = array_665230[v2].sItemPosZ;
-    v6 = array_665230[v2].word_00001C;
+    v63 = pLayingItemsList[v2].sItemPosX;
+    v64 = pLayingItemsList[v2].sItemPosY;
+    v11 = pLayingItemsList[v2].sItemPosZ;
+    v6 = pLayingItemsList[v2].word_00001C;
     v65 = v11;
   }
   v66 = v6;
@@ -7052,9 +7052,9 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
         if ( v15 != 1 )
           return 0;
         v16 = 32 * v12;
-        v18 = array_6836D0[v12].sPosX;
-        v43 = v60 = array_6836D0[v12].sPosY;
-        v17 = v44 = array_6836D0[v12].sPosZ;
+        v18 = pLevelDecorations[v12].sPosX;
+        v43 = v60 = pLevelDecorations[v12].sPosY;
+        v17 = v44 = pLevelDecorations[v12].sPosZ;
       }
       else
       {
@@ -7079,10 +7079,10 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
   else
   {
     v22 = 112 * v12;
-    v18 = array_665230[v12].sItemPosX;
-    v17 = array_665230[v12].sItemPosY;
-    v60 = array_665230[v12].sItemPosZ;
-    v19 = array_665230[v12].word_00001C;
+    v18 = pLayingItemsList[v12].sItemPosX;
+    v17 = pLayingItemsList[v12].sItemPosY;
+    v60 = pLayingItemsList[v12].sItemPosZ;
+    v19 = pLayingItemsList[v12].word_00001C;
   }
   v62 = v19;
   v24 = v18 - v63;
@@ -7280,7 +7280,7 @@ void ReadMM6_ini(const wchar_t *pMM6ConfigFilename)
   byte_6BE113 = GetPrivateProfileIntA("outdoor", "RGBNightBottom.b", 129, pIniFile);
   dword_6BE0D8 = GetPrivateProfileIntA("debug", "noMist", 0, pIniFile);
   dword_6BE0C4 = GetPrivateProfileIntA("outdoor", "nosky", 0, pIniFile);
-  dword_6BE0C8 = GetPrivateProfileIntA("render", "nodecorations", 0, pIniFile);
+  pStruct9_global->bDoNotRenderDecorations = GetPrivateProfileIntA("render", "nodecorations", false, pIniFile);
   dword_6BE0D4 = GetPrivateProfileIntA("outdoor", "nowavywater", 0, pIniFile);
   dword_6BE0FC = GetPrivateProfileIntA("outdoor", "gridband1", 10, pIniFile);
   dword_6BE100 = GetPrivateProfileIntA("outdoor", "gridband2", 15, pIniFile);
@@ -7354,12 +7354,12 @@ bool __cdecl sub_47F138()
   if ( !_strcmpi(Str1, "out09.odm") )
     v7 = 1;
 
-  for (i = 0; i < dword_69ADD0; ++i)
+  for (i = 0; i < uNumLevelDecorations; ++i)
   {
-    v2 = &array_6836D0[i];
+    v2 = &pLevelDecorations[i];
 
-      sub_458693(pDecorationDescriptionList, array_6836D0[i].uDecorationDescriptionID);
-      v3 = pDecorationDescriptionList->pDescriptions[array_6836D0[i].uDecorationDescriptionID].word_00004C;
+      sub_458693(pDecorationDescriptionList, pLevelDecorations[i].uDecorationDescriptionID);
+      v3 = pDecorationDescriptionList->pDescriptions[pLevelDecorations[i].uDecorationDescriptionID].word_00004C;
 
       if ( v3 )
       {
@@ -7372,12 +7372,12 @@ bool __cdecl sub_47F138()
       }
       if ( v7 )
       {
-       if (array_6836D0[i].word_000014 == 20 )
-        *(char *)&array_6836D0[i].word_000002 |= 0x40u;
+       if (pLevelDecorations[i].word_000014 == 20 )
+        *(char *)&pLevelDecorations[i].word_000002 |= 0x40u;
       }
-      if ( !array_6836D0[i].word_000016)
+      if ( !pLevelDecorations[i].word_000016)
       {
-        if ( sub_44C2F4(&array_6836D0[i]) )
+        if ( sub_44C2F4(&pLevelDecorations[i]) )
         {
           if ( v0 < 124 )
           {
@@ -8760,7 +8760,7 @@ int __fastcall sub_464866(int a1, int a2)
  LoadLevel_InitializeLevelEvt();
  
  for (i = 0; i < 1000; ++i)
-   array_665230[i].uObjectDescriptionID = 0;
+   pLayingItemsList[i].uObjectDescriptionID = 0;
  
  uLevelMapStatsID = CMapStats_FindLocation(pMapStats, Str1);
   byte_6BE3C4_MaybeDrowningFlag = 0;
@@ -8949,10 +8949,10 @@ void __cdecl sub_408896()
 
   for (i = 0; i < 1000; ++i)
   {
-   if (array_665230[i].uObjectDescriptionID)
+   if (pLayingItemsList[i].uObjectDescriptionID)
    {
-    if (array_665230[i].byte_000012[8] & 8 ||
-        pObjectDescriptionList->pDescriptions[array_665230[i].uObjectDescriptionID].byte_000026 & 0x10)
+    if (pLayingItemsList[i].word_00001A & 0x0008 ||
+        pObjectDescriptionList->pDescriptions[pLayingItemsList[i].uObjectDescriptionID].byte_000026 & 0x10)
       sub_42F933(i);
     }
   }

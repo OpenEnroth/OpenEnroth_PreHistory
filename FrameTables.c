@@ -609,10 +609,10 @@ void CDecorationDescriptionList_ctor(struct CDecorationDescriptionList *_this)
 //----- (0045864C) --------------------------------------------------------
 void *CDecorationDescriptionList_Initialize(struct CDecorationDescriptionList *_this, unsigned char *pSrc)
 {
- _this->uNumDecorations = *(int *)(pSrc);
+ _this->uNumLevelDecorations = *(int *)(pSrc);
 
- _this->pDescriptions = class23_AllocatedNamedBuffer(class23_instance, _this->pDescriptions, _this->uNumDecorations * sizeof(struct DecorationDescription), "Dec Descrip");
- memcpy(_this->pDescriptions, pSrc + 4, _this->uNumDecorations * sizeof(struct DecorationDescription));
+ _this->pDescriptions = class23_AllocatedNamedBuffer(class23_instance, _this->pDescriptions, _this->uNumLevelDecorations * sizeof(struct DecorationDescription), "Dec Descrip");
+ memcpy(_this->pDescriptions, pSrc + 4, _this->uNumLevelDecorations * sizeof(struct DecorationDescription));
  return 0;
 }
 
@@ -625,7 +625,7 @@ __int16 sub_4488B6(struct CDecorationDescriptionList *_this, const char *Str1)
   __int16 result; // ax@6
 
   v2 = _this;
-  if ( Str1 && _this->uNumDecorations > 1)
+  if ( Str1 && _this->uNumLevelDecorations > 1)
   {
    v3 = 1;
     v4 = 84;
@@ -633,7 +633,7 @@ __int16 sub_4488B6(struct CDecorationDescriptionList *_this, const char *Str1)
     {
       ++v3;
       v4 += 84;
-      if ( v3 >= _this->uNumDecorations)
+      if ( v3 >= _this->uNumLevelDecorations)
         return 0;
     }
     return v3;
@@ -645,7 +645,7 @@ __int16 sub_4488B6(struct CDecorationDescriptionList *_this, const char *Str1)
 //----- (00458693) --------------------------------------------------------
 void sub_458693(struct CDecorationDescriptionList *_this, unsigned int uDecorationDescriptionID)
 {
-  CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[uDecorationDescriptionID].word_000048);
+  CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[uDecorationDescriptionID].uSpriteID);
 }
 
 

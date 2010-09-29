@@ -5014,11 +5014,11 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
         while ( v292 < *(_DWORD *)(v6 + 664) );
       }
       fseek(v8, v249, 0);
-      locked_fread(&dword_69ADD0, 4u, 1u, v8);
+      locked_fread(&uNumLevelDecorations, 4u, 1u, v8);
       fseek(v8, v250, 0);
-      locked_fread(word_6836D0, 0x20u, dword_69ADD0, v8);
+      locked_fread(word_6836D0, 0x20u, uNumLevelDecorations, v8);
       v293 = 0;
-      if ( (signed int)dword_69ADD0 > 0 )
+      if ( (signed int)uNumLevelDecorations > 0 )
       {
         a5 = (int)word_6836D0;
         do
@@ -5030,15 +5030,15 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
           a5 += 32;
           *(_WORD *)v80 = v79;
         }
-        while ( v293 < (signed int)dword_69ADD0 );
+        while ( v293 < (signed int)uNumLevelDecorations );
       }
       fseek(v8, v251, 0);
       locked_fread(&::Count, 4u, 1u, v8);
       fseek(v8, v252, 0);
-      locked_fread(array_665230, 0x70u, ::Count, v8);
+      locked_fread(pLayingItemsList, 0x70u, ::Count, v8);
       if ( (signed int)::Count > 0 )
       {
-        v81 = array_665230;
+        v81 = pLayingItemsList;
         a5 = ::Count;
         do
         {
@@ -5434,14 +5434,14 @@ LABEL_50:
   memcpy((void *)(v6 + 664), v151, 4u);
   v160 = (char *)v151 + 4;
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-  memcpy(&dword_69ADD0, v160, 4u);
+  memcpy(&uNumLevelDecorations, v160, 4u);
   v160 = (char *)v160 + 4;
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-  v283 = 32 * dword_69ADD0;
-  memcpy(word_6836D0, v160, 32 * dword_69ADD0);
+  v283 = 32 * uNumLevelDecorations;
+  memcpy(word_6836D0, v160, 32 * uNumLevelDecorations);
   v159 = (char *)v160 + v283;
   v283 = 0;
-  if ( (signed int)dword_69ADD0 > 0 )
+  if ( (signed int)uNumLevelDecorations > 0 )
   {
     File = (FILE *)word_6836D0;
     do
@@ -5454,7 +5454,7 @@ LABEL_50:
       ++File;
       LOWORD(v162->_ptr) = v161;
     }
-    while ( v283 < (signed int)dword_69ADD0 );
+    while ( v283 < (signed int)uNumLevelDecorations );
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
   memcpy((void *)(v6 + 656), v159, 4u);
@@ -5553,7 +5553,7 @@ LABEL_50:
     v176 = *(_DWORD *)(v6 + 728);
     if ( v176 )
     {
-      if ( v175 != dword_6BE640 || v176 != dword_69ADD0 )
+      if ( v175 != dword_6BE640 || v176 != uNumLevelDecorations )
         v282 = 1;
     }
   }
@@ -5663,9 +5663,9 @@ LABEL_140:
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
   v188 = 0;
-  if ( (signed int)dword_69ADD0 > 0 )
+  if ( (signed int)uNumLevelDecorations > 0 )
   {
-    v296 = &array_6836D0[0].word_000002;
+    v296 = &pLevelDecorations[0].word_000002;
     do
     {
       memcpy(v296, Src, 2);
@@ -5673,7 +5673,7 @@ LABEL_140:
       v296 = (char *)v296 + 32;
       ++v188;
     }
-    while ( v188 < (signed int)dword_69ADD0 );
+    while ( v188 < (signed int)uNumLevelDecorations );
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
   memcpy(&uNumActors, Src, 4u);
@@ -5687,7 +5687,7 @@ LABEL_140:
   Src = (char *)Src + 4;
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
   v190 = 112 * ::Count;
-  memcpy(array_665230, Src, 112 * ::Count);
+  memcpy(pLayingItemsList, Src, 112 * ::Count);
   Src = (char *)Src + v190;
   if ( (signed int)::Count > 0 )
   {
@@ -9530,7 +9530,7 @@ int __fastcall sub_4A19D8(unsigned int a1, unsigned int a2)
 }
 
 //----- (004A1B22) --------------------------------------------------------
-int __stdcall sub_4A1B22(float a1)
+int __stdcall sub_4A1B22_Billboard_ProbablyAddToListAndSortByZOrder(float a1)
 {
   int v1; // ebx@1
   int v3; // ecx@5
@@ -9540,7 +9540,7 @@ int __stdcall sub_4A1B22(float a1)
   int *v7; // ecx@12
   int v8; // eax@16
   int v10; // eax@21
-  struct unnamed_EF52B8 *v11; // edi@21
+  struct RenderBillboardD3D3 *v11; // edi@21
 
   v1 = pD3DRenderer->dword_129830;
   if ( pD3DRenderer->dword_129830 >= 999 )
@@ -9562,14 +9562,14 @@ int __stdcall sub_4A1B22(float a1)
     do
     {
       v6 = v3 + (v4 - v3) / 2;
-      if ( v5 <= stru_EF52B8[(v3 + (v4 - v3) / 2)].flt_000088)
+      if ( v5 <= pBillboardRenderListD3D3[(v3 + (v4 - v3) / 2)].flt_000088)
         v4 = v3 + (v4 - v3) / 2;
       else
         v3 = v6 + 1;
     }
     while ( v3 < v4 );
   }
-  v7 = &stru_EF52B8[v6].flt_000088;
+  v7 = &pBillboardRenderListD3D3[v6].flt_000088;
   if ( v5 > *(float *)v7 )
   {
     if ( v6 == pD3DRenderer->dword_129830 - 1 )
@@ -9580,11 +9580,11 @@ int __stdcall sub_4A1B22(float a1)
     {
       if ( pD3DRenderer->dword_129830 > v6 )
       {
-        v11 = &stru_EF52B8[pD3DRenderer->dword_129830];
+        v11 = &pBillboardRenderListD3D3[pD3DRenderer->dword_129830];
         v8 = pD3DRenderer->dword_129830 - v6;
         do
         {
-        memcpy(v11, v11 - 1, sizeof(struct unnamed_EF52B8));
+        memcpy(v11, v11 - 1, sizeof(struct RenderBillboardD3D3));
           v11--;
           --v8;
         }
@@ -9600,11 +9600,11 @@ LABEL_23:
   {
     if ( pD3DRenderer->dword_129830 > v6 )
     {
-      v11 = &stru_EF52B8[pD3DRenderer->dword_129830];
+      v11 = &pBillboardRenderListD3D3[pD3DRenderer->dword_129830];
       v10 = pD3DRenderer->dword_129830 - v6;
       do
       {
-        memcpy(v11, v11 - 1, sizeof(struct unnamed_EF52B8));
+        memcpy(v11, v11 - 1, sizeof(struct RenderBillboardD3D3));
         v11--;
         --v10;
       }
@@ -9619,7 +9619,7 @@ LABEL_23:
 void D3D_DoRenderBillboards()
 {
  int v0;
- struct unnamed_EF52B8 *v1;
+ struct RenderBillboardD3D3 *v1;
   unsigned int v4; // eax@7
  int i;
 
@@ -9633,7 +9633,7 @@ void D3D_DoRenderBillboards()
  v0 = -1;
  for (i = 1; i <= pD3DRenderer->dword_129830; ++i)
  {
-  v1 = &stru_EF52B8[pD3DRenderer->dword_129830 - i];
+  v1 = &pBillboardRenderListD3D3[pD3DRenderer->dword_129830 - i];
 
   (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTexture)(pD3DRenderer->pRenderD3D3->pDevice, 0, v1->pTexture);
   if (v1->int_00008C != v0)
@@ -9707,7 +9707,7 @@ int __cdecl sub_4A1E9D()
 //----- (004A1EA3) --------------------------------------------------------
 int __stdcall sub_4A1EA3(int a1)
 {
-  return stru_EF52B8[a1].dword_000098;
+  return pBillboardRenderListD3D3[a1].dword_000098;
 }
 
 //----- (004A2031) --------------------------------------------------------
@@ -10175,11 +10175,11 @@ void __thiscall sub_4A354F(int this, int a2, IDirect3DTexture2 *pTexture, unsign
       v5 = (double)*(_WORD *)(a2 + 42);
       v6 = v5;
       *(float *)&v7 = v5;
-      v8 = 156 * sub_4A1B22(v7);
-      stru_EF52B8[v8/156].int_00008C = 1;
-      stru_EF52B8[v8/156].dword_000090 = *(_DWORD *)(a2 + 68);
-      stru_EF52B8[v8/156].dword_000094 = *(_DWORD *)(a2 + 40);
-      stru_EF52B8[v8/156].dword_000098 = *(_DWORD *)(a2 + 72);
+      v8 = 156 * sub_4A1B22_Billboard_ProbablyAddToListAndSortByZOrder(v7);
+      pBillboardRenderListD3D3[v8/156].int_00008C = 1;
+      pBillboardRenderListD3D3[v8/156].dword_000090 = *(_DWORD *)(a2 + 68);
+      pBillboardRenderListD3D3[v8/156].dword_000094 = *(_DWORD *)(a2 + 40);
+      pBillboardRenderListD3D3[v8/156].dword_000098 = *(_DWORD *)(a2 + 72);
       v9 = *(_DWORD *)(a2 + 8);
       v10 = *(_DWORD *)(a2 + 12);
       v11 = (double)(*(_DWORD *)(a2 + 16) & 0xFFFF) * 0.00001526018604636192 + (double)*(_WORD *)(a2 + 18);
@@ -10193,7 +10193,7 @@ void __thiscall sub_4A354F(int this, int a2, IDirect3DTexture2 *pTexture, unsign
       v19 = class59_SinCos(pClass59_global, a5 - pClass59_global->uIntegerHalfPi);
       v20 = class59_SinCos(pClass59_global, a5 - pClass59_global->uIntegerHalfPi);
       v21 = class59_SinCos(pClass59_global, a5);
-      stru_EF52B8[v8/156].pQuad[0].x = (((double)(unsigned __int16)v18 * 0.00001525902189314365 + (double)(v18 >> 16)) * v16
+      pBillboardRenderListD3D3[v8/156].pQuad[0].x = (((double)(unsigned __int16)v18 * 0.00001525902189314365 + (double)(v18 >> 16)) * v16
                                  - ((double)(unsigned __int16)v19 * 0.00001525902189314365 + (double)(v19 >> 16)) * v17)
                                 * v11
                                 + v13;
@@ -10203,13 +10203,13 @@ void __thiscall sub_4A354F(int this, int a2, IDirect3DTexture2 *pTexture, unsign
           * v11
           + (double)*(signed int *)(a2 + 12);
       
-      stru_EF52B8[v8/156].pQuad[0].y = v22;
-      stru_EF52B8[v8/156].pQuad[0].z = 1.0 - 1.0 / (v6 * 0.06175889447331429);
-      stru_EF52B8[v8/156].pQuad[0].rhw = 1.0 / v6;
-      stru_EF52B8[v8/156].pQuad[0].diffuse = uDiffuseColor;
-      stru_EF52B8[v8/156].pQuad[0].specular = 0;
-      stru_EF52B8[v8/156].pQuad[0].u = 0.0;
-      stru_EF52B8[v8/156].pQuad[0].v = 0.0;
+      pBillboardRenderListD3D3[v8/156].pQuad[0].y = v22;
+      pBillboardRenderListD3D3[v8/156].pQuad[0].z = 1.0 - 1.0 / (v6 * 0.06175889447331429);
+      pBillboardRenderListD3D3[v8/156].pQuad[0].rhw = 1.0 / v6;
+      pBillboardRenderListD3D3[v8/156].pQuad[0].diffuse = uDiffuseColor;
+      pBillboardRenderListD3D3[v8/156].pQuad[0].specular = 0;
+      pBillboardRenderListD3D3[v8/156].pQuad[0].u = 0.0;
+      pBillboardRenderListD3D3[v8/156].pQuad[0].v = 0.0;
 
       v23 = (double)(*(_DWORD *)(a2 + 8) - 12) - v13;
       v24 = (double)*(signed int *)(a2 + 12) - v15;
@@ -10218,7 +10218,7 @@ void __thiscall sub_4A354F(int this, int a2, IDirect3DTexture2 *pTexture, unsign
       v27 = class59_SinCos(pClass59_global, a5 - pClass59_global->uIntegerHalfPi);
       v28 = class59_SinCos(pClass59_global, a5);
 
-      stru_EF52B8[v8/156].pQuad[1].x = (((double)(unsigned __int16)v25 * 0.00001525902189314365 + (double)(v25 >> 16)) * v23
+      pBillboardRenderListD3D3[v8/156].pQuad[1].x = (((double)(unsigned __int16)v25 * 0.00001525902189314365 + (double)(v25 >> 16)) * v23
                                  - ((double)(unsigned __int16)v26 * 0.00001525902189314365 + (double)(v26 >> 16)) * v24)
                                 * v11
                                 + v13;
@@ -10228,13 +10228,13 @@ void __thiscall sub_4A354F(int this, int a2, IDirect3DTexture2 *pTexture, unsign
           * v11
           + (double)*(signed int *)(a2 + 12);
       
-      stru_EF52B8[v8/156].pQuad[1].y = v29;
-      stru_EF52B8[v8/156].pQuad[1].z = stru_EF52B8[v8/156].pQuad[0].z;
-      stru_EF52B8[v8/156].pQuad[1].rhw = stru_EF52B8[v8/156].pQuad[0].rhw;
-      stru_EF52B8[v8/156].pQuad[1].diffuse = uDiffuseColor;
-      stru_EF52B8[v8/156].pQuad[1].specular = 0;
-      stru_EF52B8[v8/156].pQuad[1].u = 0.0;
-      stru_EF52B8[v8/156].pQuad[1].v = 1.0;
+      pBillboardRenderListD3D3[v8/156].pQuad[1].y = v29;
+      pBillboardRenderListD3D3[v8/156].pQuad[1].z = pBillboardRenderListD3D3[v8/156].pQuad[0].z;
+      pBillboardRenderListD3D3[v8/156].pQuad[1].rhw = pBillboardRenderListD3D3[v8/156].pQuad[0].rhw;
+      pBillboardRenderListD3D3[v8/156].pQuad[1].diffuse = uDiffuseColor;
+      pBillboardRenderListD3D3[v8/156].pQuad[1].specular = 0;
+      pBillboardRenderListD3D3[v8/156].pQuad[1].u = 0.0;
+      pBillboardRenderListD3D3[v8/156].pQuad[1].v = 1.0;
 
       v31 = (double)(*(_DWORD *)(a2 + 8) + 12) - v13;
       v32 = (double)*(signed int *)(a2 + 12) - v15;
@@ -10243,7 +10243,7 @@ void __thiscall sub_4A354F(int this, int a2, IDirect3DTexture2 *pTexture, unsign
       v35 = class59_SinCos(pClass59_global, a5 - pClass59_global->uIntegerHalfPi);
       v36 = class59_SinCos(pClass59_global, a5);
 
-      stru_EF52B8[v8/156].pQuad[2].x = (((double)(unsigned __int16)v33 * 0.00001525902189314365 + (double)(v33 >> 16)) * v31
+      pBillboardRenderListD3D3[v8/156].pQuad[2].x = (((double)(unsigned __int16)v33 * 0.00001525902189314365 + (double)(v33 >> 16)) * v31
                                  - ((double)(unsigned __int16)v34 * 0.00001525902189314365 + (double)(v34 >> 16)) * v32)
                                 * v11
                                 + v13;
@@ -10253,13 +10253,13 @@ void __thiscall sub_4A354F(int this, int a2, IDirect3DTexture2 *pTexture, unsign
           * v11
           + (double)*(signed int *)(a2 + 12);
       
-      stru_EF52B8[v8/156].pQuad[2].y = v38;
-      stru_EF52B8[v8/156].pQuad[2].z = stru_EF52B8[v8/156].pQuad[0].z;
-      stru_EF52B8[v8/156].pQuad[2].rhw = stru_EF52B8[v8/156].pQuad[0].rhw;
-      stru_EF52B8[v8/156].pQuad[2].diffuse = uDiffuseColor;
-      stru_EF52B8[v8/156].pQuad[2].specular = 0;
-      stru_EF52B8[v8/156].pQuad[2].u = 1.0;
-      stru_EF52B8[v8/156].pQuad[2].v = 1.0;
+      pBillboardRenderListD3D3[v8/156].pQuad[2].y = v38;
+      pBillboardRenderListD3D3[v8/156].pQuad[2].z = pBillboardRenderListD3D3[v8/156].pQuad[0].z;
+      pBillboardRenderListD3D3[v8/156].pQuad[2].rhw = pBillboardRenderListD3D3[v8/156].pQuad[0].rhw;
+      pBillboardRenderListD3D3[v8/156].pQuad[2].diffuse = uDiffuseColor;
+      pBillboardRenderListD3D3[v8/156].pQuad[2].specular = 0;
+      pBillboardRenderListD3D3[v8/156].pQuad[2].u = 1.0;
+      pBillboardRenderListD3D3[v8/156].pQuad[2].v = 1.0;
 
       v39 = (double)(*(_DWORD *)(a2 + 8) + 12) - v13;
       v40 = (double)(*(_DWORD *)(a2 + 12) - 25) - v15;
@@ -10268,7 +10268,7 @@ void __thiscall sub_4A354F(int this, int a2, IDirect3DTexture2 *pTexture, unsign
       v43 = class59_SinCos(pClass59_global, a5 - pClass59_global->uIntegerHalfPi);
       v44 = class59_SinCos(pClass59_global, a5);
 
-      stru_EF52B8[v8/156].pQuad[3].x = (((double)(unsigned __int16)v41 * 0.00001525902189314365 + (double)(v41 >> 16)) * v39
+      pBillboardRenderListD3D3[v8/156].pQuad[3].x = (((double)(unsigned __int16)v41 * 0.00001525902189314365 + (double)(v41 >> 16)) * v39
                                  - ((double)(unsigned __int16)v42 * 0.00001525902189314365 + (double)(v42 >> 16)) * v40)
                                 * v11
                                 + v13;
@@ -10278,17 +10278,17 @@ void __thiscall sub_4A354F(int this, int a2, IDirect3DTexture2 *pTexture, unsign
           * v11
           + (double)*(signed int *)(a2 + 12);
       
-      stru_EF52B8[v8/156].pQuad[3].y = v45;
-      stru_EF52B8[v8/156].pQuad[3].z = stru_EF52B8[v8/156].pQuad[0].z;
-      stru_EF52B8[v8/156].pQuad[3].rhw = stru_EF52B8[v8/156].pQuad[0].rhw;
-      stru_EF52B8[v8/156].pQuad[3].diffuse = uDiffuseColor;
-      stru_EF52B8[v8/156].pQuad[3].specular = 0;
-      stru_EF52B8[v8/156].pQuad[3].u = 1.0;
-      stru_EF52B8[v8/156].pQuad[3].v = 0.0;
+      pBillboardRenderListD3D3[v8/156].pQuad[3].y = v45;
+      pBillboardRenderListD3D3[v8/156].pQuad[3].z = pBillboardRenderListD3D3[v8/156].pQuad[0].z;
+      pBillboardRenderListD3D3[v8/156].pQuad[3].rhw = pBillboardRenderListD3D3[v8/156].pQuad[0].rhw;
+      pBillboardRenderListD3D3[v8/156].pQuad[3].diffuse = uDiffuseColor;
+      pBillboardRenderListD3D3[v8/156].pQuad[3].specular = 0;
+      pBillboardRenderListD3D3[v8/156].pQuad[3].u = 1.0;
+      pBillboardRenderListD3D3[v8/156].pQuad[3].v = 0.0;
 
-      stru_EF52B8[v8/156].pTexture = pTexture;
-      stru_EF52B8[v8/156].uNumVertices = 4;
-      stru_EF52B8[v8/156].flt_000088 = v6;
+      pBillboardRenderListD3D3[v8/156].pTexture = pTexture;
+      pBillboardRenderListD3D3[v8/156].uNumVertices = 4;
+      pBillboardRenderListD3D3[v8/156].flt_000088 = v6;
     }
   }
 }
@@ -10344,12 +10344,12 @@ void __thiscall sub_4A3AD9(int this, int a2, IDirect3DTexture2 *pTexture, unsign
     v5 = (double)*(_WORD *)(a2 + 42);
     v6 = v5;
     *(float *)&v7 = v5;
-    v8 = 156 * sub_4A1B22(v7);
+    v8 = 156 * sub_4A1B22_Billboard_ProbablyAddToListAndSortByZOrder(v7);
 
-    stru_EF52B8[v8/156].int_00008C = 1;
-    stru_EF52B8[v8/156].dword_000090 = *(_DWORD *)(a2 + 68);
-    stru_EF52B8[v8/156].dword_000094 = *(_DWORD *)(a2 + 40);
-    stru_EF52B8[v8/156].dword_000098 = *(_DWORD *)(a2 + 72);
+    pBillboardRenderListD3D3[v8/156].int_00008C = 1;
+    pBillboardRenderListD3D3[v8/156].dword_000090 = *(_DWORD *)(a2 + 68);
+    pBillboardRenderListD3D3[v8/156].dword_000094 = *(_DWORD *)(a2 + 40);
+    pBillboardRenderListD3D3[v8/156].dword_000098 = *(_DWORD *)(a2 + 72);
 
     v9 = *(_DWORD *)(a2 + 8);
     v10 = *(_DWORD *)(a2 + 12);
@@ -10366,7 +10366,7 @@ void __thiscall sub_4A3AD9(int this, int a2, IDirect3DTexture2 *pTexture, unsign
     v21 = class59_SinCos(pClass59_global, v19);
     v22 = class59_SinCos(pClass59_global, a5);
 
-    stru_EF52B8[v8/156].pQuad[0].x = (((double)(unsigned __int16)v18 * 0.00001525902189314365 + (double)(v18 >> 16)) * v16
+    pBillboardRenderListD3D3[v8/156].pQuad[0].x = (((double)(unsigned __int16)v18 * 0.00001525902189314365 + (double)(v18 >> 16)) * v16
                                - ((double)(unsigned __int16)v20 * 0.00001525902189314365 + (double)(v20 >> 16)) * v17)
                               * v11
                               + v13;
@@ -10379,13 +10379,13 @@ void __thiscall sub_4A3AD9(int this, int a2, IDirect3DTexture2 *pTexture, unsign
     v24 = 1.0 - 1.0 / (v6 * 1000.0 / (double)pStruct9_global->shading_dist_mist);
     v25 = 1.0 / v6;
 
-    stru_EF52B8[v8/156].pQuad[0].y = v23;
-    stru_EF52B8[v8/156].pQuad[0].z = v24;
-    stru_EF52B8[v8/156].pQuad[0].rhw = v25;
-    stru_EF52B8[v8/156].pQuad[0].diffuse = uDiffuseColor;
-    stru_EF52B8[v8/156].pQuad[0].specular = 0;
-    stru_EF52B8[v8/156].pQuad[0].u = 0.0;
-    stru_EF52B8[v8/156].pQuad[0].v = 0.0;
+    pBillboardRenderListD3D3[v8/156].pQuad[0].y = v23;
+    pBillboardRenderListD3D3[v8/156].pQuad[0].z = v24;
+    pBillboardRenderListD3D3[v8/156].pQuad[0].rhw = v25;
+    pBillboardRenderListD3D3[v8/156].pQuad[0].diffuse = uDiffuseColor;
+    pBillboardRenderListD3D3[v8/156].pQuad[0].specular = 0;
+    pBillboardRenderListD3D3[v8/156].pQuad[0].u = 0.0;
+    pBillboardRenderListD3D3[v8/156].pQuad[0].v = 0.0;
 
     v26 = (double)(*(_DWORD *)(a2 + 8) - 12) - v13;
     v27 = (double)*(signed int *)(a2 + 12) - v15;
@@ -10394,7 +10394,7 @@ void __thiscall sub_4A3AD9(int this, int a2, IDirect3DTexture2 *pTexture, unsign
     v30 = class59_SinCos(pClass59_global, v19);
     v31 = class59_SinCos(pClass59_global, a5);
 
-    stru_EF52B8[v8/156].pQuad[1].x = (((double)(unsigned __int16)v28 * 0.00001525902189314365 + (double)(v28 >> 16)) * v26
+    pBillboardRenderListD3D3[v8/156].pQuad[1].x = (((double)(unsigned __int16)v28 * 0.00001525902189314365 + (double)(v28 >> 16)) * v26
                                - ((double)(unsigned __int16)v29 * 0.00001525902189314365 + (double)(v29 >> 16)) * v27)
                               * v11
                               + v13;
@@ -10404,13 +10404,13 @@ void __thiscall sub_4A3AD9(int this, int a2, IDirect3DTexture2 *pTexture, unsign
         * v11
         + (double)*(signed int *)(a2 + 12);
 
-    stru_EF52B8[v8/156].pQuad[1].y = v32;
-    stru_EF52B8[v8/156].pQuad[1].z = v24;
-    stru_EF52B8[v8/156].pQuad[1].rhw = v25;
-    stru_EF52B8[v8/156].pQuad[1].diffuse = uDiffuseColor;
-    stru_EF52B8[v8/156].pQuad[1].specular = 0;
-    stru_EF52B8[v8/156].pQuad[1].u = 0.0;
-    stru_EF52B8[v8/156].pQuad[1].v = 1.0;
+    pBillboardRenderListD3D3[v8/156].pQuad[1].y = v32;
+    pBillboardRenderListD3D3[v8/156].pQuad[1].z = v24;
+    pBillboardRenderListD3D3[v8/156].pQuad[1].rhw = v25;
+    pBillboardRenderListD3D3[v8/156].pQuad[1].diffuse = uDiffuseColor;
+    pBillboardRenderListD3D3[v8/156].pQuad[1].specular = 0;
+    pBillboardRenderListD3D3[v8/156].pQuad[1].u = 0.0;
+    pBillboardRenderListD3D3[v8/156].pQuad[1].v = 1.0;
 
     v33 = (double)(*(_DWORD *)(a2 + 8) + 12) - v13;
     v34 = (double)*(signed int *)(a2 + 12) - v15;
@@ -10419,7 +10419,7 @@ void __thiscall sub_4A3AD9(int this, int a2, IDirect3DTexture2 *pTexture, unsign
     v37 = class59_SinCos(pClass59_global, v19);
     v38 = class59_SinCos(pClass59_global, a5);
 
-    stru_EF52B8[v8/156].pQuad[2].x = (((double)(unsigned __int16)v35 * 0.00001525902189314365 + (double)(v35 >> 16)) * v33
+    pBillboardRenderListD3D3[v8/156].pQuad[2].x = (((double)(unsigned __int16)v35 * 0.00001525902189314365 + (double)(v35 >> 16)) * v33
                                - ((double)(unsigned __int16)v36 * 0.00001525902189314365 + (double)(v36 >> 16)) * v34)
                               * v11
                               + v13;
@@ -10429,13 +10429,13 @@ void __thiscall sub_4A3AD9(int this, int a2, IDirect3DTexture2 *pTexture, unsign
         * v11
         + (double)*(signed int *)(a2 + 12);
 
-    stru_EF52B8[v8/156].pQuad[2].y = v39;
-    stru_EF52B8[v8/156].pQuad[2].z = v24;
-    stru_EF52B8[v8/156].pQuad[2].rhw = v25;
-    stru_EF52B8[v8/156].pQuad[2].diffuse = uDiffuseColor;
-    stru_EF52B8[v8/156].pQuad[2].specular = 0;
-    stru_EF52B8[v8/156].pQuad[2].u = 1.0;
-    stru_EF52B8[v8/156].pQuad[2].v = 1.0;
+    pBillboardRenderListD3D3[v8/156].pQuad[2].y = v39;
+    pBillboardRenderListD3D3[v8/156].pQuad[2].z = v24;
+    pBillboardRenderListD3D3[v8/156].pQuad[2].rhw = v25;
+    pBillboardRenderListD3D3[v8/156].pQuad[2].diffuse = uDiffuseColor;
+    pBillboardRenderListD3D3[v8/156].pQuad[2].specular = 0;
+    pBillboardRenderListD3D3[v8/156].pQuad[2].u = 1.0;
+    pBillboardRenderListD3D3[v8/156].pQuad[2].v = 1.0;
 
     v40 = (double)(*(_DWORD *)(a2 + 8) + 12) - v13;
     v41 = (double)(*(_DWORD *)(a2 + 12) - 25) - v15;
@@ -10444,7 +10444,7 @@ void __thiscall sub_4A3AD9(int this, int a2, IDirect3DTexture2 *pTexture, unsign
     v44 = class59_SinCos(pClass59_global, v19);
     v45 = class59_SinCos(pClass59_global, a5);
 
-    stru_EF52B8[v8/156].pQuad[3].x = (((double)(unsigned __int16)v42 * 0.00001525902189314365 + (double)(v42 >> 16)) * v40
+    pBillboardRenderListD3D3[v8/156].pQuad[3].x = (((double)(unsigned __int16)v42 * 0.00001525902189314365 + (double)(v42 >> 16)) * v40
                                - ((double)(unsigned __int16)v43 * 0.00001525902189314365 + (double)(v43 >> 16)) * v41)
                               * v11
                               + v13;
@@ -10454,24 +10454,23 @@ void __thiscall sub_4A3AD9(int this, int a2, IDirect3DTexture2 *pTexture, unsign
         * v11
         + (double)*(signed int *)(a2 + 12);
 
-    stru_EF52B8[v8/156].pQuad[3].y = v46;
-    stru_EF52B8[v8/156].pQuad[3].z = v24;
-    stru_EF52B8[v8/156].pQuad[3].rhw = v25;
-    stru_EF52B8[v8/156].pQuad[3].diffuse = uDiffuseColor;
-    stru_EF52B8[v8/156].pQuad[3].specular = 0;
-    stru_EF52B8[v8/156].pQuad[3].u = 1.0;
-    stru_EF52B8[v8/156].pQuad[3].v = 0.0;
+    pBillboardRenderListD3D3[v8/156].pQuad[3].y = v46;
+    pBillboardRenderListD3D3[v8/156].pQuad[3].z = v24;
+    pBillboardRenderListD3D3[v8/156].pQuad[3].rhw = v25;
+    pBillboardRenderListD3D3[v8/156].pQuad[3].diffuse = uDiffuseColor;
+    pBillboardRenderListD3D3[v8/156].pQuad[3].specular = 0;
+    pBillboardRenderListD3D3[v8/156].pQuad[3].u = 1.0;
+    pBillboardRenderListD3D3[v8/156].pQuad[3].v = 0.0;
 
-    stru_EF52B8[v8/156].pTexture = pTexture;
-    stru_EF52B8[v8/156].uNumVertices = 4;
-    stru_EF52B8[v8/156].flt_000088 = v6;
+    pBillboardRenderListD3D3[v8/156].pTexture = pTexture;
+    pBillboardRenderListD3D3[v8/156].uNumVertices = 4;
+    pBillboardRenderListD3D3[v8/156].flt_000088 = v6;
   }
 }
 
 //----- (004A4023) --------------------------------------------------------
-void Render_sub_4A4023(struct Render *_this, struct Render_sub_4A4023_stru0 *a2, struct HardwareSprite *pSprite, int a4, struct unnamed_512250 *pEntity)
+void Render_BillboardTransform(struct Render *_this, struct Render_BillboardTransform_stru0 *a2, struct HardwareSprite *pSprite, int a4, struct RenderBillboard *pBillboard)
 {
-  int v6; // esi@2
   signed int v10; // eax@9
   signed int v11; // eax@9
   int v12; // eax@12
@@ -10495,20 +10494,21 @@ void Render_sub_4A4023(struct Render *_this, struct Render_sub_4A4023_stru0 *a2,
   int v33; // [sp+3Ch] [bp+Ch]@14
   float v34; // [sp+40h] [bp+10h]@12
   float v35; // [sp+44h] [bp+14h]@12
+ unsigned int i;
 
   if (!_this->uD3D3SceneBegun)
     return;
 
     v31 = (double)a2->word_00002A;
-    v6 = 156 * sub_4A1B22(a2->word_00002A);
+    i = sub_4A1B22_Billboard_ProbablyAddToListAndSortByZOrder(a2->word_00002A);
     if (a2->dword_00004C & 0xFF000000)
-      stru_EF52B8[v6/156].int_00008C = 3;
+      pBillboardRenderListD3D3[i].int_00008C = 3;
     else
-      stru_EF52B8[v6/156].int_00008C = 0;
+      pBillboardRenderListD3D3[i].int_00008C = 0;
 
-    stru_EF52B8[v6/156].dword_000090 = a2->dword_000044;
-    stru_EF52B8[v6/156].dword_000094 = a2->dword_000028;
-    stru_EF52B8[v6/156].dword_000098 = a2->dword_000048;
+    pBillboardRenderListD3D3[i].dword_000090 = a2->dword_000044;
+    pBillboardRenderListD3D3[i].dword_000094 = a2->dword_000028;
+    pBillboardRenderListD3D3[i].dword_000098 = a2->dword_000048;
 
     v24 = a2->dword_000008;
     v23 = a2->dword_00000C;
@@ -10520,14 +10520,14 @@ void Render_sub_4A4023(struct Render *_this, struct Render_sub_4A4023_stru0 *a2,
       v32 = -v32;
     if (a2->dword_00004C & 0x00FFFFFF && _this->bTinting)
     {
-      v11 = sub_47C4FC_GetActorTintColor(a4, 0, v31, 0, pEntity);
+      v11 = sub_47C4FC_GetActorTintColor(a4, 0, v31, 0, pBillboard);
       v10 = sub_4A19D8(a2->dword_00004C, v11);
       if (a2->dword_00004C & 0xFF000000)
         v10 = 0x7F7F7F & ((unsigned int)v10 >> 1);
     }
     else
     {
-      v10 = sub_47C4FC_GetActorTintColor(a4, 0, v31, 0, pEntity);
+      v10 = sub_47C4FC_GetActorTintColor(a4, 0, v31, 0, pBillboard);
     }
 
 
@@ -10539,65 +10539,65 @@ void Render_sub_4A4023(struct Render *_this, struct Render_sub_4A4023_stru0 *a2,
     }
 
     v35 = (double)v24;
-    stru_EF52B8[v6/156].pQuad[0].x = v35 - v32 * v30;
+    pBillboardRenderListD3D3[i].pQuad[0].x = v35 - v32 * v30;
     v34 = (double)v23;
-    stru_EF52B8[v6/156].pQuad[0].y = v34 - v26 * v29;
+    pBillboardRenderListD3D3[i].pQuad[0].y = v34 - v26 * v29;
     v27 = v31 * 1000.0;
     v13 = 1.0;
-    stru_EF52B8[v6/156].pQuad[0].z = 1.0 - 1.0 / (v27 / (double)pStruct9_global->shading_dist_mist);
+    pBillboardRenderListD3D3[i].pQuad[0].z = 1.0 - 1.0 / (v27 / (double)pStruct9_global->shading_dist_mist);
     v25 = 1.0 / v31;
-    stru_EF52B8[v6/156].pQuad[0].rhw = v25;
-    stru_EF52B8[v6/156].pQuad[0].diffuse = v10;
-    stru_EF52B8[v6/156].pQuad[0].specular = v12;
+    pBillboardRenderListD3D3[i].pQuad[0].rhw = v25;
+    pBillboardRenderListD3D3[i].pQuad[0].diffuse = v10;
+    pBillboardRenderListD3D3[i].pQuad[0].specular = v12;
     v33 = v12;
-    stru_EF52B8[v6/156].pQuad[0].u = 0.0;
-    stru_EF52B8[v6/156].pQuad[0].v = 0.0;
+    pBillboardRenderListD3D3[i].pQuad[0].u = 0.0;
+    pBillboardRenderListD3D3[i].pQuad[0].v = 0.0;
 
     v15 = (double)((pSprite->dword_000018 / 2) - pSprite->dword_000010);
     v14 = (double)(pSprite->dword_00001C - pSprite->dword_000024 - pSprite->dword_000014);
     if (a2->dword_00002C & 0x04)
       v15 = v15 * -1.0;
 
-    stru_EF52B8[v6/156].pQuad[1].x = v35 - v15 * v30;
-    stru_EF52B8[v6/156].pQuad[1].y = v34 - v14 * v29;
+    pBillboardRenderListD3D3[i].pQuad[1].x = v35 - v15 * v30;
+    pBillboardRenderListD3D3[i].pQuad[1].y = v34 - v14 * v29;
     v19 = v13 - v13 / (v27 / (double)pStruct9_global->shading_dist_mist);
-    stru_EF52B8[v6/156].pQuad[1].z = v19;
-    stru_EF52B8[v6/156].pQuad[1].rhw = v25;
-    stru_EF52B8[v6/156].pQuad[1].specular = v12;
-    stru_EF52B8[v6/156].pQuad[1].diffuse = stru_EF52B8[v6/156].pQuad[0].diffuse;
-    stru_EF52B8[v6/156].pQuad[1].u = 0.0;
-    stru_EF52B8[v6/156].pQuad[1].v = 1.0;
+    pBillboardRenderListD3D3[i].pQuad[1].z = v19;
+    pBillboardRenderListD3D3[i].pQuad[1].rhw = v25;
+    pBillboardRenderListD3D3[i].pQuad[1].specular = v12;
+    pBillboardRenderListD3D3[i].pQuad[1].diffuse = pBillboardRenderListD3D3[i].pQuad[0].diffuse;
+    pBillboardRenderListD3D3[i].pQuad[1].u = 0.0;
+    pBillboardRenderListD3D3[i].pQuad[1].v = 1.0;
     v18 = (double)(pSprite->dword_000020 + pSprite->dword_000010 + (pSprite->dword_000018 / 2) - pSprite->dword_000018);
     v17 = (double)(pSprite->dword_00001C - pSprite->dword_000024 - pSprite->dword_000014);
     if (a2->dword_00002C & 0x04)
       v18 = v18 * -1.0;
 
-    stru_EF52B8[v6/156].pQuad[2].x = v18 * v30 + v35;
-    stru_EF52B8[v6/156].pQuad[2].y = v34 - v17 * v29;
-    stru_EF52B8[v6/156].pQuad[2].z = v19;
-    stru_EF52B8[v6/156].pQuad[2].rhw = v25;
-    stru_EF52B8[v6/156].pQuad[2].diffuse = stru_EF52B8[v6/156].pQuad[0].diffuse;
-    stru_EF52B8[v6/156].pQuad[2].specular = v33;
-    stru_EF52B8[v6/156].pQuad[2].u = 1.0;
-    stru_EF52B8[v6/156].pQuad[2].v = 1.0;
+    pBillboardRenderListD3D3[i].pQuad[2].x = v18 * v30 + v35;
+    pBillboardRenderListD3D3[i].pQuad[2].y = v34 - v17 * v29;
+    pBillboardRenderListD3D3[i].pQuad[2].z = v19;
+    pBillboardRenderListD3D3[i].pQuad[2].rhw = v25;
+    pBillboardRenderListD3D3[i].pQuad[2].diffuse = pBillboardRenderListD3D3[i].pQuad[0].diffuse;
+    pBillboardRenderListD3D3[i].pQuad[2].specular = v33;
+    pBillboardRenderListD3D3[i].pQuad[2].u = 1.0;
+    pBillboardRenderListD3D3[i].pQuad[2].v = 1.0;
 
     v21 = (double)(pSprite->dword_000020 + pSprite->dword_000010 + (pSprite->dword_000018 / 2) - pSprite->dword_000018);
     v20 = (double)(pSprite->dword_00001C - pSprite->dword_000014);
     if (a2->dword_00002C & 0x04)
       v21 = v21 * -1.0;
 
-    stru_EF52B8[v6/156].pQuad[3].x = v21 * v30 + v35;
-    stru_EF52B8[v6/156].pQuad[3].y = v34 - v20 * v29;
-    stru_EF52B8[v6/156].pQuad[3].z = v19;
-    stru_EF52B8[v6/156].pQuad[3].rhw = v25;
-    stru_EF52B8[v6/156].pQuad[3].diffuse = stru_EF52B8[v6/156].pQuad[0].diffuse;
-    stru_EF52B8[v6/156].pQuad[3].specular = v33;
-    stru_EF52B8[v6/156].pQuad[3].u = 1.0;
-    stru_EF52B8[v6/156].pQuad[3].v = 0.0;
+    pBillboardRenderListD3D3[i].pQuad[3].x = v21 * v30 + v35;
+    pBillboardRenderListD3D3[i].pQuad[3].y = v34 - v20 * v29;
+    pBillboardRenderListD3D3[i].pQuad[3].z = v19;
+    pBillboardRenderListD3D3[i].pQuad[3].rhw = v25;
+    pBillboardRenderListD3D3[i].pQuad[3].diffuse = pBillboardRenderListD3D3[i].pQuad[0].diffuse;
+    pBillboardRenderListD3D3[i].pQuad[3].specular = v33;
+    pBillboardRenderListD3D3[i].pQuad[3].u = 1.0;
+    pBillboardRenderListD3D3[i].pQuad[3].v = 0.0;
 
-    stru_EF52B8[v6/156].pTexture = pSprite->pTexture;
-    stru_EF52B8[v6/156].uNumVertices = 4;
-    stru_EF52B8[v6/156].flt_000088 = v31;
+    pBillboardRenderListD3D3[i].pTexture = pSprite->pTexture;
+    pBillboardRenderListD3D3[i].uNumVertices = 4;
+    pBillboardRenderListD3D3[i].flt_000088 = v31;
 }
 
 //----- (004A43B1) --------------------------------------------------------
@@ -10640,19 +10640,19 @@ void __thiscall sub_4A43B1(int this, int a2, int a3, int a4)
     v7 = (double)*(_WORD *)(a2 + 42);
     v30 = v7;
     *(float *)&v8 = v7;
-    v9 = sub_4A1B22(v8);
+    v9 = sub_4A1B22_Billboard_ProbablyAddToListAndSortByZOrder(v8);
     v4 = a4;
     v6 = 156 * v9;
     v28 = a4 & 0xFF000000;
     if ( a4 & 0xFF000000 )
-      stru_EF52B8[v6/156].int_00008C = 3;
+      pBillboardRenderListD3D3[v6/156].int_00008C = 3;
     else
-      stru_EF52B8[v6/156].int_00008C = 0;
+      pBillboardRenderListD3D3[v6/156].int_00008C = 0;
 
     v10 = a3;
-    stru_EF52B8[v6/156].dword_000090 = *(_DWORD *)(v5 + 68);
-    stru_EF52B8[v6/156].dword_000094 = *(_DWORD *)(v5 + 40);
-    stru_EF52B8[v6/156].dword_000098 = *(_DWORD *)(v5 + 72);
+    pBillboardRenderListD3D3[v6/156].dword_000090 = *(_DWORD *)(v5 + 68);
+    pBillboardRenderListD3D3[v6/156].dword_000094 = *(_DWORD *)(v5 + 40);
+    pBillboardRenderListD3D3[v6/156].dword_000098 = *(_DWORD *)(v5 + 72);
 
     v25 = *(_DWORD *)(v5 + 8);
     v24 = *(_DWORD *)(v5 + 12);
@@ -10675,61 +10675,61 @@ void __thiscall sub_4A43B1(int this, int a2, int a3, int a4)
     }
     v17 = (double)v25;
  
-    stru_EF52B8[v6/156].pQuad[0].diffuse = v11;
-    stru_EF52B8[v6/156].pQuad[0].specular = 0;
-    stru_EF52B8[v6/156].pQuad[0].x = v17 - v31 * v33;
+    pBillboardRenderListD3D3[v6/156].pQuad[0].diffuse = v11;
+    pBillboardRenderListD3D3[v6/156].pQuad[0].specular = 0;
+    pBillboardRenderListD3D3[v6/156].pQuad[0].x = v17 - v31 * v33;
     v18 = (double)v24;
     v32 = v18;
-    stru_EF52B8[v6/156].pQuad[0].y = v18 - v27 * v29;
+    pBillboardRenderListD3D3[v6/156].pQuad[0].y = v18 - v27 * v29;
     v16 = 1.0 - 1.0 / (v30 * 0.06175889447331429);
-    stru_EF52B8[v6/156].pQuad[0].z = v16;
+    pBillboardRenderListD3D3[v6/156].pQuad[0].z = v16;
     v15 = 1.0 / v30;
-    stru_EF52B8[v6/156].pQuad[0].rhw = 1.0 / v30;
-    stru_EF52B8[v6/156].pQuad[0].u = 0.0;
-    stru_EF52B8[v6/156].pQuad[0].v = 0.0;
+    pBillboardRenderListD3D3[v6/156].pQuad[0].rhw = 1.0 / v30;
+    pBillboardRenderListD3D3[v6/156].pQuad[0].u = 0.0;
+    pBillboardRenderListD3D3[v6/156].pQuad[0].v = 0.0;
     v14 = (double)((*(_DWORD *)(v10 + 24) >> 1) - *(_DWORD *)(v10 + 16));
     v13 = (double)(*(_DWORD *)(v10 + 28) - *(_DWORD *)(v10 + 20) - *(_DWORD *)(v10 + 36));
     if ( *(_BYTE *)(v5 + 44) & 4 )
       v14 = v14 * -1.0;
 
-    stru_EF52B8[v6/156].pQuad[1].diffuse = v11;
-    stru_EF52B8[v6/156].pQuad[1].specular = 0;
-    stru_EF52B8[v6/156].pQuad[1].x = v17 - v14 * v33;
-    stru_EF52B8[v6/156].pQuad[1].y = v32 - v13 * v29;
-    stru_EF52B8[v6/156].pQuad[1].z = v16;
-    stru_EF52B8[v6/156].pQuad[1].rhw = v15;
-    stru_EF52B8[v6/156].pQuad[1].u = 0.0;
-    stru_EF52B8[v6/156].pQuad[1].v = 1.0;
+    pBillboardRenderListD3D3[v6/156].pQuad[1].diffuse = v11;
+    pBillboardRenderListD3D3[v6/156].pQuad[1].specular = 0;
+    pBillboardRenderListD3D3[v6/156].pQuad[1].x = v17 - v14 * v33;
+    pBillboardRenderListD3D3[v6/156].pQuad[1].y = v32 - v13 * v29;
+    pBillboardRenderListD3D3[v6/156].pQuad[1].z = v16;
+    pBillboardRenderListD3D3[v6/156].pQuad[1].rhw = v15;
+    pBillboardRenderListD3D3[v6/156].pQuad[1].u = 0.0;
+    pBillboardRenderListD3D3[v6/156].pQuad[1].v = 1.0;
     v19 = *(_DWORD *)(v10 + 28) - *(_DWORD *)(v10 + 20) - *(_DWORD *)(v10 + 36);
     v20 = (double)(*(_DWORD *)(v10 + 16) + *(_DWORD *)(v10 + 32) + (*(_DWORD *)(v10 + 24) >> 1) - *(_DWORD *)(v10 + 24));
     if ( *(_BYTE *)(v5 + 44) & 4 )
       v20 = v20 * -1.0;
 
-    stru_EF52B8[v6/156].pQuad[2].diffuse = v11;
-    stru_EF52B8[v6/156].pQuad[2].specular = 0;
-    stru_EF52B8[v6/156].pQuad[2].x = v20 * v33 + v17;
-    stru_EF52B8[v6/156].pQuad[2].y = v32 - (double)v19 * v29;
-    stru_EF52B8[v6/156].pQuad[2].z = v16;
-    stru_EF52B8[v6/156].pQuad[2].rhw = v15;
-    stru_EF52B8[v6/156].pQuad[2].u = 1.0;
-    stru_EF52B8[v6/156].pQuad[2].v = 1.0;
+    pBillboardRenderListD3D3[v6/156].pQuad[2].diffuse = v11;
+    pBillboardRenderListD3D3[v6/156].pQuad[2].specular = 0;
+    pBillboardRenderListD3D3[v6/156].pQuad[2].x = v20 * v33 + v17;
+    pBillboardRenderListD3D3[v6/156].pQuad[2].y = v32 - (double)v19 * v29;
+    pBillboardRenderListD3D3[v6/156].pQuad[2].z = v16;
+    pBillboardRenderListD3D3[v6/156].pQuad[2].rhw = v15;
+    pBillboardRenderListD3D3[v6/156].pQuad[2].u = 1.0;
+    pBillboardRenderListD3D3[v6/156].pQuad[2].v = 1.0;
     v21 = *(_DWORD *)(v10 + 28) - *(_DWORD *)(v10 + 20);
     v22 = (double)(*(_DWORD *)(v10 + 16) + *(_DWORD *)(v10 + 32) + (*(_DWORD *)(v10 + 24) >> 1) - *(_DWORD *)(v10 + 24));
     if ( *(_BYTE *)(v5 + 44) & 4 )
       v22 = v22 * -1.0;
 
-    stru_EF52B8[v6/156].pQuad[3].diffuse = v11;
-    stru_EF52B8[v6/156].pQuad[3].specular = 0;
-    stru_EF52B8[v6/156].pQuad[3].x = v22 * v33 + v17;
-    stru_EF52B8[v6/156].pQuad[3].y = v32 - (double)v21 * v29;
-    stru_EF52B8[v6/156].pQuad[3].z = v16;
-    stru_EF52B8[v6/156].pQuad[3].rhw = v15;
-    stru_EF52B8[v6/156].pQuad[3].u = 1.0;
-    stru_EF52B8[v6/156].pQuad[3].v = 0.0;
+    pBillboardRenderListD3D3[v6/156].pQuad[3].diffuse = v11;
+    pBillboardRenderListD3D3[v6/156].pQuad[3].specular = 0;
+    pBillboardRenderListD3D3[v6/156].pQuad[3].x = v22 * v33 + v17;
+    pBillboardRenderListD3D3[v6/156].pQuad[3].y = v32 - (double)v21 * v29;
+    pBillboardRenderListD3D3[v6/156].pQuad[3].z = v16;
+    pBillboardRenderListD3D3[v6/156].pQuad[3].rhw = v15;
+    pBillboardRenderListD3D3[v6/156].pQuad[3].u = 1.0;
+    pBillboardRenderListD3D3[v6/156].pQuad[3].v = 0.0;
 
-    stru_EF52B8[v6/156].pTexture = *(_DWORD *)(v10 + 12);
-    stru_EF52B8[v6/156].uNumVertices = 4;
-    stru_EF52B8[v6/156].flt_000088 = v30;
+    pBillboardRenderListD3D3[v6/156].pTexture = *(_DWORD *)(v10 + 12);
+    pBillboardRenderListD3D3[v6/156].uNumVertices = 4;
+    pBillboardRenderListD3D3[v6/156].flt_000088 = v30;
   }
 }
 
@@ -11039,16 +11039,16 @@ int __stdcall sub_4A4CC9(int a1, int a2)
       }
       while ( v4 );
     }
-    result = 156 * sub_4A1B22(v14);
+    result = 156 * sub_4A1B22_Billboard_ProbablyAddToListAndSortByZOrder(v14);
     v6 = 0;
-    stru_EF52B8[result/156].dword_000090 = 0;
-    stru_EF52B8[result/156].dword_000098 = -1;
-    stru_EF52B8[result/156].int_00008C = 2;
+    pBillboardRenderListD3D3[result/156].dword_000090 = 0;
+    pBillboardRenderListD3D3[result/156].dword_000098 = -1;
+    pBillboardRenderListD3D3[result/156].int_00008C = 2;
     if ( *(_DWORD *)(a1 + 16) > 0 )
     {
       v7 = a1 + 268;
       v15 = a2 & 0xFF000000;
-      v8 = (char *)&stru_EF52B8[result/156].pQuad[0].z;
+      v8 = (char *)&pBillboardRenderListD3D3[result/156].pQuad[0].z;
       do
       {
         v10 = dword_6BE360 == 1;
@@ -11077,9 +11077,9 @@ int __stdcall sub_4A4CC9(int a1, int a2)
     }
     v13 = *(_DWORD *)(v3 + 16);
 
-    stru_EF52B8[result/156].pTexture = 0;
-    stru_EF52B8[result/156].uNumVertices = v13;
-    stru_EF52B8[result/156].flt_000088 = v14;
+    pBillboardRenderListD3D3[result/156].pTexture = 0;
+    pBillboardRenderListD3D3[result/156].uNumVertices = v13;
+    pBillboardRenderListD3D3[result/156].flt_000088 = v14;
   }
   return result;
 }
@@ -14763,7 +14763,7 @@ void *__thiscall sub_4ACBE0(int this)
 }
 
 //----- (004ACC38) --------------------------------------------------------
-int __thiscall sub_4ACC38(int this, struct Render_sub_4A4023_stru0 *a2, char a3)
+int __thiscall sub_4ACC38(int this, struct Render_BillboardTransform_stru0 *a2, char a3)
 {
   int result; // eax@1
   int v4; // edi@1

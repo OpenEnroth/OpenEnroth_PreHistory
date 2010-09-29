@@ -271,9 +271,9 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
     fseek(v7, v127, 0);
     locked_fread(_this->uNumBModels, 4u, 1u, v7);
     fseek(v7, v128, 0);
-    locked_fread(&uNumElementsIn665230, 4u, 1u, v7);
+    locked_fread(&uNumLayingItems, 4u, 1u, v7);
     fseek(v7, v129, 0);
-    locked_fread(&dword_69ADD0, 4u, 1u, v7);
+    locked_fread(&uNumLevelDecorations, 4u, 1u, v7);
     fseek(v7, v130, 0);
     locked_fread(&uNumActors, 4u, 1u, v7);
     fseek(v7, v131, 0);
@@ -428,11 +428,11 @@ LABEL_20:
 LABEL_26:
     v24 = (FILE *)File;
     fseek((FILE *)File, v137, 0);
-    locked_fread(array_665230, 0x70u, uNumElementsIn665230, v24);
-    if ( (signed int)uNumElementsIn665230 > 0 )
+    locked_fread(pLayingItemsList, 0x70u, uNumLayingItems, v24);
+    if ( (signed int)uNumLayingItems > 0 )
     {
-      v25 = array_665230;
-      a4 = uNumElementsIn665230;
+      v25 = pLayingItemsList;
+      a4 = uNumLayingItems;
       do
       {
         v27 = *((_DWORD *)v25 + 9);
@@ -466,11 +466,11 @@ LABEL_33:
       while ( a4-- != 1 );
     }
     fseek(v24, v138, 0);
-    locked_fread(array_6836D0, sizeof(struct struct0), dword_69ADD0, v24);
+    locked_fread(pLevelDecorations, sizeof(struct LevelDecoration), uNumLevelDecorations, v24);
     a4 = 0;
-    if ( (signed int)dword_69ADD0 > 0 )
+    if ( (signed int)uNumLevelDecorations > 0 )
     {
-      a5 = (int)array_6836D0;
+      a5 = (int)pLevelDecorations;
       do
       {
         locked_fread(&FileName, 1u, 0x20u, v24);
@@ -480,7 +480,7 @@ LABEL_33:
         a5 += 32;
         *(_WORD *)v34 = v33;
       }
-      while ( a4 < (signed int)dword_69ADD0 );
+      while ( a4 < (signed int)uNumLevelDecorations );
     }
     fseek(v24, v139, 0);
     locked_fread(pActors, 0x344u, uNumActors, v24);
@@ -754,9 +754,9 @@ LABEL_69:
 
 LABEL_75:
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
-  memcpy(&dword_69ADD0, Src, 4);
+  memcpy(&uNumLevelDecorations, Src, 4);
   Src = (char *)Src + 4;
-  if ( (signed int)dword_69ADD0 < 0 || (signed int)dword_69ADD0 > 3000 )
+  if ( (signed int)uNumLevelDecorations < 0 || (signed int)uNumLevelDecorations > 3000 )
   {
     wtf = &v115;
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&Source + 3));
@@ -767,15 +767,15 @@ LABEL_75:
 
 
 
- memcpy(array_6836D0, Src, dword_69ADD0 * sizeof(struct struct0));
- Src = (char *)Src + dword_69ADD0 * sizeof(struct struct0);
+ memcpy(pLevelDecorations, Src, uNumLevelDecorations * sizeof(struct LevelDecoration));
+ Src = (char *)Src + uNumLevelDecorations * sizeof(struct LevelDecoration);
 
- for (i = 0; i < dword_69ADD0; ++i)
+ for (i = 0; i < uNumLevelDecorations; ++i)
  {
   memcpy(FileName, Src, 32);
   Src = (char *)Src + 32;
 
-  array_6836D0[i].uDecorationDescriptionID = sub_4488B6(pDecorationDescriptionList, FileName);
+  pLevelDecorations[i].uDecorationDescriptionID = sub_4488B6(pDecorationDescriptionList, FileName);
  }
  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
@@ -878,7 +878,7 @@ LABEL_75:
       v85 = _this->array_0004C8[5];
       if ( v85 )
       {
-        if ( v84 != v82 || _this->array_0004C8[6] != _this->uNumBModels || v85 != dword_69ADD0 )
+        if ( v84 != v82 || _this->array_0004C8[6] != _this->uNumBModels || v85 != uNumLevelDecorations )
           Str2 = (char *)1;
       }
     }
@@ -983,9 +983,9 @@ LABEL_120:
 
 
 
-  for (i = 0; i < dword_69ADD0; ++i)
+  for (i = 0; i < uNumLevelDecorations; ++i)
   {
-      memcpy(&array_6836D0[i].word_000002, v78, 2);
+      memcpy(&pLevelDecorations[i].word_000002, v78, 2);
       v78 = (char *)v78 + 2;
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
@@ -1010,9 +1010,9 @@ LABEL_120:
 
 
 
-  memcpy(&uNumElementsIn665230, v78, 4);
+  memcpy(&uNumLayingItems, v78, 4);
   v78 = (char *)v78 + 4;
-  if ( (signed int)uNumElementsIn665230 < 0 || uNumElementsIn665230 > 1000 )
+  if ( (signed int)uNumLayingItems < 0 || uNumLayingItems > 1000 )
   {
     a5 = (int)&v115;
     sub_40E2C8(&v115, "Can't load file!", (int)((char *)&a5 + 3));
@@ -1022,8 +1022,8 @@ LABEL_120:
 
 
 
-  memcpy(array_665230, v78, uNumElementsIn665230 * sizeof(struct struct2));
-  v78 = (char *)v78 + uNumElementsIn665230 * sizeof(struct struct2);
+  memcpy(pLayingItemsList, v78, uNumLayingItems * sizeof(struct LayingItem));
+  v78 = (char *)v78 + uNumLayingItems * sizeof(struct LayingItem);
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
 
@@ -1472,9 +1472,9 @@ int sub_47F223_LooksLikeGenerateMonsterLoot(struct class51 *_this)
 
   v5 = _this;
   v1 = 0;
-  if ( (signed int)uNumElementsIn665230 > 0 )
+  if ( (signed int)uNumLayingItems > 0 )
   {
-   v2 = &array_665230[0].uObjectDescriptionID;
+   v2 = &pLayingItemsList[0].uObjectDescriptionID;
     do
     {
       if ( *(_WORD *)v2 )
@@ -1501,7 +1501,7 @@ int sub_47F223_LooksLikeGenerateMonsterLoot(struct class51 *_this)
       ++v1;
       v2 += 112;
     }
-    while ( v1 < (signed int)uNumElementsIn665230 );
+    while ( v1 < (signed int)uNumLayingItems );
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
   return 1;

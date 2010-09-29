@@ -68,6 +68,24 @@ struct D3DVERTEX
 };
 //sizeof == 20
 
+
+
+struct RenderBillboardD3D3
+{
+ IDirect3DTexture2 *pTexture;     // dword     @ 000000
+ unsigned int       uNumVertices; // dword     @ 000004
+ struct D3DVERTEX   pQuad[4];     // struct[4] @ 000008
+ float              flt_000088;
+ int                int_00008C;
+ int                dword_000090;
+ int                dword_000094;
+ unsigned int       dword_000098; // index in pBillboardRenderList of the original RenderBillboard
+};
+//sizeof = 9C
+
+
+
+
 struct RenderD3D3
 {
  unsigned int               bWindowMode;  // dword @ 000000

@@ -520,16 +520,16 @@ void GameUI_Update()
     if ( (v18 & 7) == 2 )
     {
       v30 = 112 * v19;
-      if (pObjectDescriptionList->pDescriptions[array_665230[v19].uObjectDescriptionID].byte_000026 & 0x10)
+      if (pObjectDescriptionList->pDescriptions[pLayingItemsList[v19].uObjectDescriptionID].byte_000026 & 0x10)
         goto LABEL_73;
       if ( v18 >= 33554432 || dword_AD470C )
       {
-        v22 = (char *)sub_456499((char *)&unk_665254 + v30);
+        v22 = (char *)sub_456499(&pLayingItemsList[v30/112].dword_000024);
 LABEL_93:
         v26 = (int)v22;
         goto LABEL_87;
       }
-      v31 = sub_456499((char *)&unk_665254 + v30);
+      v31 = sub_456499(&pLayingItemsList[v30/112].dword_000024);
       v29 = TmpBuf;
       wsprintfA(TmpBuf, pGlobalTXT_LocalizationStrings[470], v31);
     }
@@ -539,7 +539,7 @@ LABEL_93:
       {
         if ( (v18 & 7) == 5 )
         {
-          v24 = &array_6836D0[v19];
+          v24 = &pLevelDecorations[v19];
           v25 = v24;
           v23 = v24[11];
           if ( !v23 )
@@ -2529,7 +2529,7 @@ LABEL_317:
           }
           if ( v57 == 2 )
           {
-           v59 = (*(_BYTE *)(56 * array_665230[v58].uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 38) & 0x10) == 0;
+           v59 = (*(_BYTE *)(56 * pLayingItemsList[v58].uObjectDescriptionID + pObjectDescriptionList->pDescriptions + 38) & 0x10) == 0;
 LABEL_400:
             if ( !v59 )
               goto LABEL_92;
@@ -2537,7 +2537,7 @@ LABEL_400:
           }
           if ( v57 == 5 )
           {
-           v60 = array_6836D0[v58].word_000016 == 0;
+           v60 = pLevelDecorations[v58].word_000016 == 0;
           }
           else
           {
@@ -4087,18 +4087,18 @@ LABEL_26:
 
  if (v84)
  {
-  for (i = 0; i < uNumElementsIn665230; ++i)
+  for (i = 0; i < uNumLayingItems; ++i)
   {
-   if (!array_665230[i].word_000000 || !array_665230[i].uObjectDescriptionID || v79 == 1)
+   if (!pLayingItemsList[i].word_000000 || !pLayingItemsList[i].uObjectDescriptionID || v79 == 1)
      continue;
 
-   v44 = uMinimapCentreX + uMinimapZoom * (array_665230[i].sItemPosX - pParty_global->sPartyPosX) / 65535;
-   v45 = uMinimapCentreY - uMinimapZoom * (array_665230[i].sItemPosY - pParty_global->sPartyPosY) / 65535;
+   v44 = uMinimapCentreX + uMinimapZoom * (pLayingItemsList[i].sItemPosX - pParty_global->sPartyPosX) / 65535;
+   v45 = uMinimapCentreY - uMinimapZoom * (pLayingItemsList[i].sItemPosY - pParty_global->sPartyPosY) / 65535;
    if (v44 < pD3DRenderer->dword_00001C || v44 > pD3DRenderer->dword_000024 ||
        v45 < pD3DRenderer->dword_000020 || v45 > pD3DRenderer->dword_000028)
      continue;
 
-   if (pObjectDescriptionList->pDescriptions[array_665230[i].uObjectDescriptionID].byte_000026 & 0x10)
+   if (pObjectDescriptionList->pDescriptions[pLayingItemsList[i].uObjectDescriptionID].byte_000026 & 0x10)
      Render_FillRect(pD3DRenderer, v44 - 1, v45 - 1, v44 + 1, v45 + 1, 0xFF0000FF);
    else
      Render_FillRect(pD3DRenderer, v44 - 1, v45 - 1, v44 + 1, v45 + 1, 0xFF0000FF);
@@ -4131,11 +4131,11 @@ LABEL_26:
  }
 
 
- for (i = 0; i < dword_69ADD0; ++i)
-   if (array_6836D0[i].word_000002 & 8 )
+ for (i = 0; i < uNumLevelDecorations; ++i)
+   if (pLevelDecorations[i].word_000002 & 8 )
    {
-    v44 = uMinimapCentreX + uMinimapZoom * (array_6836D0[i].sPosX - pParty_global->sPartyPosX) / 65536;
-    v45 = uMinimapCentreY - uMinimapZoom * (array_6836D0[i].sPosY - pParty_global->sPartyPosY) / 65536;
+    v44 = uMinimapCentreX + uMinimapZoom * (pLevelDecorations[i].sPosX - pParty_global->sPartyPosX) / 65536;
+    v45 = uMinimapCentreY - uMinimapZoom * (pLevelDecorations[i].sPosY - pParty_global->sPartyPosY) / 65536;
     if (v44 >= pD3DRenderer->dword_00001C && v44 <= pD3DRenderer->dword_000024 &&
         v45 >= pD3DRenderer->dword_000020 && v45 <= pD3DRenderer->dword_000028)
     {

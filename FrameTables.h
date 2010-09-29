@@ -100,7 +100,7 @@ struct SpriteFrame
  unsigned short pSpriteIDs[8];    // word[8]  @ 000018
  int            dword_000028;
  int            dword_00002C;  // some flags   0x01 next frame sequence is a part of a current (animated sqeuences)   0x10 single frame per frame sequence
- short          word_000030;
+ short          word_000030; // looks like bool whether this object is a light source or can be lit by light source
  short          word_000032;
  short          word_000034; // some palette info returned from sub_48A3BC
  short          word_000036;
@@ -213,21 +213,24 @@ struct PlayerFrame *CPlayerFrameTable_GetFrame(struct CPlayerFrameTable *_this, 
 
 struct DecorationDescription
 {
- unsigned char array_000000[32];
- unsigned char array_000020[32];
- int           dword_000040;
- int           dword_000044;
- short         word_000048;
- short         word_00004A;
- short         word_00004C;
- short         word_00004E;
- int           dword_000050;
+ unsigned char  array_000000[32];
+ unsigned char  array_000020[32];
+ int            dword_000040;
+ int            dword_000044;
+ unsigned short uSpriteID;          // word @ 000048
+ short          word_00004A;
+ short          word_00004C;
+ short          word_00004E;
+ unsigned char  uColoredLightRed;   // byte @ 000050
+ unsigned char  uColoredLightGreen; // byte @ 000051
+ unsigned char  uColoredLightBlue;  // byte @ 000052
+ char           _padding;           // byte @ 000053
 };
 //sizeof == 54
 
 struct CDecorationDescriptionList
 {
- unsigned int                  uNumDecorations; // dword @ 000000
+ unsigned int                  uNumLevelDecorations; // dword @ 000000
  struct DecorationDescription *pDescriptions;   // ptr @ 000004
 };
 
@@ -246,22 +249,23 @@ void sub_458693(struct DecorationDescriptionList *_this, unsigned int uDecoratio
 
 struct ObjectDescription
 {
- unsigned char a[32];
- char b[6];
- char     byte_000026;
- char     byte_000027;
+ unsigned char  a[32];
+ char           b[4];   // 000020
+ char           byte_000024;
+ char           byte_000025;
+ char           byte_000026;
+ char           byte_000027;
  unsigned short uSpriteID; // word @ 000028
- short    word_00002A;
- int      dword_00002C;
- char     byte_000030;
- char     byte_000031;
- char     byte_000032;
- char     byte_000033;
- char     byte_000034;
- char     byte_000035;
- char     byte_000036;
- char     byte_000037;
- char d[6];
+ short          word_00002A;
+ int            dword_00002C;
+ char           byte_000030;
+ char           byte_000031;
+ char           byte_000032;
+ char           byte_000033;
+ char           byte_000034;
+ char           byte_000035;
+ char           byte_000036;
+ char           byte_000037;
 };
 //sizeof == 38
 

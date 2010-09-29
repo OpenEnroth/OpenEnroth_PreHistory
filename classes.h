@@ -1304,43 +1304,22 @@ int StorylineText_Initialize(struct StorylineText *_this);
 
 
 
-//maybe billboard or sprite
-struct struct0
+struct LevelDecoration
 {
- unsigned short uDecorationDescriptionID; // word @ 000000
- short word_000002;
- int   sPosX; // dword @ 000004
- int   sPosY; // dword @ 000008
- int   sPosZ; // dword @ 00000C
- int   dword_000010;
- short word_000014;
- short word_000016;
- short word_000018;
- short word_00001A;
- short word_00001C;
- short word_00001E;
+ unsigned short uDecorationDescriptionID; // word  @ 000000
+ short          word_000002;
+ int            sPosX;                    // dword @ 000004
+ int            sPosY;                    // dword @ 000008
+ int            sPosZ;                    // dword @ 00000C
+ int            dword_000010;
+ short          word_000014;
+ short          word_000016;
+ short          word_000018;
+ short          word_00001A;
+ short          word_00001C;
+ short          word_00001E;
 };
-//sizeof == 20
-
-struct struct2
-{
- short word_000000;
- short uObjectDescriptionID;  // word  @ 000002
- int   sItemPosX;             // dword @ 000004
- int   sItemPosY;             // dword @ 000008
- int   sItemPosZ;             // dword @ 00000C
- short uObjectDescriptionID2; // word  @ 000010
- char  byte_000012[4];
- short word_000016;
- short word_000018;
- short word_00001A;
- short word_00001C;
- unsigned short uSpriteFrameID; // word @ 00001E
- short word_000020;
- short word_000022;
- char  byte_000024[76];
-};
-//sizeof == 70
+//sizeof = 20
 
 
 struct struct3
@@ -1518,7 +1497,7 @@ int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, in
 int class57_sub_48694B(struct class57 *_this);
 
 
-
+//game render states/settings
 struct struct9
 {
  int          dword_000000;
@@ -1542,8 +1521,10 @@ struct struct9
  int          dword_000048;
  int          dword_00004C;
  int          dword_000050;
+ int          dword_000054;
+ unsigned int bDoNotRenderDecorations; // dword @ 000058
 };
-//sizeof ~ 54
+//sizeof ~ 60
 //int __thiscall struct9_sub_47A59E_ComputeSinCos(int this);
 void struct9_sub_47A59E_ComputeSinCos(struct struct9 *_this);
 //int __thiscall sub_485F64(int this);

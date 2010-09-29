@@ -2859,7 +2859,7 @@ signed int __fastcall sub_42F5ED(int a1, int a2, int a3, int a4, int a5)
   if ( !*(_WORD *)(a1 + 2) )
     return -1;
   v7 = 0;
-  v6 = &array_665230[0].uObjectDescriptionID;
+  v6 = &pLayingItemsList[0].uObjectDescriptionID;
   v22 = 0;
   do
   {
@@ -2874,7 +2874,7 @@ signed int __fastcall sub_42F5ED(int a1, int a2, int a3, int a4, int a5)
     return -1;
   *(_DWORD *)(v5 + 100) = *(_DWORD *)(v5 + 4);
   *(_DWORD *)(v5 + 104) = *(_DWORD *)(v5 + 8);
-  v9 = (char *)&array_665230[v7];
+  v9 = (char *)&pLayingItemsList[v7];
   *(_DWORD *)(v5 + 108) = *(_DWORD *)(v5 + 12);
   memcpy(v9, (const void *)v5, 0x70u);
   if ( a5 == 1 )
@@ -2952,8 +2952,8 @@ LABEL_18:
   }
   *((_WORD *)v9 + 10) = v11;
   result = v22;
-  if ( v22 >= (signed int)uNumElementsIn665230 )
-    uNumElementsIn665230 = v22 + 1;
+  if ( v22 >= (signed int)uNumLayingItems )
+    uNumLayingItems = v22 + 1;
   return result;
 }
 
@@ -3166,8 +3166,8 @@ signed int __cdecl sub_42FA22()
 
   v1 = 0;
   v3 = 0;
-  result = &array_665230[0].uObjectDescriptionID;
-  v2 = array_665230;
+  result = &pLayingItemsList[0].uObjectDescriptionID;
+  v2 = pLayingItemsList;
   do
   {
     if ( *(_WORD *)result )
@@ -3184,7 +3184,7 @@ signed int __cdecl sub_42FA22()
     ++v3;
   }
   while ( result < 6817714 );
-  uNumElementsIn665230 = v1;
+  uNumLayingItems = v1;
   return result;
 }
 
@@ -13215,9 +13215,9 @@ LABEL_43:
   v13 = 0;
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
   i = 0;
-  if ( (signed int)dword_69ADD0 > 0 )
+  if ( (signed int)uNumLevelDecorations > 0 )
   {
-   v14 = (int)&array_6836D0[0].sPosY;
+   v14 = (int)&pLevelDecorations[0].sPosY;
     do
     {
       sub_458693(pDecorationDescriptionList, *(_WORD *)(v14 - 8));
@@ -13284,13 +13284,13 @@ LABEL_43:
       ++i;
       v14 += 32;
     }
-    while ( i < (signed int)dword_69ADD0 );
+    while ( i < (signed int)uNumLevelDecorations );
   }
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
   v23 = 0;
-  if ( (signed int)uNumElementsIn665230 > v13 )
+  if ( (signed int)uNumLayingItems > v13 )
   {
-    v24 = (int)&unk_665254;
+    v24 = (int)&pLayingItemsList[0].dword_000024;
     do
     {
       if ( *(_WORD *)(v24 - 34) != (_WORD)v13 )
@@ -13312,7 +13312,7 @@ LABEL_43:
       ++v23;
       v24 += 112;
     }
-    while ( v23 < (signed int)uNumElementsIn665230 );
+    while ( v23 < (signed int)uNumLayingItems );
   }
   i = v13;
   if ( (signed int)uNumActors > v13 )

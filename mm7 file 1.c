@@ -693,7 +693,7 @@ int __fastcall sub_438F8F(int result)
       v39 = (signed int)*((_WORD *)v2 - 300) >> 3;
       if ( v4 == 2 )
       {
-        v5 = (char *)array_665230 + 112 * v3;
+        v5 = (char *)pLayingItemsList + 112 * v3;
         v36 = v5;
         v6 = *((_DWORD *)v5 + 22);
         v4 = v6 & 7;
@@ -968,16 +968,21 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
   else
     pGame->class04_obj->dword_3CBC34 &= 0xFFFFFFFE;
 
+
+  // reset billboard list
   dword_5187EC = 0;
   dword_5187E8 = 0;
   dword_5187E4 = 0;
-  dword_5187E0 = 0;
-  sub_47B42C_ClipActorsAgainsFrustrum();
-  if ( !dword_6BE0C8 )
-    sub_47A95E();
-  sub_47AF11_PrepareObjectsRenderList();
-  sub_47BACF_PrepareActorRenderList();
-  sub_485F53(&data_6BE060);
+  uNumBillboardsToDraw = 0;
+
+ sub_47B42C_ClipActorsAgainstFrustrum();
+
+ if (!pStruct9_global->bDoNotRenderDecorations)
+   sub_47A95E_PrepareDecorationsRenderList();
+
+ sub_47AF11_PrepareItemsRenderList();
+ sub_47BACF_PrepareActorRenderList();
+ sub_485F53(&data_6BE060);
 }
 
 
@@ -1056,26 +1061,26 @@ void __fastcall sub_47253E(unsigned int a1)
  int i;
 
 
-  for (i = 0; i < uNumElementsIn665230; ++i)
+  for (i = 0; i < uNumLayingItems; ++i)
   {
-   v2 = &array_665230[i].uSpriteFrameID;
+   v2 = &pLayingItemsList[i].uSpriteFrameID;
 
-   LOWORD(a1) = array_665230[i].word_00001C;
+   LOWORD(a1) = pLayingItemsList[i].word_00001C;
       if ( a1 & 0x40 )
       {
         a1 &= 0xFFFFFFBF;
-        array_665230[i].word_00001C = a1;
+        pLayingItemsList[i].word_00001C = a1;
       }
       else
       {
-        v4 = array_665230[i].uObjectDescriptionID2;
-        v3 = &pObjectDescriptionList->pDescriptions[array_665230[i].uObjectDescriptionID2];
+        v4 = pLayingItemsList[i].uObjectDescriptionID2;
+        v3 = &pObjectDescriptionList->pDescriptions[pLayingItemsList[i].uObjectDescriptionID2];
         if ( (_BYTE)a1 < 0 )
         {
           v5 = 836 * (*(_DWORD *)((char *)v2 + 62) >> 3);
-          array_665230[i].sItemPosX = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosX;
-          array_665230[i].sItemPosY = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosY;
-          array_665230[i].sItemPosZ = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosZ + pActors[*(_DWORD *)((char *)v2 + 62) >> 3].uActorHeight;
+          pLayingItemsList[i].sItemPosX = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosX;
+          pLayingItemsList[i].sItemPosY = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosY;
+          pLayingItemsList[i].sItemPosZ = pActors[*(_DWORD *)((char *)v2 + 62) >> 3].sActorPosZ + pActors[*(_DWORD *)((char *)v2 + 62) >> 3].uActorHeight;
           if ( !v4 )
             continue;
           v6 = pClass24_global->int_00001C + *(_WORD *)v2;
@@ -3674,7 +3679,7 @@ LABEL_20:
 }
 
 //----- (0047B42C) --------------------------------------------------------
-void __cdecl sub_47B42C_ClipActorsAgainsFrustrum()
+void __cdecl sub_47B42C_ClipActorsAgainstFrustrum()
 {
   int v1; // edi@2
   signed int v3; // esi@5
@@ -3695,7 +3700,7 @@ void __cdecl sub_47B42C_ClipActorsAgainsFrustrum()
   int v23; // ST5C_4@43
   int v24; // esi@44
   int v25; // ecx@45
-  struct unnamed_512250 *v26;
+  struct RenderBillboard *v26;
   signed __int64 v27; // qtt@45
   int v28; // ST54_4@45
   unsigned __int8 v29; // zf@46
@@ -3858,10 +3863,10 @@ LABEL_25:
         v43 = pOldViewport->dword_000028 - ((signed int)((((unsigned __int64)(v28) * v42) >> 16) + 32768) >> 16);
         v46 = pOldViewport->dword_00002C - ((signed int)((((unsigned __int64)(v27 / v60) * v45) >> 16) + 32768) >> 16);
 
-        v26 = &array_512250[dword_5187E0];
-        if ( dword_5187E0 >= 500 )
+        v26 = &pBillboardRenderList[uNumBillboardsToDraw];
+        if ( uNumBillboardsToDraw >= 500 )
           return;
-        ++dword_5187E0;
+        ++uNumBillboardsToDraw;
         ++dword_5187E4;
         pActors[i].dword_000024 |= 0x08;
         v26->uHardwareSpriteID = pSpriteFrame->pSpriteIDs[v41];
@@ -6286,8 +6291,8 @@ LABEL_199:
       v110 = v48;
       v49 = class59_Atan2(
               pClass59_global,
-              v112 - array_6836D0[(dword_7215A8 >> 3)].sPosX,
-              v117 - array_6836D0[(dword_7215A8 >> 3)].sPosY);
+              v112 - pLevelDecorations[(dword_7215A8 >> 3)].sPosX,
+              v117 - pLevelDecorations[(dword_7215A8 >> 3)].sPosY);
       v121 = v49;
       v50 = class59_SinCos(pClass59_global, v49);
       v119 = v50;
@@ -6902,7 +6907,7 @@ void __cdecl sub_47BACF_PrepareActorRenderList()
   int v12; // eax@13
   int v13; // eax@14
 
-  struct Render_sub_4A4023_stru0 local_04;
+  struct Render_BillboardTransform_stru0 local_04;
   /*struct unnamed_04
   {
    int v16; // [sp+4h] [bp-60h]@1
@@ -6932,7 +6937,6 @@ void __cdecl sub_47BACF_PrepareActorRenderList()
   int v35; // [sp+5Ch] [bp-8h]@2
   int v36; // [sp+60h] [bp-4h]@13
  int i;
- struct unnamed_512250 *pEntity;
 
   local_04.dword_000048 = -1;
   local_04.pDestSurface = pD3DRenderer->pTargetSurface;
@@ -6944,61 +6948,35 @@ void __cdecl sub_47BACF_PrepareActorRenderList()
   local_04.uGameZ = pOldViewport->uGameZ - 1;
   local_04.uGameW = pOldViewport->uGameW;
 
-  pStruct9_global->dword_00003C = dword_5187E0;
+  pStruct9_global->dword_00003C = uNumBillboardsToDraw;
 
     v35 = 0;
- for (i = 0; i < dword_5187E0; ++i)
-  {
-   pEntity = &array_512250[i];
-   v1 = &array_512250[i].word_000028;
+ for (i = 0; i < uNumBillboardsToDraw; ++i)
+ {
+  struct RenderBillboard *pBillboard;
+   pBillboard = &pBillboardRenderList[i];
+   v1 = &pBillboardRenderList[i].word_000028;
 
-     local_04.dword_000008 = pEntity->word_000026;
-      v3 = pEntity->word_00001E;
-      local_04.dword_00000C = pEntity->word_000028;
-      v5 = pEntity->dword_000000;
+     local_04.dword_000008 = pBillboard->word_000026;
+      v3 = pBillboard->word_00001E;
+      local_04.dword_00000C = pBillboard->word_000028;
+      v5 = pBillboard->dword_000000;
       local_04.dword_000048 = i;
-      v6 = pEntity->dword_00002C;
+      v6 = pBillboard->dword_00002C;
       local_04.dword_000010 = v5;
-      v7 = pEntity->dword_000004;
+      v7 = pBillboard->dword_000004;
       local_04.dword_00004C = v6;
       local_04.dword_000014 = v7;
 
-      local_04.dword_000028 = pEntity->dword_000010;
+      local_04.dword_000028 = pBillboard->dword_000010;
       local_04.dword_00002C = v3;
-      if (pEntity->uHardwareSpriteID != -1)
+      if (pBillboard->uHardwareSpriteID != -1)
       {
-        v8 = pEntity->word_00002A;
-        if ( pD3DRenderer->pRenderD3D3 )
-        {
-          local_04.dword_000028 = pEntity->dword_000010;
+        v8 = pBillboard->word_00002A;
+
+          local_04.dword_000028 = pBillboard->dword_000010;
           local_04.dword_00002C = v3;
-          Render_sub_4A4023(pD3DRenderer, &local_04, &pLODFile_Sprites_LOD->pHardwareSprites[pEntity->uHardwareSpriteID], v8, pEntity);
-        }
-        else
-        {//software
-          if ( *((_BYTE *)v1 - 10) & 2 )
-            v9 = sub_41F50D(*((_WORD *)v1 - 7), 0, 1);
-          else
-            v9 = sub_47BC6F((int)((char *)v1 - 40), *((_WORD *)v1 - 7), pEntity->dword_000010, *((_WORD *)v1 + 1));
-          v10 = (*((_BYTE *)v1 - 9) & 1) == 0;
-          local_04.dword_000020 = v9;
-          if ( !v10 )
-            local_04.dword_000020 = (char *)class35_obj.pColorPalette3 + 512 * *((_WORD *)v1 - 7);
-          if (~local_04.dword_00002C & 0x40)
-          {
-            if (local_04.dword_00002C & 0x80)
-            {
-              v11 = GetTickCount();
-              v12 = class59_SinCos(pClass59_global, v35 + v11);
-              v33 = abs(v12);
-              v36 = (unsigned __int64)(15i64 * v33) >> 16;
-              local_04.dword_000024 = sub_41F50D(*((_WORD *)v1 - 7), 15 - v36, 1);
-            }
-          }
-          v13 = *((_WORD *)v1 - 8);
-          if ( v13 >= 0 )
-            sub_4ACC38(40 * v13 + 7218180, &local_04, 1);
-        }
+          Render_BillboardTransform(pD3DRenderer, &local_04, &pLODFile_Sprites_LOD->pHardwareSprites[pBillboard->uHardwareSpriteID], v8, pBillboard);
       }
       v35 += 5;
       v1 = (char *)v1 + 52;
@@ -7680,23 +7658,23 @@ void __thiscall sub_4498D5(void *this)
   if ( v4 )
   {
     v5 = 0;
-    if ( (signed int)dword_69ADD0 > 0 )
+    if ( (signed int)uNumLevelDecorations > 0 )
     {
-      v6 = (int)array_6836D0;
+      v6 = (int)pLevelDecorations;
       while ( *(_WORD *)v6 != v4 )
       {
         ++v5;
         v6 += 32;
-        if ( v5 >= (signed int)dword_69ADD0 )
+        if ( v5 >= (signed int)uNumLevelDecorations )
           goto LABEL_20;
       }
       v8 = 32 * v5;
-      pParty_global->sPartyPosX = array_6836D0[v5].sPosX;
-      pParty_global->sPartyPosY = array_6836D0[v5].sPosY;
-      pParty_global->sPartyPosZ = array_6836D0[v5].sPosZ;
+      pParty_global->sPartyPosX = pLevelDecorations[v5].sPosX;
+      pParty_global->sPartyPosY = pLevelDecorations[v5].sPosY;
+      pParty_global->sPartyPosZ = pLevelDecorations[v5].sPosZ;
       pParty_global->dword_000700 = pParty_global->sPartyPosZ;
-      v9 = pClass59_global->uIntegerHalfPi * array_6836D0[v5].word_00001A / 90;
-      v7 = array_6836D0[v5].dword_000010;
+      v9 = pClass59_global->uIntegerHalfPi * pLevelDecorations[v5].word_00001A / 90;
+      v7 = pLevelDecorations[v5].dword_000010;
       pParty_global->sRotationY = v9;
       if ( v7 )
         pParty_global->sRotationY = v7;
@@ -9061,10 +9039,10 @@ LABEL_69:
         LODWORD(v712) = HIDWORD(v1);
         v29 = 8 * v30;
         LOBYTE(v29) = v29 | 4;
-        if ( (signed int)uNumElementsIn665230 > HIDWORD(v1) )
+        if ( (signed int)uNumLayingItems > HIDWORD(v1) )
         {
-          v31 = &unk_665278;
-          v708 = uNumElementsIn665230;
+          v31 = &pLayingItemsList[0].dword_000048;
+          v708 = uNumLayingItems;
           do
           {
             if ( *((_WORD *)v31 - 36) != WORD2(v1) )
@@ -11989,8 +11967,8 @@ LABEL_855:
         LODWORD(v1) = n >> 3;
         if ( (n & 7) == 2 )
         {
-          v422 = (char *)&unk_665254 + 112 * v1;
-          v421 = 48 * *(_DWORD *)v422;
+          v422 = &pLayingItemsList[v1].dword_000024;
+          v421 = 48 * pLayingItemsList[v1].dword_000024;
           if ( byte_5D2A00[v421] == 18 )
           {
             sub_420C05(*((_DWORD *)v422 + 3), 0);
@@ -11998,10 +11976,10 @@ LABEL_855:
           }
           else
           {
-            sprintfex(pStringBuffer, pGlobalTXT_LocalizationStrings[471], *(int *)((char *)dword_5D29EC + v421));
+            wsprintfA(pStringBuffer, pGlobalTXT_LocalizationStrings[471], *(int *)((char *)dword_5D29EC + v421));
             sub_44C175(pStringBuffer, 2);
-            if ( !Party_AddItem(pParty_global, (int)((char *)&unk_665254 + 112 * v1)) )
-              sub_4936E1(pParty_global, (char *)&unk_665254 + 112 * v1);
+            if ( !Party_AddItem(pParty_global, &pLayingItemsList[v1].dword_000024) )
+              sub_4936E1(pParty_global, &pLayingItemsList[v1].dword_000024);
           }
           sub_42F933(v1);
         }
@@ -12025,7 +12003,7 @@ LABEL_855:
                 v419 = *(_WORD *)(*(_DWORD *)(188 * (n >> 9) + pClass51_global->pBModels + 84) + 308 * (v1 & 0x3F) + 292);
               goto LABEL_866;
             }
-            LODWORD(v1) = &array_6836D0[(_DWORD)v1];
+            LODWORD(v1) = &pLevelDecorations[(_DWORD)v1];
             dword_507CD8 = 1;
             v420 = *(_WORD *)(v1 + 22);
             if ( v420 != WORD2(v1) )
@@ -13619,7 +13597,7 @@ LABEL_12:
   if ( dword_6BE368 & 4 )
     uNumActors = 0;
   if ( dword_6BE368 & 8 )
-    dword_69ADD0 = 0;
+    uNumLevelDecorations = 0;
   sub_4613C4();
   LevelLoadingUI_UpdateAndDrawProgressBar(v0);
 

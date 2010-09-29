@@ -285,7 +285,7 @@ LABEL_150:
         }
         if ( (a3 & 7) == 2 )
         {
-          v76 = (char *)array_665230 + 112 * (a3 >> 3);
+          v76 = (char *)pLayingItemsList + 112 * (a3 >> 3);
           if ( !sub_4AB6B1(*((_DWORD *)v76 + 1), *((_DWORD *)v76 + 2), *((_DWORD *)v76 + 3)) )
             return;
         }
@@ -316,7 +316,7 @@ LABEL_184:
               AIL_sample_ms_position(*(_DWORD *)v73, &dword_F1B4D4, 0);
             return;
           }
-          v76 = (char *)&array_6836D0[(a3 >> 3)];
+          v76 = (char *)&pLevelDecorations[(a3 >> 3)];
           if ( !sub_4AB6B1(*((_DWORD *)v76 + 1), *((_DWORD *)v76 + 2), *((_DWORD *)v76 + 3)) )
             return;
           AIL_set_sample_loop_count(*(_DWORD *)v73, a4 - 1);
@@ -367,7 +367,7 @@ LABEL_149:
     {
       v98 = 5;
       v100 = 7;
-      v57 = (char *)array_665230 + 112 * (a3 >> 3);
+      v57 = (char *)pLayingItemsList + 112 * (a3 >> 3);
     }
     else
     {
@@ -401,7 +401,7 @@ LABEL_116:
       }
       v98 = 4;
       v100 = 4;
-      v57 = (char *)&array_6836D0[(a3 >> 3)];
+      v57 = (char *)&pLevelDecorations[(a3 >> 3)];
     }
     v86 = *((_DWORD *)v57 + 3);
     v58 = *((_DWORD *)v57 + 2);
@@ -437,7 +437,7 @@ LABEL_116:
       v100 = 7;
       v13 = 5;
     }
-    v18 = (char *)array_665230 + 112 * (a3 >> 3);
+    v18 = (char *)pLayingItemsList + 112 * (a3 >> 3);
   }
   else
   {
@@ -502,7 +502,7 @@ LABEL_45:
       v13 = 4;
       v100 = 4;
     }
-    v18 = (char *)&array_6836D0[(a3 >> 3)];
+    v18 = (char *)&pLevelDecorations[(a3 >> 3)];
   }
   v87 = (double)*((signed int *)v18 + 1);
   v88 = (double)*((signed int *)v18 + 2);
@@ -675,7 +675,7 @@ LABEL_104:
         }
         if ( (a3 & 7) == 2 )
         {
-          v45 = (char *)array_665230 + 112 * (a3 >> 3);
+          v45 = (char *)pLayingItemsList + 112 * (a3 >> 3);
         }
         else
         {
@@ -698,7 +698,7 @@ LABEL_100:
             v46 = (double)pParty_global->uEyelevel + (double)pParty_global->sPartyPosZ;
             goto LABEL_101;
           }
-          v45 = (char *)&array_6836D0[(a3 >> 3)];
+          v45 = (char *)&pLevelDecorations[(a3 >> 3)];
         }
         v87 = (double)*((signed int *)v45 + 1);
         v88 = (double)*((signed int *)v45 + 2);
@@ -1374,11 +1374,11 @@ LABEL_35:
               v13 = (double)pParty_global->uEyelevel + (double)pParty_global->sPartyPosZ;
               goto LABEL_21;
             }
-            v14 = (char *)&array_6836D0[(*(_DWORD *)(v8 + 4) >> 3)];
+            v14 = (char *)&pLevelDecorations[(*(_DWORD *)(v8 + 4) >> 3)];
           }
           else
           {
-            v14 = (char *)array_665230 + 112 * (*(_DWORD *)(v8 + 4) >> 3);
+            v14 = (char *)pLayingItemsList + 112 * (*(_DWORD *)(v8 + 4) >> 3);
           }
           v58 = (double)*((signed int *)v14 + 1);
           v59 = (double)*((signed int *)v14 + 2);
@@ -1513,7 +1513,7 @@ LABEL_60:
           {
             if ( (*(_DWORD *)(v34 + 4) & 7) == 2 )
             {
-              v36 = (char *)array_665230 + 112 * (v35 >> 3);
+              v36 = (char *)pLayingItemsList + 112 * (v35 >> 3);
               goto LABEL_53;
             }
             if ( (*(_DWORD *)(v34 + 4) & 7) == 3 )
@@ -1529,7 +1529,7 @@ LABEL_60:
             }
             if ( (*(_DWORD *)(v34 + 4) & 7) == 5 )
             {
-              v36 = (char *)&array_6836D0[(v35 >> 3)];
+              v36 = (char *)&pLevelDecorations[(v35 >> 3)];
 LABEL_53:
               v42 = v36;
               v41 = sub_4AB6B1(*((_DWORD *)v36 + 1), *((_DWORD *)v36 + 2), *((_DWORD *)v36 + 3));
@@ -1565,7 +1565,7 @@ LABEL_62:
       {
         LODWORD(v66) = 1;
         v48 = 4 * v69 + 6817720;
-        v49 = &array_6836D0[dword_6807B8[v69]];
+        v49 = &pLevelDecorations[dword_6807B8[v69]];
         v50 = abs(*((_DWORD *)v49 + 3) - pParty_global->sPartyPosZ);
         v51 = abs(*((_DWORD *)v49 + 2) - pParty_global->sPartyPosY);
         v52 = abs(*((_DWORD *)v49 + 1) - pParty_global->sPartyPosX);

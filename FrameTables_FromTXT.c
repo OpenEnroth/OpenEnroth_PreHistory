@@ -1694,8 +1694,8 @@ int CDecorationDescriptionList_SaveToBIN(struct CDecorationDescriptionList *_thi
  if (!f)
    erroneous_printf("Unable to save ddeclist.bin!");
 
- locked_fwrite(&_this->uNumDecorations, 4, 1, f);
- locked_fwrite(_this->pDescriptions, sizeof(struct DecorationDescription), _this->uNumDecorations, f);
+ locked_fwrite(&_this->uNumLevelDecorations, 4, 1, f);
+ locked_fwrite(_this->pDescriptions, sizeof(struct DecorationDescription), _this->uNumLevelDecorations, f);
  return fclose(f);
 }
 

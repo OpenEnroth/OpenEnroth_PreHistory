@@ -1142,17 +1142,9 @@ unsigned int uTextureID_GameUI_PaperdollBackground;     // dword @ MM7.exe::0051
 unsigned int uTextureID_GameUI_PaperdollJewelryOverlay; // dword @ MM7.exe::005118DC
  int dword_5118E0; // weak
 
-struct struct5 array_5118E8[100]; // struct[100] @ MM7.exe::005118E8
-//_UNKNOWN unk_5118E8; // weak
-//_UNKNOWN unk_5118F4; // weak
-
-struct unnamed_512250 array_512250[500];              // struct[500] @ MM7.exe::00512250
-//_UNKNOWN unk_512250;
-//_UNKNOWN unk_512254; // weak
-//int dword_512260[array_size_unknown]; // weak
-//_UNKNOWN unk_512278; // weak
- _UNKNOWN unk_51227A; // weak
- int dword_5187E0; // some index addressing 512250 array
+struct struct5         array_5118E8[100]; // struct[100] @ MM7.exe::005118E8
+struct RenderBillboard pBillboardRenderList[500]; // struct[500] @ MM7.exe::00512250
+unsigned int           uNumBillboardsToDraw;      // dword       @ MM7.exe::005187E0
 
  int dword_5187E4; // weak
  int dword_5187E8; // weak
@@ -1543,43 +1535,17 @@ struct Actor pActors[500]; // struct[500] @ MM7.exe::005FF158
  _UNKNOWN unk_5FF420; // weak
  _UNKNOWN unk_64640F; // weak
 
-unsigned int uNumActors;           // dword        @ MM7.exe::00665228
-unsigned int uNumElementsIn665230; // dword        @ MM7.exe::0066522C
-struct struct2 array_665230[1000]; // struct[1000] @ MM7.exe::00665230
-//_UNKNOWN unk_665230; // weak
-//__int16 word_665232[56000 + array_size_unknown]; // weak
-//int dword_665234; // weak
-//int dword_665238; // weak
-//int dword_66523C; // weak
- __int16 word_665240; // weak
- __int16 word_665242; // weak
- __int16 word_665244; // weak
- char byte_66524A[array_size_unknown]; // weak
-//__int16 word_66524C; // 00001C
-//_UNKNOWN unk_66524E; // 00001E
- _UNKNOWN unk_665254; // weak
- _UNKNOWN unk_665278; // weak
- int dword_665288[array_size_unknown]; // weak
- char byte_665291[array_size_unknown]; // weak
-
+unsigned int      uNumActors;             // dword        @ MM7.exe::00665228
+unsigned int      uNumLayingItems;        // dword        @ MM7.exe::0066522C
+struct LayingItem pLayingItemsList[1000]; // struct[1000] @ MM7.exe::00665230
 
  int dword_6807B8[array_size_unknown]; // weak
  int dword_6807E0; // weak
  int dword_6807E8[array_size_unknown]; // weak
  int dword_6836C8; // weak
 
-struct struct0 array_6836D0[3000];
-//__int16 word_6836D0[array_size_unknown]; // weak
-//_UNKNOWN unk_6836D2; // weak
-//int dword_6836D4[array_size_unknown]; // weak
-//int dword_6836D8[array_size_unknown]; // weak
-//int dword_6836DC; // weak
-//int dword_6836E0; // weak
-//__int16 word_6836E4; // weak
-//__int16 word_6836E6[array_size_unknown]; // weak
-//__int16 word_6836EA; // weak
-
- size_t dword_69ADD0; // idb
+struct LevelDecoration pLevelDecorations[3000]; // struct[3000] @ MM7.exe::006836D0
+unsigned int           uNumLevelDecorations;    // dword        @ MM7.exe::0069ADD0
 
  char word_69ADE0; // idb
 struct KeyboardController *pKeyboardController = 0; // struct @ MM7.exe::0069AE00
@@ -1703,28 +1669,8 @@ struct unnamed_6BD080 struct_6BD080;
 union unnamed_6BE060 data_6BE060;
 
 
- struct struct9 *pStruct9_global; // struct @ MM7.exe::006BE070
-//int dword_6BE070; // 000000
-//int dword_6BE074; // shading::dist_shade
-//int dword_6BE078; // shading::dist_shademist
-//int dword_6BE07C; // shading::dist_mist
-//int dword_6BE080; // 000010
-//int dword_6BE084; // 000014
-//int dword_6BE088; // 000018
-//int dword_6BE08C; // 00001C
-//int dword_6BE090; // 000020
-//int dword_6BE094; // 000024
-//int dword_6BE098; // 000028
-//int dword_6BE09C; // weak
-//int dword_6BE0A0; // 000030
-//int dword_6BE0A4; // weak
-//int dword_6BE0A8; // weak
-//int dword_6BE0AC; // weak
-//int dword_6BE0B0; // 000040
-//int dword_6BE0B4; // weak
-//int dword_6BE0B8; // 000048
+struct struct9 *pStruct9_global; // struct @ MM7.exe::006BE070
  int dword_6BE0C4; // weak
- int dword_6BE0C8; // weak
  int dword_6BE0D4; // weak
  int dword_6BE0D8; // weak
  int dword_6BE0DC; // idb
@@ -2471,7 +2417,7 @@ IDirectDrawClipper *pDDrawClipper = 0; // dword @ MM7.exe::00FD1BE0
  int dword_EF52A4; // weak
  int (*dword_EF52A8)(void); // weak
  int dword_EF52B0; // weak
-struct unnamed_EF52B8  stru_EF52B8[1000]; // struct[1000] @ MM7.exe::00EF52B8
+struct RenderBillboardD3D3  pBillboardRenderListD3D3[1000]; // struct[1000] @ MM7.exe::00EF52B8
  _UNKNOWN unk_F00000; // weak
  _UNKNOWN unk_F1B430; // weak
  BYTE dword_F1B4B0; // idb
