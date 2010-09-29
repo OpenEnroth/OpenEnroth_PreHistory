@@ -1232,7 +1232,7 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
  SetPriorityClass(GetCurrentProcess(), NORMAL_PRIORITY_CLASS);
  
  GetCurrentDirectoryW(255, pGameDirectory);
- wsprintfA(pMM6ConfigFilename, "%S\\mm6.ini", pGameDirectory);
+ wsprintfW(pMM6ConfigFilename, L"%s\\mm6.ini", pGameDirectory);
 
 
  if (!class23_AllocateBigBuffer(class23_instance, 27000))

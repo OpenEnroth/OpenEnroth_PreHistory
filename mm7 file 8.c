@@ -10320,6 +10320,22 @@ void __cdecl InitializeGameText()
  aSpellNames[43] = pGlobalTXT_LocalizationStrings[657];
 }
 
+void ShowLastError(void)
+{
+   LPVOID lpMsgBuf=NULL;
+   FormatMessage( FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+                  NULL,
+                  GetLastError(),
+                  MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
+                  (LPTSTR) &lpMsgBuf,
+                  0,
+                  NULL
+                 );
+   // Display the string.
+   MessageBox( NULL, (LPTSTR)lpMsgBuf, "GetLastError", MB_OK|MB_ICONINFORMATION );
+   LocalFree( lpMsgBuf );
+}
+
 //----- (MM7.exe::00465061) --------------------------------------------------------
 char __fastcall CheckForCD(HWND hwnd, unsigned char *pGameCDDriveLetter)
 {
@@ -10339,6 +10355,7 @@ char __fastcall CheckForCD(HWND hwnd, unsigned char *pGameCDDriveLetter)
   char v15; // [sp+2Ah] [bp-Ah]@21
   int v16; // [sp+2Ch] [bp-8h]@13
   char v17; // [sp+33h] [bp-1h]@1
+  int ret;
 
   v12 = 0;
   v11 = 0;
@@ -10406,7 +10423,9 @@ LABEL_25:
         ++v16;
       }
       while ( v16 < 26 );
-      if ( DialogBoxParamA(hInstance, "InsertCD", hWnd_global, (DLGPROC)DialogFunc, 0) )
+      ret = DialogBoxParamA(hInstance, "InsertCD", hWnd_global, (DLGPROC)DialogFunc, 0);
+      if ( ret == -1) ShowLastError();
+      if ( ret > 0)
         continue;
       break;
     }
