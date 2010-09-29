@@ -743,7 +743,7 @@ struct unnamed_505898 struct_505898;
 //int dword_506F9C; // weak
 
  int array_5075E0[20]; // array @ MM7.exe::005075E0
- unsigned int uNumGUIWindows; // dword @ MM7.exe::00507630
+ int uNumGUIWindows; // dword @ MM7.exe::00507630
  int dword_507634; // weak
  int dword_507638; // weak
  int dword_50763C; // weak

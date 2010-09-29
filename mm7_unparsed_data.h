@@ -690,7 +690,7 @@ extern struct GUIWindow GUIWindow_List[20];  // struct array @ MM7.exe::00506F50
 //int dword_506F9C; // weak
 
 extern int array_5075E0[20]; // array @ MM7.exe::005075E0
-extern unsigned int uNumGUIWindows; // dword @ MM7.exe::00507630
+extern int uNumGUIWindows; // dword @ MM7.exe::00507630
 extern int dword_507634; // weak
 extern int dword_507638; // weak
 extern int dword_50763C; // weak
