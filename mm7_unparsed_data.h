@@ -2028,7 +2028,7 @@ extern char *dword_723D38; // idb
 extern _UNKNOWN unk_723D3C; // weak
 extern int dword_723E80[210]; // weak
 extern int dword_723E84[array_size_unknown]; // weak
-extern _UNKNOWN unk_723E88; // weak
+extern _UNKNOWN unk_723E88[]; // weak
 extern int dword_7241C8; // weak
 
 extern struct CNPCStats *pNPCStats; // struct @ MM7.exe::007241D0
@@ -2630,37 +2630,65 @@ extern int dword_EF52A0; // weak
 extern int dword_EF52A4; // weak
 extern int (*dword_EF52A8)(void); // weak
 extern int dword_EF52B0; // weak
-extern int dword_EF52B8[array_size_unknown]; // weak
-extern int dword_EF52BC; // weak
-extern _UNKNOWN unk_EF52C0; // weak
-extern int dword_EF52C4[array_size_unknown]; // weak
-extern int dword_EF52C8; // weak
-extern int dword_EF52CC; // weak
-extern int dword_EF52D0; // weak
-extern int dword_EF52D4; // weak
-extern _UNKNOWN unk_EF52E0; // weak
-extern int dword_EF52E4[array_size_unknown]; // weak
-extern int dword_EF52E8; // weak
-extern int dword_EF52EC; // weak
-extern int dword_EF52F0; // weak
-extern int dword_EF52F4; // weak
-extern _UNKNOWN unk_EF5300; // weak
-extern int dword_EF5308; // weak
-extern int dword_EF530C; // weak
-extern int dword_EF5310; // weak
-extern int dword_EF5314; // weak
-extern _UNKNOWN unk_EF5320; // weak
-extern int dword_EF5328; // weak
-extern int dword_EF532C; // weak
-extern int dword_EF5330; // weak
-extern int dword_EF5334; // weak
-extern int dword_EF5340[array_size_unknown]; // weak
-extern int dword_EF5344[array_size_unknown]; // weak
-extern int dword_EF5348; // weak
-extern int dword_EF534C; // weak
-extern int dword_EF5350[array_size_unknown]; // weak
+
+
+//extern int dword_EF52B8[array_size_unknown]; // weak
+extern struct unnamed_EF52B8
+{
+ IDirect3DTexture2 *pTexture;     // dword @ 000000          dword_EF52B8
+ unsigned int       uNumVertices; // dword @ 000004          dword_EF52BC
+ struct D3DVERTEX   pQuad[4];     // struct[4] @ 000008      struct @ MM7.exe::00EF52C0
+                                  //                         struct @ MM7.exe::00EF52E0
+                                  //                         struct @ MM7.exe::00EF5300
+                                  //                         struct @ MM7.exe::00EF5320
+ float            flt_000088;     // dword_EF5340[]
+ int              int_00008C;     // dword_EF5344[]
+ int              dword_000090;   // dword_EF5348
+ int              dword_000094;   // dword_EF534C
+ int              dword_000098;   // dword_EF5350[]     index in array_512250
+} stru_EF52B8[]; // struct[1000] @ MM7.exe::00EF52B8
+//sizeof = 9C
+
+//extern int dword_EF52BC; // weak
+//extern struct unnamed_EF52C0 stru_EF52C0;  // struct @ MM7.exe::00EF52C0
+//extern _UNKNOWN unk_EF52C0; // weak
+//float                2C0    000000
+//float                2C4    000004
+//float                2C8    000008
+//float                2CC    00000C
+//extern int dword_EF52C4[array_size_unknown]; // weak
+//extern int dword_EF52C8; // weak
+//extern int dword_EF52CC; // weak
+//extern int dword_EF52D0; // 000010 tint color mask
+//extern int dword_EF52D4; // 000014
+//float               2D8     000018
+//float               2DC     00001C
+//extern struct unnamed_EF52E0 stru_EF52E0; // struct @ MM7.exe::00EF52E0
+//extern _UNKNOWN unk_EF52E0; // weak
+//extern int dword_EF52E4[array_size_unknown]; // weak
+//extern int dword_EF52E8; // weak
+//extern int dword_EF52EC; // weak
+//extern int dword_EF52F0; // weak
+//extern int dword_EF52F4; // weak
+//extern struct unnamed_EF5300 stru_EF5300; // struct @ MM7.exe::00EF5300
+//extern _UNKNOWN unk_EF5300; // weak
+//extern int dword_EF5308; // weak
+//extern int dword_EF530C; // weak
+//extern int dword_EF5310; // weak
+//extern int dword_EF5314; // weak
+//extern struct unnamed_EF5320 stru_EF5320; // struct @ MM7.exe::00EF5320
+//extern _UNKNOWN unk_EF5320; // weak
+//extern int dword_EF5328; // weak
+//extern int dword_EF532C; // weak
+//extern int dword_EF5330; // weak
+//extern int dword_EF5334; // weak
+//extern int dword_EF5340[array_size_unknown]; // weak
+//extern int dword_EF5344[array_size_unknown]; // weak
+//extern int dword_EF5348; // weak
+//extern int dword_EF534C; // weak
+//extern int dword_EF5350[array_size_unknown]; // weak
 extern _UNKNOWN unk_F00000; // weak
-//int pD3DRenderer->dword_129830; // 129830
+//int dword_F1B418; // 129830
 //int dword_F1B420; // 129838
 //int dword_F1B424; // 12983C
 //int dword_F1B428; // 129840

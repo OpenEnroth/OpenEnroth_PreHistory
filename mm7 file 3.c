@@ -12935,14 +12935,14 @@ bool Game_sub_44EE30(struct CGame *_this, struct class51_stru2 *a2, void **a3)
 }
 
 //----- (0044EE7C) --------------------------------------------------------
-char __cdecl sub_44EE7C()
+bool sub_44EE7C()
 {
-  if ( *(_BYTE *)(LODWORD(pGame) + 3616) & 4 )
+  if (pGame->uSomeFlags & 0x04)
   {
-    sub_45D698(pGame->class04_obj, -1);
+    class04_sub_45D698(pGame->class04_obj, -1);
     sub_49C550(pClass58_global);
   }
-  return 1;
+  return true;
 }
 
 //----- (0044F408) --------------------------------------------------------

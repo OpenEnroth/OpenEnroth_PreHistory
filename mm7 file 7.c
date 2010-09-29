@@ -14356,7 +14356,7 @@ void __thiscall sub_4C06F8(void *this, float a2, int a3, int a4)
   v6 = this;
   if ( pD3DRenderer->dword_129830 > 0 )
   {
-    v7 = (int)dword_EF5350;
+    v7 = (int)&stru_EF52B8[0].dword_000098;
     do
     {
       if ( sub_4C0791(v8, a4) )
@@ -14420,8 +14420,8 @@ char __stdcall sub_4C0791(int a1, int a2)
     goto LABEL_32;
   }
   v4 = *(_DWORD *)(a2 + 16);
-  v3 = (array_512250[dword_EF5350[39 * a1]].dword_000010 & 0xFFFF) >> 3;
-  v5 = array_512250[dword_EF5350[39 * a1]].dword_000010 & 7;
+  v3 = (array_512250[stru_EF52B8[a1].dword_000098].dword_000010 & 0xFFFF) >> 3;
+  v5 = array_512250[stru_EF52B8[a1].dword_000098].dword_000010 & 7;
   if ( v4 & 2 )
   {
     v6 = v5 == *(_DWORD *)(a2 + 4);
@@ -14532,7 +14532,7 @@ char __thiscall sub_4C091D(void *this, float a2, int a3)
   }
   class25_F91E10.dword_002004 = 0;
   v4 = 156 * a3;
-  v3 = dword_EF5350[39 * a3];
+  v3 = stru_EF52B8[a3].dword_000098;
   if ( v3 == -1
     || (v5 = array_512250[v3].dword_000010,
         (double)(unsigned __int16)array_512250[v3].dword_000010 * 0.00001525902189314365 + (double)(v5 >> 16) > a2) )
@@ -14544,7 +14544,7 @@ LABEL_49:
   {
     LOWORD(v5) = 0;
     v37 = v5;
-    sub_4C1417(v39, (char *)&unk_EF52C0 + v4, 4, (int)&v35, (int)&v36);
+    sub_4C1417(v39, stru_EF52B8[v4/156].pQuad, 4, (int)&v35, (int)&v36);
     sub_4C248E((int)&v31, v35, *(float *)&v36, a2);
     if ( dword_6BE360 == 1 )
     {
@@ -14566,8 +14566,8 @@ LABEL_49:
       || (double)pOldViewport->uScreenW < *(float *)&v36 )
     {
       v40 = 0;
-      v10 = (int)((char *)dword_EF52C4 + v4);
-      LODWORD(v38) = (char *)dword_EF52C4 + v4;
+      v10 = &stru_EF52B8[v4/156].pQuad[0].y;
+      LODWORD(v38) = &stru_EF52B8[v4/156].pQuad[0].y;
       while ( 1 )
       {
         v12 = *(float *)(v10 - 4);
@@ -14615,12 +14615,12 @@ LABEL_49:
         {
           if ( dword_6BE360 != 2 )
             goto LABEL_49;
-          v21 = *(float *)(v4 + 15684288);
-          v20 = *(float *)(v4 + 15684384);
-          v22 = *(int *)((char *)dword_EF52C4 + v4);
-          v34 = *(float *)(v4 + 15684384);
+          v21 = stru_EF52B8[v4/156].pQuad[0].x;
+          v20 = stru_EF52B8[v4/156].pQuad[3].x;
+          v22 = *(int *)(&stru_EF52B8[v4/156].pQuad[0].y);
+          v34 = stru_EF52B8[v4/156].pQuad[3].x;
           LODWORD(v38) = v22;
-          LODWORD(v41) = *(int *)((char *)dword_EF52E4 + v4);
+          v41 = stru_EF52B8[v4/156].pQuad[1].y;
           if ( v21 > v20 )
           {
             v33 = v21;
@@ -14981,12 +14981,12 @@ char __stdcall sub_4C12C3(int a1, int a2, float a3, float a4)
   v4 = 0;
   if ( pD3DRenderer->dword_129830 <= 0 )
     goto LABEL_28;
-  v5 = (int)dword_EF5350;
+  v5 = (int)&stru_EF52B8[0].dword_000098;
   do
   {
     if ( sub_4C1607(v5 - 152, a3, a4) )
     {
-      if ( v11 == -1 || array_512250[*(_DWORD *)v5].dword_000010 < (unsigned int)array_512250[dword_EF5350[39 * v11]].dword_000010 )
+      if ( v11 == -1 || array_512250[*(_DWORD *)v5].dword_000010 < (unsigned int)array_512250[stru_EF52B8[v11].dword_000098].dword_000010 )
         v11 = v4;
     }
     ++v4;
@@ -15018,10 +15018,10 @@ char __stdcall sub_4C12C3(int a1, int a2, float a3, float a4)
     }
     while ( v6 );
   }
-  if ( v7 < *((float *)&unk_EF52C0 + 39 * v11)
-    || *(float *)&dword_EF52C4[39 * v11] > (double)v13
-    || *((float *)&unk_EF5320 + 39 * v11) < (double)v12
-    || *(float *)&dword_EF52E4[39 * v11] < (double)v10 )
+  if (v7 < stru_EF52B8[v11].pQuad[0].x ||
+      stru_EF52B8[v11].pQuad[0].y > (double)v13 ||
+      stru_EF52B8[v11].pQuad[3].x < (double)v12 ||
+      stru_EF52B8[v11].pQuad[1].y < (double)v10 )
 LABEL_28:
     result = 0;
   else
@@ -15090,7 +15090,7 @@ void __thiscall sub_4C1542(void *this, float a2, float a3, float a4, int a5, int
   v8 = this;
   if ( pD3DRenderer->dword_129830 > 0 )
   {
-    v9 = (int)dword_EF5350;
+    v9 = (int)&stru_EF52B8[0].dword_000098;
     do
     {
       if ( sub_4C0791(v10, a6) )

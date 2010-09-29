@@ -6115,14 +6115,14 @@ unsigned int LODFile_LoadSprite(struct LODFile *_this, const char *pSourceFile, 
  if (pD3DRenderer->pRenderD3D3)
  {
   for (i = 0; i < _this->uNumLoadedSprites; ++i)
-    if (!strcmpi(&_this->pHardwareSprites[i * 40], pSourceFile))
+   if (!strcmpi(_this->pHardwareSprites[i].pSpriteName, pSourceFile))
       return i;
  }
  else for (i = 0; i < _this->uNumLoadedSprites; ++i)
    if (!strcmpi(_this->aLODHeaders[i].sContainerName, pSourceFile))
      return i;
 
- if (_this->uNumLoadedSprites >= 2500)
+ if (_this->uNumLoadedSprites >= 3000)
    return -1;
 
 
@@ -6130,7 +6130,7 @@ unsigned int LODFile_LoadSprite(struct LODFile *_this, const char *pSourceFile, 
  {
   if (!_this->pHardwareSprites)
   {
-   _this->pHardwareSprites = class23_AllocatedNamedBuffer(class23_instance, 0, 2500 * sizeof(struct HardwareSprite), "hardwareSprites");
+   _this->pHardwareSprites = class23_AllocatedNamedBuffer(class23_instance, 0, 3000 * sizeof(struct HardwareSprite), "hardwareSprites");
 
    for (i = 0; i < 150; ++i)
    {
@@ -10089,8 +10089,12 @@ int class06_sub_4A8C27(struct class06 *_this)
     result = pClass24_global->int_00001C;
     *(_DWORD *)(v1 + 1496) -= pClass24_global->int_00001C;
   }
+
+
   //by the time we first get in this function, dword_0005D4  is still not initialized in the original exe
   //maybe the following code in never executed at all
+
+  runtime_warning(additional test with original exe in _Hardware D3D_ mode required);
   if (_this->dword_0005D4 > 0 )
   {
     v9 = 8 * *(_WORD *)(60 * CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell84") + (unsigned int)(pSpriteFrameTable->pSpriteSFrames) + 56) - *(_DWORD *)(v1 + 1492);

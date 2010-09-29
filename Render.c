@@ -2463,16 +2463,15 @@ void Render_EndSceneD3D3_AND_MaybeRenderSpecialEffects(struct Render *_this)
 {
  if (_this->uD3D3SceneBegun-- == 1)
  {
-  runtime_warning(crashy crashes);
-    /*if (_this->pRenderD3D3)
+    if (_this->pRenderD3D3)
     {
       sub_44EE7C();
       sub_4A1C1E();
       class06_sub_4A8C27(pGame->class06_obj);
-      (*(int (__stdcall **)(_DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 40))(*(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56));
+      (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->EndScene)(pD3DRenderer->pRenderD3D3->pDevice);
     }
     else
-      class06_sub_4A8C27(pGame->class06_obj);*/
+      class06_sub_4A8C27(pGame->class06_obj);
  }
 }
 
@@ -3286,7 +3285,7 @@ void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct 
    Game_sub_44EE30(pGame, a4, (void **)&v61);
    if (byte_4D8410[572] && pGame->uSomeFlags & 0x01)
    {
-    v8 = sub_47C4FC(*(_BYTE *)(a3 + 88), 0, array_50AC10[0].flt_00000C, 0, 0);
+    v8 = sub_47C4FC_GetActorTintColor(*(_BYTE *)(a3 + 88), 0, array_50AC10[0].flt_00000C, 0, 0);
     sub_45D74F_MessWithLight(pGame->class04_obj, v8, 0);
    }
    else
@@ -3304,7 +3303,7 @@ void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct 
      
      for (i = 0; i < uNumVertices; ++i)
      {
-      v61 = sub_47C4FC(a3->byte_000058, 0, array_50AC10[i].flt_00000C, 0, 0);
+      v61 = sub_47C4FC_GetActorTintColor(a3->byte_000058, 0, array_50AC10[i].flt_00000C, 0, 0);
        Game_sub_44EE30(pGame, a4, (void **)&v61);
 
        v52 = 1000 * array_50AC10[i].flt_00000C / (double)pStruct9_global->shading_dist_mist;
@@ -3313,7 +3312,7 @@ void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct 
        pVertices[i].z = 1.0 - 1.0 / v52;
        pVertices[i].rhw = 1.0 / (array_50AC10[i].flt_00000C + 0.0000001000000011686097);
               
-       pVertices[i].diffuse = sub_47C4FC(a3->byte_000058, 0, array_50AC10[i].flt_00000C, 0, 0);
+       pVertices[i].diffuse = sub_47C4FC_GetActorTintColor(a3->byte_000058, 0, array_50AC10[i].flt_00000C, 0, 0);
        if (_this->bUsingSpecular)
          pVertices[i].specular = sub_47C3D7(0, 0, array_50AC10[i].flt_00000C);
        else
@@ -3342,7 +3341,7 @@ void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct 
               compile_error;//*LODWORD(v9) = *((_DWORD *)v10 + 4);
               *(float *)(LODWORD(v9) + 4) = 1.0 - 1.0 / v14;
               *(float *)(LODWORD(v9) + 8) = 1.0 / (*v10 + 0.0000001000000011686097);
-              v15 = sub_47C4FC(*(_BYTE *)(a3 + 88), 0, *v10, 0, 0);
+              v15 = sub_47C4FC_GetActorTintColor(*(_BYTE *)(a3 + 88), 0, *v10, 0, 0);
               LODWORD(v11) = a4;
               v12 = *v10;
               *(_DWORD *)(a4 + 12) = v15;

@@ -11505,7 +11505,7 @@ double __stdcall sub_45D643(int a1, float a2)
 }
 
 //----- (0045D698) --------------------------------------------------------
-char __thiscall sub_45D698(int this, char a2)
+bool class04_sub_45D698(struct class04 *_this, char a2)
 {
   int v2; // esi@1
   int v3; // edi@3
@@ -11513,40 +11513,37 @@ char __thiscall sub_45D698(int this, char a2)
   void *v6; // [sp+10h] [bp-8h]@1
   int v7; // [sp+14h] [bp-4h]@2
   int v8; // [sp+20h] [bp+8h]@6
+ unsigned int i;
 
-  v2 = this;
+  v2 = _this;
   v6 = pGame->class08_obj;
   if ( a2 & 1 )
   {
     v7 = 0;
-    if ( *(_DWORD *)(this + 1587204) > 0 )
+      v3 = (char *)_this->std__vector_000004 + 8;
+    for (i = 0; i < _this->std__vector_000004_size; ++i)
     {
-      v3 = this + 12;
-      do
-      {
+
         sub_4379EE(v6, v3, *(_DWORD *)(v3 - 4), 65280, 0.0);
         ++v7;
         v3 += 3100;
-      }
-      while ( v7 < *(_DWORD *)(v2 + 1587204) );
+
     }
   }
+
   if ( a2 & 2 )
   {
     v8 = 0;
-    if ( *(_DWORD *)(v2 + 3968008) > 0 )
+      v4 = (char *)_this->std__vector_183808 + 8;
+    for (i = 0; i < _this->std__vector_183808_size; ++i)
     {
-      v4 = v2 + 1587216;
-      do
-      {
+
         sub_4379EE(v6, v4, *(_DWORD *)(v4 - 4), pClass58_global->unk_11E458, 0.000199999994947575);
         ++v8;
         v4 += 3100;
-      }
-      while ( v8 < *(_DWORD *)(v2 + 3968008) );
     }
   }
-  return 1;
+  return true;
 }
 
 //----- (0045D73F) --------------------------------------------------------

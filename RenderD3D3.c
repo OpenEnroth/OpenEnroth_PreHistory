@@ -954,7 +954,7 @@ void Render_DrawStrip(struct Render *_this, unsigned int uNumVertices, struct st
    pVertices[i].z = 0.99989998;
    pVertices[i].rhw = array_50AC10[i].flt_000020;
 
-   pVertices[i].diffuse = sub_47C4FC(31, 0, array_50AC10[i].flt_00000C, 1, 0);
+   pVertices[i].diffuse = sub_47C4FC_GetActorTintColor(31, 0, array_50AC10[i].flt_00000C, 1, 0);
    v7 = 0;
    if (_this->bUsingSpecular)
    {
@@ -999,7 +999,7 @@ void Render_DrawSomeFan(struct Render *_this, unsigned int uNumVertices, struct 
    pVertices[i].z = 0.99989998;
    pVertices[i].rhw = array_50AC10[i].flt_000020;
 
-   pVertices[i].diffuse = sub_47C4FC(31, 0, array_50AC10[i].flt_00000C, 1, 0);
+   pVertices[i].diffuse = sub_47C4FC_GetActorTintColor(31, 0, array_50AC10[i].flt_00000C, 1, 0);
    v7 = 0;
    if (_this->bUsingSpecular)
    {
@@ -1265,7 +1265,7 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
       v65 = a2;
   if (byte_4D8410[572] && pGame->uSomeFlags & 0x01)
   {
-   v10 = sub_47C4FC(*(_BYTE *)(a4 + 88), 0, array_50AC10[0].flt_00000C, 0, 0);
+   v10 = sub_47C4FC_GetActorTintColor(*(_BYTE *)(a4 + 88), 0, array_50AC10[0].flt_00000C, 0, 0);
    sub_45D74F_MessWithLight(pGame->class04_obj, v10, 0);
   }
       else
@@ -1300,7 +1300,7 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
               pVertices[i].y = array_50AC10[0].flt_00001C;
               pVertices[i].z = 1.0 - 1.0 / v59;
               pVertices[i].rhw = 1.0 / (array_50AC10[i].flt_00000C + 0.0000001000000011686097);
-              v60 = sub_47C4FC(a4->byte_000058, 0, array_50AC10[i].flt_00000C, 0, 0);
+              v60 = sub_47C4FC_GetActorTintColor(a4->byte_000058, 0, array_50AC10[i].flt_00000C, 0, 0);
 
               v57 = array_50AC10[i].flt_00000C;
               pVertices[i].diffuse = v60;
@@ -1341,7 +1341,7 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
               compile_error;//*LODWORD(v11) = *((_DWORD *)v12 + 4);
               *(float *)(LODWORD(v11) + 4) = 1.0 - 1.0 / v16;
               *(float *)(LODWORD(v11) + 8) = 1.0 / (*v12 + 0.0000001000000011686097);
-              v17 = sub_47C4FC(*(_BYTE *)(a4 + 88), 0, *v12, 0, 0);
+              v17 = sub_47C4FC_GetActorTintColor(*(_BYTE *)(a4 + 88), 0, *v12, 0, 0);
               LODWORD(v13) = a7;
               v14 = *v12;
               *(_DWORD *)(a7 + 12) = v17;

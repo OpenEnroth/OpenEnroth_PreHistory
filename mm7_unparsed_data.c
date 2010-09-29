@@ -1967,7 +1967,7 @@ struct CGame *pGame = 0; //struct @ MM7.exe::00720014
  _UNKNOWN unk_723D3C; // weak
  int dword_723E80[210]; // weak
  int dword_723E84[array_size_unknown]; // weak
- _UNKNOWN unk_723E88; // weak
+ _UNKNOWN unk_723E88[832 + array_size_unknown*4]; // weak
  int dword_7241C8; // weak
 
 struct CNPCStats *pNPCStats = 0; // struct @ MM7.exe::007241D0
@@ -2471,35 +2471,7 @@ IDirectDrawClipper *pDDrawClipper = 0; // dword @ MM7.exe::00FD1BE0
  int dword_EF52A4; // weak
  int (*dword_EF52A8)(void); // weak
  int dword_EF52B0; // weak
- int dword_EF52B8[array_size_unknown]; // weak
- int dword_EF52BC; // weak
- _UNKNOWN unk_EF52C0; // weak
- int dword_EF52C4[array_size_unknown]; // weak
- int dword_EF52C8; // weak
- int dword_EF52CC; // weak
- int dword_EF52D0; // weak
- int dword_EF52D4; // weak
- _UNKNOWN unk_EF52E0; // weak
- int dword_EF52E4[array_size_unknown]; // weak
- int dword_EF52E8; // weak
- int dword_EF52EC; // weak
- int dword_EF52F0; // weak
- int dword_EF52F4; // weak
- _UNKNOWN unk_EF5300; // weak
- int dword_EF5308; // weak
- int dword_EF530C; // weak
- int dword_EF5310; // weak
- int dword_EF5314; // weak
- _UNKNOWN unk_EF5320; // weak
- int dword_EF5328; // weak
- int dword_EF532C; // weak
- int dword_EF5330; // weak
- int dword_EF5334; // weak
- int dword_EF5340[array_size_unknown]; // weak
- int dword_EF5344[array_size_unknown]; // weak
- int dword_EF5348; // weak
- int dword_EF534C; // weak
- int dword_EF5350[array_size_unknown]; // weak
+struct unnamed_EF52B8  stru_EF52B8[1000]; // struct[1000] @ MM7.exe::00EF52B8
  _UNKNOWN unk_F00000; // weak
  _UNKNOWN unk_F1B430; // weak
  BYTE dword_F1B4B0; // idb

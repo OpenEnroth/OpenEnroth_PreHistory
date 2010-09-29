@@ -187,14 +187,14 @@ struct SpriteFrame *CSpriteFrameTable_fn1(struct CSpriteFrameTable *_this, unsig
   int result; // eax@6
 
   v3 = &_this->pSpriteSFrames[uID];
-  v5 = *(_WORD *)(v3 + 56);
-  if ( *(_BYTE *)(v3 + 44) & 1 && v5 != 0 )
+  v5 = _this->pSpriteSFrames[uID].word_000038;
+  if (_this->pSpriteSFrames[uID].dword_00002C & 0x01 && v5 != 0 )
   {
     v7 = (a3 >> 3) % v5;
     v6 = uID;
-    for ( i = v3 + 54; ; i += 60 )
+    for ( i = uID; ; ++i)
     {
-      v9 = *(_WORD *)i;
+      v9 = _this->pSpriteSFrames[i].word_000036;
       if ( v7 <= v9 )
         break;
       v7 -= v9;
@@ -275,7 +275,7 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
   char Str; // [sp+Ch] [bp-3Ch]@19
   char Size[20]; // [sp+2Ch] [bp-1Ch]@15
   char Source[4]; // [sp+40h] [bp-8h]@19
- int i, j;
+ int i, j; 
 
   v2 = _this;
   if (uSpriteFrameID > _this->uNumSpriteFrames)
@@ -292,6 +292,7 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
 
   if (_this->pSpriteSFrames[i].dword_00002C & 0x10)
   {
+
    v10 = LODFile_LoadSprite(pLODFile_Sprites_LOD, _this->pSpriteSFrames[i].sTextureName, _this->pSpriteSFrames[i].word_000032);
 
    for (j = 0; j < 8; ++j)

@@ -12759,12 +12759,12 @@ void __cdecl InitializeAwards()
       {
         if ( v6 == (char *)1 )
         {
-          *(_DWORD *)(&unk_723E88 + v7) = sub_452C30(result);
+          *(_DWORD *)(unk_723E88 + v7) = sub_452C30(result);
         }
         else
         {
           if ( v6 == (char *)2 )
-            *(_DWORD *)(&unk_723E88 + v7 + 4) = atoi(result);
+            *(_DWORD *)(unk_723E88 + v7 + 4) = atoi(result);
         }
       }
       ++v6;

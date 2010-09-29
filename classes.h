@@ -207,6 +207,8 @@ struct class04
 //sizeof = 3CBC38
 //void *__thiscall sub_45BB06(void *this);
 void class04_ctor(struct class04 *_this);
+//char __thiscall sub_45D698(int this, char a2);
+bool class04_sub_45D698(struct class04 *_this, char a2);
 
 
 
@@ -725,6 +727,7 @@ struct LODFile
  int   dword_00ECA8;
  int   dword_00ECAC;
  struct HardwareSprite *pHardwareSprites; // dword @ 00ECB0    1500 structs 40 bytes long, maybe only for pLODFile_Sprites_LOD
+                                          //                   addon: 3000 structs
 
  char byte_00ECB4[0x2EC8];
 
@@ -1550,9 +1553,9 @@ struct class58
  char unk_1A0858[0x6405];
  char unk_1A6C5D[0xF];
  char unk_1A6C6C[0x161398];
+ int  dword_308004;
+ int  dword_308008;
  int  std__vector_30B00C[1024]; // dword[1024] @ 30B00C   template<int>
- //int  dword_308004;
- //int  dword_308008;
  int  std__vector_30B00C_size;  // dword @ 30800C
 };
 //sizeof == ?

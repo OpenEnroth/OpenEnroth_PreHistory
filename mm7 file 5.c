@@ -13154,7 +13154,7 @@ LABEL_21:
 }
 
 //----- (0047C4FC) --------------------------------------------------------
-signed int __fastcall sub_47C4FC(int a1, int a2, float a3, int a4, int a5)
+signed int __fastcall sub_47C4FC_GetActorTintColor(int a1, int a2, float a3, int a4, int a5)
 {
   signed int v5; // edx@1
   int v6; // esi@1

@@ -6971,7 +6971,7 @@ void __cdecl sub_47BACF_ProbablyDrawActors()
         if ( pD3DRenderer->pRenderD3D3 )
         {
           local_04.dword_000028 = pEntity->dword_000010;
-          local_04.dword_000028 = v3;
+          local_04.dword_00002C = v3;
           Render_sub_4A4023(pD3DRenderer, &local_04, &pLODFile_Sprites_LOD->pHardwareSprites[pEntity->uHardwareSpriteID], v8, pEntity);
         }
         else
