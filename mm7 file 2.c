@@ -9910,7 +9910,7 @@ void __cdecl sub_4156F0_LooksLike_UI_ProcessCallbacks()
 
   if ( sub_466CA0() != MENU_CREATEPARTY )
     sub_41CD4F_MaybeOnlyUI_OnKeyDown(VK_NEXT);
-  for ( i = 1; i <= uNumGUIWindows; ++i )
+  for ( i = 1; i <= sLastGUIWindowIdx; ++i )
   {
     pWnd = &GUIWindow_List[array_5075E0[i] - 1];
     v0 = pWnd->bSlotUsed;
@@ -11532,8 +11532,8 @@ void __thiscall OnMouseLeftClick(void *_this)
         }
       }
     }
-    v7 = uNumGUIWindows;
-    if ( uNumGUIWindows < 0 )
+    v7 = sLastGUIWindowIdx;
+    if ( sLastGUIWindowIdx < 0 )
       return;
     while ( 1 )
     {
@@ -12790,9 +12790,9 @@ int __fastcall sub_41B438(unsigned __int8 a1)
   int *v4; // ecx@2
   int v5; // edx@12
 
-  v2 = uNumGUIWindows;
+  v2 = sLastGUIWindowIdx;
   v1 = toupper(a1);
-  if ( uNumGUIWindows >= 0 )
+  if ( sLastGUIWindowIdx >= 0 )
   {
     while ( 2 )
     {
@@ -12841,14 +12841,14 @@ int __fastcall sub_41B4E1(unsigned __int8 a1, unsigned __int8 a2, char a3)
   v9 = result;
   if ( a3 )
   {
-    for ( i = uNumGUIWindows; i >= 0; --i )
+    for ( i = sLastGUIWindowIdx; i >= 0; --i )
     {
       result = 84 * array_5075E0[i];
       for ( j = *(int *)((char *)&dword_506F48 + result); j; j = *(_DWORD *)(j + 52) )
         *(_DWORD *)(j + 40) = 0;
     }
   }
-  for ( k = uNumGUIWindows; k >= 0; --k )
+  for ( k = sLastGUIWindowIdx; k >= 0; --k )
   {
     result = 84 * array_5075E0[k];
     for ( l = *(int *)((char *)&dword_506F48 + result); l; l = *(_DWORD *)(l + 52) )
@@ -12898,7 +12898,7 @@ int __cdecl LoadFontsAndSomeStuff()
  pFontComic = LoadFont("comic.fnt", "FONTPAL");
  pFontSmallnum = LoadFont("smallnum.fnt", "FONTPAL");
 
- uNumGUIWindows = -1;
+ sLastGUIWindowIdx = -1;
  memset(array_5075E0, 0, 20 * sizeof(int));
  for (i = 0; i < 20; ++i)
    GUIWindow_List[i].bSlotUsed = false;
@@ -13007,8 +13007,8 @@ signed int __thiscall sub_41CD4F_MaybeOnlyUI_OnKeyDown(unsigned char Key)
   int v34; // [sp+1Ch] [bp-4h]@10
 
   v1 = 0;
-  v30 = uNumGUIWindows;
-  if ( uNumGUIWindows < 0 )
+  v30 = sLastGUIWindowIdx;
+  if ( sLastGUIWindowIdx < 0 )
     return 0;
   v2 = dword_50CBD0[0];
   while ( 1 )

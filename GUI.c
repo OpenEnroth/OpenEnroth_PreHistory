@@ -601,9 +601,9 @@ LABEL_87:
     sub_41C0B8((const char *)v26);
     goto LABEL_123;
   }
-  v1 = uNumGUIWindows;
+  v1 = sLastGUIWindowIdx;
 
-  if ( uNumGUIWindows <= 0 )
+  if ( sLastGUIWindowIdx <= 0 )
   {
 LABEL_38:
     if ( dword_4E28F8 == 10 )
@@ -4396,8 +4396,8 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
   v9->dword_000044 = 0;
   v9->dword_000048 = a7;
 
-  v9->dword_00003C = ++uNumGUIWindows;
-  array_5075E0[uNumGUIWindows] = v8 + 1;
+  v9->dword_00003C = ++sLastGUIWindowIdx;
+  array_5075E0[sLastGUIWindowIdx] = v8 + 1;
 
   if ( a5 <= 20 )
   {
@@ -4817,7 +4817,7 @@ LABEL_26:
     *(_DWORD *)(v1 + 32) = 0;
     *(_DWORD *)(v1 + 24) = 0;
     v11 = *(_DWORD *)(v1 + 60);
-    v10 = uNumGUIWindows;
+    v10 = sLastGUIWindowIdx;
     while ( v11 < v10 )
     {
       v12 = array_5075E0[v11 + 1];
@@ -4826,7 +4826,7 @@ LABEL_26:
       ++v11;
     }
     array_5075E0[v10] = 0;
-    uNumGUIWindows = v10 - 1;
+    sLastGUIWindowIdx = v10 - 1;
   }
 }
 
