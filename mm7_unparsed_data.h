@@ -690,7 +690,7 @@ extern struct GUIWindow GUIWindow_List[20];  // struct array @ MM7.exe::00506F50
 //int dword_506F9C; // weak
 
 extern int array_5075E0[20]; // array @ MM7.exe::005075E0
-extern int uNumGUIWindows; // dword @ MM7.exe::00507630
+extern unsigned int uNumGUIWindows; // dword @ MM7.exe::00507630
 extern int dword_507634; // weak
 extern int dword_507638; // weak
 extern int dword_50763C; // weak
@@ -1119,10 +1119,10 @@ extern unsigned int uNumBillboardsToDraw; // dword @ MM7.exe::005187E0
 extern int dword_5187E4; // weak
 extern int dword_5187E8; // weak
 extern int dword_5187EC; // weak
-extern _UNKNOWN unk_5187F0; // weak
-
-extern struct struct7 array_5187F4[400]; // struct[400] @ MM7.exe::005187F4
-extern int            dword_519AB4; // num of elements in array_5187F4
+extern struct StationaryLightsStack *pStationaryLightsStack; // struct @ MM7.exe::005187F0
+//_UNKNOWN unk_5187F0; // weak
+//struct struct7 array_5187F4[400]; // struct[400] @ MM7.exe::005187F4
+//int            dword_519AB4; // num of elements in array_5187F4
 
 extern _UNKNOWN unk_519AB8; // weak
 
@@ -2057,7 +2057,7 @@ extern float flt_73C81C; // weak
 extern float flt_73C820; // weak
 extern float flt_73C824; // weak
 extern char byte_73C830; // weak
-extern _UNKNOWN unk_73C834; // weak
+extern _UNKNOWN unk_73C834[]; // weak
 extern char byte_73C84C; // weak
 
 

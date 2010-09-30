@@ -3002,10 +3002,16 @@ struct Render_HWLBitmap *Render_LoadHWLTexture(struct Render_HWLContainer *_this
 
     v10->pTruecolorPixels = malloc(4 * v10->uWidth * v10->uHeight);
     for (i = 0; i < v10->uWidth * v10->uHeight; ++i)
-    {
+    {/*
      v10->pTruecolorPixels[i] = (unsigned int)(((unsigned char)(((v10->pPixels[i] & 0xF800) >> 11) * 8)) << 16) |
                                 (unsigned int)(((unsigned char)(((v10->pPixels[i] & 0x07E0) >> 5) * 4)) << 8) |
+                                (unsigned char)((v10->pPixels[i] & 0x1F) * 8);*/
+     //HWL bitmaps are all in A1R5G5B format
+     v10->pTruecolorPixels[i] = (unsigned int)(((unsigned char)(((v10->pPixels[i] & 0xF800) >> 10) * 8)) << 16) |
+                                (unsigned int)(((unsigned char)(((v10->pPixels[i] & 0x03E0) >> 5) * 8)) << 8) |
                                 (unsigned char)((v10->pPixels[i] & 0x1F) * 8);
+     if (v10->pPixels[i] & 0x8000)
+       v10->pTruecolorPixels[i] |= 0xFF000000;
     }
 
     if (_this->dword_061A90)

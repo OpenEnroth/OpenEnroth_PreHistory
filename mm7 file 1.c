@@ -947,7 +947,7 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
 
 
  dword_51B6DC = 0;
- dword_519AB4 = 0;
+ pStationaryLightsStack->uNumStationaryLightsActive = 0;
  if (!pD3DRenderer->pRenderD3D3)
  {
   sub_487389_DrawSpansAndAll();
@@ -5470,6 +5470,9 @@ signed int __cdecl sub_465D0B()
 
  class35_sub_48A8A3(&class35_obj);
  _mkdir("Saves");
+
+ pStationaryLightsStack = malloc(sizeof(struct StationaryLightsStack));
+ memset(pStationaryLightsStack, 0, sizeof(struct StationaryLightsStack));
 
  result = sub_46082C();
  dword_576E28 = 9;

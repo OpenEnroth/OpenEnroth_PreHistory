@@ -347,7 +347,7 @@ void CGame_sub_44F120_MaybeStackStationaryLights(struct CGame *_this, int a2)
     v4 = _this + 20;
  for (i = 0; i < _this->dword_000704; ++i)
  {
-      sub_4AD3C8_MaybePlaceStationaryLights((int)&unk_5187F0,
+      StationaryLightsStack_AddLight(pStationaryLightsStack,
         (signed)*(float *)(v4 - 16),
         (signed)*(float *)(v4 - 12),
         (signed)*(float *)(v4 - 8),
@@ -7632,10 +7632,10 @@ char CGame_sub_44EEA7(struct CGame *_this)
       if ( !((unsigned __int64)(qword_5C6DF0 - *(unsigned __int64 *)&_this->dword_000E10) >> 32) )
         _this->dword_000E24 |= v6;
     }
-    if (_this->dword_000E18 != dword_519AB4 )
+    if (_this->dword_000E18 != pStationaryLightsStack->uNumStationaryLightsActive )
     {
       _this->dword_000E24 |= 1;
-      _this->dword_000E18 = dword_519AB4;
+      _this->dword_000E18 = pStationaryLightsStack->uNumStationaryLightsActive;
     }
     sub_44E904(_this);
     result = 1;

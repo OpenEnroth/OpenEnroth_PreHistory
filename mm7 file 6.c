@@ -6112,15 +6112,18 @@ signed int __thiscall sub_49B04D(void *this, int a2, int a3)
   void *v4; // edi@1
   signed int result; // eax@9
   signed int v6; // [sp-8h] [bp-18h]@8
-  float v7; // [sp+4h] [bp-Ch]@1
-  float v8; // [sp+8h] [bp-8h]@1
-  float v9; // [sp+Ch] [bp-4h]@1
+  struct
+  {
+   float v7; // [sp+4h] [bp-Ch]@1
+   float v8; // [sp+8h] [bp-8h]@1
+   float v9; // [sp+Ch] [bp-4h]@1
+  } local_04;
 
-  v7 = 0.0;
+  local_04.v7 = 0.0;
+  local_04.v8 = 0.0;
+  local_04.v9 = 0.0;
   v4 = this;
-  v8 = 0.0;
-  v9 = 0.0;
-  sub_49B13D(a2, a3, (int)&v7, (int)&a3);
+  sub_49B13D(a2, a3, &local_04, (int)&a3);
   v3 = 2;
   if ( *(_DWORD *)(a2 + 8) )
   {
@@ -6146,9 +6149,9 @@ signed int __thiscall sub_49B04D(void *this, int a2, int a3)
   {
     result = 1;
   }
-  *((float *)v4 + 1) = v7;
-  *((float *)v4 + 2) = v8;
-  *((float *)v4 + 3) = v9;
+  *((float *)v4 + 1) = local_04.v7;
+  *((float *)v4 + 2) = local_04.v8;
+  *((float *)v4 + 3) = local_04.v9;
   *((float *)v4 + 4) = *(float *)&a3;
   *((_BYTE *)v4 + 20) = result;
   return result;
@@ -6222,9 +6225,12 @@ int __stdcall sub_49B13D(int a1, int a2, int a3, int a4)
   float v20; // ecx@10
   double v21; // st7@10
   double v22; // st6@10
-  int v23; // [sp+4h] [bp-64h]@3
-  float v24; // [sp+18h] [bp-50h]@3
-  float v25; // [sp+1Ch] [bp-4Ch]@3
+  struct
+  {
+   float v23; // [sp+4h] [bp-64h]@3
+   float v24; // [sp+18h] [bp-50h]@3
+   float v25; // [sp+1Ch] [bp-4Ch]@3
+  } local_04;
   float v26; // [sp+20h] [bp-48h]@3
   float v27; // [sp+24h] [bp-44h]@3
   float v28; // [sp+2Ch] [bp-3Ch]@3
@@ -6238,9 +6244,12 @@ int __stdcall sub_49B13D(int a1, int a2, int a3, int a4)
   float v36; // [sp+4Ch] [bp-1Ch]@3
   float v37; // [sp+50h] [bp-18h]@3
   float v38; // [sp+54h] [bp-14h]@3
-  float v39; // [sp+58h] [bp-10h]@3
-  float v40; // [sp+5Ch] [bp-Ch]@3
-  float v41; // [sp+60h] [bp-8h]@3
+  struct
+  {
+   float v39; // [sp+58h] [bp-10h]@3
+   float v40; // [sp+5Ch] [bp-Ch]@3
+   float v41; // [sp+60h] [bp-8h]@3
+  } local_58;
   int v42; // [sp+64h] [bp-4h]@1
 
   v42 = 0;
@@ -6278,27 +6287,25 @@ LABEL_8:
       v13 = (double)*(signed int *)(v11 + 4);
       v14 = (double)*(signed int *)(v11 + 8);
       v15 = *(_WORD *)(v6 + 2);
-      v24 = v14;
+      local_04.v24 = v14;
       v16 = v7 + 12 * v15;
       v17 = (double)*(signed int *)v16;
       v28 = (double)*(signed int *)(v16 + 4);
       v29 = (double)*(signed int *)(v16 + 8);
       v30 = v12 - v36;
       v31 = v13 - v37;
-      v32 = v24 - v38;
+      v32 = local_04.v24 - v38;
       v33 = v30;
-      v25 = v17 - v12;
+      local_04.v25 = v17 - v12;
       v34 = v31;
       v26 = v28 - v13;
       v35 = v32;
-      v27 = v29 - v24;
-      v18 = sub_49B32D((int)&v33, (int)&v23, v25, v26, v27);
-      LODWORD(v39) = *(_DWORD *)v18;
-      LODWORD(v40) = *(_DWORD *)(v18 + 4);
-      LODWORD(v41) = *(_DWORD *)(v18 + 8);
-      if ( v39 != 0.0 )
-        break;
-      if ( v40 != 0.0 || v41 != 0.0 )
+      v27 = v29 - local_04.v24;
+      v18 = sub_49B32D((int)&v33, &local_04, local_04.v25, v26, v27);
+      LODWORD(local_58.v39) = *(_DWORD *)v18;
+      LODWORD(local_58.v40) = *(_DWORD *)(v18 + 4);
+      LODWORD(local_58.v41) = *(_DWORD *)(v18 + 8);
+      if (local_58.v39 != 0.0 || local_58.v40 != 0.0 || local_58.v41 != 0.0 )
         break;
       ++v42;
       v6 += 2;
@@ -6308,15 +6315,15 @@ LABEL_8:
         goto LABEL_8;
       }
     }
-    sub_4369DB((int)&v39);
-    v20 = v40;
-    *(float *)a3 = v39;
-    v21 = v38 * v41;
-    v22 = v37 * v40;
+    sub_4369DB(&local_58);
+    v20 = local_58.v40;
+    *(float *)a3 = local_58.v39;
+    v21 = v38 * local_58.v41;
+    v22 = v37 * local_58.v40;
     *(_DWORD *)(a3 + 4) = LODWORD(v20);
-    *(_DWORD *)(a3 + 8) = LODWORD(v41);
+    *(_DWORD *)(a3 + 8) = LODWORD(local_58.v41);
     result = a4;
-    *(float *)a4 = -(v21 + v22 + v36 * v39);
+    *(float *)a4 = -(v21 + v22 + v36 * local_58.v39);
   }
   return result;
 }
@@ -6515,7 +6522,7 @@ char __thiscall sub_49B540(void *this, signed int a2, char a3, int a4, signed in
   v36 = (int)&unk_AE4F70;
   flt_AE4F6C = v18;
   dword_AE4F88 = *(_DWORD *)(v16 + 16);
-  if ( !sub_436932(*(_BYTE *)(v16 + 20), (int)&dword_AE4F64, (int)&unk_AE4F70, (int)&unk_AE4F7C) )
+  if ( !sub_436932_GetFacetOrientation(*(_BYTE *)(v16 + 20), (int)&dword_AE4F64, (int)&unk_AE4F70, (int)&unk_AE4F7C) )
   {
     v37 = 101;
     v36 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\PolyProjector.cpp";
@@ -9626,7 +9633,7 @@ void D3D_DoRenderBillboards()
  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(pD3DRenderer->pRenderD3D3->pDevice, 0, 12, 3);
  //
  runtime_warning(alpha blend was previously set to true but didnt work. investigate)
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, D3DRENDERSTATE_ALPHABLENDENABLE, false);
+ (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, D3DRENDERSTATE_ALPHABLENDENABLE, true);
  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, D3DRENDERSTATE_ZWRITEENABLE, false);
  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, D3DRENDERSTATE_CULLMODE, D3DCULL_NONE);
   
@@ -9639,7 +9646,7 @@ void D3D_DoRenderBillboards()
   if (v1->int_00008C != v0)
   {
    v0 = v1->int_00008C;
-   sub_4A1DA8(v0);
+   sub_4A1DA8_SetupBillboardBlendOptions(v0);
   }
 
   (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->DrawPrimitive)(pD3DRenderer->pRenderD3D3->pDevice, D3DPT_TRIANGLEFAN, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, v1->pQuad, v1->uNumVertices, D3DDP_DONOTUPDATEEXTENTS | D3DDP_DONOTLIGHT);
@@ -9663,7 +9670,7 @@ void D3D_DoRenderBillboards()
 }
 
 //----- (004A1DA8) --------------------------------------------------------
-void __fastcall sub_4A1DA8(signed int a1)
+void __fastcall sub_4A1DA8_SetupBillboardBlendOptions(signed int a1)
 {
   unsigned int v3; // eax@9
 
@@ -9678,8 +9685,8 @@ void __fastcall sub_4A1DA8(signed int a1)
       (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, 35, 0);
     }
 
-    (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, D3DRENDERSTATE_SRCBLEND, 5);
-    (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, D3DRENDERSTATE_DESTBLEND, 6);
+    (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, D3DRENDERSTATE_SRCBLEND, D3DBLEND_SRCALPHA);
+    (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA);
     (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, D3DRENDERSTATE_DITHERENABLE, false);
   }
   if ( a1 > 0 && a1 <= 3 )
@@ -9692,8 +9699,8 @@ void __fastcall sub_4A1DA8(signed int a1)
         (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, 28, 0);
       }
     }
-    (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, D3DRENDERSTATE_SRCBLEND, 2);
-    (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, D3DRENDERSTATE_DESTBLEND, 2);
+    (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, D3DRENDERSTATE_SRCBLEND, D3DBLEND_ONE);
+    (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, D3DRENDERSTATE_DESTBLEND, D3DBLEND_ONE);
     (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, D3DRENDERSTATE_DITHERENABLE, true);
   }
 }
@@ -15218,44 +15225,36 @@ int __thiscall sub_4AD385(int this)
 }
 
 //----- (004AD3C8) --------------------------------------------------------
-char __thiscall sub_4AD3C8_MaybePlaceStationaryLights(int this, __int16 a2, __int16 a3, __int16 a4, __int16 a5, int a6, char a7, char a8, char a9)
+bool StationaryLightsStack_AddLight(struct StationaryLightsStack *_this, int sLightPosX, int sLightPosY, int sLightPosZ, __int16 a5, unsigned int uLightColorRed, unsigned char uLightColorGreen, unsigned char uLightColorBlue, char a9)
 {
-  signed int v9; // eax@1
   char result; // al@2
-  int v11; // eax@2
+ struct StationaryLight *pLight; // eax@2
   char v12; // [sp-18h] [bp-18h]@3
   const CHAR *v13; // [sp-14h] [bp-14h]@3
   int v14; // [sp-10h] [bp-10h]@3
   int v15; // [sp-Ch] [bp-Ch]@3
-  const char *v16; // [sp-8h] [bp-8h]@3
-  int v17; // [sp-4h] [bp-4h]@3
   char *v18; // [sp+18h] [bp+18h]@3
 
-  v9 = *(_DWORD *)(this + 4804);
-  if ( v9 >= 400 )
+  if (_this->uNumStationaryLightsActive >= 400)
   {
-    v17 = 45;
-    v16 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\StationaryLightStack.cpp";
     v18 = &v12;
-    sub_40E2C8(&v12, "Too many stationary lights!", (int)((char *)&a6 + 3));
-    sub_467834(&a7, v12, v13, v14, v15, v16, v17);
-    result = 0;
+    sub_40E2C8(&v12, "Too many stationary lights!", (int)((char *)&uLightColorRed + 3));
+    sub_467834(&uLightColorGreen, v12, v13, v14, v15, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\StationaryLightStack.cpp", __LINE__);
+    return false;
   }
   else
   {
-    v11 = this + 12 * v9 + 4;
-    *(_WORD *)v11 = a2;
-    *(_WORD *)(v11 + 2) = a3;
-    *(_WORD *)(v11 + 4) = a4;
-    *(_WORD *)(v11 + 6) = a5;
-    *(_BYTE *)(v11 + 8) = a6;
-    *(_BYTE *)(v11 + 9) = a7;
-    *(_BYTE *)(v11 + 10) = a8;
-    *(_BYTE *)(v11 + 11) = a9;
-    ++*(_DWORD *)(this + 4804);
-    result = 1;
+   pLight = &_this->pLights[_this->uNumStationaryLightsActive++];
+   pLight->sLightPosX = sLightPosX;
+   pLight->sLightPosY = sLightPosY;
+   pLight->sLightPosZ = sLightPosZ;
+   pLight->word_000006 = a5;
+   pLight->uLightColorRed = uLightColorRed;
+   pLight->uLightColorGreen = uLightColorGreen;
+   pLight->uLightColorBlue = uLightColorBlue;
+   pLight->byte_00000B = a9;
+   return true;
   }
-  return result;
 }
 
 //----- (004AD48F) --------------------------------------------------------

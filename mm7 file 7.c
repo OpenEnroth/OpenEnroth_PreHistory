@@ -1374,9 +1374,9 @@ void __fastcall sub_4AE5F1(int a1)
     }
   }
   v80 = 0;
-  if ( dword_519AB4 > 0 )
+  if ( pStationaryLightsStack->uNumStationaryLightsActive > 0 )
   {
-   v43 = &array_5187F4[0].word_000002;
+   v43 = &pStationaryLightsStack->pLights[0].sLightPosY;
     do
     {
       if ( v81 >= 20 )
@@ -1437,7 +1437,7 @@ void __fastcall sub_4AE5F1(int a1)
       ++v80;
       v43 = (char *)v43 + 12;
     }
-    while ( v80 < dword_519AB4 );
+    while ( v80 < pStationaryLightsStack->uNumStationaryLightsActive );
   }
   dword_F8ADD4 = v81;
   v55 = *(_WORD *)(v5 + 82);

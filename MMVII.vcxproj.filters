@@ -435,6 +435,12 @@
     <ClInclude Include="Render\TextureOGL.h">
       <Filter>Render</Filter>
     </ClInclude>
+    <ClInclude Include="Items.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSoftware.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="legacy dx\d3dvec.inl">

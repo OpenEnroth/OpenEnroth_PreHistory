@@ -100,7 +100,7 @@ struct SpriteFrame
  unsigned short pSpriteIDs[8];    // word[8]  @ 000018
  int            dword_000028;
  int            dword_00002C;  // some flags   0x01 next frame sequence is a part of a current (animated sqeuences)   0x10 single frame per frame sequence
- short          word_000030; // looks like bool whether this object is a light source or can be lit by light source
+ short          word_000030; // looks like bool whether this object is a light source or can be lit by light source. StationaryLight is created if decoration has this field != 0
  short          word_000032;
  short          word_000034; // some palette info returned from sub_48A3BC
  short          word_000036;
@@ -215,7 +215,8 @@ struct DecorationDescription
 {
  unsigned char  array_000000[32];
  unsigned char  array_000020[32];
- int            dword_000040;
+ short          word_000040;
+ unsigned short uDecorationHeight;  // word_000042    or actually light source height from the decoration base
  int            dword_000044;
  unsigned short uSpriteID;          // word @ 000048
  short          word_00004A;

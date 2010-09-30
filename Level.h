@@ -180,6 +180,4 @@ bool sub_44C1E8(struct class51_stru2 *_this);
 bool sub_482170(struct class51_stru2 *_this, int a2, struct struct8 *a3);
 bool __stdcall sub_45CDB7(struct class51_stru2 *_this, struct class04 *);
 
-bool __stdcall sub_45CE50(struct struct7 *_this, struct class51_stru2 *a2, int *a3, char a4);
-
 #pragma pack(pop)

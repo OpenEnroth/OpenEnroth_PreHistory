@@ -1353,36 +1353,6 @@ struct struct5
 void sub_440F07(struct struct5 *pArray);
 
 
-//DERIVED from struct7
-struct struct6//: public struct7
-{
- short word_000000;
- short word_000002;
- short word_000004;
- short word_000006;
- char  byte_000008;
- char  byte_000009;
- char  byte_00000A;
- char  byte_00000B;
- char  byte_00000C[6];
-};
-//sizeof == 12
-
-//BASE CLASS for struct6
-struct struct7
-{
- short word_000000;
- short word_000002;
- short word_000004;
- short word_000006;
- char  byte_000008;
- char  byte_000009;
- char  byte_00000A;
- char  byte_00000B;
-};
-//sizeof == 0C
-
-
 struct struct8
 {
  float                  flt_000000;
@@ -1636,5 +1606,57 @@ struct sub_485975_stru1
  int dword_000020;
  int dword_000024;
 };
+
+
+
+
+
+struct StationaryLight
+{
+ short         sLightPosX;       // word @ 000000
+ short         sLightPosY;       // word @ 000002
+ short         sLightPosZ;       // word @ 000004
+ short         word_000006; // light strength?
+ unsigned char uLightColorRed;   // byte @ 000008
+ unsigned char uLightColorGreen; // byte @ 000009
+ unsigned char uLightColorBlue;  // byte @ 00000A
+ char          byte_00000B;
+};
+//sizeof  = 0C
+//char __stdcall sub_45CE50(int this, int a2, int *a3, char a4);
+bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct StationaryLight *_this, struct class51_stru2 *a2, int *a3, char a4);
+
+struct StationaryLightsStack
+{
+ int                    dword_000000;
+ struct StationaryLight pLights[400];               // struct[400] @ 000004
+ unsigned int           uNumStationaryLightsActive; // dword       @ 0012C4
+};
+//siezof ~ ?
+//char __thiscall sub_4AD3C8(int this, __int16 a2, __int16 a3, __int16 a4, __int16 a5, int a6, char a7, char a8, char a9);
+bool StationaryLightsStack_AddLight(struct StationaryLightsStack *_this, int sLightPosX, int sLightPosY, int sLightPosZ, __int16 a5, unsigned int uLightColorRed, unsigned char uLightColorGreen, unsigned char uLightColorBlue, char a9);
+
+
+
+
+
+//DERIVED from StationaryLight
+struct struct6//: public StationaryLight
+{
+ short word_000000;
+ short word_000002;
+ short word_000004;
+ short word_000006;
+ char  byte_000008;
+ char  byte_000009;
+ char  byte_00000A;
+ char  byte_00000B;
+ char  byte_00000C[6];
+};
+//sizeof == 12
+
+
+
+
 
 #pragma pack(pop)

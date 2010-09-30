@@ -76,7 +76,7 @@ struct RenderBillboardD3D3
  unsigned int       uNumVertices; // dword     @ 000004
  struct D3DVERTEX   pQuad[4];     // struct[4] @ 000008
  float              flt_000088;
- int                int_00008C;
+ int                int_00008C; // 0 for alpha-blend, other for opaque
  int                dword_000090;
  int                dword_000094;
  unsigned int       dword_000098; // index in pBillboardRenderList of the original RenderBillboard

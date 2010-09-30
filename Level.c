@@ -1669,15 +1669,15 @@ bool __stdcall sub_45CDB7(struct class51_stru2 *_this, struct class04 *pClass04)
  {
   if ( v7 >= 20 )
     break;
-  //pClass04 is passed as the first parameter here in ecx but is never used inside sub_45CE50
-  sub_45CE50(&array_519ABC[i], _this, &v7, 1);
+  //pClass04 is passed as the first parameter here in ecx but is never used inside StationaryLight_sub_45CE50_ProbablyApplyLightToScene
+  StationaryLight_sub_45CE50_ProbablyApplyLightToScene(&array_519ABC[i], _this, &v7, 1);
  }
 
- for (i = 0; i < dword_519AB4; ++i)
+ for (i = 0; i < pStationaryLightsStack->uNumStationaryLightsActive; ++i)
  {
   if ( v7 >= 20 )
     break;
-  sub_45CE50(&array_5187F4[i], _this, &v7, 0);
+  StationaryLight_sub_45CE50_ProbablyApplyLightToScene(&pStationaryLightsStack->pLights[i], _this, &v7, 0);
  }
 
  dword_F8ADD4 = v7;
@@ -1686,7 +1686,7 @@ bool __stdcall sub_45CDB7(struct class51_stru2 *_this, struct class04 *pClass04)
 
 
 //----- (0045CE50) --------------------------------------------------------
-bool __stdcall sub_45CE50(struct struct7 *_this, struct class51_stru2 *a2, int *a3, char a4)
+bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct StationaryLight *_this, struct class51_stru2 *a2, int *a3, char a4)
 {
   signed int v4; // ebx@1
   int v5; // ecx@2
@@ -1698,31 +1698,32 @@ bool __stdcall sub_45CE50(struct struct7 *_this, struct class51_stru2 *a2, int *
   int v11; // ebx@11
   int v12; // eax@15
 
+  //apply light to scene
   v4 = _this->word_000006;
-  v5 = _this->word_000000;
-  v6 = _this->word_000002;
-  v7 = _this->word_000004;
-  v8 = ((int)_this->word_000000 * a2->dword_000000 +
-        (int)_this->word_000002 * a2->dword_000004 +
-        (int)_this->word_000004 * a2->dword_000008 + a2->dword_00000C) >> 16;
+  v5 = _this->sLightPosX;
+  v6 = _this->sLightPosY;
+  v7 = _this->sLightPosZ;
+  v8 = ((int)_this->sLightPosX * a2->dword_000000 +
+        (int)_this->sLightPosY * a2->dword_000004 +
+        (int)_this->sLightPosZ * a2->dword_000008 + a2->dword_00000C) >> 16;
 
  if (_this->word_000006 > 0 &&
-     _this->word_000000 > *(_WORD *)(a2 + 278) - _this->word_000006 &&
-     _this->word_000000 < *(_WORD *)(a2 + 280) + _this->word_000006 &&
-     _this->word_000002 > *(_WORD *)(a2 + 282) - _this->word_000006 &&
-     _this->word_000002 < *(_WORD *)(a2 + 284) + _this->word_000006 &&
-     _this->word_000004 > *(_WORD *)(a2 + 286) - _this->word_000006 &&
-     _this->word_000004 < *(_WORD *)(a2 + 288) + _this->word_000006 && a4 ||
+     _this->sLightPosX > *(_WORD *)(a2 + 278) - _this->word_000006 &&
+     _this->sLightPosX < *(_WORD *)(a2 + 280) + _this->word_000006 &&
+     _this->sLightPosY > *(_WORD *)(a2 + 282) - _this->word_000006 &&
+     _this->sLightPosY < *(_WORD *)(a2 + 284) + _this->word_000006 &&
+     _this->sLightPosZ > *(_WORD *)(a2 + 286) - _this->word_000006 &&
+     _this->sLightPosZ < *(_WORD *)(a2 + 288) + _this->word_000006 && a4 ||
      v8 >= 0 && v8 <= _this->word_000006)
   {
     dword_F8ADD8[*(_DWORD *)a3] = _this->word_000006;
     dword_F8AE28[*(_DWORD *)a3] = 65536 / _this->word_000006;
-    dword_F8AE78[*(_DWORD *)a3] = _this->word_000000;
-    dword_F8AEC8[*(_DWORD *)a3] = _this->word_000002;
-    dword_F8AFB8[*(_DWORD *)a3] = _this->word_000004;
-    flt_F8B008[*(_DWORD *)a3] = (double)_this->byte_000008 * 0.003921568859368563;
-    flt_F8B058[*(_DWORD *)a3] = (double)_this->byte_000009 * 0.003921568859368563;
-    flt_F8B0A8[*(_DWORD *)a3] = (double)_this->byte_00000A * 0.003921568859368563;
+    dword_F8AE78[*(_DWORD *)a3] = _this->sLightPosX;
+    dword_F8AEC8[*(_DWORD *)a3] = _this->sLightPosY;
+    dword_F8AFB8[*(_DWORD *)a3] = _this->sLightPosZ;
+    flt_F8B008[*(_DWORD *)a3] = (double)_this->uLightColorRed / 255.0;
+    flt_F8B058[*(_DWORD *)a3] = (double)_this->uLightColorGreen / 255.0;
+    flt_F8B0A8[*(_DWORD *)a3] = (double)_this->uLightColorBlue / 255.0;
     v11 = pD3DRenderer->bUsingSpecular;
     dword_F8AF18[*(_DWORD *)a3] = abs(v8);
     byte_F8B0F8[*(_DWORD *)a3] = _this->byte_00000B;
@@ -1745,8 +1746,8 @@ bool __stdcall sub_45CE50(struct struct7 *_this, struct class51_stru2 *a2, int *
         if ( byte_F8B0F8[*(_DWORD *)a3] & 4 )
         {
           *(float *)((char *)flt_F8B008 + v12) = *(float *)((char *)flt_F8B008 + v12) * 0.3300000131130219;
-          *(float *)(v12 + 16298072) = *(float *)(v12 + 16298072) * 0.3300000131130219;
-          *(float *)(v12 + 16298152) = *(float *)(v12 + 16298152) * 0.3300000131130219;
+          *(float *)(v12 + 0xF8B058) = *(float *)(v12 + 16298072) * 0.3300000131130219;
+          *(float *)(v12 + 0xF8B0A8) = *(float *)(v12 + 16298152) * 0.3300000131130219;
         }
       }
     }

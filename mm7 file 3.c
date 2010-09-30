@@ -3449,9 +3449,9 @@ signed int __fastcall sub_43F5C8(signed int a1, int a2, float a3, float a4, floa
     }
   }
   v52 = 0;
-  if ( dword_519AB4 > 0 )
+  if ( pStationaryLightsStack->uNumStationaryLightsActive > 0 )
   {
-   v27 = &array_5187F4[0].word_000004;
+   v27 = &pStationaryLightsStack->pLights[0].sLightPosZ;
     do
     {
       v28 = abs((signed __int64)((double)*((_WORD *)v27 - 3) - a3));
@@ -3494,7 +3494,7 @@ signed int __fastcall sub_43F5C8(signed int a1, int a2, float a3, float a4, floa
       ++v52;
       v27 = (char *)v27 + 12;
     }
-    while ( v52 < dword_519AB4 );
+    while ( v52 < pStationaryLightsStack->uNumStationaryLightsActive );
   }
   if ( v5 <= 31 )
   {

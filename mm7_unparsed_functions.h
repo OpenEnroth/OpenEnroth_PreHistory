@@ -38,7 +38,6 @@ int LoadFileToBuffer(const char *pSourceFile, unsigned char *pOutBuffer, unsigne
 int __cdecl Initialize_GlobalEVT();
 int __cdecl MaybeDoAutosave();
 void __fastcall MoviePlayerLoop(const char *Source, int a2, int a3, int a4);
-char __thiscall sub_4AD3C8_MaybePlaceStationaryLights(int this, __int16 a2, __int16 a3, __int16 a4, __int16 a5, int a6, char a7, char a8, char a9);
 char __cdecl LoadPlayerPortraintsAndVoices();
 signed int __cdecl PlayerCreation_ComputeAttributeBonus();
 void __cdecl sub_487DBE_LooksLikeResetNewEdgesBuf();
@@ -351,7 +350,7 @@ int __thiscall sub_43648F(int this, int a2);
 void __stdcall sub_4364C5(int a1, int a2, int a3, int a4);
 void __stdcall sub_436523(struct RenderVertex *a1, int a2);
 char __stdcall sub_43669D(int a1, int a2, int a3, signed int *a4, int a5, int a6, char a7);
-char __stdcall sub_436932(char a1, int a2, int a3, int a4);
+char __stdcall sub_436932_GetFacetOrientation(char a1, int a2, int a3, int a4);
 void __fastcall sub_4369DB(int a1);
 int __stdcall sub_436A24(const char *Str1);
 double __stdcall sub_436A40(int a1, int a2);
@@ -1097,7 +1096,7 @@ int __thiscall sub_4A184C(void *this);
 int __fastcall sub_4A19D8(unsigned int a1, unsigned int a2);
 int __stdcall sub_4A1B22_Billboard_ProbablyAddToListAndSortByZOrder(float a1);
 void D3D_DoRenderBillboards();
-void __fastcall sub_4A1DA8(signed int a1);
+void __fastcall sub_4A1DA8_SetupBillboardBlendOptions(signed int a1);
 int __cdecl sub_4A1E9D();
 int __stdcall sub_4A1EA3(int a1);
 int __stdcall sub_4A2031(float, int, int, int, int); // idb

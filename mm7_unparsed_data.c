@@ -743,7 +743,7 @@ struct unnamed_505898 struct_505898;
 //int dword_506F9C; // weak
 
  int array_5075E0[20]; // array @ MM7.exe::005075E0
- int uNumGUIWindows; // dword @ MM7.exe::00507630
+unsigned int uNumGUIWindows; // dword @ MM7.exe::00507630
  int dword_507634; // weak
  int dword_507638; // weak
  int dword_50763C; // weak
@@ -1149,13 +1149,9 @@ unsigned int           uNumBillboardsToDraw;      // dword       @ MM7.exe::0051
  int dword_5187E4; // weak
  int dword_5187E8; // weak
  int dword_5187EC; // weak
- _UNKNOWN unk_5187F0; // weak
 
-struct struct7 array_5187F4[400]; // struct[400] @ MM7.exe::005187F4
-//_UNKNOWN unk_5187F4; // weak
-//_UNKNOWN unk_5187F6; // weak
-//_UNKNOWN unk_5187FA; // weak
- int dword_519AB4; // num of elements in array_5187F4
+struct StationaryLightsStack *pStationaryLightsStack = 0; // struct @ MM7.exe::005187F0
+
 
  _UNKNOWN unk_519AB8; // weak
 
@@ -1959,7 +1955,7 @@ unsigned char *pQuestsTXT_Raw = 0;      // ptr @ MM7.exe::0073C400
  float flt_73C820; // weak
  float flt_73C824; // weak
  char byte_73C830; // weak
- _UNKNOWN unk_73C834; // weak
+ _UNKNOWN unk_73C834[array_size_unknown]; // weak
  char byte_73C84C; // weak
 
 

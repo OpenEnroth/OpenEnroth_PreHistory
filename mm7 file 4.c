@@ -4716,7 +4716,7 @@ char __stdcall sub_43669D(int a1, int a2, int a3, signed int *a4, int a5, int a6
 }
 
 //----- (00436932) --------------------------------------------------------
-char __stdcall sub_436932(char a1, int a2, int a3, int a4)
+char __stdcall sub_436932_GetFacetOrientation(char a1, int a2, int a3, int a4)
 {
   int v4; // eax@9
   double v5; // st7@9
@@ -10128,6 +10128,11 @@ int __thiscall sub_45BBAA(void *this)
   _eh_vector_destructor_iterator_((char *)v2 + 4, 3100, 512, class04_stru0_detor);
 }
 
+void loc_45BE7B()
+{
+ //unk
+}
+
 //----- (0045BC07) --------------------------------------------------------
 char __thiscall sub_45BC07(void *this, int a2, int a3, signed int a4, int a5, float a6, int a7)
 {
@@ -10186,11 +10191,11 @@ char __thiscall sub_45BC07(void *this, int a2, int a3, signed int a4, int a5, fl
     while ( v8 );
     atexit(0);
   }
-  if ( !(byte_69BD40 & 2) )
+  if (~byte_69BD40 & 2)
   {
     byte_69BD40 |= 2;
     sub_489B60((int)&unk_69B110);
-    compile_error;//atexit(loc_45BE7B);
+    atexit(loc_45BE7B);
   }
   v43 = a5;
   if ( LODWORD(a6) )
@@ -10231,7 +10236,7 @@ char __thiscall sub_45BC07(void *this, int a2, int a3, signed int a4, int a5, fl
   v29 = (int)&unk_69B120;
   flt_69B11C = v16;
   dword_69B138 = *(_DWORD *)(v14 + 16);
-  if ( !sub_436932(*(_BYTE *)(v14 + 20), (int)&dword_69B114, (int)&unk_69B120, (int)&unk_69B12C) )
+  if ( !sub_436932_GetFacetOrientation(*(_BYTE *)(v14 + 20), (int)&dword_69B114, (int)&unk_69B120, (int)&unk_69B12C) )
   {
     v30 = 119;
     v29 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Light.cpp";
@@ -10891,9 +10896,9 @@ char __stdcall sub_45C7F6(signed int a1)
     while ( v6 ^ v7 );
   }
   v8 = 0;
-  if ( dword_519AB4 > 0 )
+  if ( pStationaryLightsStack->uNumStationaryLightsActive > 0 )
   {
-    v12 = array_5187F4;
+    v12 = pStationaryLightsStack->pLights;
     do
     {
       if ( a1 >= 20 )
@@ -10902,7 +10907,7 @@ char __stdcall sub_45C7F6(signed int a1)
       v12 += 12;
       ++v8;
     }
-    while ( v8 < dword_519AB4 );
+    while ( v8 < pStationaryLightsStack->uNumStationaryLightsActive );
   }
   dword_F8ADD4 = a1;
   return 1;
@@ -11189,11 +11194,11 @@ bool __stdcall sub_45D036(struct Normal *pNormal, int a2, struct RenderVertex *a
       sub_45D0D5(&array_519ABC[i], pNormal, a2, a3, a4, X, &v10);
   }
 
-  for (i = 0; i < dword_519AB4; ++i)
+  for (i = 0; i < pStationaryLightsStack->uNumStationaryLightsActive; ++i)
   {
       if ( v10 >= 20 )
         break;
-      sub_45D0D5(&array_5187F4[i], pNormal, a2, a3, a4, X, &v10);
+      sub_45D0D5(&pStationaryLightsStack->pLights[i], pNormal, a2, a3, a4, X, &v10);
   }
 
   dword_F8ADD4 = v10;
@@ -13117,7 +13122,7 @@ char __thiscall sub_460A78(void *this)
   dword_6A0D08 = 0;
   dword_6A0D0C = 0;
   TryLoadLevelFromFile();
-  dword_519AB4 = 0;
+  pStationaryLightsStack->uNumStationaryLightsActive = 0;
   v4 = sub_498E0A(
          byte_6BE3C8,
          Str1,
@@ -13127,7 +13132,7 @@ char __thiscall sub_460A78(void *this)
      - 1;
   if ( !v4 )
   {
-    sprintfex(&Args, "Unable to open %s", Str1);
+    wsprintfA(Args, "Unable to open %s", Str1);
     erroneous_printf(&Args);
   }
   v5 = v4 - 1;
@@ -13251,8 +13256,7 @@ LABEL_43:
               v19 = *(_BYTE *)(v17 + 81);
               v40 = *(_BYTE *)(v17 + 82);
             }
-            sub_4AD3C8_MaybePlaceStationaryLights(
-              (int)&unk_5187F0,
+            StationaryLightsStack_AddLight(pStationaryLightsStack,
               *(_DWORD *)(v14 - 4),
               *(_DWORD *)v14,
               *(_WORD *)(v14 + 4) + *(_WORD *)(v17 + 66) / 2,

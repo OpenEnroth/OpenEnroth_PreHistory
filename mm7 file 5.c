@@ -2309,7 +2309,7 @@ int __cdecl sub_46A99B()
   while ( 2 )
   {
     v31 = 100;
-    v6 = pD3DRenderer->pActiveZBuffer + 4 * (v3 + v5 - v0 / 2);
+    v6 = pD3DRenderer->pActiveZBuffer + (v3 + v5 - v0 / 2);
     v7 = 4 * v2;
     while ( 1 )
     {
@@ -2399,7 +2399,7 @@ LABEL_18:
         return 0;
       if (~pLayingItemsList[v19].word_00001A & 0x0010)
       {
-        v23 = (char *)sub_456499(pLayingItemsList[v19].dword_000024);
+        v23 = (char *)sub_456499(&pLayingItemsList[v19].dword_000024);
 LABEL_36:
         v24 = v23;
         goto LABEL_51;
@@ -11702,7 +11702,7 @@ LABEL_30:
             v35 = 3;
           else
             v35 = v54 != 0 ? 5 : 0;
-          sub_49B04D(&unk_73C834, v4, v2 - 8);
+          sub_49B04D(unk_73C834, v4, v2 - 8);
           if ( pClass58_global->std__vector_30B00C_size > 0 )
           {
             v45 = -1;
@@ -12494,7 +12494,7 @@ void __cdecl sub_47A95E_PrepareDecorationsRenderList()
                 v15 = 255;
               }
               v54 = v14;
-              sub_4AD3C8_MaybePlaceStationaryLights((int)&unk_5187F0, v43, v44, v46 + *(_WORD *)(v2 + 66) / 2, v53, v16, v15, v14, byte_4E94D0);
+              StationaryLightsStack_AddLight(pStationaryLightsStack, v43, v44, v46 + v2->uDecorationHeight / 2, v53, v16, v15, v14, byte_4E94D0);
             }
             v17 = (v43 - pOldCamera->dword_000000) << 16;
             if (pOldCamera->sRotationX)
