@@ -25,16 +25,16 @@ struct Actor_struct0
 struct DirectionInfo
 {
   //normalized vector of direction from first object to second object
-  int   sVecX;  //@ 000000  fixed-point format 16.16
-  int   sVecY;  //@ 000004  fixed-point format 16.16
-  int   sVecZ;  //@ 000008  fixed-point format 16.16
+  int   sVecX;  // @ 000000  fixed-point format 16.16
+  int   sVecY;  // @ 000004  fixed-point format 16.16
+  int   sVecZ;  // @ 000008  fixed-point format 16.16
 
-  unsigned int uDistance; //@ 00000C distance between the objects 
-  unsigned int uDistanceXY;//@ 000010 projection of distance to the XY plane
-  unsigned int uYawAngle;//@ 000014  yaw angle calculated from direction vector
-  unsigned int uPitchAngle;//@ 000018 pitch angle calculated from direction vector
+  unsigned int uDistance;   // @ 00000C distance between the objects 
+  unsigned int uDistanceXY; // @ 000010 projection of distance to the XY plane
+  unsigned int uYawAngle;   // @ 000014 yaw angle calculated from direction vector
+  unsigned int uPitchAngle; // @ 000018 pitch angle calculated from direction vector
 };
-//sizeof == 1C
+//sizeof = 1C
 
 struct Actor
 {

@@ -5545,9 +5545,6 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
   int v39; // esi@203
   int v40; // eax@203
   int v41; // eax@203
-  char v42; // zf@203
-  char v43; // sf@203
-  unsigned __int8 v44; // of@203
   char v45; // dl@205
   int v46; // eax@215
   int v47; // eax@217
@@ -5751,7 +5748,7 @@ LABEL_9:
       {
         if ( v100 >> 6 < (unsigned int)pClass51_global->uNumBModels )
         {
-          v6 = 188 * (v100 >> 6) + pClass51_global->pBModels + 84;
+          v6 = (char *)&pClass51_global->pBModels[(v100 >> 6)] + 84;
           v7 = v100 & 0x3F;
           if ( *(_BYTE *)(*(_DWORD *)v6 + 308 * v7 + 31) & 4 )
           {
@@ -5909,31 +5906,18 @@ LABEL_9:
         break;
 
       case 5: // move forward
-        //v118 = class59_SinCos(pClass59_global, v117);
-        //v116 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v107 * fWalkSpeedMultiplier)) >> 16;
-        //v0 += v116;
-
         v0 += cosf(3.1415926 * (v117 / 1024.0)) * pParty_global->uWalkSpeed * fWalkSpeedMultiplier;
         v1 += sinf(3.1415926 * (v117 / 1024.0)) * pParty_global->uWalkSpeed * fWalkSpeedMultiplier;
-        //v118 = class59_SinCos(pClass59_global, v117 - pClass59_global->uIntegerHalfPi);
-        //v116 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v107 * fWalkSpeedMultiplier)) >> 16;
-        //v1 += v116;
         v120 = v1;
         v116 = 1;
-        break;
+      break;
 
       case 6: // move backward
-        //v118 = class59_SinCos(pClass59_global, v117);
-        //v116 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v107 * flt_6BE148)) >> 16;
-        //v0 -= v116;
         v0 -= cosf(3.1415926 * (v117 / 1024.0)) * pParty_global->uWalkSpeed * fWalkSpeedMultiplier;
         v1 -= sinf(3.1415926 * (v117 / 1024.0)) * pParty_global->uWalkSpeed * fWalkSpeedMultiplier;
-        //v118 = class59_SinCos(pClass59_global, v117 - pClass59_global->uIntegerHalfPi);
-        //v116 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v107 * flt_6BE148)) >> 16;
-        //v1 -= v116;
         v120 = v1;
         v116 = 1;
-        break;
+      break;
 
       case 16:
         if (pParty_global->dword_000704)
@@ -6208,11 +6192,11 @@ LABEL_151:
     }
     if ( sub_47050A(&stru_721530, v28) )
       break;
-    sub_46E889((void *)1);
+    sub_46E889(1);
     v30 = WorldPosToGridCellZ(pParty_global->sPartyPosY);
     v31 = WorldPosToGridCellX(pParty_global->sPartyPosX);
     sub_46E26D_ProbablyCollideAgainstDecorations(v31, v30);
-    sub_46ED8A((void *)4);
+    sub_46ED8A(4);
     for ( i = 0; i < (signed int)uNumActors; ++i )
       sub_46DF1A(i, 0);
     if ( stru_721530.dword_00007C >= stru_721530.dword_00006C )
@@ -6326,15 +6310,15 @@ LABEL_199:
       if ( (stru_721530.dword_000078 & 7) == 6 )
       {
         pParty_global->dword_000704 = 0;
-        v40 = pClass51_global->pBModels + 188 * (stru_721530.dword_000078 >> 9);
+        v40 = &pClass51_global->pBModels[(stru_721530.dword_000078 >> 9)];
         v119 = v40;
         v39 = *(_DWORD *)(v40 + 84) + 308 * ((stru_721530.dword_000078 >> 3) & 0x3F);
         v41 = *(_WORD *)(v39 + 288) - *(_WORD *)(v39 + 286);
-        compile_error;//v44 = __SETO__(v41, 32);
-        v42 = v41 == 32;
-        v43 = v41 - 32 < 0;
+        //v44 = __SETO__(v41, 32);
+        //v42 = v41 == 32;
+        //v43 = v41 - 32 < 0;
         v38 = *(_DWORD *)(v39 + 8);
-        v121 = (unsigned __int8)(v43 ^ v44 | v42);
+        v121 = v41 <= 32; //(unsigned __int8)(v43 ^ v44 | v42);
         v111 = v38 < 46378;
         if ( byte_6BE3C4_MaybeDrowningFlag == 1 )
           v111 = 0;
@@ -6433,8 +6417,7 @@ LABEL_234:
     if ( v106 && (!v104 || v93) )
     {
       if (!v99
-        && !(*(_BYTE *)(*(_DWORD *)(188 * (pParty_global->dword_0006F4 >> 9) + pClass51_global->pBModels + 84)
-                      + 308 * ((pParty_global->dword_0006F4 >> 3) & 0x3F)
+       && !(*(_BYTE *)((char *)&pClass51_global->pBModels[(pParty_global->dword_0006F4 >> 9)].ptr_000054[((pParty_global->dword_0006F4 >> 3) & 0x3F)]
                       + 29) & 0x20) )
       {
         v88 = 0;

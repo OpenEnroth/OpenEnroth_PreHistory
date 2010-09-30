@@ -74,7 +74,7 @@ signed int __fastcall sub_404736(int a1);
 void *__thiscall sub_404828(void *this);
 char __fastcall sub_404874(int a1, int a2, int a3, char a4);
 void __fastcall sub_404AC7(int a1, int a2, signed int a3, int a4, int a5);
-signed int __thiscall sub_4059DB(void *this);
+signed int __thiscall sub_4059DB_ProbablyStartTurn(void *this);
 void __thiscall sub_405CFF(int this, int a2);
 void __thiscall sub_405E14(void *this);
 __int16 __thiscall sub_406051(void *this);

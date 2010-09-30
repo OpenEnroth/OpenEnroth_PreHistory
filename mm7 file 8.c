@@ -1153,7 +1153,7 @@ signed int __thiscall sub_404544(int this)
       }
       if ( (*(_BYTE *)v2 & 7) == 4 )
       {
-        v4 = &pParty_global->pPlayers[1743 * (*(_DWORD *)v2 >> 3)];
+        v4 = &pParty_global->pPlayers[(*(_DWORD *)v2 >> 3)];
         if ( *((_QWORD *)v4 + 14)
           || *((_QWORD *)v4 + 16)
           || *((_QWORD *)v4 + 15)
@@ -3662,7 +3662,7 @@ void __cdecl sub_464479()
 }
 
 //----- (004059DB) --------------------------------------------------------
-signed int __thiscall sub_4059DB(void *this)
+signed int __thiscall sub_4059DB_ProbablyStartTurn(void *this)
 {
   int v1; // ebx@1
   int v2; // edi@1
@@ -3672,9 +3672,6 @@ signed int __thiscall sub_4059DB(void *this)
   int v6; // esi@7
   int v7; // eax@9
   signed int v8; // edx@10
-  unsigned __int8 v9; // zf@14
-  char v10; // sf@14
-  unsigned __int8 v11; // of@14
   int v12; // esi@15
   int v13; // ecx@16
   unsigned __int16 v14; // ax@17
@@ -3692,13 +3689,15 @@ signed int __thiscall sub_4059DB(void *this)
   int v26; // edx@34
   int v27; // eax@38
   int v28; // ecx@38
-  unsigned __int8 v29; // sf@38
-  unsigned __int8 v30; // of@38
-  char v32; // [sp+Ch] [bp-68h]@10
-  char v33; // [sp+28h] [bp-4Ch]@10
-  int v34[4]; // [sp+34h] [bp-40h]@28
-  char v35; // [sp+44h] [bp-30h]@10
-  int v36[4]; // [sp+50h] [bp-24h]@18
+  
+  struct DirectionInfo v32;
+  //char v32; // [sp+Ch] [bp-68h]@10
+  struct DirectionInfo v33;
+  //char v33; // [sp+28h] [bp-4Ch]@10
+  //int v34[4]; // [sp+34h] [bp-40h]@28
+  struct DirectionInfo v35;
+  //char v35; // [sp+44h] [bp-30h]@10
+  //int v36[4]; // [sp+50h] [bp-24h]@18
   int v37; // [sp+60h] [bp-14h]@10
   int v38; // [sp+64h] [bp-10h]@6
   int v39; // [sp+68h] [bp-Ch]@5
@@ -3746,7 +3745,7 @@ signed int __thiscall sub_4059DB(void *this)
       v5 = (char *)pActors + 836 * v41;
       if ( v41 != 10 )
       {
-        if ( Actor_sub_40894B((int)((char *)pActors + 836 * v41)) )
+        if (Actor_sub_40894B(&pActors[v41]))
         {
           v7 = *((_DWORD *)v5 + 9);
           if ( BYTE1(v7) < 0 )
@@ -3755,12 +3754,13 @@ signed int __thiscall sub_4059DB(void *this)
             LOBYTE(v7) = v7 | 0x80;
             *((_DWORD *)v5 + 9) = v7;
             v37 = 8 * v6 | 3;
-            memcpy(&v33, GetDirectionInfo(8 * v6 | 3, v8, &v35, 0), 0x1Cu);
-            memcpy(&v32, &v33, 0x1Cu);
+            memcpy(&v33, GetDirectionInfo(8 * v6 | 3, v8, &v35, 0), sizeof(struct DirectionInfo));
+            memcpy(&v32, &v33, sizeof(struct DirectionInfo));
             Actor_sub_403F58(v41, 4, 32, (signed int)&v32);
             *(_DWORD *)(16 * (*(_DWORD *)(v1 + 12) + 2) + v1) = v37;
             *(_DWORD *)(16 * *(_DWORD *)(v1 + 12) + v1 + 44) = 2;
-            compile_error;//*(_DWORD *)(16 * *(_DWORD *)(v1 + 12)++ + v1 + 40) = 0;
+            *(_DWORD *)(16 * *(_DWORD *)(v1 + 12) + v1 + 40) = 0;
+            *(_DWORD *)(v1 + 12) += 1;
           }
         }
         v4 = v39;
@@ -3771,12 +3771,13 @@ signed int __thiscall sub_4059DB(void *this)
     while ( v40 < v4 + dword_4F75D8 );
     v2 = 0;
   }
-  compile_error;//v11 = __SETO__(*(_DWORD *)(v1 + 12), v2);
-  v9 = *(_DWORD *)(v1 + 12) == v2;
-  v10 = *(_DWORD *)(v1 + 12) - v2 < 0;
+  //v11 = __SETO__(*(_DWORD *)(v1 + 12), v2);
+  //v9 = *(_DWORD *)(v1 + 12) == v2;
+  //v10 = *(_DWORD *)(v1 + 12) - v2 < 0;
   v41 = v2;
   v40 = v2;
-  if ( !((unsigned __int8)(v10 ^ v11) | v9) )
+  //if ( !((unsigned __int8)(v10 ^ v11) | v9) )
+  if (*(_DWORD *)(v1 + 12) <= v2)
   {
     v12 = v1 + 36;
     while ( 1 )
@@ -3794,7 +3795,7 @@ LABEL_20:
         goto LABEL_26;
       }
       v15 = v41++;
-      v36[v15] = v40;
+      (&v35.uDistance)[v15] = v40;
 LABEL_26:
       ++v40;
       v12 += 16;
@@ -3823,7 +3824,7 @@ LABEL_27:
   {
     do
     {
-      v34[v18] = sub_48E1B5(&pParty_global->pPlayers[1743 * (*(_DWORD *)(16 * (v36[v18] + 2) + v1) >> 3)], v2);
+     (&v33.uDistance)[v18] = sub_48E1B5(&pParty_global->pPlayers[(*(_DWORD *)(16 * ((&v35.uDistance)[v18] + 2) + v1) >> 3)], v2);
       ++v18;
     }
     while ( v18 < v41 );
@@ -3836,22 +3837,22 @@ LABEL_27:
         v40 = v38;
         if ( v38 < v41 )
         {
-          v19 = (char *)v34 + v39;
+          v19 = (char *)(&v33.uDistance) + v39;
           do
           {
             v21 = *(_DWORD *)v19;
             v37 = 4 * v40;
-            v20 = &v34[v40];
+            v20 = &(&v33.uDistance)[v40];
             v22 = *v20;
             if ( *v20 < v21 )
             {
               *v20 = v21;
               v23 = v37;
               *(_DWORD *)v19 = v22;
-              v24 = (char *)v36 + v23;
-              v25 = (char *)v36 + v39;
+              v24 = (char *)(&v35.uDistance) + v23;
+              v25 = (char *)(&v35.uDistance) + v39;
               v26 = *(_DWORD *)v24;
-              *(_DWORD *)v24 = *(int *)((char *)v36 + v39);
+              *(_DWORD *)v24 = *(int *)((char *)(&v35.uDistance) + v39);
               *(_DWORD *)v25 = v26;
               v2 = 0;
             }
@@ -3868,12 +3869,13 @@ LABEL_27:
         do
         {
           v27 = v2 + 2;
-          v28 = 16 * v36[v2++];
-          compile_error;//v30 = __SETO__(v2, v41);
-          v29 = v2 - v41 < 0;
+          v28 = 16 * (&v35.uDistance)[v2++];
+          //v30 = __SETO__(v2, v41);
+          //v29 = v2 - v41 < 0;
           *(_DWORD *)(v28 + v1 + 36) = v27;
         }
-        while ( v29 ^ v30 );
+        //while ( v29 ^ v30 );
+        while (v2 < v41);
       }
     }
   }
@@ -4462,9 +4464,12 @@ void __thiscall sub_405E14(void *this)
   int v10; // eax@23
   signed int v11; // eax@37
   signed int v12; // eax@44
-  char v13; // [sp+4h] [bp-68h]@21
-  char v14; // [sp+20h] [bp-4Ch]@21
-  char v15; // [sp+3Ch] [bp-30h]@21
+  struct DirectionInfo v13;
+  //char v13; // [sp+4h] [bp-68h]@21
+  struct DirectionInfo v14;
+  //char v14; // [sp+20h] [bp-4Ch]@21
+  struct DirectionInfo v15;
+  //char v15; // [sp+3Ch] [bp-30h]@21
   int v16; // [sp+58h] [bp-14h]@2
   int v17; // [sp+5Ch] [bp-10h]@6
   int v18; // [sp+60h] [bp-Ch]@1
@@ -4519,9 +4524,9 @@ void __thiscall sub_405E14(void *this)
               v17 = dword_4F6E08[v20];
               v7 = GetDirectionInfo(8 * v20 | 3, v17, &v13, v1);
               v8 = *(_WORD *)(v4 + 176);
-              memcpy(&v15, v7, 0x1Cu);
+              memcpy(&v15, v7, sizeof(struct DirectionInfo));
               v6 = v8 - 4;
-              memcpy(&v14, &v15, 0x1Cu);
+              memcpy(&v14, &v15, sizeof(struct DirectionInfo));
               if ( v6 )
               {
                 v9 = v6 - 1;
@@ -5274,9 +5279,9 @@ int __fastcall sub_46D49E_ProbablyCollidePartyWithBModels(signed int a1, signed 
                 {
                   if ( !(v12->byte_000010[15] & 0x20) )
                   {
-                    if (v7 <= v12->word_000118 && v7 >= v12->word_000116)
+                    if (v7 <= v12->sSomeX2 && v7 >= v12->sSomeX1)
                     {
-                        if (v8 <= v12->word_00011C && v8 >= v12->word_00011A)
+                        if (v8 <= v12->sSomeY2 && v8 >= v12->sSomeY1)
                           {
                             for (j = 0; j < v12->uNumVertices; ++j)
                             {
@@ -5780,8 +5785,10 @@ void __thiscall sub_406A63(int this)
   unsigned __int8 v3; // zf@1
   unsigned __int8 v4; // sf@1
   signed int v5; // ecx@4
-  char v6; // [sp+8h] [bp-44h]@5
-  char v7; // [sp+24h] [bp-28h]@5
+  struct DirectionInfo v6;
+  //char v6; // [sp+8h] [bp-44h]@5
+  struct DirectionInfo v7;
+  //char v7; // [sp+24h] [bp-28h]@5
   int v8; // [sp+40h] [bp-Ch]@5
   int v9; // [sp+44h] [bp-8h]@1
   signed int *v10; // [sp+48h] [bp-4h]@2
@@ -5803,7 +5810,7 @@ void __thiscall sub_406A63(int this)
       if ( (*(_BYTE *)v10 & 7) == 3 )
       {
         v8 = dword_4F6E08[v5 >> 3];
-        memcpy(&v7, GetDirectionInfo(v5, v8, &v6, v2), 0x1Cu);
+        memcpy(&v7, GetDirectionInfo(v5, v8, &v6, v2), sizeof(struct DirectionInfo));
         if ( !sub_406D10((void *)v1, v9) )
           Actor_sub_403EB6(*v10 >> 3, v8, 32, &v7);
       }
@@ -6534,8 +6541,10 @@ signed int __thiscall sub_406B9F(int this)
   int v5; // ebx@5
   int v6; // esi@5
   __int16 v7; // cx@15
-  char v8; // [sp+0h] [bp-50h]@15
-  char v9; // [sp+1Ch] [bp-34h]@15
+  struct DirectionInfo v8;
+  //char v8; // [sp+0h] [bp-50h]@15
+  struct DirectionInfo v9;
+  //char v9; // [sp+1Ch] [bp-34h]@15
   int v10; // [sp+28h] [bp-28h]@17
   int v11; // [sp+38h] [bp-18h]@4
   int v12; // [sp+3Ch] [bp-14h]@1
@@ -6560,7 +6569,7 @@ signed int __thiscall sub_406B9F(int this)
       {
         v6 = v4 >> 3;
         v13 = v6;
-        v5 = (int)((char *)pActors + 836 * v6);
+        v5 = &pActors[v6];
         if ( *(_DWORD *)(v5 + 296) < result
           || *(_DWORD *)(v5 + 296) <= result && *(_DWORD *)(v5 + 292) <= (unsigned int)result )
           v14 = result;
@@ -6574,11 +6583,10 @@ signed int __thiscall sub_406B9F(int this)
         if ( !(v14 | result | *(_WORD *)(v5 + 176) == 5 | *(_WORD *)(v5 + 176) == 11 | *(_WORD *)(v5 + 176) == 19) )
         {
           v14 = dword_4F6E08[v6];
-          memcpy(&v9, GetDirectionInfo(v11, v14, &v8, 0), 0x1Cu);
+          memcpy(&v9, GetDirectionInfo(v11, v14, &v8, 0), sizeof(struct DirectionInfo));
           v7 = *(_WORD *)(v5 + 176);
           if ( (v7 == 6 || v7 == 1) && (double)v10 < *(double *)&byte_4D8410[32] )
             goto LABEL_26;
-          //*(_DWORD *)(v5 + 184) += pClass24_global->int_00001C;
           *(_DWORD *)(v5 + 184) += pClass24_global->int_00001C;
           if ( *(_DWORD *)(v5 + 184) > (signed int)*(_WORD *)(v5 + 160) )
           {
@@ -6638,9 +6646,11 @@ signed int __thiscall sub_406D10(void *this, int a2)
   int v22; // [sp-8h] [bp-5Ch]@26
   char *v23; // [sp-4h] [bp-58h]@23
   int v24; // [sp-4h] [bp-58h]@26
-  char v25; // [sp+Ch] [bp-48h]@10
-  int v26; // [sp+18h] [bp-3Ch]@10
-  char v27; // [sp+28h] [bp-2Ch]@10
+  struct DirectionInfo v25;
+  //char v25; // [sp+Ch] [bp-48h]@10
+  //int v26; // [sp+18h] [bp-3Ch]@10
+  struct DirectionInfo v27;
+  //char v27; // [sp+28h] [bp-2Ch]@10
   int v28; // [sp+44h] [bp-10h]@33
   int v29; // [sp+48h] [bp-Ch]@10
   int *v30; // [sp+4Ch] [bp-8h]@7
@@ -6661,7 +6671,7 @@ signed int __thiscall sub_406D10(void *this, int a2)
   v8 = dword_4F6E08[v4];
   v30 = &dword_4F8878[4 * a2];
   v32 = v8;
-  sub_401221(v4, 4 * v4 + 5205512, 1);
+  sub_401221(v4, &dword_4F6E08[v4], 1);
   if ( v5[61] )
   {
     if ( !*(_DWORD *)v7 )
@@ -6669,11 +6679,11 @@ signed int __thiscall sub_406D10(void *this, int a2)
   }
   v10 = GetDirectionInfo(*v6, v32, &v25, 0);
   v11 = *((_WORD *)v5 + 68);
-  memcpy(&v25, v10, 0x1Cu);
-  memcpy(&v27, &v25, 0x1Cu);
-  v9 = v26 - v11;
-  v29 = v26 - v11;
-  if ( v26 - v11 < 0 )
+  memcpy(&v25, v10, sizeof(struct DirectionInfo));
+  memcpy(&v27, &v25, sizeof(struct DirectionInfo));
+  v9 = v25.uDistance - v11;
+  v29 = v25.uDistance - v11;
+  if ( v25.uDistance - v11 < 0 )
   {
     v9 = 0;
     v29 = 0;

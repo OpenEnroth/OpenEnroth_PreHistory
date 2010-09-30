@@ -561,7 +561,7 @@ LABEL_93:
           {
             if ( dword_6BE360 != 1 )
             {
-              v21 = *(_WORD *)(*(_DWORD *)(188 * ((signed int)(unsigned __int16)v18 >> 9) + pClass51_global->pBModels + 84)
+              v21 = *(_WORD *)(*(_DWORD *)((char *)&pClass51_global->pBModels[((signed int)(unsigned __int16)v18 >> 9)] + 84)
                              + 308 * (v19 & 0x3F)
                              + 292);
               goto LABEL_71;
@@ -2545,7 +2545,7 @@ LABEL_400:
               goto LABEL_92;
             if ( dword_6BE360 != v0 )
             {
-              v62 = *(_DWORD *)(188 * (v56 >> 9) + pClass51_global->pBModels + 84) + 308 * (v58 & 0x3F);
+             v62 = &pClass51_global->pBModels[(v56 >> 9)].ptr_000054[(v58 & 0x3F)];
               if ( !(*(_BYTE *)(v62 + 31) & 2) || !*(_WORD *)(v62 + 292) )
                 goto LABEL_92;
               v56 = v212;

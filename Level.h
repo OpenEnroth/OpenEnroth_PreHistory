@@ -41,10 +41,8 @@ struct class51_BModel
  int                   dword_000040;
  unsigned int          dword_000044;
  struct class51_stru3 *ptr_000048;
- unsigned int          dword_00004C;
-
- int dword_000050;
-
+ unsigned int          dword_00004C; // num elements in 000054
+ int                   dword_000050;
  struct class51_stru2 *ptr_000054;
  unsigned short       *ptr_000058;
  unsigned int          dword_00005C;
@@ -56,7 +54,8 @@ struct class51_BModel
  int dword_000084;
  int dword_000088;
  int dword_00008C;
- int dword_000090[7];
+ int dword_000090;
+ int dword_000094[6];
  int dword_0000AC;
  int dword_0000B0;
  int dword_0000B4;
@@ -66,33 +65,33 @@ struct class51_BModel
 
 struct class51_stru2
 {
- int   dword_000000;
- int   dword_000004;
- int   dword_000008;
- int   dword_00000C;
- char  byte_000010[16]; //if (byte_000010[13] & 0x40) then word_000110 == TextureFrameTable ID  else  plain Texture ID
- short array_000020[20];
- short array_000048[20];
- short array_000070[20];
- short array_000098[20];
- short array_0000C0[20];
- char  byte_0000E8[40];
- short uTextureID;      // word @ 000110
- short word_000112;
- short word_000114;
- short word_000116; // x1..
- short word_000118; //  ..x2
- short word_00011A; // y1..
- short word_00011C; //  ..y2
- short word_00011E; // z1..
- short word_000120; //  ..z2  some boundaries
- char  byte_000122[2];
- short word_000124;     //related to Event::dword_000000
- char  byte_000126[4];
- char  byte_00012A;
- char  byte_00012B;
- char  byte_00012C;
- char  byte_00012D;
+ int    dword_000000;
+ int    dword_000004;
+ int    dword_000008;
+ int    dword_00000C;
+ char   byte_000010[16]; //if (byte_000010[13] & 0x40) then word_000110 == TextureFrameTable ID  else  plain Texture ID
+ short  array_000020[20];
+ short  array_000048[20];
+ short  array_000070[20];
+ short  array_000098[20];
+ short  array_0000C0[20];
+ char   byte_0000E8[40];
+ short  uTextureID;      // word @ 000110
+ short  word_000112;
+ short  word_000114;
+ short  sSomeX1;        // word @ 000116    x1..
+ short  sSomeX2;        // word @ 000118     ..x2
+ short  sSomeY1;        // word @ 00011A    y1..
+ short  sSomeY2;        // word @ 00011C     ..y2
+ short  sSomeZ1;        // word @ 00011E    z1..
+ short  sSomeZ2;        // word @ 000120     ..z2  some boundaries
+ char   byte_000122[2];
+ short  word_000124;     //related to Event::dword_000000
+ char   byte_000126[4];
+ char   byte_00012A;
+ char   byte_00012B;
+ char   byte_00012C;
+ char   byte_00012D;
  unsigned char uNumVertices; // byte @ 00012E
  char  byte_00012F;
  char  byte_000130;

@@ -3570,7 +3570,7 @@ LABEL_75:
               }
               else
               {
-                sub_4059DB(&unk_4F8858);
+                sub_4059DB_ProbablyStartTurn(&unk_4F8858);
                 pParty_global->dword_00087C = v1;
               }
             }

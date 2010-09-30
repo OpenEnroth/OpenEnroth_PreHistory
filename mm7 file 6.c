@@ -6842,14 +6842,14 @@ bool __thiscall sub_49BCEB(struct class58 *_this, struct class51_stru2 *a2)
  
  for (i = 0; i < class36_global0.std__vector_000004_size; ++i)
  {
-  if (a2->word_000116 - class36_global0.std__vector_000004[i].flt_00000C < class36_global0.std__vector_000004[i].flt_000000 &&
-      a2->word_000118 + class36_global0.std__vector_000004[i].flt_00000C > class36_global0.std__vector_000004[i].flt_000000)
+  if (a2->sSomeX1 - class36_global0.std__vector_000004[i].flt_00000C < class36_global0.std__vector_000004[i].flt_000000 &&
+      a2->sSomeX2 + class36_global0.std__vector_000004[i].flt_00000C > class36_global0.std__vector_000004[i].flt_000000)
   {
-   if (a2->word_00011A - class36_global0.std__vector_000004[i].flt_00000C < class36_global0.std__vector_000004[i].flt_000004 &&
-       a2->word_00011C + class36_global0.std__vector_000004[i].flt_00000C > class36_global0.std__vector_000004[i].flt_000004)
+   if (a2->sSomeY1 - class36_global0.std__vector_000004[i].flt_00000C < class36_global0.std__vector_000004[i].flt_000004 &&
+       a2->sSomeY2 + class36_global0.std__vector_000004[i].flt_00000C > class36_global0.std__vector_000004[i].flt_000004)
    {
-    if (a2->word_00011E - class36_global0.std__vector_000004[i].flt_00000C < class36_global0.std__vector_000004[i].flt_000008 &&
-        a2->word_000120 + class36_global0.std__vector_000004[i].flt_00000C > class36_global0.std__vector_000004[i].flt_000008)
+    if (a2->sSomeZ1 - class36_global0.std__vector_000004[i].flt_00000C < class36_global0.std__vector_000004[i].flt_000008 &&
+        a2->sSomeZ2 + class36_global0.std__vector_000004[i].flt_00000C > class36_global0.std__vector_000004[i].flt_000008)
     {
      __int64 v0 = a2->dword_00000C +
                   a2->dword_000000 * floorf(class36_global0.std__vector_000004[i].flt_000000 + 0.5f) +

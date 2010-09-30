@@ -14914,7 +14914,7 @@ int __thiscall sub_4C1026(void *this, int a2, int a3, float a4)
   {
     if ( v7 > 0 )
     {
-      v12 = 188 * ((unsigned int)a3 >> 9) + pClass51_global->pBModels + 72;
+      v12 = (char *)&pClass51_global->pBModels[((unsigned int)a3 >> 9)] + 72;
       v11 = &unk_F8F204;
       do
       {

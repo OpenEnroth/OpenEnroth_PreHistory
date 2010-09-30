@@ -16847,8 +16847,9 @@ void __cdecl sub_42213C()
    char Dst[0x24]; // [sp+30h] [bp-5Ch]@19
 
    char unk[12];
+   int unk_60;
+   int v34; // [sp+64h] [bp-28h]@19
   } v24;
-  int v34; // [sp+64h] [bp-28h]@19
   char v35; // [sp+7Ch] [bp-10h]@3
   char v36; // [sp+84h] [bp-8h]@3
   int v37; // [sp+88h] [bp-4h]@30
@@ -16883,7 +16884,7 @@ void __cdecl sub_42213C()
       }
       else
       {
-        sprintfex(pStringBuffer, pGlobalTXT_LocalizationStrings[471], *(int *)((char *)dword_5D29EC + v22));
+        wsprintfA(pStringBuffer, pGlobalTXT_LocalizationStrings[471], *(int *)((char *)dword_5D29EC + v22));
         sub_44C175(pStringBuffer, 2);
         if ( *(_DWORD *)v23 == 506 )
           sub_449B7E((int)byte_ACD71D, 184, 1);
@@ -16954,7 +16955,7 @@ LABEL_18:
             }
             v24.v25 = v5;
             v24.v27 = pParty_global->sPartyPosY;
-            v34 = 4;
+            v24.v34 = 4;
             v24.v26 = pParty_global->sPartyPosX;
             v24.v28 = pParty_global->uEyelevel + pParty_global->sPartyPosZ;
             v24.v29 = 0;
@@ -16964,7 +16965,7 @@ LABEL_18:
             memcpy(v24.Dst, &dword_AD470C, 0x24u);
             v8 = class03_GetMousePos(pGame->pClass03, (int)&v35);
             v9 = sub_46A0A1(*(void **)v8);
-            sub_42F5ED((int)&v24, pParty_global->sRotationY + v9, 184, 200, 0);
+            sub_42F5ED(&v24, pParty_global->sRotationY + v9, 184, 200, 0);
             v10 = LODFile_LoadTexture(pLODFile_Icons_LOD, pClass40->pItems[12 * dword_AD470C].pIconName, 2);
             sub_40F77C(v10 != -1 ? 72 * v10 + 7145548 : 0);
             class03_sub_4698A6(pGame->pClass03);

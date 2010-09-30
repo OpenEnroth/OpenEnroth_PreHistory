@@ -4674,7 +4674,7 @@ int __thiscall sub_441964(void *this, int a2)
 LABEL_12:
     v4 = CIconFrameTable_GetFrame(v3, v5, v6);
 LABEL_14:
-    v7 = 72 * *(_WORD *)(v4 + 30) + 7145548;
+    v7 = &pLODFile_Icons_LOD->aLODHeaders[*(_WORD *)(v4 + 30)];
     if ( pD3DRenderer->pRenderD3D3 )
       Render_DrawIndexedTexture(pD3DRenderer, 394, 288, v7);
     else
