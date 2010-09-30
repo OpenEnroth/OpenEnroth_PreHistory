@@ -1734,7 +1734,7 @@ char __cdecl sub_46A14B()
 
   if ( pD3DRenderer->pRenderD3D3 )
   {
-    v1 = GetAsyncKeyState(17);
+    v1 = GetAsyncKeyState(VK_CONTROL);
     sub_44EB12(pGame, (v1 & 0x8001) != 0, (int)&dword_F93E6C, (int)&dword_F93E58);
     v0 = sub_4C1BF1(pGame->class05_obj);
     if ( v0 != -1 )
@@ -7546,14 +7546,14 @@ LABEL_119:
               if ( Actor_sub_40104C(v1, 0) )
               {
                 compile_error;//v53 = __SETO__(HIDWORD(qword_ACD8F4), v23);
-                v51 = HIDWORD(qword_ACD8F4) == v23;
-                v52 = HIDWORD(qword_ACD8F4) - v23 < 0;
+                v51 = HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) == v23;
+                v52 = HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) - v23 < 0;
                 *(_WORD *)(v1 + 150) = v23;
                 *(_WORD *)(v1 + 148) = v23;
                 if ( !(v52 ^ v53) )
                 {
-                  if ( !((unsigned __int8)(v52 ^ v53) | v51) || (_DWORD)qword_ACD8F4 > (unsigned int)v23 )
-                    sub_458585((int)&qword_ACD8F4);
+                 if ( !((unsigned __int8)(v52 ^ v53) | v51) || (_DWORD)pParty_global->pPartyBuffs[11].qword_000000 > (unsigned int)v23 )
+                    sub_458585(&pParty_global->pPartyBuffs[11]);
                 }
                 struct_576FE8.dword_000044 = 1;
                 goto LABEL_119;
@@ -7821,8 +7821,8 @@ void __cdecl sub_4706C6()
       v76 = v4;
       if ( !Actor_sub_40894B(v1) )
         v76 = 0;
-      v72 = sub_4823F4(*(_WORD *)(v1 + 142), *(_WORD *)(v1 + 144));
-      v6 = sub_46D49E(
+      v72 = sub_4823F4_GetTerrainHeightsAroundParty(*(_WORD *)(v1 + 142), *(_WORD *)(v1 + 144));
+      v6 = sub_46D49E_ProbablyCollidePartyWithBModels(
              *(_WORD *)(v1 + 142),
              *(_WORD *)(v1 + 144),
              *(_WORD *)(v1 + 146),
@@ -8022,7 +8022,7 @@ LABEL_121:
         v72 = (unsigned __int64)(dword_7215AC * dword_721590) >> 16;
       v36 = 0;
       v37 = dword_721578 - dword_721534 - 1;
-      v35 = sub_46D49E(
+      v35 = sub_46D49E_ProbablyCollidePartyWithBModels(
               dword_721570,
               dword_721574,
               dword_721578 - dword_721534 - 1,
@@ -8146,14 +8146,14 @@ LABEL_103:
             v39 = dword_7215A8;
             goto LABEL_103;
           }
-          v51 = HIDWORD(qword_ACD8F4) == 0;
-          v52 = HIDWORD(qword_ACD8F4) < 0;
+          v51 = HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) == 0;
+          v52 = HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) < 0;
           *(_WORD *)(v1 + 150) = 0;
           *(_WORD *)(v1 + 148) = 0;
           if ( !v52 )
           {
-            if ( !(v52 | v51) || (_DWORD)qword_ACD8F4 > 0u )
-              sub_458585((int)&qword_ACD8F4);
+           if ( !(v52 | v51) || (_DWORD)pParty_global->pPartyBuffs[11].qword_000000 > 0u )
+              sub_458585(&pParty_global->pPartyBuffs[11]);
           }
           struct_576FE8.dword_000044 = 1;
           break;
@@ -8701,12 +8701,12 @@ void __fastcall sub_471C03(int a1)
   v5 = (char *)pLayingItemsList + 112 * a1;
   v70 = 0;
   v3 = pObjectDescriptionList->pDescriptions + 56 * *((_WORD *)v5 + 1);
-  v69 = sub_4823F4(*((_DWORD *)v5 + 1), *((_DWORD *)v5 + 2));
+  v69 = sub_4823F4_GetTerrainHeightsAroundParty(*((_DWORD *)v5 + 1), *((_DWORD *)v5 + 2));
   v6 = *((_DWORD *)v5 + 2);
   v7 = *((_DWORD *)v5 + 1);
   v8 = *(_WORD *)(v3 + 36);
   v67 = 0;
-  v1 = sub_46D49E(v7, v6, *((_DWORD *)v5 + 3), v8, (int)&v71, (int)&v67, 0);
+  v1 = sub_46D49E_ProbablyCollidePartyWithBModels(v7, v6, *((_DWORD *)v5 + 3), v8, (int)&v71, (int)&v67, 0);
   v2 = v1;
   v66 = v1;
   v4 = v1 + 1;
@@ -8904,7 +8904,7 @@ LABEL_92:
           sub_46DF1A(i, 0);
       }
       v27 = dword_721578 - dword_721534 - 1;
-      v26 = sub_46D49E(
+      v26 = sub_46D49E_ProbablyCollidePartyWithBModels(
               dword_721570,
               dword_721574,
               dword_721578 - dword_721534 - 1,
@@ -9215,8 +9215,8 @@ void __cdecl sub_472866()
   if (pParty_global->dword_000704)
   {
     pParty_global->dword_000704 = 0;
-    if ( qword_ACD8B4 > 0 )
-      *((_BYTE *)&unk_5E4D52 + 20 * (unsigned __int16)word_ACD8C0) |= 1u;
+    if (pParty_global->pPartyBuffs[7].qword_000000 > 0 )
+      *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[7].word_00000C) |= 1u;
   }
   if ( i == -30000 )
   {
@@ -9247,7 +9247,8 @@ void __cdecl sub_472866()
     }
     dword_720CDC = LODWORD(v67);
   }
-  if ( dword_ACD898 < 0 || dword_ACD898 <= 0 && unk_ACD894 <= 0u )
+  if (pParty_global->pPartyBuffs[5].dword_000004 < 0 ||
+      pParty_global->pPartyBuffs[5].dword_000004 <= 0 && pParty_global->pPartyBuffs[5].byte_000000 <= 0)
   {
     v75 = 0;
     v5 = (void **)pPlayers;
@@ -9598,10 +9599,10 @@ LABEL_93:
     v87 = ((unsigned __int64)(dword_7215AC * dword_721590) >> 16) + v38;
     if ( (dword_7215A8 & 7) == 3 )
     {
-      if ( HIDWORD(qword_ACD8F4) >= 0 )
+     if ( HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) >= 0 )
       {
-        if ( HIDWORD(qword_ACD8F4) > 0 || (_DWORD)qword_ACD8F4 )
-          sub_458585((int)&qword_ACD8F4);
+       if ( HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[11].qword_000000 )
+          sub_458585(&pParty_global->pPartyBuffs[11]);
       }
       struct_576FE8.dword_000044 = 1;
       goto LABEL_152;
@@ -10395,9 +10396,9 @@ bool CheckHiredNPCSpeciality(int param)
     {
 LABEL_8:
       v4 = 0;
-      if (pParty_global->HiredNPC[0].dword_000018 != param )
+      if (pParty_global->pHiredNPCs[0].dword_000018 != param )
       {
-        return (pParty_global->HiredNPC[1].dword_000018 == param);
+        return (pParty_global->pHiredNPCs[1].dword_000018 == param);
       }
     }
     else
@@ -10577,10 +10578,10 @@ void __thiscall sub_476C60(int this)
     }
     while ( v1 < *(_DWORD *)(this + 98244) );
   }
-  if (pParty_global->HiredNPC[0].pNPCName)
-    pParty_global->HiredNPC[0].pNPCName = byte_AE302C;
-  if (pParty_global->HiredNPC[1].pNPCName)
-    pParty_global->HiredNPC[1].pNPCName = (char *)&unk_AE3090;
+  if (pParty_global->pHiredNPCs[0].pNPCName)
+    pParty_global->pHiredNPCs[0].pNPCName = byte_AE302C;
+  if (pParty_global->pHiredNPCs[1].pNPCName)
+    pParty_global->pHiredNPCs[1].pNPCName = (char *)&unk_AE3090;
 }
 
 //----- (00477266) --------------------------------------------------------
@@ -12696,8 +12697,8 @@ char *__fastcall sub_47BC6F(int a1, int a2, signed int a3, int a4)
   if ( struct_6BD080.dword_000FA4 == 1 )
   {
     v8 = 67108864;
-    if ( qword_ACD944 > 0 )
-      v8 = (unsigned __int16)word_ACD94C << 26;
+    if (pParty_global->pPartyBuffs[16].qword_000000 > 0 )
+      v8 = pParty_global->pPartyBuffs[16].word_000008 << 26;
     if ( a3 <= v8 )
     {
       if ( a3 > 0 )
@@ -12871,12 +12872,12 @@ LABEL_54:
     }
     else
     {
-      if ( qword_ACD944 > 0 )
+     if (pParty_global->pPartyBuffs[16].qword_000000 > 0 )
       {
-        if ( qword_ACD944 <= 0 )
+       if (pParty_global->pPartyBuffs[16].qword_000000 <= 0 )
           v11 = 0;
         else
-          v11 = (unsigned __int16)word_ACD94C;
+          v11 = pParty_global->pPartyBuffs[16].word_000008;
       }
       v12 = v11 << 26;
     }
@@ -13196,8 +13197,8 @@ signed int __fastcall sub_47C4FC_GetActorTintColor(int a1, int a2, float a3, int
     if ( v8 != 1 )
       return 0;
     v20 = 1;
-    if ( qword_ACD944 > 0 )
-      v20 = (unsigned __int16)word_ACD94C;
+    if (pParty_global->pPartyBuffs[16].qword_000000 > 0 )
+      v20 = pParty_global->pPartyBuffs[16].word_000008;
     v9 = (double)v20 * 1024.0;
     if ( a4 )
       goto LABEL_20;
@@ -14511,7 +14512,7 @@ bool sub_481FC9(struct RenderVertex *a1, struct RenderVertex *a2, struct RenderV
 }
 
 //----- (004823F4) --------------------------------------------------------
-bool __fastcall sub_4823F4(signed int a1, signed int a2)
+bool __fastcall sub_4823F4_GetTerrainHeightsAroundParty(signed int a1, signed int a2)
 {
   int v2; // eax@1
   int v3; // ebx@1
@@ -17500,7 +17501,7 @@ signed int __thiscall sub_4893CF(void *this, signed int a2, signed int a3, int a
   int v16; // [sp+Ch] [bp-4h]@2
 
   v4 = (int)this;
-  if ( pParty_global->dword_007778 & 8 || (v15 = 0, v16 = 0, sub_46D49E(a2, a3, a4, pParty_global->uDefaultPartyHeight, (int)&v15, (int)&v16, 0), v16) || v15 )
+  if ( pParty_global->dword_007778 & 8 || (v15 = 0, v16 = 0, sub_46D49E_ProbablyCollidePartyWithBModels(a2, a3, a4, pParty_global->uDefaultPartyHeight, (int)&v15, (int)&v16, 0), v16) || v15 )
     return 2;
   v6 = WorldPosToGridCellX(pParty_global->sPartyPosX);
   v7 = WorldPosToGridCellZ(pParty_global->sPartyPosY);

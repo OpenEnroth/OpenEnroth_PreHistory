@@ -18,6 +18,26 @@
 
 
 
+
+
+void KeyboardController_ctor(struct KeyboardController *_this)
+{
+ unsigned int i;
+
+ _this->uLastKeyPressed = 0;
+
+ KeyboardController_InitalizeKeys(_this);
+ KeyboardController_ReadKeyMapping(_this);
+
+ for (i = 0; i < 30; ++i)
+   GetAsyncKeyState(_this->array_00000C_vkeys[i]);
+
+ dword_506E68 = -1;
+}
+
+
+
+
 //----- (0040BCFB) --------------------------------------------------------
 char __fastcall sub_40BCFB(int a1, signed int a2)
 {
@@ -898,8 +918,8 @@ LABEL_85:
         goto LABEL_89;
       }
       AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-      memset(&pParty_global->HiredNPC[0], 0, sizeof(struct NPCData));
-      memset(&pParty_global->HiredNPC[1], 0, sizeof(struct NPCData));
+      memset(&pParty_global->pHiredNPCs[0], 0, sizeof(struct NPCData));
+      memset(&pParty_global->pHiredNPCs[1], 0, sizeof(struct NPCData));
       v6 = 0;
       if (pNPCStats->dword_017FC4 > 0)
       {
@@ -938,7 +958,7 @@ LABEL_85:
         --v9;
       }
       while ( v9 );
-      memset(pParty_global->array_00088C, 0, 20 * 16);
+      memset(pParty_global->pPartyBuffs, 0, 20 * 16);
       v11 = 1;
       if ( dword_ACD834 == 1 )
       {
@@ -7690,8 +7710,11 @@ void __cdecl sub_412AF9()
   int v0; // ecx@1
 
   v0 = 0;
-  if ( uActiveCharacter )
-    v0 = (unsigned __int8)byte_ACD896[6972 * uActiveCharacter];
+  compile_error;
+  //some ill-defined player indexing
+  //looks like pointing to the first element in Players[uActiveCharacter] or uActiveCharacter +/- 1
+  //if ( uActiveCharacter )
+  //  v0 = (unsigned __int8)byte_ACD896[6972 * uActiveCharacter];
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, dword_5064A0[v0]);
   Render_DrawIndexedTexture(pD3DRenderer, 476, 450, dword_50643C);
   Render_DrawIndexedTexture(pD3DRenderer, 561, 450, dword_506448);
@@ -10947,7 +10970,7 @@ void __thiscall sub_416B01(void *this)
 
     for (i = 0; i < 2; ++i)
     {
-     if (pParty_global->HiredNPC[i].pNPCName)
+     if (pParty_global->pHiredNPCs[i].pNPCName)
         TmpBuf[v3++] = i;
     }
 
@@ -10958,9 +10981,9 @@ void __thiscall sub_416B01(void *this)
       {
         if (pNPCStats->pNPCData2[i].dword_000008 & 0x80)
         {
-          if (!pParty_global->HiredNPC[0].pNPCName || strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->HiredNPC[0].pNPCName))
+          if (!pParty_global->pHiredNPCs[0].pNPCName || strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->pHiredNPCs[0].pNPCName))
           {
-            if (!pParty_global->HiredNPC[1].pNPCName || strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->HiredNPC[1].pNPCName))
+            if (!pParty_global->pHiredNPCs[1].pNPCName || strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->pHiredNPCs[1].pNPCName))
               TmpBuf[v3++] = i + 2;
           }
         }
@@ -13618,7 +13641,7 @@ void sub_41D73D(int this)
   v2 = this;
   v17 = pFontComic;
   v19 = 0;
-  v1 = (signed int)pParty_global->array_00088C;
+  v1 = (signed int)pParty_global->pPartyBuffs;
   do
   {
     if ( *(_QWORD *)v1 > 0i64 )
@@ -13643,7 +13666,7 @@ void sub_41D73D(int this)
   v8 = &unk_4E2B21;
   //v16 = &dword_5068C8;
   v16 = aSpellNames;
-  v18 = (signed int)pParty_global->array_00088C;
+  v18 = (signed int)pParty_global->pPartyBuffs;
   do
   {
     v9 = *(_DWORD *)v18;
@@ -14985,7 +15008,7 @@ LABEL_144:
     }
     while ( i < 10 );
   }
-  if ( qword_ACD874 > 0 )
+  if (pParty_global->pPartyBuffs[3].qword_000000 > 0 )
   {
     sprintfex(&TmpBuf, "%s: %d", pGlobalTXT_LocalizationStrings[650], *(_WORD *)(v143 + 40));
     sub_44C51E(pFontSmallnum, &TmpBuf);
@@ -16291,7 +16314,7 @@ void __fastcall sub_420C05(int a1, int a2)
     v17 = 0;
     for (i = 0; i < 2; ++i)
     {
-      if (pParty_global->HiredNPC[i].pNPCName)
+      if (pParty_global->pHiredNPCs[i].pNPCName)
       {
         v7 = v17++;
         TmpBuf[v7] = i;
@@ -16307,9 +16330,9 @@ void __fastcall sub_420C05(int a1, int a2)
       {
         if ( *((_BYTE *)v9 + 8) & 0x80 )
         {
-         if (!pParty_global->HiredNPC[0].pNPCName || strcmp(*(const char **)v9, pParty_global->HiredNPC[0].pNPCName))
+         if (!pParty_global->pHiredNPCs[0].pNPCName || strcmp(*(const char **)v9, pParty_global->pHiredNPCs[0].pNPCName))
           {
-           if (!pParty_global->HiredNPC[1].pNPCName || strcmp(*(const char **)v9, pParty_global->HiredNPC[1].pNPCName))
+           if (!pParty_global->pHiredNPCs[1].pNPCName || strcmp(*(const char **)v9, pParty_global->pHiredNPCs[1].pNPCName))
             {
               v10 = v17++;
               TmpBuf[v10] = v8 + 2;
@@ -16329,7 +16352,7 @@ void __fastcall sub_420C05(int a1, int a2)
         v11 = 76 * TmpBuf[v3];
         v12 = &pNPCStats->pNPCData[499 + v11 / 76];
         if ( TmpBuf[v3] < 2 )
-         v12 = (char *)&(&pParty_global->HiredNPC[0].pNPCName)[v11];
+         v12 = (char *)&(&pParty_global->pHiredNPCs[0].pNPCName)[v11];
         v13 = *((_DWORD *)v12 + 6);
         if ( v13 )
           v2 += dword_737C28[5 * v13];

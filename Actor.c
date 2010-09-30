@@ -1616,9 +1616,9 @@ LABEL_23:
 
 
 
-  if ( HIDWORD(qword_ACD8F4) >= v5 )
+  if ( HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) >= v5 )
   {
-    if ( HIDWORD(qword_ACD8F4) > v5 || (_DWORD)qword_ACD8F4 > (unsigned int)v5 )
+   if ( HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) > v5 || (_DWORD)pParty_global->pPartyBuffs[11].qword_000000 > (unsigned int)v5 )
       a3 = v5;
   }
   if ( a3 != v5 )

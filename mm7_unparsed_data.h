@@ -1602,6 +1602,18 @@ extern struct KeyboardController
  int           dword_000204;
  int          *ptr_000208;
 } *pKeyboardController; // struct @ MM7.exe::0069AE00
+// sizeof ~ ?
+//void *__thiscall sub_459C8D(void *this)
+void KeyboardController_ctor(struct KeyboardController *_this);
+//int __thiscall sub_459C82_LooksLikeBindKey(void *this, int a2);
+int __thiscall KeyboardController_sub_459C82_LooksLikeBindKey(void *this, int a2);
+//int __thiscall sub_459CC4(int this);
+void KeyboardController_InitalizeKeys(struct KeyboardController *_this);
+//int __thiscall sub_459C68(void *this, int a2, int a3, int a4);
+private void KeyboardController_InitalizeKey(struct KeyboardController *_this, unsigned int uSlot, unsigned int uVKey, bool bActive);
+//char __thiscall sub_459FFC(void *this);
+char KeyboardController_ReadKeyMapping(struct KeyboardController *_this);
+
 //extern int dword_69AE00; // last pressed key
 //extern int vKey[30]; // dword[30] @ MM7.exe::0069AE0C
 //extern int dword_69AE84[array_size_unknown]; // weak
@@ -1886,8 +1898,8 @@ extern char byte_6BE6EC[array_size_unknown]; // weak
 extern char class23_instance[26 * 1024 * 1024];  // struct @ MM7.exe::00702B28
 extern int dword_71FFF4; // weak
 extern int dword_71FFF8; // weak
-extern int bUseOverrideData; // weak
-extern unsigned int bSkipVideo; // dword @ MM7.exe::0072000C
+extern unsigned int bUseOverrideData; // dword @ MM7.exe::00720008
+extern unsigned int bSkipVideo;       // dword @ MM7.exe::0072000C
 extern int dword_720010; // idb
 
 extern struct CGame *pGame; //struct @ MM7.exe::00720014
@@ -2329,52 +2341,52 @@ extern int dword_ACD834; // weak
 extern int dword_ACD83C; // weak
 //int dword_ACD840; // pParty_global::dword_000888
 //int dword_ACD844[array_size_unknown]; //pParty_global::unk_00088C
-extern int dword_ACD848; // weak
-extern __int16 word_ACD84C; // weak
-extern _UNKNOWN unk_ACD854; // pParty_global::unk_00088C + 0010
-extern __int16 word_ACD85C; // weak
-extern _UNKNOWN unk_ACD864; // pParty_global::unk_00088C + 0020
-extern __int16 word_ACD86C; // weak
-extern __int64 qword_ACD874; // weak
-extern _UNKNOWN unk_ACD884; // weak
-extern __int16 word_ACD88C; // weak
-extern _UNKNOWN unk_ACD894; // weak
-extern char byte_ACD896[array_size_unknown]; // weak
-extern int dword_ACD898; // weak
-extern _UNKNOWN unk_ACD8A4; // weak
-extern __int16 word_ACD8AC; // weak
-extern __int64 qword_ACD8B4; // weak
-extern __int16 word_ACD8BC; // weak
-extern __int16 word_ACD8C0; // weak
+//int dword_ACD848; // [0]+04
+//__int16 word_ACD84C; // [0]+08
+//_UNKNOWN unk_ACD854; // 00088C + 0010
+//__int16 word_ACD85C; // [1]+08
+//_UNKNOWN unk_ACD864; // 00088C + 0020
+//__int16 word_ACD86C; // [2]+08
+//__int64 qword_ACD874; // 00088C + 0030
+//_UNKNOWN unk_ACD884;  // 00088Ñ + 0040
+//__int16 word_ACD88C; // [4]+08
+//_UNKNOWN unk_ACD894; // 00088Ñ + 0050
+//char byte_ACD896[array_size_unknown]; // 0008DE
+//int dword_ACD898; // 0008E0
+//_UNKNOWN unk_ACD8A4; // 0008EC  088C + 0060
+//__int16 word_ACD8AC; // [6]+08
+//__int64 qword_ACD8B4; // 0008FC  088Ñ + 0070
+//__int16 word_ACD8BC; // [7]+08
+//__int16 word_ACD8C0; // [7]+0C
 extern char byte_ACD8C2; // weak
 extern char byte_ACD8C3; // weak
-extern __int64 qword_ACD8C4; // weak
-extern _UNKNOWN unk_ACD8D4; // weak
-extern __int16 word_ACD8DC; // weak
-extern int dword_ACD8E4; // weak
-extern int dword_ACD8E8; // weak
-extern __int16 word_ACD8EC; // weak
-extern __int16 word_ACD8EE; // weak
+//__int64 qword_ACD8C4; // 00090C  + 0080
+//_UNKNOWN unk_ACD8D4; // 00091C   + 0090
+//__int16 word_ACD8DC; // [9]+08
+//int dword_ACD8E4; // 00092C + 00A0
+//int dword_ACD8E8; // [10]+04
+//__int16 word_ACD8EC; // [10]+08
+//__int16 word_ACD8EE; // [10]+0A
 extern char byte_ACD8F2; // weak
-extern __int64 qword_ACD8F4; // 00093C
-extern _UNKNOWN unk_ACD904; // weak
-extern __int16 word_ACD90C; // weak
-extern __int64 qword_ACD914; // 00095C
-extern __int16 word_ACD91C; // weak
-extern __int16 word_ACD91E; // weak
-extern _UNKNOWN unk_ACD924; // weak
-extern _UNKNOWN unk_ACD934; // weak
-extern __int16 word_ACD93C; // weak
-extern __int64 qword_ACD944; // weak
-extern __int16 word_ACD94C; // weak
-extern _UNKNOWN unk_ACD954; // weak
-extern __int16 word_ACD95C; // weak
-extern __int64 qword_ACD964; // weak
-extern __int16 word_ACD970; // weak
-extern char byte_ACD972; // weak
-extern char byte_ACD973; // weak
-extern __int64 qword_ACD974; // 0009BC
-extern __int16 word_ACD97E; // 0009C6
+//__int64 qword_ACD8F4; // 00093C   + 00B0
+//_UNKNOWN unk_ACD904; // 00094C    + 00C0
+//__int16 word_ACD90C; // [12]+08
+//__int64 qword_ACD914; // 00095C   + 00D0
+//__int16 word_ACD91C; // [13]+08
+//__int16 word_ACD91E; // [13]+0A
+//_UNKNOWN unk_ACD924; // 00096C    + 00E0
+//_UNKNOWN unk_ACD934; // 00097C    + 00F0
+//__int16 word_ACD93C; // [15]+08
+//__int64 qword_ACD944; // 00098C   + 0100
+//__int16 word_ACD94C; // [16]+08
+//_UNKNOWN unk_ACD954; // 00099C    + 0110
+//__int16 word_ACD95C; // [17]+08
+//__int64 qword_ACD964; // 0009AC   + 0120
+//__int16 word_ACD970; // 0009B8
+//char byte_ACD972; // 0009BA
+//char byte_ACD973; // 0009BB
+//__int64 qword_ACD974; // 0009BC   + 0130
+//__int16 word_ACD97E; // [19]+0A
 //int dword_ACD984[array_size_unknown]; // pParty_global::pPlayers[0]::000000
 extern int dword_ACD988[array_size_unknown]; // weak
 extern int dword_ACD98C; // weak
@@ -2502,7 +2514,7 @@ extern char byte_AE302C[100]; // idb
 extern _UNKNOWN unk_AE3090; // weak
 //extern int dword_AE30F4; // 01613C
 extern int dword_AE30F8[array_size_unknown]; // weak
-extern int dword_AE30FC[array_size_unknown]; // weak
+//int dword_AE30FC[array_size_unknown]; // 016144
 extern int dword_AE310C[array_size_unknown]; // weak
 extern int dword_AE31E0; // weak
 extern int dword_AE31E4; // weak

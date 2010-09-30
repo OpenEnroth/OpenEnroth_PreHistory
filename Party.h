@@ -7,6 +7,40 @@
 
 #pragma pack(push, 1)
 
+
+#define PARTYBUFF_WIZARDEYE 19
+
+struct PartySpellBuff
+{
+ union
+ {
+  __int64 qword_000000;
+  struct
+  {
+   int dword_000000;
+   int dword_000004;
+  };
+  struct
+  {
+   char  byte_000000;
+   char  byte_000001;
+   char  byte_000002;
+   char  byte_000003;
+   char  byte_000004;
+   char  byte_000005;
+   char  byte_000006;
+   char  byte_000007;
+  };
+ };
+ unsigned short word_000008;
+ unsigned short word_00000A; // looks like caster mastery
+ unsigned short word_00000C;
+ unsigned char  byte_00000E;
+ char byte_00000F;
+};
+//sizeof = 10
+
+
 struct Party
 {
  int           dword_000000;
@@ -84,22 +118,24 @@ struct Party
 
  int dword_00087C;
 
- int dword_000884;
- unsigned int uAlignment;   // dword @ 000888   enum (0, 1, 2) = (good, neutral, evil)
-
- char          array_00088C[20][16];
- struct Player  pPlayers[4];      // struct[4] @ 0009CC
- struct NPCData HiredNPC[2];  // struct[2] @ 0076BC  currently hired npcs?
+ int                   dword_000884;
+ unsigned int          uAlignment;       // dword      @ 000888   enum (0, 1, 2) = (good, neutral, evil)
+ struct PartySpellBuff pPartyBuffs[20]; // struct[20] @ 00088C
+ struct Player         pPlayers[4];      // struct[4]  @ 0009CC
+ struct NPCData        pHiredNPCs[2];    // struct[2]  @ 0076BC
 
  int dword_007778;  // party flags;     0x02 - party position/direction/eyelevel changed
 
  char pad[100000];
-
- int dword_01613C; // connected to sLastGUIWindowIdx
-
+ 
  float flt_01622C;
  float flt_016230;
  float flt_016234;
+
+ int dword_01613C; // connected to sLastGUIWindowIdx
+
+ int array_016144[array_size_unknown]; // 016144
+
 
  char pad2[100000];
 };

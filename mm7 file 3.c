@@ -1652,8 +1652,8 @@ void __cdecl sub_43AD34()
   int v3; // eax@9
   int v4; // [sp+8h] [bp-4h]@4
 
-  if ( qword_ACD8F4 > 0 )
-    sub_458585((int)&qword_ACD8F4);
+  if (pParty_global->pPartyBuffs[11].qword_000000 > 0 )
+    sub_458585(&pParty_global->pPartyBuffs[11]);
   if ( dword_ACD834 != 1 )
   {
     v4 = 0;
@@ -3186,10 +3186,10 @@ void __thiscall sub_43F39E(int this)
   {
     v2 = *(float *)&dword_AE31EC + 6.755399441055744e15;
     v13 = LOBYTE(v2);
-    if ( qword_ACD944 <= 0 )
+    if (pParty_global->pPartyBuffs[16].qword_000000 <= 0 )
       v5 = 800;
     else
-      v5 = 800 * (unsigned __int16)word_ACD94C;
+      v5 = 800 * pParty_global->pPartyBuffs[16].word_000008;
     LOBYTE(v1) = byte_4E94D0;
     v4 = *(float *)&dword_AE31E4 + 6.755399441055744e15;
     v3 = *(float *)&dword_AE31E8 + 6.755399441055744e15;
@@ -6603,7 +6603,7 @@ char *__fastcall sub_4459F9(signed int a1)
 
     for (i = 0; i < 4; ++i)
     {
-      if (pParty_global->HiredNPC[i].pNPCName)
+      if (pParty_global->pHiredNPCs[i].pNPCName)
         TmpBuf[v5++] = i;
     }
 
@@ -6613,9 +6613,9 @@ char *__fastcall sub_4459F9(signed int a1)
       {
         if (pNPCStats->pNPCData2[i].dword_000008 & 0x80)
         {
-          if (!pParty_global->HiredNPC[0].pNPCName || strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->HiredNPC[0].pNPCName))
+          if (!pParty_global->pHiredNPCs[0].pNPCName || strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->pHiredNPCs[0].pNPCName))
           {
-            if (!pParty_global->HiredNPC[1].pNPCName || strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->HiredNPC[1].pNPCName))
+            if (!pParty_global->pHiredNPCs[1].pNPCName || strcmp(pNPCStats->pNPCData2[i].pNPCName, pParty_global->pHiredNPCs[1].pNPCName))
               TmpBuf[v5++] = i + 2;
           }
         }
@@ -6626,7 +6626,7 @@ char *__fastcall sub_4459F9(signed int a1)
     if ( v9 >= 2 )
      result = &pNPCStats->pNPCData[499 + v9];
     else
-      result = &pParty_global->HiredNPC[v9];
+      result = &pParty_global->pHiredNPCs[v9];
   }
   return result;
 }
@@ -6686,7 +6686,7 @@ LABEL_7:
 
     for (i = 0; i < 2; ++i)
     {
-      if (pParty_global->HiredNPC[i].pNPCName)
+      if (pParty_global->pHiredNPCs[i].pNPCName)
         TmpBuf[v7++] = i;
     }
 
@@ -6699,9 +6699,9 @@ LABEL_7:
       {
         if ( *((_BYTE *)v9 + 8) & 0x80 )
         {
-         if (!pParty_global->HiredNPC[0].pNPCName || strcmp(*(const char **)v9, pParty_global->HiredNPC[0].pNPCName))
+         if (!pParty_global->pHiredNPCs[0].pNPCName || strcmp(*(const char **)v9, pParty_global->pHiredNPCs[0].pNPCName))
           {
-           if (!pParty_global->HiredNPC[1].pNPCName || strcmp(*(const char **)v9, pParty_global->HiredNPC[1].pNPCName))
+           if (!pParty_global->pHiredNPCs[1].pNPCName || strcmp(*(const char **)v9, pParty_global->pHiredNPCs[1].pNPCName))
             {
               v10 = (int)v19++;
               *(_BYTE *)v10 = v20 + 2;
@@ -6723,7 +6723,7 @@ LABEL_7:
     else
     {
       *(_DWORD *)v2 = v11;
-      result = &pParty_global->HiredNPC[(unsigned __int8)TmpBuf[v8]];
+      result = &pParty_global->pHiredNPCs[(unsigned __int8)TmpBuf[v8]];
     }
   }
   return result;
@@ -6753,7 +6753,7 @@ int __fastcall sub_445C8B(signed int a1)
 
   for (i = 0; i < 2; ++i)
   {
-   if (pParty_global->HiredNPC[i].pNPCName)
+   if (pParty_global->pHiredNPCs[i].pNPCName)
       TmpBuf[v5++] = i;
   }
 
@@ -6765,9 +6765,9 @@ int __fastcall sub_445C8B(signed int a1)
     {
       if ( *((_BYTE *)v8 + 8) & 0x80 )
       {
-       if (!pParty_global->HiredNPC[0].pNPCName || strcmp(*(const char **)v8, pParty_global->HiredNPC[0].pNPCName))
+       if (!pParty_global->pHiredNPCs[0].pNPCName || strcmp(*(const char **)v8, pParty_global->pHiredNPCs[0].pNPCName))
         {
-         if (!pParty_global->HiredNPC[1].pNPCName || strcmp(*(const char **)v8, pParty_global->HiredNPC[1].pNPCName))
+         if (!pParty_global->pHiredNPCs[1].pNPCName || strcmp(*(const char **)v8, pParty_global->pHiredNPCs[1].pNPCName))
             *v7++ = v1 + 2;
         }
       }
@@ -9425,7 +9425,7 @@ LABEL_114:
     v47 = v41;
     v45 = v79;
     v38 = (signed __int64)((double)(v42 << 7) * 0.03333333507180214);
-    v36 = (int *)&unk_ACD864;
+    v36 = (int *)&pParty_global->pPartyBuffs[2];
 LABEL_115:
     v35 = pParty_global->qword_00002C + v38;
 LABEL_116:
@@ -9662,11 +9662,11 @@ LABEL_60:
           v31 += 6972;
         }
         //while ( v31 < (signed int)&unk_AD467C );
-        while (v31 < &pParty_global->HiredNPC[0].dword_000008);
+        while (v31 < &pParty_global->pHiredNPCs[0].dword_000008);
 
         if ( !v76 )
           return;
-        sub_4584E0(&qword_ACD8C4,
+        sub_4584E0(&pParty_global->pPartyBuffs[8],
           pParty_global->qword_00002C + (signed __int64)((double)(v8 << 7) * 0.03333333507180214),
           (unsigned __int64)(pParty_global->qword_00002C + (signed int)(signed __int64)((double)(v8 << 7) * 0.03333333507180214)) >> 32,
           v14,
@@ -9721,7 +9721,7 @@ LABEL_60:
         v47 = v74;
         v45 = v14;
         v35 = pParty_global->qword_00002C + (signed int)(signed __int64)((double)(v8 << 7) * 0.03333333507180214);
-        v36 = pParty_global->array_00088C[a3];
+        v36 = &pParty_global->pPartyBuffs[a3];
         goto LABEL_116;
       case 8:
         if ( v14 == 2 || v14 == 3 || v14 != 4 )
@@ -9737,7 +9737,7 @@ LABEL_60:
         v47 = a3;
         v45 = v14;
         v38 = (signed __int64)((double)(v37 << 7) * 0.03333333507180214);
-        v36 = &dword_ACD8E4;
+        v36 = &pParty_global->pPartyBuffs[10];
         goto LABEL_115;
       case 3:
       case 14:
@@ -9829,7 +9829,7 @@ LABEL_125:
   sub_4A89BD(pGame->class06_obj, v44, 1);
   sub_4A89BD(pGame->class06_obj, v44, 2);
   sub_4A89BD(pGame->class06_obj, v44, 3);
-  sub_4584E0((int)pParty_global->array_00088C[a3],
+  sub_4584E0(&pParty_global->pPartyBuffs[a3],
     pParty_global->qword_00002C + (signed __int64)((double)v77 * 4.266666889190674),
     (unsigned __int64)(pParty_global->qword_00002C + (signed int)(signed __int64)((double)v77 * 4.266666889190674)) >> 32,
     v14,
@@ -10486,9 +10486,9 @@ void __cdecl sub_44A56A()
     {
       if ( *((_BYTE *)v1 + 8) & 0x80 )
       {
-       if (!pParty_global->HiredNPC[0].pNPCName || strcmp(*(const char **)v1, pParty_global->HiredNPC[0].pNPCName))
+       if (!pParty_global->pHiredNPCs[0].pNPCName || strcmp(*(const char **)v1, pParty_global->pHiredNPCs[0].pNPCName))
         {
-         if (!pParty_global->HiredNPC[1].pNPCName || strcmp(*(const char **)v1, pParty_global->HiredNPC[1].pNPCName))
+         if (!pParty_global->pHiredNPCs[1].pNPCName || strcmp(*(const char **)v1, pParty_global->pHiredNPCs[1].pNPCName))
             ++pParty_global->byte_00070A;
         }
       }
@@ -11689,10 +11689,10 @@ LABEL_8:
                 }
                 while ( v18 < pNPCStats->dword_017FC4);
               }
-              if (pParty_global->HiredNPC[0].dword_000018 == v19 )
-                memset(&pParty_global->HiredNPC[0], 0, sizeof(struct NPCData));
-              if (pParty_global->HiredNPC[1].dword_000018 == v19 )
-                memset(&pParty_global->HiredNPC[1], 0, sizeof(struct NPCData));
+              if (pParty_global->pHiredNPCs[0].dword_000018 == v19 )
+                memset(&pParty_global->pHiredNPCs[0], 0, sizeof(struct NPCData));
+              if (pParty_global->pHiredNPCs[1].dword_000018 == v19 )
+                memset(&pParty_global->pHiredNPCs[1], 0, sizeof(struct NPCData));
               pParty_global->byte_000709 = 0;
               sub_44A56A();
               break;
@@ -13965,7 +13965,7 @@ int __fastcall sub_45063B(int a1, int a2)
       v21 = pParty_global->sPartyPosZ;
       v29 = 0;
       v30 = 0;
-      v21 = sub_46D49E(v19, v26 + pParty_global->sPartyPosY, pParty_global->sPartyPosZ, 0, (int)&v29, (int)&v30, 0);
+      v21 = sub_46D49E_ProbablyCollidePartyWithBModels(v19, v26 + pParty_global->sPartyPosY, pParty_global->sPartyPosZ, 0, (int)&v29, (int)&v30, 0);
       v26 = 0;
       if ( pClass51_global->uNumBModels > 0 )
       {

@@ -1750,7 +1750,7 @@ LABEL_76:
         v23 = 30;
         goto LABEL_81;
       case 1:
-        if ( a3 == 1 && qword_ACD914 > 0 )
+       if ( a3 == 1 && pParty_global->pPartyBuffs[13].qword_000000 > 0 )
           goto LABEL_10;
         v26 = 0;
         v23 = 25;
@@ -1782,11 +1782,11 @@ LABEL_76:
       case 10:
         if ( a3 == 1 )
         {
-          if ( qword_ACD914 > 0 )
+         if ( pParty_global->pPartyBuffs[13].qword_000000 > 0 )
           {
-            --word_ACD91C;
-            if ( (unsigned __int16)word_ACD91C < 1u )
-              sub_458585((int)&qword_ACD914);
+            --pParty_global->pPartyBuffs[13].word_000008;
+            if (pParty_global->pPartyBuffs[13].word_000008 < 1u )
+              sub_458585(&pParty_global->pPartyBuffs[13]);
           }
           if ( sub_48D6D0((void *)v3, 21) || sub_48D709(v7, 505, 3) || sub_48D709(v8, 530, 6) )
             goto LABEL_76;
@@ -1799,7 +1799,7 @@ LABEL_76:
       case 11:
         if ( a3 != 1 )
           goto LABEL_40;
-        if ( HIDWORD(qword_ACD914) >= 0 && (HIDWORD(qword_ACD914) > 0 || (_DWORD)qword_ACD914 > 0u) )
+        if ( HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) >= 0 && (HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[13].qword_000000 > 0u) )
           goto LABEL_10;
         if ( sub_48D6D0((void *)v3, 18) || sub_48D709(v9, 505, 3) || sub_48D709(v10, 530, 6) )
           goto LABEL_76;
@@ -1810,7 +1810,7 @@ LABEL_40:
       case 12:
         if ( a3 != 1 )
           goto LABEL_82;
-        if ( HIDWORD(qword_ACD914) >= 0 && (HIDWORD(qword_ACD914) > 0 || (_DWORD)qword_ACD914 > 0u) )
+        if ( HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) >= 0 && (HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[13].qword_000000 > 0u) )
           goto LABEL_10;
         if ( sub_48D6D0((void *)v3, 20) || sub_48D709(v11, 505, 3) || sub_48D709(v12, 507, 16) )
           goto LABEL_76;
@@ -1825,14 +1825,14 @@ LABEL_16:
         v13 = v3 + 6460;
         goto LABEL_70;
       case 14:
-        if ( a3 == 1 && qword_ACD914 > 0 && (unsigned __int16)word_ACD91E >= 4u )
+       if ( a3 == 1 && pParty_global->pPartyBuffs[13].qword_000000 > 0 && pParty_global->pPartyBuffs[13].word_00000A >= 4u )
           goto LABEL_10;
         v28 = 0;
         v25 = 33;
         goto LABEL_67;
       case 15:
         if ( a3 == 1
-          && (HIDWORD(qword_ACD914) >= 0 && (HIDWORD(qword_ACD914) > 0 || (_DWORD)qword_ACD914 > 0u)
+         && (HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) >= 0 && (HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[13].qword_000000 > 0u)
            || sub_48D6D0((void *)v3, 23)
            || sub_48D709(v14, 520, 16)
            || sub_48D709(v15, 505, 3)
@@ -1842,12 +1842,12 @@ LABEL_16:
         v23 = 34;
         goto LABEL_81;
       case 16:
-        if ( a3 == 1 && qword_ACD914 > 0 && (unsigned __int16)word_ACD91E >= 4u )
+       if ( a3 == 1 && pParty_global->pPartyBuffs[13].qword_000000 > 0 && pParty_global->pPartyBuffs[13].word_00000A >= 4u )
         {
 LABEL_10:
-          --word_ACD91C;
-          if ( (unsigned __int16)word_ACD91C < 1u )
-            sub_458585((int)&qword_ACD914);
+          --pParty_global->pPartyBuffs[13].word_000008;
+          if (pParty_global->pPartyBuffs[13].word_000008 < 1u )
+            sub_458585(&pParty_global->pPartyBuffs[13]);
           goto LABEL_76;
         }
         v28 = 0;
@@ -2146,25 +2146,25 @@ int Player_MaybeGetCastSpellBonus(struct Player *_this, signed int a2)
       {
         case 15:
           v3 = *(_WORD *)((char *)_this + 6088);
-          v4 = (unsigned __int16)word_ACD85C;
+          v4 = pParty_global->pPartyBuffs[1].word_000008;
           break;
         case 11:
           v3 = *(_WORD *)((char *)_this + 6056);
-          v4 = (unsigned __int16)word_ACD84C;
+          v4 = pParty_global->pPartyBuffs[0].word_000008;
           break;
         case 12:
           v3 = *(_WORD *)((char *)_this + 6408);
-          v4 = (unsigned __int16)word_ACD95C;
+          v4 = pParty_global->pPartyBuffs[17].word_000008;
           break;
         case 13:
           v3 = *(_WORD *)((char *)_this + 6104);
-          v4 = (unsigned __int16)word_ACD88C;
+          v4 = pParty_global->pPartyBuffs[4].word_000008;
           break;
         default:
           if ( a2 != 14 )
             return result;
           v3 = *(_WORD *)((char *)_this + 6200);
-          v4 = (unsigned __int16)word_ACD90C;
+          v4 = pParty_global->pPartyBuffs[12].word_000008;
           break;
       }
       return v4 + v3;
@@ -2174,7 +2174,7 @@ int Player_MaybeGetCastSpellBonus(struct Player *_this, signed int a2)
       if ( a2 == 26 )
       {
         v3 = *(_WORD *)((char *)_this + 6184);
-        v4 = (unsigned __int16)word_ACD8DC;
+        v4 = pParty_global->pPartyBuffs[9].word_000008;
         return v4 + v3;
       }
       if ( a2 != 29 )
@@ -2185,7 +2185,7 @@ int Player_MaybeGetCastSpellBonus(struct Player *_this, signed int a2)
   if ( a2 == 10 )
   {
     v3 = *(_WORD *)((char *)_this + 6136);
-    v4 = (unsigned __int16)word_ACD8AC;
+    v4 = pParty_global->pPartyBuffs[6].word_000008;
     return v4 + v3;
   }
   switch ( a2 )
@@ -2211,11 +2211,11 @@ int Player_MaybeGetCastSpellBonus(struct Player *_this, signed int a2)
     case 6:
       v3 = *(_WORD *)((char *)_this + 6344);
 LABEL_5:
-      v4 = (unsigned __int16)word_ACD86C;
+      v4 = pParty_global->pPartyBuffs[2].word_000008;
       return v4 + v3;
     case 9:
       v3 = *(_WORD *)((char *)_this + 6280);
-      v4 = (unsigned __int16)word_ACD93C;
+      v4 = pParty_global->pPartyBuffs[15].word_000008;
       return v4 + v3;
     default:
       return result;

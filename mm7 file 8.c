@@ -3227,7 +3227,7 @@ LABEL_127:
   {
     if ( a3 == 80 )
     {
-      v56 = (int)pParty_global->array_00088C;
+      v56 = (int)pParty_global->pPartyBuffs;
       do
       {
         sub_458585(v56);
@@ -3728,7 +3728,8 @@ signed int __thiscall sub_4059DB(void *this)
       *(_DWORD *)(16 * (*(_DWORD *)(v1 + 12) + 2) + v1) = 8 * v3 | 4;
       *(_DWORD *)(16 * *(_DWORD *)(v1 + 12) + v1 + 44) = 2;
       *(_DWORD *)(16 * *(_DWORD *)(v1 + 12) + v1 + 40) = 0;
-      compile_error;//dword_AE30FC[*(_DWORD *)(v1 + 12)++] = 0;
+      pParty_global->array_016144[*(_DWORD *)(v1 + 12)] = 0;
+      *(_DWORD *)(v1 + 12) += 1;
     }
     ++v3;
   }
@@ -5118,7 +5119,7 @@ int __thiscall sub_406457(void *this, int a2)
   {
     v6 = v2 >> 3;
     v5 = 4 * (v2 >> 3) + 11415804;
-    v4 = dword_AE30FC[v2 >> 3];
+    v4 = pParty_global->array_016144[v2 >> 3];
     if ( v4 )
       *(_DWORD *)v5 = 0;
     else
@@ -5200,7 +5201,7 @@ void __thiscall sub_40652A(int this)
 }
 
 //----- (0046D49E) --------------------------------------------------------
-int __fastcall sub_46D49E(signed int a1, signed int a2, int a3, int a4, int a5, int a6, int a7)
+int __fastcall sub_46D49E_ProbablyCollidePartyWithBModels(signed int a1, signed int a2, int a3, int a4, int a5, int a6, int a7)
 {
   signed int v7; // ebx@1
   signed int v8; // edi@1
@@ -6108,8 +6109,8 @@ int __cdecl sub_494035()
   if ( (unsigned int)pParty_global->uCurrentHour >= 3 && (v60 < 3 || (unsigned int)(v0 / 60) / 0x18 % 0x1C > v58) )
   {
     v2 = 0;
-    pParty_global->HiredNPC[0].dword_000044 = 0;
-    pParty_global->HiredNPC[1].dword_000044 = 0;
+    pParty_global->pHiredNPCs[0].dword_000044 = 0;
+    pParty_global->pHiredNPCs[1].dword_000044 = 0;
     if (pNPCStats->dword_017FC4 > 0)
     {
       v3 = &unk_72D6D0;
@@ -6446,13 +6447,13 @@ LABEL_61:
 
   for (i = 0; i < 20; ++i)
   {
-    if ( sub_4585CA(pParty_global->array_00088C[i], pParty_global->qword_00002C, SHIDWORD(pParty_global->qword_00002C)) == 1 )
+    if ( sub_4585CA(&pParty_global->pPartyBuffs[i], pParty_global->qword_00002C, SHIDWORD(pParty_global->qword_00002C)) == 1 )
       struct_576FE8.dword_000044 = 1;
   }
 
-  if ( qword_ACD8C4 > 0 )
+  if (pParty_global->pPartyBuffs[8].qword_000000 > 0 )
   {
-    if ( qword_ACD8C4 <= 0 )
+   if (pParty_global->pPartyBuffs[8].qword_000000 <= 0 )
     {
      for (i = 0; i < 4; ++i)
        Player_sub_492D65(pPlayers[i], 1, 0);
@@ -6464,7 +6465,7 @@ LABEL_61:
   for (i = 0; i < 2; ++i)
   {
     //v47 = (int)&dword_ACD844[4 * *(_DWORD *)v46];
-   v47 = pParty_global->array_00088C[array_4EE07C[i]];
+   v47 = &pParty_global->pPartyBuffs[array_4EE07C[i]];
     if ( *(_QWORD *)v47 > 0i64 )
     {
       if ( !(*(_BYTE *)(v47 + 15) & 1) )

@@ -1489,25 +1489,25 @@ LABEL_56:
 
     for (i = 0; i < 2; ++i)
     {
-      v9 = pParty_global->HiredNPC[i].dword_000030;
+      v9 = pParty_global->pHiredNPCs[i].dword_000030;
       if ( v9 )
       {
-        v10 = pParty_global->HiredNPC[i].dword_000028;
-        v11 = pClass24_global2->int_00001C + pParty_global->HiredNPC[i].dword_00002C;
+        v10 = pParty_global->pHiredNPCs[i].dword_000028;
+        v11 = pClass24_global2->int_00001C + pParty_global->pHiredNPCs[i].dword_00002C;
         if ( v11 >= v9 )
         {
           v10 = 0;
           v9 = 0;
           v11 = 0;
-          memset(&pParty_global->HiredNPC[i], 0, sizeof(struct NPCData));
+          memset(&pParty_global->pHiredNPCs[i], 0, sizeof(struct NPCData));
           pParty_global->byte_000709 = 0;
           sub_44A56A();
           struct_576FE8.dword_000044 = 1;
         }
 
-        pParty_global->HiredNPC[i].dword_000028 = v10;
-        pParty_global->HiredNPC[i].dword_00002C = v11;
-        pParty_global->HiredNPC[i].dword_000030 = v9;
+        pParty_global->pHiredNPCs[i].dword_000028 = v10;
+        pParty_global->pHiredNPCs[i].dword_00002C = v11;
+        pParty_global->pHiredNPCs[i].dword_000030 = v9;
       }
     }
   }
@@ -1533,7 +1533,7 @@ void __thiscall sub_490D02(void *this)
   signed int v15; // [sp+14h] [bp-4h]@3
 
   v13 = this;
-  v1 = (int)pParty_global->array_00088C;
+  v1 = (int)pParty_global->pPartyBuffs;
   do
   {
     sub_458585(v1);

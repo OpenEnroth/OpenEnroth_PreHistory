@@ -228,7 +228,7 @@ int Party_Reset(struct Party *_this)
  }
 
  for (i = 0; i < 20; ++i)
-   sub_458585(_this->array_00088C[i]);
+   sub_458585(&_this->pPartyBuffs[i]);
 
  dword_506F48 = 100;
  _this->dword_007778 = 0;
@@ -619,7 +619,7 @@ void Party_ctor(struct Party *_this)
 
   for (i = 0; i < 20; ++i)
   {
-   v1 = _this->array_00088C[i];
+   v1 = &_this->pPartyBuffs[i];
 
     *(_WORD *)(v1 + 10) = 0;
     *(_WORD *)(v1 + 8) = 0;
@@ -722,5 +722,5 @@ void sub_491BF9(struct Party *_this)
 
 
  for (i = 0; i < 20; ++i)
-   sub_458585(_this->array_00088C[i]);
+   sub_458585(&_this->pPartyBuffs[i]);
 }

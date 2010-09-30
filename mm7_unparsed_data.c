@@ -1697,10 +1697,10 @@ struct struct9 *pStruct9_global; // struct @ MM7.exe::006BE070
  int dword_6BE134; // weak
  int dword_6BE138; // weak
  int dword_6BE13C; // weak
- float flt_6BE144; // weak
- float flt_6BE148; // weak
- float flt_6BE14C; // weak
- float flt_6BE150; // weak
+ float flt_6BE144 = 1.0; // weak
+ float flt_6BE148 = 1.0; // weak
+ float flt_6BE14C = 1.0; // weak
+ float flt_6BE150 = 1.0; // weak
 //char byte_6BE2D8[20];
 wchar_t pWindowClassName[20];
  HINSTANCE hInstance; // idb
@@ -2109,33 +2109,7 @@ struct CPlayerFrameTable *pPlayerFrameTable = 0; // struct @ MM7.exe::00A750EC
 
 
 struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
-//_UNKNOWN unk_ACCFB8; // weak
-//int dword_ACCFBC; // weak
-//int dword_ACCFC0; // weak
-//int dword_ACCFC4; // weak
-//int dword_ACCFC8; // weak
-//int dword_ACCFD4; // 00001C
-//__int64 qword_ACCFE4; // pParty_global::00002C
  _DWORD dword_ACD4E8[36]; // idb
-//int dword_ACD66C; // 0006B4
-//int dword_ACD670; // 0006B8
-//int dword_ACD674; // 0006BÑ
-//int dword_ACD678; // pParty_global::0006C0
-//int dword_ACD67C; // pParty_global::0006C4
-//int dword_ACD680; // pParty_global::0006C8
-//int dword_ACD684; // pParty_global::0006CC
-//int dword_ACD688; // pParty_global::0006D0
-//int dword_ACD68C; // pParty_global::0006D4
-//int dword_ACD690; // pParty_global::0006D8
-//int dword_ACD694; // weak
-//int dword_ACD6B8; // 000700
-//int dword_ACD6D0; // pParty_global::dword_000718
-//int dword_ACD6D4; // pParty_global::dword_00071C
-//int dword_ACD6D8; // pParty_global::dword_000720
-//int dword_ACD6E0; // ::000728
-//int dword_ACD6EC; // ::000734
- //__int16 word_ACD708[array_size_unknown]; // pParty_global::array_000750
- //__int16 word_ACD712[array_size_unknown]; // pParty_global::array_00075A
  char byte_ACD719[array_size_unknown]; // weak
  char byte_ACD71C; // weak
  char byte_ACD71D[array_size_unknown]; // weak
@@ -2148,60 +2122,13 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  int dword_ACD788[array_size_unknown]; // weak
  int dword_ACD794; // weak
  char byte_ACD7B6[array_size_unknown]; // weak
-//char byte_ACD80C[array_size_unknown]; // weak
  int dword_ACD82C; // weak
  int dword_ACD830; // weak
  int dword_ACD834; // weak
  int dword_ACD83C; // weak
-//int dword_ACD840; // pParty_global::dword_000888
-//int dword_ACD844[array_size_unknown]; //pParty_global::unk_00088C
- int dword_ACD848; // weak
- __int16 word_ACD84C; // weak
- _UNKNOWN unk_ACD854; // pParty_global::unk_00088C + 0010
- __int16 word_ACD85C; // weak
- _UNKNOWN unk_ACD864; // pParty_global::unk_00088C + 0020
- __int16 word_ACD86C; // weak
- __int64 qword_ACD874; // weak
- _UNKNOWN unk_ACD884; // weak
- __int16 word_ACD88C; // weak
- _UNKNOWN unk_ACD894; // weak
- char byte_ACD896[array_size_unknown]; // weak
- int dword_ACD898; // weak
- _UNKNOWN unk_ACD8A4; // weak
- __int16 word_ACD8AC; // weak
- __int64 qword_ACD8B4; // weak
- __int16 word_ACD8BC; // weak
- __int16 word_ACD8C0; // weak
  char byte_ACD8C2; // weak
  char byte_ACD8C3; // weak
- __int64 qword_ACD8C4; // weak
- _UNKNOWN unk_ACD8D4; // weak
- __int16 word_ACD8DC; // weak
- int dword_ACD8E4; // weak
- int dword_ACD8E8; // weak
- __int16 word_ACD8EC; // weak
- __int16 word_ACD8EE; // weak
  char byte_ACD8F2; // weak
- __int64 qword_ACD8F4; // weak
- _UNKNOWN unk_ACD904; // weak
- __int16 word_ACD90C; // weak
- __int64 qword_ACD914; // 00095C
- __int16 word_ACD91C; // weak
- __int16 word_ACD91E; // weak
- _UNKNOWN unk_ACD924; // weak
- _UNKNOWN unk_ACD934; // weak
- __int16 word_ACD93C; // weak
- __int64 qword_ACD944; // weak
- __int16 word_ACD94C; // weak
- _UNKNOWN unk_ACD954; // weak
- __int16 word_ACD95C; // weak
- __int64 qword_ACD964; // weak
- __int16 word_ACD970; // weak
- char byte_ACD972; // weak
- char byte_ACD973; // weak
- __int64 qword_ACD974; // weak
- __int16 word_ACD97E; // weak
-//int dword_ACD984[array_size_unknown]; // pParty_global::pPlayers[0]::000000
  int dword_ACD988[array_size_unknown]; // weak
  int dword_ACD98C; // weak
  int dword_ACD990; // weak
@@ -2222,31 +2149,13 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  int dword_ACD9DC; // weak
  int dword_ACD9E0; // weak
  _UNKNOWN unk_ACD9E4; // weak
- //int dword_ACD9EC; // ::000068
- //int dword_ACD9F0; // ::00006C
- //int dword_ACD9F4; // ::000070
- //int dword_ACD9F8; // ::000074
  _UNKNOWN unk_ACD9FC; // weak
- //int dword_ACDA04; // ::000080
- //int dword_ACDA08; // ::000084
  _UNKNOWN unk_ACDA24; // weak
-//_UNKNOWN unk_ACDA2C; // pParty_global::pPlayers[0]::sName
-//char byte_ACDA3D[array_size_unknown]; // pParty_global::pPlayers[0]::uClass
-//char byte_ACDA3E; // pParty_global::pPlayers[0]::uFace
-//__int16 word_ACDA40; // ::0000BC   pParty_global::pPlayers[0]::uStrength
-//__int16 word_ACDA44; // ::0000C0
-//__int16 word_ACDA48; // ::0000C4
-//__int16 word_ACDA4C; // ::0000C8
-//__int16 word_ACDA50; // ::0000CC
-//__int16 word_ACDA54; // ::0000D0
-//__int16 word_ACDA58; // ::0000D4
-//__int16 word_ACDA8C[array_size_unknown]; // pParty_global::pPlayers[0]::array_000108
  _UNKNOWN unk_ACDA9C; // weak
  _UNKNOWN unk_ACDAD6; // weak
  _UNKNOWN unk_ACDB74; // weak
  _UNKNOWN unk_ACDB98; // weak
  _UNKNOWN unk_ACDBB2; // weak
-//_UNKNOWN unk_ACF102; // weak
  _UNKNOWN unk_ACF124; // weak
  _UNKNOWN unk_ACF134; // weak
  _UNKNOWN unk_ACF164; // weak
@@ -2254,26 +2163,21 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  _UNKNOWN unk_ACF1C4; // weak
  _UNKNOWN unk_ACF1D4; // weak
  _UNKNOWN unk_ACF1E4; // weak
-//_UNKNOWN unk_ACF2A4; // pParty_global::pPlayers[0]::dword_001920
  __int16 word_ACF2B8[array_size_unknown]; // weak
  int dword_ACF2C0[array_size_unknown]; // weak
  _UNKNOWN unk_ACF3D3; // weak
  _UNKNOWN unk_ACF4BC; // weak
  __int64 qword_ACF4D0; // weak
-//char byte_ACF57A; // pParty_global::pPlayers[1]::uFace
  _UNKNOWN unk_AD0CC0; // weak
  int dword_AD0F84[array_size_unknown]; // weak
  int dword_AD0F98[array_size_unknown]; // weak
  __int64 qword_AD100C; // weak
-//char byte_AD10B6; // pParty_global::pPlayers[2]::uFace
  _UNKNOWN unk_AD27FC; // weak
  __int64 qword_AD2B48; // weak
-//char byte_AD2BF2; // pParty_global::pPlayers[3]::uFace
  _UNKNOWN unk_AD4338; // weak
  int dword_AD4650; // weak
  int dword_AD4654[array_size_unknown]; // weak
  int dword_AD4658; // weak
-//struct NPCData HiredNPC[2];
  int dword_AD470C; // weak
  int dword_AD4710; // weak
  _UNKNOWN unk_AD4714; // weak
@@ -2282,7 +2186,6 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  char byte_AD4724; // weak
  _UNKNOWN unk_AD472D; // weak
  _UNKNOWN unk_AD472E; // weak
-//int dword_AD4730; // ::dword_007778
  int dword_AD4734[array_size_unknown]; // weak
  _UNKNOWN unk_AD4738; // weak
  int dword_AD4748[array_size_unknown]; // weak
@@ -2305,7 +2208,6 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  char byte_AE302C[100]; // idb
  _UNKNOWN unk_AE3090; // weak
  int dword_AE30F8[array_size_unknown]; // weak
- int dword_AE30FC[array_size_unknown]; // weak
  int dword_AE310C[array_size_unknown]; // weak
  int dword_AE31E0; // weak
  int dword_AE31E4; // weak

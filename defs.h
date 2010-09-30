@@ -17,6 +17,9 @@
 #define __thiscall __cdecl
 #ifndef __cplusplus
   typedef int bool;
+  #define public
+  #define protected
+  #define private
 #endif
 
 #define compile_warning

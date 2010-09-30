@@ -3301,8 +3301,8 @@ void __stdcall sub_4B1BDB(__int64 a1)
   signed __int64 v3; // ST1C_8@1
   unsigned int v4; // ebx@1
 
-  pParty_global->HiredNPC[0].dword_000044 = 0;
-  pParty_global->HiredNPC[1].dword_000044 = 0;
+  pParty_global->pHiredNPCs[0].dword_000044 = 0;
+  pParty_global->pHiredNPCs[1].dword_000044 = 0;
   pParty_global->qword_00002C += (signed __int64)((double)(7680 * a1) * 0.03333333507180214);
   v2 = (signed __int64)((double)pParty_global->qword_00002C * 0.234375);
   v3 = v2 / 60 / 60;
@@ -3769,7 +3769,7 @@ LABEL_50:
     }
     return sub_4BF5B2(pVideoPlayer);
   }
-  if (pParty_global->HiredNPC[0].pNPCName && pParty_global->HiredNPC[1].pNPCName)
+  if (pParty_global->pHiredNPCs[0].pNPCName && pParty_global->pHiredNPCs[1].pNPCName)
   {
     v19 = pGlobalTXT_LocalizationStrings[533];
 LABEL_77:
@@ -3797,15 +3797,15 @@ LABEL_77:
   *(_BYTE *)(v2 + 8) |= 0x80u;
   pParty_global->byte_000709 = 0;
   sub_44A56A();
-  if (pParty_global->HiredNPC[0].pNPCName)
+  if (pParty_global->pHiredNPCs[0].pNPCName)
   {
-    memcpy(&pParty_global->HiredNPC[1], v2, sizeof(struct NPCData));
+    memcpy(&pParty_global->pHiredNPCs[1], v2, sizeof(struct NPCData));
     v25 = *(const char **)v2;
     v23 = (char *)&unk_AE3090;
   }
   else
   {
-    memcpy(&pParty_global->HiredNPC[0], v2, sizeof(struct NPCData));
+    memcpy(&pParty_global->pHiredNPCs[0], v2, sizeof(struct NPCData));
     v25 = *(const char **)v2;
     v23 = byte_AE302C;
   }
@@ -6834,7 +6834,7 @@ LABEL_61:
       }
       while ( v66 < 12 );
     }
-    v68 = GetAsyncKeyState(17);
+    v68 = GetAsyncKeyState(VK_CONTROL);
     v67 = sub_492C40((void *)v123);
     Str = (char *)v67;
     if ( v68 && v67 )
@@ -7065,7 +7065,7 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
         --v9;
       }
       while ( v9 );
-      GetAsyncKeyState(17);
+      GetAsyncKeyState(VK_CONTROL);
       v11 = pGlobalTXT_LocalizationStrings[195];
       if ( dword_F8B19C != 2 )
         v11 = pGlobalTXT_LocalizationStrings[196];
@@ -9960,7 +9960,7 @@ LABEL_15:
       }
       while ( v55 < 6 );
     }
-    v57 = GetAsyncKeyState(17);
+    v57 = GetAsyncKeyState(VK_CONTROL);
     v56 = sub_492C40((void *)v111);
     Str = (char *)v56;
     if ( v57 && v56 )
@@ -10484,7 +10484,7 @@ LABEL_134:
       }
       while ( v62 < 12 );
     }
-    v64 = GetAsyncKeyState(17);
+    v64 = GetAsyncKeyState(VK_CONTROL);
     v63 = sub_492C40((void *)v113);
     Str = (char *)v63;
     if ( v64 && v63 )
@@ -11136,7 +11136,7 @@ LABEL_64:
       }
       while ( v63 < 6 );
     }
-    v65 = GetAsyncKeyState(17);
+    v65 = GetAsyncKeyState(VK_CONTROL);
     v64 = sub_492C40((void *)v148);
     Str = (char *)v64;
     if ( v65 == (_WORD)v10 || (char *)v64 == v10 )
@@ -11442,8 +11442,8 @@ signed int __fastcall sub_4BB756(signed int a1)
       return 0;
     }
     v20 = sub_4418B1(10005, 201, 0, 65536);
-    sub_4584E0((int)&qword_ACD964, pParty_global->qword_00002C + 46080, (unsigned __int64)(pParty_global->qword_00002C + 46080) >> 32, 3, 0, v20, 0);
-    byte_ACD973 |= 1u;
+    sub_4584E0(&pParty_global->pPartyBuffs[15], pParty_global->qword_00002C + 46080, (unsigned __int64)(pParty_global->qword_00002C + 46080) >> 32, 3, 0, v20, 0);
+    pParty_global->pPartyBuffs[15].byte_00000F |= 0x01;
     v31 = 0;
     v29 = 0;
     v27 = 0;
@@ -11473,7 +11473,7 @@ LABEL_40:
     else
     {
       v19 = sub_4418B1(10008, 203, 0, 65536);
-      sub_4584E0((int)&qword_ACD8B4, pParty_global->qword_00002C + 30720, (unsigned __int64)(pParty_global->qword_00002C + 30720) >> 32, 3, 1, v19, 0);
+      sub_4584E0(&pParty_global->pPartyBuffs[7], pParty_global->qword_00002C + 30720, (unsigned __int64)(pParty_global->qword_00002C + 30720) >> 32, 3, 1, v19, 0);
       byte_ACD8C3 |= 1u;
       v31 = 0;
       v29 = 0;
@@ -11522,7 +11522,7 @@ LABEL_40:
       v7 += 6972;
     }
     //while ( v7 < (signed int)&unk_AD46EC );
-    while (v7 < pParty_global->HiredNPC[1].dword_00002C);
+    while (v7 < pParty_global->pHiredNPCs[1].dword_00002C);
     return 0;
   }
   if ( a1 == 12 )
@@ -12123,19 +12123,19 @@ void __thiscall sub_4BC49B(void *this)
         goto LABEL_43;
       }
 LABEL_44:
-      if (!pParty_global->HiredNPC[0].pNPCName || strcmpi(pParty_global->HiredNPC[0].pNPCName, *(const char **)v2))
+      if (!pParty_global->pHiredNPCs[0].pNPCName || strcmpi(pParty_global->pHiredNPCs[0].pNPCName, *(const char **)v2))
       {
-        if (!pParty_global->HiredNPC[1].pNPCName || strcmpi(pParty_global->HiredNPC[1].pNPCName, *(const char **)v2))
+        if (!pParty_global->pHiredNPCs[1].pNPCName || strcmpi(pParty_global->pHiredNPCs[1].pNPCName, *(const char **)v2))
           goto LABEL_51;
         v14 = 76;
         v12 = 0;
-        v11 = &pParty_global->HiredNPC[1];
+        v11 = &pParty_global->pHiredNPCs[1];
       }
       else
       {
         v14 = 76;
         v12 = 0;
-        v11 = &pParty_global->HiredNPC[0];
+        v11 = &pParty_global->pHiredNPCs[0];
       }
       memset(v11, v12, v14);
 LABEL_51:
@@ -12150,7 +12150,7 @@ LABEL_51:
       }
       goto LABEL_89;
     }
-    if (pParty_global->HiredNPC[0].pNPCName && pParty_global->HiredNPC[1].pNPCName)
+    if (pParty_global->pHiredNPCs[0].pNPCName && pParty_global->pHiredNPCs[1].pNPCName)
     {
       v7 = pGlobalTXT_LocalizationStrings[533];
 LABEL_64:
@@ -12174,15 +12174,15 @@ LABEL_64:
       sub_492BB6(v10);
     }
     v2[8] |= 0x80u;
-    if (pParty_global->HiredNPC[0].pNPCName)
+    if (pParty_global->pHiredNPCs[0].pNPCName)
     {
-      memcpy(&pParty_global->HiredNPC[1], v2, sizeof(struct NPCData));
+      memcpy(&pParty_global->pHiredNPCs[1], v2, sizeof(struct NPCData));
       v15 = *(const char **)v2;
       v13 = (char *)&unk_AE3090;
     }
     else
     {
-      memcpy(&pParty_global->HiredNPC[0], v2, sizeof(struct NPCData));
+      memcpy(&pParty_global->pHiredNPCs[0], v2, sizeof(struct NPCData));
       v15 = *(const char **)v2;
       v13 = byte_AE302C;
     }
@@ -13339,7 +13339,7 @@ LABEL_73:
     v22 = sub_456442(v19);
     v23 = sub_4B8142((void *)v0, v22, v21);
     v81 = v23;
-    GetAsyncKeyState(17);
+    GetAsyncKeyState(VK_CONTROL);
     if ( pParty_global->uNumGold < (unsigned int)v23 )
     {
       v24 = 2;
@@ -13386,7 +13386,7 @@ LABEL_49:
     v34 = *((float *)&unk_591458 + 13 * v30);
     v35 = sub_456442(v32);
     v81 = sub_4B8142((void *)v0, v35, v34);
-    LOWORD(v36) = GetAsyncKeyState(17);
+    LOWORD(v36) = GetAsyncKeyState(VK_CONTROL);
     v75 = v36;
     v37 = sub_492C40((void *)v0);
     v79 = 0;
@@ -14480,6 +14480,9 @@ LABEL_32:
   return 0;
 }
 
+void loc_4C0D27()
+{
+}
 //----- (004C091D) --------------------------------------------------------
 char __thiscall sub_4C091D(void *this, float a2, int a3)
 {
@@ -14528,7 +14531,7 @@ char __thiscall sub_4C091D(void *this, float a2, int a3)
   {
     byte_F93E18 |= 1u;
     class25_fn0(&class25_F91E10);
-    compile_error;//atexit(loc_4C0D27);
+    atexit(loc_4C0D27);
   }
   class25_F91E10.dword_002004 = 0;
   v4 = 156 * a3;
@@ -15326,6 +15329,9 @@ char __thiscall sub_4C1930(void *this, float a2, int a3)
   return sub_4C091D(this, a2, a3);
 }
 
+void loc_4C19F7()
+{
+}
 //----- (004C1944) --------------------------------------------------------
 signed int __thiscall sub_4C1944(void *this, int a2, unsigned int a3, int a4, int a5, int a6)
 {
@@ -15344,7 +15350,7 @@ signed int __thiscall sub_4C1944(void *this, int a2, unsigned int a3, int a4, in
   {
     byte_F8DDF0 |= 1u;
     class25_fn0(&dword_F8BDE8);
-    compile_error;//atexit(loc_4C19F7);
+    atexit(loc_4C19F7);
   }
   v9 = a2;
   v10 = a6;

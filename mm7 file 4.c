@@ -884,7 +884,7 @@ int __fastcall sub_4269A2(int a1)
     v3 += 4;
   }
   //while ( HIDWORD(v1) < (signed int)&unk_AD46E4 );
-  while (HIWORD(v1) < &pParty_global->HiredNPC[1].dword_000024);
+  while (HIWORD(v1) < &pParty_global->pHiredNPCs[1].dword_000024);
 
   if ( v2 )
   {
@@ -1313,7 +1313,7 @@ signed int __stdcall sub_427102(int a1, signed int a2)
     }
     if ( a2 == 80 )
     {
-      v5 = (signed int)pParty_global->array_00088C;
+      v5 = (signed int)pParty_global->pPartyBuffs;
       while ( *(_QWORD *)v5 <= 0i64 )
       {
         v5 += 16;
@@ -2317,8 +2317,8 @@ signed int __cdecl sub_42ECB5()
   {
     sub_427D48(&struct_50C0C8, v1);
     v3 = 0;
-    if ( qword_ACD8F4 > 0 )
-      sub_458585((int)&qword_ACD8F4);
+    if (pParty_global->pPartyBuffs[11].qword_000000 > 0 )
+      sub_458585(&pParty_global->pPartyBuffs[11]);
     v33 = *(_DWORD *)(v2 + 6480);
     if ( v33 )
     {
@@ -3353,7 +3353,6 @@ signed int __cdecl sub_42FC15()
 //----- (0042FC4E) --------------------------------------------------------
 void __cdecl sub_42FC4E()
 {
-  int v0; // ecx@1
   int v1; // ebx@7
   void *v2; // esi@7
   int v3; // ecx@8
@@ -3380,26 +3379,27 @@ void __cdecl sub_42FC4E()
   int v24; // [sp+4h] [bp-4h]@87
 
   sub_45B019(pGame->class14_obj);
-  v0 = pGame->class14_obj;
-  if ( !dword_6BE37C )
+
+  if (!dword_6BE37C)
   {
-    if ( sub_45B06E(v0) )
+    if (sub_45B06E(pGame->class14_obj))
       goto LABEL_3;
 LABEL_5:
     dword_ACD83C &= 0xFFFFFFFDu;
     goto LABEL_6;
   }
-  if ( sub_45B06E(v0) )
+  if (sub_45B06E(pGame->class14_obj))
     goto LABEL_5;
 LABEL_3:
   dword_ACD83C |= 2;
+
 LABEL_6:
   if ( !pClass24_global->dword_000004 )
   {
     v23 = 0;
     v1 = 1;
     v2 = &dword_7215D8;
-    while ( 1 )
+    while (true)
     {
      v3 = pGame->class14_obj;
       v17 = pKeyboardController->array_00000C_vkeys[v23];
@@ -3470,7 +3470,7 @@ LABEL_46:
           case 2:
             if ( dword_4E28F8 )
               break;
-            if ( GetAsyncKeyState(17) )
+            if ( GetAsyncKeyState(VK_CONTROL) )
             {
               if ( dword_ACD834 == v1 )
               {
@@ -3497,7 +3497,7 @@ LABEL_46:
           case 3:
             if ( dword_4E28F8 )
               break;
-            if ( GetAsyncKeyState(17) )
+            if ( GetAsyncKeyState(VK_CONTROL) )
             {
               if ( dword_ACD834 == v1 )
               {
@@ -8674,79 +8674,87 @@ void sub_459C2B(int a1, signed int a2, int a3, int a4)
 }
 
 //----- (00459C68) --------------------------------------------------------
-int __thiscall sub_459C68(void *this, int a2, int a3, int a4)
+void KeyboardController_InitalizeKey(struct KeyboardController *_this, unsigned int uSlot, unsigned int uVKey, bool bActive)
 {
-  int result; // eax@1
-
-  result = a2;
-  *((_DWORD *)this + a2 + 3) = a3;
-  *((_DWORD *)this + a2 + 33) = a4;
-  return result;
+ _this->array_00000C_vkeys[uSlot] = uVKey;
+ _this->unk_000084[uSlot] = bActive;
 }
 
 //----- (00459CC4) --------------------------------------------------------
-int __thiscall sub_459CC4(int this)
+void KeyboardController_InitalizeKeys(struct KeyboardController *_this)
 {
-  void *v2; // ecx@1
-  void *v3; // ecx@1
-  void *v4; // ecx@1
-  void *v5; // ecx@1
-  void *v6; // ecx@1
-  void *v7; // ecx@1
-  void *v8; // ecx@1
-  void *v9; // ecx@1
+ _this->array_00000C_vkeys[0] = VK_UP;
+ _this->unk_000084[0] = false;
+  
+ _this->array_00000C_vkeys[1] = VK_DOWN;
+ _this->unk_000084[1] = false;
+  
+ _this->array_00000C_vkeys[2] = VK_LEFT;
+ _this->unk_000084[2] = false;
+  
+ _this->array_00000C_vkeys[3] = VK_RIGHT;
+ _this->unk_000084[3] = false;
+  
+ _this->array_00000C_vkeys[8] = 'A';
+ _this->unk_000084[8] = true;
+  
+ _this->array_00000C_vkeys[7] = 'S';
+ _this->unk_000084[7] = true;
+  
+ _this->array_00000C_vkeys[4] = 'Y';
+ _this->unk_000084[4] = true;
+  
+ _this->array_00000C_vkeys[5] = 'X';
+ _this->unk_000084[5] = true;
+  
+ _this->array_00000C_vkeys[6] = VK_RETURN;
+ _this->unk_000084[6] = true;
+  
+ _this->array_00000C_vkeys[9] = VK_SPACE;
+ _this->unk_000084[9] = true;
+  
+ _this->array_00000C_vkeys[10] = 'C';
+ _this->unk_000084[10] = true;
+  
+ _this->array_00000C_vkeys[11] = 'B';
+ _this->unk_000084[11] = true;
+  
+ _this->array_00000C_vkeys[12] = VK_TAB;
+ _this->unk_000084[12] = true;
+  
+ _this->array_00000C_vkeys[13] = 'P';
+ _this->unk_000084[13] = true;
+ 
+ _this->array_00000C_vkeys[14] = 'Z';
+ _this->unk_000084[14] = true;
+ 
+ _this->array_00000C_vkeys[15] = 'Q';
+ _this->unk_000084[15] = true;
 
-  *(_DWORD *)(this + 12) = 38;
-  *(_DWORD *)(this + 132) = 0;
-  *(_DWORD *)(this + 16) = 40;
-  *(_DWORD *)(this + 136) = 0;
-  *(_DWORD *)(this + 20) = 37;
-  *(_DWORD *)(this + 140) = 0;
-  *(_DWORD *)(this + 24) = 39;
-  *(_DWORD *)(this + 144) = 0;
-  *(_DWORD *)(this + 44) = 65;
-  *(_DWORD *)(this + 164) = 1;
-  *(_DWORD *)(this + 40) = 83;
-  *(_DWORD *)(this + 160) = 1;
-  *(_DWORD *)(this + 28) = 89;
-  *(_DWORD *)(this + 148) = 1;
-  *(_DWORD *)(this + 32) = 88;
-  *(_DWORD *)(this + 152) = 1;
-  *(_DWORD *)(this + 36) = 13;
-  *(_DWORD *)(this + 156) = 1;
-  *(_DWORD *)(this + 48) = 32;
-  *(_DWORD *)(this + 168) = 1;
-  *(_DWORD *)(this + 52) = 67;
-  *(_DWORD *)(this + 172) = 1;
-  *(_DWORD *)(this + 56) = 66;
-  *(_DWORD *)(this + 176) = 1;
-  *(_DWORD *)(this + 60) = 9;
-  *(_DWORD *)(this + 180) = 1;
-  *(_DWORD *)(this + 64) = 81;
-  *(_DWORD *)(this + 184) = 1;
-  *(_DWORD *)(this + 68) = 90;
-  *(_DWORD *)(this + 188) = 1;
-  *(_DWORD *)(this + 72) = 82;
-  *(_DWORD *)(this + 192) = 1;
-  *(_DWORD *)(this + 76) = 84;
-  *(_DWORD *)(this + 196) = 1;
-  *(_DWORD *)(this + 80) = 78;
-  *(_DWORD *)(this + 200) = 1;
-  *(_DWORD *)(this + 84) = 77;
-  *(_DWORD *)(this + 204) = 1;
-  *(_DWORD *)(this + 92) = 34;
-  *(_DWORD *)(this + 212) = 0;
-  *(_DWORD *)(this + 96) = 46;
-  *(_DWORD *)(this + 216) = 0;
-  sub_459C68((void *)this, 22, 35, 0);
-  sub_459C68(v2, 23, 107, 1);
-  sub_459C68(v3, 24, 109, 1);
-  sub_459C68(v4, 25, 33, 0);
-  sub_459C68(v5, 26, 45, 0);
-  sub_459C68(v6, 27, 36, 1);
-  sub_459C68(v7, 19, 85, 1);
-  sub_459C68(v8, 28, 219, 0);
-  return sub_459C68(v9, 29, 221, 0);
+ _this->array_00000C_vkeys[16] = 84;
+ _this->unk_000084[16] = true;
+
+ _this->array_00000C_vkeys[17] = 78;
+ _this->unk_000084[17] = true;
+
+ _this->array_00000C_vkeys[18] = 77;
+ _this->unk_000084[18] = true;
+
+ _this->array_00000C_vkeys[19] = VK_NEXT;
+ _this->unk_000084[19] = false;
+
+ _this->array_00000C_vkeys[20] = VK_DELETE;
+ _this->unk_000084[20] = false;
+
+ KeyboardController_InitalizeKey(_this, 22, VK_END, false);
+ KeyboardController_InitalizeKey(_this, 23, 107, true);
+ KeyboardController_InitalizeKey(_this, 24, 109, true);
+ KeyboardController_InitalizeKey(_this, 25, VK_PRIOR, false);
+ KeyboardController_InitalizeKey(_this, 26, 45, false);
+ KeyboardController_InitalizeKey(_this, 27, 36, true);
+ KeyboardController_InitalizeKey(_this, 19, 85, true);
+ KeyboardController_InitalizeKey(_this, 28, 219, false);
+ KeyboardController_InitalizeKey(_this, 29, 221, false);
 }
 
 //----- (00459E5A) --------------------------------------------------------
@@ -8772,7 +8780,7 @@ void __thiscall sub_459E5A(int this, int a2, int a3, int a4)
 }
 
 //----- (00459FFC) --------------------------------------------------------
-char __thiscall sub_459FFC(void *this)
+char __thiscall KeyboardController_ReadKeyMapping(void *this)
 {
   void *v1; // esi@1
   int v2; // eax@2
@@ -8834,13 +8842,13 @@ char __thiscall sub_459FFC(void *this)
   int v58; // eax@114
   int v59; // eax@115
   int v60; // eax@117
-  char Str1; // [sp+Ch] [bp-20h]@1
+  char Str1[32]; // [sp+Ch] [bp-20h]@1
 
   v1 = this;
-  sub_464BEF("KEY_FORWARD", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v2) = sub_45ABCA(&Str1), v2 != -1) )
+  ReadRegistryKeyMapping("KEY_FORWARD", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v2) = sub_45ABCA(Str1), v2 != -1) )
   {
-    LOBYTE(v3) = sub_45ABCA(&Str1);
+    LOBYTE(v3) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 3) = v3;
   }
   else
@@ -8848,10 +8856,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 3) = 38;
   }
   *((_DWORD *)v1 + 33) = 0;
-  sub_464BEF("KEY_BACKWARD", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v4) = sub_45ABCA(&Str1), v4 != -1) )
+  ReadRegistryKeyMapping("KEY_BACKWARD", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v4) = sub_45ABCA(Str1), v4 != -1) )
   {
-    LOBYTE(v5) = sub_45ABCA(&Str1);
+    LOBYTE(v5) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 4) = v5;
   }
   else
@@ -8859,10 +8867,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 4) = 40;
   }
   *((_DWORD *)v1 + 34) = 0;
-  sub_464BEF("KEY_LEFT", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v6) = sub_45ABCA(&Str1), v6 != -1) )
+  ReadRegistryKeyMapping("KEY_LEFT", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v6) = sub_45ABCA(Str1), v6 != -1) )
   {
-    LOBYTE(v7) = sub_45ABCA(&Str1);
+    LOBYTE(v7) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 5) = v7;
   }
   else
@@ -8870,10 +8878,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 5) = 37;
   }
   *((_DWORD *)v1 + 35) = 0;
-  sub_464BEF("KEY_RIGHT", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v8) = sub_45ABCA(&Str1), v8 != -1) )
+  ReadRegistryKeyMapping("KEY_RIGHT", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v8) = sub_45ABCA(Str1), v8 != -1) )
   {
-    LOBYTE(v9) = sub_45ABCA(&Str1);
+    LOBYTE(v9) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 6) = v9;
   }
   else
@@ -8881,10 +8889,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 6) = 39;
   }
   *((_DWORD *)v1 + 36) = 0;
-  sub_464BEF("KEY_ATTACK", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v10) = sub_45ABCA(&Str1), v10 != -1) )
+  ReadRegistryKeyMapping("KEY_ATTACK", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v10) = sub_45ABCA(Str1), v10 != -1) )
   {
-    LOBYTE(v11) = sub_45ABCA(&Str1);
+    LOBYTE(v11) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 11) = v11;
   }
   else
@@ -8892,10 +8900,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 11) = 65;
   }
   *((_DWORD *)v1 + 41) = 1;
-  sub_464BEF("KEY_CASTREADY", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v12) = sub_45ABCA(&Str1), v12 != -1) )
+  ReadRegistryKeyMapping("KEY_CASTREADY", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v12) = sub_45ABCA(Str1), v12 != -1) )
   {
-    LOBYTE(v13) = sub_45ABCA(&Str1);
+    LOBYTE(v13) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 10) = v13;
   }
   else
@@ -8903,10 +8911,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 10) = 83;
   }
   *((_DWORD *)v1 + 40) = 1;
-  sub_464BEF("KEY_YELL", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v14) = sub_45ABCA(&Str1), v14 != -1) )
+  ReadRegistryKeyMapping("KEY_YELL", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v14) = sub_45ABCA(Str1), v14 != -1) )
   {
-    LOBYTE(v15) = sub_45ABCA(&Str1);
+    LOBYTE(v15) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 7) = v15;
   }
   else
@@ -8914,10 +8922,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 7) = 89;
   }
   *((_DWORD *)v1 + 37) = 1;
-  sub_464BEF("KEY_JUMP", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v16) = sub_45ABCA(&Str1), v16 != -1) )
+  ReadRegistryKeyMapping("KEY_JUMP", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v16) = sub_45ABCA(Str1), v16 != -1) )
   {
-    LOBYTE(v17) = sub_45ABCA(&Str1);
+    LOBYTE(v17) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 8) = v17;
   }
   else
@@ -8925,10 +8933,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 8) = 88;
   }
   *((_DWORD *)v1 + 38) = 1;
-  sub_464BEF("KEY_COMBAT", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v18) = sub_45ABCA(&Str1), v18 != -1) )
+  ReadRegistryKeyMapping("KEY_COMBAT", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v18) = sub_45ABCA(Str1), v18 != -1) )
   {
-    LOBYTE(v19) = sub_45ABCA(&Str1);
+    LOBYTE(v19) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 9) = v19;
   }
   else
@@ -8936,10 +8944,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 9) = 13;
   }
   *((_DWORD *)v1 + 39) = 1;
-  sub_464BEF("KEY_EVENTTRIGGER", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v20) = sub_45ABCA(&Str1), v20 != -1) )
+  ReadRegistryKeyMapping("KEY_EVENTTRIGGER", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v20) = sub_45ABCA(Str1), v20 != -1) )
   {
-    LOBYTE(v21) = sub_45ABCA(&Str1);
+    LOBYTE(v21) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 12) = v21;
   }
   else
@@ -8947,10 +8955,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 12) = 32;
   }
   *((_DWORD *)v1 + 42) = 1;
-  sub_464BEF("KEY_CAST", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v22) = sub_45ABCA(&Str1), v22 != -1) )
+  ReadRegistryKeyMapping("KEY_CAST", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v22) = sub_45ABCA(Str1), v22 != -1) )
   {
-    LOBYTE(v23) = sub_45ABCA(&Str1);
+    LOBYTE(v23) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 13) = v23;
   }
   else
@@ -8958,10 +8966,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 13) = 67;
   }
   *((_DWORD *)v1 + 43) = 1;
-  sub_464BEF("KEY_PASS", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v24) = sub_45ABCA(&Str1), v24 != -1) )
+  ReadRegistryKeyMapping("KEY_PASS", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v24) = sub_45ABCA(Str1), v24 != -1) )
   {
-    LOBYTE(v25) = sub_45ABCA(&Str1);
+    LOBYTE(v25) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 14) = v25;
   }
   else
@@ -8969,10 +8977,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 14) = 66;
   }
   *((_DWORD *)v1 + 44) = 1;
-  sub_464BEF("KEY_CHARCYCLE", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v26) = sub_45ABCA(&Str1), v26 != -1) )
+  ReadRegistryKeyMapping("KEY_CHARCYCLE", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v26) = sub_45ABCA(Str1), v26 != -1) )
   {
-    LOBYTE(v27) = sub_45ABCA(&Str1);
+    LOBYTE(v27) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 15) = v27;
   }
   else
@@ -8980,10 +8988,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 15) = 9;
   }
   *((_DWORD *)v1 + 45) = 1;
-  sub_464BEF("KEY_QUEST", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v28) = sub_45ABCA(&Str1), v28 != -1) )
+  ReadRegistryKeyMapping("KEY_QUEST", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v28) = sub_45ABCA(Str1), v28 != -1) )
   {
-    LOBYTE(v29) = sub_45ABCA(&Str1);
+    LOBYTE(v29) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 16) = v29;
   }
   else
@@ -8991,10 +8999,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 16) = 81;
   }
   *((_DWORD *)v1 + 46) = 1;
-  sub_464BEF("KEY_QUICKREF", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v30) = sub_45ABCA(&Str1), v30 != -1) )
+  ReadRegistryKeyMapping("KEY_QUICKREF", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v30) = sub_45ABCA(Str1), v30 != -1) )
   {
-    LOBYTE(v31) = sub_45ABCA(&Str1);
+    LOBYTE(v31) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 17) = v31;
   }
   else
@@ -9002,10 +9010,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 17) = 90;
   }
   *((_DWORD *)v1 + 47) = 1;
-  sub_464BEF("KEY_REST", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v32) = sub_45ABCA(&Str1), v32 != -1) )
+  ReadRegistryKeyMapping("KEY_REST", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v32) = sub_45ABCA(Str1), v32 != -1) )
   {
-    LOBYTE(v33) = sub_45ABCA(&Str1);
+    LOBYTE(v33) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 18) = v33;
   }
   else
@@ -9013,10 +9021,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 18) = 82;
   }
   *((_DWORD *)v1 + 48) = 1;
-  sub_464BEF("KEY_TIMECAL", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v34) = sub_45ABCA(&Str1), v34 != -1) )
+  ReadRegistryKeyMapping("KEY_TIMECAL", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v34) = sub_45ABCA(Str1), v34 != -1) )
   {
-    LOBYTE(v35) = sub_45ABCA(&Str1);
+    LOBYTE(v35) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 19) = v35;
   }
   else
@@ -9024,10 +9032,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 19) = 84;
   }
   *((_DWORD *)v1 + 49) = 1;
-  sub_464BEF("KEY_AUTONOTES", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v36) = sub_45ABCA(&Str1), v36 != -1) )
+  ReadRegistryKeyMapping("KEY_AUTONOTES", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v36) = sub_45ABCA(Str1), v36 != -1) )
   {
-    LOBYTE(v37) = sub_45ABCA(&Str1);
+    LOBYTE(v37) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 20) = v37;
   }
   else
@@ -9035,10 +9043,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 20) = 78;
   }
   *((_DWORD *)v1 + 50) = 1;
-  sub_464BEF("KEY_MAPBOOK", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v38) = sub_45ABCA(&Str1), v38 != -1) )
+  ReadRegistryKeyMapping("KEY_MAPBOOK", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v38) = sub_45ABCA(Str1), v38 != -1) )
   {
-    LOBYTE(v39) = sub_45ABCA(&Str1);
+    LOBYTE(v39) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 21) = v39;
   }
   else
@@ -9046,10 +9054,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 21) = 77;
   }
   *((_DWORD *)v1 + 51) = 1;
-  sub_464BEF("KEY_LOOKUP", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v40) = sub_45ABCA(&Str1), v40 != -1) )
+  ReadRegistryKeyMapping("KEY_LOOKUP", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v40) = sub_45ABCA(Str1), v40 != -1) )
   {
-    LOBYTE(v41) = sub_45ABCA(&Str1);
+    LOBYTE(v41) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 23) = v41;
   }
   else
@@ -9057,10 +9065,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 23) = 34;
   }
   *((_DWORD *)v1 + 53) = 1;
-  sub_464BEF("KEY_LOOKDOWN", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v42) = sub_45ABCA(&Str1), v42 != -1) )
+  ReadRegistryKeyMapping("KEY_LOOKDOWN", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v42) = sub_45ABCA(Str1), v42 != -1) )
   {
-    LOBYTE(v43) = sub_45ABCA(&Str1);
+    LOBYTE(v43) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 24) = v43;
   }
   else
@@ -9068,10 +9076,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 24) = 46;
   }
   *((_DWORD *)v1 + 54) = 1;
-  sub_464BEF("KEY_CENTERVIEWPT", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v44) = sub_45ABCA(&Str1), v44 != -1) )
+  ReadRegistryKeyMapping("KEY_CENTERVIEWPT", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v44) = sub_45ABCA(Str1), v44 != -1) )
   {
-    LOBYTE(v45) = sub_45ABCA(&Str1);
+    LOBYTE(v45) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 25) = v45;
   }
   else
@@ -9079,10 +9087,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 25) = 35;
   }
   *((_DWORD *)v1 + 55) = 1;
-  sub_464BEF("KEY_ZOOMIN", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v46) = sub_45ABCA(&Str1), v46 != -1) )
+  ReadRegistryKeyMapping("KEY_ZOOMIN", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v46) = sub_45ABCA(Str1), v46 != -1) )
   {
-    LOBYTE(v47) = sub_45ABCA(&Str1);
+    LOBYTE(v47) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 26) = v47;
   }
   else
@@ -9090,10 +9098,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 26) = 107;
   }
   *((_DWORD *)v1 + 56) = 1;
-  sub_464BEF("KEY_ZOOMOUT", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v48) = sub_45ABCA(&Str1), v48 != -1) )
+  ReadRegistryKeyMapping("KEY_ZOOMOUT", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v48) = sub_45ABCA(Str1), v48 != -1) )
   {
-    LOBYTE(v49) = sub_45ABCA(&Str1);
+    LOBYTE(v49) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 27) = v49;
   }
   else
@@ -9101,10 +9109,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 27) = 109;
   }
   *((_DWORD *)v1 + 57) = 1;
-  sub_464BEF("KEY_FLYUP", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v50) = sub_45ABCA(&Str1), v50 != -1) )
+  ReadRegistryKeyMapping("KEY_FLYUP", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v50) = sub_45ABCA(Str1), v50 != -1) )
   {
-    LOBYTE(v51) = sub_45ABCA(&Str1);
+    LOBYTE(v51) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 28) = v51;
   }
   else
@@ -9112,10 +9120,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 28) = 33;
   }
   *((_DWORD *)v1 + 58) = 0;
-  sub_464BEF("KEY_FLYDOWN", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v52) = sub_45ABCA(&Str1), v52 != -1) )
+  ReadRegistryKeyMapping("KEY_FLYDOWN", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v52) = sub_45ABCA(Str1), v52 != -1) )
   {
-    LOBYTE(v53) = sub_45ABCA(&Str1);
+    LOBYTE(v53) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 29) = v53;
   }
   else
@@ -9123,10 +9131,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 29) = 45;
   }
   *((_DWORD *)v1 + 59) = 0;
-  sub_464BEF("KEY_LAND", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v54) = sub_45ABCA(&Str1), v54 != -1) )
+  ReadRegistryKeyMapping("KEY_LAND", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v54) = sub_45ABCA(Str1), v54 != -1) )
   {
-    LOBYTE(v55) = sub_45ABCA(&Str1);
+    LOBYTE(v55) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 30) = v55;
   }
   else
@@ -9134,10 +9142,10 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 30) = 36;
   }
   *((_DWORD *)v1 + 60) = 1;
-  sub_464BEF("KEY_ALWAYSRUN", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v56) = sub_45ABCA(&Str1), v56 != -1) )
+  ReadRegistryKeyMapping("KEY_ALWAYSRUN", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v56) = sub_45ABCA(Str1), v56 != -1) )
   {
-    LOBYTE(v57) = sub_45ABCA(&Str1);
+    LOBYTE(v57) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 22) = v57;
   }
   else
@@ -9147,10 +9155,10 @@ char __thiscall sub_459FFC(void *this)
   *((_DWORD *)v1 + 52) = 1;
   dword_6BE37C = ReadWindowsRegistry("valAlwaysRun", 0) != 0;
   dword_6BE380 = ReadWindowsRegistry("FlipOnExit", 0) != 0;
-  sub_464BEF("KEY_STEPLEFT", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  if ( strcmp(&Str1, "DEFAULT") && (LOBYTE(v58) = sub_45ABCA(&Str1), v58 != -1) )
+  ReadRegistryKeyMapping("KEY_STEPLEFT", Str1, 0x20u, "DEFAULT");
+  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v58) = sub_45ABCA(Str1), v58 != -1) )
   {
-    LOBYTE(v59) = sub_45ABCA(&Str1);
+    LOBYTE(v59) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 31) = v59;
     *((_DWORD *)v1 + 61) = 1;
   }
@@ -9159,11 +9167,11 @@ char __thiscall sub_459FFC(void *this)
     *((_DWORD *)v1 + 61) = 0;
     *((_DWORD *)v1 + 31) = 219;
   }
-  sub_464BEF("KEY_STEPRIGHT", (BYTE *)&Str1, 0x20u, "DEFAULT");
-  v60 = strcmp(&Str1, "DEFAULT");
-  if ( v60 && (LOBYTE(v60) = sub_45ABCA(&Str1), v60 != -1) )
+  ReadRegistryKeyMapping("KEY_STEPRIGHT", Str1, 0x20u, "DEFAULT");
+  v60 = strcmp(Str1, "DEFAULT");
+  if ( v60 && (LOBYTE(v60) = sub_45ABCA(Str1), v60 != -1) )
   {
-    LOBYTE(v60) = sub_45ABCA(&Str1);
+    LOBYTE(v60) = sub_45ABCA(Str1);
     *((_DWORD *)v1 + 32) = v60;
     *((_DWORD *)v1 + 62) = 1;
   }
@@ -9514,7 +9522,7 @@ char __thiscall sub_45B06E(int this)
   }
   else
   {
-    v1 = GetAsyncKeyState(16) == 0;
+    v1 = GetAsyncKeyState(VK_SHIFT) == 0;
   }
   if ( !v1 )
     return 1;
@@ -13893,7 +13901,7 @@ void __cdecl sub_464851()
 }
 
 //----- (00464BEF) --------------------------------------------------------
-int __fastcall sub_464BEF(const CHAR *a1, BYTE *a2, DWORD Count, const char *Source)
+int __fastcall ReadRegistryKeyMapping(const CHAR *a1, BYTE *a2, DWORD Count, const char *Source)
 {
   LSTATUS (__stdcall *v4)(HKEY); // esi@1
   int result; // eax@7

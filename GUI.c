@@ -1094,7 +1094,7 @@ void GameUI_Process()
               v212 = uControlID - 134;
 
               for (i = 0; i < 2; ++i)
-                if (pParty_global->HiredNPC[i].pNPCName)
+                if (pParty_global->pHiredNPCs[i].pNPCName)
                 {
                   v7 = v210++;
                   TmpBuf[v7] = i;
@@ -1108,9 +1108,9 @@ void GameUI_Process()
                 {
                   if ( *(_BYTE *)(v211 + 8) & 0x80 )
                   {
-                    if (!pParty_global->HiredNPC[0].pNPCName || strcmp(*(const char **)v211, pParty_global->HiredNPC[0].pNPCName))
+                    if (!pParty_global->pHiredNPCs[0].pNPCName || strcmp(*(const char **)v211, pParty_global->pHiredNPCs[0].pNPCName))
                     {
-                     if (!pParty_global->HiredNPC[1].pNPCName || strcmp(*(const char **)v211, pParty_global->HiredNPC[1].pNPCName))
+                     if (!pParty_global->pHiredNPCs[1].pNPCName || strcmp(*(const char **)v211, pParty_global->pHiredNPCs[1].pNPCName))
                       {
                         v8 = v210++;
                         TmpBuf[v8] = v196 + 2;
@@ -1495,7 +1495,7 @@ LABEL_60:
           goto LABEL_92;
         case 0x1A2:
           v213 = 1;
-          sub_459CC4(pKeyboardController);
+          KeyboardController_InitalizeKeys(pKeyboardController);
           v210 = 0;
           do
           {
@@ -2080,7 +2080,7 @@ LABEL_291:
                               v189 = v0;
                             else
                               v189 = 0;
-                            sub_459C68(pKeyboardController, v210, dword_506E90[v210], v189);
+                            KeyboardController_InitalizeKey(pKeyboardController, v210, dword_506E90[v210], v189);
                             ++v210;
                           }
                           while ( v210 < 28 );
@@ -2324,7 +2324,7 @@ LABEL_92:
           if ( v209 )
           {
             GUIWindowCreate(626, 179, 0, 0, 90, pBtn_Game_NPCScrollRightDown, 0);
-            v48 = (pParty_global->HiredNPC[0].pNPCName != 0) + (pParty_global->HiredNPC[1].pNPCName != 0) + (unsigned __int8)pParty_global->byte_00070A - 2;
+            v48 = (pParty_global->pHiredNPCs[0].pNPCName != 0) + (pParty_global->pHiredNPCs[1].pNPCName != 0) + (unsigned __int8)pParty_global->byte_00070A - 2;
             if (pParty_global->byte_000709 < v48 )
             {
               ++pParty_global->byte_000709;
@@ -2412,7 +2412,7 @@ LABEL_92:
           dword_597F18 = 0;
           goto LABEL_422;
         case 0xB0:
-          v51 = GetAsyncKeyState(16);
+          v51 = GetAsyncKeyState(VK_SHIFT);
           v50 = sub_49387A((void *)v51);
           goto LABEL_421;
         case 0x5A:
@@ -2706,7 +2706,7 @@ LABEL_450:
           if ( dword_ACD834 )
           {
             v72 = dword_506340;
-            dword_AE30FC[dword_506348] = dword_506340;
+            pParty_global->array_016144[dword_506348] = dword_506340;
             sub_48E96A(v202, v72);
             sub_40471C(&unk_4F8858);
           }
@@ -3326,7 +3326,7 @@ LABEL_521:
           while ( v113 < 9 );
           if ( !v211 )
             goto LABEL_662;
-          if ( GetAsyncKeyState(16) )
+          if ( GetAsyncKeyState(VK_SHIFT) )
           {
             v115 = v210-- - 1 < 0;
             if ( v115 )
@@ -3897,7 +3897,6 @@ LABEL_789:
 //----- (00441D38) --------------------------------------------------------
 void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW, unsigned int uMinimapZoom)
 {
-  int v6; // eax@4
   int v8; // eax@8
   int v9; // edx@9
   int v10; // edi@9
@@ -3953,12 +3952,11 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
 
   uMinimapCentreX = (uX + uZ) / 2;
   uMinimapCentreY = (uY + uW) / 2;
-  v84 = *(__int64 *)(pParty_global->array_00088C + 0x130) > 0;
-  v79 = (unsigned __int16)word_ACD97E;
-  v6 = CheckHiredNPCSpeciality(0x26);
-  if ( v6 )
+  v84 = pParty_global->pPartyBuffs[PARTYBUFF_WIZARDEYE].qword_000000 > 0;
+  v79 = pParty_global->pPartyBuffs[PARTYBUFF_WIZARDEYE].word_00000A;
+  if (CheckHiredNPCSpeciality(0x26))
   {
-    v84 = 1;
+    v84 = true;
     v79 = 2;
   }
 
@@ -5480,9 +5478,9 @@ void __cdecl GameUI_DrawPartySpells()
  for (i = 0; i < 14; ++i)
   {
     v2 = 16 * (unsigned __int8)byte_4E5DD8[i];
-    if ( *(int *)((char *)&dword_ACD848 + v2) >= 0 )
+    if (pParty_global->pPartyBuffs[(unsigned __int8)byte_4E5DD8[i]].dword_000004 >= 0 )
     {
-      if ( *(int *)((char *)&dword_ACD848 + v2) > 0 || *(unsigned int *)(pParty_global->array_00088C + (unsigned __int8)byte_4E5DD8[i]) > 0 )
+     if (pParty_global->pPartyBuffs[(unsigned __int8)byte_4E5DD8[i]].dword_000004 > 0 || pParty_global->pPartyBuffs[(unsigned __int8)byte_4E5DD8[i]].dword_000000 > 0 )
       {
         v3 = uTextureIdx_SpellEffecIcons[i];
         sub_4A65CC(
@@ -5500,7 +5498,7 @@ void __cdecl GameUI_DrawPartySpells()
 
   if ( !dword_4E28F8 || dword_4E28F8 == 4 )
   {
-    if ( qword_ACD8B4 > 0 )
+   if (pParty_global->pPartyBuffs[7].qword_000000 > 0 )
     {
       if (pParty_global->dword_000704)
         v6 = v0;
@@ -5512,9 +5510,9 @@ void __cdecl GameUI_DrawPartySpells()
       else
         Render_DrawTransparentTexture(pD3DRenderer, 8, 8, v7);
     }
-    if ( HIDWORD(qword_ACD964) >= 0 )
+    if ( HIDWORD(pParty_global->pPartyBuffs[15].qword_000000) >= 0 )
     {
-      if ( HIDWORD(qword_ACD964) > 0 || (_DWORD)qword_ACD964 )
+      if ( HIDWORD(pParty_global->pPartyBuffs[15].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[15].qword_000000)
       {
         if ( pParty_global->dword_007778 & 0x80 )
           v8 = v0;
@@ -5609,7 +5607,7 @@ void GameUI_DrawPortraits(void *this)
 
 LABEL_27:
       v9 = off_4ED748[i];
-      if (qword_ACD8F4)
+      if (pParty_global->pPartyBuffs[11].qword_000000)
         sub_4A6E7E(pD3DRenderer, v9, 387, v4);
       else
         Render_DrawTransparentTexture(pD3DRenderer, v9 + 1, 388, v4);
@@ -5997,18 +5995,18 @@ void __cdecl GameUI_DrawTorchlightAndWizardEye()
     || dword_4E28F8 == 3
     || dword_4E28F8 == 19 )
   {
-    if ( HIDWORD(qword_ACD944) >= 0 )
+   if ( HIDWORD(pParty_global->pPartyBuffs[16].qword_000000) >= 0 )
     {
-      if ( HIDWORD(qword_ACD944) > 0 || (_DWORD)qword_ACD944 )
+     if ( HIDWORD(pParty_global->pPartyBuffs[16].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[16].qword_000000 )
       {
         v0 = class24_fn2(pClass24_global);
         v1 = CIconFrameTable_GetFrame(pIconFrameTable, array_6A0D14[2].uIconIdx, v0);
         Render_DrawTransparentTexture(pD3DRenderer, array_6A0D14[2].word_000008, array_6A0D14[2].word_00000A, 72 * *(_WORD *)(v1 + 30) + 0x6D084C);
       }
     }
-    if ( HIDWORD(qword_ACD974) >= 0 )
+   if ( HIDWORD(pParty_global->pPartyBuffs[PARTYBUFF_WIZARDEYE].qword_000000) >= 0 )
     {
-      if (HIDWORD(qword_ACD974) > 0 || LODWORD(qword_ACD974))
+     if (HIDWORD(pParty_global->pPartyBuffs[PARTYBUFF_WIZARDEYE].qword_000000) > 0 || LODWORD(pParty_global->pPartyBuffs[PARTYBUFF_WIZARDEYE].qword_000000))
       {
         v2 = class24_fn2(pClass24_global);
         v3 = CIconFrameTable_GetFrame(pIconFrameTable, array_6A0D14[3].uIconIdx, v2);
