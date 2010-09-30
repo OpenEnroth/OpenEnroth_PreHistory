@@ -3655,8 +3655,8 @@ void __cdecl sub_464479()
   sub_4A9D79(pSoundList, 0);
   dword_6BE360 = 0;
   CSpriteFrameTable_fn3(pSpriteFrameTable);
-  v0 = uNumGUIWindows;
-  pParty_global->dword_01613C = uNumGUIWindows;
+  v0 = sLastGUIWindowIdx;
+  pParty_global->dword_01613C = sLastGUIWindowIdx;
   while ( v0 > 0 )
     GUIWindowDelete(&GUIWindow_List[array_5075E0[v0--] - 1]);
 }

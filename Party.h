@@ -136,7 +136,7 @@ struct Party
  float flt_016230;
  float flt_016234;
 
- int dword_01613C; // connected to uNumGUIWindows
+ int dword_01613C; // connected to sLastGUIWindowIdx
 
  int array_016144[array_size_unknown]; // 016144
 
