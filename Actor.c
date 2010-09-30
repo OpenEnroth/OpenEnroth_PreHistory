@@ -580,7 +580,7 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDire
       recoveryTime *= 2;   
     }
 
-    if ( dword_ACD834 != 1 )
+    if ( pParty_global->dword_00087C != 1 )
       recoveryTime = (int)(flt_6BE3A8_debug_recmod2 * (double)recoveryTime * 2.133333333333333);
 
     pActor->uRecoveryTime = recoveryTime;
@@ -1033,7 +1033,7 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo
       recoveryTime *= 2;    
     }
     
-    if ( dword_ACD834 == 1 )
+    if ( pParty_global->dword_00087C == 1 )
       pActor->uRecoveryTime = recoveryTime;
     else
       pActor->uRecoveryTime = pActor->word_0000A0 - 
@@ -1122,7 +1122,7 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct DirectionInfo
       recoveryTime *= 2;
     }
 
-    if ( dword_ACD834 != 1 )
+    if ( pParty_global->dword_00087C != 1 )
       pActor->uRecoveryTime = (int)(flt_6BE3A8_debug_recmod2 * (double)recoveryTime * 2.133333333333333);
         
     pActor->word_000098 = 0;
@@ -1201,7 +1201,7 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct DirectionInfo
       recoveryTime *= 2;    
     }
 
-    if ( dword_ACD834 == 1 )
+    if ( pParty_global->dword_00087C == 1 )
       pActor->uRecoveryTime = recoveryTime;
     else
       pActor->uRecoveryTime = pActor->word_0000A0 - 
@@ -1276,7 +1276,7 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct DirectionInfo
       recoveryTime *= 2;    
     }
 
-    if ( dword_ACD834 == 1 )
+    if ( pParty_global->dword_00087C == 1 )
       pActor->uRecoveryTime = recoveryTime;
     else
       pActor->uRecoveryTime = pActor->word_0000A0 - 

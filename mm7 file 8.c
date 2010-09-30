@@ -1250,7 +1250,7 @@ int __thiscall sub_40471C(void *this)
 {
   int result; // eax@3
 
-  if ( dword_ACD834 == 1 )
+  if (pParty_global->dword_00087C == 1 )
   {
     if ( dword_4F885C == 2 )
       result = sub_406457(this, 0);
@@ -3655,8 +3655,8 @@ void __cdecl sub_464479()
   sub_4A9D79(pSoundList, 0);
   dword_6BE360 = 0;
   CSpriteFrameTable_fn3(pSpriteFrameTable);
-  v0 = sLastGUIWindowIdx;
-  pParty_global->dword_01613C = sLastGUIWindowIdx;
+  v0 = uNumGUIWindows;
+  pParty_global->dword_01613C = uNumGUIWindows;
   while ( v0 > 0 )
     GUIWindowDelete(&GUIWindow_List[array_5075E0[v0--] - 1]);
 }
@@ -6046,7 +6046,6 @@ int __cdecl sub_494035()
   int v6; // esi@15
   unsigned int v8; // ecx@27
   signed int v9; // edi@29
-  int v10; // ecx@30
   int v11; // esi@35
   double v12; // st7@35
   int v14; // edi@46
@@ -6172,14 +6171,8 @@ int __cdecl sub_494035()
     if ( dword_6BE360 == 2 )
       sub_489487();
 
-    //v7 = &unk_ACF4BC;
     for (i = 0; i < 4; ++i)
-    {
-     pParty_global->pPlayers[i].dword_001B38 = 0;
-      //memset(v7, 0, 4u);
-      //v7 = (char *)v7 + 6972;
-    }
-    //while ( (signed int)v7 < (signed int)&unk_AD61AC );
+      pParty_global->pPlayers[i].dword_001B38 = 0;
   }
   v8 = pParty_global->qword_00002C;
   if ( pParty_global->dword_007778 & 4 && pParty_global->dword_0006FC < pParty_global->qword_00002C )
@@ -6189,7 +6182,9 @@ int __cdecl sub_494035()
     struct_576FE8.dword_000044 = 1;
     while ( 1 )
     {
-      if ( sub_48D709(*(&ptr_A750C4 + v9), 516, 3) || sub_48D6D0((void *)v10, 71) || *(_QWORD *)(v10 + 6416) > 0i64 )
+      if (sub_48D709(pPlayers[v9 - 1], 516, 3) ||
+          sub_48D6D0(pPlayers[v9 - 1], 71) ||
+          *(_QWORD *)((char *)pPlayers[v9 - 1] + 0x1910) > 0i64 )
       {
         v55 = 0;
       }
@@ -6198,19 +6193,18 @@ int __cdecl sub_494035()
         v55 = 0;
         if ( !sub_43EE77(v9) )
         {
-          v11 = (int)*(&ptr_A750C4 + v9);
-          v12 = (double)Player_GetMaxHealth((int)*(&ptr_A750C4 + v9)) * *(double *)&byte_4D8410[112];
+          v11 = pPlayers[v9 - 1];
+          v12 = (double)Player_GetMaxHealth(pPlayers[v9 - 1]) * *(double *)&byte_4D8410[112];
           sub_48DC1E(v11, (signed __int64)v12, 0);
           if ( pParty_global->dword_007778 & 4 )
           {
-            strcpy(&byte_5C3428, pGlobalTXT_LocalizationStrings[660]);
+            strcpy(byte_5C3428, pGlobalTXT_LocalizationStrings[660]);
             dword_5C35B8 = 128;
           }
           goto LABEL_39;
         }
-        v10 = (int)*(&ptr_A750C4 + v9);
       }
-      sub_494A25(v10, 37, v55);
+      sub_494A25(pPlayers[v9 - 1], 37, v55);
 LABEL_39:
       ++v9;
       if ( v9 > 4 )
@@ -6245,7 +6239,7 @@ LABEL_39:
   sub_493938();
   v62 = 4;
   v61 = v57;
-  if ( dword_ACD83C & 2 )
+  if (pParty_global->dword_000884 & 0x02)
   {
     v16 = (double)v57 * 0.5;
     v17 = v16 + 6.755399441055744e15;
@@ -6470,7 +6464,7 @@ LABEL_61:
     {
       if ( !(*(_BYTE *)(v47 + 15) & 1) )
       {
-        if ( !sub_492C0B((int)*(&ptr_A750C4 + *(_BYTE *)(v47 + 14))) )
+        if ( !sub_492C0B(pPlayers[*(_BYTE *)(v47 + 14) - 1]) )
         {
           sub_458585(v47);
           if (array_4EE07C[i] == 7 )

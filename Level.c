@@ -788,7 +788,7 @@ LABEL_75:
  v69 = _this->dword_0000DC;
 
  class23_DeleteBuffer(class23_instance, _this->ptr_0000E0);
- _this->ptr_0000E0 = class23_AllocatedNamedBuffer(class23_instance, 0, 2 * v69, "IDLIST");
+ _this->ptr_0000E0 = class23_AllocatedNamedBuffer(class23_instance, 0, v69 * sizeof(short), "IDLIST");
  memcpy(_this->ptr_0000E0, Src, 2 * v69);
  Src = (char *)Src + 2 * v69;
 
@@ -797,7 +797,7 @@ LABEL_75:
 
 
  class23_DeleteBuffer(class23_instance, _this->ptr_0000E4);
- _this->ptr_0000E4 = class23_AllocatedNamedBuffer(class23_instance, 0, 65536, "OMAP");
+ _this->ptr_0000E4 = class23_AllocatedNamedBuffer(class23_instance, 0, 128 * 128 * sizeof(int), "OMAP");
  memcpy(_this->ptr_0000E4, Src, 128 * 128 * 4);
  Src = (char *)Src + 65536;
  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);

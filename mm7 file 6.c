@@ -268,7 +268,7 @@ bool __thiscall sub_48D676(void *this)
 }
 
 //----- (0048D709) --------------------------------------------------------
-signed int __thiscall sub_48D709(void *this, int a2, int a3)
+signed int sub_48D709(struct Player *_this, int a2, int a3)
 {
   int v3; // edx@2
   int v4; // ecx@2
@@ -278,17 +278,17 @@ signed int __thiscall sub_48D709(void *this, int a2, int a3)
   if ( a3 >= 16 )
   {
     v6 = 0;
-    while ( !sub_48D6AA(this, v6) || *((_DWORD *)this + 9 * *(_DWORD *)v7 + 124) != a2 )
+    while ( !sub_48D6AA(_this, v6) || *((_DWORD *)_this + 9 * *(_DWORD *)v7 + 124) != a2 )
     {
       ++v6;
       if ( v6 >= 16 )
-        return 0;
+        return false;
     }
-    return 1;
+    return true;
   }
-  if ( sub_48D6AA(this, a3) && *(_DWORD *)(v4 + 36 * *(_DWORD *)(v4 + 4 * v3 + 6472) + 496) == a2 )
-    return 1;
-  return 0;
+  if ( sub_48D6AA(_this, a3) && *(_DWORD *)(v4 + 36 * *(_DWORD *)(v4 + 4 * v3 + 6472) + 496) == a2 )
+    return true;
+  return false;
 }
 
 //----- (0048D76C) --------------------------------------------------------

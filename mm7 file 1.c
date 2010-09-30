@@ -1121,7 +1121,7 @@ LABEL_22:
               sub_47136C(i);
             else
               sub_471C03(i);
-            if ( dword_ACD834 != 1 )
+            if (pParty_global->dword_00087C != 1)
               continue;
             if ( !(*((_BYTE *)v2 - 4) & 4) )
               continue;
@@ -1453,7 +1453,7 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
  byte_6BE388_graphicsmode = ReadWindowsRegistry("graphicsmode", true);
  if (byte_6BE388_graphicsmode < 0 || byte_6BE388_graphicsmode > 2)
    byte_6BE388_graphicsmode = 0;
- dword_6BE38C_TurnDelta = ReadWindowsRegistry("TurnDelta", 0);
+ uTurnSpeed = ReadWindowsRegistry("TurnDelta", 0);
 
  pD3DRenderer->bTinting = ReadWindowsRegistry("Tinting", true);
 
@@ -1478,22 +1478,22 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
  dword_6BE364 |= 0x4000;
 
 
- switch (dword_6BE38C_TurnDelta)
+ switch (uTurnSpeed)
  {
   case 0:
-    dword_6BE38C_TurnDelta = (unsigned int)dword_6A0D00 < 0xC7 ? 128 : 64;
+    uTurnSpeed = (unsigned int)dword_6A0D00 < 0xC7 ? 128 : 64;
   break;
 
   case 1:
-    dword_6BE38C_TurnDelta = 128;
+    uTurnSpeed = 128;
   break;
 
   case 2:
-    dword_6BE38C_TurnDelta = 64;
+    uTurnSpeed = 64;
   break;
 
   case 3:
-    dword_6BE38C_TurnDelta = 0;
+    uTurnSpeed = 0;
   break;
  }
 
@@ -3773,7 +3773,7 @@ void __cdecl sub_47B42C_ClipActorsAgainstFrustrum()
       LOWORD(v10) = pActors[i].uYawAngle;
       v41 = ((pClass59_global->uIntegerPi + (pClass59_global->uIntegerPi >> 3) + v10 - v9) >> 8) & 7;
       v8 = pActors[i].word_0000B2_looks_like_current_sprite_frame;
-      if ( dword_ACD834 )
+      if (pParty_global->dword_00087C)
       {
         if ( v8 != 1 )
         {
@@ -4675,7 +4675,7 @@ void __cdecl sub_401A91()
       }
     }
   }
-  if ( dword_ACD834 == 1 )
+  if (pParty_global->dword_00087C == 1)
   {
     sub_405E14(&unk_4F8858);
     return;
@@ -5512,16 +5512,11 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
 {
   int v0; // ebx@1
   int v1; // edi@1
-  int v2; // esi@1
   int v3; // eax@14
   int *v4; // esi@21
   int v5; // eax@24
   int v6; // ecx@45
   int v7; // esi@45
-  int v8; // eax@71
-  double v9; // st7@72
-  signed __int64 v10; // qax@74
-  double v11; // st7@75
   int v12; // ecx@77
   double v13; // st7@84
   double v14; // st7@87
@@ -5598,9 +5593,12 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
   int v87; // [sp-4h] [bp-98h]@104
   int v88; // [sp-4h] [bp-98h]@246
   int v89; // [sp+Ch] [bp-88h]@180
-  int v90; // [sp+10h] [bp-84h]@147
-  int v91; // [sp+14h] [bp-80h]@147
-  int v92; // [sp+18h] [bp-7Ch]@147
+  struct
+  {
+   int v90; // [sp+10h] [bp-84h]@147
+   int v91; // [sp+14h] [bp-80h]@147
+   int v92; // [sp+18h] [bp-7Ch]@147
+  } local_10;
   bool v93; // [sp+1Ch] [bp-78h]@33
   int v94; // [sp+20h] [bp-74h]@1
   int v95; // [sp+24h] [bp-70h]@1
@@ -5628,13 +5626,12 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
   int v117; // [sp+7Ch] [bp-18h]@48
   int v118; // [sp+80h] [bp-14h]@48
   int v119; // [sp+84h] [bp-10h]@1
-  float v120; // [sp+88h] [bp-Ch]@1
+  int v120; // [sp+88h] [bp-Ch]@1
   int v121; // [sp+8Ch] [bp-8h]@92
   int v122; // [sp+90h] [bp-4h]@14
 
   v113 = pParty_global->dword_0006E8;
   v115 = pParty_global->sPartyPosZ;
-  v2 = 0;
   v1 = 0;
   v95 = 0;
   v0 = 0;
@@ -5642,7 +5639,6 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
   v108 = pParty_global->sPartyPosX;
   v109 = pParty_global->sPartyPosY;
   v105 = pParty_global->dword_0006F0;
-  v104 = 0;
   v110 = sub_4823F4_GetTerrainHeightsAroundParty(pParty_global->sPartyPosX, pParty_global->sPartyPosY);
   v106 = 0;
   v116 = 0;
@@ -5664,18 +5660,14 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
   v96 = 1;
 
 LABEL_9:
-  if (pParty_global->pPartyBuffs[15].qword_000000 <= 0)
+  pParty_global->dword_007778 &= 0x7F;
+  if (pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].qword_000000 > 0)
   {
-    pParty_global->dword_007778 &= 0x7F;
-  }
-  else
-  {
-   pParty_global->dword_007778 &= 0x7F;
     v98 = 1;
-    *((_WORD *)&unk_5E4D52 + 10 * pParty_global->pPartyBuffs[15].word_00000C) |= 1u;
-    if (~pParty_global->pPartyBuffs[15].byte_00000F & 0x01)
+    *((_WORD *)&unk_5E4D52 + 10 * pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].word_00000C) |= 1u;
+    if (~pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].byte_00000F & 0x01)
     {
-      if ( dword_ACD788[1743 * pParty_global->pPartyBuffs[15].byte_00000E] <= 0 )
+      if ( dword_ACD788[1743 * pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].byte_00000E] <= 0 )
         v98 = 0;
     }
   }
@@ -5687,6 +5679,7 @@ LABEL_9:
     v3 = pParty_global->dword_000700;
   if ( v3 - v115 > 512 )
   {
+   __asm int 3 //falling damage?
     if ( !v96 )
     {
       if ( v115 <= v103 + 1 )
@@ -5718,44 +5711,43 @@ LABEL_9:
             ++v4;
           }
           while ( (signed int)v4 <= (signed int)&dword_A750D4 );
-          v2 = 0;
         }
       }
     }
   }
   v101 = -1;
-  if (pParty_global->dword_000704 != v2)
+  if (pParty_global->dword_000704 != 0)
     v101 = sub_46D8E3(pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ + pParty_global->uPartyHeight, (int)&v94);
-  v99 = v100 == v2;
+  v99 = v100 == 0;
   v97 = v103 + 1;
   if ( v115 <= v103 + 1 )
   {
     v101 = -1;
-    pParty_global->dword_000704 = v2;
+    pParty_global->dword_000704 = 0;
+   v104 = 0;
   }
   else
-  {
     v104 = 1;
-  }
-  v93 = v115 - v103 <= 32;
-  if ( dword_6BE374_WalkSoundFlag != v2 )
+
+  if (dword_6BE374_WalkSoundFlag)
   {
-    if (pParty_global->dword_0006F8 > v2)
+    if (pParty_global->dword_0006F8 > 0)
       pParty_global->dword_0006F8 -= pClass24_global->int_00001C;
   }
+  v93 = v115 - v103 <= 32;
   if ( !byte_6BE3C4_MaybeDrowningFlag )
   {
-   if ( HIDWORD(pParty_global->pPartyBuffs[7].qword_000000) <= v2 )
+   if ( HIDWORD(pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000) <= 0)
     {
-     if ( HIDWORD(pParty_global->pPartyBuffs[7].qword_000000) < v2 || (_DWORD)pParty_global->pPartyBuffs[7].qword_000000 <= (unsigned int)v2 )
-        pParty_global->dword_000704 = v2;
+     if ( HIDWORD(pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000) < 0 || (_DWORD)pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000 <= 0)
+        pParty_global->dword_000704 = 0;
     }
   }
-  if ( v104 == v2 )
+  if (v104 == 0)
   {
     if (pParty_global->dword_0006F4 != (8 * v100 | 6))
     {
-      if ( v100 != v2 )
+      if ( v100 != 0)
       {
         if ( v100 >> 6 < (unsigned int)pClass51_global->uNumBModels )
         {
@@ -5774,15 +5766,15 @@ LABEL_9:
   v107 = pParty_global->uWalkSpeed;
   v117 = pParty_global->sRotationY;
   v112 = pParty_global->sRotationX;
-  v118 = pClass24_global->dword_000020;
   v111 = ((unsigned __int64)(pClass24_global->dword_000020) * pParty_global->dword_000020 * pClass59_global->uIntegerPi / 180) >> 16;
-LABEL_118:
+
+
   while ( dword_7215D8 )
   {
     switch ( sub_4760D5((int)&dword_7215D8) )
     {
       case 13:
-       if (pParty_global->pPartyBuffs[7].qword_000000 > 0 || byte_6BE3C4_MaybeDrowningFlag == 1 )
+       if (pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000 > 0 || byte_6BE3C4_MaybeDrowningFlag == 1 )
         {
           pParty_global->dword_000704 = 0;
           if ( byte_6BE3C4_MaybeDrowningFlag || byte_ACD8C3 & 1 || dword_ACD788[1743 * (unsigned __int8)byte_ACD8C2] > 0 )
@@ -5800,7 +5792,7 @@ LABEL_118:
               v1 = 0;
               v0 = 0;
               v113 = 0;
-              LODWORD(v120) = 0;
+              v120 = 0;
               if ( v94 )
               {
                 if ( v115 < v101 )
@@ -5824,9 +5816,10 @@ LABEL_118:
             }
           }
         }
-        goto LABEL_118;
+        break;
+
       case 14:
-       if (pParty_global->pPartyBuffs[7].qword_000000 > 0 || byte_6BE3C4_MaybeDrowningFlag == 1 )
+       if (pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000 > 0 || byte_6BE3C4_MaybeDrowningFlag == 1 )
         {
           pParty_global->dword_000704 = 0;
           if ( byte_6BE3C4_MaybeDrowningFlag || byte_ACD8C3 & 1 || dword_ACD788[1743 * (unsigned __int8)byte_ACD8C2] > 0 )
@@ -5844,149 +5837,163 @@ LABEL_118:
             }
           }
         }
-        goto LABEL_118;
+        break;
+
       case 1: // turn left
-        v8 = dword_6BE38C_TurnDelta;
-        if ( dword_6BE38C_TurnDelta )
-          goto LABEL_80;
-        v9 = (double)v111 * flt_6BE14C;
-        goto LABEL_73;
+      {
+       if (uTurnSpeed)
+         v117 += uTurnSpeed;
+       else
+         v117 += (double)v111 * fTurnSpeedMultiplier;
+
+       v117 %= 2 * 65536;
+       //v117 = pClass59_global->uDoublePiMask & v12;
+      }
+      break;
+
       case 2: // turn right
-        LODWORD(v10) = dword_6BE38C_TurnDelta;
-        if ( dword_6BE38C_TurnDelta )
-          goto LABEL_77;
-        v11 = (double)v111 * flt_6BE14C;
-        goto LABEL_76;
+      {
+       if (uTurnSpeed)
+         v117 -= uTurnSpeed;
+       else
+         v117 -= (double)v111 * fTurnSpeedMultiplier;
+
+       v117 = pClass59_global->uDoublePiMask & v117;
+      }
+      break;
+
       case 18:
-        v8 = dword_6BE38C_TurnDelta;
-        if ( dword_6BE38C_TurnDelta )
-        {
-LABEL_80:
-          v12 = v8 + v117;
-LABEL_78:
-          v117 = pClass59_global->uDoublePiMask & v12;
-        }
-        else
-        {
-          v9 = (flt_6BE14C + flt_6BE14C) * (double)v111;
-LABEL_73:
-          v117 = pClass59_global->uDoublePiMask & (v117 + (signed __int64)v9);
-        }
-        goto LABEL_118;
+      {
+       if (uTurnSpeed)
+         v117 += uTurnSpeed;
+       else
+         v117 += (fTurnSpeedMultiplier + fTurnSpeedMultiplier) * (double)v111;
+
+       v117 = pClass59_global->uDoublePiMask & v117;
+      }
+      break;
+
       case 19:
-        LODWORD(v10) = dword_6BE38C_TurnDelta;
-        if ( !dword_6BE38C_TurnDelta )
-        {
-          v11 = (flt_6BE14C + flt_6BE14C) * (double)v111;
-LABEL_76:
-          v10 = (signed __int64)v11;
-        }
-LABEL_77:
-        v12 = v117 - v10;
-        goto LABEL_78;
+      {
+       if (uTurnSpeed)
+         v117 -= uTurnSpeed;
+       else
+         v117 -= (fTurnSpeedMultiplier + fTurnSpeedMultiplier) * (double)v111;
+
+       v117 = pClass59_global->uDoublePiMask & v117;
+      }
+      break;
+
       case 3:
         v13 = (double)v107;
         v118 = class59_SinCos(pClass59_global, v117 - pClass59_global->uIntegerHalfPi);
-        v120 = v13;
-        v116 = (unsigned __int64)(v118 * ((signed int)(signed __int64)(v13 * flt_6BE144) >> 1)) >> 16;
+        v116 = (unsigned __int64)(v118 * ((signed int)(signed __int64)(v13 * fWalkSpeedMultiplier) >> 1)) >> 16;
         v0 -= v116;
         v118 = class59_SinCos(pClass59_global, v117);
-        v116 = (unsigned __int64)(v118 * ((signed int)(signed __int64)(v120 * flt_6BE144) >> 1)) >> 16;
-        goto LABEL_85;
+        v116 = (unsigned __int64)(v118 * ((signed int)(signed __int64)(v13 * fWalkSpeedMultiplier) >> 1)) >> 16;
+        v1 += v116;
+        v120 = v1;
+        v116 = 1;
+        break;
+
       case 4:
         v14 = (double)v107;
         v118 = class59_SinCos(pClass59_global, v117 - pClass59_global->uIntegerHalfPi);
-        v120 = v14;
-        v116 = (unsigned __int64)(v118 * ((signed int)(signed __int64)(v14 * flt_6BE144) >> 1)) >> 16;
+        v116 = (unsigned __int64)(v118 * ((signed int)(signed __int64)(v14 * fWalkSpeedMultiplier) >> 1)) >> 16;
         v0 += v116;
         v118 = class59_SinCos(pClass59_global, v117);
-        v116 = (unsigned __int64)(v118 * ((signed int)(signed __int64)(v120 * flt_6BE144) >> 1)) >> 16;
-        goto LABEL_90;
+        v116 = (unsigned __int64)(v118 * ((signed int)(signed __int64)(v14 * fWalkSpeedMultiplier) >> 1)) >> 16;
+        v1 -= v116;
+        v120 = v1;
+        v116 = 1;
+        break;
 
       case 5: // move forward
-        v118 = class59_SinCos(pClass59_global, v117);
-        v120 = v107;
-        v116 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v107 * flt_6BE144)) >> 16;
-        v0 += v116;
-        v118 = class59_SinCos(pClass59_global, v117 - pClass59_global->uIntegerHalfPi);
-        v116 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v120 * flt_6BE144)) >> 16;
-LABEL_85:
-        v1 += v116;
-        goto LABEL_86;
+        //v118 = class59_SinCos(pClass59_global, v117);
+        //v116 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v107 * fWalkSpeedMultiplier)) >> 16;
+        //v0 += v116;
+
+        v0 += cosf(3.1415926 * (v117 / 1024.0)) * pParty_global->uWalkSpeed * fWalkSpeedMultiplier;
+        v1 += sinf(3.1415926 * (v117 / 1024.0)) * pParty_global->uWalkSpeed * fWalkSpeedMultiplier;
+        //v118 = class59_SinCos(pClass59_global, v117 - pClass59_global->uIntegerHalfPi);
+        //v116 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v107 * fWalkSpeedMultiplier)) >> 16;
+        //v1 += v116;
+        v120 = v1;
+        v116 = 1;
+        break;
 
       case 6: // move backward
-        v118 = class59_SinCos(pClass59_global, v117);
-        v120 = v107;
-        v116 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v107 * flt_6BE148)) >> 16;
-        v0 -= v116;
-        v118 = class59_SinCos(pClass59_global, v117 - pClass59_global->uIntegerHalfPi);
-        v116 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v120 * flt_6BE148)) >> 16;
-LABEL_90:
-        v1 -= v116;
-        goto LABEL_86;
+        //v118 = class59_SinCos(pClass59_global, v117);
+        //v116 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v107 * flt_6BE148)) >> 16;
+        //v0 -= v116;
+        v0 -= cosf(3.1415926 * (v117 / 1024.0)) * pParty_global->uWalkSpeed * fWalkSpeedMultiplier;
+        v1 -= sinf(3.1415926 * (v117 / 1024.0)) * pParty_global->uWalkSpeed * fWalkSpeedMultiplier;
+        //v118 = class59_SinCos(pClass59_global, v117 - pClass59_global->uIntegerHalfPi);
+        //v116 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v107 * flt_6BE148)) >> 16;
+        //v1 -= v116;
+        v120 = v1;
+        v116 = 1;
+        break;
 
       case 16:
         if (pParty_global->dword_000704)
         {
           v17 = (double)v107;
           v118 = class59_SinCos(pClass59_global, v117);
-          v120 = v17;
-          v121 = (unsigned __int64)(v118 * (signed int)(4 * (signed __int64)(v17 * flt_6BE144))) >> 16;
+          v121 = (unsigned __int64)(v118 * (signed int)(4 * (signed __int64)(v17 * fWalkSpeedMultiplier))) >> 16;
           v0 += v121;
           v118 = class59_SinCos(pClass59_global, v117 - pClass59_global->uIntegerHalfPi);
-          v121 = (unsigned __int64)(v118 * (signed int)(4 * (signed __int64)(v120 * flt_6BE144))) >> 16;
+          v121 = (unsigned __int64)(v118 * (signed int)(4 * (signed __int64)(v17 * fWalkSpeedMultiplier))) >> 16;
           v1 += v121;
-          goto LABEL_93;
+
+          v120 = v1;
+          break;
         }
         if ( v110 && !v100 )
         {
           v18 = (double)v107;
           v118 = class59_SinCos(pClass59_global, v117);
-          v120 = v18;
-          v121 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v18 * flt_6BE144)) >> 16;
+          v121 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v18 * fWalkSpeedMultiplier)) >> 16;
           v0 += v121;
           v118 = class59_SinCos(pClass59_global, v117 - pClass59_global->uIntegerHalfPi);
-          v121 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v120 * flt_6BE144)) >> 16;
+          v121 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v18 * fWalkSpeedMultiplier)) >> 16;
           v1 += v121;
-          goto LABEL_86;
+          v120 = v1;
+          v116 = 1;
+          break;
         }
         v19 = (double)v107;
         v106 = class59_SinCos(pClass59_global, v117);
-        v120 = v19;
-        v121 = (unsigned __int64)(v106 * (signed int)(2 * (signed __int64)(v19 * flt_6BE144))) >> 16;
+        v121 = (unsigned __int64)(v106 * (signed int)(2 * (signed __int64)(v19 * fWalkSpeedMultiplier))) >> 16;
         v0 += v121;
         v106 = class59_SinCos(pClass59_global, v117 - pClass59_global->uIntegerHalfPi);
-        v121 = (unsigned __int64)(v106 * (signed int)(2 * (signed __int64)(v120 * flt_6BE144))) >> 16;
+        v121 = (unsigned __int64)(v106 * (signed int)(2 * (signed __int64)(v19 * fWalkSpeedMultiplier))) >> 16;
         v1 += v121;
         v106 = 1;
-        LODWORD(v120) = v1;
+        v120 = v1;
         break;
       case 17:
         v21 = (double)v107;
         v118 = class59_SinCos(pClass59_global, v117);
-        v120 = v21;
         v20 = (signed __int64)(v21 * flt_6BE148);
         if (pParty_global->dword_000704)
         {
           v121 = (unsigned __int64)(v118 * 4 * (_DWORD)v20) >> 16;
           v0 -= v121;
           v118 = class59_SinCos(pClass59_global, v117 - pClass59_global->uIntegerHalfPi);
-          v121 = (unsigned __int64)(v118 * (signed int)(4 * (signed __int64)(v120 * flt_6BE148))) >> 16;
+          v121 = (unsigned __int64)(v118 * (signed int)(4 * (signed __int64)(v21 * flt_6BE148))) >> 16;
           v1 -= v121;
-LABEL_93:
-          LODWORD(v120) = v1;
         }
         else
         {
           v121 = (unsigned __int64)(v118 * (signed int)v20) >> 16;
           v0 -= v121;
           v118 = class59_SinCos(pClass59_global, v117 - pClass59_global->uIntegerHalfPi);
-          v121 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v120 * flt_6BE148)) >> 16;
+          v121 = (unsigned __int64)(v118 * (signed int)(signed __int64)(v21 * flt_6BE148)) >> 16;
           v1 -= v121;
-LABEL_86:
-          LODWORD(v120) = v1;
           v116 = 1;
         }
+        v120 = v1;
         break;
       case 7:
         v112 += (signed __int64)(flt_6BE150 * 25.0);
@@ -5994,7 +6001,7 @@ LABEL_86:
           v112 = 128;
         v22 = uActiveCharacter;
         if ( !uActiveCharacter )
-          goto LABEL_118;
+          break;;
         v87 = 0;
         v85 = 63;
         goto LABEL_105;
@@ -6010,10 +6017,12 @@ LABEL_86:
 LABEL_105:
           sub_4948B1(*(&ptr_A750C4 + v22), v85, v87);
         }
-        goto LABEL_118;
+        break;
+
       case 9:
         v112 = 0;
-        goto LABEL_118;
+        break;
+
       case 12:
         if ( !v110 || v100 )
         {
@@ -6033,9 +6042,11 @@ LABEL_105:
             }
           }
         }
-        goto LABEL_118;
+        break;
+
       default:
-        goto LABEL_118;
+        break;
+
       case 15:
         if (pParty_global->dword_000704)
         {
@@ -6044,10 +6055,10 @@ LABEL_105:
         }
         pParty_global->dword_000704 = 0;
         dword_7215D8 = 0;
-        goto LABEL_123;
+       break;
     }
   }
-LABEL_123:
+
   pParty_global->sRotationY = v117;
   pParty_global->sRotationX = v112;
   if ( v115 < v103 )
@@ -6061,10 +6072,10 @@ LABEL_130:
       v115 = v105 + v121;
       if ( v119 )
         v115 = v105;
-      if ( HIDWORD(pParty_global->pPartyBuffs[7].qword_000000) >= 0 )
+      if ( HIDWORD(pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000) >= 0 )
       {
-       if ( HIDWORD(pParty_global->pPartyBuffs[7].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[7].qword_000000 )
-          *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[7].word_00000C) &= 0xFEu;
+       if ( HIDWORD(pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000 )
+          *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[PARTYBUFF_FLY].word_00000C) &= 0xFEu;
       }
       pParty_global->dword_000700 = v115;
       goto LABEL_141;
@@ -6081,10 +6092,10 @@ LABEL_130:
   if (pParty_global->dword_000704)
     goto LABEL_130;
   v105 = v115;
-  if ( HIDWORD(pParty_global->pPartyBuffs[7].qword_000000) >= 0 )
+  if ( HIDWORD(pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000) >= 0 )
   {
-   if ( HIDWORD(pParty_global->pPartyBuffs[7].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[7].qword_000000 )
-      *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[7].word_00000C) |= 1u;
+   if ( HIDWORD(pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000 )
+      *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[PARTYBUFF_FLY].word_00000C) |= 1u;
   }
 LABEL_141:
   v24 = 0;
@@ -6108,15 +6119,15 @@ LABEL_149:
     if ( v100 )
       goto LABEL_150;
     v115 = v103;
-    sub_46DCC8(v108, v109, (int)&v90);
+    sub_46DCC8(v108, v109, &local_10);
     v27 = v113 + -8 * pClass24_global->int_00001C * sub_46BDA8();
-    v121 = abs(v0 * v90 + v1 * v91 + v27 * v92) >> 16;
-    v119 = (unsigned __int64)(v121 * v90) >> 16;
+    v121 = abs(v0 * local_10.v90 + v1 * local_10.v91 + v27 * local_10.v92) >> 16;
+    v119 = (unsigned __int64)(v121 * local_10.v90) >> 16;
     v0 += v119;
-    v119 = (unsigned __int64)(v121 * v91) >> 16;
+    v119 = (unsigned __int64)(v121 * local_10.v91) >> 16;
     v1 += v119;
-    LODWORD(v120) = v1;
-    v119 = (unsigned __int64)(v121 * v92) >> 16;
+    v120 = v1;
+    v119 = (unsigned __int64)(v121 * local_10.v92) >> 16;
     v25 = v119 + v27;
     v24 = 0;
     v113 = v25;
@@ -6164,58 +6175,58 @@ LABEL_151:
   {
     if ( !v110 )
     {
-      LODWORD(v120) = 0;
+      v120 = 0;
       v0 = 0;
     }
   }
-  dword_7215B4 = -1;
-  dword_7215A0 = 0;
-  dword_721534 = pParty_global->dword_000014;
-  dword_721538 = pParty_global->dword_000014 / 2;
+  stru_721530.dword_000084 = -1;
+  stru_721530.dword_000070 = 0;
+  stru_721530.dword_000004 = pParty_global->dword_000014;
+  stru_721530.dword_000008 = pParty_global->dword_000014 / 2;
   v118 = 0;
-  dword_721530 = 1;
-  dword_72153C = pParty_global->uPartyHeight - 32;
+  stru_721530.dword_000000 = 1;
+  stru_721530.dword_00000C = pParty_global->uPartyHeight - 32;
   do
   {
-    dword_72154C = v0;
-    dword_721558 = v108;
-    dword_721564 = v108;
+    stru_721530.dword_00001C = v0;
+    stru_721530.dword_000028 = v108;
+    stru_721530.dword_000034 = v108;
     
-    dword_721550 = LODWORD(v120);
-    dword_72155C = v109;
-    dword_721568 = v109;
+    stru_721530.dword_000020 = v120;
+    stru_721530.dword_00002C = v109;
+    stru_721530.dword_000038 = v109;
 
-    dword_721560 = dword_721534 + v115 + 1;
-    dword_72156C = dword_72153C + v115 + 1;
-    dword_721554 = v113;
+    stru_721530.dword_000030 = stru_721530.dword_000004 + v115 + 1;
+    stru_721530.dword_00003C = stru_721530.dword_00000C + v115 + 1;
+    stru_721530.dword_000024 = v113;
     v28 = 0;
-    dword_7215A4 = 0;
-    if ( dword_ACD834 == 1 )
+    stru_721530.dword_000074 = 0;
+    if (pParty_global->dword_00087C == 1)
     {
       if ( dword_4F885C == 3 )
         v28 = 13312;
     }
-    if ( sub_47050A((int)&dword_721530, v28) )
+    if ( sub_47050A(&stru_721530, v28) )
       break;
     sub_46E889((void *)1);
     v30 = WorldPosToGridCellZ(pParty_global->sPartyPosY);
     v31 = WorldPosToGridCellX(pParty_global->sPartyPosX);
-    sub_46E26D(v31, v30);
+    sub_46E26D_ProbablyCollideAgainstDecorations(v31, v30);
     sub_46ED8A((void *)4);
     for ( i = 0; i < (signed int)uNumActors; ++i )
       sub_46DF1A(i, 0);
-    if ( dword_7215AC >= dword_72159C )
+    if ( stru_721530.dword_00007C >= stru_721530.dword_00006C )
     {
-      v112 = dword_721570;
-      v117 = dword_721574;
-      v32 = dword_721578 - dword_721534 - 1;
+      v112 = stru_721530.dword_000040;
+      v117 = stru_721530.dword_000044;
+      v32 = stru_721530.dword_000048 - stru_721530.dword_000004 - 1;
     }
     else
     {
-      v112 = v108 + ((unsigned __int64)(dword_7215AC * dword_721588) >> 16);
-      v117 = v109 + ((unsigned __int64)(dword_7215AC * dword_72158C) >> 16);
-      v119 = (unsigned __int64)(dword_7215AC * dword_721590) >> 16;
-      v32 = ((unsigned __int64)(dword_7215AC * dword_721590) >> 16) + v115;
+      v112 = v108 + ((unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000058) >> 16);
+      v117 = v109 + ((unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_00005C) >> 16);
+      v119 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000060) >> 16;
+      v32 = ((unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000060) >> 16) + v115;
     }
     v114 = v32;
     sub_46D49E_ProbablyCollidePartyWithBModels(v112, v117, v32, pParty_global->uPartyHeight, (int)&v122, (int)&v100, 0);
@@ -6265,22 +6276,22 @@ LABEL_198:
       v109 = v117;
     }
 LABEL_199:
-    if ( dword_7215AC >= dword_72159C )
+    if ( stru_721530.dword_00007C >= stru_721530.dword_00006C )
     {
       if ( !v99 )
       {
-        v108 = dword_721570;
-        v109 = dword_721574;
+        v108 = stru_721530.dword_000040;
+        v109 = stru_721530.dword_000044;
       }
-      v115 = dword_721578 - dword_721534 - 1;
+      v115 = stru_721530.dword_000048 - stru_721530.dword_000004 - 1;
       break;
     }
-    dword_7215A0 += dword_7215AC;
+    stru_721530.dword_000070 += stru_721530.dword_00007C;
     v108 = v112;
     v109 = v117;
-    v37 = dword_7215A8;
+    v37 = stru_721530.dword_000078;
     v115 = v32;
-    if ( (dword_7215A8 & 7) == 3 )
+    if ( (stru_721530.dword_000078 & 7) == 3 )
     {
       if ( HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) >= 0 )
       {
@@ -6290,14 +6301,14 @@ LABEL_199:
       struct_576FE8.dword_000044 = 1;
       goto LABEL_234;
     }
-    if ( (dword_7215A8 & 7) == 5 )
+    if ( (stru_721530.dword_000078 & 7) == 5 )
     {
-      v48 = sub_452A9E(v0 * v0 + LODWORD(v120) * LODWORD(v120));
+      v48 = sub_452A9E(v0 * v0 + v120 * v120);
       v110 = v48;
       v49 = class59_Atan2(
               pClass59_global,
-              v112 - pLevelDecorations[(dword_7215A8 >> 3)].sPosX,
-              v117 - pLevelDecorations[(dword_7215A8 >> 3)].sPosY);
+              v112 - pLevelDecorations[(stru_721530.dword_000078 >> 3)].sPosX,
+              v117 - pLevelDecorations[(stru_721530.dword_000078 >> 3)].sPosY);
       v121 = v49;
       v50 = class59_SinCos(pClass59_global, v49);
       v119 = v50;
@@ -6308,16 +6319,16 @@ LABEL_199:
       v119 = v52;
       v53 = v52 * v110;
       v114 = v53 >> 16;
-      LODWORD(v120) = v53 >> 16;
+      v120 = v53 >> 16;
     }
     else
     {
-      if ( (dword_7215A8 & 7) == 6 )
+      if ( (stru_721530.dword_000078 & 7) == 6 )
       {
         pParty_global->dword_000704 = 0;
-        v40 = pClass51_global->pBModels + 188 * (dword_7215A8 >> 9);
+        v40 = pClass51_global->pBModels + 188 * (stru_721530.dword_000078 >> 9);
         v119 = v40;
-        v39 = *(_DWORD *)(v40 + 84) + 308 * ((dword_7215A8 >> 3) & 0x3F);
+        v39 = *(_DWORD *)(v40 + 84) + 308 * ((stru_721530.dword_000078 >> 3) & 0x3F);
         v41 = *(_WORD *)(v39 + 288) - *(_WORD *)(v39 + 286);
         compile_error;//v44 = __SETO__(v41, 32);
         v42 = v41 == 32;
@@ -6333,18 +6344,18 @@ LABEL_199:
           if ( v113 < 0 )
             v113 = 0;
           v115 = *(_DWORD *)(*(_DWORD *)(v119 + 72) + 12 * *(_WORD *)(v39 + 32) + 8) + 1;
-          if ( v0 * v0 + LODWORD(v120) * LODWORD(v120) < 400 )
+          if ( v0 * v0 + v120 * v120 < 400 )
           {
             v0 = 0;
-            LODWORD(v120) = 0;
+            v120 = 0;
           }
           goto LABEL_221;
         }
         if ( !v121 && (v45 != 4 || v111) )
         {
-          v110 = abs(LODWORD(v120) * *(_DWORD *)(v39 + 4) + v113 * v38 + v0 * *(_DWORD *)v39) >> 16;
-          if ( dword_721594 >> 3 > v110 )
-            v110 = dword_721594 >> 3;
+          v110 = abs(v120 * *(_DWORD *)(v39 + 4) + v113 * v38 + v0 * *(_DWORD *)v39) >> 16;
+          if ( stru_721530.dword_000064 >> 3 > v110 )
+            v110 = stru_721530.dword_000064 >> 3;
           v121 = *(_DWORD *)v39;
           v121 = (unsigned __int64)(v110 * v121) >> 16;
           v107 = *(_DWORD *)(v39 + 4);
@@ -6357,9 +6368,9 @@ LABEL_199:
             v46 = v119;
           }
           v113 += v46;
-          LODWORD(v120) += v107;
+          v120 += v107;
           v0 += v121;
-          v47 = dword_721534
+          v47 = stru_721530.dword_000004
               - ((signed int)(*(_DWORD *)(v39 + 12)
                             + v114 * *(_DWORD *)(v39 + 8)
                             + v117 * *(_DWORD *)(v39 + 4)
@@ -6372,7 +6383,7 @@ LABEL_199:
               v115 = v114 + (*(_DWORD *)(v39 + 8) * v47 >> 16);
           }
 LABEL_220:
-          v37 = dword_7215A8;
+          v37 = stru_721530.dword_000078;
 LABEL_221:
           if (pParty_global->dword_0006F4 != v37)
           {
@@ -6384,9 +6395,9 @@ LABEL_221:
           }
           goto LABEL_234;
         }
-        v110 = abs(LODWORD(v120) * *(_DWORD *)(v39 + 4) + v113 * v38 + v0 * *(_DWORD *)v39) >> 16;
-        if ( dword_721594 >> 3 > v110 )
-          v110 = dword_721594 >> 3;
+        v110 = abs(v120 * *(_DWORD *)(v39 + 4) + v113 * v38 + v0 * *(_DWORD *)v39) >> 16;
+        if ( stru_721530.dword_000064 >> 3 > v110 )
+          v110 = stru_721530.dword_000064 >> 3;
         v114 = *(_DWORD *)v39;
         v114 = (unsigned __int64)(v110 * (signed int)v114) >> 16;
         v119 = *(_DWORD *)(v39 + 4);
@@ -6395,21 +6406,21 @@ LABEL_221:
         v121 = (unsigned __int64)(v110 * v121) >> 16;
         v113 += v121;
         v0 += v114;
-        LODWORD(v120) += v119;
-        if ( v0 * v0 + LODWORD(v120) * LODWORD(v120) >= 400 )
+        v120 += v119;
+        if ( v0 * v0 + v120 * v120 >= 400 )
           goto LABEL_220;
         v0 = 0;
         v113 = 0;
-        LODWORD(v120) = 0;
+        v120 = 0;
       }
     }
 LABEL_234:
-    v0 = (unsigned __int64)(58500i64 * v0) >> 16;
+    v0 = ((unsigned __int64)(58500) * v0) >> 16;
     v119 = 58500;
-    LODWORD(v120) = (unsigned __int64)(58500i64 * SLODWORD(v120)) >> 16;
-    v114 = (unsigned __int64)(58500i64 * v113) >> 16;
+    v120 = ((unsigned __int64)(58500) * v120) >> 16;
+    v114 = ((unsigned __int64)(58500) * v113) >> 16;
     ++v118;
-    v113 = (unsigned __int64)(58500i64 * v113) >> 16;
+    v113 = ((unsigned __int64)(58500) * v113) >> 16;
   }
   while ( v118 < 100 );
   if (dword_6BE374_WalkSoundFlag && pParty_global->dword_0006F8 <= 0)
@@ -6622,8 +6633,8 @@ LABEL_313:
     if ( v98 )
     {
       LOBYTE(pParty_global->dword_007778) = pParty_global->dword_007778 & 0x7F;
-      v71 = 20 * pParty_global->pPartyBuffs[15].word_00000C + 0x5E4D52;
-      *((_WORD *)&unk_5E4D52 + 10 * pParty_global->pPartyBuffs[15].word_00000C) |= 1u;
+      v71 = 20 * pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].word_00000C + 0x5E4D52;
+      *((_WORD *)&unk_5E4D52 + 10 * pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].word_00000C) |= 1u;
       if ( !v114 || !v57 )
       {
         if ( !v68 )
@@ -7266,13 +7277,13 @@ int __cdecl sub_493938()
   {
     v69 = 0;
     v4 = (v2 - v1) / 5;
-    if (pParty_global->pPartyBuffs[7].qword_000000 > 0 )
+    if (pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000 > 0 )
     {
       if (pParty_global->dword_000704)
       {
         if ( !(byte_ACD8C3 & 1) )
         {
-          v6 = v4 * pParty_global->pPartyBuffs[7].word_000008;
+          v6 = v4 * pParty_global->pPartyBuffs[PARTYBUFF_FLY].word_000008;
           v5 = (char *)(&pParty_global->pPlayers[(unsigned __int8)byte_ACD8C2 - 1]) + 6464;
           v7 = *(_DWORD *)v5 - v6 < 0;
           *(_DWORD *)v5 -= v6;
@@ -7286,13 +7297,13 @@ int __cdecl sub_493938()
         }
       }
     }
-    if (pParty_global->pPartyBuffs[15].qword_000000 > 0 )
+    if (pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].qword_000000 > 0 )
     {
       if ( pParty_global->dword_007778 & 0x80 )
       {
-        if (~pParty_global->pPartyBuffs[15].byte_00000F & 0x01)
+        if (~pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].byte_00000F & 0x01)
         {
-          v8 = (char *)(&pParty_global->pPlayers[pParty_global->pPartyBuffs[15].byte_00000E - 1]) + 6464;
+          v8 = (char *)(&pParty_global->pPlayers[pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].byte_00000E - 1]) + 6464;
           v9 = *(_DWORD *)v8 - v4 < 0;
           *(_DWORD *)v8 -= v4;
           if ( v9 )
@@ -8938,7 +8949,7 @@ LABEL_69:
         v18 = &pParty_global->pPlayers[1743 * *(_WORD *)(v2 + 2)];
         memcpy(v686.v694, &v18[9 * v18[1620] + 124], 0x24u);
         v686.v691 = 256;
-        if ( dword_ACD834 == 1 )
+        if (pParty_global->dword_00087C == 1)
           v686.v691 = 260;
         for ( i = 0; i < LODWORD(v702); ++i )
         {
@@ -8952,7 +8963,7 @@ LABEL_69:
                  *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
                  *(_WORD *)(v2 + 2) + 1) != -1 )
           {
-            if ( dword_ACD834 == 1 )
+            if (pParty_global->dword_00087C == 1)
               ++dword_4F8874;
           }
         }
@@ -8982,7 +8993,7 @@ LABEL_69:
         v21 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, SHIDWORD(v686.v688));
         HIBYTE(v686.v691) |= 1u;
         v686.v692 = v21;
-        if ( dword_ACD834 == 1 )
+        if (pParty_global->dword_00087C == 1)
           LOBYTE(v686.v691) = v686.v691 | 4;
         if ( sub_42F5ED(
                (int)&v686,
@@ -8991,7 +9002,7 @@ LABEL_69:
                *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
                *(_WORD *)(v2 + 2) + 1) != -1 )
         {
-          if ( dword_ACD834 == 1 )
+          if (pParty_global->dword_00087C == 1)
             ++dword_4F8874;
         }
         goto LABEL_83;
@@ -9084,7 +9095,7 @@ LABEL_69:
         v686.v700 = v677;
         v686.v689 = v678;
         v686.v690 = *(_WORD *)(v2 + 16);
-        if ( dword_ACD834 == 1 )
+        if (pParty_global->dword_00087C == 1)
           LOBYTE(v686.v691) = v686.v691 | 4;
         v627 = *(_WORD *)(v2 + 2) + 1;
         v618 = *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48);
@@ -9245,7 +9256,7 @@ LABEL_139:
         v686.v700 = v677;
         v686.v689 = v678;
         v686.v690 = *(_WORD *)(v2 + 16);
-        if ( dword_ACD834 == 1 )
+        if (pParty_global->dword_00087C == 1)
           LOBYTE(v686.v691) = v686.v691 | 4;
         if ( *(_WORD *)v2 == 18 )
           LOBYTE(v686.v691) = v686.v691 | 0x40;
@@ -9471,7 +9482,7 @@ LABEL_1162:
                     {
                       if ( v683 < 0 )
                         v683 = 0;
-                      if ( dword_ACD834 )
+                      if (pParty_global->dword_00087C)
                       {
                         v605 = v683;
                         pParty_global->array_016144[*(_WORD *)(v2 + 2)] = v683;
@@ -10014,7 +10025,7 @@ LABEL_304:
             v686.v700 = sub_427546(n + 2500);
             v686.v689 = v645;
             v686.v690 = *(_WORD *)(v2 + 16);
-            if ( dword_ACD834 == 1 )
+            if (pParty_global->dword_00087C == 1)
               v686.v691 = 4;
             if ( sub_42F5ED(
                    (int)&v686,
@@ -10023,7 +10034,7 @@ LABEL_304:
                    *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
                    SHIDWORD(v1)) != -1 )
             {
-              if ( dword_ACD834 == 1 )
+              if (pParty_global->dword_00087C == 1)
                 ++dword_4F8874;
             }
             LODWORD(v682) = rand() % 1024 - 512;
@@ -10205,7 +10216,7 @@ LABEL_353:
         v686.v699 = n;
         v686.v700 = v677;
         v686.v690 = *(_WORD *)(v2 + 16);
-        if ( dword_ACD834 == 1 )
+        if (pParty_global->dword_00087C == 1)
           LOBYTE(v686.v691) = v686.v691 | 4;
         v183 = LODWORD(v704) / -2;
         v182 = LODWORD(v704) / 2;
@@ -10219,7 +10230,7 @@ LABEL_353:
                  *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
                  *(_WORD *)(v2 + 2) + 1) != -1 )
           {
-            if ( dword_ACD834 == 1 )
+            if (pParty_global->dword_00087C == 1)
               ++dword_4F8874;
           }
           v183 += v710;
@@ -10353,7 +10364,7 @@ LABEL_461:
         v710 = v711 << 7;
         v610 = v709;
         v24 = (signed __int64)((double)(v711 << 7) * 0.03333333507180214);
-        v25 = (char *)&pParty_global->pPartyBuffs[7].qword_000000;
+        v25 = (char *)&pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000;
 LABEL_101:
         v24 = (signed int)v24;
 LABEL_102:
@@ -10438,7 +10449,7 @@ LABEL_104:
           v686.v700 = sub_427546(LODWORD(v702) + 2500);
           v686.v689 = v642;
           v686.v690 = *(_WORD *)(v2 + 16);
-          if ( dword_ACD834 == 1 )
+          if (pParty_global->dword_00087C == 1)
             v686.v691 = 4;
           if ( sub_42F5ED(
                  (int)&v686,
@@ -10447,7 +10458,7 @@ LABEL_104:
                  *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
                  SHIDWORD(v1)) != -1 )
           {
-            if ( dword_ACD834 == 1 )
+            if (pParty_global->dword_00087C == 1)
               ++dword_4F8874;
           }
           LODWORD(v685) = rand() % 1024 - 512;
@@ -10538,7 +10549,7 @@ LABEL_153:
           v686.v689 = v678;
           v686.v690 = *(_WORD *)(v2 + 16);
 LABEL_154:
-          if ( dword_ACD834 == 1 )
+          if (pParty_global->dword_00087C == 1)
             LOBYTE(v686.v691) = v686.v691 | 4;
 LABEL_156:
           v627 = *(_WORD *)(v2 + 2) + 1;
@@ -10548,7 +10559,7 @@ LABEL_156:
 LABEL_157:
           if ( sub_42F5ED((int)&v686, v35, v613, v618, v627) != -1 )
           {
-            if ( dword_ACD834 == 1 )
+            if (pParty_global->dword_00087C == 1)
               ++dword_4F8874;
           }
         }
@@ -10572,7 +10583,7 @@ LABEL_157:
           v686.v699 = n;
           v686.v700 = v677;
           v686.v690 = *(_WORD *)(v2 + 16);
-          if ( dword_ACD834 == 1 )
+          if (pParty_global->dword_00087C == 1)
             LOBYTE(v686.v691) = v686.v691 | 4;
           v219 = LODWORD(v712) / -2;
           Source = (char *)(LODWORD(v712) / 2);
@@ -10589,7 +10600,7 @@ LABEL_157:
                      *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
                      *(_WORD *)(v2 + 2) + 1) != -1 )
               {
-                if ( dword_ACD834 == 1 )
+                if (pParty_global->dword_00087C == 1)
                   ++dword_4F8874;
               }
               v219 += v710;
@@ -10624,7 +10635,7 @@ LABEL_157:
         sub_4A89BD((void *)v229, v228, 3);
         v230 = *(_WORD *)(v2 + 2) + 1;
         v710 = (_DWORD)v1 << 7;
-        sub_4584E0(&pParty_global->pPartyBuffs[15],
+        sub_4584E0(&pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK],
           pParty_global->qword_00002C + (signed __int64)((double)(signed int)((_DWORD)v1 << 7) * 0.03333333507180214),
           (unsigned __int64)(pParty_global->qword_00002C
                            + (signed int)(signed __int64)((double)(signed int)((_DWORD)v1 << 7) * 0.03333333507180214)) >> 32,
@@ -10633,7 +10644,7 @@ LABEL_157:
           v680,
           v230);
         if ( v709 == 4 )
-          pParty_global->pPartyBuffs[15].byte_00000F = 1;
+          pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].byte_00000F = 1;
         goto LABEL_1112;
       case 28:
         if ( !sub_427730(v707, SLODWORD(v706)) )
@@ -11169,7 +11180,7 @@ LABEL_634:
         v686.v700 = v677;
         v686.v689 = pParty_global->sRotationY;
         v686.v690 = *(_WORD *)(v2 + 16);
-        if ( dword_ACD834 == 1 )
+        if (pParty_global->dword_00087C == 1)
           LOBYTE(v686.v691) = v686.v691 | 4;
         v627 = *(_WORD *)(v2 + 2) + 1;
         v618 = *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48);
@@ -11199,7 +11210,7 @@ LABEL_634:
         v686.v699 = n;
         v686.v689 = pParty_global->sRotationY;
         v686.v690 = *(_WORD *)(v2 + 16);
-        if ( dword_ACD834 == 1 )
+        if ( pParty_global->dword_00087C == 1 )
           v686.v691 = 4;
         v627 = HIDWORD(v1);
         v618 = *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48);
@@ -12733,7 +12744,7 @@ LABEL_1000:
           SWORD2(v1),
           SHIDWORD(v1),
           SBYTE4(v1));
-        sub_4584E0(&pParty_global->pPartyBuffs[15],
+        sub_4584E0(&pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK],
           (signed __int64)((double)pParty_global->qword_00002C + v712),
           (unsigned __int64)(signed __int64)((double)pParty_global->qword_00002C + v712) >> 32,
           v1,
@@ -12963,7 +12974,7 @@ LABEL_1062:
         v686.v699 = n;
         v686.v700 = v677;
         v686.v690 = *(_WORD *)(v2 + 16);
-        if ( dword_ACD834 == 1 )
+        if ( pParty_global->dword_00087C == 1 )
           LOBYTE(v686.v691) = v686.v691 | 4;
         v560 = LODWORD(v704) / -2;
         Source = (char *)(LODWORD(v704) / 2);
@@ -12980,7 +12991,7 @@ LABEL_1062:
                    *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
                    *(_WORD *)(v2 + 2) + 1) != -1 )
             {
-              if ( dword_ACD834 == 1 )
+              if ( pParty_global->dword_00087C == 1 )
                 ++dword_4F8874;
             }
             v560 += v710;
@@ -13302,7 +13313,7 @@ LABEL_1119:
         pParty_global->dword_01613C = 256;
         dword_AE30F8[0] = v1;
         ++*(_BYTE *)(v707 + 6969);
-        if ( dword_ACD834 == 1 )
+        if ( pParty_global->dword_00087C == 1 )
           ++dword_4F8874;
         LODWORD(v704) = 50;
         do
@@ -13362,7 +13373,7 @@ LABEL_439:
       continue;
     }
   }
-  if ( dword_ACD834 == HIDWORD(v1) )
+  if ( pParty_global->dword_00087C == HIDWORD(v1) )
   {
     v606 = v707;
     sub_48E96A(v707, (signed __int64)(flt_6BE3A4_debug_recmod1 * *(double *)&byte_4D8410[296]));

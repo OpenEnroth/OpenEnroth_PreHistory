@@ -601,9 +601,9 @@ LABEL_87:
     sub_41C0B8((const char *)v26);
     goto LABEL_123;
   }
-  v1 = sLastGUIWindowIdx;
+  v1 = uNumGUIWindows;
 
-  if ( sLastGUIWindowIdx <= 0 )
+  if ( uNumGUIWindows <= 0 )
   {
 LABEL_38:
     if ( dword_4E28F8 == 10 )
@@ -1789,7 +1789,7 @@ LABEL_173:
         case 0xB8:
           if ( v209 )
             pParty_global->sRotationY = v209 * pParty_global->sRotationY / v209;
-          dword_6BE38C_TurnDelta = v209;
+          uTurnSpeed = v209;
           goto LABEL_92;
         case 0x83:
           if ( !bUseLoResSprites )
@@ -1938,7 +1938,7 @@ LABEL_232:
                         uActiveCharacter = dword_50C0C4;
                         uActiveCharacter = Party_sub_49370F(pParty_global);
                         dword_50C0C4 = 0;
-                        if ( dword_ACD834 )
+                        if ( pParty_global->dword_00087C )
                           sub_40471C(&unk_4F8858);
                         dword_50C9D0 = 0;
                         dword_50C9D4 = 0;
@@ -1999,20 +1999,20 @@ LABEL_249:
                       RegistryWriteInt("graphicsmode", (unsigned __int8)byte_6BE388_graphicsmode);
                       RegistryWriteInt("valAlwaysRun", dword_6BE37C);
                       RegistryWriteInt("FlipOnExit", dword_6BE380);
-                      if ( !dword_6BE38C_TurnDelta )
+                      if ( !uTurnSpeed )
                       {
                         v188 = 3;
                         goto LABEL_261;
                       }
-                      if ( dword_6BE38C_TurnDelta == 64 )
+                      if ( uTurnSpeed == 64 )
                       {
                         v188 = 2;
 LABEL_261:
                         v37 = v188;
                         goto LABEL_262;
                       }
-                      v35 = dword_6BE38C_TurnDelta - 128;
-                      if ( dword_6BE38C_TurnDelta != 128 )
+                      v35 = uTurnSpeed - 128;
+                      if ( uTurnSpeed != 128 )
                         goto LABEL_291;
                       v37 = v0;
 LABEL_262:
@@ -2703,7 +2703,7 @@ LABEL_450:
             goto LABEL_92;
           byte_506360 = 1;
           sub_427730(v202, dword_506344);
-          if ( dword_ACD834 )
+          if ( pParty_global->dword_00087C )
           {
             v72 = dword_506340;
             pParty_global->array_016144[dword_506348] = dword_506340;
@@ -3066,7 +3066,7 @@ LABEL_544:
         case 0x1B:
           if ( !uActiveCharacter )
             goto LABEL_90;
-          if ( dword_ACD834 != v0 )
+          if ( pParty_global->dword_00087C != v0 )
             goto LABEL_569;
           if ( dword_4F885C == v0 || dword_4F885C == 3 )
             goto LABEL_90;
@@ -3082,7 +3082,7 @@ LABEL_569:
         case 0x17:
           if ( !uActiveCharacter )
             goto LABEL_90;
-          if ( dword_ACD834 != v0 )
+          if ( pParty_global->dword_00087C != v0 )
             goto LABEL_577;
           if ( dword_4F885C == v0 || dword_4F885C == 3 )
             goto LABEL_90;
@@ -3125,7 +3125,7 @@ LABEL_577:
             goto LABEL_92;
           if ( sub_42F4DA() )
             goto LABEL_594;
-          if ( dword_ACD834 == v0 )
+          if ( pParty_global->dword_00087C == v0 )
             goto LABEL_595;
           if ( !(pParty_global->dword_007778 & 0x88) )
           {
@@ -3133,7 +3133,7 @@ LABEL_577:
             goto LABEL_92;
           }
 LABEL_594:
-          if ( dword_ACD834 == v0 )
+          if ( pParty_global->dword_00087C == v0 )
           {
 LABEL_595:
             v99 = pGlobalTXT_LocalizationStrings[478];
@@ -4394,8 +4394,8 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
   v9->dword_000044 = 0;
   v9->dword_000048 = a7;
 
-  v9->dword_00003C = ++sLastGUIWindowIdx;
-  array_5075E0[sLastGUIWindowIdx] = v8 + 1;
+  v9->dword_00003C = ++uNumGUIWindows;
+  array_5075E0[uNumGUIWindows] = v8 + 1;
 
   if ( a5 <= 20 )
   {
@@ -4815,7 +4815,7 @@ LABEL_26:
     *(_DWORD *)(v1 + 32) = 0;
     *(_DWORD *)(v1 + 24) = 0;
     v11 = *(_DWORD *)(v1 + 60);
-    v10 = sLastGUIWindowIdx;
+    v10 = uNumGUIWindows;
     while ( v11 < v10 )
     {
       v12 = array_5075E0[v11 + 1];
@@ -4824,7 +4824,7 @@ LABEL_26:
       ++v11;
     }
     array_5075E0[v10] = 0;
-    sLastGUIWindowIdx = v10 - 1;
+    uNumGUIWindows = v10 - 1;
   }
 }
 
@@ -5361,7 +5361,7 @@ void __cdecl GameUI_DrawStatusBar()
       {
         v7 = strlen(pStatusBarString);
         v8 = pFontLucida;
-        byte_5C34EF[v7] = 0;
+        pStatusBarString[v7 - 1] = 0;
         v6 = sub_44C51E(v8, pStatusBarString);
       }
     }
@@ -5498,7 +5498,7 @@ void __cdecl GameUI_DrawPartySpells()
 
   if ( !dword_4E28F8 || dword_4E28F8 == 4 )
   {
-   if (pParty_global->pPartyBuffs[7].qword_000000 > 0 )
+   if (pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000 > 0 )
     {
       if (pParty_global->dword_000704)
         v6 = v0;
@@ -5510,9 +5510,9 @@ void __cdecl GameUI_DrawPartySpells()
       else
         Render_DrawTransparentTexture(pD3DRenderer, 8, 8, v7);
     }
-    if ( HIDWORD(pParty_global->pPartyBuffs[15].qword_000000) >= 0 )
+    if ( HIDWORD(pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].qword_000000) >= 0 )
     {
-      if ( HIDWORD(pParty_global->pPartyBuffs[15].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[15].qword_000000)
+      if ( HIDWORD(pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].qword_000000)
       {
         if ( pParty_global->dword_007778 & 0x80 )
           v8 = v0;
@@ -5650,7 +5650,7 @@ LABEL_27:
   }
 
   
-  if ( dword_ACD834 == 1 )
+  if ( pParty_global->dword_00087C == 1 )
   {
     if ( dword_4F885C != 1 )
     {

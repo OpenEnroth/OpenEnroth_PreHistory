@@ -2215,7 +2215,7 @@ LABEL_5:
       return v4 + v3;
     case 9:
       v3 = *(_WORD *)((char *)_this + 6280);
-      v4 = pParty_global->pPartyBuffs[15].word_000008;
+      v4 = pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].word_000008;
       return v4 + v3;
     default:
       return result;

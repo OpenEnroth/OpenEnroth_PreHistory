@@ -118,8 +118,8 @@ struct class51
  unsigned char         *ptr_0000D4;
  struct class51_BModel *pBModels;      // ptr @ 0000D8
  int                    dword_0000DC;
- unsigned char         *ptr_0000E0;
- unsigned char         *ptr_0000E4;
+ unsigned short        *ptr_0000E0;   // IDLIST
+ unsigned int          *ptr_0000E4;   // OMAP
  unsigned int           uSkyTextureID; // dword @ 0000E8
  int                    dword_0000EC;  // id in bitmaps.lod; main tile texture id?
 

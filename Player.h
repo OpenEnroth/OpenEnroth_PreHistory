@@ -217,6 +217,10 @@ void Player_RandomizeName(struct Player *_this);
 
 //int __thiscall sub_49024A(int this, char a2);
 void Player_Reset(struct Player *_this, unsigned int uClass);
+//signed int __thiscall sub_48D709(void *this, int a2, int a3);
+signed int sub_48D709(struct Player *_this, int a2, int a3);
+//bool __thiscall sub_48D6AA(void *this, int a2);
+bool sub_48D6AA(struct Player *_this, int a2);
 
 int __thiscall Player_GetActualStrength(struct Player *_this);
 int __thiscall Player_GetActualIntelligence(struct Player *_this);

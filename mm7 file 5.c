@@ -101,7 +101,7 @@ void __thiscall sub_4680ED(void *this, signed int a2, int a3)
   v76 = (int)this;
   v3 = &pParty_global->pPlayers[a2 - 1];
   v73 = 1;
-  if ( dword_ACD834 == 1 && (dword_4F885C == 1 || dword_4F885C == 3) )
+  if (pParty_global->dword_00087C == 1 && (dword_4F885C == 1 || dword_4F885C == 3) )
     return;
   v4 = 0;
   if ( (unsigned __int8)byte_5D2A00[48 * dword_AD470C] == 13 )
@@ -787,7 +787,7 @@ LABEL_178:
                 }
                 if ( v73 )
                 {
-                  if ( dword_ACD834 )
+                  if (pParty_global->dword_00087C)
                   {
                     dword_AE30F8[a2] = 100;
                     sub_48E96A(v76, 100);
@@ -3929,7 +3929,7 @@ signed int __fastcall sub_46BFFA(int a1, signed int a2)
     if ( (a2 & 7) == 4 && (*(_BYTE *)(v3 + 88) & 7) == 4 )
       return 1;
   }
-  if ( dword_ACD834 == 1 )
+  if (pParty_global->dword_00087C == 1 )
   {
     LOWORD(a1) = *(_WORD *)(v3 + 26);
     if ( a1 & 4 )
@@ -5685,22 +5685,22 @@ signed int __fastcall sub_46DF1A(int a1, int a2)
   if ( a2 )
     v4 = a2;
   v5 = *((_WORD *)v3 + 71);
-  if ( dword_7215BC > v5 + v4
-    || dword_7215C0 < v5 - v4
-    || (v6 = *((_WORD *)v3 + 72), dword_7215C4 > v6 + v4)
-    || dword_7215C8 < v6 - v4
-    || (v7 = *((_WORD *)v3 + 73), dword_7215CC > v7 + *((_WORD *)v3 + 69))
-    || dword_7215D0 < v7
-    || (v9 = v5 - dword_721558,
-        v10 = v6 - dword_72155C,
-        v11 = dword_721534 + v4,
-        v17 = dword_721534 + v4,
-        v8 = (v9 * dword_72158C - v10 * dword_721588) >> 16,
+  if ( stru_721530.dword_00008C > v5 + v4
+    || stru_721530.dword_000090 < v5 - v4
+    || (v6 = *((_WORD *)v3 + 72), stru_721530.dword_000094 > v6 + v4)
+    || stru_721530.dword_000098 < v6 - v4
+    || (v7 = *((_WORD *)v3 + 73), stru_721530.dword_00009C > v7 + *((_WORD *)v3 + 69))
+    || stru_721530.dword_0000A0 < v7
+    || (v9 = v5 - stru_721530.dword_000028,
+        v10 = v6 - stru_721530.dword_00002C,
+        v11 = stru_721530.dword_000004 + v4,
+        v17 = stru_721530.dword_000004 + v4,
+        v8 = (v9 * stru_721530.dword_00005C - v10 * stru_721530.dword_000058) >> 16,
         v18 = v9,
         v19 = v10,
-        abs((v9 * dword_72158C - v10 * dword_721588) >> 16) > v11)
-    || (v12 = (v18 * dword_721588 + v19 * dword_72158C) >> 16, v12 <= 0)
-    || (signed int)(((unsigned __int64)(dword_721590 * v12) >> 16) + dword_721560) < *((_WORD *)v3 + 73) )
+        abs((v9 * stru_721530.dword_00005C - v10 * stru_721530.dword_000058) >> 16) > v11)
+    || (v12 = (v18 * stru_721530.dword_000058 + v19 * stru_721530.dword_00005C) >> 16, v12 <= 0)
+    || (signed int)(((unsigned __int64)(stru_721530.dword_000060 * v12) >> 16) + stru_721530.dword_000030) < *((_WORD *)v3 + 73) )
   {
 LABEL_25:
     result = 0;
@@ -5710,12 +5710,12 @@ LABEL_25:
     v13 = v12 - sub_452A9E(v17 * v17 - v8 * v8);
     if ( v13 < 0 )
       v13 = 0;
-    if ( v13 < dword_7215AC )
+    if ( v13 < stru_721530.dword_00007C )
     {
-      dword_7215AC = v13;
+      stru_721530.dword_00007C = v13;
       v14 = 8 * v16;
       LOBYTE(v14) = 8 * v16 | 3;
-      dword_7215A8 = v14;
+      stru_721530.dword_000078 = v14;
     }
     result = 1;
   }
@@ -5745,7 +5745,7 @@ void __cdecl sub_46E0B2()
   int v17; // [sp+10h] [bp-8h]@10
   int v18; // [sp+14h] [bp-4h]@8
 
-  v0 = dword_6BE654 + 116 * dword_7215A4;
+  v0 = dword_6BE654 + 116 * stru_721530.dword_000074;
   for ( i = 0; i < *(_WORD *)(v0 + 68); ++i )
   {
     v1 = &pLevelDecorations[*(_WORD *)(*(_DWORD *)(v0 + 72) + 2 * i)];
@@ -5756,33 +5756,33 @@ void __cdecl sub_46E0B2()
       {
         v4 = *(_WORD *)(v2 + 68);
         v3 = *((_DWORD *)v1 + 1);
-        if ( dword_7215BC <= v3 + v4 )
+        if ( stru_721530.dword_00008C <= v3 + v4 )
         {
-          if ( dword_7215C0 >= v3 - v4 )
+          if ( stru_721530.dword_000090 >= v3 - v4 )
           {
             v5 = *((_DWORD *)v1 + 2);
-            if ( dword_7215C4 <= v5 + v4 )
+            if ( stru_721530.dword_000094 <= v5 + v4 )
             {
-              if ( dword_7215C8 >= v5 - v4 )
+              if ( stru_721530.dword_000098 >= v5 - v4 )
               {
                 v6 = *(_WORD *)(v2 + 66);
                 v7 = *((_DWORD *)v1 + 3);
                 v18 = v6;
-                if ( dword_7215CC <= v7 + v6 )
+                if ( stru_721530.dword_00009C <= v7 + v6 )
                 {
-                  if ( dword_7215D0 >= v7 )
+                  if ( stru_721530.dword_0000A0 >= v7 )
                   {
-                    v16 = v3 - dword_721558;
-                    v15 = v5 - dword_72155C;
-                    v8 = dword_721534 + v4;
-                    v17 = ((v3 - dword_721558) * dword_72158C - (v5 - dword_72155C) * dword_721588) >> 16;
-                    if ( abs(v17) <= dword_721534 + v4 )
+                    v16 = v3 - stru_721530.dword_000028;
+                    v15 = v5 - stru_721530.dword_00002C;
+                    v8 = stru_721530.dword_000004 + v4;
+                    v17 = ((v3 - stru_721530.dword_000028) * stru_721530.dword_00005C - (v5 - stru_721530.dword_00002C) * stru_721530.dword_000058) >> 16;
+                    if ( abs(v17) <= stru_721530.dword_000004 + v4 )
                     {
-                      v9 = (v16 * dword_721588 + v15 * dword_72158C) >> 16;
+                      v9 = (v16 * stru_721530.dword_000058 + v15 * stru_721530.dword_00005C) >> 16;
                       if ( v9 > 0 )
                       {
                         v11 = *((_DWORD *)v1 + 3);
-                        v10 = dword_721560 + ((unsigned __int64)(dword_721590 * v9) >> 16);
+                        v10 = stru_721530.dword_000030 + ((unsigned __int64)(stru_721530.dword_000060 * v9) >> 16);
                         if ( v10 >= v11 )
                         {
                           if ( v10 <= v18 + v11 )
@@ -5790,12 +5790,12 @@ void __cdecl sub_46E0B2()
                             v12 = v9 - sub_452A9E(v8 * v8 - v17 * v17);
                             if ( v12 < 0 )
                               v12 = 0;
-                            if ( v12 < dword_7215AC )
+                            if ( v12 < stru_721530.dword_00007C )
                             {
-                              dword_7215AC = v12;
+                              stru_721530.dword_00007C = v12;
                               v13 = 8 * *(_WORD *)(*(_DWORD *)(v0 + 72) + 2 * i);
                               LOBYTE(v13) = v13 | 5;
-                              dword_7215A8 = v13;
+                              stru_721530.dword_000078 = v13;
                             }
                           }
                         }
@@ -5813,7 +5813,7 @@ void __cdecl sub_46E0B2()
 }
 
 //----- (0046E26D) --------------------------------------------------------
-void __fastcall sub_46E26D(signed int a1, signed int a2)
+void __fastcall sub_46E26D_ProbablyCollideAgainstDecorations(signed int a1, signed int a2)
 {
   int v2; // eax@5
   int v3; // edx@5
@@ -5846,8 +5846,8 @@ void __fastcall sub_46E26D(signed int a1, signed int a2)
         if ( a2 <= 127 )
         {
           v3 = a1 + (a2 << 7);
-          v2 = dword_6A0ED0 + 2 * *(_DWORD *)(dword_6A0ED4 + 4 * v3);
-          v20 = dword_6A0ED0 + 2 * *(_DWORD *)(dword_6A0ED4 + 4 * v3);
+          v2 = &pClass51_global->ptr_0000E0[pClass51_global->ptr_0000E4[v3]];
+          v20 = &pClass51_global->ptr_0000E0[pClass51_global->ptr_0000E4[v3]];
           if ( v2 )
           {
             do
@@ -5863,33 +5863,33 @@ void __fastcall sub_46E26D(signed int a1, signed int a2)
                   {
                     v8 = *(_WORD *)(v6 + 68);
                     v7 = *((_DWORD *)v5 + 1);
-                    if ( dword_7215BC <= v7 + v8 )
+                    if ( stru_721530.dword_00008C <= v7 + v8 )
                     {
-                      if ( dword_7215C0 >= v7 - v8 )
+                      if ( stru_721530.dword_000090 >= v7 - v8 )
                       {
                         v9 = *((_DWORD *)v5 + 2);
-                        if ( dword_7215C4 <= v9 + v8 )
+                        if ( stru_721530.dword_000094 <= v9 + v8 )
                         {
-                          if ( dword_7215C8 >= v9 - v8 )
+                          if ( stru_721530.dword_000098 >= v9 - v8 )
                           {
                             v10 = *(_WORD *)(v6 + 66);
                             v11 = *((_DWORD *)v5 + 3);
                             v22 = v10;
-                            if ( dword_7215CC <= v11 + v10 )
+                            if ( stru_721530.dword_00009C <= v11 + v10 )
                             {
-                              if ( dword_7215D0 >= v11 )
+                              if ( stru_721530.dword_0000A0 >= v11 )
                               {
-                                v13 = v7 - dword_721558;
-                                v19 = v9 - dword_72155C;
-                                v12 = dword_721534 + v8;
-                                v21 = ((v7 - dword_721558) * dword_72158C - (v9 - dword_72155C) * dword_721588) >> 16;
-                                if ( abs(v21) <= dword_721534 + v8 )
+                                v13 = v7 - stru_721530.dword_000028;
+                                v19 = v9 - stru_721530.dword_00002C;
+                                v12 = stru_721530.dword_000004 + v8;
+                                v21 = ((v7 - stru_721530.dword_000028) * stru_721530.dword_00005C - (v9 - stru_721530.dword_00002C) * stru_721530.dword_000058) >> 16;
+                                if ( abs(v21) <= stru_721530.dword_000004 + v8 )
                                 {
-                                  v14 = (v13 * dword_721588 + v19 * dword_72158C) >> 16;
+                                  v14 = (v13 * stru_721530.dword_000058 + v19 * stru_721530.dword_00005C) >> 16;
                                   if ( v14 > 0 )
                                   {
                                     v16 = *((_DWORD *)v5 + 3);
-                                    v15 = dword_721560 + ((unsigned __int64)(dword_721590 * v14) >> 16);
+                                    v15 = stru_721530.dword_000030 + ((unsigned __int64)(stru_721530.dword_000060 * v14) >> 16);
                                     if ( v15 >= v16 )
                                     {
                                       if ( v15 <= v22 + v16 )
@@ -5897,10 +5897,10 @@ void __fastcall sub_46E26D(signed int a1, signed int a2)
                                         v17 = v14 - sub_452A9E(v12 * v12 - v21 * v21);
                                         if ( v17 < 0 )
                                           v17 = 0;
-                                        if ( v17 < dword_7215AC )
+                                        if ( v17 < stru_721530.dword_00007C )
                                         {
-                                          dword_7215AC = v17;
-                                          dword_7215A8 = *(_WORD *)v20;
+                                          stru_721530.dword_00007C = v17;
+                                          stru_721530.dword_000078 = *(_WORD *)v20;
                                         }
                                       }
                                     }
@@ -5968,31 +5968,31 @@ int __thiscall sub_46E44E(void *this)
   int v36; // [sp+2Ch] [bp-2Ch]@15
   int v37[10]; // [sp+30h] [bp-28h]@1
 
-  v2 = dword_6BE654 + 116 * dword_7215A4;
+  v2 = dword_6BE654 + 116 * stru_721530.dword_000074;
   v1 = 0;
   v32 = (int)this;
-  v37[0] = dword_7215A4;
+  v37[0] = stru_721530.dword_000074;
   for ( i = 1; v1 < *(_WORD *)(v2 + 36); ++v1 )
   {
     v3 = dword_6BE644 + 96 * *(_WORD *)(*(_DWORD *)(v2 + 40) + 2 * v1);
-    if ( dword_7215BC <= *(_WORD *)(v3 + 82) )
+    if ( stru_721530.dword_00008C <= *(_WORD *)(v3 + 82) )
     {
-      if ( dword_7215C0 >= *(_WORD *)(v3 + 80) )
+      if ( stru_721530.dword_000090 >= *(_WORD *)(v3 + 80) )
       {
-        if ( dword_7215C4 <= *(_WORD *)(v3 + 86) )
+        if ( stru_721530.dword_000094 <= *(_WORD *)(v3 + 86) )
         {
-          if ( dword_7215C8 >= *(_WORD *)(v3 + 84) )
+          if ( stru_721530.dword_000098 >= *(_WORD *)(v3 + 84) )
           {
-            if ( dword_7215CC <= *(_WORD *)(v3 + 90) )
+            if ( stru_721530.dword_00009C <= *(_WORD *)(v3 + 90) )
             {
-              if ( dword_7215D0 >= *(_WORD *)(v3 + 88) )
+              if ( stru_721530.dword_0000A0 >= *(_WORD *)(v3 + 88) )
               {
                 if ( abs((*(_DWORD *)(v3 + 28)
-                        + dword_721558 * *(_DWORD *)(v3 + 16)
-                        + dword_72155C * *(_DWORD *)(v3 + 20)
-                        + dword_721560 * *(_DWORD *)(v3 + 24)) >> 16) <= dword_72159C + 16 )
+                        + stru_721530.dword_000028 * *(_DWORD *)(v3 + 16)
+                        + stru_721530.dword_00002C * *(_DWORD *)(v3 + 20)
+                        + stru_721530.dword_000030 * *(_DWORD *)(v3 + 24)) >> 16) <= stru_721530.dword_00006C + 16 )
                 {
-                  v4 = *(_WORD *)(v3 + 76) == dword_7215A4 ? *(_WORD *)(v3 + 78) : *(_WORD *)(v3 + 76);
+                  v4 = *(_WORD *)(v3 + 76) == stru_721530.dword_000074 ? *(_WORD *)(v3 + 78) : *(_WORD *)(v3 + 76);
                   v5 = i++;
                   compile_error;//v7 = __SETO__(i, 10);
                   v6 = i - 10 < 0;
@@ -6031,38 +6031,38 @@ LABEL_46:
       v11 = *(_WORD *)(*(_DWORD *)(v10 + 8) + 2 * v9);
       v12 = dword_6BE644 + 96 * v11;
       if ( *(_BYTE *)(v12 + 44) & 1
-        || dword_7215BC > *(_WORD *)(v12 + 82)
-        || dword_7215C0 < *(_WORD *)(v12 + 80)
-        || dword_7215C4 > *(_WORD *)(v12 + 86)
-        || dword_7215C8 < *(_WORD *)(v12 + 84)
-        || dword_7215CC > *(_WORD *)(v12 + 90)
-        || dword_7215D0 < *(_WORD *)(v12 + 88)
-        || v11 == dword_7215B4 )
+        || stru_721530.dword_00008C > *(_WORD *)(v12 + 82)
+        || stru_721530.dword_000090 < *(_WORD *)(v12 + 80)
+        || stru_721530.dword_000094 > *(_WORD *)(v12 + 86)
+        || stru_721530.dword_000098 < *(_WORD *)(v12 + 84)
+        || stru_721530.dword_00009C > *(_WORD *)(v12 + 90)
+        || stru_721530.dword_0000A0 < *(_WORD *)(v12 + 88)
+        || v11 == stru_721530.dword_000084 )
         goto LABEL_45;
       v14 = *(_DWORD *)(v12 + 20);
       v15 = *(_DWORD *)(v12 + 28);
       v35 = v14;
-      v13 = (dword_721558 * *(_DWORD *)(v12 + 16) + v15 + dword_72155C * v14 + dword_721560 * *(_DWORD *)(v12 + 24)) >> 16;
+      v13 = (stru_721530.dword_000028 * *(_DWORD *)(v12 + 16) + v15 + stru_721530.dword_00002C * v14 + stru_721530.dword_000030 * *(_DWORD *)(v12 + 24)) >> 16;
       if ( v13 > 0 )
       {
-        v16 = (dword_721574 * v35
+        v16 = (stru_721530.dword_000044 * v35
              + *(_DWORD *)(v12 + 28)
-             + dword_721578 * *(_DWORD *)(v12 + 24)
-             + dword_721570 * *(_DWORD *)(v12 + 16)) >> 16;
-        if ( v13 <= dword_721534 || v16 <= dword_721534 )
+             + stru_721530.dword_000048 * *(_DWORD *)(v12 + 24)
+             + stru_721530.dword_000040 * *(_DWORD *)(v12 + 16)) >> 16;
+        if ( v13 <= stru_721530.dword_000004 || v16 <= stru_721530.dword_000004 )
         {
           if ( v16 <= v13 )
           {
-            v29 = dword_72159C;
+            v29 = stru_721530.dword_00006C;
             if ( sub_47531C(
-                   dword_721534,
+                   stru_721530.dword_000004,
                    (int)&v29,
-                   dword_721558,
-                   *(&dword_721558 + 1),
-                   *(&dword_721558 + 2),
-                   dword_721588,
-                   *(&dword_721588 + 1),
-                   *(&dword_721588 + 2),
+                   stru_721530.dword_000028,
+                   stru_721530.dword_00002C,
+                   stru_721530.dword_000030,
+                   stru_721530.dword_000058,
+                   stru_721530.dword_00005C,
+                   stru_721530.dword_000060,
                    v12,
                    v32) )
             {
@@ -6070,64 +6070,64 @@ LABEL_46:
             }
             else
             {
-              v29 = dword_72159C + dword_721534;
-              if ( !sub_475D85((int)&dword_721558, (int)&dword_721588, (int)&v29, v12) )
+              v29 = stru_721530.dword_00006C + stru_721530.dword_000004;
+              if ( !sub_475D85(&stru_721530.dword_000028, &stru_721530.dword_000058, (int)&v29, v12) )
                 goto LABEL_34;
-              v17 = v29 - dword_721534;
-              v29 -= dword_721534;
+              v17 = v29 - stru_721530.dword_000004;
+              v29 -= stru_721530.dword_000004;
             }
-            if ( v17 < dword_7215AC )
+            if ( v17 < stru_721530.dword_00007C )
             {
-              dword_7215AC = v17;
+              stru_721530.dword_00007C = v17;
               v18 = 8 * *(_WORD *)(*(_DWORD *)(v10 + 8) + 2 * v30);
               LOBYTE(v18) = v18 | 6;
-              dword_7215A8 = v18;
+              stru_721530.dword_000078 = v18;
             }
           }
         }
       }
 LABEL_34:
-      if ( !(dword_721530 & 1)
+      if (~stru_721530.dword_000000 & 0x01
         || (v20 = *(_DWORD *)(v12 + 16),
             v21 = *(_DWORD *)(v12 + 20),
             v34 = v20,
-            v19 = (dword_721564 * v20 + *(_DWORD *)(v12 + 28) + dword_721568 * v21 + dword_72156C
+            v19 = (stru_721530.dword_000034 * v20 + *(_DWORD *)(v12 + 28) + stru_721530.dword_000038 * v21 + stru_721530.dword_00003C
                                                                                    * *(_DWORD *)(v12 + 24)) >> 16,
             v19 <= 0)
-        || (v22 = (dword_72157C * v34 + *(_DWORD *)(v12 + 28) + dword_721580 * v21 + dword_721584
+        || (v22 = (stru_721530.dword_00004C * v34 + *(_DWORD *)(v12 + 28) + stru_721530.dword_000050 * v21 + stru_721530.dword_000054
                                                                                    * *(_DWORD *)(v12 + 24)) >> 16,
-            v19 > dword_721534)
-        && v22 > dword_721534
+            v19 > stru_721530.dword_000004)
+        && v22 > stru_721530.dword_000004
         || v22 > v19 )
         goto LABEL_45;
-      v29 = dword_72159C;
+      v29 = stru_721530.dword_00006C;
       if ( sub_47531C(
-             dword_721538,
+             stru_721530.dword_000008,
              (int)&v29,
-             dword_721564,
-             *(&dword_721564 + 1),
-             *(&dword_721564 + 2),
-             dword_721588,
-             *(&dword_721588 + 1),
-             *(&dword_721588 + 2),
+             stru_721530.dword_000034,
+             stru_721530.dword_000038,
+             stru_721530.dword_00003C,
+             stru_721530.dword_000058,
+             stru_721530.dword_00005C,
+             stru_721530.dword_000060,
              v12,
              v32) )
       {
         v23 = v29;
         goto LABEL_43;
       }
-      v29 = dword_72159C + dword_721538;
-      if ( sub_475D85((int)&dword_721564, (int)&dword_721588, (int)&v29, v12) )
+      v29 = stru_721530.dword_00006C + stru_721530.dword_000008;
+      if ( sub_475D85(&stru_721530.dword_000034, &stru_721530.dword_000058, (int)&v29, v12) )
       {
-        v23 = v29 - dword_721534;
-        v29 -= dword_721534;
+        v23 = v29 - stru_721530.dword_000004;
+        v29 -= stru_721530.dword_000004;
 LABEL_43:
-        if ( v23 < dword_7215AC )
+        if ( v23 < stru_721530.dword_00007C )
         {
-          dword_7215AC = v23;
+          stru_721530.dword_00007C = v23;
           v24 = 8 * *(_WORD *)(*(_DWORD *)(v10 + 8) + 2 * v30);
           LOBYTE(v24) = v24 | 6;
-          dword_7215A8 = v24;
+          stru_721530.dword_000078 = v24;
         }
       }
 LABEL_45:
@@ -6209,17 +6209,17 @@ int __thiscall sub_46E889(void *this)
     {
       v2 = pClass51_global->pBModels + v49;
       v51 = pClass51_global->pBModels + v49;
-      if ( dword_7215BC <= *(_DWORD *)(pClass51_global->pBModels + v49 + 136) )
+      if ( stru_721530.dword_00008C <= *(_DWORD *)(pClass51_global->pBModels + v49 + 136) )
       {
-        if ( dword_7215C0 >= *(_DWORD *)(v2 + 124) )
+        if ( stru_721530.dword_000090 >= *(_DWORD *)(v2 + 124) )
         {
-          if ( dword_7215C4 <= *(_DWORD *)(v2 + 140) )
+          if ( stru_721530.dword_000094 <= *(_DWORD *)(v2 + 140) )
           {
-            if ( dword_7215C8 >= *(_DWORD *)(v2 + 128) )
+            if ( stru_721530.dword_000098 >= *(_DWORD *)(v2 + 128) )
             {
-              if ( dword_7215CC <= *(_DWORD *)(v2 + 144) )
+              if ( stru_721530.dword_00009C <= *(_DWORD *)(v2 + 144) )
               {
-                if ( dword_7215D0 >= *(_DWORD *)(v2 + 132) )
+                if ( stru_721530.dword_0000A0 >= *(_DWORD *)(v2 + 132) )
                 {
                   v3 = 0;
                   v47 = *(_DWORD *)(v2 + 76);
@@ -6242,12 +6242,12 @@ LABEL_39:
     while ( 1 )
     {
       v4 = v50 + *(_DWORD *)(v2 + 84);
-      if ( dword_7215BC > *(_WORD *)(v4 + 280)
-        || dword_7215C0 < *(_WORD *)(v4 + 278)
-        || dword_7215C4 > *(_WORD *)(v4 + 284)
-        || dword_7215C8 < *(_WORD *)(v4 + 282)
-        || dword_7215CC > *(_WORD *)(v4 + 288)
-        || dword_7215D0 < *(_WORD *)(v4 + 286) )
+      if ( stru_721530.dword_00008C > *(_WORD *)(v4 + 280)
+        || stru_721530.dword_000090 < *(_WORD *)(v4 + 278)
+        || stru_721530.dword_000094 > *(_WORD *)(v4 + 284)
+        || stru_721530.dword_000098 < *(_WORD *)(v4 + 282)
+        || stru_721530.dword_00009C > *(_WORD *)(v4 + 288)
+        || stru_721530.dword_0000A0 < *(_WORD *)(v4 + 286) )
         goto LABEL_38;
       v26 = *(_DWORD *)v4;
       v27 = *(_DWORD *)(v4 + 4);
@@ -6275,24 +6275,24 @@ LABEL_39:
       v34 = v4 + 32;
       if ( v5 & 0x20000000 || v5 & 1 )
         goto LABEL_37;
-      v8 = (v6 * dword_721560 + v7 + v27 * dword_72155C + v26 * dword_721558) >> 16;
+      v8 = (v6 * stru_721530.dword_000030 + v7 + v27 * stru_721530.dword_00002C + v26 * stru_721530.dword_000028) >> 16;
       if ( v8 > 0 )
       {
-        v9 = (v6 * dword_721578 + v7 + v27 * dword_721574 + v26 * dword_721570) >> 16;
-        if ( v8 <= dword_721534 || v9 <= dword_721534 )
+        v9 = (v6 * stru_721530.dword_000048 + v7 + v27 * stru_721530.dword_000044 + v26 * stru_721530.dword_000040) >> 16;
+        if ( v8 <= stru_721530.dword_000004 || v9 <= stru_721530.dword_000004 )
         {
           if ( v9 <= v8 )
           {
-            v53 = dword_72159C;
+            v53 = stru_721530.dword_00006C;
             if ( sub_4754BF(
-                   dword_721534,
+                   stru_721530.dword_000004,
                    (int)&v53,
-                   dword_721558,
-                   *(&dword_721558 + 1),
-                   *(&dword_721558 + 2),
-                   dword_721588,
-                   *(&dword_721588 + 1),
-                   *(&dword_721588 + 2),
+                   stru_721530.dword_000028,
+                   stru_721530.dword_00002C,
+                   stru_721530.dword_000030,
+                   stru_721530.dword_000058,
+                   stru_721530.dword_00005C,
+                   stru_721530.dword_000060,
                    (int)&v25,
                    v52,
                    v48) )
@@ -6301,95 +6301,95 @@ LABEL_39:
             }
             else
             {
-              v11 = *(&dword_721588 + 1);
-              v12 = *(&dword_721588 + 2);
-              v13 = *(&dword_721558 + 1);
-              v53 = dword_721534 + dword_72159C;
+              v11 = stru_721530.dword_00005C;
+              v12 = stru_721530.dword_000060;
+              v13 = stru_721530.dword_00002C;
+              v53 = stru_721530.dword_000004 + stru_721530.dword_00006C;
               if ( !sub_475F30(
                       (int)&v53,
                       (int)&v25,
-                      dword_721558,
-                      v13,
-                      *(&dword_721558 + 2),
-                      dword_721588,
-                      v11,
-                      v12,
+                      stru_721530.dword_000028,
+                      stru_721530.dword_00002C,
+                      stru_721530.dword_000030,
+                      stru_721530.dword_000058,
+                      stru_721530.dword_00005C,
+                      stru_721530.dword_000060,
                       v52) )
                 goto LABEL_29;
-              v10 = v53 - dword_721534;
-              v53 -= dword_721534;
+              v10 = v53 - stru_721530.dword_000004;
+              v53 -= stru_721530.dword_000004;
             }
-            if ( v10 < dword_7215AC )
+            if ( v10 < stru_721530.dword_00007C )
             {
-              dword_7215AC = v10;
+              stru_721530.dword_00007C = v10;
               v14 = 8 * (v3 | (v52 << 6));
               LOBYTE(v14) = v14 | 6;
-              dword_7215A8 = v14;
+              stru_721530.dword_000078 = v14;
             }
           }
         }
       }
 LABEL_29:
-      if ( dword_721530 & 1 )
+      if ( stru_721530.dword_000000 & 1 )
       {
-        v15 = (v28 * dword_72156C + v29 + v27 * dword_721568 + v26 * dword_721564) >> 16;
+        v15 = (v28 * stru_721530.dword_00003C + v29 + v27 * stru_721530.dword_000038 + v26 * stru_721530.dword_000034) >> 16;
         if ( v15 > 0 )
         {
-          v16 = (v28 * dword_721584 + v29 + v27 * dword_721580 + v26 * dword_72157C) >> 16;
-          if ( v15 <= dword_721534 || v16 <= dword_721534 )
+          v16 = (v28 * stru_721530.dword_000054 + v29 + v27 * stru_721530.dword_000050 + v26 * stru_721530.dword_00004C) >> 16;
+          if ( v15 <= stru_721530.dword_000004 || v16 <= stru_721530.dword_000004 )
           {
             if ( v16 <= v15 )
             {
-              v53 = dword_72159C;
+              v53 = stru_721530.dword_00006C;
               if ( sub_4754BF(
-                     dword_721538,
+                     stru_721530.dword_000008,
                      (int)&v53,
-                     dword_721564,
-                     *(&dword_721564 + 1),
-                     *(&dword_721564 + 2),
-                     dword_721588,
-                     *(&dword_721588 + 1),
-                     *(&dword_721588 + 2),
+                     stru_721530.dword_000034,
+                     stru_721530.dword_000038,
+                     stru_721530.dword_00003C,
+                     stru_721530.dword_000058,
+                     stru_721530.dword_00005C,
+                     stru_721530.dword_000060,
                      (int)&v25,
                      v52,
                      v48) )
               {
-                if ( v53 < dword_7215AC )
+                if ( v53 < stru_721530.dword_00007C )
                 {
-                  dword_7215AC = v53;
+                  stru_721530.dword_00007C = v53;
                   v17 = 8 * (v3 | (v52 << 6));
                   LOBYTE(v17) = v17 | 6;
-                  dword_7215A8 = v17;
+                  stru_721530.dword_000078 = v17;
                 }
               }
               else
               {
-                v18 = *(&dword_721588 + 1);
-                v19 = *(&dword_721588 + 2);
-                v20 = *(&dword_721564 + 1);
-                v53 = dword_72159C + dword_721538;
+                v18 = stru_721530.dword_00005C;
+                v19 = stru_721530.dword_000060;
+                v20 = stru_721530.dword_000038;
+                v53 = stru_721530.dword_00006C + stru_721530.dword_000008;
                 if ( sub_475F30(
                        (int)&v53,
                        (int)&v25,
-                       dword_721564,
-                       v20,
-                       *(&dword_721564 + 2),
-                       dword_721588,
-                       v18,
-                       v19,
+                       stru_721530.dword_000034,
+                       stru_721530.dword_000038,
+                       stru_721530.dword_00003C,
+                       stru_721530.dword_000058,
+                       stru_721530.dword_00005C,
+                       stru_721530.dword_000060,
                        v52) )
                 {
                   v2 = v51;
-                  v21 = v53 - dword_721534;
-                  compile_error;//v23 = __SETO__(v53 - dword_721534, dword_7215AC);
-                  v22 = v53 - dword_721534 - dword_7215AC < 0;
-                  v53 -= dword_721534;
+                  v21 = v53 - stru_721530.dword_000004;
+                  compile_error;//v23 = __SETO__(v53 - stru_721530.dword_000004, stru_721530.dword_00007C);
+                  v22 = v53 - stru_721530.dword_000004 - stru_721530.dword_00007C < 0;
+                  v53 -= stru_721530.dword_000004;
                   if ( v22 ^ v23 )
                   {
-                    dword_7215AC = v21;
+                    stru_721530.dword_00007C = v21;
                     v24 = 8 * (v3 | (v52 << 6));
                     LOBYTE(v24) = v24 | 6;
-                    dword_7215A8 = v24;
+                    stru_721530.dword_000078 = v24;
                   }
                   goto LABEL_38;
                 }
@@ -6482,35 +6482,35 @@ void __thiscall sub_46ED8A(void *this)
         {
           v4 = *(_WORD *)(v2 + 34);
           v3 = *(_DWORD *)(v1 + 2);
-          if ( dword_7215BC <= v3 + v4 )
+          if ( stru_721530.dword_00008C <= v3 + v4 )
           {
-            if ( dword_7215C0 >= v3 - v4 )
+            if ( stru_721530.dword_000090 >= v3 - v4 )
             {
               v5 = *(_DWORD *)(v1 + 6);
-              if ( dword_7215C4 <= v5 + v4 )
+              if ( stru_721530.dword_000094 <= v5 + v4 )
               {
-                if ( dword_7215C8 >= v5 - v4 )
+                if ( stru_721530.dword_000098 >= v5 - v4 )
                 {
                   v7 = *(_WORD *)(v2 + 36);
                   v6 = *(_DWORD *)(v1 + 10);
                   v13 = v7;
-                  if ( dword_7215CC <= v6 + v7 )
+                  if ( stru_721530.dword_00009C <= v6 + v7 )
                   {
-                    if ( dword_7215D0 >= v6 )
+                    if ( stru_721530.dword_0000A0 >= v6 )
                     {
-                      v9 = v3 - dword_721558;
-                      v8 = v5 - dword_72155C;
-                      if ( abs(((v3 - dword_721558) * dword_72158C - (v5 - dword_72155C) * dword_721588) >> 16) <= v4 + dword_721534 )
+                      v9 = v3 - stru_721530.dword_000028;
+                      v8 = v5 - stru_721530.dword_00002C;
+                      if ( abs(((v3 - stru_721530.dword_000028) * stru_721530.dword_00005C - (v5 - stru_721530.dword_00002C) * stru_721530.dword_000058) >> 16) <= v4 + stru_721530.dword_000004 )
                       {
-                        v10 = (v9 * dword_721588 + v8 * dword_72158C) >> 16;
+                        v10 = (v9 * stru_721530.dword_000058 + v8 * stru_721530.dword_00005C) >> 16;
                         if ( v10 > 0 )
                         {
-                          v11 = dword_721560 + ((unsigned __int64)(dword_721590 * v10) >> 16);
-                          if ( v11 >= *(_DWORD *)(v14 + 10) - dword_721534 )
+                          v11 = stru_721530.dword_000030 + ((unsigned __int64)(stru_721530.dword_000060 * v10) >> 16);
+                          if ( v11 >= *(_DWORD *)(v14 + 10) - stru_721530.dword_000004 )
                           {
-                            if ( v11 <= v13 + dword_721534 + *(_DWORD *)(v14 + 10) )
+                            if ( v11 <= v13 + stru_721530.dword_000004 + *(_DWORD *)(v14 + 10) )
                             {
-                              if ( v10 < dword_7215AC )
+                              if ( v10 < stru_721530.dword_00007C )
                                 sub_46DEF2(v12, v15);
                             }
                           }
@@ -6551,30 +6551,30 @@ int __thiscall sub_46EF01(void *this)
   v2 = 2 * pParty_global->dword_000014;
   result = pParty_global->sPartyPosX;
   v9 = pParty_global->uPartyHeight;
-  if ( dword_7215BC <= pParty_global->sPartyPosX + 2 * pParty_global->dword_000014 )
+  if ( stru_721530.dword_00008C <= pParty_global->sPartyPosX + 2 * pParty_global->dword_000014 )
   {
-    if ( dword_7215C0 >= pParty_global->sPartyPosX - v2 )
+    if ( stru_721530.dword_000090 >= pParty_global->sPartyPosX - v2 )
     {
-      if ( dword_7215C4 <= pParty_global->sPartyPosY + v2 )
+      if ( stru_721530.dword_000094 <= pParty_global->sPartyPosY + v2 )
       {
-        if ( dword_7215C8 >= pParty_global->sPartyPosY - v2 )
+        if ( stru_721530.dword_000098 >= pParty_global->sPartyPosY - v2 )
         {
-          if ( dword_7215CC <= pParty_global->sPartyPosZ + pParty_global->uPartyHeight )
+          if ( stru_721530.dword_00009C <= pParty_global->sPartyPosZ + pParty_global->uPartyHeight )
           {
-            if ( dword_7215D0 >= pParty_global->sPartyPosZ )
+            if ( stru_721530.dword_0000A0 >= pParty_global->sPartyPosZ )
             {
-              v3 = dword_721534 + v2;
-              v11 = pParty_global->sPartyPosX - dword_721558;
-              v4 = ((pParty_global->sPartyPosX - dword_721558) * dword_72158C - (pParty_global->sPartyPosY - dword_72155C) * dword_721588) >> 16;
-              v10 = pParty_global->sPartyPosY - dword_72155C;
-              result = abs(((pParty_global->sPartyPosX - dword_721558) * dword_72158C - (pParty_global->sPartyPosY - dword_72155C) * dword_721588) >> 16);
+              v3 = stru_721530.dword_000004 + v2;
+              v11 = pParty_global->sPartyPosX - stru_721530.dword_000028;
+              v4 = ((pParty_global->sPartyPosX - stru_721530.dword_000028) * stru_721530.dword_00005C - (pParty_global->sPartyPosY - stru_721530.dword_00002C) * stru_721530.dword_000058) >> 16;
+              v10 = pParty_global->sPartyPosY - stru_721530.dword_00002C;
+              result = abs(((pParty_global->sPartyPosX - stru_721530.dword_000028) * stru_721530.dword_00005C - (pParty_global->sPartyPosY - stru_721530.dword_00002C) * stru_721530.dword_000058) >> 16);
               if ( result <= v3 )
               {
-                result = v10 * dword_72158C;
-                v5 = (v10 * dword_72158C + v11 * dword_721588) >> 16;
+                result = v10 * stru_721530.dword_00005C;
+                v5 = (v10 * stru_721530.dword_00005C + v11 * stru_721530.dword_000058) >> 16;
                 if ( v5 > 0 )
                 {
-                  v6 = ((unsigned __int64)(dword_721590 * v5) >> 16) + dword_721560;
+                  v6 = ((unsigned __int64)(stru_721530.dword_000060 * v5) >> 16) + stru_721530.dword_000030;
                   result = pParty_global->sPartyPosZ;
                   if ( v6 >= pParty_global->sPartyPosZ )
                   {
@@ -6585,10 +6585,10 @@ int __thiscall sub_46EF01(void *this)
                       v7 = v5 - result;
                       if ( v7 < 0 )
                         v7 = 0;
-                      if ( v7 < dword_7215AC )
+                      if ( v7 < stru_721530.dword_00007C )
                       {
-                        dword_7215AC = v7;
-                        dword_7215A8 = 4;
+                        stru_721530.dword_00007C = v7;
+                        stru_721530.dword_000078 = 4;
                       }
                     }
                   }
@@ -6621,7 +6621,7 @@ signed int __cdecl sub_46F04E()
   int v12; // [sp+10h] [bp-4h]@15
 
   v8 = 0;
-  v1 = dword_6BE654 + 116 * dword_7215A4;
+  v1 = dword_6BE654 + 116 * stru_721530.dword_000074;
   v0 = 16777215;
   v10 = 16777215;
   v9 = v1;
@@ -6630,32 +6630,32 @@ signed int __cdecl sub_46F04E()
     do
     {
       v2 = *(_WORD *)(*(_DWORD *)(v1 + 40) + 2 * v8);
-      if ( v2 != dword_7215B0 )
+      if ( v2 != stru_721530.dword_000080 )
       {
         v3 = dword_6BE644 + 96 * v2;
-        if ( dword_7215BC <= *(_WORD *)(v3 + 82) )
+        if ( stru_721530.dword_00008C <= *(_WORD *)(v3 + 82) )
         {
-          if ( dword_7215C0 >= *(_WORD *)(v3 + 80) )
+          if ( stru_721530.dword_000090 >= *(_WORD *)(v3 + 80) )
           {
-            if ( dword_7215C4 <= *(_WORD *)(v3 + 86) )
+            if ( stru_721530.dword_000094 <= *(_WORD *)(v3 + 86) )
             {
-              if ( dword_7215C8 >= *(_WORD *)(v3 + 84) )
+              if ( stru_721530.dword_000098 >= *(_WORD *)(v3 + 84) )
               {
-                if ( dword_7215CC <= *(_WORD *)(v3 + 90) )
+                if ( stru_721530.dword_00009C <= *(_WORD *)(v3 + 90) )
                 {
-                  if ( dword_7215D0 >= *(_WORD *)(v3 + 88) )
+                  if ( stru_721530.dword_0000A0 >= *(_WORD *)(v3 + 88) )
                   {
-                    v5 = (dword_721558 * *(_DWORD *)(v3 + 16)
+                    v5 = (stru_721530.dword_000028 * *(_DWORD *)(v3 + 16)
                         + *(_DWORD *)(v3 + 28)
-                        + dword_72155C * *(_DWORD *)(v3 + 20)
-                        + dword_721560 * *(_DWORD *)(v3 + 24)) >> 16;
-                    v4 = (dword_721578 * *(_DWORD *)(v3 + 24)
+                        + stru_721530.dword_00002C * *(_DWORD *)(v3 + 20)
+                        + stru_721530.dword_000030 * *(_DWORD *)(v3 + 24)) >> 16;
+                    v4 = (stru_721530.dword_000048 * *(_DWORD *)(v3 + 24)
                         + *(_DWORD *)(v3 + 28)
-                        + dword_721570 * *(_DWORD *)(v3 + 16)
-                        + dword_721574 * *(_DWORD *)(v3 + 20)) >> 16;
-                    if ( (v5 < dword_721534 || v4 < dword_721534)
-                      && (v5 > -dword_721534 || v4 > -dword_721534)
-                      && (v11 = dword_72159C, sub_475D85((int)&dword_721558, (int)&dword_721588, (int)&v11, v3))
+                        + stru_721530.dword_000040 * *(_DWORD *)(v3 + 16)
+                        + stru_721530.dword_000044 * *(_DWORD *)(v3 + 20)) >> 16;
+                    if ( (v5 < stru_721530.dword_000004 || v4 < stru_721530.dword_000004)
+                      && (v5 > -stru_721530.dword_000004 || v4 > -stru_721530.dword_000004)
+                      && (v11 = stru_721530.dword_00006C, sub_475D85(&stru_721530.dword_000028, &stru_721530.dword_000058, (int)&v11, v3))
                       && v11 < v10 )
                     {
                       v1 = v9;
@@ -6678,15 +6678,15 @@ signed int __cdecl sub_46F04E()
     while ( v8 < *(_WORD *)(v1 + 36) );
     v0 = v10;
   }
-  if ( dword_7215AC >= v0 && v0 <= dword_72159C )
+  if ( stru_721530.dword_00007C >= v0 && v0 <= stru_721530.dword_00006C )
   {
-    dword_7215B0 = v12;
+    stru_721530.dword_000080 = v12;
     v7 = dword_6BE644 + 96 * v12;
-    if ( *(_WORD *)(v7 + 76) == dword_7215A4 )
-      dword_7215A4 = *(_WORD *)(v7 + 78);
+    if ( *(_WORD *)(v7 + 76) == stru_721530.dword_000074 )
+      stru_721530.dword_000074 = *(_WORD *)(v7 + 78);
     else
-      dword_7215A4 = *(_WORD *)(v7 + 76);
-    dword_7215AC = 268435455;
+      stru_721530.dword_000074 = *(_WORD *)(v7 + 76);
+    stru_721530.dword_00007C = 268435455;
     result = 0;
   }
   else
@@ -7245,7 +7245,7 @@ void __cdecl sub_46F90C()
           v8 *= 2;
           v63 = v8;
         }
-        if ( dword_ACD834 == 1 )
+        if (pParty_global->dword_00087C == 1 )
         {
           if ( dword_4F885C == 1 )
             v8 = (signed __int64)((double)v63 * flt_6BE3AC_debug_recmod1_x_1_6);
@@ -7333,30 +7333,30 @@ LABEL_123:
     }
     v22 = *(_WORD *)(v1 + 136);
     v24 = *(_WORD *)(v1 + 138);
-    dword_7215B4 = -1;
-    dword_7215A0 = 0;
+    stru_721530.dword_000084 = -1;
+    stru_721530.dword_000070 = 0;
     v57 = 0;
-    dword_721530 = 1;
-    dword_721538 = v22;
-    dword_721534 = v22;
-    dword_72153C = v24;
+    stru_721530.dword_000000 = 1;
+    stru_721530.dword_000008 = v22;
+    stru_721530.dword_000004 = v22;
+    stru_721530.dword_00000C = v24;
     v23 = 0;
     while ( 1 )
     {
-      dword_721564 = *(_WORD *)(v1 + 142);
-      dword_721558 = dword_721564;
-      dword_721568 = *(_WORD *)(v1 + 144);
-      dword_72155C = dword_721568;
+      stru_721530.dword_000034 = *(_WORD *)(v1 + 142);
+      stru_721530.dword_000028 = stru_721530.dword_000034;
+      stru_721530.dword_000038 = *(_WORD *)(v1 + 144);
+      stru_721530.dword_00002C = stru_721530.dword_000038;
       v25 = *(_WORD *)(v1 + 146);
-      dword_721560 = v25 + v22 + 1;
-      dword_72156C = v25 - v22 + dword_72153C - 1;
-      if ( dword_72156C < dword_721560 )
-        dword_72156C = v25 + v22 + 1;
-      dword_72154C = *(_WORD *)(v1 + 148);
-      dword_721550 = *(_WORD *)(v1 + 150);
-      dword_721554 = *(_WORD *)(v1 + 152);
-      dword_7215A4 = *(_WORD *)(v1 + 158);
-      if ( !sub_47050A((int)&dword_721530, v23) )
+      stru_721530.dword_000030 = v25 + v22 + 1;
+      stru_721530.dword_00003C = v25 - v22 + stru_721530.dword_00000C - 1;
+      if ( stru_721530.dword_00003C < stru_721530.dword_000030 )
+        stru_721530.dword_00003C = v25 + v22 + 1;
+      stru_721530.dword_00001C = *(_WORD *)(v1 + 148);
+      stru_721530.dword_000020 = *(_WORD *)(v1 + 150);
+      stru_721530.dword_000024 = *(_WORD *)(v1 + 152);
+      stru_721530.dword_000074 = *(_WORD *)(v1 + 158);
+      if ( !sub_47050A(&stru_721530, v23) )
       {
         v60 = v23;
         v26 = 8 * v65;
@@ -7401,22 +7401,22 @@ LABEL_123:
         }
         while ( v63 < 100 );
         v58 = v60 > 1;
-        if ( dword_7215AC >= dword_72159C )
+        if ( stru_721530.dword_00007C >= stru_721530.dword_00006C )
         {
-          v35 = dword_721570;
-          v36 = dword_721574;
-          v34 = dword_721578 - dword_721534 - 1;
+          v35 = stru_721530.dword_000040;
+          v36 = stru_721530.dword_000044;
+          v34 = stru_721530.dword_000048 - stru_721530.dword_000004 - 1;
         }
         else
         {
-          v60 = (unsigned __int64)(dword_7215AC * dword_721588) >> 16;
+          v60 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000058) >> 16;
           v35 = v60 + *(_WORD *)(v1 + 142);
-          v60 = (unsigned __int64)(dword_7215AC * dword_72158C) >> 16;
+          v60 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_00005C) >> 16;
           v36 = v60 + *(_WORD *)(v1 + 144);
-          v60 = (unsigned __int64)(dword_7215AC * dword_721590) >> 16;
+          v60 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000060) >> 16;
           v34 = v60 + *(_WORD *)(v1 + 146);
         }
-        v37 = sub_46ED1B(v35, v36, v34, &dword_7215A4, (int)&v62);
+        v37 = sub_46ED1B(v35, v36, v34, &stru_721530.dword_000074, (int)&v62);
         v39 = *(_DWORD *)(96 * v62 + dword_6BE644 + 44);
         v38 = v39 & 0x400000;
         if ( v38 && *(_WORD *)(v1 + 176) == 5 )
@@ -7430,23 +7430,23 @@ LABEL_123:
             goto LABEL_120;
           if ( *(_WORD *)(v1 + 178) != 1 || v37 >= *(_WORD *)(v1 + 146) - 100 || v61 != v23 || v64 != v23 )
           {
-            if ( dword_7215AC >= dword_72159C )
+            if ( stru_721530.dword_00007C >= stru_721530.dword_00006C )
             {
-              *(_WORD *)(v1 + 142) = dword_721570;
-              *(_WORD *)(v1 + 144) = dword_721574;
-              *(_WORD *)(v1 + 146) = dword_721578 - (_WORD)dword_721534 - 1;
-              *(_WORD *)(v1 + 158) = dword_7215A4;
+              *(_WORD *)(v1 + 142) = stru_721530.dword_000040;
+              *(_WORD *)(v1 + 144) = stru_721530.dword_000044;
+              *(_WORD *)(v1 + 146) = stru_721530.dword_000048 - (_WORD)stru_721530.dword_000004 - 1;
+              *(_WORD *)(v1 + 158) = stru_721530.dword_000074;
               goto LABEL_123;
             }
-            v60 = (unsigned __int64)(dword_7215AC * dword_721588) >> 16;
-            *(_WORD *)(v1 + 142) += (unsigned int)(dword_7215AC * dword_721588) >> 16;
-            v60 = (unsigned __int64)(dword_7215AC * dword_72158C) >> 16;
-            *(_WORD *)(v1 + 144) += (unsigned int)(dword_7215AC * dword_72158C) >> 16;
-            v60 = (unsigned __int64)(dword_7215AC * dword_721590) >> 16;
-            v40 = dword_7215A8;
-            *(_WORD *)(v1 + 146) += (unsigned int)(dword_7215AC * dword_721590) >> 16;
-            *(_WORD *)(v1 + 158) = dword_7215A4;
-            dword_7215A0 += dword_7215AC;
+            v60 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000058) >> 16;
+            *(_WORD *)(v1 + 142) += (unsigned int)(stru_721530.dword_00007C * stru_721530.dword_000058) >> 16;
+            v60 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_00005C) >> 16;
+            *(_WORD *)(v1 + 144) += (unsigned int)(stru_721530.dword_00007C * stru_721530.dword_00005C) >> 16;
+            v60 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000060) >> 16;
+            v40 = stru_721530.dword_000078;
+            *(_WORD *)(v1 + 146) += (unsigned int)(stru_721530.dword_00007C * stru_721530.dword_000060) >> 16;
+            *(_WORD *)(v1 + 158) = stru_721530.dword_000074;
+            stru_721530.dword_000070 += stru_721530.dword_00007C;
             v41 = v40 >> 3;
             if ( (v40 & 7) != 3 )
             {
@@ -7471,7 +7471,7 @@ LABEL_123:
                 }
                 if ( (v40 & 7) == 6 )
                 {
-                  dword_7215B4 = v40 >> 3;
+                  stru_721530.dword_000084 = v40 >> 3;
                   v42 = dword_6BE644 + 96 * v41;
                   if ( *(_BYTE *)(v42 + 92) == 3 )
                   {
@@ -7492,8 +7492,8 @@ LABEL_123:
                                                                            * *(_WORD *)(v1 + 150)
                                                                            + *(_DWORD *)(v42 + 24)
                                                                            * *(_WORD *)(v1 + 152)) >> 16;
-                    if ( dword_721594 >> 3 > v63 )
-                      v63 = dword_721594 >> 3;
+                    if ( stru_721530.dword_000064 >> 3 > v63 )
+                      v63 = stru_721530.dword_000064 >> 3;
                     v60 = *(_DWORD *)(v42 + 16);
                     v60 = (unsigned __int64)(v63 * v60) >> 16;
                     v59 = *(void **)(v42 + 20);
@@ -7510,7 +7510,7 @@ LABEL_123:
                       {
                         v46 = *(_DWORD *)(v42 + 16);
                         v47 = *(_WORD *)(v1 + 146);
-                        v48 = dword_721534
+                        v48 = stru_721530.dword_000004
                             - ((*(_DWORD *)(v42 + 28)
                               + *(_DWORD *)(v42 + 24) * (signed int)*(_WORD *)(v1 + 146)
                               + *(_DWORD *)(v42 + 20) * (signed int)*(_WORD *)(v1 + 144)
@@ -7558,12 +7558,12 @@ LABEL_119:
                 struct_576FE8.dword_000044 = 1;
                 goto LABEL_119;
               }
-              v40 = dword_7215A8;
+              v40 = stru_721530.dword_000078;
 LABEL_118:
               Actor_sub_404030(v65, v40, v23, v23);
               goto LABEL_119;
             }
-            if ( dword_ACD834 == 1 && (dword_4F885C == 2 || dword_4F885C == 3) )
+            if (pParty_global->dword_00087C == 1 && (dword_4F885C == 2 || dword_4F885C == 3) )
               goto LABEL_119;
             if ( *(_BYTE *)(v1 + 61) )
             {
@@ -7591,7 +7591,7 @@ LABEL_114:
         }
         else
         {
-          if ( dword_ACD834 == 1 && (dword_4F885C == 2 || dword_4F885C == 3) )
+          if (pParty_global->dword_00087C == 1 && (dword_4F885C == 2 || dword_4F885C == 3) )
             goto LABEL_123;
           if ( !*(_BYTE *)(v1 + 61) || v58 != v23 )
           {
@@ -7604,17 +7604,16 @@ LABEL_120:
       ++v57;
       if ( v57 >= 100 )
         goto LABEL_123;
-      v22 = dword_721534;
+      v22 = stru_721530.dword_000004;
     }
   }
 }
 
 //----- (0047050A) --------------------------------------------------------
-signed int __thiscall sub_47050A(int this, int a2)
+signed int __thiscall sub_47050A(struct unnamed_721530 *_this, int a2)
 {
   int v2; // eax@1
   int v3; // ecx@1
-  int v4; // esi@1
   signed int v5; // eax@1
   int v6; // edx@1
   int v7; // edx@1
@@ -7640,74 +7639,73 @@ signed int __thiscall sub_47050A(int this, int a2)
   int v27; // eax@17
   int v28; // [sp+14h] [bp+8h]@5
 
-  v4 = this;
-  v5 = sub_452A9E(*(_DWORD *)(this + 36) * *(_DWORD *)(this + 36) + *(_DWORD *)(this + 32) * *(_DWORD *)(this + 32)
-                                                                  + *(_DWORD *)(this + 28) * *(_DWORD *)(this + 28));
+  v5 = sub_452A9E(_this->dword_000024 * _this->dword_000024 +
+                  _this->dword_000020 * _this->dword_000020 +
+                  _this->dword_00001C * _this->dword_00001C);
   v3 = v5 | 1;
-  v6 = *(_DWORD *)(v4 + 28);
-  *(_DWORD *)(v4 + 100) = v5 | 1;
-  *(_DWORD *)(v4 + 88) = 65536 / (v5 | 1) * v6;
-  *(_DWORD *)(v4 + 92) = 65536 / (v5 | 1) * *(_DWORD *)(v4 + 32);
-  v7 = 65536 / (v5 | 1) * *(_DWORD *)(v4 + 36);
-  *(_DWORD *)(v4 + 104) = 65536 / (v5 | 1);
+  v6 = _this->dword_00001C;
+  _this->dword_000064 = v5 | 1;
+  _this->dword_000058 = 65536 / (v5 | 1) * v6;
+  _this->dword_00005C = 65536 / (v5 | 1) * _this->dword_000020;
+  v7 = 65536 / (v5 | 1) * _this->dword_000024;
+  _this->dword_000068 = 65536 / (v5 | 1);
   v2 = a2;
-  *(_DWORD *)(v4 + 96) = v7;
+  _this->dword_000060 = v7;
   if ( !a2 )
     v2 = pClass24_global->dword_000020;
-  v8 = ((unsigned __int64)(v2 * v3) >> 16) - *(_DWORD *)(v4 + 112);
-  *(_DWORD *)(v4 + 108) = v8;
+  v8 = (((unsigned __int64)(v2) * v3) >> 16) - _this->dword_000070;
+  _this->dword_00006C = v8;
   if ( v8 > 0 )
   {
-    v15 = ((unsigned __int64)(v8 * *(_DWORD *)(v4 + 88)) >> 16) + *(_DWORD *)(v4 + 40);
-    *(_DWORD *)(v4 + 76) = v15;
-    *(_DWORD *)(v4 + 64) = v15;
-    v16 = ((unsigned __int64)(*(_DWORD *)(v4 + 108) * *(_DWORD *)(v4 + 92)) >> 16) + *(_DWORD *)(v4 + 44);
-    *(_DWORD *)(v4 + 80) = v16;
-    *(_DWORD *)(v4 + 68) = v16;
-    *(_DWORD *)(v4 + 72) = ((unsigned __int64)(*(_DWORD *)(v4 + 108) * *(_DWORD *)(v4 + 96)) >> 16)
-                         + *(_DWORD *)(v4 + 48);
-    v13 = *(_DWORD *)(v4 + 60);
-    v11 = *(_DWORD *)(v4 + 40);
-    v14 = *(_DWORD *)(v4 + 64);
-    v12 = *(_DWORD *)(v4 + 4);
-    v17 = v13 + ((unsigned __int64)(*(_DWORD *)(v4 + 108) * *(_DWORD *)(v4 + 96)) >> 16);
+    v15 = (((unsigned __int64)(v8) * _this->dword_000058) >> 16) + _this->dword_000028;
+    _this->dword_00004C = v15;
+    _this->dword_000040 = v15;
+    v16 = (((unsigned __int64)(_this->dword_00006C) * _this->dword_00005C) >> 16) + _this->dword_00002C;
+    _this->dword_000050 = v16;
+    _this->dword_000044 = v16;
+    _this->dword_000048 = (((unsigned __int64)(_this->dword_00006C) * _this->dword_000060) >> 16) + _this->dword_000030;
+    v13 = _this->dword_00003C;
+    v11 = _this->dword_000028;
+    v14 = _this->dword_000040;
+    v12 = _this->dword_000004;
+    v17 = v13 + (((unsigned __int64)(_this->dword_00006C) * _this->dword_000060) >> 16);
     v28 = v17;
-    *(_DWORD *)(v4 + 84) = v17;
+    _this->dword_000054 = v17;
     v10 = v11;
     if ( v11 >= v14 )
       v10 = v14;
-    *(_DWORD *)(v4 + 140) = v10 - v12;
+    _this->dword_00008C = v10 - v12;
     v18 = v12 + v11;
     if ( v11 <= v14 )
       v18 = v12 + v14;
-    v20 = *(_DWORD *)(v4 + 44);
-    v21 = *(_DWORD *)(v4 + 68);
-    *(_DWORD *)(v4 + 144) = v18;
+    v20 = _this->dword_00002C;
+    v21 = _this->dword_000044;
+    _this->dword_000090 = v18;
     v19 = v20;
     if ( v20 >= v21 )
       v19 = v21;
-    *(_DWORD *)(v4 + 148) = v19 - v12;
+    _this->dword_000094 = v19 - v12;
     v22 = v12 + v20;
     if ( v20 <= v21 )
       v22 = v21 + v12;
-    v24 = *(_DWORD *)(v4 + 72);
-    *(_DWORD *)(v4 + 152) = v22;
-    v23 = *(_DWORD *)(v4 + 48);
+    v24 = _this->dword_000048;
+    _this->dword_000098 = v22;
+    v23 = _this->dword_000030;
     if ( v23 >= v24 )
       v25 = v24 - v12;
     else
       v25 = v23 - v12;
-    *(_DWORD *)(v4 + 156) = v25;
-    v26 = *(_DWORD *)(v4 + 8);
+    _this->dword_00009C = v25;
+    v26 = _this->dword_000008;
     if ( v13 <= v28 )
       v27 = v28 + v26;
     else
       v27 = v13 + v26;
-    *(_DWORD *)(v4 + 120) = 0;
-    *(_DWORD *)(v4 + 128) = -1;
-    *(_DWORD *)(v4 + 136) = -1;
-    *(_DWORD *)(v4 + 160) = v27;
-    *(_DWORD *)(v4 + 124) = 16777215;
+    _this->dword_000078 = 0;
+    _this->dword_000080 = -1;
+    _this->dword_000088 = -1;
+    _this->dword_0000A0 = v27;
+    _this->dword_00007C = 16777215;
     result = 0;
   }
   else
@@ -7771,10 +7769,6 @@ void __cdecl sub_4706C6()
   signed int v48; // ebx@85
   int v49; // edi@85
   int v50; // edi@85
-  unsigned __int8 v51; // zf@87
-  unsigned __int8 v52; // sf@87
-  unsigned __int8 v53; // sf@104
-  unsigned __int8 v54; // of@104
   signed int v55; // eax@107
   unsigned int v56; // ebx@107
   unsigned int v57; // edi@107
@@ -7785,7 +7779,7 @@ void __cdecl sub_4706C6()
   int v62; // [sp+Ch] [bp-44h]@42
   int v63; // [sp+10h] [bp-40h]@42
   int v64; // [sp+14h] [bp-3Ch]@42
-  char v65; // [sp+18h] [bp-38h]@64
+  int v65; // [sp+18h] [bp-38h]@64
   int v66; // [sp+1Ch] [bp-34h]@64
   int v67; // [sp+20h] [bp-30h]@2
   int v68; // [sp+24h] [bp-2Ch]@2
@@ -7865,7 +7859,7 @@ LABEL_121:
         v10 *= 2;
         v75 = v10;
       }
-      if ( dword_ACD834 == 1 )
+      if (pParty_global->dword_00087C == 1 )
       {
         if ( dword_4F885C == 1 )
           v10 = (signed __int64)((double)v75 * flt_6BE3AC_debug_recmod1_x_1_6);
@@ -7972,39 +7966,39 @@ LABEL_121:
       }
     }
     v26 = *(_BYTE *)(v1 + 58) == 0;
-    dword_721530 = 1;
+    stru_721530.dword_000000 = 1;
     if ( v26 )
       v27 = 40;
     else
       v27 = *(_WORD *)(v1 + 136);
     v28 = *(_WORD *)(v1 + 138);
-    dword_7215B4 = -1;
-    dword_721538 = v27;
-    dword_721534 = v27;
-    dword_72153C = v28;
-    dword_7215A0 = v16;
+    stru_721530.dword_000084 = -1;
+    stru_721530.dword_000008 = v27;
+    stru_721530.dword_000004 = v27;
+    stru_721530.dword_00000C = v28;
+    stru_721530.dword_000070 = v16;
     v71 = v16;
     while ( 1 )
     {
-      dword_721564 = *(_WORD *)(v1 + 142);
-      dword_721558 = dword_721564;
-      dword_721568 = *(_WORD *)(v1 + 144);
-      dword_72155C = dword_721568;
+      stru_721530.dword_000034 = *(_WORD *)(v1 + 142);
+      stru_721530.dword_000028 = stru_721530.dword_000034;
+      stru_721530.dword_000038 = *(_WORD *)(v1 + 144);
+      stru_721530.dword_00002C = stru_721530.dword_000038;
       v29 = *(_WORD *)(v1 + 146);
-      dword_721560 = v29 + v27 + 1;
-      dword_72156C = v29 - v27 + dword_72153C - 1;
-      if ( dword_72156C < dword_721560 )
-        dword_72156C = v29 + v27 + 1;
-      dword_72154C = *(_WORD *)(v1 + 148);
-      dword_7215A4 = 0;
-      dword_721550 = *(_WORD *)(v1 + 150);
-      dword_721554 = *(_WORD *)(v1 + 152);
-      if ( sub_47050A((int)&dword_721530, 0) )
+      stru_721530.dword_000030 = v29 + v27 + 1;
+      stru_721530.dword_00003C = v29 - v27 + stru_721530.dword_00000C - 1;
+      if ( stru_721530.dword_00003C < stru_721530.dword_000030 )
+        stru_721530.dword_00003C = v29 + v27 + 1;
+      stru_721530.dword_00001C = *(_WORD *)(v1 + 148);
+      stru_721530.dword_000074 = 0;
+      stru_721530.dword_000020 = *(_WORD *)(v1 + 150);
+      stru_721530.dword_000024 = *(_WORD *)(v1 + 152);
+      if ( sub_47050A(&stru_721530, 0) )
         goto LABEL_107;
       sub_46E889((void *)1);
       v32 = WorldPosToGridCellZ(*(_WORD *)(v1 + 144));
       v33 = WorldPosToGridCellX(*(_WORD *)(v1 + 142));
-      sub_46E26D(v33, v32);
+      sub_46E26D_ProbablyCollideAgainstDecorations(v33, v32);
       sub_46EF01(0);
       sub_46ED8A((void *)(8 * v77 | 3));
       v31 = 0;
@@ -8018,14 +8012,14 @@ LABEL_121:
         }
       }
       v73 = i > 1;
-      if ( dword_7215AC < dword_72159C )
-        v72 = (unsigned __int64)(dword_7215AC * dword_721590) >> 16;
+      if ( stru_721530.dword_00007C < stru_721530.dword_00006C )
+        v72 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000060) >> 16;
       v36 = 0;
-      v37 = dword_721578 - dword_721534 - 1;
+      v37 = stru_721530.dword_000048 - stru_721530.dword_000004 - 1;
       v35 = sub_46D49E_ProbablyCollidePartyWithBModels(
-              dword_721570,
-              dword_721574,
-              dword_721578 - dword_721534 - 1,
+              stru_721530.dword_000040,
+              stru_721530.dword_000044,
+              stru_721530.dword_000048 - stru_721530.dword_000004 - 1,
               *(_WORD *)(v1 + 138),
               (int)&v65,
               (int)&v66,
@@ -8047,11 +8041,11 @@ LABEL_121:
           }
         }
       }
-      if ( dword_7215AC >= dword_72159C )
+      if ( stru_721530.dword_00007C >= stru_721530.dword_00006C )
       {
-        *(_WORD *)(v1 + 142) = dword_721570;
-        *(_WORD *)(v1 + 144) = dword_721574;
-        *(_WORD *)(v1 + 146) = dword_721578 - (_WORD)dword_721534 - 1;
+        *(_WORD *)(v1 + 142) = stru_721530.dword_000040;
+        *(_WORD *)(v1 + 144) = stru_721530.dword_000044;
+        *(_WORD *)(v1 + 146) = stru_721530.dword_000048 - (_WORD)stru_721530.dword_000004 - 1;
 LABEL_107:
         v71 = WorldPosToGridCellX(v68);
         v58 = WorldPosToGridCellZ(v67);
@@ -8101,19 +8095,19 @@ LABEL_107:
         }
         goto LABEL_121;
       }
-      v74 = (unsigned __int64)(dword_7215AC * dword_721588) >> 16;
-      *(_WORD *)(v1 + 142) += (unsigned int)(dword_7215AC * dword_721588) >> 16;
-      v74 = (unsigned __int64)(dword_7215AC * dword_72158C) >> 16;
-      *(_WORD *)(v1 + 144) += (unsigned int)(dword_7215AC * dword_72158C) >> 16;
-      v74 = (unsigned __int64)(dword_7215AC * dword_721590) >> 16;
-      v39 = dword_7215A8;
-      *(_WORD *)(v1 + 146) += (unsigned int)(dword_7215AC * dword_721590) >> 16;
-      dword_7215A0 += dword_7215AC;
+      v74 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000058) >> 16;
+      *(_WORD *)(v1 + 142) += (unsigned int)(stru_721530.dword_00007C * stru_721530.dword_000058) >> 16;
+      v74 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_00005C) >> 16;
+      *(_WORD *)(v1 + 144) += (unsigned int)(stru_721530.dword_00007C * stru_721530.dword_00005C) >> 16;
+      v74 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000060) >> 16;
+      v39 = stru_721530.dword_000078;
+      *(_WORD *)(v1 + 146) += (unsigned int)(stru_721530.dword_00007C * stru_721530.dword_000060) >> 16;
+      stru_721530.dword_000070 += stru_721530.dword_00007C;
       v40 = v39 >> 3;
       switch ( v39 & 7 )
       {
         case 3:
-          if ( dword_ACD834 != 1 )
+          if (pParty_global->dword_00087C != 1 )
             goto LABEL_97;
           if ( dword_4F885C != 2 && dword_4F885C != 3 )
           {
@@ -8143,16 +8137,15 @@ LABEL_103:
         case 4:
           if ( !Actor_sub_40104C(v1, 0) )
           {
-            v39 = dword_7215A8;
+            v39 = stru_721530.dword_000078;
             goto LABEL_103;
           }
-          v51 = HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) == 0;
-          v52 = HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) < 0;
+
           *(_WORD *)(v1 + 150) = 0;
           *(_WORD *)(v1 + 148) = 0;
-          if ( !v52 )
+          if (HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) >= 0)
           {
-           if ( !(v52 | v51) || (_DWORD)pParty_global->pPartyBuffs[11].qword_000000 > 0u )
+           if (HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[11].qword_000000 > 0u )
               sub_458585(&pParty_global->pPartyBuffs[11]);
           }
           struct_576FE8.dword_000044 = 1;
@@ -8193,8 +8186,8 @@ LABEL_103:
             {
               v74 = abs(*(_DWORD *)(v42 + 4) * *(_WORD *)(v1 + 150) + *(_DWORD *)(v42 + 8) * *(_WORD *)(v1 + 152)
                                                                     + *(_DWORD *)v42 * *(_WORD *)(v1 + 148)) >> 16;
-              if ( dword_721594 >> 3 > v74 )
-                v74 = dword_721594 >> 3;
+              if ( stru_721530.dword_000064 >> 3 > v74 )
+                v74 = stru_721530.dword_000064 >> 3;
               v75 = *(_DWORD *)v42;
               v75 = (unsigned __int64)(v74 * v75) >> 16;
               v73 = *(_DWORD *)(v42 + 4);
@@ -8207,7 +8200,7 @@ LABEL_103:
               if ( v43 != 4 )
               {
                 v46 = *(_WORD *)(v1 + 146);
-                v47 = dword_721534
+                v47 = stru_721530.dword_000004
                     - ((*(_DWORD *)(v42 + 12)
                       + *(_DWORD *)v42 * (signed int)*(_WORD *)(v1 + 142)
                       + *(_DWORD *)(v42 + 4) * (signed int)*(_WORD *)(v1 + 144)
@@ -8235,12 +8228,10 @@ LABEL_103:
       v72 = *(_WORD *)(v1 + 152);
       v72 = (unsigned __int64)(v73 * v72) >> 16;
       ++v71;
-      compile_error;//v54 = __SETO__(v71, 100);
-      v53 = v71 - 100 < 0;
       *(_WORD *)(v1 + 152) = v72;
-      if ( !(v53 ^ v54) )
+      if (v71 < 100)
         goto LABEL_107;
-      v27 = dword_721534;
+      v27 = stru_721530.dword_000004;
     }
   }
 }
@@ -8323,27 +8314,27 @@ void __fastcall sub_47136C(int a1)
 LABEL_24:
     v8 = 0;
 LABEL_25:
-    dword_721530 = v8;
+    stru_721530.dword_000000 = v8;
     v46 = v8;
-    dword_721534 = *(_WORD *)(v1 + 34);
+    stru_721530.dword_000004 = *(_WORD *)(v1 + 34);
     v12 = *(_WORD *)(v1 + 36);
-    dword_7215B4 = -1;
-    dword_72153C = v12;
-    dword_721538 = v8;
-    dword_7215A0 = v8;
+    stru_721530.dword_000084 = -1;
+    stru_721530.dword_00000C = v12;
+    stru_721530.dword_000008 = v8;
+    stru_721530.dword_000070 = v8;
     while ( 1 )
     {
-      dword_721564 = *((_DWORD *)v2 + 1);
-      dword_721558 = dword_721564;
-      dword_721568 = *((_DWORD *)v2 + 2);
-      dword_72155C = dword_721568;
-      dword_72156C = dword_721534 + *((_DWORD *)v2 + 3) + 1;
-      dword_721560 = dword_72156C;
-      dword_72154C = *((_WORD *)v2 + 8);
-      dword_721550 = *((_WORD *)v2 + 9);
-      dword_721554 = *((_WORD *)v2 + 10);
-      dword_7215A4 = *((_WORD *)v2 + 14);
-      if ( sub_47050A((int)&dword_721530, v8) )
+      stru_721530.dword_000034 = *((_DWORD *)v2 + 1);
+      stru_721530.dword_000028 = stru_721530.dword_000034;
+      stru_721530.dword_000038 = *((_DWORD *)v2 + 2);
+      stru_721530.dword_00002C = stru_721530.dword_000038;
+      stru_721530.dword_00003C = stru_721530.dword_000004 + *((_DWORD *)v2 + 3) + 1;
+      stru_721530.dword_000030 = stru_721530.dword_00003C;
+      stru_721530.dword_00001C = *((_WORD *)v2 + 8);
+      stru_721530.dword_000020 = *((_WORD *)v2 + 9);
+      stru_721530.dword_000024 = *((_WORD *)v2 + 10);
+      stru_721530.dword_000074 = *((_WORD *)v2 + 14);
+      if ( sub_47050A(&stru_721530, v8) )
         return;
       v48 = v8;
       do
@@ -8391,12 +8382,12 @@ LABEL_25:
         ++v48;
       }
       while ( v48 < 100 );
-      if ( dword_7215AC >= dword_72159C )
+      if ( stru_721530.dword_00007C >= stru_721530.dword_00006C )
       {
-        *((_DWORD *)v2 + 1) = dword_721570;
-        *((_DWORD *)v2 + 2) = dword_721574;
-        *((_DWORD *)v2 + 3) = dword_721578 - dword_721534 - 1;
-        *((_WORD *)v2 + 14) = dword_7215A4;
+        *((_DWORD *)v2 + 1) = stru_721530.dword_000040;
+        *((_DWORD *)v2 + 2) = stru_721530.dword_000044;
+        *((_DWORD *)v2 + 3) = stru_721530.dword_000048 - stru_721530.dword_000004 - 1;
+        *((_WORD *)v2 + 14) = stru_721530.dword_000074;
         if ( !(*(_BYTE *)(v1 + 39) & 1) )
           return;
         memset(&Dst, v8, 0x68u);
@@ -8429,18 +8420,18 @@ LABEL_25:
         v42 = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, v30, v32);
         goto LABEL_71;
       }
-      v48 = (unsigned __int64)(dword_7215AC * dword_721588) >> 16;
-      *((_DWORD *)v2 + 1) += (unsigned __int64)(dword_7215AC * dword_721588) >> 16;
-      v48 = (unsigned __int64)(dword_7215AC * dword_72158C) >> 16;
-      *((_DWORD *)v2 + 2) += (unsigned __int64)(dword_7215AC * dword_72158C) >> 16;
-      v48 = (unsigned __int64)(dword_7215AC * dword_721590) >> 16;
-      *((_DWORD *)v2 + 3) += (unsigned __int64)(dword_7215AC * dword_721590) >> 16;
-      *((_WORD *)v2 + 14) = dword_7215A4;
-      dword_7215A0 += dword_7215AC;
-      if ( *(_BYTE *)(v1 + 38) & 0x40 && !sub_46BFFA(v44, dword_7215A8) )
+      v48 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000058) >> 16;
+      *((_DWORD *)v2 + 1) += (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000058) >> 16;
+      v48 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_00005C) >> 16;
+      *((_DWORD *)v2 + 2) += (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_00005C) >> 16;
+      v48 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000060) >> 16;
+      *((_DWORD *)v2 + 3) += (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000060) >> 16;
+      *((_WORD *)v2 + 14) = stru_721530.dword_000074;
+      stru_721530.dword_000070 += stru_721530.dword_00007C;
+      if ( *(_BYTE *)(v1 + 38) & 0x40 && !sub_46BFFA(v44, stru_721530.dword_000078) )
         return;
-      v15 = dword_7215A8 >> 3;
-      if ( (dword_7215A8 & 7) == 5 )
+      v15 = stru_721530.dword_000078 >> 3;
+      if ( (stru_721530.dword_000078 & 7) == 5 )
       {
         v48 = sub_452A9E(*((_WORD *)v2 + 8) * *((_WORD *)v2 + 8) + *((_WORD *)v2 + 9) * *((_WORD *)v2 + 9));
         v23 = class59_Atan2(
@@ -8457,16 +8448,16 @@ LABEL_25:
       }
       else
       {
-        if ( (dword_7215A8 & 7) != 6 )
+        if ( (stru_721530.dword_000078 & 7) != 6 )
           goto LABEL_64;
-        dword_7215B4 = dword_7215A8 >> 3;
+        stru_721530.dword_000084 = stru_721530.dword_000078 >> 3;
         v16 = dword_6BE644 + 96 * v15;
         if ( *(_BYTE *)(v16 + 92) != 3 )
         {
           v50 = abs(*(_DWORD *)(v16 + 16) * *((_WORD *)v2 + 8) + *(_DWORD *)(v16 + 24) * *((_WORD *)v2 + 10)
                                                                + *(_DWORD *)(v16 + 20) * *((_WORD *)v2 + 9)) >> 16;
-          if ( dword_721594 >> 3 > v50 )
-            v50 = dword_721594 >> 3;
+          if ( stru_721530.dword_000064 >> 3 > v50 )
+            v50 = stru_721530.dword_000064 >> 3;
           v48 = *(_DWORD *)(v16 + 16);
           v48 = (unsigned __int64)(v50 * v48) >> 16;
           v49 = *(_DWORD *)(v16 + 20);
@@ -8845,33 +8836,33 @@ LABEL_13:
   if ( sub_46BFFA(v65, 0) )
   {
 LABEL_92:
-    dword_721530 = 0;
+    stru_721530.dword_000000 = 0;
     v67 = 0;
-    dword_721534 = *(_WORD *)(v3 + 34);
-    dword_72153C = *(_WORD *)(v3 + 36);
-    dword_721538 = 0;
-    dword_7215A0 = 0;
+    stru_721530.dword_000004 = *(_WORD *)(v3 + 34);
+    stru_721530.dword_00000C = *(_WORD *)(v3 + 36);
+    stru_721530.dword_000008 = 0;
+    stru_721530.dword_000070 = 0;
     while ( 1 )
     {
-      dword_721564 = *((_DWORD *)v5 + 1);
-      dword_721558 = dword_721564;
+      stru_721530.dword_000034 = *((_DWORD *)v5 + 1);
+      stru_721530.dword_000028 = stru_721530.dword_000034;
       v15 = *((_DWORD *)v5 + 2);
-      dword_7215A4 = 0;
-      dword_721568 = v15;
-      dword_72155C = v15;
-      dword_72156C = *((_DWORD *)v5 + 3) + dword_721534 + 1;
-      dword_721560 = dword_72156C;
-      dword_72154C = *((_WORD *)v5 + 8);
-      dword_721550 = *((_WORD *)v5 + 9);
-      dword_721554 = *((_WORD *)v5 + 10);
-      if ( sub_47050A((int)&dword_721530, 0) )
+      stru_721530.dword_000074 = 0;
+      stru_721530.dword_000038 = v15;
+      stru_721530.dword_00002C = v15;
+      stru_721530.dword_00003C = *((_DWORD *)v5 + 3) + stru_721530.dword_000004 + 1;
+      stru_721530.dword_000030 = stru_721530.dword_00003C;
+      stru_721530.dword_00001C = *((_WORD *)v5 + 8);
+      stru_721530.dword_000020 = *((_WORD *)v5 + 9);
+      stru_721530.dword_000024 = *((_WORD *)v5 + 10);
+      if ( sub_47050A(&stru_721530, 0) )
         return;
       sub_46E889(0);
       v16 = WorldPosToGridCellZ(*((_DWORD *)v5 + 2));
       v17 = *((_DWORD *)v5 + 1);
       v70 = v16;
       v18 = WorldPosToGridCellX(v17);
-      sub_46E26D(v18, v70);
+      sub_46E26D_ProbablyCollideAgainstDecorations(v18, v70);
       if ( (v5[88] & 7) != 4 )
         sub_46EF01(0);
       if ( (v5[88] & 7) == 3 )
@@ -8903,11 +8894,11 @@ LABEL_92:
         for ( i = 0; i < (signed int)uNumActors; ++i )
           sub_46DF1A(i, 0);
       }
-      v27 = dword_721578 - dword_721534 - 1;
+      v27 = stru_721530.dword_000048 - stru_721530.dword_000004 - 1;
       v26 = sub_46D49E_ProbablyCollidePartyWithBModels(
-              dword_721570,
-              dword_721574,
-              dword_721578 - dword_721534 - 1,
+              stru_721530.dword_000040,
+              stru_721530.dword_000044,
+              stru_721530.dword_000048 - stru_721530.dword_000004 - 1,
               *(_WORD *)(v3 + 36),
               (int)&v49,
               (int)&v50,
@@ -8922,12 +8913,12 @@ LABEL_92:
         sub_42F933(v65);
         return;
       }
-      if ( dword_7215AC >= dword_72159C )
+      if ( stru_721530.dword_00007C >= stru_721530.dword_00006C )
       {
-        *((_DWORD *)v5 + 1) = dword_721570;
-        *((_DWORD *)v5 + 2) = dword_721574;
-        *((_DWORD *)v5 + 3) = dword_721578 - dword_721534 - 1;
-        *((_WORD *)v5 + 14) = dword_7215A4;
+        *((_DWORD *)v5 + 1) = stru_721530.dword_000040;
+        *((_DWORD *)v5 + 2) = stru_721530.dword_000044;
+        *((_DWORD *)v5 + 3) = stru_721530.dword_000048 - stru_721530.dword_000004 - 1;
+        *((_WORD *)v5 + 14) = stru_721530.dword_000074;
         if ( !(*(_BYTE *)(v3 + 39) & 1) )
           return;
         memset(&Dst, 0, 0x68u);
@@ -8961,36 +8952,36 @@ LABEL_92:
         v48 = 0;
         goto LABEL_87;
       }
-      v72 = (unsigned __int64)(dword_7215AC * dword_721588) >> 16;
-      *((_DWORD *)v5 + 1) += (unsigned __int64)(dword_7215AC * dword_721588) >> 16;
-      v72 = (unsigned __int64)(dword_7215AC * dword_72158C) >> 16;
-      *((_DWORD *)v5 + 2) += (unsigned __int64)(dword_7215AC * dword_72158C) >> 16;
-      v72 = (unsigned __int64)(dword_7215AC * dword_721590) >> 16;
-      v29 = dword_7215A4;
-      *((_DWORD *)v5 + 3) += (unsigned __int64)(dword_7215AC * dword_721590) >> 16;
+      v72 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000058) >> 16;
+      *((_DWORD *)v5 + 1) += (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000058) >> 16;
+      v72 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_00005C) >> 16;
+      *((_DWORD *)v5 + 2) += (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_00005C) >> 16;
+      v72 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000060) >> 16;
+      v29 = stru_721530.dword_000074;
+      *((_DWORD *)v5 + 3) += (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000060) >> 16;
       v28 = *((_DWORD *)v5 + 3);
       *((_WORD *)v5 + 14) = v29;
-      dword_7215A0 += dword_7215AC;
+      stru_721530.dword_000070 += stru_721530.dword_00007C;
       if ( *(_BYTE *)(v3 + 38) & 0x40 )
       {
         if ( v28 < v66 )
           *((_DWORD *)v5 + 3) = v66 + 1;
-        if ( !sub_46BFFA(v65, dword_7215A8) )
+        if ( !sub_46BFFA(v65, stru_721530.dword_000078) )
           return;
       }
-      v30 = dword_7215A8 >> 3;
-      if ( (dword_7215A8 & 7) == 5 )
+      v30 = stru_721530.dword_000078 >> 3;
+      if ( (stru_721530.dword_000078 & 7) == 5 )
         break;
-      if ( (dword_7215A8 & 7) == 6 )
+      if ( (stru_721530.dword_000078 & 7) == 6 )
       {
-        v31 = pClass51_global->pBModels + 188 * (dword_7215A8 >> 9);
+        v31 = pClass51_global->pBModels + 188 * (stru_721530.dword_000078 >> 9);
         v32 = *(_DWORD *)(v31 + 84) + 308 * (v30 & 0x3F);
         if ( *(_BYTE *)(v32 + 303) != 3 )
         {
           v68 = abs(*(_DWORD *)(v32 + 8) * *((_WORD *)v5 + 10) + *(_DWORD *)(v32 + 4) * *((_WORD *)v5 + 9)
                                                                + *(_DWORD *)v32 * *((_WORD *)v5 + 8)) >> 16;
-          if ( dword_721594 >> 3 > v68 )
-            v68 = dword_721594 >> 3;
+          if ( stru_721530.dword_000064 >> 3 > v68 )
+            v68 = stru_721530.dword_000064 >> 3;
           v69 = *(_DWORD *)v32;
           v69 = (unsigned __int64)(v68 * v69) >> 16;
           v70 = *(_DWORD *)(v32 + 4);
@@ -9215,8 +9206,8 @@ void __cdecl sub_472866()
   if (pParty_global->dword_000704)
   {
     pParty_global->dword_000704 = 0;
-    if (pParty_global->pPartyBuffs[7].qword_000000 > 0 )
-      *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[7].word_00000C) |= 1u;
+    if (pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000 > 0 )
+      *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[PARTYBUFF_FLY].word_00000C) |= 1u;
   }
   if ( i == -30000 )
   {
@@ -9233,7 +9224,7 @@ void __cdecl sub_472866()
   dword_721654 = pParty_global->sPartyPosX;
   dword_721658 = pParty_global->sPartyPosY;
   dword_72165C = pParty_global->sPartyPosZ;
-  if ( dword_ACD834 != 1 )
+  if (pParty_global->dword_00087C != 1 )
   {
     v4 = (double)(GetTickCount() / 0x1F4);
     v67 = v4 + 6.755399441055744e15;
@@ -9345,37 +9336,37 @@ LABEL_87:
     switch ( sub_4760D5((int)&dword_7215D8) )
     {
       case 1:
-        v12 = dword_6BE38C_TurnDelta;
-        if ( dword_6BE38C_TurnDelta )
+        v12 = uTurnSpeed;
+        if ( uTurnSpeed )
           goto LABEL_58;
-        v13 = (double)v82 * flt_6BE14C;
+        v13 = (double)v82 * fTurnSpeedMultiplier;
         goto LABEL_51;
       case 2:
-        LODWORD(v15) = dword_6BE38C_TurnDelta;
-        if ( dword_6BE38C_TurnDelta )
+        LODWORD(v15) = uTurnSpeed;
+        if ( uTurnSpeed )
           goto LABEL_56;
-        v16 = (double)v82 * flt_6BE14C;
+        v16 = (double)v82 * fTurnSpeedMultiplier;
         goto LABEL_55;
       case 18:
-        v12 = dword_6BE38C_TurnDelta;
-        if ( dword_6BE38C_TurnDelta )
+        v12 = uTurnSpeed;
+        if ( uTurnSpeed )
         {
 LABEL_58:
           v14 = v90 + v12;
         }
         else
         {
-          v13 = (flt_6BE14C + flt_6BE14C) * (double)v82;
+          v13 = (fTurnSpeedMultiplier + fTurnSpeedMultiplier) * (double)v82;
 LABEL_51:
           v14 = v90 + (signed __int64)v13;
         }
         v90 = pClass59_global->uDoublePiMask & v14;
         goto LABEL_87;
       case 19:
-        LODWORD(v15) = dword_6BE38C_TurnDelta;
-        if ( !dword_6BE38C_TurnDelta )
+        LODWORD(v15) = uTurnSpeed;
+        if ( !uTurnSpeed )
         {
-          v16 = (flt_6BE14C + flt_6BE14C) * (double)v82;
+          v16 = (fTurnSpeedMultiplier + fTurnSpeedMultiplier) * (double)v82;
 LABEL_55:
           v15 = (signed __int64)v16;
         }
@@ -9386,28 +9377,28 @@ LABEL_56:
         v17 = (double)v81;
         v18 = class59_SinCos(pClass59_global, v90 - pClass59_global->uIntegerHalfPi);
         v88 = v17;
-        v78 = (unsigned __int64)(v18 * ((signed int)(signed __int64)(v17 * flt_6BE144) >> 1)) >> 16;
+        v78 = (unsigned __int64)(v18 * ((signed int)(signed __int64)(v17 * fWalkSpeedMultiplier) >> 1)) >> 16;
         v1 -= v78;
         v19 = class59_SinCos(pClass59_global, v90);
-        v78 = (unsigned __int64)(v19 * ((signed int)(signed __int64)(v88 * flt_6BE144) >> 1)) >> 16;
+        v78 = (unsigned __int64)(v19 * ((signed int)(signed __int64)(v88 * fWalkSpeedMultiplier) >> 1)) >> 16;
         goto LABEL_63;
       case 4:
         v20 = (double)v81;
         v21 = class59_SinCos(pClass59_global, v90 - pClass59_global->uIntegerHalfPi);
         v88 = v20;
-        v78 = (unsigned __int64)(v21 * ((signed int)(signed __int64)(v20 * flt_6BE144) >> 1)) >> 16;
+        v78 = (unsigned __int64)(v21 * ((signed int)(signed __int64)(v20 * fWalkSpeedMultiplier) >> 1)) >> 16;
         v1 += v78;
         v22 = class59_SinCos(pClass59_global, v90);
-        v78 = (unsigned __int64)(v22 * ((signed int)(signed __int64)(v88 * flt_6BE144) >> 1)) >> 16;
+        v78 = (unsigned __int64)(v22 * ((signed int)(signed __int64)(v88 * fWalkSpeedMultiplier) >> 1)) >> 16;
         goto LABEL_68;
       case 5:
         v23 = (double)v81;
         v24 = class59_SinCos(pClass59_global, v90);
         v88 = v23;
-        v78 = (unsigned __int64)(v24 * (signed int)(signed __int64)(v23 * flt_6BE144)) >> 16;
+        v78 = (unsigned __int64)(v24 * (signed int)(signed __int64)(v23 * fWalkSpeedMultiplier)) >> 16;
         v1 += v78;
         v25 = class59_SinCos(pClass59_global, v90 - pClass59_global->uIntegerHalfPi);
-        v78 = (unsigned __int64)(v25 * (signed int)(signed __int64)(v88 * flt_6BE144)) >> 16;
+        v78 = (unsigned __int64)(v25 * (signed int)(signed __int64)(v88 * fWalkSpeedMultiplier)) >> 16;
 LABEL_63:
         v0 += v78;
         goto LABEL_64;
@@ -9428,9 +9419,9 @@ LABEL_64:
         v29 = (double)v81;
         v30 = class59_SinCos(pClass59_global, v90);
         v88 = v29;
-        v1 += (unsigned __int64)(v30 * (signed int)(2 * (signed __int64)(v29 * flt_6BE144))) >> 16;
+        v1 += (unsigned __int64)(v30 * (signed int)(2 * (signed __int64)(v29 * fWalkSpeedMultiplier))) >> 16;
         v31 = class59_SinCos(pClass59_global, v90 - pClass59_global->uIntegerHalfPi);
-        v0 += (unsigned __int64)(v31 * (signed int)(2 * (signed __int64)(v88 * flt_6BE144))) >> 16;
+        v0 += (unsigned __int64)(v31 * (signed int)(2 * (signed __int64)(v88 * fWalkSpeedMultiplier))) >> 16;
         goto LABEL_70;
       case 17:
         v32 = (double)v81;
@@ -9529,33 +9520,33 @@ LABEL_93:
     v0 = 0;
     v1 = 0;
   }
-  dword_7215B4 = -1;
-  dword_7215A0 = 0;
-  dword_721534 = pParty_global->dword_000014;
-  dword_721538 = pParty_global->dword_000014 / 2;
+  stru_721530.dword_000084 = -1;
+  stru_721530.dword_000070 = 0;
+  stru_721530.dword_000004 = pParty_global->dword_000014;
+  stru_721530.dword_000008 = pParty_global->dword_000014 / 2;
   v83 = 0;
-  dword_721530 = 1;
-  dword_72153C = pParty_global->uPartyHeight - 32;
+  stru_721530.dword_000000 = 1;
+  stru_721530.dword_00000C = pParty_global->uPartyHeight - 32;
   while ( 1 )
   {
     v38 = v87;
-    dword_721564 = v86;
-    dword_721558 = v86;
-    dword_72154C = v1;
-    dword_721568 = v85;
-    dword_72155C = v85;
-    dword_721550 = v0;
-    dword_721560 = dword_721534 + v87 + 1;
-    dword_72156C = dword_72153C + v87 + 1;
-    dword_721554 = v89;
-    dword_7215A4 = v77;
+    stru_721530.dword_000034 = v86;
+    stru_721530.dword_000028 = v86;
+    stru_721530.dword_00001C = v1;
+    stru_721530.dword_000038 = v85;
+    stru_721530.dword_00002C = v85;
+    stru_721530.dword_000020 = v0;
+    stru_721530.dword_000030 = stru_721530.dword_000004 + v87 + 1;
+    stru_721530.dword_00003C = stru_721530.dword_00000C + v87 + 1;
+    stru_721530.dword_000024 = v89;
+    stru_721530.dword_000074 = v77;
     v37 = 0;
-    if ( dword_ACD834 == 1 )
+    if (pParty_global->dword_00087C == 1 )
     {
       if ( dword_4F885C == 3 )
         v37 = 13312;
     }
-    if ( sub_47050A((int)&dword_721530, v37) )
+    if ( sub_47050A(&stru_721530, v37) )
       break;
     v73 = 0;
     do
@@ -9569,35 +9560,35 @@ LABEL_93:
       ++v73;
     }
     while ( v73 < 100 );
-    if ( dword_7215AC >= dword_72159C )
+    if ( stru_721530.dword_00007C >= stru_721530.dword_00006C )
     {
-      v40 = dword_721570;
-      v77 = dword_721574;
-      v39 = dword_721578 - dword_721534 - 1;
+      v40 = stru_721530.dword_000040;
+      v77 = stru_721530.dword_000044;
+      v39 = stru_721530.dword_000048 - stru_721530.dword_000004 - 1;
     }
     else
     {
-      v40 = ((unsigned __int64)(dword_7215AC * dword_721588) >> 16) + v86;
-      v77 = v85 + ((unsigned __int64)(dword_7215AC * dword_72158C) >> 16);
-      v39 = v38 + ((unsigned __int64)(dword_7215AC * dword_721590) >> 16);
+      v40 = ((unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000058) >> 16) + v86;
+      v77 = v85 + ((unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_00005C) >> 16);
+      v39 = v38 + ((unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000060) >> 16);
     }
-    v42 = sub_46ED1B(v40, v77, v39 + 40, &dword_7215A4, (int)&v79);
+    v42 = sub_46ED1B(v40, v77, v39 + 40, &stru_721530.dword_000074, (int)&v79);
     if ( v42 == -30000 || v42 - v38 > 128 )
       return;
-    if ( dword_7215AC >= dword_72159C )
+    if ( stru_721530.dword_00007C >= stru_721530.dword_00006C )
     {
-      v86 = dword_721570;
-      v85 = dword_721574;
-      v38 = dword_721578 - dword_721534 - 1;
+      v86 = stru_721530.dword_000040;
+      v85 = stru_721530.dword_000044;
+      v38 = stru_721530.dword_000048 - stru_721530.dword_000004 - 1;
       break;
     }
-    v86 += (unsigned __int64)(dword_7215AC * dword_721588) >> 16;
-    v85 += (unsigned __int64)(dword_7215AC * dword_72158C) >> 16;
-    v43 = dword_7215A8;
-    v77 = dword_7215A4;
-    dword_7215A0 += dword_7215AC;
-    v87 = ((unsigned __int64)(dword_7215AC * dword_721590) >> 16) + v38;
-    if ( (dword_7215A8 & 7) == 3 )
+    v86 += (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000058) >> 16;
+    v85 += (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_00005C) >> 16;
+    v43 = stru_721530.dword_000078;
+    v77 = stru_721530.dword_000074;
+    stru_721530.dword_000070 += stru_721530.dword_00007C;
+    v87 = ((unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000060) >> 16) + v38;
+    if ( (stru_721530.dword_000078 & 7) == 3 )
     {
      if ( HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) >= 0 )
       {
@@ -9607,23 +9598,23 @@ LABEL_93:
       struct_576FE8.dword_000044 = 1;
       goto LABEL_152;
     }
-    if ( (dword_7215A8 & 7) == 5 )
+    if ( (stru_721530.dword_000078 & 7) == 5 )
     {
       v53 = sub_452A9E(v1 * v1 + v0 * v0);
       i = v53;
       v54 = class59_Atan2(
               pClass59_global,
-              v86 - pLevelDecorations[(dword_7215A8 >> 3)].sPosX,
-              v85 - pLevelDecorations[(dword_7215A8 >> 3)].sPosY);
+              v86 - pLevelDecorations[(stru_721530.dword_000078 >> 3)].sPosX,
+              v85 - pLevelDecorations[(stru_721530.dword_000078 >> 3)].sPosY);
       v1 = (unsigned __int64)(class59_SinCos(pClass59_global, v54) * v53) >> 16;
       v55 = class59_SinCos(pClass59_global, v54 - pClass59_global->uIntegerHalfPi);
       v0 = (unsigned __int64)(v55 * i) >> 16;
     }
     else
     {
-      if ( (dword_7215A8 & 7) == 6 )
+      if ( (stru_721530.dword_000078 & 7) == 6 )
       {
-        v45 = dword_6BE644 + 96 * (dword_7215A8 >> 3);
+        v45 = dword_6BE644 + 96 * (stru_721530.dword_000078 >> 3);
         v44 = *(_BYTE *)(v45 + 92);
         if ( v44 == 3 )
         {
@@ -9645,8 +9636,8 @@ LABEL_93:
         if ( !v48 )
         {
           i = abs(v0 * *(_DWORD *)(v45 + 20) + v47 + v1 * v46) >> 16;
-          if ( dword_721594 >> 3 > i )
-            i = dword_721594 >> 3;
+          if ( stru_721530.dword_000064 >> 3 > i )
+            i = stru_721530.dword_000064 >> 3;
           v51 = (unsigned __int64)(i * *(_DWORD *)(v45 + 16)) >> 16;
           v81 = *(_DWORD *)(v45 + 20);
           v81 = (unsigned __int64)(i * v81) >> 16;
@@ -9659,7 +9650,7 @@ LABEL_93:
           v69 = *(_DWORD *)(v45 + 16);
           i = v52;
           v0 += v81;
-          v50 = dword_721534 - ((*(_DWORD *)(v45 + 28) + v87 * v74 + v85 * v52 + v86 * v69) >> 16);
+          v50 = stru_721530.dword_000004 - ((*(_DWORD *)(v45 + 28) + v87 * v74 + v85 * v52 + v86 * v69) >> 16);
           if ( v50 > 0 )
           {
             v86 += v50 * v69 >> 16;
@@ -9667,7 +9658,7 @@ LABEL_93:
             v87 += v50 * v74 >> 16;
           }
 LABEL_142:
-          v43 = dword_7215A8;
+          v43 = stru_721530.dword_000078;
 LABEL_143:
           if (pParty_global->dword_0006F4 != v43 >> 3)
           {
@@ -9677,8 +9668,8 @@ LABEL_143:
           goto LABEL_152;
         }
         i = abs(v0 * *(_DWORD *)(v45 + 20) + v47 + v1 * v46) >> 16;
-        if ( dword_721594 >> 3 > i )
-          i = dword_721594 >> 3;
+        if ( stru_721530.dword_000064 >> 3 > i )
+          i = stru_721530.dword_000064 >> 3;
         v49 = (unsigned __int64)(i * *(_DWORD *)(v45 + 16)) >> 16;
         v81 = *(_DWORD *)(v45 + 20);
         v81 = (unsigned __int64)(i * v81) >> 16;

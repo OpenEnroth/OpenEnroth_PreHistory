@@ -22,7 +22,7 @@ int Party_sub_49370F(struct Party *_this)
 
   v1 = _this;
   v12 = 0;
-  if ( dword_ACD834 == 1 )
+  if ( pParty_global->dword_00087C == 1 )
   {
     if ( dword_4F885C != 2 || (dword_4F8878[0] & 7) != 4 )
       return 0;

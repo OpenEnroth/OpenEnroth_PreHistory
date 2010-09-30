@@ -745,7 +745,7 @@ LABEL_69:
     {
       LODWORD(v44) = 20;
       v63 = 10;
-      if ( dword_ACD834 == v43 )
+      if (pParty_global->dword_00087C == v43)
         v44 = (signed __int64)(flt_6BE3A8_debug_recmod2 * *(double *)&byte_4D8410[456]);
       *(_DWORD *)(v8 + 124) += v44;
       if ( dword_6BE378_ShowDamageFlag != v43 )
@@ -1269,7 +1269,7 @@ LABEL_133:
         }
       }
     }
-    if ( !dword_ACD834 )
+    if (!pParty_global->dword_00087C)
     {
       v65 = Player_GetActualEndurance(v46);
       v66 = (double)(20 - sub_48EA1B(v65)) * flt_6BE3A4_debug_recmod1 * *(double *)&byte_4D8410[40];
@@ -1462,7 +1462,7 @@ LABEL_43:
           }
         }
       }
-      if ( !dword_ACD834 )
+      if (!pParty_global->dword_00087C)
       {
         v35 = Player_GetActualEndurance(v6);
         v36 = (double)(20 - sub_48EA1B(v35)) * flt_6BE3A4_debug_recmod1 * *(double *)&byte_4D8410[40];
@@ -1654,7 +1654,7 @@ void __cdecl sub_43AD34()
 
   if (pParty_global->pPartyBuffs[11].qword_000000 > 0 )
     sub_458585(&pParty_global->pPartyBuffs[11]);
-  if ( dword_ACD834 != 1 )
+  if (pParty_global->dword_00087C != 1)
   {
     v4 = 0;
     if ( (signed int)uNumActors > 0 )
@@ -3630,7 +3630,7 @@ void __fastcall sub_43FA33(int a1, int a2)
            - class59_Atan2(pClass59_global, v7 - dword_51B6E8, v37 - dword_51B6EC);
         v47 = dword_51B6E0;
         v6 = ((pClass59_global->uIntegerPi + v9) >> 8) & 7;
-        if ( dword_ACD834 == 1 )
+        if (pParty_global->dword_00087C == 1)
           v47 = pClass24_global2->dword_000024;
         v12 = abs(*((_DWORD *)v2 + 1) + *((_DWORD *)v2 + 2));
         v13 = CSpriteFrameTable_fn1(pSpriteFrameTable, *(_WORD *)(v4 + 72), v47 + v12);
@@ -3803,7 +3803,7 @@ int __fastcall sub_43FDED(int a1)
       v4 = *((_WORD *)v2 + 71);
       v5 = ((pClass59_global->uIntegerPi + (pClass59_global->uIntegerPi >> 3) + a1 - v6) >> 8) & 7;
       v32 = v5;
-      if ( dword_ACD834 )
+      if (pParty_global->dword_00087C)
       {
         if ( v4 == 1 )
         {
@@ -4643,7 +4643,7 @@ int __thiscall sub_441964(void *this, int a2)
   int v7; // [sp-4h] [bp-8h]@14
 
   result = dword_4E28F8;
-  if ( !dword_4E28F8 && dword_ACD834 == 1 )
+  if (!dword_4E28F8 && pParty_global->dword_00087C == 1)
   {
     if ( dword_4F885C == 3 )
     {
@@ -7066,7 +7066,7 @@ int __fastcall sub_44622E(int a1)
 
   v1 = a1;
   v25 = a1;
-  byte_5C3428 = 0;
+  byte_5C3428[0] = 0;
   pStatusBarString[0] = 0;
   sub_44C175(Class, 2);
   if ( dword_50CBD0[0] )

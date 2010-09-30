@@ -8,6 +8,8 @@
 #pragma pack(push, 1)
 
 
+#define PARTYBUFF_FLY        7
+#define PARTYBUFF_WATERWALK 15
 #define PARTYBUFF_WIZARDEYE 19
 
 struct PartySpellBuff
@@ -50,7 +52,7 @@ struct Party
  unsigned int  uDefaultEyelevel;    // dword @ 000010
  int           dword_000014;
  int           dword_000018;
- int           uWalkSpeed;          // dword @ 00001C
+ unsigned int  uWalkSpeed;          // dword @ 00001C
  int           dword_000020;
  int           dword_000024;
  int           dword_000028;
@@ -70,7 +72,7 @@ struct Party
  int           sPartyPosX;       // dword @ 0006B4     world coordinates are  x: -32768..  32767
  int           sPartyPosY;       // dword @ 0006B8                            y:  32767.. -32768
  int           sPartyPosZ;       // dword @ 0006BC
- int           sRotationY;       // dword @ 0006C0     rotation about Y, angle is 2ï*(sRotationY/2048)    radians (0.. 2ï) -> (0.. 2048);  (0, ï/2, ï, 3ï/2, 2ï) -> (0, 512, 1024, 1536, 2048)
+ int           sRotationY;       // dword @ 0006C0     rotation about Y, angle is 2ï*(sRotationY/2048) or ï*(sRotation/1024)    radians (0.. 2ï) -> (0.. 2048);  (0, ï/2, ï, 3ï/2, 2ï) -> (0, 512, 1024, 1536, 2048)
  int           sRotationX;       // dword @ 0006C4     about X, bend
  int           sOldPosX;         // dword @ 0006C8
  int           sOldPosY;         // dword @ 0006CC
@@ -118,13 +120,15 @@ struct Party
 
  int dword_00087C;
 
- int                   dword_000884;
+ int                   dword_000884; //flags
  unsigned int          uAlignment;       // dword      @ 000888   enum (0, 1, 2) = (good, neutral, evil)
- struct PartySpellBuff pPartyBuffs[20]; // struct[20] @ 00088C
+ struct PartySpellBuff pPartyBuffs[20];  // struct[20] @ 00088C
  struct Player         pPlayers[4];      // struct[4]  @ 0009CC
  struct NPCData        pHiredNPCs[2];    // struct[2]  @ 0076BC
 
- int dword_007778;  // party flags;     0x02 - party position/direction/eyelevel changed
+ int dword_007778;  // party flags;     0x0002 - party position/direction/eyelevel changed
+                    //                  0x0004 - You're Drowning!  message displayed
+                    //                  0x0200 - You are Burning!  message displayed
 
  char pad[100000];
  
@@ -132,7 +136,7 @@ struct Party
  float flt_016230;
  float flt_016234;
 
- int dword_01613C; // connected to sLastGUIWindowIdx
+ int dword_01613C; // connected to uNumGUIWindows
 
  int array_016144[array_size_unknown]; // 016144
 

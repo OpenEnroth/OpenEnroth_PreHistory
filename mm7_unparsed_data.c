@@ -743,7 +743,7 @@ struct unnamed_505898 struct_505898;
 //int dword_506F9C; // weak
 
  int array_5075E0[20]; // array @ MM7.exe::005075E0
- int sLastGUIWindowIdx; // dword @ MM7.exe::00507630
+unsigned int uNumGUIWindows; // dword @ MM7.exe::00507630
  int dword_507634; // weak
  int dword_507638; // weak
  int dword_50763C; // weak
@@ -1347,9 +1347,8 @@ struct Event pLevelEVT_Events[4400]; // struct[4400] @ MM7.exe::005B65D8
  int dword_5C341C; // weak
  int dword_5C3420; // weak
  char byte_5C3427[array_size_unknown]; // weak
- char byte_5C3428; // idb
- char byte_5C34EF[array_size_unknown]; // weak
- unsigned char pStatusBarString[200]; // byte[200] @ MM7.exe::005C34F0
+unsigned char byte_5C3428[200]; // idb
+unsigned char pStatusBarString[200]; // byte[200] @ MM7.exe::005C34F0
  int dword_5C35B8; // weak
  int dword_5C35BC; // weak
  int dword_5C35C0; // weak
@@ -1622,11 +1621,6 @@ struct class51 class51_6A0DA0_dwReserved;
 struct class51 *pClass51_global = &class51_6A0DA0_dwReserved; // struct @ stru_6A0DA0.dwReserved
  struct tagOFNA stru_6A0DA0; // idb
 //dwReserved @ 6A0DF0 @ pClass51_global::000000
-//int dword_6A0EA0; // ::dword_0000B0
-//int dword_6A0EC8; // ::ptr_0000D8
- int dword_6A0ED0; // weak
- int dword_6A0ED4; // weak
-//int dword_6A0EDC; // ::0000EC
  int dword_6A12B0; // weak
  int dword_6A12B4; // weak
  _UNKNOWN unk_6A12B8; // weak
@@ -1697,9 +1691,9 @@ struct struct9 *pStruct9_global; // struct @ MM7.exe::006BE070
  int dword_6BE134; // weak
  int dword_6BE138; // weak
  int dword_6BE13C; // weak
- float flt_6BE144 = 1.0; // weak
+ float fWalkSpeedMultiplier = 1.0; // float @ MM7.exe::006BE144
  float flt_6BE148 = 1.0; // weak
- float flt_6BE14C = 1.0; // weak
+ float fTurnSpeedMultiplier = 1.0; // float @ MM7.exe::006BE14C
  float flt_6BE150 = 1.0; // weak
 //char byte_6BE2D8[20];
 wchar_t pWindowClassName[20];
@@ -1743,7 +1737,7 @@ unsigned char uMusicVolimeMultiplier;  // byte @ 6BE371  0..9
  int dword_6BE380; // weak
  int dword_6BE384_2dacceloff; // weak
  char byte_6BE388_graphicsmode; // weak
- int dword_6BE38C_TurnDelta; // weak
+int uTurnSpeed; // dword @ MM7.exe::006BE38C
  float flt_6BE3A0; // weak
  float flt_6BE3A4_debug_recmod1; // weak
  float flt_6BE3A8_debug_recmod2; // weak
@@ -1830,42 +1824,8 @@ struct CGame *pGame = 0; //struct @ MM7.exe::00720014
  __int16 word_721392[array_size_unknown]; // weak
  __int16 word_721460[array_size_unknown]; // weak
  __int16 word_721462[array_size_unknown]; // weak
- int dword_721530; // weak
- int dword_721534; // weak
- int dword_721538; // weak
- int dword_72153C; // weak
- int dword_72154C; // weak
- int dword_721550; // weak
- int dword_721554; // weak
- int dword_721558; // weak
- int dword_72155C; // weak
- int dword_721560; // weak
- int dword_721564; // weak
- int dword_721568; // weak
- int dword_72156C; // weak
- int dword_721570; // weak
- int dword_721574; // weak
- int dword_721578; // weak
- int dword_72157C; // weak
- int dword_721580; // weak
- int dword_721584; // weak
- int dword_721588; // weak
- int dword_72158C; // weak
- int dword_721590; // weak
- int dword_721594; // weak
- int dword_72159C; // weak
- int dword_7215A0; // weak
- int dword_7215A4; // weak
- int dword_7215A8; // weak
- int dword_7215AC; // weak
- int dword_7215B0; // weak
- int dword_7215B4; // weak
- int dword_7215BC; // weak
- int dword_7215C0; // weak
- int dword_7215C4; // weak
- int dword_7215C8; // weak
- int dword_7215CC; // weak
- int dword_7215D0; // weak
+
+struct unnamed_721530 stru_721530; // struct @ MM7.exe::00721530
  int dword_7215D8; // weak
  int dword_721654; // weak
  int dword_721658; // weak
@@ -2124,8 +2084,6 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  char byte_ACD7B6[array_size_unknown]; // weak
  int dword_ACD82C; // weak
  int dword_ACD830; // weak
- int dword_ACD834; // weak
- int dword_ACD83C; // weak
  char byte_ACD8C2; // weak
  char byte_ACD8C3; // weak
  char byte_ACD8F2; // weak
