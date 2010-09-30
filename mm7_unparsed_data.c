@@ -743,7 +743,7 @@ struct unnamed_505898 struct_505898;
 //int dword_506F9C; // weak
 
  int array_5075E0[20]; // array @ MM7.exe::005075E0
- int sLastGUIWindowIdx; // dword @ MM7.exe::00507630
+int sLastGUIWindowIdx; // dword @ MM7.exe::00507630
  int dword_507634; // weak
  int dword_507638; // weak
  int dword_50763C; // weak
@@ -1795,29 +1795,21 @@ struct CGame *pGame = 0; //struct @ MM7.exe::00720014
 //char  byte_72098C;                //CGame::000978, dword @ MM7.exe::00720988
 //char  byte_720990;                //CGame::00097C, dword @ MM7.exe::00720990
 //void *dword_720994;               //CGame::000980, ptr   @ MM7.exe::00720994
- __int16 word_7209A0[array_size_unknown]; // weak
- __int16 word_7209A2[array_size_unknown]; // weak
- __int16 word_720A70[array_size_unknown]; // weak
- __int16 word_720A72[array_size_unknown]; // weak
- __int16 word_720B40[array_size_unknown]; // weak
- __int16 word_720B42[array_size_unknown]; // weak
+ __int16 word_7209A0[104]; // weak
+ __int16 word_720A70[104]; // weak
+ __int16 word_720B40[104]; // weak
  __int16 word_720C10[array_size_unknown]; // weak
- __int16 word_720C12[array_size_unknown]; // weak
  int dword_720CDC; // weak
- __int16 word_720CE0[array_size_unknown]; // weak
- __int16 word_720CE2; // weak
- __int16 word_720DB0[array_size_unknown]; // weak
- __int16 word_720DB2[array_size_unknown]; // weak
- int dword_720E80[array_size_unknown]; // weak
-
-
- int dword_720ED0[array_size_unknown]; // weak
- int dword_720F20[array_size_unknown]; // weak
- __int16 word_720F70[4*array_size_unknown]; // weak
- __int16 word_721040[4*array_size_unknown]; // weak
- int dword_721110[array_size_unknown]; // weak
- int dword_721160[array_size_unknown]; // weak
- int dword_7211B0[array_size_unknown]; // weak
+ __int16 word_720CE0[104]; // weak
+ __int16 word_720DB0[104]; // weak
+ int dword_720E80[20]; // weak
+ int dword_720ED0[20]; // weak
+ int dword_720F20[20]; // weak
+ __int16 word_720F70[104]; // weak
+ __int16 word_721040[104]; // weak
+ int dword_721110[20]; // weak
+ int dword_721160[20]; // weak
+ int dword_7211B0[20]; // weak
  int dword_721200[array_size_unknown]; // weak
  int dword_7212C8[array_size_unknown]; // weak
  __int16 word_721390[array_size_unknown]; // weak
