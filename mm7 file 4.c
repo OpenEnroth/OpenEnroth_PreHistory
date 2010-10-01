@@ -2584,7 +2584,7 @@ int __thiscall sub_42F184(void *this, unsigned int a2, int a3, int a4)
     v6 = a3 != 0;
     if ( a4 )
       LOBYTE(v6) = v6 | 8;
-    v7 = sub_4C1944(pGame->class05_obj, 3, a2, v6, 657456, -1);
+    v7 = sub_4C1944(pGame->pVis, 3, a2, v6, 657456, -1);
     if ( v7 != -1 )
       return (unsigned __int16)v7;
   }
@@ -3351,7 +3351,7 @@ signed int __cdecl sub_42FC15()
 }
 
 //----- (0042FC4E) --------------------------------------------------------
-void __cdecl sub_42FC4E()
+void __cdecl sub_42FC4E_ProcessPressedKeys()
 {
   int v1; // ebx@7
   void *v2; // esi@7
@@ -3620,7 +3620,8 @@ LABEL_120:
 LABEL_118:
             dword_4F8870 |= 8u;
             break;
-          case 9:
+
+          case 9: // space
             if ( !dword_4E28F8 )
             {
               if ( dword_50CBD0[0] >= 40 )
@@ -3765,7 +3766,7 @@ LABEL_176:
   if ( *(_BYTE *)(&pGame->class14_obj->dword_000004) )
   {
     sub_45B213();
-    v16 = dword_69B00C;
+    v16 = pAsyncKeyboard;
     sub_45B1FD();
     memset((void *)(v16 + 521), 0, 0x100u);
     sub_45B213();
@@ -8774,8 +8775,8 @@ void __thiscall sub_459E5A(int this, int a2, int a3, int a4)
   *(_DWORD *)(a4 + 64) = 1;
   if ( *(_BYTE *)(pGame->class14_obj + 4) )
   {
-    if (dword_69B00C)
-      Keyboard_suspend(dword_69B00C);
+    if (pAsyncKeyboard)
+      Keyboard_suspend(pAsyncKeyboard);
   }
 }
 
@@ -9516,9 +9517,9 @@ char __thiscall sub_45B06E(int this)
 
   if ( *(_BYTE *)(this + 4) )
   {
-    if ( sub_45B4EC((void *)dword_69B00C, 0x2Au) )
+    if ( sub_45B4EC((void *)pAsyncKeyboard, 0x2Au) )
       return 1;
-    v1 = sub_45B4EC((void *)dword_69B00C, 0x36u) == 0;
+    v1 = sub_45B4EC((void *)pAsyncKeyboard, 0x36u) == 0;
   }
   else
   {
@@ -9539,7 +9540,7 @@ int __thiscall sub_45B10A(int this)
   *(_DWORD *)(this + 4) = 0;
   *(_BYTE *)(this + 8) = 0;
   *(_DWORD *)this = 5080760;
-  if ( !sub_45B18E((LPVOID)this) )
+  if ( !CKeyboardAsync_Initialize((LPVOID)this) )
   {
     v3 = (int)"Could not initialize asynchronos keyboard object";
     _CxxThrowException(&v3, 5094804);
@@ -9565,7 +9566,7 @@ BOOL __thiscall sub_45B15E(int this)
 }
 
 //----- (0045B18E) --------------------------------------------------------
-char __thiscall sub_45B18E(LPVOID lpParameter)
+char __thiscall CKeyboardAsync_Initialize(LPVOID lpParameter)
 {
   char result; // al@1
   void *v2; // esi@1
@@ -10095,11 +10096,11 @@ void __stdcall StartAddress(int a1)
 {
   while ( 1 )
   {
-    while ( !dword_69B00C )
+    while ( !pAsyncKeyboard )
       ;
-    if ( *(_BYTE *)(dword_69B00C + 8) )
+    if ( *(_BYTE *)(pAsyncKeyboard + 8) )
       ExitThread(0);
-    update_keyboard_data(dword_69B00C);
+    update_keyboard_data(pAsyncKeyboard);
     Sleep(33);
   }
 }
@@ -12722,7 +12723,7 @@ LABEL_55:
     {
       v22 = 0;
     }
-    SetupUserInterface(v22);
+    MenuUI_LoadTextures(v22);
     sub_426363(pClass24_global);
     sub_4263A0(pClass24_global);
     v23 = pAudioPlayer;
@@ -13857,7 +13858,7 @@ void __thiscall sub_4646F0(int this)
 
   v1 = this;
   if ( pD3DRenderer->pRenderD3D3 )
-    class05_sub_4C1A02(pGame->class05_obj);
+    Vis_sub_4C1A02(pGame->pVis);
   class24_fn1(pClass24_global);
   class24_fn1(pClass24_global2);
   pParty_global->dword_007778 = 2;
@@ -14065,13 +14066,13 @@ void __cdecl sub_465C53()
 {
   if (*(_BYTE *)(pGame->class14_obj + 4))
   {
-    if (dword_69B00C)
+    if (pAsyncKeyboard)
     {
-      Keyboard_suspend(dword_69B00C);
-      if (dword_69B00C)
-        (**(void (__stdcall ***)(_DWORD))dword_69B00C)(1);
+      Keyboard_suspend(pAsyncKeyboard);
+      if (pAsyncKeyboard)
+        (**(void (__stdcall ***)(_DWORD))pAsyncKeyboard)(1);
     }
-    dword_69B00C = 0;
+    pAsyncKeyboard = 0;
   }
 }
 
@@ -14147,8 +14148,6 @@ LABEL_52:
       goto LABEL_38;
     class35_SetColorChannelInfo(&class35_obj, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
     class35_sub_48A614(&class35_obj);
-    LODFile_SetupPalettes(pLODFile_Bitmaps_LOD, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
-    LODFile_SetupPalettes(pLODFile_Icons_LOD, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
     v1 = 0;
     if ( pObjectDescriptionList->uNumObjects > 0 )
     {
@@ -14165,7 +14164,7 @@ LABEL_52:
       }
       while ( v1 < pObjectDescriptionList->uNumObjects );
     }
-    SetupUserInterface(pParty_global->uAlignment);
+    MenuUI_LoadTextures(pParty_global->uAlignment);
     if ( pVideoPlayer->dword_000024 )
       RGBTexture_Load(pVideoPlayer->dword_00006C, (const char *)&unk_F8BBEC, 1);
     if (uCurrentMenuID != MENU_MAIN)
@@ -14219,7 +14218,7 @@ LABEL_38:
     else
       sub_426363(pClass24_global2);
     sub_465C2C();
-    sub_465F5A();
+    sub_465F5A_InitializeAsyncMouseAndSomething();
     if (dword_720010)
       sub_46BBD0();
   }

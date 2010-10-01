@@ -2337,8 +2337,8 @@ int __cdecl MenuLoop_Main()
    sub_46B105(dword_720010);
  if (pGame->class14_obj->dword_000004)
  {
-  if (dword_69B00C)
-    Keyboard_resume(dword_69B00C);
+  if (pAsyncKeyboard)
+    CAsyncKeyboard_Resume(pAsyncKeyboard);
  }
 
  pGUIWindow2 = 0;
@@ -4988,8 +4988,8 @@ int __cdecl sub_4645FA()
 
   if ( *(_BYTE *)(&pGame->class14_obj->dword_000004) )
   {
-    if (dword_69B00C)
-      Keyboard_suspend(dword_69B00C);
+    if (pAsyncKeyboard)
+      Keyboard_suspend(pAsyncKeyboard);
   }
   RegistryWriteInt("startinwindow", pD3DRenderer->dword_040058);
   if ( GetWindowRect(hWnd_global, &Rect) )
@@ -7808,7 +7808,7 @@ LABEL_29:
 }
 
 //----- (0045B2A7) --------------------------------------------------------
-void __thiscall Keyboard_resume(int this)
+void __thiscall CAsyncKeyboard_Resume(int this)
 {
   int v1; // esi@1
   char v2; // [sp-18h] [bp-24h]@2
@@ -9912,7 +9912,7 @@ LABEL_11:
 }
 
 //----- (00465F5A) --------------------------------------------------------
-void __cdecl sub_465F5A()
+void __cdecl sub_465F5A_InitializeAsyncMouseAndSomething()
 {
   int v0; // ecx@4
   int v1; // ecx@5
@@ -11482,7 +11482,7 @@ LABEL_17:
 }
 
 //----- (00465FF0) --------------------------------------------------------
-void __cdecl sub_465FF0()
+void __cdecl sub_465FF0_InitializeAsyncKeyboardAndSomething()
 {
   //int v0; // eax@1
   int v1; // ecx@3
@@ -11497,7 +11497,7 @@ void __cdecl sub_465FF0()
  v5 = &v3;
  if (pClass14->dword_000004)
  {
-    if ( !dword_69B00C )
+    if ( !pAsyncKeyboard )
     {
       v6 = 0;
       compile_error;//v1 = (int)operator new(0x710u);
@@ -11508,9 +11508,9 @@ void __cdecl sub_465FF0()
       else
         v2 = 0;
       LOBYTE(v6) = 0;
-      dword_69B00C = v2;
+      pAsyncKeyboard = v2;
       if ( v2 )
-        Keyboard_resume(v2);
+        CAsyncKeyboard_Resume(v2);
     }
  }
 }

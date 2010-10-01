@@ -1020,7 +1020,7 @@ extern int dword_50C9E8[array_size_unknown]; // weak
 extern int dword_50C9EC[array_size_unknown]; // weak
 extern int dword_50C9F0[array_size_unknown]; // weak
 
-extern int dword_50CBD0[array_size_unknown]; // weak
+extern int dword_50CBD0[array_size_unknown]; // 404 for action[def:space] key
 //int dword_50CBD4[array_size_unknown]; // weak
 //int dword_50CBD8[array_size_unknown]; // weak
 //int dword_50CBDC; // weak
@@ -1621,7 +1621,7 @@ char KeyboardController_ReadKeyMapping(struct KeyboardController *_this);
 //extern char byte_69B000;
 //extern char byte_69B001; // num keys in buffer
 extern int dword_69B004; // weak
-extern int dword_69B00C; // weak
+extern int pAsyncKeyboard; // dword @ 69B00C
 extern int dword_69B010[array_size_unknown]; // weak
 extern _UNKNOWN unk_69B110; // weak
 extern int dword_69B114; // weak
@@ -2951,7 +2951,17 @@ extern int dword_F93E1C; // weak
 extern int dword_F93E30; // weak
 extern int dword_F93E44; // weak
 extern int dword_F93E58; // weak
-extern int dword_F93E6C; // weak
+
+struct unnamed_F93E6C
+{
+ int dword_000000;
+ int dword_000004;
+ int dword_000008;
+ int dword_00000C;
+ int dword_000010;
+} stru_F93E6C; // struct @ MM7.exe::00F93E6C
+//sizeof ~ ?
+//int dword_F93E6C; // 000000
 extern int dword_F94004; // weak
 extern int dword_F9400C; // weak
 extern char byte_F94298; // weak

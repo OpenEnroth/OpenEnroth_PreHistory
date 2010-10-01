@@ -9549,18 +9549,20 @@ int __stdcall sub_4A1B22_Billboard_ProbablyAddToListAndSortByZOrder(float a1)
   int v10; // eax@21
   struct RenderBillboardD3D3 *v11; // edi@21
 
-  v1 = pD3DRenderer->dword_129830;
-  if ( pD3DRenderer->dword_129830 >= 999 )
-    return 0;
-  if ( !pD3DRenderer->dword_129830 )
-  {
-    pD3DRenderer->dword_129830 = 1;
-    return 0;
-  }
+ v1 = pD3DRenderer->uNumBillboardsToDraw;
+ if (pD3DRenderer->uNumBillboardsToDraw >= 999)
+   return 0;
+
+ if (!pD3DRenderer->uNumBillboardsToDraw)
+ {
+  pD3DRenderer->uNumBillboardsToDraw = 1;
+  return 0;
+ }
+
   v5 = a1;
-  v4 = pD3DRenderer->dword_129830;
+  v4 = pD3DRenderer->uNumBillboardsToDraw;
   v3 = 0;
-  if ( pD3DRenderer->dword_129830 <= 0 )
+  if ( pD3DRenderer->uNumBillboardsToDraw <= 0 )
   {
     v6 = a1;
   }
@@ -9579,16 +9581,16 @@ int __stdcall sub_4A1B22_Billboard_ProbablyAddToListAndSortByZOrder(float a1)
   v7 = &pBillboardRenderListD3D3[v6].flt_000088;
   if ( v5 > *(float *)v7 )
   {
-    if ( v6 == pD3DRenderer->dword_129830 - 1 )
+    if ( v6 == pD3DRenderer->uNumBillboardsToDraw - 1 )
     {
-      v6 = pD3DRenderer->dword_129830;
+      v6 = pD3DRenderer->uNumBillboardsToDraw;
     }
     else
     {
-      if ( pD3DRenderer->dword_129830 > v6 )
+      if ( pD3DRenderer->uNumBillboardsToDraw > v6 )
       {
-        v11 = &pBillboardRenderListD3D3[pD3DRenderer->dword_129830];
-        v8 = pD3DRenderer->dword_129830 - v6;
+        v11 = &pBillboardRenderListD3D3[pD3DRenderer->uNumBillboardsToDraw];
+        v8 = pD3DRenderer->uNumBillboardsToDraw - v6;
         do
         {
         memcpy(v11, v11 - 1, sizeof(struct RenderBillboardD3D3));
@@ -9600,15 +9602,15 @@ int __stdcall sub_4A1B22_Billboard_ProbablyAddToListAndSortByZOrder(float a1)
       ++v6;
     }
 LABEL_23:
-    pD3DRenderer->dword_129830 = v1 + 1;
+    pD3DRenderer->uNumBillboardsToDraw = v1 + 1;
     return v6;
   }
   if ( v5 <= *(float *)v7 )
   {
-    if ( pD3DRenderer->dword_129830 > v6 )
+    if ( pD3DRenderer->uNumBillboardsToDraw > v6 )
     {
-      v11 = &pBillboardRenderListD3D3[pD3DRenderer->dword_129830];
-      v10 = pD3DRenderer->dword_129830 - v6;
+      v11 = &pBillboardRenderListD3D3[pD3DRenderer->uNumBillboardsToDraw];
+      v10 = pD3DRenderer->uNumBillboardsToDraw - v6;
       do
       {
         memcpy(v11, v11 - 1, sizeof(struct RenderBillboardD3D3));
@@ -9638,9 +9640,9 @@ void D3D_DoRenderBillboards()
  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(pD3DRenderer->pRenderD3D3->pDevice, D3DRENDERSTATE_CULLMODE, D3DCULL_NONE);
   
  v0 = -1;
- for (i = 1; i <= pD3DRenderer->dword_129830; ++i)
+ for (i = 1; i <= pD3DRenderer->uNumBillboardsToDraw; ++i)
  {
-  v1 = &pBillboardRenderListD3D3[pD3DRenderer->dword_129830 - i];
+  v1 = &pBillboardRenderListD3D3[pD3DRenderer->uNumBillboardsToDraw - i];
 
   (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTexture)(pD3DRenderer->pRenderD3D3->pDevice, 0, v1->pTexture);
   if (v1->int_00008C != v0)
@@ -9706,15 +9708,15 @@ void __fastcall sub_4A1DA8_SetupBillboardBlendOptions(signed int a1)
 }
 
 //----- (004A1E9D) --------------------------------------------------------
-int __cdecl sub_4A1E9D()
+/*int __cdecl sub_4A1E9D()
 {
-  return pD3DRenderer->dword_129830;
-}
+  return pD3DRenderer->uNumBillboardsToDraw;
+}*/
 
 //----- (004A1EA3) --------------------------------------------------------
 int __stdcall sub_4A1EA3(int a1)
 {
-  return pBillboardRenderListD3D3[a1].dword_000098;
+  return pBillboardRenderListD3D3[a1].uParentBillboardID;
 }
 
 //----- (004A2031) --------------------------------------------------------
@@ -10186,7 +10188,7 @@ void __thiscall sub_4A354F(int this, int a2, IDirect3DTexture2 *pTexture, unsign
       pBillboardRenderListD3D3[v8/156].int_00008C = 1;
       pBillboardRenderListD3D3[v8/156].dword_000090 = *(_DWORD *)(a2 + 68);
       pBillboardRenderListD3D3[v8/156].dword_000094 = *(_DWORD *)(a2 + 40);
-      pBillboardRenderListD3D3[v8/156].dword_000098 = *(_DWORD *)(a2 + 72);
+      pBillboardRenderListD3D3[v8/156].uParentBillboardID = *(_DWORD *)(a2 + 72);
       v9 = *(_DWORD *)(a2 + 8);
       v10 = *(_DWORD *)(a2 + 12);
       v11 = (double)(*(_DWORD *)(a2 + 16) & 0xFFFF) * 0.00001526018604636192 + (double)*(_WORD *)(a2 + 18);
@@ -10356,7 +10358,7 @@ void __thiscall sub_4A3AD9(int this, int a2, IDirect3DTexture2 *pTexture, unsign
     pBillboardRenderListD3D3[v8/156].int_00008C = 1;
     pBillboardRenderListD3D3[v8/156].dword_000090 = *(_DWORD *)(a2 + 68);
     pBillboardRenderListD3D3[v8/156].dword_000094 = *(_DWORD *)(a2 + 40);
-    pBillboardRenderListD3D3[v8/156].dword_000098 = *(_DWORD *)(a2 + 72);
+    pBillboardRenderListD3D3[v8/156].uParentBillboardID = *(_DWORD *)(a2 + 72);
 
     v9 = *(_DWORD *)(a2 + 8);
     v10 = *(_DWORD *)(a2 + 12);
@@ -10515,7 +10517,7 @@ void Render_BillboardTransform(struct Render *_this, struct Render_BillboardTran
 
     pBillboardRenderListD3D3[i].dword_000090 = a2->dword_000044;
     pBillboardRenderListD3D3[i].dword_000094 = a2->dword_000028;
-    pBillboardRenderListD3D3[i].dword_000098 = a2->dword_000048;
+    pBillboardRenderListD3D3[i].uParentBillboardID = a2->dword_000048;
 
     v24 = a2->dword_000008;
     v23 = a2->dword_00000C;
@@ -10659,7 +10661,7 @@ void __thiscall sub_4A43B1(int this, int a2, int a3, int a4)
     v10 = a3;
     pBillboardRenderListD3D3[v6/156].dword_000090 = *(_DWORD *)(v5 + 68);
     pBillboardRenderListD3D3[v6/156].dword_000094 = *(_DWORD *)(v5 + 40);
-    pBillboardRenderListD3D3[v6/156].dword_000098 = *(_DWORD *)(v5 + 72);
+    pBillboardRenderListD3D3[v6/156].uParentBillboardID = *(_DWORD *)(v5 + 72);
 
     v25 = *(_DWORD *)(v5 + 8);
     v24 = *(_DWORD *)(v5 + 12);
@@ -11049,7 +11051,7 @@ int __stdcall sub_4A4CC9(int a1, int a2)
     result = 156 * sub_4A1B22_Billboard_ProbablyAddToListAndSortByZOrder(v14);
     v6 = 0;
     pBillboardRenderListD3D3[result/156].dword_000090 = 0;
-    pBillboardRenderListD3D3[result/156].dword_000098 = -1;
+    pBillboardRenderListD3D3[result/156].uParentBillboardID = -1;
     pBillboardRenderListD3D3[result/156].int_00008C = 2;
     if ( *(_DWORD *)(a1 + 16) > 0 )
     {

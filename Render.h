@@ -192,7 +192,7 @@ struct Render
  int                         dword_1036BC;
  int               (__cdecl *pfn_1036C0)();
  
- int dword_129830;
+ unsigned int uNumBillboardsToDraw; // dword @ 129830
 
  int dword_129838;  // dst pitch
  int dword_12983C;  // dst buffer

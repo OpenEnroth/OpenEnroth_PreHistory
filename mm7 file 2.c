@@ -789,11 +789,11 @@ int __cdecl sub_463149()
 
     if (pGame->class14_obj->dword_000004 && 0xFF)
     {
-      if (dword_69B00C)
-        Keyboard_resume(dword_69B00C);
+      if (pAsyncKeyboard)
+        CAsyncKeyboard_Resume(pAsyncKeyboard);
     }
     if (pD3DRenderer->pRenderD3D3)
-      class05_sub_4C1A02(pGame->class05_obj);
+      Vis_sub_4C1A02(pGame->pVis);
     v18 = 0;
 
 
@@ -815,7 +815,7 @@ int __cdecl sub_463149()
 
       CGame_sub_44EEA7(pGame);
       GameUI_Update();
-      sub_42FC4E();
+      sub_42FC4E_ProcessPressedKeys();
       GameUI_Process();
       Game_Process_cpp();
       if ( struct_505898.byte_505992 )
@@ -11292,7 +11292,7 @@ LABEL_42:
       v26 = v4;
       v27 = 40;
       if ( pD3DRenderer->pRenderD3D3 )
-        LOWORD(v5) = sub_4C1BF1(pGame->class05_obj);
+        LOWORD(v5) = sub_4C1BF1(pGame->pVis);
       else
         v5 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (v38 + dword_5059A8[v39]));
       v6 = (unsigned __int16)v5;
@@ -11521,7 +11521,7 @@ void __thiscall OnMouseLeftClick(void *_this)
         if ( v13 >= pOldViewport->uGameY && v13 <= pOldViewport->uGameW )
         {
           if ( pD3DRenderer->pRenderD3D3 )
-            v5 = sub_4C1BF1(pGame->class05_obj);
+            v5 = sub_4C1BF1(pGame->pVis);
           else
             v5 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (v12 + dword_5059A8[v13]));
           v6 = (unsigned __int16)v5;
@@ -12892,7 +12892,7 @@ int __fastcall sub_41B4E1(unsigned __int8 a1, unsigned __int8 a2, char a3)
 }
 
 //----- (0041B578) --------------------------------------------------------
-int __cdecl LoadFontsAndSomeStuff()
+int __cdecl MenuUI_LoadFontsAndSomeStuff()
 {
   signed int v3; // edx@3
  int i;
@@ -16858,7 +16858,7 @@ void __cdecl sub_42213C()
   sub_404828(&v24);
   if ( pD3DRenderer->pRenderD3D3 )
   {
-    v0 = sub_4C1BF1(pGame->class05_obj);
+    v0 = sub_4C1BF1(pGame->pVis);
   }
   else
   {

@@ -53,9 +53,9 @@ void CGame_ctor(struct CGame *_this)
  if (_this->class04_obj)
    class04_ctor(_this->class04_obj);
 
- _this->class05_obj = malloc(0x20D0);
- if (_this->class05_obj)
-   class05_ctor(_this->class05_obj);
+ _this->pVis = malloc(0x20D0);
+ if (_this->pVis)
+   Vis_ctor(_this->pVis);
 
  _this->class06_obj = malloc(0x5F8);
  if (_this->class06_obj)
@@ -427,7 +427,7 @@ bool CGame_Pick(struct CGame *_this, float a2, unsigned int uMouseX, unsigned in
 
   if (!dword_4E28F8 && pD3DRenderer->pRenderD3D3)
   {
-    if ( !_this->class05_obj)
+    if ( !_this->pVis)
     {
       v16 = &v10;
       sub_40E2C8(
@@ -440,7 +440,7 @@ bool CGame_Pick(struct CGame *_this, float a2, unsigned int uMouseX, unsigned in
         uMouseY >= pOldViewport->uScreenY && uMouseY <= pOldViewport->uScreenW)
     {
      runtime_warning(too much code there. left for future parse);
-     //       class05_sub_4C0646(_this->class05_obj, a2, uMouseX, uMouseY, a6, a7);
+     //       Vis_sub_4C0646(_this->pVis, a2, uMouseX, uMouseY, a6, a7);
             if (a5)
               CGame_outline_selection(_this);
     }
@@ -720,7 +720,7 @@ void class04_ctor(struct class04 *_this)
 }
 
 //----- (MM7.exe::004C05A2) --------------------------------------------------------
-void class05_detor(struct class05 *_this, unsigned int a2)
+void Vis_detor(struct Vis *_this, unsigned int a2)
 {
  sub_4C05BE(_this);
  if (a2 & 1)
@@ -728,21 +728,21 @@ void class05_detor(struct class05 *_this, unsigned int a2)
 }
 
 //----- (MM7.exe::004C04AF) --------------------------------------------------------
-void class05_ctor(struct class05 *_this)
+void Vis_ctor(struct Vis *_this)
 {
- struct class05_stru0 local_0C;
+ struct Vis_stru0 local_0C;
  //float v3; // [sp+Ch] [bp-60h]@1
  //float v4; // [sp+10h] [bp-5Ch]@1
  //float v5; // [sp+14h] [bp-58h]@1
  //float v6; // [sp+38h] [bp-34h]@1
 
- struct class05_stru0 local_3C;
+ struct Vis_stru0 local_3C;
  //float v7; // [sp+3Ch] [bp-30h]@1
  //float v8; // [sp+40h] [bp-2Ch]@1
  //float v9; // [sp+44h] [bp-28h]@1
  //float v10; // [sp+68h] [bp-4h]@1
  
- _this->detor_ptr = class05_detor;
+ _this->detor_ptr = Vis_detor;
 
  class25_fn0(&_this->class25_obj);
 
@@ -750,25 +750,25 @@ void class05_ctor(struct class05 *_this)
  local_3C.flt_000004 = 0.0;
  local_3C.flt_000008 = 0.0;
  local_3C.flt_00002C = 0.0;
- memcpy(&_this->struct_00200C, &local_3C, sizeof(struct class05_stru0));
+ memcpy(&_this->struct_00200C, &local_3C, sizeof(struct Vis_stru0));
  
  local_0C.flt_000000 = 0.0;
  local_0C.flt_000004 = 65536.0;
  local_0C.flt_000008 = 0.0;
  local_0C.flt_00002C = 0.0;
- memcpy(&_this->struct_00203C, &local_0C, sizeof(struct class05_stru0));
+ memcpy(&_this->struct_00203C, &local_0C, sizeof(struct Vis_stru0));
  
  local_0C.flt_000000 = 65536.0;
  local_0C.flt_000004 = 0.0;
  local_0C.flt_000008 = 0.0;
  local_0C.flt_00002C = 0.0;
- memcpy(&_this->struct_00206C, &local_0C, sizeof(struct class05_stru0));
+ memcpy(&_this->struct_00206C, &local_0C, sizeof(struct Vis_stru0));
  
  local_3C.flt_000000 = 0.0;
  local_3C.flt_000004 = 65536.0;
  local_3C.flt_000008 = 0.0;
  local_3C.flt_00002C = 0.0;
- memcpy(&_this->struct_00209C, &local_3C, sizeof(struct class05_stru0));
+ memcpy(&_this->struct_00209C, &local_3C, sizeof(struct Vis_stru0));
 
  _this->dword_0020CC = 512;
 }
@@ -2061,8 +2061,12 @@ LABEL_53:
 
 
 //----- (0041097D) --------------------------------------------------------
+////int __thiscall sub_41097D(void *this, int a2, int a3, int a4);
 int LODFile_SetupPalettes(struct LODFile *_this, int a2, int a3, int a4)
 {
+ //depricated, though somehow sets font colors
+ compile_warning
+
  unsigned int v14;
  unsigned int v15;
  
@@ -7754,7 +7758,7 @@ bool class14_IsKeyHeld(struct class14 *_this, int vKey)
 
   if ( *(_BYTE *)(&_this->dword_000004) )
   {
-    v3 = (void *)dword_69B00C;
+    v3 = (void *)pAsyncKeyboard;
     EnterCriticalSection(&pGame->class01_obj->cs4);
     v4 = *((_BYTE *)v3 + (unsigned __int8)sub_45B57D(v3, vKey) + 265) >> 7;
     LeaveCriticalSection(&pGame->class01_obj->cs4);
@@ -7777,7 +7781,7 @@ bool class14_IsKeyPressed(struct class14 *_this, int vKey)
 
   if ( *(_BYTE *)(&_this->dword_000004) )
   {
-    v3 = (void *)dword_69B00C;
+    v3 = (void *)pAsyncKeyboard;
     EnterCriticalSection(&pGame->class01_obj->cs4);
     v4 = *((_BYTE *)v3 + (unsigned __int8)sub_45B57D(v3, vKey) + 521) >> 7;
     LeaveCriticalSection(&pGame->class01_obj->cs4);

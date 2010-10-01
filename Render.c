@@ -2421,7 +2421,7 @@ void Render_BeginSceneD3D3(struct Render *_this)
     if (_this->pRenderD3D3)
     {
       RenderD3D3_ClearTarget(_this->pRenderD3D3, 1, result, 1, 1.0);
-      _this->dword_129830 = 0;
+      _this->uNumBillboardsToDraw = 0;
       (_this->pRenderD3D3->pDevice->lpVtbl->BeginScene)(_this->pRenderD3D3->pDevice);
 
       if ( dword_6BE360 == 2 )

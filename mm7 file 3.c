@@ -7640,7 +7640,7 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int a1, int a2, int a3)
               pParty_global->uAlignment = 0;
               v18 = 0;
 LABEL_23:
-              SetupUserInterface(v18);
+              MenuUI_LoadTextures(v18);
               goto LABEL_28;
             }
             if ( !_strcmpi(v15, "arbiter evil") )
@@ -12807,25 +12807,17 @@ LABEL_12:
 }
 
 //----- (0044EB12) --------------------------------------------------------
-char __thiscall sub_44EB12(int this, char a2, int a3, int a4)
+bool Game_sub_44EB12(struct CGame *_this, bool bOutline, int a3, int a4)
 {
-  int v4; // esi@1
-  int v5; // ecx@2
-  char result; // al@4
-
-  v4 = this;
-  if ( !dword_4E28F8 && (v5 = *(_DWORD *)(this + 3660)) != 0 && pD3DRenderer->pRenderD3D3 )
-  {
-    sub_4C05CC(v5, v5 + 4, a3, a4);
-    if ( a2 )
-      CGame_outline_selection(v4);
-    result = 1;
-  }
-  else
-  {
-    result = 0;
-  }
-  return result;
+ if (!dword_4E28F8 && _this->pVis && pD3DRenderer->pRenderD3D3)
+ {
+  Vis_sub_4C05CC(_this->pVis, &_this->pVis->class25_obj, a3, a4);
+  if (bOutline)
+    CGame_outline_selection(_this);
+  return true;
+ }
+ else
+   return false;
 }
 
 //----- (0044EB5A) --------------------------------------------------------

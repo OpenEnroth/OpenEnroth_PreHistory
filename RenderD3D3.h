@@ -79,7 +79,7 @@ struct RenderBillboardD3D3
  int                int_00008C; // 0 for alpha-blend, other for opaque
  int                dword_000090;
  int                dword_000094;
- unsigned int       dword_000098; // index in pBillboardRenderList of the original RenderBillboard
+ unsigned int       uParentBillboardID; // dword @ 000098   index in pBillboardRenderList of the original RenderBillboard
 };
 //sizeof = 9C
 

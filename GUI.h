@@ -185,7 +185,7 @@ extern unsigned int uTextureID_MainMenuUI_Title;
 
 
 
-void SetupUserInterface(unsigned int uPartyAlignment);
+void MenuUI_LoadTextures(unsigned int uPartyAlignment);
 
 void __cdecl PlayerCreationUI_Initialize();
 unsigned int PlayerCreationUI_GetStatColor(struct Player *_this, int Stat);

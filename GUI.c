@@ -147,7 +147,7 @@ bool GUIMessageQueue_GetMessage(struct GUIMessageQueue *_this, int *a2, int *a3,
 
 
 //----- (0041B690) --------------------------------------------------------
-void UI_Initialize_Icons()
+void GameUI_LoadIcons()
 {
   int v12; // eax@1
   int v17; // eax@1
@@ -422,12 +422,14 @@ void __cdecl LoadMainMenu()
   }
  }
 
+ MenuUI_LoadTextures(1);
+ MenuUI_LoadFontsAndSomeStuff();
+
  uTextureID_MainMenuUI_Title = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"mm7title");
  Render_BeginScene(pD3DRenderer);
  {
   Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_MainMenuUI_Title);
 
-  LoadFontsAndSomeStuff();
   sub_415485();
  }
 
@@ -505,7 +507,7 @@ void GameUI_Update()
 
     if ( pD3DRenderer->pRenderD3D3 )
     {
-      v18 = sub_4C1BF1(pGame->class05_obj);
+      v18 = sub_4C1BF1(pGame->pVis);
       if (x < pOldViewport->uScreenX || x > pOldViewport->uScreenZ ||
           y < pOldViewport->uScreenY || y > pOldViewport->uScreenW)
         v18 = -1;
@@ -2510,7 +2512,7 @@ LABEL_317:
         case 0xBE:
           if ( pD3DRenderer->pRenderD3D3 )
           {
-            LOWORD(v54) = sub_4C1BF1(pGame->class05_obj);
+            LOWORD(v54) = sub_4C1BF1(pGame->pVis);
           }
           else
           {
@@ -3030,7 +3032,7 @@ LABEL_544:
         case 0x8C:
           if ( pD3DRenderer->pRenderD3D3 )
           {
-            v93 = sub_4C1BF1(pGame->class05_obj);
+            v93 = sub_4C1BF1(pGame->pVis);
           }
           else
           {
@@ -3768,7 +3770,7 @@ LABEL_772:
         case 0xF:
           if ( pD3DRenderer->pRenderD3D3 )
           {
-            LOWORD(v131) = sub_4C1BF1(pGame->class05_obj);
+            LOWORD(v131) = sub_4C1BF1(pGame->pVis);
           }
           else
           {
@@ -3793,11 +3795,13 @@ LABEL_732:
 LABEL_733:
           GUIWindowCreate(v11, v10, v150, v154, v159, v166, v180);
           goto LABEL_92;
-        case 0x194:
+
+        case 0x194: //action[def:space]
           if ( dword_50CBD0[0] )
             dword_50CBD0[0] = dword_50CBD0[3] != 0;
-          sub_46A14B();
-          goto LABEL_92;
+          sub_46A14B_ProbablyDoInteraction();
+        goto LABEL_92;
+
         case 0x16F:
           if ( dword_4E28F8 )
             goto LABEL_92;
@@ -4256,8 +4260,8 @@ void SetCurrentMenu(unsigned int uMenuID)
     {
       if (pGame->class14_obj->dword_000004 & 0xFF)
       {
-        if (dword_69B00C)
-          Keyboard_suspend(dword_69B00C);
+        if (pAsyncKeyboard)
+          Keyboard_suspend(pAsyncKeyboard);
       }
     }
   }
@@ -4267,8 +4271,8 @@ void SetCurrentMenu(unsigned int uMenuID)
     {
       if (pGame->class14_obj->dword_000004 & 0xFF)
       {
-        if (dword_69B00C)
-          Keyboard_resume(dword_69B00C);
+        if (pAsyncKeyboard)
+          CAsyncKeyboard_Resume(pAsyncKeyboard);
       }
     }
   }
@@ -10075,7 +10079,7 @@ unsigned int PlayerCreationUI_GetStatColor(struct Player *_this, int Stat)
 
 
 //----- (004226EF) --------------------------------------------------------
-void SetupUserInterface(unsigned int uAlignment)
+void MenuUI_LoadTextures(unsigned int uAlignment)
 {
  unsigned int uTextureIdx_Endcap;
 

@@ -1079,8 +1079,8 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
     {
       if (*(_BYTE *)(v11 + 4))
       {
-        if (dword_69B00C)
-          Keyboard_suspend(dword_69B00C);
+        if (pAsyncKeyboard)
+          Keyboard_suspend(pAsyncKeyboard);
       }
     }
   }
@@ -1111,8 +1111,8 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
     {
       if ( *(_BYTE *)(v15 + 4) )
       {
-        if (dword_69B00C)
-          Keyboard_resume(dword_69B00C);
+        if (pAsyncKeyboard)
+          CAsyncKeyboard_Resume(pAsyncKeyboard);
       }
     }
   }

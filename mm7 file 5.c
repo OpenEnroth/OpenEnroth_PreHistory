@@ -1707,10 +1707,9 @@ int __thiscall sub_46A0F6(void *this)
 }
 
 //----- (0046A14B) --------------------------------------------------------
-char __cdecl sub_46A14B()
+char __cdecl sub_46A14B_ProbablyDoInteraction()
 {
   signed int v0; // eax@2
-  SHORT v1; // ax@2
   int v2; // ebx@5
   int v3; // esi@5
   unsigned int v4; // edx@7
@@ -1734,9 +1733,8 @@ char __cdecl sub_46A14B()
 
   if ( pD3DRenderer->pRenderD3D3 )
   {
-    v1 = GetAsyncKeyState(VK_CONTROL);
-    sub_44EB12(pGame, (v1 & 0x8001) != 0, (int)&dword_F93E6C, (int)&dword_F93E58);
-    v0 = sub_4C1BF1(pGame->class05_obj);
+    Game_sub_44EB12(pGame, GetAsyncKeyState(VK_CONTROL) & 0x8001, &stru_F93E6C, (int)&dword_F93E58);
+    v0 = sub_4C1BF1(pGame->pVis);
     if ( v0 != -1 )
       LOBYTE(v0) = sub_46A334((unsigned __int16)v0, (signed int)(unsigned __int16)v0 >> 3);
     return v0;
@@ -1755,8 +1753,8 @@ char __cdecl sub_46A14B()
   {
     if ( v2 >= v21 )
       goto LABEL_20;
-    v0 = pD3DRenderer->pActiveZBuffer + 4 * (v3 + v2);
-    v22 = pD3DRenderer->pActiveZBuffer + 4 * (v3 + v2);
+    v0 = pD3DRenderer->pActiveZBuffer + (v3 + v2);
+    v22 = pD3DRenderer->pActiveZBuffer + (v3 + v2);
     v5 = 4 * v23;
     v4 = ((unsigned int)(v21 - v2 - 1) >> 1) + 1;
     do
@@ -2126,7 +2124,8 @@ int __fastcall sub_46A7C8(int a1, int a2, signed int a3)
   v14 = a2;
   v15 = 0;
   v16 = 0;
-  v12 = sub_4A1E9D();
+  //v12 = sub_4A1E9D();
+  v12 = pD3DRenderer->uNumBillboardsToDraw;
   if ( v12 > 0 )
   {
     do
@@ -2152,7 +2151,7 @@ int __fastcall sub_46A7C8(int a1, int a2, signed int a3)
                   if ( v6 != 17 )
                   {
                     v9 = (double)a3;
-                    if ( sub_4C1930(pGame->class05_obj, v9, v16) )
+                    if ( sub_4C1930(pGame->pVis, v9, v16) )
                     {
                       if ( v15 < v14 - 1 )
                       {
@@ -2526,7 +2525,7 @@ int __thiscall sub_46ACA9(int this, int a2)
   *(_DWORD *)(v2 + 128) = 0;
   *(_DWORD *)(v2 + 132) = 0;
   *(_DWORD *)v2 = 5080880;
-  if ( !sub_46AE6E((LPVOID)v2) )
+  if ( !CMouseAsync_Initialize((LPVOID)v2) )
   {
     a2 = (int)"Could not initialize CMouseAsync object";
     _CxxThrowException(&a2, 5094804);
@@ -2568,7 +2567,7 @@ int __thiscall sub_46ADE2(int this)
 }
 
 //----- (0046AE6E) --------------------------------------------------------
-char __thiscall sub_46AE6E(LPVOID lpParameter)
+char __thiscall CMouseAsync_Initialize(LPVOID lpParameter)
 {
   void *v1; // esi@1
   char result; // al@2
@@ -2776,7 +2775,7 @@ void __thiscall Mouse_suspend(int this)
   v1 = this;
   if ( *(_DWORD *)(this + 132) )
   {
-    v2 = pGame->class05_obj;
+    v2 = pGame->pVis;
     if ( v2 )
       *(_DWORD *)(v2 + 8200) = 0;
     EnterCriticalSection(&pGame->class01_obj->cs3);
@@ -3209,7 +3208,7 @@ void __cdecl sub_46B76F()
       v4 = (signed int *)(v1 + 12);
       if ( v3 & 1 )
       {
-        CGame_Pick(pGame, 512.0, *v4, *(_DWORD *)(v1 + 16), 0, (int)&dword_F93E6C, (int)&dword_F93E58);
+        CGame_Pick(pGame, 512.0, *v4, *(_DWORD *)(v1 + 16), 0, &stru_F93E6C, (int)&dword_F93E58);
         if ( sub_466CA0() == MENU_CREATEPARTY )
           sub_41CD4F_MaybeOnlyUI_OnKeyDown(VK_SELECT);
         OnMouseLeftClick((void *)(v1 + 12));
@@ -3231,7 +3230,7 @@ void __cdecl sub_46B76F()
             v8 = *(_DWORD *)(v1 + 16);
             v9 = *v4;
             v10 = sub_43643E();
-            CGame_Pick(pGame, v10, v9, v8, 1, (int)&dword_F93E6C, (int)&dword_F93E44);
+            CGame_Pick(pGame, v10, v9, v8, 1, &stru_F93E6C, (int)&dword_F93E44);
           }
         }
       }
@@ -3266,7 +3265,7 @@ void __cdecl sub_46B879()
       v4 = (signed int *)(v1 + 12);
       if ( v3 & 1 )
       {
-        CGame_Pick(pGame, 512.0, *v4, *(_DWORD *)(v1 + 16), 0, (int)&dword_F93E6C, (int)&dword_F93E58);
+        CGame_Pick(pGame, 512.0, *v4, *(_DWORD *)(v1 + 16), 0, &stru_F93E6C, (int)&dword_F93E58);
         sub_4178C4();
       }
       else
@@ -9329,9 +9328,9 @@ LABEL_45:
   v83 = pParty_global->sRotationX;
   v82 = ((unsigned __int64)(pClass24_global->dword_000020) * pParty_global->dword_000020 * pClass59_global->uIntegerPi / 180) >> 16;
 LABEL_87:
-  while ( dword_7215D8 )
+  while (dword_7215D8)
   {
-    switch ( sub_4760D5((int)&dword_7215D8) )
+    switch (sub_4760D5(&dword_7215D8))
     {
       case 1:
         v12 = uTurnSpeed;

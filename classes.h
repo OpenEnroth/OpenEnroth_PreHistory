@@ -48,7 +48,7 @@ struct CGame
  struct class02 *class02_obj;  //dword ptr [0E40]
  struct class03 *class03_obj;  //dword ptr [0E44]
  struct class04 *class04_obj;  //dword ptr [0E48]
- struct class05 *class05_obj;  //dword ptr [0E4C] 'Vis' object
+ struct Vis     *pVis;         // dword @ 000E4C
  struct class06 *class06_obj;  //dword ptr [0E50]
  struct class08 *class08_obj;  //dword ptr [0E54]
  struct class09 *class09_obj;  //dword ptr [0E58]
@@ -89,6 +89,8 @@ signed int __thiscall Game_sub_44EC23(int this, int a2, int a3, signed int a4);
 void CGame_stru0_sub_40E2F6(struct CGame_stru0 *_this, char a2);
 //char __thiscall sub_44EE30(int this, int a2, void **a3);
 bool Game_sub_44EE30(struct CGame *_this, struct class51_stru2 *a2, void **a3);
+//char __thiscall sub_44EB12(int this, char a2, int a3, int a4);
+bool Game_sub_44EB12(struct CGame *_this, bool bOutline, int a3, int a4);
 
 int CGame_scalar_deleting_destructor(struct CGame *_this, char flag);
 int CGame_dtor(struct CGame *_this);
@@ -211,22 +213,35 @@ void class04_ctor(struct class04 *_this);
 bool class04_sub_45D698(struct class04 *_this, char a2);
 
 
+struct class25_stru0
+{
+ unsigned int uBillboardID; // dword @ 000000
+ int dword_000004; // RenderBillboard::000010
+ int dword_000008;
+};
+//sizeof = 0C
 
 //class25
 struct class25
 {
- void (*detor_ptr)(struct class25 *, unsigned int); // dword @ 000000
- int    array_000004[2048];
- int    dword_002004;
+ void                 (*detor_ptr)(struct class25 *, unsigned int); // dword @ 000000
+ //int    array_000004[2048];
+ //int    dword_002004;
+ struct class25_stru0   array_000004[682];
+ int                    dword_001FFC;
+ int                    dword_002000;
+ int                    dword_002004;
 };
-//sizeof == 2008
+//sizeof = 2008
 void class25_detor(struct class25 *_this , unsigned int a2);
 //__int64 __thiscall sub_4C055C(void *this);
 __int64 class25_fn0(struct class25 *_this);
+//void *__thiscall sub_4C2591(int this, int a2);
+void *class25_sub_4C2591(struct class25 *_this, int a2);
 
 
 
-struct class05_stru0
+struct Vis_stru0
 {
  float flt_000000;
  float flt_000004;
@@ -236,25 +251,37 @@ struct class05_stru0
 };
 //sizeof == 30
 
-//class05
-struct class05
+//Vis
+struct Vis
 {
- void                 (*detor_ptr)(struct class05 *, unsigned int); // dword  @ 000000
- struct class25         class25_obj;                                // struct @ 000004
- struct class05_stru0   struct_00200C;
- struct class05_stru0   struct_00203C;
- struct class05_stru0   struct_00206C;
- struct class05_stru0   struct_00209C;
- int                    dword_0020CC;
+ void              (*detor_ptr)(struct Vis *, unsigned int); // dword  @ 000000
+ struct class25     class25_obj;                             // struct @ 000004
+ struct Vis_stru0   struct_00200C;
+ struct Vis_stru0   struct_00203C;
+ struct Vis_stru0   struct_00206C;
+ struct Vis_stru0   struct_00209C;
+ int                dword_0020CC;
 };
 //sizeof = 0020D0
 //int __thiscall sub_4C04AF(int this);
-void class05_ctor(struct class05 *_this);
-void class05_detor(struct class05 *_this, unsigned int a2);
+void Vis_ctor(struct Vis *_this);
+void Vis_detor(struct Vis *_this, unsigned int a2);
 //int __thiscall sub_4C1A02(int this);
-void class05_sub_4C1A02(struct class05 *_this);
+void Vis_sub_4C1A02(struct Vis *_this);
 //char __thiscall sub_4C0646(int this, float a2, float a3, float a4, int a5, int a6);
-bool class05_sub_4C0646(struct class05 *_this, float a2, float fMouseX, float fMouseY, int a5, int a6);
+bool Vis_sub_4C0646(struct Vis *_this, float a2, float fMouseX, float fMouseY, int a5, int a6);
+//char __thiscall sub_4C05CC(int this, int a2, int a3, int a4);
+bool Vis_sub_4C05CC(struct Vis *_this, struct class25 *a2, int a3, int a4);
+//void __thiscall sub_4C06F8(void *this, float a2, int a3, int a4);
+void Vis_sub_4C06F8(struct Vis *_this, float a2, struct class25 *a3, struct unnamed_F93E6C *a4);
+//char __stdcall sub_4C0791(int a1, int a2);
+bool Vis_is_part_of_selection(unsigned int uD3DBillboardID, struct unnamed_F93E6C *a2);
+//char __thiscall sub_4C091D(void *this, float a2, int a3);
+bool Vis_sub_4C091D(struct Vis *_this, float a2, int a3);
+//int __thiscall ub_4C0D32(void *this, float a2, int a3, int a4);
+int Vis_sub_4C0D32(struct Vis *_this, float a2, int a3, int a4);
+//int __thiscall sub_4C0DEA(void *this, float a2, int a3, int a4);
+int Vis_sub_4C0DEA(struct Vis *_this, float a2, int a3, int a4);
 
 
 struct class06_stru0
@@ -774,8 +801,6 @@ int LODFile_fn7(struct LODFile *_this);
 int LODFile_LoadTexture(struct LODFile *_this, const char *pContainerName, unsigned int a3);
 //signed int __thiscall sub_40FC08(int this, void *Dest, int Source, unsigned int DstBuf);
 int LODFile_LoadPalette(struct LODFile *_this, struct class18 *pClass18, const char *pContainerName, unsigned int DstBuf);
-//int __thiscall sub_41097D(void *this, int a2, int a3, int a4);
-int LODFile_SetupPalettes(struct LODFile *_this, int a2, int a3, int a4);
 //int __thiscall sub_461954(int this, int a2, signed int Size);
 void LODFile_AllocateSubidexAndIOBuffer(struct LODFile *_this, unsigned int uNumSubIndices, signed int uIOBufferSize);
 //signed int __thiscall sub_461A43(void *this, const char *Filename, char a3);

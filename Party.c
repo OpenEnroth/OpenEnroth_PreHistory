@@ -151,7 +151,7 @@ int Party_Reset(struct Party *_this)
   _this->dword_000884 = 0;
 
  _this->uAlignment = 1;
- SetupUserInterface(_this->uAlignment);
+ MenuUI_LoadTextures(_this->uAlignment);
 
   _this->qword_00002C = 138240;
   _this->qword_000034 = 138240;

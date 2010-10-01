@@ -1550,7 +1550,7 @@ struct KeyboardController *pKeyboardController = 0; // struct @ MM7.exe::0069AE0
 //unsigned char byte_69AF00[256]; // idb
 // char byte_69B001; // weak
  int dword_69B004; // weak
- int dword_69B00C; // weak
+ int pAsyncKeyboard; // dword @ 69B00C
  int dword_69B010[array_size_unknown]; // weak
  _UNKNOWN unk_69B110; // weak
  int dword_69B114; // weak
@@ -2509,7 +2509,6 @@ struct class25 class25_F91E10;  // struct @ MM7.exe::00F91E10
  int dword_F93E30; // weak
  int dword_F93E44; // weak
  int dword_F93E58; // weak
- int dword_F93E6C; // weak
  int dword_F94004; // weak
  int dword_F9400C; // weak
  char byte_F94298; // weak

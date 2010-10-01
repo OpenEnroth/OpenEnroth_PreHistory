@@ -148,26 +148,13 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *
  if (CreateWindowAndBasicInitialization(hInstance, lpCmdLine))
  {
   class24_fn1(pClass24_global);
-  if (pD3DRenderer)
-  {
-   if (pD3DRenderer->uAcquiredDirect3DDevice == 1)
-   {
-    SetWindowPos(hWnd_global, (HWND)((unsigned int)(HWND_MESSAGE)|0x2), 320, 240, 640, 480, 0);
-    Rect.left = 325;
-    Rect.top = 245;
-    Rect.right = 326;
-    Rect.bottom = 246;
-    ClipCursor(&Rect);
-   }
-  }
 
-  SetupUserInterface(1);
   LoadMainMenu();
   RegistryWriteInt("Ran once", true);
   dword_6BE364 |= 0x4000;
 
   Game_InitializeGammaController(pGame);
-  sub_465D0B();
+  sub_465D0B_InitializeSoundsAndTheRest();
 
   Render_sub_4A0E97(pD3DRenderer, 0, 0, 639, 479);
   InitializeCameraAndViewport();
@@ -227,8 +214,8 @@ LABEL_21:
             Mouse_suspend(dword_720010);
           if (pGame->class14_obj->dword_000004 & 0xFF)
           {
-            if (dword_69B00C)
-              Keyboard_suspend(dword_69B00C);
+            if (pAsyncKeyboard)
+              Keyboard_suspend(pAsyncKeyboard);
           }
           Party_Reset(pParty_global);
           Party_CreateDefaultParty(pParty_global, 1);
@@ -240,8 +227,8 @@ LABEL_21:
               sub_46B105(dword_720010);
             if (pGame->class14_obj->dword_000004 & 0xFF)
             {
-              if (dword_69B00C)
-                Keyboard_resume(dword_69B00C);
+              if (pAsyncKeyboard)
+                CAsyncKeyboard_Resume(pAsyncKeyboard);
             }
             goto LABEL_53;
           }
@@ -252,8 +239,8 @@ LABEL_21:
             sub_46B105(dword_720010);
           if (pGame->class14_obj->dword_000004 & 0xFF)
           {
-            if (dword_69B00C)
-              Keyboard_resume(dword_69B00C);
+            if (pAsyncKeyboard)
+              CAsyncKeyboard_Resume(pAsyncKeyboard);
           }
         }
         sub_463149();
@@ -3131,7 +3118,7 @@ LABEL_228:
             (unsigned __int16)lParam,
             lParam >> 16,
             v29,
-            (int)&dword_F93E6C,
+            &stru_F93E6C,
             (int)&dword_F93E58);
         }
         if (!dword_720010)
@@ -3185,7 +3172,7 @@ LABEL_238:
               (unsigned __int16)lParam,
               lParam >> 16,
               1,
-              (int)&dword_F93E6C,
+              &stru_F93E6C,
               (int)&dword_F93E44);
             return DefWindowProcA(hWnd, Msg, wParam, v5);
           }
@@ -3532,8 +3519,8 @@ LABEL_179:
             sub_426363(pClass24_global2);
           if ( *(_BYTE *)(&pGame->class14_obj->dword_000004) )
           {
-            if (dword_69B00C)
-              Keyboard_resume(dword_69B00C);
+            if (pAsyncKeyboard)
+              CAsyncKeyboard_Resume(pAsyncKeyboard);
           }
           struct_576FE8.dword_000044 = 1;
           if ( pVideoPlayer->pSmackerMovie )
@@ -3584,8 +3571,8 @@ LABEL_179:
         {
           if (pGame->class14_obj->dword_000004 & 0xFF)
           {
-            if (dword_69B00C)
-              Keyboard_suspend(dword_69B00C);
+            if (pAsyncKeyboard)
+              Keyboard_suspend(pAsyncKeyboard);
           }
         }
 
@@ -3612,8 +3599,8 @@ LABEL_179:
       {
         if (*(_BYTE *)(v8 + 4))
         {
-          if (dword_69B00C)
-            sub_45B3A4(dword_69B00C);
+          if (pAsyncKeyboard)
+            sub_45B3A4(pAsyncKeyboard);
         }
       }
     }
@@ -5381,7 +5368,7 @@ void __cdecl sub_4893C1(struct class51 *_this)
 }
 
 //----- (00465D0B) --------------------------------------------------------
-signed int __cdecl sub_465D0B()
+signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
 {
   _UNKNOWN *v1; // edi@3
   __int16 v3; // ax@4
@@ -5395,16 +5382,13 @@ signed int __cdecl sub_465D0B()
  int i;
 
   sub_469C65(pGame->pClass03, hWnd_global);
-  sub_465F5A();
-  sub_465FF0();
+  sub_465F5A_InitializeAsyncMouseAndSomething();
+  sub_465FF0_InitializeAsyncKeyboardAndSomething();
 
   pClass40 = malloc(sizeof(struct class40));
   sub_456D84(pClass40);
   
   pLODFile_Bitmaps_LOD->dword_011BA8 = 1;
-
-  LODFile_SetupPalettes(pLODFile_Bitmaps_LOD, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
-  LODFile_SetupPalettes(pLODFile_Icons_LOD, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
 
   class35_SetColorChannelInfo(&class35_obj, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
   class35_obj.byte_267AD0 = -128;
@@ -5447,7 +5431,7 @@ signed int __cdecl sub_465D0B()
   }
 
   flt_6BE3A0 = 0.55000001;
-  UI_Initialize_Icons();
+  GameUI_LoadIcons();
   sub_4A90A0(pGame->class06_obj);
   for (i = 0; i < 8; ++i)
   {
@@ -13404,8 +13388,8 @@ void __thiscall sub_459ED1(struct KeyboardController *_this, int a2)
 {
  if (pGame->class14_obj->dword_000004)
  {
-  if (dword_69B00C)
-    Keyboard_resume(dword_69B00C);
+  if (pAsyncKeyboard)
+    CAsyncKeyboard_Resume(pAsyncKeyboard);
  }
 
  _this->dword_000204 = 0;
