@@ -1055,7 +1055,7 @@ void GameUI_Process()
     memset(&Dst, 0, sizeof(struct Actor));
     dword_5B65D0 = dword_5C35C4;
     Dst.word_000020 = dword_5C35C4;
-    sub_445D4A(&Dst, 0);
+    Actor_sub_445D4A(&Dst, 0);
     dword_5C35C4 = 0;
   }
 
@@ -1074,6 +1074,9 @@ void GameUI_Process()
           struct_505898.byte_505992 = 1;
           sub_409C8B();
           goto LABEL_92;
+
+          //Initiate Dialogue
+          // v209: Actor ID to speak with
         case 0xA1:
           if ( !uActiveCharacter )
             goto LABEL_92;
@@ -1081,8 +1084,11 @@ void GameUI_Process()
           if ( dword_50CBD0[0] )
             dword_50CBD0[0] = dword_50CBD0[3] != 0;
           dword_5B65D0 = pActors[v209].word_000020;
-          v4 = (char *)pActors + 836 * v209;
-          goto LABEL_33;
+
+          Actor_sub_445D4A(&pActors[v209], v0);
+          goto LABEL_92;
+
+
         case 0x86:
         case 0x87:
           if ( byte_6BE3C5 != 1 )
@@ -1129,8 +1135,8 @@ void GameUI_Process()
                 memset(&Dst, 0, sizeof(struct Actor));
                 Dst.word_000020+= -1 - (unsigned __int8)pParty_global->byte_000709 - v212;
                 v4 = &Dst;
-LABEL_33:
-                sub_445D4A((int)v4, v0);
+//LABEL_33:
+                Actor_sub_445D4A((int)v4, v0);
               }
             }
           }
@@ -4428,7 +4434,7 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
           {
             v33 = 0;
             v11 = pFontArrus->uFontHeight - 3;
-            v12 = sub_4459F9(dword_591090);
+            v12 = sub_4459F9_GetNPCData(dword_591090);
             v31 = v12;
             if ( sub_445C8B(dword_591090) == 1 )
             {

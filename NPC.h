@@ -12,11 +12,6 @@ struct NPCProfesstion
 };
 //sizeof == 14
 
-struct NPCStats_stru1 //some npc data
-{
- char byte_000000[0x4C];
-};
-//sizeof == 4C
 
 struct NPCData
 {
@@ -51,38 +46,36 @@ struct NPCGreeting
 
 struct CNPCStats
 {
- struct NPCData  pNPCData[501];     // struct[501]  @ 000000
- struct NPCData  pNPCData2[501];    // struct[501]  @ 0094BC
- unsigned char  *pNPCNames[540][2]; // ptr[2] array @ 012978
-
- struct NPCProfesstion pProfessions[58]; //struct[58] @ 013A6C
- struct NPCStats_stru1 array_0013EF4[array_size_unknown];
-
- int            array_015CA4[52];
- unsigned char *pNPCNames2[501]; // dword[?] @ 015D74
-
- char unk_016544[128*array_size_unknown];
-
- struct NPCGreeting pNPCGreetings[206]; // struct[205] @ 01788C
-
- short array_017EF4[51];
- short word_017F5A[51];
-
- int dword_017FC0;
- int dword_017FC4;
-
- unsigned int uNumNPCProfessions; // dword    @ 017FCC
- unsigned int uNumNPCNames[2];    // dword[2] @ 017FD0 number of NPC names: [0] for male, [1] for female
-
- unsigned char *pNPCDataTXT_Raw;  // ptr @ 017FD8
- unsigned char *pNPCNamesTXT_Raw; // ptr @ 017FDC
- unsigned char *pNPCProfTXT_Raw;  // ptr @ 017FE0
- unsigned char *pNPCNewsTXT_Raw;  // ptr @ 017FE4
- unsigned char *pNPCTopicTXT_Raw; // ptr @ 017FE8
- unsigned char *pNPCTextTXT_Raw;  // ptr @ 017FEC
- unsigned char *pNPCDistTXT_Raw;  // ptr @ 017FF0
- unsigned char *pNPCGreetTXT_Raw; // ptr @ 017FF4
- unsigned char *pNCPGroupTXT_Raw; // ptr @ 017FF8
+ struct NPCData         pNPCData[501];      // struct[501]  @ 000000
+ struct NPCData         pNPCData2[501];     // struct[501]  @ 0094BC
+ unsigned char         *pNPCNames[540][2];  // ptr[2] array @ 012978
+ int                    dword_013A58;
+ int                    dword_013A5C;
+ int                    dword_013A60;
+ int                    dword_013A64;
+ int                    dword_013A68;
+ struct NPCProfesstion  pProfessions[58];   // struct[58]  @ 013A6C
+ struct NPCData         array_013EF4[100];  // struct[100] @ 013EF4
+ int                    array_015CA4[52];
+ unsigned char         *pNPCNames2[500];    // dword[500]  @ 015D74
+ char                   unk_016544[0x1348];
+ struct NPCGreeting     pNPCGreetings[205]; // struct[205] @ 01788C
+ short                  array_017EF4[51];
+ short                  word_017F5A[51];
+ int                    dword_017FC0;
+ int                    dword_017FC4;
+ int                    dword_017FC8;
+ unsigned int           uNumNPCProfessions; // dword    @ 017FCC
+ unsigned int           uNumNPCNames[2];    // dword[2] @ 017FD0 number of NPC names: [0] for male, [1] for female
+ unsigned char         *pNPCDataTXT_Raw;  // ptr @ 017FD8
+ unsigned char         *pNPCNamesTXT_Raw; // ptr @ 017FDC
+ unsigned char         *pNPCProfTXT_Raw;  // ptr @ 017FE0
+ unsigned char         *pNPCNewsTXT_Raw;  // ptr @ 017FE4
+ unsigned char         *pNPCTopicTXT_Raw; // ptr @ 017FE8
+ unsigned char         *pNPCTextTXT_Raw;  // ptr @ 017FEC
+ unsigned char         *pNPCDistTXT_Raw;  // ptr @ 017FF0
+ unsigned char         *pNPCGreetTXT_Raw; // ptr @ 017FF4
+ unsigned char         *pNCPGroupTXT_Raw; // ptr @ 017FF8
 };
 
 void CNPCStats_ctor(struct CNPCStats *_this);

@@ -208,7 +208,9 @@ extern int dword_4E82B4; // weak
 extern int dword_4E82B8; // weak
 extern int dword_4E82BC; // weak
 extern int dword_4E82C0; // weak
-extern char byte_4E8398[array_size_unknown]; // weak
+extern char byte_4E8398[]; // weak
+extern char unk_4E83B0[];
+extern char unk_4E8408[];
 extern char byte_4E94D0; // weak
 extern char byte_4E94D2; // weak
 extern char byte_4E94D3; // weak
@@ -2023,8 +2025,8 @@ extern int dword_721658; // weak
 extern int dword_72165C; // weak
 extern char *dword_721660; // idb
 extern char *dword_721664; // idb
-extern _UNKNOWN unk_721668[]; // weak
-extern _UNKNOWN unk_72166C[]; // weak
+extern _UNKNOWN unk_721668[]; // npctopic
+extern _UNKNOWN unk_72166C[]; // npctext
 extern int dword_721824; // weak
 extern int dword_72193C; // weak
 extern int dword_721984[array_size_unknown]; // weak
@@ -2051,16 +2053,16 @@ extern _UNKNOWN unk_722880; // weak
 extern int dword_722B3C; // weak
 extern int dword_722B44; // weak
 extern char *dword_722F10; // idb
-extern _UNKNOWN unk_722F14[0x800 + array_size_unknown]; // weak
+extern _UNKNOWN unk_722F14[0x800 + array_size_unknown]; // quests.txt
 extern _UNKNOWN unk_723714; // weak
 extern char *dword_723718; // idb
 extern int dword_72371C[array_size_unknown]; // weak
-extern _UNKNOWN unk_723724[]; // weak
-extern char *dword_723D38; // idb
+extern _UNKNOWN unk_723724[]; // autonotes.txt
+extern char *dword_723D38; // scroll.txt
 extern _UNKNOWN unk_723D3C; // weak
 extern int dword_723E80[210]; // weak
 extern int dword_723E84[array_size_unknown]; // weak
-extern _UNKNOWN unk_723E88[]; // weak
+extern _UNKNOWN unk_723E88[]; // awards.txt
 extern int dword_7241C8; // weak
 
 extern struct CNPCStats *pNPCStats; // struct @ MM7.exe::007241D0
@@ -2097,7 +2099,7 @@ unsigned char *pMerchantsTXT_Raw; // ptr @ MM7.exe::0073C384
 
 extern CHAR dword_73C388[28]; // idb
 extern int dword_73C3A4[array_size_unknown]; // weak
-extern CHAR dword_73C3C0[28]; // idb
+extern CHAR dword_73C3C0[28]; // merchant.txt
 extern int dword_73C3DC[array_size_unknown]; // weak
 
 extern unsigned char *pTransitionsTXT_Raw; // ptr @ MM7.exe::0073C3F8

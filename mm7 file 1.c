@@ -840,7 +840,7 @@ int __fastcall sub_438F8F(int result)
                     case 3:
                       if ( v36 )
                       {
-                        if ( Actor_sub_40104C((int)((char *)pActors + 836 * v37), (int)((char *)v27 - 146)) )
+                        if ( Actor_GetActorsRelation((int)((char *)pActors + 836 * v37), (int)((char *)v27 - 146)) )
                           sub_43B1B0(*((_WORD *)v2 - 300), v45, v46, (unsigned __int8)v36[97]);
                       }
                       break;
@@ -4147,7 +4147,7 @@ int __cdecl sub_4014E6()
       {
         v11 = *(_DWORD *)v0 & 0xFEFFFFFF;
         *(_DWORD *)v0 = v11;
-        if ( v11 & 0x80000 || Actor_sub_40104C((int)((char *)v0 - 36), 0) )
+        if ( v11 & 0x80000 || Actor_GetActorsRelation((int)((char *)v0 - 36), 0) )
         {
           v12 = (pParty_global->dword_007778 & 0x10) == 0;
           *(_DWORD *)v0 = v11 | 0x1000000;
@@ -4317,7 +4317,7 @@ int __cdecl sub_4016FA()
       {
         v11 = *(_DWORD *)v0 & 0xFEFFFFFF;
         *(_DWORD *)v0 = v11;
-        if ( v11 & 0x80000 || Actor_sub_40104C((int)((char *)v0 - 36), 0) )
+        if ( v11 & 0x80000 || Actor_GetActorsRelation((int)((char *)v0 - 36), 0) )
         {
           v12 = (pParty_global->dword_007778 & 0x10) == 0;
           *(_DWORD *)v0 = v11 | 0x1000000;
@@ -13493,8 +13493,7 @@ void __cdecl sub_461103()
         continue;
       if ( v18 )
       {
-       runtime_warning(decompilation error);
-        //sub_47732C(&pNPCStats->array_0013EF4[pNPCStats->dword_017FC0], v3, 0, v20);
+        NPCStats_InitializeAdditionalNPCs(pNPCStats, 0, &pNPCStats->array_013EF4[pNPCStats->dword_017FC0], v3, 0, v20);
         v15 = pNPCStats->dword_017FC0++ + 5000;
         pActors[i].word_000020 = v15;
         continue;

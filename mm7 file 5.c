@@ -1848,9 +1848,7 @@ char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
   __int16 *v9; // esi@19
   int v10; // eax@22
   int v11; // ecx@22
-  __int16 v12; // ax@23
-  int v13; // edi@23
-  int v14; // esi@23
+ struct Actor *pActor;
   __int16 v15; // ax@33
   const char *v16; // eax@34
   int v17; // eax@36
@@ -1908,36 +1906,35 @@ char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
 
       //interact with actor
     case 3:
-      v13 = a1 >> 3;
-      v14 = &pActors[(a1 >> 3)];
-      v12 = *(_WORD *)(v14 + 176);
-      if ( v12 == 4 || v12 == 17 )
+      pActor = &pActors[a1 >> 3];
+
+      if (pActor->word_0000B0_state == 4 ||
+          pActor->word_0000B0_state == 17)
         return 1;
-      if ( v12 == 5 )
-      {
-        sub_426A5A((int)((char *)pActors + 836 * (a1 >> 3)));
-      }
+
+      if (pActor->word_0000B0_state == 5)
+        sub_426A5A(pActor);
       else
       {
-        if ( !Actor_sub_40104C(v14, 0) )
+        if ( !Actor_GetActorsRelation(pActor, 0) )
         {
-          if ( !(*(_BYTE *)(v14 + 38) & 8) )
+         if (~pActor->dword_000024 & 0x080000)
           {
-            if ( Actor_sub_40894B(v14) )
+            if ( Actor_sub_40894B(pActor) )
             {
-              Actor_sub_404030(v13, 4, 0, 0);
-              if ( *(_WORD *)(v14 + 32) )
+              Actor_ProbablyForceToFaceParty(a1 >> 3, 4, 0, 0);
+              if (pActor->word_000020)
               {
                 if ( dword_50CBD0[0] < 40 )
                 {
                   dword_50CBD0[3 * dword_50CBD0[0] + 1] = 161;
-                  dword_50CBD0[3 * dword_50CBD0[0] + 2] = v13;
+                  dword_50CBD0[3 * dword_50CBD0[0] + 2] = a1 >> 3;
                   dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
                 }
               }
               else
               {
-                v15 = pNPCStats->word_017F5A[*(_DWORD *)(v14 + 708)];
+                v15 = pNPCStats->word_017F5A[pActor->dword_0002C4];
                 if ( v15 )
                 {
                   v16 = *(const char **)&dword_739E74[4 * (unsigned __int16)v15];
@@ -3919,7 +3916,7 @@ signed int __fastcall sub_46BFFA(int a1, signed int a2)
   {
     a1 = *(_DWORD *)(v3 + 88) & 7;
     if ( (_BYTE)a1 == 3
-      && !Actor_sub_40104C(
+      && !Actor_GetActorsRelation(
             (int)((char *)pActors + 836 * (*(_DWORD *)(v3 + 88) >> 3)),
             (int)((char *)pActors + 836 * (a2 >> 3))) )
       return 1;
@@ -7541,7 +7538,7 @@ LABEL_119:
                 *(_WORD *)(v1 + 152) = v58;
                 goto LABEL_120;
               }
-              if ( Actor_sub_40104C(v1, 0) )
+              if ( Actor_GetActorsRelation(v1, 0) )
               {
                 compile_error;//v53 = __SETO__(HIDWORD(qword_ACD8F4), v23);
                 v51 = HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) == v23;
@@ -7558,7 +7555,7 @@ LABEL_119:
               }
               v40 = stru_721530.dword_000078;
 LABEL_118:
-              Actor_sub_404030(v65, v40, v23, v23);
+              Actor_ProbablyForceToFaceParty(v65, v40, v23, v23);
               goto LABEL_119;
             }
             if (pParty_global->dword_00087C == 1 && (dword_4F885C == 2 || dword_4F885C == 3) )
@@ -8128,12 +8125,12 @@ LABEL_99:
               break;
             }
 LABEL_103:
-            Actor_sub_404030(v77, v39, v36, v36);
+            Actor_ProbablyForceToFaceParty(v77, v39, v36, v36);
             break;
           }
           break;
         case 4:
-          if ( !Actor_sub_40104C(v1, 0) )
+          if ( !Actor_GetActorsRelation(v1, 0) )
           {
             v39 = stru_721530.dword_000078;
             goto LABEL_103;
@@ -8877,7 +8874,7 @@ LABEL_92:
               v20 = (int)((char *)pActors + 836 * v19);
               do
               {
-                if ( Actor_sub_40104C(v20, v72) )
+                if ( Actor_GetActorsRelation(v20, v72) )
                   sub_46DF1A(v68, 0);
                 ++v68;
                 v72 += 836;
@@ -10597,12 +10594,280 @@ signed int __stdcall sub_47730C(int a1)
   return 1;
 }
 
+extern int _ftol(float);
 //----- (0047732C) --------------------------------------------------------
 function_error; //#error "FFFFFFFF: variables would overlap: ecx/4 and edx/8 (funcsize=165)"
-long __stdcall sub_47732C(long a1, long a2, long a3, long a4)
+__declspec(naked)long __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCStats *_this, int dummy_edx,
+                                                                   struct NPCData *pNPCData, long a4, long a8, long aC)
 {
- compile_error;
- return 0;
+  #define var_C           = dword ptr -0Ch
+  #define var_8           = dword ptr -8
+  #define var_4           = dword ptr -4
+  #define arg_0           = dword ptr  8
+  #define arg_4           = dword ptr  0Ch
+  #define arg_8           = dword ptr  10h
+  #define arg_C           = dword ptr  14h
+
+ int v4, v8, vC;
+ __asm
+ {
+                 push    ebp
+                 mov     ebp, esp
+                 sub     esp, 0x0C
+                 push    ebx
+                 push    esi
+                 push    edi
+                 
+                 mov     eax, dword ptr [ebp + 0x0C] //arg4
+                 dec     eax
+                 mov     dword ptr [ebp + 0x0C], eax // arg4
+                   //a4 -= 1
+
+                 fild    dword ptr [ebp + 0x0C] // arg4
+                 //fmul    dword ptr ds:byte_4D8410+33Ch
+                 {
+                  push 0xBEAAAAAB
+                  fmul dword ptr [esp]
+                  add esp, 4
+                 }
+                 call    _ftol
+                   // eax = (int)(a4 * -0.33333334)
+
+                 mov     ebx, ecx
+                   // ebx = _this
+
+                 mov     ecx, offset unk_4E83B0
+                 sub     ecx, eax
+                   // ecx = unk_4E83B0 + (int)(a4 * 0.33333334)
+                 movzx   esi, byte ptr [ecx]
+                   //esi = unsigned char unk_4E83B0[(int)(a4 * 0.33333334)]
+                   //  new npc sex table
+
+                 mov     ecx, offset unk_4E8408
+                 sub     ecx, eax
+                   // ecx = unk_4E8408 - (int)(a4 * -0.33333334)
+                 movzx   eax, byte ptr [ecx]
+                   //eax = unsigned char unk_4E8408[-(int)(a4 * -0.33333334)]
+
+                 mov     [ebp - 0x0C], eax // varc <- eax
+
+                 call    rand
+                 cdq
+                   // eax = (unisnged __int64)rand()
+
+                 idiv    dword ptr [ebx + esi * 4 + 0x017FD0]
+                   //uNumNPCNames = edx = eax % (_this->uNumNPCNames[esi])
+
+                 mov     edi, [ebp + 0x08]//arg0
+                 mov     [edi + 0x40], esi
+                   // (edi = pNPCData)->dword_000040 = esi;
+
+                 lea     eax, [esi + edx * 2 + 0x4A5E]
+                 mov     eax, [ebx + eax * 4]
+                   // eax = _this->pNPCNames[random][esi];
+
+                 mov     [edi], eax
+                   // (edi = pNPCData)->pNPCName = _this->pNPCNames[random][esi];
+
+                 xor     eax, eax
+                 mov     [ebp - 0x04], eax //var4
+                 mov     [ebp - 0x08], eax //var8
+                   //v4 = v8 = 0;
+
+                 jmp     short loc_47738E
+ ; ---------------------------------------------------------------------------
+
+ loc_47738C:                             ; CODE XREF: sub_47732C+15Ej
+                 xor     eax, eax
+
+ loc_47738E:                             ; CODE XREF: sub_47732C+5Ej
+                 mov     ecx, [ebp + 0x0C] //varc
+                 sub     ecx, eax
+                 jz      loc_477428
+                 dec     ecx
+                 jz      short loc_4773FF
+                 dec     ecx
+                 jz      short loc_4773D6
+                 dec     ecx
+                 jnz     loc_47744F
+                 mov     ecx, esi
+                 sub     ecx, eax
+                 jz      short loc_4773C6
+                 dec     ecx
+                 jnz     loc_47744F
+                 mov     [ebp + 0x0C], 0x0168 //arg4
+                 mov     [ebp + 0x08], 0x0183 //arg0
+                 jmp     loc_47744F
+ ; ---------------------------------------------------------------------------
+
+ loc_4773C6:                             ; CODE XREF: sub_47732C+7Ej
+                 mov     [ebp + 0x0C], 0x012C //arg4
+                 mov     [ebp + 0x08], 0x014A //arg0
+                 jmp     short loc_47744F
+ ; ---------------------------------------------------------------------------
+
+ loc_4773D6:                             ; CODE XREF: sub_47732C+71j
+                 mov     ecx, esi
+                 sub     ecx, eax
+                 jz      short loc_4773EF
+                 dec     ecx
+                 jnz     short loc_47744F
+                 mov     [ebp + 0x0C], 0x0212 //arg4
+                 mov     [ebp + 0x08], 0x0226 //arg0
+                 jmp     short loc_47744F
+ ; ---------------------------------------------------------------------------
+
+ loc_4773EF:                             ; CODE XREF: sub_47732C+AEj
+                 mov     [ebp + 0x0C], 0x01F4 //arg4
+                 mov     [ebp + 0x08], 0x0208 //arg0
+                 jmp     short loc_47744F
+ ; ---------------------------------------------------------------------------
+
+ loc_4773FF:                             ; CODE XREF: sub_47732C+6Ej
+                 mov     ecx, esi
+                 sub     ecx, eax
+                 jz      short loc_477418
+                 dec     ecx
+                 jnz     short loc_47744F
+                 mov     [ebp + 0x0C], 0x01CC //arg4
+                 mov     [ebp + 0x08], 0x01EA //arg0
+                 jmp     short loc_47744F
+ ; ---------------------------------------------------------------------------
+
+ loc_477418:                             ; CODE XREF: sub_47732C+D7j
+                 mov     [ebp + 0x0C], 0x0190 //arg4
+                 mov     [ebp + 0x08], 0x01AE //arg0
+                 jmp     short loc_47744F
+ ; ---------------------------------------------------------------------------
+
+ loc_477428:                             ; CODE XREF: sub_47732C+67j
+                 mov     ecx, esi
+                 sub     ecx, eax
+                 jz      short loc_477441
+                 dec     ecx
+                 jnz     short loc_47744F
+                 mov     [ebp + 0x0C], 0xC9 //arg4
+                 mov     [ebp + 0x08], 0xFA //arg0
+                 jmp     short loc_47744F
+ ; ---------------------------------------------------------------------------
+
+ loc_477441:                             ; CODE XREF: sub_47732C+100j
+                 mov     [ebp + 0x0C], 0x02 //arg4
+                 mov     [ebp + 0x08], 0x64 //arg0
+
+ loc_47744F:                             ; CODE XREF: sub_47732C+74j
+                                         ; sub_47732C+81j ...
+                 call    rand
+                 mov     ecx, [ebp + 0x08] //arg0
+                 push    [ebp-0x0C]      //varc
+                 sub     ecx, [ebp + 0x0C] //arg4
+                 cdq
+                 inc     ecx
+                 idiv    ecx
+                 mov     ecx, edx
+                 mov     edx, esi
+                 add     ecx, [ebp + 0x0C]//arg4
+                 call    sub_47730C
+                 xor     edx, edx
+                 inc     edx
+                 cmp     eax, edx
+                 jnz     short loc_477477
+                 mov     [ebp - 0x08], edx //var8
+
+ loc_477477:                             ; CODE XREF: sub_47732C+146j
+                 inc     [ebp - 0x04]    //var4
+                 cmp     [ebp - 0x04], 4 //var4
+                 jl      short loc_477486
+                 mov     ecx, [ebp + 0x0C] //arg4
+                 mov     [ebp - 0x08], edx //var8
+
+ loc_477486:                             ; CODE XREF: sub_47732C+152j
+                 cmp     [ebp - 0x08], 0 //var8
+                 jz      loc_47738C
+                 xor     esi, esi
+                 mov     [edi + 0x04], ecx
+                 mov     [edi + 0x08], esi
+                 mov     [edi + 0x0C], esi
+                 call    rand
+                 push    0x64
+                 cdq
+                 pop     ecx
+                 idiv    ecx
+                 inc     edx
+                 cmp     edx, 0x3C
+                 jge     short loc_4774B1
+                 mov     [edi + 0x10], esi
+                 jmp     short loc_4774E2
+ ; ---------------------------------------------------------------------------
+
+ loc_4774B1:                             ; CODE XREF: sub_47732C+17Ej
+                 cmp     edx, 0x5A
+                 jge     short loc_4774BF
+                 mov     dword ptr [edi + 0x10], 0xC8
+                 jmp     short loc_4774E2
+ ; ---------------------------------------------------------------------------
+
+ loc_4774BF:                             ; CODE XREF: sub_47732C+188j
+                 cmp     edx, 0x5F
+                 jge     short loc_4774CD
+                 mov     dword ptr [edi + 0x10], 0xFFFFFED4
+                 jmp     short loc_4774E2
+ ; ---------------------------------------------------------------------------
+
+ loc_4774CD:                             ; CODE XREF: sub_47732C+196j
+                 cmp     edx, 0x62
+                 jge     short loc_4774DB
+                 mov     dword ptr [edi + 0x10], 0x0190
+                 jmp     short loc_4774E2
+ ; ---------------------------------------------------------------------------
+
+ loc_4774DB:                             ; CODE XREF: sub_47732C+1A4j
+                 mov     dword ptr [edi + 10h], 0xFFFFFDA8
+
+ loc_4774E2:                             ; CODE XREF: sub_47732C+183j
+                                         ; sub_47732C+191j ...
+                 mov     eax, [ebp + 0x14] //argc
+                 shl     eax, 6
+                 lea     esi, [eax + ebx]
+                 mov     ebx, [esi + 0x016544]
+                 call    rand
+                 cdq
+                 idiv    ebx
+                 xor     ecx, ecx
+                 xor     eax, eax
+                 inc     edx
+                 test    edx, edx
+                 jle     short loc_477511
+
+ loc_477502:                             ; CODE XREF: sub_47732C+1E3j
+                 movzx   ebx, byte ptr [esi + eax + 0x016548]
+                 add     ecx, ebx
+                 inc     eax
+                 cmp     ecx, edx
+                 jl      short loc_477502
+
+ loc_477511:                             ; CODE XREF: sub_47732C+1D4j
+                 dec     eax
+                 mov     [edi + 0x18], eax
+                 mov     eax, [ebp + 0x10] //arg8
+                 mov     [edi + 0x14], eax
+                 xor     eax, eax
+                 inc     eax
+                 mov     [edi + 0x24], eax
+                 mov     [edi + 0x20], eax
+                 pop     edi
+                 pop     esi
+                 pop     ebx
+                 leave
+                 retn    0x10
+ }
+ #undef var_C
+ #undef var_8
+ #undef var_4
+ #undef arg_0
+ #undef arg_4
+ #undef arg_8
+ #undef arg_C
 }
 
 //----- (0047752B) --------------------------------------------------------

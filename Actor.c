@@ -388,8 +388,12 @@ void Actor_LinkSprites(struct Actor *_this, char a2)
 }
 
 //----- (0040104C) --------------------------------------------------------
-signed int Actor_sub_40104C(struct Actor *pActor1, struct Actor *pActor2)
-{  
+signed int Actor_GetActorsRelation(struct Actor *pActor1, struct Actor *pActor2)
+{
+ // if actor == 0 then party
+
+ // 0: friendly
+
   int v3;
   int v4;
   int v7;
@@ -680,7 +684,7 @@ void Actor_sub_403F58(unsigned int uActorID, int a2, int a3, struct DirectionInf
 
   
 //----- (00404030) --------------------------------------------------------
-void Actor_sub_404030(unsigned int uActorID, signed int a2, int a3, struct DirectionInfo *pDirectionInfo)
+void Actor_ProbablyForceToFaceParty(unsigned int uActorID, signed int a2, int a3, struct DirectionInfo *pDirectionInfo)
 {
   struct DirectionInfo v12;
 
@@ -1593,7 +1597,7 @@ LABEL_14:
           *(_DWORD *)(v6 + 816) = v5;
         }
       }
-      v3 = Actor_sub_40104C(&pActors[uActorID], &pActors[v23]);
+      v3 = Actor_GetActorsRelation(&pActors[uActorID], &pActors[v23]);
       if ( v3 != v5 )
         goto LABEL_14;
 LABEL_23:
@@ -1623,7 +1627,7 @@ LABEL_23:
   }
   if ( a3 != v5 )
   {
-    v3 = Actor_sub_40104C(v6, 0);
+    v3 = Actor_GetActorsRelation(v6, 0);
     if ( *(_BYTE *)(v6 + 38) & 8 )
     {
       if ( *(_DWORD *)(v6 + 408) <= v5 )

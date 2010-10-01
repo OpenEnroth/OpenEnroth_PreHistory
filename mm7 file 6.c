@@ -3157,7 +3157,7 @@ const CHAR *__fastcall sub_495461(char *lpsz, unsigned __int8 a2, int a3, int a4
   if ( dword_5C35D4 )
     v9 = dword_5913D8[dword_5913F0 - ((dword_591080 != 0) + 1)];
   else
-    v9 = (int)sub_4459F9(dword_591090);
+    v9 = (int)sub_4459F9_GetNPCData(dword_591090);
   v71 = v9;
   v10 = 0;
   v70 = 0;

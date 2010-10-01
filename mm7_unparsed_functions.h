@@ -468,10 +468,10 @@ void __fastcall sub_4451A8(int a1, int a2, int a3);
 void __cdecl sub_4452BB();
 int __fastcall sub_445308(int a1);
 void __cdecl sub_445350();
-char *__fastcall sub_4459F9(signed int a1);
+struct NPCData *__fastcall sub_4459F9_GetNPCData(signed int a1);
 char *__fastcall sub_445B2C(signed int a1, int a2);
 int __fastcall sub_445C8B(signed int a1);
-__int16 __fastcall sub_445D4A(int a1, int a2);
+__int16 __fastcall Actor_sub_445D4A(int a1, int a2);
 void __cdecl sub_44603D();
 int __fastcall sub_44606A(int a1);
 int __fastcall sub_44622E(int a1);
@@ -816,7 +816,7 @@ bool CheckHiredNPCSpeciality(int param);
 void __thiscall sub_476C60(int this);
 int __thiscall sub_477266(int this);
 signed int __stdcall sub_47730C(int a1);
-_DWORD __stdcall sub_47732C(_DWORD, _DWORD, _DWORD, _DWORD); // weak
+_DWORD __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCStats *_this, int dummy_to_fill_edx_since_func_is__thiscall, struct NPCData *, _DWORD, _DWORD, _DWORD); // weak
 int __cdecl sub_47752B();
 int __thiscall sub_4775C4(int this);
 int __thiscall sub_4775ED(int this, int a2);

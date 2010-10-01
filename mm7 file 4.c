@@ -2625,7 +2625,7 @@ int __thiscall sub_42F184(void *this, unsigned int a2, int a3, int a4)
                       {
                         if ( v12 != 17 )
                         {
-                          if ( !a3 || Actor_sub_40104C((int)((char *)pActors + 836 * ((unsigned int)v11 >> 3)), 0) )
+                          if ( !a3 || Actor_GetActorsRelation((int)((char *)pActors + 836 * ((unsigned int)v11 >> 3)), 0) )
                           {
                             if ( !a4 || sub_438BDF(*((_WORD *)v13 + 48), 1) )
                             {
@@ -2813,7 +2813,7 @@ LABEL_20:
         v9 = *(_WORD *)v1;
         if ( *(_WORD *)v1 != 5 )
         {
-          if ( v9 != 4 && v9 != 11 && v9 != 19 && v9 != 17 && (*(_BYTE *)(v1 - 138) & 8 || Actor_sub_40104C(0, v1 - 176)) )
+          if ( v9 != 4 && v9 != 11 && v9 != 19 && v9 != 17 && (*(_BYTE *)(v1 - 138) & 8 || Actor_GetActorsRelation(0, v1 - 176)) )
             break;
         }
       }

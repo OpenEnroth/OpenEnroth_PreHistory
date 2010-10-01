@@ -14329,7 +14329,7 @@ char *__fastcall sub_41E360(int a1, int a2)
   v4 = 0xFFFFFF9B;
   v5 = *(_WORD *)(v3 + 32);
   v144 = v4;
-  v6 = sub_4459F9(v5);
+  v6 = sub_4459F9_GetNPCData(v5);
   v7 = *(_WORD *)(v3 + 96);
   v134 = (int *)v6;
   v137 = byte_4E2B70[(v7 - 1) / 3] - 40;
@@ -17006,14 +17006,14 @@ LABEL_13:
   }
   if ( GetAsyncKeyState(16) >= 0 )
   {
-    if ( !Actor_sub_40104C(v17, 0) && !(*(_BYTE *)(v17 + 38) & 8) )
+    if ( !Actor_GetActorsRelation(v17, 0) && !(*(_BYTE *)(v17 + 38) & 8) )
     {
       if ( (unsigned int)v0 >= 0x2000000 )
         goto LABEL_13;
       if ( !Actor_sub_40894B(v17) )
         return;
       v18 = v37;
-      Actor_sub_404030(v37, 4, 0, 0);
+      Actor_ProbablyForceToFaceParty(v37, 4, 0, 0);
       if ( !*(_WORD *)(v17 + 32) )
       {
         v19 = pNPCStats->word_017F5A[*(_DWORD *)(v17 + 708)];

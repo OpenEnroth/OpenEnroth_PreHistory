@@ -39,7 +39,8 @@ struct DirectionInfo
 struct Actor
 {
  unsigned char  pActorName[32]; // byte[32] @ 000000
- short          word_000020;
+ short          word_000020;   // if < 500: offset in pNPCStats->pNPCData2[word_000020]               old npcs
+                               // else:     offset in pNPCStats->array_0013EF4[word_000020 - 5000]    new npcs
  short          word_000022;
  int            dword_000024; // some flags
  short          sCurrentHP;   // word @ 000028
@@ -111,7 +112,7 @@ bool Actor_sub_40894B(struct Actor *_this);
 //int __thiscall Actor_sub_45976D(int this);
 int Actor_sub_45976D(struct Actor *_this);
 //signed int __fastcall sub_40104C(int a1, int a2);
-signed int Actor_sub_40104C(struct Actor *pActor1, struct Actor *pActor2);
+signed int Actor_GetActorsRelation(struct Actor *pActor1, struct Actor *pActor2);
 //int __fastcall sub_403EB6(unsigned int uActorID, signed int a2, int a3, char *a4);
 void Actor_sub_403EB6(unsigned int uActorID, signed int a2, int a3, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_403C6C(int a1, int a2, char *a3);
@@ -121,7 +122,7 @@ void Actor_sub_402F87(unsigned int uActorID, signed int a2, struct DirectionInfo
 //int __fastcall sub_403F58(int a1, int a2, int a3, signed int a4);
 void Actor_sub_403F58(unsigned int uActorID, int a2, int a3, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_404030(int a1, signed int a2, int a3, signed int a4);
-void Actor_sub_404030(unsigned int uActorID, signed int a2, int a3, struct DirectionInfo *pDirectionInfo);
+void Actor_ProbablyForceToFaceParty(unsigned int uActorID, signed int a2, int a3, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_402968(int a1, int a2, int a3, char *a4);
 void Actor_sub_402968(unsigned int uActorID, int a2, int a3, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_402686(int a1, signed int a2, signed int a3, signed int a4);

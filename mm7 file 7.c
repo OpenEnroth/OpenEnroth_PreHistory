@@ -5462,7 +5462,7 @@ int __cdecl sub_4B3E1E()
   signed int v1; // edi@1
   char *v2; // ST40_4@1
 
-  v2 = sub_4459F9(dword_591090);
+  v2 = sub_4459F9_GetNPCData(dword_591090);
   v1 = 0;
   *(_DWORD *)(dword_507BBC + 24) = 1;
   GUIWindowDelete(dword_507BBC);
@@ -11409,7 +11409,7 @@ signed int __fastcall sub_4BB756(signed int a1)
           dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
         }
         dword_50C9DC = 195;
-        dword_50C9E0 = (int)sub_4459F9(dword_591090);
+        dword_50C9E0 = (int)sub_4459F9_GetNPCData(dword_591090);
         return 0;
       }
       if ( a1 == 42 )
@@ -12071,7 +12071,7 @@ void __thiscall sub_4BC49B(void *this)
   const char *v15; // [sp-4h] [bp-14h]@60
 
   v3 = (int)this;
-  v2 = sub_4459F9(dword_591090);
+  v2 = sub_4459F9_GetNPCData(dword_591090);
   v1 = v3;
   dword_59108C = v3;
   if ( !*((_DWORD *)v2 + 2) )
@@ -14470,7 +14470,7 @@ bool Vis_is_part_of_selection(unsigned int uD3DBillboardID, struct unnamed_F93E6
       return false;
     if ( !(*(_BYTE *)(v2 + 16) & 1) )
       return true;
-    v10 = Actor_sub_40104C(v13, 0);
+    v10 = Actor_GetActorsRelation(v13, 0);
 
     if ( v10 == 0 )
       return false;

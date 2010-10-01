@@ -220,7 +220,9 @@ unsigned char data_4E7168[116] =
  int dword_4E82B8; // weak
  int dword_4E82BC; // weak
  int dword_4E82C0; // weak
- char byte_4E8398[array_size_unknown]; // weak
+ char byte_4E8398[8*array_size_unknown]; // weak
+ char unk_4E83B0[64*array_size_unknown];
+ char unk_4E8408[64*array_size_unknown];
  char byte_4E94D0; // weak
  char byte_4E94D2; // weak
  char byte_4E94D3; // weak
