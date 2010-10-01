@@ -140,8 +140,8 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  float flt_4E4A80[array_size_unknown]; // weak
  float flt_4E4A90; // weak
  float flt_4E4A94[array_size_unknown]; // weak
- int dword_4E4C28; // weak
- int dword_4E4C2C; // weak
+ int dword_4E4C28 = 481; // X offset for paperdoll
+ int dword_4E4C2C = 0; // Y offset for paperdoll
  int dword_4E4C30[array_size_unknown]; // weak
  int dword_4E4C34[array_size_unknown]; // weak
  int dword_4E4C38[array_size_unknown]; // weak
