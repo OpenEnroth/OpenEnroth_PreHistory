@@ -11395,6 +11395,10 @@ void SaveColormap(const wchar_t *pFile, unsigned char *pBits)
 }
 
 
+void loc_4789D4()
+{
+}
+
 extern FILE *f = 0;
 //----- (0047840D) --------------------------------------------------------
 char __cdecl RenderBuildings()
@@ -11659,9 +11663,9 @@ LABEL_30:
 
         if ( !(byte_73C84C & 1) )
         {
-          byte_73C84C |= 1u;
+          byte_73C84C |= 1;
           sub_49B001(&unk_73C834);
-          runtime_warning();//atexit(loc_4789D4);
+          atexit(loc_4789D4);
         }
         v45 = v4;
 
@@ -13589,6 +13593,16 @@ int __fastcall sub_47F4D3(int a1, int a2, int a3)
   return result;
 }
 
+void loc_481199()
+{
+}
+void loc_48118F()
+{
+}
+void loc_481185()
+{
+}
+
 //----- (0048034E) --------------------------------------------------------
 void __fastcall sub_48034E(int a1, int a2, int a3)
 {
@@ -13799,7 +13813,7 @@ void __fastcall sub_48034E(int a1, int a2, int a3)
         {
           byte_76D5C0 |= 1u;
           sub_49B001(&unk_76D5A8);
-          runtime_warning();//atexit(loc_481199);
+          atexit(loc_481199);
         }
         v31 = array_50AC10;
         v97 = pGame->class04_obj;
@@ -13951,7 +13965,7 @@ LABEL_162:
     {
       byte_76D5C0 |= 2;
       sub_49B001(&unk_76D590);
-      runtime_warning();//atexit(loc_48118F);
+      atexit(loc_48118F);
     }
     v96 = pGame->class04_obj;
     sub_45D036(pNormal, (int)&v86, array_50AC10, 3, 0);
@@ -14091,9 +14105,9 @@ LABEL_126:
 
     if ( !(byte_76D5C0 & 4) )
     {
-      byte_76D5C0 |= 4u;
+      byte_76D5C0 |= 4;
       sub_49B001(&unk_76D578);
-      runtime_warning();//atexit(loc_481185);
+      atexit(loc_481185);
     }
     v96 = pGame->class04_obj;
     sub_45D036(pNormal, (int)&v87, array_50AC10, 3, 1);

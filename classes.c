@@ -439,8 +439,7 @@ bool CGame_Pick(struct CGame *_this, float a2, unsigned int uMouseX, unsigned in
     if (uMouseX >= pOldViewport->uScreenX && uMouseX <= pOldViewport->uScreenZ &&
         uMouseY >= pOldViewport->uScreenY && uMouseY <= pOldViewport->uScreenW)
     {
-     runtime_warning(too much code there. left for future parse);
-     //       Vis_sub_4C0646(_this->pVis, a2, uMouseX, uMouseY, a6, a7);
+            Vis_sub_4C0646(_this->pVis, a2, uMouseX, uMouseY, a6, a7);
             if (a5)
               CGame_outline_selection(_this);
     }
