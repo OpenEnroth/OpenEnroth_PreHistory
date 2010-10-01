@@ -36,7 +36,7 @@ int __stdcall AIL_3D_provider_attribute(long a1, long a2, long a3);
 int __fastcall AIL_waveOutClose(long a1, long a2);
 
 // sub_4D831C: using guessed type int __stdcall AIL_redbook_resume(_DWORD);
-int __stdcall AIL_redbook_resume(long a1);
+//int __stdcall AIL_redbook_resume(long a1);
 
 // sub_4D82DC: using guessed type int __stdcall AIL_set_3D_provider_preference(_DWORD, _DWORD, _DWORD);
 int __stdcall AIL_set_3D_provider_preference(long a1, long a2, long a3);

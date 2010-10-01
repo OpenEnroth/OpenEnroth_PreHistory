@@ -12697,7 +12697,7 @@ LABEL_4:
 }
 
 //----- (0044E19A) --------------------------------------------------------
-int __thiscall TextureFrameTable_GetFrame(int this, int a2, signed int a3)
+int __thiscall TextureFrameTable_GetFrame(void* this, int a2, signed int a3)
 {
   int v3; // ecx@1
   int v4; // edi@1
@@ -12709,24 +12709,24 @@ int __thiscall TextureFrameTable_GetFrame(int this, int a2, signed int a3)
   int result; // eax@6
 
   v5 = a2;
-  v4 = *(_DWORD *)(this + 4);
+  v4 = *((_DWORD *)this + 1);
   v3 = v4 + 20 * a2;
   if ( *(_BYTE *)(v3 + 18) & 1 && (v6 = *(_WORD *)(v3 + 16)) != 0 )
   {
-    v8 = (a3 >> 3) % v6;
-    for ( i = v3 + 14; ; i += 20 )
-    {
-      v9 = *(_WORD *)i;
-      if ( v8 <= v9 )
-        break;
-      v8 -= v9;
-      ++v5;
-    }
-    result = *(_WORD *)(v4 + 20 * v5 + 12);
+	v8 = (a3 >> 3) % v6;
+	for ( i = v3 + 14; ; i += 20 )
+	{
+	  v9 = *(_WORD *)i;
+	  if ( v8 <= v9 )
+		break;
+	  v8 -= v9;
+	  ++v5;
+	}
+	result = *(_WORD *)(v4 + 20 * v5 + 12);
   }
   else
   {
-    result = *(_WORD *)(v3 + 12);
+	result = *(_WORD *)(v3 + 12);
   }
   return result;
 }

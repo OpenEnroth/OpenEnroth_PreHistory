@@ -73,6 +73,8 @@ struct StatTable
   unsigned char Ratio1;
   unsigned char Ratio2;
 };
+extern struct StatTable g_StatTable[4][7]; // byte[] @ MM7.exe::004ED7B0
+extern unsigned char AvailSkillPerClass[9][37]; // byte[] @ MM7.exe::004ED820
 
 struct InventorySlot
 {

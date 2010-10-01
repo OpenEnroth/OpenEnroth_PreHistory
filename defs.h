@@ -25,7 +25,7 @@
 
 #define compile_warning
 #define compile_error __asm int 3;
-#define runtime_warning()
+#define runtime_warning(x)
 #define runtime_error __asm int 3;
 #define function_error
 

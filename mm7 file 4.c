@@ -12507,7 +12507,6 @@ void sub_45EE8A(int a1)
   char *v26; // eax@66
   int v27; // esi@66
   int v28; // edi@67
-  signed __int64 v29; // qax@69
   int result; // eax@71
   char v31; // [sp-18h] [bp-108h]@25
   int v32; // [sp-14h] [bp-104h]@25
@@ -12756,9 +12755,7 @@ LABEL_55:
     while ( v27 < dword_69CF24 );
   }
   sub_4114F2(pLODFile_Icons_LOD);
-  v29 = (signed __int64)(aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
-  v36 = (signed __int64)(aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
-  AudioPlayer_SetVolume(v23, SHIDWORD(v29), v36);
+  AudioPlayer_SetVolume(v23, aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
   v36 = (signed __int64)(aMusicVolumeLevels[uSoundVolumeMultiplier] * 128.0);
   AudioPlayer_sub_4AA214(v23, v36);
   if ( uTurnSpeed )

@@ -92,7 +92,7 @@ __declspec(naked) void loc_47907F(void)
 
 
 //----- (00 ) --------------------------------------------------------
-int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, const char *lpCmdLine, int nShowCmd)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
   long pWindowDims[4];
 
@@ -224,7 +224,7 @@ LABEL_21:
           {
             class03_fn1(pGame->pClass03, 1);
             if (dword_720010)
-              sub_46B105(dword_720010);
+              sub_46B105((void*)dword_720010);
             if (pGame->class14_obj->dword_000004 & 0xFF)
             {
               if (pAsyncKeyboard)
@@ -236,7 +236,7 @@ LABEL_21:
           strcpy(Str1, stru_6A0DA0.lpstrFileTitle);
           class03_fn1(pGame->pClass03, 1);
           if (dword_720010)
-            sub_46B105(dword_720010);
+            sub_46B105((void*)dword_720010);
           if (pGame->class14_obj->dword_000004 & 0xFF)
           {
             if (pAsyncKeyboard)
@@ -271,9 +271,8 @@ LABEL_53:
       {
         if ( pAudioPlayer->hAILRedbook )
         {
-         unsigned int local0;
-          v12 = (signed __int64)(aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
-          AudioPlayer_SetVolume(pAudioPlayer, SHIDWORD(v12), v12);
+          unsigned int local0;
+          AudioPlayer_SetVolume(pAudioPlayer, aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
           AIL_redbook_stop(pAudioPlayer->hAILRedbook);
           AIL_redbook_track_info(pAudioPlayer->hAILRedbook, 14, &v16, &local0);
           AIL_redbook_play(pAudioPlayer->hAILRedbook, v16 + 1, local0);
@@ -381,7 +380,7 @@ void sub_4789DE()
 
 
  if (!pClass51_global->uNumBModels)
-   return 0;
+   return;
 
   v87 = 0;
 

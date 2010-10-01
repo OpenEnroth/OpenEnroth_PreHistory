@@ -1907,7 +1907,7 @@ void __cdecl InitializeQuests()
 }
 
 //----- (004AC1C9) --------------------------------------------------------
-long *sub_4AC1C9(int a5, int a7)
+long *sub_4AC1C9(int a5, long *pWindowDims)
 {
   signed int v7; // ebx@1
   unsigned __int16 v8; // di@1
@@ -1921,7 +1921,6 @@ long *sub_4AC1C9(int a5, int a7)
   int v20; // [sp+28h] [bp-18h]@14
   char Dst[16]; // [sp+2Ch] [bp-14h]@1
   int v22; // [sp+3Ch] [bp-4h]@1
-  long *pWindowDims;
 
  bNotIntelCPU = false;
  v8 = sub_43847A();
@@ -1929,12 +1928,12 @@ long *sub_4AC1C9(int a5, int a7)
  v7 = 0;
  memset(Dst, 0, 0x10u);
   if ( (signed __int16)v8 < 0 )
-    goto LABEL_19;
+	goto LABEL_19;
   if ( a5 > 0 )
   {
-    if ( a5 > 150 )
-    {
-      v11 = a7;
+	if ( a5 > 150 )
+	{
+	  v11 = pWindowDims;
     }
     else
     {
@@ -1968,8 +1967,6 @@ LABEL_14:
   v20 = *(_DWORD *)(v12 + 12);
   v13 = (char *)&v17;
 LABEL_16:
-
-  pWindowDims = (long *)(a7);
 
   pWindowDims[0] = *(_DWORD *)(v13 + 0);
   pWindowDims[1] = *(_DWORD *)(v13 + 4);

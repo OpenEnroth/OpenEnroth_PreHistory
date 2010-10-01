@@ -258,11 +258,6 @@ extern unsigned char byte_4ED768[0x24];
 
 extern unsigned char byte_4ED78C[0x24];
 
-extern struct StatTable g_StatTable[4][7]; // byte[] @ MM7.exe::004ED7B0
-//extern unsigned char array_4ED7B0[0x70];
-
-extern unsigned char AvailSkillPerClass[9][37]; // byte[] @ MM7.exe::004ED820
-//char byte_4ED820[array_size_unknown]; // weak
 
 extern char byte_4ED94C[array_size_unknown]; // weak
 extern char byte_4ED970[array_size_unknown]; // weak
@@ -1371,7 +1366,7 @@ extern unsigned char byte_5C45B0[2048];
 //char byte_5C45B1[array_size_unknown]; // weak
 
 extern _UNKNOWN unk_5C4DB0; // weak
-extern unsigned char TmpBuf[]; // byte[~2000] @ MM7.exe::005C5DB0
+extern unsigned char TmpBuf[array_size_unknown + 2000]; // byte[~2000] @ MM7.exe::005C5DB0
 extern char byte_5C657F[array_size_unknown]; // weak
 
 extern char byte_5C6D50[100]; // weak

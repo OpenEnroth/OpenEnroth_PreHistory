@@ -4311,19 +4311,19 @@ signed int __cdecl PlayerCreation_ComputeAttributeBonus()
 }
 
 //----- (0045855F) --------------------------------------------------------
-int __thiscall sub_45855F(int this)
+int __thiscall sub_45855F(void *this)
 {
   int result; // eax@1
 
   result = 0;
-  *(_DWORD *)(this + 16) = 65536;
-  *(_WORD *)(this + 10) = 0;
-  *(_WORD *)(this + 8) = 0;
-  *(_WORD *)(this + 6) = 0;
-  *(_WORD *)(this + 4) = 0;
-  *(_WORD *)(this + 2) = 0;
-  *(_WORD *)(this + 12) = 0;
-  *(_WORD *)(this + 14) = 0;
+  *((_DWORD *)this + 4) = 65536;
+  *((_WORD *)this + 5) = 0;
+  *((_WORD *)this + 4) = 0;
+  *((_WORD *)this + 3) = 0;
+  *((_WORD *)this + 2) = 0;
+  *((_WORD *)this + 1) = 0;
+  *((_WORD *)this + 6) = 0;
+  *((_WORD *)this + 7) = 0;
   return result;
 }
 

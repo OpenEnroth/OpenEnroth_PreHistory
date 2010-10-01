@@ -838,7 +838,6 @@ void GameUI_Process()
   float v26; // ST64_4@126
   float v27; // ST64_4@127
   int v28; // ecx@135
-  signed __int64 v29; // qax@145
   int v30; // ecx@149
   int v31; // ecx@165
   int v32; // eax@204
@@ -1698,8 +1697,7 @@ LABEL_136:
 LABEL_143:
           if ( uMusicVolimeMultiplier )
             AudioPlayer_sub_4AA306(pAudioPlayer, 217, -1, 0, -1, 0, 0, (signed __int64)(aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0), 0);
-          v29 = (signed __int64)(aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
-          AudioPlayer_SetVolume(pAudioPlayer, SHIDWORD(v29), v29);
+		  AudioPlayer_SetVolume(pAudioPlayer, aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
           goto LABEL_92;
         case 0x6F:
           if ( v209 == 4 )

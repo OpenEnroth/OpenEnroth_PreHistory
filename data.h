@@ -110,7 +110,7 @@ extern struct class59 *pClass59_global;
 extern char class23_instance[];
 
 
-extern char TmpBuf[];
+extern unsigned char TmpBuf[];
 extern unsigned char pStringBuffer[];
 
 
