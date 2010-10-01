@@ -418,7 +418,7 @@ void CGame_stru0_sub_40E2F6(struct CGame_stru0 *_this, char a2)
 }
 
 //----- (0044EA5E) --------------------------------------------------------
-bool CGame_Pick(struct CGame *_this, float a2, unsigned int uMouseX, unsigned int uMouseY, char a5, int a6, int a7)
+bool CGame_Pick(struct CGame *_this, float a2, unsigned int uMouseX, unsigned int uMouseY, bool bOutline, int a6, int a7)
 {
   char v10; // [sp-4h] [bp-24h]@5
   int v11; // [sp+0h] [bp-20h]@5
@@ -430,17 +430,14 @@ bool CGame_Pick(struct CGame *_this, float a2, unsigned int uMouseX, unsigned in
     if ( !_this->pVis)
     {
       v16 = &v10;
-      sub_40E2C8(
-        &v10,
-        "The 'Vis' object pointer has not been instatiated, but CGame::Pick() is trying to call through it.",
-        (int)&v17);
+      sub_40E2C8(&v10, "The 'Vis' object pointer has not been instatiated, but CGame::Pick() is trying to call through it.",(int)&v17);
       sub_466D09(&v16, *(int *)&v10, v11, 0, 0, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Game.cpp", __LINE__);
     }
     if (uMouseX >= pOldViewport->uScreenX && uMouseX <= pOldViewport->uScreenZ &&
         uMouseY >= pOldViewport->uScreenY && uMouseY <= pOldViewport->uScreenW)
     {
             Vis_sub_4C0646(_this->pVis, a2, uMouseX, uMouseY, a6, a7);
-            if (a5)
+            if (bOutline)
               CGame_outline_selection(_this);
     }
     return true;

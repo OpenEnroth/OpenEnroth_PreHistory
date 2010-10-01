@@ -6799,7 +6799,7 @@ __int16 __fastcall sub_445D4A(int a1, int a2)
   int v16; // [sp-4h] [bp-40h]@34
   signed int v17; // [sp-4h] [bp-40h]@35
   int v18; // [sp+10h] [bp-2Ch]@1
-  char Str1; // [sp+14h] [bp-28h]@3
+  char Str1[128]; // [sp+14h] [bp-28h]@3
 
   v4 = a1;
   v18 = a2;
@@ -6818,7 +6818,7 @@ __int16 __fastcall sub_445D4A(int a1, int a2)
   if ( (v2 & 3) != 2 )
     *((_DWORD *)v3 + 2) = v2 + 1;
   v7 = sub_44C28B();
-  sprintfex(&Str1, "evt%02d", v7);
+  wsprintfA(Str1, "evt%02d", v7);
   if ( !pParty_global->uAlignment )
   {
     v15 = "-b";
@@ -6836,9 +6836,9 @@ LABEL_8:
   dword_5913F0 = 0;
   dword_591424 = 1;
   dword_591430 = 72 * v9 + 7145548;
-  sprintfex(&Str1, "npc%03u", *((_DWORD *)v3 + 1));
+  wsprintfA(Str1, "npc%03u", *((_DWORD *)v3 + 1));
   v8 = 0;
-  dword_59140C[0] = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2) + 7145548;
+  dword_59140C[0] = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, Str1, 2) + 7145548;
   dword_591084 = dword_506128;
   dword_507B04 = dword_5079E4;
   if ( !(v3[8] & 0x80) && *((_DWORD *)v3 + 5) >= 0 )

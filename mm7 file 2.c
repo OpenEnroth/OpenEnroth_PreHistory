@@ -11292,7 +11292,7 @@ LABEL_42:
       v26 = v4;
       v27 = 40;
       if ( pD3DRenderer->pRenderD3D3 )
-        LOWORD(v5) = sub_4C1BF1(pGame->pVis);
+        LOWORD(v5) = sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(pGame->pVis);
       else
         v5 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (v38 + dword_5059A8[v39]));
       v6 = (unsigned __int16)v5;
@@ -11521,7 +11521,7 @@ void __thiscall OnMouseLeftClick(void *_this)
         if ( v13 >= pOldViewport->uGameY && v13 <= pOldViewport->uGameW )
         {
           if ( pD3DRenderer->pRenderD3D3 )
-            v5 = sub_4C1BF1(pGame->pVis);
+            v5 = sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(pGame->pVis);
           else
             v5 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * (v12 + dword_5059A8[v13]));
           v6 = (unsigned __int16)v5;
@@ -16858,7 +16858,7 @@ void __cdecl sub_42213C()
   sub_404828(&v24);
   if ( pD3DRenderer->pRenderD3D3 )
   {
-    v0 = sub_4C1BF1(pGame->pVis);
+    v0 = sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(pGame->pVis);
   }
   else
   {

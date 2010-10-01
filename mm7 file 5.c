@@ -1665,24 +1665,21 @@ void __thiscall sub_469EA4_LooksLikeDrawPickedItem(int this)
 }
 
 //----- (0046A0A1) --------------------------------------------------------
-int __thiscall sub_46A0A1(void *this)
+int __thiscall sub_46A0A1(int a1)
 {
-  double v1; // st7@3
   int v3; // [sp-4h] [bp-8h]@5
 
   if ( dword_6BE360 == 1 )
   {
     if ( pD3DRenderer->pRenderD3D3 )
-      v1 = *(float *)(pGame->class08_obj + 196);
+      v3 = *(float *)(pGame->class08_obj + 196);
     else
-      v1 = pOldCamera->flt_00001C;
-    v3 = (signed __int64)v1;
+      v3 = pOldCamera->flt_00001C;
   }
   else
-  {
     v3 = pStruct9_global->dword_000014;
-  }
-  return class59_Atan2(pClass59_global, (int)((char *)this - pOldViewport->dword_000028), v3) - pClass59_global->uIntegerHalfPi;
+
+  return class59_Atan2(pClass59_global, (int)(a1 - pOldViewport->dword_000028), v3) - pClass59_global->uIntegerHalfPi;
 }
 
 //----- (0046A0F6) --------------------------------------------------------
@@ -1734,9 +1731,9 @@ char __cdecl sub_46A14B_ProbablyDoInteraction()
   if ( pD3DRenderer->pRenderD3D3 )
   {
     Game_sub_44EB12(pGame, GetAsyncKeyState(VK_CONTROL) & 0x8001, &stru_F93E6C, (int)&dword_F93E58);
-    v0 = sub_4C1BF1(pGame->pVis);
+    v0 = sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(pGame->pVis);
     if ( v0 != -1 )
-      LOBYTE(v0) = sub_46A334((unsigned __int16)v0, (signed int)(unsigned __int16)v0 >> 3);
+      LOBYTE(v0) = sub_46A334_LooksLikeInteractWithTopmostZObject((unsigned __int16)v0, (signed int)(unsigned __int16)v0 >> 3);
     return v0;
   }
   v23 = 0;
@@ -1832,7 +1829,7 @@ LABEL_21:
   }
   for ( j = 0; j < v23; ++j )
   {
-    LOBYTE(v0) = sub_46A334(dword_720660[j] & 0xFFFF, v17);
+    LOBYTE(v0) = sub_46A334_LooksLikeInteractWithTopmostZObject(dword_720660[j] & 0xFFFF, v17);
     if ( !(_BYTE)v0 )
       break;
   }
@@ -1840,7 +1837,7 @@ LABEL_21:
 }
 
 //----- (0046A334) --------------------------------------------------------
-char __fastcall sub_46A334(int a1, int a2)
+char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
 {
   int v2; // edx@1
   int v4; // eax@9
@@ -1908,9 +1905,11 @@ char __fastcall sub_46A334(int a1, int a2)
       }
       sub_42F933(v21);
       break;
+
+      //interact with actor
     case 3:
       v13 = a1 >> 3;
-      v14 = (int)((char *)pActors + 836 * (a1 >> 3));
+      v14 = &pActors[(a1 >> 3)];
       v12 = *(_WORD *)(v14 + 176);
       if ( v12 == 4 || v12 == 17 )
         return 1;
@@ -1955,6 +1954,8 @@ char __fastcall sub_46A334(int a1, int a2)
         }
       }
       break;
+
+      //interact with decoration
     case 5:
       v9 = &pLevelDecorations[(a1 >> 3)];
       v8 = v9[11];
@@ -18290,18 +18291,16 @@ LABEL_19:
 //----- (0048B561) --------------------------------------------------------
 int __stdcall sub_48B561(float a1)
 {
-  float v2; // ST08_4@1
-  double v3; // ST00_8@1
   int v4; // ST0C_4@1
-  double v5; // ST00_8@1
+  //double v5; // ST00_8@1
   float v6; // [sp+18h] [bp+8h]@1
 
-  v2 = a1 - memory_4D8410.d_0_5;
-  v3 = v2 + 6.755399441055744e15;
-  v4 = LODWORD(v3);
-  v6 = (a1 - (double)SLODWORD(v3)) * 65536.0;
-  v5 = v6 + 6.755399441055744e15;
-  return LODWORD(v5) | (v4 << 16);
+  //v2 = a1 - 0.5;
+  //v3 = v2 + 6.755399441055744e15;
+  v4 = floorf(a1);
+  v6 = (a1 - v4) * 65536.0;
+  //v5 = v6 + 6.755399441055744e15;
+  return (int)floorf(v6 + 0.5f) | (v4 << 16);
 }
 
 //----- (0048B5B3) --------------------------------------------------------

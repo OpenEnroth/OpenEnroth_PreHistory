@@ -72,7 +72,7 @@ bool Game_InitializeGammaController(struct CGame *_this);
 //char __thiscall sub_44EEA7(int this);
 char CGame_sub_44EEA7(struct CGame *_this);
 //char __thiscall sub_44EA5E(int this, float a2, signed int a3, signed int a4, char a5, int a6, int a7);
-bool CGame_Pick(struct CGame *_this, float a2, signed int a3, signed int a4, char a5, int a6, int a7);
+bool CGame_Pick(struct CGame *_this, float a2, signed int a3, signed int a4, bool bOutline, int a6, int a7);
 //char __thiscall sub_44F07B(int this);
 bool CGame_sub_44F07B(struct CGame *_this);
 //void __thiscall sub_44F120(int this, int a2);
@@ -216,8 +216,8 @@ bool class04_sub_45D698(struct class04 *_this, char a2);
 struct class25_stru0
 {
  unsigned int uBillboardID; // dword @ 000000
- int dword_000004; // RenderBillboard::000010
- int dword_000008;
+ int dword_000004; // RenderBillboard::000010, zbuf_val returned by sub_4C1BAA_Vis_get_object_zbuf_val
+ int dword_000008; // object type for sub_4C1BAA_Vis_get_object_zbuf_val
 };
 //sizeof = 0C
 
@@ -225,19 +225,18 @@ struct class25_stru0
 struct class25
 {
  void                 (*detor_ptr)(struct class25 *, unsigned int); // dword @ 000000
- //int    array_000004[2048];
- //int    dword_002004;
- struct class25_stru0   array_000004[682];
- int                    dword_001FFC;
- int                    dword_002000;
- int                    dword_002004;
+ struct class25_stru0  array_000004[512];
+ struct class25_stru0 *array_001800[512];
+ int                   dword_002004;
 };
 //sizeof = 2008
 void class25_detor(struct class25 *_this , unsigned int a2);
 //__int64 __thiscall sub_4C055C(void *this);
 __int64 class25_fn0(struct class25 *_this);
 //void *__thiscall sub_4C2591(int this, int a2);
-void *class25_sub_4C2591(struct class25 *_this, int a2);
+void class25_create_object_pointers(struct class25 *_this, int a2);
+//void sub_4C264A(int a2, int a3, int a4);
+private void class25_sort_object_pointers(struct class25_stru0 **pPointers, int sLeft, int sRight);
 
 
 
@@ -246,7 +245,11 @@ struct Vis_stru0
  float flt_000000;
  float flt_000004;
  float flt_000008;
- int   unk_00000C[8];
+ float flt_00000C;
+ int   unk_000010[2];
+ float flt_000018;
+ float flt_00001C;
+ int   unk_000020[3];
  float flt_00002C;
 };
 //sizeof == 30
@@ -281,7 +284,25 @@ bool Vis_sub_4C091D(struct Vis *_this, float a2, int a3);
 //int __thiscall ub_4C0D32(void *this, float a2, int a3, int a4);
 int Vis_sub_4C0D32(struct Vis *_this, float a2, int a3, int a4);
 //int __thiscall sub_4C0DEA(void *this, float a2, int a3, int a4);
-int Vis_sub_4C0DEA(struct Vis *_this, float a2, int a3, int a4);
+void Vis_sub_4C0DEA(struct Vis *_this, float a2, int a3, int a4);
+//void __thiscall sub_4C1542(void *this, float a2, float a3, float a4, int a5, int a6);
+void Vis_sub_4C1542(struct Vis *_this, float a2, float a3, float a4, int a5, int a6);
+//int __thiscall sub_4C1026(void *this, int a2, int a3, float a4);
+int Vis_sub_4C1026(struct Vis *_this, int a2, int a3, float a4);
+//char __thiscall sub_4C1ABA(void *this, int a2, int a3, int a4);
+bool Vis_sort_some_objects(struct Vis *_this, int a2, int a3, int a4);
+//int __thiscall sub_4C1495(void *this, const void *Src, int a3, int a4, int a5);
+int Vis_sub_4C1495(struct Vis *_this, const void *Src, int a3, int a4, int a5);
+//char __thiscall sub_4C288E(void *this, int a2, int a3, int a4);
+bool Vis_sort_some_objects_2(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight);
+//char __thiscall sub_4C297E(void *this, int a2, int a3, int a4);
+bool Vis_sort_some_objects_3(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight);
+//int __thiscall sub_4C1417(void *this, const void *Src, int a3, int a4, int a5);
+void Vis_ProbablyGetD3DBillboardCenter(struct Vis *_this, struct D3DVERTEX *Src, unsigned int uNumVertices, float *fCenterX, float *fCenterY);
+//char __thiscall sub_4C26D0(void *this, int a2, int a3, int a4);
+template bool Vis_Sort_template_D3DXVECTOR_x(struct Vis *_this, struct D3DVERTEX *pVertices, int sLeft, int sRight);
+//char __thiscall sub_4C27AD(void *this, int a2, int a3, int a4);
+template bool Vis_Sort_template_D3DXVECTOR_y(struct Vis *_this, struct D3DVERTEX *pVertices, int sLeft, int sRight);
 
 
 struct class06_stru0

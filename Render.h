@@ -85,7 +85,7 @@ struct RenderBillboard
  int                 dword_000000;
  int                 dword_000004;
  char                byte_000008[8];
- int                 dword_000010;
+ int                 dword_000010;  // zbuffer value for the sprite
  int                 dword_000014;
  unsigned short      uHardwareSpriteID; // word @ 000018
  short               word_00001A;

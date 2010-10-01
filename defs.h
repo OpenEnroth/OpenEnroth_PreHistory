@@ -20,6 +20,7 @@
   #define public
   #define protected
   #define private
+  #define template
 #endif
 
 #define compile_warning

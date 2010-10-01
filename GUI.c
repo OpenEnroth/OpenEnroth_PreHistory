@@ -507,7 +507,7 @@ void GameUI_Update()
 
     if ( pD3DRenderer->pRenderD3D3 )
     {
-      v18 = sub_4C1BF1(pGame->pVis);
+      v18 = sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(pGame->pVis);
       if (x < pOldViewport->uScreenX || x > pOldViewport->uScreenZ ||
           y < pOldViewport->uScreenY || y > pOldViewport->uScreenW)
         v18 = -1;
@@ -2512,7 +2512,7 @@ LABEL_317:
         case 0xBE:
           if ( pD3DRenderer->pRenderD3D3 )
           {
-            LOWORD(v54) = sub_4C1BF1(pGame->pVis);
+            LOWORD(v54) = sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(pGame->pVis);
           }
           else
           {
@@ -3032,7 +3032,7 @@ LABEL_544:
         case 0x8C:
           if ( pD3DRenderer->pRenderD3D3 )
           {
-            v93 = sub_4C1BF1(pGame->pVis);
+            v93 = sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(pGame->pVis);
           }
           else
           {
@@ -3770,7 +3770,7 @@ LABEL_772:
         case 0xF:
           if ( pD3DRenderer->pRenderD3D3 )
           {
-            LOWORD(v131) = sub_4C1BF1(pGame->pVis);
+            LOWORD(v131) = sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(pGame->pVis);
           }
           else
           {

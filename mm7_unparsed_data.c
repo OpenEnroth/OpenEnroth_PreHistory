@@ -2487,21 +2487,17 @@ struct OldViewport *pOldViewport = 0;  // struct @ MM7.exe::00F8BC14
  _UNKNOWN unk_F8DDE4; // weak
  int dword_F8DDEC; // weak
  char byte_F8DDF0; // weak
- _UNKNOWN unk_F8DDF8; // weak
- float flt_F8DE10; // weak
- float flt_F8DE14; // weak
- _UNKNOWN unk_F8DE24; // weak
- _UNKNOWN unk_F8E9E0; // weak
- _UNKNOWN unk_F8E9E4; // weak
+
+struct Vis_stru0 array_F8DDF8[64]; // struc[64] @ MM7.exe::00F8DDF8
+
+_UNKNOWN unk_F8E9E0; // [63]+18
+_UNKNOWN unk_F8E9E4; // [63]+1C
  char byte_F8E9F8; // weak
- float flt_F8EA00; // weak
- float flt_F8EA04; // weak
- _UNKNOWN unk_F8F200; // weak
- _UNKNOWN unk_F8F204; // weak
- float flt_F8F20C; // weak
- _UNKNOWN unk_F8F22C; // weak
- 
-struct class25 class25_F8FE00;  // struct @ MM7.exe::00F8FE00
+
+struct D3DVERTEX array_F8EA00[array_size_unknown]; // struct[?
+
+struct Vis_stru0 array_F8F200[64]; // struct[64] @ MM7.exe::00F8F200
+struct class25 class25_F8FE00;     // struct     @ MM7.exe::00F8FE00
  char byte_F91E08; // weak
 struct class25 class25_F91E10;  // struct @ MM7.exe::00F91E10
  char byte_F93E18; // weak

@@ -14312,29 +14312,28 @@ bool Vis_sub_4C05CC(struct Vis *_this, struct class25 *a2, int a3, int a4)
  else
    Vis_sub_4C0DEA(_this, _this->dword_0020CC, v5, a4);
 
- class25_sub_4C2591(v5, 1);
- sub_4C264A(v5->dword_002004 - 1, &v5->array_000004[512], 0, v5->dword_002004 - 1);
+ class25_create_object_pointers(v5, 1);
+ class25_sort_object_pointers(v5->array_001800, 0, v5->dword_002004 - 1);
  return true;
 }
 
 //----- (004C0646) --------------------------------------------------------
 bool Vis_sub_4C0646(struct Vis *_this, float a2, float fMouseX, float fMouseY, int a5, int a6)
 {
-  int v10; // [sp+1Ch] [bp-60h]@1
+ struct Vis_stru0 local_1C[2];
 
  _this->class25_obj.dword_002004 = 0;
 
- sub_4C248E(&v10, fMouseX, fMouseY, a2);
- sub_4C1542(_this, a2, fMouseX, fMouseY, &_this->class25_obj, a5);
+ sub_4C248E(local_1C, fMouseX, fMouseY, a2);
+ Vis_sub_4C1542(_this, a2, fMouseX, fMouseY, &_this->class25_obj, a5);
 
  if ( dword_6BE360 == 1 )
-   sub_4C16B4(_this, SLOBYTE(a2), &v10, &_this->class25_obj, a6);
+   sub_4C16B4(_this, SLOBYTE(a2), local_1C, &_this->class25_obj, a6);
  else
-   sub_4C17CF(_this, SLOBYTE(a2), &v10, &_this->class25_obj, a6, 0);
+   sub_4C17CF_ProbablyIfMouseOverBModel(_this, SLOBYTE(a2), local_1C, &_this->class25_obj, a6, 0);
 
- class25_sub_4C2591(&_this->class25_obj, 0);
- //sub_4C264A(v6 + 6152, v6 + 6152, 0, *(_DWORD *)(v6 + 8200) - 1);
- sub_4C264A(&_this->class25_obj.array_000004[512], &_this->class25_obj.array_000004[512], 0, _this->class25_obj.dword_002004 - 1);
+ class25_create_object_pointers(&_this->class25_obj, 0);
+ class25_sort_object_pointers(_this->class25_obj.array_001800, 0, _this->class25_obj.dword_002004 - 1);
   
  return true;
 }
@@ -14514,8 +14513,13 @@ bool Vis_sub_4C091D(struct Vis *_this, float a2, int a3)
   int v28; // eax@45
   unsigned int v29; // eax@47
   char result; // al@48
-  int v31; // [sp+20h] [bp-DCh]@5
-  int v32; // [sp+80h] [bp-7Ch]@22
+
+  struct Vis_stru0 local_20[2];
+  //int v31; // [sp+20h] [bp-DCh]@5
+
+  struct Vis_stru0 local_80[2];
+  //int v32; // [sp+80h] [bp-7Ch]@22
+
   float v33; // [sp+E0h] [bp-1Ch]@33
   float v34; // [sp+E4h] [bp-18h]@32
   int v35; // [sp+E8h] [bp-14h]@5
@@ -14547,27 +14551,40 @@ LABEL_49:
   {
     LOWORD(v5) = 0;
     v37 = v5;
-    sub_4C1417(v39, pBillboardRenderListD3D3[v4/156].pQuad, 4, (int)&v35, (int)&v36);
-    sub_4C248E((int)&v31, v35, *(float *)&v36, a2);
+    Vis_ProbablyGetD3DBillboardCenter(_this, pBillboardRenderListD3D3[v4/156].pQuad, 4, &v35, &v36);
+    sub_4C248E(local_20, *(float *)&v35, *(float *)&v36, a2);
     if ( dword_6BE360 == 1 )
     {
       v6 = a2;
-      sub_4C16B4(v39, SLOBYTE(v6), (int)&v31, (int)&class25_F91E10, (int)&dword_F93E44);
+      sub_4C16B4(v39, SLOBYTE(v6), local_20, (int)&class25_F91E10, (int)&dword_F93E44);
     }
     else
     {
       v7 = a2;
-      sub_4C17CF(v39, SLOBYTE(v7), (int)&v31, (int)&class25_F91E10, (int)&dword_F93E44, 0);
+      sub_4C17CF_ProbablyIfMouseOverBModel(v39, SLOBYTE(v7), local_20, (int)&class25_F91E10, (int)&dword_F93E44, 0);
     }
-    class25_sub_4C2591((int)&class25_F91E10, 0);
-    sub_4C264A(class25_F91E10.dword_002004 - 1, &class25_F91E10.array_000004[512], 0, class25_F91E10.dword_002004 - 1);
-    if ( class25_F91E10.dword_002004
-      && (class25_F91E10.dword_002004 <= 0 ? (v8 = 0) : (v8 = &class25_F91E10.array_000004[512]), v9 = *(_DWORD *)(v8 + 4), LOWORD(v9) = 0, v9 <= v37)
-      || (double)(pOldViewport->uScreenX) > *(float *)&v35
-      || (double)pOldViewport->uScreenZ < *(float *)&v35
-      || (double)pOldViewport->uScreenY > *(float *)&v36
-      || (double)pOldViewport->uScreenW < *(float *)&v36 )
+    class25_create_object_pointers((int)&class25_F91E10, 0);
+    class25_sort_object_pointers(class25_F91E10.array_001800, 0, class25_F91E10.dword_002004 - 1);
+
+    if (class25_F91E10.dword_002004)
     {
+     if (class25_F91E10.dword_002004 <= 0)
+       v8 = 0;
+     else v8 = class25_F91E10.array_001800;
+
+     v9 = *(_DWORD *)(v8 + 4);
+
+     LOWORD(v9) = 0;
+
+     if (v9 > v37)
+       return 1;
+    }
+    else if ((double)(pOldViewport->uScreenX) <= *(float *)&v35 &&
+             (double)pOldViewport->uScreenZ >= *(float *)&v35 &&
+             (double)pOldViewport->uScreenY <= *(float *)&v36 &&
+             (double)pOldViewport->uScreenW >= *(float *)&v36)
+      return 1;
+
       v40 = 0;
       v10 = &pBillboardRenderListD3D3[v4/156].pQuad[0].y;
       LODWORD(v38) = &pBillboardRenderListD3D3[v4/156].pQuad[0].y;
@@ -14587,22 +14604,22 @@ LABEL_49:
               {
                 v14 = v11;
                 v15 = v12;
-                sub_4C248E((int)&v32, SLODWORD(v15), v14, a2);
+                sub_4C248E(local_80, SLODWORD(v15), v14, a2);
                 if ( dword_6BE360 == 1 )
                 {
                   v16 = a2;
-                  sub_4C16B4(v39, SLOBYTE(v16), (int)&v32, &class25_F91E10, (int)&dword_F93E44);
+                  sub_4C16B4(v39, SLOBYTE(v16), local_80, &class25_F91E10, (int)&dword_F93E44);
                 }
                 else
                 {
                   v17 = a2;
-                  sub_4C17CF(v39, SLOBYTE(v17), (int)&v32, &class25_F91E10, (int)&dword_F93E44, 0);
+                  sub_4C17CF_ProbablyIfMouseOverBModel(v39, SLOBYTE(v17), local_80, &class25_F91E10, (int)&dword_F93E44, 0);
                 }
-                class25_sub_4C2591((int)&class25_F91E10, 0);
-                sub_4C264A(class25_F91E10.dword_002004 - 1, &class25_F91E10.array_000004[512], 0, class25_F91E10.dword_002004 - 1);
+                class25_create_object_pointers((int)&class25_F91E10, 0);
+                class25_sort_object_pointers(class25_F91E10.array_001800, 0, class25_F91E10.dword_002004 - 1);
                 if ( !class25_F91E10.dword_002004 )
                   break;
-                v18 = class25_F91E10.dword_002004 <= 0 ? 0 : &class25_F91E10.array_000004[512];
+                v18 = class25_F91E10.dword_002004 <= 0 ? 0 : class25_F91E10.array_001800;
                 v19 = *(_DWORD *)(v18 + 4);
                 LOWORD(v19) = 0;
                 if ( v19 > v37 )
@@ -14638,11 +14655,11 @@ LABEL_49:
             || v23 > (double)pOldViewport->uScreenZ
             || (double)pOldViewport->uScreenY > v41
             || (double)pOldViewport->uScreenW < v41
-            || ((v24 = v39, v25 = v23, sub_4C248E((int)&v32, SLODWORD(v25), v41, a2), dword_6BE360 != 1) ? (v27 = a2, sub_4C17CF(v24, SLOBYTE(v27), (int)&v32, (int)&class25_F91E10, (int)&dword_F93E44, 0)) : (v26 = a2, sub_4C16B4(v24, SLOBYTE(v26), (int)&v32, (int)&class25_F91E10, (int)&dword_F93E44)),
-                (class25_sub_4C2591((int)&class25_F91E10, 0),
-                 sub_4C264A(class25_F91E10.dword_002004 - 1, &class25_F91E10.array_000004[512], 0, class25_F91E10.dword_002004 - 1),
+            || ((v24 = v39, v25 = v23, sub_4C248E(local_80, SLODWORD(v25), v41, a2), dword_6BE360 != 1) ? (v27 = a2, sub_4C17CF_ProbablyIfMouseOverBModel(v24, SLOBYTE(v27), local_80, (int)&class25_F91E10, (int)&dword_F93E44, 0)) : (v26 = a2, sub_4C16B4(v24, SLOBYTE(v26), local_80, (int)&class25_F91E10, (int)&dword_F93E44)),
+                (class25_create_object_pointers((int)&class25_F91E10, 0),
+                 class25_sort_object_pointers(class25_F91E10.array_001800, 0, class25_F91E10.dword_002004 - 1),
                  class25_F91E10.dword_002004)
-             && (class25_F91E10.dword_002004 <= 0 ? (v28 = 0) : (v28 = &class25_F91E10.array_000004[512]),
+             && (class25_F91E10.dword_002004 <= 0 ? (v28 = 0) : (v28 = class25_F91E10.array_001800),
                  v29 = *(_DWORD *)(v28 + 4),
                  LOWORD(v29) = 0,
                  v29 <= v37)) )
@@ -14650,7 +14667,7 @@ LABEL_49:
           break;
         }
       }
-    }
+
     result = 1;
   }
   return result;
@@ -14691,7 +14708,7 @@ int __thiscall Vis_sub_4C0D32(void *this, float a2, int a3, int a4)
             {
               v8 = 8 * v5;
               LOBYTE(v8) = 8 * v5 | 6;
-              v7 = sub_4C1026(v15, v6, v8, a2);
+              v7 = Vis_sub_4C1026(v15, v6, v8, a2);
               if ( v7 )
               {
                 v9 = *(_DWORD *)(v7 + 4);
@@ -14716,60 +14733,53 @@ int __thiscall Vis_sub_4C0D32(void *this, float a2, int a3, int a4)
 }
 
 //----- (004C0DEA) --------------------------------------------------------
-int __thiscall Vis_sub_4C0DEA(void *this, float a2, int a3, int a4)
+void __thiscall Vis_sub_4C0DEA(struct Vis *_this, float a2, int a3, int a4)
 {
   int result; // eax@1
-  int v5; // esi@1
   int v6; // ebx@3
   int v7; // eax@3
   int v11; // esi@7
   int v12; // eax@8
   int v13; // eax@8
   int v14; // ecx@9
-  int v15; // [sp+10h] [bp-84h]@1
+  int v15[0x60/4]; // [sp+10h] [bp-84h]@1
   int v16; // [sp+70h] [bp-24h]@9
   int v17; // [sp+74h] [bp-20h]@9
   int v18; // [sp+78h] [bp-1Ch]@9
   int v19; // [sp+7Ch] [bp-18h]@1
-  void *v20; // [sp+80h] [bp-14h]@1
   int v21; // [sp+84h] [bp-10h]@6
-  int v22; // [sp+88h] [bp-Ch]@2
   int v23; // [sp+8Ch] [bp-8h]@5
-  int v24; // [sp+90h] [bp-4h]@1
+ int i;
 
-  v20 = this;
-  result = sub_46ED02((int)&v15);
-  v5 = 0;
+  result = sub_46ED02(v15);
   v19 = 0;
-  v24 = 0;
-  if ( pClass51_global->uNumBModels > 0 )
-  {
-    v22 = 0;
-    do
-    {
-      v6 = v22 + pClass51_global->pBModels;
-      LOBYTE(v7) = sub_479089(v24, (int)&v19);
-      if ( v7 )
+
+  v7 = 0;
+ for (i = 0; i < pClass51_global->uNumBModels; ++i)
+ {
+      v6 = &pClass51_global->pBModels[i];
+      LOBYTE(v7) = sub_479089(i, &v19);
+      if (v7)
       {
-        if ( v19 != v5 )
+        if (v19)
         {
           //v10 = __SETO__(*(_DWORD *)(v6 + 76), v5);
           //v8 = *(_DWORD *)(v6 + 76) == v5;
           //v9 = *(_DWORD *)(v6 + 76) - v5 < 0;
-          v23 = v5;
+          v23 = 0;
           //if ( !((unsigned __int8)(v9 ^ v10) | v8) )
-          if (*(_DWORD *)(v6 + 76) <= v5)
+          if (pClass51_global->pBModels[i].dword_00004C > 0)
           {
-            v21 = v5;
+            v21 = 0;
             do
             {
               v11 = v21 + *(_DWORD *)(v6 + 84);
               if ( Vis_is_part_of_selection(v11, a4) )
               {
-                sub_4C0EF2((int)&v15, v11);
-                v13 = 8 * (v23 | (v24 << 6));
+                sub_4C0EF2(v15, v11);
+                v13 = 8 * (v23 | (i << 6));
                 LOBYTE(v13) = v13 | 6;
-                v12 = sub_4C1026(v20, (int)&v15, v13, a2);
+                v12 = Vis_sub_4C1026(_this, v15, v13, a2);
                 if ( v12 )
                 {
                   v16 = *(_DWORD *)v12;
@@ -14787,15 +14797,9 @@ int __thiscall Vis_sub_4C0DEA(void *this, float a2, int a3, int a4)
               v21 += 308;
             }
             while ( v23 < *(_DWORD *)(v6 + 76) );
-            v5 = 0;
           }
         }
       }
-      ++v24;
-      v22 += 188;
-      result = v24;
-    }
-    while ( v24 < pClass51_global->uNumBModels );
   }
   return result;
 }
@@ -14838,7 +14842,7 @@ int __thiscall sub_4C0EF2(int this, int a2)
 }
 
 //----- (004C1026) --------------------------------------------------------
-int __thiscall sub_4C1026(void *this, int a2, int a3, float a4)
+int __thiscall Vis_sub_4C1026(struct Vis *_this, int a2, int a3, float a4)
 {
   _UNKNOWN *v4; // eax@4
   signed int v5; // ecx@4
@@ -14856,14 +14860,17 @@ int __thiscall sub_4C1026(void *this, int a2, int a3, float a4)
   float v17; // ST00_4@19
   int result; // eax@21
   int v19; // ecx@24
-  int v20; // [sp+20h] [bp-70h]@17
+
+  struct Vis_stru0 local_20[2];
+  //int v20; // [sp+20h] [bp-70h]@17
+
   void *v21; // [sp+80h] [bp-10h]@1
   int v22; // [sp+84h] [bp-Ch]@10
   int v23; // [sp+88h] [bp-8h]@16
   int v24; // [sp+8Ch] [bp-4h]@16
   int v25; // [sp+98h] [bp+8h]@7
 
-  v21 = this;
+  v21 = _this;
   if ( !(byte_F91E08 & 1) )
   {
     byte_F91E08 |= 1u;
@@ -14874,7 +14881,7 @@ int __thiscall sub_4C1026(void *this, int a2, int a3, float a4)
   if ( !(byte_F91E08 & 2) )
   {
     byte_F91E08 |= 2;
-    v4 = &unk_F8F22C;
+    v4 = &array_F8F200[0].flt_00002C;
     v5 = 64;
     do
     {
@@ -14893,7 +14900,7 @@ int __thiscall sub_4C1026(void *this, int a2, int a3, float a4)
     if ( v7 > 0 )
     {
       v8 = dword_6BE63C;
-      v9 = &unk_F8F204;
+      v9 = &array_F8F200[0].flt_000004;
       do
       {
         v10 = v25++;
@@ -14913,7 +14920,7 @@ int __thiscall sub_4C1026(void *this, int a2, int a3, float a4)
     if ( v7 > 0 )
     {
       v12 = (char *)&pClass51_global->pBModels[((unsigned int)a3 >> 9)] + 72;
-      v11 = &unk_F8F204;
+      v11 = &array_F8F200[0].flt_000004;
       do
       {
         *((float *)v11 - 1) = (double)*(signed int *)(*(_DWORD *)v12 + 12 * *(_WORD *)(*(_DWORD *)(v6 + 48) + 2 * v25));
@@ -14928,33 +14935,39 @@ int __thiscall sub_4C1026(void *this, int a2, int a3, float a4)
       while ( v25 < v7 );
     }
   }
-  sub_436523((int)&unk_F8F200, v7);
-  class08_sub_436BB7(pGame->class08_obj, (int)&unk_F8F200, v7, 1);
+  sub_436523(array_F8F200, v7);
+  class08_sub_436BB7(pGame->class08_obj, array_F8F200, v7, 1);
   v15 = v21;
-  sub_4C1ABA(v21, (int)&unk_F8F200, 0, v7 - 1);
-  if ( flt_F8F20C > (double)a4
-    || (sub_4C1495(v21, &unk_F8F200, v7, (int)&v23, (int)&v24),
-        sub_4C12C3((int)&unk_F8F200, v7, *(float *)&v23, *(float *)&v24))
-    || ((sub_4C248E((int)&v20, v23, *(float *)&v24, a4), dword_6BE360 != 1) ? (v17 = a4,
-                                                                               sub_4C17CF(
-                                                                                 v15,
-                                                                                 SLOBYTE(v17),
-                                                                                 (int)&v20,
-                                                                                 (int)&class25_F8FE00,
-                                                                                 (int)&dword_F93E44,
-                                                                                 1)) : (v16 = a4,
-                                                                                        sub_4C16B4(
-                                                                                          v15,
-                                                                                          SLOBYTE(v16),
-                                                                                          (int)&v20,
-                                                                                          (int)&class25_F8FE00,
-                                                                                          (int)&dword_F93E44)),
-        (class25_sub_4C2591((int)&class25_F8FE00, 0),
-         sub_4C264A(class25_F8FE00.dword_002004 - 1, &class25_F8FE00.array_000004[512], 0, class25_F8FE00.dword_002004 - 1),
-         !class25_F8FE00.dword_002004)
-     || (result = sub_4C2551((int)&class25_F8FE00, 2, a3), !result)
-     || class25_F8FE00.dword_002004 > 1 && (class25_F8FE00.dword_002004 <= 0 ? (v19 = 0) : (v19 = &class25_F8FE00.array_000004[512]), result != v19)) )
-    result = 0;
+  Vis_sort_some_objects(_this, array_F8F200, 0, v7 - 1);
+  if (array_F8F200[0].flt_00000C > (double)a4)
+    return result = 0;
+
+  Vis_sub_4C1495(_this, array_F8F200, v7, (int)&v23, (int)&v24);
+  if (sub_4C12C3_FindSomeBillboard(array_F8F200, v7, *(float *)&v23, *(float *)&v24))
+    return result = 0;
+
+  if (sub_4C248E(local_20, v23, *(float *)&v24, a4), dword_6BE360 != 1)
+  {
+   v17 = a4;
+   sub_4C17CF_ProbablyIfMouseOverBModel(v15, SLOBYTE(v17), local_20, (int)&class25_F8FE00, (int)&dword_F93E44, 1);
+  }
+  else
+  {
+   v16 = a4;
+   sub_4C16B4(v15, SLOBYTE(v16), local_20, (int)&class25_F8FE00, (int)&dword_F93E44);
+  }
+  class25_create_object_pointers((int)&class25_F8FE00, 0);
+  class25_sort_object_pointers(class25_F8FE00.array_001800, 0, class25_F8FE00.dword_002004 - 1);
+  if (!class25_F8FE00.dword_002004)
+    return result = 0;
+
+  result = sub_4C2551((int)&class25_F8FE00, 2, a3);
+  if (!result)
+    return result = 0;
+
+  if (class25_F8FE00.dword_002004 > 1 && (class25_F8FE00.dword_002004 <= 0 ? (v19 = 0) : (v19 = class25_F8FE00.array_001800), result != v19))
+    return result = 0;
+
   return result;
 }
 
@@ -14965,176 +14978,143 @@ void __cdecl sub_4C12B8_ResetClass25_F8FE00DtorPtr()
 }
 
 //----- (004C12C3) --------------------------------------------------------
-char __stdcall sub_4C12C3(int a1, int a2, float a3, float a4)
+bool __stdcall sub_4C12C3_FindSomeBillboard(struct Vis_stru0 *a1, int a2, float fX, float fY)
 {
-  int v4; // esi@1
-  int v5; // edi@2
-  int v6; // edx@9
   double v7; // st7@9
-  int v8; // ecx@10
-  char result; // al@24
   float v10; // [sp+10h] [bp-8h]@9
   signed int v11; // [sp+14h] [bp-4h]@1
   float v12; // [sp+28h] [bp+10h]@9
   float v13; // [sp+2Ch] [bp+14h]@9
+ int i;
 
   v11 = -1;
-  v4 = 0;
-  if ( pD3DRenderer->uNumBillboardsToDraw <= 0 )
-    goto LABEL_28;
-  v5 = (int)&pBillboardRenderListD3D3[0].uParentBillboardID;
-  do
-  {
-    if ( sub_4C1607(v5 - 152, a3, a4) )
-    {
-      if ( v11 == -1 || pBillboardRenderList[*(_DWORD *)v5].dword_000010 < (unsigned int)pBillboardRenderList[pBillboardRenderListD3D3[v11].uParentBillboardID].dword_000010 )
-        v11 = v4;
-    }
-    ++v4;
-    v5 += 156;
-  }
-  while ( v4 < pD3DRenderer->uNumBillboardsToDraw );
-  if ( v11 == -1 )
-    goto LABEL_28;
+
+ if (!pD3DRenderer->uNumBillboardsToDraw)
+   return false;
+
+ for (i = 0; i < pD3DRenderer->uNumBillboardsToDraw; ++i)
+   if ( IsPointInsideD3DBillboard(&pBillboardRenderListD3D3[i], fX, fY) )
+   {
+    if (v11 == -1 ||
+        pBillboardRenderList[pBillboardRenderListD3D3[i].uParentBillboardID].dword_000010 < (unsigned int)pBillboardRenderList[pBillboardRenderListD3D3[v11].uParentBillboardID].dword_000010 )
+      v11 = i;
+   }
+
+
+  if (v11 == -1)
+    return false;
+
   v7 = 3.402823466385289e38;
-  v6 = a2;
-  LODWORD(v13) = 2139095039;
+  LODWORD(v13) = 0x7F7FFFFF;
   v12 = -3.402823466385289e38;
   v10 = -3.402823466385289e38;
-  if ( a2 > 0 )
+
+  for (i = 0; i < a2; ++i)
   {
-    v8 = a1 + 28;
-    do
-    {
-      if ( *(float *)(v8 - 4) < v7 )
-        v7 = *(float *)(v8 - 4);
-      if ( *(float *)(v8 - 4) > (double)v12 )
-        v12 = *(float *)(v8 - 4);
-      if ( *(float *)v8 < (double)v13 )
-        v13 = *(float *)v8;
-      if ( *(float *)v8 > (double)v10 )
-        v10 = *(float *)v8;
-      v8 += 48;
-      --v6;
-    }
-    while ( v6 );
+      if (a1[i].flt_000018 < v7 )
+        v7 = a1[i].flt_000018;
+
+      if (a1[i].flt_000018 > (double)v12 )
+        v12 = a1[i].flt_000018;
+
+      if (a1[i].flt_00001C < (double)v13 )
+        v13 = a1[i].flt_00001C;
+
+      if (a1[i].flt_00001C > (double)v10 )
+        v10 = a1[i].flt_00001C;
   }
-  if (v7 < pBillboardRenderListD3D3[v11].pQuad[0].x ||
-      pBillboardRenderListD3D3[v11].pQuad[0].y > (double)v13 ||
-      pBillboardRenderListD3D3[v11].pQuad[3].x < (double)v12 ||
-      pBillboardRenderListD3D3[v11].pQuad[1].y < (double)v10 )
-LABEL_28:
-    result = 0;
-  else
-    result = 1;
-  return result;
+
+ if (v7 < pBillboardRenderListD3D3[v11].pQuad[0].x ||
+     pBillboardRenderListD3D3[v11].pQuad[0].y > (double)v13 ||
+     pBillboardRenderListD3D3[v11].pQuad[3].x < (double)v12 ||
+     pBillboardRenderListD3D3[v11].pQuad[1].y < (double)v10 )
+   return false;
+ else return true;
 }
 
 //----- (004C1417) --------------------------------------------------------
-int __thiscall sub_4C1417(void *this, const void *Src, int a3, int a4, int a5)
+void Vis_ProbablyGetD3DBillboardCenter(struct Vis *_this, struct D3DVERTEX *Src, unsigned int uNumVertices, float *fCenterX, float *fCenterY)
 {
-  int result; // eax@1
-  void *v6; // ST18_4@1
+ memcpy(array_F8EA00, Src, uNumVertices * sizeof(struct D3DVERTEX));
 
-  v6 = this;
-  memcpy(&flt_F8EA00, Src, 32 * a3);
-  sub_4C26D0(v6, (int)&flt_F8EA00, 0, a3 - 1);
-  *(float *)a4 = (*((float *)&unk_F8E9E0 + 8 * a3) - flt_F8EA00) * 0.5 + flt_F8EA00;
-  sub_4C27AD(v6, (int)&flt_F8EA00, 0, a3 - 1);
-  result = a5;
-  *(float *)a5 = (*((float *)&unk_F8E9E4 + 8 * a3) - flt_F8EA04) * 0.5 + flt_F8EA04;
-  return result;
+ Vis_Sort_template_D3DXVECTOR_x(_this, array_F8EA00, 0, uNumVertices - 1);
+ *fCenterX = (array_F8EA00[uNumVertices - 1].x - array_F8EA00[0].x) * 0.5 + array_F8EA00[0].x;
+
+ Vis_Sort_template_D3DXVECTOR_y(_this, array_F8EA00, 0, uNumVertices - 1);
+ *fCenterY = (array_F8EA00[uNumVertices - 1].y - array_F8EA00[0].y) * 0.5 + array_F8EA00[0].y;
 }
 
 //----- (004C1495) --------------------------------------------------------
-int __thiscall sub_4C1495(void *this, const void *Src, int a3, int a4, int a5)
+int __thiscall Vis_sub_4C1495(struct Vis *_this, struct Vis_stru0 *Src, int a3, int a4, int a5)
 {
-  _UNKNOWN *v5; // eax@2
-  signed int v6; // ecx@2
   int result; // eax@5
-  void *v8; // [sp+0h] [bp-4h]@1
 
-  v8 = this;
-  if ( !(byte_F8E9F8 & 1) )
-  {
-    byte_F8E9F8 |= 1u;
-    v5 = &unk_F8DE24;
-    v6 = 64;
-    do
-    {
-      *(float *)v5 = 0.0;
-      v5 = (char *)v5 + 48;
-      --v6;
-    }
-    while ( v6 );
-    atexit(0);
-  }
-  memcpy(&unk_F8DDF8, Src, 48 * a3);
-  sub_4C288E(v8, (int)&unk_F8DDF8, 0, a3 - 1);
-  *(float *)a4 = (*((float *)&unk_F8DDE0 + 12 * a3) - flt_F8DE10) * 0.5 + flt_F8DE10;
-  sub_4C297E(v8, (int)&unk_F8DDF8, 0, a3 - 1);
+ if (~byte_F8E9F8 & 0x01)
+ {
+  int i;
+
+  byte_F8E9F8 |= 1;
+  for (i = 0; i < 64; ++i)
+    array_F8DDF8[i].flt_00002C = 0;
+
+  atexit(0);
+ }
+
+ memcpy(array_F8DDF8, Src, a3 * sizeof(struct Vis_stru0));
+
+ Vis_sort_some_objects_2(_this, array_F8DDF8, 0, a3 - 1);
+  *(float *)a4 = (*((float *)&unk_F8DDE0 + 12 * a3) - array_F8DDF8[0].flt_000018) * 0.5 + array_F8DDF8[0].flt_000018;
+
+ Vis_sort_some_objects_3(_this, array_F8DDF8, 0, a3 - 1);
   result = a5;
-  *(float *)a5 = (*((float *)&unk_F8DDE4 + 12 * a3) - flt_F8DE14) * 0.5 + flt_F8DE14;
+  *(float *)a5 = (*((float *)&unk_F8DDE4 + 12 * a3) - array_F8DDF8[0].flt_00001C) * 0.5 + array_F8DDF8[0].flt_00001C;
   return result;
 }
 
 //----- (004C1542) --------------------------------------------------------
-void __thiscall sub_4C1542(void *this, float a2, float a3, float a4, int a5, int a6)
+void Vis_sub_4C1542(struct Vis *_this, float a2, float fX, float fY, struct class25 *pClass25, int a6)
 {
   int v6; // ST1C_4@6
-  int v7; // edi@6
-  void *v8; // [sp+20h] [bp-Ch]@1
+ struct class25_stru0 *v7; // edi@6
   int v9; // [sp+24h] [bp-8h]@2
-  int v10; // [sp+28h] [bp-4h]@1
+ int i;
 
-  v10 = 0;
-  v8 = this;
-  if ( pD3DRenderer->uNumBillboardsToDraw > 0 )
-  {
-    v9 = (int)&pBillboardRenderListD3D3[0].uParentBillboardID;
-    do
-    {
-      if ( Vis_is_part_of_selection(v10, a6) )
+ for (i = 0; i < pD3DRenderer->uNumBillboardsToDraw; ++i)
+ {
+  v9 = &pBillboardRenderListD3D3[i];
+
+  if (Vis_is_part_of_selection(i, a6))
+    if (IsPointInsideD3DBillboard(&pBillboardRenderListD3D3[i], fX, fY))
+      if (Vis_sub_4C091D(_this, a2, i))
       {
-        if ( sub_4C1607(v9 - 152, a3, a4) )
-        {
-          if ( Vis_sub_4C091D(v8, a2, v10) )
-          {
-           v6 = pBillboardRenderList[*(_DWORD *)v9].dword_000010;
-            v7 = a5 + 12 * *(_DWORD *)(a5 + 8196) + 4;
-            *(_DWORD *)v7 = *(_DWORD *)v9;
-            v7 += 4;
-            *(_DWORD *)v7 = v6;
-            *(_DWORD *)(v7 + 4) = 1;
-            ++*(_DWORD *)(a5 + 8196);
-          }
-        }
+           v6 = pBillboardRenderList[pBillboardRenderListD3D3[i].uParentBillboardID].dword_000010;
+
+           v7 = &pClass25->array_000004[pClass25->dword_002004++];
+           v7->uBillboardID = pBillboardRenderListD3D3[i].uParentBillboardID;
+           v7->dword_000004 = v6;
+           v7->dword_000008 = 1;
       }
-      ++v10;
-      v9 += 156;
-    }
-    while ( v10 < pD3DRenderer->uNumBillboardsToDraw );
-  }
+ }
 }
 
 //----- (004C1607) --------------------------------------------------------
-char __stdcall sub_4C1607(int a1, float a2, float a3)
+//bool __stdcall sub_4C1607(int a1, float a2, float a3);
+bool IsPointInsideD3DBillboard(struct RenderBillboardD3D3 *pBillboard, float fX, float fY)
 {
-  int v3; // eax@1
   double v4; // st7@2
   float v5; // ST00_4@3
-  char result; // al@10
   float v7; // [sp+4h] [bp-8h]@2
   float v8; // [sp+8h] [bp-4h]@2
   float v9; // [sp+14h] [bp+8h]@2
 
-  v3 = a1;
-  if ( *(_DWORD *)(a1 + 152) == -1 )
-    goto LABEL_14;
-  v4 = *(float *)(a1 + 8);
-  LODWORD(v9) = *(_DWORD *)(a1 + 104);
-  LODWORD(v8) = *(_DWORD *)(v3 + 12);
-  LODWORD(v7) = *(_DWORD *)(v3 + 44);
+ if (pBillboard->uParentBillboardID == -1 )
+   return false;
+
+ v4 = pBillboard->pQuad[0].x;
+ v8 = pBillboard->pQuad[0].y;
+ v7 = pBillboard->pQuad[1].y;
+ v9 = pBillboard->pQuad[3].x;
+
   if ( v4 > v9 )
   {
     v5 = v4;
@@ -15144,14 +15124,13 @@ char __stdcall sub_4C1607(int a1, float a2, float a3)
   if ( v8 > (double)v7 )
   {
     v7 = v8;
-    LODWORD(v8) = *(_DWORD *)(v3 + 44);
+    v8 = pBillboard->pQuad[1].y;
   }
-  if ( a2 + 1.0 < v4 || a2 - 1.0 > v9 || a3 + 1.0 < v8 || a3 - 1.0 > v7 )
-LABEL_14:
-    result = 0;
-  else
-    result = 1;
-  return result;
+
+ if (fX + 1.0 < v4 || fX - 1.0 > v9 ||
+     fY + 1.0 < v8 || fY - 1.0 > v7)
+   return false;
+ else return true;
 }
 
 //----- (004C16B4) --------------------------------------------------------
@@ -15224,7 +15203,7 @@ int __thiscall sub_4C16B4(void *this, char a2, int a3, int a4, int a5)
 }
 
 //----- (004C17CF) --------------------------------------------------------
-char __thiscall sub_4C17CF(void *this, char a2, int a3, int a4, int a5, char a6)
+char __thiscall sub_4C17CF_ProbablyIfMouseOverBModel(void *this, char a2, int a3, int a4, int a5, char a6)
 {
   int v6; // eax@1
   int v7; // ecx@1
@@ -15234,10 +15213,14 @@ char __thiscall sub_4C17CF(void *this, char a2, int a3, int a4, int a5, char a6)
   int v11; // eax@12
   int v12; // eax@12
   int v13; // edi@12
-  unsigned __int8 v14; // sf@15
-  unsigned __int8 v15; // of@15
-  char v17; // [sp+10h] [bp-B8h]@1
-  char v18; // [sp+70h] [bp-58h]@11
+  char v17[0x60]; // [sp+10h] [bp-B8h]@1
+
+  struct
+  {
+   float a, b, c;
+  } v18;
+  //char v18; // [sp+70h] [bp-58h]@11
+
   float v19; // [sp+7Ch] [bp-4Ch]@12
   float v20; // [sp+9Ch] [bp-2Ch]@1
   int v21; // [sp+A0h] [bp-28h]@12
@@ -15250,6 +15233,7 @@ char __thiscall sub_4C17CF(void *this, char a2, int a3, int a4, int a5, char a6)
   int v28; // [sp+BCh] [bp-Ch]@2
   int v29; // [sp+C0h] [bp-8h]@1
   int v30; // [sp+C4h] [bp-4h]@8
+ int i;
 
   v25 = this;
   LOBYTE(v6) = sub_46ED02((int)&v17);
@@ -15258,12 +15242,14 @@ char __thiscall sub_4C17CF(void *this, char a2, int a3, int a4, int a5, char a6)
   v27 = 0;
   v29 = 0;
   v20 = 0.0;
+
+  i = 0;
   if ( pClass51_global->uNumBModels > 0 )
   {
     v28 = 0;
     while ( 1 )
     {
-      v9 = v28 + pClass51_global->pBModels;
+      v9 = &pClass51_global->pBModels[i];
       LOBYTE(v6) = sub_479089(v7, (int)&v27);
       if ( a6 )
         break;
@@ -15272,9 +15258,11 @@ char __thiscall sub_4C17CF(void *this, char a2, int a3, int a4, int a5, char a6)
 LABEL_15:
       v28 += 188;
       v7 = v29 + 1;
-      compile_error;//v15 = __SETO__(v29 + 1, pClass51_global->uNumBModels);
-      v14 = v29++ + 1 - pClass51_global->uNumBModels < 0;
-      if ( !(v14 ^ v15) )
+      ++i;
+      //v15 = __SETO__(v29 + 1, pClass51_global->uNumBModels);
+      //v14 = v29++ + 1 - pClass51_global->uNumBModels < 0;
+      //if ( !(v14 ^ v15) )
+      if (++v29 >= pClass51_global->uNumBModels)
         return v6;
     }
     if ( !v6 || v27 == v8 )
@@ -15359,8 +15347,8 @@ signed int __thiscall sub_4C1944(void *this, int a2, unsigned int a3, int a4, in
   v6 = (double)a3;
   v8 = 1;
   Vis_sub_4C06F8(v14, v6, (int)&dword_F8BDE8, (int)&v8);
-  class25_sub_4C2591((int)&dword_F8BDE8, 1);
-  sub_4C264A(dword_F8DDEC - 1, (int)&dword_F8D5EC, 0, dword_F8DDEC - 1);
+  class25_create_object_pointers((int)&dword_F8BDE8, 1);
+  class25_sort_object_pointers((int)&dword_F8D5EC, 0, dword_F8DDEC - 1);
   if ( dword_F8DDEC <= 0 )
     result = -1;
   else
@@ -15435,64 +15423,74 @@ void Vis_sub_4C1A02(struct Vis *_this)
 }
 
 //----- (004C1ABA) --------------------------------------------------------
-char __thiscall sub_4C1ABA(void *this, int a2, int a3, int a4)
+bool Vis_sort_some_objects(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight)
 {
-  int v4; // edx@2
+ struct Vis_stru0 *v4; // edx@2
   int i; // ecx@2
   int v6; // ebx@2
   int v7; // esi@3
   int v8; // esi@5
   const void *v9; // eax@8
-  char v11; // [sp+4h] [bp-6Ch]@8
-  char v12; // [sp+34h] [bp-3Ch]@2
-  float v13; // [sp+40h] [bp-30h]@4
+
+  struct Vis_stru0 local_04;
+  //char v11; // [sp+4h] [bp-6Ch]@8
+
+  struct Vis_stru0 local_34;
+  //char v12; // [sp+34h] [bp-3Ch]@2
+  //float v13; // [sp+40h] [bp-30h]@4
+
   int v14; // [sp+64h] [bp-Ch]@7
   void *v15; // [sp+68h] [bp-8h]@1
   const void *v16; // [sp+6Ch] [bp-4h]@2
 
-  v15 = this;
-  if ( a4 > a3 )
-  {
-    v4 = a2;
-    v16 = (const void *)(48 * a4 + a2);
-    v6 = a3 - 1;
-    memcpy(&v12, (const void *)(48 * a4 + a2), 0x30u);
-    for ( i = a4; ; i = v14 )
+  v15 = _this;
+  if (sRight <= sLeft)
+    return true;
+
+    v4 = pArray;
+    v16 = &pArray[sRight];
+    v6 = sLeft - 1;
+    memcpy(&local_34, &pArray[sRight], sizeof(struct Vis_stru0));
+
+    for ( i = sRight; ; i = v14 )
     {
-      v7 = 48 * v6 + v4 + 12;
+      v7 = &v4[v6].flt_00000C;
       do
       {
         v7 += 48;
         ++v6;
       }
-      while ( *(float *)v7 < (double)v13 );
-      v8 = 48 * i + v4 + 12;
+      while ( *(float *)v7 < local_34.flt_00000C);
+
+      v8 = &v4[i].flt_00000C;
       do
       {
         v8 -= 48;
         --i;
       }
-      while ( *(float *)v8 > (double)v13 );
+      while ( *(float *)v8 > local_34.flt_00000C);
       v14 = i;
       if ( v6 >= i )
         break;
-      v9 = (const void *)(v4 + 48 * i);
-      memcpy(&v11, (const void *)(a2 + 48 * v6), 0x30u);
-      v4 = a2;
-      memcpy((void *)(a2 + 48 * v6), v9, 0x30u);
-      memcpy((void *)v9, &v11, 0x30u);
+
+      v9 = &v4[i];
+      memcpy(&local_04, &pArray[v6], sizeof(struct Vis_stru0));
+      v4 = pArray;
+      memcpy(&pArray[v6], v9, sizeof(struct Vis_stru0));
+      memcpy((void *)v9, &local_04, sizeof(struct Vis_stru0));
     }
-    memcpy(&v11, (const void *)(v4 + 48 * v6), 0x30u);
-    memcpy((void *)(v4 + 48 * v6), v16, 0x30u);
-    memcpy((void *)v16, &v11, 0x30u);
-    sub_4C1ABA(this, v4, a3, v6 - 1);
-    sub_4C1ABA(this, a2, v6 + 1, a4);
-  }
-  return 1;
+
+    memcpy(&local_04, &v4[v6], sizeof(struct Vis_stru0));
+    memcpy(&v4[v6], v16, sizeof(struct Vis_stru0));
+    memcpy((void *)v16, &local_04, sizeof(struct Vis_stru0));
+    Vis_sort_some_objects(_this, v4, sLeft, v6 - 1);
+    Vis_sort_some_objects(_this, pArray, v6 + 1, sRight);
+
+  return true;
 }
 
 //----- (004C1BAA) --------------------------------------------------------
-signed int __thiscall sub_4C1BAA(void *this, int a2)
+signed int __thiscall sub_4C1BAA_Vis_get_object_zbuf_val(struct Vis *_this, struct class25_stru0 *a2)
 {
   signed int v2; // eax@1
   signed int result; // eax@3
@@ -15500,39 +15498,29 @@ signed int __thiscall sub_4C1BAA(void *this, int a2)
   int v5; // [sp-14h] [bp-18h]@4
   int v6; // [sp-10h] [bp-14h]@4
   int v7; // [sp-Ch] [bp-10h]@4
-  const char *v8; // [sp-8h] [bp-Ch]@4
-  int v9; // [sp-4h] [bp-8h]@4
-  void *v10; // [sp+0h] [bp-4h]@1
   char *v11; // [sp+Ch] [bp+8h]@4
 
-  v10 = this;
-  v2 = *(_DWORD *)(a2 + 8);
+  v2 = a2->dword_000008;
   if ( v2 <= 0 || v2 > 2 )
   {
-    v9 = 1037;
-    v8 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Vis.cpp";
     v11 = &v4;
     sub_40E2C8(&v4, "Undefined type requested for: CVis::get_object_zbuf_val()", (int)((char *)&a2 + 3));
-    sub_466D09(&v10, *(int *)&v4, v5, v6, v7, v8, v9);
+    sub_466D09(0, *(int *)&v4, v5, v6, v7, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Vis.cpp", __LINE__);
     result = -1;
   }
   else
-  {
-    result = *(_DWORD *)(a2 + 4);
-  }
+    result = a2->dword_000004;
+
   return result;
 }
 
 //----- (004C1BF1) --------------------------------------------------------
-signed int __thiscall sub_4C1BF1(struct Vis *_this)
+signed int __thiscall sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(struct Vis *_this)
 {
-  signed int result; // eax@2
-
-  if (_this->class25_obj.dword_002004 <= 0)
-    result = -1;
-  else
-    result = sub_4C1BAA(_this, &_this->class25_obj.array_000004[512]);
-  return result;
+ if (_this->class25_obj.dword_002004 <= 0)
+   return -1;
+ else
+   return sub_4C1BAA_Vis_get_object_zbuf_val(_this, _this->class25_obj.array_001800[0]);
 }
 
 //----- (004C1C0C) --------------------------------------------------------
@@ -15612,8 +15600,9 @@ signed int __stdcall sub_4C1D2B(int a1, signed int a2, __int16 a3, int a4)
     goto LABEL_24;
   if ( (_WORD)a2 < *(_WORD *)(a1 + 80) )
     goto LABEL_24;
-  compile_error;//if ( a2 < (signed int)__PAIR__(*(_WORD *)(a1 + 84), *(_WORD *)(a1 + 82)) )
-    //goto LABEL_24;
+  if ( (_WORD)a2 > *(_WORD *)(a1 + 82) )
+  if ( HIWORD(a2) < *(_WORD *)(a1 + 84) )
+    goto LABEL_24;
   if ( HIWORD(a2) > *(_WORD *)(a1 + 86) )
     goto LABEL_24;
   if ( a4 == -1 )
@@ -15784,15 +15773,12 @@ char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, int a6, int a7
 {
   int v7; // ecx@1
   int v8; // esi@1
-  int v9; // edx@3
   int v10; // ecx@4
   __int16 v11; // si@4
   int v12; // ecx@4
-  int v13; // edx@8
   int v14; // ecx@9
   __int16 v15; // si@9
   int v16; // ecx@9
-  int v17; // edx@12
   int v18; // ecx@13
   __int16 v19; // si@13
   int v20; // ecx@13
@@ -15813,22 +15799,19 @@ char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, int a6, int a7
     *(_DWORD *)a2 = *(_WORD *)(a5 + 2);
     if ( *(_BYTE *)(a6 + 93) )
     {
-      v9 = 188 * a7 + 72;
       v26 = a4 + 2;
       v23 = a3 - a4;
       do
       {
         v10 = 2 * v22;
         *(_WORD *)(a3 + 4 * v22) = *(_WORD *)(*(_DWORD *)(a6 + 52) + 2 * v22)
-                                 + *(_WORD *)(*(_DWORD *)(v9 + pClass51_global->pBModels)
-                                            + 12 * *(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48)));
+                                 + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48))].x);
         *(_WORD *)(v26 - 2) = *(_WORD *)(*(_DWORD *)(a6 + 56) + v10)
-                            + *(_WORD *)(*(_DWORD *)(v9 + pClass51_global->pBModels) + 12 * *(_WORD *)(v10 + *(_DWORD *)(a6 + 48)) + 4);
+                                 + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v10 + *(_DWORD *)(a6 + 48))].y);
         *(_WORD *)(v23 + v26) = *(_WORD *)(v10 + *(_DWORD *)(a6 + 52) + 2)
-                              + *(_WORD *)(*(_DWORD *)(v9 + pClass51_global->pBModels)
-                                         + 12 * *(_WORD *)(v10 + *(_DWORD *)(a6 + 48) + 2));
+                                 + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v10 + *(_DWORD *)(a6 + 48) + 2)].x);
         v11 = *(_WORD *)(v10 + *(_DWORD *)(a6 + 56) + 2)
-            + *(_WORD *)(*(_DWORD *)(v9 + pClass51_global->pBModels) + 12 * *(_WORD *)(v10 + *(_DWORD *)(a6 + 48) + 2) + 4);
+            + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v10 + *(_DWORD *)(a6 + 48) + 2)].y);
         v12 = v26;
         ++v22;
         v26 += 4;
@@ -15845,24 +15828,19 @@ char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, int a6, int a7
       *(_DWORD *)a2 = *(_WORD *)(a5 + 4);
       if ( *(_BYTE *)(a6 + 93) )
       {
-        v13 = 188 * a7 + 72;
         v27 = a4 + 2;
         v24 = a3 - a4;
         do
         {
           v14 = 2 * v22;
           *(_WORD *)(a3 + 4 * v22) = *(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 52))
-                                   + *(_WORD *)(*(_DWORD *)(v13 + pClass51_global->pBModels)
-                                              + 12 * *(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48)));
+                                   + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48))].x);
           *(_WORD *)(v27 - 2) = *(_WORD *)(v14 + *(_DWORD *)(a6 + 60))
-                              + *(_WORD *)(*(_DWORD *)(v13 + pClass51_global->pBModels)
-                                         + 12 * *(_WORD *)(v14 + *(_DWORD *)(a6 + 48))
-                                         + 8);
+                              + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v14 + *(_DWORD *)(a6 + 48))].z);
           *(_WORD *)(v24 + v27) = *(_WORD *)(*(_DWORD *)(a6 + 52) + v14 + 2)
-                                + *(_WORD *)(*(_DWORD *)(v13 + pClass51_global->pBModels)
-                                           + 12 * *(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2));
+                                + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2)].x);
           v15 = *(_WORD *)(v14 + *(_DWORD *)(a6 + 60) + 2)
-              + *(_WORD *)(*(_DWORD *)(v13 + pClass51_global->pBModels) + 12 * *(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2) + 8);
+              + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v14 + *(_DWORD *)(a6 + 48) + 2)].z);
           v16 = v27;
           ++v22;
           v27 += 4;
@@ -15877,26 +15855,19 @@ char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, int a6, int a7
       *(_DWORD *)a2 = *(_WORD *)(a5 + 4);
       if ( *(_BYTE *)(a6 + 93) )
       {
-        v17 = 188 * a7 + 72;
         v28 = a4 + 2;
         v25 = a3 - a4;
         do
         {
           v18 = 2 * v22;
           *(_WORD *)(a3 + 4 * v22) = *(_WORD *)(*(_DWORD *)(a6 + 56) + 2 * v22)
-                                   + *(_WORD *)(*(_DWORD *)(v17 + pClass51_global->pBModels)
-                                              + 12 * *(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48))
-                                              + 4);
+                                   + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(2 * v22 + *(_DWORD *)(a6 + 48))].y);
           *(_WORD *)(v28 - 2) = *(_WORD *)(v18 + *(_DWORD *)(a6 + 60))
-                              + *(_WORD *)(*(_DWORD *)(v17 + pClass51_global->pBModels)
-                                         + 12 * *(_WORD *)(v18 + *(_DWORD *)(a6 + 48))
-                                         + 8);
+                              + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v18 + *(_DWORD *)(a6 + 48))].z);
           *(_WORD *)(v25 + v28) = *(_WORD *)(*(_DWORD *)(a6 + 56) + v18 + 2)
-                                + *(_WORD *)(*(_DWORD *)(v17 + pClass51_global->pBModels)
-                                           + 12 * *(_WORD *)(v18 + *(_DWORD *)(a6 + 48) + 2)
-                                           + 4);
+                                + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v18 + *(_DWORD *)(a6 + 48) + 2)].y);
           v19 = *(_WORD *)(v18 + *(_DWORD *)(a6 + 60) + 2)
-              + *(_WORD *)(*(_DWORD *)(v17 + pClass51_global->pBModels) + 12 * *(_WORD *)(v18 + *(_DWORD *)(a6 + 48) + 2) + 8);
+              + *(_WORD *)(&pClass51_global->pBModels[a7].ptr_000048[*(_WORD *)(v18 + *(_DWORD *)(a6 + 48) + 2)].z);
           v20 = v28;
           ++v22;
           v28 += 4;
@@ -15910,51 +15881,57 @@ char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, int a6, int a7
 }
 
 //----- (004C248E) --------------------------------------------------------
-int __stdcall sub_4C248E(int a1, float a2, float a3, float a4)
+int __stdcall sub_4C248E(struct Vis_stru0 *a1, float fMouseX, float fMouseY, float a4)
 {
-  int result; // eax@1
   int v5; // ebx@1
   int v6; // edi@1
   int v7; // esi@1
   int v8; // ST10_4@1
   int v9; // ST04_4@1
   int v10; // eax@1
-  float v11; // [sp+2Ch] [bp-74h]@1
-  float v12; // [sp+30h] [bp-70h]@1
-  float v13; // [sp+34h] [bp-6Ch]@1
-  float v14; // [sp+58h] [bp-48h]@1
-  float v15; // [sp+5Ch] [bp-44h]@1
-  float v16; // [sp+60h] [bp-40h]@1
-  float v17; // [sp+64h] [bp-3Ch]@1
-  float v18; // [sp+88h] [bp-18h]@1
+  
+  struct Vis_stru0 local_2C;
+  //float v11; // [sp+2Ch] [bp-74h]@1
+  //float v12; // [sp+30h] [bp-70h]@1
+  //float v13; // [sp+34h] [bp-6Ch]@1
+  //float v14; // [sp+58h] [bp-48h]@1
+
+  struct Vis_stru0 local_5C;
+  //float v15; // [sp+5Ch] 000000
+  //float v16; // [sp+60h] 000004
+  //float v17; // [sp+64h] 000008
+  //float v18; // [sp+88h] 00002C
+
   int v19; // [sp+8Ch] [bp-14h]@1
   int v20; // [sp+90h] [bp-10h]@1
   int v21; // [sp+94h] [bp-Ch]@1
   int v22; // [sp+98h] [bp-8h]@1
   int v23; // [sp+9Ch] [bp-4h]@1
+  int v24;
 
   v5 = pOldCamera->dword_000004;
   v6 = pOldCamera->dword_000000;
   v20 = pOldCamera->dword_000000;
   v19 = pOldCamera->dword_000004;
   v23 = pOldCamera->dword_000008;
-  v7 = pOldCamera->sRotationY + sub_46A0A1((void *)(signed __int64)*(float *)&a2);
+  v7 = pOldCamera->sRotationY + sub_46A0A1((int)fMouseX);
   v8 = v23;
-  v9 = pOldCamera->sRotationX + sub_46A0F6((void *)(signed __int64)a3);
+  v9 = pOldCamera->sRotationX + sub_46A0F6((int)fMouseY);
   v10 = sub_48B561(a4);
-  sub_43AA99(v10, v7, v9, v6, v5, v8, (int)&a2, (int)&v22, (int)&v21);
-  result = a1;
-  v14 = 0.0;
-  v11 = (double)a2;
-  v12 = (double)v22;
-  v13 = (double)v21;
-  v18 = 0.0;
-  v15 = (double)v20;
-  v16 = (double)v19;
-  v17 = (double)v23;
-  memcpy((void *)a1, &v15, 0x30u);
-  memcpy((void *)(a1 + 48), &v11, 0x30u);
-  return result;
+  sub_43AA99(v10, v7, v9, v6, v5, v8, &v24, &v22, &v21);
+
+ local_2C.flt_000000 = (double)v24;
+ local_2C.flt_000004 = (double)v22;
+ local_2C.flt_000008 = (double)v21;
+ local_2C.flt_00002C = 0.0;
+
+ local_5C.flt_000000 = (double)v20;
+ local_5C.flt_000004 = (double)v19;
+ local_5C.flt_000008 = (double)v23;
+ local_5C.flt_00002C = 0.0;
+
+ memcpy(&a1[0], &local_5C, sizeof(struct Vis_stru0));
+ memcpy(&a1[1], &local_2C, sizeof(struct Vis_stru0));
 }
 
 //----- (004C2551) --------------------------------------------------------
@@ -15988,95 +15965,50 @@ LABEL_6:
 }
 
 //----- (004C2591) --------------------------------------------------------
-void *__thiscall class25_sub_4C2591(int this, int a2)
+void class25_create_object_pointers(struct class25 *_this, int a2)
 {
-  void *result; // eax@1
-  int v3; // esi@2
+ int v0;
   int v4; // edx@3
-  unsigned __int8 v5; // zf@7
-  unsigned __int8 v6; // sf@7
-  int v7; // ebx@8
-  int v8; // esi@8
-  signed int v9; // edi@9
-  int v10; // edx@10
   char v11; // [sp-18h] [bp-28h]@19
   int v12; // [sp-14h] [bp-24h]@19
   int v13; // [sp-10h] [bp-20h]@19
   int v14; // [sp-Ch] [bp-1Ch]@19
-  const char *v15; // [sp-8h] [bp-18h]@19
-  int v16; // [sp-4h] [bp-14h]@19
   char v17; // [sp+Ch] [bp-4h]@19
   char *v18; // [sp+18h] [bp+8h]@19
+ int i, j;
 
-  result = 0;
-  if ( a2 )
+  if (!a2)
   {
-    if ( a2 == 1 )
-    {
-      v5 = *(_DWORD *)(this + 8196) == 0;
-      v6 = *(_DWORD *)(this + 8196) < 0;
-      BYTE3(a2) = 1;
-      if ( !(v6 | v5) )
-      {
-        v7 = this + 6148;
-        v8 = this + 4;
-        do
-        {
-          v9 = 0;
-          if ( (signed int)result > 0 )
-          {
-            v10 = this + 6148;
-            while ( *(_DWORD *)v10 != v8 )
-            {
-              ++v9;
-              v10 += 4;
-              if ( v9 >= (signed int)result )
-                goto LABEL_15;
-            }
-            BYTE3(a2) = 0;
-          }
-LABEL_15:
-          if ( BYTE3(a2) )
-            *(_DWORD *)v7 = v8;
-          result = (char *)result + 1;
-          v7 += 4;
-          v8 += 12;
-        }
-        while ( (signed int)result < *(_DWORD *)(this + 8196) );
-      }
-    }
-    else
-    {
-      v16 = 1358;
-      v15 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Vis.cpp";
-      v18 = &v11;
-      sub_40E2C8(&v11, "Unknown pointer creation flag passed to ::create_object_pointers()", (int)((char *)&a2 + 3));
-      result = sub_466D09(&v17, *(int *)&v11, v12, v13, v14, v15, v16);
-    }
+   for (i = 0; i < _this->dword_002004; ++i)
+     _this->array_001800[i] = &_this->array_000004[i];
+  }
+  else if (a2 == 1)
+  {
+   v0 = 1;
+      
+   for (i = 0; i < _this->dword_002004; ++i)
+   {
+       for (j = 0; j < i; ++j)
+         if (_this->array_001800[j] == &_this->array_000004[i])
+         {
+             v0 = 0;
+             break;
+         }
+
+       if (v0)
+         _this->array_001800[i] = &_this->array_000004[i];
+   }
   }
   else
   {
-    v3 = 0;
-    if ( *(_DWORD *)(this + 8196) > 0 )
-    {
-      result = (void *)(this + 6148);
-      v4 = this + 4;
-      do
-      {
-        *(_DWORD *)result = v4;
-        ++v3;
-        result = (char *)result + 4;
-        v4 += 12;
-      }
-      while ( v3 < *(_DWORD *)(this + 8196) );
-    }
+      v18 = &v11;
+      sub_40E2C8(&v11, "Unknown pointer creation flag passed to ::create_object_pointers()", (int)((char *)&a2 + 3));
+      sub_466D09(&v17, *(int *)&v11, v12, v13, v14, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Vis.cpp", __LINE__);
   }
-  return result;
 }
 
 //----- (004C264A) --------------------------------------------------------
-function_error;//int __userpurge sub_4C264A<eax>(int result<eax>, int a2, int a3, int a4)
-int sub_4C264A(int result, int a2, int a3, int a4)
+void class25_sort_object_pointers(struct class25_stru0 **pPointers, int sLeft, int sRight)
 {
   int v4; // edx@1
   int v5; // ebx@1
@@ -16086,285 +16018,319 @@ int sub_4C264A(int result, int a2, int a3, int a4)
   unsigned int v9; // ebx@4
   unsigned int v10; // ebx@6
   int v11; // eax@7
-  int v12; // [sp+14h] [bp+Ch]@2
+ struct class25_stru0 *v12; // [sp+14h] [bp+Ch]@2
 
-  v4 = a3;
-  v5 = a4;
-  if ( a4 > a3 )
-  {
+  v4 = sLeft;
+  v5 = sRight;
+  if (sRight <= sLeft)
+    return;
+
     do
     {
       v7 = v4 - 1;
-      v12 = *(_DWORD *)(a2 + 4 * v5);
-      for ( i = v5; ; *(_DWORD *)(a2 + 4 * i) = v11 )
+      v12 = pPointers[v5];
+      for ( i = v5; ; pPointers[i] = v11 )
       {
-        v8 = *(_DWORD *)(v12 + 4);
+        v8 = v12->dword_000004;
         LOWORD(v8) = 0;
+
         do
         {
           ++v7;
-          v9 = *(_DWORD *)(*(_DWORD *)(a2 + 4 * v7) + 4);
+          v9 = pPointers[v7]->dword_000004;
           LOWORD(v9) = 0;
         }
         while ( v9 < v8 );
+
         do
         {
           if ( i < 1 )
             break;
           --i;
-          v10 = *(_DWORD *)(*(_DWORD *)(a2 + 4 * i) + 4);
+          v10 = pPointers[i]->dword_000004;
           LOWORD(v10) = 0;
         }
         while ( v10 > v8 );
-        v11 = *(_DWORD *)(a2 + 4 * v7);
+
+        v11 = pPointers[v7];
         if ( v7 >= i )
           break;
-        *(_DWORD *)(a2 + 4 * v7) = *(_DWORD *)(a2 + 4 * i);
+        pPointers[v7] = pPointers[i];
       }
-      v5 = a4;
-      *(_DWORD *)(a2 + 4 * v7) = *(_DWORD *)(a2 + 4 * a4);
-      *(_DWORD *)(a2 + 4 * a4) = v11;
-      compile_error;//result = sub_4C264A(a2, v4, v7 - 1);
+
+      v5 = sRight;
+      pPointers[v7] = pPointers[sRight];
+      pPointers[sRight] = v11;
+
+      class25_sort_object_pointers(pPointers, v4, v7 - 1);
       v4 = v7 + 1;
     }
-    while ( a4 > v7 + 1 );
-  }
-  return result;
+    while (sRight > v7 + 1 );
 }
 
 //----- (004C26D0) --------------------------------------------------------
-char __thiscall sub_4C26D0(void *this, int a2, int a3, int a4)
+bool Vis_Sort_template_D3DXVECTOR_x(struct Vis *_this, struct D3DVERTEX *pVertices, int sLeft, int sRight)
 {
-  int v4; // edx@2
+ struct D3DVERTEX *v4;
   int v5; // ebx@2
-  void *v6; // edi@2
   const void *v7; // esi@2
   int v8; // ecx@3
   int v9; // ecx@5
   const void *v10; // eax@8
-  char v12; // [sp+4h] [bp-4Ch]@8
-  float v13; // [sp+24h] [bp-2Ch]@2
-  void *v14; // [sp+44h] [bp-Ch]@1
+
+  struct D3DVERTEX local_04;
+  //char v12; // [sp+4h] [bp-4Ch]@8
+
+  struct D3DVERTEX local_24;
+  //float v13; // [sp+24h] [bp-2Ch]@2
+
   const void *v15; // [sp+48h] [bp-8h]@2
   int v16; // [sp+4Ch] [bp-4h]@2
 
-  v14 = this;
-  if ( a4 > a3 )
-  {
-    v4 = a2;
-    v7 = (const void *)(32 * a4 + a2);
-    v6 = &v13;
-    v15 = (const void *)(32 * a4 + a2);
-    v5 = a3 - 1;
-    v16 = a4;
+  if (sRight <= sLeft)
+    return true;
+
+    v4 = pVertices;
+    v7 = &pVertices[sRight];
+    v15 = &pVertices[sRight];
+    v5 = sLeft - 1;
+    v16 = sRight;
     while ( 1 )
     {
-      memcpy(v6, v7, 0x20u);
-      v8 = v4 + 32 * v5;
+      memcpy(&local_24, v7, sizeof(struct D3DVERTEX));
+
+      v8 = &v4[v5].x;
       do
       {
         v8 += 32;
         ++v5;
       }
-      while ( *(float *)v8 < (double)v13 );
-      v9 = v4 + 32 * v16;
+      while ( *(float *)v8 < local_24.x);
+
+      v9 = &v4[v16].x;
       do
       {
         v9 -= 32;
         --v16;
       }
-      while ( *(float *)v9 > (double)v13 );
+      while ( *(float *)v9 > local_24.x);
+
       if ( v5 >= v16 )
         break;
-      v10 = (const void *)(v4 + 32 * v16);
-      memcpy(&v12, (const void *)(a2 + 32 * v5), 0x20u);
-      v4 = a2;
-      memcpy((void *)(a2 + 32 * v5), v10, 0x20u);
-      v7 = &v12;
-      v6 = (void *)v10;
+
+      v10 = &v4[v16];
+      memcpy(&local_04, &pVertices[v5], sizeof(struct D3DVERTEX));
+      v4 = pVertices;
+      memcpy(&pVertices[v5], v10, sizeof(struct D3DVERTEX));
+      v7 = &local_04;
     }
-    memcpy(&v12, (const void *)(v4 + 32 * v5), 0x20u);
-    memcpy((void *)(v4 + 32 * v5), v15, 0x20u);
-    memcpy((void *)v15, &v12, 0x20u);
-    sub_4C26D0(this, v4, a3, v5 - 1);
-    sub_4C26D0(this, a2, v5 + 1, a4);
-  }
-  return 1;
+    memcpy(&local_04, &v4[v5], sizeof(struct D3DVERTEX));
+    memcpy(&v4[v5], v15, sizeof(struct D3DVERTEX));
+    memcpy((void *)v15, &local_04, sizeof(struct D3DVERTEX));
+    Vis_Sort_template_D3DXVECTOR_x(_this, v4, sLeft, v5 - 1);
+    Vis_Sort_template_D3DXVECTOR_x(_this, pVertices, v5 + 1, sRight);
+
+  return true;
 }
 
 //----- (004C27AD) --------------------------------------------------------
-char __thiscall sub_4C27AD(void *this, int a2, int a3, int a4)
+bool Vis_Sort_template_D3DXVECTOR_y(struct Vis *_this, struct D3DVERTEX *pVertices, int sLeft, int sRight)
 {
-  int v4; // edx@2
+ struct D3DVERTEX *v4;
   int v5; // ebx@2
-  void *v6; // edi@2
   const void *v7; // esi@2
   int v8; // ecx@3
   int v9; // ecx@5
   const void *v10; // eax@8
-  char v12; // [sp+4h] [bp-4Ch]@8
-  char v13; // [sp+24h] [bp-2Ch]@2
-  float v14; // [sp+28h] [bp-28h]@4
-  void *v15; // [sp+44h] [bp-Ch]@1
-  const void *v16; // [sp+48h] [bp-8h]@2
-  int v17; // [sp+4Ch] [bp-4h]@2
 
-  v15 = this;
-  if ( a4 > a3 )
-  {
-    v4 = a2;
-    v7 = (const void *)(32 * a4 + a2);
-    v6 = &v13;
-    v16 = (const void *)(32 * a4 + a2);
-    v5 = a3 - 1;
-    v17 = a4;
+  struct D3DVERTEX local_04;
+  //char v12; // [sp+4h] [bp-4Ch]@8
+
+  struct D3DVERTEX local_24;
+  //float v13; // [sp+28h] [bp-30h]@2
+
+  const void *v15; // [sp+48h] [bp-8h]@2
+  int v16; // [sp+4Ch] [bp-4h]@2
+
+  if (sRight <= sLeft)
+    return true;
+
+    v4 = pVertices;
+    v7 = &pVertices[sRight];
+    v15 = &pVertices[sRight];
+    v5 = sLeft - 1;
+    v16 = sRight;
     while ( 1 )
     {
-      memcpy(v6, v7, 0x20u);
-      v8 = 32 * v5 + v4 + 4;
+      memcpy(&local_24, v7, sizeof(struct D3DVERTEX));
+
+      v8 = &v4[v5].y;
       do
       {
         v8 += 32;
         ++v5;
       }
-      while ( *(float *)v8 < (double)v14 );
-      v9 = 32 * v17 + v4 + 4;
+      while ( *(float *)v8 < local_24.y);
+
+      v9 = &v4[v16].y;
       do
       {
         v9 -= 32;
-        --v17;
+        --v16;
       }
-      while ( *(float *)v9 > (double)v14 );
-      if ( v5 >= v17 )
+      while ( *(float *)v9 > local_24.y);
+
+      if ( v5 >= v16 )
         break;
-      v10 = (const void *)(v4 + 32 * v17);
-      memcpy(&v12, (const void *)(a2 + 32 * v5), 0x20u);
-      v4 = a2;
-      memcpy((void *)(a2 + 32 * v5), v10, 0x20u);
-      v7 = &v12;
-      v6 = (void *)v10;
+
+      v10 = &v4[v16];
+      memcpy(&local_04, &pVertices[v5], sizeof(struct D3DVERTEX));
+      v4 = pVertices;
+      memcpy(&pVertices[v5], v10, sizeof(struct D3DVERTEX));
+      v7 = &local_04;
     }
-    memcpy(&v12, (const void *)(v4 + 32 * v5), 0x20u);
-    memcpy((void *)(v4 + 32 * v5), v16, 0x20u);
-    memcpy((void *)v16, &v12, 0x20u);
-    sub_4C27AD(this, v4, a3, v5 - 1);
-    sub_4C27AD(this, a2, v5 + 1, a4);
-  }
-  return 1;
+    memcpy(&local_04, &v4[v5], sizeof(struct D3DVERTEX));
+    memcpy(&v4[v5], v15, sizeof(struct D3DVERTEX));
+    memcpy((void *)v15, &local_04, sizeof(struct D3DVERTEX));
+    Vis_Sort_template_D3DXVECTOR_x(_this, v4, sLeft, v5 - 1);
+    Vis_Sort_template_D3DXVECTOR_x(_this, pVertices, v5 + 1, sRight);
+
+  return true;
 }
 
 //----- (004C288E) --------------------------------------------------------
-char __thiscall sub_4C288E(void *this, int a2, int a3, int a4)
+bool Vis_sort_some_objects_2(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight)
 {
-  int v4; // edx@2
+ struct Vis_stru0 *v4;
   int i; // ecx@2
   int v6; // ebx@2
   int v7; // esi@3
   int v8; // esi@5
   const void *v9; // eax@8
-  char v11; // [sp+4h] [bp-6Ch]@8
-  char v12; // [sp+34h] [bp-3Ch]@2
-  float v13; // [sp+4Ch] [bp-24h]@4
+
+  struct Vis_stru0 local_04;
+  //char v11; // [sp+4h] [bp-6Ch]@8
+
+  struct Vis_stru0 local_34;
+  //char v12; // [sp+34h] [bp-3Ch]@2
+  //float v13; // [sp+4Ch] [bp-24h]@4
+
   int v14; // [sp+64h] [bp-Ch]@7
   void *v15; // [sp+68h] [bp-8h]@1
   const void *v16; // [sp+6Ch] [bp-4h]@2
 
-  v15 = this;
-  if ( a4 > a3 )
-  {
-    v4 = a2;
-    v16 = (const void *)(48 * a4 + a2);
-    v6 = a3 - 1;
-    memcpy(&v12, (const void *)(48 * a4 + a2), 0x30u);
-    for ( i = a4; ; i = v14 )
+  v15 = _this;
+  if (sRight <= sLeft)
+    return true;
+
+
+    v4 = pArray;
+    v16 = &pArray[sRight];
+    v6 = sLeft - 1;
+    memcpy(&local_34, &pArray[sRight], sizeof(struct Vis_stru0));
+
+    for ( i = sRight; ; i = v14 )
     {
-      v7 = 48 * v6 + v4 + 24;
+      v7 = &v4[v6].flt_000018;
       do
       {
         v7 += 48;
         ++v6;
       }
-      while ( *(float *)v7 < (double)v13 );
-      v8 = 48 * i + v4 + 24;
+      while ( *(float *)v7 < local_34.flt_000018);
+
+      v8 = &v4[i].flt_000018;
       do
       {
         v8 -= 48;
         --i;
       }
-      while ( *(float *)v8 > (double)v13 );
+      while ( *(float *)v8 > local_34.flt_000018);
+
       v14 = i;
       if ( v6 >= i )
         break;
-      v9 = (const void *)(v4 + 48 * i);
-      memcpy(&v11, (const void *)(a2 + 48 * v6), 0x30u);
-      v4 = a2;
-      memcpy((void *)(a2 + 48 * v6), v9, 0x30u);
-      memcpy((void *)v9, &v11, 0x30u);
+      v9 = &v4[i];
+      memcpy(&local_04, &pArray[v6], sizeof(struct Vis_stru0));
+      v4 = pArray;
+      memcpy(&pArray[v6], v9, sizeof(struct Vis_stru0));
+      memcpy((void *)v9, &local_04, sizeof(struct Vis_stru0));
     }
-    memcpy(&v11, (const void *)(v4 + 48 * v6), 0x30u);
-    memcpy((void *)(v4 + 48 * v6), v16, 0x30u);
-    memcpy((void *)v16, &v11, 0x30u);
-    sub_4C288E(this, v4, a3, v6 - 1);
-    sub_4C288E(this, a2, v6 + 1, a4);
-  }
-  return 1;
+
+    memcpy(&local_04, &v4[v6], sizeof(struct Vis_stru0));
+    memcpy(&v4[v6], v16, sizeof(struct Vis_stru0));
+    memcpy((void *)v16, &local_04, sizeof(struct Vis_stru0));
+    Vis_sort_some_objects_2(_this, v4, sLeft, v6 - 1);
+    Vis_sort_some_objects_2(_this, pArray, v6 + 1, sRight);
+
+ return true;
 }
 
 //----- (004C297E) --------------------------------------------------------
-char __thiscall sub_4C297E(void *this, int a2, int a3, int a4)
+bool Vis_sort_some_objects_3(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight)
 {
-  int v4; // edx@2
+ struct Vis_stru0 *v4;
   int i; // ecx@2
   int v6; // ebx@2
   int v7; // esi@3
   int v8; // esi@5
   const void *v9; // eax@8
-  char v11; // [sp+4h] [bp-6Ch]@8
-  char v12; // [sp+34h] [bp-3Ch]@2
-  float v13; // [sp+50h] [bp-20h]@4
+
+  struct Vis_stru0 local_04;
+  //char v11; // [sp+4h] [bp-6Ch]@8
+
+  struct Vis_stru0 local_34;
+  //char v12; // [sp+34h] [bp-3Ch]@2
+  //float v13; // [sp+50h] [bp-20h]@4
+
   int v14; // [sp+64h] [bp-Ch]@7
-  void *v15; // [sp+68h] [bp-8h]@1
   const void *v16; // [sp+6Ch] [bp-4h]@2
 
-  v15 = this;
-  if ( a4 > a3 )
-  {
-    v4 = a2;
-    v16 = (const void *)(48 * a4 + a2);
-    v6 = a3 - 1;
-    memcpy(&v12, (const void *)(48 * a4 + a2), 0x30u);
-    for ( i = a4; ; i = v14 )
+ if (sRight <= sLeft)
+   return true;
+
+
+    v4 = pArray;
+    v16 = &pArray[sRight];
+    v6 = sLeft - 1;
+    memcpy(&local_34, &pArray[sRight], sizeof(struct Vis_stru0));
+
+    for ( i = sRight; ; i = v14 )
     {
-      v7 = 48 * v6 + v4 + 28;
+      v7 = &v4[v6].flt_00001C;
       do
       {
         v7 += 48;
         ++v6;
       }
-      while ( *(float *)v7 < (double)v13 );
-      v8 = 48 * i + v4 + 28;
+      while ( *(float *)v7 < local_34.flt_00001C);
+
+      v8 = &v4[v6].flt_00001C;
       do
       {
         v8 -= 48;
         --i;
       }
-      while ( *(float *)v8 > (double)v13 );
+      while ( *(float *)v8 > local_34.flt_00001C);
+
       v14 = i;
       if ( v6 >= i )
         break;
-      v9 = (const void *)(v4 + 48 * i);
-      memcpy(&v11, (const void *)(a2 + 48 * v6), 0x30u);
-      v4 = a2;
-      memcpy((void *)(a2 + 48 * v6), v9, 0x30u);
-      memcpy((void *)v9, &v11, 0x30u);
+      v9 = &v4[i];
+      memcpy(&local_04, &pArray[v6], sizeof(struct Vis_stru0));
+      v4 = pArray;
+      memcpy(&pArray[v6], v9, sizeof(struct Vis_stru0));
+      memcpy((void *)v9, &local_04, sizeof(struct Vis_stru0));
     }
-    memcpy(&v11, (const void *)(v4 + 48 * v6), 0x30u);
-    memcpy((void *)(v4 + 48 * v6), v16, 0x30u);
-    memcpy((void *)v16, &v11, 0x30u);
-    sub_4C297E(this, v4, a3, v6 - 1);
-    sub_4C297E(this, a2, v6 + 1, a4);
-  }
-  return 1;
+
+    memcpy(&local_04, &v4[v6], sizeof(struct Vis_stru0));
+    memcpy(&v4[v6], v16, sizeof(struct Vis_stru0));
+    memcpy((void *)v16, &local_04, sizeof(struct Vis_stru0));
+
+    Vis_sort_some_objects_3(_this, v4, sLeft, v6 - 1);
+    Vis_sort_some_objects_3(_this, pArray, v6 + 1, sRight);
+
+ return true;
 }
 
 //----- (004C2F0B) --------------------------------------------------------

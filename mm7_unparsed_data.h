@@ -2919,23 +2919,34 @@ extern __int16 word_F8BD18[array_size_unknown]; // weak
 extern __int16 word_F8BD1A[array_size_unknown]; // weak
 extern int dword_F8BDE8; // weak
 extern int dword_F8D5EC; // weak
+
 extern _UNKNOWN unk_F8DDE0; // weak
 extern _UNKNOWN unk_F8DDE4; // weak
 extern int dword_F8DDEC; // weak
 extern char byte_F8DDF0; // weak
-extern _UNKNOWN unk_F8DDF8; // weak
-extern float flt_F8DE10; // weak
-extern float flt_F8DE14; // weak
-extern _UNKNOWN unk_F8DE24; // weak
-extern _UNKNOWN unk_F8E9E0; // weak
-extern _UNKNOWN unk_F8E9E4; // weak
+
+//probably Vis_stru0, but surely 64x48
+struct Vis_stru0 array_F8DDF8[]; // struc[64] @ MM7.exe::00F8DDF8
+//_UNKNOWN unk_F8DDF8; // weak
+//float flt_F8DE10; // 000018
+//float flt_F8DE14; // 00001C
+//_UNKNOWN unk_F8DE24; // 00002C
+
+_UNKNOWN unk_F8E9E0; // [63]+18
+_UNKNOWN unk_F8E9E4; // [63]+1C
 extern char byte_F8E9F8; // weak
-extern float flt_F8EA00; // weak
-extern float flt_F8EA04; // weak
-extern _UNKNOWN unk_F8F200; // weak
-extern _UNKNOWN unk_F8F204; // weak
-extern float flt_F8F20C; // weak
-extern _UNKNOWN unk_F8F22C; // weak
+
+//float flt_F8EA00; // weak
+//float flt_F8EA04; // weak
+
+struct D3DVERTEX array_F8EA00[]; // struct[?
+
+//probably Vis_stru0, but surely 64x48
+struct Vis_stru0 array_F8F200[]; // struct[64] @ MM7.exe::00F8F200
+//extern _UNKNOWN unk_F8F200; // weak
+//extern _UNKNOWN unk_F8F204; // weak
+//extern float flt_F8F20C; // weak
+//extern _UNKNOWN unk_F8F22C; // weak
 
 extern struct class25 class25_F8FE00; // struct @ MM7.exe::00F8FE00
 //extern int dword_F8FE00; // 000000
@@ -2962,7 +2973,7 @@ struct unnamed_F93E6C
 } stru_F93E6C; // struct @ MM7.exe::00F93E6C
 //sizeof ~ ?
 //int dword_F93E6C; // 000000
-extern int dword_F94004; // weak
+extern int dword_F94004; // weak7
 extern int dword_F9400C; // weak
 extern char byte_F94298; // weak
 extern float flt_F942A0; // weak
