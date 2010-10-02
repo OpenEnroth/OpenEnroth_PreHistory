@@ -1055,7 +1055,7 @@ void GameUI_Process()
     memset(&Dst, 0, sizeof(struct Actor));
     dword_5B65D0 = dword_5C35C4;
     Dst.word_000020 = dword_5C35C4;
-    Actor_sub_445D4A(&Dst, 0);
+    Actor_InitializeDialogue(&Dst, 0);
     dword_5C35C4 = 0;
   }
 
@@ -1085,7 +1085,7 @@ void GameUI_Process()
             dword_50CBD0[0] = dword_50CBD0[3] != 0;
           dword_5B65D0 = pActors[v209].word_000020;
 
-          Actor_sub_445D4A(&pActors[v209], v0);
+          Actor_InitializeDialogue(&pActors[v209], v0);
           goto LABEL_92;
 
 
@@ -1136,7 +1136,7 @@ void GameUI_Process()
                 Dst.word_000020+= -1 - (unsigned __int8)pParty_global->byte_000709 - v212;
                 v4 = &Dst;
 //LABEL_33:
-                Actor_sub_445D4A((int)v4, v0);
+                Actor_InitializeDialogue((int)v4, v0);
               }
             }
           }
@@ -3167,7 +3167,7 @@ LABEL_595:
               v193 = 0;
               v177 = 108;
 LABEL_619:
-              sub_4948B1(*(&ptr_A750C4 + v101), v177, v193);
+              Player_PlaySound(*(&ptr_A750C4 + v101), v177, v193);
             }
           }
           else
@@ -3306,7 +3306,7 @@ LABEL_521:
           *((_BYTE *)*(&ptr_A750C4 + uActiveCharacter) + 6735) = v111;
           sub_494836((char *)&unk_A96080 + 45016 * uActiveCharacter, v111, uActiveCharacter);
           if ( uActiveCharacter )
-            sub_4948B1((void *)v207, 12, 0);
+            Player_PlaySound((void *)v207, 12, 0);
           byte_506550 = 0;
           goto LABEL_92;
         case 0x33:
@@ -3576,7 +3576,7 @@ LABEL_709:
             {
               *(_WORD *)v119 = v212 + 1;
               *(_DWORD *)(v120 + 6456) -= *(_BYTE *)(v120 + 2 * v209 + 264) & 0x3F;
-              sub_4948B1((void *)v120, 14, 0);
+              Player_PlaySound((void *)v120, 14, 0);
               v182 = 0;
               v168 = 0;
               v161 = 0;
@@ -4434,9 +4434,9 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
           {
             v33 = 0;
             v11 = pFontArrus->uFontHeight - 3;
-            v12 = sub_4459F9_GetNPCData(dword_591090);
+            v12 = sub_4459F9_GetNPCData(uDialogue_SpeakingActorID);
             v31 = v12;
-            if ( sub_445C8B(dword_591090) == 1 )
+            if ( sub_445C8B(uDialogue_SpeakingActorID) == 1 )
             {
               if ( *((_DWORD *)v31 + 8) )
               {
@@ -4553,7 +4553,7 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
                            89,
                            *(const char **)(v9 + 72),
                            uTextureIdx_BtnYes2 != -1 ? 72 * uTextureIdx_BtnYes2 + 0x6D084C : 0);
-          GUIButtonCreate(v9, dword_4E5E50, dword_4E5EE0, 63, 73, 1, 0, 90, 1, 32, *(const char **)(v9 + 72), 0);
+          GUIButtonCreate(v9, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, 63, 73, 1, 0, 90, 1, 32, *(const char **)(v9 + 72), 0);
           GUIButtonCreate(v9, 8, 8, 460, 344, 1, 0, 90, 1, 0, *(const char **)(v9 + 72), 0);
           break;
         case 18:
@@ -4616,8 +4616,8 @@ LABEL_62:
         sprintfex(&byte_591180[100 * v26], (const char *)v29, v30);
         dword_5913F4[v26] = GUIButtonCreate(
                               v9,
-                              *(&dword_4E5E50 + v26 + 6 * dword_591424 - 6),
-                              *(&dword_4E5EE0 + v26 + 6 * dword_591424 - 6),
+                              *(&uDialogueUIIconsOffsetX + v26 + 6 * dword_591424 - 6),
+                              *(&uDialogueUIIconsOffsetY + v26 + 6 * dword_591424 - 6),
                               63,
                               73,
                               1,
@@ -4670,7 +4670,7 @@ LABEL_62:
                        89,
                        *(const char **)(v9 + 72),
                        uTextureIdx_BtnYes2 != -1 ? 72 * uTextureIdx_BtnYes2 + 7145548 : 0);
-      GUIButtonCreate(v9, dword_4E5E50, dword_4E5EE0, 63, 73, 1, 0, 411, 1, 32, *(const char **)(v9 + 72), 0);
+      GUIButtonCreate(v9, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, 63, 73, 1, 0, 411, 1, 32, *(const char **)(v9 + 72), 0);
       GUIButtonCreate(v9, 8, 8, 460, 344, 1, 0, 411, 1, 0, *(const char **)(v9 + 72), 0);
       return v9;
     }
@@ -4749,8 +4749,8 @@ void GUIWindowDelete(int this)
       if ( !v6 )
       {
         for ( i = 0; i < dword_591424; ++i )
-          sub_40F77C(dword_59140C[i]);
-        sub_40F77C(dword_591430);
+          sub_40F77C(uTextureID_Dialogue_NPCPortrait[i]);
+        sub_40F77C(uTextureID_Dialogue_Background);
         sub_40F9C5(pLODFile_Icons_LOD);
         dword_591424 = 0;
         sub_4114F2(pLODFile_Icons_LOD);
@@ -4787,8 +4787,8 @@ void GUIWindowDelete(int this)
           if ( !v4 )
           {
             if ( !dword_591084 )
-              sub_40F77C(dword_59140C[0]);
-            sub_40F77C(dword_591430);
+              sub_40F77C(uTextureID_Dialogue_NPCPortrait[0]);
+            sub_40F77C(uTextureID_Dialogue_Background);
             sub_40F9C5(pLODFile_Icons_LOD);
             dword_591424 = 0;
             goto LABEL_19;
@@ -4797,7 +4797,7 @@ void GUIWindowDelete(int this)
             goto LABEL_26;
 LABEL_18:
           sub_40F77C(dword_59142C);
-          sub_40F77C(dword_591430);
+          sub_40F77C(uTextureID_Dialogue_Background);
           sub_40F9C5(pLODFile_Icons_LOD);
 LABEL_19:
           dword_4E28F8 = dword_506978;
@@ -5595,7 +5595,7 @@ void GameUI_DrawPortraits(void *this)
     if ( qword_A750D8 <= 0 )
     {
       if ( sub_492C0B(pPlayers[word_A750E2 - 1]) )
-        sub_4948B1(pPlayers[word_A750E2 - 1], word_A750E0, 0);
+        Player_PlaySound(pPlayers[word_A750E2 - 1], word_A750E0, 0);
       qword_A750D8 = 0i64;
     }
   }

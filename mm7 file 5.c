@@ -130,7 +130,7 @@ LABEL_111:
         sub_48DBB9(&pParty_global->pPlayers[a2 - 1], v69);
       }
 LABEL_112:
-      sub_4948B1((void *)v3, 36, 0);
+      Player_PlaySound((void *)v3, 36, 0);
       goto LABEL_173;
     }
 LABEL_172:
@@ -575,7 +575,7 @@ LABEL_54:
               sub_44C175(&TmpBuf, 2);
               class03_sub_4698A6(pGame->pClass03);
               sub_4A89BD(pGame->class06_obj, 151, a2 - 1);
-              sub_4948B1((void *)v3, 93, 0);
+              Player_PlaySound((void *)v3, 93, 0);
               AudioPlayer_sub_4AA306(pAudioPlayer, 219, 0, 0, -1, 0, 0, 0, 0);
               if ( pParty_global->uDaysPlayed == 6 || pParty_global->uDaysPlayed == 20 )
               {
@@ -680,7 +680,7 @@ LABEL_187:
         v65 = 0;
         v56 = 37;
 LABEL_67:
-        sub_4948B1((void *)v3, v56, v65);
+        Player_PlaySound((void *)v3, v56, v65);
         return;
       }
 LABEL_89:
@@ -754,7 +754,7 @@ LABEL_83:
               goto LABEL_67;
             }
             *(_BYTE *)v72 = 1;
-            sub_4948B1((void *)v3, 21, 0);
+            Player_PlaySound((void *)v3, 21, 0);
             v73 = 0;
 LABEL_173:
             v36 = byte_5D2A00[48 * dword_AD470C];
@@ -968,7 +968,7 @@ LABEL_7:
         if ( sub_458244(v5) < 3 )
         {
 LABEL_8:
-          sub_4948B1((void *)v1, 39, 0);
+          Player_PlaySound((void *)v1, 39, 0);
           return;
         }
         v3 = dword_AD470C;
@@ -9448,7 +9448,7 @@ LABEL_70:
           v65 = 0;
           v63 = 64;
 LABEL_76:
-          sub_4948B1(*(&ptr_A750C4 + v35), v63, v65);
+          Player_PlaySound(*(&ptr_A750C4 + v35), v63, v65);
         }
         break;
       case 9:
@@ -10367,14 +10367,14 @@ bool CheckHiredNPCSpeciality(int param)
     {
 LABEL_8:
       v4 = 0;
-      if (pParty_global->pHiredNPCs[0].dword_000018 != param )
+      if (pParty_global->pHiredNPCs[0].uProfession != param )
       {
-        return (pParty_global->pHiredNPCs[1].dword_000018 == param);
+        return (pParty_global->pHiredNPCs[1].uProfession == param);
       }
     }
     else
     {
-      while (  pNPCStats->pNPCData2[v2].dword_000018 != param || !(pNPCStats->pNPCData2[2].dword_000008 & 0x80) )
+      while (  pNPCStats->pNPCData2[v2].uProfession != param || !(pNPCStats->pNPCData2[2].dword_000008 & 0x80) )
       {
         ++v2;
         if ( v2 >= pNPCStats->dword_017FC4)

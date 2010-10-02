@@ -2486,7 +2486,7 @@ LABEL_29:
         else
         {
           v36 = 5;
-          sub_4948B1((void *)v2, 50, v3);
+          Player_PlaySound((void *)v2, 50, v3);
         }
         switch ( v36 )
         {
@@ -3533,7 +3533,7 @@ LABEL_75:
               if ( uActiveCharacter )
               {
                 sub_43AD34();
-                sub_4948B1(*(&ptr_A750C4 + uActiveCharacter), 65, 0);
+                Player_PlaySound(*(&ptr_A750C4 + uActiveCharacter), 65, 0);
               }
             }
             break;
@@ -4037,7 +4037,7 @@ LABEL_134:
             AudioPlayer_sub_4AA306(pAudioPlayer, 66, 0, 0, -1, 0, 0, 0, 0);
             v21 = (void *)v22;
 LABEL_117:
-            sub_4948B1(v21, 102, 0);
+            Player_PlaySound(v21, 102, 0);
             v0 = (int)&pParty_global->pPlayers[0];
             continue;
           }
@@ -4217,7 +4217,7 @@ LABEL_40:
 LABEL_60:
             GUIWindowCreate(*(_DWORD *)v12, *(_DWORD *)(v12 + 4), 0, 0, 92, v12, 1);
             AudioPlayer_sub_4AA306(v1, 66, 0, 0, -1, 0, 0, 0, 0);
-            sub_4948B1((void *)v10, 102, 0);
+            Player_PlaySound((void *)v10, 102, 0);
             continue;
           }
           if ( v49 == 162 )
@@ -14716,7 +14716,7 @@ void __cdecl sub_467FB6()
   v9 = v7 + v5 - 1;
   v2 = dword_5DAD28[12 * *(_DWORD *)(dword_507BC4 + 28)];
   v3 = 0xFFFFFF9B;
-  wsprintfA(TmpBuf, (const char *)&unk_4E2D80, v3, v2);
+  wsprintfA(TmpBuf, "\x0C%05d%s\x0C\x30\x30\x30\x30\x30", v3, v2);
   sub_44D406((int)&v4, pFontCreate, 0, 0, 0, &TmpBuf, 3);
   FontDrawText((int)&v4,
            pFontSmallnum,

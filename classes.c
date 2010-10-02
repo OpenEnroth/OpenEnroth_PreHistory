@@ -6447,7 +6447,7 @@ void *CNPCStats_sub_476CB5(struct CNPCStats *_this)
             _this->pNPCData[i].dword_000014 = atoi(v4);
             break;
           case 6:
-            _this->pNPCData[i].dword_000018 = atoi(v4);
+            _this->pNPCData[i].uProfession = atoi(v4);
             break;
           case 7:
             _this->pNPCData[i].dword_00001C = atoi(v4);

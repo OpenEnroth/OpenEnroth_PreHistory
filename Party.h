@@ -145,7 +145,7 @@ struct Party
 };
 //sizeof ~ 16238
 
-//int __thiscall sub_49135E(void *this)
+//int __thiscall Party_sub_49135E_GetAllPartyExpDiv1000(void *this)
 void Party_ctor(struct Party *_this);
 //unsigned __int16 __thiscall sub_491BF9(int this);
 void sub_491BF9(struct Party *_this);

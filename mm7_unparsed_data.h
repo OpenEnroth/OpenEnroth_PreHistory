@@ -82,8 +82,8 @@ extern int dword_4E2BCC; // weak
 extern int dword_4E2BEC; // weak
 extern int dword_4E2C0C[array_size_unknown]; // weak
 extern int dword_4E2C2C[array_size_unknown]; // weak
-extern _UNKNOWN unk_4E2D80; // weak
-extern _UNKNOWN unk_4E2DC8; // weak
+//_UNKNOWN unk_4E2D80; // "\x0C%05d%s\x0C\x30\x30\x30\x30\x30"
+extern _UNKNOWN unk_4E2DC8; // "\f%05d" (this one looks like 16-bit color number)
 extern _UNKNOWN unk_4E2DE8; // weak
 extern _UNKNOWN unk_4E2E00; // weak
 extern _UNKNOWN unk_4E2E10; // weak
@@ -93,7 +93,6 @@ extern _UNKNOWN unk_4E2FA0; // weak
 extern char byte_4E2FD4; // idb
 extern _UNKNOWN unk_4E3030; // weak
 extern void *off_4E3044; // weak
-extern void *off_4E3048; // weak
 extern _UNKNOWN unk_4E3264; // weak
 extern _UNKNOWN unk_4E3278; // weak
 extern char byte_4E3294; // idb
@@ -188,9 +187,9 @@ extern int dword_4E5D68[array_size_unknown]; // weak
 extern int dword_4E5D6C[array_size_unknown]; // weak
 extern char byte_4E5DD8[array_size_unknown]; // weak
 extern char byte_4E5DE8[array_size_unknown]; // weak
-extern int dword_4E5E50; // idb
+extern unsigned int uDialogueUIIconsOffsetX; // dword @ MM7.exe::004E5E50
 extern int dword_4E5EC8[array_size_unknown]; // weak
-extern int dword_4E5EE0; // idb
+extern unsigned int uDialogueUIIconsOffsetY; // dword @ MM7.exe::004E5EE0
 extern char (*off_4E5F70)[8]; // weak
 extern int dword_4E5F78[array_size_unknown]; // weak
 extern char byte_4E5F7C[array_size_unknown]; // weak
@@ -827,7 +826,7 @@ extern int dword_507BB0; // weak
 extern struct GUIWindow *pGUIWindow0; // ptr @ MM7.exe::00507BB4
 
 extern int dword_507BB8; // idb
-extern int dword_507BBC; // idb
+extern struct GUIWindow *pDialogueWindow; // dword @ MM7.exe::00507BBC
 extern int dword_507BC0; // idb
 extern int dword_507BC4; // weak
 extern int dword_507BC8; // weak
@@ -1246,9 +1245,9 @@ extern unsigned char *pSomeEVT; // weak
 
 extern int dword_591080; // weak
 extern int dword_591084; // weak
-extern int dword_591088; // weak
+extern struct Actor *pDialogue_SpeakingActor;   // dword @ MM7.exe::00591088
 extern int dword_59108C; // weak
-extern int dword_591090; // idb
+extern unsigned int  uDialogue_SpeakingActorID; // dword @ MM7.exe::00591090
 extern int dword_591094; // weak
 extern char byte_591098[200]; // idb
 extern int dword_591160; // weak
@@ -1263,14 +1262,14 @@ extern char byte_591180[600]; // idb
 extern int dword_5913D8[array_size_unknown]; // weak
 extern int dword_5913F0; // weak
 extern int dword_5913F4[array_size_unknown]; // weak
-extern int dword_59140C[array_size_unknown]; // weak
+extern unsigned int uTextureID_Dialogue_NPCPortrait[]; // dword @ MM7.exe::0059140C
 extern int dword_591424; // weak
 
 extern struct class18 *pClass18_EndcapTexture; // ptr @ MM7.exe::00591428
 //int dword_591428; // idb
 
 extern int dword_59142C; // weak
-extern int dword_591430; // weak
+extern unsigned int uTextureID_Dialogue_Background; // dword @ MM7.exe::00591430
 extern __int16 word_591438[array_size_unknown]; // weak
 extern __int16 word_59143A[array_size_unknown]; // weak
 extern int dword_59143C[array_size_unknown]; // weak
@@ -2081,8 +2080,8 @@ extern char byte_72E780; // weak
 extern int dword_737C28[array_size_unknown]; // weak
 extern LPCSTR dword_737C2C; // idb
 extern int dword_737C30[array_size_unknown]; // weak
-extern LPCSTR dword_737C34; // idb
-extern int dword_737C38[array_size_unknown]; // weak  737C3C
+//LPCSTR dword_737C34; // 013A64   013A6C[-1]+0C
+//int dword_737C38[]; // 013A68    013A6C[-1]+10
 //_UNKNOWN unk_7380C4; // 0013EF4
 extern char dword_739E74[7136]; // idb
 extern int dword_73BA54[array_size_unknown]; // weak

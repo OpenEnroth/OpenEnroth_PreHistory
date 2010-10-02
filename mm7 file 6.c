@@ -583,7 +583,7 @@ signed int __thiscall sub_48DC1E(int Dst, signed int a2, int a3)
   if ( v11 )
   {
     if ( sub_492C0B(v4) )
-      sub_4948B1((void *)v4, 24, 0);
+      Player_PlaySound((void *)v4, 24, 0);
   }
   return v11;
 }
@@ -907,11 +907,11 @@ LABEL_73:
         v26 = v48;
         if ( *(_BYTE *)(v48 + 21) & 2 )
           goto LABEL_84;
-        sub_4948B1((void *)v5, 40, 0);
+        Player_PlaySound((void *)v5, 40, 0);
         *(_DWORD *)(v26 + 20) |= 2;
         goto LABEL_79;
       case 20:
-        sub_4948B1((void *)v5, 40, 0);
+        Player_PlaySound((void *)v5, 40, 0);
         v27 = a3 + 564;
         if ( *(_DWORD *)(a3 + 564) )
         {
@@ -933,11 +933,11 @@ LABEL_79:
         v30 = 47;
         goto LABEL_83;
       case 21:
-        sub_4948B1((void *)v5, 42, 0);
+        Player_PlaySound((void *)v5, 42, 0);
         ++*(_WORD *)(v5 + 222);
         goto LABEL_82;
       case 22:
-        sub_4948B1((void *)v5, 41, 0);
+        Player_PlaySound((void *)v5, 41, 0);
         *(_DWORD *)(v5 + 6464) = 0;
 LABEL_82:
         v42 = 0;
@@ -2036,23 +2036,15 @@ LABEL_8:
 }
 
 //----- (0049135E) --------------------------------------------------------
-int __thiscall sub_49135E(void *this)
+int Party_sub_49135E_GetAllPartyExpDiv1000(struct Party *_this)
 {
   signed int v1; // eax@1
-  signed int v2; // edx@1
-  int v3; // ecx@1
+ int i;
 
-  v1 = 0;
-  v3 = (int)((char *)this + 2668);
-  v2 = 4;
-  do
-  {
-    v1 += *(_DWORD *)v3;
-    v3 += 6972;
-    --v2;
-  }
-  while ( v2 );
-  return v1 / 1000;
+ v1 = 0;
+ for (i = 0; i < 4; ++i)
+   v1 += (unsigned int)(_this->pPlayers[i].uExperience);
+ return v1 / 1000;
 }
 
 
@@ -3076,7 +3068,7 @@ int __fastcall sub_495430(signed int a1)
 }
 
 //----- (00495461) --------------------------------------------------------
-const CHAR *__fastcall sub_495461(char *lpsz, unsigned __int8 a2, int a3, int a4, int a5, __int64 *a6)
+const CHAR *__fastcall sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(char *lpsz, unsigned __int8 a2, int a3, int a4, int a5, __int64 *a6)
 {
   unsigned __int8 v6; // bl@1
   int v8; // ebx@3
@@ -3135,7 +3127,7 @@ const CHAR *__fastcall sub_495461(char *lpsz, unsigned __int8 a2, int a3, int a4
   int v61; // [sp+A8h] [bp-90h]@115
   int v62; // [sp+B0h] [bp-88h]@115
   int v63; // [sp+B4h] [bp-84h]@115
-  char Dest; // [sp+B8h] [bp-80h]@3
+  char Dest[100]; // [sp+B8h] [bp-80h]@3
   unsigned int v65; // [sp+11Ch] [bp-1Ch]@3
   size_t v66; // [sp+120h] [bp-18h]@3
   int v67; // [sp+124h] [bp-14h]@3
@@ -3149,15 +3141,15 @@ const CHAR *__fastcall sub_495461(char *lpsz, unsigned __int8 a2, int a3, int a4
   if ( IsBadStringPtrA(lpsz, 1) )
     return "Invalid String Passed";
   v66 = strlen(Str);
-  Dest = 0;
-  v8 = &pParty_global->pPlayers[1743 * v6];
+  Dest[0] = 0;
+  v8 = &pParty_global->pPlayers[v6];
   v65 = 0xFFFFFF9B;
   v67 = v8;
   memset(pStringBuffer, 0, 0x7D0u);
   if ( dword_5C35D4 )
     v9 = dword_5913D8[dword_5913F0 - ((dword_591080 != 0) + 1)];
   else
-    v9 = (int)sub_4459F9_GetNPCData(dword_591090);
+    v9 = sub_4459F9_GetNPCData(uDialogue_SpeakingActorID);
   v71 = v9;
   v10 = 0;
   v70 = 0;
@@ -3358,9 +3350,9 @@ LABEL_93:
         if ( v16 + 10 * (unsigned __int8)*v17 == 552 )
         {
           v46 = sub_456499((void *)v12);
-          sprintfex(&Dest, (const char *)&unk_4E2D80, v65, v46);
+          wsprintfA(Dest, "\x0C%05d%s\x0C\x30\x30\x30\x30\x30", v65, v46);
 LABEL_117:
-          v13 = (int)&Dest;
+          v13 = (int)Dest;
           goto LABEL_118;
         }
         if ( v16 + 10 * (unsigned __int8)*v17 == 553 )
@@ -3397,9 +3389,9 @@ LABEL_117:
           if ( v16 + 10 * (unsigned __int8)*v17 != 556 )
           {
 LABEL_108:
-            strncpy(&Dest, v17, 2);
-            v51 = atoi(&Dest);
-            sprintfex(&Dest, (const char *)&off_4E3048, v51);
+            strncpy(Dest, v17, 2);
+            v51 = atoi(Dest);
+            wsprintfA(Dest, "%lu", v51);
             goto LABEL_117;
           }
           v13 = dword_591448[13 * a4];
@@ -3451,7 +3443,7 @@ LABEL_91:
             }
           }
 LABEL_98:
-          sprintfex(&Dest, (const char *)&off_4E3048, v26);
+          wsprintfA(Dest, "%lu", v26);
           goto LABEL_117;
         }
         v34 = *(float *)v27;
@@ -3488,7 +3480,7 @@ LABEL_98:
             v49 = v58;
 LABEL_116:
             //sprintfex(&Dest, (const char *)dword_5E4768, dword_507B08[v49], v53, v54);
-            wsprintfA(&Dest, pGlobalTXT_LocalizationStrings[378], aMonthNames[v49], v53, v54);
+            wsprintfA(Dest, pGlobalTXT_LocalizationStrings[378], aMonthNames[v49], v53, v54);
             goto LABEL_117;
           }
           v52 = dword_A750D4;
@@ -12412,7 +12404,7 @@ void __thiscall sub_4A6A68(void *this, int a2, int a3, int a4, __int16 a5)
   memcpy(class18_obj, (const void *)a4, 0x48u);
   v8 = v6;
   if ( v6 > 0 )
-    Render_DrawIndexedTexture(v5, a2, a3, class18_obj);
+    Render_DrawIndexedTexture(v5, a2, a3, a4);
 }
 
 //----- (004A6DF5) --------------------------------------------------------

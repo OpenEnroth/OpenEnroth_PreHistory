@@ -78,8 +78,7 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  int dword_4E2BEC; // weak
  int dword_4E2C0C[array_size_unknown]; // weak
  int dword_4E2C2C[array_size_unknown]; // weak
- _UNKNOWN unk_4E2D80; // weak
- _UNKNOWN unk_4E2DC8; // "\f%05d" (this one looks like 16-bit color number)
+ _UNKNOWN unk_4E2DC8; // weak
  _UNKNOWN unk_4E2DE8; // weak
  _UNKNOWN unk_4E2E00; // weak
  _UNKNOWN unk_4E2E10; // weak
@@ -89,7 +88,6 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  char byte_4E2FD4; // idb
  _UNKNOWN unk_4E3030; // weak
  void *off_4E3044; // weak
- void *off_4E3048; // weak
  _UNKNOWN unk_4E3264; // weak
  _UNKNOWN unk_4E3278; // weak
  char byte_4E3294; // idb
@@ -184,9 +182,9 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  int dword_4E5D6C[array_size_unknown]; // weak
  char byte_4E5DD8[array_size_unknown]; // weak
  char byte_4E5DE8[array_size_unknown]; // weak
- int dword_4E5E50; // idb
+unsigned int uDialogueUIIconsOffsetX = 0x00000209; // dword @ MM7.exe::004E5E50
  int dword_4E5EC8[array_size_unknown]; // weak
- int dword_4E5EE0; // idb
+unsigned int uDialogueUIIconsOffsetY = 0x00000026; // dword @ MM7.exe::004E5EE0
  char (*off_4E5F70)[8]; // weak
  int dword_4E5F78[array_size_unknown]; // weak
  char byte_4E5F7C[array_size_unknown]; // weak
@@ -856,7 +854,7 @@ unsigned int uTextureID_ibground = -1; // dword @ MM7.exe::00507BA8 addon, used 
  struct GUIWindow *pGUIWindow0 = 0; // ptr @ MM7.exe::00507BB4
 
  int dword_507BB8; // idb
- int dword_507BBC; // idb
+struct GUIWindow *pDialogueWindow = 0; // dword @ MM7.exe::00507BBC
  int dword_507BC0; // idb
  int dword_507BC4; // weak
  int dword_507BC8; // weak
@@ -1228,9 +1226,9 @@ unsigned char *pSomeEVT;                // dword @ MM7.exe::0059107C
 
  int dword_591080; // weak
  int dword_591084; // weak
- int dword_591088; // weak
+struct Actor *pDialogue_SpeakingActor = 0;    // dword @ MM7.exe::00591088
  int dword_59108C; // weak
- int dword_591090; // idb
+unsigned int  uDialogue_SpeakingActorID = -1; // dword @ MM7.exe::00591090
  int dword_591094; // weak
  char byte_591098[200]; // idb
  int dword_591160; // weak
@@ -1245,14 +1243,14 @@ unsigned char *pSomeEVT;                // dword @ MM7.exe::0059107C
  int dword_5913D8[array_size_unknown]; // weak
  int dword_5913F0; // weak
  int dword_5913F4[array_size_unknown]; // weak
- int dword_59140C[array_size_unknown]; // weak
+unsigned int uTextureID_Dialogue_NPCPortrait[array_size_unknown]; // dword @ MM7.exe::0059140C
  int dword_591424; // weak
 
 struct class18 *pClass18_EndcapTexture; // ptr @ MM7.exe::00591428
 //int dword_591428; // idb
 
  int dword_59142C; // weak
- int dword_591430; // weak
+unsigned int uTextureID_Dialogue_Background; // dword @ MM7.exe::00591430
  __int16 word_591438[array_size_unknown]; // weak
  __int16 word_59143A[array_size_unknown]; // weak
  int dword_59143C[array_size_unknown]; // weak
@@ -1856,8 +1854,6 @@ struct CNPCStats *pNPCStats = 0; // struct @ MM7.exe::007241D0
  int dword_737C28[array_size_unknown]; // weak
  LPCSTR dword_737C2C; // idb
  int dword_737C30[array_size_unknown]; // weak
- LPCSTR dword_737C34; // idb
- int dword_737C38[array_size_unknown]; // weak  737C3C
 //_UNKNOWN unk_7380C4; // 0013EF4
  char dword_739E74[7136]; // idb
  int dword_73BA54[array_size_unknown]; // weak

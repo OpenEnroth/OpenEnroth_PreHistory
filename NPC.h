@@ -17,11 +17,11 @@ struct NPCData
 {
  const unsigned char *pNPCName;     // dword @ 000000
  unsigned int         uPortraitID;  // dword @ 000004
- int                  dword_000008;
+ int                  dword_000008; // flags;   0x80:  hired
  int                  dword_00000C;
  int                  dword_000010;
  int                  dword_000014;
- int                  dword_000018;
+ unsigned int         uProfession;  // dword @ 000018   0 no profession else prof ID
  int                  dword_00001C;
  int                  dword_000020;
  int                  dword_000024;

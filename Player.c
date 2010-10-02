@@ -1848,7 +1848,7 @@ LABEL_16:
           goto LABEL_76;
         goto LABEL_82;
       case 13:
-        sub_4948B1((void *)v3, 32, 0);
+        Player_PlaySound((void *)v3, 32, 0);
         v13 = v3 + 6460;
         goto LABEL_70;
       case 14:
@@ -1880,7 +1880,7 @@ LABEL_10:
         v28 = 0;
         v25 = 35;
 LABEL_67:
-        sub_4948B1((void *)v3, v25, v28);
+        Player_PlaySound((void *)v3, v25, v28);
         if ( *(_DWORD *)(v3 + 6460) > 0 )
           *(_DWORD *)(v3 + 6460) = 0;
         v13 = v3 + 6464;
@@ -1906,7 +1906,7 @@ LABEL_82:
         if ( v30 == 2 )
         {
           if ( v31 == 1 )
-            sub_4948B1(pPlayers[v21 - 1], 107, 0);
+            Player_PlaySound(pPlayers[v21 - 1], 107, 0);
         }
         result = 1;
         break;
@@ -1959,7 +1959,7 @@ LABEL_82:
         *(_BYTE *)(v3 + 186) = v20;
         *(_DWORD *)(v3 + 6432) = v20;
 LABEL_81:
-        sub_4948B1((void *)v3, v23, v26);
+        Player_PlaySound((void *)v3, v23, v26);
         goto LABEL_82;
       default:
         goto LABEL_82;
@@ -3365,7 +3365,7 @@ LABEL_5:
   if ( v13 == -1 )
   {
     if ( uActiveCharacter )
-      sub_4948B1(pPlayers[uActiveCharacter - 1], 15, 0);
+      Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
     result = 0;
   }
   else

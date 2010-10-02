@@ -1020,7 +1020,7 @@ LABEL_85:
       if ( v13 )
       {
         v14 = rand();
-        sub_4948B1(*(&ptr_A750C4 + v20[v14 % v13]), 99, 0);
+        Player_PlaySound(*(&ptr_A750C4 + v20[v14 % v13]), 99, 0);
       }
       sub_44C175(pGlobalTXT_LocalizationStrings[524], 2);
       dword_6A0D48 = 0;
@@ -7671,7 +7671,7 @@ int __thiscall sub_411BFC(void *this)
               {
                 if ( v5 )
                 {
-                  v8 = sub_495461(v5, uActiveCharacter - 1, 0, 0, 0, v4);
+                  v8 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(v5, uActiveCharacter - 1, 0, 0, 0, v4);
                   v9 = sub_44C59D(dword_5C35E0, v8, (int)&v26, 1, 0);
                   v6 = (v9 - 3) / v29;
                   v7 = v6 + 1;
@@ -8026,7 +8026,7 @@ void __cdecl sub_412E85()
   dword_506548 = 0;
   dword_506520 = 0;
   v8 = ((char *)(pStorylineText))[12 * v7];
-  v6 = sub_495461(((char *)(pStorylineText))[12 * v7], uActiveCharacter - 1, 0, 0, 0, (__int64 *)(8 * v7 + 11326684));
+  v6 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(((char *)(pStorylineText))[12 * v7], uActiveCharacter - 1, 0, 0, 0, (__int64 *)(8 * v7 + 11326684));
   if ( v8 )
   {
     v9 = sub_44C6C2(dword_5C35E0, v6, (int)&v15, 1, (unsigned __int8)byte_5C6D50[dword_506528]);
@@ -10415,7 +10415,7 @@ LABEL_142:
           v44 = pOldViewport->uGameX;
           goto LABEL_18;
         }
-        sub_445350();
+        sub_445350_LooksLikeDrawDialogueUI();
       }
     }
   }
@@ -10645,7 +10645,7 @@ LABEL_116:
             dword_50CDCC = 1;
             if ( dword_4E455C )
             {
-              sub_4948B1((void *)v0, 16, 0);
+              Player_PlaySound((void *)v0, 16, 0);
               dword_4E455C = 0;
             }
             return;
@@ -10874,7 +10874,7 @@ LABEL_74:
                   *(_DWORD *)(v22 + 552) |= 1u;
                 if ( !dword_4E455C )
                   goto LABEL_92;
-                sub_4948B1((void *)v0, 16, 0);
+                Player_PlaySound((void *)v0, 16, 0);
                 goto LABEL_91;
               }
               if ( v49 )
@@ -10913,7 +10913,7 @@ LABEL_74:
       if ( dword_4E455C )
       {
         if ( sub_492C0B(v0) )
-          sub_4948B1((void *)v0, 17, 0);
+          Player_PlaySound((void *)v0, 17, 0);
         sub_44C175(pGlobalTXT_LocalizationStrings[444], 2);
 LABEL_91:
         dword_4E455C = 0;
@@ -10991,8 +10991,8 @@ void __thiscall sub_416B01(void *this)
     }
     if ( (signed int)((char *)v22 + (unsigned __int8)pParty_global->byte_000709) < v3 )
     {
-      dword_591090 = -1 - (unsigned __int8)pParty_global->byte_000709 - (_DWORD)v22;
-      v5 = sub_445B2C(dword_591090, (int)&v21);
+      uDialogue_SpeakingActorID = -1 - (unsigned __int8)pParty_global->byte_000709 - (_DWORD)v22;
+      v5 = sub_445B2C(uDialogue_SpeakingActorID, (int)&v21);
       v6 = v5;
       if ( v5 )
       {
@@ -11003,7 +11003,7 @@ void __thiscall sub_416B01(void *this)
         lpsz = v7;
         if ( !v7 )
         {
-          lpsz = (&dword_737C34)[20 * *((_DWORD *)v6 + 6)];
+          lpsz = pNPCStats->pProfessions[*((_DWORD *)v6 + 6) - 1].pJoinText;
           if ( !lpsz )
             lpsz = Class;
         }
@@ -11039,7 +11039,7 @@ void __thiscall sub_416B01(void *this)
         sub_44D406((int)&v15, pFontArrus, 0, 12, v13, v10, 3);
         v17 -= 24;
         v19 = v15 + v17 - 1;
-        v14 = sub_495461((char *)lpsz, uActiveCharacter - 1, 0, 0, 0, 0);
+        v14 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)lpsz, uActiveCharacter - 1, 0, 0, 0, 0);
         FontDrawText((int)&v15, pFontArrus, 100, 36, v14, 0, 0, 0);
       }
     }
@@ -11460,8 +11460,8 @@ LABEL_112:
     v30 = v26 + v28 - 1;
     v31 = v27 + v29 - 1;
     v25 = 0xFFFFFF9B;
-    sprintfex(&TmpBuf, (const char *)&unk_4E2D80, v25, v14);
-    sub_44D406((int)&v26, pFontCreate, 0, 0, 0, &TmpBuf, 3);
+    wsprintfA(TmpBuf, "\x0C%05d%s\x0C\x30\x30\x30\x30\x30", v25, v14);
+    sub_44D406((int)&v26, pFontCreate, 0, 0, 0, TmpBuf, 3);
     FontDrawText((int)&v26, pFontSmallnum, 1, *(_BYTE *)(pFontLucida + 5), v23, 0, 0, 0);
   }
 LABEL_132:
@@ -11768,8 +11768,8 @@ void sub_4179BC(int a1, const char *a2)
   v10 = Dst + v8 - 1;
   v11 = v7 + v9 - 1;
   v5 = 0xFFFFFF9B;
-  sprintfex(&TmpBuf, (const char *)&unk_4E2D80, v5, v4);
-  sub_44D406((int)&Dst, pFontCreate, 0, 0, 0, &TmpBuf, 3);
+  wsprintfA(TmpBuf, "\x0C%05d%s\x0C\x30\x30\x30\x30\x30", v5, v4);
+  sub_44D406((int)&Dst, pFontCreate, 0, 0, 0, TmpBuf, 3);
   FontDrawText((int)&Dst, pFontSmallnum, 1, *(_BYTE *)(pFontLucida + 5), v3, 0, 0, 0);
 }
 
@@ -12360,7 +12360,7 @@ void __cdecl sub_4196A0()
 }
 
 //----- (004948B1) --------------------------------------------------------
-__int16 __thiscall sub_4948B1(void *this, int a2, int a3)
+__int16 __thiscall Player_PlaySound(struct Player *_this, int a2, int a3)
 {
   void *v3; // edi@1
   int v4; // eax@4
@@ -12383,16 +12383,17 @@ __int16 __thiscall sub_4948B1(void *this, int a2, int a3)
   int v22; // [sp+24h] [bp-4h]@1
   int v23; // [sp+30h] [bp+8h]@4
 
-  v3 = this;
-  v21 = (int)this;
+  v3 = _this;
+  v21 = (int)_this;
   v22 = 1;
   do
   {
-    if ( this == *(&ptr_A750C4 + v22) )
+    if (_this == pPlayers[v22 - 1])
       break;
     ++v22;
   }
   while ( v22 <= 4 );
+
   v4 = a2;
   v6 = 0;
   v23 = 0;
@@ -12411,7 +12412,7 @@ __int16 __thiscall sub_4948B1(void *this, int a2, int a3)
     if ( v6 )
     {
       v9 = rand();
-      v10 = *((_DWORD *)v3 + 1608);
+      v10 = _this->dword_001920;
       v11 = v20[v9 % v6];
       if ( *(&byte_4ECEEF[25 * v11] + v10) )
       {
@@ -12550,7 +12551,7 @@ void __cdecl sub_41A57E()
     if ( v43 == v0 )
       sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, 47, v0, pGlobalTXT_LocalizationStrings[131], 60, v0);
     v3 = Player_GetActualLevel((void *)v2);
-    wsprintfA(TmpBuf, (const char *)&off_4E3048, v3);
+    wsprintfA(TmpBuf, "%lu", v3);
     v4 = Player_GetBaseLevel(v2);
     if ( Player_GetActualLevel((void *)v2) <= v4 )
       v5 = sub_48D498(v2);
@@ -12624,12 +12625,12 @@ void __cdecl sub_41A57E()
       --v29;
     }
     while ( v29 );
-    wsprintfA(TmpBuf, (const char *)&off_4E3048, v30);
+    wsprintfA(TmpBuf, "%lu", v30);
     sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v26, 0, TmpBuf, 84, 0);
     v31 = v45 + v26;
     if ( !v43 )
       sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v31, 0, pGlobalTXT_LocalizationStrings[168], 60, 0);
-    wsprintfA(TmpBuf, (const char *)&off_4E3048, *(_DWORD *)(v2 + 6456));
+    wsprintfA(TmpBuf, "%lu", *(_DWORD *)(v2 + 6456));
     sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v31, *(_DWORD *)(v2 + 6456) != 0 ? v46 : 0, TmpBuf, 84, 0);
     v32 = v45 + v31;
     v48 = Player_GetConditionIdx((void *)v2);
@@ -12667,7 +12668,7 @@ void __cdecl sub_41A57E()
   v41 = sub_495430(v38);
   wsprintfA(TmpBuf, (const char *)&unk_4E3030, pGlobalTXT_LocalizationStrings[180], v39, v41);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 22, 323, TmpBuf, 0, 0, 0);
-  v42 = sub_49135E(pParty_global);
+  v42 = Party_sub_49135E_GetAllPartyExpDiv1000(pParty_global);
   wsprintfA(TmpBuf, "\r261%s: %d", pGlobalTXT_LocalizationStrings[84], v42);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 0, 323, TmpBuf, 0, 0, 0);
 }
@@ -13853,7 +13854,7 @@ void __thiscall sub_41D895(void *this)
         }
         if ( dword_4E455C )
         {
-          sub_4948B1(*(&ptr_A750C4 + uActiveCharacter), v95, 0);
+          Player_PlaySound(*(&ptr_A750C4 + uActiveCharacter), v95, 0);
           dword_4E455C = 0;
         }
       }
@@ -13872,7 +13873,7 @@ void __thiscall sub_41D895(void *this)
           sub_44C175(pGlobalTXT_LocalizationStrings[448], 2);
         if ( dword_4E455C )
         {
-          sub_4948B1(*(&ptr_A750C4 + uActiveCharacter), v95, 0);
+          Player_PlaySound(*(&ptr_A750C4 + uActiveCharacter), v95, 0);
           dword_4E455C = 0;
         }
       }
@@ -14675,7 +14676,7 @@ LABEL_73:
           {
             v73 = 106;
           }
-          sub_4948B1((void *)v46, v73, 0);
+          Player_PlaySound((void *)v46, v73, 0);
         }
       }
     }
@@ -15629,7 +15630,7 @@ LABEL_8:
     if ( v23 == v4 )
     {
       if ( uActiveCharacter )
-        sub_4948B1(*(&ptr_A750C4 + uActiveCharacter), 15, 0);
+        Player_PlaySound(*(&ptr_A750C4 + uActiveCharacter), 15, 0);
       return 0;
     }
     v10 = LODFile_LoadTexture(pLODFile_Icons_LOD, pClass40->pItems[*v3].pIconName, 2);
@@ -16090,7 +16091,7 @@ LABEL_12:
   if ( X )
   {
     if ( !dword_507CD8 )
-      sub_4948B1(*(&ptr_A750C4 + uActiveCharacter), 4, 0);
+      Player_PlaySound(*(&ptr_A750C4 + uActiveCharacter), 4, 0);
   }
   dword_507CD8 = 0;
   v4 = GUIWindowCreate(0, 0, 640, 480, 20, SLODWORD(v54), 0);
@@ -16599,7 +16600,7 @@ void GameUI_OnPlayerPortraitLeftClick(unsigned int uCharacter)
         goto LABEL_9;
       v4 = pPlayers[uActiveCharacter - 1];
     }
-    sub_4948B1(v4, 15, 0);
+    Player_PlaySound(v4, 15, 0);
   }
 
 LABEL_9:

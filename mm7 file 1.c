@@ -5982,7 +5982,7 @@ LABEL_9:
           v87 = 0;
           v85 = 64;
 LABEL_105:
-          sub_4948B1(*(&ptr_A750C4 + v22), v85, v87);
+          Player_PlaySound(*(&ptr_A750C4 + v22), v85, v87);
         }
         break;
 
@@ -6122,7 +6122,7 @@ LABEL_164:
                   if ( !sub_48D709(*v33, 529, 8) )
                   {
                     if ( sub_492C0B((int)*v33) )
-                      sub_4948B1(*v33, 66, 0);
+                      Player_PlaySound(*v33, 66, 0);
                   }
                 }
                 ++v33;
@@ -9462,7 +9462,7 @@ LABEL_1162:
                       }
                       if ( LODWORD(v705) )
                       {
-                        sub_4948B1((void *)v707, 49, 0);
+                        Player_PlaySound((void *)v707, 49, 0);
                         goto LABEL_1162;
                       }
                     }
@@ -10972,7 +10972,7 @@ LABEL_616:
               SHIDWORD(v1));
             v302 = (void *)LODWORD(v704);
             *(_WORD *)v2 = WORD2(v1);
-            sub_4948B1(v302, 43, SHIDWORD(v1));
+            Player_PlaySound(v302, 43, SHIDWORD(v1));
           }
           goto LABEL_83;
         }
@@ -11571,7 +11571,7 @@ LABEL_751:
         if (pParty_global->pPlayers[v371 / 6972].pConditions[14] || pParty_global->pPlayers[v371 / 6972].pConditions[16])
         {
           if ( !(*(int *)((char *)&dword_ACD990 + v371) | *(int *)((char *)&dword_ACD98C + v371)) )
-            sub_4948B1((char *)&pParty_global->pPlayers[0] + v371, 25, SHIDWORD(v1));
+            Player_PlaySound((char *)&pParty_global->pPlayers[0] + v371, 25, SHIDWORD(v1));
           if ( v709 == 4 )
           {
             pParty_global->pPlayers[*(_WORD *)(v2 + 4)].pConditions[16] = 0;
@@ -11904,7 +11904,7 @@ LABEL_813:
         if ( *(int *)((char *)&dword_ACD9B0 + v411) | *(int *)((char *)&dword_ACD9AC + v411) )
         {
           if ( !(*(int *)((char *)&dword_ACD990 + v411) | *(int *)((char *)&dword_ACD98C + v411)) )
-            sub_4948B1((char *)&pParty_global->pPlayers[0] + v411, 25, SHIDWORD(v1));
+            Player_PlaySound((char *)&pParty_global->pPlayers[0] + v411, 25, SHIDWORD(v1));
           if ( v709 == 4 )
           {
             v415 = 6972 * *(_WORD *)(v2 + 4);
@@ -13327,7 +13327,7 @@ LABEL_1119:
         LODWORD(v1) = LODWORD(v712);
         if ( v215 )
 LABEL_439:
-          sub_4948B1((void *)v1, 103, SHIDWORD(v1));
+          Player_PlaySound((void *)v1, 103, SHIDWORD(v1));
       }
       LODWORD(v1) = v1 + 6972;
       LODWORD(v712) = v1;

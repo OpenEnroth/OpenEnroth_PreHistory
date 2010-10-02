@@ -48,7 +48,7 @@ struct GUIWindow
  struct GUIButton *pControlsHead; // ptr @ 00004C
  struct GUIButton *pControlsTail; // ptr @ 000050
 };
-//sizeof == 0x54
+//sizeof = 54
 
 
 struct GUIButton

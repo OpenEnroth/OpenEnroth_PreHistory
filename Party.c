@@ -333,7 +333,7 @@ int Party_AddItem(struct Party *_this, int a2)
     memcpy((void *)(v10 + 36 * v9 + 496), (const void *)a2, 0x24u);
     ItemGen_Reset(a2);
     AudioPlayer_sub_4AA306(pAudioPlayer, 200, 0, 0, -1, 0, 0, 0, 0);
-    sub_4948B1(v22, 60, 0);
+    Player_PlaySound(v22, 60, 0);
     if ( !v24 )
     {
       sub_40F77C(v6);
