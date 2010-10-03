@@ -114,7 +114,7 @@ bool Party_sub_497FC5(struct Party *_this)
   v2 = 0;
   for (i = 0; i < 4; ++i)
   {
-    if ( sub_492C0B(&_this->pPlayers[i]) )
+    if ( Player_sub_492C0B(&_this->pPlayers[i]) )
     {
       v5 = sub_49125A(&_this->pPlayers[i]);
       if ( v5 > v2 )
@@ -287,7 +287,7 @@ int Party_AddItem(struct Party *_this, int a2)
 
   v23 = _this;
   v2 = 48 * *(_DWORD *)a2;
-  if (!byte_5D2A00[v2 + 18])
+  if (!*(&pClass40->pItems[v2/48 - 1].uEquipType + 18))
     *(_DWORD *)(a2 + 20) |= 1u;
   v18 = 0;
   v19 = 1;

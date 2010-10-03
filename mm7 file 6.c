@@ -48,10 +48,13 @@ bool __thiscall sub_48D1FE(void *this, signed int a2)
     v4 = (int)((char *)v3 + 36 * *((_DWORD *)v3 + 1620) + 496);
     v5 = *(_DWORD *)v4;
     v6 = 48 * *(_DWORD *)v4;
-    v15 = (unsigned __int8)byte_5D2A00[v6 + 3];
-    if ( (signed int)(unsigned __int8)byte_5D2A00[v6 + 2] > 0 )
+    //v15 = (unsigned __int8)byte_5D2A00[v6 + 3];
+    v15 = pClass40->pItems[*(_DWORD *)v4 - 1].uDamageRoll;
+    //if ( (signed int)(unsigned __int8)byte_5D2A00[v6 + 2] > 0 )
+    if ((signed)pClass40->pItems[*(_DWORD *)v4 - 1].uDamageDice > 0)
     {
-      v16 = (unsigned __int8)byte_5D2A00[v6 + 2];
+      //v16 = (unsigned __int8)byte_5D2A00[v6 + 2];
+     v16 = pClass40->pItems[*(_DWORD *)v4 - 1].uDamageDice;
       do
       {
         v7 = rand() % v15;
@@ -60,7 +63,8 @@ bool __thiscall sub_48D1FE(void *this, signed int a2)
       }
       while ( !v8 );
     }
-    v9 = (unsigned __int8)byte_5D2A00[v6 + 4] + v17;
+    //v9 = (unsigned __int8)byte_5D2A00[v6 + 4] + v17;
+    v9 = pClass40->pItems[*(_DWORD *)v4 - 1].uDamageModifier + v17;
     if ( !a2 )
       goto LABEL_19;
     v10 = *(_DWORD *)(v4 + 12);
@@ -134,7 +138,7 @@ unsigned int __thiscall sub_48D498(int this)
 }
 
 //----- (0048D4B3) --------------------------------------------------------
-signed int __thiscall sub_48D4B3(int this, int a2, signed int a3)
+signed int __thiscall Player_sub_48D4B3(struct Player *_this, int a2, signed int a3)
 {
   int v3; // esi@1
   int v4; // edi@8
@@ -152,7 +156,7 @@ signed int __thiscall sub_48D4B3(int this, int a2, signed int a3)
   signed int v17; // [sp-4h] [bp-10h]@9
   signed int v18; // [sp+8h] [bp-4h]@17
 
-  v3 = this;
+  v3 = _this;
   if ( !a2 )
   {
     v17 = 10;
@@ -187,7 +191,7 @@ signed int __thiscall sub_48D4B3(int this, int a2, signed int a3)
   {
     v17 = 15;
 LABEL_16:
-    v4 = Player_GetActualResistance(this, v17);
+    v4 = Player_GetActualResistance(_this, v17);
     goto LABEL_17;
   }
   v4 = 0;
@@ -197,22 +201,22 @@ LABEL_17:
     return 0;
   if ( v4 )
   {
-    v6 = Player_GetActualLuck((void *)v3);
+    v6 = Player_GetActualLuck(_this);
     v7 = sub_48EA1B(v6) + v4 + 30;
     if ( rand() % v7 >= 30 )
     {
       v18 = a3 >> 1;
-      v8 = Player_GetActualLuck((void *)v3);
+      v8 = Player_GetActualLuck(_this);
       v9 = sub_48EA1B(v8) + v4 + 30;
       if ( rand() % v9 >= 30 )
       {
         v18 = a3 >> 2;
-        v10 = Player_GetActualLuck((void *)v3);
+        v10 = Player_GetActualLuck(_this);
         v11 = sub_48EA1B(v10) + v4 + 30;
         if ( rand() % v11 >= 30 )
         {
           v18 = a3 >> 3;
-          v12 = Player_GetActualLuck((void *)v3);
+          v12 = Player_GetActualLuck(_this);
           v13 = sub_48EA1B(v12) + v4 + 30;
           if ( rand() % v13 >= 30 )
             v18 = a3 >> 4;
@@ -227,7 +231,7 @@ LABEL_17:
     {
       if ( !(*(_BYTE *)(v3 + 36 * v14 + 516) & 2) )
       {
-        v15 = sub_48D651((void *)v3, 3) - 10;
+        v15 = sub_48D651_GetSomeItemSkillType((void *)v3, 3) - 10;
         if ( v15 )
         {
           if ( v15 != 1 || sub_458244(*(_WORD *)(v3 + 286)) < 3 )
@@ -247,15 +251,16 @@ LABEL_17:
 }
 
 //----- (0048D62C) --------------------------------------------------------
-int __thiscall sub_48D62C(void *this, int a2)
+int __thiscall sub_48D62C_GetSomeItemEquipType(void *this, int a2)
 {
-  return (unsigned __int8)byte_5D2A00[48 * *((_DWORD *)this + 9 * *((_DWORD *)this + a2 + 1618) + 124)];
+  //return (unsigned __int8)byte_5D2A00[48 * *((_DWORD *)this + 9 * *((_DWORD *)this + a2 + 1618) + 124)];
+ return pClass40->pItems[*((_DWORD *)this + 9 * *((_DWORD *)this + a2 + 1618) + 124)].uEquipType;
 }
 
 //----- (0048D651) --------------------------------------------------------
-int __thiscall sub_48D651(void *this, int a2)
+int __thiscall sub_48D651_GetSomeItemSkillType(void *this, int a2)
 {
-  return (unsigned __int8)byte_5D2A00[48 * *((_DWORD *)this + 9 * *((_DWORD *)this + a2 + 1618) + 124) + 1];
+  return pClass40->pItems[*((_DWORD *)this + 9 * *((_DWORD *)this + a2 + 1618) + 124)].uSkillType;
 }
 
 //----- (0048D676) --------------------------------------------------------
@@ -264,7 +269,7 @@ bool __thiscall sub_48D676(void *this)
   void *v1; // esi@1
 
   v1 = this;
-  return sub_48D6AA(this, 1) != 1 && (sub_48D6AA(v1, 0) != 1 || sub_48D62C(v1, 0) == 4);
+  return sub_48D6AA(this, 1) != 1 && (sub_48D6AA(v1, 0) != 1 || sub_48D62C_GetSomeItemEquipType(v1, 0) == 4);
 }
 
 //----- (0048D709) --------------------------------------------------------
@@ -318,8 +323,8 @@ bool __thiscall sub_48D76C(int this, int a2, int a3, int a4, int a5, int a6)
     v9 = v7 & 0x3F;
     v8 = sub_458244(v7);
     v10 = sub_456442(a2);
-    v6 = (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)a2];
-    if ( !byte_5D2A00[48 * *(_DWORD *)a2] || v6 == 1 || v6 == 2 )
+    v6 = pClass40->pItems[*(_DWORD *)a2 - 1].uEquipType;
+    if ( !pClass40->pItems[*(_DWORD *)a2 - 1].uEquipType || v6 == 1 || v6 == 2 )
       v10 *= 3;
     v11 = dword_4EDEB4[rand() % 100 / 20] + v9 * dword_4EDEA0[v8];
     *(_DWORD *)a6 = 100 * (a4 + a3) + v10 + (a5 != 0 ? 0x1F4 : 0);
@@ -415,7 +420,7 @@ signed int __thiscall sub_48D88B(int this, int a2, int a3, int a4)
             }
             while ( v7 );
           }
-          if ( byte_5D2A00[48 * *((_DWORD *)v4 + 168)] != 18 )
+          if (pClass40->pItems[*((_DWORD *)v4 + 168) - 1].uEquipType != 18 )
             return v33;
           v19 = (int)(v4 + 684);
           if ( v18 > *((_DWORD *)v4 + 171) )
@@ -429,7 +434,7 @@ signed int __thiscall sub_48D88B(int this, int a2, int a3, int a4)
             sub_420C05(v18, 2);
             v22 = v18;
             v21 = pStringBuffer;
-            sprintfex(pStringBuffer, pGlobalTXT_LocalizationStrings[302], v32 + 168, v22);
+            wsprintfA(pStringBuffer, pGlobalTXT_LocalizationStrings[302], v32 + 168, v22);
 LABEL_43:
             sub_44C175(v21, 2);
             return v33;
@@ -441,7 +446,7 @@ LABEL_43:
           v13 = 0;
           v11 = 0;
           v12 = (int)(v4 + 564);
-          while ( !*(_DWORD *)v12 || byte_5D2A00[48 * *(_DWORD *)v12] == 18 )
+          while ( !*(_DWORD *)v12 || pClass40->pItems[*(_DWORD *)v12 - 1].uEquipType == 18 )
           {
             ++v11;
             v12 += 36;
@@ -460,9 +465,9 @@ LABEL_21:
               *((_WORD *)v4 + 90) = 0;
               v26 = v14;
               v16 = 48 * v14;
-              if ( byte_5D2A00[v16] == 12 )
-                v28 = rand() % 6 + (unsigned __int8)byte_5D2A00[v16 + 4] + 1;
-              if ( byte_5D2A00[v16] == 14 )
+              if (pClass40->pItems[v14 - 1].uEquipType == 12 )
+               v28 = rand() % 6 + pClass40->pItems[v14 - 1].uDamageModifier + 1;
+              if (pClass40->pItems[v14 - 1].uEquipType == 14 )
               {
                 if ( v15 != 220 )
                   v27 = 2 * rand() % 4 + 2;
@@ -531,46 +536,42 @@ int __thiscall sub_48DBB9(int this, int a2)
 }
 
 //----- (0048DC1E) --------------------------------------------------------
-signed int __thiscall sub_48DC1E(int Dst, signed int a2, int a3)
+signed int __thiscall Player_sub_48DC1E(struct Player *_this, signed int a2, int a3)
 {
   bool v3; // ebx@1
-  int v4; // esi@1
   signed int v5; // eax@1
-  signed int v6; // eax@1
   int v7; // eax@8
   int v8; // eax@9
   int v9; // ecx@9
   signed int v11; // [sp+14h] [bp+8h]@1
 
-  v4 = Dst;
-  *(_DWORD *)(Dst + 16) = 0;
-  *(_DWORD *)(Dst + 20) = 0;
-  v5 = sub_48D4B3(Dst, a3, a2);
-  *(_DWORD *)(v4 + 6460) -= v5;
+ _this->pConditions[2] = 0;
+  v5 = Player_sub_48D4B3(_this, a3, a2);
+ _this->sHealth -= v5;
   v11 = v5;
-  v6 = *(_DWORD *)(v4 + 6460);
-  v3 = v6 < -10;
-  LOBYTE(v3) = v6 <= -10;
-  if ( v6 < 1 )
+
+  v3 = _this->sHealth < -10;
+  LOBYTE(v3) = _this->sHealth <= -10;
+  if (_this->sHealth < 1 )
   {
-    if ( *(_DWORD *)(v4 + 6460) + *(_WORD *)(v4 + 200) + Player_MaybeGetWearItemsBonus((void *)v4, 3, 0) >= 1
-      || *(_QWORD *)(v4 + 6224) > 0i64 )
+    if (_this->sHealth + _this->uEndurance + Player_MaybeGetWearItemsBonus(_this, 3, 0) >= 1
+      || *(_QWORD *)((char *)_this + 6224) > 0i64 )
     {
-      Player_sub_492D65((char *)v4, 13, 0);
+      Player_sub_492D65(_this, 13, 0);
     }
     else
     {
-      Player_sub_492D65((char *)v4, 14, 0);
+      Player_sub_492D65(_this, 14, 0);
       v3 = pParty_global->qword_00002C;
-      if ( *(_DWORD *)(v4 + 6460) > 0 )
-        *(_DWORD *)(v4 + 6460) = 0;
+      if (_this->sHealth > 0 )
+        _this->sHealth = 0;
     }
     if ( v3 )
     {
-      v7 = *(_DWORD *)(v4 + 6484);
+      v7 = _this->sEquppedItemIndexes[3];
       if ( v7 )
       {
-        v9 = v4 + 36 * v7 + 516;
+        v9 = (char *)&_this->cInventorySlots[v7] - 0x10;
         v8 = *(_DWORD *)v9;
         if ( !(BYTE1(v8) & 2) )
         {
@@ -582,8 +583,8 @@ signed int __thiscall sub_48DC1E(int Dst, signed int a2, int a3)
   }
   if ( v11 )
   {
-    if ( sub_492C0B(v4) )
-      Player_PlaySound((void *)v4, 24, 0);
+    if (Player_sub_492C0B(_this))
+      Player_PlaySound(_this, 24, 0);
   }
   return v11;
 }
@@ -709,7 +710,7 @@ LABEL_5:
             v46[v3++] = *(_BYTE *)(v5 + 6484) - 1;
           if ( !v15 || v15 == 1 )
           {
-            if ( sub_48D62C((void *)v5, v15) == 4 )
+            if ( sub_48D62C_GetSomeItemEquipType((void *)v5, v15) == 4 )
               v46[v3++] = *(_BYTE *)(v5 + 4 * v15 + 6472) - 1;
           }
         }
@@ -727,7 +728,7 @@ LABEL_5:
             v46[v3++] = *(_BYTE *)(v5 + 6480) - 1;
           if ( !v17 || v17 == 1 )
           {
-            if ( !sub_48D62C((void *)v5, v17) || sub_48D62C(v18, v17) == 1 )
+            if ( !sub_48D62C_GetSomeItemEquipType((void *)v5, v17) || sub_48D62C_GetSomeItemEquipType(v18, v17) == 1 )
               v46[v3++] = *(_BYTE *)(v5 + 4 * v17 + 6472) - 1;
           }
         }
@@ -738,7 +739,7 @@ LABEL_36:
       if ( !v3 )
         goto LABEL_87;
       v48 = v5 + 36 * (unsigned __int8)v46[rand() % v3] + 532;
-      v8 = 3 * ((unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v48 + 5] + (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v48 + 4]);
+      v8 = 3 * (pClass40->pItems[*(_DWORD *)v48 - 1].uMaterial + pClass40->pItems[*(_DWORD *)v48 - 1].uDamageModifier);
       break;
     case 20:
       v19 = 0;
@@ -1059,7 +1060,7 @@ LABEL_4:
   if ( sub_48D6AA((void *)v4, 0) )
   {
     v12 = v4 + 36 * *(_DWORD *)(v4 + 6472) + 496;
-    v42 = (unsigned __int16)word_4EDED8[(unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v12 + 1]];
+    v42 = (unsigned __int16)word_4EDED8[pClass40->pItems[*(_DWORD *)v12 - 1].uSkillType];
     if ( v42 > v47 )
     {
       v13 = *(_DWORD *)v12;
@@ -1072,7 +1073,7 @@ LABEL_4:
 LABEL_17:
   if ( !sub_48D6AA((void *)v4, 3) )
     goto LABEL_28;
-  v14 = (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)(v4 + 36 * *(_DWORD *)(v4 + 6484) + 496) + 1];
+  v14 = pClass40->pItems[*(_DWORD *)(v4 + 36 * *(_DWORD *)(v4 + 6484) + 496) - 1].uSkillType;
   sub_458244(*(_WORD *)(v4 + 282));
   v15 = (unsigned __int16)word_4EDED8[v14];
   v35 = 1.0;
@@ -1109,13 +1110,13 @@ LABEL_27:
 LABEL_28:
   if ( sub_48D6AA((void *)v4, v2) )
   {
-    if ( sub_48D62C(v19, v2) == 4 )
+    if ( sub_48D62C_GetSomeItemEquipType(v19, v2) == 4 )
     {
       v20 = 9 * *(_DWORD *)(v4 + 6472);
       v35 = 1.0;
       v21 = 3 * *(_DWORD *)(v4 + 4 * v20 + 496);
       *(float *)&v36 = 0.0;
-      v22 = (unsigned __int8)byte_5D2A00[16 * v21 + 1];
+      v22 = pClass40->pItems[v21 / 3 - 1].uSkillType;
       v37 = 0.0;
       v23 = (unsigned __int16)word_4EDED8[v22];
       v38 = 0.0;
@@ -1667,7 +1668,7 @@ int __thiscall sub_490EEE(void *this, int a2, int a3, int a4, int a5)
   result = 4;
   v6 = *(_DWORD *)a2;
   v7 = 48 * *(_DWORD *)a2;
-  v8 = (unsigned __int8)byte_5D2A00[v7];
+  v8 = pClass40->pItems[*(_DWORD *)a2 - 1].uEquipType;
   if ( (a3 != 4 || v6 < 740 || v6 > 771) && (v6 >= 600 || v6 >= 529 && v6 <= 599) )
     return 5;
   if ( a3 == 1 )
@@ -1691,7 +1692,7 @@ LABEL_24:
   }
   if ( a3 == 3 )
   {
-    if ( byte_5D2A00[v7 + 1] == 38 )
+   if (pClass40->pItems[v7/48 - 1].uSkillType == 38 )
       goto LABEL_16;
     v10 = v8 == 16;
     goto LABEL_15;
@@ -11303,9 +11304,9 @@ int __thiscall sub_4A52F1(int this, int a2, float a3)
   if ( *(_DWORD *)(this + 262280) )
   {
     v4 = a3;
-    if ( a3 <= memory_4D8410.f1_0 )
+    if ( a3 <= memory_4D8410.d1_0 )
     {
-      if ( v4 < *(double *)&byte_4D8410[176] )
+      if ( v4 < 0.0 )
         v4 = 0.0;
     }
     else
@@ -11458,7 +11459,7 @@ int __thiscall sub_4A52F1(int this, int a2, float a3)
   }
   else
   {
-    v71 = (memory_4D8410.f1_0 - a3) * *(double *)&byte_4D8410[560];
+    v71 = (memory_4D8410.d1_0 - a3) * 65536.0;
     v70 = v71 + 6.755399441055744e15;
     LODWORD(a3) = LODWORD(v70);
     v69 = (pOldViewport->uGameZ - pOldViewport->uGameX) >> 1;
@@ -12839,10 +12840,10 @@ void __thiscall sub_4A7688(void *this, int a2)
   v2 = a2;
   v3 = (double)*(_WORD *)(a2 + 30) / (double)*(_WORD *)(56 * *(_WORD *)(a2 + 2) + pObjectDescriptionList->pDescriptions + 42);
   v24 = 512.0 * v3;
-  if ( v3 >= *(double *)&byte_4D8410[72] )
-    v4 = (memory_4D8410.f1_0 - v3) * *(double *)&byte_4D8410[1224];
+  if ( v3 >= 0.75 )
+    v4 = (memory_4D8410.d1_0 - v3) * 4.0;
   else
-    v4 = v3 * *(double *)&byte_4D8410[1232];
+    v4 = v3 * 1.3333333333333333;
   v26 = v4;
   v5 = (double)*(signed int *)(a2 + 4);
   Dst = 1029;
@@ -12896,10 +12897,10 @@ void __thiscall sub_4A77FD(void *this, int a2)
   v2 = this;
   v4 = (double)*(_WORD *)(a2 + 30) / (double)*(_WORD *)(56 * *(_WORD *)(a2 + 2) + pObjectDescriptionList->pDescriptions + 42);
   v12 = 512.0 - v4 * 512.0;
-  if ( v4 >= *(double *)&byte_4D8410[72] )
-    v5 = v4 * *(double *)&byte_4D8410[1224];
+  if ( v4 >= 0.75 )
+    v5 = v4 * 4.0;
   else
-    v5 = v4 * *(double *)&byte_4D8410[1232];
+    v5 = v4 * 1.3333333333333333;
   v13 = v5;
   v6 = v12 + 6.755399441055744e15;
   v7 = sub_4A7063(0x7E7E7E, v13);
@@ -13291,13 +13292,13 @@ void __thiscall sub_4A7F74(void *this, signed int a2, signed int a3, signed int 
   do
   {
     v8 = sub_4BE5B1((int)&unk_F8BAD8);
-    v11 = v8 * *(double *)&byte_4D8410[1280] - *(double *)&byte_4D8410[1016] + v22;
+    v11 = v8 * 40.0 - 20.0 + v22;
     v9 = sub_4BE5B1((int)&unk_F8BAD8);
     v13 = v23;
-    v12 = v9 * *(double *)&byte_4D8410[1280] - *(double *)&byte_4D8410[1016] + v21;
-    v14 = sub_4BE5B1((int)&unk_F8BAD8) * *(double *)&byte_4D8410[1272] - *(double *)&byte_4D8410[1264];
-    v15 = sub_4BE5B1((int)&unk_F8BAD8) * *(double *)&byte_4D8410[1272] - *(double *)&byte_4D8410[1264];
-    v16 = sub_4BE5B1((int)&unk_F8BAD8) * *(double *)&byte_4D8410[1256] + *(double *)&byte_4D8410[1248];
+    v12 = v9 * 40.0 - 20.0 + v21;
+    v14 = sub_4BE5B1((int)&unk_F8BAD8) * 400.0 - 200.0;
+    v15 = sub_4BE5B1((int)&unk_F8BAD8) * 400.0 - 200.0;
+    v16 = sub_4BE5B1((int)&unk_F8BAD8) * 150.0 + 50.0;
     sub_48AB23(pGame->class02_obj, (int)&Dst);
     --v4;
   }
@@ -13360,16 +13361,16 @@ void __thiscall sub_4A80DC(void *this, int a2)
   v14 = 1.0;
   do
   {
-    v5 = sub_4BE5B1((int)&unk_F8BAD8) * *(double *)&byte_4D8410[1280]
+    v5 = sub_4BE5B1((int)&unk_F8BAD8) * 40.0
        + (double)*(signed int *)(a2 + 4)
-       - *(double *)&byte_4D8410[1016];
-    v6 = sub_4BE5B1((int)&unk_F8BAD8) * *(double *)&byte_4D8410[1280]
+       - 20.0;
+    v6 = sub_4BE5B1((int)&unk_F8BAD8) * 40.0
        + (double)*(signed int *)(a2 + 8)
-       - *(double *)&byte_4D8410[1016];
+       - 20.0;
     v7 = (double)*(signed int *)(a2 + 12);
-    v8 = sub_4BE5B1((int)&unk_F8BAD8) * *(double *)&byte_4D8410[1304] - *(double *)&byte_4D8410[1272];
-    v9 = sub_4BE5B1((int)&unk_F8BAD8) * *(double *)&byte_4D8410[1304] - *(double *)&byte_4D8410[1272];
-    v10 = sub_4BE5B1((int)&unk_F8BAD8) * *(double *)&byte_4D8410[1296] + *(double *)&byte_4D8410[1248];
+    v8 = sub_4BE5B1((int)&unk_F8BAD8) * 800.0 - 400.0;
+    v9 = sub_4BE5B1((int)&unk_F8BAD8) * 800.0 - 400.0;
+    v10 = sub_4BE5B1((int)&unk_F8BAD8) * 350.0 + 50.0;
     sub_48AB23(pGame->class02_obj, (int)&Dst);
     --v2;
   }
@@ -13985,7 +13986,7 @@ int __fastcall sub_4AB6B1(int a1, int a2, int a3)
   v7 = abs(v4 - pParty_global->sPartyPosX);
   v9 = sub_4621DA(v7, v6, v5);
   if ( v9 <= 8192 )
-    result = 114 - (signed __int64)((double)v9 * *(double *)&byte_4D8410[1360] * *(double *)&byte_4D8410[1352]);
+    result = 114 - (signed __int64)((double)v9 * (1.0 / 8192.0) * 100.0);
   else
     result = 0;
   return result;

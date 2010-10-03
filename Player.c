@@ -667,7 +667,7 @@ int __thiscall WearItem(void *this, int a2)
   {
     v4 = v2 + 1;
     v5 = (int)((char *)this + 36 * v2);
-    v6 = &byte_4E8398[(unsigned __int8)byte_5D2A00[48 * a2]];
+    v6 = &byte_4E8398[pClass40->pItems[a2 - 1].uEquipType];
     *((_DWORD *)this + (unsigned __int8)*v6 + 1618) = v4;
     *(_DWORD *)(v5 + 532) = a2;
     *(_BYTE *)(v5 + 556) = *v6 + 1;
@@ -844,7 +844,7 @@ LABEL_12:
         {
           if ( sub_48D6AA(v5, v72) )
           {
-            v12 = (unsigned __int8)byte_5D2A00[48 * *((_DWORD *)v5 + 9 * *(_DWORD *)v9 + 124) + 1];
+            v12 = (&pClass40->pItems[0].uEquipType)[48 * *((_DWORD *)v5 + 9 * *(_DWORD *)v9 + 124) + 1];
             LOBYTE(v13) = sub_48F882(v10, v12);
             v73 = v13;
             sub_458244(v13);
@@ -903,7 +903,7 @@ LABEL_31:
         if ( sub_48D6AA(v5, v20) )
         {
           v22 = *((_DWORD *)v5 + 9 * *(_DWORD *)v21 + 124);
-          if ( (unsigned __int8)byte_5D2A00[48 * v22] <= 1u )
+          if (pClass40->pItems[v22 - 1].uEquipType <= 1u )
             break;
         }
         ++v20;
@@ -911,7 +911,7 @@ LABEL_31:
           return v71;
       }
       v72 = 0;
-      v25 = (unsigned __int8)byte_5D2A00[48 * v22 + 1];
+      v25 = pClass40->pItems[v22 - 1].uSkillType;
       LOBYTE(v26) = sub_48F882(v5, v25);
       v24 = v26;
       v23 = sub_458244(v26);
@@ -988,14 +988,14 @@ LABEL_53:
       if ( sub_48D6AA(v5, v35) )
       {
         v37 = *((_DWORD *)v5 + 9 * *(_DWORD *)v36 + 124);
-        if ( (unsigned __int8)byte_5D2A00[48 * v37] <= 1u )
+        if (pClass40->pItems[v37 - 1].uEquipType <= 1u )
           break;
       }
       ++v35;
       if ( v35 >= 16 )
         return v71;
     }
-    v38 = (unsigned __int8)byte_5D2A00[48 * v37 + 1];
+    v38 = pClass40->pItems[v37 - 1].uSkillType;
     LOBYTE(v39) = sub_48F882(v5, v38);
     v74 = v39;
     sub_458244(v39);
@@ -1064,8 +1064,8 @@ LABEL_53:
       v42 = (int)((char *)v5 + 36 * *(_DWORD *)v70);
       if ( !(*(_BYTE *)(v42 + 516) & 2) )
       {
-        v44 = (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)(v42 + 496) + 1];
-        v43 = (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)(v42 + 496) + 1];
+       v44 = pClass40->pItems[*(_DWORD *)(v42 + 496) - 1].uSkillType;
+       v43 = pClass40->pItems[*(_DWORD *)(v42 + 496) - 1].uSkillType;
         if ( v43 )
         {
           v45 = v43 - 1;
@@ -1311,13 +1311,13 @@ LABEL_61:
     v7 = v4 + 36 * *(_DWORD *)(v4 + 6476) + 496;
     v8 = *(_DWORD *)v7;
     v9 = 48 * *(_DWORD *)v7;
-    v6 = (unsigned __int8)byte_5D2A00[v9 + 2];
-    if ( byte_5D2A00[v9 + 1] == 4 )
+    v6 = pClass40->pItems[v9/48 - 1].uDamageDice;
+    if (pClass40->pItems[v9/48 - 1].uSkillType == 4 )
     {
       if ( !*(_DWORD *)(v4 + 6472) )
         ++v6;
     }
-    v31 = (unsigned __int8)byte_5D2A00[v9 + 3];
+    v31 = pClass40->pItems[v9/48 - 1].uDamageRoll;
     if ( v6 > 0 )
     {
       v34 = v6;
@@ -1329,7 +1329,7 @@ LABEL_61:
       }
       while ( !v11 );
     }
-    v12 = (unsigned __int8)byte_5D2A00[v9 + 4] + v29;
+    v12 = pClass40->pItems[v9/48 - 1].uDamageModifier + v29;
     if ( !a4 )
       goto LABEL_28;
     v13 = *(_DWORD *)(v7 + 12);
@@ -1362,7 +1362,7 @@ LABEL_61:
 LABEL_28:
               if ( sub_458244(*(_WORD *)(v4 + 268)) >= 3 )
               {
-                if ( byte_5D2A00[48 * *(_DWORD *)v7 + 1] == 2 )
+               if (pClass40->pItems[*(_DWORD *)v7 - 1].uSkillType == 2 )
                 {
                   if ( rand() % 100 < 10 )
                     v12 *= 3;
@@ -1390,12 +1390,12 @@ LABEL_33:
       v15 = v4 + 36 * *(_DWORD *)(v4 + 6472) + 496;
       v16 = *(_DWORD *)v15;
       v17 = 48 * *(_DWORD *)v15;
-      if ( byte_5D2A00[v17] != 4 )
+      if (pClass40->pItems[v17/48 - 1].uEquipType != 4 )
       {
-        v32 = (unsigned __int8)byte_5D2A00[v17 + 3];
-        if ( (signed int)(unsigned __int8)byte_5D2A00[v17 + 2] > 0 )
+       v32 = pClass40->pItems[v17/48 - 1].uDamageRoll;
+       if ( (signed int)pClass40->pItems[v17/48 - 1].uDamageDice > 0 )
         {
-          v36 = (unsigned __int8)byte_5D2A00[v17 + 2];
+         v36 = pClass40->pItems[v17/48 - 1].uDamageDice;
           do
           {
             v18 = rand() % v32;
@@ -1404,7 +1404,7 @@ LABEL_33:
           }
           while ( !v19 );
         }
-        v5 = (unsigned __int8)byte_5D2A00[v17 + 4] + v30;
+        v5 = pClass40->pItems[v17/48 - 1].uDamageModifier + v30;
         if ( !a4 )
           goto LABEL_57;
         v20 = *(_DWORD *)(v15 + 12);
@@ -1435,7 +1435,7 @@ LABEL_33:
                 if ( v20 != 65 )
                 {
 LABEL_57:
-                  if ( byte_5D2A00[48 * *(_DWORD *)v15 + 1] == 2 )
+                 if (pClass40->pItems[*(_DWORD *)v15 - 1].uSkillType == 2 )
                   {
                     if ( sub_458244(*(_WORD *)(v4 + 268) >= 3u) )
                     {
@@ -1675,7 +1675,7 @@ bool Player_sub_48E8F5(struct Player *_this, signed int a2)
   void *v3; // esi@1
 
   v3 = _this;
-  v2 = (signed __int64)((double)(a2 * Player_sub_48EA46(_this, 17)) * memory_4D8410.f0_01 + (double)a2);
+  v2 = (signed __int64)((double)(a2 * Player_sub_48EA46(_this, 17)) * memory_4D8410.d0_01 + (double)a2);
   if ( *((_WORD *)v3 + 3226) - (_DWORD)v2 > 0 )
   {
     *((_WORD *)v3 + 3226) -= v2;
@@ -1766,7 +1766,7 @@ LABEL_76:
     v30 = 0;
     for (i = 0; i < 4; ++i)
     {
-      if ( sub_492C0B(pPlayers[i]) )
+      if ( Player_sub_492C0B(pPlayers[i]) )
         ++v30;
     }
 
@@ -1894,8 +1894,8 @@ LABEL_82:
         v22 = 1;
         do
         {
-          //if ( sub_492C0B((int)*(&ptr_A750C4 + v22)) )
-          if ( sub_492C0B(pPlayers[v22 - 1]))
+          //if ( Player_sub_492C0B((int)*(&ptr_A750C4 + v22)) )
+          if ( Player_sub_492C0B(pPlayers[v22 - 1]))
           {
             ++v31;
             v21 = v22;
@@ -2088,7 +2088,7 @@ int __thiscall Player_GetActualResistance(struct Player *_this, signed int a2)
     {  
       if ( sub_48D6AA(_this, 3) ) // check equip?
       {
-        if ( sub_48D651(_this, 3) == 9 )
+        if ( sub_48D651_GetSomeItemSkillType(_this, 3) == 9 )
           ResBonus += _this->pActiveSkills[SKILL_LEATHER] & 0x3F;
       }
     }
@@ -2137,24 +2137,24 @@ int __thiscall Player_GetActualResistance(struct Player *_this, signed int a2)
 }
 
 //----- (0048E96A) --------------------------------------------------------
-signed int __thiscall sub_48E96A(int this, signed int a2)
+bool Player_SetRecoveryTime(struct Player *_this, signed int a2)
 {
   signed int v2; // edx@1
-  signed int result; // eax@8
 
-  v2 = a2;
-  if ( a2 < 0 )
-    v2 = 0;
-  if ( v2 > *(_WORD *)(this + 6452) )
-    *(_WORD *)(this + 6452) = v2;
-  if ( *(&ptr_A750C4 + uActiveCharacter) == (void *)this )
+ v2 = a2;
+ if (a2 < 0 )
+   v2 = 0;
+ if (v2 > _this->uTimeToRecovery)
+   _this->uTimeToRecovery = v2;
+
+  if (pPlayers[uActiveCharacter - 1] == _this)
   {
     if ( !dword_50C0C4 )
       uActiveCharacter = Party_sub_49370F(pParty_global);
   }
-  result = 1;
   struct_576FE8.dword_000044 = 1;
-  return result;
+
+ return true;
 }
 
 //----- (0048F73C) --------------------------------------------------------
@@ -2470,7 +2470,7 @@ LABEL_38:
     if ( a2 <= 30 )
     {
       if ( sub_48D6AA(_this, 2) )
-        v5 = (unsigned __int8)byte_5D2A00[48 * *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1620) + 124) + 4];
+        v5 = (*&pClass40->pItems[0].uEquipType + *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1620) + 124) + 4);
       return v5 + v62 + v61;
     }
     if ( a2 == 31 )
@@ -2478,8 +2478,8 @@ LABEL_38:
       if ( !sub_48D6AA(_this, 2) )
         return v5 + v62 + v61;
       v57 = *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1620) + 124);
-      v5 = (unsigned __int8)byte_5D2A00[48 * v57 + 4];
-      v56 = (unsigned __int8)byte_5D2A00[48 * v57 + 2];
+      v5 = pClass40->pItems[v57 - 1].uDamageModifier;
+      v56 = pClass40->pItems[v57 -1].uDamageDice;
       goto LABEL_366;
     }
     if ( a2 == 32 )
@@ -2487,9 +2487,9 @@ LABEL_38:
       if ( !sub_48D6AA(_this, 2) )
         return v5 + v62 + v61;
       v20 = 48 * *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1620) + 124);
-      v5 = (unsigned __int8)byte_5D2A00[v20 + 2] * (unsigned __int8)byte_5D2A00[v20 + 3];
+      v5 = *(&pClass40->pItems[0].uDamageDice + v20) * *(&pClass40->pItems[0].uDamageRoll + v20);
 LABEL_365:
-      v56 = (unsigned __int8)byte_5D2A00[v20 + 4];
+      v56 = *(&pClass40->pItems[0].uDamageModifier + v20);
 LABEL_366:
       v5 += v56;
       return v5 + v62 + v61;
@@ -2505,13 +2505,13 @@ LABEL_95:
       v31 = *((_DWORD *)v4 + v65 + 1618) - 1;
       if ( v6 == 9 )
       {
-        v32 = sub_48D62C(v30, v65);
+        v32 = sub_48D62C_GetSomeItemEquipType(v30, v65);
         if ( v32 >= 3 )
         {
           if ( v32 <= 11 )
           {
             v33 = 48 * *((_DWORD *)v4 + 9 * v31 + 133);
-            v5 += (unsigned __int8)byte_5D2A00[v33 + 2] + (unsigned __int8)byte_5D2A00[v33 + 4];
+            v5 += pClass40->pItems[v33/48 - 1].uDamageDice + pClass40->pItems[v33/48 - 1].uDamageModifier;
           }
         }
       }
@@ -3073,30 +3073,30 @@ LABEL_361:
     {
       if ( sub_48D6AA(v4, 1) )
       {
-        v22 = sub_48D62C(v21, 1);
+        v22 = sub_48D62C_GetSomeItemEquipType(v21, 1);
         if ( v22 >= 0 )
         {
           if ( v22 <= 2 )
           {
-            if ( *((_DWORD *)v4 + 1618) || (v24 = 48 * v23, byte_5D2A00[48 * v23 + 1] != 4) )
+            if ( *((_DWORD *)v4 + 1618) || (v24 = 48 * v23, pClass40->pItems[v23 - 1].uSkillType != 4) )
             {
               v24 = 48 * v23;
-              v26 = (unsigned __int8)byte_5D2A00[48 * v23 + 3];
-              v25 = (unsigned __int8)byte_5D2A00[48 * v23 + 2];
+              v26 = pClass40->pItems[v23 - 1].uDamageRoll;
+              v25 = pClass40->pItems[v23 - 1].uDamageDice;
             }
             else
             {
-              v25 = (unsigned __int8)byte_5D2A00[v24 + 3];
-              v26 = (unsigned __int8)byte_5D2A00[v24 + 2] + 1;
+             v25 = pClass40->pItems[v23 - 1].uDamageRoll;
+              v26 = pClass40->pItems[v23 - 1].uDamageDice + 1;
             }
-            v5 = (unsigned __int8)byte_5D2A00[v24 + 4] + v25 * v26;
+            v5 = pClass40->pItems[v24 - 1].uDamageModifier + v25 * v26;
           }
         }
       }
-      if ( a3 || !sub_48D6AA(v4, 0) || (v28 = sub_48D62C(v27, 0), v28 < 0) || v28 > 2 )
+      if ( a3 || !sub_48D6AA(v4, 0) || (v28 = sub_48D62C_GetSomeItemEquipType(v27, 0), v28 < 0) || v28 > 2 )
         return v5 + v62 + v61;
-      v14 = (unsigned __int8)byte_5D2A00[48 * v29 + 4];
-      v15 = (unsigned __int8)byte_5D2A00[48 * v29 + 2] * (unsigned __int8)byte_5D2A00[48 * v29 + 3];
+      v14 = pClass40->pItems[v29 - 1].uDamageModifier;
+      v15 = pClass40->pItems[v29 - 1].uDamageDice * pClass40->pItems[v29 - 1].uDamageRoll;
       goto LABEL_88;
     }
     v59 = 3;
@@ -3126,14 +3126,14 @@ LABEL_74:
     }
     if ( sub_48D6AA(v4, 1) )
     {
-      v17 = sub_48D62C(v16, 1);
+      v17 = sub_48D62C_GetSomeItemEquipType(v16, 1);
       if ( v17 >= 0 )
       {
         if ( v17 <= 2 )
-          v5 = (unsigned __int8)byte_5D2A00[48 * *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1619) + 124) + 4];
+         v5 = pClass40->pItems[*((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1619) + 124) - 1].uDamageModifier;
       }
     }
-    if ( a3 || !sub_48D6AA(v4, 0) || (v19 = sub_48D62C(v18, 0), v19 < 0) || v19 > 2 )
+    if ( a3 || !sub_48D6AA(v4, 0) || (v19 = sub_48D62C_GetSomeItemEquipType(v18, 0), v19 < 0) || v19 > 2 )
       return v5 + v62 + v61;
     v20 = 48 * *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1618) + 124);
     goto LABEL_365;
@@ -3147,24 +3147,24 @@ LABEL_74:
     }
     if ( sub_48D6AA(v4, 1) )
     {
-      v9 = sub_48D62C(v8, 1);
+      v9 = sub_48D62C_GetSomeItemEquipType(v8, 1);
       if ( v9 >= 0 )
       {
         if ( v9 <= 2 )
         {
-          v5 = (unsigned __int8)byte_5D2A00[48 * v10 + 2] + (unsigned __int8)byte_5D2A00[48 * v10 + 4];
+         v5 = pClass40->pItems[v10 - 1].uDamageDice + pClass40->pItems[v10 - 1].uDamageModifier;
           if ( !*((_DWORD *)v4 + 1618) )
           {
-            if ( byte_5D2A00[48 * v10 + 1] == 4 )
+           if (pClass40->pItems[v10 - 1].uSkillType == 4 )
               ++v5;
           }
         }
       }
     }
-    if ( a3 || !sub_48D6AA(v4, 0) || (v12 = sub_48D62C(v11, 0), v12 < 0) || v12 > 2 )
+    if ( a3 || !sub_48D6AA(v4, 0) || (v12 = sub_48D62C_GetSomeItemEquipType(v11, 0), v12 < 0) || v12 > 2 )
       return v5 + v62 + v61;
-    v15 = (unsigned __int8)byte_5D2A00[48 * v13 + 4];
-    v14 = (unsigned __int8)byte_5D2A00[48 * v13 + 2];
+    v15 = pClass40->pItems[v13 - 1].uDamageModifier;
+    v14 = pClass40->pItems[v13 - 1].uDamageDice;
 LABEL_88:
     v5 += v14 + v15;
   }

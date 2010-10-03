@@ -809,9 +809,9 @@ unsigned int uTextureIdx_MinimapCompass; // dword    @ MM7.exe::005079B4
 
  int dword_5079C8; // weak
  int dword_5079CC; // weak
- unsigned int uTextureIdx_SensorGreen; // dword @ MM7.exe::005079D0
- unsigned int uTextureIdx_MinimapMask; // dword @ MM7.exe::005079D8
- int dword_5079E4; // weak
+unsigned int uTextureIdx_SensorGreen; // dword @ MM7.exe::005079D0
+unsigned int uTextureIdx_MinimapMask; // dword @ MM7.exe::005079D8
+unsigned int uTextureID_5079E4; // weak
 struct GUIButton *pBtn_Game_NPCScrollRightDown = 0; // dword @ MM7.exe::005079E8
 struct GUIButton *pBtn_Game_NPCScrollLeftDown = 0;  // dword @ MM7.exe::005079EC
 struct GUIButton *pBtn_Game_Options = 0;            // dword @ MM7.exe::005079F0
@@ -834,7 +834,7 @@ struct GUIButton *pMainMenu_NewGame = 0;  // ptr @ MM7.exe::00507AF0
 int dword_507AF8; // idb
  int dword_507AFC; // idb
  int dword_507B00; // weak
- int dword_507B04; // weak
+unsigned int uTextureID_507B04; // weak
 
 
 
@@ -1227,7 +1227,7 @@ unsigned char *pSomeEVT;                // dword @ MM7.exe::0059107C
  int dword_591080; // weak
  int dword_591084; // weak
 struct Actor *pDialogue_SpeakingActor = 0;    // dword @ MM7.exe::00591088
- int dword_59108C; // weak
+unsigned int  uDialogueType = 0;              // dword @ MM7.exe::0059108C
 unsigned int  uDialogue_SpeakingActorID = -1; // dword @ MM7.exe::00591090
  int dword_591094; // weak
  char byte_591098[200]; // idb
@@ -1276,13 +1276,13 @@ unsigned int  uGlobalEVT_NumEvents;    // dword        @ MM7.exe::005A5530
 unsigned int  uGlobalEVT_Size;         // dword        @ MM7.exe::005A5534
 unsigned char pGlobalEVT[46080];       // byte[46080]  @ MM7.exe::005A5538
 
- char byte_5B0938; // idb
-unsigned int  uLevelStrNumStrings;// dword      @ MM7.exe::005B1108
-unsigned int  uLevelStrFileSize;  // dword      @ MM7.exe::005B110C
+unsigned char byte_5B0938[2000];   // byte[2000] @ MM7.exe::005B0938
+unsigned int  uLevelStrNumStrings; // dword      @ MM7.exe::005B1108
+unsigned int  uLevelStrFileSize;   // dword      @ MM7.exe::005B110C
 unsigned int  uLevelEVT_NumEvents; // dword      @ MM7.exe::005B1110
-unsigned int  uLevelEVT_Size;  // dword      @ MM7.exe::005B1114
-unsigned char pLevelStr[9216];    // byte[9216] @ MM7.exe::005B1120
-unsigned char pLevelEVT[9216];    // byte[9216] @ MM7.exe::005B3520
+unsigned int  uLevelEVT_Size;      // dword      @ MM7.exe::005B1114
+unsigned char pLevelStr[9216];     // byte[9216] @ MM7.exe::005B1120
+unsigned char pLevelEVT[9216];     // byte[9216] @ MM7.exe::005B3520
 //unsigned char byte_5B3521[array_size_unknown]; // pLevelEVT + 1
 //unsigned char byte_5B3522[array_size_unknown]; // pLevelEVT + 2
 //unsigned char byte_5B3523[array_size_unknown]; // pLevelEVT + 3
@@ -1298,7 +1298,6 @@ unsigned char pLevelEVT[9216];    // byte[9216] @ MM7.exe::005B3520
  int dword_5B5920; // weak
  int dword_5B5924; // weak
  _UNKNOWN unk_5B5928[0xC80]; // weak
- _UNKNOWN unk_5B5934; // weak
  int dword_5B65A8; // weak
  int dword_5B65AC; // weak
  int dword_5B65B0; // weak
@@ -1390,15 +1389,12 @@ struct class48 *pClass48 = 0; // struct @ MM7.exe::005C8CC0
  char byte_5C8D1A[array_size_unknown]; // weak
 
 struct class40 *pClass40 = 0; // struct @ MM7.exe::005D29E0
-//int dword_5D29E0; // weak
-//int dword_5D29E4[array_size_unknown]; // pClass40::pItems[0]::pName
  int dword_5D29E8[array_size_unknown]; // weak
  int dword_5D29EC[array_size_unknown]; // weak
  int dword_5D29F4[array_size_unknown]; // weak
  __int16 word_5D29F8[array_size_unknown]; // weak
  __int16 word_5D29FC; // weak
  __int16 word_5D29FE; // weak
-char byte_5D2A00[48*array_size_unknown]; // weak
  int dword_5DAD28[array_size_unknown]; // weak
  int dword_5DBFD0[array_size_unknown]; // weak
  int dword_5DBFD4[array_size_unknown]; // weak
@@ -1446,22 +1442,9 @@ unsigned short array_5E4D58[50][10];
  int dword_5E5130[array_size_unknown]; // weak
  int dword_5E5144; // weak
 
-struct struct3 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
-//__int16 word_5E5150[array_size_unknown]; // weak
- char byte_5E5152[array_size_unknown]; // weak
- _UNKNOWN unk_5E5154; // weak
- int dword_5E5160; // weak
- int dword_5E5164; // weak
- _UNKNOWN unk_5E5168; // weak
- char byte_5E516D[array_size_unknown]; // weak
- __int16 word_5E6502[array_size_unknown]; // weak
- __int16 word_5E6504[array_size_unknown]; // weak
- size_t dword_5FF140; // idb
-
-int chest_descriptor[2];   //struct @ MM7.exe::005FF144
-//int dword_5FF144; // weak
-//int dword_5FF148; // weak
-
+struct struct3                 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
+unsigned int dword_5FF140; // idb
+int                            chest_descriptor[2];   //struct @ MM7.exe::005FF144
 struct MonsterDescriptionList *pMonsterDescriptionList = 0; // struct @ MM7.exe::05FF14C
 //int dword_5FF14C; // weak
 //int dword_5FF150; // weak
@@ -1526,12 +1509,10 @@ struct KeyboardController *pKeyboardController = 0; // struct @ MM7.exe::0069AE0
  int dword_69B004; // weak
  int pAsyncKeyboard; // dword @ 69B00C
  int dword_69B010[array_size_unknown]; // weak
- _UNKNOWN unk_69B110; // weak
- int dword_69B114; // weak
- float flt_69B118; // weak
- float flt_69B11C; // weak
- _UNKNOWN unk_69B120; // weak
- _UNKNOWN unk_69B12C; // weak
+
+
+struct unnamed_69B110 object_69B110; // struct @ MM7.exe::0069B110
+
  int dword_69B138; // weak
  _UNKNOWN unk_69B140; // weak
  _UNKNOWN unk_69B16C; // weak
@@ -1798,7 +1779,7 @@ struct unnamed_721530 stru_721530; // struct @ MM7.exe::00721530
  int dword_72165C; // weak
  char *dword_721660; // idb
  char *dword_721664; // idb
- _UNKNOWN unk_721668[1024 + 92*array_size_unknown]; // weak
+ _UNKNOWN unk_721668[1024 + 92*array_size_unknown * 2]; // weak
  _UNKNOWN unk_72166C[0x18AC]; // weak
  int dword_721824; // weak
  int dword_72193C; // weak
@@ -1839,23 +1820,14 @@ struct unnamed_721530 stru_721530; // struct @ MM7.exe::00721530
  int dword_7241C8; // weak
 
 struct CNPCStats *pNPCStats = 0; // struct @ MM7.exe::007241D0
-//_UNKNOWN unk_7241D0; // weak
-//looks like unnamed_AD4674 around here
-// _UNKNOWN unk_72D5F4; // weak
  int dword_72D5F8[array_size_unknown]; // weak
- //int dword_72D694[array_size_unknown]; // weak
  int dword_72D6A0[array_size_unknown]; // weak
  int dword_72D6A8; // weak
- _UNKNOWN unk_72D6D0; // weak
  _UNKNOWN unk_72D6E0; // weak
  int dword_72D778; // weak
  char byte_72E780; // weak
-//char dword_736B48[1048]; // pNPCStats::pNPCNames
  int dword_737C28[array_size_unknown]; // weak
- LPCSTR dword_737C2C; // idb
  int dword_737C30[array_size_unknown]; // weak
-//_UNKNOWN unk_7380C4; // 0013EF4
- char dword_739E74[7136]; // idb
  int dword_73BA54[array_size_unknown]; // weak
  _UNKNOWN unk_73C0C4; // weak
  int dword_73C194; // weak
@@ -2383,7 +2355,7 @@ struct CSoundList *pSoundList = 0; // struct @ MM7.exe::00F79D5C
  int dword_F8B1A8; // weak
  int dword_F8B1AC; // idb
  int dword_F8B1B0; // weak
- int dword_F8B1B4; // weak
+unsigned int uArenaReward = 0; // dword @ MM7.exe::00F8B1B4
  int dword_F8B1B8[array_size_unknown]; // weak
  int dword_F8B1BC; // weak
  int dword_F8B1C0; // weak

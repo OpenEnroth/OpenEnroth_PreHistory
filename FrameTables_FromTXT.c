@@ -407,7 +407,7 @@ int CSpriteFrameTable_LoadFromTXT(struct CSpriteFrameTable *_this, const char *p
           strcpy((char *)(60 * *(_DWORD *)v3 + *(_DWORD *)(v3 + 12) + 12), v42);
           v10 = String;
           *(_WORD *)(60 * *(_DWORD *)v3 + *(_DWORD *)(v3 + 12) + 50) = atoi(Str);
-          v11 = atof(v10) * *(double *)&byte_4D8410[560];
+          v11 = atof(v10) * 65536.0;
           v12 = v46;
           *(_DWORD *)(60 * *(_DWORD *)v3 + *(_DWORD *)(v3 + 12) + 40) = abs((signed __int64)v11);
           v13 = v47;

@@ -1324,7 +1324,7 @@ void sub_47C80A(struct class51_Geodata *_this, int sX, int sY, int sZ, int sW)
 
   v5 = _this;
 
-  v6 = sqrt(*(double *)&byte_4D8410[944]);
+  v6 = sqrt(12288.0);
   if ( v6 != 0.0 )
   {
     v7 = 1.0 / v6;
@@ -1489,7 +1489,7 @@ int sub_47F223_LooksLikeGenerateMonsterLoot(struct class51 *_this)
         {
           if ( v3 != 220 )
           {
-            if ( byte_5D2A00[48 * v3] == 14 )
+           if (pClass40->pItems[v3 - 1].uEquipType == 14 )
             {
               if ( !*(_DWORD *)(v2 + 38) )
                 *(_DWORD *)(v2 + 38) = rand() % 15 + 5;
@@ -1540,8 +1540,8 @@ int __thiscall sub_4892E6(struct class51 *_this)
         v8 = (double)(960 - v3);
       else
         v8 = (double)v3;
-      _this->dword_000CBC = (signed __int64)(*(double *)&byte_4D8410[1016]
-                                             - v8 * *(double *)&byte_4D8410[1024] * *(double *)&byte_4D8410[1016]);
+      _this->dword_000CBC = (signed __int64)(20.0
+                                             - v8 * (1.0 / 480.0) * 20.0);
       result = pParty_global->uCurrentMinute;
       _this->dword_01C288 = pParty_global->uCurrentMinute;
     }

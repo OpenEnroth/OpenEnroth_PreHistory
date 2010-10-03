@@ -56,14 +56,14 @@ struct CNPCStats
  int                    dword_013A68;
  struct NPCProfesstion  pProfessions[58];   // struct[58]  @ 013A6C
  struct NPCData         array_013EF4[100];  // struct[100] @ 013EF4
- int                    array_015CA4[52];
+ unsigned char         *pCatchPhrases[52];  // dword[52]   @ 015CA4
  unsigned char         *pNPCNames2[500];    // dword[500]  @ 015D74
  char                   unk_016544[0x1348];
  struct NPCGreeting     pNPCGreetings[205]; // struct[205] @ 01788C
  short                  array_017EF4[51];
- short                  word_017F5A[51];
+ unsigned short         word_017F5A[51];
  int                    dword_017FC0;
- int                    dword_017FC4;
+ int                    dword_017FC4;  // num elems in pNPCData2
  int                    dword_017FC8;
  unsigned int           uNumNPCProfessions; // dword    @ 017FCC
  unsigned int           uNumNPCNames[2];    // dword[2] @ 017FD0 number of NPC names: [0] for male, [1] for female

@@ -2703,7 +2703,7 @@ void sub_487389_DrawSpansAndAll()
    v4->word_000052 = 32;
    v4->byte_00005A = 5;
 
-   if ((double)abs(v4->ptr_000038->dword_00000C) > *(double *)&byte_4D8410[992])
+   if ((double)abs(v4->ptr_000038->dword_00000C) > 52428.800000000003)
    {
     v4->word_000052 = 8;
     v4->byte_00005A = 3;
@@ -4153,7 +4153,7 @@ int __cdecl sub_4014E6()
           *(_DWORD *)v0 = v11 | 0x1000000;
           if ( v12 )
           {
-            if ( (double)v24 < *(double *)&byte_4D8410[32] )
+            if ( (double)v24 < 307.19999999999999 )
               pParty_global->dword_007778 |= 0x10u;
           }
           if ( !(pParty_global->dword_007778 & 0x20) )
@@ -4323,7 +4323,7 @@ int __cdecl sub_4016FA()
           *(_DWORD *)v0 = v11 | 0x1000000;
           if ( v12 )
           {
-            if ( (double)v41 < *(double *)&byte_4D8410[32] )
+            if ( (double)v41 < 307.19999999999999 )
               pParty_global->dword_007778 |= 0x10u;
           }
           if ( !(pParty_global->dword_007778 & 0x20) )
@@ -4559,20 +4559,27 @@ void __cdecl sub_401A91()
   signed int v73; // [sp-10h] [bp-C0h]@216
   char v74[28]; // [sp+0h] [bp-B0h]@247
   char v75[28]; // [sp+1Ch] [bp-94h]@129
-  char v76[28]; // [sp+38h] [bp-78h]@247
-  struct {
+
+  struct DirectionInfo local_38;
+  //char v76[28]; // [sp+38h] [bp-78h]@247
+
+  struct DirectionInfo local_54;
+  /*struct {
    char v77[12]; // [sp+54h] [bp-5Ch]@129
    int v78; // [sp+60h] [bp-50h]@131
    char pad[12];
-  } v77;
+  } v77;*/
+
   int v79; // [sp+70h] [bp-40h]@83
   int v80; // [sp+74h] [bp-3Ch]@129
   int v81; // [sp+78h] [bp-38h]@79
-  struct {
+
+  struct DirectionInfo local_7C;
+  /*struct {
    char v82[12]; // [sp+7Ch] [bp-34h]@129
-   char pad[12];
-   float v83; // [sp+98h] [bp-18h]@33
-  } v82;
+   char pad[12];*/
+
+  float v83; // [sp+98h] [bp-18h]@33
   int v84; // [sp+9Ch] [bp-14h]@100
   int v85; // [sp+A0h] [bp-10h]@45
   int v86;
@@ -4648,7 +4655,7 @@ void __cdecl sub_401A91()
               if ( !*(_QWORD *)(v9 + 120) )
               {
                 if ( !*(_QWORD *)(v9 + 128) )
-                  sub_48DC1E(v9, v4, 5);
+                  Player_sub_48DC1E(v9, v4, 5);
               }
             }
             v8 += 4;
@@ -4671,7 +4678,7 @@ void __cdecl sub_401A91()
 
   for (i = 0; i < uNumActors; ++i)
   {
-    LODWORD(v82.v83) = &pActors[i].word_0000B0_state;
+    LODWORD(v83) = &pActors[i].word_0000B0_state;
 
       v11 = &pActors[i];
 
@@ -4682,15 +4689,15 @@ void __cdecl sub_401A91()
         continue;
       if ( pActors[i].word_0000B0_state == 19 )
         continue;
-      if ( *(_BYTE *)(LODWORD(v82.v83) - 139) & 4 )
+      if ( *(_BYTE *)(LODWORD(v83) - 139) & 4 )
         continue;
-      if ( !*(_WORD *)(LODWORD(v82.v83) - 136) )
+      if ( !*(_WORD *)(LODWORD(v83) - 136) )
       {
         if ( pActors[i].word_0000B0_state != 4 )
           Actor_Die(i);
       }
-      v87 = *(_QWORD *)(LODWORD(v82.v83) + 84) <= 0i64 ? 0 : 1;
-      v85 = *(_QWORD *)(LODWORD(v82.v83) + 52) <= 0i64 ? 0 : 1;
+      v87 = *(_QWORD *)(LODWORD(v83) + 84) <= 0i64 ? 0 : 1;
+      v85 = *(_QWORD *)(LODWORD(v83) + 52) <= 0i64 ? 0 : 1;
       v13 = 0;
 
       for (j = 0; j < 22; ++j)
@@ -4773,9 +4780,9 @@ void __cdecl sub_401A91()
       v88 = *(_DWORD *)v22;
       v79 = v88 & 7;
       if ( (v88 & 7) == 3 )
-        v82.v83 = 0.5f;
+        v83 = 0.5f;
       else
-        v82.v83 = 1.0;
+        v83 = 1.0;
       v23 = pActors[v86].word_0000B0_state;
       if ( v23 == 4 || v23 == 5 || v23 == 11 || v23 == 19 || v23 == 17 )
         goto LABEL_255;
@@ -4853,13 +4860,13 @@ void __cdecl sub_401A91()
       v31 = GetDirectionInfo(8 * v86 | 3, v88, v75, 0);
       v32 = *(_BYTE *)(v21 + 61) == 0;
 
-      memcpy(&v77, v31, 0x1Cu);
-      memcpy(&v82, &v77, 0x1Cu);
+      memcpy(&local_54, v31, sizeof(struct DirectionInfo));
+      memcpy(&local_7C, &local_54, sizeof(struct DirectionInfo));
       if ( !v32 )
       {
         if ( *(_DWORD *)(v21 + 124) <= 0 )
         {
-          if ( v82.v83 * *(double *)&byte_4D8410[32] >= (double)v77.v78
+          if ( v83 * 307.19999999999999 >= (double)local_54.uDistance
             && ((v33 = *(_WORD *)(v21 + 176), v33 == 6) || !v33 || v33 == 1 || v33 == 9)
             || *(_BYTE *)(v21 + 69) && *(_WORD *)(v21 + 176) == 8 )
           {
@@ -4897,7 +4904,7 @@ void __cdecl sub_401A91()
         v68 = 1;
 LABEL_149:
         v34 = v86;
-        sub_404874(v86, (int)&v82, v36, v68);
+        sub_404874(v86, &local_7C, v36, v68);
         goto LABEL_152;
       }
       v34 = v86;
@@ -4909,15 +4916,15 @@ LABEL_149:
         v62 = 3;
         v35 = *(_BYTE *)(v21 + 79);
 LABEL_146:
-        sub_404AC7(v86, (int)&v82, v35, v62, v67);
+        sub_404AC7(v86, &local_7C, v35, v62, v67);
       }
 LABEL_152:
-      v38 = v77.v78;
+      v38 = local_54.uDistance;
       if ( *(_BYTE *)(v21 + 61) )
         goto LABEL_165;
       if ( v79 == 3 )
       {
-        v38 = v77.v78;
+        v38 = local_54.uDistance;
         v39 = (unsigned __int8)*(&byte_5C8D1A[89 * (*(_WORD *)(v21 + 96) - 1) / 3]
                                + (word_5FF1B8[418 * (v88 >> 3)] - 1) / 3);
       }
@@ -4964,7 +4971,7 @@ LABEL_165:
           v63 = 1024;
           goto LABEL_254;
         }
-        v69 = &v82;
+        v69 = &local_7C;
         goto LABEL_182;
       }
       if ( *(_BYTE *)(v21 + 61) != 4 || !v88 )
@@ -4973,10 +4980,10 @@ LABEL_165:
       {
         if ( *(_BYTE *)(v21 + 60) == 1 )
         {
-          v69 = &v82;
+          v69 = &local_7C;
           if ( *(_BYTE *)(v21 + 59) != 5 )
             goto LABEL_181;
-          Actor_sub_403EB6(v34, v88, (signed __int64)((double)*(signed int *)(v21 + 124) * *(double *)&byte_4D8410[40]), &v82);
+          Actor_sub_403EB6(v34, v88, (signed __int64)((double)*(signed int *)(v21 + 124) * 2.1333333333333333), &local_7C);
         }
         else
         {
@@ -4996,7 +5003,7 @@ LABEL_165:
           }
           if ( v44 > v45 && v38 < 10240 )
           {
-            v69 = &v82;
+            v69 = &local_7C;
 LABEL_181:
             v42 = v88;
             v43 = v34;
@@ -5029,29 +5036,29 @@ LABEL_185:
         {
           if ( v87 )
           {
-            Actor_sub_403476(v34, v88, (signed int)&v82);
+            Actor_sub_403476(v34, v88, &local_7C);
             goto LABEL_255;
           }
 LABEL_223:
           if ( v85 )
             goto LABEL_217;
-          v50 = (double)*(signed int *)(v21 + 124) * *(double *)&byte_4D8410[40];
+          v50 = (double)*(signed int *)(v21 + 124) * 2.1333333333333333;
           UNDEF(v56);
-          v71 = &v82;
+          v71 = &local_7C;
           if ( !(v57 | v58) )
             goto LABEL_219;
 LABEL_225:
           Actor_sub_402AD7(v34, v88, v34, (signed __int64)v50, (signed int)v71);
           goto LABEL_255;
         }
-        v59 = v82.v83 * *(double *)&byte_4D8410[32];
+        v59 = v83 * 307.19999999999999;
         if ( (double)v84 >= v59 )
         {
           if ( v84 >= 1024 )
           {
             if ( v85 )
               goto LABEL_217;
-            v73 = (signed int)&v82;
+            v73 = &local_7C;
             v65 = 0;
             goto LABEL_241;
           }
@@ -5072,17 +5079,17 @@ LABEL_225:
             if ( v87 )
             {
               if ( v48 == 2 )
-                Actor_sub_403854(v34, v88, (signed int)&v82);
+                Actor_sub_403854(v34, v88, &local_7C);
               else
-                Actor_sub_403A60(v34, v88, (signed int)&v82);
+                Actor_sub_403A60(v34, v88, &local_7C);
               goto LABEL_255;
             }
-            if ( v82.v83 * *(double *)&byte_4D8410[32] > (double)v84 || v85 )
+            if (v83 * 307.19999999999999 > (double)v84 || v85 )
             {
 LABEL_217:
-              v71 = &v82;
+              v71 = &local_7C;
 LABEL_218:
-              v50 = (double)*(signed int *)(v21 + 124) * *(double *)&byte_4D8410[40];
+              v50 = (double)*(signed int *)(v21 + 124) * 2.1333333333333333;
 LABEL_219:
               v54 = v88;
               v66 = (signed __int64)v50;
@@ -5091,11 +5098,11 @@ LABEL_248:
               Actor_sub_403EB6(v55, v54, v66, v71);
               goto LABEL_255;
             }
-            v71 = &v82;
-            v50 = (double)*(signed int *)(v21 + 124) * *(double *)&byte_4D8410[40];
+            v71 = &local_7C;
+            v50 = (double)*(signed int *)(v21 + 124) * 2.1333333333333333;
             goto LABEL_225;
           }
-          v51 = v82.v83 * *(double *)&byte_4D8410[32];
+          v51 = v83 * 307.19999999999999;
           if ( (double)v84 >= v51 )
           {
             if ( v84 >= 1024 )
@@ -5104,7 +5111,7 @@ LABEL_248:
 LABEL_215:
               if ( !v53 )
                 goto LABEL_217;
-              v73 = (signed int)&v82;
+              v73 = &local_7C;
               v65 = 256;
 LABEL_241:
               Actor_sub_402686(v34, v88, v65, v73);
@@ -5113,7 +5120,7 @@ LABEL_241:
             if ( v85 )
               goto LABEL_217;
             v72 = (signed __int64)v51;
-            v64 = (signed int)&v82;
+            v64 = &local_7C;
             v61 = 0;
             goto LABEL_238;
           }
@@ -5152,10 +5159,10 @@ LABEL_254:
         }
         if ( *(_BYTE *)(v21 + 59) == 5 )
         {
-          v60 = (double)*(signed int *)(v21 + 124) * *(double *)&byte_4D8410[40];
-          memcpy(v76, GetDirectionInfo(v80, 4, v74, 0), 0x1Cu);
-          memcpy(&v82, v76, 0x1Cu);
-          v71 = &v82;
+          v60 = (double)*(signed int *)(v21 + 124) * 2.1333333333333333;
+          memcpy(&local_38, GetDirectionInfo(v80, 4, v74, 0), sizeof(struct DirectionInfo));
+          memcpy(&local_7C, &local_38, sizeof(struct DirectionInfo));
+          v71 = &local_7C;
           v55 = v86;
           v66 = (signed __int64)v60;
           v54 = 4;
@@ -5165,7 +5172,7 @@ LABEL_254:
       }
       if ( !*(_BYTE *)(v21 + 75) )
       {
-        v59 = v82.v83 * *(double *)&byte_4D8410[32];
+        v59 = v83 * 307.19999999999999;
         if ( (double)v84 >= v59 )
         {
           if ( v84 >= 1024 )
@@ -5177,7 +5184,7 @@ LABEL_236:
           if ( v85 )
             goto LABEL_217;
           v72 = (signed __int64)v59;
-          v64 = (signed int)&v82;
+          v64 = &local_7C;
           v61 = 0;
 LABEL_238:
           Actor_sub_40281C(v34, v88, v61, v64, v72);
@@ -5186,15 +5193,15 @@ LABEL_238:
 LABEL_227:
         v52 = v87 == 0;
 LABEL_209:
-        v71 = &v82;
+        v71 = &local_7C;
         if ( v52 )
           goto LABEL_218;
-        Actor_sub_403C6C(v34, v88, &v82);
+        Actor_sub_403C6C(v34, v88, &local_7C);
         goto LABEL_255;
       }
       if ( !v87 )
         goto LABEL_223;
-      Actor_sub_40368B(v34, v88, (signed int)&v82);
+      Actor_sub_40368B(v34, v88, &local_7C);
 LABEL_255:
       ++v81;
       if ( v81 >= dword_4F75D8 )
@@ -5496,7 +5503,7 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
   int v0; // ebx@1
   int v1; // edi@1
   int v3; // eax@14
-  int *v4; // esi@21
+  int v4; // esi@21
   int v5; // eax@24
   int v6; // ecx@45
   int v7; // esi@45
@@ -5626,8 +5633,8 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
   v94 = 0;
   v119 = 0;
   v98 = 0;
-  if (pParty_global->pPartyBuffs[5].dword_000004 < 0 ||
-      pParty_global->pPartyBuffs[5].dword_000004 <= 0 && pParty_global->pPartyBuffs[5].byte_000000 <= 0)
+  if (pParty_global->pPartyBuffs[PARTYBUFF_FEATHERFALL].dword_000004 < 0 ||
+      pParty_global->pPartyBuffs[PARTYBUFF_FEATHERFALL].dword_000004 <= 0 && pParty_global->pPartyBuffs[PARTYBUFF_FEATHERFALL].byte_000000 <= 0)
   {
     v96 = 0;
     v111 = 0;
@@ -5659,38 +5666,38 @@ LABEL_9:
     v3 = pParty_global->dword_000700;
   if ( v3 - v115 > 512 )
   {
-   __asm int 3 //falling damage?
+    //falling damage
     if ( !v96 )
     {
       if ( v115 <= v103 + 1 )
       {
-        if ( BYTE1(pParty_global->dword_007778) & 1 )
+        if (pParty_global->dword_007778 & 0x0100)
         {
           BYTE1(pParty_global->dword_007778) &= 0xFEu;
         }
         else
         {
-          v4 = pPlayers;
-          do
+          //v4 = pPlayers;
+          for (v4 = 0; v4 < 4; ++v4)
+          //do
           {
-            if ( !sub_48D6D0((void *)*v4, 72) )
+            if ( !sub_48D6D0(pPlayers[v4], 72) )
             {
-              if ( !sub_48D709((void *)*v4, 529, 8) )
+              if ( !sub_48D709(pPlayers[v4], 529, 8) )
               {
-                v97 = Player_GetMaxHealth(*v4);
-                sub_48DC1E(
-                  *v4,
-                  (signed int)((pParty_global->dword_000700 - v115) * (signed __int64)((double)v97 * *(double *)&byte_4D8410[112]))
+                v97 = Player_GetMaxHealth(pPlayers[v4]);
+                Player_sub_48DC1E(pPlayers[v4],
+                  (signed int)((pParty_global->dword_000700 - v115) * (signed __int64)((double)v97 * 0.10000000000000001))
                 / 256,
                   4);
-                v5 = Player_GetActualEndurance(*v4);
+                v5 = Player_GetActualEndurance(pPlayers[v4]);
                 v97 = 20 - sub_48EA1B(v5);
-                sub_48E96A(*v4, (signed __int64)((double)v97 * flt_6BE3A4_debug_recmod1 * *(double *)&byte_4D8410[40]));
+                Player_SetRecoveryTime(pPlayers[v4], (signed __int64)((double)v97 * flt_6BE3A4_debug_recmod1 * 2.1333333333333333));
               }
             }
-            ++v4;
+            //++v4;
           }
-          while ( (signed int)v4 <= (signed int)&dword_A750D4 );
+          //while ( (signed int)v4 <= (signed int)&dword_A750D4 );
         }
       }
     }
@@ -6110,9 +6117,9 @@ LABEL_164:
       {
         if ( pParty_global->sPartyPosZ - v103 > 1000 )
         {
-          if (pParty_global->pPartyBuffs[5].dword_000004 <= 0 )
+          if (pParty_global->pPartyBuffs[PARTYBUFF_FEATHERFALL].dword_000004 <= 0 )
           {
-            if (pParty_global->pPartyBuffs[5].dword_000004 < 0 || !pParty_global->pPartyBuffs[5].byte_000000)
+            if (pParty_global->pPartyBuffs[PARTYBUFF_FEATHERFALL].dword_000004 < 0 || !pParty_global->pPartyBuffs[PARTYBUFF_FEATHERFALL].byte_000000)
             {
               v33 = (void **)pPlayers;
               do
@@ -6121,7 +6128,7 @@ LABEL_164:
                 {
                   if ( !sub_48D709(*v33, 529, 8) )
                   {
-                    if ( sub_492C0B((int)*v33) )
+                    if ( Player_sub_492C0B((int)*v33) )
                       Player_PlaySound(*v33, 66, 0);
                   }
                 }
@@ -6533,14 +6540,14 @@ LABEL_344:
                   do
                   {
                     v102 = Player_GetMaxHealth(*v66);
-                    sub_48DC1E(
+                    Player_sub_48DC1E(
                       *v66,
-                      (signed int)((pParty_global->dword_000700 - v63) * (signed __int64)((double)v102 * *(double *)&byte_4D8410[112]))
+                      (signed int)((pParty_global->dword_000700 - v63) * (signed __int64)((double)v102 * 0.10000000000000001))
                     / 256,
                       4);
                     v67 = Player_GetActualEndurance(*v66);
                     v102 = 20 - sub_48EA1B(v67);
-                    sub_48E96A(*v66, (signed __int64)((double)v102 * flt_6BE3A4_debug_recmod1 * *(double *)&byte_4D8410[40]));
+                    Player_SetRecoveryTime(*v66, (signed __int64)((double)v102 * flt_6BE3A4_debug_recmod1 * 2.1333333333333333));
                     ++v66;
                   }
                   while ( (signed int)v66 <= (signed int)&dword_A750D4 );
@@ -6669,14 +6676,14 @@ LABEL_318:
                 do
                 {
                   v102 = Player_GetMaxHealth(*v76);
-                  sub_48DC1E(
+                  Player_sub_48DC1E(
                     *v76,
-                    (signed int)((pParty_global->dword_000700 - v74) * (signed __int64)((double)v102 * *(double *)&byte_4D8410[112]))
+                    (signed int)((pParty_global->dword_000700 - v74) * (signed __int64)((double)v102 * 0.10000000000000001))
                   / 256,
                     4);
                   v77 = Player_GetActualEndurance(*v76);
                   v102 = 20 - sub_48EA1B(v77);
-                  sub_48E96A(*v76, (signed __int64)((double)v102 * flt_6BE3A4_debug_recmod1 * *(double *)&byte_4D8410[40]));
+                  Player_SetRecoveryTime(*v76, (signed __int64)((double)v102 * flt_6BE3A4_debug_recmod1 * 2.1333333333333333));
                   ++v76;
                 }
                 while ( (signed int)v76 <= (signed int)&dword_A750D4 );
@@ -6863,7 +6870,7 @@ int __fastcall sub_402F27(int this)
 }
 
 //----- (00492C0B) --------------------------------------------------------
-signed int __thiscall sub_492C0B(int this)
+signed int __thiscall Player_sub_492C0B(int this)
 {
   signed int result; // eax@2
 
@@ -8695,7 +8702,7 @@ void __thiscall sub_427E01(struct unnamed_50C0C8 *_this)
 
   if (_this->array_000000[i].word_000008 & 0x03CA)
   {
-   if (!sub_492C0B(&pParty_global->pPlayers[_this->array_000000[i].uPlayerID]))
+   if (!Player_sub_492C0B(&pParty_global->pPlayers[_this->array_000000[i].uPlayerID]))
      sub_427D48(_this, 1);
    continue;
   }
@@ -9452,13 +9459,13 @@ LABEL_1162:
                       {
                         v605 = v683;
                         pParty_global->array_016144[*(_WORD *)(v2 + 2)] = v683;
-                        sub_48E96A(v707, v605);
+                        Player_SetRecoveryTime(v707, v605);
                         if ( !dword_50C0C4 )
                           sub_40471C(&unk_4F8858);
                       }
                       else
                       {
-                        sub_48E96A(v707, (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v683 * *(double *)&byte_4D8410[40]));
+                        Player_SetRecoveryTime(v707, (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v683 * 2.1333333333333333));
                       }
                       if ( LODWORD(v705) )
                       {
@@ -9766,7 +9773,7 @@ LABEL_269:
                 v110 = v114;
               }
               LODWORD(v702) = ((unsigned int)(11 * v110) >> 5) + (v109 >> 2) + v108;
-              if ( (double)SLODWORD(v702) <= *(double *)&byte_4D8410[32] )
+              if ( (double)SLODWORD(v702) <= 307.19999999999999 )
               {
                 v664 = 0;
                 v663 = 0;
@@ -9791,7 +9798,7 @@ LABEL_269:
                 LODWORD(v704) = *((_WORD *)v111 + 69);
                 v117 = 8 * n;
                 HIDWORD(v686.v688) = *((_WORD *)v111 + 73)
-                              - (unsigned int)(signed __int64)((double)SLODWORD(v704) * *(double *)&byte_4D8410[312]);
+                              - (unsigned int)(signed __int64)((double)SLODWORD(v704) * -0.80000000000000004);
                 LOBYTE(v117) = 8 * n | 3;
                 v686.v699 = v117;
                 v118 = sub_42F5ED((int)&v686, 0, 0, 0, 0);
@@ -9964,7 +9971,7 @@ LABEL_304:
             v712 = (double)(v153 % 1000) + *(float *)&Source - *(float *)&v710;
             *(float *)&v703 = v155 * v155;
             v702 = v154 * v154;
-            if ( sqrt(v712 * v712 + v702 + *(float *)&v703) <= memory_4D8410.f1_0 )
+            if ( sqrt(v712 * v712 + v702 + *(float *)&v703) <= memory_4D8410.d1_0 )
             {
               v645 = HIDWORD(v1);
               v646 = HIDWORD(v1);
@@ -10049,7 +10056,7 @@ LABEL_304:
             LODWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosY;
             v710 = pActors[dword_50BF30[n]].uActorHeight;
             HIDWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosZ
-                          - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
+                          - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
             v159 = 8 * dword_50BF30[n];
             LOBYTE(v159) = v159 | 3;
             v686.v699 = v159;
@@ -10132,7 +10139,7 @@ LABEL_353:
         v614 = WORD2(v1);
         v611 = v709;
         v169 = (signed int)(signed __int64)((double)(v711 << 7) * 0.03333333507180214);
-        v133 = (__int64 *)&pParty_global->pPartyBuffs[5].byte_000000;
+        v133 = (__int64 *)&pParty_global->pPartyBuffs[PARTYBUFF_FEATHERFALL].byte_000000;
         goto LABEL_976;
       case 15:
         v178 = v11 - 1;
@@ -10388,7 +10395,7 @@ LABEL_104:
           v712 = (double)(v207 % 1000) + *(float *)&v710 - *(float *)&Source;
           v685 = v209 * v209;
           v704 = v208 * v208;
-          if ( sqrt(v712 * v712 + v704 + v685) <= memory_4D8410.f1_0 )
+          if ( sqrt(v712 * v712 + v704 + v685) <= memory_4D8410.d1_0 )
           {
             v642 = HIDWORD(v1);
             v643 = HIDWORD(v1);
@@ -10617,7 +10624,7 @@ LABEL_157:
           goto LABEL_83;
         v231 = (char *)&unk_ACDB98 + 6972 * *(_WORD *)(v2 + 4) + 36 * n;
         Source = v231;
-        if ( byte_5D2A00[48 * *(_DWORD *)v231] != 12 || v231[20] & 2 )
+        if (pClass40->pItems[*(_DWORD *)v231 - 1].uEquipType != 12 || v231[20] & 2 )
           goto LABEL_199;
         if ( v709 == 1 || v709 == 2 )
         {
@@ -10715,12 +10722,12 @@ LABEL_484:
                             v298 = *(_BYTE *)(v703 + 28);
                             if ( v298 == 3 | v298 == 4 | v298 == 5 | v298 == 6 | v298 == 7 | v298 == 8 | v298 == 9 | v298 == 10 | v298 == 11 )
                             {
-                              v299 = rand() % dword_5E40B8[(unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v1]];
+                             v299 = rand() % dword_5E40B8[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
                               *(_DWORD *)(v1 + 4) = 0;
-                              for ( HIDWORD(v1) = (unsigned __int8)byte_5DBFE9[(unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v1]];
+                              for ( HIDWORD(v1) = (unsigned __int8)byte_5DBFE9[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
                                     ;
                                     HIDWORD(v1) += (unsigned __int8)*(&byte_5DBFE9[20 * *(_DWORD *)(v1 + 4)]
-                                                                    + (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v1]) )
+                              + pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType) )
                               {
                                 ++*(_DWORD *)(v1 + 4);
                                 if ( HIDWORD(v1) >= v299 )
@@ -10789,12 +10796,12 @@ LABEL_613:
               if ( rand() % 100 < 80
                 && !(*(_BYTE *)(v260 + 28) == 0 | *(_BYTE *)(v260 + 28) == 1 | *(_BYTE *)(v260 + 28) == 2) )
               {
-                v262 = rand() % dword_5E40B8[(unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v1]];
+               v262 = rand() % dword_5E40B8[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
                 *(_DWORD *)(v1 + 4) = 0;
-                for ( HIDWORD(v1) = (unsigned __int8)byte_5DBFE9[(unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v1]];
+                for ( HIDWORD(v1) = (unsigned __int8)byte_5DBFE9[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
                       ;
-                      HIDWORD(v1) += (unsigned __int8)*(&byte_5DBFE9[20 * *(_DWORD *)(v1 + 4)]
-                                                      + (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v1]) )
+                      HIDWORD(v1) += (unsigned __int8)*(&byte_5DBFE9[20 * *(_DWORD *)(v1 + 4)] +
+                                    pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType) )
                 {
                   ++*(_DWORD *)(v1 + 4);
                   if ( HIDWORD(v1) >= v262 )
@@ -10817,7 +10824,7 @@ LABEL_613:
                   v265 = byte_5DC1DC[v264];
                   if ( !v265 || v265 == 1 )
                   {
-                    v266 = (unsigned __int8)*(&byte_5DC1CC[(unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v1]] + v264);
+                   v266 = (unsigned __int8)*(&byte_5DC1CC[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType] + v264);
                     v703 += v266;
                     if ( v266 )
                     {
@@ -10834,7 +10841,7 @@ LABEL_613:
               v269 = rand() % v703;
               v270 = v636;
               *(_DWORD *)(v1 + 12) = v636;
-              HIDWORD(v1) = (unsigned __int8)*(&byte_5DC1CC[28 * v270] + (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v1]);
+              HIDWORD(v1) = (unsigned __int8)*(&byte_5DC1CC[28 * v270] + pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType);
               v268 = v269 + 1;
               if ( HIDWORD(v1) < v268 )
               {
@@ -10844,8 +10851,8 @@ LABEL_613:
                   v710 = v272;
                   v273 = *(_DWORD *)v272;
                   *(_DWORD *)(v1 + 12) = v273;
-                  HIDWORD(v1) += (unsigned __int8)*(&byte_5DC1CC[28 * v273]
-                                                  + (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v1]);
+                  HIDWORD(v1) += (unsigned __int8)*(&byte_5DC1CC[28 * v273] +
+                                 pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType);
                   if ( HIDWORD(v1) >= v268 )
                     break;
                 }
@@ -10885,12 +10892,12 @@ LABEL_613:
               if ( rand() % 100 < 80
                 && !(*(_BYTE *)(v240 + 28) == 0 | *(_BYTE *)(v240 + 28) == 1 | *(_BYTE *)(v240 + 28) == 2) )
               {
-                v242 = rand() % dword_5E40B8[(unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v1]];
+               v242 = rand() % dword_5E40B8[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
                 *(_DWORD *)(v1 + 4) = 0;
-                for ( HIDWORD(v1) = (unsigned __int8)byte_5DBFE9[(unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v1]];
+                for ( HIDWORD(v1) = (unsigned __int8)byte_5DBFE9[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType];
                       ;
-                      HIDWORD(v1) += (unsigned __int8)*(&byte_5DBFE9[20 * *(_DWORD *)(v1 + 4)]
-                                                      + (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v1]) )
+                      HIDWORD(v1) += (unsigned __int8)*(&byte_5DBFE9[20 * *(_DWORD *)(v1 + 4)] +
+                                                    pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType) )
                 {
                   ++*(_DWORD *)(v1 + 4);
                   if ( HIDWORD(v1) >= v242 )
@@ -10913,7 +10920,7 @@ LABEL_613:
                   v247 = byte_5DC1DC[v246];
                   if ( !v247 || v247 == 1 )
                   {
-                    v248 = (unsigned __int8)*(&byte_5DC1CC[(unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v1]] + v246);
+                   v248 = (unsigned __int8)*(&byte_5DC1CC[pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType] + v246);
                     v703 += v248;
                     if ( v248 )
                     {
@@ -10930,7 +10937,7 @@ LABEL_613:
               v251 = rand() % v703;
               v252 = v636;
               *(_DWORD *)(v1 + 12) = v636;
-              HIDWORD(v1) = (unsigned __int8)*(&byte_5DC1CC[28 * v252] + (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v1]);
+              HIDWORD(v1) = (unsigned __int8)*(&byte_5DC1CC[28 * v252] + pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType);
               v250 = v251 + 1;
               if ( HIDWORD(v1) < v250 )
               {
@@ -10940,8 +10947,8 @@ LABEL_613:
                   v710 = v254;
                   v255 = *(_DWORD *)v254;
                   *(_DWORD *)(v1 + 12) = v255;
-                  HIDWORD(v1) += (unsigned __int8)*(&byte_5DC1CC[28 * v255]
-                                                  + (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v1]);
+                  HIDWORD(v1) += (unsigned __int8)*(&byte_5DC1CC[28 * v255] +
+                                                  pClass40->pItems[*(_DWORD *)v1 - 1].uEquipType);
                   if ( HIDWORD(v1) >= v250 )
                     break;
                 }
@@ -11016,7 +11023,7 @@ LABEL_616:
               v283 = byte_5DC1DC[v282];
               if ( !v283 || v283 == 1 )
               {
-                v284 = (unsigned __int8)*(&byte_5DC1CC[(unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v280]] + v282);
+               v284 = (unsigned __int8)*(&byte_5DC1CC[pClass40->pItems[*(_DWORD *)v280 - 1].uEquipType] + v282);
                 v703 += v284;
                 if ( v284 )
                 {
@@ -11033,7 +11040,7 @@ LABEL_616:
           v288 = rand() % v703;
           v289 = v636;
           *(_DWORD *)(v280 + 12) = v636;
-          v287 = (unsigned __int8)*(&byte_5DC1CC[28 * v289] + (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v280]);
+          v287 = (unsigned __int8)*(&byte_5DC1CC[28 * v289] + pClass40->pItems[*(_DWORD *)v280 - 1].uEquipType);
           v286 = v288 + 1;
           if ( v287 < v286 )
           {
@@ -11043,7 +11050,7 @@ LABEL_616:
               v710 = v291;
               v292 = *(_DWORD *)v291;
               *(_DWORD *)(v280 + 12) = v292;
-              v287 += (unsigned __int8)*(&byte_5DC1CC[28 * v292] + (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v280]);
+              v287 += (unsigned __int8)*(&byte_5DC1CC[28 * v292] + pClass40->pItems[*(_DWORD *)v280 - 1].uEquipType);
               if ( v287 >= v286 )
                 break;
             }
@@ -11055,10 +11062,10 @@ LABEL_616:
           v280 = LODWORD(v702);
           compile_error;//v278 = rand() % dword_5E40B8[(unsigned __int8)byte_5D2A00[48 * *LODWORD(v702)]];
           *(_DWORD *)(LODWORD(v702) + 4) = 0;
-          for ( m = (unsigned __int8)byte_5DBFE9[(unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v280]];
+          for ( m = (unsigned __int8)byte_5DBFE9[pClass40->pItems[*(_DWORD *)v280 - 1].uEquipType];
                 ;
-                m += (unsigned __int8)*(&byte_5DBFE9[20 * *(_DWORD *)(v280 + 4)]
-                                      + (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v280]) )
+                m += (unsigned __int8)*(&byte_5DBFE9[20 * *(_DWORD *)(v280 + 4)] +
+                                       pClass40->pItems[*(_DWORD *)v280 - 1].uEquipType) )
           {
             ++*(_DWORD *)(v280 + 4);
             if ( m >= v278 )
@@ -11413,7 +11420,7 @@ LABEL_679:
             LODWORD(v686.v688) = *(_WORD *)(v1 + 144);
             v710 = *(_WORD *)(v1 + 138);
             HIDWORD(v686.v688) = *(_WORD *)(v1 + 146)
-                          - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
+                          - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
             v347 = 8 * dword_50BF30[n];
             LOBYTE(v347) = v347 | 3;
             v686.v699 = v347;
@@ -11698,7 +11705,7 @@ LABEL_780:
         }
         v393 = *(_DWORD *)(v392 + 672);
         LODWORD(v712) = HIDWORD(v1);
-        if ( byte_5D2A00[48 * v393] == 18 )
+        if (pClass40->pItems[v393 - 1].uEquipType == 18 )
           LODWORD(v712) = *(_DWORD *)(v392 + 684);
         sub_42EB25((int)&v640);
         ItemGen_Reset((int)&v640);
@@ -11710,7 +11717,7 @@ LABEL_780:
         }
         v395 = 0;
         v396 = v708 + 564;
-        while ( *(_DWORD *)v396 == HIDWORD(v1) || byte_5D2A00[48 * *(_DWORD *)v396] == 18 )
+        while ( *(_DWORD *)v396 == HIDWORD(v1) || pClass40->pItems[*(_DWORD *)v396 - 1].uEquipType == 18 )
         {
           ++v395;
           v396 += 36;
@@ -11869,7 +11876,7 @@ LABEL_813:
           LODWORD(v686.v688) = *(_WORD *)(v1 + 144);
           v710 = *(_WORD *)(v1 + 138);
           HIDWORD(v686.v688) = *(_WORD *)(v1 + 146)
-                        - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
+                        - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
           v408 = 8 * dword_50BF30[n];
           LOBYTE(v408) = v408 | 3;
           v686.v699 = v408;
@@ -11949,7 +11956,7 @@ LABEL_855:
         {
           v422 = &pLayingItemsList[v1].dword_000024;
           v421 = 48 * pLayingItemsList[v1].dword_000024;
-          if ( byte_5D2A00[v421] == 18 )
+          if (pClass40->pItems[v421/48 - 1].uEquipType == 18 )
           {
             sub_420C05(*((_DWORD *)v422 + 3), 0);
             struct_576FE8.dword_000044 = 1;
@@ -11994,7 +12001,7 @@ LABEL_866:
               sub_44684A_LooksLikeEventProcessor(v419, n, v634);
               goto LABEL_1056;
             }
-            if ( sub_44C2F4((void *)v1) )
+            if ( sub_44C2F4_SomeDecorationTypeCheck((void *)v1) )
             {
               dword_5C3420 = v1;
               sub_44684A_LooksLikeEventProcessor((unsigned __int8)global_5E4C90.byte_000000[*(_WORD *)(v1 + 28)] + 380, 0, 1);
@@ -12349,7 +12356,7 @@ LABEL_641:
             LODWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosY;
             v710 = pActors[dword_50BF30[n]].uActorHeight;
             HIDWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosZ
-                          - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
+                          - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
             v476 = 8 * dword_50BF30[n];
             LOBYTE(v476) = v476 | 3;
             v686.v699 = v476;
@@ -12367,7 +12374,7 @@ LABEL_641:
           LODWORD(v686.v688) = *(_WORD *)(v1 + 144);
           v710 = *(_WORD *)(v1 + 138);
           HIDWORD(v686.v688) = *(_WORD *)(v1 + 146)
-                        - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
+                        - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
           v480 = 8 * dword_50BF30[n];
           LOBYTE(v480) = v480 | 3;
           v686.v699 = v480;
@@ -12529,7 +12536,7 @@ LABEL_973:
             LODWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosY;
             v710 = pActors[dword_50BF30[n]].uActorHeight;
             HIDWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosZ
-                          - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
+                          - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
             v502 = 8 * dword_50BF30[n];
             LOBYTE(v502) = v502 | 3;
             v686.v699 = v502;
@@ -12618,7 +12625,7 @@ LABEL_973:
           SHIDWORD(v1),
           SBYTE4(v1));
         LODWORD(v1) = v1 + 5;
-        sub_4584E0(&pParty_global->pPartyBuffs[5],
+        sub_4584E0(&pParty_global->pPartyBuffs[PARTYBUFF_FEATHERFALL],
           (signed __int64)((double)pParty_global->qword_00002C + v712),
           (unsigned __int64)(signed __int64)((double)pParty_global->qword_00002C + v712) >> 32,
           v709,
@@ -12841,7 +12848,7 @@ LABEL_1000:
         v710 = *(_WORD *)(LODWORD(v685) + 138);
         v545 = 8 * LODWORD(v704);
         HIDWORD(v686.v688) = *(_WORD *)(LODWORD(v685) + 146)
-                      - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
+                      - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
         LOBYTE(v545) = 8 * LOBYTE(v704) | 3;
         v686.v699 = v545;
         sub_42F5ED((int)&v686, 0, SHIDWORD(v1), SHIDWORD(v1), SHIDWORD(v1));
@@ -13199,7 +13206,7 @@ LABEL_1119:
             LODWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosY;
             v710 = pActors[dword_50BF30[n]].uActorHeight;
             HIDWORD(v686.v688) = pActors[dword_50BF30[n]].sActorPosZ
-                          - (unsigned int)(signed __int64)((double)v710 * *(double *)&byte_4D8410[312]);
+                          - (unsigned int)(signed __int64)((double)v710 * -0.80000000000000004);
             v586 = 8 * dword_50BF30[n];
             LOBYTE(v586) = v586 | 3;
             v686.v699 = v586;
@@ -13342,7 +13349,7 @@ LABEL_439:
   if ( pParty_global->dword_00087C == HIDWORD(v1) )
   {
     v606 = v707;
-    sub_48E96A(v707, (signed __int64)(flt_6BE3A4_debug_recmod1 * *(double *)&byte_4D8410[296]));
+    Player_SetRecoveryTime(v707, (signed __int64)(flt_6BE3A4_debug_recmod1 * 213.33333333333334));
     LODWORD(v1) = i;
   }
   else
@@ -13352,7 +13359,7 @@ LABEL_439:
     v607 = v683;
     v608 = v707;
     pParty_global->array_016144[*((_WORD *)v672 + 10 * i + 1)] = 100;
-    sub_48E96A(v608, v607);
+    Player_SetRecoveryTime(v608, v607);
     sub_40471C(&unk_4F8858);
   }
   sub_44C175(pGlobalTXT_LocalizationStrings[428], 2);

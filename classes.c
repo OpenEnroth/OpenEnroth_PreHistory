@@ -2813,7 +2813,7 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
  v81 = _this->pColorPalette2[idx];
  for (i = 0; i < 32; ++i)
  {
-  scale = memory_4D8410.f1_0 - (double)i * *(double *)&byte_4D8410[1088];
+  scale = memory_4D8410.d1_0 - (double)i * (1.0 / 31.0);
 
   for (j = 0; j < 256; ++j)
   {
@@ -2826,15 +2826,15 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
    v29 = _this->uNumTargetGBits;
    if ( v29 == 6 )
    {
-    v85 *= *(double *)&byte_4D8410[1080];
-    v84 *= *(double *)&byte_4D8410[1072];
-    v86 *= *(double *)&byte_4D8410[1080];
+    v85 *= 31.0;
+    v84 *= 62.0;
+    v86 *= 31.0;
    }
    else
    {
-    v85 *= *(double *)&byte_4D8410[1080];
-    v84 *= *(double *)&byte_4D8410[1080];
-    v86 *= *(double *)&byte_4D8410[1080];
+    v85 *= 31.0;
+    v84 *= 31.0;
+    v86 *= 31.0;
    }
 
    v24 = (signed __int64)*(float *)&v86 | ((unsigned __int16)(signed __int64)v84 << _this->uNumTargetBBits) | (unsigned __int16)((unsigned __int16)(signed __int64)v85 << (_this->uNumTargetBBits + v29));
@@ -2846,27 +2846,27 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
  v81 = _this->pColorPalette3[idx];
  for (i = 0; i < 256; ++i)
  {
-  v36 = (local_0[i].z - *(double *)&byte_4D8410[1056]) * *(double *)&byte_4D8410[1048] + *(double *)&byte_4D8410[1056];
-  if (v36 < *(double *)&byte_4D8410[176])
+  v36 = (local_0[i].z - 0.80000000000000004) * 0.83870967741935487 + 0.80000000000000004;
+  if (v36 < 0.0)
     v36 = 0.0;
 
-  v39 = local_0[i].x * *(double *)&byte_4D8410[1064];
+  v39 = local_0[i].x * 0.70343392299687835;
   sub_48A643(&v85, &v84, &v86, local_0[i].y, v39, v36);
 
   if (_this->uNumTargetGBits == 6)
   {
-   v85 *= *(double *)&byte_4D8410[1080];
-   v84 *= *(double *)&byte_4D8410[1072];
-   v86 *= *(double *)&byte_4D8410[1080];
+   v85 *= 31.0;
+   v84 *= 62.0;
+   v86 *= 31.0;
   }
   else
   {
-   v85 *= *(double *)&byte_4D8410[1080];
-   v84 *= *(double *)&byte_4D8410[1080];
-   v86 *= *(double *)&byte_4D8410[1080];
+   v85 *= 31.0;
+   v84 *= 31.0;
+   v86 *= 31.0;
   }
 
-  v44 = (signed __int64)((v85 + v84 + v86) * *(double *)&byte_4D8410[640] * 8.0);
+  v44 = (signed __int64)((v85 + v84 + v86) * 0.33333333333333331 * 8.0);
   v40 = (_DWORD)v44 >> (8 - (unsigned __int8)_this->uNumTargetRBits);
   v45 = 8 - _this->uNumTargetGBits;
   v42 = _this->uNumTargetBBits;
@@ -2890,9 +2890,9 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
  {
   v88 = _this->byte_267AD1;
   v53 = _this->byte_267AD2;
-  v78 = (double)_this->byte_267AD0 * *(double *)&byte_4D8410[1104];
-  v79 = (double)v88 * *(double *)&byte_4D8410[1104];
-  v83 = (double)v53 * *(double *)&byte_4D8410[1104];
+  v78 = (double)_this->byte_267AD0 * (1.0 / 255.0);
+  v79 = (double)v88 * (1.0 / 255.0);
+  v83 = (double)v53 * (1.0 / 255.0);
   sub_48A7AA(v76, v75, v78, v79, v83, v74);
  }
 
@@ -2904,26 +2904,26 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
   {
    v55 = local_0[j].x;
 
-   if ( v55 < *(double *)&byte_4D8410[176] )
+   if ( v55 < 0.0 )
      v55 = 0.0;
 
    sub_48A643(&v85, &v84, &v86, local_0[j].y, v55, local_0[j].z);
    if (_this->uNumTargetGBits == 6 )
    {
-    v85 *= *(double *)&byte_4D8410[1080];
-    v84 *= *(double *)&byte_4D8410[1072];
-    v86 *= *(double *)&byte_4D8410[1080];
+    v85 *= 31.0;
+    v84 *= 62.0;
+    v86 *= 31.0;
    }
    else
    {
-    v85 *= *(double *)&byte_4D8410[1080];
-    v84 *= *(double *)&byte_4D8410[1080];
-    v86 *= *(double *)&byte_4D8410[1080];
+    v85 *= 31.0;
+    v84 *= 31.0;
+    v86 *= 31.0;
    }
 
    if (_this->byte_267AD0 || _this->byte_267AD1 || _this->byte_267AD2)
    {
-    v61 = (double)i * *(double *)&byte_4D8410[1088];
+    v61 = (double)i * (1.0 / 31.0);
     v60 = (signed __int64)((double)(1 << _this->uNumTargetRBits) * v78 * v61 + v85 * (1.0 - v61));
     v59 = (signed __int64)((double)(1 << _this->uNumTargetGBits) * v79 * v61 + v84 * (1.0 - v61));
     v58 = (signed __int64)((double)(1 << _this->uNumTargetBBits) * v83 * v61 + v86 * (1.0 - v61));
@@ -6575,7 +6575,7 @@ void *CNPCStats_sub_476CB5(struct CNPCStats *_this)
       if ( v24 )
       {
         if ( v43 == 1 )
-          _this->array_015CA4[i] = sub_452C30(result);
+          _this->pCatchPhrases[i] = sub_452C30(result);
       }
       ++v43;
       result = (char *)(v25 + 1);
@@ -7085,7 +7085,7 @@ LABEL_73:
     if ( !(unsigned __int16)sub_449B57((int)byte_ACD71D, 239) )
       *(_DWORD *)v5 = 486;
   }
-  if (byte_5D2A00[48 * *(_DWORD *)v5 + 18])
+  if (*(&pClass40->pItems[*(_DWORD *)v5 - 1].uEquipType + 18))
     *(_DWORD *)(v5 + 20) = 0;
   else
     *(_DWORD *)(v5 + 20) = 1;
@@ -7114,7 +7114,7 @@ LABEL_73:
     {
       if ( (_BYTE)v18 == 12 )
       {
-        v18 = rand() % 6 + (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)v5 + 4] + 1;
+       v18 = rand() % 6 + pClass40->pItems[*(_DWORD *)v5 - 1].uDamageModifier + 1;
         *(_DWORD *)(v5 + 16) = v18;
         *(_BYTE *)(v5 + 25) = v18;
       }
@@ -7376,6 +7376,8 @@ void sub_40F77C(struct class18 *_this)
   int v1; // esi@1
   char v2; // zf@2
 
+  runtime_warning(no no more implace deleting);
+  /*
   v1 = _this;
   if ( _this )
   {
@@ -7404,7 +7406,7 @@ void sub_40F77C(struct class18 *_this)
     _this->word_000024 = 0;
     _this->word_000026 = 0;
     _this->word_00002C = 0;
-  }
+  }*/
 }
 
 
@@ -8911,10 +8913,10 @@ void class59_ctor(struct class59 *_this)
  /*
   for (i = 0; i < _this->dword_001864; ++i)
   {
-    v3 = (double)(i + 1) * *(double *)&byte_4D8410[376] * *(double *)&byte_4D8410[656];  // i * ï * step
+    v3 = (double)(i + 1) * memory_4D8410.dPi * (1.0 / 1024.0);  // i * ï * step
    _this->pTanTable[i] = tan(v3) * (double)_this->pCosTable[0] + memory_4D8410.d_0_5;
    _this->pCosTable[i] = cos(v3) * (double)_this->pCosTable[0] + memory_4D8410.d_0_5;
-   _this->pInvCosTable[i] = memory_4D8410.f1_0 / cos(v3) * (double)_this->pCosTable[0] + memory_4D8410.d_0_5;
+   _this->pInvCosTable[i] = memory_4D8410.d1_0 / cos(v3) * (double)_this->pCosTable[0] + memory_4D8410.d_0_5;
   }*/
 
  for (i = _this->uIntegerHalfPi; i < 520; ++i)
@@ -10080,10 +10082,10 @@ int class06_sub_4A8C27(struct class06 *_this)
   if ( result > 0 )
   {
     v6 = (double)v70 / (double)*(signed int *)(v1 + 1500);
-    v4 = memory_4D8410.f1_0 - v6 * v6;
+    v4 = memory_4D8410.d1_0 - v6 * v6;
     v5 = v4;
     if ( v4 > memory_4D8410.f0_9)
-      v5 = memory_4D8410.f1_0 - (v4 - memory_4D8410.f0_9) * memory_4D8410.f10_0;
+      v5 = memory_4D8410.d1_0 - (v4 - memory_4D8410.f0_9) * memory_4D8410.f10_0;
     v7 = v5;
     sub_4A52F1(pD3DRenderer, *(_DWORD *)(v1 + 1504), v7);
     result = pClass24_global->int_00001C;

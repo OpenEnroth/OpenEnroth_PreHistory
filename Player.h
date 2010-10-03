@@ -85,7 +85,7 @@ struct InventorySlot
  short         word_00001E;
  int           dword_000020[3];
 };
-//sizeof == 0x24
+//sizeof = 24
 
 struct Spellbook
 {

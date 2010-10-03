@@ -7,10 +7,10 @@
 
 #pragma pack(push, 1)
 
-
-#define PARTYBUFF_FLY        7
-#define PARTYBUFF_WATERWALK 15
-#define PARTYBUFF_WIZARDEYE 19
+#define PARTYBUFF_FEATHERFALL 5
+#define PARTYBUFF_FLY         7
+#define PARTYBUFF_WATERWALK  15
+#define PARTYBUFF_WIZARDEYE  19
 
 struct PartySpellBuff
 {

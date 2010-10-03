@@ -779,7 +779,7 @@ extern int dword_5079C8; // weak
 extern int dword_5079CC; // weak
 extern unsigned int uTextureIdx_SensorGreen; // dword @ MM7.exe::005079D0
 extern unsigned int uTextureIdx_MinimapMask; // dword @ MM7.exe::005079D8
-extern int dword_5079E4; // weak
+extern unsigned int uTextureID_5079E4; // weak
 extern struct GUIButton *pBtn_Game_NPCScrollRightDown; // dword @ MM7.exe::005079E8
 extern struct GUIButton *pBtn_Game_NPCScrollLeftDown;  // dword @ MM7.exe::005079EC
 extern struct GUIButton *pBtn_Game_Options;            // dword @ MM7.exe::005079F0
@@ -806,7 +806,7 @@ extern struct GUIButton *pMainMenu_NewGame;  // ptr @ MM7.exe::00507AF0
 extern int dword_507AF8; // idb
 extern int dword_507AFC; // idb
 extern int dword_507B00; // weak
-extern int dword_507B04; // weak
+extern unsigned int uTextureID_507B04; // weak
 
 
 
@@ -1243,10 +1243,19 @@ extern struct Event   pSomeEVT_Events[];  // struct[4400] @ MM7.exe::00584238
 extern unsigned int   uSomeEVT_NumEvents; // dword        @ MM7.exe::00591078
 extern unsigned char *pSomeEVT; // weak
 
+
+
+//enum DIALOGUE_TYPE
+#define DIALOGUE_ARENA_WELCOME            89
+#define DIALOGUE_ARENA_FIGHT_NOT_OVER_YET 90
+#define DIALOGUE_ARENA_REWARD             91
+#define DIALOGUE_ARENA_ALREADY_WON        92
+
+
 extern int dword_591080; // weak
 extern int dword_591084; // weak
 extern struct Actor *pDialogue_SpeakingActor;   // dword @ MM7.exe::00591088
-extern int dword_59108C; // weak
+extern unsigned int  uDialogueType;             // dword @ MM7.exe::0059108C     enum DIALOGUE_TYPE
 extern unsigned int  uDialogue_SpeakingActorID; // dword @ MM7.exe::00591090
 extern int dword_591094; // weak
 extern char byte_591098[200]; // idb
@@ -1295,7 +1304,7 @@ extern unsigned int  uGlobalEVT_NumEvents; // dword        @ MM7.exe::005A5530
 extern unsigned int  uGlobalEVT_Size;      // dword        @ MM7.exe::005A5534
 extern unsigned char pGlobalEVT[];         // byte[46080]  @ MM7.exe::005A5538
 
-extern char byte_5B0938; // idb
+extern unsigned char byte_5B0938[]; // idb
 extern unsigned int  uLevelStrNumStrings; // dword      @ MM7.exe::005B1108
 extern unsigned int  uLevelStrFileSize;   // dword      @ MM7.exe::005B110C
 extern unsigned int  uLevelEVT_NumEvents; // dword      @ MM7.exe::005B1110
@@ -1316,8 +1325,8 @@ extern char byte_5B352B[array_size_unknown]; // weak
 extern char byte_5B352C[array_size_unknown]; // weak
 extern int dword_5B5920; // weak
 extern int dword_5B5924; // weak
-extern _UNKNOWN unk_5B5928[0xC80]; // weak
-extern _UNKNOWN unk_5B5934; // weak
+extern _UNKNOWN unk_5B5928[]; // 100x32 bytes struct array around here
+//extern _UNKNOWN unk_5B5934[]; // weak
 extern int dword_5B65A8; // weak
 extern int dword_5B65AC; // weak
 extern int dword_5B65B0; // weak
@@ -1418,7 +1427,7 @@ extern int dword_5D29F4[array_size_unknown]; // weak
 extern __int16 word_5D29F8[array_size_unknown]; // weak
 extern __int16 word_5D29FC; // weak
 extern __int16 word_5D29FE; // weak
-extern char byte_5D2A00[]; // weak
+//char byte_5D2A00[]; // pItems[0]+20
 //char byte_5D2A01[array_size_unknown]; // weak
 //char byte_5D2A02[array_size_unknown]; // weak
 //char byte_5D2A03[array_size_unknown]; // weak
@@ -1488,15 +1497,15 @@ extern int dword_5E5144; // weak
 
 extern struct struct3 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
 //__int16 word_5E5150[array_size_unknown]; // weak
-extern char byte_5E5152[array_size_unknown]; // weak
-extern _UNKNOWN unk_5E5154; // weak
-extern int dword_5E5160; // weak
-extern int dword_5E5164; // weak
-extern _UNKNOWN unk_5E5168; // weak
-extern char byte_5E516D[array_size_unknown]; // weak
-extern __int16 word_5E6502[array_size_unknown]; // weak
-extern __int16 word_5E6504[array_size_unknown]; // weak
-extern size_t dword_5FF140; // idb
+//char byte_5E5152[array_size_unknown]; // 000002
+//_UNKNOWN unk_5E5154; // 000004
+//int dword_5E5160; // 000010
+//int dword_5E5164; // 000014
+//_UNKNOWN unk_5E5168; // 000018
+//char byte_5E516D[array_size_unknown]; // weak
+//__int16 word_5E6502[array_size_unknown]; // 13B2
+//__int16 word_5E6504[array_size_unknown]; // 13B4
+extern unsigned int dword_5FF140; // idb
 
 extern int chest_descriptor[2];   //struct @ MM7.exe::005FF144
 //int dword_5FF144; // weak
@@ -1590,8 +1599,7 @@ extern struct KeyboardController
  unsigned int  array_00000C_vkeys[30]; // dword[30] @ 00000C
  int           unk_000084[30];
  int           dword_0000FC;
- unsigned char pPressedKeysBuffer[256]; // byte[256] @ 000100
- char          byte_0000200;
+ unsigned char pPressedKeysBuffer[257]; // byte[257] @ 000100
  unsigned char uNumKeysPressed;         // byte @ 000201
  char          byte_0000202;
  char          byte_0000203;
@@ -1619,12 +1627,28 @@ char KeyboardController_ReadKeyMapping(struct KeyboardController *_this);
 extern int dword_69B004; // weak
 extern int pAsyncKeyboard; // dword @ 69B00C
 extern int dword_69B010[array_size_unknown]; // weak
-extern _UNKNOWN unk_69B110; // weak
-extern int dword_69B114; // weak
-extern float flt_69B118; // weak
-extern float flt_69B11C; // weak
-extern _UNKNOWN unk_69B120; // weak
-extern _UNKNOWN unk_69B12C; // weak
+
+extern struct unnamed_69B110
+{
+ void  (*detor_ptr)(struct unnamed_69B110 *, unsigned int); // dword @ 000000
+ float   flt_000004;
+ float   flt_000008;
+ float   flt_00000C;
+ float   flt_000010;
+ float   flt_000014;
+ float   flt_000018;
+ float   flt_00001C;
+ float   flt_000020;
+ float   flt_000024;
+} object_69B110; // struct @ MM7.exe::0069B110
+//sizeof ~ 28
+//_UNKNOWN unk_69B110; // weak
+//int dword_69B114; // 000004
+//float flt_69B118; // 000008
+//float flt_69B11C; // 00000C
+//_UNKNOWN unk_69B120; // 000010
+//_UNKNOWN unk_69B12C; // 00001C
+
 extern int dword_69B138; // weak
 extern _UNKNOWN unk_69B140; // weak
 extern _UNKNOWN unk_69B16C; // weak
@@ -2072,18 +2096,18 @@ extern int dword_72D5F8[array_size_unknown]; // weak
 //extern int dword_72D694[array_size_unknown]; // weak
 extern int dword_72D6A0[array_size_unknown]; // weak
 extern int dword_72D6A8; // weak
-extern _UNKNOWN unk_72D6D0; // weak
+//extern _UNKNOWN unk_72D6D0; // 009500  [0]+44   dword_017FC4 x 4C-byte struct array around here
 extern _UNKNOWN unk_72D6E0; // weak
 extern int dword_72D778; // weak
 extern char byte_72E780; // weak
 //char dword_736B48[1048]; // pNPCStats::pNPCNames
 extern int dword_737C28[array_size_unknown]; // weak
-extern LPCSTR dword_737C2C; // idb
+//LPCSTR dword_737C2C; // 13A5C
 extern int dword_737C30[array_size_unknown]; // weak
 //LPCSTR dword_737C34; // 013A64   013A6C[-1]+0C
 //int dword_737C38[]; // 013A68    013A6C[-1]+10
 //_UNKNOWN unk_7380C4; // 0013EF4
-extern char dword_739E74[7136]; // idb
+//char dword_739E74[7136]; // 15CA4
 extern int dword_73BA54[array_size_unknown]; // weak
 //extern _UNKNOWN unk_73C0C4; // weak
 //extern short array_73C0C4[]; // 017EF4, short[51] @ MM7.exe::0073C0C4
@@ -2501,22 +2525,7 @@ extern _UNKNOWN unk_AD4338; // weak
 extern int dword_AD4650; // weak
 extern int dword_AD4654[array_size_unknown]; // weak
 extern int dword_AD4658; // weak
-//extern struct NPCData array_AD4674[]; // struct[2] @ MM7.exe::00AD4674, party+76BC, maybe currently hired npcs
-/*
-extern struct unnamed_AD4674
-{
- char *dword_AD4674; // 000000, end of pPlayers[4]
- int dword_AD4678; // 000004
- _UNKNOWN unk_AD467C; // 000008
- int dword_000018;
- int dword_000024;
- int dword_AD469C; // 000028
- int dword_AD46A0; // 00002C
- int dword_AD46A4; // 000030
- int dword_000044;
- int dword_000048;
-} struct_AD4674[];*/
-//sizeof == 4C
+//extern struct NPCData array_AD4674[]; // struct[2] @ MM7.exe::00AD4674
  //char *dword_AD46C0; // idb
  //int dword_AD46D8;    // [1]:000018
  //_UNKNOWN unk_AD46E4; // [1]:000024
@@ -2857,7 +2866,7 @@ extern int dword_F8B1A4; // weak
 extern int dword_F8B1A8; // weak
 extern int dword_F8B1AC; // idb
 extern int dword_F8B1B0; // weak
-extern int dword_F8B1B4; // weak
+extern unsigned int uArenaReward; // dword @ MM7.exe::00F8B1B4
 extern int dword_F8B1B8[array_size_unknown]; // weak
 extern int dword_F8B1BC; // weak
 extern int dword_F8B1C0; // weak

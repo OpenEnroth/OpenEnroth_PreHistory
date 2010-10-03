@@ -98,7 +98,7 @@ struct Actor
  unsigned short       pSoundSampleIDs[4]; // word[4] @ 0000CC
  struct Actor_struct0 array_0000D4[22];
  struct ItemGen       array_000234[4];
- int   dword_0002C4;
+ int   dword_0002C4;  // index in NPCStats::word_017F5A
  int   dword_0002C8;
  char  unk_0002CC[96];
  int   dword_00032C;

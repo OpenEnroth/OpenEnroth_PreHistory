@@ -957,7 +957,7 @@ void __stdcall sub_426A5A(int a1)
   }
   else
   {
-    if ( byte_5D2A00[48 * *(_DWORD *)(a1 + 672)] != 18 )
+   if (pClass40->pItems[*(_DWORD *)(a1 + 672) - 1].uEquipType != 18 )
       goto LABEL_9;
     v16 = *(_DWORD *)(a1 + 684);
     ItemGen_Reset(a1 + 672);
@@ -974,21 +974,21 @@ LABEL_9:
     *(_DWORD *)Dst = *(_WORD *)(a1 + 180);
     v8 = dword_5D29EC[12 * *(_DWORD *)Dst];
     if ( v16 )
-      sprintfex(pStringBuffer, pGlobalTXT_LocalizationStrings[490], v16, v8);
+      wsprintfA(pStringBuffer, pGlobalTXT_LocalizationStrings[490], v16, v8);
     else
-      sprintfex(pStringBuffer, pGlobalTXT_LocalizationStrings[471], v8);
+      wsprintfA(pStringBuffer, pGlobalTXT_LocalizationStrings[471], v8);
     sub_44C175(pStringBuffer, 2);
     v3 = *(_DWORD *)Dst;
     v4 = 48 * *(_DWORD *)Dst;
-    if ( byte_5D2A00[48 * *(_DWORD *)Dst] == 12 )
+    if (pClass40->pItems[*(_DWORD *)Dst - 1].uEquipType == 12 )
     {
       v4 = 48 * *(_DWORD *)Dst;
-      v5 = rand() % 6 + (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)Dst + 4] + 1;
+      v5 = rand() % 6 + pClass40->pItems[*(_DWORD *)Dst - 1].uDamageModifier + 1;
       v13 = v5;
       v14 = v5;
       v3 = *(_DWORD *)Dst;
     }
-    if ( byte_5D2A00[v4] == 14 )
+    if (pClass40->pItems[v4/48 - 1].uEquipType == 14 )
     {
       if ( v3 != 220 )
         v12 = 2 * rand() % 4 + 2;
@@ -2245,7 +2245,7 @@ signed int __thiscall sub_42EBEE(void *this)
   v3 = uActiveCharacter;
   v7 = (int)this;
   v2 =&pParty_global->pPlayers[uActiveCharacter - 1];
-  result = sub_492C0B(&pParty_global->pPlayers[uActiveCharacter - 1]);
+  result = Player_sub_492C0B(&pParty_global->pPlayers[uActiveCharacter - 1]);
   if ( result )
   {
     sub_427D48(&struct_50C0C8, v3);
@@ -2261,7 +2261,7 @@ signed int __thiscall sub_42EBEE(void *this)
     if ( v8 < 30 )
       v8 = 30;
     if (!pParty_global->dword_00087C)
-      sub_48E96A((int)v2, (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v8 * *(double *)&byte_4D8410[40]));
+      Player_SetRecoveryTime((int)v2, (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v8 * 2.1333333333333333));
     sub_40471C(&unk_4F8858);
     result = 1;
   }
@@ -2312,7 +2312,7 @@ signed int __cdecl sub_42ECB5()
   v1 = uActiveCharacter;
   v29 = 6972 * uActiveCharacter;
   v2 = &pParty_global->pPlayers[uActiveCharacter - 1];
-  result = sub_492C0B(&pParty_global->pPlayers[uActiveCharacter - 1]);
+  result = Player_sub_492C0B(&pParty_global->pPlayers[uActiveCharacter - 1]);
   if ( result )
   {
     sub_427D48(&struct_50C0C8, v1);
@@ -2335,7 +2335,7 @@ signed int __cdecl sub_42ECB5()
       {
         v30 = v5 + 496;
         v6 = *(_DWORD *)(v5 + 496);
-        if ( byte_5D2A00[48 * v6] == 12 )
+        if (pClass40->pItems[v6 - 1].uEquipType == 12 )
         {
           if ( *(_DWORD *)(v5 + 512) <= 0 )
           {
@@ -2411,7 +2411,7 @@ LABEL_28:
         }
         goto LABEL_28;
       }
-      if ( (double)v36 <= *(double *)&byte_4D8410[328] )
+      if ( (double)v36 <= 407.19999999999999 )
       {
         v25 = *((_WORD *)v8 + 71) - pParty_global->sPartyPosX;
         v26 = *((_WORD *)v8 + 72) - pParty_global->sPartyPosY;
@@ -2475,7 +2475,7 @@ LABEL_29:
           {
             v15 = *(_DWORD *)(v2 + 6476);
             if ( sub_48D6AA((void *)v2, 1) )
-              v36 = (unsigned __int8)byte_5D2A00[48 * *(_DWORD *)(v2 + 36 * v15 + 496) + 1];
+             v36 = pClass40->pItems[*(_DWORD *)(v2 + 36 * v15 + 496) - 1].uSkillType;
             sub_40471C(&unk_4F8858);
           }
           else
@@ -2528,7 +2528,7 @@ LABEL_39:
         if ( v33 < 30 )
           v33 = 30;
         if (pParty_global->dword_00087C == v3)
-          sub_48E96A(v2, (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v33 * *(double *)&byte_4D8410[40]));
+          Player_SetRecoveryTime(v2, (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v33 * 2.1333333333333333));
         goto LABEL_29;
       }
       v23 = 0;
@@ -3549,9 +3549,9 @@ LABEL_75:
               {
                 v24 = sub_48E1B5((void *)v6, 0);
                 if (!pParty_global->dword_00087C)
-                  sub_48E96A(
+                  Player_SetRecoveryTime(
                     (int)*(&ptr_A750C4 + uActiveCharacter),
-                    (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v24 * *(double *)&byte_4D8410[40]));
+                    (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v24 * 2.1333333333333333));
                 sub_427D48(&struct_50C0C8, uActiveCharacter);
                 sub_40471C(&unk_4F8858);
               }
@@ -3981,7 +3981,7 @@ LABEL_134:
             }
             else
             {
-              sub_459E5A(pKeyboardController, 0, 19, pGUIWindow_CurrentMenu);
+              KeyboardController_sub_459E5A(pKeyboardController, 0, 19, pGUIWindow_CurrentMenu);
               strcpy(pKeyboardController->pPressedKeysBuffer, (const char *)&unk_69BD68 + 100 * dword_6A0CA0);
               pKeyboardController->uNumKeysPressed = strlen(pKeyboardController->pPressedKeysBuffer);
             }
@@ -4338,7 +4338,7 @@ LABEL_44:
               AudioPlayer_sub_4AA306(v1, 24, 0, 0, -1, 0, 0, 0, 0);
               v3 = v48;
               uPlayerCreationUI_SelectedCharacter = v48;
-              sub_459E5A(pKeyboardController, 0, 15, pGUIWindow_CurrentMenu);
+              KeyboardController_sub_459E5A(pKeyboardController, 0, 15, pGUIWindow_CurrentMenu);
               pGUIWindow_CurrentMenu->dword_00001C = v3;
               break;
             case 5:
@@ -4770,7 +4770,7 @@ void __fastcall sub_4369DB(int a1)
   double v2; // st7@1
 
   v1 = a1;
-  v2 = memory_4D8410.f1_0
+  v2 = memory_4D8410.d1_0
      / sqrt(*(float *)a1 * *(float *)a1 + *(float *)(a1 + 4) * *(float *)(a1 + 4) + *(float *)(a1 + 8)
                                                                                   * *(float *)(a1 + 8));
   *(float *)v1 = v2 * *(float *)v1;
@@ -4846,7 +4846,7 @@ int __thiscall sub_436A9A(int this, signed int a2, signed int a3, signed int a4,
 
   if ( pD3DRenderer->pRenderD3D3 )
   {
-    v7 = memory_4D8410.f1_0 / (double)a2;
+    v7 = memory_4D8410.d1_0 / (double)a2;
     v12 = (double)a3 * *(float *)(this + 196) * v7 + *(float *)(this + 200);
     v8 = v12 + 6.755399441055744e15;
     *(_DWORD *)a5 = LODWORD(v8);
@@ -5297,7 +5297,7 @@ char __stdcall sub_437376(int a1, const void *a2, int *a3)
       v8 = v20 - v6;
     v10 = (int)((char *)v4 + 48 * v8);
     v11 = (int)((char *)v4 + 48 * v9);
-    if ( -*(double *)&byte_4D8410[368] > ((*((float *)v4 + 12 * v7 + 6) - *(float *)(v11 + 24))
+    if ( -(1.0 / 100.0) > ((*((float *)v4 + 12 * v7 + 6) - *(float *)(v11 + 24))
                                         * (*(float *)(v10 + 28) - *(float *)(v11 + 28))
                                         - (*((float *)v4 + 12 * v7 + 7) - *(float *)(v11 + 28))
                                         * (*(float *)(v10 + 24) - *(float *)(v11 + 24)))
@@ -8012,7 +8012,7 @@ int __thiscall sub_4564B3(void *this)
 
   v3 = (int)this;
   v1 = 48 * *(_DWORD *)this;
-  v2 = byte_5D2A00[v1];
+  v2 = pClass40->pItems[v1/48 - 1].uEquipType;
   if ( (unsigned __int8)v2 >= 0xDu && ((unsigned __int8)v2 <= 0xEu || v2 == 18) )
   {
     v11 = *(const char **)((char *)dword_5D29E8 + v1);
@@ -8759,12 +8759,12 @@ void KeyboardController_InitalizeKeys(struct KeyboardController *_this)
 }
 
 //----- (00459E5A) --------------------------------------------------------
-void __thiscall sub_459E5A(int this, int a2, int a3, int a4)
+void __thiscall KeyboardController_sub_459E5A(struct KeyboardController *_this, int a2, int a3, int a4)
 {
   int v4; // esi@1
 
-  v4 = this;
-  memset((void *)(this + 256), 0, 0x101u);
+  v4 = _this;
+ memset(_this->pPressedKeysBuffer, 0, 257);
   *(_BYTE *)(v4 + 513) = 0;
   if ( a2 )
     *(_DWORD *)(v4 + 516) = 2;
@@ -8773,7 +8773,7 @@ void __thiscall sub_459E5A(int this, int a2, int a3, int a4)
   *(_DWORD *)(v4 + 252) = a3;
   *(_DWORD *)(v4 + 520) = a4;
   *(_DWORD *)(a4 + 64) = 1;
-  if ( *(_BYTE *)(pGame->class14_obj + 4) )
+  if (pGame->class14_obj->dword_000004 & 0xFF)
   {
     if (pAsyncKeyboard)
       Keyboard_suspend(pAsyncKeyboard);
@@ -10203,7 +10203,7 @@ char __thiscall sub_45BC07(void *this, int a2, int a3, signed int a4, int a5, fl
   if (~byte_69BD40 & 2)
   {
     byte_69BD40 |= 2;
-    sub_489B60((int)&unk_69B110);
+    sub_489B60(&object_69B110);
     atexit(loc_45BE7B);
   }
   v43 = a5;
@@ -10239,13 +10239,13 @@ char __thiscall sub_45BC07(void *this, int a2, int a3, signed int a4, int a5, fl
   v16 = *(float *)(v14 + 12);
   v17 = *(float *)(v14 + 8);
   v18 = *(_DWORD *)(v14 + 4);
-  v30 = (int)&unk_69B12C;
-  flt_69B118 = v17;
-  dword_69B114 = v18;
-  v29 = (int)&unk_69B120;
-  flt_69B11C = v16;
+  v30 = &object_69B110.flt_00001C;
+  object_69B110.flt_000008 = v17;
+  object_69B110.flt_000004 = *(float *)&v18;
+  v29 = &object_69B110;
+  object_69B110.flt_00000C = v16;
   dword_69B138 = *(_DWORD *)(v14 + 16);
-  if ( !sub_436932_GetFacetOrientation(*(_BYTE *)(v14 + 20), (int)&dword_69B114, (int)&unk_69B120, (int)&unk_69B12C) )
+  if ( !sub_436932_GetFacetOrientation(*(_BYTE *)(v14 + 20), &object_69B110.flt_000004, &object_69B110, &object_69B110.flt_00001C) )
   {
     v30 = 119;
     v29 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Light.cpp";
@@ -10283,7 +10283,7 @@ char __thiscall sub_45BC07(void *this, int a2, int a3, signed int a4, int a5, fl
       LOBYTE(v23) = *(_BYTE *)(a2 + a5 + 976);
       *(float *)&v25 = (double)v40;
       *(float *)&v24 = (double)v39;
-      if ( !sub_45BE86(v38, (int)&v31, v24, *(float *)&v20, v25, v23, (int)&unk_69B110, a4, v43, a7) )
+      if ( !sub_45BE86(v38, (int)&v31, v24, *(float *)&v20, v25, v23, &object_69B110, a4, v43, a7) )
       {
         v30 = 138;
         v29 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Light.cpp";
@@ -12670,7 +12670,7 @@ LABEL_17:
     i = 0;
     while ( 1 )
     {
-      if (sub_492C0B(&pParty_global->pPlayers[i++]))
+      if (Player_sub_492C0B(&pParty_global->pPlayers[i++]))
         break;
       if (i >= 4)
         goto LABEL_46;
@@ -12692,7 +12692,7 @@ LABEL_46:
         if ( *(_DWORD *)v20 )
         {
           v21 = *(int *)((char *)&v19[9 * *(_DWORD *)v20 - 1559] - 3);
-          if ( byte_5D2A00[48 * v21] == 12 )
+          if (pClass40->pItems[v21 - 1].uEquipType == 12 )
             break;
         }
         v40 += 4294967296i64;
@@ -13278,7 +13278,7 @@ LABEL_43:
       }
       if ( *(_WORD *)(v14 + 14) == (_WORD)v13 )
       {
-        if ( sub_44C2F4((void *)(v14 - 8)) )
+        if ( sub_44C2F4_SomeDecorationTypeCheck((void *)(v14 - 8)) )
         {
           if ( v39 < 124 )
           {
@@ -13310,7 +13310,7 @@ LABEL_43:
         {
           if ( v25 != 220 )
           {
-            if ( byte_5D2A00[48 * v25] == 14 )
+           if (pClass40->pItems[v25 - 1].uEquipType == 14 )
             {
               if ( *(_DWORD *)(v24 + 4) == v13 )
                 *(_DWORD *)(v24 + 4) = rand() % 15 + 5;
@@ -13391,7 +13391,7 @@ LABEL_90:
     v32 = 1;
     do
     {
-      v30 = sub_492C0B((int)*(&ptr_A750C4 + v32));
+      v30 = Player_sub_492C0B((int)*(&ptr_A750C4 + v32));
       if ( v30 )
         v38[v31++] = v32;
       ++v32;
@@ -14126,7 +14126,7 @@ LABEL_52:
       SetWindowLongA(hWnd_global, -20, 0);
       SetWindowLongA(hWnd_global, -16, 268435456);
       Render_Initialize(pD3DRenderer, hWnd_global);
-      v0 = (double)dword_4E2900_GammaPos * *(double *)&byte_4D8410[112] + *(double *)&byte_4D8410[352];
+      v0 = (double)dword_4E2900_GammaPos * 0.10000000000000001 + 0.59999999999999998;
       sub_44F4D9(*(_DWORD *)(LODWORD(pGame) + 3696), v0);
     }
     else
