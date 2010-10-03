@@ -7238,6 +7238,7 @@ int CharacterUI_LoadPaperdollTextures()
  for (uPlayer = 0; uPlayer < 4; ++uPlayer)
  {
   unsigned int uFace;
+
     if ( sub_43EE77(uPlayer + 1) ) // underwater suits
     {
       v1 = Player_GetRace(pPlayers[uPlayer]);
@@ -7285,10 +7286,10 @@ int CharacterUI_LoadPaperdollTextures()
       if (uFace == 12 || uFace == 13) // dwarf male, load beard
       {
         wsprintfW(Str1, L"pc%02dbrd", uFace + 1);
-        pPaperdollTextures_Beards[uFace] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1);
+        pPaperdollTextures_Beards[uPlayer] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1);
       }
       wsprintfW(Str1, L"item281pc%02d", uFace + 1);
-      pPaperdollTextures_Feet[uFace] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1);
+      pPaperdollTextures_Feet[uPlayer] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, Str1);
       byte_5111B9[uPlayer] = 0;
     }
   }
