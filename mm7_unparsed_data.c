@@ -168,16 +168,12 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  int dword_4E58D4; // weak
  int dword_4E5AD0[array_size_unknown]; // weak
  int dword_4E5AD4[array_size_unknown]; // weak
- int dword_4E5AE0[array_size_unknown]; // weak
- int dword_4E5AE4[array_size_unknown]; // weak
- int dword_4E5B00; // weak
- int dword_4E5B04; // weak
- int dword_4E5B20; // weak
- int dword_4E5B24; // weak
- int dword_4E5B40; // weak
- int dword_4E5B44; // weak
- int dword_4E5C1C; // weak
- int dword_4E5C34; // weak
+ int dword_4E5AE0[8] = { 103, 106, 101, 108, 116, 141, 116, 147 };
+ int dword_4E5B00[8] = { 26, 107,  40, 109,  25, 141,  32, 146 }; // XY of left hand position on paperdoll
+ int dword_4E5B20[8] = { 30, 144,  34, 158,  25, 186,  31, 184 }; // XY of right hand position on paperdoll
+ int dword_4E5B40[8] = { 128, 205, 131, 201, 131, 216, 123, 216 }; // XY position of left empty hand on paperdoll
+ int dword_4E5C1C = 490; // weak
+ int dword_4E5C34 = 202; // weak
  int dword_4E5D68[array_size_unknown]; // weak
  int dword_4E5D6C[array_size_unknown]; // weak
  char byte_4E5DD8[array_size_unknown]; // weak

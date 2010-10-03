@@ -173,14 +173,10 @@ extern int dword_4E58D0; // weak
 extern int dword_4E58D4; // weak
 extern int dword_4E5AD0[array_size_unknown]; // weak
 extern int dword_4E5AD4[array_size_unknown]; // weak
-extern int dword_4E5AE0[array_size_unknown]; // weak
-extern int dword_4E5AE4[array_size_unknown]; // weak
-extern int dword_4E5B00; // weak
-extern int dword_4E5B04; // weak
-extern int dword_4E5B20; // weak
-extern int dword_4E5B24; // weak
-extern int dword_4E5B40; // weak
-extern int dword_4E5B44; // weak
+extern int dword_4E5AE0[8]; 
+extern int dword_4E5B00[8]; 
+extern int dword_4E5B20[8]; 
+extern int dword_4E5B40[8]; 
 extern int dword_4E5C1C; // weak
 extern int dword_4E5C34; // weak
 extern int dword_4E5D68[array_size_unknown]; // weak

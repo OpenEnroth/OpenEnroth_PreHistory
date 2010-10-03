@@ -12215,7 +12215,6 @@ int __thiscall sub_46172B(int this)
 //----- (00419401) --------------------------------------------------------
 int __cdecl sub_419401()
 {
-  int i; // eax@3
   int v1; // ecx@3
   int result; // eax@8
   int v3; // esi@8
@@ -12235,24 +12234,25 @@ int __cdecl sub_419401()
   int *v17; // [sp+18h] [bp-Ch]@25
   char *v18; // [sp+1Ch] [bp-8h]@8
   int v19; // [sp+20h] [bp-4h]@8
+  struct GUIButton *pControl;
 
   v11 = 0;
   if ( dword_507CC0 )
     sub_4196A0();
   v1 = uActiveCharacter;
   dword_507CC0 = uActiveCharacter;
-  for ( i = *(_DWORD *)(pGUIWindow_CurrentMenu + 76); i; i = *(_DWORD *)(i + 52) )
+  for ( pControl = pGUIWindow_CurrentMenu->pControlsHead; pControl; pControl = pControl->pNext)
   {
-    if ( *(_DWORD *)(i + 32) == 120 )
+    if ( pControl->dword_000020 == 120 )
     {
-      dword_50698C = *(_DWORD *)i;
-      dword_506988 = *(_DWORD *)(i + 4);
-      dword_506984 = *(_DWORD *)(i + 16);
-      dword_506980 = *(_DWORD *)(i + 20);
-      *(_DWORD *)(i + 20) = 0;
-      *(_DWORD *)(i + 16) = 0;
-      *(_DWORD *)(i + 4) = 0;
-      *(_DWORD *)i = 0;
+      dword_50698C = pControl->uX;
+      dword_506988 = pControl->uY;
+      dword_506984 = pControl->uZ;
+      dword_506980 = pControl->uW;
+      pControl->uX = 0;
+      pControl->uY = 0;
+      pControl->uZ = 0;
+      pControl->uW = 0;
       v1 = uActiveCharacter;
     }
   }

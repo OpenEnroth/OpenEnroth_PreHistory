@@ -2750,7 +2750,7 @@ signed int __thiscall sub_49387A(void *this)
       ++result;
       if ( result > 4 )
         result = 1;
-      if ( !*((_WORD *)*(&ptr_A750C4 + result) + 3226) )
+      if ( !*((_WORD *)*(&ptr_A750C4 + result) + 3226) ) // pPlayer[result]->cInventorySlots[74].uItemID
         break;
       ++v3;
       if ( v3 >= 4 )
