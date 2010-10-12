@@ -293,7 +293,7 @@ void CVideoPlayer_Initialize(struct CVideoPlayer *_this)
  _this->bUsingSmackerMMX = SmackUseMMX(1);
 
  _this->dword_00006C = 0;
- _this->hWnd = hWnd_global;
+ _this->hWnd = pAppWindow->GetAPIHandle();
 
  BinkSetSoundSystem(BinkOpenMiles, pAudioPlayer->hDigDriver);
 

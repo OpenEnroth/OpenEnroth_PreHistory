@@ -845,7 +845,6 @@ int __cdecl sub_463149()
       GameUI_Update();
       sub_42FC4E_ProcessPressedKeys();
       GameUI_Process();
-      Game_Process_cpp();
       if ( struct_505898.byte_505992 )
       {
         sub_409E6A();
@@ -3393,45 +3392,56 @@ void class06_sub_4A90A0(struct class06 *_this)
  SpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, SpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell97c"));
 }
 
-//----- (mm7.exe::00464B02) --------------------------------------------------------
-LSTATUS __fastcall CreateRegistryKey(const char *pName, const char *pValue)
+void CreateRegistryWString(const wchar_t *pName, const wchar_t *pValue, unsigned int uSize)
 {
-  LSTATUS result; // eax@1
-  size_t v3; // eax@5
-  const CHAR *v4; // [sp+4h] [bp-1Ch]@1
-  const char *v5; // [sp+8h] [bp-18h]@1
-  DWORD dwDisposition; // [sp+Ch] [bp-14h]@2
-  HKEY hKey; // [sp+10h] [bp-10h]@1
-  HKEY phkResult; // [sp+14h] [bp-Ch]@1
-  HKEY v9; // [sp+18h] [bp-8h]@1
-  HKEY v10; // [sp+1Ch] [bp-4h]@1
-
-  v5 = pValue;
-  v4 = pName;
-  v10 = 0;
-  v9 = 0;
-  hKey = 0;
-  phkResult = 0;
-  result = RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE", 0, 0x2001Fu, &hKey);
-  if ( !result )
+ HKEY hSoftware = 0,
+      hNewWorldComputing = 0,
+      hVer10 = 0,
+      hValue = 0;
+ if (!RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE", 0, 0x2001Fu, &hSoftware))
+ {
+  if (!RegCreateKeyExA(hSoftware, "New World Computing", 0, "", 0, 983103u, 0, &hNewWorldComputing, 0))
   {
-    if ( !RegCreateKeyExA(hKey, "New World Computing", 0, "", 0, 983103u, 0, &phkResult, &dwDisposition) )
+   if (!RegCreateKeyExA(hNewWorldComputing, "Might and Magic VII", 0, "", 0, 0xF003Fu, 0, &hVer10, 0))
+   {
+    if (!RegCreateKeyExA(hVer10, "1.0", 0, "", 0, 0xF003Fu, 0, &hValue, 0) )
     {
-      if ( !RegCreateKeyExA(phkResult, "Might and Magic VII", 0, "", 0, 0xF003Fu, 0, &v9, &dwDisposition) )
-      {
-        if ( !RegCreateKeyExA(v9, "1.0", 0, "", 0, 0xF003Fu, 0, &v10, &dwDisposition) )
-        {
-          v3 = strlen(v5);
-          RegSetValueExA(v10, v4, 0, 1u, (const BYTE *)v5, v3 + 1);
-          RegCloseKey(v10);
-        }
-        RegCloseKey(v9);
-      }
-      RegCloseKey(phkResult);
+     RegSetValueExW(hValue, pName, 0, 0, (BYTE *)pValue, uSize * sizeof(wchar_t));
+     RegCloseKey(hValue);
     }
-    result = RegCloseKey(hKey);
+    RegCloseKey(hVer10);
+   }
+   RegCloseKey(hNewWorldComputing);
   }
-  return result;
+  RegCloseKey(hSoftware);
+ }
+}
+
+
+//----- (mm7.exe::00464B02) --------------------------------------------------------
+void CreateRegistryKey(const char *pName, const char *pValue)
+{
+ HKEY hSoftware = 0,
+      hNewWorldComputing = 0,
+      hVer10 = 0,
+      hValue = 0;
+ if (!RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE", 0, 0x2001Fu, &hSoftware))
+ {
+  if (!RegCreateKeyExA(hSoftware, "New World Computing", 0, "", 0, 983103u, 0, &hNewWorldComputing, 0))
+  {
+   if (!RegCreateKeyExA(hNewWorldComputing, "Might and Magic VII", 0, "", 0, 0xF003Fu, 0, &hVer10, 0))
+   {
+    if (!RegCreateKeyExA(hVer10, "1.0", 0, "", 0, 0xF003Fu, 0, &hValue, 0))
+    {
+     RegSetValueExA(hValue, pName, 0, REG_SZ, (BYTE *)pValue, lstrlenA(pValue) + 1);
+     RegCloseKey(hValue);
+    }
+    RegCloseKey(hVer10);
+   }
+   RegCloseKey(hNewWorldComputing);
+  }
+  RegCloseKey(hSoftware);
+ }
 }
 
 //----- (0040D2B4) --------------------------------------------------------
@@ -11116,7 +11126,7 @@ void __thiscall sub_416D62(int _this)
   if ( pD3DRenderer->dword_040058 )
   {
     GetCursorPos(&Point);
-    ScreenToClient(hWnd_global, &Point);
+    ScreenToClient(pAppWindow->GetAPIHandle(), &Point);
     if ( (_DWORD)Point.x < 1 || Point.y < 1 || (_DWORD)Point.x > 638 || Point.y > 478 )
     {
       sub_4356FF();

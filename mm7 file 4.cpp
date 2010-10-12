@@ -9273,7 +9273,8 @@ LSTATUS __fastcall sub_45A960(const CHAR *a1, const char *a2)
   v30 = sub_45AE2C(*((_DWORD *)v3 + 30));
   CreateRegistryKey("KEY_LAND", v30);
   v31 = sub_45AE2C(*((_DWORD *)v3 + 22));
-  return CreateRegistryKey("KEY_ALWAYSRUN", v31);
+  CreateRegistryKey("KEY_ALWAYSRUN", v31);
+ return 0;
 }
 
 //----- (0045ABCA) --------------------------------------------------------
@@ -13822,7 +13823,7 @@ int __cdecl sub_46271C()
   int result; // eax@1
 
   stru_6A0DA0.lStructSize = 76;
-  stru_6A0DA0.hwndOwner = hWnd_global;
+  stru_6A0DA0.hwndOwner = pAppWindow->GetAPIHandle();
   result = 0;
   stru_6A0DA0.hInstance = 0;
   stru_6A0DA0.lpstrFilter = "Indoor  BLV Files (*.blv)";
@@ -13876,9 +13877,9 @@ void __thiscall sub_464761(void *Code)
   sub_464479();
   v3 = sub_4645FA();
   sub_49FC23(v3, (int)pD3DRenderer);
-  if ( !DestroyWindow(hWnd_global) )
+  if ( !DestroyWindow(pAppWindow->GetAPIHandle()) )
     GetLastError();
-  hWnd_global = 0;
+  //hWnd_global = 0;
   exit(v1);
 }
 
@@ -14112,26 +14113,26 @@ LABEL_52:
     }
     if ( pD3DRenderer->dword_040058 )
     {
-      if ( GetWindowRect(hWnd_global, &Rect) )
+      if ( GetWindowRect(pAppWindow->GetAPIHandle(), &Rect) )
       {
         RegistryWriteInt("window X", Rect.left);
         RegistryWriteInt("window Y", Rect.top);
         uWindowPosX = Rect.left;
         uWindowPosY = Rect.top;
       }
-      SetMenu(hWnd_global, 0);
-      SetWindowLongA(hWnd_global, -20, 0);
-      SetWindowLongA(hWnd_global, -16, 268435456);
-      Render_Initialize(pD3DRenderer, hWnd_global);
+      SetMenu(pAppWindow->GetAPIHandle(), 0);
+      SetWindowLongA(pAppWindow->GetAPIHandle(), -20, 0);
+      SetWindowLongA(pAppWindow->GetAPIHandle(), -16, 268435456);
+      Render_Initialize(pD3DRenderer, pAppWindow->GetAPIHandle());
       v0 = (double)dword_4E2900_GammaPos * 0.10000000000000001 + 0.59999999999999998;
       GammaController_sub_44F4D9(pGame->pGammaController, v0);
     }
     else
     {
       ClipCursor(0);
-      Render_InitWindowed(pD3DRenderer, hWnd_global);
-      SetWindowLongA(hWnd_global, -16, dwNewLong);
-      SetMenu(hWnd_global, hMenu);
+      Render_InitWindowed(pD3DRenderer, pAppWindow->GetAPIHandle());
+      SetWindowLongA(pAppWindow->GetAPIHandle(), -16, dwNewLong);
+      SetMenu(pAppWindow->GetAPIHandle(), hMenu);
     }
     if ( pD3DRenderer->pRenderD3D3 )
     {
@@ -14197,8 +14198,8 @@ LABEL_38:
     if ( pD3DRenderer->dword_040058 )
     {
       InvalidateRect(0, 0, 0);
-      MoveWindow(hWnd_global, uWindowPosX, uWindowPosY, uWindowWidth, uWindowHeight, 0);
-      ShowWindow(hWnd_global, 1);
+      MoveWindow(pAppWindow->GetAPIHandle(), uWindowPosX, uWindowPosY, uWindowWidth, uWindowHeight, 0);
+      ShowWindow(pAppWindow->GetAPIHandle(), 1);
     }
     pGame->pClass03->dword_000004 = 1;
     if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )

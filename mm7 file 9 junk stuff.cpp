@@ -1079,7 +1079,7 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
   if (pD3DRenderer)
   {
     if (pD3DRenderer->uAcquiredDirect3DDevice == 1 )
-      SetWindowPos(hWnd_global, (HWND)0xFFFFFFFE, 0, 0, 0, 0, 0x18u);
+      SetWindowPos(pAppWindow->GetAPIHandle(), (HWND)0xFFFFFFFE, 0, 0, 0, 0, 0x18u);
   }
   ClipCursor(0);
   v21 = &v16;
@@ -1095,7 +1095,7 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
   v14 = *(const CHAR **)(a1 + 4);
   if ( !v14 )
     v14 = (char *)byte_4D8410 + 736;
-  MessageBoxA(hWnd_global, v14, v12, uType);
+  MessageBoxA(pAppWindow->GetAPIHandle(), v14, v12, uType);
   if (pGame)
   {
     v15 = (int)pGame->class14_obj;

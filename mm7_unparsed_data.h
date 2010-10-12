@@ -10,6 +10,12 @@
 #include "Actor.h"
 #include "Player.h"
 #include "classes.h"
+#include "Window.h"
+
+
+
+extern OSWindow *pAppWindow;
+
 
 
 extern char aTooManyStation[]; // byte[] @ MM7.exe::004F0364
@@ -1824,10 +1830,10 @@ extern float flt_6BE148; // weak
 extern float fTurnSpeedMultiplier; // float @ MM7.exe::006BE14C
 extern float flt_6BE150; // weak
 //char byte_6BE2D8[20];
-extern wchar_t pWindowClassName[20];
+//extern wchar_t pWindowClassName[20];
 extern HINSTANCE hInstance; // idb
 extern const char *pCommand;
-extern HWND hWnd_global; // idb
+//extern HWND hWnd_global; // idb
 extern unsigned int uWindowWidth;
 extern unsigned int uWindowHeight;
 extern unsigned int uWindowPosX;

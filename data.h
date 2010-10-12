@@ -199,7 +199,8 @@ extern unsigned char TmpBuf[];
 extern unsigned char pStringBuffer[];
 
 
-extern unsigned char cGameCDDriveLetter;
+//extern unsigned char cGameCDDriveLetter;
+extern wchar_t cGameCDDriveLetter;
 
 
 extern struct Edge *pNewEdgesBuf;

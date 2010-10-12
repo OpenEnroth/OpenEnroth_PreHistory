@@ -141,7 +141,7 @@ unsigned int RenderD3D10::CreateTexture(const wchar_t *pTextureName, Texture **p
 
 
 
-unsigned int RenderD3D10::Reset(Window *pOutputWindow, bool bFullscreen, struct Viewport *pOutputArea)
+unsigned int RenderD3D10::Reset(OSWindow *pOutputWindow, bool bFullscreen, struct Viewport *pOutputArea)
 {
  pTargetWindow = pOutputWindow;
 

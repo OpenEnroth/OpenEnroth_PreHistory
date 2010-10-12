@@ -3,7 +3,7 @@
 
 
 
-unsigned int Window::Update(float dt)
+unsigned int Win32Window::Update(float dt)
 {
  MSG  msg;
  unsigned int uMessagesLeft = PeekMessageW(&msg, hWindow, 0, 0, PM_REMOVE);
@@ -18,7 +18,7 @@ unsigned int Window::Update(float dt)
 }
 
 
-unsigned int Window::GetClientArea(struct Viewport *pOutArea)
+unsigned int Win32Window::GetClientArea(struct Viewport *pOutArea)
 {
  RECT rcClient;
 
@@ -32,7 +32,7 @@ unsigned int Window::GetClientArea(struct Viewport *pOutArea)
  return 0;
 }
 
-unsigned int Window::GetWindowArea(struct Viewport *pOutArea)
+unsigned int Win32Window::GetWindowArea(struct Viewport *pOutArea)
 {
  RECT rcWindow;
 
@@ -46,17 +46,17 @@ unsigned int Window::GetWindowArea(struct Viewport *pOutArea)
  return 0;
 }
 
-void *Window::GetAPIHandle()
+HWND Win32Window::GetAPIHandle()
 {
  return hWindow;
 }
 
-unsigned int Window::OnClose()
+unsigned int Win32Window::OnClose()
 {
  return -1;
 }
 
-unsigned int Window::SetClientArea(struct Viewport *pArea)
+unsigned int Win32Window::SetClientArea(struct Viewport *pArea)
 {
  RECT rcWindow, rcClient;
  GetWindowRect(hWindow, &rcWindow);
@@ -73,23 +73,39 @@ unsigned int Window::SetClientArea(struct Viewport *pArea)
  return 0;
 }
 
-unsigned int Window::SetWindowArea(struct Viewport *pArea)
+unsigned int Win32Window::SetWindowArea(struct Viewport *pArea)
 {
  SetWindowPos(hWindow, HWND_TOP, pArea->x, pArea->y, pArea->z - pArea->x, pArea->w - pArea->y, 0);
  return 0;
 }
 
 
-unsigned int Window::Show()
+unsigned int Win32Window::Show()
 {
  ShowWindow(hWindow, SW_SHOWNORMAL);
  return 0;
 }
 
 long *__stdcall wDefaultWinProc(HWND, unsigned int, unsigned int, long *);
-unsigned int Window::Initialize(const wchar_t *pWindowClassName, const wchar_t *pWindowName, bool bWindowFrame)
+unsigned int Win32Window::Initialize(const wchar_t *pWindowClassName, const wchar_t *pWindowCaptionName, unsigned int uCreationParams)
 {
  lstrcpyW(pClassName, pWindowClassName);
+ lstrcpyW(pWindowName, pWindowCaptionName);
+ uCreationFlags = uCreationParams;
+
+ hWindow = FindWindowW(pClassName, 0);
+ if (hWindow)
+ {
+  if (IsIconic(hWindow))
+    ShowWindow(hWindow, SW_RESTORE);
+
+  SetWindowLongPtrW(hWindow, GWL_STYLE, (LONG_PTR)(WS_OVERLAPPEDWINDOW | WS_VISIBLE));
+  ShowWindow(hWindow, SW_SHOWNORMAL);
+  UpdateWindow(hWindow);
+
+  SetForegroundWindow(GetLastActivePopup(hWindow));
+  return -1;
+ }
 
  wcxw.cbClsExtra = 0;
  wcxw.cbSize = sizeof(WNDCLASSEXW);
@@ -104,20 +120,23 @@ unsigned int Window::Initialize(const wchar_t *pWindowClassName, const wchar_t *
  wcxw.style = CS_OWNDC;
  RegisterClassExW(&wcxw);
 
- if (bWindowFrame)
-   hWindow = CreateWindowExW(0, pClassName, pWindowName, WS_OVERLAPPEDWINDOW, 0, 0, 640, 480, 0, 0, wcxw.hInstance, this);
- else hWindow = CreateWindowExW(0, pClassName, pWindowName, WS_OVERLAPPEDWINDOW, 0, 0, 640, 480, 0, 0, wcxw.hInstance, this);
+ if (uCreationParams & WindowCreationParams::Framed)
+   hWindow = CreateWindowExW(0, pClassName, pWindowName, WS_OVERLAPPEDWINDOW, 0, 0, 1, 1, 0, 0, wcxw.hInstance, this);
+ else hWindow = CreateWindowExW(0, pClassName, pWindowName, WS_POPUP, 0, 0, 1, 1, 0, 0, wcxw.hInstance, this);
 
  return 0;
 }
 
-unsigned int Window::SystemMessageHandler(unsigned int msg, unsigned int wparam, long *lparam)
+unsigned int Win32Window::SystemMessageHandler(unsigned int msg, unsigned int wparam, long *lparam)
 {
  return -1;
 }
 
 
 
+
+
+/*
 long *__stdcall wDefaultWinProc(HWND hwnd, unsigned int msg, unsigned int wparam, long *lparam)
 {
  if (msg == WM_NCCREATE || msg == WM_NCCALCSIZE)
@@ -133,5 +152,5 @@ long *__stdcall wDefaultWinProc(HWND hwnd, unsigned int msg, unsigned int wparam
  if (!pTarget->SystemMessageHandler(msg, wparam, lparam))
    return 0;
  else return (long *)DefWindowProcW(hwnd, msg, wparam, (LPARAM)(lparam));
-}
+}*/
 

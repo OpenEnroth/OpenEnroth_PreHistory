@@ -1353,7 +1353,7 @@ LONG __thiscall sub_469AE4(int _this)
   {
     GetCursorPos(&Point);
     if ( pD3DRenderer->dword_040058 )
-      ScreenToClient(hWnd_global, &Point);
+      ScreenToClient(pAppWindow->GetAPIHandle(), &Point);
     result = Point.y;
     v3 = Point.x;
   }
@@ -2557,7 +2557,7 @@ int __thiscall sub_46ADE2(int _this)
     (**(void (__stdcall ***)(_DWORD))v1)(1);
   *(_DWORD *)v2 = 0;
   TerminateThread(*(HANDLE *)(v3 + 16), 0xFAu);
-  v5 = SetWindowPos(hWnd_global, (HWND)0xFFFFFFFE, uWindowPosX, uWindowPosY, 640, 480, 0);
+  v5 = SetWindowPos(pAppWindow->GetAPIHandle(), (HWND)0xFFFFFFFE, uWindowPosX, uWindowPosY, 640, 480, 0);
   v6 = sub_46BC73(v5, v3 + 116);
   return sub_46BC73(v6, v3 + 104);
 }
@@ -3513,7 +3513,7 @@ void *__cdecl sub_46BBD0()
   char *v8; // [sp+10h] [bp-8h]@2
   int v9; // [sp+17h] [bp-1h]@2
 
-  SetWindowPos(hWnd_global, (HWND)((unsigned int)(HWND_MESSAGE)|0x2), 320, 240, 640, 480, 0);
+  SetWindowPos(pAppWindow->GetAPIHandle(), (HWND)((unsigned int)(HWND_MESSAGE)|0x2), 320, 240, 640, 480, 0);
   Rect.left = 325;
   Rect.top = 245;
   Rect.right = 326;

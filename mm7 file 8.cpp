@@ -499,7 +499,7 @@ LABEL_74:
   }
 }
 
-#include "_c_interface.h"
+
 //----- (0046086A) --------------------------------------------------------
 bool MaybeDoAutosave()
 {
@@ -2399,8 +2399,8 @@ int __cdecl MenuLoop_Main()
  uTextureID_CurrentMenu = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"Title");
 
  SetCurrentMenu(MENU_MAIN);
- SetForegroundWindow(hWnd_global);
- SendMessageA(hWnd_global, WM_ACTIVATEAPP, 1, 0);
+ SetForegroundWindow(pAppWindow->GetAPIHandle());
+ SendMessageA(pAppWindow->GetAPIHandle(), WM_ACTIVATEAPP, 1, 0);
 
  while (uCurrentMenuID == MENU_MAIN || uCurrentMenuID == MENU_LOAD)
  {
@@ -4021,8 +4021,6 @@ LABEL_8:
  return v9;
 }
 
-void *pCamera;
-#include "_c_interface.h"
 //----- (004647AB) --------------------------------------------------------
 void InitializeCameraAndViewport()
 {
@@ -4990,7 +4988,7 @@ int __cdecl sub_4645FA()
       Keyboard_suspend(pAsyncKeyboard);
   }
   RegistryWriteInt("startinwindow", pD3DRenderer->dword_040058);
-  if ( GetWindowRect(hWnd_global, &Rect) )
+  if ( GetWindowRect(pAppWindow->GetAPIHandle(), &Rect) )
   {
     if ( pD3DRenderer->dword_040058 )
     {
@@ -10335,76 +10333,106 @@ void ShowLastError(void)
 }
 
 //----- (MM7.exe::00465061) --------------------------------------------------------
-bool __fastcall CheckForCD(HWND hwnd, unsigned char *pGameCDDriveLetter)
+bool CheckForMM7CD(HWND hwnd, wchar_t *pGameCDDriveLetter)
 {
-  BYTE v2; // al@6
-  DWORD v3; // esi@12
   char result; // al@19
   char cDriveLetter; // al@21
   DWORD cbData; // [sp+Ch] [bp-28h]@1
   char RootPathName[4]; // [sp+10h] [bp-24h]@15
   //char *v8; // [sp+14h] [bp-20h]@1
-  HKEY hKey; // [sp+18h] [bp-1Ch]@1
-  HKEY phkResult; // [sp+1Ch] [bp-18h]@1
-  HKEY v11; // [sp+20h] [bp-14h]@1
-  HKEY v12; // [sp+24h] [bp-10h]@1
-  BYTE Data[4]; // [sp+28h] [bp-Ch]@5
   char v14; // [sp+29h] [bp-Bh]@21
   char v15; // [sp+2Ah] [bp-Ah]@21
   int v16; // [sp+2Ch] [bp-8h]@13
-  char v17; // [sp+33h] [bp-1h]@1
   int ret;
 
-  v12 = 0;
-  v11 = 0;
-  hKey = 0;
-  phkResult = 0;
-  v17 = 0;
-  cbData = 3;
-  if ( RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE", 0, 131103u, &hKey) )
-    goto LABEL_25;
-  if ( !RegOpenKeyExA(hKey, "New World Computing", 0, 0x2001Fu, &phkResult) )
+ cbData = 8;
+
+ HKEY hSoftware,
+      hNewWorldComputing,
+      hMightAndMagic7,
+      hV10;
+
+ wchar_t pRoot[4];
+ lstrcpyW(pRoot, L"X:");
+
+ if (!RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE", 0, 131103u, &hSoftware))
+ {
+  if (!RegOpenKeyExA(hSoftware, "New World Computing", 0, 0x2001Fu, &hNewWorldComputing))
   {
-    if ( !RegOpenKeyExA(phkResult, "Might and Magic VII", 0, 0x2001Fu, &v11) )
+    if (!RegOpenKeyExA(hNewWorldComputing, "Might and Magic VII", 0, 0x2001Fu, &hMightAndMagic7))
     {
-      if ( !RegOpenKeyExA(v11, "1.0", 0, 0x2001Fu, &v12) )
+      if (!RegOpenKeyExA(hMightAndMagic7, "1.0", 0, 0x2001Fu, &hV10))
       {
-        if ( !RegQueryValueExA(v12, "CDDrive", 0, 0, Data, &cbData) )
+        if (!RegQueryValueExA(hV10, "CDDrive", 0, 0, (BYTE *)pRoot, &cbData))
         {
-          v2 = Data[0];
-          v17 = 1;
-          *pGameCDDriveLetter = Data[0];
-          //pAudioPlayer->cGameCDDriveLetter = Data[0];
+         *pGameCDDriveLetter = pRoot[0];
+
+         if (IsMM7CD(pRoot))
+           return true;
         }
-        RegCloseKey(v12);
+        RegCloseKey(hV10);
       }
-      RegCloseKey(v11);
+      RegCloseKey(hMightAndMagic7);
     }
-    RegCloseKey(phkResult);
+    RegCloseKey(hNewWorldComputing);
   }
-  RegCloseKey(hKey);
-  if ( v17 && IsMM7CD(*pGameCDDriveLetter) )
+  RegCloseKey(hSoftware);
+ }
+
+ OSWindow *pInsertCDDialog = 0;
+ while (true)
+ {
+  for (unsigned int i = L'A'; i <= L'Z'; ++i)
   {
-LABEL_22:
-    result = 1;
+   pRoot[0] = i;
+   if (GetDriveTypeW(pRoot) != DRIVE_CDROM)
+     continue;
+
+   if (IsMM7CD(pRoot))
+   {
+    CreateRegistryWString(L"CDDrive", pRoot, 4);
+
+    if (pInsertCDDialog)
+      delete pInsertCDDialog;
+
+    return true;
+   }
   }
-  else
+  /*
+  pInsertCDDialog = new Win32Window;
+  pInsertCDDialog->Initialize(L"MM7icdd", L"Insert Might and Magic CD", WindowCreationParams::Framed | WindowCreationParams::Unique);
+
+  unsigned int uWindowPosX = GetSystemMetrics(SM_CXSCREEN),
+               uWindowPosY = GetSystemMetrics(SM_CYSCREEN);
+  struct Viewport wndArea =
   {
-LABEL_25:
-    v3 = GetLogicalDrives();
+   uWindowPosX - 128 / 2, uWindowPosY - 64 / 2,
+   uWindowPosX + 128 / 2, uWindowPosY + 64 / 2,
+   0,                     0
+  };
+  pInsertCDDialog->SetClientArea(&wndArea);
+  pInsertCDDialog->Show();*/
+  Sleep(1500);
+ }
+
+ delete pInsertCDDialog;
+ return false;
+}
+
+    /*
     while ( 2 )
     {
       v16 = 2;
       do
       {
-        if ( (1 << v16) & v3 )
+        if ( (1 << v16) & uNumDrives )
         {
           strcpy((char *)RootPathName, "X:\\");
-          v17 = v16 + 65;
+          bCDDriveInRegistry = v16 + 65;
           RootPathName[0] = v16 + 65;
           if ( GetDriveTypeA(RootPathName) == 5 )
           {
-            if ( IsMM7CD(v17) )
+            if ( IsMM7CD(bCDDriveInRegistry) )
             {
               cDriveLetter = v16 + 65;
               *pGameCDDriveLetter = v16 + 65;
@@ -10414,23 +10442,23 @@ LABEL_25:
               v15 = 0;
               CreateRegistryKey("CDDrive", (const char *)&Data);
               //pAudioPlayer->cGameCDDriveLetter = Data;
-              goto LABEL_22;
+              return 1;
             }
           }
         }
         ++v16;
       }
       while ( v16 < 26 );
-      ret = DialogBoxParamA(hInstance, "InsertCD", hWnd_global, (DLGPROC)DialogFunc, 0);
+      ret = DialogBoxParamA(hInstance, "InsertCD", pAppWindow->GetAPIHandle(), (DLGPROC)DialogFunc, 0);
       if ( ret == -1) ShowLastError();
       if ( ret > 0)
         continue;
       break;
     }
     result = 0;
-  }
+
   return result;
-}
+}*/
 
 //----- (00409BE8) --------------------------------------------------------
 int __cdecl sub_409BE8()
@@ -10885,38 +10913,17 @@ char __cdecl sub_409FE9()
 }
 
 //----- (MM7::00464E17) --------------------------------------------------------
-int __fastcall IsMM7CD(char cDriveLetter)
+bool IsMM7CD(wchar_t *pRootDir)
 {
-  FILE *f; // eax@3
-  char result; // al@7
-  CHAR DstBuf[256]; // [sp+Ch] [bp-218h]@1
-  char strCommand[256]; // [sp+10Ch] [bp-118h]@1
-  char Filename[256]; // [sp+20Ch] [bp-18h]@1
-  char v7; // [sp+220h] [bp-4h]@1
+ wchar_t pMagic7Vid[256];
+ wsprintfW(pMagic7Vid, L"%s\\Anims\\Magic7.vid", pRootDir);
 
-  v7 = cDriveLetter;
-  strcpy(Filename, "X:\\anims\\magic7.vid");
-  wsprintfA(strCommand, "open %c: type cdaudio alias CD", (unsigned __int8)cDriveLetter);
-  if ( !mciSendStringA(strCommand, DstBuf, 255u, 0) )
-  {
-    wsprintfA(strCommand, "info CD UPC wait");
-    mciSendStringA(strCommand, DstBuf, 0xFFu, 0);
-    wsprintfA(strCommand, "close CD");
-    mciSendStringA(strCommand, DstBuf, 0xFFu, 0);
-  }
-  Filename[0] = cDriveLetter;
-  f = fopen(Filename, "rb");
-  if (f)
-  {
-    if ( !fseek(f, 0, 2) )
-    {
-      if ( !fseek(f, -100, 1) )
-        locked_fread(&DstBuf, 1u, 0x64u, f);
-    }
-    fclose(f);
-    return 1;
-  }
-  else return 0;
+ HANDLE hFile = CreateFileW(pMagic7Vid, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
+ if (hFile == INVALID_HANDLE_VALUE)
+   return false;
+
+ CloseHandle(hFile);
+ return true;
 }
 
 //----- (0040A198) --------------------------------------------------------

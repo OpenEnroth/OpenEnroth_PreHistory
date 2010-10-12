@@ -1646,10 +1646,8 @@ struct struct9 *pStruct9_global; // struct @ MM7.exe::006BE070
  float fTurnSpeedMultiplier = 1.0; // float @ MM7.exe::006BE14C
  float flt_6BE150 = 1.0; // weak
 //char byte_6BE2D8[20];
-wchar_t pWindowClassName[20];
  HINSTANCE hInstance; // idb
  const char *pCommand = 0; // dword @ MM7.exe::006BE2F0     command line passed to application on startup
- HWND hWnd_global; // idb
  unsigned int uWindowWidth; // idb
  unsigned int uWindowHeight; // idb
  unsigned int uWindowPosX; // idb

@@ -24,12 +24,12 @@ class DepthStencilState
    virtual unsigned int Initialize(Render *pRender, bool bZTest, bool bZWrite, DepthOperator::Op eOperator) = 0;
 };
 
-class Window;
+class OSWindow;
 class Render
 {
  public:
    virtual unsigned int Initialize() = 0;
-   virtual unsigned int Reset(Window *pTargetWindow, bool bFullscreen, struct Viewport *pOutputArea) = 0;
+   virtual unsigned int Reset(OSWindow *pTargetWindow, bool bFullscreen, struct Viewport *pOutputArea) = 0;
 
    virtual unsigned int CreateDepthStencilState(DepthStencilState **pOut) = 0;
 

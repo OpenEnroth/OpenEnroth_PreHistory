@@ -18,7 +18,7 @@ class RenderOGL: public Render
  friend class RenderOperatorOGL_DrawEnvironment;
  public:
    virtual unsigned int Initialize();
-   virtual unsigned int Reset(Window *pTargetWindow, bool bFullscreen, struct Viewport *pOutputArea);
+   virtual unsigned int Reset(OSWindow *pTargetWindow, bool bFullscreen, struct Viewport *pOutputArea);
    
    virtual unsigned int CreateDepthStencilState(DepthStencilState **pOut);
 
@@ -35,9 +35,9 @@ class RenderOGL: public Render
    virtual RenderOperator_DrawEnvironment *CreateDrawEnvironmentOperator();
 
  protected:
-   Window *pTargetWindow;
-   HDC     hTargetWindowDC;
-   HGLRC   hTargetWindowRC;
+   OSWindow *pTargetWindow;
+   HDC       hTargetWindowDC;
+   HGLRC     hTargetWindowRC;
 
    TextureOGL *pPrimaryColorTarget;
    TextureOGL *pPrimaryDepthTarget;

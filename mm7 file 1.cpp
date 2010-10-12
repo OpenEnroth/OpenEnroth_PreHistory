@@ -23,6 +23,10 @@
 #include "mm7_unparsed_functions.h"
 
 
+#include "Window.h"
+OSWindow *pAppWindow = 0;
+
+
 
 #include "CbmTools.h"
 void *hMM7Text_dll = 0;
@@ -101,22 +105,40 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
   HANDLE hProcess; // eax@68
   int v16; // [sp+8h] [bp-24h]@55
   RECT Rect; // [sp+Ch] [bp-20h]@15
-  HWND hActiveWindow;
 
 
-  Game_Initialize();
+ HWND hPreviouslyActiveWindow = GetActiveWindow();
+
+
+ if (!CheckForMM7CD(0, &cGameCDDriveLetter))
+   return 0;
+
+ pAppWindow = new Win32Window;
+ if (pAppWindow->Initialize(L"MM7cls", L"Might and Magic® VII", WindowCreationParams::Framed | ::WindowCreationParams::Unique))
+ {
+  delete pAppWindow;
+  return 0;
+ }
+
+ unsigned int uWindowPosX = ReadWindowsRegistry("window X", 0),
+              uWindowPosY = ReadWindowsRegistry("window Y", 0);
+ if (uWindowPosX >= GetSystemMetrics(SM_CXSCREEN))
+   uWindowPosX = 0;
+ if (uWindowPosY >= GetSystemMetrics(SM_CYSCREEN))
+   uWindowPosY = 0;
+
+ struct Viewport wndArea =
+ {
+  uWindowPosX,       uWindowPosY,
+  uWindowPosX + 640, uWindowPosY + 480,
+  0,         0
+ };
+ pAppWindow->SetClientArea(&wndArea);
+ pAppWindow->Show();
   
  RtlCallCtors();
  AllocConsole();
-/*
- HWND hMM7Window = FindWindowA("MM7", 0);
- if (hMM7Window)
- {
-  if (IsIconic(hMM7Window))
-    ShowWindow(hMM7Window, SW_RESTORE);
-  SetForegroundWindow(GetLastActivePopup(hMM7Window));
-  return 0;
- }*/
+
 
  if (lpCmdLine)
  {
@@ -144,7 +166,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
  Rect.bottom = pWindowDims[3];
  dword_6A0D00 = Rect.bottom;
 
- hActiveWindow = GetActiveWindow();
  if (CreateWindowAndBasicInitialization(hInstance, lpCmdLine))
  {
   class24_fn1(pClass24_global);
@@ -284,9 +305,10 @@ LABEL_68:
   hProcess = GetCurrentProcess();
   SetPriorityClass(hProcess, NORMAL_PRIORITY_CLASS);
   sub_4645FA();
-  if (hActiveWindow)
-    SetActiveWindow(hActiveWindow);
-  return 0;
+
+ if (hPreviouslyActiveWindow)
+   SetActiveWindow(hPreviouslyActiveWindow);
+ return 0;
 }
 
 
@@ -871,7 +893,7 @@ int __fastcall sub_438F8F(int result)
   return result;
 }
 
-#include "_c_interface.h"
+
 //----- (0047A59E) --------------------------------------------------------
 void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
 {
@@ -1185,11 +1207,12 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
 
  hInstance = hInst;
  pCommand = pCmdLine;
+/*
  lstrcpyW(pWindowClassName, L"MM VII");
 
  wcxw.cbSize = sizeof(WNDCLASSEXW);
  wcxw.style = CS_VREDRAW | CS_HREDRAW | CS_DBLCLKS;
- wcxw.lpfnWndProc = (WNDPROC)wWndProc;
+ wcxw.lpfnWndProc = (WNDPROC)wDefaultWinProc;
  wcxw.cbClsExtra = 0;
  wcxw.cbWndExtra = 0;
  wcxw.hInstance = hInst;
@@ -1215,7 +1238,7 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
                                uWindowPosX, uWindowPosY,
                                640, 480,
                                0, hMenu = 0,
-                               hInst, 0);
+                               hInst, 0);*/
  SetPriorityClass(GetCurrentProcess(), NORMAL_PRIORITY_CLASS);
  
  GetCurrentDirectoryW(255, pGameDirectory);
@@ -1237,6 +1260,7 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
  GameInitialize();
  pGame->pClass03 = pGame->class03_obj;
 
+ /*
  GetWindowRect(hWnd_global, &rcWindow);
  GetClientRect(hWnd_global, &rcClient);
  uWindowWidth = (rcWindow.right - rcWindow.left) - (rcClient.right - rcClient.left) + 640;
@@ -1244,17 +1268,9 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
 
   //here occurs WM_WINDOWPOSCHANGED which tries to access pVideoPlayer which was not created til _this moment
   //added check of pVideoPlayer pointer in wWinProc
- MoveWindow(hWnd_global, 16 + uWindowPosX, 16 + uWindowPosY, uWindowWidth, uWindowHeight, false);
+  MoveWindow(hWnd_global, 16 + uWindowPosX, 16 + uWindowPosY, uWindowWidth, uWindowHeight, false);
 
-  bLoadingFromCD = GetPrivateProfileIntW(L"settings", L"use_cd", true, pMM6ConfigFilename);
-  if (bLoadingFromCD)
-  {
-   if (!CheckForCD(hWnd_global, &cGameCDDriveLetter))
-     return 0;
-   v13 = 0;
-  }
-
- ShowWindow(hWnd_global, SW_SHOWNORMAL);
+ ShowWindow(hWnd_global, SW_SHOWNORMAL);*/
 
  pLODFile_Icons_LOD = new LODFile;
  LODFile_ctor(pLODFile_Icons_LOD);
@@ -1408,16 +1424,16 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
 
  if (~dword_6BE368 & 1)  // if (!windowed)
  {
-  SetWindowLongA(hWnd_global, GWL_EXSTYLE, 0);
-  SetWindowLongA(hWnd_global, GWL_STYLE, WS_VISIBLE);
+  SetWindowLongA(pAppWindow->GetAPIHandle(), GWL_EXSTYLE, 0);
+  SetWindowLongA(pAppWindow->GetAPIHandle(), GWL_STYLE, WS_VISIBLE);
   if (dword_720010)
     sub_46BBD0();
-  Render_Initialize(pD3DRenderer, hWnd_global);
+  Render_Initialize(pD3DRenderer, pAppWindow->GetAPIHandle());
  }
  else
  {
   ClipCursor(0);
-  Render_InitWindowed(pD3DRenderer, hWnd_global);
+  Render_InitWindowed(pD3DRenderer, pAppWindow->GetAPIHandle());
  }
 
  uSoundVolumeMultiplier = ReadWindowsRegistry("soundflag", 9);
@@ -1460,7 +1476,7 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
   pAudioPlayer = new AudioPlayer;
   AudioPlayer_ctor(pAudioPlayer);
 
-  AudioPlayer_Initialize(pAudioPlayer, hWnd_global);
+  AudioPlayer_Initialize(pAudioPlayer, pAppWindow->GetAPIHandle());
  }
  dword_6BE364 |= 0x4000;
 
@@ -2958,7 +2974,7 @@ void __cdecl sub_47A815_DrawClass02Lines()
 }
 
 //----- (004637EB) --------------------------------------------------------
-long *__stdcall wWndProc(HWND hWnd, UINT Msg, signed int wParam, unsigned int lParam)
+long *__stdcall wDefaultWinProc(HWND hWnd, unsigned int uMsg, unsigned int wParam, long *lParam)
 {
   LPARAM v5; // esi@1
   HANDLE v7; // eax@32
@@ -2999,11 +3015,30 @@ long *__stdcall wWndProc(HWND hWnd, UINT Msg, signed int wParam, unsigned int lP
   int v43; // [sp+7Ch] [bp+10h]@50
  HDC hDC;
 
-  v5 = lParam;
+
+ if (uMsg == WM_NCCREATE || uMsg == WM_NCCALCSIZE)
+   return (long *)DefWindowProcW(hWnd, uMsg, wParam, (LPARAM)(lParam));
+ if (uMsg == WM_CREATE)
+ {
+  CREATESTRUCTW *pCS = (CREATESTRUCTW *)(lParam);
+  SetWindowLongPtrW(hWnd, GWLP_USERDATA, (LONG_PTR)(pCS->lpCreateParams));
+  //return (long *)DefWindowProcW(hWnd, uMsg, wParam, (LPARAM)(lParam));
+ }
+
+ Win32Window *pTarget = (Win32Window *)(GetWindowLongPtrW(hWnd, GWLP_USERDATA));
+ if (!pTarget->SystemMessageHandler(uMsg, wParam, lParam))
+   return 0;
+
+
+
+
+
+
+  v5 = (LPARAM)lParam;
 
   __asm
   {
-   mov eax, dword ptr [Msg]
+   mov eax, dword ptr [uMsg]
    cmp eax, WM_NULL
      jnz __continue
 
@@ -3011,11 +3046,11 @@ long *__stdcall wWndProc(HWND hWnd, UINT Msg, signed int wParam, unsigned int lP
 __continue:
   }
 
- if (Msg == WM_CREATE)
+ if (uMsg == WM_CREATE)
    return 0;
 
 
- switch (Msg)
+ switch (uMsg)
  {
   case WM_LBUTTONDOWN:
     v29 = 0;
@@ -3032,7 +3067,7 @@ LABEL_208:
         if ( pVideoPlayer->dword_000024 )
          pVideoPlayer->dword_000068 = 1;
         if (!dword_720010)
-          class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, lParam >> 16);
+          class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
         if ( uCurrentMenuID != MENU_CREATEPARTY)
           goto LABEL_228;
         else goto LABEL_227;
@@ -3045,10 +3080,10 @@ LABEL_208:
         return (long *)1;
  }
 
-  if ( Msg > 0x112 )
+  if ( uMsg > 0x112 )
   {
-    LODWORD(a1) = Msg - 512;
-    switch ( Msg )
+    LODWORD(a1) = uMsg - 512;
+    switch ( uMsg )
     {
       default:
         goto LABEL_184;
@@ -3078,7 +3113,7 @@ LABEL_216:
           if ( dword_720010 != v32 )
             goto LABEL_184;
           sub_4356FF();
-          return (long *)DefWindowProcA(hWnd, Msg, wParam, v5);
+          return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
         }
         if (dword_720010)
           goto LABEL_184;
@@ -3092,12 +3127,12 @@ LABEL_216:
           if (dword_720010)
             goto LABEL_184;
           struct_505898.dword_5058A0 = 7;
-          return (long *)DefWindowProcA(hWnd, Msg, wParam, v5);
+          return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
         }
         if ( pVideoPlayer->dword_000024 )
           pVideoPlayer->dword_00006C = 1;
         if ( !dword_720010 )
-          class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, lParam >> 16);
+          class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
         if ( uCurrentMenuID != MENU_CREATEPARTY)
           goto LABEL_228;
         if ( !dword_720010 )
@@ -3106,7 +3141,7 @@ LABEL_227:
           sub_41CD4F_MaybeOnlyUI_OnKeyDown(VK_SELECT);
 LABEL_228:
           if (!dword_720010)
-            class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, lParam >> 16);
+            class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
         }
         if (pGame)
         {
@@ -3115,7 +3150,7 @@ LABEL_228:
           Game_Pick(pGame,
             512.0,
             (unsigned __int16)lParam,
-            lParam >> 16,
+            (LPARAM)lParam >> 16,
             v29,
             (int)&stru_F93E6C,
             (int)&dword_F93E58);
@@ -3123,7 +3158,7 @@ LABEL_228:
         if (!dword_720010)
         {
           OnMouseLeftClick(0);
-          return (long *)DefWindowProcA(hWnd, Msg, wParam, v5);
+          return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
         }
         goto LABEL_184;
       case WM_RBUTTONDBLCLK:
@@ -3134,7 +3169,7 @@ LABEL_238:
           if ( pVideoPlayer->dword_000024 != v31 )
             pVideoPlayer->dword_00006C = 1;
           if ( dword_720010 == v31 )
-            class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, lParam >> 16);
+            class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
           if ((int)pGame != v31 )
           {
             if ( dword_720010 != v31 )
@@ -3144,7 +3179,7 @@ LABEL_238:
               pGame,
               v33,
               (unsigned __int16)lParam,
-              lParam >> 16,
+              (LPARAM)lParam >> 16,
               v31,
               (int)&dword_F93E30,
               (int)&dword_F93E58);
@@ -3152,14 +3187,14 @@ LABEL_238:
           if ( dword_720010 == v31 )
           {
             sub_416D62(0);
-            return (long *)DefWindowProcA(hWnd, Msg, wParam, v5);
+            return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
           }
           goto LABEL_184;
         }
         if (dword_720010)
           goto LABEL_184;
         struct_505898.dword_5058A0 = 8;
-        return (long *)DefWindowProcA(hWnd, Msg, wParam, v5);
+        return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
       case WM_MBUTTONDOWN:
         if (pD3DRenderer->pRenderD3D3)
         {
@@ -3169,25 +3204,25 @@ LABEL_238:
             Game_Pick(pGame,
               v34,
               (unsigned __int16)lParam,
-              lParam >> 16,
+              (LPARAM)lParam >> 16,
               1,
               (int)&stru_F93E6C,
               (int)&dword_F93E44);
-            return (long *)DefWindowProcA(hWnd, Msg, wParam, v5);
+            return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
           }
           goto LABEL_184;
         }
         if (!pGame)
           goto LABEL_184;
         sub_417871(0);
-        return (long *)DefWindowProcA(hWnd, Msg, wParam, v5);
+        return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
       case WM_MOUSEMOVE:
         if ( struct_505898.byte_505992 )
         {
           if (dword_720010)
             goto LABEL_184;
           v41 = (unsigned __int16)lParam;
-          v42 = lParam >> 16;
+          v42 = (LPARAM)lParam >> 16;
           LODWORD(v35) = sub_40DFC1((int)&v41);
           BYTE4(v35) = wParam & 1;
           LODWORD(a1) = sub_40DFAF(v35, 0);
@@ -3202,42 +3237,42 @@ LABEL_261:
         {
           if (dword_720010)
             goto LABEL_184;
-          class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, lParam >> 16);
+          class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
         }
-        return (long *)DefWindowProcA(hWnd, Msg, wParam, v5);
+        return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
     }
   }
-  if ( Msg == WM_SYSCOMMAND)
+  if ( uMsg == WM_SYSCOMMAND)
   {
     if ( wParam == SC_SCREENSAVE || wParam == SC_MONITORPOWER )
       return 0;
     goto LABEL_184;
   }
-  if ( Msg > 0x1C )
+  if ( uMsg > 0x1C )
   {
-    if (Msg == WM_WINDOWPOSCHANGED)
+    if (uMsg == WM_WINDOWPOSCHANGED)
     {
       if (pVideoPlayer && CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) && pVideoPlayer->pBinkBuffer)
       {
         BinkBufferSetOffset(pVideoPlayer->pBinkBuffer, 0, 0);
-        return (long *)DefWindowProcA(hWnd, Msg, wParam, v5);
+        return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
       }
       goto LABEL_184;
     }
-    if ( Msg != WM_KEYDOWN )
+    if ( uMsg != WM_KEYDOWN )
     {
-      if ( Msg == WM_KEYUP )
+      if ( uMsg == WM_KEYUP )
       {
         if ( wParam == VK_CONTROL )
         {
           dword_507B98_bCtrlPressed = 0;
-          return (long *)DefWindowProcA(hWnd, Msg, wParam, v5);
+          return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
         }
         goto LABEL_184;
       }
-      if ( Msg == WM_CHAR )
+      if ( uMsg == WM_CHAR )
         sub_459F10(pKeyboardController, wParam);
-      if ( Msg != WM_COMMAND )
+      if ( uMsg != WM_COMMAND )
         goto LABEL_184;
       if ( wParam != 101 )
       {
@@ -3254,7 +3289,7 @@ LABEL_261:
           return 0;
         }
         if ( wParam != 40001 )
-          return (long *)DefWindowProcA(hWnd, Msg, wParam, v5);
+          return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
       }
       v39 = 0;
       v38 = 0;
@@ -3482,7 +3517,7 @@ LABEL_179:
     struct_505898.byte_5058A8 = v28;
     goto LABEL_179;
   }
-  if (Msg == WM_ACTIVATEAPP)
+  if (uMsg == WM_ACTIVATEAPP)
   {
     if ( wParam && (GetForegroundWindow() == hWnd || GetForegroundWindow() == dword_6A0CFC) )
     {
@@ -3587,7 +3622,7 @@ LABEL_179:
     return 0;
   }
 
-  if ( Msg == WM_DESTROY)
+  if ( uMsg == WM_DESTROY)
   {
     v7 = GetCurrentProcess();
     SetPriorityClass(v7, 0x20u);
@@ -3609,7 +3644,7 @@ LABEL_179:
     return 0;
   }
 
-  if ( Msg == WM_SETFOCUS )
+  if ( uMsg == WM_SETFOCUS )
   {
     if ( hWnd == (HWND)wParam )
     {
@@ -3623,17 +3658,17 @@ LABEL_179:
       if (dword_720010)
       {
         Mouse_suspend(dword_720010);
-        return (long *)DefWindowProcA(hWnd, Msg, wParam, v5);
+        return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
       }
     }
 LABEL_184:
-    v5 = lParam;
-    return (long *)DefWindowProcA(hWnd, Msg, wParam, v5);
+    v5 = (LPARAM)lParam;
+    return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
   }
   
-  if (Msg != WM_KILLFOCUS)
+  if (uMsg != WM_KILLFOCUS)
   {
-    if (Msg == WM_PAINT)
+    if (uMsg == WM_PAINT)
     {
       if ( !GetUpdateRect(hWnd, 0, 0) || !dword_4E98BC && !pD3DRenderer->dword_040058 )
         return 0;
@@ -3656,12 +3691,12 @@ LABEL_20:
   }
 
   if ( hWnd != (HWND)wParam || (dword_4E98BC = 1, pD3DRenderer->dword_040058) || !dword_720010 )
-    return (long *)DefWindowProcA(hWnd, Msg, wParam, v5);
+    return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
   sub_46B105((void *)dword_720010);
   if ( !dword_720010 )
     goto LABEL_184;
   sub_46BBD0();
-  return (long *)DefWindowProcA(hWnd, Msg, wParam, v5);
+  return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
 }
 
 //----- (0047B42C) --------------------------------------------------------
@@ -5389,7 +5424,7 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
  char *pNames[4] = {"glow03", "glow05", "torchA", "wizeyeA"};
  int i;
 
-  sub_469C65(pGame->pClass03, hWnd_global);
+  sub_469C65(pGame->pClass03, pAppWindow->GetAPIHandle());
   sub_465F5A_InitializeAsyncMouseAndSomething();
   sub_465FF0_InitializeAsyncKeyboardAndSomething();
 

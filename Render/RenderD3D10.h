@@ -26,7 +26,7 @@ class RenderD3D10: public Render
    virtual ~RenderD3D10();
 
    virtual unsigned int Initialize();
-   virtual unsigned int Reset(Window *pTargetWindow, bool bFullscreen, struct Viewport *pOutputArea);
+   virtual unsigned int Reset(OSWindow *pTargetWindow, bool bFullscreen, struct Viewport *pOutputArea);
    
    virtual unsigned int CreateDepthStencilState(DepthStencilState **pOut);
 
@@ -49,7 +49,7 @@ class RenderD3D10: public Render
    ID3D10Device          *pDevice;
    IDXGISwapChain        *pSwapChain;
    D3D10_VIEWPORT         defaultViewport;
-   Window                *pTargetWindow;
+   OSWindow              *pTargetWindow;
    
    TextureD3D10            *pPrimaryColorTarget;
    TextureD3D10            *pPrimaryDepthTarget;

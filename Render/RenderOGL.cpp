@@ -63,7 +63,7 @@ unsigned int RenderOGL::CreateTexture(const wchar_t *pName, Texture **)
 
 
 
-unsigned int RenderOGL::Reset(Window *pOutputWindow, bool bFullscreen, struct Viewport *pOutputArea)
+unsigned int RenderOGL::Reset(OSWindow *pOutputWindow, bool bFullscreen, struct Viewport *pOutputArea)
 {
  pTargetWindow = pOutputWindow;
  memcpy(&defaultViewport, pOutputArea, sizeof(struct Viewport));

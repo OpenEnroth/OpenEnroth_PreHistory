@@ -651,7 +651,7 @@ POINT *class03_GetMousePos(struct class03 *_this, POINT *pOut)
  else
  {
   GetCursorPos(pOut);
-  ScreenToClient(hWnd_global, pOut);
+  ScreenToClient(pAppWindow->GetAPIHandle(), pOut);
  }
  return pOut;
 }

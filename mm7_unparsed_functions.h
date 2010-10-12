@@ -5,6 +5,7 @@
 
 
 
+
 extern "C" int MemUnzip(void *dest, unsigned int *destLen, const void *source, unsigned int sourceLen);
 extern "C" int compress(void *dest, unsigned int *destLen, void *source, unsigned int sourceLen);
 
@@ -30,6 +31,12 @@ long __cdecl std__basic_string_char_std__char_traits_char__std__allocator_char__
 void *CheckHRESULT(void **pSmthn, HRESULT hr, const char *pSourceFile, unsigned int uSourceline, int a5);
 void operator_delete(void *);
 
+bool CheckForMM7CD(HWND hwnd, wchar_t *pGameCDDriveLetter);
+bool IsMM7CD(wchar_t *pRootDir);
+
+void CreateRegistryWString(const wchar_t *pName, const wchar_t *pValue, unsigned int uSize);
+void CreateRegistryKey(const char *pName, const char *pValue);
+
 void __cdecl InitializeScrolls();
 void __cdecl InitializeMerchants();
 void __cdecl InitializeTransitions();
@@ -42,10 +49,7 @@ size_t __cdecl locked_fread(void *dst, size_t size, size_t count, FILE *f);
 int __cdecl MenuUI_LoadFontsAndSomeStuff();
 void __cdecl GameUI_LoadIcons();
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd);
-LSTATUS __fastcall CreateRegistryKey(const char *pName, const char *pValue);
 LSTATUS __fastcall RegistryWriteInt(const CHAR *a1, int a2);
-int __fastcall IsMM7CD(char cDriveLetter);
-bool __fastcall CheckForCD(HWND hwnd, unsigned char *pGameCDDriveLetter);
 struct CGame *__cdecl GameInitialize();
 void erroneous_printf(const char *Format, ...);
 int LoadFileToBuffer(const char *pSourceFile, unsigned char *pOutBuffer, unsigned int uBufferSize);
@@ -1361,4 +1365,4 @@ int __fastcall sub_46BDF1(unsigned int a1);
 void class58_sub_49C304(struct class58 *_this, int a2, unsigned int a3);
 long *sub_4AC1C9(int a5, long *pWindowDims);
 int __fastcall sub_4383ED();
-long *__stdcall wWndProc(HWND hWnd, UINT Msg, signed int wParam, unsigned int lParam);
+long *__stdcall wDefaultWinProc(HWND hWnd, unsigned int uMsg, unsigned int wParam, long *lParam);

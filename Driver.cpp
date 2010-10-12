@@ -4,10 +4,10 @@
 
 Camera *pGameCamera = 0;
 
-Window *pDxWindow = 0,
-       *pOglWindow = 0;
-Render *pDxRender = 0,
-       *pOglRender = 0;
+OSWindow *pDxWindow = 0,
+         *pOglWindow = 0;
+Render   *pDxRender = 0,
+         *pOglRender = 0;
 
 void Game_Initialize()
 {
@@ -30,7 +30,7 @@ void Game_Initialize()
  };
 
 
- pDxWindow = new Window;
+ pDxWindow = new Win32Window;
  pDxWindow->Initialize(L"MM7w2dx", L"MM7 C++ Direct3D10 Render", true);
  pDxWindow->SetClientArea(&dxWindowArea);
  pDxWindow->Show();
@@ -56,7 +56,7 @@ void Game_Initialize()
   0,    0
  };
 
- pOglWindow = new Window;
+ pOglWindow = new Win32Window;
  pOglWindow->Initialize(L"MM7w2ogl", L"MM7 C++ OpenGL 3.2 Render", true);
  pOglWindow->SetClientArea(&oglWindowArea);
  pOglWindow->Show();
