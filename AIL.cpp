@@ -3,7 +3,7 @@
 int (__stdcall *mss32_AIL_startup)() = 0;
 HREDBOOK (__stdcall *mss32_AIL_redbook_open_drive)(long) = 0;
 int (__stdcall *mss32_AIL_set_preference)(unsigned int, int) = 0;
-int (__stdcall *mss32_AIL_waveOutOpen)(HDIGDRIVER, HWAVEOUT *, int, WAVEFORMAT *) = 0;
+int (__stdcall *mss32_AIL_waveOutOpen)(HDIGDRIVER *, HWAVEOUT *, int, WAVEFORMAT *) = 0;
 int (__stdcall *mss32_AIL_get_preference)(unsigned int) = 0;
 int (__stdcall *mss32_AIL_digital_configuration)(HDIGDRIVER, int *, int *, char *) = 0;
 HSAMPLE (__stdcall *mss32_AIL_allocate_sample_handle)(HDIGDRIVER) = 0;
@@ -22,24 +22,24 @@ void MSS32_DLL_Initialize()
 {
  void *pDll = LoadLibraryW(L"mss32.dll");
 
- mss32_AIL_startup = GetProcAddress(pDll, "_AIL_startup@0");
- mss32_AIL_redbook_open_drive = GetProcAddress(pDll, "_AIL_redbook_open_drive@4");
- mss32_AIL_set_preference = GetProcAddress(pDll, "_AIL_set_preference@8");
- mss32_AIL_waveOutOpen = GetProcAddress(pDll, "_AIL_waveOutOpen@16");
- mss32_AIL_get_preference = GetProcAddress(pDll, "_AIL_get_preference@4");
- mss32_AIL_digital_configuration = GetProcAddress(pDll, "_AIL_digital_configuration@16");
- mss32_AIL_allocate_sample_handle = GetProcAddress(pDll, "_AIL_allocate_sample_handle@4");
- mss32_AIL_redbook_tracks = GetProcAddress(pDll, "_AIL_redbook_tracks@4");
- mss32_AIL_redbook_volume = GetProcAddress(pDll, "_AIL_redbook_volume@4");
- mss32_AIL_redbook_stop = GetProcAddress(pDll, "_AIL_redbook_stop@4");
- mss32_AIL_set_digital_master_volume = GetProcAddress(pDll, "_AIL_set_digital_master_volume@8");
- mss32_AIL_redbook_set_volume = GetProcAddress(pDll, "_AIL_redbook_set_volume@8");
- mss32_AIL_redbook_pause = GetProcAddress(pDll, "_AIL_redbook_pause@4");
- mss32_AIL_redbook_track_info = GetProcAddress(pDll, "_AIL_redbook_track_info@16");
- mss32_AIL_redbook_play = GetProcAddress(pDll, "_AIL_redbook_play@12");
- mss32_AIL_redbook_resume = GetProcAddress(pDll, "_AIL_redbook_resume@4");
- mss32_AIL_sample_status = GetProcAddress(pDll, "_AIL_sample_status@4");
- mss32_AIL_sample_volume = GetProcAddress(pDll, "_AIL_sample_volume@8");
+ mss32_AIL_startup = (int (__stdcall *)())GetProcAddress((HMODULE)pDll, "_AIL_startup@0");
+ mss32_AIL_redbook_open_drive = (HREDBOOK (__stdcall *)(long))GetProcAddress((HMODULE)pDll, "_AIL_redbook_open_drive@4");
+ mss32_AIL_set_preference = (int (__stdcall *)(unsigned int, int))GetProcAddress((HMODULE)pDll, "_AIL_set_preference@8");
+ mss32_AIL_waveOutOpen = (int (__stdcall *)(HDIGDRIVER *, HWAVEOUT *, int, WAVEFORMAT *))GetProcAddress((HMODULE)pDll, "_AIL_waveOutOpen@16");
+ mss32_AIL_get_preference = (int (__stdcall *)(unsigned int))GetProcAddress((HMODULE)pDll, "_AIL_get_preference@4");
+ mss32_AIL_digital_configuration = (int (__stdcall *)(HDIGDRIVER, int *, int *, char *))GetProcAddress((HMODULE)pDll, "_AIL_digital_configuration@16");
+ mss32_AIL_allocate_sample_handle = (HSAMPLE (__stdcall *)(HDIGDRIVER))GetProcAddress((HMODULE)pDll, "_AIL_allocate_sample_handle@4");
+ mss32_AIL_redbook_tracks = (unsigned int (__stdcall *)(HREDBOOK))GetProcAddress((HMODULE)pDll, "_AIL_redbook_tracks@4");
+ mss32_AIL_redbook_volume = (int (__stdcall *)(HREDBOOK))GetProcAddress((HMODULE)pDll, "_AIL_redbook_volume@4");
+ mss32_AIL_redbook_stop = (unsigned int (__stdcall *)(HREDBOOK))GetProcAddress((HMODULE)pDll, "_AIL_redbook_stop@4");
+ mss32_AIL_set_digital_master_volume = (void (__stdcall *)(HDIGDRIVER, float))GetProcAddress((HMODULE)pDll, "_AIL_set_digital_master_volume@8");
+ mss32_AIL_redbook_set_volume = (int (__stdcall *)(HREDBOOK, int))GetProcAddress((HMODULE)pDll, "_AIL_redbook_set_volume@8");
+ mss32_AIL_redbook_pause = (unsigned int (__stdcall *)(HREDBOOK))GetProcAddress((HMODULE)pDll, "_AIL_redbook_pause@4");
+ mss32_AIL_redbook_track_info = (void (__stdcall *)(HREDBOOK, unsigned int, unsigned int *, unsigned int *))GetProcAddress((HMODULE)pDll, "_AIL_redbook_track_info@16");
+ mss32_AIL_redbook_play = (unsigned int (__stdcall *)(HREDBOOK, unsigned int, unsigned int))GetProcAddress((HMODULE)pDll, "_AIL_redbook_play@12");
+ mss32_AIL_redbook_resume = (unsigned int (__stdcall *)(HREDBOOK))GetProcAddress((HMODULE)pDll, "_AIL_redbook_resume@4");
+ mss32_AIL_sample_status = (int (__stdcall *)(long a1))GetProcAddress((HMODULE)pDll, "_AIL_sample_status@4");
+ mss32_AIL_sample_volume = (int (__stdcall *)(long a1, long a2))GetProcAddress((HMODULE)pDll, "_AIL_sample_volume@8");
 }
 
 
@@ -109,7 +109,7 @@ HREDBOOK __stdcall AIL_redbook_open_drive(long drive)
 }
 
 // sub_4D834C: using guessed type int __stdcall AIL_waveOutOpen(_DWORD, _DWORD, _DWORD, _DWORD);
-int __stdcall AIL_waveOutOpen(HDIGDRIVER drv, HWAVEOUT *phWaveOut, int wDeviceID, WAVEFORMAT *pFormat)
+int __stdcall AIL_waveOutOpen(HDIGDRIVER *drv, HWAVEOUT *phWaveOut, int wDeviceID, WAVEFORMAT *pFormat)
 {
  return (mss32_AIL_waveOutOpen)(drv, phWaveOut, wDeviceID, pFormat);
 }

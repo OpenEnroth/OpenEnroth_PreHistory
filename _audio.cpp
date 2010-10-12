@@ -12,7 +12,6 @@
 #include "data.h"
 
 
-extern int (__cdecl *sprintfex)(char *, const char *, ...);
 void AudioPlayer_ctor(struct AudioPlayer *_this)
 {
  char pCurrentDirectory[256];
@@ -22,8 +21,8 @@ void AudioPlayer_ctor(struct AudioPlayer *_this)
 
  _this->cGameCDDriveLetter = cGameCDDriveLetter;
 
- _getcwd(pCurrentDirectory, 120);
- (sprintfex)(pIniFile, "%s\\mm6.ini", pCurrentDirectory);
+ GetCurrentDirectoryA(120, pCurrentDirectory);
+ wsprintfA(pIniFile, "%s\\mm6.ini", pCurrentDirectory);
 
  _this->iMixerChannels = GetPrivateProfileIntA("settings", "mixerchannels", 16, pIniFile);
  if (_this->iMixerChannels <= 16)
@@ -141,9 +140,9 @@ void AudioPlayer_sub_4AA306(struct AudioPlayer *_this, int a2, signed int a3, in
   runtime_warning(crashes in AIL);
   return;
 
-  v9 = _this;
+  v9 = (int)_this;
   v10 = _this->dword_00029C == 0;
-  v99 = _this;
+  v99 = (int)_this;
   v92 = 0.0;
   LODWORD(v97) = 10000;
   if ( v10 || !uSoundVolumeMultiplier || !_this->hDigDriver || !a2 )
@@ -156,7 +155,7 @@ LABEL_9:
   }
   else
   {
-    v12 = (char *)pSoundList->pDescriptions + 32;
+    v12 = (int)((char *)pSoundList->pDescriptions + 32);
     while ( *(_DWORD *)v12 != a2 )
     {
       ++v11;
@@ -232,7 +231,7 @@ LABEL_150:
           LODWORD(v97) = *(_DWORD *)(v62 + 708);
         if ( !a7 )
         {
-          v70 = pSoundList->pDescriptions + 120 * v96;
+          v70 = (int)(pSoundList->pDescriptions + 120 * v96);
           if ( !*(_DWORD *)(v70 + 44) )
           {
             if ( *(_DWORD *)(v70 + 36) == 2 )
@@ -313,7 +312,7 @@ LABEL_184:
             if ( a9 )
               AIL_set_sample_playback_rate(*(_DWORD *)v73, a9);
             if ( (v75 & 7) == 4 )
-              AIL_sample_ms_position(*(_DWORD *)v73, &dword_F1B4D4, 0);
+              AIL_sample_ms_position(*(_DWORD *)v73, (int)&dword_F1B4D4, 0);
             return;
           }
           v76 = (char *)&pLevelDecorations[(a3 >> 3)];
@@ -512,7 +511,7 @@ LABEL_47:
   if ( dword_6BE360 == 1 )
     sub_4AAEA6((int)&v87);
   else
-    sub_436523((int)&v87, 1);
+    sub_436523((RenderVertex *)&v87, 1);
   if ( a3 )
   {
     if ( a3 != -1 )
@@ -575,7 +574,7 @@ LABEL_67:
     v32 = 16 * v13 + v99 + 20;
     do
     {
-      AIL_3D_position(v31, *(_DWORD *)v32, &v98, &v97, &a8);
+      AIL_3D_position(v31, *(_DWORD *)v32, (long)&v98, (int)&v97, (int)&a8);
       v35 = abs((signed __int64)*(float *)&a8);
       v36 = abs((signed __int64)v97);
       v37 = abs((signed __int64)*(float *)&v98);
@@ -644,7 +643,7 @@ LABEL_101:
             goto LABEL_104;
           }
 LABEL_103:
-          sub_436523((int)&v87, 1);
+          sub_436523((RenderVertex *)&v87, 1);
 LABEL_104:
           AIL_start_3D_sample(*(_DWORD *)v43);
           AIL_set_3D_sample_float_distances(*(_DWORD *)v43, 100.0, 20.0, 100.0, 20.0);
@@ -759,13 +758,13 @@ int AudioPlayer_Initialize(struct AudioPlayer *_this, HWND hWnd)
   v16 = 0;
     *(_DWORD *)_this = 0;
     *(_DWORD *)(_this + 4) = 0;
-    ReadWindowsRegistry("3DSoundProvider", (BYTE *)(_this + 540), 0x80u, "NONE");
+    ReadWindowsRegistryString("3DSoundProvider", (BYTE *)(_this + 540), 0x80u, (unsigned char *)"NONE");
     sub_4ABC9B(1);
-    while ( AIL_enumerate_3D_providers(&v16, &hWnd, &Str1) )
+    while ( AIL_enumerate_3D_providers((int)&v16, (int)&hWnd, (int)&Str1) )
     {
       if ( !strcmp(Str1, (const char *)(_this + 540)) )
       {
-        if ( AIL_open_3D_provider(v13, hWnd) )
+        if ( AIL_open_3D_provider(v13, (int)hWnd) )
         {
           *(_DWORD *)_this = 0;
           *(_DWORD *)(_this + 4) = 0;
@@ -773,12 +772,12 @@ int AudioPlayer_Initialize(struct AudioPlayer *_this, HWND hWnd)
         }
         else
         {
-          v5 = hWnd;
-          v6 = hWnd;
+          v5 = (int)hWnd;
+          v6 = (int)hWnd;
           *(_DWORD *)(_this + 4) = 1;
           *(_DWORD *)(_this + 12) = v5;
           *(_DWORD *)(_this + 16) = 4;
-          AIL_3D_provider_attribute(v6, "EAX environment selection", &v14);
+          AIL_3D_provider_attribute(v6, (int)"EAX environment selection", (int)&v14);
           if ( v14 != -1 )
             *(_DWORD *)_this = 1;
         }
@@ -793,7 +792,7 @@ int AudioPlayer_Initialize(struct AudioPlayer *_this, HWND hWnd)
   for (i = 0; i < _this->iMixerChannels; ++i)
   {
    hSample = AIL_allocate_sample_handle(_this->hDigDriver);
-   _this->array_0002E8[i * 4] = hSample;
+   _this->array_0002E8[i * 4] = (int)hSample;
 
    if (!hSample)
      break;
@@ -820,7 +819,7 @@ int AudioPlayer_Initialize(struct AudioPlayer *_this, HWND hWnd)
  }
  AudioPlayer_LoadSoundHeaders(_this);
 
- pVideoPlayer = malloc(sizeof(struct CVideoPlayer));
+ pVideoPlayer = new CVideoPlayer;
  CVideoPlayer_ctor(pVideoPlayer);
  return CVideoPlayer_LoadVideoHeaders(pVideoPlayer);
 }
@@ -830,17 +829,17 @@ int AudioPlayer_LoadSoundHeaders(struct AudioPlayer *_this)
 {
  DWORD w;
 
- strcpy(TmpBuf, "Sounds\\Audio.snd");
+ strcpy((char *)TmpBuf, "Sounds\\Audio.snd");
  _this->hSoundsSource = CreateFileA("Sounds\\Audio.snd", GENERIC_READ, 1u, 0, 3u, 0x8000080u, 0);
  if (_this->hSoundsSource == INVALID_HANDLE_VALUE)
  {
-  sprintfex(pStringBuffer, "Can't open file - %s", TmpBuf);
-  return MessageBoxA(0, pStringBuffer, "Sound File Error", 0);
+  wsprintfA((char *)pStringBuffer, "Can't open file - %s", (char *)TmpBuf);
+  return MessageBoxA(0, (char *)pStringBuffer, "Sound File Error", 0);
  }
 
  ReadFile(_this->hSoundsSource, &_this->uNumSounds, 4, &w, 0);
 
- _this->pSoundHeaders = class23_AllocatedNamedBuffer(class23_instance, 0, _this->uNumSounds * sizeof(struct AudioPlayer_sound_header_struct) + 2, 0);
+ _this->pSoundHeaders = (AudioPlayer_sound_header_struct *)class23_AllocatedNamedBuffer(pClass23, 0, _this->uNumSounds * sizeof(struct AudioPlayer_sound_header_struct) + 2, 0);
 
  return ReadFile(_this->hSoundsSource, _this->pSoundHeaders, _this->uNumSounds * sizeof(struct AudioPlayer_sound_header_struct), &w, 0);
 }
@@ -888,7 +887,7 @@ void AudioPlayer_sub_4AB71F(struct AudioPlayer *_this, int a2, int a3)
       if (pSoundList->pDescriptions[_this->struct_0[v3].a[2]].dword_000024 != 1 )
       {
        AIL_end_3D_sample(_this->struct_0[v3].a[0]);
-       sub_4ABF23(v4, &_this->struct_0[v3]);
+       sub_4ABF23(v4, (int)&_this->struct_0[v3]);
       _this->struct_0[v3].a[2] = 0;
        v3 = v10;
       }
@@ -911,7 +910,7 @@ void AudioPlayer_sub_4AB71F(struct AudioPlayer *_this, int a2, int a3)
     if (pSoundList->pDescriptions[_this->array_0002E8[i * 4 + 2]].dword_000024 != 1 )
     {
      AIL_end_sample(_this->array_0002E8[i * 4 + 0]);
-     sub_4ABE55(v4, &_this->array_0002E8[i * 4]);
+     sub_4ABE55(v4, (int)&_this->array_0002E8[i * 4]);
      _this->array_0002E8[i * 4 + 1] = 0;
     }
    }
@@ -955,7 +954,7 @@ HDIGDRIVER __cdecl sub_4ABAF7()
    sPCMWaveFormat.wf.nAvgBytesPerSec = v0 * dword_4F00E4 * dword_4F00E0 / 8;
    sPCMWaveFormat.wBitsPerSample = dword_4F00E0;
 
-   if (!AIL_waveOutOpen(&hDrv, 0, -1, &sPCMWaveFormat))
+   if (!AIL_waveOutOpen(&hDrv, 0, -1, (WAVEFORMAT *)(&sPCMWaveFormat)))
      break;
 
       if ( !AIL_get_preference(15) )
@@ -973,8 +972,8 @@ HDIGDRIVER __cdecl sub_4ABAF7()
         goto LABEL_12;
       }
     }
-    strcpy(&pAudioPlayer->aDeviceNames[i], "Device: ");
-    v2 = strlen(&pAudioPlayer->aDeviceNames[i]);
+    strcpy((char *)&pAudioPlayer->aDeviceNames[i], "Device: ");
+    v2 = strlen((char *)&pAudioPlayer->aDeviceNames[i]);
 
     AIL_digital_configuration(hDrv, v5, v5 + 16, &pAudioPlayer->aDeviceNames[i][v2]);
 
@@ -985,7 +984,7 @@ HDIGDRIVER __cdecl sub_4ABAF7()
       return hDrv;
     if (!strstr(pAudioPlayer->aDeviceNames[i - 1], "Emulated"))
       return hDrv;
-    AIL_waveOutClose(v4, hDrv);
+    AIL_waveOutClose(v4, (int)hDrv);
     AIL_set_preference(15, 1);
 LABEL_8:
     AIL_set_preference(15, 1);
@@ -1021,7 +1020,7 @@ void *CSoundList_Initialize(struct CSoundList *_this, unsigned char *pSrc)
 {
  _this->uNumSounds = *(int *)(pSrc);
 
- _this->pDescriptions = class23_AllocatedNamedBuffer(class23_instance, _this->pDescriptions, _this->uNumSounds * sizeof(struct SoundDescription), "Snd Des.");
+ _this->pDescriptions = (SoundDescription *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pDescriptions, _this->uNumSounds * sizeof(struct SoundDescription), "Snd Des.");
  memcpy(_this->pDescriptions, pSrc + 4, _this->uNumSounds * sizeof(struct SoundDescription));
  return 0;
 }
@@ -1047,15 +1046,15 @@ int sub_4A9953(struct CSoundList *_this)
 
   for (i = 1; i < _this->uNumSounds; ++i)
   {
-     lstrcpyA(sdesc.sSoundName, _this->pDescriptions[i].sSoundName);
-     _this->pDescriptions[i].ptr_00002C = sub_4A97C6(&sdesc, -1, _this->pDescriptions[i].dword_000020);
+     lstrcpyA((char *)sdesc.sSoundName, (char *)_this->pDescriptions[i].sSoundName);
+     _this->pDescriptions[i].ptr_00002C = (int *)sub_4A97C6((char *)&sdesc, -1, _this->pDescriptions[i].dword_000020);
 
      if (_this->pDescriptions[i].dword_000024 != 1 || !pAudioPlayer->dword_000004 ||
          !(_this->pDescriptions[i].dword_000028 & 2) || !_this->pDescriptions[i].ptr_00002C)
         continue;
 
       v8 = _this->pDescriptions[i].ptr_00002C[0];
-      v6 = _this->pDescriptions[i].ptr_00002C + 1;
+      v6 = (int)_this->pDescriptions[i].ptr_00002C + 1;
       v5 = AIL_file_type(v6, v8);
       if ( !v5 )
         goto LABEL_15;
@@ -1064,11 +1063,11 @@ int sub_4A9953(struct CSoundList *_this)
       {
         if ( v9 == 1 )
         {
-          if ( AIL_WAV_info(v6, &v11) )
+          if ( AIL_WAV_info(v6, (int)&v11) )
           {
             if ( v12 != 2 )
             {
-              if ( !AIL_decompress_ADPCM(&v11, v3 + *(_DWORD *)(v2 + 4) + 112, &v13) )
+              if ( !AIL_decompress_ADPCM((int)&v11, v3 + *(_DWORD *)(v2 + 4) + 112, (int)&v13) )
               {
                 *(_DWORD *)(v3 + *(_DWORD *)(v2 + 4) + 112) = 0;
                 *(_BYTE *)(v3 + *(_DWORD *)(v2 + 4) + 116) = 1;
@@ -1083,7 +1082,7 @@ LABEL_15:
       }
       *(_DWORD *)(v3 + *(_DWORD *)(v2 + 4) + 112) = *(_DWORD *)(v3 + *(_DWORD *)(v2 + 4) + 44);
 LABEL_16:
-      sub_4A9DCD(v2, v14, 1);
+      SoundList_sub_4A9DCD(v2, v14, 1);
   }
 
   return i;
@@ -1164,10 +1163,10 @@ int sub_4A9A67(struct CSoundList *_this, int a2, int a3)
       return 0;
   }
   v13 = 120 * i;
-  v12 = &_this->pDescriptions[i];
+  v12 = (int)&_this->pDescriptions[i];
   if ( *(_DWORD *)(v12 + 40) & 2 && *(_DWORD *)(v12 + 112) || !(*(_DWORD *)(v12 + 40) & 2) && *(_DWORD *)(v12 + 44) )
     return v26;
-  sprintfex(v23, "%s", v12);
+  wsprintfA(v23, "%s", v12);
   v14 = v13 + *(_DWORD *)(v3 + 4);
   if ( !*(_DWORD *)(v14 + 44) )
     *(_DWORD *)(*(_DWORD *)(v3 + 4) + v13 + 44) = sub_4A97C6(v23, -1, *(_DWORD *)(v14 + 32));
@@ -1193,16 +1192,16 @@ LABEL_29:
   {
     if ( v21 == 1 )
     {
-      if ( AIL_WAV_info(v18, &v24) )
+      if ( AIL_WAV_info(v18, (int)&v24) )
       {
         if ( v25 != 2 )
         {
-          if ( !AIL_decompress_ADPCM(&v24, *(_DWORD *)(v3 + 4) + v13 + 112, &a2) )
+          if ( !AIL_decompress_ADPCM((int)&v24, *(_DWORD *)(v3 + 4) + v13 + 112, (int)&a2) )
           {
             v22 = v26;
             *(_DWORD *)(*(_DWORD *)(v3 + 4) + v13 + 112) = 0;
             *(_BYTE *)(*(_DWORD *)(v3 + 4) + v13 + 116) = 1;
-            sub_4A9DCD(v3, v22, 0);
+            SoundList_sub_4A9DCD(v3, v22, 0);
           }
         }
       }
@@ -1296,9 +1295,9 @@ void AudioPlayer_sub_4AAFCF(struct AudioPlayer *_this)
   runtime_warning();
   return;
 
-  v2 = _this;
+  v2 = (int)_this;
   v1 = 0;
-  v70 = _this;
+  v70 = (int)_this;
   v3 = *(_DWORD *)(v2 + 668) == 0;
   v64 = 0.0;
   if ( !v3 )
@@ -1431,7 +1430,7 @@ LABEL_21:
           else
           {
 LABEL_31:
-            sub_436523((int)&v58, 1);
+            sub_436523((RenderVertex *)&v58, 1);
           }
           v68 = v62 * -0.01220703125;
           v24 = v61 * 0.01220703125;
@@ -1565,7 +1564,7 @@ LABEL_62:
       {
         LODWORD(v66) = 1;
         v48 = 4 * v69 + 6817720;
-        v49 = &pLevelDecorations[dword_6807B8[v69]];
+        v49 = (short *)&pLevelDecorations[dword_6807B8[v69]];
         v50 = abs(*((_DWORD *)v49 + 3) - pParty_global->sPartyPosZ);
         v51 = abs(*((_DWORD *)v49 + 2) - pParty_global->sPartyPosY);
         v52 = abs(*((_DWORD *)v49 + 1) - pParty_global->sPartyPosX);
@@ -1577,7 +1576,7 @@ LABEL_89:
         if ( v69 >= dword_6807E0 )
           return;
       }
-      v53 = pDecorationDescriptionList->pDescriptions + 84 * *v49;
+      v53 = (int)&pDecorationDescriptionList->pDescriptions[*v49];
       v54 = *(_WORD *)(v53 + 74);
       v67 = (~(unsigned __int8)*(_WORD *)(v53 + 74) & 0x40) >> 6;
       if ( HIBYTE(v54) & 3 )
@@ -1620,7 +1619,7 @@ LABEL_87:
         {
           v57 = 8 * *(_DWORD *)v48;
           LOBYTE(v57) = v57 | 5;
-          AudioPlayer_sub_4AA306(v70, *(_WORD *)(v53 + 76), v57, v67, -1, 0, 0, 0, 0);
+          AudioPlayer_sub_4AA306((AudioPlayer *)v70, *(_WORD *)(v53 + 76), v57, v67, -1, 0, 0, 0, 0);
         }
         goto LABEL_89;
       }
@@ -1648,12 +1647,12 @@ signed int AudioPlayer_sub_4AC041(struct AudioPlayer *_this)
      v3 = pMapStats->pMapInfos[result].uEAXEnv;
       if ( v3 >= 0x1A )
       {
-        result = sub_4AC004(_this);
+        result = AudioPlayer_sub_4AC004((int)_this);
         *(_DWORD *)(v2 + 532) = -1;
       }
       else
       {
-        AIL_set_3D_provider_preference(*(_DWORD *)(v2 + 12), "EAX environment selection", &v3);
+        AIL_set_3D_provider_preference(*(_DWORD *)(v2 + 12), (int)"EAX environment selection", (int)&v3);
         result = v3;
         *(_DWORD *)(v2 + 532) = v3;
       }

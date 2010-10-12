@@ -42,7 +42,7 @@ unsigned char *rle16_decompress(const unsigned char *pSource, unsigned long ulCo
 
 
 
-extern "C" void SaveHeighmap(const wchar_t *pFile, unsigned char *pBits)
+void SaveHeighmap(const wchar_t *pFile, unsigned char *pBits)
 {
  DWORD  w;
  void  *hFile = CreateFileW(pFile, GENERIC_WRITE, FILE_SHARE_READ, 0, CREATE_ALWAYS, 0, 0);
@@ -82,7 +82,7 @@ extern "C" void SaveHeighmap(const wchar_t *pFile, unsigned char *pBits)
 }
 
 
-extern "C" unsigned int LoadTGA(const wchar_t *pFile, unsigned int *pWidth, unsigned int *pHeight, unsigned int **pPixels)
+unsigned int LoadTGA(const wchar_t *pFile, unsigned int *pWidth, unsigned int *pHeight, unsigned int **pPixels)
 {
  DWORD  w;
  void  *hFile = CreateFileW(pFile, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
@@ -114,7 +114,7 @@ extern "C" unsigned int LoadTGA(const wchar_t *pFile, unsigned int *pWidth, unsi
 
 
 
-extern "C" unsigned int LoadPNG(const wchar_t *pFile, unsigned int *pWidth, unsigned int *pHeight, unsigned int **pPixels)
+unsigned int LoadPNG(const wchar_t *pFile, unsigned int *pWidth, unsigned int *pHeight, unsigned int **pPixels)
 {
  png_structp png_ptr;
  png_infop info_ptr;
@@ -202,7 +202,7 @@ extern "C" unsigned int LoadPNG(const wchar_t *pFile, unsigned int *pWidth, unsi
 }
 
 
-extern "C" unsigned int LoadCBM(const wchar_t *pFile, unsigned int *pWidth, unsigned int *pHeight, unsigned int **ppPixels)
+unsigned int LoadCBM(const wchar_t *pFile, unsigned int *pWidth, unsigned int *pHeight, unsigned int **ppPixels)
 {
  DWORD  w;
  void  *hFile = CreateFileW(pFile, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);

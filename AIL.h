@@ -6,7 +6,7 @@ void MSS32_DLL_Initialize();
 int __stdcall AIL_startup();
 HREDBOOK __stdcall AIL_redbook_open_drive(long drive);
 int __stdcall AIL_set_preference(unsigned int number, int value);
-int __stdcall AIL_waveOutOpen(HDIGDRIVER drv, HWAVEOUT *phWaveOut, int wDeviceID, WAVEFORMAT *pFormat);
+int __stdcall AIL_waveOutOpen(HDIGDRIVER *drv, HWAVEOUT *phWaveOut, int wDeviceID, WAVEFORMAT *pFormat);
 int __stdcall AIL_get_preference(unsigned int number);
 int __stdcall AIL_digital_configuration(HDIGDRIVER drv, int *rate, int *format, char *string);
 HSAMPLE __stdcall AIL_allocate_sample_handle(HDIGDRIVER hDrv);

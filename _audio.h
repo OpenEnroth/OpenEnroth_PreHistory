@@ -43,15 +43,15 @@ struct CSoundList
 void CSoundList_ctor(struct CSoundList *_this);
 //int __thiscall sub_4A9E3D(void *Str)
 int CSoundList_SaveToBIN(struct CSoundList *_this);
-//signed int __thiscall sub_4A9ED0(int this, const char *Args);
+//signed int __thiscall sub_4A9ED0(int _this, const char *Args);
 int CSoundList_InitializeFromTXT(struct CSoundList *_this, const char *pSourceFile);
 //void *__thiscall sub_4A9E89(void *Dst, void *Src)
 void *CSoundList_Initialize(struct CSoundList *_this, unsigned char *pSrc);
-//signed int __thiscall sub_4A9953(void *this);
+//signed int __thiscall sub_4A9953(void *_this);
 int sub_4A9953(struct CSoundList *_this);
-//void __thiscall sub_4A9D79(void *this, int a2)
+//void __thiscall sub_4A9D79(void *_this, int a2)
 void sub_4A9D79(struct CSoundList *_this, int a2);
-//int __thiscall sub_4A9A67(void *this, int a2, int a3);
+//int __thiscall sub_4A9A67(void *_this, int a2, int a3);
 int sub_4A9A67(struct CSoundList *_this, int a2, int a3);
 
 
@@ -120,21 +120,21 @@ struct AudioPlayer
 };
 //sizeof ~ ?
 void AudioPlayer_ctor(struct AudioPlayer *_this);
-//int __thiscall sub_4AB8CE(int this, HWND);
+//int __thiscall sub_4AB8CE(int _this, HWND);
 int AudioPlayer_Initialize(struct AudioPlayer *_this, HWND);
-//void __thiscall sub_4AA214(int this, signed int a2);
+//void __thiscall sub_4AA214(int _this, signed int a2);
 void AudioPlayer_sub_4AA214(struct AudioPlayer *_this, signed int a2);
-//int __thiscall sub_4AB818(void *this);
+//int __thiscall sub_4AB818(void *_this);
 int AudioPlayer_LoadSoundHeaders(struct AudioPlayer *_this);
 //int __fastcall sub_4AA1F3(int a1, int a2, int a3);
 int AudioPlayer_SetVolume(struct AudioPlayer *_this, float fVolume);
-//int __thiscall sub_4AB71F(void *this, int a2, int a3);
+//int __thiscall sub_4AB71F(void *_this, int a2, int a3);
 void AudioPlayer_sub_4AB71F(struct AudioPlayer *_this, int a2, int a3);
-//void __thiscall sub_4AA306(int this, int a2, signed int a3, int a4, signed int a5, int a6, int a7, int a8, int a9)
+//void __thiscall sub_4AA306(int _this, int a2, signed int a3, int a4, signed int a5, int a6, int a7, int a8, int a9)
 void AudioPlayer_sub_4AA306(struct AudioPlayer *_this, int a2, signed int a3, int a4, signed int a5, int a6, int a7, int a8, int a9);
-//void __thiscall sub_4AAFCF(int this);
+//void __thiscall sub_4AAFCF(int _this);
 void AudioPlayer_sub_4AAFCF(struct AudioPlayer *_this);
-//signed int __thiscall sub_4AC041(void *this);
+//signed int __thiscall sub_4AC041(void *_this);
 signed int AudioPlayer_sub_4AC041(struct AudioPlayer *_this);
 
 

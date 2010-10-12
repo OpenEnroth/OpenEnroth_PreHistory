@@ -227,9 +227,9 @@ unsigned char data_4E7168[116] =
  int dword_4E98BC; // weak
  _UNKNOWN unk_4E98D4; // weak
  char *off_4EB080; // idb
-const unsigned char *pTransitionStrings[464]; // dword[464] @ MM7.exe::004EB084
- _UNKNOWN unk_4EB8BC; // weak
- _UNKNOWN unk_4EBBD0; // weak
+const unsigned char   *pTransitionStrings[464]; // dword[464]  @ MM7.exe::004EB084
+struct unnamed_4EB8B8  array_4EB8B8[66];        // struct[66]  @ MM7.exe::004EB8B8
+struct unnamed_4EB8B8  array_4EBBD0[128];       // struct[128] @ MM7.exe::004EBBD0
  int dword_4EC268[array_size_unknown]; // weak
  int dword_4EC28C[array_size_unknown]; // weak
  int dword_4EC2A8; // weak
@@ -636,7 +636,6 @@ struct unnamed_505898 struct_505898;
 
  int dword_506568; // weak
  char byte_50656C; // weak
- char Class[array_size_unknown]; // idb
  int dword_506578; // weak
  _UNKNOWN unk_506580; // weak
  __int16 word_5065E0; // weak
@@ -1329,8 +1328,8 @@ unsigned char *p2DEventsTXT_Raw = 0; // ptr @ MM7.exe::005C35CC
  int dword_5C35D0; // weak
  int dword_5C35D4; // weak
 
- int dword_5C35E0; // weak
- int dword_5C35E4; // weak
+ int dword_5C35E0; // Font *
+ int dword_5C35E4; // Font *
 
  int dword_5C35F0; // weak
  int dword_5C35F4; // weak
@@ -1723,8 +1722,8 @@ int uTurnSpeed; // dword @ MM7.exe::006BE38C
 
 
 
-//_UNKNOWN unk_702B28[26 * 1024 * 1024];  //some 26 or 16 Mb pointer is allocated at *(int *)((char *)(class23_instance) + 120020) at startup
-char class23_instance[26 * 1024 * 1024];  // struct @ MM7.exe::00702B28
+//_UNKNOWN unk_702B28[26 * 1024 * 1024];  //some 26 or 16 Mb pointer is allocated at *(int *)((char *)(pClass23) + 120020) at startup
+class23 *pClass23 = 0;  // struct @ MM7.exe::00702B28
  int dword_71FFF4; // weak
  int dword_71FFF8; // weak
 unsigned int bUseOverrideData; // dword @ MM7.exe::00720008
@@ -1896,7 +1895,7 @@ int dword_76E1C8[128]; // dword[128] @ MM7.exe::0076E1C8
 int dword_76E3C8[128]; // dword[128] @ MM7.exe::0076E3C8
  _BYTE byte_76E5C8[64 * 1024]; // idb
 
-struct D3DVERTEX  pVertices[50];      // struct[50]   @ MM7.exe::0077E5C8
+struct RenderVertexD3D3  pVertices[50];      // struct[50]   @ MM7.exe::0077E5C8
 struct struct8    array_77EC08[2000]; // struct[2000] @ MM7.exe::0077EC08
 struct class57   *pClass57_global;    // struct       @ MM7.exe::008019C8
 struct RenderVertex  *ptr_801A04;         // ptr          @ MM7.exe::00801A04
@@ -2068,7 +2067,7 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  int dword_AD4650; // weak
  int dword_AD4654[array_size_unknown]; // weak
  int dword_AD4658; // weak
- int dword_AD470C; // weak
+ int dword_AD470C; // start of ItemGen
  int dword_AD4710; // weak
  _UNKNOWN unk_AD4714; // weak
  _UNKNOWN unk_AD471C; // weak
@@ -2421,8 +2420,8 @@ struct OldViewport *pOldViewport = 0;  // struct @ MM7.exe::00F8BC14
  __int16 word_F8BC4A; // weak
  __int16 word_F8BD18[array_size_unknown]; // weak
  __int16 word_F8BD1A[array_size_unknown]; // weak
- int dword_F8BDE8; // weak
- int dword_F8D5EC; // weak
+ int dword_F8BDE8; // begin of class25
+ int dword_F8D5EC; // class25_stru0 **
  _UNKNOWN unk_F8DDE0; // weak
  _UNKNOWN unk_F8DDE4; // weak
  int dword_F8DDEC; // weak
@@ -2434,7 +2433,7 @@ _UNKNOWN unk_F8E9E0; // [63]+18
 _UNKNOWN unk_F8E9E4; // [63]+1C
  char byte_F8E9F8; // weak
 
-struct D3DVERTEX array_F8EA00[array_size_unknown]; // struct[?
+struct RenderVertexD3D3 array_F8EA00[array_size_unknown]; // struct[?
 
 struct Vis_stru0 array_F8F200[64]; // struct[64] @ MM7.exe::00F8F200
 struct class25 class25_F8FE00;     // struct     @ MM7.exe::00F8FE00
@@ -2445,6 +2444,8 @@ struct class25 class25_F91E10;  // struct @ MM7.exe::00F91E10
  int dword_F93E30; // weak
  int dword_F93E44; // weak
  int dword_F93E58; // weak
+
+ struct unnamed_F93E6C stru_F93E6C; // struct @ MM7.exe::00F93E6C
  int dword_F94004; // weak
  int dword_F9400C; // weak
  char byte_F94298; // weak

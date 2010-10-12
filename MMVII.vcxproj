@@ -87,8 +87,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="AIL.cpp" />
+    <ClCompile Include="Bink.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CbmTools.cpp" />
+    <ClCompile Include="classes.cpp" />
+    <ClCompile Include="data.cpp" />
     <ClCompile Include="Driver.cpp" />
+    <ClCompile Include="FrameTables.cpp" />
+    <ClCompile Include="FrameTables_FromTXT.cpp" />
+    <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="libpng143\png.c" />
     <ClCompile Include="libpng143\pngerror.c" />
     <ClCompile Include="libpng143\pngget.c" />
@@ -105,24 +115,25 @@
     <ClCompile Include="libpng143\pngwrite.c" />
     <ClCompile Include="libpng143\pngwtran.c" />
     <ClCompile Include="libpng143\pngwutil.c" />
-    <ClCompile Include="mm7 file 1.c" />
-    <ClCompile Include="mm7 file 2.c" />
-    <ClCompile Include="mm7 file 3.c" />
-    <ClCompile Include="mm7 file 4.c" />
-    <ClCompile Include="mm7 file 5.c" />
-    <ClCompile Include="mm7 file 6.c" />
-    <ClCompile Include="mm7 file 7.c" />
-    <ClCompile Include="mm7 file 8.c" />
-    <ClCompile Include="mm7 file 9 junk stuff.c" />
-    <ClCompile Include="mm7_unparsed_data.c" />
-    <ClCompile Include="Party.c" />
-    <ClCompile Include="Player.c" />
-    <ClCompile Include="Render.c" />
-    <ClCompile Include="RenderD3D3.c" />
+    <ClCompile Include="mm7 file 1.cpp" />
+    <ClCompile Include="mm7 file 2.cpp" />
+    <ClCompile Include="mm7 file 3.cpp" />
+    <ClCompile Include="mm7 file 4.cpp" />
+    <ClCompile Include="mm7 file 5.cpp" />
+    <ClCompile Include="mm7 file 6.cpp" />
+    <ClCompile Include="mm7 file 7.cpp" />
+    <ClCompile Include="mm7 file 8.cpp" />
+    <ClCompile Include="mm7 file 9 junk stuff.cpp" />
+    <ClCompile Include="mm7_unparsed_data.cpp" />
+    <ClCompile Include="Party.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Render.cpp" />
+    <ClCompile Include="RenderD3D3.cpp" />
     <ClCompile Include="Render\RenderD3D10.cpp" />
     <ClCompile Include="Render\RenderOGL.cpp" />
     <ClCompile Include="Render\RenderOperatorsD3D10.cpp" />
     <ClCompile Include="Render\RenderOperatorsOGL.cpp" />
+    <ClCompile Include="Smacker.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="zlib\adler32.c" />
     <ClCompile Include="zlib\compress.c" />
@@ -137,22 +148,20 @@
     <ClCompile Include="zlib\trees.c" />
     <ClCompile Include="zlib\uncompr.c" />
     <ClCompile Include="zlib\zutil.c" />
-    <ClCompile Include="_audio.c" />
-    <ClCompile Include="_video.c" />
-    <ClCompile Include="Actor.c" />
-    <ClCompile Include="AIL.c" />
-    <ClCompile Include="Bink.c" />
-    <ClCompile Include="CbmTools.cpp" />
-    <ClCompile Include="classes.c" />
-    <ClCompile Include="data.c" />
-    <ClCompile Include="FrameTables.c" />
-    <ClCompile Include="FrameTables_FromTXT.c" />
-    <ClCompile Include="GUI.c" />
-    <ClCompile Include="Level.c" />
-    <ClCompile Include="Smacker.c" />
+    <ClCompile Include="_audio.cpp" />
+    <ClCompile Include="_video.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="AIL.h" />
+    <ClInclude Include="Bink.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CbmTools.h" />
+    <ClInclude Include="classes.h" />
+    <ClInclude Include="data.h" />
+    <ClInclude Include="defs.h" />
+    <ClInclude Include="FrameTables.h" />
+    <ClInclude Include="GUI.h" />
     <ClInclude Include="Items.h" />
     <ClInclude Include="legacy dx\d3d.h" />
     <ClInclude Include="legacy dx\d3dcaps.h" />
@@ -180,6 +189,7 @@
     <ClInclude Include="legacy dx\rmxfguid.h" />
     <ClInclude Include="legacy dx\rmxftmpl.h" />
     <ClInclude Include="legacy dx\strsafe.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="libpng143\png.h" />
     <ClInclude Include="libpng143\pngconf.h" />
     <ClInclude Include="libpng143\pngpriv.h" />
@@ -201,6 +211,7 @@
     <ClInclude Include="Render\Texture.h" />
     <ClInclude Include="Render\TextureD3D10.h" />
     <ClInclude Include="Render\TextureOGL.h" />
+    <ClInclude Include="Smacker.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="zlib\deflate.h" />
     <ClInclude Include="zlib\infblock.h" />
@@ -216,17 +227,6 @@
     <ClInclude Include="_audio.h" />
     <ClInclude Include="_c_interface.h" />
     <ClInclude Include="_video.h" />
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="AIL.h" />
-    <ClInclude Include="Bink.h" />
-    <ClInclude Include="CbmTools.h" />
-    <ClInclude Include="classes.h" />
-    <ClInclude Include="data.h" />
-    <ClInclude Include="defs.h" />
-    <ClInclude Include="FrameTables.h" />
-    <ClInclude Include="GUI.h" />
-    <ClInclude Include="Level.h" />
-    <ClInclude Include="Smacker.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="legacy dx\d3dvec.inl" />

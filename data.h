@@ -190,11 +190,9 @@ extern struct RGBTexture      *pClass33_global1;
 extern struct RGBTexture      *pClass33_global3;
 
 extern struct CTextureFrameTable *pTextureFrameTable;
-extern struct CSpriteFrameTable  *pSpriteFrameTable;
+extern struct SpriteFrameTable  *pSpriteFrameTable;
 
 extern struct class59 *pClass59_global;
-
-extern char class23_instance[];
 
 
 extern unsigned char TmpBuf[];
@@ -246,7 +244,7 @@ extern struct CMonsterStats *pMonsterStats;
 
 extern struct COverlayDescriptionList    *pOverlayDescriptionList;
 extern struct CObjectDescriptionList     *pObjectDescriptionList;
-extern struct CDecorationDescriptionList *pDecorationDescriptionList;
+extern struct DecorationDescriptionList *pDecorationDescriptionList;
 
 extern struct RenderVertex array_73D150[];
 
@@ -263,9 +261,10 @@ extern struct Font *pFontSmallnum;
 
 
 
+int __fastcall ReadWindowsRegistryString(const char *pKeyName, unsigned char *pOut, unsigned int uBufLen, const unsigned char *pDefaultValue);
 int __fastcall ReadWindowsRegistry(const char *pKeyName, int iDefaultValue);
 LSTATUS __stdcall sub_4ABC9B(char a1);
 
 
 void *__stdcall call_new(int, int, int);
-int             call_delete(int result, unsigned int a2);
+int             call_delete(void *ptr);

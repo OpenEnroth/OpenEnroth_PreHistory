@@ -12,12 +12,12 @@ void MonsterDescriptionList_ctor(struct MonsterDescriptionList *_this)
 }
 
 //----- (004598AF) --------------------------------------------------------
-void MonsterDescriptionList_Initialize(struct MonsterDescriptionList *_this, unsigned char *pSrc)
+void MonsterDescriptionList_Initialize(struct MonsterDescriptionList *_this, unsigned int *pSrc)
 {
- _this->uNumDescriptions = *(unsigned int *)(pSrc);
- _this->pDescriptions = class23_AllocatedNamedBuffer(class23_instance, _this->pDescriptions, _this->uNumDescriptions * sizeof(struct MonsterDescription), "Mon Race");
+ _this->uNumDescriptions = pSrc[0];
+ _this->pDescriptions = (MonsterDescription *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pDescriptions, _this->uNumDescriptions * sizeof(struct MonsterDescription), "Mon Race");
 
- memcpy(_this->pDescriptions, pSrc + 4, _this->uNumDescriptions * sizeof(struct MonsterDescription));
+ memcpy(_this->pDescriptions, pSrc + 1, _this->uNumDescriptions * sizeof(struct MonsterDescription));
 }
 
 
@@ -26,7 +26,7 @@ void MonsterDescriptionList_Initialize(struct MonsterDescriptionList *_this, uns
 void CTextureFrameTable_Initialize(struct CTextureFrameTable *_this, unsigned char *pSrc)
 {
  _this->uNumTextures = *(int *)(pSrc);
- _this->pTextures = class23_AllocatedNamedBuffer(class23_instance, _this->pTextures, _this->uNumTextures * sizeof(struct TextureFrame), "Txt Frames");
+ _this->pTextures = (TextureFrame *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pTextures, _this->uNumTextures * sizeof(struct TextureFrame), "Txt Frames");
 
  memcpy(_this->pTextures, pSrc + 4, _this->uNumTextures * sizeof(struct TextureFrame));
 }
@@ -54,7 +54,7 @@ void CIconFrameTable_Initialize(struct CIconFrameTable *_this, void *pSrc)
 {
  _this->uNumIcons = *(int *)pSrc;
 
- _this->pIcons = class23_AllocatedNamedBuffer(class23_instance, _this->pIcons, _this->uNumIcons * sizeof(struct IconFrame), "I Frames");
+ _this->pIcons = (IconFrame *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pIcons, _this->uNumIcons * sizeof(struct IconFrame), "I Frames");
  memcpy(_this->pIcons, (char *)pSrc + 4, _this->uNumIcons * sizeof(struct IconFrame));
 }
 
@@ -70,7 +70,7 @@ unsigned int CIconFrameTable_FindIcon_New(struct CIconFrameTable *_this, const w
  wsprintfA(pIconNameA, "%S", pIconName);
  for (i = 0; i < _this->uNumIcons; ++i)
  {
-  if (!_strcmpi(pIconNameA, _this->pIcons[i].sIconName))
+  if (!_strcmpi(pIconNameA, (char *)_this->pIcons[i].sIconName))
     return i;
  }
  return 0;
@@ -141,7 +141,7 @@ struct IconFrame *CIconFrameTable_GetFrame(struct CIconFrameTable *_this, unsign
 
 
 
-void CSpriteFrameTable_ctor(struct CSpriteFrameTable *_this)
+void SpriteFrameTable_ctor(struct SpriteFrameTable *_this)
 {
  _this->uNumSpriteFrames = 0;
  _this->dword_000004 = 0;
@@ -152,21 +152,21 @@ void CSpriteFrameTable_ctor(struct CSpriteFrameTable *_this)
 }
 
 //----- (MM7.exe::0044D9D7) --------------------------------------------------------
-int CSpriteFrameTable_Initialize(struct CSpriteFrameTable *_this, unsigned char *pSrc)
+int SpriteFrameTable_Initialize(struct SpriteFrameTable *_this, unsigned int *pSrc)
 {
  int i;
 
- _this->uNumSpriteFrames = ((unsigned int *)pSrc)[0];
- _this->dword_000004 = ((unsigned int *)pSrc)[1];
+ _this->uNumSpriteFrames = pSrc[0];
+ _this->dword_000004 = pSrc[1];
 
- _this->pSpriteSFrames = class23_AllocatedNamedBuffer(class23_instance, _this->pSpriteSFrames, _this->uNumSpriteFrames * sizeof(struct SpriteFrame), "S Frames");
- _this->pSpritePFrames = class23_AllocatedNamedBuffer(class23_instance, _this->pSpritePFrames, 4 * _this->uNumSpriteFrames, "P Frames");
- _this->pSpriteEFrames = class23_AllocatedNamedBuffer(class23_instance, _this->pSpriteEFrames, 2 * _this->uNumSpriteFrames, "E Frames");
+ _this->pSpriteSFrames = (SpriteFrame *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pSpriteSFrames, _this->uNumSpriteFrames * sizeof(struct SpriteFrame), "S Frames");
+ _this->pSpritePFrames = (SpriteFrame **)class23_AllocatedNamedBuffer(pClass23, (int)_this->pSpritePFrames, 4 * _this->uNumSpriteFrames, "P Frames");
+ _this->pSpriteEFrames = (unsigned short *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pSpriteEFrames, 2 * _this->uNumSpriteFrames, "E Frames");
 
- pSrc += 8;
+ pSrc += 2;
  memcpy(_this->pSpriteSFrames, pSrc, _this->uNumSpriteFrames * sizeof(struct SpriteFrame));
 
- pSrc +=_this->uNumSpriteFrames * sizeof(struct SpriteFrame);
+ pSrc = (unsigned int *)((char *)pSrc + _this->uNumSpriteFrames * sizeof(struct SpriteFrame));
  memcpy(_this->pSpriteEFrames, pSrc, _this->dword_000004 * sizeof(short));
 
  for (i = 0; i < _this->uNumSpriteFrames; ++i)
@@ -176,7 +176,7 @@ int CSpriteFrameTable_Initialize(struct CSpriteFrameTable *_this, unsigned char 
 }
 
 //----- (0044D8D0) --------------------------------------------------------
-struct SpriteFrame *CSpriteFrameTable_fn1(struct CSpriteFrameTable *_this, unsigned int uID, signed int a3)
+struct SpriteFrame *CSpriteFrameTable_fn1(struct SpriteFrameTable *_this, unsigned int uID, signed int a3)
 {
   int v3; // ecx@1
   signed __int16 v5; // dx@2
@@ -186,7 +186,7 @@ struct SpriteFrame *CSpriteFrameTable_fn1(struct CSpriteFrameTable *_this, unsig
   int v9; // esi@5
   int result; // eax@6
 
-  v3 = &_this->pSpriteSFrames[uID];
+  v3 = (int)&_this->pSpriteSFrames[uID];
   v5 = _this->pSpriteSFrames[uID].word_000038;
   if (_this->pSpriteSFrames[uID].dword_00002C & 0x01 && v5 != 0 )
   {
@@ -209,7 +209,7 @@ struct SpriteFrame *CSpriteFrameTable_fn1(struct CSpriteFrameTable *_this, unsig
 }
 
 //----- (0044D91F) --------------------------------------------------------
-int CSpriteFrameTable_fn2(struct CSpriteFrameTable *_this, int a2, signed int a3)
+struct SpriteFrame *CSpriteFrameTable_fn2(struct SpriteFrameTable *_this, int a2, signed int a3)
 {
   int v3; // edi@1
   int v4; // esi@1
@@ -244,11 +244,11 @@ int CSpriteFrameTable_fn2(struct CSpriteFrameTable *_this, int a2, signed int a3
   {
     result = 60 * a2 + v3;
   }
-  return result;
+  return (SpriteFrame *)result;
 }
 
 //----- (0044D4F6) --------------------------------------------------------
-void CSpriteFrameTable_fn3(struct CSpriteFrameTable *_this)
+void SpriteFrameTable_fn3(struct SpriteFrameTable *_this)
 {
  int i;
 
@@ -257,7 +257,7 @@ void CSpriteFrameTable_fn3(struct CSpriteFrameTable *_this)
 }
 
 //----- (0044D513) --------------------------------------------------------
-void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, unsigned int uSpriteFrameID)
+void SpriteFrameTable_InitializeSpriteFrame(struct SpriteFrameTable *_this, unsigned int uSpriteFrameID)
 {
   int v2; // esi@1
   __int16 v10; // ax@6
@@ -277,7 +277,7 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
   char Source[4]; // [sp+40h] [bp-8h]@19
  int i, j; 
 
-  v2 = _this;
+  v2 = (int)_this;
   if (uSpriteFrameID > _this->uNumSpriteFrames)
     return;
 
@@ -293,7 +293,7 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
   if (_this->pSpriteSFrames[i].dword_00002C & 0x10)
   {
 
-   v10 = LODFile_LoadSprite(pLODFile_Sprites_LOD, _this->pSpriteSFrames[i].sTextureName, _this->pSpriteSFrames[i].word_000032);
+   v10 = LODFile_LoadSprite(pLODFile_Sprites_LOD, (char *)_this->pSpriteSFrames[i].sTextureName, _this->pSpriteSFrames[i].word_000032);
 
    for (j = 0; j < 8; ++j)
      _this->pSpriteSFrames[i].pSpriteIDs[j] = v10;
@@ -321,7 +321,7 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
               }
               wsprintfA(Size, v22, _this->pSpriteSFrames[i].sTextureName);
 
-              v12 = LODFile_LoadSprite(pLODFile_Sprites_LOD, &Size, _this->pSpriteSFrames[i].word_000032);
+              v12 = LODFile_LoadSprite(pLODFile_Sprites_LOD, (char *)&Size, _this->pSpriteSFrames[i].word_000032);
 
               _this->pSpriteSFrames[i].pSpriteIDs[v11++] = v12;
             }
@@ -345,7 +345,7 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
   else
   {
           strcpy(Source, "stA");
-          strcpy(&Str, _this->pSpriteSFrames[i].sTextureName);
+          strcpy(&Str, (char *)_this->pSpriteSFrames[i].sTextureName);
           v15 = strlen(&Str);
           strcpy(&v28 + v15, Source);
           v14 = 0;
@@ -354,7 +354,7 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
             switch ( v14 )
             {
               case 0:
-               v26 = _this->pSpriteSFrames[i].sTextureName;
+               v26 = (char *)_this->pSpriteSFrames[i].sTextureName;
                 v23 = (const char *)&unk_4E7E20;
                 goto LABEL_26;
               case 4:
@@ -368,12 +368,12 @@ void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, un
                 goto LABEL_26;
               case 2:
               case 6:
-               v26 = _this->pSpriteSFrames[i].sTextureName;
+               v26 = (char *)_this->pSpriteSFrames[i].sTextureName;
                 v23 = (const char *)&unk_4E7E24;
                 goto LABEL_26;
               case 1:
               case 7:
-               v26 = _this->pSpriteSFrames[i].sTextureName;
+               v26 = (char *)_this->pSpriteSFrames[i].sTextureName;
                 v23 = "%s1";
 LABEL_26:
                 wsprintfA(Size, v23, v26);
@@ -381,7 +381,7 @@ LABEL_26:
               default:
                 break;
             }
-            v16 = LODFile_LoadSprite(pLODFile_Sprites_LOD, &Size, _this->pSpriteSFrames[i].word_000032);
+            v16 = LODFile_LoadSprite(pLODFile_Sprites_LOD, (char *)&Size, _this->pSpriteSFrames[i].word_000032);
 
             _this->pSpriteSFrames[i].pSpriteIDs[v14++] = v16;
           }
@@ -394,20 +394,20 @@ LABEL_26:
 }
 
 //----- (0044D813) --------------------------------------------------------
-unsigned int CSpriteFrameTable_FastFindSprite(struct CSpriteFrameTable *_this, const char *pSpriteName)
+unsigned int SpriteFrameTable_FastFindSprite(struct SpriteFrameTable *_this, const char *pSpriteName)
 {
- CSpriteFrameTablsub_SpriteBinarySearch(_this, 0, _this->dword_000004, pSpriteName);
+ SpriteFrameTablsub_SpriteBinarySearch(_this, 0, _this->dword_000004, pSpriteName);
  if (_this->dword_000008 < 0)
    return 0;
  else return _this->pSpriteEFrames[_this->dword_000008];
 }
 
 //----- (MM7.exe::0044D4D8) --------------------------------------------------------
-int CSpriteFrameTable_sub_44D4D8(struct CSpriteFrameTable *_this)
+int SpriteFrameTable_sub_44D4D8(struct SpriteFrameTable *_this)
 {
  if (_this->pSpriteSFrames)
  {
-  class23_DeleteBuffer(class23_instance, _this->pSpriteSFrames);
+  class23_DeleteBuffer(pClass23, (void *)_this->pSpriteSFrames);
   _this->pSpriteSFrames = 0;
  }
  _this->uNumSpriteFrames = 0;
@@ -415,7 +415,7 @@ int CSpriteFrameTable_sub_44D4D8(struct CSpriteFrameTable *_this)
 }
 
 //----- (0044D83A) --------------------------------------------------------
-void CSpriteFrameTablsub_SpriteBinarySearch(struct CSpriteFrameTable *_this, int a2, int a3, const char *pSpriteName)
+void SpriteFrameTablsub_SpriteBinarySearch(struct SpriteFrameTable *_this, int a2, int a3, const char *pSpriteName)
 {
   int v4; // ebx@1
   void *v5; // edi@1
@@ -430,7 +430,7 @@ void CSpriteFrameTablsub_SpriteBinarySearch(struct CSpriteFrameTable *_this, int
     v8 = a3 - v4;
     v7 = (a3 - v4) / 2 + v4;
 
-    result = strcmpi(pSpriteName, _this->pSpritePFrames[v7]->sIconName);
+    result = strcmpi(pSpriteName, (char *)_this->pSpritePFrames[v7]->sIconName);
     if (!result)
       _this->dword_000008 = v7;
 
@@ -442,7 +442,7 @@ void CSpriteFrameTablsub_SpriteBinarySearch(struct CSpriteFrameTable *_this, int
       {
         while ( v4 < a3 )
         {
-          result = strcmpi(pSpriteName, _this->pSpritePFrames[v4]->sIconName);
+          result = strcmpi(pSpriteName, (char *)_this->pSpritePFrames[v4]->sIconName);
           if ( !result )
           {
             _this->dword_000008 = v4;
@@ -479,7 +479,7 @@ void CTileTable_ctor(struct CTileTable *_this)
 void CTileTable_Initialize(struct CTileTable *_this, unsigned char *pSrc)
 {
  _this->uNumTiles = *(int *)(pSrc);
- _this->pTiles = class23_AllocatedNamedBuffer(class23_instance, _this->pTiles, _this->uNumTiles * sizeof(struct TileDesc), "Tile Descrip");
+ _this->pTiles = (TileDesc *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pTiles, _this->uNumTiles * sizeof(struct TileDesc), "Tile Descrip");
  memcpy(_this->pTiles, pSrc + 4, _this->uNumTiles * sizeof(struct TileDesc));
 }
 
@@ -569,7 +569,7 @@ void CPlayerFrameTable_ctor(struct CPlayerFrameTable *_this)
 void *CPlayerFrameTable_Initialize(struct CPlayerFrameTable *_this, unsigned char *pSrc)
 {
  _this->uNumFrames = *(int *)(pSrc);
- _this->pFrames = class23_AllocatedNamedBuffer(class23_instance, _this->pFrames, _this->uNumFrames * sizeof(struct PlayerFrame), "P Frames");
+ _this->pFrames = (PlayerFrame *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pFrames, _this->uNumFrames * sizeof(struct PlayerFrame), "P Frames");
  memcpy(_this->pFrames, pSrc + 4, _this->uNumFrames * sizeof(struct PlayerFrame));
  return 0;
 }
@@ -601,23 +601,23 @@ struct PlayerFrame *CPlayerFrameTable_GetFrame(struct CPlayerFrameTable *_this, 
 
  
 
-void CDecorationDescriptionList_ctor(struct CDecorationDescriptionList *_this)
+void DecorationDescriptionList_ctor(struct DecorationDescriptionList *_this)
 {
- memset(_this, 0, sizeof(struct CDecorationDescriptionList));
+ memset(_this, 0, sizeof(struct DecorationDescriptionList));
 }
 
 //----- (0045864C) --------------------------------------------------------
-void *CDecorationDescriptionList_Initialize(struct CDecorationDescriptionList *_this, unsigned char *pSrc)
+void *DecorationDescriptionList_Initialize(struct DecorationDescriptionList *_this, unsigned char *pSrc)
 {
  _this->uNumLevelDecorations = *(int *)(pSrc);
 
- _this->pDescriptions = class23_AllocatedNamedBuffer(class23_instance, _this->pDescriptions, _this->uNumLevelDecorations * sizeof(struct DecorationDescription), "Dec Descrip");
+ _this->pDescriptions = (DecorationDescription *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pDescriptions, _this->uNumLevelDecorations * sizeof(struct DecorationDescription), "Dec Descrip");
  memcpy(_this->pDescriptions, pSrc + 4, _this->uNumLevelDecorations * sizeof(struct DecorationDescription));
  return 0;
 }
 
 //----- (004488B6) --------------------------------------------------------
-__int16 sub_4488B6(struct CDecorationDescriptionList *_this, const char *Str1)
+__int16 sub_4488B6(struct DecorationDescriptionList *_this, const char *Str1)
 {
   void *v2; // esi@1
   signed int v3; // edi@2
@@ -629,7 +629,7 @@ __int16 sub_4488B6(struct CDecorationDescriptionList *_this, const char *Str1)
   {
    v3 = 1;
     v4 = 84;
-    while ( _strcmpi(Str1, _this->pDescriptions[v3].array_000000) )
+    while ( _strcmpi(Str1, (char *)_this->pDescriptions[v3].array_000000) )
     {
       ++v3;
       v4 += 84;
@@ -643,9 +643,9 @@ __int16 sub_4488B6(struct CDecorationDescriptionList *_this, const char *Str1)
 }
 
 //----- (00458693) --------------------------------------------------------
-void sub_458693(struct CDecorationDescriptionList *_this, unsigned int uDecorationDescriptionID)
+void sub_458693(struct DecorationDescriptionList *_this, unsigned int uDecorationDescriptionID)
 {
-  CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[uDecorationDescriptionID].uSpriteID);
+  SpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[uDecorationDescriptionID].uSpriteID);
 }
 
 
@@ -664,7 +664,7 @@ void *CObjectDescriptionList_Initialize(struct CObjectDescriptionList *_this, un
 {
  _this->uNumObjects = *(int *)(pSrc);
 
- _this->pDescriptions = class23_AllocatedNamedBuffer(class23_instance, _this->pDescriptions, _this->uNumObjects * sizeof(struct ObjectDescription), "Obj Descrip");
+ _this->pDescriptions = (ObjectDescription *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pDescriptions, _this->uNumObjects * sizeof(struct ObjectDescription), "Obj Descrip");
  memcpy(_this->pDescriptions, pSrc + 4, _this->uNumObjects * sizeof(struct ObjectDescription));
  return 0;
 }
@@ -676,7 +676,7 @@ void sub_459064(struct CObjectDescriptionList *_this)
  int i;
 
  for (i = 0; i < _this->uNumObjects; ++i)
-   CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[i].uSpriteID);
+   SpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[i].uSpriteID);
 }
 
 
@@ -692,7 +692,7 @@ void *COverlayDescriptionList_Initialize(struct COverlayDescriptionList *_this, 
 {
  _this->uNumOverlays = *(int *)(pSrc);
 
- _this->pDescriptions = class23_AllocatedNamedBuffer(class23_instance, _this->pDescriptions, _this->uNumOverlays * sizeof(struct OverlayDescription), "Ovl Des.");
+ _this->pDescriptions = (OverlayDescription *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pDescriptions, _this->uNumOverlays * sizeof(struct OverlayDescription), "Ovl Des.");
  memcpy(_this->pDescriptions, pSrc + 4, _this->uNumOverlays * sizeof(struct OverlayDescription));
  return 0;
 }
@@ -704,6 +704,6 @@ void sub_458D97(struct COverlayDescriptionList *_this)
  int i;
 
  for (i = 0; i < _this->uNumOverlays; ++i)
-   CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[i].word_000004);
+   SpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[i].word_000004);
 }
 

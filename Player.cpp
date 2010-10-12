@@ -7,6 +7,7 @@
 #include "Smacker.h"
 #include "Level.h"
 #include "FrameTables.h"
+#include "_audio.h"
 
 #include "data.h"
 
@@ -40,7 +41,7 @@ unsigned char AvailSkillPerClass[9][37] =  // byte[] @ MM7.exe::004ED820
 
 
 //----- (0048D6AA) --------------------------------------------------------
-bool sub_48D6AA(struct Player *_this, int a2)
+bool Player_sub_48D6AA(struct Player *_this, int a2)
 {
   int v2; // eax@1
 
@@ -110,13 +111,13 @@ void Player_Reset(struct Player *_this, unsigned int uDesiredClass)
 }
 
 //----- (0048D6D0) --------------------------------------------------------
-bool sub_48D6D0(struct Player *_this, int a2)
+bool Player_sub_48D6D0(struct Player *_this, int a2)
 {
   int v2; // esi@1
   int v3; // edx@2
 
   v2 = 0;
-  while (!sub_48D6AA(_this, v2) || *((int *)((char *)_this + 0x2FC) + 9 * _this->sEquppedItemIndexes[v2]) != a2)
+  while (!Player_sub_48D6AA(_this, v2) || *((int *)((char *)_this + 0x2FC) + 9 * _this->sEquppedItemIndexes[v2]) != a2)
   {
     ++v2;
     if ( v2 >= 16 )
@@ -175,7 +176,7 @@ signed int __thiscall GetSkillIdxByOrder(struct Player *_this, int Order)
         if ( Order <= 12 )
         {
           v3 = 0;
-          v4 = &AvailSkillPerClass[_this->uClass >> 2];
+          v4 = (char *)&AvailSkillPerClass[_this->uClass >> 2];
           for (i = 0; i < 37; ++i)
           {
             if ( *v4 == 1 )
@@ -211,7 +212,7 @@ __int16 Player_SetInitialStats(struct Player *_this)
 void Player_RandomizeName(struct Player *_this)
 {
  if (!_this->word_001A9E)
-   lstrcpyA(_this->sName, pNPCStats->pNPCNames[rand() % pNPCStats->uNumNPCNames[_this->uSex]][_this->uSex]);
+   lstrcpyA((char *)_this->sName, (char *)pNPCStats->pNPCNames[rand() % pNPCStats->uNumNPCNames[_this->uSex]][_this->uSex]);
 }
 
 //----- (00490109) --------------------------------------------------------
@@ -364,7 +365,7 @@ int Player_GetActualLevel(struct Player *_this)
 }
 
 //----- (0048E72C) --------------------------------------------------------
-int __thiscall Player_GetActualAge(struct Player *_this)
+int Player_GetActualAge(struct Player *_this)
 {
   return Player_GetBaseAge(_this) + _this->sAgeModifier;
 }
@@ -542,7 +543,7 @@ int Player_GetMaxHealth(struct Player *_this)
   v7 = Player_MaybeGetWearItemsBonus(_this, 7, 0) + v6;
   v2 = _this->byte_001A98
      + byte_4ED750[_this->uClass >> 2]
-     + sub_48FC00(_this, 7)
+     + Player_sub_48FC00(_this, 7)
      + v7;
   result = 1;
   if ( v2 >= 1 )
@@ -551,7 +552,7 @@ int Player_GetMaxHealth(struct Player *_this)
 }
 
 //----- (0048E565) --------------------------------------------------------
-int __thiscall Player_GetMaxMana(int this)
+int __thiscall Player_GetMaxMana(struct Player *_this)
 {
   int v1; // edi@1
   int v2; // eax@2
@@ -564,8 +565,8 @@ int __thiscall Player_GetMaxMana(int this)
   int v9; // esi@6
   int result; // eax@7
 
-  v1 = this;
-  switch ( *(_BYTE *)(this + 185) )
+  v1 = (int)_this;
+  switch ( *(_BYTE *)((char *)_this + 185) )
   {
     case 5:
     case 6:
@@ -578,7 +579,7 @@ int __thiscall Player_GetMaxMana(int this)
     case 0x21:
     case 0x22:
     case 0x23:
-      v2 = Player_GetActualIntelligence(this);
+      v2 = Player_GetActualIntelligence(_this);
       goto LABEL_4;
     case 9:
     case 0xA:
@@ -591,7 +592,7 @@ int __thiscall Player_GetMaxMana(int this)
     case 0x19:
     case 0x1A:
     case 0x1B:
-      v2 = Player_GetActualWillpower(this);
+      v2 = Player_GetActualWillpower(_this);
 LABEL_4:
       v3 = sub_48EA1B(v2);
       goto LABEL_6;
@@ -602,16 +603,16 @@ LABEL_4:
     case 0x1D:
     case 0x1E:
     case 0x1F:
-      v4 = Player_GetActualWillpower(this);
+      v4 = Player_GetActualWillpower(_this);
       v5 = sub_48EA1B(v4);
-      v6 = Player_GetActualIntelligence(v1);
+      v6 = Player_GetActualIntelligence(_this);
       v3 = sub_48EA1B(v6) + v5;
 LABEL_6:
-      v8 = (unsigned __int8)byte_4ED78C[*(_BYTE *)(v1 + 185)] * (Player_GetActualLevel((void *)v1) + v3);
-      v9 = Player_MaybeGetWearItemsBonus((void *)v1, 8, 0) + v8;
+      v8 = (unsigned __int8)byte_4ED78C[*(_BYTE *)(v1 + 185)] * (Player_GetActualLevel((Player *)v1) + v3);
+      v9 = Player_MaybeGetWearItemsBonus((Player *)v1, 8, 0) + v8;
       v7 = *(_BYTE *)(v1 + 6810)
          + (unsigned __int8)byte_4ED75C[(unsigned int)*(_BYTE *)(v1 + 185) >> 2]
-         + sub_48FC00((void *)v1, 8)
+         + Player_sub_48FC00((Player *)v1, 8)
          + v9;
       if ( v7 < 1 )
         goto LABEL_7;
@@ -626,7 +627,7 @@ LABEL_7:
 }
 
 //----- (0048E9F4) --------------------------------------------------------
-int __thiscall Player_GetConditionIdx(struct Player *_this)
+int Player_GetConditionIdx(struct Player *_this)
 {
   signed int v1; // edx@1
 
@@ -643,7 +644,7 @@ int __thiscall Player_GetConditionIdx(struct Player *_this)
 }
 
 //----- (00492745) --------------------------------------------------------
-int __thiscall WearItem(void *this, int a2)
+int __thiscall WearItem(void *_this, int a2)
 {
   signed int v2; // eax@1
   int v3; // edx@1
@@ -652,7 +653,7 @@ int __thiscall WearItem(void *this, int a2)
   char *v6; // esi@6
 
   v2 = 0;
-  v3 = (int)((char *)this + 532);
+  v3 = (int)((char *)_this + 532);
   while ( *(_DWORD *)v3 )
   {
     ++v2;
@@ -666,9 +667,9 @@ int __thiscall WearItem(void *this, int a2)
   if ( v2 != -1 )
   {
     v4 = v2 + 1;
-    v5 = (int)((char *)this + 36 * v2);
+    v5 = (int)((char *)_this + 36 * v2);
     v6 = &byte_4E8398[pClass40->pItems[a2 - 1].uEquipType];
-    *((_DWORD *)this + (unsigned __int8)*v6 + 1618) = v4;
+    *((_DWORD *)_this + (unsigned __int8)*v6 + 1618) = v4;
     *(_DWORD *)(v5 + 532) = a2;
     *(_BYTE *)(v5 + 556) = *v6 + 1;
   }
@@ -703,7 +704,7 @@ int sub_49107D(struct Player *_this)
 }
 
 //----- (0048FC00) --------------------------------------------------------
-int sub_48FC00(struct Player *_this, signed int a2)
+int Player_sub_48FC00(struct Player *_this, signed int a2)
 {
   int v2; // eax@1
   signed int v3; // ebx@1
@@ -842,7 +843,7 @@ LABEL_12:
         v9 = (int)((char *)v5 + 6472);
         while ( 1 )
         {
-          if ( sub_48D6AA(v5, v72) )
+          if ( Player_sub_48D6AA((Player *)v5, v72) )
           {
             v12 = (&pClass40->pItems[0].uEquipType)[48 * *((_DWORD *)v5 + 9 * *(_DWORD *)v9 + 124) + 1];
             LOBYTE(v13) = sub_48F882(v10, v12);
@@ -900,7 +901,7 @@ LABEL_31:
       v20 = 0;
       while ( 1 )
       {
-        if ( sub_48D6AA(v5, v20) )
+        if ( Player_sub_48D6AA((Player *)v5, v20) )
         {
           v22 = *((_DWORD *)v5 + 9 * *(_DWORD *)v21 + 124);
           if (pClass40->pItems[v22 - 1].uEquipType <= 1u )
@@ -985,7 +986,7 @@ LABEL_53:
     v69 = 0;
     while ( 1 )
     {
-      if ( sub_48D6AA(v5, v35) )
+      if ( Player_sub_48D6AA((Player *)v5, v35) )
       {
         v37 = *((_DWORD *)v5 + 9 * *(_DWORD *)v36 + 124);
         if (pClass40->pItems[v37 - 1].uEquipType <= 1u )
@@ -1195,7 +1196,7 @@ int __thiscall CreateItemInInventory(struct Player *_this, signed int a2, int it
 }
 
 //----- (0048CCF5) --------------------------------------------------------
-int __thiscall sub_48CCF5(int this, int a2)
+int __thiscall sub_48CCF5(int _this, int a2)
 {
   int v3; // esi@1
   int v4; // eax@1
@@ -1203,16 +1204,16 @@ int __thiscall sub_48CCF5(int this, int a2)
   int v6; // ebx@1
   int v7; // ebp@1
 
-  v3 = this;
-  v4 = Player_GetActualAccuracy(this);
+  v3 = _this;
+  v4 = Player_GetActualAccuracy((Player *)_this);
   v5 = sub_48EA1B(v4);
-  v6 = sub_48FC00((void *)v3, 25);
-  v7 = Player_MaybeGetWearItemsBonus((void *)v3, 25, a2);
-  return v5 + v6 + v7 + Player_MaybeGetCastSpellBonus(v3, 25) + *(_BYTE *)(v3 + 6800);
+  v6 = Player_sub_48FC00((Player *)v3, 25);
+  v7 = Player_MaybeGetWearItemsBonus((Player *)v3, 25, a2);
+  return v5 + v6 + v7 + Player_MaybeGetCastSpellBonus((Player *)v3, 25) + *(_BYTE *)(v3 + 6800);
 }
 
 //----- (0048CD45) --------------------------------------------------------
-signed int __thiscall sub_48CD45(int this)
+signed int __thiscall sub_48CD45(int _this)
 {
   signed int result; // eax@1
   int v2; // esi@1
@@ -1222,12 +1223,12 @@ signed int __thiscall sub_48CD45(int this)
   int v6; // esi@1
   int v7; // esi@1
 
-  v3 = this;
-  v4 = Player_GetActualStrength(this);
+  v3 = _this;
+  v4 = Player_GetActualStrength((Player *)_this);
   v5 = sub_48EA1B(v4);
-  v6 = Player_MaybeGetWearItemsBonus((void *)v3, 27, 0) + v5;
-  v7 = sub_48FC00((void *)v3, 26) + v6;
-  v2 = *(_BYTE *)(v3 + 6802) + Player_MaybeGetCastSpellBonus(v3, 26) + v7;
+  v6 = Player_MaybeGetWearItemsBonus((Player *)v3, 27, 0) + v5;
+  v7 = Player_sub_48FC00((Player *)v3, 26) + v6;
+  v2 = *(_BYTE *)(v3 + 6802) + Player_MaybeGetCastSpellBonus((Player *)v3, 26) + v7;
   result = 1;
   if ( v2 >= 1 )
     result = v2;
@@ -1235,7 +1236,7 @@ signed int __thiscall sub_48CD45(int this)
 }
 
 //----- (0048CD90) --------------------------------------------------------
-signed int __thiscall sub_48CD90(int this)
+signed int __thiscall sub_48CD90(int _this)
 {
   signed int result; // eax@1
   int v2; // esi@1
@@ -1245,12 +1246,12 @@ signed int __thiscall sub_48CD90(int this)
   int v6; // esi@1
   int v7; // esi@1
 
-  v3 = this;
-  v4 = Player_GetActualStrength(this);
+  v3 = _this;
+  v4 = Player_GetActualStrength((Player *)_this);
   v5 = sub_48EA1B(v4);
-  v6 = Player_MaybeGetWearItemsBonus((void *)v3, 28, 0) + v5;
-  v7 = sub_48FC00((void *)v3, 26) + v6;
-  v2 = *(_BYTE *)(v3 + 6802) + Player_MaybeGetCastSpellBonus(v3, 26) + v7;
+  v6 = Player_MaybeGetWearItemsBonus((Player *)v3, 28, 0) + v5;
+  v7 = Player_sub_48FC00((Player *)_this, 26) + v6;
+  v2 = *(_BYTE *)(v3 + 6802) + Player_MaybeGetCastSpellBonus((Player *)v3, 26) + v7;
   result = 1;
   if ( v2 >= 1 )
     result = v2;
@@ -1258,7 +1259,7 @@ signed int __thiscall sub_48CD90(int this)
 }
 
 //----- (0048CDDB) --------------------------------------------------------
-signed int __thiscall sub_48CDDB(void *this, int a2, int a3, signed int a4)
+signed int __thiscall sub_48CDDB(void *_this, int a2, int a3, signed int a4)
 {
   int v4; // edi@1
   int v5; // esi@1
@@ -1295,18 +1296,18 @@ signed int __thiscall sub_48CDDB(void *this, int a2, int a3, signed int a4)
   int v36; // [sp+28h] [bp+8h]@37
 
   v5 = 0;
-  v4 = (int)this;
+  v4 = (int)_this;
   v35 = 0;
   v33 = 0;
   v29 = 0;
-  if ( sub_48D676(this) == 1 )
+  if ( sub_48D676(_this) == 1 )
   {
     v33 = rand() % 3 + 1;
 LABEL_61:
     v35 = v5;
     goto LABEL_62;
   }
-  if ( sub_48D6AA((void *)v4, 1) )
+  if ( Player_sub_48D6AA((Player *)v4, 1) )
   {
     v7 = v4 + 36 * *(_DWORD *)(v4 + 6476) + 496;
     v8 = *(_DWORD *)v7;
@@ -1385,7 +1386,7 @@ LABEL_33:
   v30 = 0;
   if ( !a3 )
   {
-    if ( sub_48D6AA((void *)v4, 0) )
+    if ( Player_sub_48D6AA((Player *)v4, 0) )
     {
       v15 = v4 + 36 * *(_DWORD *)(v4 + 6472) + 496;
       v16 = *(_DWORD *)v15;
@@ -1461,10 +1462,10 @@ LABEL_62:
   v22 = v33 + v35;
   if ( !a2 )
   {
-    v23 = Player_GetActualStrength(v4);
+    v23 = Player_GetActualStrength((Player *)v4);
     v24 = sub_48EA1B(v23);
-    v25 = sub_48FC00((void *)v4, 26) + v24;
-    v22 += *(_BYTE *)(v4 + 6802) + Player_MaybeGetCastSpellBonus(v4, 26) + v25;
+    v25 = Player_sub_48FC00((Player *)v4, 26) + v24;
+    v22 += *(_BYTE *)(v4 + 6802) + Player_MaybeGetCastSpellBonus((Player *)v4, 26) + v25;
   }
   result = 1;
   if ( v22 >= 1 )
@@ -1473,7 +1474,7 @@ LABEL_62:
 }
 
 //----- (0048D0B9) --------------------------------------------------------
-int __thiscall sub_48D0B9(int this)
+int __thiscall Player_sub_48D0B9(int _this)
 {
   signed int v1; // eax@1
   int v2; // esi@1
@@ -1483,25 +1484,25 @@ int __thiscall sub_48D0B9(int this)
   int v6; // edi@4
   int v7; // edi@4
 
-  v2 = this;
-  v1 = *(_DWORD *)(this + 36 * *(_DWORD *)(this + 6476) + 496);
+  v2 = _this;
+  v1 = *(_DWORD *)(_this + 36 * *(_DWORD *)(_this + 6476) + 496);
   if ( v1 < 64 || v1 > 65 )
   {
-    v4 = Player_GetActualAccuracy(this);
+    v4 = Player_GetActualAccuracy((Player *)_this);
     v5 = sub_48EA1B(v4);
-    v6 = Player_MaybeGetWearItemsBonus((void *)v2, 29, 0) + v5;
-    v7 = sub_48FC00((void *)v2, 29) + v6;
-    v3 = *(_BYTE *)(v2 + 6804) + Player_MaybeGetCastSpellBonus(v2, 29) + v7;
+    v6 = Player_MaybeGetWearItemsBonus((Player *)v2, 29, 0) + v5;
+    v7 = Player_sub_48FC00((Player *)v2, 29) + v6;
+    v3 = *(_BYTE *)(v2 + 6804) + Player_MaybeGetCastSpellBonus((Player *)v2, 29) + v7;
   }
   else
   {
-    v3 = sub_48CCF5(this, 1);
+    v3 = sub_48CCF5(_this, 1);
   }
   return v3;
 }
 
 //----- (0048D124) --------------------------------------------------------
-int __thiscall sub_48D124(void *this)
+int __thiscall sub_48D124(void *_this)
 {
   __int16 v1; // ax@1
   int v2; // edi@1
@@ -1510,16 +1511,16 @@ int __thiscall sub_48D124(void *this)
   int v5; // edi@1
   int result; // eax@6
 
-  v3 = (int)this;
-  v4 = Player_MaybeGetWearItemsBonus(this, 31, 0);
-  v5 = sub_48FC00((void *)v3, 30) + v4;
-  v2 = *(_BYTE *)(v3 + 6806) + Player_MaybeGetCastSpellBonus(v3, 30) + v5;
+  v3 = (int)_this;
+  v4 = Player_MaybeGetWearItemsBonus((Player *)_this, 31, 0);
+  v5 = Player_sub_48FC00((Player *)v3, 30) + v4;
+  v2 = *(_BYTE *)(v3 + 6806) + Player_MaybeGetCastSpellBonus((Player *)v3, 30) + v5;
   v1 = *(_WORD *)(v3 + 274);
   if ( v1 )
   {
     if ( sub_458244(v1) >= 4 )
     {
-      if ( sub_48D6AA((void *)v3, 2) )
+      if ( Player_sub_48D6AA((Player *)v3, 2) )
         v2 += *(_BYTE *)(v3 + 274) & 0x3F;
     }
   }
@@ -1531,7 +1532,7 @@ int __thiscall sub_48D124(void *this)
 }
 
 //----- (0048D191) --------------------------------------------------------
-int __thiscall sub_48D191(void *this)
+int __thiscall sub_48D191(void *_this)
 {
   __int16 v1; // ax@1
   int v2; // edi@1
@@ -1540,16 +1541,16 @@ int __thiscall sub_48D191(void *this)
   int v5; // edi@1
   int result; // eax@6
 
-  v3 = (int)this;
-  v4 = Player_MaybeGetWearItemsBonus(this, 32, 0);
-  v5 = sub_48FC00((void *)v3, 30) + v4;
-  v2 = *(_BYTE *)(v3 + 6806) + Player_MaybeGetCastSpellBonus(v3, 30) + v5;
+  v3 = (int)_this;
+  v4 = Player_MaybeGetWearItemsBonus((Player *)_this, 32, 0);
+  v5 = Player_sub_48FC00((Player *)v3, 30) + v4;
+  v2 = *(_BYTE *)(v3 + 6806) + Player_MaybeGetCastSpellBonus((Player *)v3, 30) + v5;
   v1 = *(_WORD *)(v3 + 274);
   if ( v1 )
   {
     if ( sub_458244(v1) >= 4 )
     {
-      if ( sub_48D6AA((void *)v3, 2) )
+      if ( Player_sub_48D6AA((Player *)v3, 2) )
         v2 += *(_BYTE *)(v3 + 274) & 0x3F;
     }
   }
@@ -1561,7 +1562,7 @@ int __thiscall sub_48D191(void *this)
 }
 
 //----- (0048D2EA) --------------------------------------------------------
-char *__thiscall sub_48D2EA(int this)
+char *__thiscall sub_48D2EA(int _this)
 {
   signed int v1; // eax@1
   int v2; // esi@1
@@ -1573,17 +1574,17 @@ char *__thiscall sub_48D2EA(int this)
   int v8; // eax@8
   signed int v9; // esi@9
 
-  v2 = this;
-  v1 = *(_DWORD *)(this + 36 * *(_DWORD *)(this + 6476) + 496);
+  v2 = _this;
+  v1 = *(_DWORD *)(_this + 36 * *(_DWORD *)(_this + 6476) + 496);
   if ( v1 < 64 || v1 > 65 )
   {
-    v4 = sub_48CD45(this);
+    v4 = sub_48CD45(_this);
     v3 = sub_48CD90(v2);
   }
   else
   {
-    v4 = Player_MaybeGetWearItemsBonus((void *)this, 27, 0);
-    v3 = Player_MaybeGetWearItemsBonus((void *)v2, 28, 0);
+    v4 = Player_MaybeGetWearItemsBonus((Player *)_this, 27, 0);
+    v3 = Player_MaybeGetWearItemsBonus((Player *)v2, 28, 0);
   }
   if ( v4 == v3 )
   {
@@ -1604,14 +1605,14 @@ char *__thiscall sub_48D2EA(int this)
     if ( v9 >= 135 )
     {
       if ( v9 <= 159 )
-        strcpy(v5, pGlobalTXT_LocalizationStrings[595]);
+        strcpy(v5, (char *)pGlobalTXT_LocalizationStrings[595]);
     }
   }
   return v5;
 }
 
 //----- (0048D396) --------------------------------------------------------
-char *__thiscall sub_48D396(int this)
+char *__thiscall Player_sub_48D396(int _this)
 {
   signed int v1; // eax@1
   int v2; // esi@1
@@ -1623,17 +1624,17 @@ char *__thiscall sub_48D396(int this)
   int v8; // eax@10
   signed int v9; // esi@11
 
-  v2 = this;
-  v1 = *(_DWORD *)(this + 36 * *(_DWORD *)(this + 6476) + 496);
+  v2 = _this;
+  v1 = *(_DWORD *)(_this + 36 * *(_DWORD *)(_this + 6476) + 496);
   if ( v1 < 64 || v1 > 65 )
   {
-    v4 = sub_48D124((void *)this);
+    v4 = sub_48D124((void *)_this);
     v3 = sub_48D191((void *)v2);
   }
   else
   {
-    v4 = Player_MaybeGetWearItemsBonus((void *)this, 27, 1);
-    v3 = Player_MaybeGetWearItemsBonus((void *)v2, 28, 1);
+    v4 = Player_MaybeGetWearItemsBonus((Player *)_this, 27, 1);
+    v3 = Player_MaybeGetWearItemsBonus((Player *)v2, 28, 1);
   }
   if ( v3 )
   {
@@ -1641,13 +1642,13 @@ char *__thiscall sub_48D396(int this)
     {
       v6 = v4;
       v5 = byte_A75074;
-      sprintfex(byte_A75074, "%d", v6);
+      wsprintfA(byte_A75074, "%d", v6);
     }
     else
     {
       v7 = v4;
       v5 = byte_A75074;
-      sprintfex(byte_A75074, "%d - %d", v7, v3);
+      wsprintfA(byte_A75074, "%d - %d", v7, v3);
     }
   }
   else
@@ -1662,7 +1663,7 @@ char *__thiscall sub_48D396(int this)
     if ( v9 >= 135 )
     {
       if ( v9 <= 159 )
-        strcpy(v5, pGlobalTXT_LocalizationStrings[595]);
+        strcpy(v5, (char *)pGlobalTXT_LocalizationStrings[595]);
     }
   }
   return v5;
@@ -1703,7 +1704,7 @@ signed int Player_sub_48EA46(struct Player *_this, int a2)
   v3 = 0;
   while ( 1 )
   {
-    if ( !sub_48D6AA(_this, v3) )
+    if ( !Player_sub_48D6AA(_this, v3) )
       goto LABEL_11;
     v5 = _this->sEquppedItemIndexes[0] - 1;
     if ( a2 != 17 )
@@ -1755,7 +1756,7 @@ signed int Player_sub_492D65(struct Player *_this, int a2, int a3)
  int i;
 
   v3 = (int)_this;
-  v29 = v3 + 8 * a2;
+  v29 = (char *)(v3 + 8 * a2);
   if ( *(_QWORD *)v29 )
   {
 LABEL_76:
@@ -1766,7 +1767,7 @@ LABEL_76:
     v30 = 0;
     for (i = 0; i < 4; ++i)
     {
-      if ( Player_sub_492C0B(pPlayers[i]) )
+      if ( Player_sub_492C0B((int)pPlayers[i]) )
         ++v30;
     }
 
@@ -1785,7 +1786,7 @@ LABEL_76:
       case 2:
         if ( a3 != 1 )
           goto LABEL_82;
-        if ( sub_48D6D0((void *)v3, 22) )
+        if ( Player_sub_48D6D0((Player *)v3, 22) )
           goto LABEL_76;
         v27 = 3;
         v24 = 505;
@@ -1799,7 +1800,7 @@ LABEL_76:
         v23 = 31;
         goto LABEL_81;
       case 5:
-        if ( a3 == 1 && (sub_48D6D0((void *)v3, 19) || sub_48D709(v5, 505, 3) || sub_48D709(v6, 530, 6)) )
+        if ( a3 == 1 && (Player_sub_48D6D0((Player *)v3, 19) || Player_sub_48D709((Player *)v5, 505, 3) || Player_sub_48D709((Player *)v6, 530, 6)) )
           goto LABEL_76;
         v26 = 0;
         v23 = 29;
@@ -1813,9 +1814,9 @@ LABEL_76:
           {
             --pParty_global->pPartyBuffs[13].word_000008;
             if (pParty_global->pPartyBuffs[13].word_000008 < 1u )
-              sub_458585(&pParty_global->pPartyBuffs[13]);
+              sub_458585((int)&pParty_global->pPartyBuffs[13]);
           }
-          if ( sub_48D6D0((void *)v3, 21) || sub_48D709(v7, 505, 3) || sub_48D709(v8, 530, 6) )
+          if ( Player_sub_48D6D0((Player *)v3, 21) || Player_sub_48D709((Player *)v7, 505, 3) || Player_sub_48D709((Player *)v8, 530, 6) )
             goto LABEL_76;
         }
         v26 = 0;
@@ -1828,7 +1829,7 @@ LABEL_76:
           goto LABEL_40;
         if ( HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) >= 0 && (HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[13].qword_000000 > 0u) )
           goto LABEL_10;
-        if ( sub_48D6D0((void *)v3, 18) || sub_48D709(v9, 505, 3) || sub_48D709(v10, 530, 6) )
+        if ( Player_sub_48D6D0((Player *)v3, 18) || Player_sub_48D709((Player *)v9, 505, 3) || Player_sub_48D709((Player *)v10, 530, 6) )
           goto LABEL_76;
 LABEL_40:
         v26 = 0;
@@ -1839,16 +1840,16 @@ LABEL_40:
           goto LABEL_82;
         if ( HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) >= 0 && (HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[13].qword_000000 > 0u) )
           goto LABEL_10;
-        if ( sub_48D6D0((void *)v3, 20) || sub_48D709(v11, 505, 3) || sub_48D709(v12, 507, 16) )
+        if ( Player_sub_48D6D0((Player *)v3, 20) || Player_sub_48D709((Player *)v11, 505, 3) || Player_sub_48D709((Player *)v12, 507, 16) )
           goto LABEL_76;
         v27 = 6;
         v24 = 530;
 LABEL_16:
-        if ( sub_48D709((void *)v3, v24, v27) )
+        if ( Player_sub_48D709((Player *)v3, v24, v27) )
           goto LABEL_76;
         goto LABEL_82;
       case 13:
-        Player_PlaySound((void *)v3, 32, 0);
+        Player_PlaySound((Player *)v3, 32, 0);
         v13 = v3 + 6460;
         goto LABEL_70;
       case 14:
@@ -1860,10 +1861,10 @@ LABEL_16:
       case 15:
         if ( a3 == 1
          && (HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) >= 0 && (HIDWORD(pParty_global->pPartyBuffs[13].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[13].qword_000000 > 0u)
-           || sub_48D6D0((void *)v3, 23)
-           || sub_48D709(v14, 520, 16)
-           || sub_48D709(v15, 505, 3)
-           || sub_48D709(v16, 530, 6)) )
+           || Player_sub_48D6D0((Player *)v3, 23)
+           || Player_sub_48D709((Player *)v14, 520, 16)
+           || Player_sub_48D709((Player *)v15, 505, 3)
+           || Player_sub_48D709((Player *)v16, 530, 6)) )
           goto LABEL_76;
         v26 = 0;
         v23 = 34;
@@ -1874,13 +1875,13 @@ LABEL_16:
 LABEL_10:
           --pParty_global->pPartyBuffs[13].word_000008;
           if (pParty_global->pPartyBuffs[13].word_000008 < 1u )
-            sub_458585(&pParty_global->pPartyBuffs[13]);
+            sub_458585((int)&pParty_global->pPartyBuffs[13]);
           goto LABEL_76;
         }
         v28 = 0;
         v25 = 35;
 LABEL_67:
-        Player_PlaySound((void *)v3, v25, v28);
+        Player_PlaySound((Player *)v3, v25, v28);
         if ( *(_DWORD *)(v3 + 6460) > 0 )
           *(_DWORD *)(v3 + 6460) = 0;
         v13 = v3 + 6464;
@@ -1895,7 +1896,7 @@ LABEL_82:
         do
         {
           //if ( Player_sub_492C0B((int)*(&ptr_A750C4 + v22)) )
-          if ( Player_sub_492C0B(pPlayers[v22 - 1]))
+          if ( Player_sub_492C0B((int)pPlayers[v22 - 1]))
           {
             ++v31;
             v21 = v22;
@@ -1914,7 +1915,7 @@ LABEL_82:
         if ( *(_BYTE *)(v3 + 185) == 35 || *(_QWORD *)(v3 + 128) || *(_QWORD *)(v3 + 136) || !*(_QWORD *)(v3 + 112) )
           goto LABEL_76;
         memset((void *)v3, 0, 0xA0u);
-        *(_DWORD *)(v3 + 6460) = Player_GetMaxHealth(v3);
+        *(_DWORD *)(v3 + 6460) = Player_GetMaxHealth((Player *)v3);
         v18 = 0;
         *(_DWORD *)(v3 + 6440) = *(_BYTE *)(v3 + 186);
         v19 = *(_DWORD *)(v3 + 6432);
@@ -1959,7 +1960,7 @@ LABEL_82:
         *(_BYTE *)(v3 + 186) = v20;
         *(_DWORD *)(v3 + 6432) = v20;
 LABEL_81:
-        Player_PlaySound((void *)v3, v23, v26);
+        Player_PlaySound((Player *)v3, v23, v26);
         goto LABEL_82;
       default:
         goto LABEL_82;
@@ -1969,7 +1970,7 @@ LABEL_81:
 }
 
 //----- (0048E656) --------------------------------------------------------
-int __thiscall sub_48E656(int this)
+int __thiscall Player_sub_48E656(int _this)
 {
   int v1; // esi@1
   void *v2; // edi@1
@@ -1978,11 +1979,11 @@ int __thiscall sub_48E656(int this)
   int v5; // esi@1
   int result; // eax@2
 
-  v2 = (void *)this;
-  v3 = Player_GetActualSpeed(this);
+  v2 = (void *)_this;
+  v3 = Player_GetActualSpeed((Player *)_this);
   v4 = sub_48EA1B(v3);
-  v5 = Player_MaybeGetWearItemsBonus(v2, 9, 0) + v4;
-  v1 = sub_48FC00(v2, 9) + v5;
+  v5 = Player_MaybeGetWearItemsBonus((Player *)v2, 9, 0) + v4;
+  v1 = Player_sub_48FC00((Player *)v2, 9) + v5;
   if ( v1 >= 1 )
     result = v1;
   else
@@ -1991,7 +1992,7 @@ int __thiscall sub_48E656(int this)
 }
 
 //----- (0048E68F) --------------------------------------------------------
-int __thiscall sub_48E68F(int this)
+int __thiscall Player_sub_48E68F(int _this)
 {
   int v1; // esi@1
   int v2; // edi@1
@@ -2001,12 +2002,12 @@ int __thiscall sub_48E68F(int this)
   int v6; // esi@1
   int result; // eax@2
 
-  v2 = this;
-  v3 = Player_GetActualSpeed(this);
+  v2 = _this;
+  v3 = Player_GetActualSpeed((Player *)_this);
   v4 = sub_48EA1B(v3);
-  v5 = Player_MaybeGetWearItemsBonus((void *)v2, 9, 0) + v4;
-  v6 = sub_48FC00((void *)v2, 9) + v5;
-  v1 = *(_WORD *)(v2 + 216) + Player_MaybeGetCastSpellBonus(v2, 9) + v6;
+  v5 = Player_MaybeGetWearItemsBonus((Player *)v2, 9, 0) + v4;
+  v6 = Player_sub_48FC00((Player *)v2, 9) + v5;
+  v1 = *(_WORD *)(v2 + 216) + Player_MaybeGetCastSpellBonus((Player *)v2, 9) + v6;
   if ( v1 >= 1 )
     result = v1;
   else
@@ -2086,7 +2087,7 @@ int __thiscall Player_GetActualResistance(struct Player *_this, signed int a2)
   {
     if ( sub_458244(_this->pActiveSkills[SKILL_LEATHER]) == 4 )  // Grandmaster leather bonus
     {  
-      if ( sub_48D6AA(_this, 3) ) // check equip?
+      if ( Player_sub_48D6AA(_this, 3) ) // check equip?
       {
         if ( sub_48D651_GetSomeItemSkillType(_this, 3) == 9 )
           ResBonus += _this->pActiveSkills[SKILL_LEATHER] & 0x3F;
@@ -2137,12 +2138,12 @@ int __thiscall Player_GetActualResistance(struct Player *_this, signed int a2)
 }
 
 //----- (0048E96A) --------------------------------------------------------
-bool Player_SetRecoveryTime(struct Player *_this, signed int a2)
+bool Player_SetRecoveryTime(struct Player *_this, int sRecoveryTime)
 {
   signed int v2; // edx@1
 
- v2 = a2;
- if (a2 < 0 )
+ v2 = sRecoveryTime;
+ if (sRecoveryTime < 0 )
    v2 = 0;
  if (v2 > _this->uTimeToRecovery)
    _this->uTimeToRecovery = v2;
@@ -2469,13 +2470,13 @@ LABEL_38:
       return v5 + v62 + v61;
     if ( a2 <= 30 )
     {
-      if ( sub_48D6AA(_this, 2) )
+      if ( Player_sub_48D6AA(_this, 2) )
         v5 = (*&pClass40->pItems[0].uEquipType + *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1620) + 124) + 4);
       return v5 + v62 + v61;
     }
     if ( a2 == 31 )
     {
-      if ( !sub_48D6AA(_this, 2) )
+      if ( !Player_sub_48D6AA(_this, 2) )
         return v5 + v62 + v61;
       v57 = *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1620) + 124);
       v5 = pClass40->pItems[v57 - 1].uDamageModifier;
@@ -2484,7 +2485,7 @@ LABEL_38:
     }
     if ( a2 == 32 )
     {
-      if ( !sub_48D6AA(_this, 2) )
+      if ( !Player_sub_48D6AA(_this, 2) )
         return v5 + v62 + v61;
       v20 = 48 * *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1620) + 124);
       v5 = *(&pClass40->pItems[0].uDamageDice + v20) * *(&pClass40->pItems[0].uDamageRoll + v20);
@@ -2500,7 +2501,7 @@ LABEL_95:
     v65 = 0;
     while ( 1 )
     {
-      if ( !sub_48D6AA(v4, v65) )
+      if ( !Player_sub_48D6AA((Player *)v4, v65) )
         goto LABEL_361;
       v31 = *((_DWORD *)v4 + v65 + 1618) - 1;
       if ( v6 == 9 )
@@ -3071,7 +3072,7 @@ LABEL_361:
   {
     if ( sub_48D676(_this) != 1 )
     {
-      if ( sub_48D6AA(v4, 1) )
+      if ( Player_sub_48D6AA((Player *)v4, 1) )
       {
         v22 = sub_48D62C_GetSomeItemEquipType(v21, 1);
         if ( v22 >= 0 )
@@ -3093,7 +3094,7 @@ LABEL_361:
           }
         }
       }
-      if ( a3 || !sub_48D6AA(v4, 0) || (v28 = sub_48D62C_GetSomeItemEquipType(v27, 0), v28 < 0) || v28 > 2 )
+      if ( a3 || !Player_sub_48D6AA((Player *)v4, 0) || (v28 = sub_48D62C_GetSomeItemEquipType(v27, 0), v28 < 0) || v28 > 2 )
         return v5 + v62 + v61;
       v14 = pClass40->pItems[v29 - 1].uDamageModifier;
       v15 = pClass40->pItems[v29 - 1].uDamageDice * pClass40->pItems[v29 - 1].uDamageRoll;
@@ -3110,7 +3111,7 @@ LABEL_74:
     goto LABEL_95;
   if ( a2 == 24 )
   {
-    if ( !sub_48D6D0(_this, 25) )
+    if ( !Player_sub_48D6D0(_this, 25) )
       return v5 + v62 + v61;
     v59 = 5;
     goto LABEL_74;
@@ -3124,7 +3125,7 @@ LABEL_74:
       v5 = 0;
       return v5 + v62 + v61;
     }
-    if ( sub_48D6AA(v4, 1) )
+    if ( Player_sub_48D6AA((Player *)v4, 1) )
     {
       v17 = sub_48D62C_GetSomeItemEquipType(v16, 1);
       if ( v17 >= 0 )
@@ -3133,7 +3134,7 @@ LABEL_74:
          v5 = pClass40->pItems[*((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1619) + 124) - 1].uDamageModifier;
       }
     }
-    if ( a3 || !sub_48D6AA(v4, 0) || (v19 = sub_48D62C_GetSomeItemEquipType(v18, 0), v19 < 0) || v19 > 2 )
+    if ( a3 || !Player_sub_48D6AA((Player *)v4, 0) || (v19 = sub_48D62C_GetSomeItemEquipType(v18, 0), v19 < 0) || v19 > 2 )
       return v5 + v62 + v61;
     v20 = 48 * *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1618) + 124);
     goto LABEL_365;
@@ -3145,7 +3146,7 @@ LABEL_74:
       v5 = 1;
       return v5 + v62 + v61;
     }
-    if ( sub_48D6AA(v4, 1) )
+    if ( Player_sub_48D6AA((Player *)v4, 1) )
     {
       v9 = sub_48D62C_GetSomeItemEquipType(v8, 1);
       if ( v9 >= 0 )
@@ -3161,7 +3162,7 @@ LABEL_74:
         }
       }
     }
-    if ( a3 || !sub_48D6AA(v4, 0) || (v12 = sub_48D62C_GetSomeItemEquipType(v11, 0), v12 < 0) || v12 > 2 )
+    if ( a3 || !Player_sub_48D6AA((Player *)v4, 0) || (v12 = sub_48D62C_GetSomeItemEquipType(v11, 0), v12 < 0) || v12 > 2 )
       return v5 + v62 + v61;
     v15 = pClass40->pItems[v13 - 1].uDamageModifier;
     v14 = pClass40->pItems[v13 - 1].uDamageDice;
@@ -3197,13 +3198,13 @@ int CanPlaceItemInInventory(struct Player *_this, signed int a2, int a3)
   if ( !dword_506128 )
   {
    runtime_warning(When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures);
-   //sub_40F77C(v4);
-    sub_40F9C5(pLODFile_Icons_LOD);
+   //class18_sub_40F77C(v4);
+    LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
   }
   if ( uNumSlotsX + a2 % 14 <= 14 && uNumSlotsY + a2 / 14 <= 9 )
   {
     v6 = 0;
-    v7 = &_this->sInventoryIndexes[a2];
+    v7 = (int)&_this->sInventoryIndexes[a2];
     while ( 1 )
     {
       v8 = 0;
@@ -3228,7 +3229,7 @@ LABEL_11:
 }
 
 //----- (00492826) --------------------------------------------------------
-int sub_492826(struct Player *_this, signed int a2, unsigned char *Src)
+int Player_sub_492826(struct Player *_this, signed int a2, unsigned char *Src)
 {
   int v3; // ebx@1
   signed int v4; // edi@3
@@ -3238,7 +3239,7 @@ int sub_492826(struct Player *_this, signed int a2, unsigned char *Src)
   signed int v10; // [sp+18h] [bp+8h]@2
 
   v3 = *(_DWORD *)Src;
-  sub_456D17(pClass40, Src);
+  class40_sub_456D17(pClass40, (int)Src);
   if ( a2 == -1 )
   {
     v10 = 0;
@@ -3252,7 +3253,7 @@ int sub_492826(struct Player *_this, signed int a2, unsigned char *Src)
         {
           v8 = (const void *)Src;
           v7 = v5;
-          return sub_49289C(_this, v7, v8);
+          return Player_sub_49289C(_this, v7, v8);
         }
         ++v4;
         v5 += 14;
@@ -3269,11 +3270,11 @@ int sub_492826(struct Player *_this, signed int a2, unsigned char *Src)
     return 0;
   v8 = (const void *)Src;
   v7 = a2;
-  return sub_49289C(_this, v7, v8);
+  return Player_sub_49289C(_this, v7, v8);
 }
 
 //----- (0049289C) --------------------------------------------------------
-int sub_49289C(struct Player *_this, int a2, const void *Src)
+int Player_sub_49289C(struct Player *_this, int a2, const void *Src)
 {
   int v3, i, x; // eax@1
   signed int v4; // ebx@1
@@ -3288,7 +3289,7 @@ int sub_49289C(struct Player *_this, int a2, const void *Src)
 
   v13 = _this;
   v4 = 0;
-  v3 = _this->cInventorySlots;
+  v3 = (int)_this->cInventorySlots;
   while ( *(_DWORD *)v3 )
   {
     ++v4;
@@ -3314,8 +3315,8 @@ int sub_49289C(struct Player *_this, int a2, const void *Src)
 
     if ( !dword_506128 )
     {
-      sub_40F77C(v6);
-      sub_40F9C5(pLODFile_Icons_LOD);
+      class18_sub_40F77C(v6);
+      LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
     }
     if ( v12 > 0 ) // reserving space for large items in inventory
     {
@@ -3370,7 +3371,7 @@ LABEL_5:
   }
   else
   {
-    MultiByteToWideChar(CP_ACP, 0, pClass40->pItems[uItemID].pIconName, -1, pItemIconNameW, 64);
+    MultiByteToWideChar(CP_ACP, 0, (char *)pClass40->pItems[uItemID].pIconName, -1, pItemIconNameW, 64);
     v8 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pItemIconNameW);
 
     v7 = &pLODFile_Icons_LOD->aLODHeaders[v8];
@@ -3379,8 +3380,8 @@ LABEL_5:
     if ( !dword_506128 )
     {
      runtime_warning(When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures);
-      //sub_40F77C(v7);
-      sub_40F9C5(pLODFile_Icons_LOD);
+      //class18_sub_40F77C(v7);
+      LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
     }
 
     if ( v14 > 0 ) // reserving space for large items in inventory

@@ -109,7 +109,7 @@ struct Actor
 //sizeof == 344
 
 bool Actor_sub_40894B(struct Actor *_this);
-//int __thiscall Actor_sub_45976D(int this);
+//int __thiscall Actor_sub_45976D(int _this);
 int Actor_sub_45976D(struct Actor *_this);
 //signed int __fastcall sub_40104C(int a1, int a2);
 signed int Actor_GetActorsRelation(struct Actor *pActor1, struct Actor *pActor2);
@@ -132,20 +132,20 @@ void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struc
 //int __fastcall sub_402AD7(int a1, signed int a2, signed int a3, int a4, signed int a5);
 void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a4, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_403854(int a1, signed int a2, signed int a3);
-void Actor_sub_403854(unsigned int uActorID, signed int a2, signed int a3);
+void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_40368B(int a1, signed int a2, signed int a3);
-void Actor_sub_40368B(unsigned int uActorID, signed int a2, signed int a3);
+void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_403476(int a1, signed int a2, signed int a3);
-void Actor_sub_403476(unsigned int uActorID, signed int a2, signed int a3);
+void Actor_sub_403476(unsigned int uActorID, signed int a2, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_403A60(int a1, signed int a2, signed int a3);
-void Actor_sub_403A60(unsigned int uActorID, signed int a2, signed int a3);
+void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct DirectionInfo *pDirectionInfo);
 //int __fastcall sub_4032B2(int a1, int a2, int a3, int a4);
 void Actor_sub_4032B2(unsigned int uActorID, int a2, int a3, int a4);
-//__int16 __thiscall sub_45959A(int this, char a2);
+//__int16 __thiscall sub_45959A(int _this, char a2);
 void Actor_LinkSprites(struct Actor *_this, char a2);
-//void *__thiscall sub_459671(int this);
+//void *__thiscall sub_459671(int _this);
 void Actor_Reset(struct Actor *_this);
-//int __thiscall sub_41F4C1(void *this);
+//int __thiscall sub_41F4C1(void *_this);
 void Actor_TotalReset(struct Actor *_this);
 //void *__fastcall sub_4040E9(signed int a1, signed int a2, void *a3, signed int a4);
 struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, struct DirectionInfo *pDirectionInfo, signed int a4);

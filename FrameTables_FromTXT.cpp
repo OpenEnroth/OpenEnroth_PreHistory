@@ -33,9 +33,9 @@ int CTextureFrameTable_InitializeFromTXT(struct CTextureFrameTable *_this, const
   FILE *File; // [sp+300h] [bp-4h]@1
   int v27; // [sp+30Ch] [bp+8h]@28
 
-  v3 = _this;
-  sub_487E1D(_this);
-  v2 = fopen(pSourceFile, L"r");
+  v3 = (int)_this;
+  sub_487E1D((int)_this);
+  v2 = fopen(pSourceFile, "r");
   File = v2;
   if ( !v2 )
     erroneous_printf("CTextureFrameTable::load - Unable to open file: %s.", pSourceFile);
@@ -47,7 +47,7 @@ int CTextureFrameTable_InitializeFromTXT(struct CTextureFrameTable *_this, const
     do
     {
       *strchr(&Buf, 10) = 0;
-      memcpy(&v21, sub_4BE3BF(&Buf, &v20), 0x7Cu);
+      memcpy(&v21, sub_4BE3BF((unsigned char *)&Buf, (StringSplitter *)&v20), 0x7Cu);
       if ( v21 )
       {
         if ( *Str1 != 47 )
@@ -64,7 +64,7 @@ int CTextureFrameTable_InitializeFromTXT(struct CTextureFrameTable *_this, const
   }
   v5 = *(_DWORD *)(v3 + 4);
   *(_DWORD *)v3 = v4;
-  v6 = class23_AllocatedNamedBuffer(class23_instance, v5, 20 * v4, "Txt Frames");
+  v6 = (int)class23_AllocatedNamedBuffer(pClass23, v5, 20 * v4, "Txt Frames");
   *(_DWORD *)(v3 + 4) = v6;
   if ( !v6 )
     erroneous_printf("CTextureFrameTable::load - Out of Memory!");
@@ -74,7 +74,7 @@ int CTextureFrameTable_InitializeFromTXT(struct CTextureFrameTable *_this, const
   for ( i = fgets(&Buf, 490, File); i; i = fgets(&Buf, 490, File) )
   {
     *strchr(&Buf, 10) = 0;
-    memcpy(&v21, sub_4BE3BF(&Buf, &v20), 0x7Cu);
+    memcpy(&v21, sub_4BE3BF((unsigned char *)&Buf, (StringSplitter *)&v20), 0x7Cu);
     if ( v21 )
     {
       if ( *Str1 != 47 )
@@ -180,9 +180,9 @@ int CIconFrameTable_InitializeFromTXT(struct CIconFrameTable *_this, const char 
   FILE *File; // [sp+300h] [bp-4h]@1
   int v28; // [sp+30Ch] [bp+8h]@26
 
-  v3 = _this;
-  sub_487E1D(_this);
-  v2 = fopen(pSourceFile, L"r");
+  v3 = (int)_this;
+  sub_487E1D((int)_this);
+  v2 = fopen(pSourceFile, "r");
   File = v2;
   if ( !v2 )
     erroneous_printf("IconFrameTable::load - Unable to open file: %s.", pSourceFile);
@@ -210,7 +210,7 @@ int CIconFrameTable_InitializeFromTXT(struct CIconFrameTable *_this, const char 
     v4 = v25;
   }
   *(_DWORD *)v3 = v4;
-  v5 = class23_AllocatedNamedBuffer(&class23_instance, *(_DWORD *)(v3 + 4), 32 * v4, "I Frames");
+  v5 = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 4), 32 * v4, "I Frames");
   *(_DWORD *)(v3 + 4) = v5;
   if ( v5 )
   {
@@ -287,7 +287,7 @@ int CIconFrameTable_InitializeFromTXT(struct CIconFrameTable *_this, const char 
 
 
 //----- (MM7.exe::0044D96D) --------------------------------------------------------
-int CSpriteFrameTable_SaveToBIN(struct CSpriteFrameTable *_this)
+int SpriteFrameTable_SaveToBIN(struct SpriteFrameTable *_this)
 {
  FILE *f;
 
@@ -303,7 +303,7 @@ int CSpriteFrameTable_SaveToBIN(struct CSpriteFrameTable *_this)
 }
 
 //----- (MM7.exe::0044DA92) --------------------------------------------------------
-int CSpriteFrameTable_LoadFromTXT(struct CSpriteFrameTable *_this, const char *pSourceFile)
+int SpriteFrameTable_LoadFromTXT(struct SpriteFrameTable *_this, const char *pSourceFile)
 {
   FILE *v2; // eax@1
   int v3; // ebx@1
@@ -360,12 +360,12 @@ int CSpriteFrameTable_LoadFromTXT(struct CSpriteFrameTable *_this, const char *p
   int v54; // [sp+304h] [bp+8h]@59
   FILE *v55; // [sp+304h] [bp+8h]@67
 
-  v3 = _this;
-  CSpriteFrameTable_sub_44D4D8(_this);
-  v2 = fopen(pSourceFile, L"r");
+  v3 = (int)_this;
+  SpriteFrameTable_sub_44D4D8(_this);
+  v2 = fopen(pSourceFile, "r");
   File = v2;
   if ( !v2 )
-    erroneous_printf("CSpriteFrameTable::load - Unable to open file: %s.", pSourceFile);
+    erroneous_printf("SpriteFrameTable::load - Unable to open file: %s.", pSourceFile);
   v4 = 0;
   v53 = 0;
   if ( fgets(&Buf, 490, v2) )
@@ -384,9 +384,9 @@ int CSpriteFrameTable_LoadFromTXT(struct CSpriteFrameTable *_this, const char *p
     v4 = v53;
   }
   *(_DWORD *)v3 = v4;
-  *(_DWORD *)(v3 + 12) = class23_AllocatedNamedBuffer(class23_instance, *(_DWORD *)(v3 + 12), 60 * v4, "S Frames");
-  *(_DWORD *)(v3 + 20) = class23_AllocatedNamedBuffer(class23_instance, *(_DWORD *)(v3 + 20), 2 * *(_DWORD *)v3, "E Frames");
-  *(_DWORD *)(v3 + 16) = class23_AllocatedNamedBuffer(class23_instance, *(_DWORD *)(v3 + 16), 4 * *(_DWORD *)v3, "P Frames");
+  *(_DWORD *)(v3 + 12) = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 12), 60 * v4, "S Frames");
+  *(_DWORD *)(v3 + 20) = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 20), 2 * *(_DWORD *)v3, "E Frames");
+  *(_DWORD *)(v3 + 16) = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 16), 4 * *(_DWORD *)v3, "P Frames");
   if ( *(_DWORD *)(v3 + 12) )
   {
     v7 = File;
@@ -423,11 +423,11 @@ int CSpriteFrameTable_LoadFromTXT(struct CSpriteFrameTable *_this, const char *p
             *(_DWORD *)(*(_DWORD *)(v3 + 16) + 4 * *(_DWORD *)(v3 + 4)) = *(_DWORD *)(v3 + 12) + 60 * *(_DWORD *)v3;
             compile_error;//*(_WORD *)(*(_DWORD *)(v3 + 20) + 2 * *(_DWORD *)(v3 + 4)++) = *(_WORD *)v3;
           }
-          if ( !_strcmpi(v49, L"1") )
+          if ( !_strcmpi(v49, "1") )
             *(_BYTE *)(60 * *(_DWORD *)v3 + *(_DWORD *)(v3 + 12) + 46) |= 4u;
-          if ( !_strcmpi(v50, L"1") )
+          if ( !_strcmpi(v50, "1") )
             *(_BYTE *)(60 * *(_DWORD *)v3 + *(_DWORD *)(v3 + 12) + 46) |= 2u;
-          if ( !_strcmpi(v51, L"1") )
+          if ( !_strcmpi(v51, "1") )
           {
             v15 = 60 * *(_DWORD *)v3 + *(_DWORD *)(v3 + 12) + 44;
             *(_DWORD *)v15 |= 0x20u;
@@ -594,7 +594,7 @@ int CSpriteFrameTable_LoadFromTXT(struct CSpriteFrameTable *_this, const char *p
   }
   else
   {
-    sub_4BE386("CSpriteFrameTable::load - Out of Memory!");
+    sub_4BE386("SpriteFrameTable::load - Out of Memory!");
     fclose(File);
     result = 0;
   }
@@ -697,8 +697,8 @@ int CTileTable_InitializeFromTXT(struct CTileTable *_this, const char *pSourceFi
   char v88; // [sp+84h] [bp-270h]@4
   char Buf; // [sp+100h] [bp-1F4h]@4
 
-  v3 = _this;
-  sub_487E1D(_this);
+  v3 = (int)_this;
+  sub_487E1D((int)_this);
   v2 = fopen(pSourceFile, "r");
   v81 = v2;
   if ( !v2 )
@@ -707,7 +707,7 @@ int CTileTable_InitializeFromTXT(struct CTileTable *_this, const char *pSourceFi
   for ( i = v2; fgets(&Buf, 490, i); i = v81 )
   {
     *strchr(&Buf, 10) = 0;
-    memcpy(&v82, sub_4BE3BF(&Buf, &v88), 0x7Cu);
+    memcpy(&v82, sub_4BE3BF((unsigned char *)&Buf, (StringSplitter *)&v88), 0x7Cu);
     if ( v82 )
     {
       if ( *Source != 47 )
@@ -715,7 +715,7 @@ int CTileTable_InitializeFromTXT(struct CTileTable *_this, const char *pSourceFi
     }
   }
   *(_DWORD *)v3 = v4;
-  v5 = class23_AllocatedNamedBuffer(&class23_instance, *(_DWORD *)(v3 + 4), 26 * v4, "Tile Descrip");
+  v5 = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 4), 26 * v4, "Tile Descrip");
   *(_DWORD *)(v3 + 4) = v5;
   if ( !v5 )
     erroneous_printf("TileTable::Load - Out of Memory!");
@@ -725,7 +725,7 @@ int CTileTable_InitializeFromTXT(struct CTileTable *_this, const char *pSourceFi
   while ( fgets(&Buf, 490, v81) )
   {
     *strchr(&Buf, 10) = 0;
-    memcpy(&v82, sub_4BE3BF(&Buf, &v88), 0x7Cu);
+    memcpy(&v82, sub_4BE3BF((unsigned char *)&Buf, (StringSplitter *)&v88), 0x7Cu);
     if ( !v82 || *Source == 47 )
       continue;
     strcpy((char *)(*(_DWORD *)(v3 + 4) + 26 * *(_DWORD *)v3), Source);
@@ -1366,9 +1366,9 @@ int CPlayerFrameTable_InitializeFromTXT(struct CPlayerFrameTable *_this, const c
   FILE *File; // [sp+300h] [bp-4h]@1
   int v29; // [sp+30Ch] [bp+8h]@28
 
-  v3 = _this;
-  sub_487E1D(_this);
-  v2 = fopen(pSourceFile, L"r");
+  v3 = (int)_this;
+  sub_487E1D((int)_this);
+  v2 = fopen(pSourceFile, "r");
   File = v2;
   if ( !v2 )
     erroneous_printf("PlayerFrameTable::load - Unable to open file: %s.", pSourceFile);
@@ -1380,7 +1380,7 @@ int CPlayerFrameTable_InitializeFromTXT(struct CPlayerFrameTable *_this, const c
     do
     {
       *strchr(&Buf, 10) = 0;
-      memcpy(&v22, sub_4BE3BF(&Buf, &v21), 0x7Cu);
+      memcpy(&v22, sub_4BE3BF((unsigned char *)&Buf, (StringSplitter *)&v21), 0x7Cu);
       if ( v22 )
       {
         if ( *Str1 != 47 )
@@ -1396,7 +1396,7 @@ int CPlayerFrameTable_InitializeFromTXT(struct CPlayerFrameTable *_this, const c
     v4 = v26;
   }
   *(_DWORD *)v3 = v4;
-  v5 = class23_AllocatedNamedBuffer(&class23_instance, *(_DWORD *)(v3 + 4), 10 * v4, "P Frames");
+  v5 = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 4), 10 * v4, "P Frames");
   *(_DWORD *)(v3 + 4) = v5;
   if ( !v5 )
     erroneous_printf("PlayerFrameTable::load - Out of Memory!");
@@ -1406,7 +1406,7 @@ int CPlayerFrameTable_InitializeFromTXT(struct CPlayerFrameTable *_this, const c
   for ( i = fgets(&Buf, 490, File); i; i = fgets(&Buf, 490, File) )
   {
     *strchr(&Buf, 10) = 0;
-    memcpy(&v22, sub_4BE3BF(&Buf, &v21), 0x7Cu);
+    memcpy(&v22, sub_4BE3BF((unsigned char *)&Buf, (StringSplitter *)&v21), 0x7Cu);
     if ( v22 )
     {
       if ( *Str1 != 47 )
@@ -1474,7 +1474,7 @@ int CPlayerFrameTable_InitializeFromTXT(struct CPlayerFrameTable *_this, const c
 
 
 //----- (004586B0) --------------------------------------------------------
-int CDecorationDescriptionList_InitializeFromTXT(struct CDecorationDescriptionList *_this, const char *pSourceFile)
+int DecorationDescriptionList_InitializeFromTXT(struct DecorationDescriptionList *_this, const char *pSourceFile)
 {
   FILE *v2; // eax@1
   int v3; // ebx@1
@@ -1525,8 +1525,8 @@ int CDecorationDescriptionList_InitializeFromTXT(struct CDecorationDescriptionLi
   FILE *File; // [sp+468h] [bp-4h]@1
   int v50; // [sp+474h] [bp+8h]@3
 
-  v3 = _this;
-  sub_487E1D(_this);
+  v3 = (int)_this;
+  sub_487E1D((int)_this);
   v2 = fopen(pSourceFile, "r");
   File = v2;
   if ( !v2 )
@@ -1552,7 +1552,7 @@ int CDecorationDescriptionList_InitializeFromTXT(struct CDecorationDescriptionLi
     v4 = v50;
   }
   *(_DWORD *)v3 = v4;
-  v5 = class23_AllocatedNamedBuffer(class23_instance, *(_DWORD *)(v3 + 4), 84 * v4, "Dec Descrip");
+  v5 = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 4), 84 * v4, "Dec Descrip");
   *(_DWORD *)(v3 + 4) = v5;
   if ( !v5 )
     erroneous_printf("DecorationDescriptionList::load - Out of Memory!");
@@ -1570,7 +1570,7 @@ int CDecorationDescriptionList_InitializeFromTXT(struct CDecorationDescriptionLi
         if ( v37 >= 3 )
         {
           strcpy((char *)(*(_DWORD *)(v3 + 4) + 84 * *(_DWORD *)v3), Source);
-          v8 = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, (const char *)(*(_DWORD *)(v3 + 4) + 84 * *(_DWORD *)v3));
+          v8 = SpriteFrameTable_FastFindSprite(pSpriteFrameTable, (const char *)(*(_DWORD *)(v3 + 4) + 84 * *(_DWORD *)v3));
           v9 = v40;
           *(_WORD *)(84 * *(_DWORD *)v3 + *(_DWORD *)(v3 + 4) + 72) = v8;
           strcpy((char *)(84 * *(_DWORD *)v3 + *(_DWORD *)(v3 + 4) + 32), v9);
@@ -1686,7 +1686,7 @@ int CDecorationDescriptionList_InitializeFromTXT(struct CDecorationDescriptionLi
 
 
 //----- (00458600) --------------------------------------------------------
-int CDecorationDescriptionList_SaveToBIN(struct CDecorationDescriptionList *_this)
+int DecorationDescriptionList_SaveToBIN(struct DecorationDescriptionList *_this)
 {
  FILE *f;
 
@@ -1775,8 +1775,8 @@ int CObjectDescriptionList_InitializeFromTXT(struct CObjectDescriptionList *_thi
   int v52; // [sp+470h] [bp+8h]@3
   int j; // [sp+470h] [bp+8h]@15
 
-  v3 = _this;
-  class23_DeleteBuffer(class23_instance, *(_DWORD *)(_this + 4));
+  v3 = (int)_this;
+  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(_this + 4));
   v4 = 0;
   *(_DWORD *)(v3 + 4) = 0;
   *(_DWORD *)v3 = 0;
@@ -1803,7 +1803,7 @@ int CObjectDescriptionList_InitializeFromTXT(struct CObjectDescriptionList *_thi
     v4 = 0;
   }
   *(_DWORD *)v3 = v5;
-  v6 = class23_AllocatedNamedBuffer(class23_instance, *(_DWORD *)(v3 + 4), 56 * v5, "Obj Descrip");
+  v6 = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 4), 56 * v5, "Obj Descrip");
   *(_DWORD *)(v3 + 4) = v6;
   if ( v6 == v4 )
     erroneous_printf("ObjectDescriptionList::load - Out of Memory!");
@@ -1820,7 +1820,7 @@ int CObjectDescriptionList_InitializeFromTXT(struct CObjectDescriptionList *_thi
       if ( *Source != 47 )
       {
         strcpy((char *)(*(_DWORD *)(v3 + 4) + 56 * *(_DWORD *)v3), Source);
-        v9 = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, v44);
+        v9 = SpriteFrameTable_FastFindSprite(pSpriteFrameTable, v44);
         v10 = Str;
         *(_WORD *)(56 * *(_DWORD *)v3 + *(_DWORD *)(v3 + 4) + 40) = v9;
         v11 = v46;
@@ -1950,8 +1950,8 @@ int COverlayDescriptionList_InitializeFromTXT(struct COverlayDescriptionList *_t
   FILE *File; // [sp+2FCh] [bp-4h]@1
   int v23; // [sp+308h] [bp+8h]@3
 
-  v3 = _this;
-  class23_DeleteBuffer(class23_instance, *(_DWORD *)(_this + 4));
+  v3 = (int)_this;
+  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(_this + 4));
   v4 = 0;
   *(_DWORD *)(v3 + 4) = 0;
   *(_DWORD *)v3 = 0;
@@ -1966,7 +1966,7 @@ int COverlayDescriptionList_InitializeFromTXT(struct COverlayDescriptionList *_t
     do
     {
       *strchr(&Buf, 10) = 0;
-      memcpy(&v18, sub_4BE3BF(&Buf, &v17), 0x7Cu);
+      memcpy(&v18, sub_4BE3BF((unsigned char *)&Buf, (StringSplitter *)&v17), 0x7Cu);
       if ( v18 )
       {
         if ( *Str2 != 47 )
@@ -1979,7 +1979,7 @@ int COverlayDescriptionList_InitializeFromTXT(struct COverlayDescriptionList *_t
   }
   v7 = *(_DWORD *)(v3 + 4);
   *(_DWORD *)v3 = v5;
-  v6 = class23_AllocatedNamedBuffer(class23_instance, v7, 8 * v5, "Ovl Des.");
+  v6 = (int)class23_AllocatedNamedBuffer(pClass23, v7, 8 * v5, "Ovl Des.");
   *(_DWORD *)(v3 + 4) = v6;
   if ( v6 == v4 )
     erroneous_printf("OverlayDescriptionList::load - Out of Memory!");
@@ -1990,7 +1990,7 @@ int COverlayDescriptionList_InitializeFromTXT(struct COverlayDescriptionList *_t
   for ( i = fgets(&Buf, 490, File); i; i = fgets(&Buf, 490, File) )
   {
     *strchr(&Buf, 10) = 0;
-    memcpy(&v18, sub_4BE3BF(&Buf, &v17), 0x7Cu);
+    memcpy(&v18, sub_4BE3BF((unsigned char *)&Buf, (StringSplitter *)&v17), 0x7Cu);
     if ( v18 )
     {
       if ( *Str2 != 47 )
@@ -2012,7 +2012,7 @@ int COverlayDescriptionList_InitializeFromTXT(struct COverlayDescriptionList *_t
         {
           *(_WORD *)(*(_DWORD *)(v3 + 4) + 8 * *(_DWORD *)v3 + 2) = 0;
         }
-        *(_WORD *)(*(_DWORD *)(v3 + 4) + 8 * *(_DWORD *)v3++ + 4) = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, v21);
+        *(_WORD *)(*(_DWORD *)(v3 + 4) + 8 * *(_DWORD *)v3++ + 4) = SpriteFrameTable_FastFindSprite(pSpriteFrameTable, v21);
       }
     }
   }
@@ -2064,8 +2064,8 @@ int CSoundList_InitializeFromTXT(struct CSoundList *_this, const char *pSourceFi
   FILE *File; // [sp+2F8h] [bp-4h]@1
   int v24; // [sp+304h] [bp+8h]@3
 
-  v3 = _this;
-  class23_DeleteBuffer((int)&class23_instance, *(_DWORD *)(_this + 4));
+  v3 = (int)_this;
+  class23_DeleteBuffer(pClass23, *(_DWORD **)(_this + 4));
   v4 = 0;
   *(_DWORD *)(v3 + 4) = 0;
   *(_DWORD *)v3 = 0;
@@ -2080,7 +2080,7 @@ int CSoundList_InitializeFromTXT(struct CSoundList *_this, const char *pSourceFi
     do
     {
       *strchr(&Buf, 10) = 0;
-      memcpy(&v18, sub_4BE3BF(&Buf, &v17), 0x7Cu);
+      memcpy(&v18, sub_4BE3BF((unsigned char *)&Buf, (StringSplitter *)&v17), 0x7Cu);
       if ( v18 )
       {
         if ( *(_BYTE *)v19 != 47 )
@@ -2092,7 +2092,7 @@ int CSoundList_InitializeFromTXT(struct CSoundList *_this, const char *pSourceFi
     v4 = 0;
   }
   *(_DWORD *)v3 = v5;
-  v6 = class23_AllocatedNamedBuffer(&class23_instance, *(_DWORD *)(v3 + 4), 120 * v5, "Snd Des.");
+  v6 = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 4), 120 * v5, "Snd Des.");
   *(_DWORD *)(v3 + 4) = v6;
   if ( v6 == v4 )
     erroneous_printf("SoundListClass::load - Out of Memory!");
@@ -2103,12 +2103,12 @@ int CSoundList_InitializeFromTXT(struct CSoundList *_this, const char *pSourceFi
   for ( i = fgets(&Buf, 490, File); i; i = fgets(&Buf, 490, File) )
   {
     *strchr(&Buf, 10) = 0;
-    memcpy(&v18, sub_4BE3BF(&Buf, &v17), 0x7Cu);
+    memcpy(&v18, sub_4BE3BF((unsigned char *)&Buf, (StringSplitter *)&v17), 0x7Cu);
     if ( v18 )
     {
       if ( *(_BYTE *)v19 != 47 )
       {
-        sprintfex(*(_DWORD *)(v3 + 4) + 120 * *(_DWORD *)v3, "%s", v19);
+        wsprintfA((char *)*(_DWORD *)(v3 + 4) + 120 * *(_DWORD *)v3, "%s", v19);
         v9 = Str1;
         *(_DWORD *)(120 * *(_DWORD *)v3 + *(_DWORD *)(v3 + 4) + 32) = atoi(Str);
         if ( _strcmpi(v9, "system") )

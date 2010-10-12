@@ -20,7 +20,7 @@ typedef struct BINK *HBINK;
 int __stdcall BinkDDSurfaceType(struct IDirectDrawSurface *);
 int __stdcall BinkSetSoundSystem(void *pSoundSystem, HDIGDRIVER hDrv);
 int __stdcall BinkOpenMiles(int);
-HBINK __stdcall BinkOpen(const char *pFilename, unsigned int uFlags);
+HBINK __stdcall BinkOpen(void *hFileHandle, unsigned int uFlags);
 int __stdcall BinkWait(HBINK);
 int __stdcall BinkDoFrame(HBINK);
 int __stdcall BinkNextFrame(HBINK);

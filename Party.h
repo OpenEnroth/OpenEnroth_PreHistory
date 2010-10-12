@@ -145,17 +145,17 @@ struct Party
 };
 //sizeof ~ 16238
 
-//int __thiscall Party_sub_49135E_GetAllPartyExpDiv1000(void *this)
+//int __thiscall Party_sub_49135E_GetAllPartyExpDiv1000(void *_this)
 void Party_ctor(struct Party *_this);
-//unsigned __int16 __thiscall sub_491BF9(int this);
+//unsigned __int16 __thiscall sub_491BF9(int _this);
 void sub_491BF9(struct Party *_this);
-//int __thiscall sub_49370F(void *this);
+//int __thiscall sub_49370F(void *_this);
 int Party_sub_49370F(struct Party *_this);
-//bool __thiscall sub_497FC5(void *this);
+//bool __thiscall sub_497FC5(void *_this);
 bool Party_sub_497FC5(struct Party *_this);
-//signed int __thiscall sub_48C6F6(void *this, int a2);
+//signed int __thiscall sub_48C6F6(void *_this, int a2);
 int Party_AddItem(struct Party *_this, int a2);
-//int __thiscall sub_49137D(int this, char a2);
+//int __thiscall sub_49137D(int _this, char a2);
 int Party_CreateDefaultParty(struct Party *_this, char a2);
 
 int Party_Reset(struct Party *_this);

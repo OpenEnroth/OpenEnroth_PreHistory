@@ -217,8 +217,16 @@ extern int dword_4E98BC; // weak
 extern _UNKNOWN unk_4E98D4; // weak
 extern char *off_4EB080; // idb
 extern const unsigned char *pTransitionStrings[]; // dword[464] @ MM7.exe::004EB084
-extern _UNKNOWN unk_4EB8BC; // weak
-extern _UNKNOWN unk_4EBBD0; // weak
+extern struct unnamed_4EB8B8
+{
+ float flt_000000;
+ float flt_000004;
+ float flt_000008;
+} array_4EB8B8[];
+//_UNKNOWN unk_4EB8BC; // weak
+extern struct unnamed_4EB8B8 array_4EBBD0[]; // struct[128] @ MM7.exe::004EBBD0
+//_UNKNOWN unk_4EBBD0; // weak
+
 extern int dword_4EC268[array_size_unknown]; // weak
 extern int dword_4EC28C[array_size_unknown]; // weak
 extern int dword_4EC2A8; // weak
@@ -312,7 +320,7 @@ extern __int16 word_4F0040[array_size_unknown]; // weak
 extern int dword_4F00DC;
 extern int dword_4F00E0; // weak
 extern int dword_4F00E4; // weak
-extern int array_4F031C[]; // weak
+extern unsigned int array_4F031C[]; // weak
 extern char *off_4F03B8; // idb
 extern __int16 word_4F03FE[array_size_unknown]; // weak
 extern __int16 word_4F0400[array_size_unknown]; // weak
@@ -478,39 +486,7 @@ extern int dword_505888; // weak
 extern int dword_50588C; // weak
 extern int dword_505890; // weak
 
-extern struct unnamed_505898
-{
- char byte_505898; // weak
- int dword_000004; // 50989C
- int dword_5058A0; // weak
- _UNKNOWN unk_5058A4; // weak
- char byte_5058A8; // weak
- struct tagMSG Msg_global; // idb
- int dword_5058C8; // weak
- int dword_5058CC; // weak
- char byte_5058D0; // weak
- char byte_5058D2; // weak
- int dword_5058D4; // weak
- int dword_5058D8; // weak
- int dword_5058DC; // weak
- int dword_5058E0; // weak
- int dword_5058E4; // weak
- __int16 word_5058EC; // weak
- struct RGBTexture class33_obj0; // ::5058F0
- struct RGBTexture class33_obj1; // ::505918
- int dword_505940; // weak
- int dword_505944; // weak
- int dword_505948; // weak
- char Dest[32]; // idb
- char byte_50596C[32]; // idb
- char byte_50598C; // weak
- char byte_50598D; // weak
- char byte_50598E; // weak
- char byte_50598F; // weak
- char byte_505990; // weak
- char byte_505991; // 0000F9
- char byte_505992; // 0000FA
-} struct_505898;
+extern struct unnamed_505898 struct_505898;
 //sizeof ~ FB
 //loc_40D707
 void unnamed_505898_ctor(struct unnamed_505898 *_this);
@@ -605,7 +581,7 @@ extern char byte_506550; // weak
 
 extern int dword_506568; // weak
 extern char byte_50656C; // weak
-extern char Class[array_size_unknown]; // idb
+//extern char Class[array_size_unknown]; // "\0"
 extern int dword_506578; // weak
 extern _UNKNOWN unk_506580; // weak
 extern __int16 word_5065E0; // weak
@@ -969,7 +945,7 @@ extern struct unnamed_50C0C8
 } struct_50C0C8;
 //loc_42696D
 void struct_50C0C8_ctor(struct unnamed_50C0C8 *_this);
-//int __thiscall sub_426987(int this)
+//int __thiscall sub_426987(int _this)
 void struct_50C0C8_ctor_sub0(struct unnamed_50C0C8_stru0 *_this);
 
 //extern _UNKNOWN unk_50C0C8[256*array_size_unknown]; // weak
@@ -1359,8 +1335,8 @@ extern unsigned char *p2DEventsTXT_Raw ; // ptr @ MM7.exe::005C35CC
 extern int dword_5C35D0; // weak
 extern int dword_5C35D4; // weak
 
-extern int dword_5C35E0; // weak
-extern int dword_5C35E4; // weak
+extern int dword_5C35E0; // Font *
+extern int dword_5C35E4; // Font *
 
 extern int dword_5C35F0; // weak
 extern int dword_5C35F4; // weak
@@ -1401,15 +1377,15 @@ extern unsigned char *array_5C8940[38];
 extern unsigned char *array_5C89D8[38];
 extern unsigned char *array_5C8A70[38];
 
-unsigned char *pClassTXT_Raw; // ptr @ MM7.exe::005C8B54
-unsigned char *pStatsTXT_Raw; // ptr @ MM7.exe::005C8B58
-unsigned char *pSkillDescTXT_Raw; // ptr @ MM7.exe::005C8B5C
+extern unsigned char *pClassTXT_Raw; // ptr @ MM7.exe::005C8B54
+extern unsigned char *pStatsTXT_Raw; // ptr @ MM7.exe::005C8B58
+extern unsigned char *pSkillDescTXT_Raw; // ptr @ MM7.exe::005C8B5C
 
 extern struct StorylineText *pStorylineText; // struct @ MM7.exe::005C8B60
 //LPCSTR lpsz; // idb
 extern _DWORD dword_5C8B64[87]; // idb
 
-struct class48 *pClass48; // struct @ MM7.exe::005C8CC0 
+extern struct class48 *pClass48; // struct @ MM7.exe::005C8CC0 
 //char byte_5C8CC0[8]; // weak
 extern _UNKNOWN unk_5C8CC8; // weak
 extern char byte_5C8D1A[array_size_unknown]; // weak
@@ -1482,7 +1458,7 @@ extern struct struct4 global_5E4C90; // struct @ MM7.exe::005E4C90
 //char byte_5E4C90[array_size_unknown]; // weak
 //char byte_5E4CDA[array_size_unknown]; // weak
 //char byte_5E4CDB[array_size_unknown]; // weak
-_UNKNOWN unk_5E4D52; // weak
+extern _UNKNOWN unk_5E4D52; // weak
 
 
 //_UNKNOWN unk_5E4D58; // weak
@@ -1603,15 +1579,15 @@ extern struct KeyboardController
  int          *ptr_000208;
 } *pKeyboardController; // struct @ MM7.exe::0069AE00
 // sizeof ~ ?
-//void *__thiscall sub_459C8D(void *this)
+//void *__thiscall sub_459C8D(void *_this)
 void KeyboardController_ctor(struct KeyboardController *_this);
-//int __thiscall sub_459C82_LooksLikeBindKey(void *this, int a2);
-int __thiscall KeyboardController_sub_459C82_LooksLikeBindKey(void *this, int a2);
-//int __thiscall sub_459CC4(int this);
+//int __thiscall sub_459C82_LooksLikeBindKey(void *_this, int a2);
+int KeyboardController_sub_459C82_LooksLikeBindKey(struct KeyboardController *_this, unsigned int uKey);
+//int __thiscall sub_459CC4(int _this);
 void KeyboardController_InitalizeKeys(struct KeyboardController *_this);
-//int __thiscall sub_459C68(void *this, int a2, int a3, int a4);
-private void KeyboardController_InitalizeKey(struct KeyboardController *_this, unsigned int uSlot, unsigned int uVKey, bool bActive);
-//char __thiscall sub_459FFC(void *this);
+//int __thiscall sub_459C68(void *_this, int a2, int a3, int a4);
+/*private*/ void KeyboardController_InitalizeKey(struct KeyboardController *_this, unsigned int uSlot, unsigned int uVKey, bool bActive);
+//char __thiscall sub_459FFC(void *_this);
 char KeyboardController_ReadKeyMapping(struct KeyboardController *_this);
 
 //extern int dword_69AE00; // last pressed key
@@ -1910,8 +1886,8 @@ extern char byte_6BE6EC[array_size_unknown]; // weak
 
 
 
-//_UNKNOWN unk_702B28[26 * 1024 * 1024];  //some 26 or 16 Mb pointer is allocated at *(int *)((char *)(class23_instance) + 120020) at startup
-extern char class23_instance[26 * 1024 * 1024];  // struct @ MM7.exe::00702B28
+//_UNKNOWN unk_702B28[26 * 1024 * 1024];  //some 26 or 16 Mb pointer is allocated at *(int *)((char *)(pClass23) + 120020) at startup
+extern struct class23 *pClass23;  // struct @ MM7.exe::00702B28
 extern int dword_71FFF4; // weak
 extern int dword_71FFF8; // weak
 extern unsigned int bUseOverrideData; // dword @ MM7.exe::00720008
@@ -2112,9 +2088,9 @@ extern int dword_73BA54[array_size_unknown]; // weak
 //extern int dword_73C194; // 017FC4
 //int dword_73C1A0[array_size_unknown]; // pNPCStats::dword_017FD0
 
-unsigned char *pAwardsTXT_Raw;    // ptr @ MM7.exe::0073C37C
-unsigned char *pScrollsTXT_Raw;   // ptr @ MM7.exe::0073C380
-unsigned char *pMerchantsTXT_Raw; // ptr @ MM7.exe::0073C384
+extern unsigned char *pAwardsTXT_Raw;    // ptr @ MM7.exe::0073C37C
+extern unsigned char *pScrollsTXT_Raw;   // ptr @ MM7.exe::0073C380
+extern unsigned char *pMerchantsTXT_Raw; // ptr @ MM7.exe::0073C384
 
 extern CHAR dword_73C388[28]; // idb
 extern int dword_73C3A4[array_size_unknown]; // weak
@@ -2183,7 +2159,7 @@ extern int dword_76E1C8[];
 extern int dword_76E3C8[];
 extern _BYTE byte_76E5C8[]; // idb
 
-struct D3DVERTEX pVertices[50];  // struct[50] @ MM7.exe::0077E5C8
+extern struct RenderVertexD3D3 pVertices[50];  // struct[50] @ MM7.exe::0077E5C8
 //extern _UNKNOWN unk_77E5C8; // x
 //extern _UNKNOWN unk_77E5CC; // y
 //extern _UNKNOWN unk_77E5D8; // diffuse
@@ -2272,7 +2248,7 @@ extern struct GUIButton *array_A74CAC[4]; // ptr[4] @ MM7.exe::00A74CAC
 //int dword_A74CB4; // weak
 //int dword_A74CB8; // weak
 
-struct GUIButton *array_A74CBC[4]; // ptr[4] @ MM7.exe::00A74CBC
+extern struct GUIButton *array_A74CBC[4]; // ptr[4] @ MM7.exe::00A74CBC
 //int dword_A74CBC[array_size_unknown]; // weak
 //int dword_A74CC0; // weak
 //int dword_A74CC4; // weak
@@ -2305,7 +2281,7 @@ extern __int64 qword_A750D8; // weak
 extern __int16 word_A750E0; // weak
 extern __int16 word_A750E2; // weak
 
-struct CPlayerFrameTable *pPlayerFrameTable; // struct @ MM7.exe::00A750EC
+extern struct CPlayerFrameTable *pPlayerFrameTable; // struct @ MM7.exe::00A750EC
 //int dword_A750EC; // pPlayerFrameTable::uNumFrames
 //int dword_A750F0; // pPlayerFrameTable::pFrames
 extern _UNKNOWN unk_A750F8; // weak
@@ -2528,7 +2504,7 @@ extern int dword_AD4658; // weak
  //_UNKNOWN unk_AD46EC; // weak
  //int dword_AD46F0; // weak
  //int dword_AD4704; // [1]:000044
-extern int dword_AD470C; // weak
+extern int dword_AD470C; // start of ItemGen
 extern int dword_AD4710; // weak
 extern _UNKNOWN unk_AD4714; // weak
 extern _UNKNOWN unk_AD471C; // weak
@@ -2918,8 +2894,8 @@ extern __int16 word_F8BC48[array_size_unknown]; // weak
 extern __int16 word_F8BC4A; // weak
 extern __int16 word_F8BD18[array_size_unknown]; // weak
 extern __int16 word_F8BD1A[array_size_unknown]; // weak
-extern int dword_F8BDE8; // weak
-extern int dword_F8D5EC; // weak
+extern int dword_F8BDE8; // begin of class25
+extern int dword_F8D5EC; // class25_stru0 **
 
 extern _UNKNOWN unk_F8DDE0; // weak
 extern _UNKNOWN unk_F8DDE4; // weak
@@ -2933,14 +2909,14 @@ struct Vis_stru0 array_F8DDF8[]; // struc[64] @ MM7.exe::00F8DDF8
 //float flt_F8DE14; // 00001C
 //_UNKNOWN unk_F8DE24; // 00002C
 
-_UNKNOWN unk_F8E9E0; // [63]+18
-_UNKNOWN unk_F8E9E4; // [63]+1C
+extern _UNKNOWN unk_F8E9E0; // [63]+18
+extern _UNKNOWN unk_F8E9E4; // [63]+1C
 extern char byte_F8E9F8; // weak
 
 //float flt_F8EA00; // weak
 //float flt_F8EA04; // weak
 
-struct D3DVERTEX array_F8EA00[]; // struct[?
+struct RenderVertexD3D3 array_F8EA00[]; // struct[?
 
 //probably Vis_stru0, but surely 64x48
 struct Vis_stru0 array_F8F200[]; // struct[64] @ MM7.exe::00F8F200
@@ -2964,7 +2940,7 @@ extern int dword_F93E30; // weak
 extern int dword_F93E44; // weak
 extern int dword_F93E58; // weak
 
-struct unnamed_F93E6C
+extern struct unnamed_F93E6C
 {
  int dword_000000;
  int dword_000004;

@@ -113,7 +113,7 @@ int __stdcall SmackSoundUseMSS(HDIGDRIVER hDrv);
 unsigned int __stdcall SmackUseMMX(unsigned int flag);
 HSMACK __stdcall SmackOpen(HANDLE hSourceFile, unsigned int uFlags, unsigned int uExtraBuffers);
 HSMACKBLIT __stdcall SmackBlitOpen(unsigned int uSurfaceFormat);
-void __stdcall SmackToBuffer(struct SmackMovieInfo *pMovie, unsigned int uX, unsigned int uY, unsigned int uPitch, unsigned int uHeight, void *pBuffer, unsigned int uFlags);
+void __stdcall SmackToBuffer(HSMACK, unsigned int uX, unsigned int uY, unsigned int uPitch, unsigned int uHeight, void *pBuffer, unsigned int uFlags);
 void __stdcall SmackBlitSetPalette(HSMACKBLIT hBlit, void *pPalette, unsigned int uPalType);
 unsigned int __stdcall SmackDoFrame(HSMACK);
 unsigned int __stdcall SmackToBufferRect(HSMACK, unsigned int uSmackSurface);

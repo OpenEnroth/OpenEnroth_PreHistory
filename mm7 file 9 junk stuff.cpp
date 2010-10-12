@@ -124,10 +124,10 @@ void sub_4CC412(int a1)
 {
   if ( !*(_DWORD *)(a1 - 32) )
     __ArrayUnwind(
-      *(void **)(a1 + 8),
+      *(char **)(a1 + 8),
       *(_DWORD *)(a1 + 12),
       *(_DWORD *)(a1 - 28),
-      *(void (__thiscall **)(void *))(a1 + 24));
+      *(int (__thiscall **)())(a1 + 24));
 }
 
 
@@ -135,33 +135,33 @@ void sub_4CC31C(int a1)
 {
   if ( !*(_DWORD *)(a1 - 28) )
     __ArrayUnwind(
-      *(void **)(a1 + 8),
+      *(char **)(a1 + 8),
       *(_DWORD *)(a1 + 12),
       *(_DWORD *)(a1 + 16),
-      *(void (__thiscall **)(void *))(a1 + 20));
+      *(int (__thiscall **)())(a1 + 20));
 }
 
 
 // sub_4CC3A8: using guessed type _DWORD __stdcall _eh vector constructor iterator_(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
-void __stdcall _eh_vector_constructor_iterator_(int a1, unsigned int uElementSize, unsigned int uNumElements, void (__fastcall *a4)(_DWORD), int a5)
+void __stdcall _eh_vector_constructor_iterator_(int a1, unsigned int uElementSize, unsigned int uNumElements, void (__fastcall *a4)(void *), void (__fastcall *a5)(void *))
 {
   int i; // [sp+4h] [bp-1Ch]@1
 
   for ( i = 0; i < uNumElements; ++i )
   {
-    a4(a1);
+    a4((void *)a1);
     a1 += uElementSize;
   }
   //sub_4CC412(1);
 }
 
 // sub_4CC2B4: using guessed type _DWORD __stdcall _eh vector destructor iterator_(_DWORD, _DWORD, _DWORD, _DWORD);
-void __stdcall _eh_vector_destructor_iterator_(int a1, int a2, int a3, void (__fastcall *a4)(_DWORD))
+void __stdcall _eh_vector_destructor_iterator_(int a1, int a2, int a3, void (__fastcall *a4)(void *))
 {
   char v4; // sf@2
   int i; // [sp+24h] [bp+8h]@1
 
-  for ( i = a3 * a2 + a1; ; a4(i) )
+  for ( i = a3 * a2 + a1; ; a4((void *)i) )
   {
     v4 = a3-- - 1 < 0;
     if ( v4 )
@@ -171,14 +171,6 @@ void __stdcall _eh_vector_destructor_iterator_(int a1, int a2, int a3, void (__f
   //sub_4CC31C(1);
 }
 
-
-
-// sub_??????
-void terminate()
-{
- __asm int 3
- return;
-}
 
 
 //#error "FFFFFFFF: variables would overlap: edx/4 and edx/8 (funcsize=96)"
@@ -419,15 +411,16 @@ loc_41AE9C:                             ; CODE XREF: sub_41AD6E+7Bj
 void __fastcall sub_43B569(void *_this)
 {
  __asm int 3
- return 0;
 }
 
-void __stdcall sub_45D73F(struct class04 *_this, long a1)
+//----- (0045D73F) --------------------------------------------------------
+//#error "45D747: call analysis failed (funcsize=6)"
+void __stdcall class04_sub_45D73F(struct class04 *_this, long a1)
 {
  if (a1 - 2)
    return;
 
- sub_45DCA9(_this, 0, 0, 0, 0, 0); // only first arg is checked, the rest may be redudant
+ sub_45DCA9((int)_this, 0, 0, 0, 0, 0); // only first arg is checked, the rest may be redudant
 }
 
 int sub_48AAF1(long a1)
@@ -446,7 +439,7 @@ void __fastcall class04_stru0_ctor(struct class04_stru0 *_this)
 {
   sub_40E4C2(_this);
  _this->dword_000C18 = 0;
- _this->ptr_000000 = 0x4D86F8;
+ _this->ptr_000000 = (char *)0x4D86F8;
 }
 
 int sub_486009()
@@ -458,7 +451,6 @@ int sub_486009()
 void __fastcall sub_43B60C(void *_this)
 {
  __asm int 3
- return 0;
 }
 
 int sub_4C5910()
@@ -496,8 +488,8 @@ void *CheckHRESULT(void **pSmthn, HRESULT hr, const char *pSourceFile, unsigned 
 {
  char v6;
 
- //v5 = this;
- //*(_DWORD *)this = 5080748;
+ //v5 = _this;
+ //*(_DWORD *)_this = 5080748;
  if (pSmthn)
    *pSmthn = &byte_4D8410[668];
 
@@ -543,7 +535,7 @@ char __stdcall ErrorMessageFromHRESULT(signed int a1, const char *Str, size_t a3
   if ( a1 )
   {
     LOBYTE(v19) = BYTE3(a1);
-    CGame_stru0_sub_40E2F6((int)&v19, 0);
+    CGame_stru0_sub_40E2F6((CGame_stru0 *)&v19, 0);
     v20 = 0;
     if ( v4 > -2005532222 )
     {
@@ -958,11 +950,11 @@ LABEL_175:
               v16 = a3;
               pD3DRenderer->dword_040110 = 0;
               v18 = &v12;
-              sub_40E2C8(&v12, Str, (int)((char *)&a1 + 3));
+              Game_sub_40E2C8(&v12, Str, (int)((char *)&a1 + 3));
               v11 = 48;
               LOBYTE(v20) = 1;
               Str = &v7;
-              sub_40E2C8(&v7, "Direct Draw Error", (int)((char *)&a3 + 3));
+              Game_sub_40E2C8(&v7, "Direct Draw Error", (int)((char *)&a3 + 3));
               LOBYTE(v20) = 0;
               sub_466D83((int)&v19, v7, v8, v9, v10, v11, v12, v13, v14, (int)v15, v16);
               v3 = 1;
@@ -970,7 +962,7 @@ LABEL_175:
             }
           }
 LABEL_174:
-          sprintfex(&Src, "Unknown DirectDraw/Direct3D error number %X", v4);
+          wsprintfA(&Src, "Unknown DirectDraw/Direct3D error number %X", v4);
           v16 = strlen(&Src);
           v15 = &Src;
           goto LABEL_175;
@@ -1047,7 +1039,7 @@ LABEL_174:
     }
 LABEL_176:
     v20 = -1;
-    CGame_stru0_sub_40E2F6((int)&v19, 1);
+    CGame_stru0_sub_40E2F6((CGame_stru0 *)&v19, 1);
     return v3;
   }
   return 0;
@@ -1074,7 +1066,7 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
     Mouse_suspend(dword_720010);
   if (pGame)
   {
-    v11 = pGame->class14_obj;
+    v11 = (int)pGame->class14_obj;
     if ( v11 )
     {
       if (*(_BYTE *)(v11 + 4))
@@ -1096,17 +1088,17 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
   LOBYTE(v22) = 2;
   sub_467AAF(a1, v13, 0, 0xFFFFFFFFu);
   LOBYTE(v22) = 1;
-  CGame_stru0_sub_40E2F6((int)&v20, 1);
+  CGame_stru0_sub_40E2F6((CGame_stru0 *)&v20, 1);
   v12 = lpCaption;
   if ( !lpCaption )
-    v12 = byte_4D8410 + 736;
+    v12 = (char *)byte_4D8410 + 736;
   v14 = *(const CHAR **)(a1 + 4);
   if ( !v14 )
-    v14 = byte_4D8410 + 736;
+    v14 = (char *)byte_4D8410 + 736;
   MessageBoxA(hWnd_global, v14, v12, uType);
   if (pGame)
   {
-    v15 = pGame->class14_obj;
+    v15 = (int)pGame->class14_obj;
     if ( v15 )
     {
       if ( *(_BYTE *)(v15 + 4) )
@@ -1117,11 +1109,11 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
     }
   }
   if (dword_720010)
-    sub_46B105(dword_720010);
+    sub_46B105((void *)dword_720010);
   LOBYTE(v22) = 0;
-  CGame_stru0_sub_40E2F6((int)&a2, 1);
+  CGame_stru0_sub_40E2F6((CGame_stru0 *)&a2, 1);
   v22 = -1;
-  CGame_stru0_sub_40E2F6((int)&a7, 1);
+  CGame_stru0_sub_40E2F6((CGame_stru0 *)&a7, 1);
 }
 
 //----- (MM7.exe::0046778D) --------------------------------------------------------
@@ -1146,21 +1138,21 @@ char __stdcall sub_46778D(int a1, const char *Str, int a3)
   if ( a1 )
   {
     LOBYTE(v15) = BYTE3(a1);
-    CGame_stru0_sub_40E2F6((int)&v15, 0);
+    CGame_stru0_sub_40E2F6((CGame_stru0 *)&v15, 0);
     v4 = strlen("Unknown Direct Input error");
     sub_40E32E((int)&v15, "Unknown Direct Input error", v4);
     v14 = a3;
     v17 = 0;
     v16 = &v10;
-    sub_40E2C8(&v10, Str, (int)((char *)&a1 + 3));
+    Game_sub_40E2C8(&v10, Str, (int)((char *)&a1 + 3));
     v9 = 48;
     LOBYTE(v17) = 1;
     Str = &v5;
-    sub_40E2C8(&v5, "Direct Input Error", (int)((char *)&a3 + 3));
+    Game_sub_40E2C8(&v5, "Direct Input Error", (int)((char *)&a3 + 3));
     LOBYTE(v17) = 0;
     sub_466D83((int)&v15, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14);
     v17 = -1;
-    CGame_stru0_sub_40E2F6((int)&v15, 1);
+    CGame_stru0_sub_40E2F6((CGame_stru0 *)&v15, 1);
     result = 1;
   }
   else
@@ -1389,7 +1381,7 @@ LABEL_63:
 
 
 //----- (MM7.exe::004CAF5C) --------------------------------------------------------
-int call_delete(int result, unsigned int a2)
+int call_delete(void *ptr)
 {
   unsigned int v2; // eax@3
   char v3; // zf@5
@@ -1462,7 +1454,7 @@ void *__cdecl sub_4CD96F(int a1, int a2)
   int v7; // [sp+4h] [bp-1Ch]@1
 
   compile_warning;
-  return 1;
+  return (void *)1;
   /*
   v2 = a2 * a1;
   v7 = a2 * a1;

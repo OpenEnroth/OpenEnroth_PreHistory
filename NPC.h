@@ -79,11 +79,11 @@ struct CNPCStats
 };
 
 void CNPCStats_ctor(struct CNPCStats *_this);
-//int __thiscall sub_47702F(void *this);
+//int __thiscall sub_47702F(void *_this);
 void CNPCStats_Initialize(struct CNPCStats *_this);
-//char *__thiscall sub_476CB5(void *this);
-char *CNPCStats_sub_476CB5(struct CNPCStats *_this);
-//int __thiscall sub_476977(int this);
+//char *__thiscall sub_476CB5(void *_this);
+void CNPCStats_sub_476CB5(struct CNPCStats *_this);
+//int __thiscall sub_476977(int _this);
 int CNPCStats_sub_476977(struct CNPCStats *_this);
 
 

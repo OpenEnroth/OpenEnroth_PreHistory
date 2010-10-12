@@ -142,14 +142,14 @@ struct class40
 };
 //sizeof ~ ?
 
-//char *__thiscall sub_456D84(void *this);
+//char *__thiscall sub_456D84(void *_this);
 char *sub_456D84(struct class40 *_this);
-//int __thiscall sub_453B3C(void *this);
+//int __thiscall sub_453B3C(void *_this);
 void class40_LoadPotionsTable(struct class40 *_this);
-//const char *__thiscall sub_453CE5(void *this)
+//const char *__thiscall sub_453CE5(void *_this)
 void class40_LoadPotionNotes(struct class40 *_this);
-//char __thiscall sub_456620(void *this, int a2, signed int a3, int Dst);
-char sub_456620(struct class40 *_this, int a2, signed int a3, int Dst);
+//char __thiscall class40_sub_456620(void *_this, int a2, signed int a3, int Dst);
+char class40_sub_456620(struct class40 *_this, int a2, signed int a3, unsigned int *Dst);
 
 
 

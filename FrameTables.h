@@ -24,7 +24,7 @@ struct MonsterDescriptionList
 //sizeof == 08
 void MonsterDescriptionList_ctor(struct MonsterDescriptionList *_this);
 //void *__thiscall sub_4598AF(void *Dst, void *Src);
-void MonsterDescriptionList_Initialize(struct MonsterDescriptionList *_this, void *pSrc);
+void MonsterDescriptionList_Initialize(struct MonsterDescriptionList *_this, unsigned int *pSrc);
 
 
 struct IconFrame
@@ -47,18 +47,18 @@ struct CIconFrameTable
 void CIconFrameTable_ctor(struct CIconFrameTable *_this);
 //void *__thiscall sub_495056(void *Dst, void *Src);
 void CIconFrameTable_Initialize(struct CIconFrameTable *_this, void *pSrc);
-//signed int __thiscall sub_49509D(int this, const char *Args);
+//signed int __thiscall sub_49509D(int _this, const char *Args);
 int CIconFrameTable_InitializeFromTXT(struct CIconFrameTable *_this, const char *pSourceFile);
-//int __thiscall sub_494F3A(void *this, const char *Str1);
+//int __thiscall sub_494F3A(void *_this, const char *Str1);
 unsigned int CIconFrameTable_FindIcon(struct CIconFrameTable *_this, const char *pIconName);
 //custom
 unsigned int CIconFrameTable_FindIcon_New(struct CIconFrameTable *_this, const wchar_t *pIconName);
-//void __thiscall sub_494FBF(int this, int a2);
+//void __thiscall sub_494FBF(int _this, int a2);
 void CIconFrameTable_InitializeIcon(struct CIconFrameTable *_this, unsigned int uIconIdx);
 //int __thiscall sub_49500A(void *Str);
 int CIconFrameTable_SaveToBIN(struct CIconFrameTable *_this);
-//int __thiscall sub_494F70(int this, int a2, signed int a3);
-struct IconFrame *CIconFrameTable_GetFrame(struct CIconFrameTable *_this, int a2, signed int a3);
+//int __thiscall sub_494F70(int _this, int a2, signed int a3);
+struct IconFrame *CIconFrameTable_GetFrame(struct CIconFrameTable *_this, unsigned int uIconIdx, unsigned int uFrame);
 
 
 
@@ -82,7 +82,7 @@ void CTextureFrameTable_ctor(struct CTextureFrameTable *_this);
 
 //void *__thiscall sub_44E0A0(struct unk_class *Dst, void *Src);
 void CTextureFrameTable_Initialize(struct CTextureFrameTable *_this, unsigned char *pSrc);
-//signed int __thiscall sub_44E1EC(int this, const char *Args);
+//signed int __thiscall sub_44E1EC(int _this, const char *Args);
 int CTextureFrameTable_InitializeFromTXT(struct CTextureFrameTable *_this, const char *pSourceFile);
 
 
@@ -109,7 +109,7 @@ struct SpriteFrame
 };
 //sizeof == 3C
 
-struct CSpriteFrameTable
+struct SpriteFrameTable
 {
  unsigned int         uNumSpriteFrames; // dword @ 000000
  int                  dword_000004;
@@ -119,27 +119,27 @@ struct CSpriteFrameTable
  unsigned short      *pSpriteEFrames; // dword @ 000014   after binary search, idx returned index this array here to get idx of sprite in S-Frames:   SFrames[EFrames[dword_000008]] == desired sprite
 };
 //sizeof ~ 18
-void CSpriteFrameTable_ctor(struct CSpriteFrameTable *_this);
+void SpriteFrameTable_ctor(struct SpriteFrameTable *_this);
 //int __thiscall sub_44D9D7(void *Dst, void *Src)
-int CSpriteFrameTable_Initialize(struct CSpriteFrameTable *_this, void *pSrc);
+int SpriteFrameTable_Initialize(struct SpriteFrameTable *_this, unsigned int *pSrc);
 //int __thiscall sub_44D96D(void *Str);
-int CSpriteFrameTable_SaveToBIN(struct CSpriteFrameTable *_this);
+int SpriteFrameTable_SaveToBIN(struct SpriteFrameTable *_this);
 
-int CSpriteFrameTable_LoadFromTXT(struct CSpriteFrameTable *_this, const char *pSourceFile);
-//int __thiscall sub_44D4D8(int this)
-int CSpriteFrameTable_sub_44D4D8(struct CSpriteFrameTable *_this);
-//int __thiscall class29_fn1(int this, int a2, signed int a3);
-struct SpriteFrame *CSpriteFrameTable_fn1(struct CSpriteFrameTable *_this, unsigned int uID, signed int a3);
-//int __thiscall class29_fn2(int this, int a2, signed int a3);
-int CSpriteFrameTable_fn2(struct CSpriteFrameTable *_this, int a2, signed int a3);
-//int __thiscall class29_fn3(int this);
-void CSpriteFrameTable_fn3(struct CSpriteFrameTable *_this);
-//void __thiscall class29_fn4(int this, int a2);
-void CSpriteFrameTable_InitializeSpriteFrame(struct CSpriteFrameTable *_this, int a2);
-//int __thiscall class29_fn5(int this, const char *Str1);
-unsigned int CSpriteFrameTable_FastFindSprite(struct CSpriteFrameTable *_this, const char *Str1); // find sprite using biary search, returns sprite ID
-//int __thiscall sub_44D83A(void *this, int a2, int a3, const char *pSpriteName)
-void CSpriteFrameTablsub_SpriteBinarySearch(struct CSpriteFrameTable *_this, int a2, int a3, const char *pSpriteName);
+int SpriteFrameTable_LoadFromTXT(struct SpriteFrameTable *_this, const char *pSourceFile);
+//int __thiscall sub_44D4D8(int _this)
+int SpriteFrameTable_sub_44D4D8(struct SpriteFrameTable *_this);
+//int __thiscall class29_fn1(int _this, int a2, signed int a3);
+struct SpriteFrame *CSpriteFrameTable_fn1(struct SpriteFrameTable *_this, unsigned int uID, signed int a3);
+//int __thiscall class29_fn2(int _this, int a2, signed int a3);
+struct SpriteFrame *CSpriteFrameTable_fn2(struct SpriteFrameTable *_this, int a2, signed int a3);
+//int __thiscall class29_fn3(int _this);
+void SpriteFrameTable_fn3(struct SpriteFrameTable *_this);
+//void __thiscall class29_fn4(int _this, int a2);
+void SpriteFrameTable_InitializeSpriteFrame(struct SpriteFrameTable *_this, unsigned int uSpriteFrameID);
+//int __thiscall class29_fn5(int _this, const char *Str1);
+unsigned int SpriteFrameTable_FastFindSprite(struct SpriteFrameTable *_this, const char *Str1); // find sprite using biary search, returns sprite ID
+//int __thiscall sub_44D83A(void *_this, int a2, int a3, const char *pSpriteName)
+void SpriteFrameTablsub_SpriteBinarySearch(struct SpriteFrameTable *_this, int a2, int a3, const char *pSpriteName);
 
 
 
@@ -165,19 +165,19 @@ struct CTileTable
 //sizeof == ?
 
 void CTileTable_ctor(struct CTileTable *_this);
-//signed int __thiscall sub_488047(int this, const char *a2)
+//signed int __thiscall sub_488047(int _this, const char *a2)
 int CTileTable_InitializeFromTXT(struct CTileTable *_this, const char *pSourceFile);
 //int __thiscall sub_487FB4(void *Str);
 int CTileTable_SaveToBIN(struct CTileTable *_this);
 //void *__thiscall sub_488000(void *Dst, void *Src);
 void CTileTable_Initialize(struct CTileTable *_this, unsigned char *pSrc);
-//int __thiscall sub_487ED6(void *this, int a2, int a3);
+//int __thiscall sub_487ED6(void *_this, int a2, int a3);
 int sub_487ED6(struct CTileTable *_this, int a2, int a3);
-//int __thiscall sub_487F84(int this, int a2, int a3);
+//int __thiscall sub_487F84(int _this, int a2, int a3);
 int sub_487F84(struct CTileTable *_this, int a2, int a3);
-//void __thiscall sub_487E58(void *this, int a2);
+//void __thiscall sub_487E58(void *_this, int a2);
 void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2);
-//int __thiscall sub_487E3B(int this, int a2)
+//int __thiscall sub_487E3B(int _this, int a2)
 struct TileDesc *TileTable_GetTile(struct CTileTable *_this, unsigned int uTileID);
 
 
@@ -202,9 +202,9 @@ void CPlayerFrameTable_ctor(struct CPlayerFrameTable *_this);
 int CPlayerFrameTable_SaveToBIN(struct CPlayerFrameTable *_this);
 //void *__thiscall sub_494C0F(void *Dst, void *Src);
 void *CPlayerFrameTable_Initialize(struct CPlayerFrameTable *_this, unsigned char *pSrc);
-//signed int __thiscall sub_494C5A(int this, const char *Args);
+//signed int __thiscall sub_494C5A(int _this, const char *Args);
 int CPlayerFrameTable_InitializeFromTXT(struct CPlayerFrameTable *_this, const char *pSourceFile);
-//int __thiscall sub_494B10(int this, int a2, signed int a3);
+//int __thiscall sub_494B10(int _this, int a2, signed int a3);
 struct PlayerFrame *CPlayerFrameTable_GetFrame(struct CPlayerFrameTable *_this, unsigned int uFramesetID, unsigned int uFrameID);
 
 
@@ -229,22 +229,22 @@ struct DecorationDescription
 };
 //sizeof == 54
 
-struct CDecorationDescriptionList
+struct DecorationDescriptionList
 {
  unsigned int                  uNumLevelDecorations; // dword @ 000000
  struct DecorationDescription *pDescriptions;   // ptr @ 000004
 };
 
-void CDecorationDescriptionList_ctor(struct CDecorationDescriptionList *_this);
-//signed int __thiscall sub_4586B0(int this, const char *Args);
-int CDecorationDescriptionList_InitializeFromTXT(struct CDecorationDescriptionList *_this, const char *pSourceFile);
+void DecorationDescriptionList_ctor(struct DecorationDescriptionList *_this);
+//signed int __thiscall sub_4586B0(int _this, const char *Args);
+int DecorationDescriptionList_InitializeFromTXT(struct DecorationDescriptionList *_this, const char *pSourceFile);
 //void *__thiscall sub_45864C(void *Dst, void *Src);
-void *CDecorationDescriptionList_Initialize(struct CDecorationDescriptionList *_this, unsigned char *pSrc);
+void *DecorationDescriptionList_Initialize(struct DecorationDescriptionList *_this, unsigned char *pSrc);
 //int __thiscall sub_458600(void *Str);
-int CDecorationDescriptionList_SaveToBIN(struct CDecorationDescriptionList *_this);
-//__int16 __thiscall sub_4488B6(void *this, const char *Str1);
-__int16 sub_4488B6(struct CDecorationDescriptionList *_this, const char *Str1);
-//void __thiscall sub_458693(int this, int a2);
+int DecorationDescriptionList_SaveToBIN(struct DecorationDescriptionList *_this);
+//__int16 __thiscall sub_4488B6(void *_this, const char *Str1);
+__int16 sub_4488B6(struct DecorationDescriptionList *_this, const char *Str1);
+//void __thiscall sub_458693(int _this, int a2);
 void sub_458693(struct DecorationDescriptionList *_this, unsigned int uDecorationDescriptionID);
 
 
@@ -279,11 +279,11 @@ struct CObjectDescriptionList
 void CObjectDescriptionList_ctor(struct CObjectDescriptionList *_this);
 //int __thiscall sub_459090(void *Str);
 int CObjectDescriptionList_SaveToBIN(struct CObjectDescriptionList *_this);
-//signed int __thiscall sub_459123(int this, const char *a2);
+//signed int __thiscall sub_459123(int _this, const char *a2);
 int CObjectDescriptionList_InitializeFromTXT(struct CObjectDescriptionList *_this, const char *pSourceFile);
 //void *__thiscall sub_4590DC(void *Dst, void *Src);
 void *CObjectDescriptionList_Initialize(struct CObjectDescriptionList *_this, unsigned char *pSrc);
-//void __thiscall sub_459064(void *this);
+//void __thiscall sub_459064(void *_this);
 void sub_459064(struct CObjectDescriptionList *_this);
 
 
@@ -307,11 +307,11 @@ struct COverlayDescriptionList
 void COverlayDescriptionList_ctor(struct COverlayDescriptionList *_this);
 //int __thiscall sub_458DBC(void *Str)
 int COverlayDescriptionList_SaveToBIN(struct COverlayDescriptionList *_this);
-//signed int __thiscall sub_458E4F(int this, const char *a2)
+//signed int __thiscall sub_458E4F(int _this, const char *a2)
 int COverlayDescriptionList_InitializeFromTXT(struct COverlayDescriptionList *_this, const char *pSourceFile);
 //void *__thiscall sub_458E08(void *Dst, void *Src)
 void *COverlayDescriptionList_Initialize(struct COverlayDescriptionList *_this, unsigned char *pSrc);
-//void __thiscall sub_458D97(void *this)
+//void __thiscall sub_458D97(void *_this)
 void sub_458D97(struct COverlayDescriptionList *_this);
 
 

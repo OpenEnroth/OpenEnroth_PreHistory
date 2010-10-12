@@ -17,7 +17,7 @@ HRESULT RenderD3D3_EndScene(struct RenderD3D3 *_this)
 
   compile_error;
   //hr = (**(_DWORD **)(pD3DRenderer->dword_040098) + 128)(*(_DWORD *)(pD3DRenderer + 262296), 0);
-  return CheckHRESULT(0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 207, 0);
+  return (HRESULT)CheckHRESULT((void **)0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 207, 0);
  }
  return S_OK;
 }
@@ -64,45 +64,45 @@ bool RenderD3D3_Initialize(struct RenderD3D3 *_this, unsigned int uDeviceID, uns
  HRESULT hr;
  int v5, v47;
 
-  v4 = _this;
+  v4 = (int)_this;
 
  _this->bWindowMode = bWindowMode;
  _this->hOutputWindow = hwnd;
 
  if (DirectDrawCreate(_this->pAvailableDevices[uDeviceID].ptr_000020, &lpDD, 0) != S_OK)
  {
-  wsprintfA(_this->pStatusMessage, "RenderD3D3::Initialize: DirectDrawCreate failed.");
+  wsprintfA((char *)_this->pStatusMessage, "RenderD3D3::Initialize: DirectDrawCreate failed.");
   return false;
  }
  
- v5 = _this->pAvailableDevices;
+ v5 = (int)_this->pAvailableDevices;
  v47 = 40 * uDeviceID;
 
- hr = (lpDD->lpVtbl->QueryInterface)(lpDD, &memory_4D8410.IID_IDirectDraw4, &_this->pHostInterface);
+ hr = lpDD->QueryInterface(memory_4D8410.IID_IDirectDraw4, (void **)&_this->pHostInterface);
 
- (lpDD->lpVtbl->Release)(lpDD);
+ lpDD->Release();
  lpDD = 0;
  if (FAILED(hr))
  {
-  wsprintfA(_this->pStatusMessage, "RenderD3D3::Initialize: no DirectDraw4.");
+  wsprintfA((char *)_this->pStatusMessage, "RenderD3D3::Initialize: no DirectDraw4.");
 
   return false;
  }
 
  if (bWindowMode && !_this->pAvailableDevices[uDeviceID].ptr_000020)
  {
-  hr = (_this->pHostInterface->lpVtbl->SetCooperativeLevel)(_this->pHostInterface, hwnd, DDSCL_MULTITHREADED | DDSCL_NORMAL);
+  hr = _this->pHostInterface->SetCooperativeLevel(hwnd, DDSCL_MULTITHREADED | DDSCL_NORMAL);
 
   if (FAILED(hr))
   {
 LABEL_9:
       v23 = "RenderD3D3::Initialize: SetCooperativeLevel failed.";
 LABEL_10:
-      wsprintfA(_this->pStatusMessage, v23);
+      wsprintfA((char *)_this->pStatusMessage, v23);
 LABEL_65:
       if (_this->pHostInterface)
       {
-       (_this->pHostInterface->lpVtbl->Release)(_this->pHostInterface);
+       _this->pHostInterface->Release();
        _this->pHostInterface = 0;
       }
       return false;
@@ -112,10 +112,10 @@ LABEL_65:
   ddsd2.dwSize = sizeof(DDSURFACEDESC2);
   ddsd2.dwFlags = DDSD_CAPS;
   ddsd2.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
-  if ((_this->pHostInterface->lpVtbl->CreateSurface)(_this->pHostInterface, &ddsd2, &_this->pFontBuffer, 0) == S_OK)
+  if (_this->pHostInterface->CreateSurface(&ddsd2, &_this->pFontBuffer, 0) == S_OK)
   {
    ddsd2.dwSize = sizeof(DDSURFACEDESC2);
-   (_this->pHostInterface->lpVtbl->GetDisplayMode)(_this->pHostInterface, &ddsd2);
+   _this->pHostInterface->GetDisplayMode(&ddsd2);
    //if (ddsd2.ddpfPixelFormat.dwRGBBitCount != 16)
    if (ddsd2.ddpfPixelFormat.dwRGBBitCount != 32)
    {
@@ -127,54 +127,58 @@ LABEL_65:
    ddsd2.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN | DDSCAPS_3DDEVICE;
    ddsd2.dwWidth = 640;
    ddsd2.dwHeight = 480;
-   hr = (_this->pHostInterface->lpVtbl->CreateSurface)(_this->pHostInterface, &ddsd2, &_this->pBackBuffer, 0);
+   hr = _this->pHostInterface->CreateSurface(&ddsd2, &_this->pBackBuffer, 0);
    if (FAILED(hr))
    {
         v24 = "RenderD3D3::Initialize: failed to create back buffer.";
 LABEL_14:
-        wsprintfA(_this->pStatusMessage, v24);
+        wsprintfA((char *)_this->pStatusMessage, v24);
         if (_this->pFontBuffer)
         {
-         (_this->pFontBuffer->lpVtbl->Release)(_this->pFontBuffer);
+         _this->pFontBuffer->Release();
          _this->pFontBuffer = 0;
         }
         goto LABEL_65;
    }
 
-   hr = (_this->pHostInterface->lpVtbl->CreateClipper)(_this->pHostInterface, 0, &pClipper, 0);
+   hr = _this->pHostInterface->CreateClipper(0, &pClipper, 0);
    if (FAILED(hr))
    {
     v25 = "RenderD3D3::Initialize: failed to create clipper.";
     goto LABEL_45;
    }
 
-   (pClipper->lpVtbl->SetHWnd)(pClipper, 0, hwnd);
-   (_this->pFontBuffer->lpVtbl->SetClipper)(_this->pFontBuffer, pClipper);
+   pClipper->SetHWnd(0, hwnd);
+   _this->pFontBuffer->SetClipper(pClipper);
 
-   (pClipper->lpVtbl->Release)(pClipper);
+   pClipper->Release();
    pClipper = 0;
 
-   (_this->pHostInterface->lpVtbl->QueryInterface)(_this->pHostInterface, &memory_4D8410.IID_IDirect3D3, &_this->pDirect3D3);
+   _this->pHostInterface->QueryInterface(memory_4D8410.IID_IDirect3D3, (void **)&_this->pDirect3D3);
    
-      v12 = _this->pAvailableDevices;
+      v12 = (int)_this->pAvailableDevices;
 
    ddsd2.dwFlags = DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT | DDSD_PIXELFORMAT;
    ddsd2.ddsCaps.dwCaps = DDSCAPS_ZBUFFER;
    ddsd2.dwWidth = 640;
    ddsd2.dwHeight = 480;
 
-   hr = (_this->pDirect3D3->lpVtbl->EnumZBufferFormats)(_this->pDirect3D3, _this->pAvailableDevices[uDeviceID].pDeviceGUID, Direct3D3EnumDeviceZBufferFormatsCallback, &ddsd2.ddpfPixelFormat);
+   //hr = (_this->pDirect3D3->lpVtbl->EnumZBufferFormats)(_this->pDirect3D3, _this->pAvailableDevices[uDeviceID].pDeviceGUID, Direct3D3EnumDeviceZBufferFormatsCallback, &ddsd2.ddpfPixelFormat);
+   _this->pDirect3D3->EnumZBufferFormats(*_this->pAvailableDevices[uDeviceID].pDeviceGUID, (LPD3DENUMPIXELFORMATSCALLBACK)Direct3D3EnumDeviceZBufferFormatsCallback, &ddsd2.ddpfPixelFormat);
    if (FAILED(hr))
      goto LABEL_21;
    if (uDeviceID == 2 || uDeviceID == 3)
      ddsd2.ddsCaps.dwCaps |= DDSCAPS_SYSTEMMEMORY;
 
 
-   if ((_this->pHostInterface->lpVtbl->CreateSurface)(_this->pHostInterface, &ddsd2, &_this->pZBuffer, 0) == S_OK)
+   //if ((_this->pHostInterface->lpVtbl->CreateSurface)(_this->pHostInterface, &ddsd2, &_this->pZBuffer, 0) == S_OK)
+   if (_this->pHostInterface->CreateSurface(&ddsd2, &_this->pZBuffer, 0) == S_OK)
       {
-        if ((_this->pBackBuffer->lpVtbl->AddAttachedSurface)(_this->pBackBuffer, _this->pZBuffer) == S_OK)
+        //if ((_this->pBackBuffer->lpVtbl->AddAttachedSurface)(_this->pBackBuffer, _this->pZBuffer) == S_OK)
+        if (_this->pBackBuffer->AddAttachedSurface(_this->pZBuffer) == S_OK)
         {
-          if ((_this->pDirect3D3->lpVtbl->CreateDevice)(_this->pDirect3D3, _this->pAvailableDevices[uDeviceID].pDeviceGUID,  _this->pBackBuffer, &_this->pDevice, 0) == S_OK)
+          //if ((_this->pDirect3D3->lpVtbl->CreateDevice)(_this->pDirect3D3, _this->pAvailableDevices[uDeviceID].pDeviceGUID,  _this->pBackBuffer, &_this->pDevice, 0) == S_OK)
+          if (_this->pDirect3D3->CreateDevice(*_this->pAvailableDevices[uDeviceID].pDeviceGUID, _this->pBackBuffer, &_this->pDevice, 0) == S_OK)
           {
             memset(&d3dViewport, 0, sizeof(D3DVIEWPORT2));
             d3dViewport.dvClipY = 1.0;
@@ -185,19 +189,19 @@ LABEL_14:
             goto LABEL_54;
           }
 LABEL_51:
-          wsprintfA(_this->pStatusMessage, "Init - Failed to create D3D device.\n");
+          wsprintfA((char *)_this->pStatusMessage, "Init - Failed to create D3D device.\n");
           if (_this->pDirect3D3)
           {
-           (_this->pDirect3D3->lpVtbl->Release)(_this->pDirect3D3);
+           _this->pDirect3D3->Release();
            _this->pDirect3D3 = 0;
           }
           goto LABEL_59;
         }
 LABEL_48:
-        wsprintfA(_this->pStatusMessage, "Init - Failed to attach z-buffer to back buffer.\n");
+        wsprintfA((char *)_this->pStatusMessage, "Init - Failed to attach z-buffer to back buffer.\n");
         if (_this->pZBuffer)
         {
-         (_this->pZBuffer->lpVtbl->Release)(_this->pZBuffer);
+         _this->pZBuffer->Release();
          _this->pZBuffer = 0;
         }
         goto LABEL_61;
@@ -212,10 +216,10 @@ LABEL_36:
     v26 = 1045;
   else
     v26 = 1041;
-  if ( (*(int (__stdcall **)(_DWORD, int, signed int))(*(_DWORD *)_this->pHostInterface + 80))(_this->pHostInterface, hwnd, v26) )
+  if ( (*(int (__stdcall **)(_DWORD, int, signed int))(*(_DWORD *)_this->pHostInterface + 80))((int)_this->pHostInterface, (int)hwnd, v26) )
     goto LABEL_9;
   if ( (*(int (__stdcall **)(_DWORD, signed int, signed int, signed int, _DWORD, _DWORD))(*(_DWORD *)_this->pHostInterface + 84))(
-         _this->pHostInterface,
+         (int)_this->pHostInterface,
          640,
          480,
          16,
@@ -226,38 +230,38 @@ LABEL_36:
     goto LABEL_10;
   }
   memset(&ddsd2, 0, sizeof(DDSURFACEDESC2));
-  v13 = _this->pHostInterface;
+  v13 = (int)_this->pHostInterface;
   ddsd2.dwSize = sizeof(DDSURFACEDESC2);
 
   ddsd2.dwFlags = DDSD_CAPS | DDSD_BACKBUFFERCOUNT;
   ddsd2.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE | DDSCAPS_3DDEVICE | DDSCAPS_FLIP | DDSCAPS_COMPLEX;
   ddsd2.dwBackBufferCount = 1;
-  if ( (*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v13 + 24))(v13, &ddsd2, v4 + 48, 0) )
+  if ( (*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v13 + 24))(v13, (int *)&ddsd2, v4 + 48, 0) )
     goto LABEL_36;
 
-  v14 = _this->pFontBuffer;
+  v14 = (int)_this->pFontBuffer;
   v27 = 4;
   hr = (*(int (__stdcall **)(int, int *, int))(*(_DWORD *)v14 + 48))(v14, &v27, v4 + 44);
 
-  (**(void (__stdcall ***)(_DWORD, _DWORD, _DWORD))_this->pHostInterface)(_this->pHostInterface, 5085880, &_this->pDirect3D3);
+  (**(void (__stdcall ***)(_DWORD, _DWORD, _DWORD))_this->pHostInterface)((int)_this->pHostInterface, 5085880, (int)&_this->pDirect3D3);
   if (FAILED(hr))
   {
     v25 = "Init - Failed to get D3D interface.\n";
     goto LABEL_45;
   }
   ddsd2.dwFlags = DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT | DDSD_PIXELFORMAT;
-  v15 = _this->pDirect3D3;
+  v15 = (int)_this->pDirect3D3;
   v16 = *(_DWORD *)(v4 + 28);
   ddsd2.ddsCaps.dwCaps = DDSCAPS_ZBUFFER;
   ddsd2.dwWidth = 640;
   ddsd2.dwHeight = 480;
   if ( (*(int (__fastcall **)(int, int, _DWORD, _DWORD, int (__stdcall *)(void *, void *), char *))(*(_DWORD *)v15 + 40))(
-         &_this->pDirect3D3,
+         (int)&_this->pDirect3D3,
          v47,
-         _this->pDirect3D3,
+         (int)_this->pDirect3D3,
          *(_DWORD *)(v16 + v47 + 12),
-         Direct3D3EnumDeviceZBufferFormatsCallback,
-         &ddsd2.ddpfPixelFormat) )
+         (int (__stdcall *)(void *, void *))Direct3D3EnumDeviceZBufferFormatsCallback,
+         (char *)&ddsd2.ddpfPixelFormat) )
   {
 LABEL_21:
     v25 = "Init - Failed to enumerate Z buffer formats.\n";
@@ -266,35 +270,35 @@ LABEL_21:
   if ( uDeviceID == 2 || uDeviceID == 3 )
     ddsd2.ddsCaps.dwCaps |= DDSCAPS_SYSTEMMEMORY;
 
-  if ( (*(int (__stdcall **)(_DWORD, int *, int, _DWORD))(*(_DWORD *)_this->pHostInterface + 24))(_this->pHostInterface, &ddsd2, v4 + 52, 0) )
+  if ( (*(int (__stdcall **)(_DWORD, int *, int, _DWORD))(*(_DWORD *)_this->pHostInterface + 24))((int)_this->pHostInterface, (int *)&ddsd2, v4 + 52, 0) )
   {
 LABEL_44:
     v25 = "Init - Failed to create z-buffer.\n";
 LABEL_45:
-    wsprintfA(_this->pStatusMessage, v25);
+    wsprintfA((char *)_this->pStatusMessage, v25);
     if (_this->pBackBuffer)
     {
-     (_this->pBackBuffer->lpVtbl->Release)(_this->pBackBuffer);
+     _this->pBackBuffer->Release();
      _this->pBackBuffer = 0;
     }
 
 LABEL_63:
     if (_this->pFontBuffer)
     {
-     (_this->pFontBuffer->lpVtbl->Release)(_this->pFontBuffer);
+     _this->pFontBuffer->Release();
      _this->pFontBuffer = 0;
     }
     goto LABEL_65;
   }
-  if ( (*(int (__stdcall **)(_DWORD, _DWORD))(*(_DWORD *)_this->pBackBuffer + 12))(_this->pBackBuffer, _this->pZBuffer) )
+  if ( (*(int (__stdcall **)(_DWORD, _DWORD))(*(_DWORD *)_this->pBackBuffer + 12))((int)_this->pBackBuffer, (int)_this->pZBuffer) )
     goto LABEL_48;
 
   if ( (*(int (__fastcall **)(int, int, _DWORD, _DWORD, _DWORD, int, _DWORD))(*(_DWORD *)_this->pDirect3D3 + 32))(
-         &_this->pDirect3D3,
+         (int)&_this->pDirect3D3,
          v47,
-         _this->pDirect3D3,
+         (int)_this->pDirect3D3,
          *(_DWORD *)(*(_DWORD *)(v4 + 28) + v47 + 12),
-         _this->pBackBuffer,
+         (int)_this->pBackBuffer,
          v4 + 56,
          0) )
     goto LABEL_51;
@@ -310,37 +314,37 @@ LABEL_54:
   d3dViewport.dwHeight = 480;
   d3dViewport.dvClipX = -1.0;
 
-  if (FAILED((_this->pDirect3D3->lpVtbl->CreateViewport)(_this->pDirect3D3, &_this->pOldViewport, 0)))
+  if (FAILED(_this->pDirect3D3->CreateViewport(&_this->pOldViewport, 0)))
   {
-    wsprintfA(_this->pStatusMessage, "Init - Failed to create OldViewport.\n");
+    wsprintfA((char *)_this->pStatusMessage, "Init - Failed to create OldViewport.\n");
     if (_this->pDevice)
     {
-     (_this->pDevice->lpVtbl->Release)(_this->pDevice);
+     _this->pDevice->Release();
      _this->pDevice = 0;
     }
     if (_this->pDirect3D3)
     {
-     (_this->pDirect3D3->lpVtbl->Release)(_this->pDirect3D3);
+     _this->pDirect3D3->Release();
      _this->pDirect3D3 = 0;
     }
 LABEL_59:
     if (_this->pZBuffer)
     {
-     (_this->pZBuffer->lpVtbl->Release)(_this->pZBuffer);
+     _this->pZBuffer->Release();
      _this->pZBuffer = 0;
     }
 LABEL_61:
     if (_this->pBackBuffer)
     {
-     (_this->pBackBuffer->lpVtbl->Release)(_this->pBackBuffer);
+     _this->pBackBuffer->Release();
      _this->pBackBuffer = 0;
     }
     goto LABEL_63;
   }
 
- (_this->pDevice->lpVtbl->AddViewport)(_this->pDevice, _this->pOldViewport);
- (_this->pOldViewport->lpVtbl->SetViewport2)(_this->pOldViewport, &d3dViewport);
- (_this->pDevice->lpVtbl->SetCurrentViewport)(_this->pDevice, _this->pOldViewport);
+ _this->pDevice->AddViewport(_this->pOldViewport);
+ _this->pOldViewport->SetViewport2(&d3dViewport);
+ _this->pDevice->SetCurrentViewport(_this->pOldViewport);
  return true;
 }
 
@@ -358,7 +362,7 @@ void RenderD3D3_FindAvailableDevices(struct RenderD3D3 *_this)
  _this->dword_000040 = 1;
  _this->dword_000044 = 10;
 
- _this->pAvailableDevices = malloc(4 * sizeof(struct RenderD3D3_DeviceDescription));
+ _this->pAvailableDevices = new RenderD3D3_DeviceDescription[4];
  memset(_this->pAvailableDevices, 0, 4 * sizeof(struct RenderD3D3_DeviceDescription));
 
  DirectDrawEnumerateA((LPDDENUMCALLBACKA)(DDrawEnumCallback), _this->pAvailableDevices);
@@ -374,7 +378,7 @@ struct D3DRenderer_stru2
 };
 
 //----- (0049D784) --------------------------------------------------------
-bool __stdcall Direct3D3EnumDevicesCallback(GUID *pGUID, const char *pDeviceDescription, const char *pDeviceName, D3DDEVICEDESC *a4, D3DDEVICEDESC *a5, struct D3DRenderer_stru2 *a6)
+int __stdcall Direct3D3EnumDevicesCallback(GUID *pGUID, const char *pDeviceDescription, const char *pDeviceName, D3DDEVICEDESC *pHWDesc, D3DDEVICEDESC *pSWDesc, struct D3DRenderer_stru2 *a6)
 //bool __stdcall Direct3D3EnumDevicesCallback(GUID *pGUID, const char *pDeviceDescription, const char *pDeviceName, unsigned char *a4, unsigned char *a5, struct D3DRenderer_stru3 *a6)
 {
   int v6; // eax@1
@@ -386,7 +390,7 @@ bool __stdcall Direct3D3EnumDevicesCallback(GUID *pGUID, const char *pDeviceDesc
   size_t v12; // eax@30
   size_t v13; // eax@30
 
-  v6 = a4->dwFlags;
+  v6 = pHWDesc->dwFlags;
   v7 = -1;
   if ( v6 )
   {
@@ -414,49 +418,49 @@ bool __stdcall Direct3D3EnumDevicesCallback(GUID *pGUID, const char *pDeviceDesc
     a6->pDeviceDesc[v7].bDeviceIsValid = true;
 
     a6->pDeviceDesc[v7].uDeviceCaps = 0;
-    if (~a4->dpcTriCaps.dwSrcBlendCaps & 0x10)
+    if (~pHWDesc->dpcTriCaps.dwSrcBlendCaps & 0x10)
       a6->pDeviceDesc[v7].uDeviceCaps |= 0x02;
-    if (~a4->dpcTriCaps.dwSrcBlendCaps & 0x02)
+    if (~pHWDesc->dpcTriCaps.dwSrcBlendCaps & 0x02)
       a6->pDeviceDesc[v7].uDeviceCaps |= 0x04;
-    if (~a4->dpcTriCaps.dwSrcBlendCaps & 0x01)
+    if (~pHWDesc->dpcTriCaps.dwSrcBlendCaps & 0x01)
       a6->pDeviceDesc[v7].uDeviceCaps |= 0x08;
-    if (~a4->dpcTriCaps.dwDestBlendCaps & 0x20)
+    if (~pHWDesc->dpcTriCaps.dwDestBlendCaps & 0x20)
       a6->pDeviceDesc[v7].uDeviceCaps |= 0x10;
-    if (~a4->dpcTriCaps.dwDestBlendCaps & 0x02)
+    if (~pHWDesc->dpcTriCaps.dwDestBlendCaps & 0x02)
       a6->pDeviceDesc[v7].uDeviceCaps |= 0x20;
-    if (~a4->dpcTriCaps.dwDestBlendCaps & 0x04)
+    if (~pHWDesc->dpcTriCaps.dwDestBlendCaps & 0x04)
       a6->pDeviceDesc[v7].uDeviceCaps |= 0x40;
-    if (a4->dpcTriCaps.dwTextureCaps & 0x20)
+    if (pHWDesc->dpcTriCaps.dwTextureCaps & 0x20)
       a6->pDeviceDesc[v7].uDeviceCaps |= 0x80;
-    if (~a4->dwDevCaps & 0x1000)
+    if (~pHWDesc->dwDevCaps & 0x1000)
       a6->pDeviceDesc[v7].uDeviceCaps |= 0x0100;
 
     v9 = strlen(pDeviceName);
-    a6->pDeviceDesc[v7].pDeviceName = malloc(v9 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 4) = operator new(v9 + 1);
-    strcpy(a6->pDeviceDesc[v7].pDeviceName, pDeviceName);
+    a6->pDeviceDesc[v7].pDeviceName = new unsigned char[v9 + 1];//*(_DWORD *)(v8 + *(_DWORD *)a6 + 4) = operator new(v9 + 1);
+    strcpy((char *)a6->pDeviceDesc[v7].pDeviceName, pDeviceName);
 
     v10 = strlen(pDeviceDescription);
-    a6->pDeviceDesc[v7].pDeviceDescription = malloc(v10 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 8) = operator new(v10 + 1);
-    strcpy(a6->pDeviceDesc[v7].pDeviceDescription, pDeviceDescription);
+    a6->pDeviceDesc[v7].pDeviceDescription = new unsigned char[v10 + 1];//*(_DWORD *)(v8 + *(_DWORD *)a6 + 8) = operator new(v10 + 1);
+    strcpy((char *)a6->pDeviceDesc[v7].pDeviceDescription, pDeviceDescription);
 
-    a6->pDeviceDesc[v7].pDeviceGUID = malloc(0x10);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 12) = operator new(0x10u);
+    a6->pDeviceDesc[v7].pDeviceGUID = new GUID;//*(_DWORD *)(v8 + *(_DWORD *)a6 + 12) = operator new(0x10u);
     memcpy(a6->pDeviceDesc[v7].pDeviceGUID, pGUID, sizeof(GUID));
 
     v11 = strlen(*(const char **)(a6->ptr_000004 + 20));
-    a6->pDeviceDesc[v7].ptr_000014 = malloc(v11 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 20) = operator new(v11 + 1);
-    strcpy(a6->pDeviceDesc[v7].ptr_000014, *(const char **)(a6->ptr_000004 + 20));
+    a6->pDeviceDesc[v7].ptr_000014 = (unsigned char *)malloc(v11 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 20) = operator new(v11 + 1);
+    strcpy((char *)a6->pDeviceDesc[v7].ptr_000014, *(const char **)(a6->ptr_000004 + 20));
 
     v12 = strlen(*(const char **)(a6->ptr_000004 + 24));
-    a6->pDeviceDesc[v7].ptr_000018 = malloc(v12 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 24) = operator new(v12 + 1);
-    strcpy(a6->pDeviceDesc[v7].ptr_000018, *(const char **)(a6->ptr_000004 + 24));
+    a6->pDeviceDesc[v7].ptr_000018 = (unsigned char *)malloc(v12 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 24) = operator new(v12 + 1);
+    strcpy((char *)a6->pDeviceDesc[v7].ptr_000018, *(const char **)(a6->ptr_000004 + 24));
 
     v13 = strlen(*(const char **)(a6->ptr_000004 + 28));
-    a6->pDeviceDesc[v7].ptr_00001C = malloc(v13 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 28) = operator new(v13 + 1);
-    strcpy(a6->pDeviceDesc[v7].ptr_00001C, *(const char **)(a6->ptr_000004 + 28));
+    a6->pDeviceDesc[v7].ptr_00001C = (unsigned char *)malloc(v13 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 28) = operator new(v13 + 1);
+    strcpy((char *)a6->pDeviceDesc[v7].ptr_00001C, *(const char **)(a6->ptr_000004 + 28));
 
     if ( *(_DWORD *)(a6->ptr_000004 + 32) )
     {
-     a6->pDeviceDesc[v7].ptr_000020 = malloc(0x10);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 32) = operator new(0x10u);
+     a6->pDeviceDesc[v7].ptr_000020 = new GUID;//*(_DWORD *)(v8 + *(_DWORD *)a6 + 32) = operator new(0x10u);
      memcpy(a6->pDeviceDesc[v7].ptr_000020, *(const void **)(a6->ptr_000004 + 32), sizeof(GUID));
     }
     else
@@ -465,19 +469,19 @@ bool __stdcall Direct3D3EnumDevicesCallback(GUID *pGUID, const char *pDeviceDesc
     }
     a6->pDeviceDesc[v7].dword_000024 = *(_DWORD *)(a6->ptr_000004 + 36);
   }
-  return 1;
+  return D3DENUMRET_OK;
 }
 
 
 
 //----- (0049D717) --------------------------------------------------------
-int __stdcall Direct3D3EnumDeviceZBufferFormatsCallback(DDPIXELFORMAT *Src, DDPIXELFORMAT *Dst)
+HRESULT __stdcall Direct3D3EnumDeviceZBufferFormatsCallback(DDPIXELFORMAT *Src, DDPIXELFORMAT *Dst)
 {
   signed int v2; // esi@2
 
   if ( *((_DWORD *)Src + 1) & 0x400 | 0x2000 )
   {
-    v2 = 0;
+    v2 = S_OK;
     if ( *((_DWORD *)Src + 3) == 16 && !*((_DWORD *)Src + 4) )
       goto LABEL_6;
     if ( !*(_DWORD *)Dst )
@@ -523,7 +527,7 @@ unsigned int RenderD3D3_GetDeviceCaps(struct RenderD3D3 *_this)
  memset(&d3ddd1, 0, sizeof(D3DDEVICEDESC));
  d3ddd1.dwSize = sizeof(D3DDEVICEDESC);
 
- if (FAILED((_this->pDevice->lpVtbl->GetCaps)(_this->pDevice, &d3ddd2, &d3ddd1)))
+ if (FAILED(_this->pDevice->GetCaps(&d3ddd2, &d3ddd1)))
    return 1;
  else
  {
@@ -586,7 +590,7 @@ bool RenderD3D3_CreateTexture(struct RenderD3D3 *_this, unsigned int uTextureWid
   {
     if ( (signed int)uTextureHeight <= (signed int)uTextureWidth )
     {
-      sub_49D700(uTextureHeight);
+      sub_49D700((void *)uTextureHeight);
       v8 = v12 - sub_49D700(a8);
 LABEL_8:
       ddsd.dwMipMapCount = v8;
@@ -599,7 +603,7 @@ LABEL_8:
       v8 = sub_49D700(a8);
       goto LABEL_8;
     }
-    v10 = sub_49D700(uTextureWidth);
+    v10 = sub_49D700((void *)uTextureWidth);
     v11 = sub_49D700(a8);
     ddsd.dwMipMapCount = v10 - v11;
     if ( v10 == v11 )
@@ -652,14 +656,14 @@ LABEL_12:
    ddsd.ddpfPixelFormat.dwBBitMask = 0x000000FF;
    ddsd.ddpfPixelFormat.dwRGBAlphaBitMask = 0x00000000;
   }
- if ((_this->pHostInterface->lpVtbl->CreateSurface)(_this->pHostInterface, &ddsd, pOutSurface, 0) != S_OK)
+ if (_this->pHostInterface->CreateSurface(&ddsd, pOutSurface, 0) != S_OK)
    return false;
 
- if (((*pOutSurface)->lpVtbl->QueryInterface)(*pOutSurface, &memory_4D8410.IID_IDirect3DTexture2, pOutTexture) != S_OK)
+ if ((*pOutSurface)->QueryInterface(memory_4D8410.IID_IDirect3DTexture2, (void **)pOutTexture) != S_OK)
  {
     if (*pOutSurface)
     {
-     ((*pOutSurface)->lpVtbl->Release)(*pOutSurface);
+     (*pOutSurface)->Release();
      *pOutSurface = 0;
     }
     return false;
@@ -689,10 +693,10 @@ HRESULT RenderD3D3_Present(struct RenderD3D3 *_this, char a2)
     Point.x = 0;
     ClientToScreen(_this->hOutputWindow, &Point);
     OffsetRect(&Rect, Point.x, Point.y);
-    return (_this->pFontBuffer->lpVtbl->Blt)(_this->pFontBuffer, &Rect, _this->pBackBuffer, &src, 0x1000000, 0);
+    return _this->pFontBuffer->Blt(&Rect, _this->pBackBuffer, &src, 0x1000000, 0);
   }
   else
-   return (_this->pFontBuffer->lpVtbl->Flip)(_this->pFontBuffer, 0, 1);
+   return _this->pFontBuffer->Flip(0, 1);
 }
 
 
@@ -765,7 +769,7 @@ char __cdecl sub_4A597D()
     }
 
 
-    (pD3DRenderer->pdds4_BackBuffer->lpVtbl->Unlock)(pD3DRenderer->pdds4_BackBuffer, 0);
+    pD3DRenderer->pdds4_BackBuffer->Unlock(0);
         /*
         v1 = pD3DRenderer->pTargetSurface;
         v30 = ddsd.lpSurface;
@@ -852,7 +856,7 @@ LABEL_21:
               if ( v19 )
               {
                 v20 = (*(int (__stdcall **)(int, _DWORD))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 128))(pD3DRenderer->pdds4_BackBuffer, 0);
-                return (unsigned int)CheckHRESULT(
+                return (unsigned int)CheckHRESULT((void **)
                                        &v29,
                                        v20,
                                        "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp",
@@ -919,7 +923,7 @@ void RenderD3D3_ClearTarget(struct RenderD3D3 *_this, int a2, D3DCOLOR uClearCol
   d3drc.x2 = 640;
   d3drc.y2 = 480;
 
-  hr = (_this->pOldViewport->lpVtbl->Clear2)(_this->pOldViewport, 1, &d3drc, v5, 0xFF000000 | uClearColor, a5, 0);
+  hr = _this->pOldViewport->Clear2(1, &d3drc, v5, 0xFF000000 | uClearColor, a5, 0);
  }
 }
 
@@ -933,18 +937,18 @@ void Render_DrawStrip(struct Render *_this, unsigned int uNumVertices, struct st
   float v12; // ST3C_4@8
  int i;
 
-  v4 = _this;
+  v4 = (int)_this;
  if (!_this->uD3D3SceneBegun)
    return;
 
  if (uNumVertices >= 3)
  {
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 12, 1);
+  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ADDRESS, 1);
   if (_this->bUsingSpecular)
   {
-   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 27, 1);
-   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 19, 2);
-   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 20, 1);
+   _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ALPHABLENDENABLE, 1);
+   _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SRCBLEND, 2);
+   _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_DESTBLEND, 1);
   }
   
   for (i = 0; i < uNumVertices; ++i)
@@ -965,8 +969,8 @@ void Render_DrawStrip(struct Render *_this, unsigned int uNumVertices, struct st
    pVertices[i].u = array_50AC10[i].u;
    pVertices[i].v = array_50AC10[i].v;
   }
-  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTexture)(pD3DRenderer->pRenderD3D3->pDevice, 0, pTexture);
-  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->DrawPrimitive)(pD3DRenderer->pRenderD3D3->pDevice, D3DPT_TRIANGLESTRIP, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, uNumVertices, D3DDP_DONOTUPDATEEXTENTS | D3DDP_DONOTLIGHT);
+  pD3DRenderer->pRenderD3D3->pDevice->SetTexture(0, pTexture);
+  pD3DRenderer->pRenderD3D3->pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, uNumVertices, D3DDP_DONOTUPDATEEXTENTS | D3DDP_DONOTLIGHT);
  }
 }
 
@@ -978,18 +982,18 @@ void Render_DrawSomeFan(struct Render *_this, unsigned int uNumVertices, struct 
   float v12; // ST3C_4@8
  int i;
 
-  v4 = _this;
+  v4 = (int)_this;
  if (!_this->uD3D3SceneBegun)
    return;
 
  if (uNumVertices >= 3)
  {
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 12, 1);
+  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ADDRESS, 1);
   if (_this->bUsingSpecular)
   {
-   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 27, 1);
-   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 19, 2);
-   (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 20, 1);
+   _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ALPHABLENDENABLE, 1);
+   _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SRCBLEND, 2);
+   _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_DESTBLEND, 1);
   }
   
   for (i = 0; i < uNumVertices; ++i)
@@ -1010,8 +1014,8 @@ void Render_DrawSomeFan(struct Render *_this, unsigned int uNumVertices, struct 
    pVertices[i].u = array_50AC10[i].u;
    pVertices[i].v = array_50AC10[i].v;
   }
-  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTexture)(pD3DRenderer->pRenderD3D3->pDevice, 0, pTexture);
-  (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->DrawPrimitive)(pD3DRenderer->pRenderD3D3->pDevice, D3DPT_TRIANGLEFAN, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, uNumVertices, D3DDP_DONOTUPDATEEXTENTS | D3DDP_DONOTLIGHT);
+  pD3DRenderer->pRenderD3D3->pDevice->SetTexture(0, pTexture);
+  pD3DRenderer->pRenderD3D3->pDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, uNumVertices, D3DDP_DONOTUPDATEEXTENTS | D3DDP_DONOTLIGHT);
  }
 }
 
@@ -1254,7 +1258,7 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
   int v69; // [sp+A0h] [bp+14h]@11
  int i;
 
-  v8 = _this;
+  v8 = (int)_this;
   v7 = 0;
   if (!_this->uD3D3SceneBegun)
     return;
@@ -1262,7 +1266,7 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
   if (uNumVertices < 3)
     return;
 
-      v65 = a2;
+      v65 = (int)a2;
   if (byte_4D8410[572] && pGame->uSomeFlags & 0x01)
   {
    v10 = sub_47C4FC_GetActorTintColor(*(_BYTE *)(a4 + 88), 0, array_50AC10[0].flt_00000C, 0, 0);
@@ -1278,17 +1282,18 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
             v64 = 3;
           else
             v64 = 1;
-          (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 12, v64);
+          _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ADDRESS, v64);
           if ( a6 || _this->bUsingSpecular )
           {
-            (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 27, 1);
-            v50 = _this->pRenderD3D3->pDevice;
-            v51 = _this->pRenderD3D3->pDevice->lpVtbl;
+            _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ALPHABLENDENABLE, 1);
+            v50 = (int)_this->pRenderD3D3->pDevice;
+            v51 = (int)_this->pRenderD3D3->pDevice;
             if ( a6 )
-              (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 19, 5, v52);
+              _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SRCBLEND, 5);
             else
-              (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 19, 2, v53);
-            compile_error;//(_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 20);
+              _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SRCBLEND, 2);
+            compile_error;
+           //_this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_DESTBLEND);
           }
           
 
@@ -1315,21 +1320,21 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
               pVertices[i].u = array_50AC10[i].u;
               pVertices[i].v = array_50AC10[i].v;
           }
-          (_this->pRenderD3D3->pDevice->lpVtbl->SetTexture)(_this->pRenderD3D3->pDevice, 0, pTexture);
-          (_this->pRenderD3D3->pDevice->lpVtbl->DrawPrimitive)(_this->pRenderD3D3->pDevice, D3DPT_TRIANGLEFAN, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, uNumVertices, 16);
+          _this->pRenderD3D3->pDevice->SetTexture(0, pTexture);
+          _this->pRenderD3D3->pDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, uNumVertices, 16);
 
           if ( a6 )
           {
-            (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 27, 0);
-            (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 19, 2);
-            (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 20, 1);
+            _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ALPHABLENDENABLE, 0);
+            _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SRCBLEND, 2);
+            _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_DESTBLEND, 1);
           }
         }
         else
         {
           if (uNumVertices > 0)
           {
-            LODWORD(v11) = &pVertices->y;
+            LODWORD(v11) = (int)&pVertices->y;
             v12 = &array_50AC10[0].flt_00000C;
             a7 = (int)&pVertices->y;
             v69 = uNumVertices;
@@ -1371,8 +1376,8 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
                   *(_DWORD *)(*(_DWORD *)(v8 + 262280) + 56),
                   14,
                   0,
-                  "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp");
-          CheckHRESULT(&a7, v21, (const char *)0x34F, 0, v65);
+                  (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp");
+          CheckHRESULT((void **)(void **)&a7, v21, (const char *)0x34F, 0, v65);
           v22 = (*(int (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v8 + 262280)
                                                                                            + 56)
                                                                              + 160))(
@@ -1380,7 +1385,7 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
                   0,
                   12,
                   1);
-          CheckHRESULT(&a7, v22, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x350u, 0);
+          CheckHRESULT((void **)&a7, v22, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x350u, 0);
           if ( pD3DRenderer->bUsingSpecular )
             (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
               *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
@@ -1391,26 +1396,26 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
                   *(_DWORD *)(*(_DWORD *)(v8 + 262280) + 56),
                   0,
                   0,
-                  "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp",
+                  (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp",
                   856,
                   0);
-          CheckHRESULT(&a7, v24, v25, v26, __LINE__);
+          CheckHRESULT((void **)&a7, v24, v25, v26, __LINE__);
           v27 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, int, signed int))(**(_DWORD **)(*(_DWORD *)(v8 + 262280) + 56)
                                                                                                   + 112))(
                   *(_DWORD *)(*(_DWORD *)(v8 + 262280) + 56),
                   6,
                   452,
-                  pVertices,
+                  (char *)pVertices,
                   uNumVertices,
                   16);
-          CheckHRESULT(&a7, v27, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x35Du, 0);
+          CheckHRESULT((void **)&a7, v27, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x35Du, 0);
           v66 = *(const char **)(*(_DWORD *)(v8 + 262280) + 56);
           (*(void (**)(void))(*(_DWORD *)v66 + 88))();
           compile_error;//sub_45D74F_MessWithLight(COERCE_FLOAT(1), -1, 0);
           v23 = uNumVertices;
           if (uNumVertices > 0)
           {
-            v28 = &pVertices->diffuse;
+            v28 = (char *)&pVertices->diffuse;
             do
             {
               *(_DWORD *)v28 = -1;
@@ -1422,8 +1427,8 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
           v29 = (*(int (__stdcall **)(_DWORD, _DWORD, int))(**(_DWORD **)(*(_DWORD *)(v8 + 262280) + 56) + 152))(
                   *(_DWORD *)(*(_DWORD *)(v8 + 262280) + 56),
                   0,
-                  pTexture);
-          CheckHRESULT(0, v29, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x36Au, 0);
+                  (int)pTexture);
+          CheckHRESULT((void **)0, v29, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x36Au, 0);
           v30 = (*(int (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v8 + 262280)
                                                                                            + 56)
                                                                              + 160))(
@@ -1431,7 +1436,7 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
                   0,
                   12,
                   1);
-          CheckHRESULT(0, v30, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x36Bu, 0);
+          CheckHRESULT((void **)0, v30, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x36Bu, 0);
           if ( !pD3DRenderer->bUsingSpecular )
           {
             v31 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v8 + 262280) + 56)
@@ -1439,32 +1444,32 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
                     *(_DWORD *)(*(_DWORD *)(v8 + 262280) + 56),
                     14,
                     1);
-            CheckHRESULT(0, v31, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x36Eu, 0);
+            CheckHRESULT((void **)0, v31, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x36Eu, 0);
           }
           v32 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v8 + 262280) + 56) + 88))(
                   *(_DWORD *)(*(_DWORD *)(v8 + 262280) + 56),
                   27,
                   1);
-          CheckHRESULT(0, v32, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x370u, 0);
+          CheckHRESULT((void **)0, v32, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x370u, 0);
           v33 = (*(int (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v8 + 262280) + 56) + 88))(
                   *(_DWORD *)(*(_DWORD *)(v8 + 262280) + 56),
                   19,
                   1);
-          CheckHRESULT(0, v33, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x372u, 0);
+          CheckHRESULT((void **)0, v33, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x372u, 0);
           v34 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v8 + 262280) + 56) + 88))(
                   *(_DWORD *)(*(_DWORD *)(v8 + 262280) + 56),
                   20,
                   3);
-          CheckHRESULT(0, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x373u, 0);
+          CheckHRESULT((void **)0, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x373u, 0);
           v35 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, int, signed int))(**(_DWORD **)(*(_DWORD *)(v8 + 262280) + 56)
                                                                                                   + 112))(
                   *(_DWORD *)(*(_DWORD *)(v8 + 262280) + 56),
                   6,
                   452,
-                  pVertices,
+                  (char *)pVertices,
                   uNumVertices,
                   16);
-          CheckHRESULT(&a7, v35, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x379u, 0);
+          CheckHRESULT((void **)&a7, v35, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x379u, 0);
           if ( pD3DRenderer->bUsingSpecular )
           {
             v37 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v8 + 262280) + 56)
@@ -1472,16 +1477,16 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
                     *(_DWORD *)(*(_DWORD *)(v8 + 262280) + 56),
                     14,
                     1);
-            CheckHRESULT(&a7, v37, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x37Du, 0);
+            CheckHRESULT((void **)&a7, v37, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x37Du, 0);
             v38 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(*(_DWORD *)(v8 + 262280) + 56) + 152))(
                     *(_DWORD *)(*(_DWORD *)(v8 + 262280) + 56),
                     0,
                     0);
-            CheckHRESULT(&a7, v38, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x37Eu, 0);
+            CheckHRESULT((void **)&a7, v38, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x37Eu, 0);
             v36 = uNumVertices;
             if (uNumVertices > 0)
             {
-              v39 = &pVertices->specular;
+              v39 = (char *)&pVertices->specular;
               do
               {
                 v40 = *(_DWORD *)v39;
@@ -1497,31 +1502,31 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
                     *(_DWORD *)(*(_DWORD *)(v8 + 262280) + 56),
                     0,
                     0,
-                    "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp",
+                    (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp",
                     902,
                     0);
-            CheckHRESULT(&a7, v41, v66, 0x16u, 1);
+            CheckHRESULT((void **)&a7, v41, v66, 0x16u, 1);
             v42 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v8 + 262280) + 56)
                                                                        + 88))(
                     *(_DWORD *)(*(_DWORD *)(v8 + 262280) + 56),
                     19,
                     6);
-            CheckHRESULT(&a7, v42, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x387u, 0);
+            CheckHRESULT((void **)&a7, v42, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x387u, 0);
             v43 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v8 + 262280) + 56)
                                                                        + 88))(
                     *(_DWORD *)(*(_DWORD *)(v8 + 262280) + 56),
                     20,
                     5);
-            CheckHRESULT(&a7, v43, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x388u, 0);
+            CheckHRESULT((void **)&a7, v43, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x388u, 0);
             v44 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))(**(_DWORD **)(*(_DWORD *)(v8 + 262280) + 56)
                                                                                        + 112))(
                     *(_DWORD *)(*(_DWORD *)(v8 + 262280) + 56),
                     6,
                     452,
-                    pVertices,
+                    (int)pVertices,
                     uNumVertices,
                     16);
-            CheckHRESULT(&a7, v44, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x38Du, 0);
+            CheckHRESULT((void **)&a7, v44, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x38Du, 0);
             (*(void (__cdecl **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
               *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
               28,
@@ -1541,17 +1546,17 @@ void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, un
           v47 = (*(int (__stdcall **)(_DWORD, signed int))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
                   *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
                   19);
-          CheckHRESULT(&a7, v47, (const char *)2, (unsigned int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 918);
+          CheckHRESULT((void **)&a7, v47, (const char *)2, (unsigned int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 918);
           v48 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
                   *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
                   20,
                   1);
-          CheckHRESULT(&a7, v48, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x397u, v7);
+          CheckHRESULT((void **)&a7, v48, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x397u, v7);
           v49 = (*(int (__stdcall **)(_DWORD, signed int, int))(**(_DWORD **)(*(_DWORD *)(v8 + 262280) + 56) + 88))(
                   *(_DWORD *)(*(_DWORD *)(v8 + 262280) + 56),
                   27,
                   v7);
-          CheckHRESULT(&a7, v49, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x398u, v7);
+          CheckHRESULT((void **)&a7, v49, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0x398u, v7);
         }
       }
       if (pOldCamera->dword_00004C & 2 || byte_51B6E4 & 2)

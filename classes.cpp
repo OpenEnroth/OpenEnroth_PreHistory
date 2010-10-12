@@ -13,6 +13,139 @@
 
 
 
+//----- (00454CB4) --------------------------------------------------------
+int sub_454CB4(const char *pString)
+{
+  int result; // eax@4
+  int v3; // eax@15
+  int v4; // eax@18
+
+  if ( !pString )
+    return 4;
+  if ( tolower(*pString) == 102 )
+    return 0;
+  if ( tolower(*pString) == 97 )
+    return 1;
+  if ( tolower(*pString) == 119 )
+    return 2;
+  if ( tolower(*pString) == 101 )
+  {
+    tolower(pString[1]);
+    return 3;
+  }
+  if ( tolower(*pString) == 115 )
+    return 6;
+  if ( tolower(*pString) == 109 )
+  {
+    v3 = -(tolower(pString[1]) != 105);
+    LOBYTE(v3) = v3 & 0xFE;
+    result = v3 + 7;
+  }
+  else
+  {
+    if ( tolower(*pString) == 108 )
+      return 9;
+    v4 = -(tolower(*pString) != 100);
+    LOBYTE(v4) = v4 & 0xFA;
+    result = v4 + 10;
+  }
+  return result;
+}
+
+
+
+//----- (00454E3A) --------------------------------------------------------
+signed int __thiscall sub_454E3A(const char *Str1)
+{
+  int v1; // edi@1
+  const char *v2; // esi@1
+  signed int v4; // [sp-4h] [bp-Ch]@4
+
+  v2 = Str1;
+  v1 = 0;
+  if ( _strcmpi(Str1, "ARROW") )
+  {
+    if ( _strcmpi(v2, "ARROWF") )
+    {
+      if ( _strcmpi(v2, "FIRE") )
+      {
+        if ( _strcmpi(v2, "AIR") )
+        {
+          if ( _strcmpi(v2, "WATER") )
+          {
+            if ( _strcmpi(v2, "EARTH") )
+            {
+              if ( _strcmpi(v2, "SPIRIT") )
+              {
+                if ( _strcmpi(v2, "MIND") )
+                {
+                  if ( _strcmpi(v2, "BODY") )
+                  {
+                    if ( _strcmpi(v2, "LIGHT") )
+                    {
+                      if ( _strcmpi(v2, "DARK") )
+                      {
+                        if ( _strcmpi(v2, "ENER") )
+                          return v1;
+                        v4 = 13;
+                      }
+                      else
+                      {
+                        v4 = 11;
+                      }
+                    }
+                    else
+                    {
+                      v4 = 10;
+                    }
+                  }
+                  else
+                  {
+                    v4 = 9;
+                  }
+                }
+                else
+                {
+                  v4 = 8;
+                }
+              }
+              else
+              {
+                v4 = 7;
+              }
+            }
+            else
+            {
+              v4 = 6;
+            }
+          }
+          else
+          {
+            v4 = 5;
+          }
+        }
+        else
+        {
+          v4 = 4;
+        }
+      }
+      else
+      {
+        v4 = 3;
+      }
+    }
+    else
+    {
+      v4 = 2;
+    }
+    return v4;
+  }
+  return 1;
+}
+
+
+
+
 bool LODFile_ReleaseTexture(struct LODFile *_this, unsigned int uTextureID)
 {
  return true;
@@ -23,6 +156,7 @@ void CGame_ctor(struct CGame *_this)
 {
  void *v1, *v2;
 
+ memset(_this, 0, sizeof(CGame));
  _this->dword_000000 = (int)&pCGame_scalar_dtor;
  _this->dword_000704 = 0;
  _this->dword_000E08 = 0;
@@ -37,59 +171,59 @@ void CGame_ctor(struct CGame *_this)
  _this->dword_000E34 = 0;
  _this->dword_000E38 = 0;
 
- _this->class01_obj = malloc(0x64);
+ _this->class01_obj = new class01;
  if (_this->class01_obj)
    class01_ctor(_this->class01_obj);
 
- _this->class02_obj = malloc(0xE430);
+ _this->class02_obj = new class02;
  if (_this->class02_obj)
    class02_ctor(_this->class02_obj);
 
- _this->class03_obj = malloc(0x114);
+ _this->class03_obj = new class03;
  if (_this->class03_obj)
    class03_ctor(_this->class03_obj, _this->class01_obj);
 
- _this->class04_obj = malloc(0x3CBC38);
+ _this->class04_obj = new class04;
  if (_this->class04_obj)
    class04_ctor(_this->class04_obj);
 
- _this->pVis = malloc(0x20D0);
+ _this->pVis = new Vis;
  if (_this->pVis)
    Vis_ctor(_this->pVis);
 
- _this->class06_obj = malloc(0x5F8);
+ _this->class06_obj = new class06;
  if (_this->class06_obj)
    class06_ctor(_this->class06_obj);
 
- _this->class08_obj = malloc(0x1A1384);
+ _this->class08_obj = new class08;
  if (_this->class08_obj)
    class08_ctor(_this->class08_obj);
 
- _this->class09_obj = malloc(4);
+ _this->class09_obj = new class09;
  if (_this->class09_obj)
    class09_ctor(_this->class09_obj);
 
- _this->class10_obj = malloc(8);
+ _this->class10_obj = new class10;
  if (_this->class10_obj)
    class10_ctor(_this->class10_obj);
 
- _this->class11_obj = malloc(0xE8);
+ _this->class11_obj = new class11;
  if (_this->class11_obj)
    class11_ctor(_this->class11_obj, 0);
 
- _this->class12_obj = malloc(0x90);
+ _this->class12_obj = new class12;
  if (_this->class12_obj)
    class12_ctor(_this->class12_obj, _this->class11_obj);
 
- _this->class13_obj = malloc(4);
+ _this->class13_obj = new class13;
  if (_this->class13_obj)
    class13_ctor(_this->class13_obj);
 
- _this->class14_obj = malloc(8);
+ _this->class14_obj = new class14;
  if (_this->class14_obj)
    class14_ctor(_this->class14_obj);
 
- _this->pGammaController = malloc(0xC10);
+ _this->pGammaController = new CGammaController;
  if (_this->pGammaController)
    CGammaController_ctor(_this->pGammaController);
 
@@ -104,9 +238,9 @@ int CGame_scalar_deleting_destructor(struct CGame *_this, char flag)
 {
   int v2; // eax@1
   
-  v2 = CGame_dtor((int)_this);
+  v2 = CGame_dtor(_this);
   if ( flag & 1 )
-    operator_delete(v2, _this);
+    operator_delete(_this);
 
   return (int)_this;
 }
@@ -137,7 +271,7 @@ int CGame_dtor(struct CGame *_this)
   int v20; // eax@26
   int v21; // ecx@27
 
-  v2 = _this;
+  v2 = (int)_this;
   v1 = *(_DWORD *)((DWORD)_this + 3696);
   *(_DWORD *)v2 = 5080668;
   if ( v1 )
@@ -152,13 +286,13 @@ int CGame_dtor(struct CGame *_this)
   if ( v5 )
   {
     v7 = sub_489810(result, *(_DWORD *)(v2 + 3684));
-    result = operator_delete(v7, v5);
+    /*result = */operator_delete((void *)v5);
   }
   v8 = *(_DWORD *)(v2 + 3680);
   if ( v8 )
   {
     compile_error;//v9 = nullsub_1(*(_DWORD *)(v3 + 3680));
-    result = operator_delete(v9, v8);
+    /*result = */operator_delete((void *)v8);
   }
   v10 = *(_DWORD *)(v2 + 3676);
   if ( v10 )
@@ -173,7 +307,7 @@ int CGame_dtor(struct CGame *_this)
   if ( v13 )
   {
     sub_4A71DC(*(_DWORD *)(v2 + 3664));
-    result = operator_delete(v14, v13);
+    /*result = */operator_delete((void *)v13);
   }
   v15 = *(_DWORD *)(v2 + 3660);
   if ( v15 )
@@ -185,13 +319,13 @@ int CGame_dtor(struct CGame *_this)
   if ( v17 )
   {
     v18 = sub_467E7A(*(_DWORD *)(v2 + 3652));
-    result = operator_delete(v18, v17);
+    /*result = */operator_delete((void *)v17);
   }
   v19 = *(_DWORD *)(v2 + 3648);
   if ( v19 )
   {
     v20 = sub_48AAF1(*(_DWORD *)(v2 + 3648));
-    result = operator_delete(v20, v19);
+    /*result = */operator_delete((void *)v19);
   }
   v21 = *(_DWORD *)(v2 + 3644);
   if ( v21 )
@@ -253,7 +387,7 @@ signed int Game_sub_44EC23(struct CGame *_this, struct struct8 *a2, int *a3, sig
 
 
 //----- (0044ED0A) --------------------------------------------------------
-signed int __thiscall Game_sub_44ED0A(int this, int a2, int a3, signed int a4)
+signed int __thiscall Game_sub_44ED0A(CGame *_this, struct8 *a2, int *a3, signed int a4)
 {
   double v4; // st7@3
   double v5; // ST00_8@3
@@ -268,16 +402,16 @@ signed int __thiscall Game_sub_44ED0A(int this, int a2, int a3, signed int a4)
   float v14; // [sp+1Ch] [bp+10h]@8
   float v15; // [sp+1Ch] [bp+10h]@10
 
-  if ( *(_BYTE *)(this + 3620) & 2 && *(_BYTE *)(a2 + 44) & 2 )
+  if ( *(_BYTE *)((char *)_this + 3620) & 2 && *(_BYTE *)(a2 + 44) & 2 )
   {
     v4 = (double)a4;
     v11 = v4;
     *(_DWORD *)a3 |= 2;
-    v12 = (1.0 - *(float *)(this + 3624)) * v4;
+    v12 = (1.0 - *(float *)((char *)_this + 3624)) * v4;
     v5 = v12 + 6.755399441055744e15;
     if ( LODWORD(v5) >= 0 )
     {
-      v13 = (1.0 - *(float *)(this + 3624)) * v11;
+      v13 = (1.0 - *(float *)((char *)_this + 3624)) * v11;
       v7 = v13 + 6.755399441055744e15;
       v6 = LODWORD(v7);
     }
@@ -288,11 +422,11 @@ signed int __thiscall Game_sub_44ED0A(int this, int a2, int a3, signed int a4)
 
     if ( a4 >= v6 )
     {
-      v14 = (1.0 - *(float *)(this + 3624)) * v11;
+      v14 = (1.0 - *(float *)((char *)_this + 3624)) * v11;
       v9 = v14 + 6.755399441055744e15;
       if ( LODWORD(v9) >= 0 )
       {
-        v15 = (1.0 - *(float *)(this + 3624)) * v11;
+        v15 = (1.0 - *(float *)((char *)_this + 3624)) * v11;
         v10 = v15 + 6.755399441055744e15;
         result = LODWORD(v10);
       }
@@ -344,7 +478,7 @@ void CGame_sub_44F120_MaybeStackStationaryLights(struct CGame *_this, int a2)
   int v4; // esi@2
  int i;
 
-    v4 = _this + 20;
+    v4 = (int)_this + 20;
  for (i = 0; i < _this->dword_000704; ++i)
  {
       StationaryLightsStack_AddLight(pStationaryLightsStack,
@@ -366,7 +500,7 @@ void CGame_sub_44F192(struct CGame *_this)
   int v3; // esi@2
  int i;
 
-    v3 = _this->array_000718;
+    v3 = (int)_this->array_000718;
   for (i = 0; i < _this->dword_000E08; ++i)
   {
       class36_sub_43B6EF(&class36_global0,
@@ -399,17 +533,17 @@ void CGame_stru0_sub_40E2F6(struct CGame_stru0 *_this, char a2)
   int v3; // eax@2
   int v4; // eax@3
 
-  v2 = _this;
+  v2 = (int)_this;
   if ( a2 )
   {
-    v3 = _this->ptr_000004;
+    v3 = (int)_this->ptr_000004;
     if ( v3 )
     {
       v4 = v3 - 1;
       if ( *(_BYTE *)v4 && *(_BYTE *)v4 != -1 )
         --*(_BYTE *)v4;
       else
-        operator_delete(v4, v4);
+        operator_delete((void *)v4);
     }
   }
   _this->ptr_000004 = 0;
@@ -418,7 +552,7 @@ void CGame_stru0_sub_40E2F6(struct CGame_stru0 *_this, char a2)
 }
 
 //----- (0044EA5E) --------------------------------------------------------
-bool CGame_Pick(struct CGame *_this, float a2, unsigned int uMouseX, unsigned int uMouseY, bool bOutline, int a6, int a7)
+bool Game_Pick(struct CGame *_this, float a2, unsigned int uMouseX, unsigned int uMouseY, bool bOutline, int a6, int a7)
 {
   char v10; // [sp-4h] [bp-24h]@5
   int v11; // [sp+0h] [bp-20h]@5
@@ -430,7 +564,7 @@ bool CGame_Pick(struct CGame *_this, float a2, unsigned int uMouseX, unsigned in
     if ( !_this->pVis)
     {
       v16 = &v10;
-      sub_40E2C8(&v10, "The 'Vis' object pointer has not been instatiated, but CGame::Pick() is trying to call through it.",(int)&v17);
+      Game_sub_40E2C8(&v10, "The 'Vis' object pointer has not been instatiated, but CGame::Pick() is trying to call through it.",(int)&v17);
       sub_466D09(&v16, *(int *)&v10, v11, 0, 0, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Game.cpp", __LINE__);
     }
     if (uMouseX >= pOldViewport->uScreenX && uMouseX <= pOldViewport->uScreenZ &&
@@ -438,7 +572,7 @@ bool CGame_Pick(struct CGame *_this, float a2, unsigned int uMouseX, unsigned in
     {
             Vis_sub_4C0646(_this->pVis, a2, uMouseX, uMouseY, a6, a7);
             if (bOutline)
-              CGame_outline_selection(_this);
+              CGame_outline_selection((int)_this);
     }
     return true;
   }
@@ -508,7 +642,7 @@ POINT *class03_GetMousePos(struct class03 *_this, POINT *pOut)
  int v4; // ecx@2
  int v5; // edx@3
 
- v3 = dword_720010;
+ v3 = (int *)dword_720010;
  if (dword_720010)
  {
   pOut->x = v3[6];
@@ -580,8 +714,8 @@ void sub_469903(struct class03 *_this, const char *pSource)
     pGame->dword_000E24 &= 0xFFFFFFEF;
  else pGame->dword_000E24 |= 0x10;
 
- if (_strcmpi(_this->array_0000F5, pSource))
-   strcpy(_this->array_0000F5, pSource);
+ if (_strcmpi((char *)_this->array_0000F5, pSource))
+   strcpy((char *)_this->array_0000F5, pSource);
 
  sub_469BA3(_this);
 
@@ -590,14 +724,14 @@ void sub_469903(struct class03 *_this, const char *pSource)
   v9 = LODFile_LoadTexture(pLODFile_Icons_LOD, pSource, 2);
   *(_DWORD *)(_this + 36) = v9;
   *(_DWORD *)(_this + 40) = v9;
-  sub_469BE6(_this);
+  sub_469BE6((int)_this);
   *(_DWORD *)(_this + 12) = 0;
   *(_DWORD *)(_this + 20) = 1;
   *(_DWORD *)(_this + 4) = 1;
   if ( !dword_506128 )
   {
-   sub_40F77C(*(_DWORD *)(_this + 36) != -1 ? 72 * *(_DWORD *)(_this + 36) + 7145548 : 0);
-   sub_40F9C5(pLODFile_Icons_LOD);
+   class18_sub_40F77C((class18 *)(*(_DWORD *)(_this + 36) != -1 ? 72 * *(_DWORD *)(_this + 36) + 7145548 : 0));
+   LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
   }
   return;
  }
@@ -607,11 +741,11 @@ void sub_469903(struct class03 *_this, const char *pSource)
  if (!strcmp(pSource, "MICON1"))
  {
   hCursor = LoadCursorA(GetModuleHandleW(0), "Arrow");
-  SetClassLongA(_this->hWnd, GCL_HCURSOR, hCursor);
+  SetClassLongPtrW(_this->hWnd, GCL_HCURSOR, (LONG_PTR)(hCursor));
   if (dword_720010)
   {
    sub_46B342(dword_720010, 0.0, 0.0);
-   sub_46AE97(dword_720010, pSource);
+   sub_46AE97((void *)dword_720010, (void *)pSource);
   }
   else
   {
@@ -622,11 +756,11 @@ void sub_469903(struct class03 *_this, const char *pSource)
  else if (!strcmp(pSource, "MICON2"))
  {
   hCursor = LoadCursorA(GetModuleHandleW(0), "Target");
-  SetClassLongA(_this->hWnd, GCL_HCURSOR, hCursor);
+  SetClassLongPtrW(_this->hWnd, GCL_HCURSOR, (LONG_PTR)(hCursor));
   if (dword_720010)
   {
    sub_46B342(dword_720010, 14.0, 14.0);
-   sub_46AE97(dword_720010, pSource);
+   sub_46AE97((void *)dword_720010, (void *)pSource);
   }
   else
   {
@@ -637,10 +771,10 @@ void sub_469903(struct class03 *_this, const char *pSource)
  else if (!strcmp(pSource, "MICON3"))
  {
   hCursor = LoadCursorA(0, (LPCSTR)0x7F02);
-  SetClassLongA(_this->hWnd, GCL_HCURSOR, hCursor);
+  SetClassLongPtrW(_this->hWnd, GCL_HCURSOR, (LONG_PTR)(hCursor));
 
   if (dword_720010)
-    sub_46AE97(dword_720010, pSource);
+    sub_46AE97((void *)dword_720010, (void *)pSource);
   else
   {
    GetCursorPos(&Point);
@@ -652,8 +786,8 @@ void sub_469903(struct class03 *_this, const char *pSource)
 //----- (004698A6) --------------------------------------------------------
 void class03_sub_4698A6(struct class03 *_this)
 {
- ItemGen_Reset(&dword_AD470C);
- if (_strcmpi(_this->array_0000F5, "MICON2"))
+ ItemGen_Reset((ItemGen *)&dword_AD470C);
+ if (_strcmpi((char *)_this->array_0000F5, "MICON2"))
    sub_469903(_this, "MICON1");
 }
 
@@ -664,19 +798,19 @@ int sub_469BA3(struct class03 *_this)
 
  if (_this->ptr_000030)
  {
-  call_delete(0, _this->ptr_000030);
+  call_delete(_this->ptr_000030);
   _this->ptr_000030 = 0;
  }
 
  if (_this->ptr_000038)
  {
-  call_delete(0, _this->ptr_000038);
+  call_delete(_this->ptr_000038);
   _this->ptr_000038 = 0;
  }
 
  if (_this->ptr_000090)
  {
-  call_delete(0, _this->ptr_000090);
+  call_delete(_this->ptr_000090);
   _this->ptr_000090 = 0;
  }
 
@@ -694,16 +828,16 @@ void class04_ctor(struct class04 *_this)
   int v1; // eax@1
   signed int v2; // ecx@1
 
- _eh_vector_constructor_iterator_(_this->std__vector_000004, sizeof(struct class04_stru0), 512, class04_stru0_ctor, class04_stru0_detor);
+ _eh_vector_constructor_iterator_((int)_this->std__vector_000004, sizeof(struct class04_stru0), 512, (void (__fastcall *)(void *))class04_stru0_ctor, (void (__fastcall *)(void *))class04_stru0_detor);
  _this->std__vector_000004_size = 0;
 
- _eh_vector_constructor_iterator_(_this->std__vector_183808, sizeof(struct class04_stru0), 768, class04_stru0_ctor, class04_stru0_detor);
+ _eh_vector_constructor_iterator_((int)_this->std__vector_183808, sizeof(struct class04_stru0), 768, (void (__fastcall *)(void *))class04_stru0_ctor, (void (__fastcall *)(void *))class04_stru0_detor);
  _this->std__vector_183808_size = 0;
 
  
   runtime_warning(struct shape and place is unknown, access to a random member);
  //v1 = (int)((char *)_this + 0x0F2314 + 4);  //::000808 inside[321]
-  v1 = (char *)&_this->std__vector_000004[321] + 0x808;
+  v1 = (int)((char *)&_this->std__vector_000004[321] + 0x808);
  v2 = 256;
  do
  {
@@ -718,9 +852,9 @@ void class04_ctor(struct class04 *_this)
 //----- (MM7.exe::004C05A2) --------------------------------------------------------
 void Vis_detor(struct Vis *_this, unsigned int a2)
 {
- sub_4C05BE(_this);
+ Vis_sub_4C05BE((int)_this);
  if (a2 & 1)
-   operator_delete(0, _this);
+   operator_delete(_this);
 }
 
 //----- (MM7.exe::004C04AF) --------------------------------------------------------
@@ -780,7 +914,7 @@ void *class06_ctor(struct class06 *_this)
  _this->dword_0005C8 = 0;
  _this->dword_0005D8 = 0;
 
- _this->class07_obj = malloc(0x154);
+ _this->class07_obj = new class07;
  if (_this->class07_obj)
    class07_ctor(_this->class07_obj);
 
@@ -802,31 +936,25 @@ void *class07_ctor(struct class07 *_this)
 //----- (MM7.exe::00478211) --------------------------------------------------------
 void *class07_InitializeVectors(struct class07 *_this, float w)
 {
- int v2;
  int v7; // eax@2
- float *v8; // ecx@2
 
  _this->uNumVec4InArray1 = 66;
- _this->pFloatArray1 = malloc(66 * 4 * sizeof(float));
+ _this->pFloatArray1 = new float[66 * 4];
  _this->uNumVec3InArray2 = 128;
- _this->pFloatArray2 = malloc(128 * 3 * sizeof(float));
+ _this->pFloatArray2 = new float[128 * 3];
 
- v2 = 0;
  v7 = 0;
- v8 = &unk_4EB8BC;
- do
+ for (unsigned int i = 0; i < _this->uNumVec4InArray1; ++i)
  {
-  _this->pFloatArray1[v7 + 0] = v8[-1];
-  _this->pFloatArray1[v7 + 1] = v8[0];
-  _this->pFloatArray1[v7 + 2] = v8[1];
+  _this->pFloatArray1[v7 + 0] = array_4EB8B8[i].flt_000000;
+  _this->pFloatArray1[v7 + 1] = array_4EB8B8[i].flt_000004;
+  _this->pFloatArray1[v7 + 2] = array_4EB8B8[i].flt_000008;
   _this->pFloatArray1[v7 + 3] = w;
 
   v7 += 4;
-  v8 += 3;
  }
- while (++v2 < _this->uNumVec4InArray1);
 
- return memcpy(_this->pFloatArray2, &unk_4EBBD0, 12 * _this->uNumVec3InArray2);
+ return memcpy(_this->pFloatArray2, array_4EBBD0, 12 * _this->uNumVec3InArray2);
 }
 
 
@@ -834,7 +962,7 @@ void class08_detor(struct class08 *_this, unsigned int a2)
 {
  sub_4363C6(_this);
  if (a2 & 1)
-   operator_delete(0, _this);
+   operator_delete(_this);
 }
 
 //----- (MM7.exe::004361EF) --------------------------------------------------------
@@ -852,11 +980,11 @@ struct class08 *class08_ctor(struct class08 *_this)
   int *v10; // edi@3
   signed int v13; // [sp+4h] [bp-10h]@3
 
-  v3 = _this;
+  v3 = (int)_this;
   class26_ctor(&_this->class26_obj1);
   class26_ctor(&_this->class26_obj2);
   class26_ctor(&_this->class26_obj3);
-  _eh_vector_constructor_iterator_(_this->std__vector_000034, sizeof(struct class26_placeholder), 6, class26_placeholder_ctor, class26_placeholder_detor);
+  _eh_vector_constructor_iterator_((int)_this->std__vector_000034, sizeof(struct class26_placeholder), 6, (void (__fastcall *)(void *))class26_placeholder_ctor, (void (__fastcall *)(void *))class26_placeholder_detor);
 
   _this->flt_0000DC = dword_51B6E8;
   _this->flt_0000E0 = dword_51B6EC;
@@ -899,7 +1027,7 @@ struct class08 *class08_ctor(struct class08 *_this)
   _this->flt_000378 = 0;
 
   v2 = 16384;
-  v1 = _this->array_00037C;
+  v1 = (float *)_this->array_00037C;
   do
   {
    *(int *)(v1) = 0;
@@ -910,7 +1038,7 @@ struct class08 *class08_ctor(struct class08 *_this)
 
   _this->dword_0E037C = 0;
 
-  v10 = _this->array_0E0380;
+  v10 = (int *)_this->array_0E0380;
   v13 = 256;
   do
   {
@@ -991,7 +1119,7 @@ struct class11 *class11_ctor(struct class11 *_this, int a2)
 }
 
 //----- (MM7.exe::004385B5) --------------------------------------------------------
-void *class11_fn0(void *_this, int a2)
+void *class11_fn0(class11 *_this, int a2)
 {
   int v6; // ST00_4@1
   int v11; // ST00_4@2
@@ -1021,14 +1149,14 @@ void *class11_fn0(void *_this, int a2)
   }
   if ( v13 == 3 )
   {
-    result = _this;
+    result = (int)_this;
     *(_DWORD *)((char *)_this + 172) = 1;
   }
   else
   {
     if ( v13 == 4 )
     {
-      result = _this;
+      result = (int)_this;
       *(_DWORD *)((char *)_this + 172) = 2;
     }
     else
@@ -1036,24 +1164,22 @@ void *class11_fn0(void *_this, int a2)
       if ( v14 )
       {
         *(_DWORD *)((char *)_this + 172) = 2;
-        result = class11_fn1(_this, a2);
+        result = (int)class11_fn1(_this, a2);
       }
       else
       {
-        result = _this;
+        result = (int)_this;
         *(_DWORD *)((char *)_this + 172) = 0;
       }
     }
   }
-  return result;
+  return (void *)result;
 }
 
 //----- (MM7.exe::004895B7) --------------------------------------------------------
 struct class12 *class12_ctor(struct class12 *_this, struct class11 *class11_obj)
 {
- int i;
-
- _this->pMemberFn = sub_4898E6;
+ _this->pMemberFn = (int (__cdecl *)(class_unk *))sub_4898E6;
  _this->dword_000044 = 1090519040;
  _this->dword_000048 = 0;
  _this->dword_00004C = 1174405120;
@@ -1061,9 +1187,9 @@ struct class12 *class12_ctor(struct class12 *_this, struct class11 *class11_obj)
  _this->dword_000054 = 869711765;
  _this->dword_000058 = 0;
 
- for (i = 0; i < 12; ++i)
+ for (unsigned int i = 0; i < 12; ++i)
  {
-  _this->class16_objs[i] = malloc(8);
+  _this->class16_objs[i] = new class16;
   if (_this->class16_objs[i])
     class16_ctor(_this->class16_objs[i], 640);
  }
@@ -1108,10 +1234,9 @@ int LODFile_LoadLOD_Icons_Events(struct LODFile *_this, const char *pFilename)
  if (LODFile_MaybeLoadLODHeader(_this, pFilename, 1))
    return 0;
  
- //excess stuff related to palettes, to be cut
- _this->pHardwareSurfaces = malloc(1000 * sizeof(void *));
- _this->pHardwareTextures = malloc(1000 * sizeof(void *));
- _this->dword_011BB4 = malloc(250 * sizeof(void *));
+ _this->pHardwareSurfaces = new IDirectDrawSurface4 *[1000];
+ _this->pHardwareTextures = new IDirect3DTexture2 *[1000];
+ _this->dword_011BB4 = new void *[250];
   
  return LODFile_fn6(_this, "icons") == 0;
 }
@@ -1123,10 +1248,9 @@ int LODFile_LoadLOD_Bitmaps(struct LODFile *_this, const char *pFilename)
  if (LODFile_MaybeLoadLODHeader(_this, pFilename, 1))
    return 0;
 
- //excess stuff related to palettes, to be cut
- _this->pHardwareSurfaces = malloc(1000 * sizeof(void *));
- _this->pHardwareTextures = malloc(1000 * sizeof(void *));
- _this->dword_011BB4 = malloc(250 * sizeof(void *));
+ _this->pHardwareSurfaces = new IDirectDrawSurface4 *[1000];
+ _this->pHardwareTextures = new IDirect3DTexture2 *[1000];
+ _this->dword_011BB4 = new void *[250];
 
  return LODFile_fn6(_this, "bitmaps") == 0;
 }
@@ -1172,11 +1296,11 @@ void *LODFile_LoadRaw(struct LODFile *_this, const char *pContainer, int a3)
   if (class18_obj.uDecompressedSize)
   {
     if (a3)
-      result = malloc(class18_obj.uDecompressedSize);
+      result = (unsigned char *)malloc(class18_obj.uDecompressedSize);
     else
-      result = class23_AllocatedNamedBuffer(class23_instance, 0, class18_obj.uDecompressedSize, class18_obj.sContainerName);
+      result = (unsigned char *)class23_AllocatedNamedBuffer(pClass23, 0, class18_obj.uDecompressedSize, class18_obj.sContainerName);
 
-    v8 = class23_AllocatedNamedBuffer(class23_instance, 0, class18_obj.uCompressedSize, class18_obj.sContainerName);
+    v8 = (unsigned char *)class23_AllocatedNamedBuffer(pClass23, 0, class18_obj.uCompressedSize, class18_obj.sContainerName);
 
     ReadFile(hFile, v8, class18_obj.uCompressedSize, &w, 0);
     //fread(v8, 1, class18_obj.uCompressedSize, pContainerFile);
@@ -1184,14 +1308,14 @@ void *LODFile_LoadRaw(struct LODFile *_this, const char *pContainer, int a3)
 
     MemUnzip(result, &class18_obj.uDecompressedSize, v8, class18_obj.uCompressedSize);
     class18_obj.uCompressedSize = class18_obj.uDecompressedSize;
-    class23_DeleteBuffer(class23_instance, v8);
+    class23_DeleteBuffer(pClass23, (void *)v8);
   }
   else
   {
     if (a3)
-      result = malloc(class18_obj.uCompressedSize);
+      result = (unsigned char *)malloc(class18_obj.uCompressedSize);
     else
-      result = class23_AllocatedNamedBuffer(class23_instance, 0, class18_obj.uCompressedSize, &class18_obj);
+     result = (unsigned char *)class23_AllocatedNamedBuffer(pClass23, 0, class18_obj.uCompressedSize, class18_obj.sContainerName);
     locked_fread(result, 1u, class18_obj.uCompressedSize, pContainerFile);
   }
 
@@ -1257,7 +1381,7 @@ int LODFile_fn3(struct LODFile *_this, int a2, int a3, const char *pContainerNam
     while (true)
     {
       v6 = a3 - v4;
-      result = _strcmpi(pContainerName, _this->pLODSubIndexNamedBuffer[(a3 - v4) / 2 + v4].pFilename);
+      result = _strcmpi(pContainerName, (char *)_this->pLODSubIndexNamedBuffer[(a3 - v4) / 2 + v4].pFilename);
       if ( !result )
         dword_6A0CA4 = (a3 - v4) / 2 + v4;
       if ( v4 == a3 )
@@ -1320,17 +1444,17 @@ void LODFile_fn4(struct LODFile *_this)
   int v6; // eax@6
   int v7; // eax@7
 
- v2 = _this;
+ v2 = (int)_this;
  v1 = _this->uNumLoadedFiles  - 1;
 
  if (v1 >= 0)
  {
-  v3 = (char *)_this + 572 + 72 * v1;
+  v3 = (int)((char *)_this + 572 + 72 * v1);
 
   do
   {
-   sub_40F77C(v3);
-   v4 = _this->pHardwareTextures;
+   class18_sub_40F77C((class18 *)v3);
+   v4 = (int)_this->pHardwareTextures;
    if (v4)
    {
     v5 = *(_DWORD *)(v4 + 4 * v1);
@@ -1372,7 +1496,7 @@ int LODFile_MaybeLoadLODHeader(struct LODFile *_this, const char *pFilename, cha
 
 
  if (_this->dword_000104)
-   sub_461431(_this);
+   LODFile_sub_461431((int)_this);
 
  if (a3 & 1)
    v7 = "rb";
@@ -1385,7 +1509,7 @@ int LODFile_MaybeLoadLODHeader(struct LODFile *_this, const char *pFilename, cha
 
  locked_fread(&_this->sLODFileHeader, sizeof(struct LODFileHeader), 1, _this->pLODFile);
 
- _this->dword_000210 = class23_AllocatedNamedBuffer(class23_instance, _this->dword_000210, 160, "LOD CArray");
+ _this->dword_000210 = class23_AllocatedNamedBuffer(pClass23, (int)_this->dword_000210, 160, "LOD CArray");
 
  if (!_this->dword_000210)
  {
@@ -1411,7 +1535,7 @@ int LODFile_fn6(struct LODFile *_this, const char *pContainer)
   int v8; // eax@7
   __int32 v9; // edx@7
 
- v3 = _this;
+ v3 = (int)_this;
  LODFile_fn7(_this);
  v2 = 0;
 
@@ -1433,7 +1557,7 @@ LABEL_5:
 
   strcpy(_this->sContainerName, pContainer);
 
-  v7 = _this->dword_000210;
+  v7 = (int)_this->dword_000210;
   _this->dword_000224 = v2;
 
   v8 = 32 * v2 + v7;
@@ -1443,7 +1567,7 @@ LABEL_5:
   _this->uNumSubidices = *(_WORD *)(v8 + 28);
   fseek(_this->pLODFile, v9, 0);
 
-  _this->pLODSubIndexNamedBuffer = class23_AllocatedNamedBuffer(class23_instance, _this->pLODSubIndexNamedBuffer, (_this->uNumSubidices + 5) * sizeof(struct LODIndex), "LOD Index");
+  _this->pLODSubIndexNamedBuffer = (LODIndex *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pLODSubIndexNamedBuffer, (_this->uNumSubidices + 5) * sizeof(struct LODIndex), "LOD Index");
 
   if (_this->pLODSubIndexNamedBuffer)
     locked_fread(_this->pLODSubIndexNamedBuffer, sizeof(struct LODIndex), _this->uNumSubidices, _this->pLODFile);
@@ -1466,7 +1590,7 @@ int LODFile_fn7(struct LODFile *_this)
   _this->uNumSubidices = 0;
   _this->dword_000234 = 0;
 
-  result = class23_DeleteBuffer(class23_instance, _this->pLODSubIndexNamedBuffer);
+  result = class23_DeleteBuffer(pClass23, (void *)_this->pLODSubIndexNamedBuffer);
   _this->pLODSubIndexNamedBuffer = 0;
  }
  return result;
@@ -1537,21 +1661,21 @@ void LODFile_AllocateSubidexAndIOBuffer(struct LODFile *_this, unsigned int uNum
  if (_this->pLODSubIndexNamedBuffer)
  {
   MessageBoxW(0, L"Attempt to reset a LOD subindex!", L"MM7", 0x30u);
-  class23_DeleteBuffer(class23_instance, _this->pLODSubIndexNamedBuffer);
+  class23_DeleteBuffer(pClass23, (void *)_this->pLODSubIndexNamedBuffer);
   _this->pLODSubIndexNamedBuffer = 0;
  }
- _this->pLODSubIndexNamedBuffer = class23_AllocatedNamedBuffer(class23_instance, _this->pLODSubIndexNamedBuffer, 32 * uNumSubIndices, "LODsubindex");
+ _this->pLODSubIndexNamedBuffer = (LODIndex *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pLODSubIndexNamedBuffer, 32 * uNumSubIndices, "LODsubindex");
 
  if (_this->pLODIOBuffer)
  {
   MessageBoxW(0, L"Attempt to reset a LOD IObuffer!", L"MM7", 0x30u);
-  class23_DeleteBuffer(class23_instance, _this->pLODIOBuffer);
+  class23_DeleteBuffer(pClass23, (void *)_this->pLODIOBuffer);
   _this->pLODIOBuffer = 0;
   _this->uIOBufferSize = 0;
  }
  else if (uIOBufferSize)
  {
-  _this->pLODIOBuffer = class23_AllocatedNamedBuffer(&class23_instance, _this->pLODIOBuffer, uIOBufferSize, "LODiobuffer");
+  _this->pLODIOBuffer = (unsigned char *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pLODIOBuffer, uIOBufferSize, "LODiobuffer");
   _this->uIOBufferSize = uIOBufferSize;
  }
 }
@@ -1572,7 +1696,7 @@ int LODFile_LoadLOD_Games(struct LODFile *_this, const char *pLODFilename, unsig
 
  locked_fread(&_this->sLODFileHeader, sizeof(struct LODFileHeader), 1, _this->pLODFile);
 
- sub_46172B(DstBuf);
+ sub_46172B((int)DstBuf);
 
  locked_fread(DstBuf, 0x20, 1, _this->pLODFile);
  fseek(_this->pLODFile, 0, SEEK_SET);
@@ -1599,7 +1723,7 @@ int LODFile_LoadLOD_Games(struct LODFile *_this, const char *pLODFilename, unsig
 }
 
 //----- (00461B48) --------------------------------------------------------
-signed int sub_461B48(struct LODFile *_this, const char *Count, const void *a3, FILE *File)
+signed int LODFile_sub_461B48(struct LODFile *_this, const char *Count, const void *a3, FILE *File)
 {
   int v4; // ebx@1
   int v5; // esi@1
@@ -1645,7 +1769,7 @@ signed int sub_461B48(struct LODFile *_this, const char *Count, const void *a3, 
   size_t v46; // [sp+244h] [bp+8h]@47
   FILE *v47; // [sp+24Ch] [bp+10h]@22
 
-  v4 = _this;
+  v4 = (int)_this;
   v5 = 0;
   if ( !_this->dword_000104)
     return 1;
@@ -1696,7 +1820,7 @@ LABEL_22:
             v42 = 0;
           v40 = *((_DWORD *)v10 + 5);
           v17 = v40 - v42;
-          sub_46172B(Str);
+          sub_46172B((int)Str);
           strcpy(Str, "chapter");
           v16 = *(_DWORD *)(v4 + 552);
           v38 = *(_WORD *)(v4 + 556);
@@ -1782,11 +1906,11 @@ LABEL_22:
           }
           strcpy(NewFilename, (const char *)(v4 + 4));
           fclose(v47);
-          sub_461EE9(v4);
+          LODFile_sub_461EE9((LODFile *)v4);
           remove(NewFilename);
           rename(Filename, NewFilename);
-          sub_461EE9(v4);
-          LODFile_LoadLOD_Games((void *)v4, (const char *)(v4 + 4), 0);
+          LODFile_sub_461EE9((LODFile *)v4);
+          LODFile_LoadLOD_Games((LODFile *)v4, (const char *)(v4 + 4), 0);
           return 0;
         }
         if ( File == (FILE *)2 )
@@ -1839,8 +1963,8 @@ int LODFile_LoadPalette(struct LODFile *_this, struct class18 *pClass18, const c
   int   i;
   FILE *f;
 
-  v5 = pContainerName;
-  v6 = _this;
+  v5 = (int)pContainerName;
+  v6 = (int)_this;
  v8 = pClass18;
 
  f = LODFile_FindContainer(_this, pContainerName, 0);
@@ -1882,8 +2006,8 @@ int LODFile_LoadPalette(struct LODFile *_this, struct class18 *pClass18, const c
         dword_EF5294 = *(_DWORD *)(v6 + 72572);
         v13 = *(_DWORD *)(v6 + 72572);
       }
-      v10 = sub_4A4DE1(
-              pD3DRenderer,
+      v10 = Render_sub_4A4DE1(
+              (int)pD3DRenderer,
               v5,
               *((_WORD *)v8 + 18),
               4 * v13 + *(_DWORD *)(v6 + 72620),
@@ -1896,13 +2020,13 @@ int LODFile_LoadPalette(struct LODFile *_this, struct class18 *pClass18, const c
       uSomeInt = v12;
       *(_BYTE *)v12 = 104;
       strcpy((char *)(v12 + 1), (const char *)v5);
-      v10 = sub_4A4DE1(
-              pD3DRenderer,
+      v10 = Render_sub_4A4DE1(
+              (int)pD3DRenderer,
               uSomeInt,
               *((_WORD *)v8 + 18),
               4 * *(_DWORD *)(v6 + 72572) + *(_DWORD *)(v6 + 72620),
               4 * *(_DWORD *)(v6 + 72572) + *(_DWORD *)(v6 + 72624));
-      operator_delete(v10, uSomeInt);
+      operator_delete((int *)uSomeInt);
     }
     return v10;
  }
@@ -1911,17 +2035,17 @@ int LODFile_LoadPalette(struct LODFile *_this, struct class18 *pClass18, const c
 
  if (!pClass18->uDecompressedSize || _this->dword_011BA4)
  {
-  pClass18->pIndexedPixels = class23_AllocatedNamedBuffer(class23_instance, pClass18->pIndexedPixels, pClass18->uCompressedSize, pClass18->sContainerName);
+  pClass18->pIndexedPixels = (unsigned char *)class23_AllocatedNamedBuffer(pClass23, (int)pClass18->pIndexedPixels, pClass18->uCompressedSize, pClass18->sContainerName);
   locked_fread(pClass18->pIndexedPixels, 1u, pClass18->uCompressedSize, f);
  }
  else
  {
-  pCompressedBuffer = malloc(pClass18->uCompressedSize);
-  pDecompressedBuffer = malloc(pClass18->uDecompressedSize);
+  pCompressedBuffer = (unsigned char *)malloc(pClass18->uCompressedSize);
+  pDecompressedBuffer = (unsigned char *)malloc(pClass18->uDecompressedSize);
 
   locked_fread(pCompressedBuffer, 1, pClass18->uCompressedSize, f);
   MemUnzip(pDecompressedBuffer, &pClass18->uDecompressedSize, pCompressedBuffer, pClass18->uCompressedSize);
-  call_delete(0, pCompressedBuffer);
+  call_delete(pCompressedBuffer);
 
   pClass18->uCompressedSize = pClass18->uDecompressedSize;
 
@@ -1929,7 +2053,7 @@ int LODFile_LoadPalette(struct LODFile *_this, struct class18 *pClass18, const c
   if (bUseLoResSprites && pClass18->word_00002C & 0x0002)
   {
       v45 = (*((_DWORD *)v8 + 4) >> 2) + (*((_DWORD *)v8 + 4) >> 4) + (*((_DWORD *)v8 + 4) >> 6);
-      v21 = class23_AllocatedNamedBuffer(class23_instance, *((_DWORD *)v8 + 12), v45, (const char *)v8);
+      v21 = (int)class23_AllocatedNamedBuffer(pClass23, *((_DWORD *)v8 + 12), v45, (const char *)v8);
       v22 = v45;
       compile_error;//v23 = (const void *)(v31 + *((_WORD *)v8 + 12) * *((_WORD *)v8 + 13));
       *((_DWORD *)v8 + 12) = v21;
@@ -1950,19 +2074,19 @@ int LODFile_LoadPalette(struct LODFile *_this, struct class18 *pClass18, const c
   }
   else
   {
-   pClass18->pIndexedPixels = class23_AllocatedNamedBuffer(class23_instance, pClass18->pIndexedPixels, pClass18->uDecompressedSize, pClass18->sContainerName);
+   pClass18->pIndexedPixels = (unsigned char *)class23_AllocatedNamedBuffer(pClass23, (int)pClass18->pIndexedPixels, pClass18->uDecompressedSize, pClass18->sContainerName);
    memcpy(pClass18->pIndexedPixels, pDecompressedBuffer, pClass18->uDecompressedSize);
   }
-  call_delete(0, pDecompressedBuffer);
+  call_delete(pDecompressedBuffer);
  }
 
 
- class23_DeleteBuffer(class23_instance, pClass18->pPalette);
- class23_DeleteBuffer(class23_instance, pClass18->ptr_000044);
+ class23_DeleteBuffer(pClass23, (void *)pClass18->pPalette);
+ class23_DeleteBuffer(pClass23, (void *)pClass18->ptr_000044);
 
  if (uSomeInt == 1)
  {
-  pClass18->ptr_000044 = class23_AllocatedNamedBuffer(class23_instance, pClass18->ptr_000044, 768, pClass18->sContainerName);
+  pClass18->ptr_000044 = (unsigned char *)class23_AllocatedNamedBuffer(pClass23, (int)pClass18->ptr_000044, 768, pClass18->sContainerName);
   locked_fread(pClass18->ptr_000044, 1u, 0x300u, f);
 
 LABEL_35:
@@ -1974,7 +2098,7 @@ LABEL_35:
  if (uSomeInt != 2)
    goto LABEL_35;
 
- pClass18->pPalette = class23_AllocatedNamedBuffer(class23_instance, pClass18->pPalette, 512, pClass18->sContainerName);
+ pClass18->pPalette = (unsigned short *)class23_AllocatedNamedBuffer(pClass23, (int)pClass18->pPalette, 512, pClass18->sContainerName);
  for (i = 0; i < 256; ++i)
  {
   locked_fread(aReadBuf, 3, 1, f);
@@ -2057,7 +2181,7 @@ LABEL_53:
 
 
 //----- (0041097D) --------------------------------------------------------
-////int __thiscall sub_41097D(void *this, int a2, int a3, int a4);
+////int __thiscall sub_41097D(void *_this, int a2, int a3, int a4);
 int LODFile_SetupPalettes(struct LODFile *_this, int a2, int a3, int a4)
 {
  //depricated, though somehow sets font colors
@@ -2116,7 +2240,7 @@ int LODFile_SetupPalettes(struct LODFile *_this, int a2, int a3, int a4)
 }
 
 //----- (004114F2) --------------------------------------------------------
-int sub_4114F2(struct LODFile *_this)
+int LODFile_sub_4114F2(struct LODFile *_this)
 {
   int result; // eax@1
   int v2; // ecx@1
@@ -2129,8 +2253,8 @@ int sub_4114F2(struct LODFile *_this)
   int v9; // eax@8
   int v10; // eax@9
 
-  v3 = _this;
-  result = &_this->dword_011B9C;
+  v3 = (int)_this;
+  result = (int)&_this->dword_011B9C;
   v2 = _this->dword_011B9C;
   if ( v2 )
   {
@@ -2141,11 +2265,11 @@ int sub_4114F2(struct LODFile *_this)
       v5 = _this->uNumLoadedFiles - 1;
       if ( v5 >= _this->dword_011B98)
       {
-        v6 = &_this->aLODHeaders[v5];
+        v6 = (int)&_this->aLODHeaders[v5];
         do
         {
-          sub_40F77C(v6);
-          v7 = _this->pHardwareTextures;
+          class18_sub_40F77C((class18 *)v6);
+          v7 = (int)_this->pHardwareTextures;
           if ( v7 )
           {
             v8 = *(_DWORD *)(v7 + 4 * v5);
@@ -2246,7 +2370,7 @@ void *class23_AllocatedNamedBuffer(struct class23 *_this, int a2, int size, cons
   if (!_this->dword_01D4D8)
   {
    v12 = malloc(size);
-   v11 = _this->pMemoryBuffers[v8];
+   v11 = (int)_this->pMemoryBuffers[v8];
    if (v12)
      _this->uMemoryBufferSizes[v8] = size;
    else
@@ -2275,10 +2399,10 @@ void *class23_AllocatedNamedBuffer(struct class23 *_this, int a2, int size, cons
      strncpy(_this->aBufferNames[v8], pBufferName, 11);
    _this->uNextFreeOffsetInBigBuffer += v10;
   }
-  result = _this->pMemoryBuffers[v8];
+  result = (int)_this->pMemoryBuffers[v8];
  }
  else return 0;
- return result;
+ return (void *)result;
 }
 
 //----- (MM7.exe::00426474) --------------------------------------------------------
@@ -2292,7 +2416,7 @@ int class23_DeleteBuffer(struct class23 *_this, void *pMem)
  int v7; // ecx@16
  char v8; // zf@20
 
- v2 = _this;
+ v2 = (int)_this;
  if (pMem)
  {
   if (!_this->bBigBufferAllocated)
@@ -2313,7 +2437,7 @@ int class23_DeleteBuffer(struct class23 *_this, void *pMem)
   }
 
   if (!_this->dword_01D4D8)
-    call_delete(v3, _this->pMemoryBuffers[i]);
+    call_delete(_this->pMemoryBuffers[i]);
 
   _this->pMemoryBuffers[i] = 0;
   _this->uMemoryBufferSizes[i] = 0;
@@ -2335,7 +2459,7 @@ int class23_DeleteBuffer(struct class23 *_this, void *pMem)
     _this->uNumMemoryBuffersUsed = v7 + 1;
 
     if (_this->dword_01D4D8)
-      _this->uNextFreeOffsetInBigBuffer = (char *)(_this->pMemoryBuffers[v7]) + _this->uMemoryBufferSizes[v7] - (unsigned int)(_this->pBigMemoryBuffer);
+      _this->uNextFreeOffsetInBigBuffer = (int)((char *)(_this->pMemoryBuffers[v7]) + _this->uMemoryBufferSizes[v7] - (unsigned int)(_this->pBigMemoryBuffer));
    }
    else
    {
@@ -2356,7 +2480,7 @@ int class23_AllocateBigBuffer(struct class23 *_this, unsigned int uNumKBytes)
   void *v5; // eax@5
   int v6; // eax@5
 
- v2 = _this;
+ v2 = (int)_this;
  //if ( *(_DWORD *)(this + 120020) )
  if (_this->bBigBufferAllocated)
    return false;
@@ -2368,7 +2492,7 @@ int class23_AllocateBigBuffer(struct class23 *_this, unsigned int uNumKBytes)
   v4 = (uNumKBytes * 1024) - 4096;
   v6 = (int)(v5) & 0xFFFF0000;
 
-  _this->pBigBufferAlignedAt1000h = v6 + 4096;
+  _this->pBigBufferAlignedAt1000h = (void *)(v6 + 4096);
 
   sub_426892(v6 + 4096, v4);
   result = 0;
@@ -2405,7 +2529,7 @@ int class23_CreateFileDump(struct class23 *_this, const char *a2)
   int v16; // [sp+3Ch] [bp-4h]@11
   int v17; // [sp+48h] [bp+8h]@11
 
-  v4 = _this;
+  v4 = (int)_this;
 
   sprintf(pFilename, "Mem%03i.txt", _this->dword_01D4C0++);
   v2 = fopen(pFilename, "w");
@@ -2430,7 +2554,7 @@ int class23_CreateFileDump(struct class23 *_this, const char *a2)
 
    if (_this->uNumMemoryBuffersUsed > 0)
    {
-    v9 = (char *)_this + 24000;
+    v9 = (int)((char *)_this + 24000);
     do
     {
      v7 += *(_DWORD *)v9;
@@ -2441,7 +2565,7 @@ int class23_CreateFileDump(struct class23 *_this, const char *a2)
    }
 
    v10 = 0;
-   v11 = (char *)_this + 24000;
+   v11 = (int)((char *)_this + 24000);
    v12 = 6000;
    do
    {
@@ -2455,8 +2579,8 @@ int class23_CreateFileDump(struct class23 *_this, const char *a2)
    v13 = 0;
    if (_this->uNumMemoryBuffersUsed > 0)
    {
-    v16 = (char *)v4 + 24000;
-    v17 = (char *)v4 + 48000;
+    v16 = (int)((char *)v4 + 24000);
+    v17 = (int)((char *)v4 + 48000);
 
     do
     {
@@ -2510,7 +2634,7 @@ void class25_detor(struct class25 *_this , unsigned int a2)
 {
  _this->detor_ptr = class25_detor;
  if (a2 & 1)
-   operator_delete(0, _this);
+   operator_delete(_this);
 }
 
 
@@ -2520,9 +2644,9 @@ __int64 class25_fn0(struct class25 *_this)
   __int64 result; // qax@1
   signed int v2; // ecx@1
 
-  LODWORD(result) = _this;
+  LODWORD(result) = (int)_this;
   v2 = 512;
-  HIDWORD(result) = (char *)(_this) + 4;
+  HIDWORD(result) = (int)(char *)(_this) + 4;
   do
   {
     *(DWORD *)(HIDWORD(result)) = 0;
@@ -2540,7 +2664,7 @@ void class26_detor(struct class26 *_this, unsigned int a2)
 {
  _this->detor_ptr = class26_detor;
  if (a2 & 1)
-   operator_delete(0, _this);
+   operator_delete(_this);
 }
 
 //----- (MM7.exe::004C0376) --------------------------------------------------------
@@ -2788,7 +2912,7 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
 
    if (v21 < 0)
      v21 = 0.0;
-   sub_48A643(&v85, &v84, &v86, local_0[j].y, local_0[j].x, v21);
+   sub_48A643((int)&v85, (int)&v84, (int)&v86, local_0[j].y, local_0[j].x, v21);
 
    if (_this->uNumTargetGBits == 6)
    {
@@ -2821,7 +2945,7 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
 
    if (v28 < *(double *)(byte_4D8410 + 176))
      v28 = 0.0;
-   sub_48A643(&v85, &v84, &v86, 1.0, 1.0, v28);
+   sub_48A643((int)&v85, (int)&v84, (int)&v86, 1.0, 1.0, v28);
 
    v29 = _this->uNumTargetGBits;
    if ( v29 == 6 )
@@ -2851,7 +2975,7 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
     v36 = 0.0;
 
   v39 = local_0[i].x * 0.70343392299687835;
-  sub_48A643(&v85, &v84, &v86, local_0[i].y, v39, v36);
+  sub_48A643((int)&v85, (int)&v84, (int)&v86, local_0[i].y, v39, v36);
 
   if (_this->uNumTargetGBits == 6)
   {
@@ -2893,7 +3017,7 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
   v78 = (double)_this->byte_267AD0 * (1.0 / 255.0);
   v79 = (double)v88 * (1.0 / 255.0);
   v83 = (double)v53 * (1.0 / 255.0);
-  sub_48A7AA(v76, v75, v78, v79, v83, v74);
+  sub_48A7AA((float *)v76, (float *)v75, v78, v79, v83, (float *)v74);
  }
 
 
@@ -2907,7 +3031,7 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
    if ( v55 < 0.0 )
      v55 = 0.0;
 
-   sub_48A643(&v85, &v84, &v86, local_0[j].y, v55, local_0[j].z);
+   sub_48A643((int)&v85, (int)&v84, (int)&v86, local_0[j].y, v55, local_0[j].z);
    if (_this->uNumTargetGBits == 6 )
    {
     v85 *= 31.0;
@@ -2969,7 +3093,7 @@ int class35_sub_489BE0(struct class35 *_this, unsigned int idx)
 void class36_ctor(struct class36 *_this)
 {
  _this->dword_000000 = 0x4D8600;
- _eh_vector_constructor_iterator_(_this->std__vector_000004, 40, 64, sub_43B538, sub_43B569);
+ _eh_vector_constructor_iterator_((int)_this->std__vector_000004, 40, 64, (void (__fastcall *)(void *))sub_43B538, sub_43B569);
  _this->std__vector_000004_size = 0;
 
  _this->dword_000A08 = 0;
@@ -3028,7 +3152,8 @@ loc_43F2E5:                             ; CODE XREF: sub_43F282+6Bj
 //----- (0043F282) --------------------------------------------------------
 void *class37_ctor(struct class37 *_this)
 {
- _eh_vector_constructor_iterator_(_this->vector_000FA8, 2252, 150, class37_loc_43F2BF, class37_loc_43F2A9);
+ _eh_vector_constructor_iterator_((int)_this->vector_000FA8, 2252, 150, (void (__fastcall *)(void *))class37_loc_43F2BF, (void (__fastcall *)(void *))class37_loc_43F2A9);
+ return 0;
 }
 
 
@@ -3115,36 +3240,36 @@ char *sub_456D84(struct class40 *_this)
 
   v1 = _this;
 
-  pMapStats = malloc(sizeof(struct CMapStats));
+  pMapStats = new CMapStats;
   CMapStats_ctor(pMapStats);
   CMapStats_Initialize(pMapStats);
 
-  pMonsterStats = malloc(sizeof(struct CMonsterStats));
+  pMonsterStats = new CMonsterStats;
   CMonsterStats_ctor(pMonsterStats);
   CMonsterStats_Initialize(pMonsterStats);
   CMonsterStats_LoadMonsterPlacements(pMonsterStats);
 
-  pSpellStats = malloc(sizeof(struct CSpellStats));
+  pSpellStats = new CSpellStats;
   CSpellStats_ctor(pSpellStats);
   CSpellStats_Initialize(pSpellStats);
 
   class40_LoadPotionsTable(_this);
   class40_LoadPotionNotes(_this);
 
-  pClass48 = malloc(sizeof(struct class48));
+  pClass48 = new class48;
   class48_ctor(pClass48);
   class48_Initialize(pClass48);
 
-  pStorylineText = malloc(sizeof(struct StorylineText));
+  pStorylineText = new StorylineText;
   StorylineText_Initialize(pStorylineText);
 
-  _this->pStdItemsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "stditems.txt", 0);
+  _this->pStdItemsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "stditems.txt", 0);
 
-  strtok(_this->pStdItemsTXT_Raw, "\r");
+  strtok((char *)_this->pStdItemsTXT_Raw, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
-  v68 = _this->pEnchantments;
+  v68 = (int)_this->pEnchantments;
   v86 = 24;
 
   i = 0;
@@ -3172,7 +3297,7 @@ char *sub_456D84(struct class40 *_this)
         {
           if ( v104 == 1 )
           {
-           _this->pEnchantments[i].pName = sub_452C30(v3);
+           _this->pEnchantments[i].pName = (unsigned char *)sub_452C30(v3);
           }
           else
           {
@@ -3182,7 +3307,7 @@ char *sub_456D84(struct class40 *_this)
         }
         else
         {
-         _this->pEnchantments[i].pParam = sub_452C30(v3);
+         _this->pEnchantments[i].pParam = (unsigned char *)sub_452C30(v3);
         }
       }
       else
@@ -3240,8 +3365,8 @@ char *sub_456D84(struct class40 *_this)
 
 
 
-  _this->pSpcItemsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "spcitems.txt", 0);
-  strtok(_this->pSpcItemsTXT_Raw, "\r");
+  _this->pSpcItemsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "spcitems.txt", 0);
+  strtok((char *)_this->pSpcItemsTXT_Raw, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
@@ -3270,7 +3395,7 @@ char *sub_456D84(struct class40 *_this)
         {
           if ( v106 == 1 )
           {
-           _this->pSpecialEnchantments[i].pName = sub_452C30((const char *)v17);
+           _this->pSpecialEnchantments[i].pName = (unsigned char *)sub_452C30((char *)v17);
           }
           else
           {
@@ -3303,7 +3428,7 @@ char *sub_456D84(struct class40 *_this)
         }
         else
         {
-         _this->pSpecialEnchantments[i].pParam = sub_452C30((const char *)v17);
+         _this->pSpecialEnchantments[i].pParam = (unsigned char *)sub_452C30((char *)v17);
         }
       }
       else
@@ -3332,8 +3457,8 @@ LABEL_63:
   sub_443801();
 
 
-  _this->pItemsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "items.txt", 0);
-  strtok(_this->pItemsTXT_Raw, "\r");
+  _this->pItemsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "items.txt", 0);
+  strtok((char *)_this->pItemsTXT_Raw, "\r");
   v28 = 0;
   strtok(0, "\r");
   _this->uNumItems = 0;
@@ -3361,8 +3486,8 @@ LABEL_63:
         switch ( v107 )
         {
           case 0: v28 = atoi(v30); break;
-          case 1: _this->pItems[v28 - 1].pIconName = sub_452C30(v30); break;
-          case 2: _this->pItems[v28 - 1].pName = sub_452C30(v30);     break;
+          case 1: _this->pItems[v28 - 1].pIconName = (unsigned char *)sub_452C30(v30); break;
+          case 2: _this->pItems[v28 - 1].pName = (unsigned char *)sub_452C30(v30);     break;
           case 3: _this->pItems[v28 - 1].uValue = atoi(v30);          break;
 
           case 4:
@@ -3466,15 +3591,15 @@ LABEL_63:
             break;
 
           case 9:  ((char *)(&_this->pItems[v28 - 1 + 1].dword_000000))[2] = atoi(v30); break;
-          case 10: _this->pItems[v28 - 1].pUnidentifiedName = sub_452C30(v30); break;
+          case 10: _this->pItems[v28 - 1].pUnidentifiedName = (unsigned char *)sub_452C30(v30); break;
           case 11: _this->pItems[v28 - 1].uSpriteIndex = atoi(v30); break;
 
           case 12:
-            v88 = &_this->pItems[v28 - 1];
+            v88 = (int)&_this->pItems[v28 - 1];
             if (_this->pItems[v28 - 1].uMaterial == 3) // 'special'
             {
               v92 = 0;
-              while ( _strcmpi(_this->pEnchantments[v92].pName, v30) )
+              while ( _strcmpi((char *)_this->pEnchantments[v92].pName, v30) )
               {
                 ++v92;
                 if ( v92 >= 24 )
@@ -3486,7 +3611,7 @@ LABEL_181:
               if ( !*(_BYTE *)(v88 + 39) )
               {
                 v93 = 0;
-                while ( _strcmpi(_this->pSpecialEnchantments[v92].pName, v30) )
+                while ( _strcmpi((char *)_this->pSpecialEnchantments[v92].pName, v30) )
                 {
                   ++v93;
                   if ( v93 >= 72 )
@@ -3515,7 +3640,7 @@ LABEL_181:
 
           case 14: _this->pItems[v28 - 1].uEquipX = atoi(v30); break;
           case 15: _this->pItems[v28 - 1].uEquipY = atoi(v30); break;
-          case 16: _this->pItems[v28 - 1].pDescription = sub_452C30(v30); break;
+          case 16: _this->pItems[v28 - 1].pDescription = (unsigned char *)sub_452C30(v30); break;
 
           default:
             break;
@@ -3535,8 +3660,8 @@ LABEL_196:
   }
   _this->uNumItems = v28;
 
-  _this->pRndItemsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "rnditems.txt", 0);
-  strtok(_this->pRndItemsTXT_Raw, "\r");
+  _this->pRndItemsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "rnditems.txt", 0);
+  strtok((char *)_this->pRndItemsTXT_Raw, "\r");
   v39 = 0;
   strtok(0, "\r");
   strtok(0, "\r");
@@ -3588,7 +3713,7 @@ LABEL_196:
 
   if (_this->pRndItemsTXT_Raw)
   {
-   class23_DeleteBuffer(class23_instance, _this->pRndItemsTXT_Raw);
+   class23_DeleteBuffer(pClass23, (void *)_this->pRndItemsTXT_Raw);
    _this->pRndItemsTXT_Raw = 0;
   }
 
@@ -3749,8 +3874,8 @@ LABEL_196:
   while ( v94 < 3 );
 
 
-  pSkillDescTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "skilldes.txt", 0);
-  strtok(pSkillDescTXT_Raw, "\r");
+  pSkillDescTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "skilldes.txt", 0);
+  strtok((char *)pSkillDescTXT_Raw, "\r");
   v53 = 0;
   do
   {
@@ -3775,19 +3900,19 @@ LABEL_196:
         switch ( v110 )
         {
           case 1:
-            array_5C8A70[v53] = sub_452C30(v54);
+            array_5C8A70[v53] = (unsigned char *)sub_452C30(v54);
             break;
           case 2:
-            array_5C89D8[v53] = sub_452C30(v54);
+            array_5C89D8[v53] = (unsigned char *)sub_452C30(v54);
             break;
           case 3:
-            array_5C8940[v53] = sub_452C30(v54);
+            array_5C8940[v53] = (unsigned char *)sub_452C30(v54);
             break;
           case 4:
-            array_5C88A8[v53] = sub_452C30(v54);
+            array_5C88A8[v53] = (unsigned char *)sub_452C30(v54);
             break;
           case 5:
-            array_5C8810[v53] = sub_452C30(v54);
+            array_5C8810[v53] = (unsigned char *)sub_452C30(v54);
             break;
         }
       }
@@ -3808,7 +3933,7 @@ LABEL_196:
 
   //pStatsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "stats.txt", 0);
   pStatsTXT_Raw = LODFile_LoadEvent(pLODFile_Events_LOD, L"stats.txt");
-  strtok(pStatsTXT_Raw, "\r");
+  strtok((char *)pStatsTXT_Raw, "\r");
   v77 = 0;
   do
   {
@@ -3846,26 +3971,26 @@ LABEL_196:
             case 3:
             case 4:
             case 5:
-            case 6:  pAttributeDescriptions[v77] = sub_452C30(v58); break;
-            case 7:  pHealthPointsAttributeDescription = sub_452C30(v58); break;
-            case 8:  pArmourClassAttributeDescription = sub_452C30(v58); break;
-            case 9:  pSpellPointsAttributeDescription = sub_452C30(v58); break;
-            case 10: pPlayerConditionAttributeDescription = sub_452C30(v58); break;
-            case 11: pFastSpellAttributeDescription = sub_452C30(v58); break;
-            case 12: pPlayerAgeAttributeDescription = sub_452C30(v58); break;
-            case 13: pPlayerLevelAttributeDescription = sub_452C30(v58); break;
-            case 14: pPlayerExperienceAttributeDescription = sub_452C30(v58); break;
-            case 15: pAttackBonusAttributeDescription = sub_452C30(v58); break;
-            case 16: pAttackDamageAttributeDescription = sub_452C30(v58); break;
-            case 17: pMissleBonusAttributeDescription = sub_452C30(v58); break;
-            case 18: pMissleDamageAttributeDescription = sub_452C30(v58); break;
-            case 19: pFireResistanceAttributeDescription = sub_452C30(v58); break;
-            case 20: pAirResistanceAttributeDescription = sub_452C30(v58); break;
-            case 21: pWaterResistanceAttributeDescription = sub_452C30(v58); break;
-            case 22: pEarthResistanceAttributeDescription = sub_452C30(v58); break;
-            case 23: pMindResistanceAttributeDescription = sub_452C30(v58); break;
-            case 24: pBodyResistanceAttributeDescription = sub_452C30(v58); break;
-            case 25: pSkillPointsAttributeDescription = sub_452C30(v58); break;
+            case 6:  pAttributeDescriptions[v77] = (unsigned char *)sub_452C30(v58); break;
+            case 7:  pHealthPointsAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 8:  pArmourClassAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 9:  pSpellPointsAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 10: pPlayerConditionAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 11: pFastSpellAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 12: pPlayerAgeAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 13: pPlayerLevelAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 14: pPlayerExperienceAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 15: pAttackBonusAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 16: pAttackDamageAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 17: pMissleBonusAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 18: pMissleDamageAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 19: pFireResistanceAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 20: pAirResistanceAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 21: pWaterResistanceAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 22: pEarthResistanceAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 23: pMindResistanceAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 24: pBodyResistanceAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 25: pSkillPointsAttributeDescription = (unsigned char *)sub_452C30(v58); break;
             default:
               break;
           }
@@ -3890,13 +4015,13 @@ LABEL_196:
 
  pClassTXT_Raw = LODFile_LoadEvent(pLODFile_Events_LOD, L"class.txt");
 
- v78 = strstr(pClassTXT_Raw, "\n") + 1;
+ v78 = (int)strstr((char *)pClassTXT_Raw, "\n") + 1;
  for (i = 0; i < 36; ++i)
  {
-  pClassDescriptions[i] = strstr(v78, "\"") + 1;
-  v78 = strstr(pClassDescriptions[i], "\"");
+  pClassDescriptions[i] = (unsigned char *)strstr((char *)v78, "\"") + 1;
+  v78 = (int)strstr((char *)pClassDescriptions[i], "\"");
   *(char *)v78 = 0;
-  v78 = strstr(v78 + 1, "\n") + 1;
+  v78 = (int)strstr((char *)v78 + 1, "\n") + 1;
  }
 
  return 0;
@@ -3945,10 +4070,10 @@ int CMapStats_Initialize(struct CMapStats *_this)
  struct MapInfo *pMapInfo;
 
  if (pMapStatsTXT_Raw)
-   class23_DeleteBuffer(class23_instance, pMapStatsTXT_Raw);
+   class23_DeleteBuffer(pClass23, (void *)pMapStatsTXT_Raw);
 
- pMapStatsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "MapStats.txt", 0);
- strtok(pMapStatsTXT_Raw, "\r");
+ pMapStatsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "MapStats.txt", 0);
+ strtok((char *)pMapStatsTXT_Raw, "\r");
  strtok(0, "\r");
  strtok(0, "\r");
 
@@ -3978,11 +4103,11 @@ int CMapStats_Initialize(struct CMapStats *_this)
    {
     switch ( v17 )
     {
-     case 1:  pMapInfo->pLocationName = sub_452C30(v3);             break;
-     case 2:  pMapInfo->pLocationFilename = sub_452C30(v3);         break;
-     case 16: pMapInfo->pEncounterMonster1Texture = sub_452C30(v3); break;
-     case 20: pMapInfo->pEncounterMonster2Texture = sub_452C30(v3); break;
-     case 24: pMapInfo->pEncounterMonster3Texture = sub_452C30(v3); break;
+     case 1:  pMapInfo->pLocationName = (unsigned char *)sub_452C30(v3);             break;
+     case 2:  pMapInfo->pLocationFilename = (unsigned char *)sub_452C30(v3);         break;
+     case 16: pMapInfo->pEncounterMonster1Texture = (unsigned char *)sub_452C30(v3); break;
+     case 20: pMapInfo->pEncounterMonster2Texture = (unsigned char *)sub_452C30(v3); break;
+     case 24: pMapInfo->pEncounterMonster3Texture = (unsigned char *)sub_452C30(v3); break;
 
 
      case 3:  pMapInfo->uNumResets = atoi(v3); break;
@@ -4097,7 +4222,7 @@ int CMapStats_Initialize(struct CMapStats *_this)
 
 
       ++v17;
-      v3 = v15 + 1;
+      v3 = (char *)v15 + 1;
       result = v17 - 1;
     }
     while ( v17 - 1 <= 29 && !v16 );
@@ -4212,7 +4337,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
   int v83; // [sp-Ch] [bp-464h]@317
   int v84; // [sp-8h] [bp-460h]@306
   int v85; // [sp-4h] [bp-45Ch]@23
-  int v86; // [sp+0h] [bp-458h]@37
+  int v86;
   char v87; // [sp+10h] [bp-448h]@297
   char v88; // [sp+8Ch] [bp-3CCh]@249
   char v89; // [sp+108h] [bp-350h]@240
@@ -4248,10 +4373,10 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
   v114 = (int)_this;
 
  if (pMonstersTXT_Raw)
-   class23_DeleteBuffer(class23_instance, pMonstersTXT_Raw);
+   class23_DeleteBuffer(pClass23, (void *)pMonstersTXT_Raw);
 
- pMonstersTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "monsters.txt", 0);
- strtok(pMonstersTXT_Raw, "\r");
+ pMonstersTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "monsters.txt", 0);
+ strtok((char *)pMonstersTXT_Raw, "\r");
  strtok(0, "\r");
  strtok(0, "\r");
  strtok(0, "\r");
@@ -4285,32 +4410,32 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
           break;
 
           case 1:
-            pMonsterInfo->pName = sub_452C30(v2);
+            pMonsterInfo->pName = (unsigned char *)sub_452C30((char *)v2);
           break;
 
           case 2:
-            pMonsterInfo->pTexture = sub_452C30(v2);
+            pMonsterInfo->pTexture = (unsigned char *)sub_452C30((char *)v2);
           break;
 
           case 3:
-            pMonsterInfo->uLevel = atoi(v2);
+            pMonsterInfo->uLevel = atoi((char *)v2);
           break;
 
           case 4:
             if (*(char *)v2 == ' ' || *(char *)v2 == '"')
               pMonsterInfo->uHP = 10;
-            else pMonsterInfo->uHP = atoi(v2);
+            else pMonsterInfo->uHP = atoi((char *)v2);
           break;
 
           case 5:
-            pMonsterInfo->uAC = atoi(v2);
+            pMonsterInfo->uAC = atoi((char *)v2);
           break;
 
 
           case 6:
             if (*(char *)v2 == ' ' || *(char *)v2 == '"')
               pMonsterInfo->uExp = 10;
-            else pMonsterInfo->uExp = atoi(v2);
+            else pMonsterInfo->uExp = atoi((char *)v2);
           break;
 
 
@@ -4319,7 +4444,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
             v111 = 0;
             v112 = 0;
             v16 = 0;
-            v113 = strlen(v2);
+            v113 = strlen((char *)v2);
 
             do
             {
@@ -4334,7 +4459,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
                   v112 = 1;
                   break;
                 case 108:
-                  v111 = (char *)1;
+                  v111 = (int)1;
                   break;
               }
               ++v16;
@@ -4342,7 +4467,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
             while ( v16 < v113 );
 
             if ( v15 )
-              pMonsterInfo->byte_000009 = atoi(v2);
+              pMonsterInfo->byte_000009 = atoi((char *)v2);
             else
               pMonsterInfo->byte_000009 = 100;
 
@@ -4357,7 +4482,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
                 if ( v20 == 37 )
                 {
                   v86 = v19 + v2 + 1;
-                  pMonsterInfo->byte_00000A = atoi(v86);
+                  pMonsterInfo->byte_00000A = atoi((char *)v86);
                   v112 = 1;
                 }
                 else
@@ -4365,10 +4490,10 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
                   if ( v20 == 100 )
                   {
                     if ( !v112 )
-                      pMonsterInfo->byte_00000A = atoi(v2);
+                      pMonsterInfo->byte_00000A = atoi((char *)v2);
                     v86 = v19 + v2 + 1;
                     v19 = v113;
-                    pMonsterInfo->byte_00000B = atoi(v86);
+                    pMonsterInfo->byte_00000B = atoi((char *)v86);
                   }
                 }
                 ++v19;
@@ -4390,7 +4515,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
               }
 
               v23 = *(_BYTE *)(v21 + v2 + 1);
-              v22 = (const char *)(v21 + v2 + 2);
+              v22 = (char *)(v21 + v2 + 2);
               pMonsterInfo->byte_00000C = v23 - 48;
               if ( *v22 )
               {
@@ -4450,7 +4575,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
 
 
           case 8:
-            pMonsterInfo->bQuestMonster = atoi(v2);
+            pMonsterInfo->bQuestMonster = atoi((char *)v2);
           break;
 
           case 9:
@@ -4516,11 +4641,11 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
           break;
 
           case 12:
-            pMonsterInfo->byte_000011 = atoi(v2);
+            pMonsterInfo->byte_000011 = atoi((char *)v2);
           break;
 
           case 13:
-            pMonsterInfo->uSpeed = atoi(v2);
+            pMonsterInfo->uSpeed = atoi((char *)v2);
           break;
 
           case 15:
@@ -4677,13 +4802,13 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
           break;
 
           case 14:
-            pMonsterInfo->uRecoveryTime = atoi(v2);
+            pMonsterInfo->uRecoveryTime = atoi((char *)v2);
           break;
 
           case 16:
-            v43 = strlen(v2);
+            v43 = strlen((char *)v2);
             v41 = 0;
-            v42 = pMonsterInfo;
+            v42 = (int)pMonsterInfo;
             v112 = v43;
             pMonsterInfo->byte_000014 = 1;
             if (v43 <= 0 )
@@ -4704,103 +4829,103 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
             *(_BYTE *)(v42 + 20) = atoi((const char *)(v44 + 1));
             *(_BYTE *)v44 = 100;
 LABEL_185:
-            _strlwr(v2);
-            if (strstr(v2, "curse"))
+            _strlwr((char *)v2);
+            if (strstr((char *)v2, "curse"))
               pMonsterInfo->uSpecialAttack = 1;
-            else if (strstr(v2, "weak"))
+            else if (strstr((char *)v2, "weak"))
               pMonsterInfo->uSpecialAttack = 2;
-            else if (strstr(v2, "asleep"))
+            else if (strstr((char *)v2, "asleep"))
               pMonsterInfo->uSpecialAttack = 3;
-            else if (strstr(v2, "afraid"))
+            else if (strstr((char *)v2, "afraid"))
               pMonsterInfo->uSpecialAttack = 23;
-            else if (strstr(v2, "drunk"))
+            else if (strstr((char *)v2, "drunk"))
               pMonsterInfo->uSpecialAttack = 4;
-            else if (strstr(v2, "insane"))
+            else if (strstr((char *)v2, "insane"))
               pMonsterInfo->uSpecialAttack = 5;
-            else if (strstr(v2, "poison1"))
+            else if (strstr((char *)v2, "poison1"))
               pMonsterInfo->uSpecialAttack = 6;
-            else if (strstr(v2, "poison2"))
+            else if (strstr((char *)v2, "poison2"))
               pMonsterInfo->uSpecialAttack = 7;
-            else if (strstr(v2, "poison3"))
+            else if (strstr((char *)v2, "poison3"))
               pMonsterInfo->uSpecialAttack = 8;
-            else if (strstr(v2, "disease1"))
+            else if (strstr((char *)v2, "disease1"))
               pMonsterInfo->uSpecialAttack = 9;
-            else if (strstr(v2, "disease2"))
+            else if (strstr((char *)v2, "disease2"))
               pMonsterInfo->uSpecialAttack = 10;
-            else if (strstr(v2, "disease3"))
+            else if (strstr((char *)v2, "disease3"))
               pMonsterInfo->uSpecialAttack = 11;
-            else if (strstr(v2, "paralyze"))
+            else if (strstr((char *)v2, "paralyze"))
               pMonsterInfo->uSpecialAttack = 12;
-            else if (strstr(v2, "uncon"))
+            else if (strstr((char *)v2, "uncon"))
               pMonsterInfo->uSpecialAttack = 13;
-            else if (strstr(v2, "dead"))
+            else if (strstr((char *)v2, "dead"))
               pMonsterInfo->uSpecialAttack = 14;
-            else if (strstr(v2, "stone"))
+            else if (strstr((char *)v2, "stone"))
               pMonsterInfo->uSpecialAttack = 15;
-            else if (strstr(v2, "errad"))
+            else if (strstr((char *)v2, "errad"))
               pMonsterInfo->uSpecialAttack = 16;
-            else if (strstr(v2, "brkitem"))
+            else if (strstr((char *)v2, "brkitem"))
               pMonsterInfo->uSpecialAttack = 17;
-            else if (strstr(v2, "brkarmor"))
+            else if (strstr((char *)v2, "brkarmor"))
               pMonsterInfo->uSpecialAttack = 18;
-            else if (strstr(v2, "brkweapon"))
+            else if (strstr((char *)v2, "brkweapon"))
               pMonsterInfo->uSpecialAttack = 19;
-            else if (strstr(v2, "steal"))
+            else if (strstr((char *)v2, "steal"))
               pMonsterInfo->uSpecialAttack = 20;
-            else if (strstr(v2, "age"))
+            else if (strstr((char *)v2, "age"))
               pMonsterInfo->uSpecialAttack = 21;
-            else if (strstr(v2, "drainsp"))
+            else if (strstr((char *)v2, "drainsp"))
               pMonsterInfo->uSpecialAttack = 22;
             else pMonsterInfo->uSpecialAttack = 0;
            break;
 
           case 17:
-            pMonsterInfo->uAttackType = sub_454CB4(v2);
+            pMonsterInfo->uAttackType = sub_454CB4((char *)v2);
           break;
 
           case 18:
-            sub_454D7D(v2, &pMonsterInfo->byte_000016, &pMonsterInfo->byte_000017, &pMonsterInfo->byte_000018);
+            sub_454D7D((char *)v2, &pMonsterInfo->byte_000016, &pMonsterInfo->byte_000017, &pMonsterInfo->byte_000018);
           break;
 
           case 19:
-            pMonsterInfo->uMissleType = sub_454E3A(v2);
+            pMonsterInfo->uMissleType = sub_454E3A((char *)v2);
           break;
 
           case 20:
-            pMonsterInfo->byte_00001A = atoi(v2);
+            pMonsterInfo->byte_00001A = atoi((char *)v2);
           break;
 
           case 21:
-            pMonsterInfo->uAttack2Type = sub_454CB4(v2);
+            pMonsterInfo->uAttack2Type = sub_454CB4((char *)v2);
           break;
 
           case 22:
-            sub_454D7D(v2, &pMonsterInfo->byte_00001C, &pMonsterInfo->byte_00001D, &pMonsterInfo->byte_00001E);
+            sub_454D7D((char *)v2, &pMonsterInfo->byte_00001C, &pMonsterInfo->byte_00001D, &pMonsterInfo->byte_00001E);
           break;
 
           case 23:
-            pMonsterInfo->uAttack2MissleType = sub_454E3A(v2);
+            pMonsterInfo->uAttack2MissleType = sub_454E3A((char *)v2);
           break;
 
           case 24:
-            pMonsterInfo->uSpell1UseChance = atoi(v2);
+            pMonsterInfo->uSpell1UseChance = atoi((char *)v2);
           break;
 
           case 0x19:
-            strcpy(Str, v2);
+            strcpy(Str, (char *)v2);
             Str[0] = 32;
             Str[strlen(Str) - 1] = 32;
-            sub_4BE3BF(Str, &splitter);
+            sub_4BE3BF((unsigned char *)Str, &splitter);
             if (splitter.uNumSubstrings >= 3)
             {
              v111 = 1;
              pMonsterInfo->uSpell1Type = sub_4548E2(&splitter, &v111);
-             pMonsterInfo->uSpell1Power = atoi(splitter.pSubstrings[2 + v111]) & 0x3F;
-             if (!_strcmpi(splitter.pSubstrings[1 + v111], "E"))
+             pMonsterInfo->uSpell1Power = atoi((char *)splitter.pSubstrings[2 + v111]) & 0x3F;
+             if (!_strcmpi((char *)splitter.pSubstrings[1 + v111], "E"))
                pMonsterInfo->uSpell1Power |= 0x40;
-             else if (!_strcmpi(splitter.pSubstrings[1 + v111], "M"))
+             else if (!_strcmpi((char *)splitter.pSubstrings[1 + v111], "M"))
                pMonsterInfo->uSpell1Power |= 0x80;
-             else if (!_strcmpi(splitter.pSubstrings[1 + v111], "G"))
+             else if (!_strcmpi((char *)splitter.pSubstrings[1 + v111], "G"))
                pMonsterInfo->uSpell1Power |= 0x100;
             }
             else
@@ -4812,24 +4937,24 @@ LABEL_185:
 
 
           case 0x1A:
-            pMonsterInfo->uSpell2UseChance = atoi(v2);
+            pMonsterInfo->uSpell2UseChance = atoi((char *)v2);
           break;
 
           case 0x1B:
-            strcpy(Str, v2);
+            strcpy(Str, (char *)v2);
             Str[0] = 32;
             Str[strlen(Str) - 1] = 32;
-            sub_4BE3BF(Str, &splitter);
+            sub_4BE3BF((unsigned char *)Str, &splitter);
             if (splitter.uNumSubstrings >= 3)
             {
              v111 = 1;
              pMonsterInfo->uSpell2Type = sub_4548E2(&splitter, &v111);
-             pMonsterInfo->uSpell2Power = atoi(splitter.pSubstrings[2 + v111]) & 0x3F;
-             if (!_strcmpi(splitter.pSubstrings[1 + v111], "E"))
+             pMonsterInfo->uSpell2Power = atoi((char *)splitter.pSubstrings[2 + v111]) & 0x3F;
+             if (!_strcmpi((char *)splitter.pSubstrings[1 + v111], "E"))
                pMonsterInfo->uSpell2Power |= 0x40;
-             else if (!_strcmpi(splitter.pSubstrings[1 + v111], "M"))
+             else if (!_strcmpi((char *)splitter.pSubstrings[1 + v111], "M"))
                pMonsterInfo->uSpell2Power |= 0x80;
-             else if (!_strcmpi(splitter.pSubstrings[1 + v111], "G"))
+             else if (!_strcmpi((char *)splitter.pSubstrings[1 + v111], "G"))
                pMonsterInfo->uSpell2Power |= 0x100;
             }
             else
@@ -4843,7 +4968,7 @@ LABEL_185:
             if (tolower(*(_BYTE *)v2) == 'i')
               v63 = 200;
             else
-              v63 = atoi(v2);
+              v63 = atoi((char *)v2);
             pMonsterInfo->uResistanceFire = v63;
           break;
 
@@ -4851,7 +4976,7 @@ LABEL_185:
             if (tolower(*(_BYTE *)v2) == 'i')
               v63 = 200;
             else
-              v63 = atoi(v2);
+              v63 = atoi((char *)v2);
             pMonsterInfo->uResistanceAir = v63;
           break;
 
@@ -4859,7 +4984,7 @@ LABEL_185:
             if (tolower(*(_BYTE *)v2) == 'i')
               v63 = 200;
             else
-              v63 = atoi(v2);
+              v63 = atoi((char *)v2);
             pMonsterInfo->uResistanceWater = v63;
           break;
 
@@ -4867,7 +4992,7 @@ LABEL_185:
             if (tolower(*(_BYTE *)v2) == 'i')
               v63 = 200;
             else
-              v63 = atoi(v2);
+              v63 = atoi((char *)v2);
             pMonsterInfo->uResistanceEarth = v63;
           break;
 
@@ -4875,7 +5000,7 @@ LABEL_185:
             if (tolower(*(_BYTE *)v2) == 'i')
               v63 = 200;
             else
-              v63 = atoi(v2);
+              v63 = atoi((char *)v2);
             pMonsterInfo->uResistanceMind = v63;
           break;
 
@@ -4883,7 +5008,7 @@ LABEL_185:
             if (tolower(*(_BYTE *)v2) == 'i')
               v63 = 200;
             else
-              v63 = atoi(v2);
+              v63 = atoi((char *)v2);
             pMonsterInfo->uResistanceSpirit = v63;
           break;
 
@@ -4891,7 +5016,7 @@ LABEL_185:
             if (tolower(*(_BYTE *)v2) == 'i')
               v63 = 200;
             else
-              v63 = atoi(v2);
+              v63 = atoi((char *)v2);
             pMonsterInfo->uResistanceBody = v63;
           break;
 
@@ -4899,7 +5024,7 @@ LABEL_185:
             if (tolower(*(_BYTE *)v2) == 'i')
               v63 = 200;
             else
-              v63 = atoi(v2);
+              v63 = atoi((char *)v2);
             pMonsterInfo->uResistanceLight = v63;
           break;
 
@@ -4907,7 +5032,7 @@ LABEL_185:
             if (tolower(*(_BYTE *)v2) == 'i')
               v63 = 200;
             else
-              v63 = atoi(v2);
+              v63 = atoi((char *)v2);
             pMonsterInfo->uResistanceDark = v63;
           break;
 
@@ -4915,18 +5040,18 @@ LABEL_185:
             if (tolower(*(_BYTE *)v2) == 'i')
               v63 = 200;
             else
-              v63 = atoi(v2);
+              v63 = atoi((char *)v2);
             pMonsterInfo->uResistancePhysical = v63;
           break;
 
           case 0x26:
           break;
-            strcpy(Str, v2);
+            strcpy(Str, (char *)v2);
             Str[0] = ' ';
             Str[strlen(Str) - 1] = ' ';
 
 
-            sub_4BE3BF(Str, &splitter);
+            sub_4BE3BF((unsigned char *)Str, &splitter);
             if (splitter.uNumSubstrings)
             {
               v73 = splitter.uNumSubstrings;
@@ -4943,8 +5068,8 @@ LABEL_185:
                       v86 = v78 + 49;
                       v85 = v78 + 48;
                       pMonsterInfo->byte_00002E = 3;
-                      sub_454D7D(splitter.pSubstrings[2], &pMonsterInfo->byte_00002E, pMonsterInfo->byte_000030, pMonsterInfo->byte_000031);
-                      pMonsterInfo->word_00003C = sub_454CB4((int *)v2);
+                      sub_454D7D((char *)splitter.pSubstrings[2], &pMonsterInfo->byte_00002E, (unsigned char *)&pMonsterInfo->byte_000030, (unsigned char *)&pMonsterInfo->byte_000031);
+                      pMonsterInfo->word_00003C = sub_454CB4((char *)v2);
                     }
                   }
                   else
@@ -4954,7 +5079,7 @@ LABEL_185:
                     if ( v73 > 1 )
                     {
                       TmpBuf[0] = 0;
-                      strcpy(TmpBuf, Source);
+                      strcpy((char *)TmpBuf, Source);
                       if ( v73 > 2 )
                       {
                         v112 = 3;
@@ -4962,10 +5087,10 @@ LABEL_185:
                         {
                           do
                           {
-                            strcat(TmpBuf, L" ");
+                            strcat((char *)TmpBuf, " ");
                             v76 = (&v104)[4 * v112];
                             v84 = (int)(&v104)[4 * v112];
-                            strcat(TmpBuf, (const char *)v84);
+                            strcat((char *)TmpBuf, (const char *)v84);
                             if ( v112 == v103 - 1 )
                             {
                               v86 = (unsigned __int8)*v76;
@@ -5001,18 +5126,18 @@ LABEL_185:
                       }
                       if (pMonsterDescriptionList->uNumDescriptions)
                       {
-                        LOWORD(v77) = sub_44FA08(pMonsterDescriptionList, &TmpBuf);
+                        LOWORD(v77) = sub_44FA08(pMonsterDescriptionList, (char *)TmpBuf);
                         ++v77;
                         *(_WORD *)(v75 + 60) = v77;
                         if ( (_WORD)v77 == -1 )
                         {
                           v86 = (int)&v90;
-                          sprintfex(&v90, "Can't create random monster: '%s' See MapStats!", &v90);
+                          wsprintfA(&v90, "Can't create random monster: '%s' See MapStats!", &v90);
                           v86 = 2239;
                           v85 = (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Itemdata.cpp";
-                          v111 = &v81;
-                          sub_40E2C8(&v81, &v90, (int)((char *)&v110 + 3));
-                          sub_466D09(&v107, *(int *)&v81, v82, v83, v84, (const char *)v85, v86);
+                          v111 = (int)&v81;
+                          Game_sub_40E2C8(&v81, &v90, (int)((char *)&v110 + 3));
+                          sub_466D09(&v107, *(int *)&v81, v82, v83, v84, (const char *)v85, __LINE__);
                           v107 = 5080748;
                         }
                       }
@@ -5053,44 +5178,6 @@ LABEL_185:
   return _this->uNumMonsters;
 }
 
-//----- (00454CB4) --------------------------------------------------------
-int sub_454CB4(const char *pString)
-{
-  int result; // eax@4
-  int v3; // eax@15
-  int v4; // eax@18
-
-  if ( !pString )
-    return 4;
-  if ( tolower(*pString) == 102 )
-    return 0;
-  if ( tolower(*pString) == 97 )
-    return 1;
-  if ( tolower(*pString) == 119 )
-    return 2;
-  if ( tolower(*pString) == 101 )
-  {
-    tolower(pString[1]);
-    return 3;
-  }
-  if ( tolower(*pString) == 115 )
-    return 6;
-  if ( tolower(*pString) == 109 )
-  {
-    v3 = -(tolower(pString[1]) != 105);
-    LOBYTE(v3) = v3 & 0xFE;
-    result = v3 + 7;
-  }
-  else
-  {
-    if ( tolower(*pString) == 108 )
-      return 9;
-    v4 = -(tolower(*pString) != 100);
-    LOBYTE(v4) = v4 & 0xFA;
-    result = v4 + 10;
-  }
-  return result;
-}
 
 //----- (00454D7D) --------------------------------------------------------
 char __fastcall sub_454D7D(const char *Str, unsigned char *a2, unsigned char *a3, unsigned char *a4)
@@ -5104,11 +5191,11 @@ char __fastcall sub_454D7D(const char *Str, unsigned char *a2, unsigned char *a3
   int v11; // [sp+10h] [bp-8h]@1
   signed int v12; // [sp+14h] [bp-4h]@1
 
-  v6 = a2;
+  v6 = (int)a2;
   v5 = Str;
   *(_BYTE *)a2 = 0;
   *(_BYTE *)a3 = 1;
-  v11 = a2;
+  v11 = (int)a2;
   *(_BYTE *)a4 = 0;
   v4 = 0;
   v10 = strlen(Str);
@@ -5149,103 +5236,13 @@ LABEL_9:
       if ( (_BYTE)v8 <= 0x39u )
       {
         *(_BYTE *)v6 = atoi(v5);
-        LOBYTE(v8) = a3;
+        LOBYTE(v8) = (int)a3;
         *(_BYTE *)a3 = 1;
       }
     }
   }
   return v8;
 }
-
-//----- (00454E3A) --------------------------------------------------------
-signed int __thiscall sub_454E3A(const char *Str1)
-{
-  int v1; // edi@1
-  const char *v2; // esi@1
-  signed int v4; // [sp-4h] [bp-Ch]@4
-
-  v2 = Str1;
-  v1 = 0;
-  if ( _strcmpi(Str1, "ARROW") )
-  {
-    if ( _strcmpi(v2, "ARROWF") )
-    {
-      if ( _strcmpi(v2, "FIRE") )
-      {
-        if ( _strcmpi(v2, "AIR") )
-        {
-          if ( _strcmpi(v2, "WATER") )
-          {
-            if ( _strcmpi(v2, "EARTH") )
-            {
-              if ( _strcmpi(v2, "SPIRIT") )
-              {
-                if ( _strcmpi(v2, "MIND") )
-                {
-                  if ( _strcmpi(v2, "BODY") )
-                  {
-                    if ( _strcmpi(v2, "LIGHT") )
-                    {
-                      if ( _strcmpi(v2, "DARK") )
-                      {
-                        if ( _strcmpi(v2, "ENER") )
-                          return v1;
-                        v4 = 13;
-                      }
-                      else
-                      {
-                        v4 = 11;
-                      }
-                    }
-                    else
-                    {
-                      v4 = 10;
-                    }
-                  }
-                  else
-                  {
-                    v4 = 9;
-                  }
-                }
-                else
-                {
-                  v4 = 8;
-                }
-              }
-              else
-              {
-                v4 = 7;
-              }
-            }
-            else
-            {
-              v4 = 6;
-            }
-          }
-          else
-          {
-            v4 = 5;
-          }
-        }
-        else
-        {
-          v4 = 4;
-        }
-      }
-      else
-      {
-        v4 = 3;
-      }
-    }
-    else
-    {
-      v4 = 2;
-    }
-    return v4;
-  }
-  return 1;
-}
-
 
 //----- (004548E2) --------------------------------------------------------
 unsigned int __fastcall sub_4548E2(struct StringSplitter *pStrings, int *a2)
@@ -5261,92 +5258,92 @@ unsigned int __fastcall sub_4548E2(struct StringSplitter *pStrings, int *a2)
  if (!pStrings->pSubstrings[0])
    return 0;
 
- if (!_strcmpi(pStrings->pSubstrings[0], "Dispel"))
+ if (!_strcmpi((char *)pStrings->pSubstrings[0], "Dispel"))
  {
   return 80;
  }
- else if (!_strcmpi(pStrings->pSubstrings[0], "Day"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Day"))
  {
   *a2 += 1;
   return 85;
  }
- else if (!_strcmpi(pStrings->pSubstrings[0], "Hour"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Hour"))
  {
   *a2 += 1;
   return 86;
  }
- else if (!_strcmpi(pStrings->pSubstrings[0], "Shield"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Shield"))
  {
   *a2 += 1;
   return 17;
  }
- else if (!_strcmpi(pStrings->pSubstrings[0], "Spirit"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Spirit"))
    return 52;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Power"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Power"))
    return 77;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Meteor"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Meteor"))
    return 9;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Lightning"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Lightning"))
    return 18;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Implosion"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Implosion"))
    return 20;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Stone"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Stone"))
    return 38;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Haste"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Haste"))
    return 5;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Heroism"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Heroism"))
    return 51;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Pain"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Pain"))
    return 95;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Sparks"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Sparks"))
    return 15;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Light"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Light"))
    return 78;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Toxic"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Toxic"))
    return 90;
- else if (!_strcmpi(pStrings->pSubstrings[0], "ShrapMetal"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "ShrapMetal"))
    return 93;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Paralyze"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Paralyze"))
    return 81;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Fireball"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Fireball"))
    return 6;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Incinerate"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Incinerate"))
    return 11;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Fire"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Fire"))
    return 2;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Rock"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Rock"))
    return 41;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Mass"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Mass"))
    return 44;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Ice"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Ice"))
    return 26;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Acid"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Acid"))
    return 29;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Bless"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Bless"))
    return 46;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Dragon"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Dragon"))
    return 97;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Reanimate"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Reanimate"))
    return 89;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Summon"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Summon"))
    return 82;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Fate"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Fate"))
    return 47;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Harm"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Harm"))
    return 70;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Mind") )
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Mind") )
    return 57;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Blades"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Blades"))
    return 39;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Psychic") )
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Psychic") )
    return 65;
- else if (!_strcmpi(pStrings->pSubstrings[0], "Hammerhands"))
+ else if (!_strcmpi((char *)pStrings->pSubstrings[0], "Hammerhands"))
    return 73;
  else
  {
-  sprintfex(TmpBuf, "Unknown monster spell %s", pStrings->pSubstrings[0]);
+  wsprintfA((char *)TmpBuf, "Unknown monster spell %s", pStrings->pSubstrings[0]);
   v11 = &v5;
-  sub_40E2C8(&v5, TmpBuf, (int)&v12);
+  Game_sub_40E2C8(&v5, (char *)TmpBuf, (int)&v12);
   sub_466D09(&v11, *(int *)&v5, v6, v7, v8, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Itemdata.cpp", 1562);
   *a2 += 1;
   return 0;
@@ -5372,8 +5369,8 @@ char *CMonsterStats_LoadMonsterPlacements(struct CMonsterStats *_this)
 
   v1 = 0;
 
- pMonsterPlacementTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "placemon.txt", 0);
- strtok(pMonsterPlacementTXT_Raw, "\r");
+ pMonsterPlacementTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "placemon.txt", 0);
+ strtok((char *)pMonsterPlacementTXT_Raw, "\r");
 
  v8 = 30;
 
@@ -5412,7 +5409,7 @@ char *CMonsterStats_LoadMonsterPlacements(struct CMonsterStats *_this)
       else
       {
         if ( v11 == (char *)1 )
-          _this->sPlacements.pSubstrings[i] = sub_452C30(result);
+          _this->sPlacements.pSubstrings[i] = (unsigned char *)sub_452C30(result);
       }
       ++v11;
       result = (char *)(v6 + 1);
@@ -5456,10 +5453,10 @@ char *CSpellStats_Initialize(struct CSpellStats *_this)
 
   v1 = _this;
  if (pSpellsTXT_Raw)
-   class23_DeleteBuffer(class23_instance, pSpellsTXT_Raw);
+   class23_DeleteBuffer(pClass23, (void *)pSpellsTXT_Raw);
 
- pSpellsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "spells.txt", 0);
- strtok(pSpellsTXT_Raw, "\r");
+ pSpellsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "spells.txt", 0);
+ strtok((char *)pSpellsTXT_Raw, "\r");
  strtok(0, "\r");
 
   v15 = 1;
@@ -5491,7 +5488,7 @@ char *CSpellStats_Initialize(struct CSpellStats *_this)
      switch ( v4 )
      {
       case 2:
-        pSpellInfo->pSpellName = sub_452C30(v5);
+        pSpellInfo->pSpellName = (unsigned char *)sub_452C30(v5);
       break;
 
       case 3:
@@ -5520,27 +5517,27 @@ char *CSpellStats_Initialize(struct CSpellStats *_this)
       break;
 
       case 4:
-        pSpellInfo->pSpellNameShort = sub_452C30(v5);
+        pSpellInfo->pSpellNameShort = (unsigned char *)sub_452C30(v5);
       break;
 
       case 5:
-        pSpellInfo->pSpellDescription = sub_452C30(v5);
+        pSpellInfo->pSpellDescription = (unsigned char *)sub_452C30(v5);
       break;
 
       case 6:
-        pSpellInfo->pSpellBasicSkillDesc = sub_452C30(v5);
+        pSpellInfo->pSpellBasicSkillDesc = (unsigned char *)sub_452C30(v5);
       break;
 
       case 7:
-        pSpellInfo->pSpellExpertSkillDesc = sub_452C30(v5);
+        pSpellInfo->pSpellExpertSkillDesc = (unsigned char *)sub_452C30(v5);
       break;
 
       case 8:
-        pSpellInfo->pSpellMasterSkillDesc = sub_452C30(v5);
+        pSpellInfo->pSpellMasterSkillDesc = (unsigned char *)sub_452C30(v5);
       break;
 
       case 9:
-        pSpellInfo->pSpellGrandmasterSkillDesc = sub_452C30(v5);
+        pSpellInfo->pSpellGrandmasterSkillDesc = (unsigned char *)sub_452C30(v5);
       break;
 
       case 10:
@@ -5618,10 +5615,10 @@ void class40_LoadPotionsTable(struct class40 *_this)
   v9 = _this;
 
  if (pPotionsTXT_Raw)
-   class23_DeleteBuffer(class23_instance, pPotionsTXT_Raw);
+   class23_DeleteBuffer(pClass23, (void *)pPotionsTXT_Raw);
 
- pPotionsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "potion.txt", 0);
- for (i = strtok(pPotionsTXT_Raw, "\t\r\n"); ; i = strtok(0, "\t\r\n"))
+ pPotionsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "potion.txt", 0);
+ for (i = strtok((char *)pPotionsTXT_Raw, "\t\r\n"); ; i = strtok(0, "\t\r\n"))
  {
   if (!strcmp(i, "222"))
     break;
@@ -5694,7 +5691,7 @@ void class40_LoadPotionsTable(struct class40 *_this)
 
   if (pPotionsTXT_Raw)
   {
-    class23_DeleteBuffer(class23_instance, pPotionsTXT_Raw);
+    class23_DeleteBuffer(pClass23, (void *)pPotionsTXT_Raw);
     pPotionsTXT_Raw = 0;
   }
 }
@@ -5718,12 +5715,12 @@ void class40_LoadPotionNotes(struct class40 *_this)
   v10 = _this;
 
  if (pPotionNotesTXT_Raw)
-   class23_DeleteBuffer(class23_instance, pPotionNotesTXT_Raw);
+   class23_DeleteBuffer(pClass23, (void *)pPotionNotesTXT_Raw);
 
  pPotionNotesTXT_Raw = 0;
- pPotionNotesTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "potnotes.txt", 0);
+ pPotionNotesTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "potnotes.txt", 0);
 
- for ( i = strtok(pPotionNotesTXT_Raw, "\t\r\n"); ; i = strtok(0, "\t\r\n") )
+ for ( i = strtok((char *)pPotionNotesTXT_Raw, "\t\r\n"); ; i = strtok(0, "\t\r\n") )
  {
     v13 = i;
     if ( !strcmp(i, "222") )
@@ -5830,11 +5827,11 @@ int class48_Initialize(struct class48 *_this)
   v11 = _this;
 
  if (pHostileTXT_Raw)
-   class23_DeleteBuffer(class23_instance, pHostileTXT_Raw);
+   class23_DeleteBuffer(pClass23, (void *)pHostileTXT_Raw);
 
- pHostileTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "hostile.txt", 0);
+ pHostileTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "hostile.txt", 0);
 
- strtok(pHostileTXT_Raw, "\r");
+ strtok((char *)pHostileTXT_Raw, "\r");
  v9 = 0;
   do
   {
@@ -5884,10 +5881,10 @@ int class48_Initialize(struct class48 *_this)
 
   if (pHostileTXT_Raw)
   {
-    class23_DeleteBuffer(class23_instance, pHostileTXT_Raw);
+    class23_DeleteBuffer(pClass23, (void *)pHostileTXT_Raw);
     pHostileTXT_Raw = 0;
   }
-  return pHostileTXT_Raw;
+  return (int)pHostileTXT_Raw;
 }
 
 
@@ -5912,10 +5909,10 @@ int StorylineText_Initialize(struct StorylineText *_this)
   v2 = _this;
 
  if (pHistoryTXT_Raw)
-    class23_DeleteBuffer(class23_instance, pHistoryTXT_Raw);
+    class23_DeleteBuffer(pClass23, (void *)pHistoryTXT_Raw);
 
- pHistoryTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "history.txt", 0);
- strtok(pHistoryTXT_Raw, "\r");
+ pHistoryTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "history.txt", 0);
+ strtok((char *)pHistoryTXT_Raw, "\r");
 
   v12 = (int)((char *)v2 + 20);
   v9 = 29;
@@ -5951,7 +5948,7 @@ int StorylineText_Initialize(struct StorylineText *_this)
       {
         if ( v11 == (char *)1 )
         {
-          *(_DWORD *)(v12 - 8) = sub_452C30(v3);
+          *(_DWORD *)(v12 - 8) = (int)sub_452C30(v3);
         }
         else
         {
@@ -5962,7 +5959,7 @@ int StorylineText_Initialize(struct StorylineText *_this)
           else
           {
             if ( v11 - 2 == (char *)1 )
-              *(_DWORD *)(v12 - 4) = sub_452C30(v3);
+              *(_DWORD *)(v12 - 4) = (int)sub_452C30(v3);
           }
         }
       }
@@ -6030,7 +6027,7 @@ int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2)
 
          v23 = class18_obj.ptr_000044[v4 + 2] * 0.003921568859368563;
 
-          sub_48A7AA(&v17, &v19, v21, v20, v23, &v22);
+          sub_48A7AA((float *)&v17, (float *)&v19, v21, v20, v23, (float *)&v22);
           v5 = *(float *)&v22 * 1.100000023841858;
           if ( v5 >= 0.0 && v5 >= 1.0 )
           {
@@ -6063,7 +6060,7 @@ int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2)
           v4 += 3;
         }
         while ( v4 < 768 );
-        sub_40F77C((int)struct_505898.Dest);
+        class18_sub_40F77C(&struct_505898.Dest);
         result = sub_48A5A4(v16, a2, (int)&v10);
       }
       else
@@ -6111,11 +6108,11 @@ unsigned int LODFile_LoadSprite(struct LODFile *_this, const char *pSourceFile, 
  int i;
 
 
- v4 = _this;
+ v4 = (int)_this;
  if (pD3DRenderer->pRenderD3D3)
  {
   for (i = 0; i < _this->uNumLoadedSprites; ++i)
-   if (!strcmpi(_this->pHardwareSprites[i].pSpriteName, pSourceFile))
+   if (!strcmpi((char *)_this->pHardwareSprites[i].pSpriteName, pSourceFile))
       return i;
  }
  else for (i = 0; i < _this->uNumLoadedSprites; ++i)
@@ -6130,9 +6127,9 @@ unsigned int LODFile_LoadSprite(struct LODFile *_this, const char *pSourceFile, 
  {
   if (!_this->pHardwareSprites)
   {
-   _this->pHardwareSprites = class23_AllocatedNamedBuffer(class23_instance, 0, 3000 * sizeof(struct HardwareSprite), "hardwareSprites");
+   _this->pHardwareSprites = (HardwareSprite *)class23_AllocatedNamedBuffer(pClass23, 0, 3000 * sizeof(struct HardwareSprite), "hardwareSprites");
 
-   for (i = 0; i < 150; ++i)
+   for (i = 0; i < 3000; ++i)
    {
     _this->pHardwareSprites[i].pSpriteName = 0;
     _this->pHardwareSprites[i].pTexture = 0;
@@ -6146,7 +6143,7 @@ unsigned int LODFile_LoadSprite(struct LODFile *_this, const char *pSourceFile, 
     local_0C.v20 = 0;
     local_0C.v21 = 0;
     v24 = 0;
-    v8 = LODFile_FindContainer(_this, pSourceFile, 0);
+    v8 = (int)LODFile_FindContainer(_this, pSourceFile, 0);
     if ( !v8 )
     {
       v24 = -1;
@@ -6154,7 +6151,7 @@ unsigned int LODFile_LoadSprite(struct LODFile *_this, const char *pSourceFile, 
       return -1;
     }
 
-    locked_fread(&local_0C, 1u, 0x20, v8);
+    locked_fread(&local_0C, 1u, 0x20, (FILE *)v8);
     v24 = -1;
     _this->pHardwareSprites[_this->uNumLoadedSprites].dword_000018 = local_0C.v16;
     _this->pHardwareSprites[_this->uNumLoadedSprites].dword_00001C = local_0C.v17;
@@ -6174,8 +6171,8 @@ LABEL_28:
 LABEL_29:
     if (pD3DRenderer->pRenderD3D3)
     {
-     _this->pHardwareSprites[_this->uNumLoadedSprites].pSpriteName = class23_AllocatedNamedBuffer(&class23_instance, _this->pHardwareSprites[_this->uNumLoadedSprites].pSpriteName, 20, pSourceFile);
-     strcpy(_this->pHardwareSprites[_this->uNumLoadedSprites].pSpriteName, pSourceFile);
+     _this->pHardwareSprites[_this->uNumLoadedSprites].pSpriteName = (unsigned char *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pHardwareSprites[_this->uNumLoadedSprites].pSpriteName, 20, pSourceFile);
+     strcpy((char *)_this->pHardwareSprites[_this->uNumLoadedSprites].pSpriteName, pSourceFile);
      _this->pHardwareSprites[_this->uNumLoadedSprites].dword_000004 = a3;
      Render_MoveHWSpriteToVideoMemory(pD3DRenderer, &_this->pHardwareSprites[_this->uNumLoadedSprites]);
     }
@@ -6244,11 +6241,11 @@ void CNPCStats_Initialize(struct CNPCStats *_this)
 
   _this->dword_017FC0 = 0;
 
- _this->pNPCNamesTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npcnames.txt", 0);
- strtok(_this->pNPCNamesTXT_Raw, "\r");
+ _this->pNPCNamesTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npcnames.txt", 0);
+ strtok((char *)_this->pNPCNamesTXT_Raw, "\r");
 
   v19 = 0;
-  v17 = _this->pNPCNames;
+  v17 = (unsigned char **)_this->pNPCNames;
   while ( 1 )
   {
     v4 = strtok(0, "\r") + 1;
@@ -6277,11 +6274,11 @@ void CNPCStats_Initialize(struct CNPCStats *_this)
         if ( v21 )
         {
           if ( v21 == 1 )
-            v17[1] = sub_452C30(v4);
+            v17[1] = (unsigned char *)sub_452C30(v4);
         }
         else
         {
-          v17[0] = sub_452C30(v4);
+          v17[0] = (unsigned char *)sub_452C30(v4);
         }
       }
       else
@@ -6306,8 +6303,8 @@ LABEL_45:
 
 
 
-  _this->pNPCProfTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npcprof.txt", 0);
-  strtok(_this->pNPCProfTXT_Raw, "\r");
+  _this->pNPCProfTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npcprof.txt", 0);
+  strtok((char *)_this->pNPCProfTXT_Raw, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
@@ -6344,16 +6341,16 @@ LABEL_45:
             _this->pProfessions[i].uHireCost = atoi(v9);
             break;
           case 3:
-            _this->pProfessions[i].pActionText = sub_452C30(v9);
+            _this->pProfessions[i].pActionText = (unsigned char *)sub_452C30(v9);
             break;
           case 4:
-            _this->pProfessions[i].pBenefits = sub_452C30(v9);
+            _this->pProfessions[i].pBenefits = (unsigned char *)sub_452C30(v9);
             break;
           case 5:
-            _this->pProfessions[i].pJoinText = sub_452C30(v9);
+            _this->pProfessions[i].pJoinText = (unsigned char *)sub_452C30(v9);
             break;
           case 6:
-            _this->pProfessions[i].pDismissText = sub_452C30(v9);
+            _this->pProfessions[i].pDismissText = (unsigned char *)sub_452C30(v9);
             break;
         }
       }
@@ -6378,7 +6375,7 @@ LABEL_45:
 
 
 //----- (00476CB5) --------------------------------------------------------
-void *CNPCStats_sub_476CB5(struct CNPCStats *_this)
+void CNPCStats_sub_476CB5(struct CNPCStats *_this)
 {
   void *v2; // esi@1
   char *v4; // eax@2
@@ -6409,8 +6406,8 @@ void *CNPCStats_sub_476CB5(struct CNPCStats *_this)
 
   v2 = _this;
 
- _this->pNPCDataTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npcdata.txt", 0);
- strtok(_this->pNPCDataTXT_Raw, "\r");
+ _this->pNPCDataTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npcdata.txt", 0);
+ strtok((char *)_this->pNPCDataTXT_Raw, "\r");
  strtok(0, "\r");
 
  for (i = 0; i < 501; ++i)
@@ -6437,8 +6434,8 @@ void *CNPCStats_sub_476CB5(struct CNPCStats *_this)
         switch ( v40 )
         {
           case 0:
-            _this->pNPCData[i].pNPCName = sub_452C30(v4);
-            _this->pNPCNames2[i] = sub_452C30(v4);
+            _this->pNPCData[i].pNPCName = (unsigned char *)sub_452C30(v4);
+            _this->pNPCNames2[i] = (unsigned char *)sub_452C30(v4);
             break;
           case 1:
             _this->pNPCData[i].uPortraitID = atoi(v4);
@@ -6485,8 +6482,8 @@ void *CNPCStats_sub_476CB5(struct CNPCStats *_this)
  _this->dword_017FC4 = 501;
 
 
- _this->pNPCGreetTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npcgreet.txt", 0);
- strtok(_this->pNPCGreetTXT_Raw, "\r");
+ _this->pNPCGreetTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npcgreet.txt", 0);
+ strtok((char *)_this->pNPCGreetTXT_Raw, "\r");
 
  for (i = 0; i < 206; ++i)
  {
@@ -6509,9 +6506,9 @@ void *CNPCStats_sub_476CB5(struct CNPCStats *_this)
       if ( v11 )
       {
         if ( v41 == 1 )
-          _this->pNPCGreetings[i].pGreeting1 = sub_452C30(v10);
+          _this->pNPCGreetings[i].pGreeting1 = (unsigned char *)sub_452C30(v10);
         else if (v41 == 2)
-          _this->pNPCGreetings[i].pGreeting2 = sub_452C30(v10);
+          _this->pNPCGreetings[i].pGreeting2 = (unsigned char *)sub_452C30(v10);
       }
       ++v41;
       v10 = (char *)(v13 + 1);
@@ -6519,8 +6516,8 @@ void *CNPCStats_sub_476CB5(struct CNPCStats *_this)
     while ( v41 <= 2 && !v37 );
   }
 
- _this->pNCPGroupTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npcgroup.txt", 0);
- strtok(_this->pNCPGroupTXT_Raw, "\r");
+ _this->pNCPGroupTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npcgroup.txt", 0);
+ strtok((char *)_this->pNCPGroupTXT_Raw, "\r");
 
  for (i = 0; i < 51; ++i)
  {
@@ -6551,8 +6548,8 @@ void *CNPCStats_sub_476CB5(struct CNPCStats *_this)
     while ( v42 <= 1 && !v38 );
   }
 
- _this->pNPCNewsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npcnews.txt", 0);
- strtok(_this->pNPCNewsTXT_Raw, "\r");
+ _this->pNPCNewsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npcnews.txt", 0);
+ strtok((char *)_this->pNPCNewsTXT_Raw, "\r");
 
  for (i = 0; i < 52; ++i)
  {
@@ -6575,7 +6572,7 @@ void *CNPCStats_sub_476CB5(struct CNPCStats *_this)
       if ( v24 )
       {
         if ( v43 == 1 )
-          _this->pCatchPhrases[i] = sub_452C30(result);
+          _this->pCatchPhrases[i] = (unsigned char *)sub_452C30(result);
       }
       ++v43;
       result = (char *)(v25 + 1);
@@ -6622,12 +6619,12 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
   signed int v31; // [sp+18h] [bp-8h]@37
   int v32; // [sp+1Ch] [bp-4h]@37
 
-  v2 = _this;
+  v2 = (int)_this;
   if (_this->pNPCTextTXT_Raw)
-    class23_DeleteBuffer(class23_instance, _this->pNPCTextTXT_Raw);
+    class23_DeleteBuffer(pClass23, (void *)_this->pNPCTextTXT_Raw);
 
-  _this->pNPCTextTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npctext.txt", 0);
-  strtok(_this->pNPCTextTXT_Raw, "\r");
+  _this->pNPCTextTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npctext.txt", 0);
+  strtok((char *)_this->pNPCTextTXT_Raw, "\r");
   //v29 = (signed int)&unk_72166C;
   v29 = 0;
   do
@@ -6661,7 +6658,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
       else
       {
         if ( v23 == 1 )
-          *(_DWORD *)(unk_72166C + v29) = sub_452C30(v4);
+          *(_DWORD *)(unk_72166C + v29) = (int)sub_452C30(v4);
       }
       ++v23;
       v4 = (char *)(v7 + 1);
@@ -6673,10 +6670,10 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
   while (v29 < 0x18A8);
 
  if (_this->pNPCTopicTXT_Raw)
-   class23_DeleteBuffer(class23_instance, _this->pNPCTopicTXT_Raw);
+   class23_DeleteBuffer(pClass23, (void *)_this->pNPCTopicTXT_Raw);
 
- _this->pNPCTopicTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npctopic.txt", 0);
- strtok(_this->pNPCTopicTXT_Raw, "\r");
+ _this->pNPCTopicTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npctopic.txt", 0);
+ strtok((char *)_this->pNPCTopicTXT_Raw, "\r");
 
   //v30 = (signed int)&unk_721668;
   v30 = 0;
@@ -6711,7 +6708,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
       else
       {
         if ( v24 == 1 )
-          *(_DWORD *)(unk_721668 + v30) = sub_452C30(v9);
+          *(_DWORD *)(unk_721668 + v30) = (int)sub_452C30(v9);
       }
       ++v24;
       v9 = (char *)(v12 + 1);
@@ -6724,15 +6721,15 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
 
 
  if (_this->pNPCDistTXT_Raw)
-   class23_DeleteBuffer(class23_instance, _this->pNPCDistTXT_Raw);
+   class23_DeleteBuffer(pClass23, (void *)_this->pNPCDistTXT_Raw);
 
- _this->pNPCDistTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "npcdist.txt", 0);
- strtok(_this->pNPCDistTXT_Raw, "\r");
+ _this->pNPCDistTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npcdist.txt", 0);
+ strtok((char *)_this->pNPCDistTXT_Raw, "\r");
  strtok(0, "\r");
 
  v1 = 0;
   v31 = 1;
-  v32 = _this->unk_016544 + 5;
+  v32 = (int)_this->unk_016544 + 5;
   while ( 2 )
   {
     v14 = strtok(0, "\r") + 1;
@@ -6790,7 +6787,7 @@ LABEL_54:
     }
     break;
   }
-  v19 = _this->unk_016544;
+  v19 = (int)_this->unk_016544;
   v20 = 77;
   do
   {
@@ -6806,7 +6803,7 @@ LABEL_54:
 
  if (_this->pNPCDistTXT_Raw)
  {
-  class23_DeleteBuffer(class23_instance, _this->pNPCDistTXT_Raw);
+  class23_DeleteBuffer(pClass23, (void *)_this->pNPCDistTXT_Raw);
   _this->pNPCDistTXT_Raw = 0;
  }
  return 0;
@@ -6851,7 +6848,7 @@ void ItemGen_Reset(struct ItemGen *_this)
 
 
 //----- (00456620) --------------------------------------------------------
-char sub_456620(struct class40 *_this, int a2, signed int a3, unsigned int *Dst)
+char class40_sub_456620(struct class40 *_this, int a2, signed int a3, unsigned int *Dst)
 {
   void *v4; // edi@1
   unsigned char *v5; // esi@1
@@ -6915,9 +6912,9 @@ char sub_456620(struct class40 *_this, int a2, signed int a3, unsigned int *Dst)
   v52 = -1;
   v4 = _this;
 
-  v5 = Dst;
+  v5 = (unsigned char *)Dst;
   if (!v5)
-    v5 = class23_AllocatedNamedBuffer(class23_instance, 0, 0x24, "newItemGen");
+    v5 = (unsigned char *)class23_AllocatedNamedBuffer(pClass23, 0, 0x24, "newItemGen");
   memset(v5, 0, 0x24);
 
   v6 = a2 - 1;
@@ -6959,12 +6956,12 @@ char sub_456620(struct class40 *_this, int a2, signed int a3, unsigned int *Dst)
     memset(v50, 0, 0xC80);
 
     v51 = 0;
-    v7 = v50;
+    v7 = (int *)v50;
     v60 = 1;
     if ( v52 == -1 )
     {
-     v52 = &_this->pItems[0].uEquipType;//(int)((char *)_this + 80);
-     v9 = &_this->pItems[0].byte_00002C[v6];//(int)((char *)_this + v6 + 92)
+     v52 = (int)&_this->pItems[0].uEquipType;//(int)((char *)_this + 80);
+     v9 = (int)&_this->pItems[0].byte_00002C[v6];//(int)((char *)_this + v6 + 92)
       do
       {
         if ( *(_BYTE *)v52 == a3 )
@@ -6981,8 +6978,8 @@ char sub_456620(struct class40 *_this, int a2, signed int a3, unsigned int *Dst)
     }
     else
     {
-     v54 = &_this->pItems[0].uSkillType;//(int)((char *)_this + 81);
-     v8 = &_this->pItems[0].byte_00002C[v6];//(int)((char *)_this + v6 + 92)
+     v54 = (int)&_this->pItems[0].uSkillType;//(int)((char *)_this + 81);
+     v8 = (int)&_this->pItems[0].byte_00002C[v6];//(int)((char *)_this + v6 + 92)
       do
       {
         if ( *(_BYTE *)v54 == v52 )
@@ -7003,11 +7000,11 @@ char sub_456620(struct class40 *_this, int a2, signed int a3, unsigned int *Dst)
     v5 = v50;
     if ( !v50 )
       *(_DWORD *)v5 = 1;
-    v11 = (char *)(&_this->pItems[*(_DWORD *)v5 - 1]) + v53 + 44;
+    v11 = (int)(&_this->pItems[*(_DWORD *)v5 - 1]) + v53 + 44;
     //v11 = *((_BYTE *)v4 + 48 * *(_DWORD *)v5 + v53 + 44);
     if ( v11 < v10 )
     {
-      v12 = &v50;
+      v12 = (int *)&v50;
       do
       {
         ++v12;
@@ -7048,7 +7045,7 @@ LABEL_72:
       byte_ACD772[v17] = 1;
       *(_DWORD *)(v5 + 20) = 0;
       *(_DWORD *)v5 = v17 + 500;
-      LOBYTE(v18) = sub_456D17(_this, v5);
+      LOBYTE(v18) = class40_sub_456D17(_this, (int)v5);
       return v18;
     }
 
@@ -7139,7 +7136,7 @@ LABEL_128:
       *(_DWORD *)(v5 + 4) = 0;
 
       //v24 = *((_BYTE *)_this + _this->pItems[v26]->uEquipType + 0x9609);
-      v24 = &_this->pEnchantments[0].array_000008[_this->pItems[v26].uEquipType + 1];
+      v24 = (int)&_this->pEnchantments[0].array_000008[_this->pItems[v26].uEquipType + 1];
 
       for ( i = v25; v24 < i; v24 += *((_BYTE *)_this + 20 * *(_DWORD *)(v5 + 4) + *((char  *)(&_this->pItems[v27]) + 32) + 0x9609) )
       {
@@ -7173,7 +7170,7 @@ LABEL_128:
   if ( *((_DWORD *)_this + 17894) > 0 )
   {
     v51 = -16 - (_DWORD)v4;
-    v58 = &v50;
+    v58 = (int *)&v50;
     v38 = (int)((char *)v4 + 38908);
     do
     {
@@ -7221,13 +7218,13 @@ LABEL_119:
     while ( v61 < *((_DWORD *)v4 + 17894) );
   }
   v44 = rand() % v37;
-  *(_DWORD *)(v5 + 12) = v50;
+  *(_DWORD *)(v5 + 12) = (int)v50;
   v18 = *((_BYTE *)v4 + 28 * *(v50 + 1389) + *((_BYTE *)v4 + 48 * *(_DWORD *)v5 + 32));
   v43 = v44 + 1;
   v62 = v18;
   if ( v18 < v43 )
   {
-    for ( j = &v50; ; j = (int *)v59 )
+    for ( j = (int *)&v50; ; j = (int *)v59 )
     {
       v46 = *(_DWORD *)v5;
       v47 = (int)(j + 1);
@@ -7258,7 +7255,7 @@ int __cdecl sub_459E3F()
 }
 
 //----- (00426363) --------------------------------------------------------
-void sub_426363(struct class24 *_this)
+void class24_sub_426363(struct class24 *_this)
 {
   if (_this->dword_000004)
   {
@@ -7311,7 +7308,7 @@ int sub_46454B(struct LODFile *_this)
   int v7; // eax@7
   int result; // eax@10
 
-  v2 = _this;
+  v2 = (int)_this;
   v1 = _this->uNumLoadedFiles - 1;
   if ( v1 >= _this->dword_011B84)
   {
@@ -7320,7 +7317,7 @@ int sub_46454B(struct LODFile *_this)
     do
     {
      runtime_warning(this stuff kills textures being drawn);
-      //sub_40F77C(v3);
+      //class18_sub_40F77C(v3);
       v4 = *(_DWORD *)(v2 + 72624);
       if ( v4 )
       {
@@ -7361,17 +7358,17 @@ int sub_4645DC(struct LODFile *_this)
   int v2; // esi@1
   int v3; // edi@1
 
-  v1 = _this;
+  v1 = (int)_this;
   v2 = v1 + 60572;
   v3 = v1 + 60576;
-  sub_450CA9(_this, *(_DWORD *)(v1 + 60576), *(_DWORD *)(v1 + 60572));
+  sub_450CA9((int)_this, *(_DWORD *)(v1 + 60576), *(_DWORD *)(v1 + 60572));
   result = *(_DWORD *)v3;
   *(_DWORD *)v2 = *(_DWORD *)v3;
   return result;
 }
 
 //----- (0040F77C) --------------------------------------------------------
-void sub_40F77C(struct class18 *_this)
+void class18_sub_40F77C(struct class18 *_this)
 {
   int v1; // esi@1
   char v2; // zf@2
@@ -7385,9 +7382,9 @@ void sub_40F77C(struct class18 *_this)
     _this->sContainerName[0] = 0;
     if ( v2 )
     {
-      class23_DeleteBuffer(class23_instance, _this->pIndexedPixels);
-      class23_DeleteBuffer(class23_instance, _this->pPalette);
-      class23_DeleteBuffer(class23_instance, _this->ptr_000044);
+      class23_DeleteBuffer(pClass23, (void *)_this->pIndexedPixels);
+      class23_DeleteBuffer(pClass23, (void *)_this->pPalette);
+      class23_DeleteBuffer(pClass23, (void *)_this->ptr_000044);
     }
 
     _this->pIndexedPixels = 0;
@@ -7417,7 +7414,7 @@ unsigned int CMapStats_FindLocation(struct CMapStats *_this, const char *pLocati
  int i;
 
  for (i = 0; i < _this->uNumMaps; ++i)
-   if (!lstrcmpiA(_this->pMapInfos[i].pLocationFilename, pLocationName))
+   if (!lstrcmpiA((char *)_this->pMapInfos[i].pLocationFilename, pLocationName))
       return i;
  return 0;
 }
@@ -7425,16 +7422,16 @@ unsigned int CMapStats_FindLocation(struct CMapStats *_this, const char *pLocati
 
 
 //----- (0047CF9C) --------------------------------------------------------
-int sub_47CF9C(struct class51 *_this)
+int class51_sub_47CF9C(struct class51 *_this)
 {
   int v1; // edi@1
   int v3; // ebx@2
 
- strcpy(_this->string_000000, "blank");
- strcpy(_this->pFileName, "default.odm");
- strcpy(_this->pFileDescription, "MM6 Outdoor v1.00");
- strcpy(_this->pSkyTextureName, "sky043");
- strcpy(_this->pGroundTileset, "hm005");
+ strcpy((char *)_this->string_000000, "blank");
+ strcpy((char *)_this->pFileName, "default.odm");
+ strcpy((char *)_this->pFileDescription, "MM6 Outdoor v1.00");
+ strcpy((char *)_this->pSkyTextureName, "sky043");
+ strcpy((char *)_this->pGroundTileset, "hm005");
 
   v1 = 0;
   if (_this->uNumBModels > 0 )
@@ -7451,24 +7448,24 @@ int sub_47CF9C(struct class51 *_this)
  _this->uNumBModels = 0;
  _this->dword_0004C0 = 0;
 
- class23_DeleteBuffer(class23_instance, _this->pBModels);
+ class23_DeleteBuffer(pClass23, (void *)_this->pBModels);
  _this->pBModels = 0;
 
- class23_DeleteBuffer(class23_instance, _this->ptr_0004C4);
+ class23_DeleteBuffer(pClass23, (void *)_this->ptr_0004C4);
  _this->ptr_0004C4 = 0;
 
  class51_FreeGeodata(&_this->struct_0000B4);
 
- class23_DeleteBuffer(class23_instance, _this->ptr_0000D4);
+ class23_DeleteBuffer(pClass23, (void *)_this->ptr_0000D4);
  _this->ptr_0000D4 = 0;
 
- class23_DeleteBuffer(class23_instance, _this->ptr_0000E4);
+ class23_DeleteBuffer(pClass23, (void *)_this->ptr_0000E4);
  _this->ptr_0000E4 = 0;
 
- class23_DeleteBuffer(class23_instance, _this->ptr_0000E0);
+ class23_DeleteBuffer(pClass23, (void *)_this->ptr_0000E0);
  _this->ptr_0000E0 = 0;
 
- class23_DeleteBuffer(class23_instance, pTerrainNormals);
+ class23_DeleteBuffer(pClass23, (void *)pTerrainNormals);
  pTerrainNormals = 0;
 
  return 0;
@@ -7483,7 +7480,7 @@ bool LODFile_Games_LOD_FindLeveL(struct LODFile *_this, const char *pLevelName)
   if (!_this->uNumSubidices)
     return false;
 
-  while (strcmpi(pLevelName, _this->pLODSubIndexNamedBuffer[v2++].pFilename))
+  while (strcmpi(pLevelName, (char *)_this->pLODSubIndexNamedBuffer[v2++].pFilename))
   {
    if ( v2 >= _this->uNumSubidices)
      return false;
@@ -7505,24 +7502,24 @@ int sub_4AC67E_LoadSpriteFromFile(struct LODFile *_this, struct class18 *pDstBuf
   if (!f)
     return -1;
 
-   v8 = pDstBuf;
+   v8 = (char *)pDstBuf;
    locked_fread(pDstBuf, 1, 0x20, f);
    strcpy(pDstBuf->sContainerName, pFilename);
-   pDstBuf->pSomeSpriteData = class23_AllocatedNamedBuffer(class23_instance, pDstBuf->pSomeSpriteData, 8 * pDstBuf->word_000012, pDstBuf->sContainerName);
+   pDstBuf->pSomeSpriteData = (SomeSpriteData *)class23_AllocatedNamedBuffer(pClass23, (int)pDstBuf->pSomeSpriteData, 8 * pDstBuf->word_000012, pDstBuf->sContainerName);
    locked_fread(pDstBuf->pSomeSpriteData, 1, 8 * pDstBuf->word_000012, f);
    v6 = pDstBuf->dword_00001C;
     if ( v6 )
     {
-     pDstBuf->ptr_000024 = class23_AllocatedNamedBuffer(class23_instance, pDstBuf->ptr_000024, v6, pDstBuf->sContainerName);
-     v16 = class23_AllocatedNamedBuffer(class23_instance, 0, pDstBuf->dword_00000C, pDstBuf->sContainerName);
-     locked_fread(v16, 1, pDstBuf->dword_00000C, f);
-     MemUnzip(pDstBuf->ptr_000024, &pDstBuf->dword_00001C, v16, pDstBuf->dword_00000C);
+     pDstBuf->ptr_000024 = (unsigned char *)class23_AllocatedNamedBuffer(pClass23, (int)pDstBuf->ptr_000024, v6, pDstBuf->sContainerName);
+     v16 = (int)class23_AllocatedNamedBuffer(pClass23, 0, pDstBuf->dword_00000C, pDstBuf->sContainerName);
+     locked_fread((void *)v16, 1, pDstBuf->dword_00000C, f);
+     MemUnzip(pDstBuf->ptr_000024, (unsigned int *)&pDstBuf->dword_00001C, (int *)v16, pDstBuf->dword_00000C);
      pDstBuf->dword_00000C = pDstBuf->dword_00001C;
-     class23_DeleteBuffer(class23_instance, v16);
+     class23_DeleteBuffer(pClass23, (void *)(int *)v16);
     }
     else
     {
-     pDstBuf->ptr_000024 = class23_AllocatedNamedBuffer(class23_instance, pDstBuf->ptr_000024, pDstBuf->dword_00000C, pDstBuf->sContainerName);
+     pDstBuf->ptr_000024 = (unsigned char *)class23_AllocatedNamedBuffer(pClass23, (int)pDstBuf->ptr_000024, pDstBuf->dword_00000C, pDstBuf->sContainerName);
      locked_fread(pDstBuf->ptr_000024, 1, pDstBuf->dword_00000C, f);
     }
 
@@ -7552,7 +7549,7 @@ char CGame_sub_44EEA7(struct CGame *_this)
   int v11; // [sp+14h] [bp-14h]@2
   POINT pt;
 
-  v1 = _this;
+  v1 = (int)_this;
   ++qword_5C6DF0;
   class02_sub_48AC65(_this->class02_obj);
   class03_GetMousePos(_this->class03_obj, &pt);
@@ -7592,7 +7589,7 @@ char CGame_sub_44EEA7(struct CGame *_this)
   }
 
  v4 = v2;
- CGame_Pick(pGame, v4, v7, v8, false, (int)v10, v11);
+ Game_Pick(pGame, v4, v7, v8, false, (int)v10, v11);
  _this->class04_obj->std__vector_000004_size = 0;
  _this->class04_obj->std__vector_183808_size = 0;
 
@@ -7854,8 +7851,8 @@ void class08_CreateWorldMatrixAndSomeStuff(struct class08 *_this)
   v4 = sin(0.0);
 
  //RotationZ(0)
- m2._11 = cos(0);                     m2._12 = sin(0);                      m2._13 = 0;
- m2._21 = -sin(0);                    m2._22 = cos(0);                      m2._23 = 0;
+ m2._11 = cosf(0);                    m2._12 = sinf(0);                     m2._13 = 0;
+ m2._21 = -sinf(0);                   m2._22 = cosf(0);                     m2._23 = 0;
  m2._31 = 0;                          m2._32 = 0;                           m2._33 = 1;
 
  //RotationX(some_other_angle)
@@ -7971,7 +7968,7 @@ void class08_Vec3Transform(struct class08 *_this, struct class26 *pVec, struct c
 
 
 //----- (00469E3B) --------------------------------------------------------
-int sub_469E3B(struct class03 *_this)
+int ckass03_sub_469E3B(struct class03 *_this)
 {
   int result; // eax@1
   int v2; // edx@3
@@ -7988,7 +7985,7 @@ int sub_469E3B(struct class03 *_this)
   {
     v9 = _this->dword_00003C;
     v7 = pD3DRenderer->uTargetSurfacePitch;
-    v8 = pD3DRenderer->pTargetSurface;
+    v8 = (int)pD3DRenderer->pTargetSurface;
     result = _this->dword_000044;
     if ( result < _this->dword_00004C )
     {
@@ -8023,7 +8020,7 @@ int sub_469E3B(struct class03 *_this)
 
 
 //----- (004239A7) --------------------------------------------------------
-void Camera_CalculateSinCos(struct OldCamera *_this)
+void OldCamera_CalculateSinCos(struct OldCamera *_this)
 {
  double angle;
 
@@ -8279,7 +8276,7 @@ void sub_486089_NormalizeVector(struct struct8 *_this)
   float v11; // ST18_4@2
   float v13; // ST14_4@2
 
-  v1 = _this;
+  v1 = (int)_this;
   v5 = (double)_this->dword_000018;
   v3 = (double)_this->dword_00001C;
   v2 = (double)_this->dword_000020;
@@ -8346,7 +8343,7 @@ int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, in
   int v29; // [sp+30h] [bp+8h]@10
   int v30; // [sp+3Ch] [bp+14h]@10
 
-  v1 = _this;
+  v1 = (int)_this;
   v25 = pStruct9_global->camera_rotation_x_int_cosine;
   v9 = pStruct9_global->camera_rotation_y_int_sine;
   v27 = pStruct9_global->camera_rotation_x_int_sine;
@@ -8945,8 +8942,9 @@ bool __stdcall sub_45D3C7(struct struct8 *_this)
   {
    for (i = _this->ptr_000040; ; i = i->pNext)
    {
-    if (i->pParent->byte_000108)
-       sub_45D426(i, _this->array_000060, _this->dword_0000B0, _this->array_0000B4, _this->dword_000104);
+    compile_error;
+    //if (i->pParent->byte_000108)
+    //   sub_45D426((int)i, _this->array_000060, _this->dword_0000B0, _this->array_0000B4, _this->dword_000104);
      if (_this->ptr_000044 == i)
        break;
    }
@@ -8975,7 +8973,7 @@ void class08_sub_438240(struct class08 *_this)
   float v12; // [sp+14h] [bp-18h]@6
   int v13; // [sp+28h] [bp-4h]@1
 
-  v7 = _this;
+  v7 = (int)_this;
   class08_sub_438141(_this);
   v13 = 0;
   v6 = v7;
@@ -9038,7 +9036,7 @@ void class08_sub_438141(struct class08 *_this)
   char v9; // [sp+10h] [bp-14h]@4
   float v10; // [sp+14h] [bp-10h]@4
 
-  v2 = _this;
+  v2 = (int)_this;
   v1 = 0;
   if (!_this->dword_0E037C)
     return;
@@ -9090,7 +9088,7 @@ bool class36_sub_43B6EF(struct class36 *_this, int a2, int a3, int a4, int a5, c
   int v11; // eax@3
   int v12; // eax@3
 
-  v7 = _this;
+  v7 = (int)_this;
   v8 = v7 + 2568;
   if ( *(_DWORD *)(v7 + 2568) == 64 )
     *(_DWORD *)v8 = 0;
@@ -9178,7 +9176,7 @@ bool class06_sub_4A81CA(struct class06 *_this, int a2)
   __int16 v64; // [sp+14h] [bp-4h]@81
   char v65; // [sp+16h] [bp-2h]@81
 
-  v3 = _this;
+  v3 = (int)_this;
   v2 = *(_WORD *)a2;
   if ( v2 <= 545 )
   {
@@ -9222,11 +9220,11 @@ bool class06_sub_4A81CA(struct class06 *_this, int a2)
           goto LABEL_32;
         case 525:
           v56 = *(_DWORD *)(v3 + 1508);
-          v50 = pClass58_global->unk_1A6C5D;
+          v50 = (int)pClass58_global->unk_1A6C5D;
           goto LABEL_8;
         case 526:
           v57 = *(_DWORD *)(v3 + 1508);
-          v51 = pClass58_global->unk_1A6C5D;
+          v51 = (int)pClass58_global->unk_1A6C5D;
           goto LABEL_32;
         case 535:
           v56 = *(_DWORD *)(v3 + 1508);
@@ -9494,7 +9492,7 @@ LABEL_171:
         return 0;
 LABEL_89:
       v59 = *(_DWORD *)(v3 + 1508);
-      v8 = (char *)(&class35_obj.pColorPalette2[17][73 * 32 + 12]) + 1;
+      v8 = (int)(&class35_obj.pColorPalette2[17][73 * 32 + 12]) + 1;
       goto LABEL_146;
     }
     if ( v2 > 4000 )
@@ -9521,7 +9519,7 @@ LABEL_89:
     if ( v23 != 1 )
       return 0;
     v56 = *(_DWORD *)(v3 + 1508);
-    v50 = (char *)(&class35_obj.pColorPalette2[17][73 * 32 + 12]) + 1;
+    v50 = (int)(&class35_obj.pColorPalette2[17][73 * 32 + 12]) + 1;
 LABEL_8:
     sub_4A73AA((void *)v3, a2, v50, v56);
     return 0;
@@ -9532,7 +9530,7 @@ LABEL_67:
     v60 = 200.0;
     v53 = *(_DWORD *)(v3 + 1512);
 LABEL_83:
-    v8 = pClass58_global->unk_1A6C6C;
+    v8 = (int)pClass58_global->unk_1A6C6C;
     goto LABEL_84;
   }
   if ( v2 > 1051 )
@@ -9710,7 +9708,7 @@ void class02_sub_48BBA6(struct class02 *_this)
   int v26; // [sp+60h] [bp-4h]@1
 
   v24 = -1;
-  v2 = _this;
+  v2 = (int)_this;
   LODWORD(v1) = _this->dword_00E424;
   //v5 = __SETO__(LODWORD(v1), *(_DWORD *)(this + 58408));
   //v3 = LODWORD(v1) == *(_DWORD *)(v2 + 58408);
@@ -9718,7 +9716,7 @@ void class02_sub_48BBA6(struct class02 *_this)
   v26 = _this->dword_00E424;
   if (LODWORD(v1) <= _this->dword_00E428)
   {
-    v6 = pD3DRenderer;
+    v6 = (int)pD3DRenderer;
     v7 = 104 * LODWORD(v1) + v2 + 86;
     do
     {
@@ -9805,7 +9803,7 @@ void class02_sub_48BBA6(struct class02 *_this)
                       sub_4A354F(
                         v6,
                         (int)&v18,
-                        *(_DWORD *)(pLODFile_Sprites_LOD->pHardwareSprites + 40 * *(_DWORD *)(v7 - 50) + 12),
+                        pLODFile_Sprites_LOD->pHardwareSprites[*(_DWORD *)(v7 - 50)].pTexture,
                         *(_DWORD *)(v7 + 14),
                         *(_DWORD *)(v7 - 26));
                     }
@@ -9822,11 +9820,11 @@ void class02_sub_48BBA6(struct class02 *_this)
                       || v13 + v11 < pOldViewport->uGameY
                       || v13 >= pOldViewport->uGameW )
                     {
-                      v6 = pD3DRenderer;
+                      v6 = (int)pD3DRenderer;
                     }
                     else
                     {
-                      v6 = pD3DRenderer;
+                      v6 = (int)pD3DRenderer;
                       sub_4A48E4(v12, v13, *(_DWORD *)(v7 - 6), *(_DWORD *)(v7 + 14), v11);
                     }
                   }
@@ -9870,9 +9868,9 @@ void class02_sub_48BEEF(struct class02 *_this)
  int i;
 
   v23 = -1;
-  v2 = _this;
+  v2 = (int)_this;
 
-    v6 = pD3DRenderer;
+    v6 = (int)pD3DRenderer;
  for (i = _this->dword_00E424; i <= _this->dword_00E428; ++i)
  {
     v7 = 104 * i + v2 + 82;
@@ -9948,7 +9946,7 @@ void class02_sub_48BEEF(struct class02 *_this)
             sub_4A3AD9(
               v6,
               (int)&v17,
-              *(_DWORD *)(pLODFile_Sprites_LOD->pHardwareSprites + 40 * *(_DWORD *)(v7 - 46) + 12),
+              pLODFile_Sprites_LOD->pHardwareSprites[*(_DWORD *)(v7 - 46)].pTexture,
               *(_DWORD *)(v7 + 18),
               *(_DWORD *)(v7 - 22));
           }
@@ -9965,11 +9963,11 @@ void class02_sub_48BEEF(struct class02 *_this)
             || *(_DWORD *)(v7 - 14) < pOldViewport->uGameY
             || v11 >= pOldViewport->uGameW )
           {
-            v6 = pD3DRenderer;
+            v6 = (int)pD3DRenderer;
           }
           else
           {
-            v6 = pD3DRenderer;
+            v6 = (int)pD3DRenderer;
             sub_4A48E4(v12, v11, *(_DWORD *)(v7 - 2), *(_DWORD *)(v7 + 18), v10);
           }
         }
@@ -10070,7 +10068,7 @@ int class06_sub_4A8C27(struct class06 *_this)
   int v69; // [sp+E4h] [bp-8h]@8
   int v70; // [sp+E8h] [bp-4h]@3
 
-  v1 = _this;
+  v1 = (int)_this;
   v2 = v1 + 1480;
   if (_this->dword_0005C8 )
   {
@@ -10082,12 +10080,12 @@ int class06_sub_4A8C27(struct class06 *_this)
   if ( result > 0 )
   {
     v6 = (double)v70 / (double)*(signed int *)(v1 + 1500);
-    v4 = memory_4D8410.d1_0 - v6 * v6;
+    v4 = 1.0 - v6 * v6;
     v5 = v4;
     if ( v4 > memory_4D8410.f0_9)
-      v5 = memory_4D8410.d1_0 - (v4 - memory_4D8410.f0_9) * memory_4D8410.f10_0;
+      v5 = 1.0 - (v4 - memory_4D8410.f0_9) * memory_4D8410.f10_0;
     v7 = v5;
-    sub_4A52F1(pD3DRenderer, *(_DWORD *)(v1 + 1504), v7);
+    Render_sub_4A52F1((int)pD3DRenderer, *(_DWORD *)(v1 + 1504), v7);
     result = pClass24_global->int_00001C;
     *(_DWORD *)(v1 + 1496) -= pClass24_global->int_00001C;
   }
@@ -10099,10 +10097,10 @@ int class06_sub_4A8C27(struct class06 *_this)
   runtime_warning(additional test with original exe in _Hardware D3D_ mode required);
   if (_this->dword_0005D4 > 0 )
   {
-    v9 = 8 * *(_WORD *)(60 * CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell84") + (unsigned int)(pSpriteFrameTable->pSpriteSFrames) + 56) - *(_DWORD *)(v1 + 1492);
+    v9 = 8 * *(_WORD *)(60 * SpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell84") + (unsigned int)(pSpriteFrameTable->pSpriteSFrames) + 56) - *(_DWORD *)(v1 + 1492);
 
-    v10 = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell84");
-    v11 = CSpriteFrameTable_fn1(pSpriteFrameTable, v10, v9);
+    v10 = SpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell84");
+    v11 = (int)CSpriteFrameTable_fn1(pSpriteFrameTable, v10, v9);
     v8 = *(_WORD *)(v11 + 24);
     v69 = v11;
     *(_DWORD *)(v1 + 1492) -= pClass24_global->int_00001C;
@@ -10190,15 +10188,15 @@ int class06_sub_4A8C27(struct class06 *_this)
               *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
               19,
               2,
-              "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\seffects.cpp",
+              (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\seffects.cpp",
               1348,
               0);
-      CheckHRESULT(&v69, v16, v17, v18, v19);
+      CheckHRESULT((void **)&v69, v16, v17, v18, v19);
       v20 = (*(int (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
               *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
               20,
               1);
-      CheckHRESULT(&v69, v20, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\seffects.cpp", 0x545u, 0);
+      CheckHRESULT((void **)&v69, v20, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\seffects.cpp", 0x545u, 0);
       (*(void (__cdecl **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
         *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
         27,
@@ -10218,9 +10216,9 @@ int class06_sub_4A8C27(struct class06 *_this)
     }
     else
     {
-     v22 = pD3DRenderer->pTargetSurface;
+     v22 = (int)pD3DRenderer->pTargetSurface;
       v35 = -1;
-      v23 = pD3DRenderer->pActiveZBuffer;
+      v23 = (int)pD3DRenderer->pActiveZBuffer;
       v24 = (pOldViewport->uGameZ - pOldViewport->uGameX) / 2;
       v25 = pOldViewport->uGameW;
       LODWORD(v21) = 0;
@@ -10241,7 +10239,7 @@ int class06_sub_4A8C27(struct class06 *_this)
       v34 = pOldViewport->uGameW;
       v30 = 0;
       if ( v8 >= 0 )
-        result = sub_4ACC38(40 * v8 + 7218180, (int)&v22, 1);
+        result = sub_4ACC38(40 * v8 + 7218180, (Render_BillboardTransform_stru0 *)&v22, 1);
     }
   }
   return result;
@@ -10292,7 +10290,7 @@ int class06_sub_4A7298(struct class06 *_this)
   v27 = 0;
   v6 = *((_DWORD *)v3 + 370) == 0;
   v7 = *((_DWORD *)v3 + 370) < 0;
-  v5 = pGame->class08_obj;
+  v5 = (int)pGame->class08_obj;
   result = *(_DWORD *)(v5 + 208);
   LODWORD(v26) = *(_DWORD *)(v5 + 208);
   if ( !(v7 | v6) )
@@ -10306,14 +10304,14 @@ int class06_sub_4A7298(struct class06 *_this)
       v20 = *(float *)(v8 + 8);
       v21 = *(float *)(v8 + 12);
       v22 = *(float *)(v8 + 16);
-      sub_436523((int)&v13, 2);
+      sub_436523((RenderVertex *)&v13, 2);
       sub_42620A((int)&v13);
-      class08_sub_436BB7((void *)v5, (int)&v13, 2, 0);
+      class08_sub_436BB7((class08 *)v5, (RenderVertex *)&v13, 2, 0);
       v9 = *(_DWORD *)(v8 + 20);
       if ( v9 == -1 )
         v12 = 0;
       else
-        v12 = pLODFile_Bitmaps_LOD->pHardwareTextures[v9];
+        v12 = (int)pLODFile_Bitmaps_LOD->pHardwareTextures[v9];
       v10 = v26 / v23 * 20.0;
       v11 = v26 / v16 * 20.0;
       sub_4A49D0(v17, v18, v16, v11, v24, v25, v23, v10, v12);
@@ -10358,10 +10356,10 @@ int class18_UnzipPalette(struct class18 *_this)
   int v3; // edi@1
   int v4; // [sp+0h] [bp-4h]@1
 
-  v4 = _this;
-  v2 = _this;
+  v4 = (int)_this;
+  v2 = (int)_this;
   v3 = (int)malloc(_this->uDecompressedSize);
-  MemUnzip(v3, &v4, _this->pIndexedPixels, *(_DWORD *)(v2 + 20));
+  MemUnzip((void *)v3, (unsigned int *)&v4, _this->pIndexedPixels, *(_DWORD *)(v2 + 20));
   return v3;
 }
 
@@ -10423,7 +10421,7 @@ unsigned int LODFile_LoadTexture_New(struct LODFile *_this, const wchar_t *pFile
      WriteConsoleW(hStdHandle, pFileNotFound, lstrlenW(pFileNotFound), &w, 0);
 
      if (!pending_texture.pTruecolorPixels)
-       pending_texture.pTruecolorPixels = malloc(52 * 53 * 4);
+       pending_texture.pTruecolorPixels = new unsigned int[52 * 53];
      pending_texture.uTextureWidth = 52;
      pending_texture.uTextureHeight = 53;
      return -1;
@@ -10456,10 +10454,10 @@ unsigned char *LODFile_LoadEvent(struct LODFile *_this, const wchar_t *pFilename
  if (hFile == INVALID_HANDLE_VALUE)
  {
   wsprintfA(pFilenameA, "%S", pFilename);
-  return LODFile_LoadRaw(_this, pFilenameA, 0);
+  return (unsigned char *)LODFile_LoadRaw(_this, pFilenameA, 0);
  }
 
- pOut = malloc(GetFileSize(hFile, 0));
+ pOut = new unsigned char[GetFileSize(hFile, 0)];
  ReadFile(hFile, pOut, GetFileSize(hFile, 0), &w, 0);
 
  CloseHandle(hFile);

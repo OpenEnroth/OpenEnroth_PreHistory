@@ -147,21 +147,21 @@ struct class51
  char maybe_more[0x30000];
 };
 //sizeof ~ ?
-//int __thiscall sub_488F2E(int this, signed int a2, signed int a3);
+//int __thiscall sub_488F2E(int _this, signed int a2, signed int a3);
 int class51_sub_488F2E_GetHeightOnTerrain(struct class51 *_this, unsigned int uX, unsigned int uY);
-//int __thiscall sub_47EE16(int this, signed int a2, signed int a3);
+//int __thiscall sub_47EE16(int _this, signed int a2, signed int a3);
 int class51_sub_47EE16_ActuallyGetHeightOnTerrain(struct class51 *_this, unsigned int uX, unsigned int uY);
-//signed int __thiscall sub_47EF60(void *this, int a2, int a3, int a4);
+//signed int __thiscall sub_47EF60(void *_this, int a2, int a3, int a4);
 bool class51_sub_47EF60(struct class51 *_this, int a2, int a3, int a4);
 bool class51_sub_47F420(struct class51 *_this);
 bool class51_sub_47F3EA(struct class51 *_this);
-//int __thiscall sub_488EEF(void *this, signed int a2, signed int a3);
+//int __thiscall sub_488EEF(void *_this, signed int a2, signed int a3);
 int class51_GetTileTexture(struct class51 *_this, int a2, int a3);
-//int __thiscall sub_47ED08(int this, signed int a2, signed int a3);
+//int __thiscall sub_47ED08(int _this, signed int a2, signed int a3);
 int class51_GetTileTexture2(struct class51 *_this, unsigned int uX, unsigned int uY);
-//int __thiscall sub_488EB1(void *this, signed int a2, signed int a3);
+//int __thiscall sub_488EB1(void *_this, signed int a2, signed int a3);
 int class51_sub_488EB1_GetSomeOtherTileInfo(struct class51 *_this, int sX, int sY);
-//int __thiscall sub_47EDB3(int this, signed int a2, signed int a3);
+//int __thiscall sub_47EDB3(int _this, signed int a2, signed int a3);
 int class51_sub_47EDB3_ActuallyGetSomeOtherTileInfo(struct class51 *_this, unsigned int uX, unsigned int uY);
 
 
@@ -178,5 +178,8 @@ void sub_47C80A(struct class51_Geodata *_this, int sX, int sY, int sZ, int sW);
 bool sub_44C1E8(struct class51_stru2 *_this);
 bool sub_482170(struct class51_stru2 *_this, struct RenderVertex *a2, struct struct8 *a3);
 bool __stdcall sub_45CDB7(struct class51_stru2 *_this, struct class04 *);
+
+//----- (0047C7C2) --------------------------------------------------------
+void class51_FreeGeodata(struct class51_Geodata *_this);
 
 #pragma pack(pop)

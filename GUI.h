@@ -18,7 +18,7 @@ struct GUIMessageQueue
  int dword_00000C;
 };
 //sizeof ==
-//void __thiscall sub_4356B9(int this, int a2, int a3, int a4);
+//void __thiscall sub_4356B9(int _this, int a2, int a3, int a4);
 bool GUIMessageQueue_GetMessage(struct GUIMessageQueue *_this, int *a2, int *a3, int *a4);
 
 
@@ -148,6 +148,9 @@ struct class56
 
 
 
+void SetCurrentMenu(unsigned int uMenuID);
+
+
 
 struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
                                              unsigned int uFrameWidth, unsigned int uFrameHeight,
@@ -156,25 +159,27 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
 struct GUIButton *__fastcall GUIButtonCreate(struct GUIWindow *pParentWindow,
                                              unsigned int uX, unsigned int uY,
                                              unsigned int uWidth, unsigned int uHeight,
-                                             int a6, int a7, int a8, int a9, char a10, const char *pName, unsigned int uTextureID);
+                                             int a6, int a7, unsigned int uControlID, int a9, unsigned int uHotkey, const char *pName, unsigned int uTextureID);
 
 void GUIWindowDelete(struct GUIWindow *);
 
-//int __thiscall sub_41CD3B(int this, int a2);
+//int __thiscall sub_41CD3B(int _this, int a2);
 struct GUIButton *GUIWindow_GetChild(struct GUIWindow *_this, int uID);
 
-int __fastcall AlignText_Center(int a1, const char *a2, int a3);
-unsigned char *__fastcall FitTextInAWindow(const char *pString, struct Font *pFont, struct GUIWindow *pParent, unsigned char uX, int a5);
+int __fastcall AlignText_Center(int a1, const char *pString, struct Font *pFont);
+unsigned char *__fastcall FitTextInAWindow(const char *pString, struct Font *pFont, struct GUIWindow *pParent, unsigned int uX, int a5);
 void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, const char *pString, unsigned int uTextMainColor, signed int a8, unsigned int uTextShadowColor);
 
 void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigned int uWindowWidth, unsigned int uWindowHeight);
 
 
 struct Font *__cdecl sub_44C448(const char *pFontName, const char *pFontPalette);
-int __fastcall sub_44C51E(unsigned char *pFontData, const char *pString);
+int __fastcall sub_44C51E(struct Font *pFont, const char *pString);
 
 //int __cdecl sub_49750E();
 void __cdecl DeleteFontCChar();
+
+struct Font *__cdecl LoadFont(const char *pFontFile, const char *pFontPalette);
 
 
 extern unsigned int uTextureID_CurrentMenu;
@@ -197,7 +202,7 @@ extern unsigned int uTextureID_PartyCreationUI_ClassIcons;
 extern unsigned int uTextureID_PartyCreationUI_Arrows;
 
 
-bool LevelLoadingUI_Initialize(struct class56 *_this, int a2);
+bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarType);
 void LevelLoadingUI_UpdateAndDrawProgressBar(struct class56 *_this);
 void DrawLoadingScreen(struct class56 *_this);
 void LevelLoadingUI_Reset(struct class56 *_this, char a2);
@@ -207,7 +212,7 @@ void __cdecl GameUI_DrawStatusBar();
 void GameUI_DrawFrames();
 void __cdecl GameUI_DrawFoodAndGold();
 void __cdecl GameUI_DrawPartySpells();
-void GameUI_DrawPortraits(void *this);
+void GameUI_DrawPortraits(void *_this);
 void GameUI_DrawCharacterSelectionFrame();
 void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW, unsigned int uMinimapZoom);
 void GameUI_DrawTorchlightAndWizardEye();
@@ -230,7 +235,7 @@ void CharacterUI_DrawSkillsTab(int a1);
 void __cdecl CharacterUI_StatsTab_ShowHint();
 void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter);
 int __fastcall CharacterUI_DrawAwardsTab(int a1);
-void __fastcall CharacterUI_DrawInventoryTab(unsigned int uSelectedCharacter, char a2);
+void __fastcall CharacterUI_DrawInventoryTab(unsigned int uSelectedCharacter, bool a2);
 void CharacterUI_DoDrawCharacterScreen(unsigned int uActiveCharacter);
 int CharacterUI_LoadPaperdollTextures();
 void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter);

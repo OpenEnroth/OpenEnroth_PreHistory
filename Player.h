@@ -217,22 +217,50 @@ struct Player
 __int16 __thiscall Player_SetInitialStats(struct Player *_this);
 void Player_RandomizeName(struct Player *_this);
 
-//int __thiscall sub_49024A(int this, char a2);
+//int __thiscall sub_49024A(int _this, char a2);
 void Player_Reset(struct Player *_this, unsigned int uClass);
-//signed int __thiscall sub_48D709(void *this, int a2, int a3);
-signed int sub_48D709(struct Player *_this, int a2, int a3);
-//bool __thiscall sub_48D6AA(void *this, int a2);
-bool sub_48D6AA(struct Player *_this, int a2);
+//signed int __thiscall Player_sub_48D709(void *_this, int a2, int a3);
+signed int Player_sub_48D709(struct Player *_this, int a2, int a3);
+//bool __thiscall Player_sub_48D6AA(void *_this, int a2);
+bool Player_sub_48D6AA(struct Player *_this, int a2);
 
-int __thiscall Player_GetActualStrength(struct Player *_this);
-int __thiscall Player_GetActualIntelligence(struct Player *_this);
-int __thiscall Player_GetActualWillpower(struct Player *_this);
-int __thiscall Player_GetActualEndurance(struct Player *_this);
-int __thiscall Player_GetActualAccuracy(struct Player *_this);
-int __thiscall Player_GetActualSpeed(struct Player *_this);
-int __thiscall Player_GetActualLuck(struct Player *_this);
-int __thiscall Player_GetBaseResistance(struct Player *_this, signed int a2);
-int __thiscall Player_GetActualResistance(struct Player *_this, signed int a2);
+int Player_GetActualStrength(struct Player *_this);
+int Player_GetActualIntelligence(struct Player *_this);
+int Player_GetActualWillpower(struct Player *_this);
+int Player_GetActualEndurance(struct Player *_this);
+int Player_GetActualAccuracy(struct Player *_this);
+int Player_GetActualSpeed(struct Player *_this);
+int Player_GetActualLuck(struct Player *_this);
+int Player_GetBaseResistance(struct Player *_this, signed int a2);
+int Player_GetActualResistance(struct Player *_this, signed int a2);
+
+
+//int __thiscall sub_48C90D(void *_this);
+int Player_GetActualLevel(struct Player *_this);
+
+//int __thiscall sub_48EAAE(void *_this, signed int a2, int a3);
+int Player_MaybeGetWearItemsBonus(struct Player *_this, signed int a2, int a3);
+
+//int __thiscall sub_48C855(int _this);
+int Player_GetBaseStrength(struct Player *_this);
+//int __thiscall sub_48C86C(int _this);
+int Player_GetBaseIntelligence(struct Player *_this);
+//int __thiscall sub_48C883(int _this);
+int Player_GetBaseWillpower(struct Player *_this);
+//int __thiscall sub_48C89A(int _this);
+int Player_GetBaseEndurance(struct Player *_this);
+//int __thiscall sub_48C8B1(int _this);
+int Player_GetBaseAccuracy(struct Player *_this);
+//int __thiscall sub_48C8C8(int _this);
+int Player_GetBaseSpeed(struct Player *_this);
+//int __thiscall sub_48C8DF(int _this);
+int Player_GetBaseLuck(struct Player *_this);
+//int __thiscall sub_48C8F6(int _this);
+int Player_GetBaseLevel(struct Player *_this);
+
+int Player_GetActualAge(struct Player *_this);
+int Player_GetBaseAge(struct Player *_this);
+
 
 int Player_GetMaxHealth(struct Player *_this);
 int Player_GetMaxMana(struct Player *_this);
@@ -240,19 +268,27 @@ int Player_GetMaxMana(struct Player *_this);
 int __thiscall Player_MaybeGetCastSpellBonus(struct Player *_this, signed int a2);
 signed int __thiscall Player_GetVoiceSex(struct Player *_this);
 
+bool Player_SetRecoveryTime(struct Player *_this, int sRecoveryTime);
+
 int Player_GetRace(struct Player *_this);
 int Player_GetSex(struct Player *_this);
 
-signed int Player_sub_48E8F5(struct Player *_this, signed int a2);
+bool Player_sub_48E8F5(struct Player *_this, signed int a2);
 signed int Player_sub_48EA46(struct Player *_this, int a2);
 signed int Player_sub_492D65(struct Player *_this, int a2, int a3);
 int CanPlaceItemInInventory(struct Player *_this, signed int a2, int a3);
 
 signed int __thiscall GetSkillIdxByOrder(struct Player *_this, int Order);
-int __thiscall Player_GetConditionIdx(void *this);
-int __thiscall WearItem(void *this, int a2);
+int Player_GetConditionIdx(struct Player *_this);
+int __thiscall WearItem(void *_this, int a2);
 int __thiscall CreateItemInInventory(struct Player *_this, signed int a2, int itemid);
-int __thiscall sub_49107D(void *this);
-int __thiscall sub_48FC00(void *this, signed int a2);
+int __thiscall sub_49107D(void *_this);
+int Player_sub_48FC00(struct Player *_this, signed int a2);
+
+//int __thiscall sub_48E1B5(void *_this, int a2);
+int Player_sub_48E1B5(void *_this, int a2);
+bool Player_sub_48D6D0(struct Player *_this, int a2);
+signed int Player_sub_48DC1E(struct Player *_this, signed int a2, int a3);
+int Player_sub_492826(struct Player *_this, signed int a2, unsigned char *Src);
 
 #pragma pack(pop)

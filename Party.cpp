@@ -1,4 +1,5 @@
 #include "Party.h"
+#include "_audio.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -33,7 +34,7 @@ int Party_sub_49370F(struct Party *_this)
   v4 = (int)((char *)v1 + 8960);
   while ( 1 )
   {
-    v6 = pPlayers[v5];
+    v6 = (int)pPlayers[v5];
     if ( *(_QWORD *)(v6 + 16)
       || *(_QWORD *)(v6 + 96)
       || *(_QWORD *)(v6 + 104)
@@ -114,7 +115,7 @@ bool Party_sub_497FC5(struct Party *_this)
   v2 = 0;
   for (i = 0; i < 4; ++i)
   {
-    if ( Player_sub_492C0B(&_this->pPlayers[i]) )
+    if ( Player_sub_492C0B((int)&_this->pPlayers[i]) )
     {
       v5 = sub_49125A(&_this->pPlayers[i]);
       if ( v5 > v2 )
@@ -224,22 +225,22 @@ int Party_Reset(struct Party *_this)
   memset(pPlayers[i]->pConditions, 0, 20 * sizeof(__int64));
 
   for (j = 0; j < 24; ++j)
-    sub_458585(pPlayers[i]->array_0017A0[j]);
+    sub_458585((int)pPlayers[i]->array_0017A0[j]);
  }
 
  for (i = 0; i < 20; ++i)
-   sub_458585(&_this->pPartyBuffs[i]);
+   sub_458585((int)&_this->pPartyBuffs[i]);
 
  dword_506F48 = 100;
  _this->dword_007778 = 0;
 
 
-  sub_449B7E(_this->unk_000765, 1, 1);
-  sub_449B7E(_this->unk_000765, 2, 1);
-  sub_449B7E(_this->unk_000765, 3, 1);
-  sub_449B7E(_this->unk_000765, 4, 1);
-  sub_449B7E(_this->unk_000765, 5, 1);
-  sub_449B7E(_this->unk_000765, 6, 1);
+  sub_449B7E((int)_this->unk_000765, 1, 1);
+  sub_449B7E((int)_this->unk_000765, 2, 1);
+  sub_449B7E((int)_this->unk_000765, 3, 1);
+  sub_449B7E((int)_this->unk_000765, 4, 1);
+  sub_449B7E((int)_this->unk_000765, 5, 1);
+  sub_449B7E((int)_this->unk_000765, 6, 1);
 
  for (i = 0; i < 4; ++i)
  {
@@ -316,7 +317,7 @@ int Party_AddItem(struct Party *_this, int a2)
     {
       v10 = (int)((char *)v23 + 6972 * *(&v18 + v7) + 2508);
       v22 = (char *)v23 + 6972 * *(&v18 + v7) + 2508;
-      v9 = CreateItemInInventory(v22, -1, *(_DWORD *)a2);
+      v9 = CreateItemInInventory((Player *)v22, -1, *(_DWORD *)a2);
       if ( v9 )
         break;
       ++v7;
@@ -324,20 +325,20 @@ int Party_AddItem(struct Party *_this, int a2)
       {
         if ( v24 == v9 )
         {
-          sub_40F77C(v6);
-          sub_40F9C5(pLODFile_Icons_LOD);
+          class18_sub_40F77C((class18 *)v6);
+          LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
         }
         goto LABEL_15;
       }
     }
     memcpy((void *)(v10 + 36 * v9 + 496), (const void *)a2, 0x24u);
-    ItemGen_Reset(a2);
+    ItemGen_Reset((ItemGen *)a2);
     AudioPlayer_sub_4AA306(pAudioPlayer, 200, 0, 0, -1, 0, 0, 0, 0);
-    Player_PlaySound(v22, 60, 0);
+    Player_PlaySound((Player *)v22, 60, 0);
     if ( !v24 )
     {
-      sub_40F77C(v6);
-      sub_40F9C5(pLODFile_Icons_LOD);
+      class18_sub_40F77C((class18 *)v6);
+      LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
     }
     result = 1;
   }
@@ -345,7 +346,7 @@ int Party_AddItem(struct Party *_this, int a2)
   {
     v16 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Party.cpp";
     v25 = &v12;
-    sub_40E2C8(&v12, "Invalid picture_name detected ::addItem()", (int)((char *)&a2 + 3));
+    Game_sub_40E2C8(&v12, "Invalid picture_name detected ::addItem()", (int)((char *)&a2 + 3));
     sub_467834(&v22, v12, v13, v14, v15, v16, __LINE__);
 LABEL_15:
     result = 0;
@@ -376,7 +377,7 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
   char Dst[32 + array_size_unknown]; // [sp+1Ch] [bp-24h]@10
  int i;
 
- lstrcpyA(_this->pPlayers[0].sName, pGlobalTXT_LocalizationStrings[509]);
+ lstrcpyA((char *)_this->pPlayers[0].sName, (char *)pGlobalTXT_LocalizationStrings[509]);
  _this->pPlayers[0].uFace = 17;
  _this->pPlayers[0].dword_001920 = 17;
  _this->pPlayers[0].dword_001924 = 17;
@@ -398,7 +399,7 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
 
 
 
- lstrcpyA(_this->pPlayers[1].sName, pGlobalTXT_LocalizationStrings[506]);
+ lstrcpyA((char *)_this->pPlayers[1].sName, (char *)pGlobalTXT_LocalizationStrings[506]);
  _this->pPlayers[1].uFace = 3;
  _this->pPlayers[1].dword_001920 = 3;
  _this->pPlayers[1].dword_001924 = 3;
@@ -419,7 +420,7 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
 
 
 
- lstrcpyA(_this->pPlayers[2].sName, pGlobalTXT_LocalizationStrings[508]);
+ lstrcpyA((char *)_this->pPlayers[2].sName, (char *)pGlobalTXT_LocalizationStrings[508]);
  _this->pPlayers[2].uFace = 14;
  _this->pPlayers[2].dword_001920 = 14;
  _this->pPlayers[2].dword_001924 = 14;
@@ -440,7 +441,7 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
 
 
 
- lstrcpyA(_this->pPlayers[3].sName, pGlobalTXT_LocalizationStrings[507]);
+ lstrcpyA((char *)_this->pPlayers[3].sName, (char *)pGlobalTXT_LocalizationStrings[507]);
  _this->pPlayers[3].uFace = 10;
  _this->pPlayers[3].dword_001920 = 10;
  _this->pPlayers[3].dword_001924 = 10;
@@ -460,14 +461,14 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
  _this->pPlayers[3].pActiveSkills[SKILL_AIRMAGIC] = 1;
 
   
- v4 = _this;
+ v4 = (int)_this;
  v2 = 10;
 
  v20 = 4;
  i = 0;
  while ( 1 )
   {
-    v5 = &_this->pPlayers[i];
+    v5 = (int)&_this->pPlayers[i];
 
     if (!_this->pPlayers[i].uClass)
       _this->pPlayers[i].word_00177E = v2;
@@ -484,11 +485,11 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
 
 LABEL_10:
     _this->pPlayers[i].word_001A9E = 0;
-    ItemGen_Reset(Dst);
+    ItemGen_Reset((ItemGen *)Dst);
     if ( a2 )
     {
-      sub_456620(pClass40, 2, 40, Dst);
-      sub_492826(&_this->pPlayers[i], -1, Dst);
+      class40_sub_456620(pClass40, 2, 40, (unsigned int *)Dst);
+      Player_sub_492826(&_this->pPlayers[i], -1, (unsigned char *)Dst);
       v19 = 0;
       do
       {
@@ -619,7 +620,7 @@ void Party_ctor(struct Party *_this)
 
   for (i = 0; i < 20; ++i)
   {
-   v1 = &_this->pPartyBuffs[i];
+   v1 = (int)&_this->pPartyBuffs[i];
 
     *(_WORD *)(v1 + 10) = 0;
     *(_WORD *)(v1 + 8) = 0;
@@ -632,13 +633,13 @@ void Party_ctor(struct Party *_this)
   for (i = 0; i < 4; ++i)
     sub_48C6AF(&_this->pPlayers[i]);
 
-  ItemGen_Reset(v3 + 0x7754);
+  ItemGen_Reset((ItemGen *)(v3 + 0x7754));
   v6 = 636;
   v8 = v3 + 0x777C;
   v7 = 636;
   do
   {
-    ItemGen_Reset(v8);
+    ItemGen_Reset((ItemGen *)v8);
     v8 += 36;
     --v7;
   }
@@ -647,7 +648,7 @@ void Party_ctor(struct Party *_this)
   v9 = v3 + 0xD0EC;
   do
   {
-    ItemGen_Reset(v9);
+    ItemGen_Reset((ItemGen *)v9);
     v9 += 36;
     --v6;
   }
@@ -657,7 +658,7 @@ void Party_ctor(struct Party *_this)
   v10 = 384;
   do
   {
-    ItemGen_Reset(v11);
+    ItemGen_Reset((ItemGen *)v11);
     v11 += 36;
     --v10;
   }
@@ -680,7 +681,7 @@ void sub_491BF9(struct Party *_this)
   signed int v10; // [sp+Ch] [bp-4h]@2
  int i;
 
-  v2 = _this;
+  v2 = (int)_this;
 
  _this->sPartyPosX = 0;
  _this->sPartyPosY = 0;
@@ -722,5 +723,5 @@ void sub_491BF9(struct Party *_this)
 
 
  for (i = 0; i < 20; ++i)
-   sub_458585(&_this->pPartyBuffs[i]);
+   sub_458585((int)&_this->pPartyBuffs[i]);
 }

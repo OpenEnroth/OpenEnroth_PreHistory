@@ -47,7 +47,7 @@ int Render_HWLContainer_LoadHWLHeaders(struct Render_HWLContainer *_this, const 
  locked_fread(&_this->uNumElements, 4, 1, _this->pHWLFile);
  for (i = 0; i <_this->uNumElements; ++i)
  {
-  _this->pSriteNames[i] = malloc(20);  //operator new(0x14u)
+  _this->pSriteNames[i] = (unsigned char *)malloc(20);  //operator new(0x14u)
   locked_fread(_this->pSriteNames[i], 1, 20, _this->pHWLFile);
  }
 
@@ -101,7 +101,7 @@ void Render_ctor(struct Render *_this)
  _this->dword_040030 = 0;
  _this->pActiveZBuffer = 0;
  _this->pDefaultZBuffer = 0;
- _this->dword_04003C = &unk_4EED80;
+ _this->dword_04003C = (int)&unk_4EED80;
  _this->dword_040040 = dword_4EED78;
 
  _this->dword_040044 = 2;
@@ -176,7 +176,7 @@ unsigned int Render_BeginScene(struct Render *_this)
     LOBYTE(v1) = LockSurface_DDraw4(_this->dword_040098, &ddsd2, 2049);
     if ((_BYTE)v1)
     {
-     _this->pTargetSurface = ddsd2.lpSurface;
+     _this->pTargetSurface = (unsigned int *)ddsd2.lpSurface;
      _this->uTargetSurfacePitch = ddsd2.lPitch / (ddsd2.ddpfPixelFormat.dwRGBBitCount / 8);
      _this->dword_000018 = _this->uTargetSurfacePitch;
      goto LABEL_11;
@@ -190,7 +190,7 @@ unsigned int Render_BeginScene(struct Render *_this)
   {
    if (!_this->pTargetSurface)
    {
-    LOBYTE(v1) = Render_LockBackBuffer(_this, &_this->pTargetSurface, &_this->uTargetSurfacePitch);
+    LOBYTE(v1) = Render_LockBackBuffer(_this, (void **)&_this->pTargetSurface, &_this->uTargetSurfacePitch);
     if (_this->pTargetSurface)
     {
      _this->dword_000018 = _this->uTargetSurfacePitch;
@@ -237,7 +237,7 @@ char Render_FillRect(struct Render *_this, unsigned int uX, unsigned int uY, uns
                uRectHeight;
  unsigned int  x, y;
   
-  v36 = _this;
+  v36 = (int)_this;
   v37 = 0i64;
 
   if (uX < _this->dword_00001C)
@@ -438,8 +438,8 @@ int Render_LockBackBuffer(struct Render *_this, void **ppOutSurfacePtr, unsigned
    _asm int 3;  //ddraw2
     memset(&Dst, 0, 0x6Cu);
     Dst = 108;
-    LockSurface_DDraw2(_this->pdds2_BackBuffer, &Dst, 1);
-    *ppOutSurfacePtr = v10;
+    LockSurface_DDraw2(_this->pdds2_BackBuffer, (DDSURFACEDESC *)&Dst, 1);
+    *ppOutSurfacePtr = (void *)v10;
     *pOutSurfaceWidth = v8;
   }
 
@@ -744,7 +744,7 @@ HRESULT Render_EndScene(struct Render *_this)
  _this->pTargetSurface = 0;
  _this->uTargetSurfacePitch = 0;
  _this->dword_000018 = 0;
- return Render_UnlockBackBuffer(_this);
+ return (HRESULT)Render_UnlockBackBuffer(_this);
 }
 
 //----- (004A16E1) --------------------------------------------------------
@@ -756,12 +756,12 @@ void *Render_UnlockBackBuffer(struct Render *_this)
 
 
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
-   v1 = _this->pdds4_BackBuffer;
+   v1 = (IDirectDrawSurface *)_this->pdds4_BackBuffer;
  else
-   v1 = _this->pdds2_BackBuffer;
+   v1 = (IDirectDrawSurface *)_this->pdds2_BackBuffer;
 
- hr = (_this->pdds4_BackBuffer->lpVtbl->Unlock)(_this->pdds4_BackBuffer, 0);
- return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2560, 0);
+ hr = _this->pdds4_BackBuffer->Unlock(0);
+ return CheckHRESULT((void **)local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", __LINE__, 0);
 }
 
 
@@ -899,7 +899,7 @@ int Render_Initialize(struct Render *_this, HWND hwnd)
   int v42; // [sp+2FCh] [bp-10h]@2
   int v43; // [sp+308h] [bp-4h]@2
 
-  v3 = _this;
+  v3 = (int)_this;
   _this->pdd4 = 0;
   _this->pdds4_FrontBuffer = 0;
   pD3DRenderer->pdds4_BackBuffer = 0;
@@ -914,11 +914,11 @@ int Render_Initialize(struct Render *_this, HWND hwnd)
 
   if (_this->bUseDirect3D)
   {
-    v4 = malloc(0x148u);
+    v4 = (int)malloc(0x148u);
     v42 = v4;
     v43 = 0;
     if ( v4 )
-      RenderD3D3_FindAvailableDevices(v4);
+      RenderD3D3_FindAvailableDevices((RenderD3D3 *)v4);
 
     v6 = *(_DWORD *)(v3 + 8);
     v43 = -1;
@@ -926,21 +926,21 @@ int Render_Initialize(struct Render *_this, HWND hwnd)
     v7 = *(_DWORD *)(v4 + 28);
     if ( *(_DWORD *)(v7 + 40 * v6) )
     {
-      v8 = RenderD3D3_Initialize(v4, v6, 0, hwnd);
+      v8 = RenderD3D3_Initialize((RenderD3D3 *)v4, v6, 0, hwnd);
       *(_DWORD *)(v3 + 12) = *(_DWORD *)(v3 + 8);
     }
     else
     {
       if ( *(_DWORD *)(v7 + 40) )
       {
-        v8 = RenderD3D3_Initialize(v4, 1, 0, hwnd);
+        v8 = RenderD3D3_Initialize((RenderD3D3 *)v4, 1, 0, hwnd);
         *(_DWORD *)(v3 + 12) = 1;
       }
       else
       {
         if ( !*(_DWORD *)v7 )
           erroneous_printf("There aren't any D3D devices to create.");
-        v8 = RenderD3D3_Initialize(v4, 0, 0, hwnd);
+        v8 = RenderD3D3_Initialize((RenderD3D3 *)v4, 0, 0, hwnd);
         *(_DWORD *)(v3 + 12) = 0;
       }
     }
@@ -950,14 +950,14 @@ int Render_Initialize(struct Render *_this, HWND hwnd)
     *(_DWORD *)(v3 + 262292) = *(_DWORD *)(v10 + 44);
     *(_DWORD *)(v3 + 262288) = *(_DWORD *)(v10 + 48);
     *(_DWORD *)(v3 + 262284) = *(_DWORD *)(v10 + 32);
-    v9 = RenderD3D3_GetDeviceCaps((void *)v10);
+    v9 = RenderD3D3_GetDeviceCaps((RenderD3D3 *)v10);
     if ( v9 & 1 )
     {
-      hwnd = *(_DWORD *)(v3 + 262280);
+      hwnd = (HWND)*(_DWORD *)(v3 + 262280);
       if ( hwnd )
       {
-        v11 = sub_49DC90(hwnd);
-        operator_delete(v11, hwnd);
+        v11 = sub_49DC90((int)hwnd);
+        operator_delete((void *)hwnd);
       }
       *(_DWORD *)(v3 + 262280) = 0;
       *(_DWORD *)(v3 + 262292) = 0;
@@ -967,11 +967,11 @@ int Render_Initialize(struct Render *_this, HWND hwnd)
     }
     if ( v9 & 0x3E )
     {
-      hwnd = *(_DWORD *)(v3 + 262280);
+      hwnd = (HWND)*(_DWORD *)(v3 + 262280);
       if ( hwnd)
       {
-        v12 = sub_49DC90(hwnd);
-        operator_delete(v12, hwnd);
+        v12 = sub_49DC90((int)hwnd);
+        operator_delete((void *)hwnd);
       }
       *(_DWORD *)(v3 + 262296) = 0;
       *(_DWORD *)(v3 + 262280) = 0;
@@ -982,11 +982,11 @@ int Render_Initialize(struct Render *_this, HWND hwnd)
     }
     if ( (_BYTE)v9 < 0 )
     {
-      hwnd = *(_DWORD *)(v3 + 262280);
+      hwnd = (HWND)*(_DWORD *)(v3 + 262280);
       if ( hwnd )
       {
-        v13 = sub_49DC90(hwnd);
-        operator_delete(v13, hwnd);
+        v13 = sub_49DC90((int)hwnd);
+        operator_delete((void *)hwnd);
       }
       *(_DWORD *)(v3 + 262280) = 0;
       *(_DWORD *)(v3 + 262292) = 0;
@@ -1002,7 +1002,7 @@ int Render_Initialize(struct Render *_this, HWND hwnd)
     v15 = *(_DWORD *)(v3 + 262280);
     v27 = 252;
     v16 = (*(int (__stdcall **)(_DWORD, int *, int *))(**(_DWORD **)(v15 + 56) + 12))(*(_DWORD *)(v15 + 56), &Dst, &v27);
-    CheckHRESULT(&hwnd, v16, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x583u, 0);
+    CheckHRESULT((void **)&hwnd, v16, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x583u, 0);
     v14 = v31;
     if ( v31 >= v32 )
       v14 = v32;
@@ -1013,7 +1013,7 @@ int Render_Initialize(struct Render *_this, HWND hwnd)
     *(_DWORD *)(v3 + 1062484) = v17;
     if ( v14 < 4 )
       *(_DWORD *)(v3 + 1062488) = 4;
-    Render_sub_49FFD7(v3);
+    Render_sub_49FFD7((Render *)v3);
     v18 = 1;
     (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 88))(
       *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
@@ -1098,13 +1098,13 @@ int Render_Initialize(struct Render *_this, HWND hwnd)
     v18 = 1;
   }
   _this->ddpfPrimarySurface.dwSize = sizeof(DDPIXELFORMAT);
-  (_this->pdds4_FrontBuffer->lpVtbl->GetPixelFormat)(_this->pdds4_FrontBuffer, &_this->ddpfPrimarySurface);
+  _this->pdds4_FrontBuffer->GetPixelFormat(&_this->ddpfPrimarySurface);
 
   Render_sub_4A0EB6(_this);
   Render_sub_49EBF1(_this);
   if (_this->pRenderD3D3)
   {
-    v19 = sub_49E756(*(void **)(v3 + 262284));
+    v19 = sub_49E756(*(IDirectDraw4 **)(v3 + 262284));
     v20 = *(_DWORD *)(v3 + 12) == v18;
     *(_DWORD *)(v3 + 262408) = v19;
     if ( !v20 )
@@ -1121,29 +1121,29 @@ int Render_Initialize(struct Render *_this, HWND hwnd)
       v38 = 640;
       v37 = 480;
       v22 = (*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v21 + 24))(v21, &v35, v3 + 262296, 0);
-      CheckHRESULT(&hwnd, v22, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x5CAu, 0);
-      *(_DWORD *)(v3 + 1062592) = sub_4A57E9;
+      CheckHRESULT((void **)&hwnd, v22, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x5CAu, 0);
+      *(_DWORD *)(v3 + 1062592) = (int)sub_4A57E9;
     }
     else
     {
       *(_DWORD *)(v3 + 262380) = 0;
       *(_DWORD *)(v3 + 262376) = 0;
       compile_error;//v23 = operator new(0x96020u);
-      *(_DWORD *)(v3 + 262376) = v23;
-      if ( !v23 || (memset(&v28, 0, 0x7Cu), v28 = 124, !LockSurface_DDraw4(pD3DRenderer->pdds4_BackBuffer, &v28, v18)) )
+      *(_DWORD *)(v3 + 262376) = (int)v23;
+      if ( !v23 || (memset(&v28, 0, 0x7Cu), v28 = 124, !LockSurface_DDraw4(pD3DRenderer->pdds4_BackBuffer, (DDSURFACEDESC2 *)&v28, v18)) )
         return 0;
-      (*(void (__stdcall **)(int, _DWORD))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 128))(pD3DRenderer->pdds4_BackBuffer, 0);
+      (*(void (__stdcall **)(int, _DWORD))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 128))((int)pD3DRenderer->pdds4_BackBuffer, 0);
       v25 = *(_DWORD *)(v3 + 262376) + 16;
       v26 = v29 & 7;
       LOBYTE(v25) = v25 & 0xF8;
       *(_DWORD *)(v3 + 262384) = 640;
-      *(_DWORD *)(v3 + 1062592) = sub_4A597D;
+      *(_DWORD *)(v3 + 1062592) = (int)sub_4A597D;
       v18 = 1;
       *(_DWORD *)(v3 + 262380) = v25 + 2 * v26;
     }
     *(_DWORD *)(v3 + 262416) = v18;
   }
-  else _this->pfn_1036C0 = nullsub_1;
+  else _this->pfn_1036C0 = (int (*)())nullsub_1;
 
 
   _this->dword_040058 = 0;
@@ -1215,14 +1215,14 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
 
  if (_this->bUseDirect3D)
  {
-  _this->pRenderD3D3 = malloc(sizeof(struct RenderD3D3));//v4 = (int)operator new(0x148u);
-  v43 = _this->pRenderD3D3;
+  _this->pRenderD3D3 = new RenderD3D3;
+  v43 = (int)_this->pRenderD3D3;
   v44 = 0;
   if (_this->pRenderD3D3)
     RenderD3D3_FindAvailableDevices(_this->pRenderD3D3);
 
     v44 = -1;
-    v7 = _this->pRenderD3D3->pAvailableDevices;
+    v7 = (int)_this->pRenderD3D3->pAvailableDevices;
     if (_this->pRenderD3D3->pAvailableDevices[_this->uDesiredDirect3DDevice].bDeviceIsValid &&
         _this->uDesiredDirect3DDevice != 1)
     {
@@ -1252,7 +1252,7 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
       if ( v43 )
       {
         v11 = sub_49DC90(v43);
-        operator_delete(v11, v43);
+        operator_delete((void *)v43);
       }
       *(_DWORD *)(v2 + 262280) = 0;
       *(_DWORD *)(v2 + 262292) = 0;
@@ -1266,7 +1266,7 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
       if ( v43 )
       {
         v12 = sub_49DC90(v43);
-        operator_delete(v12, v43);
+        operator_delete((void *)v43);
       }
       *(_DWORD *)(v2 + 262296) = 0;
       *(_DWORD *)(v2 + 262280) = 0;
@@ -1281,7 +1281,7 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
       if ( v43 )
       {
         v13 = sub_49DC90(v43);
-        operator_delete(v13, v43);
+        operator_delete((void *)v43);
       }
       *(_DWORD *)(v2 + 262280) = 0;
       *(_DWORD *)(v2 + 262292) = 0;
@@ -1299,8 +1299,8 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
   memset(&d3ddd2, 0, sizeof(D3DDEVICEDESC));
   d3ddd2.dwSize = sizeof(D3DDEVICEDESC);
 
-  hr = (_this->pRenderD3D3->pDevice->lpVtbl->GetCaps)(_this->pRenderD3D3->pDevice, &d3ddd1, &d3ddd2);
-  CheckHRESULT(&v43, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 1704, 0);
+  hr = _this->pRenderD3D3->pDevice->GetCaps(&d3ddd1, &d3ddd2);
+  CheckHRESULT((void **)&v43, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", __LINE__, 0);
 
   v14 = d3ddd1.dwMinTextureWidth;
   if (d3ddd1.dwMinTextureWidth >= d3ddd1.dwMinTextureHeight)
@@ -1313,22 +1313,22 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
   _this->uMaxDeviceTextureDim = v17;
 
   Render_sub_49FFD7(_this);
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 7, 1);
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 14, 1);
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 23, 2);
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 29, 0);
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 41, 0);
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 22, 1);
+  _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ZENABLE, 1);
+  _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ZWRITEENABLE, 1);
+  _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ZFUNC, 2);
+  _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SPECULARENABLE, 0);
+  _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_COLORKEYENABLE, 0);
+  _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_CULLMODE, 1);
 
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 16, 2);
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 17, 2);
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 18, 3);
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 5, 2);
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 6, 0);
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 4, 2);
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 2, 2);
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 3, 0);
-  (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 1, 4);
+  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_MAGFILTER, 2);
+  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_MINFILTER, 2);
+  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_MIPFILTER, 3);
+  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, 2);
+  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, 0);
+  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, 2);
+  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_COLORARG1, 2);
+  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_COLORARG2, 0);
+  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_COLOROP, 4);
  }
   else
   {
@@ -1349,7 +1349,7 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
 
  if (!_this->pRenderD3D3)
  {
-  _this->pfn_1036C0 = nullsub_1;
+  _this->pfn_1036C0 = (int (*)())nullsub_1;
   _this->dword_040058 = 1;
   _this->hWnd = hwnd;
   return 0;
@@ -1371,8 +1371,8 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
     v39 = 640;
     v38 = 480;
     v21 = (*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v20 + 24))(v20, &v36, v2 + 262296, 0);
-    CheckHRESULT(&v43, v21, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 1783, 0);
-    *(_DWORD *)(v2 + 1062592) = sub_4A57E9;
+    CheckHRESULT((void **)&v43, v21, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 1783, 0);
+    *(_DWORD *)(v2 + 1062592) = (int)sub_4A57E9;
     *(_DWORD *)(v2 + 262416) = 1;
     *(_DWORD *)(v2 + 262232) = 1;
     _this->hWnd = hwnd;
@@ -1380,7 +1380,7 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
  }
  
  _this->pTargetSurface = 0;
- _this->ptr_0400E8 = malloc(640 * 480 * 4 + 32);
+ _this->ptr_0400E8 = (int)malloc(640 * 480 * 4 + 32);
  if (_this->ptr_0400E8)
  {
   memset(&ddsd2, 0, sizeof(DDSURFACEDESC2));
@@ -1388,21 +1388,21 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
 
   if (LockSurface_DDraw4(pD3DRenderer->pdds4_BackBuffer, &ddsd2, 1))
   {
-   (pD3DRenderer->pdds4_BackBuffer->lpVtbl->Unlock)(pD3DRenderer->pdds4_BackBuffer, 0);
+   pD3DRenderer->pdds4_BackBuffer->Unlock(0);
 
       v23 = (unsigned int)ddsd2.lpSurface & 7;
       v25 = _this->ptr_0400E8 & 7;
       if ( v25 == v23 )
-        _this->pTargetSurface = _this->ptr_0400E8;
+        _this->pTargetSurface = (unsigned int *)_this->ptr_0400E8;
       else
       {
         if ( v25 >= v23 )
-          _this->pTargetSurface = _this->ptr_0400E8 + 4 * (v25 - v23) + 16;
+          _this->pTargetSurface = (unsigned int *)(_this->ptr_0400E8 + 4 * (v25 - v23) + 16);
         else
-          _this->pTargetSurface = _this->ptr_0400E8 + 4 * (v23 - v25) + 16;
+          _this->pTargetSurface = (unsigned int *)(_this->ptr_0400E8 + 4 * (v23 - v25) + 16);
       }
       _this->uTargetSurfacePitch = 640;
-      _this->pfn_1036C0 = sub_4A597D;
+      _this->pfn_1036C0 = (int (__cdecl *)())sub_4A597D;
 
       _this->dword_040110 = 1;
       _this->dword_040058 = 1;
@@ -1427,7 +1427,7 @@ void Render_Initialize_ZBuffer(struct Render *_this)
 {
  if (!_this->pDefaultZBuffer)
  {
-  _this->pDefaultZBuffer = class23_AllocatedNamedBuffer(class23_instance, 0, 640 * 480 * 4, "ZBuffer");
+  _this->pDefaultZBuffer = (int *)class23_AllocatedNamedBuffer(pClass23, 0, 640 * 480 * 4, "ZBuffer");
   _this->pActiveZBuffer = _this->pDefaultZBuffer;
   memset(_this->pDefaultZBuffer, -65536, 640 * 480 * 4);
  }
@@ -1441,20 +1441,20 @@ int Render_CreateDirectDraw(struct Render *_this)
  char         some_class[1024];
 
  hr = DirectDrawCreate(0, &pdd, 0);
- CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2286, 0);
+ CheckHRESULT((void **)some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2286, 0);
 
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
  {
-  hr = (pdd->lpVtbl->QueryInterface)(pdd, &IID_IDirectDraw4, &_this->pdd4);
-  CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2296, 0);
+  hr = pdd->QueryInterface(IID_IDirectDraw4, (void **)&_this->pdd4);
+  CheckHRESULT((void **)some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2296, 0);
  }
  else
  {
-  hr = (pdd->lpVtbl->QueryInterface)(pdd, &IID_IDirectDraw2, &_this->pdd2);
-  CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2291, 0);
+  hr = pdd->QueryInterface(IID_IDirectDraw2, (void **)&_this->pdd2);
+  CheckHRESULT((void **)some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2291, 0);
  }
 
- return (pdd->lpVtbl->Release)(pdd);
+ return pdd->Release();
 }
 
 //----- (MM7.exe::004A1169) --------------------------------------------------------
@@ -1469,17 +1469,17 @@ void *Render_SetCooperativeLevel(struct Render *_this, HWND hWnd, int bFullscree
  flags = bFullscreen ? DDSCL_NORMAL | DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN : DDSCL_NORMAL;
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
  {
-  pdd = _this->pdd4;
+  pdd = (IDirectDraw *)_this->pdd4;
   flags |= DDSCL_MULTITHREADED;
  }
  else
  {
   __asm int 3;
-  pdd = _this->pdd2;
+  pdd = (IDirectDraw *)_this->pdd2;
  }
 
- hr = (pdd->lpVtbl->SetCooperativeLevel)(pdd, hWnd, flags);
- return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2320, 0);
+ hr = pdd->SetCooperativeLevel(hWnd, flags);
+ return CheckHRESULT((void **)local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2320, 0);
 }
 
 //----- (MM7.exe::004A11C6) --------------------------------------------------------
@@ -1492,17 +1492,17 @@ void *Render_SetDisplayMode(struct Render *_this, unsigned int uWidth, unsigned 
 
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
  {
-  pdd = _this->pdd4;
+  pdd = (IDirectDraw *)_this->pdd4;
   v8 = 2331;
  }
  else
  {
-  pdd = _this->pdd2;
+  pdd = (IDirectDraw *)_this->pdd2;
   v8 = 2327;
  }
 
  hr = S_OK;//(pdd->lpVtbl->SetDisplayMode)(pdd, uWidth, uHeight, uBPP, 0, 0);
- return CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", v8, 0);
+ return CheckHRESULT((void **)some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", v8, 0);
 }
 
 //----- (M7.exe::004A139A) --------------------------------------------------------
@@ -1522,11 +1522,10 @@ void *Render_CreatePrimarySurface(struct Render *_this)
   ddsd2_PrimarySurface.dwSize = sizeof(DDSURFACEDESC2);
   ddsd2_PrimarySurface.dwFlags = DDSD_CAPS | DDSD_BACKBUFFERCOUNT;
   ddsd2_PrimarySurface.dwBackBufferCount = 1;
-  //ddsd2_PrimarySurface.ddsCaps.dwCaps = DDSCAPS_COMPLEX | DDSCAPS_FLIP | DDSCAPS_3DDEVICE | DDSCAPS_PRIMARYSURFACE;
   ddsd2_PrimarySurface.ddsCaps.dwCaps = DDSCAPS_COMPLEX | DDSCAPS_FLIP | DDSCAPS_3DDEVICE | DDSCAPS_PRIMARYSURFACE;
 
-  hr = (_this->pdd4->lpVtbl->CreateSurface)(_this->pdd4, &ddsd2_PrimarySurface, &_this->pdds4_FrontBuffer, 0);
-  CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2440, 0);
+  hr = _this->pdd4->CreateSurface(&ddsd2_PrimarySurface, &_this->pdds4_FrontBuffer, 0);
+  CheckHRESULT((void **)some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", __LINE__, 0);
  }
  else
  {
@@ -1536,8 +1535,8 @@ void *Render_CreatePrimarySurface(struct Render *_this)
  memset(&ddsCaps2_AttachedSurface, 0, sizeof(DDSCAPS2));
  ddsCaps2_AttachedSurface.dwCaps = DDSCAPS_BACKBUFFER;
 
- hr = (_this->pdds4_FrontBuffer->lpVtbl->GetAttachedSurface)(_this->pdds4_FrontBuffer, &ddsCaps2_AttachedSurface, &pD3DRenderer->pdds4_BackBuffer);
- result = CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2445, 0);
+ hr = _this->pdds4_FrontBuffer->GetAttachedSurface(&ddsCaps2_AttachedSurface, &pD3DRenderer->pdds4_BackBuffer);
+ result = CheckHRESULT((void **)some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", __LINE__, 0);
 
  _this->dword_040030 = 0;
  _this->dword_000018 = 0;
@@ -1550,11 +1549,11 @@ HRESULT Render_GetPrimarySurfacePixelFormat(struct Render *_this, DDPIXELFORMAT 
  IDirectDrawSurface *pdds;
 
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
-   pdds = _this->pdds4_FrontBuffer;
+   pdds = (IDirectDrawSurface *)_this->pdds4_FrontBuffer;
  else
-   pdds = _this->pdds2_FrontBuffer;
+   pdds = (IDirectDrawSurface *)_this->pdds2_FrontBuffer;
 
- return (pdds->lpVtbl->GetPixelFormat)(pdds, pddpf);
+ return pdds->GetPixelFormat(pddpf);
 }
 
 //----- (MM7.exe::004A5BB6) --------------------------------------------------------
@@ -1638,7 +1637,7 @@ int Render_sub_49EBF1(struct Render *_this)
   signed int i; // [sp+24h] [bp-8h]@2
   signed int v13; // [sp+28h] [bp-4h]@3
 
-  result = _this;
+  result = (int)_this;
   v11 = 0;
   runtime_warning(hack: here we pretend that we are running 16 bit, otherwise thigs like palettes go crazy o_O);
   //v2 = 1 << _this->uNumTargetRBits;
@@ -1697,17 +1696,17 @@ int Render_ClearBackBufferAndPresent(struct Render *_this)
  rcDst.bottom = uWindowPosY + uWindowHeight;
 
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
-   v1 = pD3DRenderer->pdds4_BackBuffer;
+   v1 = (IDirectDrawSurface *)pD3DRenderer->pdds4_BackBuffer;
  else
  {
-  v1 = pD3DRenderer->pdds2_BackBuffer;
+  v1 = (IDirectDrawSurface *)pD3DRenderer->pdds2_BackBuffer;
   __asm int 3
  }
 
  ddblt.dwSize = sizeof(DDBLTFX);
  ddblt.dwFillColor = 0x00000000;
  
- hr = (pD3DRenderer->pdds4_BackBuffer->lpVtbl->Blt)(pD3DRenderer->pdds4_BackBuffer, &rcDst, 0, 0, DDBLT_COLORFILL, &ddblt);
+ hr = pD3DRenderer->pdds4_BackBuffer->Blt(&rcDst, 0, 0, DDBLT_COLORFILL, &ddblt);
  return Render_Present(pD3DRenderer);
 }
 
@@ -1727,7 +1726,7 @@ int Render_Present(struct Render *_this)
  if (_this->pRenderD3D3)
  {
   if (dword_720010)
-    sub_46BAEC(dword_720010);
+    sub_46BAEC((void *)dword_720010);
   RenderD3D3_Present(_this->pRenderD3D3, 0);
   if (dword_720010)
     sub_46BB0A(dword_720010);
@@ -1762,15 +1761,15 @@ void *Render_UnlockFrontBuffer(struct Render *_this)
  char                local_0[128];
 
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
-   v1 = _this->pdds4_FrontBuffer;
+   v1 = (IDirectDrawSurface *)_this->pdds4_FrontBuffer;
  else
  {
   __asm int 3;
   //v1 = _this->pdds2_FrontBuffer;
  }
 
- hr = (_this->pdds4_FrontBuffer->lpVtbl->Unlock)(_this->pdds4_FrontBuffer, 0);
- return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2615, 0);
+ hr = _this->pdds4_FrontBuffer->Unlock(0);
+ return CheckHRESULT((void **)local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", __LINE__, 0);
 }
 
 //----- (MM7.exe::004A194A) --------------------------------------------------------
@@ -1781,17 +1780,17 @@ HRESULT Render_PresentBackBuffer(struct Render *_this, int a2, int a3, RECT *pRe
 
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
  {
-  v4 = _this->pdds4_FrontBuffer;
-  v6 = _this->pdds4_BackBuffer;
+  v4 = (IDirectDrawSurface *)_this->pdds4_FrontBuffer;
+  v6 = (IDirectDrawSurface *)_this->pdds4_BackBuffer;
  }
  else
  {
-  v4 = _this->pdds2_FrontBuffer;
-  v6 = _this->pdds2_BackBuffer;
+  v4 = (IDirectDrawSurface *)_this->pdds2_FrontBuffer;
+  v6 = (IDirectDrawSurface *)_this->pdds2_BackBuffer;
   __asm int 3
  }
 
- return (_this->pdds4_FrontBuffer->lpVtbl->BltFast)(_this->pdds4_FrontBuffer, 0, 0, _this->pdds4_BackBuffer, pRect, DDBLTFAST_WAIT);
+ return _this->pdds4_FrontBuffer->BltFast(0, 0, _this->pdds4_BackBuffer, pRect, DDBLTFAST_WAIT);
 }
 
 //----- (MM7.exe::004A1814) --------------------------------------------------------
@@ -1802,16 +1801,16 @@ HRESULT Render_RestoreFrontBuffer(struct Render *_this)
 
 
  if ( dword_F79D7C != 2 || dword_F79D70 != 4)
-   v1 = _this->pdds4_FrontBuffer;
+   v1 = (IDirectDrawSurface *)_this->pdds4_FrontBuffer;
  else
  {
-  v1 = _this->pdds2_FrontBuffer;
+  v1 = (IDirectDrawSurface *)_this->pdds2_FrontBuffer;
   __asm int 3;
  }
 
- hr = (_this->pdds4_FrontBuffer->lpVtbl->IsLost)(_this->pdds4_FrontBuffer);
+ hr = _this->pdds4_FrontBuffer->IsLost();
  if ( hr == DDERR_SURFACELOST )
-    hr = (_this->pdds4_FrontBuffer->lpVtbl->Restore)(_this->pdds4_FrontBuffer);
+    hr = _this->pdds4_FrontBuffer->Restore();
  return hr;
 }
 
@@ -1827,8 +1826,8 @@ int CheckIfDeviceSupportsGammaControl()
   memset(&ddCaps, 0, sizeof(DDCAPS_DX7));
   ddCaps.dwSize = sizeof(DDCAPS_DX7);
 
-  hr = (pD3DRenderer->pdd4->lpVtbl->GetCaps)(pD3DRenderer->pdd4, &ddCaps, 0);
-  CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\GammaControl.cpp", 71, 0);
+  hr = pD3DRenderer->pdd4->GetCaps(&ddCaps, 0);
+  CheckHRESULT((void **)some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\GammaControl.cpp", __LINE__, 0);
   return ddCaps.dwCaps2 & DDCAPS2_PRIMARYGAMMA;
  }
  else return false;
@@ -1858,7 +1857,7 @@ struct CGammaController *CGammaController_ctor(struct CGammaController *_this)
 }
 
 //----- (MM7.exe::0044F4D9) --------------------------------------------------------
-void *sub_44F4D9(struct CGammaController *_this, float a2)
+void *GammaController_sub_44F4D9(struct CGammaController *_this, float a2)
 {
   double v3; // st7@3
   double v4; // st6@4
@@ -1881,8 +1880,8 @@ void *sub_44F4D9(struct CGammaController *_this, float a2)
     v3 = 0.1000000014901161;
 
   _this->flt_000C0C = v3;
-  sub_44F45B(_this, &_this->ddGammaRamp2);
-  result = sub_44F408(_this, &_this->ddGammaRamp2);
+  GammaController_sub_44F45B((int)_this, (int)&_this->ddGammaRamp2);
+  result = GammaController_sub_44F408((int)_this, (char *)&_this->ddGammaRamp2);
  }
  return result;
 }
@@ -1893,12 +1892,12 @@ void CGammaController_InitializeFromSurface(struct CGammaController *_this, stru
  _this->pdds4 = pdds;
  if (_this->pddgc)
  {
-  (_this->pddgc->lpVtbl->Release)(_this->pddgc);
+  _this->pddgc->Release();
   _this->pddgc = 0;
  }
  if (CheckIfDeviceSupportsGammaControl())
  {
-  (pdds->lpVtbl->QueryInterface)(pdds, &IID_IDirectDrawGammaControl, &_this->pddgc);
+  pdds->QueryInterface(IID_IDirectDrawGammaControl, (void **)&_this->pddgc);
   CGammaController_InitializeGammaRamp(_this);
   memcpy(&_this->ddGammaRamp2, &_this->ddGammaRamp, sizeof(DDGAMMARAMP));
   _this->flt_000C0C = sub_44F377(&_this->ddGammaRamp2);
@@ -1915,13 +1914,13 @@ void *CGammaController_InitializeGammaRamp(struct CGammaController *_this)
 
  if (_this->pddgc)
  {
-  hr = (_this->pddgc->lpVtbl->GetGammaRamp)(_this->pddgc, 0, &_this->ddGammaRamp);
-  result = CheckHRESULT(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\GammaControl.cpp", 87, 0);
+  hr = _this->pddgc->GetGammaRamp(0, &_this->ddGammaRamp);
+  result = CheckHRESULT((void **)some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\GammaControl.cpp", 87, 0);
  }
  else
  {
-   sub_40E2C8(&hr, "Gamma control not active", (int)&v12);
-   result = sub_467834(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\GammaControl.cpp", 0, 0, 83, 0);
+   Game_sub_40E2C8(&hr, "Gamma control not active", (int)&v12);
+   result = sub_467834(some_class, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\GammaControl.cpp", 0, 0, (char *)83, 0);
  }
  return result;
 }
@@ -1961,15 +1960,15 @@ void *__stdcall BltToFrontBuffer(RECT *pDestRect, IDirectDrawSurface *pddsSrc, R
  char                local_0[128];
 
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
-   v4 = pD3DRenderer->pdds4_FrontBuffer;
+   v4 = (IDirectDrawSurface *)pD3DRenderer->pdds4_FrontBuffer;
  else
  {
   __asm int 3; //ddraw2
-  v4 = pD3DRenderer->pdds2_FrontBuffer;
+  v4 = (IDirectDrawSurface *)pD3DRenderer->pdds2_FrontBuffer;
  }
 
- hr = (pD3DRenderer->pdds4_FrontBuffer->lpVtbl->Blt)(pD3DRenderer->pdds4_FrontBuffer, pDestRect, pddsSrc, pSrcRect, uFlags, 0);
- return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2669, 0);
+ hr = pD3DRenderer->pdds4_FrontBuffer->Blt(pDestRect, (IDirectDrawSurface4 *)pddsSrc, pSrcRect, uFlags, 0);
+ return CheckHRESULT((void **)local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", __LINE__, 0);
 }
 
 //----- (004A0F40) --------------------------------------------------------
@@ -1978,13 +1977,13 @@ bool __stdcall LockSurface_DDraw4(struct IDirectDrawSurface4 *pdds4, DDSURFACEDE
  char    local_0[128];
  HRESULT hr;
 
- hr = (pdds4->lpVtbl->Lock)(pdds4, 0, pddsd2, uLockFlags, 0);
+ hr = pdds4->Lock(0, pddsd2, uLockFlags, 0);
  if (hr == DDERR_SURFACELOST)
  {
   if (dword_720010)
     Mouse_suspend(dword_720010);
 
-  hr = (pdds4->lpVtbl->Restore)(pdds4);
+  hr = pdds4->Restore();
   if (FAILED(hr))
   {
    if (hr != -2005532084)
@@ -1993,11 +1992,11 @@ bool __stdcall LockSurface_DDraw4(struct IDirectDrawSurface4 *pdds4, DDSURFACEDE
     return false;
    }
 
-   (pD3DRenderer->pdds4_FrontBuffer->lpVtbl->Restore)(pD3DRenderer->pdds4_FrontBuffer);
-   (pdds4->lpVtbl->Restore)(pdds4);
+   pD3DRenderer->pdds4_FrontBuffer->Restore();
+   pdds4->Restore();
   }
 
-  hr = (pdds4->lpVtbl->Lock)(pdds4, 0, pddsd2, DDLOCK_WAIT, 0);
+  hr = pdds4->Lock(0, pddsd2, DDLOCK_WAIT, 0);
   if (hr == DDERR_SURFACELOST || hr == DDERR_SURFACEBUSY)
   {
    pddsd2->dwSize = 0;
@@ -2005,16 +2004,16 @@ bool __stdcall LockSurface_DDraw4(struct IDirectDrawSurface4 *pdds4, DDSURFACEDE
   }
   else if (FAILED(hr))
   {
-   CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2161, 0);
+   CheckHRESULT((void **)local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2161, 0);
    pddsd2->dwSize = 0;
    return false;
   }
 
   if (pD3DRenderer->pRenderD3D3)
     sub_4A5190();
-  (pD3DRenderer->pdd4->lpVtbl->RestoreAllSurfaces)(pD3DRenderer->pdd4);
+  pD3DRenderer->pdd4->RestoreAllSurfaces();
   if (dword_720010)
-    sub_46B105(dword_720010);
+    sub_46B105((void *)dword_720010);
  }
  else if (FAILED(hr))
  {
@@ -2024,7 +2023,7 @@ bool __stdcall LockSurface_DDraw4(struct IDirectDrawSurface4 *pdds4, DDSURFACEDE
    return false;
   }
 
-  CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2199, 0);
+  CheckHRESULT((void **)local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2199, 0);
   pddsd2->dwSize = 0;
  }
 
@@ -2040,8 +2039,8 @@ int __stdcall LockSurface_DDraw2(struct IDirectDrawSurface2 *a1, DDSURFACEDESC *
   unsigned int v7; // [sp-8h] [bp-10h]@8
   int v8; // [sp-4h] [bp-Ch]@8
 
-  v4 = a1;
-  v3 = (*(int (__stdcall **)(int, _DWORD, void *, int, _DWORD))(*(_DWORD *)a1 + 100))(a1, 0, Dst, a3, 0);
+  v4 = (int)a1;
+  v3 = (*(int (__stdcall **)(int, _DWORD, void *, int, _DWORD))(*(_DWORD *)a1 + 100))((int)a1, 0, Dst, a3, 0);
   BYTE3(a1) = 1;
   if ( v3 == -2005532222 )
   {
@@ -2055,7 +2054,7 @@ LABEL_14:
         memset(Dst, 0, 4u);
         return BYTE3(a1);
       }
-      (*(void (__stdcall **)(int))(*(_DWORD *)pD3DRenderer->pdds2_FrontBuffer + 108))(pD3DRenderer->pdds2_FrontBuffer);
+      (*(void (__stdcall **)(int))(*(_DWORD *)pD3DRenderer->pdds2_FrontBuffer + 108))((int)pD3DRenderer->pdds2_FrontBuffer);
       (*(void (__stdcall **)(int))(*(_DWORD *)v4 + 108))(v4);
     }
     v3 = (*(int (__stdcall **)(int, _DWORD, void *, signed int, _DWORD))(*(_DWORD *)v4 + 100))(v4, 0, Dst, 1, 0) != 0;
@@ -2066,7 +2065,7 @@ LABEL_14:
       v8 = 0;
       v7 = 2247;
 LABEL_13:
-      CheckHRESULT(&a1, v3, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", v7, v8);
+      CheckHRESULT((void **)&a1, v3, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", v7, v8);
       goto LABEL_14;
     }
   }
@@ -2200,7 +2199,7 @@ int RGBTexture_DecodePCX(struct RGBTexture *_this, unsigned char *pPCXData, unsi
  _this->uHeight = v9 & 0xFFFF;
 
  v9 = (signed __int16)v9;
- v36 = v9;
+ v36 = (unsigned short *)v9;
 
  _this->uNumPixels = (signed __int16)v9 * (signed __int16)v6;
 
@@ -2216,7 +2215,7 @@ int RGBTexture_DecodePCX(struct RGBTexture *_this, unsigned char *pPCXData, unsi
 
 LABEL_8:
  v10 = 1;
- while ( 1 << v10 != v36 )
+ while ((1 << v10) != (int)v36 )
  {
   ++v10;
   if ( v10 >= 15 )
@@ -2388,7 +2387,7 @@ int RGBTexture_ctor(struct RGBTexture *_this)
  _this->word_000020 = 0;
  _this->word_000022 = 0;
  _this->pPixels = 0;
- return _this;
+ return (int)_this;
 }
 
 
@@ -2414,7 +2413,7 @@ void Render_BeginSceneD3D3(struct Render *_this)
   char *v16; // [sp+10h] [bp-8h]@4
   int v17; // [sp+17h] [bp-1h]@4
 
-  v2 = _this;
+  v2 = (int)_this;
   result = _this->uD3D3SceneBegun++;
   if ( !result )
   {
@@ -2422,7 +2421,7 @@ void Render_BeginSceneD3D3(struct Render *_this)
     {
       RenderD3D3_ClearTarget(_this->pRenderD3D3, 1, result, 1, 1.0);
       _this->uNumBillboardsToDraw = 0;
-      (_this->pRenderD3D3->pDevice->lpVtbl->BeginScene)(_this->pRenderD3D3->pDevice);
+      _this->pRenderD3D3->pDevice->BeginScene();
 
       if ( dword_6BE360 == 2 )
         v4 = sub_47C370();
@@ -2430,20 +2429,20 @@ void Render_BeginSceneD3D3(struct Render *_this)
         v4 = 0;
       if ( v4 & 0xFF000000 )
       {
-        (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 28, 1);
-        (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 34, v4 & 0xFFFFFF);
-        (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 35, 0);
+        _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGENABLE, 1);
+        _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGCOLOR, v4 & 0xFFFFFF);
+        _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGTABLEMODE, 0);
         _this->bUsingSpecular = true;
       }
       else
       {
-        (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 28, 0);
+        _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGENABLE, 0);
         _this->bUsingSpecular = false;
       }
     }
     else
     {
-      Render_LockBackBuffer(_this, &_this->pTargetSurface, &_this->uTargetSurfacePitch);
+      Render_LockBackBuffer(_this, (void **)&_this->pTargetSurface, &_this->uTargetSurfacePitch);
       if (_this->pTargetSurface)
       {
         _this->dword_000018 = _this->uTargetSurfacePitch;
@@ -2468,7 +2467,7 @@ void RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(struct
       sub_44EE7C();
       D3D_DoRenderBillboards();
       class06_sub_4A8C27(pGame->class06_obj);
-      (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->EndScene)(pD3DRenderer->pRenderD3D3->pDevice);
+      pD3DRenderer->pRenderD3D3->pDevice->EndScene();
     }
     else
       class06_sub_4A8C27(pGame->class06_obj);
@@ -2487,8 +2486,8 @@ void *Render_CreateSurface(struct Render *_this)
  dd.dwFlags = DDSD_CAPS;
  dd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
 
- hr = _this->pdd4->lpVtbl->CreateSurface(pD3DRenderer->pdd4, &dd, &pD3DRenderer->pdds4_FrontBuffer, 0);
- return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2357, 0);
+ hr = _this->pdd4->CreateSurface(&dd, &pD3DRenderer->pdds4_FrontBuffer, 0);
+ return CheckHRESULT((void **)local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2357, 0);
 }
 
 //----- (004A12CD) --------------------------------------------------------
@@ -2505,8 +2504,8 @@ void *Render_CreateWndSurface(struct Render *_this)
  dd.dwHeight = 480;
  dd.ddsCaps.dwCaps = DDSCAPS_SYSTEMMEMORY | DDSCAPS_OFFSCREENPLAIN;
 
- hr = _this->pdd4->lpVtbl->CreateSurface(pD3DRenderer->pdd4, &dd, &pD3DRenderer->pdds4_BackBuffer, 0);
- return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2357, 0);
+ hr = _this->pdd4->CreateSurface(&dd, &pD3DRenderer->pdds4_BackBuffer, 0);
+ return CheckHRESULT((void **)local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2357, 0);
 }
 
 //----- (004A14F4) --------------------------------------------------------
@@ -2516,14 +2515,14 @@ void *Render_CreateClipper(struct Render *_this, HWND hClipWnd)
  char    local_0[128];
  HRESULT hr; 
 
- hr = _this->pdd4->lpVtbl->CreateClipper(pD3DRenderer->pdd4, NULL, &pDDrawClipper, NULL);
- CheckHRESULT(&local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2463, 0);
+ hr = _this->pdd4->CreateClipper(NULL, &pDDrawClipper, NULL);
+ CheckHRESULT((void **)&local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2463, 0);
 
- hr = pDDrawClipper->lpVtbl->SetHWnd(pDDrawClipper, 0, hClipWnd);
- CheckHRESULT(&local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2464, 0);
+ hr = pDDrawClipper->SetHWnd(0, hClipWnd);
+ CheckHRESULT((void **)&local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2464, 0);
 
- hr = _this->pdds4_FrontBuffer->lpVtbl->SetClipper(pD3DRenderer->pdds4_FrontBuffer, pDDrawClipper);
- return CheckHRESULT(&local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2465, 0);
+ hr = _this->pdds4_FrontBuffer->SetClipper(pDDrawClipper);
+ return CheckHRESULT((void **)&local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 2465, 0);
 }
 
 //----- (004A1884) --------------------------------------------------------
@@ -2532,21 +2531,20 @@ void *Render_PresentRegion(struct Render *_this, RECT *pDestRect, RECT *pSrcRect
  HRESULT hr;
  char    local_0[128];
 
-  hr = (pD3DRenderer->pdds4_FrontBuffer->lpVtbl->Blt)(pD3DRenderer->pdds4_FrontBuffer, pDestRect, pD3DRenderer->pdds4_BackBuffer, pSrcRect, DDBLT_WAIT, 0);
-  return CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", __LINE__, 0);
+  hr = pD3DRenderer->pdds4_FrontBuffer->Blt(pDestRect, pD3DRenderer->pdds4_BackBuffer, pSrcRect, DDBLT_WAIT, 0);
+  return CheckHRESULT((void **)local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", __LINE__, 0);
 }
 
 
 
-bool __stdcall DDrawEnumDisplayModesCallback(DDSURFACEDESC2 *pDDSurfaceDesc, unsigned short *a2)
+HRESULT __stdcall DDrawEnumDisplayModesCallback(DDSURFACEDESC2 *pDDSurfaceDesc, void *a2)
 {
  if (*(_DWORD *)((char *)pDDSurfaceDesc + 0x68) | 0x2000 && *(_DWORD *)((char *)pDDSurfaceDesc + 84) == 16 )
  {
-  a2 = 1;
-    return 0;
+  *(unsigned short *)a2 = true;
+    return S_OK;
  }
- else
-   return 1;
+ else return 1;
 }
 
 //----- (0049D9BC) --------------------------------------------------------
@@ -2605,16 +2603,16 @@ bool __stdcall DDrawEnumCallback(GUID *pGUID, const char *pDriverDescription, co
  memset(&local_4CC, 0, 36);
 
  v4 = strlen(pDriverName);
- local_4CC.Dest = malloc(v4 + 1);//Dest = (char *)operator new(v4 + 1);
+ local_4CC.Dest = new char[v4 + 1];//Dest = (char *)operator new(v4 + 1);
  strcpy(local_4CC.Dest, pDriverName);
 
  v5 = strlen(pDriverDescription);
- local_4CC.v36 = malloc(v5 + 1);//v36 = (char *)operator new(v5 + 1);
+ local_4CC.v36 = new char[v5 + 1];//v36 = (char *)operator new(v5 + 1);
  strcpy(local_4CC.v36, pDriverDescription);
 
  if (pGUID)
  {
-  local_4CC.lpGUID = malloc(sizeof(GUID));//lpGUID = (GUID *)operator new(0x10u);
+  local_4CC.lpGUID = new GUID;
   memcpy(local_4CC.lpGUID, pGUID, sizeof(GUID));
  }
  else
@@ -2623,33 +2621,33 @@ bool __stdcall DDrawEnumCallback(GUID *pGUID, const char *pDriverDescription, co
  hr = DirectDrawCreate(pGUID, &pDirectDraw, 0);
  if (FAILED(hr))
  {
-  operator_delete(0, local_4CC.Dest);
-  operator_delete(0, local_4CC.v36);
+  operator_delete((void *)local_4CC.Dest);
+  operator_delete((void *)local_4CC.v36);
   if (local_4CC.lpGUID)
-    operator_delete(0, local_4CC.lpGUID);
+    operator_delete(local_4CC.lpGUID);
  }
 
- hr = (pDirectDraw->lpVtbl->QueryInterface)(pDirectDraw, &IID_IDirectDraw4, &pDirectDraw4);
+ hr = pDirectDraw->QueryInterface(IID_IDirectDraw4, (void **)&pDirectDraw4);
  if (FAILED(hr))
  {
-  operator_delete(0, local_4CC.Dest);
-  operator_delete(0, local_4CC.v36);
+  operator_delete(local_4CC.Dest);
+  operator_delete(local_4CC.v36);
   if (local_4CC.lpGUID)
-    operator_delete(0, local_4CC.lpGUID);
+    operator_delete(local_4CC.lpGUID);
 
-  (pDirectDraw->lpVtbl->Release)(pDirectDraw);
+  pDirectDraw->Release();
   return 1;
  }
 
- (pDirectDraw->lpVtbl->Release)(pDirectDraw);
+ pDirectDraw->Release();
 
- hr = (pDirectDraw4->lpVtbl->GetDeviceIdentifier)(pDirectDraw4, &ddDeviceId, DDGDI_GETHOSTIDENTIFIER);
+ hr = pDirectDraw4->GetDeviceIdentifier(&ddDeviceId, DDGDI_GETHOSTIDENTIFIER);
  if (FAILED(hr))
    local_4CC.v37 = 0;
  else
  {
   v13 = strlen(ddDeviceId.szDescription);
-  local_4CC.v37 = malloc(v13 + 1);//v37 = (char *)operator new(v13 + 1);
+  local_4CC.v37 = new char[v13 + 1];//v37 = (char *)operator new(v13 + 1);
   strcpy(local_4CC.v37, ddDeviceId.szDescription);
  }
  
@@ -2666,35 +2664,35 @@ bool __stdcall DDrawEnumCallback(GUID *pGUID, const char *pDriverDescription, co
       local_42C.v27 = 32;
       v33 = 0;
 
- hr = (pDirectDraw4->lpVtbl->EnumDisplayModes)(pDirectDraw4, 0, 0, &v33, DDrawEnumDisplayModesCallback);
- (pDirectDraw4->lpVtbl->QueryInterface)(pDirectDraw4, &memory_4D8410.IID_IDirect3D3, &pDirect3D3);
+ hr = pDirectDraw4->EnumDisplayModes(0, 0, &v33, DDrawEnumDisplayModesCallback);
+ pDirectDraw4->QueryInterface(memory_4D8410.IID_IDirect3D3, (void **)&pDirect3D3);
  //if (FAILED(hr) || !v33 || !pDirect3D3)
  if (FAILED(hr) || !pDirect3D3)
  {
-  operator_delete(0, local_4CC.Dest);
-  operator_delete(0, local_4CC.v36);
+  operator_delete(local_4CC.Dest);
+  operator_delete(local_4CC.v36);
   if (local_4CC.v37)
-    operator_delete(0, local_4CC.v37);
+    operator_delete(local_4CC.v37);
   if (local_4CC.lpGUID)
-    operator_delete(0, local_4CC.lpGUID);
+    operator_delete(local_4CC.lpGUID);
 
-  (pDirectDraw4->lpVtbl->Release)(pDirectDraw4);
+  pDirectDraw4->Release();
   return 1;
  }
 
- local_4BC.v30 = a4;
- local_4BC.v31 = &local_4CC;
- hr = (pDirect3D3->lpVtbl->EnumDevices)(pDirect3D3, Direct3D3EnumDevicesCallback, &local_4BC);
+ local_4BC.v30 = (unsigned char *)a4;
+ local_4BC.v31 = (char *)&local_4CC;
+ hr = pDirect3D3->EnumDevices((LPD3DENUMDEVICESCALLBACK)Direct3D3EnumDevicesCallback, &local_4BC);
 
- operator_delete(0, local_4CC.Dest);
- operator_delete(0, local_4CC.v36);
+ operator_delete(local_4CC.Dest);
+ operator_delete(local_4CC.v36);
  if (local_4CC.v37)
-   operator_delete(0, local_4CC.v37);
+   operator_delete(local_4CC.v37);
  if (local_4CC.lpGUID)
-   operator_delete(0, local_4CC.lpGUID);
+   operator_delete(local_4CC.lpGUID);
 
- (pDirectDraw4->lpVtbl->Release)(pDirectDraw4);
- (pDirect3D3->lpVtbl->Release)(pDirect3D3);
+ pDirectDraw4->Release();
+ pDirect3D3->Release();
 
 
  return 1;
@@ -2712,41 +2710,41 @@ bool Render_ValidateTextureStages()
  IDirect3DTexture2 *pTexture1;
  IDirect3DTexture2 *pTexture2;
 
- RenderD3D3_CreateTexture(pD3DRenderer->pRenderD3D3, 64, 64, &pTexture1Surface, &pTexture1, true, false, 0x20);
- RenderD3D3_CreateTexture(pD3DRenderer->pRenderD3D3, 64, 64, &pTexture2Surface, &pTexture2, true, false, 0x20);
+ RenderD3D3_CreateTexture(pD3DRenderer->pRenderD3D3, 64, 64, &pTexture1Surface, &pTexture1, true, false, (void *)0x20);
+ RenderD3D3_CreateTexture(pD3DRenderer->pRenderD3D3, 64, 64, &pTexture2Surface, &pTexture2, true, false, (void *)0x20);
 
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTexture)(pD3DRenderer->pRenderD3D3->pDevice, 0, pTexture1);
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(pD3DRenderer->pRenderD3D3->pDevice, 0, 12, 1);
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(pD3DRenderer->pRenderD3D3->pDevice, 0, 1, 2);
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(pD3DRenderer->pRenderD3D3->pDevice, 0, 2, 2);
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(pD3DRenderer->pRenderD3D3->pDevice, 0, 16, 2);
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(pD3DRenderer->pRenderD3D3->pDevice, 0, 17, 2);
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(pD3DRenderer->pRenderD3D3->pDevice, 0, 18, 1);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTexture(0, pTexture1);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ADDRESS, 1);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_COLOROP, 2);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_COLORARG1, 2);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_MAGFILTER, 2);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_MINFILTER, 2);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_MIPFILTER, 1);
 
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTexture)(pD3DRenderer->pRenderD3D3->pDevice, 0, pTexture2);
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(pD3DRenderer->pRenderD3D3->pDevice, 1, 12, 3);
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(pD3DRenderer->pRenderD3D3->pDevice, 1, 11, 1);
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(pD3DRenderer->pRenderD3D3->pDevice, 1, 1, 7);
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(pD3DRenderer->pRenderD3D3->pDevice, 1, 2, 2);
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(pD3DRenderer->pRenderD3D3->pDevice, 1, 3, 1);
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(pD3DRenderer->pRenderD3D3->pDevice, 1, 16, 2);
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(pD3DRenderer->pRenderD3D3->pDevice, 1, 17, 2);
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(pD3DRenderer->pRenderD3D3->pDevice, 1, 18, 1);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTexture(1, pTexture2);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTextureStageState(1, D3DTSS_ADDRESS, 3);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTextureStageState(1, D3DTSS_TEXCOORDINDEX, 1);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTextureStageState(1, D3DTSS_COLOROP, 7);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTextureStageState(1, D3DTSS_COLORARG1, 2);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTextureStageState(1, D3DTSS_COLORARG2, 1);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTextureStageState(1, D3DTSS_MAGFILTER, 2);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTextureStageState(1, D3DTSS_MINFILTER, 2);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTextureStageState(1, D3DTSS_MIPFILTER, 1);
  
  v0 = false;
- if ((pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->ValidateDevice)(pD3DRenderer->pRenderD3D3->pDevice, &v4) == S_OK)
+ if (pD3DRenderer->pRenderD3D3->pDevice->ValidateDevice((LPDWORD)&v4) == S_OK)
  {
     if ( v4 == 1 )
       v0 = true;
  }
 
- (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(pD3DRenderer->pRenderD3D3->pDevice, 1, 1, 1);
+ pD3DRenderer->pRenderD3D3->pDevice->SetTextureStageState(1, D3DTSS_COLOROP, 1);
 
- (pTexture1->lpVtbl->Release)(pTexture1);
- (pTexture1Surface->lpVtbl->Release)(pTexture1Surface);
+ pTexture1->Release();
+ pTexture1Surface->Release();
 
- (pTexture2->lpVtbl->Release)(pTexture2);
- (pTexture2Surface->lpVtbl->Release)(pTexture2Surface);
+ pTexture2->Release();
+ pTexture2Surface->Release();
 
  return v0;
 }
@@ -2755,7 +2753,7 @@ bool Render_ValidateTextureStages()
 //----- (0049FFD7) --------------------------------------------------------
 bool Render_sub_49FFD7(struct Render *_this)
 {
- return RenderD3D3_CreateTexture(_this->pRenderD3D3, 64, 64, &_this->ptr_1036B0, &_this->ptr_1036B4, true, false, 0x20);
+ return RenderD3D3_CreateTexture(_this->pRenderD3D3, 64, 64, &_this->ptr_1036B0, &_this->ptr_1036B4, true, false, (void *)0x20);
 }
 
 
@@ -2798,7 +2796,7 @@ unsigned int LoadHWL(const wchar_t *pFile, unsigned int *pWidth, unsigned int *p
  char                     pFilenameA[256];
 
  wsprintfA(pFilenameA, "%S", pFile);
- pBitmap = Render_LoadHWLTexture(&pD3DRenderer->struct_040114, pFilenameA, 0);
+ pBitmap = Render_LoadHWLTexture(&pD3DRenderer->struct_040114, (unsigned char *)pFilenameA, 0);
  if (!pBitmap)
    return -1;
 
@@ -2822,7 +2820,7 @@ unsigned int Render_MoveToGPU(struct Render *_this, unsigned int uWidth, unsigne
   *pOutTexture = 0;
   return 0;
  }
- if (!RenderD3D3_CreateTexture(_this->pRenderD3D3, uWidth, uHeight, pOutSurface, pOutTexture, true, 0, _this->uMinDeviceTextureDim))
+ if (!RenderD3D3_CreateTexture(_this->pRenderD3D3, uWidth, uHeight, pOutSurface, pOutTexture, true, 0, (void *)_this->uMinDeviceTextureDim))
  {
   *pOutSurface = 0;
   *pOutTexture = 0;
@@ -2837,7 +2835,7 @@ unsigned int Render_MoveToGPU(struct Render *_this, unsigned int uWidth, unsigne
   for (y = 0; y < uHeight; ++y)
     memcpy((char *)ddsd.lpSurface + y * ddsd.lPitch, pData + y * uWidth, uWidth * 4);
 
-  hr = ((*pOutSurface)->lpVtbl->Unlock)(*pOutSurface, 0);
+  hr = (*pOutSurface)->Unlock(0);
   if (FAILED(hr))
   {
    __asm int 3;
@@ -2862,8 +2860,8 @@ bool Render_MoveHWSpriteToVideoMemory(struct Render *_this, struct HardwareSprit
  HRESULT      hr;
  unsigned int x, y;
 
-  v4 = pSprite;
-  v3 = _this;
+  v4 = (int)pSprite;
+  v3 = (int)_this;
   result = Render_LoadHWLTexture(&_this->struct_0A1BAC, pSprite->pSpriteName, pSprite->dword_000004);
   v5 = (unsigned int)result;
   if (!result)
@@ -2877,7 +2875,7 @@ bool Render_MoveHWSpriteToVideoMemory(struct Render *_this, struct HardwareSprit
  pSprite->dword_000020 = result->dword_000020;
  pSprite->dword_000024 = result->dword_000024;
 
- if (!RenderD3D3_CreateTexture(_this->pRenderD3D3, result->uWidth, result->uHeight, &pSprite->pTextureSurface, &pSprite->pTexture, true, 0, _this->uMinDeviceTextureDim))
+ if (!RenderD3D3_CreateTexture(_this->pRenderD3D3, result->uWidth, result->uHeight, &pSprite->pTextureSurface, &pSprite->pTexture, true, 0, (void *)_this->uMinDeviceTextureDim))
    erroneous_printf("HiScreen16::LoadTexture - D3Drend->CreateTexture() failed: %x", 0);
 
  memset(&ddsd, 0, sizeof(DDSURFACEDESC2));
@@ -2903,15 +2901,15 @@ bool Render_MoveHWSpriteToVideoMemory(struct Render *_this, struct HardwareSprit
    memcpy((char *)ddsd.lpSurface + y * ddsd.lPitch, result->pTruecolorPixels + y * result->uWidth, result->uWidth * 4);
   }
 
-  hr = (pSprite->pTextureSurface->lpVtbl->Unlock)(pSprite->pTextureSurface, 0);
+  hr = pSprite->pTextureSurface->Unlock(0);
   if (FAILED(hr))
     __asm int 3;
 
-  //CheckHRESULT(0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+  //CheckHRESULT((void **)0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
  }
 
  free(result->pPixels);
- operator_delete(0, result);
+ operator_delete(result);
 
  return true;
 }
@@ -2966,10 +2964,10 @@ struct Render_HWLBitmap *Render_LoadHWLTexture(struct Render_HWLContainer *_this
     {
       v6 = v5 + (v32 - v5) / 2;
       //if ( !_strcmpi(Str1, *((const char **)v4 + v6 + 4)) )
-      if (!strcmpi(Str1, _this->pSriteNames[v6]))
+      if (!strcmpi(Str1, (char *)_this->pSriteNames[v6]))
         break;
       //if ( _strcmpi(Str1, *((const char **)v4 + v6 + 4)) <= 0 )
-      else if (strcmpi(Str1, _this->pSriteNames[v6]) < 0)
+      else if (strcmpi(Str1, (char *)_this->pSriteNames[v6]) < 0)
         v32 = v5 + (v32 - v5) / 2;
       else
         v5 = v6 + 1;
@@ -2979,7 +2977,7 @@ struct Render_HWLBitmap *Render_LoadHWLTexture(struct Render_HWLContainer *_this
     }
 
     fseek(_this->pHWLFile, _this->pSpriteFileOffsets[v6], SEEK_SET);
-    v10 = malloc(sizeof(struct Render_HWLBitmap));
+    v10 = new Render_HWLBitmap;
     locked_fread(&DstBuf, 4u, 1u, _this->pHWLFile);
     locked_fread(&v10->dword_000018, 4, 1, _this->pHWLFile);
     locked_fread(&v10->dword_00001C, 4, 1, _this->pHWLFile);
@@ -2989,18 +2987,18 @@ struct Render_HWLBitmap *Render_LoadHWLTexture(struct Render_HWLContainer *_this
     locked_fread(&v10->uHeight, 4, 1, _this->pHWLFile);
     locked_fread(&v10->dword_000030, 4, 1, _this->pHWLFile);
     locked_fread(&v10->dword_000034, 4, 1, _this->pHWLFile);
-    v10->pPixels = malloc(2 * v10->uWidth * v10->uHeight);
+    v10->pPixels = new unsigned short[v10->uWidth * v10->uHeight];
     if ( DstBuf )
     {
       v33 = malloc(DstBuf);
       locked_fread(v33, 1u, DstBuf, _this->pHWLFile);
       v27 = 2 * v10->uWidth * v10->uHeight;
-      MemUnzip(v10->pPixels, &v27, (int)v33, DstBuf);
+      MemUnzip(v10->pPixels, (unsigned int *)&v27, v33, DstBuf);
     }
     else
       locked_fread(v10->pPixels, 2, v10->uWidth * v10->uHeight, _this->pHWLFile);
 
-    v10->pTruecolorPixels = malloc(4 * v10->uWidth * v10->uHeight);
+    v10->pTruecolorPixels = new unsigned int[v10->uWidth * v10->uHeight];
     for (i = 0; i < v10->uWidth * v10->uHeight; ++i)
     {/*
      v10->pTruecolorPixels[i] = (unsigned int)(((unsigned char)(((v10->pPixels[i] & 0xF800) >> 11) * 8)) << 16) |
@@ -3057,7 +3055,7 @@ struct Render_HWLBitmap *Render_LoadHWLTexture(struct Render_HWLContainer *_this
         }
         while ( v30 < *((_DWORD *)v10 + 11) );
       }
-      operator_delete(v12, *((_DWORD *)v10 + 14));
+      operator_delete((void *)*((_DWORD *)v10 + 14));
       *((_DWORD *)v10 + 14) = v28;
     }
     return v10;
@@ -3079,7 +3077,7 @@ bool __thiscall sub_49E756(IDirectDraw4 *pdd4)
  ddcDriver.dwSize = sizeof(DDCAPS);
  ddcReference.dwSize = sizeof(DDCAPS);
 
- (pdd4->lpVtbl->GetCaps)(pdd4, &ddcDriver, &ddcReference);
+ pdd4->GetCaps(&ddcDriver, &ddcReference);
  return *((char *)(&ddcReference) + 0xAC) & 0x40 &&
         *((char *)(&ddcReference) + 0xAF) & 0x02;
 }
@@ -3116,7 +3114,7 @@ void sub_49FE05(struct Render *pD3DRenderer)
   int v13; // ebx@28
   unsigned int *v14; // esi@29
 
- v3 = pD3DRenderer;
+ v3 = (int)pD3DRenderer;
  if (pD3DRenderer->pRenderD3D3)
  {
   if (pD3DRenderer->dword_040110)
@@ -3133,7 +3131,7 @@ void sub_49FE05(struct Render *pD3DRenderer)
     *(_DWORD *)(v3 + 262284) = 0;
     if ( !v4 )
     {
-      operator_delete(0, *(_DWORD *)(v3 + 262376));
+      operator_delete(*(_DWORD **)(v3 + 262376));
       *(_DWORD *)(v3 + 262380) = 0;
       *(_DWORD *)(v3 + 262376) = 0;
     }
@@ -3141,7 +3139,7 @@ void sub_49FE05(struct Render *pD3DRenderer)
     if ( v5 )
     {
       v6 = sub_49DC90(*(_DWORD *)(v3 + 262280));
-      operator_delete(0, v5);
+      operator_delete((int *)v5);
     }
     *(_DWORD *)(v3 + 262280) = 0;
   }
@@ -3150,9 +3148,9 @@ void sub_49FE05(struct Render *pD3DRenderer)
   if (dword_4E800C == 1)
   {
    if (!pD3DRenderer->pdd2)
-     return 0;
+     return;
 
-      (*(void (__stdcall **)(int, _DWORD, signed int))(*(_DWORD *)pD3DRenderer->pdd2 + 80))(pD3DRenderer->pdd2, *(_DWORD *)(v3 + 262224), 8);
+      (*(void (__stdcall **)(int, _DWORD, signed int))(*(_DWORD *)pD3DRenderer->pdd2 + 80))((int)pD3DRenderer->pdd2, *(_DWORD *)(v3 + 262224), 8);
       (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(v3 + 262300) + 40))(*(_DWORD *)(v3 + 262300));
       v7 = *(_DWORD *)(v3 + 262312);
       if ( v7 )
@@ -3181,9 +3179,9 @@ void sub_49FE05(struct Render *pD3DRenderer)
     else
     {
      if (!pD3DRenderer->pdd4)
-       return 0;
+       return;
 
-      (*(void (__stdcall **)(int, _DWORD, signed int))(*(_DWORD *)pD3DRenderer->pdd4 + 80))(pD3DRenderer->pdd4, *(_DWORD *)(v3 + 262224), 1032);
+      (*(void (__stdcall **)(int, _DWORD, signed int))(*(_DWORD *)pD3DRenderer->pdd4 + 80))((int)pD3DRenderer->pdd4, *(_DWORD *)(v3 + 262224), 1032);
       (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(v3 + 262284) + 40))(*(_DWORD *)(v3 + 262284));
       v10 = *(_DWORD *)(v3 + 262296);
       if ( v10 )
@@ -3213,7 +3211,7 @@ void sub_49FE05(struct Render *pD3DRenderer)
     if ( *(_DWORD *)(v3 + 262380) )
     {
       v14 = (unsigned int *)(v3 + 262376);
-      operator_delete(0, *v14);
+      operator_delete((void *)*v14);
       *(_DWORD *)v13 = 0;
       *v14 = 0;
     }
@@ -3276,7 +3274,7 @@ void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct 
   int v61; // [sp+64h] [bp-4h]@4
  int i;
 
-  v6 = _this;
+  v6 = (int)_this;
   v5 = 0;
  if (!_this->uD3D3SceneBegun)
    return;
@@ -3298,13 +3296,13 @@ void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct 
    {
     if ( !v57 || byte_4D8410[572] && pGame->uSomeFlags & 0x02)
     {
-     (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 12, 1);
-     (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 22, 2);
+     _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ADDRESS, 1);
+     _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_CULLMODE, 2);
      if (_this->bUsingSpecular)
      {
-      (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 27, 1);
-      (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 19, 2);
-      (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 20, 1);
+      _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ALPHABLENDENABLE, 1);
+      _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SRCBLEND, 2);
+      _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_DESTBLEND, 1);
      }
      
      for (i = 0; i < uNumVertices; ++i)
@@ -3328,16 +3326,16 @@ void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct 
        pVertices[i].v = array_50AC10[i].v;
      }
 
-     (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->SetTexture)(pD3DRenderer->pRenderD3D3->pDevice, 0, pTexture);
-     (pD3DRenderer->pRenderD3D3->pDevice->lpVtbl->DrawPrimitive)(pD3DRenderer->pRenderD3D3->pDevice, D3DPT_TRIANGLEFAN, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, uNumVertices, D3DDP_DONOTLIGHT);
+     pD3DRenderer->pRenderD3D3->pDevice->SetTexture(0, pTexture);
+     pD3DRenderer->pRenderD3D3->pDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1, pVertices, uNumVertices, D3DDP_DONOTLIGHT);
     }
     else
         {
           if (uNumVertices > 0)
           {
-            LODWORD(v9) = &pVertices->y;
+            LODWORD(v9) = (int)&pVertices->y;
             v10 = &array_50AC10[0].flt_00000C;
-            a4 = (int)&pVertices->y;
+            a4 = (class51_stru2 *)&pVertices->y;
             v59 = uNumVertices;
             while ( 1 )
             {
@@ -3348,14 +3346,14 @@ void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct 
               *(float *)(LODWORD(v9) + 4) = 1.0 - 1.0 / v14;
               *(float *)(LODWORD(v9) + 8) = 1.0 / (*v10 + 0.0000001000000011686097);
               v15 = sub_47C4FC_GetActorTintColor(*(_BYTE *)(a3 + 88), 0, *v10, 0, 0);
-              LODWORD(v11) = a4;
+              LODWORD(v11) = (int)a4;
               v12 = *v10;
               *(_DWORD *)(a4 + 12) = v15;
               if ( *(_DWORD *)(v6 + 1062496) )
               {
                 v17 = v12;
                 v16 = sub_47C3D7(0, 0, v17);
-                LODWORD(v11) = a4;
+                LODWORD(v11) = (int)a4;
               }
               else
               {
@@ -3366,48 +3364,48 @@ void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct 
               *(_DWORD *)(LODWORD(v11) + 24) = *((_DWORD *)v10 + 7);
               v10 += 12;
               v18 = v59-- == 1;
-              a4 = LODWORD(v11) + 32;
+              a4 = (class51_stru2 *)(LODWORD(v11) + 32);
               if ( v18 )
                 break;
-              LODWORD(v9) = a4;
+              LODWORD(v9) = (int)a4;
             }
           }
           v19 = (*(int (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56) + 88))(
                   *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
                   14,
                   0);
-          CheckHRESULT(&a3, v19, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+          CheckHRESULT((void **)&a3, v19, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
 
-          v20 = (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 12, 1);
-          CheckHRESULT(&a3, v20, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+          v20 = _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ADDRESS, 1);
+          CheckHRESULT((void **)&a3, v20, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
 
           if (pD3DRenderer->bUsingSpecular)
-            (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 28, 0);
+            _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGENABLE, 0);
 
           v23 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56)
                                                                                          + 152))(
                   *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
                   0,
                   0,
-                  "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp",
+                  (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp",
                   543,
                   0);
-          CheckHRESULT(&a3, v23, v24, v25, v26);
+          CheckHRESULT((void **)&a3, v23, v24, v25, v26);
           v27 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56) + 112))(
                   *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
                   6,
                   452,
-                  pVertices,
+                  (char *)pVertices,
                   uNumVertices,
                   16);
-          CheckHRESULT(&a3, v27, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+          CheckHRESULT((void **)&a3, v27, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
           v55 = *(const char **)(*(_DWORD *)(v6 + 262280) + 56);
           (*(void (**)(void))(*(_DWORD *)v55 + 88))();
           sub_45D74F_MessWithLight(pGame->class04_obj, -1, 0);
           v22 = uNumVertices;
           if (uNumVertices > 0)
           {
-            v28 = &pVertices->diffuse;
+            v28 = (char *)&pVertices->diffuse;
             do
             {
               v21 = v61;
@@ -3423,46 +3421,38 @@ void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct 
                   v21,
                   *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
                   0,
-                  pTexture);
-          CheckHRESULT(&a3, v30, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+                  (int)pTexture);
+          CheckHRESULT((void **)&a3, v30, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
 
-          v31 = (_this->pRenderD3D3->pDevice->lpVtbl->SetTextureStageState)(_this->pRenderD3D3->pDevice, 0, 12, 1);
-          CheckHRESULT(&a3, v31, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+          v31 = _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ADDRESS, 1);
+          CheckHRESULT((void **)&a3, v31, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
           if ( !pD3DRenderer->bUsingSpecular )
           {
-            v32 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice, 14, 1);
-            CheckHRESULT(&a3, v32, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+            v32 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ZWRITEENABLE, 1);
+            CheckHRESULT((void **)&a3, v32, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
           }
-          v33 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
-                  27,
-                  1);
-          CheckHRESULT(&a3, v33, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
-          v34 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
-                  19,
-                  1);
-          CheckHRESULT(&a3, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
-          v35 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
-                  20,
-                  3);
-          CheckHRESULT(&a3, v35, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+          v33 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ALPHABLENDENABLE, 1);
+          CheckHRESULT((void **)&a3, v33, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+          v34 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SRCBLEND, 1);
+          CheckHRESULT((void **)&a3, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+          v35 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_DESTBLEND, 3);
+          CheckHRESULT((void **)&a3, v35, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
           v36 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56) + 112))(
                   *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
                   6,
                   452,
-                  pVertices,
+                  (char *)pVertices,
                   uNumVertices,
                   16);
-          CheckHRESULT(&a3, v36, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+          CheckHRESULT((void **)&a3, v36, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
           if ( pD3DRenderer->bUsingSpecular )
           {
-            v38 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
-                    14,
-                    1);
-            CheckHRESULT(&a3, v38, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+            v38 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ZWRITEENABLE, 1);
+            CheckHRESULT((void **)&a3, v38, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
             v37 = uNumVertices;
             if (uNumVertices > 0)
             {
-              v39 = &pVertices->specular;
+              v39 = (char *)&pVertices->specular;
               do
               {
                 v40 = *(_DWORD *)v39;
@@ -3478,51 +3468,35 @@ void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct 
                     *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
                     0,
                     0,
-                    "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp",
+                    (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp",
                     __LINE__,
                     0);
-            CheckHRESULT(&a3, v41, v55, 0x16u, 1);
-            v42 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
-                    19,
-                    6);
-            CheckHRESULT(&a3, v42, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
-            v43 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
-                    20,
-                    5);
-            CheckHRESULT(&a3, v43, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+            CheckHRESULT((void **)&a3, v41, v55, 0x16u, 1);
+            v42 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SRCBLEND, 6);
+            CheckHRESULT((void **)&a3, v42, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+            v43 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_DESTBLEND, 5);
+            CheckHRESULT((void **)&a3, v43, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
             v44 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56)
                                                                                        + 112))(
                     *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
                     6,
                     452,
-                    pVertices,
+                    (int)pVertices,
                     uNumVertices,
                     16);
-            CheckHRESULT(0, v44, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
-            (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
-              28,
-              1);
+            CheckHRESULT((void **)0, v44, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+            _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGENABLE, 1);
             v46 = sub_47C370();
-            (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
-              34,
-              v46 & 0xFFFFFF);
+            _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGCOLOR, v46 & 0xFFFFFF);
             v5 = 0;
-            (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
-              35,
-              0);
+            _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGTABLEMODE, 0);
           }
-          v47 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
-                  19,
-                  2);
-          CheckHRESULT(0, v47, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, v5);
-          v48 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
-                  20,
-                  1);
-          CheckHRESULT(0, v48, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, v5);
-          v49 = (_this->pRenderD3D3->pDevice->lpVtbl->SetRenderState)(_this->pRenderD3D3->pDevice,
-                  27,
-                  v5);
-          CheckHRESULT(0, v49, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, v5);
+          v47 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SRCBLEND, 2);
+          CheckHRESULT((void **)0, v47, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, v5);
+          v48 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_DESTBLEND, 1);
+          CheckHRESULT((void **)0, v48, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, v5);
+          v49 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ALPHABLENDENABLE, v5);
+          CheckHRESULT((void **)0, v49, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, v5);
         }
       }
 }

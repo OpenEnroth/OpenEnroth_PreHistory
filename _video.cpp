@@ -27,25 +27,25 @@ void CVideoPlayer_OpenMovie(struct CVideoPlayer *_this, const char *pVideoName, 
  CVideoPlayer_Initialize(_this);
  _this->dword_000064 = a3;
  wsprintfA(pVideoFile, "%s.bik", pVideoName);
- strcpy(_this->array_0000A4, pVideoName);
+ strcpy((char *)_this->array_0000A4, pVideoName);
 
  _this->pBinkMovie = CVideoPlayer_OpenBinkMovie(_this, pVideoFile);
  if (_this->pBinkMovie)
  {
   _this->dword_00009C = 2;
   _this->dword_0000A0 = 1;
-  _this->pBinkBuffer = sub_4BFE2D(_this->hWnd, _this->pBinkMovie->Width, _this->pBinkMovie->Height, 0);
+  _this->pBinkBuffer = (unsigned char *)sub_4BFE2D(_this->hWnd, _this->pBinkMovie->Width, _this->pBinkMovie->Height, 0);
  }
  else
  {
   CVideoPlayer_UnloadAll(_this);
 
-  sprintfex(pVideoFile, "%s.smk", pVideoName);
+  wsprintfA(pVideoFile, "%s.smk", pVideoName);
   _this->pSmackerMovie = CVideoPlayer_OpenSmackMovie(_this, pVideoFile);
   if (!_this->pSmackerMovie)
   {
    CVideoPlayer_UnloadAll(_this);
-   sprintfex(pVideoFile, "Can't load file - anims\\%s.smk", pVideoName);
+   wsprintfA(pVideoFile, "Can't load file - anims\\%s.smk", pVideoName);
    MessageBoxA(0, pVideoFile, "Smacker Error", 0);
    return;
   }
@@ -54,7 +54,7 @@ void CVideoPlayer_OpenMovie(struct CVideoPlayer *_this, const char *pVideoName, 
   _this->dword_0000A0 = 2;
 
   //_this->dword_000030 = radmalloc(_this->ptr_000028[1] * _this->ptr_000028[2]);
-  _this->ptr_000030 = malloc(_this->pSmackerMovie->Width * _this->pSmackerMovie->Height);
+  _this->ptr_000030 = (unsigned char *)malloc(_this->pSmackerMovie->Width * _this->pSmackerMovie->Height);
   if (!_this->ptr_000030)
   {
    CVideoPlayer_UnloadAll(_this);
@@ -89,13 +89,13 @@ void CVideoPlayer_OpenMovie(struct CVideoPlayer *_this, const char *pVideoName, 
 }
 
 //----- (MM7.exe::004BF1E6) --------------------------------------------------------
-void *CVideoPlayer_OpenSmackMovie(struct CVideoPlayer *_this, const char *pVideoFile)
+HSMACK CVideoPlayer_OpenSmackMovie(struct CVideoPlayer *_this, const char *pVideoFile)
 {
  int i;
 
  for (i = 0; i < _this->uNumMightVideoHeaders; ++i)
  {
-  if (!_strcmpi(_this->pMightVideoHeaders[i].sVideoName, pVideoFile))
+  if (!_strcmpi((char *)_this->pMightVideoHeaders[i].sVideoName, pVideoFile))
   {
    SetFilePointer(_this->hMightVid, _this->pMightVideoHeaders[i].uContainerOffset, 0, FILE_BEGIN);
    return SmackOpen(_this->hMightVid, 28992, -1);
@@ -104,7 +104,7 @@ void *CVideoPlayer_OpenSmackMovie(struct CVideoPlayer *_this, const char *pVideo
 
  for (i = 0; i < _this->uNumMagicVideoHeaders; ++i)
  {
-  if (!_strcmpi(_this->pMagicVideoHeaders[i].sVideoName, pVideoFile))
+  if (!_strcmpi((char *)_this->pMagicVideoHeaders[i].sVideoName, pVideoFile))
   {
    SetFilePointer(_this->hMagicVid, _this->pMagicVideoHeaders[i].uContainerOffset, 0, FILE_BEGIN);
    return SmackOpen(_this->hMightVid, 28992, -1);
@@ -119,7 +119,7 @@ void CVideoPlayer_UnloadAll(struct CVideoPlayer *_this)
 {
   int v2; // esi@1
   int v4; // eax@4
-  v2 = _this;
+  v2 = (int)_this;
 
  if (_this->pBinkMovie)
  {
@@ -131,12 +131,12 @@ void CVideoPlayer_UnloadAll(struct CVideoPlayer *_this)
 
  if (_this->pBinkBuffer)
  {
-  v4 = _this->pBinkBuffer;
+  v4 = (int)_this->pBinkBuffer;
 
   (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(_this->pBinkBuffer + 72) + 8))(*(_DWORD *)(v4 + 72));
   *(_DWORD *)(v4 + 72) = 0;
 
-  call_delete(0, _this->pBinkBuffer);
+  call_delete(_this->pBinkBuffer);
   _this->pBinkBuffer = 0;
  }
 
@@ -169,7 +169,7 @@ void CVideoPlayer_UnloadAll(struct CVideoPlayer *_this)
   if (!dword_F8BC10)
     AIL_redbook_resume(pAudioPlayer->hAILRedbook);
  }
- sub_426363(pClass24_global);
+ class24_sub_426363(pClass24_global);
 }
 
 //----- (004BED4F) --------------------------------------------------------
@@ -200,12 +200,12 @@ void sub_4BED4F(struct CVideoPlayer *_this, HWND hWnd, int a3, int a4)
    {
     BinkCopyToBuffer(
           _this->pBinkMovie,
-          *(_DWORD *)(pBinkBuffer + 20),
+          *(_DWORD **)(pBinkBuffer + 20),
           *(_DWORD *)(pBinkBuffer + 24),
           *(_DWORD *)(pBinkBuffer + 4),
           0,
           0,
-          *(_DWORD *)(pBinkBuffer + 16));
+          (unsigned int)*(_DWORD *)(pBinkBuffer + 16));
     BinkBufferUnlock(_this->pBinkBuffer);
    }
 
@@ -239,7 +239,7 @@ void sub_4BED4F(struct CVideoPlayer *_this, HWND hWnd, int a3, int a4)
    rcSrc.right = *(_DWORD *)pBinkBuffer;
    rcSrc.bottom = *(_DWORD *)(pBinkBuffer + 4);
 
-   BltToFrontBuffer(&rcDst, *(_DWORD *)(pBinkBuffer + 72), &rcSrc, DDBLT_WAIT);
+   BltToFrontBuffer(&rcDst, (IDirectDrawSurface *)(pBinkBuffer + 72), &rcSrc, DDBLT_WAIT);
    if (_this->pBinkMovie->FrameRate != _this->pBinkMovie->Data1 - 1 || _this->dword_000064)
      BinkNextFrame(_this->pBinkMovie);
    else
@@ -249,22 +249,20 @@ void sub_4BED4F(struct CVideoPlayer *_this, HWND hWnd, int a3, int a4)
 }
 
 //----- (MM7.exe::004BF141) --------------------------------------------------------
-int CVideoPlayer_OpenBinkMovie(struct CVideoPlayer *_this, const char *pVideoFile)
+HBINK CVideoPlayer_OpenBinkMovie(struct CVideoPlayer *_this, const char *pVideoFile)
 {
- int i;
-
- for (i = 0; i < _this->uNumMightVideoHeaders; ++i)
+ for (unsigned int i = 0; i < _this->uNumMightVideoHeaders; ++i)
  {
-  if (!_strcmpi(_this->pMightVideoHeaders[i].sVideoName, pVideoFile))
+  if (!_strcmpi((char *)_this->pMightVideoHeaders[i].sVideoName, pVideoFile))
   {
    SetFilePointer(_this->hMightVid, _this->pMightVideoHeaders[i].uContainerOffset, 0, FILE_BEGIN);
    return BinkOpen(_this->hMightVid, 0x82000000);
   }
  }
 
- for (i = 0; i < _this->uNumMagicVideoHeaders; ++i)
+ for (unsigned int i = 0; i < _this->uNumMagicVideoHeaders; ++i)
  {
-  if (!_strcmpi(_this->pMagicVideoHeaders[i].sVideoName, pVideoFile))
+  if (!_strcmpi((char *)_this->pMagicVideoHeaders[i].sVideoName, pVideoFile))
   {
    SetFilePointer(_this->hMagicVid, _this->pMagicVideoHeaders[i].uContainerOffset, 0, FILE_BEGIN);
    return BinkOpen(_this->hMagicVid, 0x82000000);
@@ -300,10 +298,10 @@ void CVideoPlayer_Initialize(struct CVideoPlayer *_this)
  BinkSetSoundSystem(BinkOpenMiles, pAudioPlayer->hDigDriver);
 
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
-   v3 = pD3DRenderer->pdds4_BackBuffer;
+   v3 = (IDirectDrawSurface *)pD3DRenderer->pdds4_BackBuffer;
  else
  {
-  v3 = pD3DRenderer->pdds2_BackBuffer;
+  v3 = (IDirectDrawSurface *)pD3DRenderer->pdds2_BackBuffer;
   runtime_error;
  }
 
@@ -316,7 +314,7 @@ int CVideoPlayer_LoadVideoHeaders(struct CVideoPlayer *_this)
 {
  DWORD w;
 
- strcpy(TmpBuf, "anims\\might7.vid");
+ strcpy((char *)TmpBuf, "anims\\might7.vid");
  _this->hMightVid = CreateFileW(L"anims\\might7.vid", GENERIC_READ, 1, 0, 3, 0x8000080, 0);
  if (_this->hMightVid == INVALID_HANDLE_VALUE)
  {
@@ -324,7 +322,7 @@ int CVideoPlayer_LoadVideoHeaders(struct CVideoPlayer *_this)
   return false;
  }
 
- strcpy(TmpBuf, "anims\\magic7.vid");
+ strcpy((char *)TmpBuf, "anims\\magic7.vid");
  _this->hMagicVid = CreateFileW(L"anims\\magic7.vid", GENERIC_READ, 1, 0, 3, 0x8000080, 0);
  if (_this->hMagicVid == INVALID_HANDLE_VALUE)
  {
@@ -334,8 +332,8 @@ int CVideoPlayer_LoadVideoHeaders(struct CVideoPlayer *_this)
    return false;
   }
 
-  sprintfex(pStringBuffer, "%c:\\%s", cGameCDDriveLetter, "anims\\magic7.vid");
-  _this->hMagicVid = CreateFileA(pStringBuffer, GENERIC_READ, 1u, 0, 3u, 0x8000080u, 0);
+  wsprintfA((char *)pStringBuffer, "%c:\\%s", cGameCDDriveLetter, "anims\\magic7.vid");
+  _this->hMagicVid = CreateFileA((char *)pStringBuffer, GENERIC_READ, 1u, 0, 3u, 0x8000080u, 0);
   if ( _this->hMagicVid == INVALID_HANDLE_VALUE )
   {
    MessageBoxW(0, L"Can't open file: Magic7.vid", L"Video File Error", 0);
@@ -346,8 +344,8 @@ int CVideoPlayer_LoadVideoHeaders(struct CVideoPlayer *_this)
  ReadFile(_this->hMightVid, &_this->uNumMightVideoHeaders, 4, &w, 0);
  ReadFile(_this->hMagicVid, &_this->uNumMagicVideoHeaders, 4, &w, 0);
 
- _this->pMightVideoHeaders = class23_AllocatedNamedBuffer(class23_instance, 0, _this->uNumMightVideoHeaders * sizeof(struct CVideoPlayer_movie_header_struct) + 2, 0);
- _this->pMagicVideoHeaders = class23_AllocatedNamedBuffer(class23_instance, 0, _this->uNumMagicVideoHeaders * sizeof(struct CVideoPlayer_movie_header_struct) + 2, 0);
+ _this->pMightVideoHeaders = (CVideoPlayer_movie_header_struct *)class23_AllocatedNamedBuffer(pClass23, 0, _this->uNumMightVideoHeaders * sizeof(struct CVideoPlayer_movie_header_struct) + 2, 0);
+ _this->pMagicVideoHeaders = (CVideoPlayer_movie_header_struct *)class23_AllocatedNamedBuffer(pClass23, 0, _this->uNumMagicVideoHeaders * sizeof(struct CVideoPlayer_movie_header_struct) + 2, 0);
 
  ReadFile(_this->hMightVid, _this->pMightVideoHeaders, _this->uNumMightVideoHeaders * sizeof(struct CVideoPlayer_movie_header_struct), &w, 0);
  ReadFile(_this->hMagicVid, _this->pMagicVideoHeaders, _this->uNumMagicVideoHeaders * sizeof(struct CVideoPlayer_movie_header_struct), &w, 0);
@@ -376,7 +374,7 @@ void sub_4BEE6B(struct CVideoPlayer *_this, HWND hWnd, int a3, int a4)
 
 
  pSmackerFrameData = 0;
- pSmackerFrameData = malloc(1280 * 1024 * 2);
+ pSmackerFrameData = (unsigned short *)malloc(1280 * 1024 * 2);
 
  if (!pD3DRenderer->dword_040058 || GetFocus() == hWnd)
  {
@@ -384,7 +382,7 @@ void sub_4BEE6B(struct CVideoPlayer *_this, HWND hWnd, int a3, int a4)
     SmackBlitSetPalette(_this->pSmackMoviekBlit, _this->pSmackerMovie->Palette, _this->pSmackerMovie->PalType);
   SmackDoFrame(_this->pSmackerMovie);
 
-  Render_LockFrontBuffer(pD3DRenderer, &pSurfaceData, &uSurfacePitch);
+  Render_LockFrontBuffer(pD3DRenderer, (void **)&pSurfaceData, &uSurfacePitch);
 
   if (_this->dword_00005C)
   {
@@ -403,7 +401,7 @@ void sub_4BEE6B(struct CVideoPlayer *_this, HWND hWnd, int a3, int a4)
     v14 = 0;
     v13 = 0;
    }
-   SmackBlitClear(_this->pSmackMoviekBlit, pSmackerFrameData, uSurfacePitch * 2, v13, v14, 640, 480, v17);
+   SmackBlitClear((long)_this->pSmackMoviekBlit, (long)pSmackerFrameData, uSurfacePitch * 2, v13, v14, 640, 480, v17);
 
    _this->dword_00005C = 0;
   }
@@ -567,7 +565,7 @@ void *__fastcall sub_4BFE2D(HWND hWnd, unsigned int uWidth, unsigned int uHeight
   ddsd2.ddpfPixelFormat.dwFourCC = 844715353;
   ddsd2.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN | DDSCAPS_VIDEOMEMORY;
 
-  hr = (pD3DRenderer->pdd4->lpVtbl->CreateSurface)(pD3DRenderer->pdd4, &ddsd2, &pdds, 0);
+  hr = pD3DRenderer->pdd4->CreateSurface(&ddsd2, &pdds, 0);
   if (dword_6BE384_2dacceloff || FAILED(hr))
   {
    memset(&ddsd2.ddpfPixelFormat, 0, sizeof(DDPIXELFORMAT));
@@ -575,8 +573,8 @@ void *__fastcall sub_4BFE2D(HWND hWnd, unsigned int uWidth, unsigned int uHeight
    ddsd2.dwFlags = DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT;
    ddsd2.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY;
 
-   hr = (pD3DRenderer->pdd4->lpVtbl->CreateSurface)(pD3DRenderer->pdd4, &ddsd2, &pdds, 0);
-   CheckHRESULT(local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Video.cpp", __LINE__, 0);
+   hr = pD3DRenderer->pdd4->CreateSurface(&ddsd2, &pdds, 0);
+   CheckHRESULT((void **)local_0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Video.cpp", __LINE__, 0);
   }
 
   v5 = malloc(0x7Cu);
@@ -584,7 +582,7 @@ void *__fastcall sub_4BFE2D(HWND hWnd, unsigned int uWidth, unsigned int uHeight
 
   *(_DWORD *)v5 = uWidth;
   *((_DWORD *)v5 + 1) = uHeight;
-  *((_DWORD *)v5 + 4) = BinkDDSurfaceType(pdds);
+  *((_DWORD *)v5 + 4) = BinkDDSurfaceType((IDirectDrawSurface *)pdds);
   *((_DWORD *)v5 + 14) = 0;
  }
  else __asm int 3;  //ddraw2
@@ -592,9 +590,9 @@ void *__fastcall sub_4BFE2D(HWND hWnd, unsigned int uWidth, unsigned int uHeight
  *((_DWORD *)v5 + 9) = GetSystemMetrics(0);
  *((_DWORD *)v5 + 10) = GetSystemMetrics(1);
  *((_DWORD *)v5 + 11) = 16;
- *((_DWORD *)v5 + 18) = pdds;
+ *((_DWORD *)v5 + 18) = (int)pdds;
  *((_DWORD *)v5 + 19) = 0;
- *((_DWORD *)v5 + 22) = hWnd;
+ *((_DWORD *)v5 + 22) = (int)hWnd;
  v10 = a4;
  *((_DWORD *)v5 + 26) = 0;
  *((_DWORD *)v5 + 23) = 0;
@@ -634,7 +632,7 @@ int BinkLockSurface(unsigned char *pBinkBuffer)
 
  if (dword_F79D7C != 2 || dword_F79D70 != 4)
  {
-  pdds = *(_DWORD *)(pBinkBuffer + 72);
+  pdds = (IDirectDrawSurface *)*(_DWORD *)(pBinkBuffer + 72);
   if (pdds)
   {
    memset(&ddsd2, 0, sizeof(DDSURFACEDESC2));
@@ -642,18 +640,18 @@ int BinkLockSurface(unsigned char *pBinkBuffer)
 
    while (1)
    {
-    hr = (pdds->lpVtbl->Lock)(pdds, 0, &ddsd2, DDLOCK_WAIT, 0);
+    hr = pdds->Lock(0, (DDSURFACEDESC *)&ddsd2, DDLOCK_WAIT, 0);
     if (hr == S_OK)
       break;
 
     *(_BYTE *)(pBinkBuffer + 19) |= 4u;
-    (pdds->lpVtbl->Restore)(pdds);
-     return false;
+    pdds->Restore();
+    return false;
    }
 
-   *(_DWORD *)(pBinkBuffer + 20) = ddsd2.lpSurface;
+   *(_DWORD *)(pBinkBuffer + 20) = (int)ddsd2.lpSurface;
    *(_DWORD *)(pBinkBuffer + 24) = ddsd2.lPitch;
-   *(_DWORD *)(pBinkBuffer + 112) = ddsd2.lpSurface;
+   *(_DWORD *)(pBinkBuffer + 112) = (int)ddsd2.lpSurface;
   }
  }
  else
@@ -668,10 +666,10 @@ HRESULT BinkBufferUnlock(unsigned char *pBinkBuffer)
  IDirectDrawSurface *pdds;
  HRESULT hr;
 
- pdds = *(_DWORD *)(pBinkBuffer + 72);
+ pdds = (IDirectDrawSurface *)*(_DWORD *)(pBinkBuffer + 72);
  if (pdds)
  {
-  hr = (pdds->lpVtbl->Unlock)(pdds, 0);
+  hr = pdds->Unlock(0);
 
   *(_BYTE *)(pBinkBuffer + 19) &= 0xFBu;
   *(_DWORD *)(pBinkBuffer + 20) = 0;

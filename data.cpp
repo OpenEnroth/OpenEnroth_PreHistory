@@ -1,7 +1,7 @@
 #include <windows.h>
 #include "mm7_unparsed_data.h"
 
-unsigned char *byte_4D8410 = &memory_4D8410;
+unsigned char *byte_4D8410 = (unsigned char *)&memory_4D8410;
 union unnamed_4D8410 memory_4D8410 =
 {
  //unsigned char byte_4D8410[17412] = {
@@ -1230,7 +1230,7 @@ struct RGBTexture      *pClass33_global3 = 0;      // struct @ MM7.exe::00506E40
 //struct RGBTexture      *pTexture_RightFrame = 0;   // struct @ MM7.exe::00507ABC
 
 struct CTextureFrameTable *pTextureFrameTable = 0; // struct @ MM7.exe::005C6DB8
-struct CSpriteFrameTable  *pSpriteFrameTable = 0;  // struct @ MM7.exe::005C6DC0
+struct SpriteFrameTable  *pSpriteFrameTable = 0;  // struct @ MM7.exe::005C6DC0
 
 struct class59 *pClass59_global = 0; // struct @ MM7.exe::005C6E00
 
@@ -1271,7 +1271,7 @@ struct CMonsterStats *pMonsterStats = 0; //struct @ MM7.exe::005CCE40
 
 struct COverlayDescriptionList    *pOverlayDescriptionList = 0;    // struct @ MM7.exe::005E5148
 struct CObjectDescriptionList     *pObjectDescriptionList = 0;     // struct @ MM7.exe::006807B0
-struct CDecorationDescriptionList *pDecorationDescriptionList = 0; // struct @ MM7.exe::0069ADD4
+struct DecorationDescriptionList *pDecorationDescriptionList = 0; // struct @ MM7.exe::0069ADD4
 
 unsigned int uPlayerCreationUI_SelectedCharacter = 0; // dword @ MM7.exe::00A74CD8
 

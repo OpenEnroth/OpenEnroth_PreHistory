@@ -8,8 +8,8 @@
 
 
 
-bool __stdcall Direct3D3EnumDevicesCallback(GUID *pGUID, const char *pDeviceDescription, const char *pDeviceName, D3DDEVICEDESC *a4, D3DDEVICEDESC *a5, int a6);
-int __stdcall Direct3D3EnumDeviceZBufferFormatsCallback(void *Src, void *Dst); // idb
+int __stdcall Direct3D3EnumDevicesCallback(GUID *pGUID, const char *pDeviceDescription, const char *pDeviceName, D3DDEVICEDESC *a4, D3DDEVICEDESC *a5, struct D3DRenderer_stru2 *a6);
+HRESULT __stdcall Direct3D3EnumDeviceZBufferFormatsCallback(DDPIXELFORMAT *Src, DDPIXELFORMAT *Dst); // idb
 
 char __cdecl sub_4A597D();
 
@@ -59,7 +59,7 @@ struct RenderD3D3_DeviceDescription
 };
 //sizeof == 28
 
-struct D3DVERTEX
+struct RenderVertexD3D3
 {
  float x, y, z, rhw;
  DWORD diffuse;
@@ -74,7 +74,7 @@ struct RenderBillboardD3D3
 {
  IDirect3DTexture2 *pTexture;     // dword     @ 000000
  unsigned int       uNumVertices; // dword     @ 000004
- struct D3DVERTEX   pQuad[4];     // struct[4] @ 000008
+ struct RenderVertexD3D3   pQuad[4];     // struct[4] @ 000008
  float              flt_000088;
  int                int_00008C; // 0 for alpha-blend, other for opaque
  int                dword_000090;
@@ -109,18 +109,18 @@ struct RenderD3D3
  unsigned char              pStatusMessage[48 + array_size_unknown];
 };
 //sizeof = 0148
-//int __thiscall sub_49DC58(int this);
+//int __thiscall sub_49DC58(int _this);
 void RenderD3D3_FindAvailableDevices(struct RenderD3D3 *_this);
-//signed int __thiscall sub_49DE14(int this, int a2, int a3, int a4);
+//signed int __thiscall sub_49DE14(int _this, int a2, int a3, int a4);
 bool RenderD3D3_Initialize(struct RenderD3D3 *_this, unsigned int uDeviceID, unsigned int bWindowMode, HWND hwnd);
-//signed int __thiscall sub_49E444(void *this)
+//signed int __thiscall sub_49E444(void *_this)
 unsigned int RenderD3D3_GetDeviceCaps(struct RenderD3D3 *_this);
-//signed int __thiscall sub_49E5D4(void *this, void *a2, void *a3, int a4, int a5, int a6, int a7, void *a8);
+//signed int __thiscall sub_49E5D4(void *_this, void *a2, void *a3, int a4, int a5, int a6, int a7, void *a8);
 bool RenderD3D3_CreateTexture(struct RenderD3D3 *_this, unsigned int uTextureWidth, unsigned int uTextureHeight, IDirectDrawSurface4 **pOutSurface, IDirect3DTexture2 **pOutTexture, bool bAlphaChannel, bool a7, void *a8);
 HRESULT RenderD3D3_EndScene(struct RenderD3D3 *_this);
-//int __thiscall RenderD3D3_Present(int this, char a2);
+//int __thiscall RenderD3D3_Present(int _this, char a2);
 HRESULT RenderD3D3_Present(struct RenderD3D3 *_this, char a2);
-//int __thiscall sub_49E4FC(int this, int a2, int a3, int a4, float a5);
+//int __thiscall sub_49E4FC(int _this, int a2, int a3, int a4, float a5);
 void RenderD3D3_ClearTarget(struct RenderD3D3 *_this, int a2, D3DCOLOR uClearColor, int a4, float a5);
 
 
@@ -172,7 +172,7 @@ struct class02_stru0
 struct class02_LineList
 {
  unsigned int     uNumLines;   // dword      @ 000000
- struct D3DVERTEX pLines[48];  // struct[48] @ 000004
+ struct RenderVertexD3D3 pLines[48];  // struct[48] @ 000004
  unsigned char    padding[60];
 };
 //sizeof == 640
@@ -192,9 +192,9 @@ struct class02
 void *class02_ctor(struct class02 *_this);
 //void *__thiscall sub_48AAF6(void *Dst);
 void *class02_fn0(struct class02 *_this);
-//signed int __thiscall sub_48AC65(int this);
+//signed int __thiscall sub_48AC65(int _this);
 int class02_sub_48AC65(struct class02 *_this);
-//void __thiscall sub_48BBA6(int this);
+//void __thiscall sub_48BBA6(int _this);
 void class02_sub_48BBA6(struct class02 *_this);
-//void __thiscall sub_48BEEF(int this);
+//void __thiscall sub_48BEEF(int _this);
 void class02_sub_48BEEF(struct class02 *_this);

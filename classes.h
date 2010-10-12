@@ -61,35 +61,35 @@ struct CGame
  int  dword_000E74;
 };
 //sizeof = 0E78
-//int __thiscall sub_44E4B7(int this);
+//int __thiscall sub_44E4B7(int _this);
 void CGame_ctor(struct CGame *_this);
-//int __thiscall sub_44F0FD(int this);
+//int __thiscall sub_44F0FD(int _this);
 int CGame_fn0(struct CGame *_this);
-//int __thiscall sub_44F0D8(int this, int a2);
+//int __thiscall sub_44F0D8(int _this, int a2);
 int CGame_fn1(struct CGame *_this, int flags);
-//char __thiscall Game_InitializeGammaController(int this);
+//char __thiscall Game_InitializeGammaController(int _this);
 bool Game_InitializeGammaController(struct CGame *_this);
-//char __thiscall sub_44EEA7(int this);
+//char __thiscall sub_44EEA7(int _this);
 char CGame_sub_44EEA7(struct CGame *_this);
-//char __thiscall sub_44EA5E(int this, float a2, signed int a3, signed int a4, char a5, int a6, int a7);
-bool CGame_Pick(struct CGame *_this, float a2, signed int a3, signed int a4, bool bOutline, int a6, int a7);
-//char __thiscall sub_44F07B(int this);
+//char __thiscall sub_44EA5E(int _this, float a2, signed int a3, signed int a4, char a5, int a6, int a7);
+bool Game_Pick(struct CGame *_this, float a2, unsigned int uMouseX, unsigned int uMouseY, bool bOutline, int a6, int a7);
+//char __thiscall sub_44F07B(int _this);
 bool CGame_sub_44F07B(struct CGame *_this);
-//void __thiscall sub_44F120(int this, int a2);
+//void __thiscall sub_44F120(int _this, int a2);
 void CGame_sub_44F120_MaybeStackStationaryLights(struct CGame *_this, int a2);
 //void __fastcall sub_44F192(int a1);
 void CGame_sub_44F192(struct CGame *_this);
-//void __thiscall sub_44E904(void *this);
+//void __thiscall sub_44E904(void *_this);
 void sub_44E904(struct CGame *_this);
-//signed int __thiscall sub_44ED0A(int this, int a2, int a3, signed int a4);
-signed int Game_sub_44ED0A(struct CGame *_this, struct struct8 *a2, int *a3, signed int a4);
-//signed int __thiscall sub_44EC23(int this, int a2, int a3, signed int a4);
-signed int __thiscall Game_sub_44EC23(int this, int a2, int a3, signed int a4);
-//void __thiscall sub_40E2F6(int this, char a2);
+//signed int __thiscall sub_44ED0A(int _this, int a2, int a3, signed int a4);
+signed int __thiscall Game_sub_44ED0A(CGame *_this, struct8 *a2, int *a3, signed int a4);
+//signed int __thiscall sub_44EC23(int _this, int a2, int a3, signed int a4);
+signed int Game_sub_44EC23(struct CGame *_this, struct struct8 *a2, int *a3, signed int a4);
+//void __thiscall sub_40E2F6(int _this, char a2);
 void CGame_stru0_sub_40E2F6(struct CGame_stru0 *_this, char a2);
-//char __thiscall sub_44EE30(int this, int a2, void **a3);
+//char __thiscall sub_44EE30(int _this, int a2, void **a3);
 bool Game_sub_44EE30(struct CGame *_this, struct class51_stru2 *a2, void **a3);
-//char __thiscall sub_44EB12(int this, char a2, int a3, int a4);
+//char __thiscall sub_44EB12(int _this, char a2, int a3, int a4);
 bool Game_sub_44EB12(struct CGame *_this, bool bOutline, int a3, int a4);
 
 int CGame_scalar_deleting_destructor(struct CGame *_this, char flag);
@@ -105,8 +105,8 @@ struct class01
  CRITICAL_SECTION cs3;           //struct @ 000034
  CRITICAL_SECTION cs4;           //struct @ 00004C
 };
-//sizeof = 0064
-//int __thiscall sub_438B0B(int this);
+//sizeof = 64
+//int __thiscall sub_438B0B(int _this);
 void *class01_ctor(struct class01 *_this);
 
 
@@ -157,26 +157,26 @@ struct class03
  struct class01 *class01_obj;   // dword @ 000110
 };
 //sizeof = 0114
-//int __thiscall sub_467E4E(int this, int a2);
+//int __thiscall sub_467E4E(int _this, int a2);
 struct class03 *class03_ctor(struct class03 *_this, struct class01 *class01_obj);
-//int __thiscall sub_46A080(int this, int a2);
+//int __thiscall sub_46A080(int _this, int a2);
 int class03_fn1(struct class03 *_this, int a2);
-//int __thiscall sub_469C39(int this, int a2);
+//int __thiscall sub_469C39(int _this, int a2);
 POINT *class03_GetMousePos(struct class03 *_this, POINT *ptOut);
-//void __thiscall sub_469C65(int this, int a2)
+//void __thiscall sub_469C65(int _this, int a2)
 void sub_469C65(struct class03 *_this, HWND hWnd);
-//void __thiscall sub_469903(int this, const char *Source);
+//void __thiscall sub_469903(int _this, const char *Source);
 void sub_469903(struct class03 *_this, const char *pSource);
-//int __thiscall sub_469BA3(int this);
+//int __thiscall sub_469BA3(int _this);
 int sub_469BA3(struct class03 *_this);
-//void __thiscall sub_4698A6(void *this)
+//void __thiscall sub_4698A6(void *_this)
 void class03_sub_4698A6(struct class03 *_this);
-//void sub_46A08A(int this, int a2, int a3)
+//void sub_46A08A(int _this, int a2, int a3)
 void class03_OnMouseLeftButton(struct class03 *_this, int x, int y);
-//int __thiscall sub_469860(int this, int a2, int a3);
+//int __thiscall sub_469860(int _this, int a2, int a3);
 void class03_GetMouseClickPos(struct class03 *_this, int *pX, int *pY);
-//int __thiscall sub_469E3B(int this)
-int sub_469E3B(struct class03 *_this);
+//int __thiscall ckass03_sub_469E3B(int _this)
+int ckass03_sub_469E3B(struct class03 *_this);
 
 
 
@@ -191,7 +191,7 @@ struct class04_stru0
 //sizeof == C1C
 //int __fastcall sub_45DF13(char *_this)
 void __fastcall class04_stru0_ctor(struct class04_stru0 *_this);
-//void __fastcall sub_45DF48(void *this)
+//void __fastcall sub_45DF48(void *_this)
 void __fastcall class04_stru0_detor(struct class04_stru0 *_this);
 //int __fastcall sub_40E4C2(int a1);
 void sub_40E4C2(struct class04_stru0 *_this);
@@ -207,9 +207,9 @@ struct class04
  int                  dword_3CBC34;
 };
 //sizeof = 3CBC38
-//void *__thiscall sub_45BB06(void *this);
+//void *__thiscall sub_45BB06(void *_this);
 void class04_ctor(struct class04 *_this);
-//char __thiscall sub_45D698(int this, char a2);
+//char __thiscall sub_45D698(int _this, char a2);
 bool class04_sub_45D698(struct class04 *_this, char a2);
 
 
@@ -231,12 +231,12 @@ struct class25
 };
 //sizeof = 2008
 void class25_detor(struct class25 *_this , unsigned int a2);
-//__int64 __thiscall sub_4C055C(void *this);
+//__int64 __thiscall sub_4C055C(void *_this);
 __int64 class25_fn0(struct class25 *_this);
-//void *__thiscall sub_4C2591(int this, int a2);
+//void *__thiscall sub_4C2591(int _this, int a2);
 void class25_create_object_pointers(struct class25 *_this, int a2);
 //void sub_4C264A(int a2, int a3, int a4);
-private void class25_sort_object_pointers(struct class25_stru0 **pPointers, int sLeft, int sRight);
+/*private*/ void class25_sort_object_pointers(struct class25_stru0 **pPointers, int sLeft, int sRight);
 
 
 
@@ -266,43 +266,43 @@ struct Vis
  int                dword_0020CC;
 };
 //sizeof = 0020D0
-//int __thiscall sub_4C04AF(int this);
+//int __thiscall sub_4C04AF(int _this);
 void Vis_ctor(struct Vis *_this);
 void Vis_detor(struct Vis *_this, unsigned int a2);
-//int __thiscall sub_4C1A02(int this);
+//int __thiscall sub_4C1A02(int _this);
 void Vis_sub_4C1A02(struct Vis *_this);
-//char __thiscall sub_4C0646(int this, float a2, float a3, float a4, int a5, int a6);
+//char __thiscall sub_4C0646(int _this, float a2, float a3, float a4, int a5, int a6);
 bool Vis_sub_4C0646(struct Vis *_this, float a2, float fMouseX, float fMouseY, int a5, int a6);
-//char __thiscall sub_4C05CC(int this, int a2, int a3, int a4);
+//char __thiscall sub_4C05CC(int _this, int a2, int a3, int a4);
 bool Vis_sub_4C05CC(struct Vis *_this, struct class25 *a2, int a3, int a4);
-//void __thiscall sub_4C06F8(void *this, float a2, int a3, int a4);
+//void __thiscall sub_4C06F8(void *_this, float a2, int a3, int a4);
 void Vis_sub_4C06F8(struct Vis *_this, float a2, struct class25 *a3, struct unnamed_F93E6C *a4);
 //char __stdcall sub_4C0791(int a1, int a2);
 bool Vis_is_part_of_selection(unsigned int uD3DBillboardID, struct unnamed_F93E6C *a2);
-//char __thiscall sub_4C091D(void *this, float a2, int a3);
+//char __thiscall sub_4C091D(void *_this, float a2, int a3);
 bool Vis_sub_4C091D(struct Vis *_this, float a2, int a3);
-//int __thiscall ub_4C0D32(void *this, float a2, int a3, int a4);
+//int __thiscall ub_4C0D32(void *_this, float a2, int a3, int a4);
 int Vis_sub_4C0D32(struct Vis *_this, float a2, int a3, int a4);
-//int __thiscall sub_4C0DEA(void *this, float a2, int a3, int a4);
+//int __thiscall sub_4C0DEA(void *_this, float a2, int a3, int a4);
 void Vis_sub_4C0DEA(struct Vis *_this, float a2, int a3, int a4);
-//void __thiscall sub_4C1542(void *this, float a2, float a3, float a4, int a5, int a6);
-void Vis_sub_4C1542(struct Vis *_this, float a2, float a3, float a4, int a5, int a6);
-//int __thiscall sub_4C1026(void *this, int a2, int a3, float a4);
+//void __thiscall sub_4C1542(void *_this, float a2, float a3, float a4, int a5, int a6);
+void Vis_sub_4C1542(struct Vis *_this, float a2, float fX, float fY, struct class25 *pClass25, int a6);
+//int __thiscall sub_4C1026(void *_this, int a2, int a3, float a4);
 int Vis_sub_4C1026(struct Vis *_this, int a2, int a3, float a4);
-//char __thiscall sub_4C1ABA(void *this, int a2, int a3, int a4);
-bool Vis_sort_some_objects(struct Vis *_this, int a2, int a3, int a4);
-//int __thiscall sub_4C1495(void *this, const void *Src, int a3, int a4, int a5);
-int Vis_sub_4C1495(struct Vis *_this, const void *Src, int a3, int a4, int a5);
-//char __thiscall sub_4C288E(void *this, int a2, int a3, int a4);
+//char __thiscall sub_4C1ABA(void *_this, int a2, int a3, int a4);
+bool Vis_sort_some_objects(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight);
+//int __thiscall sub_4C1495(void *_this, const void *Src, int a3, int a4, int a5);
+int __thiscall Vis_sub_4C1495(struct Vis *_this, struct Vis_stru0 *Src, int a3, int a4, int a5);
+//char __thiscall sub_4C288E(void *_this, int a2, int a3, int a4);
 bool Vis_sort_some_objects_2(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight);
-//char __thiscall sub_4C297E(void *this, int a2, int a3, int a4);
+//char __thiscall sub_4C297E(void *_this, int a2, int a3, int a4);
 bool Vis_sort_some_objects_3(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight);
-//int __thiscall sub_4C1417(void *this, const void *Src, int a3, int a4, int a5);
-void Vis_ProbablyGetD3DBillboardCenter(struct Vis *_this, struct D3DVERTEX *Src, unsigned int uNumVertices, float *fCenterX, float *fCenterY);
-//char __thiscall sub_4C26D0(void *this, int a2, int a3, int a4);
-template bool Vis_Sort_template_D3DXVECTOR_x(struct Vis *_this, struct D3DVERTEX *pVertices, int sLeft, int sRight);
-//char __thiscall sub_4C27AD(void *this, int a2, int a3, int a4);
-template bool Vis_Sort_template_D3DXVECTOR_y(struct Vis *_this, struct D3DVERTEX *pVertices, int sLeft, int sRight);
+//int __thiscall sub_4C1417(void *_this, const void *Src, int a3, int a4, int a5);
+void Vis_ProbablyGetD3DBillboardCenter(struct Vis *_this, struct RenderVertexD3D3 *Src, unsigned int uNumVertices, float *fCenterX, float *fCenterY);
+//char __thiscall sub_4C26D0(void *_this, int a2, int a3, int a4);
+/*template*/ bool Vis_Sort_template_D3DXVECTOR_x(struct Vis *_this, struct RenderVertexD3D3 *pVertices, int sLeft, int sRight);
+//char __thiscall sub_4C27AD(void *_this, int a2, int a3, int a4);
+/*template*/ bool Vis_Sort_template_D3DXVECTOR_y(struct Vis *_this, struct RenderVertexD3D3 *pVertices, int sLeft, int sRight);
 
 
 struct class06_stru0
@@ -337,15 +337,15 @@ struct class06
  int    dword_0005F4;
 };
 //sizeof = 5F8
-//int __thiscall sub_4A7155(int this);
+//int __thiscall sub_4A7155(int _this);
 void *class06_ctor(struct class06 *_this);
-//char __thiscall sub_4A81CA(int this, int a2);
+//char __thiscall sub_4A81CA(int _this, int a2);
 bool class06_sub_4A81CA(struct class06 *_this, int a2);
-//int __thiscall sub_4A8C27(int this);
+//int __thiscall sub_4A8C27(int _this);
 int class06_sub_4A8C27(struct class06 *_this);
-//int __thiscall sub_4A7298(void *this);
+//int __thiscall sub_4A7298(void *_this);
 int class06_sub_4A7298(struct class06 *_this);
-//void __thiscall sub_4A902A(void *this);
+//void __thiscall sub_4A902A(void *_this);
 void class06_sub_4A902A_DrawSomeIcon(struct class06 *_this);
 
 
@@ -361,9 +361,9 @@ struct class07
  int    dword_000014[80];
 };
 //sizeof = 154
-//int __thiscall sub_4775B1(int this);
+//int __thiscall sub_4775B1(int _this);
 void *class07_ctor(struct class07 *_this);
-//int __thiscall sub_478211(int this, int a2);
+//int __thiscall sub_478211(int _this, int a2);
 void *class07_InitializeVectors(struct class07 *_this, float w);
 
 
@@ -374,9 +374,9 @@ struct class26
  float   array_000004[3];
 };
 //sizeof = 16
-//void *__thiscall sub_4C0376(void *this)
+//void *__thiscall sub_4C0376(void *_this)
 void class26_ctor(struct class26 *_this);
-//void __thiscall sub_4C039C(void *this);
+//void __thiscall sub_4C039C(void *_this);
 void class26_default_ctor(struct class26 *_this);
 void class26_detor(struct class26 *_this, unsigned int a2);
 //custom
@@ -389,12 +389,12 @@ struct class26_placeholder
  float             flt_000014;  // float  @ 000014   looks like dot product with some other vec
 };
 //sizeof == 18
-//void __fastcall sub_498038(char *this)
+//void __fastcall sub_498038(char *_this)
 void __fastcall class26_placeholder_ctor(struct class26_placeholder *_this);
-//void __fastcall sub_498069(void *this)
+//void __fastcall sub_498069(void *_this)
 void __fastcall class26_placeholder_default_ctor(struct class26_placeholder *_this);
 void __fastcall class26_placeholder_detor(struct class26_placeholder *_this, unsigned int a2);
-//void __thiscall sub_498069(int this)
+//void __thiscall sub_498069(int _this)
 void sub_498069(struct class26_placeholder *_this);
 
 
@@ -480,25 +480,25 @@ struct class08
  int   dword_1A1380;
 };
 //sizeof = 1A1384
-//int __thiscall sub_4361EF(int this);
+//int __thiscall sub_4361EF(int _this);
 struct class08 *class08_ctor(struct class08 *_this);
 void class08_detor(struct class08 *_this, unsigned int a2);
-//int __thiscall sub_4376E7(void *this);
+//int __thiscall sub_4376E7(void *_this);
 void class08_CreateWorldMatrixAndSomeStuff(struct class08 *_this);
-//void __thiscall sub_4374E8(void *this);
+//void __thiscall sub_4374E8(void *_this);
 void class08_PrepareSomeVectors(struct class08 *_this);
-//void __thiscall sub_437607(void *this, int a2, int a3);
-void class08_sub_437607(struct class08 *_this, struct class26 *a2, unsigned char *a3);
-//int __thiscall sub_437691(int this, int a2, int a3);
+//void __thiscall sub_437607(void *_this, int a2, int a3);
+void class08_sub_437607(struct class08 *_this, struct class26 *a2, struct class26_placeholder *a3);
+//int __thiscall sub_437691(int _this, int a2, int a3);
 void class08_Vec3Transform(struct class08 *_this, struct class26 *pVec, struct class26 *pOut);
-//void __thiscall sub_436BB7(void *this, int a2, int a3, char a4);
+//void __thiscall sub_436BB7(void *_this, int a2, int a3, char a4);
 void class08_sub_436BB7(struct class08 *_this, struct RenderVertex *a2, int a3, char a4);
-//void __thiscall sub_438240(int this);
+//void __thiscall sub_438240(int _this);
 void class08_sub_438240(struct class08 *_this);
 //void __fastcall sub_438141(int a1);
 void class08_sub_438141(struct class08 *_this);
-//void __thiscall sub_438250(int this);
-void sub_438250(struct class08 *_this);
+//void __thiscall class08_sub_438250(int _this);
+void class08_sub_438250(struct class08 *_this);
 
 
 
@@ -508,7 +508,7 @@ struct class09
  int dword_000000;
 };
 //sizeof = 4
-//int __thiscall sub_498093(int this);
+//int __thiscall sub_498093(int _this);
 struct class09 *class09_ctor(struct class09 *_this);
 
 
@@ -520,7 +520,7 @@ struct class10
  int dword_000004;
 };
 //sizeof = 8
-//int __thiscall sub_49C5B0(int this);
+//int __thiscall sub_49C5B0(int _this);
 struct class10 *class10_ctor(struct class10 *_this);
 
 
@@ -554,7 +554,7 @@ struct class11
  int dword_0000B8[12];
 };
 //sizeof = 00E8
-//int __thiscall sub_438526(int this, int a2);
+//int __thiscall sub_438526(int _this, int a2);
 struct class11 *class11_ctor(struct class11 *_this, int a2);
 //int __userpurge sub_4385B5(void *_this, int a2);
 void *class11_fn0(struct class11 *_this, int a2);
@@ -574,11 +574,11 @@ struct class12
  int dword_000050;
  int dword_000054;
  int dword_000058;
- struct class16 **class16_objs[12];    //array ptr [005C]
+ struct class16 *class16_objs[12];    //array ptr [005C]
  int dword_00008C;
 };
 //sizeof = 0090
-//int __thiscall sub_4895B7(int this, int a2);
+//int __thiscall sub_4895B7(int _this, int a2);
 struct class12 *class12_ctor(struct class12 *_this, struct class11 *class11_obj);
 
 
@@ -589,7 +589,7 @@ struct class13
  int dword_000000;
 };
 //sizeof = 0004
-//int __thiscall sub_4A9507(int this);
+//int __thiscall sub_4A9507(int _this);
 struct class13 *class13_ctor(struct class13 *_this);
 
 
@@ -601,11 +601,11 @@ struct class14
  int dword_000004;
 };
 //sizeof = 0008
-//int __thiscall sub_45AFD9(int this);
+//int __thiscall sub_45AFD9(int _this);
 struct class14 *class14_ctor(struct class14 *_this);
-//char __thiscall sub_45B0A9(int this, int vKey);
+//char __thiscall sub_45B0A9(int _this, int vKey);
 bool class14_IsKeyHeld(struct class14 *_this, int vKey);
-//char __thiscall sub_45B0CE(int this, int vKey);
+//char __thiscall sub_45B0CE(int _this, int vKey);
 bool class14_IsKeyPressed(struct class14 *_this, int vKey);
 
 
@@ -617,7 +617,7 @@ struct class16
  void *pMemBlock;
 };
 //sizeof = 0008
-//void *__thiscall sub_48958E(void *this, int a2);
+//void *__thiscall sub_48958E(void *_this, int a2);
 struct class16 *class16_ctor(struct class16 *_this, unsigned int uBlockSize);
 
 
@@ -702,11 +702,11 @@ struct class18
 };
 //sizeof = 000048
 //sizeof = 28 for Sprites_LOD
-//int __thiscall sub_40F5BE(int this);
+//int __thiscall sub_40F5BE(int _this);
 void *class18_ctor(struct class18 *_this);
-//int __thiscall sub_40F77C(int this);
-void sub_40F77C(struct class18 *_this);
-//int __thiscall sub_40F806(int this);
+//int __thiscall class18_sub_40F77C(int _this);
+void class18_sub_40F77C(struct class18 *_this);
+//int __thiscall sub_40F806(int _this);
 int class18_UnzipPalette(struct class18 *_this);
 
 
@@ -798,45 +798,49 @@ struct LODFile
 //sizeof = 011BB8
 
 void LODFile_ctor(struct LODFile *_this);
-//bool __thiscall sub_40FAEE(int this, const char *Filename);
+//bool __thiscall sub_40FAEE(int _this, const char *Filename);
 int LODFile_LoadLOD_Icons_Events(struct LODFile *_this, const char *pLODFilename);
-//bool __thiscall sub_40FA2E(int this, const char *Filename);
+//bool __thiscall sub_40FA2E(int _this, const char *Filename);
 int LODFile_LoadLOD_Bitmaps(struct LODFile *_this, const char *pLODFilename);
-//bool __thiscall sub_4AC795(int this, const char *Filename);
+//bool __thiscall sub_4AC795(int _this, const char *Filename);
 int LODFile_LoadLOD_Sprites(struct LODFile *_this, const char *pLODFilename);
-//int __thiscall sub_41088B(void *this, const char *Args, int a3);
+//int __thiscall sub_41088B(void *_this, const char *Args, int a3);
 void *LODFile_LoadRaw(struct LODFile *_this, const char *pLODContainer, int a3);
-//int __thiscall sub_461580(int this, const char *Str1, int a3);
+//int __thiscall sub_461580(int _this, const char *Str1, int a3);
 FILE *LODFile_FindContainer(struct LODFile *_this, const char *pContainerName, int a3);
-//int __thiscall sub_46165E(void *this, int a2, int a3, const char *Str1);
+//int __thiscall sub_46165E(void *_this, int a2, int a3, const char *Str1);
 int LODFile_fn3(struct LODFile *_this, int a2, int a3, const char *pContainerName);
-//void __thiscall sub_40FA60(int this);
+//void __thiscall sub_40FA60(int _this);
 void LODFile_fn4(struct LODFile *_this);
-//signed int __thiscall sub_4617D5(int this, const char *Filename, char a3)
+//signed int __thiscall sub_4617D5(int _this, const char *Filename, char a3)
 int LODFile_MaybeLoadLODHeader(struct LODFile *_this, const char *pFilename, char a3);
-//signed int __thiscall sub_46188A(int this, const char *Source);
+//signed int __thiscall sub_46188A(int _this, const char *Source);
 int LODFile_fn6(struct LODFile *_this, const char *pContainer);
-//int __thiscall sub_46153F(int this);
+//int __thiscall sub_46153F(int _this);
 int LODFile_fn7(struct LODFile *_this);
-//int __thiscall sub_40FB20(int this, const char *Source, unsigned int a3)
+//int __thiscall sub_40FB20(int _this, const char *Source, unsigned int a3)
 int LODFile_LoadTexture(struct LODFile *_this, const char *pContainerName, unsigned int a3);
-//signed int __thiscall sub_40FC08(int this, void *Dest, int Source, unsigned int DstBuf);
+//signed int __thiscall sub_40FC08(int _this, void *Dest, int Source, unsigned int DstBuf);
 int LODFile_LoadPalette(struct LODFile *_this, struct class18 *pClass18, const char *pContainerName, unsigned int DstBuf);
-//int __thiscall sub_461954(int this, int a2, signed int Size);
+//int __thiscall sub_461954(int _this, int a2, signed int Size);
 void LODFile_AllocateSubidexAndIOBuffer(struct LODFile *_this, unsigned int uNumSubIndices, signed int uIOBufferSize);
-//signed int __thiscall sub_461A43(void *this, const char *Filename, char a3);
+//signed int __thiscall sub_461A43(void *_this, const char *Filename, char a3);
 int LODFile_LoadLOD_Games(struct LODFile *_this, const char *pLODFilename, unsigned char uFileFlags);
-//int __thiscall sub_4114F2(_DWORD);
-int sub_4114F2(struct LODFile *_this);
-//int __thiscall sub_46454B(int this);
+//int __thiscall LODFile_sub_4114F2(_DWORD);
+int LODFile_sub_4114F2(struct LODFile *_this);
+//int __thiscall sub_46454B(int _this);
 int sub_46454B(struct LODFile *_this);
-//int __thiscall sub_4645DC(int this);
+//int __thiscall sub_4645DC(int _this);
 int sub_4645DC(struct LODFile *_this);
-//signed int __thiscall sub_46161C(int this, const char *Str1);
+//signed int __thiscall sub_46161C(int _this, const char *Str1);
 bool LODFile_Games_LOD_FindLeveL(struct LODFile *_this, const char *pLevelName);
-//signed int __thiscall sub_4AC67E(int this, char *DstBuf, const char *Size);
-int sub_4AC67E(struct LODFile *_this, struct class18 *DstBuf, const char *pFilename);
+//signed int __thiscall sub_4AC67E(int _this, char *DstBuf, const char *Size);
+int sub_4AC67E_LoadSpriteFromFile(struct LODFile *_this, struct class18 *pDstBuf, const char *pFilename);
+
 unsigned int LODFile_LoadSprite(struct LODFile *_this, const char *pSourceFile, int a3);
+
+int LODFile_SetupPalettes(struct LODFile *_this, int a2, int a3, int a4);
+
 
 unsigned int   LODFile_LoadTexture_New(struct LODFile *_this, const wchar_t *pFilename);
 unsigned char *LODFile_LoadEvent(struct LODFile *_this, const wchar_t *pFilename);
@@ -885,13 +889,13 @@ struct class23 // Memory allocator
  void         *pBigBufferAlignedAt1000h;   //dword ptr [01D4DC]
 };
 //sizeof ~
-//signed int __thiscall sub_4266CD(int this, int a2);
+//signed int __thiscall sub_4266CD(int _this, int a2);
 int class23_AllocateBigBuffer(struct class23 *_this, unsigned int uNumKBytes);
-//int __thiscall sub_426474(int this, int a2);
+//int __thiscall sub_426474(int _this, int a2);
 int class23_DeleteBuffer(struct class23 *_this, void *pMem);
-//void *__thiscall sub_426755(void *this, int a2, signed int Size, const char *Source);
+//void *__thiscall sub_426755(void *_this, int a2, signed int Size, const char *Source);
 void *class23_AllocatedNamedBuffer(struct class23 *_this, int a2, int size, const char *pBufferName);
-//signed int __thiscall sub_42654C(int this, int a2)
+//signed int __thiscall sub_42654C(int _this, int a2)
 int class23_CreateFileDump(struct class23 *_this, const char *a2);
 
 
@@ -912,13 +916,13 @@ struct class24
  int dword_000024;
 };
 //sizeof ~ 28
-//void __thiscall sub_426402(int this);
+//void __thiscall sub_426402(int _this);
 void class24_ctor(struct class24 *_this);
-//void __thiscall sub_426349(int this);
+//void __thiscall sub_426349(int _this);
 void class24_fn1(struct class24 *_this);
-//__int64 __thiscall sub_426317(void *this);
+//__int64 __thiscall sub_426317(void *_this);
 __int64 class24_fn2(struct class24 *_this);
-//int __thiscall class24_sub_4263B7(int this)
+//int __thiscall class24_sub_4263B7(int _this)
 int class24_sub_4263B7(struct class24 *_this);
 
 
@@ -957,11 +961,11 @@ struct OldViewport
  int  dword_000030;
 };
 //sizeof ~ 34
-//int __thiscall sub_4C0262(int this, int a2, int a3, int a4, int a5);
+//int __thiscall sub_4C0262(int _this, int a2, int a3, int a4, int a5);
 void Viewport_fn0(struct OldViewport *_this, int a2, int a3, int a4, int a5);
-//int __thiscall sub_4C0312(int this, int a2, int a3, int a4, int a5)
+//int __thiscall sub_4C0312(int _this, int a2, int a3, int a4, int a5)
 void Viewport_SetGameViewport(struct OldViewport *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW);
-//int __thiscall sub_4C02F8(int this, int a2)
+//int __thiscall sub_4C02F8(int _this, int a2)
 void Viewport_fn2(struct OldViewport *_this, int a2);
 
 
@@ -997,21 +1001,21 @@ struct class35
  unsigned int uTargetBMask;    // dword @ 267AEC
 };
 //sizeof ~ ?
-//nt __thiscall sub_48A300(void *this)
+//nt __thiscall sub_48A300(void *_this)
 void class35_ctor(struct class35 *_this);
-//int __thiscall sub_48A8F5(int this, int a2, int a3, int a4)
-void class35_SetColorChannelInfo(struct class35 *_this, int a2, int a3, int a4);
-//int __thiscall sub_48A614(int this);
+//int __thiscall sub_48A8F5(int _this, int a2, int a3, int a4)
+void class35_SetColorChannelInfo(struct class35 *_this, unsigned int uNumRBits, unsigned int uNumGBits, unsigned int uNumBBits);
+//int __thiscall sub_48A614(int _this);
 int class35_sub_48A614(struct class35 *_this);
-//int __thiscall sub_489BE0(int this, int a2);
+//int __thiscall sub_489BE0(int _this, int a2);
 int class35_sub_489BE0(struct class35 *_this, unsigned int idx);
-//signed int __thiscall sub_48A3BC(void *this, int a2)
+//signed int __thiscall sub_48A3BC(void *_this, int a2)
 int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2);
-//int __thiscall sub_48A8A3(int this);
+//int __thiscall sub_48A8A3(int _this);
 int class35_sub_48A8A3(struct class35 *_this);
-//signed int __thiscall sub_48A336(void *this);
+//signed int __thiscall sub_48A336(void *_this);
 int sub_48A336(struct class35 *_this);
-//int __thiscall sub_48A8CC(int this)
+//int __thiscall sub_48A8CC(int _this)
 int class35_sub_48A8CC(struct class35 *_this);
 
 
@@ -1037,9 +1041,9 @@ struct class36
  int                  dword_000A08;
 };
 //sizeof ~ ?
-//void *__thiscall sub_43B688(void *this);
+//void *__thiscall sub_43B688(void *_this);
 void class36_ctor(struct class36 *_this);
-//char __thiscall sub_43B6EF(int this, int a2, int a3, int a4, int a5, char a6, char a7, char a8);
+//char __thiscall sub_43B6EF(int _this, int a2, int a3, int a4, int a5, char a6, char a7, char a8);
 bool class36_sub_43B6EF(struct class36 *_this, int a2, int a3, int a4, int a5, char a6, char a7, char a8);
 
 
@@ -1052,7 +1056,7 @@ struct class37
  char vector_000FA8[337800];
 };
 //sizeof ~ ?
-//void *__thiscall sub_43F282(void *this);
+//void *__thiscall sub_43F282(void *_this);
 void *class37_ctor(struct class37 *_this);
 
 
@@ -1105,10 +1109,10 @@ struct CMapStats
 };
 //sizeof ~ ?
 void CMapStats_ctor(struct CMapStats *_this);
-//int __thiscall sub_453F62(void *this)
+//int __thiscall sub_453F62(void *_this)
 int CMapStats_Initialize(struct CMapStats *_this);
-//signed int __thiscall sub_4547A3(int this, const char *Str2);
-int CMapStats_FindLocation(struct CMapStats *_this, const char *pLocationFilename);
+//signed int __thiscall sub_4547A3(int _this, const char *Str2);
+unsigned int CMapStats_FindLocation(struct CMapStats *_this, const char *pLocationName);
 
 
 
@@ -1197,9 +1201,9 @@ struct CMonsterStats
 };
 //sizeof ~ ?
 void CMonsterStats_ctor(struct CMonsterStats *_this);
-//int __thiscall sub_45501E(void *this);
+//int __thiscall sub_45501E(void *_this);
 int CMonsterStats_Initialize(struct CMonsterStats *_this);
-//char *__thiscall sub_454F4E(void *this)
+//char *__thiscall sub_454F4E(void *_this)
 char *CMonsterStats_LoadMonsterPlacements(struct CMonsterStats *_this);
 
 
@@ -1227,7 +1231,7 @@ struct CSpellStats
 };
 //sizeof ~ ?
 void CSpellStats_ctor(struct CSpellStats *_this);
-//char *__thiscall sub_45384A(void *this)
+//char *__thiscall sub_45384A(void *_this)
 char *CSpellStats_Initialize(struct CSpellStats *_this);
 
 
@@ -1243,7 +1247,7 @@ struct class48
 };
 //sizeof ~ ?
 void class48_ctor(struct class48 *_this);
-//int __thiscall sub_4547E4(void *this);
+//int __thiscall sub_4547E4(void *_this);
 int class48_Initialize(struct class48 *_this);
 
 
@@ -1253,7 +1257,7 @@ struct StorylineText
  int dword_000000;
  char unknown[1024];
 };
-//int __thiscall sub_453E6D(void *this)
+//int __thiscall sub_453E6D(void *_this)
 int StorylineText_Initialize(struct StorylineText *_this);
 
 
@@ -1306,7 +1310,7 @@ struct struct5
  char  byte_00000E[10];
 };
 //sizeof == 18
-//void __thiscall sub_440F07(int this);
+//void __thiscall sub_440F07(int _this);
 void sub_440F07(struct struct5 *pArray);
 
 
@@ -1353,13 +1357,13 @@ struct struct8
  char                   byte_000109[3];
 };
 //sizeof == 10C
-//void __thiscall sub_486089_NormalizeVector(int this);
+//void __thiscall sub_486089_NormalizeVector(int _this);
 void sub_486089_NormalizeVector(struct struct8 *_this);
 //char __stdcall sub_45D3C7(int a1);
 bool __stdcall sub_45D3C7(struct struct8 *_this);
-//int __thiscall sub_48607B(int this, int a2);
+//int __thiscall sub_48607B(int _this, int a2);
 void sub_48607B_MessWithStruct8(struct struct8 *_this, struct class57 *pClass57);
-//signed int __thiscall sub_479295(int this);
+//signed int __thiscall sub_479295(int _this);
 bool struct8_sub_479295(struct struct8 *_this);
 
 
@@ -1391,11 +1395,12 @@ struct OldCamera
 //sizeof == 50
 
 void OldCamera_ctor(struct OldCamera *);
-//void sub_4239A7(int this);
-void Camera_sub_4239A7(struct OldCamera *_this);
-//signed __int64 __thiscall sub_42394D(void *this, signed int a2, signed int a3, int a4);
+//void sub_4239A7(int _this);
+void OldCamera_sub_4239A7(struct OldCamera *_this);
+//signed __int64 __thiscall sub_42394D(void *_this, signed int a2, signed int a3, int a4);
 void OldCamera_SetPerspective(struct OldCamera *_this, signed int sViewingAngle, signed int sViewportWidth, signed int sViewportHeight);
-
+//
+void OldCamera_CalculateSinCos(struct OldCamera *_this);
 
 
 
@@ -1418,9 +1423,9 @@ struct class57
  int        dword_000028;
 };
 //sizeof ~ 38
-//int __thiscall sub_48616B(int this, int a2, int a3, int a4, int a5, int a6, int a7);
+//int __thiscall sub_48616B(int _this, int a2, int a3, int a4, int a5, int a6, int a7);
 int class57_sub_48616B(struct class57 *_this, int a2, int a3, int a4, int a5, int a6, int a7);
-//int __thiscall sub_48694B(int this);
+//int __thiscall sub_48694B(int _this);
 int class57_sub_48694B(struct class57 *_this);
 
 
@@ -1452,9 +1457,9 @@ struct struct9
  unsigned int bDoNotRenderDecorations; // dword @ 000058
 };
 //sizeof ~ 60
-//int __thiscall struct9_sub_47A59E_ComputeSinCos(int this);
+//int __thiscall struct9_sub_47A59E_ComputeSinCos(int _this);
 void struct9_sub_47A59E_ComputeSinCos(struct struct9 *_this);
-//int __thiscall sub_485F64(int this);
+//int __thiscall sub_485F64(int _this);
 int sub_485F64(struct struct9 *_this);
 
 
@@ -1473,7 +1478,7 @@ struct class58
  int  std__vector_30B00C_size;  // dword @ 30800C
 };
 //sizeof == ?
-//int __thiscall sub_49B525(int this, int a2);
+//int __thiscall sub_49B525(int _this, int a2);
 void class58_sub_49B525(struct class58 *_this, int a2);
 
 
@@ -1494,9 +1499,9 @@ struct class59
 //
 //loc_452969()
 void class59_ctor(struct class59 *);
-//int __thiscall sub_402CAE(int this, int a2);
+//int __thiscall sub_402CAE(int _this, int a2);
 int class59_SinCos(struct class59 *_this, int a2);
-//int __thiscall sub_45281E(void *this, int X, int a3);
+//int __thiscall sub_45281E(void *_this, int X, int a3);
 int class59_Atan2(struct class59 *_this, int X, int Y);
 
 
@@ -1580,7 +1585,7 @@ struct StationaryLight
  char          byte_00000B;
 };
 //sizeof  = 0C
-//char __stdcall sub_45CE50(int this, int a2, int *a3, char a4);
+//char __stdcall sub_45CE50(int _this, int a2, int *a3, char a4);
 bool __stdcall StationaryLight_sub_45CE50_ProbablyApplyLightToScene(struct StationaryLight *_this, struct class51_stru2 *a2, int *a3, char a4);
 
 struct StationaryLightsStack
@@ -1590,7 +1595,7 @@ struct StationaryLightsStack
  unsigned int           uNumStationaryLightsActive; // dword       @ 0012C4
 };
 //siezof ~ ?
-//char __thiscall sub_4AD3C8(int this, __int16 a2, __int16 a3, __int16 a4, __int16 a5, int a6, char a7, char a8, char a9);
+//char __thiscall sub_4AD3C8(int _this, __int16 a2, __int16 a3, __int16 a4, __int16 a5, int a6, char a7, char a8, char a9);
 bool StationaryLightsStack_AddLight(struct StationaryLightsStack *_this, int sLightPosX, int sLightPosY, int sLightPosZ, __int16 a5, unsigned int uLightColorRed, unsigned char uLightColorGreen, unsigned char uLightColorBlue, char a9);
 
 
@@ -1611,6 +1616,51 @@ struct struct6//: public StationaryLight
  char  byte_00000C[6];
 };
 //sizeof == 12
+
+
+
+
+
+
+
+
+
+struct unnamed_505898
+{
+ char byte_505898; // weak
+ int dword_000004; // 50989C
+ int dword_5058A0; // weak
+ _UNKNOWN unk_5058A4; // weak
+ char byte_5058A8; // weak
+ struct tagMSG Msg_global; // idb
+ int dword_5058C8; // weak
+ int dword_5058CC; // weak
+ char byte_5058D0; // weak
+ char byte_5058D2; // weak
+ int dword_5058D4; // weak
+ int dword_5058D8; // weak
+ int dword_5058DC; // weak
+ Font *dword_5058E0; // weak
+ Font *dword_5058E4; // weak
+ __int16 word_5058EC; // weak
+ struct RGBTexture class33_obj0; // ::5058F0
+ struct RGBTexture class33_obj1; // ::505918
+ int dword_505940; // weak
+ int dword_505944; // weak
+ int dword_505948; // weak
+ class18 Dest;
+ //char Dest[32]; // idb
+ char byte_50596C[32]; // class18 ?
+ char byte_50598C; // weak
+ char byte_50598D; // weak
+ char byte_50598E; // weak
+ char byte_50598F; // weak
+ char byte_505990; // weak
+ char byte_505991; // 0000F9
+ char byte_505992; // 0000FA
+};
+//sizeof ~ FB
+//loc_40D707
 
 
 

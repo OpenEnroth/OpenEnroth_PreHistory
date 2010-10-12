@@ -18,23 +18,23 @@ void (__stdcall *smackw32_SmackBufferClose)(HSMACKBUF) = 0;
 void (__stdcall *smackw32_SmackBlitClose)(HSMACKBLIT) = 0;
 void SMACKW32_DLL_Initialize()
 {
- void *pDll = LoadLibraryW(L"SmackW32.dll");
+ HMODULE pDll = LoadLibraryW(L"SmackW32.dll");
 
- smackw32_SmackSoundUseMSS = GetProcAddress(pDll, "_SmackSoundUseMSS@4");
- smackw32_SmackUseMMX = GetProcAddress(pDll, "_SmackUseMMX@4");
- smackw32_SmackOpen = GetProcAddress(pDll, "_SmackOpen@12");
- smackw32_SmackBlitOpen = GetProcAddress(pDll, "_SmackBlitOpen@4");
- smackw32_SmackToBuffer = GetProcAddress(pDll, "_SmackToBuffer@28");
- smackw32_SmackBlitSetPalette = GetProcAddress(pDll, "_SmackBlitSetPalette@12");
- smackw32_SmackDoFrame = GetProcAddress(pDll, "_SmackDoFrame@4");
- smackw32_SmackToBufferRect = GetProcAddress(pDll, "_SmackToBufferRect@8");
- smackw32_SmackBlit = GetProcAddress(pDll, "_SmackBlit@44");
- smackw32_SmackNextFrame = GetProcAddress(pDll, "_SmackNextFrame@4");
- smackw32_SmackWait = GetProcAddress(pDll, "_SmackWait@4");
- smackw32_SmackSoundOnOff = GetProcAddress(pDll, "_SmackSoundOnOff@8");
- smackw32_SmackClose = GetProcAddress(pDll, "_SmackClose@4");
- smackw32_SmackBufferClose = GetProcAddress(pDll, "_SmackBufferClose@4");
- smackw32_SmackBlitClose = GetProcAddress(pDll, "_SmackBlitClose@4");
+ smackw32_SmackSoundUseMSS = (int (__stdcall *)(HDIGDRIVER))GetProcAddress(pDll, "_SmackSoundUseMSS@4");
+ smackw32_SmackUseMMX = (unsigned int (__stdcall *)(unsigned int))GetProcAddress(pDll, "_SmackUseMMX@4");
+ smackw32_SmackOpen = (HSMACK (__stdcall *)(HANDLE, unsigned int, unsigned int))GetProcAddress(pDll, "_SmackOpen@12");
+ smackw32_SmackBlitOpen = (HSMACKBLIT (__stdcall *)(unsigned int))GetProcAddress(pDll, "_SmackBlitOpen@4");
+ smackw32_SmackToBuffer = (void (__stdcall *)(HSMACK, unsigned int, unsigned int, unsigned int, unsigned int, void *, unsigned int))GetProcAddress(pDll, "_SmackToBuffer@28");
+ smackw32_SmackBlitSetPalette = (void (__stdcall *)(HSMACKBLIT, void *, unsigned int))GetProcAddress(pDll, "_SmackBlitSetPalette@12");
+ smackw32_SmackDoFrame = (unsigned int (__stdcall *)(HSMACK))GetProcAddress(pDll, "_SmackDoFrame@4");
+ smackw32_SmackToBufferRect = (unsigned int (__stdcall *)(HSMACK, unsigned int))GetProcAddress(pDll, "_SmackToBufferRect@8");
+ smackw32_SmackBlit = (void (__stdcall *)(HSMACKBLIT, void *, unsigned int, unsigned int, unsigned int, void *, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int))GetProcAddress(pDll, "_SmackBlit@44");
+ smackw32_SmackNextFrame = (void (__stdcall *)(HSMACK))GetProcAddress(pDll, "_SmackNextFrame@4");
+ smackw32_SmackWait = (unsigned int (__stdcall *)(HSMACK))GetProcAddress(pDll, "_SmackWait@4");
+ smackw32_SmackSoundOnOff = (unsigned int (__stdcall *)(HSMACK, unsigned int))GetProcAddress(pDll, "_SmackSoundOnOff@8");
+ smackw32_SmackClose = (void (__stdcall *)(HSMACK))GetProcAddress(pDll, "_SmackClose@4");
+ smackw32_SmackBufferClose = (void (__stdcall *)(HSMACKBUF))GetProcAddress(pDll, "_SmackBufferClose@4");
+ smackw32_SmackBlitClose = (void (__stdcall *)(HSMACKBLIT))GetProcAddress(pDll, "_SmackBlitClose@4");
 }
 
 

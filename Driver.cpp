@@ -9,7 +9,7 @@ Window *pDxWindow = 0,
 Render *pDxRender = 0,
        *pOglRender = 0;
 
-extern "C" void Game_Initialize()
+void Game_Initialize()
 {
  pGameCamera = new Camera;
  pGameCamera->Initialize(&Vec3(0, 0, 0), &Quaternion(1, 0, 0, 0));
@@ -87,7 +87,7 @@ RenderOperator_Clear   *pOglClearColorOperator = 0,
                        *pOglClearDepthOperator = 0;
 RenderOperator_Present *pOglPresentOperator = 0;
 
-extern "C" void Game_Process_cpp()
+void Game_Process_cpp()
 {
  //dirty dirty hack
  {
@@ -135,7 +135,7 @@ extern "C" void Game_Process_cpp()
 
 
 
-extern "C" void InitializeRenderOperators()
+void InitializeRenderOperators()
 {
  pDxRender->CreateTextureCube(L"data\\new\\cubemap-evul.dds", &pDxEnvTexture);
  pDxRender->CreateTexture(L"data\\new\\Emerald Island.png", &pDxHeightmapTexture);

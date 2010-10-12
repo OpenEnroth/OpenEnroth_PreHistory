@@ -45,7 +45,7 @@ struct CVideoPlayer
  unsigned int bUsingSmackerMMX; // dword @ 000060
  int  dword_000064;
  int  dword_000068;
- int  dword_00006C;
+ int  dword_00006C; //RGBTexture ptr
 
  HWND    hWnd;      // ptr @ 000070
 
@@ -63,22 +63,22 @@ struct CVideoPlayer
 };
 //sizeof ~ ?
 void CVideoPlayer_ctor(struct CVideoPlayer *_this);
-//int __thiscall sub_4BE9D8(void *this)
+//int __thiscall sub_4BE9D8(void *_this)
 int CVideoPlayer_LoadVideoHeaders(struct CVideoPlayer *_this);
-//void __thiscall sub_4BF411(int this, const char *Source, int a3, int a4)
+//void __thiscall sub_4BF411(int _this, const char *Source, int a3, int a4)
 void CVideoPlayer_OpenMovie(struct CVideoPlayer *_this, const char *pVideoName, int a3, int a4);
-//int __thiscall sub_4BEB41(void *this);
+//int __thiscall sub_4BEB41(void *_this);
 void CVideoPlayer_Initialize(struct CVideoPlayer *_this);
-//int __thiscall sub_4BF141(int this, const char *Str2);
-int CVideoPlayer_OpenBinkMovie(struct CVideoPlayer *_this, const char *pVideoFile);
-//void __thiscall sub_4BEBD7(int this);
+//int __thiscall sub_4BF141(int _this, const char *Str2);
+HBINK CVideoPlayer_OpenBinkMovie(struct CVideoPlayer *_this, const char *pVideoFile);
+//void __thiscall sub_4BEBD7(int _this);
 void CVideoPlayer_UnloadAll(struct CVideoPlayer *_this);
-//int __thiscall sub_4BF1E6(int this, const char *Str2);
-void *CVideoPlayer_OpenSmackMovie(struct CVideoPlayer *_this, const char *pVideoFile);
-//void __thiscall sub_4BEE6B(int this, HWND hWnd, int a3, int a4);
+//int __thiscall sub_4BF1E6(int _this, const char *Str2);
+HSMACK CVideoPlayer_OpenSmackMovie(struct CVideoPlayer *_this, const char *pVideoFile);
+//void __thiscall sub_4BEE6B(int _this, HWND hWnd, int a3, int a4);
 void sub_4BEE6B(struct CVideoPlayer *_this, HWND hWnd, int a3, int a4);
 //char _cdecl sub_4BF3F9();
 int CVideoPlayer_IsAnyMovieLoaded(struct CVideoPlayer *_this);
-//void __thiscall sub_4BED4F(int this, int a2, int a3, int a4);
+//void __thiscall sub_4BED4F(int _this, int a2, int a3, int a4);
 void sub_4BED4F(struct CVideoPlayer *_this, HWND hWnd, int a3, int a4);
 #pragma pack(pop)

@@ -4,6 +4,7 @@
 #include "mm7_unparsed_functions.h"
 
 #include "FrameTables.h"
+#include "_audio.h"
 
 #include "data.h"
 
@@ -70,7 +71,7 @@ void __cdecl UpdateActors()
     {
       if ( !v6 || v5 )
       {
-        if ( sub_438B9B(pActor) )
+        if ( sub_438B9B((int)pActor) )
           pActor->dword_000024 &= 0xFFF7FFFF;
       }
     }
@@ -215,7 +216,7 @@ struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, s
   {
     if ( dword_6BE360 == 1 )
     {
-      char* ptr = dword_6BE644 + 96 * idx1;
+      char *ptr = (char *)dword_6BE644 + 96 * idx1;
       x0 = (*(_WORD *)(ptr + 80) + (signed int)*(_WORD *)(ptr + 82)) >> 1;
       y0 = (*(_WORD *)(ptr + 84) + (signed int)*(_WORD *)(ptr + 86)) >> 1;
       z0 = (*(_WORD *)(ptr + 88) + (signed int)*(_WORD *)(ptr + 90)) >> 1;
@@ -261,7 +262,7 @@ struct DirectionInfo* GetDirectionInfo(signed int object1, signed int object2, s
   }
   else if ( type2 == 6 )
   {
-    char* ptr = dword_6BE644 + 96 * idx2;
+    char *ptr = (char *)dword_6BE644 + 96 * idx2;
     x1 = (*(_WORD *)(ptr + 80) + *(_WORD *)(ptr + 82)) >> 1;
     y1 = (*(_WORD *)(ptr + 84) + *(_WORD *)(ptr + 86)) >> 1;
     z1 = (*(_WORD *)(ptr + 88) + *(_WORD *)(ptr + 90)) >> 1;     
@@ -373,8 +374,8 @@ void Actor_LinkSprites(struct Actor *_this, char a2)
 
   for (i = 0; i < 8; ++i)
   {
-    _this->pSpriteIDs[i] = CSpriteFrameTable_FastFindSprite(pSpriteFrameTable, pActorDescription->pSpriteNames[i]);
-    CSpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pSpriteIDs[i]);
+    _this->pSpriteIDs[i] = SpriteFrameTable_FastFindSprite(pSpriteFrameTable, (char *)pActorDescription->pSpriteNames[i]);
+    SpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pSpriteIDs[i]);
   }
 
   _this->word_000088 = pActorDescription->word_000002;
@@ -1454,10 +1455,10 @@ void Actor_Die(unsigned int uActorID)
   }
   
   for (i = 0; i < 22; ++i)
-    sub_458585(&pActor->array_0000D4[i].qword_000000);
+    sub_458585((int)&pActor->array_0000D4[i].qword_000000);
 
-  ItemGen_Reset(&itemGen);
-  ItemGen_Reset(&itemGen);
+  ItemGen_Reset((ItemGen *)&itemGen);
+  ItemGen_Reset((ItemGen *)&itemGen);
   
   if (monsterID >= 20 && monsterID <= 22) //devil worker, devil warrior, devil captain
   {
@@ -1527,7 +1528,7 @@ __int16 __fastcall sub_401221(unsigned int uActorID, int a2, int a3)
 
   v22 = -1;
   v19 = uActorID;
-  v6 = &pActors[uActorID];
+  v6 = (int)&pActors[uActorID];
   v5 = 0;
   v4 = 0;
   v3 = *(_DWORD *)(v6 + 816);
@@ -1539,10 +1540,10 @@ __int16 __fastcall sub_401221(unsigned int uActorID, int a2, int a3)
 
   if (uNumActors > 0)
   {
-    v7 = &pActors[0].word_0000B0_state;
+    v7 = (int)&pActors[0].word_0000B0_state;
     while ( 1 )
     {
-      v7 = &pActors[v23].word_0000B0_state;
+      v7 = (int)&pActors[v23].word_0000B0_state;
 
       LOWORD(v3) = pActors[v23].word_0000B0_state;
       if (pActors[v23].word_0000B0_state == 5 || pActors[v23].word_0000B0_state == 4 ||
@@ -1556,7 +1557,7 @@ __int16 __fastcall sub_401221(unsigned int uActorID, int a2, int a3)
         LOBYTE(v8) = 8 * v4 | 3;
         if ( v21 == v8 )
         {
-          if ( sub_4089C7(&pActors[v23]) != 1 )
+          if ( sub_4089C7((int)&pActors[v23]) != 1 )
           {
             v3 = *(_DWORD *)(v7 + 532);
             if ( (v3 != v5 || *(_DWORD *)(v6 + 708) != v5) && v3 == *(_DWORD *)(v6 + 708) )
@@ -1627,7 +1628,7 @@ LABEL_23:
   }
   if ( a3 != v5 )
   {
-    v3 = Actor_GetActorsRelation(v6, 0);
+    v3 = Actor_GetActorsRelation((Actor *)v6, 0);
     if ( *(_BYTE *)(v6 + 38) & 8 )
     {
       if ( *(_DWORD *)(v6 + 408) <= v5 )
@@ -1692,7 +1693,7 @@ void Actor_TotalReset(struct Actor *_this)
  }
 
  for (i = 0; i < 4; ++i)
-   ItemGen_Reset(&_this->array_000234[i]);
+   ItemGen_Reset((ItemGen *)&_this->array_000234[i]);
 
  Actor_Reset(_this);
 }
