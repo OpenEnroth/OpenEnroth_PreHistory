@@ -1993,7 +1993,6 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  char byte_ACD772[array_size_unknown]; // weak
  int dword_ACD788[array_size_unknown]; // weak
  int dword_ACD794; // weak
- char byte_ACD7B6[array_size_unknown]; // weak
  int dword_ACD82C; // weak
  int dword_ACD830; // weak
  char byte_ACD8C2; // weak

@@ -7415,7 +7415,7 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int sEventType, int a2, int a
   const char *v7; // ebp@8
   //int v9; // edx@10
   int v10; // edi@12
-  int v11; // esi@12
+  unsigned char *v11; // esi@12
   int v12; // eax@14
   char *v13; // eax@15
   int v14; // edi@21
@@ -7591,13 +7591,13 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int sEventType, int a2, int a
           pSomeEVT_Events[v4].dword_000004 == v126 )
       {
        v10 = pSomeEVT_Events[v4].uEventOffsetInEVT;
-        v11 = v5 + pSomeEVT_Events[v4].uEventOffsetInEVT;
-        switch ( *(_BYTE *)(v5 + v10 + 4) )
+        v11 = pSomeEVT + pSomeEVT_Events[v4].uEventOffsetInEVT;
+        switch (v11[4])
         {
           case 0x38:
-            if ( !sub_4465DF((void *)*(_BYTE *)(v11 + 5)) )
+            if ( !sub_4465DF((void *)v11[5]) )
               goto LABEL_291;
-            v12 = *(_BYTE *)(v11 + 6);
+            v12 = v11[6];
             goto LABEL_130;
           case 0xC:
             strcpy(&Str, (const char *)(v11 + 7));
@@ -7650,53 +7650,52 @@ LABEL_28:
               sub_46B105((void *)dword_720010);
             goto LABEL_291;
           case 0x2B:
-            v19 = *(_BYTE *)(v11 + 7)
-                + ((*(_BYTE *)(v11 + 8) + ((*(_BYTE *)(v11 + 9) + (*(_BYTE *)(v11 + 10) << 8)) << 8)) << 8);
+            v19 = v11[7] | ((unsigned int)v11[8] << 8) | ((unsigned int)v11[9] << 16) | ((unsigned int)v11[10] << 24);
             if ( v131 < 0 )
               goto LABEL_47;
             if ( v131 <= 3 )
             {
-              v24 = pParty_global->pPlayers[v131].pActiveSkills[*(_BYTE *)(v11 + 5)];
+              v24 = pParty_global->pPlayers[v131].pActiveSkills[v11[5]];
             }
             else
             {
               if ( v131 == 4 )
               {
-                v24 = *((_WORD *)pPlayers[uActiveCharacter - 1] + *(_BYTE *)(v11 + 5) + 132);
+                v24 = *((_WORD *)pPlayers[uActiveCharacter - 1] + v11[5] + 132);
               }
               else
               {
                 if ( v131 == 5 )
                 {
                   v21 = 0;
-                  v22 = 3486 * v134 + *(_BYTE *)(v11 + 5);
+                  v22 = 3486 * v134 + v11[5];
                   v140 = 1;
-                  LOWORD(v22) = pParty_global->pPlayers[v134].pActiveSkills[*(_BYTE *)(v11 + 5)];
+                  LOWORD(v22) = pParty_global->pPlayers[v134].pActiveSkills[v11[5]];
                   v141 = v22 & 0x40;
                   v142 = v22 & 0x80;
                   v23 = v22 & 0x100;
                   v20 = v22 & 0x3F;
                   v143 = v23;
-                  while ( v20 < v19 || !*(&v140 + *(_BYTE *)(v11 + 6)) )
+                  while ( v20 < v19 || !*(&v140 + v11[6]) )
                   {
                     ++v21;
                     if ( v21 >= 4 )
                       goto LABEL_291;
                   }
 LABEL_50:
-                  v12 = *(_BYTE *)(v11 + 11);
+                  v12 = v11[11];
                   goto LABEL_130;
                 }
 LABEL_47:
-                v11 = v5 + v10;
-                v24 = pParty_global->pPlayers[rand() % 4].pActiveSkills[*(_BYTE *)(v5 + v10 + 5)];
+                v11 = (unsigned char *)v5 + v10;
+                v24 = pParty_global->pPlayers[rand() % 4].pActiveSkills[v11[5]];
               }
             }
             v140 = 1;
             v141 = v24 & 0x40;
             v142 = v24 & 0x80;
             v143 = v24 & 0x100;
-            if ( (v24 & 0x3F) >= v19 && *(&v140 + *(_BYTE *)(v11 + 6)) )
+            if ( (v24 & 0x3F) >= v19 && *(&v140 + v11[6]) )
               goto LABEL_50;
             goto LABEL_291;
           case 0x16:
@@ -7712,12 +7711,11 @@ LABEL_47:
             }
             else
             {
-              dword_5C35C4 = *(_BYTE *)(v11 + 5)
-                           + ((*(_BYTE *)(v11 + 6) + ((*(_BYTE *)(v11 + 7) + (*(_BYTE *)(v11 + 8) << 8)) << 8)) << 8);
+              dword_5C35C4 = v11[5] | ((unsigned int)v11[6] << 8) | ((unsigned int)v11[7] << 16) | ((unsigned int)v11[8] << 24);
             }
             goto LABEL_291;
           case 0x2A:
-            v26 = *(_BYTE *)(v11 + 5);
+            v26 = v11[5];
             v27 = (*(_BYTE *)(v11 + 6) + ((*(_BYTE *)(v11 + 7) + (*(_BYTE *)(v11 + 8) << 8)) << 8)) << 8;
             v28 = v26 + v27 == 0;
             v25 = v26 + v27;
@@ -8013,17 +8011,14 @@ LABEL_120:
               0);
             goto LABEL_291;
           case 0xE:
-            v61 = (void *)(*(_BYTE *)(v11 + 7)
-                         + ((*(_BYTE *)(v11 + 8) + ((*(_BYTE *)(v11 + 9) + (*(_BYTE *)(v11 + 10) << 8)) << 8)) << 8));
+            v61 = (void *)(v11[7] | ((unsigned int)v11[8] << 8) | ((unsigned int)v11[9] << 16) | ((unsigned int)v11[10] << 24));
             if ( v131 == 5 )
             {
               v134 = 0;
               i = 0;
               while ( 1 )
               {
-                LOBYTE(v63) = Player_sub_449BB4((int)&pParty_global->pPlayers[i++],
-                                *(_BYTE *)(v10 + pSomeEVT + 5) + (*(_BYTE *)(v10 + pSomeEVT + 6) << 8),
-                                v61);
+                LOBYTE(v63) = Player_sub_449BB4((int)&pParty_global->pPlayers[i++], v11[5] | ((unsigned int)v11[6] << 8), v61);
                 if ( v63 )
                   break;
                 ++v134;
@@ -8031,7 +8026,7 @@ LABEL_120:
                   goto LABEL_291;
               }
 LABEL_129:
-              v12 = *(_BYTE *)(pSomeEVT + v10 + 11);
+              v12 = v11[11];
               goto LABEL_130;
             }
             if ( v131 < 0 )
@@ -8183,8 +8178,7 @@ LABEL_182:
 
             goto LABEL_291;
           case 0x12:
-            v81 = *(_BYTE *)(v11 + 7)
-                + ((*(_BYTE *)(v11 + 8) + ((*(_BYTE *)(v11 + 9) + (*(_BYTE *)(v11 + 10) << 8)) << 8)) << 8);
+            v81 = v11[7] | ((unsigned int)v11[8] << 8) | ((unsigned int)v11[9] << 16) | ((unsigned int)v11[10] << 24);
             v80 = v131;
             if ( v131 != 5 )
             {
@@ -8197,7 +8191,7 @@ LABEL_182:
                   if ( v131 == 6 )
                     goto LABEL_194;
 LABEL_197:
-                  Player_sub_44A5CB((char *)v6, *(_BYTE *)(v5 + v10 + 5) + (*(_BYTE *)(v5 + v10 + 6) << 8), v81);
+                  Player_sub_44A5CB((char *)v6, v11[5] | ((unsigned int)v11[6] << 8), v81);
                   goto LABEL_291;
                 }
                 if ( uActiveCharacter )
@@ -8419,8 +8413,7 @@ LABEL_248:
             }
             goto LABEL_291;
           case 0x1E:
-            v95 = *(_BYTE *)(v11 + 5)
-                + ((*(_BYTE *)(v11 + 6) + ((*(_BYTE *)(v11 + 7) + (*(_BYTE *)(v11 + 8) << 8)) << 8)) << 8);
+            v95 = v11[5] | ((unsigned int)v11[6] << 8) | ((unsigned int)v11[7] << 16) | ((unsigned int)v11[8] << 24);
             if ( dword_5C3420 )
             {
               v96 = (&dword_721664)[8 * v95];
@@ -10154,7 +10147,7 @@ LABEL_130:
   if ( a2 == 223 )
   {
     v13 = 0x80u >> ((signed __int16)((_WORD)a3 - 1) - 1) % 8;
-    v14 = byte_ACD7B6[((signed __int16)((_WORD)a3 - 1) - 1) >> 3];
+    v14 = pParty_global->unk_000764[(((signed __int16)((_WORD)a3 - 1) - 1) >> 3) + 0x9A];
 LABEL_108:
     if ( !((_BYTE)v13 & (unsigned __int8)v14) )
       goto LABEL_170;
@@ -10653,8 +10646,7 @@ LABEL_169:
   }
   if ( a2 == 223 )
   {
-    if ( !((unsigned __int8)(0x80u >> ((signed __int16)a3 - 1) % 8) & (unsigned __int8)byte_ACD7B6[((signed __int16)a3
-                                                                                                  - 1) >> 3]) )
+   if ( !((unsigned __int8)(0x80u >> ((signed __int16)a3 - 1) % 8) & pParty_global->unk_000764[(((signed __int16)a3 - 1) >> 3) + 0x9A]) )
     {
       if ( (&dword_723718)[8 * a3] )
       {
@@ -10666,7 +10658,7 @@ LABEL_169:
         dword_506568 = v20;
       }
     }
-    sub_449B7E((int)byte_ACD7B6, a3, 1);
+    sub_449B7E((int)pParty_global->unk_000764 + 0x9A, a3, 1);
     v31 = 1;
     goto LABEL_168;
   }
@@ -11182,8 +11174,7 @@ LABEL_173:
   }
   if ( a2 == 223 )
   {
-    if ( !((unsigned __int8)(0x80u >> ((signed __int16)a3 - 1) % 8) & (unsigned __int8)byte_ACD7B6[((signed __int16)a3
-                                                                                                  - 1) >> 3]) )
+    if ( !((unsigned __int8)(0x80u >> ((signed __int16)a3 - 1) % 8) & pParty_global->unk_000764[(((signed __int16)a3 - 1) >> 3) + 0x9A]) )
     {
       if ( (&dword_723718)[8 * a3] )
       {
@@ -11195,7 +11186,7 @@ LABEL_173:
         dword_506568 = v24;
       }
     }
-    sub_449B7E((int)byte_ACD7B6, a3, 1);
+    sub_449B7E((int)pParty_global->unk_000764 + 0x9A, a3, 1);
     v3 = 1;
     goto LABEL_173;
   }
@@ -11631,7 +11622,7 @@ LABEL_8:
       }
       if ( a2 == 223 )
       {
-        v11 = (int)byte_ACD7B6;
+        v11 = (int)pParty_global->unk_000764 + 0x9A;
         v22 = a3 - 1;
       }
       else

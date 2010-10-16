@@ -2379,7 +2379,7 @@ extern char byte_ACD771; // weak
 extern char byte_ACD772[array_size_unknown]; // weak
 extern int dword_ACD788[array_size_unknown]; // weak
 extern int dword_ACD794; // weak
-extern char byte_ACD7B6[array_size_unknown]; // weak
+//char byte_ACD7B6[array_size_unknown]; // 764 + 9A
 //char byte_ACD80C[array_size_unknown]; // weak
 extern int dword_ACD82C; // weak
 extern int dword_ACD830; // weak

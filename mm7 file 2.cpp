@@ -7527,7 +7527,7 @@ int __thiscall GUIWindow_sub_411BFC(void *_this)
               v25 = (&dword_723718)[8 * (signed __int16)v10];
               if ( (_WORD)v10 )
               {
-                if ( (unsigned __int16)sub_449B57((int)byte_ACD7B6, v10) )
+                if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 0x9A, v10) )
                 {
                   if ( v25 )
                   {
@@ -8418,7 +8418,7 @@ LABEL_46:
         v32 = (&dword_723718)[8 * (signed __int16)v8];
         if ( (_WORD)v8 )
         {
-          if ( (unsigned __int16)sub_449B57((int)byte_ACD7B6, v8) )
+          if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 0x9A, v8) )
           {
             if ( v32 )
             {
