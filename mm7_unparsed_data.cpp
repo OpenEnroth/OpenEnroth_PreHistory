@@ -637,12 +637,9 @@ struct unnamed_505898 struct_505898;
  int dword_506568; // weak
  char byte_50656C; // weak
  int dword_506578; // weak
- _UNKNOWN unk_506580; // weak
- __int16 word_5065E0; // weak
- __int16 word_506620; // weak
- __int16 word_506632; // weak
- int dword_506638; // weak
- char byte_5068C4; // weak
+
+Actor         stru_506580_MonsterInfoUI_Doll;             // struct @ MM7.exe::00506580
+unsigned char stru_506580_MonsterInfoUI_bDollInitialized; // byte   @ MM7.exe::005068C4
 
  int dword_506978; // weak
  char byte_50697C = 0;
@@ -1278,18 +1275,6 @@ unsigned int  uLevelEVT_NumEvents; // dword      @ MM7.exe::005B1110
 unsigned int  uLevelEVT_Size;      // dword      @ MM7.exe::005B1114
 unsigned char pLevelStr[9216];     // byte[9216] @ MM7.exe::005B1120
 unsigned char pLevelEVT[9216];     // byte[9216] @ MM7.exe::005B3520
-//unsigned char byte_5B3521[array_size_unknown]; // pLevelEVT + 1
-//unsigned char byte_5B3522[array_size_unknown]; // pLevelEVT + 2
-//unsigned char byte_5B3523[array_size_unknown]; // pLevelEVT + 3
- char byte_5B3524[array_size_unknown]; // weak
- char byte_5B3525[array_size_unknown]; // weak
- char byte_5B3526[array_size_unknown]; // weak
- char byte_5B3527[array_size_unknown]; // weak
- char byte_5B3528[array_size_unknown]; // weak
- char byte_5B3529[array_size_unknown]; // weak
- char byte_5B352A[array_size_unknown]; // weak
- char byte_5B352B[array_size_unknown]; // weak
- char byte_5B352C[array_size_unknown]; // weak
  int dword_5B5920; // weak
  int dword_5B5924; // weak
  _UNKNOWN unk_5B5928[0xC80]; // weak
@@ -2000,8 +1985,6 @@ struct CPlayerFrameTable *pPlayerFrameTable = 0; // struct @ MM7.exe::00A750EC
 struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  _DWORD dword_ACD4E8[36]; // idb
  char byte_ACD719[array_size_unknown]; // weak
- char byte_ACD71C; // weak
- char byte_ACD71D[array_size_unknown]; // weak
  char byte_ACD76D; // weak
  char byte_ACD76E; // weak
  char byte_ACD76F; // weak

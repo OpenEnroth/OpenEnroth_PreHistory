@@ -684,7 +684,7 @@ int sub_49107D(struct Player *_this)
   int v4; // eax@3
   signed int v6; // [sp-4h] [bp-4h]@2
 
-  v1 = sub_48F882(_this, 24);
+  v1 = Player_sub_48F882(_this, 24);
   v2 = v1 & 0x3F;
   if ( v1 & 0x100 )
   {
@@ -782,7 +782,7 @@ int Player_sub_48FC00(struct Player *_this, signed int a2)
   v71 = 0;
   v70 = 0;
   v72 = 0;
-  LOBYTE(v2) = sub_48F882(_this, 33);
+  LOBYTE(v2) = Player_sub_48F882(_this, 33);
   v4 = v2;
   v3 = 1;
   if ( v2 )
@@ -846,7 +846,7 @@ LABEL_12:
           if ( Player_sub_48D6AA((Player *)v5, v72) )
           {
             v12 = (&pClass40->pItems[0].uEquipType)[48 * *((_DWORD *)v5 + 9 * *(_DWORD *)v9 + 124) + 1];
-            LOBYTE(v13) = sub_48F882(v10, v12);
+            LOBYTE(v13) = Player_sub_48F882(v10, v12);
             v73 = v13;
             sub_458244(v13);
             v11 = v12 - 5;
@@ -878,7 +878,7 @@ LABEL_12:
       }
       if ( sub_48D676(v5) )
       {
-        LOBYTE(v18) = sub_48F882(v5, 31);
+        LOBYTE(v18) = Player_sub_48F882(v5, 31);
         v14 = v18;
         if ( !v18 )
           return v71;
@@ -913,14 +913,14 @@ LABEL_31:
       }
       v72 = 0;
       v25 = pClass40->pItems[v22 - 1].uSkillType;
-      LOBYTE(v26) = sub_48F882(v5, v25);
+      LOBYTE(v26) = Player_sub_48F882(v5, v25);
       v24 = v26;
       v23 = sub_458244(v26);
       if ( !v25 )
       {
         if ( sub_458244(v24) >= 4 )
         {
-          LOBYTE(v31) = sub_48F882(v5, 31);
+          LOBYTE(v31) = Player_sub_48F882(v5, 31);
           LOBYTE(v24) = v31;
           if ( v31 )
           {
@@ -973,7 +973,7 @@ LABEL_53:
     }
     if ( sub_48D676(v5) == 1 )
     {
-      LOBYTE(v33) = sub_48F882(v5, 31);
+      LOBYTE(v33) = Player_sub_48F882(v5, 31);
       v34 = v33;
       if ( !v33 )
         return v71;
@@ -997,7 +997,7 @@ LABEL_53:
         return v71;
     }
     v38 = pClass40->pItems[v37 - 1].uSkillType;
-    LOBYTE(v39) = sub_48F882(v5, v38);
+    LOBYTE(v39) = Player_sub_48F882(v5, v38);
     v74 = v39;
     sub_458244(v39);
     v72 = 0;
@@ -1041,7 +1041,7 @@ LABEL_53:
       v72 = 1;
       if ( sub_458244(v74) >= 4 )
       {
-        LOBYTE(v40) = sub_48F882(v5, 31);
+        LOBYTE(v40) = Player_sub_48F882(v5, 31);
         v41 = v40;
         if ( v40 )
         {
@@ -1113,7 +1113,7 @@ LABEL_53:
 LABEL_112:
           v68 = 0;
 LABEL_113:
-          LOBYTE(v53) = sub_48F882(v5, v44);
+          LOBYTE(v53) = Player_sub_48F882(v5, v44);
           v54 = v53;
           v50 = sub_458244(v53);
           v52 = v54 & 0x3F;
@@ -1139,7 +1139,7 @@ LABEL_117:
   v66 = 1;
   v67 = 1;
   v68 = 0;
-  LOBYTE(v58) = sub_48F882(v5, 30);
+  LOBYTE(v58) = Player_sub_48F882(v5, 30);
   v57 = v58;
   v56 = sub_458244(v58);
   if ( !v75 )

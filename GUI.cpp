@@ -2465,7 +2465,7 @@ LABEL_317:
               {
                for (i = 0; i < 4; ++i)
                  Player_sub_492D65(&pParty_global->pPlayers[i], v0, 0);
-                ++byte_ACD71C;
+                ++pParty_global->unk_000764[0];
               }
               sub_492B03((void *)v211);
             }
@@ -2473,7 +2473,7 @@ LABEL_317:
             {
              for (i = 0; i < 4; ++i)
                Player_sub_492D65(&pParty_global->pPlayers[i], v0, 0);
-              ++byte_ACD71C;
+              ++pParty_global->unk_000764[0];
             }
             sub_48A336(&class35_obj);
             SpriteFrameTable_fn3(pSpriteFrameTable);
@@ -2836,7 +2836,7 @@ LABEL_486:
                     dword_5B65B8 = v78;
                     UpdateActors();
                   }
-                  v79 = pGUIWindow_CurrentMenu->dword_000048;
+                  v79 = (int)pGUIWindow_CurrentMenu->ptr_000048;
                   if ( v79 )
                     *(_DWORD *)(v79 + 68) = v0;
                   else
@@ -2859,7 +2859,7 @@ LABEL_771:
           {
             v75 = 206;
           }
-          if ( !(unsigned __int16)sub_449B57((int)byte_ACD71D, v75) )
+          if ( !(unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, v75) )
             return;
           goto LABEL_486;
         case 0xB6:
@@ -2890,7 +2890,7 @@ LABEL_771:
           {
             v80 = 206;
           }
-          if ( !(unsigned __int16)sub_449B57((int)byte_ACD71D, v80) )
+          if ( !(unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, v80) )
           {
             //Render_DrawRGBTexture(pD3DRenderer, 0, 352, pTexture_StatusBar);
             Render_DrawRGBTexture_New(pD3DRenderer, 0, 352, uTextureID_GameUI_StatusBar);
@@ -3221,7 +3221,7 @@ LABEL_619:
 LABEL_615:
             dword_506F14 = 2;
             sub_490D02(pParty_global);
-            byte_ACD71C = 0;
+            pParty_global->unk_000764[0] = 0;
             qword_AD2B48 = pParty_global->qword_00002C;
             qword_AD100C = pParty_global->qword_00002C;
             qword_ACF4D0 = pParty_global->qword_00002C;
@@ -4400,7 +4400,7 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
   v9->bSlotUsed = a5;
   v9->dword_00001C = a6;
   v9->dword_000044 = 0;
-  v9->dword_000048 = a7;
+  v9->ptr_000048 = (unsigned char *)a7;
 
   v9->dword_00003C = ++sLastGUIWindowIdx;
   array_5075E0[sLastGUIWindowIdx] = v8 + 1;
@@ -6595,7 +6595,7 @@ LABEL_43:
       ++dword_506520;
       v15 = 0xFF000000 | ((unsigned int)(byte_4E2AA4[3 * v14 % 6]) << 16) | ((unsigned int)(byte_4E2AA4[3 * v14 % 6 + 1]) << 8) | byte_4E2AA4[3 * v14 % 6 + 2];
       FontDrawText((GUIWindow *)&v19, pFontArrus, 0, 0, v6, 0, 0, 0);
-      v16 = Font_sub_44C59D(pFontArrus, v6, (unsigned int *)&v19, 0, 0);
+      v16 = Font_sub_44C59D(pFontArrus, v6, (GUIWindow *)&v19, 0, 0);
       result = v16 + v20 + 4;
       if ( result <= v22 )
       {

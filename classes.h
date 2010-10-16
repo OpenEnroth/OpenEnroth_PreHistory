@@ -1507,9 +1507,9 @@ int class59_Atan2(struct class59 *_this, int X, int Y);
 
 struct Event
 {
- int dword_000000; // event type?
- int dword_000004;
- int dword_000008;
+ int          dword_000000; // event type?
+ int          dword_000004;
+ unsigned int uEventOffsetInEVT; // dword @ 000008
 };
 //sizeof == 0C
 

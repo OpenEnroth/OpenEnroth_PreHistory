@@ -3186,7 +3186,7 @@ LABEL_238:
           }
           if ( dword_720010 == v31 )
           {
-            sub_416D62(0);
+            sub_416D62_ShowMonsterRecord(0);
             return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
           }
           goto LABEL_184;
@@ -6551,7 +6551,7 @@ LABEL_344:
       pParty_global->sPartyPosZ = 8160;
     }
     if ( !v95
-      || (sub_44684A_LooksLikeEventProcessor(v95, 0, 1), pParty_global->sPartyPosX == v65)
+      || (sub_44684A_LooksLikeEventProcessor(v95, 0, 1), pParty_global->sPartyPosX == v65) // here Emeral Island instuctor event occurs
       && pParty_global->sPartyPosY == v64
       && (v62 = pParty_global->sPartyPosZ, pParty_global->sPartyPosZ == v63) )
     {
@@ -8858,7 +8858,7 @@ LABEL_45:
         v626 = 12;
       }
       v703 = v626;
-      v8 = sub_48F882((void *)v707, v626);
+      v8 = Player_sub_48F882((void *)v707, v626);
       v701 = v8 & 0x3F;
       LODWORD(v1) = v8 & 0x3F;
       goto LABEL_45;
@@ -14476,7 +14476,7 @@ LABEL_77:
     v122 = 140;
     v125 = 469;
     v126 = 239;
-    sub_415551(&v121, 0);
+    GUIWindow_sub_415551((GUIWindow *)&v121, 0);
   }
   Render_EndScene(pD3DRenderer);
 }

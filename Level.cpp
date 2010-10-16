@@ -1425,8 +1425,8 @@ bool sub_44C1E8(struct class51_stru2 *_this)
  for (i = 0; i < uLevelEVT_NumEvents; ++i)
    if (pLevelEVT_Events[i].dword_000000 == _this->word_000124)
    {
-    if (byte_5B3524[pLevelEVT_Events[i].dword_000008] != 4 ||
-        byte_5B3524[pLevelEVT_Events[i + 1].dword_000008] != 1)
+    if (pLevelEVT[pLevelEVT_Events[i].uEventOffsetInEVT + 4] != 4 ||
+        pLevelEVT[pLevelEVT_Events[i + 1].uEventOffsetInEVT + 4] != 1)
       return false;
     else return true;
    }

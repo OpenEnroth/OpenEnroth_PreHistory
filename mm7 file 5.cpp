@@ -962,7 +962,7 @@ void __cdecl sub_468F8A()
       if ( v2 )
       {
 LABEL_7:
-        LOBYTE(v5) = sub_48F882((void *)v1, 4);
+        LOBYTE(v5) = Player_sub_48F882((void *)v1, 4);
         if ( sub_458244(v5) < 3 )
         {
 LABEL_8:
@@ -1892,9 +1892,9 @@ char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
         wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], v27);
         sub_44C175((char *)pStringBuffer, 2);
         if ( *(_DWORD *)v20 == 506 )
-          sub_449B7E((int)byte_ACD71D, 184, 1);
+          sub_449B7E((int)pParty_global->unk_000764 + 1, 184, 1);
         if ( *(_DWORD *)v20 == 455 )
-          sub_449B7E((int)byte_ACD71D, 185, 1);
+          sub_449B7E((int)pParty_global->unk_000764 + 1, 185, 1);
         if ( !Party_AddItem(pParty_global, v20) )
           sub_4936E1(pParty_global, (const void *)v20);
         v21 = (int)v29;
@@ -3216,7 +3216,7 @@ void __cdecl sub_46B76F()
           v6 = *v4;
           v7 = sub_43643E();
           Game_Pick(pGame, v7, v6, v5, 0, (int)&dword_F93E30, (int)&dword_F93E44);
-          sub_416D62(v1 + 12);
+          sub_416D62_ShowMonsterRecord(v1 + 12);
         }
         else
         {
@@ -12592,26 +12592,26 @@ signed int __thiscall sub_47A825(void *_this)
 
   v1 = 0;
   v2 = _this;
-  if ( (unsigned int)pParty_global->uCurrentHour >= 1 || (unsigned __int16)sub_449B57((int)byte_ACD71D, 178) )
+  if ( (unsigned int)pParty_global->uCurrentHour >= 1 || (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 178) )
   {
     v1 = 0;
   }
   else
   {
-    if ( (unsigned __int16)sub_449B57((int)byte_ACD71D, 164)
-      && (unsigned __int16)sub_449B57((int)byte_ACD71D, 165)
-      && (unsigned __int16)sub_449B57((int)byte_ACD71D, 166)
-      && (unsigned __int16)sub_449B57((int)byte_ACD71D, 167)
-      && (unsigned __int16)sub_449B57((int)byte_ACD71D, 168)
-      && (unsigned __int16)sub_449B57((int)byte_ACD71D, 169)
-      && (unsigned __int16)sub_449B57((int)byte_ACD71D, 170)
-      && (unsigned __int16)sub_449B57((int)byte_ACD71D, 171)
-      && (unsigned __int16)sub_449B57((int)byte_ACD71D, 172)
-      && (unsigned __int16)sub_449B57((int)byte_ACD71D, 173)
-      && (unsigned __int16)sub_449B57((int)byte_ACD71D, 174)
-      && (unsigned __int16)sub_449B57((int)byte_ACD71D, 175)
-      && (unsigned __int16)sub_449B57((int)byte_ACD71D, 176)
-      && (unsigned __int16)sub_449B57((int)byte_ACD71D, 177) )
+    if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 164)
+      && (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 165)
+      && (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 166)
+      && (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 167)
+      && (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 168)
+      && (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 169)
+      && (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 170)
+      && (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 171)
+      && (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 172)
+      && (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 173)
+      && (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 174)
+      && (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 175)
+      && (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 176)
+      && (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 177) )
     {
       v1 = 1;
       *((_BYTE *)v2 + 2) &= 0xDFu;

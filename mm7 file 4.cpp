@@ -12909,7 +12909,7 @@ void *__fastcall sub_4601B7(int a1)
       v4 = dword_6A0CA0;
     }
     v10 = CMapStats_FindLocation(pMapStats, &byte_69BD7C[100 * v4]);
-    sub_44D406(&Dst, (unsigned char *)pFontSmallnum, 0, 0, 0, (const char *)pMapStats->pMapInfos[v10].pLocationName, 3);
+    GUIWindow_sub_44D406(&Dst, (unsigned char *)pFontSmallnum, 0, 0, 0, (const char *)pMapStats->pMapInfos[v10].pLocationName, 3);
     v11 = (signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0] * 0.234375) / 60;
     v12 = (signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0] * 0.234375) / 60;
     HIDWORD(v35) = (unsigned __int64)((signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0]
@@ -12963,7 +12963,7 @@ LABEL_23:
       7 * v9 + HIDWORD(v7) % 7u + 1,
       aMonthNames[v36],
       v39);
-    sub_44D406(&Dst, (unsigned char *)pFontSmallnum, 0, 0, 0, (char *)TmpBuf, 3);
+    GUIWindow_sub_44D406(&Dst, (unsigned char *)pFontSmallnum, 0, 0, 0, (char *)TmpBuf, 3);
     v1 = 255;
   }
   if ( pGUIWindow_CurrentMenu->dword_000040 == 2 )
@@ -14694,7 +14694,7 @@ void __cdecl sub_467FB6()
   v4 = 1;
   v5 = 1;
   v6 = 468;
-  v0 = Font_sub_44C59D(pFontSmallnum, (&dword_723D38)[4 * *(_DWORD *)(dword_507BC4 + 28)], (unsigned int *)&v4, 0, 0)
+  v0 = Font_sub_44C59D(pFontSmallnum, (&dword_723D38)[4 * *(_DWORD *)(dword_507BC4 + 28)], (GUIWindow *)&v4, 0, 0)
      + 2 * *(_BYTE *)(pFontCreate + 5)
      + 24;
   v7 = v0;
@@ -14705,7 +14705,7 @@ void __cdecl sub_467FB6()
   }
   v8 = v6 + v4 - 1;
   v9 = v0 + v5 - 1;
-  sub_415551((int *)&v4, 0);
+  GUIWindow_sub_415551((GUIWindow *)&v4, 0);
   v4 += 12;
   v6 -= 24;
   v5 += 12;
@@ -14715,7 +14715,7 @@ void __cdecl sub_467FB6()
   v2 = dword_5DAD28[12 * *(_DWORD *)(dword_507BC4 + 28)];
   v3 = 0xFFFFFF9B;
   wsprintfA((char *)TmpBuf, "\x0C%05d%s\x0C\x30\x30\x30\x30\x30", v3, v2);
-  sub_44D406(&v4, (unsigned char *)pFontCreate, 0, 0, 0, (char *)TmpBuf, 3);
+  GUIWindow_sub_44D406(&v4, (unsigned char *)pFontCreate, 0, 0, 0, (char *)TmpBuf, 3);
   FontDrawText((GUIWindow *)&v4,
            pFontSmallnum,
            1,

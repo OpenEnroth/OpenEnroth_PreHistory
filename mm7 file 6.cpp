@@ -1043,7 +1043,7 @@ int __thiscall Player_sub_48E1B5(void *_this, int a2)
   }
   if ( sub_48D676(_this) == 1 )
   {
-    LOBYTE(v7) = sub_48F882((void *)v4, 31);
+    LOBYTE(v7) = Player_sub_48F882((void *)v4, 31);
     if ( v7 )
     {
       v5 = (unsigned __int16)word_4EDEDC;
@@ -1138,7 +1138,7 @@ LABEL_28:
   if ( v3 != (int *)v2 )
   {
     v26 = *((_BYTE *)v3 + 29);
-    LOBYTE(v27) = sub_48F882((void *)v4, *((_BYTE *)v3 + 29));
+    LOBYTE(v27) = Player_sub_48F882((void *)v4, *((_BYTE *)v3 + 29));
     if ( v27 )
     {
       if ( v26 == 1 || v26 == 3 || v26 == 5 )
@@ -1156,7 +1156,7 @@ LABEL_28:
   {
     if ( v42 == v2 )
     {
-      LOBYTE(v29) = sub_48F882((void *)v4, 33);
+      LOBYTE(v29) = Player_sub_48F882((void *)v4, 33);
       if ( v29 != v2 )
       {
         v30 = v29 & 0x3F;
@@ -1640,7 +1640,7 @@ LABEL_33:
     ++v15;
   }
   while ( v15 < 4 );
-  byte_ACD71C = 0;
+  pParty_global->unk_000764[0] = 0;
 }
 
 //----- (00490EEE) --------------------------------------------------------
@@ -1670,7 +1670,7 @@ int __thiscall sub_490EEE(void *_this, int a2, int a3, int a4, int a5)
   void *v27; // [sp+14h] [bp-4h]@1
 
   v27 = _this;
-  LOBYTE(v9) = sub_48F882(_this, 22);
+  LOBYTE(v9) = Player_sub_48F882(_this, 22);
   v26 = v9;
   result = 4;
   v6 = *(_DWORD *)a2;
@@ -1773,7 +1773,7 @@ int __thiscall sub_4910A8(void *_this)
   int v4; // eax@3
   signed int v6; // [sp-4h] [bp-4h]@2
 
-  v1 = sub_48F882(_this, 25);
+  v1 = Player_sub_48F882(_this, 25);
   v2 = v1 & 0x3F;
   if ( v1 & 0x100 )
   {
@@ -1804,7 +1804,7 @@ signed int __stdcall sub_4910D3(int a1)
   int v7; // eax@7
   signed int v9; // [sp-4h] [bp-14h]@2
 
-  LOBYTE(v1) = sub_48F882(*(&ptr_A750C4 + uActiveCharacter), 21);
+  LOBYTE(v1) = Player_sub_48F882(*(&ptr_A750C4 + uActiveCharacter), 21);
   v2 = v1;
   if ( HIBYTE(v1) & 1 )
   {
@@ -1850,7 +1850,7 @@ signed int __thiscall sub_491151(void *_this, int a2)
   int v11; // eax@12
   signed int v13; // [sp-4h] [bp-14h]@2
 
-  LOBYTE(v2) = sub_48F882(_this, 23);
+  LOBYTE(v2) = Player_sub_48F882(_this, 23);
   v3 = v2;
   if ( HIBYTE(v2) & 1 )
   {
@@ -1909,7 +1909,7 @@ int __thiscall sub_4911F3(void *_this)
   signed int v9; // [sp-4h] [bp-10h]@6
 
   v4 = _this;
-  LOBYTE(v5) = sub_48F882(_this, 22);
+  LOBYTE(v5) = Player_sub_48F882(_this, 22);
   v1 = *((_WORD *)v4 + 154);
   v3 = v5 & 0x3F;
   v2 = *((_WORD *)v4 + 154) & 0x3F;
@@ -1947,7 +1947,7 @@ signed int __thiscall sub_49125A(void *_this)
   signed int v8; // [sp-4h] [bp-10h]@4
 
   v4 = _this;
-  LOBYTE(v5) = sub_48F882(_this, 26);
+  LOBYTE(v5) = Player_sub_48F882(_this, 26);
   v1 = *((_WORD *)v4 + 158);
   v3 = v5 & 0x3F;
   v2 = *((_WORD *)v4 + 158) & 0x3F;
@@ -1982,7 +1982,7 @@ signed int __thiscall sub_4912B0(void *_this)
   signed int v8; // [sp-4h] [bp-14h]@6
 
   v2 = _this;
-  LOBYTE(v5) = sub_48F882(_this, 29);
+  LOBYTE(v5) = Player_sub_48F882(_this, 29);
   v1 = *((_WORD *)v2 + 161);
   v4 = v5 & 0x3F;
   v3 = *((_WORD *)v2 + 161) & 0x3F;
@@ -2018,7 +2018,7 @@ char __thiscall sub_491317(void *_this)
   signed int v7; // [sp-4h] [bp-Ch]@3
 
   v4 = _this;
-  LOBYTE(v1) = sub_48F882(_this, 36);
+  LOBYTE(v1) = Player_sub_48F882(_this, 36);
   v3 = *((_WORD *)v4 + 168);
   v2 = v1 & 0x3F;
   if ( v1 )
@@ -2363,7 +2363,7 @@ bool __thiscall sub_492C40(void *_this)
 {
   int v2; // eax@1
 
-  LOBYTE(v2) = sub_48F882(_this, 34);
+  LOBYTE(v2) = Player_sub_48F882(_this, 34);
   return v2 != 0;
 }
 
@@ -2447,7 +2447,7 @@ signed int __thiscall sub_492C4E(int _this, signed int a2)
 LABEL_13:
           v4 = 99;
 LABEL_15:
-          v5 = (unsigned __int16)sub_449B57((int)byte_ACD71D, v4) == 0;
+          v5 = (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, v4) == 0;
 LABEL_23:
           if ( !v5 )
             return 1;

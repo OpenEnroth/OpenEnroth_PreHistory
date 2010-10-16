@@ -235,12 +235,12 @@ int Party_Reset(struct Party *_this)
  _this->dword_007778 = 0;
 
 
-  sub_449B7E((int)_this->unk_000765, 1, 1);
-  sub_449B7E((int)_this->unk_000765, 2, 1);
-  sub_449B7E((int)_this->unk_000765, 3, 1);
-  sub_449B7E((int)_this->unk_000765, 4, 1);
-  sub_449B7E((int)_this->unk_000765, 5, 1);
-  sub_449B7E((int)_this->unk_000765, 6, 1);
+  sub_449B7E((int)_this->unk_000764 + 1, 1, 1);
+  sub_449B7E((int)_this->unk_000764 + 1, 2, 1);
+  sub_449B7E((int)_this->unk_000764 + 1, 3, 1);
+  sub_449B7E((int)_this->unk_000764 + 1, 4, 1);
+  sub_449B7E((int)_this->unk_000764 + 1, 5, 1);
+  sub_449B7E((int)_this->unk_000764 + 1, 6, 1);
 
  for (i = 0; i < 4; ++i)
  {

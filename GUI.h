@@ -44,7 +44,7 @@ struct GUIWindow
  int dword_00003C;
  int dword_000040;
  int dword_000044;
- int dword_000048;
+ unsigned char    *ptr_000048; // some string ptr
  struct GUIButton *pControlsHead; // ptr @ 00004C
  struct GUIButton *pControlsTail; // ptr @ 000050
 };

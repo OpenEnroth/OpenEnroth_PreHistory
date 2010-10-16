@@ -589,12 +589,15 @@ extern int dword_506568; // weak
 extern char byte_50656C; // weak
 //extern char Class[array_size_unknown]; // "\0"
 extern int dword_506578; // weak
-extern _UNKNOWN unk_506580; // weak
-extern __int16 word_5065E0; // weak
-extern __int16 word_506620; // weak
-extern __int16 word_506632; // weak
-extern int dword_506638; // weak
-extern char byte_5068C4; // weak
+
+extern Actor         stru_506580_MonsterInfoUI_Doll;             // struct @ MM7.exe::00506580
+//extern _UNKNOWN unk_506580;
+//extern __int16 word_5065E0; // 0060
+//extern __int16 word_506620; // 00A0
+//extern __int16 word_506632; // 00B2
+//extern int dword_506638;    // 00B8
+extern unsigned char stru_506580_MonsterInfoUI_bDollInitialized; // byte   @ MM7.exe::005068C4
+//extern char byte_5068C4; // weak
 
 extern int dword_506978; // weak
 extern char byte_50697C;
@@ -809,7 +812,7 @@ extern int dword_507BC0; // idb
 extern int dword_507BC4; // weak
 extern int dword_507BC8; // weak
 
-extern int dword_507BD0; // weak
+extern int dword_507BD0; // GUIWindow *
 extern int dword_507BD4; // idb
 extern int dword_507BDC; // weak
 extern int dword_507BE0; // weak
@@ -1292,15 +1295,15 @@ extern unsigned char pLevelEVT[9216];     // byte[9216] @ MM7.exe::005B3520
 //unsigned char byte_5B3521[array_size_unknown]; // pLevelEVT + 1
 //unsigned char byte_5B3522[array_size_unknown]; // pLevelEVT + 2
 //unsigned char byte_5B3523[array_size_unknown]; // pLevelEVT + 3
-extern char byte_5B3524[array_size_unknown]; // weak
-extern char byte_5B3525[array_size_unknown]; // weak
-extern char byte_5B3526[array_size_unknown]; // weak
-extern char byte_5B3527[array_size_unknown]; // weak
-extern char byte_5B3528[array_size_unknown]; // weak
-extern char byte_5B3529[array_size_unknown]; // weak
-extern char byte_5B352A[array_size_unknown]; // weak
-extern char byte_5B352B[array_size_unknown]; // weak
-extern char byte_5B352C[array_size_unknown]; // weak
+//unsigned char byte_5B3524[array_size_unknown]; // pLevelEVT + 4
+//unsigned char byte_5B3525[array_size_unknown]; // weak
+//unsigned char byte_5B3526[array_size_unknown]; // weak
+//unsigned char byte_5B3527[array_size_unknown]; // weak
+//unsigned char byte_5B3528[array_size_unknown]; // weak
+//unsigned char byte_5B3529[array_size_unknown]; // weak
+//unsigned char byte_5B352A[array_size_unknown]; // weak
+//unsigned char byte_5B352B[array_size_unknown]; // weak
+//unsigned char byte_5B352C[array_size_unknown]; // weak
 extern int dword_5B5920; // weak
 extern int dword_5B5924; // weak
 extern _UNKNOWN unk_5B5928[]; // 100x32 bytes struct array around here
@@ -2366,8 +2369,8 @@ extern struct Party *pParty_global; // struct @ MM7.exe::00ACCFB8
 //extern __int16 word_ACD708[array_size_unknown]; // 000750
 //extern __int16 word_ACD712[array_size_unknown]; // 00075A
 extern char byte_ACD719[array_size_unknown]; // weak
-extern char byte_ACD71C; // weak
-extern char byte_ACD71D[array_size_unknown]; // weak
+//char byte_ACD71C; // 000764
+//char byte_ACD71D[array_size_unknown]; // 000764 + 01
 extern char byte_ACD76D; // weak
 extern char byte_ACD76E; // weak
 extern char byte_ACD76F; // weak

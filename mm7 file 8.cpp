@@ -3596,7 +3596,7 @@ LABEL_183:
 }
 
 //----- (0044D406) --------------------------------------------------------
-char *__fastcall sub_44D406(int *a1, unsigned char *pFontData, int a3, int a4, unsigned __int16 a5, const char *pString, int a7)
+char *__fastcall GUIWindow_sub_44D406(int *a1, unsigned char *pFontData, int a3, int a4, unsigned __int16 a5, const char *pString, int a7)
 {
   char *result; // eax@1
   int v8; // ebx@1
@@ -3966,7 +3966,7 @@ void __thiscall sub_405CFF(int _this, int a2)
 }
 
 //----- (0044C59D) --------------------------------------------------------
-int __fastcall Font_sub_44C59D(Font *pFontData, const char *pString, unsigned int *a3, char a4, int a5)
+int __fastcall Font_sub_44C59D(Font *pFontData, const char *pString, GUIWindow *a3, char a4, int a5)
 {
   const char *v5; // ebx@1
   signed int v8; // ebx@3
@@ -3981,7 +3981,7 @@ int __fastcall Font_sub_44C59D(Font *pFontData, const char *pString, unsigned in
 
  v5 = pString;
  v9 = ((unsigned char *)(pFontData))[5] - 3;
- v13 = FitTextInAWindow(pString, pFontData, (GUIWindow *)a3, a4, 0);
+ v13 = FitTextInAWindow(pString, pFontData, a3, a4, 0);
  v10 = strlen(pString);
  v8 = 0;
 
@@ -4095,19 +4095,19 @@ void __fastcall sub_443FDC_MessWithEvents(__int64 a1)
     while ( 1 )
     {
       LODWORD(a1) = *((_WORD *)v2 + 4);
-      if ( (unsigned __int8)byte_5B3524[(_DWORD)a1] == 3 )
+      if (pLevelEVT[(_DWORD)a1 + 4] == 3 )
       {
         sub_4A9A67(
           pSoundList,
-          (unsigned __int8)byte_5B3525[(_DWORD)a1]
-        + (((unsigned __int8)byte_5B3526[(_DWORD)a1]
-          + (((unsigned __int8)byte_5B3527[(_DWORD)a1] + ((unsigned __int8)byte_5B3528[(_DWORD)a1] << 8)) << 8)) << 8),
+          pLevelEVT[(_DWORD)a1 + 5]
+        + ((pLevelEVT[(_DWORD)a1 + 6]
+          + ((pLevelEVT[(_DWORD)a1 + 7] + ((unsigned int)pLevelEVT[(_DWORD)a1 + 8] << 8)) << 8)) << 8),
           v1);
         goto LABEL_36;
       }
-      if ( (unsigned __int8)byte_5B3524[(_DWORD)a1] == 31 )
+      if (pLevelEVT[(_DWORD)a1 + 4] == 31 )
         break;
-      if ( (unsigned __int8)byte_5B3524[(_DWORD)a1] == 37 )
+      if (pLevelEVT[(_DWORD)a1 + 4] == 37 )
       {
         v7 = *(_DWORD *)v2;
         dword_597F18 = *((_DWORD *)v2 + 1);
@@ -4116,7 +4116,7 @@ void __fastcall sub_443FDC_MessWithEvents(__int64 a1)
       }
       else
       {
-        if ( (unsigned __int8)byte_5B3524[(_DWORD)a1] == 38 )
+        if (pLevelEVT[(_DWORD)a1 + 4] == 38 )
           break;
       }
 LABEL_36:
@@ -4130,24 +4130,24 @@ LABEL_36:
     v3 = (char *)&unk_5B5928 + 32 * dword_5B65C8;
     if ( dword_6BE360 == 1 )
       v28 = qword_6BE6B4;
-    v5 = (unsigned __int8)byte_5B3524[(_DWORD)a1];
+    v5 = pLevelEVT[(_DWORD)a1 + 4];
     WORD2(a1) = *(_WORD *)v2;
     *((_WORD *)v3 + 14) = v5;
     *((_WORD *)v3 + 4) = WORD2(a1);
     *((_WORD *)v3 + 5) = *((_WORD *)v2 + 2);
-    v41 = (unsigned __int8)byte_5B3526[(_DWORD)a1];
+    v41 = pLevelEVT[(_DWORD)a1 + 6];
     *((_WORD *)v3 + 9) = v41;
-    v40 = (unsigned __int8)byte_5B3527[(_DWORD)a1];
+    v40 = pLevelEVT[(_DWORD)a1 + 7];
     *((_WORD *)v3 + 10) = v40;
-    v39 = (unsigned __int8)byte_5B3528[(_DWORD)a1];
+    v39 = pLevelEVT[(_DWORD)a1 + 8];
     *((_WORD *)v3 + 11) = v39;
-    v6 = (unsigned __int8)byte_5B3525[(_DWORD)a1];
-    v38 = (unsigned __int8)byte_5B3529[(_DWORD)a1];
+    v6 = pLevelEVT[(_DWORD)a1 + 5];
+    v38 = pLevelEVT[(_DWORD)a1 + 9];
     *((_WORD *)v3 + 12) = v38;
-    v37 = (unsigned __int8)byte_5B352A[(_DWORD)a1];
+    v37 = pLevelEVT[(_DWORD)a1 + 10];
     *((_WORD *)v3 + 13) = v37;
-    WORD2(a1) = (unsigned __int8)byte_5B352C[(_DWORD)a1];
-    LOWORD(a1) = (unsigned __int8)byte_5B352B[(_DWORD)a1];
+    WORD2(a1) = pLevelEVT[(_DWORD)a1 + 12];
+    LOWORD(a1) = pLevelEVT[(_DWORD)a1 + 11];
     v4 = (HIDWORD(a1) << 8) + a1;
     *((_WORD *)v3 + 8) = v6;
     *((_WORD *)v3 + 6) = v4;
@@ -6119,8 +6119,8 @@ int __cdecl sub_494035()
     for (v2 = 0; v2 < pNPCStats->dword_017FC4; ++v2)
       pNPCStats->pNPCData2[v2].dword_000044 = 0;
 
-    ++byte_ACD71C;
-    if ( (unsigned __int8)byte_ACD71C > 1u )
+    ++pParty_global->unk_000764[0];
+    if (pParty_global->unk_000764[0] > 1)
     {
      for (i = 0; i < 4; ++i)
         Player_sub_492D65(&pParty_global->pPlayers[i], 1, 0);
@@ -6134,12 +6134,12 @@ int __cdecl sub_494035()
         v5 = (signed int)dword_ACF2C0;
         do
         {
-          *(_DWORD *)v5 = *(_DWORD *)v5 / ((unsigned __int8)byte_ACD71C + 1) + 1;
+          *(_DWORD *)v5 = *(_DWORD *)v5 / (pParty_global->unk_000764[0] + 1) + 1;
           v5 += 6972;
         }
         while ( v5 < (signed int)&unk_AD5FB0 );
       }
-      if ( (unsigned __int8)byte_ACD71C > 3u )
+      if (pParty_global->unk_000764[0] > 3u )
       {
         for (i = 0; i < 4; ++i)
         {
@@ -6147,7 +6147,7 @@ int __cdecl sub_494035()
           sub_49070F((int)&pParty_global->pPlayers[i]);
           if ( !(*(_QWORD *)(v6 + 120) | *(_QWORD *)(v6 + 128) | *(_QWORD *)(v6 + 112)) )
           {
-            if ( rand() % 100 < 5 * (unsigned __int8)byte_ACD71C )
+            if ( rand() % 100 < 5 * pParty_global->unk_000764[0])
             {
               v54 = 0;
               v52 = 14;
@@ -6155,7 +6155,7 @@ int __cdecl sub_494035()
               Player_sub_492D65(&pParty_global->pPlayers[i], v52, v54);
               continue;
             }
-            if ( rand() % 100 < 10 * (unsigned __int8)byte_ACD71C )
+            if ( rand() % 100 < 10 * pParty_global->unk_000764[0])
             {
               v54 = 0;
               v52 = 5;
@@ -12636,7 +12636,7 @@ void __cdecl LoadLevel_InitializeLevelEvt()
  {
   pLevelEVT_Events[i].dword_000000 = pLevelEVT[j + 1] + ((unsigned short)pLevelEVT[j + 2] << 8);
   pLevelEVT_Events[i].dword_000004 = pLevelEVT[j + 3];
-  pLevelEVT_Events[i].dword_000008 = j;
+  pLevelEVT_Events[i].uEventOffsetInEVT = j;
   j += pLevelEVT[j] + 1;
 
   uLevelEVT_NumEvents++;
