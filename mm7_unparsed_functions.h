@@ -31,7 +31,7 @@ long __cdecl std__basic_string_char_std__char_traits_char__std__allocator_char__
 void *CheckHRESULT(void **pSmthn, HRESULT hr, const char *pSourceFile, unsigned int uSourceline, int a5);
 void operator_delete(void *);
 
-bool CheckForMM7CD(HWND hwnd, wchar_t *pGameCDDriveLetter);
+bool CheckForMM7CD(wchar_t *pGameCDDriveLetter);
 bool IsMM7CD(wchar_t *pRootDir);
 
 void CreateRegistryWString(const wchar_t *pName, const wchar_t *pValue, unsigned int uSize);

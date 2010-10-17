@@ -110,7 +110,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
  HWND hPreviouslyActiveWindow = GetActiveWindow();
 
 
- if (!CheckForMM7CD(0, &cGameCDDriveLetter))
+ if (!CheckForMM7CD(&cGameCDDriveLetter))
    return 0;
 
  pAppWindow = new Win32Window;

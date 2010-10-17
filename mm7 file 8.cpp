@@ -10333,7 +10333,7 @@ void ShowLastError(void)
 }
 
 //----- (MM7.exe::00465061) --------------------------------------------------------
-bool CheckForMM7CD(HWND hwnd, wchar_t *pGameCDDriveLetter)
+bool CheckForMM7CD(wchar_t *pGameCDDriveLetter)
 {
   char result; // al@19
   char cDriveLetter; // al@21
@@ -10363,7 +10363,7 @@ bool CheckForMM7CD(HWND hwnd, wchar_t *pGameCDDriveLetter)
     {
       if (!RegOpenKeyExA(hMightAndMagic7, "1.0", 0, 0x2001Fu, &hV10))
       {
-        if (!RegQueryValueExA(hV10, "CDDrive", 0, 0, (BYTE *)pRoot, &cbData))
+        if (!RegQueryValueExA(hV10, "CDDriveW", 0, 0, (BYTE *)pRoot, &cbData))
         {
          *pGameCDDriveLetter = pRoot[0];
 
@@ -10390,7 +10390,7 @@ bool CheckForMM7CD(HWND hwnd, wchar_t *pGameCDDriveLetter)
 
    if (IsMM7CD(pRoot))
    {
-    CreateRegistryWString(L"CDDrive", pRoot, 4);
+    CreateRegistryWString(L"CDDriveW", pRoot, 4);
 
     if (pInsertCDDialog)
       delete pInsertCDDialog;
