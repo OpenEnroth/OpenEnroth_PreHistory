@@ -1,11 +1,11 @@
 #pragma once
-#pragma pack(push, 1)
 #include <windows.h>
 #include <stdio.h>
 
 #include "defs.h"
 
 
+#pragma pack(push, 1)
 
 struct class51_Geodata
 {

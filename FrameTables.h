@@ -1,7 +1,8 @@
 #pragma once
-#pragma pack(push, 1)
 
 #include <windows.h>
+
+#pragma pack(push, 1)
 
 struct MonsterDescription
 {

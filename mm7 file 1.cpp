@@ -7,7 +7,7 @@
 
 #pragma comment(lib, "winmm.lib")
 
-
+#include "defs.h"
 #include "AIL.h"
 
 #include "classes.h"
@@ -108,9 +108,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
  HWND hPreviouslyActiveWindow = GetActiveWindow();
+  
+ bool bNoCD = strstr(lpCmdLine, "-nocd");
 
-
- if (!CheckForMM7CD(&cGameCDDriveLetter))
+ if (!bNoCD && !CheckForMM7CD(&cGameCDDriveLetter))
    return 0;
 
  pAppWindow = new Win32Window;

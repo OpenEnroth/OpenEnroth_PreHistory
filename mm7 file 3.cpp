@@ -7579,7 +7579,7 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int sEventType, int a2, int a
     v5 = (int)pSomeEVT;
 
     //v6 = v8;
-    runtime_warning(v6 and v8 here access random location in stack according to disasm, so are not decompiled properly);
+    runtime_warning("v6 and v8 here access random location in stack according to disasm, so are not decompiled properly");
 
     v7 = "";
     while ( 1 )

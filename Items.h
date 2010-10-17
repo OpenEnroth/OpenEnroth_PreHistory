@@ -53,18 +53,6 @@ struct LayingItem
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 struct ItemEnchantment
 {
  unsigned char *pName;  // ptr @ 000000
@@ -150,18 +138,6 @@ void class40_LoadPotionsTable(struct class40 *_this);
 void class40_LoadPotionNotes(struct class40 *_this);
 //char __thiscall class40_sub_456620(void *_this, int a2, signed int a3, int Dst);
 char class40_sub_456620(struct class40 *_this, int a2, signed int a3, unsigned int *Dst);
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

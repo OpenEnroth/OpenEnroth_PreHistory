@@ -1,5 +1,4 @@
 #pragma once
-#pragma pack(push, 1)
 
 #include "defs.h"
 
@@ -9,6 +8,7 @@
 #define MENU_LOAD        3
 #define MENU_CREATEPARTY 6
 
+#pragma pack(push, 1)
 
 struct GUIMessageQueue
 {

@@ -130,7 +130,7 @@ struct Party
                     //                  0x0200 - You are Burning!  message displayed
 
  char pad[100000];
- 
+
  float flt_01622C;
  float flt_016230;
  float flt_016234;
@@ -158,3 +158,5 @@ int Party_AddItem(struct Party *_this, int a2);
 int Party_CreateDefaultParty(struct Party *_this, char a2);
 
 int Party_Reset(struct Party *_this);
+
+#pragma pack(pop)

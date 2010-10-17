@@ -1,6 +1,6 @@
 #include <ddraw.h>
 #include <dinput.h>
-
+#include <stdlib.h>
 
 #include "AIL.h"
 
@@ -12262,16 +12262,16 @@ int __cdecl sub_419401()
     }
   }
   v12 = 0;
-  v19 = *(_DWORD *)(pGUIWindow_CurrentMenu + 32);
+  v19 = pGUIWindow_CurrentMenu->uNumControls;
   v18 = (char *)&pParty_global->pPlayers[v1 - 1];
   result = (int)pFontLucida;
   v14 = (int *)&unk_4E2A2C;
-  v3 = 2 * *(_BYTE *)(pFontLucida + 5) + 13;
+  v3 = 2 * pFontLucida->uFontHeight + 13;
   do
   {
     if ( v18[2 * *v14 + 264] & 0x3F )
     {
-      v4 = *(_BYTE *)(result + 5);
+      v4 = pFontLucida->uFontHeight;
       v3 = v3 + v4 - 3;
       ++v11;
       ++v12;
@@ -12282,16 +12282,16 @@ int __cdecl sub_419401()
   }
   while ( (signed int)v14 < (signed int)&unk_4E2A50 );
   if ( !v12 )
-    v3 = v3 + *(_BYTE *)(result + 5) - 3;
+    v3 = v3 + pFontLucida->uFontHeight - 3;
   v15 = (int *)&unk_4E2A80;
-  v5 = v3 + 2 * *(_BYTE *)(result + 5) - 6;
+  v5 = v3 + 2 * pFontLucida->uFontHeight - 6;
   do
   {
     if ( v18[2 * *v15 + 264] & 0x3F )
     {
       if ( v11 < 15 )
       {
-        v6 = *(_BYTE *)(result + 5);
+        v6 = pFontLucida->uFontHeight;
         v5 = v5 + v6 - 3;
         ++v11;
         GUIButtonCreate(pGUIWindow_CurrentMenu, 24, v5, 204, v6 - 3, 3, *v15 | 0x8000, 121, *v15, 0, "", 0);
@@ -12305,12 +12305,12 @@ int __cdecl sub_419401()
 
   v13 = 0;
   v16 = (int *)&unk_4E2A18;
-  v7 = 2 * *(_BYTE *)(result + 5) + 13;
+  v7 = 2 * pFontLucida->uFontHeight + 13;
   do
   {
     if ( v18[2 * *v16 + 264] & 0x3F )
     {
-      v8 = *(_BYTE *)(result + 5);
+      v8 = pFontLucida->uFontHeight;
       v7 = v7 + v8 - 3;
       ++v11;
       ++v13;
@@ -12321,14 +12321,14 @@ int __cdecl sub_419401()
   }
   while ( (signed int)v16 < (signed int)&unk_4E2A2C );
   if ( !v13 )
-    v7 = v7 + *(_BYTE *)(result + 5) - 3;
+    v7 = v7 + pFontLucida->uFontHeight - 3;
   v17 = (int *)&unk_4E2A50;
-  v9 = v7 + 2 * *(_BYTE *)(result + 5) - 6;
+  v9 = v7 + 2 * pFontLucida->uFontHeight - 6;
   do
   {
     if ( v18[2 * *v17 + 264] & 0x3F )
     {
-      v10 = *(_BYTE *)(result + 5);
+      v10 = pFontLucida->uFontHeight;
       v9 = v9 + v10 - 3;
       ++v11;
       GUIButtonCreate(pGUIWindow_CurrentMenu, 246, v9, 204, v10 - 3, 3, *v17 | 0x8000, 121, *v17, 0, "", 0);

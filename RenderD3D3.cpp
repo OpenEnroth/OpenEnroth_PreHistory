@@ -1,5 +1,7 @@
 #include "classes.h"
-
+#include "RenderD3D3.h"
+#include "data.h"
+#include "mm7_unparsed_functions.h"
 
 HRESULT RenderD3D3_EndScene(struct RenderD3D3 *_this)
 {

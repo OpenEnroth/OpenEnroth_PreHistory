@@ -5,6 +5,8 @@
 #include "AIL.h"
 #include "Party.h"
 #include "Items.h"
+#include "GUI.h"
+#include "Render.h"
 
 #pragma pack(push, 1)
 //class00
@@ -82,7 +84,7 @@ void CGame_sub_44F192(struct CGame *_this);
 //void __thiscall sub_44E904(void *_this);
 void sub_44E904(struct CGame *_this);
 //signed int __thiscall sub_44ED0A(int _this, int a2, int a3, signed int a4);
-signed int __thiscall Game_sub_44ED0A(CGame *_this, struct8 *a2, int *a3, signed int a4);
+signed int __thiscall Game_sub_44ED0A(CGame *_this, struct struct8 *a2, int *a3, signed int a4);
 //signed int __thiscall sub_44EC23(int _this, int a2, int a3, signed int a4);
 signed int Game_sub_44EC23(struct CGame *_this, struct struct8 *a2, int *a3, signed int a4);
 //void __thiscall sub_40E2F6(int _this, char a2);

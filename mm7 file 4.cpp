@@ -5140,8 +5140,8 @@ char __thiscall sub_4371C3(void *_this, void *a2, int a3, int a4)
   v6 = a3;
   if ( *(_DWORD *)a3 > 0 )
   {
-    v14 = (char *)(&unk_50E5E0 - a2);
-    v13 = (char *)(&unk_50E5FC - a2);
+    v14 = (char *)(&unk_50E5E0 - (char*)a2);
+    v13 = (char *)(&unk_50E5FC - (char*)a2);
     v9 = &unk_50E5E4;
     v8 = (int)((char *)v7 + 8);
     do
@@ -5152,7 +5152,7 @@ char __thiscall sub_4371C3(void *_this, void *a2, int a3, int a4)
       v9 = (char *)v9 + 48;
       *(float *)&v14[v8] = *(float *)v8;
       *(float *)&v13[v8] = *(float *)(v8 + 28);
-      *(float *)(&unk_50E600 - v7 + v8) = *(float *)(v8 + 32);
+      *(float *)(&unk_50E600 - (char*)v7 + v8) = *(float *)(v8 + 32);
       v8 += 48;
     }
     while ( v12 < *(_DWORD *)v6 );

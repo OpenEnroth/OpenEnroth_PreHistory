@@ -13,6 +13,29 @@
 #include <windows.h>
 #include <ddraw.h>
 #include <math.h>
+#include <string.h>
+
+#ifdef __BORLANDC__
+
+#define floorf floor
+#define cosf cos
+#define sinf sin
+
+#define _strcmpi strcmpi
+#define _strnicmp strnicmp
+#define _itoa itoa
+
+#define _lock_file(c)
+#define _unlock_file(c)
+
+#ifndef max
+#define max(__a,__b)    (((__a) > (__b)) ? (__a) : (__b))
+#endif
+#ifndef min
+#define min(__a,__b)    (((__a) < (__b)) ? (__a) : (__b))
+#endif
+
+#endif
 
 #define __thiscall __cdecl
 #ifndef __cplusplus

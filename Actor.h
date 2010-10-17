@@ -1,5 +1,4 @@
 #pragma once
-#pragma pack(push, 1)
 #include <windows.h>
 #include <stdio.h>
 
@@ -9,6 +8,8 @@
 
 bool InitializeActors(unsigned int uLocationID);
 void __cdecl UpdateActors();
+
+#pragma pack(push, 1)
 
 struct Actor_struct0
 {

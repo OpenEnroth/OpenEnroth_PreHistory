@@ -87,4 +87,5 @@ void CNPCStats_sub_476CB5(struct CNPCStats *_this);
 int CNPCStats_sub_476977(struct CNPCStats *_this);
 
 
-#pragma pack(pop, 1)
+#pragma pack(pop)
+

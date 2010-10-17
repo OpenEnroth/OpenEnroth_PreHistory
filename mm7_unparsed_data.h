@@ -1,5 +1,4 @@
 #pragma once
-#pragma pack(push, 1)
 
 #include "defs.h"
 #include "data.h"
@@ -13,6 +12,7 @@
 #include "Window.h"
 
 
+#pragma pack(push, 1)
 
 extern OSWindow *pAppWindow;
 
@@ -2912,7 +2912,7 @@ extern int dword_F8DDEC; // weak
 extern char byte_F8DDF0; // weak
 
 //probably Vis_stru0, but surely 64x48
-struct Vis_stru0 array_F8DDF8[]; // struc[64] @ MM7.exe::00F8DDF8
+extern struct Vis_stru0 array_F8DDF8[64]; // struc[64] @ MM7.exe::00F8DDF8
 //_UNKNOWN unk_F8DDF8; // weak
 //float flt_F8DE10; // 000018
 //float flt_F8DE14; // 00001C
@@ -2925,10 +2925,10 @@ extern char byte_F8E9F8; // weak
 //float flt_F8EA00; // weak
 //float flt_F8EA04; // weak
 
-struct RenderVertexD3D3 array_F8EA00[]; // struct[?
+extern struct RenderVertexD3D3 array_F8EA00[array_size_unknown]; // struct[?
 
 //probably Vis_stru0, but surely 64x48
-struct Vis_stru0 array_F8F200[]; // struct[64] @ MM7.exe::00F8F200
+extern struct Vis_stru0 array_F8F200[64]; // struct[64] @ MM7.exe::00F8F200
 //extern _UNKNOWN unk_F8F200; // weak
 //extern _UNKNOWN unk_F8F204; // weak
 //extern float flt_F8F20C; // weak

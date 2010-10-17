@@ -1,20 +1,12 @@
-#pragma pack(push, 1)
+#pragma once
 
 #include <windows.h>
 #include "defs.h"
 
-
-
+#pragma pack(push, 1)
 
 
 HDIGDRIVER __cdecl sub_4ABAF7();
-
-
-
-
-
-
-
 
 
 struct SoundDescription
