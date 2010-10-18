@@ -1751,7 +1751,7 @@ struct CGame *pGame = 0; //struct @ MM7.exe::00720014
  __int16 word_721462[array_size_unknown]; // weak
 
 struct unnamed_721530 stru_721530; // struct @ MM7.exe::00721530
- int dword_7215D8; // weak
+struct unnamed_7215D8_PlayerActionBuffer stru_7215D8; // struct @ MM7.exe::007215D8
  int dword_721654; // weak
  int dword_721658; // weak
  int dword_72165C; // weak

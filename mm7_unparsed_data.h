@@ -2023,7 +2023,14 @@ extern struct unnamed_721530
 //int dword_7215C8; // weak
 //int dword_7215CC; // weak
 //int dword_7215D0; // 0000A0
-extern int dword_7215D8; // weak
+
+extern struct unnamed_7215D8_PlayerActionBuffer
+{
+ unsigned int uNumActions;  // dword     @ 000000
+ unsigned int pActions[30]; // dword[30] @ 000004
+} stru_7215D8; // struct @ MM7.exe::007215D8
+//extern int dword_7215D8; // weak
+
 extern int dword_721654; // weak
 extern int dword_721658; // weak
 extern int dword_72165C; // weak

@@ -2742,7 +2742,7 @@ signed int __thiscall sub_49387A(void *_this)
       --result;
       if ( result < 1 )
         result = 4;
-      if ( !*((_WORD *)*(&ptr_A750C4 + result) + 3226) )
+      if ( !*((_WORD *)pPlayers[result - 1] + 3226) )
         break;
       ++v2;
       if ( v2 >= 4 )
@@ -2757,7 +2757,7 @@ signed int __thiscall sub_49387A(void *_this)
       ++result;
       if ( result > 4 )
         result = 1;
-      if ( !*((_WORD *)*(&ptr_A750C4 + result) + 3226) ) // pPlayer[result]->cInventorySlots[74].uItemID
+      if ( !*((_WORD *)pPlayers[result - 1] + 3226) ) // pPlayer[result]->cInventorySlots[74].uItemID
         break;
       ++v3;
       if ( v3 >= 4 )

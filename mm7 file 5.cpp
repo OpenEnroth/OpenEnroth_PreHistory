@@ -9323,9 +9323,9 @@ LABEL_45:
   v83 = pParty_global->sRotationX;
   v82 = ((unsigned __int64)(pClass24_global->dword_000020) * pParty_global->dword_000020 * pClass59_global->uIntegerPi / 180) >> 16;
 LABEL_87:
-  while (dword_7215D8)
+  while (stru_7215D8.uNumActions)
   {
-    switch (sub_4760D5((int)&dword_7215D8))
+    switch (sub_4760D5_GetNextPlayerAction(&stru_7215D8))
     {
       case 1:
         v12 = uTurnSpeed;
@@ -10304,42 +10304,24 @@ signed int __fastcall sub_475F30(int a1, int a2, int a3, int a4, int a5, int a6,
 }
 
 //----- (004760C1) --------------------------------------------------------
-int __thiscall sub_4760C1(void *_this, int a2)
+void sub_4760C1_QueuePlayerAction(struct unnamed_7215D8_PlayerActionBuffer *_this, unsigned int uAction)
 {
-  int result; // eax@1
-
-  result = *(_DWORD *)_this;
-  if ( *(_DWORD *)_this < 30 )
-  {
-    *((_DWORD *)_this + result + 1) = a2;
-    ++*(_DWORD *)_this;
-  }
-  return result;
+ if (_this->uNumActions < 30)
+   _this->pActions[_this->uNumActions++] = uAction;
 }
 
 //----- (004760D5) --------------------------------------------------------
-int __thiscall sub_4760D5(int _this)
+unsigned int sub_4760D5_GetNextPlayerAction(struct unnamed_7215D8_PlayerActionBuffer *_this)
 {
-  int result; // eax@2
-  int v2; // edx@3
-  int v3; // edi@3
+ if (!_this->uNumActions)
+   return 0;
 
-  if ( *(_DWORD *)_this )
-  {
-    v3 = 0;
-    v2 = _this + 4;
-    for ( result = *(_DWORD *)(_this + 4); v3 < *(_DWORD *)_this - 1; v2 += 4 )
-    {
-      ++v3;
-      *(_DWORD *)v2 = *(_DWORD *)(v2 + 4);
-    }
-    --*(_DWORD *)_this;
-  }
-  else
-  {
-    result = 0;
-  }
-  return result;
+ unsigned int uAction = _this->pActions[0];
+ for (unsigned int i = 1; i < _this->uNumActions; ++i)
+   _this->pActions[i - 1] = _this->pActions[i];
+
+ --_this->uNumActions;
+ return uAction;
 }
 
 //----- (00476387) --------------------------------------------------------

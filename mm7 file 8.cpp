@@ -6532,11 +6532,14 @@ signed int __thiscall sub_406B9F(int _this)
   int v5; // ebx@5
   int v6; // esi@5
   __int16 v7; // cx@15
+
   struct DirectionInfo v8;
   //char v8; // [sp+0h] [bp-50h]@15
+
   struct DirectionInfo v9;
   //char v9; // [sp+1Ch] [bp-34h]@15
-  int v10; // [sp+28h] [bp-28h]@17
+  //int v10; // [sp+28h] [bp-28h]@17
+
   int v11; // [sp+38h] [bp-18h]@4
   int v12; // [sp+3Ch] [bp-14h]@1
   int v13; // [sp+40h] [bp-10h]@5
@@ -6576,7 +6579,7 @@ signed int __thiscall sub_406B9F(int _this)
           v14 = dword_4F6E08[v6];
           memcpy(&v9, GetDirectionInfo(v11, v14, &v8, 0), sizeof(struct DirectionInfo));
           v7 = *(_WORD *)(v5 + 176);
-          if ( (v7 == 6 || v7 == 1) && (double)v10 < 307.19999999999999 )
+          if ( (v7 == 6 || v7 == 1) && (double)v9.uDistance < 307.19999999999999 )
             goto LABEL_26;
           *(_DWORD *)(v5 + 184) += pClass24_global->int_00001C;
           if ( *(_DWORD *)(v5 + 184) > (signed int)*(_WORD *)(v5 + 160) )

@@ -108,8 +108,29 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
  HWND hPreviouslyActiveWindow = GetActiveWindow();
-  
- bool bNoCD = strstr(lpCmdLine, "-nocd");
+
+ bool bNoCD = false;
+ if (lpCmdLine)
+ {
+  if (lpCmdLine[0])
+  {
+   if (strstr(lpCmdLine, "-usedefs"))
+     bUseOverrideData = true;
+   if (strstr(lpCmdLine, "-window"))
+     dword_6BE368 |= 1u;
+   if (strstr(lpCmdLine, "-nosound"))
+     dword_6BE364 |= 0x10u;
+   if (strstr(lpCmdLine, "-noanim"))
+   {
+    dword_6BE364 |= 0x40u;
+    bSkipVideo = true;
+   }
+   if (strstr(lpCmdLine, "-nocd"))
+     bNoCD = true;
+  }
+ }
+
+
 
  if (!bNoCD && !CheckForMM7CD(&cGameCDDriveLetter))
    return 0;
@@ -139,25 +160,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
   
  RtlCallCtors();
  AllocConsole();
-
-
- if (lpCmdLine)
- {
-  if (lpCmdLine[0])
-  {
-   if (strstr(lpCmdLine, "-usedefs"))
-     bUseOverrideData = true;
-   if (strstr(lpCmdLine, "-window"))
-     dword_6BE368 |= 1u;
-   if (strstr(lpCmdLine, "-nosound"))
-     dword_6BE364 |= 0x10u;
-   if (strstr(lpCmdLine, "-noanim"))
-   {
-    dword_6BE364 |= 0x40u;
-    bSkipVideo = true;
-   }
-  }
- }
 
  //ACHTUNG    4AC1C9 needs refactoring
  sub_4AC1C9(0, pWindowDims);
@@ -5795,9 +5797,9 @@ LABEL_9:
   v111 = ((unsigned __int64)(pClass24_global->dword_000020) * pParty_global->dword_000020 * pClass59_global->uIntegerPi / 180) >> 16;
 
 
-  while ( dword_7215D8 )
+  while (stru_7215D8.uNumActions)
   {
-    switch ( sub_4760D5((int)&dword_7215D8) )
+    switch (sub_4760D5_GetNextPlayerAction(&stru_7215D8))
     {
       case 13:
        if (pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000 > 0 || byte_6BE3C4_MaybeDrowningFlag == 1 )
@@ -5827,7 +5829,7 @@ LABEL_9:
                   {
                     pParty_global->dword_0006E0 = 0;
                     pParty_global->dword_0006E4 = 0;
-                    dword_7215D8 = 0;
+                    stru_7215D8.uNumActions = 0;
                     BYTE1(pParty_global->dword_007778) |= 1u;
                     pParty_global->sPartyPosZ = v101 - pParty_global->uPartyHeight - 31;
                     pParty_global->dword_0006F0 = v115;
@@ -5859,7 +5861,7 @@ LABEL_9:
             if ( v115 <= v103 )
             {
               pParty_global->dword_000704 = 0;
-              dword_7215D8 = 0;
+              stru_7215D8.uNumActions = 0;
             }
           }
         }
@@ -6067,7 +6069,7 @@ LABEL_105:
           pParty_global->dword_0006E8 = 0;
         }
         pParty_global->dword_000704 = 0;
-        dword_7215D8 = 0;
+        stru_7215D8.uNumActions = 0;
        break;
     }
   }

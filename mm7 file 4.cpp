@@ -3355,10 +3355,8 @@ signed int __cdecl sub_42FC15()
 void __cdecl sub_42FC4E_ProcessPressedKeys()
 {
   int v1; // ebx@7
-  void *v2; // esi@7
   int v3; // ecx@8
   char v4; // al@9
-  void *v5; // ecx@19
   int v6; // ecx@86
   char v7; // bl@100
   int v8; // esi@100
@@ -3399,7 +3397,6 @@ LABEL_6:
   {
     v23 = 0;
     v1 = 1;
-    v2 = &dword_7215D8;
     while (true)
     {
      v3 = (int)pGame->class14_obj;
@@ -3421,7 +3418,6 @@ LABEL_6:
             {
               dword_4F886C -= 26;
 LABEL_19:
-              v5 = v2;
               if ( pParty_global->dword_000884 & 2 )
                 v18 = 16;
               else
@@ -3438,7 +3434,6 @@ LABEL_19:
             {
               dword_4F886C -= 26;
 LABEL_28:
-              v5 = v2;
               if ( pParty_global->dword_000884 & 2 )
                 v18 = 17;
               else
@@ -3488,7 +3483,7 @@ LABEL_46:
               else
                 v19 = v1;
             }
-            sub_4760C1(v2, v19);
+            sub_4760C1_QueuePlayerAction(&stru_7215D8, v19);
             if ( dword_6BE360 == 2 && dword_6BE024 == v1 )
             {
               v20 = 10;
@@ -3515,7 +3510,7 @@ LABEL_46:
               else
                 v21 = 2;
             }
-            sub_4760C1(v2, v21);
+            sub_4760C1_QueuePlayerAction(&stru_7215D8, v21);
             if ( dword_6BE360 == 2 && dword_6BE024 == v1 )
             {
               v20 = -10;
@@ -3589,7 +3584,6 @@ LABEL_75:
               || ((v9 = *(_WORD *)(v8 + 2 * ((unsigned __int8)v7 / 11 + 12) + 264), !(HIBYTE(v9) & 1)) ? ((_BYTE)v9 >= 0 ? (!(v9 & 0x40) ? (v10 = (unsigned __int16)word_4E3C68[10 * (unsigned __int8)v7]) : (v10 = (unsigned __int16)word_4E3C6A[10 * (unsigned __int8)v7])) : (v10 = (unsigned __int16)word_4E3C6C[10 * (unsigned __int8)v7])) : (v10 = (unsigned __int16)word_4E3C6E[10 * (unsigned __int8)v7]),
                   v10 > *(_DWORD *)(v8 + 6464)) )
             {
-              v2 = &dword_7215D8;
               v1 = 1;
 LABEL_120:
               if ( dword_50CBD0[0] < 40 )
@@ -3600,7 +3594,6 @@ LABEL_120:
             }
             else
             {
-              v2 = &dword_7215D8;
               if ( dword_50C9E8[0] < 40 )
               {
                 dword_50C9EC[3 * dword_50C9E8[0]] = 25;
@@ -3687,9 +3680,8 @@ LABEL_125:
             {
               v18 = 14;
 LABEL_39:
-              v5 = v2;
 LABEL_30:
-              sub_4760C1(v5, v18);
+              sub_4760C1_QueuePlayerAction(&stru_7215D8, v18);
             }
             break;
           case 23:

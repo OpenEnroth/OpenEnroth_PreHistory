@@ -799,7 +799,7 @@ int __cdecl sub_463149()
     v19 = 1;
     if ( dword_50CBD0[0] )
       dword_50CBD0[0] = dword_50CBD0[3] != 0;
-    dword_7215D8 = 0;
+    stru_7215D8.uNumActions = 0;
     if (pParty_global->dword_00087C == 1)
     {
       sub_405CFF((int)&unk_4F8858, 0);
