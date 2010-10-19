@@ -1498,7 +1498,7 @@ int sub_47F223_LooksLikeGenerateMonsterLoot(struct class51 *_this)
                 *(_DWORD *)(v2 + 38) = rand() % 15 + 5;
             }
           }
-          class40_sub_456D17(pClass40, v2 + 34);
+          class40_sub_456D17(pClass40, (ItemGen *)(v2 + 34));
         }
       }
       ++v1;

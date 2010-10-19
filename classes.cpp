@@ -786,7 +786,7 @@ void sub_469903(struct class03 *_this, const char *pSource)
 //----- (004698A6) --------------------------------------------------------
 void class03_sub_4698A6(struct class03 *_this)
 {
- ItemGen_Reset((ItemGen *)&dword_AD470C);
+ ItemGen_Reset(&pParty_global->stru_007754);
  if (_strcmpi((char *)_this->array_0000F5, "MICON2"))
    sub_469903(_this, "MICON1");
 }
@@ -6848,7 +6848,7 @@ void ItemGen_Reset(struct ItemGen *_this)
 
 
 //----- (00456620) --------------------------------------------------------
-char class40_sub_456620(struct class40 *_this, int a2, signed int a3, unsigned int *Dst)
+char class40_sub_456620(struct class40 *_this, int a2, signed int a3, struct ItemGen *Dst)
 {
   void *v4; // edi@1
   unsigned char *v5; // esi@1
@@ -7045,7 +7045,7 @@ LABEL_72:
       byte_ACD772[v17] = 1;
       *(_DWORD *)(v5 + 20) = 0;
       *(_DWORD *)v5 = v17 + 500;
-      LOBYTE(v18) = class40_sub_456D17(_this, (int)v5);
+      LOBYTE(v18) = class40_sub_456D17(_this, (ItemGen *)v5);
       return v18;
     }
 

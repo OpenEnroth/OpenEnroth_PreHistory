@@ -629,7 +629,7 @@ int __fastcall MenuLoop_CharacterCreation()
   signed int v18; // ecx@70
   int v20; // [sp-4h] [bp-84h]@48
 
-  unsigned char local_0[0x24];  //ItemGen
+  struct ItemGen local_0;
   //char Dst; // [sp+Ch] [bp-74h]@37
 
   char v22; // [sp+30h] [bp-50h]@29
@@ -756,7 +756,7 @@ LABEL_27:
     pParty_global->byte_000854[i] = v11;
     *(&v22 + v11) = 1;
   }
-  ItemGen_Reset((ItemGen *)local_0);
+  ItemGen_Reset(&local_0);
 
   v12 = (int)&pParty_global->pPlayers[0].word_00177E;
   for (i = 0; i < 4; ++i)
@@ -778,8 +778,8 @@ LABEL_27:
     pParty_global->pPlayers[i].byte_001A4E = v15;
 
 LABEL_45:
-    class40_sub_456620(pClass40, 2, 40, (unsigned int *)local_0);
-    Player_sub_492826(&pParty_global->pPlayers[i], -1, (unsigned char *)local_0);
+    class40_sub_456620(pClass40, 2, 40, &local_0);
+    Player_sub_492826(&pParty_global->pPlayers[i], -1, &local_0);
     v16 = 0;
     v30 = 0;
     do
@@ -1745,7 +1745,7 @@ LABEL_25:
                         goto LABEL_52;
                       if ( v28 >= 60 )
                       {
-                        LOBYTE(v0) = class40_sub_456620(pClass40, v49, 0, (unsigned int *)v26);
+                        LOBYTE(v0) = class40_sub_456620(pClass40, v49, 0, (ItemGen *)v26);
                         goto LABEL_51;
                       }
                       v30 = 0;
@@ -1831,7 +1831,7 @@ LABEL_52:
           *(_DWORD *)v3 = 197;
           goto LABEL_23;
         }
-        LOBYTE(v0) = class40_sub_456620(pClass40, v4, 0, (unsigned int *)v3);
+        LOBYTE(v0) = class40_sub_456620(pClass40, v4, 0, (ItemGen *)v3);
         goto LABEL_25;
       }
       LOBYTE(v0) = sub_4505CC((void *)v3);
@@ -4637,7 +4637,7 @@ int __cdecl GameDestroy()
 
 
 //----- (00456D17) --------------------------------------------------------
-int class40_sub_456D17(struct class40 *_this, int a2)
+int class40_sub_456D17(struct class40 *_this, struct ItemGen *a2)
 {
   int result; // eax@1
 
@@ -8934,7 +8934,7 @@ char __thiscall sub_4086E9(int _this)
   {
     LOBYTE(v4) = *(_BYTE *)(v2 + 56);
     if ( (_BYTE)v4 )
-      LOBYTE(v4) = class40_sub_456620(pClass40, (unsigned __int8)v4, *(_BYTE *)(v2 + 57), (unsigned int *)(v2 + 636));
+      LOBYTE(v4) = class40_sub_456620(pClass40, (unsigned __int8)v4, *(_BYTE *)(v2 + 57), (ItemGen *)(v2 + 636));
   }
   *(_BYTE *)(v2 + 38) |= 0x80u;
   return v4;

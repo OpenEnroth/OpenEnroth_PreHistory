@@ -76,7 +76,7 @@ struct StatTable
 extern struct StatTable g_StatTable[4][7]; // byte[] @ MM7.exe::004ED7B0
 extern unsigned char AvailSkillPerClass[9][37]; // byte[] @ MM7.exe::004ED820
 
-struct InventorySlot
+struct InventorySlot  // struct InventorySlot == struct ItemGen
 {
  unsigned int  uItemID; // dword @ 000000
  int           dword_000004[3];
@@ -150,7 +150,7 @@ struct Player
    
    char           array_0001F5[31];
 
-   struct InventorySlot cInventorySlots[126]; // struct[14*9] @ 000214 
+   struct InventorySlot cInventorySlots[126]; // struct[14*9] @ 000214     struct InventorySlot == struct ItemGen
    char           array_0013CC[432];
    int            sInventoryIndexes[126]; // dword[14*9] @ 00157C
    short          sFireResistanceBase;    // word @ 001774
@@ -289,6 +289,6 @@ int Player_sub_48FC00(struct Player *_this, signed int a2);
 int Player_sub_48E1B5(void *_this, int a2);
 bool Player_sub_48D6D0(struct Player *_this, int a2);
 signed int Player_sub_48DC1E(struct Player *_this, signed int a2, int a3);
-int Player_sub_492826(struct Player *_this, signed int a2, unsigned char *Src);
+int Player_sub_492826(struct Player *_this, signed int a2, struct ItemGen *Src);
 
 #pragma pack(pop)

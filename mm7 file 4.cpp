@@ -914,7 +914,10 @@ int __fastcall sub_4269A2(int a1)
       v6 += 6972;
       v5 += 4;
     }
-    while ( v6 < (signed int)&unk_AD4714 );
+    //while ( v6 < (signed int)&unk_AD4714 );
+    while (false);
+    compile_error;
+    //phail
   }
   return v1;
 }
@@ -932,15 +935,18 @@ void __stdcall sub_426A5A(int a1)
   int v8; // [sp-4h] [bp-3Ch]@10
   int v9; // [sp-4h] [bp-3Ch]@31
   int v10; // [sp-4h] [bp-3Ch]@38
-  char Dst[4]; // [sp+Ch] [bp-2Ch]@1
-  int v12; // [sp+10h] [bp-28h]@17
-  int v13; // [sp+1Ch] [bp-1Ch]@14
-  char v14; // [sp+25h] [bp-13h]@14
+
+  struct ItemGen local_0C;
+  //char Dst[4]; // [sp+Ch] [bp-2Ch]@1
+  //int v12; // [sp+10h] [bp-28h]@17
+  //int v13; // [sp+1Ch] [bp-1Ch]@14
+  //char v14; // [sp+25h] [bp-13h]@14
+
   int v15; // [sp+30h] [bp-8h]@1
   int v16; // [sp+34h] [bp-4h]@1
 
   sub_421B2C();
-  ItemGen_Reset((ItemGen *)Dst);
+  ItemGen_Reset(&local_0C);
   v1 = 0;
   v2 = (0x00800000 & *(_DWORD *)(a1 + 36)) == 0;
   v15 = 0;
@@ -971,48 +977,48 @@ void __stdcall sub_426A5A(int a1)
 LABEL_9:
   if ( *(_WORD *)(a1 + 180) )
   {
-    ItemGen_Reset((ItemGen *)Dst);
-    *(_DWORD *)Dst = *(_WORD *)(a1 + 180);
-    v8 = dword_5D29EC[12 * *(_DWORD *)Dst];
+    ItemGen_Reset(&local_0C);
+    local_0C.uItemID = *(_WORD *)(a1 + 180);
+    v8 = dword_5D29EC[12 * local_0C.uItemID];
     if ( v16 )
       wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[490], v16, v8);
     else
       wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], v8);
     sub_44C175((char *)pStringBuffer, 2);
-    v3 = *(_DWORD *)Dst;
-    v4 = 48 * *(_DWORD *)Dst;
-    if (pClass40->pItems[*(_DWORD *)Dst - 1].uEquipType == 12 )
+    v3 = local_0C.uItemID;
+    v4 = 48 * local_0C.uItemID;
+    if (pClass40->pItems[local_0C.uItemID - 1].uEquipType == 12 )
     {
-      v4 = 48 * *(_DWORD *)Dst;
-      v5 = rand() % 6 + pClass40->pItems[*(_DWORD *)Dst - 1].uDamageModifier + 1;
-      v13 = v5;
-      v14 = v5;
-      v3 = *(_DWORD *)Dst;
+     v4 = 48 * local_0C.uItemID;
+     v5 = rand() % 6 + pClass40->pItems[local_0C.uItemID - 1].uDamageModifier + 1;
+     local_0C.dword_000010 = v5;
+     local_0C.byte_000019 = v5;
+      v3 = local_0C.uItemID;
     }
     if (pClass40->pItems[v4/48 - 1].uEquipType == 14 )
     {
       if ( v3 != 220 )
-        v12 = 2 * rand() % 4 + 2;
+       local_0C.dword_000004 = 2 * rand() % 4 + 2;
     }
-    class40_sub_456D17(pClass40, (int)Dst);
-    if ( !Party_AddItem(pParty_global, (int)Dst) )
-      sub_4936E1(pParty_global, Dst);
+    class40_sub_456D17(pClass40, &local_0C);
+    if ( !Party_AddItem(pParty_global, &local_0C))
+      sub_4936E1(pParty_global, &local_0C);
     *(_WORD *)(a1 + 180) = 0;
     if ( *(_DWORD *)(a1 + 564) )
     {
-      if ( !Party_AddItem(pParty_global, a1 + 564) )
+      if ( !Party_AddItem(pParty_global, (ItemGen *)(a1 + 564)))
       {
         sub_421B2C();
-        sub_4936E1(pParty_global, (const void *)(a1 + 564));
+        sub_4936E1(pParty_global, (ItemGen *)(a1 + 564));
       }
       ItemGen_Reset((ItemGen *)(a1 + 564));
     }
     if ( *(_DWORD *)(a1 + 600) )
     {
-      if ( !Party_AddItem(pParty_global, a1 + 600) )
+      if ( !Party_AddItem(pParty_global, (ItemGen *)(a1 + 600)))
       {
         sub_421B2C();
-        sub_4936E1(pParty_global, (const void *)(a1 + 600));
+        sub_4936E1(pParty_global, (const ItemGen *)(a1 + 600));
       }
       ItemGen_Reset((ItemGen *)(a1 + 600));
     }
@@ -1024,16 +1030,16 @@ LABEL_55:
   {
     if ( *(_DWORD *)(a1 + 672) )
     {
-      memcpy(Dst, (const void *)(a1 + 672), 0x24u);
+      memcpy(&local_0C, (const void *)(a1 + 672), sizeof(struct ItemGen));
       ItemGen_Reset((ItemGen *)(a1 + 672));
-      v10 = dword_5D29EC[12 * *(_DWORD *)Dst];
+      v10 = dword_5D29EC[12 * local_0C.uItemID];
       if ( v16 )
         wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[490], v16, v10);
       else
         wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], v10);
       sub_44C175((char *)pStringBuffer, 2);
-      if ( !Party_AddItem(pParty_global, (int)Dst) )
-        sub_4936E1(pParty_global, Dst);
+      if ( !Party_AddItem(pParty_global, &local_0C) )
+        sub_4936E1(pParty_global, &local_0C);
       v15 = 1;
     }
     goto LABEL_44;
@@ -1044,34 +1050,34 @@ LABEL_44:
     v7 = pParty_global;
     goto LABEL_45;
   }
-  class40_sub_456620(pClass40, v6, *(_BYTE *)(a1 + 57), (unsigned int *)Dst);
-  v9 = dword_5D29EC[12 * *(_DWORD *)Dst];
+  class40_sub_456620(pClass40, v6, *(_BYTE *)(a1 + 57), &local_0C);
+  v9 = dword_5D29EC[12 * local_0C.uItemID];
   if ( v16 )
     wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[490], v16, v9);
   else
     wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], v9);
   sub_44C175((char *)pStringBuffer, 2);
   v7 = pParty_global;
-  if ( !Party_AddItem(pParty_global, (int)Dst) )
-    sub_4936E1(pParty_global, Dst);
+  if ( !Party_AddItem(pParty_global, &local_0C))
+    sub_4936E1(pParty_global, &local_0C);
   v15 = 1;
 LABEL_45:
   if ( *(_DWORD *)(a1 + 564) )
   {
-    if ( !Party_AddItem((Party *)v7, a1 + 564) )
+    if ( !Party_AddItem((Party *)v7, (ItemGen *)(a1 + 564)))
     {
       sub_421B2C();
-      sub_4936E1(v7, (const void *)(a1 + 564));
+      sub_4936E1(v7, (const struct ItemGen *)(a1 + 564));
       v15 = 1;
     }
     ItemGen_Reset((ItemGen *)(a1 + 564));
   }
   if ( *(_DWORD *)(a1 + 600) )
   {
-    if ( !Party_AddItem((Party *)v7, a1 + 600) )
+    if ( !Party_AddItem((Party *)v7, (ItemGen *)(a1 + 600)))
     {
       sub_421B2C();
-      sub_4936E1(v7, (const void *)(a1 + 600));
+      sub_4936E1(v7, (const ItemGen *)(a1 + 600));
       v15 = 1;
     }
     ItemGen_Reset((ItemGen *)(a1 + 600));
@@ -7977,7 +7983,7 @@ LABEL_12:
 }
 
 //----- (00456499) --------------------------------------------------------
-int __thiscall sub_456499(void *_this)
+int __thiscall ItemGen_sub_456499(void *_this)
 {
   int result; // eax@2
 
@@ -13290,7 +13296,7 @@ LABEL_43:
   v23 = 0;
   if ( (signed int)uNumLayingItems > v13 )
   {
-    v24 = (int)&pLayingItemsList[0].dword_000024;
+    v24 = (int)&pLayingItemsList[0].stru_000024;
     do
     {
       if ( *(_WORD *)(v24 - 34) != (_WORD)v13 )
@@ -13306,7 +13312,7 @@ LABEL_43:
                 *(_DWORD *)(v24 + 4) = rand() % 15 + 5;
             }
           }
-          class40_sub_456D17(pClass40, v24);
+          class40_sub_456D17(pClass40, (ItemGen *)v24);
         }
       }
       ++v23;
@@ -14598,14 +14604,17 @@ void __thiscall sub_467E7F(void *_this)
   int v6; // esi@2
   int v7; // eax@2
   signed int v8; // eax@3
-  char v9; // [sp+Ch] [bp-30h]@1
-  char v10; // [sp+24h] [bp-18h]@2
+
+  struct ItemGen local_0C;
+  //char v9; // [sp+Ch] [bp-30h]@1
+  //char v10; // [sp+24h] [bp-18h]@2
+
   void *v11; // [sp+30h] [bp-Ch]@1
   int v12; // [sp+34h] [bp-8h]@1
   int *v13; // [sp+38h] [bp-4h]@1
 
   v4 = _this;
-  ItemGen_Reset((ItemGen *)&v9);
+  ItemGen_Reset(&local_0C);
   v3 = *(_BYTE *)((_DWORD)byte_4E8398 + (_DWORD)v4);
   v1 = *(&ptr_A750C4 + uActiveCharacter);
   v11 = v1;
@@ -14618,22 +14627,22 @@ void __thiscall sub_467E7F(void *_this)
     v8 = sub_4925E6(v1);
     if ( v8 >= 0 )
     {
-      byte_AD4724 = v3 + 1;
-      memcpy((char *)v11 + 36 * v8 + 532, &dword_AD470C, 0x24u);
+      pParty_global->stru_007754.byte_000018 = v3 + 1;
+      memcpy((char *)v11 + 36 * v8 + 532, &pParty_global->stru_007754, sizeof(struct ItemGen));
       *v13 = v8 + 1;
       class03_sub_4698A6(pGame->pClass03);
     }
   }
   else
   {
-    memcpy(&v9, &dword_AD470C, 0x24u);
+    memcpy(&local_0C, &pParty_global->stru_007754, sizeof(struct ItemGen));
     v6 = (int)((char *)v1 + 4 * (9 * v2 - 9));
     *(_BYTE *)(v6 + 556) = 0;
-    ItemGen_Reset((ItemGen *)&dword_AD470C);
-    sub_4936E1(pParty_global, (const void *)(v6 + 532));
+    ItemGen_Reset(&pParty_global->stru_007754);
+    sub_4936E1(pParty_global, (ItemGen *)(v6 + 532));
     v7 = v12;
-    v10 = v3 + 1;
-    memcpy((void *)(v6 + 532), &v9, 0x24u);
+    local_0C.byte_000018 = v3 + 1;
+    memcpy((void *)(v6 + 532), &local_0C, 0x24u);
     *v13 = v7;
   }
 }

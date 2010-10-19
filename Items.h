@@ -4,16 +4,16 @@
 
 struct ItemGen
 {
- unsigned int uItemID;
+ unsigned int uItemID;      // dword @ 000000
  int          dword_000004;
  int          dword_000008;
  int          dword_00000C;
  int          dword_000010;
  int          dword_000014;
  char         byte_000018;
- char         byte_000019; //alignment byte
+ char         byte_000019;
  char         byte_00001A;
- char         byte_00001B; //alignment byte
+ char         byte_00001B;
  int          dword_00001C;
  int          dword_000020;
 };
@@ -39,8 +39,9 @@ struct LayingItem
  unsigned short uSpriteFrameID; // word @ 00001E
  short          word_000020;
  short          word_000022;
- int            dword_000024;  // probably local struct
- char           unk_000028[36];
+ struct ItemGen stru_000024;
+ //int            dword_000024;  // very much like ItemGen
+ //char           unk_000028[36];
  int            dword_000048;  // probably local struct of the same type
  char           unk_00004Ñ[12];
  int            dword_000058;
@@ -137,7 +138,7 @@ void class40_LoadPotionsTable(struct class40 *_this);
 //const char *__thiscall sub_453CE5(void *_this)
 void class40_LoadPotionNotes(struct class40 *_this);
 //char __thiscall class40_sub_456620(void *_this, int a2, signed int a3, int Dst);
-char class40_sub_456620(struct class40 *_this, int a2, signed int a3, unsigned int *Dst);
+char class40_sub_456620(struct class40 *_this, int a2, signed int a3, struct ItemGen *Dst);
 
 
 

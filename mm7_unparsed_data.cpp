@@ -1798,7 +1798,6 @@ struct unnamed_7215D8_PlayerActionBuffer stru_7215D8; // struct @ MM7.exe::00721
  int dword_7241C8; // weak
 
 struct CNPCStats *pNPCStats = 0; // struct @ MM7.exe::007241D0
- int dword_72D5F8[array_size_unknown]; // weak
  int dword_72D6A0[array_size_unknown]; // weak
  int dword_72D6A8; // weak
  _UNKNOWN unk_72D6E0; // weak
@@ -2022,7 +2021,6 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  _UNKNOWN unk_ACDA24; // weak
  _UNKNOWN unk_ACDA9C; // weak
  _UNKNOWN unk_ACDAD6; // weak
- _UNKNOWN unk_ACDB74; // weak
  _UNKNOWN unk_ACDB98; // weak
  _UNKNOWN unk_ACDBB2; // weak
  _UNKNOWN unk_ACF124; // weak
@@ -2047,14 +2045,6 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  int dword_AD4650; // weak
  int dword_AD4654[array_size_unknown]; // weak
  int dword_AD4658; // weak
- int dword_AD470C; // start of ItemGen
- int dword_AD4710; // weak
- _UNKNOWN unk_AD4714; // weak
- _UNKNOWN unk_AD471C; // weak
- char byte_AD4720; // weak
- char byte_AD4724; // weak
- _UNKNOWN unk_AD472D; // weak
- _UNKNOWN unk_AD472E; // weak
  int dword_AD4734[array_size_unknown]; // weak
  _UNKNOWN unk_AD4738; // weak
  int dword_AD4748[array_size_unknown]; // weak

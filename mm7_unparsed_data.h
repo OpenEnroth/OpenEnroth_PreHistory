@@ -2079,7 +2079,7 @@ extern int dword_7241C8; // weak
 extern struct CNPCStats *pNPCStats; // struct @ MM7.exe::007241D0
 //_UNKNOWN unk_7241D0; // weak
 //extern _UNKNOWN unk_72D5F4; // 009424, pNPCStats::pNPCData[499]
-extern int dword_72D5F8[array_size_unknown]; // weak
+//int dword_72D5F8[array_size_unknown]; // 9428
 //extern struct NPCData array_72D68C[]; // 0094BC, struct[] @ MM7.exe::0072D68C
 //extern int dword_72D694[array_size_unknown]; // weak
 extern int dword_72D6A0[array_size_unknown]; // weak
@@ -2482,7 +2482,7 @@ extern _UNKNOWN unk_ACDA24; // weak
 //__int16 word_ACDA8C[array_size_unknown]; // pParty_global::pPlayers[0]::array_000108
 extern _UNKNOWN unk_ACDA9C; // weak
 extern _UNKNOWN unk_ACDAD6; // weak
-extern _UNKNOWN unk_ACDB74; // weak
+//_UNKNOWN unk_ACDB74; // pPlayers[0]::01F0
 extern _UNKNOWN unk_ACDB98; // weak
 extern _UNKNOWN unk_ACDBB2; // weak
 //_UNKNOWN unk_ACF102; // weak
@@ -2520,14 +2520,14 @@ extern int dword_AD4658; // weak
  //_UNKNOWN unk_AD46EC; // weak
  //int dword_AD46F0; // weak
  //int dword_AD4704; // [1]:000044
-extern int dword_AD470C; // start of ItemGen
-extern int dword_AD4710; // weak
-extern _UNKNOWN unk_AD4714; // weak
-extern _UNKNOWN unk_AD471C; // weak
-extern char byte_AD4720; // weak
-extern char byte_AD4724; // weak
-extern _UNKNOWN unk_AD472D; // weak
-extern _UNKNOWN unk_AD472E; // weak
+//int dword_AD470C; // start of ItemGen
+//int dword_AD4710; // weak
+//_UNKNOWN unk_AD4714; // weak
+//_UNKNOWN unk_AD471C; // weak
+//char byte_AD4720; // ItemGen::14
+//char byte_AD4724; // ItemGen::18
+//_UNKNOWN unk_AD472D; // weak
+//_UNKNOWN unk_AD472E; // 2F - end of ItemGen
 //int dword_AD4730; // ::dword_007778
 extern int dword_AD4734[array_size_unknown]; // weak
 extern _UNKNOWN unk_AD4738; // weak

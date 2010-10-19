@@ -11771,7 +11771,7 @@ LABEL_799:
           v632 = LODWORD(v712);
           if ( v640 != HIDWORD(v1) )
           {
-            v397 = sub_456499(&v640);
+            v397 = ItemGen_sub_456499(&v640);
             wsprintfA((char *)pStringBuffer, "(%s), and %d gold", v397, v632);
             goto LABEL_807;
           }
@@ -11780,7 +11780,7 @@ LABEL_799:
         }
         if ( v640 != HIDWORD(v1) )
         {
-          v632 = sub_456499(&v640);
+          v632 = ItemGen_sub_456499(&v640);
           v623[0] = "(%s)";
 LABEL_803:
           wsprintfA((char *)pStringBuffer, v623[0], v632);
@@ -11993,8 +11993,8 @@ LABEL_855:
         LODWORD(v1) = n >> 3;
         if ( (n & 7) == 2 )
         {
-          v422 = (char *)&pLayingItemsList[v1].dword_000024;
-          v421 = 48 * pLayingItemsList[v1].dword_000024;
+          v422 = (char *)&pLayingItemsList[v1].stru_000024;
+          v421 = 48 * pLayingItemsList[v1].stru_000024.uItemID;
           if (pClass40->pItems[v421/48 - 1].uEquipType == 18 )
           {
             sub_420C05(*((_DWORD *)v422 + 3), 0);
@@ -12004,8 +12004,8 @@ LABEL_855:
           {
             wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], *(int *)((char *)dword_5D29EC + v421));
             sub_44C175((char *)pStringBuffer, 2);
-            if ( !Party_AddItem(pParty_global, (int)&pLayingItemsList[v1].dword_000024) )
-              sub_4936E1(pParty_global, &pLayingItemsList[v1].dword_000024);
+            if (!Party_AddItem(pParty_global, &pLayingItemsList[v1].stru_000024))
+              sub_4936E1(pParty_global, &pLayingItemsList[v1].stru_000024);
           }
           sub_42F933(v1);
         }
@@ -13629,8 +13629,8 @@ LABEL_12:
   dword_6BE35C = 0;
   LODFile_sub_461397((int)pLODFile_Sprites_LOD);
   class35_sub_48A8CC(&class35_obj);
-  if (dword_AD470C)
-    sub_4698D8(dword_AD470C);
+  if (pParty_global->stru_007754.uItemID)
+    sub_4698D8(pParty_global->stru_007754.uItemID);
 }
 
 //----- (00443E31) --------------------------------------------------------
@@ -13829,7 +13829,7 @@ void __cdecl sub_491F87_DrawNPCs()
   int v13; // eax@23
   int v14; // eax@24
   int v15; // eax@26
-  char Str1; // [sp+Ch] [bp-30h]@18
+  char Str1[20]; // [sp+Ch] [bp-30h]@18
   int v19; // [sp+20h] [bp-1Ch]@19
   int v20; // [sp+24h] [bp-18h]@19
   int v21; // [sp+28h] [bp-14h]@15
@@ -13880,14 +13880,14 @@ void __cdecl sub_491F87_DrawNPCs()
         v7 = TmpBuf[v6];
         if ( v7 >= 2 )
         {
-          wsprintfA(&Str1, "NPC%03d", dword_72D5F8[19 * v7]);
-          v15 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+         wsprintfA(Str1, "NPC%03d", pNPCStats->pNPCData2[v7].uPortraitID);
+          v15 = LODFile_LoadTexture(pLODFile_Icons_LOD, Str1, 2);
           Render_DrawIndexedTexture(pD3DRenderer, dword_4EE06C[v25], dword_4EE074[v25], (class18 *)(v15 != -1 ? 72 * v15 + 7145548 : 0));
         }
         else
         {
-          wsprintfA(&Str1, "NPC%03d", pParty_global->pHiredNPCs[v7].uPortraitID);
-          v10 = LODFile_LoadTexture(pLODFile_Icons_LOD, &Str1, 2);
+          wsprintfA(Str1, "NPC%03d", pParty_global->pHiredNPCs[v7].uPortraitID);
+          v10 = LODFile_LoadTexture(pLODFile_Icons_LOD, Str1, 2);
           v9 = 4 * v25;
           Render_DrawIndexedTexture(pD3DRenderer,
             *(int *)((char *)dword_4EE06C + v9),

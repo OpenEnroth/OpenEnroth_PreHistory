@@ -2917,7 +2917,7 @@ bool __fastcall sub_43EE15(int a1, struct Player *pp, char a3) // find item in i
   int v5;
   char *a2 = (char *)pp;
 
-  if ( !a3 || dword_AD470C != a1 )
+  if (!a3 || pParty_global->stru_007754.uItemID != a1)
   {
     v3 = 0;
     while ( pp->sInventoryIndexes[v3] <= 0 || pp->cInventorySlots[pp->sInventoryIndexes[v3]].uItemID != a1 ) 
@@ -7539,8 +7539,11 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int sEventType, int a2, int a
   int v141; // [sp+44h] [bp-464h]@40
   int v142; // [sp+48h] [bp-460h]@40
   int v143; // [sp+4Ch] [bp-45Ch]@40
-  int v144; // [sp+50h] [bp-458h]@281
-  char v145; // [sp+73h] [bp-435h]@15
+
+  struct ItemGen local_50;
+  //int v144; // [sp+50h] [bp-458h]@281
+  //char v145; // [sp+73h] [bp-435h]@15
+
   char Str; // [sp+74h] [bp-434h]@15
   char v147; // [sp+ECh] [bp-3BCh]@21
   char Dst; // [sp+164h] [bp-344h]@53
@@ -7601,7 +7604,7 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int sEventType, int a2, int a
             goto LABEL_130;
           case 0xC:
             strcpy(&Str, (const char *)(v11 + 7));
-            v13 = &v145 + strlen(&Str);
+            v13 = &Str + strlen(&Str) - 1;
             if ( *v13 == 32 )
               *v13 = 0;
             if ( pVideoPlayer->dword_000054 )
@@ -8072,7 +8075,7 @@ LABEL_140:
             if ( *(_BYTE *)(v11 + 5) + (*(_BYTE *)(v11 + 6) << 8) == 17 )
             {
               v67 = 0;
-              if ( dword_AD470C == v66 )
+              if (pParty_global->stru_007754.uItemID == v66)
               {
                 class03_sub_4698A6(pGame->pClass03);
                 goto LABEL_291;
@@ -8616,14 +8619,14 @@ LABEL_280:
                  + ((*(_BYTE *)(v11 + 6) + ((*(_BYTE *)(v11 + 7) + (*(_BYTE *)(v11 + 8) << 8)) << 8)) << 8);
             goto LABEL_280;
           case 0x29:
-            ItemGen_Reset((ItemGen *)&v144);
+            ItemGen_Reset(&local_50);
             v106 = (int)pSomeEVT + v10;
             v105 = *(_BYTE *)(v106 + 7)
                  + ((*(_BYTE *)(v106 + 8) + ((*(_BYTE *)(v106 + 9) + (*(_BYTE *)(v106 + 10) << 8)) << 8)) << 8);
-            class40_sub_456620(pClass40, *(_BYTE *)(v106 + 5), *(_BYTE *)(v106 + 6), (unsigned int *)&v144);
+            class40_sub_456620(pClass40, *(_BYTE *)(v106 + 5), *(_BYTE *)(v106 + 6), &local_50);
             if ( v105 )
-              v144 = v105;
-            sub_4936E1(pParty_global, &v144);
+             local_50.uItemID = v105;
+            sub_4936E1(pParty_global, &local_50);
             goto LABEL_291;
           case 2:
             v107 = *(_BYTE *)(v11 + 5)
@@ -10283,7 +10286,7 @@ LABEL_14:
         v15 += 36;
         if ( v16 >= 138 )
         {
-          v17 = dword_AD470C == (_DWORD)a3;
+          v17 = pParty_global->stru_007754.uItemID == (_DWORD)a3;
 LABEL_146:
           LOBYTE(v6) = v17;
           return v6;
@@ -10507,8 +10510,11 @@ void __thiscall Player_sub_44A5CB(char *Dst, signed int a2, signed int a3)
   int v25; // [sp-8h] [bp-3Ch]@84
   signed int v26; // [sp-4h] [bp-38h]@4
   int v27; // [sp-4h] [bp-38h]@84
-  int v28; // [sp+Ch] [bp-28h]@52
-  int v29; // [sp+20h] [bp-14h]@52
+
+  struct ItemGen local_0C;
+  //int v28; // [sp+Ch] [bp-28h]@52
+  //int v29; // [sp+20h] [bp-14h]@52
+
   char v30; // [sp+32h] [bp-2h]@1
   char v31; // [sp+33h] [bp-1h]@1
 
@@ -10751,11 +10757,10 @@ LABEL_51:
           sub_449B7E(v13, a3, 1);
           goto LABEL_168;
         case 17:
-          ItemGen_Reset((ItemGen *)&v28);
-          ItemGen_Reset((ItemGen *)&v28);
-          v28 = a3;
-          v29 = 1;
-          sub_4936E1(pParty_global, &v28);
+          ItemGen_Reset(&local_0C);
+          local_0C.uItemID = a3;
+          local_0C.dword_000014 = 1;
+          sub_4936E1(pParty_global, &local_0C);
           if ( a3 >= 500 )
           {
             if ( a3 <= 528 )
@@ -11042,10 +11047,13 @@ void __thiscall sub_44AFFB(char *Dst, signed int a2, signed int a3)
   int v29; // [sp-8h] [bp-40h]@84
   signed int v30; // [sp-4h] [bp-3Ch]@4
   int v31; // [sp-4h] [bp-3Ch]@84
-  int v32; // [sp+Ch] [bp-2Ch]@45
-  int v33; // [sp+1Ch] [bp-1Ch]@50
-  int v34; // [sp+20h] [bp-18h]@45
-  char v35; // [sp+25h] [bp-13h]@50
+
+  struct ItemGen local_0C;
+  //int v32; // [sp+Ch] [bp-2Ch]@45
+  //int v33; // [sp+1Ch] [bp-1Ch]@50
+  //int v34; // [sp+20h] [bp-18h]@45
+  //char v35; // [sp+25h] [bp-13h]@50
+
   unsigned int v36; // [sp+30h] [bp-8h]@34
   char v37; // [sp+37h] [bp-1h]@1
 
@@ -11307,10 +11315,9 @@ LABEL_44:
           sub_449B7E(v15, a3, 1);
           goto LABEL_173;
         case 17:
-          ItemGen_Reset((ItemGen *)&v32);
-          ItemGen_Reset((ItemGen *)&v32);
-          v34 = 1;
-          v32 = a3;
+          ItemGen_Reset(&local_0C);
+          local_0C.dword_000014 = 1;
+          local_0C.uItemID = a3;
           if ( a3 >= 500 )
           {
             if ( a3 <= 528 )
@@ -11320,11 +11327,11 @@ LABEL_44:
           {
             if ( a3 <= 159 )
             {
-             v33 = rand() % 6 + pClass40->pItems[v32 - 1].uDamageModifier + 1;
-              v35 = v33;
+             local_0C.dword_000010 = rand() % 6 + pClass40->pItems[local_0C.uItemID - 1].uDamageModifier + 1;
+             local_0C.byte_000019 = local_0C.dword_000010;
             }
           }
-          sub_4936E1(pParty_global, &v32);
+          sub_4936E1(pParty_global, &local_0C);
           return;
         case 21:
           sub_420C05(a3, 1);
@@ -11990,8 +11997,8 @@ LABEL_17:
         ++v3;
         v15 += 4;
       }
-      while ( v3 < 126 );
-      if ( dword_AD470C == a3 )
+      while (v3 < 126);
+      if (pParty_global->stru_007754.uItemID == a3)
         class03_sub_4698A6(pGame->pClass03);
     }
   }
@@ -13789,15 +13796,17 @@ signed int __fastcall sub_450521(int a1, signed int a2, int a3, signed int a4, i
   __int16 v19; // [sp+22h] [bp-56h]@6
   __int16 v20; // [sp+24h] [bp-54h]@6
   __int16 v21; // [sp+26h] [bp-52h]@6
-  int Dst; // [sp+2Ch] [bp-4Ch]@1
+
+  struct ItemGen local_2C;
+  //int Dst; // [sp+2Ch] [bp-4Ch]@1
 
   v8 = a1;
   v9 = a2;
   sub_404828(&v13);
-  class40_sub_456620(pClass40, v8, v9, (unsigned int *)&Dst);
+  class40_sub_456620(pClass40, v8, v9, &local_2C);
   v7 = 0;
-  v6 = word_5D29F8[24 * Dst];
-  v13 = word_5D29F8[24 * Dst];
+  v6 = word_5D29F8[24 * local_2C.uItemID];
+  v13 = word_5D29F8[24 * local_2C.uItemID];
   if ( pObjectDescriptionList->uNumObjects <= 0 )
   {
 LABEL_5:
@@ -13851,7 +13860,7 @@ signed int __thiscall sub_4505CC(void *_this)
   if ( v3 )
   {
     *(_DWORD *)v2 = v5[rand() % v3];
-    class40_sub_456D17(pClass40, v2);
+    class40_sub_456D17(pClass40, (ItemGen *)v2);
     result = 1;
   }
   else

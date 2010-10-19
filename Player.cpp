@@ -3229,7 +3229,7 @@ LABEL_11:
 }
 
 //----- (00492826) --------------------------------------------------------
-int Player_sub_492826(struct Player *_this, signed int a2, unsigned char *Src)
+int Player_sub_492826(struct Player *_this, signed int a2, struct ItemGen *Src)
 {
   int v3; // ebx@1
   signed int v4; // edi@3
@@ -3239,7 +3239,7 @@ int Player_sub_492826(struct Player *_this, signed int a2, unsigned char *Src)
   signed int v10; // [sp+18h] [bp+8h]@2
 
   v3 = *(_DWORD *)Src;
-  class40_sub_456D17(pClass40, (int)Src);
+  class40_sub_456D17(pClass40, Src);
   if ( a2 == -1 )
   {
     v10 = 0;

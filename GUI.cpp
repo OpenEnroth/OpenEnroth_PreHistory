@@ -524,14 +524,14 @@ void GameUI_Update()
       v30 = 112 * v19;
       if (pObjectDescriptionList->pDescriptions[pLayingItemsList[v19].uObjectDescriptionID].byte_000026 & 0x10)
         goto LABEL_73;
-      if ( v18 >= 33554432 || dword_AD470C )
+      if ( v18 >= 33554432 || pParty_global->stru_007754.uItemID)
       {
-        v22 = (char *)sub_456499(&pLayingItemsList[v30/112].dword_000024);
+        v22 = (char *)ItemGen_sub_456499(&pLayingItemsList[v30/112].stru_000024);
 LABEL_93:
         v26 = (int)v22;
         goto LABEL_87;
       }
-      v31 = sub_456499(&pLayingItemsList[v30/112].dword_000024);
+      v31 = ItemGen_sub_456499(&pLayingItemsList[v30/112].stru_000024);
       v29 = (char *)TmpBuf;
       wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[470], v31);
     }
@@ -621,7 +621,7 @@ LABEL_38:
         goto LABEL_123;
       v15 = (void *)(36 * (v16 + 12 * *(_DWORD *)(dword_507BC0 + 28)) + 11355920);
 LABEL_49:
-      v17 = sub_456499(v15);
+      v17 = ItemGen_sub_456499(v15);
       sub_41C0B8((const char *)v17);
 LABEL_50:
       dword_506578 = 1;
@@ -7300,7 +7300,7 @@ int CharacterUI_LoadPaperdollTextures()
   for(v10 = 0; v10 < 54; ++v10)
   {
     byte_5111C0[v10] = 0;
-    if ( dword_AD470C != v10 + 66 )
+    if (pParty_global->stru_007754.uItemID != v10 + 66 )
     {
      i = 0;
       while ( !sub_43EE15(v10 + 66, &pParty_global->pPlayers[i], 0) )

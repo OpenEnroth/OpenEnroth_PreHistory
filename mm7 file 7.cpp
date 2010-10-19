@@ -3526,8 +3526,12 @@ LABEL_10:
       }
       v12 += 6972;
       ++v5;
-      if ( v12 >= (signed int)&unk_AD472D )
-        return;
+
+      compile_error;
+      //if ( v12 >= (signed int)&unk_AD472D )
+      //  return;
+      return; // phail
+
     }
     if ( v9 )
       *(_BYTE *)(v9 + 26) = v5;
@@ -9256,7 +9260,7 @@ int __cdecl sub_4B8E3D()
 LABEL_12:
           v3 = v9;
 LABEL_13:
-          class40_sub_456620(pClass40, v5, v3, (unsigned int *)(36 * (v1 + 12 * v2) + 11355956));
+          class40_sub_456620(pClass40, v5, v3, (ItemGen *)(36 * (v1 + 12 * v2) + 0xAD4734));
           v0 = dword_507BC0;
           dword_AD4748[9 * (v1 + 12 * *(_DWORD *)(dword_507BC0 + 28))] = 1;
           goto LABEL_14;
@@ -9332,7 +9336,7 @@ int __cdecl sub_4B8F94()
 LABEL_12:
           v5 = v11;
 LABEL_13:
-          class40_sub_456620(pClass40, v6, v5, (unsigned int *)(36 * (v1 + 12 * v3) + 11378852));
+          class40_sub_456620(pClass40, v6, v5, (ItemGen *)(36 * (v1 + 12 * v3) + 0xADA0A4));
           v2 = dword_507BC0;
           v0 = dword_507BC0 + 28;
           dword_ADA0B8[9 * (v1 + 12 * *(_DWORD *)(dword_507BC0 + 28))] = 1;
@@ -14134,7 +14138,8 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
     HIDWORD(v34) += *(_DWORD *)(i - 4) + v8;
     ++v31;
     compile_error;//v10 = __SETO__(i + 6972, &unk_AD471C);
-    v9 = i + 6972 - (_DWORD)&unk_AD471C < 0;
+    compile_error;//v9 = i + 6972 - (_DWORD)&unk_AD471C < 0;
+    //phail
     i += 6972;
     if ( !(v9 ^ v10) )
       break;

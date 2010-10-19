@@ -104,11 +104,11 @@ void __thiscall sub_4680ED(void *_this, signed int a2, int a3)
   if (pParty_global->dword_00087C == 1 && (dword_4F885C == 1 || dword_4F885C == 3) )
     return;
   v4 = 0;
-  if (pClass40->pItems[dword_AD470C - 1].uEquipType == 13 )
+  if (pClass40->pItems[pParty_global->stru_007754.uItemID - 1].uEquipType == 13 )
   {
-    if ( dword_AD470C != 160 )
+    if (pParty_global->stru_007754.uItemID != 160)
     {
-      if ( dword_AD470C == 161 )
+      if (pParty_global->stru_007754.uItemID == 161)
       {
         v27 = v3 + 6464;
         *(_DWORD *)v27 += 2;
@@ -118,10 +118,10 @@ LABEL_170:
       }
       else
       {
-        if ( dword_AD470C != 162 )
+        if (pParty_global->stru_007754.uItemID != 162)
         {
 LABEL_167:
-          v68 = sub_456499(&dword_AD470C);
+          v68 = ItemGen_sub_456499(&pParty_global->stru_007754.uItemID);
           v58 = (int)pGlobalTXT_LocalizationStrings[36];
           goto LABEL_90;
         }
@@ -137,15 +137,15 @@ LABEL_172:
     Player_sub_492D65(&pParty_global->pPlayers[a2 - 1], 6, 1);
     goto LABEL_173;
   }
-  if (pClass40->pItems[dword_AD470C - 1].uEquipType == 14 )
+  if (pClass40->pItems[pParty_global->stru_007754.uItemID - 1].uEquipType == 14 )
   {
-    switch ( dword_AD470C )
+    switch (pParty_global->stru_007754.uItemID)
     {
       case 222:
-        v25 = dword_AD4710 + 10;
+       v25 = pParty_global->stru_007754.dword_000004 + 10;
         goto LABEL_110;
       case 223:
-        v26 = dword_AD4710 + 10;
+        v26 = pParty_global->stru_007754.dword_000004 + 10;
         goto LABEL_114;
       case 224:
         *(_DWORD *)(v3 + 8) = 0;
@@ -178,7 +178,7 @@ LABEL_172:
         v59 = 0;
         v50 = 5;
         v46 = 3;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6160;
         goto LABEL_147;
       case 229:
@@ -186,7 +186,7 @@ LABEL_172:
         v59 = 0;
         v50 = 5;
         v46 = 3;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6176;
         goto LABEL_147;
       case 230:
@@ -194,23 +194,23 @@ LABEL_172:
         v59 = 0;
         v50 = 5;
         v46 = 3;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6064;
         goto LABEL_147;
       case 231:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * dword_AD4710;
+        v50 = 3 * pParty_global->stru_007754.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6224;
         goto LABEL_147;
       case 232:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * dword_AD4710;
+        v50 = 3 * pParty_global->stru_007754.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6256;
         goto LABEL_147;
       case 234:
@@ -218,14 +218,14 @@ LABEL_172:
         v59 = 0;
         v50 = 5;
         v46 = 3;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6272;
         goto LABEL_147;
       case 235:
         PartySpellBuf_sub_4584E0(
           v3 + 6416,
-          pParty_global->qword_00002C + (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214),
-          (unsigned __int64)(pParty_global->qword_00002C + (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214)) >> 32,
+          pParty_global->qword_00002C + (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214),
+          (unsigned __int64)(pParty_global->qword_00002C + (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214)) >> 32,
           3,
           5,
           0,
@@ -246,49 +246,49 @@ LABEL_172:
       case 240:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * dword_AD4710;
+        v50 = 3 * pParty_global->stru_007754.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6352;
         goto LABEL_147;
       case 241:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * dword_AD4710;
+        v50 = 3 * pParty_global->stru_007754.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6320;
         goto LABEL_147;
       case 242:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * dword_AD4710;
+        v50 = 3 * pParty_global->stru_007754.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6368;
         goto LABEL_147;
       case 243:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * dword_AD4710;
+        v50 = 3 * pParty_global->stru_007754.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6304;
         goto LABEL_147;
       case 244:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * dword_AD4710;
+        v50 = 3 * pParty_global->stru_007754.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6384;
         goto LABEL_147;
       case 245:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * dword_AD4710;
+        v50 = 3 * pParty_global->stru_007754.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6288;
         goto LABEL_147;
       case 251:
@@ -311,12 +311,12 @@ LABEL_172:
         *(_DWORD *)(v3 + 132) = v35;
         goto LABEL_112;
       case 253:
-        v25 = 5 * dword_AD4710;
+        v25 = 5 * pParty_global->stru_007754.dword_000004;
 LABEL_110:
         v69 = v25;
         goto LABEL_111;
       case 254:
-        v26 = 5 * dword_AD4710;
+        v26 = 5 * pParty_global->stru_007754.dword_000004;
 LABEL_114:
         v27 = v3 + 6464;
         *(_DWORD *)v27 += v26;
@@ -324,57 +324,57 @@ LABEL_114:
       case 255:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * dword_AD4710;
+        v50 = 3 * pParty_global->stru_007754.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6336;
         goto LABEL_147;
       case 256:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * dword_AD4710;
+        v50 = 3 * pParty_global->stru_007754.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6128;
         goto LABEL_147;
       case 257:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * dword_AD4710;
+        v50 = 3 * pParty_global->stru_007754.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6048;
         goto LABEL_147;
       case 258:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * dword_AD4710;
+        v50 = 3 * pParty_global->stru_007754.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6400;
         goto LABEL_147;
       case 259:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * dword_AD4710;
+        v50 = 3 * pParty_global->stru_007754.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6096;
         goto LABEL_147;
       case 260:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * dword_AD4710;
+        v50 = 3 * pParty_global->stru_007754.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6192;
         goto LABEL_147;
       case 261:
         v70 = 0;
         v59 = 0;
-        v50 = 3 * dword_AD4710;
+        v50 = 3 * pParty_global->stru_007754.dword_000004;
         v46 = 0;
-        v28 = (signed __int64)((double)(230400 * dword_AD4710) * 0.03333333507180214);
+        v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6080;
 LABEL_147:
         PartySpellBuf_sub_4584E0(v29, pParty_global->qword_00002C + v28, (unsigned __int64)(pParty_global->qword_00002C + v28) >> 32, v46, v50, v59, v70);
@@ -442,13 +442,13 @@ LABEL_147:
     }
     goto LABEL_172;
   }
-  if (pClass40->pItems[dword_AD470C - 1].uEquipType != 15 )
+  if (pClass40->pItems[pParty_global->stru_007754.uItemID - 1].uEquipType != 15 )
   {
-   if (pClass40->pItems[dword_AD470C - 1].uEquipType != 16 )
+   if (pClass40->pItems[pParty_global->stru_007754.uItemID - 1].uEquipType != 16 )
     {
-     if (pClass40->pItems[dword_AD470C - 1].uEquipType != 17 )
+     if (pClass40->pItems[pParty_global->stru_007754.uItemID - 1].uEquipType != 17 )
       {
-        if ( dword_AD470C == 616 )
+        if (pParty_global->stru_007754.uItemID == 616)
         {
           v77 = pParty_global->uCurrentMonthWeek + 1;
           if (pParty_global->uCurrentMonth >= 7 )
@@ -612,14 +612,14 @@ LABEL_54:
               goto LABEL_54;
           }
         }
-        if ( dword_AD470C == 630 )
+        if (pParty_global->stru_007754.uItemID == 630)
         {
           sub_492B42((void *)1);
           AudioPlayer_sub_4AA306(pAudioPlayer, 211, 0, 0, -1, 0, 0, 0, 0);
         }
         else
         {
-          if ( dword_AD470C == 632 )
+          if (pParty_global->stru_007754.uItemID == 632)
           {
             v61 = 0;
             v52 = 0;
@@ -631,7 +631,7 @@ LABEL_54:
             v37 = 133;
             goto LABEL_93;
           }
-          if ( dword_AD470C == 633 )
+          if (pParty_global->stru_007754.uItemID == 633)
           {
             v61 = 0;
             v52 = 0;
@@ -643,7 +643,7 @@ LABEL_54:
             v37 = 134;
             goto LABEL_93;
           }
-          if ( dword_AD470C == 634 )
+          if (pParty_global->stru_007754.uItemID == 634)
           {
             v61 = 0;
             v52 = 0;
@@ -655,9 +655,9 @@ LABEL_54:
             v37 = 135;
             goto LABEL_93;
           }
-          if ( dword_AD470C != 646 )
+          if (pParty_global->stru_007754.uItemID != 646)
           {
-            if ( dword_AD470C == 650 )
+            if (pParty_global->stru_007754.uItemID == 650)
             {
               sub_44C28F();
               return;
@@ -676,7 +676,7 @@ LABEL_187:
       }
       if ( Player_sub_492C0B((int)&pParty_global->pPlayers[a2 - 1]))
       {
-        sub_467F48(dword_AD470C);
+        sub_467F48(pParty_global->stru_007754.uItemID);
         v65 = 0;
         v56 = 37;
 LABEL_67:
@@ -695,11 +695,11 @@ LABEL_91:
       v4 = 0;
       goto LABEL_92;
     }
-    v15 = dword_AD470C - 400;
-    v72 = dword_AD470C - 400 + v3 + 402;
+    v15 = pParty_global->stru_007754.uItemID - 400;
+    v72 = pParty_global->stru_007754.uItemID - 400 + v3 + 402;
     if ( *(_BYTE *)v72 )
     {
-      v66 = sub_456499(&dword_AD470C);
+      v66 = ItemGen_sub_456499(&pParty_global->stru_007754);
       v57 = (int)pGlobalTXT_LocalizationStrings[380];
 LABEL_72:
       wsprintfA((char *)TmpBuf, (const char *)v57, v66);
@@ -744,7 +744,7 @@ LABEL_63:
 LABEL_83:
             if ( v75 > v21 || !*v17 )
             {
-              v22 = sub_456499(&dword_AD470C);
+              v22 = ItemGen_sub_456499(&pParty_global->stru_007754);
               wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[381], v22);
               sub_44C175((char *)TmpBuf, 2);
               v65 = 0;
@@ -755,7 +755,7 @@ LABEL_83:
             Player_PlaySound((Player *)v3, 21, 0);
             v73 = 0;
 LABEL_173:
-            v36 =pClass40->pItems[dword_AD470C - 1].uEquipType;
+            v36 =pClass40->pItems[pParty_global->stru_007754.uItemID - 1].uEquipType;
             if ( v36 == 14 )
             {
               v71 = 0;
@@ -839,8 +839,8 @@ LABEL_178:
     goto LABEL_91;
   }
   dword_50C9AC = 1;
-  v24 = dword_AD470C - 299;
-  if ( dword_AD470C == 329 || v24 == 4 || v24 == 91 || v24 == 28 )
+  v24 = pParty_global->stru_007754.uItemID - 299;
+  if (pParty_global->stru_007754.uItemID == 329 || v24 == 4 || v24 == 91 || v24 == 28 )
   {
     class03_sub_4698A6(pGame->pClass03);
     GUIWindowDelete(pGUIWindow_CurrentMenu);
@@ -851,7 +851,7 @@ LABEL_178:
   }
   else
   {
-    dword_720984 = dword_AD470C;
+    dword_720984 = pParty_global->stru_007754.uItemID;
     class03_sub_4698A6(pGame->pClass03);
     if ( dword_50C9E8[0] < 40 )
     {
@@ -930,8 +930,11 @@ void __cdecl sub_468F8A()
   int v47; // [sp-Ch] [bp-58h]@80
   int v48; // [sp-8h] [bp-54h]@80
   int v49; // [sp-4h] [bp-50h]@80
-  int v50; // [sp+Ch] [bp-40h]@1
-  char v51; // [sp+24h] [bp-28h]@34
+
+  struct ItemGen local_0C;
+  //int v50; // [sp+Ch] [bp-40h]@1
+  //char v51; // [sp+24h] [bp-28h]@34
+
   int v52; // [sp+30h] [bp-1Ch]@88
   int v53; // [sp+34h] [bp-18h]@57
   int v54; // [sp+38h] [bp-14h]@50
@@ -941,7 +944,7 @@ void __cdecl sub_468F8A()
   int v58; // [sp+48h] [bp-4h]@1
 
   v55 = 0;
-  ItemGen_Reset((ItemGen *)&v50);
+  ItemGen_Reset(&local_0C);
   v1 = (int)pPlayers[uActiveCharacter - 1];
   v0 = *(_DWORD *)(v1 + 6476);
   v2 = *(_DWORD *)(v1 + 6472);
@@ -952,11 +955,11 @@ void __cdecl sub_468F8A()
    if (pClass40->pItems[*(_DWORD *)(v1 + 36 * v0 + 496) - 1].uEquipType == 1 )
       v55 = v0;
   }
-  v3 = dword_AD470C;
-  if ( dword_AD470C )
+  v3 = pParty_global->stru_007754.uItemID;
+  if (pParty_global->stru_007754.uItemID)
   {
-   v56 = pClass40->pItems[dword_AD470C - 1].uEquipType;
-   v4 = pClass40->pItems[dword_AD470C - 1].uSkillType;
+   v56 = pClass40->pItems[pParty_global->stru_007754.uItemID - 1].uEquipType;
+   v4 = pClass40->pItems[pParty_global->stru_007754.uItemID - 1].uSkillType;
     if ( v4 == 4 )
     {
       if ( v2 )
@@ -969,7 +972,7 @@ LABEL_8:
           Player_PlaySound((Player *)v1, 39, 0);
           return;
         }
-        v3 = dword_AD470C;
+        v3 = pParty_global->stru_007754.uItemID;
         goto LABEL_16;
       }
     }
@@ -981,7 +984,7 @@ LABEL_8:
 LABEL_16:
     if ( !sub_492C4E(v1, v3) )
       goto LABEL_8;
-    if ( dword_AD470C == 604 )
+    if (pParty_global->stru_007754.uItemID == 604)
     {
       sub_467E7F((void *)3);
       sub_43EF2B(uActiveCharacter);
@@ -1003,7 +1006,7 @@ LABEL_16:
         if ( sub_43EE77(uActiveCharacter) && (v6 != (void *)3 || byte_6BE3C4_MaybeDrowningFlag) )
           goto LABEL_95;
         sub_467E7F(v6);
-        if ( dword_AD470C == 604 )
+        if (pParty_global->stru_007754.uItemID == 604)
           sub_43F0BD(uActiveCharacter);
         return;
       case 10:
@@ -1025,22 +1028,22 @@ LABEL_16:
             goto LABEL_33;
         }
         v9 = v56;
-        byte_AD4724 = v56 + 1;
-        memcpy((void *)(v1 + 36 * v8 + 532), &dword_AD470C, 0x24u);
+        pParty_global->stru_007754.byte_000018 = v56 + 1;
+        memcpy((void *)(v1 + 36 * v8 + 532), &pParty_global->stru_007754.uItemID, sizeof(struct ItemGen));
         *(_DWORD *)(v1 + 4 * v9 + 6472) = v8 + 1;
         class03_sub_4698A6(pGame->pClass03);
 LABEL_33:
         if ( v56 == 16 )
         {
           v56 = *(_DWORD *)(v1 + 6532) - 1;
-          memcpy(&v50, &dword_AD470C, 0x24u);
+          memcpy(&local_0C, &pParty_global->stru_007754.uItemID, sizeof(struct ItemGen));
           v10 = v1 + 36 * v56;
           *(_BYTE *)(v10 + 556) = 0;
-          ItemGen_Reset((ItemGen *)&dword_AD470C);
-          sub_4936E1(pParty_global, (const void *)(v10 + 532));
-          v51 = 16;
+          ItemGen_Reset(&pParty_global->stru_007754);
+          sub_4936E1(pParty_global, (ItemGen *)(v10 + 532));
+          local_0C.byte_000018 = 16;
           v11 = v56 + 1;
-          memcpy((void *)(v10 + 532), &v50, 0x24u);
+          memcpy((void *)(v10 + 532), &local_0C, sizeof(struct ItemGen));
           *(_DWORD *)(v1 + 6532) = v11;
         }
         return;
@@ -1052,15 +1055,15 @@ LABEL_33:
         if ( v58 )
         {
           --v58;
-          memcpy(&v50, &dword_AD470C, 0x24u);
+          memcpy(&local_0C, &pParty_global->stru_007754, sizeof(struct ItemGen));
           v12 = v1 + 36 * v58;
           *(_BYTE *)(v12 + 556) = 0;
-          ItemGen_Reset((ItemGen *)&dword_AD470C);
-          sub_4936E1(pParty_global, (const void *)(v12 + 532));
-          v51 = 1;
+          ItemGen_Reset(&pParty_global->stru_007754);
+          sub_4936E1(pParty_global, (ItemGen *)(v12 + 532));
+          local_0C.byte_000018 = 1;
           v13 = v58 + 1;
           v14 = v55 == 0;
-          memcpy((void *)(v12 + 532), &v50, 0x24u);
+          memcpy((void *)(v12 + 532), &local_0C, sizeof(struct ItemGen));
           *(_DWORD *)(v1 + 6472) = v13;
           if ( v14 )
             return;
@@ -1072,27 +1075,27 @@ LABEL_33:
             return;
           if ( !v55 )
           {
-            byte_AD4724 = 1;
+            pParty_global->stru_007754.byte_000018 = 1;
             v17 = v56 + 1;
-            memcpy((void *)(v1 + 36 * v56 + 532), &dword_AD470C, 0x24u);
+            memcpy((void *)(v1 + 36 * v56 + 532), &pParty_global->stru_007754, sizeof(struct ItemGen));
             *(_DWORD *)(v1 + 6472) = v17;
             goto LABEL_45;
           }
-          memcpy(&v50, &dword_AD470C, 0x24u);
+          memcpy(&local_0C, &pParty_global->stru_007754, sizeof(struct ItemGen));
           v15 = v1 + 36 * (v57 - 1);
           *(_BYTE *)(v15 + 556) = 0;
-          ItemGen_Reset((ItemGen *)&dword_AD470C);
-          sub_4936E1(pParty_global, (const void *)(v15 + 532));
-          v51 = 1;
+          ItemGen_Reset(&pParty_global->stru_007754);
+          sub_4936E1(pParty_global, (ItemGen *)(v15 + 532));
+          local_0C.byte_000018 = 1;
           v16 = v56 + 1;
-          memcpy((void *)(v1 + 36 * v56 + 532), &v50, 0x24u);
+          memcpy((void *)(v1 + 36 * v56 + 532), &local_0C, sizeof(struct ItemGen));
           *(_DWORD *)(v1 + 6472) = v16;
         }
         *(_DWORD *)(v1 + 6476) = 0;
         return;
       case 0:
       case 12:
-        if ( sub_43EE77(uActiveCharacter) && dword_AD470C != 64 && dword_AD470C != 65 )
+        if ( sub_43EE77(uActiveCharacter) && pParty_global->stru_007754.uItemID != 64 && pParty_global->stru_007754.uItemID != 65)
           goto LABEL_95;
         if ( !sub_492700((void *)v1, v4) )
           goto LABEL_8;
@@ -1118,19 +1121,19 @@ LABEL_33:
               if ( v58 )
               {
                 --v58;
-                memcpy(&v50, &dword_AD470C, 0x24u);
+                memcpy(&local_0C, &pParty_global->stru_007754, sizeof(struct ItemGen));
                 v20 = v1 + 36 * v58;
                 *(_BYTE *)(v20 + 556) = 0;
-                ItemGen_Reset((ItemGen *)&dword_AD470C);
-                sub_4936E1(pParty_global, (const void *)(v20 + 532));
-                v51 = 1;
+                ItemGen_Reset(&pParty_global->stru_007754);
+                sub_4936E1(pParty_global, (ItemGen *)(v20 + 532));
+                local_0C.byte_000018 = 1;
                 v21 = v58 + 1;
                 v22 = v56 == 12;
-                memcpy((void *)(v20 + 532), &v50, 0x24u);
+                memcpy((void *)(v20 + 532), &local_0C, sizeof(struct ItemGen));
                 *(_DWORD *)(v1 + 6472) = v21;
                 if ( !v22 )
                   return;
-                v23 = v50;
+                v23 = local_0C.uItemID;
 LABEL_73:
                 v54 = v23;
                 goto LABEL_74;
@@ -1138,9 +1141,9 @@ LABEL_73:
               v24 = sub_4925E6((void *)v1);
               if ( v24 < 0 )
                 return;
-              byte_AD4724 = 1;
+              pParty_global->stru_007754.byte_000018 = 1;
               v54 = v1 + 36 * v24 + 532;
-              memcpy((void *)(v1 + 36 * v24 + 532), &dword_AD470C, 0x24u);
+              memcpy((void *)(v1 + 36 * v24 + 532), &pParty_global->stru_007754, sizeof(struct ItemGen));
               *(_DWORD *)(v1 + 6472) = v24 + 1;
 LABEL_71:
               class03_sub_4698A6(pGame->pClass03);
@@ -1156,25 +1159,25 @@ LABEL_71:
           v28 = sub_4925E6((void *)v1);
           if ( v28 < 0 )
             return;
-          byte_AD4724 = 2;
+          pParty_global->stru_007754.byte_000018 = 2;
           v54 = v1 + 36 * v28 + 532;
-          memcpy((void *)(v1 + 36 * v28 + 532), &dword_AD470C, 0x24u);
+          memcpy((void *)(v1 + 36 * v28 + 532), &pParty_global->stru_007754, sizeof(struct ItemGen));
           *(_DWORD *)(v1 + 6476) = v28 + 1;
           goto LABEL_71;
         }
         --v57;
-        memcpy(&v50, &dword_AD470C, 0x24u);
+        memcpy(&local_0C, &pParty_global->stru_007754, sizeof(struct ItemGen));
         v25 = v1 + 36 * v57;
         *(_BYTE *)(v25 + 556) = 0;
-        ItemGen_Reset((ItemGen *)&dword_AD470C);
-        sub_4936E1(pParty_global, (const void *)(v25 + 532));
-        v51 = 2;
+        ItemGen_Reset(&pParty_global->stru_007754);
+        sub_4936E1(pParty_global, (ItemGen *)(v25 + 532));
+        local_0C.byte_000018 = 2;
         v26 = v57 + 1;
         v27 = v56 == 12;
-        memcpy((void *)(v25 + 532), &v50, 0x24u);
+        memcpy((void *)(v25 + 532), &local_0C, sizeof(struct ItemGen));
         *(_DWORD *)(v1 + 6476) = v26;
         if ( v27 )
-          v54 = v50;
+         v54 = local_0C.uItemID;
         if ( v55 )
           *(_DWORD *)(v1 + 6472) = 0;
 LABEL_74:
@@ -1200,14 +1203,14 @@ LABEL_74:
             goto LABEL_96;
           }
           --v57;
-          memcpy(&v50, &dword_AD470C, 0x24u);
+          memcpy(&local_0C, &pParty_global->stru_007754, sizeof(struct ItemGen));
           v29 = v1 + 36 * v57;
           *(_BYTE *)(v29 + 556) = 0;
-          ItemGen_Reset((ItemGen *)&dword_AD470C);
-          sub_4936E1(pParty_global, (const void *)(v29 + 532));
-          v51 = 2;
+          ItemGen_Reset(&pParty_global->stru_007754);
+          sub_4936E1(pParty_global, (ItemGen *)(v29 + 532));
+          local_0C.byte_000018 = 2;
           v30 = v57 + 1;
-          memcpy((void *)(v29 + 532), &v50, 0x24u);
+          memcpy((void *)(v29 + 532), &local_0C, sizeof(struct ItemGen));
           *(_DWORD *)(v1 + 6476) = v30;
         }
         else
@@ -1217,22 +1220,22 @@ LABEL_74:
           {
             if ( v58 )
             {
-              memcpy(&v50, &dword_AD470C, 0x24u);
+              memcpy(&local_0C, &pParty_global->stru_007754, sizeof(struct ItemGen));
               v31 = v1 + 36 * (v58 - 1);
               *(_BYTE *)(v31 + 556) = 0;
-              ItemGen_Reset((ItemGen *)&dword_AD470C);
-              sub_4936E1(pParty_global, (const void *)(v31 + 532));
-              v51 = 2;
+              ItemGen_Reset(&pParty_global->stru_007754);
+              sub_4936E1(pParty_global, (ItemGen *)(v31 + 532));
+              local_0C.byte_000018 = 2;
               v32 = v56 + 1;
-              memcpy((void *)(v1 + 36 * v56 + 532), &v50, 0x24u);
+              memcpy((void *)(v1 + 36 * v56 + 532), &local_0C, sizeof(struct ItemGen));
               *(_DWORD *)(v1 + 6472) = 0;
               *(_DWORD *)(v1 + 6476) = v32;
             }
             else
             {
-              byte_AD4724 = 2;
+              pParty_global->stru_007754.byte_000018 = 2;
               v33 = v56 + 1;
-              memcpy((void *)(v1 + 36 * v56 + 532), &dword_AD470C, 0x24u);
+              memcpy((void *)(v1 + 36 * v56 + 532), &pParty_global->stru_007754, sizeof(struct ItemGen));
               *(_DWORD *)(v1 + 6476) = v33;
 LABEL_45:
               class03_sub_4698A6(pGame->pClass03);
@@ -1264,7 +1267,7 @@ LABEL_45:
     v37 = *(_DWORD *)(v1 + 6480);
     if ( v37 )
     {
-      sub_4936E1(pParty_global, (const void *)(v1 + 36 * v37 + 496));
+      sub_4936E1(pParty_global, (ItemGen *)(v1 + 36 * v37 + 496));
       ItemGen_Reset((ItemGen *)(v1 + 36 * *(_DWORD *)(v1 + 6480) + 496));
       *(_DWORD *)(v1 + 6480) = 0;
     }
@@ -1314,7 +1317,7 @@ LABEL_96:
   {
     if ( !dword_50C9A4 )
     {
-      sub_4936E1(pParty_global, (const void *)v38);
+      sub_4936E1(pParty_global, (ItemGen *)v38);
       *(_DWORD *)(v1 + 4 * *(_BYTE *)(v54 + 556) + 6468) = 0;
       ItemGen_Reset((ItemGen *)v38);
     }
@@ -1547,9 +1550,9 @@ void __thiscall class03_sub_469EA4_LooksLikeDrawPickedItem(int _this)
   int v24; // [sp+24h] [bp-4h]@25
 
   v1 = _this;
-  if ( dword_AD470C )
+  if (pParty_global->stru_007754.uItemID)
   {
-   v3 = LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)pClass40->pItems[12 * dword_AD470C].pIconName, 2);
+   v3 = LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)pClass40->pItems[12 * pParty_global->stru_007754.uItemID].pIconName, 2);
     v2 = v3 != -1 ? 72 * v3 + 7145548 : 0;
     if (dword_720010)
     {
@@ -1637,13 +1640,13 @@ void __thiscall class03_sub_469EA4_LooksLikeDrawPickedItem(int _this)
           while ( v9 < *(_DWORD *)(v1 + 76) );
           v6 = v17;
         }
-        if ( byte_AD4720 & 2 )
+        if (pParty_global->stru_007754.dword_000014 & 2 )
         {
           Render_sub_4A6776((int)pD3DRenderer, v16, v6, v2);
         }
         else
         {
-          if ( byte_AD4720 & 1 )
+          if (pParty_global->stru_007754.dword_000014 & 1 )
             Render_DrawTransparentTexture(pD3DRenderer, v16, v6, (class18 *)v2);
           else
             Render_sub_4A68EF((int)pD3DRenderer, v16, v6, v2);
@@ -1876,8 +1879,8 @@ char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
         || v18 >= 1000
         || !pLayingItemsList[a1 >> 3].uObjectDescriptionID)
         return 1;
-      v20 = (int)&pLayingItemsList[v17/112].dword_000024;
-      v19 = 48 * pLayingItemsList[v17/112].dword_000024;
+      v20 = (int)&pLayingItemsList[v17/112].stru_000024;
+      v19 = 48 * pLayingItemsList[v17/112].stru_000024.uItemID;
       if (pClass40->pItems[v19/48 - 1].uEquipType == 18 )
       {
         sub_420C05(*(_DWORD *)(v20 + 12), 0);
@@ -1886,7 +1889,7 @@ char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
       }
       else
       {
-        if ( dword_AD470C )
+        if (pParty_global->stru_007754.uItemID)
           return 1;
         v27 = *(int *)((char *)dword_5D29EC + v19);
         wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], v27);
@@ -1895,8 +1898,8 @@ char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
           sub_449B7E((int)pParty_global->unk_000764 + 1, 184, 1);
         if ( *(_DWORD *)v20 == 455 )
           sub_449B7E((int)pParty_global->unk_000764 + 1, 185, 1);
-        if ( !Party_AddItem(pParty_global, v20) )
-          sub_4936E1(pParty_global, (const void *)v20);
+        if ( !Party_AddItem(pParty_global, (ItemGen *)v20))
+          sub_4936E1(pParty_global, (ItemGen *)v20);
         v21 = (int)v29;
       }
       sub_42F933(v21);
@@ -2394,7 +2397,7 @@ LABEL_18:
         return 0;
       if (~pLayingItemsList[v19].word_00001A & 0x0010)
       {
-        v23 = (char *)sub_456499(&pLayingItemsList[v19].dword_000024);
+        v23 = (char *)ItemGen_sub_456499(&pLayingItemsList[v19].stru_000024);
 LABEL_36:
         v24 = v23;
         goto LABEL_51;

@@ -3,6 +3,7 @@
 #include "defs.h"
 #include "Player.h"
 #include "NPC.h"
+#include "Items.h"
 
 
 #pragma pack(push, 1)
@@ -124,10 +125,10 @@ struct Party
  struct PartySpellBuff pPartyBuffs[20];  // struct[20] @ 00088C
  struct Player         pPlayers[4];      // struct[4]  @ 0009CC
  struct NPCData        pHiredNPCs[2];    // struct[2]  @ 0076BC
-
- int dword_007778;  // party flags;     0x0002 - party position/direction/eyelevel changed
-                    //                  0x0004 - You're Drowning!  message displayed
-                    //                  0x0200 - You are Burning!  message displayed
+ struct ItemGen        stru_007754;      // struct @ 007754
+ int                   dword_007778;     // party flags;     0x0002 - party position/direction/eyelevel changed
+                                         //                  0x0004 - You're Drowning!  message displayed
+                                         //                  0x0200 - You are Burning!  message displayed
 
  char pad[100000];
 
@@ -153,7 +154,7 @@ int Party_sub_49370F(struct Party *_this);
 //bool __thiscall sub_497FC5(void *_this);
 bool Party_sub_497FC5(struct Party *_this);
 //signed int __thiscall sub_48C6F6(void *_this, int a2);
-int Party_AddItem(struct Party *_this, int a2);
+int Party_AddItem(struct Party *_this, struct ItemGen *a2);
 //int __thiscall sub_49137D(int _this, char a2);
 int Party_CreateDefaultParty(struct Party *_this, char a2);
 

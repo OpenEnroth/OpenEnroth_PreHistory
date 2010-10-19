@@ -260,7 +260,7 @@ int Party_Reset(struct Party *_this)
 
 
 //----- (0048C6F6) --------------------------------------------------------
-int Party_AddItem(struct Party *_this, int a2)
+int Party_AddItem(struct Party *_this, struct ItemGen *a2)
 {
   int v2; // eax@1
   signed int v3; // edx@4
@@ -374,7 +374,10 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
   int v17; // [sp-4h] [bp-44h]@26
   int v19; // [sp+14h] [bp-2Ch]@11
   signed int v20; // [sp+18h] [bp-28h]@1
-  char Dst[32 + array_size_unknown]; // [sp+1Ch] [bp-24h]@10
+
+  struct ItemGen local_1C;
+  //char Dst[32 + array_size_unknown]; // [sp+1Ch] [bp-24h]@10
+
  int i;
 
  lstrcpyA((char *)_this->pPlayers[0].sName, (char *)pGlobalTXT_LocalizationStrings[509]);
@@ -485,11 +488,11 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
 
 LABEL_10:
     _this->pPlayers[i].word_001A9E = 0;
-    ItemGen_Reset((ItemGen *)Dst);
+    ItemGen_Reset(&local_1C);
     if ( a2 )
     {
-      class40_sub_456620(pClass40, 2, 40, (unsigned int *)Dst);
-      Player_sub_492826(&_this->pPlayers[i], -1, (unsigned char *)Dst);
+      class40_sub_456620(pClass40, 2, 40, &local_1C);
+      Player_sub_492826(&_this->pPlayers[i], -1, &local_1C);
       v19 = 0;
       do
       {

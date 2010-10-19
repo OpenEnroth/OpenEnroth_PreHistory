@@ -374,9 +374,12 @@ signed int __thiscall sub_48D88B(int _this, int a2, int a3, int a4)
   int v22; // ST0C_4@39
   int v24; // [sp-Ch] [bp-48h]@40
   int v25; // [sp-8h] [bp-44h]@40
-  int v26; // [sp+8h] [bp-34h]@15
-  int v27; // [sp+Ch] [bp-30h]@28
-  int v28; // [sp+18h] [bp-24h]@25
+
+  struct ItemGen local_08;
+  //int v26; // [sp+8h] [bp-34h]@15
+  //int v27; // [sp+Ch] [bp-30h]@28
+  //int v28; // [sp+18h] [bp-24h]@25
+
   int v29; // [sp+2Ch] [bp-10h]@10
   int v30; // [sp+30h] [bp-Ch]@10
   int v31; // [sp+34h] [bp-8h]@10
@@ -449,7 +452,7 @@ LABEL_43:
         }
         else
         {
-          ItemGen_Reset((ItemGen *)&v26);
+          ItemGen_Reset(&local_08);
           v13 = 0;
           v11 = 0;
           v12 = (int)(v4 + 564);
@@ -465,33 +468,33 @@ LABEL_21:
           v14 = *((_WORD *)v4 + 90);
           if ( v14 || v13 )
           {
-            ItemGen_Reset((ItemGen *)&v26);
+            ItemGen_Reset(&local_08);
             if ( v14 )
             {
               v15 = v14;
               *((_WORD *)v4 + 90) = 0;
-              v26 = v14;
+              local_08.uItemID = v14;
               v16 = 48 * v14;
               if (pClass40->pItems[v14 - 1].uEquipType == 12 )
-               v28 = rand() % 6 + pClass40->pItems[v14 - 1].uDamageModifier + 1;
+               local_08.dword_000010 = rand() % 6 + pClass40->pItems[v14 - 1].uDamageModifier + 1;
               if (pClass40->pItems[v14 - 1].uEquipType == 14 )
               {
                 if ( v15 != 220 )
-                  v27 = 2 * rand() % 4 + 2;
+                 local_08.dword_000004 = 2 * rand() % 4 + 2;
               }
             }
             else
             {
               v17 = (int)&v4[36 * rand() % 4 + 564];
-              memcpy(&v26, (const void *)v17, 0x24u);
+              memcpy(&local_08, (const void *)v17, 0x24u);
               ItemGen_Reset((ItemGen *)v17);
-              v15 = v26;
+              v15 = local_08.uItemID;
             }
             sub_421B2C();
             wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[304], v32 + 168, dword_5D29EC[12 * v15]);
             sub_44C175((char *)pStringBuffer, 2);
             sub_421B2C();
-            memcpy(&dword_AD470C, &v26, 0x24u);
+            memcpy(&pParty_global->stru_007754, &local_08, sizeof(struct ItemGen));
             sub_4698D8(v15);
             return v33;
           }
@@ -2219,7 +2222,7 @@ signed int __thiscall sub_492700(void *_this, signed int a2)
 }
 
 //----- (0049298B) --------------------------------------------------------
-signed int __thiscall sub_49298B(void *_this, int a2, int a3, int a4)
+signed int __thiscall sub_49298B(void *_this, struct ItemGen *a2, int a3, int a4)
 {
   void *v4; // ebx@1
   int v5; // esi@1
@@ -2716,13 +2719,13 @@ LABEL_83:
 }
 
 //----- (004936E1) --------------------------------------------------------
-void __thiscall sub_4936E1(void *_this, const void *a2)
+void __thiscall sub_4936E1(void *_this, const struct ItemGen *a2)
 {
   void *v2; // esi@1
 
   v2 = _this;
   sub_421B2C();
-  memcpy((char *)v2 + 30548, a2, 0x24u);
+  memcpy((char *)v2 + 30548, a2, sizeof(struct ItemGen));
   sub_4698D8(*((_DWORD *)v2 + 7637));
 }
 
@@ -3357,7 +3360,7 @@ LABEL_93:
         }
         if ( v16 + 10 * (unsigned __int8)*v17 == 552 )
         {
-          v46 = sub_456499((void *)v12);
+          v46 = ItemGen_sub_456499((void *)v12);
           wsprintfA(Dest, "\x0C%05d%s\x0C\x30\x30\x30\x30\x30", v65, v46);
 LABEL_117:
           v13 = (int)Dest;
