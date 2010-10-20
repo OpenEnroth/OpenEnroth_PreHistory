@@ -33,7 +33,7 @@ struct GUIWindow
  unsigned int uFrameW;      // dword @ 000014
  unsigned int bSlotUsed;    // dword @ 000018
 
- int dword_00001C; // looks like pointer to GUIButton, but not always
+ int dword_00001C; // looks like pointer to GUIButton, but not always;  maybe UserData
  unsigned int uNumControls; // dword @ 000020
  int dword_000024;
  int dword_000028;

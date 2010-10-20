@@ -5637,13 +5637,13 @@ LABEL_27:
 
     v7 = 1;
     for (j = 0; j < pPlayerFrameTable->uNumFrames; ++j)
-      if (pPlayerFrameTable->pFrames[j].word_000000 == pParty_global->pPlayers[i].word_001A9C)
+      if (pPlayerFrameTable->pFrames[j].word_000000 == pParty_global->pPlayers[i].uDefaultFaceID)
       {
        v7 = j;
        break;
       }
 
-    if (pParty_global->pPlayers[i].word_001A9C == 21)
+    if (pParty_global->pPlayers[i].uDefaultFaceID == 21)
       pPlayerFaceIcon = (PlayerFrame *)PlayerFrameTable_sub_494B5E((int)pPlayerFrameTable, (int)&pParty_global->pPlayers[i].dword_001AA8,
                                    (int)&pParty_global->pPlayers[i].dword_001AA4, pClass24_global2->int_00001C);
     else

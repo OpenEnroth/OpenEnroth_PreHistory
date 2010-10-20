@@ -272,7 +272,7 @@ signed int __thiscall sub_41CD4F_MaybeOnlyUI_OnKeyDown(unsigned char Key);
 int __thiscall GUIWindow_sub_41D08F(int _this, int a2, int a3, int a4, int a5);
 void __thiscall GUIButton_sub_41D0D8(int _this);
 void sub_41D20D(int a1, int a2, __int64 a3, int a4);
-void GUIWindow_sub_41D3B7(int _this);
+void GUIWindow_sub_41D3B7(GUIWindow *_this);
 void GUIWindow_sub_41D73D(int _this);
 void __thiscall sub_41D895(void *_this);
 char *__fastcall sub_41E360(int a1, int a2);

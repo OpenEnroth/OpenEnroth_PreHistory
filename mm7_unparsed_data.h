@@ -89,7 +89,7 @@ extern int dword_4E2BEC; // weak
 extern int dword_4E2C0C[array_size_unknown]; // weak
 extern int dword_4E2C2C[array_size_unknown]; // weak
 //_UNKNOWN unk_4E2D80; // "\x0C%05d%s\x0C\x30\x30\x30\x30\x30"
-extern _UNKNOWN unk_4E2DC8; // "\f%05d" (this one looks like 16-bit color number)
+//_UNKNOWN unk_4E2DC8; // "\x0C%05d" (this one looks like 16-bit color number)
 extern _UNKNOWN unk_4E2DE8; // weak
 extern _UNKNOWN unk_4E2E00; // weak
 extern _UNKNOWN unk_4E2E10; // weak
@@ -99,9 +99,9 @@ extern _UNKNOWN unk_4E2FA0; // weak
 extern char byte_4E2FD4; // idb
 extern _UNKNOWN unk_4E3030; // weak
 extern void *off_4E3044; // weak
-extern _UNKNOWN unk_4E3264; // weak
-extern _UNKNOWN unk_4E3278; // weak
-extern char byte_4E3294; // idb
+//_UNKNOWN unk_4E3264; // "%s: \x0C%05d%s\0x0C\0x30\0x30\0x30\0x30\0x30\0xA"
+//_UNKNOWN unk_4E3278; // "%s : \x0C%05u%d\x0C\x30\x30\x30\x30\x30 / %d\x0A"
+//char byte_4E3294;    // "\x0C\x30\x30\x30\x30\x30\n"
 extern _UNKNOWN unk_4E3308; // weak
 extern _UNKNOWN unk_4E3318; // weak
 extern _UNKNOWN unk_4E3328; // weak

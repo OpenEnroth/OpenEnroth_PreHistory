@@ -11254,7 +11254,7 @@ LABEL_125:
           local_04.uFrameX = 38;
           local_04.uFrameY = 60;
           AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-          GUIWindow_sub_41D3B7((int)&local_04);
+          GUIWindow_sub_41D3B7(&local_04);
         }
         goto LABEL_132;
       }
@@ -11915,21 +11915,21 @@ _UNKNOWN *__fastcall sub_417BB5(int a1, int a2)
   {
     strcpy(Dest, "%s\n\n");
     v24 = sub_417AD4(*((_BYTE *)v6 + 185), v4, 1);
-    wsprintfA(Source, (const char *)&unk_4E2DC8, v24);
+    wsprintfA(Source, "\x0C%05d", v24);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v25 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 2);
-    wsprintfA(Source, (const char *)&unk_4E2DC8, v25);
+    wsprintfA(Source, "\x0C%05d", v25);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v26 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 3);
-    wsprintfA(Source, (const char *)&unk_4E2DC8, v26);
+    wsprintfA(Source, "\x0C%05d", v26);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v27 = *((_BYTE *)v6 + 185);
     v28 = v36;
     v29 = sub_417AD4(v27, v36, 4);
-    wsprintfA(Source, (const char *)&unk_4E2DC8, v29);
+    wsprintfA(Source, "\x0C%05d", v29);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v9 = &unk_506990;
@@ -11957,24 +11957,24 @@ _UNKNOWN *__fastcall sub_417BB5(int a1, int a2)
   {
     strcpy(Dest, "%s\n\n");
     v10 = sub_417AD4(*((_BYTE *)v6 + 185), v4, 1);
-    wsprintfA(Source, (const char *)&unk_4E2DC8, v10);
+    wsprintfA(Source, "\x0C%05d", v10);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v11 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 2);
-    wsprintfA(Source, (const char *)&unk_4E2DC8, v11);
+    wsprintfA(Source, "\x0C%05d", v11);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v12 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 3);
-    wsprintfA(Source, (const char *)&unk_4E2DC8, v12);
+    wsprintfA(Source, "\x0C%05d", v12);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v13 = v36;
     v14 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 4);
-    wsprintfA(Source, (const char *)&unk_4E2DC8, v14);
+    wsprintfA(Source, "\x0C%05d", v14);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n\n");
     v15 = 0xFFFFFFFF;
-    wsprintfA(Source, (const char *)&unk_4E2DC8, v15);
+    wsprintfA(Source, "\x0C%05d", v15);
     strcat(Dest, Source);
     strcat(Dest, "%s: +%d");
     v16 = v13;
@@ -13447,13 +13447,12 @@ void sub_41D20D(int a1, int a2, __int64 a3, int a4)
 }
 
 //----- (0041D3B7) --------------------------------------------------------
-void GUIWindow_sub_41D3B7(int _this)
+void GUIWindow_sub_41D3B7(GUIWindow *_this)
 {
   int v1; // eax@1
   int v2; // ecx@1
   signed int v3; // ebx@1
   int v4; // edi@1
-  int v5; // esi@1
   int v6; // eax@5
   int v7; // ebx@5
   int v8; // ecx@5
@@ -13466,12 +13465,8 @@ void GUIWindow_sub_41D3B7(int _this)
   signed int v15; // eax@12
   unsigned __int8 v16; // al@15
   unsigned int v17; // eax@15
-  signed int v18; // ST28_4@15
-  int v19; // ST24_4@15
   signed int v20; // eax@15
   unsigned int v21; // eax@15
-  int v22; // ST28_4@15
-  int v23; // ST24_4@15
   int v24; // eax@15
   unsigned int v25; // eax@15
   int v26; // eax@15
@@ -13495,14 +13490,14 @@ void GUIWindow_sub_41D3B7(int _this)
   int v45; // [sp+20h] [bp-8h]@18
   signed int v46; // [sp+24h] [bp-4h]@18
 
-  v4 = _this;
+  v4 = (int)_this;
   v42 = (int)pFontComic;
-  v5 = (int)&pParty_global->pPlayers[1743 * *(_DWORD *)(_this + 28)];
-  v43 = _this;
+ Player *pPlayer = &pParty_global->pPlayers[_this->dword_00001C];
+  v43 = v4;
   v2 = 0;
-  v1 = v5 + 6048;
+  v1 = (int)pParty_global->pPlayers[_this->dword_00001C].array_0017A0;
   v3 = 24;
-  v41 = v5 + 6048;
+  v41 = (int)pParty_global->pPlayers[_this->dword_00001C].array_0017A0;
   do
   {
     if ( *(_QWORD *)v1 > 0i64 )
@@ -13523,60 +13518,60 @@ void GUIWindow_sub_41D3B7(int _this)
   *(_DWORD *)(v4 + 16) = v11;
   *(_DWORD *)(v4 + 20) = v9 + v12 - 1;
   GUIWindow_sub_415551((GUIWindow *)v4, 0);
-  if ( *(_QWORD *)(v5 + 128) )
+  if (pPlayer->pConditions[16])
   {
     v13 = uTextureIdx_PlayerFaceDead;
   }
+  else if (pPlayer->pConditions[14])
+  {
+      v13 = uTextureIdx_PlayerFaceEradicated;
+  }
   else
   {
-    if ( *(_QWORD *)(v5 + 112) )
-    {
-      v13 = uTextureIdx_PlayerFaceEradicated;
-    }
-    else
-    {
-      v44 = PlayerFrameTable_sub_494AED((int)pPlayerFrameTable, *(_WORD *)(v5 + 6812));
+      v44 = PlayerFrameTable_sub_494AED((int)pPlayerFrameTable, pPlayer->uDefaultFaceID);
       if ( !v44 )
         v44 = 1;
-      if ( *(_WORD *)(v5 + 6812) == 21 )
+      if (pPlayer->uDefaultFaceID == 21)
       {
-       v14 = PlayerFrameTable_sub_494B5E((int)pPlayerFrameTable, v5 + 6824, v5 + 6820, pClass24_global2->int_00001C);
+       v14 = PlayerFrameTable_sub_494B5E((int)pPlayerFrameTable, (int)&pPlayer->dword_001AA8, (int)&pPlayer->dword_001AA4, pClass24_global2->int_00001C);
       }
       else
       {
         v15 = class24_fn2(pClass24_global2);
         v14 = (int)CPlayerFrameTable_GetFrame(pPlayerFrameTable, v44, v15);
       }
-      *(_WORD *)(v5 + 6818) = *(_WORD *)(v14 + 2) - 1;
+      pPlayer->word_001AA2 = *(_WORD *)(v14 + 2) - 1;
       v13 = dword_A74CEC[*(_WORD *)(v14 + 2) + 56 * *(_DWORD *)(v4 + 28)];
-    }
   }
+
+
   Render_DrawTransparentTexture(pD3DRenderer, *(_DWORD *)v4 + 24, *(_DWORD *)(v4 + 4) + 24, (class18 *)v13);
   v17 = 0xFFFFFF9B;
-  wsprintfA((char *)TmpBuf, (const char *)&unk_4E2DC8, v17);
-  wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[429], v5 + 168, aClassNames[*(_BYTE *)(v5 + 185)]);
+  wsprintfA((char *)TmpBuf, "\x0C%05d", v17);
+  wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[429], pPlayer->sName, aClassNames[pPlayer->uClass]);
+
 
   strcat((char *)TmpBuf, (char *)pStringBuffer);
-  strcat((char *)TmpBuf, &byte_4E3294);
-  v18 = Player_GetMaxHealth((Player *)v5);
-  v19 = *(_DWORD *)(v5 + 6460);
-  v20 = Player_GetMaxHealth((Player *)v5);
-  v21 = sub_4178FE_GetColor(*(_DWORD *)(v5 + 6460), v20);
-  wsprintfA((char *)pStringBuffer, (const char *)&unk_4E3278, pGlobalTXT_LocalizationStrings[108], v21, v19, v18);
+  strcat((char *)TmpBuf, "\x0C\x30\x30\x30\x30\x30\n");
+  v20 = Player_GetMaxHealth(pPlayer);
+  v21 = sub_4178FE_GetColor(pPlayer->sHealth, v20);
+
+
+  wsprintfA((char *)pStringBuffer, "%s : \x0C%05u%d\x0C\x30\x30\x30\x30\x30 / %d\n", pGlobalTXT_LocalizationStrings[108], v21, pPlayer->sHealth, v20);
   strcat((char *)TmpBuf, (char *)pStringBuffer);
-  v22 = Player_GetMaxMana((Player *)v5);
-  v23 = *(_DWORD *)(v5 + 6464);
-  v24 = Player_GetMaxMana((Player *)v5);
-  v25 = sub_4178FE_GetColor(*(_DWORD *)(v5 + 6464), v24);
-  wsprintfA((char *)pStringBuffer, (const char *)&unk_4E3278, pGlobalTXT_LocalizationStrings[212], v25, v23, v22);
+  v24 = Player_GetMaxMana(pPlayer);
+  v25 = sub_4178FE_GetColor(pPlayer->sMana, v24);
+  wsprintfA((char *)pStringBuffer, "%s : \x0C%05u%d\x0C\x30\x30\x30\x30\x30 / %d\n", pGlobalTXT_LocalizationStrings[212], v25, pPlayer->sMana, v24);
   strcat((char *)TmpBuf, (char *)pStringBuffer);
-  v26 = Player_GetConditionIdx((Player *)v5);
+  v26 = Player_GetConditionIdx(pPlayer);
   v27 = (char *)aCharacterConditionNames[v26];
 
+  
+
   v28 = sub_417939((void *)v26);
-  wsprintfA((char *)pStringBuffer, (const char *)&unk_4E3264, pGlobalTXT_LocalizationStrings[47], v28, v27);
+  wsprintfA((char *)pStringBuffer, "%s: \x0C%05d%s\0x0C\0x30\0x30\0x30\0x30\0x30\n", pGlobalTXT_LocalizationStrings[47], v28, v27);
   strcat((char *)TmpBuf, (char *)pStringBuffer);
-  v16 = *(_BYTE *)(v5 + 6735);
+  v16 = pPlayer->uQuickSpell;
   if ( v16 )
     v29 = (char *)pSpellStats->pSpellInfos[v16].pSpellNameShort;
   else
@@ -13588,7 +13583,10 @@ void GUIWindow_sub_41D3B7(int _this)
   v30 = v41;
   v45 = 0;
   v31 = &unk_4E2AD9;
+
   v46 = (int)&aSpellNames[20];
+
+  int i = 0;
   do
   {
     v34 = *(_DWORD *)(v30 + 4);
@@ -13597,7 +13595,9 @@ void GUIWindow_sub_41D3B7(int _this)
     {
       if ( v34 > v32 || v33 > v32 )
       {
-        compile_error;//v35 = __PAIR__(v34, v33) - pParty_global->qword_00002C;
+        //v35 = __PAIR__(v34, v33) - pParty_global->qword_00002C;
+        v35 = *(_QWORD *)v30 - pParty_global->qword_00002C;
+
         v36 = v45++ * *(_BYTE *)(v42 + 5) + 134;
         v37 = *(const char **)v46;
         v38 = 0xFF000000 | ((unsigned int)(*((_BYTE *)v31 - 1)) << 16) | ((unsigned int)(*(_BYTE *)v31) << 8) | *((_BYTE *)v31 + 1);//colored or white text flag
@@ -13612,7 +13612,9 @@ void GUIWindow_sub_41D3B7(int _this)
     v31 = (char *)v31 + 3;
     v41 = v30;
   }
-  while ( v46 < (signed int)&dword_506978 );
+  //while ( v46 < (signed int)&dword_506978 );
+  while (++i < 44 - 20);
+
   v39 = "";
   if ( v45 == v32 )
     v39 = (char *)pGlobalTXT_LocalizationStrings[153];

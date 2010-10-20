@@ -197,7 +197,7 @@ struct Player
    char byte_001A98;
    char array_001A99[3];
 
-   short word_001A9C; //id in PlayerFrameTable, face set
+   unsigned short uDefaultFaceID; // word @ 001A9C    id in PlayerFrameTable, face set
    short word_001A9E; //subframe in FrameTable, current face emotion?   doesnt generate random name if this is not zero
    short word_001AA0;
    short word_001AA2; //PlayerFrame::word_000002 - 1

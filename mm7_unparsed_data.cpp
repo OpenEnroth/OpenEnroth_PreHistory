@@ -78,7 +78,6 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  int dword_4E2BEC; // weak
  int dword_4E2C0C[array_size_unknown]; // weak
  int dword_4E2C2C[array_size_unknown]; // weak
- _UNKNOWN unk_4E2DC8; // weak
  _UNKNOWN unk_4E2DE8; // weak
  _UNKNOWN unk_4E2E00; // weak
  _UNKNOWN unk_4E2E10; // weak
@@ -88,9 +87,6 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  char byte_4E2FD4; // idb
  _UNKNOWN unk_4E3030; // weak
  void *off_4E3044; // weak
- _UNKNOWN unk_4E3264; // weak
- _UNKNOWN unk_4E3278; // weak
- char byte_4E3294; // idb
  _UNKNOWN unk_4E3308; // weak
  _UNKNOWN unk_4E3318; // weak
  _UNKNOWN unk_4E3328; // weak

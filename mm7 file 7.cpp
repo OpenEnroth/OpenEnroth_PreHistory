@@ -7562,7 +7562,7 @@ void __cdecl sub_4B6943()
           if (pDialogueWindow->dword_00002C != v76 )
             v31 = *(_DWORD *)v68;
           v56[1] = (const char *)v31;
-          wsprintfA(v75, (const char *)&unk_4E2DC8, v31);
+          wsprintfA(v75, "\x0C%05d", v31);
           v77 = (unsigned __int8)byte_4F09B8[v30];
           if ( *(_DWORD *)(dword_507BC0 + 28) >= 63 )
           {
@@ -9037,7 +9037,7 @@ LABEL_43:
     v28 = *(_DWORD *)v89;
     if (pDialogueWindow->dword_00002C != 2 )
       v28 = v86;
-    wsprintfA(Dest, (const char *)&unk_4E2DC8, v28);
+    wsprintfA(Dest, "\x0C%05d", v28);
     wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[178], v96);
     strcat(Dest, (char *)pStringBuffer);
     v95 = Font_sub_44C59D(pFontArrus, Dest, (GUIWindow *)&v82, 0, 0);
@@ -9045,7 +9045,7 @@ LABEL_43:
     v29 = *(_DWORD *)v89;
     if (pDialogueWindow->dword_00002C != 3 )
       v29 = v86;
-    wsprintfA(&v77, (const char *)&unk_4E2DC8, v29);
+    wsprintfA(&v77, "\x0C%05d", v29);
     wsprintfA((char *)pStringBuffer,
       (char *)pGlobalTXT_LocalizationStrings[86],
       (signed __int64)*((float *)&unk_591458 + 13 * *(_DWORD *)(dword_507BC0 + 28)),
@@ -9056,7 +9056,7 @@ LABEL_43:
     v30 = *(_DWORD *)v89;
     if (pDialogueWindow->dword_00002C != 4 )
       v30 = v86;
-    wsprintfA(&v78, (const char *)&unk_4E2DC8, v30);
+    wsprintfA(&v78, "\x0C%05d", v30);
     strcat(&v78, (char *)pGlobalTXT_LocalizationStrings[160]);
     v87 = Font_sub_44C59D(pFontArrus, &v78, (GUIWindow *)&v82, 0, 0);
     strcat(&v78, "\n \n");
@@ -9070,7 +9070,7 @@ LABEL_43:
         v32 = *(_DWORD *)v89;
         if (pDialogueWindow->dword_00002C != 5 )
           v32 = v86;
-        wsprintfA(&v76, (const char *)&unk_4E2DC8, v32);
+        wsprintfA(&v76, "\x0C%05d", v32);
         strcat(&v76, (char *)pGlobalTXT_LocalizationStrings[611]);
         v92 = Font_sub_44C59D(pFontArrus, &v76, (GUIWindow *)&v82, 0, 0);
       }
