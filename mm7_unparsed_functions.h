@@ -312,7 +312,7 @@ void __thiscall class24_sub_426386(int _this);
 void __thiscall class24_sub_4263A0(class24 *_this);
 __int64 __thiscall sub_426429(void *_this);
 signed int __thiscall sub_42654C(int _this, int a2);
-DWORD __fastcall sub_426892(int a1, DWORD a2);
+
 int __fastcall sub_4268E3(unsigned int a1);
 int __fastcall sub_42690D(unsigned int a1);
 int __thiscall sub_426987(int _this);
@@ -720,7 +720,7 @@ void __cdecl sub_465F5A_InitializeAsyncMouseAndSomething();
 void __cdecl sub_465FF0_InitializeAsyncKeyboardAndSomething();
 void sub_4666D5();
 void __cdecl sub_4667E9();
-int __cdecl sub_466B8C();
+int __cdecl err_show();
 int __cdecl sub_466CA0();
 void *__thiscall sub_466D09(void *_this, int a2, int a3, int a4, int a5, const char *Str, int a7);
 void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UINT uType, char a7, int a8, int a9, int a10, int a11);

@@ -344,8 +344,8 @@ int CVideoPlayer_LoadVideoHeaders(struct CVideoPlayer *_this)
  ReadFile(_this->hMightVid, &_this->uNumMightVideoHeaders, 4, &w, 0);
  ReadFile(_this->hMagicVid, &_this->uNumMagicVideoHeaders, 4, &w, 0);
 
- _this->pMightVideoHeaders = (CVideoPlayer_movie_header_struct *)class23_AllocatedNamedBuffer(pClass23, 0, _this->uNumMightVideoHeaders * sizeof(struct CVideoPlayer_movie_header_struct) + 2, 0);
- _this->pMagicVideoHeaders = (CVideoPlayer_movie_header_struct *)class23_AllocatedNamedBuffer(pClass23, 0, _this->uNumMagicVideoHeaders * sizeof(struct CVideoPlayer_movie_header_struct) + 2, 0);
+ _this->pMightVideoHeaders = (CVideoPlayer_movie_header_struct *)mem_mng.AllocatedNamedBuffer( 0, _this->uNumMightVideoHeaders * sizeof(struct CVideoPlayer_movie_header_struct) + 2, 0);
+ _this->pMagicVideoHeaders = (CVideoPlayer_movie_header_struct *)mem_mng.AllocatedNamedBuffer( 0, _this->uNumMagicVideoHeaders * sizeof(struct CVideoPlayer_movie_header_struct) + 2, 0);
 
  ReadFile(_this->hMightVid, _this->pMightVideoHeaders, _this->uNumMightVideoHeaders * sizeof(struct CVideoPlayer_movie_header_struct), &w, 0);
  ReadFile(_this->hMagicVid, _this->pMagicVideoHeaders, _this->uNumMagicVideoHeaders * sizeof(struct CVideoPlayer_movie_header_struct), &w, 0);

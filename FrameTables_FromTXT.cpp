@@ -64,7 +64,7 @@ int CTextureFrameTable_InitializeFromTXT(struct CTextureFrameTable *_this, const
   }
   v5 = *(_DWORD *)(v3 + 4);
   *(_DWORD *)v3 = v4;
-  v6 = (int)class23_AllocatedNamedBuffer(pClass23, v5, 20 * v4, "Txt Frames");
+  v6 = (int)mem_mng.AllocatedNamedBuffer(  (void*)v5, 20 * v4, "Txt Frames");
   *(_DWORD *)(v3 + 4) = v6;
   if ( !v6 )
     erroneous_printf("CTextureFrameTable::load - Out of Memory!");
@@ -210,7 +210,7 @@ int CIconFrameTable_InitializeFromTXT(struct CIconFrameTable *_this, const char 
     v4 = v25;
   }
   *(_DWORD *)v3 = v4;
-  v5 = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 4), 32 * v4, "I Frames");
+  v5 = (int)mem_mng.AllocatedNamedBuffer( (void*) *(_DWORD *)(v3 + 4), 32 * v4, "I Frames");
   *(_DWORD *)(v3 + 4) = v5;
   if ( v5 )
   {
@@ -384,9 +384,9 @@ int SpriteFrameTable_LoadFromTXT(struct SpriteFrameTable *_this, const char *pSo
     v4 = v53;
   }
   *(_DWORD *)v3 = v4;
-  *(_DWORD *)(v3 + 12) = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 12), 60 * v4, "S Frames");
-  *(_DWORD *)(v3 + 20) = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 20), 2 * *(_DWORD *)v3, "E Frames");
-  *(_DWORD *)(v3 + 16) = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 16), 4 * *(_DWORD *)v3, "P Frames");
+  *(_DWORD *)(v3 + 12) = (int)mem_mng.AllocatedNamedBuffer( (void*) *(_DWORD *)(v3 + 12), 60 * v4, "S Frames");
+  *(_DWORD *)(v3 + 20) = (int)mem_mng.AllocatedNamedBuffer( (void*) *(_DWORD *)(v3 + 20), 2 * *(_DWORD *)v3, "E Frames");
+  *(_DWORD *)(v3 + 16) = (int)mem_mng.AllocatedNamedBuffer( (void*) *(_DWORD *)(v3 + 16), 4 * *(_DWORD *)v3, "P Frames");
   if ( *(_DWORD *)(v3 + 12) )
   {
     v7 = File;
@@ -715,7 +715,7 @@ int CTileTable_InitializeFromTXT(struct CTileTable *_this, const char *pSourceFi
     }
   }
   *(_DWORD *)v3 = v4;
-  v5 = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 4), 26 * v4, "Tile Descrip");
+  v5 = (int)mem_mng.AllocatedNamedBuffer( (void*) *(_DWORD *)(v3 + 4), 26 * v4, "Tile Descrip");
   *(_DWORD *)(v3 + 4) = v5;
   if ( !v5 )
     erroneous_printf("TileTable::Load - Out of Memory!");
@@ -1396,7 +1396,7 @@ int CPlayerFrameTable_InitializeFromTXT(struct CPlayerFrameTable *_this, const c
     v4 = v26;
   }
   *(_DWORD *)v3 = v4;
-  v5 = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 4), 10 * v4, "P Frames");
+  v5 = (int)mem_mng.AllocatedNamedBuffer((void*) * (_DWORD *)(v3 + 4), 10 * v4, "P Frames");
   *(_DWORD *)(v3 + 4) = v5;
   if ( !v5 )
     erroneous_printf("PlayerFrameTable::load - Out of Memory!");
@@ -1552,7 +1552,7 @@ int DecorationDescriptionList_InitializeFromTXT(struct DecorationDescriptionList
     v4 = v50;
   }
   *(_DWORD *)v3 = v4;
-  v5 = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 4), 84 * v4, "Dec Descrip");
+  v5 = (int)mem_mng.AllocatedNamedBuffer((void*) * (_DWORD *)(v3 + 4), 84 * v4, "Dec Descrip");
   *(_DWORD *)(v3 + 4) = v5;
   if ( !v5 )
     erroneous_printf("DecorationDescriptionList::load - Out of Memory!");
@@ -1776,7 +1776,7 @@ int CObjectDescriptionList_InitializeFromTXT(struct CObjectDescriptionList *_thi
   int j; // [sp+470h] [bp+8h]@15
 
   v3 = (int)_this;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(_this + 4));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 4));
   v4 = 0;
   *(_DWORD *)(v3 + 4) = 0;
   *(_DWORD *)v3 = 0;
@@ -1803,7 +1803,7 @@ int CObjectDescriptionList_InitializeFromTXT(struct CObjectDescriptionList *_thi
     v4 = 0;
   }
   *(_DWORD *)v3 = v5;
-  v6 = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 4), 56 * v5, "Obj Descrip");
+  v6 = (int)mem_mng.AllocatedNamedBuffer( (void*) *(_DWORD *)(v3 + 4), 56 * v5, "Obj Descrip");
   *(_DWORD *)(v3 + 4) = v6;
   if ( v6 == v4 )
     erroneous_printf("ObjectDescriptionList::load - Out of Memory!");
@@ -1951,7 +1951,7 @@ int COverlayDescriptionList_InitializeFromTXT(struct COverlayDescriptionList *_t
   int v23; // [sp+308h] [bp+8h]@3
 
   v3 = (int)_this;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(_this + 4));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 4));
   v4 = 0;
   *(_DWORD *)(v3 + 4) = 0;
   *(_DWORD *)v3 = 0;
@@ -1979,7 +1979,7 @@ int COverlayDescriptionList_InitializeFromTXT(struct COverlayDescriptionList *_t
   }
   v7 = *(_DWORD *)(v3 + 4);
   *(_DWORD *)v3 = v5;
-  v6 = (int)class23_AllocatedNamedBuffer(pClass23, v7, 8 * v5, "Ovl Des.");
+  v6 = (int)mem_mng.AllocatedNamedBuffer(  (void*)v7, 8 * v5, "Ovl Des.");
   *(_DWORD *)(v3 + 4) = v6;
   if ( v6 == v4 )
     erroneous_printf("OverlayDescriptionList::load - Out of Memory!");
@@ -2065,7 +2065,7 @@ int CSoundList_InitializeFromTXT(struct CSoundList *_this, const char *pSourceFi
   int v24; // [sp+304h] [bp+8h]@3
 
   v3 = (int)_this;
-  class23_DeleteBuffer(pClass23, *(_DWORD **)(_this + 4));
+  mem_mng.DeleteBuffer( *(_DWORD **)(_this + 4));
   v4 = 0;
   *(_DWORD *)(v3 + 4) = 0;
   *(_DWORD *)v3 = 0;
@@ -2092,7 +2092,7 @@ int CSoundList_InitializeFromTXT(struct CSoundList *_this, const char *pSourceFi
     v4 = 0;
   }
   *(_DWORD *)v3 = v5;
-  v6 = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 4), 120 * v5, "Snd Des.");
+  v6 = (int)mem_mng.AllocatedNamedBuffer( (void*) *(_DWORD *)(v3 + 4), 120 * v5, "Snd Des.");
   *(_DWORD *)(v3 + 4) = v6;
   if ( v6 == v4 )
     erroneous_printf("SoundListClass::load - Out of Memory!");

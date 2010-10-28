@@ -12,7 +12,7 @@
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-
+  #include "_lod.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
@@ -3069,7 +3069,7 @@ int __cdecl sub_443801()
   signed int v10; // [sp+14h] [bp-4h]@5
 
  if (p2DEventsTXT_Raw)
-   class23_DeleteBuffer(pClass23, (void *)p2DEventsTXT_Raw);
+   mem_mng.DeleteBuffer( (void *)p2DEventsTXT_Raw);
 
   p2DEventsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "2dEvents.txt", 0);
   strtok((char *)p2DEventsTXT_Raw, "\r");
@@ -3398,15 +3398,15 @@ void CreateRegistryWString(const wchar_t *pName, const wchar_t *pValue, unsigned
       hNewWorldComputing = 0,
       hVer10 = 0,
       hValue = 0;
- if (!RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE", 0, 0x2001Fu, &hSoftware))
+ if (!RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE", 0, 0x2001Fu, &hSoftware))
  {
-  if (!RegCreateKeyExA(hSoftware, "New World Computing", 0, "", 0, 983103u, 0, &hNewWorldComputing, 0))
+  if (!RegCreateKeyEx(hSoftware, L"New World Computing", 0, L"", 0, 983103u, 0, &hNewWorldComputing, 0))
   {
-   if (!RegCreateKeyExA(hNewWorldComputing, "Might and Magic VII", 0, "", 0, 0xF003Fu, 0, &hVer10, 0))
+   if (!RegCreateKeyEx(hNewWorldComputing,L"Might and Magic VII", 0, L"", 0, 0xF003Fu, 0, &hVer10, 0))
    {
-    if (!RegCreateKeyExA(hVer10, "1.0", 0, "", 0, 0xF003Fu, 0, &hValue, 0) )
+    if (!RegCreateKeyEx(hVer10, L"1.0", 0, L"", 0, 0xF003Fu, 0, &hValue, 0) )
     {
-     RegSetValueExW(hValue, pName, 0, 0, (BYTE *)pValue, uSize * sizeof(wchar_t));
+     RegSetValueEx(hValue, pName, 0, 0, (BYTE *)pValue, uSize * sizeof(wchar_t));
      RegCloseKey(hValue);
     }
     RegCloseKey(hVer10);
@@ -3425,13 +3425,13 @@ void CreateRegistryKey(const char *pName, const char *pValue)
       hNewWorldComputing = 0,
       hVer10 = 0,
       hValue = 0;
- if (!RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE", 0, 0x2001Fu, &hSoftware))
+ if (!RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE", 0, 0x2001Fu, &hSoftware))
  {
-  if (!RegCreateKeyExA(hSoftware, "New World Computing", 0, "", 0, 983103u, 0, &hNewWorldComputing, 0))
+  if (!RegCreateKeyEx(hSoftware, L"New World Computing", 0, L"", 0, 983103u, 0, &hNewWorldComputing, 0))
   {
-   if (!RegCreateKeyExA(hNewWorldComputing, "Might and Magic VII", 0, "", 0, 0xF003Fu, 0, &hVer10, 0))
+   if (!RegCreateKeyEx(hNewWorldComputing, L"Might and Magic VII", 0, L"", 0, 0xF003Fu, 0, &hVer10, 0))
    {
-    if (!RegCreateKeyExA(hVer10, "1.0", 0, "", 0, 0xF003Fu, 0, &hValue, 0))
+    if (!RegCreateKeyEx(hVer10, L"1.0", 0, L"", 0, 0xF003Fu, 0, &hValue, 0))
     {
      RegSetValueExA(hValue, pName, 0, REG_SZ, (BYTE *)pValue, lstrlenA(pValue) + 1);
      RegCloseKey(hValue);
@@ -4968,13 +4968,13 @@ int __fastcall RGBTexture_Release(int a2)
   char v3; // zf@1
   int result; // eax@2
   unsigned int v5; // [sp-4h] [bp-Ch]@1
-
+  result=0;
   v2 = a2;
   v3 = (*(_BYTE *)(a2 + 32) & 1) == 0;
   v5 = *(_DWORD *)(a2 + 36);
   *(_BYTE *)a2 = 0;
   if ( v3 )
-    result = class23_DeleteBuffer(pClass23, (void *)(void *)v5);
+     mem_mng.DeleteBuffer( (void *)(void *)v5);
   else
     /*result = */operator_delete((void *)v5);
   *(_DWORD *)(v2 + 32) = 0;
@@ -5081,8 +5081,8 @@ signed int __thiscall sub_40E55E(void *Source, unsigned int Filename, unsigned i
   if ( v12 )
   {
     if ( *((_DWORD *)v3 + 9) )
-      class23_DeleteBuffer(pClass23, (void *)*((_DWORD *)v3 + 9));
-    v13 = (int)class23_AllocatedNamedBuffer(pClass23, *((_DWORD *)v3 + 9), 2 * *((_DWORD *)v3 + 4) + 4, v3);
+      mem_mng.DeleteBuffer( (void *)*((_DWORD *)v3 + 9));
+    v13 = (int)mem_mng.AllocatedNamedBuffer( (void*) *((_DWORD *)v3 + 9), 2 * *((_DWORD *)v3 + 4) + 4, v3);
     goto LABEL_16;
   }
   if ( a3 != 1 && a3 == 2 )
@@ -5389,12 +5389,11 @@ signed int __thiscall sub_40EAD8(void *Source, FILE *File, unsigned int a3, int 
       {
         if ( *((_DWORD *)v4 + 9) )
         {
-          class23_DeleteBuffer(pClass23, (void *)*((_DWORD *)v4 + 9));
+          mem_mng.DeleteBuffer( (void *)*((_DWORD *)v4 + 9));
           *((_DWORD *)v4 + 9) = 0;
         }
-        *((_DWORD *)v4 + 9) = (int)class23_AllocatedNamedBuffer(
-                                pClass23,
-                                *((_DWORD *)v4 + 9),
+        *((_DWORD *)v4 + 9) = (int)mem_mng.AllocatedNamedBuffer(
+                                ((_DWORD *)v4 + 9),
                                 2 * *((_DWORD *)v4 + 4) + 4,
                                 (const char *)v4);
         v6 = 2;
@@ -5722,11 +5721,11 @@ signed int __thiscall sub_40F5F5(void *_this, const char *Str1)
   if ( Size )
   {
     v5 = (unsigned int)malloc(Size);
-    v24 = (int)class23_AllocatedNamedBuffer(pClass23, 0, v15, class18_obj);
+    v24 = (int)mem_mng.AllocatedNamedBuffer( 0, v15, class18_obj);
     locked_fread((void *)v24, 1u, Count, File);
     MemUnzip((void *)v5, (unsigned int *)&Size, (void *)v24, v15);
     v15 = Size;
-    class23_DeleteBuffer(pClass23, (void *)(void *)v24);
+    mem_mng.DeleteBuffer( (void *)(void *)v24);
   }
   else
   {
@@ -6994,7 +6993,7 @@ int __cdecl sub_41140B()
     do
     {
       v2 = *(_DWORD *)(v1 + 52);
-      class23_DeleteBuffer(pClass23, (void *)v1);
+      mem_mng.DeleteBuffer( (void *)v1);
       v1 = v2;
     }
     while ( v2 );
@@ -7042,13 +7041,13 @@ int __cdecl sub_411597()
 {
   int result; // eax@1
 
-  class23_DeleteBuffer(pClass23, (void *)dword_5C35E4);
+  mem_mng.DeleteBuffer( (void *)dword_5C35E4);
   dword_5C35E4 = 0;
-  class23_DeleteBuffer(pClass23, (void *)dword_5C35F4);
+  mem_mng.DeleteBuffer( (void *)dword_5C35F4);
   dword_5C35F4 = 0;
-  class23_DeleteBuffer(pClass23, (void *)dword_5C35F0);
+  mem_mng.DeleteBuffer( (void *)dword_5C35F0);
   dword_5C35F0 = 0;
-  class23_DeleteBuffer(pClass23, (void *)dword_5C35E0);
+  mem_mng.DeleteBuffer( (void *)dword_5C35E0);
   dword_5C35E0 = 0;
   class18_sub_40F77C((class18 *)dword_506498);
   AudioPlayer_sub_4AA306(pAudioPlayer, 231, 0, 0, -1, 0, 0, 0, 0);
@@ -9165,7 +9164,7 @@ int __fastcall sub_4A97C6(char *a1, int a2, _DWORD a3)
   v6 = *(_DWORD *)(v8 + 48);
   v23 = *(_DWORD *)(v8 + 48);
   if ( v5 == -1 )
-    v5 = (int)class23_AllocatedNamedBuffer(pClass23, 0, v6 + 4, Source);
+    v5 = (int)mem_mng.AllocatedNamedBuffer( 0, v6 + 4, Source);
   SetFilePointer(pAudioPlayer->hSoundsSource, *(_DWORD *)(v8 + 40), 0, 0);
   v9 = *(_DWORD *)v7;
   if ( *(_DWORD *)(v8 + 44) >= *(_DWORD *)v7 )
@@ -12751,7 +12750,7 @@ void __cdecl InitializeAwards()
   signed int v7; // [sp+14h] [bp-4h]@3
 
  if (pAwardsTXT_Raw)
-   class23_DeleteBuffer(pClass23, (void *)pAwardsTXT_Raw);
+   mem_mng.DeleteBuffer( (void *)pAwardsTXT_Raw);
 
  pAwardsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "awards.txt", 0);
  strtok((char *)pAwardsTXT_Raw, "\r");
@@ -13363,7 +13362,7 @@ void __thiscall GUIButton_sub_41D0D8(int _this)
       }
     }
     --*(_DWORD *)(*(_DWORD *)(_this + 56) + 32);
-    class23_DeleteBuffer(pClass23, (void *)_this);
+    mem_mng.DeleteBuffer( (void *)_this);
   }
 }
 
@@ -15706,8 +15705,8 @@ LABEL_8:
 int __cdecl sub_46080D()
 {
   int result; // eax@1
-
-  result = class23_DeleteBuffer(pClass23, (void *)dword_6A0D08);
+    result=0;
+  mem_mng.DeleteBuffer( (void *)dword_6A0D08);
   dword_6A0D08 = 0;
   dword_6A0D0C = 0;
   return result;

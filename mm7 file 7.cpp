@@ -10,7 +10,7 @@
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-
+  #include "_lod.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
@@ -11680,7 +11680,7 @@ LABEL_23:
       do
       {
         v7 = *(_DWORD *)(v6 + 52);
-        class23_DeleteBuffer(pClass23, (void *)(void *)v6);
+        mem_mng.DeleteBuffer( (void *)(void *)v6);
         v6 = v7;
       }
       while ( v7 );
@@ -14168,7 +14168,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   if ( pD3DRenderer->pRenderD3D3 )
     dword_EF52A8();
   Render_sub_49F1BC((int)pD3DRenderer, "MM7_Win.Pcx");
-  class23_DeleteBuffer(pClass23, (void *)(int *)v33);
+  mem_mng.DeleteBuffer( (void *)(int *)v33);
   GUIWindowDelete((GUIWindow *)dword_507BC0);
   dword_507BC0 = 0;
   if ( v26 == (void *)2 )

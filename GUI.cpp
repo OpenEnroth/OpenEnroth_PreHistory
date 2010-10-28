@@ -12,7 +12,7 @@
 #include "FrameTables.h"
 #include "_audio.h"
 #include "_video.h"
-
+ #include "_lod.h"
 
 unsigned int uTextureID_CurrentMenu;
 
@@ -3726,7 +3726,7 @@ LABEL_731:
           break;
 
         case 0x5D:
-          wsprintf((char *)TmpBuf, "%d / %d %s    %d / %d %s",
+          wsprintfA((char *)TmpBuf, "%d / %d %s    %d / %d %s",
             pPlayers[v209 - 1]->sHealth,
             Player_GetMaxHealth(pPlayers[v209 - 1]),
             pGlobalTXT_LocalizationStrings[108],
@@ -4293,7 +4293,7 @@ struct GUIButton *__fastcall GUIButtonCreate(struct GUIWindow *pParentWindow,
   struct class18 **v20; // ecx@5
  struct GUIButton *pButton;
 
- pButton = (GUIButton *)class23_AllocatedNamedBuffer(pClass23, 0, sizeof(struct GUIButton), "BUTTON");
+ pButton = (GUIButton *)mem_mng.AllocatedNamedBuffer( NULL, sizeof(struct GUIButton), "BUTTON");
 
  pButton->uX = uX + pParentWindow->uFrameX;
  pButton->uY = uY + pParentWindow->uFrameY;
@@ -4813,7 +4813,7 @@ LABEL_26:
       do
       {
         v9 = *(_DWORD *)(v8 + 52);
-        class23_DeleteBuffer(pClass23, (void *)v8);
+        mem_mng.DeleteBuffer( (void *)v8);
         v8 = v9;
       }
       while ( v9 );
@@ -4867,7 +4867,7 @@ struct Font *__cdecl LoadFont(const char *pFontFile, const char *pFontPalette)
 //----- (0049750E) --------------------------------------------------------
 void __cdecl DeleteFontCChar()
 {
-  class23_DeleteBuffer(pClass23, (void *)pFontCChar);
+  mem_mng.DeleteBuffer( (void *)pFontCChar);
   pFontCChar = 0;
 }
 

@@ -1,6 +1,6 @@
 #include "Party.h"
 #include "_audio.h"
-
+#include "_lod.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 

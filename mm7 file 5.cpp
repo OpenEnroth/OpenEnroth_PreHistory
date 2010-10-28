@@ -14,7 +14,7 @@
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-
+ #include "_lod.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
@@ -10383,7 +10383,7 @@ void __cdecl InitializeMerchants()
   char *v8; // [sp+10h] [bp-4h]@4
 
  if (pMerchantsTXT_Raw)
-   class23_DeleteBuffer(pClass23, (void *)pMerchantsTXT_Raw);
+   mem_mng.DeleteBuffer( (void *)pMerchantsTXT_Raw);
 
  pMerchantsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "merchant.txt", 0);
  strtok((char *)pMerchantsTXT_Raw, "\r");
@@ -10465,7 +10465,7 @@ void __cdecl InitializeTransitions()
  int i;
 
  if (pTransitionsTXT_Raw)
-   class23_DeleteBuffer(pClass23, (void *)pTransitionsTXT_Raw);
+   mem_mng.DeleteBuffer( (void *)pTransitionsTXT_Raw);
 
  pTransitionsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "trans.txt", 0);
  strtok((char *)pTransitionsTXT_Raw, "\r");
@@ -10544,28 +10544,28 @@ int __thiscall NPCStats_sub_477266(int _this)
   int v2; // esi@1
   int v3; // ST00_4@1
   int v4; // ebx@1
-
+  result=0;
   v2 = _this;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(_this + 98280));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 98280));
   v3 = *(_DWORD *)(v2 + 98284);
   *(_DWORD *)(v2 + 98276) = 0;
-  class23_DeleteBuffer(pClass23, (void *)v3);
+  mem_mng.DeleteBuffer( (void *)v3);
   *(_DWORD *)(v2 + 98276) = 0;
-  class23_DeleteBuffer(pClass23, (void *)0);
+  mem_mng.DeleteBuffer( (void *)0);
   *(_DWORD *)(v2 + 98276) = 0;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 98272));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 98272));
   *(_DWORD *)(v2 + 98272) = 0;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 98268));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 98268));
   *(_DWORD *)(v2 + 98268) = 0;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 98264));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 98264));
   *(_DWORD *)(v2 + 98264) = 0;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 98288));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 98288));
   *(_DWORD *)(v2 + 98288) = 0;
   v4 = v2 + 98292;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 98292));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 98292));
   v2 += 98296;
   *(_DWORD *)v4 = 0;
-  result = class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)v2);
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)v2);
   *(_DWORD *)v2 = 0;
   return result;
 }
@@ -11576,18 +11576,18 @@ int __thiscall sub_478389(int _this)
   int v3; // ST00_4@1
   int v4; // ST00_4@1
   int v5; // ST00_4@1
-
+  result=0;
   v2 = _this;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(_this + 4));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 4));
   v3 = *(_DWORD *)(v2 + 16);
   *(_DWORD *)(v2 + 4) = 0;
-  class23_DeleteBuffer(pClass23, (void *)v3);
+  mem_mng.DeleteBuffer( (void *)v3);
   v4 = *(_DWORD *)(v2 + 20);
   *(_DWORD *)(v2 + 16) = 0;
-  class23_DeleteBuffer(pClass23, (void *)v4);
+  mem_mng.DeleteBuffer( (void *)v4);
   v5 = *(_DWORD *)(v2 + 28);
   *(_DWORD *)(v2 + 20) = 0;
-  result = class23_DeleteBuffer(pClass23, (void *)v5);
+  mem_mng.DeleteBuffer( (void *)v5);
   *(_DWORD *)(v2 + 28) = 0;
   *(_DWORD *)(v2 + 24) = 0;
   *(_DWORD *)(v2 + 8) = 0;
@@ -13567,28 +13567,28 @@ int __thiscall class51_sub_47CDE2(int Dest)
   *(_WORD *)(v2 + 172) = 10;
   class51_sub_47F420((class51 *)v2);
   class51_sub_47F3EA((class51 *)v2);
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 216));
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 1220));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 216));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 1220));
   *(_DWORD *)(v2 + 216) = 0;
   *(_DWORD *)(v2 + 1220) = 0;
   class51_InitializeGeodata((class51_Geodata *)(v2 + 180));
   sub_47CCE2((void **)(v2 + 180));
   sub_47C80A((class51_Geodata *)(v2 + 180), 0, 0, 128, 128);
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 212));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 212));
   *(_DWORD *)(v2 + 212) = 0;
-  v3 = (int)class23_AllocatedNamedBuffer(pClass23, 0, 32768, "CMAP");
+  v3 = (int)mem_mng.AllocatedNamedBuffer( 0, 32768, "CMAP");
   v4 = *(_DWORD *)(v2 + 228);
   *(_DWORD *)(v2 + 212) = v3;
-  class23_DeleteBuffer(pClass23, (void *)v4);
+  mem_mng.DeleteBuffer( (void *)v4);
   *(_DWORD *)(v2 + 228) = 0;
-  v5 = (int)class23_AllocatedNamedBuffer(pClass23, 0, 65536, "OMAP");
+  v5 = (int)mem_mng.AllocatedNamedBuffer( 0, 65536, "OMAP");
   *(_DWORD *)(v2 + 228) = v5;
   memset((void *)v5, 0, 0x10000u);
   v6 = *(_DWORD *)(v2 + 224);
   *(_DWORD *)(v2 + 220) = 0;
-  class23_DeleteBuffer(pClass23, (void *)v6);
+  mem_mng.DeleteBuffer( (void *)v6);
   *(_DWORD *)(v2 + 224) = 0;
-  v7 = (int)class23_AllocatedNamedBuffer(pClass23, 0, 2, "IDLIST");
+  v7 = (int)mem_mng.AllocatedNamedBuffer( 0, 2, "IDLIST");
   *(_DWORD *)(v2 + 224) = v7;
   *(_WORD *)v7 = 0;
   strcpy((char *)(v2 + 96), byte_6BE114_cfg_textures_DefaultSkyTexture);
@@ -17559,7 +17559,7 @@ int __thiscall sub_487E1D(int _this)
   result = *(_DWORD *)(_this + 4);
   if ( result )
   {
-    result = class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(_this + 4));
+     mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 4));
     *(_DWORD *)(v2 + 4) = 0;
   }
   *(_DWORD *)v2 = 0;

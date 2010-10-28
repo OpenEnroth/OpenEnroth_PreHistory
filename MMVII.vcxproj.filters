@@ -211,6 +211,15 @@
     <ClCompile Include="Window.cpp">
       <Filter>Wight and Wagic</Filter>
     </ClCompile>
+    <ClCompile Include="_lod.cpp">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="c18.cpp">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
+    <ClCompile Include="memory_mng.cpp">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libpng143\png.h">
@@ -439,6 +448,15 @@
       <Filter>Wight and Wagic</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="_lod.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="c18.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="memory_mng.h">
       <Filter>Wight and Wagic</Filter>
     </ClInclude>
   </ItemGroup>

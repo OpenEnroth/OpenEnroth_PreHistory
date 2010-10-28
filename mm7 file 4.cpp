@@ -15,7 +15,7 @@
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-
+ #include "_lod.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
@@ -767,43 +767,8 @@ int __thiscall class24_sub_4263B7(struct class24 *_this)
   return result;
 }
 
-//----- (00426429) --------------------------------------------------------
-__int64 __thiscall sub_426429(void *_this)
-{
-  __int64 result; // qax@1
-  signed int v2; // ecx@1
 
-  LODWORD(result) = (int)_this;
-  v2 = 0;
-  *(_DWORD *)(result + 120016) = 0;
-  *(_DWORD *)(result + 120020) = 0;
-  HIDWORD(result) = result + 48000;
-  do
-  {
-    *(_DWORD *)(result + 4 * v2) = 0;
-    *(_DWORD *)(result + 4 * v2 + 24000) = 0;
-    compile_error;//*HIDWORD(result) = 0;
-    ++v2;
-    result += 51539607552i64;
-  }
-  while ( v2 < 6000 );
-  *(_DWORD *)(result + 120000) = 0;
-  return result;
-}
 
-//----- (00426892) --------------------------------------------------------
-DWORD __fastcall sub_426892(int a1, DWORD a2)
-{
-  DWORD result; // eax@1
-  DWORD v3; // edi@1
-  struct _SYSTEM_INFO SystemInfo; // [sp+8h] [bp-24h]@1
-
-  v3 = a2;
-  GetSystemInfo(&SystemInfo);
-  for ( result = 16 * SystemInfo.dwPageSize; result < v3; result += SystemInfo.dwPageSize )
-    ;
-  return result;
-}
 
 //----- (004268E3) --------------------------------------------------------
 int __fastcall sub_4268E3(unsigned int a1)
@@ -8101,27 +8066,27 @@ int __thiscall class40_sub_45814E(void *_this)
 
   v1 = _this;
   if ( pMonstersTXT_Raw )
-    class23_DeleteBuffer(pClass23, (void *)pMonstersTXT_Raw);
-  if ( pMonsterPlacementTXT_Raw )
-    class23_DeleteBuffer(pClass23, (void *)pMonsterPlacementTXT_Raw);
+    mem_mng.DeleteBuffer( (void *)pMonstersTXT_Raw);
+  if ( pMonsterPlacementTXT_Raw )  //not alloc
+    mem_mng.DeleteBuffer( (void *)pMonsterPlacementTXT_Raw);
   if ( pClassDescriptions )
-    class23_DeleteBuffer(pClass23, (void *)pClassDescriptions);
-  if ( *((_DWORD *)v1 + 17824) )
-    class23_DeleteBuffer(pClass23, (void *)*((_DWORD *)v1 + 17824));
+    mem_mng.DeleteBuffer( (void *)pClassDescriptions);
+  if ( *((_DWORD *)v1 + 17824) )		 //not allocade
+    mem_mng.DeleteBuffer( (void *)*((_DWORD *)v1 + 17824));
   if ( *((_DWORD *)v1 + 17823) )
-    class23_DeleteBuffer(pClass23, (void *)*((_DWORD *)v1 + 17823));
+    mem_mng.DeleteBuffer( (void *)*((_DWORD *)v1 + 17823));
   if ( *((_DWORD *)v1 + 17822) )
-    class23_DeleteBuffer(pClass23, (void *)*((_DWORD *)v1 + 17822));
+    mem_mng.DeleteBuffer( (void *)*((_DWORD *)v1 + 17822));
   if ( *((_DWORD *)v1 + 17821) )
-    class23_DeleteBuffer(pClass23, (void *)*((_DWORD *)v1 + 17821));
+    mem_mng.DeleteBuffer( (void *)*((_DWORD *)v1 + 17821));
   if ( pHostileTXT_Raw )
-    class23_DeleteBuffer(pClass23, (void *)pHostileTXT_Raw);
+    mem_mng.DeleteBuffer( (void *)pHostileTXT_Raw);
   if ( pHistoryTXT_Raw )
-    class23_DeleteBuffer(pClass23, (void *)pHistoryTXT_Raw);
+    mem_mng.DeleteBuffer( (void *)pHistoryTXT_Raw);
   if (pPotionsTXT_Raw)
-    class23_DeleteBuffer(pClass23, (void *)pPotionsTXT_Raw);
+    mem_mng.DeleteBuffer( (void *)pPotionsTXT_Raw);
   if ( pPotionNotesTXT_Raw )
-    class23_DeleteBuffer(pClass23, (void *)pPotionNotesTXT_Raw);
+    mem_mng.DeleteBuffer( (void *)pPotionNotesTXT_Raw);
   *((_DWORD *)v1 + 17824) = 0;
   pClassDescriptions[0] = 0;
   *((_DWORD *)v1 + 17823) = 0;
@@ -8428,7 +8393,7 @@ signed int __thiscall sub_458B9C(int _this, const char *a2)
   int v21; // [sp+300h] [bp+8h]@3
 
   v3 = _this;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD **)(_this + 4));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD **)(_this + 4));
   v4 = 0;
   *(_DWORD *)(v3 + 4) = 0;
   *(_DWORD *)v3 = 0;
@@ -8456,7 +8421,7 @@ signed int __thiscall sub_458B9C(int _this, const char *a2)
   }
   v7 = *(_DWORD *)(v3 + 4);
   *(_DWORD *)v3 = v5;
-  v6 = (int)class23_AllocatedNamedBuffer(pClass23, v7, 36 * v5, "Chest Descrip");
+  v6 = (int)mem_mng.AllocatedNamedBuffer( (void*)v7, 36 * v5, "Chest Descrip");
   *(_DWORD *)(v3 + 4) = v6;
   if ( v6 == v4 )
     erroneous_printf("ChestDescriptionList::load - Out of Memory!");
@@ -8585,7 +8550,8 @@ signed int __thiscall sub_4598FC(int _this, const char *a2)
     v4 = v50;
   }
   *(_DWORD *)v3 = v4;
-  v5 = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v3 + 4), 152 * v4, "Mon Race");
+  //mem_mng.AllocatedNamedBuffer(
+  v5 = (int)mem_mng.AllocatedNamedBuffer( (void*) *(_DWORD *)(v3 + 4), 152 * v4, "Mon Race");
   *(_DWORD *)(v3 + 4) = v5;
   if ( !v5 )
     erroneous_printf("MonsterRaceListStruct::load - Out of Memory!");
@@ -12074,7 +12040,7 @@ void *__cdecl sub_45E006()
     result = (void *)*v0;
     if ( *v0 )
     {
-      class23_DeleteBuffer(pClass23, (void *)*v0);
+      mem_mng.DeleteBuffer( (void *)*v0);
       result = memset(v0 - 9, 0, 0x28u);
     }
     v0 += 10;
@@ -13120,7 +13086,7 @@ char __thiscall sub_460A78(void *_this)
     v3 = v41;
   }
   dword_6BE13C = v43;
-  class23_DeleteBuffer(pClass23, (void *)dword_6A0D08);
+  mem_mng.DeleteBuffer( (void *)dword_6A0D08);
   dword_6A0D08 = 0;
   dword_6A0D0C = 0;
   TryLoadLevelFromFile();
@@ -13440,8 +13406,8 @@ int __thiscall LODFile_sub_461431(int _this)
   {
     *(_BYTE *)(_this + 532) = 0;
     *(_DWORD *)(_this + 548) = 0;
-    class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(_this + 560));
-    class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v1 + 528));
+    mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 560));
+    mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v1 + 528));
     v3 = *(FILE **)v1;
     *(_DWORD *)(v1 + 560) = 0;
     *(_DWORD *)(v1 + 528) = 0;
@@ -13493,7 +13459,7 @@ int __thiscall sub_461790(int _this)
   if ( *(_DWORD *)(_this + 260) )
   {
     fclose(*(FILE **)_this);
-    result = class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v1 + 560));
+    mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v1 + 560));
   }
   return result;
 }
@@ -13507,9 +13473,9 @@ int __thiscall sub_461A11(int _this)
 
   v2 = _this;
   v3 = _this + 560;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(_this + 560));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 560));
   v2 += 264;
-  result = class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)v2);
+   mem_mng.DeleteBuffer( (void *)*(_DWORD *)v2);
   *(_DWORD *)v2 = 0;
   *(_DWORD *)v3 = 0;
   return result;
@@ -13726,8 +13692,8 @@ void __fastcall sub_462463(char *_this)
   v1 = (int)_this;
   if ( !(*(_BYTE *)(_this + 27) & 4) )
   {
-    class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(_this + 36));
-    result = class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v1 + 32));
+    mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 36));
+     mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v1 + 32));
   }
   *(_DWORD *)(v1 + 36) = 0;
   *(_DWORD *)(v1 + 32) = 0;

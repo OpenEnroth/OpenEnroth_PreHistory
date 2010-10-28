@@ -14,7 +14,7 @@
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-
+#include "_lod.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
@@ -3590,7 +3590,7 @@ int CreditsMenuLoop()
   v6 = sub_44C62E(v5, v4, v1, (int)&v23, 0, 1);
   v29.uHeight = v6 + 2 * v26;
   v29.uNumPixels = v29.uWidth * v29.uHeight;
-  v29.pPixels = (unsigned int *)class23_AllocatedNamedBuffer(pClass23, (int)v29.pPixels, 2 * v29.uNumPixels, "scrollermap");
+  v29.pPixels = (unsigned int *)mem_mng.AllocatedNamedBuffer( v29.pPixels, 2 * v29.uNumPixels, "scrollermap");
   v8 = v29.uNumPixels;
   v9 = 0xFF00FFFF;
   sub_452AF3(v9, v29.pPixels, v8);
@@ -3678,9 +3678,9 @@ int CreditsMenuLoop()
   Render_EndScene(pD3DRenderer);
   Render_Present(pD3DRenderer);
   AudioPlayer_sub_4AA258((int)pAudioPlayer, 1);
-  class23_DeleteBuffer(pClass23, (void *)Source);
-  class23_DeleteBuffer(pClass23, (void *)(void *)v38);
-  class23_DeleteBuffer(pClass23, (void *)(void *)v39);
+  mem_mng.DeleteBuffer( (void *)Source);
+  mem_mng.DeleteBuffer( (void *)(void *)v38);
+  mem_mng.DeleteBuffer( (void *)(void *)v39);
   GUIWindowDelete(pGUIWindow_MainMenu);
   v14 = LODFile_sub_4114F2(pLODFile_Icons_LOD);
   v15 = RGBTexture_Release((int)&v19);
@@ -4289,15 +4289,15 @@ int __thiscall sub_498B15(int _this)
 
   v2 = _this;
   v3 = _this + 692;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(_this + 692));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 692));
   *(_DWORD *)v3 = 0;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 688));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 688));
   *(_DWORD *)(v2 + 688) = 0;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 696));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 696));
   *(_DWORD *)(v2 + 696) = 0;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 684));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 684));
   *(_DWORD *)(v2 + 684) = 0;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 704));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 704));
   v4 = *(_DWORD *)(v2 + 628);
   *(_DWORD *)(v2 + 704) = 0;
   *(_DWORD *)(v2 + 648) = 0;
@@ -4306,14 +4306,14 @@ int __thiscall sub_498B15(int _this)
   *(_DWORD *)(v2 + 672) = 0;
   *(_DWORD *)(v2 + 664) = 0;
   *(_DWORD *)(v2 + 656) = 0;
-  class23_DeleteBuffer(pClass23, (void *)v4);
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 636));
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 644));
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 652));
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 660));
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 668));
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 676));
-  result = class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v2 + 680));
+  mem_mng.DeleteBuffer( (void *)v4);
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 636));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 644));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 652));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 660));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 668));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 676));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 680));
   *(_DWORD *)(v2 + 628) = 0;
   *(_DWORD *)(v2 + 636) = 0;
   *(_DWORD *)(v2 + 644) = 0;
@@ -4349,28 +4349,28 @@ signed int __thiscall sub_498C45(int _this)
   signed int result; // eax@9
 
   v3 = _this;
-  v4 = (int)class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(_this + 628), 90000, "L.V");
+  v4 = (int)mem_mng.AllocatedNamedBuffer((void*) *(_DWORD *)(_this + 628), 90000, "L.V");
   v5 = *(_DWORD *)(v3 + 636);
   *(_DWORD *)(v3 + 628) = v4;
-  v6 = (int)class23_AllocatedNamedBuffer(pClass23, v5, 960000, "L.F");
+  v6 = (int)mem_mng.AllocatedNamedBuffer(  (void*)v5, 960000, "L.F");
   v7 = *(_DWORD *)(v3 + 644);
   *(_DWORD *)(v3 + 636) = v6;
-  v8 = (int)class23_AllocatedNamedBuffer(pClass23, v7, 180000, "L.FX");
+  v8 = (int)mem_mng.AllocatedNamedBuffer(  (void*)v7, 180000, "L.FX");
   v9 = *(_DWORD *)(v3 + 652);
   *(_DWORD *)(v3 + 644) = v8;
-  v10 = (int)class23_AllocatedNamedBuffer(pClass23, v9, 59392, "L.R");
+  v10 = (int)mem_mng.AllocatedNamedBuffer( (void*) v9, 59392, "L.R");
   v11 = *(_DWORD *)(v3 + 660);
   *(_DWORD *)(v3 + 652) = v10;
-  v12 = (int)class23_AllocatedNamedBuffer(pClass23, v11, 6400, "L.L");
+  v12 = (int)mem_mng.AllocatedNamedBuffer( (void*) v11, 6400, "L.L");
   v13 = *(_DWORD *)(v3 + 668);
   *(_DWORD *)(v3 + 660) = v12;
-  v14 = (int)class23_AllocatedNamedBuffer(pClass23, v13, 16000, "L.D");
+  v14 = (int)mem_mng.AllocatedNamedBuffer(  (void*)v13, 16000, "L.D");
   v15 = *(_DWORD *)(v3 + 676);
   *(_DWORD *)(v3 + 668) = v14;
-  v16 = (int)class23_AllocatedNamedBuffer(pClass23, v15, 40000, "L.BSP");
+  v16 = (int)mem_mng.AllocatedNamedBuffer(  (void*)v15, 40000, "L.BSP");
   v17 = *(_DWORD *)(v3 + 680);
   *(_DWORD *)(v3 + 676) = v16;
-  v1 = (int)class23_AllocatedNamedBuffer(pClass23, v17, 84004, "L.Map");
+  v1 = (int)mem_mng.AllocatedNamedBuffer(  (void*)v17, 84004, "L.Map");
   v2 = *(void **)(v3 + 628);
   *(_DWORD *)(v3 + 680) = v1;
   if ( v2
@@ -4728,7 +4728,7 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
       locked_fread((void *)(v6 + 632), 4u, 1u, v8);
       fseek(v8, v242, 0);
       locked_fread(*(void **)(v6 + 636), 0x60u, *(_DWORD *)(v6 + 632), v8);
-      v10 = class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v6 + 684), *(_DWORD *)(v6 + 592), "L.FData");
+      v10 = mem_mng.AllocatedNamedBuffer( *(_DWORD *)(v6 + 684), *(_DWORD *)(v6 + 592), "L.FData");
       v234 = (int)v8;
       *(_DWORD *)(v6 + 684) = v10;
       locked_fread((void *)v10, 1u, *(_DWORD *)(v6 + 592), (FILE *)v234);
@@ -4849,7 +4849,7 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
       locked_fread((void *)(v6 + 648), 4u, 1u, v8);
       fseek(v8, v246, 0);
       locked_fread(*(void **)(v6 + 652), 0x74u, *(_DWORD *)(v6 + 648), v8);
-      v32 = class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v6 + 688), *(_DWORD *)(v6 + 596), "L.RData");
+      v32 = mem_mng.AllocatedNamedBuffer( *(_DWORD *)(v6 + 688), *(_DWORD *)(v6 + 596), "L.RData");
       v234 = (int)v8;
       *(_DWORD *)(v6 + 688) = v32;
       locked_fread((void *)v32, 1u, *(_DWORD *)(v6 + 596), (FILE *)v234);
@@ -4906,7 +4906,7 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
         }
         while ( v289 < *(_DWORD *)(v6 + 648) );
       }
-      v49 = class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v6 + 696), *(_DWORD *)(v6 + 600), "L.RLData");
+      v49 = mem_mng.AllocatedNamedBuffer( *(_DWORD *)(v6 + 696), *(_DWORD *)(v6 + 600), "L.RLData");
       v234 = (int)v8;
       *(_DWORD *)(v6 + 696) = v49;
       locked_fread((void *)v49, 1u, *(_DWORD *)(v6 + 600), (FILE *)v234);
@@ -4934,7 +4934,7 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
       locked_fread((void *)(v6 + 664), 4u, 1u, v8);
       fseek(v8, v248, 0);
       locked_fread(*(void **)(v6 + 668), 0x50u, 0xC8u, v8);
-      v55 = class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v6 + 692), *(_DWORD *)(v6 + 604), "L.DData");
+      v55 = mem_mng.AllocatedNamedBuffer( *(_DWORD *)(v6 + 692), *(_DWORD *)(v6 + 604), "L.DData");
       v234 = (int)v8;
       *(_DWORD *)(v6 + 692) = v55;
       locked_fread((void *)v55, 1u, *(_DWORD *)(v6 + 604), (FILE *)v234);
@@ -5091,7 +5091,7 @@ LABEL_50:
       locked_fread(*(void **)(v6 + 676), 8u, *(_DWORD *)(v6 + 672), v8);
       fseek(v8, v262, 0);
       locked_fread((void *)(v6 + 700), 4u, 1u, v8);
-      v88 = class23_AllocatedNamedBuffer(pClass23, *(_DWORD *)(v6 + 704), 24 * *(_DWORD *)(v6 + 700), "Spawn");
+      v88 = mem_mng.AllocatedNamedBuffer( *(_DWORD *)(v6 + 704), 24 * *(_DWORD *)(v6 + 700), "Spawn");
       v234 = 0;
       *(_DWORD *)(v6 + 704) = v88;
       fseek(v8, v263, v234);
@@ -5197,7 +5197,7 @@ LABEL_50:
   v234 = (int)"L.FData";
   v233 = *(_DWORD *)(v6 + 592);
   v232 = *(_DWORD *)(v6 + 684);
-  v102 = class23_AllocatedNamedBuffer(pClass23, v232, v233, "L.FData");
+  v102 = mem_mng.AllocatedNamedBuffer( v232, v233, "L.FData");
   v103 = *(_DWORD *)(v6 + 592);
   *(_DWORD *)(v6 + 684) = v102;
   v283 = v103;
@@ -5343,7 +5343,7 @@ LABEL_50:
   v234 = (int)"L.RData";
   v233 = *(_DWORD *)(v6 + 596);
   v232 = *(_DWORD *)(v6 + 688);
-  v134 = class23_AllocatedNamedBuffer(pClass23, v232, v233, "L.RData");
+  v134 = mem_mng.AllocatedNamedBuffer( v232, v233, "L.RData");
   v135 = *(_DWORD *)(v6 + 596);
   *(_DWORD *)(v6 + 688) = v134;
   v283 = v135;
@@ -5405,7 +5405,7 @@ LABEL_50:
   v234 = (int)"L.RLData";
   v233 = *(_DWORD *)(v6 + 600);
   v232 = *(_DWORD *)(v6 + 696);
-  v152 = class23_AllocatedNamedBuffer(pClass23, v232, v233, "L.RLData");
+  v152 = mem_mng.AllocatedNamedBuffer( v232, v233, "L.RLData");
   v153 = *(_DWORD *)(v6 + 600);
   *(_DWORD *)(v6 + 696) = v152;
   v283 = v153;
@@ -5486,7 +5486,7 @@ LABEL_50:
   v234 = (int)"Spawn";
   v233 = 24 * v166;
   v232 = *(_DWORD *)(v6 + 704);
-  v167 = class23_AllocatedNamedBuffer(pClass23, v232, 24 * v166, "Spawn");
+  v167 = mem_mng.AllocatedNamedBuffer( v232, 24 * v166, "Spawn");
   v168 = *(_DWORD *)(v6 + 700);
   *(_DWORD *)(v6 + 704) = v167;
   v283 = 24 * v168;
@@ -5742,7 +5742,7 @@ LABEL_165:
   v234 = (int)"L.DData";
   v233 = *(_DWORD *)(v6 + 604);
   v232 = *(_DWORD *)(v6 + 692);
-  v198 = class23_AllocatedNamedBuffer(pClass23, v232, v233, "L.DData");
+  v198 = mem_mng.AllocatedNamedBuffer( v232, v233, "L.DData");
   v199 = *(_DWORD *)(v6 + 604);
   *(_DWORD *)(v6 + 692) = v198;
   memcpy((void *)v198, Src, v199);
@@ -8847,7 +8847,7 @@ int __thiscall sub_49EB79(int _this)
   int v3; // eax@1
 
   v2 = _this;
-  class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(_this + 262200));
+  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 262200));
   sub_45271F(v2 + 262420);
   v3 = sub_45271F(v2 + 662444);
   sub_49FE05((Render *)v2);//sub_49FE05(v3, v2);
@@ -8995,7 +8995,7 @@ void __thiscall Render_sub_49EDB6(int _this)
       locked_fwrite(&v39, 2, 1u, v6);
       locked_fwrite(&v40, 2, 1u, v6);
       locked_fwrite(&v15, 0x3Au, 1u, v6);
-      v41 = (int)class23_AllocatedNamedBuffer(pClass23, 0, 3 * v26 + 6, 0);
+      v41 = (int)mem_mng.AllocatedNamedBuffer( 0, 3 * v26 + 6, 0);
       if ( v43 > 0 )
       {
         v8 = v44;
@@ -9068,7 +9068,7 @@ void __thiscall Render_sub_49EDB6(int _this)
       {
         Render_EndScene(pD3DRenderer);
       }
-      class23_DeleteBuffer(pClass23, (void *)(void *)v41);
+      mem_mng.DeleteBuffer( (void *)(void *)v41);
       fclose(v6);
     }
   }
@@ -9189,7 +9189,7 @@ void __thiscall Render_sub_49F1BC(int _this, const char *Filename)
       locked_fwrite(&v39, 2, 1u, v7);
       locked_fwrite(&v40, 2, 1u, v7);
       locked_fwrite(&v16, 0x3Au, 1u, v7);
-      v41 = (int)class23_AllocatedNamedBuffer(pClass23, 0, 3 * v25 + 6, 0);
+      v41 = (int)mem_mng.AllocatedNamedBuffer( 0, 3 * v25 + 6, 0);
       if ( (signed int)Filename > 0 )
       {
         v9 = v43;
@@ -9262,7 +9262,7 @@ void __thiscall Render_sub_49F1BC(int _this, const char *Filename)
       {
         Render_EndScene(pD3DRenderer);
       }
-      class23_DeleteBuffer(pClass23, (void *)(void *)v41);
+      mem_mng.DeleteBuffer( (void *)(void *)v41);
       fclose(v7);
     }
   }
@@ -9349,7 +9349,7 @@ FILE *__thiscall sub_49F8B5(void *_this, FILE *Filename, int a3, int a4, int a5)
     locked_fwrite(&v33, 2, 1u, v7);
     locked_fwrite(&v34, 2, 1u, v7);
     locked_fwrite(&v14, 0x3Au, 1u, v7);
-    v35 = (int)class23_AllocatedNamedBuffer(pClass23, 0, 3 * a4 + 6, 0);
+    v35 = (int)mem_mng.AllocatedNamedBuffer( 0, 3 * a4 + 6, 0);
     if ( a5 > 0 )
     {
       v9 = v36;
@@ -9412,7 +9412,7 @@ FILE *__thiscall sub_49F8B5(void *_this, FILE *Filename, int a3, int a4, int a5)
         v9 = v36;
       }
     }
-    class23_DeleteBuffer(pClass23, (void *)(void *)v35);
+    mem_mng.DeleteBuffer( (void *)(void *)v35);
     result = (FILE *)fclose(v7);
   }
   return result;
@@ -13542,7 +13542,7 @@ void *__thiscall sub_4A96BE(void *_this)
     if ( (signed int)result >= (signed int)&unk_F79154 )
       return result;
   }
-  class23_DeleteBuffer(pClass23, (void *)(int)_this);
+  mem_mng.DeleteBuffer( (void *)(int)_this);
   return memset(&struct_F1B4D8[v2], 0, sizeof(struct unnamed_F1B4D8));
 }
 

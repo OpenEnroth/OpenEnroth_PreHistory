@@ -9,7 +9,7 @@
 
 #include "defs.h"
 #include "AIL.h"
-
+  #include "_lod.h"
 #include "classes.h"
 #include "data.h"
 #include "_audio.h"
@@ -37,8 +37,7 @@ void RtlCallCtors()
  //hMM7Text_dll = LoadLibraryW(L"mm7text.dll");
  //sprintfex = (int (__cdecl *)(char *, const char *, ...))(GetProcAddress(hMM7Text_dll, "_sprintfex"));
 
- pClass23 = new class23;
- memset(pClass23, 0, sizeof(class23));
+ 
 
  //moved creation of d3d here since sub_40DEF3 uses it
  pD3DRenderer = new Render;
@@ -214,7 +213,7 @@ LABEL_21:
           //DeleteFontCChar();
           byte_50794A = 1;
           //PlayMovie(4, 0);
-           MaybeDoAutosave();
+         //  MaybeDoAutosave();	  broke
           sub_463149();
           goto LABEL_49;
         }
@@ -1244,11 +1243,11 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
                                hInst, 0);*/
  SetPriorityClass(GetCurrentProcess(), NORMAL_PRIORITY_CLASS);
  
- GetCurrentDirectoryW(255, pGameDirectory);
+ GetCurrentDirectory(255, pGameDirectory);
  wsprintfW(pMM6ConfigFilename, L"%s\\mm6.ini", pGameDirectory);
 
 
- if (!class23_AllocateBigBuffer(pClass23, 27000))
+ if (!mem_mng.AllocateBigBuffer( 27000))
  {
   MessageBoxW(0, L"Unable to Allocate 26MB of RAM", L"More RAM Memory Required", 48);
   return 0;
@@ -1279,7 +1278,7 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
  LODFile_ctor(pLODFile_Icons_LOD);
  if (!LODFile_LoadLOD_Icons_Events(pLODFile_Icons_LOD, "data\\icons.lod"))
  {
-  MessageBoxW(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
+  MessageBox(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
   return 0;
  }
 
@@ -1287,7 +1286,7 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
  LODFile_ctor(pLODFile_Events_LOD);
  if (!LODFile_LoadLOD_Icons_Events(pLODFile_Events_LOD, "data\\events.lod"))
  {
-  MessageBoxW(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
+  MessageBox(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
   return 0;
  }
 
@@ -1297,15 +1296,16 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
  LODFile_ctor(pLODFile_Bitmaps_LOD);
  if (!LODFile_LoadLOD_Bitmaps(pLODFile_Bitmaps_LOD, "data\\bitmaps.lod"))
  {
-   MessageBoxW(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
+   MessageBox(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
    return 0;
  }
 
  pLODFile_Icons_LOD->dword_011BA4 = 0;
- bUseRegistry = GetPrivateProfileIntW(L"settings", L"registry", 1, pMM6ConfigFilename);
+ bUseRegistry = GetPrivateProfileInt(L"settings", L"registry", 1, pMM6ConfigFilename);
  if (!bUseRegistry)
-   bUseLoResSprites = GetPrivateProfileIntW(L"settings", L"resolution", 0, pMM6ConfigFilename);
- else bUseLoResSprites = ReadWindowsRegistry("resolution", 0);
+   bUseLoResSprites = GetPrivateProfileInt(L"settings", L"resolution", 0, pMM6ConfigFilename);
+ else 
+	bUseLoResSprites = ReadWindowsRegistry("resolution", 0);
 
  pLODFile_Sprites_LOD = new LODFile;
  LODFile_ctor(pLODFile_Sprites_LOD);
@@ -14504,5 +14504,5 @@ void erroneous_printf(const char *Format, ...)
 
   ClipCursor(0);
   MessageBoxA(0, (char *)TmpBuf, "Error", 0x30u);
-  sub_464761((void *)1);
+ // sub_464761((void *)1);
 }

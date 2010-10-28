@@ -3,7 +3,7 @@
 
 #include "defs.h"
 
-
+ #include "_lod.h"
 
 #include "AIL.h"
 
@@ -529,7 +529,7 @@ bool MaybeDoAutosave()
   if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
     CVideoPlayer_UnloadAll(pVideoPlayer);
 
-  DstBuf = (void *)class23_AllocatedNamedBuffer(pClass23, 0, 1000000, 0);
+  DstBuf =mem_mng.AllocatedNamedBuffer(0, 1000000, 0);
   LODFile_sub_461EE9(pLODFile_New_LOD);
   remove("data\\new.lod");
 
@@ -548,7 +548,7 @@ bool MaybeDoAutosave()
 
   if (!LODFile_LoadLOD_Games(pLODFile_New_LOD, "data\\new.lod", 0))
   { 
-   class23_DeleteBuffer(pClass23, (void *)(int)DstBuf);
+   mem_mng.DeleteBuffer(DstBuf);
    return false;
   }
 
@@ -603,8 +603,8 @@ bool MaybeDoAutosave()
 
 
     SaveGame(1, 1);
-
-  class23_DeleteBuffer(pClass23, (void *)(int)DstBuf);
+   //mem_mng.DeleteBuffer(
+  mem_mng.DeleteBuffer((void *)DstBuf);
   return true;
 }
 
@@ -901,10 +901,10 @@ LABEL_69:
 void __cdecl ReleaseDrawBuffers()
 {
 
-  class23_DeleteBuffer(pClass23, (void *)pSpansBuf);
-  class23_DeleteBuffer(pClass23, (void *)pEdgesBuf);
-  class23_DeleteBuffer(pClass23, (void *)pSurfsBuf);
-  class23_DeleteBuffer(pClass23, (void *)pNewEdgesBuf);
+  mem_mng.DeleteBuffer( (void *)pSpansBuf);
+  mem_mng.DeleteBuffer( (void *)pEdgesBuf);
+  mem_mng.DeleteBuffer( (void *)pSurfsBuf);
+  mem_mng.DeleteBuffer( (void *)pNewEdgesBuf);
   pSpansBuf = 0;
   pEdgesBuf = 0;
   pSurfsBuf = 0;
@@ -1101,7 +1101,7 @@ void *__thiscall sub_458B4F(void *Dst, void *Src)
 
   v3 = Dst;
   memcpy(Dst, Src, 4u);
-  v4 = (int)class23_AllocatedNamedBuffer(pClass23, *((_DWORD *)v3 + 1), 36 * *(_DWORD *)v3, "Chest Descrip");
+  v4 = (int)mem_mng.AllocatedNamedBuffer( (void*) *((_DWORD *)v3 + 1), 36 * *(_DWORD *)v3, "Chest Descrip");
   *((_DWORD *)v3 + 1) = v4;
   return memcpy((void *)v4, (char *)Src + 4, 36 * *(_DWORD *)v3);
 }
@@ -1857,7 +1857,7 @@ void __cdecl InitializeQuests()
   signed int v7; // [sp+14h] [bp-4h]@4
 
  if (pQuestsTXT_Raw)
-   class23_DeleteBuffer(pClass23, (void *)pQuestsTXT_Raw);
+   mem_mng.DeleteBuffer( (void *)pQuestsTXT_Raw);
 
  pQuestsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "quests.txt", 0);
  strtok((char *)pQuestsTXT_Raw, "\r");
@@ -4242,7 +4242,7 @@ LABEL_34:
 }
 
 //----- (00466B8C) --------------------------------------------------------
-int __cdecl sub_466B8C()
+int __cdecl err_show()
 {
  if ( !pGame->dword_000004 )
   {
@@ -4369,7 +4369,7 @@ int sub_49F5A2(void *_this, int a2, int a3, int a4, void *Dst, int a6, int a7)
   v9 = (char *)v9 + 2;
   memcpy(v9, v18, 0x3Au);
   v8 = (char *)v9 + 58;
-  v41 = (int)class23_AllocatedNamedBuffer(pClass23, 0, 3 * a3 + 6, 0);
+  v41 = (int)mem_mng.AllocatedNamedBuffer( 0, 3 * a3 + 6, 0);
   if ( a4 > 0 )
   {
     v11 = v42;
@@ -4438,7 +4438,7 @@ int sub_49F5A2(void *_this, int a2, int a3, int a4, void *Dst, int a6, int a7)
       v11 = v42;
     }
   }
-  class23_DeleteBuffer(pClass23, (void *)v41);
+  mem_mng.DeleteBuffer( (void *)v41);
   result = a7;
   *(_DWORD *)a7 = (char *)v8 - Dst;
   return result;
@@ -4998,7 +4998,7 @@ int __cdecl sub_4645FA()
   }
   RegistryWriteInt("debug flags", dword_51076C);
   RegistryWriteInt("valAlwaysRun", dword_6BE37C);
-  class40_sub_45814E(pClass40);
+  ///class40_sub_45814E(pClass40);	free not itnit mem
   NPCStats_sub_477266((int)pNPCStats);
   sub_465C53();
   sub_465C2C();
@@ -7406,7 +7406,7 @@ void __cdecl InitializeAutonotes()
   signed int v7; // [sp+0h] [bp-4h]@4
 
  if (pAutonoteTXT_Raw)
-   class23_DeleteBuffer(pClass23, (void *)pAutonoteTXT_Raw);
+   mem_mng.DeleteBuffer( (void *)pAutonoteTXT_Raw);
 
  pAutonoteTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "autonote.txt", 0);
  strtok((char *)pAutonoteTXT_Raw, "\r");
@@ -7514,7 +7514,7 @@ int LoadFileToBuffer(const char *pSourceFile, unsigned char *pOutBuffer, unsigne
  }
 
  memcpy(pOutBuffer, Src, v5);
- class23_DeleteBuffer(pClass23, (void *)Src);
+ mem_mng.DeleteBuffer( (void *)Src);
  return v5;
 }
 
@@ -8869,7 +8869,7 @@ void sub_448B67(bool a1)
             }
             v12 = *((_WORD *)v4 - 2);
             dword_597F18 = *((_WORD *)v4 - 1);
-            sub_44684A_LooksLikeEventProcessor(v12, 0, 1);
+          //  sub_44684A_LooksLikeEventProcessor(v12, 0, 1);
             dword_597F18 = 0;
 LABEL_25:
             v3 = HIDWORD(pParty_global->qword_00002C);
@@ -9118,16 +9118,16 @@ void AllocateDrawBuffers(void *_this)
   {
     ReleaseDrawBuffers();
 
-    pSpansBuf = (Span *)class23_AllocatedNamedBuffer(pClass23, (int)pSpansBuf, 12500 * sizeof(struct Span), "SPANS");
+    pSpansBuf = (Span *)mem_mng.AllocatedNamedBuffer( pSpansBuf, 12500 * sizeof(struct Span), "SPANS");
     memset(pSpansBuf, 0, 12500 * sizeof(struct Span));
 
-    pEdgesBuf = (Edge *)class23_AllocatedNamedBuffer(pClass23, (int)pEdgesBuf, 6000 * sizeof(struct Edge), "EDGES");
+    pEdgesBuf = (Edge *)mem_mng.AllocatedNamedBuffer( pEdgesBuf, 6000 * sizeof(struct Edge), "EDGES");
     memset(pEdgesBuf, 0, 6000 * sizeof(struct Edge));
 
-    pSurfsBuf = (Surf *)class23_AllocatedNamedBuffer(pClass23, (int)pSurfsBuf, 2000 * sizeof(struct Surf), "SURFS");
+    pSurfsBuf = (Surf *)mem_mng.AllocatedNamedBuffer( pSurfsBuf, 2000 * sizeof(struct Surf), "SURFS");
     memset(pSurfsBuf, 0, 2000 * sizeof(struct Surf));
 
-    pNewEdgesBuf = (Edge *)class23_AllocatedNamedBuffer(pClass23, (int)pNewEdgesBuf, 480 * sizeof(struct Edge), "NEWEDGES");
+    pNewEdgesBuf = (Edge *)mem_mng.AllocatedNamedBuffer( pNewEdgesBuf, 480 * sizeof(struct Edge), "NEWEDGES");
     memset(pNewEdgesBuf, 0, 480 * sizeof(struct Edge));
   }
 }
@@ -9951,7 +9951,7 @@ void __cdecl InitializeScrolls()
   signed int v7; // [sp+14h] [bp-4h]@4
 
  if (pScrollsTXT_Raw)
-   class23_DeleteBuffer(pClass23, (void *)pScrollsTXT_Raw);
+   mem_mng.DeleteBuffer( (void *)pScrollsTXT_Raw);
 
  pScrollsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "scroll.txt", 0);
  strtok((char *)pScrollsTXT_Raw, "\r");
@@ -10014,7 +10014,7 @@ void __cdecl InitializeGameText()
   signed int v8; // [sp+14h] [bp-4h]@4
 
  if (pGlobalTXT_Raw)
-   class23_DeleteBuffer(pClass23, (void *)pGlobalTXT_Raw);
+   mem_mng.DeleteBuffer( (void *)pGlobalTXT_Raw);
 
  pGlobalTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "global.txt", 0);
  
@@ -10331,7 +10331,7 @@ void ShowLastError(void)
                   NULL
                  );
    // Display the string.
-   MessageBox( NULL, (LPTSTR)lpMsgBuf, "GetLastError", MB_OK|MB_ICONINFORMATION );
+   MessageBox( NULL, (LPTSTR)lpMsgBuf, L"GetLastError", MB_OK|MB_ICONINFORMATION );
    LocalFree( lpMsgBuf );
 }
 
@@ -10353,27 +10353,27 @@ bool CheckForMM7CD(wchar_t *pGameCDDriveLetter)
  HKEY hSoftware,
       hNewWorldComputing,
       hMightAndMagic7,
-      hV10;
+      hDrvL;
 
  wchar_t pRoot[4];
  lstrcpyW(pRoot, L"X:");
 
- if (!RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE", 0, 131103u, &hSoftware))
+ if (!RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE", 0, KEY_ALL_ACCESS, &hSoftware))
  {
-  if (!RegOpenKeyExA(hSoftware, "New World Computing", 0, 0x2001Fu, &hNewWorldComputing))
+  if (!RegOpenKeyEx(hSoftware, L"New World Computing", 0, KEY_ALL_ACCESS, &hNewWorldComputing))
   {
-    if (!RegOpenKeyExA(hNewWorldComputing, "Might and Magic VII", 0, 0x2001Fu, &hMightAndMagic7))
+    if (!RegOpenKeyEx(hNewWorldComputing, L"Might and Magic VII", 0, KEY_ALL_ACCESS, &hMightAndMagic7))
     {
-      if (!RegOpenKeyExA(hMightAndMagic7, "1.0", 0, 0x2001Fu, &hV10))
+      if (!RegOpenKeyEx(hMightAndMagic7, L"1.0", 0, KEY_ALL_ACCESS/*0x2001Fu*/, &hDrvL))
       {
-        if (!RegQueryValueExA(hV10, "CDDriveW", 0, 0, (BYTE *)pRoot, &cbData))
+        if (!RegQueryValueEx(hDrvL, L"CDDrive", 0, 0, (BYTE *)pRoot, &cbData))
         {
          *pGameCDDriveLetter = pRoot[0];
 
          if (IsMM7CD(pRoot))
            return true;
         }
-        RegCloseKey(hV10);
+        RegCloseKey(hDrvL);
       }
       RegCloseKey(hMightAndMagic7);
     }
@@ -10383,23 +10383,23 @@ bool CheckForMM7CD(wchar_t *pGameCDDriveLetter)
  }
 
  OSWindow *pInsertCDDialog = 0;
- while (true)
- {
+ //while (true)
+// {
   for (unsigned int i = L'A'; i <= L'Z'; ++i)
   {
    pRoot[0] = i;
    if (GetDriveTypeW(pRoot) != DRIVE_CDROM)
      continue;
 
-   if (IsMM7CD(pRoot))
-   {
-    CreateRegistryWString(L"CDDriveW", pRoot, 4);
+	   if (IsMM7CD(pRoot))
+	   {
+		CreateRegistryWString(L"CDDrive", pRoot, 4);
 
-    if (pInsertCDDialog)
-      delete pInsertCDDialog;
+		if (pInsertCDDialog)
+		  delete pInsertCDDialog;
 
-    return true;
-   }
+		return true;
+	   }
   }
   /*
   pInsertCDDialog = new Win32Window;
@@ -10415,10 +10415,10 @@ bool CheckForMM7CD(wchar_t *pGameCDDriveLetter)
   };
   pInsertCDDialog->SetClientArea(&wndArea);
   pInsertCDDialog->Show();*/
-  Sleep(1500);
- }
+ // Sleep(1500);
+// }
 
- delete pInsertCDDialog;
+ //delete pInsertCDDialog;
  return false;
 }
 

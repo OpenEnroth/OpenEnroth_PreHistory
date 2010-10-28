@@ -12,7 +12,7 @@
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
-
+ #include "_lod.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
@@ -7901,7 +7901,7 @@ LABEL_47:
                     do
                     {
                       v52 = *(_DWORD *)(v51 + 52);
-                      class23_DeleteBuffer(pClass23, (void *)(void *)v51);
+                      mem_mng.DeleteBuffer( (void *)(void *)v51);
                       v51 = v52;
                     }
                     while ( v52 );
@@ -14323,8 +14323,8 @@ int __thiscall sub_450D1D(int _this)
   v1 = _this;
   if ( !(*(_BYTE *)(_this + 27) & 4) )
   {
-    class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(_this + 36));
-    class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)(v1 + 32));
+    mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 36));
+    mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v1 + 32));
   }
   result = 0;
   *(_WORD *)(v1 + 26) = 0;
@@ -14349,7 +14349,7 @@ int __thiscall sub_450D68(void *_this)
 
   v1 = _this;
   if ( *(_DWORD *)_this )
-    class23_DeleteBuffer(pClass23, (void *)*(_DWORD *)_this);
+    mem_mng.DeleteBuffer( (void *)*(_DWORD *)_this);
   v2 = *((_DWORD *)v1 + 2);
   if ( v2 )
     (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v2 + 8))(*((_DWORD *)v1 + 2));

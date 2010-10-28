@@ -2,6 +2,7 @@
 #include "mm7_unparsed_functions.h"
 
 #include "defs.h"
+#include "_lod.h"
 #include "RenderD3D3.h"
 #include "AIL.h"
 #include "Smacker.h"

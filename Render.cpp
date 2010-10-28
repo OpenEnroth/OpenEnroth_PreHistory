@@ -1,5 +1,6 @@
 #include "defs.h"
-
+#include "_lod.h"
+#include "c18.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
@@ -1427,7 +1428,7 @@ void Render_Initialize_ZBuffer(struct Render *_this)
 {
  if (!_this->pDefaultZBuffer)
  {
-  _this->pDefaultZBuffer = (int *)class23_AllocatedNamedBuffer(pClass23, 0, 640 * 480 * 4, "ZBuffer");
+  _this->pDefaultZBuffer = (int *)mem_mng.AllocatedNamedBuffer( 0, 640 * 480 * 4, "ZBuffer");
   _this->pActiveZBuffer = _this->pDefaultZBuffer;
   memset(_this->pDefaultZBuffer, -65536, 640 * 480 * 4);
  }

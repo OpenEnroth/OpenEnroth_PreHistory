@@ -2,7 +2,7 @@
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
-
+ #include "_lod.h"
 #include "data.h"
 
 /*x87 COMPARISON OPCODES
@@ -497,7 +497,7 @@ void *CheckHRESULT(void **pSmthn, HRESULT hr, const char *pSourceFile, unsigned 
  {
   if (a5 != 1)
   {
-   sub_466B8C();
+   err_show();
    return pSmthn;
   }
   v6 = sub_46778D(hr, pSourceFile, uSourceline);
@@ -505,7 +505,7 @@ void *CheckHRESULT(void **pSmthn, HRESULT hr, const char *pSourceFile, unsigned 
  else v6 = ErrorMessageFromHRESULT(hr, pSourceFile, uSourceline);
 
  if (v6)
-   sub_466B8C();
+   err_show();
 
  return pSmthn;
 }

@@ -839,7 +839,7 @@ int AudioPlayer_LoadSoundHeaders(struct AudioPlayer *_this)
 
  ReadFile(_this->hSoundsSource, &_this->uNumSounds, 4, &w, 0);
 
- _this->pSoundHeaders = (AudioPlayer_sound_header_struct *)class23_AllocatedNamedBuffer(pClass23, 0, _this->uNumSounds * sizeof(struct AudioPlayer_sound_header_struct) + 2, 0);
+ _this->pSoundHeaders = (AudioPlayer_sound_header_struct *)mem_mng.AllocatedNamedBuffer(NULL, _this->uNumSounds * sizeof(struct AudioPlayer_sound_header_struct) + 2, 0);
 
  return ReadFile(_this->hSoundsSource, _this->pSoundHeaders, _this->uNumSounds * sizeof(struct AudioPlayer_sound_header_struct), &w, 0);
 }
@@ -1020,7 +1020,7 @@ void *CSoundList_Initialize(struct CSoundList *_this, unsigned char *pSrc)
 {
  _this->uNumSounds = *(int *)(pSrc);
 
- _this->pDescriptions = (SoundDescription *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pDescriptions, _this->uNumSounds * sizeof(struct SoundDescription), "Snd Des.");
+ _this->pDescriptions = (SoundDescription *)mem_mng.AllocatedNamedBuffer( _this->pDescriptions, _this->uNumSounds * sizeof(struct SoundDescription), "Snd Des.");
  memcpy(_this->pDescriptions, pSrc + 4, _this->uNumSounds * sizeof(struct SoundDescription));
  return 0;
 }

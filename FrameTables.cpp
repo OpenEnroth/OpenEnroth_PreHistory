@@ -2,7 +2,7 @@
 #include "mm7_unparsed_data.h"
 #include "_audio.h"
 #include "data.h"
-
+ #include "_lod.h"
 
 
 void MonsterDescriptionList_ctor(struct MonsterDescriptionList *_this)
@@ -15,7 +15,7 @@ void MonsterDescriptionList_ctor(struct MonsterDescriptionList *_this)
 void MonsterDescriptionList_Initialize(struct MonsterDescriptionList *_this, unsigned int *pSrc)
 {
  _this->uNumDescriptions = pSrc[0];
- _this->pDescriptions = (MonsterDescription *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pDescriptions, _this->uNumDescriptions * sizeof(struct MonsterDescription), "Mon Race");
+ _this->pDescriptions = (MonsterDescription *)mem_mng.AllocatedNamedBuffer( _this->pDescriptions, _this->uNumDescriptions * sizeof(struct MonsterDescription), "Mon Race");
 
  memcpy(_this->pDescriptions, pSrc + 1, _this->uNumDescriptions * sizeof(struct MonsterDescription));
 }
@@ -26,7 +26,7 @@ void MonsterDescriptionList_Initialize(struct MonsterDescriptionList *_this, uns
 void CTextureFrameTable_Initialize(struct CTextureFrameTable *_this, unsigned char *pSrc)
 {
  _this->uNumTextures = *(int *)(pSrc);
- _this->pTextures = (TextureFrame *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pTextures, _this->uNumTextures * sizeof(struct TextureFrame), "Txt Frames");
+ _this->pTextures = (TextureFrame *)mem_mng.AllocatedNamedBuffer(_this->pTextures, _this->uNumTextures * sizeof(struct TextureFrame), "Txt Frames");
 
  memcpy(_this->pTextures, pSrc + 4, _this->uNumTextures * sizeof(struct TextureFrame));
 }
@@ -54,7 +54,7 @@ void CIconFrameTable_Initialize(struct CIconFrameTable *_this, void *pSrc)
 {
  _this->uNumIcons = *(int *)pSrc;
 
- _this->pIcons = (IconFrame *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pIcons, _this->uNumIcons * sizeof(struct IconFrame), "I Frames");
+ _this->pIcons = (IconFrame *)mem_mng.AllocatedNamedBuffer( _this->pIcons, _this->uNumIcons * sizeof(struct IconFrame), "I Frames");
  memcpy(_this->pIcons, (char *)pSrc + 4, _this->uNumIcons * sizeof(struct IconFrame));
 }
 
@@ -159,9 +159,9 @@ int SpriteFrameTable_Initialize(struct SpriteFrameTable *_this, unsigned int *pS
  _this->uNumSpriteFrames = pSrc[0];
  _this->dword_000004 = pSrc[1];
 
- _this->pSpriteSFrames = (SpriteFrame *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pSpriteSFrames, _this->uNumSpriteFrames * sizeof(struct SpriteFrame), "S Frames");
- _this->pSpritePFrames = (SpriteFrame **)class23_AllocatedNamedBuffer(pClass23, (int)_this->pSpritePFrames, 4 * _this->uNumSpriteFrames, "P Frames");
- _this->pSpriteEFrames = (unsigned short *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pSpriteEFrames, 2 * _this->uNumSpriteFrames, "E Frames");
+ _this->pSpriteSFrames = (SpriteFrame *)mem_mng.AllocatedNamedBuffer( _this->pSpriteSFrames, _this->uNumSpriteFrames * sizeof(struct SpriteFrame), "S Frames");
+ _this->pSpritePFrames = (SpriteFrame **)mem_mng.AllocatedNamedBuffer( _this->pSpritePFrames, 4 * _this->uNumSpriteFrames, "P Frames");
+ _this->pSpriteEFrames = (unsigned short *)mem_mng.AllocatedNamedBuffer( _this->pSpriteEFrames, 2 * _this->uNumSpriteFrames, "E Frames");
 
  pSrc += 2;
  memcpy(_this->pSpriteSFrames, pSrc, _this->uNumSpriteFrames * sizeof(struct SpriteFrame));
@@ -407,7 +407,7 @@ int SpriteFrameTable_sub_44D4D8(struct SpriteFrameTable *_this)
 {
  if (_this->pSpriteSFrames)
  {
-  class23_DeleteBuffer(pClass23, (void *)_this->pSpriteSFrames);
+  mem_mng.DeleteBuffer( (void *)_this->pSpriteSFrames);
   _this->pSpriteSFrames = 0;
  }
  _this->uNumSpriteFrames = 0;
@@ -479,7 +479,7 @@ void CTileTable_ctor(struct CTileTable *_this)
 void CTileTable_Initialize(struct CTileTable *_this, unsigned char *pSrc)
 {
  _this->uNumTiles = *(int *)(pSrc);
- _this->pTiles = (TileDesc *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pTiles, _this->uNumTiles * sizeof(struct TileDesc), "Tile Descrip");
+ _this->pTiles = (TileDesc *)mem_mng.AllocatedNamedBuffer(_this->pTiles, _this->uNumTiles * sizeof(struct TileDesc), "Tile Descrip");
  memcpy(_this->pTiles, pSrc + 4, _this->uNumTiles * sizeof(struct TileDesc));
 }
 
@@ -569,7 +569,7 @@ void CPlayerFrameTable_ctor(struct CPlayerFrameTable *_this)
 void *CPlayerFrameTable_Initialize(struct CPlayerFrameTable *_this, unsigned char *pSrc)
 {
  _this->uNumFrames = *(int *)(pSrc);
- _this->pFrames = (PlayerFrame *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pFrames, _this->uNumFrames * sizeof(struct PlayerFrame), "P Frames");
+ _this->pFrames = (PlayerFrame *)mem_mng.AllocatedNamedBuffer( _this->pFrames, _this->uNumFrames * sizeof(struct PlayerFrame), "P Frames");
  memcpy(_this->pFrames, pSrc + 4, _this->uNumFrames * sizeof(struct PlayerFrame));
  return 0;
 }
@@ -611,7 +611,7 @@ void *DecorationDescriptionList_Initialize(struct DecorationDescriptionList *_th
 {
  _this->uNumLevelDecorations = *(int *)(pSrc);
 
- _this->pDescriptions = (DecorationDescription *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pDescriptions, _this->uNumLevelDecorations * sizeof(struct DecorationDescription), "Dec Descrip");
+ _this->pDescriptions = (DecorationDescription *)mem_mng.AllocatedNamedBuffer( _this->pDescriptions, _this->uNumLevelDecorations * sizeof(struct DecorationDescription), "Dec Descrip");
  memcpy(_this->pDescriptions, pSrc + 4, _this->uNumLevelDecorations * sizeof(struct DecorationDescription));
  return 0;
 }
@@ -664,7 +664,7 @@ void *CObjectDescriptionList_Initialize(struct CObjectDescriptionList *_this, un
 {
  _this->uNumObjects = *(int *)(pSrc);
 
- _this->pDescriptions = (ObjectDescription *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pDescriptions, _this->uNumObjects * sizeof(struct ObjectDescription), "Obj Descrip");
+ _this->pDescriptions = (ObjectDescription *)mem_mng.AllocatedNamedBuffer( _this->pDescriptions, _this->uNumObjects * sizeof(struct ObjectDescription), "Obj Descrip");
  memcpy(_this->pDescriptions, pSrc + 4, _this->uNumObjects * sizeof(struct ObjectDescription));
  return 0;
 }
@@ -692,7 +692,7 @@ void *COverlayDescriptionList_Initialize(struct COverlayDescriptionList *_this, 
 {
  _this->uNumOverlays = *(int *)(pSrc);
 
- _this->pDescriptions = (OverlayDescription *)class23_AllocatedNamedBuffer(pClass23, (int)_this->pDescriptions, _this->uNumOverlays * sizeof(struct OverlayDescription), "Ovl Des.");
+ _this->pDescriptions = (OverlayDescription *)mem_mng.AllocatedNamedBuffer( _this->pDescriptions, _this->uNumOverlays * sizeof(struct OverlayDescription), "Ovl Des.");
  memcpy(_this->pDescriptions, pSrc + 4, _this->uNumOverlays * sizeof(struct OverlayDescription));
  return 0;
 }

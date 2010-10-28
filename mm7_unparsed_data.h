@@ -2,6 +2,7 @@
 
 #include "defs.h"
 #include "data.h"
+#include "memory_mng.h"
 #include "RenderD3D3.h"
 #include "RenderSoftware.h"
 #include "GUI.h"
@@ -1896,7 +1897,7 @@ extern char byte_6BE6EC[array_size_unknown]; // weak
 
 
 //_UNKNOWN unk_702B28[26 * 1024 * 1024];  //some 26 or 16 Mb pointer is allocated at *(int *)((char *)(pClass23) + 120020) at startup
-extern struct class23 *pClass23;  // struct @ MM7.exe::00702B28
+extern MemoryMng mem_mng;  // struct @ MM7.exe::00702B28;  // struct @ MM7.exe::00702B28
 extern int dword_71FFF4; // weak
 extern int dword_71FFF8; // weak
 extern unsigned int bUseOverrideData; // dword @ MM7.exe::00720008

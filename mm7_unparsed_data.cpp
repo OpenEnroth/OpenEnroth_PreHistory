@@ -1,3 +1,4 @@
+#include "memory_mng.h"
 #include "mm7_unparsed_data.h"
 
 
@@ -1702,7 +1703,7 @@ int uTurnSpeed; // dword @ MM7.exe::006BE38C
 
 
 //_UNKNOWN unk_702B28[26 * 1024 * 1024];  //some 26 or 16 Mb pointer is allocated at *(int *)((char *)(pClass23) + 120020) at startup
-class23 *pClass23 = 0;  // struct @ MM7.exe::00702B28
+MemoryMng mem_mng;  // struct @ MM7.exe::00702B28
  int dword_71FFF4; // weak
  int dword_71FFF8; // weak
 unsigned int bUseOverrideData; // dword @ MM7.exe::00720008
