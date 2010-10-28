@@ -1036,7 +1036,7 @@ void GameUI_Process()
   const char *v235; // [sp+E8h] [bp-514h]@535
   int v236[9]; // [sp+158h] [bp-4A4h]@652
   char v237; // [sp+17Ch] [bp-480h]@524
-  char v238; // [sp+1F8h] [bp-404h]@467
+  //char v238; // [sp+1F8h] [bp-404h]@467
   char Str2; // [sp+238h] [bp-3C4h]@527
   struct Actor Dst; // [sp+2B8h] [bp-344h]@4
 //  __int16 v241; // [sp+2D8h] [bp-324h]@4
@@ -2228,9 +2228,9 @@ LABEL_322:
               dword_507940 = LODFile_LoadTexture(pLODFile_Icons_LOD, "new1", 2);
               dword_50793C = LODFile_LoadTexture(pLODFile_Icons_LOD, "load1", 2);
               dword_507938 = LODFile_LoadTexture(pLODFile_Icons_LOD, "save1", 2);
-              dword_507934 = LODFile_LoadTexture(pLODFile_Icons_LOD, (const char *)&stru_4E4678._charbuf, 2);
+              dword_507934 = LODFile_LoadTexture(pLODFile_Icons_LOD, "controls1", 2);
               dword_507930 = LODFile_LoadTexture(pLODFile_Icons_LOD, "resume1", 2);
-              dword_50792C = LODFile_LoadTexture(pLODFile_Icons_LOD, (const char *)&stru_4E4678._flag, 2);
+              dword_50792C = LODFile_LoadTexture(pLODFile_Icons_LOD, "quit1", 2);
               dword_50C9C4 = (int)GUIButtonCreate(
                                pGUIWindow_CurrentMenu,
                                19,
@@ -2314,9 +2314,9 @@ LABEL_322:
               RGBTexture_Release((int)pClass33_global3);
               v46 = sub_45E03A_SomethingLikeCaptureAScreenshot(155, 117);
               v212 = v46;
-              v47 = (int)sub_49F8B5(pD3DRenderer, &stru_4E4678, v46, 155, 117);
+              v47 = (int)sub_49F8B5(pD3DRenderer, "gamma.pcx", v46, 155, 117);
               operator_delete((void *)v212);
-              sub_40E55E(pClass33_global3, (unsigned int)&stru_4E4678, 0);
+              sub_40E55E(pClass33_global3, (unsigned int)"gamma.pcx", 0);
               goto LABEL_92;
             }
             goto LABEL_333;
@@ -2760,8 +2760,8 @@ LABEL_450:
           }
           else
           {
-            wsprintfA(&v238, "data\\lloyd%d%d.pcx", dword_506348 + 1, v209 + 1);
-            sub_45E26C(&v238);
+            wsprintfA((char *)TmpBuf, "data\\lloyd%d%d.pcx", dword_506348 + 1, v209 + 1);
+            sub_45E26C((char *)TmpBuf);
             sub_411B59(v209, dword_506348 + 1);
             v228 = qword_506350 << 7;
             v73 = v211;
@@ -3500,9 +3500,9 @@ LABEL_693:
           RGBTexture_Release((int)pClass33_global3);
           v117 = sub_45E03A_SomethingLikeCaptureAScreenshot(155, 117);
           v212 = v117;
-          v118 = (int)sub_49F8B5(pD3DRenderer, &stru_4E4678, v117, 155, 117);
+          v118 = (int)sub_49F8B5(pD3DRenderer, "gamma.pcx", v117, 155, 117);
           operator_delete((void *)v212);
-          sub_40E55E(pClass33_global3, (unsigned int)&stru_4E4678, 0);
+          sub_40E55E(pClass33_global3, (unsigned int)"gamma.pcx", 0);
           GUIWindowCreate(602, 450, 0, 0, 92, (int)pBtn_Game_Options, 0);
 LABEL_453:
           if ( dword_50CBD0[0] >= 40 )

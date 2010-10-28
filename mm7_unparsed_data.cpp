@@ -123,7 +123,6 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  int dword_4E4578; // weak
  int dword_4E4590; // weak
  int dword_4E45A8; // weak
- FILE stru_4E4678; // idb
  int dword_4E4948[array_size_unknown]; // weak
  int dword_4E494C[array_size_unknown]; // weak
  int dword_4E49D0[array_size_unknown]; // weak

@@ -9269,7 +9269,7 @@ void __thiscall Render_sub_49F1BC(int _this, const char *Filename)
 }
 
 //----- (0049F8B5) --------------------------------------------------------
-FILE *__thiscall sub_49F8B5(void *_this, FILE *Filename, int a3, int a4, int a5)
+FILE *__thiscall sub_49F8B5(void *_this, char *Filename, int a3, int a4, int a5)
 {
   FILE *result; // eax@1
   void *v6; // esi@1
@@ -9308,7 +9308,7 @@ FILE *__thiscall sub_49F8B5(void *_this, FILE *Filename, int a3, int a4, int a5)
   FILE *v39; // [sp+ACh] [bp+8h]@4
 
   v6 = _this;
-  result = fopen((const char *)&Filename->_ptr, "wb");
+  result = fopen(Filename, "wb");
   v38 = result;
   if ( result )
   {
@@ -9384,11 +9384,11 @@ FILE *__thiscall sub_49F8B5(void *_this, FILE *Filename, int a3, int a4, int a5)
         for ( i = 0; i < v20; i += BYTE3(a5) )
         {
           BYTE3(a5) = 1;
-          BYTE3(Filename->_ptr) = *(_BYTE *)(i + v35);
+          BYTE3(Filename) = *(_BYTE *)(i + v35);
           do
           {
             v12 = i + BYTE3(a5);
-            if ( *(_BYTE *)(v12 + v35) != BYTE3(Filename->_ptr) )
+            if ( *(_BYTE *)(v12 + v35) != BYTE3(Filename) )
               break;
             if ( !(v12 % v36) )
               break;
@@ -9397,12 +9397,12 @@ FILE *__thiscall sub_49F8B5(void *_this, FILE *Filename, int a3, int a4, int a5)
           while ( BYTE3(a5) < 0x3Fu );
           if ( i + BYTE3(a5) > v20 )
             BYTE3(a5) = 3 * v36 - i;
-          if ( BYTE3(a5) > 1u || BYTE3(Filename->_ptr) >= 0xC0u )
+          if ( BYTE3(a5) > 1u || BYTE3(Filename) >= 0xC0u )
           {
             BYTE3(a3) = BYTE3(a5) | 0xC0;
             locked_fwrite((char *)&a3 + 3, 1u, 1u, v7);
           }
-          locked_fwrite((char *)&Filename->_ptr + 3, 1u, 1u, v7);
+          locked_fwrite((char *)&Filename + 3, 1u, 1u, v7);
         }
         v8 = v17 + v19;
         v13 = v18-- == 1;
@@ -14592,8 +14592,8 @@ int __stdcall sub_4AC4FD(int a1)
   compile_error;//_AX = 0;
   __asm
   {
-    out     70h, al         ; CMOS Memory:
-    in      al, 71h         ; CMOS Memory
+    out     70h, al         // CMOS Memory:
+    in      al, 71h         // CMOS Memory
   }
   compile_error;//WORD2(hThread) = _AX;
   do
@@ -14602,8 +14602,8 @@ int __stdcall sub_4AC4FD(int a1)
     compile_error;//_AX = 0;
     __asm
     {
-      out     70h, al         ; CMOS Memory:
-      in      al, 71h         ; CMOS Memory
+      out     70h, al         // CMOS Memory:
+      in      al, 71h         // CMOS Memory
     }
     compile_error;//LOWORD(v22) = _AX;
     v3 = v22 - HIDWORD(hThread);
@@ -14622,8 +14622,8 @@ int __stdcall sub_4AC4FD(int a1)
     compile_error;//_AX = 0;
     __asm
     {
-      out     70h, al         ; CMOS Memory:
-      in      al, 71h         ; CMOS Memory
+      out     70h, al         // CMOS Memory:
+      in      al, 71h         // CMOS Memory
     }
     compile_error;//WORD2(hThread) = _AX;
     v8 = HIDWORD(hThread);

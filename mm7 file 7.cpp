@@ -13567,18 +13567,17 @@ void __thiscall sub_4BE2DD(void *_this, int a2, int a3, int a4)
 }
 
 //----- (004BE386) --------------------------------------------------------
-FILE *__thiscall sub_4BE386(void *_this)
+FILE *__thiscall sub_4BE386(char *text)
 {
   FILE *result; // eax@1
   void *v2; // edi@1
   FILE *v3; // esi@1
 
-  v2 = _this;
   result = fopen("errorlog.txt", "a");
   v3 = result;
   if ( result )
   {
-    fprintf(result, "%s\n", v2);
+    fprintf(result, "%s\n", text);
     fclose(v3);
     result = (FILE *)fflush(v3);
   }

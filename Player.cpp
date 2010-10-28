@@ -3198,7 +3198,7 @@ int CanPlaceItemInInventory(struct Player *_this, signed int a2, int a3)
 
   if ( !dword_506128 )
   {
-   runtime_warning(When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures);
+   runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
    //class18_sub_40F77C(v4);
     LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
   }
@@ -3380,7 +3380,7 @@ LABEL_5:
     v14 = GetSizeInInventorySlots(v7->uTextureHeight);
     if ( !dword_506128 )
     {
-     runtime_warning(When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures);
+     runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
       //class18_sub_40F77C(v7);
       LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
     }

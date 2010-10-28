@@ -837,7 +837,7 @@ void class04_ctor(struct class04 *_this)
  _this->std__vector_183808_size = 0;
 
  
-  runtime_warning(struct shape and place is unknown, access to a random member);
+  runtime_warning("struct shape and place is unknown, access to a random member");
  //v1 = (int)((char *)_this + 0x0F2314 + 4);  //::000808 inside[321]
   v1 = (int)((char *)&_this->std__vector_000004[321] + 0x808);
  v2 = 256;
@@ -1743,8 +1743,8 @@ __declspec(naked) void __fastcall class37_loc_43F2A9(char *_this)
 {
  __asm
  {
-loc_43F2A9:                             ; DATA XREF: .text:0043F266o
-                                        ; sub_43F282+3o
+loc_43F2A9:                             // DATA XREF: .text:0043F266o
+                                        // sub_43F282+3o
          push    offset class26_placeholder_detor
          push    4
          add     ecx, 7ACh
@@ -1759,7 +1759,7 @@ __declspec(naked) void __fastcall class37_loc_43F2BF(char *_this)
 {
  __asm
  {
-loc_43F2BF:                             ; DATA XREF: sub_43F282+8o
+loc_43F2BF:                             // DATA XREF: sub_43F282+8o
          push    esi
          mov     esi, ecx
          push    offset class26_placeholder_detor
@@ -1773,7 +1773,7 @@ loc_43F2BF:                             ; DATA XREF: sub_43F282+8o
          lea     eax, [esi+838h]
          pop     ecx
 
-loc_43F2E5:                             ; CODE XREF: sub_43F282+6Bj
+loc_43F2E5:                             // CODE XREF: sub_43F282+6Bj
          fldz
          fstp    dword ptr [eax]
          add     eax, 30h

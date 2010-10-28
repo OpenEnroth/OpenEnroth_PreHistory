@@ -138,7 +138,6 @@ extern int dword_4E4560; // weak
 extern int dword_4E4578; // weak
 extern int dword_4E4590; // weak
 extern int dword_4E45A8; // weak
-extern FILE stru_4E4678; // idb
 extern int dword_4E4948[array_size_unknown]; // weak
 extern int dword_4E494C[array_size_unknown]; // weak
 extern int dword_4E49D0[array_size_unknown]; // weak

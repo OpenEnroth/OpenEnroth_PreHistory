@@ -2506,7 +2506,7 @@ int __cdecl MenuLoop_Main()
   }
   GUIWindowDelete(pGUIWindow_MainMenu);
 
-  runtime_warning(Purge old textures or something, works.. bad);
+  runtime_warning("Purge old textures or something, works.. bad");
   //return LODFile_sub_4114F2(pLODFile_Icons_LOD);
   return 0;
 }
@@ -4440,7 +4440,7 @@ int sub_49F5A2(void *_this, int a2, int a3, int a4, void *Dst, int a6, int a7)
   }
   mem_mng.DeleteBuffer( (void *)v41);
   result = a7;
-  *(_DWORD *)a7 = (char *)v8 - Dst;
+  *(_DWORD *)a7 = (char *)v8 - (char*)Dst;
   return result;
 }
 

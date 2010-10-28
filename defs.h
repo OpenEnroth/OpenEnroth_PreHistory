@@ -20,9 +20,15 @@
 #define floorf floor
 #define cosf cos
 #define sinf sin
+#define powf pow
+#define sqrtf sqrt
+#define acosf acos
+#define fabsf fabs
 
 #define _strcmpi strcmpi
 #define _strnicmp strnicmp
+#define _strlwr strlwr
+#define _strrev strrev
 #define _itoa itoa
 
 #define _lock_file(c)
@@ -34,7 +40,9 @@
 #ifndef min
 #define min(__a,__b)    (((__a) < (__b)) ? (__a) : (__b))
 #endif
-
+#define compile_error
+#else
+#define compile_error __asm int 3;
 #endif
 
 #define __thiscall __cdecl
@@ -47,7 +55,6 @@
 #endif
 
 #define compile_warning
-#define compile_error __asm int 3;
 #define runtime_warning(x)
 #define runtime_error __asm int 3;
 #define function_error

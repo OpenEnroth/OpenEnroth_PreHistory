@@ -12050,17 +12050,15 @@ void *__cdecl sub_45E006()
 }
 
 //----- (0045E26C) --------------------------------------------------------
-int __thiscall sub_45E26C(void *Filename)
+int __thiscall sub_45E26C(char *Filename)
 {
-  FILE *v2; // edi@1
   int v3; // eax@1
   unsigned int v4; // esi@1
   int v5; // eax@1
 
-  v2 = (FILE *)Filename;
   v3 = sub_45E03A_SomethingLikeCaptureAScreenshot(92, 68);
   v4 = v3;
-  v5 = (int)sub_49F8B5(pD3DRenderer, v2, v3, 92, 68);
+  v5 = (int)sub_49F8B5(pD3DRenderer, Filename, v3, 92, 68);
   /*return */operator_delete((void *)v4);
   return rand();
 }
