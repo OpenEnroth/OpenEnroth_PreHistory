@@ -10745,11 +10745,135 @@ void __thiscall Render_sub_4A43B1(int _this, int a2, int a3, int a4)
 }
 
 //----- (004A46E6) --------------------------------------------------------
-function_error;//#error "FFFFFFFF: variables would overlap: edx/4 and edx/8 (funcsize=182)"
-long __stdcall sub_4A46E6(long a1, long a2, long a3)
+int __fastcall sub_4A46E6(int a1, int a2, signed int a3, int a4, unsigned int a5)
 {
- compile_error;
- return 0;
+  int result; // eax@1
+  int v6; // eax@9
+  int v7; // ecx@9
+  unsigned int v8; // edx@10
+  signed int v9; // ecx@10
+  int v10; // edi@10
+  int v11; // esi@10
+  unsigned int v12; // edx@22
+  signed int v13; // ecx@22
+  int v14; // edi@22
+  int v15; // esi@22
+  int v16; // eax@1
+  unsigned int v17; // eax@9
+  int v18; // [sp+Ch] [bp-8h]@9
+  int v19; // [sp+10h] [bp-4h]@9
+
+  v16 = a4;
+  a4 = a3 >> 16;
+  result = a1 + v16;
+  if ( result >= dword_F8BC24 && a1 <= dword_F8BC2C && a2 >= dword_F8BC28 && a2 <= dword_F8BC30 )
+  {
+    if ( a1 < dword_F8BC24 )
+      a1 = dword_F8BC24;
+    if ( result > dword_F8BC2C )
+      result = dword_F8BC2C;
+    v18 = dword_E31CD4 + 2 * (a1 + a2 * dword_E31CD8);
+    a3 = result - a1;
+    v19 = dword_E31C1C + 4 * (a1 + 640 * a2);
+    v17 = a5 >> 3;
+    v7 = a5 & 0xF0;
+    v6 = v17 & 0x1E0000;
+    if ( dword_E31CB8 == 5 )
+    {
+      a5 = ((v7 | ((a5 & 0xF000 | v6) >> 3)) >> 4 << 16) | ((v7 | ((a5 & 0xF000 | v6) >> 3)) >> 4);
+      v11 = v18;
+      v10 = v19;
+      v9 = a3;
+      v8 = a5;
+      result = v18 & 2;
+      if ( v18 & 2 )
+      {
+        result = *(_DWORD *)v19 >> 16;
+        if ( result > a4 )
+        {
+          result = a5 + ((*(_WORD *)v18 & 0x7BDEu) >> 1);
+          *(_WORD *)v18 = result;
+        }
+        --v9;
+        v11 = v18 + 2;
+        v10 += 4;
+      }
+      while ( v9 != 1 )
+      {
+        if ( v9 < 1 )
+          return result;
+        result = *(_DWORD *)v10 >> 16;
+        if ( result <= a4 )
+        {
+          v9 -= 2;
+          v11 += 4;
+          v10 += 8;
+        }
+        else
+        {
+          v10 += 8;
+          result = v8 + ((*(_DWORD *)v11 & 0x7BDE7BDEu) >> 1);
+          v9 -= 2;
+          *(_DWORD *)v11 = result;
+          v11 += 4;
+        }
+      }
+      result = *(_DWORD *)v10 >> 16;
+      if ( result > a4 )
+      {
+        result = v8 + ((*(_WORD *)v11 & 0x7BDEu) >> 1);
+        *(_WORD *)v11 = result;
+      }
+    }
+    else
+    {
+      a5 = ((v7 | ((a5 & 0xF800 | v6) >> 2)) >> 4 << 16) | ((v7 | ((a5 & 0xF800 | v6) >> 2)) >> 4);
+      v15 = v18;
+      v14 = v19;
+      v13 = a3;
+      v12 = a5;
+      result = v18 & 2;
+      if ( v18 & 2 )
+      {
+        result = *(_DWORD *)v19 >> 16;
+        if ( result > a4 )
+        {
+          result = a5 + ((*(_WORD *)v18 & 0xF7DEu) >> 1);
+          *(_WORD *)v18 = result;
+        }
+        --v13;
+        v15 = v18 + 2;
+        v14 += 4;
+      }
+      while ( v13 != 1 )
+      {
+        if ( v13 < 1 )
+          return result;
+        result = *(_DWORD *)v14 >> 16;
+        if ( result <= a4 )
+        {
+          v13 -= 2;
+          v15 += 4;
+          v14 += 8;
+        }
+        else
+        {
+          v14 += 8;
+          result = v12 + ((*(_DWORD *)v15 & 0xF7DEF7DEu) >> 1);
+          v13 -= 2;
+          *(_DWORD *)v15 = result;
+          v15 += 4;
+        }
+      }
+      result = *(_DWORD *)v14 >> 16;
+      if ( result > a4 )
+      {
+        result = v12 + ((*(_WORD *)v15 & 0xF7DEu) >> 1);
+        *(_WORD *)v15 = result;
+      }
+    }
+  }
+  return result;
 }
 
 //----- (004A48E4) --------------------------------------------------------
