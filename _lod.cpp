@@ -23,7 +23,7 @@ void LODFile_AllocateSubidexAndIOBuffer(struct LODFile *_this, unsigned int uNum
 {
  if (_this->pLODSubIndexNamedBuffer)
  {
-  MessageBox(0, L"Attempt to reset a LOD subindex!", L"MM7", 0x30u);
+  MessageBoxW(0, L"Attempt to reset a LOD subindex!", L"MM7", 0x30u);
   mem_mng.DeleteBuffer( (void *)_this->pLODSubIndexNamedBuffer);
   _this->pLODSubIndexNamedBuffer = 0;
  }
@@ -32,7 +32,7 @@ void LODFile_AllocateSubidexAndIOBuffer(struct LODFile *_this, unsigned int uNum
 
  if (_this->pLODIOBuffer)
  {
-  MessageBox(0, L"Attempt to reset a LOD IObuffer!", L"MM7", 0x30u);
+  MessageBoxW(0, L"Attempt to reset a LOD IObuffer!", L"MM7", 0x30u);
   mem_mng.DeleteBuffer( (void *)_this->pLODIOBuffer);
   _this->pLODIOBuffer = 0;
   _this->uIOBufferSize = 0;
@@ -919,14 +919,14 @@ void *LODFile_LoadRaw(struct LODFile *_this, const char *pContainer, int a3)
 
   pContainerFile = LODFile_FindContainer(_this, pContainer, 0);
   if (!pContainerFile)
-	  {
+  {
     erroneous_printf("Unable to load %s", pContainer);
 	return NULL;
-	  }
+  }
 
 
     wsprintfW(pLodFile, L".\\%S", _this->sLODName);
-    hFile = CreateFile(pLodFile, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, 0, OPEN_EXISTING, 0, 0);
+    hFile = CreateFileW(pLodFile, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, 0, OPEN_EXISTING, 0, 0);
     ofs = ftell(pContainerFile);
     SetFilePointer(hFile, ofs, 0, FILE_BEGIN);
 

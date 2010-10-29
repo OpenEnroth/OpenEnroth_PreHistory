@@ -10766,19 +10766,19 @@ int __fastcall sub_4A46E6(int a1, int a2, signed int a3, int a4, unsigned int a5
   v16 = a4;
   a4 = a3 >> 16;
   result = a1 + v16;
-  if ( result >= dword_F8BC24 && a1 <= dword_F8BC2C && a2 >= dword_F8BC28 && a2 <= dword_F8BC30 )
+  if ( result >= pOldViewport->uGameX && a1 <= pOldViewport->uGameZ && a2 >= pOldViewport->uGameY && a2 <= pOldViewport->uGameW )
   {
-    if ( a1 < dword_F8BC24 )
-      a1 = dword_F8BC24;
-    if ( result > dword_F8BC2C )
-      result = dword_F8BC2C;
-    v18 = dword_E31CD4 + 2 * (a1 + a2 * dword_E31CD8);
+    if ( a1 < pOldViewport->uGameX )
+      a1 = pOldViewport->uGameX;
+    if ( result > pOldViewport->uGameZ )
+      result = pOldViewport->uGameZ;
+    v18 = (int)(pD3DRenderer->pTargetSurface + (a1 + a2 * pD3DRenderer->uTargetSurfacePitch));
     a3 = result - a1;
-    v19 = dword_E31C1C + 4 * (a1 + 640 * a2);
+    v19 = (int)(pD3DRenderer->pActiveZBuffer + (a1 + 640 * a2));
     v17 = a5 >> 3;
     v7 = a5 & 0xF0;
     v6 = v17 & 0x1E0000;
-    if ( dword_E31CB8 == 5 )
+    if (pD3DRenderer->uNumTargetGBits == 5 )
     {
       a5 = ((v7 | ((a5 & 0xF000 | v6) >> 3)) >> 4 << 16) | ((v7 | ((a5 & 0xF000 | v6) >> 3)) >> 4);
       v11 = v18;
@@ -10905,6 +10905,8 @@ signed int __stdcall sub_4A48E4(int a1, int a2, int a3, int a4, signed int a5)
   v15 = v8;
   do
   {
+   compile_error;
+   /*
     sub_4A46E6(a3, 2 * v16, a4);
     if ( v13 )
       sub_4A46E6(a3, 2 * v16, a4);
@@ -10923,7 +10925,7 @@ signed int __stdcall sub_4A48E4(int a1, int a2, int a3, int a4, signed int a5)
     }
     result = v14++;
     v13 += 2;
-    --v15;
+    --v15;*/
   }
   while ( result < v16 );
   return result;

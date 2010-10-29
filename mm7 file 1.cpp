@@ -9,7 +9,7 @@
 
 #include "defs.h"
 #include "AIL.h"
-  #include "_lod.h"
+#include "_lod.h"
 #include "classes.h"
 #include "data.h"
 #include "_audio.h"
@@ -213,7 +213,7 @@ LABEL_21:
           //DeleteFontCChar();
           byte_50794A = 1;
           //PlayMovie(4, 0);
-         //  MaybeDoAutosave();	  broke
+           MaybeDoAutosave();
           sub_463149();
           goto LABEL_49;
         }
@@ -1243,7 +1243,7 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
                                hInst, 0);*/
  SetPriorityClass(GetCurrentProcess(), NORMAL_PRIORITY_CLASS);
  
- GetCurrentDirectory(255, pGameDirectory);
+ GetCurrentDirectoryW(255, pGameDirectory);
  wsprintfW(pMM6ConfigFilename, L"%s\\mm6.ini", pGameDirectory);
 
 
@@ -1278,7 +1278,7 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
  LODFile_ctor(pLODFile_Icons_LOD);
  if (!LODFile_LoadLOD_Icons_Events(pLODFile_Icons_LOD, "data\\icons.lod"))
  {
-  MessageBox(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
+  MessageBoxW(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
   return 0;
  }
 
@@ -1286,7 +1286,7 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
  LODFile_ctor(pLODFile_Events_LOD);
  if (!LODFile_LoadLOD_Icons_Events(pLODFile_Events_LOD, "data\\events.lod"))
  {
-  MessageBox(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
+  MessageBoxW(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
   return 0;
  }
 
@@ -1296,16 +1296,15 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
  LODFile_ctor(pLODFile_Bitmaps_LOD);
  if (!LODFile_LoadLOD_Bitmaps(pLODFile_Bitmaps_LOD, "data\\bitmaps.lod"))
  {
-   MessageBox(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
+   MessageBoxW(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
    return 0;
  }
 
  pLODFile_Icons_LOD->dword_011BA4 = 0;
- bUseRegistry = GetPrivateProfileInt(L"settings", L"registry", 1, pMM6ConfigFilename);
+ bUseRegistry = GetPrivateProfileIntW(L"settings", L"registry", 1, pMM6ConfigFilename);
  if (!bUseRegistry)
-   bUseLoResSprites = GetPrivateProfileInt(L"settings", L"resolution", 0, pMM6ConfigFilename);
- else 
-	bUseLoResSprites = ReadWindowsRegistry("resolution", 0);
+   bUseLoResSprites = GetPrivateProfileIntW(L"settings", L"resolution", 0, pMM6ConfigFilename);
+ else bUseLoResSprites = ReadWindowsRegistry("resolution", 0);
 
  pLODFile_Sprites_LOD = new LODFile;
  LODFile_ctor(pLODFile_Sprites_LOD);
@@ -14504,5 +14503,5 @@ void erroneous_printf(const char *Format, ...)
 
   ClipCursor(0);
   MessageBoxA(0, (char *)TmpBuf, "Error", 0x30u);
- // sub_464761((void *)1);
+ sub_464761((void *)1);
 }

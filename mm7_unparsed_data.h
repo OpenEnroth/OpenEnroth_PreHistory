@@ -2905,6 +2905,19 @@ extern _UNKNOWN unk_F8BBEC; // weak
 extern int dword_F8BC10; // weak
 
 extern struct OldViewport *pOldViewport;  // struct @ MM7.exe::00F8BC14
+// int dword_F8BC14; // 000000
+// int dword_F8BC18; // 000004
+// int dword_F8BC1C; // 000008
+// int dword_F8BC20; // 00000C
+// int dword_F8BC24; // 000010
+// int dword_F8BC28; // 000014
+// int dword_F8BC2C; // 000018
+// int dword_F8BC30; // 00001C
+// int dword_F8BC34; // 000020
+// int dword_F8BC38; // 000024
+// int dword_F8BC3C; // 000028
+// int dword_F8BC40; // 00002C
+// int dword_F8BC44; // 000030
 
 extern __int16 word_F8BC48[array_size_unknown]; // weak
 extern __int16 word_F8BC4A; // weak

@@ -309,7 +309,10 @@ int Party_AddItem(struct Party *_this, struct ItemGen *a2)
   v5 = *(const char **)(pClass40->pItems[0].pIconName + v2);
   if ( v5 )
   {
-    v8 = LODFile_LoadTexture(pLODFile_Icons_LOD, v5, 2);
+   wchar_t pTextureFilename[256];
+   wsprintfW(pTextureFilename, L"%S", v5);
+
+    v8 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pTextureFilename);
     v6 = v8 != -1 ? 72 * v8 + 7145548 : 0;
     v24 = dword_506128;
     v7 = 0;

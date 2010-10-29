@@ -50,11 +50,13 @@ void *MemoryMng::AllocatedNamedBuffer(void* obj_test, long size, const char *pBu
  if (!bBigBufferAllocated&&(!pGame->dword_000004 ))
     err_show();
 
- if (size==0)
+ if (!size)
+   return 0;
+
+ if (size < 0 && !pGame->dword_000004)
  {
-  if ( !pGame->dword_000004)
-    err_show();
-  return NULL;
+  err_show();
+  return 0;
  }
 	 
   if ((uNumMemoryBuffersUsed >= 6000)&&(!pGame->dword_000004))

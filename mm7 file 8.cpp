@@ -4998,7 +4998,7 @@ int __cdecl sub_4645FA()
   }
   RegistryWriteInt("debug flags", dword_51076C);
   RegistryWriteInt("valAlwaysRun", dword_6BE37C);
-  ///class40_sub_45814E(pClass40);	free not itnit mem
+  class40_sub_45814E(pClass40);	//free not itnit mem    - not initialized because the initialization code never reached. bug. this func should be called anyways
   NPCStats_sub_477266((int)pNPCStats);
   sub_465C53();
   sub_465C2C();
@@ -8869,7 +8869,7 @@ void sub_448B67(bool a1)
             }
             v12 = *((_WORD *)v4 - 2);
             dword_597F18 = *((_WORD *)v4 - 1);
-          //  sub_44684A_LooksLikeEventProcessor(v12, 0, 1);
+            sub_44684A_LooksLikeEventProcessor(v12, 0, 1);
             dword_597F18 = 0;
 LABEL_25:
             v3 = HIDWORD(pParty_global->qword_00002C);
@@ -10321,18 +10321,19 @@ void __cdecl InitializeGameText()
 
 void ShowLastError(void)
 {
-   LPVOID lpMsgBuf=NULL;
-   FormatMessage( FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-                  NULL,
+ wchar_t *lpMsgBuf = 0;
+
+   FormatMessageW( FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+                  0,
                   GetLastError(),
                   MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-                  (LPTSTR) &lpMsgBuf,
+                  (wchar_t *)&lpMsgBuf,
                   0,
                   NULL
                  );
    // Display the string.
-   MessageBox( NULL, (LPTSTR)lpMsgBuf, L"GetLastError", MB_OK|MB_ICONINFORMATION );
-   LocalFree( lpMsgBuf );
+   MessageBoxW(0, lpMsgBuf, L"GetLastError", MB_OK | MB_ICONINFORMATION);
+ LocalFree(lpMsgBuf);
 }
 
 //----- (MM7.exe::00465061) --------------------------------------------------------
@@ -10358,15 +10359,15 @@ bool CheckForMM7CD(wchar_t *pGameCDDriveLetter)
  wchar_t pRoot[4];
  lstrcpyW(pRoot, L"X:");
 
- if (!RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE", 0, KEY_ALL_ACCESS, &hSoftware))
+ if (!RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE", 0, KEY_ALL_ACCESS, &hSoftware))
  {
-  if (!RegOpenKeyEx(hSoftware, L"New World Computing", 0, KEY_ALL_ACCESS, &hNewWorldComputing))
+  if (!RegOpenKeyExW(hSoftware, L"New World Computing", 0, KEY_ALL_ACCESS, &hNewWorldComputing))
   {
-    if (!RegOpenKeyEx(hNewWorldComputing, L"Might and Magic VII", 0, KEY_ALL_ACCESS, &hMightAndMagic7))
+    if (!RegOpenKeyExW(hNewWorldComputing, L"Might and Magic VII", 0, KEY_ALL_ACCESS, &hMightAndMagic7))
     {
-      if (!RegOpenKeyEx(hMightAndMagic7, L"1.0", 0, KEY_ALL_ACCESS/*0x2001Fu*/, &hDrvL))
+      if (!RegOpenKeyExW(hMightAndMagic7, L"1.0", 0, KEY_ALL_ACCESS, &hDrvL))
       {
-        if (!RegQueryValueEx(hDrvL, L"CDDrive", 0, 0, (BYTE *)pRoot, &cbData))
+        if (!RegQueryValueExW(hDrvL, L"CDDrive", 0, 0, (BYTE *)pRoot, &cbData))
         {
          *pGameCDDriveLetter = pRoot[0];
 
@@ -10383,23 +10384,23 @@ bool CheckForMM7CD(wchar_t *pGameCDDriveLetter)
  }
 
  OSWindow *pInsertCDDialog = 0;
- //while (true)
-// {
+ while (true)
+ {
   for (unsigned int i = L'A'; i <= L'Z'; ++i)
   {
    pRoot[0] = i;
    if (GetDriveTypeW(pRoot) != DRIVE_CDROM)
      continue;
 
-	   if (IsMM7CD(pRoot))
-	   {
-		CreateRegistryWString(L"CDDrive", pRoot, 4);
+   if (IsMM7CD(pRoot))
+   {
+	CreateRegistryWString(L"CDDrive", pRoot, 4);
 
-		if (pInsertCDDialog)
-		  delete pInsertCDDialog;
+	if (pInsertCDDialog)
+	  delete pInsertCDDialog;
 
-		return true;
-	   }
+	return true;
+   }
   }
   /*
   pInsertCDDialog = new Win32Window;
@@ -10415,8 +10416,8 @@ bool CheckForMM7CD(wchar_t *pGameCDDriveLetter)
   };
   pInsertCDDialog->SetClientArea(&wndArea);
   pInsertCDDialog->Show();*/
- // Sleep(1500);
-// }
+  Sleep(1000);
+ }
 
  //delete pInsertCDDialog;
  return false;

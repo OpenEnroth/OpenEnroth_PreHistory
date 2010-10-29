@@ -1871,6 +1871,8 @@ char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
   v2 = a1;
   switch ( a1 & 7 )
   {
+
+   //pickup item
     case 2:
       v18 = a1 >> 3;
       v29 = (char *)(a1 >> 3);

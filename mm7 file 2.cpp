@@ -3398,15 +3398,15 @@ void CreateRegistryWString(const wchar_t *pName, const wchar_t *pValue, unsigned
       hNewWorldComputing = 0,
       hVer10 = 0,
       hValue = 0;
- if (!RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE", 0, 0x2001Fu, &hSoftware))
+ if (!RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE", 0, 0x2001Fu, &hSoftware))
  {
-  if (!RegCreateKeyEx(hSoftware, L"New World Computing", 0, L"", 0, 983103u, 0, &hNewWorldComputing, 0))
+  if (!RegCreateKeyExW(hSoftware, L"New World Computing", 0, L"", 0, 983103u, 0, &hNewWorldComputing, 0))
   {
-   if (!RegCreateKeyEx(hNewWorldComputing,L"Might and Magic VII", 0, L"", 0, 0xF003Fu, 0, &hVer10, 0))
+   if (!RegCreateKeyExW(hNewWorldComputing,L"Might and Magic VII", 0, L"", 0, 0xF003Fu, 0, &hVer10, 0))
    {
-    if (!RegCreateKeyEx(hVer10, L"1.0", 0, L"", 0, 0xF003Fu, 0, &hValue, 0) )
+    if (!RegCreateKeyExW(hVer10, L"1.0", 0, L"", 0, 0xF003Fu, 0, &hValue, 0) )
     {
-     RegSetValueEx(hValue, pName, 0, 0, (BYTE *)pValue, uSize * sizeof(wchar_t));
+     RegSetValueExW(hValue, pName, 0, 0, (BYTE *)pValue, uSize * sizeof(wchar_t));
      RegCloseKey(hValue);
     }
     RegCloseKey(hVer10);
@@ -3425,13 +3425,13 @@ void CreateRegistryKey(const char *pName, const char *pValue)
       hNewWorldComputing = 0,
       hVer10 = 0,
       hValue = 0;
- if (!RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"SOFTWARE", 0, 0x2001Fu, &hSoftware))
+ if (!RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE", 0, 0x2001Fu, &hSoftware))
  {
-  if (!RegCreateKeyEx(hSoftware, L"New World Computing", 0, L"", 0, 983103u, 0, &hNewWorldComputing, 0))
+  if (!RegCreateKeyExW(hSoftware, L"New World Computing", 0, L"", 0, 983103u, 0, &hNewWorldComputing, 0))
   {
-   if (!RegCreateKeyEx(hNewWorldComputing, L"Might and Magic VII", 0, L"", 0, 0xF003Fu, 0, &hVer10, 0))
+   if (!RegCreateKeyExW(hNewWorldComputing, L"Might and Magic VII", 0, L"", 0, 0xF003Fu, 0, &hVer10, 0))
    {
-    if (!RegCreateKeyEx(hVer10, L"1.0", 0, L"", 0, 0xF003Fu, 0, &hValue, 0))
+    if (!RegCreateKeyExW(hVer10, L"1.0", 0, L"", 0, 0xF003Fu, 0, &hValue, 0))
     {
      RegSetValueExA(hValue, pName, 0, REG_SZ, (BYTE *)pValue, lstrlenA(pValue) + 1);
      RegCloseKey(hValue);

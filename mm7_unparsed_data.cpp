@@ -2120,48 +2120,8 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  char *dword_AE5B98; // idb
 
 struct class58 *pClass58_global = 0; // struct @ MM7.exe::00AE5BA8
-//_UNKNOWN unk_AE5BA8; // weak
-//_UNKNOWN unk_C04000; // weak
-//_UNKNOWN unk_C86400; // weak
-//_UNKNOWN unk_C8C805; // weak
-//_UNKNOWN unk_C8C814; // weak
-//int dword_DEDBAC; // 308004
-//int dword_DEDBB0; // 308008
-//int dword_DF1BB4; // 30800C
 IDirectDrawClipper *pDDrawClipper = 0; // dword @ MM7.exe::00FD1BE0
-
 //struct Render *pD3DRenderer = 0;  // struct @ MM7.exe::00DF1BE8
-//int dword_DF1BE8; // @ pD3DRenderer::bUseDirect3D
-//int dword_DF1BF4; // @ pD3DRenderer::dword_00000C
-//int dword_DF1BF8; // @ pD3DRenderer::dword_000010
-//int dword_DF1BFC; // @ pD3DRenderer::dword_000014
-//int dword_DF1C04; // @ pD3DRenderer::dword_00001Ñ
-//int dword_DF1C08; // @ pD3DRenderer::dword_000020
-//int dword_DF1C0C; // @ pD3DRenderer::dword_000024
-//int dword_DF1C10; // @ pD3DRenderer::dword_000028
-//int dword_E31C1C; // @ pD3DRenderer::dword_040034
-//int dword_E31C40; // @ pD3DRenderer::dword_040058
-//int dword_E31C70; // @ pD3DRenderer::dword_040088
-//int dword_E31C74; // @ pD3DRenderer::pdd4
-//int dword_E31C78; // @ pD3DRenderer::pdds4
-//int dword_E31C7C; // @ pD3DRenderer::dword_040094
-//int dword_E31C80; // @ pD3DRenderer::dword_040098
-//int dword_E31C84; // @ pD3DRenderer::pdd2
-//int dword_E31C88; // @ pD3DRenderer::pdds2
-//int dword_E31C8C; // @ pD3DRenderer::dword_0400A4
-//int dword_E31CB4; // @ pD3DRenderer::dword_0400CC
-//int dword_E31CB8; // @ pD3DRenderer::dword_0400D0
-//int dword_E31CBC; // @ pD3DRenderer::dword_0400D4
-//int dword_E31CC0; // @ pD3DRenderer::dword_0400D8
-//int dword_E31CC4; // @ pD3DRenderer::dword_0400DC
-//int dword_E31CC8; // @ pD3DRenderer::dword_0400E0
-//int dword_E31CCC; // @ pD3DRenderer::dword_0400E4
-//int dword_E31CD4; // @ pD3DRenderer::dword_0400EC
-//int dword_E31CD8; // @ pD3DRenderer::dword_0400F0
-//int dword_E31CF8; // @ pD3DRenderer::dword_040110
-// int dword_EF522C; // @ pD3DRenderer::bUseColoredLights
-// int dword_EF5234; // @ pD3DRenderer::dword_10364C
-//int dword_EF5248; // @ pD3DRenderer::dword_103660
  int dword_EF524C; // weak
  unsigned int uTextureID_WaterTiles[8]; // dword[8] @ MM7.exe::00EF5254
  int dword_EF5290; // weak
@@ -2367,20 +2327,6 @@ _UNKNOWN unk_F8BBEC; // weak
 int dword_F8BC10; // weak
 
 struct OldViewport *pOldViewport = 0;  // struct @ MM7.exe::00F8BC14
-// int dword_F8BC14; // 000000
-// int dword_F8BC18; // 000004
-// int dword_F8BC1C; // 000008
-// int dword_F8BC20; // 00000C
-// int dword_F8BC24; // 000010
-// int dword_F8BC28; // 000014
-// int dword_F8BC2C; // 000018
-// int dword_F8BC30; // 00001C
-// int dword_F8BC34; // 000020
-// int dword_F8BC38; // 000024
-// int dword_F8BC3C; // 000028
-// int dword_F8BC40; // 00002C
-// int dword_F8BC44; // 000030
-
 
  __int16 word_F8BC48[array_size_unknown]; // weak
  __int16 word_F8BC4A; // weak

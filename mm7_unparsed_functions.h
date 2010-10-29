@@ -1104,7 +1104,7 @@ void __thiscall Render_sub_4A2FC0(int _this, signed int a2, int a3, signed int a
 void __thiscall sub_4A354F(int _this, int a2, IDirect3DTexture2 *pTexture, unsigned int uDiffuseColor, int a5);
 void __thiscall sub_4A3AD9(int _this, int a2, IDirect3DTexture2 *pTexture, unsigned int uDiffuseColor, int a5);
 void __thiscall Render_sub_4A43B1(int _this, int a2, int a3, int a4);
-_DWORD __stdcall sub_4A46E6(_DWORD, _DWORD, _DWORD); // weak
+int __fastcall sub_4A46E6(int a1, int a2, signed int a3, int a4, unsigned int a5); // weak
 signed int __stdcall sub_4A48E4(int a1, int a2, int a3, int a4, signed int a5);
 int __stdcall sub_4A49D0(float, float, float, float, float, float, float, float, int); // idb
 int __stdcall sub_4A4CC9(int a1, int a2);

@@ -674,12 +674,12 @@ LABEL_33:
       _this->pBModels[i].ptr_000058 = (unsigned short *)mem_mng.AllocatedNamedBuffer( NULL, v119, FileName);
       memcpy(_this->pBModels[i].ptr_000058, Src, v119);
       Src = (char *)Src + v119;
-	 /*	 0 size v119
+
       v119 = 8 * _this->pBModels[i].dword_00005C;
       _this->pBModels[i].ptr_000060 = (unsigned char *)mem_mng.AllocatedNamedBuffer( NULL, v119, FileName);
       memcpy(_this->pBModels[i].ptr_000060, Src, v119);
       Src = (char *)Src + v119;
-	  */
+	  
       pTexturesNames = (unsigned char *)malloc(10 * _this->pBModels[i].dword_00004C);
       v119 = 10 * _this->pBModels[i].dword_00004C;
       memcpy(pTexturesNames, Src, v119);
