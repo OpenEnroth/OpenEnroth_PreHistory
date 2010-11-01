@@ -17,7 +17,7 @@ bool Actor_sub_40894B(struct Actor *_this)
 
   v1 = false;
 
-  if (_this->array_0000D4[5].qword_000000 > 0i64 || _this->array_0000D4[6].qword_000000 > 0i64 )  
+  if (_this->pActorBuffs[SPELLBUFF_FEATHERFALL].qword_000000 > 0i64 || _this->pActorBuffs[6].qword_000000 > 0i64 )  
     v1 = true;
 
   v3 = _this->word_0000B0_state;
@@ -402,7 +402,7 @@ signed int Actor_GetActorsRelation(struct Actor *pActor1, struct Actor *pActor2)
     
   if (pActor1)
   {   
-    if ( pActor1->array_0000D4[9].qword_000000 > 0i64)
+    if ( pActor1->pActorBuffs[9].qword_000000 > 0i64)
     {
       return 4;
     }
@@ -414,7 +414,7 @@ signed int Actor_GetActorsRelation(struct Actor *pActor1, struct Actor *pActor2)
  
   if (pActor2)
   {    
-    if ( pActor2->array_0000D4[9].qword_000000 > 0i64)
+    if ( pActor2->pActorBuffs[9].qword_000000 > 0i64)
     {
       return 4;
     }
@@ -456,7 +456,7 @@ signed int Actor_GetActorsRelation(struct Actor *pActor1, struct Actor *pActor2)
       v7 = 0;
     }
     
-    if ( pActor1->array_0000D4[12].qword_000000 > 0i64 )
+    if ( pActor1->pActorBuffs[12].qword_000000 > 0i64 )
       v7 = 0;
   }
 
@@ -471,23 +471,23 @@ signed int Actor_GetActorsRelation(struct Actor *pActor1, struct Actor *pActor2)
       v8 = 0;
     }
     
-    if ( pActor2->array_0000D4[12].qword_000000 > 0i64 )
+    if ( pActor2->pActorBuffs[12].qword_000000 > 0i64 )
       v8 = 0;
   }
     
-  if ( (pActor1 && (pActor1->array_0000D4[1].qword_000000 > 0i64) && !v8) || 
-       (pActor2 && (pActor2->array_0000D4[1].qword_000000 > 0i64) && !v7) )
+  if ( (pActor1 && (pActor1->pActorBuffs[1].qword_000000 > 0i64) && !v8) || 
+       (pActor2 && (pActor2->pActorBuffs[1].qword_000000 > 0i64) && !v7) )
   {
     return 0;
   }
 
-  if ( pActor1 && (pActor1->array_0000D4[12].qword_000000 <= 0i64) && 
+  if ( pActor1 && (pActor1->pActorBuffs[12].qword_000000 <= 0i64) && 
        (pActor1->dword_000024 & 0x80000) && !v8 )
   {
     return 4;
   }
 
-  if ( pActor2 && pActor1 && (pActor1->array_0000D4[12].qword_000000 <= 0i64) && 
+  if ( pActor2 && pActor1 && (pActor1->pActorBuffs[12].qword_000000 <= 0i64) && 
        (pActor2->dword_000024 & 0x80000))  
   {
     if ( v7 )
@@ -503,7 +503,7 @@ signed int Actor_GetActorsRelation(struct Actor *pActor1, struct Actor *pActor2)
 
   if ( !v7 )
   {
-    if ( (!pActor2 || pActor2->array_0000D4[12].qword_000000 > 0i64 || !(pActor2->dword_000024 & 0x80000)) && 
+    if ( (!pActor2 || pActor2->pActorBuffs[12].qword_000000 > 0i64 || !(pActor2->dword_000024 & 0x80000)) && 
           !pClass48->array_000000[v8][0] )
     {
       if ( v8 < 89 )
@@ -580,7 +580,7 @@ void Actor_sub_403C6C(unsigned int uActorID, int a2, struct DirectionInfo *pDire
     Actor_PlaySound(uActorID, 0);
 
     recoveryTime = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].uRecoveryTime;
-    if ( pActor->array_0000D4[7].qword_000000 > 0i64 )
+    if ( pActor->pActorBuffs[SPELLBUFF_FLY].qword_000000 > 0i64 )
     {
       recoveryTime *= 2;   
     }
@@ -1033,7 +1033,7 @@ void Actor_sub_403854(unsigned int uActorID, signed int a2, struct DirectionInfo
     Actor_PlaySound(uActorID, 0);
 
     recoveryTime = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].uRecoveryTime;    
-    if ( pActor->array_0000D4[7].qword_000000 > 0i64 )
+    if ( pActor->pActorBuffs[SPELLBUFF_FLY].qword_000000 > 0i64 )
     {
       recoveryTime *= 2;    
     }
@@ -1122,7 +1122,7 @@ void Actor_sub_40368B(unsigned int uActorID, signed int a2, struct DirectionInfo
     Actor_PlaySound(uActorID, 0);
 
     recoveryTime = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].uRecoveryTime;    
-    if ( pActor->array_0000D4[7].qword_000000 > 0i64 )
+    if ( pActor->pActorBuffs[SPELLBUFF_FLY].qword_000000 > 0i64 )
     {
       recoveryTime *= 2;
     }
@@ -1201,7 +1201,7 @@ void Actor_sub_403476(unsigned int uActorID, signed int a2, struct DirectionInfo
     Actor_PlaySound(uActorID, 0);
 
     recoveryTime = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].uRecoveryTime;    
-    if ( pActor->array_0000D4[7].qword_000000 > 0i64 )
+    if ( pActor->pActorBuffs[SPELLBUFF_FLY].qword_000000 > 0i64 )
     {
       recoveryTime *= 2;    
     }
@@ -1276,7 +1276,7 @@ void Actor_sub_403A60(unsigned int uActorID, signed int a2, struct DirectionInfo
     Actor_PlaySound(uActorID, 0);
 
     recoveryTime = pMonsterStats->pMonsterInfos[pActor->uMonsterID - 1].uRecoveryTime;    
-    if ( pActor->array_0000D4[7].qword_000000 > 0i64 )
+    if ( pActor->pActorBuffs[SPELLBUFF_FLY].qword_000000 > 0i64 )
     {
       recoveryTime *= 2;    
     }
@@ -1391,14 +1391,14 @@ void Actor_PlaySound(unsigned int uActorID, int soundId)
   pActor = &pActors[uActorID];  
   if ( pActor->pSoundSampleIDs[soundId] )
   {
-    if ( pActor->array_0000D4[3].qword_000000 <= 0i64 )
+    if ( pActor->pActorBuffs[3].qword_000000 <= 0i64 )
     {
       v12 = 0;
       v8 = -1;
     }
     else
     {
-      switch (pActor->array_0000D4[3].word_000008)
+      switch (pActor->pActorBuffs[3].word_000008)
       {
       case 2:
         v12 = 33075;
@@ -1441,8 +1441,8 @@ void Actor_Die(unsigned int uActorID)
   pActor->sCurrentHP = 0;
   pActor->word_0000A0 = 8 * pSpriteFrameTable->pSpriteSFrames[pActor->pSpriteIDs[5]].word_000038;
   
-  sub_458585(LODWORD(pActor->array_0000D4[6].qword_000000));
-  sub_458585(LODWORD(pActor->array_0000D4[5].qword_000000));
+  SpellBuff_sub_458585(&pActor->pActorBuffs[6]);
+  SpellBuff_sub_458585(&pActor->pActorBuffs[SPELLBUFF_FEATHERFALL]);
 
   Actor_PlaySound(uActorID, 1);
   Actor_sub_45976D(pActor);
@@ -1455,14 +1455,14 @@ void Actor_Die(unsigned int uActorID)
   }
   
   for (i = 0; i < 22; ++i)
-    sub_458585((int)&pActor->array_0000D4[i].qword_000000);
+    SpellBuff_sub_458585(&pActor->pActorBuffs[i]);
 
   ItemGen_Reset((ItemGen *)&itemGen);
   ItemGen_Reset((ItemGen *)&itemGen);
   
   if (monsterID >= 20 && monsterID <= 22) //devil worker, devil warrior, devil captain
   {
-    itemGen.uItemID = 214;  //Vial of Devil Ichorg
+    itemGen.uItemID = 214;  //Vial of Devil Ichor
   }
   else if (monsterID >= 24 && monsterID <= 26) //green dragon, blue dragon, red dragon
   {
@@ -1685,11 +1685,11 @@ void Actor_TotalReset(struct Actor *_this)
 
  for (i = 0; i < 22; ++i)
  {
-  _this->array_0000D4[i].qword_000000 = 0i64;  
-  _this->array_0000D4[i].word_000008 = 0;
-  _this->array_0000D4[i].word_00000A = 0;
-  _this->array_0000D4[i].byte_00000E = 0;
-  _this->array_0000D4[i].byte_00000F = 0;
+  _this->pActorBuffs[i].qword_000000 = 0i64;  
+  _this->pActorBuffs[i].word_000008 = 0;
+  _this->pActorBuffs[i].word_00000A = 0;
+  _this->pActorBuffs[i].byte_00000E = 0;
+  _this->pActorBuffs[i].byte_00000F = 0;
  }
 
  for (i = 0; i < 4; ++i)
@@ -1744,7 +1744,7 @@ void Actor_Reset(struct Actor *_this)
  _this->dword_000330 = 0;
  _this->dword_000334 = 0;
 
- memset(_this->array_0000D4, 0, 22 * sizeof(struct Actor_struct0));
+ memset(_this->pActorBuffs, 0, 22 * sizeof(struct SpellBuff));
 }
 
 //----- (0047F2D3) --------------------------------------------------------

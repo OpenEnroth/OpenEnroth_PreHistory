@@ -225,11 +225,11 @@ int Party_Reset(struct Party *_this)
   memset(pPlayers[i]->pConditions, 0, 20 * sizeof(__int64));
 
   for (j = 0; j < 24; ++j)
-    sub_458585((int)pPlayers[i]->array_0017A0[j]);
+    SpellBuff_sub_458585(&pPlayers[i]->pPlayerBuffs[j]);
  }
 
  for (i = 0; i < 20; ++i)
-   sub_458585((int)&_this->pPartyBuffs[i]);
+   SpellBuff_sub_458585(&_this->pPartyBuffs[i]);
 
  dword_506F48 = 100;
  _this->dword_007778 = 0;
@@ -719,7 +719,7 @@ void sub_491BF9(struct Party *_this)
     v10 = 24;
     do
     {
-      sub_458585(v3);
+      SpellBuff_sub_458585((SpellBuff *)v3);
       v3 += 16;
     }
     while ( v10-- != 1 );
@@ -729,5 +729,5 @@ void sub_491BF9(struct Party *_this)
 
 
  for (i = 0; i < 20; ++i)
-   sub_458585((int)&_this->pPartyBuffs[i]);
+   SpellBuff_sub_458585(&_this->pPartyBuffs[i]);
 }

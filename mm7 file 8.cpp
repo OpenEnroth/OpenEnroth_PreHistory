@@ -2700,8 +2700,8 @@ void __fastcall sub_404AC7(int a1, int a2, signed int a3, int a4, int a5)
                     {
                       v8 = 3600 * (v6 + 64);
 LABEL_21:
-                      PartySpellBuf_sub_4584E0(
-                        v7 + 452,
+                      SpellBuf_sub_4584E0(
+                        (SpellBuff *)(v7 + 452),
                         pParty_global->qword_00002C + (signed __int64)((double)(v8 << 7) * 0.03333333507180214),
                         (unsigned __int64)(pParty_global->qword_00002C
                                          + (signed int)(signed __int64)((double)(v8 << 7) * 0.03333333507180214)) >> 32,
@@ -3063,8 +3063,8 @@ LABEL_57:
           {
             v39 = 240 * (v6 + 15);
 LABEL_79:
-            PartySpellBuf_sub_4584E0(
-              v7 + 516,
+            SpellBuf_sub_4584E0(
+              (SpellBuff *)(v7 + 516),
               pParty_global->qword_00002C + (signed __int64)((double)(v39 << 7) * 0.03333333507180214),
               (unsigned __int64)(pParty_global->qword_00002C + (signed int)(signed __int64)((double)(v39 << 7) * 0.03333333507180214)) >> 32,
               v5,
@@ -3116,8 +3116,8 @@ LABEL_222:
 LABEL_91:
             v42 = v41 + 3840;
 LABEL_95:
-            PartySpellBuf_sub_4584E0(
-              v7 + 484,
+            SpellBuf_sub_4584E0(
+              (SpellBuff *)(v7 + 484),
               pParty_global->qword_00002C + (signed __int64)((double)(v42 << 7) * 0.03333333507180214),
               (unsigned __int64)(pParty_global->qword_00002C + (signed int)(signed __int64)((double)(v42 << 7) * 0.03333333507180214)) >> 32,
               v5,
@@ -3155,8 +3155,8 @@ LABEL_95:
           {
             v44 = 3600 * (v6 + 64);
 LABEL_105:
-            PartySpellBuf_sub_4584E0(
-              v7 + 468,
+            SpellBuf_sub_4584E0(
+              (SpellBuff *)(v7 + 468),
               pParty_global->qword_00002C + (signed __int64)((double)(v44 << 7) * 0.03333333507180214),
               (unsigned __int64)(pParty_global->qword_00002C + (signed int)(signed __int64)((double)(v44 << 7) * 0.03333333507180214)) >> 32,
               v5,
@@ -3202,7 +3202,7 @@ LABEL_104:
       {
         LOWORD(v48) = 2 * (3 * v6 + 60);
 LABEL_114:
-        PartySpellBuf_sub_4584E0(v7 + 388, pParty_global->qword_00002C + 1280, (unsigned __int64)(pParty_global->qword_00002C + 1280) >> 32, v5, v48, 0, 0);
+        SpellBuf_sub_4584E0((SpellBuff *)(v7 + 388), pParty_global->qword_00002C + 1280, (unsigned __int64)(pParty_global->qword_00002C + 1280) >> 32, v5, v48, 0, 0);
         sub_4A7E89(v7, (int)pClass58_global->unk_1A6C5D);
 LABEL_127:
         v110 = v47;
@@ -3228,7 +3228,7 @@ LABEL_127:
       v56 = (int)pParty_global->pPartyBuffs;
       do
       {
-        sub_458585(v56);
+        SpellBuff_sub_458585((SpellBuff *)v56);
         v56 += 16;
       }
       while ( v56 < (signed int)&pParty_global->pPlayers[0] );
@@ -3247,7 +3247,7 @@ LABEL_127:
           v64 = 6048;
           do
           {
-            sub_458585(v64 + *v57);
+            SpellBuff_sub_458585((SpellBuff *)(v64 + *v57));
             v64 += 16;
           }
           while ( v64 < 6432 );
@@ -3279,8 +3279,8 @@ LABEL_127:
           v51 = 0;
         else
           v51 = 3600 * v6;
-        PartySpellBuf_sub_4584E0(
-          v7 + 548,
+        SpellBuf_sub_4584E0(
+          (SpellBuff *)(v7 + 548),
           pParty_global->qword_00002C + (signed __int64)((double)(v51 << 7) * 0.03333333507180214),
           (unsigned __int64)(pParty_global->qword_00002C + (signed int)(signed __int64)((double)(v51 << 7) * 0.03333333507180214)) >> 32,
           v5,
@@ -3333,8 +3333,8 @@ LABEL_158:
 LABEL_138:
         v54 = v53 + 3840;
 LABEL_142:
-        PartySpellBuf_sub_4584E0(
-          v7 + 500,
+        SpellBuf_sub_4584E0(
+          (SpellBuff *)(v7 + 500),
           pParty_global->qword_00002C + (signed __int64)((double)(v54 << 7) * 0.03333333507180214),
           (unsigned __int64)(pParty_global->qword_00002C + (signed int)(signed __int64)((double)(v54 << 7) * 0.03333333507180214)) >> 32,
           v5,
@@ -3378,8 +3378,8 @@ LABEL_142:
         v100 = 1200 * v6 + 3840;
         LOWORD(v6) = 4 * v6;
 LABEL_221:
-        PartySpellBuf_sub_4584E0(
-          v7 + 420,
+        SpellBuf_sub_4584E0(
+          (SpellBuff *)(v7 + 420),
           pParty_global->qword_00002C + (signed __int64)((double)(v100 << 7) * 0.03333333507180214),
           (unsigned __int64)(pParty_global->qword_00002C + (signed int)(signed __int64)((double)(v100 << 7) * 0.03333333507180214)) >> 32,
           v5,
@@ -3424,8 +3424,8 @@ LABEL_221:
 LABEL_208:
         v98 = v97 + 3840;
 LABEL_212:
-        PartySpellBuf_sub_4584E0(
-          v7 + 436,
+        SpellBuf_sub_4584E0(
+          (SpellBuff *)(v7 + 436),
           pParty_global->qword_00002C + (signed __int64)((double)(v98 << 7) * 0.03333333507180214),
           (unsigned __int64)(pParty_global->qword_00002C + (signed int)(signed __int64)((double)(v98 << 7) * 0.03333333507180214)) >> 32,
           v5,
@@ -3471,8 +3471,8 @@ LABEL_212:
 LABEL_168:
         v68 = v67 + 3840;
 LABEL_171:
-        PartySpellBuf_sub_4584E0(
-          v7 + 532,
+        SpellBuf_sub_4584E0(
+          (SpellBuff *)(v7 + 532),
           pParty_global->qword_00002C + (signed __int64)((double)(v68 << 7) * 0.03333333507180214),
           (unsigned __int64)(pParty_global->qword_00002C + (signed int)(signed __int64)((double)(v68 << 7) * 0.03333333507180214)) >> 32,
           v5,
@@ -3596,7 +3596,7 @@ LABEL_183:
 }
 
 //----- (0044D406) --------------------------------------------------------
-char *__fastcall GUIWindow_sub_44D406(int *a1, unsigned char *pFontData, int a3, int a4, unsigned __int16 a5, const char *pString, int a7)
+char *__fastcall GUIWindow_sub_44D406(int *a1, struct Font *pFont, int a3, int a4, unsigned __int16 a5, const char *pString, int a7)
 {
   char *result; // eax@1
   int v8; // ebx@1
@@ -3607,17 +3607,17 @@ char *__fastcall GUIWindow_sub_44D406(int *a1, unsigned char *pFontData, int a3,
 
   v8 = a1[2] - a3;
   dword_5C6DB4 = a5;
-  v12 = (char *)FitTextInAWindow(pString, (Font *)pFontData, (GUIWindow *)a1, a3, 0);
+  v12 = (char *)FitTextInAWindow(pString, pFont, (GUIWindow *)a1, a3, 0);
   result = strtok(v12, "\n");
   v9 = a3 + a1[0];
   v10 = a4 + a1[1];
   while ( result )
   {
-    v13 = (v8 - sub_44C51E((Font *)pFontData, result)) >> 1;
+    v13 = (v8 - sub_44C51E(pFont, result)) >> 1;
     if ( v13 < 0 )
       v13 = 0;
-    sub_44D1E7((unsigned char *)pFontData, a5, v9 + v13, v10, result, 640);
-    v10 += pFontData[5] - a7;
+    sub_44D1E7((unsigned char *)pFont, a5, v9 + v13, v10, result, 640);
+    v10 += ((unsigned char *)pFont)[5] - a7;
     result = strtok(0, "\n");
   }
   return result;
@@ -3948,7 +3948,7 @@ void __thiscall sub_405CFF(int _this, int a2)
       else
       {
         if ( v12 == 3 )
-          dword_5FF1D4[209 * v13] = (signed __int64)((double)*(signed int *)(v11 + 4) * 2.1333333333333333);
+          pActors[v13].uRecoveryTime = (signed __int64)((double)*(signed int *)(v11 + 4) * 2.1333333333333333);
       }
       ++v14;
       v11 += 16;
@@ -4478,8 +4478,8 @@ void __thiscall sub_405E14(void *_this)
   v20 = 0;
   if ( (signed int)uNumActors > 0 )
   {
-    v3 = (int)&unk_5FF22C;
-    v16 = (int)&unk_5FF22C;
+    v3 = (int)&pActors->pActorBuffs;
+    v16 = (int)&pActors->pActorBuffs;
     do
     {
       v4 = v3 - 212;
@@ -4492,7 +4492,7 @@ void __thiscall sub_405E14(void *_this)
       {
         if ( v19 != 10 )
         {
-          sub_4585CA(v3, pParty_global->qword_00002C, SHIDWORD(pParty_global->qword_00002C));
+          SpellBuff_sub_4585CA((SpellBuff *)v3, pParty_global->qword_00002C, SHIDWORD(pParty_global->qword_00002C));
           v1 = 0;
         }
         ++v19;
@@ -5130,7 +5130,7 @@ int __thiscall sub_406457(void *_this, int a2)
   }
   else
   {
-    v4 = pMonsterStats->pMonsterInfos[word_5FF1B8[418 * (v2 >> 3)]].uRecoveryTime;
+    v4 = pMonsterStats->pMonsterInfos[pActors[v2 >> 3].uMonsterID].uRecoveryTime;
   }
   *(_DWORD *)(16 * a2 + v3 + 36) = v4;
   sub_404544(v3);
@@ -5671,7 +5671,7 @@ __int16 __thiscall sub_40680F(void *_this, int a2)
           v20 = 0;
         }
         if ( (v22 & 7) == 3 )
-          v9 = (unsigned __int8)*(&byte_5C8D1A[89 * (pMonsterStats->pMonsterInfos[word_5FF1B8[418 * (v22 >> 3)]].uID - 1) / 3]
+          v9 = (unsigned __int8)*(&byte_5C8D1A[89 * (pMonsterStats->pMonsterInfos[pActors[v22 >> 3].uMonsterID].uID - 1) / 3]
                                 + (*(_WORD *)(v4 + 96) - 1) / 3);
         else
           v9 = 4;
@@ -6425,7 +6425,7 @@ LABEL_61:
 
     for (j = 0; j < 24; ++j)
     {
-      sub_4585CA((int)v18->array_0017A0[j], pParty_global->qword_00002C, SHIDWORD(pParty_global->qword_00002C));
+      SpellBuff_sub_4585CA(&v18->pPlayerBuffs[j], pParty_global->qword_00002C, SHIDWORD(pParty_global->qword_00002C));
     }
 
     if ( v40 )
@@ -6439,7 +6439,7 @@ LABEL_61:
 
   for (i = 0; i < 20; ++i)
   {
-    if ( sub_4585CA((int)&pParty_global->pPartyBuffs[i], pParty_global->qword_00002C, SHIDWORD(pParty_global->qword_00002C)) == 1 )
+    if ( SpellBuff_sub_4585CA(&pParty_global->pPartyBuffs[i], pParty_global->qword_00002C, SHIDWORD(pParty_global->qword_00002C)) == 1 )
       struct_576FE8.dword_000044 = 1;
   }
 
@@ -6464,7 +6464,7 @@ LABEL_61:
       {
         if ( !Player_sub_492C0B((int)pPlayers[*(_BYTE *)(v47 + 14) - 1]) )
         {
-          sub_458585(v47);
+          SpellBuff_sub_458585((SpellBuff *)v47);
           if (array_4EE07C[i] == 7 )
             pParty_global->dword_000704 = 0;
         }
@@ -7025,7 +7025,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
       v8 = (double)pActors[v2].uActorHeight * 0.699999988079071;
       v9 = v8 + 6.755399441055744e15;
       v65 = LODWORD(v9) + pActors[v2].sActorPosZ;
-      v6 = word_5FF1F6[418 * v2];
+      v6 = pActors[v2].word_00009E;
     }
   }
   else
@@ -7072,7 +7072,7 @@ signed int __fastcall sub_4070EF(signed int a1, signed int a2)
       v20 = (double)pActors[v12].uActorHeight * 0.699999988079071;
       v21 = v20 + 6.755399441055744e15;
       v17 = LODWORD(v21) + pActors[v12].sActorPosZ;
-      v19 = word_5FF1F6[418 * v12];
+      v19 = pActors[v12].word_00009E;
     }
   }
   else
@@ -9050,7 +9050,7 @@ int __fastcall sub_408A7E(int a1, int a2)
   v9 = 0;
   if ( (signed int)uNumActors > 0 )
   {
-    v4 = (int)word_5FF1B8;
+    v4 = (int)&pActors->uMonsterID;
     do
     {
       v5 = *(_DWORD *)(v4 - 60);
@@ -9090,7 +9090,7 @@ int __fastcall sub_408AE7(int a1, int a2)
   v9 = 0;
   if ( (signed int)uNumActors > 0 )
   {
-    v4 = (int)dword_5FF41C;
+    v4 = (int)pActors->dword_0002C4;
     do
     {
       v5 = *(_DWORD *)(v4 - 672);

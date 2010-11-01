@@ -222,8 +222,8 @@ LABEL_172:
         v29 = v3 + 6272;
         goto LABEL_147;
       case 235:
-        PartySpellBuf_sub_4584E0(
-          v3 + 6416,
+        SpellBuf_sub_4584E0(
+          (SpellBuff *)(v3 + 6416),
           pParty_global->qword_00002C + (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214),
           (unsigned __int64)(pParty_global->qword_00002C + (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214)) >> 32,
           3,
@@ -377,7 +377,7 @@ LABEL_114:
         v28 = (signed __int64)((double)(230400 * pParty_global->stru_007754.dword_000004) * 0.03333333507180214);
         v29 = v3 + 6080;
 LABEL_147:
-        PartySpellBuf_sub_4584E0(v29, pParty_global->qword_00002C + v28, (unsigned __int64)(pParty_global->qword_00002C + v28) >> 32, v46, v50, v59, v70);
+        SpellBuf_sub_4584E0((SpellBuff *)v29, pParty_global->qword_00002C + v28, (unsigned __int64)(pParty_global->qword_00002C + v28) >> 32, v46, v50, v59, v70);
         goto LABEL_112;
       case 262:
         *(_DWORD *)(v3 + 120) = 0;
@@ -3720,8 +3720,8 @@ void __thiscall sub_46BEF1(void *_this)
           if ( sub_427662(v2 - 144, 10) )
           {
             v6 = (signed __int64)((double)(signed int)(*((_DWORD *)v1 + 19) << 7) * 0.03333333507180214);
-            PartySpellBuf_sub_4584E0(
-              16 * *((_DWORD *)v1 + 18) + v2 - 144 + 212,
+            SpellBuf_sub_4584E0(
+              (SpellBuff *)(16 * *((_DWORD *)v1 + 18) + v2 - 144 + 212),
               pParty_global->qword_00002C + v6,
               (unsigned __int64)(pParty_global->qword_00002C + (signed int)v6) >> 32,
               *((_DWORD *)v1 + 20),
@@ -4104,8 +4104,9 @@ LABEL_222:
                    pActors[v156].word_0000B0_state = 0;
                     Actor_sub_45976D(&pActors[v156]);
                   }
-                  PartySpellBuf_sub_4584E0(
-                    (int)((char *)&unk_5FF22C + 16 * v153 + v123),
+                  SpellBuf_sub_4584E0(
+                    //(int)((char *)&unk_5FF22C + 16 * v153 + v123),
+                    &pActors[v156].pActorBuffs[v153],
                     pParty_global->qword_00002C + (signed __int64)((double)(v154 << 7) * 0.03333333507180214),
                     (unsigned __int64)(pParty_global->qword_00002C
                                      + (signed int)(signed __int64)((double)(v154 << 7) * 0.03333333507180214)) >> 32,
@@ -4136,7 +4137,7 @@ LABEL_222:
       {
         if ( v168 == 3 )
         {
-          if ( sub_438BDF(word_5FF1B8[418 * (v162 >> 3)], 1) )
+          if ( sub_438BDF(pActors[v162 >> 3].uMonsterID, 1) )
             sub_43A97E(v170, v162);
         }
         v108 = pObjectDescriptionList->uNumObjects;
@@ -7547,7 +7548,7 @@ LABEL_119:
                 if ( !(v52 ^ v53) )
                 {
                  if ( !((unsigned __int8)(v52 ^ v53) | v51) || (_DWORD)pParty_global->pPartyBuffs[11].qword_000000 > (unsigned int)v23 )
-                    sub_458585((int)&pParty_global->pPartyBuffs[11]);
+                    SpellBuff_sub_458585(&pParty_global->pPartyBuffs[11]);
                 }
                 struct_576FE8.dword_000044 = 1;
                 goto LABEL_119;
@@ -7568,7 +7569,7 @@ LABEL_118:
             {
               if ( v58 == v23 )
               {
-                if ( !byte_5FF195[836 * v41] )
+               if ( !pActors[v41].byte_00003E[1])
                   goto LABEL_118;
 LABEL_114:
                 Actor_sub_402968(v65, v40, v23, (DirectionInfo *)v23);
@@ -8120,7 +8121,7 @@ LABEL_101:
             }
             if ( v73 != v36 )
               goto LABEL_101;
-            if ( byte_5FF195[836 * v40] )
+            if (pActors[v40].byte_00003E[1])
             {
 LABEL_99:
               Actor_sub_402968(v77, v39, v36, (DirectionInfo *)v36);
@@ -8143,7 +8144,7 @@ LABEL_103:
           if (HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) >= 0)
           {
            if (HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[11].qword_000000 > 0u )
-              sub_458585((int)&pParty_global->pPartyBuffs[11]);
+              SpellBuff_sub_458585(&pParty_global->pPartyBuffs[11]);
           }
           struct_576FE8.dword_000044 = 1;
           break;
@@ -8346,10 +8347,10 @@ LABEL_25:
         {
           if ( (signed int)uNumActors > v8 )
           {
-            v47 = (int)&unk_5FF1DE;
+            v47 = (int)&pActors->word_000086;
             do
             {
-              v49 = word_5FF1B8[418 * (*((_DWORD *)v2 + 22) >> 3)] - 1;
+              v49 = pActors[*((_DWORD *)v2 + 22) >> 3].uMonsterID - 1;
               v14 = (signed __int64)((double)v49 * 0.33333333333333331);
               v49 = *(_WORD *)(v47 - 38) - 1;
               if ( v14 != (unsigned int)(signed __int64)((double)v49 * 0.33333333333333331) )
@@ -8365,7 +8366,7 @@ LABEL_25:
         {
           if ( (signed int)uNumActors > v8 )
           {
-            v47 = (int)&unk_5FF1DE;
+            v47 = (int)&pActors->word_000086;
             do
             {
               sub_46DF1A(v50++, *(_WORD *)(152 * *(_WORD *)v47 + pMonsterDescriptionList->pDescriptions - 146));
@@ -9203,8 +9204,8 @@ void __cdecl sub_472866()
   if (pParty_global->dword_000704)
   {
     pParty_global->dword_000704 = 0;
-    if (pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000 > 0 )
-      *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[PARTYBUFF_FLY].word_00000C) |= 1u;
+    if (pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000 > 0 )
+      *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[SPELLBUFF_FLY].word_00000C) |= 1u;
   }
   if ( i == -30000 )
   {
@@ -9235,8 +9236,8 @@ void __cdecl sub_472866()
     }
     dword_720CDC = LODWORD(v67);
   }
-  if (pParty_global->pPartyBuffs[PARTYBUFF_FEATHERFALL].dword_000004 < 0 ||
-      pParty_global->pPartyBuffs[PARTYBUFF_FEATHERFALL].dword_000004 <= 0 && pParty_global->pPartyBuffs[PARTYBUFF_FEATHERFALL].byte_000000 <= 0)
+  if (pParty_global->pPartyBuffs[SPELLBUFF_FEATHERFALL].dword_000004 < 0 ||
+      pParty_global->pPartyBuffs[SPELLBUFF_FEATHERFALL].dword_000004 <= 0 && pParty_global->pPartyBuffs[SPELLBUFF_FEATHERFALL].byte_000000 <= 0)
   {
     v75 = 0;
     v5 = (void **)pPlayers;
@@ -9590,7 +9591,7 @@ LABEL_93:
      if ( HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) >= 0 )
       {
        if ( HIDWORD(pParty_global->pPartyBuffs[11].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[11].qword_000000 )
-          sub_458585((int)&pParty_global->pPartyBuffs[11]);
+          SpellBuff_sub_458585(&pParty_global->pPartyBuffs[11]);
       }
       struct_576FE8.dword_000044 = 1;
       goto LABEL_152;

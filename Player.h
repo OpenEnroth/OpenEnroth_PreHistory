@@ -5,7 +5,7 @@
 
 #include "AIL.h"
 #include "defs.h"
-//#include "mm7_unparsed_data.h"
+#include "Spells.h"
 
 #pragma pack(push, 1)
 
@@ -151,44 +151,44 @@ struct Player
    char           array_0001F5[31];
 
    struct InventorySlot cInventorySlots[126]; // struct[14*9] @ 000214     struct InventorySlot == struct ItemGen
-   char           array_0013CC[432];
-   int            sInventoryIndexes[126]; // dword[14*9] @ 00157C
-   short          sFireResistanceBase;    // word @ 001774
-   short          sAirResistanceBase;     // word @ 001776
-   short          sWaterResistanceBase;   // word @ 001778
-   short          sEarthResistanceBase;   // word @ 00177A
-   short          word_00177C;
-   short          word_00177E;
-   short          sSpiritResistanceBase;  // word @ 001780
-   short          sMindResistanceBase;    // word @ 001782
-   short          sBodyResistanceBase;    // word @ 001784
-   short          word_001786;
-   short          word_001788;
-   short          sFireResistanceBonus;   // word @ 00178A
-   short          sAirResistanceBonus;    // word @ 00178C
-   short          sWaterResistanceBonus;  // word @ 00178E
-   short          sEarthResistanceBonus;  // word @ 001790
-   short          word_001792;
-   short          word_001794;
-   short          sSpiritResistanceBonus; // word @ 001796
-   short          sMindResistanceBonus;   // word @ 001798
-   short          sBodyResistanceBonus;   // word @ 00179A
-   short          word_00179C;
-   short          word_00179E;
-   char           array_0017A0[24][16];  // related to spells
-   int            dword_001920; //related to voice in SoundList
-   int            dword_001924;
-   int            dword_001928;
-   int            dword_00192C;
-   int            dword_001930;
-   unsigned short uTimeToRecovery;   // word @ 001934
-   char           array_001936[2];
-   unsigned int   uSkillPoints;      // dword @ 001938
-   int            sHealth;           // dword @ 00193C
-   int            sMana;             // dword @ 001940
-   unsigned int   uBirthYear;        // dword @ 001944
-   int            sEquppedItemIndexes[16]; // dword[16] @ 001948
-   int            array_001988[65]; // dword[] @ 001988
+   char             array_0013CC[432];
+   int              sInventoryIndexes[126]; // dword[14*9] @ 00157C
+   short            sFireResistanceBase;    // word @ 001774
+   short            sAirResistanceBase;     // word @ 001776
+   short            sWaterResistanceBase;   // word @ 001778
+   short            sEarthResistanceBase;   // word @ 00177A
+   short            word_00177C;
+   short            word_00177E;
+   short            sSpiritResistanceBase;  // word @ 001780
+   short            sMindResistanceBase;    // word @ 001782
+   short            sBodyResistanceBase;    // word @ 001784
+   short            word_001786;
+   short            word_001788;
+   short            sFireResistanceBonus;   // word @ 00178A
+   short            sAirResistanceBonus;    // word @ 00178C
+   short            sWaterResistanceBonus;  // word @ 00178E
+   short            sEarthResistanceBonus;  // word @ 001790
+   short            word_001792;
+   short            word_001794;
+   short            sSpiritResistanceBonus; // word @ 001796
+   short            sMindResistanceBonus;   // word @ 001798
+   short            sBodyResistanceBonus;   // word @ 00179A
+   short            word_00179C;
+   short            word_00179E;
+   struct SpellBuff pPlayerBuffs[24]; // struct[24] @ 0017A0
+   int              dword_001920; //related to voice in SoundList
+   int              dword_001924;
+   int              dword_001928;
+   int              dword_00192C;
+   int              dword_001930;
+   unsigned short   uTimeToRecovery;   // word @ 001934
+   char             array_001936[2];
+   unsigned int     uSkillPoints;      // dword @ 001938
+   int              sHealth;           // dword @ 00193C
+   int              sMana;             // dword @ 001940
+   unsigned int     uBirthYear;        // dword @ 001944
+   int              sEquppedItemIndexes[16]; // dword[16] @ 001948
+   int              array_001988[65]; // dword[] @ 001988
 
    char          byte_001A4E;
    unsigned char uQuickSpell;     // byte  @ 001A4F

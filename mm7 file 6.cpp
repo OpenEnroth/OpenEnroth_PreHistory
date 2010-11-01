@@ -1547,7 +1547,7 @@ void __thiscall sub_490D02(void *_this)
   v1 = (int)pParty_global->pPartyBuffs;
   do
   {
-    sub_458585(v1);
+    SpellBuff_sub_458585((SpellBuff *)v1);
     v1 += 16;
   }
   while ( v1 < (signed int)&pParty_global->pPlayers[0] );
@@ -1559,7 +1559,7 @@ void __thiscall sub_490D02(void *_this)
     v3 = v4 + 6048;
     do
     {
-      sub_458585(v3);
+      SpellBuff_sub_458585((SpellBuff *)v3);
       v3 += 16;
       --v2;
     }

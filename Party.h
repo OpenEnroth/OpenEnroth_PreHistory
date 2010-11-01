@@ -4,44 +4,11 @@
 #include "Player.h"
 #include "NPC.h"
 #include "Items.h"
+#include "Spells.h"
 
 
 #pragma pack(push, 1)
 
-#define PARTYBUFF_FEATHERFALL 5
-#define PARTYBUFF_FLY         7
-#define PARTYBUFF_WATERWALK  15
-#define PARTYBUFF_WIZARDEYE  19
-
-struct PartySpellBuff
-{
- union
- {
-  __int64 qword_000000;
-  struct
-  {
-   int dword_000000;
-   int dword_000004;
-  };
-  struct
-  {
-   char  byte_000000;
-   char  byte_000001;
-   char  byte_000002;
-   char  byte_000003;
-   char  byte_000004;
-   char  byte_000005;
-   char  byte_000006;
-   char  byte_000007;
-  };
- };
- unsigned short word_000008;
- unsigned short word_00000A; // looks like caster mastery
- unsigned short word_00000C;
- unsigned char  byte_00000E;
- char byte_00000F;
-};
-//sizeof = 10
 
 
 struct Party
@@ -120,15 +87,15 @@ struct Party
 
  int dword_00087C;
 
- int                   dword_000884; //flags
- unsigned int          uAlignment;       // dword      @ 000888   enum (0, 1, 2) = (good, neutral, evil)
- struct PartySpellBuff pPartyBuffs[20];  // struct[20] @ 00088C
- struct Player         pPlayers[4];      // struct[4]  @ 0009CC
- struct NPCData        pHiredNPCs[2];    // struct[2]  @ 0076BC
- struct ItemGen        stru_007754;      // struct @ 007754
- int                   dword_007778;     // party flags;     0x0002 - party position/direction/eyelevel changed
-                                         //                  0x0004 - You're Drowning!  message displayed
-                                         //                  0x0200 - You are Burning!  message displayed
+ int                dword_000884; //flags
+ unsigned int       uAlignment;       // dword      @ 000888   enum (0, 1, 2) = (good, neutral, evil)
+ struct SpellBuff   pPartyBuffs[20];  // struct[20] @ 00088C
+ struct Player      pPlayers[4];      // struct[4]  @ 0009CC
+ struct NPCData     pHiredNPCs[2];    // struct[2]  @ 0076BC
+ struct ItemGen     stru_007754;      // struct @ 007754
+ int                dword_007778;     // party flags;     0x0002 - party position/direction/eyelevel changed
+                                      //                  0x0004 - You're Drowning!  message displayed
+                                      //                  0x0200 - You are Burning!  message displayed
 
  char pad[100000];
 

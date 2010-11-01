@@ -3960,8 +3960,8 @@ void GameUI_DrawMinimap(unsigned int uX, unsigned int uY, unsigned int uZ, unsig
 
   uMinimapCentreX = (uX + uZ) / 2;
   uMinimapCentreY = (uY + uW) / 2;
-  v84 = pParty_global->pPartyBuffs[PARTYBUFF_WIZARDEYE].qword_000000 > 0;
-  v79 = pParty_global->pPartyBuffs[PARTYBUFF_WIZARDEYE].word_00000A;
+  v84 = pParty_global->pPartyBuffs[SPELLBUFF_WIZARDEYE].qword_000000 > 0;
+  v79 = pParty_global->pPartyBuffs[SPELLBUFF_WIZARDEYE].word_00000A;
   if (CheckHiredNPCSpeciality(0x26))
   {
     v84 = true;
@@ -5507,7 +5507,7 @@ void __cdecl GameUI_DrawPartySpells()
 
   if ( !dword_4E28F8 || dword_4E28F8 == 4 )
   {
-   if (pParty_global->pPartyBuffs[PARTYBUFF_FLY].qword_000000 > 0 )
+   if (pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000 > 0 )
     {
       if (pParty_global->dword_000704)
         v6 = v0;
@@ -5519,9 +5519,9 @@ void __cdecl GameUI_DrawPartySpells()
       else
         Render_DrawTransparentTexture(pD3DRenderer, 8, 8, (class18 *)v7);
     }
-    if ( HIDWORD(pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].qword_000000) >= 0 )
+    if ( HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_WATERWALK].qword_000000) >= 0 )
     {
-      if ( HIDWORD(pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].qword_000000)
+      if ( HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_WATERWALK].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[SPELLBUFF_WATERWALK].qword_000000)
       {
         if ( pParty_global->dword_007778 & 0x80 )
           v8 = v0;
@@ -6013,9 +6013,9 @@ void __cdecl GameUI_DrawTorchlightAndWizardEye()
         Render_DrawTransparentTexture(pD3DRenderer, array_6A0D14[2].word_000008, array_6A0D14[2].word_00000A, (class18 *)(72 * *(_WORD *)(v1 + 30) + 0x6D084C));
       }
     }
-   if ( HIDWORD(pParty_global->pPartyBuffs[PARTYBUFF_WIZARDEYE].qword_000000) >= 0 )
+   if ( HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_WIZARDEYE].qword_000000) >= 0 )
     {
-     if (HIDWORD(pParty_global->pPartyBuffs[PARTYBUFF_WIZARDEYE].qword_000000) > 0 || LODWORD(pParty_global->pPartyBuffs[PARTYBUFF_WIZARDEYE].qword_000000))
+     if (HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_WIZARDEYE].qword_000000) > 0 || LODWORD(pParty_global->pPartyBuffs[SPELLBUFF_WIZARDEYE].qword_000000))
       {
         v2 = class24_fn2(pClass24_global);
         v3 = (int)CIconFrameTable_GetFrame(pIconFrameTable, array_6A0D14[3].uIconIdx, v2);

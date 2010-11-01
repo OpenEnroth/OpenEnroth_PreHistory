@@ -4,6 +4,7 @@
 
 #include "defs.h"
 #include "Items.h"
+#include "Spells.h"
 
 
 bool InitializeActors(unsigned int uLocationID);
@@ -11,17 +12,6 @@ void __cdecl UpdateActors();
 
 #pragma pack(push, 1)
 
-struct Actor_struct0
-{
- __int64 qword_000000; 
- short word_000008;
- short word_00000A;
- char  byte_00000C;
- char  byte_00000D;
- char  byte_00000E;
- char  byte_00000F;
-};
-//sizeof == 10
 
 struct DirectionInfo
 {
@@ -37,6 +27,11 @@ struct DirectionInfo
 };
 //sizeof = 1C
 
+
+
+
+
+
 struct Actor
 {
  unsigned char  pActorName[32]; // byte[32] @ 000000
@@ -46,6 +41,7 @@ struct Actor
  int            dword_000024; // some flags
  short          sCurrentHP;   // word @ 000028
  char           byte_00002A[19];
+ // unsigned char byte_000034 looks like a separate byte
  char           byte_00003D;
  char           byte_00003E[34];
  unsigned short uMonsterID;     // word @ 000060   (uMonsterID - 1) == monster id in MonsterDescriptionList and MonsterStats  (originally (- 0) in MonsterStats since 0th entry was dummy)
@@ -97,7 +93,7 @@ struct Actor
                                // uSpriteIDs[6]: X - dead
                                // uSpriteIDs[7]: F - bored, no direction
  unsigned short       pSoundSampleIDs[4]; // word[4] @ 0000CC
- struct Actor_struct0 array_0000D4[22];
+ struct SpellBuff     pActorBuffs[22]; // struct[22] @ 0000D4
  struct ItemGen       array_000234[4];
  int   dword_0002C4;  // index in NPCStats::word_017F5A
  int   dword_0002C8;

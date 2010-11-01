@@ -1521,7 +1521,7 @@ bool __stdcall sub_4273BB(int a1, int a2, int a3, int a4)
   if ( *(_QWORD *)(a1 + 388) > 0i64 )
   {
     v11 += *(_WORD *)(a1 + 396);
-    sub_458585(a1 + 388);
+    SpellBuff_sub_458585((SpellBuff *)(a1 + 388));
   }
   return rand() % (v9 + 2 * *(_BYTE *)(a1 + 52) + 10) + v11 + 1 > v9 + 5;
 }
@@ -1544,7 +1544,7 @@ bool __stdcall sub_4274AD(int a1, int a2)
   if ( *(_QWORD *)(a1 + 388) > 0i64 )
   {
     v2 += *(_WORD *)(a1 + 396);
-    sub_458585(a1 + 388);
+    SpellBuff_sub_458585((SpellBuff *)(a1 + 388));
   }
   v4 = Player_sub_48E68F(a2) + 2 * *(_BYTE *)(a1 + 52) + 10;
   v5 = rand() % v4 + 1;
@@ -2290,7 +2290,7 @@ signed int __cdecl sub_42ECB5()
     sub_427D48(&struct_50C0C8, v1);
     v3 = 0;
     if (pParty_global->pPartyBuffs[11].qword_000000 > 0 )
-      sub_458585((int)&pParty_global->pPartyBuffs[11]);
+      SpellBuff_sub_458585(&pParty_global->pPartyBuffs[11]);
     v33 = *(_DWORD *)(v2 + 6480);
     if ( v33 )
     {
@@ -8291,32 +8291,32 @@ int __thiscall sub_4584B8(int _this)
 }
 
 //----- (004584E0) --------------------------------------------------------
-signed int __thiscall PartySpellBuf_sub_4584E0(int _this, unsigned int a2, int a3, __int16 a4, __int16 a5, int a6, char a7)
+signed int __thiscall SpellBuf_sub_4584E0(struct SpellBuff *_this, unsigned int a2, int a3, __int16 a4, __int16 a5, int a6, char a7)
 {
   int v7; // eax@1
   int v8; // esi@1
   signed int result; // eax@5
   int v10; // eax@6
 
-  v8 = _this;
-  v7 = *(_DWORD *)(_this + 4);
+  v8 = (int)_this;
+  v7 = *(_DWORD *)(v8 + 4);
   if ( *(_QWORD *)_this && a3 <= v7 && (a3 < v7 || a2 < *(_DWORD *)_this) )
   {
     result = 0;
   }
   else
   {
-    *(_WORD *)(_this + 10) = a4;
-    *(_WORD *)(_this + 8) = a5;
+    *(_WORD *)(v8 + 10) = a4;
+    *(_WORD *)(v8 + 8) = a5;
     LOWORD(v10) = *(_WORD *)(_this + 12);
     *(_DWORD *)_this = a2;
-    *(_DWORD *)(_this + 4) = a3;
+    *(_DWORD *)(v8 + 4) = a3;
     if ( (_WORD)v10 )
     {
       v10 = (unsigned __int16)v10;
       if ( (unsigned __int16)v10 != a6 )
       {
-        sub_45855F((void *)(20 * v10 + 6180164));
+        sub_45855F((void *)(20 * v10 + 0x5E4D44));
         dword_5E5144 = 1;
         *(_WORD *)(v8 + 12) = 0;
       }
@@ -8329,19 +8329,21 @@ signed int __thiscall PartySpellBuf_sub_4584E0(int _this, unsigned int a2, int a
 }
 
 //----- (004585CA) --------------------------------------------------------
-signed int __thiscall sub_4585CA(int _this, unsigned int a2, int a3)
+signed int __thiscall SpellBuff_sub_4585CA(struct SpellBuff *_this, unsigned int a2, int a3)
 {
+ int v0;
   int v3; // eax@1
   signed int result; // eax@5
 
-  v3 = *(_DWORD *)(_this + 4);
-  if ( *(_QWORD *)_this && v3 <= a3 && (v3 < a3 || *(_DWORD *)_this < a2) )
+ v0 = (int)_this;
+  v3 = *(_DWORD *)(v0 + 4);
+  if ( *(_QWORD *)v0 && v3 <= a3 && (v3 < a3 || *(_DWORD *)v0 < a2) )
   {
-    *(_DWORD *)_this = 0;
-    *(_DWORD *)(_this + 4) = 0;
-    *(_WORD *)(_this + 8) = 0;
-    *(_WORD *)(_this + 10) = 0;
-    *(_WORD *)(_this + 12) = 0;
+    *(_DWORD *)v0 = 0;
+    *(_DWORD *)(v0 + 4) = 0;
+    *(_WORD *)(v0 + 8) = 0;
+    *(_WORD *)(v0 + 10) = 0;
+    *(_WORD *)(v0 + 12) = 0;
     result = 1;
   }
   else
@@ -12871,7 +12873,7 @@ void *__fastcall sub_4601B7(int a1)
       v4 = dword_6A0CA0;
     }
     v10 = CMapStats_FindLocation(pMapStats, &byte_69BD7C[100 * v4]);
-    GUIWindow_sub_44D406(&Dst, (unsigned char *)pFontSmallnum, 0, 0, 0, (const char *)pMapStats->pMapInfos[v10].pLocationName, 3);
+    GUIWindow_sub_44D406(&Dst, pFontSmallnum, 0, 0, 0, (const char *)pMapStats->pMapInfos[v10].pLocationName, 3);
     v11 = (signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0] * 0.234375) / 60;
     v12 = (signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0] * 0.234375) / 60;
     HIDWORD(v35) = (unsigned __int64)((signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0]
@@ -12925,7 +12927,7 @@ LABEL_23:
       7 * v9 + HIDWORD(v7) % 7u + 1,
       aMonthNames[v36],
       v39);
-    GUIWindow_sub_44D406(&Dst, (unsigned char *)pFontSmallnum, 0, 0, 0, (char *)TmpBuf, 3);
+    GUIWindow_sub_44D406(&Dst, pFontSmallnum, 0, 0, 0, (char *)TmpBuf, 3);
     v1 = 255;
   }
   if ( pGUIWindow_CurrentMenu->dword_000040 == 2 )
@@ -14680,7 +14682,7 @@ void __cdecl sub_467FB6()
   v2 = dword_5DAD28[12 * *(_DWORD *)(dword_507BC4 + 28)];
   v3 = 0xFFFFFF9B;
   wsprintfA((char *)TmpBuf, "\x0C%05d%s\x0C\x30\x30\x30\x30\x30", v3, v2);
-  GUIWindow_sub_44D406(&v4, (unsigned char *)pFontCreate, 0, 0, 0, (char *)TmpBuf, 3);
+  GUIWindow_sub_44D406(&v4, pFontCreate, 0, 0, 0, (char *)TmpBuf, 3);
   FontDrawText((GUIWindow *)&v4,
            pFontSmallnum,
            1,

@@ -1815,7 +1815,7 @@ LABEL_76:
           {
             --pParty_global->pPartyBuffs[13].word_000008;
             if (pParty_global->pPartyBuffs[13].word_000008 < 1u )
-              sub_458585((int)&pParty_global->pPartyBuffs[13]);
+              SpellBuff_sub_458585(&pParty_global->pPartyBuffs[13]);
           }
           if ( Player_sub_48D6D0((Player *)v3, 21) || Player_sub_48D709((Player *)v7, 505, 3) || Player_sub_48D709((Player *)v8, 530, 6) )
             goto LABEL_76;
@@ -1876,7 +1876,7 @@ LABEL_16:
 LABEL_10:
           --pParty_global->pPartyBuffs[13].word_000008;
           if (pParty_global->pPartyBuffs[13].word_000008 < 1u )
-            sub_458585((int)&pParty_global->pPartyBuffs[13]);
+            SpellBuff_sub_458585(&pParty_global->pPartyBuffs[13]);
           goto LABEL_76;
         }
         v28 = 0;
@@ -2244,7 +2244,7 @@ LABEL_5:
       return v4 + v3;
     case 9:
       v3 = *(_WORD *)((char *)_this + 6280);
-      v4 = pParty_global->pPartyBuffs[PARTYBUFF_WATERWALK].word_000008;
+      v4 = pParty_global->pPartyBuffs[SPELLBUFF_WATERWALK].word_000008;
       return v4 + v3;
     default:
       return result;

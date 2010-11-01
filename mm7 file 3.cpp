@@ -165,7 +165,7 @@ void __fastcall sub_438CF3(int a1)
       if ( v3 )
       {
 LABEL_12:
-        v4 = 100 * (pMapStats->pMapInfos[uLevelMapStatsID].dword_000024 + (unsigned __int8)byte_5FF18C[v2] + sub_47752B());
+        v4 = 100 * (pMapStats->pMapInfos[uLevelMapStatsID].dword_000024 + pActors[a1].byte_00002A[10] + sub_47752B());
         v5 = v4 + dword_AE31E0 < 0;
         dword_AE31E0 += v4;
         if ( v5 )
@@ -767,8 +767,8 @@ LABEL_69:
         v46 = v45;
         v47 = sub_458244(v45);
         v55 = (int *)(7680 * (v46 & 0x3F));
-        PartySpellBuf_sub_4584E0(
-          v8 + 308,
+        SpellBuf_sub_4584E0(
+          (SpellBuff *)(v8 + 308),
           pParty_global->qword_00002C + (signed __int64)((double)(signed int)v55 * 0.03333333507180214),
           (unsigned __int64)(pParty_global->qword_00002C + (signed int)(signed __int64)((double)(signed int)v55 * 0.03333333507180214)) >> 32,
           v47,
@@ -1653,13 +1653,13 @@ void __cdecl sub_43AD34()
   int v4; // [sp+8h] [bp-4h]@4
 
   if (pParty_global->pPartyBuffs[11].qword_000000 > 0 )
-    sub_458585((int)&pParty_global->pPartyBuffs[11]);
+    SpellBuff_sub_458585(&pParty_global->pPartyBuffs[11]);
   if (pParty_global->dword_00087C != 1)
   {
     v4 = 0;
     if ( (signed int)uNumActors > 0 )
     {
-      v0 = (int)byte_5FF193;
+     v0 = (int)pActors->byte_00002A + 17;
       do
       {
         if ( Actor_sub_40894B((Actor *)(v0 - 59)) )
@@ -5852,7 +5852,7 @@ char *__cdecl sub_444A51()
   v10 = 493;
   v11 = 126;
   v12 = 366;
-  GUIWindow_sub_44D406(&v10, (unsigned char *)pFontCreate, 0, 5, 0, *v0, 3);
+  GUIWindow_sub_44D406(&v10, pFontCreate, 0, 5, 0, *v0, 3);
   v10 = 483;
   v11 = 148;
   v12 = 334;
@@ -5882,7 +5882,7 @@ LABEL_12:
   v8 = (int)v1;
   v7 = 0;
   v3 = Font_sub_44C59D(pFontCreate, v1, (GUIWindow *)&v10, 0, 0);
-  result = GUIWindow_sub_44D406(&v10, (unsigned char *)pFontCreate, 0, (212 - v3) / 2 + 101, v7, (char *)v8, (int)v9);
+  result = GUIWindow_sub_44D406(&v10, pFontCreate, 0, (212 - v3) / 2 + 101, v7, (char *)v8, (int)v9);
   dword_5B5924 = 1;
   return result;
 }
@@ -5982,7 +5982,7 @@ void __cdecl sub_444DCA()
     v8 = 126;
     v3 = (const char *)*v2;
     v9 = 366;
-    GUIWindow_sub_44D406(&v7, (unsigned char *)pFontCreate, 0, 4, 0, v3, 3);
+    GUIWindow_sub_44D406(&v7, pFontCreate, 0, 4, 0, v3, 3);
     v7 = 483;
     v8 = 148;
     v9 = 334;
@@ -6002,7 +6002,7 @@ void __cdecl sub_444DCA()
     wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[126], pMapStats->pMapInfos[v11].pLocationName);
     strcat((char *)TmpBuf, (char *)pStringBuffer);
     v4 = Font_sub_44C59D(pFontCreate, (char *)TmpBuf, (GUIWindow *)&v7, 0, 0);
-    GUIWindow_sub_44D406(&v7, (unsigned char *)pFontCreate, 0, (212 - v4) / 2 + 101, 0, (char *)TmpBuf, 3);
+    GUIWindow_sub_44D406(&v7, pFontCreate, 0, (212 - v4) / 2 + 101, 0, (char *)TmpBuf, 3);
     dword_5B5924 = 1;
   }
 }
@@ -6044,24 +6044,24 @@ void __cdecl sub_444FBE_DrawBranchlessDialogueUI()
   FontDrawText(pGUIWindow2, (Font *)v8, 12, 354 - v1, v2, 0, 0, 0);
 
   Render_DrawRGBTexture_New(pD3DRenderer, 0, 352, uTextureID_GameUI_StatusBar);
-  if ( *(_DWORD *)(pGUIWindow2 + 64) != 1 )
+  if (pGUIWindow2->dword_000040 != 1)
   {
-    if ( *(_DWORD *)(pGUIWindow2 + 64) == 2 )
+    if (pGUIWindow2->dword_000040 == 2)
     {
-      *(_DWORD *)(pGUIWindow2 + 64) = 0;
+      pGUIWindow2->dword_000040 = 0;
       strcpy((char *)byte_5C3428, (char *)pKeyboardController->pPressedKeysBuffer);
 LABEL_16:
       sub_4452BB();
       return;
     }
-    if ( *(_DWORD *)(pGUIWindow2 + 64) != 3 )
+    if (pGUIWindow2->dword_000040 != 3)
       return;
-    *(_DWORD *)(pGUIWindow2 + 64) = 0;
+    pGUIWindow2->dword_000040 = 0;
 LABEL_15:
     memset(byte_5C3428, 0, 200);
     goto LABEL_16;
   }
-  if ( *(_DWORD *)(pGUIWindow2 + 28) == 26 )
+  if (pGUIWindow2->dword_00001C == 26)
   {
     wsprintfA(Str1, "%s %s", byte_5C3428, pKeyboardController->pPressedKeysBuffer);
     v3 = sub_44C51E(pFontLucida, Str1);
@@ -6235,7 +6235,7 @@ void __cdecl sub_445350_DrawDialogueUI()
  else
    strcpy((char *)TmpBuf, (char *)v1->pNPCName);
 
-  GUIWindow_sub_44D406((int *)&local_58, (unsigned char *)pFontArrus, 483, 112, v2, (char *)TmpBuf, 3);
+  GUIWindow_sub_44D406((int *)&local_58, pFontArrus, 483, 112, v2, (char *)TmpBuf, 3);
   Party_sub_49135E_GetAllPartyExpDiv1000(pParty_global);
 
  switch (uDialogueType)
@@ -6532,7 +6532,7 @@ LABEL_79:
         v45 = (_WORD)v61;
         if (pDialogueWindow->dword_00002C != v48 )
           v45 = (unsigned __int16)v64;
-        GUIWindow_sub_44D406((int *)&local_AC, (unsigned char *)pFontArrus, 0, v46, v45, Str, 3);
+        GUIWindow_sub_44D406((int *)&local_AC, pFontArrus, 0, v46, v45, Str, 3);
         v34 = (int)pDialogueWindow;
         ++v62;
         ++v41;
@@ -7835,8 +7835,11 @@ LABEL_47:
                       + ((*(_BYTE *)(v11 + 6) + ((*(_BYTE *)(v11 + 7) + (*(_BYTE *)(v11 + 8) << 8)) << 8)) << 8)] = *(_BYTE *)(v11 + 9) + (*(_BYTE *)(v11 + 10) << 8);
             goto LABEL_291;
           case 0x30:
-            *(int *)((char *)&dword_5FF41C[285212672 * *(_BYTE *)(v11 + 8)]
-                   + 836 * (*(_BYTE *)(v11 + 5) + ((*(_BYTE *)(v11 + 6) + (*(_BYTE *)(v11 + 7) << 8)) << 8))) = *(_BYTE *)(v11 + 9) + ((*(_BYTE *)(v11 + 10) + ((*(_BYTE *)(v11 + 11) + (*(_BYTE *)(v11 + 12) << 8)) << 8)) << 8);
+             compile_error;
+            /**(int *)((char *)&dword_5FF41C[0x11000000 * *(_BYTE *)(v11 + 8)]
+                   + 836 * (*(_BYTE *)(v11 + 5) + ((*(_BYTE *)(v11 + 6) + (*(_BYTE *)(v11 + 7) << 8)) << 8))) = *(_BYTE *)(v11 + 9) + ((*(_BYTE *)(v11 + 10) + ((*(_BYTE *)(v11 + 11) + (*(_BYTE *)(v11 + 12) << 8)) << 8)) << 8)*/
+             
+            //pActors[?].dword_0002C4 = *(_BYTE *)(v11 + 9) + ((*(_BYTE *)(v11 + 10) + ((*(_BYTE *)(v11 + 11) + (*(_BYTE *)(v11 + 12) << 8)) << 8)) << 8);
             goto LABEL_291;
           case 0x36:
             v41 = *(_BYTE *)(v11 + 5)
@@ -7846,7 +7849,7 @@ LABEL_47:
             v42 = uNumActors;
             if ( (signed int)uNumActors > 0 )
             {
-              v44 = (int)dword_5FF41C;
+              v44 = (int)pActors->dword_0002C4;
               do
               {
                 if ( *(_DWORD *)v44 == v41 )
@@ -7865,7 +7868,7 @@ LABEL_47:
             v46 = uNumActors;
             if ( (signed int)uNumActors > 0 )
             {
-              v48 = &unk_5FF420;
+              v48 = (char *)&pActors->dword_0002C4 + 0x10;
               do
               {
                 if ( *((_DWORD *)v48 - 1) == v45 )
@@ -8688,21 +8691,21 @@ int __fastcall sub_448518(int a1, int a2, int a3)
       if ( result >= (signed int)uNumActors )
         return result;
     }
+    v5 = (char *)&pActors[result].word_0000B4;
     result *= 836;
-    v5 = (char *)&unk_5FF20C + result;
     if ( a3 )
     {
       if ( *(_WORD *)v5 )
       {
-        if ( *(_DWORD *)((char *)&unk_5FF38C + result) )
+        if ( *(_DWORD *)((char *)pActors->array_000234 + result) )
         {
-          result += (int)&unk_5FF3B0;
+          result += (int)&pActors->array_000234[1];
           if ( !*(_DWORD *)result )
             *(_DWORD *)result = a2;
         }
         else
         {
-          *(_DWORD *)((char *)&unk_5FF38C + result) = a2;
+          *(_DWORD *)((char *)&pActors->array_000234 + result) = a2;
         }
       }
       else
@@ -8718,9 +8721,9 @@ int __fastcall sub_448518(int a1, int a2, int a3)
       }
       else
       {
-        v6 = (char *)&unk_5FF38C + result;
-        if ( *(_DWORD *)((char *)&unk_5FF38C + result) == a2
-          || (v6 = (char *)&unk_5FF3B0 + result, *(_DWORD *)((char *)&unk_5FF3B0 + result) == a2) )
+        v6 = (char *)&pActors->array_000234 + result;
+        if ( *(_DWORD *)((char *)&pActors->array_000234 + result) == a2
+          || (v6 = (char *)&pActors->array_000234[1] + result, *(_DWORD *)((char *)&pActors->array_000234[1] + result) == a2) )
         {
           ItemGen_Reset((ItemGen *)v6);
           result = (int)v6;
@@ -8744,20 +8747,20 @@ int __fastcall sub_4485A7(signed int a1, int a2, int a3)
     if ( a1 <= (signed int)(uNumActors - 1) )
     {
       result = 836 * a1;
-      v4 = (char *)&unk_5FF20C + 836 * a1;
+      v4 = (char *)&pActors[a1].word_0000B4;
       if ( a3 )
       {
         if ( *(_WORD *)v4 )
         {
-          if ( *(_DWORD *)((char *)&unk_5FF38C + result) )
+          if ( *(_DWORD *)((char *)&pActors->array_000234 + result) )
           {
-            result += (int)&unk_5FF3B0;
+            result += (int)&pActors->array_000234[1];
             if ( !*(_DWORD *)result )
               *(_DWORD *)result = a2;
           }
           else
           {
-            *(_DWORD *)((char *)&unk_5FF38C + result) = a2;
+            *(_DWORD *)((char *)&pActors->array_000234 + result) = a2;
           }
         }
         else
@@ -8773,9 +8776,9 @@ int __fastcall sub_4485A7(signed int a1, int a2, int a3)
         }
         else
         {
-          v5 = (char *)&unk_5FF38C + result;
-          if ( *(_DWORD *)((char *)&unk_5FF38C + result) == a2
-            || (v5 = (char *)&unk_5FF3B0 + result, *(_DWORD *)((char *)&unk_5FF3B0 + result) == a2) )
+          v5 = (char *)&pActors->array_000234 + result;
+          if ( *(_DWORD *)((char *)&pActors->array_000234 + result) == a2
+            || (v5 = (char *)&pActors->array_000234[1] + result, *(_DWORD *)((char *)&pActors->array_000234[1] + result) == a2) )
           {
            ItemGen_Reset((ItemGen *)v5);
            result = (int)v5;
@@ -9215,7 +9218,7 @@ const void *__fastcall sub_448CF4(__int16 a1, __int16 a2, signed int a3, int a4,
     v12 = v11;
     if ( v11 < (signed int)uNumActors )
     {
-      v13 = (char *)&unk_5FF1F2 + 836 * v11;
+      v13 = (char *)&pActors[v11].uYawAngle;
       do
       {
         Actor_LinkSprites((Actor *)(v13 - 154), 0);
@@ -9412,7 +9415,7 @@ LABEL_114:
 LABEL_115:
     v35 = pParty_global->qword_00002C + v38;
 LABEL_116:
-    PartySpellBuf_sub_4584E0((int)v36, v35, SHIDWORD(v35), v45, v47, v49[0], v51);
+    SpellBuf_sub_4584E0((SpellBuff *)v36, v35, SHIDWORD(v35), v45, v47, v49[0], v51);
     goto LABEL_139;
   }
   if ( v75 != 58 )
@@ -9649,7 +9652,7 @@ LABEL_60:
 
         if ( !v76 )
           return;
-        PartySpellBuf_sub_4584E0((int)&pParty_global->pPartyBuffs[8],
+        SpellBuf_sub_4584E0(&pParty_global->pPartyBuffs[8],
           pParty_global->qword_00002C + (signed __int64)((double)(v8 << 7) * 0.03333333507180214),
           (unsigned __int64)(pParty_global->qword_00002C + (signed int)(signed __int64)((double)(v8 << 7) * 0.03333333507180214)) >> 32,
           v14,
@@ -9812,7 +9815,7 @@ LABEL_125:
   sub_4A89BD(pGame->class06_obj, v44, 1);
   sub_4A89BD(pGame->class06_obj, v44, 2);
   sub_4A89BD(pGame->class06_obj, v44, 3);
-  PartySpellBuf_sub_4584E0((int)&pParty_global->pPartyBuffs[a3],
+  SpellBuf_sub_4584E0(&pParty_global->pPartyBuffs[a3],
     pParty_global->qword_00002C + (signed __int64)((double)v77 * 4.266666889190674),
     (unsigned __int64)(pParty_global->qword_00002C + (signed int)(signed __int64)((double)v77 * 4.266666889190674)) >> 32,
     v14,
@@ -12191,7 +12194,7 @@ LABEL_9:
 }
 
 //----- (0044C6C2) --------------------------------------------------------
-int __fastcall sub_44C6C2(int a1, const char *a2, int a3, char a4, int a5)
+int __fastcall Font_sub_44C6C2(struct Font *a1, const char *a2, int a3, char a4, int a5)
 {
   int v5; // edi@1
   const char *v6; // esi@1
@@ -12205,7 +12208,7 @@ int __fastcall sub_44C6C2(int a1, const char *a2, int a3, char a4, int a5)
 
   v6 = a2;
   v5 = 0;
-  v13 = a1;
+  v13 = (int)a1;
   if ( !a2 )
     return 0;
   v8 = (unsigned __int8 *)FitTextInAWindow(a2, (Font *)a1, (GUIWindow *)a3, a4, 0);
@@ -13435,8 +13438,8 @@ LABEL_12:
       if ( v20 == uNumActors )
         ++uNumActors;
       *(_DWORD *)(v8 + 812) = 8 * v17 | 4;
-      result = PartySpellBuf_sub_4584E0(
-                 v8 + 244,
+      result = SpellBuf_sub_4584E0(
+                 (SpellBuff *)(v8 + 244),
                  pParty_global->qword_00002C + (signed __int64)((double)(a3 << 7) * 0.03333333507180214),
                  (unsigned __int64)(pParty_global->qword_00002C + (signed __int64)((double)(a3 << 7) * 0.03333333507180214)) >> 32,
                  v16,
