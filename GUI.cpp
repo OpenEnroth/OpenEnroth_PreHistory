@@ -6771,10 +6771,6 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
   int v92; // [sp+20h] [bp-20h]@93
   unsigned int v93; // [sp+24h] [bp-1Ch]@1
   unsigned int v94; // [sp+28h] [bp-18h]@1
-  signed int v95; // [sp+2Ch] [bp-14h]@3
-  signed int v96; // [sp+2Ch] [bp-14h]@33
-  signed int v97; // [sp+2Ch] [bp-14h]@63
-  signed int v98; // [sp+2Ch] [bp-14h]@93
   unsigned int v99; // [sp+30h] [bp-10h]@1
   int v100; // [sp+34h] [bp-Ch]@1
   unsigned int v101; // [sp+38h] [bp-8h]@1
@@ -6784,6 +6780,7 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
   __int16 v105; // [sp+3Ch] [bp-4h]@69
   int v106; // [sp+3Ch] [bp-4h]@84
   int v107; // [sp+3Ch] [bp-4h]@114
+  int i;
 
   v3 = a1;
   v93 = 0xFFFFFF9B;//colored or white text flag
@@ -6811,10 +6808,9 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 24, v6, (char *)TmpBuf, 0, 0, 0);
   v5 = (int)pGUIWindow_CurrentMenu;
   v85 = 0;
-  v95 = (signed int)&unk_4E2A2C;
-  do
+  for(i = 0; i < 9; i++)
   {
-    v77 = *(_DWORD *)v95;
+    v77 = dword_4E2A2C[i];
     v7 = 0;
     v81 = 0;
     if ( *(_DWORD *)(v5 + 32) > 0 )
@@ -6882,7 +6878,7 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
           v65 = v73;
           v61 = v103;
         }
-        wsprintfA((char *)TmpBuf, (const char *)&unk_4E2F7C, aSkillNames[v77], v15, v61, v65, v69);
+        wsprintfA((char *)TmpBuf, "%s \r%05d%s\r%05d\n400%2d", aSkillNames[v77], v15, v61, v65, v69);
 LABEL_28:
         FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, v6, (char *)TmpBuf, 0, 0, 0);
         v5 = (int)pGUIWindow_CurrentMenu;
@@ -6893,9 +6889,7 @@ LABEL_29:
       }
       while ( v17 ^ v18 );
     }
-    v95 += 4;
   }
-  while ( v95 < (signed int)&unk_4E2A50 );
   if ( !v85 )
   {
     v6 = v6 + *(_BYTE *)(pFontLucida + 5) - 3;
@@ -6906,12 +6900,11 @@ LABEL_29:
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 24, v90, (char *)TmpBuf, 0, 0, 0);
   v19 = (int)pGUIWindow_CurrentMenu;
   v86 = 0;
-  v96 = (signed int)&unk_4E2A80;
-  do
+  for(i = 0; i < 9; i++)
   {
     v20 = 0;
     v82 = 0;
-    v78 = *(_DWORD *)v96;
+    v78 = dword_4E2A80[i];
     if ( *(_DWORD *)(v19 + 32) > 0 )
     {
       do
@@ -6976,7 +6969,7 @@ LABEL_29:
           v66 = v74;
           v62 = v104;
         }
-        wsprintfA((char *)TmpBuf, (const char *)&unk_4E2F7C, aSkillNames[v78], v28, v62, v66, v70);
+        wsprintfA((char *)TmpBuf, "%s \r%05d%s\r%05d\n400%2d", aSkillNames[v78], v28, v62, v66, v70);
 LABEL_58:
         FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, v90, (char *)TmpBuf, 0, 0, 0);
         v19 = (int)pGUIWindow_CurrentMenu;
@@ -6987,10 +6980,7 @@ LABEL_59:
       }
       while ( v31 ^ v32 );
     }
-    v96 += 4;
   }
-  while (0);
-  compile_error;//while ( v96 < (signed int)&unk_4E2AA4 );
 
   if ( !v86 )
     FontDrawText((GUIWindow *)v19, pFontLucida, 24, *(_BYTE *)(pFontLucida + 5) + v90 - 3, (char *)pGlobalTXT_LocalizationStrings[153], 0, 0, 0);
@@ -6999,12 +6989,11 @@ LABEL_59:
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 248, v34, (char *)TmpBuf, 0, 0, 0);
   v33 = (int)pGUIWindow_CurrentMenu;
   v87 = 0;
-  v97 = (signed int)&unk_4E2A18;
-  do
+  for(i = 0; i < 5; i++) 
   {
     v35 = 0;
     v83 = 0;
-    v79 = *(_DWORD *)v97;
+    v79 = dword_4E2A18[i];
     if ( *(_DWORD *)(v33 + 32) > 0 )
     {
       do
@@ -7069,7 +7058,7 @@ LABEL_59:
           v67 = v75;
           v63 = v106;
         }
-        wsprintfA((char *)TmpBuf, (const char *)&unk_4E2F4C, aSkillNames[v79], v42, v63, v67, v71);
+        wsprintfA((char *)TmpBuf, "%s \r%05d%s\r%05d\n177%2d", aSkillNames[v79], v42, v63, v67, v71);
 LABEL_88:
         FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v34, (char *)TmpBuf, 0, 0, 0);
         v33 = (int)pGUIWindow_CurrentMenu;
@@ -7080,9 +7069,7 @@ LABEL_89:
       }
       while ( v44 ^ v45 );
     }
-    v97 += 4;
   }
-  while ( v97 < (signed int)&unk_4E2A2C );
   if ( !v87 )
   {
     v34 = v34 + *(_BYTE *)(pFontLucida + 5) - 3;
@@ -7093,13 +7080,12 @@ LABEL_89:
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 248, v92, (char *)TmpBuf, 0, 0, 0);
   v46 = (int)pGUIWindow_CurrentMenu;
   v88 = 0;
-  v98 = (signed int)&unk_4E2A50;
-  do
+  for(i = 0; i < 12; i++) 
   {
     v48 = 0;
     v84 = 0;
-    v47 = *(_DWORD *)v98;
-    v80 = *(_DWORD *)v98;
+    v47 = dword_4E2A50[i];
+    v80 = dword_4E2A50[i];
     if ( *(_DWORD *)(v46 + 32) > 0 )
     {
       do
@@ -7164,7 +7150,7 @@ LABEL_89:
           v68 = v76;
           v64 = v107;
         }
-        wsprintfA((char *)TmpBuf, (const char *)&unk_4E2F4C, aSkillNames[v80], v55, v64, v68, v72);
+        wsprintfA((char *)TmpBuf, "%s \r%05d%s\r%05d\n177%2d", aSkillNames[v80], v55, v64, v68, v72);
 LABEL_118:
         FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v92, (char *)TmpBuf, 0, 0, 0);
         v46 = (int)pGUIWindow_CurrentMenu;
@@ -7175,9 +7161,7 @@ LABEL_119:
       }
       while ( v58 ^ v59 );
     }
-    v98 += 4;
   }
-  while ( v98 < (signed int)&unk_4E2A80 );
   if ( !v88 )
     FontDrawText((GUIWindow *)v46, pFontLucida, 248, *(_BYTE *)(pFontLucida + 5) + v92 - 3, (char *)pGlobalTXT_LocalizationStrings[153], 0, 0, 0);
 }

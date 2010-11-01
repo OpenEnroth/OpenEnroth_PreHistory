@@ -12235,10 +12235,7 @@ int __cdecl sub_419401()
   int v11; // [sp+10h] [bp-14h]@1
   int v12; // [sp+14h] [bp-10h]@8
   int v13; // [sp+14h] [bp-10h]@19
-  int *v14; // [sp+18h] [bp-Ch]@8
-  int *v15; // [sp+18h] [bp-Ch]@14
-  int *v16; // [sp+18h] [bp-Ch]@19
-  int *v17; // [sp+18h] [bp-Ch]@25
+  int i; // [sp+18h] [bp-Ch]@8
   char *v18; // [sp+1Ch] [bp-8h]@8
   int v19; // [sp+20h] [bp-4h]@8
   struct GUIButton *pControl;
@@ -12267,78 +12264,65 @@ int __cdecl sub_419401()
   v19 = pGUIWindow_CurrentMenu->uNumControls;
   v18 = (char *)&pParty_global->pPlayers[v1 - 1];
   result = (int)pFontLucida;
-  v14 = (int *)&unk_4E2A2C;
   v3 = 2 * pFontLucida->uFontHeight + 13;
-  do
+  for(i = 0; i < 9; i++)
   {
-    if ( v18[2 * *v14 + 264] & 0x3F )
+    if ( v18[2 * dword_4E2A2C[i] + 264] & 0x3F )
     {
       v4 = pFontLucida->uFontHeight;
       v3 = v3 + v4 - 3;
       ++v11;
       ++v12;
-      GUIButtonCreate(pGUIWindow_CurrentMenu, 24, v3, 204, v4 - 3, 3, *v14 | 0x8000, 121, *v14, 0, "", 0);
+      GUIButtonCreate(pGUIWindow_CurrentMenu, 24, v3, 204, v4 - 3, 3, dword_4E2A2C[i] | 0x8000, 121, dword_4E2A2C[i], 0, "", 0);
       result = (int)pFontLucida;
     }
-    ++v14;
   }
-  while ( (signed int)v14 < (signed int)&unk_4E2A50 );
   if ( !v12 )
     v3 = v3 + pFontLucida->uFontHeight - 3;
-  v15 = (int *)&unk_4E2A80;
   v5 = v3 + 2 * pFontLucida->uFontHeight - 6;
-  do
+  for(i = 0; i < 9; i++)
   {
-    if ( v18[2 * *v15 + 264] & 0x3F )
+    if ( v18[2 * dword_4E2A80[i] + 264] & 0x3F )
     {
       if ( v11 < 15 )
       {
         v6 = pFontLucida->uFontHeight;
         v5 = v5 + v6 - 3;
         ++v11;
-        GUIButtonCreate(pGUIWindow_CurrentMenu, 24, v5, 204, v6 - 3, 3, *v15 | 0x8000, 121, *v15, 0, "", 0);
+        GUIButtonCreate(pGUIWindow_CurrentMenu, 24, v5, 204, v6 - 3, 3, dword_4E2A80[i] | 0x8000, 121, dword_4E2A80[i], 0, "", 0);
         result = (int)pFontLucida;
       }
     }
-    ++v15;
   }
-  while (0);
-  compile_error;//while ( (signed int)v15 < (signed int)&unk_4E2AA4 );
 
   v13 = 0;
-  v16 = (int *)&unk_4E2A18;
   v7 = 2 * pFontLucida->uFontHeight + 13;
-  do
+  for(i = 0; i < 5; i++) 
   {
-    if ( v18[2 * *v16 + 264] & 0x3F )
+    if ( v18[2 * dword_4E2A18[i] + 264] & 0x3F )
     {
       v8 = pFontLucida->uFontHeight;
       v7 = v7 + v8 - 3;
       ++v11;
       ++v13;
-      GUIButtonCreate(pGUIWindow_CurrentMenu, 246, v7, 204, v8 - 3, 3, *v16 | 0x8000, 121, *v16, 0, "", 0);
+      GUIButtonCreate(pGUIWindow_CurrentMenu, 246, v7, 204, v8 - 3, 3, dword_4E2A18[i] | 0x8000, 121, dword_4E2A18[i], 0, "", 0);
       result = (int)pFontLucida;
     }
-    ++v16;
   }
-  while ( (signed int)v16 < (signed int)&unk_4E2A2C );
   if ( !v13 )
     v7 = v7 + pFontLucida->uFontHeight - 3;
-  v17 = (int *)&unk_4E2A50;
   v9 = v7 + 2 * pFontLucida->uFontHeight - 6;
-  do
+  for(i = 0; i < 12; i++) 
   {
-    if ( v18[2 * *v17 + 264] & 0x3F )
+    if ( v18[2 * dword_4E2A50[i] + 264] & 0x3F )
     {
       v10 = pFontLucida->uFontHeight;
       v9 = v9 + v10 - 3;
       ++v11;
-      GUIButtonCreate(pGUIWindow_CurrentMenu, 246, v9, 204, v10 - 3, 3, *v17 | 0x8000, 121, *v17, 0, "", 0);
+      GUIButtonCreate(pGUIWindow_CurrentMenu, 246, v9, 204, v10 - 3, 3, dword_4E2A50[i] | 0x8000, 121, dword_4E2A50[i], 0, "", 0);
       result = (int)pFontLucida;
     }
-    ++v17;
   }
-  while ( (signed int)v17 < (signed int)&unk_4E2A80 );
   if ( v11 )
     result = GUIWindow_sub_41D08F((int)pGUIWindow_CurrentMenu, v11, 1, 0, v19);
   return result;

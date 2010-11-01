@@ -74,10 +74,10 @@ extern __int16 word_4E2930[array_size_unknown]; // weak
 extern __int16 word_4E2938[array_size_unknown]; // weak
 extern void *off_4E2942; // weak
 extern void *off_4E2A12; // weak
-extern _UNKNOWN unk_4E2A18; // weak
-extern _UNKNOWN unk_4E2A2C; // weak
-extern _UNKNOWN unk_4E2A50; // weak
-extern _UNKNOWN unk_4E2A80; // weak
+extern int dword_4E2A18[5];
+extern int dword_4E2A2C[9]; 
+extern int dword_4E2A50[12];
+extern int dword_4E2A80[9];
 extern _BYTE byte_4E2AA4[20]; // idb
 extern int dword_4E2AB8[]; // weak
 extern int dword_4E2AC8[]; // weak
@@ -94,8 +94,6 @@ extern int dword_4E2C2C[array_size_unknown]; // weak
 extern _UNKNOWN unk_4E2DE8; // weak
 extern _UNKNOWN unk_4E2E00; // weak
 extern _UNKNOWN unk_4E2E10; // weak
-extern _UNKNOWN unk_4E2F4C; // weak
-extern _UNKNOWN unk_4E2F7C; // weak
 extern _UNKNOWN unk_4E2FA0; // weak
 extern char byte_4E2FD4; // idb
 extern _UNKNOWN unk_4E3030; // weak

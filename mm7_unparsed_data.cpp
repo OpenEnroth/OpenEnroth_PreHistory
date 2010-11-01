@@ -58,19 +58,13 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  __int16 word_4E2938[array_size_unknown]; // weak
  void *off_4E2942; // weak
  void *off_4E2A12; // weak
- _UNKNOWN unk_4E2A18; // weak
- _UNKNOWN unk_4E2A2C; // weak
- _UNKNOWN unk_4E2A50; // weak
- _UNKNOWN unk_4E2A80; // weak
- _BYTE byte_4E2AA4[20]; // idb
- int dword_4E2AB8[4] =
- {
-  16, 137, 251, 366
- };
- int dword_4E2AC8[4] =
- {
-  102, 217, 331, 447
- };
+ int dword_4E2A18[5] = {9, 10, 11, 8, 30};
+ int dword_4E2A2C[9] = {3, 5, 2, 6, 4, 0, 1, 31, 7};
+ int dword_4E2A50[12] = {35, 33, 24, 21, 32, 36, 29, 25, 22, 26, 23, 34};
+ int dword_4E2A80[9] = {12, 13, 14, 15, 16, 17, 18, 19, 20};
+ _BYTE byte_4E2AA4[20] = {248, 108, 160, 112, 220, 248, 192, 192, 240, 64, 244, 96, 232, 244, 96, 240, 252, 192, 0, 0};
+ int dword_4E2AB8[4] = {16, 137, 251, 366};
+ int dword_4E2AC8[4] = {102, 217, 331, 447};
  _UNKNOWN unk_4E2AD9; // weak
  _UNKNOWN unk_4E2B21; // weak
  char byte_4E2B70[array_size_unknown]; // weak
@@ -82,8 +76,6 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  _UNKNOWN unk_4E2DE8; // weak
  _UNKNOWN unk_4E2E00; // weak
  _UNKNOWN unk_4E2E10; // weak
- _UNKNOWN unk_4E2F4C; // weak
- _UNKNOWN unk_4E2F7C; // weak
  _UNKNOWN unk_4E2FA0; // weak
  char byte_4E2FD4; // idb
  _UNKNOWN unk_4E3030; // weak
