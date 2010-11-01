@@ -1,6 +1,8 @@
 #pragma once
 #include <windows.h>
 
+#include "FrameTables.h"
+
 void nullsub_1();
 
 extern int bUseLoResSprites;
@@ -249,7 +251,8 @@ extern struct DecorationDescriptionList *pDecorationDescriptionList;
 
 extern struct RenderVertex array_73D150[];
 
-extern struct CIconFrameTable *pIconFrameTable;
+//extern struct CIconFrameTable *pIconFrameTable;
+extern ImageTable<IconFrame> *pIconFrameTable;
 
 extern struct Font *pFontArrus;
 extern struct Font *pFontLucida;

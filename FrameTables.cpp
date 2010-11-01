@@ -2,7 +2,34 @@
 #include "mm7_unparsed_data.h"
 #include "_audio.h"
 #include "data.h"
- #include "_lod.h"
+#include "_lod.h"
+
+
+
+
+template<> unsigned int ImageTableLoader<IconFrame>::LoadFromFile(const wchar_t *pFilename, struct ImageTable<IconFrame> **ppOut)
+{
+ char pFilenameA[256];
+
+ wsprintfA(pFilenameA, "%S", pFilename);
+ unsigned char *pRawData = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, pFilenameA, 1);
+
+ ImageTable<IconFrame> *pImageTable = new ImageTable<IconFrame>;
+
+ pImageTable->uNumImages = *(unsigned int *)pRawData;
+ pImageTable->pImages = new IconFrame[pImageTable->uNumImages];
+ memcpy(pImageTable->pImages, pRawData + 4, pImageTable->uNumImages * sizeof(IconFrame));
+
+ *ppOut = pImageTable;
+ return 0;
+}
+
+
+
+
+
+
+
 
 
 void MonsterDescriptionList_ctor(struct MonsterDescriptionList *_this)
@@ -70,7 +97,7 @@ unsigned int CIconFrameTable_FindIcon_New(struct CIconFrameTable *_this, const w
  wsprintfA(pIconNameA, "%S", pIconName);
  for (i = 0; i < _this->uNumIcons; ++i)
  {
-  if (!_strcmpi(pIconNameA, (char *)_this->pIcons[i].sIconName))
+  if (!_strcmpi(pIconNameA, (char *)_this->pIcons[i].sName))
     return i;
  }
  return 0;

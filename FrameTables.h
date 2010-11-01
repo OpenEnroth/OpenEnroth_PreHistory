@@ -4,33 +4,133 @@
 
 #pragma pack(push, 1)
 
-struct MonsterDescription
-{
- short          uMonsterHeight;
- short          word_000002;
- char           byte_000004[4];
- int            dword_000008;      // hw tint color?
- unsigned short pSoundSampleIDs[4];  // word[4] @ 00000C
- char           byte_000014[32];
- unsigned char  pSpriteNames[8][10]; // byte[10] @ 000034
- char           byte_000084[20];
-};
-//sizeof = 98
 
-struct MonsterDescriptionList
+
+
+template <typename Image>
+  struct ImageTable;
+
+template<typename Image>
+  struct ImageTableLoader
 {
- unsigned int               uNumDescriptions; // dword @ 000000
- struct MonsterDescription *pDescriptions;    // dword @ 000004
+ inline ImageTableLoader() {}
+
+ unsigned int LoadFromFile(const wchar_t *pFilename, ImageTable<Image> **ppOut);
 };
-//sizeof == 08
-void MonsterDescriptionList_ctor(struct MonsterDescriptionList *_this);
-//void *__thiscall sub_4598AF(void *Dst, void *Src);
-void MonsterDescriptionList_Initialize(struct MonsterDescriptionList *_this, unsigned int *pSrc);
+
+
+template <typename Image>
+  struct ImageTable
+{
+ friend struct ImageTableLoader<Image>;
+ public:
+   inline unsigned int FindImage(const wchar_t *pName)
+   {
+    char pNameA[256];
+
+    wsprintfA(pNameA, "%S", pName);
+    for (unsigned int i = 0; i < uNumImages; ++i)
+    {
+     if (!lstrcmpiA(pNameA, (char *)pImages[i].sName))
+      return i;
+    }
+    return 0;
+   }
+
+   inline unsigned int FindAnimation(const char *pName)
+   {
+    wchar_t pNameW[256];
+
+    wsprintfW(pNameW, L"%S", pName);
+    return FindAnimation(pNameW);
+   }
+
+   inline unsigned int FindAnimation(const wchar_t *pName)
+   {
+    char pNameA[256];
+
+    wsprintfA(pNameA, "%S", pName);
+    for (unsigned int i = 0; i < uNumImages; ++i)
+    {
+     if (!lstrcmpiA(pNameA, (char *)pImages[i].sName))
+       return i;
+    }
+    return 0;
+   }
+
+
+   inline Image *GetImage(unsigned int uImageID)
+   {
+    return &pImages[uImageID];
+   }
+
+   inline Image *GetImage(unsigned int uAnimationID, unsigned int uFrameID)
+   {
+    signed __int16 v5; // dx@2
+    int v6; // eax@3
+    int v7; // edx@3
+    int i; // ecx@3
+    int v9; // esi@5
+
+    v5 = pImages[uAnimationID].word_00001A;
+    if (pImages[uAnimationID].word_00001C & 0x0001 && v5 != 0)
+    {
+     v7 = (uFrameID / 8) % (unsigned __int16)v5;
+     v6 = uAnimationID;
+     for ( i = uAnimationID; ; ++i)
+     {
+      v9 = pImages[i].word_000018;
+      if ( v7 <= v9 )
+        break;
+      v7 -= v9;
+      ++v6;
+     }
+     return &pImages[v6];
+    }
+    else
+      return &pImages[uAnimationID];
+   }
+
+
+   inline unsigned int InitializeImage(unsigned int uImageID)
+   {
+    return -1;
+   }
+
+   inline unsigned int InitializeAnimation(unsigned int uAnimationID)
+   {
+    for (unsigned int i = uAnimationID; pImages[i].word_00001C & 1; ++i)
+    {
+     wchar_t pFilepath[256];
+     wsprintfW(pFilepath, L"%S", pImages[i].sTextureName);
+
+     pImages[i].uTextureIdx = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pFilepath);
+    }
+    return 0;
+   }
+
+
+
+ protected:
+   inline ImageTable()
+   {
+    uNumImages = 0;
+    pImages = 0;
+   }
+
+   unsigned int  uNumImages;
+   Image        *pImages;
+};
+
+
+
+
+
 
 
 struct IconFrame
 {
- unsigned char sIconName[12];    // byte[12] @ 000000
+ unsigned char sName[12];        // byte[12] @ 000000
  unsigned char sTextureName[12]; // byte[12] @ 00000C
  short         word_000018;      // frame time?
  short         word_00001A;      // num frames?
@@ -38,6 +138,10 @@ struct IconFrame
  short         uTextureIdx;      // word @ 00001E
 };
 //sizeof = 20
+
+
+
+
 
 struct CIconFrameTable
 {
@@ -60,6 +164,35 @@ void CIconFrameTable_InitializeIcon(struct CIconFrameTable *_this, unsigned int 
 int CIconFrameTable_SaveToBIN(struct CIconFrameTable *_this);
 //int __thiscall sub_494F70(int _this, int a2, signed int a3);
 struct IconFrame *CIconFrameTable_GetFrame(struct CIconFrameTable *_this, unsigned int uIconIdx, unsigned int uFrame);
+
+
+
+
+
+
+
+struct MonsterDescription
+{
+ short          uMonsterHeight;
+ short          word_000002;
+ char           byte_000004[4];
+ int            dword_000008;      // hw tint color?
+ unsigned short pSoundSampleIDs[4];  // word[4] @ 00000C
+ char           byte_000014[32];
+ unsigned char  pSpriteNames[8][10]; // byte[10] @ 000034
+ char           byte_000084[20];
+};
+//sizeof = 98
+
+struct MonsterDescriptionList
+{
+ unsigned int               uNumDescriptions; // dword @ 000000
+ struct MonsterDescription *pDescriptions;    // dword @ 000004
+};
+//sizeof == 08
+void MonsterDescriptionList_ctor(struct MonsterDescriptionList *_this);
+//void *__thiscall sub_4598AF(void *Dst, void *Src);
+void MonsterDescriptionList_Initialize(struct MonsterDescriptionList *_this, unsigned int *pSrc);
 
 
 

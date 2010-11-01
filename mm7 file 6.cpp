@@ -2308,8 +2308,10 @@ __int16 __thiscall sub_492AD5(void *_this)
 
   array_6A0D14[0].word_000004 = 0;
   pParty_global->uNumFood = (int)_this;
-  result = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
-  array_6A0D14[0].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
+  //result = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
+  result = 8 * pIconFrameTable->GetImage(array_6A0D14[0].uIconIdx)->word_00001A;
+  //array_6A0D14[0].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
+  array_6A0D14[0].word_000006 = 8 * pIconFrameTable->GetImage(array_6A0D14[0].uIconIdx)->word_00001A;
   return result;
 }
 
@@ -2323,8 +2325,10 @@ __int16 __thiscall sub_492B03(void *_this)
   else
     pParty_global->uNumFood = 0;
   array_6A0D14[0].word_000004 = 0;
-  result = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
-  array_6A0D14[0].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
+  //result = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
+  result = 8 * pIconFrameTable->GetImage(array_6A0D14[0].uIconIdx)->word_00001A;
+  //array_6A0D14[0].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
+  array_6A0D14[0].word_000006 = 8 * pIconFrameTable->GetImage(array_6A0D14[0].uIconIdx)->word_00001A;
   return result;
 }
 
@@ -2335,8 +2339,10 @@ __int16 __thiscall sub_492B42(void *_this)
 
   pParty_global->uNumFood += (int)_this;
   array_6A0D14[0].word_000004 = 0;
-  result = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
-  array_6A0D14[0].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
+  //result = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
+  result = 8 * pIconFrameTable->GetImage(array_6A0D14[0].uIconIdx)->word_00001A;
+  //array_6A0D14[0].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[0].uIconIdx].word_00001A;
+  array_6A0D14[0].word_000006 = 8 * pIconFrameTable->GetImage(array_6A0D14[0].uIconIdx)->word_00001A;
   return result;
 }
 
@@ -2345,7 +2351,8 @@ void __thiscall sub_492B70(void *_this)
 {
   pParty_global->uNumGold = (int)_this;
   array_6A0D14[1].word_000004 = 0;
-  array_6A0D14[1].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[1].uIconIdx].word_00001A;
+  //array_6A0D14[1].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[1].uIconIdx].word_00001A;
+  array_6A0D14[1].word_000006 = 8 * pIconFrameTable->GetImage(array_6A0D14[1].uIconIdx)->word_00001A;
   AudioPlayer_sub_4AA306(pAudioPlayer, 200, 0, 0, -1, 0, 0, 0, 0);
 }
 
@@ -2357,7 +2364,8 @@ void __fastcall sub_492BB6(unsigned int a1)
   else
     pParty_global->uNumGold = 0;
   array_6A0D14[1].word_000004 = 0;
-  array_6A0D14[1].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[1].uIconIdx].word_00001A;
+  //array_6A0D14[1].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[1].uIconIdx].word_00001A;
+  array_6A0D14[1].word_000006 = 8 * pIconFrameTable->GetImage(array_6A0D14[1].uIconIdx)->word_00001A;
   AudioPlayer_sub_4AA306(pAudioPlayer, 200, 0, 0, -1, 0, 0, 0, 0);
 }
 
@@ -13613,7 +13621,8 @@ int __thiscall sub_4A89BD(void *_this, __int16 a2, __int16 a3)
     case 75:
       v6 = "spell75";
 LABEL_24:
-      result = CIconFrameTable_FindIcon(pIconFrameTable, v6);
+      //result = CIconFrameTable_FindIcon(pIconFrameTable, v6);
+      result = pIconFrameTable->FindAnimation(v6);
       *(_DWORD *)(v5 + 532) = result;
       break;
     default:
@@ -13622,7 +13631,8 @@ LABEL_24:
   }
   if ( *(_WORD *)(v5 + 520) )
   {
-   result = 8 * pIconFrameTable->pIcons[*(_DWORD *)(v5 + 532)].word_00001A;
+   //result = 8 * pIconFrameTable->pIcons[*(_DWORD *)(v5 + 532)].word_00001A;
+   result = 8 * pIconFrameTable->GetImage(*(_DWORD *)(v5 + 532))->word_00001A;
     *((_DWORD *)v4 + 4 * (a3 + 33)) = result;
   }
   return result;

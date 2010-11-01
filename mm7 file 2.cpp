@@ -3340,31 +3340,31 @@ void class06_sub_4A90A0(struct class06 *_this)
 
  _this->dword_0005F0 = LODFile_LoadSprite(pLODFile_Sprites_LOD, "sp57c", 6);
 
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "zapp"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spheal1"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spheal2"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spheal3"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spboost1"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spboost2"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spboost3"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell03"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell05"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell14"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell17"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell21"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell25"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell27"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell36"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell38"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell46"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell51"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell55"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell58"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell69"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell71"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell73"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell75"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "spell96"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("zapp"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spheal1"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spheal2"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spheal3"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spboost1"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spboost2"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spboost3"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell03"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell05"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell14"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell17"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell21"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell25"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell27"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell36"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell38"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell46"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell51"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell55"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell58"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell69"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell71"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell73"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell75"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spell96"));
 
  SpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, SpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell02"));
  SpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, SpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell03"));
@@ -16391,7 +16391,8 @@ void __fastcall sub_420C05(int a1, int a2)
   }
   pParty_global->uNumGold += v4 - v2;
   array_6A0D14[1].word_000004 = v3;
-  array_6A0D14[1].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[1].uIconIdx].word_00001A;
+  //array_6A0D14[1].word_000006 = 8 * pIconFrameTable->pIcons[array_6A0D14[1].uIconIdx].word_00001A;
+  array_6A0D14[1].word_000006 = 8 * pIconFrameTable->GetImage(array_6A0D14[1].uIconIdx)->word_00001A;
   if ( (char *)pStringBuffer[0] )
     sub_44C175((char *)pStringBuffer, 2);
   AudioPlayer_sub_4AA306(pAudioPlayer, 200, v3, v3, -1, v3, v3, v3, v3);

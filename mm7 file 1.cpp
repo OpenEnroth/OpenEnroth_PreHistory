@@ -1316,32 +1316,6 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
 
  ReadMM6_ini(pMM6ConfigFilename);
 
- if (bUseOverrideData)
- {
-  if (!SpriteFrameTable_LoadFromTXT(pSpriteFrameTable, "data\\sft.txt"))
-    erroneous_printf("Unable to open sft.txt");
-  if ( !DecorationDescriptionList_InitializeFromTXT(pDecorationDescriptionList, "data\\declist.txt") )
-    erroneous_printf("Unable to open declist.txt");
-  if ( !CObjectDescriptionList_InitializeFromTXT(pObjectDescriptionList, "data\\objlist.txt") )
-    erroneous_printf("Unable to open objlist.txt");
-  if ( !sub_4598FC((int)pMonsterDescriptionList, "data\\monlist.txt") )
-    erroneous_printf("Unable to open monlist.txt");
-  if ( !CIconFrameTable_InitializeFromTXT(pIconFrameTable, "data\\ift.txt") )
-    erroneous_printf("Unable to open ift.txt");
-  if ( !CTextureFrameTable_InitializeFromTXT(pTextureFrameTable, "data\\tft.def") )
-    erroneous_printf("Unable to open tft.def");
-  if ( !CTileTable_InitializeFromTXT(pTileTable, "data\\tile.def") )
-    erroneous_printf("Unable to open tile.def");
-  if ( !CPlayerFrameTable_InitializeFromTXT(pPlayerFrameTable, "data\\pft.def") )
-    erroneous_printf("Unable to open pft.def");
-  if ( !sub_458B9C((int)chest_descriptor, "data\\chest.def") )
-    erroneous_printf("Unable to open chest.def");
-  if ( !COverlayDescriptionList_InitializeFromTXT(pOverlayDescriptionList, "data\\overlay.def") )
-    erroneous_printf("Unable to open overlay.def");
-  if ( !CSoundList_InitializeFromTXT(pSoundList, "data\\sounds.def") )
-    erroneous_printf("Unable to open sounds.def");
- }
- else
  {
   pSpriteFrameTable = new SpriteFrameTable;
   SpriteFrameTable_ctor(pSpriteFrameTable);
@@ -1367,11 +1341,13 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
   CPlayerFrameTable_Initialize(pPlayerFrameTable, (unsigned char *)v31);
   call_delete(v31);
 
-  pIconFrameTable = new CIconFrameTable;
-  CIconFrameTable_ctor(pIconFrameTable);
-  v34 = LODFile_LoadRaw(pLODFile_Events_LOD, "dift.bin", 1);
-  CIconFrameTable_Initialize(pIconFrameTable, v34);
-  call_delete(v34);
+  //pIconFrameTable = new CIconFrameTable;
+  //CIconFrameTable_ctor(pIconFrameTable);
+  //v34 = LODFile_LoadRaw(pLODFile_Events_LOD, "dift.bin", 1);
+  //CIconFrameTable_Initialize(pIconFrameTable, v34);
+  //call_delete(v34);
+  
+  ImageTableLoader<IconFrame>().LoadFromFile(L"dift.bin", &pIconFrameTable);
 
   pDecorationDescriptionList = new DecorationDescriptionList;
   DecorationDescriptionList_ctor(pDecorationDescriptionList);
@@ -1409,20 +1385,7 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
   call_delete(v51);
  }
 
- if ( bUseOverrideData )
- {
-  SpriteFrameTable_SaveToBIN(pSpriteFrameTable);
-  DecorationDescriptionList_SaveToBIN(pDecorationDescriptionList);
-  CObjectDescriptionList_SaveToBIN(pObjectDescriptionList);
-  sub_459860(pMonsterDescriptionList);
-  CIconFrameTable_SaveToBIN(pIconFrameTable);
-  sub_44E054(pTextureFrameTable);
-  CTileTable_SaveToBIN(pTileTable);
-  CPlayerFrameTable_SaveToBIN(pPlayerFrameTable);
-  sub_458B03(chest_descriptor);
-  COverlayDescriptionList_SaveToBIN(pOverlayDescriptionList);
-  CSoundList_SaveToBIN(pSoundList);
- }
+
 
  if (~dword_6BE368 & 1)  // if (!windowed)
  {
@@ -5453,8 +5416,8 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
   v1 = &unk_4E98D4;
   for (i = 0; i < 4; ++i)
   {
-   array_6A0D14[i].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, pNames[i]);
-   CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[i].uIconIdx);
+   array_6A0D14[i].uIconIdx = pIconFrameTable->FindAnimation(pNames[i]);
+   pIconFrameTable->InitializeAnimation(array_6A0D14[i].uIconIdx);
 
    array_6A0D14[i].word_000004 = 0;
    array_6A0D14[i].word_000006 = 0;
@@ -13123,7 +13086,7 @@ LABEL_1087:
           goto LABEL_200;
         LODWORD(v1) = 76 * v573;
         dword_AD4654[19 * v573] = HIDWORD(v1);
-        v575 = CIconFrameTable_FindIcon(pIconFrameTable, "spell96");
+        v575 = pIconFrameTable->FindAnimation("spell96");
         *(int *)((char *)&dword_AD4658 + v1) = IconFrameTable_sub_42EB78((int)pIconFrameTable, v575);
         HIDWORD(v1) = 1;
         *(int *)((char *)&dword_AD4650 + v1) = 1;
@@ -13893,6 +13856,11 @@ void __cdecl sub_491F87_DrawNPCs()
             v11 = *(int *)((char *)dword_4EE074 + v9);
             v19 = v12;
             v23 = 0;
+
+LABEL_23: v13 = 0;
+             compile_error;
+             //find out what's going on and rewrite using new frame tables
+            /*
             if (pIconFrameTable->uNumIcons <= 0 )
             {
 LABEL_23:
@@ -13902,7 +13870,8 @@ LABEL_23:
             {
               v22 = 0;
 
-              while (_strcmpi("spell96", (char *)pIconFrameTable->pIcons[v22].sIconName))
+              //while (_strcmpi("spell96", (char *)pIconFrameTable->pIcons[v22].sName))
+              while (_strcmpi("spell96", (char *)pIconFrameTable->GetImage(v22)->sName))
               {
                 ++v23;
                 ++v22;
@@ -13912,7 +13881,8 @@ LABEL_23:
               v22 *= 32;
               v13 = v23;
             }
-            v14 = (int)CIconFrameTable_GetFrame(pIconFrameTable, v13, v20);
+            */
+             v14 = (int)pIconFrameTable->GetImage(v13, v20);
             Render_DrawTransparentTexture(pD3DRenderer, v19, v11, (class18 *)(72 * *(_WORD *)(v14 + 30) + 7145548));
           }
         }
@@ -14095,7 +14065,7 @@ void PlayerCreationUI_Draw()
    Render_DrawTransparentTexture(pD3DRenderer, 335, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[2].uFace]]);
    Render_DrawTransparentTexture(pD3DRenderer, 494, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[3].uFace]]);
 
-   v1 = CIconFrameTable_GetFrame(pIconFrameTable, uIconTableFrameID_CharacterFrame, pClass24_global->dword_00000C);
+   v1 = pIconFrameTable->GetImage(uIconTableFrameID_CharacterFrame, pClass24_global->dword_00000C);
 
    switch (uPlayerCreationUI_SelectedCharacter)
    {

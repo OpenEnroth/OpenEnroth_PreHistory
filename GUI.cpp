@@ -156,12 +156,12 @@ void GameUI_LoadIcons()
  wchar_t pFilepath[256];
 
 
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeC"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeB"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "wizeyeA"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "torchC"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "torchB"));
- CIconFrameTable_InitializeIcon(pIconFrameTable, CIconFrameTable_FindIcon(pIconFrameTable, "torchA"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("wizeyeC"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("wizeyeB"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("wizeyeA"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("torchC"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("torchB"));
+ pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("torchA"));
 
  uTextureID_MinimapDirections = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"Minimap Directions");
 
@@ -386,8 +386,8 @@ void GameUI_LoadIcons()
   uTextureIdx_SpellEffecIcons[i] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pFilepath);
  }
 
- uIconIdx_Spell21 = CIconFrameTable_FindIcon(pIconFrameTable, "spell21");
- uIconIdx_Spell27 = CIconFrameTable_FindIcon(pIconFrameTable, "spell27");
+ uIconIdx_Spell21 = pIconFrameTable->FindAnimation("spell21");
+ uIconIdx_Spell27 = pIconFrameTable->FindAnimation("spell27");
 }
 
 //----- (004BF794) --------------------------------------------------------
@@ -5294,7 +5294,7 @@ void DrawLoadingScreen(struct class56 *_this)
           Render_sub_49FD3A((int)pD3DRenderer, v1);
       }
       Render_DrawIndexedTexture(pD3DRenderer, 80, 122, (class18 *)(v1 + 296));
-      v4 = (int)CIconFrameTable_GetFrame(pIconFrameTable, dword_50C984, 0);
+      v4 = (int)pIconFrameTable->GetImage(dword_50C984, 0);
       Render_DrawTransparentTexture(pD3DRenderer, 100, 146, (class18 *)(72 * *(_WORD *)(v4 + 30) + 7145548));
       v5 = (double)(113 * *(_BYTE *)(v1 + 11)) / (double)*(_BYTE *)(v1 + 10);
       compile_error;//Render_FillRect2(pD3DRenderer, 0, 174, 164, v5 + 6.755399441055744e15, 16, pD3DRenderer->uTargetRMask);
@@ -5513,7 +5513,9 @@ void __cdecl GameUI_DrawPartySpells()
         v6 = v0;
       else
         v6 = 0;
-      v7 = (int)&pLODFile_Icons_LOD->aLODHeaders[CIconFrameTable_GetFrame(pIconFrameTable, uIconIdx_Spell21, v6)->uTextureIdx];
+
+      compile_error;
+      //v7 = (int)&pLODFile_Icons_LOD->aLODHeaders[CIconFrameTable_GetFrame(pIconFrameTable, uIconIdx_Spell21, v6)->uTextureIdx];
       if ( pD3DRenderer->pRenderD3D3 )
         Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (class18 *)v7);
       else
@@ -5527,7 +5529,7 @@ void __cdecl GameUI_DrawPartySpells()
           v8 = v0;
         else
           v8 = 0;
-        v9 = 72 * *(_WORD *)(CIconFrameTable_GetFrame(pIconFrameTable, uIconIdx_Spell27, v8) + 30) + 7145548;
+        v9 = 72 * *(_WORD *)(pIconFrameTable->GetImage(uIconIdx_Spell27, v8) + 30) + 7145548;
         if ( pD3DRenderer->pRenderD3D3 )
           Render_DrawIndexedTexture(pD3DRenderer, 396, 8, (class18 *)v9);
         else
@@ -6009,7 +6011,7 @@ void __cdecl GameUI_DrawTorchlightAndWizardEye()
      if ( HIDWORD(pParty_global->pPartyBuffs[16].qword_000000) > 0 || (_DWORD)pParty_global->pPartyBuffs[16].qword_000000 )
       {
         v0 = class24_fn2(pClass24_global);
-        v1 = (int)CIconFrameTable_GetFrame(pIconFrameTable, array_6A0D14[2].uIconIdx, v0);
+        v1 = (int)pIconFrameTable->GetImage(array_6A0D14[2].uIconIdx, v0);
         Render_DrawTransparentTexture(pD3DRenderer, array_6A0D14[2].word_000008, array_6A0D14[2].word_00000A, (class18 *)(72 * *(_WORD *)(v1 + 30) + 0x6D084C));
       }
     }
@@ -6018,7 +6020,7 @@ void __cdecl GameUI_DrawTorchlightAndWizardEye()
      if (HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_WIZARDEYE].qword_000000) > 0 || LODWORD(pParty_global->pPartyBuffs[SPELLBUFF_WIZARDEYE].qword_000000))
       {
         v2 = class24_fn2(pClass24_global);
-        v3 = (int)CIconFrameTable_GetFrame(pIconFrameTable, array_6A0D14[3].uIconIdx, v2);
+        v3 = (int)pIconFrameTable->GetImage(array_6A0D14[3].uIconIdx, v2);
         Render_DrawTransparentTexture(pD3DRenderer, array_6A0D14[3].word_000008, array_6A0D14[3].word_00000A, (class18 *)(72 * *(_WORD *)(v3 + 30) + 0x6D084C));
       }
     }
@@ -10210,11 +10212,11 @@ void MenuUI_LoadTextures(unsigned int uAlignment)
 
  uTextureIdx_CharacterSelectionFrame = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[37]);
 
- array_6A0D14[3].uIconIdx = CIconFrameTable_FindIcon_New(pIconFrameTable, pRequestedInterface[38]);
- CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[3].uIconIdx);
+ array_6A0D14[3].uIconIdx = pIconFrameTable->FindAnimation(pRequestedInterface[38]);
+ pIconFrameTable->InitializeAnimation(array_6A0D14[3].uIconIdx);
 
- array_6A0D14[2].uIconIdx = CIconFrameTable_FindIcon_New(pIconFrameTable, pRequestedInterface[39]);
- CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[2].uIconIdx);
+ array_6A0D14[2].uIconIdx = pIconFrameTable->FindAnimation(pRequestedInterface[39]);
+ pIconFrameTable->InitializeAnimation(array_6A0D14[2].uIconIdx);
 
  uTextureIdx_Endcap = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pRequestedInterface[40]);
  pClass18_EndcapTexture = &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_Endcap];

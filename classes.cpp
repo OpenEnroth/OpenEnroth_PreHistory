@@ -8691,7 +8691,7 @@ void class06_sub_4A902A_DrawSomeIcon(struct class06 *_this)
    _this->array_000208[i].dword_000004 += pClass24_global->int_00001C;
    if (_this->array_000208[i].dword_000004 <= _this->array_000208[i].dword_000008)
    {
-    pIcon = CIconFrameTable_GetFrame(pIconFrameTable, _this->array_000208[i].dword_00000C, _this->array_000208[i].dword_000004);
+    pIcon = pIconFrameTable->GetImage(_this->array_000208[i].dword_00000C, _this->array_000208[i].dword_000004);
     Render_DrawTransparentTexture(pD3DRenderer, off_4ED748[i], 385, &pLODFile_Icons_LOD->aLODHeaders[pIcon->uTextureIdx]);
     dword_5E5144 = 1;
    }

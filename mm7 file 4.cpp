@@ -2705,21 +2705,21 @@ void __cdecl sub_42F3D6()
  for (i = 0; i < 5; ++i)
  {
   wsprintfA(pIconName, "turn%u", i);
-  dword_50C96C[i] = CIconFrameTable_FindIcon(pIconFrameTable, pIconName);
-  CIconFrameTable_InitializeIcon(pIconFrameTable, dword_50C96C[i]);
+  dword_50C96C[i] = pIconFrameTable->FindAnimation(pIconName);
+  pIconFrameTable->InitializeAnimation(dword_50C96C[i]);
  }
 
- dword_50C980 = CIconFrameTable_FindIcon(pIconFrameTable, "turnstop");
- CIconFrameTable_InitializeIcon(pIconFrameTable, dword_50C980);
+ dword_50C980 = pIconFrameTable->FindAnimation("turnstop");
+ pIconFrameTable->InitializeAnimation(dword_50C980);
 
- dword_50C984 = CIconFrameTable_FindIcon(pIconFrameTable, "turnhour");
- CIconFrameTable_InitializeIcon(pIconFrameTable, dword_50C984);
+ dword_50C984 = pIconFrameTable->FindAnimation("turnhour");
+ pIconFrameTable->InitializeAnimation(dword_50C984);
 
- uIconTableFrameID_CharacterFrame = CIconFrameTable_FindIcon(pIconFrameTable, "aframe1");
- CIconFrameTable_InitializeIcon(pIconFrameTable, uIconTableFrameID_CharacterFrame);
+ uIconTableFrameID_CharacterFrame = pIconFrameTable->FindAnimation("aframe1");
+ pIconFrameTable->InitializeAnimation(uIconTableFrameID_CharacterFrame);
 
- dword_50C990 = CIconFrameTable_FindIcon(pIconFrameTable, "turnstart");
- CIconFrameTable_InitializeIcon(pIconFrameTable, dword_50C990);
+ dword_50C990 = pIconFrameTable->FindAnimation("turnstart");
+ pIconFrameTable->InitializeAnimation(dword_50C990);
 
  dword_50C99C = SpriteFrameTable_FastFindSprite(pSpriteFrameTable, "spell11");
 }

@@ -3710,7 +3710,8 @@ signed int __thiscall sub_4059DB_ProbablyStartTurn(void *_this)
   v2 = 0;
   AudioPlayer_sub_4AA306(pAudioPlayer, 207, 0, 0, -1, 0, 0, 0, 0);
 
-  dword_50C998 = 8 * pIconFrameTable->pIcons[dword_50C990].word_00001A;
+  //dword_50C998 = 8 * pIconFrameTable->pIcons[dword_50C990].word_00001A;
+  dword_50C998 = 8 * pIconFrameTable->GetImage(dword_50C990)->word_00001A;
   dword_50C994 = 0;
   *(_DWORD *)(v1 + 16) = 100;
   *(_DWORD *)v1 = 0;

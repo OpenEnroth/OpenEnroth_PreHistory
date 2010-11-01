@@ -1,5 +1,6 @@
 #include <windows.h>
 #include "mm7_unparsed_data.h"
+#include "FrameTables.h"
 
 unsigned char *byte_4D8410 = (unsigned char *)&memory_4D8410;
 union unnamed_4D8410 memory_4D8410 =
@@ -1278,7 +1279,8 @@ unsigned int uPlayerCreationUI_SelectedCharacter = 0; // dword @ MM7.exe::00A74C
 
 unsigned int uTextureID_PlayerCreationUI_FaceMask = 0; // dword @ MM7.exe::00A74CE0
 
-struct CIconFrameTable *pIconFrameTable = 0;   //struct @ MM7.exe::00A750E4
+//struct CIconFrameTable *pIconFrameTable = 0;
+ImageTable<IconFrame> *pIconFrameTable = 0;   //struct @ MM7.exe::00A750E4
 
 
 struct Font *pFontArrus = 0;    // ptr @ MM7.exe::005C35E8
