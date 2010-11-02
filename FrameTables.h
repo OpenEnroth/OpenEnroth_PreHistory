@@ -104,7 +104,7 @@ template <typename Image>
      wchar_t pFilepath[256];
      wsprintfW(pFilepath, L"%S", pImages[i].sTextureName);
 
-     pImages[i].uTextureIdx = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pFilepath);
+     pImages[i].uTextureIdx = LODFile_Icons_LOD.LODFile_LoadTexture_New(pFilepath);
     }
     return 0;
    }
