@@ -115,7 +115,7 @@ unsigned int CIconFrameTable_FindIcon(struct CIconFrameTable *_this, const char 
 //----- (MM7.exe::00494FBF) --------------------------------------------------------
 void CIconFrameTable_InitializeIcon(struct CIconFrameTable *_this, unsigned int uIconIdx)
 {
- wchar_t pFilepath[256];
+
  int     i;
 
  if (uIconIdx >= _this->uNumIcons)
@@ -124,8 +124,16 @@ void CIconFrameTable_InitializeIcon(struct CIconFrameTable *_this, unsigned int 
  i = uIconIdx;
  do
  {
+#ifndef OLD_CODE
+  wchar_t pFilepath[256];
   wsprintfW(pFilepath, L"%S", _this->pIcons[i].sTextureName);
-  _this->pIcons[i].uTextureIdx = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pFilepath);
+  _this->pIcons[i].uTextureIdx = LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilepath);
+  #endif
+#ifdef OLD_CODE
+   char pFilepath[256];
+	wsprintfA(pFilepath, "%S", _this->pIcons[i].sTextureName);
+  _this->pIcons[i].uTextureIdx = LODFile_Icons_LOD.LODFile_LoadTexture( pFilepath,0);
+#endif
  }
  while (_this->pIcons[i++].word_00001C & 1);
 }
@@ -320,7 +328,7 @@ void SpriteFrameTable_InitializeSpriteFrame(struct SpriteFrameTable *_this, unsi
   if (_this->pSpriteSFrames[i].dword_00002C & 0x10)
   {
 
-   v10 = LODFile_LoadSprite(pLODFile_Sprites_LOD, (char *)_this->pSpriteSFrames[i].sTextureName, _this->pSpriteSFrames[i].word_000032);
+   v10 = LODFile_Sprites_LOD.LODFile_LoadSprite( (char *)_this->pSpriteSFrames[i].sTextureName, _this->pSpriteSFrames[i].word_000032);
 
    for (j = 0; j < 8; ++j)
      _this->pSpriteSFrames[i].pSpriteIDs[j] = v10;
@@ -348,7 +356,7 @@ void SpriteFrameTable_InitializeSpriteFrame(struct SpriteFrameTable *_this, unsi
               }
               wsprintfA(Size, v22, _this->pSpriteSFrames[i].sTextureName);
 
-              v12 = LODFile_LoadSprite(pLODFile_Sprites_LOD, (char *)&Size, _this->pSpriteSFrames[i].word_000032);
+              v12 = LODFile_Sprites_LOD.LODFile_LoadSprite( (char *)&Size, _this->pSpriteSFrames[i].word_000032);
 
               _this->pSpriteSFrames[i].pSpriteIDs[v11++] = v12;
             }
@@ -364,7 +372,7 @@ void SpriteFrameTable_InitializeSpriteFrame(struct SpriteFrameTable *_this, unsi
     else
       wsprintfA(Size, "%s%i", v19->sTextureName, 8 - j);
 
-    v20 = LODFile_LoadSprite(pLODFile_Sprites_LOD, Size, _this->pSpriteSFrames[i].word_000032);
+    v20 = LODFile_Sprites_LOD.LODFile_LoadSprite( Size, _this->pSpriteSFrames[i].word_000032);
 
     _this->pSpriteSFrames[i].pSpriteIDs[j] = v20;
    }
@@ -408,7 +416,7 @@ LABEL_26:
               default:
                 break;
             }
-            v16 = LODFile_LoadSprite(pLODFile_Sprites_LOD, (char *)&Size, _this->pSpriteSFrames[i].word_000032);
+            v16 = LODFile_Sprites_LOD.LODFile_LoadSprite( (char *)&Size, _this->pSpriteSFrames[i].word_000032);
 
             _this->pSpriteSFrames[i].pSpriteIDs[v14++] = v16;
           }
@@ -564,7 +572,7 @@ int sub_487F84(struct CTileTable *_this, int a2, int a3)
 void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2)
 {
  int     i;
- wchar_t pFilename[256];
+
 
  for ( i = 0; i < _this->uNumTiles; ++i)
  {
@@ -572,11 +580,18 @@ void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2)
   {
    if (_this->pTiles[i].sTileName[0])
    {
+   #ifndef OLD_CODE
+    wchar_t pFilename[256];
     wsprintfW(pFilename, L"%S", _this->pTiles[i].sTileName);
-    _this->pTiles[i].word_000012 = LODFile_LoadTexture_New(pLODFile_Bitmaps_LOD, pFilename);
-
+    _this->pTiles[i].word_000012 = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pFilename);
+   #endif
+#ifdef OLD_CODE
+	 char pFilename[256];
+    wsprintf(pFilename, "%S", _this->pTiles[i].sTileName);
+    _this->pTiles[i].word_000012 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( pFilename,0);
+   #endif
     if (_this->pTiles[i].word_000012 != -1)
-      pLODFile_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, pLODFile_Bitmaps_LOD->aLODHeaders[_this->pTiles[i].word_000012].word_000026);
+      LODFile_Bitmaps_LOD.aLODHeaders[_this->pTiles[i].word_000012].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, LODFile_Bitmaps_LOD.aLODHeaders[_this->pTiles[i].word_000012].word_000026);
    }
   }
  }

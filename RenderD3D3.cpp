@@ -1161,8 +1161,8 @@ LABEL_12:
       
       array_50AC10[i].flt_00000C = pStruct9_global->shading_dist_mist;
       array_50AC10[i].flt_000020 = 1.0 / (double)(v17 / 65536);
-      array_50AC10[i].u = (double)v46 / (65536.0 * pLODFile_Bitmaps_LOD->aLODHeaders[pClass51_global->uSkyTextureID].uTextureWidth);
-      array_50AC10[i].v = (double)v47 / (65536.0 * pLODFile_Bitmaps_LOD->aLODHeaders[pClass51_global->uSkyTextureID].uTextureHeight);
+      array_50AC10[i].u = (double)v46 / (65536.0 * LODFile_Bitmaps_LOD.aLODHeaders[pClass51_global->uSkyTextureID].uTextureWidth);
+      array_50AC10[i].v = (double)v47 / (65536.0 * LODFile_Bitmaps_LOD.aLODHeaders[pClass51_global->uSkyTextureID].uTextureHeight);
  }*/
         
     //1.5f * cos(pOldCamera->sRotationX * 0.003066406352445483)
@@ -1190,12 +1190,12 @@ LABEL_12:
  array_50AC10[3].v = 1 + t;
     }
 
- Render_DrawStrip(pD3DRenderer, local_14.uNumVertices, &local_14, pLODFile_Bitmaps_LOD->pHardwareTextures[pClass51_global->uSkyTextureID]);
+ Render_DrawStrip(pD3DRenderer, local_14.uNumVertices, &local_14, LODFile_Bitmaps_LOD.pHardwareTextures[pClass51_global->uSkyTextureID]);
  /*array_50AC10[0].flt_00001C = v39;
  array_50AC10[1].flt_00001C += 30.0;
  array_50AC10[2].flt_00001C += 30.0;
  array_50AC10[3].flt_00001C = v39;
- Render_DrawSomeFan(pD3DRenderer, local_14.dword_000014, &local_14, pLODFile_Bitmaps_LOD->pHardwareTextures[pClass51_global->uSkyTextureID]);*/
+ Render_DrawSomeFan(pD3DRenderer, local_14.dword_000014, &local_14, LODFile_Bitmaps_LOD.pHardwareTextures[pClass51_global->uSkyTextureID]);*/
 }
 
 

@@ -180,10 +180,10 @@ extern PCMWAVEFORMAT sPCMWaveFormat;
 
 
 extern struct Render *pD3DRenderer;
-extern struct LODFile      *pLODFile_Icons_LOD;
-extern struct LODFile      *pLODFile_Events_LOD;
-extern struct LODFile      *pLODFile_Bitmaps_LOD;
-extern struct LODFile      *pLODFile_Sprites_LOD;
+extern class LODFile_sp      LODFile_Icons_LOD;
+extern class LODFile_sp      LODFile_Events_LOD;
+extern class LODFile_sp      LODFile_Bitmaps_LOD;
+extern class LODFile_Sprite      LODFile_Sprites_LOD;
 extern struct AudioPlayer  *pAudioPlayer;
 extern struct CVideoPlayer *pVideoPlayer;
 
@@ -271,4 +271,4 @@ LSTATUS __stdcall sub_4ABC9B(char a1);
 
 
 void *__stdcall call_new(int, int, int);
-int             call_delete(void *ptr);
+//int             free(void *ptr);

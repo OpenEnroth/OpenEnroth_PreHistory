@@ -1,4 +1,5 @@
 #include <windows.h>
+#include "_lod.h"
 #include "mm7_unparsed_data.h"
 #include "FrameTables.h"
 
@@ -1199,7 +1200,7 @@ unsigned char pStringBuffer[2000];  //byte[2000] @ MM7.exe::005C6580
 //_UNKNOWN unk_5C6581; // weak
 
 
-unsigned char *pGlobalTXT_LocalizationStrings[677];   //ptr array[677] @ MM7.exe::005E4180
+unsigned char *pGlobalTXT_LocalizationStrings[677];   //ptr array[677] @ MM7.exe::005E4180	 677
 
 int bUseLoResSprites;  // byte @ MM7.exe::006BE36C
 int bUseRegistry;      // byte @ MM7.exe::006BE36D
@@ -1213,10 +1214,10 @@ PCMWAVEFORMAT sPCMWaveFormat;  // struct @ MM7.exe::00F1B4B8
 
 
 struct Render *pD3DRenderer = 0;
-struct LODFile      *pLODFile_Events_LOD = 0;   // struct @ MM7.exe::006BEA58
-struct LODFile      *pLODFile_Icons_LOD = 0;    // struct @ MM7.exe::006D0610
-struct LODFile      *pLODFile_Sprites_LOD = 0;  // struct @ MM7.exe::006E21C8
-struct LODFile      *pLODFile_Bitmaps_LOD = 0;  // struct @ MM7.exe::006F0E80
+LODFile_sp      LODFile_Events_LOD;   // struct @ MM7.exe::006BEA58
+LODFile_sp      LODFile_Icons_LOD;    // struct @ MM7.exe::006D0610
+LODFile_Sprite      LODFile_Sprites_LOD;  // struct @ MM7.exe::006E21C8
+LODFile_sp      LODFile_Bitmaps_LOD;  // struct @ MM7.exe::006F0E80
 struct AudioPlayer  *pAudioPlayer = 0;          // struct @ MM7.exe::00F790D8
 struct CVideoPlayer *pVideoPlayer = 0;          // struct @ MM7.exe::00F8BB08
 

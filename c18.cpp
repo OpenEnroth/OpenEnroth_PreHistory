@@ -3,6 +3,58 @@
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
+//--------------------------------------  .text:00463766   sprite_header_constr
+
+Sprites_Header::Sprites_Header()
+	{
+
+	word_000012=0; // * 8 for sprite size                      
+	uPaletteID=0; // dword @ 000014
+	short_001A=0;
+	pSomeSpriteData=NULL;
+	ptr_000024=NULL; 
+
+	}
+//---------------------------------------------.text:0046377D     
+Sprites_Header::~Sprites_Header()
+	{
+	if  (!(c0001B&4==0))
+		{
+		mem_mng.DeleteBuffer(pSomeSpriteData);
+		mem_mng.DeleteBuffer(ptr_000024);
+		}
+	pSomeSpriteData=NULL;
+	ptr_000024=NULL;
+	}
+
+
+//----- (00450D1D) --sub_450D1D--------.text:00451E32  ----------------------------------------------
+void Sprites_Header::Clear_Data()
+{
+  int v1; // esi@1
+  int result; // eax@3
+
+  if  (!(c0001B&4==0))
+		{
+		mem_mng.DeleteBuffer(pSomeSpriteData);
+		mem_mng.DeleteBuffer(ptr_000024);
+		}
+	pSomeSpriteData=NULL;
+	ptr_000024=NULL;
+	sContainerName[0]=0;
+	dword_00000C=0;
+    word_000010=0;
+	word_000012=0; // * 8 for sprite size
+	short_0016=0;
+	uTextureWidth=0;
+	uPaletteID=0; // dword @ 000014
+	short_001A=0;
+
+
+  ;
+}
+
+
 //----- (MM7.exe::0040F5BE) --------------------------------------------------------
 void *class18_ctor(struct class18 *_this)
 {
@@ -29,15 +81,15 @@ void *class18_ctor(struct class18 *_this)
   //----- (0040F77C) --------------------------------------------------------
 void class18_sub_40F77C(struct class18 *_this)
 {
-  int v1; // esi@1
+  //int v1; // esi@1
   char v2; // zf@2
 
-  runtime_warning(no no more implace deleting);
-  /*
-  v1 = _this;
+ // runtime_warning(no no more implace deleting);
+ 
+
   if ( _this )
   {
-    v2 = (*(_BYTE *)(v1 + 45) & 4) == 0;
+    v2 = (*(_BYTE *)(_this + 45) & 4) == 0;
     _this->sContainerName[0] = 0;
     if ( v2 )
     {
@@ -62,7 +114,7 @@ void class18_sub_40F77C(struct class18 *_this)
     _this->word_000024 = 0;
     _this->word_000026 = 0;
     _this->word_00002C = 0;
-  }*/
+  }
 }
 
 

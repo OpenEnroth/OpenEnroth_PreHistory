@@ -3185,13 +3185,20 @@ int CanPlaceItemInInventory(struct Player *_this, signed int a2, int a3)
   int v9; // eax@8
   void *v11; // [sp+Ch] [bp-4h]@1
   unsigned int uNumSlotsY;
- wchar_t pFilename[256];
+
 
   v11 = _this;
-
+#ifndef OLD_CODE
+  wchar_t pFilename[256];
  wsprintfW(pFilename, L"%S", pClass40->pItems[a3].pIconName);
- v5 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pFilename);
- v4 = &pLODFile_Icons_LOD->aLODHeaders[v5];
+ v5 = LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilename);
+ #endif
+#ifdef OLD_CODE
+ char pFilename[256];
+ wsprintf(pFilename, "%S", pClass40->pItems[a3].pIconName);
+ v5 = LODFile_Icons_LOD.LODFile_LoadTexture( pFilename,0);
+ #endif
+ v4 = &LODFile_Icons_LOD.aLODHeaders[v5];
 
  uNumSlotsX = GetSizeInInventorySlots(v4->uTextureWidth);
  uNumSlotsY = GetSizeInInventorySlots(v4->uTextureHeight);
@@ -3200,7 +3207,7 @@ int CanPlaceItemInInventory(struct Player *_this, signed int a2, int a3)
   {
    runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
    //class18_sub_40F77C(v4);
-    LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+    LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
   if ( uNumSlotsX + a2 % 14 <= 14 && uNumSlotsY + a2 / 14 <= 9 )
   {
@@ -3286,7 +3293,7 @@ int Player_sub_49289C(struct Player *_this, int a2, const void *Src)
   int v11; // [sp+4h] [bp-Ch]@7
   int v12; // [sp+8h] [bp-8h]@7
   void *v13; // [sp+Ch] [bp-4h]@1
-  wchar_t pFilename[256];
+  
 
   v13 = _this;
   v4 = 0;
@@ -3307,9 +3314,17 @@ int Player_sub_49289C(struct Player *_this, int a2, const void *Src)
   }
   else
   {
+  #ifndef OLD_CODE
+  wchar_t pFilename[256];
    wsprintfW(pFilename, L"%S", pClass40->pItems[*(_DWORD *)Src].pIconName);
-   v7 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pFilename);
-   v6 = &pLODFile_Icons_LOD->aLODHeaders[v7];
+   v7 = LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilename);
+   #endif
+#ifdef OLD_CODE	
+   char pFilename[256];
+   wsprintf(pFilename, "%S", pClass40->pItems[*(_DWORD *)Src].pIconName);
+   v7 = LODFile_Icons_LOD.LODFile_LoadTexture( pFilename,0);
+   #endif
+   v6 = &LODFile_Icons_LOD.aLODHeaders[v7];
 
    v11 = GetSizeInInventorySlots(v6->uTextureWidth);
    v12 = GetSizeInInventorySlots(v6->uTextureHeight);
@@ -3317,7 +3332,7 @@ int Player_sub_49289C(struct Player *_this, int a2, const void *Src)
     if ( !dword_506128 )
     {
       class18_sub_40F77C(v6);
-      LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+      LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
     if ( v12 > 0 ) // reserving space for large items in inventory
     {
@@ -3372,17 +3387,22 @@ LABEL_5:
   }
   else
   {
+  #ifndef OLD_CODE
     MultiByteToWideChar(CP_ACP, 0, (char *)pClass40->pItems[uItemID].pIconName, -1, pItemIconNameW, 64);
-    v8 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pItemIconNameW);
+    v8 = LODFile_Icons_LOD.LODFile_LoadTexture_New( pItemIconNameW);
+   #endif
+#ifdef OLD_CODE	
 
-    v7 = &pLODFile_Icons_LOD->aLODHeaders[v8];
+    v8 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[uItemID].pIconName,0);
+   #endif
+    v7 = &LODFile_Icons_LOD.aLODHeaders[v8];
     v11 = GetSizeInInventorySlots(v7->uTextureWidth);
     v14 = GetSizeInInventorySlots(v7->uTextureHeight);
     if ( !dword_506128 )
     {
      runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
       //class18_sub_40F77C(v7);
-      LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+      LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
 
     if ( v14 > 0 ) // reserving space for large items in inventory

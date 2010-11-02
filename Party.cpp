@@ -309,10 +309,17 @@ int Party_AddItem(struct Party *_this, struct ItemGen *a2)
   v5 = *(const char **)(pClass40->pItems[0].pIconName + v2);
   if ( v5 )
   {
+  #ifndef OLD_CODE
    wchar_t pTextureFilename[256];
    wsprintfW(pTextureFilename, L"%S", v5);
+    v8 = LODFile_Icons_LOD.LODFile_LoadTexture_New( pTextureFilename);
+#endif
+  #ifdef OLD_CODE
+   char pTextureFilename[256];
+   wsprintf(pTextureFilename, "%S", v5);
 
-    v8 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pTextureFilename);
+    v8 = LODFile_Icons_LOD.LODFile_LoadTexture( pTextureFilename,0);
+#endif
     v6 = v8 != -1 ? 72 * v8 + 7145548 : 0;
     v24 = dword_506128;
     v7 = 0;
@@ -329,7 +336,7 @@ int Party_AddItem(struct Party *_this, struct ItemGen *a2)
         if ( v24 == v9 )
         {
           class18_sub_40F77C((class18 *)v6);
-          LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+          LODFile_Icons_LOD.LODFile_sub_40F9C5();
         }
         goto LABEL_15;
       }
@@ -341,7 +348,7 @@ int Party_AddItem(struct Party *_this, struct ItemGen *a2)
     if ( !v24 )
     {
       class18_sub_40F77C((class18 *)v6);
-      LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+      LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
     result = 1;
   }

@@ -347,7 +347,9 @@ int RGBTexture_ctor(struct RGBTexture *_this);
 //signed int __thiscall sub_40F414(void *_this, const char *Str1, int a3);
 int RGBTexture_Load(struct RGBTexture *_this, const char *pContainerName, int a3);
 //signed int __thiscall sub_40F414(void *_this, const char *Str1, int a3);
+#ifndef OLD_CODE
 int RGBTexture_Load_New(struct RGBTexture *_this, const wchar_t *pTextureName);
+#endif
 //signed int __thiscall sub_40F037(void *_this, void *Src, int a3, int a4)
 int RGBTexture_DecodePCX(struct RGBTexture *_this, unsigned char *pPCXData, unsigned short *pOutBuffer, unsigned int uWidth);
 

@@ -127,7 +127,7 @@ void  MemoryMng::DeleteBuffer(void *pMem)
   if (i>uNumMemoryBuffersUsed)
   {
    if (!pGame->dword_000004)
-      err_show();
+    //  err_show();
    return;
   }
 

@@ -2074,7 +2074,7 @@ int __fastcall sub_491DE7(int a1, int a2)
   {
     v5 = result + 1;
     wsprintfA((char *)TmpBuf, "%s%02d", *(_DWORD *)v4, result + 1);
-    LODFile_sub_4101B1((int)pLODFile_Icons_LOD, *v3, (char *)TmpBuf, 2);
+    LODFile_Icons_LOD.LODFile_sub_4101B1( *v3, (char *)TmpBuf, 2);
     result = v5;
     ++v3;
   }
@@ -2146,42 +2146,42 @@ LABEL_12:
     }
   }
 
-
-  v6 = *((_DWORD *)pLODFile_Icons_LOD + 18143) - 1;
-  if ( v6 >= *((_DWORD *)pLODFile_Icons_LOD + 18152) )
-  {
-    v7 = (int)((char *)pLODFile_Icons_LOD + 72 * v6 + 572);
-    do
-    {
-      class18_sub_40F77C((class18 *)v7);
-      v8 = *((_DWORD *)pLODFile_Icons_LOD + 18156);
-      if ( v8 )
-      {
-        v9 = *(_DWORD *)(v8 + 4 * v6);
-        if ( v9 )
-        {
-          (*(void (__cdecl **)(int))(*(_DWORD *)v9 + 8))(v9);
-          *(_DWORD *)(*((_DWORD *)pLODFile_Icons_LOD + 18156) + 4 * v6) = 0;
-        }
-      }
-      v10 = *((_DWORD *)pLODFile_Icons_LOD + 18155);
-      if ( v10 )
-      {
-        v11 = *(_DWORD *)(v10 + 4 * v6);
-        if ( v11 )
-        {
-          (*(void (__cdecl **)(int))(*(_DWORD *)v11 + 8))(v11);
-          *(_DWORD *)(*((_DWORD *)pLODFile_Icons_LOD + 18155) + 4 * v6) = 0;
-        }
-      }
-      --v6;
-      v7 -= 72;
-    }
-    while ( v6 >= *((_DWORD *)pLODFile_Icons_LOD + 18152) );
-  }
-  result = *((_DWORD *)pLODFile_Icons_LOD + 18152);
-  *((_DWORD *)pLODFile_Icons_LOD + 18152) = 0;
-  *((_DWORD *)pLODFile_Icons_LOD + 18143) = result;
+ // strange code very 
+  //v6 = LODFile_Icons_LOD.dword_0046DF/*((_DWORD *)LODFile_Icons_LOD + 18143)*/ - 1;
+  //if ( v6 >= *((_DWORD *)LODFile_Icons_LOD.word_0046E8 /*+ 18152*/) )
+  //{
+  //  v7 = (int)((char *)LODFile_Icons_LOD.aLODHeaders + 72 * v6);
+  //  do
+  //  {
+  //    class18_sub_40F77C((class18 *)v7);
+  //    v8 = *((_DWORD *)LODFile_Icons_LOD.dword_0046EC /*+ 18156*/);
+  //    if ( v8 )
+  //    {
+  //      v9 = *(_DWORD *)(v8 + 4 * v6);
+  //      if ( v9 )
+  //      {
+  //        (*(void (__cdecl **)(int))(*(_DWORD *)v9 + 8))(v9);
+  //        *(_DWORD *)(*((_DWORD *)LODFile_Icons_LOD.dword_0046EC/* + 18156*/) + 4 * v6) = 0;
+  //      }
+  //    }
+  //    v10 = *((_DWORD *)LODFile_Icons_LOD.char_0046EB /*+ 18155*/);
+  //    if ( v10 )
+  //    {
+  //      v11 = *(_DWORD *)(v10 + 4 * v6);
+  //      if ( v11 )
+  //      {
+  //        (*(void (__cdecl **)(int))(*(_DWORD *)v11 + 8))(v11);
+  //        *(_DWORD *)(*((_DWORD *)LODFile_Icons_LOD.char_0046EB /*+ 18155*/) + 4 * v6) = 0;
+  //      }
+  //    }
+  //    --v6;
+  //    v7 -= 72;
+  //  }
+  //  while ( v6 >= *((_DWORD *)LODFile_Icons_LOD.word_0046E8 /*+ 18152*/) );
+  //}
+  //result = *((_DWORD *)LODFile_Icons_LOD.word_0046E8 /*+ 18152*/);
+  //*((_DWORD *)LODFile_Icons_LOD.word_0046E8 /*+ 18152*/) = 0;
+  //*((_DWORD *)LODFile_Icons_LOD.dword_0046DF /*+ 18143*/) = result;
   return result;
 }
 
@@ -2232,14 +2232,14 @@ signed int __thiscall sub_49298B(void *_this, struct ItemGen *a2, int a3, int a4
   int v11; // [sp+18h] [bp+8h]@1
 
   v4 = _this;
-  v6 = LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)pClass40->pItems[*(_DWORD *)a2].pIconName, 2);
+  v6 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[*(_DWORD *)a2].pIconName, 2);
   v5 = v6 != -1 ? 72 * v6 + 7145548 : 0;
   v10 = GetSizeInInventorySlots(*(_WORD *)(v6 != -1 ? 72 * v6 + 7145548 + 0x18 : 24));
   v11 = GetSizeInInventorySlots(*(_WORD *)(v5 + 26));
   if ( !dword_506128 )
   {
     class18_sub_40F77C((class18 *)v5);
-    LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+    LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
   if ( v11 > 0 )
   {
@@ -2273,7 +2273,7 @@ int __thiscall Player_sub_492A36(void *_this, int a2)
   v6 = (int)((char *)_this + 36 * *(_DWORD *)v4 + 496);
   v7 = *(_DWORD *)v6;
   ItemGen_Reset((ItemGen *)v6);
-  v8 = LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)pClass40->pItems[v7].pIconName, 2);
+  v8 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[v7].pIconName, 2);
   v5 = v8 != -1 ? 72 * v8 + 7145548 : 0;
   v10 = GetSizeInInventorySlots(*(_WORD *)(v8 != -1 ? 72 * v8 + 7145548 + 0x18 : 24));
   result = GetSizeInInventorySlots(*(_WORD *)(v5 + 26));
@@ -2281,7 +2281,7 @@ int __thiscall Player_sub_492A36(void *_this, int a2)
   if ( !dword_506128 )
   {
     class18_sub_40F77C((class18 *)v5);
-    result = LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+    result = LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
   if ( v3 > 0 )
   {
@@ -3521,7 +3521,7 @@ LABEL_116:
 //----- (004979D2) --------------------------------------------------------
 int CreditsMenuLoop()
 {
-  int v0; // eax@5
+  FILE *v0; // eax@5
   const char *v1; // edi@5
   int v2; // eax@5
   int v3; // esi@7
@@ -3569,17 +3569,17 @@ int CreditsMenuLoop()
   v39 = (int)LoadFont("cchar.fnt", "FONTPAL");
   if ( dword_50CBD0[0] )
     dword_50CBD0[0] = dword_50CBD0[3] != 0;
-  ++pLODFile_Icons_LOD->dword_011B9C;
-  if ( !pLODFile_Icons_LOD->dword_011B98 )
-    pLODFile_Icons_LOD->dword_011B98 = pLODFile_Icons_LOD->uNumLoadedFiles;
+  ++LODFile_Icons_LOD.dword_011B9C;
+  if ( !LODFile_Icons_LOD.dword_011B98 )
+    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   dword_A74C88 = 0;
   sub_4AA13F((int)pAudioPlayer, 15);
   RGBTexture_Load(&v19, "mm6title.pcx", 0);
-  v2 = (int)LODFile_LoadRaw(pLODFile_Events_LOD, "credits.txt", 0);
+  v2 = (int)LODFile_Events_LOD.LODFile_LoadRaw( "credits.txt", 0);
   v1 = (const char *)v2;
   Source = (char *)v2;
   class18_ctor((class18 *)class18_obj);
-  v0 = (int)LODFile_FindContainer(pLODFile_Events_LOD, "credits.txt", 0);
+  v0 = LODFile_Events_LOD.Find_Container( "credits.txt", 0);
   if ( !v0 )
     erroneous_printf((char *)pGlobalTXT_LocalizationStrings[63]);
   locked_fread(class18_obj, 1u, 0x30u, (FILE *)v0);
@@ -3690,7 +3690,7 @@ int CreditsMenuLoop()
   mem_mng.DeleteBuffer( (void *)(void *)v38);
   mem_mng.DeleteBuffer( (void *)(void *)v39);
   GUIWindowDelete(pGUIWindow_MainMenu);
-  v14 = LODFile_sub_4114F2(pLODFile_Icons_LOD);
+  v14 = LODFile_Icons_LOD.LODFile_sub_4114F2();
   v15 = RGBTexture_Release((int)&v19);
   RGBTexture_Release((int)&v29);
   return sub_466CA0() - 8;
@@ -5164,7 +5164,7 @@ LABEL_50:
       HIDWORD(v280) = malloc(v95);
       locked_fread(HIDWORD(v280), v95, 1u, File);
       v96 = MemUnzip(v94, (int *)&ElementSize, SHIDWORD(v280), v95);
-      call_delete(v96, HIDWORD(v280));
+      free(v96, HIDWORD(v280));
     }
   }
   else
@@ -5508,7 +5508,7 @@ LABEL_50:
   v170 = *(_DWORD *)(v6 + 680);
   v231 = 12 * *(_DWORD *)v170;
   v171 = (int)memcpy((void *)(v170 + 4), (const void *)(v169 + 4), v231);
-  call_delete(v171, v278);
+  free(v171, v278);
   v234 = (int)".dlv";
   v172 = strlen(Args);
   strcpy(&v270[v172], (const char *)v234);
@@ -5543,7 +5543,7 @@ LABEL_50:
         HIDWORD(v280) = malloc(v173);
         locked_fread(HIDWORD(v280), v173, 1u, (FILE *)v283);
         v174 = MemUnzip((int)Src, (int *)&Count, SHIDWORD(v280), v173);
-        call_delete(v174, HIDWORD(v280));
+        free(v174, HIDWORD(v280));
       }
     }
     else
@@ -5585,7 +5585,7 @@ LABEL_50:
   {
     v178 = (int)memcpy(&v235, Src, 0x36Bu);
 LABEL_132:
-    call_delete(v178, (unsigned int)File);
+    free(v178, (unsigned int)File);
     v179 = v282 == 1;
     *(_DWORD *)(v6 + 712) = a3;
     if ( v179 )
@@ -5610,7 +5610,7 @@ LABEL_132:
         HIDWORD(v280) = malloc(v180);
         locked_fread(HIDWORD(v280), v180, 1u, (FILE *)v283);
         v181 = MemUnzip((int)Src, (int *)&Count, SHIDWORD(v280), v180);
-        call_delete(v181, HIDWORD(v280));
+        free(v181, HIDWORD(v280));
       }
     }
     else
@@ -5829,7 +5829,7 @@ LABEL_165:
   memcpy(byte_5E4C90, Src, 0xC8u);
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
   v228 = (int)memcpy((void *)(v6 + 748), (char *)v227 + 200, 0x38u);
-  call_delete(v228, (unsigned int)File);
+  free(v228, (unsigned int)File);
   v5 = 0;
 LABEL_179:
   sub_4A9A67(pSoundList, 64, v5);
@@ -11365,9 +11365,9 @@ signed int __thiscall Render_sub_4A4DE1(int _this, int a2, int a3, int a4, int a
 //----- (004A5190) --------------------------------------------------------
 void __cdecl sub_4A5190()
 {
-  sub_41033D((int)pLODFile_Bitmaps_LOD);
-  sub_410423((int)pLODFile_Bitmaps_LOD);
-  sub_4ACADA((int)pLODFile_Sprites_LOD);
+  LODFile_Bitmaps_LOD.sub_41033D();
+  LODFile_Bitmaps_LOD.sub_410423();
+  LODFile_Sprites_LOD.sub_4ACADA();
 }
 
 //----- (004A52F1) --------------------------------------------------------
@@ -12995,7 +12995,7 @@ void __thiscall sub_4A7688(void *_this, int a2)
   v14 = (double)*(signed int *)(a2 + 8);
   v15 = (double)*(signed int *)(a2 + 12);
   v20 = (rand() & 0x7F) + 128;
-  v21 = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, "effpar01", 0);
+  v21 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar01", 0);
   v27 = 10;
   v22 = 1.0;
   do
@@ -13370,7 +13370,7 @@ void __stdcall sub_4A7E89(int a1, int a2)
   Dst = 1036;
   v10 = (rand() & 0x7F) + 128;
   v2 = a1;
-  v11 = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, "effpar02", 0);
+  v11 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar02", 0);
   v14 = 50;
   v12 = 1.0;
   do
@@ -13865,7 +13865,7 @@ LABEL_12:
       v18 = malloc(*(_DWORD *)(v16 + 44));
       ReadFile(pAudioPlayer->hSoundsSource, v18, *(_DWORD *)(v16 + 44), &Args, 0);
       MemUnzip(lpBuffer, (unsigned int *)(v16 + 48), v18, *(_DWORD *)(v16 + 44));
-      call_delete(v18);
+      free(v18);
       v14 = a2;
     }
     result = v30;
@@ -14792,124 +14792,8 @@ int __stdcall sub_4AC4FD(int a1)
   return result;
 }
 
-//----- (004ACADA) --------------------------------------------------------
-void __thiscall sub_4ACADA(int _this)
-{
-  int v1; // esi@1
-  int v2; // ebx@2
-  int v3; // edi@3
-  int v4; // eax@4
-  int v5; // eax@6
-  int v6; // ST00_4@8
 
-  v1 = _this;
-  if ( *(_DWORD *)(_this + 60592) )
-  {
-    v2 = 0;
-    if ( *(_DWORD *)(_this + 60572) > 0 )
-    {
-      v3 = 0;
-      do
-      {
-        v4 = *(_DWORD *)(v3 + *(_DWORD *)(v1 + 60592) + 8);
-        if ( v4 )
-        {
-          if ( (*(int (__stdcall **)(_DWORD))(*(_DWORD *)v4 + 96))(*(_DWORD *)(v3 + *(_DWORD *)(v1 + 60592) + 8)) == -2005532222 )
-          {
-            v5 = *(_DWORD *)(v3 + *(_DWORD *)(v1 + 60592) + 12);
-            if ( v5 )
-            {
-              (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v5 + 8))(*(_DWORD *)(v3 + *(_DWORD *)(v1 + 60592) + 12));
-              *(_DWORD *)(v3 + *(_DWORD *)(v1 + 60592) + 12) = 0;
-            }
-            v6 = *(_DWORD *)(v3 + *(_DWORD *)(v1 + 60592) + 8);
-            (*(void (__stdcall **)(int))(*(_DWORD *)v6 + 8))(v6);
-            *(_DWORD *)(v3 + *(_DWORD *)(v1 + 60592) + 8) = 0;
-            Render_MoveHWSpriteToVideoMemory(pD3DRenderer, (HardwareSprite *)(v3 + *(_DWORD *)(v1 + 60592)));
-          }
-        }
-        ++v2;
-        v3 += 40;
-      }
-      while ( v2 < *(_DWORD *)(v1 + 60572) );
-    }
-  }
-}
 
-//----- (004ACB70) --------------------------------------------------------
-void __thiscall sub_4ACB70(int _this)
-{
-  int v1; // esi@1
-  int v2; // ebx@2
-  int v3; // edi@3
-  int v4; // eax@4
-  int v5; // eax@5
-  int v6; // eax@7
-  int v7; // eax@8
-
-  v1 = _this;
-  if ( *(_DWORD *)(_this + 60592) )
-  {
-    v2 = 0;
-    if ( *(_DWORD *)(_this + 60572) > 0 )
-    {
-      v3 = 0;
-      do
-      {
-        v4 = *(_DWORD *)(v1 + 60592);
-        if ( v4 )
-        {
-          v5 = *(_DWORD *)(v3 + v4 + 12);
-          if ( v5 )
-          {
-            (*(void (__stdcall **)(int))(*(_DWORD *)v5 + 8))(v5);
-            *(_DWORD *)(v3 + *(_DWORD *)(v1 + 60592) + 12) = 0;
-          }
-          v6 = *(_DWORD *)(v1 + 60592);
-          if ( v6 )
-          {
-            v7 = *(_DWORD *)(v3 + v6 + 8);
-            if ( v7 )
-            {
-              (*(void (__stdcall **)(int))(*(_DWORD *)v7 + 8))(v7);
-              *(_DWORD *)(v3 + *(_DWORD *)(v1 + 60592) + 8) = 0;
-            }
-          }
-        }
-        ++v2;
-        v3 += 40;
-      }
-      while ( v2 < *(_DWORD *)(v1 + 60572) );
-    }
-  }
-}
-
-//----- (004ACBE0) --------------------------------------------------------
-void *__thiscall sub_4ACBE0(int _this)
-{
-  int v1; // ebx@1
-  int v2; // esi@1
-  int v3; // edi@2
-  void *result; // eax@3
-
-  v2 = _this;
-  v1 = 0;
-  if ( *(_DWORD *)(_this + 60592) )
-  {
-    v3 = 0;
-    if ( *(_DWORD *)(_this + 60572) > 0 )
-    {
-      do
-      {
-        result = (void *)Render_MoveHWSpriteToVideoMemory(pD3DRenderer, (HardwareSprite *)(v1 + *(_DWORD *)(v2 + 60592)));
-        ++v3;
-        v1 += 40;
-      }
-      while ( v3 < *(_DWORD *)(v2 + 60572) );
-    }
-  }
-  return result;
-}
 
 //----- (004ACC38) --------------------------------------------------------
 int __thiscall sub_4ACC38(int _this, struct Render_BillboardTransform_stru0 *a2, char a3)

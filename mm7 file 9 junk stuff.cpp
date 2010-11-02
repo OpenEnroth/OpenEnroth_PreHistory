@@ -329,7 +329,7 @@ loc_41AE9C:                             ; CODE XREF: sub_41AD6E+7Bj
   call    Render_DrawTransparentTexture
  }*/
  if (byte_50794A)
-   Render_DrawTransparentTexture(pD3DRenderer, 493, 355, &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td1_A]);
+   Render_DrawTransparentTexture(pD3DRenderer, 493, 355, &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td1_A]);
 
  /*__asm
  {
@@ -351,7 +351,7 @@ loc_41AE33:                             ; CODE XREF: sub_41AD6E+99j
   call    Render_DrawTransparentTexture
  }*/
  if (byte_507949)
-   Render_DrawTransparentTexture(pD3DRenderer, 527, 353, &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td2_A]);
+   Render_DrawTransparentTexture(pD3DRenderer, 527, 353, &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td2_A]);
 
  /*__asm
  {
@@ -373,7 +373,7 @@ loc_41AE65:                             ; CODE XREF: sub_41AD6E+CBj
   call    Render_DrawTransparentTexture
  }*/
  if (byte_507948)
-   Render_DrawTransparentTexture(pD3DRenderer, 600, 361, &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_ib_td5_A]);
+   Render_DrawTransparentTexture(pD3DRenderer, 600, 361, &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td5_A]);
  return;
  /*
  __asm
@@ -1367,7 +1367,7 @@ void *sub_4CEE48(int a1, const void *Src, int Size)
     }
     else
     {
-      call_delete(a1, (unsigned int)Src);
+      free(a1, (unsigned int)Src);
 LABEL_63:
       result = 0;
     }
@@ -1380,8 +1380,8 @@ LABEL_63:
 }
 
 
-//----- (MM7.exe::004CAF5C) --------------------------------------------------------
-int call_delete(void *ptr)
+//----- (MM7.exe::004CAF5C) -----crt free---------------------------------------------------
+/*int call_delete(void *ptr)
 {
   unsigned int v2; // eax@3
   char v3; // zf@5
@@ -1439,9 +1439,9 @@ int call_delete(void *ptr)
     v5 = (void *)a2;
     return HeapFree(hHeap, 0, v5);
   }
-  return result;*/
+  return result;
 }
-
+ */
 
 //----- (004CD96F) --------------------------------------------------------
 void *__cdecl sub_4CD96F(int a1, int a2)

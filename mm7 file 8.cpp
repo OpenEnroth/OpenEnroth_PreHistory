@@ -509,17 +509,17 @@ bool MaybeDoAutosave()
   char v4; // zf@7
 
   //local struct
-  char v6[4 + 32*array_size_unknown]; // [sp+Ch] [bp-16Ch]@3
-  char Dest[80 + 4*array_size_unknown]; // [sp+10h] [bp-168h]@3
-  char v8[80 + 4*array_size_unknown]; // [sp+60h] [bp-118h]@3
+  LODFileHeader lod_header; // [sp+Ch] [bp-16Ch]@3
+ // char Dest[80 + 4*array_size_unknown]; // [sp+10h] [bp-168h]@3
+ // char v8[80 + 4*array_size_unknown]; // [sp+60h] [bp-118h]@3
   int v9; // [sp+B0h] [bp-C8h]@3
   int v10; // [sp+B4h] [bp-C4h]@3
-  char v11[32 + 4*array_size_unknown]; // [sp+10Ch] [bp-6Ch]@4
-  char v12[20 + 4*array_size_unknown]; // [sp+12Ch] [bp-4Ch]@9
+  LODIndex  v11; // [sp+10Ch] [bp-6Ch]@4
+  LODIndex v12; // [sp+12Ch] [bp-4Ch]@9
   int v13; // [sp+140h] [bp-38h]@9
 
   //local struct
-  char v14[24 + 4*array_size_unknown]; // [sp+14Ch] [bp-2Ch]@3
+  LODIndex v14; ; // [sp+14Ch] [bp-2Ch]@3
   int v15; // [sp+164h] [bp-14h]@3
   __int16 v16; // [sp+16Ah] [bp-Eh]@3
   int v17; // [sp+16Ch] [bp-Ch]@5
@@ -530,31 +530,31 @@ bool MaybeDoAutosave()
     CVideoPlayer_UnloadAll(pVideoPlayer);
 
   DstBuf =mem_mng.AllocatedNamedBuffer(0, 1000000, 0);
-  LODFile_sub_461EE9(pLODFile_New_LOD);
+  LODFile_New_LOD.Close_Written_File();
   remove("data\\new.lod");
 
-  sub_4617B6((int)v6);
-  strcpy(Dest, "MMVII");
-  strcpy(v8, "newmaps for MMVII");
+  Reset_LODFileHeader(&lod_header);
+  strcpy(lod_header.a1, "MMVII");
+  strcpy(lod_header.a2, "newmaps for MMVII");
   v9 = 100;
   v10 = 0;
 
-  sub_46172B((int)v14);
+  Reset_LODIndex(&v14);
   v15 = 0;
   v16 = 0;
-  strcpy(v14, "current");
+  strcpy(&v14.pFilename[0], "current");
 
-  LODFile_sub_461492(pLODFile_New_LOD, v6, (int)v14, "data\\new.lod");
+  LODFile_New_LOD.Write_Lod_Header(&lod_header, &v14, "data\\new.lod");
 
-  if (!LODFile_LoadLOD_Games(pLODFile_New_LOD, "data\\new.lod", 0))
+  if (!LODFile_New_LOD.Load_File("data\\new.lod", 0))
   { 
    mem_mng.DeleteBuffer(DstBuf);
    return false;
   }
 
-    LODFile_sub_461F1E((int)pLODFile_New_LOD);
+    LODFile_New_LOD.LODFile_sub_461F1E();
     dword_6A0A4C = 0;
-    sub_461743((int)v11);
+    Reset_LODIndex(&v11);
     v1 = dword_6A0C8C / 2;
     if ( dword_6A0C8C / 2 < dword_6A0C8C )
     {
@@ -563,10 +563,10 @@ bool MaybeDoAutosave()
       v17 = dword_6A0C8C - v1;
       while ( 1 )
       {
-        memcpy(v11, (const void *)(v2 + dword_6A0C90), 0x20u);
-        v3 = (int)LODFile_FindContainer(pLODFile_Games_LOD, (const char *)(v2 + dword_6A0C90), 1);
+        memcpy(&v11, (const void *)(v2 + dword_6A0C90), 0x20u);
+        v3 = (int)LODFile_Games_LOD.Find_Container( (const char *)(v2 + dword_6A0C90), 1);
         locked_fread(DstBuf, *(_DWORD *)(v19 + dword_6A0C90 + 20), 1u, (FILE *)v3);
-        LODFile_sub_461F71((int)pLODFile_New_LOD, (int)v11, DstBuf);
+        LODFile_New_LOD.Append_item( &v11, DstBuf);
         v19 += 32;
         v4 = v17-- == 1;
         if ( v4 )
@@ -574,12 +574,12 @@ bool MaybeDoAutosave()
         v2 = v19;
       }
     }
-    sub_461743((int)v12);
+    Reset_LODIndex(&v12);
     strcpy(byte_69BD7C, "out01.odm");
-    strcpy(v12, "header.bin");
+    strcpy(&v12.pFilename[0], "header.bin");
     v13 = 100;
-    LODFile_sub_461F71((int)pLODFile_New_LOD, (int)v12, &unk_69BD68);
-    LODFile_sub_461FD4(pLODFile_New_LOD);
+    LODFile_New_LOD.Append_item(&v12, &unk_69BD68);
+    LODFile_New_LOD.LODFile_sub_461FD4();
 
     pParty_global->sPartyPosX = 12552;
     pParty_global->sPartyPosY = 1816;
@@ -646,7 +646,13 @@ int __fastcall MenuLoop_CharacterCreation()
 
   v28 = 0;
   //RGBTexture_Load(pRGBTexture_Menu, "makeme", 0);
- uTextureID_CurrentMenu = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"MakeMe");
+  #ifndef OLD_CODE
+	uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"MakeMe");
+#endif
+#ifdef OLD_CODE
+	uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture( "MakeMe",0);
+#endif
+ 
   Render_Set2DClippingRect(pD3DRenderer, 0, 0, 640, 480);
 
   if (dword_720010)
@@ -724,7 +730,7 @@ LABEL_27:
   }
 
   GUIWindowDelete(pGUIWindow_CurrentMenu);
-  LODFile_sub_4114F2(pLODFile_Icons_LOD);
+  LODFile_Icons_LOD.LODFile_sub_4114F2();
 
   v22 = 0;
   memset(v23, 0, 0x1C);
@@ -1336,34 +1342,7 @@ LABEL_5:
   return sub_42F5ED((int)&v9, 0, 0, 0, 0);
 }
 
-//----- (00461492) --------------------------------------------------------
-signed int LODFile_sub_461492(struct LODFile *_this, char *Str, int a3, const char *Source)
-{
-  int v4; // esi@1
-  FILE *v6; // eax@5
 
-  v4 = (int)_this;
-  if ( *(_DWORD *)((char *)_this + 260) )
-    return 1;
-  if ( !*(_BYTE *)a3 )
-    return 2;
-  strcpy(Str, "LOD");
-  *((_DWORD *)Str + 41) = 100;
-  *((_DWORD *)Str + 43) = 1;
-  *(_BYTE *)(a3 + 15) = 0;
-  *(_DWORD *)(a3 + 20) = 0;
-  *(_DWORD *)(a3 + 16) = 288;
-  strcpy((char *)(v4 + 4), Source);
-  v6 = fopen((const char *)(v4 + 4), "wb+");
-  *(_DWORD *)v4 = (int)v6;
-  if ( !v6 )
-    return 3;
-  locked_fwrite(Str, 0x100u, 1u, v6);
-  locked_fwrite((const void *)a3, 0x20u, 1u, *(FILE **)v4);
-  fclose(*(FILE **)v4);
-  *(_DWORD *)v4 = 0;
-  return 0;
-}
 
 //----- (00404828) --------------------------------------------------------
 void *__thiscall sub_404828(void *_this)
@@ -1859,7 +1838,7 @@ void __cdecl InitializeQuests()
  if (pQuestsTXT_Raw)
    mem_mng.DeleteBuffer( (void *)pQuestsTXT_Raw);
 
- pQuestsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "quests.txt", 0);
+ pQuestsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "quests.txt", 0);
  strtok((char *)pQuestsTXT_Raw, "\r");
 
   //v6 = (signed int)&unk_722F14;
@@ -2055,7 +2034,7 @@ void sub_47AF11_PrepareItemsRenderList()
             if ( v36 & 0x20 )
             {
               v4 = v36;
-              v45 -= (signed int)(((unsigned __int64)(pSprite->dword_000028) * *(int *)&pLODFile_Sprites_LOD->aLODHeaders[1 + 20 * pSprite->pSpriteIDs[v5]].word_000010) >> 16) >> 1;
+              v45 -= (signed int)(((unsigned __int64)(pSprite->dword_000028) * *(int *)&LODFile_Sprites_LOD.aSpriteHeaders[1 + 20 * pSprite->pSpriteIDs[v5]].word_000010) >> 16) >> 1;
             }
             v46 = 0;
             if ( v4 & 2 )
@@ -2342,16 +2321,21 @@ int __cdecl MenuLoop_Main()
  pGUIWindow2 = 0;
  AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
  class03_sub_4698A6(pGame->pClass03);
- ++pLODFile_Icons_LOD->dword_011B9C;
- if (!pLODFile_Icons_LOD->dword_011B98)
-   pLODFile_Icons_LOD->dword_011B98 = pLODFile_Icons_LOD->uNumLoadedFiles;
+ ++LODFile_Icons_LOD.dword_011B9C;
+ if (!LODFile_Icons_LOD.dword_011B98)
+   LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
 
  pGUIWindow_MainMenu = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
-
- v4 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"title_new");
+  #ifndef OLD_CODE
+	 v4 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_new");
+#endif
+#ifdef OLD_CODE
+	 v4 = LODFile_Icons_LOD.LODFile_LoadTexture( "title_new",0);
+#endif
+ 
  pMainMenu_NewGame = GUIButtonCreate(pGUIWindow_MainMenu, 494, 172,
-                                     pLODFile_Icons_LOD->aLODHeaders[v4].uTextureWidth,
-                                     pLODFile_Icons_LOD->aLODHeaders[v4].uTextureHeight,
+                                     LODFile_Icons_LOD.aLODHeaders[v4].uTextureWidth,
+                                     LODFile_Icons_LOD.aLODHeaders[v4].uTextureHeight,
                                      1,
                                      0,
                                      54,
@@ -2359,11 +2343,16 @@ int __cdecl MenuLoop_Main()
                                      78,
                                      "New Game",
                                      v4);
-
- v5 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"title_load");
+ #ifndef OLD_CODE
+	 v5 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_load");
+#endif
+#ifdef OLD_CODE
+	 v5 = LODFile_Icons_LOD.LODFile_LoadTexture("title_load",0);
+#endif
+ 
  pMainMenu_LoadGame = GUIButtonCreate(pGUIWindow_MainMenu, 494, 227,
-                                      pLODFile_Icons_LOD->aLODHeaders[v5].uTextureWidth,
-                                      pLODFile_Icons_LOD->aLODHeaders[v5].uTextureHeight,
+                                      LODFile_Icons_LOD.aLODHeaders[v5].uTextureWidth,
+                                      LODFile_Icons_LOD.aLODHeaders[v5].uTextureHeight,
                                       1,
                                       0,
                                       55,
@@ -2371,11 +2360,16 @@ int __cdecl MenuLoop_Main()
                                       76,
                                       "Load Game",
                                       v5);
+  #ifndef OLD_CODE
+	   v6 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_cred");
+#endif
+#ifdef OLD_CODE
+	  v6 = LODFile_Icons_LOD.LODFile_LoadTexture( "title_cred",0);
+#endif
 
- v6 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"title_cred");
  pMainMenu_Credits = GUIButtonCreate(pGUIWindow_MainMenu, 494, 282,
-                                     pLODFile_Icons_LOD->aLODHeaders[v6].uTextureWidth,
-                                     pLODFile_Icons_LOD->aLODHeaders[v6].uTextureHeight,
+                                     LODFile_Icons_LOD.aLODHeaders[v6].uTextureWidth,
+                                     LODFile_Icons_LOD.aLODHeaders[v6].uTextureHeight,
                                      1,
                                      0,
                                      56,
@@ -2383,11 +2377,16 @@ int __cdecl MenuLoop_Main()
                                      67,
                                      "Creadits",
                                      v6);
-
- v7 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"title_exit");
+  #ifndef OLD_CODE
+	 v7 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_exit");
+#endif
+#ifdef OLD_CODE
+	v7 = LODFile_Icons_LOD.LODFile_LoadTexture( "title_exit",0);
+#endif
+ 
  pMainMenu_Exit = GUIButtonCreate(pGUIWindow_MainMenu, 494, 337,
-                                  pLODFile_Icons_LOD->aLODHeaders[v7].uTextureWidth,
-                                  pLODFile_Icons_LOD->aLODHeaders[v7].uTextureHeight,
+                                  LODFile_Icons_LOD.aLODHeaders[v7].uTextureWidth,
+                                  LODFile_Icons_LOD.aLODHeaders[v7].uTextureHeight,
                                   1,
                                   0,
                                   57,
@@ -2395,8 +2394,13 @@ int __cdecl MenuLoop_Main()
                                   0,
                                   "Exit",
                                   v7);
+   #ifndef OLD_CODE
+	  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Title");
+#endif
+#ifdef OLD_CODE
+	  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture("Title",0);
+#endif
 
- uTextureID_CurrentMenu = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"Title");
 
  SetCurrentMenu(MENU_MAIN);
  SetForegroundWindow(pAppWindow->GetAPIHandle());
@@ -2410,8 +2414,14 @@ int __cdecl MenuLoop_Main()
     {
       if ( dword_4E28F8 != 12 )
       {
+	  #ifndef OLD_CODE
+	    uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"lsave640");
+#endif
+#ifdef OLD_CODE
+	  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture("lsave640",0);
+#endif
         //RGBTexture_Load(pRGBTexture_Menu, "lsave640", 0);
-       uTextureID_CurrentMenu = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"lsave640");
+      
         pGUIWindow2 = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
         dword_4E28F8 = 12;
         sub_45E361(0);
@@ -2443,7 +2453,7 @@ int __cdecl MenuLoop_Main()
         sub_46B736((void *)dword_720010, 1);
       if ( uCurrentMenuID == 9 )
       {
-          LODFile_sub_4114F2(pLODFile_Icons_LOD);
+          LODFile_Icons_LOD.LODFile_sub_4114F2();
           sub_45E006();
           GUIWindowDelete(pGUIWindow_CurrentMenu);
           pGUIWindow_CurrentMenu = 0;
@@ -2470,14 +2480,14 @@ int __cdecl MenuLoop_Main()
                  ;
           }
 
-          Render_DrawIndexedTexture(pD3DRenderer, v8->uX + 1, v8->uY + 1, &pLODFile_Icons_LOD->aLODHeaders[v8->uTextureID]);
+          Render_DrawIndexedTexture(pD3DRenderer, v8->uX + 1, v8->uY + 1, &LODFile_Icons_LOD.aLODHeaders[v8->uTextureID]);
          }
          v8 = v8->pNext;
          if (!v8)
          {
           if ( uCurrentMenuID == 9 )
           {
-           LODFile_sub_4114F2(pLODFile_Icons_LOD);
+           LODFile_Icons_LOD.LODFile_sub_4114F2();
            sub_45E006();
            GUIWindowDelete(pGUIWindow_CurrentMenu);
            pGUIWindow_CurrentMenu = 0;
@@ -2507,7 +2517,7 @@ int __cdecl MenuLoop_Main()
   GUIWindowDelete(pGUIWindow_MainMenu);
 
   runtime_warning("Purge old textures or something, works.. bad");
-  //return LODFile_sub_4114F2(pLODFile_Icons_LOD);
+  //return LODFile_Icons_LOD.LODFile_sub_4114F2();
   return 0;
 }
 
@@ -3631,9 +3641,9 @@ void __cdecl sub_464479()
   if (pGame->pClass03)
     sub_469903(pGame->pClass03, "MICON1");
   sub_48A336(&class35_obj);
-  sub_46454B(pLODFile_Bitmaps_LOD);
-  sub_4645DC(pLODFile_Sprites_LOD);
-  sub_46454B(pLODFile_Icons_LOD);
+  LODFile_Bitmaps_LOD.sub_46454B();
+  LODFile_Sprites_LOD.sub_4645DC();
+  LODFile_Icons_LOD.sub_46454B();
   if ( pD3DRenderer->pRenderD3D3 )
   {
     dword_EF52A0 = 0;
@@ -4036,9 +4046,9 @@ void InitializeCameraAndViewport()
  } 
 
  sub_42F3D6();
- pLODFile_Bitmaps_LOD->dword_011B84 = pLODFile_Bitmaps_LOD->uNumLoadedFiles;
- pLODFile_Sprites_LOD->dword_00ECA0 = pLODFile_Sprites_LOD->uNumLoadedSprites;
- pLODFile_Icons_LOD->dword_011B84 = pLODFile_Icons_LOD->uNumLoadedFiles;
+ LODFile_Bitmaps_LOD.dword_011B84 = LODFile_Bitmaps_LOD.uNumLoadedFiles;
+ LODFile_Sprites_LOD.dword_00ECA0 = LODFile_Sprites_LOD.uNumLoadedSprites;
+ LODFile_Icons_LOD.dword_011B84 = LODFile_Icons_LOD.uNumLoadedFiles;
 }
 
 //----- (00443FDC) --------------------------------------------------------
@@ -4798,10 +4808,10 @@ bool sub_47F0E2()
 
  runtime_warning(Some operations on palette pixels. We have no palettes);
 /*
- for (i = 0; i < pLODFile_Bitmaps_LOD->uNumLoadedFiles; ++i)
-   pLODFile_Bitmaps_LOD->aLODHeaders[i].uDecompressedSize = sub_47CB57(pLODFile_Bitmaps_LOD->aLODHeaders[i].pIndexedPixels,
-                                                                       pLODFile_Bitmaps_LOD->aLODHeaders[i].word_000026,
-                                                                       pLODFile_Bitmaps_LOD->aLODHeaders[i].uTextureWidth * pLODFile_Bitmaps_LOD->aLODHeaders[i].uTextureHeight);*/
+ for (i = 0; i < LODFile_Bitmaps_LOD.uNumLoadedFiles; ++i)
+   LODFile_Bitmaps_LOD.aLODHeaders[i].uDecompressedSize = sub_47CB57(LODFile_Bitmaps_LOD.aLODHeaders[i].pIndexedPixels,
+                                                                       LODFile_Bitmaps_LOD.aLODHeaders[i].word_000026,
+                                                                       LODFile_Bitmaps_LOD.aLODHeaders[i].uTextureWidth * LODFile_Bitmaps_LOD.aLODHeaders[i].uTextureHeight);*/
  return true;
 }
 
@@ -5006,8 +5016,8 @@ int __cdecl sub_4645FA()
   if (pGame->pClass03)
     class03_sub_469CC2((int)pGame->pClass03);
   AudioPlayer_sub_4ABD5B((int)pAudioPlayer);
-  //sub_461A11(pLODFile_New_LOD);
-  //sub_461A11(pLODFile_Games_LOD);
+  //sub_461A11(LODFile_New_LOD);
+  //sub_461A11(LODFile_Games_LOD);
   ClipCursor(0);
   return GameDestroy();
 }
@@ -7409,7 +7419,7 @@ void __cdecl InitializeAutonotes()
  if (pAutonoteTXT_Raw)
    mem_mng.DeleteBuffer( (void *)pAutonoteTXT_Raw);
 
- pAutonoteTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "autonote.txt", 0);
+ pAutonoteTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "autonote.txt", 0);
  strtok((char *)pAutonoteTXT_Raw, "\r");
 
   //v0 = (signed int)&unk_723724;
@@ -7493,10 +7503,10 @@ int LoadFileToBuffer(const char *pSourceFile, unsigned char *pOutBuffer, unsigne
   void *Src; // [sp+B8h] [bp-4h]@1
  FILE *f;
 
- Src = (void *)LODFile_LoadRaw(pLODFile_Events_LOD, pSourceFile, 0);
+ Src = (void *)LODFile_Events_LOD.LODFile_LoadRaw( pSourceFile, 0);
  class18_ctor(&class18_obj);
 
- f = LODFile_FindContainer(pLODFile_Events_LOD, pSourceFile, 0);
+ f = LODFile_Events_LOD.Find_Container( pSourceFile, 0);
  if (!f)
    erroneous_printf("Unable to load %s", pSourceFile);
  locked_fread(&class18_obj, 1, 0x30, f);
@@ -9157,18 +9167,18 @@ signed int __fastcall sub_408B54(int a1, int a2)
   return v2;
 }
 
-//----- (0046082C) --------------------------------------------------------
+//----- (0046082C) ---------.text:00461AF2  -----------------------------------------------
 int __cdecl sub_46082C()
 {
- pLODFile_Games_LOD = new LODFile;
- LODFile_ctor(pLODFile_Games_LOD);
- LODFile_AllocateSubidexAndIOBuffer(pLODFile_Games_LOD, 300, 0);
+ //pLODFile_Games_LOD = new LODFile;
+// LODFile_ctor(pLODFile_Games_LOD);
+ LODFile_Games_LOD.AllocateSubidexAndIOBuffer( 300, 0);
 
- if (LODFile_LoadLOD_Games(pLODFile_Games_LOD, "data\\games.lod", 1))
+ if (LODFile_Games_LOD.Load_File("data\\games.lod", 1))
  {
-  pLODFile_New_LOD = new LODFile;
-  LODFile_ctor(pLODFile_New_LOD);
-  LODFile_AllocateSubidexAndIOBuffer(pLODFile_New_LOD, 300, 100000);
+  //pLODFile_New_LOD = new LOD_Writefile;
+  //pLODFile_New_LOD);
+  LODFile_New_LOD.AllocateSubidexAndIOBuffer(300, 100000);
   return true;
  }
  return false;;
@@ -9954,7 +9964,7 @@ void __cdecl InitializeScrolls()
  if (pScrollsTXT_Raw)
    mem_mng.DeleteBuffer( (void *)pScrollsTXT_Raw);
 
- pScrollsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "scroll.txt", 0);
+ pScrollsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "scroll.txt", 0);
  strtok((char *)pScrollsTXT_Raw, "\r");
   
   //v6 = (signed int)&dword_723D38;
@@ -10011,18 +10021,19 @@ void __cdecl InitializeGameText()
   int v2; // ebp@4
   unsigned char v3; // dl@5
   int v4; // ecx@5
+  unsigned int v5;
   unsigned char **v7; // [sp+10h] [bp-8h]@3
   signed int v8; // [sp+14h] [bp-4h]@4
 
  if (pGlobalTXT_Raw)
    mem_mng.DeleteBuffer( (void *)pGlobalTXT_Raw);
 
- pGlobalTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "global.txt", 0);
+ pGlobalTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "global.txt", 0);
  
  strtok((char *)pGlobalTXT_Raw, "\r");
- strtok(0, "\r");
- v1 = (unsigned char *)strtok(0, "\r") + 1;
- v7 = pGlobalTXT_LocalizationStrings;
+ strtok(NULL, "\r");
+ v1 = (unsigned char *)strtok(NULL, "\r") + 1;
+ v7 = &pGlobalTXT_LocalizationStrings[0];
 
 
   for (i = 0; i < 677; ++i)
@@ -10060,9 +10071,9 @@ void __cdecl InitializeGameText()
     }
     while ( v2 - 1 <= 1 && !v8 );
 
-    v1 = (unsigned char *)strtok(0, "\r") + 1;
-  }
-  
+    v1 = (unsigned char *)strtok(NULL, "\r") + 1;
+  }	
+ 
 
  aMonthNames[0] = pGlobalTXT_LocalizationStrings[415];  aMonthNames[1] = pGlobalTXT_LocalizationStrings[416];
  aMonthNames[2] = pGlobalTXT_LocalizationStrings[417];  aMonthNames[3] = pGlobalTXT_LocalizationStrings[418];
@@ -10996,20 +11007,7 @@ LABEL_10:
   return result;
 }
 
-//----- (00461EE9) --------------------------------------------------------
-int LODFile_sub_461EE9(struct LODFile *_this)
-{
-  if (_this->dword_000104)
-  {
-   _this->sContainerName[0] = 0;
-   _this->dword_000224 = 0;
-   _this->dword_000104 = 0;
-    dword_6A0CA8 = 0;
-    fflush(_this->pLODFile);
-    fclose(_this->pLODFile);
-  }
-  return 0;
-}
+
 
 //----- (0040A255) --------------------------------------------------------
 signed int __cdecl sub_40A255()

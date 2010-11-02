@@ -7,7 +7,7 @@
 
 
 #include "AIL.h"
-
+#include "_lod.h"
 #include "data.h"
 #include "_audio.h"
 #include "_video.h"
@@ -15,7 +15,7 @@
 #include "GUI.h"
 #include "Level.h"
 #include "Actor.h"
- #include "_lod.h"
+ 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
@@ -1973,9 +1973,9 @@ LABEL_56:
       {
         if ( dword_507BD4 )
           return result;
-        ++pLODFile_Icons_LOD->dword_011B9C;
-        if ( !pLODFile_Icons_LOD->dword_011B98 )
-          pLODFile_Icons_LOD->dword_011B98 = pLODFile_Icons_LOD->uNumLoadedFiles;
+        ++LODFile_Icons_LOD.dword_011B9C;
+        if ( !LODFile_Icons_LOD.dword_011B98 )
+          LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
         dword_507BD4 = sub_4219BE((void *)(20 * result + 5292232));
         dword_50C9A0 = 1;
         dword_50C0C4 = uActiveCharacter;
@@ -3746,59 +3746,7 @@ void unnamed_505898_ctor(struct unnamed_505898 *_this)
  _this->byte_505992 = 0;
 }
 
-//----- (004355F7) --------------------------------------------------------
-void __thiscall sub_4355F7(int _this)
-{
-  int v1; // esi@1
-  int v2; // edi@2
-  int v3; // ebp@3
-  int v4; // eax@4
-  int v5; // eax@5
-  int v6; // eax@7
-  int v7; // eax@8
-  int v8; // eax@11
 
-  v1 = _this;
-  if ( *(_DWORD *)(_this + 72604) )
-  {
-    v2 = *(_DWORD *)(_this + 72572) - 1;
-    if ( v2 >= *(_DWORD *)(_this + 72600) )
-    {
-      v3 = _this + 72 * v2 + 572;
-      do
-      {
-        class18_sub_40F77C((class18 *)v3);
-        v4 = *(_DWORD *)(v1 + 72624);
-        if ( v4 )
-        {
-          v5 = *(_DWORD *)(v4 + 4 * v2);
-          if ( v5 )
-          {
-            (*(void (__stdcall **)(int))(*(_DWORD *)v5 + 8))(v5);
-            *(_DWORD *)(*(_DWORD *)(v1 + 72624) + 4 * v2) = 0;
-          }
-        }
-        v6 = *(_DWORD *)(v1 + 72620);
-        if ( v6 )
-        {
-          v7 = *(_DWORD *)(v6 + 4 * v2);
-          if ( v7 )
-          {
-            (*(void (__stdcall **)(int))(*(_DWORD *)v7 + 8))(v7);
-            *(_DWORD *)(*(_DWORD *)(v1 + 72620) + 4 * v2) = 0;
-          }
-        }
-        --v2;
-        v3 -= 72;
-      }
-      while ( v2 >= *(_DWORD *)(v1 + 72600) );
-    }
-    v8 = *(_DWORD *)(v1 + 72600);
-    *(_DWORD *)(v1 + 72600) = 0;
-    *(_DWORD *)(v1 + 72572) = v8;
-    *(_DWORD *)(v1 + 72604) = 0;
-  }
-}
 
 //----- (00435694) --------------------------------------------------------
 int __thiscall Game_sub_435694(int _this, int a2)
@@ -4101,12 +4049,18 @@ LABEL_93:
             goto LABEL_83;
           if ( dword_4E28F8 == 12 )
           {
-            LODFile_sub_4114F2(pLODFile_Icons_LOD);
+            LODFile_Icons_LOD.LODFile_sub_4114F2();
             v19 = (int)sub_45E006();
             //RGBTexture_Release(pRGBTexture_Menu);
             //RGBTexture_Load(pRGBTexture_Menu, "title.pcx", 0);
-            LODFile_ReleaseTexture(pLODFile_Icons_LOD, uTextureID_CurrentMenu);
-            uTextureID_CurrentMenu = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"Title");
+            LODFile_Icons_LOD.LODFile_ReleaseTexture( uTextureID_CurrentMenu);
+			#ifndef OLD_CODE
+			  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Title");
+#endif
+#ifdef OLD_CODE
+		  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture( "Title",0);
+#endif
+           
             SetCurrentMenu(MENU_MAIN);
             v16 = 1;
 LABEL_81:
@@ -4744,7 +4698,7 @@ void __fastcall sub_4369DB(int a1)
 //----- (00436A24) --------------------------------------------------------
 int __stdcall sub_436A24(const char *Str1)
 {
-  return (int)pLODFile_Bitmaps_LOD->pHardwareTextures[LODFile_LoadTexture(pLODFile_Bitmaps_LOD, Str1, 0)];
+  return (int)LODFile_Bitmaps_LOD.pHardwareTextures[LODFile_Bitmaps_LOD.LODFile_LoadTexture( Str1, 0)];
 }
 
 //----- (00436A40) --------------------------------------------------------
@@ -12105,8 +12059,8 @@ int __fastcall sub_45E361(int a1)
   int v1; // eax@5
   int v2; // ebp@5
   int v3; // ebp@11
-  int v4; // eax@14
-  int v5; // eax@18
+  FILE * v4; // eax@14
+  FILE *v5; // eax@18
   int v6; // eax@25
   int v8; // eax@27
   const char *v9; // [sp-8h] [bp-26Ch]@25
@@ -12116,24 +12070,24 @@ int __fastcall sub_45E361(int a1)
   void *v13; // [sp+10h] [bp-254h]@12
   void *v14; // [sp+14h] [bp-250h]@12
   const char *v15; // [sp+18h] [bp-24Ch]@12
-  char v16; // [sp+1Ch] [bp-248h]@1
+  LOD_Writefile *v16; // [sp+1Ch] [bp-248h]@1
   int v17; // [sp+260h] [bp-4h]@1
 
   v12 = a1;
-  sub_46175B(&v16);
+  v16=new (LOD_Writefile);		//sub_46175B(
   dword_6BE138 = -1;
-  ++pLODFile_Icons_LOD->dword_011B9C;
+  ++LODFile_Icons_LOD.dword_011B9C;
   v17 = 0;
-  if ( !pLODFile_Icons_LOD->dword_011B98 )
-    pLODFile_Icons_LOD->dword_011B98 = pLODFile_Icons_LOD->uNumLoadedFiles;
+  if ( !LODFile_Icons_LOD.dword_011B98 )
+    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   memset(dword_69CF28, 0, 0xB4u);
   memset(&unk_6A0118, 0, 0x708u);
-  dword_69CF20 = LODFile_LoadTexture(pLODFile_Icons_LOD, "loadsave", 2);
-  dword_69CF1C = LODFile_LoadTexture(pLODFile_Icons_LOD, "load_up", 2);
-  dword_69CF18 = LODFile_LoadTexture(pLODFile_Icons_LOD, "save_up", 2);
-  dword_69CF04 = LODFile_LoadTexture(pLODFile_Icons_LOD, "LS_loadU", 2);
-  dword_69CF00 = LODFile_LoadTexture(pLODFile_Icons_LOD, "LS_saveU", 2);
-  dword_69CEFC = LODFile_LoadTexture(pLODFile_Icons_LOD, "x_u", 2);
+  dword_69CF20 = LODFile_Icons_LOD.LODFile_LoadTexture( "loadsave", 2);
+  dword_69CF1C = LODFile_Icons_LOD.LODFile_LoadTexture( "load_up", 2);
+  dword_69CF18 = LODFile_Icons_LOD.LODFile_LoadTexture( "save_up", 2);
+  dword_69CF04 = LODFile_Icons_LOD.LODFile_LoadTexture( "LS_loadU", 2);
+  dword_69CF00 = LODFile_Icons_LOD.LODFile_LoadTexture( "LS_saveU", 2);
+  dword_69CEFC = LODFile_Icons_LOD.LODFile_LoadTexture( "x_u", 2);
   if ( v12 )
   {
     Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (class18 *)(dword_69CF20 != -1 ? 72 * dword_69CF20 + 7145548 : 0));
@@ -12164,7 +12118,7 @@ int __fastcall sub_45E361(int a1)
     dword_6A0C9C = 0;
     dword_6A0CA0 = 0;
   }
-  LODFile_AllocateSubidexAndIOBuffer((LODFile *)&v16, 300, 0);
+  v16->AllocateSubidexAndIOBuffer( 300, 0);
   v3 = 0;
   if ( dword_69CF24 > 0 )
   {
@@ -12176,13 +12130,13 @@ int __fastcall sub_45E361(int a1)
       wsprintfA((char *)TmpBuf, "saves\\%s", v15);
       if ( _access((char *)TmpBuf, 6) )
         break;
-      LODFile_LoadLOD_Games((LODFile *)&v16, (char *)TmpBuf, 1);
-      v4 = (int)LODFile_FindContainer((LODFile *)&v16, "header.bin", 1);
+      v16->Load_File( (char *)TmpBuf, 1);
+      v4 = v16->Find_Container( "header.bin", 1);
       if ( v4 )
         locked_fread(v14, 0x64u, 1u, (FILE *)v4);
       if ( !_strcmpi(v15, (char *)pGlobalTXT_LocalizationStrings[613]) )
         strcpy((char *)v14, (char *)pGlobalTXT_LocalizationStrings[16]);
-      v5 = (int)LODFile_FindContainer((LODFile *)&v16, "image.pcx", 1);
+      v5 = v16->Find_Container( "image.pcx", 1);
       if ( !v5 )
       {
         v10 = "";
@@ -12192,7 +12146,7 @@ LABEL_22:
         goto LABEL_23;
       }
       sub_40EAD8(v13, (FILE *)v5, 0, 1);
-      LODFile_sub_461EE9((LODFile *)&v16);
+      v16->Close_Written_File();
       dword_69CF28[v3] = 1;
 LABEL_23:
       v15 += 280;
@@ -12206,23 +12160,23 @@ LABEL_23:
     goto LABEL_22;
   }
 LABEL_24:
-  sub_461A11((int)&v16);
+  v16->FreeSubIndxIOBuffers();
   if ( dword_4E28F8 == 11 )
   {
-    v6 = LODFile_LoadTexture(pLODFile_Icons_LOD, "x_d", 2);
+    v6 = LODFile_Icons_LOD.LODFile_LoadTexture( "x_d", 2);
     v11 = 2;
     v9 = "LS_saveD";
   }
   else
   {
-    v6 = LODFile_LoadTexture(pLODFile_Icons_LOD, "x_d", 2);
+    v6 = LODFile_Icons_LOD.LODFile_LoadTexture( "x_d", 2);
     v11 = 2;
     v9 = "LS_loadD";
   }
   dword_69CF14 = v6;
-  dword_69CF10 = LODFile_LoadTexture(pLODFile_Icons_LOD, v9, v11);
-  dword_69CF0C = LODFile_LoadTexture(pLODFile_Icons_LOD, "AR_UP_DN", 2);
-  dword_69CF08 = LODFile_LoadTexture(pLODFile_Icons_LOD, "AR_DN_DN", 2);
+  dword_69CF10 = LODFile_Icons_LOD.LODFile_LoadTexture( v9, v11);
+  dword_69CF0C = LODFile_Icons_LOD.LODFile_LoadTexture( "AR_UP_DN", 2);
+  dword_69CF08 = LODFile_Icons_LOD.LODFile_LoadTexture( "AR_DN_DN", 2);
   GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 198, 191, 18, 1, 0, 165, 0, 0, "", 0);
   GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 219, 191, 18, 1, 0, 165, 1, 0, "", 0);
   GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 240, 191, 18, 1, 0, 165, 2, 0, "", 0);
@@ -12280,7 +12234,7 @@ LABEL_24:
          dword_69CF08 != -1 ? 72 * dword_69CF08 + 7145548 : 0);
   v17 = -1;
   dword_69BD58 = v8;
-  return sub_461790((int)&v16);
+  return 0 /*v16->~LOD_file()*/;
 }
 
 //----- (0045E93E) --------------------------------------------------------
@@ -12290,29 +12244,29 @@ int __cdecl sub_45E93E()
   int v1; // ebp@4
   int v2; // ebp@6
   signed int v3; // eax@7
-  int v4; // eax@11
-  int v5; // eax@11
+  FILE *v4; // eax@11
+  FILE *v5; // eax@11
   const char *v6; // ST64_4@14
   int v8; // eax@16
   signed int v9; // [sp+10h] [bp-254h]@6
   char *v10; // [sp+14h] [bp-250h]@6
   void *v11; // [sp+18h] [bp-24Ch]@6
-  char v12; // [sp+1Ch] [bp-248h]@1
+  LOD_Writefile *v12; // [sp+1Ch] [bp-248h]@1
   int v13; // [sp+260h] [bp-4h]@1
 
-  sub_46175B(&v12);
-  ++pLODFile_Icons_LOD->dword_011B9C;
+  v12=new(LOD_Writefile);
+  ++LODFile_Icons_LOD.dword_011B9C;
   v13 = 0;
-  if ( !pLODFile_Icons_LOD->dword_011B98 )
-    pLODFile_Icons_LOD->dword_011B98 = pLODFile_Icons_LOD->uNumLoadedFiles;
+  if ( !LODFile_Icons_LOD.dword_011B98 )
+    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   memset(dword_69CF28, 0, 0xB4u);
   memset(&unk_6A0118, 0, 0x708u);
-  dword_69CF20 = LODFile_LoadTexture(pLODFile_Icons_LOD, "loadsave", 2);
-  dword_69CF1C = LODFile_LoadTexture(pLODFile_Icons_LOD, "load_up", 2);
-  dword_69CF18 = LODFile_LoadTexture(pLODFile_Icons_LOD, "save_up", 2);
-  dword_69CF04 = LODFile_LoadTexture(pLODFile_Icons_LOD, "LS_loadU", 2);
-  dword_69CF00 = LODFile_LoadTexture(pLODFile_Icons_LOD, "LS_saveU", 2);
-  dword_69CEFC = LODFile_LoadTexture(pLODFile_Icons_LOD, "x_u", 2);
+  dword_69CF20 = LODFile_Icons_LOD.LODFile_LoadTexture( "loadsave", 2);
+  dword_69CF1C = LODFile_Icons_LOD.LODFile_LoadTexture( "load_up", 2);
+  dword_69CF18 = LODFile_Icons_LOD.LODFile_LoadTexture( "save_up", 2);
+  dword_69CF04 = LODFile_Icons_LOD.LODFile_LoadTexture( "LS_loadU", 2);
+  dword_69CF00 = LODFile_Icons_LOD.LODFile_LoadTexture( "LS_saveU", 2);
+  dword_69CEFC = LODFile_Icons_LOD.LODFile_LoadTexture( "x_u", 2);
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (class18 *)(dword_69CF20 != -1 ? 72 * dword_69CF20 + 7145548 : 0));
   if ( dword_4E28F8 == 11 )
   {
@@ -12330,7 +12284,7 @@ int __cdecl sub_45E93E()
   FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, 25, 199, (char *)pGlobalTXT_LocalizationStrings[505], 0, 0, 0);
   Render_Present(pD3DRenderer);
   sub_45E297((void *)1);
-  LODFile_AllocateSubidexAndIOBuffer((LODFile *)&v12, 300, 0);
+  v12->AllocateSubidexAndIOBuffer( 300, 0);
   v2 = (int)dword_69CF28;
   v10 = (char *)&unk_69BD68;
   v11 = &unk_6A0118;
@@ -12349,14 +12303,14 @@ int __cdecl sub_45E93E()
     }
     else
     {
-      LODFile_LoadLOD_Games((LODFile *)&v12, (char *)TmpBuf, 1);
-      v5 = (int)LODFile_FindContainer((LODFile *)&v12, "header.bin", 1);
+      v12->Load_File( (char *)TmpBuf, 1);
+      v5 = v12->Find_Container( "header.bin", 1);
       locked_fread(v10, 0x64u, 1u, (FILE *)v5);
-      v4 = (int)LODFile_FindContainer((LODFile *)&v12, "image.pcx", 1);
+      v4 = v12->Find_Container( "image.pcx", 1);
       if ( v4 )
       {
         sub_40EAD8(v11, (FILE *)v4, 0, 1);
-        LODFile_sub_461EE9((LODFile *)&v12);
+        v12->Close_Written_File();
         *(_DWORD *)v2 = 1;
       }
       else
@@ -12370,11 +12324,11 @@ int __cdecl sub_45E93E()
     v2 += 4;
   }
   while ( v9 < (signed int)&unk_69FBB4 );
-  sub_461A11((int)&v12);
-  dword_69CF14 = LODFile_LoadTexture(pLODFile_Icons_LOD, "x_d", 2);
-  dword_69CF10 = LODFile_LoadTexture(pLODFile_Icons_LOD, "LS_saveD", 2);
-  dword_69CF0C = LODFile_LoadTexture(pLODFile_Icons_LOD, "AR_UP_DN", 2);
-  dword_69CF08 = LODFile_LoadTexture(pLODFile_Icons_LOD, "AR_DN_DN", 2);
+  v12->FreeSubIndxIOBuffers();
+  dword_69CF14 = LODFile_Icons_LOD.LODFile_LoadTexture( "x_d", 2);
+  dword_69CF10 = LODFile_Icons_LOD.LODFile_LoadTexture( "LS_saveD", 2);
+  dword_69CF0C = LODFile_Icons_LOD.LODFile_LoadTexture( "AR_UP_DN", 2);
+  dword_69CF08 = LODFile_Icons_LOD.LODFile_LoadTexture( "AR_DN_DN", 2);
   pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 23, 0, 0);
   GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 198, 191, 18, 1, 0, 165, 0, 0, "", 0);
   GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 218, 191, 18, 1, 0, 165, 1, 0, "", 0);
@@ -12437,7 +12391,7 @@ int __cdecl sub_45E93E()
          dword_69CF08 != -1 ? 72 * dword_69CF08 + 7145548 : 0);
   v13 = -1;
   dword_69BD58 = v8;
-  return sub_461790((int)&v12);
+  return 0/*sub_461790((int)&v12)*/;
 }
 
 //----- (0045EE8A) --------------------------------------------------------
@@ -12450,12 +12404,12 @@ void sub_45EE8A(int a1)
   int v6; // eax@12
   int v7; // esi@13
   int v8; // ecx@14
-  int v9; // eax@22
-  int v10; // eax@26
-  int v11; // eax@29
-  int v12; // eax@32
-  int v13; // eax@35
-  int v14; // eax@38
+  FILE *v9; // eax@22
+  FILE *v10; // eax@26
+  FILE *v11; // eax@29
+  FILE *v12; // eax@32
+  FILE *v13; // eax@35
+  FILE *v14; // eax@38
   int v15; // edi@41
   int v16; // esi@41
   int v17; // ebx@46
@@ -12547,11 +12501,11 @@ LABEL_17:
     }
 
     wsprintfA((char *)TmpBuf, "saves\\%s", &byte_69CFF4[280 * v1]);
-    LODFile_sub_461EE9(pLODFile_New_LOD);
+    LODFile_New_LOD.Close_Written_File();
     if ( !CopyFileA((char *)TmpBuf, "data\\new.lod", 0) )
       GetLastError();
-    LODFile_LoadLOD_Games(pLODFile_New_LOD, "data\\new.lod", 0);
-    v9 = (int)LODFile_FindContainer(pLODFile_New_LOD, "header.bin", 1);
+    LODFile_New_LOD.Load_File( "data\\new.lod", 0);
+    v9 = LODFile_New_LOD.Find_Container( "header.bin", 1);
     if ( v9 )
     {
       locked_fread(&DstBuf, 0x64u, 1u, (FILE *)v9);
@@ -12563,7 +12517,7 @@ LABEL_17:
       Game_sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
       sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
-    v10 = (int)LODFile_FindContainer(pLODFile_New_LOD, "party.bin", 1);
+    v10 = LODFile_New_LOD.Find_Container("party.bin", 1);
     if ( v10 )
     {
       locked_fread(pParty_global, 0x16238u, 1u, (FILE *)v10);
@@ -12576,7 +12530,7 @@ LABEL_17:
       Game_sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
       sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
-    v11 = (int)LODFile_FindContainer(pLODFile_New_LOD, "clock.bin", 1);
+    v11 = LODFile_New_LOD.Find_Container( "clock.bin", 1);
     if ( v11 )
     {
       locked_fread(pClass24_global, 0x28u, 1u, (FILE *)v11);
@@ -12589,7 +12543,7 @@ LABEL_17:
       Game_sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
       sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
-    v12 = (int)LODFile_FindContainer(pLODFile_New_LOD, "overlay.bin", 1);
+    v12 = LODFile_New_LOD.Find_Container( "overlay.bin", 1);
     if ( v12 )
     {
       locked_fread(array_5E4D58, 0x3F0u, 1u, (FILE *)v12);
@@ -12602,7 +12556,7 @@ LABEL_17:
       Game_sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
       sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
-    v13 = (int)LODFile_FindContainer(pLODFile_New_LOD, "npcdata.bin", 0);
+    v13 = LODFile_New_LOD.Find_Container( "npcdata.bin", 0);
     if ( v13 )
     {
       locked_fread(pNPCStats->pNPCData2, 501 * sizeof(struct NPCData), 1u, (FILE *)v13);
@@ -12616,7 +12570,7 @@ LABEL_17:
       Game_sub_40E2C8(&v31, &Str, (int)((char *)&v40 + 3));
       sub_466D09((char *)&v40 + 4, *(int *)&v31, v32, v33, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
-    v14 = (int)LODFile_FindContainer(pLODFile_New_LOD, "npcgroup.bin", 0);
+    v14 = LODFile_New_LOD.Find_Container( "npcgroup.bin", 0);
     if ( v14 )
     {
       locked_fread(pNPCStats->word_017F5A, 0x66u, 1u, (FILE *)v14);
@@ -12690,7 +12644,7 @@ LABEL_55:
     class24_sub_4263A0(pClass24_global);
     v23 = (int)pAudioPlayer;
   }
-  v25 = LODFile_Games_LOD_FindLeveL(pLODFile_Games_LOD, Source);
+  v25 = LODFile_Games_LOD.IsContainerExist( Source);
   v36 = (int)&Source;
   wsprintfA((char *)TmpBuf, "levels\\%s", Source);
   v24 = _access((char *)TmpBuf, 4) != -1;
@@ -12717,7 +12671,7 @@ LABEL_55:
     }
     while ( v27 < dword_69CF24 );
   }
-  LODFile_sub_4114F2(pLODFile_Icons_LOD);
+  LODFile_Icons_LOD.LODFile_sub_4114F2();
   AudioPlayer_SetVolume((AudioPlayer *)v23, aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
   v36 = (signed __int64)(aMusicVolumeLevels[uSoundVolumeMultiplier] * 128.0);
   AudioPlayer_sub_4AA214((AudioPlayer *)v23, v36);
@@ -12736,7 +12690,7 @@ int __fastcall sub_460078(int a1)
   int v3; // eax@3
   int v4; // ebx@3
   int result; // eax@8
-  char Str2[20]; // [sp+Ch] [bp-28h]@2
+  LODIndex St; // [sp+Ch] [bp-28h]@2
   int v7; // [sp+20h] [bp-14h]@2
   int v8; // [sp+2Ch] [bp-8h]@1
   int v9; // [sp+30h] [bp-4h]@1
@@ -12747,16 +12701,16 @@ int __fastcall sub_460078(int a1)
   if ( v8 )
   {
     SaveGame(0, 0);
-    sub_461743((int)&Str2);
+    Reset_LODIndex(&St);
     v2 = 100 * v1;
     strcpy(&byte_69BD7C[v2], Str1);
     *(int *)((char *)dword_69BD90 + v2) = pParty_global->qword_00002C;
     *(int *)((char *)&dword_69BD94 + v2) = HIDWORD(pParty_global->qword_00002C);
     strcpy(Str2, "header.bin");
     v7 = 100;
-    LODFile_sub_461B48(pLODFile_New_LOD, Str2, (char *)&unk_69BD68 + v2, 0);
+    LODFile_New_LOD._sub_461B48( &St.pFilename[0], (char *)&unk_69BD68 + v2, 0);
     wsprintfA((char *)TmpBuf, "saves\\save%03d.mm7", v9);
-    LODFile_sub_461EE9(pLODFile_New_LOD);
+    LODFile_New_LOD.Close_Written_File();
     CopyFileA("data\\new.lod", (char *)TmpBuf, 0);
   }
   sub_4156F0_LooksLike_UI_ProcessCallbacks();
@@ -12771,10 +12725,10 @@ int __fastcall sub_460078(int a1)
   }
   while ( v4 < (signed int)&unk_6A0758 );
   if ( v8 )
-    LODFile_sub_4621A7((int)pLODFile_New_LOD);
+    LODFile_New_LOD.LODFile_sub_4621A7();
   else
     sub_44C175((char *)pGlobalTXT_LocalizationStrings[583], 2);
-  sub_4355F7((int)pLODFile_Icons_LOD);
+  LODFile_Icons_LOD.sub_4355F7();
   class24_sub_426363(pClass24_global);
   result = sub_44C175((char *)pGlobalTXT_LocalizationStrings[656], 2);
   struct_576FE8.dword_000044 = 1;
@@ -13374,179 +13328,11 @@ LABEL_90:
   return v30;
 }
 
-//----- (00461397) --------------------------------------------------------
-int __thiscall LODFile_sub_461397(int _this)
-{
-  int result; // eax@1
-  int v2; // edi@1
-  int v3; // esi@1
-  int v4; // ecx@3
 
-  result = *(_DWORD *)(_this + 60572);
-  v2 = _this + 60576;
-  v3 = *(_DWORD *)(_this + 60576);
-  *(_DWORD *)(_this + 60584) = result;
-  if ( result < v3 )
-    *(_DWORD *)(_this + 60584) = v3;
-  v4 = *(_DWORD *)(_this + 60580);
-  if ( v3 < v4 )
-    *(_DWORD *)v2 = v4;
-  return result;
-}
 
-//----- (00461431) --------------------------------------------------------
-int __thiscall LODFile_sub_461431(int _this)
-{
-  int v1; // esi@1
-  int result; // eax@2
-  FILE *v3; // ST00_4@2
 
-  v1 = _this;
-  if ( *(_DWORD *)(_this + 260) )
-  {
-    *(_BYTE *)(_this + 532) = 0;
-    *(_DWORD *)(_this + 548) = 0;
-    mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 560));
-    mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v1 + 528));
-    v3 = *(FILE **)v1;
-    *(_DWORD *)(v1 + 560) = 0;
-    *(_DWORD *)(v1 + 528) = 0;
-    result = fclose(v3);
-    *(_DWORD *)(v1 + 260) = 0;
-    dword_6A0CA8 = 0;
-  }
-  return result;
-}
 
-//----- (00461743) --------------------------------------------------------
-int __thiscall sub_461743(int _this)
-{
-  int result; // eax@1
 
-  result = _this;
-  *(_BYTE *)_this = 0;
-  *(_DWORD *)(_this + 16) = 0;
-  *(_DWORD *)(_this + 20) = 0;
-  *(_DWORD *)(_this + 24) = 0;
-  *(_WORD *)(_this + 28) = 0;
-  *(_WORD *)(_this + 30) = 0;
-  return result;
-}
-
-//----- (0046175B) --------------------------------------------------------
-int __thiscall sub_46175B(void *_this)
-{
-  int v2; // esi@1
-
-  v2 = (int)_this;
-  sub_4617B6((int)((char *)_this + 272));
-  *(_DWORD *)v2 = 0;
-  *(_DWORD *)(v2 + 560) = 0;
-  *(_DWORD *)(v2 + 264) = 0;
-  *(_DWORD *)(v2 + 260) = 0;
-  *(_DWORD *)(v2 + 268) = 0;
-  LODFile_sub_461431(v2);
-  return v2;
-}
-
-//----- (00461790) --------------------------------------------------------
-int __thiscall sub_461790(int _this)
-{
-  int v1; // esi@1
-  int result; // eax@2
-
-  v1 = _this;
-  if ( *(_DWORD *)(_this + 260) )
-  {
-    fclose(*(FILE **)_this);
-    mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v1 + 560));
-  }
-  return result;
-}
-
-//----- (00461A11) --------------------------------------------------------
-int __thiscall sub_461A11(int _this)
-{
-  int result; // eax@1
-  int v2; // edi@1
-  int v3; // esi@1
-
-  v2 = _this;
-  v3 = _this + 560;
-  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 560));
-  v2 += 264;
-   mem_mng.DeleteBuffer( (void *)*(_DWORD *)v2);
-  *(_DWORD *)v2 = 0;
-  *(_DWORD *)v3 = 0;
-  return result;
-}
-
-//----- (00461F1E) --------------------------------------------------------
-int __thiscall LODFile_sub_461F1E(int _this)
-{
-  int v1; // esi@1
-  int result; // eax@2
-  FILE *v3; // eax@5
-  int v4; // eax@5
-
-  v1 = _this;
-  if ( *(_DWORD *)(_this + 260) )
-  {
-    if ( *(_DWORD *)(_this + 264) && *(_DWORD *)(_this + 268) )
-    {
-      *(_DWORD *)(_this + 548) = 0;
-      *(_DWORD *)(_this + 556) = 0;
-      v3 = fopen("lodapp.tmp", "wb+");
-      *(_DWORD *)(v1 + 568) = (int)v3;
-      v4 = -(v3 != 0);
-      LOBYTE(v4) = v4 & 0xF9;
-      result = v4 + 7;
-    }
-    else
-    {
-      result = 5;
-    }
-  }
-  else
-  {
-    result = 1;
-  }
-  return result;
-}
-
-//----- (00461F71) --------------------------------------------------------
-signed int __thiscall LODFile_sub_461F71(int _this, int a2, const void *Str)
-{
-  signed int v3; // edi@1
-  signed int result; // eax@2
-  FILE *v5; // ST0C_4@3
-
-  v3 = *(_DWORD *)(_this + 556);
-  if ( v3 < 299 )
-  {
-    memcpy((void *)(*(_DWORD *)(_this + 560) + 32 * v3), (const void *)a2, 0x20u);
-    v5 = *(FILE **)(_this + 568);
-    ++*(_DWORD *)(_this + 556);
-    locked_fwrite(Str, 1u, *(_DWORD *)(a2 + 20), v5);
-    result = 1;
-  }
-  else
-  {
-    MessageBoxA(0, "Unable to append item!", "LODFile", 0x30u);
-    result = 0;
-  }
-  return result;
-}
-
-//----- (004621A7) --------------------------------------------------------
-signed int __thiscall LODFile_sub_4621A7(int _this)
-{
-  int v2; // esi@1
-
-  v2 = _this;
-  LODFile_sub_461EE9((LODFile *)_this);
-  return LODFile_LoadLOD_Games((LODFile *)v2, (const char *)(v2 + 4), 0);
-}
 
 //----- (004621DA) --------------------------------------------------------
 int __fastcall sub_4621DA(signed int a1, signed int a2, signed int a3)
@@ -13586,7 +13372,7 @@ void *__thiscall sub_462272(void *_this)
   signed int v5; // [sp+4h] [bp-10h]@1
 
   v2 = _this;
-  sub_46175B(_this);
+ // sub_46175B(_this);
   v1 = (int)((char *)v2 + 572);
   v5 = 1000;
   do
@@ -13664,7 +13450,7 @@ int __thiscall sub_462303(int _this)
   v9 = *(_DWORD *)(v2 + 72628);
   if ( v9 )
     operator_delete(*(_DWORD **)(v2 + 72628));
-  return sub_461790(v2);
+  return 0/*sub_461790(v2)*/;
 }
 
 //----- (004623E5) --------------------------------------------------------
@@ -13673,8 +13459,8 @@ void *__thiscall sub_4623E5(void *_this)
   void *v2; // esi@1
 
   v2 = _this;
-  sub_46175B(_this);
-  compile_error;//_eh_vector_constructor_iterator_((char *)v2 + 572, 40, 1500, loc_46244C, sub_462463);
+ // sub_46175B(_this);
+ // compile_error;//_eh_vector_constructor_iterator_((char *)v2 + 572, 40, 1500, loc_46244C, sub_462463);
   *((_DWORD *)v2 + 15145) = 0;
   *((_DWORD *)v2 + 15144) = 0;
   *((_DWORD *)v2 + 15148) = 0;
@@ -13699,53 +13485,7 @@ void __fastcall sub_462463(char *_this)
   *(_DWORD *)(v1 + 32) = 0;
 }
 
-//----- (0046249B) --------------------------------------------------------
-int __thiscall sub_46249B(int _this)
-{
-  int v1; // ebx@1
-  int v2; // esi@1
-  int v3; // edi@3
-  int v4; // edi@6
-  int v6; // [sp+4h] [bp-10h]@3
-  int v7; // [sp+4h] [bp-10h]@7
 
-  v2 = _this;
-  v1 = 0;
-  if ( *(_DWORD *)(_this + 60592) )
-  {
-    if ( *(_DWORD *)(_this + 60572) > 0 )
-    {
-      v6 = 0;
-      v3 = _this + 572;
-      do
-      {
-        sub_450D1D(v3);
-        sub_450D68((void *)(v6 + *(_DWORD *)(v2 + 60592)));
-        v6 += 40;
-        ++v1;
-        v3 += 40;
-      }
-      while ( v1 < *(_DWORD *)(v2 + 60572) );
-    }
-  }
-  else
-  {
-    v4 = _this + 60572;
-    if ( *(_DWORD *)(_this + 60572) > 0 )
-    {
-      v7 = _this + 572;
-      do
-      {
-        sub_450D1D(v7);
-        v7 += 40;
-        ++v1;
-      }
-      while ( v1 < *(_DWORD *)v4 );
-    }
-  }
-  _eh_vector_destructor_iterator_(v2 + 572, 40, 1500, (void (__fastcall *)(void *))sub_462463);
-  return sub_461790(v2);
-}
 
 //----- (00462607) --------------------------------------------------------
 int __thiscall sub_462607(int _this)
@@ -14072,8 +13812,8 @@ LABEL_52:
     pGame->pClass03->dword_000004 = 0;
     if ( pD3DRenderer->pRenderD3D3 )
     {
-      sub_4103BB((int)pLODFile_Bitmaps_LOD);
-      sub_4ACB70((int)pLODFile_Sprites_LOD);
+      LODFile_Bitmaps_LOD.sub_4103BB();
+      LODFile_Sprites_LOD.sub_4ACB70();
     }
     if ( pD3DRenderer->dword_040058 )
     {
@@ -14100,8 +13840,8 @@ LABEL_52:
     }
     if ( pD3DRenderer->pRenderD3D3 )
     {
-      sub_410423((int)pLODFile_Bitmaps_LOD);
-      sub_4ACBE0((int)pLODFile_Sprites_LOD);
+      LODFile_Bitmaps_LOD.sub_410423();
+      LODFile_Sprites_LOD.sub_4ACBE0();
     }
     if ( class35_obj.uNumTargetBBits == pD3DRenderer->uNumTargetBBits && class35_obj.uNumTargetGBits == pD3DRenderer->uNumTargetGBits && class35_obj.uNumTargetRBits == pD3DRenderer->uNumTargetRBits )
       goto LABEL_38;
@@ -14137,7 +13877,7 @@ LABEL_52:
       //v5 = pRGBTexture_Menu;
       //RGBTexture_Release(pRGBTexture_Menu);
       v5 = (void *)uTextureID_CurrentMenu;
-      LODFile_ReleaseTexture(pLODFile_Icons_LOD, uTextureID_CurrentMenu);
+      LODFile_Icons_LOD.LODFile_ReleaseTexture( uTextureID_CurrentMenu);
       v8 = 0;
       v7 = (char *)L"makeme";
     }
@@ -14146,7 +13886,7 @@ LABEL_52:
       //v5 = pRGBTexture_Menu;
       //RGBTexture_Release(pRGBTexture_Menu);
       v5 = (void *)uTextureID_CurrentMenu;
-      LODFile_ReleaseTexture(pLODFile_Icons_LOD, uTextureID_CurrentMenu);
+      LODFile_Icons_LOD.LODFile_ReleaseTexture( uTextureID_CurrentMenu);
       
       v6 = (char *)L"title";
       if ( uCurrentMenuID != MENU_MAIN)
@@ -14625,7 +14365,7 @@ void __fastcall sub_467F48(signed int a1)
     {
       if ( a1 <= 782 )
       {
-        dword_720980 = LODFile_LoadTexture(pLODFile_Icons_LOD, "leather", 2);
+        dword_720980 = LODFile_Icons_LOD.LODFile_LoadTexture( "leather", 2);
         dword_507BC4 = (int)GUIWindowCreate(0, 0, 640, 480, 30, v1 - 700, 0);
       }
     }

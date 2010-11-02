@@ -488,7 +488,7 @@ void sub_4789DE()
         if (v18 == -1)
           p14->ptr_00003C = 0;
         else
-          p14->ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[v18];
+          p14->ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[v18];
 
         if (pStruct9_global->dword_00002C > 1999)
           return;
@@ -1274,17 +1274,17 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
 
  ShowWindow(hWnd_global, SW_SHOWNORMAL);*/
 
- pLODFile_Icons_LOD = new LODFile;
- LODFile_ctor(pLODFile_Icons_LOD);
- if (!LODFile_LoadLOD_Icons_Events(pLODFile_Icons_LOD, "data\\icons.lod"))
+// pLODFile_Icons_LOD = new LODFile;
+// LODFile_ctor(pLODFile_Icons_LOD);
+ if (!LODFile_Icons_LOD.LODFile_LoadLOD_Icons_Events( "data\\icons.lod"))
  {
   MessageBoxW(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
   return 0;
  }
 
- pLODFile_Events_LOD = new LODFile;
- LODFile_ctor(pLODFile_Events_LOD);
- if (!LODFile_LoadLOD_Icons_Events(pLODFile_Events_LOD, "data\\events.lod"))
+ //pLODFile_Events_LOD = new LODFile;
+ //LODFile_ctor(pLODFile_Events_LOD);
+ if (!LODFile_Events_LOD.LODFile_LoadLOD_Icons_Events( "data\\events.lod"))
  {
   MessageBoxW(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
   return 0;
@@ -1292,23 +1292,23 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
 
  InitializeGameText();
 
- pLODFile_Bitmaps_LOD = new LODFile;
- LODFile_ctor(pLODFile_Bitmaps_LOD);
- if (!LODFile_LoadLOD_Bitmaps(pLODFile_Bitmaps_LOD, "data\\bitmaps.lod"))
+ //pLODFile_Bitmaps_LOD = new LODFile;
+ ///LODFile_ctor(pLODFile_Bitmaps_LOD);
+ if (!LODFile_Bitmaps_LOD.LODFile_LoadLOD_Bitmaps( "data\\bitmaps.lod"))
  {
    MessageBoxW(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
    return 0;
  }
 
- pLODFile_Icons_LOD->dword_011BA4 = 0;
+ LODFile_Icons_LOD.dword_011BA4 = 0;
  bUseRegistry = GetPrivateProfileIntW(L"settings", L"registry", 1, pMM6ConfigFilename);
  if (!bUseRegistry)
    bUseLoResSprites = GetPrivateProfileIntW(L"settings", L"resolution", 0, pMM6ConfigFilename);
  else bUseLoResSprites = ReadWindowsRegistry("resolution", 0);
 
- pLODFile_Sprites_LOD = new LODFile;
- LODFile_ctor(pLODFile_Sprites_LOD);
- if (!LODFile_LoadLOD_Sprites(pLODFile_Sprites_LOD, bUseLoResSprites ? "data\\spriteLO.lod" : "data\\sprites.lod") )
+ //pLODFile_Sprites_LOD = new LODFile;
+ //LODFile_ctor(pLODFile_Sprites_LOD);
+ if (!LODFile_Sprites_LOD.LODFile_LoadLOD_Sprites( bUseLoResSprites ? "data\\spriteLO.lod" : "data\\sprites.lod") )
  {
   MessageBoxW(0, L"Some files are missing\n\nPlease Reinstall.", L"Files Missing", 48);
   return 0;
@@ -1319,27 +1319,27 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
  {
   pSpriteFrameTable = new SpriteFrameTable;
   SpriteFrameTable_ctor(pSpriteFrameTable);
-  v22 = LODFile_LoadRaw(pLODFile_Events_LOD, "dsft.bin", 1);
+  v22 = LODFile_Events_LOD.LODFile_LoadRaw( "dsft.bin", 1);
   SpriteFrameTable_Initialize(pSpriteFrameTable, (unsigned int *)v22);
-  call_delete(v22);
+  free(v22);
 
   pTextureFrameTable = new CTextureFrameTable;
   CTextureFrameTable_ctor(pTextureFrameTable);
-  v25 = LODFile_LoadRaw(pLODFile_Events_LOD, "dtft.bin", 1);
+  v25 = LODFile_Events_LOD.LODFile_LoadRaw( "dtft.bin", 1);
   CTextureFrameTable_Initialize(pTextureFrameTable, (unsigned char *)v25);
-  call_delete(v25);
+  free(v25);
 
   pTileTable = new CTileTable;
   CTileTable_ctor(pTileTable);
-  v28 = LODFile_LoadRaw(pLODFile_Events_LOD, "dtile.bin", 1);
+  v28 = LODFile_Events_LOD.LODFile_LoadRaw( "dtile.bin", 1);
   CTileTable_Initialize(pTileTable, (unsigned char *)v28);
-  call_delete(v28);
+  free(v28);
 
   pPlayerFrameTable = new CPlayerFrameTable;
   CPlayerFrameTable_ctor(pPlayerFrameTable);
-  v31 = LODFile_LoadRaw(pLODFile_Events_LOD, "dpft.bin", 1);
+  v31 = LODFile_Events_LOD.LODFile_LoadRaw( "dpft.bin", 1);
   CPlayerFrameTable_Initialize(pPlayerFrameTable, (unsigned char *)v31);
-  call_delete(v31);
+  free(v31);
 
   //pIconFrameTable = new CIconFrameTable;
   //CIconFrameTable_ctor(pIconFrameTable);
@@ -1351,38 +1351,38 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
 
   pDecorationDescriptionList = new DecorationDescriptionList;
   DecorationDescriptionList_ctor(pDecorationDescriptionList);
-  v37 = LODFile_LoadRaw(pLODFile_Events_LOD, "ddeclist.bin", 1);
+  v37 = LODFile_Events_LOD.LODFile_LoadRaw( "ddeclist.bin", 1);
   DecorationDescriptionList_Initialize(pDecorationDescriptionList, (unsigned char *)v37);
-  call_delete(v37);
+  free(v37);
 
   pObjectDescriptionList = new CObjectDescriptionList;
   CObjectDescriptionList_ctor(pObjectDescriptionList);
-  v40 = LODFile_LoadRaw(pLODFile_Events_LOD, "dobjlist.bin", 1);
+  v40 = LODFile_Events_LOD.LODFile_LoadRaw( "dobjlist.bin", 1);
   CObjectDescriptionList_Initialize(pObjectDescriptionList, (unsigned char *)v40);
-  call_delete(v40);
+  free(v40);
 
   pMonsterDescriptionList = new MonsterDescriptionList;
   MonsterDescriptionList_ctor(pMonsterDescriptionList);
-  v43 = LODFile_LoadRaw(pLODFile_Events_LOD, "dmonlist.bin", 1);
+  v43 = LODFile_Events_LOD.LODFile_LoadRaw( "dmonlist.bin", 1);
   MonsterDescriptionList_Initialize(pMonsterDescriptionList, (unsigned int *)v43);
-  call_delete(v43);
+  free(v43);
 
   //chest descriptor
-  v46 = LODFile_LoadRaw(pLODFile_Events_LOD, "dchest.bin", 1);
+  v46 = LODFile_Events_LOD.LODFile_LoadRaw( "dchest.bin", 1);
   sub_458B4F(chest_descriptor, v46);
-  call_delete(v46);
+  free(v46);
 
   pOverlayDescriptionList = new COverlayDescriptionList;
   COverlayDescriptionList_ctor(pOverlayDescriptionList);
-  v49 = LODFile_LoadRaw(pLODFile_Events_LOD, "doverlay.bin", 1);
+  v49 = LODFile_Events_LOD.LODFile_LoadRaw( "doverlay.bin", 1);
   COverlayDescriptionList_Initialize(pOverlayDescriptionList, (unsigned char *)v49);
-  call_delete(v49);
+  free(v49);
 
   pSoundList = new CSoundList;
   CSoundList_ctor(pSoundList);
-  v51 = LODFile_LoadRaw(pLODFile_Events_LOD, "dsounds.bin", 1);
+  v51 = LODFile_Events_LOD.LODFile_LoadRaw( "dsounds.bin", 1);
   CSoundList_Initialize(pSoundList, (unsigned char *)v51);
-  call_delete(v51);
+  free(v51);
  }
 
 
@@ -2578,9 +2578,13 @@ void sub_487389_DrawSpansAndAll()
      while (true)
      {
       v18 = (int)v4->ptr_00003C;
-      v19 = LODFile_LoadTexture_New(pLODFile_Bitmaps_LOD, L"wtrtyl"); // temporarely replace texture with a water tile
-
-      v4->ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[v19];
+	  #ifndef OLD_CODE
+      v19 = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( L"wtrtyl"); // temporarely replace texture with a water tile
+# endif
+   #ifdef OLD_CODE
+      v19 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "wtrtyl",0); // temporarely replace texture with a water tile
+# endif
+      v4->ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[v19];
       if (dword_6BE0D4)
         sub_48408A((int)pSpan);
       else
@@ -2622,8 +2626,13 @@ void sub_487389_DrawSpansAndAll()
     {
      while (1)
      {
-      v30 = LODFile_LoadTexture_New(pLODFile_Bitmaps_LOD, L"wtrtyla");
-      v4->ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[v30];
+	 #ifndef OLD_CODE
+      v30 = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( L"wtrtyla");
+#endif	
+#ifdef OLD_CODE
+      v30 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "wtrtyla",0);
+#endif
+      v4->ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[v30];
       if (!sub_4847EB(pSpan))
         break;
 
@@ -2798,7 +2807,7 @@ LABEL_74:
 
  if (pClass51_global->dword_0000EC == -1)
    return;
- array_77EC08[1999].ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[pClass51_global->dword_0000EC];
+ array_77EC08[1999].ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[pClass51_global->dword_0000EC];
 
  array_77EC08[1999].byte_000058 = 23 - ((signed int)((unsigned __int64)(1310720i64
                                                * (signed int)((unsigned __int64)((signed __int64)(-pClass51_global->dword_000D38) << 16) >> 16)) >> 16) >> 16);
@@ -2822,7 +2831,7 @@ LABEL_74:
  if (pClass51_global->uSkyTextureID == -1)
     return;
 
- array_77EC08[1999].ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[pClass51_global->uSkyTextureID];
+ array_77EC08[1999].ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[pClass51_global->uSkyTextureID];
  array_77EC08[1999].byte_000058 = 0;
 
 
@@ -5330,7 +5339,7 @@ __int16 __thiscall sub_441A4E(void *_this)
             v19 = 0;
             v6 = pOverlayDescriptionList->pDescriptions[v9].word_000002;
             if ( !v6 || v6 == 2 )
-              compile_error;//v14 += pLODFile_Sprites_LOD->array_00024C[1 + 20 * *(_WORD *)(v7 + 24)] >> 1;
+              compile_error;//v14 += LODFile_Sprites_LOD.array_00024C[1 + 20 * *(_WORD *)(v7 + 24)] >> 1;
             LOWORD(v1) = sub_4AD2D1(40 * *(_WORD *)(v7 + 24) + 7218180, (int)&v11, 0);
             ++v27;
             if ( v27 == 5 )
@@ -5385,7 +5394,7 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
   int v7; // edx@7
   struct ObjectDescription *v8;
   signed int result; // eax@18
- wchar_t pWaterTileName[256]; // [sp+10h] [bp-Ch]@9
+ 
  char *pNames[4] = {"glow03", "glow05", "torchA", "wizeyeA"};
  int i;
 
@@ -5396,14 +5405,14 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
   pClass40 = new class40;
   sub_456D84(pClass40);
   
-  pLODFile_Bitmaps_LOD->dword_011BA8 = 1;
+  LODFile_Bitmaps_LOD.dword_011BA8 = 1;
 
   class35_SetColorChannelInfo(&class35_obj, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
   class35_obj.byte_267AD0 = -128;
   class35_obj.byte_267AD1 = -128;
   class35_obj.byte_267AD2 = -128;
   class35_sub_48A614(&class35_obj);
-  pLODFile_Sprites_LOD->dword_00ECAC = 1;
+  LODFile_Sprites_LOD.dword_00ECAC = 1;
 
   sub_459064(pObjectDescriptionList);
   sub_458D97(pOverlayDescriptionList);
@@ -5443,8 +5452,16 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
   class06_sub_4A90A0(pGame->class06_obj);
   for (i = 0; i < 8; ++i)
   {
+  #ifndef OLD_CODE
+  wchar_t pWaterTileName[256]; // [sp+10h] [bp-Ch]@9
    wsprintfW(pWaterTileName, L"HDWTR%03u", i);
-   uTextureID_WaterTiles[i] = LODFile_LoadTexture_New(pLODFile_Bitmaps_LOD, pWaterTileName);
+   uTextureID_WaterTiles[i] = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pWaterTileName);
+#endif
+  #ifdef OLD_CODE
+   char pWaterTileName[256]; // [sp+10h] [bp-Ch]@9
+    wsprintfA(pWaterTileName, "HDWTR%03u", i);
+   uTextureID_WaterTiles[i] = LODFile_Bitmaps_LOD.LODFile_LoadTexture( pWaterTileName,0);
+#endif
   }
 
  pNPCStats = new CNPCStats;
@@ -5453,12 +5470,12 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
 
  Initialize_GlobalEVT();
 
- pLODFile_Bitmaps_LOD->dword_011B80 = pLODFile_Bitmaps_LOD->uNumLoadedFiles;
- if (pLODFile_Bitmaps_LOD->dword_011B84 < pLODFile_Bitmaps_LOD->uNumLoadedFiles)
-   pLODFile_Bitmaps_LOD->dword_011B84 = pLODFile_Bitmaps_LOD->uNumLoadedFiles;
- pLODFile_Sprites_LOD->dword_00ECA4 = pLODFile_Sprites_LOD->uNumLoadedSprites;
- if (pLODFile_Sprites_LOD->dword_00ECA0 < pLODFile_Sprites_LOD->uNumLoadedSprites)
-   pLODFile_Sprites_LOD->dword_00ECA0 = pLODFile_Sprites_LOD->uNumLoadedSprites;
+ LODFile_Bitmaps_LOD.dword_011B80 = LODFile_Bitmaps_LOD.uNumLoadedFiles;
+ if (LODFile_Bitmaps_LOD.dword_011B84 < LODFile_Bitmaps_LOD.uNumLoadedFiles)
+   LODFile_Bitmaps_LOD.dword_011B84 = LODFile_Bitmaps_LOD.uNumLoadedFiles;
+ LODFile_Sprites_LOD.dword_00ECA4 = LODFile_Sprites_LOD.uNumLoadedSprites;
+ if (LODFile_Sprites_LOD.dword_00ECA0 < LODFile_Sprites_LOD.uNumLoadedSprites)
+   LODFile_Sprites_LOD.dword_00ECA0 = LODFile_Sprites_LOD.uNumLoadedSprites;
 
  class35_sub_48A8A3(&class35_obj);
  CreateDirectoryW(L".\\Saves", 0);
@@ -6966,7 +6983,7 @@ void __cdecl sub_47BACF_PrepareActorRenderList()
 
           local_04.dword_000028 = pBillboard->dword_000010;
           local_04.dword_00002C = v3;
-          Render_BillboardTransform(pD3DRenderer, &local_04, &pLODFile_Sprites_LOD->pHardwareSprites[pBillboard->uHardwareSpriteID], v8, pBillboard);
+          Render_BillboardTransform(pD3DRenderer, &local_04, &LODFile_Sprites_LOD.pHardwareSprites[pBillboard->uHardwareSpriteID], v8, pBillboard);
       }
       v35 += 5;
       v1 = (char *)v1 + 52;
@@ -7154,20 +7171,7 @@ void __stdcall PlayMovie(unsigned int uVideoID, char a2)
  }
 }
 
-//----- (004617B6) --------------------------------------------------------
-int __thiscall sub_4617B6(int _this)
-{
-  int result; // eax@1
 
-  result = _this;
-  *(_BYTE *)_this = 0;
-  *(_BYTE *)(_this + 4) = 0;
-  *(_BYTE *)(_this + 84) = 0;
-  *(_DWORD *)(_this + 164) = 0;
-  *(_DWORD *)(_this + 168) = 0;
-  *(_DWORD *)(_this + 172) = 0;
-  return result;
-}
 
 //----- (00493938) --------------------------------------------------------
 int __cdecl sub_493938()
@@ -13581,7 +13585,7 @@ LABEL_12:
 
   struct_576FE8.dword_000044 = 1;
   dword_6BE35C = 0;
-  LODFile_sub_461397((int)pLODFile_Sprites_LOD);
+  LODFile_Sprites_LOD.LODFile_sub_461397();
   class35_sub_48A8CC(&class35_obj);
   if (pParty_global->stru_007754.uItemID)
     sub_4698D8(pParty_global->stru_007754.uItemID);
@@ -13835,13 +13839,13 @@ void __cdecl sub_491F87_DrawNPCs()
         if ( v7 >= 2 )
         {
          wsprintfA(Str1, "NPC%03d", pNPCStats->pNPCData2[v7].uPortraitID);
-          v15 = LODFile_LoadTexture(pLODFile_Icons_LOD, Str1, 2);
+          v15 = LODFile_Icons_LOD.LODFile_LoadTexture( Str1, 2);
           Render_DrawIndexedTexture(pD3DRenderer, dword_4EE06C[v25], dword_4EE074[v25], (class18 *)(v15 != -1 ? 72 * v15 + 7145548 : 0));
         }
         else
         {
           wsprintfA(Str1, "NPC%03d", pParty_global->pHiredNPCs[v7].uPortraitID);
-          v10 = LODFile_LoadTexture(pLODFile_Icons_LOD, Str1, 2);
+          v10 = LODFile_Icons_LOD.LODFile_LoadTexture( Str1, 2);
           v9 = 4 * v25;
           Render_DrawIndexedTexture(pD3DRenderer,
             *(int *)((char *)dword_4EE06C + v9),
@@ -14060,10 +14064,10 @@ void PlayerCreationUI_Draw()
 
    v3 = AlignText_Center(640, (char *)pGlobalTXT_LocalizationStrings[51], pFontCChar);
    FontDrawText(pGUIWindow_CurrentMenu, pFontCChar, v3 + 1, 3, (char *)pGlobalTXT_LocalizationStrings[51], 0xFFFFFFFF, 0, 0);
-   Render_DrawTransparentTexture(pD3DRenderer,  17, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[0].uFace]]);
-   Render_DrawTransparentTexture(pD3DRenderer, 176, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[1].uFace]]);
-   Render_DrawTransparentTexture(pD3DRenderer, 335, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[2].uFace]]);
-   Render_DrawTransparentTexture(pD3DRenderer, 494, 35, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[3].uFace]]);
+   Render_DrawTransparentTexture(pD3DRenderer,  17, 35, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[0].uFace]]);
+   Render_DrawTransparentTexture(pD3DRenderer, 176, 35, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[1].uFace]]);
+   Render_DrawTransparentTexture(pD3DRenderer, 335, 35, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[2].uFace]]);
+   Render_DrawTransparentTexture(pD3DRenderer, 494, 35, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[3].uFace]]);
 
    v1 = pIconFrameTable->GetImage(uIconTableFrameID_CharacterFrame, pClass24_global->dword_00000C);
 
@@ -14085,12 +14089,12 @@ void PlayerCreationUI_Draw()
         v4 = v132; 
         break;
    }
-   Render_DrawTransparentTexture(pD3DRenderer, v4, 29, &pLODFile_Icons_LOD->aLODHeaders[v1->uTextureIdx]);
+   Render_DrawTransparentTexture(pD3DRenderer, v4, 29, &LODFile_Icons_LOD.aLODHeaders[v1->uTextureIdx]);
 
 
    v5 = GUIWindow_GetChild(pGUIWindow_CurrentMenu, pGUIWindow_CurrentMenu->dword_00002C);
-   Render_DrawTransparentRect(pD3DRenderer, v5->uZ - 4, v5->uY, 20 * dword_A74CD4, 0, 20, 16, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
-   Render_DrawTransparentRect(pD3DRenderer, v5->uX - 12, v5->uY, 20 * dword_A74CD4, 16, 20, 16, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
+   Render_DrawTransparentRect(pD3DRenderer, v5->uZ - 4, v5->uY, 20 * dword_A74CD4, 0, 20, 16, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
+   Render_DrawTransparentRect(pD3DRenderer, v5->uX - 12, v5->uY, 20 * dword_A74CD4, 16, 20, 16, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
 
    dword_A74CD4 = (GetTickCount() / 25) % 18;
 
@@ -14135,7 +14139,7 @@ void PlayerCreationUI_Draw()
    uClassIconCellX = (pParty_global->pPlayers[i].uClass / 4) % 3;
    uClassIconCellY = (pParty_global->pPlayers[i].uClass / 4) / 3;
    Render_DrawTransparentRect(pD3DRenderer, v143 + 77, 50,
-                                    uClassIconCellX * 48, uClassIconCellY * 52, 48, 52, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_PartyCreationUI_ClassIcons]);
+                                    uClassIconCellX * 48, uClassIconCellY * 52, 48, 52, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PartyCreationUI_ClassIcons]);
 
    v12 = pGUIWindow_CurrentMenu->dword_000040;
    v13 = pGUIWindow_CurrentMenu->dword_00001C;

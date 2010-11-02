@@ -220,9 +220,9 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
  unsigned char *pTexturesNames;
 
 
- wchar_t  pLevelMapFilename[256];
+ 
  FILE    *hODMFile;
- wchar_t  pFilename[256];
+ 
  int      j;
 
   v5 = (int)_this;
@@ -264,7 +264,7 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
     v8 = strlen(Str);
     v120 = 2;
     *(&v152 + v8) = 0;
-    struct_576FE8.uTextureID_LocationMap = LODFile_LoadTexture(pLODFile_Icons_LOD, Str, v120);
+    struct_576FE8.uTextureID_LocationMap = LODFile_Icons_LOD.LODFile_LoadTexture( Str, v120);
     locked_fread(&DstBuf, 0x180u, 1u, v7);
     fseek(v7, Offset, 0);
     locked_fread(_this, 0xB0u, 1u, v7);
@@ -377,7 +377,7 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
         if ( *(_DWORD *)(v13 + v12 + 76) > 0 )
           break;
 LABEL_25:
-        call_delete(v167);
+        free(v167);
         ++a4;
         v12 += 188;
         if ( a4 >= *(_DWORD *)(v5 + 176) )
@@ -394,7 +394,7 @@ LABEL_25:
         *(_WORD *)(a5 + 272) = v21;
         if ( !v21 )
         {
-          v22 = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, (char *)wtf, 0);
+          v22 = LODFile_Bitmaps_LOD.LODFile_LoadTexture((char *)wtf, 0);
           v23 = a5;
           *(_BYTE *)(v23 + 29) &= 0xBFu;
 LABEL_19:
@@ -421,7 +421,7 @@ LABEL_20:
         if ( (signed int)Str2 >= *(_DWORD *)(v13 + v12 + 76) )
           goto LABEL_25;
       }
-      v22 = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, (char *)wtf, 0);
+      v22 = LODFile_Bitmaps_LOD.LODFile_LoadTexture((char *)wtf, 0);
       v23 = a5;
       goto LABEL_19;
     }
@@ -526,11 +526,11 @@ LABEL_33:
       v120 = 0;
       v119 = (signed int)byte_6BE114_cfg_textures_DefaultSkyTexture;
     }
-    _this->uSkyTextureID = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, (const char *)v119, v120);
+    _this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)v119, v120);
     strcpy((char *)_this->pGroundTileset, byte_6BE124_cfg_textures_DefaultGroundTexture);
     v38 = (int)TileTable_GetTile(pTileTable, _this->array_0000A0[1]);
 
-    _this->dword_0000EC = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, (const char *)v38, 0);
+    _this->dword_0000EC = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)v38, 0);
     if ( _this->uSkyTextureID != -1 )
       *(_WORD *)(_this->uSkyTextureID != -1 ? 72 * _this->uSkyTextureID + 0x6F10BC + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(
                                                                  &class35_obj,
@@ -546,20 +546,27 @@ LABEL_33:
     goto LABEL_150;
   }
 
-  if (!LODFile_Games_LOD_FindLeveL(pLODFile_Games_LOD, Str))
+  if (!LODFile_Games_LOD.IsContainerExist( Str))
     erroneous_printf("Unable to find %s in Games.LOD", Str);
 
   strcpy(FileName, Str);
 
   strcpy(Str1, Str);
   Str1[strlen(Str1) - 4] = 0;
+#ifndef OLD_CODE
+  wchar_t  pLevelMapFilename[256];
   wsprintfW(pLevelMapFilename, L"%S", Str1);
-  struct_576FE8.uTextureID_LocationMap = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pLevelMapFilename);
-
+  struct_576FE8.uTextureID_LocationMap = LODFile_Icons_LOD.LODFile_LoadTexture_New( pLevelMapFilename);
+#endif
+#ifdef OLD_CODE
+  char  pLevelMapFilename[256];
+  wsprintfA(pLevelMapFilename, "%S", Str1);
+  struct_576FE8.uTextureID_LocationMap = LODFile_Icons_LOD.LODFile_LoadTexture( pLevelMapFilename,0);
+#endif
   v154 = &v152;
   v40 = strlen(Str);
   strcpy(Str + v40 - 4, ".odm");
-  hODMFile = LODFile_FindContainer(pLODFile_Games_LOD, Str, 1);
+  hODMFile = LODFile_Games_LOD.Find_Container( Str, 1);
 
   v159.v159 = 91969;
   v159.v160 = 109;
@@ -586,7 +593,7 @@ LABEL_33:
     wtf = (int)malloc(v44);
     locked_fread((unsigned char *)wtf, v44, 1, hODMFile);
     MemUnzip(v42, &ElementSize, (unsigned char *)wtf, v44);
-    call_delete((unsigned char *)wtf);
+   // free((unsigned char *)wtf);	   crash lower	at label 69
   }
   else
   {
@@ -691,7 +698,7 @@ LABEL_33:
         break;
 
 LABEL_74:
-      call_delete(pTexturesNames);
+      free(pTexturesNames);
       ++v170;
       v51 += 188;
       ++i;
@@ -713,7 +720,7 @@ LABEL_74:
       v66->uTextureID = v64;
       if ( !v64 )
       {
-        v65 = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, Str2, 0);
+        v65 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( Str2, 0);
 
         *(_BYTE *)(v66 + 29) &= 0xBFu;
         *(_WORD *)(v66 + 272) = v65;
@@ -740,13 +747,20 @@ LABEL_69:
       if ( v157 >= _this->pBModels[i].dword_00004C)
         goto LABEL_74;
     }
-
+#ifndef OLD_CODE
+	wchar_t  pFilename[256];
     wsprintfW(pFilename, L"%S", Str2);
-    v66->uTextureID = LODFile_LoadTexture_New(pLODFile_Bitmaps_LOD, pFilename);
+    v66->uTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pFilename);
+#endif
+#ifdef OLD_CODE
+	char  pFilename[256];
+    wsprintfA(pFilename, "%S", Str2);
+    v66->uTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture( pFilename,0);
+#endif
 
     if (v66->uTextureID != -1)
     {
-     v158 = &pLODFile_Bitmaps_LOD->aLODHeaders[v66->uTextureID];
+     v158 = &LODFile_Bitmaps_LOD.aLODHeaders[v66->uTextureID];
      v158->word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, v158->word_000024);
     }
     goto LABEL_69;
@@ -820,11 +834,11 @@ LABEL_75:
 
 
 
- call_delete((unsigned char *)HIDWORD(v155));
+ free((unsigned char *)HIDWORD(v155));
  v77 = strlen(Str);
  strcpy(Str + v77 - 4, ".ddm");
  //hODMFile = LODFile_FindContainer(pLODFile_New_LOD, Str, 1);
- hODMFile = LODFile_FindContainer(pLODFile_Games_LOD, Str, 1);
+ hODMFile = LODFile_Games_LOD.Find_Container( Str, 1);
  locked_fread(&v159, 0x10u, 1, hODMFile);
  Str2 = 0;
  if ( v159.v159 != 91969 || v159.v160 != 109 || v159.v161 != 118 || v159.v162 != 105 || v159.v163 != 105 )
@@ -853,7 +867,7 @@ LABEL_75:
         Src = malloc(wtf);
         locked_fread(Src, wtf, 1u, hODMFile);
         MemUnzip((unsigned char *)v79, &v166, Src, wtf);
-        call_delete(Src);
+        free(Src);
       }
     }
     else
@@ -900,7 +914,7 @@ LABEL_75:
     v87 = (int)memcpy(v121, (const void *)(v78 + 0x3C8), 0x3C8);
 
 LABEL_112:
-    call_delete((unsigned char *)v168);
+    free((unsigned char *)v168);
 
     _this->array_0004C8[1] = File;
     if (!Str2)
@@ -908,7 +922,7 @@ LABEL_112:
     v120 = 0;
 
     *(_DWORD *)a5 = 1;
-    hODMFile = LODFile_FindContainer(pLODFile_Games_LOD, Str, v120);
+    hODMFile = LODFile_Games_LOD.Find_Container( Str, v120);
     locked_fread(&v159, 0x10, 1, hODMFile);
     wtf = v159.v164;
     v166 = v159.Size;
@@ -925,7 +939,7 @@ LABEL_112:
         Src = malloc(wtf);
         locked_fread(Src, wtf, 1, hODMFile);
         MemUnzip((char *)v89, &v166, Src, wtf);
-        call_delete(Src);
+        free(Src);
       }
     }
     else
@@ -1052,7 +1066,7 @@ LABEL_120:
 
 
   memcpy(_this->array_0004F0, (char *)v78 + 200, 0x38);
-  call_delete((char *)v168);
+  free((char *)v168);
   CTileTable_LoadSomeTiles(pTileTable, 4);
   CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[0]);
   CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[2]);
@@ -1064,14 +1078,23 @@ LABEL_120:
   v120 = 0;
   v110 = TileTable_GetTile(pTileTable, _this->array_0000A0[1]);
   {
+#ifndef OLD_CODE
    wchar_t pTmp[256];
    wsprintfW(pTmp, L"%S", v110->sTileName);
 
-   v106 = LODFile_LoadTexture_New(pLODFile_Bitmaps_LOD, pTmp);
+   v106 = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pTmp);
+#endif
+#ifdef OLD_CODE
+   char pTmp[256];
+   wsprintfA(pTmp, "%S", v110->sTileName);
+
+   v106 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( pTmp,0);
+#endif
+
   }
   _this->dword_0000EC = v106;
   if ( v106 != -1 )
-    pLODFile_Bitmaps_LOD->aLODHeaders[v106].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, pLODFile_Bitmaps_LOD->aLODHeaders[v106].word_000024);
+    LODFile_Bitmaps_LOD.aLODHeaders[v106].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, LODFile_Bitmaps_LOD.aLODHeaders[v106].word_000024);
 
   sub_47F0E2();
 
@@ -1097,13 +1120,21 @@ LABEL_150:
   }
 
   {
+#ifndef OLD_CODE
    wchar_t pSkyFilename[256];
 
    wsprintfW(pSkyFilename, L"%S", &_this->array_0004F0[2]);
-   _this->uSkyTextureID = LODFile_LoadTexture_New(pLODFile_Bitmaps_LOD, pSkyFilename);
+   _this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pSkyFilename);
+#endif
+  #ifdef OLD_CODE
+   char pSkyFilename[256];
+
+   wsprintfA(pSkyFilename, "%S", &_this->array_0004F0[2]);
+   _this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture( pSkyFilename,0);
+#endif
   }
 
-  v158 = &pLODFile_Bitmaps_LOD->aLODHeaders[_this->uSkyTextureID];
+  v158 = &LODFile_Bitmaps_LOD.aLODHeaders[_this->uSkyTextureID];
   v120 = v158->word_000024;
   v158->word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, v158->word_000024);
 
@@ -1432,16 +1463,16 @@ bool sub_44C1E8(struct class51_stru2 *_this)
 
 
 
-//----- (00488F5C) --------------------------------------------------------
+//----- (00488F5C) ------.text:0048A961 --------------------------------------------------
 bool LoadLevel(struct class51 *_this, const char *Source, int File, signed int a4, int a5)
 {
   if ( Source )
   {
     class51_sub_47CF9C(_this);
-    sub_46454B(pLODFile_Bitmaps_LOD);
-    sub_4645DC(pLODFile_Sprites_LOD);
+    LODFile_Bitmaps_LOD.sub_46454B();
+    LODFile_Sprites_LOD.sub_4645DC();
     SpriteFrameTable_fn3(pSpriteFrameTable);
-    sub_46454B(pLODFile_Icons_LOD);
+    LODFile_Icons_LOD.sub_46454B();
     sub_46080D();
     TryLoadLevelFromFile();
     if ( !LoadLevelFromODM(_this, Source, File, a4, a5) )

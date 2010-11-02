@@ -489,7 +489,7 @@ void Render_DrawIndexedTextureHandle(struct Render *_this, unsigned int uX, unsi
  struct class18 *pTexture;
 
  if (uTextureID != -1)
-   pTexture = &pLODFile_Icons_LOD->aLODHeaders[uTextureID];
+   pTexture = &LODFile_Icons_LOD.aLODHeaders[uTextureID];
  else pTexture = &pending_texture;
 
  if (!_this->bSceneBegun || !pTexture)
@@ -780,7 +780,7 @@ void Render_DrawRGBTexture_New(struct Render *_this, unsigned int uX, unsigned i
  if (uTextureID == -1)
    return;
 
- pTexture = &pLODFile_Icons_LOD->aLODHeaders[uTextureID];
+ pTexture = &LODFile_Icons_LOD.aLODHeaders[uTextureID];
 
 
  pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
@@ -2094,20 +2094,21 @@ LABEL_13:
 
 
 
-
+#ifndef OLD_CODE
 int RGBTexture_Load_New(struct RGBTexture *_this, const wchar_t *pTextureName)
 {
  unsigned int uTextureID;
 
- uTextureID = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pTextureName);
+ uTextureID = LODFile_Icons_LOD.LODFile_LoadTexture_New( pTextureName);
 
- _this->pPixels = pLODFile_Icons_LOD->aLODHeaders[uTextureID].pTruecolorPixels;
- _this->uWidth = pLODFile_Icons_LOD->aLODHeaders[uTextureID].uTextureWidth;
- _this->uHeight = pLODFile_Icons_LOD->aLODHeaders[uTextureID].uTextureHeight;
+ _this->pPixels = LODFile_Icons_LOD.aLODHeaders[uTextureID].pTruecolorPixels;
+ _this->uWidth = LODFile_Icons_LOD.aLODHeaders[uTextureID].uTextureWidth;
+ _this->uHeight = LODFile_Icons_LOD.aLODHeaders[uTextureID].uTextureHeight;
  _this->uNumPixels = _this->uWidth * _this->uHeight;
 
  return 0;
 }
+#endif
 
 //----- (MM7.exe::0040F414) --------------------------------------------------------
 int RGBTexture_Load(struct RGBTexture *_this, const char *pContainerName, int a3)
@@ -2133,14 +2134,23 @@ int RGBTexture_Load(struct RGBTexture *_this, const char *pContainerName, int a3
   //int v22; // [sp+88h] [bp-1Ch]@9
   //int v23; // [sp+8Ch] [bp-18h]@9
   //char v24; // [sp+94h] [bp-10h]@7
-  FILE *f; // [sp+9Ch] [bp-8h]@1
-
+  FILE *f; // [sp+9Ch] [bp-8h]@1  
+  unsigned int uTextureID;
+#ifndef OLD_CODE
  wchar_t      pFilepath[256];
- unsigned int uTextureID;
 
  wsprintfW(pFilepath, L"%S", pContainerName);
 
  return RGBTexture_Load_New(_this, pFilepath);
+#endif
+#ifdef OLD_CODE
+  char      pFilepath[256];
+ 
+
+ wsprintfA(pFilepath, "%S", pContainerName);
+
+ return RGBTexture_Load(_this, pFilepath,0); 
+#endif
 }
 
 //----- (MM7.exe::0040F037) --------------------------------------------------------

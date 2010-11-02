@@ -148,10 +148,6 @@ signed int __thiscall sub_454E3A(const char *Str1)
 
 
 
-bool LODFile_ReleaseTexture(struct LODFile *_this, unsigned int uTextureID)
-{
- return true;
-}
 
 //----- (MM7.exe::0044E4B7) --------------------------------------------------------
 void CGame_ctor(struct CGame *_this)
@@ -723,7 +719,7 @@ void sub_469903(struct class03 *_this, const char *pSource)
 
  if (_strnicmp(pSource, "MICON1", 5))
  {
-  v9 = LODFile_LoadTexture(pLODFile_Icons_LOD, pSource, 2);
+  v9 = LODFile_Icons_LOD.LODFile_LoadTexture( pSource, 2);
   *(_DWORD *)(_this + 36) = v9;
   *(_DWORD *)(_this + 40) = v9;
   sub_469BE6((int)_this);
@@ -733,7 +729,7 @@ void sub_469903(struct class03 *_this, const char *pSource)
   if ( !dword_506128 )
   {
    class18_sub_40F77C((class18 *)(*(_DWORD *)(_this + 36) != -1 ? 72 * *(_DWORD *)(_this + 36) + 7145548 : 0));
-   LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+   LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
   return;
  }
@@ -800,19 +796,19 @@ int sub_469BA3(struct class03 *_this)
 
  if (_this->ptr_000030)
  {
-  call_delete(_this->ptr_000030);
+  free(_this->ptr_000030);
   _this->ptr_000030 = 0;
  }
 
  if (_this->ptr_000038)
  {
-  call_delete(_this->ptr_000038);
+  free(_this->ptr_000038);
   _this->ptr_000038 = 0;
  }
 
  if (_this->ptr_000090)
  {
-  call_delete(_this->ptr_000090);
+  free(_this->ptr_000090);
   _this->ptr_000090 = 0;
  }
 
@@ -1898,7 +1894,7 @@ char *sub_456D84(struct class40 *_this)
   pStorylineText = new StorylineText;
   StorylineText_Initialize(pStorylineText);
 
-  _this->pStdItemsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "stditems.txt", 0);
+  _this->pStdItemsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "stditems.txt", 0);
 
   strtok((char *)_this->pStdItemsTXT_Raw, "\r");
   strtok(0, "\r");
@@ -2000,7 +1996,7 @@ char *sub_456D84(struct class40 *_this)
 
 
 
-  _this->pSpcItemsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "spcitems.txt", 0);
+  _this->pSpcItemsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "spcitems.txt", 0);
   strtok((char *)_this->pSpcItemsTXT_Raw, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
@@ -2092,7 +2088,7 @@ LABEL_63:
   sub_443801();
 
 
-  _this->pItemsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "items.txt", 0);
+  _this->pItemsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw ("items.txt", 0);
   strtok((char *)_this->pItemsTXT_Raw, "\r");
   v28 = 0;
   strtok(0, "\r");
@@ -2295,7 +2291,7 @@ LABEL_196:
   }
   _this->uNumItems = v28;
 
-  _this->pRndItemsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "rnditems.txt", 0);
+  _this->pRndItemsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "rnditems.txt", 0);
   strtok((char *)_this->pRndItemsTXT_Raw, "\r");
   v39 = 0;
   strtok(0, "\r");
@@ -2509,7 +2505,7 @@ LABEL_196:
   while ( v94 < 3 );
 
 
-  pSkillDescTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "skilldes.txt", 0);
+  pSkillDescTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "skilldes.txt", 0);
   strtok((char *)pSkillDescTXT_Raw, "\r");
   v53 = 0;
   do
@@ -2565,9 +2561,12 @@ LABEL_196:
   while ( v53 < 37 );
 
 
-
-  //pStatsTXT_Raw = LODFile_LoadRaw(pLODFile_Events_LOD, "stats.txt", 0);
-  pStatsTXT_Raw = LODFile_LoadEvent(pLODFile_Events_LOD, L"stats.txt");
+  #ifdef OLD_CODE
+  pStatsTXT_Raw = (unsigned char*)LODFile_Events_LOD.LODFile_LoadRaw( "stats.txt", 0);
+#endif
+  #ifndef OLD_CODE
+  pStatsTXT_Raw = LODFile_Events_LOD.LODFile_LoadEvent( L"stats.txt");
+  #endif
   strtok((char *)pStatsTXT_Raw, "\r");
   v77 = 0;
   do
@@ -2648,8 +2647,8 @@ LABEL_196:
 
 
 
- pClassTXT_Raw = LODFile_LoadEvent(pLODFile_Events_LOD, L"class.txt");
-
+ pClassTXT_Raw = LODFile_Events_LOD.LODFile_LoadEvent(L"class.txt");
+ //pClassTXT_Raw = LODFile_Events_LOD.LODFile_LoadEvent(L"class.txt");
  v78 = (int)strstr((char *)pClassTXT_Raw, "\n") + 1;
  for (i = 0; i < 36; ++i)
  {
@@ -2707,7 +2706,7 @@ int CMapStats_Initialize(struct CMapStats *_this)
  if (pMapStatsTXT_Raw)
    mem_mng.DeleteBuffer( (void *)pMapStatsTXT_Raw);
 
- pMapStatsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "MapStats.txt", 0);
+ pMapStatsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "MapStats.txt", 0);
  strtok((char *)pMapStatsTXT_Raw, "\r");
  strtok(0, "\r");
  strtok(0, "\r");
@@ -3010,7 +3009,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
  if (pMonstersTXT_Raw)
    mem_mng.DeleteBuffer( (void *)pMonstersTXT_Raw);
 
- pMonstersTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "monsters.txt", 0);
+ pMonstersTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "monsters.txt", 0);
  strtok((char *)pMonstersTXT_Raw, "\r");
  strtok(0, "\r");
  strtok(0, "\r");
@@ -4004,7 +4003,7 @@ char *CMonsterStats_LoadMonsterPlacements(struct CMonsterStats *_this)
 
   v1 = 0;
 
- pMonsterPlacementTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "placemon.txt", 0);
+ pMonsterPlacementTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "placemon.txt", 0);
  strtok((char *)pMonsterPlacementTXT_Raw, "\r");
 
  v8 = 30;
@@ -4090,7 +4089,7 @@ char *CSpellStats_Initialize(struct CSpellStats *_this)
  if (pSpellsTXT_Raw)
    mem_mng.DeleteBuffer( (void *)pSpellsTXT_Raw);
 
- pSpellsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "spells.txt", 0);
+ pSpellsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "spells.txt", 0);
  strtok((char *)pSpellsTXT_Raw, "\r");
  strtok(0, "\r");
 
@@ -4252,7 +4251,7 @@ void class40_LoadPotionsTable(struct class40 *_this)
  if (pPotionsTXT_Raw)
    mem_mng.DeleteBuffer( (void *)pPotionsTXT_Raw);
 
- pPotionsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "potion.txt", 0);
+ pPotionsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "potion.txt", 0);
  for (i = strtok((char *)pPotionsTXT_Raw, "\t\r\n"); ; i = strtok(0, "\t\r\n"))
  {
   if (!strcmp(i, "222"))
@@ -4353,7 +4352,7 @@ void class40_LoadPotionNotes(struct class40 *_this)
    mem_mng.DeleteBuffer( (void *)pPotionNotesTXT_Raw);
 
  pPotionNotesTXT_Raw = 0;
- pPotionNotesTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "potnotes.txt", 0);
+ pPotionNotesTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "potnotes.txt", 0);
 
  for ( i = strtok((char *)pPotionNotesTXT_Raw, "\t\r\n"); ; i = strtok(0, "\t\r\n") )
  {
@@ -4464,7 +4463,7 @@ int class48_Initialize(struct class48 *_this)
  if (pHostileTXT_Raw)
    mem_mng.DeleteBuffer( (void *)pHostileTXT_Raw);
 
- pHostileTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "hostile.txt", 0);
+ pHostileTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "hostile.txt", 0);
 
  strtok((char *)pHostileTXT_Raw, "\r");
  v9 = 0;
@@ -4546,7 +4545,7 @@ int StorylineText_Initialize(struct StorylineText *_this)
  if (pHistoryTXT_Raw)
     mem_mng.DeleteBuffer( (void *)pHistoryTXT_Raw);
 
- pHistoryTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "history.txt", 0);
+ pHistoryTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw("history.txt", 0);
  strtok((char *)pHistoryTXT_Raw, "\r");
 
   v12 = (int)((char *)v2 + 20);
@@ -4650,7 +4649,7 @@ int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2)
     {
       sprintf(Source, "pal%03i", a2);
       class18_ctor(&class18_obj);
-      if ( LODFile_LoadPalette(pLODFile_Bitmaps_LOD, &class18_obj, Source, 1u) == 1 )
+      if ( LODFile_Bitmaps_LOD.LODFile_LoadPalette( &class18_obj, Source, 1u) == 1 )
       {
         v4 = 0;
         v18 = 1 - (_DWORD)&v10;
@@ -4761,7 +4760,7 @@ void CNPCStats_Initialize(struct CNPCStats *_this)
 
   _this->dword_017FC0 = 0;
 
- _this->pNPCNamesTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npcnames.txt", 0);
+ _this->pNPCNamesTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "npcnames.txt", 0);
  strtok((char *)_this->pNPCNamesTXT_Raw, "\r");
 
   v19 = 0;
@@ -4823,7 +4822,7 @@ LABEL_45:
 
 
 
-  _this->pNPCProfTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npcprof.txt", 0);
+  _this->pNPCProfTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "npcprof.txt", 0);
   strtok((char *)_this->pNPCProfTXT_Raw, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
@@ -4926,7 +4925,7 @@ void CNPCStats_sub_476CB5(struct CNPCStats *_this)
 
   v2 = _this;
 
- _this->pNPCDataTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npcdata.txt", 0);
+ _this->pNPCDataTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "npcdata.txt", 0);
  strtok((char *)_this->pNPCDataTXT_Raw, "\r");
  strtok(0, "\r");
 
@@ -5002,7 +5001,7 @@ void CNPCStats_sub_476CB5(struct CNPCStats *_this)
  _this->dword_017FC4 = 501;
 
 
- _this->pNPCGreetTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npcgreet.txt", 0);
+ _this->pNPCGreetTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "npcgreet.txt", 0);
  strtok((char *)_this->pNPCGreetTXT_Raw, "\r");
 
  for (i = 0; i < 206; ++i)
@@ -5036,7 +5035,7 @@ void CNPCStats_sub_476CB5(struct CNPCStats *_this)
     while ( v41 <= 2 && !v37 );
   }
 
- _this->pNCPGroupTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npcgroup.txt", 0);
+ _this->pNCPGroupTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "npcgroup.txt", 0);
  strtok((char *)_this->pNCPGroupTXT_Raw, "\r");
 
  for (i = 0; i < 51; ++i)
@@ -5068,7 +5067,7 @@ void CNPCStats_sub_476CB5(struct CNPCStats *_this)
     while ( v42 <= 1 && !v38 );
   }
 
- _this->pNPCNewsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npcnews.txt", 0);
+ _this->pNPCNewsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "npcnews.txt", 0);
  strtok((char *)_this->pNPCNewsTXT_Raw, "\r");
 
  for (i = 0; i < 52; ++i)
@@ -5143,7 +5142,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
   if (_this->pNPCTextTXT_Raw)
     mem_mng.DeleteBuffer( (void *)_this->pNPCTextTXT_Raw);
 
-  _this->pNPCTextTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npctext.txt", 0);
+  _this->pNPCTextTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "npctext.txt", 0);
   strtok((char *)_this->pNPCTextTXT_Raw, "\r");
   //v29 = (signed int)&unk_72166C;
   v29 = 0;
@@ -5192,7 +5191,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
  if (_this->pNPCTopicTXT_Raw)
    mem_mng.DeleteBuffer( (void *)_this->pNPCTopicTXT_Raw);
 
- _this->pNPCTopicTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npctopic.txt", 0);
+ _this->pNPCTopicTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "npctopic.txt", 0);
  strtok((char *)_this->pNPCTopicTXT_Raw, "\r");
 
   //v30 = (signed int)&unk_721668;
@@ -5243,7 +5242,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
  if (_this->pNPCDistTXT_Raw)
    mem_mng.DeleteBuffer( (void *)_this->pNPCDistTXT_Raw);
 
- _this->pNPCDistTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "npcdist.txt", 0);
+ _this->pNPCDistTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "npcdist.txt", 0);
  strtok((char *)_this->pNPCDistTXT_Raw, "\r");
  strtok(0, "\r");
 
@@ -7818,7 +7817,7 @@ LABEL_32:
         v65 = "sp18h1"[6];
         sub_4BE59E((int)&unk_F8BAD8, 1, 6);
         HIBYTE(v64) = sub_4BE623((int)&unk_F8BAD8) + 48;
-        v62 = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, (const char *)&Str1, 0);
+        v62 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)&Str1, 0);
         v55 = 100;
         v49 = a2;
 LABEL_157:
@@ -8143,7 +8142,7 @@ void class02_sub_48BBA6(struct class02 *_this)
                       sub_4A354F(
                         v6,
                         (int)&v18,
-                        pLODFile_Bitmaps_LOD->pHardwareTextures[*(_DWORD *)(v7 - 50)],
+                        LODFile_Bitmaps_LOD.pHardwareTextures[*(_DWORD *)(v7 - 50)],
                         *(_DWORD *)(v7 + 14),
                         *(_DWORD *)(v7 - 26));
                     }
@@ -8157,7 +8156,7 @@ void class02_sub_48BBA6(struct class02 *_this)
                       sub_4A354F(
                         v6,
                         (int)&v18,
-                        pLODFile_Sprites_LOD->pHardwareSprites[*(_DWORD *)(v7 - 50)].pTexture,
+                        LODFile_Sprites_LOD.pHardwareSprites[*(_DWORD *)(v7 - 50)].pTexture,
                         *(_DWORD *)(v7 + 14),
                         *(_DWORD *)(v7 - 26));
                     }
@@ -8286,7 +8285,7 @@ void class02_sub_48BEEF(struct class02 *_this)
             v22 = *(_DWORD *)(v7 - 2);
             sub_4A3AD9(v6,
               (int)&v17,
-              pLODFile_Bitmaps_LOD->pHardwareTextures[*(_DWORD *)(v7 - 46)],
+              LODFile_Bitmaps_LOD.pHardwareTextures[*(_DWORD *)(v7 - 46)],
               *(_DWORD *)(v7 + 18),
               *(_DWORD *)(v7 - 22));
           }
@@ -8300,7 +8299,7 @@ void class02_sub_48BEEF(struct class02 *_this)
             sub_4A3AD9(
               v6,
               (int)&v17,
-              pLODFile_Sprites_LOD->pHardwareSprites[*(_DWORD *)(v7 - 46)].pTexture,
+              LODFile_Sprites_LOD.pHardwareSprites[*(_DWORD *)(v7 - 46)].pTexture,
               *(_DWORD *)(v7 + 18),
               *(_DWORD *)(v7 - 22));
           }
@@ -8500,7 +8499,7 @@ int class06_sub_4A8C27(struct class06 *_this)
       (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 152))(
         *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
         0,
-        *(_DWORD *)(pLODFile_Sprites_LOD->pHardwareSprites + 40 * v8 + 12));
+        *(_DWORD *)(LODFile_Sprites_LOD.pHardwareSprites + 40 * v8 + 12));
       (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(pD3DRenderer->pRenderD3D3 + 56) + 88))(
         *(_DWORD *)(pD3DRenderer->pRenderD3D3 + 56),
         28,
@@ -8665,7 +8664,7 @@ int class06_sub_4A7298(struct class06 *_this)
       if ( v9 == -1 )
         v12 = 0;
       else
-        v12 = (int)pLODFile_Bitmaps_LOD->pHardwareTextures[v9];
+        v12 = (int)LODFile_Bitmaps_LOD.pHardwareTextures[v9];
       v10 = v26 / v23 * 20.0;
       v11 = v26 / v16 * 20.0;
       sub_4A49D0(v17, v18, v16, v11, v24, v25, v23, v10, v12);
@@ -8692,7 +8691,7 @@ void class06_sub_4A902A_DrawSomeIcon(struct class06 *_this)
    if (_this->array_000208[i].dword_000004 <= _this->array_000208[i].dword_000008)
    {
     pIcon = pIconFrameTable->GetImage(_this->array_000208[i].dword_00000C, _this->array_000208[i].dword_000004);
-    Render_DrawTransparentTexture(pD3DRenderer, off_4ED748[i], 385, &pLODFile_Icons_LOD->aLODHeaders[pIcon->uTextureIdx]);
+    Render_DrawTransparentTexture(pD3DRenderer, off_4ED748[i], 385, &LODFile_Icons_LOD.aLODHeaders[pIcon->uTextureIdx]);
     dword_5E5144 = 1;
    }
    else

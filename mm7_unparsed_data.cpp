@@ -1,4 +1,5 @@
 #include "memory_mng.h"
+#include  "_lod.h"
 #include "mm7_unparsed_data.h"
 
 
@@ -1480,18 +1481,19 @@ struct unnamed_69B110 object_69B110; // struct @ MM7.exe::0069B110
  _UNKNOWN unk_6A0758; // weak
  _UNKNOWN unk_6A07A4; // weak
 
-struct LODFile *pLODFile_New_LOD = 0; // struct @ MM7.exe::006A0820
+  LOD_Writefile  LODFile_New_LOD; // struct @ MM7.exe::006A0820
 //_UNKNOWN unk_6A0820; // weak
  int dword_6A0A4C; // weak
 
-struct LODFile *pLODFile_Games_LOD = 0; // struct @ MM7.exe::006A0A60
+//struct LODFile *pLODFile_Games_LOD = 0; // struct @ MM7.exe::006A0A60
+  LOD_Writefile	LODFile_Games_LOD;
 //_UNKNOWN unk_6A0A60; // weak
- int dword_6A0C8C; // weak
+ int dword_6A0C8C; // weak					   
  int dword_6A0C90; // weak
  int dword_6A0C9C; // weak
  int dword_6A0CA0; // weak
- int dword_6A0CA4; // weak
- int dword_6A0CA8; // weak
+ //int dword_6A0CA4; // weak
+ int global_dword_6A0CA8; // weak
  HWND dword_6A0CFC; // idb
  int dword_6A0D00; // weak
 

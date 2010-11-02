@@ -844,7 +844,7 @@ LABEL_178:
   {
     class03_sub_4698A6(pGame->pClass03);
     GUIWindowDelete(pGUIWindow_CurrentMenu);
-    LODFile_sub_4114F2(pLODFile_Icons_LOD);
+    LODFile_Icons_LOD.LODFile_sub_4114F2();
     dword_4E28F8 = 0;
     struct_576FE8.dword_000044 = 1;
     sub_42777D(v24, a2 - 1, 133, 1, 0);
@@ -1552,7 +1552,7 @@ void __thiscall class03_sub_469EA4_LooksLikeDrawPickedItem(int _this)
   v1 = _this;
   if (pParty_global->stru_007754.uItemID)
   {
-   v3 = LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)pClass40->pItems[12 * pParty_global->stru_007754.uItemID].pIconName, 2);
+   v3 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 * pParty_global->stru_007754.uItemID].pIconName, 2);
     v2 = v3 != -1 ? 72 * v3 + 7145548 : 0;
     if (dword_720010)
     {
@@ -2608,7 +2608,7 @@ char __thiscall sub_46AE97(void *_this, void *Source)
   CheckHRESULT((void **)&v9, v4, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MouseAsync.cpp", 0x81u, 0);
 
   class18_ctor((class18 *)class18_obj);
-  if ( LODFile_LoadPalette(pLODFile_Icons_LOD, (class18 *)class18_obj, (char *)Source, 2) != -1 && sub_46B1EC((int)&struct_505898.Dest, *((_DWORD *)v2 + 1), 0) )
+  if ( LODFile_Icons_LOD.LODFile_LoadPalette( (class18 *)class18_obj, (char *)Source, 2) != -1 && sub_46B1EC((int)&struct_505898.Dest, *((_DWORD *)v2 + 1), 0) )
   {
     class18_sub_40F77C((class18 *)class18_obj);
     LeaveCriticalSection(&pGame->class01_obj->cs2);
@@ -8415,7 +8415,7 @@ LABEL_25:
           v30 = "effpar03";
         }
         v41 = (unsigned __int8)(v28 & 0x80) + 128;
-        v42 = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, v30, v32);
+        v42 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( v30, v32);
         goto LABEL_71;
       }
       v48 = (unsigned __int64)(stru_721530.dword_00007C * stru_721530.dword_000058) >> 16;
@@ -8601,7 +8601,7 @@ LABEL_71:
         v29 = "effpar03";
       }
       v41 = (unsigned __int8)(v11 & 0x80) + 128;
-      v42 = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, v29, v31);
+      v42 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( v29, v31);
 LABEL_72:
       class02_sub_48AB23((int)pGame->class02_obj, (int)&Dst);
       return;
@@ -8807,7 +8807,7 @@ LABEL_87:
       v47 = "effpar03";
     }
     v62 = (unsigned __int8)(v24 & 0x80) + 128;
-    v63 = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, v47, v48);
+    v63 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( v47, v48);
     goto LABEL_89;
   }
 LABEL_13:
@@ -10388,7 +10388,7 @@ void __cdecl InitializeMerchants()
  if (pMerchantsTXT_Raw)
    mem_mng.DeleteBuffer( (void *)pMerchantsTXT_Raw);
 
- pMerchantsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "merchant.txt", 0);
+ pMerchantsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "merchant.txt", 0);
  strtok((char *)pMerchantsTXT_Raw, "\r");
 
  v1 = (signed int)dword_73C3C0;
@@ -10470,7 +10470,7 @@ void __cdecl InitializeTransitions()
  if (pTransitionsTXT_Raw)
    mem_mng.DeleteBuffer( (void *)pTransitionsTXT_Raw);
 
- pTransitionsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "trans.txt", 0);
+ pTransitionsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "trans.txt", 0);
  strtok((char *)pTransitionsTXT_Raw, "\r");
 
  for (i = 0; i < 464; ++i)
@@ -11637,7 +11637,7 @@ void SaveColormap(const wchar_t *pFile, unsigned char *pBits)
  {
    for (j = 0; j < 128; ++j)
    {
-    struct class18 *pTexture = &pLODFile_Bitmaps_LOD->aLODHeaders[TileTable_GetTile(pTileTable, pBits[i * 128 + j])->word_000012];
+    struct class18 *pTexture = &LODFile_Bitmaps_LOD.aLODHeaders[TileTable_GetTile(pTileTable, pBits[i * 128 + j])->word_000012];
     for (y = 0; y < 128; ++y)
       memcpy(pColormap + j * 128 * 128 + y * 128, pTexture->pTruecolorPixels + y * 128, 128 * 4);
    }
@@ -11738,8 +11738,8 @@ char __cdecl RenderBuildings()
     }
     else
     {
-     fprintf(f, " Texture \"%s\"\n", pLODFile_Bitmaps_LOD->aLODHeaders[pClass51_global->pBModels[i].ptr_000054[j].uTextureID].sContainerName);
-     pTex = &pLODFile_Bitmaps_LOD->aLODHeaders[pClass51_global->pBModels[i].ptr_000054[j].uTextureID];
+     fprintf(f, " Texture \"%s\"\n", LODFile_Bitmaps_LOD.aLODHeaders[pClass51_global->pBModels[i].ptr_000054[j].uTextureID].sContainerName);
+     pTex = &LODFile_Bitmaps_LOD.aLODHeaders[pClass51_global->pBModels[i].ptr_000054[j].uTextureID];
     }
     fprintf(f, " Num vertices: %u\n\n", pClass51_global->pBModels[i].ptr_000054[j].uNumVertices);
 
@@ -11784,7 +11784,7 @@ char __cdecl RenderBuildings()
    v6 = pClass51_global->pBModels[i].ptr_000054[j].uTextureID;
    if (!v11)
      v6 = TextureFrameTable_GetFrame(pTextureFrameTable, v6, pClass24_global->dword_000024);
-   v8->ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[v6];
+   v8->ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[v6];
 
 
    v11 = (pClass51_global->pBModels[i].ptr_000054[j].byte_000010[12] & 0x10) == 0;
@@ -11976,11 +11976,11 @@ LABEL_76:
               v39 = uTextureID_WaterTiles[0];
             else
               v39 = uTextureID_WaterTiles[dword_EF5290];
-            v45 = (int)pLODFile_Bitmaps_LOD->pHardwareTextures[v39];
+            v45 = (int)LODFile_Bitmaps_LOD.pHardwareTextures[v39];
           }
           else
           {
-            v45 = (int)pLODFile_Bitmaps_LOD->pHardwareTextures[v6];
+            v45 = (int)LODFile_Bitmaps_LOD.pHardwareTextures[v6];
           }
           Render_DrawPolygon(pD3DRenderer, v62, v8, v4, (IDirect3DTexture2 *)v45);
         }
@@ -12268,7 +12268,7 @@ void __fastcall sub_479A53(int a1, int a2)
     LOBYTE(v61) = 8 * a2 | 6;
     v62 = v61;
     v63 = sub_4AE5BA(v4);
-    Render_sub_4A2FC0((int)pD3DRenderer, v3, v4, (int)pLODFile_Bitmaps_LOD->pHardwareTextures[*(_WORD *)(v4 + 74)], v63, v62, -1, 0);
+    Render_sub_4A2FC0((int)pD3DRenderer, v3, v4, (int)LODFile_Bitmaps_LOD.pHardwareTextures[*(_WORD *)(v4 + 74)], v63, v62, -1, 0);
     return;
   }
   HIDWORD(v83) = pOldCamera->sRotationX;
@@ -12321,7 +12321,7 @@ void __fastcall sub_479A53(int a1, int a2)
   if ( v68 <= 0 )
   {
 LABEL_17:
-    v66 = (int)pLODFile_Bitmaps_LOD->pHardwareTextures[v75];
+    v66 = (int)LODFile_Bitmaps_LOD.pHardwareTextures[v75];
     v28 = (int)pD3DRenderer;
     v65 = (int)&v67;
     v64 = v68;
@@ -12542,7 +12542,7 @@ LABEL_40:
     while ( HIDWORD(v83)-- != 1 );
   }
   v68 = v49;
-  Render_sub_4A2ED5((int)pD3DRenderer, v49, (int)&v67, (int)pLODFile_Bitmaps_LOD->pHardwareTextures[v75]);
+  Render_sub_4A2ED5((int)pD3DRenderer, v49, (int)&v67, (int)LODFile_Bitmaps_LOD.pHardwareTextures[v75]);
   v88 = 0;
   if ( LODWORD(v87) > 0 )
   {
@@ -12564,7 +12564,7 @@ LABEL_40:
     while ( LODWORD(v94)-- != 1 );
   }
   v68 = v88;
-  v66 = (int)pLODFile_Bitmaps_LOD->pHardwareTextures[v75];
+  v66 = (int)LODFile_Bitmaps_LOD.pHardwareTextures[v75];
   v65 = (int)&v67;
   v64 = v88;
   v28 = (int)pD3DRenderer;
@@ -12766,13 +12766,13 @@ LABEL_30:
                   //if ( pD3DRenderer->pRenderD3D3 )
                   //{
                     v26 = v51;
-                    v52 = pLODFile_Sprites_LOD->pHardwareSprites[*(short *)v47].dword_000018 >> 1;
+                    v52 = LODFile_Sprites_LOD.pHardwareSprites[*(short *)v47].dword_000018 >> 1;
                     v54 = ((unsigned __int64)(v52) * v51) >> 16;
                   /*}
                   else // software
                   {
                     v26 = v51;
-                    v52 = pLODFile_Sprites_LOD->array_00024C[20 * *(_WORD *)v47] >> 1;
+                    v52 = LODFile_Sprites_LOD.array_00024C[20 * *(_WORD *)v47] >> 1;
                     v54 = ((unsigned __int64)(v52) * v51) >> 16;
                   }*/
                   if ( v54 + v24 >= pOldViewport->uGameX && v24 - v54 <= pOldViewport->uGameZ )
@@ -12841,7 +12841,7 @@ LABEL_30:
           v38 = 0.0;
           v42 = 1.0;
           v40 = (rand() & 0x80) + 128;
-          v41 = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, "effpar01", 0);
+          v41 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar01", 0);
           class02_sub_48AB23((int)pGame->class02_obj, (int)&Dst);
         }
       }
@@ -13595,9 +13595,9 @@ int __thiscall class51_sub_47CDE2(int Dest)
   *(_DWORD *)(v2 + 224) = v7;
   *(_WORD *)v7 = 0;
   strcpy((char *)(v2 + 96), byte_6BE114_cfg_textures_DefaultSkyTexture);
-  *(_DWORD *)(v2 + 232) = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, (const char *)(v2 + 96), 0);
+  *(_DWORD *)(v2 + 232) = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)(v2 + 96), 0);
   strcpy((char *)(v2 + 128), byte_6BE124_cfg_textures_DefaultGroundTexture);
-  result = LODFile_LoadTexture(pLODFile_Bitmaps_LOD, (const char *)(v2 + 128), 0);
+  result = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)(v2 + 128), 0);
   v8 = *(_DWORD *)(v2 + 232) == -1;
   *(_DWORD *)(v2 + 236) = result;
   if ( v8 )
@@ -14143,7 +14143,7 @@ LABEL_53:
             v38 = v15->uTextureID;
             v80 = true;
           }
-          v78 = (int)pLODFile_Bitmaps_LOD->pHardwareTextures[v38];
+          v78 = (int)LODFile_Bitmaps_LOD.pHardwareTextures[v38];
           v77 = (int)v15;
           v76 = v15->uNumVertices;
 LABEL_161:
@@ -14300,7 +14300,7 @@ LABEL_105:
       Render_DrawTerrainPolygon(pD3DRenderer, array_50AC10,
         *(_DWORD *)(v39 + 20),
         (struct8 *)v39,
-        pLODFile_Bitmaps_LOD->pHardwareTextures[v57],
+        LODFile_Bitmaps_LOD.pHardwareTextures[v57],
         0,
         v81);
     }
@@ -14427,7 +14427,7 @@ LABEL_154:
             v73 = *(_WORD *)(v31 + 76);
             v80 = true;
           }
-          v78 = (int)pLODFile_Bitmaps_LOD->pHardwareTextures[v73];
+          v78 = (int)LODFile_Bitmaps_LOD.pHardwareTextures[v73];
           v77 = (int)v31;
           v76 = *(_DWORD *)(v31 + 20);
           goto LABEL_161;
@@ -14453,14 +14453,14 @@ void __thiscall sub_4811A3(void *_this)
   Render_DrawTerrainPolygon(pD3DRenderer, (RenderVertex *)v1,
     *(_DWORD *)(v1 + 20),
     (struct8 *)v1,
-    pLODFile_Bitmaps_LOD->pHardwareTextures[uTextureID_WaterTiles[dword_EF5290]],
+    LODFile_Bitmaps_LOD.pHardwareTextures[uTextureID_WaterTiles[dword_EF5290]],
     0,
     0);
   pD3DRenderer->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ZWRITEENABLE, 1);
   Render_DrawTerrainPolygon(pD3DRenderer, (RenderVertex *)v1,
     *(_DWORD *)(v1 + 20),
     (struct8 *)v1,
-    pLODFile_Bitmaps_LOD->pHardwareTextures[4 * *(_WORD *)(v1 + 76)],
+    LODFile_Bitmaps_LOD.pHardwareTextures[4 * *(_WORD *)(v1 + 76)],
     1,
     1);
 }
@@ -14521,7 +14521,7 @@ void __fastcall sub_481DB2(struct RenderVertex *a1, signed int a2, struct struct
     return;
 
     a3->ptr_000038 = pClass57_global;
-    a3->ptr_00003C = &pLODFile_Bitmaps_LOD->aLODHeaders[a3->uTextureID];
+    a3->ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[a3->uTextureID];
 
     for (i = 0; i < a3->uNumVertices; ++i)
     {

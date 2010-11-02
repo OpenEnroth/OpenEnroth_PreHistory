@@ -789,7 +789,7 @@ int __cdecl sub_463149()
   v0 = 1;
 
   LoadPlayerPortraintsAndVoices();
-  pLODFile_Icons_LOD->dword_011B84 = pLODFile_Icons_LOD->uNumLoadedFiles;
+  LODFile_Icons_LOD.dword_011B84 = LODFile_Icons_LOD.uNumLoadedFiles;
 
   AudioPlayer_SetVolume(pAudioPlayer, aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
 
@@ -1062,7 +1062,7 @@ LABEL_85:
       sub_491E3A();
       LoadPlayerPortraintsAndVoices();
       dword_6A0D48 = 0;
-      pLODFile_Icons_LOD->dword_011B84 = pLODFile_Icons_LOD->uNumLoadedFiles;
+      LODFile_Icons_LOD.dword_011B84 = LODFile_Icons_LOD.uNumLoadedFiles;
       v17 = 1;
       continue;
     }
@@ -3071,7 +3071,7 @@ int __cdecl sub_443801()
  if (p2DEventsTXT_Raw)
    mem_mng.DeleteBuffer( (void *)p2DEventsTXT_Raw);
 
-  p2DEventsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "2dEvents.txt", 0);
+  p2DEventsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "2dEvents.txt", 0);
   strtok((char *)p2DEventsTXT_Raw, "\r");
   strtok(0, "\r");
   v0 = (signed int)&unk_59146C;
@@ -3334,11 +3334,19 @@ int __cdecl sub_443801()
 //----- (004A90A0) --------------------------------------------------------
 void class06_sub_4A90A0(struct class06 *_this)
 {
- _this->dword_0005E4 = LODFile_LoadTexture_New(pLODFile_Bitmaps_LOD, L"effpar01");
- _this->dword_0005E8 = LODFile_LoadTexture_New(pLODFile_Bitmaps_LOD, L"effpar02");
- _this->dword_0005EC = LODFile_LoadTexture_New(pLODFile_Bitmaps_LOD, L"effpar03");
+#ifndef OLD_CODE
+	_this->dword_0005E4 = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( L"effpar01");
+ _this->dword_0005E8 = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( L"effpar02");
+ _this->dword_0005EC = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( L"effpar03");
+#endif
+#ifdef OLD_CODE
+	_this->dword_0005E4 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar01",0);
+ _this->dword_0005E8 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar02",0);
+ _this->dword_0005EC = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar03",0);
+#endif
+ 
 
- _this->dword_0005F0 = LODFile_LoadSprite(pLODFile_Sprites_LOD, "sp57c", 6);
+ _this->dword_0005F0 = LODFile_Sprites_LOD.LODFile_LoadSprite( "sp57c", 6);
 
  pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("zapp"));
  pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("spheal1"));
@@ -4134,125 +4142,7 @@ void *__fastcall sub_40DB27(int a1, __int16 a2, char a3)
   return (void *)Render_EndScene(pD3DRenderer);
 }
 
-//----- (00461FD4) --------------------------------------------------------
-int LODFile_sub_461FD4(struct LODFile *_this)
-{
-  int v1; // edx@1
-  int v2; // edi@1
-  int v3; // esi@1
-  int v4; // eax@2
-  int v5; // eax@2
-  int v6; // ecx@2
-  int v7; // ecx@5
-  int v8; // ebx@5
-  int v9; // eax@6
-  int v10; // edx@6
-  int v11; // edi@6
-  FILE *v12; // eax@9
-  FILE *v13; // ebx@9
-  signed int result; // eax@10
-  int v15; // eax@11
-  FILE *v16; // ST00_4@11
-  size_t v17; // edi@12
-  char Filename[256]; // [sp+Ch] [bp-228h]@9
-  char NewFilename[256]; // [sp+10Ch] [bp-128h]@15
 
-  //local struct
-  char Str[16 + 2*array_size_unknown]; // [sp+20Ch] [bp-28h]@11
-  int v21; // [sp+21Ch] [bp-18h]@11
-  int v22; // [sp+220h] [bp-14h]@11
-  int v23; // [sp+224h] [bp-10h]@11
-  __int16 v24; // [sp+228h] [bp-Ch]@11
-  __int16 v25; // [sp+22Ah] [bp-Ah]@11
-  int v26; // [sp+22Ch] [bp-8h]@5
-  int v27; // [sp+230h] [bp-4h]@1
-
-  v3 = (int)_this;
-  v2 = 0;
-  v1 = *(_DWORD *)(v3 + 556);
-  v27 = 0;
-  if ( v1 > 0 )
-  {
-    v5 = *(_DWORD *)(v3 + 560);
-    v6 = v1;
-    v4 = v5 + 20;
-    do
-    {
-      v2 += *(_DWORD *)v4;
-      v4 += 32;
-      --v6;
-    }
-    while ( v6 );
-    v27 = v2;
-  }
-  v8 = 0;
-  v26 = 32 * v1 + v2;
-  v7 = 32 * v1;
-  if ( v1 > 0 )
-  {
-    v11 = v3 + 560;
-    v10 = 0;
-    v9 = *(_DWORD *)(v3 + 560);
-    do
-    {
-      *(_DWORD *)(v10 + v9 + 16) = v7;
-      v9 = *(_DWORD *)v11;
-      v7 += *(_DWORD *)(v10 + *(_DWORD *)v11 + 20);
-      ++v8;
-      v10 += 32;
-    }
-    while ( v8 < *(_DWORD *)(v3 + 556) );
-    v2 = v27;
-  }
-  strcpy(Filename, "lod.tmp");
-  v12 = fopen(Filename, "wb+");
-  v13 = v12;
-  if ( v12 )
-  {
-    locked_fwrite((const void *)(v3 + 272), 0x100u, 1u, v12);
-    sub_46172B((int)Str);
-    strcpy(Str, "chapter");
-    v15 = *(_DWORD *)(v3 + 564);
-    v23 = 0;
-    v21 = v15;
-    v25 = 0;
-    v22 = v26;
-    v24 = *(_WORD *)(v3 + 556);
-    locked_fwrite(Str, 0x20u, 1u, v13);
-    locked_fwrite(*(const void **)(v3 + 560), 0x20u, *(_DWORD *)(v3 + 556), v13);
-    v16 = *(FILE **)(v3 + 568);
-    v27 = v2;
-    fseek(v16, 0, 0);
-    if ( v2 > 0 )
-    {
-      do
-      {
-        v17 = *(_DWORD *)(v3 + 268);
-        if ( v27 <= (signed int)v17 )
-          v17 = v27;
-        locked_fread(*(void **)(v3 + 264), 1u, v17, *(FILE **)(v3 + 568));
-        locked_fwrite(*(const void **)(v3 + 264), 1u, v17, v13);
-        v27 -= v17;
-      }
-      while ( v27 > 0 );
-    }
-    strcpy(NewFilename, (const char *)(v3 + 4));
-    fclose(v13);
-    fclose(*(FILE **)(v3 + 568));
-    LODFile_sub_461EE9((LODFile *)v3);
-    remove("lodapp.tmp");
-    remove(NewFilename);
-    rename(Filename, NewFilename);
-    LODFile_sub_461EE9((LODFile *)v3);
-    LODFile_LoadLOD_Games((LODFile *)v3, (const char *)(v3 + 4), 0);
-    result = 0;
-  }
-  else
-  {
-    result = 5;
-  }
-  return result;
-}
 
 //----- (0040DBD3) --------------------------------------------------------
 char __fastcall sub_40DBD3(int _this, __int16 a2)
@@ -4671,7 +4561,7 @@ signed int __fastcall sub_40DFFE(int a1, unsigned int a2)
   if ( *(_DWORD *)a2 == 1735422580 )
   {
     *(_DWORD *)a2 = 0x78787878;
-    call_delete((void *)a2);
+    free((void *)a2);
     result = 0;
   }
   else
@@ -5651,20 +5541,35 @@ char __cdecl LoadPlayerPortraintsAndVoices()
   signed int v3; // esi@5
   char result; // al@6
 
- wchar_t pFilename[256];
+ 
  int i, j;
 
- pLODFile_Icons_LOD->dword_011BA0 = pLODFile_Icons_LOD->uNumLoadedFiles;
-
- for (i = 0; i < 4; ++i)
+ LODFile_Icons_LOD.dword_011BA0 = LODFile_Icons_LOD.uNumLoadedFiles;
+ #ifndef OLD_CODE
+   wchar_t pFilename[256];
+	   for (i = 0; i < 4; ++i)
    for (j = 0; j < 56; ++j)
    {
     wsprintfW(pFilename, L"pc%02u-%02u", pParty_global->pPlayers[i].uFace + 1, j + 1);
-    uTextureIdx_PlayerFaces[i][j] = LODFile_LoadTexture_New(pLODFile_Icons_LOD, pFilename);
+    uTextureIdx_PlayerFaces[i][j] = LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilename);
    }
 
- uTextureIdx_PlayerFaceEradicated = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"Eradcate");
- uTextureIdx_PlayerFaceDead = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"DEAD");
+ uTextureIdx_PlayerFaceEradicated = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Eradcate");
+ uTextureIdx_PlayerFaceDead = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"DEAD");
+#endif
+#ifdef OLD_CODE	 
+ char pFilename[256];
+	 for (i = 0; i < 4; ++i)
+   for (j = 0; j < 56; ++j)
+   {
+    wsprintfA(pFilename, "pc%02u-%02u", pParty_global->pPlayers[i].uFace + 1, j + 1);
+    uTextureIdx_PlayerFaces[i][j] = LODFile_Icons_LOD.LODFile_LoadTexture( pFilename,0);
+   }
+
+ uTextureIdx_PlayerFaceEradicated = LODFile_Icons_LOD.LODFile_LoadTexture( "Eradcate",0);
+ uTextureIdx_PlayerFaceDead = LODFile_Icons_LOD.LODFile_LoadTexture( "DEAD",0);
+#endif
+ 
 
  for (i = 0; i < 4; ++i)
  {
@@ -5682,7 +5587,7 @@ char __cdecl LoadPlayerPortraintsAndVoices()
 signed int __thiscall sub_40F5F5(void *_this, const char *Str1)
 {
   void *v2; // esi@1
-  int v3; // eax@3
+  FILE *v3; // eax@3
   FILE *v4; // edi@3
   unsigned int v5; // ebx@7
   signed int result; // eax@11
@@ -5708,7 +5613,7 @@ signed int __thiscall sub_40F5F5(void *_this, const char *Str1)
   class18_ctor((class18 *)class18_obj);
   if ( !*((_DWORD *)v2 + 9) )
     return 2;
-  v3 = (int)LODFile_FindContainer(pLODFile_Icons_LOD, Str1, 0);
+  v3 = LODFile_Icons_LOD.Find_Container( Str1, 0);
   v4 = (FILE *)v3;
   File = (FILE *)v3;
   if ( !v3 )
@@ -5747,7 +5652,7 @@ signed int __thiscall sub_40F5F5(void *_this, const char *Str1)
     *((_DWORD *)v2 + 4) = v10;
     *((_WORD *)v2 + 11) = v10;
     v11 = RGBTexture_DecodePCX((RGBTexture *)v2, (unsigned char *)v5, (unsigned short *)v9, v8);
-    call_delete((void *)v5);
+    free((void *)v5);
     result = 0;
   }
   else
@@ -5760,7 +5665,7 @@ signed int __thiscall sub_40F5F5(void *_this, const char *Str1)
 //----- (0040F82D) --------------------------------------------------------
 void array_AD4674_FillZBuffer(int *pZBuffer, unsigned int uTextureID, unsigned int uZFill)
 {
-  array_40F89C_ActuallyFillZBuffer(pZBuffer, &pLODFile_Icons_LOD->aLODHeaders[uTextureID], uZFill);
+  array_40F89C_ActuallyFillZBuffer(pZBuffer, &LODFile_Icons_LOD.aLODHeaders[uTextureID], uZFill);
 }
 
 //----- (0040F845) --------------------------------------------------------
@@ -5841,7 +5746,7 @@ int __fastcall sub_40F92A(int a1, int a2, int a3)
   v9 = a1;
   v10 = *(_WORD *)(a2 + 24);
   v12 = *(_WORD *)(a2 + 26);
-  if ( pLODFile_Icons_LOD->dword_011BA4 && *(_DWORD *)(a2 + 40) )
+  if ( LODFile_Icons_LOD.dword_011BA4 && *(_DWORD *)(a2 + 40) )
     v4 = class18_UnzipPalette((class18 *)a2);
   else
     v4 = *(_DWORD *)(a2 + 48);
@@ -5861,7 +5766,7 @@ int __fastcall sub_40F92A(int a1, int a2, int a3)
     v6 += 4 * (640 - v10);
   }
   while ( v12-- != 1 );
-  if ( pLODFile_Icons_LOD->dword_011BA4 )
+  if ( LODFile_Icons_LOD.dword_011BA4 )
   {
     if ( *(_DWORD *)(v3 + 40) )
       /*result = */operator_delete((void *)v11);
@@ -5869,52 +5774,7 @@ int __fastcall sub_40F92A(int a1, int a2, int a3)
   return result;
 }
 
-//----- (0040F9C5) --------------------------------------------------------
-int __thiscall LODFile_sub_40F9C5(int _this)
-{
-  int result; // eax@1
-  int i; // edx@1
 
-  result = *(_DWORD *)(_this + 72572);
-  for ( i = _this + 72 * result + 572; !*(_BYTE *)i; i -= 72 )
-    --result;
-  if ( result < *(_DWORD *)(_this + 72572) )
-  {
-    ++result;
-    *(_DWORD *)(_this + 72572) = result;
-  }
-  return result;
-}
-
-//----- (0040F9F0) --------------------------------------------------------
-signed int __thiscall LODFile_sub_40F9F0(int _this, const char *Str2)
-{
-  signed int v2; // edi@1
-  int v3; // esi@1
-  const char *v4; // ebx@2
-  signed int result; // eax@5
-
-  v3 = _this;
-  v2 = 0;
-  if ( *(_DWORD *)(_this + 72572) <= 0 )
-  {
-LABEL_5:
-    result = -1;
-  }
-  else
-  {
-    v4 = (const char *)(_this + 572);
-    while ( _strcmpi(v4, Str2) )
-    {
-      ++v2;
-      v4 += 72;
-      if ( v2 >= *(_DWORD *)(v3 + 72572) )
-        goto LABEL_5;
-    }
-    result = v2;
-  }
-  return result;
-}
 
 //----- (004649EF) --------------------------------------------------------
 int __fastcall ReadWindowsRegistry(const char *pKeyName, int iDefaultValue)
@@ -5960,231 +5820,9 @@ int __fastcall ReadWindowsRegistry(const char *pKeyName, int iDefaultValue)
   return *(_DWORD *)&Data;
 }
 
-//----- (004101B1) --------------------------------------------------------
-signed int __thiscall LODFile_sub_4101B1(int _this, char *DstBuf, const char *Source, size_t Count)
-{
-  int v4; // eax@1
-  int v5; // edi@1
-  char *v6; // esi@2
-  size_t v7; // ecx@6
-  signed int v8; // ebx@6
-  signed int result; // eax@7
-  size_t *v10; // ebx@8
-  int v11; // eax@10
-  int v12; // eax@10
-  signed int v13; // ebx@12
-  size_t v14; // eax@13
-  int v15; // edx@13
-  FILE *v16; // [sp+Ch] [bp-8h]@1
-  unsigned __int8 v17; // [sp+11h] [bp-3h]@13
-  unsigned __int8 v18; // [sp+12h] [bp-2h]@13
-  unsigned __int8 v19; // [sp+13h] [bp-1h]@13
-  void *v20; // [sp+1Ch] [bp+8h]@10
-  void *v21; // [sp+20h] [bp+Ch]@10
-  size_t v22; // [sp+24h] [bp+10h]@6
 
-  v5 = _this;
-  v4 = (int)LODFile_FindContainer((LODFile *)_this, Source, 0);
-  v16 = (FILE *)v4;
-  if ( v4
-    && (v6 = DstBuf, *((_DWORD *)DstBuf + 12))
-    && Count == 2
-    && *((_DWORD *)DstBuf + 16)
-    && !*((_DWORD *)DstBuf + 17)
-    && (v8 = *((_DWORD *)DstBuf + 5),
-        locked_fread(DstBuf, 1u, 0x30u, (FILE *)v4),
-        strcpy(DstBuf, Source),
-        v7 = *((_DWORD *)DstBuf + 5),
-        v22 = *((_DWORD *)DstBuf + 5),
-        (signed int)v7 <= v8) )
-  {
-    v10 = (size_t *)(DstBuf + 40);
-    if ( !*((_DWORD *)DstBuf + 10) || *(_DWORD *)(v5 + 72612) )
-    {
-      locked_fread(*((void **)DstBuf + 12), 1u, v7, v16);
-    }
-    else
-    {
-      v21 = malloc(*((_DWORD *)DstBuf + 10));
-      v20 = malloc(*((_DWORD *)DstBuf + 5));
-      locked_fread(v20, 1u, v22, v16);
-      MemUnzip(v21, (unsigned int *)v6 + 10, v20, *((_DWORD *)v6 + 5));
-      v11 = *v10;
-      *((_DWORD *)v6 + 5) = *v10;
-      call_delete(v20);
-      v12 = (int)memcpy(*((void **)v6 + 12), v21, *v10);
-      call_delete(v21);
-    }
-    v13 = 0;
-    do
-    {
-      locked_fread(&v19, 1u, 1u, v16);
-      locked_fread(&v18, 1u, 1u, v16);
-      v14 = locked_fread(&v17, 1u, 1u, v16);
-      LOWORD(v14) = (unsigned __int8)(v19 >> (8 - *(_BYTE *)(v5 + 72588)));
-      *(_WORD *)(v13 + *((_DWORD *)v6 + 16)) = v14 << (*(_BYTE *)(v5 + 72596) + *(_BYTE *)(v5 + 72592));
-      LOWORD(v15) = (unsigned __int8)(v18 >> (8 - *(_BYTE *)(v5 + 72592)));
-      *(_WORD *)(v13 + *((_DWORD *)v6 + 16)) += v15 << *(_DWORD *)(v5 + 72596);
-      *(_WORD *)(v13 + *((_DWORD *)v6 + 16)) += (unsigned __int8)(v17 >> (8 - *(_BYTE *)(v5 + 72596)));
-      v13 += 2;
-    }
-    while ( v13 < 512 );
-    result = 1;
-  }
-  else
-  {
-    result = -1;
-  }
-  return result;
-}
 
-//----- (0041033D) --------------------------------------------------------
-void __thiscall sub_41033D(int _this)
-{
-  int i; // ebx@1
-  int v2; // edi@1
-  int v3; // eax@2
-  int v4; // eax@3
-  int v5; // esi@3
-  int v6; // eax@5
-  int v7; // eax@6
 
-  v2 = _this;
-  for ( i = *(_DWORD *)(_this + 72572) - 1; i >= 0; --i )
-  {
-    v3 = *(_DWORD *)(v2 + 72620);
-    if ( v3 )
-    {
-      v5 = 4 * i;
-      v4 = *(_DWORD *)(4 * i + v3);
-      if ( v4 )
-      {
-        if ( (*(int (__stdcall **)(int))(*(_DWORD *)v4 + 96))(v4) == -2005532222 )
-        {
-          v6 = *(_DWORD *)(v2 + 72624);
-          if ( v6 )
-          {
-            v7 = *(_DWORD *)(v6 + v5);
-            if ( v7 )
-            {
-              (*(void (__stdcall **)(int))(*(_DWORD *)v7 + 8))(v7);
-              *(_DWORD *)(v5 + *(_DWORD *)(v2 + 72624)) = 0;
-            }
-          }
-          (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(v5 + *(_DWORD *)(v2 + 72620)) + 8))(*(_DWORD *)(v5 + *(_DWORD *)(v2 + 72620)));
-          *(_DWORD *)(v5 + *(_DWORD *)(v2 + 72620)) = 0;
-          *(_BYTE *)(i + *(_DWORD *)(v2 + 72628)) = 1;
-        }
-      }
-    }
-  }
-}
-
-//----- (004103BB) --------------------------------------------------------
-void __thiscall sub_4103BB(int _this)
-{
-  int v1; // edi@1
-  int v2; // esi@1
-  int v3; // eax@2
-  int v4; // eax@3
-  int v5; // eax@5
-  int v6; // eax@6
-
-  v2 = _this;
-  v1 = *(_DWORD *)(_this + 72572);
-  while ( 1 )
-  {
-    --v1;
-    if ( v1 < 0 )
-      break;
-    v3 = *(_DWORD *)(v2 + 72624);
-    if ( v3 )
-    {
-      v4 = *(_DWORD *)(v3 + 4 * v1);
-      if ( v4 )
-      {
-        (*(void (__stdcall **)(int))(*(_DWORD *)v4 + 8))(v4);
-        *(_DWORD *)(*(_DWORD *)(v2 + 72624) + 4 * v1) = 0;
-        *(_BYTE *)(v1 + *(_DWORD *)(v2 + 72628)) = 1;
-      }
-    }
-    v5 = *(_DWORD *)(v2 + 72620);
-    if ( v5 )
-    {
-      v6 = *(_DWORD *)(v5 + 4 * v1);
-      if ( v6 )
-      {
-        (*(void (__stdcall **)(int))(*(_DWORD *)v6 + 8))(v6);
-        *(_DWORD *)(*(_DWORD *)(v2 + 72620) + 4 * v1) = 0;
-        *(_BYTE *)(v1 + *(_DWORD *)(v2 + 72628)) = 1;
-      }
-    }
-  }
-}
-
-//----- (00410423) --------------------------------------------------------
-void *__thiscall sub_410423(int _this)
-{
-  int v1; // edi@1
-  int v2; // esi@1
-  int v3; // ebx@2
-  size_t v4; // eax@9
-  unsigned int v5; // ST1C_4@9
-  int v6; // eax@9
-  void *result; // eax@12
-  signed int v8; // esi@13
-
-  v2 = _this;
-  v1 = *(_DWORD *)(_this + 72572) - 1;
-  if ( v1 >= 0 )
-  {
-    v3 = _this + 72 * v1 + 574;
-    do
-    {
-      if ( *(_BYTE *)(v1 + *(_DWORD *)(v2 + 72628)) )
-      {
-        if ( *(_BYTE *)(v3 - 2) != 119
-          || *(_BYTE *)(v3 - 1) != 116
-          || *(_BYTE *)v3 != 114
-          || *(_BYTE *)(v3 + 1) != 100
-          || *(_BYTE *)(v3 + 2) != 114 )
-        {
-          Render_sub_4A4DE1(
-            (int)pD3DRenderer,
-            v3 - 2,
-            *(_WORD *)(v3 + 34),
-            4 * v1 + *(_DWORD *)(v2 + 72620),
-            4 * v1 + *(_DWORD *)(v2 + 72624));
-        }
-        else
-        {
-          v4 = strlen((const char *)(v3 - 2));
-          compile_error;//v5 = (unsigned int)(new char[v4 + 2]);
-          *(_BYTE *)v5 = 104;
-          strcpy((char *)(v5 + 1), (const char *)(v3 - 2));
-          v6 = Render_sub_4A4DE1(
-                 (int)pD3DRenderer,
-                 v5,
-                 *(_WORD *)(v3 + 34),
-                 4 * v1 + *(_DWORD *)(v2 + 72620),
-                 4 * v1 + *(_DWORD *)(v2 + 72624));
-          operator_delete((void *)v5);
-        }
-      }
-      --v1;
-      v3 -= 72;
-    }
-    while ( v1 >= 0 );
-  }
-  result = *(void **)(v2 + 72628);
-  if ( result )
-  {
-    v8 = *(_DWORD *)(v2 + 72572);
-    if ( v8 > 1 )
-      result = memset(result, 0, v8 - 1);
-  }
-  return result;
-}
 
 //----- (0044D1E7) --------------------------------------------------------
 void __fastcall sub_44D1E7(unsigned char *pFontData, int a2, int a3, int a4, const char *pString, int a6)
@@ -6288,217 +5926,7 @@ int Initialize_GlobalEVT()
  return uGlobalEVT_Size;
 }
 
-//----- (00410522) --------------------------------------------------------
-signed int __thiscall LODFile_sub_410522(int _this, void *DstBuf, const char *Source, int a4)
-{
-  int v4; // edi@1
-  unsigned int v5; // eax@5
-  int v6; // ebx@5
-  char *v7; // esi@5
-  unsigned int v8; // ST28_4@6
-  int v9; // eax@6
-  unsigned int v10; // ST2C_4@6
-  void *v11; // eax@7
-  FILE *v12; // ST28_4@7
-  void *v13; // eax@9
-  FILE *v14; // ST28_4@9
-  int v15; // eax@12
-  signed int v16; // eax@12
-  int v17; // ecx@12
-  int v18; // ecx@12
-  signed int v19; // ebx@14
-  size_t v20; // eax@15
-  int v21; // edx@15
-  signed int v22; // ecx@18
-  signed int v23; // ecx@23
-  char Args[100]; // [sp+4h] [bp-68h]@3
-  FILE *File; // [sp+68h] [bp-4h]@1
-  int v27; // [sp+74h] [bp+8h]@5
-  size_t v28; // [sp+74h] [bp+8h]@6
-  size_t v29; // [sp+74h] [bp+8h]@7
 
-  v4 = _this;
-  File = (FILE *)LODFile_FindContainer((LODFile *)_this, Source, 0);
-  if ( !File )
-  {
-    File = (FILE *)LODFile_FindContainer((LODFile *)v4, "pending", 0);
-    if ( !File )
-    {
-      wsprintfA(Args, "Can't find %s!", Source);
-      erroneous_printf(Args);
-    }
-  }
-  v7 = (char *)DstBuf;
-  locked_fread(DstBuf, 1u, 0x30u, File);
-  strcpy(v7, Source);
-  v6 = (int)(v7 + 40);
-  v27 = *((_DWORD *)v7 + 5);
-  v5 = *((_DWORD *)v7 + 10);
-  *((_DWORD *)v7 + 12) = 0;
-  if ( v5 )
-  {
-    v8 = *((_DWORD *)v7 + 5);
-    compile_error;//*((_DWORD *)v7 + 12) = new char[v5];
-    compile_error;//Source = (const char *)new char[v8];
-    locked_fread((void *)Source, 1u, v28, File);
-    MemUnzip(*((_DWORD **)v7 + 12), (unsigned int *)v7 + 10, Source, *((_DWORD *)v7 + 5));
-    v9 = *(_DWORD *)v6;
-    v10 = (unsigned int)Source;
-    *((_DWORD *)v7 + 5) = *(_DWORD *)v6;
-    operator_delete((void *)v10);
-  }
-  else
-  {
-    compile_error;//v11 = new char[0];
-    v12 = File;
-    *((_DWORD *)v7 + 12) = (int)v11;
-    locked_fread(v11, 1u, v29, v12);
-  }
-  *((_DWORD *)v7 + 17) = 0;
-  if ( a4 == 1 )
-  {
-    compile_error;//v13 = new char[0x300u];
-    v14 = File;
-    *((_DWORD *)v7 + 17) = (int)v13;
-    locked_fread(v13, 1u, 0x300u, v14);
-  }
-  else
-  {
-    if ( a4 == 2 )
-    {
-      v19 = 0;
-      *((_DWORD *)v7 + 16) = 0;
-      compile_error;//*((_DWORD *)v7 + 16) = operator new(0x400u);
-      do
-      {
-        locked_fread((char *)&Source + 3, 1u, 1u, File);
-        locked_fread((char *)&a4 + 3, 1u, 1u, File);
-        v20 = locked_fread((char *)&DstBuf + 3, 1u, 1u, File);
-        LOWORD(v20) = (unsigned __int8)(BYTE3(Source) >> (8 - *(_BYTE *)(v4 + 72588)));
-        *(_WORD *)(v19 + *((_DWORD *)v7 + 16)) = v20 << (*(_BYTE *)(v4 + 72596) + *(_BYTE *)(v4 + 72592));
-        LOWORD(v21) = (unsigned __int8)(BYTE3(a4) >> (8 - *(_BYTE *)(v4 + 72592)));
-        *(_WORD *)(v19 + *((_DWORD *)v7 + 16)) += v21 << *(_DWORD *)(v4 + 72596);
-        *(_WORD *)(v19 + *((_DWORD *)v7 + 16)) += (unsigned __int8)(BYTE3(DstBuf) >> (8 - *(_BYTE *)(v4 + 72596)));
-        v19 += 2;
-      }
-      while ( v19 < 512 );
-      goto LABEL_11;
-    }
-  }
-  *((_DWORD *)v7 + 16) = 0;
-LABEL_11:
-  if ( v7[44] & 2 )
-  {
-    v16 = *((_DWORD *)v7 + 4);
-    v17 = v16 + *((_DWORD *)v7 + 12);
-    *((_DWORD *)v7 + 13) = v17;
-    v18 = (v16 >> 2) + v17;
-    *((_DWORD *)v7 + 14) = v18;
-    v15 = v18 + (v16 >> 4);
-  }
-  else
-  {
-    v15 = 0;
-    *((_DWORD *)v7 + 14) = 0;
-    *((_DWORD *)v7 + 13) = 0;
-  }
-  *((_DWORD *)v7 + 15) = v15;
-  v22 = 1;
-  while ( 1 << v22 != *((_WORD *)v7 + 12) )
-  {
-    ++v22;
-    if ( v22 >= 15 )
-      goto LABEL_23;
-  }
-  *((_WORD *)v7 + 14) = v22;
-LABEL_23:
-  v23 = 1;
-  while ( 1 << v23 != *((_WORD *)v7 + 13) )
-  {
-    ++v23;
-    if ( v23 >= 15 )
-      goto LABEL_28;
-  }
-  *((_WORD *)v7 + 15) = v23;
-LABEL_28:
-  switch ( *((_WORD *)v7 + 14) )
-  {
-    case 2:
-      *((_WORD *)v7 + 16) = 3;
-      break;
-    case 3:
-      *((_WORD *)v7 + 16) = 7;
-      break;
-    case 4:
-      *((_WORD *)v7 + 16) = 15;
-      break;
-    case 5:
-      *((_WORD *)v7 + 16) = 31;
-      break;
-    case 6:
-      *((_WORD *)v7 + 16) = 63;
-      break;
-    case 7:
-      *((_WORD *)v7 + 16) = 127;
-      break;
-    case 8:
-      *((_WORD *)v7 + 16) = 255;
-      break;
-    case 9:
-      *((_WORD *)v7 + 16) = 511;
-      break;
-    case 10:
-      *((_WORD *)v7 + 16) = 1023;
-      break;
-    case 11:
-      *((_WORD *)v7 + 16) = 2047;
-      break;
-    case 12:
-      *((_WORD *)v7 + 16) = 4095;
-      break;
-    default:
-      break;
-  }
-  switch ( *((_WORD *)v7 + 15) )
-  {
-    case 2:
-      *((_WORD *)v7 + 17) = 3;
-      break;
-    case 3:
-      *((_WORD *)v7 + 17) = 7;
-      break;
-    case 4:
-      *((_WORD *)v7 + 17) = 15;
-      break;
-    case 5:
-      *((_WORD *)v7 + 17) = 31;
-      break;
-    case 6:
-      *((_WORD *)v7 + 17) = 63;
-      break;
-    case 7:
-      *((_WORD *)v7 + 17) = 127;
-      break;
-    case 8:
-      *((_WORD *)v7 + 17) = 255;
-      break;
-    case 9:
-      *((_WORD *)v7 + 17) = 511;
-      break;
-    case 10:
-      *((_WORD *)v7 + 17) = 1023;
-      break;
-    case 11:
-      *((_WORD *)v7 + 17) = 2047;
-      break;
-    case 12:
-      *((_WORD *)v7 + 17) = 4095;
-      break;
-    default:
-      return 1;
-  }
-  return 1;
-}
 
 //----- (00410B28) --------------------------------------------------------
 char *__thiscall sub_410B28(void *_this)
@@ -6955,10 +6383,10 @@ int __fastcall sub_411300(int a1)
     {
       v6 = &byte_4E2430[12 * v3] + v4;
       wsprintfA(Str1, "SB%sS%02d", (&off_4E1D18)[2 * v3], (unsigned __int8)*v6);
-      v7 = LODFile_LoadTexture(pLODFile_Icons_LOD, Str1, 2);
+      v7 = LODFile_Icons_LOD.LODFile_LoadTexture( Str1, 2);
       dword_506408[v12] = 72 * v7 + 7145548;
       wsprintfA(Str1, "SB%sC%02d", (&off_4E1D18)[2 * v3], (unsigned __int8)*v6);
-      result = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, Str1, 2) + 7145548;
+      result = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( Str1, 2) + 7145548;
       dword_5063D8[v12] = result;
     }
     v4 = v12 + 1;
@@ -6985,7 +6413,7 @@ int __cdecl sub_41140B()
     v0 -= 4;
   }
   while ( v0 >= -44 );
-  LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+  LODFile_Icons_LOD.LODFile_sub_40F9C5();
   v1 = *(_DWORD *)(pGUIWindow_CurrentMenu + 76);
   if ( v1 )
   {
@@ -7032,7 +6460,7 @@ int __cdecl sub_411473()
   }
   while ( (signed int)v0 < (signed int)&dword_5064C4 );
   AudioPlayer_sub_4AA306(pAudioPlayer, 231, 0, 0, -1, 0, 0, 0, 0);
-  return LODFile_sub_4114F2(pLODFile_Icons_LOD);
+  return LODFile_Icons_LOD.LODFile_sub_4114F2();
 }
 
 //----- (00411597) --------------------------------------------------------
@@ -7051,7 +6479,7 @@ int __cdecl sub_411597()
 
   class18_sub_40F77C((class18 *)dword_506498);
   AudioPlayer_sub_4AA306(pAudioPlayer, 231, 0, 0, -1, 0, 0, 0, 0);
-  result = LODFile_sub_4114F2(pLODFile_Icons_LOD);
+  result = LODFile_Icons_LOD.LODFile_sub_4114F2();
   dword_506364 = 0;
   return result;
 }
@@ -7144,25 +6572,25 @@ int __cdecl sub_41192C()
   int result; // eax@4
 
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-  ++pLODFile_Icons_LOD->dword_011B9C;
-  if ( !pLODFile_Icons_LOD->dword_011B98 )
-    pLODFile_Icons_LOD->dword_011B98 = pLODFile_Icons_LOD->uNumLoadedFiles;
+  ++LODFile_Icons_LOD.dword_011B9C;
+  if ( !LODFile_Icons_LOD.dword_011B98 )
+    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   AudioPlayer_sub_4AA306(pAudioPlayer, 230, 0, 0, -1, 0, 0, 0, 0);
-  dword_5064C4 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "book", 2) + 7145548;
-  dword_50649C[0] = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "pagemask", 2) + 7145548;
-  dword_506448 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "ib-m5-u", 2) + 7145548;
-  dword_506440 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "ib-m5-d", 2) + 7145548;
-  dword_50643C = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "ib-m6-u", 2) + 7145548;
+  dword_5064C4 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "book", 2) + 7145548;
+  dword_50649C[0] = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "pagemask", 2) + 7145548;
+  dword_506448 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "ib-m5-u", 2) + 7145548;
+  dword_506440 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "ib-m5-d", 2) + 7145548;
+  dword_50643C = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "ib-m6-u", 2) + 7145548;
   v1 = 1;
   v0 = (signed int)dword_506454;
-  dword_506444 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "ib-m6-d", 2) + 7145548;
+  dword_506444 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "ib-m6-d", 2) + 7145548;
   do
   {
-    dword_50649C[v1] = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, (&dword_4E24E8)[4 * v1], 2) + 7145548;
+    dword_50649C[v1] = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( (&dword_4E24E8)[4 * v1], 2) + 7145548;
     wsprintfA((char *)TmpBuf, "tab%da", v1);
-    *(_DWORD *)(v0 - 4) = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)TmpBuf, 2) + 7145548;
+    *(_DWORD *)(v0 - 4) = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( (char *)TmpBuf, 2) + 7145548;
     wsprintfA((char *)TmpBuf, "tab%db", v1++);
-    result = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)TmpBuf, 2) + 7145548;
+    result = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( (char *)TmpBuf, 2) + 7145548;
     *(_DWORD *)v0 = result;
     v0 += 8;
   }
@@ -7176,11 +6604,11 @@ int __cdecl sub_411AAA()
   int result; // eax@3
 
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-  ++pLODFile_Icons_LOD->dword_011B9C;
-  if ( !pLODFile_Icons_LOD->dword_011B98 )
-    pLODFile_Icons_LOD->dword_011B98 = pLODFile_Icons_LOD->uNumLoadedFiles;
+  ++LODFile_Icons_LOD.dword_011B9C;
+  if ( !LODFile_Icons_LOD.dword_011B98 )
+    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   AudioPlayer_sub_4AA306(pAudioPlayer, 230, 0, 0, -1, 0, 0, 0, 0);
-  dword_506498 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "mapbordr", 2) + 7145548;
+  dword_506498 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "mapbordr", 2) + 7145548;
 
   ptr_5C35F4 = LoadFont("book.fnt", "FONTPAL");
   ptr_5C35F0 = LoadFont("book2.fnt", "FONTPAL");
@@ -7196,7 +6624,7 @@ int __fastcall sub_411B59(int a1, int a2)
   FILE *v2; // ebx@1
   int v3; // edi@1
   int v4; // esi@1
-  int v5; // eax@2
+  FILE *v5; // eax@2
   int result; // eax@3
   char Str1[64]; // [sp+Ch] [bp-44h]@1
   int v8; // [sp+4Ch] [bp-4h]@1
@@ -7214,10 +6642,10 @@ int __fastcall sub_411B59(int a1, int a2)
   else
   {
     wsprintfA(Str1, "lloyd%d%d.pcx", v8, v3);
-    v5 = (int)LODFile_FindContainer(pLODFile_New_LOD, Str1, 1);
+    v5 = LODFile_New_LOD.Find_Container( Str1, 1);
     if ( v5 )
     {
-      result = sub_40EAD8((void *)(40 * v4 + 6947096), (FILE *)v5, 0, 0);
+      result = sub_40EAD8((void *)(40 * v4 + 6947096), v5, 0, 0);
     }
     else
     {
@@ -7275,11 +6703,11 @@ int __thiscall GUIWindow_sub_411BFC(void *_this)
   if ( *(_DWORD *)(v1 + 28) == 177 )
   {
     byte_506360 = 0;
-    uTextureID_lb_bordr__townport__sbquicknot = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"lb_bordr");
-    dword_506358[0] = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "sbmap", 2) + 7145548;
-    dword_50635C = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "sbmap", 2) + 7145548;
-    dword_5063A4 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-6b", 2) + 7145548;
-    dword_50639C = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-6a", 2) + 7145548;
+    dword_5064DC = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "lb_bordr", 2) + 7145548;
+    dword_506358[0] = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "sbmap", 2) + 7145548;
+    dword_50635C = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "sbmap", 2) + 7145548;
+    dword_5063A4 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-6b", 2) + 7145548;
+    dword_50639C = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-6a", 2) + 7145548;
     dword_506518 = (int)GUIButtonCreate((GUIWindow *)v1, 415, 13, 39, 36, 1, 0, 178, 0, 0, (char *)pGlobalTXT_LocalizationStrings[375], 0);
     dword_506514 = (int)GUIButtonCreate((GUIWindow *)v1, 415, 48, 39, 36, 1, 0, 178, 1, 0, (char *)pGlobalTXT_LocalizationStrings[523], 0);
     v17 = (int *)&pParty_global->pPlayers[1743 * dword_506348];
@@ -7314,14 +6742,14 @@ int __thiscall GUIWindow_sub_411BFC(void *_this)
   {
     if ( *(_DWORD *)(v1 + 28) == 195 )
     {
-      uTextureID_lb_bordr__townport__sbquicknot = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"townport");
-      dword_5063A8[0] = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tpharmndy", 2) + 7145548;
-      dword_5063AC = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tpelf", 2) + 7145548;
-      dword_5063B0 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tpwarlock", 2) + 7145548;
-      dword_5063B4 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tpisland", 2) + 7145548;
-      dword_5063B8 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tpheaven", 2) + 7145548;
+      dword_5064DC = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "townport", 2) + 7145548;
+      dword_5063A8[0] = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tpharmndy", 2) + 7145548;
+      dword_5063AC = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tpelf", 2) + 7145548;
+      dword_5063B0 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tpwarlock", 2) + 7145548;
+      dword_5063B4 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tpisland", 2) + 7145548;
+      dword_5063B8 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tpheaven", 2) + 7145548;
       v15 = 0;
-      dword_5063BC = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tphell", 2) + 7145548;
+      dword_5063BC = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tphell", 2) + 7145548;
       do
       {
         result = (int)GUIButtonCreate(
@@ -7345,12 +6773,12 @@ int __thiscall GUIWindow_sub_411BFC(void *_this)
     {
       if ( *(_DWORD *)(v1 + 28) == 200 )
       {
-        uTextureID_lb_bordr__townport__sbquicknot = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"sbquiknot");
-        dword_5064C8 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "divbar", 2) + 7145548;
-        dword_5063A4 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-6b", 2) + 7145548;
-        dword_5063A0 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-7b", 2) + 7145548;
-        dword_50639C = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-6a", 2) + 7145548;
-        dword_506398 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-7a", 2) + 7145548;
+        dword_5064DC = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "sbquiknot", 2) + 7145548;
+        dword_5064C8 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "divbar", 2) + 7145548;
+        dword_5063A4 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-6b", 2) + 7145548;
+        dword_5063A0 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-7b", 2) + 7145548;
+        dword_50639C = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-6a", 2) + 7145548;
+        dword_506398 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-7a", 2) + 7145548;
         dword_506518 = (int)GUIButtonCreate(
                          (GUIWindow *)v1,
                          pOldViewport->uGameX + 398,
@@ -7396,24 +6824,24 @@ int __thiscall GUIWindow_sub_411BFC(void *_this)
       {
         if ( *(_DWORD *)(v1 + 28) == 201 )
         {
-          dword_5064D8 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "sbautnot", 2) + 7145548;
-          dword_5064C8 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "divbar", 2) + 7145548;
-          dword_5063A4 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-6b", 2) + 7145548;
-          dword_5063A0 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-7b", 2) + 7145548;
-          dword_50639C = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-6a", 2) + 7145548;
-          dword_506398 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-7a", 2) + 7145548;
-          dword_506394 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-1b", 2) + 7145548;
-          dword_506390 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-1a", 2) + 7145548;
-          dword_50638C = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-2b", 2) + 7145548;
-          dword_506388 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-2a", 2) + 7145548;
-          dword_506384 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-3b", 2) + 7145548;
-          dword_506380 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-3a", 2) + 7145548;
-          dword_50637C = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-5b", 2) + 7145548;
-          dword_506378 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-5a", 2) + 7145548;
-          dword_506374 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-4b", 2) + 7145548;
-          dword_506370 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-4a", 2) + 7145548;
-          dword_50636C = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-8b", 2) + 7145548;
-          dword_506368 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-8a", 2) + 7145548;
+          dword_5064D8 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "sbautnot", 2) + 7145548;
+          dword_5064C8 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "divbar", 2) + 7145548;
+          dword_5063A4 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-6b", 2) + 7145548;
+          dword_5063A0 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-7b", 2) + 7145548;
+          dword_50639C = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-6a", 2) + 7145548;
+          dword_506398 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-7a", 2) + 7145548;
+          dword_506394 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-1b", 2) + 7145548;
+          dword_506390 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-1a", 2) + 7145548;
+          dword_50638C = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-2b", 2) + 7145548;
+          dword_506388 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-2a", 2) + 7145548;
+          dword_506384 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-3b", 2) + 7145548;
+          dword_506380 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-3a", 2) + 7145548;
+          dword_50637C = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-5b", 2) + 7145548;
+          dword_506378 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-5a", 2) + 7145548;
+          dword_506374 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-4b", 2) + 7145548;
+          dword_506370 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-4a", 2) + 7145548;
+          dword_50636C = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-8b", 2) + 7145548;
+          dword_506368 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-8a", 2) + 7145548;
           dword_506518 = (int)GUIButtonCreate(
                            (GUIWindow *)v1,
                            pOldViewport->uGameX + 398,
@@ -7545,19 +6973,19 @@ int __thiscall GUIWindow_sub_411BFC(void *_this)
           if ( *(_DWORD *)(v1 + 28) == 202 )
           {
             dword_506364 = 1;
-            dword_5064D0 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "sbmap", 2) + 7145548;
-            dword_5063A4 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "zoom-on", 2) + 7145548;
-            dword_5063A0 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "zoot-on", 2) + 7145548;
-            dword_50639C = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "zoom-off", 2) + 7145548;
-            dword_506398 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "zoot-off", 2) + 7145548;
-            dword_506394 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tabNon", 2) + 7145548;
-            dword_506390 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tabNoff", 2) + 7145548;
-            dword_50638C = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tabSon", 2) + 7145548;
-            dword_506388 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tabSoff", 2) + 7145548;
-            dword_506384 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tabEon", 2) + 7145548;
-            dword_506380 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tabEoff", 2) + 7145548;
-            dword_50637C = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tabWon", 2) + 7145548;
-            dword_506378 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tabWoff", 2) + 7145548;
+            dword_5064D0 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "sbmap", 2) + 7145548;
+            dword_5063A4 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "zoom-on", 2) + 7145548;
+            dword_5063A0 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "zoot-on", 2) + 7145548;
+            dword_50639C = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "zoom-off", 2) + 7145548;
+            dword_506398 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "zoot-off", 2) + 7145548;
+            dword_506394 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tabNon", 2) + 7145548;
+            dword_506390 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tabNoff", 2) + 7145548;
+            dword_50638C = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tabSon", 2) + 7145548;
+            dword_506388 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tabSoff", 2) + 7145548;
+            dword_506384 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tabEon", 2) + 7145548;
+            dword_506380 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tabEoff", 2) + 7145548;
+            dword_50637C = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tabWon", 2) + 7145548;
+            dword_506378 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tabWoff", 2) + 7145548;
             dword_506518 = (int)GUIButtonCreate(
                              (GUIWindow *)v1,
                              pOldViewport->uGameX + 398,
@@ -7641,23 +7069,23 @@ int __thiscall GUIWindow_sub_411BFC(void *_this)
           }
           if ( *(_DWORD *)(v1 + 28) == 203 )
           {
-            dword_5064D4 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "sbdate-time", 2) + 7145548;
-            dword_5064E0 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "moon_new", 2) + 7145548;
-            dword_5064E4 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "moon_4", 2) + 7145548;
-            dword_5064E8 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "moon_2", 2) + 7145548;
-            dword_5064EC = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "moon_2", 2) + 7145548;
-            result = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "moon_ful", 2) + 7145548;
+            dword_5064D4 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "sbdate-time", 2) + 7145548;
+            dword_5064E0 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "moon_new", 2) + 7145548;
+            dword_5064E4 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "moon_4", 2) + 7145548;
+            dword_5064E8 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "moon_2", 2) + 7145548;
+            dword_5064EC = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "moon_2", 2) + 7145548;
+            result = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "moon_ful", 2) + 7145548;
             dword_5064F0 = result;
             return result;
           }
           result = *(_DWORD *)(v1 + 28) - 224;
           if ( *(_DWORD *)(v1 + 28) != 224 )
             return result;
-          dword_5064CC = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "sbplayrnot", 2) + 7145548;
-          dword_5063A4 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-6b", 2) + 7145548;
-          dword_5063A0 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-7b", 2) + 7145548;
-          dword_50639C = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-6a", 2) + 7145548;
-          dword_506398 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, "tab-an-7a", 2) + 7145548;
+          dword_5064CC = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "sbplayrnot", 2) + 7145548;
+          dword_5063A4 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-6b", 2) + 7145548;
+          dword_5063A0 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-7b", 2) + 7145548;
+          dword_50639C = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-6a", 2) + 7145548;
+          dword_506398 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-7a", 2) + 7145548;
           dword_506518 = (int)GUIButtonCreate(
                            (GUIWindow *)v1,
                            pOldViewport->uGameX + 398,
@@ -7788,7 +7216,7 @@ void __cdecl sub_412B58()
   sub_412AF9();
   v0 = (int)pPlayers[uActiveCharacter - 1];
   v1 = 11 * *(_BYTE *)(v0 + 6734);
-  v4 = LODFile_sub_40F9F0((int)pLODFile_Icons_LOD, "Pending");
+  v4 = LODFile_Icons_LOD.LODFile_sub_40F9F0( "Pending");
   v2 = v4 != -1 ? 72 * v4 + 7145548 : 0;
   Render_ClearZBuffer(pD3DRenderer, 0, 479);
   v3 = 1;
@@ -9189,7 +8617,7 @@ int __fastcall sub_4A97C6(char *a1, int a2, _DWORD a3)
     v26 = malloc(*(_DWORD *)(v8 + 44));
     ReadFile(pAudioPlayer->hSoundsSource, v26, *(_DWORD *)(v8 + 44), &NumberOfBytesRead, 0);
     MemUnzip((char *)v5 + 4, (unsigned int *)(v8 + 48), v26, *(_DWORD *)(v8 + 44));
-    call_delete(v26);
+    free(v26);
   }
   if ( v5 )
   {
@@ -9292,7 +8720,7 @@ int __fastcall SaveGame(int a1, int a2)
   int v6; // eax@6
   int v7; // eax@6
   int v8; // edi@8
-  void *v9; // eax@24
+  int v9; // eax@24
   FILE *v10; // edi@24
   unsigned int v11; // edi@30
   void *v12; // esi@31
@@ -9319,7 +8747,7 @@ int __fastcall SaveGame(int a1, int a2)
   void *v33; // esi@50
   int v34; // esi@51
   int v35; // eax@51
-  void *v36; // eax@54
+  int  v36; // eax@54
   DWORD v37; // eax@59
   char v38; // [sp-18h] [bp-288h]@8
   int v39; // [sp-14h] [bp-284h]@8
@@ -9352,7 +8780,7 @@ int __fastcall SaveGame(int a1, int a2)
   int v66; // [sp+228h] [bp-48h]@2
 
   //local struct
-  char Str2[20 + array_size_unknown]; // [sp+22Ch] [bp-44h]@2
+  LODIndex St2; // [sp+22Ch] [bp-44h]@2
   int ElementSize; // [sp+240h] [bp-30h]@5
   int v69; // [sp+24Ch] [bp-24h]@1
   size_t Size; // [sp+250h] [bp-20h]@26
@@ -9371,7 +8799,7 @@ int __fastcall SaveGame(int a1, int a2)
   if ( result )
   {
     DstBuf = malloc(0xF4240);//DstBuf = operator new(0xF4240u);
-    sub_461743((int)Str2);
+    Reset_LODIndex(&St2);
     v56 = pParty_global->sPartyPosX;
     v55 = pParty_global->sPartyPosY;
     v66 = pParty_global->sPartyPosZ;
@@ -9410,7 +8838,7 @@ int __fastcall SaveGame(int a1, int a2)
       FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, v7 + 25, 299, v40, 0, 0, 0);
       Render_Present(pD3DRenderer);
     }
-    if ( LODFile_sub_461B48(pLODFile_New_LOD, Str2, DstBuf, 0) )
+    if ( LODFile_New_LOD._sub_461B48( Str2, DstBuf, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 200);
       v76 = (unsigned int)&v38;
@@ -9420,9 +8848,9 @@ int __fastcall SaveGame(int a1, int a2)
 
     strcpy(v48, Str1);
     v49 = pParty_global->qword_00002C;
-    strcpy(Str2, "header.bin");
+    strcpy(&St2.pFilename[0], "header.bin");
     ElementSize = 100;
-    if ( LODFile_sub_461B48(pLODFile_New_LOD, "header.bin", &v47, 0) )
+    if (LODFile_New_LOD._sub_461B48( "header.bin", &v47, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 201);
       v76 = (unsigned int)&v38;
@@ -9430,9 +8858,9 @@ int __fastcall SaveGame(int a1, int a2)
       sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
 
-    strcpy(Str2, "party.bin");
+    strcpy(&St2.pFilename[0], "party.bin");
     ElementSize = 90680;
-    if ( LODFile_sub_461B48(pLODFile_New_LOD, "party.bin", pParty_global, 0) )
+    if (LODFile_New_LOD._sub_461B48( "party.bin", pParty_global, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 202);
       v76 = (unsigned int)&v38;
@@ -9440,9 +8868,9 @@ int __fastcall SaveGame(int a1, int a2)
       sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
 
-    strcpy(Str2, "clock.bin");
+    strcpy(&St2.pFilename[0], "clock.bin");
     ElementSize = 40;
-    if ( LODFile_sub_461B48(pLODFile_New_LOD, "clock.bin", pClass24_global, 0) )
+    if (LODFile_New_LOD._sub_461B48( "clock.bin", pClass24_global, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 203);
       v76 = (unsigned int)&v38;
@@ -9450,9 +8878,9 @@ int __fastcall SaveGame(int a1, int a2)
       sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
 
-    strcpy(Str2, "overlay.bin");
+    strcpy(&St2.pFilename[0], "overlay.bin");
     ElementSize = 1008;
-    if ( LODFile_sub_461B48(pLODFile_New_LOD, "overlay.bin", array_5E4D58, 0) )
+    if (LODFile_New_LOD._sub_461B48( "overlay.bin", array_5E4D58, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 204);
       v76 = (unsigned int)&v38;
@@ -9460,9 +8888,9 @@ int __fastcall SaveGame(int a1, int a2)
       sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
 
-    strcpy(Str2, "npcdata.bin");
+    strcpy(&St2.pFilename[0], "npcdata.bin");
     ElementSize = 38076;
-    if ( LODFile_sub_461B48(pLODFile_New_LOD, "npcdata.bin", pNPCStats->pNPCData2, 0) )
+    if (LODFile_New_LOD._sub_461B48("npcdata.bin", pNPCStats->pNPCData2, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[165], 205);
       v76 = (unsigned int)&v38;
@@ -9470,9 +8898,9 @@ int __fastcall SaveGame(int a1, int a2)
       sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
 
-    strcpy(Str2, "npcgroup.bin");
+    strcpy(&St2.pFilename[0], "npcgroup.bin");
     ElementSize = 102;
-    if ( LODFile_sub_461B48(pLODFile_New_LOD, "npcgroup.bin", pNPCStats->word_017F5A, 0) )
+    if (LODFile_New_LOD._sub_461B48( "npcgroup.bin", pNPCStats->word_017F5A, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[165], 206);
       v76 = (unsigned int)&v38;
@@ -9488,9 +8916,9 @@ int __fastcall SaveGame(int a1, int a2)
       {
         v42 = v75;
         wsprintfA(Str, "data\\lloyd%d%d.pcx", v75, v74);
-        v9 = fopen(Str, "rb");
-        v10 = (FILE *)v9;
-        if ( v9 )
+        v10 = fopen(Str, "rb");
+        //v10 = (FILE *)v9;
+        if ( v10 )
         {
           v42 = v75;
           wsprintfA(Str, "lloyd%d%d.pcx", v75, v74);
@@ -9501,13 +8929,14 @@ int __fastcall SaveGame(int a1, int a2)
           strcpy(Str2, Str);
           fclose(v10);
           remove(Str);
-          v9 = (void *)LODFile_sub_461B48(pLODFile_New_LOD, Str2, DstBuf, 0);
+          v9 =LODFile_New_LOD._sub_461B48( Str2, DstBuf, 0);
           if ( v9 )
           {
             wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[165], 207);
             v76 = (unsigned int)&v38;
             Game_sub_40E2C8(&v38, (char *)&Str, (int)&v77);
-            v9 = sub_466D09(&Size, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
+            //v9 = 
+			sub_466D09(&Size, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
             Size = 5080748;
           }
         }
@@ -9691,15 +9120,17 @@ int __fastcall SaveGame(int a1, int a2)
       wsprintfA(FullPath, "%s%s", &v50, &Ext);
       strcpy(Str2, FullPath);
       ElementSize = v74;
-      v36 = (void *)LODFile_sub_461B48(pLODFile_New_LOD, Str2, (const void *)v11, 0);
+      v36 = LODFile_New_LOD._sub_461B48( Str2, (const void *)v11, 0);
       if ( v36 )
       {
         wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[165], 208);
         v76 = (unsigned int)&v38;
         Game_sub_40E2C8(&v38, (char *)&Str, (int)&v77);
-        v36 = sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
+       // v36 = 
+		sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
       }
-      v9 = (void *)call_delete((void *)v11);
+     // v9 = (void *)free();
+	  free((void *)v11);
     }
 
     operator_delete(DstBuf);
@@ -10126,7 +9557,7 @@ LABEL_138:
                 if ( v25 <= 480 )
                 {
                   v47 = v22->uTextureID;
-                  Render_DrawIndexedTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, &pLODFile_Icons_LOD->aLODHeaders[v22->uTextureID]);
+                  Render_DrawIndexedTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, &LODFile_Icons_LOD.aLODHeaders[v22->uTextureID]);
                   goto LABEL_80;
                 }
               }
@@ -10152,7 +9583,7 @@ LABEL_134:
           v47 = v22->dword_000040;
 //LABEL_94:
           //Render_DrawIndexedTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, v47);
-          Render_DrawIndexedTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, &pLODFile_Icons_LOD->aLODHeaders[v47]);
+          Render_DrawIndexedTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, &LODFile_Icons_LOD.aLODHeaders[v47]);
 LABEL_80:
           v23 = (char *)pWnd->ptr_000048;
           struct_576FE8.dword_000044 = 1;
@@ -10171,7 +9602,7 @@ LABEL_82:
           if ((int)pWnd->ptr_000048 != 1)
             AudioPlayer_sub_4AA306(pAudioPlayer, 75, 0, 0, -1, 0, 0, 0, 0);
           v22 = (GUIButton *)pWnd->dword_00001C;
-          Render_DrawTransparentTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, &pLODFile_Icons_LOD->aLODHeaders[v22->uTextureID]);
+          Render_DrawTransparentTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, &LODFile_Icons_LOD.aLODHeaders[v22->uTextureID]);
           goto LABEL_80;
         }
         v19 = v18 - 1;
@@ -11030,7 +10461,7 @@ void __thiscall sub_416B01(void *_this)
         v19 = v15 + 399;
         GUIWindow_sub_415551((GUIWindow *)&v15, 0);
         wsprintfA((char *)pStringBuffer, "NPC%03d", *((_DWORD *)v6 + 1));
-        v9 = LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)pStringBuffer, 2);
+        v9 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pStringBuffer, 2);
         Render_DrawIndexedTexture(pD3DRenderer, v15 + 22, v16 + 36, (class18 *)(v9 != -1 ? 72 * v9 + 7145548 : 0));
         v8 = *((_DWORD *)v6 + 6);
         if ( v8 )
@@ -12205,20 +11636,7 @@ void __cdecl sub_419379()
   }
 }
 
-//----- (0046172B) --------------------------------------------------------
-int __thiscall sub_46172B(int _this)
-{
-  int result; // eax@1
 
-  result = _this;
-  *(_BYTE *)_this = 0;
-  *(_DWORD *)(_this + 16) = 0;
-  *(_DWORD *)(_this + 20) = 0;
-  *(_WORD *)(_this + 28) = 0;
-  *(_DWORD *)(_this + 24) = 0;
-  *(_WORD *)(_this + 30) = 0;
-  return result;
-}
 
 //----- (00419401) --------------------------------------------------------
 int __cdecl sub_419401()
@@ -12534,7 +11952,13 @@ void __cdecl sub_41A57E()
   v47 = 0xFFFFFF9B;
   v49 = 0xFFFF0000;
   v46 = 0xFF00FF00;
-  v1 = LODFile_LoadTexture_New(pLODFile_Icons_LOD, L"quikref");
+  #ifndef OLD_CODE
+	 v1 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"quikref");
+#endif
+#ifdef OLD_CODE
+	v1 = LODFile_Icons_LOD.LODFile_LoadTexture("quikref",0);
+#endif
+  
   Render_DrawIndexedTextureHandle(pD3DRenderer, 8, 8, v1);
   v43 = 0;
   v45 = *(_BYTE *)(pFontArrus + 5) + 1;
@@ -12715,12 +12139,12 @@ LABEL_9:
 LABEL_10:
   v8 = *(_DWORD *)a2 + (*(_DWORD *)(a2 + 8) - v4) / 2;
   Render_Set2DClippingRect(pD3DRenderer, v8, *(_DWORD *)(a2 + 4) + 32, v8 + v4, *(_DWORD *)(a2 + 4) + 52);
-  Render_DrawIndexedTexture(pD3DRenderer, v8, *(_DWORD *)(v3 + 4) + 32, &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_MonsterHP_Bg]);
+  Render_DrawIndexedTexture(pD3DRenderer, v8, *(_DWORD *)(v3 + 4) + 32, &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_MonsterHP_Bg]);
   Render_Set2DClippingRect(pD3DRenderer, v8, *(_DWORD *)(v3 + 4) + 32, v8 + v10, *(_DWORD *)(v3 + 4) + 52);
-  Render_DrawIndexedTexture(pD3DRenderer, v8, *(_DWORD *)(v3 + 4) + 34, &pLODFile_Icons_LOD->aLODHeaders[v9]);
+  Render_DrawIndexedTexture(pD3DRenderer, v8, *(_DWORD *)(v3 + 4) + 34, &LODFile_Icons_LOD.aLODHeaders[v9]);
   Render_Reset2DClippingRect(pD3DRenderer);
-  Render_DrawIndexedTexture(pD3DRenderer, v8 - 5, *(_DWORD *)(v3 + 4) + 32, &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_MonsterHP_CapLeft]);
-  Render_DrawIndexedTexture(pD3DRenderer, v8 + v4, *(_DWORD *)(v3 + 4) + 32, &pLODFile_Icons_LOD->aLODHeaders[uTextureIdx_MonsterHP_CapRight]);
+  Render_DrawIndexedTexture(pD3DRenderer, v8 - 5, *(_DWORD *)(v3 + 4) + 32, &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_MonsterHP_CapLeft]);
+  Render_DrawIndexedTexture(pD3DRenderer, v8 + v4, *(_DWORD *)(v3 + 4) + 32, &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_MonsterHP_CapRight]);
 }
 
 //----- (004763E0) --------------------------------------------------------
@@ -12737,7 +12161,7 @@ void __cdecl InitializeAwards()
  if (pAwardsTXT_Raw)
    mem_mng.DeleteBuffer( (void *)pAwardsTXT_Raw);
 
- pAwardsTXT_Raw = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, "awards.txt", 0);
+ pAwardsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "awards.txt", 0);
  strtok((char *)pAwardsTXT_Raw, "\r");
 
  //v7 = (signed int)&unk_723E88;
@@ -12795,7 +12219,7 @@ void __cdecl InitializeAwards()
 //----- (0041B3B6) --------------------------------------------------------
 void __cdecl sub_41B3B6() // draw hud
 {
-  Render_DrawTransparentTexture(pD3DRenderer, pOldViewport->uGameZ, 0, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_5079E4]);
+  Render_DrawTransparentTexture(pD3DRenderer, pOldViewport->uGameZ, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_5079E4]);
 }
 
 //----- (0041B438) --------------------------------------------------------
@@ -12891,7 +12315,7 @@ int __cdecl MenuUI_LoadFontsAndSomeStuff()
   signed int v3; // edx@3
  int i;
 
- LODFile_SetupPalettes(pLODFile_Icons_LOD, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
+ LODFile_Icons_LOD.LODFile_SetupPalettes( pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
  class35_SetColorChannelInfo(&class35_obj, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
  class35_sub_48A614(&class35_obj);
 
@@ -12901,7 +12325,7 @@ int __cdecl MenuUI_LoadFontsAndSomeStuff()
 
  Render_Reset2DClippingRect(pD3DRenderer);
 
- dword_507988 = LODFile_LoadTexture(pLODFile_Icons_LOD, "FONTPAL", 2);
+ dword_507988 = LODFile_Icons_LOD.LODFile_LoadTexture( "FONTPAL", 2);
 
  pFontArrus = LoadFont("arrus.fnt", "FONTPAL");
  pFontArrus->byte_000002[0] = 0;
@@ -13800,12 +13224,12 @@ void __thiscall sub_41D895(void *_this)
     v84 = v2;
     v4 = (int *)&pClass40->pItems[*(_DWORD *)v97].pIconName;
     v81 = v4;
-    v6 = LODFile_LoadTexture(pLODFile_Icons_LOD, (const char *)*v4, 2);
+    v6 = LODFile_Icons_LOD.LODFile_LoadTexture( (const char *)*v4, 2);
     v5 = v6;
     v6 *= 72;
     v80 = v6;
-    v79 = (int)pLODFile_Icons_LOD->aLODHeaders + v6;
-    compile_error;//v3 = 100 - *(_WORD *)pLODFile_Icons_LOD->array_000032C[v6 + 24];
+    v79 = (int)LODFile_Icons_LOD.aLODHeaders + v6;
+    compile_error;//v3 = 100 - *(_WORD *)LODFile_Icons_LOD.array_000032C[v6 + 24];
     v7 = *(_WORD *)(v79 + 26);
     v83 = v3;
     v93 = 144 - v7;
@@ -13881,7 +13305,7 @@ void __thiscall sub_41D895(void *_this)
       v87 -= 12;
       v88 = v84 + v86 - 1;
       v89 = v85 + v87 - 1;
-      Render_sub_4A6776((int)pD3DRenderer, v84 + v83, v93 + v85 + 30, (int)(v5 != -1 ? (char *)pLODFile_Icons_LOD->aLODHeaders + v80 : 0));
+      Render_sub_4A6776((int)pD3DRenderer, v84 + v83, v93 + v85 + 30, (int)(v5 != -1 ? (char *)LODFile_Icons_LOD.aLODHeaders + v80 : 0));
       if ( v92 )
         v19 = sub_4564B3((void *)v97);
       else
@@ -13901,7 +13325,7 @@ void __thiscall sub_41D895(void *_this)
       v87 -= 12;
       v88 = v84 + v86 - 1;
       v89 = v85 + v87 - 1;
-      Render_DrawTransparentTexture(pD3DRenderer, v84 + v83, v93 + v85 + 30, (class18 *)(v5 != -1 ? (char *)pLODFile_Icons_LOD->aLODHeaders + v80 : 0));
+      Render_DrawTransparentTexture(pD3DRenderer, v84 + v83, v93 + v85 + 30, (class18 *)(v5 != -1 ? (char *)LODFile_Icons_LOD.aLODHeaders + v80 : 0));
       GUIWindow_sub_44D406((int *)&v84, pFontArrus, 0, 12, v78[0], (const char *)v81[2], 3);
       v20 = Font_sub_44C59D(pFontArrus, (char *)pGlobalTXT_LocalizationStrings[232], (GUIWindow *)&v84, 0, 0);
       v62 = 3;
@@ -14015,7 +13439,7 @@ LABEL_65:
       v87 -= 12;
       v88 = v84 + v86 - 1;
       v89 = v85 + v87 - 1;
-      Render_DrawTransparentTexture(pD3DRenderer, v84 + v83, v85 + (v38 - v37) / 2, v5 != -1 ? (class18 *)pLODFile_Icons_LOD->aLODHeaders + v80 : 0);
+      Render_DrawTransparentTexture(pD3DRenderer, v84 + v83, v85 + (v38 - v37) / 2, v5 != -1 ? (class18 *)LODFile_Icons_LOD.aLODHeaders + v80 : 0);
       v92 = 3;
       v36 = v95 + 35;
       Str1 = v67;
@@ -14110,7 +13534,7 @@ LABEL_116:
       if ( !dword_506128 )
       {
         class18_sub_40F77C((class18 *)v79);
-        LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+        LODFile_Icons_LOD.LODFile_sub_40F9C5();
       }
       return;
     }
@@ -14372,8 +13796,8 @@ char *__fastcall sub_41E360(int a1, int a2)
   }
   v10 = (int)CSpriteFrameTable_fn1(pSpriteFrameTable, *(_WORD *)(v3 + 2 * stru_506580_MonsterInfoUI_Doll.word_0000B2_looks_like_current_sprite_frame + 188), stru_506580_MonsterInfoUI_Doll.dword_0000B8);
 
-  //v11 = 40 * *(_WORD *)(v10 + 24) + (int)pLODFile_Sprites_LOD->aLODHeaders;
-  v11 = (int)&pLODFile_Sprites_LOD->pHardwareSprites[*(_WORD *)(v10 + 24)];
+  //v11 = 40 * *(_WORD *)(v10 + 24) + (int)LODFile_Sprites_LOD.aLODHeaders;
+  v11 = (int)&LODFile_Sprites_LOD.pHardwareSprites[*(_WORD *)(v10 + 24)];
 
   v114 = (int)pD3DRenderer->pTargetSurface;
   v115 = (int)pD3DRenderer->pActiveZBuffer;
@@ -14397,7 +13821,7 @@ char *__fastcall sub_41E360(int a1, int a2)
   Render_FillRect(pD3DRenderer, v124 - 1, v127 + 1, v124 - 1, v125 - 1, v144);
   if ( pD3DRenderer->pRenderD3D3 )
   {
-    v13 = (int)&pLODFile_Sprites_LOD->pHardwareSprites[*(_WORD *)(v10 + 24)];
+    v13 = (int)&LODFile_Sprites_LOD.pHardwareSprites[*(_WORD *)(v10 + 24)];
     v117 = v137 + v125 + *(_DWORD *)(v13 + 28);
     v135 = *(_DWORD *)(v13 + 8);
 
@@ -15050,9 +14474,9 @@ int __cdecl sub_41F54A()
     class18_sub_40F77C((class18 *)dword_507BAC);
   if ( dword_507BB0 )
     class18_sub_40F77C((class18 *)dword_507BB0);
-  LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+  LODFile_Icons_LOD.LODFile_sub_40F9C5();
   wsprintfA((char *)TmpBuf, "TERRA%03d", pParty_global->uCurrentMinute / 6u + 10 * pParty_global->uCurrentHour);
-  result = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)TmpBuf, 2) + 7145548;
+  result = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( (char *)TmpBuf, 2) + 7145548;
   dword_507BAC = result;
   return result;
 }
@@ -15086,8 +14510,8 @@ void __cdecl sub_41F5BE()
         class18_sub_40F77C((class18 *)dword_507BB0);
       dword_507BB0 = 0;
       dword_507BAC = 0;
-      LODFile_sub_4114F2(pLODFile_Icons_LOD);
-      LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+      LODFile_Icons_LOD.LODFile_sub_4114F2();
+      LODFile_Icons_LOD.LODFile_sub_40F9C5();
       dword_4E28F8 = 0;
       struct_576FE8.dword_000044 = 1;
       if ( dword_6BE360 == 2 )
@@ -15161,17 +14585,17 @@ LABEL_15:
     if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 98) )
       dword_506F10 = 0;
   }
-  ++pLODFile_Icons_LOD->dword_011B9C;
-  if ( !pLODFile_Icons_LOD->dword_011B98 )
-    pLODFile_Icons_LOD->dword_011B98 = pLODFile_Icons_LOD->uNumLoadedFiles;
+  ++LODFile_Icons_LOD.dword_011B9C;
+  if ( !LODFile_Icons_LOD.dword_011B98 )
+    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   dword_4E28F8 = 5;
   dword_507CD4 = 0;
-  dword_50765C = LODFile_LoadTexture(pLODFile_Icons_LOD, "restmain", 2);
-  dword_507654 = LODFile_LoadTexture(pLODFile_Icons_LOD, "restb1", 2);
-  dword_507658 = LODFile_LoadTexture(pLODFile_Icons_LOD, "restb2", 2);
-  dword_507650 = LODFile_LoadTexture(pLODFile_Icons_LOD, "restb3", 2);
-  dword_507648 = LODFile_LoadTexture(pLODFile_Icons_LOD, "restb4", 2);
-  dword_50764C = LODFile_LoadTexture(pLODFile_Icons_LOD, "restexit", 2);
+  dword_50765C = LODFile_Icons_LOD.LODFile_LoadTexture( "restmain", 2);
+  dword_507654 = LODFile_Icons_LOD.LODFile_LoadTexture( "restb1", 2);
+  dword_507658 = LODFile_Icons_LOD.LODFile_LoadTexture( "restb2", 2);
+  dword_507650 = LODFile_Icons_LOD.LODFile_LoadTexture( "restb3", 2);
+  dword_507648 = LODFile_Icons_LOD.LODFile_LoadTexture( "restb4", 2);
+  dword_50764C = LODFile_Icons_LOD.LODFile_LoadTexture( "restexit", 2);
   sub_41F54A();
   pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 16, 0, 0);
   dword_507638 = (int)GUIButtonCreate(
@@ -15303,7 +14727,7 @@ void __cdecl sub_41FA01()
     if ( dword_507BB0 )
     {
       class18_sub_40F77C((class18 *)dword_507BB0);
-      LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+      LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
     v3 = pClass24_global->int_00001C + dword_507CD4;
     v4 = (unsigned int)(pClass24_global->int_00001C + dword_507CD4) < 0x200;
@@ -15325,7 +14749,7 @@ void __cdecl sub_41FA01()
       byte_4E2BC8 = 1;
     }
     wsprintfA((char *)TmpBuf, "hglas%03d", (unsigned __int8)v5);
-    dword_507BB0 = 72 * LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)TmpBuf, 2) + 7145548;
+    dword_507BB0 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( (char *)TmpBuf, 2) + 7145548;
     Render_DrawIndexedTexture(pD3DRenderer, 267, 159, (class18 *)dword_507BB0);
     memset(&Dst, 0, 0xBCu);
     Dst = 24;
@@ -15394,7 +14818,7 @@ signed int __fastcall sub_41FE71(signed int a1, int a2, int a3)
   v5 = 4 * array_5E5150[a3].word_000000;
   v16 = *(int *)((char *)dword_4E2C2C + v5);
   v18 = *(int *)((char *)dword_4E2C0C + v5);
-  v6 = LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)pClass40->pItems[a2].pIconName, 2);
+  v6 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[a2].pIconName, 2);
   v4 = v6 != -1 ? 72 * v6 + 7145548 : 0;
   v3 = *(_WORD *)(v6 != -1 ? 72 * v6 + 7145548 + 0x18 : 24);
   if ( v3 < 14 )
@@ -15408,7 +14832,7 @@ signed int __fastcall sub_41FE71(signed int a1, int a2, int a3)
   if ( !dword_506128 )
   {
     class18_sub_40F77C((class18 *)v4);
-    LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+    LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
   if ( v8 + v17 % v18 <= v18 && v10 + v17 / v18 <= v16 )
   {
@@ -15633,7 +15057,7 @@ LABEL_8:
         Player_PlaySound(*(&ptr_A750C4 + uActiveCharacter), 15, 0);
       return 0;
     }
-    v10 = LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)pClass40->pItems[*v3].pIconName, 2);
+    v10 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[*v3].pIconName, 2);
     HIWORD(v8) = 0;
     v9 = v10 != -1 ? 72 * v10 + 7145548 : 0;
     v7 = *(_WORD *)(v10 != -1 ? 72 * v10 + 7145548 + 0x18 : 24);
@@ -15647,7 +15071,7 @@ LABEL_8:
     if ( !dword_506128 )
     {
       class18_sub_40F77C((class18 *)v9);
-      LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+      LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
     if ( v13 > 0 )
     {
@@ -15740,7 +15164,7 @@ int __fastcall sub_42013E(int a1, int a2, int a3)
       }
     }
   }
-  v9 = LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)pClass40->pItems[v4].pIconName, 2);
+  v9 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[v4].pIconName, 2);
   v8 = v9 != -1 ? 72 * v9 + 7145548 : 0;
   v7 = *(_WORD *)(v9 != -1 ? 72 * v9 + 7145548 + 0x18 : 24);
   if ( v7 < 14 )
@@ -15753,7 +15177,7 @@ int __fastcall sub_42013E(int a1, int a2, int a3)
   if ( !dword_506128 )
   {
     class18_sub_40F77C((class18 *)v8);
-    LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+    LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
   v20 = dword_4E2C0C[*(__int16 *)((char *)array_5E5150 + v5)];
   if ( v12 > 0 )
@@ -15949,9 +15373,9 @@ signed int __fastcall sub_42041E(int a1)
     return 0;
   if ( a1 >= 20 )
     return 0;
-  ++pLODFile_Icons_LOD->dword_011B9C;
-  if ( !pLODFile_Icons_LOD->dword_011B98 )
-    pLODFile_Icons_LOD->dword_011B98 = pLODFile_Icons_LOD->uNumLoadedFiles;
+  ++LODFile_Icons_LOD.dword_011B9C;
+  if ( !LODFile_Icons_LOD.dword_011B98 )
+    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   v1 = (char *)&array_5E5150[a1].word_000002;
   v49 = v1;
   if ( !(*v1 & 2) )
@@ -16084,7 +15508,7 @@ LABEL_32:
         }
       }
     }
-    LODFile_sub_4114F2(pLODFile_Icons_LOD);
+    LODFile_Icons_LOD.LODFile_sub_4114F2();
     dword_507CD8 = 0;
     return 0;
   }
@@ -16158,7 +15582,7 @@ void __fastcall sub_42092D(int a1)
   v20 = *(int *)((char *)dword_4E2C0C + v4);
   v18 = *(int *)((char *)dword_4E2C2C + v4);
   wsprintfA((char *)TmpBuf, "chest%02d", *(_WORD *)(chest_descriptor[1] + 36 * *(__int16 *)((char *)array_5E5150 + v1) + 34));
-  v5 = LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)TmpBuf, 2);
+  v5 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)TmpBuf, 2);
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (class18 *)(v5 != -1 ? 72 * v5 + 7145548 : 0));
   v22 = 0;
   if ( v20 * v18 > 0 )
@@ -16170,8 +15594,7 @@ void __fastcall sub_42092D(int a1)
       v6 = *(_WORD *)v21;
       if ( v6 > 0 )
       {
-        v11 = LODFile_LoadTexture(
-                pLODFile_Icons_LOD,
+        v11 = LODFile_Icons_LOD.LODFile_LoadTexture(
                 (char *)pClass40->pItems[12 * *(int *)((char *)&dword_5E5130[9 * v6] + v1)].pIconName,
                 2);
         v10 = v11 != -1 ? 72 * v11 + 7145548 : 0;
@@ -16234,7 +15657,7 @@ int __fastcall sub_420B13(int a1, int a2)
   v5 *= 5324;
   v4 = (int)&array_5E5150[v5/5324].array_000004[a1];
   v19 = dword_4E2C0C[*(__int16 *)((char *)array_5E5150 + v5)];
-  v6 = LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)pClass40->pItems[12 * *(_DWORD *)v4].pName, 2);
+  v6 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 * *(_DWORD *)v4].pName, 2);
   v3 = v6 != -1 ? 72 * v6 + 7145548 : 0;
   v2 = *(_WORD *)(v6 != -1 ? 72 * v6 + 7145548 + 0x18 : 24);
   if ( v2 < 14 )
@@ -16250,7 +15673,7 @@ int __fastcall sub_420B13(int a1, int a2)
   if ( !dword_506128 )
   {
     class18_sub_40F77C((class18 *)v3);
-    LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+    LODFile_Icons_LOD.LODFile_sub_40F9C5();
     v10 = v23;
   }
   if ( v10 > 0 )
@@ -16516,7 +15939,7 @@ signed int __cdecl sub_421B2C()
 
   if (pParty_global->stru_007754.uItemID)
   {
-   v1 = LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)pClass40->pItems[12 * pParty_global->stru_007754.uItemID].pIconName, 2);
+   v1 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 * pParty_global->stru_007754.uItemID].pIconName, 2);
     v0 = v1 != -1 ? 72 * v1 + 7145548 : 0;
     v22 = dword_506128;
     if ( uActiveCharacter && (v2 = CreateItemInInventory(pPlayers[uActiveCharacter - 1], -1, pParty_global->stru_007754.uItemID)) != 0 )
@@ -16580,7 +16003,7 @@ LABEL_18:
     if ( !v22 )
     {
       class18_sub_40F77C((class18 *)v0);
-      LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+      LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
   }
   return 1;
@@ -16986,10 +16409,10 @@ LABEL_18:
             v8 = (int)class03_GetMousePos(pGame->pClass03, &v35);
             v9 = sub_46A0A1(v35.x);
             sub_42F5ED((int)&v24, pParty_global->sRotationY + v9, 184, 200, 0);
-            v10 = LODFile_LoadTexture(pLODFile_Icons_LOD, (char *)pClass40->pItems[12 * pParty_global->stru_007754.uItemID].pIconName, 2);
+            v10 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 * pParty_global->stru_007754.uItemID].pIconName, 2);
             class18_sub_40F77C((class18 *)(v10 != -1 ? 72 * v10 + 7145548 : 0));
             class03_sub_4698A6(pGame->pClass03);
-            LODFile_sub_40F9C5((int)pLODFile_Icons_LOD);
+            LODFile_Icons_LOD.LODFile_sub_40F9C5();
             return;
           }
           sub_44C1D0();

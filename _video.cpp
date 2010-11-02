@@ -136,7 +136,7 @@ void CVideoPlayer_UnloadAll(struct CVideoPlayer *_this)
   (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(_this->pBinkBuffer + 72) + 8))(*(_DWORD *)(v4 + 72));
   *(_DWORD *)(v4 + 72) = 0;
 
-  call_delete(_this->pBinkBuffer);
+  free(_this->pBinkBuffer);
   _this->pBinkBuffer = 0;
  }
 
