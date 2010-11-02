@@ -1153,8 +1153,8 @@ unsigned int LODFile_sp::LODFile_LoadTexture_New(const wchar_t *pFilename)
    wsprintfW(pFilePath, L".\\Data\\%S\\%s.png",  sContainerName, pFilename);
    if (LoadPNG(pFilePath, &uCBMWdith, &uCBMHeight, &aLODHeaders[ uNumLoadedFiles].pTruecolorPixels))
    {
-    if (LoadHWL(pFilename, &uCBMWdith, &uCBMHeight, &aLODHeaders[ uNumLoadedFiles].pTruecolorPixels))
-    {
+    //if (LoadHWL(pFilename, &uCBMWdith, &uCBMHeight, &aLODHeaders[ uNumLoadedFiles].pTruecolorPixels))
+   // {
      if (!hStdHandle)
        hStdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
      wsprintfW(pFileNotFound, L"Texture not found: %s\n", pFilename);
@@ -1165,7 +1165,7 @@ unsigned int LODFile_sp::LODFile_LoadTexture_New(const wchar_t *pFilename)
      pending_texture.uTextureWidth = 52;
      pending_texture.uTextureHeight = 53;
      return -1;
-    }
+   // }
    }
   }
  }

@@ -170,19 +170,19 @@ void GameUI_LoadIcons()
  pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("torchB"));
  pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("torchA"));
 #ifndef OLD_CODE
- uTextureID_MinimapDirections = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Minimap Directions");
+ uTextureID_MinimapDirections = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"MinimDir");
 
  uTextureIdx_UIBarRed = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-bar_red");
- uTextureIdx_UIBarYellow = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-bar_yellow");
- uTextureIdx_UIBarGreen = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-bar_green");
+ uTextureIdx_UIBarYellow = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-bar_yello");
+ uTextureIdx_UIBarGreen = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-bar_gr");
  uTextureIdx_UIBarBlue = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-bar_blue");
 
- uTextureIdx_MonsterHP_BarYellow = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-MonsterHP_BarYellow");
- uTextureIdx_MonsterHP_BarRed = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-MonsterHP_BarRed");
- uTextureIdx_MonsterHP_BarGreen = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-MonsterHP_BarGreen");
- uTextureIdx_MonsterHP_CapRight = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-MonsterHP_CapRight");
- uTextureIdx_MonsterHP_CapLeft = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-MonsterHP_CapLeft");
- uTextureIdx_MonsterHP_Bg = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-MonsterHP_Bg");
+ uTextureIdx_MonsterHP_BarYellow = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-MHP_BYe");
+ uTextureIdx_MonsterHP_BarRed = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-MHP_BRd");
+ uTextureIdx_MonsterHP_BarGreen = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-MHP_BGr");
+ uTextureIdx_MonsterHP_CapRight = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-MHP_CR");
+ uTextureIdx_MonsterHP_CapLeft = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-MHP_CL");
+ uTextureIdx_MonsterHP_Bg = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ui-MHP_Bg");
 
  uTextureIdx_Leather = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"LEATHER");
 
@@ -5023,7 +5023,7 @@ void __cdecl PlayerCreationUI_Initialize()
   uPlayerCreationUI_SelectedCharacter = 0;
   v1 = pFontCreate->uFontHeight - 2;
  #ifndef OLD_CODE
-  uTextureID_PartyCreationUI_ClassIcons = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Class Icons");
+  uTextureID_PartyCreationUI_ClassIcons = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ClassIcn");
 
   pPlayerCreationUI_Sky = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New( L"MAKESKY")];
   pPlayerCreationUI_Top = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New( L"MAKETOP")];
@@ -7375,13 +7375,13 @@ int CharacterUI_LoadPaperdollTextures()
  #ifndef OLD_CODE
  wchar_t Str1[100]; // [sp+24h] [bp-14h]@12
  uTextureID_GameUI_MagnifyingGlass = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"MAGNIF");
- uTextureID_GameUI_PaperdollBackground = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Paperdoll Background");
+ uTextureID_GameUI_PaperdollBackground = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"PDoll-Bg");
  uTextureID_GameUI_PaperdollJewelryOverlay = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"BACKHAND");
  #endif
 #ifdef OLD_CODE
  char Str1[100]; // [sp+24h] [bp-14h]@12
 	uTextureID_GameUI_MagnifyingGlass = LODFile_Icons_LOD.LODFile_LoadTexture("MAGNIF",0);
- uTextureID_GameUI_PaperdollBackground = LODFile_Icons_LOD.LODFile_LoadTexture("Paperdoll Background",0);
+ uTextureID_GameUI_PaperdollBackground = LODFile_Icons_LOD.LODFile_LoadTexture("PDoll-Bg",0);
  uTextureID_GameUI_PaperdollJewelryOverlay = LODFile_Icons_LOD.LODFile_LoadTexture("BACKHAND",0);
   uTextureID_507B04 = uTextureID_5079E4;
  #endif
@@ -10314,20 +10314,20 @@ void MenuUI_LoadTextures(unsigned int uAlignment)
 
  const wchar_t *pGoodInterface[] =
  {
-  L"ib-RightPanel-A", L"ib-PartyFrame-A", L"ib-EdgeTop-A", L"ib-EdgeLeft-A", L"ib-StatusBar-A",
+  L"ib-RPl-A", L"ib-PFr-A", L"ib-ET-A", L"ib-EL-A", L"ib-StatBar-A",
   L"ib-bcu-A",
-  L"WindowEdge_top-A", L"WindowEdge_bottom-A", L"WindowEdge_left-A", L"WindowEdge_right-A",
-  L"Corner_UpLeft-A", L"Corner_UpRight-A", L"Corner_LowLeft-A", L"Corner_LowRight-A",
+  L"WE-t-A", L"WE-bot-A", L"WE-l-A", L"WE-r-A",
+  L"C_UL-A", L"C_UR-A", L"C_LL-A", L"C_LR-A",
   L"Parchment",
   L"fr_inven-A",
   L"NPCSlot-A",
   L"iSg-04-A", L"iSg-03-A", L"iSg-02-A", L"iSg-01-A",
   L"ib-m4d-A", L"ib-m3d-A", L"ib-m2d-A", L"ib-m1d-A",
-  L"ib-MinimapZoomIn-A", L"ib-MinimapZoomOut-A",
-  L"ib-NPCScrollLeft0-A", L"ib-NPCScrollLeft1-A", L"ib-NPCScrollRight0-A", L"ib-NPCScrollRight1-A",
-  L"ib-Compass-A",
+  L"ib-MZIn-A", L"ib-MZOu-A",
+  L"ib-NPCSL0-A", L"ib-NPCSL1-A", L"ib-NPCSR0-A", L"ib-NPCSR1-A",
+  L"ib-Cmps-A",
   L"ib-InitG-A", L"ib-InitY-A", L"ib-InitR-A",
-  L"ib-MinimapMask-A",
+  L"ib-MMask-A",
   L"ib-mb-A",
   L"ib-Selec-A",
   L"WizEyeA", L"TorchA",
@@ -10335,20 +10335,20 @@ void MenuUI_LoadTextures(unsigned int uAlignment)
  },
                *pNeutralInterface[] =
  {
-  L"ib-RightPanel-B", L"ib-PartyFrame-B", L"ib-EdgeTop-B", L"ib-EdgeLeft-B", L"ib-StatusBar-B",
+  L"ib-RPl-B", L"ib-PFr-B", L"ib-ET-B", L"ib-EL-B", L"ib-StatBar-B",
   L"ib-bcu-B",
-  L"WindowEdge_top-B", L"WindowEdge_bottom-B", L"WindowEdge_left-B", L"WindowEdge_right-B",
-  L"Corner_UpLeft-B", L"Corner_UpRight-B", L"Corner_LowLeft-B", L"Corner_LowRight-B",
+  L"WE-t-B", L"WE-bot-B", L"WE-l-B", L"WE-r-B",
+  L"C_UL-B", L"C_UR-B", L"C_LL-B", L"C_LR-B",
   L"Parchment",
   L"fr_inven-B",
   L"NPCSlot-B",
   L"iSg-04-B", L"iSg-03-B", L"iSg-02-B", L"iSg-01-B",
   L"ib-m4d-B", L"ib-m3d-B", L"ib-m2d-B", L"ib-m1d-B",
-  L"ib-MinimapZoomIn-B", L"ib-MinimapZoomOut-B",
-  L"ib-NPCScrollLeft0-B", L"ib-NPCScrollLeft1-B", L"ib-NPCScrollRight0-B", L"ib-NPCScrollRight1-B",
-  L"ib-Compass-B",
+  L"ib-MZIn-B", L"ib-MZOu-B",
+  L"ib-NPCSL0-B", L"ib-NPCSL1-B", L"ib-NPCSR0-B", L"ib-NPCSR1-B",
+  L"ib-Cmps-B",
   L"ib-InitG-B", L"ib-InitY-B", L"ib-InitR-B",
-  L"ib-MinimapMask-B",
+  L"ib-MMask-B",
   L"ib-mb-B",
   L"ib-Selec-B",
   L"WizEyeB", L"TorchB",
@@ -10356,20 +10356,20 @@ void MenuUI_LoadTextures(unsigned int uAlignment)
  },
                *pEvilInterface[] =
  {
-  L"ib-RightPanel-C", L"ib-PartyFrame-C", L"ib-EdgeTop-C", L"ib-EdgeLeft-C", L"ib-StatusBar-C",
+  L"ib-RPl-C", L"ib-PFr-C", L"ib-ET-C", L"ib-EL-C", L"ib-StatBar-C",
   L"ib-bcu-C",
-  L"WindowEdge_top-C", L"WindowEdge_bottom-C", L"WindowEdge_left-C", L"WindowEdge_right-C",
-  L"Corner_UpLeft-C", L"Corner_UpRight-C", L"Corner_LowLeft-C", L"Corner_LowRight-C",
+  L"WE-t-C", L"WE-bot-C", L"WE-l-C", L"WE-r-C",
+  L"C_UL-C", L"C_UR-C", L"C_LL-C", L"C_LR-C",
   L"Parchment",
   L"fr_inven-C",
   L"NPCSlot-C",
   L"iSg-04-C", L"iSg-03-C", L"iSg-02-C", L"iSg-01-C",
   L"ib-m4d-C", L"ib-m3d-C", L"ib-m2d-C", L"ib-m1d-C",
-  L"ib-MinimapZoomIn-C", L"ib-MinimapZoomOut-C",
-  L"ib-NPCScrollLeft0-C", L"ib-NPCScrollLeft1-C", L"ib-NPCScrollRight0-C", L"ib-NPCScrollRight1-C",
-  L"ib-Compass-C",
+  L"ib-MZIn-C", L"ib-MZOu-C",
+  L"ib-NPCSL0-C", L"ib-NPCSL1-C", L"ib-NPCSR0-C", L"ib-NPCSR1-C",
+  L"ib-Cmps-C",
   L"ib-InitG-C", L"ib-InitY-C", L"ib-InitR-C",
-  L"ib-MinimapMask-C",
+  L"ib-MMask-C",
   L"ib-mb-C",
   L"ib-Selec-C",
   L"WizEyeC", L"TorchC",
