@@ -301,8 +301,8 @@ FILE *LOD_file::Find_Container(const char *pContainerName, bool linearSearch)
 	  {
 	  if (!uNumSubidices)
 		  return NULL;
-	  container_index=0;
-	  while (stricmp(pContainerName, pLODSubIndexNamedBuffer[container_index++].pFilename))
+	  container_index=-1;
+	  while (stricmp(pContainerName, pLODSubIndexNamedBuffer[++container_index].pFilename))
 		  {	 
 		  if (container_index >= uNumSubidices)
 			  return NULL;

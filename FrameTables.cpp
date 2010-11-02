@@ -12,7 +12,7 @@ template<> unsigned int ImageTableLoader<IconFrame>::LoadFromFile(const wchar_t 
  char pFilenameA[256];
 
  wsprintfA(pFilenameA, "%S", pFilename);
- unsigned char *pRawData = (unsigned char *)LODFile_LoadRaw(pLODFile_Events_LOD, pFilenameA, 1);
+ unsigned char *pRawData = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw(pFilenameA, 1);
 
  ImageTable<IconFrame> *pImageTable = new ImageTable<IconFrame>;
 

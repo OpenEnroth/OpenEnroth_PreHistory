@@ -6154,7 +6154,7 @@ int __cdecl sub_410DEC()
           pD3DRenderer,
           *(int *)((char *)&dword_4E24C4 + v4),
           *(int *)((char *)&dword_4E24D8 + v4),
-          &pLODFile_Icons_LOD->aLODHeaders[uTextureID_lb_bordr__townport__sbquicknot]);
+          &LODFile_Icons_LOD.aLODHeaders[uTextureID_lb_bordr__townport__sbquicknot]);
         v23 = 3;
         v20 = (char *)pGlobalTXT_LocalizationStrings[19];
         v18 = 1;
@@ -6175,7 +6175,7 @@ LABEL_29:
       pD3DRenderer,
       *(int *)((char *)&dword_4E24C4 + v4),
       *(int *)((char *)&dword_4E24D8 + v4),
-      &pLODFile_Icons_LOD->aLODHeaders[uTextureID_lb_bordr__townport__sbquicknot]);
+      &LODFile_Icons_LOD.aLODHeaders[uTextureID_lb_bordr__townport__sbquicknot]);
     Render_DrawRGBTexture(pD3DRenderer, *(int *)((char *)&dword_4E249C + v4), *(int *)((char *)&dword_4E24B0 + v4), (RGBTexture *)v36);
     v9 = v35;
     Str = (char *)pMapStats->pMapInfos[sub_410D99(*(_WORD *)(v35 + 26))].pLocationName;
@@ -6258,7 +6258,7 @@ char *__cdecl sub_411150()
   char v13; // [sp+68h] [bp-8h]@17
 
   Render_ClearZBuffer(pD3DRenderer, 0, 479);
-  Render_DrawTransparentTexture(pD3DRenderer, 8, 8, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_lb_bordr__townport__sbquicknot]);
+  Render_DrawTransparentTexture(pD3DRenderer, 8, 8, &LODFile_Icons_LOD.aLODHeaders[uTextureID_lb_bordr__townport__sbquicknot]);
   Render_DrawTransparentTexture(pD3DRenderer, 471, 445, (class18 *)(dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0));
   v6 = 8;
   v7 = 8;
@@ -6703,7 +6703,7 @@ int __thiscall GUIWindow_sub_411BFC(void *_this)
   if ( *(_DWORD *)(v1 + 28) == 177 )
   {
     byte_506360 = 0;
-    dword_5064DC = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "lb_bordr", 2) + 7145548;
+    uTextureID_lb_bordr__townport__sbquicknot = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "lb_bordr", 2) + 7145548;
     dword_506358[0] = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "sbmap", 2) + 7145548;
     dword_50635C = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "sbmap", 2) + 7145548;
     dword_5063A4 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-6b", 2) + 7145548;
@@ -6742,7 +6742,7 @@ int __thiscall GUIWindow_sub_411BFC(void *_this)
   {
     if ( *(_DWORD *)(v1 + 28) == 195 )
     {
-      dword_5064DC = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "townport", 2) + 7145548;
+      uTextureID_lb_bordr__townport__sbquicknot = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "townport", 2) + 7145548;
       dword_5063A8[0] = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tpharmndy", 2) + 7145548;
       dword_5063AC = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tpelf", 2) + 7145548;
       dword_5063B0 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tpwarlock", 2) + 7145548;
@@ -6773,7 +6773,7 @@ int __thiscall GUIWindow_sub_411BFC(void *_this)
     {
       if ( *(_DWORD *)(v1 + 28) == 200 )
       {
-        dword_5064DC = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "sbquiknot", 2) + 7145548;
+        uTextureID_lb_bordr__townport__sbquicknot = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "sbquiknot", 2) + 7145548;
         dword_5064C8 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "divbar", 2) + 7145548;
         dword_5063A4 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-6b", 2) + 7145548;
         dword_5063A0 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-7b", 2) + 7145548;
@@ -7521,7 +7521,7 @@ void __cdecl sub_413126()
   int v16; // [sp+1Ch] [bp-44h]@9
   int v17; // [sp+20h] [bp-40h]@9
 
-  Render_DrawIndexedTexture(pD3DRenderer, pOldViewport->uGameX, pOldViewport->uGameY, &pLODFile_Icons_LOD->aLODHeaders[uTextureID_lb_bordr__townport__sbquicknot]);
+  Render_DrawIndexedTexture(pD3DRenderer, pOldViewport->uGameX, pOldViewport->uGameY, &LODFile_Icons_LOD.aLODHeaders[uTextureID_lb_bordr__townport__sbquicknot]);
   if ( dword_506548 || !dword_506528 )
   {
     v10 = dword_50639C;

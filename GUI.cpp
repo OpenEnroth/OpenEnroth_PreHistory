@@ -37,9 +37,9 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
 {
  struct GUIWindow *pCharacterWindow;
 
-  ++pLODFile_Icons_LOD->dword_011B9C;
-  if ( !pLODFile_Icons_LOD->dword_011B98 )
-    pLODFile_Icons_LOD->dword_011B98 = pLODFile_Icons_LOD->uNumLoadedFiles;
+  ++LODFile_Icons_LOD.dword_011B9C;
+  if ( !LODFile_Icons_LOD.dword_011B98 )
+    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   ++LODFile_Icons_LOD.dword_011B9C;
   if ( !LODFile_Icons_LOD.dword_011B98 )
     LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
@@ -5652,7 +5652,7 @@ void __cdecl GameUI_DrawPartySpells()
         v6 = v0;
       else
         v6 = 0;
-      v7 = (int)&LODFile_Icons_LOD.aLODHeaders[CIconFrameTable_GetFrame(pIconFrameTable, uIconIdx_Spell21, v6)->uTextureIdx];
+      v7 = (int)&LODFile_Icons_LOD.aLODHeaders[pIconFrameTable->GetImage(uIconIdx_Spell21, v6)->uTextureIdx];
       if ( pD3DRenderer->pRenderD3D3 )
         Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (class18 *)v7);
       else
