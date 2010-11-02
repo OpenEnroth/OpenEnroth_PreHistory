@@ -10,7 +10,7 @@
  #include "_lod.h"
 #include "data.h"
 
- struct class18 pending_texture;
+cTexture pending_texture;
 void *hStdHandle = 0;
 
 
@@ -21,13 +21,9 @@ void *hStdHandle = 0;
  
 LODFile_sp::LODFile_sp()
 {
- try
-	 {
 
 	 for (int i=0; i<1000; i++)
-		 {
-		 class18_ctor(&aLODHeaders[i]);
-		 }
+		 cTexture_Zero(&aLODHeaders[i]);
 	 uNumLoadedFiles=0;
 	 dword_011B80=0;//
 	 dword_011B84=0; //
@@ -40,20 +36,15 @@ LODFile_sp::LODFile_sp()
 	 pHardwareSurfaces=NULL;
 	 pHardwareTextures=NULL;
 	 dword_011BB4=NULL;
-	 }
- catch(...)
-	 {}
-
+	 
 }
  //-------------------------------------------.text:0046361D------
  LODFile_sp::~LODFile_sp()
 {
- try
-	 {
 
 	 for (int i=0; i<uNumLoadedFiles; i++)
 		 {
-		 class18_sub_40F77C(&aLODHeaders[i]);
+		 cTexture_Free(&aLODHeaders[i]);
 		 if (pHardwareSurfaces)
 			 if	 (pHardwareSurfaces[i])
 				 {
@@ -73,10 +64,6 @@ LODFile_sp::LODFile_sp()
 		 delete(pHardwareTextures);
 	 if (dword_011BB4)
 		 delete(dword_011BB4);
-
-	 }
- catch(...)
-	 {}
 
 }
 
@@ -338,7 +325,6 @@ int LOD_file::Fast_Calc_Index( int startIndex, int maxIndex, const char *pContai
 	  reslt	= stricmp(pContainerName, (char *)pLODSubIndexNamedBuffer[look_index].pFilename);
 	  if (reslt==0 )
 		  {
-		 // st_dword_6A0CA4 = ;
 		  return  look_index;
 		  }
 	  if (reslt<0 ) 
@@ -352,14 +338,12 @@ int LOD_file::Fast_Calc_Index( int startIndex, int maxIndex, const char *pContai
 			  {	 
 			  if (!(stricmp(pContainerName, pLODSubIndexNamedBuffer[temp_start_indx].pFilename)))
 				  {
-				 // st_dword_6A0CA4 = ;
 				  return temp_start_indx;
 				  }
 			  temp_start_indx++;
 			  }
 		  }
 	  }
-  //st_dword_6A0CA4 = ;
   return -1;
 
 }
@@ -691,7 +675,7 @@ void *LODFile_sp::LODFile_LoadRaw( const char *pContainer, int a3)
 {
   unsigned char *result; // ebx@7
   unsigned char *v8; // edi@7
-  struct class18 class18_obj; // [sp+Ch] [bp-4Ch]@1
+  cTexture cTexture_obj; // [sp+Ch] [bp-4Ch]@1
   FILE *pContainerFile; // [sp+54h] [bp-4h]@1
  
   wchar_t  pLodFile[256];
@@ -700,7 +684,7 @@ void *LODFile_sp::LODFile_LoadRaw( const char *pContainer, int a3)
   int      ofs;
 
   
-  class18_ctor(&class18_obj);
+  cTexture_Zero(&cTexture_obj);
 
   pContainerFile = Find_Container( pContainer, 0);
   if (!pContainerFile)
@@ -716,43 +700,43 @@ void *LODFile_sp::LODFile_LoadRaw( const char *pContainer, int a3)
     hFile = CreateFileW(pLodFile, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, 0, OPEN_EXISTING, 0, 0);
     ofs = ftell(pContainerFile);
     SetFilePointer(hFile, ofs, 0, FILE_BEGIN);
-    ReadFile(hFile, &class18_obj, 0x30, &w, 0);
+    ReadFile(hFile, &cTexture_obj, 0x30, &w, 0);
 #endif
 #ifdef OLD_CODE
-	 locked_fread(&class18_obj, 1, 0x30u, pContainerFile);
+	 locked_fread(&cTexture_obj, 1, 0x30u, pContainerFile);
 #endif
 	
-  if (class18_obj.uDecompressedSize)
+  if (cTexture_obj.uDecompressedSize)
   {
     if (a3)
-      result = (unsigned char *)malloc(class18_obj.uDecompressedSize);
+      result = (unsigned char *)malloc(cTexture_obj.uDecompressedSize);
     else
-      result = (unsigned char *)mem_mng.AllocatedNamedBuffer( NULL, class18_obj.uDecompressedSize, class18_obj.sContainerName);
+      result = (unsigned char *)mem_mng.AllocatedNamedBuffer( NULL, cTexture_obj.uDecompressedSize, cTexture_obj.sContainerName);
 
-    v8 = (unsigned char *)mem_mng.AllocatedNamedBuffer( NULL, class18_obj.uCompressedSize, class18_obj.sContainerName);
+    v8 = (unsigned char *)mem_mng.AllocatedNamedBuffer( NULL, cTexture_obj.uCompressedSize, cTexture_obj.sContainerName);
  #ifndef OLD_CODE
-    ReadFile(hFile, v8, class18_obj.uCompressedSize, &w, 0);
+    ReadFile(hFile, v8, cTexture_obj.uCompressedSize, &w, 0);
   #endif
 #ifdef OLD_CODE
-    fread(v8, 1, class18_obj.uCompressedSize, pContainerFile);
+    fread(v8, 1, cTexture_obj.uCompressedSize, pContainerFile);
   #endif
 
-    MemUnzip(result, &class18_obj.uDecompressedSize, v8, class18_obj.uCompressedSize);
-    class18_obj.uCompressedSize = class18_obj.uDecompressedSize;
+    MemUnzip(result, &cTexture_obj.uDecompressedSize, v8, cTexture_obj.uCompressedSize);
+    cTexture_obj.uCompressedSize = cTexture_obj.uDecompressedSize;
     mem_mng.DeleteBuffer( (void *)v8);
   }
   else
   {
     if (a3)
-      result = (unsigned char *)malloc(class18_obj.uCompressedSize);
+      result = (unsigned char *)malloc(cTexture_obj.uCompressedSize);
     else
-     result = (unsigned char *)mem_mng.AllocatedNamedBuffer( 0, class18_obj.uCompressedSize, class18_obj.sContainerName);
-    locked_fread(result, 1u, class18_obj.uCompressedSize, pContainerFile);
+     result = (unsigned char *)mem_mng.AllocatedNamedBuffer( 0, cTexture_obj.uCompressedSize, cTexture_obj.sContainerName);
+    locked_fread(result, 1u, cTexture_obj.uCompressedSize, pContainerFile);
   }
   #ifndef OLD_CODE
     CloseHandle(hFile);
   
-    fseek(pContainerFile, ofs + class18_obj.uCompressedSize, SEEK_SET);
+    fseek(pContainerFile, ofs + cTexture_obj.uCompressedSize, SEEK_SET);
    #endif
 
   return result;
@@ -762,12 +746,12 @@ void *LODFile_sp::LODFile_LoadRaw( const char *pContainer, int a3)
 
 
 //----- (MM7.exe::0040FC08) --------------------------------------------------------
-int LODFile_sp::LODFile_LoadPalette( struct class18 *pClass18, const char *pContainerName, unsigned int uSomeInt)
+int LODFile_sp::LODFile_LoadPalette(cTexture *pcTexture, const char *pContainerName, unsigned int uSomeInt)
 {
   //int v4; // eax@1
   int v5; // ebx@1
   int v6; // edi@1
-  struct class18 *v8; // esi@3
+  cTexture *v8; // esi@3
   void *v9; // ST24_4@8
   int v10; // esi@14
   size_t v11; // eax@14
@@ -798,16 +782,16 @@ int LODFile_sp::LODFile_LoadPalette( struct class18 *pClass18, const char *pCont
 
   v5 = (int)pContainerName;
   v6 = (int)this;
-  v8 = pClass18;
+  v8 = pcTexture;
 
   f = Find_Container(pContainerName, 0);
   if (!f)
 	  return -1;
 
-  locked_fread(pClass18, 1, 0x30, f);
-  strcpy(pClass18->sContainerName, pContainerName);
+  locked_fread(pcTexture, 1, 0x30, f);
+  strcpy(pcTexture->sContainerName, pContainerName);
 
-  if ((pD3DRenderer->pRenderD3D3) && (pClass18->word_00002C & 0x0002) &&  dword_011BA8)
+  if ((pD3DRenderer->pRenderD3D3) && (pcTexture->word_00002C & 0x0002) &&  dword_011BA8)
 	  {
 	  if ( !pHardwareSurfaces || !pHardwareTextures )
 		  {
@@ -832,7 +816,7 @@ int LODFile_sp::LODFile_LoadPalette( struct class18 *pClass18, const char *pCont
 		  v10 = Render_sub_4A4DE1(
 			  (int)pD3DRenderer,
 			  (int)v12,
-			  pClass18->word_000024,
+			  pcTexture->word_000024,
 			  (int)pHardwareSurfaces[uNumLoadedFiles],
 			  (int)pHardwareTextures[uNumLoadedFiles]);
 		  delete(v12);
@@ -852,7 +836,7 @@ int LODFile_sp::LODFile_LoadPalette( struct class18 *pClass18, const char *pCont
 		  v10 = Render_sub_4A4DE1(
 			  (int)pD3DRenderer,
 			  (int)pContainerName,
-			  pClass18->word_000024,
+			  pcTexture->word_000024,
 			  (int)pHardwareSurfaces[uNumLoadedFiles],
 			  (int)pHardwareTextures[uNumLoadedFiles]);
 
@@ -862,24 +846,24 @@ int LODFile_sp::LODFile_LoadPalette( struct class18 *pClass18, const char *pCont
 
 
 
- if (!pClass18->uDecompressedSize ||  dword_011BA4)
+ if (!pcTexture->uDecompressedSize ||  dword_011BA4)
  {
-  pClass18->pIndexedPixels = (unsigned char *)mem_mng.AllocatedNamedBuffer( pClass18->pIndexedPixels, pClass18->uCompressedSize, pClass18->sContainerName);
-  locked_fread(pClass18->pIndexedPixels, 1u, pClass18->uCompressedSize, f);
+  pcTexture->pIndexedPixels = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->pIndexedPixels, pcTexture->uCompressedSize, pcTexture->sContainerName);
+  locked_fread(pcTexture->pIndexedPixels, 1u, pcTexture->uCompressedSize, f);
  }
  else
  {
-  pCompressedBuffer = (unsigned char *)malloc(pClass18->uCompressedSize);
-  pDecompressedBuffer = (unsigned char *)malloc(pClass18->uDecompressedSize);
+  pCompressedBuffer = (unsigned char *)malloc(pcTexture->uCompressedSize);
+  pDecompressedBuffer = (unsigned char *)malloc(pcTexture->uDecompressedSize);
 
-  locked_fread(pCompressedBuffer, 1, pClass18->uCompressedSize, f);
-  MemUnzip(pDecompressedBuffer, &pClass18->uDecompressedSize, pCompressedBuffer, pClass18->uCompressedSize);
+  locked_fread(pCompressedBuffer, 1, pcTexture->uCompressedSize, f);
+  MemUnzip(pDecompressedBuffer, &pcTexture->uDecompressedSize, pCompressedBuffer, pcTexture->uCompressedSize);
  free(pCompressedBuffer);
 
-  pClass18->uCompressedSize = pClass18->uDecompressedSize;
+  pcTexture->uCompressedSize = pcTexture->uDecompressedSize;
 
 
-  if (bUseLoResSprites && (pClass18->word_00002C & 0x0002))
+  if (bUseLoResSprites && (pcTexture->word_00002C & 0x0002))
   {
       v45 = (*((_DWORD *)v8 + 4) >> 2) + (*((_DWORD *)v8 + 4) >> 4) + (*((_DWORD *)v8 + 4) >> 6);
       v21 = (int)mem_mng.AllocatedNamedBuffer( (void*) *((_DWORD *)v8 + 12), v45, (const char *)v8);
@@ -903,42 +887,42 @@ int LODFile_sp::LODFile_LoadPalette( struct class18 *pClass18, const char *pCont
   }
   else
   {
-   pClass18->pIndexedPixels = (unsigned char *)mem_mng.AllocatedNamedBuffer( pClass18->pIndexedPixels, pClass18->uDecompressedSize, pClass18->sContainerName);
-   memcpy(pClass18->pIndexedPixels, pDecompressedBuffer, pClass18->uDecompressedSize);
+   pcTexture->pIndexedPixels = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->pIndexedPixels, pcTexture->uDecompressedSize, pcTexture->sContainerName);
+   memcpy(pcTexture->pIndexedPixels, pDecompressedBuffer, pcTexture->uDecompressedSize);
   }
   free(pDecompressedBuffer);
  }
 
 
- mem_mng.DeleteBuffer( (void *)pClass18->pPalette);
- mem_mng.DeleteBuffer( (void *)pClass18->ptr_000044);
+ mem_mng.DeleteBuffer( (void *)pcTexture->pPalette);
+ mem_mng.DeleteBuffer( (void *)pcTexture->ptr_000044);
 
  if (uSomeInt == 1)
  {
-  pClass18->ptr_000044 = (unsigned char *)mem_mng.AllocatedNamedBuffer( pClass18->ptr_000044, 768, pClass18->sContainerName);
-  locked_fread(pClass18->ptr_000044, 1u, 0x300u, f);
+  pcTexture->ptr_000044 = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->ptr_000044, 768, pcTexture->sContainerName);
+  locked_fread(pcTexture->ptr_000044, 1u, 0x300u, f);
 
 LABEL_35:
-  pClass18->pPalette = 0;
+  pcTexture->pPalette = 0;
   goto LABEL_36;
  }
 
- pClass18->ptr_000044 = 0;
+ pcTexture->ptr_000044 = 0;
  if (uSomeInt != 2)
    goto LABEL_35;
 
- pClass18->pPalette = (unsigned short *)mem_mng.AllocatedNamedBuffer( pClass18->pPalette, 512, pClass18->sContainerName);
+ pcTexture->pPalette = (unsigned short *)mem_mng.AllocatedNamedBuffer( pcTexture->pPalette, 512, pcTexture->sContainerName);
  for (i = 0; i < 256; ++i)
  {
   locked_fread(aReadBuf, 3, 1, f);
 
-  pClass18->pPalette[i] = (aReadBuf[0] >> (8 -  dword_011B8C)) << ( dword_011B94 +  dword_011B90);
-  pClass18->pPalette[i] += (aReadBuf[1] >> (8 -  dword_011B90)) <<  dword_011B94;
-  pClass18->pPalette[i] += aReadBuf[2] >> (8 -  dword_011B94);
+  pcTexture->pPalette[i] = (aReadBuf[0] >> (8 -  dword_011B8C)) << ( dword_011B94 +  dword_011B90);
+  pcTexture->pPalette[i] += (aReadBuf[1] >> (8 -  dword_011B90)) <<  dword_011B94;
+  pcTexture->pPalette[i] += aReadBuf[2] >> (8 -  dword_011B94);
  }
 
 LABEL_36:
- if (pClass18->word_00002C & 0x0002)
+ if (pcTexture->word_00002C & 0x0002)
  {
     v34 = *((_DWORD *)v8 + 4);
     v35 = v34 + *((_DWORD *)v8 + 12);
@@ -950,32 +934,32 @@ LABEL_36:
  else
  {
   v33 = 0;
-  pClass18->dword_000034 = 0;
-  pClass18->dword_000038 = 0;
+  pcTexture->dword_000034 = 0;
+  pcTexture->dword_000038 = 0;
  }
 
- pClass18->dword_00003C = v33;
+ pcTexture->dword_0003C = v33;
  v40 = 1;
- while (1 << v40 != pClass18->uTextureWidth)
+ while (1 << v40 != pcTexture->uTextureWidth)
  {
   ++v40;
   if (v40 >= 15)
     goto LABEL_48;
  }
- pClass18->word_00001C = v40;
+ pcTexture->word_00001C = v40;
 
 LABEL_48:
  v41 = 1;
- while ( 1 << v41 != pClass18->uTextureHeight)
+ while ( 1 << v41 != pcTexture->uTextureHeight)
  {
   ++v41;
   if ( v41 >= 15 )
     goto LABEL_53;
  }
- pClass18->word_00001E = v41;
+ pcTexture->word_00001E = v41;
 
 LABEL_53:
- switch (pClass18->word_00001C)
+ switch (pcTexture->word_00001C)
  {
   case 2:   *((_WORD *)v8 + 16) = 3;    break;
   case 3:   *((_WORD *)v8 + 16) = 7;    break;
@@ -990,7 +974,7 @@ LABEL_53:
   case 12:  *((_WORD *)v8 + 16) = 4095; break;
  }
 
- switch (pClass18->word_00001E)
+ switch (pcTexture->word_00001E)
  {
   case 2:   *((_WORD *)v8 + 17) = 3;    break;
   case 3:   *((_WORD *)v8 + 17) = 7;    break;
@@ -1022,8 +1006,8 @@ int LODFile_sp::LODFile_SetupPalettes( int a2, int a3, int a4)
  int             i, j;
  unsigned char   data[4];
  FILE           *f;
- struct class18 *pClass18;
- struct class18  class18_obj;
+ cTexture *pcTexture;
+ cTexture  cTexture_obj;
 
 
  if ( dword_011B8C != a2 ||  dword_011B90 != a3 ||  dword_011B94 != a4)
@@ -1036,18 +1020,18 @@ int LODFile_sp::LODFile_SetupPalettes( int a2, int a3, int a4)
 
   for (i = 0; i <  uNumLoadedFiles; ++i)
   {
-   pClass18 = & aLODHeaders[i];
+   pcTexture = & aLODHeaders[i];
 
-   class18_ctor(&class18_obj);
-   if (!pClass18->pPalette)
+   cTexture_Zero(&cTexture_obj);
+   if (!pcTexture->pPalette)
      continue;
 
-   f = Find_Container( pClass18->sContainerName, 0);
+   f = Find_Container( pcTexture->sContainerName, 0);
    if (!f)
      continue;
 
-   locked_fread(&class18_obj, 1, 0x30, f);
-   fseek(f, class18_obj.uCompressedSize, SEEK_CUR);
+   locked_fread(&cTexture_obj, 1, 0x30, f);
+   fseek(f, cTexture_obj.uCompressedSize, SEEK_CUR);
 
    for (j = 0; j < 512; ++j)
    {
@@ -1058,9 +1042,9 @@ int LODFile_sp::LODFile_SetupPalettes( int a2, int a3, int a4)
     v14 = (unsigned short)(data[0] >> (8 - (unsigned char)( dword_011B8C)));
     v15 = (unsigned short)(data[1] >> (8 - (unsigned char)( dword_011B90)));
 
-    pClass18->pPalette[j] = v14 << ((unsigned char)( dword_011B90) + (unsigned char)( dword_011B94));
-    pClass18->pPalette[j] |= v15 << (unsigned char)( dword_011B94);
-    pClass18->pPalette[j] |= data[2] >> (8 - (unsigned char)( dword_011B94));
+    pcTexture->pPalette[j] = v14 << ((unsigned char)( dword_011B90) + (unsigned char)( dword_011B94));
+    pcTexture->pPalette[j] |= v15 << (unsigned char)( dword_011B94);
+    pcTexture->pPalette[j] |= data[2] >> (8 - (unsigned char)( dword_011B94));
    }
   }
  }
@@ -1097,7 +1081,7 @@ int LODFile_sp::LODFile_sub_4114F2()
         v6 = (int)& aLODHeaders[v5];
         do
         {
-          class18_sub_40F77C((class18 *)v6);
+          cTexture_Free((cTexture *)v6);
           v7 = (int) pHardwareTextures;
           if ( v7 )
           {
@@ -1195,7 +1179,7 @@ unsigned int LODFile_sp::LODFile_LoadTexture_New(const wchar_t *pFilename)
  uNumLoadedFiles++;
  return uNumLoadedFiles - 1;
 }
-#endif
+
 
 
 bool LODFile_sp::LODFile_ReleaseTexture( unsigned int uTextureID)
@@ -1203,7 +1187,7 @@ bool LODFile_sp::LODFile_ReleaseTexture( unsigned int uTextureID)
  return true;
 }	
  
-
+#endif
 //----- (004AC7C0) --------------------------------------------------------
 unsigned int LODFile_Sprite::LODFile_LoadSprite( const char *pSourceFile, int a3)
 {
@@ -1361,7 +1345,7 @@ void LODFile_sp::Reset_TextureBuffs()
 {
    for (int i=0; i<uNumLoadedFiles; i++)
 		 {
-		 class18_sub_40F77C(&aLODHeaders[i]);
+		 cTexture_Free(&aLODHeaders[i]);
 		  if (pHardwareSurfaces)
 			 if	 (pHardwareSurfaces[i])
 				 {
@@ -1453,7 +1437,7 @@ int LODFile_sp::LODFile_LoadTexture( const char *pContainerName, unsigned int a3
 	  //already loaded check
 	  for ( i=0; i<uNumLoadedFiles; i++)
 		  {
-		  if (!stricmp(&((class18*)aLODHeaders)[i].sContainerName[0], pContainerName))
+		  if (!stricmp(&((cTexture*)aLODHeaders)[i].sContainerName[0], pContainerName))
 			  return i; 	 
 		  }
 	  }
@@ -1467,7 +1451,7 @@ int LODFile_sp::LODFile_LoadTexture( const char *pContainerName, unsigned int a3
 		  {
 		  for (i=0; i<uNumLoadedFiles; i++)
 			  {
-			  if (!stricmp(&((class18*)aLODHeaders)[i].sContainerName[0], "pending"))
+			  if (!stricmp(&((cTexture*)aLODHeaders)[i].sContainerName[0], "pending"))
 				  return i; 	 
 			  }
 		  if (i=uNumLoadedFiles)
@@ -1556,7 +1540,7 @@ int LODFile_sp::sub_46454B()
 {
   int v1; // edi@1
   int v2; // esi@1
-  struct class18 *v3; // ebx@2
+  cTexture *v3; // ebx@2
   int v4; // eax@3
   int v5; // eax@4
   int v6; // eax@6
@@ -1572,7 +1556,7 @@ int LODFile_sp::sub_46454B()
     do
     {
      runtime_warning(this stuff kills textures being drawn);
-      //class18_sub_40F77C(v3);
+      //cTexture_Free(v3);
       v4 = *(_DWORD *)(v2 + 72624);
       if ( v4 )
       {
@@ -1987,7 +1971,7 @@ void LODFile_sp::sub_4355F7()
       v3 = v1 + 72 * v2 + 572;
       do
       {
-        class18_sub_40F77C((class18 *)v3);
+        cTexture_Free((cTexture *)v3);
         v4 = *(_DWORD *)(v1 + 72624);
         if ( v4 )
         {
@@ -2067,112 +2051,83 @@ int LODFile_Sprite::LODFile_sub_461397()
   return 0;
 }
 
-//----- (00461FD4) ------text:004632EA  --------------------------------------------------
-int LOD_Writefile::LODFile_sub_461FD4()
+//----- (00461FD4) ---LODFile_sub_461FD4---text:004632EA  --------------------------------------------------
+int LOD_Writefile::Write_SubIndex()
 {
-  int v1; // edx@1
-  int v2; // edi@1
-  int v3; // esi@1
-  int v4; // eax@2
-  int v5; // eax@2
-  int v6; // ecx@2
-  int v7; // ecx@5
-  int v8; // ebx@5
-  int v9; // eax@6
-  int v10; // edx@6
-  int v11; // edi@6
-  FILE *v12; // eax@9
-  FILE *v13; // ebx@9
-  signed int result; // eax@10
-  int v15; // eax@11
-  FILE *v16; // ST00_4@11
-  size_t v17; // edi@12
-  char Filename[256]; // [sp+Ch] [bp-228h]@9
-  char NewFilename[256]; // [sp+10Ch] [bp-128h]@15
-   int i;
-  //local struct
-  LODIndex Lindx; // [sp+20Ch] [bp-28h]@11
-  int v21; // [sp+21Ch] [bp-18h]@11
-  int v22; // [sp+220h] [bp-14h]@11
-  int v23; // [sp+224h] [bp-10h]@11
-  __int16 v24; // [sp+228h] [bp-Ch]@11
-  __int16 v25; // [sp+22Ah] [bp-Ah]@11
-  int v26; // [sp+22Ch] [bp-8h]@5
-  int v27; // [sp+230h] [bp-4h]@1
+  
+int total_size; // edi@1
+int temp_offset; // ecx@5
+FILE *tmp_file; // eax@9
+size_t write_size; // edi@12
+int result;
+char Filename[256]; // [sp+Ch] [bp-228h]@9
+char NewFilename[256]; // [sp+10Ch] [bp-128h]@15
+int i;
+LODIndex Lindx; // [sp+20Ch] [bp-28h]@11
 
-  v3 = (int)this;
-  v2 = 0;
-  v1 = uNumSubidices;
-  v27 = 0;
-  if ( uNumSubidices > 0 )
-  {
+total_size = 0;
+if ( uNumSubidices > 0 )
+	{
 
-	 for (i=0;i<uNumSubidices;i++)
-		 {
-         v2+=pLODSubIndexNamedBuffer[i].size_data;
-		 }
-    v27 = v2;
-  }
-  v8 = 0;
-  v26 = 32 * uNumSubidices + v2;
-  v7 = 32 * uNumSubidices;
-  if ( uNumSubidices  > 0 )
-  {
-	  for (i=0;i<uNumSubidices;i++)
-		 {
-         pLODSubIndexNamedBuffer[i].offset_from_unit_start=v7;
-		 v7+=pLODSubIndexNamedBuffer[i].size_data;
-		 }
-    v2 = v27;
-  }
-  strcpy(Filename, "lod.tmp");
-  v12 = fopen(Filename, "wb+");
-  v13 = v12;
-  if ( v12 )
-  {
-    locked_fwrite((const void *)&sLODFileHeader, 0x100u, 1u, v12);
-    Reset_LODIndex(&Lindx);
-    strcpy(Lindx.pFilename, "chapter");
-    v15 = offset_to_subindex;
-    v23 = 0;
-    v21 = v15;
-    v25 = 0;
-    v22 = v26;
-    v24 = uNumSubidices;
-    locked_fwrite(&Lindx, 0x20u, 1u, v13);
-    locked_fwrite(pLODSubIndexNamedBuffer, 0x20u, uNumSubidices, v13);
-    v16 = ptemp_write_file;
-    v27 = v2;
-    fseek(v16, 0, 0);
-    if ( v2 > 0 )
-    {
-      do
-      {
-        v17 = uIOBufferSize;
-        if ( v27 <= (signed int)v17 )
-          v17 = v27;
-        locked_fread(pLODIOBuffer, 1u, v17,  ptemp_write_file);
-        locked_fwrite(pLODIOBuffer, 1u, v17, v13);
-        v27 -= v17;
-      }
-      while ( v27 > 0 );
-    }
-    strcpy(NewFilename, (const char *)&sLODName);
-    fclose(v13);
-    fclose(ptemp_write_file);
-    Close_Written_File();
-    remove("lodapp.tmp");
-    remove(NewFilename);
-    rename(Filename, NewFilename);
-    Close_Written_File();
-    Load_File( (const char *)&sLODName, 0);
-    result = 0;
-  }
-  else
-  {
-    result = 5;
-  }
-  return result;
+	for (i=0;i<uNumSubidices;i++)
+		{
+		total_size+=pLODSubIndexNamedBuffer[i].size_data;
+		}
+	}
+temp_offset = sizeof(LODIndex) * uNumSubidices;
+if ( uNumSubidices  > 0 )
+	{
+	for (i=0;i<uNumSubidices;i++)
+		{
+		pLODSubIndexNamedBuffer[i].offset_from_unit_start=temp_offset;
+		temp_offset+=pLODSubIndexNamedBuffer[i].size_data;
+		}
+	}
+strcpy(Filename, "lod.tmp");
+tmp_file = fopen(Filename, "wb+");
+
+if ( tmp_file )
+	{
+	locked_fwrite((const void *)&sLODFileHeader, sizeof(LODFileHeader), 1, tmp_file);
+	Reset_LODIndex(&Lindx);
+	strcpy(Lindx.pFilename, "chapter");
+	Lindx.offset_from_unit_start=offset_to_subindex; //10h 16
+	Lindx.size_data=sizeof(LODIndex) * uNumSubidices + total_size;		   //14h 20
+	Lindx.reserved1=0;		   //18h 24 
+	Lindx.uSubIndixes=uNumSubidices;		   //1ch 28
+	Lindx.reserved3=0;		   // 1Eh 30
+	locked_fwrite(&Lindx, 0x20u, 1, tmp_file);
+	locked_fwrite(pLODSubIndexNamedBuffer, sizeof(LODIndex), uNumSubidices, tmp_file);
+	fseek(ptemp_write_file, 0, 0);
+	if ( total_size > 0 )
+		{
+		do
+			{
+			write_size = uIOBufferSize;
+			if ( total_size <= (signed int)uIOBufferSize )
+				write_size =total_size;
+			locked_fread(pLODIOBuffer, 1,  write_size,  ptemp_write_file);
+			locked_fwrite(pLODIOBuffer, 1,  write_size, tmp_file);
+			total_size -=  write_size;
+			}
+			while ( total_size > 0 );
+		}
+	strcpy(NewFilename, (const char *)&sLODName);
+	fclose(tmp_file);
+	fclose(ptemp_write_file);
+	Close_Written_File();
+	remove("lodapp.tmp");
+	remove(NewFilename);
+	rename(Filename, NewFilename);
+	Close_Written_File();
+	Load_File( (const char *)&sLODName, 0);
+	result = 0;
+	}
+else
+	{
+	result = 5;
+	}
+return result;
 }
 
 

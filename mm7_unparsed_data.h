@@ -808,7 +808,7 @@ extern struct GUIButton *dword_507B9C; // weak
 extern struct GUIButton *dword_507BA0; // weak
 extern struct GUIButton *dword_507BA4; // weak
 
-//extern struct class18 *pClass18_ibground; // ptr @ MM7.exe::00507BA8
+//extern struct cTexture *pcTexture_ibground; // ptr @ MM7.exe::00507BA8
 extern unsigned int uTextureID_ibground; // dword @ MM7.exe::00507BA8 addon, used to be obj ptr
 
 extern int dword_507BAC; // weak
@@ -1266,7 +1266,7 @@ extern struct GUIButton *dword_5913F4[array_size_unknown]; // weak
 extern unsigned int uTextureID_Dialogue_NPCPortrait[]; // dword @ MM7.exe::0059140C
 extern int dword_591424; // weak
 
-extern struct class18 *pClass18_EndcapTexture; // ptr @ MM7.exe::00591428
+extern cTexture *pcTexture_EndcapTexture; // ptr @ MM7.exe::00591428
 //int dword_591428; // idb
 
 extern int dword_59142C; // weak
@@ -2210,7 +2210,7 @@ extern _UNKNOWN unk_800000; // weak
 //extern int dword_8018E4; // array_77EC08[1999]::000028
 //extern int dword_8018E8; // array_77EC08[1999]::00002C
 //int dword_8018F4; // array_77EC08[1999]::000038
-//extern struct class18 *dword_8018F8; // 00003C
+//extern struct cTexture *dword_8018F8; // 00003C
 //extern char byte_801914; // 000058
 
 

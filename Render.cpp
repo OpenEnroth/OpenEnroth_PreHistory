@@ -457,7 +457,7 @@ void Render_Set2DClippingRect(struct Render *_this, unsigned int uX, unsigned in
  _this->dword_040104 = 1;
 }
 
-extern struct class18 pending_texture;
+extern class cTexture pending_texture;
 void Render_DrawIndexedTextureHandle(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID)
 {
   //int v5; // eax@4
@@ -486,7 +486,7 @@ void Render_DrawIndexedTextureHandle(struct Render *_this, unsigned int uX, unsi
  unsigned int    uSrcColor,
                  uDstColor,
                  uAlpha;
- struct class18 *pTexture;
+ cTexture *pTexture;
 
  if (uTextureID != -1)
    pTexture = &LODFile_Icons_LOD.aLODHeaders[uTextureID];
@@ -521,7 +521,7 @@ void Render_DrawIndexedTextureHandle(struct Render *_this, unsigned int uX, unsi
 }
 
 //----- (004A5EB2) --------------------------------------------------------
-void Render_DrawIndexedTexture(struct Render *_this, unsigned int uX, unsigned int uY, struct class18 *pTexture)
+void Render_DrawIndexedTexture(struct Render *_this, unsigned int uX, unsigned int uY, cTexture *pTexture)
 {
   //int v5; // eax@4
   int v6; // ebx@4
@@ -608,7 +608,7 @@ void Render_DrawText(struct Render *_this, unsigned int uOutX, unsigned int uOut
 
 
 //----- (004A6274) --------------------------------------------------------
-void Render_DrawTransparentTexture(struct Render *_this, unsigned int uX, unsigned int uY, struct class18 *pTexture)
+void Render_DrawTransparentTexture(struct Render *_this, unsigned int uX, unsigned int uY, cTexture *pTexture)
 {
   int v5; // eax@4
   int v6; // ebx@4
@@ -678,7 +678,7 @@ void Render_DrawTransparentTexture(struct Render *_this, unsigned int uX, unsign
 
 void Render_DrawTransparentRect(struct Render *_this, unsigned int uOutX, unsigned int uOutY,
                                       unsigned int uSrcX, unsigned int uSrcY, unsigned int uSrcWidth, unsigned int uSrcHeight,
-                                      struct class18 *pTexture)
+                                      cTexture *pTexture)
 {
  unsigned int *pSurfacePtr;
  unsigned int  x, y;
@@ -772,7 +772,7 @@ void Render_DrawRGBTexture_New(struct Render *_this, unsigned int uX, unsigned i
  unsigned int   *pSurfacePtr;
  unsigned int    uColor;
  int             x, y;
- struct class18 *pTexture;
+cTexture *pTexture;
 
  if (!_this->bSceneBegun)
    return;
@@ -2123,7 +2123,7 @@ int RGBTexture_Load(struct RGBTexture *_this, const char *pContainerName, int a3
   //v16
   char local_1[48]; // [sp+Ch] [bp-98h]@7
 
-  struct class18 class18_obj;
+  cTexture cTexture_obj;
   //char DstBuf[48]; // [sp+3Ch] [bp-68h]@1
   //size_t v18; // [sp+50h] [bp-54h]@4
   //size_t Size; // [sp+64h] [bp-40h]@4

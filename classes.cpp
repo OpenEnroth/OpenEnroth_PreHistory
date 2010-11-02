@@ -728,7 +728,7 @@ void sub_469903(struct class03 *_this, const char *pSource)
   *(_DWORD *)(_this + 4) = 1;
   if ( !dword_506128 )
   {
-   class18_sub_40F77C((class18 *)(*(_DWORD *)(_this + 36) != -1 ? 72 * *(_DWORD *)(_this + 36) + 7145548 : 0));
+   cTexture_Free((cTexture *)(*(_DWORD *)(_this + 36) != -1 ? 72 * *(_DWORD *)(_this + 36) + 7145548 : 0));
    LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
   return;
@@ -4623,8 +4623,8 @@ int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2)
   char v10; // [sp+18h] [bp-388h]@6
   char v11; // [sp+19h] [bp-387h]@17
   char v12[766]; // [sp+1Ah] [bp-386h]@17
-  struct class18 class18_obj;//char class18_obj[128]; // [sp+318h] [bp-88h]@4
-  //class18_obj::ptr_000044 //int v14; // [sp+35Ch] [bp-44h]@7
+  cTexture cTexture_obj;//char cTexture_obj[128]; // [sp+318h] [bp-88h]@4
+  //cTexture_obj::ptr_000044 //int v14; // [sp+35Ch] [bp-44h]@7
   char Source[32]; // [sp+360h] [bp-40h]@4
   void *v16; // [sp+380h] [bp-20h]@1
   float v17; // [sp+384h] [bp-1Ch]@7
@@ -4648,18 +4648,18 @@ int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2)
     if ( result >= 50 )
     {
       sprintf(Source, "pal%03i", a2);
-      class18_ctor(&class18_obj);
-      if ( LODFile_Bitmaps_LOD.LODFile_LoadPalette( &class18_obj, Source, 1u) == 1 )
+      cTexture_Zero(&cTexture_obj);
+      if ( LODFile_Bitmaps_LOD.LODFile_LoadPalette( &cTexture_obj, Source, 1u) == 1 )
       {
         v4 = 0;
         v18 = 1 - (_DWORD)&v10;
         do
         {
-         v21 = class18_obj.ptr_000044[v4] * 0.003921568859368563;
+         v21 = cTexture_obj.ptr_000044[v4] * 0.003921568859368563;
 
-         v20 = class18_obj.ptr_000044[class18_obj.ptr_000044[v4] + v18] * 0.003921568859368563;
+         v20 = cTexture_obj.ptr_000044[cTexture_obj.ptr_000044[v4] + v18] * 0.003921568859368563;
 
-         v23 = class18_obj.ptr_000044[v4 + 2] * 0.003921568859368563;
+         v23 = cTexture_obj.ptr_000044[v4 + 2] * 0.003921568859368563;
 
           sub_48A7AA((float *)&v17, (float *)&v19, v21, v20, v23, (float *)&v22);
           v5 = *(float *)&v22 * 1.100000023841858;
@@ -4694,7 +4694,7 @@ int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2)
           v4 += 3;
         }
         while ( v4 < 768 );
-        class18_sub_40F77C(&struct_505898.Dest);
+        cTexture_Free(&struct_505898.Dest);
         result = sub_48A5A4(v16, a2, (int)&v10);
       }
       else

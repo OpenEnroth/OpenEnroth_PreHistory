@@ -786,7 +786,7 @@ struct GUIButton *dword_507B9C; // weak
 struct GUIButton *dword_507BA0; // weak
 struct GUIButton *dword_507BA4; // weak
 
-// struct class18 *pClass18_ibground = 0; // ptr @ MM7.exe::00507BA8
+// struct cTexture *pcTexture_ibground = 0; // ptr @ MM7.exe::00507BA8
 unsigned int uTextureID_ibground = -1; // dword @ MM7.exe::00507BA8 addon, used to be obj ptr
 
  int dword_507BAC; // weak
@@ -1188,7 +1188,7 @@ struct GUIButton *dword_5913F4[array_size_unknown]; // weak
 unsigned int uTextureID_Dialogue_NPCPortrait[array_size_unknown]; // dword @ MM7.exe::0059140C
  int dword_591424; // weak
 
-struct class18 *pClass18_EndcapTexture; // ptr @ MM7.exe::00591428
+cTexture *pcTexture_EndcapTexture; // ptr @ MM7.exe::00591428
 //int dword_591428; // idb
 
  int dword_59142C; // weak

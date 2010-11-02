@@ -2153,7 +2153,7 @@ LABEL_12:
   //  v7 = (int)((char *)LODFile_Icons_LOD.aLODHeaders + 72 * v6);
   //  do
   //  {
-  //    class18_sub_40F77C((class18 *)v7);
+  //    cTexture_Free((cTexture *)v7);
   //    v8 = *((_DWORD *)LODFile_Icons_LOD.dword_0046EC /*+ 18156*/);
   //    if ( v8 )
   //    {
@@ -2238,7 +2238,7 @@ signed int __thiscall sub_49298B(void *_this, struct ItemGen *a2, int a3, int a4
   v11 = GetSizeInInventorySlots(*(_WORD *)(v5 + 26));
   if ( !dword_506128 )
   {
-    class18_sub_40F77C((class18 *)v5);
+    cTexture_Free((cTexture *)v5);
     LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
   if ( v11 > 0 )
@@ -2280,7 +2280,7 @@ int __thiscall Player_sub_492A36(void *_this, int a2)
   v3 = result;
   if ( !dword_506128 )
   {
-    class18_sub_40F77C((class18 *)v5);
+    cTexture_Free((cTexture *)v5);
     result = LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
   if ( v3 > 0 )
@@ -3535,7 +3535,7 @@ int CreditsMenuLoop()
   int v12; // eax@19
   int v14; // eax@24
   int v15; // eax@24
-  char class18_obj[128]; // [sp+Ch] [bp-130h]@5
+  char cTexture_obj[128]; // [sp+Ch] [bp-130h]@5
   int v17; // [sp+20h] [bp-11Ch]@8
   size_t Count; // [sp+34h] [bp-108h]@7
   struct RGBTexture v19;
@@ -3578,11 +3578,11 @@ int CreditsMenuLoop()
   v2 = (int)LODFile_Events_LOD.LODFile_LoadRaw( "credits.txt", 0);
   v1 = (const char *)v2;
   Source = (char *)v2;
-  class18_ctor((class18 *)class18_obj);
+  cTexture_Zero((cTexture *)cTexture_obj);
   v0 = LODFile_Events_LOD.Find_Container( "credits.txt", 0);
   if ( !v0 )
     erroneous_printf((char *)pGlobalTXT_LocalizationStrings[63]);
-  locked_fread(class18_obj, 1u, 0x30u, (FILE *)v0);
+  locked_fread(cTexture_obj, 1u, 0x30u, (FILE *)v0);
   v3 = Count;
   if ( !Count )
     v3 = v17;
@@ -12540,16 +12540,16 @@ void __thiscall Render_sub_4A6A68(void *_this, int a2, int a3, int a4, __int16 a
 {
   int v5; // ebx@1
   __int16 v6; // ax@1
-  char class18_obj[78]; // [sp+Ch] [bp-48h]@1
+  char cTexture_obj[78]; // [sp+Ch] [bp-48h]@1
   __int16 v8; // [sp+26h] [bp-2Eh]@1
 
   v5 = (int)_this;
-  class18_ctor((class18 *)class18_obj);
+  cTexture_Zero((cTexture *)cTexture_obj);
   v6 = *(_WORD *)(a4 + 26) - a5;
-  memcpy(class18_obj, (const void *)a4, 0x48u);
+  memcpy(cTexture_obj, (const void *)a4, 0x48u);
   v8 = v6;
   if ( v6 > 0 )
-    Render_DrawIndexedTexture((Render *)v5, a2, a3, (class18 *)a4);
+    Render_DrawIndexedTexture((Render *)v5, a2, a3, (cTexture *)a4);
 }
 
 //----- (004A6DF5) --------------------------------------------------------

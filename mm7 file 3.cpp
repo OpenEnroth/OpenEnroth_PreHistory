@@ -4675,9 +4675,9 @@ LABEL_12:
 LABEL_14:
     v7 = (int)&LODFile_Icons_LOD.aLODHeaders[*(_WORD *)(v4 + 30)];
     if ( pD3DRenderer->pRenderD3D3 )
-      Render_DrawIndexedTexture(pD3DRenderer, 394, 288, (class18 *)v7);
+      Render_DrawIndexedTexture(pD3DRenderer, 394, 288, (cTexture *)v7);
     else
-      Render_DrawTransparentTexture(pD3DRenderer, 394, 288, (class18 *)v7);
+      Render_DrawTransparentTexture(pD3DRenderer, 394, 288, (cTexture *)v7);
     result = dword_50C994;
     if ( dword_50C994 < dword_50C998 )
     {
@@ -5834,12 +5834,12 @@ char *__cdecl sub_444A51()
   Render_DrawIndexedTexture(pD3DRenderer,
     uDialogueUIIconsOffsetX - 4,
     uDialogueUIIconsOffsetY - 4,
-    (class18 *)(dword_50795C_TextureID != -1 ? 72 * dword_50795C_TextureID + 7145548 : 0));
-  Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, (class18 *)dword_59142C);
+    (cTexture *)(dword_50795C_TextureID != -1 ? 72 * dword_50795C_TextureID + 7145548 : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, (cTexture *)dword_59142C);
   uTextureID_507B04 = uTextureID_5079E4;
-  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (class18 *)(uTextureID_5079E4 != -1 ? 72 * uTextureID_5079E4 + 7145548 : 0));
-  Render_DrawIndexedTexture(pD3DRenderer, 556, 451, (class18 *)(uTextureIdx_BtnXxU != -1 ? 72 * uTextureIdx_BtnXxU + 7145548 : 0));
-  Render_DrawIndexedTexture(pD3DRenderer, 476, 451, (class18 *)(uTextureIdx_BtnXokU != -1 ? 72 * uTextureIdx_BtnXokU + 7145548 : 0));
+  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (cTexture *)(uTextureID_5079E4 != -1 ? 72 * uTextureID_5079E4 + 7145548 : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 556, 451, (cTexture *)(uTextureIdx_BtnXxU != -1 ? 72 * uTextureIdx_BtnXxU + 7145548 : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 476, 451, (cTexture *)(uTextureIdx_BtnXokU != -1 ? 72 * uTextureIdx_BtnXokU + 7145548 : 0));
   if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) || v13 )
   {
     if ( *dword_591164 != 48 )
@@ -5971,10 +5971,10 @@ void __cdecl sub_444DCA()
   sub_48902E((char *)pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, &Str2, 20);
   v0 = CMapStats_FindLocation(pMapStats, &Str2);
   Render_DrawIndexedTexture(pD3DRenderer, 477, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
-  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (class18 *)(uTextureID_507B04 != -1 ? 72 * uTextureID_507B04 + 7145548 : 0));
-  Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, (class18 *)(dword_59142C));
-  Render_DrawIndexedTexture(pD3DRenderer, 556, 451, (class18 *)(uTextureIdx_BtnXxU != -1 ? 72 * uTextureIdx_BtnXxU + 7145548 : 0));
-  Render_DrawIndexedTexture(pD3DRenderer, 476, 451, (class18 *)(uTextureIdx_BtnXokU != -1 ? 72 * uTextureIdx_BtnXokU + 7145548 : 0));
+  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (cTexture *)(uTextureID_507B04 != -1 ? 72 * uTextureID_507B04 + 7145548 : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, (cTexture *)(dword_59142C));
+  Render_DrawIndexedTexture(pD3DRenderer, 556, 451, (cTexture *)(uTextureIdx_BtnXxU != -1 ? 72 * uTextureIdx_BtnXxU + 7145548 : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 476, 451, (cTexture *)(uTextureIdx_BtnXokU != -1 ? 72 * uTextureIdx_BtnXokU + 7145548 : 0));
   if ( v0 )
   {
    v2 = (int *)&pMapStats->pMapInfos[v0];
@@ -6040,7 +6040,7 @@ void __cdecl sub_444FBE_DrawBranchlessDialogueUI()
     v1 = Font_sub_44C59D(pFontCreate, (char *)byte_5B0938, &local_D4, 12, 0) + 7;
   }
   Render_sub_4A6A68(pD3DRenderer, 8, 352 - v1, (int)&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather], (short)&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather].uTextureHeight);
-  Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v1, pClass18_EndcapTexture);
+  Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v1, pcTexture_EndcapTexture);
   v2 = (char *)FitTextInAWindow((char *)byte_5B0938, (Font *)v8, &local_D4, 12, 0);
   FontDrawText(pGUIWindow2, (Font *)v8, 12, 354 - v1, v2, 0, 0, 0);
 
@@ -6333,7 +6333,7 @@ LABEL_39:
       }
       Render_sub_4A6A68(pD3DRenderer, 8, 352 - v12, (int)&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather],
                  LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather].uTextureHeight - v12);
-      Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v12, pClass18_EndcapTexture);
+      Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v12, pcTexture_EndcapTexture);
       v13 = (char *)FitTextInAWindow(v64, (Font *)i, &local_04, 13, v8);
       FontDrawText(pDialogueWindow, (Font *)i, 13, 354 - v12, v13, v8, v8, (unsigned int)v8);
       goto LABEL_42;

@@ -15,20 +15,18 @@
 
 struct LODIndex
 {
- char pFilename[16];
- //unsigned int unk1;
-// unsigned int unk2;
- unsigned int offset_from_unit_start; //10h 16
- unsigned int size_data;		   //14h 20
- unsigned int reserved1;		   //18h 24 
- unsigned short uSubIndixes;		   //1ch 28
- unsigned short reserved3;		   // 1Eh 30
+ char            pFilename[16];
+ unsigned int    offset_from_unit_start; //10h 16
+ unsigned int    size_data;		   //14h 20
+ unsigned int    reserved1;		   //18h 24 
+ unsigned short  uSubIndixes;		   //1ch 28
+ unsigned short  reserved3;		   // 1Eh 30
 };
 //sizeof == 20
 
 struct LODFileHeader
 {
- char Signature[4];     // dword @ 000000    "LOD\0"
+ char           Signature[4];     // dword @ 000000    "LOD\0"
  char           a1[80];			  //00004
  char           a2[80];			   //  
  unsigned int   dword00A4;        // dword @ 0000A4
@@ -87,7 +85,7 @@ class LOD_file
 	   int _sub_461B48( const char *Count, const void *a3, FILE *File);
 	  bool Append_item(const LODIndex *pHeader, const void *Data);
 	  signed int LODFile_sub_4621A7();
-	  int LODFile_sub_461FD4();
+	  int Write_SubIndex();
 	   int Write_Lod_Header( LODFileHeader* file_header, LODIndex * indx, const char *Source);
 
 	  int LODFile_sub_461F1E();
@@ -100,7 +98,7 @@ class LODFile_sp: public  LOD_file
 {
 public:
 
-	 struct class18 aLODHeaders[1000];  // class18[~ 1000] @ 00023C   	   //48h
+	 cTexture aLODHeaders[1000];  // cTexture[~ 1000] @ 00023C   	   //48h
      unsigned int uNumLoadedFiles; // dword @ 011B7C	 72572
      int     dword_011B80;//
      int     dword_011B84; //
@@ -119,11 +117,7 @@ public:
  IDirectDrawSurface4 **pHardwareSurfaces; // dword @ 011BAC   1000 of them  72620
  IDirect3DTexture2   **pHardwareTextures; // dword @ 011BB0   1000 of them  72624
  int    **dword_011BB4;//         							  72628
- /*struct IDirect3DTexture2   **pHardwareTextures; // dword @ 011BB0   1000	11BB0
- struct IDirect3DTexture2   **pHardwareTextures2; //dword  11BB4		 72628
- void  **dword_011BB4; */         //                  250
 
-//sizeof = 011BB8
 
  
 
@@ -149,7 +143,7 @@ void Reset_TextureBuffs(); //LODFile_fn4();
 //int __thiscall sub_40FB20(int _this, const char *Source, unsigned int a3)
 int LODFile_LoadTexture( const char *pContainerName, unsigned int a3);
 //signed int __thiscall sub_40FC08(int _this, void *Dest, int Source, unsigned int DstBuf);
-int LODFile_LoadPalette( struct class18 *pClass18, const char *pContainerName, unsigned int DstBuf);
+int LODFile_LoadPalette(cTexture *pcTexture, const char *pContainerName, unsigned int DstBuf);
 //int __thiscall sub_461954(int _this, int a2, signed int Size);
 //void LODFile_AllocateSubidexAndIOBuffer(struct LODFile *_this, unsigned int uNumSubIndices, signed int uIOBufferSize);
 //signed int __thiscall sub_461A43(void *_this, const char *Filename, char a3);
@@ -159,9 +153,6 @@ int LODFile_sub_4114F2();
 //int __thiscall sub_46454B(int _this);
 int sub_46454B();
 
-//signed int __thiscall sub_46161C(int _this, const char *Str1);
-//bool LODFile_Games_LOD_FindLeveL( const char *pLevelName);
-//signed int __thiscall sub_4AC67E(int _this, char *DstBuf, const char *Size);
 
 
 int LODFile_SetupPalettes( int a2, int a3, int a4);
@@ -169,9 +160,10 @@ int LODFile_SetupPalettes( int a2, int a3, int a4);
  signed int  LODFile_sub_4101B1( char *DstBuf, const char *Source, size_t Count);
  #ifndef	OLD_CODE
 unsigned int   LODFile_LoadTexture_New(const wchar_t *pFilename);
+bool LODFile_ReleaseTexture( unsigned int uTextureID);
 #endif
 unsigned char *LODFile_LoadEvent( const wchar_t *pFilename);
-bool LODFile_ReleaseTexture( unsigned int uTextureID);
+
 
 int  LODFile_sub_40F9C5();
 
@@ -202,11 +194,10 @@ void  sub_41033D();
 		   int   dword_00ECA8;  //	60584
 		   int   dword_00ECAC;
 		   struct HardwareSprite *pHardwareSprites; // dword @ 00ECB0    1500 structs 40 bytes long, maybe only for pLODFile_Sprites_LOD
-		   //                   addon: 3000 structs	  60592
-		  // int   dword_00ECB4; 
+		  
 		   LODFile_Sprite();
 		   ~LODFile_Sprite();
-		   //int __thiscall sub_4645DC(int _this);	
+
            
            int sub_4645DC();   
 		   void sub_4ACBE0();
@@ -217,7 +208,7 @@ void  sub_41033D();
 		   int sub_4AC67E_LoadSpriteFromFile( Sprites_Header *pDstBuf, const char *pFilename);
 		   int LODFile_sub_461397();   
 		   //bool __thiscall sub_4AC795(int _this, const char *Filename);
-bool LODFile_LoadLOD_Sprites( const char *pLODFilename);
+            bool LODFile_LoadLOD_Sprites( const char *pLODFilename);
 		   unsigned int LODFile_LoadSprite( const char *pSourceFile, int a3);
 	   };
 

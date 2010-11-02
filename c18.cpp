@@ -55,31 +55,30 @@ void Sprites_Header::Clear_Data()
 }
 
 
-//----- (MM7.exe::0040F5BE) --------------------------------------------------------
-void *class18_ctor(struct class18 *_this)
+//----- (MM7.exe::0040F5BE) ----.text:0040F8B0  ----------------------------------------------------
+void cTexture_Zero(cTexture* cTxtr)
 {
- _this->sContainerName[0] = 0;
+	cTxtr->sContainerName[0] = 0;
+	cTxtr->dword_000010 = 0;
+	cTxtr->uCompressedSize = 0; 
+	cTxtr->uTextureWidth = 0;
+	cTxtr->uTextureHeight = 0;
+	cTxtr->word_00001C = 0;
+	cTxtr->word_00001E = 0;
 
- *(_DWORD *)((char *)_this + 16) = 0;
- *(_DWORD *)((char *)_this + 20) = 0;
- *(_WORD *)((char *)_this + 26) = 0;
- *(_WORD *)((char *)_this + 24) = 0;
- *(_WORD *)((char *)_this + 30) = 0;
- *(_WORD *)((char *)_this + 28) = 0;
- *(_WORD *)((char *)_this + 36) = 0;
- *(_WORD *)((char *)_this + 38) = 0;
- *(_DWORD *)((char *)_this + 48) = 0;
- *(_DWORD *)((char *)_this + 60) = 0;
- *(_DWORD *)((char *)_this + 56) = 0;
- *(_DWORD *)((char *)_this + 52) = 0;
- *(_DWORD *)((char *)_this + 64) = 0;
- *(_DWORD *)((char *)_this + 68) = 0;
+	cTxtr->word_000024 = 0;
+	cTxtr->word_000026 = 0;
 
- return _this;
+	cTxtr->pIndexedPixels = NULL;
+	cTxtr->dword_000034 = 0;
+	cTxtr->dword_000038 = 0;
+	cTxtr->dword_0003C = 0;
+	cTxtr->pPalette = NULL;
+	cTxtr->ptr_000044 = NULL;
 }
 
-  //----- (0040F77C) --------------------------------------------------------
-void class18_sub_40F77C(struct class18 *_this)
+  //----- (0040F77C) ---------text:0040FA6E-----------------------------------------------
+void cTexture_Free(cTexture* cTxtr)
 {
   //int v1; // esi@1
   char v2; // zf@2
@@ -88,39 +87,36 @@ void class18_sub_40F77C(struct class18 *_this)
   runtime_warning( this thing CRUSHES);
  
   /*
-  if ( _this )
+  if ( cTxtr )
   {
-    v2 = (*(_BYTE *)(_this + 45) & 4) == 0;
-    _this->sContainerName[0] = 0;
-    if ( v2 )
+    cTxtr->sContainerName[0] = 0;
+    if (!(cTxtr->word_00002C&0x400) )
     {
-      mem_mng.DeleteBuffer( (void *)_this->pIndexedPixels);
-      mem_mng.DeleteBuffer( (void *)_this->pPalette);
-      mem_mng.DeleteBuffer( (void *)_this->ptr_000044);
+      mem_mng.DeleteBuffer( (void *)cTxtr->pIndexedPixels);
+      mem_mng.DeleteBuffer( (void *)cTxtr->pPalette);
+      mem_mng.DeleteBuffer( (void *)cTxtr->ptr_000044);
     }
-
-    _this->pIndexedPixels = 0;
-    _this->dword_000034 = 0;
-    _this->dword_000038 = 0;
-    _this->dword_00003C = 0;
-    _this->pPalette = 0;
-    _this->ptr_000044 = 0;
-    _this->uCompressedSize = 0;
-    _this->dword_000010 = 0;
-
-    _this->uTextureWidth = 0;
-    _this->uTextureHeight = 0;
-    _this->word_00001C = 0;
-    _this->word_00001E = 0;
-    _this->word_000024 = 0;
-    _this->word_000026 = 0;
-    _this->word_00002C = 0;
+	cTxtr->dword_000010 = 0;
+    cTxtr->pIndexedPixels = 0;
+    cTxtr->dword_000034 = 0;
+    cTxtr->dword_000038 = 0;
+    cTxtr->dword_0003C = 0;
+    cTxtr->pPalette = 0;
+    cTxtr->ptr_000044 = 0;
+    cTxtr->uCompressedSize = 0;
+    cTxtr->uTextureWidth = 0;
+    cTxtr->uTextureHeight = 0;
+    cTxtr->word_00001C = 0;
+    cTxtr->word_00001E = 0;
+    cTxtr->word_000024 = 0;
+    cTxtr->word_000026 = 0;
+    cTxtr->word_00002C = 0;
   }*/
 }
 
 
 //----- (0040F806) --------------------------------------------------------
-int class18_UnzipPalette(struct class18 *_this)
+int cTexture_UnzipPalette(cTexture *_this)
 {
   int v2; // esi@1
   int v3; // edi@1

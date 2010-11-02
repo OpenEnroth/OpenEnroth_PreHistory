@@ -579,7 +579,7 @@ bool MaybeDoAutosave()
     strcpy(&v12.pFilename[0], "header.bin");
     v13 = 100;
     LODFile_New_LOD.Append_item(&v12, &unk_69BD68);
-    LODFile_New_LOD.LODFile_sub_461FD4();
+    LODFile_New_LOD.Write_SubIndex();
 
     pParty_global->sPartyPosX = 12552;
     pParty_global->sPartyPosY = 1816;
@@ -7499,23 +7499,23 @@ void __cdecl InitializeAutonotes()
 int LoadFileToBuffer(const char *pSourceFile, unsigned char *pOutBuffer, unsigned int uBufferSize)
 {
   int v5; // esi@3
-  struct class18 class18_obj; // [sp+6Ch] [bp-50h]@1
+  cTexture cTexture_obj; // [sp+6Ch] [bp-50h]@1
   void *Src; // [sp+B8h] [bp-4h]@1
  FILE *f;
 
  Src = (void *)LODFile_Events_LOD.LODFile_LoadRaw( pSourceFile, 0);
- class18_ctor(&class18_obj);
+ cTexture_Zero(&cTexture_obj);
 
  f = LODFile_Events_LOD.Find_Container( pSourceFile, 0);
  if (!f)
    erroneous_printf("Unable to load %s", pSourceFile);
- locked_fread(&class18_obj, 1, 0x30, f);
+ locked_fread(&cTexture_obj, 1, 0x30, f);
 
- v5 = class18_obj.uDecompressedSize;
+ v5 = cTexture_obj.uDecompressedSize;
  if (!v5)
-   v5 = class18_obj.uCompressedSize;
+   v5 = cTexture_obj.uCompressedSize;
 
- memset(&class18_obj, 0, 0x48u);
+ memset(&cTexture_obj, 0, 0x48u);
  if (v5 >= uBufferSize)
  {
   char v7[256];

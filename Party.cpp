@@ -335,7 +335,7 @@ int Party_AddItem(struct Party *_this, struct ItemGen *a2)
       {
         if ( v24 == v9 )
         {
-          class18_sub_40F77C((class18 *)v6);
+          cTexture_Free((cTexture *)v6);
           LODFile_Icons_LOD.LODFile_sub_40F9C5();
         }
         goto LABEL_15;
@@ -347,7 +347,7 @@ int Party_AddItem(struct Party *_this, struct ItemGen *a2)
     Player_PlaySound((Player *)v22, 60, 0);
     if ( !v24 )
     {
-      class18_sub_40F77C((class18 *)v6);
+      cTexture_Free((cTexture *)v6);
       LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
     result = 1;

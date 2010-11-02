@@ -232,8 +232,8 @@ extern struct GUIButton *pPlayerCreationUI_BtnOK;
 
 extern struct GUIButton *pPlayerCreationUI_BtnPlus;
 extern struct GUIButton *pPlayerCreationUI_BtnMinus;
-extern struct class18 *pPlayerCreationUI_Sky;
-extern struct class18 *pPlayerCreationUI_Top;
+extern class cTexture *pPlayerCreationUI_Sky;
+extern class cTexture *pPlayerCreationUI_Top;
 
 extern struct class24 *pClass24_global2;
 

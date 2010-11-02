@@ -1110,7 +1110,7 @@ struct struct8
  short                  word_000032;
  int                    dword_000034;
  struct class57        *ptr_000038;
- struct class18        *ptr_00003C;
+ cTexture              *ptr_00003C;
  struct Span           *ptr_000040; // head  ?
  struct Span           *ptr_000044;  // and tail ?
  int                  **ptr_000048;
@@ -1426,9 +1426,9 @@ struct unnamed_505898
  int dword_505940; // weak
  int dword_505944; // weak
  int dword_505948; // weak
- class18 Dest;
+ cTexture Dest;
  //char Dest[32]; // idb
- char byte_50596C[32]; // class18 ?
+ char byte_50596C[32]; // cTexture ?
  char byte_50598C; // weak
  char byte_50598D; // weak
  char byte_50598E; // weak

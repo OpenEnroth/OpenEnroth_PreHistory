@@ -1647,7 +1647,7 @@ void __thiscall class03_sub_469EA4_LooksLikeDrawPickedItem(int _this)
         else
         {
           if (pParty_global->stru_007754.dword_000014 & 1 )
-            Render_DrawTransparentTexture(pD3DRenderer, v16, v6, (class18 *)v2);
+            Render_DrawTransparentTexture(pD3DRenderer, v16, v6, (cTexture *)v2);
           else
             Render_sub_4A68EF((int)pD3DRenderer, v16, v6, v2);
         }
@@ -2590,7 +2590,7 @@ char __thiscall sub_46AE97(void *_this, void *Source)
   char result; // al@3
   int v6; // [sp+8h] [bp-B0h]@1
   int v7; // [sp+58h] [bp-60h]@1
-  char class18_obj[128]; // [sp+6Ch] [bp-4Ch]@1
+  char cTexture_obj[128]; // [sp+6Ch] [bp-4Ch]@1
   char v9; // [sp+B4h] [bp-4h]@1
 
   v2 = _this;
@@ -2607,10 +2607,10 @@ char __thiscall sub_46AE97(void *_this, void *Source)
          &v6);
   CheckHRESULT((void **)&v9, v4, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MouseAsync.cpp", 0x81u, 0);
 
-  class18_ctor((class18 *)class18_obj);
-  if ( LODFile_Icons_LOD.LODFile_LoadPalette( (class18 *)class18_obj, (char *)Source, 2) != -1 && sub_46B1EC((int)&struct_505898.Dest, *((_DWORD *)v2 + 1), 0) )
+  cTexture_Zero((cTexture *)cTexture_obj);
+  if ( LODFile_Icons_LOD.LODFile_LoadPalette( (cTexture *)cTexture_obj, (char *)Source, 2) != -1 && sub_46B1EC((int)&struct_505898.Dest, *((_DWORD *)v2 + 1), 0) )
   {
-    class18_sub_40F77C((class18 *)class18_obj);
+    cTexture_Free((cTexture *)cTexture_obj);
     LeaveCriticalSection(&pGame->class01_obj->cs2);
     result = 1;
   }
@@ -11637,7 +11637,7 @@ void SaveColormap(const wchar_t *pFile, unsigned char *pBits)
  {
    for (j = 0; j < 128; ++j)
    {
-    struct class18 *pTexture = &LODFile_Bitmaps_LOD.aLODHeaders[TileTable_GetTile(pTileTable, pBits[i * 128 + j])->word_000012];
+    cTexture *pTexture = &LODFile_Bitmaps_LOD.aLODHeaders[TileTable_GetTile(pTileTable, pBits[i * 128 + j])->word_000012];
     for (y = 0; y < 128; ++y)
       memcpy(pColormap + j * 128 * 128 + y * 128, pTexture->pTruecolorPixels + y * 128, 128 * 4);
    }
@@ -11727,7 +11727,7 @@ char __cdecl RenderBuildings()
    fprintf(f, "Name: \"%s\"\nNum submodels: %u\n", pClass51_global->pBModels[i].pModelName, pClass51_global->pBModels[i].dword_00004C);
    for (j = 0; j < pClass51_global->pBModels[i].dword_00004C; ++j)
    {
-    struct class18 *pTex;
+    struct cTexture *pTex;
     v4 = &pClass51_global->pBModels[i].ptr_000054[j];
 
     fprintf(f, "\nSubmodel[%u]\n{\n", j);
@@ -15158,7 +15158,7 @@ bool sub_482E07(struct Span *pSpan, unsigned int *pRenderTarget)
         if ( bUseLoResSprites )
           goto LABEL_16;
         v102 = 3;
-        local_54.dword_000038 = v5->ptr_00003C->dword_00003C;
+        local_54.dword_000038 = v5->ptr_00003C->dword_0003C;
       }
       else
       {
@@ -15175,7 +15175,7 @@ bool sub_482E07(struct Span *pSpan, unsigned int *pRenderTarget)
   else
   {
     v102 = 0;
-    local_54.dword_000038 = v5->ptr_00003C->dword_000030;
+    local_54.dword_000038 = (int)v5->ptr_00003C->pIndexedPixels;
   }
 
   v102 = 0;
@@ -16321,7 +16321,7 @@ bool sub_4847EB(struct Span *pSpan)
         if ( bUseLoResSprites )
           goto LABEL_14;
         v15 = 3;
-        local_30.dword_000038 = v5->ptr_00003C->dword_00003C;
+        local_30.dword_000038 = v5->ptr_00003C->dword_0003C;
       }
       else
       {
@@ -16337,7 +16337,7 @@ bool sub_4847EB(struct Span *pSpan)
   else
   {
     v15 = 0;
-    local_30.dword_000038 = v5->ptr_00003C->dword_000030;
+    local_30.dword_000038 = (int)v5->ptr_00003C->pIndexedPixels;
   }
 
   v15 = 0;

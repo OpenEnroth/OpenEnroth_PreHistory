@@ -3177,7 +3177,7 @@ LABEL_88:
 int CanPlaceItemInInventory(struct Player *_this, signed int a2, int a3)
 {
   unsigned int uNumSlotsX;
-  struct class18 *v4; // esi@1
+  cTexture *v4; // esi@1
   int v5; // eax@1
   int v6; // edi@5
   int v7; // ecx@6
@@ -3206,7 +3206,7 @@ int CanPlaceItemInInventory(struct Player *_this, signed int a2, int a3)
   if ( !dword_506128 )
   {
    runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
-   //class18_sub_40F77C(v4);
+   //cTexture_Free(v4);
     LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
   if ( uNumSlotsX + a2 % 14 <= 14 && uNumSlotsY + a2 / 14 <= 9 )
@@ -3287,7 +3287,7 @@ int Player_sub_49289C(struct Player *_this, int a2, const void *Src)
   int v3, i, x; // eax@1
   signed int v4; // ebx@1
   int result; // eax@6
-  struct class18 *v6; // esi@7
+  cTexture *v6; // esi@7
   int v7; // eax@7
   void *v9; // esi@10
   int v11; // [sp+4h] [bp-Ch]@7
@@ -3331,7 +3331,7 @@ int Player_sub_49289C(struct Player *_this, int a2, const void *Src)
 
     if ( !dword_506128 )
     {
-      class18_sub_40F77C(v6);
+      cTexture_Free(v6);
       LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
     if ( v12 > 0 ) // reserving space for large items in inventory
@@ -3355,7 +3355,7 @@ int __thiscall sub_492600(struct Player *_this, int a2, unsigned int uItemID) //
   int v3, i, x; // eax@1
   signed int v4; // edx@1
   int result; // eax@8
- struct class18 *v7; // esi@10
+ cTexture *v7; // esi@10
   int v8; // eax@10
   void *v9; // esi@13
   int v11; // [sp+0h] [bp-Ch]@10
@@ -3401,7 +3401,7 @@ LABEL_5:
     if ( !dword_506128 )
     {
      runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
-      //class18_sub_40F77C(v7);
+      //cTexture_Free(v7);
       LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
 

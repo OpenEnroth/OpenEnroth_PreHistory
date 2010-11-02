@@ -2590,7 +2590,7 @@ void sub_487389_DrawSpansAndAll()
       else
         sub_485407((int)pSpan);
 
-      v4->ptr_00003C = (class18 *)v18;
+      v4->ptr_00003C = (cTexture *)v18;
       dword_80AA20 = (v4->byte_00005C - 64) << 25;
       dword_80AA1C = dword_80AA20 + 33488896;
       dword_80AA14 = ((unsigned int)(v4->byte_00005D) << 25) + 2147418112;
@@ -2636,7 +2636,7 @@ void sub_487389_DrawSpansAndAll()
       if (!sub_4847EB(pSpan))
         break;
 
-      v4->ptr_00003C = (class18 *)v5;
+      v4->ptr_00003C = (cTexture *)v5;
       if (!sub_484442((int)pSpan))
         break;
 
@@ -13840,7 +13840,7 @@ void __cdecl sub_491F87_DrawNPCs()
         {
          wsprintfA(Str1, "NPC%03d", pNPCStats->pNPCData2[v7].uPortraitID);
           v15 = LODFile_Icons_LOD.LODFile_LoadTexture( Str1, 2);
-          Render_DrawIndexedTexture(pD3DRenderer, dword_4EE06C[v25], dword_4EE074[v25], (class18 *)(v15 != -1 ? 72 * v15 + 7145548 : 0));
+          Render_DrawIndexedTexture(pD3DRenderer, dword_4EE06C[v25], dword_4EE074[v25], (cTexture *)(v15 != -1 ? 72 * v15 + 7145548 : 0));
         }
         else
         {
@@ -13850,7 +13850,7 @@ void __cdecl sub_491F87_DrawNPCs()
           Render_DrawIndexedTexture(pD3DRenderer,
             *(int *)((char *)dword_4EE06C + v9),
             *(int *)((char *)dword_4EE074 + v9),
-            (class18 *)(v10 != -1 ? 72 * v10 + 7145548 : 0));
+            (cTexture *)(v10 != -1 ? 72 * v10 + 7145548 : 0));
 
           v8 = 76 * (unsigned __int8)(char *)TmpBuf[v21];
           if (pParty_global->pHiredNPCs[v8].dword_000028 == 1 )
@@ -13887,7 +13887,7 @@ LABEL_23:
             }
             */
              v14 = (int)pIconFrameTable->GetImage(v13, v20);
-            Render_DrawTransparentTexture(pD3DRenderer, v19, v11, (class18 *)(72 * *(_WORD *)(v14 + 30) + 7145548));
+            Render_DrawTransparentTexture(pD3DRenderer, v19, v11, (cTexture *)(72 * *(_WORD *)(v14 + 30) + 7145548));
           }
         }
         ++v25;

@@ -200,7 +200,7 @@ signed int __thiscall sub_40EAD8(void *Source, FILE *File, unsigned int a3, int 
 signed int __thiscall sub_40F5F5(void *_this, const char *Str1);
 void array_AD4674_FillZBuffer(int *pZBuffer, unsigned int uTextureID, unsigned int uZFill);
 __int16 __fastcall sub_40F845(int a1, int a2, int a3, int a4, int a5, __int16 a6, int a7);
-void array_40F89C_ActuallyFillZBuffer(int *pZBuffer, struct class18 *pTexture, int a3);
+void array_40F89C_ActuallyFillZBuffer(int *pZBuffer, cTexture *pTexture, int a3);
 int __fastcall sub_40F92A(int a1, int a2, int a3);
 int __thiscall LODFile_sub_40F9C5(int _this);
 signed int __thiscall LODFile_sub_40F9F0(int _this, const char *Str2);

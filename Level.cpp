@@ -196,7 +196,7 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
   __int64 v155; // [sp+B44h] [bp-3Ch]@55
   size_t ElementSize; // [sp+B4Ch] [bp-34h]@56
   int v157; // [sp+B50h] [bp-30h]@61
-  struct class18 *v158; // [sp+B54h] [bp-2Ch]@68
+  cTexture *v158; // [sp+B54h] [bp-2Ch]@68
 
   struct maybe_odm_header
   {
@@ -724,7 +724,7 @@ LABEL_74:
 
         *(_BYTE *)(v66 + 29) &= 0xBFu;
         *(_WORD *)(v66 + 272) = v65;
-        v158 = (class18 *)(v65 != -1 ? 72 * v65 + 7278780 : 0);
+        v158 = (cTexture *)(v65 != -1 ? 72 * v65 + 7278780 : 0);
         v120 = *(_WORD *)(v65 != -1 ? 72 * v65 + 7278780 + 0x24 : 36);
         *(_WORD *)(v65 != -1 ? 72 * v65 + 7278780 + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(&class35_obj, v120);
         goto LABEL_69;
