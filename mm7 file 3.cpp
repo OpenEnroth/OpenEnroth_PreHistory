@@ -1697,7 +1697,7 @@ double __fastcall sub_43AE12(signed int a1)
   v2 = (double)v3;
   do
   {
-    if ( v2 < flt_4E4A94[v1] )
+    if ( v2 < flt_4E4A90[v1 + 1] )
       break;
     ++v1;
   }
@@ -1705,15 +1705,15 @@ double __fastcall sub_43AE12(signed int a1)
   if ( v1 <= 0 || v1 >= 5 )
   {
     if ( v1 )
-      result = flt_4E4A90;
+      result = flt_4E4A90[0];
     else
       result = flt_4E4A80[0];
   }
   else
   {
     result = (flt_4E4A80[v1] - *(float *)&"AuthenticAMD"[4 * v1 + 12])
-           * (v2 - flt_4E4A94[v1 - 1])
-           / (flt_4E4A94[v1] - flt_4E4A94[v1 - 1])
+           * (v2 - flt_4E4A90[v1])
+           / (flt_4E4A90[v1 + 1] - flt_4E4A90[v1])
            + flt_4E4A80[v1];
   }
   return result;
@@ -5817,14 +5817,17 @@ char *__cdecl sub_444A51()
   int v7; // [sp-Ch] [bp-78h]@11
   int v8;
   char *v9;
-  int v10; // [sp+Ch] [bp-60h]@1
-  int v11; // [sp+14h] [bp-58h]@5
-  int v12; // [sp+1Ch] [bp-50h]@5
+
+  GUIWindow local_0C;
+  //int v10; // [sp+Ch] [bp-60h]@1
+  //int v11; // [sp+14h] [bp-58h]@5
+  //int v12; // [sp+1Ch] [bp-50h]@5
+
   int v13; // [sp+60h] [bp-Ch]@1
   int v14; // [sp+64h] [bp-8h]@1
   int v15; // [sp+6Bh] [bp-1h]@11
 
-  memcpy(&v10, pGUIWindow0, sizeof(struct GUIWindow));
+  memcpy(&local_0C, pGUIWindow0, sizeof(struct GUIWindow));
   v14 = CMapStats_FindLocation(pMapStats, Str1);
   v13 = sub_444810(dword_591164);
   Render_DrawIndexedTexture(pD3DRenderer, 477, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
@@ -5843,13 +5846,13 @@ char *__cdecl sub_444A51()
       v14 = CMapStats_FindLocation(pMapStats, dword_591164);
   }
   v0 = (const char **)&pMapStats->pMapInfos[v14];
-  v10 = 493;
-  v11 = 126;
-  v12 = 366;
-  GUIWindow_sub_44D406(&v10, pFontCreate, 0, 5, 0, *v0, 3);
-  v10 = 483;
-  v11 = 148;
-  v12 = 334;
+  local_0C.uFrameX = 493;
+  local_0C.uFrameWidth = 126;
+  local_0C.uFrameZ = 366;
+  GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, 5, 0, *v0, 3);
+  local_0C.uFrameX = 483;
+  local_0C.uFrameWidth = 148;
+  local_0C.uFrameZ = 334;
   if ( dword_591160 )
   {
     v1 = (&off_4EB080)[4 * dword_591160];
@@ -5875,8 +5878,8 @@ LABEL_12:
   v9 = (char *)3;
   v8 = (int)v1;
   v7 = 0;
-  v3 = Font_sub_44C59D(pFontCreate, v1, (GUIWindow *)&v10, 0, 0);
-  result = GUIWindow_sub_44D406(&v10, pFontCreate, 0, (212 - v3) / 2 + 101, v7, (char *)v8, (int)v9);
+  v3 = Font_sub_44C59D(pFontCreate, v1, &local_0C, 0, 0);
+  result = GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, (212 - v3) / 2 + 101, v7, (char *)v8, (int)v9);
   dword_5B5924 = 1;
   return result;
 }
@@ -5954,13 +5957,16 @@ void __cdecl sub_444DCA()
   int v4; // eax@5
   int v5; // [sp-Ch] [bp-90h]@3
   signed int v6; // [sp-8h] [bp-8Ch]@3
-  int v7; // [sp+Ch] [bp-78h]@1
-  int v8; // [sp+14h] [bp-70h]@2
-  int v9; // [sp+1Ch] [bp-68h]@2
+
+  GUIWindow local_0C;
+  //int v7; // [sp+Ch] [bp-78h]@1
+  //int v8; // [sp+14h] [bp-70h]@2
+  //int v9; // [sp+1Ch] [bp-68h]@2
+
   char Str2; // [sp+60h] [bp-24h]@1
   int v11; // [sp+80h] [bp-4h]@1
 
-  memcpy(&v7, pGUIWindow0, sizeof(struct GUIWindow));
+  memcpy(&local_0C, pGUIWindow0, sizeof(struct GUIWindow));
   v11 = CMapStats_FindLocation(pMapStats, Str1);
   sub_48902E((char *)pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, &Str2, 20);
   v0 = CMapStats_FindLocation(pMapStats, &Str2);
@@ -5972,14 +5978,15 @@ void __cdecl sub_444DCA()
   if ( v0 )
   {
    v2 = (int *)&pMapStats->pMapInfos[v0];
-    v7 = 493;
-    v8 = 126;
+   local_0C.uFrameX = 493;
+    local_0C.uFrameWidth = 126;
     v3 = (const char *)*v2;
-    v9 = 366;
-    GUIWindow_sub_44D406(&v7, pFontCreate, 0, 4, 0, v3, 3);
-    v7 = 483;
-    v8 = 148;
-    v9 = 334;
+    local_0C.uFrameZ = 366;
+    GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, 4, 0, v3, 3);
+
+    local_0C.uFrameX = 483;
+    local_0C.uFrameWidth = 148;
+    local_0C.uFrameZ = 334;
     v1 = sub_444D80();
     if ( v1 == 1 )
     {
@@ -5995,8 +6002,8 @@ void __cdecl sub_444DCA()
     strcat((char *)TmpBuf, "\n \n");
     wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[126], pMapStats->pMapInfos[v11].pLocationName);
     strcat((char *)TmpBuf, (char *)pStringBuffer);
-    v4 = Font_sub_44C59D(pFontCreate, (char *)TmpBuf, (GUIWindow *)&v7, 0, 0);
-    GUIWindow_sub_44D406(&v7, pFontCreate, 0, (212 - v4) / 2 + 101, 0, (char *)TmpBuf, 3);
+    v4 = Font_sub_44C59D(pFontCreate, (char *)TmpBuf, &local_0C, 0, 0);
+    GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, (212 - v4) / 2 + 101, 0, (char *)TmpBuf, 3);
     dword_5B5924 = 1;
   }
 }
@@ -6060,7 +6067,7 @@ LABEL_15:
     wsprintfA(Str1, "%s %s", byte_5C3428, pKeyboardController->pPressedKeysBuffer);
     v3 = sub_44C51E(pFontLucida, Str1);
     FontDrawText(pGUIWindow2, pFontLucida, 13, 357, Str1, 0, 0, 0);
-    sub_459C2B((int)pGUIWindow2, v3 + 13, 357, (int)pFontLucida);
+    GUIWindow_sub_459C2B(pGUIWindow2, v3 + 13, 357, (int)pFontLucida);
     return;
   }
   if (pKeyboardController->pPressedKeysBuffer[0])
@@ -6229,7 +6236,7 @@ void __cdecl sub_445350_DrawDialogueUI()
  else
    strcpy((char *)TmpBuf, (char *)v1->pNPCName);
 
-  GUIWindow_sub_44D406((int *)&local_58, pFontArrus, 483, 112, v2, (char *)TmpBuf, 3);
+  GUIWindow_sub_44D406(&local_58, pFontArrus, 483, 112, v2, (char *)TmpBuf, 3);
   Party_sub_49135E_GetAllPartyExpDiv1000(pParty_global);
 
  switch (uDialogueType)
@@ -6526,7 +6533,7 @@ LABEL_79:
         v45 = (_WORD)v61;
         if (pDialogueWindow->dword_00002C != v48 )
           v45 = (unsigned __int16)v64;
-        GUIWindow_sub_44D406((int *)&local_AC, pFontArrus, 0, v46, v45, Str, 3);
+        GUIWindow_sub_44D406(&local_AC, pFontArrus, 0, v46, v45, Str, 3);
         v34 = (int)pDialogueWindow;
         ++v62;
         ++v41;
@@ -6895,7 +6902,7 @@ LABEL_17:
         if ( v12 <= 12 || v12 > 32 && (v12 <= 34 || v12 > 38 && (v12 <= 43 || v12 == 52)) )
         {
           GUIButtonCreate((GUIWindow *)v11, 480, 250, 140, *(_BYTE *)(pFontArrus + 5) - 3, 1, 0, 136, 9, 0, "", 0);
-          GUIWindow_sub_41D08F((int)pDialogueWindow, 4, 1, 0, 1);
+          GUIWindow_sub_41D08F(pDialogueWindow, 4, 1, 0, 1);
         }
       }
     }
@@ -7817,17 +7824,17 @@ LABEL_47:
               if ( v32 == 78 )
               {
                 sub_4BD8B5();
-                GUIWindowDelete((GUIWindow *)dword_507BC0);
+                GUIWindowDelete(ptr_507BC0);
                 pParty_global->dword_007778 &= 0xFFFFFFFDu;
                 if ( sub_44622E(170) )
                 {
                   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-                  dword_507BC0 = (int)GUIWindowCreate(0, 0, 640, 480, 25, 170, 0);
-                  GUIButtonCreate((GUIWindow *)dword_507BC0, 61, 424, 31, 0, 2, 94, 110, 1, 49, v7, 0);
-                  GUIButtonCreate((GUIWindow *)dword_507BC0, 177, 424, 31, 0, 2, 94, 110, 2, 50, v7, 0);
-                  GUIButtonCreate((GUIWindow *)dword_507BC0, 292, 424, 31, 0, 2, 94, 110, 3, 51, v7, 0);
-                  GUIButtonCreate((GUIWindow *)dword_507BC0, 407, 424, 31, 0, 2, 94, 110, 4, 52, v7, 0);
-                  GUIButtonCreate((GUIWindow *)dword_507BC0, 0, 0, 0, 0, 1, 0, 176, 0, 9, v7, 0);
+                  ptr_507BC0 = GUIWindowCreate(0, 0, 640, 480, 25, 170, 0);
+                  GUIButtonCreate(ptr_507BC0, 61, 424, 31, 0, 2, 94, 110, 1, 49, v7, 0);
+                  GUIButtonCreate(ptr_507BC0, 177, 424, 31, 0, 2, 94, 110, 2, 50, v7, 0);
+                  GUIButtonCreate(ptr_507BC0, 292, 424, 31, 0, 2, 94, 110, 3, 51, v7, 0);
+                  GUIButtonCreate(ptr_507BC0, 407, 424, 31, 0, 2, 94, 110, 4, 52, v7, 0);
+                  GUIButtonCreate(ptr_507BC0, 0, 0, 0, 0, 1, 0, 176, 0, 9, v7, 0);
                   dword_F8B1E8 = (char *)dword_72193C;
                 }
               }
@@ -7902,21 +7909,21 @@ LABEL_47:
             dword_72D6A0[19
                        * (*(_BYTE *)(v11 + 5)
                         + ((*(_BYTE *)(v11 + 6) + ((*(_BYTE *)(v11 + 7) + (*(_BYTE *)(v11 + 8) << 8)) << 8)) << 8))] = *(_BYTE *)(v11 + 9) + ((*(_BYTE *)(v11 + 10) + ((*(_BYTE *)(v11 + 11) + (*(_BYTE *)(v11 + 12) << 8)) << 8)) << 8);
-            if ( dword_507BC0 )
+            if (ptr_507BC0)
             {
-              v49 = *(_DWORD *)(dword_507BC0 + 28);
+              v49 = ptr_507BC0->dword_00001C;
               if ( v49 == 165 )
               {
                 sub_4BD8B5();
                 CVideoPlayer_UnloadAll(pVideoPlayer);
-                GUIWindowDelete((GUIWindow *)dword_507BC0);
+                GUIWindowDelete(ptr_507BC0);
                 pParty_global->dword_007778 &= 0xFFFFFFFDu;
                 dword_5C3420 = 1;
                 if ( sub_44622E(165) )
                 {
                   AudioPlayer_sub_4AA306(pAudioPlayer, 0, 0, 0, -1, 0, 0, 0, 0);
                   v50 = (int)GUIWindowCreate(0, 0, 640, 480, 25, 165, 0);
-                  dword_507BC0 = v50;
+                  ptr_507BC0 = (GUIWindow *)v50;
                   v51 = *(_DWORD *)(v50 + 76);
                   if ( v51 )
                   {
@@ -7927,11 +7934,11 @@ LABEL_47:
                       v51 = v52;
                     }
                     while ( v52 );
-                    v50 = dword_507BC0;
+                    v50 = (int)ptr_507BC0;
                   }
                   *(_DWORD *)(v50 + 76) = 0;
-                  *(_DWORD *)(dword_507BC0 + 80) = 0;
-                  *(_DWORD *)(dword_507BC0 + 32) = 0;
+                  ptr_507BC0->pControlsTail = 0;
+                  ptr_507BC0->uNumControls = 0;
                 }
               }
               else
@@ -8609,8 +8616,8 @@ LABEL_280:
                   while ( sub_4BD8B5() )
                     ;
                   CVideoPlayer_UnloadAll(pVideoPlayer);
-                  GUIWindowDelete((GUIWindow *)dword_507BC0);
-                  dword_507BC0 = 0;
+                  GUIWindowDelete(ptr_507BC0);
+                  ptr_507BC0 = 0;
                   if ( dword_50CBD0[0] )
                     dword_50CBD0[0] = dword_50CBD0[3] != 0;
                   dword_4E28F8 = 0;
@@ -8665,12 +8672,12 @@ LABEL_280:
               v108 = 187;
               if ( dword_591160 != 167 )
                 v108 = v107;
-              dword_507BC0 = (int)GUIWindowCreate(0, 0, 640, 480, 25, v108, 0);
-              GUIButtonCreate((GUIWindow *)dword_507BC0, 61, 424, 31, 0, 2, 94, 110, 1, 49, v7, 0);
-              GUIButtonCreate((GUIWindow *)dword_507BC0, 177, 424, 31, 0, 2, 94, 110, 2, 50, v7, 0);
-              GUIButtonCreate((GUIWindow *)dword_507BC0, 292, 424, 31, 0, 2, 94, 110, 3, 51, v7, 0);
-              GUIButtonCreate((GUIWindow *)dword_507BC0, 407, 424, 31, 0, 2, 94, 110, 4, 52, v7, 0);
-              GUIButtonCreate((GUIWindow *)dword_507BC0, 0, 0, 0, 0, 1, 0, 176, 0, 9, v7, 0);
+              ptr_507BC0 = GUIWindowCreate(0, 0, 640, 480, 25, v108, 0);
+              GUIButtonCreate(ptr_507BC0, 61, 424, 31, 0, 2, 94, 110, 1, 49, v7, 0);
+              GUIButtonCreate(ptr_507BC0, 177, 424, 31, 0, 2, 94, 110, 2, 50, v7, 0);
+              GUIButtonCreate(ptr_507BC0, 292, 424, 31, 0, 2, 94, 110, 3, 51, v7, 0);
+              GUIButtonCreate(ptr_507BC0, 407, 424, 31, 0, 2, 94, 110, 4, 52, v7, 0);
+              GUIButtonCreate(ptr_507BC0, 0, 0, 0, 0, 1, 0, 176, 0, 9, v7, 0);
             }
             goto LABEL_291;
           default:
@@ -8855,11 +8862,11 @@ void __fastcall sub_44861E(int a1, const char *a2)
               v5 = dword_6BE644 + 96 * *(_WORD *)(v4 + dword_6BE64C + 12);
               if ( *(_BYTE *)(v5 + 45) & 0x40 )
               {
-                *(_WORD *)(96 * *(_WORD *)(v4 + dword_6BE64C + 12) + dword_6BE644 + 74) = sub_44E163(pTextureFrameTable, v13);
+                *(_WORD *)(96 * *(_WORD *)(v4 + dword_6BE64C + 12) + dword_6BE644 + 74) = TextureFrameTable_sub_44E163(pTextureFrameTable, v13);
                 v6 = (int *)(96 * *(_WORD *)(v4 + dword_6BE64C + 12) + dword_6BE644 + 74);
                 if ( *(_WORD *)v6 )
                 {
-                  sub_44E0ED(pTextureFrameTable, *(_WORD *)v6);
+                  TextureFrameTable_sub_44E0ED(pTextureFrameTable, *(_WORD *)v6);
                 }
                 else
                 {
@@ -8900,11 +8907,11 @@ void __fastcall sub_44861E(int a1, const char *a2)
                 {
                   if ( *(_BYTE *)(v10 + 29) & 0x40 )
                   {
-                    *(_WORD *)(*(_DWORD *)(v9 + 16) + v8 + 272) = sub_44E163(pTextureFrameTable, v13);
+                    *(_WORD *)(*(_DWORD *)(v9 + 16) + v8 + 272) = TextureFrameTable_sub_44E163(pTextureFrameTable, v13);
                     v11 = (int *)(*(_DWORD *)(v9 + 16) + v8 + 272);
                     if ( *(_WORD *)v11 )
                     {
-                      sub_44E0ED(pTextureFrameTable, *(_WORD *)v11);
+                      TextureFrameTable_sub_44E0ED(pTextureFrameTable, *(_WORD *)v11);
                     }
                     else
                     {
@@ -12213,7 +12220,7 @@ LABEL_9:
 }
 
 //----- (0044C6C2) --------------------------------------------------------
-int __fastcall Font_sub_44C6C2(struct Font *a1, const char *a2, int a3, char a4, int a5)
+int __fastcall Font_sub_44C6C2(struct Font *a1, const char *a2, struct GUIWindow *a3, char a4, int a5)
 {
   int v5; // edi@1
   const char *v6; // esi@1
@@ -12230,7 +12237,7 @@ int __fastcall Font_sub_44C6C2(struct Font *a1, const char *a2, int a3, char a4,
   v13 = (int)a1;
   if ( !a2 )
     return 0;
-  v8 = (unsigned __int8 *)FitTextInAWindow(a2, (Font *)a1, (GUIWindow *)a3, a4, 0);
+  v8 = (unsigned __int8 *)FitTextInAWindow(a2, (Font *)a1, a3, a4, 0);
   v10 = strlen(v6);
   v9 = 0;
   v14 = v10;
@@ -12249,7 +12256,7 @@ LABEL_11:
       if ( v12 == 10 )
       {
         v5 = v5 + *(_BYTE *)(v11 + 5) - 3;
-        if ( v5 >= a5 * *(_DWORD *)(a3 + 12) )
+        if ( v5 >= a5 * a3->uFrameHeight)
           return (int)(v8 + 1);
         goto LABEL_10;
       }
@@ -12258,7 +12265,7 @@ LABEL_11:
         v8 += 5;
         v9 += 5;
 LABEL_10:
-        if ( v5 >= a5 * *(_DWORD *)(a3 + 12) )
+        if ( v5 >= a5 * a3->uFrameHeight)
           return (int)v8;
         goto LABEL_11;
       }
@@ -12640,7 +12647,7 @@ int __thiscall sub_44E054(void *Str)
 }
 
 //----- (0044E0ED) --------------------------------------------------------
-int __thiscall sub_44E0ED(void *_this, int a2)
+int TextureFrameTable_sub_44E0ED(void *_this, int a2)
 {
   int result; // eax@1
   void *v3; // ebx@1
@@ -12673,7 +12680,7 @@ int __thiscall sub_44E0ED(void *_this, int a2)
 }
 
 //----- (0044E163) --------------------------------------------------------
-signed int __thiscall sub_44E163(void *_this, const char *Str2)
+signed int TextureFrameTable_sub_44E163(void *_this, const char *Str2)
 {
   int v2; // ebx@1
   signed int v3; // edi@1
@@ -12703,7 +12710,7 @@ LABEL_4:
 }
 
 //----- (0044E19A) --------------------------------------------------------
-int __thiscall TextureFrameTable_GetFrame(void *_this, int a2, signed int a3)
+int TextureFrameTable_GetFrame(void *_this, int a2, signed int a3)
 {
   int v3; // ecx@1
   int v4; // edi@1

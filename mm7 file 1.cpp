@@ -3295,7 +3295,7 @@ LABEL_104:
       {
        if ( dword_50CBD0[0] < 40 )
        {
-        v13 = dword_507BC0 == 0;
+        v13 = ptr_507BC0 == 0;
         dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
         dword_50CBD0[3 * dword_50CBD0[0] + 2] = !v13;
         dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
@@ -14189,7 +14189,7 @@ void PlayerCreationUI_Draw()
       else
       {
         v18 = GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontCreate, 159 * v13 + 18, 124, 0, (char *)pKeyboardController->pPressedKeysBuffer, 120, 1);
-        sub_459C2B((int)pGUIWindow_CurrentMenu, 159 * *(_DWORD *)(pGUIWindow_CurrentMenu + 28) + v18 + 20, 124, (int)pFontCreate);
+        GUIWindow_sub_459C2B(pGUIWindow_CurrentMenu, 159 * *(_DWORD *)(pGUIWindow_CurrentMenu + 28) + v18 + 20, 124, (int)pFontCreate);
       }
     }
     else

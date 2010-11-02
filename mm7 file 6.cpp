@@ -4411,6 +4411,7 @@ signed int __thiscall sub_498C45(int _this)
 signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, int a5)
 {
  compile_error;
+ //load ddm?
  return 0;
 /*
   int v5; // ebx@1
@@ -4789,13 +4790,13 @@ signed int __thiscall sub_498E0A(void *Dest, const char *Args, int a3, int i, in
           locked_fread(&Dst, 1u, 0xAu, v8);
           if ( *(_BYTE *)(a5 + *(_DWORD *)(v6 + 636) + 45) & 0x40 )
           {
-            v24 = sub_44E163(pTextureFrameTable, &Dst);
+            v24 = TextureFrameTable_sub_44E163(pTextureFrameTable, &Dst);
             v25 = a5;
             *(_WORD *)(a5 + *(_DWORD *)(v6 + 636) + 74) = v24;
             v23 = *(_WORD *)(v25 + *(_DWORD *)(v6 + 636) + 74);
             if ( v23 )
             {
-              sub_44E0ED(pTextureFrameTable, v23);
+              TextureFrameTable_sub_44E0ED(pTextureFrameTable, v23);
             }
             else
             {
@@ -5263,13 +5264,13 @@ LABEL_50:
       v98 = (char *)v98 + 10;
       if ( *(_BYTE *)(v282 + *(_DWORD *)(v6 + 636) + 45) & 0x40 )
       {
-        v118 = sub_44E163(pTextureFrameTable, &Dst);
+        v118 = TextureFrameTable_sub_44E163(pTextureFrameTable, &Dst);
         v119 = v282;
         *(_WORD *)(v282 + *(_DWORD *)(v6 + 636) + 74) = v118;
         v117 = *(_WORD *)(v119 + *(_DWORD *)(v6 + 636) + 74);
         if ( v117 )
         {
-          sub_44E0ED(pTextureFrameTable, v117);
+          TextureFrameTable_sub_44E0ED(pTextureFrameTable, v117);
         }
         else
         {

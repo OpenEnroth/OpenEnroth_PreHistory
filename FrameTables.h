@@ -52,7 +52,7 @@ template <typename Image>
     wsprintfA(pNameA, "%S", pName);
     for (unsigned int i = 0; i < uNumImages; ++i)
     {
-     if (!lstrcmpiA(pNameA, (char *)pImages[i].sName))
+     if (!lstrcmpiA(pNameA, (char *)pImages[i].sAnimationName))
        return i;
     }
     return 0;
@@ -66,16 +66,15 @@ template <typename Image>
 
    inline Image *GetImage(unsigned int uAnimationID, unsigned int uFrameID)
    {
-    signed __int16 v5; // dx@2
     int v6; // eax@3
     int v7; // edx@3
     int i; // ecx@3
     int v9; // esi@5
 
-    v5 = pImages[uAnimationID].word_00001A;
-    if (pImages[uAnimationID].word_00001C & 0x0001 && v5 != 0)
+    if (pImages[uAnimationID].word_00001C & 0x0001 &&
+        pImages[uAnimationID].word_00001A)
     {
-     v7 = (uFrameID / 8) % (unsigned __int16)v5;
+     v7 = (uFrameID / 8) % pImages[uAnimationID].word_00001A;
      v6 = uAnimationID;
      for ( i = uAnimationID; ; ++i)
      {
@@ -130,12 +129,12 @@ template <typename Image>
 
 struct IconFrame
 {
- unsigned char sName[12];        // byte[12] @ 000000
- unsigned char sTextureName[12]; // byte[12] @ 00000C
- short         word_000018;      // frame time?
- short         word_00001A;      // num frames?
+ unsigned char sAnimationName[12]; // byte[12] @ 000000
+ unsigned char sTextureName[12];   // byte[12] @ 00000C
+ short         word_000018;        // frame time?
+ short         word_00001A;        // num frames?
  short         word_00001C;
- short         uTextureIdx;      // word @ 00001E
+ short         uTextureIdx;        // word @ 00001E
 };
 //sizeof = 20
 
@@ -152,8 +151,6 @@ struct CIconFrameTable
 void CIconFrameTable_ctor(struct CIconFrameTable *_this);
 //void *__thiscall sub_495056(void *Dst, void *Src);
 void CIconFrameTable_Initialize(struct CIconFrameTable *_this, void *pSrc);
-//signed int __thiscall sub_49509D(int _this, const char *Args);
-int CIconFrameTable_InitializeFromTXT(struct CIconFrameTable *_this, const char *pSourceFile);
 //int __thiscall sub_494F3A(void *_this, const char *Str1);
 unsigned int CIconFrameTable_FindIcon(struct CIconFrameTable *_this, const char *pIconName);
 //custom
@@ -216,8 +213,12 @@ void CTextureFrameTable_ctor(struct CTextureFrameTable *_this);
 
 //void *__thiscall sub_44E0A0(struct unk_class *Dst, void *Src);
 void CTextureFrameTable_Initialize(struct CTextureFrameTable *_this, unsigned char *pSrc);
-//signed int __thiscall sub_44E1EC(int _this, const char *Args);
-int CTextureFrameTable_InitializeFromTXT(struct CTextureFrameTable *_this, const char *pSourceFile);
+//signed int __thiscall sub_44E163(void *_this, const char *Str2);
+signed int TextureFrameTable_sub_44E163(void *_this, const char *Str2);
+//int __thiscall sub_44E0ED(void *_this, int a2);
+int TextureFrameTable_sub_44E0ED(void *_this, int a2);
+
+int TextureFrameTable_GetFrame(void *_this, int a2, signed int a3);
 
 
 
@@ -258,8 +259,6 @@ void SpriteFrameTable_ctor(struct SpriteFrameTable *_this);
 int SpriteFrameTable_Initialize(struct SpriteFrameTable *_this, unsigned int *pSrc);
 //int __thiscall sub_44D96D(void *Str);
 int SpriteFrameTable_SaveToBIN(struct SpriteFrameTable *_this);
-
-int SpriteFrameTable_LoadFromTXT(struct SpriteFrameTable *_this, const char *pSourceFile);
 //int __thiscall sub_44D4D8(int _this)
 int SpriteFrameTable_sub_44D4D8(struct SpriteFrameTable *_this);
 //int __thiscall class29_fn1(int _this, int a2, signed int a3);
@@ -299,8 +298,6 @@ struct CTileTable
 //sizeof == ?
 
 void CTileTable_ctor(struct CTileTable *_this);
-//signed int __thiscall sub_488047(int _this, const char *a2)
-int CTileTable_InitializeFromTXT(struct CTileTable *_this, const char *pSourceFile);
 //int __thiscall sub_487FB4(void *Str);
 int CTileTable_SaveToBIN(struct CTileTable *_this);
 //void *__thiscall sub_488000(void *Dst, void *Src);
@@ -317,11 +314,11 @@ struct TileDesc *TileTable_GetTile(struct CTileTable *_this, unsigned int uTileI
 
 struct PlayerFrame
 {
- short word_000000;
- short word_000002;
- short word_000004;
+ short          word_000000;
+ unsigned short uTextureID; // word @ 000002
+ short          word_000004;
  unsigned short word_000006;
- short word_000008;
+ short          word_000008;
 };
 //sizeof == 0A
 
@@ -336,11 +333,11 @@ void CPlayerFrameTable_ctor(struct CPlayerFrameTable *_this);
 int CPlayerFrameTable_SaveToBIN(struct CPlayerFrameTable *_this);
 //void *__thiscall sub_494C0F(void *Dst, void *Src);
 void *CPlayerFrameTable_Initialize(struct CPlayerFrameTable *_this, unsigned char *pSrc);
-//signed int __thiscall sub_494C5A(int _this, const char *Args);
-int CPlayerFrameTable_InitializeFromTXT(struct CPlayerFrameTable *_this, const char *pSourceFile);
 //int __thiscall sub_494B10(int _this, int a2, signed int a3);
 struct PlayerFrame *CPlayerFrameTable_GetFrame(struct CPlayerFrameTable *_this, unsigned int uFramesetID, unsigned int uFrameID);
 
+int PlayerFrameTable_sub_494AED(int _this, int a2);
+int PlayerFrameTable_sub_494B5E(int _this, int a2, int a3, int a4);
 
 
 
@@ -370,8 +367,6 @@ struct DecorationDescriptionList
 };
 
 void DecorationDescriptionList_ctor(struct DecorationDescriptionList *_this);
-//signed int __thiscall sub_4586B0(int _this, const char *Args);
-int DecorationDescriptionList_InitializeFromTXT(struct DecorationDescriptionList *_this, const char *pSourceFile);
 //void *__thiscall sub_45864C(void *Dst, void *Src);
 void *DecorationDescriptionList_Initialize(struct DecorationDescriptionList *_this, unsigned char *pSrc);
 //int __thiscall sub_458600(void *Str);
@@ -413,8 +408,6 @@ struct CObjectDescriptionList
 void CObjectDescriptionList_ctor(struct CObjectDescriptionList *_this);
 //int __thiscall sub_459090(void *Str);
 int CObjectDescriptionList_SaveToBIN(struct CObjectDescriptionList *_this);
-//signed int __thiscall sub_459123(int _this, const char *a2);
-int CObjectDescriptionList_InitializeFromTXT(struct CObjectDescriptionList *_this, const char *pSourceFile);
 //void *__thiscall sub_4590DC(void *Dst, void *Src);
 void *CObjectDescriptionList_Initialize(struct CObjectDescriptionList *_this, unsigned char *pSrc);
 //void __thiscall sub_459064(void *_this);
@@ -441,8 +434,6 @@ struct COverlayDescriptionList
 void COverlayDescriptionList_ctor(struct COverlayDescriptionList *_this);
 //int __thiscall sub_458DBC(void *Str)
 int COverlayDescriptionList_SaveToBIN(struct COverlayDescriptionList *_this);
-//signed int __thiscall sub_458E4F(int _this, const char *a2)
-int COverlayDescriptionList_InitializeFromTXT(struct COverlayDescriptionList *_this, const char *pSourceFile);
 //void *__thiscall sub_458E08(void *Dst, void *Src)
 void *COverlayDescriptionList_Initialize(struct COverlayDescriptionList *_this, unsigned char *pSrc);
 //void __thiscall sub_458D97(void *_this)

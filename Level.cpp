@@ -390,7 +390,7 @@ LABEL_25:
         a5 = v166 + *(_DWORD *)(v13 + v12 + 84);
         if ( !(*(_BYTE *)(a5 + 29) & 0x40) )
           break;
-        v21 = sub_44E163(pTextureFrameTable, (char *)wtf);
+        v21 = TextureFrameTable_sub_44E163(pTextureFrameTable, (char *)wtf);
         *(_WORD *)(a5 + 272) = v21;
         if ( !v21 )
         {
@@ -405,7 +405,7 @@ LABEL_19:
                                                                      *(_WORD *)(v22 != -1 ? 72 * v22 + 7278780 + 0x24 : 36));
           goto LABEL_20;
         }
-        sub_44E0ED(pTextureFrameTable, *(_WORD *)(*(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 84) + v166 + 272));
+        TextureFrameTable_sub_44E0ED(pTextureFrameTable, *(_WORD *)(*(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 84) + v166 + 272));
 LABEL_20:
         if ( *(_WORD *)(a5 + 292) )
         {
@@ -716,7 +716,7 @@ LABEL_74:
       if ( !(v66->byte_000010[13] & 0x40) )
         break;
 
-      v64 = sub_44E163(pTextureFrameTable, Str2);
+      v64 = TextureFrameTable_sub_44E163(pTextureFrameTable, Str2);
       v66->uTextureID = v64;
       if ( !v64 )
       {
@@ -730,7 +730,7 @@ LABEL_74:
         goto LABEL_69;
       }
       v120 = _this->pBModels[v51 / 188].ptr_000054[v168 / 308].uTextureID;
-      sub_44E0ED(pTextureFrameTable, v120);
+      TextureFrameTable_sub_44E0ED(pTextureFrameTable, v120);
 LABEL_69:
       if ( *(_WORD *)(wtf + 292) )
       {

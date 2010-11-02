@@ -3772,7 +3772,7 @@ void __cdecl sub_4356FF()
   dword_507BF0 = 0;
   dword_4E455C = 1;
   dword_50CDCC = 0;
-  if ( dword_507BC4 )
+  if (ptr_507BC4)
     sub_467F9F();
   if ( !dword_4E28F8 )
   {
@@ -6097,14 +6097,14 @@ int __thiscall sub_438821(void *_this)
       if ( result >= 17 )
         return result;
     }
-    result = dword_4E494C[2 * result];
+    result = dword_4E4948[2 * result + 1];
     goto LABEL_39;
   }
   if ( result == 2 )
   {
     if ( (v2 & 0xF00) == dword_4E49D0[0] )
     {
-      compile_error;//result = dword_4E49D4[0];
+      result = dword_4E49D0[1];
     }
     else
     {
@@ -6116,7 +6116,7 @@ int __thiscall sub_438821(void *_this)
         if ( result >= 9 )
           return result;
       }
-      compile_error;//result = dword_4E49D4[2 * result];
+      result = dword_4E49D0[2 * result + 1];
     }
     goto LABEL_39;
   }
@@ -6132,7 +6132,7 @@ int __thiscall sub_438821(void *_this)
       if ( result >= 2 )
         return result;
     }
-    result = dword_4E4A44[2 * result];
+    result = dword_4E4A40[2 * result + 1];
     goto LABEL_39;
   }
   v12 = 1;
@@ -6143,7 +6143,7 @@ int __thiscall sub_438821(void *_this)
     if ( v12 >= 5 )
       goto LABEL_30;
   }
-  *((_DWORD *)v3 + 43) = dword_4E4A1C[2 * v12];
+  *((_DWORD *)v3 + 43) = dword_4E4A18[2 * v12 + 1];
 LABEL_30:
   result = 24;
   if ( *((_DWORD *)v3 + 43) == 24 )
@@ -8579,19 +8579,17 @@ signed int __thiscall sub_4598FC(int _this, const char *a2)
 }
 
 //----- (00459C2B) --------------------------------------------------------
-void sub_459C2B(int a1, signed int a2, int a3, int a4)
+void GUIWindow_sub_459C2B(struct GUIWindow *a1, signed int a2, int a3, int a4)
 {
   unsigned int v4; // eax@1
-  int v5; // edi@1
   signed int v6; // esi@1
   unsigned int v7; // ett@1
 
   v6 = a2;
-  v5 = a1;
   v7 = GetTickCount();
   v4 = v7 / 0x3E8;
   if ( v7 % 0x3E8 > 0x1F4 )
-    FontDrawText((GUIWindow *)v5, (Font *)a4, v6, a3, "_", 0, 0, 0);
+    FontDrawText(a1, (Font *)a4, v6, a3, "_", 0, 0, 0);
 }
 
 //----- (00459C68) --------------------------------------------------------
@@ -12765,12 +12763,15 @@ void *__fastcall sub_4601B7(int a1)
   int v25; // eax@32
   const char *v26; // edi@36
   int v27; // eax@43
-  int Dst; // [sp+Ch] [bp-78h]@8
-  int v30; // [sp+10h] [bp-74h]@8
-  int v31; // [sp+14h] [bp-70h]@8
-  int v32; // [sp+18h] [bp-6Ch]@8
-  int v33; // [sp+1Ch] [bp-68h]@8
-  int v34; // [sp+20h] [bp-64h]@8
+
+  GUIWindow local_0C;
+  //int Dst; // [sp+Ch] [bp-78h]@8
+  //int v30; // [sp+10h] [bp-74h]@8
+  //int v31; // [sp+14h] [bp-70h]@8
+  //int v32; // [sp+18h] [bp-6Ch]@8
+  //int v33; // [sp+1Ch] [bp-68h]@8
+  //int v34; // [sp+20h] [bp-64h]@8
+
   __int64 v35; // [sp+60h] [bp-24h]@10
   int v36; // [sp+68h] [bp-1Ch]@10
   unsigned int v37; // [sp+70h] [bp-14h]@10
@@ -12806,16 +12807,16 @@ void *__fastcall sub_4601B7(int a1)
   }
   if ( dword_69CF28[dword_6A0CA0] )
   {
-    memset(&Dst, 0, 0x54u);
-    Dst = pGUIWindow_CurrentMenu->uFrameX + 240;
+    memset(&local_0C, 0, sizeof(GUIWindow));
+    local_0C.uFrameX = pGUIWindow_CurrentMenu->uFrameX + 240;
     v5 = pGUIWindow_CurrentMenu->uFrameY - *(_BYTE *)(pFontSmallnum + 5);
-    v31 = 220;
+    local_0C.uFrameWidth = 220;
     v5 += 157;
-    v30 = v5;
+    local_0C.uFrameY = v5;
     v6 = *(_BYTE *)(pFontSmallnum + 5);
-    v33 = Dst + 219;
-    v32 = v6;
-    v34 = v6 + v5 - 1;
+    local_0C.uFrameZ = local_0C.uFrameX + 219;
+    local_0C.uFrameHeight = v6;
+    local_0C.uFrameW = v6 + v5 - 1;
     v4 = dword_6A0CA0;
     if ( dword_6A013C[10 * dword_6A0CA0] )
     {
@@ -12827,7 +12828,7 @@ void *__fastcall sub_4601B7(int a1)
       v4 = dword_6A0CA0;
     }
     v10 = CMapStats_FindLocation(pMapStats, &byte_69BD7C[100 * v4]);
-    GUIWindow_sub_44D406(&Dst, pFontSmallnum, 0, 0, 0, (const char *)pMapStats->pMapInfos[v10].pLocationName, 3);
+    GUIWindow_sub_44D406(&local_0C, pFontSmallnum, 0, 0, 0, (const char *)pMapStats->pMapInfos[v10].pLocationName, 3);
     v11 = (signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0] * 0.234375) / 60;
     v12 = (signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0] * 0.234375) / 60;
     HIDWORD(v35) = (unsigned __int64)((signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0]
@@ -12852,7 +12853,7 @@ void *__fastcall sub_4601B7(int a1)
     HIDWORD(v7) = v37 % 0x1C;
     v39 += 1168;
     v9 = v16 & 3;
-    v30 = pGUIWindow_CurrentMenu->uFrameY + 261;
+    local_0C.uFrameY = pGUIWindow_CurrentMenu->uFrameY + 261;
     HIDWORD(v38) = v8 >= 0 && (v8 > 0 || (_DWORD)v7 >= 0xCu) && v8 <= 0 && (v8 < 0 || (_DWORD)v7 < 0x18u);
     if ( v8 < 0 || v8 <= 0 && (_DWORD)v7 <= 0xCu )
     {
@@ -12881,7 +12882,7 @@ LABEL_23:
       7 * v9 + HIDWORD(v7) % 7u + 1,
       aMonthNames[v36],
       v39);
-    GUIWindow_sub_44D406(&Dst, pFontSmallnum, 0, 0, 0, (char *)TmpBuf, 3);
+    GUIWindow_sub_44D406(&local_0C, pFontSmallnum, 0, 0, 0, (char *)TmpBuf, 3);
     v1 = 255;
   }
   if ( pGUIWindow_CurrentMenu->dword_000040 == 2 )
@@ -12933,7 +12934,7 @@ LABEL_23:
       else
       {
         v27 = GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontSmallnum, 27, v40, SWORD2(v38), (char *)pKeyboardController->pPressedKeysBuffer, 175, 1);
-        sub_459C2B((int)pGUIWindow_CurrentMenu, v27 + 27, v40, (int)pFontSmallnum);
+        GUIWindow_sub_459C2B(pGUIWindow_CurrentMenu, v27 + 27, v40, (int)pFontSmallnum);
       }
       v40 += 21;
       ++v39;
@@ -14359,14 +14360,14 @@ void __fastcall sub_467F48(signed int a1)
   signed int v1; // esi@1
 
   v1 = a1;
-  if ( !dword_507BC4 )
+  if ( !ptr_507BC4)
   {
     if ( a1 >= 700 )
     {
       if ( a1 <= 782 )
       {
         dword_720980 = LODFile_Icons_LOD.LODFile_LoadTexture( "leather", 2);
-        dword_507BC4 = (int)GUIWindowCreate(0, 0, 640, 480, 30, v1 - 700, 0);
+        ptr_507BC4 = GUIWindowCreate(0, 0, 640, 480, 30, v1 - 700, 0);
       }
     }
   }
@@ -14375,10 +14376,10 @@ void __fastcall sub_467F48(signed int a1)
 //----- (00467F9F) --------------------------------------------------------
 void __cdecl sub_467F9F()
 {
-  if ( dword_507BC4 )
+  if (ptr_507BC4)
   {
-    GUIWindowDelete((GUIWindow *)dword_507BC4);
-    dword_507BC4 = 0;
+    GUIWindowDelete(ptr_507BC4);
+    ptr_507BC4 = 0;
   }
 }
 
@@ -14388,46 +14389,49 @@ void __cdecl sub_467FB6()
   int v0; // eax@1
   int v2; // ST18_4@3
   unsigned int v3; // eax@3
-  int v4; // [sp+Ch] [bp-54h]@1
-  int v5; // [sp+10h] [bp-50h]@1
-  int v6; // [sp+14h] [bp-4Ch]@1
-  int v7; // [sp+18h] [bp-48h]@1
-  int v8; // [sp+1Ch] [bp-44h]@3
-  int v9; // [sp+20h] [bp-40h]@3
-  int v10; // [sp+54h] [bp-Ch]@1
 
-  memcpy(&v4, (const void *)dword_507BC4, 0x54u);
-  v10 = 0;
-  v4 = 1;
-  v5 = 1;
-  v6 = 468;
-  v0 = Font_sub_44C59D(pFontSmallnum, (&dword_723D38)[4 * *(_DWORD *)(dword_507BC4 + 28)], (GUIWindow *)&v4, 0, 0)
+  GUIWindow local_0C;
+  //int v4; // [sp+Ch] [bp-54h]@1
+  //int v5; // [sp+10h] [bp-50h]@1
+  //int v6; // [sp+14h] [bp-4Ch]@1
+  //int v7; // [sp+18h] [bp-48h]@1
+  //int v8; // [sp+1Ch] [bp-44h]@3
+  //int v9; // [sp+20h] [bp-40h]@3
+  //int v10; // [sp+54h] [bp-Ch]@1
+
+  memcpy(&local_0C, ptr_507BC4, sizeof(GUIWindow));
+  local_0C.ptr_000048 = 0;
+  local_0C.uFrameX = 1;
+  local_0C.uFrameY = 1;
+  local_0C.uFrameWidth = 468;
+  v0 = Font_sub_44C59D(pFontSmallnum, (&dword_723D38)[4 * ptr_507BC4->dword_00001C], &local_0C, 0, 0)
      + 2 * *(_BYTE *)(pFontCreate + 5)
      + 24;
-  v7 = v0;
-  if ( v0 + v5 > 479 )
+  local_0C.uFrameHeight = v0;
+  if ( v0 + local_0C.uFrameY > 479 )
   {
-    v0 = 479 - v5;
-    v7 = 479 - v5;
+    v0 = 479 - local_0C.uFrameY;
+    local_0C.uFrameHeight = 479 - local_0C.uFrameY;
   }
-  v8 = v6 + v4 - 1;
-  v9 = v0 + v5 - 1;
-  GUIWindow_sub_415551((GUIWindow *)&v4, 0);
-  v4 += 12;
-  v6 -= 24;
-  v5 += 12;
-  v7 -= 12;
-  v8 = v6 + v4 - 1;
-  v9 = v7 + v5 - 1;
-  v2 = dword_5DAD28[12 * *(_DWORD *)(dword_507BC4 + 28)];
+  local_0C.uFrameZ = local_0C.uFrameWidth + local_0C.uFrameX - 1;
+  local_0C.uFrameW = v0 + local_0C.uFrameY - 1;
+  GUIWindow_sub_415551(&local_0C, 0);
+
+  local_0C.uFrameX += 12;
+  local_0C.uFrameWidth -= 24;
+  local_0C.uFrameY += 12;
+  local_0C.uFrameHeight -= 12;
+  local_0C.uFrameZ = local_0C.uFrameWidth + local_0C.uFrameX - 1;
+  local_0C.uFrameW = local_0C.uFrameHeight + local_0C.uFrameY - 1;
+
+  v2 = dword_5DAD28[12 * ptr_507BC4->dword_00001C];
   v3 = 0xFFFFFF9B;
   wsprintfA((char *)TmpBuf, "\x0C%05d%s\x0C\x30\x30\x30\x30\x30", v3, v2);
-  GUIWindow_sub_44D406(&v4, pFontCreate, 0, 0, 0, (char *)TmpBuf, 3);
-  FontDrawText((GUIWindow *)&v4,
-           pFontSmallnum,
+  GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, 0, 0, (char *)TmpBuf, 3);
+  FontDrawText(&local_0C, pFontSmallnum,
            1,
            *(_BYTE *)(pFontCreate + 5) - 3,
-           (&dword_723D38)[4 * *(_DWORD *)(dword_507BC4 + 28)],
+           (&dword_723D38)[4 * ptr_507BC4->dword_00001C],
            0,
            0,
            0);

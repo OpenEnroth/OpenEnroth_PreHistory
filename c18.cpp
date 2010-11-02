@@ -84,9 +84,10 @@ void class18_sub_40F77C(struct class18 *_this)
   //int v1; // esi@1
   char v2; // zf@2
 
- // runtime_warning(no no more implace deleting);
+  runtime_warning(no no more implace deleting);
+  runtime_warning( this thing CRUSHES);
  
-
+  /*
   if ( _this )
   {
     v2 = (*(_BYTE *)(_this + 45) & 4) == 0;
@@ -114,7 +115,7 @@ void class18_sub_40F77C(struct class18 *_this)
     _this->word_000024 = 0;
     _this->word_000026 = 0;
     _this->word_00002C = 0;
-  }
+  }*/
 }
 
 

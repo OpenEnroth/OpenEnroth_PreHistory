@@ -74,12 +74,7 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  int dword_4E2BEC; // weak
  int dword_4E2C0C[array_size_unknown]; // weak
  int dword_4E2C2C[array_size_unknown]; // weak
- _UNKNOWN unk_4E2DE8; // weak
- _UNKNOWN unk_4E2E00; // weak
- _UNKNOWN unk_4E2E10; // weak
- _UNKNOWN unk_4E2FA0; // weak
  char byte_4E2FD4; // idb
- _UNKNOWN unk_4E3030; // weak
  void *off_4E3044; // weak
  _UNKNOWN unk_4E3308; // weak
  _UNKNOWN unk_4E3318; // weak
@@ -116,47 +111,28 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  int dword_4E4578; // weak
  int dword_4E4590; // weak
  int dword_4E45A8; // weak
- int dword_4E4948[array_size_unknown]; // weak
- int dword_4E494C[array_size_unknown]; // weak
- int dword_4E49D0[array_size_unknown]; // weak
- _UNKNOWN dword_4E49D4; // idb
- int dword_4E4A18[array_size_unknown]; // weak
- int dword_4E4A1C[array_size_unknown]; // weak
- int dword_4E4A40[array_size_unknown]; // weak
- int dword_4E4A44[array_size_unknown]; // weak
- float flt_4E4A80[array_size_unknown]; // weak
- float flt_4E4A90; // weak
- float flt_4E4A94[array_size_unknown]; // weak
+ int dword_4E4948[34]; // weak
+ int dword_4E49D0[18]; // weak
+ int dword_4E4A18[10]; // weak
+ int dword_4E4A40[16]; // weak
+ float flt_4E4A80[4]; // weak
+ float flt_4E4A90[array_size_unknown]; // weak
  int dword_4E4C28 = 481; // X offset for paperdoll
  int dword_4E4C2C = 0; // Y offset for paperdoll
- int dword_4E4C30[array_size_unknown]; // weak
- int dword_4E4C34[array_size_unknown]; // weak
- int dword_4E4C38[array_size_unknown]; // weak
- int dword_4E4C3C[array_size_unknown]; // weak
- int dword_4E4C40[array_size_unknown]; // weak
- int dword_4E4C44[array_size_unknown]; // weak
- int dword_4E4E30[array_size_unknown]; // weak
- int dword_4E4E34[array_size_unknown]; // weak
- int dword_4E5050[array_size_unknown]; // weak
- int dword_4E5054[array_size_unknown]; // weak
- int dword_4E5270[array_size_unknown]; // weak
- int dword_4E5274[array_size_unknown]; // weak
+ int dword_4E4C30[32 * array_size_unknown]; // 32 element array
+ int dword_4E4E30[2 * array_size_unknown]; // 2 element array
+ int dword_4E5050[8]; // weak
+ int dword_4E5270[8]; // weak
  int dword_4E5490; // weak
  int dword_4E5494; // weak
- int dword_4E54B8[array_size_unknown]; // weak
- int dword_4E54BC[array_size_unknown]; // weak
- int dword_4E54C0[array_size_unknown]; // weak
- int dword_4E54C4[array_size_unknown]; // weak
+ int dword_4E54B8[14 * array_size_unknown]; // 14 element array
  int dword_4E5570[array_size_unknown]; // weak
- int dword_4E5574[array_size_unknown]; // weak
  int dword_4E56B0; // weak
  int dword_4E56B4; // weak
  int dword_4E57F0[array_size_unknown]; // weak
- int dword_4E57F4[array_size_unknown]; // weak
  int dword_4E58D0; // weak
  int dword_4E58D4; // weak
  int dword_4E5AD0[array_size_unknown]; // weak
- int dword_4E5AD4[array_size_unknown]; // weak
  int dword_4E5AE0[8] = { 103, 106, 101, 108, 116, 141, 116, 147 };
  int dword_4E5B00[8] = { 26, 107,  40, 109,  25, 141,  32, 146 }; // XY of left hand position on paperdoll
  int dword_4E5B20[8] = { 30, 144,  34, 158,  25, 186,  31, 184 }; // XY of right hand position on paperdoll
@@ -164,7 +140,6 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  int dword_4E5C1C = 490; // weak
  int dword_4E5C34 = 202; // weak
  int dword_4E5D68[array_size_unknown]; // weak
- int dword_4E5D6C[array_size_unknown]; // weak
  char byte_4E5DD8[array_size_unknown]; // weak
  char byte_4E5DE8[array_size_unknown]; // weak
 unsigned int uDialogueUIIconsOffsetX = 0x00000209; // dword @ MM7.exe::004E5E50
@@ -176,9 +151,6 @@ unsigned int uDialogueUIIconsOffsetY = 0x00000026; // dword @ MM7.exe::004E5EE0
  char byte_4E5F7D[array_size_unknown]; // weak
  char *off_4E6BB0; // idb
  char *off_4E6BDC; // idb
- _UNKNOWN unk_4E7E20; // weak
- _UNKNOWN unk_4E7E24; // weak
- _UNKNOWN unk_4E7E28; // weak
  int dword_4E800C; // weak
 
  //next two could be the same array or at least first 16 of data_4E7168 are word_4E8152
@@ -233,12 +205,8 @@ struct Edge defaultEdge = // struct @ MM7.exe::004EC3EC
  char byte_4ECA93[array_size_unknown]; // weak
  char byte_4ECACF[array_size_unknown]; // weak
  _BYTE byte_4ECB0C[64]; // idb
- int dword_4ECBB8[array_size_unknown]; // weak
- int dword_4ECBBC[array_size_unknown]; // weak
- int dword_4ECBC0[array_size_unknown]; // weak
- __int16 word_4ECBC4[array_size_unknown]; // weak
- __int16 word_4ECBC6[array_size_unknown]; // weak
- __int16 word_4ECBC8[array_size_unknown]; // weak
+
+struct unnamed_4ECBB8 stru_4ECBB8[6]; // struct[] @ MM7.exe::004ECBB8
  char *off_4ECC30[25]; // weak
  char *off_4ECC98; // idb
  char *off_4ECD00; // idb
@@ -379,14 +347,8 @@ unsigned int array_4F031C[12] =
  _UNKNOWN unk_4F54B8; // weak
  _UNKNOWN unk_4F54D0; // weak
  int dword_4F5B24[array_size_unknown]; // weak
- int dword_4F5B28[array_size_unknown]; // weak
- int dword_4F5B2C[array_size_unknown]; // weak
  int dword_4F5BF4[array_size_unknown]; // weak
- int dword_4F5BF8[array_size_unknown]; // weak
- int dword_4F5BFC; // weak
  int dword_4F5CC4[array_size_unknown]; // weak
- int dword_4F5CC8[array_size_unknown]; // weak
- int dword_4F5CCC; // weak
  int dword_4F5D98[array_size_unknown]; // weak
  int dword_4F5D9C; // weak
  int dword_4F5E68[array_size_unknown]; // weak
@@ -406,7 +368,6 @@ unsigned int array_4F031C[12] =
  int dword_4F8874; // weak
  int dword_4F8878[array_size_unknown]; // weak
  int dword_4FA9B0[array_size_unknown]; // weak
- int dword_4FA9B4[array_size_unknown]; // weak
  char byte_4FAA00; // weak
  _UNKNOWN unk_4FAA08; // weak
  _UNKNOWN unk_4FAA20; // weak
@@ -722,8 +683,8 @@ struct GUIButton *pCharacterUI_BtnAwards;    // dword @ MM7.exe::00507680
 struct GUIButton *pCharacterUI_BtnInventory; // dword @ MM7.exe::00507684
 struct GUIButton *pCharacterUI_BtnSkills;    // dword @ MM7.exe::00507688
 struct GUIButton *pCharacterUI_BtnStats;     // dword @ MM7.exe::0050768C
- int dword_507690; // weak
- int dword_507694; // weak
+struct GUIButton *dword_507690; // weak
+struct GUIButton *dword_507694; // weak
 
  unsigned int uTextureID_WindowEdgeTop;          // dword @ MM7.exe::00507698
  unsigned int uTextureID_WindowEdgeRight;        // dword @ MM7.exe::0050769C
@@ -742,8 +703,8 @@ struct GUIButton *pCharacterUI_BtnStats;     // dword @ MM7.exe::0050768C
  unsigned int uTextureIdx_MonsterHP_CapLeft;   // dword @ MM7.exe::005076CC
  unsigned int uTextureIdx_MonsterHP_Bg;        // dword @ MM7.exe::005076D0
 
- int dword_5076F4; // weak
- int dword_5076FC; // weak
+struct GUIButton *dword_5076F4; // ptr_507BC0->pControlsHead
+struct GUIButton *dword_5076FC; // weak
 
 
  int dword_50792C; // weak
@@ -821,9 +782,9 @@ unsigned int uTextureID_507B04; // weak
 
  int dword_507B94; // weak
  int dword_507B98_bCtrlPressed; // weak
- int dword_507B9C; // weak
- int dword_507BA0; // weak
- int dword_507BA4; // weak
+struct GUIButton *dword_507B9C; // weak
+struct GUIButton *dword_507BA0; // weak
+struct GUIButton *dword_507BA4; // weak
 
 // struct class18 *pClass18_ibground = 0; // ptr @ MM7.exe::00507BA8
 unsigned int uTextureID_ibground = -1; // dword @ MM7.exe::00507BA8 addon, used to be obj ptr
@@ -836,11 +797,11 @@ unsigned int uTextureID_ibground = -1; // dword @ MM7.exe::00507BA8 addon, used 
 
  int dword_507BB8; // idb
 struct GUIWindow *pDialogueWindow = 0; // dword @ MM7.exe::00507BBC
- int dword_507BC0; // idb
- int dword_507BC4; // weak
+struct GUIWindow *ptr_507BC0 = 0;      // dword @ MM7.exe::00507BC0
+struct GUIWindow *ptr_507BC4 = 0;      // dword @ MM7.exe::00507BC4
  int dword_507BC8; // weak
 
- int dword_507BD0; // weak
+struct GUIWindow *ptr_507BD0 = 0; //  dword @ MM7.exe::00507BD0
  int dword_507BD4; // idb
  int dword_507BDC; // weak
  int dword_507BE0; // weak
@@ -1223,7 +1184,7 @@ unsigned int  uDialogue_SpeakingActorID = -1; // dword @ MM7.exe::00591090
  char byte_591180[600]; // idb
  int dword_5913D8[array_size_unknown]; // weak
  int dword_5913F0; // weak
- int dword_5913F4[array_size_unknown]; // weak
+struct GUIButton *dword_5913F4[array_size_unknown]; // weak
 unsigned int uTextureID_Dialogue_NPCPortrait[array_size_unknown]; // dword @ MM7.exe::0059140C
  int dword_591424; // weak
 

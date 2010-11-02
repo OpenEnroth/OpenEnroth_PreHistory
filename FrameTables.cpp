@@ -30,8 +30,6 @@ template<> unsigned int ImageTableLoader<IconFrame>::LoadFromFile(const wchar_t 
 
 
 
-
-
 void MonsterDescriptionList_ctor(struct MonsterDescriptionList *_this)
 {
  _this->uNumDescriptions = 0;
@@ -97,7 +95,7 @@ unsigned int CIconFrameTable_FindIcon_New(struct CIconFrameTable *_this, const w
  wsprintfA(pIconNameA, "%S", pIconName);
  for (i = 0; i < _this->uNumIcons; ++i)
  {
-  if (!_strcmpi(pIconNameA, (char *)_this->pIcons[i].sName))
+  if (!_strcmpi(pIconNameA, (char *)_this->pIcons[i].sAnimationName))
     return i;
  }
  return 0;
@@ -344,14 +342,14 @@ void SpriteFrameTable_InitializeSpriteFrame(struct SpriteFrameTable *_this, unsi
                 case 3:
                 case 4:
                 case 5:
-                  v22 = (const char *)&unk_4E7E28;
+                  v22 = "%s4";
                 case 2:
                 case 6:
-                  v22 = (const char *)&unk_4E7E24;
+                  v22 = "%s2";
                 case 0:
                 case 1:
                 case 7:
-                  v22 = (const char *)&unk_4E7E20;
+                  v22 = "%s0";
                   break;
               }
               wsprintfA(Size, v22, _this->pSpriteSFrames[i].sTextureName);
@@ -390,11 +388,11 @@ void SpriteFrameTable_InitializeSpriteFrame(struct SpriteFrameTable *_this, unsi
             {
               case 0:
                v26 = (char *)_this->pSpriteSFrames[i].sTextureName;
-                v23 = (const char *)&unk_4E7E20;
+                v23 = "%s0";
                 goto LABEL_26;
               case 4:
                 v26 = &Str;
-                v23 = (const char *)&unk_4E7E28;
+                v23 = "%s4";
                 goto LABEL_26;
               case 3:
               case 5:
@@ -404,7 +402,7 @@ void SpriteFrameTable_InitializeSpriteFrame(struct SpriteFrameTable *_this, unsi
               case 2:
               case 6:
                v26 = (char *)_this->pSpriteSFrames[i].sTextureName;
-                v23 = (const char *)&unk_4E7E24;
+                v23 = "%s2";
                 goto LABEL_26;
               case 1:
               case 7:
