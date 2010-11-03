@@ -40,8 +40,8 @@ void RtlCallCtors()
  
 
  //moved creation of d3d here since sub_40DEF3 uses it
- pD3DRenderer = new Render;
- Render_ctor(pD3DRenderer);
+ //pD3DRenderer = new RenderOpenGL;
+ pD3DRenderer = new RenderDirect3D3;
 
  pKeyboardController = new KeyboardController;
  KeyboardController_ctor(pKeyboardController);
@@ -1387,19 +1387,19 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
 
 
 
- if (~dword_6BE368 & 1)  // if (!windowed)
- {
-  SetWindowLongA(pAppWindow->GetAPIHandle(), GWL_EXSTYLE, 0);
-  SetWindowLongA(pAppWindow->GetAPIHandle(), GWL_STYLE, WS_VISIBLE);
-  if (dword_720010)
-    sub_46BBD0();
-  Render_Initialize(pD3DRenderer, pAppWindow->GetAPIHandle());
- }
- else
- {
+ //if (~dword_6BE368 & 1)  // if (!windowed)
+ //{
+ // SetWindowLongA(pAppWindow->GetAPIHandle(), GWL_EXSTYLE, 0);
+ // SetWindowLongA(pAppWindow->GetAPIHandle(), GWL_STYLE, WS_VISIBLE);
+ // if (dword_720010)
+ //   sub_46BBD0();
+ // Render_Initialize(pD3DRenderer, pAppWindow->GetAPIHandle());
+ //}
+ //else
+ //{
   ClipCursor(0);
-  Render_InitWindowed(pD3DRenderer, pAppWindow->GetAPIHandle());
- }
+  pD3DRenderer->Initialize(pAppWindow);
+ //}
 
  uSoundVolumeMultiplier = ReadWindowsRegistry("soundflag", 9);
  if (uSoundVolumeMultiplier < 0 || uSoundVolumeMultiplier > 9)
@@ -1429,7 +1429,8 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
  if (dword_4E2900_GammaPos < 0 || dword_4E2900_GammaPos > 9)
    dword_4E2900_GammaPos = 4;
 
- GammaController_sub_44F4D9(pGame->pGammaController, (double)dword_4E2900_GammaPos * 0.10000000000000001 + 0.59999999999999998);
+ runtime_warning(no gamma controller anymore);
+ //GammaController_sub_44F4D9(pGame->pGammaController, (double)dword_4E2900_GammaPos * 0.10000000000000001 + 0.59999999999999998);
 
  if (ReadWindowsRegistry("Bloodsplats", 1))
    pGame->dword_000E24 |= 0x20;
@@ -2361,9 +2362,9 @@ void __fastcall MoviePlayerLoop(const char *pMovieName, int a2, int a3, int a4)
    Render_ClearTarget(pD3DRenderer, 0);
  else
  {
-  Render_BeginScene(pD3DRenderer);
+  pD3DRenderer->BeginScene();
   Render_ClearTarget(pD3DRenderer, 0);
-  Render_EndScene(pD3DRenderer);
+  pD3DRenderer->EndScene();
  }
  dword_4E28F8 = 16;
 
@@ -3656,7 +3657,7 @@ LABEL_184:
         if ( !pD3DRenderer->pRenderD3D3 && !sub_4A169E(pD3DRenderer) || !sub_4A16A5() )
           goto LABEL_20;
       }
-      Render_Present(pD3DRenderer);
+      pD3DRenderer->Present();
 LABEL_20:
       EndPaint(hWnd, &Paint);
       return 0;
@@ -3949,7 +3950,7 @@ void sub_44103C()
  {
   if (pD3DRenderer->pRenderD3D3)
     goto LABEL_22;
-  Render_BeginSceneD3D3(pD3DRenderer);
+  pD3DRenderer->BeginScene();
   ckass03_sub_469E3B(pGame->pClass03);
  }
  else
@@ -3969,7 +3970,7 @@ void sub_44103C()
   pParty_global->sOldRotationX = pParty_global->sRotationX;
   pParty_global->sOldEyelevel = pParty_global->uEyelevel;
 
-  Render_BeginSceneD3D3(pD3DRenderer);
+  pD3DRenderer->BeginScene();
 
   if (!pD3DRenderer->pRenderD3D3)
     ckass03_sub_469E3B(pGame->pClass03);
@@ -4002,10 +4003,11 @@ void sub_44103C()
   }
 
 
- RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(pD3DRenderer);
+ //RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(pD3DRenderer);
+ //pD3DRenderer->EndScene();
 
 LABEL_22:
- Render_BeginScene(pD3DRenderer);
+ //pD3DRenderer->BeginScene();
  Render_Set2DClippingRect(pD3DRenderer, 0, 0, 640, 480);
  if (pD3DRenderer->pRenderD3D3)
    ckass03_sub_469E3B(pGame->pClass03);
@@ -4073,8 +4075,8 @@ LABEL_22:
   class03_sub_469EA4_LooksLikeDrawPickedItem((int)pGame->pClass03);
   class03_sub_469CCD((int)pGame->pClass03);
   class03_sub_469E1C((int)pGame->pClass03);
-  Render_EndScene(pD3DRenderer);
-  Render_Present(pD3DRenderer);
+  pD3DRenderer->EndScene();
+  pD3DRenderer->Present();
 
   pParty_global->dword_007778 &= 0xFFFFFFFD;
 }
@@ -14050,7 +14052,7 @@ void PlayerCreationUI_Draw()
  int i;
  unsigned int uColor;
 
-  Render_BeginScene(pD3DRenderer);
+  pD3DRenderer->BeginScene();
   {
    Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
    Render_DrawIndexedTexture(pD3DRenderer, dword_A74CCC, 2, pPlayerCreationUI_Sky);
@@ -14446,7 +14448,7 @@ LABEL_77:
     v126 = 239;
     GUIWindow_sub_415551((GUIWindow *)&v121, 0);
   }
-  Render_EndScene(pD3DRenderer);
+  pD3DRenderer->EndScene();
 }
 
 

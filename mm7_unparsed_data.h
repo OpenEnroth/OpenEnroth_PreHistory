@@ -997,8 +997,8 @@ extern int dword_50C9B8; // weak
 extern int dword_50C9BC; // weak
 extern int dword_50C9C0; // weak
 extern int dword_50C9C4; // weak
-extern int dword_50C9C8; // weak
-extern int dword_50C9CC; // weak
+extern struct GUIButton *dword_50C9C8; // weak
+extern struct GUIButton *dword_50C9CC; // weak
 extern int dword_50C9D0; // weak
 extern int dword_50C9D4; // weak
 extern int dword_50C9D8; // weak

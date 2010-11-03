@@ -11871,7 +11871,7 @@ void __cdecl sub_4BC109()
   local_D4.uFrameWidth = 460;
   local_D4.uFrameZ = 452;
   v0 = Font_sub_44C59D(pFontArrus, (char *)pGlobalTXT_LocalizationStrings[575], &local_D4, 13, 0) + 7;
-  Render_BeginSceneD3D3(pD3DRenderer);
+  pD3DRenderer->BeginScene();
   if ( dword_6BE360 == 1 )
   {
     sub_441BD4();
@@ -11881,8 +11881,10 @@ void __cdecl sub_4BC109()
     if ( dword_6BE360 == 2 )
       sub_441CFF();
   }
-  RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(pD3DRenderer);
-  Render_BeginScene(pD3DRenderer);
+  //RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(pD3DRenderer);
+  pD3DRenderer->EndScene();
+
+  pD3DRenderer->BeginScene();
   if ( pD3DRenderer->pRenderD3D3 )
     Render_FillRect2(pD3DRenderer,
       pOldViewport->uGameX,
@@ -11898,8 +11900,8 @@ void __cdecl sub_4BC109()
   Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v0, pcTexture_EndcapTexture);
   v1 = (char *)FitTextInAWindow((char *)pGlobalTXT_LocalizationStrings[575], pFontArrus, &local_D4, 13, 0);
   FontDrawText(pDialogueWindow, pFontArrus, 13, 354 - v0, v1, 0, 0, 0);
-  Render_EndScene(pD3DRenderer);
-  Render_Present(pD3DRenderer);
+  pD3DRenderer->EndScene();
+  pD3DRenderer->Present();
   pParty_global->sPartyPosX = 3849;
   pParty_global->sPartyPosY = 5770;
   pParty_global->sPartyPosZ = 1;
@@ -13873,7 +13875,7 @@ void *__thiscall sub_4BF08B(void *_this, int a2)
   signed int v6; // eax@1
 
   v3 = (int)_this;
-  Render_BeginScene(pD3DRenderer);
+  pD3DRenderer->BeginScene();
   v4 = (int)pD3DRenderer->pTargetSurface;
   v5 = pD3DRenderer->uTargetSurfacePitch;
   v6 = VideoPlayer_Smacker_CheckSurfaceFromat();
@@ -13894,7 +13896,7 @@ void *__thiscall sub_4BF08B(void *_this, int a2)
     SmackNextFrame((HSMACK)*(_DWORD *)(v3 + 40));
   else
     CVideoPlayer_UnloadAll((CVideoPlayer *)v3);
-  return (void *)Render_EndScene(pD3DRenderer);
+  return (void *)pD3DRenderer->EndScene();
 }
 
 //----- (004BF28F) --------------------------------------------------------
@@ -13970,12 +13972,12 @@ LABEL_6:
     *(_DWORD *)(v3 + 44) = v8;
     if ( v8 )
     {
-      Render_BeginScene(pD3DRenderer);
+      pD3DRenderer->BeginScene();
       v9 = pD3DRenderer->uTargetSurfacePitch;
       v23 = (int)pD3DRenderer->pTargetSurface;
       v10 = VideoPlayer_Smacker_CheckSurfaceFromat();
       SmackToBuffer(*(HSMACK *)(v3 + 40), 8, 8, 2 * v9, pD3DRenderer->dword_000014, (void *)v23, v10);
-      Render_EndScene(pD3DRenderer);
+      pD3DRenderer->EndScene();
     }
     v19 = 32767;
     v11 = (signed __int64)(aMusicVolumeLevels[uSoundVolumeMultiplier] * 32767.0);
@@ -14120,19 +14122,19 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   dword_F8BC10 = 1;
   pVideoPlayer->dword_00006C = 0;
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-  Render_BeginScene(pD3DRenderer);
+  pD3DRenderer->BeginScene();
   Render_sub_49ECC4((int)pD3DRenderer);
-  Render_EndScene(pD3DRenderer);
-  Render_Present(pD3DRenderer);
+  pD3DRenderer->EndScene();
+  pD3DRenderer->Present();
   pVideoPlayer->dword_000040 = 0;
   sub_449B57((int)pParty_global->unk_000764 + 1, 99);
 
   compile_error;
   /*RGBTexture_Load(&v16, "winbg.pcx", 2);
-  Render_BeginScene(pD3DRenderer);
+  pD3DRenderer->BeginScene();
   Render_DrawRGBTexture(pD3DRenderer, 0, 0, (int)&v16);*/
 
-  v1 = (int)Render_EndScene(pD3DRenderer);
+  v1 = (int)pD3DRenderer->EndScene();
   free((char *)v17);
   v17 = 0;
   ptr_507BC0 = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
@@ -14162,7 +14164,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   v28 = v30 % 0x1C;
   if ( !v30 )
     v30 = 1;
-  Render_BeginScene(pD3DRenderer);
+  pD3DRenderer->BeginScene();
   GUIWindow_sub_44D406(&local_34, (Font *)v33, 1, 35, 1u, (char *)pGlobalTXT_LocalizationStrings[9], 3);
   v4 = (int)pParty_global->pPlayers[0].sName;
   v34 = 0i64;
@@ -14205,8 +14207,8 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[94], v34);
   GUIWindow_sub_44D406(&local_34, (Font *)v33, 1, local_34.uFrameHeight, 1u, (char *)TmpBuf, 3);
   BYTE1(dword_6BE364) |= 0x40u;
-  Render_EndScene(pD3DRenderer);
-  Render_Present(pD3DRenderer);
+  pD3DRenderer->EndScene();
+  pD3DRenderer->Present();
   if ( pD3DRenderer->pRenderD3D3 )
     dword_EF52A8();
   Render_sub_49F1BC((int)pD3DRenderer, "MM7_Win.Pcx");

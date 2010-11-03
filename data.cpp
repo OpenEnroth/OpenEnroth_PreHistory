@@ -1213,7 +1213,7 @@ PCMWAVEFORMAT sPCMWaveFormat;  // struct @ MM7.exe::00F1B4B8
 
 
 
-struct Render *pD3DRenderer = 0;
+struct BaseRender *pD3DRenderer = 0;
 LODFile_sp      LODFile_Events_LOD;   // struct @ MM7.exe::006BEA58
 LODFile_sp      LODFile_Icons_LOD;    // struct @ MM7.exe::006D0610
 LODFile_Sprite      LODFile_Sprites_LOD;  // struct @ MM7.exe::006E21C8

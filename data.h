@@ -179,7 +179,7 @@ extern PCMWAVEFORMAT sPCMWaveFormat;
 
 
 
-extern struct Render *pD3DRenderer;
+extern struct BaseRender *pD3DRenderer;
 extern class LODFile_sp      LODFile_Icons_LOD;
 extern class LODFile_sp      LODFile_Events_LOD;
 extern class LODFile_sp      LODFile_Bitmaps_LOD;

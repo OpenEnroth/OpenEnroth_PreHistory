@@ -535,6 +535,7 @@ void __cdecl LoadMainMenu()
  uTextureID_MainMenuUI_Title = LODFile_Icons_LOD.LODFile_LoadTexture( "mm7title",2);
   #endif
  Render_BeginScene(pD3DRenderer);
+ pD3DRenderer->BeginScene();
  {
   Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_MainMenuUI_Title);
 
@@ -543,6 +544,8 @@ void __cdecl LoadMainMenu()
 
  Render_EndScene(pD3DRenderer);
  Render_Present(pD3DRenderer);
+ pD3DRenderer->EndScene();
+ pD3DRenderer->Present();
 
  if (~dword_6BE364 & 0x10) // if (!nosound)
  {
@@ -1539,12 +1542,20 @@ LABEL_60:
             0);
           dword_50C9CC = (int)GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 162, 16, 16, v0, 0, 111, 4, 0, v1, 72 * dword_507C70 + 7145548);
           dword_50C9C8 = (int)GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 162, 16, 16, v0, 0, 111, 5, 0, v1, 72 * dword_507C74 + 7145548);
+          dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 162, 16, 16, v0, 0, 111, 4, 0, v1, 72 * dword_507C70 + 7145548);
+          dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 162, 16, 16, v0, 0, 111, 5, 0, v1, 72 * dword_507C74 + 7145548);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 263, 162, 172, 17, v0, 0, 111, 0, 0, v1, 0);
           dword_50C9CC = (int)GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 216, 16, 16, v0, 0, 112, 4, 0, v1, 72 * dword_507C70 + 7145548);
           dword_50C9C8 = (int)GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 216, 16, 16, v0, 0, 112, 5, 0, v1, 72 * dword_507C74 + 7145548);
+
+          dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 216, 16, 16, v0, 0, 112, 4, 0, v1, 72 * dword_507C70 + 7145548);
+          dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 216, 16, 16, v0, 0, 112, 5, 0, v1, 72 * dword_507C74 + 7145548);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 263, 216, 172, 17, v0, 0, 112, 0, 0, v1, 0);
           dword_50C9CC = (int)GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 270, 16, 16, v0, 0, 186, 4, 0, v1, 72 * dword_507C70 + 7145548);
           dword_50C9C8 = (int)GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 270, 16, 16, v0, 0, 186, 5, 0, v1, 72 * dword_507C74 + 7145548);
+
+          dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 270, 16, 16, v0, 0, 186, 4, 0, v1, 72 * dword_507C70 + 7145548);
+          dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 270, 16, 16, v0, 0, 186, 5, 0, v1, 72 * dword_507C74 + 7145548);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 263, 270, 172, 17, v0, 0, 186, 0, 0, v1, 0);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 241, 302, 214, 40, v0, 0, 113, 0, 0, (char *)pGlobalTXT_LocalizationStrings[619], 0);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 19, 140, 214, 40, v0, 0, 415, 0, 75, v1, 0);
@@ -1688,12 +1699,15 @@ LABEL_60:
           {
             v0 = 1;
             if ( CheckIfDeviceSupportsGammaControl() )
+            if (pD3DRenderer->IsGammaControlSupported())
             {
               dword_50C9CC = (int)GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 161, 16, 16, 1, 0, 425, 4, 0, v1, 72 * dword_507C20 + 7145548);
               dword_50C9C8 = (int)GUIButtonCreate(
                                pGUIWindow_CurrentMenu,
                                213,
                                161,
+              dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 161, 16, 16, 1, 0, 425, 4, 0, v1, 72 * dword_507C20 + 7145548);
+              dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 213, 161,
                                16,
                                16,
                                1,
@@ -1732,6 +1746,7 @@ LABEL_117:
             GammaController_sub_44F4D9(pGame->pGammaController, v25);
             v183 = v0;
             v169 = dword_50C9CC;
+            v169 = (int)dword_50C9CC;
             v162 = 90;
             v157 = 0;
             v153 = 0;
@@ -1748,6 +1763,7 @@ LABEL_117:
               v24 = 213;
               v183 = v0;
               v169 = dword_50C9C8;
+              v169 = (int)dword_50C9C8;
               v162 = 90;
               v157 = 0;
               v153 = 0;
@@ -1791,6 +1807,7 @@ LABEL_128:
             v184 = v0;
             v28 = 243;
             v170 = dword_50C9CC;
+            v170 = (int)dword_50C9CC;
 LABEL_136:
             GUIWindowCreate(v28, 216, 0, 0, 90, v170, v184);
             goto LABEL_143;
@@ -1803,6 +1820,7 @@ LABEL_136:
             v184 = v0;
             v28 = 435;
             v170 = dword_50C9C8;
+            v170 = (int)dword_50C9C8;
             goto LABEL_136;
           }
           uMusicVolimeMultiplier = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v218) - 263) / 17;
@@ -1822,6 +1840,7 @@ LABEL_143:
             v185 = v0;
             v30 = 243;
             v171 = dword_50C9CC;
+            v171 = (int)dword_50C9CC;
 LABEL_150:
             GUIWindowCreate(v30, 162, 0, 0, 90, v171, v185);
             goto LABEL_157;
@@ -1834,6 +1853,7 @@ LABEL_150:
             v185 = v0;
             v30 = 435;
             v171 = dword_50C9C8;
+            v171 = (int)dword_50C9C8;
             goto LABEL_150;
           }
           uSoundVolumeMultiplier = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v223) - 263) / 17;
@@ -1871,6 +1891,7 @@ LABEL_157:
             v186 = v0;
             v31 = 243;
             v172 = dword_50C9CC;
+            v172 = (int)dword_50C9CC;
 LABEL_166:
             GUIWindowCreate(v31, 270, 0, 0, 90, v172, v186);
             goto LABEL_173;
@@ -1883,6 +1904,7 @@ LABEL_166:
             v186 = v0;
             v31 = 435;
             v172 = dword_50C9C8;
+            v172 = (int)dword_50C9C8;
             goto LABEL_166;
           }
           uVoicesVolumeMultiplier = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v221) - 263) / 17;
@@ -5431,6 +5453,7 @@ void DrawLoadingScreen(struct class56 *_this)
 
   v1 = (int)_this;
   Render_BeginScene(pD3DRenderer);
+  pD3DRenderer->BeginScene();
   if (_this->uProgressBarType != 1 )
   {
     if ( *(_DWORD *)(v1 + 344) )
@@ -5448,9 +5471,12 @@ void DrawLoadingScreen(struct class56 *_this)
 
       Render_EndScene(pD3DRenderer);
       Render_Present(pD3DRenderer);
+      pD3DRenderer->EndScene();
+      pD3DRenderer->Present();
       return;
     }
     Render_EndScene(pD3DRenderer);
+    pD3DRenderer->EndScene();
     return;
   }
 
@@ -5463,6 +5489,8 @@ void DrawLoadingScreen(struct class56 *_this)
   Render_Reset2DClippingRect(pD3DRenderer);
   Render_EndScene(pD3DRenderer);
   Render_Present(pD3DRenderer);
+  pD3DRenderer->EndScene();
+  pD3DRenderer->Present();
 }
 
 
@@ -8274,8 +8302,7 @@ LABEL_84:
                 Render_sub_4A612A((int)pD3DRenderer, v237, v225, v48, v260);
 LABEL_93:
               v269 = 4 * uSelectedCharacter - 4;
-              Render_DrawTransparentTexture(
-                pD3DRenderer,
+              Render_DrawTransparentTexture(pD3DRenderer,
                 dword_4E4C28,
                 dword_4E4C2C,
                 //*(int *)((char *)pPaperdollTextures_Bodies + v269) != -1 ? 72 * *(int *)((char *)pPaperdollTextures_Bodies + v269) + 7145548 : 0);
@@ -9150,7 +9177,10 @@ LABEL_231:
                               v205 = v229;
                               v193 = v241;
 LABEL_234:
-                              Render_DrawTransparentTexture((Render *)v115, v193, v205, (cTexture *)v218);
+                              Render_DrawTransparentTexture((Render *)v115, v193, v205 (class18 *)v218);
+                              Render_rawTransparentTexture((Render *)v115, v193, v205, (class18 *)v218);
+                              RenderDrawTransparentTexture((Render *)v115, v193, v205, (cTexture *)v218);
+                              Render_DrawTransparentTexture((BaseRender *)v115, v193, v205, (class18 *)v218);
                               goto LABEL_256;
                             }
                             v118 = v116 != 0 ? v114 : 0;

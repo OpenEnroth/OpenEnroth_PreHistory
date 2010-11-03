@@ -3617,17 +3617,17 @@ int CreditsMenuLoop()
   GUIButtonCreate(pGUIWindow_MainMenu, 0, 0, 0, 0, 1, 0, 113, 0, 27, "", 0);
   dword_4E28F8 = 9;
   SetCurrentMenu(8);
-  Render_BeginScene(pD3DRenderer);
+  pD3DRenderer->BeginScene();
   Render_DrawRGBTexture(pD3DRenderer, 0, 0, &v19);
   Render_Set2DClippingRect(pD3DRenderer, v23, v24, v23 + v25, v24 + v26);
   sub_4A5D33((int)pD3DRenderer, v23, v24, 0, 0, (int)&v29);
   Render_Reset2DClippingRect(pD3DRenderer);
-  Render_EndScene(pD3DRenderer);
+  pD3DRenderer->EndScene();
   Dest = (char *)1148846080;
   v20 = 1000.0 + 6.755399441055744e15;
   v22 = LODWORD(v20);
   GetTickCount();
-  Render_Present(pD3DRenderer);
+  pD3DRenderer->Present();
   do
   {
     while ( PeekMessageA(&Msg, 0, 0, 0, 1u) )
@@ -3656,35 +3656,35 @@ int CreditsMenuLoop()
         strncpy((char *)(char *)TmpBuf, Source, 0x7D0u);
         sub_44D2FD(v38, v39, 0, v26, v29.uWidth, v29.uHeight, v28, v27[0], (char *)TmpBuf, (int)v29.pPixels, v29.uWidth);
         dword_A74C88 = 0;
-        Render_BeginScene(pD3DRenderer);
+        pD3DRenderer->BeginScene();
         Render_DrawRGBTexture(pD3DRenderer, 0, 0, &v19);
         Render_Set2DClippingRect(pD3DRenderer, v23, v24, v23 + v25, v23 + v26);
         sub_4A5D33((int)pD3DRenderer, v23, v24, 0, v35, (int)&v29);
         Render_Reset2DClippingRect(pD3DRenderer);
-        Render_EndScene(pD3DRenderer);
-        Render_Present(pD3DRenderer);
+        pD3DRenderer->EndScene();
+        pD3DRenderer->Present();
       }
       timeGetTime();
-      Render_BeginScene(pD3DRenderer);
+      pD3DRenderer->BeginScene();
       Render_DrawRGBTexture(pD3DRenderer, 0, 0, &v19);
       Render_Set2DClippingRect(pD3DRenderer, v23, v24, v23 + v25, v24 + v26);
       sub_4A5D33((int)pD3DRenderer, v23, v24, 0, v35, (int)&v29);
       Render_Reset2DClippingRect(pD3DRenderer);
-      Render_EndScene(pD3DRenderer);
+      pD3DRenderer->EndScene();
       ++v35;
       if ( v35 >= v29.uHeight )
         SetCurrentMenu(MENU_MAIN);
       timeGetTime();
-      Render_Present(pD3DRenderer);
+      pD3DRenderer->Present();
       sub_435748();
     }
   }
   while ( sub_466CA0() == 8 );
   sub_435748();
-  Render_BeginScene(pD3DRenderer);
+  pD3DRenderer->BeginScene();
   sub_4156F0_LooksLike_UI_ProcessCallbacks();
-  Render_EndScene(pD3DRenderer);
-  Render_Present(pD3DRenderer);
+  pD3DRenderer->EndScene();
+  pD3DRenderer->Present();
   AudioPlayer_sub_4AA258((int)pAudioPlayer, 1);
   mem_mng.DeleteBuffer( (void *)Source);
   mem_mng.DeleteBuffer( (void *)(void *)v38);
@@ -8859,7 +8859,7 @@ int __thiscall sub_49EB79(int _this)
   mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 262200));
   sub_45271F(v2 + 262420);
   v3 = sub_45271F(v2 + 662444);
-  sub_49FE05((Render *)v2);//sub_49FE05(v3, v2);
+  sub_49FE05((BaseRender *)v2);//sub_49FE05(v3, v2);
   *(_DWORD *)(v2 + 262232) = 1;
   compile_error;//nullsub_1(v2 + 662444);
   compile_error;//return nullsub_1(v2 + 262420);
@@ -8965,7 +8965,7 @@ void __thiscall Render_sub_49EDB6(int _this)
       }
       else
       {
-        Render_BeginScene(pD3DRenderer);
+        pD3DRenderer->BeginScene();
         v42 = (int)pD3DRenderer->pTargetSurface;
         v5 = pD3DRenderer->uTargetSurfacePitch;
       }
@@ -9075,7 +9075,7 @@ void __thiscall Render_sub_49EDB6(int _this)
       }
       else
       {
-        Render_EndScene(pD3DRenderer);
+        pD3DRenderer->EndScene();
       }
       mem_mng.DeleteBuffer( (void *)(void *)v41);
       fclose(v6);
@@ -9159,7 +9159,7 @@ void __thiscall Render_sub_49F1BC(int _this, const char *Filename)
       }
       else
       {
-        Render_BeginScene(pD3DRenderer);
+        pD3DRenderer->BeginScene();
         v42 = (int)pD3DRenderer->pTargetSurface;
         v6 = pD3DRenderer->uTargetSurfacePitch;
       }
@@ -9269,7 +9269,7 @@ void __thiscall Render_sub_49F1BC(int _this, const char *Filename)
       }
       else
       {
-        Render_EndScene(pD3DRenderer);
+        pD3DRenderer->EndScene();
       }
       mem_mng.DeleteBuffer( (void *)(void *)v41);
       fclose(v7);
@@ -9435,7 +9435,7 @@ int sub_49FC23(int a1, int a2)
   int v3; // esi@1
 
   v3 = a2;
-  sub_49FE05((Render *)a2);
+  sub_49FE05((BaseRender *)a2);
   *(_DWORD *)(v3 + 262232) = 1;
   return result;
 }
@@ -10489,7 +10489,7 @@ void __thiscall sub_4A3AD9(int _this, int a2, IDirect3DTexture2 *pTexture, unsig
 }
 
 //----- (004A4023) --------------------------------------------------------
-void Render_BillboardTransform(struct Render *_this, struct Render_BillboardTransform_stru0 *a2, struct HardwareSprite *pSprite, int a4, struct RenderBillboard *pBillboard)
+void Render_BillboardTransform(struct BaseRender *_this, struct Render_BillboardTransform_stru0 *a2, struct HardwareSprite *pSprite, int a4, struct RenderBillboard *pBillboard)
 {
   signed int v10; // eax@9
   signed int v11; // eax@9
@@ -12549,7 +12549,7 @@ void __thiscall Render_sub_4A6A68(void *_this, int a2, int a3, int a4, __int16 a
   memcpy(cTexture_obj, (const void *)a4, 0x48u);
   v8 = v6;
   if ( v6 > 0 )
-    Render_DrawIndexedTexture((Render *)v5, a2, a3, (cTexture *)a4);
+    Render_DrawIndexedTexture((BaseRender *)v5, a2, a3, (cTexture *)a4);
 }
 
 //----- (004A6DF5) --------------------------------------------------------

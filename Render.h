@@ -6,7 +6,6 @@
 
 #include "legacy dx\ddraw.h"
 
-int __cdecl CheckIfDeviceSupportsGammaControl();
 double __stdcall sub_44F377(DDGAMMARAMP *pddGammaRamp);
 bool __stdcall LockSurface_DDraw4(struct IDirectDrawSurface4 *, DDSURFACEDESC2 *, unsigned int uLockFlags);
 int __stdcall LockSurface_DDraw2(struct IDirectDrawSurface2 *, DDSURFACEDESC *, unsigned int uLockFlags);
@@ -107,15 +106,18 @@ struct RenderBillboard
 
 
 
-//
-struct Render_Camera
+struct BaseRender
 {
- int a;
-};
+ BaseRender();
 
+ virtual unsigned int Initialize(class OSWindow *pTargetWindow) = 0;
 
-struct Render
-{
+ virtual unsigned int IsGammaControlSupported() = 0;
+
+ virtual unsigned int BeginScene() = 0;
+ virtual unsigned int EndScene() = 0;
+ virtual unsigned int Present() = 0;
+
  unsigned int                 bUseDirect3D;            // dword @ 000000
  unsigned int                 bStartInWindow;          // dword @ 000004
  unsigned int                 uDesiredDirect3DDevice;  // dword @ 000008   device idx we desired
@@ -197,106 +199,141 @@ struct Render
  int dword_129838;  // dst pitch
  int dword_12983C;  // dst buffer
  int dword_129840;  // src buffer
+
+ //addons
+ OSWindow *pTargetWindow;
 };
-//int __thiscall sub_49E992(int _this)
-void Render_ctor(struct Render *_this);
-//int __thiscall sub_49FFFB(int _this, unsigned int a2);
-int Render_Initialize(struct Render *_this, HWND hwnd);
-//int __thiscall sub_4A05F3
-int Render_InitWindowed(struct Render *_this, HWND hwnd);
 //signed int __thiscall sub_49FDBF(int _this)
-void Render_Initialize_ZBuffer(struct Render *_this);
+void Render_Initialize_ZBuffer(struct BaseRender *_this);
 //signed int __thiscall sub_49FFD7(int _this);
-bool Render_sub_49FFD7(struct Render *_this);
+bool Render_sub_49FFD7(struct BaseRender *_this);
 //int __thiscall sub_4A10E4(void *_this)
-int Render_CreateDirectDraw(struct Render *_this);
+int Render_CreateDirectDraw(struct BaseRender *_this);
 //void *__thiscall sub_4A1169(int _this, int a2, char a3)
-void *Render_SetCooperativeLevel(struct Render *_this, HWND hwnd, int bFullscreen);
+void *Render_SetCooperativeLevel(struct BaseRender *_this, HWND hwnd, int bFullscreen);
 //void *__thiscall sub_4A11C6(int _this, int a2, int a3, int a4);
-void *Render_SetDisplayMode(struct Render *_this, unsigned int uWidth, unsigned int uHeight, unsigned int uBPP);
+void *Render_SetDisplayMode(struct BaseRender *_this, unsigned int uWidth, unsigned int uHeight, unsigned int uBPP);
 //void *__thiscall sub_4A139A(int _this);
-void *Render_CreatePrimarySurface(struct Render *_this);
+void *Render_CreatePrimarySurface(struct BaseRender *_this);
 //sub_4A15D8
-HRESULT Render_GetPrimarySurfacePixelFormat(struct Render *_this, DDPIXELFORMAT *pddpf);
+HRESULT Render_GetPrimarySurfacePixelFormat(struct BaseRender *_this, DDPIXELFORMAT *pddpf);
 //void *__thiscall sub_4A0EB6(void *_this);
-void *Render_sub_4A0EB6(struct Render *_this);
+void *Render_sub_4A0EB6(struct BaseRender *_this);
 //int __thiscall sub_49EBF1(int _this);
-int Render_sub_49EBF1(struct Render *_this);
+int Render_sub_49EBF1(struct BaseRender *_this);
 //signed int __thiscall sub_49ED18(int _this)
-int Render_ClearBackBufferAndPresent(struct Render *_this);
-//signed int __thiscall sub_49FC37(int _this);
-int Render_Present(struct Render *_this);
+int Render_ClearBackBufferAndPresent(struct BaseRender *_this);
 //int __thiscall sub_4A1814(void *_this);
-HRESULT Render_RestoreFrontBuffer(struct Render *_this);
+HRESULT Render_RestoreFrontBuffer(struct BaseRender *_this);
 //int __thiscall sub_4A194A(int _this, int a2, int a3, int a4);
-HRESULT Render_PresentBackBuffer(struct Render *_this, int a2, int a3, RECT *pRect);
-//char __thiscall sub_4A51CB(int _this)
-unsigned int Render_BeginScene(struct Render *_this);
+HRESULT Render_PresentBackBuffer(struct BaseRender *_this, int a2, int a3, RECT *pRect);
 //int __thiscall sub_49FBCD(int _this, int a2);
-void Render_ClearTarget(struct Render *_this, unsigned int uColor);
+void Render_ClearTarget(struct BaseRender *_this, unsigned int uColor);
 //signed int __thiscall sub_4A1605(void *_this, int a2, int a3);
-int Render_LockBackBuffer(struct Render *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth);
-//void *__thiscall sub_4A527D(int _this);
-HRESULT Render_EndScene(struct Render *_this);
+int Render_LockBackBuffer(struct BaseRender *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth);
 //void *__thiscall sub_4A16E1(int _this);
-void *Render_UnlockBackBuffer(struct Render *_this);
+void *Render_UnlockBackBuffer(struct BaseRender *_this);
 //signed int __thiscall sub_4A172E(void *_this, int a2, int a3);
-int Render_LockFrontBuffer(struct Render *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth);
+int Render_LockFrontBuffer(struct BaseRender *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth);
 //void *__thiscall sub_4A17C7(int _this);
-void *Render_UnlockFrontBuffer(struct Render *_this);
+void *Render_UnlockFrontBuffer(struct BaseRender *_this);
 //void __thiscall sub_4A5BE3(int _this, int a2, int a3, int a4);
-void Render_DrawRGBTexture(struct Render *_this, unsigned int uX, unsigned int uY, struct RGBTexture *pClass33);
+void Render_DrawRGBTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, struct RGBTexture *pClass33);
 //custom
-void Render_DrawRGBTexture_New(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID);
+void Render_DrawRGBTexture_New(struct BaseRender *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID);
 //void __thiscall sub_4A6C4F(int _this, int a2, int a3, int a4, int a5, int a6, int a7, __int16 a8, __int16 a9);
-void Render_DrawText(struct Render *_this, unsigned int uOutX, unsigned int uOutY, unsigned char *pFontPixels, unsigned int uCharWidth, unsigned int uCharHeight, unsigned short *pFontPalette, unsigned int uMainColor, unsigned int uShadowColor);
+void Render_DrawText(struct BaseRender *_this, unsigned int uOutX, unsigned int uOutY, unsigned char *pFontPixels, unsigned int uCharWidth, unsigned int uCharHeight, unsigned short *pFontPalette, unsigned int uMainColor, unsigned int uShadowColor);
 //void __thiscall sub_4A5BB6(int _this);
-void Render_Reset2DClippingRect(struct Render *_this);
+void Render_Reset2DClippingRect(struct BaseRender *_this);
 //int __thiscall sub_4A5B81(int _this, int a2, int a3, int a4, int a5);
-void Render_Set2DClippingRect(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW);
+void Render_Set2DClippingRect(struct BaseRender *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW);
 //void __thiscall sub_4A5EB2(int _this, int a2, int a3, int a4);
-void Render_DrawIndexedTexture(struct Render *_this, unsigned int uX, unsigned int uY, cTexture *pTexture);
-void Render_DrawIndexedTextureHandle(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID);
+void Render_DrawIndexedTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, struct cTexture *pTexture);
+void Render_DrawIndexedTextureHandle(struct BaseRender *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID);
 //void __thiscall sub_4A6274(int _this, int a2, int a3, int a4);
-void Render_DrawTransparentTexture(struct Render *_this, unsigned int uX, unsigned int uY, cTexture *pTexture);
+void Render_DrawTransparentTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, struct cTexture *pTexture);
 //int __thiscall sub_4A0E97(int _this, int a2, int a3, int a4, int a5);
-void Render_sub_4A0E97(struct Render *_this, int a2, int a3, int a4, int a5);
+void Render_sub_4A0E97(struct BaseRender *_this, int a2, int a3, int a4, int a5);
 //signed int __thiscall sub_4A0E80(int _this, int a2, int a3);
-void Render_ClearZBuffer(struct Render *_this, int a2, int a3);
-//int __thiscall sub_4A1EB6(int _this);
-void Render_BeginSceneD3D3(struct Render *_this);
-//int __thiscall sub_4A1FE1(int _this);
-void RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(struct Render *_this);
+void Render_ClearZBuffer(struct BaseRender *_this, int a2, int a3);
 //void *__thiscall sub_4A121C(void *_this);
-void *Render_CreateSurface(struct Render *_this);
+void *Render_CreateSurface(struct BaseRender *_this);
 //void *__thiscall sub_4A12CD(void *_this);
-void *Render_CreateWndSurface(struct Render *_this);
+void *Render_CreateWndSurface(struct BaseRender *_this);
 //void *__thiscall sub_4A14F4(int _this, int a2);
-void *Render_CreateClipper(struct Render *_this, HWND ClipWnd);
-void *Render_PresentRegion(struct Render *_this, RECT *pDestRect, RECT *pSrcRect);
+void *Render_CreateClipper(struct BaseRender *_this, HWND ClipWnd);
+void *Render_PresentRegion(struct BaseRender *_this, RECT *pDestRect, RECT *pSrcRect);
 //char __thiscall sub_4A0BEE(int _this, int a2, int a3, int a4, int a5, __int16 a6);
-char Render_FillRect(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW, unsigned int uColor);
+char Render_FillRect(struct BaseRender *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW, unsigned int uColor);
 //signed int __cdecl sub_49E79F();
 bool Render_ValidateTextureStages();
 //void *__thiscall sub_4A5048(int _this, int a2);
-bool Render_MoveHWSpriteToVideoMemory(struct Render *_this, struct HardwareSprite *pSprite);
+bool Render_MoveHWSpriteToVideoMemory(struct BaseRender *_this, struct HardwareSprite *pSprite);
 //void __thiscall sub_4A2DA3(int _this, signed int a2, int a3, int a4);
-void Render_DrawSomeFan(struct Render *_this, unsigned int uNumVertices, struct struct8 *a3, struct IDirect3DTexture2 *pTexture);
+void Render_DrawSomeFan(struct BaseRender *_this, unsigned int uNumVertices, struct struct8 *a3, struct IDirect3DTexture2 *pTexture);
 // void __userpurge sub_4A6D87(int a1<ecx>, int a2<ebx>, int a3, int a4, unsigned int a5, int a6, __int16 a7);
-void Render_FillRect2(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int a5, int a6, unsigned int a7);
+void Render_FillRect2(struct BaseRender *_this, unsigned int uX, unsigned int uY, unsigned int a5, int a6, unsigned int a7);
 //int sub_49FE05(int, void *_this)
-void sub_49FE05(struct Render *pD3DRenderer);
+void sub_49FE05(struct BaseRender *pD3DRenderer);
 //void __thiscall sub_4A2050(int _this, signed int a2, int a3, int a4, int a5);
-void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct struct8 *a3, struct class51_stru2 *a4, struct IDirect3DTexture2 *pTexture);
+void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, struct struct8 *a3, struct class51_stru2 *a4, struct IDirect3DTexture2 *pTexture);
 //void sub_4A26BC(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
-void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, unsigned int uNumVertices, struct struct8 *a4, struct IDirect3DTexture2 *pTexture, bool a6, bool a7);
+void Render_DrawTerrainPolygon(struct BaseRender *_this, struct RenderVertex *a2, unsigned int uNumVertices, struct struct8 *a4, struct IDirect3DTexture2 *pTexture, bool a6, bool a7);
 //void __thiscall sub_4A4023(int _this, int a2, int a3, int a4, int a5);
-void Render_BillboardTransform(struct Render *_this, struct Render_BillboardTransform_stru0 *a2, struct HardwareSprite *pSprite, int a4, struct RenderBillboard *pBillboard);
+void Render_BillboardTransform(struct BaseRender *_this, struct Render_BillboardTransform_stru0 *a2, struct HardwareSprite *pSprite, int a4, struct RenderBillboard *pBillboard);
 
-void Render_DrawTransparentRect(struct Render *_this, unsigned int uOutX, unsigned int uOutY,
+void Render_DrawTransparentRect(struct BaseRender *_this, unsigned int uOutX, unsigned int uOutY,
                                       unsigned int uSrcX, unsigned int uSrcY, unsigned int uSrcWidth, unsigned int uSrcHeight,
                                       cTexture *pTexture);
-unsigned int Render_MoveToGPU(struct Render *_this, unsigned int uWidth, unsigned int uHeight, unsigned int *pData, struct IDirectDrawSurface4 **pOutSurface, struct IDirect3DTexture2 **pOutTexture);
+unsigned int Render_MoveToGPU(struct BaseRender *_this, unsigned int uWidth, unsigned int uHeight, unsigned int *pData, struct IDirectDrawSurface4 **pOutSurface, struct IDirect3DTexture2 **pOutTexture);
+
+
+
+
+struct RenderOpenGL: public BaseRender
+{
+ RenderOpenGL();
+
+ virtual unsigned int Initialize(OSWindow *pTargetWindow);
+
+ virtual unsigned int IsGammaControlSupported();
+ 
+ virtual unsigned int BeginScene();
+ virtual unsigned int EndScene();
+ virtual unsigned int Present();
+
+ HDC hTargetWindowDC;
+};
+
+
+struct RenderDirect3D3: public BaseRender
+{
+ RenderDirect3D3();
+
+ virtual unsigned int Initialize(OSWindow *pTargetWindow);
+
+ virtual unsigned int IsGammaControlSupported();
+
+ virtual unsigned int BeginScene();
+ virtual unsigned int EndScene();
+ virtual unsigned int Present();
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //class15
 struct CGammaController

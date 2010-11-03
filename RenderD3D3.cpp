@@ -4,6 +4,14 @@
  #include "_lod.h"
 #include "mm7_unparsed_functions.h"
 
+
+RenderDirect3D3::RenderDirect3D3():
+  BaseRender()
+{
+}
+
+
+
 HRESULT RenderD3D3_EndScene(struct RenderD3D3 *_this)
 {
  if (!pD3DRenderer->bSceneBegun)
@@ -22,6 +30,24 @@ HRESULT RenderD3D3_EndScene(struct RenderD3D3 *_this)
   //hr = (**(_DWORD **)(pD3DRenderer->dword_040098) + 128)(*(_DWORD *)(pD3DRenderer + 262296), 0);
   return (HRESULT)CheckHRESULT((void **)0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16blt.cpp", 207, 0);
  }
+
+//----- (004A1FE1) --------------------------------------------------------
+//void RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(struct BaseRender *_this)
+//{
+ if (pD3DRenderer->uD3D3SceneBegun-- == 1)
+ {
+    if (_this)
+    {
+      sub_44EE7C();
+      D3D_DoRenderBillboards();
+      class06_sub_4A8C27(pGame->class06_obj);
+      pD3DRenderer->pRenderD3D3->pDevice->EndScene();
+    }
+    else
+      class06_sub_4A8C27(pGame->class06_obj);
+ }
+//}
+
  return S_OK;
 }
 
@@ -933,7 +959,7 @@ void RenderD3D3_ClearTarget(struct RenderD3D3 *_this, int a2, D3DCOLOR uClearCol
 
 
 //----- (004A2DA3) --------------------------------------------------------
-void Render_DrawStrip(struct Render *_this, unsigned int uNumVertices, struct struct8 *a3, IDirect3DTexture2 *pTexture)
+void Render_DrawStrip(struct BaseRender *_this, unsigned int uNumVertices, struct struct8 *a3, IDirect3DTexture2 *pTexture)
 {
   int v4; // ebx@1
   int v7; // eax@7
@@ -978,7 +1004,7 @@ void Render_DrawStrip(struct Render *_this, unsigned int uNumVertices, struct st
 }
 
 //----- (004A2DA3) --------------------------------------------------------
-void Render_DrawSomeFan(struct Render *_this, unsigned int uNumVertices, struct struct8 *a3, IDirect3DTexture2 *pTexture)
+void Render_DrawSomeFan(struct BaseRender *_this, unsigned int uNumVertices, struct struct8 *a3, IDirect3DTexture2 *pTexture)
 {
   int v4; // ebx@1
   int v7; // eax@7
@@ -1202,7 +1228,7 @@ LABEL_12:
 
 
 //----- (004A26BC) --------------------------------------------------------
-void Render_DrawTerrainPolygon(struct Render *_this, struct RenderVertex *a2, unsigned int uNumVertices, struct struct8 *a4, struct IDirect3DTexture2 *pTexture, bool a6, bool a7)
+void Render_DrawTerrainPolygon(struct BaseRender *_this, struct RenderVertex *a2, unsigned int uNumVertices, struct struct8 *a4, struct IDirect3DTexture2 *pTexture, bool a6, bool a7)
 {
   int v7; // ebx@1
   int v8; // edi@1

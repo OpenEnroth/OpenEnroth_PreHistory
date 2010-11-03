@@ -58,88 +58,88 @@ int Render_HWLContainer_LoadHWLHeaders(struct Render_HWLContainer *_this, const 
 }
 
 //----- (MM7.exe::0049E992) --------------------------------------------------------
-void Render_ctor(struct Render *_this)
+BaseRender::BaseRender()
 {
   int v1; // eax@1
   char v3; // zf@1
 
- memset(_this, 0, sizeof(struct Render));
 
+ this->pdd4 = 0;
+ this->pdds4_FrontBuffer = 0;
+ this->pdds4_BackBuffer = 0;
+ this->dword_040098 = 0;
+ this->pdd2 = 0;
+ this->pdds2_FrontBuffer = 0;
+ this->pdds2_BackBuffer = 0;
+ this->dword_0400A8 = 0;
 
- _this->pdd4 = 0;
- _this->pdds4_FrontBuffer = 0;
- pD3DRenderer->pdds4_BackBuffer = 0;
- _this->dword_040098 = 0;
- _this->pdd2 = 0;
- _this->pdds2_FrontBuffer = 0;
- _this->pdds2_BackBuffer = 0;
- _this->dword_0400A8 = 0;
+ Render_HWLContainer_ctor(&this->struct_040114);
+ Render_HWLContainer_ctor(&this->struct_0A1BAC);
 
- Render_HWLContainer_ctor(&_this->struct_040114);
- Render_HWLContainer_ctor(&_this->struct_0A1BAC);
-
- _this->dword_040054 = 0;
- _this->dword_040058 = 1;
- _this->bUseDirect3D = ReadWindowsRegistry("Use D3D", false);
- _this->bStartInWindow = ReadWindowsRegistry("startinwindow", false);
+ this->dword_040054 = 0;
+ this->dword_040058 = 1;
+ this->bUseDirect3D = ReadWindowsRegistry("Use D3D", false);
+ this->bStartInWindow = ReadWindowsRegistry("startinwindow", false);
  v1 = ReadWindowsRegistry("D3D Device", true);
- v3 = _this->bStartInWindow == 0;
+ v3 = this->bStartInWindow == 0;
 
- _this->bStartInWindow = v3 && v1 != 1;
- _this->uDesiredDirect3DDevice = v1;
+ this->bStartInWindow = v3 && v1 != 1;
+ this->uDesiredDirect3DDevice = v1;
 
   //force d3d
- _this->bUseDirect3D = true;
+ this->bUseDirect3D = true;
 
- _this->dword_000010 = 640;
- _this->dword_000014 = 480;
- _this->dword_00001C = 0;
- _this->dword_000020 = 0;
- _this->dword_000024 = 639;
- _this->dword_000028 = 479;
+ this->dword_000010 = 640;
+ this->dword_000014 = 480;
+ this->dword_00001C = 0;
+ this->dword_000020 = 0;
+ this->dword_000024 = 639;
+ this->dword_000028 = 479;
 
- _this->dword_04002C = 0;
- _this->dword_040030 = 0;
- _this->pActiveZBuffer = 0;
- _this->pDefaultZBuffer = 0;
- _this->dword_04003C = (int)&unk_4EED80;
- _this->dword_040040 = dword_4EED78;
+ this->dword_04002C = 0;
+ this->dword_040030 = 0;
+ this->pActiveZBuffer = 0;
+ this->pDefaultZBuffer = 0;
+ this->dword_04003C = (int)&unk_4EED80;
+ this->dword_040040 = dword_4EED78;
 
- _this->dword_040044 = 2;
- _this->dword_040048 = 6;
+ this->dword_040044 = 2;
+ this->dword_040048 = 6;
 
- _this->pRenderD3D3 = 0;
+ this->pRenderD3D3 = 0;
 
- _this->bSceneBegun = 0;
+ this->bSceneBegun = 0;
 
- _this->pTargetSurface = 0;
- _this->uTargetSurfacePitch = 0;
+ this->pTargetSurface = 0;
+ this->uTargetSurfacePitch = 0;
 
- _this->uClipRectY = 0;
- _this->uClipRectX = 0;
- _this->uClipRectW = 480;
- _this->uClipRectZ = 640;
- _this->dword_040104 = 1;
+ this->uClipRectY = 0;
+ this->uClipRectX = 0;
+ this->uClipRectW = 480;
+ this->uClipRectZ = 640;
+ this->dword_040104 = 1;
 
- _this->dword_040108 = 0;
- _this->uD3D3SceneBegun = 0;
- _this->dword_040110 = 0;
+ this->dword_040108 = 0;
+ this->uD3D3SceneBegun = 0;
+ this->dword_040110 = 0;
 
- _this->bUseColoredLights = ReadWindowsRegistry("Colored Lights", false);
- _this->bRequiredTextureStagesAvailable = false;
- _this->bTinting = true;
- _this->uLevelOfDetail = ReadWindowsRegistry("Detail Level", 1);
+ this->bUseColoredLights = ReadWindowsRegistry("Colored Lights", false);
+ this->bRequiredTextureStagesAvailable = false;
+ this->bTinting = true;
+ this->uLevelOfDetail = ReadWindowsRegistry("Detail Level", 1);
 
- _this->byte_103668[0] = 0;
+ this->byte_103668[0] = 0;
 
- _this->dword_1036B8 = 0;
- _this->dword_1036BC = 0;
- Render_HWLContainer_LoadHWLHeaders(&_this->struct_040114, "data\\d3dbitmap.hwl");
- Render_HWLContainer_LoadHWLHeaders(&_this->struct_0A1BAC, "data\\d3dsprite.hwl");
+ this->dword_1036B8 = 0;
+ this->dword_1036BC = 0;
+ Render_HWLContainer_LoadHWLHeaders(&this->struct_040114, "data\\d3dbitmap.hwl");
+ Render_HWLContainer_LoadHWLHeaders(&this->struct_0A1BAC, "data\\d3dsprite.hwl");
+
+ this->uNumBillboardsToDraw = 0;
 }
 
 //----- (MM7.exe::0049FBCD) --------------------------------------------------------
-void Render_ClearTarget(struct Render *_this, unsigned int uColor)
+void Render_ClearTarget(struct BaseRender *_this, unsigned int uColor)
 {
  int v4; // ecx@4
 
@@ -156,7 +156,7 @@ void Render_ClearTarget(struct Render *_this, unsigned int uColor)
 }
 
 //----- (MM7.exe::004A51CB) --------------------------------------------------------
-unsigned int Render_BeginScene(struct Render *_this)
+unsigned int RenderDirect3D3::BeginScene()
 {
   int v1; // eax@1
   //int Dst; // [sp+Ch] [bp-7Ch]@4
@@ -165,51 +165,71 @@ unsigned int Render_BeginScene(struct Render *_this)
  char local_0[124];
  DDSURFACEDESC2 ddsd2;
 
- v1 = _this->bSceneBegun++;
+ v1 = this->bSceneBegun++;
  if (!v1)
  {
-  if (_this->pRenderD3D3)
-  {
-   if (_this->dword_040108)
+   if (this->dword_040108)
    {
     memset(&ddsd2, 0, sizeof(DDSURFACEDESC2));
     ddsd2.dwSize = sizeof(DDSURFACEDESC2);
-    LOBYTE(v1) = LockSurface_DDraw4(_this->dword_040098, &ddsd2, 2049);
+    LOBYTE(v1) = LockSurface_DDraw4(this->dword_040098, &ddsd2, 2049);
     if ((_BYTE)v1)
     {
-     _this->pTargetSurface = (unsigned int *)ddsd2.lpSurface;
-     _this->uTargetSurfacePitch = ddsd2.lPitch / (ddsd2.ddpfPixelFormat.dwRGBBitCount / 8);
-     _this->dword_000018 = _this->uTargetSurfacePitch;
+     this->pTargetSurface = (unsigned int *)ddsd2.lpSurface;
+     this->uTargetSurfacePitch = ddsd2.lPitch / (ddsd2.ddpfPixelFormat.dwRGBBitCount / 8);
+     this->dword_000018 = this->uTargetSurfacePitch;
      goto LABEL_11;
     }
 
-    _this->bSceneBegun--;
+    this->bSceneBegun--;
     return v1;
    }
-  }
-  else
-  {
-   if (!_this->pTargetSurface)
-   {
-    LOBYTE(v1) = Render_LockBackBuffer(_this, (void **)&_this->pTargetSurface, &_this->uTargetSurfacePitch);
-    if (_this->pTargetSurface)
-    {
-     _this->dword_000018 = _this->uTargetSurfacePitch;
-     goto LABEL_11;
-    }
-    _this->bSceneBegun--;
-    return v1;
-   }
-  }
+
 
 LABEL_11:
-  LOBYTE(v1) = Render_RestoreFrontBuffer(_this);
+  LOBYTE(v1) = Render_RestoreFrontBuffer(this);
  }
+
+
+
+ int v4, result;
+  result = this->uD3D3SceneBegun++;
+  if ( !result )
+  {
+      RenderD3D3_ClearTarget(this->pRenderD3D3, 1, result, 1, 1.0);
+      this->uNumBillboardsToDraw = 0;
+      this->pRenderD3D3->pDevice->BeginScene();
+
+      if ( dword_6BE360 == 2 )
+        v4 = sub_47C370();
+      else
+        v4 = 0;
+      if ( v4 & 0xFF000000 )
+      {
+        this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGENABLE, 1);
+        this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGCOLOR, v4 & 0xFFFFFF);
+        this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGTABLEMODE, 0);
+        this->bUsingSpecular = true;
+      }
+      else
+      {
+        this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGENABLE, 0);
+        this->bUsingSpecular = false;
+      }
+    }
+
+
+
+
+
+
+
+
  return v1;
 }
 
 //----- (004A0BEE) --------------------------------------------------------
-char Render_FillRect(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW, unsigned int uColor)
+char Render_FillRect(struct BaseRender *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW, unsigned int uColor)
 {
   int v13; // edi@21
   int v14; // eax@21
@@ -416,7 +436,7 @@ LABEL_24:
 }
 
 //----- (MM7.exe::004A1605) --------------------------------------------------------
-int Render_LockBackBuffer(struct Render *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth)
+int Render_LockBackBuffer(struct BaseRender *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth)
 {
   DDSURFACEDESC2 ddsd2;
   //int v6; // [sp+4h] [bp-7Ch]@4
@@ -448,7 +468,7 @@ int Render_LockBackBuffer(struct Render *_this, void **ppOutSurfacePtr, unsigned
 }
 
 //----- (004A5B81) --------------------------------------------------------
-void Render_Set2DClippingRect(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW)
+void Render_Set2DClippingRect(struct BaseRender *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW)
 {
  _this->uClipRectX = uX;
  _this->uClipRectY = uY;
@@ -458,7 +478,7 @@ void Render_Set2DClippingRect(struct Render *_this, unsigned int uX, unsigned in
 }
 
 extern class cTexture pending_texture;
-void Render_DrawIndexedTextureHandle(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID)
+void Render_DrawIndexedTextureHandle(struct BaseRender *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID)
 {
   //int v5; // eax@4
   int v6; // ebx@4
@@ -521,7 +541,7 @@ void Render_DrawIndexedTextureHandle(struct Render *_this, unsigned int uX, unsi
 }
 
 //----- (004A5EB2) --------------------------------------------------------
-void Render_DrawIndexedTexture(struct Render *_this, unsigned int uX, unsigned int uY, cTexture *pTexture)
+void Render_DrawIndexedTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, struct cTexture *pTexture)
 {
   //int v5; // eax@4
   int v6; // ebx@4
@@ -578,7 +598,7 @@ void Render_DrawIndexedTexture(struct Render *_this, unsigned int uX, unsigned i
 
 
 //----- (004A6C4F) --------------------------------------------------------
-void Render_DrawText(struct Render *_this, unsigned int uOutX, unsigned int uOutY,
+void Render_DrawText(struct BaseRender *_this, unsigned int uOutX, unsigned int uOutY,
                 unsigned char *pFontPixels, unsigned int uCharWidth, unsigned int uCharHeight,
                 unsigned short *pFontPalette, unsigned int uMainColor, unsigned int uShadowColor)
 {
@@ -608,7 +628,7 @@ void Render_DrawText(struct Render *_this, unsigned int uOutX, unsigned int uOut
 
 
 //----- (004A6274) --------------------------------------------------------
-void Render_DrawTransparentTexture(struct Render *_this, unsigned int uX, unsigned int uY, cTexture *pTexture)
+void Render_DrawTransparentTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, struct cTexture *pTexture)
 {
   int v5; // eax@4
   int v6; // ebx@4
@@ -676,7 +696,7 @@ void Render_DrawTransparentTexture(struct Render *_this, unsigned int uX, unsign
  }
 }
 
-void Render_DrawTransparentRect(struct Render *_this, unsigned int uOutX, unsigned int uOutY,
+void Render_DrawTransparentRect(struct BaseRender *_this, unsigned int uOutX, unsigned int uOutY,
                                       unsigned int uSrcX, unsigned int uSrcY, unsigned int uSrcWidth, unsigned int uSrcHeight,
                                       cTexture *pTexture)
 {
@@ -713,7 +733,7 @@ void Render_DrawTransparentRect(struct Render *_this, unsigned int uOutX, unsign
 }
 
 //----- (004A172E) --------------------------------------------------------
-int Render_LockFrontBuffer(struct Render *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth)
+int Render_LockFrontBuffer(struct BaseRender *_this, void **ppOutSurfacePtr, unsigned int *pOutSurfaceWidth)
 {
  DDSURFACEDESC2 ddsd2;
 
@@ -733,23 +753,26 @@ int Render_LockFrontBuffer(struct Render *_this, void **ppOutSurfacePtr, unsigne
 }
 
 //----- (004A527D) --------------------------------------------------------
-HRESULT Render_EndScene(struct Render *_this)
+unsigned int RenderDirect3D3::EndScene()
 {
- if (_this->pRenderD3D3)
-   return RenderD3D3_EndScene(_this->pRenderD3D3);
+ if (this->pRenderD3D3)
+   return RenderD3D3_EndScene(this->pRenderD3D3);
 
- if (!_this->bSceneBegun)
+
+
+
+ if (!this->bSceneBegun)
    return E_FAIL;
 
- _this->bSceneBegun--;
- _this->pTargetSurface = 0;
- _this->uTargetSurfacePitch = 0;
- _this->dword_000018 = 0;
- return (HRESULT)Render_UnlockBackBuffer(_this);
+ this->bSceneBegun--;
+ this->pTargetSurface = 0;
+ this->uTargetSurfacePitch = 0;
+ this->dword_000018 = 0;
+ Render_UnlockBackBuffer(this);
 }
 
 //----- (004A16E1) --------------------------------------------------------
-void *Render_UnlockBackBuffer(struct Render *_this)
+void *Render_UnlockBackBuffer(struct BaseRender *_this)
 {
  IDirectDrawSurface *v1;
  HRESULT             hr;
@@ -767,7 +790,7 @@ void *Render_UnlockBackBuffer(struct Render *_this)
 
 
 
-void Render_DrawRGBTexture_New(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID)
+void Render_DrawRGBTexture_New(struct BaseRender *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID)
 {
  unsigned int   *pSurfacePtr;
  unsigned int    uColor;
@@ -804,7 +827,7 @@ cTexture *pTexture;
 }
 
 //----- (004A5BE3) --------------------------------------------------------
-void Render_DrawRGBTexture(struct Render *_this, unsigned int uX, unsigned int uY, struct RGBTexture *pTexture)
+void Render_DrawRGBTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, struct RGBTexture *pTexture)
 {
  unsigned int *pSurfacePtr;
  unsigned int uColor;
@@ -857,305 +880,9 @@ void Render_DrawRGBTexture(struct Render *_this, unsigned int uX, unsigned int u
  }
 }
 
-//----- (MM7.exe::0049FFFB) --------------------------------------------------------
-int Render_Initialize(struct Render *_this, HWND hwnd)
-{
-  int v3; // esi@1
-  int v4; // eax@2
-  int v6; // edx@5
-  int v7; // ecx@5
-  signed int v8; // eax@6
-  signed int v9; // eax@13
-  int v10; // ecx@13
-  int v11; // eax@15
-  int v12; // eax@19
-  int v13; // eax@23
-  unsigned int v14; // ecx@25
-  int v15; // eax@25
-  int v16; // eax@25
-  unsigned int v17; // eax@27
-  int v18; // ebx@31
-  bool v19; // eax@35
-  char v20; // zf@35
-  int v21; // eax@38
-  int v22; // eax@38
-  void *v23; // eax@39
-  int v25; // eax@42
-  int v26; // ecx@42
-  int v27; // [sp+Ch] [bp-300h]@25
-  int v28; // [sp+108h] [bp-204h]@40
-  int v29; // [sp+12Ch] [bp-1E0h]@42
-  int Dst; // [sp+184h] [bp-188h]@25
-  unsigned int v31; // [sp+230h] [bp-DCh]@25
-  unsigned int v32; // [sp+234h] [bp-D8h]@25
-  unsigned int v33; // [sp+238h] [bp-D4h]@27
-  unsigned int v34; // [sp+23Ch] [bp-D0h]@27
-  int v35; // [sp+280h] [bp-8Ch]@38
-  int v36; // [sp+284h] [bp-88h]@38
-  int v37; // [sp+288h] [bp-84h]@38
-  int v38; // [sp+28Ch] [bp-80h]@38
-  int v39; // [sp+2C0h] [bp-4Ch]@38
-  int v40; // [sp+2C4h] [bp-48h]@38
-  int v41; // [sp+2E8h] [bp-24h]@38
-  int v42; // [sp+2FCh] [bp-10h]@2
-  int v43; // [sp+308h] [bp-4h]@2
-
-  v3 = (int)_this;
-  _this->pdd4 = 0;
-  _this->pdds4_FrontBuffer = 0;
-  pD3DRenderer->pdds4_BackBuffer = 0;
-  _this->dword_040098 = 0;
-  _this->dword_040108 = 0;
-  _this->dword_040110 = 0;
-
-  //try_catch session
-  sub_49FE05(_this);
-  _this->hWnd = hwnd;
-  Render_Initialize_ZBuffer(_this);
-
-  if (_this->bUseDirect3D)
-  {
-    v4 = (int)malloc(0x148u);
-    v42 = v4;
-    v43 = 0;
-    if ( v4 )
-      RenderD3D3_FindAvailableDevices((RenderD3D3 *)v4);
-
-    v6 = *(_DWORD *)(v3 + 8);
-    v43 = -1;
-    *(_DWORD *)(v3 + 262280) = v4;
-    v7 = *(_DWORD *)(v4 + 28);
-    if ( *(_DWORD *)(v7 + 40 * v6) )
-    {
-      v8 = RenderD3D3_Initialize((RenderD3D3 *)v4, v6, 0, hwnd);
-      *(_DWORD *)(v3 + 12) = *(_DWORD *)(v3 + 8);
-    }
-    else
-    {
-      if ( *(_DWORD *)(v7 + 40) )
-      {
-        v8 = RenderD3D3_Initialize((RenderD3D3 *)v4, 1, 0, hwnd);
-        *(_DWORD *)(v3 + 12) = 1;
-      }
-      else
-      {
-        if ( !*(_DWORD *)v7 )
-          erroneous_printf("There aren't any D3D devices to create.");
-        v8 = RenderD3D3_Initialize((RenderD3D3 *)v4, 0, 0, hwnd);
-        *(_DWORD *)(v3 + 12) = 0;
-      }
-    }
-    if ( !v8 )
-      erroneous_printf("D3Drend->Init failed.");
-    v10 = *(_DWORD *)(v3 + 262280);
-    *(_DWORD *)(v3 + 262292) = *(_DWORD *)(v10 + 44);
-    *(_DWORD *)(v3 + 262288) = *(_DWORD *)(v10 + 48);
-    *(_DWORD *)(v3 + 262284) = *(_DWORD *)(v10 + 32);
-    v9 = RenderD3D3_GetDeviceCaps((RenderD3D3 *)v10);
-    if ( v9 & 1 )
-    {
-      hwnd = (HWND)*(_DWORD *)(v3 + 262280);
-      if ( hwnd )
-      {
-        v11 = sub_49DC90((int)hwnd);
-        operator_delete((void *)hwnd);
-      }
-      *(_DWORD *)(v3 + 262280) = 0;
-      *(_DWORD *)(v3 + 262292) = 0;
-      *(_DWORD *)(v3 + 262288) = 0;
-      *(_DWORD *)(v3 + 262284) = 0;
-      erroneous_printf("Direct3D renderer:  The device failed to return capabilities.");
-    }
-    if ( v9 & 0x3E )
-    {
-      hwnd = (HWND)*(_DWORD *)(v3 + 262280);
-      if ( hwnd)
-      {
-        v12 = sub_49DC90((int)hwnd);
-        operator_delete((void *)hwnd);
-      }
-      *(_DWORD *)(v3 + 262296) = 0;
-      *(_DWORD *)(v3 + 262280) = 0;
-      *(_DWORD *)(v3 + 262292) = 0;
-      *(_DWORD *)(v3 + 262288) = 0;
-      *(_DWORD *)(v3 + 262284) = 0;
-      erroneous_printf("Direct3D renderer:  The device doesn't support the necessary alpha blending modes.");
-    }
-    if ( (_BYTE)v9 < 0 )
-    {
-      hwnd = (HWND)*(_DWORD *)(v3 + 262280);
-      if ( hwnd )
-      {
-        v13 = sub_49DC90((int)hwnd);
-        operator_delete((void *)hwnd);
-      }
-      *(_DWORD *)(v3 + 262280) = 0;
-      *(_DWORD *)(v3 + 262292) = 0;
-      *(_DWORD *)(v3 + 262288) = 0;
-      *(_DWORD *)(v3 + 262284) = 0;
-      erroneous_printf("Direct3D renderer:  The device doesn't support non-square textures.");
-    }
-    *(_BYTE *)(v3 + 1062492) = ~(unsigned __int8)((unsigned int)v9 >> 6) & 1;
-    *(_DWORD *)(v3 + 1062472) = Render_ValidateTextureStages();
-    memset(&Dst, 0, 0xFCu);
-    Dst = 252;
-    memset(&v27, 0, 0xFCu);
-    v15 = *(_DWORD *)(v3 + 262280);
-    v27 = 252;
-    v16 = (*(int (__stdcall **)(_DWORD, int *, int *))(**(_DWORD **)(v15 + 56) + 12))(*(_DWORD *)(v15 + 56), &Dst, &v27);
-    CheckHRESULT((void **)&hwnd, v16, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x583u, 0);
-    v14 = v31;
-    if ( v31 >= v32 )
-      v14 = v32;
-    v17 = v33;
-    *(_DWORD *)(v3 + 1062488) = v14;
-    if ( v17 < v34 )
-      v17 = v34;
-    *(_DWORD *)(v3 + 1062484) = v17;
-    if ( v14 < 4 )
-      *(_DWORD *)(v3 + 1062488) = 4;
-    Render_sub_49FFD7((Render *)v3);
-    v18 = 1;
-    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
-      7,
-      1);
-    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
-      14,
-      1);
-    (*(void (__stdcall **)(_DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
-      23,
-      2);
-    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
-      29,
-      0);
-    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
-      41,
-      0);
-    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
-      15,
-      0);
-    (*(void (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 88))(
-      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
-      22,
-      1);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
-      0,
-      16,
-      2);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
-      0,
-      17,
-      2);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
-      0,
-      18,
-      3);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
-      0,
-      5,
-      2);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
-      0,
-      6,
-      0);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
-      0,
-      4,
-      2);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
-      0,
-      2,
-      2);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
-      0,
-      3,
-      0);
-    (*(void (__stdcall **)(_DWORD, _DWORD, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v3 + 262280) + 56) + 160))(
-      *(_DWORD *)(*(_DWORD *)(v3 + 262280) + 56),
-      0,
-      1,
-      4);
-  }
-  else
-  {
-    Render_CreateDirectDraw(_this);
-    Render_SetCooperativeLevel(_this, _this->hWnd, true);
-    Render_SetDisplayMode(_this, 1280, 1024, 16);
-    Render_CreatePrimarySurface(_this);
-    v18 = 1;
-  }
-  _this->ddpfPrimarySurface.dwSize = sizeof(DDPIXELFORMAT);
-  _this->pdds4_FrontBuffer->GetPixelFormat(&_this->ddpfPrimarySurface);
-
-  Render_sub_4A0EB6(_this);
-  Render_sub_49EBF1(_this);
-  if (_this->pRenderD3D3)
-  {
-    v19 = sub_49E756(*(IDirectDraw4 **)(v3 + 262284));
-    v20 = *(_DWORD *)(v3 + 12) == v18;
-    *(_DWORD *)(v3 + 262408) = v19;
-    if ( !v20 )
-      *(_DWORD *)(v3 + 262408) = 0;
-    if ( *(_DWORD *)(v3 + 262408) )
-    {
-      memset(&v35, 0, 0x7Cu);
-      v39 = *(_DWORD *)(v3 + 262364) | *(_DWORD *)(v3 + 262368);
-      v40 = v39;
-      v21 = *(_DWORD *)(v3 + 262284);
-      v35 = 124;
-      v36 = 65543;
-      v41 = 2112;
-      v38 = 640;
-      v37 = 480;
-      v22 = (*(int (__stdcall **)(int, int *, int, _DWORD))(*(_DWORD *)v21 + 24))(v21, &v35, v3 + 262296, 0);
-      CheckHRESULT((void **)&hwnd, v22, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", 0x5CAu, 0);
-      *(_DWORD *)(v3 + 1062592) = (int)sub_4A57E9;
-    }
-    else
-    {
-      *(_DWORD *)(v3 + 262380) = 0;
-      *(_DWORD *)(v3 + 262376) = 0;
-      compile_error;//v23 = operator new(0x96020u);
-      *(_DWORD *)(v3 + 262376) = (int)v23;
-      if ( !v23 || (memset(&v28, 0, 0x7Cu), v28 = 124, !LockSurface_DDraw4(pD3DRenderer->pdds4_BackBuffer, (DDSURFACEDESC2 *)&v28, v18)) )
-        return 0;
-      (*(void (__stdcall **)(int, _DWORD))(*(_DWORD *)pD3DRenderer->pdds4_BackBuffer + 128))((int)pD3DRenderer->pdds4_BackBuffer, 0);
-      v25 = *(_DWORD *)(v3 + 262376) + 16;
-      v26 = v29 & 7;
-      LOBYTE(v25) = v25 & 0xF8;
-      *(_DWORD *)(v3 + 262384) = 640;
-      *(_DWORD *)(v3 + 1062592) = (int)sub_4A597D;
-      v18 = 1;
-      *(_DWORD *)(v3 + 262380) = v25 + 2 * v26;
-    }
-    *(_DWORD *)(v3 + 262416) = v18;
-  }
-  else _this->pfn_1036C0 = (int (*)())nullsub_1;
-
-
-  _this->dword_040058 = 0;
-  pParty_global->dword_007778 |= 2u;
-  flt_6BE3A0 = 0.55f;
-  Viewport_fn2(pOldViewport, 36044);
-  return v18;
-}
 
 //----- (004A05F3) --------------------------------------------------------
-int Render_InitWindowed(struct Render *_this, HWND hwnd)
+unsigned int RenderDirect3D3::Initialize(OSWindow *pOutputWindow)
 {
   int v2; // esi@1
   int v7; // ecx@5
@@ -1197,43 +924,45 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
  HRESULT      hr;
 
   pParty_global->dword_007778 |= 2;
-  v2 = (int)_this;
+  v2 = (int)this;
   flt_6BE3A0 = 0.55000001;
 
+  
+ pTargetWindow = pOutputWindow;
 
  Viewport_fn2(pOldViewport, 36044);
 
- _this->dword_040108 = 0;
- _this->dword_040110 = 0;
- sub_49FE05(_this);
+ this->dword_040108 = 0;
+ this->dword_040110 = 0;
+ sub_49FE05(this);
 
- _this->pdd4 = 0;
- _this->pdds4_FrontBuffer = 0;
- _this->pdds4_BackBuffer = 0;
- _this->dword_040098 = 0;
+ this->pdd4 = 0;
+ this->pdds4_FrontBuffer = 0;
+ this->pdds4_BackBuffer = 0;
+ this->dword_040098 = 0;
 
- Render_Initialize_ZBuffer(_this);
+ Render_Initialize_ZBuffer(this);
 
- if (_this->bUseDirect3D)
+ if (this->bUseDirect3D)
  {
-  _this->pRenderD3D3 = new RenderD3D3;
-  v43 = (int)_this->pRenderD3D3;
+  this->pRenderD3D3 = new RenderD3D3;
+  v43 = (int)this->pRenderD3D3;
   v44 = 0;
-  if (_this->pRenderD3D3)
-    RenderD3D3_FindAvailableDevices(_this->pRenderD3D3);
+  if (this->pRenderD3D3)
+    RenderD3D3_FindAvailableDevices(this->pRenderD3D3);
 
     v44 = -1;
-    v7 = (int)_this->pRenderD3D3->pAvailableDevices;
-    if (_this->pRenderD3D3->pAvailableDevices[_this->uDesiredDirect3DDevice].bDeviceIsValid &&
-        _this->uDesiredDirect3DDevice != 1)
+    v7 = (int)this->pRenderD3D3->pAvailableDevices;
+    if (this->pRenderD3D3->pAvailableDevices[this->uDesiredDirect3DDevice].bDeviceIsValid &&
+        this->uDesiredDirect3DDevice != 1)
     {
-     v8 = RenderD3D3_Initialize(_this->pRenderD3D3, _this->uDesiredDirect3DDevice, true, hwnd);
-     _this->uAcquiredDirect3DDevice = _this->uDesiredDirect3DDevice;
+     v8 = RenderD3D3_Initialize(this->pRenderD3D3, this->uDesiredDirect3DDevice, true, pTargetWindow->GetAPIHandle());
+     this->uAcquiredDirect3DDevice = this->uDesiredDirect3DDevice;
     }
-    else if (_this->pRenderD3D3->pAvailableDevices[0].bDeviceIsValid)
+    else if (this->pRenderD3D3->pAvailableDevices[0].bDeviceIsValid)
     {
-      v8 = RenderD3D3_Initialize(_this->pRenderD3D3, 0, true, hwnd);
-     _this->uAcquiredDirect3DDevice = 0;
+      v8 = RenderD3D3_Initialize(this->pRenderD3D3, 0, true, pTargetWindow->GetAPIHandle());
+     this->uAcquiredDirect3DDevice = 0;
     }
     else
       erroneous_printf("There aren't any D3D devices to init.");
@@ -1241,12 +970,12 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
     if (!v8)
       erroneous_printf("D3Drend->Init failed.");
 
-    _this->pdd4 = _this->pRenderD3D3->pHostInterface;
-    _this->pdds4_FrontBuffer = _this->pRenderD3D3->pFontBuffer;
-    _this->pdds4_BackBuffer = _this->pRenderD3D3->pBackBuffer;
-    _this->dword_040098 = 0;
+    this->pdd4 = this->pRenderD3D3->pHostInterface;
+    this->pdds4_FrontBuffer = this->pRenderD3D3->pFontBuffer;
+    this->pdds4_BackBuffer = this->pRenderD3D3->pBackBuffer;
+    this->dword_040098 = 0;
 
-    uDeviceCaps = RenderD3D3_GetDeviceCaps(_this->pRenderD3D3);
+    uDeviceCaps = RenderD3D3_GetDeviceCaps(this->pRenderD3D3);
     if (uDeviceCaps & CAPS_NO_CAPS)
     {
       v43 = *(_DWORD *)(v2 + 262280);
@@ -1291,8 +1020,8 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
       erroneous_printf("Direct3D renderer:  The device doesn't support non-square textures.");
     }
 
-  _this->dword_10365C |= ~(unsigned __int8)((unsigned int)uDeviceCaps >> 6) & 1;
-  _this->bRequiredTextureStagesAvailable = Render_ValidateTextureStages();
+  this->dword_10365C |= ~(unsigned __int8)((unsigned int)uDeviceCaps >> 6) & 1;
+  this->bRequiredTextureStagesAvailable = Render_ValidateTextureStages();
 
   memset(&d3ddd1, 0, sizeof(D3DDEVICEDESC));
   d3ddd1.dwSize = sizeof(D3DDEVICEDESC);
@@ -1300,67 +1029,56 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
   memset(&d3ddd2, 0, sizeof(D3DDEVICEDESC));
   d3ddd2.dwSize = sizeof(D3DDEVICEDESC);
 
-  hr = _this->pRenderD3D3->pDevice->GetCaps(&d3ddd1, &d3ddd2);
+  hr = this->pRenderD3D3->pDevice->GetCaps(&d3ddd1, &d3ddd2);
   CheckHRESULT((void **)&v43, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Screen16.cpp", __LINE__, 0);
 
   v14 = d3ddd1.dwMinTextureWidth;
   if (d3ddd1.dwMinTextureWidth >= d3ddd1.dwMinTextureHeight)
     v14 = d3ddd1.dwMinTextureHeight;
-  _this->uMinDeviceTextureDim = v14;
+  this->uMinDeviceTextureDim = v14;
 
   v17 = d3ddd1.dwMaxTextureWidth;
   if (d3ddd1.dwMaxTextureWidth < d3ddd1.dwMaxTextureHeight)
     v17 = d3ddd1.dwMaxTextureHeight;
-  _this->uMaxDeviceTextureDim = v17;
+  this->uMaxDeviceTextureDim = v17;
 
-  Render_sub_49FFD7(_this);
-  _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ZENABLE, 1);
-  _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ZWRITEENABLE, 1);
-  _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ZFUNC, 2);
-  _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SPECULARENABLE, 0);
-  _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_COLORKEYENABLE, 0);
-  _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_CULLMODE, 1);
+  Render_sub_49FFD7(this);
+  this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ZENABLE, 1);
+  this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ZWRITEENABLE, 1);
+  this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ZFUNC, D3DCMP_LESS);
+  this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SPECULARENABLE, 0);
+  this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_COLORKEYENABLE, 0);
+  this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_CULLMODE, D3DCULL_NONE);
 
-  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_MAGFILTER, 2);
-  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_MINFILTER, 2);
-  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_MIPFILTER, 3);
-  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, 2);
-  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, 0);
-  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, 2);
-  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_COLORARG1, 2);
-  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_COLORARG2, 0);
-  _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_COLOROP, 4);
+  this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_MAGFILTER, 2);
+  this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_MINFILTER, 2);
+  this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_MIPFILTER, 3);
+  this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, 2);
+  this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, 0);
+  this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, 2);
+  this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_COLORARG1, 2);
+  this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_COLORARG2, 0);
+  this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_COLOROP, 4);
  }
-  else
-  {
-    Render_CreateDirectDraw(_this);
-    Render_SetCooperativeLevel(_this, hwnd, 0);
-    *(_DWORD *)(v2 + 262220) = 1;
-    Render_CreateSurface(_this);
-    Render_CreateClipper(_this, hwnd);
-    Render_CreateWndSurface(_this);
-    *(_DWORD *)(v2 + 262192) = 0;
-    *(_DWORD *)(v2 + 24) = 0;
-  }
 
- _this->ddpfPrimarySurface.dwSize = sizeof(DDPIXELFORMAT);
- Render_GetPrimarySurfacePixelFormat(_this, &_this->ddpfPrimarySurface);
- Render_sub_4A0EB6(_this);
- Render_sub_49EBF1(_this);
+ this->ddpfPrimarySurface.dwSize = sizeof(DDPIXELFORMAT);
+ Render_GetPrimarySurfacePixelFormat(this, &this->ddpfPrimarySurface);
+ Render_sub_4A0EB6(this);
+ Render_sub_49EBF1(this);
 
- if (!_this->pRenderD3D3)
+ if (!this->pRenderD3D3)
  {
-  _this->pfn_1036C0 = (int (*)())nullsub_1;
-  _this->dword_040058 = 1;
-  _this->hWnd = hwnd;
+  this->pfn_1036C0 = (int (*)())nullsub_1;
+  this->dword_040058 = 1;
+  this->hWnd = pTargetWindow->GetAPIHandle();
   return 0;
  }
 
- _this->dword_040108 = sub_49E756(_this->pdd4);
- if (_this->uAcquiredDirect3DDevice != 1)
-   _this->dword_040108 = 0;
+ this->dword_040108 = sub_49E756(this->pdd4);
+ if (this->uAcquiredDirect3DDevice != 1)
+   this->dword_040108 = 0;
 
- if (_this->dword_040108)
+ if (this->dword_040108)
  {
     memset(&v36, 0, 0x7Cu);
     v40 = *(_DWORD *)(v2 + 262364) | *(_DWORD *)(v2 + 262368);
@@ -1376,38 +1094,38 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
     *(_DWORD *)(v2 + 1062592) = (int)sub_4A57E9;
     *(_DWORD *)(v2 + 262416) = 1;
     *(_DWORD *)(v2 + 262232) = 1;
-    _this->hWnd = hwnd;
+    this->hWnd = pTargetWindow->GetAPIHandle();
     return 0;
  }
  
- _this->pTargetSurface = 0;
- _this->ptr_0400E8 = (int)malloc(640 * 480 * 4 + 32);
- if (_this->ptr_0400E8)
+ this->pTargetSurface = 0;
+ this->ptr_0400E8 = (int)malloc(640 * 480 * 4 + 32);
+ if (this->ptr_0400E8)
  {
   memset(&ddsd2, 0, sizeof(DDSURFACEDESC2));
   ddsd2.dwSize = sizeof(DDSURFACEDESC2);
 
-  if (LockSurface_DDraw4(pD3DRenderer->pdds4_BackBuffer, &ddsd2, 1))
+  if (LockSurface_DDraw4(this->pdds4_BackBuffer, &ddsd2, 1))
   {
    pD3DRenderer->pdds4_BackBuffer->Unlock(0);
 
       v23 = (unsigned int)ddsd2.lpSurface & 7;
-      v25 = _this->ptr_0400E8 & 7;
+      v25 = this->ptr_0400E8 & 7;
       if ( v25 == v23 )
-        _this->pTargetSurface = (unsigned int *)_this->ptr_0400E8;
+        this->pTargetSurface = (unsigned int *)this->ptr_0400E8;
       else
       {
         if ( v25 >= v23 )
-          _this->pTargetSurface = (unsigned int *)(_this->ptr_0400E8 + 4 * (v25 - v23) + 16);
+          this->pTargetSurface = (unsigned int *)(this->ptr_0400E8 + 4 * (v25 - v23) + 16);
         else
-          _this->pTargetSurface = (unsigned int *)(_this->ptr_0400E8 + 4 * (v23 - v25) + 16);
+          this->pTargetSurface = (unsigned int *)(this->ptr_0400E8 + 4 * (v23 - v25) + 16);
       }
-      _this->uTargetSurfacePitch = 640;
-      _this->pfn_1036C0 = (int (__cdecl *)())sub_4A597D;
+      this->uTargetSurfacePitch = 640;
+      this->pfn_1036C0 = (int (__cdecl *)())sub_4A597D;
 
-      _this->dword_040110 = 1;
-      _this->dword_040058 = 1;
-      _this->hWnd = hwnd;
+      this->dword_040110 = 1;
+      this->dword_040058 = 1;
+      this->hWnd = pTargetWindow->GetAPIHandle();
       return 0;
     }
  }
@@ -1415,7 +1133,7 @@ int Render_InitWindowed(struct Render *_this, HWND hwnd)
 }
 
 //----- (004A0E97) --------------------------------------------------------
-void Render_sub_4A0E97(struct Render *_this, int a2, int a3, int a4, int a5)
+void Render_sub_4A0E97(struct BaseRender *_this, int a2, int a3, int a4, int a5)
 {
  _this->dword_00001C = a2;
  _this->dword_000020 = a3;
@@ -1424,7 +1142,7 @@ void Render_sub_4A0E97(struct Render *_this, int a2, int a3, int a4, int a5)
 }
 
 //----- (MM7.exe::0049FDBF) --------------------------------------------------------
-void Render_Initialize_ZBuffer(struct Render *_this)
+void Render_Initialize_ZBuffer(struct BaseRender *_this)
 {
  if (!_this->pDefaultZBuffer)
  {
@@ -1435,7 +1153,7 @@ void Render_Initialize_ZBuffer(struct Render *_this)
 }
 
 //----- (MM7.exe::004A10E4) --------------------------------------------------------
-int Render_CreateDirectDraw(struct Render *_this)
+int Render_CreateDirectDraw(struct BaseRender *_this)
 {
  HRESULT      hr;
  IDirectDraw *pdd;
@@ -1459,7 +1177,7 @@ int Render_CreateDirectDraw(struct Render *_this)
 }
 
 //----- (MM7.exe::004A1169) --------------------------------------------------------
-void *Render_SetCooperativeLevel(struct Render *_this, HWND hWnd, int bFullscreen)
+void *Render_SetCooperativeLevel(struct BaseRender *_this, HWND hWnd, int bFullscreen)
 {
  IDirectDraw *pdd;
  HRESULT      hr;
@@ -1484,7 +1202,7 @@ void *Render_SetCooperativeLevel(struct Render *_this, HWND hWnd, int bFullscree
 }
 
 //----- (MM7.exe::004A11C6) --------------------------------------------------------
-void *Render_SetDisplayMode(struct Render *_this, unsigned int uWidth, unsigned int uHeight, unsigned int uBPP)
+void *Render_SetDisplayMode(struct BaseRender *_this, unsigned int uWidth, unsigned int uHeight, unsigned int uBPP)
 {
  IDirectDraw *pdd;
  HRESULT      hr;
@@ -1507,7 +1225,7 @@ void *Render_SetDisplayMode(struct Render *_this, unsigned int uWidth, unsigned 
 }
 
 //----- (M7.exe::004A139A) --------------------------------------------------------
-void *Render_CreatePrimarySurface(struct Render *_this)
+void *Render_CreatePrimarySurface(struct BaseRender *_this)
 {
   HRESULT hr;
   void           *result; // eax@5
@@ -1545,7 +1263,7 @@ void *Render_CreatePrimarySurface(struct Render *_this)
 }
 
 //----- (MM7.exe::004A15D8) --------------------------------------------------------
-HRESULT Render_GetPrimarySurfacePixelFormat(struct Render *_this, DDPIXELFORMAT *pddpf)
+HRESULT Render_GetPrimarySurfacePixelFormat(struct BaseRender *_this, DDPIXELFORMAT *pddpf)
 {
  IDirectDrawSurface *pdds;
 
@@ -1558,7 +1276,7 @@ HRESULT Render_GetPrimarySurfacePixelFormat(struct Render *_this, DDPIXELFORMAT 
 }
 
 //----- (MM7.exe::004A5BB6) --------------------------------------------------------
-void Render_Reset2DClippingRect(struct Render *_this)
+void Render_Reset2DClippingRect(struct BaseRender *_this)
 {
  _this->uClipRectY = 0;
  _this->uClipRectX = 0;
@@ -1568,7 +1286,7 @@ void Render_Reset2DClippingRect(struct Render *_this)
 }
 
 //----- (004A0EB6) --------------------------------------------------------
-void *Render_sub_4A0EB6(struct Render *_this)
+void *Render_sub_4A0EB6(struct BaseRender *_this)
 {
   void *result; // eax@1
   int v2; // edx@1
@@ -1622,7 +1340,7 @@ void *Render_sub_4A0EB6(struct Render *_this)
 }
 
 //----- (MM7.exe::0049EBF1) --------------------------------------------------------
-int Render_sub_49EBF1(struct Render *_this)
+int Render_sub_49EBF1(struct BaseRender *_this)
 {
   int result; // eax@1
   signed int v2; // edx@1
@@ -1684,7 +1402,7 @@ int Render_sub_49EBF1(struct Render *_this)
 
 
 //----- (MM7.exe::0049ED18) --------------------------------------------------------
-int Render_ClearBackBufferAndPresent(struct Render *_this)
+int Render_ClearBackBufferAndPresent(struct BaseRender *_this)
 {
  IDirectDrawSurface *v1; // eax@3
  HRESULT hr;
@@ -1708,27 +1426,27 @@ int Render_ClearBackBufferAndPresent(struct Render *_this)
  ddblt.dwFillColor = 0x00000000;
  
  hr = pD3DRenderer->pdds4_BackBuffer->Blt(&rcDst, 0, 0, DDBLT_COLORFILL, &ddblt);
- return Render_Present(pD3DRenderer);
+ return pD3DRenderer->Present();
 }
 
 //----- (MM7.exe::0049FC37) --------------------------------------------------------
-int Render_Present(struct Render *_this)
+unsigned int RenderDirect3D3::Present()
 {
   struct tagRECT Rect; // [sp+8h] [bp-28h]@11
   struct tagRECT rc;
   struct tagPOINT Point; // [sp+28h] [bp-8h]@11
 
 
- if (pD3DRenderer->pRenderD3D3 && !_this->dword_040110)
+ if (pD3DRenderer->pRenderD3D3 && !this->dword_040110)
    return false;
 
- (_this->pfn_1036C0)();
+ (this->pfn_1036C0)();
 
- if (_this->pRenderD3D3)
+ if (this->pRenderD3D3)
  {
   if (dword_720010)
     sub_46BAEC((void *)dword_720010);
-  RenderD3D3_Present(_this->pRenderD3D3, 0);
+  RenderD3D3_Present(this->pRenderD3D3, 0);
   if (dword_720010)
     sub_46BB0A(dword_720010);
  }
@@ -1739,23 +1457,23 @@ int Render_Present(struct Render *_this)
   rc.right = 640;
   rc.bottom = 480;
 
-  Render_RestoreFrontBuffer(_this);
-  if (_this->dword_040058)
+  Render_RestoreFrontBuffer(this);
+  if (this->dword_040058)
   {
-   GetClientRect(_this->hWnd, &Rect);
+   GetClientRect(this->hWnd, &Rect);
    Point.y = 0;
    Point.x = 0;
-   ClientToScreen(_this->hWnd, &Point);
+   ClientToScreen(this->hWnd, &Point);
    OffsetRect(&Rect, Point.x, Point.y);
-   Render_PresentRegion(_this, &Rect, &rc);
+   Render_PresentRegion(this, &Rect, &rc);
   }
-  else Render_PresentBackBuffer(_this, 0, 0, &rc);
+  else Render_PresentBackBuffer(this, 0, 0, &rc);
  }
  return true;
 }
 
 //----- (004A17C7) --------------------------------------------------------
-void *Render_UnlockFrontBuffer(struct Render *_this)
+void *Render_UnlockFrontBuffer(struct BaseRender *_this)
 {
  IDirectDrawSurface *v1;
  HRESULT             hr;
@@ -1774,7 +1492,7 @@ void *Render_UnlockFrontBuffer(struct Render *_this)
 }
 
 //----- (MM7.exe::004A194A) --------------------------------------------------------
-HRESULT Render_PresentBackBuffer(struct Render *_this, int a2, int a3, RECT *pRect)
+HRESULT Render_PresentBackBuffer(struct BaseRender *_this, int a2, int a3, RECT *pRect)
 {
  IDirectDrawSurface *v4,
                     *v6;
@@ -1795,7 +1513,7 @@ HRESULT Render_PresentBackBuffer(struct Render *_this, int a2, int a3, RECT *pRe
 }
 
 //----- (MM7.exe::004A1814) --------------------------------------------------------
-HRESULT Render_RestoreFrontBuffer(struct Render *_this)
+HRESULT Render_RestoreFrontBuffer(struct BaseRender *_this)
 {
  IDirectDrawSurface *v1;
  HRESULT             hr;
@@ -1816,7 +1534,7 @@ HRESULT Render_RestoreFrontBuffer(struct Render *_this)
 }
 
 //----- (MM7.exe::0044F2B2) --------------------------------------------------------
-int CheckIfDeviceSupportsGammaControl()
+unsigned int RenderDirect3D3::IsGammaControlSupported()
 {
  HRESULT    hr;
  DDCAPS_DX7 ddCaps;
@@ -1896,7 +1614,7 @@ void CGammaController_InitializeFromSurface(struct CGammaController *_this, stru
   _this->pddgc->Release();
   _this->pddgc = 0;
  }
- if (CheckIfDeviceSupportsGammaControl())
+ if (pD3DRenderer->IsGammaControlSupported())
  {
   pdds->QueryInterface(IID_IDirectDrawGammaControl, (void **)&_this->pddgc);
   CGammaController_InitializeGammaRamp(_this);
@@ -2403,90 +2121,13 @@ int RGBTexture_ctor(struct RGBTexture *_this)
 
 
 //----- (004A0E80) --------------------------------------------------------
-void Render_ClearZBuffer(struct Render *_this, int a2, int a3)
+void Render_ClearZBuffer(struct BaseRender *_this, int a2, int a3)
 {
   memset(_this->pActiveZBuffer, -65536, 640 * 480 * 4);
 }
 
-
-
-
-//----- (004A1EB6) --------------------------------------------------------
-void Render_BeginSceneD3D3(struct Render *_this)
-{
-  int result; // eax@1
-  int v2; // esi@1
-  unsigned int v4; // edi@6
-  int v9; // edi@11
-  char v10; // [sp-14h] [bp-2Ch]@4
-  int v11; // [sp-10h] [bp-28h]@4
-  int v12; // [sp-Ch] [bp-24h]@4
-  char *v16; // [sp+10h] [bp-8h]@4
-  int v17; // [sp+17h] [bp-1h]@4
-
-  v2 = (int)_this;
-  result = _this->uD3D3SceneBegun++;
-  if ( !result )
-  {
-    if (_this->pRenderD3D3)
-    {
-      RenderD3D3_ClearTarget(_this->pRenderD3D3, 1, result, 1, 1.0);
-      _this->uNumBillboardsToDraw = 0;
-      _this->pRenderD3D3->pDevice->BeginScene();
-
-      if ( dword_6BE360 == 2 )
-        v4 = sub_47C370();
-      else
-        v4 = 0;
-      if ( v4 & 0xFF000000 )
-      {
-        _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGENABLE, 1);
-        _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGCOLOR, v4 & 0xFFFFFF);
-        _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGTABLEMODE, 0);
-        _this->bUsingSpecular = true;
-      }
-      else
-      {
-        _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGENABLE, 0);
-        _this->bUsingSpecular = false;
-      }
-    }
-    else
-    {
-      Render_LockBackBuffer(_this, (void **)&_this->pTargetSurface, &_this->uTargetSurfacePitch);
-      if (_this->pTargetSurface)
-      {
-        _this->dword_000018 = _this->uTargetSurfacePitch;
-      }
-      else
-      {
-        --_this->uD3D3SceneBegun;
-      }
-    }
-  }
-}
-
-
-
-//----- (004A1FE1) --------------------------------------------------------
-void RenderD3D3_DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene(struct Render *_this)
-{
- if (_this->uD3D3SceneBegun-- == 1)
- {
-    if (_this->pRenderD3D3)
-    {
-      sub_44EE7C();
-      D3D_DoRenderBillboards();
-      class06_sub_4A8C27(pGame->class06_obj);
-      pD3DRenderer->pRenderD3D3->pDevice->EndScene();
-    }
-    else
-      class06_sub_4A8C27(pGame->class06_obj);
- }
-}
-
 //----- (004A121C) --------------------------------------------------------
-void *Render_CreateSurface(struct Render *_this)
+void *Render_CreateSurface(struct BaseRender *_this)
 {
  char    local_0[128];
  HRESULT hr; 
@@ -2502,7 +2143,7 @@ void *Render_CreateSurface(struct Render *_this)
 }
 
 //----- (004A12CD) --------------------------------------------------------
-void *Render_CreateWndSurface(struct Render *_this)
+void *Render_CreateWndSurface(struct BaseRender *_this)
 {
  char    local_0[128];
  HRESULT hr; 
@@ -2521,7 +2162,7 @@ void *Render_CreateWndSurface(struct Render *_this)
 
 //----- (004A14F4) --------------------------------------------------------
 extern IDirectDrawClipper *pDDrawClipper;
-void *Render_CreateClipper(struct Render *_this, HWND hClipWnd)
+void *Render_CreateClipper(struct BaseRender *_this, HWND hClipWnd)
 {
  char    local_0[128];
  HRESULT hr; 
@@ -2537,7 +2178,7 @@ void *Render_CreateClipper(struct Render *_this, HWND hClipWnd)
 }
 
 //----- (004A1884) --------------------------------------------------------
-void *Render_PresentRegion(struct Render *_this, RECT *pDestRect, RECT *pSrcRect)
+void *Render_PresentRegion(struct BaseRender *_this, RECT *pDestRect, RECT *pSrcRect)
 {
  HRESULT hr;
  char    local_0[128];
@@ -2762,7 +2403,7 @@ bool Render_ValidateTextureStages()
 
 
 //----- (0049FFD7) --------------------------------------------------------
-bool Render_sub_49FFD7(struct Render *_this)
+bool Render_sub_49FFD7(struct BaseRender *_this)
 {
  return RenderD3D3_CreateTexture(_this->pRenderD3D3, 64, 64, &_this->ptr_1036B0, &_this->ptr_1036B4, true, false, (void *)0x20);
 }
@@ -2820,7 +2461,7 @@ unsigned int LoadHWL(const wchar_t *pFile, unsigned int *pWidth, unsigned int *p
  return 0;
 };
 
-unsigned int Render_MoveToGPU(struct Render *_this, unsigned int uWidth, unsigned int uHeight, unsigned int *pData, struct IDirectDrawSurface4 **pOutSurface, struct IDirect3DTexture2 **pOutTexture)
+unsigned int Render_MoveToGPU(struct BaseRender *_this, unsigned int uWidth, unsigned int uHeight, unsigned int *pData, struct IDirectDrawSurface4 **pOutSurface, struct IDirect3DTexture2 **pOutTexture)
 {
  DDSURFACEDESC2 ddsd;
  HRESULT        hr;
@@ -2857,7 +2498,7 @@ unsigned int Render_MoveToGPU(struct Render *_this, unsigned int uWidth, unsigne
 }
 
 //----- (004A5048) --------------------------------------------------------
-bool Render_MoveHWSpriteToVideoMemory(struct Render *_this, struct HardwareSprite *pSprite)
+bool Render_MoveHWSpriteToVideoMemory(struct BaseRender *_this, struct HardwareSprite *pSprite)
 {
   struct Render_HWLBitmap *result; // eax@1
   int v3; // ebx@1
@@ -3096,7 +2737,7 @@ bool __thiscall sub_49E756(IDirectDraw4 *pdd4)
 
 
 //----- (004A6D87) --------------------------------------------------------
-void Render_FillRect2(struct Render *_this, unsigned int uX, unsigned int uY, unsigned int a5, int a6, unsigned int a7)
+void Render_FillRect2(struct BaseRender *_this, unsigned int uX, unsigned int uY, unsigned int a5, int a6, unsigned int a7)
 {
  int y, x;
 
@@ -3110,7 +2751,7 @@ void Render_FillRect2(struct Render *_this, unsigned int uX, unsigned int uY, un
 
 
 //----- (0049FE05) --------------------------------------------------------
-void sub_49FE05(struct Render *pD3DRenderer)
+void sub_49FE05(struct BaseRender *pD3DRenderer)
 {
   int v3; // esi@1
   char v4; // zf@4
@@ -3233,7 +2874,7 @@ void sub_49FE05(struct Render *pD3DRenderer)
 
 
 //----- (004A2050) --------------------------------------------------------
-void Render_DrawPolygon(struct Render *_this, unsigned int uNumVertices, struct struct8 *a3, struct class51_stru2 *a4, IDirect3DTexture2 *pTexture)
+void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, struct struct8 *a3, struct class51_stru2 *a4, IDirect3DTexture2 *pTexture)
 {
   int v5; // ebx@1
   int v6; // edi@1
