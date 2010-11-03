@@ -534,7 +534,6 @@ void __cdecl LoadMainMenu()
  #ifdef OLD_CODE
  uTextureID_MainMenuUI_Title = LODFile_Icons_LOD.LODFile_LoadTexture( "mm7title",2);
   #endif
- Render_BeginScene(pD3DRenderer);
  pD3DRenderer->BeginScene();
  {
   Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_MainMenuUI_Title);
@@ -542,8 +541,6 @@ void __cdecl LoadMainMenu()
   sub_415485();
  }
 
- Render_EndScene(pD3DRenderer);
- Render_Present(pD3DRenderer);
  pD3DRenderer->EndScene();
  pD3DRenderer->Present();
 
@@ -1540,19 +1537,13 @@ LABEL_60:
             0,
             v1,
             0);
-          dword_50C9CC = (int)GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 162, 16, 16, v0, 0, 111, 4, 0, v1, 72 * dword_507C70 + 7145548);
-          dword_50C9C8 = (int)GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 162, 16, 16, v0, 0, 111, 5, 0, v1, 72 * dword_507C74 + 7145548);
           dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 162, 16, 16, v0, 0, 111, 4, 0, v1, 72 * dword_507C70 + 7145548);
           dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 162, 16, 16, v0, 0, 111, 5, 0, v1, 72 * dword_507C74 + 7145548);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 263, 162, 172, 17, v0, 0, 111, 0, 0, v1, 0);
-          dword_50C9CC = (int)GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 216, 16, 16, v0, 0, 112, 4, 0, v1, 72 * dword_507C70 + 7145548);
-          dword_50C9C8 = (int)GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 216, 16, 16, v0, 0, 112, 5, 0, v1, 72 * dword_507C74 + 7145548);
 
           dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 216, 16, 16, v0, 0, 112, 4, 0, v1, 72 * dword_507C70 + 7145548);
           dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 216, 16, 16, v0, 0, 112, 5, 0, v1, 72 * dword_507C74 + 7145548);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 263, 216, 172, 17, v0, 0, 112, 0, 0, v1, 0);
-          dword_50C9CC = (int)GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 270, 16, 16, v0, 0, 186, 4, 0, v1, 72 * dword_507C70 + 7145548);
-          dword_50C9C8 = (int)GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 270, 16, 16, v0, 0, 186, 5, 0, v1, 72 * dword_507C74 + 7145548);
 
           dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 270, 16, 16, v0, 0, 186, 4, 0, v1, 72 * dword_507C70 + 7145548);
           dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 270, 16, 16, v0, 0, 186, 5, 0, v1, 72 * dword_507C74 + 7145548);
@@ -1698,14 +1689,8 @@ LABEL_60:
           if ( !pD3DRenderer->dword_040058 )
           {
             v0 = 1;
-            if ( CheckIfDeviceSupportsGammaControl() )
             if (pD3DRenderer->IsGammaControlSupported())
             {
-              dword_50C9CC = (int)GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 161, 16, 16, 1, 0, 425, 4, 0, v1, 72 * dword_507C20 + 7145548);
-              dword_50C9C8 = (int)GUIButtonCreate(
-                               pGUIWindow_CurrentMenu,
-                               213,
-                               161,
               dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 161, 16, 16, 1, 0, 425, 4, 0, v1, 72 * dword_507C20 + 7145548);
               dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 213, 161,
                                16,
@@ -1745,7 +1730,6 @@ LABEL_117:
             v25 = (double)dword_4E2900_GammaPos * 0.10000000000000001 + 0.59999999999999998;
             GammaController_sub_44F4D9(pGame->pGammaController, v25);
             v183 = v0;
-            v169 = dword_50C9CC;
             v169 = (int)dword_50C9CC;
             v162 = 90;
             v157 = 0;
@@ -1762,7 +1746,6 @@ LABEL_117:
               GammaController_sub_44F4D9(pGame->pGammaController, v26);
               v24 = 213;
               v183 = v0;
-              v169 = dword_50C9C8;
               v169 = (int)dword_50C9C8;
               v162 = 90;
               v157 = 0;
@@ -1806,7 +1789,6 @@ LABEL_128:
               uMusicVolimeMultiplier = 0;
             v184 = v0;
             v28 = 243;
-            v170 = dword_50C9CC;
             v170 = (int)dword_50C9CC;
 LABEL_136:
             GUIWindowCreate(v28, 216, 0, 0, 90, v170, v184);
@@ -1819,7 +1801,6 @@ LABEL_136:
               uMusicVolimeMultiplier = 9;
             v184 = v0;
             v28 = 435;
-            v170 = dword_50C9C8;
             v170 = (int)dword_50C9C8;
             goto LABEL_136;
           }
@@ -1839,7 +1820,6 @@ LABEL_143:
               uSoundVolumeMultiplier = 0;
             v185 = v0;
             v30 = 243;
-            v171 = dword_50C9CC;
             v171 = (int)dword_50C9CC;
 LABEL_150:
             GUIWindowCreate(v30, 162, 0, 0, 90, v171, v185);
@@ -1852,7 +1832,6 @@ LABEL_150:
               uSoundVolumeMultiplier = 9;
             v185 = v0;
             v30 = 435;
-            v171 = dword_50C9C8;
             v171 = (int)dword_50C9C8;
             goto LABEL_150;
           }
@@ -1890,7 +1869,6 @@ LABEL_157:
               uVoicesVolumeMultiplier = 0;
             v186 = v0;
             v31 = 243;
-            v172 = dword_50C9CC;
             v172 = (int)dword_50C9CC;
 LABEL_166:
             GUIWindowCreate(v31, 270, 0, 0, 90, v172, v186);
@@ -1903,7 +1881,6 @@ LABEL_166:
               uVoicesVolumeMultiplier = 9;
             v186 = v0;
             v31 = 435;
-            v172 = dword_50C9C8;
             v172 = (int)dword_50C9C8;
             goto LABEL_166;
           }
@@ -5452,7 +5429,6 @@ void DrawLoadingScreen(struct class56 *_this)
   float v5; // ST2C_4@10
 
   v1 = (int)_this;
-  Render_BeginScene(pD3DRenderer);
   pD3DRenderer->BeginScene();
   if (_this->uProgressBarType != 1 )
   {
@@ -5469,13 +5445,10 @@ void DrawLoadingScreen(struct class56 *_this)
       v5 = (double)(113 * *(_BYTE *)(v1 + 11)) / (double)*(_BYTE *)(v1 + 10);
       compile_error;//Render_FillRect2(pD3DRenderer, 0, 174, 164, v5 + 6.755399441055744e15, 16, pD3DRenderer->uTargetRMask);
 
-      Render_EndScene(pD3DRenderer);
-      Render_Present(pD3DRenderer);
       pD3DRenderer->EndScene();
       pD3DRenderer->Present();
       return;
     }
-    Render_EndScene(pD3DRenderer);
     pD3DRenderer->EndScene();
     return;
   }
@@ -5487,8 +5460,6 @@ void DrawLoadingScreen(struct class56 *_this)
     471);
   Render_DrawTransparentTexture(pD3DRenderer, 172, 459, &LODFile_Icons_LOD.aLODHeaders[_this->_addon_loadprog_id_in_Icons_LOD]);
   Render_Reset2DClippingRect(pD3DRenderer);
-  Render_EndScene(pD3DRenderer);
-  Render_Present(pD3DRenderer);
   pD3DRenderer->EndScene();
   pD3DRenderer->Present();
 }
@@ -9177,10 +9148,7 @@ LABEL_231:
                               v205 = v229;
                               v193 = v241;
 LABEL_234:
-                              Render_DrawTransparentTexture((Render *)v115, v193, v205 (class18 *)v218);
-                              Render_rawTransparentTexture((Render *)v115, v193, v205, (class18 *)v218);
-                              RenderDrawTransparentTexture((Render *)v115, v193, v205, (cTexture *)v218);
-                              Render_DrawTransparentTexture((BaseRender *)v115, v193, v205, (class18 *)v218);
+                              Render_DrawTransparentTexture((BaseRender *)v115, v193, v205, (cTexture *)v218);
                               goto LABEL_256;
                             }
                             v118 = v116 != 0 ? v114 : 0;
