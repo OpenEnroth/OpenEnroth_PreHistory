@@ -541,7 +541,7 @@ void Render_DrawIndexedTextureHandle(struct BaseRender *_this, unsigned int uX, 
 }
 
 //----- (004A5EB2) --------------------------------------------------------
-void Render_DrawIndexedTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, struct cTexture *pTexture)
+void Render_DrawIndexedTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, cTexture *pTexture)
 {
   //int v5; // eax@4
   int v6; // ebx@4
@@ -628,7 +628,7 @@ void Render_DrawText(struct BaseRender *_this, unsigned int uOutX, unsigned int 
 
 
 //----- (004A6274) --------------------------------------------------------
-void Render_DrawTransparentTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, struct cTexture *pTexture)
+void Render_DrawTransparentTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, cTexture *pTexture)
 {
   int v5; // eax@4
   int v6; // ebx@4
