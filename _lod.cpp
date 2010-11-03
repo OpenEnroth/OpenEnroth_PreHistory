@@ -434,21 +434,18 @@ if (file_opened)
 //----- (00461F71) --------LODFile_sub_461F71------.text:00463287------------------------------------------
 bool LOD_Writefile::Append_item_to_temp_file(const LODIndex *container_index, const void *container_data)
 {
-  
-
-  if ( uNumSubidices < 299 )
-  {
-    memcpy(&pLODSubIndexNamedBuffer[uNumSubidices], container_index, sizeof(LODIndex));
-    ++uNumSubidices;
-    locked_fwrite(container_data, 1, container_index->size_data, ptemp_write_file);
-     return true;
-  }
-  else
-  {
-    MessageBoxW(0, L"Unable to append item!", L"LODFile", 0x30u);
-     return false;
-  }
-
+	if ( uNumSubidices < 299 )
+		{
+		memcpy(&pLODSubIndexNamedBuffer[uNumSubidices], container_index, sizeof(LODIndex));
+		++uNumSubidices;
+		locked_fwrite(container_data, 1, container_index->size_data, ptemp_write_file);
+		return true;
+		}
+	else
+		{
+		MessageBoxW(0, L"Unable to append item!", L"LODFile", 0x30u);
+		return false;
+		}
 }
 
 //----- (004621A7) --------------------------------------------------------
