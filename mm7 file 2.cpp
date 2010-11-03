@@ -8789,6 +8789,7 @@ int __fastcall SaveGame(int a1, int a2)
   char v52; // [sp+151h] [bp-11Fh]@51
   char FullPath[32]; // [sp+170h] [bp-100h]@51
   char Str[120]; // [sp+190h] [bp-E0h]@8
+
   int v55; // [sp+208h] [bp-68h]@2
   int v56; // [sp+20Ch] [bp-64h]@2
   int v57; // [sp+210h] [bp-60h]@2
@@ -8845,7 +8846,7 @@ int __fastcall SaveGame(int a1, int a2)
     //sub_49F5A2(pD3DRenderer, v3, 150, 112, DstBuf, 1000000, (int)&ElementSize);
     //operator_delete(0, v3);
 
-    strcpy(Str2, "image.pcx");
+    strcpy(St2.pFilename, "image.pcx");
     if ( dword_4E28F8 == 11 )
     {
       Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(dword_69CF20 != -1 ? 72 * dword_69CF20 + 7145548 : 0));
@@ -8861,7 +8862,7 @@ int __fastcall SaveGame(int a1, int a2)
       FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, v7 + 25, 299, v40, 0, 0, 0);
       pD3DRenderer->Present();
     }
-  /*  if ( LODFile_New_LOD._sub_461B48( Str2, DstBuf, 0) )
+   if ( LODFile_New_LOD.Add_Container_to_File( &St2, DstBuf, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 200);
       v76 = (unsigned int)&v38;
@@ -8872,8 +8873,8 @@ int __fastcall SaveGame(int a1, int a2)
     strcpy(v48, Str1);
     v49 = pParty_global->qword_00002C;
     strcpy(&St2.pFilename[0], "header.bin");
-    ElementSize = 100;
-    if (LODFile_New_LOD._sub_461B48( "header.bin", &v47, 0) )
+    St2.size_data = 100;
+    if (LODFile_New_LOD.Add_Container_to_File( &St2, &v47, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 201);
       v76 = (unsigned int)&v38;
@@ -8882,8 +8883,8 @@ int __fastcall SaveGame(int a1, int a2)
     }
 
     strcpy(&St2.pFilename[0], "party.bin");
-    ElementSize = 90680;
-    if (LODFile_New_LOD._sub_461B48( "party.bin", pParty_global, 0) )
+    St2.size_data = 90680;
+    if (LODFile_New_LOD.Add_Container_to_File( &St2, pParty_global, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 202);
       v76 = (unsigned int)&v38;
@@ -8892,8 +8893,8 @@ int __fastcall SaveGame(int a1, int a2)
     }
 
     strcpy(&St2.pFilename[0], "clock.bin");
-    ElementSize = 40;
-    if (LODFile_New_LOD._sub_461B48( "clock.bin", pClass24_global, 0) )
+    St2.size_data = 40;
+    if (LODFile_New_LOD.Add_Container_to_File( &St2, pClass24_global, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 203);
       v76 = (unsigned int)&v38;
@@ -8902,8 +8903,8 @@ int __fastcall SaveGame(int a1, int a2)
     }
 
     strcpy(&St2.pFilename[0], "overlay.bin");
-    ElementSize = 1008;
-    if (LODFile_New_LOD._sub_461B48( "overlay.bin", array_5E4D58, 0) )
+    St2.size_data = 1008;
+    if (LODFile_New_LOD.Add_Container_to_File(&St2, array_5E4D58, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 204);
       v76 = (unsigned int)&v38;
@@ -8912,8 +8913,8 @@ int __fastcall SaveGame(int a1, int a2)
     }
 
     strcpy(&St2.pFilename[0], "npcdata.bin");
-    ElementSize = 38076;
-    if (LODFile_New_LOD._sub_461B48("npcdata.bin", pNPCStats->pNPCData2, 0) )
+    St2.size_data = 38076;
+    if (LODFile_New_LOD.Add_Container_to_File(&St2, pNPCStats->pNPCData2, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[165], 205);
       v76 = (unsigned int)&v38;
@@ -8922,15 +8923,15 @@ int __fastcall SaveGame(int a1, int a2)
     }
 
     strcpy(&St2.pFilename[0], "npcgroup.bin");
-    ElementSize = 102;
-    if (LODFile_New_LOD._sub_461B48( "npcgroup.bin", pNPCStats->word_017F5A, 0) )
+    St2.size_data = 102;
+    if (LODFile_New_LOD.Add_Container_to_File( &St2, pNPCStats->word_017F5A, 0) )
     {
       wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[165], 206);
       v76 = (unsigned int)&v38;
       Game_sub_40E2C8(&v38, (char *)&Str, (int)&v77);
       sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     }
-	    */
+	   
     v75 = 1;
     do
     {
@@ -8944,15 +8945,15 @@ int __fastcall SaveGame(int a1, int a2)
         if ( v10 )
         {
           v42 = v75;
-          wsprintfA(Str, "lloyd%d%d.pcx", v75, v74);
+          wsprintfA(St2.pFilename, "lloyd%d%d.pcx", v75, v74);
           fseek(v10, 0, 2);
-          ElementSize = ftell(v10);
+          St2.size_data = ftell(v10);
           rewind(v10);
           locked_fread(DstBuf, ElementSize, 1u, v10);
           strcpy(Str2, Str);
           fclose(v10);
           remove(Str);
-          v9 =LODFile_New_LOD._sub_461B48( Str2, DstBuf, 0);
+          v9 =LODFile_New_LOD.Add_Container_to_File( &St2, DstBuf, 0);
           if ( v9 )
           {
             wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[165], 207);
@@ -9141,9 +9142,9 @@ int __fastcall SaveGame(int a1, int a2)
       memcpy((void *)(v11 + 8), &v74, 4u);
       memcpy((void *)(v11 + 12), &Size, 4u);
       wsprintfA(FullPath, "%s%s", &v50, &Ext);
-      strcpy(Str2, FullPath);
-      ElementSize = v74;
-      v36 = LODFile_New_LOD._sub_461B48( Str2, (const void *)v11, 0);
+      strcpy(St2.pFilename, FullPath);
+      St2.size_data = v74;
+      v36 = LODFile_New_LOD.Add_Container_to_File( &St2, (const void *)v11, 0);
       if ( v36 )
       {
         wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[165], 208);

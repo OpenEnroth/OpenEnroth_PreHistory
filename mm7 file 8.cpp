@@ -566,7 +566,7 @@ bool MaybeDoAutosave()
         memcpy(&v11, (const void *)(v2 + dword_6A0C90), 0x20u);
         v3 = (int)LODFile_Games_LOD.Find_Container( (const char *)(v2 + dword_6A0C90), 1);
         locked_fread(DstBuf, *(_DWORD *)(v19 + dword_6A0C90 + 20), 1u, (FILE *)v3);
-        LODFile_New_LOD.Append_item( &v11, DstBuf);
+        LODFile_New_LOD.Append_item_to_temp_file( &v11, DstBuf);
         v19 += 32;
         v4 = v17-- == 1;
         if ( v4 )
@@ -578,7 +578,7 @@ bool MaybeDoAutosave()
     strcpy(byte_69BD7C, "out01.odm");
     strcpy(&v12.pFilename[0], "header.bin");
     v13 = 100;
-    LODFile_New_LOD.Append_item(&v12, &unk_69BD68);
+    LODFile_New_LOD.Append_item_to_temp_file(&v12, &unk_69BD68);
     LODFile_New_LOD.Write_SubIndex();
 
     pParty_global->sPartyPosX = 12552;

@@ -12706,7 +12706,7 @@ int __fastcall sub_460078(int a1)
     *(int *)((char *)&dword_69BD94 + v2) = HIDWORD(pParty_global->qword_00002C);
     strcpy(Str2, "header.bin");
     v7 = 100;
-    LODFile_New_LOD._sub_461B48( &St.pFilename[0], (char *)&unk_69BD68 + v2, 0);
+    LODFile_New_LOD.Add_Container_to_File( &St, (char *)&unk_69BD68 + v2, 0);
     wsprintfA((char *)TmpBuf, "saves\\save%03d.mm7", v9);
     LODFile_New_LOD.Close_Written_File();
     CopyFileA("data\\new.lod", (char *)TmpBuf, 0);

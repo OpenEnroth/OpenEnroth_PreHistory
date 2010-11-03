@@ -2,13 +2,12 @@
 
 #include <stdio.h>
 
-#include "AIL.h"
+
 #include "c18.h"
-#include "Party.h"
-#include "Items.h"
-#include "GUI.h"
 #include "Render.h"
 #include "CbmTools.h"
+
+
 
 #pragma pack(push, 1)
 
@@ -44,30 +43,25 @@ class LOD_file
 	{
 	protected:
 		FILE            *pLODFile;               //dword ptr [0000]
-		char             sLODName[32];           //dword ptr [0004]
-		char             byte_000024[0x0000E0];
+		char             sLODName[255];           //dword ptr [0004]
 		bool             file_opened;			 // 104	260
-		unsigned char   *pLODIOBuffer;  // ptr @ 000108	 264
-		unsigned int     uIOBufferSize; // dword @ 00010C 268
-		LODFileHeader    sLODFileHeader;  //struct @ 000110	  272
-
-		char            *pLODCArray;//dword_000210;
-		char             sContainerName[12];    //string ptr [0214]
-		int              dword_000220;
-		int              current_index_dir;//dword_000224;
-		long             lLOD_Datasize;
-		unsigned int     uNumSubidices; // dword @ 00022C	556
+		unsigned char   *pLODIOBuffer;           // ptr @ 000108	 264
+		unsigned int     uIOBufferSize;           // dword @ 00010C 268
+		LODFileHeader    sLODFileHeader;         //struct @ 000110	  272
+		char            *pLODCArray;             //dword_000210;
+		char             sContainerName[16];    //string ptr [0214]
+		int              current_index_dir;       //dword_000224;
+		long             lLOD_Datasize;	          //dword_000228;
+		unsigned int     uNumSubidices;           // dword @ 00022C	556
 		LODIndex        *pLODSubIndexNamedBuffer;  // ptr @ 000230	 560
-		unsigned int     offset_to_subindex;	// 234    564
+		unsigned int     offset_to_subindex;	   // 234    564
 		FILE             *ptemp_write_file;			//  238    568   
 
 		int Fast_Calc_Index( int startIndex, int maxIndex, const char *pContainerName);
 	public:
 		void Close_Open_File();
-		//signed int __thiscall sub_46188A(int _this, const char *Source);
-         int Load_SubIndexes( const char *pContainer); //LODFile_fn6
-//int __thiscall sub_46153F(int _this);
-         void Reset_SubIndexBuffer(); //int LODFile_fn7();
+        int Load_SubIndexes( const char *pContainer); 
+        void Reset_SubIndexBuffer(); 
 		void FreeSubIndxIOBuffers();
 		bool IsContainerExist(const char *pContainerName);
 		void AllocateSubidexAndIOBuffer(unsigned int uNumSubInd, unsigned int uIOBuffSize);
@@ -82,8 +76,8 @@ class LOD_file
 	  public:
 	   void Close_Written_File();  
 	   bool  Load_File(const char *pLODFilename, unsigned char uFileFlags);
-	   int _sub_461B48( const char *Count, const void *a3, FILE *File);
-	  bool Append_item(const LODIndex *pHeader, const void *Data);
+	   unsigned int Add_Container_to_File(const LODIndex *container_index, const void *container_data, int a4);
+	  bool Append_item_to_temp_file(const LODIndex *container_index, const void *container_data);
 	  signed int LODFile_sub_4621A7();
 	  int Write_SubIndex();
 	   int Write_Lod_Header( LODFileHeader* file_header, LODIndex * indx, const char *Source);
