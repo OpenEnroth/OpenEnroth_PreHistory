@@ -1501,7 +1501,7 @@ int LODFile_IB::sub_46454B()
   int result; // eax@10
 
   v2 = (int)this;
- // v1 =  ;
+  v1 =  0;
   if ( (uNumLoadedFiles - 1) >=  lod_IB_dword_011B84)
   {
     //v3 = v2 + 72 * v1 + 572;

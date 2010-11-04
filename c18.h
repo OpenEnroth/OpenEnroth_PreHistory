@@ -40,7 +40,7 @@ class cTexture
 	public:
 		char  sContainerName[16];
 		int     dword_000010;	   //16
-
+	
 
 		unsigned int   uCompressedSize; // dword @ 000014	  20
 
