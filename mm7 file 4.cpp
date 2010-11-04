@@ -3311,7 +3311,7 @@ signed int __cdecl sub_42FBDD()
 {
   AudioPlayer_sub_4AA306(pAudioPlayer, 75, 0, 0, -1, 0, 0, 0, 0);
   Render_DrawTransparentTexture(pD3DRenderer, *(_DWORD *)dword_5076FC, *(_DWORD *)(dword_5076FC + 4), *(cTexture **)(dword_5076FC + 60));
-  return pD3DRenderer->Present();
+  return Render_Present(pD3DRenderer);
 }
 
 //----- (0042FC15) --------------------------------------------------------
@@ -3319,7 +3319,7 @@ signed int __cdecl sub_42FC15()
 {
   AudioPlayer_sub_4AA306(pAudioPlayer, 75, -2, 0, -1, 0, 0, 0, 0);
   Render_DrawTransparentTexture(pD3DRenderer, *(_DWORD *)dword_5076F4, *(_DWORD *)(dword_5076F4 + 4), *(cTexture **)(dword_5076F4 + 60));
-  return pD3DRenderer->Present();
+  return Render_Present(pD3DRenderer);
 }
 
 //----- (0042FC4E) --------------------------------------------------------
@@ -12109,7 +12109,7 @@ int __fastcall sub_45E361(int a1)
   }
   pGUIWindow_CurrentMenu = GUIWindowCreate(dword_4E94D4[v12], dword_4E94DC[v12], dword_4E94E4[v12], dword_4E94EC[v12], 24, 0, 0);
   FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, 25, 199, (char *)pGlobalTXT_LocalizationStrings[505], 0, 0, 0);
-  pD3DRenderer->Present();
+  Render_Present(pD3DRenderer);
   sub_45E297(0);
   if ( dword_6A0C9C > dword_69CF24 )
   {
@@ -12280,7 +12280,7 @@ int __cdecl sub_45E93E()
   Render_DrawIndexedTexture(pD3DRenderer, 351, 302, (cTexture *)(dword_69CEFC != -1 ? 72 * dword_69CEFC + 7145548 : 0));
   Render_DrawIndexedTexture(pD3DRenderer, 18, 141, (cTexture *)(v1 != -1 ? 72 * v1 + 7145548 : 0));
   FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, 25, 199, (char *)pGlobalTXT_LocalizationStrings[505], 0, 0, 0);
-  pD3DRenderer->Present();
+  Render_Present(pD3DRenderer);
   sub_45E297((void *)1);
   v12->AllocateSubidexAndIOBuffer( 300, 0);
   v2 = (int)dword_69CF28;
@@ -12704,8 +12704,8 @@ int __fastcall sub_460078(int a1)
     strcpy(&byte_69BD7C[v2], Str1);
     *(int *)((char *)dword_69BD90 + v2) = pParty_global->qword_00002C;
     *(int *)((char *)&dword_69BD94 + v2) = HIDWORD(pParty_global->qword_00002C);
-    strcpy(Str2, "header.bin");
-    v7 = 100;
+    strcpy(St.pFilename, "header.bin");
+    St.size_data = 100;
     LODFile_New_LOD.Add_Container_to_File( &St, (char *)&unk_69BD68 + v2, 0);
     wsprintfA((char *)TmpBuf, "saves\\save%03d.mm7", v9);
     LODFile_New_LOD.Close_Written_File();
@@ -12783,7 +12783,7 @@ void *__fastcall sub_4601B7(int a1)
   v40 = a1;
   0xFFFFFFFF;
   0xFFFFFF9B;
-  pD3DRenderer->BeginScene();
+  Render_BeginScene(pD3DRenderer);
   if ( sub_466CA0() != 3 )
   {
     if ( sub_466CA0() != 9 )
@@ -12942,7 +12942,7 @@ LABEL_23:
     }
     while ( v40 < 346 );
   }
-  return (void *)pD3DRenderer->EndScene();
+  return (void *)Render_EndScene(pD3DRenderer);
 }
 
 //----- (004606F7) --------------------------------------------------------
@@ -13826,18 +13826,16 @@ LABEL_52:
         uWindowPosY = Rect.top;
       }
       SetMenu(pAppWindow->GetAPIHandle(), 0);
-
-      runtime_error;
-      //SetWindowLongA(pAppWindow->GetAPIHandle(), -20, 0);
-      //SetWindowLongA(pAppWindow->GetAPIHandle(), -16, 268435456);
-      //Render_Initialize(pD3DRenderer, pAppWindow->GetAPIHandle());
+      SetWindowLongA(pAppWindow->GetAPIHandle(), -20, 0);
+      SetWindowLongA(pAppWindow->GetAPIHandle(), -16, 268435456);
+      Render_Initialize(pD3DRenderer, pAppWindow->GetAPIHandle());
       v0 = (double)dword_4E2900_GammaPos * 0.10000000000000001 + 0.59999999999999998;
       GammaController_sub_44F4D9(pGame->pGammaController, v0);
     }
     else
     {
       ClipCursor(0);
-      pD3DRenderer->Initialize(pAppWindow);
+      Render_InitWindowed(pD3DRenderer, pAppWindow->GetAPIHandle());
       SetWindowLongA(pAppWindow->GetAPIHandle(), -16, dwNewLong);
       SetMenu(pAppWindow->GetAPIHandle(), hMenu);
     }

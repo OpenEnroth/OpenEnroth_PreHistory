@@ -529,7 +529,7 @@ unsigned int LOD_Writefile::Add_Container_to_File(const LODIndex *container_inde
   strcpy(Lindx.pFilename, "chapter");
   Lindx.reserved1=0;
   Lindx.reserved3=0;
-  Lindx.uSubIndixes= uNumSubidices+1;
+  Lindx.uSubIndixes= uNumSubidices;
   Lindx.offset_from_unit_start=sizeof(LODFileHeader)+sizeof(LODIndex);
   total_data_size=lLOD_Datasize+container_index->size_data-size_correction;
   if (!bRewrite_data)
@@ -539,6 +539,7 @@ unsigned int LOD_Writefile::Add_Container_to_File(const LODIndex *container_inde
 	  }
  
   Lindx.size_data=total_data_size;
+  uNumSubidices= Lindx.uSubIndixes;
   //move indexes +1 after insert point
   if  (!bRewrite_data&&(insert_index<uNumSubidices))
 	  {
@@ -1480,7 +1481,7 @@ int  LODFile_Sprite::sub_4645DC()
 
 
 
-//----- (0046454B) --------------------------------------------------------
+//----- (0046454B) ---------------------.text:0046586B -----------------------------------
 int LODFile_sp::sub_46454B()
 {
   int v1; // edi@1
@@ -1493,8 +1494,8 @@ int LODFile_sp::sub_46454B()
   int result; // eax@10
 
   v2 = (int)this;
-  v1 =  uNumLoadedFiles - 1;
-  if ( v1 >=  dword_011B84)
+ // v1 =  ;
+  if ( (uNumLoadedFiles - 1) >=  dword_011B84)
   {
     //v3 = v2 + 72 * v1 + 572;
     v3 = & aLODHeaders[v1];
@@ -1502,7 +1503,7 @@ int LODFile_sp::sub_46454B()
     {
      runtime_warning(this stuff kills textures being drawn);
       //cTexture_Free(v3);
-      v4 = *(_DWORD *)(v2 + 72624);
+      v4 = *(_DWORD *)(v2 + 72624);	 //bb0 *pHardwareTextures
       if ( v4 )
       {
         v5 = *(_DWORD *)(v4 + 4 * v1);
@@ -1512,7 +1513,7 @@ int LODFile_sp::sub_46454B()
           *(_DWORD *)(*(_DWORD *)(v2 + 72624) + 4 * v1) = 0;
         }
       }
-      v6 = *(_DWORD *)(v2 + 72620);
+      v6 = *(_DWORD *)(v2 + 72620);	  //pHardwareSurfaces
       if ( v6 )
       {
         v7 = *(_DWORD *)(v6 + 4 * v1);

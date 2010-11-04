@@ -95,13 +95,13 @@ public:
 	 cTexture aLODHeaders[1000];  // cTexture[~ 1000] @ 00023C   	   //48h
      unsigned int uNumLoadedFiles; // dword @ 011B7C	 72572
      int     dword_011B80;//
-     int     dword_011B84; //
+     int     dword_011B84; // 72580
  int     dword_011B88;
  int     dword_011B8C;
  int     dword_011B90;
  int     dword_011B94;
- int     dword_011B98; //
- int     dword_011B9C; //
+ int     dword_011B98; //	 72600
+ int     dword_011B9C; //	72604
  int     dword_011BA0;
  int     dword_011BA4; //
 
