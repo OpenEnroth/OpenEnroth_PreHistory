@@ -4649,7 +4649,7 @@ int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2)
     {
       sprintf(Source, "pal%03i", a2);
       cTexture_Zero(&cTexture_obj);
-      if ( LODFile_Bitmaps_LOD.LODFile_LoadPalette( &cTexture_obj, Source, 1u) == 1 )
+      if ( LODFile_Bitmaps_LOD.LoadTextureFromLOD( &cTexture_obj, Source, 1) == 1 )
       {
         v4 = 0;
         v18 = 1 - (_DWORD)&v10;

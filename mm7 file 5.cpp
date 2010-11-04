@@ -2606,9 +2606,9 @@ char __thiscall sub_46AE97(void *_this, void *Source)
          1024,
          &v6);
   CheckHRESULT((void **)&v9, v4, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MouseAsync.cpp", 0x81u, 0);
-
+  
   cTexture_Zero((cTexture *)cTexture_obj);
-  if ( LODFile_Icons_LOD.LODFile_LoadPalette( (cTexture *)cTexture_obj, (char *)Source, 2) != -1 && sub_46B1EC((int)&struct_505898.Dest, *((_DWORD *)v2 + 1), 0) )
+  if ( LODFile_Icons_LOD.LoadTextureFromLOD( (cTexture *)cTexture_obj, (char *)Source, 2) != -1 && sub_46B1EC((int)&struct_505898.Dest, *((_DWORD *)v2 + 1), 0) )
   {
     cTexture_Free((cTexture *)cTexture_obj);
     LeaveCriticalSection(&pGame->class01_obj->cs2);
@@ -15147,7 +15147,7 @@ bool sub_482E07(struct Span *pSpan, unsigned int *pRenderTarget)
   local_54.dword_000024 = v97;
   if ( v97 >= v16 )
     local_54.dword_000024 = v16;
-  local_54.dword_000038 = v5->ptr_00003C->dword_000038;
+  local_54.dword_000038 = (int)v5->ptr_00003C->pLevelOfDetal2;
   v102 = 2;
   if ( local_54.dword_000024 >= dword_6BE0E4 << 16 )
   {
@@ -15158,18 +15158,18 @@ bool sub_482E07(struct Span *pSpan, unsigned int *pRenderTarget)
         if ( bUseLoResSprites )
           goto LABEL_16;
         v102 = 3;
-        local_54.dword_000038 = v5->ptr_00003C->dword_0003C;
+        local_54.dword_000038 =  (int)v5->ptr_00003C->pLevelOfDetal3;
       }
       else
       {
         v102 = 2;
-        local_54.dword_000038 = v5->ptr_00003C->dword_000038;
+        local_54.dword_000038 = (int)v5->ptr_00003C->pLevelOfDetal2;
       }
     }
     else
     {
       v102 = 1;
-      local_54.dword_000038 = v5->ptr_00003C->dword_000034;
+      local_54.dword_000038 = (int) v5->ptr_00003C->pLevelOfDetal1;
     }
   }
   else
@@ -16309,7 +16309,7 @@ bool sub_4847EB(struct Span *pSpan)
   LODWORD(v16) = v66 << 16;
   HIDWORD(v16) = v66 >> 16;
   v88 = v16 / X;
-  local_30.dword_000038 = v5->ptr_00003C->dword_000038;
+  local_30.dword_000038 = (int)v5->ptr_00003C->pLevelOfDetal2;
   v14 = v16 / X;
   v15 = 2;
   if ( v14 >= dword_6BE0F0 << 16 )
@@ -16321,17 +16321,17 @@ bool sub_4847EB(struct Span *pSpan)
         if ( bUseLoResSprites )
           goto LABEL_14;
         v15 = 3;
-        local_30.dword_000038 = v5->ptr_00003C->dword_0003C;
+        local_30.dword_000038 = (int)v5->ptr_00003C->pLevelOfDetal3;
       }
       else
       {
-        local_30.dword_000038 = v5->ptr_00003C->dword_000038;
+        local_30.dword_000038 = (int)v5->ptr_00003C->pLevelOfDetal2;
       }
     }
     else
     {
       v15 = 1;
-      local_30.dword_000038 = v5->ptr_00003C->dword_000034;
+      local_30.dword_000038 = (int)v5->ptr_00003C->pLevelOfDetal1;
     }
   }
   else

@@ -90,6 +90,8 @@ class LOD_file
 //LODFile
 class LODFile_IB: public  LOD_file
 {
+
+
 public:
 
 	 cTexture aLODHeaders[1000];  // cTexture[~ 1000] @ 00023C   	   //48h
@@ -97,9 +99,9 @@ public:
      int     lod_IB_dword_011B80;//
      int     lod_IB_dword_011B84; // 72580
  int     lod_IB_dword_011B88;
- int     lod_IB_dword_011B8C;
- int     lod_IB_dword_011B90;
- int     lod_IB_dword_011B94;
+ int     uTextureRedBits;		//  dword_011B8C
+ int     uTextureGreenBits;	   //  dword_011B90
+ int     uTextureBlueBits;		//  dword_011B94
  int     lod_IB_dword_011B98; //	 72600
  int     lod_IB_dword_011B9C; //	72604
  int     lod_IB_dword_011BA0;
@@ -111,7 +113,6 @@ public:
  IDirectDrawSurface4 **pHardwareSurfaces; // dword @ 011BAC   1000 of them  72620
  IDirect3DTexture2   **pHardwareTextures; // dword @ 011BB0   1000 of them  72624
  int    **lod_IB_dword_011BB4;//         							  72628
-
 
  
 
@@ -137,7 +138,7 @@ void Reset_TextureBuffs(); //LODFile_fn4();
 //int __thiscall sub_40FB20(int _this, const char *Source, unsigned int a3)
 int LODFile_LoadTexture( const char *pContainerName, unsigned int a3);
 //signed int __thiscall sub_40FC08(int _this, void *Dest, int Source, unsigned int DstBuf);
-int LODFile_LoadPalette(cTexture *pcTexture, const char *pContainerName, unsigned int DstBuf);
+int LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerName, unsigned int uTextureType);
 //int __thiscall sub_461954(int _this, int a2, signed int Size);
 //void LODFile_AllocateSubidexAndIOBuffer(struct LODFile *_this, unsigned int uNumSubIndices, signed int uIOBufferSize);
 //signed int __thiscall sub_461A43(void *_this, const char *Filename, char a3);
@@ -149,7 +150,7 @@ int sub_46454B();
 
 
 
-int LODFile_SetupPalettes( int a2, int a3, int a4);
+void SetupPalettes( int uTargetRBits, int uTargetGBits, int uTargetBBits);
 
  signed int  LODFile_sub_4101B1( char *DstBuf, const char *Source, size_t Count);
  #ifndef	OLD_CODE

@@ -39,7 +39,7 @@ class cTexture
 	{
 	public:
 		char  sContainerName[16];
-		int     dword_000010;	   //16
+		unsigned int    uSizeOfMaxLevelOfDetal;	   //16
 	
 
 		unsigned int   uCompressedSize; // dword @ 000014	  20
@@ -68,10 +68,10 @@ class cTexture
 			
 	//	unsigned int *pTruecolorPixels;
 	//		 };
-		int             dword_000034;   //  	52	
-				
-		int             dword_000038;  // 56 looks like pixels (4 lods - levels of details) for bitmaps.lod textures
-		int             dword_0003C;   //	 60
+		unsigned char  *pLevelOfDetal1;   //  	dword_000034 52				
+		unsigned char  *pLevelOfDetal2;  //     dword_000038  56 looks like pixels (4 lods - levels of details) for bitmaps.lod textures
+		unsigned char  *pLevelOfDetal3;   //	dword_0003C 60
+
 		unsigned short *pPalette; // ptr @ 000040 64
 		unsigned char  *ptr_000044;		  //68
 		unsigned int   *pTruecolorPixels;

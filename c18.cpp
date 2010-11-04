@@ -59,7 +59,7 @@ void Sprites_Header::Clear_Data()
 void cTexture_Zero(cTexture* cTxtr)
 {
 	cTxtr->sContainerName[0] = 0;
-	cTxtr->dword_000010 = 0;
+	cTxtr->uSizeOfMaxLevelOfDetal = 0;
 	cTxtr->uCompressedSize = 0; 
 	cTxtr->uTextureWidth = 0;
 	cTxtr->uTextureHeight = 0;
@@ -70,9 +70,9 @@ void cTexture_Zero(cTexture* cTxtr)
 	cTxtr->word_000026 = 0;
 
 	cTxtr->pIndexedPixels = NULL;
-	cTxtr->dword_000034 = 0;
-	cTxtr->dword_000038 = 0;
-	cTxtr->dword_0003C = 0;
+	cTxtr->pLevelOfDetal1 = NULL;
+	cTxtr->pLevelOfDetal2 = NULL;
+	cTxtr->pLevelOfDetal3 = NULL;
 	cTxtr->pPalette = NULL;
 	cTxtr->ptr_000044 = NULL;
 }
@@ -96,13 +96,13 @@ void cTexture_Free(cTexture* cTxtr)
       mem_mng.DeleteBuffer( (void *)cTxtr->pPalette);
       mem_mng.DeleteBuffer( (void *)cTxtr->ptr_000044);
     }
-	cTxtr->dword_000010 = 0;
-    cTxtr->pIndexedPixels = 0;
-    cTxtr->dword_000034 = 0;
-    cTxtr->dword_000038 = 0;
-    cTxtr->dword_0003C = 0;
-    cTxtr->pPalette = 0;
-    cTxtr->ptr_000044 = 0;
+	cTxtr->uSizeOfMaxLevelOfDetal = 0;
+    cTxtr->pIndexedPixels = NULL;
+	cTxtr->pLevelOfDetal1 = NULL;
+	cTxtr->pLevelOfDetal2 = NULL;
+	cTxtr->pLevelOfDetal3 = NULL;
+    cTxtr->pPalette = NULL;
+    cTxtr->ptr_000044 = NULL;
     cTxtr->uCompressedSize = 0;
     cTxtr->uTextureWidth = 0;
     cTxtr->uTextureHeight = 0;

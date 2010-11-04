@@ -460,10 +460,10 @@ signed int LOD_Writefile::LODFile_sub_4621A7()
 unsigned int LOD_Writefile::Add_Container_to_File(const LODIndex *container_index, const void *container_data, int a4)
 {
  
-  char Filename[256]; // [sp+Ch] [bp-230h]@22
-  char NewFilename[256]; // [sp+10Ch] [bp-130h]@51
-  LODIndex Lindx; /// [sp+20Ch] [bp-30h]@27
-  FILE *tmp_file; // [sp+24Ch] [bp+10h]@22
+  char Filename[256]; 
+  char NewFilename[256];
+  LODIndex Lindx; 
+  FILE *tmp_file; 
   int comp_res;
   bool bRewrite_data;
   int offset_to_data;
@@ -692,43 +692,16 @@ void *LODFile_IB::LODFile_LoadRaw( const char *pContainer, int a3)
 
 
 //----- (MM7.exe::0040FC08) --------------------------------------------------------
-int LODFile_IB::LODFile_LoadPalette(cTexture *pcTexture, const char *pContainerName, unsigned int uSomeInt)
+int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerName, unsigned int uTextureType)
 {
-  //int v4; // eax@1
-  int v5; // ebx@1
-  int v6; // edi@1
-  
-  void *v9; // ST24_4@8
-  int v10; // esi@14
-  size_t v11; // eax@14
-  char* v12; // eax@14
-  int v13; // eax@21
-  int v19; // eax@29
-  int v21; // eax@29
-  size_t v22; // ST2C_4@29
-  const void *v23; // ecx@29
-  __int16 v24; // ax@29
-  int v25; // ecx@29
-  int v26; // edx@29
-  int v27; // ecx@29
-  int v33; // eax@37
-  signed int v34; // eax@37
-  int v35;
-  int v36; // ecx@37
-  signed int v40; // ecx@43
-  signed int v41; // ecx@48
-  //FILE *v42; // [sp+14h] [bp-4h]@1
-  signed int v45; // [sp+20h] [bp+8h]@29
-
+ 
+  unsigned int total_l_o_d_size; // edi@1
+  char* tmp_palette;
   unsigned char *pCompressedBuffer,
                 *pDecompressedBuffer;
-  unsigned char aReadBuf[4];
-  int   i;
+  int   i,j;
+  int result;
   FILE *texture_file;
-  cTexture *v8; // esi@3
- // v5 = (int)pContainerName;
- // v6 = (int)this;
-  v8 = pcTexture;
 
   texture_file = Find_Container(pContainerName, 0);
   if (!texture_file)
@@ -754,20 +727,19 @@ int LODFile_IB::LODFile_LoadPalette(cTexture *pcTexture, const char *pContainerN
 		  && pContainerName[3] == 'd'
 		  && pContainerName[4] == 'r' )
 		  {
-		 
-		  v12 = (char*) malloc(strlen(pContainerName)+2);
-		  //uSomeInt = v12;
-		  v12[0] = 'h';
-		  strcpy((char *)(v12 + 1), (const char *) pContainerName[0]);
 
-		  v10 = Render_sub_4A4DE1(
+		  tmp_palette = (char*) malloc(strlen(pContainerName)+2);
+		  tmp_palette[0] = 'h';
+		  strcpy((char *)(tmp_palette[1]), (const char *) pContainerName[0]);
+
+		  result = Render_sub_4A4DE1(
 			  (int)pD3DRenderer,
-			  (int)v12,
+			  (int)tmp_palette,
 			  pcTexture->word_000024,
 			  (int)pHardwareSurfaces[uNumLoadedFiles],
 			  (int)pHardwareTextures[uNumLoadedFiles]);
 
-		  free(v12);
+		  free( tmp_palette);
 		  }
 	  else
 		  {
@@ -781,7 +753,7 @@ int LODFile_IB::LODFile_LoadPalette(cTexture *pcTexture, const char *pContainerN
 			  dword_EF5294 = uNumLoadedFiles;
 			  }
 
-		  v10 = Render_sub_4A4DE1(
+		  result = Render_sub_4A4DE1(
 			  (int)pD3DRenderer,
 			  (int)pContainerName,
 			  pcTexture->word_000024,
@@ -789,124 +761,121 @@ int LODFile_IB::LODFile_LoadPalette(cTexture *pcTexture, const char *pContainerN
 			  (int)pHardwareTextures[uNumLoadedFiles]);
 
 		  }
-	  return v10;
+	  return result;
 	  }
 
 
 
- if (!pcTexture->uDecompressedSize ||  lod_IB_dword_011BA4)
- {
-  pcTexture->pIndexedPixels = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->pIndexedPixels, pcTexture->uCompressedSize, pcTexture->sContainerName);
-  locked_fread(pcTexture->pIndexedPixels, 1u, pcTexture->uCompressedSize, texture_file);
- }
- else
- {
-  pCompressedBuffer = (unsigned char *)malloc(pcTexture->uCompressedSize);
-  pDecompressedBuffer = (unsigned char *)malloc(pcTexture->uDecompressedSize);
-
-  locked_fread(pCompressedBuffer, 1, pcTexture->uCompressedSize, texture_file);
-  MemUnzip(pDecompressedBuffer, &pcTexture->uDecompressedSize, pCompressedBuffer, pcTexture->uCompressedSize);
- free(pCompressedBuffer);
-
-  pcTexture->uCompressedSize = pcTexture->uDecompressedSize;
-
-
-  if (bUseLoResSprites && (pcTexture->word_00002C & 0x0002))
-  {
-      v45 = (*((_DWORD *)v8 + 4) >> 2) + (*((_DWORD *)v8 + 4) >> 4) + (*((_DWORD *)v8 + 4) >> 6);
-      v21 = (int)mem_mng.AllocatedNamedBuffer( (void*) *((_DWORD *)v8 + 12), v45, (const char *)v8);
-      v22 = v45;
-      compile_error;//v23 = (const void *)(v31 + *((_WORD *)v8 + 12) * *((_WORD *)v8 + 13));
-      *((_DWORD *)v8 + 12) = v21;
-      memcpy((void *)v21, v23, v22);
-      *((_WORD *)v8 + 12) >>= 1;
-      v24 = *((_WORD *)v8 + 12);
-      *((_WORD *)v8 + 13) >>= 1;
-      LOWORD(v25) = *((_WORD *)v8 + 13);
-      --*((_WORD *)v8 + 14);
-      --*((_WORD *)v8 + 15);
-      *((_WORD *)v8 + 16) = v24 - 1;
-      v26 = v25 - 1;
-      v27 = v24 * (signed __int16)v25;
-      v19 = v45;
-      *((_WORD *)v8 + 17) = v26;
-      *((_DWORD *)v8 + 4) = v27;
-      *((_DWORD *)v8 + 5) = v19;
-  }
-  else
-  {
-   //pcTexture->pIndexedPixels = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->pIndexedPixels, pcTexture->uDecompressedSize, pcTexture->sContainerName);
-  //allocate  ARGB texture size 
-   pcTexture->pIndexedPixels = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->pIndexedPixels,pcTexture->uTextureHeight*pcTexture->uTextureWidth*4 , pcTexture->sContainerName);
-   memcpy(pcTexture->pIndexedPixels, pDecompressedBuffer, pcTexture->uDecompressedSize);
-  }
-  free(pDecompressedBuffer);
- }
-
-
- mem_mng.DeleteBuffer( (void *)pcTexture->pPalette);
- mem_mng.DeleteBuffer( (void *)pcTexture->ptr_000044);
-
- if (uSomeInt == 1)
- {
-  pcTexture->ptr_000044 = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->ptr_000044, 768, pcTexture->sContainerName);
-  locked_fread(pcTexture->ptr_000044, 1, 768, texture_file);
-
-LABEL_35:
-  pcTexture->pPalette = 0;
-  goto LABEL_36;
- }
-
- pcTexture->ptr_000044 = 0;
- if (uSomeInt != 2)
-   goto LABEL_35;
-
- pcTexture->pPalette = (unsigned short *)mem_mng.AllocatedNamedBuffer( pcTexture->pPalette, 512, pcTexture->sContainerName);
- for (i = 0; i < 256; i++)
- {
-  locked_fread(aReadBuf, 3, 1, texture_file);
-
-  pcTexture->pPalette[i] = (aReadBuf[0] >> (8 -  lod_IB_dword_011B8C)) << ( lod_IB_dword_011B94 + lod_IB_dword_011B90);
-  pcTexture->pPalette[i] += (aReadBuf[1] >> (8 -  lod_IB_dword_011B90)) <<  lod_IB_dword_011B94;
-  pcTexture->pPalette[i] += aReadBuf[2] >> (8 -  lod_IB_dword_011B94);
- }
-
-LABEL_36:
- if (pcTexture->word_00002C & 0x0002)
- {
-    v34 = *((_DWORD *)v8 + 4);
-    v35 = v34 + *((_DWORD *)v8 + 12);
-    *((_DWORD *)v8 + 13) = v35;
-    v36 = (v34 >> 2) + v35;
-    *((_DWORD *)v8 + 14) = v36;
-    v33 = v36 + (v34 >> 4);
- }
- else
- {
-  v33 = 0;
-  pcTexture->dword_000034 = 0;
-  pcTexture->dword_000038 = 0;
- }
-
- pcTexture->dword_0003C = v33;
- v40 = 1;
- while (1 << v40 != pcTexture->uTextureWidth)
- {
-  ++v40;
-  if (v40 >= 15)
-    goto LABEL_48;
- }
- pcTexture->word_00001C = v40;
-
-LABEL_48:
- v41 = 1;
- while ( 1 << v41 != pcTexture->uTextureHeight)
- {
-  ++v41;
-  if ( v41 >= 15 )
+  if (!pcTexture->uDecompressedSize ||  lod_IB_dword_011BA4)
 	  {
-  		  switch (pcTexture->word_00001C)
- {
+	  pcTexture->pIndexedPixels = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->pIndexedPixels, 
+		  pcTexture->uCompressedSize, pcTexture->sContainerName);
+	  locked_fread(pcTexture->pIndexedPixels, 1u, pcTexture->uCompressedSize, texture_file);
+	  }
+  else
+	  {
+	  pCompressedBuffer = (unsigned char *)malloc(pcTexture->uCompressedSize);
+	  pDecompressedBuffer = (unsigned char *)malloc(pcTexture->uDecompressedSize);
+
+	  locked_fread(pCompressedBuffer, 1, pcTexture->uCompressedSize, texture_file);
+	  MemUnzip(pDecompressedBuffer, &pcTexture->uDecompressedSize, pCompressedBuffer, pcTexture->uCompressedSize);
+	  free(pCompressedBuffer);
+
+	  pcTexture->uCompressedSize = pcTexture->uDecompressedSize;
+
+
+	  if (bUseLoResSprites && (pcTexture->word_00002C & 0x0002))
+		  {
+		  total_l_o_d_size=pcTexture->uSizeOfMaxLevelOfDetal/4+
+						   pcTexture->uSizeOfMaxLevelOfDetal/16+
+						   pcTexture->uSizeOfMaxLevelOfDetal/64;
+	
+		  pcTexture->pIndexedPixels =(unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->pIndexedPixels,total_l_o_d_size, pcTexture->sContainerName);
+
+		  total_l_o_d_size=pcTexture->uTextureHeight*pcTexture->uTextureWidth+ total_l_o_d_size;
+		  memcpy(pcTexture->pIndexedPixels,pDecompressedBuffer,total_l_o_d_size);
+		  pcTexture->uTextureHeight = pcTexture->uTextureHeight/2;
+		  pcTexture->uTextureWidth = pcTexture->uTextureWidth/2;
+		  --pcTexture->word_00001C;
+		  --pcTexture->word_00001E;
+		  pcTexture->word_000020=pcTexture->uTextureWidth-1;
+		  pcTexture->word_000022=pcTexture->uTextureHeight-1;
+		  pcTexture->uSizeOfMaxLevelOfDetal=pcTexture->uTextureHeight*pcTexture->uTextureWidth;
+		  pcTexture->uCompressedSize=total_l_o_d_size;
+		 
+		  }
+	  else
+		  {
+		  pcTexture->pIndexedPixels = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->pIndexedPixels, pcTexture->uDecompressedSize, pcTexture->sContainerName);
+		  memcpy(pcTexture->pIndexedPixels, pDecompressedBuffer, pcTexture->uDecompressedSize);
+		  }
+	  free(pDecompressedBuffer);
+	  }
+
+  mem_mng.DeleteBuffer( (void *)pcTexture->pPalette);
+  mem_mng.DeleteBuffer( (void *)pcTexture->ptr_000044);
+
+  if (uTextureType == 1)
+	  {
+	  pcTexture->ptr_000044 = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->ptr_000044, 768, pcTexture->sContainerName);
+	  locked_fread(pcTexture->ptr_000044, 1, 768, texture_file);
+	  pcTexture->pPalette = NULL;
+	  }
+  else
+	  pcTexture->ptr_000044 = NULL;
+
+  if (uTextureType == 2)
+	  {	    
+	  pcTexture->pPalette = (unsigned short *)mem_mng.AllocatedNamedBuffer( pcTexture->pPalette, 512, pcTexture->sContainerName);
+	  tmp_palette=(char*)malloc(768);
+	  locked_fread(tmp_palette,768, 1, texture_file);
+	  j=0;
+	  for (i = 0; i < 256; i++)
+		  { 
+		  pcTexture->pPalette[i] = (tmp_palette[j] >> (8 -  uTextureRedBits)) << ( uTextureBlueBits + uTextureGreenBits);
+		  pcTexture->pPalette[i] += (tmp_palette[j+1] >> (8 -  uTextureGreenBits)) <<  uTextureBlueBits;
+		  pcTexture->pPalette[i] += tmp_palette[j+2] >> (8 -  uTextureBlueBits);
+		  j+=3;
+		  }
+	  free(tmp_palette);
+	  }
+  else
+	  {
+	  pcTexture->pPalette=NULL;
+	  }
+
+  if (pcTexture->word_00002C & 0x0002)
+	  {
+	  pcTexture->pLevelOfDetal1 = pcTexture->pIndexedPixels+pcTexture->uSizeOfMaxLevelOfDetal;
+	  pcTexture->pLevelOfDetal2 = pcTexture->pIndexedPixels+pcTexture->uSizeOfMaxLevelOfDetal/4;	
+	  pcTexture->pLevelOfDetal3 = pcTexture->pIndexedPixels+pcTexture->uSizeOfMaxLevelOfDetal/4+pcTexture->uSizeOfMaxLevelOfDetal/16;
+	  }
+  else
+	  {
+	  pcTexture->pLevelOfDetal1 =NULL;
+	  pcTexture->pLevelOfDetal2 =NULL;	
+	  pcTexture->pLevelOfDetal3 =NULL;
+	  }
+
+  for (short i=1; i<=15; i++)
+	  {
+	  if ((1<<i)==pcTexture->uTextureWidth)
+		  {
+		  pcTexture->word_00001C=i;
+		  break;
+		  }
+	  }
+
+  for (short i=1; i<=15; i++)
+	  {
+	  if ((1<<i)==pcTexture->uTextureHeight)
+		  {
+		  pcTexture->word_00001E=i;
+		  break;
+		  }
+	  }
+  switch (pcTexture->word_00001C)
+	  {
   case 2:   pcTexture->word_000020 = 3;    break;
   case 3:   pcTexture->word_000020 = 7;    break;
   case 4:   pcTexture->word_000020 = 15;   break;
@@ -918,10 +887,10 @@ LABEL_48:
   case 10:  pcTexture->word_000020 = 1023; break;
   case 11:  pcTexture->word_000020 = 2047; break;
   case 12:  pcTexture->word_000020 = 4095; break;
- }
+	  }
 
- switch (pcTexture->word_00001E)
- {
+  switch (pcTexture->word_00001E)
+	  {
   case 2:   pcTexture->word_000022 = 3;    break;
   case 3:   pcTexture->word_000022 = 7;    break;
   case 4:   pcTexture->word_000022 = 15;   break;
@@ -933,76 +902,61 @@ LABEL_48:
   case 10:  pcTexture->word_000022 = 1023; break;
   case 11:  pcTexture->word_000022 = 2047; break;
   case 12:  pcTexture->word_000022 = 4095; break;
- }
- break;
 	  }
- }
- pcTexture->word_00001E = v41;
 
-
- 
-
- return 1;
+  return 1;
 }
 
 
-//----- (0041097D) --------------------------------------------------------
+//----- (0041097D) -----------------text:00410C8F---------------------------------------
 ////int __thiscall sub_41097D(void *_this, int a2, int a3, int a4);
-int LODFile_IB::LODFile_SetupPalettes( int a2, int a3, int a4)
+void LODFile_IB::SetupPalettes( int uTargetRBits, int uTargetGBits, int uTargetBBits)
 {
  //depricated, though somehow sets font colors
- compile_warning
+ //compile_warning
 
- unsigned int v14;
- unsigned int v15;
- 
- int             i, j;
- unsigned char   data[4];
+ int             i, j,k;
+ unsigned char*  tmp_palette;
  FILE           *f;
- cTexture *pcTexture;
+
  cTexture  cTexture_obj;
 
 
- if ( lod_IB_dword_011B8C != a2 ||  lod_IB_dword_011B90 != a3 ||  lod_IB_dword_011B94 != a4)
- {
-   lod_IB_dword_011B8C = a2;
-   lod_IB_dword_011B90 = a3;
-   lod_IB_dword_011B94 = a4;
-  if (! uNumLoadedFiles)
-    return 0;
+ if ( uTextureRedBits == uTargetRBits &&  uTextureGreenBits == uTargetGBits &&  uTextureBlueBits == uTargetBBits)
+	 return;
 
-  for (i = 0; i <  uNumLoadedFiles; ++i)
-  {
-   pcTexture = & aLODHeaders[i];
 
-   cTexture_Zero(&cTexture_obj);
-   if (!pcTexture->pPalette)
-     continue;
+ uTextureRedBits = uTargetRBits;
+ uTextureGreenBits = uTargetGBits;
+ uTextureBlueBits = uTargetBBits;
+ if (! uNumLoadedFiles)
+	 return;
+ tmp_palette=(unsigned char*)malloc(768);
+ for (i = 0; i <  uNumLoadedFiles; i++)
+	 {
 
-   f = Find_Container( pcTexture->sContainerName, 0);
-   if (!f)
-     continue;
+	 cTexture_Zero(&cTexture_obj);
+	 if (! aLODHeaders[i].pPalette)
+		 continue;
 
-   locked_fread(&cTexture_obj, 1, 0x30, f);
-   fseek(f, cTexture_obj.uCompressedSize, SEEK_CUR);
+	 f = Find_Container( aLODHeaders[i].sContainerName, 0);
+	 if (!f)
+		 continue;
 
-   for (j = 0; j < 512; ++j)
-   {
-    locked_fread(data + 0, 1, 1, f);
-    locked_fread(data + 1, 1, 1, f);
-    locked_fread(data + 2, 1, 1, f);
+	 locked_fread(&cTexture_obj, 1, 48, f);
+	 fseek(f, cTexture_obj.uCompressedSize, SEEK_CUR);
+	 locked_fread(tmp_palette, 1,768, f);
+	 k=0;
+	 for (j = 0; j < 512; ++j)
+		 {
+		 aLODHeaders[i].pPalette[j] = (tmp_palette[k] >> (8 -  uTextureRedBits)) << ( uTextureBlueBits + uTextureGreenBits);
+		 aLODHeaders[i].pPalette[j] += (tmp_palette[k+1] >> (8 -  uTextureGreenBits)) <<  uTextureBlueBits;
+		 aLODHeaders[i].pPalette[j] += tmp_palette[k+2] >> (8 -  uTextureBlueBits);
+		  k+=3;
+		 }
+	 }
+ free(tmp_palette);
 
-    v14 = (unsigned short)(data[0] >> (8 - (unsigned char)( lod_IB_dword_011B8C)));
-    v15 = (unsigned short)(data[1] >> (8 - (unsigned char)( lod_IB_dword_011B90)));
-
-    pcTexture->pPalette[j] = v14 << ((unsigned char)( lod_IB_dword_011B90) + (unsigned char)( lod_IB_dword_011B94));
-    pcTexture->pPalette[j] |= v15 << (unsigned char)( lod_IB_dword_011B94);
-    pcTexture->pPalette[j] |= data[2] >> (8 - (unsigned char)( lod_IB_dword_011B94));
-   }
-  }
- }
-
- return  uNumLoadedFiles;
 }
 
 //----- (004114F2) --------------------------------------------------------
@@ -1397,7 +1351,7 @@ int LODFile_IB::LODFile_LoadTexture( const char *pContainerName, unsigned int a3
   if ( uNumLoadedFiles >= 1000)
 	  err_show();
 
-  if (LODFile_LoadPalette( &aLODHeaders[uNumLoadedFiles], pContainerName, a3) == -1)
+  if (LoadTextureFromLOD( &aLODHeaders[uNumLoadedFiles], pContainerName, a3) == -1)
 	  {
 	  i=0;
 	  if ( uNumLoadedFiles > 0)
@@ -1408,7 +1362,7 @@ int LODFile_IB::LODFile_LoadTexture( const char *pContainerName, unsigned int a3
 				  return i; 	 
 			  }
 		  if (i=uNumLoadedFiles)
-			  LODFile_LoadPalette( &aLODHeaders[ uNumLoadedFiles], "pending", a3);
+			  LoadTextureFromLOD( &aLODHeaders[ uNumLoadedFiles], "pending", a3);
 		  }
 	  }
 
@@ -1563,7 +1517,7 @@ unsigned char *LODFile_IB::LODFile_LoadEvent(const wchar_t *pFilename)
 
  CloseHandle(hFile);
  return pOut;
-	}
+}
 
 //----- (004101B1) --------------------------------------------------------
 signed int  LODFile_IB::LODFile_sub_4101B1( char *DstBuf, const char *Source, size_t Count)
@@ -2094,7 +2048,6 @@ int LOD_Writefile::LODFile_sub_461F1E()
   FILE *v3; // eax@5
   int v4; // eax@5
 
- // v1 = _this;
   if (file_opened )
   {
     if ( pLODIOBuffer && uIOBufferSize )
@@ -2108,14 +2061,10 @@ int LOD_Writefile::LODFile_sub_461F1E()
       result = v4 + 7;
     }
     else
-    {
       result = 5;
-    }
   }
   else
-  {
     result = 1;
-  }
   return result;
 }
 

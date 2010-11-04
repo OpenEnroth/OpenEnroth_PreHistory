@@ -12313,7 +12313,7 @@ int __cdecl MenuUI_LoadFontsAndSomeStuff()
   signed int v3; // edx@3
  int i;
 
- LODFile_Icons_LOD.LODFile_SetupPalettes( pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
+ LODFile_Icons_LOD.SetupPalettes( pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
  class35_SetColorChannelInfo(&class35_obj, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
  class35_sub_48A614(&class35_obj);
 
