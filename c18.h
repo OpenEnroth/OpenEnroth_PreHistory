@@ -62,19 +62,19 @@ class cTexture
 		unsigned int    uDecompressedSize;   // dword @ 000028	 40
 		short           word_00002C;				  // 2c  44
 		char            byte_00002E[2];
-		union
-			{
+	//	union
+	//		{
 		unsigned char  *pIndexedPixels; // ptr @ 000030 48	 
 			
-		unsigned int *pTruecolorPixels;
-			 };
+	//	unsigned int *pTruecolorPixels;
+	//		 };
 		int             dword_000034;   //  	52	
 				
 		int             dword_000038;  // 56 looks like pixels (4 lods - levels of details) for bitmaps.lod textures
 		int             dword_0003C;   //	 60
 		unsigned short *pPalette; // ptr @ 000040 64
 		unsigned char  *ptr_000044;		  //68
-	//	unsigned int   *pTruecolorPixels;
+		unsigned int   *pTruecolorPixels;
 		
 
 	};

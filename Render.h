@@ -248,10 +248,10 @@ void Render_Reset2DClippingRect(struct BaseRender *_this);
 //int __thiscall sub_4A5B81(int _this, int a2, int a3, int a4, int a5);
 void Render_Set2DClippingRect(struct BaseRender *_this, unsigned int uX, unsigned int uY, unsigned int uZ, unsigned int uW);
 //void __thiscall sub_4A5EB2(int _this, int a2, int a3, int a4);
-void Render_DrawIndexedTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, struct cTexture *pTexture);
+void Render_DrawIndexedTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY,  cTexture *pTexture);
 void Render_DrawIndexedTextureHandle(struct BaseRender *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID);
 //void __thiscall sub_4A6274(int _this, int a2, int a3, int a4);
-void Render_DrawTransparentTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, struct cTexture *pTexture);
+void Render_DrawTransparentTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY,  cTexture *pTexture);
 //int __thiscall sub_4A0E97(int _this, int a2, int a3, int a4, int a5);
 void Render_sub_4A0E97(struct BaseRender *_this, int a2, int a3, int a4, int a5);
 //signed int __thiscall sub_4A0E80(int _this, int a2, int a3);
@@ -284,7 +284,7 @@ void Render_BillboardTransform(struct BaseRender *_this, struct Render_Billboard
 
 void Render_DrawTransparentRect(struct BaseRender *_this, unsigned int uOutX, unsigned int uOutY,
                                       unsigned int uSrcX, unsigned int uSrcY, unsigned int uSrcWidth, unsigned int uSrcHeight,
-                                      struct cTexture *pTexture);
+                                      cTexture *pTexture);
 unsigned int Render_MoveToGPU(struct BaseRender *_this, unsigned int uWidth, unsigned int uHeight, unsigned int *pData, struct IDirectDrawSurface4 **pOutSurface, struct IDirect3DTexture2 **pOutTexture);
 
 

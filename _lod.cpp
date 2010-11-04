@@ -734,7 +734,7 @@ int LODFile_IB::LODFile_LoadPalette(cTexture *pcTexture, const char *pContainerN
   if (!texture_file)
 	  return -1;
 
-  locked_fread(pcTexture, 1, sizeof(cTexture), texture_file);
+  locked_fread(pcTexture, 1,48, texture_file);
   strcpy(pcTexture->sContainerName, pContainerName);
 
   if ((pD3DRenderer->pRenderD3D3) && (pcTexture->word_00002C & 0x0002) &&  lod_IB_dword_011BA8)
@@ -862,7 +862,7 @@ LABEL_35:
    goto LABEL_35;
 
  pcTexture->pPalette = (unsigned short *)mem_mng.AllocatedNamedBuffer( pcTexture->pPalette, 512, pcTexture->sContainerName);
- for (i = 0; i < 256; ++i)
+ for (i = 0; i < 256; i++)
  {
   locked_fread(aReadBuf, 3, 1, texture_file);
 
@@ -934,6 +934,7 @@ LABEL_48:
   case 11:  pcTexture->word_000022 = 2047; break;
   case 12:  pcTexture->word_000022 = 4095; break;
  }
+ break;
 	  }
  }
  pcTexture->word_00001E = v41;
