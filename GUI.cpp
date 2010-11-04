@@ -4433,7 +4433,7 @@ struct GUIButton *__fastcall GUIButtonCreate(struct GUIWindow *pParentWindow,
  //if (pTexture)
  //{
   pButton->uTextureID = uTextureID;
-  pButton->dword_000040 = 0xFEAFEAFE;
+  pButton->dword_000040 = uTextureID;//0xFEAFEAFE;
   pButton->dword_000044 = 0xFEAFEAFE;
   pButton->dword_000048 = 0xFEAFEAFE;
   pButton->dword_00004C = 0xFEAFEAFE;
@@ -6540,10 +6540,10 @@ void __fastcall CharacterUI_DrawInventoryTab(unsigned int uSelectedCharacter, bo
   {
   #ifndef OLD_CODE
     v4 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"fr_strip");
-	#endif
+    #endif
 #ifdef OLD_CODE
    v4 = LODFile_Icons_LOD.LODFile_LoadTexture( "fr_strip",0);
-	#endif
+    #endif
     Render_DrawIndexedTexture(pD3DRenderer, 8, 305, &LODFile_Icons_LOD.aLODHeaders[v4]);
   }
 
@@ -6563,16 +6563,16 @@ void __fastcall CharacterUI_DrawInventoryTab(unsigned int uSelectedCharacter, bo
        unsigned int    uItemTextureIdx;
        cTexture *pItemTexture;
 
-	  #ifndef OLD_CODE
-	   wchar_t         pItemIconNameW[256];
+      #ifndef OLD_CODE
+       wchar_t         pItemIconNameW[256];
        wsprintfW(pItemIconNameW, L"%S", pClass40->pItems[v6->uItemID].pIconName);
        uItemTextureIdx = LODFile_Icons_LOD.LODFile_LoadTexture_New( pItemIconNameW);
-	  #endif
+      #endif
 #ifdef OLD_CODE 
-	   char         pItemIconName[256];
-	   wsprintfA(pItemIconName, "%S", pClass40->pItems[v6->uItemID].pIconName);
+       char         pItemIconName[256];
+       wsprintfA(pItemIconName, "%S", pClass40->pItems[v6->uItemID].pIconName);
        uItemTextureIdx = LODFile_Icons_LOD.LODFile_LoadTexture( pItemIconName,0);
-	  #endif
+      #endif
         pItemTexture = &LODFile_Icons_LOD.aLODHeaders[uItemTextureIdx];
         v8 = pItemTexture->uTextureWidth;
         if (pItemTexture->uTextureWidth < 14)
@@ -6849,7 +6849,6 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
   char *v2; // ebp@1
   int v3; // esi@1
   int v4; // eax@1
-  int v5; // ecx@3
   int v6; // edi@3
   int v7; // eax@4
   int v8; // edx@5
@@ -6861,9 +6860,6 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
   unsigned __int8 v14; // zf@12
   unsigned int v15; // eax@12
   int v16; // ecx@22
-  unsigned __int8 v17; // sf@29
-  unsigned __int8 v18; // of@29
-  int v19; // ecx@33
   int v20; // edx@34
   int v21; // eax@35
   int v22; // edx@37
@@ -6875,9 +6871,6 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
   unsigned int v28; // eax@42
   char v29; // sf@52
   int v30; // ecx@52
-  unsigned __int8 v31; // sf@59
-  unsigned __int8 v32; // of@59
-  int v33; // ecx@63
   int v34; // edi@63
   int v35; // edx@64
   int v36; // eax@65
@@ -6888,9 +6881,6 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
   unsigned __int8 v41; // zf@72
   unsigned int v42; // eax@72
   int v43; // ecx@82
-  unsigned __int8 v44; // sf@89
-  unsigned __int8 v45; // of@89
-  int v46; // ecx@93
   int v47; // eax@94
   int v48; // edx@94
   int v49; // edx@97
@@ -6902,8 +6892,6 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
   unsigned int v55; // eax@102
   char v56; // sf@112
   int v57; // ecx@112
-  unsigned __int8 v58; // sf@119
-  unsigned __int8 v59; // of@119
   int v61; // [sp-Ch] [bp-4Ch]@19
   int v62; // [sp-Ch] [bp-4Ch]@49
   int v63; // [sp-Ch] [bp-4Ch]@79
@@ -6956,8 +6944,14 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
   v101 = 0xFFFF0000;
   v94 = 0xFF00FF00;
   v2 = (char *)&pParty_global->pPlayers[v3 - 1];
-  v4 = LODFile_Icons_LOD.LODFile_LoadTexture( "fr_skill", 2);
-  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(v4 != -1 ? 72 * v4 + 7145548 : 0));
+
+  #ifndef OLD_CODE
+  v4 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"fr_skill");
+  #else
+  v4 = LODFile_Icons_LOD.LODFile_LoadTexture( "fr_skill",2);
+  #endif
+  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, &LODFile_Icons_LOD.aLODHeaders[v4]);
+
   v1 = v94;
   if ( !*((_DWORD *)v2 + 1614) )
     v1 = 65535;
@@ -6973,18 +6967,16 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
   v6 = 2 * *(_BYTE *)(pFontLucida + 5) + 13;
   wsprintfA((char *)TmpBuf, "%s\r400%s", pGlobalTXT_LocalizationStrings[242], pGlobalTXT_LocalizationStrings[131]);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 24, v6, (char *)TmpBuf, 0, 0, 0);
-  v5 = (int)pGUIWindow_CurrentMenu;
   v85 = 0;
   for(i = 0; i < 9; i++)
   {
     v77 = dword_4E2A2C[i];
     v7 = 0;
-    v81 = 0;
-    if ( *(_DWORD *)(v5 + 32) > 0 )
+    for( v81 = 0; v81 < pGUIWindow_CurrentMenu->uNumControls; v81++ )
     {
-      do
       {
-        v8 = *(_DWORD *)(v5 + 76);
+        v8 = (int)pGUIWindow_CurrentMenu->pControlsHead;
+        v7 = v81;
         if ( v7 > 0 )
         {
           do
@@ -6996,7 +6988,7 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
         }
         v9 = *(_DWORD *)(v8 + 28);
         if ( BYTE1(v9) >= 0 || (BYTE1(v9) &= 0x7Fu, v9 != v77) )
-          goto LABEL_29;
+          continue;
         v6 = *(_DWORD *)(v8 + 4);
         v11 = *((_DWORD *)v2 + 1614);
         ++v85;
@@ -7033,7 +7025,8 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
           if ( !(v102 & 0xC0) )
           {
             wsprintfA((char *)TmpBuf, "%s\r400%2d", aSkillNames[v77], v89);
-            goto LABEL_28;
+            FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, v6, (char *)TmpBuf, 0, 0, 0);
+            continue;
           }
           v16 = (int)pGlobalTXT_LocalizationStrings[432];
           if ( (_BYTE)v102 >= 0 )
@@ -7046,37 +7039,28 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
           v61 = v103;
         }
         wsprintfA((char *)TmpBuf, "%s \r%05d%s\r%05d\n400%2d", aSkillNames[v77], v15, v61, v65, v69);
-LABEL_28:
         FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, v6, (char *)TmpBuf, 0, 0, 0);
-        v5 = (int)pGUIWindow_CurrentMenu;
-LABEL_29:
-        v7 = v81 + 1;
-        compile_error;//v18 = __SETO__(v81 + 1, *(_DWORD *)(v5 + 32));
-        v17 = v81++ + 1 - *(_DWORD *)(v5 + 32) < 0;
       }
-      while ( v17 ^ v18 );
     }
   }
   if ( !v85 )
   {
     v6 = v6 + *(_BYTE *)(pFontLucida + 5) - 3;
-    FontDrawText((GUIWindow *)v5, pFontLucida, 24, v6, (char *)pGlobalTXT_LocalizationStrings[153], 0, 0, 0);
+    FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, v6, (char *)pGlobalTXT_LocalizationStrings[153], 0, 0, 0);
   }
   v90 = v6 + 2 * *(_BYTE *)(pFontLucida + 5) - 10;
   wsprintfA((char *)TmpBuf, "%s\r400%s", pGlobalTXT_LocalizationStrings[138], pGlobalTXT_LocalizationStrings[131]);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 24, v90, (char *)TmpBuf, 0, 0, 0);
-  v19 = (int)pGUIWindow_CurrentMenu;
   v86 = 0;
   for(i = 0; i < 9; i++)
   {
     v20 = 0;
-    v82 = 0;
     v78 = dword_4E2A80[i];
-    if ( *(_DWORD *)(v19 + 32) > 0 )
+    for( v82 = 0; v82 < pGUIWindow_CurrentMenu->uNumControls; v82++ )
     {
-      do
       {
-        v21 = *(_DWORD *)(v19 + 76);
+        v21 = (int)pGUIWindow_CurrentMenu->pControlsHead;
+        v20 = v82;
         if ( v20 > 0 )
         {
           do
@@ -7088,7 +7072,7 @@ LABEL_29:
         }
         v22 = *(_DWORD *)(v21 + 28);
         if ( BYTE1(v22) >= 0 || (BYTE1(v22) &= 0x7Fu, v22 != v78) )
-          goto LABEL_59;
+          continue;
         ++v86;
         v90 = *(_DWORD *)(v21 + 4);
         v24 = *(_WORD *)&v2[2 * v78 + 264];
@@ -7123,7 +7107,8 @@ LABEL_29:
           if ( !(v24 & 0xC0) )
           {
             wsprintfA((char *)TmpBuf, "%s\r400%2d", aSkillNames[v78], v25);
-            goto LABEL_58;
+            FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, v90, (char *)TmpBuf, 0, 0, 0);
+            continue;
           }
           v29 = (_BYTE)v24 < 0;
           v30 = (int)pGlobalTXT_LocalizationStrings[432];
@@ -7137,35 +7122,26 @@ LABEL_29:
           v62 = v104;
         }
         wsprintfA((char *)TmpBuf, "%s \r%05d%s\r%05d\n400%2d", aSkillNames[v78], v28, v62, v66, v70);
-LABEL_58:
         FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, v90, (char *)TmpBuf, 0, 0, 0);
-        v19 = (int)pGUIWindow_CurrentMenu;
-LABEL_59:
-        v20 = v82 + 1;
-        compile_error;//v32 = __SETO__(v82 + 1, *(_DWORD *)(v19 + 32));
-        v31 = v82++ + 1 - *(_DWORD *)(v19 + 32) < 0;
       }
-      while ( v31 ^ v32 );
     }
   }
 
   if ( !v86 )
-    FontDrawText((GUIWindow *)v19, pFontLucida, 24, *(_BYTE *)(pFontLucida + 5) + v90 - 3, (char *)pGlobalTXT_LocalizationStrings[153], 0, 0, 0);
+    FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, *(_BYTE *)(pFontLucida + 5) + v90 - 3, (char *)pGlobalTXT_LocalizationStrings[153], 0, 0, 0);
   v34 = 2 * *(_BYTE *)(pFontLucida + 5) + 13;
   wsprintfA((char *)TmpBuf, "%s\r177%s", pGlobalTXT_LocalizationStrings[11], pGlobalTXT_LocalizationStrings[131]);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 248, v34, (char *)TmpBuf, 0, 0, 0);
-  v33 = (int)pGUIWindow_CurrentMenu;
   v87 = 0;
   for(i = 0; i < 5; i++) 
   {
     v35 = 0;
-    v83 = 0;
     v79 = dword_4E2A18[i];
-    if ( *(_DWORD *)(v33 + 32) > 0 )
+    for( v83 = 0; v83 < pGUIWindow_CurrentMenu->uNumControls; v83++ )
     {
-      do
       {
-        v36 = *(_DWORD *)(v33 + 76);
+        v36 = (int)pGUIWindow_CurrentMenu->pControlsHead;
+        v35 = v83;
         if ( v35 > 0 )
         {
           do
@@ -7177,7 +7153,7 @@ LABEL_59:
         }
         v37 = *(_DWORD *)(v36 + 28);
         if ( BYTE1(v37) >= 0 || (BYTE1(v37) &= 0x7Fu, v37 != v79) )
-          goto LABEL_89;
+          continue;
         v34 = *(_DWORD *)(v36 + 4);
         ++v87;
         v75 = 0;
@@ -7213,7 +7189,8 @@ LABEL_59:
           if ( !(v105 & 0xC0) )
           {
             wsprintfA((char *)TmpBuf, "%s\r177%2d", aSkillNames[v79], v91);
-            goto LABEL_88;
+            FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v34, (char *)TmpBuf, 0, 0, 0);
+            continue;
           }
           v43 = (int)pGlobalTXT_LocalizationStrings[432];
           if ( (_BYTE)v105 >= 0 )
@@ -7226,38 +7203,29 @@ LABEL_59:
           v63 = v106;
         }
         wsprintfA((char *)TmpBuf, "%s \r%05d%s\r%05d\n177%2d", aSkillNames[v79], v42, v63, v67, v71);
-LABEL_88:
         FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v34, (char *)TmpBuf, 0, 0, 0);
-        v33 = (int)pGUIWindow_CurrentMenu;
-LABEL_89:
-        v35 = v83 + 1;
-        compile_error;//v45 = __SETO__(v83 + 1, *(_DWORD *)(v33 + 32));
-        v44 = v83++ + 1 - *(_DWORD *)(v33 + 32) < 0;
       }
-      while ( v44 ^ v45 );
     }
   }
   if ( !v87 )
   {
     v34 = v34 + *(_BYTE *)(pFontLucida + 5) - 3;
-    FontDrawText((GUIWindow *)v33, pFontLucida, 248, v34, (char *)pGlobalTXT_LocalizationStrings[153], 0, 0, 0);
+    FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v34, (char *)pGlobalTXT_LocalizationStrings[153], 0, 0, 0);
   }
   v92 = v34 + 2 * *(_BYTE *)(pFontLucida + 5) - 10;
   wsprintfA((char *)TmpBuf, "%s\r177%s", pGlobalTXT_LocalizationStrings[143], pGlobalTXT_LocalizationStrings[131]);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 248, v92, (char *)TmpBuf, 0, 0, 0);
-  v46 = (int)pGUIWindow_CurrentMenu;
   v88 = 0;
   for(i = 0; i < 12; i++) 
   {
     v48 = 0;
-    v84 = 0;
     v47 = dword_4E2A50[i];
     v80 = dword_4E2A50[i];
-    if ( *(_DWORD *)(v46 + 32) > 0 )
+    for( v84 = 0; v84 < pGUIWindow_CurrentMenu->uNumControls; v84++ )
     {
-      do
       {
-        v47 = *(_DWORD *)(v46 + 76);
+        v47 = (int)pGUIWindow_CurrentMenu->pControlsHead;
+        v48 = v84;
         if ( v48 > 0 )
         {
           do
@@ -7269,7 +7237,7 @@ LABEL_89:
         }
         v49 = *(_DWORD *)(v47 + 28);
         if ( BYTE1(v49) >= 0 || (BYTE1(v49) &= 0x7Fu, v49 != v80) )
-          goto LABEL_119;
+          continue;
         ++v88;
         v92 = *(_DWORD *)(v47 + 4);
         v51 = *(_WORD *)&v2[2 * v80 + 264];
@@ -7304,7 +7272,8 @@ LABEL_89:
           if ( !(v51 & 0xC0) )
           {
             wsprintfA((char *)TmpBuf, "%s\r177%2d", aSkillNames[v80], v52);
-            goto LABEL_118;
+            FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v92, (char *)TmpBuf, 0, 0, 0);
+            continue;
           }
           v56 = (_BYTE)v51 < 0;
           v57 = (int)pGlobalTXT_LocalizationStrings[432];
@@ -7318,19 +7287,12 @@ LABEL_89:
           v64 = v107;
         }
         wsprintfA((char *)TmpBuf, "%s \r%05d%s\r%05d\n177%2d", aSkillNames[v80], v55, v64, v68, v72);
-LABEL_118:
         FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v92, (char *)TmpBuf, 0, 0, 0);
-        v46 = (int)pGUIWindow_CurrentMenu;
-LABEL_119:
-        v48 = v84 + 1;
-        compile_error;//v59 = __SETO__(v84 + 1, *(_DWORD *)(v46 + 32));
-        v58 = v84++ + 1 - *(_DWORD *)(v46 + 32) < 0;
       }
-      while ( v58 ^ v59 );
     }
   }
   if ( !v88 )
-    FontDrawText((GUIWindow *)v46, pFontLucida, 248, *(_BYTE *)(pFontLucida + 5) + v92 - 3, (char *)pGlobalTXT_LocalizationStrings[153], 0, 0, 0);
+    FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, *(_BYTE *)(pFontLucida + 5) + v92 - 3, (char *)pGlobalTXT_LocalizationStrings[153], 0, 0, 0);
 }
 
 //----- (0043BCA7) --------------------------------------------------------
@@ -7379,7 +7341,7 @@ int CharacterUI_LoadPaperdollTextures()
  #endif
 #ifdef OLD_CODE
  char Str1[100]; // [sp+24h] [bp-14h]@12
-	uTextureID_GameUI_MagnifyingGlass = LODFile_Icons_LOD.LODFile_LoadTexture("MAGNIF",0);
+    uTextureID_GameUI_MagnifyingGlass = LODFile_Icons_LOD.LODFile_LoadTexture("MAGNIF",0);
  uTextureID_GameUI_PaperdollBackground = LODFile_Icons_LOD.LODFile_LoadTexture("PDoll-Bg",0);
  uTextureID_GameUI_PaperdollJewelryOverlay = LODFile_Icons_LOD.LODFile_LoadTexture("BACKHAND",0);
   uTextureID_507B04 = uTextureID_5079E4;
@@ -7397,7 +7359,7 @@ int CharacterUI_LoadPaperdollTextures()
         uFace = (v0 != 0) + 3;
       else
         uFace = (v0 != 0) + 1;
-	  #ifndef OLD_CODE
+      #ifndef OLD_CODE
       wsprintfW(Str1, L"pc23v%dBod", uFace);
       pPaperdollTextures_Bodies[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture_New( Str1);
       wsprintfW(Str1, L"pc23v%dlad", uFace);
@@ -7410,9 +7372,9 @@ int CharacterUI_LoadPaperdollTextures()
       pPaperdollTextures_LeftHandsEmpty[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture_New( Str1);
       wsprintfW(Str1, L"pc23v%dlhu", uFace);
       pPaperdollTextures_LeftHandsWeapon[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture_New( Str1);
-	  #endif
+      #endif
     #ifdef OLD_CODE
-	   wsprintf(Str1, "pc23v%dBod", uFace);
+       wsprintf(Str1, "pc23v%dBod", uFace);
       pPaperdollTextures_Bodies[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
       wsprintf(Str1, "pc23v%dlad", uFace);
       pPaperdollTextures_LeftArmsEmpty[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
@@ -7434,7 +7396,7 @@ int CharacterUI_LoadPaperdollTextures()
     else
     {
       uFace = pPlayers[uPlayer]->uFace;
-	 #ifndef OLD_CODE
+     #ifndef OLD_CODE
       wsprintfW(Str1, L"pc%02dbod", uFace + 1);
       pPaperdollTextures_Bodies[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture_New( Str1);
       wsprintfW(Str1, L"pc%02dlad", uFace + 1);
@@ -7455,9 +7417,9 @@ int CharacterUI_LoadPaperdollTextures()
       }
       wsprintfW(Str1, L"item281pc%02d", uFace + 1);
       pPaperdollTextures_Feet[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture_New( Str1);
-	  #endif
+      #endif
     #ifdef OLD_CODE
-	    wsprintf(Str1, "pc%02dbod", uFace + 1);
+        wsprintf(Str1, "pc%02dbod", uFace + 1);
       pPaperdollTextures_Bodies[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
       wsprintf(Str1, "pc%02dlad", uFace + 1);
       pPaperdollTextures_LeftArmsEmpty[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
@@ -7739,12 +7701,12 @@ void CharacterUI_DoDrawCharacterScreen(unsigned int uCharacter)
         sub_4196A0();
         sub_419379();
         CharacterUI_DrawStatsTab(uCharacter);
-		#ifndef OLD_CODE
+        #ifndef OLD_CODE
         v3 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ib-cd1-d");
-		#endif
+        #endif
 #ifdef OLD_CODE
    v3 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-cd1-d",0);
-		#endif
+        #endif
         v2 = pCharacterUI_BtnStats;
         break;
       case 101: // skills
@@ -7755,12 +7717,12 @@ void CharacterUI_DoDrawCharacterScreen(unsigned int uCharacter)
         }
         sub_419379();
         CharacterUI_DrawSkillsTab(uCharacter);
-		#ifndef OLD_CODE
+        #ifndef OLD_CODE
         v3 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ib-cd2-d");
-		#endif
+        #endif
 #ifdef OLD_CODE	
-		v3 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-cd2-d",0);
-		#endif
+        v3 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-cd2-d",0);
+        #endif
         v2 = pCharacterUI_BtnSkills;
         break;
       case 102: // awards
@@ -7768,12 +7730,12 @@ void CharacterUI_DoDrawCharacterScreen(unsigned int uCharacter)
         sub_419379();
         sub_419220();
         CharacterUI_DrawAwardsTab(uCharacter);
-		#ifndef OLD_CODE
+        #ifndef OLD_CODE
         v3 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ib-cd4-d");
-		#endif
+        #endif
 #ifdef OLD_CODE 
-		v3 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-cd4-d",0);
-		#endif
+        v3 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-cd4-d",0);
+        #endif
         v2 = pCharacterUI_BtnAwards;
         break;
       default:
@@ -7782,12 +7744,12 @@ void CharacterUI_DoDrawCharacterScreen(unsigned int uCharacter)
         sub_4196A0();
         sub_419379();
         CharacterUI_DrawInventoryTab(uCharacter, 0);
-		#ifndef OLD_CODE
+        #ifndef OLD_CODE
         v3 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ib-cd3-d");
-		#endif
+        #endif
 #ifdef OLD_CODE	 
-		v3 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-cd3-d",0);
-		#endif
+        v3 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-cd3-d",0);
+        #endif
         v2 = pCharacterUI_BtnInventory;
         break;
     }

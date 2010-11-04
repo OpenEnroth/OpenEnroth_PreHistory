@@ -11592,51 +11592,52 @@ int __cdecl sub_419100()
 //----- (00419220) --------------------------------------------------------
 void __cdecl sub_419220()
 {
-  int i; // eax@2
+  struct GUIButton *pControl;
 
   if ( !dword_507CBC )
   {
     dword_507CBC = 1;
-    for ( i = *(_DWORD *)(pGUIWindow_CurrentMenu + 76); i; i = *(_DWORD *)(i + 52) )
+    for ( pControl = pGUIWindow_CurrentMenu->pControlsHead; pControl; pControl = pControl->pNext)
     {
-      if ( *(_DWORD *)(i + 32) == 120 )
+      if ( pControl->dword_000020 == 120 )
       {
-        dword_50698C = *(_DWORD *)i;
-        dword_506988 = *(_DWORD *)(i + 4);
-        dword_506984 = *(_DWORD *)(i + 16);
-        dword_506980 = *(_DWORD *)(i + 20);
-        *(_DWORD *)(i + 20) = 0;
-        *(_DWORD *)(i + 16) = 0;
-        *(_DWORD *)(i + 4) = 0;
-        *(_DWORD *)i = 0;
+        dword_50698C = pControl->uX;
+        dword_506988 = pControl->uY;
+        dword_506984 = pControl->uZ;
+        dword_506980 = pControl->uW;
+
+        pControl->uX = 0;
+        pControl->uY = 0;
+        pControl->uZ = 0;
+        pControl->uW = 0;
       }
     }
     dword_507B9C = GUIButtonCreate(
                      pGUIWindow_CurrentMenu,
                      438,
                      46,
-                     *(_WORD *)(dword_507674 != -1 ? 72 * dword_507674 + 7145548 + 0x18 : 24),
-                     *(_WORD *)(dword_507674 != -1 ? 72 * dword_507674 + 7145548 + 0x1A : 26),
+                     LODFile_Icons_LOD.aLODHeaders[dword_507674].uTextureWidth,//24,
+                     LODFile_Icons_LOD.aLODHeaders[dword_507674].uTextureHeight, //26
                      1,
                      0,
                      169,
                      0,
                      0,
                      "",
-                     dword_507674 != -1 ? 72 * dword_507674 + 7145548 : 0);
+                     dword_507674);
     dword_507BA0 = GUIButtonCreate(
                      pGUIWindow_CurrentMenu,
                      438,
                      292,
-                     *(_WORD *)(dword_50766C != -1 ? 72 * dword_50766C + 7145548 + 0x18 : 24),
-                     *(_WORD *)(dword_50766C != -1 ? 72 * dword_50766C + 7145548 + 0x1A : 26),
+                     LODFile_Icons_LOD.aLODHeaders[dword_50766C].uTextureWidth,//24,
+                     LODFile_Icons_LOD.aLODHeaders[dword_50766C].uTextureHeight, //26
                      1,
                      0,
                      170,
                      0,
                      0,
                      "",
-                     dword_50766C != -1 ? 72 * dword_50766C + 7145548 : 0);
+                     dword_50766C);
     dword_507BA4 = GUIButtonCreate(pGUIWindow_CurrentMenu, 440, 62, 16, 232, 1, 0, 192, 0, 0, "", 0);
   }
 }
@@ -12782,12 +12783,12 @@ void __thiscall GUIButton_sub_41D0D8(struct GUIButton *_this)
       if ( v2 )
       {
         *(_DWORD *)(v1 + 76) = v2;
-        *(_DWORD *)(*(_DWORD *)(_this + 52) + 48) = 0;
+        *(_DWORD *)(*(_DWORD *)((char*)_this + 52) + 48) = 0;
       }
       else
       {
         *(_DWORD *)(v1 + 76) = 0;
-        *(_DWORD *)(*(_DWORD *)(_this + 56) + 80) = 0;
+        *(_DWORD *)(*(_DWORD *)((char*)_this + 56) + 80) = 0;
       }
     }
     else
@@ -12796,15 +12797,15 @@ void __thiscall GUIButton_sub_41D0D8(struct GUIButton *_this)
       if ( v2 )
       {
         *(_DWORD *)(v3 + 52) = v2;
-        *(_DWORD *)(*(_DWORD *)(_this + 52) + 48) = v3;
+        *(_DWORD *)(*(_DWORD *)((char*)_this + 52) + 48) = v3;
       }
       else
       {
         *(_DWORD *)(v3 + 52) = 0;
-        *(_DWORD *)(*(_DWORD *)(_this + 56) + 80) = v3;
+        *(_DWORD *)(*(_DWORD *)((char*)_this + 56) + 80) = v3;
       }
     }
-    --*(_DWORD *)(*(_DWORD *)(_this + 56) + 32);
+    --*(_DWORD *)(*(_DWORD *)((char*)_this + 56) + 32);
     mem_mng.DeleteBuffer( (void *)_this);
   }
 }
