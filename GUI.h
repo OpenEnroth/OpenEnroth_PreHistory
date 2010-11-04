@@ -159,7 +159,7 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
 struct GUIButton *__fastcall GUIButtonCreate(struct GUIWindow *pParentWindow,
                                              unsigned int uX, unsigned int uY,
                                              unsigned int uWidth, unsigned int uHeight,
-                                             int a6, int a7, unsigned int uControlID, int a9, unsigned int uHotkey, const char *pName, unsigned int uTextureID);
+                                             int a6, int a7, unsigned int uControlID, int a9, unsigned int uHotkey, const unsigned char *pName, unsigned int uTextureID);
 
 void GUIWindowDelete(struct GUIWindow *);
 void GUIWindow_sub_459C2B(struct GUIWindow *a1, signed int a2, int a3, int a4);

@@ -521,10 +521,10 @@ struct unnamed_505898 struct_505898;
  int dword_50638C; // idb
  int dword_506390; // weak
  int dword_506394; // idb
- int dword_506398; // weak
- int dword_50639C; // weak
- int dword_5063A0; // idb
- int dword_5063A4; // idb
+unsigned int uTextureID_tab_an_7a__zoot_off = 0; // dword @ MM7.exe::00506398
+unsigned int uTextureID_tab_an_6a__zoom_off = 0; // dword @ MM7.exe::0050639C
+unsigned int uTextureID_tab_an_7b__zoot_on = 0;  // dword @ MM7.exe::005063A0
+unsigned int uTextureID_tab_an_6b__zoom_on = 0;  // dword @ MM7.exe::005063A4
  int dword_5063A8[array_size_unknown]; // weak
  int dword_5063AC; // weak
  int dword_5063B0; // weak
@@ -544,15 +544,15 @@ struct unnamed_505898 struct_505898;
  int dword_506450[array_size_unknown]; // weak
  int dword_506454[array_size_unknown]; // weak
  _UNKNOWN unk_506494; // weak
- int dword_506498; // weak
+unsigned int dword_506498_uTextureID_MapBrdr; // weak
  int dword_50649C[array_size_unknown]; // weak
  int dword_5064A0[array_size_unknown]; // weak
  int dword_5064C4; // weak
- int dword_5064C8; // weak
+unsigned int uTextureID_divbar = 0; // dword @ MM7.exe::005064C8
  int dword_5064CC; // weak
  int dword_5064D0; // weak
  int dword_5064D4; // weak
- int dword_5064D8; // weak
+unsigned int uTextureID_sbAutonotes = 0;                    // dword @ MM7.exe::005064D8
 unsigned int uTextureID_lb_bordr__townport__sbquicknot = 0; // dword @ MM7.exe::005064DC
  int dword_5064E0; // weak
  int dword_5064E4; // weak
@@ -561,14 +561,14 @@ unsigned int uTextureID_lb_bordr__townport__sbquicknot = 0; // dword @ MM7.exe::
  int dword_5064F0; // weak
  int dword_5064F4; // weak
  int dword_5064F8; // weak
- int dword_5064FC; // weak
- int dword_506500; // weak
- int dword_506504; // weak
- int dword_506508; // weak
- int dword_50650C; // weak
- int dword_506510; // weak
- int dword_506514; // weak
- int dword_506518; // weak
+struct GUIButton *dword_5064FC = 0; // weak
+struct GUIButton *dword_506500 = 0; // weak
+struct GUIButton *dword_506504 = 0; // weak
+struct GUIButton *dword_506508 = 0; // weak
+struct GUIButton *dword_50650C = 0; // weak
+struct GUIButton *dword_506510 = 0; // weak
+struct GUIButton *dword_506514 = 0; // weak
+struct GUIButton *dword_506518 = 0; // weak
  int dword_50651C; // weak
  int dword_506520; // weak
  int dword_506524; // weak
@@ -660,11 +660,11 @@ unsigned char stru_506580_MonsterInfoUI_bDollInitialized; // byte   @ MM7.exe::0
 
  int array_5075E0[20]; // array @ MM7.exe::005075E0
 int sLastGUIWindowIdx; // dword @ MM7.exe::00507630
- int dword_507634; // weak
- int dword_507638; // weak
- int dword_50763C; // weak
- int dword_507640; // weak
- int dword_507644; // weak
+struct GUIButton *dword_507634; // weak
+struct GUIButton *dword_507638; // weak
+struct GUIButton *dword_50763C; // weak
+struct GUIButton *dword_507640; // weak
+struct GUIButton *dword_507644; // weak
  int dword_507648; // weak
  int dword_50764C; // weak
  int dword_507650; // weak
@@ -804,7 +804,7 @@ struct GUIWindow *ptr_507BC4 = 0;      // dword @ MM7.exe::00507BC4
 struct GUIWindow *ptr_507BD0 = 0; //  dword @ MM7.exe::00507BD0
  int dword_507BD4; // idb
  int dword_507BDC; // weak
- int dword_507BE0; // weak
+struct GUIWindow *ptr_507BE0; // dword @ MM7.exe::00507BE0
 
  struct GUIWindow *pGUIWindow2 = 0;         // ptr   @ MM7.exe::00507BE4
  unsigned int      uActiveCharacter; // dword @ MM7.exe::00507BEC
@@ -948,12 +948,12 @@ struct unnamed_50C0C8 struct_50C0C8;
  int dword_50C9A4; // weak
  int dword_50C9A8; // weak
  int dword_50C9AC; // weak
- int dword_50C9B0; // weak
- int dword_50C9B4; // weak
- int dword_50C9B8; // weak
- int dword_50C9BC; // weak
- int dword_50C9C0; // weak
- int dword_50C9C4; // weak
+struct GUIButton *dword_50C9B0; // weak
+struct GUIButton *dword_50C9B4; // weak
+struct GUIButton *dword_50C9B8; // weak
+struct GUIButton *dword_50C9BC; // weak
+struct GUIButton *dword_50C9C0; // weak
+struct GUIButton *dword_50C9C4; // weak
 struct GUIButton *dword_50C9C8; // weak
 struct GUIButton *dword_50C9CC; // weak
  int dword_50C9D0; // weak
@@ -1270,8 +1270,7 @@ struct Font *ptr_5C35F0 = 0; // dword @ MM7.exe::005C35F0
 struct Font *ptr_5C35F4 = 0; // dword @ MM7.exe::005C35F4
 
 
- int dword_5C3610[1000 + array_size_unknown]; // weak
- char byte_5C45AF[array_size_unknown]; // weak
+struct unnamed_5C3610 stru_5C3610; // struct @ MM7.exe::005C3610
 unsigned char byte_5C45B0[2048];
 
  _UNKNOWN unk_5C4DB0; // weak
@@ -1414,10 +1413,10 @@ struct unnamed_69B110 object_69B110; // struct @ MM7.exe::0069B110
  char byte_69BD41; // weak
  char byte_69BD44; // weak
  char *dword_69BD48; // idb
- int dword_69BD58; // weak
- int dword_69BD5C; // weak
- int dword_69BD60; // weak
- int dword_69BD64; // weak
+struct GUIButton *dword_69BD58; // weak
+struct GUIButton *dword_69BD5C; // weak
+struct GUIButton *dword_69BD60; // weak
+struct GUIButton *dword_69BD64; // weak
  _UNKNOWN unk_69BD68; // weak
  char byte_69BD7C[20]; // idb
  int dword_69BD90[array_size_unknown]; // weak

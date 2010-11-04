@@ -3614,7 +3614,7 @@ int CreditsMenuLoop()
   operator_delete(Dest);
 
   pGUIWindow_MainMenu = GUIWindowCreate(0, 0, 640, 480, 1, 0, (int)Source);
-  GUIButtonCreate(pGUIWindow_MainMenu, 0, 0, 0, 0, 1, 0, 113, 0, 27, "", 0);
+  GUIButtonCreate(pGUIWindow_MainMenu, 0, 0, 0, 0, 1, 0, 113, 0, 27, (unsigned char *)"", 0);
   dword_4E28F8 = 9;
   SetCurrentMenu(8);
   pD3DRenderer->BeginScene();

@@ -13045,7 +13045,7 @@ LABEL_1087:
         if ( !sub_427730(v707, SLODWORD(v706)) )
           goto LABEL_83;
         LODWORD(v712) = HIDWORD(v1);
-        memset(dword_5C3610, SHIDWORD(v1), 0xFA0u);
+        memset(&stru_5C3610, SHIDWORD(v1), 0xFA0u);
         LODWORD(v702) = HIDWORD(v1);
 
         for (i = 0; i < 2; ++i)
@@ -13053,7 +13053,7 @@ LABEL_1087:
           if ((int)pParty_global->pHiredNPCs[i].pNPCName != HIDWORD(v1) )
           {
             v570 = LODWORD(v712)++;
-            dword_5C3610[v570] = LODWORD(v702) + 1;
+            stru_5C3610.array_000000[v570] = LODWORD(v702) + 1;
           }
           ++LODWORD(v702);
         }

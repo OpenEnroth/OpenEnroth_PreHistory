@@ -81,7 +81,7 @@ struct Party
  int           dword_000748;
  short         array_000750[5];
  short         array_00075A[5];
- char          unk_000764[0x100];
+ char          unk_000764[0x100]; // quests?
 
  unsigned char byte_000854[32 + array_size_unknown];
 

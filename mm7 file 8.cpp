@@ -2341,7 +2341,7 @@ int __cdecl MenuLoop_Main()
                                      54,
                                      0,
                                      78,
-                                     "New Game",
+                                     (unsigned char *)"New Game",
                                      v4);
  #ifndef OLD_CODE
 	 v5 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_load");
@@ -2358,7 +2358,7 @@ int __cdecl MenuLoop_Main()
                                       55,
                                       1,
                                       76,
-                                      "Load Game",
+                                      (unsigned char *)"Load Game",
                                       v5);
   #ifndef OLD_CODE
 	   v6 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_cred");
@@ -2375,7 +2375,7 @@ int __cdecl MenuLoop_Main()
                                      56,
                                      2,
                                      67,
-                                     "Creadits",
+                                     (unsigned char *)"Creadits",
                                      v6);
   #ifndef OLD_CODE
 	 v7 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_exit");
@@ -2392,7 +2392,7 @@ int __cdecl MenuLoop_Main()
                                   57,
                                   3,
                                   0,
-                                  "Exit",
+                                  (unsigned char *)"Exit",
                                   v7);
    #ifndef OLD_CODE
 	  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Title");

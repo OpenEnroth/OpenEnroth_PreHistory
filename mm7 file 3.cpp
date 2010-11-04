@@ -6097,10 +6097,10 @@ void __fastcall sub_4451A8(int a1, int a2, int a3)
     dword_5C341C = v4;
     dword_591094 = dword_5C3420;
     pGUIWindow2 = GUIWindowCreate(0, 0, 640, 480, 19, a3, 0);
-    GUIButtonCreate(pGUIWindow2, 61, 424, 31, 40, 2, 94, 110, 1, 49, "", 0);
-    GUIButtonCreate(pGUIWindow2, 177, 424, 31, 40, 2, 94, 110, 2, 50, "", 0);
-    GUIButtonCreate(pGUIWindow2, 292, 424, 31, 40, 2, 94, 110, 3, 51, "", 0);
-    GUIButtonCreate(pGUIWindow2, 407, 424, 31, 40, 2, 94, 110, 4, 52, "", 0);
+    GUIButtonCreate(pGUIWindow2, 61, 424, 31, 40, 2, 94, 110, 1, 49, (unsigned char *)"", 0);
+    GUIButtonCreate(pGUIWindow2, 177, 424, 31, 40, 2, 94, 110, 2, 50, (unsigned char *)"", 0);
+    GUIButtonCreate(pGUIWindow2, 292, 424, 31, 40, 2, 94, 110, 3, 51, (unsigned char *)"", 0);
+    GUIButtonCreate(pGUIWindow2, 407, 424, 31, 40, 2, 94, 110, 4, 52, (unsigned char *)"", 0);
   }
 }
 
@@ -6901,16 +6901,16 @@ LABEL_17:
       {
         if ( v12 <= 12 || v12 > 32 && (v12 <= 34 || v12 > 38 && (v12 <= 43 || v12 == 52)) )
         {
-          GUIButtonCreate((GUIWindow *)v11, 480, 250, 140, *(_BYTE *)(pFontArrus + 5) - 3, 1, 0, 136, 9, 0, "", 0);
+          GUIButtonCreate((GUIWindow *)v11, 480, 250, 140, *(_BYTE *)(pFontArrus + 5) - 3, 1, 0, 136, 9, 0, (unsigned char *)"", 0);
           GUIWindow_sub_41D08F(pDialogueWindow, 4, 1, 0, 1);
         }
       }
     }
   }
-  GUIButtonCreate(pDialogueWindow, 61, 424, 31, 40, 2, 94, 110, 1, 49, "", 0);
-  GUIButtonCreate(pDialogueWindow, 177, 424, 31, 40, 2, 94, 110, 2, 50, "", 0);
-  GUIButtonCreate(pDialogueWindow, 292, 424, 31, 40, 2, 94, 110, 3, 51, "", 0);
-  result = (int)GUIButtonCreate(pDialogueWindow, 407, 424, 31, 40, 2, 94, 110, 4, 52, "", 0);
+  GUIButtonCreate(pDialogueWindow, 61, 424, 31, 40, 2, 94, 110, 1, 49, (unsigned char *)"", 0);
+  GUIButtonCreate(pDialogueWindow, 177, 424, 31, 40, 2, 94, 110, 2, 50, (unsigned char *)"", 0);
+  GUIButtonCreate(pDialogueWindow, 292, 424, 31, 40, 2, 94, 110, 3, 51, (unsigned char *)"", 0);
+  result = (int)GUIButtonCreate(pDialogueWindow, 407, 424, 31, 40, 2, 94, 110, 4, 52, (unsigned char *)"", 0);
   if (a2)
   {
     result = uActiveCharacter;
@@ -7830,11 +7830,11 @@ LABEL_47:
                 {
                   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
                   ptr_507BC0 = GUIWindowCreate(0, 0, 640, 480, 25, 170, 0);
-                  GUIButtonCreate(ptr_507BC0, 61, 424, 31, 0, 2, 94, 110, 1, 49, v7, 0);
-                  GUIButtonCreate(ptr_507BC0, 177, 424, 31, 0, 2, 94, 110, 2, 50, v7, 0);
-                  GUIButtonCreate(ptr_507BC0, 292, 424, 31, 0, 2, 94, 110, 3, 51, v7, 0);
-                  GUIButtonCreate(ptr_507BC0, 407, 424, 31, 0, 2, 94, 110, 4, 52, v7, 0);
-                  GUIButtonCreate(ptr_507BC0, 0, 0, 0, 0, 1, 0, 176, 0, 9, v7, 0);
+                  GUIButtonCreate(ptr_507BC0, 61, 424, 31, 0, 2, 94, 110, 1, 49, (unsigned char *)v7, 0);
+                  GUIButtonCreate(ptr_507BC0, 177, 424, 31, 0, 2, 94, 110, 2, 50, (unsigned char *)v7, 0);
+                  GUIButtonCreate(ptr_507BC0, 292, 424, 31, 0, 2, 94, 110, 3, 51, (unsigned char *)v7, 0);
+                  GUIButtonCreate(ptr_507BC0, 407, 424, 31, 0, 2, 94, 110, 4, 52, (unsigned char *)v7, 0);
+                  GUIButtonCreate(ptr_507BC0, 0, 0, 0, 0, 1, 0, 176, 0, 9, (unsigned char *)v7, 0);
                   dword_F8B1E8 = (char *)dword_72193C;
                 }
               }
@@ -8673,11 +8673,11 @@ LABEL_280:
               if ( dword_591160 != 167 )
                 v108 = v107;
               ptr_507BC0 = GUIWindowCreate(0, 0, 640, 480, 25, v108, 0);
-              GUIButtonCreate(ptr_507BC0, 61, 424, 31, 0, 2, 94, 110, 1, 49, v7, 0);
-              GUIButtonCreate(ptr_507BC0, 177, 424, 31, 0, 2, 94, 110, 2, 50, v7, 0);
-              GUIButtonCreate(ptr_507BC0, 292, 424, 31, 0, 2, 94, 110, 3, 51, v7, 0);
-              GUIButtonCreate(ptr_507BC0, 407, 424, 31, 0, 2, 94, 110, 4, 52, v7, 0);
-              GUIButtonCreate(ptr_507BC0, 0, 0, 0, 0, 1, 0, 176, 0, 9, v7, 0);
+              GUIButtonCreate(ptr_507BC0, 61, 424, 31, 0, 2, 94, 110, 1, 49, (unsigned char *)v7, 0);
+              GUIButtonCreate(ptr_507BC0, 177, 424, 31, 0, 2, 94, 110, 2, 50, (unsigned char *)v7, 0);
+              GUIButtonCreate(ptr_507BC0, 292, 424, 31, 0, 2, 94, 110, 3, 51, (unsigned char *)v7, 0);
+              GUIButtonCreate(ptr_507BC0, 407, 424, 31, 0, 2, 94, 110, 4, 52, (unsigned char *)v7, 0);
+              GUIButtonCreate(ptr_507BC0, 0, 0, 0, 0, 1, 0, 176, 0, 9, (unsigned char *)v7, 0);
             }
             goto LABEL_291;
           default:
@@ -12398,7 +12398,7 @@ char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int
                         v25 = v23 + 1;
                         while ( v26 >= v25 )
                         {
-                          byte_5C45B0[v26] = byte_5C45AF[v26];
+                         byte_5C45B0[v26] = stru_5C3610.byte_000F9C[v26];
                           --v26;
                         }
                         ++v42;
