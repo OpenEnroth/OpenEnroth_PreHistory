@@ -621,34 +621,34 @@ extern _UNKNOWN unk_506990; // weak
 extern int dword_506E68; // weak
 extern _WORD byte_506E6C[18]; // idb
 extern int dword_506E90[]; // weak
-extern int dword_506E94; // weak
-extern int dword_506E98; // weak
-extern int dword_506E9C; // weak
-extern int dword_506EA0; // weak
-extern int dword_506EA4; // weak
-extern int dword_506EA8; // weak
-extern int dword_506EAC; // weak
-extern int dword_506EB0; // weak
-extern int dword_506EB4; // weak
-extern int dword_506EB8; // weak
-extern int dword_506EBC; // weak
-extern int dword_506EC0; // weak
-extern int dword_506EC4; // weak
-extern int dword_506EC8; // weak
-extern int dword_506ECC; // weak
-extern int dword_506ED0; // weak
-extern int dword_506ED4; // weak
-extern int dword_506ED8; // weak
-extern int dword_506EDC; // weak
-extern int dword_506EE0; // weak
-extern int dword_506EE4; // weak
-extern int dword_506EE8; // weak
-extern int dword_506EEC; // weak
-extern int dword_506EF0; // weak
-extern int dword_506EF4; // weak
-extern int dword_506EF8; // weak
+//int dword_506E94; // dword_506E90[1]
+//int dword_506E98; // [2]
+//int dword_506E9C; // [3]
+//int dword_506EA0; // [4]
+//int dword_506EA4; // [5]
+//int dword_506EA8; // [6]
+//int dword_506EAC; // [7]
+//int dword_506EB0; // [8]
+//int dword_506EB4; // [9]
+//int dword_506EB8; // [10]
+//int dword_506EBC; // [11]
+//int dword_506EC0; // [12]
+//int dword_506EC4; // [13]
+//int dword_506EC8; // [14]
+//int dword_506ECC; // [15]
+//int dword_506ED0; // [16]
+//int dword_506ED4; // [17]
+//int dword_506ED8; // [18]
+//int dword_506EDC; // [19]
+//int dword_506EE0; // [20]
+//int dword_506EE4; // [21]
+//int dword_506EE8; // [22]
+//int dword_506EEC; // [23]
+//int dword_506EF0; // [24]
+//int dword_506EF4; // [25]
+//int dword_506EF8; // [26]
+//int dword_506EFC; // [27]
 
-extern int dword_506EFC; // weak
 extern int dword_506F08; // weak
 extern int dword_506F0C; // weak
 extern int dword_506F10; // weak
@@ -844,36 +844,38 @@ extern int dword_507C18; // weak
 extern int dword_507C1C; // weak
 extern int dword_507C20; // weak
 extern int dword_507C24; // weak
-extern int dword_507C28[array_size_unknown]; // weak
-extern int dword_507C2C; // weak
-extern int dword_507C30; // weak
-extern int dword_507C34; // weak
-extern int dword_507C38; // weak
-extern int dword_507C3C; // weak
-extern int dword_507C40; // weak
-extern int dword_507C44; // weak
-extern int dword_507C48; // weak
-extern int dword_507C4C; // weak
+
+extern unsigned int uTextureID_GammaPositions[]; // dword[10] @ MM7.exe::00507C28
+//int dword_507C2C; // weak
+//int dword_507C30; // weak
+//int dword_507C34; // weak
+//int dword_507C38; // weak
+//int dword_507C3C; // weak
+//int dword_507C40; // weak
+//int dword_507C44; // weak
+//int dword_507C48; // weak
+//int dword_507C4C; // weak
+
 extern int dword_507C50; // weak
 extern int dword_507C54; // weak
 extern int dword_507C58; // weak
 extern int dword_507C60; // weak
-extern int dword_507C64[array_size_unknown]; // weak
-extern int dword_507C68; // weak
-extern int dword_507C6C; // weak
+extern unsigned int dword_507C64_TextureID[]; // weak
+//extern int dword_507C68; // weak
+//extern int dword_507C6C; // weak
 extern int dword_507C70; // weak
 extern int dword_507C74; // weak
 extern int dword_507C84; // weak
-extern int dword_507C88[array_size_unknown]; // weak
-extern int dword_507C8C; // weak
-extern int dword_507C90; // weak
-extern int dword_507C94; // weak
-extern int dword_507C98; // weak
-extern int dword_507C9C; // weak
-extern int dword_507CA0; // weak
-extern int dword_507CA4; // weak
-extern int dword_507CA8; // weak
-extern int dword_507CAC; // weak
+extern unsigned int uTextureID_SoundLevels[]; // dword[10] @ MM7.exe::00507C88
+//int dword_507C8C; // weak
+//int dword_507C90; // weak
+//int dword_507C94; // weak
+//int dword_507C98; // weak
+//int dword_507C9C; // weak
+//int dword_507CA0; // weak
+//int dword_507CA4; // weak
+//int dword_507CA8; // weak
+//int dword_507CAC; // weak
 extern int dword_507CB0; // weak
 extern int dword_507CB4; // weak
 extern int dword_507CB8; // weak

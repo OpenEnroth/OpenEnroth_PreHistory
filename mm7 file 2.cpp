@@ -8366,122 +8366,122 @@ void __cdecl sub_4142D3()
     v8 = sub_414D24(0);//colored or white text flag
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 127, 142, v7, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 23, 163, "ÍÀÇÀÄ", 0, 0, 0);
-    v9 = sub_45AE2C(dword_506E94);
+    v9 = sub_45AE2C(dword_506E90[1]);
     v10 = sub_414D24((void *)1);//colored or white text flag
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 127, 163, v9, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 23, 184, "ÂËÅÂÎ", 0, 0, 0);
-    v11 = sub_45AE2C(dword_506E98);
+    v11 = sub_45AE2C(dword_506E90[2]);
     v12 = sub_414D24((void *)2);//colored or white text flag
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 127, 184, v11, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 23, 205, "ÂÏÐÀÂÎ", 0, 0, 0);
-    v13 = sub_45AE2C(dword_506E9C);
+    v13 = sub_45AE2C(dword_506E90[3]);
     v14 = sub_414D24((void *)3);//colored or white text flag
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 127, 205, v13, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 23, 226, "ÊÐÈÊ", 0, 0, 0);
-    v15 = sub_45AE2C(dword_506EA0);
+    v15 = sub_45AE2C(dword_506E90[4]);
     v16 = sub_414D24((void *)4);//colored or white text flag
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 127, 226, v15, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 23, 247, "ÏÐÛÆÎÊ", 0, 0, 0);
-    v17 = sub_45AE2C(dword_506EA4);
+    v17 = sub_45AE2C(dword_506E90[5]);
     v18 = sub_414D24((void *)5);//colored or white text flag
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 127, 247, v17, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 23, 268, "Ï.ÐÅÆÈÌ", 0, 0, 0);
-    v19 = sub_45AE2C(dword_506EA8);
+    v19 = sub_45AE2C(dword_506E90[6]);
     v20 = sub_414D24((void *)6);//colored or white text flag
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 127, 268, v19, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 247, 142, "ÏÐÈÌ. ÇÀÊË.", 0, 0, 0);
-    v21 = sub_45AE2C(dword_506EAC);
+    v21 = sub_45AE2C(dword_506E90[7]);
     v22 = sub_414D24((void *)7);//etc
     v6 = 350;
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 350, 142, v21, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 247, 163, "ÀÒÀÊÀ", 0, 0, 0);
-    v23 = sub_45AE2C(dword_506EB0);
+    v23 = sub_45AE2C(dword_506E90[8]);
     v24 = sub_414D24((void *)8);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 350, 163, v23, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 247, 184, "ÄÅÉÑÒÂ.", 0, 0, 0);
-    v25 = sub_45AE2C(dword_506EB4);
+    v25 = sub_45AE2C(dword_506E90[9]);
     v26 = sub_414D24((void *)9);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 350, 184, v25, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 247, 205, "ÇÀÊËÈÍ.", 0, 0, 0);
-    v27 = sub_45AE2C(dword_506EB8);
-    v28 = sub_414D24((void *)0xA);
+    v27 = sub_45AE2C(dword_506E90[10]);
+    v28 = sub_414D24((void *)10);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 350, 205, v27, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 247, 226, "ÈÃÐÎÊ", 0, 0, 0);
-    v29 = sub_45AE2C(dword_506EBC);
-    v30 = sub_414D24((void *)0xB);
+    v29 = sub_45AE2C(dword_506E90[11]);
+    v30 = sub_414D24((void *)11);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 350, 226, v29, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 247, 247, "ÑËÅÄ. ÈÃÐÎÊ", 0, 0, 0);
-    v31 = sub_45AE2C(dword_506EC0);
-    v32 = sub_414D24((void *)0xC);
+    v31 = sub_45AE2C(dword_506E90[12]);
+    v32 = sub_414D24((void *)12);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 350, 247, v31, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 247, 268, "ÇÀÄÀÍÈß", 0, 0, 0);
     v65 = 0;
     v64 = 0;
     v63 = 0;
-    v62 = sub_45AE2C(dword_506EC4);
+    v62 = sub_45AE2C(dword_506E90[13]);
     v61 = 13;
   }
   else
   {
     Render_DrawIndexedTexture(pD3DRenderer, 127, 302, (cTexture *)(dword_507C04 != -1 ? 72 * dword_507C04 + 7145548 : 0));
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 23, 142, "Á. ÑÏÐÀÂÊÀ", 0, 0, 0);
-    v33 = sub_45AE2C(dword_506EC8);
-    v34 = sub_414D24((void *)0xE);
+    v33 = sub_45AE2C(dword_506E90[14]);
+    v34 = sub_414D24((void *)14);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 127, 142, v33, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 23, 163, "ÎÒÄÛÕ", 0, 0, 0);
-    v35 = sub_45AE2C(dword_506ECC);
-    v36 = sub_414D24((void *)0xF);
+    v35 = sub_45AE2C(dword_506E90[15]);
+    v36 = sub_414D24((void *)15);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 127, 163, v35, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 23, 184, "ÒÅÊ. ÂÐÅÌß", 0, 0, 0);
-    v37 = sub_45AE2C(dword_506ED0);
-    v38 = sub_414D24((void *)0x10);
+    v37 = sub_45AE2C(dword_506E90[16]);
+    v38 = sub_414D24((void *)16);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 127, 184, v37, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 23, 205, "ÀÂÒÎÇÀÌÅÒÊÈ", 0, 0, 0);
-    v39 = sub_45AE2C(dword_506ED4);
-    v40 = sub_414D24((void *)0x11);
+    v39 = sub_45AE2C(dword_506E90[17]);
+    v40 = sub_414D24((void *)17);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 127, 205, v39, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 23, 226, "ÊÀÐÒÀ", 0, 0, 0);
-    v41 = sub_45AE2C(dword_506ED8);
-    v42 = sub_414D24((void *)0x12);
+    v41 = sub_45AE2C(dword_506E90[18]);
+    v42 = sub_414D24((void *)18);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 127, 226, v41, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 23, 247, "ÁÅÆÀÒÜ", 0, 0, 0);
-    v43 = sub_45AE2C(dword_506EDC);
-    v44 = sub_414D24((void *)0x13);
+    v43 = sub_45AE2C(dword_506E90[19]);
+    v44 = sub_414D24((void *)19);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 127, 247, v43, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 23, 268, "Ñ.ÂÂÅÐÕ", 0, 0, 0);
-    v45 = sub_45AE2C(dword_506EE0);
-    v46 = sub_414D24((void *)0x14);
+    v45 = sub_45AE2C(dword_506E90[20]);
+    v46 = sub_414D24((void *)20);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 127, 268, v45, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 247, 142, "ÑÌ.ÂÍÈÇ", 0, 0, 0);
-    v47 = sub_45AE2C(dword_506EE4);
-    v48 = sub_414D24((void *)0x15);
+    v47 = sub_45AE2C(dword_506E90[21]);
+    v48 = sub_414D24((void *)21);
     v6 = 350;
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 350, 142, v47, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 247, 163, "ÑÌ. ÂÏÅÐÅÄ", 0, 0, 0);
-    v49 = sub_45AE2C(dword_506EE8);
-    v50 = sub_414D24((void *)0x16);
+    v49 = sub_45AE2C(dword_506E90[22]);
+    v50 = sub_414D24((void *)22);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 350, 163, v49, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 247, 184, "ÏÐÈÁËÈÇ", 0, 0, 0);
-    v51 = sub_45AE2C(dword_506EEC);
-    v52 = sub_414D24((void *)0x17);
+    v51 = sub_45AE2C(dword_506E90[23]);
+    v52 = sub_414D24((void *)23);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 350, 184, v51, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 247, 205, "ÎÒÄÀËÈÒÜ", 0, 0, 0);
-    v53 = sub_45AE2C(dword_506EF0);
-    v54 = sub_414D24((void *)0x18);
+    v53 = sub_45AE2C(dword_506E90[24]);
+    v54 = sub_414D24((void *)24);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 350, 205, v53, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 247, 226, "Ï.ÂÂÅÐÕ", 0, 0, 0);
-    v55 = sub_45AE2C(dword_506EF4);
-    v56 = sub_414D24((void *)0x19);
+    v55 = sub_45AE2C(dword_506E90[25]);
+    v56 = sub_414D24((void *)25);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 350, 226, v55, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 247, 247, "Ï.ÂÍÈÇ", 0, 0, 0);
-    v57 = sub_45AE2C(dword_506EF8);
-    v58 = sub_414D24((void *)0x1A);
+    v57 = sub_45AE2C(dword_506E90[26]);
+    v58 = sub_414D24((void *)26);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 350, 247, v57, 0, 0, 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 247, 268, "ÇÅÌËß", 0, 0, 0);
     v65 = 0;
     v64 = 0;
     v63 = 0;
-    v62 = sub_45AE2C(dword_506EFC);
+    v62 = sub_45AE2C(dword_506E90[27]);
     v61 = 27;
   }
   v60 = sub_414D24((void *)v61);
@@ -8508,11 +8508,10 @@ void __cdecl sub_414D9A()
   {
     if (pD3DRenderer->IsGammaControlSupported())
     {
-      Render_DrawIndexedTexture(
-        pD3DRenderer,
+      Render_DrawIndexedTexture(pD3DRenderer,
         17 * dword_4E2900_GammaPos + 42,
         162,
-        (cTexture *)(dword_507C28[dword_4E2900_GammaPos] != -1 ? 72 * dword_507C28[dword_4E2900_GammaPos] + 7145548 : 0));
+        &LODFile_Icons_LOD.aLODHeaders[uTextureID_GammaPositions[dword_4E2900_GammaPos]]);
       Render_DrawRGBTexture(pD3DRenderer, 274, 169, pClass33_global3);
       local_08.uFrameX = 22;
       v0 = (char *)pGlobalTXT_LocalizationStrings[226];
@@ -8647,7 +8646,7 @@ LABEL_22:
 }
 
 //----- (00414F82) --------------------------------------------------------
-void __cdecl sub_414F82()
+void __cdecl sub_414F82_DrawGameOptions()
 {
   signed int v0; // eax@1
 
@@ -8663,7 +8662,7 @@ void __cdecl sub_414F82()
     if ( uTurnSpeed == 64 )
       v0 = 1;
   }
-  Render_DrawIndexedTexture(pD3DRenderer, dword_4E2910[v0], 270, (cTexture *)(dword_507C64[v0] != -1 ? 72 * dword_507C64[v0] + 7145548 : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, dword_4E2910[v0], 270, &LODFile_Icons_LOD.aLODHeaders[dword_507C64_TextureID[v0]]);
   if ( dword_6BE374_WalkSoundFlag )
     Render_DrawIndexedTexture(pD3DRenderer, 20, 303, (cTexture *)(dword_507CB4 != -1 ? 72 * dword_507CB4 + 7145548 : 0));
   if ( dword_6BE378_ShowDamageFlag )
@@ -8672,18 +8671,9 @@ void __cdecl sub_414F82()
     Render_DrawIndexedTexture(pD3DRenderer, 128, 325, (cTexture *)(dword_507C84 != -1 ? 72 * dword_507C84 + 7145548 : 0));
   if ( dword_6BE37C )
     Render_DrawIndexedTexture(pD3DRenderer, 20, 325, (cTexture *)(dword_507CB0 != -1 ? 72 * dword_507CB0 + 7145548 : 0));
-  Render_DrawIndexedTexture(pD3DRenderer,
-    17 * uSoundVolumeMultiplier + 265,
-    162,
-    (cTexture *)(dword_507C88[uSoundVolumeMultiplier] != -1 ? 72 * dword_507C88[uSoundVolumeMultiplier] + 7145548 : 0));
-  Render_DrawIndexedTexture(pD3DRenderer,
-    17 * uMusicVolimeMultiplier + 265,
-    216,
-    (cTexture *)(dword_507C88[uMusicVolimeMultiplier] != -1 ? 72 * dword_507C88[uMusicVolimeMultiplier] + 7145548 : 0));
-  Render_DrawIndexedTexture(pD3DRenderer,
-    17 * uVoicesVolumeMultiplier + 265,
-    270,
-    (cTexture *)(dword_507C88[uVoicesVolumeMultiplier] != -1 ? 72 * dword_507C88[uVoicesVolumeMultiplier] + 7145548 : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 17 * uSoundVolumeMultiplier + 265, 162, &LODFile_Icons_LOD.aLODHeaders[uTextureID_SoundLevels[uSoundVolumeMultiplier]]);
+  Render_DrawIndexedTexture(pD3DRenderer, 17 * uMusicVolimeMultiplier + 265, 216, &LODFile_Icons_LOD.aLODHeaders[uTextureID_SoundLevels[uMusicVolimeMultiplier]]);
+  Render_DrawIndexedTexture(pD3DRenderer, 17 * uVoicesVolumeMultiplier + 265, 270, &LODFile_Icons_LOD.aLODHeaders[uTextureID_SoundLevels[uVoicesVolumeMultiplier]]);
 }
 
 //----- (00415180) --------------------------------------------------------
@@ -9843,7 +9833,7 @@ LABEL_142:
               }
               else
               {
-                sub_414F82();
+                sub_414F82_DrawGameOptions();
               }
             }
             else

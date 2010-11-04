@@ -1426,21 +1426,21 @@ LABEL_60:
           struct_576FE8.dword_000048 = v0;
           dword_4E28F8 = 2;
           dword_507C60 = LODFile_Icons_LOD.LODFile_LoadTexture( "ControlBG", 2);
-          dword_507C6C = LODFile_Icons_LOD.LODFile_LoadTexture( "con_16x", 2);
-          dword_507C68 = LODFile_Icons_LOD.LODFile_LoadTexture( "con_32x", 2);
+          dword_507C64_TextureID[2] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"con_16x");
+          dword_507C64_TextureID[1] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"con_32x");
+          dword_507C64_TextureID[0] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"con_Smoo");
           dword_507C70 = LODFile_Icons_LOD.LODFile_LoadTexture( "con_ArrL", 2);
           dword_507C74 = LODFile_Icons_LOD.LODFile_LoadTexture( "con_ArrR", 2);
-          dword_507C64[0] = LODFile_Icons_LOD.LODFile_LoadTexture( "con_Smoo", 2);
-          dword_507CAC = LODFile_Icons_LOD.LODFile_LoadTexture( "convol00", 2);
-          dword_507C88[0] = LODFile_Icons_LOD.LODFile_LoadTexture( "convol10", 2);
-          dword_507C8C = LODFile_Icons_LOD.LODFile_LoadTexture( "convol20", 2);
-          dword_507C90 = LODFile_Icons_LOD.LODFile_LoadTexture( "convol30", 2);
-          dword_507C94 = LODFile_Icons_LOD.LODFile_LoadTexture( "convol40", 2);
-          dword_507C98 = LODFile_Icons_LOD.LODFile_LoadTexture( "convol50", 2);
-          dword_507C9C = LODFile_Icons_LOD.LODFile_LoadTexture( "convol60", 2);
-          dword_507CA0 = LODFile_Icons_LOD.LODFile_LoadTexture( "convol70", 2);
-          dword_507CA4 = LODFile_Icons_LOD.LODFile_LoadTexture( "convol80", 2);
-          dword_507CA8 = LODFile_Icons_LOD.LODFile_LoadTexture( "convol90", 2);
+          uTextureID_SoundLevels[9] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol00");
+          uTextureID_SoundLevels[0] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol10");
+          uTextureID_SoundLevels[1] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol20");
+          uTextureID_SoundLevels[2] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol30");
+          uTextureID_SoundLevels[3] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol40");
+          uTextureID_SoundLevels[4] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol50");
+          uTextureID_SoundLevels[5] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol60");
+          uTextureID_SoundLevels[6] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol70");
+          uTextureID_SoundLevels[7] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol80");
+          uTextureID_SoundLevels[8] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol90");
           dword_507C84 = LODFile_Icons_LOD.LODFile_LoadTexture( "option04", 2);
           dword_507CB0 = LODFile_Icons_LOD.LODFile_LoadTexture( "option03", 2);
           dword_507CB8 = LODFile_Icons_LOD.LODFile_LoadTexture( "option02", 2);
@@ -1449,8 +1449,8 @@ LABEL_60:
           GUIButtonCreate(pGUIWindow_CurrentMenu,
             22,
             270,
-            *(_WORD *)(dword_507C6C != -1 ? 72 * dword_507C6C + 7145548 + 0x18 : 24),
-            *(_WORD *)(dword_507C6C != -1 ? 72 * dword_507C6C + 7145548 + 0x1A : 26),
+            *(_WORD *)(dword_507C64_TextureID[2] != -1 ? 72 * dword_507C64_TextureID[2] + 7145548 + 0x18 : 24),
+            *(_WORD *)(dword_507C64_TextureID[2] != -1 ? 72 * dword_507C64_TextureID[2] + 7145548 + 0x1A : 26),
             v0,
             0,
             184,
@@ -1461,8 +1461,8 @@ LABEL_60:
           GUIButtonCreate(pGUIWindow_CurrentMenu,
             93,
             270,
-            *(_WORD *)(dword_507C68 != -1 ? 72 * dword_507C68 + 7145548 + 0x18 : 24),
-            *(_WORD *)(dword_507C68 != -1 ? 72 * dword_507C68 + 7145548 + 0x1A : 26),
+            *(_WORD *)(dword_507C64_TextureID[1] != -1 ? 72 * dword_507C64_TextureID[1] + 7145548 + 0x18 : 24),
+            *(_WORD *)(dword_507C64_TextureID[1] != -1 ? 72 * dword_507C64_TextureID[1] + 7145548 + 0x1A : 26),
             v0,
             0,
             184,
@@ -1473,8 +1473,8 @@ LABEL_60:
           GUIButtonCreate(pGUIWindow_CurrentMenu,
             164,
             270,
-            *(_WORD *)(dword_507C64[0] != -1 ? 72 * dword_507C64[0] + 7145548 + 0x18 : 24),
-            *(_WORD *)(dword_507C64[0] != -1 ? 72 * dword_507C64[0] + 7145548 + 0x1A : 26),
+            *(_WORD *)(dword_507C64_TextureID[0] != -1 ? 72 * dword_507C64_TextureID[0] + 7145548 + 0x18 : 24),
+            *(_WORD *)(dword_507C64_TextureID[0] != -1 ? 72 * dword_507C64_TextureID[0] + 7145548 + 0x1A : 26),
             v0,
             0,
             184,
@@ -1658,16 +1658,16 @@ LABEL_60:
           dword_507C1C = LODFile_Icons_LOD.LODFile_LoadTexture( "opvdH-tn", 2);
           dword_507C20 = LODFile_Icons_LOD.LODFile_LoadTexture( "con_ArrL", 2);
           dword_507C24 = LODFile_Icons_LOD.LODFile_LoadTexture( "con_ArrR", 2);
-          dword_507C28[0] = LODFile_Icons_LOD.LODFile_LoadTexture( "convol10", 2);
-          dword_507C2C = LODFile_Icons_LOD.LODFile_LoadTexture( "convol20", 2);
-          dword_507C30 = LODFile_Icons_LOD.LODFile_LoadTexture( "convol30", 2);
-          dword_507C34 = LODFile_Icons_LOD.LODFile_LoadTexture( "convol40", 2);
-          dword_507C38 = LODFile_Icons_LOD.LODFile_LoadTexture( "convol50", 2);
-          dword_507C3C = LODFile_Icons_LOD.LODFile_LoadTexture( "convol60", 2);
-          dword_507C40 = LODFile_Icons_LOD.LODFile_LoadTexture( "convol70", 2);
-          dword_507C44 = LODFile_Icons_LOD.LODFile_LoadTexture( "convol80", 2);
-          dword_507C48 = LODFile_Icons_LOD.LODFile_LoadTexture( "convol90", 2);
-          dword_507C4C = LODFile_Icons_LOD.LODFile_LoadTexture( "convol00", 2);
+          uTextureID_GammaPositions[0] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol10");
+          uTextureID_GammaPositions[1] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol20");
+          uTextureID_GammaPositions[2] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol30");
+          uTextureID_GammaPositions[3] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol40");
+          uTextureID_GammaPositions[4] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol50");
+          uTextureID_GammaPositions[5] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol60");
+          uTextureID_GammaPositions[6] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol70");
+          uTextureID_GammaPositions[7] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol80");
+          uTextureID_GammaPositions[8] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol90");
+          uTextureID_GammaPositions[9] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol00");
           dword_507C50 = LODFile_Icons_LOD.LODFile_LoadTexture( "opvdG-bs", 2);
           dword_507C54 = LODFile_Icons_LOD.LODFile_LoadTexture( "opvdG-cl", 2);
           dword_507C58 = LODFile_Icons_LOD.LODFile_LoadTexture( "opvdG-tn", 2);

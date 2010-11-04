@@ -602,34 +602,7 @@ unsigned char stru_506580_MonsterInfoUI_bDollInitialized; // byte   @ MM7.exe::0
  int dword_506E68; // weak
  _WORD byte_506E6C[18]; // idb
  int dword_506E90[30]; // weak
- int dword_506E94; // weak
- int dword_506E98; // weak
- int dword_506E9C; // weak
- int dword_506EA0; // weak
- int dword_506EA4; // weak
- int dword_506EA8; // weak
- int dword_506EAC; // weak
- int dword_506EB0; // weak
- int dword_506EB4; // weak
- int dword_506EB8; // weak
- int dword_506EBC; // weak
- int dword_506EC0; // weak
- int dword_506EC4; // weak
- int dword_506EC8; // weak
- int dword_506ECC; // weak
- int dword_506ED0; // weak
- int dword_506ED4; // weak
- int dword_506ED8; // weak
- int dword_506EDC; // weak
- int dword_506EE0; // weak
- int dword_506EE4; // weak
- int dword_506EE8; // weak
- int dword_506EEC; // weak
- int dword_506EF0; // weak
- int dword_506EF4; // weak
- int dword_506EF8; // weak
 
- int dword_506EFC; // weak
  int dword_506F08; // weak
  int dword_506F0C; // weak
  int dword_506F10; // weak
@@ -822,36 +795,17 @@ struct GUIWindow *ptr_507BE0; // dword @ MM7.exe::00507BE0
  int dword_507C1C; // weak
  int dword_507C20; // weak
  int dword_507C24; // weak
- int dword_507C28[array_size_unknown]; // weak
- int dword_507C2C; // weak
- int dword_507C30; // weak
- int dword_507C34; // weak
- int dword_507C38; // weak
- int dword_507C3C; // weak
- int dword_507C40; // weak
- int dword_507C44; // weak
- int dword_507C48; // weak
- int dword_507C4C; // weak
+
+unsigned int uTextureID_GammaPositions[10]; // dword[10] @ MM7.exe::00507C28
  int dword_507C50; // weak
  int dword_507C54; // weak
  int dword_507C58; // weak
  int dword_507C60; // weak
- int dword_507C64[array_size_unknown]; // weak
- int dword_507C68; // weak
- int dword_507C6C; // weak
+unsigned int dword_507C64_TextureID[3]; // weak
  int dword_507C70; // weak
  int dword_507C74; // weak
  int dword_507C84; // weak
- int dword_507C88[array_size_unknown]; // weak
- int dword_507C8C; // weak
- int dword_507C90; // weak
- int dword_507C94; // weak
- int dword_507C98; // weak
- int dword_507C9C; // weak
- int dword_507CA0; // weak
- int dword_507CA4; // weak
- int dword_507CA8; // weak
- int dword_507CAC; // weak
+unsigned int uTextureID_SoundLevels[10]; // dword[10] @ MM7.exe::00507C88
  int dword_507CB0; // weak
  int dword_507CB4; // weak
  int dword_507CB8; // weak

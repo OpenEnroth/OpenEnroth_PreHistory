@@ -236,7 +236,7 @@ void __cdecl sub_41420D();
 void __cdecl sub_41426F();
 void __cdecl sub_4142D3();
 void __cdecl sub_414D9A();
-void __cdecl sub_414F82();
+void __cdecl sub_414F82_DrawGameOptions();
 void GUIButton_sub_415180(struct GUIButton *a1, const unsigned char *a2, struct Font *a3, __int16 a4, char *a5);
 char *__cdecl sub_415485();
 void GUIWindow_sub_415551(GUIWindow *_this, int a2);
