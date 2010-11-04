@@ -19,27 +19,27 @@ void *hStdHandle = 0;
 //static int st_dword_6A0CA4; // weak	dword_6A0CA4;
 //-----------------------------.text:0046358C----------------
  
-LODFile_sp::LODFile_sp()
+LODFile_IB::LODFile_IB()
 {
 
 	 for (int i=0; i<1000; i++)
 		 cTexture_Zero(&aLODHeaders[i]);
 	 uNumLoadedFiles=0;
-	 dword_011B80=0;//
-	 dword_011B84=0; //
+	 lod_IB_dword_011B80=0;//
+	 lod_IB_dword_011B84=0; //
 
-	 dword_011B98=0; //
-	 dword_011B9C=0; //
+	 lod_IB_dword_011B98=0; //
+	 lod_IB_dword_011B9C=0; //
 
-	 dword_011BA4=0; //
-	 dword_011BA8=0; //
+	 lod_IB_dword_011BA4=0; //
+	 lod_IB_dword_011BA8=0; //
 	 pHardwareSurfaces=NULL;
 	 pHardwareTextures=NULL;
-	 dword_011BB4=NULL;
+	 lod_IB_dword_011BB4=NULL;
 	 
 }
  //-------------------------------------------.text:0046361D------
- LODFile_sp::~LODFile_sp()
+ LODFile_IB::~LODFile_IB()
 {
 
 	 for (int i=0; i<uNumLoadedFiles; i++)
@@ -62,8 +62,8 @@ LODFile_sp::LODFile_sp()
 		 delete(pHardwareSurfaces);
 	 if (pHardwareTextures)
 		 delete(pHardwareTextures);
-	 if (dword_011BB4)
-		 delete(dword_011BB4);
+	 if (lod_IB_dword_011BB4)
+		 delete(lod_IB_dword_011BB4);
 
 }
 
@@ -617,7 +617,7 @@ unsigned int LOD_Writefile::Add_Container_to_File(const LODIndex *container_inde
 
 
 //----- (MM7.exe::0041088B) --------------------------------------------------------
-void *LODFile_sp::LODFile_LoadRaw( const char *pContainer, int a3)
+void *LODFile_IB::LODFile_LoadRaw( const char *pContainer, int a3)
 {
   unsigned char *result; // ebx@7
   unsigned char *v8; // edi@7
@@ -692,12 +692,12 @@ void *LODFile_sp::LODFile_LoadRaw( const char *pContainer, int a3)
 
 
 //----- (MM7.exe::0040FC08) --------------------------------------------------------
-int LODFile_sp::LODFile_LoadPalette(cTexture *pcTexture, const char *pContainerName, unsigned int uSomeInt)
+int LODFile_IB::LODFile_LoadPalette(cTexture *pcTexture, const char *pContainerName, unsigned int uSomeInt)
 {
   //int v4; // eax@1
   int v5; // ebx@1
   int v6; // edi@1
-  cTexture *v8; // esi@3
+  
   void *v9; // ST24_4@8
   int v10; // esi@14
   size_t v11; // eax@14
@@ -724,29 +724,29 @@ int LODFile_sp::LODFile_LoadPalette(cTexture *pcTexture, const char *pContainerN
                 *pDecompressedBuffer;
   unsigned char aReadBuf[4];
   int   i;
-  FILE *f;
-
-  v5 = (int)pContainerName;
-  v6 = (int)this;
+  FILE *texture_file;
+  cTexture *v8; // esi@3
+ // v5 = (int)pContainerName;
+ // v6 = (int)this;
   v8 = pcTexture;
 
-  f = Find_Container(pContainerName, 0);
-  if (!f)
+  texture_file = Find_Container(pContainerName, 0);
+  if (!texture_file)
 	  return -1;
 
-  locked_fread(pcTexture, 1, 0x30, f);
+  locked_fread(pcTexture, 1, sizeof(cTexture), texture_file);
   strcpy(pcTexture->sContainerName, pContainerName);
 
-  if ((pD3DRenderer->pRenderD3D3) && (pcTexture->word_00002C & 0x0002) &&  dword_011BA8)
+  if ((pD3DRenderer->pRenderD3D3) && (pcTexture->word_00002C & 0x0002) &&  lod_IB_dword_011BA8)
 	  {
 	  if ( !pHardwareSurfaces || !pHardwareTextures )
 		  {
 		  pHardwareSurfaces = new IDirectDrawSurface4 *[1000];
 		  pHardwareTextures = new IDirect3DTexture2 *[1000];
-		  dword_011BB4 = new int *[250];
+		  lod_IB_dword_011BB4 = new int *[250];
 		  memset(*pHardwareTextures, 0, 4000);
 		  memset(*pHardwareSurfaces, 0, 4000);
-		  memset(*dword_011BB4, 0, 1000);
+		  memset(*lod_IB_dword_011BB4, 0, 1000);
 		  }
 	  if ( pContainerName[0] == 'w'		//wtrdr
 		  && pContainerName[1] == 't'
@@ -754,18 +754,20 @@ int LODFile_sp::LODFile_LoadPalette(cTexture *pcTexture, const char *pContainerN
 		  && pContainerName[3] == 'd'
 		  && pContainerName[4] == 'r' )
 		  {
-		  v11 = strlen(pContainerName)+2;
-		  v12 = (char*)operator new(v11);
+		 
+		  v12 = (char*) malloc(strlen(pContainerName)+2);
 		  //uSomeInt = v12;
 		  v12[0] = 'h';
 		  strcpy((char *)(v12 + 1), (const char *) pContainerName[0]);
+
 		  v10 = Render_sub_4A4DE1(
 			  (int)pD3DRenderer,
 			  (int)v12,
 			  pcTexture->word_000024,
 			  (int)pHardwareSurfaces[uNumLoadedFiles],
 			  (int)pHardwareTextures[uNumLoadedFiles]);
-		  delete(v12);
+
+		  free(v12);
 		  }
 	  else
 		  {
@@ -792,17 +794,17 @@ int LODFile_sp::LODFile_LoadPalette(cTexture *pcTexture, const char *pContainerN
 
 
 
- if (!pcTexture->uDecompressedSize ||  dword_011BA4)
+ if (!pcTexture->uDecompressedSize ||  lod_IB_dword_011BA4)
  {
   pcTexture->pIndexedPixels = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->pIndexedPixels, pcTexture->uCompressedSize, pcTexture->sContainerName);
-  locked_fread(pcTexture->pIndexedPixels, 1u, pcTexture->uCompressedSize, f);
+  locked_fread(pcTexture->pIndexedPixels, 1u, pcTexture->uCompressedSize, texture_file);
  }
  else
  {
   pCompressedBuffer = (unsigned char *)malloc(pcTexture->uCompressedSize);
   pDecompressedBuffer = (unsigned char *)malloc(pcTexture->uDecompressedSize);
 
-  locked_fread(pCompressedBuffer, 1, pcTexture->uCompressedSize, f);
+  locked_fread(pCompressedBuffer, 1, pcTexture->uCompressedSize, texture_file);
   MemUnzip(pDecompressedBuffer, &pcTexture->uDecompressedSize, pCompressedBuffer, pcTexture->uCompressedSize);
  free(pCompressedBuffer);
 
@@ -833,7 +835,9 @@ int LODFile_sp::LODFile_LoadPalette(cTexture *pcTexture, const char *pContainerN
   }
   else
   {
-   pcTexture->pIndexedPixels = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->pIndexedPixels, pcTexture->uDecompressedSize, pcTexture->sContainerName);
+   //pcTexture->pIndexedPixels = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->pIndexedPixels, pcTexture->uDecompressedSize, pcTexture->sContainerName);
+  //allocate  ARGB texture size 
+   pcTexture->pIndexedPixels = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->pIndexedPixels,pcTexture->uTextureHeight*pcTexture->uTextureWidth*4 , pcTexture->sContainerName);
    memcpy(pcTexture->pIndexedPixels, pDecompressedBuffer, pcTexture->uDecompressedSize);
   }
   free(pDecompressedBuffer);
@@ -846,7 +850,7 @@ int LODFile_sp::LODFile_LoadPalette(cTexture *pcTexture, const char *pContainerN
  if (uSomeInt == 1)
  {
   pcTexture->ptr_000044 = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->ptr_000044, 768, pcTexture->sContainerName);
-  locked_fread(pcTexture->ptr_000044, 1u, 0x300u, f);
+  locked_fread(pcTexture->ptr_000044, 1, 768, texture_file);
 
 LABEL_35:
   pcTexture->pPalette = 0;
@@ -860,11 +864,11 @@ LABEL_35:
  pcTexture->pPalette = (unsigned short *)mem_mng.AllocatedNamedBuffer( pcTexture->pPalette, 512, pcTexture->sContainerName);
  for (i = 0; i < 256; ++i)
  {
-  locked_fread(aReadBuf, 3, 1, f);
+  locked_fread(aReadBuf, 3, 1, texture_file);
 
-  pcTexture->pPalette[i] = (aReadBuf[0] >> (8 -  dword_011B8C)) << ( dword_011B94 +  dword_011B90);
-  pcTexture->pPalette[i] += (aReadBuf[1] >> (8 -  dword_011B90)) <<  dword_011B94;
-  pcTexture->pPalette[i] += aReadBuf[2] >> (8 -  dword_011B94);
+  pcTexture->pPalette[i] = (aReadBuf[0] >> (8 -  lod_IB_dword_011B8C)) << ( lod_IB_dword_011B94 + lod_IB_dword_011B90);
+  pcTexture->pPalette[i] += (aReadBuf[1] >> (8 -  lod_IB_dword_011B90)) <<  lod_IB_dword_011B94;
+  pcTexture->pPalette[i] += aReadBuf[2] >> (8 -  lod_IB_dword_011B94);
  }
 
 LABEL_36:
@@ -900,40 +904,42 @@ LABEL_48:
  {
   ++v41;
   if ( v41 >= 15 )
-    goto LABEL_53;
- }
- pcTexture->word_00001E = v41;
-
-LABEL_53:
- switch (pcTexture->word_00001C)
+	  {
+  		  switch (pcTexture->word_00001C)
  {
-  case 2:   *((_WORD *)v8 + 16) = 3;    break;
-  case 3:   *((_WORD *)v8 + 16) = 7;    break;
-  case 4:   *((_WORD *)v8 + 16) = 15;   break;
-  case 5:   *((_WORD *)v8 + 16) = 31;   break;
-  case 6:   *((_WORD *)v8 + 16) = 63;   break;
-  case 7:   *((_WORD *)v8 + 16) = 127;  break;
-  case 8:   *((_WORD *)v8 + 16) = 255;  break;
-  case 9:   *((_WORD *)v8 + 16) = 511;  break;
-  case 10:  *((_WORD *)v8 + 16) = 1023; break;
-  case 11:  *((_WORD *)v8 + 16) = 2047; break;
-  case 12:  *((_WORD *)v8 + 16) = 4095; break;
+  case 2:   pcTexture->word_000020 = 3;    break;
+  case 3:   pcTexture->word_000020 = 7;    break;
+  case 4:   pcTexture->word_000020 = 15;   break;
+  case 5:   pcTexture->word_000020 = 31;   break;
+  case 6:   pcTexture->word_000020 = 63;   break;
+  case 7:   pcTexture->word_000020 = 127;  break;
+  case 8:   pcTexture->word_000020 = 255;  break;
+  case 9:   pcTexture->word_000020 = 511;  break;
+  case 10:  pcTexture->word_000020 = 1023; break;
+  case 11:  pcTexture->word_000020 = 2047; break;
+  case 12:  pcTexture->word_000020 = 4095; break;
  }
 
  switch (pcTexture->word_00001E)
  {
-  case 2:   *((_WORD *)v8 + 17) = 3;    break;
-  case 3:   *((_WORD *)v8 + 17) = 7;    break;
-  case 4:   *((_WORD *)v8 + 17) = 15;   break;
-  case 5:   *((_WORD *)v8 + 17) = 31;   break;
-  case 6:   *((_WORD *)v8 + 17) = 63;   break;
-  case 7:   *((_WORD *)v8 + 17) = 127;  break;
-  case 8:   *((_WORD *)v8 + 17) = 255;  break;
-  case 9:   *((_WORD *)v8 + 17) = 511;  break;
-  case 10:  *((_WORD *)v8 + 17) = 1023; break;
-  case 11:  *((_WORD *)v8 + 17) = 2047; break;
-  case 12:  *((_WORD *)v8 + 17) = 4095; break;
+  case 2:   pcTexture->word_000022 = 3;    break;
+  case 3:   pcTexture->word_000022 = 7;    break;
+  case 4:   pcTexture->word_000022 = 15;   break;
+  case 5:   pcTexture->word_000022 = 31;   break;
+  case 6:   pcTexture->word_000022 = 63;   break;
+  case 7:   pcTexture->word_000022 = 127;  break;
+  case 8:   pcTexture->word_000022 = 255;  break;
+  case 9:   pcTexture->word_000022 = 511;  break;
+  case 10:  pcTexture->word_000022 = 1023; break;
+  case 11:  pcTexture->word_000022 = 2047; break;
+  case 12:  pcTexture->word_000022 = 4095; break;
  }
+	  }
+ }
+ pcTexture->word_00001E = v41;
+
+
+ 
 
  return 1;
 }
@@ -941,7 +947,7 @@ LABEL_53:
 
 //----- (0041097D) --------------------------------------------------------
 ////int __thiscall sub_41097D(void *_this, int a2, int a3, int a4);
-int LODFile_sp::LODFile_SetupPalettes( int a2, int a3, int a4)
+int LODFile_IB::LODFile_SetupPalettes( int a2, int a3, int a4)
 {
  //depricated, though somehow sets font colors
  compile_warning
@@ -956,11 +962,11 @@ int LODFile_sp::LODFile_SetupPalettes( int a2, int a3, int a4)
  cTexture  cTexture_obj;
 
 
- if ( dword_011B8C != a2 ||  dword_011B90 != a3 ||  dword_011B94 != a4)
+ if ( lod_IB_dword_011B8C != a2 ||  lod_IB_dword_011B90 != a3 ||  lod_IB_dword_011B94 != a4)
  {
-   dword_011B8C = a2;
-   dword_011B90 = a3;
-   dword_011B94 = a4;
+   lod_IB_dword_011B8C = a2;
+   lod_IB_dword_011B90 = a3;
+   lod_IB_dword_011B94 = a4;
   if (! uNumLoadedFiles)
     return 0;
 
@@ -985,12 +991,12 @@ int LODFile_sp::LODFile_SetupPalettes( int a2, int a3, int a4)
     locked_fread(data + 1, 1, 1, f);
     locked_fread(data + 2, 1, 1, f);
 
-    v14 = (unsigned short)(data[0] >> (8 - (unsigned char)( dword_011B8C)));
-    v15 = (unsigned short)(data[1] >> (8 - (unsigned char)( dword_011B90)));
+    v14 = (unsigned short)(data[0] >> (8 - (unsigned char)( lod_IB_dword_011B8C)));
+    v15 = (unsigned short)(data[1] >> (8 - (unsigned char)( lod_IB_dword_011B90)));
 
-    pcTexture->pPalette[j] = v14 << ((unsigned char)( dword_011B90) + (unsigned char)( dword_011B94));
-    pcTexture->pPalette[j] |= v15 << (unsigned char)( dword_011B94);
-    pcTexture->pPalette[j] |= data[2] >> (8 - (unsigned char)( dword_011B94));
+    pcTexture->pPalette[j] = v14 << ((unsigned char)( lod_IB_dword_011B90) + (unsigned char)( lod_IB_dword_011B94));
+    pcTexture->pPalette[j] |= v15 << (unsigned char)( lod_IB_dword_011B94);
+    pcTexture->pPalette[j] |= data[2] >> (8 - (unsigned char)( lod_IB_dword_011B94));
    }
   }
  }
@@ -999,7 +1005,7 @@ int LODFile_sp::LODFile_SetupPalettes( int a2, int a3, int a4)
 }
 
 //----- (004114F2) --------------------------------------------------------
-int LODFile_sp::LODFile_sub_4114F2()
+int LODFile_IB::LODFile_sub_4114F2()
 {
   int result; // eax@1
   int v2; // ecx@1
@@ -1013,16 +1019,16 @@ int LODFile_sp::LODFile_sub_4114F2()
   int v10; // eax@9
 
   v3 = (int)this;
-  result = (int)& dword_011B9C;
-  v2 =  dword_011B9C;
+  result = (int)& lod_IB_dword_011B9C;
+  v2 =  lod_IB_dword_011B9C;
   if ( v2 )
   {
     v4 = v2 - 1;
-     dword_011B9C = v4;
+     lod_IB_dword_011B9C = v4;
     if ( !v4 )
     {
       v5 =  uNumLoadedFiles - 1;
-      if ( v5 >=  dword_011B98)
+      if ( v5 >=  lod_IB_dword_011B98)
       {
         v6 = (int)& aLODHeaders[v5];
         do
@@ -1063,7 +1069,7 @@ int LODFile_sp::LODFile_sub_4114F2()
 
 
 #ifndef	OLD_CODE
-unsigned int LODFile_sp::LODFile_LoadTexture_New(const wchar_t *pFilename)
+unsigned int LODFile_IB::LODFile_LoadTexture_New(const wchar_t *pFilename)
 {
  void    *hFile;
  DWORD    w;
@@ -1128,7 +1134,7 @@ unsigned int LODFile_sp::LODFile_LoadTexture_New(const wchar_t *pFilename)
 
 
 
-bool LODFile_sp::LODFile_ReleaseTexture( unsigned int uTextureID)
+bool LODFile_IB::LODFile_ReleaseTexture( unsigned int uTextureID)
 {
  return true;
 }	
@@ -1247,7 +1253,7 @@ LABEL_27:
 
 
 //----- (MM7.exe::0040FAEE) -------0040FDE7 -------------------------------------------------
-bool LODFile_sp::LODFile_LoadLOD_Icons_Events( const char *pFilename)
+bool LODFile_IB::LODFile_LoadLOD_Icons_Events( const char *pFilename)
 {
  Reset_TextureBuffs();
  if (!Load_LODHeader( pFilename, 1))
@@ -1255,13 +1261,13 @@ bool LODFile_sp::LODFile_LoadLOD_Icons_Events( const char *pFilename)
 #ifndef OLD_CODE 
  pHardwareSurfaces = new IDirectDrawSurface4 *[1000];
  pHardwareTextures = new IDirect3DTexture2 *[1000];
- dword_011BB4 = new int *[250];
+ lod_IB_dword_011BB4 = new int *[250];
 #endif  
  return  Load_SubIndexes("icons") == 0;
 }
 
 //----- (MM7.exe::0040FA2E) ---------.text:0040FD27 -----------------------------------------------
-bool LODFile_sp::LODFile_LoadLOD_Bitmaps( const char *pFilename)
+bool LODFile_IB::LODFile_LoadLOD_Bitmaps( const char *pFilename)
 {
  Reset_TextureBuffs();
  if (!Load_LODHeader( pFilename, 1))
@@ -1269,7 +1275,7 @@ bool LODFile_sp::LODFile_LoadLOD_Bitmaps( const char *pFilename)
  #ifndef OLD_CODE
  pHardwareSurfaces = new IDirectDrawSurface4 *[1000];
  pHardwareTextures = new IDirect3DTexture2 *[1000];
- dword_011BB4 = new int *[250];
+ lod_IB_dword_011BB4 = new int *[250];
 #endif
 
  return  Load_SubIndexes( "bitmaps") == 0;
@@ -1287,7 +1293,7 @@ bool LODFile_Sprite::LODFile_LoadLOD_Sprites(const char *pFilename)
 
 
 //----LODFile_fn4- (MM7.exe::0040FA60) --------.text:0040FD59------------------------------------------------
-void LODFile_sp::Reset_TextureBuffs()
+void LODFile_IB::Reset_TextureBuffs()
 {
    for (int i=0; i<uNumLoadedFiles; i++)
 		 {
@@ -1307,11 +1313,11 @@ void LODFile_sp::Reset_TextureBuffs()
 		 }
 
      uNumLoadedFiles=0;
-	 dword_011B80=0;//
-	 dword_011B84=0; //
+	 lod_IB_dword_011B80=0;//
+	 lod_IB_dword_011B84=0; //
 
-	 dword_011B98=0; //
-	 dword_011B9C=0; //	
+	 lod_IB_dword_011B98=0; //
+	 lod_IB_dword_011B9C=0; //	
 
 }
 
@@ -1373,7 +1379,7 @@ void LOD_file::Reset_SubIndexBuffer()
 
 
 //----- (MM7.exe::0040FB20) ------.text:0040FE19 --------------------------------------------------
-int LODFile_sp::LODFile_LoadTexture( const char *pContainerName, unsigned int a3)
+int LODFile_IB::LODFile_LoadTexture( const char *pContainerName, unsigned int a3)
 {
   int i; // ebx@8
   int result;
@@ -1482,7 +1488,7 @@ int  LODFile_Sprite::sub_4645DC()
 
 
 //----- (0046454B) ---------------------.text:0046586B -----------------------------------
-int LODFile_sp::sub_46454B()
+int LODFile_IB::sub_46454B()
 {
   int v1; // edi@1
   int v2; // esi@1
@@ -1495,7 +1501,7 @@ int LODFile_sp::sub_46454B()
 
   v2 = (int)this;
  // v1 =  ;
-  if ( (uNumLoadedFiles - 1) >=  dword_011B84)
+  if ( (uNumLoadedFiles - 1) >=  lod_IB_dword_011B84)
   {
     //v3 = v2 + 72 * v1 + 572;
     v3 = & aLODHeaders[v1];
@@ -1526,7 +1532,7 @@ int LODFile_sp::sub_46454B()
       --v1;
       v3 -= 72;
     }
-    while ( v1 >=  dword_011B84);
+    while ( v1 >=  lod_IB_dword_011B84);
   }
   result = *(_DWORD *)(v2 + 72580);
   *(_DWORD *)(v2 + 72604) = 0;
@@ -1535,7 +1541,7 @@ int LODFile_sp::sub_46454B()
   return result;
 }
 
-unsigned char *LODFile_sp::LODFile_LoadEvent(const wchar_t *pFilename)
+unsigned char *LODFile_IB::LODFile_LoadEvent(const wchar_t *pFilename)
 {
  DWORD          w;
  void          *hFile;
@@ -1559,7 +1565,7 @@ unsigned char *LODFile_sp::LODFile_LoadEvent(const wchar_t *pFilename)
 	}
 
 //----- (004101B1) --------------------------------------------------------
-signed int  LODFile_sp::LODFile_sub_4101B1( char *DstBuf, const char *Source, size_t Count)
+signed int  LODFile_IB::LODFile_sub_4101B1( char *DstBuf, const char *Source, size_t Count)
 {
   FILE* v4; // eax@1
   int v5; // edi@1
@@ -1638,7 +1644,7 @@ signed int  LODFile_sp::LODFile_sub_4101B1( char *DstBuf, const char *Source, si
 
 
 //----- (0040F9C5) --------------------------------------------------------
-int  LODFile_sp::LODFile_sub_40F9C5()
+int  LODFile_IB::LODFile_sub_40F9C5()
 {
   int result; // eax@1
   int i; // edx@1
@@ -1655,7 +1661,7 @@ int  LODFile_sp::LODFile_sub_40F9C5()
 }
 
 //----- (0040F9F0) --------------------------------------------------------
-signed int  LODFile_sp::LODFile_sub_40F9F0( const char *Str2)
+signed int  LODFile_IB::LODFile_sub_40F9F0( const char *Str2)
 {
   signed int v2; // edi@1
   int v3; // esi@1
@@ -1685,7 +1691,7 @@ LABEL_5:
 }
 
 //----- (00410522) --------------------------------------------------------
-signed int LODFile_sp::LODFile_sub_410522( void *DstBuf, const char *Source, int a4)
+signed int LODFile_IB::LODFile_sub_410522( void *DstBuf, const char *Source, int a4)
 {
   int v4; // edi@1
   unsigned int v5; // eax@5
@@ -1897,7 +1903,7 @@ LABEL_28:
 }
 
 //----- (004355F7) --------------------------------------------------------
-void LODFile_sp::sub_4355F7()
+void LODFile_IB::sub_4355F7()
 {
   int v1; // esi@1
   int v2; // edi@2
@@ -2042,7 +2048,7 @@ if ( tmp_file )
 	Lindx.reserved1=0;		   //18h 24 
 	Lindx.uSubIndixes=uNumSubidices;		   //1ch 28
 	Lindx.reserved3=0;		   // 1Eh 30
-	locked_fwrite(&Lindx, 0x20u, 1, tmp_file);
+	locked_fwrite(&Lindx, sizeof(LODIndex), 1, tmp_file);
 	locked_fwrite(pLODSubIndexNamedBuffer, sizeof(LODIndex), uNumSubidices, tmp_file);
 	fseek(ptemp_write_file, 0, 0);
 	if ( total_size > 0 )
@@ -2164,7 +2170,7 @@ int   LODFile_Sprite::Delete_sprites_Range( int start_indx, int stop_indx)
 
 
 //----- (004103BB) --------------------------------------------------------
-void LODFile_sp::sub_4103BB()
+void LODFile_IB::sub_4103BB()
 {
   int v1; // edi@1
   int v2; // esi@1
@@ -2255,7 +2261,7 @@ void  LODFile_Sprite::sub_4ACB70()
 
 
 //----- (00410423) --------------------------------------------------------
-void   LODFile_sp::sub_410423()
+void   LODFile_IB::sub_410423()
 {
   int v1; // edi@1
   int v2; // esi@1
@@ -2392,7 +2398,7 @@ void  LODFile_Sprite::sub_4ACADA()
 }
 
 //----- (0041033D) --------------------------------------------------------
-void  LODFile_sp::sub_41033D()
+void  LODFile_IB::sub_41033D()
 {
   int i; // ebx@1
   int v2; // edi@1

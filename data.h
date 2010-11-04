@@ -180,9 +180,9 @@ extern PCMWAVEFORMAT sPCMWaveFormat;
 
 
 extern struct BaseRender *pD3DRenderer;
-extern class LODFile_sp      LODFile_Icons_LOD;
-extern class LODFile_sp      LODFile_Events_LOD;
-extern class LODFile_sp      LODFile_Bitmaps_LOD;
+extern class LODFile_IB      LODFile_Icons_LOD;
+extern class LODFile_IB      LODFile_Events_LOD;
+extern class LODFile_IB      LODFile_Bitmaps_LOD;
 extern class LODFile_Sprite      LODFile_Sprites_LOD;
 extern struct AudioPlayer  *pAudioPlayer;
 extern struct CVideoPlayer *pVideoPlayer;

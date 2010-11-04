@@ -7179,9 +7179,9 @@ LABEL_23:
         v10 = v25;
       }
     }
-    ++LODFile_Icons_LOD.dword_011B9C;
-    if ( !LODFile_Icons_LOD.dword_011B98 )
-      LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+    ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
+    if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
+      LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
     v16 = sub_44C28B();
     wsprintfA(&Str1, "evt%02d", v16);
     if ( pParty_global->uAlignment )

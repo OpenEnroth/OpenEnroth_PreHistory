@@ -88,35 +88,35 @@ class LOD_file
 
 
 //LODFile
-class LODFile_sp: public  LOD_file
+class LODFile_IB: public  LOD_file
 {
 public:
 
 	 cTexture aLODHeaders[1000];  // cTexture[~ 1000] @ 00023C   	   //48h
      unsigned int uNumLoadedFiles; // dword @ 011B7C	 72572
-     int     dword_011B80;//
-     int     dword_011B84; // 72580
- int     dword_011B88;
- int     dword_011B8C;
- int     dword_011B90;
- int     dword_011B94;
- int     dword_011B98; //	 72600
- int     dword_011B9C; //	72604
- int     dword_011BA0;
- int     dword_011BA4; //
+     int     lod_IB_dword_011B80;//
+     int     lod_IB_dword_011B84; // 72580
+ int     lod_IB_dword_011B88;
+ int     lod_IB_dword_011B8C;
+ int     lod_IB_dword_011B90;
+ int     lod_IB_dword_011B94;
+ int     lod_IB_dword_011B98; //	 72600
+ int     lod_IB_dword_011B9C; //	72604
+ int     lod_IB_dword_011BA0;
+ int     lod_IB_dword_011BA4; //
 
- int     dword_011BA8; //check	on load palette may be rendrer3d
+ int     lod_IB_dword_011BA8; //check	on load palette may be rendrer3d
  
 
  IDirectDrawSurface4 **pHardwareSurfaces; // dword @ 011BAC   1000 of them  72620
  IDirect3DTexture2   **pHardwareTextures; // dword @ 011BB0   1000 of them  72624
- int    **dword_011BB4;//         							  72628
+ int    **lod_IB_dword_011BB4;//         							  72628
 
 
  
 
-	 LODFile_sp();
-	 ~LODFile_sp();
+	 LODFile_IB();
+	 ~LODFile_IB();
 //void LODFile_ctor(struct LODFile *_this);
 //bool __thiscall sub_40FAEE(int _this, const char *Filename);
 bool LODFile_LoadLOD_Icons_Events( const char *pLODFilename);

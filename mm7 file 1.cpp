@@ -1300,7 +1300,7 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
    return 0;
  }
 
- LODFile_Icons_LOD.dword_011BA4 = 0;
+ LODFile_Icons_LOD.lod_IB_dword_011BA4 = 0;
  bUseRegistry = GetPrivateProfileIntW(L"settings", L"registry", 1, pMM6ConfigFilename);
  if (!bUseRegistry)
    bUseLoResSprites = GetPrivateProfileIntW(L"settings", L"resolution", 0, pMM6ConfigFilename);
@@ -5407,7 +5407,7 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
   pClass40 = new class40;
   sub_456D84(pClass40);
   
-  LODFile_Bitmaps_LOD.dword_011BA8 = 1;
+  LODFile_Bitmaps_LOD.lod_IB_dword_011BA8 = 1;
 
   class35_SetColorChannelInfo(&class35_obj, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
   class35_obj.byte_267AD0 = -128;
@@ -5472,9 +5472,9 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
 
  Initialize_GlobalEVT();
 
- LODFile_Bitmaps_LOD.dword_011B80 = LODFile_Bitmaps_LOD.uNumLoadedFiles;
- if (LODFile_Bitmaps_LOD.dword_011B84 < LODFile_Bitmaps_LOD.uNumLoadedFiles)
-   LODFile_Bitmaps_LOD.dword_011B84 = LODFile_Bitmaps_LOD.uNumLoadedFiles;
+ LODFile_Bitmaps_LOD.lod_IB_dword_011B80 = LODFile_Bitmaps_LOD.uNumLoadedFiles;
+ if (LODFile_Bitmaps_LOD.lod_IB_dword_011B84 < LODFile_Bitmaps_LOD.uNumLoadedFiles)
+   LODFile_Bitmaps_LOD.lod_IB_dword_011B84 = LODFile_Bitmaps_LOD.uNumLoadedFiles;
  LODFile_Sprites_LOD.dword_00ECA4 = LODFile_Sprites_LOD.uNumLoadedSprites;
  if (LODFile_Sprites_LOD.dword_00ECA0 < LODFile_Sprites_LOD.uNumLoadedSprites)
    LODFile_Sprites_LOD.dword_00ECA0 = LODFile_Sprites_LOD.uNumLoadedSprites;

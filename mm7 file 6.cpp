@@ -3569,9 +3569,9 @@ int CreditsMenuLoop()
   v39 = (int)LoadFont("cchar.fnt", "FONTPAL");
   if ( dword_50CBD0[0] )
     dword_50CBD0[0] = dword_50CBD0[3] != 0;
-  ++LODFile_Icons_LOD.dword_011B9C;
-  if ( !LODFile_Icons_LOD.dword_011B98 )
-    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
+  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
+    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   dword_A74C88 = 0;
   sub_4AA13F((int)pAudioPlayer, 15);
   RGBTexture_Load(&v19, "mm6title.pcx", 0);

@@ -1973,9 +1973,9 @@ LABEL_56:
       {
         if ( dword_507BD4 )
           return result;
-        ++LODFile_Icons_LOD.dword_011B9C;
-        if ( !LODFile_Icons_LOD.dword_011B98 )
-          LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+        ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
+        if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
+          LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
         dword_507BD4 = sub_4219BE((void *)(20 * result + 5292232));
         dword_50C9A0 = 1;
         dword_50C0C4 = uActiveCharacter;
@@ -12074,10 +12074,10 @@ int __fastcall sub_45E361(int a1)
   v12 = a1;
   v16=new (LOD_Writefile);		//sub_46175B(
   dword_6BE138 = -1;
-  ++LODFile_Icons_LOD.dword_011B9C;
+  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
   v17 = 0;
-  if ( !LODFile_Icons_LOD.dword_011B98 )
-    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
+    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   memset(dword_69CF28, 0, 0xB4u);
   memset(&unk_6A0118, 0, 0x708u);
   dword_69CF20 = LODFile_Icons_LOD.LODFile_LoadTexture( "loadsave", 2);
@@ -12253,10 +12253,10 @@ int __cdecl sub_45E93E()
   int v13; // [sp+260h] [bp-4h]@1
 
   v12=new(LOD_Writefile);
-  ++LODFile_Icons_LOD.dword_011B9C;
+  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
   v13 = 0;
-  if ( !LODFile_Icons_LOD.dword_011B98 )
-    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
+    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   memset(dword_69CF28, 0, 0xB4u);
   memset(&unk_6A0118, 0, 0x708u);
   dword_69CF20 = LODFile_Icons_LOD.LODFile_LoadTexture( "loadsave", 2);

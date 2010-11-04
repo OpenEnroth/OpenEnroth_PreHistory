@@ -37,12 +37,12 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
 {
  struct GUIWindow *pCharacterWindow;
 
-  ++LODFile_Icons_LOD.dword_011B9C;
-  if ( !LODFile_Icons_LOD.dword_011B98 )
-    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
-  ++LODFile_Icons_LOD.dword_011B9C;
-  if ( !LODFile_Icons_LOD.dword_011B98 )
-    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
+  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
+    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
+  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
+    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   class24_fn1(pClass24_global);
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
 
@@ -2326,10 +2326,10 @@ LABEL_322:
               GUIWindowCreate(602, 450, 0, 0, 90, (int)pBtn_Game_Options, v0);
               class24_fn1(pClass24_global);
               AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-              ++LODFile_Icons_LOD.dword_011B9C;
+              ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
               dword_4E28F8 = v0;
-              if ( !LODFile_Icons_LOD.dword_011B98 )
-                LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+              if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
+                LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
               pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 3, 0, 0);
               dword_507944 = LODFile_Icons_LOD.LODFile_LoadTexture( "options", 2);
               dword_507940 = LODFile_Icons_LOD.LODFile_LoadTexture( "new1", 2);
@@ -3580,9 +3580,9 @@ LABEL_693:
             dword_50CBD0[0] = dword_50CBD0[3] != 0;
           if ( dword_4E28F8 )
             GUIWindowDelete(pGUIWindow_CurrentMenu);
-          ++LODFile_Icons_LOD.dword_011B9C;
-          if ( !LODFile_Icons_LOD.dword_011B98 )
-            LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+          ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
+          if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
+            LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
           GUIWindowCreate(560, 450, 0, 0, 90, (int)pBtn_Game_QuickRef, 0);
           struct_576FE8.dword_000044 = v0;
           class24_fn1(pClass24_global);
@@ -4816,11 +4816,11 @@ LABEL_62:
                        (char *)pGlobalTXT_LocalizationStrings[34],
                        uTextureIdx_BtnEsc2 + 1 != 0 ? 72 * (_DWORD)uTextureIdx_BtnEsc2 + 7145548 : 0);
       sub_44C175((char *)pGlobalTXT_LocalizationStrings[39], 2);
-      ++LODFile_Icons_LOD.dword_011B9C;
+      ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
       dword_506F48 = 103;
       dword_4E28F8 = 23;
-      if ( !LODFile_Icons_LOD.dword_011B98 )
-        LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+      if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
+        LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
     }
   }
   return v9;
@@ -5012,9 +5012,9 @@ void __cdecl PlayerCreationUI_Initialize()
 
   AudioPlayer_SetVolume(pAudioPlayer, aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
 
-  ++LODFile_Icons_LOD.dword_011B9C;
-  if ( !LODFile_Icons_LOD.dword_011B98 )
-    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
+  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
+    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
 
   dword_4E28F8 = 21;
   dword_A74CD4 = 0;
@@ -7830,7 +7830,7 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
   int v25; // ebx@38
   int v26; // edi@38
   int v27; // eax@38
-  LODFile_sp* v28; // ecx@42
+  LODFile_IB* v28; // ecx@42
   unsigned __int8 v29; // zf@49
   unsigned __int8 v30; // sf@49
   int v31; // edi@51
@@ -7844,7 +7844,7 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
   int v39; // ecx@74
   int v40; // ebx@74
   int v41; // eax@74
-  LODFile_sp* v42; // ecx@78
+  LODFile_IB* v42; // ecx@78
   int v43; // edi@85
   unsigned __int8 v44; // zf@85
   unsigned __int8 v45; // sf@85
@@ -7858,7 +7858,7 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
   int v53; // ecx@106
   int v54; // ebx@106
   int v55; // eax@106
-  LODFile_sp* v56; // ecx@110
+  LODFile_IB* v56; // ecx@110
   int v57; // edi@117
   unsigned __int8 v58; // zf@117
   unsigned __int8 v59; // sf@117
@@ -7984,7 +7984,7 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
   int v179; // eax@370
   int v180; // edi@370
   int v181; // eax@370
-  LODFile_sp* v182; // ecx@374
+  LODFile_IB* v182; // ecx@374
   int v183; // ebp@381
   unsigned __int8 v184; // zf@381
   unsigned __int8 v185; // sf@381
@@ -9461,7 +9461,7 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
   int v4; // eax@3
   int v5; // ebx@3
   int v6; // edi@3
-  LODFile_sp* v7; // ecx@7
+  LODFile_IB* v7; // ecx@7
   unsigned __int8 v8; // zf@14
   unsigned __int8 v9; // sf@14
   double v10; // st7@16
@@ -9475,7 +9475,7 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
   int v18; // eax@25
   int v19; // eax@26
   int v20; // ebx@26
-  LODFile_sp* v21; // ecx@30
+  LODFile_IB* v21; // ecx@30
   unsigned __int8 v22; // zf@37
   unsigned __int8 v23; // sf@37
   double v24; // st7@39
@@ -9490,7 +9490,7 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
   int v33; // eax@47
   int v34; // ebx@47
   int v35; // edi@47
-  LODFile_sp* v36; // ecx@51
+  LODFile_IB* v36; // ecx@51
   int v37; // esi@58
   unsigned __int8 v38; // zf@58
   unsigned __int8 v39; // sf@58

@@ -2321,9 +2321,9 @@ int __cdecl MenuLoop_Main()
  pGUIWindow2 = 0;
  AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
  class03_sub_4698A6(pGame->pClass03);
- ++LODFile_Icons_LOD.dword_011B9C;
- if (!LODFile_Icons_LOD.dword_011B98)
-   LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+ ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
+ if (!LODFile_Icons_LOD.lod_IB_dword_011B98)
+   LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
 
  pGUIWindow_MainMenu = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
   #ifndef OLD_CODE
@@ -4046,9 +4046,9 @@ void InitializeCameraAndViewport()
  } 
 
  sub_42F3D6();
- LODFile_Bitmaps_LOD.dword_011B84 = LODFile_Bitmaps_LOD.uNumLoadedFiles;
+ LODFile_Bitmaps_LOD.lod_IB_dword_011B84 = LODFile_Bitmaps_LOD.uNumLoadedFiles;
  LODFile_Sprites_LOD.dword_00ECA0 = LODFile_Sprites_LOD.uNumLoadedSprites;
- LODFile_Icons_LOD.dword_011B84 = LODFile_Icons_LOD.uNumLoadedFiles;
+ LODFile_Icons_LOD.lod_IB_dword_011B84 = LODFile_Icons_LOD.uNumLoadedFiles;
 }
 
 //----- (00443FDC) --------------------------------------------------------

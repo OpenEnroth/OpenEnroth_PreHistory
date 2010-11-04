@@ -789,7 +789,7 @@ int __cdecl sub_463149()
   v0 = 1;
 
   LoadPlayerPortraintsAndVoices();
-  LODFile_Icons_LOD.dword_011B84 = LODFile_Icons_LOD.uNumLoadedFiles;
+  LODFile_Icons_LOD.lod_IB_dword_011B84 = LODFile_Icons_LOD.uNumLoadedFiles;
 
   AudioPlayer_SetVolume(pAudioPlayer, aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
 
@@ -1062,7 +1062,7 @@ LABEL_85:
       sub_491E3A();
       LoadPlayerPortraintsAndVoices();
       dword_6A0D48 = 0;
-      LODFile_Icons_LOD.dword_011B84 = LODFile_Icons_LOD.uNumLoadedFiles;
+      LODFile_Icons_LOD.lod_IB_dword_011B84 = LODFile_Icons_LOD.uNumLoadedFiles;
       v17 = 1;
       continue;
     }
@@ -5544,7 +5544,7 @@ char __cdecl LoadPlayerPortraintsAndVoices()
  
  int i, j;
 
- LODFile_Icons_LOD.dword_011BA0 = LODFile_Icons_LOD.uNumLoadedFiles;
+ LODFile_Icons_LOD.lod_IB_dword_011BA0 = LODFile_Icons_LOD.uNumLoadedFiles;
  #ifndef OLD_CODE
    wchar_t pFilename[256];
 	   for (i = 0; i < 4; ++i)
@@ -5746,7 +5746,7 @@ int __fastcall sub_40F92A(int a1, int a2, int a3)
   v9 = a1;
   v10 = *(_WORD *)(a2 + 24);
   v12 = *(_WORD *)(a2 + 26);
-  if ( LODFile_Icons_LOD.dword_011BA4 && *(_DWORD *)(a2 + 40) )
+  if ( LODFile_Icons_LOD.lod_IB_dword_011BA4 && *(_DWORD *)(a2 + 40) )
     v4 = cTexture_UnzipPalette((cTexture *)a2);
   else
     v4 = *(_DWORD *)(a2 + 48);
@@ -5766,7 +5766,7 @@ int __fastcall sub_40F92A(int a1, int a2, int a3)
     v6 += 4 * (640 - v10);
   }
   while ( v12-- != 1 );
-  if ( LODFile_Icons_LOD.dword_011BA4 )
+  if ( LODFile_Icons_LOD.lod_IB_dword_011BA4 )
   {
     if ( *(_DWORD *)(v3 + 40) )
       /*result = */operator_delete((void *)v11);
@@ -6581,9 +6581,9 @@ int __cdecl sub_41192C()
   int result; // eax@4
 
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-  ++LODFile_Icons_LOD.dword_011B9C;
-  if ( !LODFile_Icons_LOD.dword_011B98 )
-    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
+  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
+    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   AudioPlayer_sub_4AA306(pAudioPlayer, 230, 0, 0, -1, 0, 0, 0, 0);
   dword_5064C4 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "book", 2) + 7145548;
   dword_50649C[0] = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "pagemask", 2) + 7145548;
@@ -6613,9 +6613,9 @@ int __cdecl sub_411AAA()
   int result; // eax@3
 
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-  ++LODFile_Icons_LOD.dword_011B9C;
-  if ( !LODFile_Icons_LOD.dword_011B98 )
-    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
+  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
+    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   AudioPlayer_sub_4AA306(pAudioPlayer, 230, 0, 0, -1, 0, 0, 0, 0);
   dword_506498 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "mapbordr", 2) + 7145548;
 
@@ -14622,9 +14622,9 @@ LABEL_15:
     if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 98) )
       dword_506F10 = 0;
   }
-  ++LODFile_Icons_LOD.dword_011B9C;
-  if ( !LODFile_Icons_LOD.dword_011B98 )
-    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
+  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
+    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   dword_4E28F8 = 5;
   dword_507CD4 = 0;
   dword_50765C = LODFile_Icons_LOD.LODFile_LoadTexture( "restmain", 2);
@@ -15410,9 +15410,9 @@ signed int __fastcall sub_42041E(int a1)
     return 0;
   if ( a1 >= 20 )
     return 0;
-  ++LODFile_Icons_LOD.dword_011B9C;
-  if ( !LODFile_Icons_LOD.dword_011B98 )
-    LODFile_Icons_LOD.dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
+  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
+    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   v1 = (char *)&array_5E5150[a1].word_000002;
   v49 = v1;
   if ( !(*v1 & 2) )
