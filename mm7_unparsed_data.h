@@ -1005,10 +1005,10 @@ extern int dword_50C9D0; // weak
 extern int dword_50C9D4; // weak
 extern int dword_50C9D8; // weak
 extern int dword_50C9DC; // weak
-extern int dword_50C9E0; // weak
-extern int dword_50C9E8[array_size_unknown]; // weak
-extern int dword_50C9EC[array_size_unknown]; // weak
-extern int dword_50C9F0[array_size_unknown]; // weak
+extern struct NPCData *dword_50C9E0; // weak
+extern int dword_50C9E8[]; // 1 + 40*3
+//int dword_50C9EC[]; // weak
+//int dword_50C9F0[array_size_unknown]; // weak
 
 extern int dword_50CBD0[array_size_unknown]; // 404 for action[def:space] key
 //int dword_50CBD4[array_size_unknown]; // weak
@@ -1157,7 +1157,7 @@ extern int dword_51B774; // weak
 extern struct class37 class37_global0; // struct @ MM7.exe::0051B778
 //int dword_51B778; // weak
 extern __int16 word_51B77C[array_size_unknown]; // weak
-extern __int16 word_51B77E[array_size_unknown]; // weak
+//__int16 word_51B77E[array_size_unknown]; // weak
 extern int dword_51C71C; // weak
 extern __int16 word_51C720[array_size_unknown]; // weak
 extern __int16 word_51C722; // weak
@@ -1273,6 +1273,8 @@ extern cTexture *pcTexture_EndcapTexture; // ptr @ MM7.exe::00591428
 
 extern int dword_59142C; // weak
 extern unsigned int uTextureID_Dialogue_Background; // dword @ MM7.exe::00591430
+
+//struct array
 extern __int16 word_591438[array_size_unknown]; // weak
 extern __int16 word_59143A[array_size_unknown]; // weak
 extern int dword_59143C[array_size_unknown]; // weak
@@ -1286,6 +1288,8 @@ extern __int16 word_591462; // weak
 extern __int16 word_591464; // weak
 extern __int16 word_591466; // weak
 extern __int16 word_591468[array_size_unknown]; // weak
+//end of struct
+
 extern _UNKNOWN unk_59146C; // weak
 extern __int16 word_593A36; // weak
 extern _UNKNOWN unk_597F10; // weak
@@ -1434,10 +1438,10 @@ extern __int16 word_5D29FE; // weak
 //char byte_5D2A12[array_size_unknown]; // weak
 extern int dword_5DAD28[array_size_unknown]; // weak
 extern int dword_5DBFD0[array_size_unknown]; // weak
-extern int dword_5DBFD4[array_size_unknown]; // weak
+//int dword_5DBFD4[array_size_unknown]; // weak
 extern char byte_5DBFE9[array_size_unknown]; // weak
 extern int dword_5DC1A8[array_size_unknown]; // weak
-extern int dword_5DC1AC[array_size_unknown]; // weak
+//int dword_5DC1AC[array_size_unknown]; // weak
 extern int dword_5DC1BC[array_size_unknown]; // weak
 extern char byte_5DC1CC[array_size_unknown]; // weak
 extern char byte_5DC1DC[array_size_unknown]; // weak
@@ -1456,20 +1460,20 @@ extern int dword_5E4178; // weak
 extern _UNKNOWN unk_5E4C14; // weak
 extern char byte_5E4C15[array_size_unknown]; // weak
 extern unsigned char *pSomeItemsNames[]; // dword[14] @ MM7.exe::005E4C18
-/*extern char *dword_5E4C1C; // weak
-extern char *dword_5E4C20; // weak
-extern char *dword_5E4C24; // weak
-extern char *dword_5E4C28; // weak
-extern char *dword_5E4C2C; // weak
-extern char *dword_5E4C30; // weak
-extern char *dword_5E4C34; // weak
-extern char *dword_5E4C38; // weak
-extern char *dword_5E4C3C; // weak
-extern char *dword_5E4C40; // weak
-extern char *dword_5E4C44; // weak
-extern char *dword_5E4C48; // weak
-extern char *dword_5E4C4C; // weak
-*/
+//char *dword_5E4C1C; // weak
+//char *dword_5E4C20; // weak
+//char *dword_5E4C24; // weak
+//char *dword_5E4C28; // weak
+//char *dword_5E4C2C; // weak
+//char *dword_5E4C30; // weak
+//char *dword_5E4C34; // weak
+//char *dword_5E4C38; // weak
+//char *dword_5E4C3C; // weak
+//char *dword_5E4C40; // weak
+//char *dword_5E4C44; // weak
+//char *dword_5E4C48; // weak
+//char *dword_5E4C4C; // weak
+
 extern unsigned char *pGlobalTXT_Raw;           // ptr @ MM7.exe::005E4C68
 extern unsigned char *pMonstersTXT_Raw;         // ptr @ MM7.exe::005E4C6C
 extern unsigned char *pMonsterPlacementTXT_Raw; // ptr @ MM7.exe::005E4C70
@@ -1660,8 +1664,9 @@ extern struct GUIButton *dword_69BD60; // weak
 extern struct GUIButton *dword_69BD64; // weak
 extern _UNKNOWN unk_69BD68; // weak
 extern char byte_69BD7C[20]; // idb
-extern int dword_69BD90[array_size_unknown]; // weak
-extern int dword_69BD94; // weak
+extern int dword_69BD90[]; // weak
+//int dword_69BD94; // weak
+
 extern int dword_69CEFC; // weak
 extern int dword_69CF00; // weak
 extern int dword_69CF04; // weak
@@ -1684,16 +1689,16 @@ extern _UNKNOWN unk_6A07A4; // weak
 
 extern class LOD_Writefile LODFile_New_LOD; // struct @ MM7.exe::006A0820
 //_UNKNOWN unk_6A0820; // weak
-extern int dword_6A0A4C; // weak
+//int dword_6A0A4C; // ::+22C    uNumSubidices
 
 extern class LOD_Writefile LODFile_Games_LOD; // struct @ MM7.exe::006A0A60
 //_UNKNOWN unk_6A0A60; // weak
-extern int dword_6A0C8C; // weak
-extern int dword_6A0C90; // weak
-extern int dword_6A0C9C; // weak
-extern int dword_6A0CA0; // weak
-//extern int dword_6A0CA4; // weak
-extern int global_dword_6A0CA8; // weak
+//int dword_6A0C8C; // ::+22C   uNumSubidices
+//int dword_6A0C90; // ::+230   pLODSubIndexNamedBuffer
+extern int dword_6A0C9C;
+extern int dword_6A0CA0;
+extern int dword_6A0CA4;
+extern int global_dword_6A0CA8;
 extern HWND dword_6A0CFC; // idb
 extern int dword_6A0D00; // weak
 
@@ -1954,10 +1959,8 @@ extern int dword_721160[]; // weak
 extern int dword_7211B0[]; // weak
 extern int dword_721200[array_size_unknown]; // weak
 extern int dword_7212C8[array_size_unknown]; // weak
-extern __int16 word_721390[array_size_unknown]; // weak
-extern __int16 word_721392[array_size_unknown]; // weak
-extern __int16 word_721460[array_size_unknown]; // weak
-extern __int16 word_721462[array_size_unknown]; // weak
+extern __int16 word_721390[]; // weak
+extern __int16 word_721460[]; // weak
 
 extern struct unnamed_721530
 {
@@ -2323,12 +2326,12 @@ extern _UNKNOWN unk_A96080; // weak
 extern _UNKNOWN unk_AA1058; // weak
 //extern _UNKNOWN unk_ACBE48; // pParty_global->pPlayers[-1] indexing
 extern int dword_ACC038[array_size_unknown]; // weak
-extern int dword_ACCCEC[array_size_unknown]; // weak
-extern int dword_ACCCF0[array_size_unknown]; // weak
-extern int dword_ACCD94[array_size_unknown]; // weak
-extern int dword_ACCD98[array_size_unknown]; // weak
-extern int dword_ACCDD4[array_size_unknown]; // weak
-extern int dword_ACCDD8[array_size_unknown]; // weak
+extern int dword_ACCCEC[]; // weak
+//int dword_ACCCF0[array_size_unknown]; // weak
+extern int dword_ACCD94[]; // weak
+//int dword_ACCD98[array_size_unknown]; // weak
+extern int dword_ACCDD4[]; // weak
+//int dword_ACCDD8[array_size_unknown]; // weak
 
 
 
@@ -2791,8 +2794,8 @@ extern _UNKNOWN unk_F81020; // weak
 extern __int16 word_F81022; // weak
 extern int dword_F81028; // weak
 extern _UNKNOWN unk_F81054; // weak
-extern int dword_F83B80[array_size_unknown]; // weak
-extern int dword_F83B84[array_size_unknown]; // weak
+extern int dword_F83B80[]; // weak
+//int dword_F83B84[array_size_unknown]; // weak
 extern int dword_F83BA8[array_size_unknown]; // weak
 extern int dword_F8A590; // weak
 extern int dword_F8A594; // weak

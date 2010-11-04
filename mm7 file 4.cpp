@@ -3567,8 +3567,8 @@ LABEL_120:
             {
               if ( dword_50C9E8[0] < 40 )
               {
-                dword_50C9EC[3 * dword_50C9E8[0]] = 25;
-                dword_50C9F0[3 * dword_50C9E8[0]] = 0;
+                dword_50C9E8[3 * dword_50C9E8[0] + 1] = 25;
+                dword_50C9E8[3 * dword_50C9E8[0] + 2] = 0;
                 dword_50C9E8[3 * dword_50C9E8[0]++ + 3] = 0;
               }
               v1 = 1;
@@ -3619,7 +3619,7 @@ LABEL_125:
           case 12:
             if ( dword_4E28F8 == 8 || dword_50C9E8[0] >= 40 )
               break;
-            dword_50C9EC[3 * dword_50C9E8[0]] = 176;
+            dword_50C9E8[3 * dword_50C9E8[0] + 1] = 176;
             goto LABEL_155;
           case 20:
             if ( pClass24_global->dword_000004 )
@@ -3658,14 +3658,14 @@ LABEL_30:
           case 23:
             if ( dword_50C9E8[0] >= 40 )
               break;
-            dword_50C9EC[3 * dword_50C9E8[0]] = 367;
+            dword_50C9E8[3 * dword_50C9E8[0] + 1] = 367;
             goto LABEL_155;
           case 24:
             if ( dword_50C9E8[0] < 40 )
             {
-              dword_50C9EC[3 * dword_50C9E8[0]] = 368;
+              dword_50C9E8[3 * dword_50C9E8[0] + 1] = 368;
 LABEL_155:
-              dword_50C9F0[3 * dword_50C9E8[0]] = 0;
+              dword_50C9E8[3 * dword_50C9E8[0] + 2] = 0;
               dword_50C9E8[3 * dword_50C9E8[0]++ + 3] = 0;
             }
             break;
@@ -12700,7 +12700,7 @@ int __fastcall sub_460078(int a1)
     v2 = 100 * v1;
     strcpy(&byte_69BD7C[v2], Str1);
     *(int *)((char *)dword_69BD90 + v2) = pParty_global->qword_00002C;
-    *(int *)((char *)&dword_69BD94 + v2) = HIDWORD(pParty_global->qword_00002C);
+    *(int *)((char *)&dword_69BD90 + 4 + v2) = HIDWORD(pParty_global->qword_00002C);
     strcpy(St.pFilename, "header.bin");
     St.size_data = 100;
     LODFile_New_LOD.Add_Container_to_File( &St, (char *)&unk_69BD68 + v2, 0);

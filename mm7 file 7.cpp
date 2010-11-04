@@ -855,7 +855,7 @@ int __fastcall sub_4AE1E7(int a1, int a2, int a3)
   result = (unsigned __int64)((v3 * v12 + dword_F8ADC4 + v4 * dword_F8ADC8) * v9) >> 16;
   v13 = result + dword_F8ADD0;
   dword_F83BA8[14 * v14] = v9;
-  dword_F83B84[14 * v14] = v13;
+  dword_F83B80[14 * v14 + 1] = v13;
   return result;
 }
 
@@ -2405,7 +2405,7 @@ void __cdecl sub_4B0967()
       if ( v1 < dword_6BE640 )
       {
         v3 = word_51B77C[2 * i];
-        dword_51B75C = (int)((char *)&unk_51C72C + 2252 * word_51B77E[2 * i]);
+        dword_51B75C = (int)((char *)&unk_51C72C + 2252 * word_51B77C[2 * i + 1]);
         v2 = sub_423B5D(v3);
         if ( v2 )
         {
@@ -11407,7 +11407,7 @@ signed int __fastcall sub_4BB756(signed int a1)
           dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
         }
         dword_50C9DC = 195;
-        dword_50C9E0 = (int)sub_4459F9_GetNPCData(uDialogue_SpeakingActorID);
+        dword_50C9E0 = sub_4459F9_GetNPCData(uDialogue_SpeakingActorID);
         return 0;
       }
       if ( a1 == 42 )
@@ -12551,7 +12551,7 @@ LABEL_15:
         if ( v4 <= 16 )
         {
           v35 = *(_DWORD *)(v11 + 28);
-          v36 = dword_ACCD98[2 * v35];
+          v36 = dword_ACCD94[2 * v35 + 1];
           if ( v36 > HIDWORD(pParty_global->qword_00002C)
             || v36 >= HIDWORD(pParty_global->qword_00002C) && (unsigned int)dword_ACCD94[2 * v35] >= (_DWORD)pParty_global->qword_00002C )
           {
@@ -12577,7 +12577,7 @@ LABEL_15:
                 + (signed __int64)((double)(11059200 * (signed int)word_591454[26 * ptr_507BC0->dword_00001C])
                                  * 0.03333333507180214);
             dword_ACCD94[2 * v37] = v38;
-            dword_ACCD98[2 * v37] = HIDWORD(v38);
+            dword_ACCD94[2 * v37 + 1] = HIDWORD(v38);
           }
           return;
         }

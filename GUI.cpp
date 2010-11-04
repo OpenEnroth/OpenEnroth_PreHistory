@@ -2822,11 +2822,11 @@ LABEL_450:
           AudioPlayer_sub_4AA306(pAudioPlayer, word_4EE088[dword_506338], 0, 0, -1, 0, dword_50633C, 0, 0);
           if ( byte_50656C )
           {
-            if ( _strcmpi(Str1, (const char *)(dword_6A0C90 + 32 * *(_WORD *)(v211 + 26))) )
+           if ( _strcmpi(Str1, LODFile_Games_LOD.pLODSubIndexNamedBuffer[*(_WORD *)(v211 + 26)].pFilename) )
             {
               SaveGame(v0, 0);
               sub_443F95();
-              strcpy(Str1, (const char *)(dword_6A0C90 + 32 * *(_WORD *)(v211 + 26)));
+              strcpy(Str1, LODFile_Games_LOD.pLODSubIndexNamedBuffer[*(_WORD *)(v211 + 26)].pFilename);
               dword_6BE364 |= v0;
               dword_6A0D48 = 2;
               dword_5B65A8 = *(_DWORD *)(v211 + 8);
@@ -2873,14 +2873,14 @@ LABEL_450:
             *(_DWORD *)(v73 + 16) = pParty_global->sPartyPosZ;
             *(_WORD *)(v73 + 20) = pParty_global->sRotationY;
             *(_WORD *)(v73 + 22) = pParty_global->sRotationX;
-            if ( dword_6A0C8C / 2 <= 0 )
+            if (LODFile_Games_LOD.uNumSubidices / 2 <= 0 )
               goto LABEL_92;
             v210 = 0;
-            while ( _strcmpi((const char *)(dword_6A0C90 + v210), Str1) )
+            while ( _strcmpi((const char *)((char *)LODFile_Games_LOD.pLODSubIndexNamedBuffer + v210), Str1) )
             {
               ++v203;
               v210 += 32;
-              if ( v203 >= dword_6A0C8C / 2 )
+              if ( v203 >= LODFile_Games_LOD.uNumSubidices / 2 )
                 goto LABEL_92;
             }
             *(_WORD *)(v211 + 26) = v203;
@@ -3051,7 +3051,7 @@ LABEL_524:
           memcpy(&v232, sub_4BE3BF(pKeyboardController->pPressedKeysBuffer, (StringSplitter *)&v237), 0x7Cu);
           if ( v232 == 1 )
           {
-            v211 = dword_6A0C8C / 2;
+            v211 = LODFile_Games_LOD.uNumSubidices / 2;
             v82 = atoi(Str);
             if ( v82 <= 0 || v82 >= 77 )
             {
@@ -3069,7 +3069,7 @@ LABEL_91:
               v204 = 0;
               do
               {
-                if ( !_strcmpi((const char *)(dword_6A0C90 + v204), &Str2) )
+               if ( !_strcmpi((const char *)((char *)LODFile_Games_LOD.pLODSubIndexNamedBuffer + v204), &Str2) )
                   break;
                 v204 += 32;
                 ++v84;
@@ -3077,7 +3077,7 @@ LABEL_91:
               while ( v84 < v211 );
               if ( v84 < v211 )
               {
-                strcpy(Str1, (const char *)(dword_6A0C90 + 32 * v84));
+               strcpy(Str1, LODFile_Games_LOD.pLODSubIndexNamedBuffer[v84].pFilename);
                 dword_6BE364 |= 1u;
                 dword_6A0D48 = 2;
                 sub_443F95();
@@ -3489,8 +3489,8 @@ LABEL_662:
                   v116 = dword_50654C + 11 * *(_BYTE *)(v212 + 6734);
                   if ( dword_50C9E8[0] < 40 )
                   {
-                    dword_50C9EC[3 * dword_50C9E8[0]] = 142;
-                    dword_50C9F0[3 * dword_50C9E8[0]] = v116;
+                    dword_50C9E8[3 * dword_50C9E8[0] + 1] = 142;
+                    dword_50C9E8[3 * dword_50C9E8[0] + 2] = v116;
                     dword_50C9E8[3 * dword_50C9E8[0]++ + 3] = uActiveCharacter - 1;
                   }
                 }
@@ -3972,14 +3972,14 @@ LABEL_789:
 
 
   dword_50CBD0[0] = dword_50C9E8[0];
-  memcpy(dword_50CBD0 + 1, dword_50C9EC, 12 * dword_50C9E8[0]);
+  memcpy(dword_50CBD0 + 1, dword_50C9E8 + 1, 12 * dword_50C9E8[0]);
   dword_50C9E8[0] = 0;
   if ( dword_50C9DC )
   {
     if ( dword_50CBD0[0] < 40 )
     {
       dword_50CBD0[3 * dword_50CBD0[0] + 1] = dword_50C9DC;
-      dword_50CBD0[3 * dword_50CBD0[0] + 2] = dword_50C9E0;
+      dword_50CBD0[3 * dword_50CBD0[0] + 2] = (int)dword_50C9E0;
       dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
     }
     dword_50C9DC = 0;

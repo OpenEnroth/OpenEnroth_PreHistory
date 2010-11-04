@@ -6037,7 +6037,7 @@ signed int __fastcall sub_410D99(int a1)
 
   v2 = 32 * a1;
   v1 = 1;
-  if ( _strcmpi((char *)pMapStats->pMapInfos[1].pLocationFilename, (const char *)(32 * a1 + dword_6A0C90)) )
+  if ( _strcmpi((char *)pMapStats->pMapInfos[1].pLocationFilename, LODFile_Games_LOD.pLODSubIndexNamedBuffer[v2 / 32].pFilename) )
   {
     v4 = (const char **)&pMapStats->pMapInfos[1].pLocationFilename;
     v3 = (char **)&pMapStats->pMapInfos[1].pLocationFilename;
@@ -6049,7 +6049,7 @@ signed int __fastcall sub_410D99(int a1)
       ++v1;
       v3 = (char **)v4;
     }
-    while ( _strcmpi(*v4, (const char *)(v2 + dword_6A0C90)) );
+    while ( _strcmpi(*v4, LODFile_Games_LOD.pLODSubIndexNamedBuffer[v2 / 32].pFilename) );
   }
   return v1;
 }
@@ -13554,7 +13554,7 @@ LABEL_64:
     if ( v28 )
     {
       v65 = *(_DWORD *)(v97 + 8);
-      v60 = dword_5DBFD4[5 * v28];
+      v60 = dword_5DBFD0[5 * v28 + 1];
       v55 = (int)pGlobalTXT_LocalizationStrings[210];
       v51 = "%s: %s +%d";
     }
@@ -13573,7 +13573,7 @@ LABEL_64:
         goto LABEL_65;
       }
       v65 = *(_DWORD *)(v97 + 8);
-      v60 = dword_5DC1AC[7 * v29];
+      v60 = dword_5DC1A8[7 * v29 + 1];
       v55 = (int)pGlobalTXT_LocalizationStrings[210];
       v51 = "%s: %s";
     }

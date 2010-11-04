@@ -4353,7 +4353,7 @@ void __fastcall sub_440B44(char a1)
     sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ);
     for ( i = 0; i < class37_global0.dword_000000; ++i )
     {
-      v2 = 2252 * word_51B77E[2 * i];
+      v2 = 2252 * word_51B77C[2 * i + 1];
       if ( *(int *)((char *)&dword_51CEC8 + v2) == -1 )
       {
         v6 = 0;
@@ -4372,7 +4372,7 @@ void __fastcall sub_440B44(char a1)
     for ( j = 0; j < class37_global0.dword_000000; ++j )
     {
       v5 = word_51B77C[2 * j];
-      dword_51B75C = (int)((char *)&unk_51C72C + 2252 * word_51B77E[2 * j]);
+      dword_51B75C = (int)((char *)&unk_51C72C + 2252 * word_51B77C[2 * j + 1]);
       sub_4AFF79(v5);
     }
   }
@@ -10060,7 +10060,7 @@ LABEL_125:
       case 252:
       case 253:
       case 254:
-        v22 = dword_ACCCF0[2 * a2];
+        v22 = dword_ACCCEC[2 * a2 + 1];
         if ( v22 | dword_ACCCEC[2 * a2] )
         {
           v23 = (unsigned int)dword_ACCCEC[2 * a2]
@@ -10583,7 +10583,7 @@ LABEL_8:
         if ( a2 >= 245 )
         {
           dword_ACCCEC[2 * a2] = pParty_global->qword_00002C;
-          dword_ACCCF0[2 * a2] = HIDWORD(pParty_global->qword_00002C);
+          dword_ACCCEC[2 * a2 + 1] = HIDWORD(pParty_global->qword_00002C);
         }
         else
         {
@@ -10610,7 +10610,7 @@ LABEL_8:
       if ( a2 <= 274 )
       {
         dword_ACCDD4[2 * a2] = pParty_global->qword_00002C;
-        dword_ACCDD8[2 * a2] = HIDWORD(pParty_global->qword_00002C);
+        dword_ACCDD4[2 * a2 + 1] = HIDWORD(pParty_global->qword_00002C);
       }
       else
       {
@@ -11121,7 +11121,7 @@ LABEL_8:
         if ( a2 >= 245 )
         {
           dword_ACCCEC[2 * a2] = pParty_global->qword_00002C;
-          dword_ACCCF0[2 * a2] = HIDWORD(pParty_global->qword_00002C);
+          dword_ACCCEC[2 * a2 + 1] = HIDWORD(pParty_global->qword_00002C);
         }
         else
         {
@@ -11148,7 +11148,7 @@ LABEL_8:
       if ( a2 <= 274 )
       {
         dword_ACCDD4[2 * a2] = pParty_global->qword_00002C;
-        dword_ACCDD8[2 * a2] = HIDWORD(pParty_global->qword_00002C);
+        dword_ACCDD4[2 * a2 + 1] = HIDWORD(pParty_global->qword_00002C);
       }
       else
       {

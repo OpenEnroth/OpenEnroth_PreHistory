@@ -855,8 +855,8 @@ LABEL_178:
     class03_sub_4698A6(pGame->pClass03);
     if ( dword_50C9E8[0] < 40 )
     {
-      dword_50C9EC[3 * dword_50C9E8[0]] = 146;
-      dword_50C9F0[3 * dword_50C9E8[0]] = v24;
+      dword_50C9E8[3 * dword_50C9E8[0] + 1] = 146;
+      dword_50C9E8[3 * dword_50C9E8[0] + 2] = v24;
       dword_50C9E8[3 * dword_50C9E8[0]++ + 3] = a2 - 1;
     }
     if ( dword_4E28F8 )
@@ -5075,9 +5075,9 @@ int __fastcall sub_46CEC3(signed int a1, signed int a2, int a3, int a4, int a5)
                                          + *(_WORD *)(v5 + 6 * *(_WORD *)(*(_DWORD *)(v8 + 48) + 2 * v54));
                     word_721390[2 * v54] = *(_WORD *)(v9 + *(_DWORD *)(v8 + 56))
                                          + *(_WORD *)(v5 + 6 * *(_WORD *)(*(_DWORD *)(v8 + 48) + v9) + 2);
-                    word_721462[2 * v54++] = *(_WORD *)(v9 + *(_DWORD *)(v8 + 52))
+                    word_721460[2 * v54++ + 1] = *(_WORD *)(v9 + *(_DWORD *)(v8 + 52))
                                            + *(_WORD *)(v5 + 6 * *(_WORD *)(*(_DWORD *)(v8 + 48) + v9 + 2));
-                    *(__int16 *)((char *)word_721392 + v10) = *(_WORD *)(v9 + *(_DWORD *)(v8 + 56))
+                    *(__int16 *)((char *)word_721390 + 2 + v10) = *(_WORD *)(v9 + *(_DWORD *)(v8 + 56))
                                                             + *(_WORD *)(v5
                                                                        + 6 * *(_WORD *)(*(_DWORD *)(v8 + 48) + v9 + 2)
                                                                        + 2);
@@ -5099,8 +5099,8 @@ int __fastcall sub_46CEC3(signed int a1, signed int a2, int a3, int a4, int a5)
                   {
                     if ( v55 >= 2 )
                       break;
-                    v43 = word_721392[v11];
-                    v52 = word_721392[v11] >= v59;
+                    v43 = word_721390[v11 + 1];
+                    v52 = word_721390[v11 + 1] >= v59;
                     if ( v50 == v52 )
                     {
                       v13 = v47;
@@ -5108,7 +5108,7 @@ int __fastcall sub_46CEC3(signed int a1, signed int a2, int a3, int a4, int a5)
                     else
                     {
                       v13 = v47;
-                      v14 = word_721462[v47] >= v58 ? 0 : 2;
+                      v14 = word_721460[v47 + 1] >= v58 ? 0 : 2;
                       v15 = v14 | word_721460[v47] < v58;
                       if ( v15 != 3 )
                       {
@@ -5119,7 +5119,7 @@ int __fastcall sub_46CEC3(signed int a1, signed int a2, int a3, int a4, int a5)
                               LODWORD(v19) = v18 << 16,
                               HIDWORD(v19) = v18 >> 16,
                               v5 = dword_6BE63C,
-                              (signed int)(((unsigned __int64)(((signed int)word_721462[v47]
+                              (signed int)(((unsigned __int64)(((signed int)word_721460[v47 + 1]
                                                               - (signed int)word_721460[v47])
                                                              * (signed int)(v19 / v17)) >> 16)
                                          + word_721460[v47]) >= v58) )
@@ -5189,9 +5189,9 @@ int __fastcall sub_46CEC3(signed int a1, signed int a2, int a3, int a4, int a5)
                                          + *(_WORD *)(v5 + 6 * *(_WORD *)(2 * v48 + *(_DWORD *)(v25 + 48)));
                     word_721390[2 * v48] = *(_WORD *)(v26 + *(_DWORD *)(v25 + 56))
                                          + *(_WORD *)(v5 + 6 * *(_WORD *)(v26 + *(_DWORD *)(v25 + 48)) + 2);
-                    word_721462[2 * v48++] = *(_WORD *)(v26 + *(_DWORD *)(v25 + 52) + 2)
+                    word_721460[2 * v48++ + 1] = *(_WORD *)(v26 + *(_DWORD *)(v25 + 52) + 2)
                                            + *(_WORD *)(v5 + 6 * *(_WORD *)(*(_DWORD *)(v25 + 48) + v26 + 2));
-                    *(__int16 *)((char *)word_721392 + v27) = *(_WORD *)(v26 + *(_DWORD *)(v25 + 56) + 2)
+                    *(__int16 *)((char *)word_721390 + 2 + v27) = *(_WORD *)(v26 + *(_DWORD *)(v25 + 56) + 2)
                                                             + *(_WORD *)(v5
                                                                        + 6 * *(_WORD *)(*(_DWORD *)(v25 + 48) + v26 + 2)
                                                                        + 2);
@@ -5212,10 +5212,10 @@ int __fastcall sub_46CEC3(signed int a1, signed int a2, int a3, int a4, int a5)
                     if ( v56 >= 2 )
                       break;
                     v29 = 2 * v53;
-                    v49 = word_721392[v53] >= v59;
+                    v49 = word_721390[v53 + 1] >= v59;
                     if ( v51 != v49 )
                     {
-                      if ( *(__int16 *)((char *)word_721462 + v29) >= v58 )
+                      if ( *(__int16 *)((char *)word_721460 + 2 + v29) >= v58 )
                         v30 = 0;
                       else
                         v30 = 2;
@@ -5224,12 +5224,12 @@ int __fastcall sub_46CEC3(signed int a1, signed int a2, int a3, int a4, int a5)
                       {
                         if ( !v31
                           || (v32 = *(__int16 *)((char *)word_721390 + v29),
-                              v33 = word_721392[v53] - v32,
+                              v33 = word_721390[v53 + 1] - v32,
                               v34 = v59 - v32,
                               LODWORD(v35) = v34 << 16,
                               HIDWORD(v35) = v34 >> 16,
                               v5 = dword_6BE63C,
-                              (signed int)(((unsigned __int64)(((signed int)*(__int16 *)((char *)word_721462 + v29)
+                              (signed int)(((unsigned __int64)(((signed int)*(__int16 *)((char *)word_721460 + 2 + v29)
                                                               - (signed int)*(__int16 *)((char *)word_721460 + v29))
                                                              * (signed int)(v35 / v33)) >> 16)
                                          + *(__int16 *)((char *)word_721460 + v29)) >= v58) )

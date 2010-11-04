@@ -40,8 +40,8 @@ struct LODFileHeader
 
 
 class LOD_file
-	{
-	protected:
+{
+	public:
 		FILE            *pLODFile;               //dword ptr [0000]
 		char             sLODName[255];           //dword ptr [0004]
 		bool             file_opened;			 // 104	260

@@ -553,19 +553,19 @@ bool MaybeDoAutosave()
   }
 
     LODFile_New_LOD.LODFile_sub_461F1E();
-    dword_6A0A4C = 0;
+    LODFile_New_LOD.uNumSubidices = 0;
     Reset_LODIndex(&v11);
-    v1 = dword_6A0C8C / 2;
-    if ( dword_6A0C8C / 2 < dword_6A0C8C )
+    v1 = LODFile_Games_LOD.uNumSubidices / 2;
+    if (LODFile_Games_LOD.uNumSubidices / 2 < LODFile_Games_LOD.uNumSubidices)
     {
       v2 = 32 * v1;
       v19 = 32 * v1;
-      v17 = dword_6A0C8C - v1;
+      v17 = LODFile_Games_LOD.uNumSubidices - v1;
       while ( 1 )
       {
-        memcpy(&v11, (const void *)(v2 + dword_6A0C90), 0x20u);
-        v3 = (int)LODFile_Games_LOD.Find_Container( (const char *)(v2 + dword_6A0C90), 1);
-        locked_fread(DstBuf, *(_DWORD *)(v19 + dword_6A0C90 + 20), 1u, (FILE *)v3);
+       memcpy(&v11, &LODFile_Games_LOD.pLODSubIndexNamedBuffer[v2 / 32], sizeof(LODIndex));
+       v3 = (int)LODFile_Games_LOD.Find_Container(LODFile_Games_LOD.pLODSubIndexNamedBuffer[v2 / 32].pFilename, 1);
+       locked_fread(DstBuf, LODFile_Games_LOD.pLODSubIndexNamedBuffer[v2 / 32].size_data, 1u, (FILE *)v3);
         LODFile_New_LOD.Append_item_to_temp_file( &v11, DstBuf);
         v19 += 32;
         v4 = v17-- == 1;

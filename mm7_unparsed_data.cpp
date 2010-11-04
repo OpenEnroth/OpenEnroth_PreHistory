@@ -914,11 +914,8 @@ struct GUIButton *dword_50C9CC; // weak
  int dword_50C9D4; // weak
  int dword_50C9D8; // weak
  int dword_50C9DC; // weak
- int dword_50C9E0; // weak
- int dword_50C9E8[array_size_unknown]; // weak
- int dword_50C9EC[array_size_unknown]; // weak
- int dword_50C9F0[array_size_unknown]; // weak
-
+struct NPCData *dword_50C9E0; // weak
+ int dword_50C9E8[1 + 120]; // 1 + 40*3
  int dword_50CBD0[array_size_unknown]; // weak
 //int dword_50CBD4[array_size_unknown]; // weak
 //int dword_50CBD8[array_size_unknown]; // weak
@@ -1067,9 +1064,7 @@ struct struct6 array_519ABC[400]; // struct[400] @ MM7.exe::00519ABC
  int dword_51B774; // weak
 
 struct class37 class37_global0; // struct @ MM7.exe::0051B778
-//int dword_51B778; // weak
  __int16 word_51B77C[array_size_unknown]; // weak
- __int16 word_51B77E[array_size_unknown]; // weak
  int dword_51C71C; // weak
  __int16 word_51C720[array_size_unknown]; // weak
  __int16 word_51C722; // weak
@@ -1279,10 +1274,8 @@ struct class40 *pClass40 = 0; // struct @ MM7.exe::005D29E0
  __int16 word_5D29FE; // weak
  int dword_5DAD28[array_size_unknown]; // weak
  int dword_5DBFD0[array_size_unknown]; // weak
- int dword_5DBFD4[array_size_unknown]; // weak
  char byte_5DBFE9[array_size_unknown]; // weak
  int dword_5DC1A8[array_size_unknown]; // weak
- int dword_5DC1AC[array_size_unknown]; // weak
  int dword_5DC1BC[array_size_unknown]; // weak
  char byte_5DC1CC[array_size_unknown]; // weak
  char byte_5DC1DC[array_size_unknown]; // weak
@@ -1373,8 +1366,7 @@ struct GUIButton *dword_69BD60; // weak
 struct GUIButton *dword_69BD64; // weak
  _UNKNOWN unk_69BD68; // weak
  char byte_69BD7C[20]; // idb
- int dword_69BD90[array_size_unknown]; // weak
- int dword_69BD94; // weak
+ int dword_69BD90[40 * 25 + array_size_unknown]; // weak
  int dword_69CEFC; // weak
  int dword_69CF00; // weak
  int dword_69CF04; // weak
@@ -1395,18 +1387,10 @@ struct GUIButton *dword_69BD64; // weak
  _UNKNOWN unk_6A0758; // weak
  _UNKNOWN unk_6A07A4; // weak
 
-  LOD_Writefile  LODFile_New_LOD; // struct @ MM7.exe::006A0820
-//_UNKNOWN unk_6A0820; // weak
- int dword_6A0A4C; // weak
-
-//struct LODFile *pLODFile_Games_LOD = 0; // struct @ MM7.exe::006A0A60
-  LOD_Writefile	LODFile_Games_LOD;
-//_UNKNOWN unk_6A0A60; // weak
- int dword_6A0C8C; // weak					   
- int dword_6A0C90; // weak
- int dword_6A0C9C; // weak
+LOD_Writefile LODFile_New_LOD;   // struct @ MM7.exe::006A0820
+LOD_Writefile LODFile_Games_LOD; // struct @ MM7.exe::006A0A60
+ int dword_6A0C9C;
  int dword_6A0CA0; // weak
- //int dword_6A0CA4; // weak
  int global_dword_6A0CA8; // weak
  HWND dword_6A0CFC; // idb
  int dword_6A0D00; // weak
@@ -1613,10 +1597,8 @@ struct CGame *pGame = 0; //struct @ MM7.exe::00720014
  int dword_7211B0[20]; // weak
  int dword_721200[array_size_unknown]; // weak
  int dword_7212C8[array_size_unknown]; // weak
- __int16 word_721390[array_size_unknown]; // weak
- __int16 word_721392[array_size_unknown]; // weak
- __int16 word_721460[array_size_unknown]; // weak
- __int16 word_721462[array_size_unknown]; // weak
+ __int16 word_721390[104]; // weak
+ __int16 word_721460[104]; // weak
 
 struct unnamed_721530 stru_721530; // struct @ MM7.exe::00721530
 struct unnamed_7215D8_PlayerActionBuffer stru_7215D8; // struct @ MM7.exe::007215D8
@@ -1840,12 +1822,9 @@ struct CPlayerFrameTable *pPlayerFrameTable = 0; // struct @ MM7.exe::00A750EC
  _UNKNOWN unk_A96080; // weak
  _UNKNOWN unk_AA1058; // weak
  int dword_ACC038[array_size_unknown]; // weak
- int dword_ACCCEC[array_size_unknown]; // weak
- int dword_ACCCF0[array_size_unknown]; // weak
- int dword_ACCD94[array_size_unknown]; // weak
- int dword_ACCD98[array_size_unknown]; // weak
+ int dword_ACCCEC[21 * 2]; // weak
+ int dword_ACCD94[16]; // weak
  int dword_ACCDD4[array_size_unknown]; // weak
- int dword_ACCDD8[array_size_unknown]; // weak
 
 
 
@@ -2065,7 +2044,6 @@ struct CSoundList *pSoundList = 0; // struct @ MM7.exe::00F79D5C
  int dword_F81028; // weak
  _UNKNOWN unk_F81054; // weak
  int dword_F83B80[array_size_unknown]; // weak
- int dword_F83B84[array_size_unknown]; // weak
  int dword_F83BA8[array_size_unknown]; // weak
  int dword_F8A590; // weak
  int dword_F8A594; // weak
