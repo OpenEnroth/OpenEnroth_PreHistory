@@ -947,7 +947,7 @@ void LODFile_IB::SetupPalettes( int uTargetRBits, int uTargetGBits, int uTargetB
 	 fseek(f, cTexture_obj.uCompressedSize, SEEK_CUR);
 	 locked_fread(tmp_palette, 1,768, f);
 	 k=0;
-	 for (j = 0; j < 512; ++j)
+	 for (j = 0; j < 256; j++)
 		 {
 		 aLODHeaders[i].pPalette[j] = (tmp_palette[k] >> (8 -  uTextureRedBits)) << ( uTextureBlueBits + uTextureGreenBits);
 		 aLODHeaders[i].pPalette[j] += (tmp_palette[k+1] >> (8 -  uTextureGreenBits)) <<  uTextureBlueBits;
