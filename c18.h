@@ -9,9 +9,9 @@ class Sprites_Header
 	{
 	public:
 		char             sContainerName[12];
-		int              dword_00000C;  // 12sprite: resource size;  actual size stored in dword_00001C (if compressed), otherwise this is actual size
+		unsigned int     dSpriteSize;  // dword 00000C 12sprite: resource size;  actual size stored in dword_00001C (if compressed), otherwise this is actual size
 		short            word_000010;	 //16
-		short            word_000012; // 18   * 8 for sprite size                      
+		short            uSomeSprtDataCount; // word 000012 18   * 8 for sprite size                      
 		unsigned short   uPaletteID; // dword @ 000014	 20
 		unsigned short short_0016;				  //22
 		unsigned short uTextureWidth;   // word @ 000018	//24
@@ -24,7 +24,7 @@ class Sprites_Header
 				char        c0001B;  // word @ 00001B
 				};
 			};
-		int     dword_00001C;				   //28
+		unsigned int    dUnCompressedSize ;		//dword 00001C		   //28
 		struct SomeSpriteData *pSomeSpriteData;  //  dword @ 000020   sprite: some data pt        	//32
 		unsigned char *ptr_000024; // dword @ 000024  sprite: decompressed sprite data 		   //36
 		void Clear_Data();

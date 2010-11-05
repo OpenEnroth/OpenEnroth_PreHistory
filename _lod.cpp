@@ -716,10 +716,10 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 		  {
 		  pHardwareSurfaces = new IDirectDrawSurface4 *[1000];
 		  pHardwareTextures = new IDirect3DTexture2 *[1000];
-		  lod_IB_dword_011BB4 = new int *[250];
+		  lod_IB_dword_011BB4 = new char [1000];
 		  memset(*pHardwareTextures, 0, 4000);
 		  memset(*pHardwareSurfaces, 0, 4000);
-		  memset(*lod_IB_dword_011BB4, 0, 1000);
+		  memset(lod_IB_dword_011BB4, 0, 1000);
 		  }
 	  if ( pContainerName[0] == 'w'		//wtrdr
 		  && pContainerName[1] == 't'
@@ -1095,92 +1095,73 @@ bool LODFile_IB::LODFile_ReleaseTexture( unsigned int uTextureID)
 }	
  
 #endif
-//----- (004AC7C0) --------------------------------------------------------
+//----- (004AC7C0) -------------------.text:004AE61A     -------------------------------------
 unsigned int LODFile_Sprite::LODFile_LoadSprite( const char *pSourceFile, int a3)
 {
-  //int v4; // esi@1
-  FILE * v8; // eax@12
-  signed int v12; // eax@22
-  struct
-  {
-   char DstBuf[0x10]; // [sp+Ch] [bp-3Ch]@13
-  __int16 v16; // [sp+1Ch] [bp-2Ch]@21
-  __int16 v17; // [sp+1Eh] [bp-2Ah]@12
-  __int16 v18; // [sp+20h] [bp-28h]@12
-  short _22;
-  short _24;
-  __int16 v19; // [sp+26h] [bp-22h]@12
-   short _28;
-   short _2A;
-  int v20; // [sp+2Ch] [bp-1Ch]@12
-  int v21; // [sp+30h] [bp-18h]@12
-  } local_0C;
-  int v24; // [sp+44h] [bp-4h]@12
+
+  FILE * work_file; 
  int i;
 
-
- //v4 = (int)_this;
+  //look on hwsprites
  if (pD3DRenderer->pRenderD3D3)
- {
-  for (i = 0; i < uNumLoadedSprites; ++i)
-   if (!strcmpi((char *)pHardwareSprites[i].pSpriteName, pSourceFile))
-      return i;
- }
- else for (i = 0; i < uNumLoadedSprites; ++i)
-   if (!strcmpi(aSpriteHeaders[i].sContainerName, pSourceFile))
-     return i;
+	 {
+	 for (i = 0; i < uNumLoadedSprites; i++)
+		 if (!strcmpi((char *)pHardwareSprites[i].pSpriteName, pSourceFile))
+			 return i;
+	 }
+ else for (i = 0; i < uNumLoadedSprites; i++)
+	 if (!strcmpi(aSpriteHeaders[i].sContainerName, pSourceFile))
+		 return i;
 
  if (uNumLoadedSprites >= 1500)
-   return -1;
+	 return -1;
 
-
+ //not found loaded
  if (pD3DRenderer->pRenderD3D3 && dword_00ECAC)
- {
-  if (!pHardwareSprites)
-  {
-   pHardwareSprites = (HardwareSprite *)mem_mng.AllocatedNamedBuffer( NULL, 1500 * sizeof(struct HardwareSprite), "hardwareSprites");
+	 {
+	 //alloc hardware sprites
+	 if (!pHardwareSprites)
+		 {
+		 pHardwareSprites = (HardwareSprite *)mem_mng.AllocatedNamedBuffer( NULL, 1500 * sizeof(struct HardwareSprite), "hardSprites");
 
-   for (i = 0; i < 1500; ++i)
-   {
-    pHardwareSprites[i].pSpriteName = 0;
-    pHardwareSprites[i].pTexture = 0;
-    pHardwareSprites[i].pTextureSurface = 0;
-   }
-  }
+		 for (i = 0; i < 1500; i++)
+			 {
+			 pHardwareSprites[i].pSpriteName = 0;
+			 pHardwareSprites[i].pTexture = NULL;
+			 pHardwareSprites[i].pTextureSurface = NULL;
+			 }
+		 }
 
-    local_0C.v17 = 0;
-    local_0C.v18 = 0;
-    local_0C.v19 = 0;
-    local_0C.v20 = 0;
-    local_0C.v21 = 0;
-    v24 = 0;
-    v8 = Find_Container( pSourceFile, false);
-    if ( !v8 )
-    {
-      v24 = -1;
-      //sub_462463((int)&local_0C);
-      return -1;
-    }
+	 Sprites_Header local_spr_hdr;
+	 work_file = Find_Container( pSourceFile, false);
+	 if ( !work_file )
+		 {
+		 return -1;
+		 }
+	 locked_fread(&local_spr_hdr, 1, 32, work_file);
+	 pHardwareSprites[uNumLoadedSprites].dword_000018 = local_spr_hdr.word_000010;
+	 pHardwareSprites[uNumLoadedSprites].dword_00001C = local_spr_hdr.uSomeSprtDataCount;
+	 aSpriteHeaders[uNumLoadedSprites].word_000010 = local_spr_hdr.word_000010;
+	 aSpriteHeaders[uNumLoadedSprites]. uSomeSprtDataCount = local_spr_hdr. uSomeSprtDataCount;	
+	 }
+ else
+	 {
+	 if ( LoadSpriteFromFile( &aSpriteHeaders[uNumLoadedSprites], pSourceFile) == -1 )
+		 {
+		 if (!uNumLoadedSprites)
+			 {
+			 for (i = 0; i < uNumLoadedSprites; i++)
+				 if (!stricmp(aSpriteHeaders[i].sContainerName, "pending"))
+					 return i;
+			 }
+		 else
+			 if ( LoadSpriteFromFile(&aSpriteHeaders[uNumLoadedSprites], "pending") == -1 )
+				 return -1;
+		 }
 
-    locked_fread(&local_0C, 1u, 0x20, v8);
-    v24 = -1;
-    pHardwareSprites[uNumLoadedSprites].dword_000018 = local_0C.v16;
-    pHardwareSprites[uNumLoadedSprites].dword_00001C = local_0C.v17;
-    aSpriteHeaders[uNumLoadedSprites].word_000010 = local_0C.v16;
-    aSpriteHeaders[uNumLoadedSprites].word_000012 = local_0C.v17;
-    //sub_462463(&local_0C);
-    goto LABEL_29;
-  }
-
-  v12 = sub_4AC67E_LoadSpriteFromFile( &aSpriteHeaders[uNumLoadedSprites], pSourceFile);
-  aSpriteHeaders[uNumLoadedSprites].c0001A = 0;
-  if ( v12 != -1 )
-  {
-LABEL_28:
-   aSpriteHeaders[uNumLoadedSprites].uPaletteID = class35_sub_48A3BC_MessWithPalettes(&class35_obj, aSpriteHeaders[uNumLoadedSprites].uPaletteID);
-
-LABEL_29:
-    if (pD3DRenderer->pRenderD3D3)
+	 aSpriteHeaders[uNumLoadedSprites].uPaletteID = class35_sub_48A3BC_MessWithPalettes(&class35_obj, aSpriteHeaders[uNumLoadedSprites].uPaletteID);
+	 }
+ if (pD3DRenderer->pRenderD3D3)
     {
      pHardwareSprites[uNumLoadedSprites].pSpriteName = (unsigned char *)mem_mng.AllocatedNamedBuffer(pHardwareSprites[uNumLoadedSprites].pSpriteName, 20, pSourceFile);
      strcpy((char *)pHardwareSprites[uNumLoadedSprites].pSpriteName, pSourceFile);
@@ -1188,21 +1169,8 @@ LABEL_29:
      Render_MoveHWSpriteToVideoMemory(pD3DRenderer, &pHardwareSprites[uNumLoadedSprites]);
     }
     ++uNumLoadedSprites;
-    return uNumLoadedSprites - 1;
-  }
-  if (!uNumLoadedSprites)
-  {
-LABEL_27:
-    if ( sub_4AC67E_LoadSpriteFromFile(&aSpriteHeaders[uNumLoadedSprites], "pending") == -1 )
-      return -1;
-    goto LABEL_28;
-  }
+   return uNumLoadedSprites - 1;
 
- for (i = 0; i < uNumLoadedSprites; ++i)
-   if (!stricmp(aSpriteHeaders[i].sContainerName, "pending"))
-     return i;
-
- goto LABEL_27;
 }
 
 
@@ -1216,7 +1184,7 @@ bool LODFile_IB::LODFile_LoadLOD_Icons_Events( const char *pFilename)
 #ifndef OLD_CODE 
  pHardwareSurfaces = new IDirectDrawSurface4 *[1000];
  pHardwareTextures = new IDirect3DTexture2 *[1000];
- lod_IB_dword_011BB4 = new int *[250];
+ lod_IB_dword_011BB4 = new char [1000];
 #endif  
  return  Load_SubIndexes("icons") == 0;
 }
@@ -1230,7 +1198,7 @@ bool LODFile_IB::LODFile_LoadLOD_Bitmaps( const char *pFilename)
  #ifndef OLD_CODE
  pHardwareSurfaces = new IDirectDrawSurface4 *[1000];
  pHardwareTextures = new IDirect3DTexture2 *[1000];
- lod_IB_dword_011BB4 = new int *[250];
+ lod_IB_dword_011BB4 = new char [1000];
 #endif
 
  return  Load_SubIndexes( "bitmaps") == 0;
@@ -1381,63 +1349,55 @@ int LODFile_IB::LODFile_LoadTexture( const char *pContainerName, unsigned int a3
 
 
 
-//----- (004AC67E) --------------------------------------------------------
-int LODFile_Sprite::sub_4AC67E_LoadSpriteFromFile( Sprites_Header *pDstBuf, const char *pFilename)
+//----- (004AC67E) ------------------.text:004AE4D5 --------------------------------------
+int LODFile_Sprite::LoadSpriteFromFile( Sprites_Header *pSpriteHdr, const char *pFilename)
 {
-  signed int v6; // eax@3
-  char *v8; // esi@3
+  
   int i; // edx@6
-  int v16; // [sp+10h] [bp+8h]@4
+  unsigned char *temp_buff; // [sp+10h] [bp+8h]@4
  FILE *f;
 
   f = Find_Container( pFilename, 0);
   if (!f)
     return -1;
 
-   v8 = (char *)pDstBuf;
-   locked_fread(pDstBuf, 1, 0x20, f);
-   strcpy(pDstBuf->sContainerName, pFilename);
-   pDstBuf->pSomeSpriteData = (SomeSpriteData *)mem_mng.AllocatedNamedBuffer( pDstBuf->pSomeSpriteData, 8 * pDstBuf->word_000012, pDstBuf->sContainerName);
-   locked_fread(pDstBuf->pSomeSpriteData, 1, 8 * pDstBuf->word_000012, f);
-   v6 = pDstBuf->dword_00001C;
-    if ( v6 )
+   //v8 = (char *)pSpriteHdr;
+   locked_fread(pSpriteHdr, 1,32, f);
+   strcpy(pSpriteHdr->sContainerName, pFilename);
+
+   pSpriteHdr->pSomeSpriteData = 
+	   (SomeSpriteData *)mem_mng.AllocatedNamedBuffer( pSpriteHdr->pSomeSpriteData, sizeof(SomeSpriteData) * pSpriteHdr-> uSomeSprtDataCount,pSpriteHdr->sContainerName);
+   locked_fread(pSpriteHdr->pSomeSpriteData, 1, 8 * pSpriteHdr->uSomeSprtDataCount, f);
+  // v6 = ;
+    if ( pSpriteHdr->dUnCompressedSize )
     {
-     pDstBuf->ptr_000024 = (unsigned char *)mem_mng.AllocatedNamedBuffer( pDstBuf->ptr_000024, v6, pDstBuf->sContainerName);
-     v16 = (int)mem_mng.AllocatedNamedBuffer( 0, pDstBuf->dword_00000C, pDstBuf->sContainerName);
-     locked_fread((void *)v16, 1, pDstBuf->dword_00000C, f);
-     MemUnzip(pDstBuf->ptr_000024, (unsigned int *)&pDstBuf->dword_00001C, (int *)v16, pDstBuf->dword_00000C);
-     pDstBuf->dword_00000C = pDstBuf->dword_00001C;
-     mem_mng.DeleteBuffer( (void *)(int *)v16);
+     pSpriteHdr->ptr_000024 = (unsigned char *)mem_mng.AllocatedNamedBuffer( pSpriteHdr->ptr_000024, pSpriteHdr->dUnCompressedSize,pSpriteHdr->sContainerName);
+     temp_buff = (unsigned char *)mem_mng.AllocatedNamedBuffer( 0, pSpriteHdr->dSpriteSize, pSpriteHdr->sContainerName);
+     locked_fread(temp_buff, 1,pSpriteHdr->dSpriteSize, f);
+     MemUnzip(pSpriteHdr->ptr_000024, (unsigned int *)&pSpriteHdr->dUnCompressedSize,temp_buff, pSpriteHdr->dSpriteSize);
+     pSpriteHdr->dSpriteSize = pSpriteHdr->dUnCompressedSize;
+     mem_mng.DeleteBuffer( temp_buff);
     }
     else
     {
-     pDstBuf->ptr_000024 = (unsigned char *)mem_mng.AllocatedNamedBuffer( pDstBuf->ptr_000024, pDstBuf->dword_00000C, pDstBuf->sContainerName);
-     locked_fread(pDstBuf->ptr_000024, 1, pDstBuf->dword_00000C, f);
+     pSpriteHdr->ptr_000024 = (unsigned char *)mem_mng.AllocatedNamedBuffer(pSpriteHdr->ptr_000024, pSpriteHdr->dSpriteSize,pSpriteHdr->sContainerName);
+     locked_fread(pSpriteHdr->ptr_000024, 1, pSpriteHdr->dSpriteSize, f);
     }
 
-
-    for (i = 0; i < pDstBuf->word_000012; ++i)
-      pDstBuf->pSomeSpriteData[i].ptr_000004 += (unsigned int)pDstBuf->ptr_000024;
+   //set offset in memory to frames
+    for (i = 0; i < pSpriteHdr-> uSomeSprtDataCount; ++i)
+      pSpriteHdr->pSomeSpriteData[i].ptr_000004 += (unsigned int)pSpriteHdr->ptr_000024;
  
   return 1;
 }
 
 
 //----- (004645DC) ---------text:004658FC    -----------------------------------------------
-int  LODFile_Sprite::sub_4645DC()
+void  LODFile_Sprite::sub_4645DC()
 {
-  int result; // eax@1
-  int v1;
-  int v2; // esi@1
-  int v3; // edi@1
 
-  
-  v2 = uNumLoadedSprites;
-  v3 = dword_00ECA8;
  uNumLoadedSprites=Delete_sprites_Range(  dword_00ECA8,uNumLoadedSprites);
-  result = uNumLoadedSprites;
- // *(_DWORD *)v2 = *(_DWORD *)v3;
-  return result;
+
 }
 
 
@@ -2054,10 +2014,10 @@ int LOD_Writefile::LODFile_sub_461F1E()
     {
       current_index_dir = 0;
       uNumSubidices = 0;
-      v3 = fopen("lodapp.tmp", "wb+");
-     ptemp_write_file = v3;
-      v4 = -(v3 != 0);
-      LOBYTE(v4) = v4 & 0xF9;
+      ptemp_write_file = fopen("lodapp.tmp", "wb+");
+    // ptemp_write_file = v3;
+    ///  v4 = -(v3 != 0);
+   //   LOBYTE(v4) = v4 & 0xF9;
       result = v4 + 7;
     }
     else
@@ -2071,16 +2031,7 @@ int LOD_Writefile::LODFile_sub_461F1E()
 //----- (00450C8B) --------------------------------------------------------
 void  LODFile_Sprite::LODFile_sub_450C8B()
 {
-  
-  int v2; // esi@1
-  int v3; // edi@1
-
-  v2 = uNumLoadedSprites;
-  v3 = dword_00ECA8;
- 
   uNumLoadedSprites=Delete_sprites_Range(  dword_00ECA8,uNumLoadedSprites);
-  
- 
 }
 
 //----- (00450CA9) -----.text:00451DBE---------------------------------------------------
@@ -2210,68 +2161,53 @@ void  LODFile_Sprite::sub_4ACB70()
 }
 
 
-//----- (00410423) --------------------------------------------------------
+//----- (00410423) --------------------.text:0041072D ------------------------------------
 void   LODFile_IB::sub_410423()
 {
-  int v1; // edi@1
-  int v2; // esi@1
-  int v3; // ebx@2
-  size_t v4; // eax@9
-  unsigned int v5; // ST1C_4@9
-  int v6; // eax@9
-  void *result; // eax@12
-  signed int v8; // esi@13
-  /*
-  //v2 = _this;
-  v1 = uNumLoadedSprites - 1;
-  if ( v1 >= 0 )
+  char* v4; // eax@9
+  unsigned int i;
+ 
+  if ( uNumLoadedFiles> 0 )
   {
-    v3 = dword0023E+72 * v1 ;
-    do
+    for(i=0;i<uNumLoadedFiles; i++)
     {
-      if ( *(_BYTE *)(v1 + dword_011BB4) )
+      if (lod_IB_dword_011BB4[i] )
       {
-        if ( *(_BYTE *)(v3 - 2) != 119
-          || *(_BYTE *)(v3 - 1) != 116
-          || *(_BYTE *)v3 != 114
-          || *(_BYTE *)(v3 + 1) != 100
-          || *(_BYTE *)(v3 + 2) != 114 )
+        if ( aLODHeaders[i].sContainerName[0] != 'w' 	   //wtrdr
+          || aLODHeaders[i].sContainerName[1] != 't' 
+          || aLODHeaders[i].sContainerName[2] != 'r'
+          || aLODHeaders[i].sContainerName[3] != 'd'
+          || aLODHeaders[i].sContainerName[4] != 'r')
         {
           Render_sub_4A4DE1(
             (int)pD3DRenderer,
-            v3 - 2,
-            *(_WORD *)(v3 + 34),
-            4 * v1 + (int)pHardwareSurfaces,
-            4 * v1 + (int)pHardwareSurfaces);
+            (int)&aLODHeaders[i].sContainerName,
+            aLODHeaders[i].word_000022,
+            (int)pHardwareSurfaces[i],
+            (int)pHardwareTextures[i]);
+		  
         }
         else
         {
-          v4 = strlen((const char *)(v3 - 2));
-          compile_error;//v5 = (unsigned int)(new char[v4 + 2]);
-          *(_BYTE *)v5 = 104;
-          strcpy((char *)(v5 + 1), (const char *)(v3 - 2));
-          v6 = Render_sub_4A4DE1(
-                 (int)pD3DRenderer,
-                 v5,
-                 *(_WORD *)(v3 + 34),
-                 4 * v1 + (int)pHardwareSurfaces,
-                 4 * v1 + (int)pHardwareSurfaces);
-          operator_delete((void *)v5);
+
+           v4 = (char*) malloc(strlen(aLODHeaders[i].sContainerName)+2);
+		   v4[0] = 'h';
+		  strcpy((char *)(v4[1]), aLODHeaders[i].sContainerName);
+          Render_sub_4A4DE1(
+            (int)pD3DRenderer,
+            (int)&v4,
+            aLODHeaders[i].word_000022,
+            (int)pHardwareSurfaces[i],
+            (int)pHardwareTextures[i]);
+          free(v4);
         }
-      }
-      --v1;
-      v3 -= 72;
-    }
-    while ( v1 >= 0 );
+      }      
+    } 
   }
-  result = *(void **)(v2 + 72628);
-  if ( result )
-  {
-    v8 = *(_DWORD *)(v2 + 72572);
-    if ( v8 > 1 )
-      result = memset(result, 0, v8 - 1);
-  }	   */
-  return;
+ 
+  if ((lod_IB_dword_011BB4)&&(uNumLoadedFiles > 1 ))
+        memset(lod_IB_dword_011BB4, 0, uNumLoadedFiles-1);
+     
 }
 
 
@@ -2292,9 +2228,9 @@ void  LODFile_Sprite::sub_4ACBE0()
     {
       do
       {
-       (void *)Render_MoveHWSpriteToVideoMemory(pD3DRenderer, (HardwareSprite *)(v1 + (int)pHardwareSprites));
+       (void *)Render_MoveHWSpriteToVideoMemory(pD3DRenderer, &pHardwareSprites[v3]);
         ++v3;
-        v1 += 40;
+       // v1 += 40;
       }
       while ( v3 <uNumLoadedSprites);
     }

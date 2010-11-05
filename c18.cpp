@@ -8,7 +8,7 @@
 Sprites_Header::Sprites_Header()
 	{
 
-	word_000012=0; // * 8 for sprite size                      
+	uSomeSprtDataCount=0; // * 8 for sprite size                      
 	uPaletteID=0; // dword @ 000014
 	short_001A=0;
 	pSomeSpriteData=NULL;
@@ -42,16 +42,14 @@ void Sprites_Header::Clear_Data()
 	pSomeSpriteData=NULL;
 	ptr_000024=NULL;
 	sContainerName[0]=0;
-	dword_00000C=0;
+	dSpriteSize=0;
     word_000010=0;
-	word_000012=0; // * 8 for sprite size
+	uSomeSprtDataCount=0; // * 8 for sprite size
 	short_0016=0;
 	uTextureWidth=0;
 	uPaletteID=0; // dword @ 000014
 	short_001A=0;
 
-
-  ;
 }
 
 

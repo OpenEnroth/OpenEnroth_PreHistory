@@ -207,7 +207,7 @@ signed int __thiscall LODFile_sub_40F9F0(int _this, const char *Str2);
 signed int __thiscall LODFile_sub_4101B1(int _this, char *DstBuf, const char *Source, size_t Count);
 void __thiscall sub_41033D(int _this);
 void __thiscall sub_4103BB(int _this);
-void *__thiscall sub_410423(int _this);
+//void *__thiscall sub_410423(int _this);
 signed int __thiscall LODFile_sub_410522(int _this, void *DstBuf, const char *Source, int a4);
 char *__thiscall sub_410B28(void *_this);
 signed int __fastcall sub_410D99(int a1);

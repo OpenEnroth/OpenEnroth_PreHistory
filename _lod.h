@@ -112,13 +112,13 @@ public:
 
  IDirectDrawSurface4 **pHardwareSurfaces; // dword @ 011BAC   1000 of them  72620
  IDirect3DTexture2   **pHardwareTextures; // dword @ 011BB0   1000 of them  72624
- int    **lod_IB_dword_011BB4;//         							  72628
+ char    *lod_IB_dword_011BB4;//         							  72628
 
  
 
 	 LODFile_IB();
 	 ~LODFile_IB();
-//void LODFile_ctor(struct LODFile *_this);
+
 //bool __thiscall sub_40FAEE(int _this, const char *Filename);
 bool LODFile_LoadLOD_Icons_Events( const char *pLODFilename);
 //bool __thiscall sub_40FA2E(int _this, const char *Filename);
@@ -133,16 +133,13 @@ int LODFile_fn3( int a2, int a3, const char *pContainerName);
 //void __thiscall sub_40FA60(int _this);
 void Reset_TextureBuffs(); //LODFile_fn4();
 //signed int __thiscall sub_4617D5(int _this, const char *Filename, char a3)
-//int LODFile_MaybeLoadLODHeader(struct LODFile *_this, const char *pFilename, char a3);
+
 
 //int __thiscall sub_40FB20(int _this, const char *Source, unsigned int a3)
 int LODFile_LoadTexture( const char *pContainerName, unsigned int a3);
 //signed int __thiscall sub_40FC08(int _this, void *Dest, int Source, unsigned int DstBuf);
 int LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerName, unsigned int uTextureType);
-//int __thiscall sub_461954(int _this, int a2, signed int Size);
-//void LODFile_AllocateSubidexAndIOBuffer(struct LODFile *_this, unsigned int uNumSubIndices, signed int uIOBufferSize);
-//signed int __thiscall sub_461A43(void *_this, const char *Filename, char a3);
-//int LODFile_LoadLOD_Games(struct LODFile *_this, const char *pLODFilename, unsigned char uFileFlags);
+
 //int __thiscall LODFile_sub_4114F2(_DWORD);
 int LODFile_sub_4114F2();
 //int __thiscall sub_46454B(int _this);
@@ -194,13 +191,13 @@ void  sub_41033D();
 		   ~LODFile_Sprite();
 
            
-           int sub_4645DC();   
+           void sub_4645DC();   
 		   void sub_4ACBE0();
-		   void sub_4ACB70(); 
-		   void  sub_4ACADA();
+		   void sub_4ACB70(); //-<-re
+		   void  sub_4ACADA(); //<-re
 		   int Delete_sprites_Range( int start_indx, int stop_indx);
 		   void  LODFile_sub_450C8B();
-		   int sub_4AC67E_LoadSpriteFromFile( Sprites_Header *pDstBuf, const char *pFilename);
+		   int LoadSpriteFromFile( Sprites_Header *pSpriteHdr, const char *pFilename);
 		   int LODFile_sub_461397();   
 		   //bool __thiscall sub_4AC795(int _this, const char *Filename);
             bool LODFile_LoadLOD_Sprites( const char *pLODFilename);
