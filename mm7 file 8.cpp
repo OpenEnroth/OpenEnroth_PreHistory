@@ -552,7 +552,7 @@ bool MaybeDoAutosave()
    return false;
   }
 
-    LODFile_New_LOD.LODFile_sub_461F1E();
+    LODFile_New_LOD.OpenTempFile();
     LODFile_New_LOD.uNumSubidices = 0;
     Reset_LODIndex(&v11);
     v1 = LODFile_Games_LOD.uNumSubidices / 2;
@@ -7515,7 +7515,7 @@ int LoadFileToBuffer(const char *pSourceFile, unsigned char *pOutBuffer, unsigne
 
  v5 = cTexture_obj.uDecompressedSize;
  if (!v5)
-   v5 = cTexture_obj.uCompressedSize;
+   v5 = cTexture_obj.uTextureSize;
 
  memset(&cTexture_obj, 0, 0x48u);
  if (v5 >= uBufferSize)

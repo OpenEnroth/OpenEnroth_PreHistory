@@ -74,15 +74,15 @@ class LOD_file
   class LOD_Writefile:public LOD_file
 	  {
 	  public:
-	   void Close_Written_File();  
+	   void Close_Written_File();
+	   int OpenTempFile();
 	   bool  Load_File(const char *pLODFilename, unsigned char uFileFlags);
 	   unsigned int Add_Container_to_File(const LODIndex *container_index, const void *container_data, int a4);
-	  bool Append_item_to_temp_file(const LODIndex *container_index, const void *container_data);
-	  signed int LODFile_sub_4621A7();
-	  int Write_SubIndex();
+	   bool Append_item_to_temp_file(const LODIndex *container_index, const void *container_data);
+	   signed int ReloadFile();
+	   int Write_SubIndex();
 	   int Write_Lod_Header( LODFileHeader* file_header, LODIndex * indx, const char *Source);
-
-	  int LODFile_sub_461F1E();
+	  
 	  }	;
 
 
@@ -126,14 +126,8 @@ bool LODFile_LoadLOD_Bitmaps( const char *pLODFilename);
 
 //int __thiscall sub_41088B(void *_this, const char *Args, int a3);
 void *LODFile_LoadRaw( const char *pLODContainer, int a3);
-//int __thiscall sub_461580(int _this, const char *Str1, int a3);
-//FILE *LODFile_FindContainer(struct LODFile *_this, const char *pContainerName, int a3);
-//int __thiscall sub_46165E(void *_this, int a2, int a3, const char *Str1);
-int LODFile_fn3( int a2, int a3, const char *pContainerName);
-//void __thiscall sub_40FA60(int _this);
-void Reset_TextureBuffs(); //LODFile_fn4();
-//signed int __thiscall sub_4617D5(int _this, const char *Filename, char a3)
 
+void Reset_TextureBuffs(); //LODFile_fn4();
 
 //int __thiscall sub_40FB20(int _this, const char *Source, unsigned int a3)
 int LODFile_LoadTexture( const char *pContainerName, unsigned int a3);
@@ -151,17 +145,16 @@ void SetupPalettes( int uTargetRBits, int uTargetGBits, int uTargetBBits);
 
  signed int  LODFile_sub_4101B1( char *DstBuf, const char *Source, size_t Count);
  #ifndef	OLD_CODE
-unsigned int   LODFile_LoadTexture_New(const wchar_t *pFilename);
-bool LODFile_ReleaseTexture( unsigned int uTextureID);
+    unsigned int   LODFile_LoadTexture_New(const wchar_t *pFilename);
+    bool LODFile_ReleaseTexture( unsigned int uTextureID);
+    unsigned char *LODFile_LoadEvent( const wchar_t *pFilename);
 #endif
-unsigned char *LODFile_LoadEvent( const wchar_t *pFilename);
-
 
 int  LODFile_sub_40F9C5();
 
 signed int  LODFile_sub_40F9F0( const char *Str2);
 
-signed int LODFile_sub_410522( void *DstBuf, const char *Source, int a4);
+signed int LODFile_sub_410522( cTexture *pcTexture, const char *pContainerName, unsigned int uTextureType);
 
 void sub_4355F7();
 

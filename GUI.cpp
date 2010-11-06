@@ -5394,11 +5394,11 @@ bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarT
   else
   {
    if (pParty_global->uAlignment == 0)
-     LODFile_Icons_LOD.LODFile_sub_410522( (char *)v2 + 296, "bardata-b", 2);
+     LODFile_Icons_LOD.LODFile_sub_410522( (cTexture *)v2 + 296, "bardata-b", 2);
    else if (pParty_global->uAlignment == 1)
-     LODFile_Icons_LOD.LODFile_sub_410522( (char *)v2 + 296, "bardata", 2);
+     LODFile_Icons_LOD.LODFile_sub_410522( (cTexture *)v2 + 296, "bardata", 2);
    else
-     LODFile_Icons_LOD.LODFile_sub_410522( (char *)v2 + 296, "bardata-C", 2);
+     LODFile_Icons_LOD.LODFile_sub_410522( (cTexture *)v2 + 296, "bardata-C", 2);
 
    *((_BYTE *)v2 + 11) = 0;
    *((_BYTE *)v2 + 10) = 26;

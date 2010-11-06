@@ -58,7 +58,7 @@ void cTexture_Zero(cTexture* cTxtr)
 {
 	cTxtr->sContainerName[0] = 0;
 	cTxtr->uSizeOfMaxLevelOfDetal = 0;
-	cTxtr->uCompressedSize = 0; 
+	cTxtr->uTextureSize = 0; 
 	cTxtr->uTextureWidth = 0;
 	cTxtr->uTextureHeight = 0;
 	cTxtr->word_00001C = 0;

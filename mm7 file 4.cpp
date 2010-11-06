@@ -11503,7 +11503,7 @@ char __thiscall sub_45D74F_MessWithLight(struct class04 *_this, int a2, int a3)
   int v20; // eax@20
   int v21; // eax@20
   int v22; // eax@22
-  char v24; // [sp+44h] [bp-44h]@12
+  int v24; // [sp+44h] [bp-44h]@12
   signed int v25; // [sp+48h] [bp-40h]@12
   int v26; // [sp+4Ch] [bp-3Ch]@12
   int v27; // [sp+50h] [bp-38h]@2
@@ -11595,7 +11595,7 @@ char __thiscall sub_45D74F_MessWithLight(struct class04 *_this, int a2, int a3)
             {
               v29 = 1230;
               v28 = (unsigned int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Light.cpp";
-              v34 = &v24;
+              v34 = (char *)&v24;
               Game_sub_40E2C8(&v24, "Invalid lightmap detected!", (int)((char *)&a3 + 3));
               sub_467834(&v36, v24, (const CHAR *)v25, v26, v27, (const char *)v28, v29);
               v36 = 5080812;
@@ -11618,7 +11618,7 @@ char __thiscall sub_45D74F_MessWithLight(struct class04 *_this, int a2, int a3)
             {
               v29 = 1238;
               v28 = (unsigned int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Light.cpp";
-              v33 = &v24;
+              v33 = (char *)&v24;
               Game_sub_40E2C8(&v24, "Invalid lightmap detected!", (int)((char *)&a3 + 3));
               sub_467834(&v34, v24, (const CHAR *)v25, v26, v27, (const char *)v28, v29);
               v34 = (char *)byte_4D8410 + 732;
@@ -12720,7 +12720,7 @@ int __fastcall sub_460078(int a1)
   }
   while ( v4 < (signed int)&unk_6A0758 );
   if ( v8 )
-    LODFile_New_LOD.LODFile_sub_4621A7();
+    LODFile_New_LOD.ReloadFile();
   else
     sub_44C175((char *)pGlobalTXT_LocalizationStrings[583], 2);
   LODFile_Icons_LOD.sub_4355F7();
