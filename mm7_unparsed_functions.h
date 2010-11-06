@@ -1000,7 +1000,7 @@ char __thiscall sub_491317(void *_this);
 int Party_sub_49135E_GetAllPartyExpDiv1000(struct Party *_this);
 int __fastcall sub_491DE7(int a1, int a2);
 int __cdecl sub_491E3A();
-void __cdecl sub_491F87_DrawNPCs();
+void __cdecl sub_491F87_DrawHiredNPCs();
 signed int __thiscall sub_4925E6(void *_this);
 int __thiscall sub_492600(struct Player *_this, int a2, unsigned int uItemID);
 signed int __thiscall sub_492700(void *_this, signed int a2);

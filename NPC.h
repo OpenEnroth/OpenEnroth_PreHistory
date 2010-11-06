@@ -25,7 +25,7 @@ struct NPCData
  int                  dword_00001C;
  int                  dword_000020;
  int                  dword_000024;
- int                  dword_000028;
+ int                  dword_000028; // bool whether spell or some animation is drawn
  int                  dword_00002C;
  int                  dword_000030;
  int                  dword_000034;

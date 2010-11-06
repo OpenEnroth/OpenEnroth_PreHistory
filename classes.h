@@ -229,7 +229,7 @@ struct class25
 {
  void                 (*detor_ptr)(struct class25 *, unsigned int); // dword @ 000000
  struct class25_stru0  array_000004[512];
- struct class25_stru0 *array_001800[512];
+ struct class25_stru0 *array_001804[512];
  int                   dword_002004;
 };
 //sizeof = 2008
@@ -295,7 +295,7 @@ int Vis_sub_4C1026(struct Vis *_this, int a2, int a3, float a4);
 //char __thiscall sub_4C1ABA(void *_this, int a2, int a3, int a4);
 bool Vis_sort_some_objects(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight);
 //int __thiscall sub_4C1495(void *_this, const void *Src, int a3, int a4, int a5);
-int __thiscall Vis_sub_4C1495(struct Vis *_this, struct Vis_stru0 *Src, int a3, int a4, int a5);
+void Vis_sub_4C1495(struct Vis *_this, struct Vis_stru0 *Src, int a3, float *a4, float *a5);
 //char __thiscall sub_4C288E(void *_this, int a2, int a3, int a4);
 bool Vis_sort_some_objects_2(struct Vis *_this, struct Vis_stru0 *pArray, int sLeft, int sRight);
 //char __thiscall sub_4C297E(void *_this, int a2, int a3, int a4);

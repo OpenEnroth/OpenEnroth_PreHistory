@@ -313,9 +313,8 @@ extern unsigned char uAgeingLuckMultiplier[4];
 
 extern int dword_4EDFFC; // weak
 extern char byte_4EE038[array_size_unknown]; // weak
-extern int dword_4EE06C[array_size_unknown]; // weak
-extern int dword_4EE074[array_size_unknown]; // weak
-
+extern unsigned int uHiredNPCsIconsOffsetsX[2]; // dword[2] @ MM7.exe::004EE06C
+extern unsigned int uHiredNPCsIconsOffsetsY[2]; // dword[2] @ MM7.exe::004EE074
 extern int array_4EE07C[2];
 //_UNKNOWN unk_4EE07C; // weak
 //extern _UNKNOWN unk_4EE084; // array_4EE07C bounding offset
@@ -2875,11 +2874,11 @@ extern int dword_F8B1A8; // weak
 extern int dword_F8B1AC; // idb
 extern int dword_F8B1B0; // weak
 extern unsigned int uArenaReward; // dword @ MM7.exe::00F8B1B4
-extern int dword_F8B1B8[array_size_unknown]; // weak
-extern int dword_F8B1BC; // weak
-extern int dword_F8B1C0; // weak
-extern int dword_F8B1C4; // weak
-extern _UNKNOWN unk_F8B1C8; // weak
+extern unsigned char *dword_F8B1B8[]; // weak
+//int dword_F8B1BC; // weak
+//int dword_F8B1C0; // weak
+//int dword_F8B1C4; // weak
+extern _UNKNOWN unk_F8B1C8; // end of dword_F8B1B8 indexing
 extern int dword_F8B1D8; // weak
 extern int dword_F8B1DC; // weak
 extern int dword_F8B1E0; // weak
@@ -2939,36 +2938,29 @@ extern struct OldViewport *pOldViewport;  // struct @ MM7.exe::00F8BC14
 // int dword_F8BC40; // 00002C
 // int dword_F8BC44; // 000030
 
-extern __int16 word_F8BC48[array_size_unknown]; // weak
-extern __int16 word_F8BC4A; // weak
-extern __int16 word_F8BD18[array_size_unknown]; // weak
-extern __int16 word_F8BD1A[array_size_unknown]; // weak
-extern int dword_F8BDE8; // begin of class25
-extern int dword_F8D5EC; // class25_stru0 **
-
-extern _UNKNOWN unk_F8DDE0; // weak
-extern _UNKNOWN unk_F8DDE4; // weak
-extern int dword_F8DDEC; // weak
+extern __int16 word_F8BC48[]; // weak
+//__int16 word_F8BC4A; // weak
+extern __int16 word_F8BD18[]; // weak
+//__int16 word_F8BD1A[array_size_unknown]; // weak
+extern struct class25 class25_F8BDE8; // struct @ MM7.exe::00F8BDE8
+//int dword_F8BDE8; // begin of class25
+//int dword_F8D5EC; // 001804   class25_stru0 **
+//_UNKNOWN unk_F8DDE0; // array_F8DDF8[-1].flt_000004
+//_UNKNOWN unk_F8DDE4; // array_F8DDF8[-1].flt_000008
+//int dword_F8DDEC; // 002004
 extern char byte_F8DDF0; // weak
-
-//probably Vis_stru0, but surely 64x48
 extern struct Vis_stru0 array_F8DDF8[64]; // struc[64] @ MM7.exe::00F8DDF8
 //_UNKNOWN unk_F8DDF8; // weak
 //float flt_F8DE10; // 000018
 //float flt_F8DE14; // 00001C
 //_UNKNOWN unk_F8DE24; // 00002C
-
-extern _UNKNOWN unk_F8E9E0; // [63]+18
-extern _UNKNOWN unk_F8E9E4; // [63]+1C
+//extern _UNKNOWN unk_F8E9E0; // [63]+18
+//extern _UNKNOWN unk_F8E9E4; // [63]+1C
 extern char byte_F8E9F8; // weak
-
 //float flt_F8EA00; // weak
 //float flt_F8EA04; // weak
-
-extern struct RenderVertexD3D3 array_F8EA00[array_size_unknown]; // struct[?
-
-//probably Vis_stru0, but surely 64x48
-extern struct Vis_stru0 array_F8F200[64]; // struct[64] @ MM7.exe::00F8F200
+extern struct RenderVertexD3D3 array_F8EA00[]; // struct[64] @ MM7.exe::00F8EA00
+extern struct Vis_stru0        array_F8F200[64]; // struct[64] @ MM7.exe::00F8F200
 //extern _UNKNOWN unk_F8F200; // weak
 //extern _UNKNOWN unk_F8F204; // weak
 //extern float flt_F8F20C; // weak

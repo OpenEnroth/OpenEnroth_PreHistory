@@ -275,9 +275,14 @@ unsigned char byte_4ED750[0xC] =
  
  int dword_4EDFFC; // weak
  char byte_4EE038[array_size_unknown]; // weak
- int dword_4EE06C[array_size_unknown]; // weak
- int dword_4EE074[array_size_unknown]; // weak
-
+unsigned int uHiredNPCsIconsOffsetsX[2] = // dword[2] @ MM7.exe::004EE06C
+{
+ 489, 559
+};
+unsigned int uHiredNPCsIconsOffsetsY[2] = // dword[2] @ MM7.exe::004EE074
+{
+ 152, 152
+};
  int array_4EE07C[2] =
 {
  0x07, 0x12
@@ -2123,10 +2128,7 @@ struct CSoundList *pSoundList = 0; // struct @ MM7.exe::00F79D5C
  int dword_F8B1AC; // idb
  int dword_F8B1B0; // weak
 unsigned int uArenaReward = 0; // dword @ MM7.exe::00F8B1B4
- int dword_F8B1B8[array_size_unknown]; // weak
- int dword_F8B1BC; // weak
- int dword_F8B1C0; // weak
- int dword_F8B1C4; // weak
+unsigned char *dword_F8B1B8[4]; // weak
  _UNKNOWN unk_F8B1C8; // weak
  int dword_F8B1D8; // weak
  int dword_F8B1DC; // weak
@@ -2174,26 +2176,14 @@ int dword_F8BC10; // weak
 
 struct OldViewport *pOldViewport = 0;  // struct @ MM7.exe::00F8BC14
 
- __int16 word_F8BC48[array_size_unknown]; // weak
- __int16 word_F8BC4A; // weak
- __int16 word_F8BD18[array_size_unknown]; // weak
- __int16 word_F8BD1A[array_size_unknown]; // weak
- int dword_F8BDE8; // begin of class25
- int dword_F8D5EC; // class25_stru0 **
- _UNKNOWN unk_F8DDE0; // weak
- _UNKNOWN unk_F8DDE4; // weak
- int dword_F8DDEC; // weak
+ __int16 word_F8BC48[104]; // weak
+ __int16 word_F8BD18[104]; // weak
+struct class25 class25_F8BDE8; // struct @ MM7.exe::00F8BDE8
  char byte_F8DDF0; // weak
-
 struct Vis_stru0 array_F8DDF8[64]; // struc[64] @ MM7.exe::00F8DDF8
-
-_UNKNOWN unk_F8E9E0; // [63]+18
-_UNKNOWN unk_F8E9E4; // [63]+1C
  char byte_F8E9F8; // weak
-
-struct RenderVertexD3D3 array_F8EA00[array_size_unknown]; // struct[?
-
-struct Vis_stru0 array_F8F200[64]; // struct[64] @ MM7.exe::00F8F200
+struct RenderVertexD3D3 array_F8EA00[64]; // struct[64] @ MM7.exe::00F8EA00
+struct Vis_stru0        array_F8F200[64]; // struct[64] @ MM7.exe::00F8F200
 struct class25 class25_F8FE00;     // struct     @ MM7.exe::00F8FE00
  char byte_F91E08; // weak
 struct class25 class25_F91E10;  // struct @ MM7.exe::00F91E10

@@ -4249,7 +4249,7 @@ void class40_LoadPotionsTable(struct class40 *_this)
   v9 = _this;
 
  if (pPotionsTXT_Raw)
-   mem_mng.DeleteBuffer( (void *)pPotionsTXT_Raw);
+   mem_mng.DeleteBuffer(pPotionsTXT_Raw);
 
  pPotionsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "potion.txt", 0);
  for (i = strtok((char *)pPotionsTXT_Raw, "\t\r\n"); ; i = strtok(0, "\t\r\n"))

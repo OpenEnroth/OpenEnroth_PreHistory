@@ -4047,7 +4047,7 @@ LABEL_22:
   struct_576FE8.dword_000044 = v6;
   GameUI_DrawPartySpells();
   if (v5 || pParty_global->pHiredNPCs[0].dword_000030 || pParty_global->pHiredNPCs[1].dword_000030)
-    sub_491F87_DrawNPCs();
+    sub_491F87_DrawHiredNPCs();
 
   GameUI_DrawPortraits((void *)v5);
   GameUI_DrawLifeManaBars();
@@ -13775,7 +13775,7 @@ int __thiscall sub_4C2AA6(struct unnamed_6BD080 *_this)
 }
 
 //----- (00491F87) --------------------------------------------------------
-void __cdecl sub_491F87_DrawNPCs()
+void __cdecl sub_491F87_DrawHiredNPCs()
 {
   _UNKNOWN *v4; // esi@7
   int v5; // ecx@13
@@ -13842,24 +13842,22 @@ void __cdecl sub_491F87_DrawNPCs()
         {
          wsprintfA(Str1, "NPC%03d", pNPCStats->pNPCData2[v7].uPortraitID);
           v15 = LODFile_Icons_LOD.LODFile_LoadTexture( Str1, 2);
-          Render_DrawIndexedTexture(pD3DRenderer, dword_4EE06C[v25], dword_4EE074[v25], (cTexture *)(v15 != -1 ? 72 * v15 + 7145548 : 0));
+          Render_DrawIndexedTexture(pD3DRenderer, uHiredNPCsIconsOffsetsX[v25], uHiredNPCsIconsOffsetsY[v25], (cTexture *)(v15 != -1 ? 72 * v15 + 7145548 : 0));
         }
         else
         {
-          wsprintfA(Str1, "NPC%03d", pParty_global->pHiredNPCs[v7].uPortraitID);
-          v10 = LODFile_Icons_LOD.LODFile_LoadTexture( Str1, 2);
-          v9 = 4 * v25;
-          Render_DrawIndexedTexture(pD3DRenderer,
-            *(int *)((char *)dword_4EE06C + v9),
-            *(int *)((char *)dword_4EE074 + v9),
-            (cTexture *)(v10 != -1 ? 72 * v10 + 7145548 : 0));
+         wchar_t pFilename[256];
+          wsprintfW(pFilename, L"NPC%03d", pParty_global->pHiredNPCs[v7].uPortraitID);
+          v10 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pFilename);
+          v9 = v25;
+          Render_DrawIndexedTexture(pD3DRenderer, uHiredNPCsIconsOffsetsX[v9], uHiredNPCsIconsOffsetsY[v9], &LODFile_Icons_LOD.aLODHeaders[v10]);
 
-          v8 = 76 * (unsigned __int8)(char *)TmpBuf[v21];
+          v8 = TmpBuf[v21];
           if (pParty_global->pHiredNPCs[v8].dword_000028 == 1 )
           {
            v20 = pParty_global->pHiredNPCs[v8].dword_00002C;
-            v12 = *(int *)((char *)dword_4EE06C + v9);
-            v11 = *(int *)((char *)dword_4EE074 + v9);
+            v12 = uHiredNPCsIconsOffsetsX[v9];
+            v11 = uHiredNPCsIconsOffsetsY[v9];
             v19 = v12;
             v23 = 0;
 
@@ -13897,7 +13895,7 @@ LABEL_23:
         //v17 = __SETO__(v21 + 1, v24);
         //v16 = v21++ + 1 - v24 < 0;
       }
-      while (++v24 < v24);
+      while (++v21 < v24);
     }
 
 }

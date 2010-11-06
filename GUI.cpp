@@ -2447,7 +2447,7 @@ LABEL_92:
                 pParty_global->byte_000709 = 0;
             }
           }
-          sub_491F87_DrawNPCs();
+          sub_491F87_DrawHiredNPCs();
           goto LABEL_92;
         case 0x19B:
           if ( dword_50CBD0[0] )

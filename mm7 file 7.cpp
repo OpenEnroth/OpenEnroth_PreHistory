@@ -5099,7 +5099,7 @@ LABEL_53:
           break;
       }
 LABEL_106:
-      dword_F8B1B8[v1] = v30;
+      dword_F8B1B8[v1] = (unsigned char *)v30;
       v31 = v38++;
       dword_F8B1DC = v1 + 1;
       sub_4B36CC(v31, v29);
@@ -6086,8 +6086,8 @@ LABEL_60:
     {
       v45 = (int)pDialogueWindow;
       v77 = 0;
-      dword_F8B1B8[0] = (int)(char *)TmpBuf;
-      dword_F8B1BC = (int)pGlobalTXT_LocalizationStrings[160];
+      dword_F8B1B8[0] = TmpBuf;
+      dword_F8B1B8[1] = pGlobalTXT_LocalizationStrings[160];
       v46 = pDialogueWindow->dword_000028;
       v78 = pDialogueWindow->dword_000038;
       if ( v78 < v78 + v46 )
@@ -6341,9 +6341,9 @@ signed int __cdecl sub_4B4FCF()
     {
       sub_41A556();
       CharacterUI_DrawInventoryTab(uActiveCharacter, 1);
-      dword_F8B1B8[0] = (int)pGlobalTXT_LocalizationStrings[200];
-      dword_F8B1BC = (int)pGlobalTXT_LocalizationStrings[113];
-      dword_F8B1C0 = (int)pGlobalTXT_LocalizationStrings[179];
+      dword_F8B1B8[0] = pGlobalTXT_LocalizationStrings[200];
+      dword_F8B1B8[1] = pGlobalTXT_LocalizationStrings[113];
+      dword_F8B1B8[2] = pGlobalTXT_LocalizationStrings[179];
       v77 = 0;
       v76 = (const char **)dword_F8B1B8;
       do
@@ -6352,7 +6352,7 @@ signed int __cdecl sub_4B4FCF()
         ++v76;
         v77 += v78;
       }
-      while ( (signed int)v76 < (signed int)&dword_F8B1C4 );
+      while ( (signed int)v76 < (signed int)&dword_F8B1B8[3] );
       v79 = (int)pDialogueWindow;
       v123 = (174 - v77) / 3;
       result = pDialogueWindow->dword_000038;
@@ -6530,11 +6530,11 @@ LABEL_140:
       result = sub_4B1784();
       if ( result )
       {
-        dword_F8B1B8[0] = (int)pGlobalTXT_LocalizationStrings[134];
-        dword_F8B1BC = (int)pGlobalTXT_LocalizationStrings[152];
-        dword_F8B1C0 = (int)pGlobalTXT_LocalizationStrings[636];
+        dword_F8B1B8[0] = pGlobalTXT_LocalizationStrings[134];
+        dword_F8B1B8[1] = pGlobalTXT_LocalizationStrings[152];
+        dword_F8B1B8[2] = pGlobalTXT_LocalizationStrings[636];
         v14 = 0;
-        dword_F8B1C4 = (int)pGlobalTXT_LocalizationStrings[160];
+        dword_F8B1B8[3] = pGlobalTXT_LocalizationStrings[160];
         v15 = (const char **)dword_F8B1B8;
         do
         {
@@ -8283,10 +8283,10 @@ void __cdecl sub_4B7911()
   {
     v12 = 1;
     v38 = 0;
-    dword_F8B1B8[0] = (int)pGlobalTXT_LocalizationStrings[161];
+    dword_F8B1B8[0] = pGlobalTXT_LocalizationStrings[161];
     if ( dword_AE31E0 )
     {
-      dword_F8B1BC = (int)pGlobalTXT_LocalizationStrings[160];
+      dword_F8B1B8[1] = pGlobalTXT_LocalizationStrings[160];
       v12 = 2;
     }
     for ( i = 0; i < v12; ++i )
@@ -8864,12 +8864,12 @@ void __cdecl sub_4B8285()
       if ( sub_4B1784() )
       {
         v48 = 2;
-        dword_F8B1B8[0] = (int)pGlobalTXT_LocalizationStrings[620];
+        dword_F8B1B8[0] = pGlobalTXT_LocalizationStrings[620];
         v96 = 0;
-        dword_F8B1BC = (int)pGlobalTXT_LocalizationStrings[622];
+        dword_F8B1B8[1] = pGlobalTXT_LocalizationStrings[622];
         if ( sub_493244(651) )
         {
-          dword_F8B1C0 = (int)pGlobalTXT_LocalizationStrings[621];
+          dword_F8B1B8[2] = pGlobalTXT_LocalizationStrings[621];
           v48 = 3;
         }
         for ( i = 0; i < v48; ++i )
@@ -9533,9 +9533,9 @@ int __cdecl sub_4B910F()
     {
       sub_41A556();
       CharacterUI_DrawInventoryTab(uActiveCharacter, 1);
-      dword_F8B1B8[0] = (int)pGlobalTXT_LocalizationStrings[200];
-      dword_F8B1BC = (int)pGlobalTXT_LocalizationStrings[113];
-      dword_F8B1C0 = (int)pGlobalTXT_LocalizationStrings[179];
+      dword_F8B1B8[0] = pGlobalTXT_LocalizationStrings[200];
+      dword_F8B1B8[1] = pGlobalTXT_LocalizationStrings[113];
+      dword_F8B1B8[2] = pGlobalTXT_LocalizationStrings[179];
       v66 = 0;
       v65 = (const char **)dword_F8B1B8;
       do
@@ -9544,7 +9544,7 @@ int __cdecl sub_4B910F()
         ++v65;
         v66 += v67;
       }
-      while ( (signed int)v65 < (signed int)&dword_F8B1C4 );
+      while ( (signed int)v65 < (signed int)&dword_F8B1B8[3] );
       v68 = (int)pDialogueWindow;
       v113 = (174 - v66) / 3;
       result = pDialogueWindow->dword_000038;
@@ -9736,11 +9736,11 @@ LABEL_105:
       result = sub_4B1784();
       if ( result )
       {
-        dword_F8B1B8[0] = (int)pGlobalTXT_LocalizationStrings[134];
-        dword_F8B1BC = (int)pGlobalTXT_LocalizationStrings[152];
-        dword_F8B1C0 = (int)pGlobalTXT_LocalizationStrings[636];
+        dword_F8B1B8[0] = pGlobalTXT_LocalizationStrings[134];
+        dword_F8B1B8[1] = pGlobalTXT_LocalizationStrings[152];
+        dword_F8B1B8[2] = pGlobalTXT_LocalizationStrings[636];
         v14 = 0;
-        dword_F8B1C4 = (int)pGlobalTXT_LocalizationStrings[160];
+        dword_F8B1B8[3] = pGlobalTXT_LocalizationStrings[160];
         v15 = (const char **)dword_F8B1B8;
         do
         {
@@ -10155,11 +10155,11 @@ signed int __cdecl sub_4B9CC6()
     result = sub_4B1784();
     if ( result )
     {
-      dword_F8B1B8[0] = (int)pGlobalTXT_LocalizationStrings[134];
-      dword_F8B1BC = (int)pGlobalTXT_LocalizationStrings[152];
-      dword_F8B1C0 = (int)pGlobalTXT_LocalizationStrings[636];
+      dword_F8B1B8[0] = pGlobalTXT_LocalizationStrings[134];
+      dword_F8B1B8[1] = pGlobalTXT_LocalizationStrings[152];
+      dword_F8B1B8[2] = pGlobalTXT_LocalizationStrings[636];
       v72 = 0;
-      dword_F8B1C4 = (int)pGlobalTXT_LocalizationStrings[160];
+      dword_F8B1B8[3] = pGlobalTXT_LocalizationStrings[160];
       v73 = (const char **)dword_F8B1B8;
       do
       {
@@ -10279,8 +10279,8 @@ LABEL_45:
   {
     sub_41A556();
     CharacterUI_DrawInventoryTab(uActiveCharacter, 1);
-    dword_F8B1B8[0] = (int)pGlobalTXT_LocalizationStrings[200];
-    dword_F8B1BC = (int)pGlobalTXT_LocalizationStrings[113];
+    dword_F8B1B8[0] = pGlobalTXT_LocalizationStrings[200];
+    dword_F8B1B8[1] = pGlobalTXT_LocalizationStrings[113];
     v23 = 0;
     v22 = (const char **)dword_F8B1B8;
     do
@@ -10289,7 +10289,7 @@ LABEL_45:
       ++v22;
       v23 += v24;
     }
-    while ( (signed int)v22 < (signed int)&dword_F8B1C0 );
+    while ( (signed int)v22 < (signed int)&dword_F8B1B8[2] );
     Str = (char *)((174 - v23) / 2);
     v25 = (int)pDialogueWindow;
     result = pDialogueWindow->dword_000038;
@@ -10889,9 +10889,9 @@ char __cdecl sub_4BA928()
       sub_41A556();
       CharacterUI_DrawInventoryTab(uActiveCharacter, 1);
       v75 = (const char **)dword_F8B1B8;
-      dword_F8B1B8[0] = (int)pGlobalTXT_LocalizationStrings[200];
-      dword_F8B1BC = (int)pGlobalTXT_LocalizationStrings[113];
-      dword_F8B1C0 = (int)pGlobalTXT_LocalizationStrings[179];
+      dword_F8B1B8[0] = pGlobalTXT_LocalizationStrings[200];
+      dword_F8B1B8[1] = pGlobalTXT_LocalizationStrings[113];
+      dword_F8B1B8[2] = pGlobalTXT_LocalizationStrings[179];
       v74 = 0;
       v76 = (const char **)dword_F8B1B8;
       do
@@ -10900,7 +10900,7 @@ char __cdecl sub_4BA928()
         ++v76;
         v74 += v77;
       }
-      while ( (signed int)v76 < (signed int)&dword_F8B1C4 );
+      while ( (signed int)v76 < (signed int)&dword_F8B1B8[3] );
       v78 = (int)pDialogueWindow;
       v150 = (174 - v74) / 3;
       v1 = pDialogueWindow->dword_000038;
@@ -11228,11 +11228,11 @@ LABEL_96:
     if ( v1 )
     {
       v16 = (const char **)dword_F8B1B8;
-      dword_F8B1B8[0] = (int)pGlobalTXT_LocalizationStrings[134];
-      dword_F8B1BC = (int)pGlobalTXT_LocalizationStrings[152];
-      dword_F8B1C0 = (int)pGlobalTXT_LocalizationStrings[636];
+      dword_F8B1B8[0] = pGlobalTXT_LocalizationStrings[134];
+      dword_F8B1B8[1] = pGlobalTXT_LocalizationStrings[152];
+      dword_F8B1B8[2] = pGlobalTXT_LocalizationStrings[636];
       v15 = 0;
-      dword_F8B1C4 = (int)pGlobalTXT_LocalizationStrings[160];
+      dword_F8B1B8[3] = pGlobalTXT_LocalizationStrings[160];
       v17 = (const char **)dword_F8B1B8;
       do
       {
@@ -14309,7 +14309,7 @@ bool Vis_sub_4C05CC(struct Vis *_this, struct class25 *a2, int a3, int a4)
    Vis_sub_4C0DEA(_this, _this->dword_0020CC, (int)v5, a4);
 
  class25_create_object_pointers(v5, 1);
- class25_sort_object_pointers(v5->array_001800, 0, v5->dword_002004 - 1);
+ class25_sort_object_pointers(v5->array_001804, 0, v5->dword_002004 - 1);
  return true;
 }
 
@@ -14329,7 +14329,7 @@ bool Vis_sub_4C0646(struct Vis *_this, float a2, float fMouseX, float fMouseY, i
    sub_4C17CF_ProbablyIfMouseOverBModel(_this, SLOBYTE(a2), (int)local_1C, (int)&_this->class25_obj, a6, 0);
 
  class25_create_object_pointers(&_this->class25_obj, 0);
- class25_sort_object_pointers(_this->class25_obj.array_001800, 0, _this->class25_obj.dword_002004 - 1);
+ class25_sort_object_pointers(_this->class25_obj.array_001804, 0, _this->class25_obj.dword_002004 - 1);
   
  return true;
 }
@@ -14560,13 +14560,13 @@ LABEL_49:
       sub_4C17CF_ProbablyIfMouseOverBModel(v39, SLOBYTE(v7), (int)local_20, (int)&class25_F91E10, (int)&dword_F93E44, 0);
     }
     class25_create_object_pointers(&class25_F91E10, 0);
-    class25_sort_object_pointers(class25_F91E10.array_001800, 0, class25_F91E10.dword_002004 - 1);
+    class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.dword_002004 - 1);
 
     if (class25_F91E10.dword_002004)
     {
      if (class25_F91E10.dword_002004 <= 0)
        v8 = 0;
-     else v8 = (int)class25_F91E10.array_001800;
+     else v8 = (int)class25_F91E10.array_001804;
 
      v9 = *(_DWORD *)(v8 + 4);
 
@@ -14612,10 +14612,10 @@ LABEL_49:
                   sub_4C17CF_ProbablyIfMouseOverBModel(v39, SLOBYTE(v17), (int)local_80, (int)&class25_F91E10, (int)&dword_F93E44, 0);
                 }
                 class25_create_object_pointers(&class25_F91E10, 0);
-                class25_sort_object_pointers(class25_F91E10.array_001800, 0, class25_F91E10.dword_002004 - 1);
+                class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.dword_002004 - 1);
                 if ( !class25_F91E10.dword_002004 )
                   break;
-                v18 = class25_F91E10.dword_002004 <= 0 ? 0 : (int)class25_F91E10.array_001800;
+                v18 = class25_F91E10.dword_002004 <= 0 ? 0 : (int)class25_F91E10.array_001804;
                 v19 = *(_DWORD *)(v18 + 4);
                 LOWORD(v19) = 0;
                 if ( v19 > v37 )
@@ -14653,9 +14653,9 @@ LABEL_49:
             || (double)pOldViewport->uScreenW < v41
             || ((v24 = v39, v25 = v23, sub_4C248E(local_80, SLODWORD(v25), v41, a2), dword_6BE360 != 1) ? (v27 = a2, sub_4C17CF_ProbablyIfMouseOverBModel(v24, SLOBYTE(v27), (int)local_80, (int)&class25_F91E10, (int)&dword_F93E44, 0)) : (v26 = a2, sub_4C16B4(v24, SLOBYTE(v26), (int)local_80, (int)&class25_F91E10, (int)&dword_F93E44)),
                 (class25_create_object_pointers(&class25_F91E10, 0),
-                 class25_sort_object_pointers(class25_F91E10.array_001800, 0, class25_F91E10.dword_002004 - 1),
+                 class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.dword_002004 - 1),
                  class25_F91E10.dword_002004)
-             && (class25_F91E10.dword_002004 <= 0 ? (v28 = 0) : (v28 = (int)class25_F91E10.array_001800),
+             && (class25_F91E10.dword_002004 <= 0 ? (v28 = 0) : (v28 = (int)class25_F91E10.array_001804),
                  v29 = *(_DWORD *)(v28 + 4),
                  LOWORD(v29) = 0,
                  v29 <= v37)) )
@@ -14862,8 +14862,8 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, int a2, int a3, float a4)
 
   void *v21; // [sp+80h] [bp-10h]@1
   int v22; // [sp+84h] [bp-Ch]@10
-  int v23; // [sp+88h] [bp-8h]@16
-  int v24; // [sp+8Ch] [bp-4h]@16
+  float v23; // [sp+88h] [bp-8h]@16
+  float v24; // [sp+8Ch] [bp-4h]@16
   int v25; // [sp+98h] [bp+8h]@7
 
   v21 = _this;
@@ -14938,11 +14938,11 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, int a2, int a3, float a4)
   if (array_F8F200[0].flt_00000C > (double)a4)
     return result = 0;
 
-  Vis_sub_4C1495(_this, array_F8F200, v7, (int)&v23, (int)&v24);
-  if (sub_4C12C3_FindSomeBillboard(array_F8F200, v7, *(float *)&v23, *(float *)&v24))
+  Vis_sub_4C1495(_this, array_F8F200, v7, &v23, &v24);
+  if (sub_4C12C3_FindSomeBillboard(array_F8F200, v7, v23, v24))
     return result = 0;
 
-  if (sub_4C248E(local_20, v23, *(float *)&v24, a4), dword_6BE360 != 1)
+  if (sub_4C248E(local_20, v23, v24, a4), dword_6BE360 != 1)
   {
    v17 = a4;
    sub_4C17CF_ProbablyIfMouseOverBModel(v15, SLOBYTE(v17), (int)local_20, (int)&class25_F8FE00, (int)&dword_F93E44, 1);
@@ -14953,7 +14953,7 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, int a2, int a3, float a4)
    sub_4C16B4(v15, SLOBYTE(v16), (int)local_20, (int)&class25_F8FE00, (int)&dword_F93E44);
   }
   class25_create_object_pointers(&class25_F8FE00, 0);
-  class25_sort_object_pointers(class25_F8FE00.array_001800, 0, class25_F8FE00.dword_002004 - 1);
+  class25_sort_object_pointers(class25_F8FE00.array_001804, 0, class25_F8FE00.dword_002004 - 1);
   if (!class25_F8FE00.dword_002004)
     return result = 0;
 
@@ -14961,7 +14961,7 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, int a2, int a3, float a4)
   if (!result)
     return result = 0;
 
-  if (class25_F8FE00.dword_002004 > 1 && (class25_F8FE00.dword_002004 <= 0 ? (v19 = 0) : (v19 = (int)class25_F8FE00.array_001800), result != v19))
+  if (class25_F8FE00.dword_002004 > 1 && (class25_F8FE00.dword_002004 <= 0 ? (v19 = 0) : (v19 = (int)class25_F8FE00.array_001804), result != v19))
     return result = 0;
 
   return result;
@@ -15041,10 +15041,8 @@ void Vis_ProbablyGetD3DBillboardCenter(struct Vis *_this, struct RenderVertexD3D
 }
 
 //----- (004C1495) --------------------------------------------------------
-int __thiscall Vis_sub_4C1495(struct Vis *_this, struct Vis_stru0 *Src, int a3, int a4, int a5)
+void Vis_sub_4C1495(struct Vis *_this, struct Vis_stru0 *Src, int a3, float *a4, float *a5)
 {
-  int result; // eax@5
-
  if (~byte_F8E9F8 & 0x01)
  {
   int i;
@@ -15059,12 +15057,10 @@ int __thiscall Vis_sub_4C1495(struct Vis *_this, struct Vis_stru0 *Src, int a3, 
  memcpy(array_F8DDF8, Src, a3 * sizeof(struct Vis_stru0));
 
  Vis_sort_some_objects_2(_this, array_F8DDF8, 0, a3 - 1);
-  *(float *)a4 = (*((float *)&unk_F8DDE0 + 12 * a3) - array_F8DDF8[0].flt_000018) * 0.5 + array_F8DDF8[0].flt_000018;
+ *a4 = (array_F8DDF8[a3 - 1].flt_000004 - array_F8DDF8[0].flt_000018) * 0.5 + array_F8DDF8[0].flt_000018;
 
  Vis_sort_some_objects_3(_this, array_F8DDF8, 0, a3 - 1);
-  result = a5;
-  *(float *)a5 = (*((float *)&unk_F8DDE4 + 12 * a3) - array_F8DDF8[0].flt_00001C) * 0.5 + array_F8DDF8[0].flt_00001C;
-  return result;
+ *a5 = (array_F8DDF8[a3 - 1].flt_000008 - array_F8DDF8[0].flt_00001C) * 0.5 + array_F8DDF8[0].flt_00001C;
 }
 
 //----- (004C1542) --------------------------------------------------------
@@ -15330,7 +15326,7 @@ signed int __thiscall sub_4C1944(void *_this, int a2, unsigned int a3, int a4, i
   if ( !(byte_F8DDF0 & 1) )
   {
     byte_F8DDF0 |= 1u;
-    class25_fn0((class25 *)&dword_F8BDE8);
+    class25_fn0(&class25_F8BDE8);
     atexit(loc_4C19F7);
   }
   v9 = a2;
@@ -15338,16 +15334,16 @@ signed int __thiscall sub_4C1944(void *_this, int a2, unsigned int a3, int a4, i
   v11 = a5;
   v12 = a4;
   v13 = a3;
-  dword_F8DDEC = 0;
+  class25_F8BDE8.dword_002004 = 0;
   v6 = (double)a3;
   v8 = 1;
-  Vis_sub_4C06F8((Vis *)v14, v6, (class25 *)&dword_F8BDE8, (unnamed_F93E6C *)&v8);
-  class25_create_object_pointers((class25 *)&dword_F8BDE8, 1);
-  class25_sort_object_pointers((class25_stru0 **)&dword_F8D5EC, 0, dword_F8DDEC - 1);
-  if ( dword_F8DDEC <= 0 )
+  Vis_sub_4C06F8((Vis *)v14, v6, &class25_F8BDE8, (unnamed_F93E6C *)&v8);
+  class25_create_object_pointers(&class25_F8BDE8, 1);
+  class25_sort_object_pointers(class25_F8BDE8.array_001804, 0, class25_F8BDE8.dword_002004 - 1);
+  if (class25_F8BDE8.dword_002004 <= 0 )
     result = -1;
   else
-    result = *(_DWORD *)(dword_F8D5EC + 4);
+    result = (int)class25_F8BDE8.array_001804[1];
   return result;
 }
 
@@ -15515,7 +15511,7 @@ signed int __thiscall sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(struct Vis *_th
  if (_this->class25_obj.dword_002004 <= 0)
    return -1;
  else
-   return sub_4C1BAA_Vis_get_object_zbuf_val(_this, _this->class25_obj.array_001800[0]);
+   return sub_4C1BAA_Vis_get_object_zbuf_val(_this, _this->class25_obj.array_001804[0]);
 }
 
 //----- (004C1C0C) --------------------------------------------------------
@@ -15617,10 +15613,10 @@ signed int __stdcall sub_4C1D2B(int a1, signed int a2, __int16 a3, int a4)
     if ( v16 >= 2 )
       break;
     v8 = 2 * v15;
-    v7 = word_F8BD1A[v15];
+    v7 = word_F8BD18[v15 + 1];
     if ( v5 ^ v7 >= a4 )
     {
-      v9 = *(__int16 *)((char *)&word_F8BC4A + v8);
+      v9 = *(__int16 *)((char *)&word_F8BC48 + 2 + v8);
       if ( v9 >= a1 )
         v10 = 0;
       else
@@ -15977,7 +15973,7 @@ void class25_create_object_pointers(struct class25 *_this, int a2)
   if (!a2)
   {
    for (i = 0; i < _this->dword_002004; ++i)
-     _this->array_001800[i] = &_this->array_000004[i];
+     _this->array_001804[i] = &_this->array_000004[i];
   }
   else if (a2 == 1)
   {
@@ -15986,14 +15982,14 @@ void class25_create_object_pointers(struct class25 *_this, int a2)
    for (i = 0; i < _this->dword_002004; ++i)
    {
        for (j = 0; j < i; ++j)
-         if (_this->array_001800[j] == &_this->array_000004[i])
+         if (_this->array_001804[j] == &_this->array_000004[i])
          {
              v0 = 0;
              break;
          }
 
        if (v0)
-         _this->array_001800[i] = &_this->array_000004[i];
+         _this->array_001804[i] = &_this->array_000004[i];
    }
   }
   else
