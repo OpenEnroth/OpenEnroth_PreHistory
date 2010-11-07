@@ -3,6 +3,10 @@
 
 #include "FrameTables.h"
 
+#define PARTY_ALIGNMENT_NEUTRAL 1 // -A end
+#define PARTY_ALIGNMENT_GOOD    0 // -B end
+#define PARTY_ALIGNMENT_EVIL    2 // -C end
+
 void nullsub_1();
 
 extern int bUseLoResSprites;

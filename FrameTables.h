@@ -95,9 +95,11 @@ template <typename Image>
    {
     return -1;
    }
-
+// #define OLD_CODE
+#ifndef OLD_CODE
    inline unsigned int InitializeAnimation(unsigned int uAnimationID)
    {
+
     for (unsigned int i = uAnimationID; pImages[i].word_00001C & 1; ++i)
     {
      wchar_t pFilepath[256];
@@ -105,10 +107,27 @@ template <typename Image>
 
      pImages[i].uTextureIdx = LODFile_Icons_LOD.LODFile_LoadTexture_New(pFilepath);
     }
+
+
     return 0;
    }
+#endif
+#ifdef OLD_CODE
+   inline unsigned int InitializeAnimation(unsigned int uAnimationID)
+   {
+
+    for (unsigned int i = uAnimationID; pImages[i].word_00001C & 1; ++i)
+    {
 
 
+     pImages[i].uTextureIdx = LODFile_Icons_LOD.LODFile_LoadTexture((char *)&pImages[i].sTextureName[0],2);
+    }
+
+
+    return 0;
+   }
+#endif
+#undef	OLD_CODE
 
  protected:
    inline ImageTable()

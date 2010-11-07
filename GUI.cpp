@@ -61,7 +61,7 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    0,
                    83,
                    pGlobalTXT_LocalizationStrings[216],
-                   dword_511230);
+                   &LODFile_Icons_LOD.aLODHeaders[dword_511230] );
  pCharacterUI_BtnSkills = GUIButtonCreate(pCharacterWindow, pOldViewport->uGameX + 102, pOldViewport->uGameY + 308,
                    LODFile_Icons_LOD.aLODHeaders[dword_511224].uTextureWidth,
                    LODFile_Icons_LOD.aLODHeaders[dword_511224].uTextureHeight,
@@ -71,7 +71,7 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    0,
                    75,
                    pGlobalTXT_LocalizationStrings[205],
-                   dword_511228);
+                   &LODFile_Icons_LOD.aLODHeaders[dword_511228] );
  pCharacterUI_BtnInventory = GUIButtonCreate(pCharacterWindow, pOldViewport->uGameX + 192, pOldViewport->uGameY + 308,
                    LODFile_Icons_LOD.aLODHeaders[dword_51121C].uTextureWidth,
                    LODFile_Icons_LOD.aLODHeaders[dword_51121C].uTextureHeight,
@@ -81,7 +81,7 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    0,
                    73,
                    pGlobalTXT_LocalizationStrings[120],
-                   dword_511220);
+                   &LODFile_Icons_LOD.aLODHeaders[dword_511220]);
  pCharacterUI_BtnAwards = GUIButtonCreate(pCharacterWindow, pOldViewport->uGameX + 282, pOldViewport->uGameY + 308,
                    LODFile_Icons_LOD.aLODHeaders[dword_511214].uTextureWidth,
                    LODFile_Icons_LOD.aLODHeaders[dword_511214].uTextureHeight,
@@ -91,7 +91,7 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    0,
                    65,
                    pGlobalTXT_LocalizationStrings[22],
-                   dword_511218);
+                   &LODFile_Icons_LOD.aLODHeaders[dword_511218] );
  pCharacterUI_BtnExit = GUIButtonCreate(pCharacterWindow, pOldViewport->uGameX + 371, pOldViewport->uGameY + 308,
                    LODFile_Icons_LOD.aLODHeaders[dword_51120C].uTextureWidth,
                    LODFile_Icons_LOD.aLODHeaders[dword_51120C].uTextureHeight,
@@ -101,7 +101,7 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[79],
-                   uTextureID_ButtExit1);
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureID_ButtExit1] );
   GUIButtonCreate(pCharacterWindow, 0, 0, 476, 345, 1, 122, 120, 0, 0, (unsigned char *)"", 0);
   dword_507694 = GUIButtonCreate(pCharacterWindow, 600, 300, 30, 30, 1, 0, 85, 0, 0, pGlobalTXT_LocalizationStrings[64], 0);
   dword_507690 = GUIButtonCreate(pCharacterWindow, 476, 0, 164, 345, 1, 0, 133, 0, 0, (unsigned char *)"", 0);
@@ -148,7 +148,7 @@ bool GUIMessageQueue_GetMessage(struct GUIMessageQueue *_this, int *a2, int *a3,
    return true;
 }
 
-
+// #define OLD_CODE
 //----- (0041B690) --------------------------------------------------------
 void GameUI_LoadIcons()
 {
@@ -225,7 +225,7 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_RETURN),
                    pGlobalTXT_LocalizationStrings[174],
-                   uTextureIdx_ib_td1_A);
+                    &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td1_A]);
 
 
 
@@ -239,7 +239,7 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_CONTROL),
                    pGlobalTXT_LocalizationStrings[154],
-                   uTextureIdx_ib_td2_A);
+                    &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td2_A]);
 
 
 
@@ -253,59 +253,70 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_MENU),
                    pGlobalTXT_LocalizationStrings[139],
-                   v17);
+                    &LODFile_Icons_LOD.aLODHeaders[v17]);
 
 
 
   v22 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ib-td4-A");
 #endif
 #ifdef OLD_CODE
- uTextureID_MinimapDirections = LODFile_Icons_LOD.LODFile_LoadTexture( "Minimap Directions",0);
+ /*
+   dword_50A7EC = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR8", 2);
+  dword_50A7F0 = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR1", 2);
+  dword_50A7F4 = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR2", 2);
+  dword_50A7F8 = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR3", 2);
+  dword_50A7FC = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR4", 2);
+  dword_50A800 = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR5", 2);
+  dword_50A804 = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR6", 2);
+  dword_50A808 = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR7", 2);
+  	*/
 
- uTextureIdx_UIBarRed = LODFile_Icons_LOD.LODFile_LoadTexture("ui-bar_red",0);
- uTextureIdx_UIBarYellow = LODFile_Icons_LOD.LODFile_LoadTexture("ui-bar_yellow",0);
- uTextureIdx_UIBarGreen = LODFile_Icons_LOD.LODFile_LoadTexture("ui-bar_green",0);
- uTextureIdx_UIBarBlue = LODFile_Icons_LOD.LODFile_LoadTexture("ui-bar_blue",0);
+ uTextureID_MinimapDirections = LODFile_Icons_LOD.LODFile_LoadTexture( "MAPDIR1",2);
 
- uTextureIdx_MonsterHP_BarYellow = LODFile_Icons_LOD.LODFile_LoadTexture("ui-MonsterHP_BarYellow",0);
- uTextureIdx_MonsterHP_BarRed = LODFile_Icons_LOD.LODFile_LoadTexture("ui-MonsterHP_BarRed",0);
- uTextureIdx_MonsterHP_BarGreen = LODFile_Icons_LOD.LODFile_LoadTexture("ui-MonsterHP_BarGreen",0);
- uTextureIdx_MonsterHP_CapRight = LODFile_Icons_LOD.LODFile_LoadTexture("ui-MonsterHP_CapRight",0);
- uTextureIdx_MonsterHP_CapLeft = LODFile_Icons_LOD.LODFile_LoadTexture("ui-MonsterHP_CapLeft",0);
- uTextureIdx_MonsterHP_Bg = LODFile_Icons_LOD.LODFile_LoadTexture("ui-MonsterHP_Bg",0);
+ uTextureIdx_UIBarRed = LODFile_Icons_LOD.LODFile_LoadTexture("ib-statR",2);
+ uTextureIdx_UIBarYellow = LODFile_Icons_LOD.LODFile_LoadTexture("ib-statY",2);
+ uTextureIdx_UIBarGreen = LODFile_Icons_LOD.LODFile_LoadTexture("ib-statG",2);
+ uTextureIdx_UIBarBlue = LODFile_Icons_LOD.LODFile_LoadTexture("ib-statB",2);
 
- uTextureIdx_Leather = LODFile_Icons_LOD.LODFile_LoadTexture("LEATHER",0);
+ uTextureIdx_MonsterHP_BarYellow = LODFile_Icons_LOD.LODFile_LoadTexture("mhp_yel",2);
+ uTextureIdx_MonsterHP_BarRed = LODFile_Icons_LOD.LODFile_LoadTexture("mhp_red",2);
+ uTextureIdx_MonsterHP_BarGreen = LODFile_Icons_LOD.LODFile_LoadTexture("mhp_grn",2);
+ uTextureIdx_MonsterHP_CapRight = LODFile_Icons_LOD.LODFile_LoadTexture("mhp_capr",2);
+ uTextureIdx_MonsterHP_CapLeft = LODFile_Icons_LOD.LODFile_LoadTexture("mhp_capl",2);
+ uTextureIdx_MonsterHP_Bg = LODFile_Icons_LOD.LODFile_LoadTexture("mhp_bg",2);
+
+ uTextureIdx_Leather = LODFile_Icons_LOD.LODFile_LoadTexture("LEATHER",2);
 
  //pcTexture_ibground = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("ibground")];
- uTextureID_ibground = LODFile_Icons_LOD.LODFile_LoadTexture("ibground",0);
+ uTextureID_ibground = LODFile_Icons_LOD.LODFile_LoadTexture("ibground",2);
 
- uTextureIdx_BtnMake = LODFile_Icons_LOD.LODFile_LoadTexture("ButtMake",0);
- uTextureIdx_BtnYes2 = LODFile_Icons_LOD.LODFile_LoadTexture("ButtYes2",0);
- uTextureIdx_BtnXokU = LODFile_Icons_LOD.LODFile_LoadTexture("x_ok_u",0);
+ uTextureIdx_BtnMake = LODFile_Icons_LOD.LODFile_LoadTexture("ButtMake",2);
+ uTextureIdx_BtnYes2 = LODFile_Icons_LOD.LODFile_LoadTexture("ButtYes2",2);
+ uTextureIdx_BtnXokU = LODFile_Icons_LOD.LODFile_LoadTexture("x_ok_u",2);
 
- uTextureIdx_BtnEsc2 = LODFile_Icons_LOD.LODFile_LoadTexture("ButtEsc2",0);
- uTextureIdx_BtnXxU = LODFile_Icons_LOD.LODFile_LoadTexture("x_x_u",0);
- uTextureIdx_BtnMake2 = LODFile_Icons_LOD.LODFile_LoadTexture("ButtMake2",0);
+ uTextureIdx_BtnEsc2 = LODFile_Icons_LOD.LODFile_LoadTexture("BUTTESC2",2);
+ uTextureIdx_BtnXxU = LODFile_Icons_LOD.LODFile_LoadTexture("x_x_u",2);
+ uTextureIdx_BtnMake2 = LODFile_Icons_LOD.LODFile_LoadTexture("BUTTMAKE2",2);
 
  pGUIWindow0 = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
- GUIButtonCreate(pGUIWindow0, 7, 8, 460, 343, 1, 0, 10, 0, 0, "", 0);
+ GUIButtonCreate(pGUIWindow0, 7, 8, 460, 343, 1, 0, 10, 0, 0, (unsigned char*)"", NULL);
 
  //player portraits in Game screen
- GUIButtonCreate(pGUIWindow0,  50, 424, 70, 90, 2, 94, 110, 1, 49, "p0", 0);
- GUIButtonCreate(pGUIWindow0, 160, 424, 70, 90, 2, 94, 110, 2, 50, "p1", 0);
- GUIButtonCreate(pGUIWindow0, 280, 424, 70, 90, 2, 94, 110, 3, 51, "p2", 0);
- GUIButtonCreate(pGUIWindow0, 390, 424, 70, 90, 2, 94, 110, 4, 52, "p3", 0);
+ GUIButtonCreate(pGUIWindow0,  50, 424, 70, 90, 2, 94, 110, 1, 49, (unsigned char*)"p0", 0);
+ GUIButtonCreate(pGUIWindow0, 160, 424, 70, 90, 2, 94, 110, 2, 50, (unsigned char*)"p1", 0);
+ GUIButtonCreate(pGUIWindow0, 280, 424, 70, 90, 2, 94, 110, 3, 51, (unsigned char*)"p2", 0);
+ GUIButtonCreate(pGUIWindow0, 390, 424, 70, 90, 2, 94, 110, 4, 52, (unsigned char*)"p3", 0);
 
- GUIButtonCreate(pGUIWindow0, 24, 404, 5, 49, 1, 93, 0, 1, 0, "", 0);
- GUIButtonCreate(pGUIWindow0, 139, 404, 5, 49, 1, 93, 0, 2, 0, "", 0);
- GUIButtonCreate(pGUIWindow0, 255, 404, 5, 49, 1, 93, 0, 3, 0, "", 0);
- GUIButtonCreate(pGUIWindow0, 370, 404, 5, 49, 1, 93, 0, 4, 0, "", 0);
- GUIButtonCreate(pGUIWindow0, 97, 404, 5, 49, 1, 93, 0, 1, 0, "", 0);
- GUIButtonCreate(pGUIWindow0, 212, 404, 5, 49, 1, 93, 0, 2, 0, "", 0);
- GUIButtonCreate(pGUIWindow0, 328, 404, 5, 49, 1, 93, 0, 3, 0, "", 0);
- GUIButtonCreate(pGUIWindow0, 443, 404, 5, 49, 1, 93, 0, 4, 0, "", 0);
+ GUIButtonCreate(pGUIWindow0, 24, 404, 5, 49, 1, 93, 0, 1, 0,(unsigned char*) "", 0);
+ GUIButtonCreate(pGUIWindow0, 139, 404, 5, 49, 1, 93, 0, 2, 0, (unsigned char*)"", 0);
+ GUIButtonCreate(pGUIWindow0, 255, 404, 5, 49, 1, 93, 0, 3, 0, (unsigned char*)"", 0);
+ GUIButtonCreate(pGUIWindow0, 370, 404, 5, 49, 1, 93, 0, 4, 0, (unsigned char*)"", 0);
+ GUIButtonCreate(pGUIWindow0, 97, 404, 5, 49, 1, 93, 0, 1, 0, (unsigned char*)"", 0);
+ GUIButtonCreate(pGUIWindow0, 212, 404, 5, 49, 1, 93, 0, 2, 0, (unsigned char*)"", 0);
+ GUIButtonCreate(pGUIWindow0, 328, 404, 5, 49, 1, 93, 0, 3, 0, (unsigned char*)"", 0);
+ GUIButtonCreate(pGUIWindow0, 443, 404, 5, 49, 1, 93, 0, 4, 0, (unsigned char*)"", 0);
 
- uTextureIdx_ib_td1_A = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-td1-A",0);
+ uTextureIdx_ib_td1_A = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-td1-A",2);
  pBtn_Game_Quests = GUIButtonCreate(pGUIWindow0, 491, 353,
                    LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td1_A].uTextureWidth,
                    LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td1_A].uTextureHeight,
@@ -315,11 +326,11 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_RETURN),
                    pGlobalTXT_LocalizationStrings[174],
-                   uTextureIdx_ib_td1_A);
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td1_A] );
 
 
 
-  uTextureIdx_ib_td2_A = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-td2-A",0);
+  uTextureIdx_ib_td2_A = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-td2-A",2);
   pBtn_Game_Autonotes = GUIButtonCreate(pGUIWindow0, 527, 353,
                    LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td1_A].uTextureWidth,
                    LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td1_A].uTextureHeight,
@@ -329,11 +340,11 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_CONTROL),
                    pGlobalTXT_LocalizationStrings[154],
-                   uTextureIdx_ib_td2_A);
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td2_A] );
 
 
 
-  v17 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-td3-A",0);
+  v17 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-td3-A",2);
   pBtn_Game_Maps = GUIButtonCreate(pGUIWindow0, 546, 353,
                    LODFile_Icons_LOD.aLODHeaders[v17].uTextureWidth,
                    LODFile_Icons_LOD.aLODHeaders[v17].uTextureHeight,
@@ -343,11 +354,11 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_MENU),
                    pGlobalTXT_LocalizationStrings[139],
-                   v17);
+                   &LODFile_Icons_LOD.aLODHeaders[v17] );
 
 
 
-  v22 = LODFile_Icons_LOD.LODFile_LoadTexture("ib-td4-A",0);
+  v22 = LODFile_Icons_LOD.LODFile_LoadTexture("ib-td4-A",2);
 #endif
   pBtn_Game_Calendar = GUIButtonCreate(pGUIWindow0, 570, 353,
                    LODFile_Icons_LOD.aLODHeaders[v22].uTextureWidth,
@@ -358,11 +369,11 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_SHIFT),
                    pGlobalTXT_LocalizationStrings[78],
-                   v22);
+                   &LODFile_Icons_LOD.aLODHeaders[v22] );
 
 
 
-  uTextureIdx_ib_td5_A = LODFile_Icons_LOD.LODFile_LoadTexture("ib-td5-A",0);
+  uTextureIdx_ib_td5_A = LODFile_Icons_LOD.LODFile_LoadTexture("ib-td5-A",2);
   pBtn_Game_Inventory = GUIButtonCreate(pGUIWindow0, 600, 361,
                    LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td5_A].uTextureWidth,
                    LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td5_A].uTextureHeight,
@@ -372,7 +383,7 @@ void GameUI_LoadIcons()
                    0,
                    72,
                    pGlobalTXT_LocalizationStrings[159],
-                   uTextureIdx_ib_td5_A);
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td5_A] );
 
 
 
@@ -388,7 +399,7 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_JUNJA),
                    pGlobalTXT_LocalizationStrings[252],
-                   uTextureIdx_ib_autout_a);
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_autout_a] );
 
 
 
@@ -401,7 +412,7 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_FINAL),
                    pGlobalTXT_LocalizationStrings[251],
-                   uTextureIdx_ib_autin_a);
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_autin_a] );
 
 
 
@@ -420,7 +431,7 @@ void GameUI_LoadIcons()
                    0,
                    67,
                    pGlobalTXT_LocalizationStrings[38],
-                   uTextureIdx_ib_m1d_a);
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m1d_a] );
 
   pBtn_Game_Rest = GUIButtonCreate(pGUIWindow0, 518, 450,
                    LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m2d_a].uTextureWidth,
@@ -431,7 +442,7 @@ void GameUI_LoadIcons()
                    0,
                    82,
                    pGlobalTXT_LocalizationStrings[182],
-                   uTextureIdx_ib_m2d_a);
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m2d_a] );
 
   pBtn_Game_QuickRef = GUIButtonCreate(pGUIWindow0, 560, 450,
                    LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m3d_a].uTextureWidth,
@@ -442,7 +453,7 @@ void GameUI_LoadIcons()
                    0,
                    90,
                    pGlobalTXT_LocalizationStrings[173],
-                   uTextureIdx_ib_m3d_a);
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m3d_a] );
 
   pBtn_Game_Options = GUIButtonCreate(pGUIWindow0, 602, 450,
                    LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m4d_a].uTextureWidth,
@@ -453,7 +464,7 @@ void GameUI_LoadIcons()
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[93],
-                   uTextureIdx_ib_m4d_a);
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m4d_a] );
 
   pBtn_Game_NPCScrollLeftDown = GUIButtonCreate(pGUIWindow0, 469, 178,
                    LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcld_a].uTextureWidth,
@@ -464,7 +475,7 @@ void GameUI_LoadIcons()
                    0,
                    0,
                    (unsigned char *)"",
-                   uTextureIdx_ib_npcld_a);
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcld_a] );
 
   pBtn_Game_NPCScrollRightDown = GUIButtonCreate(pGUIWindow0, 626, 178,
                    LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcrd_a].uTextureWidth,
@@ -475,7 +486,7 @@ void GameUI_LoadIcons()
                    1,
                    0,
                    (unsigned char *)"",
-                   uTextureIdx_ib_npcrd_a);
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcrd_a] );
 
 
  for (i = 0; i < 14; ++i)
@@ -486,7 +497,7 @@ void GameUI_LoadIcons()
 #endif
   #ifdef OLD_CODE
    wsprintf(pFilepath, "isn-%02d", i + 1);
-   uTextureIdx_SpellEffecIcons[i] = LODFile_Icons_LOD.LODFile_LoadTexture( pFilepath,0);
+   uTextureIdx_SpellEffecIcons[i] = LODFile_Icons_LOD.LODFile_LoadTexture( pFilepath,2);
 #endif
  }
 
@@ -536,8 +547,12 @@ void __cdecl LoadMainMenu()
   #endif
  pD3DRenderer->BeginScene();
  {
+ #ifndef OLD_CODE
   Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_MainMenuUI_Title);
-
+ #endif
+ #ifdef OLD_CODE
+	  Render_DrawIndexedTexture(pD3DRenderer, 0, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_MainMenuUI_Title]);
+   #endif
   sub_415485();
  }
 
@@ -1425,6 +1440,7 @@ LABEL_60:
           GUIWindowDelete(pGUIWindow_CurrentMenu);
           struct_576FE8.dword_000048 = v0;
           dword_4E28F8 = 2;
+
           dword_507C60 = LODFile_Icons_LOD.LODFile_LoadTexture( "ControlBG", 2);
           dword_507C64_TextureID[2] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"con_16x");
           dword_507C64_TextureID[1] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"con_32x");
@@ -1441,6 +1457,7 @@ LABEL_60:
           uTextureID_SoundLevels[6] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol70");
           uTextureID_SoundLevels[7] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol80");
           uTextureID_SoundLevels[8] = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"convol90");
+
           dword_507C84 = LODFile_Icons_LOD.LODFile_LoadTexture( "option04", 2);
           dword_507CB0 = LODFile_Icons_LOD.LODFile_LoadTexture( "option03", 2);
           dword_507CB8 = LODFile_Icons_LOD.LODFile_LoadTexture( "option02", 2);
@@ -1530,16 +1547,16 @@ LABEL_60:
             0,
             (unsigned char *)v1,
             0);
-          dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 162, 16, 16, v0, 0, 111, 4, 0, (unsigned char *)v1, 72 * dword_507C70 + 7145548);
-          dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 162, 16, 16, v0, 0, 111, 5, 0, (unsigned char *)v1, 72 * dword_507C74 + 7145548);
+          dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 162, 16, 16, v0, 0, 111, 4, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C70]);
+          dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 162, 16, 16, v0, 0, 111, 5, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C74]);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 263, 162, 172, 17, v0, 0, 111, 0, 0, (unsigned char *)v1, 0);
 
-          dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 216, 16, 16, v0, 0, 112, 4, 0, (unsigned char *)v1, 72 * dword_507C70 + 7145548);
-          dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 216, 16, 16, v0, 0, 112, 5, 0, (unsigned char *)v1, 72 * dword_507C74 + 7145548);
+          dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 216, 16, 16, v0, 0, 112, 4, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C70]);
+          dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 216, 16, 16, v0, 0, 112, 5, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C74]);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 263, 216, 172, 17, v0, 0, 112, 0, 0, (unsigned char *)v1, 0);
 
-          dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 270, 16, 16, v0, 0, 186, 4, 0, (unsigned char *)v1, 72 * dword_507C70 + 7145548);
-          dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 270, 16, 16, v0, 0, 186, 5, 0, (unsigned char *)v1, 72 * dword_507C74 + 7145548);
+          dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 270, 16, 16, v0, 0, 186, 4, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C70]);
+          dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 270, 16, 16, v0, 0, 186, 5, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C74]);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 263, 270, 172, 17, v0, 0, 186, 0, 0, (unsigned char *)v1, 0);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 241, 302, 214, 40, v0, 0, 113, 0, 0, pGlobalTXT_LocalizationStrings[619], 0);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 19, 140, 214, 40, v0, 0, 415, 0, 75, (unsigned char *)v1, 0);
@@ -1684,7 +1701,7 @@ LABEL_60:
             v0 = 1;
             if (pD3DRenderer->IsGammaControlSupported())
             {
-              dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 161, 16, 16, 1, 0, 425, 4, 0, (unsigned char *)v1, 72 * dword_507C20 + 7145548);
+              dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 161, 16, 16, 1, 0, 425, 4, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C20]);
               dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 213, 161,
                                16,
                                16,
@@ -1694,7 +1711,7 @@ LABEL_60:
                                5,
                                0,
                                (unsigned char *)v1,
-                               72 * dword_507C24 + 7145548);
+                                &LODFile_Icons_LOD.aLODHeaders[dword_507C24]);
               v181 = 0;
               v167 = v1;
               v160 = 0;
@@ -1707,7 +1724,7 @@ LABEL_60:
               v139 = 162;
               v137 = 42;
 LABEL_117:
-              GUIButtonCreate(pGUIWindow_CurrentMenu, v137, v139, v141, v143, v146, v148, v151, v155, v160, (unsigned char *)v167, v181);
+              GUIButtonCreate(pGUIWindow_CurrentMenu, v137, v139, v141, v143, v146, v148, v151, v155, v160, (unsigned char *)v167, &LODFile_Icons_LOD.aLODHeaders[v181]);
             }
           }
           goto LABEL_92;
@@ -2347,7 +2364,7 @@ LABEL_322:
                                0,
                                78,
                                pGlobalTXT_LocalizationStrings[614],
-                               dword_507940 != -1 ? 72 * dword_507940 + 7145548 : 0);
+                               dword_507940 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507940]: NULL);
               dword_50C9C0 = GUIButtonCreate(pGUIWindow_CurrentMenu,
                                19,
                                209,
@@ -2359,7 +2376,7 @@ LABEL_322:
                                0,
                                83,
                                pGlobalTXT_LocalizationStrings[615],
-                               dword_507938 != -1 ? 72 * dword_507938 + 7145548 : 0);
+                               dword_507938 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507938] : NULL);
               dword_50C9BC = GUIButtonCreate(pGUIWindow_CurrentMenu,
                                19,
                                263,
@@ -2371,7 +2388,7 @@ LABEL_322:
                                0,
                                76,
                                pGlobalTXT_LocalizationStrings[616],
-                               dword_50793C != -1 ? 72 * dword_50793C + 7145548 : 0);
+                               dword_50793C != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_50793C] : 0);
               dword_50C9B8 = GUIButtonCreate(pGUIWindow_CurrentMenu,
                                241,
                                155,
@@ -2383,7 +2400,7 @@ LABEL_322:
                                0,
                                67,
                                pGlobalTXT_LocalizationStrings[617],
-                               dword_507934 != -1 ? 72 * dword_507934 + 7145548 : 0);
+                               dword_507934 != -1 ? &LODFile_Icons_LOD.aLODHeaders[ dword_507934 ] : 0);
               dword_50C9B4 = GUIButtonCreate(pGUIWindow_CurrentMenu,
                                241,
                                209,
@@ -2395,7 +2412,7 @@ LABEL_322:
                                0,
                                81,
                                pGlobalTXT_LocalizationStrings[618],
-                               dword_50792C != -1 ? 72 * dword_50792C + 7145548 : 0);
+                               dword_50792C != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_50792C] : 0);
               dword_50C9B0 = GUIButtonCreate(pGUIWindow_CurrentMenu,
                                241,
                                263,
@@ -2407,7 +2424,7 @@ LABEL_322:
                                0,
                                82,
                                pGlobalTXT_LocalizationStrings[619],
-                               dword_507930 != -1 ? 72 * dword_507930 + 7145548 : 0);
+                               dword_507930 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507930] : 0);
               v45 = GUIWindow_sub_41D08F(pGUIWindow_CurrentMenu, 6, v0, 0, 0);
               struct_576FE8.dword_000048 = v0;
               RGBTexture_Release((int)pClass33_global3);
@@ -3593,7 +3610,7 @@ LABEL_693:
                            0,
                            0,
                            pGlobalTXT_LocalizationStrings[79],
-                           uTextureIdx_BtnEsc2);
+                           &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2]);
           goto LABEL_92;
         case 0x6B:
           if ( dword_4E28F8 )
@@ -4254,10 +4271,11 @@ LABEL_26:
          Render_FillRect(pD3DRenderer, v44 - 1, v45 - 1, v44 + 1, v45 + 1, 0xFFFFFFFF);
     }
    }
-
+#ifndef OLD_CODE 
  Render_DrawTransparentRect(pD3DRenderer, uMinimapCentreX - 3, uMinimapCentreY - 3,
                                   7 * ((pParty_global->sRotationY % 2048) / (2048 / 8)), 0, 7, 7,
                                   &LODFile_Icons_LOD.aLODHeaders[uTextureID_MinimapDirections]); // angle -> [0.. 7]
+#endif
  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_MinimapMask]);
 
  v105 = (double)pParty_global->sRotationY * 0.1171875;
@@ -4393,10 +4411,9 @@ void SetCurrentMenu(unsigned int uMenuID)
 struct GUIButton *__fastcall GUIButtonCreate(struct GUIWindow *pParentWindow,
                                              unsigned int uX, unsigned int uY,
                                              unsigned int uWidth, unsigned int uHeight,
-                                             int a6, int a7, unsigned int uControlID, int a9, unsigned int uHotkey, const unsigned char *pName, unsigned int uTextureID)
+                                             int a6, int a7, unsigned int uControlID, int a9, unsigned int uHotkey, const unsigned char *pName,class cTexture* pButtnTexture1)
 {
-  int *v19; // edx@5
- cTexture **v20; // ecx@5
+  
  struct GUIButton *pButton;
 
  pButton = (GUIButton *)mem_mng.AllocatedNamedBuffer( NULL, sizeof(struct GUIButton), "BUTTON");
@@ -4421,24 +4438,19 @@ struct GUIButton *__fastcall GUIButtonCreate(struct GUIWindow *pParentWindow,
  strcpy((char *)pButton->pButtonName, (char *)pName);
 
  pButton->dword_000050 = 0;
- //if (pTexture)
- //{
+ if (pButtnTexture1)
+ {
+ /*		 multi parameters!!!
   pButton->uTextureID = uTextureID;
   pButton->dword_000040 = uTextureID;//0xFEAFEAFE;
   pButton->dword_000044 = 0xFEAFEAFE;
   pButton->dword_000048 = 0xFEAFEAFE;
   pButton->dword_00004C = 0xFEAFEAFE;
   pButton->dword_000050 = 1;
-  /*
-  v20 = &pTexture;
-  v19 = &pButton->dword_00003C;
-  do
-  {
-   *v19++ = *v20++;
-   pButton->dword_000050++;
-  }
-  while (*v20);*/
- //}
+  */
+   pButton->pTexture1=pButtnTexture1;
+   pButton->dword_000050 =1;
+ }
 
  if (pParentWindow->pControlsTail)
    pParentWindow->pControlsTail->pNext = pButton;
@@ -4535,7 +4547,7 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
                            0,
                            0,
                            pGlobalTXT_LocalizationStrings[79],
-                           dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 0x6D084C : 0);
+                           dword_506438_TextureID != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID] : 0);
           if ( *(_DWORD *)(v9 + 28) != 1 )
           {
             v33 = 0;
@@ -4644,7 +4656,7 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
                            0,
                            78,
                            pGlobalTXT_LocalizationStrings[156],
-                           uTextureIdx_BtnEsc2 + 1 != 0 ? 72 * (_DWORD)uTextureIdx_BtnEsc2 + 0x6D084C : 0);
+                           uTextureIdx_BtnEsc2!= -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2]  : NULL);
           dword_5076FC = GUIButtonCreate(v9,
                            486,
                            445,
@@ -4656,7 +4668,7 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
                            0,
                            89,
                            *(const unsigned char **)(v9 + 72),
-                           uTextureIdx_BtnYes2 != -1 ? 72 * uTextureIdx_BtnYes2 + 0x6D084C : 0);
+                            uTextureIdx_BtnYes2!= -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnYes2]  : NULL);
           GUIButtonCreate(v9, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, 63, 73, 1, 0, 90, 1, 32, *(const unsigned char **)(v9 + 72), 0);
           GUIButtonCreate(v9, 8, 8, 460, 344, 1, 0, 90, 1, 0, *(const unsigned char **)(v9 + 72), 0);
           break;
@@ -4695,7 +4707,7 @@ LABEL_62:
                      0,
                      0,
                      pGlobalTXT_LocalizationStrings[80],
-                     dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
+                     dword_506438_TextureID != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID]  : NULL);
     v25 = dword_591424;
     v26 = 0;
     if ( dword_591424 > 0 )
@@ -4730,7 +4742,7 @@ LABEL_62:
                               v26,
                               0,
                               (unsigned char *)&byte_591180[100 * v26],
-                              0);
+                             NULL);
         v26 = v32;
         v25 = dword_591424;
       }
@@ -4760,7 +4772,7 @@ LABEL_62:
                        0,
                        78,
                        pGlobalTXT_LocalizationStrings[34],
-                       uTextureIdx_BtnEsc2 + 1 != 0 ? 72 * (_DWORD)uTextureIdx_BtnEsc2 + 7145548 : 0);
+                       uTextureIdx_BtnEsc2 + 1 != 0 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2] : 0);
       dword_5076FC = GUIButtonCreate(
                        v9,
                        486,
@@ -4773,7 +4785,7 @@ LABEL_62:
                        0,
                        89,
                        *(const unsigned char **)(v9 + 72),
-                       uTextureIdx_BtnYes2 != -1 ? 72 * uTextureIdx_BtnYes2 + 7145548 : 0);
+                       uTextureIdx_BtnYes2 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnYes2] : 0);
       GUIButtonCreate(v9, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, 63, 73, 1, 0, 411, 1, 32, *(const unsigned char **)(v9 + 72), 0);
       GUIButtonCreate(v9, 8, 8, 460, 344, 1, 0, 411, 1, 0, *(const unsigned char **)(v9 + 72), 0);
       return v9;
@@ -4803,7 +4815,7 @@ LABEL_62:
                        0,
                        0,
                        pGlobalTXT_LocalizationStrings[34],
-                       uTextureIdx_BtnEsc2 + 1 != 0 ? 72 * (_DWORD)uTextureIdx_BtnEsc2 + 7145548 : 0);
+                       uTextureIdx_BtnEsc2  != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2]  : 0);
       sub_44C175((char *)pGlobalTXT_LocalizationStrings[39], 2);
       ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
       dword_506F48 = 103;
@@ -5064,25 +5076,25 @@ void __cdecl PlayerCreationUI_Initialize()
   }
   while ( v13 < 640 );
 
-  array_A74CAC[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 10, 32, 11, 13, 1, 0, 171, 0, 0, (unsigned char *)"", uTextureID_PlayerCreationUI_BtnLeft);
-  array_A74CAC[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 169, 32, 11, 13, 1, 0, 171, 1, 0, (unsigned char *)"", uTextureID_PlayerCreationUI_BtnLeft);
-  array_A74CAC[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 327, 32, 11, 13, 1, 0, 171, 2, 0, (unsigned char *)"", uTextureID_PlayerCreationUI_BtnLeft);
-  array_A74CAC[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 486, 32, 11, 13, 1, 0, 171, 3, 0, (unsigned char *)"", uTextureID_PlayerCreationUI_BtnLeft);
+  array_A74CAC[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 10, 32, 11, 13, 1, 0, 171, 0, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft]);
+  array_A74CAC[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 169, 32, 11, 13, 1, 0, 171, 1, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft]);
+  array_A74CAC[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 327, 32, 11, 13, 1, 0, 171, 2, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft]);
+  array_A74CAC[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 486, 32, 11, 13, 1, 0, 171, 3, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft]);
 
-  array_A74CBC[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 74, 32, 11, 13, 1, 0, 172, 0, 0, (unsigned char *)"", uTextureID_PlayerCreationUI_BtnRight);
-  array_A74CBC[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 233, 32, 11, 13, 1, 0, 172, 1, 0, (unsigned char *)"", uTextureID_PlayerCreationUI_BtnRight);
-  array_A74CBC[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 391, 32, 11, 13, 1, 0, 172, 2, 0, (unsigned char *)"", uTextureID_PlayerCreationUI_BtnRight);
-  array_A74CBC[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 549, 32, 11, 13, 1, 0, 172, 3, 0, (unsigned char *)"", uTextureID_PlayerCreationUI_BtnRight);
+  array_A74CBC[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 74, 32, 11, 13, 1, 0, 172, 0, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight]);
+  array_A74CBC[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 233, 32, 11, 13, 1, 0, 172, 1, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight]);
+  array_A74CBC[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 391, 32, 11, 13, 1, 0, 172, 2, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight]);
+  array_A74CBC[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 549, 32, 11, 13, 1, 0, 172, 3, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight]);
 
-  array_A74C9C[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 10, 103, 11, 13, 1, 0, 144, 0, 0, (unsigned char *)"", uTextureID_PlayerCreationUI_BtnLeft);
-  array_A74C9C[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 169, 103, 11, 13, 1, 0, 144, 1, 0, (unsigned char *)"", uTextureID_PlayerCreationUI_BtnLeft);
-  array_A74C9C[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 327, 103, 11, 13, 1, 0, 144, 2, 0, (unsigned char *)"", uTextureID_PlayerCreationUI_BtnLeft);
-  array_A74C9C[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 486, 103, 11, 13, 1, 0, 144, 3, 0, (unsigned char *)"", uTextureID_PlayerCreationUI_BtnLeft);
+  array_A74C9C[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 10, 103, 11, 13, 1, 0, 144, 0, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft]);
+  array_A74C9C[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 169, 103, 11, 13, 1, 0, 144, 1, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft]);
+  array_A74C9C[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 327, 103, 11, 13, 1, 0, 144, 2, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft]);
+  array_A74C9C[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 486, 103, 11, 13, 1, 0, 144, 3, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft]);
 
-  array_A74C8C[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 74, 103, 11, 13, 1, 0, 145, 0, 0, (unsigned char *)"", uTextureID_PlayerCreationUI_BtnRight);
-  array_A74C8C[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 233, 103, 11, 13, 1, 0, 145, 1, 0, (unsigned char *)"", uTextureID_PlayerCreationUI_BtnRight);
-  array_A74C8C[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 391, 103, 11, 13, 1, 0, 145, 2, 0, (unsigned char *)"", uTextureID_PlayerCreationUI_BtnRight);
-  array_A74C8C[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 549, 103, 11, 13, 1, 0, 145, 3, 0, (unsigned char *)"", uTextureID_PlayerCreationUI_BtnRight);
+  array_A74C8C[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 74, 103, 11, 13, 1, 0, 145, 0, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight]);
+  array_A74C8C[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 233, 103, 11, 13, 1, 0, 145, 1, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight]);
+  array_A74C8C[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 391, 103, 11, 13, 1, 0, 145, 2, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight]);
+  array_A74C8C[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 549, 103, 11, 13, 1, 0, 145, 3, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight]);
 
   v9 = 0;
   v14 = 8;
@@ -5149,7 +5161,7 @@ void __cdecl PlayerCreationUI_Initialize()
                                             0,
                                             13,
                                             (unsigned char *)"OK",
-                                            uTextureIdx_BtnMake);
+                                            &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnMake]);
 
   pPlayerCreationUI_BtnReset = GUIButtonCreate(pGUIWindow_CurrentMenu,
                                                527, 431,
@@ -5161,10 +5173,10 @@ void __cdecl PlayerCreationUI_Initialize()
                                                0,
                                                67,
                                                (unsigned char *)"Reset",
-                                               uTextureIdx_BtnMake2);
+                                               &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnMake2]);
 
-  pPlayerCreationUI_BtnMinus = GUIButtonCreate(pGUIWindow_CurrentMenu, 523, 393, 20, 35, 1, 0, 63, 0, 45, (unsigned char *)"BtnMinus", uTextureID_PlayerCreationUI_BtnMinus);
-  pPlayerCreationUI_BtnPlus = GUIButtonCreate(pGUIWindow_CurrentMenu, 613, 393, 20, 35, 1, 0, 62, 1, 43, (unsigned char *)"BtnPlus", uTextureID_PlayerCreationUI_BtnPlus);
+  pPlayerCreationUI_BtnMinus = GUIButtonCreate(pGUIWindow_CurrentMenu, 523, 393, 20, 35, 1, 0, 63, 0, 45, (unsigned char *)"BtnMinus", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnMinus]);
+  pPlayerCreationUI_BtnPlus = GUIButtonCreate(pGUIWindow_CurrentMenu, 613, 393, 20, 35, 1, 0, 62, 1, 43, (unsigned char *)"BtnPlus", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnPlus]);
 
   pFontCChar = LoadFont("cchar.fnt", "FONTPAL");
 }
@@ -6676,7 +6688,7 @@ int __fastcall CharacterUI_DrawAwardsTab(unsigned int uCharacter)
   v4 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"fr_award");
   #endif
 #ifdef OLD_CODE
-  v4 = LODFile_Icons_LOD.LODFile_LoadTexture( "fr_award",0);
+  v4 = LODFile_Icons_LOD.LODFile_LoadTexture( "fr_award",2);
   #endif
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, &LODFile_Icons_LOD.aLODHeaders[v4]);
 
@@ -7285,6 +7297,8 @@ void CharacterUI_DrawSkillsTab(int uSelectedCharacter) // character skills tab
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, pFontLucida->uFontHeight + v92 - 3, (char *)pGlobalTXT_LocalizationStrings[153], 0xFFFFFFFF, 0, 0);
 }
 
+
+
 //----- (0043BCA7) --------------------------------------------------------
 int CharacterUI_LoadPaperdollTextures()
 {
@@ -7331,9 +7345,9 @@ int CharacterUI_LoadPaperdollTextures()
  #endif
 #ifdef OLD_CODE
  char Str1[100]; // [sp+24h] [bp-14h]@12
-    uTextureID_GameUI_MagnifyingGlass = LODFile_Icons_LOD.LODFile_LoadTexture("MAGNIF",0);
- uTextureID_GameUI_PaperdollBackground = LODFile_Icons_LOD.LODFile_LoadTexture("PDoll-Bg",0);
- uTextureID_GameUI_PaperdollJewelryOverlay = LODFile_Icons_LOD.LODFile_LoadTexture("BACKHAND",0);
+    uTextureID_GameUI_MagnifyingGlass = LODFile_Icons_LOD.LODFile_LoadTexture("MAGNIF-B",2);
+ uTextureID_GameUI_PaperdollBackground = LODFile_Icons_LOD.LODFile_LoadTexture("BACKDOLL",2);
+ uTextureID_GameUI_PaperdollJewelryOverlay = LODFile_Icons_LOD.LODFile_LoadTexture("BACKHAND",2);
   uTextureID_507B04 = uTextureID_5079E4;
  #endif
   dword_5118C8 = dword_506438_TextureID;
@@ -7365,17 +7379,17 @@ int CharacterUI_LoadPaperdollTextures()
       #endif
     #ifdef OLD_CODE
        wsprintf(Str1, "pc23v%dBod", uFace);
-      pPaperdollTextures_Bodies[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
+      pPaperdollTextures_Bodies[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
       wsprintf(Str1, "pc23v%dlad", uFace);
-      pPaperdollTextures_LeftArmsEmpty[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
+      pPaperdollTextures_LeftArmsEmpty[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
       wsprintf(Str1, "pc23v%dlau", uFace);
-      pPaperdollTextures_LeftArmsWeapon[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
+      pPaperdollTextures_LeftArmsWeapon[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
       wsprintf(Str1, "pc23v%drh", uFace);
-      pPaperdollTextures_RightHands[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
+      pPaperdollTextures_RightHands[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
       wsprintf(Str1, "pc23v%dlh", uFace);
-      pPaperdollTextures_LeftHandsEmpty[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
+      pPaperdollTextures_LeftHandsEmpty[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
       wsprintf(Str1, "pc23v%dlhu", uFace);
-      pPaperdollTextures_LeftHandsWeapon[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
+      pPaperdollTextures_LeftHandsWeapon[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
 #endif
       uFace = pPlayers[uPlayer]->uFace;
       if ( uFace == 12 || uFace == 13 )
@@ -7410,17 +7424,17 @@ int CharacterUI_LoadPaperdollTextures()
       #endif
     #ifdef OLD_CODE
         wsprintf(Str1, "pc%02dbod", uFace + 1);
-      pPaperdollTextures_Bodies[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
+      pPaperdollTextures_Bodies[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
       wsprintf(Str1, "pc%02dlad", uFace + 1);
-      pPaperdollTextures_LeftArmsEmpty[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
+      pPaperdollTextures_LeftArmsEmpty[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
       wsprintf(Str1, "pc%02dlau", uFace + 1);
-      pPaperdollTextures_LeftArmsWeapon[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
+      pPaperdollTextures_LeftArmsWeapon[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
       wsprintf(Str1, "pc%02drh", uFace + 1);
-      pPaperdollTextures_RightHands[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
+      pPaperdollTextures_RightHands[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
       wsprintf(Str1, "pc%02dlh", uFace + 1);
-      pPaperdollTextures_LeftHandsEmpty[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
+      pPaperdollTextures_LeftHandsEmpty[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
       wsprintf(Str1, "pc%02dlhu", uFace + 1); // something strange with pc20lhu, needs to check
-      pPaperdollTextures_LeftHandsWeapon[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
+      pPaperdollTextures_LeftHandsWeapon[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
 
       if (uFace == 12 || uFace == 13) // dwarf male, load beard
       {
@@ -7573,8 +7587,8 @@ LABEL_28:
       v31 = 66;
       *v40 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)Str1, 2);
       v35 = 0;
-      do
-      {
+    //  do
+    //  {
         sub_43C91D_FormTextureFileName((char *)Str1, v31, v20, 0);
         dword_511290[v19 + v35 + 1] = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)Str1, 2);
         sub_43C91D_FormTextureFileName((char *)Str1, v31, v20, 1);
@@ -7583,8 +7597,8 @@ LABEL_28:
         dword_511290[v19 + v35 + 2] = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)Str1, 2);
         v35 += 3;
         ++v31;
-      }
-      while ( v31 - 66 < 13 );
+   //   }
+   //   while ( v31 - 66 < 13 );
       sub_43C91D_FormTextureFileName((char *)Str1, 516, v20, 0);
       dword_511290[v19+39] = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)Str1, 2);
       sub_43C91D_FormTextureFileName((char *)Str1, 516, v20, 1);
@@ -7626,8 +7640,8 @@ LABEL_28:
       v37 = 105;
       v33 = v42;
       *v39 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)Str1, 2);
-      do
-      {
+    //  do
+    //  {
         sub_43C91D_FormTextureFileName((char *)Str1, v37, v20, 0);
         *(int *)((char *)dword_511828 + v33) = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)Str1, 2);
         sub_43C91D_FormTextureFileName((char *)Str1, v37, v20, 1);
@@ -7636,8 +7650,8 @@ LABEL_28:
         v33 += 4;
         ++v37;
         *(int *)((char *)&uTextureListForPaperdoll[84] + v27) = v26;
-      }
-      while ( v37 - 105 < 5 );
+   //   }
+   //   while ( v37 - 105 < 5 );
       sub_43C91D_FormTextureFileName((char *)Str1, 525, v20, 0);
       *(int *)((char *)&dword_51183C + v42) = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)Str1, 2);
       sub_43C91D_FormTextureFileName((char *)Str1, 530, v20, 0);
@@ -7695,7 +7709,7 @@ void CharacterUI_DoDrawCharacterScreen(unsigned int uCharacter)
         v3 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ib-cd1-d");
         #endif
 #ifdef OLD_CODE
-   v3 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-cd1-d",0);
+   v3 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-cd1-d",2);
         #endif
         v2 = pCharacterUI_BtnStats;
         break;
@@ -7711,7 +7725,7 @@ void CharacterUI_DoDrawCharacterScreen(unsigned int uCharacter)
         v3 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ib-cd2-d");
         #endif
 #ifdef OLD_CODE	
-        v3 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-cd2-d",0);
+        v3 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-cd2-d",2);
         #endif
         v2 = pCharacterUI_BtnSkills;
         break;
@@ -7724,7 +7738,7 @@ void CharacterUI_DoDrawCharacterScreen(unsigned int uCharacter)
         v3 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ib-cd4-d");
         #endif
 #ifdef OLD_CODE 
-        v3 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-cd4-d",0);
+        v3 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-cd4-d",2);
         #endif
         v2 = pCharacterUI_BtnAwards;
         break;
@@ -7738,7 +7752,7 @@ void CharacterUI_DoDrawCharacterScreen(unsigned int uCharacter)
         v3 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ib-cd3-d");
         #endif
 #ifdef OLD_CODE	 
-        v3 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-cd3-d",0);
+        v3 = LODFile_Icons_LOD.LODFile_LoadTexture( "ib-cd3-d",2);
         #endif
         v2 = pCharacterUI_BtnInventory;
         break;
@@ -7751,6 +7765,7 @@ LABEL_13:
       CharacterUI_DrawPaperdoll(uCharacter);
 }
 
+#undef OLD_CODE
 //----- (0043CC7C) --------------------------------------------------------
 void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
 {
@@ -10353,6 +10368,7 @@ void MenuUI_LoadTextures(unsigned int uAlignment)
   break;
  }
 
+  
 
  uTextureID_GameUI_RightPanel = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[0]);
  uTextureID_GameUI_PartyFrame = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[1]);
@@ -10420,158 +10436,232 @@ void MenuUI_LoadTextures(unsigned int uAlignment)
 void MenuUI_LoadTextures(unsigned int uAlignment)
 {
  unsigned int uTextureIdx_Endcap;
+   
 
- const char *pGoodInterface[] =
+ const char  *pNeutralInterface[] =
  {
-  "ib-r-A.pcx", "ib-b-A.pcx", "ib-t-A.pcx", "ib-l-A.pcx", "ib-Foot-A.pcx",
-  "ib-bcu-A",
-  "WindowEdge_top-A", "WindowEdge_bottom-A", "WindowEdge_left-A", "WindowEdge_right-A",
-  "Corner_UpLeft-A", "Corner_UpRight-A", "Corner_LowLeft-A", "Corner_LowRight-A",
-  "Parchment",
-  "fr_inven-A",
-  "NPCSlot-A",
-  "iSg-04-A", "iSg-03-A", "iSg-02-A", "iSg-01-A",
-  "ib-m4d-A", "ib-m3d-A", "ib-m2d-A", "ib-m1d-A",
-  "ib-MinimapZoomIn-A", "ib-MinimapZoomOut-A",
-  "ib-NPCScrollLeft0-A", "ib-NPCScrollLeft1-A", "ib-NPCScrollRight0-A", "ib-NPCScrollRight1-A",
-  "ib-Compass-A",
-  "ib-InitG-A", "ib-InitY-A", "ib-InitR-A",
-  "ib-MinimapMask-A",
-  "ib-mb-A",
-  "ib-Selec-A",
-  "WizEyeA", "TorchA",
-  "endcap-A",
+     "ib-r-A.pcx",	 //00
+	 "ib-b-A.pcx", 	 //01
+	 "ib-t-A.pcx", 	 //02
+	 "ib-l-A.pcx", 	 //03
+	 "IB-Foot-a.pcx",//04
+     "ib-mb-a",		 //05
+     "ib-autmask-a", //06
+     "IB-COMP-a",	 //07
+     "IB-InitG-a", 	 //08
+     "IB-InitY-a", 	 //09
+     "IB-InitR-a", 	 //10
+     "IB-NPCLD-a", 	 //11
+     "IB-NPCRD-a",	 //12
+     "ib-autout-a",  //13
+     "ib-autin-a", 	 //14
+     "IB-selec-a", 	 //15
+     "ib-m1d-a", 	 //16
+     "ib-m2d-a", 	 //17
+     "ib-m3d-a",	 //18
+     "ib-m4d-a", 	 //19
+     "isg-01-a", 	 //20
+     "isg-02-a", 	 //21
+     "isg-03-a", 	 //22
+     "isg-04-a", 	 //23
+	 "wizeyeA",		 //24
+	 "torchA",		 //25
+     "ib-bcu-a",	 //26
+     "evtnpc", 	     //27
+     "fr_inven", 	 //28
+     "parchment", 	 //29
+     "cornr_ll",	 //30
+     "cornr_lr", 	 //31
+     "cornr_ul", 	 //32
+     "cornr_ur", 	 //33
+     "edge_btm", 	 //34
+     "edge_lf", 	 //35
+     "edge_rt", 	 //36
+     "edge_top", 	 //37
+     "endcap" 	 //38
  },
-               *pNeutralInterface[] =
+        *pGoodInterface[] =       
  {
-  "ib-RightPanel-B", "ib-PartyFrame-B", "ib-EdgeTop-B", "ib-EdgeLeft-B", "ib-StatusBar-B",
-  "ib-bcu-B",
-  "WindowEdge_top-B", "WindowEdge_bottom-B", "WindowEdge_left-B", "WindowEdge_right-B",
-  "Corner_UpLeft-B", "Corner_UpRight-B", "Corner_LowLeft-B", "Corner_LowRight-B",
-  "Parchment",
-  "fr_inven-B",
-  "NPCSlot-B",
-  "iSg-04-B", "iSg-03-B", "iSg-02-B", "iSg-01-B",
-  "ib-m4d-B", "ib-m3d-B", "ib-m2d-B", "ib-m1d-B",
-  "ib-MinimapZoomIn-B", "ib-MinimapZoomOut-B",
-  "ib-NPCScrollLeft0-B", "ib-NPCScrollLeft1-B", "ib-NPCScrollRight0-B", "ib-NPCScrollRight1-B",
-  "ib-Compass-B",
-  "ib-InitG-B", "ib-InitY-B", "ib-InitR-B",
-  "ib-MinimapMask-B",
-  "ib-mb-B",
-  "ib-Selec-B",
-  "WizEyeB", "TorchB",
-  "endcap-B",
+     "ib-r-B.pcx",	 //00
+	 "ib-b-B.pcx", 	 //01
+	 "ib-t-B.pcx", 	 //02
+	 "ib-l-B.pcx", 	 //03
+	 "IB-Foot-b.pcx",//04
+     "ib-mb-B",		 //05
+     "ib-autmask-b", //06
+     "IB-COMP-B",	 //07
+     "IB-InitG-b", 	 //08
+     "IB-InitY-b", 	 //09
+     "IB-InitR-b", 	 //10
+     "IB-NPCLD-B", 	 //11
+     "IB-NPCRD-B",	 //12
+     "ib-autout-B",  //13
+     "ib-autin-B", 	 //14
+     "IB-selec-B", 	 //15
+     "ib-m1d-b", 	 //16
+     "ib-m2d-b", 	 //17
+     "ib-m3d-b",	 //18
+     "ib-m4d-b", 	 //19
+     "isg-01-b", 	 //20
+     "isg-02-b", 	 //21
+     "isg-03-b", 	 //22
+     "isg-04-b", 	 //23
+	 "wizeyeB",		 //24
+	 "torchB",		 //25
+     "ib-bcu-b",	 //26
+     "evtnpc-b", 	 //27
+     "fr_inven-b", 	 //28
+     "parchment", 	 //29
+     "cornr_ll-b",	 //30
+     "cornr_lr-b", 	 //31
+     "cornr_ul-b", 	 //32
+     "cornr_ur-b", 	 //33
+     "edge_btm-b", 	 //34
+     "edge_lf-b", 	 //35
+     "edge_rt-b", 	 //36
+     "edge_top-b", 	 //37
+     "endcap-b" 	 //38
  },
                *pEvilInterface[] =
  {
-  "ib-RightPanel-C", "ib-PartyFrame-C", "ib-EdgeTop-C", "ib-EdgeLeft-C", "ib-StatusBar-C",
-  "ib-bcu-C",
-  "WindowEdge_top-C", "WindowEdge_bottom-C", "WindowEdge_left-C", "WindowEdge_right-C",
-  "Corner_UpLeft-C", "Corner_UpRight-C", "Corner_LowLeft-C", "Corner_LowRight-C",
-  "Parchment",
-  "fr_inven-C",
-  "NPCSlot-C",
-  "iSg-04-C", "iSg-03-C", "iSg-02-C", "iSg-01-C",
-  "ib-m4d-C", "ib-m3d-C", "ib-m2d-C", "ib-m1d-C",
-  "ib-MinimapZoomIn-C", "ib-MinimapZoomOut-C",
-  "ib-NPCScrollLeft0-C", "ib-NPCScrollLeft1-C", "ib-NPCScrollRight0-C", "ib-NPCScrollRight1-C",
-  "ib-Compass-C",
-  "ib-InitG-C", "ib-InitY-C", "ib-InitR-C",
-  "ib-MinimapMask-C",
-  "ib-mb-C",
-  "ib-Selec-C",
-  "WizEyeC", "TorchC",
-  "endcap-C",
+     "ib-r-C.pcx",	 //00
+	 "ib-b-C.pcx", 	 //01
+	 "ib-t-C.pcx", 	 //02
+	 "ib-l-C.pcx", 	 //03
+	 "IB-Foot-c.pcx",//04
+     "ib-mb-C",		 //05
+     "ib-autmask-c", //06
+     "IB-COMP-C",	 //07
+     "IB-InitG-c", 	 //08
+     "IB-InitY-c", 	 //09
+     "IB-InitR-c", 	 //10
+     "IB-NPCLD-C", 	 //11
+     "IB-NPCRD-c",	 //12
+     "ib-autout-C",  //13
+     "ib-autin-C", 	 //14
+     "IB-selec-C", 	 //15
+     "ib-m1d-c", 	 //16
+     "ib-m2d-c", 	 //17
+     "ib-m3d-c",	 //18
+     "ib-m4d-c", 	 //19
+     "isg-01-c", 	 //20
+     "isg-02-c", 	 //21
+     "isg-03-c", 	 //22
+     "isg-04-c", 	 //23
+	 "wizeyeC",		 //24
+	 "torchC",		 //25
+     "ib-bcu-c",	 //26
+     "evtnpc-c", 	 //27
+     "fr_inven-c", 	 //28
+     "parchment", 	 //29
+     "cornr_ll-c",	 //30
+     "cornr_lr-c", 	 //31
+     "cornr_ul-c", 	 //32
+     "cornr_ur-c", 	 //33
+     "edge_btm-c", 	 //34
+     "edge_lf-c", 	 //35
+     "edge_rt-c", 	 //36
+     "edge_top-c", 	 //37
+     "endcap-c" 	 //38
  },
                **pRequestedInterface;
 
-
+  
  switch (uAlignment)
  {
-  case 0:
+  case PARTY_ALIGNMENT_GOOD:
     pRequestedInterface = pGoodInterface;
 
     dword_507AFC = 0xFF0000C8;
     dword_507AF8 = 0xFFFFE1FF;
   break;
+  case PARTY_ALIGNMENT_EVIL:
+    pRequestedInterface = pEvilInterface;
 
+    dword_507AFC = 0xFFC80000;
+    dword_507AF8 = 0xFF0A0000;
+  break;
   default:
-  case 1:
+  case  PARTY_ALIGNMENT_NEUTRAL:
     pRequestedInterface = pNeutralInterface;
 
     dword_507AFC = 0xFF0A0000;
     dword_507AF8 = 0xFFE6D6C1;
   break;
 
-  case 2:
-    pRequestedInterface = pEvilInterface;
-
-    dword_507AFC = 0xFFC80000;
-    dword_507AF8 = 0xFF0A0000;
-  break;
+ 
  }
 
-
+/*
  uTextureID_GameUI_RightPanel = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[0],2);
  uTextureID_GameUI_PartyFrame = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[1],2);
  uTextureID_GameUI_ViewportTop = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[2],2);
- uTextureID_GameUI_ViewportLeft = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[3],2);
+ uTextureID_GameUI_ViewportLeft = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[3],2);	 
  uTextureID_GameUI_StatusBar = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[4],2);
+   */
+  uTextureID_GameUI_RightPanel = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"ib-RPl-B");
+ uTextureID_GameUI_PartyFrame = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"ib-PFr-B" );
+ uTextureID_GameUI_ViewportTop = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"ib-ET-B" );
+ uTextureID_GameUI_ViewportLeft = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"ib-EL-B" );
+  uTextureID_GameUI_StatusBar = LODFile_Icons_LOD.LODFile_LoadTexture_New(  L"ib-StatBar-B");
 
- dword_506438_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[5],2);
 
- uTextureID_WindowEdgeTop = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[6],2);
- uTextureID_WindowEdgeBottom = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[7],2);
- uTextureID_WindowEdgeLeft = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[8],2);
- uTextureID_WindowEdgeRight = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[9],2);
+ dword_506438_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[5],2);		//"ib-mb-C",		 //05
+    
+ uTextureID_WindowEdgeTop = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[37],2);	  //"edge_top-c", 	 //37
+ uTextureID_WindowEdgeBottom = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[34],2);  // "edge_btm-c", 	 //34
+ uTextureID_WindowEdgeLeft = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[35],2);	   //"edge_lf-c", 	 //35
+ uTextureID_WindowEdgeRight = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[36],2);	  //"edge_rt-c", 	 //36
  
- uTextureIdx_CornerUpperLeft = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[10],2);
- uTextureIdx_CornerUpperRight = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[11],2);
- uTextureIdx_CornerLowerLeft = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[12],2);
- uTextureIdx_CornerLowerRight = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[13],2);
+ uTextureIdx_CornerUpperLeft = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[32],2);	// "cornr_ul-c", 	 //32
+ uTextureIdx_CornerUpperRight = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[33],2);	// "cornr_ur-c", 	 //33
+ uTextureIdx_CornerLowerLeft = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[30],2);	//"cornr_ll-c",	 //30
+ uTextureIdx_CornerLowerRight = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[31],2);	//  "cornr_lr-c", 	 //31
 
- uTextureIdx_Parchment = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[14],2);
+ uTextureIdx_Parchment = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[29],2);		// "parchment", 	 //29
 
- uTextureIdx_InventoryBackground = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[15],2);
+ uTextureIdx_InventoryBackground = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[28],2);   //"fr_inven-c", 	 //28
 
- dword_50795C_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[16],2);
+ dword_50795C_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[27],2);	//"evtnpc-a", 	 //27
 
- dword_507960_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[17],2);
- dword_507964_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[18],2);
- dword_507968_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[19],2);
- dword_50796C_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[20],2);
+ dword_507960_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[23],2);	  // "isg-04-a", 	 //23
+ dword_507964_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[22],2);	  // "isg-03-a", 	 //22
+ dword_507968_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[21],2);   //"isg-02-a", 	 //21
+ dword_50796C_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[20],2);	//"isg-01-a", 	 //20
+	    		      
+ uTextureIdx_ib_m4d_a = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[19],2);	 // 	   "ib-m4d-c", 	 //19
+ uTextureIdx_ib_m3d_a = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[18],2);	//	 "ib-m3d-c",	 //18
+ uTextureIdx_ib_m2d_a = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[17],2);	 //     "ib-m2d-c", 	 //17
+ uTextureIdx_ib_m1d_a = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[16],2);	 // "ib-m1d-c", 	 //16
+ 																			    
 
- uTextureIdx_ib_m4d_a = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[21],2);
- uTextureIdx_ib_m3d_a = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[22],2);
- uTextureIdx_ib_m2d_a = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[23],2);
- uTextureIdx_ib_m1d_a = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[24],2);
+ uTextureIdx_ib_autin_a = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[14],2); //	  "ib-autin-C", 	 //14
+ uTextureIdx_ib_autout_a = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[13],2); // "ib-autout-C",  //13
  
- uTextureIdx_ib_autin_a = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[25],2);
- uTextureIdx_ib_autout_a = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[26],2);
- 
- uTextureIdx_ib_npcld_a = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[28],2);
- uTextureIdx_ib_npcrd_a = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[30],2);
+ uTextureIdx_ib_npcld_a = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[11],2);	//  "IB-NPCLD-C", 	 //11   
+ uTextureIdx_ib_npcrd_a = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[12],2);	//	 "IB-NPCRD-c",	 //12
 
- uTextureIdx_MinimapCompass = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[31],2);
- 
- uTextureIdx_SensorGreen = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[32],2);
- dword_5079C8 = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[33],2);
- dword_5079CC = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[34],2);
+ uTextureIdx_MinimapCompass = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[07],2);	 // "IB-COMP-C",	 //07
+ 																								 
+ uTextureIdx_SensorGreen = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[8],2);	   //  "IB-InitG-c", 	 //08
+ dword_5079C8 = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[9],2);				  //   "IB-InitY-c", 	 //09
+ dword_5079CC = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[10],2);					//   "IB-InitR-c", 	 //10
 
- uTextureIdx_MinimapMask = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[35],2);
+ uTextureIdx_MinimapMask = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[06],2);	  //"ib-autmask-b", //06
  uTextureID_5079E4 = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[36],2);
 
- uTextureIdx_CharacterSelectionFrame = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[37],2);
+ uTextureIdx_CharacterSelectionFrame = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[15],2);  //"IB-selec-C", 	 //15
 
- array_6A0D14[3].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, pRequestedInterface[38]);
- CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[3].uIconIdx);
+ array_6A0D14[3].uIconIdx = pIconFrameTable->FindAnimation(pRequestedInterface[24]);	  //"wizeyeC",		 //24	
+ pIconFrameTable->InitializeAnimation(array_6A0D14[3].uIconIdx);
 
- array_6A0D14[2].uIconIdx = CIconFrameTable_FindIcon(pIconFrameTable, pRequestedInterface[39]);
- CIconFrameTable_InitializeIcon(pIconFrameTable, array_6A0D14[2].uIconIdx);
+ array_6A0D14[2].uIconIdx = pIconFrameTable->FindAnimation(pRequestedInterface[25]);		// "torchC",		 //25
+ pIconFrameTable->InitializeAnimation(array_6A0D14[2].uIconIdx);
 
- uTextureIdx_Endcap = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[40],2);
+ uTextureIdx_Endcap = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[38],2);    // "endcap-c" 	 //38
  pcTexture_EndcapTexture = &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Endcap];
 }
 
 #endif
+
+#undef OLD_CODE

@@ -2342,7 +2342,7 @@ int __cdecl MenuLoop_Main()
                                      0,
                                      78,
                                      (unsigned char *)"New Game",
-                                     v4);
+                                     &LODFile_Icons_LOD.aLODHeaders[v4]);
  #ifndef OLD_CODE
 	 v5 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_load");
 #endif
@@ -2359,7 +2359,7 @@ int __cdecl MenuLoop_Main()
                                       1,
                                       76,
                                       (unsigned char *)"Load Game",
-                                      v5);
+                                      &LODFile_Icons_LOD.aLODHeaders[v5]);
   #ifndef OLD_CODE
 	   v6 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_cred");
 #endif
@@ -2376,7 +2376,7 @@ int __cdecl MenuLoop_Main()
                                      2,
                                      67,
                                      (unsigned char *)"Creadits",
-                                     v6);
+                                     &LODFile_Icons_LOD.aLODHeaders[v6]);
   #ifndef OLD_CODE
 	 v7 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_exit");
 #endif
@@ -2393,7 +2393,7 @@ int __cdecl MenuLoop_Main()
                                   3,
                                   0,
                                   (unsigned char *)"Exit",
-                                  v7);
+                                  &LODFile_Icons_LOD.aLODHeaders[v7]);
    #ifndef OLD_CODE
 	  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Title");
 #endif
@@ -2480,7 +2480,7 @@ int __cdecl MenuLoop_Main()
                  ;
           }
 
-          Render_DrawIndexedTexture(pD3DRenderer, v8->uX + 1, v8->uY + 1, &LODFile_Icons_LOD.aLODHeaders[v8->uTextureID]);
+          Render_DrawIndexedTexture(pD3DRenderer, v8->uX + 1, v8->uY + 1, v8->pTexture1);
          }
          v8 = v8->pNext;
          if (!v8)

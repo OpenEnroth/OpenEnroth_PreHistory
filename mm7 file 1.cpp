@@ -5406,15 +5406,16 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
 
   pClass40 = new class40;
   sub_456D84(pClass40);
+  LODFile_Bitmaps_LOD.lod_IB_dword_011BA8=1;
+  LODFile_Bitmaps_LOD.SetupPalettes(5,6,5);//pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
   
-  LODFile_Bitmaps_LOD.lod_IB_dword_011BA8 = 1;
-
+  LODFile_Icons_LOD.SetupPalettes(5,6,5);//pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
   class35_SetColorChannelInfo(&class35_obj, pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
   class35_obj.byte_267AD0 = -128;
   class35_obj.byte_267AD1 = -128;
   class35_obj.byte_267AD2 = -128;
   class35_sub_48A614(&class35_obj);
-  LODFile_Sprites_LOD.dword_00ECAC = 1;
+   LODFile_Sprites_LOD.dword_00ECAC=1;
 
   sub_459064(pObjectDescriptionList);
   sub_458D97(pOverlayDescriptionList);

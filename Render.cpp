@@ -13,7 +13,12 @@
 #pragma comment(lib, "legacy dx\\lib\\dxguid.lib")
 #pragma comment(lib, "legacy dx\\lib\\dinput8.lib")
 
-
+#define FI16_565_RED_MASK		0xF800
+#define FI16_565_GREEN_MASK		0x07E0
+#define FI16_565_BLUE_MASK		0x001F
+#define FI16_565_RED_SHIFT		11
+#define FI16_565_GREEN_SHIFT	5
+#define FI16_565_BLUE_SHIFT		0
 
 //----- (MM7exe::00452347) --------------------------------------------------------
 void Render_HWLContainer_ctor(struct Render_HWLContainer *_this)
@@ -540,9 +545,14 @@ void Render_DrawIndexedTextureHandle(struct BaseRender *_this, unsigned int uX, 
  }
 }
 
+
+// #define OLD_CODE
 //----- (004A5EB2) --------------------------------------------------------
 void Render_DrawIndexedTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, cTexture *pTexture)
 {
+
+
+
   //int v5; // eax@4
   int v6; // ebx@4
   //int v7; // edx@5
@@ -564,16 +574,37 @@ void Render_DrawIndexedTexture(struct BaseRender *_this, unsigned int uX, unsign
   int v24; // [sp+30h] [bp+10h]@11
   int v25; // [sp+30h] [bp+10h]@22
  unsigned int *pSurfacePtr;
- unsigned int  y,
+ unsigned int  y, i,
                x;
  unsigned int  uSrcColor,
                uDstColor;
-
+#ifdef OLD_CODE
+ unsigned short	packedPixel;
+ unsigned char unpackedPixels[4];
+#endif
  if (!_this->bSceneBegun || !pTexture)
    return;
 
 
  pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
+#ifdef OLD_CODE
+ //new unpack paletted texture code
+ if	(!pTexture->pTruecolorPixels)
+	 {
+	 if (!pTexture->pPalette)
+		 return;
+	  pTexture->pTruecolorPixels=(unsigned int*) malloc(pTexture->uTextureWidth*pTexture->uTextureHeight*4);
+	  for(i=0;i<pTexture->uTextureWidth*pTexture->uTextureHeight; i++)
+		  {
+			packedPixel=pTexture->pPalette[pTexture->pIndexedPixels[i]];
+			unpackedPixels[2]=(BYTE)((((packedPixel & FI16_565_RED_MASK) >> FI16_565_RED_SHIFT) * 0xFF) / 0x1F);
+			unpackedPixels[1]=(BYTE)((((packedPixel & FI16_565_GREEN_MASK) >> FI16_565_GREEN_SHIFT) * 0xFF) / 0x3F);
+			unpackedPixels[0]= (BYTE)((((packedPixel & FI16_565_BLUE_MASK) >> FI16_565_BLUE_SHIFT) * 0xFF) / 0x1F);
+			unpackedPixels[3]=  0xFF;
+			pTexture->pTruecolorPixels[i]=*(DWORD*)&unpackedPixels[0];
+		  }
+	 }
+#endif
 
  for (y = 0; y < pTexture->uTextureHeight; ++y)
  {
@@ -651,15 +682,53 @@ void Render_DrawTransparentTexture(struct BaseRender *_this, unsigned int uX, un
   int v24; // [sp+30h] [bp+10h]@11
   int v25; // [sp+30h] [bp+10h]@22
  unsigned int *pSurfacePtr;
- unsigned int  x, y;
+ unsigned int  x, y, i;
  unsigned int  uSrcColor,
                uDstColor,
                uAlpha;
-
+ #ifdef OLD_CODE
+  unsigned short	packedPixel;
+ unsigned char unpackedPixels[4];
+ FILE *f;
+#endif
  if (!_this->bSceneBegun || !pTexture)
    return;
 
  pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
+#ifdef OLD_CODE
+ //new unpack paletted texture code
+ if	(!pTexture->pTruecolorPixels)
+	 {
+	 
+	  pTexture->pTruecolorPixels=(unsigned int*) malloc(pTexture->uTextureWidth*pTexture->uTextureHeight*4);
+	  if (!pTexture->pPalette)
+			return;
+		 
+	  for(i=0;i<pTexture->uTextureWidth*pTexture->uTextureHeight; i++)
+		  {
+		   if ( pTexture->pIndexedPixels[i]==0)
+				 *(unsigned int*)&unpackedPixels[0]=0;
+		   else
+			   {
+			packedPixel=pTexture->pPalette[pTexture->pIndexedPixels[i]];
+			unpackedPixels[2]=(BYTE)((((packedPixel & FI16_565_RED_MASK) >> FI16_565_RED_SHIFT) * 0xFF) / 0x1F);
+			unpackedPixels[1]=(BYTE)((((packedPixel & FI16_565_GREEN_MASK) >> FI16_565_GREEN_SHIFT) * 0xFF) / 0x3F);
+			unpackedPixels[0]= (BYTE)((((packedPixel & FI16_565_BLUE_MASK) >> FI16_565_BLUE_SHIFT) * 0xFF) / 0x1F);
+			unpackedPixels[3]=  0xFF;
+			   }
+			pTexture->pTruecolorPixels[i]=*(unsigned int*)&unpackedPixels[0];
+		  }
+	  /*
+	    	f=fopen(pTexture->sContainerName,"wb");
+		if(f)
+			{
+			fwrite(pTexture->pIndexedPixels,1,pTexture->uTextureSize, f);
+			fclose(f);
+			}	*/
+	
+	 }
+#endif
+
  for (y = 0; y < pTexture->uTextureHeight; ++y)
  {
   if (y + uY < _this->uClipRectY)
@@ -696,6 +765,7 @@ void Render_DrawTransparentTexture(struct BaseRender *_this, unsigned int uX, un
  }
 }
 
+#undef OLD_CODE
 void Render_DrawTransparentRect(struct BaseRender *_this, unsigned int uOutX, unsigned int uOutY,
                                       unsigned int uSrcX, unsigned int uSrcY, unsigned int uSrcWidth, unsigned int uSrcHeight,
                                       cTexture *pTexture)

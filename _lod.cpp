@@ -1282,7 +1282,7 @@ int LODFile_IB::LODFile_LoadTexture( const char *pContainerName, unsigned int a3
 	  //already loaded check
 	  for ( i=0; i<uNumLoadedFiles; i++)
 		  {
-		  if (!stricmp(&((cTexture*)aLODHeaders)[i].sContainerName[0], pContainerName))
+		  if (!stricmp(aLODHeaders[i].sContainerName, pContainerName))
 			  return i; 	 
 		  }
 	  }
@@ -1296,7 +1296,7 @@ int LODFile_IB::LODFile_LoadTexture( const char *pContainerName, unsigned int a3
 		  {
 		  for (i=0; i<uNumLoadedFiles; i++)
 			  {
-			  if (!stricmp(&((cTexture*)aLODHeaders)[i].sContainerName[0], "pending"))
+			  if (!stricmp(aLODHeaders[i].sContainerName, "pending"))
 				  return i; 	 
 			  }
 		  if (i=uNumLoadedFiles)

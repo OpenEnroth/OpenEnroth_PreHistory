@@ -1954,7 +1954,7 @@ LABEL_44:
         dword_507BD4 = v18;
         v19 = v18;
 LABEL_56:
-        GUIButtonCreate((GUIWindow *)v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, (unsigned char *)v29, v30);
+        GUIButtonCreate((GUIWindow *)v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, (unsigned char *)v29, 0);
         return sub_421B2C();
       }
       if ( v7 & 0x40 )
@@ -2021,7 +2021,7 @@ LABEL_56:
                            0,
                            0,
                            (unsigned char *)"",
-                           uTextureIdx_ib_npcld_a != -1 ? 72 * uTextureIdx_ib_npcld_a + 7145548 : 0);
+                           uTextureIdx_ib_npcld_a != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcld_a] : 0);
           pBtn_Game_NPCScrollRightDown = GUIButtonCreate(
                            (GUIWindow *)dword_507BD4,
                            626,
@@ -2034,7 +2034,7 @@ LABEL_56:
                            1,
                            0,
                            (unsigned char *)"",
-                           uTextureIdx_ib_npcrd_a != -1 ? 72 * uTextureIdx_ib_npcrd_a + 7145548 : 0);
+                           uTextureIdx_ib_npcrd_a != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcrd_a] : 0);
           GUIButtonCreate((GUIWindow *)dword_507BD4, 491, 149, 64, 74, 1, 0, 143, 4, 53, (unsigned char *)"", 0);
           result = (int)GUIButtonCreate((GUIWindow *)dword_507BD4, 561, 149, 64, 74, 1, 0, 143, 5, 54, (unsigned char *)"", 0);
         }
@@ -12193,7 +12193,7 @@ LABEL_24:
                    0,
                    0,
                    (unsigned char *)"",
-                   dword_69CF10 != -1 ? 72 * dword_69CF10 + 7145548 : 0);
+                   dword_69CF10 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CF10 ] : 0);
   dword_69BD60 = GUIButtonCreate(pGUIWindow_CurrentMenu,
                    350,
                    302,
@@ -12205,7 +12205,7 @@ LABEL_24:
                    0,
                    0,
                    (unsigned char *)"",
-                   dword_69CF14 != -1 ? 72 * dword_69CF14 + 7145548 : 0);
+                   dword_69CF14 != -1 ? &LODFile_Icons_LOD.aLODHeaders[ dword_69CF14] : 0);
   dword_69BD5C = GUIButtonCreate(pGUIWindow_CurrentMenu,
                    215,
                    199,
@@ -12217,7 +12217,7 @@ LABEL_24:
                    0,
                    0,
                    (unsigned char *)"",
-                   dword_69CF0C != -1 ? 72 * dword_69CF0C + 7145548 : 0);
+                   dword_69CF0C != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_69CF0C] : 0);
   v8 = (int)GUIButtonCreate(pGUIWindow_CurrentMenu,
          215,
          323,
@@ -12229,7 +12229,7 @@ LABEL_24:
          dword_69CF24,
          0,
          (unsigned char *)"",
-         dword_69CF08 != -1 ? 72 * dword_69CF08 + 7145548 : 0);
+         dword_69CF08 != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_69CF08]: 0);
   v17 = -1;
   dword_69BD58 = (GUIButton *)v8;
   return 0 /*v16->~LOD_file()*/;
@@ -12346,7 +12346,7 @@ int __cdecl sub_45E93E()
                    0,
                    0,
                    (unsigned char *)"",
-                   dword_69CF10 != -1 ? 72 * dword_69CF10 + 7145548 : 0);
+                   dword_69CF10 != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_69CF10] : 0);
   dword_69BD60 = GUIButtonCreate(pGUIWindow_CurrentMenu,
                    350,
                    302,
@@ -12358,7 +12358,7 @@ int __cdecl sub_45E93E()
                    0,
                    0,
                    (unsigned char *)"",
-                   dword_69CF14 != -1 ? 72 * dword_69CF14 + 7145548 : 0);
+                   dword_69CF14 != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_69CF14] : 0);
   dword_69BD5C = GUIButtonCreate(pGUIWindow_CurrentMenu,
                    215,
                    199,
@@ -12370,7 +12370,7 @@ int __cdecl sub_45E93E()
                    0,
                    0,
                    (unsigned char *)"",
-                   dword_69CF0C != -1 ? 72 * dword_69CF0C + 7145548 : 0);
+                   dword_69CF0C != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_69CF0C] : 0);
   v8 = (int)GUIButtonCreate(
          pGUIWindow_CurrentMenu,
          215,
@@ -12383,7 +12383,7 @@ int __cdecl sub_45E93E()
          34,
          0,
          (unsigned char *)"",
-         dword_69CF08 != -1 ? 72 * dword_69CF08 + 7145548 : 0);
+         dword_69CF08 != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_69CF08] : 0);
   v13 = -1;
   dword_69BD58 = (GUIButton *)v8;
   return 0/*sub_461790((int)&v12)*/;

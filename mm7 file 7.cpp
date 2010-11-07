@@ -5495,7 +5495,7 @@ int __fastcall sub_4B3EF0(int a1)
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[34],
-                   dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
+                   dword_506438_TextureID != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID] : 0);
   GUIButtonCreate(pDialogueWindow, 0, 0, 0, 0, 1, 0, 81, 0, 0, (unsigned char *)"", 0);
   GUIButtonCreate(pDialogueWindow, 480, 160, 140, 30, 1, 0, 175, 82, 0, pGlobalTXT_LocalizationStrings[122], 0);
   result = GUIWindow_sub_41D08F(pDialogueWindow, 1, 1, 0, 2);
@@ -5528,7 +5528,7 @@ int __fastcall sub_4B3FE5(void *a1)
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[34],
-                   dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
+                   dword_506438_TextureID != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID] : 0);
   GUIButtonCreate(pDialogueWindow, 0, 0, 0, 0, 1, 0, 81, 0, 0, (unsigned char *)"", 0);
   if ( dword_F8B1A8 )
     v1 = (char *)pGlobalTXT_LocalizationStrings[535];
@@ -5560,7 +5560,7 @@ int __cdecl sub_4B40E6()
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[34],
-                   dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
+                   dword_506438_TextureID != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID] : 0);
   GUIButtonCreate(pDialogueWindow, 0, 0, 0, 0, 1, 0, 81, 0, 0, (unsigned char *)"", 0);
 
   if (pNPCStats->pProfessions[*(_DWORD *)(v1 + 24) - 1].pBenefits)
@@ -5613,7 +5613,7 @@ int __thiscall sub_4B4224(void *_this)
                      0,
                      78,
                      pGlobalTXT_LocalizationStrings[34],
-                     uTextureIdx_BtnEsc2 + 1 != 0 ? 72 * (_DWORD)uTextureIdx_BtnEsc2 + 7145548 : 0);
+                     uTextureIdx_BtnEsc2 != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2] : 0);
     dword_5076FC = GUIButtonCreate(pDialogueWindow,
                      486,
                      445,
@@ -5625,7 +5625,7 @@ int __thiscall sub_4B4224(void *_this)
                      1,
                      89,
                      (unsigned char *)byte_591098,
-                     uTextureIdx_BtnYes2 != -1 ? 72 * uTextureIdx_BtnYes2 + 7145548 : 0);
+                     uTextureIdx_BtnYes2 != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnYes2] : 0);
     GUIButtonCreate(pDialogueWindow, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, 63, 73, 1, 0, 191, 1, 32, (unsigned char *)byte_591098, 0);
     result = (int)GUIButtonCreate(pDialogueWindow, 8, 8, 460, 344, 1, 0, 191, 1, 89, (unsigned char *)byte_591098, 0);
   }
@@ -5654,7 +5654,7 @@ int __thiscall sub_4B4224(void *_this)
                      0,
                      0,
                      pGlobalTXT_LocalizationStrings[74],
-                     dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
+                     dword_506438_TextureID != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID] : 0);
     GUIButtonCreate(pDialogueWindow, 8, 8, 450, 320, 1, 0, 81, 0, 0, (unsigned char *)"", 0);
     if ( dword_5913F0 == 1 && dword_591080 )
     {
@@ -11589,7 +11589,7 @@ int __cdecl sub_4BBA85()
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[34],
-                   dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
+                   dword_506438_TextureID != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID] : 0);
   GUIButtonCreate(pDialogueWindow, 0, 0, 0, 0, 1, 0, 81, 0, 0, (unsigned char *)"", 0);
   GUIButtonCreate(pDialogueWindow, 480, 160, 140, 30, 1, 0, 0, 83, 0, (unsigned char *)"", 0);
   GUIWindow_sub_41D08F(pDialogueWindow, 1, 1, 0, 2);
@@ -11740,7 +11740,7 @@ LABEL_23:
                      0,
                      0,
                      pGlobalTXT_LocalizationStrings[79],
-                     dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
+                     dword_506438_TextureID != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID] : 0);
     GUIButtonCreate(pDialogueWindow, 480, 160, 140, 30, 1, 0, 136, 85, 0, (unsigned char *)"", 0);
     GUIButtonCreate(pDialogueWindow, 480, 190, 140, 30, 1, 0, 136, 86, 0, (unsigned char *)"", 0);
     GUIButtonCreate(pDialogueWindow, 480, 220, 140, 30, 1, 0, 136, 87, 0, (unsigned char *)"", 0);
@@ -12378,7 +12378,7 @@ int __cdecl sub_4BCA33()
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[74],
-                   dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0);
+                   dword_506438_TextureID != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID] : 0);
   return (int)GUIButtonCreate(pDialogueWindow, 8, 8, 450, 320, 1, 0, 81, 0, 0, (unsigned char *)"", 0);
 }
 
@@ -12491,7 +12491,7 @@ void __fastcall sub_4BCACC(signed int a1, int a2)
   {
 LABEL_11:
     GUIWindowDelete(pDialogueWindow);
-    pDialogueWindow = GUIWindowCreate(0, 0, 640, 345, 1, v3, v3);
+    pDialogueWindow = GUIWindowCreate(0, 0, 640, 345, 1, 0, 0);
     dword_5076F4 = GUIButtonCreate(pDialogueWindow,
                      526,
                      445,
@@ -12503,8 +12503,8 @@ LABEL_11:
                      v3,
                      v3,
                      pGlobalTXT_LocalizationStrings[74],
-                     uTextureIdx_BtnEsc2 + 1 != 0 ? 72 * (_DWORD)uTextureIdx_BtnEsc2 + 7145548 : 0);
-    GUIButtonCreate(pDialogueWindow, 8, 8, 450, 320, 1, v3, 81, v3, v3, (unsigned char *)"", v3);
+                     uTextureIdx_BtnEsc2  != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2] : 0);
+    GUIButtonCreate(pDialogueWindow, 8, 8, 450, 320, 1, v3, 81, v3, v3, (unsigned char *)"",  0);
 LABEL_12:
     v4 = dword_F8B198;
     v11 = (int)ptr_507BC0;
