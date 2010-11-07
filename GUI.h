@@ -232,7 +232,7 @@ extern unsigned int uTextureID_GameUI_PartyFrame;
 struct GUIWindow *GameUI_InitializeCharacterWindow(int a1);
 
 void __cdecl CharacterUI_SkillsTab_ShowHint();
-void CharacterUI_DrawSkillsTab(int a1);
+void CharacterUI_DrawSkillsTab(int uSelectedCharacter);
 void __cdecl CharacterUI_StatsTab_ShowHint();
 void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter);
 int __fastcall CharacterUI_DrawAwardsTab(int a1);

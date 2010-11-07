@@ -6832,11 +6832,11 @@ LABEL_41:
 }
 
 //----- (00419719) --------------------------------------------------------
-void CharacterUI_DrawSkillsTab(int a1) // character skills tab
+void CharacterUI_DrawSkillsTab(int uSelectedCharacter) // character skills tab
 {
-  signed int v1; // ecx@1
+  struct Player *pp; 
+  signed int uClr; // ecx@1
   char *v2; // ebp@1
-  int v3; // esi@1
   int v4; // eax@1
   int v6; // edi@3
   int v7; // eax@4
@@ -6926,13 +6926,13 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
   int v107; // [sp+3Ch] [bp-4h]@114
   int i;
 
-  v3 = a1;
-  v93 = 0xFFFFFF9B;//colored or white text flag
-  v99 = 0xFF00AFFF;
-  v100 = *(_DWORD *)(pGUIWindow_CurrentMenu + 44);
-  v101 = 0xFFFF0000;
-  v94 = 0xFF00FF00;
-  v2 = (char *)&pParty_global->pPlayers[v3 - 1];
+  v93 = 0xFFFF9B;//colored or white text flag
+  v99 = 0x00AFFF;
+  v100 = pGUIWindow_CurrentMenu->dword_00002C;
+  v101 = 0xFF0000;
+  v94 = 0x00FF00;
+  v2 = (char *)&pParty_global->pPlayers[uSelectedCharacter - 1];
+  pp = pPlayers[uSelectedCharacter - 1];
 
   #ifndef OLD_CODE
   v4 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"fr_skill");
@@ -6941,21 +6941,22 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
   #endif
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, &LODFile_Icons_LOD.aLODHeaders[v4]);
 
-  v1 = v94;
-  if ( !*((_DWORD *)v2 + 1614) )
-    v1 = 65535;
+  if (pp->uSkillPoints)
+    uClr = 0x00FF00;
+  else
+    uClr = 0xFFFFFF;
 
-  wsprintfA((char *)TmpBuf, "%s \x0C%05d%s\0x0C\x30\x30\x30\x30\x30\n177%s: \x0C%05d%d\x0C\x30\x30\x30\x30\x30",
+  wsprintfA((char *)TmpBuf, "%s \f%06x%s\f000000\r177%s: \f%06x%d\f000000",
     pGlobalTXT_LocalizationStrings[206],
     v93,
-    v2 + 168,
+    pp->sName,
     pGlobalTXT_LocalizationStrings[207],
-    v1,
-    *((_DWORD *)v2 + 1614));
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 24, 18, (char *)TmpBuf, 0, 0, 0);
-  v6 = 2 * *(_BYTE *)(pFontLucida + 5) + 13;
+    uClr,
+    pp->uSkillPoints);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 24, 18, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  v6 = 2 * pFontLucida->uFontHeight + 13;
   wsprintfA((char *)TmpBuf, "%s\r400%s", pGlobalTXT_LocalizationStrings[242], pGlobalTXT_LocalizationStrings[131]);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 24, v6, (char *)TmpBuf, 0, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 24, v6, (char *)TmpBuf, 0xFFFFFF9B, 0, 0);
   v85 = 0;
   for(i = 0; i < 9; i++)
   {
@@ -6979,7 +6980,7 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
         if ( BYTE1(v9) >= 0 || (BYTE1(v9) &= 0x7Fu, v9 != v77) )
           continue;
         v6 = *(_DWORD *)(v8 + 4);
-        v11 = *((_DWORD *)v2 + 1614);
+        v11 = pp->uSkillPoints;
         ++v85;
         v12 = *(_WORD *)&v2[2 * v77 + 264];
         v102 = *(_WORD *)&v2[2 * v77 + 264];
@@ -7004,7 +7005,7 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
         if ( HIBYTE(v102) & 1 )
         {
           if ( !v15 )
-            v15 = 0xFFFFFF9B;
+            v15 = 0xFFFF9B;
           v69 = v89;
           v65 = v73;
           v61 = (int)pGlobalTXT_LocalizationStrings[96];
@@ -7014,7 +7015,7 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
           if ( !(v102 & 0xC0) )
           {
             wsprintfA((char *)TmpBuf, "%s\r400%2d", aSkillNames[v77], v89);
-            FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, v6, (char *)TmpBuf, 0, 0, 0);
+            FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, v6, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
             continue;
           }
           v16 = (int)pGlobalTXT_LocalizationStrings[432];
@@ -7022,24 +7023,24 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
             v16 = (int)pGlobalTXT_LocalizationStrings[433];
           v103 = v16;
           if ( !v15 )
-            v15 = 0xFFFFFF9B;
+            v15 = 0xFFFF9B;
           v69 = v89;
           v65 = v73;
           v61 = v103;
         }
         wsprintfA((char *)TmpBuf, "%s \r%05d%s\r%05d\n400%2d", aSkillNames[v77], v15, v61, v65, v69);
-        FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, v6, (char *)TmpBuf, 0, 0, 0);
+        FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, v6, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
       }
     }
   }
   if ( !v85 )
   {
-    v6 = v6 + *(_BYTE *)(pFontLucida + 5) - 3;
+    v6 = v6 + pFontLucida->uFontHeight - 3;
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, v6, (char *)pGlobalTXT_LocalizationStrings[153], 0, 0, 0);
   }
-  v90 = v6 + 2 * *(_BYTE *)(pFontLucida + 5) - 10;
+  v90 = v6 + 2 * pFontLucida->uFontHeight - 10;
   wsprintfA((char *)TmpBuf, "%s\r400%s", pGlobalTXT_LocalizationStrings[138], pGlobalTXT_LocalizationStrings[131]);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 24, v90, (char *)TmpBuf, 0, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 24, v90, (char *)TmpBuf, 0xFFFFFF9B, 0, 0);
   v86 = 0;
   for(i = 0; i < 9; i++)
   {
@@ -7065,7 +7066,7 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
         ++v86;
         v90 = *(_DWORD *)(v21 + 4);
         v24 = *(_WORD *)&v2[2 * v78 + 264];
-        v23 = *((_DWORD *)v2 + 1614);
+        v23 = pp->uSkillPoints;
         v25 = *(_WORD *)&v2[2 * v78 + 264] & 0x3F;
         v74 = 0;
         if ( v23 >= v25 + 1 )
@@ -7096,7 +7097,7 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
           if ( !(v24 & 0xC0) )
           {
             wsprintfA((char *)TmpBuf, "%s\r400%2d", aSkillNames[v78], v25);
-            FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, v90, (char *)TmpBuf, 0, 0, 0);
+            FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, v90, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
             continue;
           }
           v29 = (_BYTE)v24 < 0;
@@ -7111,16 +7112,16 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
           v62 = v104;
         }
         wsprintfA((char *)TmpBuf, "%s \r%05d%s\r%05d\n400%2d", aSkillNames[v78], v28, v62, v66, v70);
-        FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, v90, (char *)TmpBuf, 0, 0, 0);
+        FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, v90, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
       }
     }
   }
 
   if ( !v86 )
-    FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, *(_BYTE *)(pFontLucida + 5) + v90 - 3, (char *)pGlobalTXT_LocalizationStrings[153], 0, 0, 0);
-  v34 = 2 * *(_BYTE *)(pFontLucida + 5) + 13;
+    FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 24, pFontLucida->uFontHeight + v90 - 3, (char *)pGlobalTXT_LocalizationStrings[153], 0xFFFFFFFF, 0, 0);
+  v34 = 2 * pFontLucida->uFontHeight + 13;
   wsprintfA((char *)TmpBuf, "%s\r177%s", pGlobalTXT_LocalizationStrings[11], pGlobalTXT_LocalizationStrings[131]);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 248, v34, (char *)TmpBuf, 0, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 248, v34, (char *)TmpBuf, 0xFFFFFF9B, 0, 0);
   v87 = 0;
   for(i = 0; i < 5; i++) 
   {
@@ -7147,7 +7148,7 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
         ++v87;
         v75 = 0;
         v105 = *(_WORD *)&v2[2 * v79 + 264];
-        v39 = *((_DWORD *)v2 + 1614);
+        v39 = pp->uSkillPoints;
         v38 = *(_WORD *)&v2[2 * v79 + 264] & 0x3F;
         v91 = v38;
         if ( v39 >= v38 + 1 )
@@ -7178,7 +7179,7 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
           if ( !(v105 & 0xC0) )
           {
             wsprintfA((char *)TmpBuf, "%s\r177%2d", aSkillNames[v79], v91);
-            FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v34, (char *)TmpBuf, 0, 0, 0);
+            FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v34, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
             continue;
           }
           v43 = (int)pGlobalTXT_LocalizationStrings[432];
@@ -7192,18 +7193,18 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
           v63 = v106;
         }
         wsprintfA((char *)TmpBuf, "%s \r%05d%s\r%05d\n177%2d", aSkillNames[v79], v42, v63, v67, v71);
-        FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v34, (char *)TmpBuf, 0, 0, 0);
+        FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v34, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
       }
     }
   }
   if ( !v87 )
   {
-    v34 = v34 + *(_BYTE *)(pFontLucida + 5) - 3;
-    FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v34, (char *)pGlobalTXT_LocalizationStrings[153], 0, 0, 0);
+    v34 = v34 + pFontLucida->uFontHeight - 3;
+    FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v34, (char *)pGlobalTXT_LocalizationStrings[153], 0xFFFFFFFF, 0, 0);
   }
-  v92 = v34 + 2 * *(_BYTE *)(pFontLucida + 5) - 10;
+  v92 = v34 + 2 * pFontLucida->uFontHeight - 10;
   wsprintfA((char *)TmpBuf, "%s\r177%s", pGlobalTXT_LocalizationStrings[143], pGlobalTXT_LocalizationStrings[131]);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 248, v92, (char *)TmpBuf, 0, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 248, v92, (char *)TmpBuf, 0xFFFFFF9B, 0, 0);
   v88 = 0;
   for(i = 0; i < 12; i++) 
   {
@@ -7230,7 +7231,7 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
         ++v88;
         v92 = *(_DWORD *)(v47 + 4);
         v51 = *(_WORD *)&v2[2 * v80 + 264];
-        v50 = *((_DWORD *)v2 + 1614);
+        v50 = pp->uSkillPoints;
         v52 = *(_WORD *)&v2[2 * v80 + 264] & 0x3F;
         v76 = 0;
         if ( v50 >= v52 + 1 )
@@ -7261,7 +7262,7 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
           if ( !(v51 & 0xC0) )
           {
             wsprintfA((char *)TmpBuf, "%s\r177%2d", aSkillNames[v80], v52);
-            FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v92, (char *)TmpBuf, 0, 0, 0);
+            FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v92, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
             continue;
           }
           v56 = (_BYTE)v51 < 0;
@@ -7276,12 +7277,12 @@ void CharacterUI_DrawSkillsTab(int a1) // character skills tab
           v64 = v107;
         }
         wsprintfA((char *)TmpBuf, "%s \r%05d%s\r%05d\n177%2d", aSkillNames[v80], v55, v64, v68, v72);
-        FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v92, (char *)TmpBuf, 0, 0, 0);
+        FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, v92, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
       }
     }
   }
   if ( !v88 )
-    FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, *(_BYTE *)(pFontLucida + 5) + v92 - 3, (char *)pGlobalTXT_LocalizationStrings[153], 0, 0, 0);
+    FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 248, pFontLucida->uFontHeight + v92 - 3, (char *)pGlobalTXT_LocalizationStrings[153], 0xFFFFFFFF, 0, 0);
 }
 
 //----- (0043BCA7) --------------------------------------------------------
