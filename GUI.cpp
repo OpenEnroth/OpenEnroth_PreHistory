@@ -33,6 +33,7 @@ class cTexture *pPlayerCreatUI_ClIcons[9] = {0};   // ptr[9]  @ MM7.exe::0050776
 class cTexture *pPlayerCreationUI_Sky = 0;               // ptr     @ MM7.exe::00507784
 class cTexture *pPlayerCreationUI_Top = 0;               // ptr     @ MM7.exe::00507788
 class cTexture *pTextureID_PCFaces[25];
+class cPCXTexture  cPCXID_GameUI_RightPanel;
 
  char *portret_names[25] =
 	{ "pc01-", "pc02","pc03","pc04","pc05-","pc06","pc07","pc08","pc09-","pc10","pc11-","pc12","pc13",
@@ -268,7 +269,7 @@ void GameUI_LoadIcons()
 #endif
 #ifdef OLD_CODE
  /*
-   dword_50A7EC = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR8", 2);
+  dword_50A7EC = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR8", 2);
   dword_50A7F0 = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR1", 2);
   dword_50A7F4 = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR2", 2);
   dword_50A7F8 = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR3", 2);
@@ -1307,7 +1308,7 @@ LABEL_188:
             dword_6BE138 = 124;
           }
 LABEL_189:
-          RGBTexture_Release((int)pClass33_global3);
+          //RGBTexture_Release((int)pClass33_global3);
           goto LABEL_92;
         case 0x7D:
           LODFile_Icons_LOD.LODFile_sub_40F9C5();
@@ -2156,7 +2157,7 @@ LABEL_262:
 LABEL_263:
                       v35 = RegistryWriteInt(v38, v37);
 LABEL_291:
-                      RGBTexture_Release((int)pClass33_global3);
+                   //   RGBTexture_Release((int)pClass33_global3);
                       break;
                     case 1:
                       LODFile_Icons_LOD.LODFile_sub_40F9C5();
@@ -2435,12 +2436,12 @@ LABEL_322:
                                dword_507930 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507930] : 0);
               v45 = GUIWindow_sub_41D08F(pGUIWindow_CurrentMenu, 6, v0, 0, 0);
               struct_576FE8.dword_000048 = v0;
-              RGBTexture_Release((int)pClass33_global3);
+             // RGBTexture_Release((int)pClass33_global3);
               v46 = sub_45E03A_SomethingLikeCaptureAScreenshot(155, 117);
               v212 = v46;
               v47 = (int)sub_49F8B5(pD3DRenderer, "gamma.pcx", v46, 155, 117);
               operator_delete((void *)v212);
-              sub_40E55E(pClass33_global3, (unsigned int)"gamma.pcx", 0);
+              sub_40E55E(&Class33_global3, (unsigned int)"gamma.pcx", 0);
               goto LABEL_92;
             }
             goto LABEL_333;
@@ -3628,12 +3629,12 @@ LABEL_693:
             dword_4E28F8 = 0;
             struct_576FE8.dword_000044 = v0;
           }
-          RGBTexture_Release((int)pClass33_global3);
+        //  RGBTexture_Release((int)pClass33_global3);
           v117 = sub_45E03A_SomethingLikeCaptureAScreenshot(155, 117);
           v212 = v117;
           v118 = (int)sub_49F8B5(pD3DRenderer, "gamma.pcx", v117, 155, 117);
           operator_delete((void *)v212);
-          sub_40E55E(pClass33_global3, (unsigned int)"gamma.pcx", 0);
+          sub_40E55E(&Class33_global3, (unsigned int)"gamma.pcx", 0);
           GUIWindowCreate(602, 450, 0, 0, 92, (int)pBtn_Game_Options, 0);
 LABEL_453:
           if ( dword_50CBD0[0] >= 40 )
@@ -10679,7 +10680,7 @@ void MenuUI_LoadTextures(unsigned int uAlignment)
  uTextureID_GameUI_ViewportTop = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"ib-ET-B" );
  uTextureID_GameUI_ViewportLeft = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"ib-EL-B" );
   uTextureID_GameUI_StatusBar = LODFile_Icons_LOD.LODFile_LoadTexture_New(  L"ib-StatBar-B");
-
+ // cPCXID_GameUI_RightPanel.LODPCXLoad(pRequestedInterface[0],0);
 
  dword_506438_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[5],2);		//"ib-mb-C",		 //05
     

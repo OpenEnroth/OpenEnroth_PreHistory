@@ -238,7 +238,7 @@ int Render_LockFrontBuffer(struct BaseRender *_this, void **ppOutSurfacePtr, uns
 //void *__thiscall sub_4A17C7(int _this);
 void *Render_UnlockFrontBuffer(struct BaseRender *_this);
 //void __thiscall sub_4A5BE3(int _this, int a2, int a3, int a4);
-void Render_DrawRGBTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, struct RGBTexture *pClass33);
+void Render_DrawRGBTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, class cPCXTexture *pClass33);
 //custom
 void Render_DrawRGBTexture_New(struct BaseRender *_this, unsigned int uX, unsigned int uY, unsigned int uTextureID);
 //void __thiscall sub_4A6C4F(int _this, int a2, int a3, int a4, int a5, int a6, int a7, __int16 a8, __int16 a9);
@@ -354,52 +354,6 @@ void *GammaController_sub_44F4D9(struct CGammaController *_this, float a2);
 void CGammaController_InitializeFromSurface(struct CGammaController *_this, struct IDirectDrawSurface4 *pdds);
 //void *__thiscall sub_44F324(int _this);
 void *CGammaController_InitializeGammaRamp(struct CGammaController *_this);
-
-
-
-
-
-
-//class33
-struct RGBTexture
-{
- int dword_000000;
- int dword_000004;
- int dword_000008;
- int dword_00000C;
- unsigned int uNumPixels; // dword @ 000010
- short uWidth;  // word @ 000014
- short uHeight;  // word @ 000016
- short word_000018;
- short word_00001A;
- short word_00001C;
- short word_00001E;
- short word_000020;
- short word_000022;
- unsigned int *pPixels; // ptr @ 000024
-};
-//sizeof = 28
-//int __thiscall sub_40D73D(int _this);
-int RGBTexture_ctor(struct RGBTexture *_this);
-//signed int __thiscall sub_40F414(void *_this, const char *Str1, int a3);
-int RGBTexture_Load(struct RGBTexture *_this, const char *pContainerName, int a3);
-//signed int __thiscall sub_40F414(void *_this, const char *Str1, int a3);
-#ifndef OLD_CODE
-int RGBTexture_Load_New(struct RGBTexture *_this, const wchar_t *pTextureName);
-#endif
-//signed int __thiscall sub_40F037(void *_this, void *Src, int a3, int a4)
-int RGBTexture_DecodePCX(struct RGBTexture *_this, unsigned char *pPCXData, unsigned short *pOutBuffer, unsigned int uWidth);
-
-
-
-
-
-
-
-
-
-
-
 
 
 

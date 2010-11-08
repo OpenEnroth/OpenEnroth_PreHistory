@@ -3816,16 +3816,16 @@ void sub_40D75D(int a1, const char *a2, int a3)
 //----- (0040D799) --------------------------------------------------------
 char __cdecl sub_40D799()
 {
-  RGBTexture_Load(pClass33_global0, "layout.pcx", 2);
-  struct_505898.dword_5058D4 = (int)pClass33_global0->pPixels;
+  Class33_global0.LODPCXLoad( "layout.pcx", 2);
+  struct_505898.dword_5058D4 = (int)Class33_global0.pPixels;
   return 1;
 }
 
 //----- (0040D7B7) --------------------------------------------------------
 char __cdecl sub_40D7B7()
 {
-  RGBTexture_Load(pClass33_global1, "sprites.pcx", 2);
-  struct_505898.dword_5058D8 = (int)pClass33_global1->pPixels;
+  Class33_global1.LODPCXLoad("sprites.pcx", 2);
+  struct_505898.dword_5058D8 = (int)Class33_global1.pPixels;
   return 1;
 }
 
@@ -3886,7 +3886,7 @@ void __fastcall sub_40D7EC(int a1, int a2, int a3, int a4)
       v30 = *(_DWORD *)(v6 + 12) - *(_DWORD *)(v6 + 4);
       if ( struct_505898.dword_5058DC == struct_505898.dword_5058D4 )
       {
-       v9 = pClass33_global0->uWidth;
+       v9 = Class33_global0.uWidth;
       }
       else
       {
@@ -3966,7 +3966,7 @@ LABEL_9:
           }
           return;
         }
-        v9 = pClass33_global1->uWidth;
+        v9 = Class33_global1.uWidth;
       }
       v31 = v9;
       goto LABEL_9;
@@ -4014,13 +4014,13 @@ void __fastcall sub_40D9B1(int a1, int a2, int a3)
       v24 = *(_DWORD *)(v5 + 12) - *(_DWORD *)(v5 + 4);
       if ( struct_505898.dword_5058DC == struct_505898.dword_5058D4 )
       {
-       v9 = pClass33_global0->uWidth;
+       v9 = Class33_global0.uWidth;
       }
       else
       {
         if ( struct_505898.dword_5058DC == struct_505898.dword_5058D8 )
         {
-         v9 = pClass33_global1->uWidth;
+         v9 = Class33_global1.uWidth;
         }
         else
         {
@@ -6056,7 +6056,7 @@ LABEL_29:
       *(int *)((char *)&dword_4E24C4 + v4),
       *(int *)((char *)&dword_4E24D8 + v4),
       &LODFile_Icons_LOD.aLODHeaders[uTextureID_lb_bordr__townport__sbquicknot]);
-    Render_DrawRGBTexture(pD3DRenderer, *(int *)((char *)&dword_4E249C + v4), *(int *)((char *)&dword_4E24B0 + v4), (RGBTexture *)v36);
+    Render_DrawRGBTexture(pD3DRenderer, *(int *)((char *)&dword_4E249C + v4), *(int *)((char *)&dword_4E24B0 + v4), (cPCXTexture *)v36);
     v9 = v35;
     Str = (char *)pMapStats->pMapInfos[sub_410D99(*(_WORD *)(v35 + 26))].pLocationName;
     v10 = Font_sub_44C59D(ptr_5C35E4, Str, &local_0C, 0, 0);
@@ -8387,7 +8387,7 @@ void __cdecl sub_414D9A()
         17 * dword_4E2900_GammaPos + 42,
         162,
         &LODFile_Icons_LOD.aLODHeaders[uTextureID_GammaPositions[dword_4E2900_GammaPos]]);
-      Render_DrawRGBTexture(pD3DRenderer, 274, 169, pClass33_global3);
+      Render_DrawRGBTexture(pD3DRenderer, 274, 169, &Class33_global3);
       local_08.uFrameX = 22;
       v0 = (char *)pGlobalTXT_LocalizationStrings[226];
       local_08.uFrameY = 190;

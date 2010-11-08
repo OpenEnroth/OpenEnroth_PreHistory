@@ -49,12 +49,12 @@ void RtlCallCtors()
  dword_507AFC = 0xFF0A0000;
  dword_507AF8 = 0xFFE6D6C1;
 
- pClass33_global0 = new RGBTexture;
- RGBTexture_ctor(pClass33_global0);
- pClass33_global1 = new RGBTexture;
- RGBTexture_ctor(pClass33_global1);
- pClass33_global3 = new RGBTexture;
- RGBTexture_ctor(pClass33_global3);
+ Class33_global0.PCXTexture_Zero();
+ //RGBTexture_ctor(pClass33_global0);
+ Class33_global1.PCXTexture_Zero();
+ //RGBTexture_ctor(pClass33_global1);
+ Class33_global3.PCXTexture_Zero();// = new RGBTexture;
+ //RGBTexture_ctor(pClass33_global3);
 
  class36_ctor(&class36_global0);
 

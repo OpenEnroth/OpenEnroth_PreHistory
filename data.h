@@ -191,9 +191,9 @@ extern class LODFile_Sprite      LODFile_Sprites_LOD;
 extern struct AudioPlayer  *pAudioPlayer;
 extern struct CVideoPlayer *pVideoPlayer;
 
-extern struct RGBTexture      *pClass33_global0;
-extern struct RGBTexture      *pClass33_global1;
-extern struct RGBTexture      *pClass33_global3;
+extern class cPCXTexture      Class33_global0;
+extern class cPCXTexture      Class33_global1;
+extern class cPCXTexture      Class33_global3;
 
 extern struct CTextureFrameTable *pTextureFrameTable;
 extern struct SpriteFrameTable  *pSpriteFrameTable;

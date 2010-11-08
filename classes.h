@@ -1421,8 +1421,8 @@ struct unnamed_505898
  Font *dword_5058E0; // weak
  Font *dword_5058E4; // weak
  __int16 word_5058EC; // weak
- struct RGBTexture class33_obj0; // ::5058F0
- struct RGBTexture class33_obj1; // ::505918
+ class cPCXTexture class33_obj0; // ::5058F0
+ class cPCXTexture class33_obj1; // ::505918
  int dword_505940; // weak
  int dword_505944; // weak
  int dword_505948; // weak

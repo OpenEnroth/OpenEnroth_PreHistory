@@ -10808,8 +10808,8 @@ LABEL_8:
     sub_409E3D(dword_720010, *(_BYTE *)(dword_720010 + 103));
     v1 = sub_46B944(dword_720010);
   }
-  v3 = RGBTexture_Release((int)pClass33_global0);
-  RGBTexture_Release((int)pClass33_global1);
+  //v3 = RGBTexture_Release((int)Class33_global0);
+ // RGBTexture_Release((int)pClass33_global1);
   struct_505898.byte_505992 = 0;
   struct_576FE8.dword_000044 = 1;
   if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )

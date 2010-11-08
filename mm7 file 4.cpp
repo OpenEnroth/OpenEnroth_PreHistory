@@ -3739,8 +3739,8 @@ LABEL_176:
 void unnamed_505898_ctor(struct unnamed_505898 *_this)
 {
  _this->dword_000004 = 0;
- RGBTexture_ctor(&_this->class33_obj0);
- RGBTexture_ctor(&_this->class33_obj1);
+ _this->class33_obj0.PCXTexture_Zero();
+ _this->class33_obj1.PCXTexture_Zero();
 
  _this->byte_505991 = 0;
  _this->byte_505992 = 0;
@@ -12821,7 +12821,7 @@ void *__fastcall sub_4601B7(int a1)
         pD3DRenderer,
         pGUIWindow_CurrentMenu->uFrameX + 276,
         pGUIWindow_CurrentMenu->uFrameY + 171,
-        (RGBTexture *)((char *)&unk_6A0118 + 40 * dword_6A0CA0));
+        (cPCXTexture *)((char *)&unk_6A0118 + 40 * dword_6A0CA0));
       v4 = dword_6A0CA0;
     }
     v10 = CMapStats_FindLocation(pMapStats, &byte_69BD7C[100 * v4]);
@@ -13781,7 +13781,8 @@ void __cdecl sub_4667E9()
   int v2; // esi@25
   int v3; // edx@26
   int v4; // eax@26
-  void *v5; // esi@33
+ // cPCXTexture *v5; // esi@33
+	void		  *v5;
   const char *v6; // eax@34
   const char *v7; // [sp-4h] [bp-28h]@33
   int v8; // [sp+0h] [bp-24h]@33
@@ -13864,8 +13865,8 @@ LABEL_52:
       while ( v1 < pObjectDescriptionList->uNumObjects );
     }
     MenuUI_LoadTextures(pParty_global->uAlignment);
-    if ( pVideoPlayer->dword_000024 )
-      RGBTexture_Load((RGBTexture *)pVideoPlayer->dword_00006C, (const char *)&unk_F8BBEC, 1);
+   // if ( pVideoPlayer->dword_000024 )
+   //   (cPCXTexture *)pVideoPlayer->dword_00006C-> , (const char *)&unk_F8BBEC, 1);
     if (uCurrentMenuID != MENU_MAIN)
     {
       if ( uCurrentMenuID != MENU_CREATEPARTY)
@@ -13894,7 +13895,7 @@ LABEL_52:
       v8 = 0;
       v7 = v6;
     }
-    RGBTexture_Load((RGBTexture *)v5, v7, v8);
+   // v5->LODPCXLoad(v7, 0);
 LABEL_38:
     struct_576FE8.dword_000044 = 1;
     sub_443343_GenerateSomeColorTable(&struct_576FE8);

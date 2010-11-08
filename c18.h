@@ -62,7 +62,7 @@ class cTexture
 		unsigned char  *ptr_000044;		  //68
 		unsigned int   *pTruecolorPixels;	   //not in original!!!!!
 
-		void LODPCXLoader(char *filename);
+		
 		void cTexture_Zero();
 	};
 
@@ -74,3 +74,37 @@ void cTexture_Free(cTexture* cTxtr);
 //int __thiscall sub_40F806(int _this);
 int cTexture_UnzipPalette(cTexture *_this);
 
+
+
+
+//class33
+class cPCXTexture
+{
+public:
+ char  sContainerName[16];
+ unsigned int uNumPixels; // dword @ 000010
+ short uWidth;  // word @ 000014
+ short uHeight;  // word @ 000016
+ short word_000018;
+ short word_00001A;
+ short word_00001C;
+ short word_00001E;
+ short word_000020;
+ short word_000022;
+ unsigned int *pPixels; // ptr @ 000024
+//int __thiscall sub_40D73D(int _this);
+void PCXTexture_Zero();
+//signed int __thiscall sub_40F414(void *_this, const char *Str1, int a3);
+ int LODPCXLoad(const char *pContainerName, int mode);
+	
+//signed int __thiscall sub_40F037(void *_this, void *Src, int a3, int a4)
+int DecodePCX(unsigned char *pPCXData,unsigned int *pOutBuffer, unsigned int uWidth);
+int LODPCXReLoad(const char *pContainerName);
+};
+//sizeof = 28
+//
+#ifndef OLD_CODE 
+//signed int __thiscall sub_40F414(void *_this, const char *Str1, int a3);
+int RGBTexture_Load(cPCXTexture *_this, const char *pContainerName, int a3);
+int RGBTexture_Load_New(cPCXTexture *_this , const wchar_t *pTextureName);
+#endif

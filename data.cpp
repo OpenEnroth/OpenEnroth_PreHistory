@@ -1221,10 +1221,10 @@ LODFile_IB      LODFile_Bitmaps_LOD;  // struct @ MM7.exe::006F0E80
 struct AudioPlayer  *pAudioPlayer = 0;          // struct @ MM7.exe::00F790D8
 struct CVideoPlayer *pVideoPlayer = 0;          // struct @ MM7.exe::00F8BB08
 
-struct RGBTexture      *pClass33_global0 = 0;      // struct @ MM7.exe::005058F0
-struct RGBTexture      *pClass33_global1 = 0;      // struct @ MM7.exe::00505918
+class cPCXTexture      Class33_global0;      // struct @ MM7.exe::005058F0
+class cPCXTexture      Class33_global1;      // struct @ MM7.exe::00505918
 //struct RGBTexture      *pRGBTexture_Menu = 0;      // struct @ MM7.exe::00506F20
-struct RGBTexture      *pClass33_global3 = 0;      // struct @ MM7.exe::00506E40
+class cPCXTexture      Class33_global3;      // struct @ MM7.exe::00506E40
 
 //struct RGBTexture      *pTexture_StatusBar = 0;    // struct @ MM7.exe::00507A1C
 //struct RGBTexture      *pTexture_LeftFrame = 0;    // struct @ MM7.exe::00507A44

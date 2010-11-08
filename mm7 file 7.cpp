@@ -14093,7 +14093,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   int v13; // ecx@12
   int v14; // eax@14
   BOOL v15; // eax@25
-  char v16; // [sp+Ch] [bp-C4h]@1
+  cPCXTexture v16; // [sp+Ch] [bp-C4h]@1
   unsigned int v17; // [sp+30h] [bp-A0h]@1
 
   GUIWindow local_34;
@@ -14117,7 +14117,8 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   __int64 v34; // [sp+C8h] [bp-8h]@5
 
   v26 = _this;
-  RGBTexture_ctor((RGBTexture *)&v16);
+ 
+  v16.PCXTexture_Zero();
   BYTE1(dword_6BE364) &= 0xBFu;
   dword_F8BC10 = 1;
   pVideoPlayer->dword_00006C = 0;

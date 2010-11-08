@@ -3538,7 +3538,7 @@ int CreditsMenuLoop()
   cTexture cTexture_obj;//[128]; // [sp+Ch] [bp-130h]@5
   int v17; // [sp+20h] [bp-11Ch]@8
   size_t Count; // [sp+34h] [bp-108h]@7
-  struct RGBTexture v19;
+  class cPCXTexture v19;
   //char v19; // [sp+54h] [bp-E8h]@1
   double v20; // [sp+7Ch] [bp-C0h]@9
   MSG Msg; // [sp+84h] [bp-B8h]@10
@@ -3550,7 +3550,7 @@ int CreditsMenuLoop()
   __int16 v27[2]; // [sp+F8h] [bp-44h]@9
   int v28; // [sp+FCh] [bp-40h]@9
   //char v29; // [sp+100h] [bp-3Ch]@1
-  struct RGBTexture v29;
+ class cPCXTexture v29;
   //unsigned int v30; // [sp+110h] [bp-2Ch]@9
   //__int16 v31; // [sp+114h] [bp-28h]@9
   //__int16 v32; // [sp+116h] [bp-26h]@9
@@ -3562,8 +3562,8 @@ int CreditsMenuLoop()
   int v38; // [sp+134h] [bp-8h]@1
   int v39; // [sp+138h] [bp-4h]@1
 
-  RGBTexture_ctor(&v19);
-  RGBTexture_ctor(&v29);
+  v19.PCXTexture_Zero();
+  v29.PCXTexture_Zero();
   v35 = 0;
   v38 = (int)LoadFont("quick.fnt", "FONTPAL");
   v39 = (int)LoadFont("cchar.fnt", "FONTPAL");
@@ -3574,7 +3574,7 @@ int CreditsMenuLoop()
     LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   dword_A74C88 = 0;
   sub_4AA13F((int)pAudioPlayer, 15);
-  RGBTexture_Load(&v19, "mm6title.pcx", 0);
+  v19.LODPCXLoad("mm6title.pcx", 0);
   v2 = (int)LODFile_Events_LOD.LODFile_LoadRaw( "credits.txt", 0);
   v1 = (const char *)v2;
   Source = (char *)v2;
@@ -3647,7 +3647,7 @@ int CreditsMenuLoop()
         sub_46B736((void *)dword_720010, 1);
       if ( dword_A74C88 )
       {
-        RGBTexture_Load(&v19, "mm6title.pcx", 1);
+        v19.LODPCXLoad("mm6title.pcx", 2);
         v11 = v29.uNumPixels;
         v12 = 0xFF00FFFF;
         sub_452AF3(v12, v29.pPixels, v11);
@@ -3691,8 +3691,8 @@ int CreditsMenuLoop()
   mem_mng.DeleteBuffer( (void *)(void *)v39);
   GUIWindowDelete(pGUIWindow_MainMenu);
   v14 = LODFile_Icons_LOD.LODFile_sub_4114F2();
-  v15 = RGBTexture_Release((int)&v19);
-  RGBTexture_Release((int)&v29);
+ // v15 = RGBTexture_Release((int)&v19);
+ // RGBTexture_Release((int)&v29);
   return sub_466CA0() - 8;
 }
 
