@@ -1259,9 +1259,8 @@ struct GUIButton *pPlayerCreationUI_BtnOK = 0;    // ptr @ MM7.exe::005076F0
 struct GUIButton *pPlayerCreationUI_BtnPlus = 0;         // ptr     @ MM7.exe::00507700
 struct GUIButton *pPlayerCreationUI_BtnMinus = 0;        // ptr     @ MM7.exe::00507704
 //struct cTexture *pPlayerCreationUI_PCPortraits[22] = {0}; // ptr[22] @ MM7.exe::00507708
-//struct cTexture *pPlayerCreationUI_ClassIcons[9] = {0};   // ptr[9]  @ MM7.exe::00507760
-class cTexture *pPlayerCreationUI_Sky = 0;               // ptr     @ MM7.exe::00507784
-class cTexture *pPlayerCreationUI_Top = 0;               // ptr     @ MM7.exe::00507788
+
+
 
 //struct cTexture *pPlayerCreationUI_ArrowR[20] = {0}; // ptr[19] @ MM7.exe::0050787C
 //struct cTexture *pPlayerCreationUI_ArrowL[20] = {0}; // ptr[19] @ MM7.exe::005078CC

@@ -5535,132 +5535,6 @@ LABEL_24:
   return result;
 }
 
-//----- (00491CB5) --------------------------------------------------------
-char __cdecl LoadPlayerPortraintsAndVoices()
-{
-  signed int v3; // esi@5
-  char result; // al@6
-
- 
- int i, j;
-
- LODFile_Icons_LOD.lod_IB_dword_011BA0 = LODFile_Icons_LOD.uNumLoadedFiles;
- #ifndef OLD_CODE
-   wchar_t pFilename[256];
-	   for (i = 0; i < 4; ++i)
-   for (j = 0; j < 56; ++j)
-   {
-    wsprintfW(pFilename, L"pc%02u-%02u", pParty_global->pPlayers[i].uFace + 1, j + 1);
-    uTextureIdx_PlayerFaces[i][j] = LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilename);
-   }
-
- uTextureIdx_PlayerFaceEradicated = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Eradcate");
- uTextureIdx_PlayerFaceDead = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"DEAD");
-#endif
-#ifdef OLD_CODE	 
- char pFilename[256];
-	 for (i = 0; i < 4; ++i)
-   for (j = 0; j < 56; ++j)
-   {
-    wsprintfA(pFilename, "pc%02u-%02u", pParty_global->pPlayers[i].uFace + 1, j + 1);
-    uTextureIdx_PlayerFaces[i][j] = LODFile_Icons_LOD.LODFile_LoadTexture( pFilename,0);
-   }
-
- uTextureIdx_PlayerFaceEradicated = LODFile_Icons_LOD.LODFile_LoadTexture( "Eradcate",0);
- uTextureIdx_PlayerFaceDead = LODFile_Icons_LOD.LODFile_LoadTexture( "DEAD",0);
-#endif
- 
-
- for (i = 0; i < 4; ++i)
- {
-    result = byte_4ED498;
-    if ( byte_4ED498 )
-    {
-     sub_4A9A67(pSoundList, 2 * ((unsigned __int8)byte_4ED498 + 50 * pParty_global->pPlayers[i].dword_001920) + 4998, 0);
-     result = sub_4A9A67(pSoundList, 2 * ((unsigned __int8)byte_4ED498 + 50 * pParty_global->pPlayers[i].dword_001920) + 4999, 0);
-    }
-  }
-  return result;
-}
-
-//----- (0040F5F5) --------------------------------------------------------
-signed int __thiscall sub_40F5F5(void *_this, const char *Str1)
-{
-  void *v2; // esi@1
-  FILE *v3; // eax@3
-  FILE *v4; // edi@3
-  unsigned int v5; // ebx@7
-  signed int result; // eax@11
-  int v7; // eax@12
-  int v8; // ecx@12
-  int v9; // ST20_4@14
-  int v10; // eax@14
-  int v11; // eax@14
-  char v13; // [sp+8h] [bp-98h]@9
-  char DstBuf; // [sp+38h] [bp-68h]@1
-  size_t v15; // [sp+4Ch] [bp-54h]@6
-  size_t Size; // [sp+60h] [bp-40h]@6
-  char cTexture_obj[128]; // [sp+80h] [bp-20h]@9
-  char v18; // [sp+83h] [bp-1Dh]@9
-  int v19; // [sp+84h] [bp-1Ch]@12
-  int v20; // [sp+88h] [bp-18h]@12
-  char v21; // [sp+90h] [bp-10h]@9
-  FILE *File; // [sp+98h] [bp-8h]@3
-  size_t Count; // [sp+9Ch] [bp-4h]@6
-  int v24; // [sp+A8h] [bp+8h]@7
-
-  v2 = _this;
-  cTexture_Zero((cTexture *)cTexture_obj);
-  if ( !*((_DWORD *)v2 + 9) )
-    return 2;
-  v3 = LODFile_Icons_LOD.Find_Container( Str1, 0);
-  v4 = (FILE *)v3;
-  File = (FILE *)v3;
-  if ( !v3 )
-  {
-    wsprintfA((char *)TmpBuf, "Unable to load %s", Str1);
-    erroneous_printf((char *)TmpBuf);
-  }
-  locked_fread(&DstBuf, 1u, 0x30u, (FILE *)v3);
-  Count = v15;
-  if ( Size )
-  {
-    v5 = (unsigned int)malloc(Size);
-    v24 = (int)mem_mng.AllocatedNamedBuffer( 0, v15, cTexture_obj);
-    locked_fread((void *)v24, 1u, Count, File);
-    MemUnzip((void *)v5, (unsigned int *)&Size, (void *)v24, v15);
-    v15 = Size;
-    mem_mng.DeleteBuffer( (void *)(void *)v24);
-  }
-  else
-  {
-    v5 = (unsigned int)malloc(v15);
-    locked_fread((void *)v5, 1u, Count, v4);
-  }
-  memcpy(&pSpansBuf, (const void *)v5, 0x10u);
-  memcpy(&v13, (const void *)(v5 + 16), 0x30u);
-  memcpy(&v21, (const void *)(v5 + 64), 6u);
-  if ( v18 != 8 )
-    return 3;
-  v7 = v20 - v19 + 1;
-  v8 = (signed __int16)(v20 - (_WORD)v19 + 1);
-  if ( v8 * (signed __int16)(HIWORD(v20) - HIWORD(v19) + 1) <= *((_DWORD *)v2 + 4) )
-  {
-    *((_WORD *)v2 + 10) = v7;
-    v9 = *((_DWORD *)v2 + 9);
-    v10 = v8 * *((_WORD *)v2 + 11);
-    *((_DWORD *)v2 + 4) = v10;
-    *((_WORD *)v2 + 11) = v10;
-    v11 = RGBTexture_DecodePCX((RGBTexture *)v2, (unsigned char *)v5, (unsigned short *)v9, v8);
-    free((void *)v5);
-    result = 0;
-  }
-  else
-  {
-    result = -1;
-  }
-  return result;
-}
 
 //----- (0040F82D) --------------------------------------------------------
 void array_AD4674_FillZBuffer(int *pZBuffer, unsigned int uTextureID, unsigned int uZFill)
@@ -8358,7 +8232,7 @@ void __cdecl sub_4142D3()
     dword_506E68 = -1;
     *(_DWORD *)(v2 + 64) = 0;
   }
-  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(dword_507BF4 != -1 ? 72 * dword_507BF4 + 7145548 : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(dword_507BF4 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507BF4] : 0));
   if ( dword_506F08 == 1 )
   {
     Render_DrawIndexedTexture(pD3DRenderer, 19, 302, (cTexture *)(dword_507C00 != -1 ? 72 * dword_507C00 + 7145548 : 0));
@@ -8424,7 +8298,7 @@ void __cdecl sub_4142D3()
   }
   else
   {
-    Render_DrawIndexedTexture(pD3DRenderer, 127, 302, (cTexture *)(dword_507C04 != -1 ? 72 * dword_507C04 + 7145548 : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 127, 302, (cTexture *)(dword_507C04 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507C04] : 0));
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 23, 142, "Á. ÑÏÐÀÂÊÀ", 0, 0, 0);
     v33 = sub_45AE2C(dword_506E90[14]);
     v34 = sub_414D24((void *)14);

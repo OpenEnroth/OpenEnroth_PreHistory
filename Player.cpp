@@ -12,7 +12,9 @@
 
 #include "data.h"
 
-unsigned int uTextureID_PCFaces[25];
+
+
+
 
 // 4 races, 7 stats
 struct StatTable g_StatTable[4][7] = // byte[] @ MM7.exe::004ED7B0

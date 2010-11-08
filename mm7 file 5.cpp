@@ -2590,7 +2590,7 @@ char __thiscall sub_46AE97(void *_this, void *Source)
   char result; // al@3
   int v6; // [sp+8h] [bp-B0h]@1
   int v7; // [sp+58h] [bp-60h]@1
-  char cTexture_obj[128]; // [sp+6Ch] [bp-4Ch]@1
+  cTexture cTexture_obj; // [sp+6Ch] [bp-4Ch]@1
   char v9; // [sp+B4h] [bp-4h]@1
 
   v2 = _this;
@@ -2607,10 +2607,10 @@ char __thiscall sub_46AE97(void *_this, void *Source)
          &v6);
   CheckHRESULT((void **)&v9, v4, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MouseAsync.cpp", 0x81u, 0);
   
-  cTexture_Zero((cTexture *)cTexture_obj);
-  if ( LODFile_Icons_LOD.LoadTextureFromLOD( (cTexture *)cTexture_obj, (char *)Source, 2) != -1 && sub_46B1EC((int)&struct_505898.Dest, *((_DWORD *)v2 + 1), 0) )
+  cTexture_obj.cTexture_Zero();
+  if ( LODFile_Icons_LOD.LoadTextureFromLOD( &cTexture_obj, (char *)Source, 2) != -1 && sub_46B1EC((int)&struct_505898.Dest, *((_DWORD *)v2 + 1), 0) )
   {
-    cTexture_Free((cTexture *)cTexture_obj);
+    cTexture_Free(&cTexture_obj);
     LeaveCriticalSection(&pGame->class01_obj->cs2);
     result = 1;
   }

@@ -23,7 +23,7 @@ LODFile_IB::LODFile_IB()
 {
 
 	 for (int i=0; i<1000; i++)
-		 cTexture_Zero(&aLODHeaders[i]);
+		 aLODHeaders[i].cTexture_Zero();
 	 uNumLoadedFiles=0;
 	 lod_IB_dword_011B80=0;//
 	 lod_IB_dword_011B84=0; //
@@ -600,7 +600,7 @@ void *LODFile_IB::LODFile_LoadRaw( const char *pContainer, int a3)
   int      ofs;
 
   
-  cTexture_Zero(&cTexture_obj);
+  cTexture_obj.cTexture_Zero();
 
   pContainerFile = Find_Container( pContainer, 0);
   if (!pContainerFile)
@@ -905,7 +905,7 @@ void LODFile_IB::SetupPalettes( int uTargetRBits, int uTargetGBits, int uTargetB
  for (i = 0; i <  uNumLoadedFiles; i++)
 	 {
 
-	 cTexture_Zero(&cTexture_obj);
+	 cTexture_obj.cTexture_Zero();
 	 if (! aLODHeaders[i].pPalette)
 		 continue;
 

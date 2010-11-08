@@ -2299,7 +2299,7 @@ extern unsigned int uTextureIdx_PlayerFaceDead;       // dword @ MM7.exe::00A74C
 
 extern int dword_A74CEC[array_size_unknown]; // weak
 
-extern unsigned int uTextureIdx_PlayerFaces[4][56]; // dword[224] @ MM7.exe::00A74CF0
+extern class cTexture *pTextureIdx_PlayerFaces[4][56]; // dword[224] @ MM7.exe::00A74CF0
 //_UNKNOWN unk_A74CF0; // weak
 
 extern int dword_A75070; // weak

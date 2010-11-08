@@ -13375,7 +13375,7 @@ void *__thiscall sub_462272(void *_this)
   v5 = 1000;
   do
   {
-    cTexture_Zero((cTexture *)v1);
+   // cTexture_Zero((cTexture *)v1);
     v1 += 72;
   }
   while ( v5-- != 1 );

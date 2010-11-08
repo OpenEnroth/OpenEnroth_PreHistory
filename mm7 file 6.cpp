@@ -2063,18 +2063,18 @@ int Party_sub_49135E_GetAllPartyExpDiv1000(struct Party *_this)
 int __fastcall sub_491DE7(int a1, int a2)
 {
   int result; // eax@1
-  char **v3; // ebx@1
+  char *v3; // ebx@1
   int v4; // ebp@1
   int v5; // esi@2
 
   result = 0;
   v4 = 4 * a2 + 5164080;
-  v3 = (char **)((char *)uTextureIdx_PlayerFaces + 224 * a1);
+  v3 = (char *)(pTextureIdx_PlayerFaces[a2][a1] );	//+ 224 * a1
   do
   {
     v5 = result + 1;
     wsprintfA((char *)TmpBuf, "%s%02d", *(_DWORD *)v4, result + 1);
-    LODFile_Icons_LOD.LODFile_sub_4101B1( *v3, (char *)TmpBuf, 2);
+    LODFile_Icons_LOD.LODFile_sub_4101B1( v3, (char *)TmpBuf, 2);
     result = v5;
     ++v3;
   }
@@ -3535,7 +3535,7 @@ int CreditsMenuLoop()
   int v12; // eax@19
   int v14; // eax@24
   int v15; // eax@24
-  char cTexture_obj[128]; // [sp+Ch] [bp-130h]@5
+  cTexture cTexture_obj;//[128]; // [sp+Ch] [bp-130h]@5
   int v17; // [sp+20h] [bp-11Ch]@8
   size_t Count; // [sp+34h] [bp-108h]@7
   struct RGBTexture v19;
@@ -3578,11 +3578,11 @@ int CreditsMenuLoop()
   v2 = (int)LODFile_Events_LOD.LODFile_LoadRaw( "credits.txt", 0);
   v1 = (const char *)v2;
   Source = (char *)v2;
-  cTexture_Zero((cTexture *)cTexture_obj);
+  cTexture_obj.cTexture_Zero();
   v0 = LODFile_Events_LOD.Find_Container( "credits.txt", 0);
   if ( !v0 )
     erroneous_printf((char *)pGlobalTXT_LocalizationStrings[63]);
-  locked_fread(cTexture_obj, 1u, 0x30u, (FILE *)v0);
+  locked_fread(&cTexture_obj, 1u, 0x30u, (FILE *)v0);
   v3 = Count;
   if ( !Count )
     v3 = v17;
@@ -12540,13 +12540,13 @@ void __thiscall Render_sub_4A6A68(void *_this, int a2, int a3, int a4, __int16 a
 {
   int v5; // ebx@1
   __int16 v6; // ax@1
-  char cTexture_obj[78]; // [sp+Ch] [bp-48h]@1
+  cTexture cTexture_obj; // [sp+Ch] [bp-48h]@1
   __int16 v8; // [sp+26h] [bp-2Eh]@1
 
   v5 = (int)_this;
-  cTexture_Zero((cTexture *)cTexture_obj);
+  cTexture_obj.cTexture_Zero();
   v6 = *(_WORD *)(a4 + 26) - a5;
-  memcpy(cTexture_obj, (const void *)a4, 0x48u);
+  memcpy(&cTexture_obj, (const void *)a4, sizeof(cTexture));
   v8 = v6;
   if ( v6 > 0 )
     Render_DrawIndexedTexture((BaseRender *)v5, a2, a3, (cTexture *)a4);

@@ -1802,7 +1802,7 @@ unsigned int uTextureIdx_PlayerFaceEradicated; // dword @ MM7.exe::00A74CE4
 unsigned int uTextureIdx_PlayerFaceDead;       // dword @ MM7.exe::00A74CE8
 
 int dword_A74CEC[array_size_unknown]; // related to indexing of below
-unsigned int uTextureIdx_PlayerFaces[4][56]; // dword[224] @ MM7.exe::00A74CF0
+
 //_UNKNOWN unk_A74CF0; // weak
 
  int dword_A75070; // weak

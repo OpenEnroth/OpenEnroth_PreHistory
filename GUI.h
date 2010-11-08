@@ -10,6 +10,9 @@
 
 #pragma pack(push, 1)
 
+
+
+
 struct GUIMessageQueue
 {
  int dword_000000;

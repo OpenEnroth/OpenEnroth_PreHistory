@@ -61,10 +61,13 @@ class cTexture
 		unsigned short *pPalette; // ptr @ 000040 64
 		unsigned char  *ptr_000044;		  //68
 		unsigned int   *pTruecolorPixels;	   //not in original!!!!!
+
+		void LODPCXLoader(char *filename);
+		void cTexture_Zero();
 	};
 
 //sizeof = 000048	  
-void cTexture_Zero(cTexture* cTxtr); 
+
 void cTexture_Free(cTexture* cTxtr);
 //sizeof = 28 for Sprites_LOD
 

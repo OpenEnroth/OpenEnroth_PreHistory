@@ -4648,7 +4648,7 @@ int class35_sub_48A3BC_MessWithPalettes(struct class35 *_this, int a2)
     if ( result >= 50 )
     {
       sprintf(Source, "pal%03i", a2);
-      cTexture_Zero(&cTexture_obj);
+      cTexture_obj.cTexture_Zero();
       if ( LODFile_Bitmaps_LOD.LoadTextureFromLOD( &cTexture_obj, Source, 1) == 1 )
       {
         v4 = 0;

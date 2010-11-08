@@ -546,7 +546,7 @@ void Render_DrawIndexedTextureHandle(struct BaseRender *_this, unsigned int uX, 
 }
 
 
-// #define OLD_CODE
+ #define OLD_CODE
 //----- (004A5EB2) --------------------------------------------------------
 void Render_DrawIndexedTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, cTexture *pTexture)
 {

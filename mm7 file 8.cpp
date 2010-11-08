@@ -7506,7 +7506,7 @@ int LoadFileToBuffer(const char *pSourceFile, unsigned char *pOutBuffer, unsigne
  FILE *f;
 
  Src = (void *)LODFile_Events_LOD.LODFile_LoadRaw( pSourceFile, 0);
- cTexture_Zero(&cTexture_obj);
+ cTexture_obj.cTexture_Zero();
 
  f = LODFile_Events_LOD.Find_Container( pSourceFile, 0);
  if (!f)

@@ -64,7 +64,7 @@
 #define SEX_MALE    0
 #define SEX_FEMALE  1
 
-extern unsigned int uTextureID_PCFaces[];
+extern  class cTexture *pTextureID_PCFaces[];
 
 struct StatTable
 {

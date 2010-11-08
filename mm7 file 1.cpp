@@ -26,7 +26,7 @@
 #include "Window.h"
 OSWindow *pAppWindow = 0;
 
-
+extern  class cTexture *pTextureID_PCFaces[];
 
 #include "CbmTools.h"
 void *hMM7Text_dll = 0;
@@ -14065,10 +14065,10 @@ void PlayerCreationUI_Draw()
 
    v3 = AlignText_Center(640, (char *)pGlobalTXT_LocalizationStrings[51], pFontCChar);
    FontDrawText(pGUIWindow_CurrentMenu, pFontCChar, v3 + 1, 3, (char *)pGlobalTXT_LocalizationStrings[51], 0xFFFFFFFF, 0, 0);
-   Render_DrawTransparentTexture(pD3DRenderer,  17, 35, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[0].uFace]]);
-   Render_DrawTransparentTexture(pD3DRenderer, 176, 35, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[1].uFace]]);
-   Render_DrawTransparentTexture(pD3DRenderer, 335, 35, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[2].uFace]]);
-   Render_DrawTransparentTexture(pD3DRenderer, 494, 35, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PCFaces[pParty_global->pPlayers[3].uFace]]);
+   Render_DrawTransparentTexture(pD3DRenderer,  17, 35, pTextureID_PCFaces[pParty_global->pPlayers[0].uFace]);
+   Render_DrawTransparentTexture(pD3DRenderer, 176, 35, pTextureID_PCFaces[pParty_global->pPlayers[1].uFace]);
+   Render_DrawTransparentTexture(pD3DRenderer, 335, 35, pTextureID_PCFaces[pParty_global->pPlayers[2].uFace]);
+   Render_DrawTransparentTexture(pD3DRenderer, 494, 35, pTextureID_PCFaces[pParty_global->pPlayers[3].uFace]);
 
    v1 = pIconFrameTable->GetImage(uIconTableFrameID_CharacterFrame, pClass24_global->dword_00000C);
 
@@ -14094,9 +14094,10 @@ void PlayerCreationUI_Draw()
 
 
    v5 = GUIWindow_GetChild(pGUIWindow_CurrentMenu, pGUIWindow_CurrentMenu->dword_00002C);
+#ifndef	OLD_CODE
    Render_DrawTransparentRect(pD3DRenderer, v5->uZ - 4, v5->uY, 20 * dword_A74CD4, 0, 20, 16, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
    Render_DrawTransparentRect(pD3DRenderer, v5->uX - 12, v5->uY, 20 * dword_A74CD4, 16, 20, 16, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
-
+#endif
    dword_A74CD4 = (GetTickCount() / 25) % 18;
 
 
@@ -14136,12 +14137,12 @@ void PlayerCreationUI_Draw()
                 uClassIconCellY;
 
    FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, v143 + 73, 100, (char *)aClassNames[pParty_global->pPlayers[i].uClass], 0xFFFFFFFF, 0, 0);
-   
+#ifndef OLD_CODE 
    uClassIconCellX = (pParty_global->pPlayers[i].uClass / 4) % 3;
    uClassIconCellY = (pParty_global->pPlayers[i].uClass / 4) / 3;
    Render_DrawTransparentRect(pD3DRenderer, v143 + 77, 50,
                                     uClassIconCellX * 48, uClassIconCellY * 52, 48, 52, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PartyCreationUI_ClassIcons]);
-
+#endif
    v12 = pGUIWindow_CurrentMenu->dword_000040;
    v13 = pGUIWindow_CurrentMenu->dword_00001C;
     if ( v12 && v13 == v133)
