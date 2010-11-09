@@ -4051,13 +4051,16 @@ LABEL_93:
           {
             LODFile_Icons_LOD.LODFile_sub_4114F2();
             v19 = (int)sub_45E006();
-            //RGBTexture_Release(pRGBTexture_Menu);
-            //RGBTexture_Load(pRGBTexture_Menu, "title.pcx", 0);
+
+			#ifndef OLD_CODE           
             LODFile_Icons_LOD.LODFile_ReleaseTexture( uTextureID_CurrentMenu);
-			#ifndef OLD_CODE
+
 			  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Title");
 #endif
 #ifdef OLD_CODE
+		   cPCXIID_CurrentMenu.
+		   //RGBTexture_Release(pRGBTexture_Menu);
+            //RGBTexture_Load(pRGBTexture_Menu, "title.pcx", 0);
 		  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture( "Title",0);
 #endif
            
@@ -12105,7 +12108,12 @@ int __fastcall sub_45E361(int a1)
   }
   else
   {
+#ifndef OLD_CODE
     Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
+#endif
+#ifdef OLD_CODE
+    Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
+#endif
   }
   pGUIWindow_CurrentMenu = GUIWindowCreate(dword_4E94D4[v12], dword_4E94DC[v12], dword_4E94E4[v12], dword_4E94EC[v12], 24, 0, 0);
   FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, 25, 199, (char *)pGlobalTXT_LocalizationStrings[505], 0, 0, 0);
@@ -13875,17 +13883,24 @@ LABEL_52:
           dword_A74C88 = 1;
         goto LABEL_38;
       }
+#ifdef OLD_CODE
       //v5 = pRGBTexture_Menu;
       //RGBTexture_Release(pRGBTexture_Menu);
+#endif
+#ifndef OLD_CODE
       v5 = (void *)uTextureID_CurrentMenu;
       LODFile_Icons_LOD.LODFile_ReleaseTexture( uTextureID_CurrentMenu);
       v8 = 0;
       v7 = (char *)L"makeme";
+#endif
     }
     else
     {
+#ifdef OLD_CODE
       //v5 = pRGBTexture_Menu;
       //RGBTexture_Release(pRGBTexture_Menu);
+#endif
+#ifndef OLD_CODE
       v5 = (void *)uTextureID_CurrentMenu;
       LODFile_Icons_LOD.LODFile_ReleaseTexture( uTextureID_CurrentMenu);
       
@@ -13894,8 +13909,11 @@ LABEL_52:
         v6 = (char *)L"lsave640";
       v8 = 0;
       v7 = v6;
+ #endif
     }
+#ifdef OLD_CODE
    // v5->LODPCXLoad(v7, 0);
+#endif
 LABEL_38:
     struct_576FE8.dword_000044 = 1;
     sub_443343_GenerateSomeColorTable(&struct_576FE8);

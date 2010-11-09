@@ -233,7 +233,9 @@ int cPCXTexture::LODPCXLoad(const char *pContainerName, int mode)
 		free(pDecompressedBuffer);
 		return 2; 
 		}
-	DecodePCX(pDecompressedBuffer, pPixels, uWidth);
+	
+	    	
+	DecodePCX(pDecompressedBuffer, (unsigned long *)pPixels, uWidth); 
 	free(pDecompressedBuffer);
 	return 0;
 
@@ -296,7 +298,7 @@ int cPCXTexture::LODPCXReLoad(const char *pContainerName)
 	uWidth=width;  // word @ 000014 
 	uNumPixels=uHeight*width;	// dword @ 000010	 
 	uHeight=(short)uNumPixels;  // word @ 000016
-	DecodePCX(pDecompressedBuffer, pPixels, uWidth);
+	DecodePCX(pDecompressedBuffer, (unsigned long *)pPixels, uWidth);
 	free(pDecompressedBuffer);
 	return 0;
 	}
@@ -304,45 +306,17 @@ int cPCXTexture::LODPCXReLoad(const char *pContainerName)
 
 
 //----- (MM7.exe::0040F037) --------------------------------------------------------
-int cPCXTexture::DecodePCX( unsigned char *pPCXData, unsigned int *pOutBuffer, unsigned int uWidth)
+int cPCXTexture::DecodePCX( unsigned char *pPCXData, unsigned long *pOutBuffer, unsigned int uWidth)
 {
- // void *v4; // esi@1
   signed int result; // eax@2
- // int v6; // eax@3
   unsigned char test_byte; // edx@3
- // signed int v8; // ecx@3
- // int v9; // ecx@3
- // signed int v10; // ecx@8
   unsigned int read_offset; // ebx@37
- // unsigned short *v12; // eax@40
   unsigned int row_position; // edi@40
- // int v14; // ebx@41
- // unsigned __int8 v15; // bl@42
-  //unsigned short *v17; // eax@50
-//  int v18; // ebx@51
-  
   unsigned char value; // cl@63
-
- // char local_1[48];
- // char v26; // [sp+8h] [bp-54h]@1
-
- // char local_2[24];
- // char Dst; // [sp+38h] [bp-24h]@1
-  //char v28; // [sp+3Bh] [bp-21h]@1
-  //int v29; // [sp+3Ch] [bp-20h]@3
-  //int v30; // [sp+40h] [bp-1Ch]@3
-  //char v31; // [sp+48h] [bp-14h]@1
-  //char v32; // [sp+49h] [bp-13h]@37
-  //unsigned __int16 v33; // [sp+4Ah] [bp-12h]@40
-
   char count; // [sp+50h] [bp-Ch]@43
   unsigned short current_line; // [sp+54h] [bp-8h]@38
-//  unsigned short *v36; // [sp+58h] [bp-4h]@3
-//  int v37; // [sp+68h] [bp+Ch]@41
-//  int v38; // [sp+68h] [bp+Ch]@51
-//  unsigned __int8 v39; // [sp+6Bh] [bp+Fh]@63
-  unsigned int *dec_position; 
-  unsigned int *temp_dec_position; 
+  unsigned long *dec_position; 
+  unsigned long *temp_dec_position; 
   PCXHEADER_1 psx_head1;
   PCXHEADER_2 psx_head2;
 	short int width, height;
@@ -426,19 +400,22 @@ int cPCXTexture::DecodePCX( unsigned char *pPCXData, unsigned int *pOutBuffer, u
       test_byte = *(pPCXData + read_offset);
       ++read_offset;
       if ((test_byte & 0xC0) == 0xC0)
-      {	 
+      {	
 	    value = *(pPCXData + read_offset);
-       ++read_offset;
+       	++read_offset; 
       
        if ((test_byte & 0x3F) > 0)
        {
         count = test_byte & 0x3F;
         do
         {
+
          ++row_position;
-         *temp_dec_position++ = value;
+          *temp_dec_position =0xFF000000;
+		  *temp_dec_position|=(unsigned long)value<<16;
+		   temp_dec_position++;
          if (row_position == psx_head2.bytes_per_line)
-           temp_dec_position += (uWidth - psx_head2.bytes_per_line) - 1;
+			 break;
         }
         while (count-- != 1);
        }
@@ -446,16 +423,19 @@ int cPCXTexture::DecodePCX( unsigned char *pPCXData, unsigned int *pOutBuffer, u
       else
       {
        ++row_position;
-       *temp_dec_position++ = test_byte;
+	   *temp_dec_position =0xFF000000; 
+	  *temp_dec_position|= (unsigned long)test_byte<<16;
+       temp_dec_position++;
       }
     
      }
      while (row_position < psx_head2.bytes_per_line);
     }
-
+ 
     temp_dec_position = dec_position;
+	row_position=0;
 	//decode green line
-    while (row_position < 2 * psx_head2.bytes_per_line)
+    while (row_position <  psx_head2.bytes_per_line)
     {
      test_byte = *(pPCXData + read_offset);
      ++read_offset;
@@ -468,25 +448,28 @@ int cPCXTexture::DecodePCX( unsigned char *pPCXData, unsigned int *pOutBuffer, u
        count = test_byte & 0x3F;
        do
        {
-        *temp_dec_position++|= (unsigned int)value<<8;
+        *temp_dec_position|= (unsigned int)value<<8;
+		temp_dec_position++;
         ++row_position;
         if (row_position == psx_head2.bytes_per_line)
-          temp_dec_position += (uWidth - psx_head2.bytes_per_line) - 1;
+			break;
+  
        }
        while (count-- != 1);
       }
      }
      else
      {
-      *temp_dec_position++ |=(unsigned int) test_byte;
+      *temp_dec_position |=(unsigned int) test_byte<<8;
+	  temp_dec_position++;
       ++row_position;
      }
-    // v11 = v38;
     }
 
     temp_dec_position = dec_position;
-	//decode blue lane
-    while (row_position < 3 *psx_head2.bytes_per_line)
+	row_position=0;
+	//decode blue line
+    while (row_position < psx_head2.bytes_per_line)
     {
      test_byte = *(pPCXData + read_offset);
 	 read_offset++;
@@ -499,33 +482,32 @@ int cPCXTexture::DecodePCX( unsigned char *pPCXData, unsigned int *pOutBuffer, u
        count = test_byte & 0x3F;
        do
        {
-        *temp_dec_position|= (unsigned int)value<<16;
+        *temp_dec_position|= value;
+		 temp_dec_position++;
         ++row_position;
         if (row_position == psx_head2.bytes_per_line)
-        {
-         //temp_dec_position = uWidth - psx_head2.bytes_per_line;
-         temp_dec_position += (uWidth - psx_head2.bytes_per_line) - 1;
-        }
+		 break;
        }
        while (count-- != 1);
       }
      }
      else
      {
-      *temp_dec_position|= (unsigned int)test_byte <<16;
+      *temp_dec_position|= test_byte;
+	   temp_dec_position++;
       ++row_position;
      }
-	 *temp_dec_position++|=0xFF000000;
+     
     }
-
     ++current_line;
     dec_position += uWidth;
    }
    while (current_line < uHeight);
   }
+   return 0;
  }
-
- return 0;
+ else
+   return 3;
 }
 
 

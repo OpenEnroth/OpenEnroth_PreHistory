@@ -14053,7 +14053,12 @@ void PlayerCreationUI_Draw()
 
   pD3DRenderer->BeginScene();
   {
+#ifndef OLD_CODE
    Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
+#endif
+#ifdef OLD_CODE
+   Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
+#endif
    Render_DrawIndexedTexture(pD3DRenderer, dword_A74CCC, 2, pPlayerCreationUI_Sky);
    Render_DrawIndexedTexture(pD3DRenderer, dword_A74CCC - 640, 2, pPlayerCreationUI_Sky);
 

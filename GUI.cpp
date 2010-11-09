@@ -33,7 +33,15 @@ class cTexture *pPlayerCreatUI_ClIcons[9] = {0};   // ptr[9]  @ MM7.exe::0050776
 class cTexture *pPlayerCreationUI_Sky = 0;               // ptr     @ MM7.exe::00507784
 class cTexture *pPlayerCreationUI_Top = 0;               // ptr     @ MM7.exe::00507788
 class cTexture *pTextureID_PCFaces[25];
+
+class cPCXTexture  cPCXID_GameUI_StatusBar;
+class cPCXTexture  cPCXID_GameUI_ViewportTop;
+class cPCXTexture  cPCXID_GameUI_ViewportLeft;
 class cPCXTexture  cPCXID_GameUI_RightPanel;
+class cPCXTexture  cPCXID_GameUI_PartyFrame;
+
+class cPCXTexture  cPCXID_MainMenuUI_Title;
+class cPCXTexture  cPCXIID_CurrentMenu;
 
  char *portret_names[25] =
 	{ "pc01-", "pc02","pc03","pc04","pc05-","pc06","pc07","pc08","pc09-","pc10","pc11-","pc12","pc13",
@@ -548,20 +556,20 @@ void __cdecl LoadMainMenu()
  MenuUI_LoadTextures(1);
  MenuUI_LoadFontsAndSomeStuff();
 
-//#ifndef OLD_CODE
+#ifndef OLD_CODE
  uTextureID_MainMenuUI_Title = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"mm7title");
-//#endif
-// #ifdef OLD_CODE
-// uTextureID_MainMenuUI_Title = LODFile_Icons_LOD.LODFile_LoadTexture( "mm7title",2);
- // #endif
+#endif
+ #ifdef OLD_CODE
+      cPCXID_MainMenuUI_Title.LODPCXLoad("mm6title.pcx",0);
+  #endif
  pD3DRenderer->BeginScene();
  {
-// #ifndef OLD_CODE
+ #ifndef OLD_CODE
   Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_MainMenuUI_Title);
- //#endif
- //#ifdef OLD_CODE
-//	  Render_DrawIndexedTexture(pD3DRenderer, 0, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_MainMenuUI_Title]);
- //  #endif
+ #endif
+ #ifdef OLD_CODE
+	  Render_DrawRGBTexture(pD3DRenderer, 0, 0, &cPCXID_MainMenuUI_Title);
+   #endif
   sub_415485();
  }
 
@@ -5040,7 +5048,7 @@ void __cdecl PlayerCreationUI_Initialize()
   for (i = 0; i < 25; ++i)
   {
    wsprintfW(pFilename, L"pc%02u-01", i + 1);
-   pTextureID_PCFaces[i] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( pFilename,2)];
+   pTextureID_PCFaces[i] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilename)];
   }
 
   uTextureID_PlayerCreationUI_FaceMask = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"FACEMASK");
@@ -5405,9 +5413,10 @@ bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarT
 
 #ifdef OLD_CODE
     wsprintfA(Str1, "loading%d.pcx", v7);
-
-		//termporaly
-    _this->uTextureID_Loading =LODFile_Icons_LOD.LODFile_LoadTexture( "loadprog",2); //LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
+	// realy or not
+	_this->loading=new cPCXTexture;
+	_this->loading->PCXTexture_Zero();
+    _this->loading->LODPCXLoad( Str1,2); //LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
     _this->_addon_loadprog_id_in_Icons_LOD = LODFile_Icons_LOD.LODFile_LoadTexture( "loadprog",2);
 #endif
     _this->uX = 122;
@@ -5474,7 +5483,8 @@ void DrawLoadingScreen(struct class56 *_this)
   Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, _this->uTextureID_Loading);
 #endif
 #ifdef OLD_CODE
-  Render_DrawIndexedTexture(pD3DRenderer, 80, 122,&LODFile_Icons_LOD.aLODHeaders[_this->uTextureID_Loading]);
+  Render_DrawRGBTexture(pD3DRenderer, 0, 0, _this->loading);
+ 
 #endif
   Render_sub_4A0E97(pD3DRenderer, 0, 0, 639, 479);
   Render_Set2DClippingRect(pD3DRenderer, 172, 459,
@@ -5612,12 +5622,18 @@ int __fastcall sub_44C51E(struct Font *_this, const char *pString)
 //----- (0041B3E2) --------------------------------------------------------
 void GameUI_DrawFrames()
 {
-// #ifndef OLD_CODE
+#ifndef OLD_CODE
  Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_GameUI_ViewportTop);
  Render_DrawRGBTexture_New(pD3DRenderer, 0, 8, uTextureID_GameUI_ViewportLeft);
  Render_DrawRGBTexture_New(pD3DRenderer, 468, 0, uTextureID_GameUI_RightPanel);
  Render_DrawRGBTexture_New(pD3DRenderer, 0, 352, uTextureID_GameUI_PartyFrame);
-
+#endif
+#ifdef OLD_CODE
+ Render_DrawRGBTexture(pD3DRenderer, 0, 0, &cPCXID_GameUI_ViewportTop);
+ Render_DrawRGBTexture(pD3DRenderer, 0, 8, &cPCXID_GameUI_ViewportLeft);
+ Render_DrawRGBTexture(pD3DRenderer, 468, 0, &cPCXID_GameUI_RightPanel);
+ Render_DrawRGBTexture(pD3DRenderer, 0, 352, &cPCXID_GameUI_PartyFrame);
+#endif
  GameUI_DrawFoodAndGold();
 
  sub_41AD6E();
@@ -5757,7 +5773,7 @@ char __cdecl LoadPlayerPortraintsAndVoices()
    for (j = 0; j < 56; ++j)
    {
     wsprintfW(pFilename, L"pc%02u-%02u", pParty_global->pPlayers[i].uFace + 1, j + 1);
-    uTextureIdx_PlayerFaces[i][j] = LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilename);
+    pTextureIdx_PlayerFaces[i][j] = =&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilename)];
    }
 
  uTextureIdx_PlayerFaceEradicated = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Eradcate");
@@ -10676,12 +10692,15 @@ void MenuUI_LoadTextures(unsigned int uAlignment)
  uTextureID_GameUI_StatusBar = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[4],2);
    */
   uTextureID_GameUI_RightPanel = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"ib-RPl-B");
- uTextureID_GameUI_PartyFrame = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"ib-PFr-B" );
- uTextureID_GameUI_ViewportTop = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"ib-ET-B" );
- uTextureID_GameUI_ViewportLeft = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"ib-EL-B" );
+// uTextureID_GameUI_PartyFrame = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"ib-PFr-B" );
+// uTextureID_GameUI_ViewportTop = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"ib-ET-B" );
+// uTextureID_GameUI_ViewportLeft = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"ib-EL-B" );
   uTextureID_GameUI_StatusBar = LODFile_Icons_LOD.LODFile_LoadTexture_New(  L"ib-StatBar-B");
- // cPCXID_GameUI_RightPanel.LODPCXLoad(pRequestedInterface[0],0);
-
+  cPCXID_GameUI_RightPanel.LODPCXLoad(pRequestedInterface[0],0);
+  cPCXID_GameUI_StatusBar.LODPCXLoad( pRequestedInterface[4],0);
+  cPCXID_GameUI_ViewportTop.LODPCXLoad(pRequestedInterface[2],0);
+  cPCXID_GameUI_ViewportLeft.LODPCXLoad(pRequestedInterface[3],0);
+  cPCXID_GameUI_PartyFrame.LODPCXLoad(pRequestedInterface[1],0);
  dword_506438_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[5],2);		//"ib-mb-C",		 //05
     
  uTextureID_WindowEdgeTop = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[37],2);	  //"edge_top-c", 	 //37

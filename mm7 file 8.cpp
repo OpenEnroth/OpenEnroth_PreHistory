@@ -2326,11 +2326,12 @@ int __cdecl MenuLoop_Main()
    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
 
  pGUIWindow_MainMenu = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
+#define	 OLD_CODE
   #ifndef OLD_CODE
 	 v4 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_new");
 #endif
 #ifdef OLD_CODE
-	 v4 = LODFile_Icons_LOD.LODFile_LoadTexture( "title_new",0);
+	 v4 = LODFile_Icons_LOD.LODFile_LoadTexture( "title_new",2);
 #endif
  
  pMainMenu_NewGame = GUIButtonCreate(pGUIWindow_MainMenu, 494, 172,
@@ -2347,7 +2348,7 @@ int __cdecl MenuLoop_Main()
 	 v5 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_load");
 #endif
 #ifdef OLD_CODE
-	 v5 = LODFile_Icons_LOD.LODFile_LoadTexture("title_load",0);
+	 v5 = LODFile_Icons_LOD.LODFile_LoadTexture("title_load",2);
 #endif
  
  pMainMenu_LoadGame = GUIButtonCreate(pGUIWindow_MainMenu, 494, 227,
@@ -2364,7 +2365,7 @@ int __cdecl MenuLoop_Main()
 	   v6 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_cred");
 #endif
 #ifdef OLD_CODE
-	  v6 = LODFile_Icons_LOD.LODFile_LoadTexture( "title_cred",0);
+	  v6 = LODFile_Icons_LOD.LODFile_LoadTexture( "title_cred",2);
 #endif
 
  pMainMenu_Credits = GUIButtonCreate(pGUIWindow_MainMenu, 494, 282,
@@ -2381,7 +2382,7 @@ int __cdecl MenuLoop_Main()
 	 v7 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_exit");
 #endif
 #ifdef OLD_CODE
-	v7 = LODFile_Icons_LOD.LODFile_LoadTexture( "title_exit",0);
+	v7 = LODFile_Icons_LOD.LODFile_LoadTexture( "title_exit",2);
 #endif
  
  pMainMenu_Exit = GUIButtonCreate(pGUIWindow_MainMenu, 494, 337,
@@ -2394,6 +2395,7 @@ int __cdecl MenuLoop_Main()
                                   0,
                                   (unsigned char *)"Exit",
                                   &LODFile_Icons_LOD.aLODHeaders[v7]);
+#undef OLD_CODE
    #ifndef OLD_CODE
 	  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Title");
 #endif

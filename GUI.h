@@ -140,12 +140,15 @@ struct class56
  unsigned char      uProgressCurrent; // byte @ 00000B
  int                uProgressBarType; // dword @ 00000C   loading screen, small loading window or whatever to render
  char               array_000010[8];
- struct RGBTexture *loading;          // struct @ 000018
+ class cPCXTexture *loading;          // struct @ 000018
  char               byte_000040[304];
- struct RGBTexture *loadprog;         // struct @ 000170
+ class cPCXTexture *loadprog;         // struct @ 000170
 
  unsigned int _addon_loadprog_id_in_Icons_LOD;
+#ifndef OLD_CODE
  unsigned int uTextureID_Loading;
+#endif
+
 };
 //sizeof ~ 198
 
@@ -188,6 +191,7 @@ struct Font *__cdecl LoadFont(const char *pFontFile, const char *pFontPalette);
 
 
 extern unsigned int uTextureID_CurrentMenu;
+extern class cPCXTexture  cPCXIID_CurrentMenu;
 
 void LoadMainMenu();
 

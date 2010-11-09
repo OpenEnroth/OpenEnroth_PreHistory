@@ -98,7 +98,7 @@ void PCXTexture_Zero();
  int LODPCXLoad(const char *pContainerName, int mode);
 	
 //signed int __thiscall sub_40F037(void *_this, void *Src, int a3, int a4)
-int DecodePCX(unsigned char *pPCXData,unsigned int *pOutBuffer, unsigned int uWidth);
+int DecodePCX(unsigned char *pPCXData,unsigned long *pOutBuffer, unsigned int uWidth);
 int LODPCXReLoad(const char *pContainerName);
 };
 //sizeof = 28
