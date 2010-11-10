@@ -4594,7 +4594,7 @@ void __thiscall GUIWindow_sub_4B3157(const GUIWindow *_this)
     v1 = 0xFFFFFFFF;
     *(_DWORD *)v24 = 0xFF1599E9;
     Render_DrawIndexedTexture(pD3DRenderer, 477, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
-    Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (cTexture *)(uTextureID_507B04 != -1 ? 72 * uTextureID_507B04 + 7145548 : 0));
+    Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (uTextureID_507B04 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04] : 0));
     if ( dword_5913F0 != dword_591424 || !dword_5C35D0 )
     {
       v18 = 130;
@@ -4718,7 +4718,7 @@ LABEL_58:
       }
       else
       {
-        v16 = dword_506438_TextureID != -1 ? 72 * dword_506438_TextureID + 7145548 : 0;
+        v16 = dword_506438_TextureID != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID] : 0;
         v14 = 445;
         v12 = 471;
       }
@@ -13826,7 +13826,7 @@ int sub_4BECBD(int a1, int a2)
 {
   pVideoPlayer->dword_00006C = 0;
   pVideoPlayer->dword_000040 = 0;
-  return RGBTexture_Release((int)pVideoPlayer);
+  return 0; //RGBTexture_Release((int)pVideoPlayer);
 }
 
 //----- (004BECD5) --------------------------------------------------------

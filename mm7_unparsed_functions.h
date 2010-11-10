@@ -194,7 +194,7 @@ int __thiscall Game_sub_40E2C8(void *_this, const char *Src, int a3);
 int __thiscall sub_40E32E(int _this, const void *Src, size_t Size);
 char __thiscall sub_40E363(int _this, unsigned int a2, char a3);
 int loc_40E4FC(); // weak
-int __fastcall RGBTexture_Release(int a2);
+
 signed int __thiscall sub_40E55E(void *Source, unsigned int Filename, unsigned int a3);
 signed int __thiscall sub_40EAD8(void *Source, FILE *File, unsigned int a3, int a4);
 signed int __thiscall sub_40F5F5(void *_this, const char *Str1);
@@ -1100,7 +1100,7 @@ int __fastcall sub_4A46E6(int a1, int a2, signed int a3, int a4, unsigned int a5
 signed int __stdcall sub_4A48E4(int a1, int a2, int a3, int a4, signed int a5);
 int __stdcall sub_4A49D0(float, float, float, float, float, float, float, float, int); // idb
 int __stdcall sub_4A4CC9(int a1, int a2);
-signed int __thiscall Render_sub_4A4DE1(int _this, int a2, int a3, int a4, int a5);
+signed int __thiscall Render_sub_4A4DE1(BaseRender* _this, unsigned char* a2, int a3, struct IDirectDrawSurface4 **pOutSurface, struct IDirect3DTexture2 **pOutTexture);
 void __cdecl sub_4A5190();
 int __thiscall Render_sub_4A52F1(int _this, int a2, float a3);
 void __cdecl sub_4A57E9();

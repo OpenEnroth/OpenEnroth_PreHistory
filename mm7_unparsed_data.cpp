@@ -514,28 +514,28 @@ struct unnamed_505898 struct_505898;
  int dword_50635C; // weak
  char byte_506360; // weak
  int dword_506364; // weak
- int dword_506368; // weak
- int dword_50636C; // idb
- int dword_506370; // weak
- int dword_506374; // idb
- int dword_506378; // weak
- int dword_50637C; // idb
- int dword_506380; // weak
- int dword_506384; // idb
- int dword_506388; // weak
- int dword_50638C; // idb
- int dword_506390; // weak
- int dword_506394; // idb
-unsigned int uTextureID_tab_an_7a__zoot_off = 0; // dword @ MM7.exe::00506398
-unsigned int uTextureID_tab_an_6a__zoom_off = 0; // dword @ MM7.exe::0050639C
-unsigned int uTextureID_tab_an_7b__zoot_on = 0;  // dword @ MM7.exe::005063A0
-unsigned int uTextureID_tab_an_6b__zoom_on = 0;  // dword @ MM7.exe::005063A4
- int dword_5063A8[array_size_unknown]; // weak
- int dword_5063AC; // weak
- int dword_5063B0; // weak
- int dword_5063B4; // weak
- int dword_5063B8; // weak
- int dword_5063BC; // weak
+class cTexture* dword_506368; // weak
+ class cTexture* dword_50636C; // idb
+class cTexture* dword_506370; // weak
+class cTexture* dword_506374; // idb
+class cTexture* dword_506378; // weak
+class cTexture* dword_50637C; // idb
+class cTexture* dword_506380; // weak
+class cTexture* dword_506384; // idb
+class cTexture* dword_506388; // weak
+class cTexture* dword_50638C; // idb
+class cTexture* dword_506390; // weak
+class cTexture* dword_506394; // idb
+class cTexture* uTextureID_tab_an_7a__zoot_off = 0; // dword @ MM7.exe::00506398
+class cTexture* uTextureID_tab_an_6a__zoom_off = 0; // dword @ MM7.exe::0050639C
+class cTexture* uTextureID_tab_an_7b__zoot_on = 0;  // dword @ MM7.exe::005063A0
+class cTexture* uTextureID_tab_an_6b__zoom_on = 0;  // dword @ MM7.exe::005063A4
+class cTexture* dword_5063A8[array_size_unknown]; // weak
+class cTexture* dword_5063AC; // weak
+class cTexture* dword_5063B0; // weak
+class cTexture* dword_5063B4; // weak
+class cTexture* dword_5063B8; // weak
+class cTexture* dword_5063BC; // weak
  int dword_5063D8[array_size_unknown]; // weak
  int dword_506404; // weak
  int dword_506408[array_size_unknown]; // weak
@@ -553,17 +553,17 @@ unsigned int dword_506498_uTextureID_MapBrdr; // weak
  int dword_50649C[array_size_unknown]; // weak
  int dword_5064A0[array_size_unknown]; // weak
  int dword_5064C4; // weak
-unsigned int uTextureID_divbar = 0; // dword @ MM7.exe::005064C8
- int dword_5064CC; // weak
- int dword_5064D0; // weak
- int dword_5064D4; // weak
-unsigned int uTextureID_sbAutonotes = 0;                    // dword @ MM7.exe::005064D8
-unsigned int uTextureID_lb_bordr__townport__sbquicknot = 0; // dword @ MM7.exe::005064DC
- int dword_5064E0; // weak
- int dword_5064E4; // weak
- int dword_5064E8; // weak
- int dword_5064EC; // weak
- int dword_5064F0; // weak
+class cTexture* uTextureID_divbar = 0; // dword @ MM7.exe::005064C8
+class cTexture* dword_5064CC; // weak
+class cTexture* dword_5064D0; // weak
+class cTexture* dword_5064D4; // weak
+class cTexture* uTextureID_sbAutonotes = 0;                    // dword @ MM7.exe::005064D8
+class cTexture* uTextureID_lb_bordr__townport__sbquicknot = 0; // dword @ MM7.exe::005064DC
+class cTexture* dword_5064E0; // weak
+class cTexture* dword_5064E4; // weak
+class cTexture* dword_5064E8; // weak
+class cTexture* dword_5064EC; // weak
+class cTexture* dword_5064F0; // weak
  int dword_5064F4; // weak
  int dword_5064F8; // weak
 struct GUIButton *dword_5064FC = 0; // weak
@@ -1819,7 +1819,7 @@ int dword_A750D4; // looks like pPlayers[5] indexing
  __int16 word_A750E0; // weak
  __int16 word_A750E2; // weak
 
-struct CPlayerFrameTable *pPlayerFrameTable = 0; // struct @ MM7.exe::00A750EC
+class CPlayerFrameTable *pPlayerFrameTable = 0; // struct @ MM7.exe::00A750EC
 //int dword_A750EC; // pPlayerFrameTable::uNumFrames
 //int dword_A750F0; // pPlayerFrameTable::pFrames
  _UNKNOWN unk_A750F8; // weak

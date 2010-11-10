@@ -526,11 +526,11 @@ LABEL_33:
       v120 = 0;
       v119 = (signed int)byte_6BE114_cfg_textures_DefaultSkyTexture;
     }
-    _this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)v119, v120);
+    _this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)v119, 2);
     strcpy((char *)_this->pGroundTileset, byte_6BE124_cfg_textures_DefaultGroundTexture);
     v38 = (int)TileTable_GetTile(pTileTable, _this->array_0000A0[1]);
 
-    _this->dword_0000EC = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)v38, 0);
+    _this->dword_0000EC = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)v38, 2);
     if ( _this->uSkyTextureID != -1 )
       *(_WORD *)(_this->uSkyTextureID != -1 ? 72 * _this->uSkyTextureID + 0x6F10BC + 0x26 : 38) = class35_sub_48A3BC_MessWithPalettes(
                                                                  &class35_obj,
@@ -553,15 +553,15 @@ LABEL_33:
 
   strcpy(Str1, Str);
   Str1[strlen(Str1) - 4] = 0;
+
 #ifndef OLD_CODE
   wchar_t  pLevelMapFilename[256];
   wsprintfW(pLevelMapFilename, L"%S", Str1);
   struct_576FE8.uTextureID_LocationMap = LODFile_Icons_LOD.LODFile_LoadTexture_New( pLevelMapFilename);
 #endif
 #ifdef OLD_CODE
-  char  pLevelMapFilename[256];
-  wsprintfA(pLevelMapFilename, "%S", Str1);
-  struct_576FE8.uTextureID_LocationMap = LODFile_Icons_LOD.LODFile_LoadTexture( pLevelMapFilename,0);
+ 
+  struct_576FE8.uTextureID_LocationMap = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
 #endif
   v154 = &v152;
   v40 = strlen(Str);
@@ -747,15 +747,14 @@ LABEL_69:
       if ( v157 >= _this->pBModels[i].dword_00004C)
         goto LABEL_74;
     }
+
 #ifndef OLD_CODE
 	wchar_t  pFilename[256];
     wsprintfW(pFilename, L"%S", Str2);
     v66->uTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pFilename);
 #endif
 #ifdef OLD_CODE
-	char  pFilename[256];
-    wsprintfA(pFilename, "%S", Str2);
-    v66->uTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture( pFilename,0);
+    v66->uTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture(Str2,2);
 #endif
 
     if (v66->uTextureID != -1)
@@ -1078,6 +1077,7 @@ LABEL_120:
   v120 = 0;
   v110 = TileTable_GetTile(pTileTable, _this->array_0000A0[1]);
   {
+
 #ifndef OLD_CODE
    wchar_t pTmp[256];
    wsprintfW(pTmp, L"%S", v110->sTileName);
@@ -1085,10 +1085,7 @@ LABEL_120:
    v106 = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pTmp);
 #endif
 #ifdef OLD_CODE
-   char pTmp[256];
-   wsprintfA(pTmp, "%S", v110->sTileName);
-
-   v106 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( pTmp,0);
+   v106 = LODFile_Bitmaps_LOD.LODFile_LoadTexture((const char*) &v110->sTileName,2);
 #endif
 
   }
@@ -1120,6 +1117,7 @@ LABEL_150:
   }
 
   {
+
 #ifndef OLD_CODE
    wchar_t pSkyFilename[256];
 
@@ -1127,17 +1125,15 @@ LABEL_150:
    _this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pSkyFilename);
 #endif
   #ifdef OLD_CODE
-   char pSkyFilename[256];
-
-   wsprintfA(pSkyFilename, "%S", &_this->array_0004F0[2]);
-   _this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture( pSkyFilename,0);
+  
+   _this->uSkyTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture((const char*)&_this->array_0004F0[2],2);
 #endif
   }
 
   v158 = &LODFile_Bitmaps_LOD.aLODHeaders[_this->uSkyTextureID];
   v120 = v158->word_000024;
   v158->word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, v158->word_000024);
-
+																		 
   class35_sub_48A614(&class35_obj);
   sub_4A9A67(pSoundList, 53, 0);
   sub_4A9A67(pSoundList, 92, 0);

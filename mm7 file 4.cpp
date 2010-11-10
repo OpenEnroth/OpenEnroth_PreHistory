@@ -4058,10 +4058,9 @@ LABEL_93:
 			  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Title");
 #endif
 #ifdef OLD_CODE
-		   cPCXIID_CurrentMenu.
-		   //RGBTexture_Release(pRGBTexture_Menu);
-            //RGBTexture_Load(pRGBTexture_Menu, "title.pcx", 0);
-		  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture( "Title",0);
+		   cPCXID_CurrentMenu.PCXTexture_Release();
+		   cPCXID_CurrentMenu.LODPCXLoad("title.pcx", 0);
+		  
 #endif
            
             SetCurrentMenu(MENU_MAIN);
@@ -8028,14 +8027,14 @@ int __thiscall class40_sub_45814E(void *_this)
     mem_mng.DeleteBuffer( (void *)pMonsterPlacementTXT_Raw);
   if ( pClassDescriptions )
     mem_mng.DeleteBuffer( (void *)pClassDescriptions);
-  if ( *((_DWORD *)v1 + 17824) )		 //not allocade
-    mem_mng.DeleteBuffer( (void *)*((_DWORD *)v1 + 17824));
+/*  if ( *((_DWORD *)v1 + 17824) )		 //not allocade
+       mem_mng.DeleteBuffer( (void *)*((_DWORD *)v1 + 17824));
   if ( *((_DWORD *)v1 + 17823) )
     mem_mng.DeleteBuffer( (void *)*((_DWORD *)v1 + 17823));
   if ( *((_DWORD *)v1 + 17822) )
     mem_mng.DeleteBuffer( (void *)*((_DWORD *)v1 + 17822));
   if ( *((_DWORD *)v1 + 17821) )
-    mem_mng.DeleteBuffer( (void *)*((_DWORD *)v1 + 17821));
+    mem_mng.DeleteBuffer( (void *)*((_DWORD *)v1 + 17821));	*/
   if ( pHostileTXT_Raw )
     mem_mng.DeleteBuffer( (void *)pHostileTXT_Raw);
   if ( pHistoryTXT_Raw )
@@ -12013,7 +12012,7 @@ int __thiscall sub_45E26C(char *Filename)
   unsigned int v4; // esi@1
   int v5; // eax@1
 
-  v3 = sub_45E03A_SomethingLikeCaptureAScreenshot(92, 68);
+ // v3 = sub_45E03A_SomethingLikeCaptureAScreenshot(92, 68);
   v4 = v3;
   v5 = (int)sub_49F8B5(pD3DRenderer, Filename, v3, 92, 68);
   /*return */operator_delete((void *)v4);
@@ -12112,7 +12111,7 @@ int __fastcall sub_45E361(int a1)
     Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
 #endif
 #ifdef OLD_CODE
-    Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
+    Render_DrawRGBTexture(pD3DRenderer, 0, 0, &cPCXID_CurrentMenu);
 #endif
   }
   pGUIWindow_CurrentMenu = GUIWindowCreate(dword_4E94D4[v12], dword_4E94DC[v12], dword_4E94E4[v12], dword_4E94EC[v12], 24, 0, 0);
@@ -12668,7 +12667,7 @@ LABEL_55:
     v28 = (int)&unk_6A0118;
     do
     {
-      v26 = (char *)RGBTexture_Release(v28);
+      // (char *)RGBTexture_Release(v28);
       ++v27;
       v28 += 40;
     }
@@ -12723,7 +12722,7 @@ int __fastcall sub_460078(int a1)
   struct_576FE8.dword_000044 = 1;
   do
   {
-    v3 = RGBTexture_Release(v4);
+  //  v3 = RGBTexture_Release(v4);
     v4 += 40;
   }
   while ( v4 < (signed int)&unk_6A0758 );
@@ -13885,7 +13884,8 @@ LABEL_52:
       }
 #ifdef OLD_CODE
       //v5 = pRGBTexture_Menu;
-      //RGBTexture_Release(pRGBTexture_Menu);
+      cPCXID_CurrentMenu.PCXTexture_Release();
+	   v7 = "makeme.pcx";
 #endif
 #ifndef OLD_CODE
       v5 = (void *)uTextureID_CurrentMenu;
@@ -13898,7 +13898,13 @@ LABEL_52:
     {
 #ifdef OLD_CODE
       //v5 = pRGBTexture_Menu;
-      //RGBTexture_Release(pRGBTexture_Menu);
+      //RGBTexture_Release(pRGBTexture_Menu); 
+	cPCXID_CurrentMenu.PCXTexture_Release();
+	v6 = "title.pcx";
+      if ( uCurrentMenuID != MENU_MAIN)
+        v6 = "lsave640.pcx";
+      v8 = 0;
+      v7 = v6;
 #endif
 #ifndef OLD_CODE
       v5 = (void *)uTextureID_CurrentMenu;
@@ -13912,8 +13918,11 @@ LABEL_52:
  #endif
     }
 #ifdef OLD_CODE
+   
+   cPCXID_CurrentMenu.LODPCXLoad(v7,0);
    // v5->LODPCXLoad(v7, 0);
 #endif
+
 LABEL_38:
     struct_576FE8.dword_000044 = 1;
     sub_443343_GenerateSomeColorTable(&struct_576FE8);

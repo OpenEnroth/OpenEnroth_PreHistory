@@ -645,12 +645,15 @@ int __fastcall MenuLoop_CharacterCreation()
  int i;
 
   v28 = 0;
-  //RGBTexture_Load(pRGBTexture_Menu, "makeme", 0);
+
+
   #ifndef OLD_CODE
 	uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"MakeMe");
 #endif
 #ifdef OLD_CODE
-	uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture( "MakeMe",0);
+	cPCXID_CurrentMenu.PCXTexture_Release();
+	cPCXID_CurrentMenu.LODPCXLoad("makeme.pcx",0);
+	
 #endif
  
   Render_Set2DClippingRect(pD3DRenderer, 0, 0, 640, 480);
@@ -2326,7 +2329,7 @@ int __cdecl MenuLoop_Main()
    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
 
  pGUIWindow_MainMenu = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
-#define	 OLD_CODE
+
   #ifndef OLD_CODE
 	 v4 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_new");
 #endif
@@ -2395,12 +2398,13 @@ int __cdecl MenuLoop_Main()
                                   0,
                                   (unsigned char *)"Exit",
                                   &LODFile_Icons_LOD.aLODHeaders[v7]);
-#undef OLD_CODE
-   #ifndef OLD_CODE
+
+#ifndef OLD_CODE
 	  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Title");
 #endif
+
 #ifdef OLD_CODE
-	  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture("Title",0);
+	   cPCXID_CurrentMenu.LODPCXLoad("title.pcx", 0);
 #endif
 
 
@@ -2416,13 +2420,14 @@ int __cdecl MenuLoop_Main()
     {
       if ( dword_4E28F8 != 12 )
       {
-	  #ifndef OLD_CODE
+
+#ifndef OLD_CODE
 	    uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"lsave640");
 #endif
 #ifdef OLD_CODE
-	  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture("lsave640",0);
+	  cPCXID_CurrentMenu.LODPCXLoad("lsave640.pcx",0);
 #endif
-        //RGBTexture_Load(pRGBTexture_Menu, "lsave640", 0);
+    
       
         pGUIWindow2 = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
         dword_4E28F8 = 12;
@@ -2445,8 +2450,13 @@ int __cdecl MenuLoop_Main()
     else
     {
       pD3DRenderer->BeginScene();
-      Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
 
+#ifndef OLD_CODE
+      Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu); 
+#endif
+#ifdef OLD_CODE
+	  Render_DrawRGBTexture(pD3DRenderer, 0, 0, &cPCXID_CurrentMenu);
+#endif
       if (dword_720010)
         sub_46B736((void *)dword_720010, 1);
       sub_435748();
@@ -2510,7 +2520,7 @@ int __cdecl MenuLoop_Main()
   sub_4156F0_LooksLike_UI_ProcessCallbacks();
   pD3DRenderer->EndScene();
   pD3DRenderer->Present();
-  //RGBTexture_Release(pRGBTexture_Menu);
+  cPCXID_CurrentMenu.PCXTexture_Release();
   if ( pGUIWindow2 )
   {
     GUIWindowDelete(pGUIWindow2);
@@ -10810,8 +10820,8 @@ LABEL_8:
     sub_409E3D(dword_720010, *(_BYTE *)(dword_720010 + 103));
     v1 = sub_46B944(dword_720010);
   }
-  //v3 = RGBTexture_Release((int)Class33_global0);
- // RGBTexture_Release((int)pClass33_global1);
+  Class33_global0.PCXTexture_Release();
+  Class33_global1.PCXTexture_Release();
   struct_505898.byte_505992 = 0;
   struct_576FE8.dword_000044 = 1;
   if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )

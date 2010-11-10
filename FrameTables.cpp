@@ -6,7 +6,7 @@
 
 
 
-
+#ifndef OLD_CODE
 template<> unsigned int ImageTableLoader<IconFrame>::LoadFromFile(const wchar_t *pFilename, struct ImageTable<IconFrame> **ppOut)
 {
  char pFilenameA[256];
@@ -23,11 +23,26 @@ template<> unsigned int ImageTableLoader<IconFrame>::LoadFromFile(const wchar_t 
  *ppOut = pImageTable;
  return 0;
 }
+#endif
 
 
+#ifdef OLD_CODE
+template<> unsigned int ImageTableLoader<IconFrame>::LoadFromFile(const char *pFilename, struct ImageTable<IconFrame> **ppOut)
+{
 
 
+ unsigned char *pRawData = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw(pFilename, 1);
 
+ ImageTable<IconFrame> *pImageTable = new ImageTable<IconFrame>;
+
+ pImageTable->uNumImages = *(unsigned int *)pRawData;
+ pImageTable->pImages = new IconFrame[pImageTable->uNumImages];
+ memcpy(pImageTable->pImages, pRawData + 4, pImageTable->uNumImages * sizeof(IconFrame));
+
+ *ppOut = pImageTable;
+ return 0;
+}
+#endif
 
 
 void MonsterDescriptionList_ctor(struct MonsterDescriptionList *_this)
@@ -83,6 +98,8 @@ void CIconFrameTable_Initialize(struct CIconFrameTable *_this, void *pSrc)
  memcpy(_this->pIcons, (char *)pSrc + 4, _this->uNumIcons * sizeof(struct IconFrame));
 }
 
+
+#ifndef OLD_CODE
 //----- (MM7.exe::00494F3A) --------------------------------------------------------
 unsigned int CIconFrameTable_FindIcon_New(struct CIconFrameTable *_this, const wchar_t *pIconName)
 {
@@ -110,6 +127,8 @@ unsigned int CIconFrameTable_FindIcon(struct CIconFrameTable *_this, const char 
  return CIconFrameTable_FindIcon_New(_this, pIconNameW);
 }
 
+#endif
+
 //----- (MM7.exe::00494FBF) --------------------------------------------------------
 void CIconFrameTable_InitializeIcon(struct CIconFrameTable *_this, unsigned int uIconIdx)
 {
@@ -128,9 +147,8 @@ void CIconFrameTable_InitializeIcon(struct CIconFrameTable *_this, unsigned int 
   _this->pIcons[i].uTextureIdx = LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilepath);
   #endif
 #ifdef OLD_CODE
-   char pFilepath[256];
-	wsprintfA(pFilepath, "%S", _this->pIcons[i].sTextureName);
-  _this->pIcons[i].uTextureIdx = LODFile_Icons_LOD.LODFile_LoadTexture( pFilepath,0);
+
+  _this->pIcons[i].uTextureIdx = LODFile_Icons_LOD.LODFile_LoadTexture( _this->pIcons[i].sTextureName,2);
 #endif
  }
  while (_this->pIcons[i++].word_00001C & 1);
@@ -584,9 +602,8 @@ void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2)
     _this->pTiles[i].word_000012 = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pFilename);
    #endif
 #ifdef OLD_CODE
-	 char pFilename[256];
-    wsprintf(pFilename, "%S", _this->pTiles[i].sTileName);
-    _this->pTiles[i].word_000012 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( pFilename,0);
+	
+    _this->pTiles[i].word_000012 = LODFile_Bitmaps_LOD.LODFile_LoadTexture((const char*)_this->pTiles[i].sTileName,0);
    #endif
     if (_this->pTiles[i].word_000012 != -1)
       LODFile_Bitmaps_LOD.aLODHeaders[_this->pTiles[i].word_000012].word_000026 = class35_sub_48A3BC_MessWithPalettes(&class35_obj, LODFile_Bitmaps_LOD.aLODHeaders[_this->pTiles[i].word_000012].word_000026);
@@ -600,42 +617,83 @@ void CTileTable_LoadSomeTiles(struct CTileTable *_this, int a2)
 
 
 
-void CPlayerFrameTable_ctor(struct CPlayerFrameTable *_this)
+CPlayerFrameTable::CPlayerFrameTable()
 {
- memset(_this, 0, sizeof(struct CPlayerFrameTable));
+ this->uNumFrames =0;
+ this->pFrames=NULL;
 }
 
 //----- (00494C0F) --------------------------------------------------------
-void *CPlayerFrameTable_Initialize(struct CPlayerFrameTable *_this, unsigned char *pSrc)
+void CPlayerFrameTable::pft_Initialize(unsigned char *pSrc)
 {
- _this->uNumFrames = *(int *)(pSrc);
- _this->pFrames = (PlayerFrame *)mem_mng.AllocatedNamedBuffer( _this->pFrames, _this->uNumFrames * sizeof(struct PlayerFrame), "P Frames");
- memcpy(_this->pFrames, pSrc + 4, _this->uNumFrames * sizeof(struct PlayerFrame));
- return 0;
+  this->uNumFrames = *(int *)(pSrc);
+  this->pFrames = (PlayerFrame *)mem_mng.AllocatedNamedBuffer( this->pFrames, this->uNumFrames * sizeof(struct PlayerFrame), "P Frames");
+  memcpy( this->pFrames, pSrc + 4, this->uNumFrames * sizeof(struct PlayerFrame));
 }
 
 //----- (00494B10) --------------------------------------------------------
-struct PlayerFrame *CPlayerFrameTable_GetFrame(struct CPlayerFrameTable *_this, unsigned int uFramesetID, unsigned int uFrameID)
+struct PlayerFrame *CPlayerFrameTable::GetFrameFromFrameset(unsigned int uFramesetID, unsigned int uFrameID)
 {
   int v8; // edx@3
  int i;
 
- if (_this->pFrames[uFramesetID].word_000008 & 0x0001 &&
-     _this->pFrames[uFramesetID].word_000006)
+ if (pFrames[uFramesetID].word_000008 & 0x0001 &&
+     pFrames[uFramesetID].word_000006)
  {
-  v8 = (uFrameID / 8) % _this->pFrames[uFramesetID].word_000006;
+  v8 = (uFrameID / 8) % pFrames[uFramesetID].word_000006;
   for (i = 0; ; ++i)
   {
-   if ( v8 <= _this->pFrames[i].word_000004)
+   if ( v8 <= pFrames[i].word_000004)
      break;
-   v8 -= _this->pFrames[i].word_000004;
+   v8 -= pFrames[i].word_000004;
   }
-  return &_this->pFrames[i];
+  return &pFrames[i];
  }
- else return &_this->pFrames[uFramesetID];
+ else 
+	 return &pFrames[uFramesetID];
 }
 
 
+ //----- (00494AED) --------------------------------------------------------
+int  CPlayerFrameTable::GetFrameByNum( unsigned int uNumFrame)
+{
+  int i;
+  
+  i = 0;
+  if ( uNumFrames> 0 )
+    while( pFrames[i].word_000000!= uNumFrame )
+    {
+      ++i;
+      if ( i >= uNumFrames )
+		  {
+		  i=0;
+		  break;
+		  }
+    }
+  return i;
+}
+
+//----- (00494B5E) --------------------------------------------------------
+struct PlayerFrame *CPlayerFrameTable::PlayerFrameTable_sub_494B5E( int a2, int a3, int a4)
+{
+  int v4; // edi@1
+  signed int v5; // esi@1
+  int v6; // eax@2
+
+  v4 = (int)this;
+  v5 = a4 + a3;
+  if ( v5 < 8 * *(_WORD *)(*(_DWORD *)(this + 4) + 10 * *(_DWORD *)a2 + 4) )
+  {
+    a3 = v5;
+  }
+  else
+  {
+    v6 = rand() % 4 + 21;
+    a2 = v6;
+    a3 = 8 * v5 % *(_WORD *)(*(_DWORD *)(v4 + 4) + 10 * v6 + 4);
+  }
+  return &pFrames[a2];
+}
 
 
 
@@ -742,7 +800,7 @@ void *COverlayDescriptionList_Initialize(struct COverlayDescriptionList *_this, 
 void sub_458D97(struct COverlayDescriptionList *_this)
 {
  int i;
-
+										 
  for (i = 0; i < _this->uNumOverlays; ++i)
    SpriteFrameTable_InitializeSpriteFrame(pSpriteFrameTable, _this->pDescriptions[i].word_000004);
 }

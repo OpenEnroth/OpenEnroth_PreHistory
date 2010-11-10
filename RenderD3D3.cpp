@@ -584,7 +584,8 @@ unsigned int RenderD3D3_GetDeviceCaps(struct RenderD3D3 *_this)
 
 
 //----- (0049E5D4) --------------------------------------------------------
-bool RenderD3D3_CreateTexture(struct RenderD3D3 *_this, unsigned int uTextureWidth, unsigned int uTextureHeight, IDirectDrawSurface4 **pOutSurface, IDirect3DTexture2 **pOutTexture, bool bAlphaChannel, bool a7, void *a8)
+bool RenderD3D3_CreateTexture(struct RenderD3D3 *_this, unsigned int uTextureWidth, unsigned int uTextureHeight, 
+	                       IDirectDrawSurface4 **pOutSurface, IDirect3DTexture2 **pOutTexture, bool bAlphaChannel, bool a7, void *a8)
 {
   int v8; // edx@4
   int v9; // edx@5
@@ -615,9 +616,9 @@ bool RenderD3D3_CreateTexture(struct RenderD3D3 *_this, unsigned int uTextureWid
  ddsd.dwHeight = uTextureHeight;
  ddsd.ddsCaps.dwCaps = DDSCAPS_TEXTURE;
  ddsd.ddsCaps.dwCaps2 = DDSCAPS2_TEXTUREMANAGE;
-  if ( a7 )
+  /*  if ( a7 )
   {
-    if ( (signed int)uTextureHeight <= (signed int)uTextureWidth )
+  if ( (signed int)uTextureHeight <= (signed int)uTextureWidth )
     {
       sub_49D700((void *)uTextureHeight);
       v8 = v12 - sub_49D700(a8);
@@ -643,9 +644,9 @@ LABEL_8:
     }
   }
   else
-  {
+  {	  */
     ddsd.dwMipMapCount = 1;
-  }
+ // }
 
 LABEL_11:
   ddsd.dwFlags = DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT | DDSD_PIXELFORMAT | DDSD_MIPMAPCOUNT;

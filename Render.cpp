@@ -51,7 +51,7 @@ int Render_HWLContainer_LoadHWLHeaders(struct Render_HWLContainer *_this, const 
  fseek(_this->pHWLFile, _this->dword_000008, 0);
 
  locked_fread(&_this->uNumElements, 4, 1, _this->pHWLFile);
- for (i = 0; i <_this->uNumElements; ++i)
+ for (i = 0; i <_this->uNumElements; i++)
  {
   _this->pSriteNames[i] = (unsigned char *)malloc(20);  //operator new(0x14u)
   locked_fread(_this->pSriteNames[i], 1, 20, _this->pHWLFile);
@@ -546,7 +546,7 @@ void Render_DrawIndexedTextureHandle(struct BaseRender *_this, unsigned int uX, 
 }
 
 
- #define OLD_CODE
+
 //----- (004A5EB2) --------------------------------------------------------
 void Render_DrawIndexedTexture(struct BaseRender *_this, unsigned int uX, unsigned int uY, cTexture *pTexture)
 {
@@ -765,7 +765,7 @@ void Render_DrawTransparentTexture(struct BaseRender *_this, unsigned int uX, un
  }
 }
 
-#undef OLD_CODE
+
 void Render_DrawTransparentRect(struct BaseRender *_this, unsigned int uOutX, unsigned int uOutY,
                                       unsigned int uSrcX, unsigned int uSrcY, unsigned int uSrcWidth, unsigned int uSrcHeight,
                                       cTexture *pTexture)
@@ -2326,7 +2326,7 @@ struct Render_HWLBitmap *Render_LoadHWLTexture(struct Render_HWLContainer *_this
 {
   int v3; // eax@1
   void *v4; // esi@1
-  int v5; // ebx@2
+  int start_index; // ebx@2
   int v6; // edi@3
   void *result; // eax@8
   int v9; // ebx@9
@@ -2352,33 +2352,34 @@ struct Render_HWLBitmap *Render_LoadHWLTexture(struct Render_HWLContainer *_this
   int v29; // [sp+28h] [bp-Ch]@14
   int v30; // [sp+2Ch] [bp-8h]@13
   unsigned int DstBuf; // [sp+30h] [bp-4h]@9
-  int v32; // [sp+3Ch] [bp+8h]@2
+  int end_index; // [sp+3Ch] [bp+8h]@2
   void *v33; // [sp+3Ch] [bp+8h]@10
   int v34; // [sp+3Ch] [bp+8h]@15
  int i;
-
+ int rez;
   v4 = _this;
- wsprintfA(Str1, "%s", a2);
+ //wsprintfA(Str1, "%s", a2);
 
-  v3 = v32 = _this->uNumElements;
-  v5 = 0;
+  v3 = end_index = _this->uNumElements;
+  start_index = 0;
   if (!_this->uNumElements)
     return 0;
 
 
     while ( 1 )
     {
-      v6 = v5 + (v32 - v5) / 2;
+      v6 = start_index + (end_index - start_index) / 2;
       //if ( !_strcmpi(Str1, *((const char **)v4 + v6 + 4)) )
-      if (!strcmpi(Str1, (char *)_this->pSriteNames[v6]))
+		rez =  strcmpi((const char *)a2, (char *)_this->pSriteNames[v6]);
+      if (!rez)
         break;
-      //if ( _strcmpi(Str1, *((const char **)v4 + v6 + 4)) <= 0 )
-      else if (strcmpi(Str1, (char *)_this->pSriteNames[v6]) < 0)
-        v32 = v5 + (v32 - v5) / 2;
+  
+      else if (rez < 0)
+        end_index = start_index + (end_index - start_index) / 2;
       else
-        v5 = v6 + 1;
+        start_index = v6 + 1;
 
-      if ( v5 >= v32 )
+      if ( start_index >= end_index )
         return 0;
     }
 

@@ -82,21 +82,22 @@ class cPCXTexture
 {
 public:
  char  sContainerName[16];
- unsigned int uNumPixels; // dword @ 000010
- short uWidth;  // word @ 000014
- short uHeight;  // word @ 000016
- short word_000018;
- short word_00001A;
- short word_00001C;
- short word_00001E;
- short word_000020;
- short word_000022;
- unsigned int *pPixels; // ptr @ 000024
+ unsigned int uNumPixels; // 16 dword @ 000010
+ short uWidth;  // 20 word @ 000014
+ short uHeight;  // 22 word @ 000016
+ short word_000018;		   //24
+ short word_00001A;			//26
+ short word_00001C;		   //28
+ short word_00001E;		  //30
+ short word_000020;		 //32
+ short word_000022;		 //34
+ unsigned int *pPixels; // 36 ptr @ 000024
 //int __thiscall sub_40D73D(int _this);
-void PCXTexture_Zero();
+void PCXTexture_Zero();			// constr
+void PCXTexture_Release();	   //  destr
 //signed int __thiscall sub_40F414(void *_this, const char *Str1, int a3);
  int LODPCXLoad(const char *pContainerName, int mode);
-	
+
 //signed int __thiscall sub_40F037(void *_this, void *Src, int a3, int a4)
 int DecodePCX(unsigned char *pPCXData,unsigned long *pOutBuffer, unsigned int uWidth);
 int LODPCXReLoad(const char *pContainerName);

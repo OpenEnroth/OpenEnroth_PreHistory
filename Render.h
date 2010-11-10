@@ -28,6 +28,7 @@ struct Render_HWLContainer
  int   dword_061A90;
  int   dword_061A94;
 };
+
 //sizeof = 61A98
 //int __thiscall sub_452347(int _this);
 void Render_HWLContainer_ctor(struct Render_HWLContainer *_this);

@@ -634,7 +634,7 @@ void *LODFile_IB::LODFile_LoadRaw( const char *pContainer, int a3)
     ReadFile(hFile, v8, cTexture_obj.uTextureSize, &w, 0);
   #endif
 #ifdef OLD_CODE
-    fread(v8, 1, cTexture_obj.uCompressedSize, pContainerFile);
+    fread(v8, 1, cTexture_obj.uTextureSize, pContainerFile);
   #endif
 
     MemUnzip(result, &cTexture_obj.uDecompressedSize, v8, cTexture_obj.uTextureSize);
@@ -666,13 +666,14 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 {
  
   unsigned int total_l_o_d_size; // edi@1
-  char* tmp_palette;
+  unsigned char* tmp_palette;
   unsigned char *pCompressedBuffer,
                 *pDecompressedBuffer;
   int   i,j;
   int result;
   FILE *texture_file;
-
+  unsigned int *tmp_pos;
+  unsigned char ind;
   texture_file = Find_Container(pContainerName, 0);
   if (!texture_file)
 	  return -1;
@@ -698,17 +699,19 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 		  && pContainerName[4] == 'r' )
 		  {
 
-		  tmp_palette = (char*) malloc(strlen(pContainerName)+2);
+		  tmp_palette = (unsigned char*) malloc(strlen(pContainerName)+2);
 		  tmp_palette[0] = 'h';
-		  strcpy((char *)(tmp_palette[1]), (const char *) pContainerName[0]);
-
+		  tmp_palette[1] = 0;
+		  strcpy((char *)tmp_palette+1, (const char *) pContainerName);
+		/* 
 		  result = Render_sub_4A4DE1(
 			  (int)pD3DRenderer,
 			  (int)tmp_palette,
 			  pcTexture->word_000024,
 			  (int)pHardwareSurfaces[uNumLoadedFiles],
 			  (int)pHardwareTextures[uNumLoadedFiles]);
-
+			*/
+		   result=1;
 		  free( tmp_palette);
 		  }
 	  else
@@ -722,14 +725,15 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 			  {
 			  dword_EF5294 = uNumLoadedFiles;
 			  }
-
+	 // 	crashes
 		  result = Render_sub_4A4DE1(
-			  (int)pD3DRenderer,
-			  (int)pContainerName,
+			  pD3DRenderer,
+			  (unsigned char*)pContainerName,
 			  pcTexture->word_000024,
-			  (int)pHardwareSurfaces[uNumLoadedFiles],
-			  (int)pHardwareTextures[uNumLoadedFiles]);
-
+			  &pHardwareSurfaces[uNumLoadedFiles],
+			  &pHardwareTextures[uNumLoadedFiles]);
+		 
+		  result=1;
 		  }
 	  return result;
 	  }
@@ -797,16 +801,33 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
   if (uTextureType == 2)
 	  {	    
 	  pcTexture->pPalette = (unsigned short *)mem_mng.AllocatedNamedBuffer( pcTexture->pPalette, 512, pcTexture->sContainerName);
-	  tmp_palette=(char*)malloc(768);
+	  //new code create 32 ARGB color;
+	  pcTexture->pTruecolorPixels= (unsigned int *)malloc( pcTexture->uTextureWidth*pcTexture->uTextureHeight*4 );
+	  //
+	  tmp_palette=(unsigned char*)malloc(768);
 	  locked_fread(tmp_palette,768, 1, texture_file);
-	  j=0;
+	 j=0;
 	  for (i = 0; i < 256; i++)
 		  { 
 		  pcTexture->pPalette[i] = (tmp_palette[j] >> (8 -  uTextureRedBits)) << ( uTextureBlueBits + uTextureGreenBits);
 		  pcTexture->pPalette[i] += (tmp_palette[j+1] >> (8 -  uTextureGreenBits)) <<  uTextureBlueBits;
 		  pcTexture->pPalette[i] += tmp_palette[j+2] >> (8 -  uTextureBlueBits);
 		  j+=3;
-		  }
+		  }	 
+	  //new code create 32 ARGB color;
+	  
+	  for (i=0; i<pcTexture->uTextureWidth*pcTexture->uTextureHeight; i++)
+		  {	
+		   unsigned char unpackedPixels[4];
+			if ( pcTexture->pIndexedPixels[i]==0)
+				 *(unsigned int*)&unpackedPixels[0]=0;
+		   else
+			   unpackedPixels[3]=  0xFF;
+			unpackedPixels[0]= tmp_palette[pcTexture->pIndexedPixels[i]*3+2];
+			unpackedPixels[1]= tmp_palette[pcTexture->pIndexedPixels[i]*3+1]; 
+			unpackedPixels[2]= tmp_palette[pcTexture->pIndexedPixels[i]*3];	 
+		    pcTexture->pTruecolorPixels[i]=*(unsigned int*)&unpackedPixels[0];
+		  }	
 	  free(tmp_palette);
 	  }
   else
@@ -874,6 +895,8 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
   case 12:  pcTexture->word_000022 = 4095; break;
 	  }
 
+  Render_MoveToGPU(pD3DRenderer, pcTexture->uTextureWidth, pcTexture->uTextureHeight,  aLODHeaders[ uNumLoadedFiles].pTruecolorPixels,
+	  &pHardwareSurfaces[ uNumLoadedFiles], & pHardwareTextures[ uNumLoadedFiles]);
   return 1;
 }
 
@@ -1151,11 +1174,11 @@ bool LODFile_IB::LODFile_LoadLOD_Icons_Events( const char *pFilename)
  Reset_TextureBuffs();
  if (!Load_LODHeader( pFilename, 1))
    return 0;
-#ifndef OLD_CODE 
+///#ifndef OLD_CODE 
  pHardwareSurfaces = new IDirectDrawSurface4 *[1000];
  pHardwareTextures = new IDirect3DTexture2 *[1000];
  lod_IB_dword_011BB4 = new char [1000];
-#endif  
+///#endif  
  return  Load_SubIndexes("icons") == 0;
 }
 
@@ -1165,11 +1188,11 @@ bool LODFile_IB::LODFile_LoadLOD_Bitmaps( const char *pFilename)
  Reset_TextureBuffs();
  if (!Load_LODHeader( pFilename, 1))
    return 0;
- #ifndef OLD_CODE
+// #ifndef OLD_CODE
  pHardwareSurfaces = new IDirectDrawSurface4 *[1000];
  pHardwareTextures = new IDirect3DTexture2 *[1000];
  lod_IB_dword_011BB4 = new char [1000];
-#endif
+//#endif
 
  return  Load_SubIndexes( "bitmaps") == 0;
 }
@@ -2058,11 +2081,11 @@ void   LODFile_IB::sub_410423()
           || aLODHeaders[i].sContainerName[4] != 'r')
         {
           Render_sub_4A4DE1(
-            (int)pD3DRenderer,
-            (int)&aLODHeaders[i].sContainerName,
+            pD3DRenderer,
+            (unsigned char*)&aLODHeaders[i].sContainerName,
             aLODHeaders[i].word_000022,
-            (int)pHardwareSurfaces[i],
-            (int)pHardwareTextures[i]);
+            &pHardwareSurfaces[i],
+            &pHardwareTextures[i]);
 		  
         }
         else
@@ -2072,11 +2095,11 @@ void   LODFile_IB::sub_410423()
 		   v4[0] = 'h';
 		  strcpy((char *)(v4[1]), aLODHeaders[i].sContainerName);
           Render_sub_4A4DE1(
-            (int)pD3DRenderer,
-            (int)&v4,
+            pD3DRenderer,
+            (unsigned char*)v4,
             aLODHeaders[i].word_000022,
-            (int)pHardwareSurfaces[i],
-            (int)pHardwareTextures[i]);
+            &pHardwareSurfaces[i],
+            &pHardwareTextures[i]);
           free(v4);
         }
       }      

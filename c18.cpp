@@ -511,6 +511,25 @@ int cPCXTexture::DecodePCX( unsigned char *pPCXData, unsigned long *pOutBuffer, 
 }
 
 
+//----- (0040E51F) --------------------------------------------------------
+
+void  cPCXTexture::PCXTexture_Release()
+{
+
+	sContainerName[0] = 0;
+	if ( (word_000020&1))
+		free(pPixels);
+	else
+		mem_mng.DeleteBuffer( pPixels);
+	word_000020 = 0;
+	pPixels = NULL; //24
+	uNumPixels = 0;
+	uHeight=0;  // 22 word @ 000016
+	uWidth=0;  // 20 word @ 000014
+	word_00001A=0;			//26
+	word_000018=0;		   //24
+}
+
 
 #ifndef OLD_CODE
 int RGBTexture_Load_New( cPCXTexture *_this, const wchar_t *pTextureName)

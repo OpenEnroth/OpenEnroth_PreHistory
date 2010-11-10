@@ -6,6 +6,7 @@
 
 
 
+#ifndef OLD_CODE
 
 template <typename Image>
   struct ImageTable;
@@ -95,8 +96,7 @@ template <typename Image>
    {
     return -1;
    }
-// #define OLD_CODE
-#ifndef OLD_CODE
+
    inline unsigned int InitializeAnimation(unsigned int uAnimationID)
    {
 
@@ -111,23 +111,9 @@ template <typename Image>
 
     return 0;
    }
-#endif
-#ifdef OLD_CODE
-   inline unsigned int InitializeAnimation(unsigned int uAnimationID)
-   {
 
-    for (unsigned int i = uAnimationID; pImages[i].word_00001C & 1; ++i)
-    {
+  
 
-
-     pImages[i].uTextureIdx = LODFile_Icons_LOD.LODFile_LoadTexture((char *)&pImages[i].sTextureName[0],2);
-    }
-
-
-    return 0;
-   }
-#endif
-#undef	OLD_CODE
 
  protected:
    inline ImageTable()
@@ -140,16 +126,121 @@ template <typename Image>
    Image        *pImages;
 };
 
+#endif
+
+#ifdef OLD_CODE
+template <typename Image>
+  struct ImageTable;
+
+template<typename Image>
+  struct ImageTableLoader
+{
+ inline ImageTableLoader() {}
+
+ unsigned int LoadFromFile(const char *pFilename, ImageTable<Image> **ppOut);
+};
 
 
+template <typename Image>
+  struct ImageTable
+{
+ friend struct ImageTableLoader<Image>;
+ public:
+   inline unsigned int FindImage(const char *pName)
+   {
+  
+    for (unsigned int i = 0; i < uNumImages; ++i)
+    {
+     if (!strcmpi(pName, (char *)pImages[i].sName))
+      return i;
+    }
+    return 0;
+   }
+
+   
+   inline unsigned int FindAnimation(const char *pName)
+   {
+
+    for (unsigned int i = 0; i < uNumImages; ++i)
+    {
+     if (!strcmpi(pName, (char *)pImages[i].sAnimationName))
+       return i;
+    }
+    return 0;
+   }
 
 
+   inline Image *GetImage(unsigned int uImageID)
+   {
+    return &pImages[uImageID];
+   }
+
+   inline Image *GetImage(unsigned int uAnimationID, unsigned int uFrameID)
+   {
+    int v6; // eax@3
+    int v7; // edx@3
+    int i; // ecx@3
+    int v9; // esi@5
+
+    if (pImages[uAnimationID].word_00001C & 0x0001 &&
+        pImages[uAnimationID].word_00001A)
+    {
+     v7 = (uFrameID / 8) % pImages[uAnimationID].word_00001A;
+     v6 = uAnimationID;
+     for ( i = uAnimationID; ; ++i)
+     {
+      v9 = pImages[i].word_000018;
+      if ( v7 <= v9 )
+        break;
+      v7 -= v9;
+      ++v6;
+     }
+     return &pImages[v6];
+    }
+    else
+      return &pImages[uAnimationID];
+   }
+
+
+   inline unsigned int InitializeImage(unsigned int uImageID)
+   {
+    return -1;
+   }
+
+   inline unsigned int InitializeAnimation(unsigned int uAnimationID)
+   {
+
+    for (unsigned int i = uAnimationID; pImages[i].word_00001C & 1; ++i)
+    {
+  
+
+     pImages[i].uTextureIdx = LODFile_Icons_LOD.LODFile_LoadTexture( pImages[i].sTextureName,2);
+    }
+
+
+    return 0;
+   }
+
+  
+
+
+ protected:
+   inline ImageTable()
+   {
+    uNumImages = 0;
+    pImages = 0;
+   }
+
+   unsigned int  uNumImages;
+   Image        *pImages;
+};
+#endif
 
 
 struct IconFrame
 {
- unsigned char sAnimationName[12]; // byte[12] @ 000000
- unsigned char sTextureName[12];   // byte[12] @ 00000C
+ char          sAnimationName[12]; // byte[12] @ 000000
+ char          sTextureName[12];   // byte[12] @ 00000C
  short         word_000018;        // frame time?
  short         word_00001A;        // num frames?
  short         word_00001C;
@@ -341,22 +432,24 @@ struct PlayerFrame
 };
 //sizeof == 0A
 
-struct CPlayerFrameTable
+class CPlayerFrameTable
 {
+public:
  unsigned int        uNumFrames;
  struct PlayerFrame *pFrames;
+// void CPlayerFrameTable_ctor(struct CPlayerFrameTable *_this);
+//int __thiscall sub_494BC3(void *Str);
+  CPlayerFrameTable();
+//void *__thiscall sub_494C0F(void *Dst, void *Src);
+void pft_Initialize(unsigned char *pSrc);
+//int __thiscall sub_494B10(int _this, int a2, signed int a3);
+struct PlayerFrame *GetFrameFromFrameset( unsigned int uFramesetID, unsigned int uFrameID);
+
+int GetFrameByNum( unsigned int uNumFrame);
+struct PlayerFrame *PlayerFrameTable_sub_494B5E( int a2, int a3, int a4);
 };
 
-void CPlayerFrameTable_ctor(struct CPlayerFrameTable *_this);
-//int __thiscall sub_494BC3(void *Str);
-int CPlayerFrameTable_SaveToBIN(struct CPlayerFrameTable *_this);
-//void *__thiscall sub_494C0F(void *Dst, void *Src);
-void *CPlayerFrameTable_Initialize(struct CPlayerFrameTable *_this, unsigned char *pSrc);
-//int __thiscall sub_494B10(int _this, int a2, signed int a3);
-struct PlayerFrame *CPlayerFrameTable_GetFrame(struct CPlayerFrameTable *_this, unsigned int uFramesetID, unsigned int uFrameID);
-
-int PlayerFrameTable_sub_494AED(int _this, int a2);
-int PlayerFrameTable_sub_494B5E(int _this, int a2, int a3, int a4);
+int CPlayerFrameTable_SaveToBIN(class CPlayerFrameTable *_this);
 
 
 

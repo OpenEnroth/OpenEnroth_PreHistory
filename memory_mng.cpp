@@ -118,12 +118,10 @@ void  MemoryMng::DeleteBuffer(void *pMem)
 
  
   for (i = 0; i <= uNumMemoryBuffersUsed; ++i)
-    if (pMemoryBuffers[i] == pMem)
-		{
-		indx=i;
+    if (pMemoryBuffers[i] == pMem)	
 		break;
-		}
- 
+
+  indx=i;
   if (i>uNumMemoryBuffersUsed)
   {
    if (!pGame->dword_000004)

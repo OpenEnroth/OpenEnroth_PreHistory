@@ -2646,11 +2646,14 @@ LABEL_196:
 
 
 
-
+#ifndef OLD_CODE 
  pClassTXT_Raw = LODFile_Events_LOD.LODFile_LoadEvent(L"class.txt");
- //pClassTXT_Raw = LODFile_Events_LOD.LODFile_LoadEvent(L"class.txt");
+#endif
+#ifdef OLD_CODE 
+  pClassTXT_Raw = (unsigned char*)LODFile_Events_LOD.LODFile_LoadRaw("class.txt",2);
+#endif
  v78 = (int)strstr((char *)pClassTXT_Raw, "\n") + 1;
- for (i = 0; i < 36; ++i)
+ for (i = 0; i < 23; ++i)
  {
   pClassDescriptions[i] = (unsigned char *)strstr((char *)v78, "\"") + 1;
   v78 = (int)strstr((char *)pClassDescriptions[i], "\"");

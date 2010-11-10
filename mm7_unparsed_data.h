@@ -520,28 +520,28 @@ extern int dword_506358[array_size_unknown]; // weak
 extern int dword_50635C; // weak
 extern char byte_506360; // weak
 extern int dword_506364; // weak
-extern int dword_506368; // weak
-extern int dword_50636C; // idb
-extern int dword_506370; // weak
-extern int dword_506374; // idb
-extern int dword_506378; // weak
-extern int dword_50637C; // idb
-extern int dword_506380; // weak
-extern int dword_506384; // idb
-extern int dword_506388; // weak
-extern int dword_50638C; // idb
-extern int dword_506390; // weak
-extern int dword_506394; // idb
-extern unsigned int uTextureID_tab_an_7a__zoot_off; // dword @ MM7.exe::00506398
-extern unsigned int uTextureID_tab_an_6a__zoom_off; // dword @ MM7.exe::0050639C
-extern unsigned int uTextureID_tab_an_7b__zoot_on;  // dword @ MM7.exe::005063A0
-extern unsigned int uTextureID_tab_an_6b__zoom_on;  // dword @ MM7.exe::005063A4
-extern int dword_5063A8[array_size_unknown]; // weak
-extern int dword_5063AC; // weak
-extern int dword_5063B0; // weak
-extern int dword_5063B4; // weak
-extern int dword_5063B8; // weak
-extern int dword_5063BC; // weak
+extern class cTexture* dword_506368; // weak
+extern class cTexture* dword_50636C; // idb
+extern class cTexture* dword_506370; // weak
+extern class cTexture* dword_506374; // idb
+extern class cTexture* dword_506378; // weak
+extern class cTexture* dword_50637C; // idb
+extern class cTexture* dword_506380; // weak
+extern class cTexture* dword_506384; // idb
+extern class cTexture* dword_506388; // weak
+extern class cTexture* dword_50638C; // idb
+extern class cTexture* dword_506390; // weak
+extern class cTexture* dword_506394; // idb
+extern class cTexture* uTextureID_tab_an_7a__zoot_off; // dword @ MM7.exe::00506398
+extern class cTexture* uTextureID_tab_an_6a__zoom_off; // dword @ MM7.exe::0050639C
+extern class cTexture* uTextureID_tab_an_7b__zoot_on;  // dword @ MM7.exe::005063A0
+extern class cTexture* uTextureID_tab_an_6b__zoom_on;  // dword @ MM7.exe::005063A4
+extern class cTexture* dword_5063A8[array_size_unknown]; // weak
+extern class cTexture* dword_5063AC; // weak
+extern class cTexture* dword_5063B0; // weak
+extern class cTexture* dword_5063B4; // weak
+extern class cTexture* dword_5063B8; // weak
+extern class cTexture* dword_5063BC; // weak
 extern int dword_5063D8[array_size_unknown]; // weak
 extern int dword_506404; // weak
 extern int dword_506408[array_size_unknown]; // weak
@@ -559,17 +559,17 @@ extern unsigned int dword_506498_uTextureID_MapBrdr; // weak
 extern int dword_50649C[array_size_unknown]; // weak
 extern int dword_5064A0[array_size_unknown]; // weak
 extern int dword_5064C4; // weak
-extern unsigned int uTextureID_divbar; // dword @ MM7.exe::005064C8
-extern int dword_5064CC; // weak
-extern int dword_5064D0; // weak
-extern int dword_5064D4; // weak
-extern unsigned int uTextureID_sbAutonotes;                    // dword @ MM7.exe::005064D8
-extern unsigned int uTextureID_lb_bordr__townport__sbquicknot; // dword @ MM7.exe::005064DC
-extern int dword_5064E0; // weak
-extern int dword_5064E4; // weak
-extern int dword_5064E8; // weak
-extern int dword_5064EC; // weak
-extern int dword_5064F0; // weak
+extern class cTexture* uTextureID_divbar; // dword @ MM7.exe::005064C8
+extern class cTexture* dword_5064CC; // weak
+extern class cTexture* dword_5064D0; // weak
+extern class cTexture* dword_5064D4; // weak
+extern class cTexture* uTextureID_sbAutonotes;                    // dword @ MM7.exe::005064D8
+extern class cTexture* uTextureID_lb_bordr__townport__sbquicknot; // dword @ MM7.exe::005064DC
+extern class cTexture* dword_5064E0; // weak
+extern class cTexture* dword_5064E4; // weak
+extern class cTexture* dword_5064E8; // weak
+extern class cTexture* dword_5064EC; // weak
+extern class cTexture* dword_5064F0; // weak
 extern int dword_5064F4; // weak
 extern int dword_5064F8; // weak
 extern struct GUIButton *dword_5064FC; // weak
@@ -2316,7 +2316,7 @@ extern __int64 qword_A750D8; // weak
 extern __int16 word_A750E0; // weak
 extern __int16 word_A750E2; // weak
 
-extern struct CPlayerFrameTable *pPlayerFrameTable; // struct @ MM7.exe::00A750EC
+extern class CPlayerFrameTable *pPlayerFrameTable; // struct @ MM7.exe::00A750EC
 //int dword_A750EC; // pPlayerFrameTable::uNumFrames
 //int dword_A750F0; // pPlayerFrameTable::pFrames
 extern _UNKNOWN unk_A750F8; // weak

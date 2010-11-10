@@ -1336,9 +1336,9 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
   free(v28);
 
   pPlayerFrameTable = new CPlayerFrameTable;
-  CPlayerFrameTable_ctor(pPlayerFrameTable);
+  //CPlayerFrameTable_ctor(pPlayerFrameTable);
   v31 = LODFile_Events_LOD.LODFile_LoadRaw( "dpft.bin", 1);
-  CPlayerFrameTable_Initialize(pPlayerFrameTable, (unsigned char *)v31);
+  pPlayerFrameTable->pft_Initialize((unsigned char *)v31);
   free(v31);
 
   //pIconFrameTable = new CIconFrameTable;
@@ -1346,8 +1346,12 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
   //v34 = LODFile_LoadRaw(pLODFile_Events_LOD, "dift.bin", 1);
   //CIconFrameTable_Initialize(pIconFrameTable, v34);
   //call_delete(v34);
-  
+ #ifndef OLD_CODE  
   ImageTableLoader<IconFrame>().LoadFromFile(L"dift.bin", &pIconFrameTable);
+  #endif
+#ifdef OLD_CODE 
+    ImageTableLoader<IconFrame>().LoadFromFile("dift.bin", &pIconFrameTable);
+#endif
 
   pDecorationDescriptionList = new DecorationDescriptionList;
   DecorationDescriptionList_ctor(pDecorationDescriptionList);
@@ -5455,15 +5459,16 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
   class06_sub_4A90A0(pGame->class06_obj);
   for (i = 0; i < 8; ++i)
   {
+#define OLD_CODE
   #ifndef OLD_CODE
   wchar_t pWaterTileName[256]; // [sp+10h] [bp-Ch]@9
    wsprintfW(pWaterTileName, L"HDWTR%03u", i);
    uTextureID_WaterTiles[i] = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pWaterTileName);
 #endif
   #ifdef OLD_CODE
-   char pWaterTileName[256]; // [sp+10h] [bp-Ch]@9
+   char pWaterTileName[16]; // [sp+10h] [bp-Ch]@9
     wsprintfA(pWaterTileName, "HDWTR%03u", i);
-   uTextureID_WaterTiles[i] = LODFile_Bitmaps_LOD.LODFile_LoadTexture( pWaterTileName,0);
+   uTextureID_WaterTiles[i] = LODFile_Bitmaps_LOD.LODFile_LoadTexture( pWaterTileName,2);
 #endif
   }
 
@@ -13843,13 +13848,20 @@ void __cdecl sub_491F87_DrawHiredNPCs()
         {
          wsprintfA(Str1, "NPC%03d", pNPCStats->pNPCData2[v7].uPortraitID);
           v15 = LODFile_Icons_LOD.LODFile_LoadTexture( Str1, 2);
-          Render_DrawIndexedTexture(pD3DRenderer, uHiredNPCsIconsOffsetsX[v25], uHiredNPCsIconsOffsetsY[v25], (cTexture *)(v15 != -1 ? 72 * v15 + 7145548 : 0));
+          Render_DrawIndexedTexture(pD3DRenderer, uHiredNPCsIconsOffsetsX[v25], uHiredNPCsIconsOffsetsY[v25], (v15 != -1 ?  &LODFile_Icons_LOD.aLODHeaders[v15]: 0));
         }
         else
         {
+   #ifndef OLD_CODE 
          wchar_t pFilename[256];
           wsprintfW(pFilename, L"NPC%03d", pParty_global->pHiredNPCs[v7].uPortraitID);
           v10 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pFilename);
+		  #endif
+#ifdef OLD_CODE
+		  char pFilename[16];
+          wsprintfA(pFilename, "NPC%03d", pParty_global->pHiredNPCs[v7].uPortraitID);
+          v10 = LODFile_Icons_LOD.LODFile_LoadTexture(pFilename,2);
+ #endif
           v9 = v25;
           Render_DrawIndexedTexture(pD3DRenderer, uHiredNPCsIconsOffsetsX[v9], uHiredNPCsIconsOffsetsY[v9], &LODFile_Icons_LOD.aLODHeaders[v10]);
 
@@ -14057,7 +14069,7 @@ void PlayerCreationUI_Draw()
    Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
 #endif
 #ifdef OLD_CODE
-   Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
+   Render_DrawRGBTexture(pD3DRenderer, 0, 0,&cPCXID_CurrentMenu);
 #endif
    Render_DrawIndexedTexture(pD3DRenderer, dword_A74CCC, 2, pPlayerCreationUI_Sky);
    Render_DrawIndexedTexture(pD3DRenderer, dword_A74CCC - 640, 2, pPlayerCreationUI_Sky);

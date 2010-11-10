@@ -2938,55 +2938,6 @@ LABEL_20:
   return v3;
 }
 
-//----- (00494AED) --------------------------------------------------------
-int __thiscall PlayerFrameTable_sub_494AED(int _this, int a2)
-{
-  int result; // eax@1
-  int v3; // edx@1
-  int v4; // ecx@2
-
-  v3 = *(_DWORD *)_this;
-  result = 0;
-  if ( *(_DWORD *)_this <= 0 )
-  {
-LABEL_5:
-    result = 0;
-  }
-  else
-  {
-    v4 = *(_DWORD *)(_this + 4);
-    while ( *(_WORD *)v4 != a2 )
-    {
-      ++result;
-      v4 += 10;
-      if ( result >= v3 )
-        goto LABEL_5;
-    }
-  }
-  return result;
-}
-
-//----- (00494B5E) --------------------------------------------------------
-int __thiscall PlayerFrameTable_sub_494B5E(int _this, int a2, int a3, int a4)
-{
-  int v4; // edi@1
-  signed int v5; // esi@1
-  int v6; // eax@2
-
-  v4 = _this;
-  v5 = a4 + *(_DWORD *)a3;
-  if ( v5 < 8 * *(_WORD *)(*(_DWORD *)(_this + 4) + 10 * *(_DWORD *)a2 + 4) )
-  {
-    *(_DWORD *)a3 = v5;
-  }
-  else
-  {
-    v6 = rand() % 4 + 21;
-    *(_DWORD *)a2 = v6;
-    *(_DWORD *)a3 = 8 * v5 % *(_WORD *)(*(_DWORD *)(v4 + 4) + 10 * v6 + 4);
-  }
-  return *(_DWORD *)(v4 + 4) + 10 * *(_DWORD *)a2;
-}
 
 //----- (00495366) --------------------------------------------------------
 int __fastcall sub_495366(unsigned __int8 a1, unsigned __int8 a2)
@@ -9435,7 +9386,7 @@ int sub_49FC23(int a1, int a2)
   int v3; // esi@1
 
   v3 = a2;
-  sub_49FE05((BaseRender *)a2);
+//  sub_49FE05((BaseRender *)a2);
   *(_DWORD *)(v3 + 262232) = 1;
   return result;
 }
@@ -11231,55 +11182,72 @@ int __stdcall sub_4A4CC9(int a1, int a2)
 }
 
 //----- (004A4DE1) --------------------------------------------------------
-signed int __thiscall Render_sub_4A4DE1(int _this, int a2, int a3, int a4, int a5)
+signed int __thiscall Render_sub_4A4DE1(BaseRender* _this, unsigned char* a2, int a3,struct IDirectDrawSurface4 **pOutSurface, struct IDirect3DTexture2 **pOutTexture)
 {
   signed int result; // eax@1
-  int v6; // ebx@1
+  unsigned char *v6; // ebx@1
   int v7; // edi@1
-  void *v8; // esi@1
-  int v9; // ebx@9
+  Render_HWLBitmap *v8; // esi@1
+  IDirectDrawSurface4 **v9; // ebx@9
   int v10; // ebx@11
-  int v11; // edi@11
+  IDirectDrawSurface4 *v11; // edi@11
   int v12; // eax@14
   int v13; // eax@17
   int v14; // edx@18
-  int v15; // eax@19
-  int v16; // ecx@19
+  char* v15; // eax@19
+  char* v16; // ecx@19
   unsigned int v17; // edx@20
   int v18; // eax@23
   int v19; // eax@24
   char Dst; // [sp+Ch] [bp-F8h]@12
-  int v21; // [sp+6Ch] [bp-98h]@13
-  int v22; // [sp+74h] [bp-90h]@14
-  int v23; // [sp+78h] [bp-8Ch]@14
-  int v24; // [sp+7Ch] [bp-88h]@14
-  int v25; // [sp+90h] [bp-74h]@14
-  int v26; // [sp+E8h] [bp-1Ch]@13
+  DDSURFACEDESC2 v21; // [sp+6Ch] [bp-98h]@13	DWORD               dwSize;                 // size of the DDSURFACEDESC structure
+	//			 [sp+70h]	    DWORD               dwFlags;                // determines what fields are valid
+  //int v22; // [sp+74h] [bp-90h]@14		  DWORD               dwHeight;               // height of surface to be created
+  //int v23; // [sp+78h] [bp-8Ch]@14	    DWORD               dwWidth;                // width of input surface
+  //int v24; // [sp+7Ch] [bp-88h]@14	     DWORD           dwLinearSize;           // Formless late-allocated optimized surface size
+			//	[sp+80h]					 DWORD           dwBackBufferCount;      // number of back buffers requested
+			//	[sp+84h]				DWORD           dwMipMapCount;          // number of mip-map levels requestde
+			//	[sp+88h]			    DWORD               dwAlphaBitDepth;        // depth of alpha buffer requested
+			//	[sp+8Ch]			   DWORD               dwReserved;             // reserved
+ // int v25; // [sp+90h] [bp-74h]@14	   LPVOID              lpSurface;              // pointer to the associated surface memory
+
+  char v26[24]; // [sp+E8h] [bp-1Ch]@13
+
   int v27; // [sp+100h] [bp-4h]@12
+  #define FI16_565_RED_MASK		0xF800
+#define FI16_565_GREEN_MASK		0x07E0
+#define FI16_565_BLUE_MASK		0x001F
+#define FI16_565_RED_SHIFT		11
+#define FI16_565_GREEN_SHIFT	5
+#define FI16_565_BLUE_SHIFT		0
 
   v6 = a2;
-  v7 = _this;
-  v8 = Render_LoadHWLTexture((Render_HWLContainer *)(_this + 262420), (unsigned char *)a2, a3);
+  v7 = (int)_this;
+  v8 = Render_LoadHWLTexture((Render_HWLContainer *)(&_this->struct_040114), (unsigned char *)a2, a3);
   result = 0;
   if ( v8 )
   {
-    a3 = *(_BYTE *)v6 == 72
-      && *(_BYTE *)(v6 + 1) == 68
-      && *(_BYTE *)(v6 + 2) == 87
-      && *(_BYTE *)(v6 + 3) == 84
-      && *(_BYTE *)(v6 + 4) == 82;
-    v9 = a4;
+    a3 = *(_BYTE *)v6 == 72		  //H
+      && *(_BYTE *)(v6 + 1) == 68  //D
+      && *(_BYTE *)(v6 + 2) == 87	//W
+      && *(_BYTE *)(v6 + 3) == 84	//T
+      && *(_BYTE *)(v6 + 4) == 82;	//R
+	// neeew 
+		if (a3)
+		  return 1;
+	////
+    v9 = pOutSurface;
     if ( !RenderD3D3_CreateTexture(
-            *(RenderD3D3 **)(v7 + 262280),
-            *((unsigned int *)v8 + 10),
-            *((unsigned int *)v8 + 11),
-            (IDirectDrawSurface4 **)a4,
-            (IDirect3DTexture2 **)a5,
+            (_this->pRenderD3D3),
+           v8->uWidth,// *((unsigned int *)v8 + 10),
+           v8->uHeight,// *((unsigned int *)v8 + 11),
+            pOutSurface,
+            pOutTexture,
             1,
             a3,
-            *(void **)(v7 + 1062488)) )
+            &_this->uMinDeviceTextureDim))
       erroneous_printf("HiScreen16::LoadTexture - D3Drend->CreateTexture() failed: %x", 0);
-    v11 = *(_DWORD *)v9;
+    v11 = *v9;
     v10 = 0;
     if ( a3 )
     {
@@ -11289,10 +11257,10 @@ signed int __thiscall Render_sub_4A4DE1(int _this, int a2, int a3, int a4, int a
       while ( 1 )
       {
         memset(&v26, v10, 0x10u);
-        v26 = (int)sub_401000;
+        //v26 = (int)sub_401000;
         memset(&v21, v10, 0x7Cu);
-        v21 = 124;
-        if ( LockSurface_DDraw4((IDirectDrawSurface4 *)v11, (DDSURFACEDESC2 *)&v21, 33) )
+        v21.dwSize = 124;
+        if ( LockSurface_DDraw4(v11, (DDSURFACEDESC2 *)&v21, 33) )
         {
           sub_451007(
             (int)&Dst,
@@ -11300,63 +11268,76 @@ signed int __thiscall Render_sub_4A4DE1(int _this, int a2, int a3, int a4, int a
             *((_DWORD *)v8 + 10),
             *((_DWORD *)v8 + 11),
             *((_DWORD *)v8 + 10),
-            v25,
-            v23,
-            v22,
-            v24 >> 1,
+            (int)v21.lpSurface,
+            v21.dwWidth,
+            v21.dwHeight,
+            v21.dwLinearSize >> 1,
             0,
             0);
-          v12 = (*(int (__stdcall **)(int, _DWORD))(*(_DWORD *)v11 + 128))(v11, 0);
+          v12 = (*(int (__stdcall **)(IDirectDrawSurface4 *, _DWORD))(*(_DWORD *)v11 + 128))(v11, 0);
           CheckHRESULT((void **)&a3, v12, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0xAADu, 0);
           a3 = 5080748;
         }
-        if ( (*(int (__stdcall **)(int, int *, int *))(*(_DWORD *)v11 + 48))(v11, &v26, &a2) )
+        if ( (*(int (__stdcall **)(IDirectDrawSurface4 *, char *, unsigned char *))(*(_DWORD *)v11 + 48))(v11, &v26[0], a2) )
           break;
-        v11 = a2;
+      //  v11 = a2;
         v10 = 0;
       }
       v27 = -1;
-      compile_error;//v13 = nullsub_1(&Dst);
+   //   compile_error;//v13 = nullsub_1(&Dst);
     }
     else
     {
       memset(&v26, 0, 0x10u);
-      v26 = (int)sub_401000;
+     // v26[0] = (int)sub_401000;
       memset(&v21, 0, 0x7Cu);
-      v21 = 124;
-      LOBYTE(v13) = LockSurface_DDraw4((IDirectDrawSurface4 *)v11, (DDSURFACEDESC2 *)&v21, 33);
+      v21.dwSize = 124;
+      LOBYTE(v13) = LockSurface_DDraw4(v11, &v21, 33);
       if ( (_BYTE)v13 )
       {
         a3 = 0;
-        v16 = *((_DWORD *)v8 + 14);
-        v15 = v25;
-        if ( v22 )
+	unsigned short	packedPixel;
+ unsigned char unpackedPixels[4];
+        v16 = (char*)v8->pPixels;
+        v15 = (char*)v21.lpSurface;
+        if ( v21.dwHeight )
         {
           do
           {
             v17 = 0;
-            if ( v23 )
+            if ( v21.dwWidth )
             {
               do
               {
                 ++v17;
-                *(_WORD *)v15 = *(_WORD *)v16;
-                v15 += 2;
+	
+			packedPixel=*(_WORD *)v16;
+			unpackedPixels[2]=(BYTE)((((packedPixel & FI16_565_RED_MASK) >> FI16_565_RED_SHIFT) * 0xFF) / 0x1F);
+			unpackedPixels[1]=(BYTE)((((packedPixel & FI16_565_GREEN_MASK) >> FI16_565_GREEN_SHIFT) * 0xFF) / 0x3F);
+			unpackedPixels[0]= (BYTE)((((packedPixel & FI16_565_BLUE_MASK) >> FI16_565_BLUE_SHIFT) * 0xFF) / 0x1F);
+			unpackedPixels[3]=  0xFF;
+			*(_DWORD *)v15=*(DWORD*)&unpackedPixels[0];
+		 
+             //   *(_DWORD *)v15 = *(_WORD *)v16;
+                v15 += 4;
                 v16 += 2;
               }
-              while ( v17 < v23 );
+              while ( v17 < v21.dwWidth );
             }
             ++a3;
-            v15 += 2 * ((v24 >> 1) - v23);
+            v15 += 4 * ((v21.dwLinearSize >> 2) -  v21.dwWidth);
             v14 = a3;
           }
-          while ( a3 < (unsigned int)v22 );
+          while ( a3 < (unsigned int)v21.dwHeight );
         }
-        v18 = (*(int (__fastcall **)(int, int, int, _DWORD))(*(_DWORD *)v11 + 128))(v16, v14, v11, 0);
-        v13 = (int)CheckHRESULT((void **)&a3, v18, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0xAD5u, 0);
+       // v18 = (*(int (__fastcall **)(char*, int, IDirectDrawSurface4 *, _DWORD))(*(_DWORD *)v11 + 128))(v16, v14, v11, 0);
+		 v18 = v11->Unlock(0);
+		// v18 = v11->UpdateOverlay(v16,v11,0)
+     //   v13 = (int)CheckHRESULT((void **)&a3, v18, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0xAD5u, 0);
       }
     }
-    /*v19 = */operator_delete((void *)*((_DWORD *)v8 + 14));
+	free(v8->pPixels);
+    /*v19 = *///operator_delete((void *)*((_DWORD *)v8 + 14));
     operator_delete(v8);
     result = 1;
   }

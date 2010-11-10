@@ -3196,9 +3196,8 @@ int CanPlaceItemInInventory(struct Player *_this, signed int a2, int a3)
  v5 = LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilename);
  #endif
 #ifdef OLD_CODE
- char pFilename[256];
- wsprintf(pFilename, "%S", pClass40->pItems[a3].pIconName);
- v5 = LODFile_Icons_LOD.LODFile_LoadTexture( pFilename,0);
+ 
+ v5 = LODFile_Icons_LOD.LODFile_LoadTexture((const char*) pClass40->pItems[a3].pIconName,2);
  #endif
  v4 = &LODFile_Icons_LOD.aLODHeaders[v5];
 

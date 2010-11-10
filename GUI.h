@@ -191,12 +191,12 @@ struct Font *__cdecl LoadFont(const char *pFontFile, const char *pFontPalette);
 
 
 extern unsigned int uTextureID_CurrentMenu;
-extern class cPCXTexture  cPCXIID_CurrentMenu;
+extern class cPCXTexture  cPCXID_CurrentMenu;
 
 void LoadMainMenu();
 
 extern unsigned int uTextureID_MainMenuUI_Title;
-
+extern class cPCXTexture  cPCXID_GameUI_StatusBar;
 
 
 void MenuUI_LoadTextures(unsigned int uPartyAlignment);
