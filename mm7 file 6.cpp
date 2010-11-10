@@ -11214,12 +11214,12 @@ signed int __thiscall Render_sub_4A4DE1(BaseRender* _this, unsigned char* a2, in
   char v26[24]; // [sp+E8h] [bp-1Ch]@13
 
   int v27; // [sp+100h] [bp-4h]@12
-  #define FI16_565_RED_MASK		0xF800
-#define FI16_565_GREEN_MASK		0x07E0
-#define FI16_565_BLUE_MASK		0x001F
-#define FI16_565_RED_SHIFT		11
-#define FI16_565_GREEN_SHIFT	5
-#define FI16_565_BLUE_SHIFT		0
+  #define FI16_555_RED_MASK		0x7C00
+#define FI16_555_GREEN_MASK		0x03E0
+#define FI16_555_BLUE_MASK		0x001F
+#define FI16_555_RED_SHIFT		10
+#define FI16_555_GREEN_SHIFT	5
+#define FI16_555_BLUE_SHIFT		0
 
   v6 = a2;
   v7 = (int)_this;
@@ -11312,9 +11312,9 @@ signed int __thiscall Render_sub_4A4DE1(BaseRender* _this, unsigned char* a2, in
                 ++v17;
 	
 			packedPixel=*(_WORD *)v16;
-			unpackedPixels[2]=(BYTE)((((packedPixel & FI16_565_RED_MASK) >> FI16_565_RED_SHIFT) * 0xFF) / 0x1F);
-			unpackedPixels[1]=(BYTE)((((packedPixel & FI16_565_GREEN_MASK) >> FI16_565_GREEN_SHIFT) * 0xFF) / 0x3F);
-			unpackedPixels[0]= (BYTE)((((packedPixel & FI16_565_BLUE_MASK) >> FI16_565_BLUE_SHIFT) * 0xFF) / 0x1F);
+			unpackedPixels[2]=(BYTE)((((packedPixel & FI16_555_RED_MASK) >> FI16_555_RED_SHIFT) * 0xFF) / 0x1F);
+			unpackedPixels[1]=(BYTE)((((packedPixel & FI16_555_GREEN_MASK) >> FI16_555_GREEN_SHIFT) * 0xFF) / 0x1F);
+			unpackedPixels[0]= (BYTE)((((packedPixel & FI16_555_BLUE_MASK) >> FI16_555_BLUE_SHIFT) * 0xFF) / 0x1F);
 			unpackedPixels[3]=  0xFF;
 			*(_DWORD *)v15=*(DWORD*)&unpackedPixels[0];
 		 
