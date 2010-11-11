@@ -661,7 +661,7 @@ void *LODFile_IB::LODFile_LoadRaw( const char *pContainer, int a3)
 
 
 
-//----- (MM7.exe::0040FC08) --------------------------------------------------------
+//----- (MM7.exe::0040FC08) -----------.text:0040FF01 ---------------------------------------------
 int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerName, unsigned int uTextureType)
 {
  
@@ -703,15 +703,15 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 		  tmp_palette[0] = 'h';
 		  tmp_palette[1] = 0;
 		  strcpy((char *)tmp_palette+1, (const char *) pContainerName);
-		/* 
+		
 		  result = Render_sub_4A4DE1(
-			  (int)pD3DRenderer,
-			  (int)tmp_palette,
+			  pD3DRenderer,
+			  (unsigned char*)tmp_palette,
 			  pcTexture->word_000024,
-			  (int)pHardwareSurfaces[uNumLoadedFiles],
-			  (int)pHardwareTextures[uNumLoadedFiles]);
-			*/
-		   result=1;
+			  &pHardwareSurfaces[uNumLoadedFiles],
+			  &pHardwareTextures[uNumLoadedFiles]);
+			
+		   
 		  free( tmp_palette);
 		  }
 	  else
@@ -725,7 +725,7 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 			  {
 			  dword_EF5294 = uNumLoadedFiles;
 			  }
-	 // 	crashes
+	 
 		  result = Render_sub_4A4DE1(
 			  pD3DRenderer,
 			  (unsigned char*)pContainerName,
@@ -733,7 +733,7 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 			  &pHardwareSurfaces[uNumLoadedFiles],
 			  &pHardwareTextures[uNumLoadedFiles]);
 		 
-		  result=1;
+		 
 		  }
 	  return result;
 	  }
@@ -895,8 +895,8 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
   case 12:  pcTexture->word_000022 = 4095; break;
 	  }
 
-  Render_MoveToGPU(pD3DRenderer, pcTexture->uTextureWidth, pcTexture->uTextureHeight,  aLODHeaders[ uNumLoadedFiles].pTruecolorPixels,
-	  &pHardwareSurfaces[ uNumLoadedFiles], & pHardwareTextures[ uNumLoadedFiles]);
+//  Render_MoveToGPU(pD3DRenderer, pcTexture->uTextureWidth, pcTexture->uTextureHeight,  aLODHeaders[ uNumLoadedFiles].pTruecolorPixels,
+//	  &pHardwareSurfaces[ uNumLoadedFiles], & pHardwareTextures[ uNumLoadedFiles]);
   return 1;
 }
 
@@ -1323,7 +1323,7 @@ int LODFile_IB::LODFile_LoadTexture( const char *pContainerName, unsigned int a3
 				  return i; 	 
 			  }
 		  if (i=uNumLoadedFiles)
-			  LoadTextureFromLOD( &aLODHeaders[ uNumLoadedFiles], "pending", a3);
+			  LoadTextureFromLOD( &aLODHeaders[uNumLoadedFiles], "pending", a3);
 		  }
 	  }
 

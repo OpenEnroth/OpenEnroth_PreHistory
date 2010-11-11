@@ -5,6 +5,8 @@
 #include "mm7_unparsed_functions.h"
 
 
+
+
 RenderDirect3D3::RenderDirect3D3():
   BaseRender()
 {
@@ -583,31 +585,135 @@ unsigned int RenderD3D3_GetDeviceCaps(struct RenderD3D3 *_this)
 
 
 
-//----- (0049E5D4) --------------------------------------------------------
+//----- (0049E5D4) ------------.text:004A02B4 --------------------------------------------
 bool RenderD3D3_CreateTexture(struct RenderD3D3 *_this, unsigned int uTextureWidth, unsigned int uTextureHeight, 
-	                       IDirectDrawSurface4 **pOutSurface, IDirect3DTexture2 **pOutTexture, bool bAlphaChannel, bool a7, void *a8)
+	                       IDirectDrawSurface4 **pOutSurface, IDirect3DTexture2 **pOutTexture, bool bAlphaChannel, bool bGot_mipm, int uMinDeviceTDim)
 {
-  int v8; // edx@4
+  unsigned int uMipMaps_count; // edx@4
   int v9; // edx@5
   int v10; // ebx@5
   int v11; // eax@5
   int v12; // edx@7
 
   DDSURFACEDESC2 ddsd;
-  /*int Dst[0x7C/4]; // [sp+Ch] [bp-80h]@1
-  int v15; // [sp+10h] [bp-7Ch]@1
-  void *v16; // [sp+14h] [bp-78h]@1
-  void *v17; // [sp+18h] [bp-74h]@1
-  int v18; // [sp+24h] [bp-68h]@5
-  int v19; // [sp+54h] [bp-38h]@12
-  int v20; // [sp+58h] [bp-34h]@13
-  int v21; // [sp+60h] [bp-2Ch]@12
-  int v22; // [sp+64h] [bp-28h]@13
-  int v23; // [sp+68h] [bp-24h]@13
-  int v24; // [sp+6Ch] [bp-20h]@12
-  int v25; // [sp+70h] [bp-1Ch]@13
-  int (__stdcall *v26)(int, int, int, int); // [sp+74h] [bp-18h]@1
-  int v27; // [sp+78h] [bp-14h]@1*/
+  /*int Dst; // [sp+Ch] [bp-80h]@1		 DWORD               dwSize;                 // size of the DDSURFACEDESC structure
+  int v15; // [sp+10h] [bp-7Ch]@1		DWORD               dwFlags;                // determines what fields are valid
+  void *v16; // [sp+14h] [bp-78h]@1		 DWORD               dwHeight;               // height of surface to be created
+  void *v17; // [sp+18h] [bp-74h]@1		 DWORD               dwWidth;                // width of input surface
+			// [sp+1Ch]				    DWORD           dwLinearSize;           // Formless late-allocated optimized surface size
+			// [sp+20h]					 DWORD           dwBackBufferCount;      // number of back buffers requested
+  int v18; // [sp+24h] [bp-68h]@5	   	DWORD           dwMipMapCount;          // number of mip-map levels requestde
+		   //	dword[12]			   struct _DDPIXELFORMAT
+  int v19; // [sp+54h] [bp-38h]@12			DWORD       dwFlags;                // pixel format flags
+  int v20; // [sp+58h] [bp-34h]@13			 DWORD       dwFourCC;               // (FOURCC code)
+		   //   [sp+5Ch]
+  int v21; // [sp+60h] [bp-2Ch]@12			 DWORD   dwRBitMask;             // mask for red bit
+  int v22; // [sp+64h] [bp-28h]@13		  DWORD   dwGBitMask;             // mask for green bits
+  int v23; // [sp+68h] [bp-24h]@13		 DWORD   dwBBitMask;             // mask for blue bits
+  int v24; // [sp+6Ch] [bp-20h]@12		  DWORD   dwRGBAlphaBitMask;      // mask for alpha channel
+  int v25; // [sp+70h] [bp-1Ch]@13	struct _DDSCAPS2   DWORD       dwCaps;         // capabilities of surface wanted
+  int v26  // [sp+74h] [bp-18h]@1		  DWORD       dwCaps2;
+  int v27; // [sp+78h] [bp-14h]@1			DWORD       dwCaps3;*/
+/*
+ 0 DWORD               dwSize;                 // size of the DDSURFACEDESC structure
+ 4   DWORD               dwFlags;                // determines what fields are valid
+  8  DWORD               dwHeight;               // height of surface to be created
+  c  DWORD               dwWidth;                // width of input surface
+  10      DWORD           dwLinearSize;           // Formless late-allocated optimized surface size
+ 14       DWORD           dwBackBufferCount;      // number of back buffers requested
+ 18       DWORD           dwMipMapCount;          // number of mip-map levels requestde
+                                                // dwZBufferBitDepth removed, use ddpfPixelFormat one instead
+   
+1c    DWORD               dwAlphaBitDepth;        // depth of alpha buffer requested
+20    DWORD               dwReserved;             // reserved
+24    LPVOID              lpSurface;              // pointer to the associated surface memory
+  
+        DDCOLORKEY      ddckCKDestOverlay;      // color key for destination overlay use
+   			 typedef struct _DDCOLORKEY
+    {
+ 28   DWORD       dwColorSpaceLowValue;   // low boundary of color space that is to
+                                        // be treated as Color Key, inclusive
+ 2c   DWORD       dwColorSpaceHighValue;  // high boundary of color space that is
+                                        // to be treated as Color Key, inclusive
+           } DDCOLORKEY;
+30,34    DDCOLORKEY          ddckCKDestBlt;          // color key for destination blt use
+38 3c   DDCOLORKEY          ddckCKSrcOverlay;       // color key for source overlay use
+40, 44    DDCOLORKEY          ddckCKSrcBlt;           // color key for source blt use
+  
+        DDPIXELFORMAT   ddpfPixelFormat;        // pixel format description of the surface
+		typedef struct _DDPIXELFORMAT
+{
+  48  DWORD       dwSize;                 // size of structure
+  4c  DWORD       dwFlags;                // pixel format flags
+  50  DWORD       dwFourCC;               // (FOURCC code)
+    union
+    {
+  54      DWORD   dwRGBBitCount;          // how many bits per pixel
+        DWORD   dwYUVBitCount;          // how many bits per pixel
+        DWORD   dwZBufferBitDepth;      // how many total bits/pixel in z buffer (including any stencil bits)
+        DWORD   dwAlphaBitDepth;        // how many bits for alpha channels
+        DWORD   dwLuminanceBitCount;    // how many bits per pixel
+        DWORD   dwBumpBitCount;         // how many bits per "buxel", total
+        DWORD   dwPrivateFormatBitCount;// Bits per pixel of private driver formats. Only valid in texture
+                                        // format list and if DDPF_D3DFORMAT is set
+    } DUMMYUNIONNAMEN(1);
+    union
+    {
+  58      DWORD   dwRBitMask;             // mask for red bit
+        DWORD   dwYBitMask;             // mask for Y bits
+        DWORD   dwStencilBitDepth;      // how many stencil bits (note: dwZBufferBitDepth-dwStencilBitDepth is total Z-only bits)
+        DWORD   dwLuminanceBitMask;     // mask for luminance bits
+        DWORD   dwBumpDuBitMask;        // mask for bump map U delta bits
+        DWORD   dwOperations;           // DDPF_D3DFORMAT Operations
+    } DUMMYUNIONNAMEN(2);
+    union
+    {
+ 5c       DWORD   dwGBitMask;             // mask for green bits
+        DWORD   dwUBitMask;             // mask for U bits
+        DWORD   dwZBitMask;             // mask for Z bits
+        DWORD   dwBumpDvBitMask;        // mask for bump map V delta bits
+        struct
+        {
+            WORD    wFlipMSTypes;       // Multisample methods supported via flip for this D3DFORMAT
+            WORD    wBltMSTypes;        // Multisample methods supported via blt for this D3DFORMAT
+        } MultiSampleCaps;
+
+    } DUMMYUNIONNAMEN(3);
+    union
+    {
+ 60       DWORD   dwBBitMask;             // mask for blue bits
+        DWORD   dwVBitMask;             // mask for V bits
+        DWORD   dwStencilBitMask;       // mask for stencil bits
+        DWORD   dwBumpLuminanceBitMask; // mask for luminance in bump map
+    } DUMMYUNIONNAMEN(4);
+    union
+    {
+64        DWORD   dwRGBAlphaBitMask;      // mask for alpha channel
+        DWORD   dwYUVAlphaBitMask;      // mask for alpha channel
+        DWORD   dwLuminanceAlphaBitMask;// mask for alpha channel
+        DWORD   dwRGBZBitMask;          // mask for Z channel
+        DWORD   dwYUVZBitMask;          // mask for Z channel
+    } DUMMYUNIONNAMEN(5);
+} DDPIXELFORMAT;
+
+    
+    DDSCAPS2            ddsCaps;                // direct draw surface capabilities
+
+
+typedef struct _DDSCAPS2
+{
+ 68   DWORD       dwCaps;         // capabilities of surface wanted
+ 6c   DWORD       dwCaps2;
+ 70   DWORD       dwCaps3;
+    union
+    {
+ 74       DWORD       dwCaps4;
+        DWORD       dwVolumeDepth;
+    } DUMMYUNIONNAMEN(1);
+} DDSCAPS2;
+
+78    DWORD               dwTextureStage;         // stage in multitexture cascade
+} DDSURFACEDESC2;  */
 
  memset(&ddsd, 0, sizeof(DDSURFACEDESC2));
  ddsd.dwSize = sizeof(DDSURFACEDESC2);
@@ -616,43 +722,46 @@ bool RenderD3D3_CreateTexture(struct RenderD3D3 *_this, unsigned int uTextureWid
  ddsd.dwHeight = uTextureHeight;
  ddsd.ddsCaps.dwCaps = DDSCAPS_TEXTURE;
  ddsd.ddsCaps.dwCaps2 = DDSCAPS2_TEXTUREMANAGE;
-  /*  if ( a7 )
-  {
-  if ( (signed int)uTextureHeight <= (signed int)uTextureWidth )
-    {
-      sub_49D700((void *)uTextureHeight);
-      v8 = v12 - sub_49D700(a8);
-LABEL_8:
-      ddsd.dwMipMapCount = v8;
-      if ( !v8 )
-        goto LABEL_12;
-      goto LABEL_11;
-    }
-    if ( (signed int)uTextureWidth < (signed int)a8 )
-    {
-      v8 = sub_49D700(a8);
-      goto LABEL_8;
-    }
-    v10 = sub_49D700((void *)uTextureWidth);
-    v11 = sub_49D700(a8);
-    ddsd.dwMipMapCount = v10 - v11;
-    if ( v10 == v11 )
-    {
-      ddsd.dwFlags = DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT | DDSD_PIXELFORMAT;
-      ddsd.ddsCaps.dwCaps = v9;
-      goto LABEL_12;
-    }
-  }
-  else
-  {	  */
-    ddsd.dwMipMapCount = 1;
- // }
+ if ( !bGot_mipm )
+	 {
+	 ddsd.dwFlags = DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT | DDSD_PIXELFORMAT | DDSD_MIPMAPCOUNT;
+	 ddsd.ddsCaps.dwCaps = DDSCAPS_TEXTURE | DDSCAPS_COMPLEX | DDSCAPS_MIPMAP;
+	 ddsd.dwMipMapCount = 1;
+	 }
+ else
+	 {
+	 if ( uTextureHeight > uTextureWidth )
+		 {
+		 if ( uTextureWidth >= uMinDeviceTDim )
+			 uMipMaps_count=GetMaxBits(uTextureWidth)-GetMaxBits(uMinDeviceTDim);
+		 else
+			 uMipMaps_count=GetMaxBits(uMinDeviceTDim);   
+		 ddsd.dwMipMapCount = uMipMaps_count;
+		 if 	(uMipMaps_count>0)
+			 {
+			 ddsd.ddsCaps.dwCaps|=DDSCAPS_COMPLEX | DDSCAPS_MIPMAP;
+			 ddsd.dwFlags|=DDSD_MIPMAPCOUNT;
+			 }
+		 else
+			 {
+			 ddsd.ddsCaps.dwCaps&=(~DDSCAPS_COMPLEX) | (~DDSCAPS_MIPMAP);
+			 ddsd.dwFlags&=~DDSD_MIPMAPCOUNT;
+			 }
 
-LABEL_11:
-  ddsd.dwFlags = DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT | DDSD_PIXELFORMAT | DDSD_MIPMAPCOUNT;
-  ddsd.ddsCaps.dwCaps = DDSCAPS_TEXTURE | DDSCAPS_COMPLEX | DDSCAPS_MIPMAP;
+		 }
+	 else
+		 {
+		 uMipMaps_count = GetMaxBits(uTextureHeight) - GetMaxBits(uMinDeviceTDim);
+		 ddsd.dwMipMapCount = uMipMaps_count;
+		 if (uMipMaps_count>0)
+			 {
+			 ddsd.ddsCaps.dwCaps|=DDSCAPS_COMPLEX | DDSCAPS_MIPMAP;
+			 ddsd.dwFlags|=DDSD_MIPMAPCOUNT;
+			 }
 
-LABEL_12:
+		 }
+
+	 }
   //ddsd.ddpfPixelFormat.dwRGBBitCount = 16;
   ddsd.ddpfPixelFormat.dwSize = sizeof(DDPIXELFORMAT);
   ddsd.ddpfPixelFormat.dwRGBBitCount = 32;
@@ -1591,4 +1700,21 @@ void Render_DrawTerrainPolygon(struct BaseRender *_this, struct RenderVertex *a2
       }
       if (pOldCamera->dword_00004C & 2 || byte_51B6E4 & 2)
         sub_437A55(pVertices, uNumVertices, 0x00FFFFFF, 0.0);
+}
+
+
+//----- (0049D700) ---------------.text:0049F3B0 -----------------------------------------
+int  GetMaxBits(unsigned int  test)
+{
+  unsigned int v1; // eax@1
+  void *v2; // eax@1
+  int result; // ecx@1
+  test--;
+  result=0;
+  while ( test & 1 )
+  {
+    test >>= 1;
+    ++result;
+  }
+  return result;
 }

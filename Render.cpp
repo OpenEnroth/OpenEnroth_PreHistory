@@ -1,12 +1,13 @@
 #include "defs.h"
 #include "_lod.h"
 #include "c18.h"
+#include "RenderD3D3.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
 #include "data.h"
 
-#include "RenderD3D3.h"
+
 
 
 #pragma comment(lib, "legacy dx\\lib\\ddraw.lib")
@@ -2116,8 +2117,8 @@ bool Render_ValidateTextureStages()
  IDirect3DTexture2 *pTexture1;
  IDirect3DTexture2 *pTexture2;
 
- RenderD3D3_CreateTexture(pD3DRenderer->pRenderD3D3, 64, 64, &pTexture1Surface, &pTexture1, true, false, (void *)0x20);
- RenderD3D3_CreateTexture(pD3DRenderer->pRenderD3D3, 64, 64, &pTexture2Surface, &pTexture2, true, false, (void *)0x20);
+ RenderD3D3_CreateTexture(pD3DRenderer->pRenderD3D3, 64, 64, &pTexture1Surface, &pTexture1, true, false,0x20);
+ RenderD3D3_CreateTexture(pD3DRenderer->pRenderD3D3, 64, 64, &pTexture2Surface, &pTexture2, true, false,0x20);
 
  pD3DRenderer->pRenderD3D3->pDevice->SetTexture(0, pTexture1);
  pD3DRenderer->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ADDRESS, 1);
@@ -2159,7 +2160,7 @@ bool Render_ValidateTextureStages()
 //----- (0049FFD7) --------------------------------------------------------
 bool Render_sub_49FFD7(struct BaseRender *_this)
 {
- return RenderD3D3_CreateTexture(_this->pRenderD3D3, 64, 64, &_this->ptr_1036B0, &_this->ptr_1036B4, true, false, (void *)0x20);
+ return RenderD3D3_CreateTexture(_this->pRenderD3D3, 64, 64, &_this->ptr_1036B0, &_this->ptr_1036B4, true, false, 0x20);
 }
 
 
@@ -2215,6 +2216,212 @@ unsigned int LoadHWL(const wchar_t *pFile, unsigned int *pWidth, unsigned int *p
  return 0;
 };
 
+//----- (004A4DE1) --------.text:004A6BE3 ------------------------------------------------
+signed int __thiscall Render_sub_4A4DE1(BaseRender* _this, unsigned char* a2, int a3,struct IDirectDrawSurface4 **pOutSurface, struct IDirect3DTexture2 **pOutTexture)
+{
+  signed int result; // eax@1
+  unsigned char *v6; // ebx@1
+  int v7; // edi@1
+  Render_HWLBitmap *v8; // esi@1
+  IDirectDrawSurface4 **v9; // ebx@9
+  int v10; // ebx@11
+  IDirectDrawSurface4 *v11; // edi@11
+  IDirectDrawSurface4 *vNext; // edi@11
+  int v12; // eax@14
+  int v13; // eax@17
+  int v14; // edx@18
+  char* v15; // eax@19
+  char* v16; // ecx@19
+  unsigned int v17; // edx@20
+  int v18; // eax@23
+  int v19; // eax@24
+  char Dst; // [sp+Ch] [bp-F8h]@12	class!!!
+  DDSURFACEDESC2 v21; // [sp+6Ch] [bp-98h]@13	DWORD               dwSize;                 // size of the DDSURFACEDESC structure
+	//			 [sp+70h]	    DWORD               dwFlags;                // determines what fields are valid
+  //int v22; // [sp+74h] [bp-90h]@14		  DWORD               dwHeight;               // height of surface to be created
+  //int v23; // [sp+78h] [bp-8Ch]@14	    DWORD               dwWidth;                // width of input surface
+  //int v24; // [sp+7Ch] [bp-88h]@14	     DWORD           dwLinearSize;           // Formless late-allocated optimized surface size
+			//	[sp+80h]					 DWORD           dwBackBufferCount;      // number of back buffers requested
+			//	[sp+84h]				DWORD           dwMipMapCount;          // number of mip-map levels requestde
+			//	[sp+88h]			    DWORD               dwAlphaBitDepth;        // depth of alpha buffer requested
+			//	[sp+8Ch]			   DWORD               dwReserved;             // reserved
+ // int v25; // [sp+90h] [bp-74h]@14	   LPVOID              lpSurface;              // pointer to the associated surface memory
+
+  DDSCAPS2 v26; // [sp+E8h] [bp-1Ch]@13
+  int count;
+   	unsigned short	packedPixel;
+ unsigned char unpackedPixels[4];
+  int v27; // [sp+100h] [bp-4h]@12
+  #define FI16_555_RED_MASK		0x7C00
+#define FI16_555_GREEN_MASK		0x03E0
+#define FI16_555_BLUE_MASK		0x001F
+#define FI16_555_RED_SHIFT		10
+#define FI16_555_GREEN_SHIFT	5
+#define FI16_555_BLUE_SHIFT		0
+
+  v6 = a2;
+  v7 = (int)_this;
+  v8 = Render_LoadHWLTexture((Render_HWLContainer *)(&_this->struct_040114), (unsigned char *)a2, a3);
+  result = 0;
+  if ( v8 )
+  {
+    a3 = *(_BYTE *)v6 == 72		  //H
+      && *(_BYTE *)(v6 + 1) == 68  //D
+      && *(_BYTE *)(v6 + 2) == 87	//W
+      && *(_BYTE *)(v6 + 3) == 84	//T
+      && *(_BYTE *)(v6 + 4) == 82;	//R
+	////
+    v9 = pOutSurface;
+    if ( !RenderD3D3_CreateTexture(
+            (_this->pRenderD3D3),
+             v8->uWidth,
+            v8->uHeight,
+            pOutSurface,
+            pOutTexture,
+            true,
+            a3,
+            _this->uMinDeviceTextureDim))
+      erroneous_printf("HiScreen16::LoadTexture - D3Drend->CreateTexture() failed: %x", 0);
+    v11 = *v9;
+
+    if ( a3 )
+    {
+   // class at dst consdtr sub_450DDE(&Dst);
+
+    //  sub_450DF1(&Dst, &unk_4EFCBC, &unk_4EFCBC);		from class
+      while ( 1 )
+      {
+        memset(&v26, 0, sizeof(DDSCAPS2));
+        v26.dwCaps = DDSCAPS_TEXTURE |  DDSCAPS_MIPMAP;
+        memset(&v21, 0, sizeof(DDSURFACEDESC2));
+        v21.dwSize = 124;
+        if ( LockSurface_DDraw4(v11, &v21, 33) )
+        {
+		//conversion to suface	mip map generation
+        /*  sub_451007(
+            (int)&Dst,
+            (int)v8->pPixels,
+            v8->uWidth,
+            v8->uHeight,
+            v8->uWidth,
+            (int)v21.lpSurface,
+            v21.dwWidth,
+            v21.dwHeight,
+            v21.dwLinearSize >> 1,
+            0,
+            0);	*/
+		 count=0;
+		   v16 = (char*)v8->pPixels;
+        v15 = (char*)v21.lpSurface;
+        if ( v21.dwHeight )
+        {
+          do
+          {
+            v17 = 0;
+            if ( v21.dwWidth )
+            {
+              do
+              {
+                ++v17;
+			 
+			packedPixel=*(_WORD *)v16;
+			unpackedPixels[2]=(BYTE)((((packedPixel & FI16_555_RED_MASK) >> FI16_555_RED_SHIFT) * 0xFF) / 0x1F);
+			unpackedPixels[1]=(BYTE)((((packedPixel & FI16_555_GREEN_MASK) >> FI16_555_GREEN_SHIFT) * 0xFF) / 0x1F);
+			unpackedPixels[0]= (BYTE)((((packedPixel & FI16_555_BLUE_MASK) >> FI16_555_BLUE_SHIFT) * 0xFF) / 0x1F);
+			if (packedPixel&0x8000)
+			    unpackedPixels[3]=  0xFF;
+			else
+				 unpackedPixels[3]=  0x00;
+			*(_DWORD *)v15=*(DWORD*)&unpackedPixels[0];
+		 
+           
+                v15 += 4;
+                v16 += 2;
+              }
+              while ( v17 < v21.dwWidth );
+            }
+            ++count;
+            v15 += 4 * ((v21.dwLinearSize >> 2) -  v21.dwWidth);
+           // v14 = a3;
+          }
+          while ( count < (unsigned int)v21.dwHeight );
+        }
+      
+          v12  = v11->Unlock(0);
+          CheckHRESULT((void **)&a3, v12, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0xAADu, 0);
+         // a3 = 5080748;
+        }
+		if (v11->GetAttachedSurface(&v26,&vNext))
+         
+          break;
+        v11 = vNext;
+      
+      }
+     
+    }
+    else
+    {
+      memset(&v26, 0, sizeof(DDSCAPS2));
+      v26.dwCaps = DDSCAPS_TEXTURE |  DDSCAPS_MIPMAP;
+      memset(&v21, 0, sizeof(DDSURFACEDESC2));
+      v21.dwSize = 124;
+      if ( LockSurface_DDraw4(v11, &v21, 33) )
+      {
+        count = 0;
+
+        v16 = (char*)v8->pPixels;
+        v15 = (char*)v21.lpSurface;
+        if ( v21.dwHeight )
+        {
+          do
+          {
+            v17 = 0;
+            if ( v21.dwWidth )
+            {
+              do
+              {
+                ++v17;
+			 
+			packedPixel=*(_WORD *)v16;
+			unpackedPixels[2]=(BYTE)((((packedPixel & FI16_555_RED_MASK) >> FI16_555_RED_SHIFT) * 0xFF) / 0x1F);
+			unpackedPixels[1]=(BYTE)((((packedPixel & FI16_555_GREEN_MASK) >> FI16_555_GREEN_SHIFT) * 0xFF) / 0x1F);
+			unpackedPixels[0]= (BYTE)((((packedPixel & FI16_555_BLUE_MASK) >> FI16_555_BLUE_SHIFT) * 0xFF) / 0x1F);
+			if (packedPixel&0x8000)
+			    unpackedPixels[3]=  0xFF;
+			else
+				 unpackedPixels[3]=  0x00;
+			*(_DWORD *)v15=*(DWORD*)&unpackedPixels[0];
+		 
+           
+                v15 += 4;
+                v16 += 2;
+              }
+              while ( v17 < v21.dwWidth );
+            }
+            ++count;
+            v15 += 4 * ((v21.dwLinearSize >> 2) -  v21.dwWidth);
+            //v14 = a3;
+          }
+          while ( count < (unsigned int)v21.dwHeight );
+        }
+      
+		 v18 = v11->Unlock(0);
+         v13 = (int)CheckHRESULT((void **)&a3, v18, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0xAD5u, 0);
+      }
+    }
+	free(v8->pPixels);
+   
+    operator_delete(v8);
+    result = 1;
+  }
+  return result;
+}
+
+
+
+
+
+
 unsigned int Render_MoveToGPU(struct BaseRender *_this, unsigned int uWidth, unsigned int uHeight, unsigned int *pData, struct IDirectDrawSurface4 **pOutSurface, struct IDirect3DTexture2 **pOutTexture)
 {
  DDSURFACEDESC2 ddsd;
@@ -2226,7 +2433,7 @@ unsigned int Render_MoveToGPU(struct BaseRender *_this, unsigned int uWidth, uns
   *pOutTexture = 0;
   return 0;
  }
- if (!RenderD3D3_CreateTexture(_this->pRenderD3D3, uWidth, uHeight, pOutSurface, pOutTexture, true, 0, (void *)_this->uMinDeviceTextureDim))
+ if (!RenderD3D3_CreateTexture(_this->pRenderD3D3, uWidth, uHeight, pOutSurface, pOutTexture, true, false, _this->uMinDeviceTextureDim))
  {
   *pOutSurface = 0;
   *pOutTexture = 0;
@@ -2281,7 +2488,7 @@ bool Render_MoveHWSpriteToVideoMemory(struct BaseRender *_this, struct HardwareS
  pSprite->dword_000020 = result->dword_000020;
  pSprite->dword_000024 = result->dword_000024;
 
- if (!RenderD3D3_CreateTexture(_this->pRenderD3D3, result->uWidth, result->uHeight, &pSprite->pTextureSurface, &pSprite->pTexture, true, 0, (void *)_this->uMinDeviceTextureDim))
+ if (!RenderD3D3_CreateTexture(_this->pRenderD3D3, result->uWidth, result->uHeight, &pSprite->pTextureSurface, &pSprite->pTexture, true, false, _this->uMinDeviceTextureDim))
    erroneous_printf("HiScreen16::LoadTexture - D3Drend->CreateTexture() failed: %x", 0);
 
  memset(&ddsd, 0, sizeof(DDSURFACEDESC2));

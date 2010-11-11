@@ -1073,7 +1073,7 @@ char __stdcall sub_49C8DC(int a1, int a2, int a3);
 char __thiscall sub_49C9E3(void *_this, int a2, int a3, int a4, int a5);
 void __stdcall sub_49CE9E(int a1, int a2, signed int a3, int a4);
 signed int __stdcall sub_49D379(int a1, int a2);
-int __thiscall sub_49D700(void *_this);
+
 int __thiscall sub_49DC90(int _this);
 bool __thiscall sub_49E756(IDirectDraw4 *pdd4);
 int __thiscall sub_49EB79(int _this);

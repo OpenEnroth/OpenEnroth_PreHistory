@@ -11973,11 +11973,11 @@ LABEL_76:
           if (v8->word_000030 & 0x0002)
           {
 		  //water blok render - crushes
-           /* if (v8->word_000030 & 0x3C00)
+            if (v8->word_000030 & 0x3C00)
               v39 = uTextureID_WaterTiles[0];
             else
               v39 = uTextureID_WaterTiles[dword_EF5290];
-            v45 = (int)LODFile_Bitmaps_LOD.pHardwareTextures[v39];	*/
+            v45 = (int)LODFile_Bitmaps_LOD.pHardwareTextures[v39];	
 		  v45=0;
           }
           else

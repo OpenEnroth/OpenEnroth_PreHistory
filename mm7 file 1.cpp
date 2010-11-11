@@ -5459,7 +5459,7 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
   class06_sub_4A90A0(pGame->class06_obj);
   for (i = 0; i < 8; ++i)
   {
-#define OLD_CODE
+
   #ifndef OLD_CODE
   wchar_t pWaterTileName[256]; // [sp+10h] [bp-Ch]@9
    wsprintfW(pWaterTileName, L"HDWTR%03u", i);

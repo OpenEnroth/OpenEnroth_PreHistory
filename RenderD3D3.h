@@ -116,14 +116,15 @@ bool RenderD3D3_Initialize(struct RenderD3D3 *_this, unsigned int uDeviceID, uns
 //signed int __thiscall sub_49E444(void *_this)
 unsigned int RenderD3D3_GetDeviceCaps(struct RenderD3D3 *_this);
 //signed int __thiscall sub_49E5D4(void *_this, void *a2, void *a3, int a4, int a5, int a6, int a7, void *a8);
-bool RenderD3D3_CreateTexture(struct RenderD3D3 *_this, unsigned int uTextureWidth, unsigned int uTextureHeight, IDirectDrawSurface4 **pOutSurface, IDirect3DTexture2 **pOutTexture, bool bAlphaChannel, bool a7, void *a8);
+bool RenderD3D3_CreateTexture(struct RenderD3D3 *_this, unsigned int uTextureWidth, unsigned int uTextureHeight, 
+	                       IDirectDrawSurface4 **pOutSurface, IDirect3DTexture2 **pOutTexture, bool bAlphaChannel, bool bGot_mipm, int uMinDeviceTDim);
 HRESULT RenderD3D3_EndScene(struct RenderD3D3 *_this);
 //int __thiscall RenderD3D3_Present(int _this, char a2);
 HRESULT RenderD3D3_Present(struct RenderD3D3 *_this, char a2);
 //int __thiscall sub_49E4FC(int _this, int a2, int a3, int a4, float a5);
 void RenderD3D3_ClearTarget(struct RenderD3D3 *_this, int a2, D3DCOLOR uClearColor, int a4, float a5);
 
-
+int  GetMaxBits(unsigned int  test);
 
 
 

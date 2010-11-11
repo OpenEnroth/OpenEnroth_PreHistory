@@ -5041,7 +5041,7 @@ void __cdecl DeleteFontCChar()
   pFontCChar = 0;
 }
 
-#define OLD_CODE
+
 //----- (0049695A) --------------------------------------------------------
 void __cdecl PlayerCreationUI_Initialize()
 {
