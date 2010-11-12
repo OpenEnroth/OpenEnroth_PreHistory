@@ -733,9 +733,9 @@ typedef struct _DDSCAPS2
 	 if ( uTextureHeight > uTextureWidth )
 		 {
 		 if ( uTextureWidth >= uMinDeviceTDim )
-			 uMipMaps_count=GetMaxBits(uTextureWidth)-GetMaxBits(uMinDeviceTDim);
+			 uMipMaps_count= GetMaxMipLevels(uTextureWidth)- GetMaxMipLevels(uMinDeviceTDim);
 		 else
-			 uMipMaps_count=GetMaxBits(uMinDeviceTDim);   
+			 uMipMaps_count= GetMaxMipLevels(uMinDeviceTDim);   
 		 ddsd.dwMipMapCount = uMipMaps_count;
 		 if 	(uMipMaps_count>0)
 			 {
@@ -751,7 +751,7 @@ typedef struct _DDSCAPS2
 		 }
 	 else
 		 {
-		 uMipMaps_count = GetMaxBits(uTextureHeight) - GetMaxBits(uMinDeviceTDim);
+		 uMipMaps_count =  GetMaxMipLevels(uTextureHeight) -  GetMaxMipLevels(uMinDeviceTDim);
 		 ddsd.dwMipMapCount = uMipMaps_count;
 		 if (uMipMaps_count>0)
 			 {
@@ -1704,7 +1704,7 @@ void Render_DrawTerrainPolygon(struct BaseRender *_this, struct RenderVertex *a2
 
 
 //----- (0049D700) ---------------.text:0049F3B0 -----------------------------------------
-int  GetMaxBits(unsigned int  test)
+int  GetMaxMipLevels(unsigned int  test)
 {
   unsigned int v1; // eax@1
   void *v2; // eax@1

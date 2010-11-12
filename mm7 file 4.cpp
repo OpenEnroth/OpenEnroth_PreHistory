@@ -11483,7 +11483,7 @@ bool class04_sub_45D698(struct class04 *_this, char a2)
 }
 
 //----- (0045D74F) --------------------------------------------------------
-char __thiscall sub_45D74F_MessWithLight(struct class04 *_this, int a2, int a3)
+char __thiscall sub_45D74F_MessWithLight(struct class04 *_this,int a2, int a3)
 {
   char v3; // zf@1
   const char *v4; // eax@2

@@ -2,6 +2,7 @@
 #include "_lod.h"
 #include "c18.h"
 #include "RenderD3D3.h"
+
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
@@ -20,6 +21,12 @@
 #define FI16_565_RED_SHIFT		11
 #define FI16_565_GREEN_SHIFT	5
 #define FI16_565_BLUE_SHIFT		0
+
+
+
+static void scale_image_bicubic(unsigned char *dst, int dw, int dh,
+                                unsigned char *src, int sw, int sh,
+                                int bpp);
 
 //----- (MM7exe::00452347) --------------------------------------------------------
 void Render_HWLContainer_ctor(struct Render_HWLContainer *_this)
@@ -223,13 +230,6 @@ LABEL_11:
         this->bUsingSpecular = false;
       }
     }
-
-
-
-
-
-
-
 
  return v1;
 }
@@ -588,24 +588,6 @@ void Render_DrawIndexedTexture(struct BaseRender *_this, unsigned int uX, unsign
 
 
  pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
-#ifdef OLD_CODE
- //new unpack paletted texture code
- if	(!pTexture->pTruecolorPixels)
-	 {
-	 if (!pTexture->pPalette)
-		 return;
-	  pTexture->pTruecolorPixels=(unsigned int*) malloc(pTexture->uTextureWidth*pTexture->uTextureHeight*4);
-	  for(i=0;i<pTexture->uTextureWidth*pTexture->uTextureHeight; i++)
-		  {
-			packedPixel=pTexture->pPalette[pTexture->pIndexedPixels[i]];
-			unpackedPixels[2]=(BYTE)((((packedPixel & FI16_565_RED_MASK) >> FI16_565_RED_SHIFT) * 0xFF) / 0x1F);
-			unpackedPixels[1]=(BYTE)((((packedPixel & FI16_565_GREEN_MASK) >> FI16_565_GREEN_SHIFT) * 0xFF) / 0x3F);
-			unpackedPixels[0]= (BYTE)((((packedPixel & FI16_565_BLUE_MASK) >> FI16_565_BLUE_SHIFT) * 0xFF) / 0x1F);
-			unpackedPixels[3]=  0xFF;
-			pTexture->pTruecolorPixels[i]=*(DWORD*)&unpackedPixels[0];
-		  }
-	 }
-#endif
 
  for (y = 0; y < pTexture->uTextureHeight; ++y)
  {
@@ -687,48 +669,12 @@ void Render_DrawTransparentTexture(struct BaseRender *_this, unsigned int uX, un
  unsigned int  uSrcColor,
                uDstColor,
                uAlpha;
- #ifdef OLD_CODE
-  unsigned short	packedPixel;
- unsigned char unpackedPixels[4];
- FILE *f;
-#endif
+
  if (!_this->bSceneBegun || !pTexture)
    return;
 
  pSurfacePtr = (unsigned int *)(_this->pTargetSurface);
-#ifdef OLD_CODE
- //new unpack paletted texture code
- if	(!pTexture->pTruecolorPixels)
-	 {
-	 
-	  pTexture->pTruecolorPixels=(unsigned int*) malloc(pTexture->uTextureWidth*pTexture->uTextureHeight*4);
-	  if (!pTexture->pPalette)
-			return;
-		 
-	  for(i=0;i<pTexture->uTextureWidth*pTexture->uTextureHeight; i++)
-		  {
-		   if ( pTexture->pIndexedPixels[i]==0)
-				 *(unsigned int*)&unpackedPixels[0]=0;
-		   else
-			   {
-			packedPixel=pTexture->pPalette[pTexture->pIndexedPixels[i]];
-			unpackedPixels[2]=(BYTE)((((packedPixel & FI16_565_RED_MASK) >> FI16_565_RED_SHIFT) * 0xFF) / 0x1F);
-			unpackedPixels[1]=(BYTE)((((packedPixel & FI16_565_GREEN_MASK) >> FI16_565_GREEN_SHIFT) * 0xFF) / 0x3F);
-			unpackedPixels[0]= (BYTE)((((packedPixel & FI16_565_BLUE_MASK) >> FI16_565_BLUE_SHIFT) * 0xFF) / 0x1F);
-			unpackedPixels[3]=  0xFF;
-			   }
-			pTexture->pTruecolorPixels[i]=*(unsigned int*)&unpackedPixels[0];
-		  }
-	  /*
-	    	f=fopen(pTexture->sContainerName,"wb");
-		if(f)
-			{
-			fwrite(pTexture->pIndexedPixels,1,pTexture->uTextureSize, f);
-			fclose(f);
-			}	*/
-	
-	 }
-#endif
+
 
  for (y = 0; y < pTexture->uTextureHeight; ++y)
  {
@@ -2248,7 +2194,7 @@ signed int __thiscall Render_sub_4A4DE1(BaseRender* _this, unsigned char* a2, in
  // int v25; // [sp+90h] [bp-74h]@14	   LPVOID              lpSurface;              // pointer to the associated surface memory
 
   DDSCAPS2 v26; // [sp+E8h] [bp-1Ch]@13
-  int count;
+  FILE *f;
    	unsigned short	packedPixel;
  unsigned char unpackedPixels[4];
   int v27; // [sp+100h] [bp-4h]@12
@@ -2258,18 +2204,34 @@ signed int __thiscall Render_sub_4A4DE1(BaseRender* _this, unsigned char* a2, in
 #define FI16_555_RED_SHIFT		10
 #define FI16_555_GREEN_SHIFT	5
 #define FI16_555_BLUE_SHIFT		0
+/*   BITMAPFILEHEADER bmfh;
+bmfh.bfType=19778;
 
+bmfh.bfReserved1=0;
+bmfh.bfReserved2=0;
+bmfh.bfOffBits=54;
+	BITMAPINFO pbmi;
+	memset(&pbmi, 0, sizeof(pbmi));
+	pbmi.bmiHeader.biSize = sizeof(pbmi.bmiHeader);
+	
+	pbmi.bmiHeader.biPlanes = 1;
+	pbmi.bmiHeader.biCompression = BI_RGB;
+	pbmi.bmiHeader.biBitCount = 32;
+	RGBQUAD  bmiColors;
+	memset(&bmiColors, 0, sizeof(bmiColors));
+	pbmi.bmiColors[0] = bmiColors;
+				*/
   v6 = a2;
   v7 = (int)_this;
   v8 = Render_LoadHWLTexture((Render_HWLContainer *)(&_this->struct_040114), (unsigned char *)a2, a3);
   result = 0;
   if ( v8 )
   {
-    a3 = *(_BYTE *)v6 == 72		  //H
-      && *(_BYTE *)(v6 + 1) == 68  //D
-      && *(_BYTE *)(v6 + 2) == 87	//W
-      && *(_BYTE *)(v6 + 3) == 84	//T
-      && *(_BYTE *)(v6 + 4) == 82;	//R
+    a3 = *(_BYTE *)v6 == 'H'		  //HDWTR
+      && *(_BYTE *)(v6 + 1) == 'D'  //D
+      && *(_BYTE *)(v6 + 2) == 'W'	//W
+      && *(_BYTE *)(v6 + 3) == 'T'	//T
+      && *(_BYTE *)(v6 + 4) == 'R';	//R
 	////
     v9 = pOutSurface;
     if ( !RenderD3D3_CreateTexture(
@@ -2283,25 +2245,43 @@ signed int __thiscall Render_sub_4A4DE1(BaseRender* _this, unsigned char* a2, in
             _this->uMinDeviceTextureDim))
       erroneous_printf("HiScreen16::LoadTexture - D3Drend->CreateTexture() failed: %x", 0);
     v11 = *v9;
+	 int temp_w=v8->uWidth;
+    int temp_h=v8->uHeight;
+	/*char fname[16];
 
+	 bmfh.bfSize=v8->uWidth*v8->uHeight*4+sizeof( BITMAPFILEHEADER)+sizeof(BITMAPINFO);
+	 pbmi.bmiHeader.biWidth =v8->uWidth;
+	pbmi.bmiHeader.biHeight =v8->uHeight;
+	sprintf(fname,"%s.bmp",a2);
+      	  f=fopen(fname,"wb");
+		  if (f)
+			  {
+			  fwrite((unsigned char*)&bmfh,sizeof( BITMAPFILEHEADER),1,f);
+			   fwrite((unsigned char*)&pbmi,sizeof(BITMAPINFO),1,f);
+			  fwrite((unsigned char*)v8->pTruecolorPixels,4,temp_w*temp_h,f);
+			  fclose(f);
+			  }	 */
     if ( a3 )
     {
    // class at dst consdtr sub_450DDE(&Dst);
-
+	 
     //  sub_450DF1(&Dst, &unk_4EFCBC, &unk_4EFCBC);		from class
+
+	
       while ( 1 )
       {
         memset(&v26, 0, sizeof(DDSCAPS2));
         v26.dwCaps = DDSCAPS_TEXTURE |  DDSCAPS_MIPMAP;
         memset(&v21, 0, sizeof(DDSURFACEDESC2));
         v21.dwSize = 124;
+		
         if ( LockSurface_DDraw4(v11, &v21, 33) )
         {
 		//conversion to suface	mip map generation
         /*  sub_451007(
             (int)&Dst,
             (int)v8->pPixels,
-            v8->uWidth,
+            ,
             v8->uHeight,
             v8->uWidth,
             (int)v21.lpSurface,
@@ -2310,45 +2290,13 @@ signed int __thiscall Render_sub_4A4DE1(BaseRender* _this, unsigned char* a2, in
             v21.dwLinearSize >> 1,
             0,
             0);	*/
-		 count=0;
-		   v16 = (char*)v8->pPixels;
-        v15 = (char*)v21.lpSurface;
-        if ( v21.dwHeight )
-        {
-          do
-          {
-            v17 = 0;
-            if ( v21.dwWidth )
-            {
-              do
-              {
-                ++v17;
-			 
-			packedPixel=*(_WORD *)v16;
-			unpackedPixels[2]=(BYTE)((((packedPixel & FI16_555_RED_MASK) >> FI16_555_RED_SHIFT) * 0xFF) / 0x1F);
-			unpackedPixels[1]=(BYTE)((((packedPixel & FI16_555_GREEN_MASK) >> FI16_555_GREEN_SHIFT) * 0xFF) / 0x1F);
-			unpackedPixels[0]= (BYTE)((((packedPixel & FI16_555_BLUE_MASK) >> FI16_555_BLUE_SHIFT) * 0xFF) / 0x1F);
-			if (packedPixel&0x8000)
-			    unpackedPixels[3]=  0xFF;
-			else
-				 unpackedPixels[3]=  0x00;
-			*(_DWORD *)v15=*(DWORD*)&unpackedPixels[0];
 		 
-           
-                v15 += 4;
-                v16 += 2;
-              }
-              while ( v17 < v21.dwWidth );
-            }
-            ++count;
-            v15 += 4 * ((v21.dwLinearSize >> 2) -  v21.dwWidth);
-           // v14 = a3;
-          }
-          while ( count < (unsigned int)v21.dwHeight );
-        }
-      
+	
+		  scale_image_bicubic((unsigned char*)v21.lpSurface,temp_w ,temp_h ,(unsigned char*)v8->pTruecolorPixels,v8->uWidth,v8->uHeight,4);
+		  temp_w=temp_w>>1;
+		  temp_h=temp_h>>1;	  
           v12  = v11->Unlock(0);
-          CheckHRESULT((void **)&a3, v12, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0xAADu, 0);
+          CheckHRESULT((void **)&vNext, v12, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0xAADu, 0);
          // a3 = 5080748;
         }
 		if (v11->GetAttachedSurface(&v26,&vNext))
@@ -2367,51 +2315,15 @@ signed int __thiscall Render_sub_4A4DE1(BaseRender* _this, unsigned char* a2, in
       v21.dwSize = 124;
       if ( LockSurface_DDraw4(v11, &v21, 33) )
       {
-        count = 0;
-
-        v16 = (char*)v8->pPixels;
-        v15 = (char*)v21.lpSurface;
-        if ( v21.dwHeight )
-        {
-          do
-          {
-            v17 = 0;
-            if ( v21.dwWidth )
-            {
-              do
-              {
-                ++v17;
-			 
-			packedPixel=*(_WORD *)v16;
-			unpackedPixels[2]=(BYTE)((((packedPixel & FI16_555_RED_MASK) >> FI16_555_RED_SHIFT) * 0xFF) / 0x1F);
-			unpackedPixels[1]=(BYTE)((((packedPixel & FI16_555_GREEN_MASK) >> FI16_555_GREEN_SHIFT) * 0xFF) / 0x1F);
-			unpackedPixels[0]= (BYTE)((((packedPixel & FI16_555_BLUE_MASK) >> FI16_555_BLUE_SHIFT) * 0xFF) / 0x1F);
-			if (packedPixel&0x8000)
-			    unpackedPixels[3]=  0xFF;
-			else
-				 unpackedPixels[3]=  0x00;
-			*(_DWORD *)v15=*(DWORD*)&unpackedPixels[0];
-		 
-           
-                v15 += 4;
-                v16 += 2;
-              }
-              while ( v17 < v21.dwWidth );
-            }
-            ++count;
-            v15 += 4 * ((v21.dwLinearSize >> 2) -  v21.dwWidth);
-            //v14 = a3;
-          }
-          while ( count < (unsigned int)v21.dwHeight );
-        }
-      
+		memcpy(v21.lpSurface,v8->pTruecolorPixels, v8->uHeight*v8->uWidth*4);
+  
 		 v18 = v11->Unlock(0);
          v13 = (int)CheckHRESULT((void **)&a3, v18, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0xAD5u, 0);
       }
     }
 	free(v8->pPixels);
-   
-    operator_delete(v8);
+   	free(v8->pTruecolorPixels);
+    free(v8);
     result = 1;
   }
   return result;
@@ -2625,7 +2537,7 @@ struct Render_HWLBitmap *Render_LoadHWLTexture(struct Render_HWLContainer *_this
      if (v10->pPixels[i] & 0x8000)
        v10->pTruecolorPixels[i] |= 0xFF000000;
     }
-
+  /*
     if (_this->dword_061A90)
     {
     v9 = (int)((char *)v10 + 40);
@@ -2671,7 +2583,7 @@ struct Render_HWLBitmap *Render_LoadHWLTexture(struct Render_HWLContainer *_this
       }
       operator_delete((void *)*((_DWORD *)v10 + 14));
       *((_DWORD *)v10 + 14) = v28;
-    }
+    }	 */
     return v10;
 }
 
@@ -2984,10 +2896,11 @@ void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, str
               LODWORD(v9) = (int)a4;
             }
           }
-          v19 = (*(int (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56) + 88))(
+		  v19 = pD3DRenderer->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ZWRITEENABLE,0); 
+        /*  v19 = (*(int (__stdcall **)(_DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56) + 88))(
                   *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
                   14,
-                  0);
+                  0);	 */
           CheckHRESULT((void **)&a3, v19, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
 
           v20 = _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ADDRESS, 1);
@@ -2995,27 +2908,30 @@ void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, str
 
           if (pD3DRenderer->bUsingSpecular)
             _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGENABLE, 0);
-
-          v23 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56)
+		  v23 =_this->pRenderD3D3->pDevice->SetTexture(0,0);
+      /*    v23 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56)
                                                                                          + 152))(
                   *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
                   0,
                   0,
                   (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp",
                   543,
-                  0);
-          CheckHRESULT((void **)&a3, v23, v24, v25, v26);
-          v27 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56) + 112))(
+                  0);  */
+
+          CheckHRESULT((void **)&a3, v23, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0, 0);
+		   v23 =_this->pRenderD3D3->pDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, D3DFVF_XYZRHW|D3DFVF_TEX1|D3DFVF_DIFFUSE|D3DFVF_SPECULAR ,pVertices,uNumVertices,D3DDP_DONOTLIGHT );
+     /*     v27 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56) + 112))(
                   *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
                   6,
                   452,
                   (char *)pVertices,
                   uNumVertices,
-                  16);
+                  16);	*/
           CheckHRESULT((void **)&a3, v27, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
-          v55 = *(const char **)(*(_DWORD *)(v6 + 262280) + 56);
-          (*(void (**)(void))(*(_DWORD *)v55 + 88))();
-          sub_45D74F_MessWithLight(pGame->class04_obj, -1, 0);
+        //  v55 = *(const char **)(*(_DWORD *)(v6 + 262280) + 56);
+         // (*(void (**)(void))(*(_DWORD *)v55 + 88))();
+		  _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FORCE_DWORD, 0);
+          sub_45D74F_MessWithLight(pGame->class04_obj,0, 0);
           v22 = uNumVertices;
           if (uNumVertices > 0)
           {
@@ -3029,13 +2945,14 @@ void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, str
             }
             while ( v22 );
           }
-          v29 = **(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56);
+          /*v29 = **(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56);
           v30 = (*(int (__fastcall **)(int, int, _DWORD, _DWORD, int))(v29 + 152))(
                   v29,
                   v21,
                   *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
                   0,
-                  (int)pTexture);
+                  (int)pTexture);	*/
+		  v30 =_this->pRenderD3D3->pDevice->SetTexture(0,pTexture);
           CheckHRESULT((void **)&a3, v30, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
 
           v31 = _this->pRenderD3D3->pDevice->SetTextureStageState(0, D3DTSS_ADDRESS, 1);
@@ -3051,13 +2968,14 @@ void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, str
           CheckHRESULT((void **)&a3, v34, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
           v35 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_DESTBLEND, 3);
           CheckHRESULT((void **)&a3, v35, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
-          v36 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56) + 112))(
+		   v36 =_this->pRenderD3D3->pDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, D3DFVF_XYZRHW|D3DFVF_TEX1|D3DFVF_DIFFUSE|D3DFVF_SPECULAR ,pVertices,uNumVertices,D3DDP_DONOTLIGHT );
+        /*  v36 = (*(int (__stdcall **)(_DWORD, signed int, signed int, _UNKNOWN *, signed int, signed int))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56) + 112))(
                   *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
                   6,
                   452,
                   (char *)pVertices,
                   uNumVertices,
-                  16);
+                  16);	 */
           CheckHRESULT((void **)&a3, v36, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
           if ( pD3DRenderer->bUsingSpecular )
           {
@@ -3077,40 +2995,133 @@ void Render_DrawPolygon(struct BaseRender *_this, unsigned int uNumVertices, str
               }
               while ( v37 );
             }
-            v41 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56)
+			 v42 = _this->pRenderD3D3->pDevice->SetTexture(0x16u,(LPDIRECT3DTEXTURE2)v55);
+           /* v41 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, signed int, _DWORD))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56)
                                                                                            + 152))(
                     *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
                     0,
                     0,
                     (int)"E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp",
                     __LINE__,
-                    0);
-            CheckHRESULT((void **)&a3, v41, v55, 0x16u, 1);
+                    0);	 */
+            CheckHRESULT((void **)&a3, v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
             v42 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SRCBLEND, 6);
             CheckHRESULT((void **)&a3, v42, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
             v43 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_DESTBLEND, 5);
             CheckHRESULT((void **)&a3, v43, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
-            v44 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56)
+			 v44 =_this->pRenderD3D3->pDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, D3DFVF_XYZRHW|D3DFVF_TEX1|D3DFVF_DIFFUSE|D3DFVF_SPECULAR ,
+				    pVertices,uNumVertices,D3DDP_DONOTLIGHT );
+       /*     v44 = (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))(**(_DWORD **)(*(_DWORD *)(v6 + 262280) + 56)
                                                                                        + 112))(
                     *(_DWORD *)(*(_DWORD *)(v6 + 262280) + 56),
                     6,
                     452,
                     (int)pVertices,
                     uNumVertices,
-                    16);
+                    16); */
             CheckHRESULT((void **)0, v44, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
             _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGENABLE, 1);
             v46 = sub_47C370();
             _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGCOLOR, v46 & 0xFFFFFF);
-            v5 = 0;
             _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_FOGTABLEMODE, 0);
           }
           v47 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_SRCBLEND, 2);
-          CheckHRESULT((void **)0, v47, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, v5);
+          CheckHRESULT((void **)0, v47, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
           v48 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_DESTBLEND, 1);
-          CheckHRESULT((void **)0, v48, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, v5);
-          v49 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ALPHABLENDENABLE, v5);
-          CheckHRESULT((void **)0, v49, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, v5);
+          CheckHRESULT((void **)0, v48, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
+          v49 = _this->pRenderD3D3->pDevice->SetRenderState(D3DRENDERSTATE_ALPHABLENDENABLE, 0);
+          CheckHRESULT((void **)0, v49, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__,0);
         }
       }
 }
+
+
+
+ static inline int icerp(int a, int b, int c, int d, int x)
+{
+   int p = (d - c) - (a - b);
+   int q = (a - b) - p;
+   int r = c - a;
+   return((x * (x * (x * p + (q << 7)) + (r << 14)) + (b << 21)) >> 21);
+}
+
+
+
+static void scale_image_bicubic(unsigned char *dst, int dw, int dh,
+                                unsigned char *src, int sw, int sh,
+                                int bpp)
+{
+   int x, y, n, ix, iy, wx, wy, v;
+   int a, b, c, d;
+   int dstride = dw * bpp;
+   unsigned char *s;
+
+
+   
+      for(y = 0; y < dh; ++y)
+      {
+         if(dh > 1)
+         {
+            iy = (((sh - 1) * y) << 7) / (dh - 1);
+            if(y == dh - 1) --iy;
+            wy = iy & 0x7f;
+            iy >>= 7;
+         }
+         else
+            iy = wy = 0;
+        
+         for(x = 0; x < dw; ++x)
+         {
+            if(dw > 1)
+            {
+               ix = (((sw - 1) * x) << 7) / (dw - 1);
+               if(x == dw - 1) --ix;
+               wx = ix & 0x7f;
+               ix >>= 7;
+            }
+            else
+               ix = wx = 0;
+            
+            s = src + ((iy - 1) * sw + (ix - 1)) * bpp;
+             
+            for(n = 0; n < bpp; ++n)
+            {
+              b = icerp(s[(sw + 0) * bpp],
+                         s[(sw + 1) * bpp],
+                         s[(sw + 2) * bpp],
+                         s[(sw + 3) * bpp], wx);
+               if(iy > 0)
+               {
+                  a = icerp(s[      0],
+                            s[    bpp],
+                            s[2 * bpp],
+                            s[3 * bpp], wx);
+               }
+               else
+                  a = b;
+               
+               c = icerp(s[(2 * sw + 0) * bpp],
+                         s[(2 * sw + 1) * bpp],
+                         s[(2 * sw + 2) * bpp],
+                         s[(2 * sw + 3) * bpp], wx);
+               if(iy < dh - 1)
+               {
+                  d = icerp(s[(3 * sw + 0) * bpp],
+                            s[(3 * sw + 1) * bpp],
+                            s[(3 * sw + 2) * bpp],
+                            s[(3 * sw + 3) * bpp], wx);
+               }
+               else
+                  d = c;
+               
+               v = icerp(a, b, c, d, wy);
+               if(v < 0) v = 0;
+               if(v > 255) v = 255;	  
+               dst[(y * dstride) + (x * bpp) + n] = v;
+               ++s;
+            }  
+			//dst[(y * dstride) + (x * bpp) + n+1] = 0xFF;
+         //   ++s;
+         }
+      }
+ }

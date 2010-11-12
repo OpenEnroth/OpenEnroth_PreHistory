@@ -124,7 +124,7 @@ HRESULT RenderD3D3_Present(struct RenderD3D3 *_this, char a2);
 //int __thiscall sub_49E4FC(int _this, int a2, int a3, int a4, float a5);
 void RenderD3D3_ClearTarget(struct RenderD3D3 *_this, int a2, D3DCOLOR uClearColor, int a4, float a5);
 
-int  GetMaxBits(unsigned int  test);
+int   GetMaxMipLevels(unsigned int  test);
 
 
 
