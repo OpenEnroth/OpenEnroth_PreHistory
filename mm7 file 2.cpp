@@ -1,5 +1,5 @@
 #include <ddraw.h>
-#include <dinput.h>
+//#include <dinput.h>
 #include <stdlib.h>
 
 #include "AIL.h"

@@ -1,5 +1,5 @@
 #include <ddraw.h>
-#include <dinput.h>
+//#include <dinput.h>
 
 
 #include "AIL.h"
@@ -6043,8 +6043,13 @@ void __cdecl sub_444FBE_DrawBranchlessDialogueUI()
   Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v1, pcTexture_EndcapTexture);
   v2 = (char *)FitTextInAWindow((char *)byte_5B0938, (Font *)v8, &local_D4, 12, 0);
   FontDrawText(pGUIWindow2, (Font *)v8, 12, 354 - v1, v2, 0, 0, 0);
-
-  Render_DrawRGBTexture_New(pD3DRenderer, 0, 352, uTextureID_GameUI_StatusBar);
+ #ifndef OLD_CODE
+           
+            Render_DrawRGBTexture_New(pD3DRenderer, 0, 352, uTextureID_GameUI_StatusBar);
+#endif
+#ifdef OLD_CODE
+		   Render_DrawRGBTexture(pD3DRenderer, 0, 352, &cPCXID_GameUI_StatusBar);
+#endif
   if (pGUIWindow2->dword_000040 != 1)
   {
     if (pGUIWindow2->dword_000040 == 2)

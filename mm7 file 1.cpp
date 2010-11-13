@@ -1458,11 +1458,11 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
   break;
 
   case 1:
-    uTurnSpeed = 128;
+    uTurnSpeed =16;// 128;
   break;
 
   case 2:
-    uTurnSpeed = 64;
+    uTurnSpeed =8;// 64;
   break;
 
   case 3:

@@ -1,5 +1,5 @@
 #include <ddraw.h>
-#include <dinput.h>
+//#include <dinput.h>
 
 #include "AIL.h"
 
@@ -5746,7 +5746,13 @@ void sub_4B46A5(const char *Str1, __int16 a2)
 
   v3 = Str1;
   v4 = a2;//colored or white text flag
- Render_DrawRGBTexture_New(pD3DRenderer, 0, 352, uTextureID_GameUI_StatusBar);
+ #ifndef OLD_CODE
+           
+            Render_DrawRGBTexture_New(pD3DRenderer, 0, 352, uTextureID_GameUI_StatusBar);
+#endif
+#ifdef OLD_CODE
+		   Render_DrawRGBTexture(pD3DRenderer, 0, 352, &cPCXID_GameUI_StatusBar);
+#endif
   v5 = AlignText_Center(450, v3, pFontLucida);
   FontDrawText(pGUIWindow0, pFontLucida, v5 + 11, 357, v3, 0, 0, 0);
 }
