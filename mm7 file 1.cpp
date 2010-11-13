@@ -93,7 +93,6 @@ __declspec(naked) void loc_47907F(void)
 
 
 
-void Game_Initialize();
 //----- (00 ) --------------------------------------------------------
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {

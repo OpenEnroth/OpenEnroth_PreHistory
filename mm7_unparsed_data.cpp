@@ -867,16 +867,6 @@ struct RenderVertex array_50AC10[50];    // struct[50] @ MM7.exe::0050AC10
  int dword_50BAF8; // weak
 
  struct class24 *pClass24_global = 0;  //struct @ MM7.exe::0050BBE0
-//struct class24 class24_global;
-/* //class24_global
- int dword_50BBE0; // weak
- int dword_50BBE4; // weak
- int dword_50BBE8; // weak
- int dword_50BBEC; // weak
- int dword_50BBFC; // weak
- int dword_50BC00; // weak
- int dword_50BC04; // weak
-*/
  int dword_50BC10[array_size_unknown]; // weak
  int dword_50BDA0[array_size_unknown]; // weak
  int dword_50BF30[array_size_unknown]; // weak
@@ -1181,18 +1171,18 @@ unsigned char pLevelStr[9216];     // byte[9216] @ MM7.exe::005B1120
 unsigned char pLevelEVT[9216];     // byte[9216] @ MM7.exe::005B3520
  int dword_5B5920; // weak
  int dword_5B5924; // weak
- _UNKNOWN unk_5B5928[0xC80]; // weak
- int dword_5B65A8; // weak
- int dword_5B65AC; // weak
- int dword_5B65B0; // weak
- int dword_5B65B4; // weak
- int dword_5B65B8; // weak
- int dword_5B65BC; // weak
- int dword_5B65C0; // weak
- int dword_5B65C4; // weak
- int dword_5B65C8; // weak
- int dword_5B65CC; // weak
- int dword_5B65D0; // weak
+struct unnamed_5B5928 array_5B5928[100];  // struct[100] @ MM7.exe::005B5928
+int dword_5B65A8; // weak
+int dword_5B65AC; // weak
+int dword_5B65B0; // weak
+int dword_5B65B4; // weak
+int dword_5B65B8; // weak
+int dword_5B65BC; // weak
+int dword_5B65C0; // weak
+int dword_5B65C4; // weak
+int dword_5B65C8; // num elements in array_5B5928
+int dword_5B65CC; // weak
+int dword_5B65D0; // weak
 
 struct Event pLevelEVT_Events[4400]; // struct[4400] @ MM7.exe::005B65D8
 //_UNKNOWN unk_5B65D8[0xCE40 + 64*array_size_unknown]; // pLevelEVT_Events[0]::dword_000000

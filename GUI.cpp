@@ -10498,56 +10498,56 @@ void MenuUI_LoadTextures(unsigned int uAlignment)
 
   
 
- uTextureID_GameUI_RightPanel = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[0]);
- uTextureID_GameUI_PartyFrame = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[1]);
- uTextureID_GameUI_ViewportTop = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[2]);
- uTextureID_GameUI_ViewportLeft = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[3]);
- uTextureID_GameUI_StatusBar = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[4]);
+ uTextureID_GameUI_RightPanel = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[0]);
+ uTextureID_GameUI_PartyFrame = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[1]);
+ uTextureID_GameUI_ViewportTop = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[2]);
+ uTextureID_GameUI_ViewportLeft = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[3]);
+ uTextureID_GameUI_StatusBar = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[4]);
 
- dword_506438_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[5]);
+ dword_506438_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[5]);
 
- uTextureID_WindowEdgeTop = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[6]);
- uTextureID_WindowEdgeBottom = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[7]);
- uTextureID_WindowEdgeLeft = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[8]);
- uTextureID_WindowEdgeRight = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[9]);
+ uTextureID_WindowEdgeTop = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[6]);
+ uTextureID_WindowEdgeBottom = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[7]);
+ uTextureID_WindowEdgeLeft = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[8]);
+ uTextureID_WindowEdgeRight = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[9]);
  
- uTextureIdx_CornerUpperLeft = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[10]);
- uTextureIdx_CornerUpperRight = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[11]);
- uTextureIdx_CornerLowerLeft = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[12]);
- uTextureIdx_CornerLowerRight = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[13]);
+ uTextureIdx_CornerUpperLeft = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[10]);
+ uTextureIdx_CornerUpperRight = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[11]);
+ uTextureIdx_CornerLowerLeft = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[12]);
+ uTextureIdx_CornerLowerRight = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[13]);
 
- uTextureIdx_Parchment = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[14]);
+ uTextureIdx_Parchment = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[14]);
 
- uTextureIdx_InventoryBackground = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[15]);
+ uTextureIdx_InventoryBackground = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[15]);
 
- dword_50795C_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[16]);
+ dword_50795C_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[16]);
 
- dword_507960_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[17]);
- dword_507964_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[18]);
- dword_507968_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[19]);
- dword_50796C_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[20]);
+ dword_507960_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[17]);
+ dword_507964_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[18]);
+ dword_507968_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[19]);
+ dword_50796C_TextureID = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[20]);
 
- uTextureIdx_ib_m4d_a = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[21]);
- uTextureIdx_ib_m3d_a = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[22]);
- uTextureIdx_ib_m2d_a = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[23]);
- uTextureIdx_ib_m1d_a = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[24]);
+ uTextureIdx_ib_m4d_a = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[21]);
+ uTextureIdx_ib_m3d_a = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[22]);
+ uTextureIdx_ib_m2d_a = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[23]);
+ uTextureIdx_ib_m1d_a = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[24]);
  
- uTextureIdx_ib_autin_a = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[25]);
- uTextureIdx_ib_autout_a = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[26]);
+ uTextureIdx_ib_autin_a = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[25]);
+ uTextureIdx_ib_autout_a = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[26]);
  
- uTextureIdx_ib_npcld_a = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[28]);
- uTextureIdx_ib_npcrd_a = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[30]);
+ uTextureIdx_ib_npcld_a = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[28]);
+ uTextureIdx_ib_npcrd_a = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[30]);
 
- uTextureIdx_MinimapCompass = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[31]);
+ uTextureIdx_MinimapCompass = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[31]);
  
- uTextureIdx_SensorGreen = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[32]);
- dword_5079C8 = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[33]);
- dword_5079CC = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[34]);
+ uTextureIdx_SensorGreen = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[32]);
+ dword_5079C8 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[33]);
+ dword_5079CC = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[34]);
 
- uTextureIdx_MinimapMask = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[35]);
- uTextureID_5079E4 = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[36]);
+ uTextureIdx_MinimapMask = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[35]);
+ uTextureID_5079E4 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[36]);
 
- uTextureIdx_CharacterSelectionFrame = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[37]);
+ uTextureIdx_CharacterSelectionFrame = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[37]);
 
  array_6A0D14[3].uIconIdx = pIconFrameTable->FindAnimation(pRequestedInterface[38]);
  pIconFrameTable->InitializeAnimation(array_6A0D14[3].uIconIdx);
@@ -10555,7 +10555,7 @@ void MenuUI_LoadTextures(unsigned int uAlignment)
  array_6A0D14[2].uIconIdx = pIconFrameTable->FindAnimation(pRequestedInterface[39]);
  pIconFrameTable->InitializeAnimation(array_6A0D14[2].uIconIdx);
 
- uTextureIdx_Endcap = LODFile_Icons_LOD.LODFile_LoadTexture_New( pRequestedInterface[40]);
+ uTextureIdx_Endcap = LODFile_Icons_LOD.LODFile_LoadTexture_New(pRequestedInterface[40]);
  pcTexture_EndcapTexture = &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Endcap];
 }
 #endif

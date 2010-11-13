@@ -932,16 +932,13 @@ extern int dword_50BAF8; // weak
 
 
 extern struct class24 *pClass24_global;  //struct @ MM7.exe::0050BBE0
-//struct class24 class24_global;
-/* //class24_global
- int dword_50BBE0; // weak
- int dword_50BBE4; // weak
- int dword_50BBE8; // weak
- int dword_50BBEC; // weak
- int dword_50BBFC; // weak
- int dword_50BC00; // weak
- int dword_50BC04; // weak
-*/
+//int dword_50BBE0; // weak
+//int dword_50BBE4; // weak
+//int dword_50BBE8; // weak
+//int dword_50BBEC; // weak
+//int dword_50BBFC; // weak
+//int dword_50BC00; // weak
+//int dword_50BC04; // weak
 extern int dword_50BC10[array_size_unknown]; // weak
 extern int dword_50BDA0[array_size_unknown]; // weak
 extern int dword_50BF30[array_size_unknown]; // weak
@@ -1322,8 +1319,24 @@ extern unsigned char pLevelEVT[9216];     // byte[9216] @ MM7.exe::005B3520
 //unsigned char byte_5B352C[array_size_unknown]; // weak
 extern int dword_5B5920; // weak
 extern int dword_5B5924; // weak
-extern _UNKNOWN unk_5B5928[]; // 100x32 bytes struct array around here
-//extern _UNKNOWN unk_5B5934[]; // weak
+
+extern struct unnamed_5B5928
+{
+ int   dword_000000;
+ int   dword_000004;
+ short word_000008;
+ short word_00000A;
+ short word_00000C;
+ short word_00000E;
+ short word_000010;
+ short word_000012;
+ short word_000014;
+ short word_000016;
+ char  unk_000018[8];
+} array_5B5928[];  // struct[100] @ MM7.exe::005B5928
+//sizeof == 20
+//_UNKNOWN unk_5B5928[]; // 100x32 bytes struct array around here
+//_UNKNOWN unk_5B5934[]; // weak
 extern int dword_5B65A8; // weak
 extern int dword_5B65AC; // weak
 extern int dword_5B65B0; // weak
@@ -1332,7 +1345,7 @@ extern int dword_5B65B8; // weak
 extern int dword_5B65BC; // weak
 extern int dword_5B65C0; // weak
 extern int dword_5B65C4; // weak
-extern int dword_5B65C8; // weak
+extern int dword_5B65C8; // num elements in array_5B5928
 extern int dword_5B65CC; // weak
 extern int dword_5B65D0; // weak
 
