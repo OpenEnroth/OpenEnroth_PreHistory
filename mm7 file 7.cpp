@@ -5613,7 +5613,7 @@ int __thiscall sub_4B4224(void *_this)
                      0,
                      78,
                      pGlobalTXT_LocalizationStrings[34],
-                     uTextureIdx_BtnEsc2 != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2] : 0);
+                     uTextureIdx_BtnEsc2 != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2] : 0,0);
     dword_5076FC = GUIButtonCreate(pDialogueWindow,
                      486,
                      445,
@@ -5625,7 +5625,7 @@ int __thiscall sub_4B4224(void *_this)
                      1,
                      89,
                      (unsigned char *)byte_591098,
-                     uTextureIdx_BtnYes2 != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnYes2] : 0);
+                     uTextureIdx_BtnYes2 != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnYes2] : 0,0);
     GUIButtonCreate(pDialogueWindow, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, 63, 73, 1, 0, 191, 1, 32, (unsigned char *)byte_591098, 0);
     result = (int)GUIButtonCreate(pDialogueWindow, 8, 8, 460, 344, 1, 0, 191, 1, 89, (unsigned char *)byte_591098, 0);
   }
@@ -5654,7 +5654,7 @@ int __thiscall sub_4B4224(void *_this)
                      0,
                      0,
                      pGlobalTXT_LocalizationStrings[74],
-                     dword_506438_TextureID != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID] : 0);
+                     dword_506438_TextureID != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID] : 0,0);
     GUIButtonCreate(pDialogueWindow, 8, 8, 450, 320, 1, 0, 81, 0, 0, (unsigned char *)"", 0);
     if ( dword_5913F0 == 1 && dword_591080 )
     {

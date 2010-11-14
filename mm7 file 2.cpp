@@ -6403,7 +6403,7 @@ int __thiscall sub_411621(void *_this)
   if ( *(_WORD *)(v2 + 304) )
     GUIButtonCreate((GUIWindow *)v3, 400, 307, 50, 36, 1, 0, 87, 8, 0, aSpellSchoolNames[8], 0);
   GUIButtonCreate((GUIWindow *)v3, 476, 450, *(_WORD *)(dword_506444 + 24), *(_WORD *)(dword_506444 + 26), 1, 78, 88, 0, 0, (unsigned char *)"", 0);
-  dword_5064F8 = (int)GUIButtonCreate((GUIWindow *)v3, 476, 450, 48, 32, 1, 78, 88, 0, 0, (unsigned char *)"",  &LODFile_Icons_LOD.aLODHeaders[dword_506444]);
+  dword_5064F8 = (int)GUIButtonCreate((GUIWindow *)v3, 476, 450, 48, 32, 1, 78, 88, 0, 0, (unsigned char *)"",  &LODFile_Icons_LOD.aLODHeaders[dword_506444],0);
   GUIButtonCreate((GUIWindow *)v3,
     561,
     450,
@@ -6416,7 +6416,7 @@ int __thiscall sub_411621(void *_this)
     0,
     pGlobalTXT_LocalizationStrings[79],
     0);
-  result = (int)GUIButtonCreate((GUIWindow *)v3, 561, 450, 48, 32, 1, 0, 113, 0, 0, pGlobalTXT_LocalizationStrings[79],  &LODFile_Icons_LOD.aLODHeaders[dword_506440]);
+  result = (int)GUIButtonCreate((GUIWindow *)v3, 561, 450, 48, 32, 1, 0, 113, 0, 0, pGlobalTXT_LocalizationStrings[79],  &LODFile_Icons_LOD.aLODHeaders[dword_506440],0);
   dword_5064F4 = result;
   return result;
 }
@@ -6665,7 +6665,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
                          11,
                          0,
                          pGlobalTXT_LocalizationStrings[192],
-                          uTextureID_tab_an_6b__zoom_on);
+                          uTextureID_tab_an_6b__zoom_on,0);
         dword_506514 = GUIButtonCreate((GUIWindow *)v1,
                          pOldViewport->uGameX + 398,
                          pOldViewport->uGameY + 38,
@@ -6677,7 +6677,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
                          10,
                          0,
                          pGlobalTXT_LocalizationStrings[193],
-                          uTextureID_tab_an_7b__zoot_on);
+                          uTextureID_tab_an_7b__zoot_on,0);
         dword_506520 = 0;
         memset(&stru_5C3610, 0, sizeof(struct unnamed_5C3610));
         for ( j = dword_506528; j < 512; ++j )
@@ -6737,7 +6737,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
                            11,
                            0,
                            pGlobalTXT_LocalizationStrings[193],
-                            uTextureID_tab_an_6b__zoom_on);
+                            uTextureID_tab_an_6b__zoom_on,0);
           dword_506514 = GUIButtonCreate((GUIWindow *)v1,
                            pOldViewport->uGameX + 398,
                            pOldViewport->uGameY + 38,
@@ -6749,7 +6749,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
                            10,
                            0,
                            pGlobalTXT_LocalizationStrings[192],
-                            uTextureID_tab_an_7b__zoot_on);
+                            uTextureID_tab_an_7b__zoot_on,0);
           dword_506510 = GUIButtonCreate((GUIWindow *)v1,
                            pOldViewport->uGameX + 398,
                            pOldViewport->uGameY + 113,
@@ -6761,7 +6761,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
                            2,
                            0,
                            pGlobalTXT_LocalizationStrings[85],
-                            dword_506394);
+                            dword_506394,0);
           dword_50650C = GUIButtonCreate((GUIWindow *)v1,
                            pOldViewport->uGameX + 399,
                            pOldViewport->uGameY + 150,
@@ -6773,7 +6773,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
                            3,
                            0,
                            pGlobalTXT_LocalizationStrings[137],
-                            dword_50638C);
+                            dword_50638C,0);
           dword_506508 = GUIButtonCreate((GUIWindow *)v1,
                            pOldViewport->uGameX + 397,
                            pOldViewport->uGameY + 188,
@@ -6785,7 +6785,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
                            4,
                            0,
                            pGlobalTXT_LocalizationStrings[8],
-                            dword_506384);
+                            dword_506384,0);
           dword_506504 = GUIButtonCreate((GUIWindow *)v1,
                            pOldViewport->uGameX + 397,
                            pOldViewport->uGameY + 226,
@@ -6797,7 +6797,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
                            5,
                            0,
                            pGlobalTXT_LocalizationStrings[141],
-                            dword_50637C);
+                            dword_50637C,0);
           dword_506500 = GUIButtonCreate((GUIWindow *)v1,
                            pOldViewport->uGameX + 397,
                            pOldViewport->uGameY + 264,
@@ -6809,7 +6809,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
                            6,
                            0,
                            pGlobalTXT_LocalizationStrings[123],
-                           dword_506374);
+                           dword_506374,0);
           v10 = dword_506528;
           dword_5064FC = GUIButtonCreate((GUIWindow *)v1,
                            pOldViewport->uGameX + 397,
@@ -6822,7 +6822,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
                            7,
                            0,
                            pGlobalTXT_LocalizationStrings[662],
-                           dword_50636C);
+                           dword_50636C,0);
           dword_506520 = 0;
           while ( v10 < 196 )
           {
@@ -6881,7 +6881,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
                              0,
                              0,
                              pGlobalTXT_LocalizationStrings[251],
-                              uTextureID_tab_an_6b__zoom_on);
+                              uTextureID_tab_an_6b__zoom_on,0);
             dword_506514 = GUIButtonCreate((GUIWindow *)v1,
                              pOldViewport->uGameX + 398,
                              pOldViewport->uGameY + 38,
@@ -6893,7 +6893,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
                              1,
                              0,
                              pGlobalTXT_LocalizationStrings[252],
-                              uTextureID_tab_an_7b__zoot_on);
+                              uTextureID_tab_an_7b__zoot_on,0);
             dword_506510 = GUIButtonCreate((GUIWindow *)v1,
                              pOldViewport->uGameX + 397,
                              pOldViewport->uGameY + 113,
@@ -6982,7 +6982,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
                            11,
                            0,
                            pGlobalTXT_LocalizationStrings[192],
-                           uTextureID_tab_an_6b__zoom_on);
+                           uTextureID_tab_an_6b__zoom_on,0);
           dword_506514 = GUIButtonCreate((GUIWindow *)v1,
                            pOldViewport->uGameX + 398,
                            pOldViewport->uGameY + 38,
@@ -6994,7 +6994,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
                            10,
                            0,
                            pGlobalTXT_LocalizationStrings[193],
-                            uTextureID_tab_an_7b__zoot_on);
+                            uTextureID_tab_an_7b__zoot_on,0);
           dword_506520 = 0;
           v26 = 48;
           v27 = 70;
@@ -9445,7 +9445,7 @@ LABEL_138:
                 if ( v25 <= 480 )
                 {
                  // v47 = v22->uTextureID;
-                  Render_DrawIndexedTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, v22->pTexture1);
+                  Render_DrawIndexedTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, v22->pTexture[0]);
                   goto LABEL_80;
                 }
               }
@@ -9471,7 +9471,7 @@ LABEL_134:
        //   v47 = ;
 //LABEL_94:
           //Render_DrawIndexedTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, v47);
-          Render_DrawIndexedTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, v22->pTexture1);
+          Render_DrawIndexedTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, v22->pTexture[0]);
 LABEL_80:
           v23 = (char *)pWnd->ptr_000048;
           struct_576FE8.dword_000044 = 1;
@@ -9490,7 +9490,7 @@ LABEL_82:
           if ((int)pWnd->ptr_000048 != 1)
             AudioPlayer_sub_4AA306(pAudioPlayer, 75, 0, 0, -1, 0, 0, 0, 0);
           v22 = (GUIButton *)pWnd->dword_00001C;
-          Render_DrawTransparentTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, v22->pTexture1);
+          Render_DrawTransparentTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, v22->pTexture[0]);
           goto LABEL_80;
         }
         v19 = v18 - 1;

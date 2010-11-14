@@ -71,12 +71,12 @@ struct GUIButton
  struct GUIButton *pPrev;         // ptr   @ 000030
  struct GUIButton *pNext;         // ptr   @ 000034
  struct GUIWindow *pParentWindow; // ptr   @ 000038
- class cTexture   *pTexture1;    // dword @ 00003C
- class cTexture   *pTexture2; //int dword_000040;
- class cTexture   *pTexture3; // int dword_000044;
- class cTexture   *pTexture4; //int dword_000048;
- class cTexture   *pTexture5; //int dword_00004C;
- int dword_000050;
+ class cTexture   *pTexture[5];    // dword @ 00003C
+// class cTexture   *pTexture2; //int dword_000040;
+ //class cTexture   *pTexture3; // int dword_000044;
+ //class cTexture   *pTexture4; //int dword_000048;
+ //class cTexture   *pTexture5; //int dword_00004C;
+ unsigned int uTexturesCount;// dword_000050;
 // int dword_000054;
  unsigned char uHotkey; // byte @ 000054   hotkey shortcut
  unsigned char pButtonName[3]; // byte[?] @ 000055
@@ -162,11 +162,11 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
                                              unsigned int uFrameWidth, unsigned int uFrameHeight,
                                              signed int a5, int a6, int a7);
 
-struct GUIButton *__fastcall GUIButtonCreate(struct GUIWindow *pParentWindow,
+struct GUIButton*  GUIButtonCreate(struct GUIWindow *pParentWindow,
                                              unsigned int uX, unsigned int uY,
                                              unsigned int uWidth, unsigned int uHeight,
-                                             int a6, int a7, unsigned int uControlID, int a9, unsigned int uHotkey, const unsigned char *pName,class cTexture* pButtnTexture1); //now left 1 
-										//	 ...);	 multiparametr function!!
+                                             int a6, int a7, unsigned int uControlID, int a9, unsigned int uHotkey, const unsigned char *pName,class cTexture* pButtnTexture1,  
+											 class cTexture* pButtnTexture2=NULL);	 //was multiparametr function!!
 
 void GUIWindowDelete(struct GUIWindow *);
 void GUIWindow_sub_459C2B(struct GUIWindow *a1, signed int a2, int a3, int a4);

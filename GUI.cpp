@@ -1,7 +1,7 @@
 #include "GUI.h"
 
 #include "defs.h"
-
+#include <STDARG.H>
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
@@ -16,6 +16,8 @@
 
 unsigned int uTextureID_CurrentMenu;
 
+unsigned int uTextureIdx_MapDirs[8];     // dword[8] @ MM7.exe::00507994
+
 unsigned int uTextureID_MainMenuUI_Title;
 
 unsigned int uTextureID_PartyCreationUI_ClassIcons;
@@ -28,6 +30,9 @@ unsigned int uTextureID_GameUI_RightPanel;
 unsigned int uTextureID_GameUI_PartyFrame;
 
 class cTexture *pTextureIdx_PlayerFaces[4][56]; // dword[224] @ MM7.exe::00A74CF0
+
+class cTexture *pPlayerCreationUI_ArrowR[20] = {0}; // ptr[19] @ MM7.exe::0050787C
+class cTexture *pPlayerCreationUI_ArrowL[20] = {0}; // ptr[19] @ MM7.exe::005078CC
 
 class cTexture *pPlayerCreatUI_ClIcons[9] = {0};   // ptr[9]  @ MM7.exe::00507760
 class cTexture *pPlayerCreationUI_Sky = 0;               // ptr     @ MM7.exe::00507784
@@ -42,6 +47,8 @@ class cPCXTexture  cPCXID_GameUI_PartyFrame;
 
 class cPCXTexture  cPCXID_MainMenuUI_Title;
 class cPCXTexture  cPCXID_CurrentMenu;
+
+
 
  char *portret_names[25] =
 	{ "pc01-", "pc02","pc03","pc04","pc05-","pc06","pc07","pc08","pc09-","pc10","pc11-","pc12","pc13",
@@ -77,7 +84,7 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    0,
                    83,
                    pGlobalTXT_LocalizationStrings[216],
-                   &LODFile_Icons_LOD.aLODHeaders[dword_511230] );
+                   &LODFile_Icons_LOD.aLODHeaders[dword_511230],0 );
  pCharacterUI_BtnSkills = GUIButtonCreate(pCharacterWindow, pOldViewport->uGameX + 102, pOldViewport->uGameY + 308,
                    LODFile_Icons_LOD.aLODHeaders[dword_511224].uTextureWidth,
                    LODFile_Icons_LOD.aLODHeaders[dword_511224].uTextureHeight,
@@ -87,7 +94,7 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    0,
                    75,
                    pGlobalTXT_LocalizationStrings[205],
-                   &LODFile_Icons_LOD.aLODHeaders[dword_511228] );
+                   &LODFile_Icons_LOD.aLODHeaders[dword_511228],0 );
  pCharacterUI_BtnInventory = GUIButtonCreate(pCharacterWindow, pOldViewport->uGameX + 192, pOldViewport->uGameY + 308,
                    LODFile_Icons_LOD.aLODHeaders[dword_51121C].uTextureWidth,
                    LODFile_Icons_LOD.aLODHeaders[dword_51121C].uTextureHeight,
@@ -97,7 +104,7 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    0,
                    73,
                    pGlobalTXT_LocalizationStrings[120],
-                   &LODFile_Icons_LOD.aLODHeaders[dword_511220]);
+                   &LODFile_Icons_LOD.aLODHeaders[dword_511220],0);
  pCharacterUI_BtnAwards = GUIButtonCreate(pCharacterWindow, pOldViewport->uGameX + 282, pOldViewport->uGameY + 308,
                    LODFile_Icons_LOD.aLODHeaders[dword_511214].uTextureWidth,
                    LODFile_Icons_LOD.aLODHeaders[dword_511214].uTextureHeight,
@@ -107,7 +114,7 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    0,
                    65,
                    pGlobalTXT_LocalizationStrings[22],
-                   &LODFile_Icons_LOD.aLODHeaders[dword_511218] );
+                   &LODFile_Icons_LOD.aLODHeaders[dword_511218],0 );
  pCharacterUI_BtnExit = GUIButtonCreate(pCharacterWindow, pOldViewport->uGameX + 371, pOldViewport->uGameY + 308,
                    LODFile_Icons_LOD.aLODHeaders[dword_51120C].uTextureWidth,
                    LODFile_Icons_LOD.aLODHeaders[dword_51120C].uTextureHeight,
@@ -117,7 +124,7 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[79],
-                   &LODFile_Icons_LOD.aLODHeaders[uTextureID_ButtExit1] );
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureID_ButtExit1],0 );
   GUIButtonCreate(pCharacterWindow, 0, 0, 476, 345, 1, 122, 120, 0, 0, (unsigned char *)"", 0);
   dword_507694 = GUIButtonCreate(pCharacterWindow, 600, 300, 30, 30, 1, 0, 85, 0, 0, pGlobalTXT_LocalizationStrings[64], 0);
   dword_507690 = GUIButtonCreate(pCharacterWindow, 476, 0, 164, 345, 1, 0, 133, 0, 0, (unsigned char *)"", 0);
@@ -241,7 +248,7 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_RETURN),
                    pGlobalTXT_LocalizationStrings[174],
-                    &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td1_A]);
+                    &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td1_A],0);
 
 
 
@@ -255,7 +262,7 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_CONTROL),
                    pGlobalTXT_LocalizationStrings[154],
-                    &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td2_A]);
+                    &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td2_A],0);
 
 
 
@@ -269,25 +276,24 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_MENU),
                    pGlobalTXT_LocalizationStrings[139],
-                    &LODFile_Icons_LOD.aLODHeaders[v17]);
+                    &LODFile_Icons_LOD.aLODHeaders[v17],0);
 
 
 
   v22 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"ib-td4-A");
 #endif
 #ifdef OLD_CODE
- /*
-  dword_50A7EC = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR8", 2);
-  dword_50A7F0 = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR1", 2);
-  dword_50A7F4 = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR2", 2);
-  dword_50A7F8 = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR3", 2);
-  dword_50A7FC = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR4", 2);
-  dword_50A800 = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR5", 2);
-  dword_50A804 = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR6", 2);
-  dword_50A808 = lod_bitmaps_icons_Load_Texture((int)&icons_lod, "MAPDIR7", 2);
-  	*/
+ 
+  uTextureIdx_MapDirs[0] =  LODFile_Icons_LOD.LODFile_LoadTexture( "MAPDIR8", 2);
+  uTextureIdx_MapDirs[1] =  LODFile_Icons_LOD.LODFile_LoadTexture( "MAPDIR1", 2);
+  uTextureIdx_MapDirs[2] =  LODFile_Icons_LOD.LODFile_LoadTexture( "MAPDIR2", 2);
+  uTextureIdx_MapDirs[3] =  LODFile_Icons_LOD.LODFile_LoadTexture( "MAPDIR3", 2);
+  uTextureIdx_MapDirs[4] =  LODFile_Icons_LOD.LODFile_LoadTexture( "MAPDIR4", 2);
+  uTextureIdx_MapDirs[5] =  LODFile_Icons_LOD.LODFile_LoadTexture( "MAPDIR5", 2);
+  uTextureIdx_MapDirs[6] =  LODFile_Icons_LOD.LODFile_LoadTexture( "MAPDIR6", 2);
+  uTextureIdx_MapDirs[7] =  LODFile_Icons_LOD.LODFile_LoadTexture( "MAPDIR7", 2);
+  
 
- uTextureID_MinimapDirections = LODFile_Icons_LOD.LODFile_LoadTexture( "MAPDIR1",2);
 
  uTextureIdx_UIBarRed = LODFile_Icons_LOD.LODFile_LoadTexture("ib-statR",2);
  uTextureIdx_UIBarYellow = LODFile_Icons_LOD.LODFile_LoadTexture("ib-statY",2);
@@ -315,7 +321,7 @@ void GameUI_LoadIcons()
  uTextureIdx_BtnMake2 = LODFile_Icons_LOD.LODFile_LoadTexture("BUTTMAKE2",2);
 
  pGUIWindow0 = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
- GUIButtonCreate(pGUIWindow0, 7, 8, 460, 343, 1, 0, 10, 0, 0, (unsigned char*)"", NULL);
+ GUIButtonCreate(pGUIWindow0, 7, 8, 460, 343, 1, 0, 10, 0, 0, (unsigned char*)"", 0,0);
 
  //player portraits in Game screen
  GUIButtonCreate(pGUIWindow0,  50, 424, 70, 90, 2, 94, 110, 1, 49, (unsigned char*)"p0", 0);
@@ -342,7 +348,7 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_RETURN),
                    pGlobalTXT_LocalizationStrings[174],
-                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td1_A] );
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td1_A],0 );
 
 
 
@@ -356,7 +362,7 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_CONTROL),
                    pGlobalTXT_LocalizationStrings[154],
-                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td2_A] );
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td2_A],0 );
 
 
 
@@ -370,7 +376,7 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_MENU),
                    pGlobalTXT_LocalizationStrings[139],
-                   &LODFile_Icons_LOD.aLODHeaders[v17] );
+                   &LODFile_Icons_LOD.aLODHeaders[v17],0 );
 
 
 
@@ -385,7 +391,7 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_SHIFT),
                    pGlobalTXT_LocalizationStrings[78],
-                   &LODFile_Icons_LOD.aLODHeaders[v22] );
+                   &LODFile_Icons_LOD.aLODHeaders[v22],0 );
 
 
 
@@ -399,7 +405,7 @@ void GameUI_LoadIcons()
                    0,
                    72,
                    pGlobalTXT_LocalizationStrings[159],
-                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td5_A] );
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td5_A],0 );
 
 
 
@@ -415,7 +421,7 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_JUNJA),
                    pGlobalTXT_LocalizationStrings[252],
-                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_autout_a] );
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_autout_a],0 );
 
 
 
@@ -428,7 +434,7 @@ void GameUI_LoadIcons()
                    0,
                    KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_FINAL),
                    pGlobalTXT_LocalizationStrings[251],
-                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_autin_a] );
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_autin_a],0 );
 
 
 
@@ -447,7 +453,7 @@ void GameUI_LoadIcons()
                    0,
                    67,
                    pGlobalTXT_LocalizationStrings[38],
-                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m1d_a] );
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m1d_a],0 );
 
   pBtn_Game_Rest = GUIButtonCreate(pGUIWindow0, 518, 450,
                    LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m2d_a].uTextureWidth,
@@ -458,7 +464,7 @@ void GameUI_LoadIcons()
                    0,
                    82,
                    pGlobalTXT_LocalizationStrings[182],
-                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m2d_a] );
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m2d_a],0 );
 
   pBtn_Game_QuickRef = GUIButtonCreate(pGUIWindow0, 560, 450,
                    LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m3d_a].uTextureWidth,
@@ -469,7 +475,7 @@ void GameUI_LoadIcons()
                    0,
                    90,
                    pGlobalTXT_LocalizationStrings[173],
-                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m3d_a] );
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m3d_a],0 );
 
   pBtn_Game_Options = GUIButtonCreate(pGUIWindow0, 602, 450,
                    LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m4d_a].uTextureWidth,
@@ -480,7 +486,7 @@ void GameUI_LoadIcons()
                    0,
                    0,
                    pGlobalTXT_LocalizationStrings[93],
-                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m4d_a] );
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_m4d_a],0 );
 
   pBtn_Game_NPCScrollLeftDown = GUIButtonCreate(pGUIWindow0, 469, 178,
                    LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcld_a].uTextureWidth,
@@ -491,7 +497,7 @@ void GameUI_LoadIcons()
                    0,
                    0,
                    (unsigned char *)"",
-                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcld_a] );
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcld_a],0 );
 
   pBtn_Game_NPCScrollRightDown = GUIButtonCreate(pGUIWindow0, 626, 178,
                    LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcrd_a].uTextureWidth,
@@ -502,7 +508,7 @@ void GameUI_LoadIcons()
                    1,
                    0,
                    (unsigned char *)"",
-                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcrd_a] );
+                   &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcrd_a],0 );
 
 
  for (i = 0; i < 14; ++i)
@@ -1582,16 +1588,16 @@ LABEL_60:
             0,
             (unsigned char *)v1,
             0);
-          dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 162, 16, 16, v0, 0, 111, 4, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C70]);
-          dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 162, 16, 16, v0, 0, 111, 5, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C74]);
+          dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 162, 16, 16, v0, 0, 111, 4, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C70],0);
+          dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 162, 16, 16, v0, 0, 111, 5, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C74],0);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 263, 162, 172, 17, v0, 0, 111, 0, 0, (unsigned char *)v1, 0);
 
-          dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 216, 16, 16, v0, 0, 112, 4, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C70]);
-          dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 216, 16, 16, v0, 0, 112, 5, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C74]);
+          dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 216, 16, 16, v0, 0, 112, 4, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C70],0);
+          dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 216, 16, 16, v0, 0, 112, 5, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C74],0);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 263, 216, 172, 17, v0, 0, 112, 0, 0, (unsigned char *)v1, 0);
 
-          dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 270, 16, 16, v0, 0, 186, 4, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C70]);
-          dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 270, 16, 16, v0, 0, 186, 5, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C74]);
+          dword_50C9CC = GUIButtonCreate(pGUIWindow_CurrentMenu, 243, 270, 16, 16, v0, 0, 186, 4, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C70],0);
+          dword_50C9C8 = GUIButtonCreate(pGUIWindow_CurrentMenu, 435, 270, 16, 16, v0, 0, 186, 5, 0, (unsigned char *)v1, &LODFile_Icons_LOD.aLODHeaders[dword_507C74],0);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 263, 270, 172, 17, v0, 0, 186, 0, 0, (unsigned char *)v1, 0);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 241, 302, 214, 40, v0, 0, 113, 0, 0, pGlobalTXT_LocalizationStrings[619], 0);
           GUIButtonCreate(pGUIWindow_CurrentMenu, 19, 140, 214, 40, v0, 0, 415, 0, 75, (unsigned char *)v1, 0);
@@ -1760,7 +1766,7 @@ LABEL_60:
                                5,
                                0,
                                (unsigned char *)v1,
-                                &LODFile_Icons_LOD.aLODHeaders[dword_507C24]);
+                                &LODFile_Icons_LOD.aLODHeaders[dword_507C24],0);
               v181 = 0;
               v167 = v1;
               v160 = 0;
@@ -1773,7 +1779,7 @@ LABEL_60:
               v139 = 162;
               v137 = 42;
 LABEL_117:
-              GUIButtonCreate(pGUIWindow_CurrentMenu, v137, v139, v141, v143, v146, v148, v151, v155, v160, (unsigned char *)v167, &LODFile_Icons_LOD.aLODHeaders[v181]);
+              GUIButtonCreate(pGUIWindow_CurrentMenu, v137, v139, v141, v143, v146, v148, v151, v155, v160, (unsigned char *)v167, &LODFile_Icons_LOD.aLODHeaders[v181],0);
             }
           }
           goto LABEL_92;
@@ -4330,6 +4336,13 @@ LABEL_26:
                                   7 * ((pParty_global->sRotationY % 2048) / (2048 / 8)), 0, 7, 7,
                                   &LODFile_Icons_LOD.aLODHeaders[uTextureID_MinimapDirections]); // angle -> [0.. 7]
 #endif
+#ifdef OLD_CODE 
+ 
+   char angle= ((pParty_global->sRotationY+128)&pClass59_global->uDoublePiMask)>>8;
+
+ 
+   Render_DrawTransparentTexture(pD3DRenderer, uMinimapCentreX - 3, uMinimapCentreY - 3,&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_MapDirs[angle]]);
+#endif
  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_MinimapMask]);
 
  v105 = (double)pParty_global->sRotationY * 0.1171875;
@@ -4462,10 +4475,12 @@ void SetCurrentMenu(unsigned int uMenuID)
 }
 
 //----- (0041D12F) --------------------------------------------------------
-struct GUIButton *__fastcall GUIButtonCreate(struct GUIWindow *pParentWindow,
+struct GUIButton *GUIButtonCreate(struct GUIWindow *pParentWindow,
                                              unsigned int uX, unsigned int uY,
                                              unsigned int uWidth, unsigned int uHeight,
-                                             int a6, int a7, unsigned int uControlID, int a9, unsigned int uHotkey, const unsigned char *pName,class cTexture* pButtnTexture1)
+                                             int a6, int a7, unsigned int uControlID, int a9, unsigned int uHotkey,
+											 const unsigned char *pName,class cTexture* pButtnTexture1,
+											 class cTexture* pButtnTexture2)
 {
   
  struct GUIButton *pButton;
@@ -4491,20 +4506,19 @@ struct GUIButton *__fastcall GUIButtonCreate(struct GUIWindow *pParentWindow,
  pButton->uHotkey = uHotkey;
  strcpy((char *)pButton->pButtonName, (char *)pName);
 
- pButton->dword_000050 = 0;
+ pButton->uTexturesCount = 0;
+ 
  if (pButtnTexture1)
- {
- /*		 multi parameters!!!
-  pButton->uTextureID = uTextureID;
-  pButton->dword_000040 = uTextureID;//0xFEAFEAFE;
-  pButton->dword_000044 = 0xFEAFEAFE;
-  pButton->dword_000048 = 0xFEAFEAFE;
-  pButton->dword_00004C = 0xFEAFEAFE;
-  pButton->dword_000050 = 1;
-  */
-   pButton->pTexture1=pButtnTexture1;
-   pButton->dword_000050 =1;
- }
+	 {
+	  pButton->pTexture[pButton->uTexturesCount]=pButtnTexture1;
+     pButton->uTexturesCount++;
+	 }
+ if (pButtnTexture2)
+	 {
+	
+     pButton->pTexture[pButton->uTexturesCount]=pButtnTexture2;
+     pButton->uTexturesCount++;
+	 }
 
  if (pParentWindow->pControlsTail)
    pParentWindow->pControlsTail->pNext = pButton;
@@ -4601,7 +4615,7 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
                            0,
                            0,
                            pGlobalTXT_LocalizationStrings[79],
-                           dword_506438_TextureID != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID] : 0);
+                           dword_506438_TextureID != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID] : 0,0);
           if ( *(_DWORD *)(v9 + 28) != 1 )
           {
             v33 = 0;
@@ -4710,7 +4724,7 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
                            0,
                            78,
                            pGlobalTXT_LocalizationStrings[156],
-                           uTextureIdx_BtnEsc2!= -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2]  : NULL);
+                           uTextureIdx_BtnEsc2!= -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2]  : NULL,0);
           dword_5076FC = GUIButtonCreate(v9,
                            486,
                            445,
@@ -4722,7 +4736,7 @@ struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int 
                            0,
                            89,
                            *(const unsigned char **)(v9 + 72),
-                            uTextureIdx_BtnYes2!= -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnYes2]  : NULL);
+                            uTextureIdx_BtnYes2!= -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnYes2]  : NULL,0);
           GUIButtonCreate(v9, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, 63, 73, 1, 0, 90, 1, 32, *(const unsigned char **)(v9 + 72), 0);
           GUIButtonCreate(v9, 8, 8, 460, 344, 1, 0, 90, 1, 0, *(const unsigned char **)(v9 + 72), 0);
           break;
@@ -4761,7 +4775,7 @@ LABEL_62:
                      0,
                      0,
                      pGlobalTXT_LocalizationStrings[80],
-                     dword_506438_TextureID != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID]  : NULL);
+                     dword_506438_TextureID != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID]  : NULL,0);
     v25 = dword_591424;
     v26 = 0;
     if ( dword_591424 > 0 )
@@ -4826,7 +4840,7 @@ LABEL_62:
                        0,
                        78,
                        pGlobalTXT_LocalizationStrings[34],
-                       uTextureIdx_BtnEsc2 + 1 != 0 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2] : 0);
+                       uTextureIdx_BtnEsc2 + 1 != 0 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2] : 0,0);
       dword_5076FC = GUIButtonCreate(
                        v9,
                        486,
@@ -4839,7 +4853,7 @@ LABEL_62:
                        0,
                        89,
                        *(const unsigned char **)(v9 + 72),
-                       uTextureIdx_BtnYes2 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnYes2] : 0);
+                       uTextureIdx_BtnYes2 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnYes2] : 0,0);
       GUIButtonCreate(v9, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, 63, 73, 1, 0, 411, 1, 32, *(const unsigned char **)(v9 + 72), 0);
       GUIButtonCreate(v9, 8, 8, 460, 344, 1, 0, 411, 1, 0, *(const unsigned char **)(v9 + 72), 0);
       return v9;
@@ -4869,7 +4883,7 @@ LABEL_62:
                        0,
                        0,
                        pGlobalTXT_LocalizationStrings[34],
-                       uTextureIdx_BtnEsc2  != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2]  : 0);
+                       uTextureIdx_BtnEsc2  != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2]  : 0,0);
       sub_44C175((char *)pGlobalTXT_LocalizationStrings[39], 2);
       ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
       dword_506F48 = 103;
@@ -5138,25 +5152,25 @@ void __cdecl PlayerCreationUI_Initialize()
   }
   while ( v13 < 640 );
 
-  array_A74CAC[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 10, 32, 11, 13, 1, 0, 171, 0, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft]);
-  array_A74CAC[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 169, 32, 11, 13, 1, 0, 171, 1, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft]);
-  array_A74CAC[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 327, 32, 11, 13, 1, 0, 171, 2, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft]);
-  array_A74CAC[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 486, 32, 11, 13, 1, 0, 171, 3, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft]);
+  array_A74CAC[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 10, 32, 11, 13, 1, 0, 171, 0, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft],0);
+  array_A74CAC[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 169, 32, 11, 13, 1, 0, 171, 1, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft],0);
+  array_A74CAC[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 327, 32, 11, 13, 1, 0, 171, 2, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft],0);
+  array_A74CAC[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 486, 32, 11, 13, 1, 0, 171, 3, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft],0);
 
-  array_A74CBC[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 74, 32, 11, 13, 1, 0, 172, 0, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight]);
-  array_A74CBC[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 233, 32, 11, 13, 1, 0, 172, 1, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight]);
-  array_A74CBC[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 391, 32, 11, 13, 1, 0, 172, 2, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight]);
-  array_A74CBC[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 549, 32, 11, 13, 1, 0, 172, 3, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight]);
+  array_A74CBC[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 74, 32, 11, 13, 1, 0, 172, 0, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight],0);
+  array_A74CBC[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 233, 32, 11, 13, 1, 0, 172, 1, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight],0);
+  array_A74CBC[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 391, 32, 11, 13, 1, 0, 172, 2, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight],0);
+  array_A74CBC[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 549, 32, 11, 13, 1, 0, 172, 3, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight],0);
 
-  array_A74C9C[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 10, 103, 11, 13, 1, 0, 144, 0, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft]);
-  array_A74C9C[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 169, 103, 11, 13, 1, 0, 144, 1, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft]);
-  array_A74C9C[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 327, 103, 11, 13, 1, 0, 144, 2, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft]);
-  array_A74C9C[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 486, 103, 11, 13, 1, 0, 144, 3, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft]);
+  array_A74C9C[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 10, 103, 11, 13, 1, 0, 144, 0, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft],0);
+  array_A74C9C[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 169, 103, 11, 13, 1, 0, 144, 1, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft],0);
+  array_A74C9C[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 327, 103, 11, 13, 1, 0, 144, 2, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft],0);
+  array_A74C9C[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 486, 103, 11, 13, 1, 0, 144, 3, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnLeft],0);
 
-  array_A74C8C[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 74, 103, 11, 13, 1, 0, 145, 0, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight]);
-  array_A74C8C[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 233, 103, 11, 13, 1, 0, 145, 1, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight]);
-  array_A74C8C[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 391, 103, 11, 13, 1, 0, 145, 2, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight]);
-  array_A74C8C[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 549, 103, 11, 13, 1, 0, 145, 3, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight]);
+  array_A74C8C[0] = GUIButtonCreate(pGUIWindow_CurrentMenu, 74, 103, 11, 13, 1, 0, 145, 0, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight],0);
+  array_A74C8C[1] = GUIButtonCreate(pGUIWindow_CurrentMenu, 233, 103, 11, 13, 1, 0, 145, 1, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight],0);
+  array_A74C8C[2] = GUIButtonCreate(pGUIWindow_CurrentMenu, 391, 103, 11, 13, 1, 0, 145, 2, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight],0);
+  array_A74C8C[3] = GUIButtonCreate(pGUIWindow_CurrentMenu, 549, 103, 11, 13, 1, 0, 145, 3, 0, (unsigned char *)"", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnRight],0);
 
   v9 = 0;
   v14 = 8;
@@ -5223,7 +5237,7 @@ void __cdecl PlayerCreationUI_Initialize()
                                             0,
                                             13,
                                             (unsigned char *)"OK",
-                                            &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnMake]);
+                                            &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnMake],0);
 
   pPlayerCreationUI_BtnReset = GUIButtonCreate(pGUIWindow_CurrentMenu,
                                                527, 431,
@@ -5235,10 +5249,10 @@ void __cdecl PlayerCreationUI_Initialize()
                                                0,
                                                67,
                                                (unsigned char *)"Reset",
-                                               &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnMake2]);
+                                               &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnMake2],0);
 
-  pPlayerCreationUI_BtnMinus = GUIButtonCreate(pGUIWindow_CurrentMenu, 523, 393, 20, 35, 1, 0, 63, 0, 45, (unsigned char *)"BtnMinus", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnMinus]);
-  pPlayerCreationUI_BtnPlus = GUIButtonCreate(pGUIWindow_CurrentMenu, 613, 393, 20, 35, 1, 0, 62, 1, 43, (unsigned char *)"BtnPlus", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnPlus]);
+  pPlayerCreationUI_BtnMinus = GUIButtonCreate(pGUIWindow_CurrentMenu, 523, 393, 20, 35, 1, 0, 63, 0, 45, (unsigned char *)"BtnMinus", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnMinus],0);
+  pPlayerCreationUI_BtnPlus = GUIButtonCreate(pGUIWindow_CurrentMenu, 613, 393, 20, 35, 1, 0, 62, 1, 43, (unsigned char *)"BtnPlus", &LODFile_Icons_LOD.aLODHeaders[uTextureID_PlayerCreationUI_BtnPlus],0);
 
   pFontCChar = LoadFont("cchar.fnt", "FONTPAL");
 }
@@ -8465,7 +8479,7 @@ LABEL_116:
                 v61 = v54 + 1;
                 if ( v52 & 2 )
                 {
-                  v62 = v61 != 0 ? 72 * v54 + 7145548 : 0;
+                  v62 = v61 != 0 ? (int)&LODFile_Icons_LOD.aLODHeaders[v54 ] : 0;
                   Render_sub_4A6776((int)pD3DRenderer, v238, v53, v62);
                 }
                 else
@@ -8774,7 +8788,7 @@ LABEL_292:
                                         {
                                           v208 = "sp91a";
 LABEL_284:
-                                          v243 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( v208, 2) + 7145548;
+                                          v243 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v208, 2)];
                                           v138 = dword_50C9A8 == pClass24_global->int_00001C;
                                           v139 = dword_50C9A8 - pClass24_global->int_00001C < 0;
                                           dword_50C9A8 -= pClass24_global->int_00001C;
@@ -8809,7 +8823,7 @@ LABEL_293:
                                           pD3DRenderer,
                                           dword_4E4C28 + dword_4E5AD0[2 * pp->uFace - 24],
                                           dword_4E4C2C + dword_4E5AD0[2 * pp->uFace - 24 + 1],
-                                          (cTexture *)(v144 != -1 ? 72 * v144 + 7145548 : 0));
+                                          (cTexture *)(v144 != -1 ? &LODFile_Icons_LOD.aLODHeaders[ v144 ] : 0));
                                     }
                                     v145 = *(_DWORD *)(v80 + 6488);
                                     if ( !v145 )
@@ -9059,7 +9073,7 @@ LABEL_381:
                                                       (int)pD3DRenderer,
                                                       v176,
                                                       v233,
-                                                      v180 != -1 ? 72 * v180 + 7145548 : 0,
+                                                      v180 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v180] : 0,
                                                       v183,
                                                       (signed __int64)v186,
                                                       0,
@@ -9111,7 +9125,7 @@ LABEL_380:
                                         {
                                           v211 = "sp91a";
 LABEL_348:
-                                          v164 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( v211, 2) + 7145548;
+                                          v164 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v211, 2)];
                                           v165 = dword_50C9A8 == pClass24_global->int_00001C;
                                           v166 = dword_50C9A8 - pClass24_global->int_00001C < 0;
                                           dword_50C9A8 -= pClass24_global->int_00001C;
@@ -9126,7 +9140,7 @@ LABEL_348:
                                             (int)pD3DRenderer,
                                             v245,
                                             v232,
-                                            v163 != -1 ? 72 * v163 + 7145548 : 0,
+                                            v163 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v163] : 0,
                                             v164,
                                             (signed __int64)v167,
                                             0,
@@ -9370,7 +9384,7 @@ LABEL_246:
                   {
                     v200 = "sp91a";
 LABEL_145:
-                    v72 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( v200, 2) + 7145548;
+                    v72 =(int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v200, 2)];
                     v73 = dword_50C9A8 == pClass24_global->int_00001C;
                     v74 = dword_50C9A8 - pClass24_global->int_00001C < 0;
                     dword_50C9A8 -= pClass24_global->int_00001C;
@@ -9385,7 +9399,7 @@ LABEL_145:
                       (int)pD3DRenderer,
                       v239,
                       v227,
-                      v68 != -1 ? 72 * v68 + 7145548 : 0,
+                      v68 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v68] : 0,
                       v72,
                       (signed __int64)v75,
                       0,

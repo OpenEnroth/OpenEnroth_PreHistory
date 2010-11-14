@@ -5860,8 +5860,8 @@ LABEL_9:
        else
          v117 += (double)v111 * fTurnSpeedMultiplier;
 
-       v117 %= 2 * 65536;
-       //v117 = pClass59_global->uDoublePiMask & v12;
+       //v117 %= 2 * 65536;
+       v117 = pClass59_global->uDoublePiMask & v117;
       }
       break;
 

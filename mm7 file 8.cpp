@@ -2346,7 +2346,7 @@ int __cdecl MenuLoop_Main()
                                      0,
                                      78,
                                      (unsigned char *)"New Game",
-                                     &LODFile_Icons_LOD.aLODHeaders[v4]);
+                                     &LODFile_Icons_LOD.aLODHeaders[v4],0);
  #ifndef OLD_CODE
 	 v5 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_load");
 #endif
@@ -2363,7 +2363,7 @@ int __cdecl MenuLoop_Main()
                                       1,
                                       76,
                                       (unsigned char *)"Load Game",
-                                      &LODFile_Icons_LOD.aLODHeaders[v5]);
+                                      &LODFile_Icons_LOD.aLODHeaders[v5],0);
   #ifndef OLD_CODE
 	   v6 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_cred");
 #endif
@@ -2380,7 +2380,7 @@ int __cdecl MenuLoop_Main()
                                      2,
                                      67,
                                      (unsigned char *)"Creadits",
-                                     &LODFile_Icons_LOD.aLODHeaders[v6]);
+                                     &LODFile_Icons_LOD.aLODHeaders[v6],0);
   #ifndef OLD_CODE
 	 v7 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_exit");
 #endif
@@ -2397,7 +2397,7 @@ int __cdecl MenuLoop_Main()
                                   3,
                                   0,
                                   (unsigned char *)"Exit",
-                                  &LODFile_Icons_LOD.aLODHeaders[v7]);
+                                  &LODFile_Icons_LOD.aLODHeaders[v7],0);
 
 #ifndef OLD_CODE
 	  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Title");
@@ -2492,7 +2492,7 @@ int __cdecl MenuLoop_Main()
                  ;
           }
 
-          Render_DrawIndexedTexture(pD3DRenderer, v8->uX + 1, v8->uY + 1, v8->pTexture1);
+          Render_DrawIndexedTexture(pD3DRenderer, v8->uX + 1, v8->uY + 1, v8->pTexture[0]);
          }
          v8 = v8->pNext;
          if (!v8)

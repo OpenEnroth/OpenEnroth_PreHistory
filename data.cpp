@@ -1262,8 +1262,7 @@ struct GUIButton *pPlayerCreationUI_BtnMinus = 0;        // ptr     @ MM7.exe::0
 
 
 
-//struct cTexture *pPlayerCreationUI_ArrowR[20] = {0}; // ptr[19] @ MM7.exe::0050787C
-//struct cTexture *pPlayerCreationUI_ArrowL[20] = {0}; // ptr[19] @ MM7.exe::005078CC
+
 
 struct class24 *pClass24_global2 = 0; // struct @ MM7.exe::0050BBB8
 
