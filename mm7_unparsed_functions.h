@@ -238,7 +238,7 @@ void __cdecl sub_4142D3();
 void __cdecl sub_414D9A();
 void __cdecl sub_414F82_DrawGameOptions();
 void GUIButton_sub_415180(struct GUIButton *a1, const unsigned char *a2, struct Font *a3, __int16 a4, char *a5);
-char *__cdecl sub_415485();
+char *__cdecl CreateCopyrightWindow();
 void GUIWindow_sub_415551(GUIWindow *_this, int a2);
 void __cdecl sub_4156F0_LooksLike_UI_ProcessCallbacks();
 char __fastcall sub_4160CA(int a1, int a2);
@@ -531,7 +531,7 @@ int __cdecl sub_44C28F();
 bool sub_44C2F4_SomeDecorationTypeCheck(struct LevelDecoration *_this);
 void sub_44C362_NormalizeIntVector(int *_this);
 bool __fastcall sub_44C4DE(unsigned char a1, unsigned char *a2);
-int __fastcall Font_sub_44C59D(Font *pFont, const char *pString, GUIWindow *a3, char a4, int a5);
+
 int __fastcall sub_44C62E(int a1, char a2, const char *Str, int a4, int a5, int a6);
 int __fastcall Font_sub_44C6C2(struct Font *a1, const char *a2, struct GUIWindow *a3, char a4, int a5);
 char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int a6);

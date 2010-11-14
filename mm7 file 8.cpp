@@ -4,7 +4,7 @@
 #include "defs.h"
 
  #include "_lod.h"
-
+ #include "font.h"
 #include "AIL.h"
 
 #include "data.h"
@@ -3617,33 +3617,6 @@ LABEL_183:
   }
 }
 
-//----- (0044D406) --------------------------------------------------------
-char *__fastcall GUIWindow_sub_44D406(struct GUIWindow *a1, struct Font *pFont, int a3, int a4, unsigned __int16 a5, const char *pString, int a7)
-{
-  char *result; // eax@1
-  int v8; // ebx@1
-  int v9; // edi@1
-  int v10; // esi@1
-  char *v12; // eax@1
-  int v13; // eax@2
-
-  v8 = a1->uFrameWidth - a3;
-  dword_5C6DB4 = a5;
-  v12 = (char *)FitTextInAWindow(pString, pFont, a1, a3, 0);
-  result = strtok(v12, "\n");
-  v9 = a3 + a1->uFrameX;
-  v10 = a4 + a1->uFrameY;
-  while ( result )
-  {
-    v13 = (v8 - sub_44C51E(pFont, result)) >> 1;
-    if ( v13 < 0 )
-      v13 = 0;
-    sub_44D1E7((unsigned char *)pFont, a5, v9 + v13, v10, result, 640);
-    v10 += ((unsigned char *)pFont)[5] - a7;
-    result = strtok(0, "\n");
-  }
-  return result;
-}
 
 //----- (00464479) ------------------. --------------------------------------
 void __cdecl sub_464479()
@@ -3988,61 +3961,6 @@ void __thiscall sub_405CFF(int _this, int a2)
   dword_50C998 = v2;
 }
 
-//----- (0044C59D) --------------------------------------------------------
-int __fastcall Font_sub_44C59D(Font *pFontData, const char *pString, GUIWindow *a3, char a4, int a5)
-{
-  const char *v5; // ebx@1
-  signed int v8; // ebx@3
-  int v9; // esi@3
-  size_t v10; // eax@3
-  unsigned __int8 v11; // cl@4
-  unsigned __int8 *v13; // [sp+14h] [bp+Ch]@3
- int i;
-
- if (!pString)
-   return 0;
-
- v5 = pString;
- v9 = ((unsigned char *)(pFontData))[5] - 3;
- v13 = FitTextInAWindow(pString, pFontData, a3, a4, 0);
- v10 = strlen(pString);
- v8 = 0;
-
- for (i = 0; i < v10; ++i)
- {
-  if (sub_44C4DE(*v13, (unsigned char *)pFontData))
-  {
-   v11 = *v13;
-   if (v11 == 9)
-     goto LABEL_8;
-
-   switch (v11)
-   {
-    case 0xAu:
-      v9 = v9 + *(_BYTE *)((int)pFontData + 5) - 3;
-    break;
-
-    case 0xCu:
-      v13 += 5;
-      v8 += 5;
-    break;
-
-    case 0xDu:
-LABEL_8:
-      if (a5 != 1)
-      {
-       v13 += 3;
-       v8 += 3;
-      }
-    break;
-   }
-  }
-  ++v8;
-  ++v13;
- }
-
- return v9;
-}
 
 //----- (004647AB) --------------------------------------------------------
 void InitializeCameraAndViewport()

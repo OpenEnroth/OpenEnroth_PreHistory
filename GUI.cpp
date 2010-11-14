@@ -1,7 +1,9 @@
 #include "GUI.h"
 
 #include "defs.h"
-#include <STDARG.H>
+#include "localization_defs.h"
+
+#include "font.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
@@ -309,7 +311,6 @@ void GameUI_LoadIcons()
 
  uTextureIdx_Leather = LODFile_Icons_LOD.LODFile_LoadTexture("LEATHER",2);
 
- //pcTexture_ibground = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("ibground")];
  uTextureID_ibground = LODFile_Icons_LOD.LODFile_LoadTexture("ibground",2);
 
  uTextureIdx_BtnMake = LODFile_Icons_LOD.LODFile_LoadTexture("ButtMake",2);
@@ -329,11 +330,11 @@ void GameUI_LoadIcons()
  GUIButtonCreate(pGUIWindow0, 280, 424, 70, 90, 2, 94, 110, 3, 51, (unsigned char*)"p2", 0);
  GUIButtonCreate(pGUIWindow0, 390, 424, 70, 90, 2, 94, 110, 4, 52, (unsigned char*)"p3", 0);
 
- GUIButtonCreate(pGUIWindow0, 24, 404, 5, 49, 1, 93, 0, 1, 0,(unsigned char*) "", 0);
+ GUIButtonCreate(pGUIWindow0,  24, 404, 5, 49, 1, 93, 0, 1, 0, (unsigned char*) "", 0);
  GUIButtonCreate(pGUIWindow0, 139, 404, 5, 49, 1, 93, 0, 2, 0, (unsigned char*)"", 0);
  GUIButtonCreate(pGUIWindow0, 255, 404, 5, 49, 1, 93, 0, 3, 0, (unsigned char*)"", 0);
  GUIButtonCreate(pGUIWindow0, 370, 404, 5, 49, 1, 93, 0, 4, 0, (unsigned char*)"", 0);
- GUIButtonCreate(pGUIWindow0, 97, 404, 5, 49, 1, 93, 0, 1, 0, (unsigned char*)"", 0);
+ GUIButtonCreate(pGUIWindow0,  97, 404, 5, 49, 1, 93, 0, 1, 0, (unsigned char*)"", 0);
  GUIButtonCreate(pGUIWindow0, 212, 404, 5, 49, 1, 93, 0, 2, 0, (unsigned char*)"", 0);
  GUIButtonCreate(pGUIWindow0, 328, 404, 5, 49, 1, 93, 0, 3, 0, (unsigned char*)"", 0);
  GUIButtonCreate(pGUIWindow0, 443, 404, 5, 49, 1, 93, 0, 4, 0, (unsigned char*)"", 0);
@@ -527,6 +528,156 @@ void GameUI_LoadIcons()
  uIconIdx_Spell27 = pIconFrameTable->FindAnimation("spell27");
 }
 
+
+//----- (00415485) --------------------------------------------------------
+char *__cdecl CreateCopyrightWindow()
+{
+ GUIWindow local_08;
+  //int Dst; // [sp+8h] [bp-54h]@1
+  //int v2; // [sp+Ch] [bp-50h]@1
+  //int v3; // [sp+10h] [bp-4Ch]@1
+  //int v4; // [sp+14h] [bp-48h]@1
+  //int v5; // [sp+18h] [bp-44h]@1
+  //int v6; // [sp+1Ch] [bp-40h]@1
+
+ memset(&local_08, 0, sizeof(GUIWindow));
+
+ local_08.uFrameX = 8;
+ local_08.uFrameY = 30;
+ local_08.uFrameWidth = 624;
+ local_08.uFrameHeight = 256;
+ local_08.uFrameHeight = Font_sub_44C59D(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_3DO_COPYRHT], &local_08, 24, 0) + 2 * pFontSmallnum->uFontHeight + 24;
+
+ local_08.uFrameY = 470 - local_08.uFrameHeight;
+ local_08.uFrameZ = local_08.uFrameX + local_08.uFrameWidth - 1;
+ local_08.uFrameW = 469;
+ GUIWindow_sub_415551(&local_08, 0);
+
+ local_08.uFrameWidth -= 24;
+ local_08.uFrameX += 12;
+ local_08.uFrameY += 12;
+ local_08.uFrameHeight -= 12;
+ local_08.uFrameZ = local_08.uFrameX + local_08.uFrameWidth - 1;
+ local_08.uFrameW = local_08.uFrameY + local_08.uFrameHeight - 1;
+ return GUIWindow_sub_44D406(&local_08, pFontSmallnum, 0, 12, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_3DO_COPYRHT], 3);
+}
+
+//----- (00415551) --------------------------------------------------------
+void __thiscall GUIWindow_sub_415551(GUIWindow *_this, int a2)
+{
+  int v3; // edi@1
+  int v4; // eax@2
+  int v5; // esi@2
+  int v6; // ecx@6
+  int v7; // eax@9
+  int v8; // eax@10
+  signed int v9; // eax@18
+  int v10; // eax@18
+  int v11; // edx@18
+  const char *v12; // ecx@18
+  int v13; // ecx@18
+  signed int v14; // esi@19
+  int v15; // eax@19
+  int v17; // eax@26
+  
+  GUIWindow local_0C;//int v18; // [sp+Ch] [bp-60h]@18
+  //int v19; // [sp+10h] [bp-5Ch]@18
+  //int v20; // [sp+14h] [bp-58h]@18
+  //int v21; // [sp+18h] [bp-54h]@18
+  //int v22; // [sp+1Ch] [bp-50h]@18
+  //int v23; // [sp+20h] [bp-4Ch]@18
+
+  POINT v24;
+  //char v24; // [sp+60h] [bp-Ch]@8
+  //int v25; // [sp+64h] [bp-8h]@18
+  int v26; // [sp+68h] [bp-4h]@18
+  int v27; // [sp+74h] [bp+8h]@2
+  int v28; // [sp+74h] [bp+8h]@18
+
+  v3 = 0;
+  if ( a2 )
+  {
+    v5 = pOldViewport->uGameX;
+    v4 = pOldViewport->uGameZ;
+    v3 = pOldViewport->uGameY;
+    v27 = pOldViewport->uGameW;
+  }
+  else
+  {
+    v5 = 0;
+    v4 = 640;
+    v27 = 480;
+  }
+  if (_this->uFrameX >= v5 )
+  {
+   v6 = _this->uFrameWidth;
+    if ( v6 + _this->uFrameX <= v4 )
+      goto LABEL_9;
+    _this->uFrameX = v4 - v6;
+  }
+  else
+  {
+    _this->uFrameX = v5;
+  }
+  _this->uFrameY = *(_DWORD *)(class03_GetMousePos(pGame->pClass03, &v24) + 4) + 30;
+LABEL_9:
+  v7 = _this->uFrameY;
+  if ( v7 >= v3 )
+  {
+   if ( v7 + _this->uFrameHeight <= v27 )
+      goto LABEL_14;
+   v8 = *(_DWORD *)(class03_GetMousePos(pGame->pClass03, &v24) + 4) - _this->uFrameHeight - 30;
+  }
+  else
+  {
+    v8 = *(_DWORD *)(class03_GetMousePos(pGame->pClass03, &v24) + 4) + 30;
+  }
+  _this->uFrameY = v8;
+LABEL_14:
+  if (_this->uFrameY < v3 )
+    _this->uFrameY = v3;
+  if (_this->uFrameX < v5 )
+    _this->uFrameX = v5;
+  v10 = _this->uFrameWidth;
+  v13 = _this->uFrameX;
+  v11 = _this->uFrameY;
+  v26 = v10;
+  v24.y = v13;
+  _this->uFrameZ = v10 + v13 - 1;
+  v9 = _this->uFrameHeight;
+  _this->uFrameW = v9 + v11 - 1;
+  memcpy(&local_0C, (const void *)_this, sizeof(GUIWindow));
+  local_0C.uFrameX += 12;
+  local_0C.uFrameWidth -= 24;
+  local_0C.uFrameY += 12;
+  local_0C.uFrameHeight -= 12;
+  local_0C.uFrameZ = local_0C.uFrameWidth + local_0C.uFrameX - 1;
+  v28 = v11;
+  local_0C.uFrameW = local_0C.uFrameHeight + local_0C.uFrameY - 1;
+  v12 = (char *)local_0C.ptr_000048;
+  if ( v12 )
+  {
+    v15 = Font_sub_44C59D(pFontLucida, v12, &local_0C, 0, 0);
+    v11 = v28;
+    v14 = v15 + 24;
+  }
+  else
+  {
+    v14 = v9;
+  }
+  if ( v14 < 64 )
+    v14 = 64;
+  if ( v14 + v11 > 479 )
+    v14 = 479 - v11;
+  DrawWindow(v24.y, v11, v26, v14);
+  if (local_0C.ptr_000048)
+  {
+    v17 = Font_sub_44C59D(pFontLucida, (char *)local_0C.ptr_000048, &local_0C, 0, 0);
+    GUIWindow_sub_44D406(&local_0C, pFontLucida, 0, (v14 - v17) / 2 - 14, 0, (char *)local_0C.ptr_000048, 3);
+  }
+}
+
+
 //----- (004BF794) --------------------------------------------------------
 void __cdecl LoadMainMenu()
 {
@@ -576,7 +727,7 @@ void __cdecl LoadMainMenu()
  #ifdef OLD_CODE
 	  Render_DrawRGBTexture(pD3DRenderer, 0, 0, &cPCXID_MainMenuUI_Title);
    #endif
-  sub_415485();
+  CreateCopyrightWindow();
  }
 
  pD3DRenderer->EndScene();
@@ -5023,37 +5174,8 @@ LABEL_26:
 
 
 
-//----- (0044C448) --------------------------------------------------------
-struct Font *__cdecl LoadFont(const char *pFontFile, const char *pFontPalette)
-{
-  int v5; // eax@3
- struct Font *pFont;
-
- pFont = (Font *)LODFile_Icons_LOD.LODFile_LoadRaw( pFontFile, 0);
-
- if (pFontPalette)
- {
-  v5 = LODFile_Icons_LOD.LODFile_LoadTexture( pFontPalette, 2);
-  if (v5 == -1)
-  {
-   wsprintfA((char *)TmpBuf, "Unable to open %s", pFontPalette);
-   erroneous_printf((char *)TmpBuf);
-  }
-
-  pFont->pFontPalette = LODFile_Icons_LOD.aLODHeaders[v5].pPalette;
- }
-
- pFont->dword_000008 = 1;
- return pFont;
-}
 
 
-//----- (0049750E) --------------------------------------------------------
-void __cdecl DeleteFontCChar()
-{
-  mem_mng.DeleteBuffer( (void *)pFontCChar);
-  pFontCChar = 0;
-}
 
 
 //----- (0049695A) --------------------------------------------------------
@@ -5258,155 +5380,6 @@ void __cdecl PlayerCreationUI_Initialize()
 }
 
 
-
-//----- (0044C768) --------------------------------------------------------
-unsigned char *__fastcall FitTextInAWindow(const char *pString, struct Font *pFont, struct GUIWindow *pParent, unsigned int uX, int a5)
-{
-  const char *v5; // edi@1
-  unsigned char *v6; // esi@1
-  int v8; // eax@3
-  int v9; // edi@3
-  int *v12; // ecx@10
-  int v16; // edx@15
-  int v17; // ecx@15
-  int v18; // esi@15
-  int v19; // ebx@16
-  int v20; // edi@16
-  unsigned __int8 v24; // dl@17
-  int v27; // edi@39
-  int v28; // eax@42
-  char v29; // [sp-18h] [bp-40h]@2
-  int v30; // [sp-14h] [bp-3Ch]@2
-  int v31; // [sp-10h] [bp-38h]@2
-  int v32; // [sp-Ch] [bp-34h]@2
-  const char *v35; // [sp+Ch] [bp-1Ch]@1
-  char Dest[3+256+array_size_unknown];
-  char v37; // [sp+13h] [bp-15h]@42
-  size_t v38; // [sp+14h] [bp-14h]@3
-  int v39; // [sp+18h] [bp-10h]@3
-  int v40; // [sp+1Ch] [bp-Ch]@1
-  int v41; // [sp+20h] [bp-8h]@3
-  int v42; // [sp+24h] [bp-4h]@3
- unsigned char c;
-
- v5 = pString;
- v35 = pString;
- v6 = (unsigned char *)pFont;
- v40 = (int)pFont;
- if (!pString)
- {
-   *(_DWORD *)&uX = (int)&v29;
-   Game_sub_40E2C8(&v29, "Invalid string passed !", (int)(&uX + 3));
-   sub_466D09(&pParent, *(int *)&v29, v30, v31, v32, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Font.cpp", 445);
-   return 0;
- }
-
- strcpy((char *)byte_5C45B0, pString);
- v8 = uX;
- v9 = 0;
- v41 = 0;
- v39 = uX;
- v42 = 0;
-
- v38 = strlen(pString);
- if (!v38)
-   return byte_5C45B0;
-
- while (true)
- {
-  c = byte_5C45B0[v9];
-  if ((c < v6[0] || c > v6[1]) && c != '\f' && c != '\r' && c != '\n' && c != '\t')
-    goto LABEL_34;
-
-  v12 = pFont->dword_000020[c];
-  if (c == '\t')
-  {
-   strncpy(Dest, (char *)&byte_5C45B0[v9 + 1], 3);
-   v28 = atoi(Dest);
-   v37 = 0;
-   v8 = uX + v28;
-   v27 = v9 + 3;
-   v39 = v8;
-   v42 = v27;
-   goto LABEL_34;
-  }
-  else if (c == '\n')
-    break;
-  else if (c == '\f')
-  {
-   v27 = v9 + 5;
-   v42 = v27;
-   goto LABEL_34;
-  }
-  else if (c != '\r')
-  {
-   if (c != ' ')
-   {
-    v17 = v12[0];
-    v16 = v12[1];
-    v18 = v12[2];
-
-    if ((unsigned int)(v8 + v18 + v17 + v16) < pParent->uFrameWidth)
-    {
-     if ( v42 > v41 )
-       v8 += v17;
-     v8 += v16;
-     if (v42 < (signed int)v38)
-       v8 += v18;
-     v6 = (unsigned char *)v40;
-    }
-    else
-    {
-     v19 = v41;
-     v8 = v39;
-     v6 = (unsigned char *)v40;
-     byte_5C45B0[v41] = '\n';
-     v20 = v19;
-
-     //compile_error;//v23 = __SETO__(v41, v42);
-     //v21 = v41 == v42;
-     //v22 = v41 - v42 < 0;
-     //if ( (unsigned __int8)(v22 ^ v23) | v21 )
-     if (v41 <= v42)
-     {
-      do
-      {
-       v24 = byte_5C45B0[v20];
-       if (v24 >= v6[0] && v24 <= v6[1] || v24 == '\f' || v24 == '\r' || v24 == '\n' || v24 ==  '\t')
-       {
-        if ( v20 > v19 )
-          v8 += *(_DWORD *)(v6 + 12 * v24 + 32);
-        v8 += *(_DWORD *)(v6 + 4 * (3 * v24 + 9));
-        if ( v20 < v42 )
-          v8 += *(_DWORD *)(v6 + 12 * v24 + 40);
-       }
-       ++v20;
-      }
-      while ( v20 <= v42 );
-     }
-    }
-    goto LABEL_34;
-   }
-   v8 += *(_DWORD *)(v12 + 4);
-   goto LABEL_41;
-  }
-  if (!a5)
-    return (unsigned char *)v35;
-
-LABEL_34:
-  v9 = v42 + 1;
-  v42++;
-  //compile_error;//v26 = __SETO__(v42, v38);
-  //v25 = (signed int)(v42 - v38) < 0;
-  if (v42 >= v38)//if ( !(v25 ^ v26) )
-    return byte_5C45B0;
- }
- v8 = v39;
-
-LABEL_41:
- v41 = v9;
- goto LABEL_34;
-}
 
 //----- (004435CD) --------------------------------------------------------
 void LevelLoadingUI_UpdateAndDrawProgressBar(struct class56 *_this)
@@ -5619,56 +5592,7 @@ void __cdecl GameUI_DrawStatusBar()
   }
 }
 
-//----- (0044C502) --------------------------------------------------------
-int __fastcall AlignText_Center(int a1, const char *pString, struct Font *pFont)
-{
-  int v3; // esi@1
-  int result; // eax@2
 
-  v3 = (a1 - sub_44C51E(pFont, pString)) / 2;
-  if ( v3 >= 0 )
-    result = v3;
-  else
-    result = 0;
-  return result;
-}
-
-//----- (0044C51E) --------------------------------------------------------
-int __fastcall sub_44C51E(struct Font *_this, const char *pString)
-{
-  signed int i; // ebx@3
-  size_t v5; // ebp@3
-  int v6; // esi@3
-  const char *v8; // [sp+0h] [bp-4h]@1
- unsigned char c;
-
- if (!pString)
-   return 0;
-
- v8 = pString;
- v5 = strlen(pString);
- v6 = 0;
- for ( i = 0; i < v5; ++i )
- {
-  c = pString[i];
-  if (sub_44C4DE(c, (unsigned char *)_this))
-  {
-   if (c == '\n' || c == '\r')
-     return v6;
-   if (c != '\f')
-   {
-    if (i > 0)
-      v6 += _this->dword_000020[c][0];
-    v6 += _this->dword_000020[c][1];
-    if (i < v5)
-      v6 += _this->dword_000020[c][2];
-   }
-   else
-     i += 5;
-  }
- }
- return v6;
-}
 
 //----- (0041B3E2) --------------------------------------------------------
 void GameUI_DrawFrames()
@@ -6001,155 +5925,54 @@ LABEL_27:
   }
 }
 
-//----- (0044CE08) --------------------------------------------------------
-void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, const char *pString, unsigned int uTextMainColor, signed int a8, unsigned int uTextShadowColor)
+//----- (00415180) --------------------------------------------------------
+void GUIButton_sub_415180(struct GUIButton *a1, const unsigned char *a2, struct Font *a3, __int16 a4, char *a5)
 {
-  int v9; // ebx@1
-  int v10; // edi@1
-  int v12; // edx@9
-  int v15; // eax@25
-  int v16; // ecx@25
-  int v17; // eax@27
-  int v18; // edi@32
-  int v19; // esi@38
-  unsigned __int8 v20; // sf@39
-  unsigned __int8 v21; // of@39
-  char v23; // [sp-18h] [bp-50h]@2
-  int v24; // [sp-14h] [bp-4Ch]@2
-  int v25; // [sp-10h] [bp-48h]@2
-  int v26; // [sp-Ch] [bp-44h]@2
-  char Dest[8]; // [sp+Ch] [bp-2Ch]@32
-  char v30; // [sp+Fh] [bp-29h]@32
-  char v31; // [sp+11h] [bp-27h]@34
-  char *v32; // [sp+20h] [bp-18h]@25
-  int v33; // [sp+24h] [bp-14h]@25
-  int v34; // [sp+28h] [bp-10h]@1
-  size_t v35; // [sp+2Ch] [bp-Ch]@4
-  char *v37; // [sp+34h] [bp-4h]@7
-  int v38; // [sp+4Ch] [bp+14h]@11
- unsigned char c;
- unsigned int uOutX,
-              uOutY;
+  const char *v6; // ebx@1
+  int v7; // esi@1
+  int v8; // eax@1
 
-  v34 = 0;
-  v10 = (int)_this;
-  v9 = (int)pFont;
+  v6 = (char *)a2;
+  v7 = (int)a1;
+  strlen((char *)a2);
+  v8 = sub_44C51E((Font *)a3, v6);
+  FontDrawText(*(GUIWindow **)(v7 + 56),
+           (Font *)a3,
+           *(_DWORD *)v7 + (*(_DWORD *)(v7 + 8) - v8) / 2,
+           *(_DWORD *)(v7 + 4) + (*(_DWORD *)(v7 + 12) - *(_BYTE *)(a3 + 5)) / 2,
+           //a4,//colored or white text flag
+           v6,
+           0,
+           0,
+           (unsigned int)a5);
+}
 
-  if (!strcmp(pString, "null"))
-    return;
+//----- (0044D406) --------------------------------------------------------
+char *__fastcall GUIWindow_sub_44D406(struct GUIWindow *a1, struct Font *pFont, int a3, int a4, unsigned __int16 a5, const char *pString, int a7)
+{
+  char *result; // eax@1
+  int v8; // ebx@1
+  int v9; // edi@1
+  int v10; // esi@1
+  char *v12; // eax@1
+  int v13; // eax@2
 
-    v35 = strlen(pString);
-
-    if ( !uX )
-      uX = 12;
-    if ( a8 )
-    {
-      v37 = (char *)pString;
-    }
-    else
-    {
-      v37 = (char *)FitTextInAWindow(pString, pFont, _this, uX, 0);
-    }
-    uOutX = uX + _this->uFrameX;
-    uOutY = uY + _this->uFrameY;
-    v12 = 0;
-
-  if (!a8 || uOutY + pFont->uFontHeight <= a8)
+  v8 = a1->uFrameWidth - a3;
+  dword_5C6DB4 = a5;
+  v12 = (char *)FitTextInAWindow(pString, pFont, a1, a3, 0);
+  result = strtok(v12, "\n");
+  v9 = a3 + a1->uFrameX;
+  v10 = a4 + a1->uFrameY;
+  while ( result )
   {
-   v38 = 0;
-   if ((signed int)v35 > 0)
-      {
-        do
-        {
-          c = v37[v12];
-          if (c >= pFont->uFirstChar && c <= pFont->uLastChar
-            || c == '\f' || c == '\r' || c == '\t' || c == '\n')
-          {
-            switch ( c )
-            {
-              case 9u: // number (3 digit always) after \t denotes tab amount (in pixels);  example:  "\t004skips 4 whitespaces before _this string"
-                memset(&Dest,0, sizeof (Dest));
-                strncpy(Dest, &v37[v12 + 1], 3);
-                v30 = 0;
-                v38 += 3;
-                v34 = atoi(Dest);
-                v19 = atoi(Dest);
-                uOutX = uX + _this->uFrameX + v19;
-                break;
-              case 0xAu:
-                c = pFont->uFontHeight;
-                uY = uY + pFont->uFontHeight - 3;
-                uOutY = uY + _this->uFrameY;
-                uOutX = uX + v34 + _this->uFrameX;
-                if ( a8 )
-                  goto LABEL_36;
-                break;
-              case 0xCu:
-                memset(Dest,0, sizeof (Dest));
-                strncpy(Dest, &v37[v12 + 1], 6);
-                v31 = 0;
-                sscanf(Dest,"%x",&uTextMainColor);
-                if(!uTextMainColor)
-                 uTextMainColor = 0xFFFFFF;
-                uTextMainColor|=0xFF000000;
-                v38 += 6;
-                break;
-              case 0xDu:
-                memset(Dest,0, sizeof (Dest));
-                strncpy(Dest, &v37[v12 + 1], 3u);
-                v30 = 0;
-                v38 += 3;
-                v18 = atoi(Dest);
-                c = sub_44C51E((Font *)v9, &v37[v38]);
-                uOutX = *(_DWORD *)(v10 + 16) - (_DWORD)c - v18;
-                uOutY = uY + *(_DWORD *)(v10 + 4);
-                if ( a8 )
-                {
-                 c = pFont->uFontHeight;
-LABEL_36:
-                  c = pFont->uFontHeight + uOutY - 3;
-                  if ( (signed int)c > a8 )
-                    return;
-                  break;
-                }
-                break;
-              default:
-                if (c == 34 )
-                {
-                  if ( v37[v12 + 1] == 34 )
-                  {
-                    ++v12;
-                    v38 = v12;
-                  }
-                }
-                v32 = &v37[v12];
-                v15 = (unsigned __int8)v37[v12];
-                v16 = pFont->dword_000020[v15][1];
-                v33 = pFont->dword_000020[v15][2];
-                if ( v12 > 0 )
-                  uOutX += pFont->dword_000020[v15][0];
-                v17 = pFont->array_000C20[v15] + (int)&pFont->unk_001020;
-
-                Render_DrawText(pD3DRenderer, uOutX, uOutY, (unsigned char *)v17,
-                    v16,
-                    pFont->uFontHeight, pFont->pFontPalette,
-                    uTextMainColor,
-                    uTextShadowColor);
-                uOutX += pFont->dword_000020[v15][1];
-                if ( v38 < (signed int)v35)
-                {
-                  uOutX += pFont->dword_000020[v15][2];
-                }
-                break;
-            }
-          }
-          v12 = v38 + 1;
-          //v21 = __SETO__(v38 + 1, v35);
-          //v20 = (signed int)(v38++ + 1 - v35) < 0;
-        }
-        while ( ++v38 < v35);
-      }
-    }
+    v13 = (v8 - sub_44C51E(pFont, result)) >> 1;
+    if ( v13 < 0 )
+      v13 = 0;
+    sub_44D1E7((unsigned char *)pFont, a5, v9 + v13, v10, result, 640);
+    v10 += ((unsigned char *)pFont)[5] - a7;
+    result = strtok(0, "\n");
+  }
+  return result;
 }
 
 

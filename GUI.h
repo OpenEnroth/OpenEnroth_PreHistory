@@ -110,22 +110,6 @@ struct GUIButton
 
 
 
-struct Font
-{
- unsigned char   uFirstChar;           // byte  @ 000000
- unsigned char   uLastChar;            // byte  @ 000001
- char            byte_000002[2];
- unsigned char   byte_000004;
- unsigned char   uFontHeight;          // byte  @ 000005
- char            byte_000006[2];
- int             dword_000008;
- unsigned short *pFontPalette;         // dword @ 00000C
- int             dword_000010[4];
- int             dword_000020[256][3];
- int             array_000C20[256];
- char            unk_001020;
-};
-
 
 //LoadingUI
 struct class56
@@ -174,20 +158,12 @@ void GUIWindow_sub_459C2B(struct GUIWindow *a1, signed int a2, int a3, int a4);
 //int __thiscall sub_41CD3B(int _this, int a2);
 struct GUIButton *GUIWindow_GetChild(struct GUIWindow *_this, int uID);
 
-int __fastcall AlignText_Center(int a1, const char *pString, struct Font *pFont);
-unsigned char *__fastcall FitTextInAWindow(const char *pString, struct Font *pFont, struct GUIWindow *pParent, unsigned int uX, int a5);
-void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, const char *pString, unsigned int uTextMainColor, signed int a8, unsigned int uTextShadowColor);
-
 void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigned int uWindowWidth, unsigned int uWindowHeight);
 
 
-struct Font *__cdecl sub_44C448(const char *pFontName, const char *pFontPalette);
-int __fastcall sub_44C51E(struct Font *pFont, const char *pString);
 
-//int __cdecl sub_49750E();
-void __cdecl DeleteFontCChar();
 
-struct Font *__cdecl LoadFont(const char *pFontFile, const char *pFontPalette);
+
 
 
 extern unsigned int uTextureID_CurrentMenu;
