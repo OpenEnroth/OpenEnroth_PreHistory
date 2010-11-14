@@ -6546,7 +6546,7 @@ LABEL_79:
       while ( v41 < pDialogueWindow->dword_000028 + pDialogueWindow->dword_000038 );
     }
   }
-  Render_DrawIndexedTexture(pD3DRenderer, 471, 445, &LODFile_Icons_LOD.aLODHeaders[dword_506438_TextureID]);
+  Render_DrawIndexedTexture(pD3DRenderer, 471, 445, &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr]);
 }
 
 //----- (004459F9) --------------------------------------------------------

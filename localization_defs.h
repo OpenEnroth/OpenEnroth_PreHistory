@@ -3,16 +3,39 @@
 
 //#define  LOCSTR_
 
-#define  LOCSTR_AC                                  0
-#define  LOCSTR_ACCURACY 							1
-#define  LOCSTR_BLK_KNIGHT 							2
-#define  LOCSTR_SPY  							    3
-#define  LOCSTR_3DO_COPYRHT							157
+#define  LOCSTR_AC                                  0		//"AC"	
+#define  LOCSTR_ACCURACY 							1		//"Accuracy"	
+#define  LOCSTR_BLK_KNIGHT 							2		//"Black Knight"
+#define  LOCSTR_SPY  							    3		// "Spy"
+
+
+
+#define  LOCSTR_ASSASIN                     		13	// "Assassin"	
+#define  LOCSTR_MONK                        		21 //"Monk"	
+
+#define  LOCSTR_RANGER		                        31 //"Ranger"	
+
+#define  LOCSTR_ROGUE                           	114	 //"Rogue"
+
+#define  LOCSTR_3DO_COPYRHT							157	  // ""© 1999 The 3DO Company.
+
+#define  LOCSTR_KNIGHT                      		253  //"Knight"	
+#define  LOCSTR_CAVALIER		                    254  //"Cavalier"	
+#define  LOCSTR_CHAMPION		                    255  //"Champion"	
+#define  LOCSTR_CLERIC		                        256  //"Cleric"	
+#define  LOCSTR_PRIEST		                        257  //"Priest"	
+
+#define  LOCSTR_SORCERER		                    259  // "Sorcerer"	
+
+#define  LOCSTR_PALADIN                     		262 // "Paladin"
+
+#define  LOCSTR_ARCHER		                        265   /// "Archer"
+
+#define  LOCSTR_DRUID		                        268 // "Druid"	
+
+#define  LOCSTR_THIEF                       		307 //"Thief"	
 /*
-+		[0]	0x04102d82 "AC"	unsigned char *
-+		[1]	0x04102d88 "Accuracy"	unsigned char *
-+		[2]	0x04102d94 "Black Knight"	unsigned char *
-+		[3]	0x04102da4 "Spy"	unsigned char *
+
 +		[4]	0x04102dab "Afraid"	unsigned char *
 +		[5]	0x04102db5 "Age"	unsigned char *
 +		[6]	0x04102dbc "Air"	unsigned char *
@@ -22,7 +45,7 @@
 +		[10]	0x04102df6 "Town Portal"	unsigned char *
 +		[11]	0x04102e06 "Armor"	unsigned char *
 +		[0xc]	0x04102e10 "Armor Class"	unsigned char *
-+		[0xd]	0x04102e20 "Assassin"	unsigned char *
+
 +		[0xe]	0x04102e2d "Asleep"	unsigned char *
 +		[0xf]	0x04102e38 "Assertion failed at %d in %s"	unsigned char *
 +		[0x10]	0x04102e59 "Autosave"	unsigned char *
@@ -30,7 +53,7 @@
 +		[18]	0x04102e6f "Attack"	unsigned char *
 +		[19]	0x04102e7a "Available"	unsigned char *
 +		[20]	0x04102e88 "Available Skills"	unsigned char *
-+		[21]	0x04102e9d "Monk"	unsigned char *
+
 +		[22]	0x04102ea6 "Awards"	unsigned char *
 +		[23]	0x04102eb1 "Awards for"	unsigned char *
 +		[24]	0x04102ec0 "Fire Res"	unsigned char *
@@ -40,7 +63,7 @@
 +		[28]	0x04102ef0 "Villain"	unsigned char *
 +		[29]	0x04102efc "Body"	unsigned char *
 +		[30]	0x04102f05 "Bonus"	unsigned char *
-+		[31]	0x04102f0f "Ranger"	unsigned char *
+
 +		[32]	0x04102f1a "Broken Item"	unsigned char *
 +		[33]	0x04102f2a "Ranger Lord"	unsigned char *
 +		[34]	0x04102f3a "Cancel"	unsigned char *
@@ -123,7 +146,7 @@
 +		[111]	0x04103465 "Grand"	unsigned char *
 +		[112]	0x04103470 "How Much?"	unsigned char *
 +		[113]	0x0410347f "Identify"	unsigned char *
-+		[114]	0x0410348d "Rogue"	unsigned char *
+
 +		[115]	0x04103498 "Instructor"	unsigned char *
 +		[116]	0x041034a8 "Intellect"	unsigned char *
 +		[117]	0x041034b7 "Insane"	unsigned char *
@@ -262,22 +285,19 @@
 +		[250]	0x041040d8 "You need %s"	unsigned char *
 +		[251]	0x041040e9 "Zoom In"	unsigned char *
 +		[252]	0x041040f6 "Zoom Out"	unsigned char *
-+		[253]	0x04104104 "Knight"	unsigned char *
-+		[254]	0x04104110 "Cavalier"	unsigned char *
-+		[255]	0x0410411e "Champion"	unsigned char *
-+		[256]	0x0410412c "Cleric"	unsigned char *
-+		[257]	0x04104138 "Priest"	unsigned char *
+
+
 +		[258]	0x04104144 "Temp Speed"	unsigned char *
-+		[259]	0x04104154 "Sorcerer"	unsigned char *
+
 +		[260]	0x04104162 "Wizard"	unsigned char *
 +		[261]	0x0410416e "Archmage"	unsigned char *
-+		[262]	0x0410417c "Paladin"	unsigned char *
+
 +		[263]	0x04104189 "Crusader"	unsigned char *
 +		[264]	0x04104197 "Hero"	unsigned char *
-+		[265]	0x041041a1 "Archer"	unsigned char *
+
 +		[266]	0x041041ad "DISCARD A CARD"	unsigned char *
 +		[267]	0x041041c1 "Warrior Mage"	unsigned char *
-+		[268]	0x041041d3 "Druid"	unsigned char *
+
 +		[269]	0x041041de "Greater Druid"	unsigned char *
 +		[270]	0x041041f1 "Arch Druid"	unsigned char *
 +		[271]	0x04104201 "Staff"	unsigned char *
@@ -316,7 +336,7 @@
 +		[304]	0x041043dd "Official"	unsigned char *
 +		[305]	0x041043eb "Peasant"	unsigned char *
 +		[306]	0x041043f8 "Scholar"	unsigned char *
-+		[307]	0x04104405 "Thief"	unsigned char *
+
 +		[308]	0x04104410 "Smith"	unsigned char *
 +		[309]	0x0410441b "Armorer"	unsigned char *
 +		[310]	0x04104428 "Guide"	unsigned char *

@@ -541,7 +541,7 @@ class cTexture* dword_5063BC; // weak
  int dword_506408[array_size_unknown]; // weak
  int dword_50640C[array_size_unknown]; // weak
  int dword_506434; // weak
- int dword_506438_TextureID; // weak
+ int uTextureID_right_backgr; // weak
  int dword_50643C; // weak
  int dword_506440; // idb
  int dword_506444; // idb

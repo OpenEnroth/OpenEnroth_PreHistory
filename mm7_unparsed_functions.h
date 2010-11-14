@@ -212,7 +212,7 @@ void __thiscall sub_4103BB(int _this);
 char *__thiscall sub_410B28(void *_this);
 signed int __fastcall sub_410D99(int a1);
 int __cdecl sub_410DEC();
-char *__cdecl sub_411150();
+
 int __fastcall sub_411300(int a1);
 int __cdecl sub_41140B();
 int __cdecl sub_411473();
@@ -221,7 +221,7 @@ int __thiscall sub_411621(void *_this);
 int __cdecl sub_41192C();
 void sub_411AAA();
 int __fastcall sub_411B59(int a1, int a2);
-int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this);
+
 void __cdecl sub_412AF9();
 void __cdecl sub_412B58();
 void __cdecl sub_412E85();
@@ -237,10 +237,7 @@ void __cdecl sub_41426F();
 void __cdecl sub_4142D3();
 void __cdecl sub_414D9A();
 void __cdecl sub_414F82_DrawGameOptions();
-void GUIButton_sub_415180(struct GUIButton *a1, const unsigned char *a2, struct Font *a3, __int16 a4, char *a5);
-char *__cdecl CreateCopyrightWindow();
-void GUIWindow_sub_415551(GUIWindow *_this, int a2);
-void __cdecl sub_4156F0_LooksLike_UI_ProcessCallbacks();
+
 char __fastcall sub_4160CA(int a1, int a2);
 void __cdecl sub_416196();
 void __thiscall sub_416B01(void *_this);

@@ -547,7 +547,7 @@ extern int dword_506404; // weak
 extern int dword_506408[array_size_unknown]; // weak
 extern int dword_50640C[array_size_unknown]; // weak
 extern int dword_506434; // weak
-extern int dword_506438_TextureID; // weak
+extern int uTextureID_right_backgr; // weak
 extern int dword_50643C; // weak
 extern int dword_506440; // idb
 extern int dword_506444; // idb

@@ -226,4 +226,11 @@ int CharacterUI_LoadPaperdollTextures();
 void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter);
 void __fastcall CharacterUI_DrawPaperdoll2(int a1);
 
+char *__cdecl sub_411150();
+int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this);
+void GUIButton_sub_415180(struct GUIButton *a1, const unsigned char *a2, struct Font *a3, __int16 a4, char *a5);
+char *__cdecl CreateCopyrightWindow();
+void GUIWindow_sub_415551(GUIWindow *_this, int a2);
+void __cdecl sub_4156F0_LooksLike_UI_ProcessCallbacks();
+
 #pragma pack(pop)

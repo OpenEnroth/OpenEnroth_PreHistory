@@ -2,7 +2,7 @@
 //#include <dinput.h>
 
 #include "defs.h"
-
+#include "localization_defs.h"
  #include "_lod.h"
  #include "font.h"
 #include "AIL.h"
@@ -10035,39 +10035,39 @@ void __cdecl InitializeGameText()
  pSomeItemsNames[12] = pGlobalTXT_LocalizationStrings[282];
  pSomeItemsNames[13] = pGlobalTXT_LocalizationStrings[143];
 
- aClassNames[0] = pGlobalTXT_LocalizationStrings[253];
- aClassNames[1] = pGlobalTXT_LocalizationStrings[254];
- aClassNames[2] = pGlobalTXT_LocalizationStrings[255];
- aClassNames[3] = pGlobalTXT_LocalizationStrings[2];
- aClassNames[4] = pGlobalTXT_LocalizationStrings[307];
- aClassNames[5] = pGlobalTXT_LocalizationStrings[114];
- aClassNames[6] = pGlobalTXT_LocalizationStrings[3];
- aClassNames[7] = pGlobalTXT_LocalizationStrings[13];
- aClassNames[8] = pGlobalTXT_LocalizationStrings[21];
+ aClassNames[0] = pGlobalTXT_LocalizationStrings[LOCSTR_KNIGHT];
+ aClassNames[1] = pGlobalTXT_LocalizationStrings[LOCSTR_CAVALIER];
+ aClassNames[2] = pGlobalTXT_LocalizationStrings[LOCSTR_CHAMPION];
+ aClassNames[3] = pGlobalTXT_LocalizationStrings[LOCSTR_BLK_KNIGHT];
+ aClassNames[4] = pGlobalTXT_LocalizationStrings[LOCSTR_THIEF];
+ aClassNames[5] = pGlobalTXT_LocalizationStrings[LOCSTR_ROGUE];
+ aClassNames[6] = pGlobalTXT_LocalizationStrings[LOCSTR_SPY];
+ aClassNames[7] = pGlobalTXT_LocalizationStrings[LOCSTR_ASSASIN];
+ aClassNames[8] = pGlobalTXT_LocalizationStrings[LOCSTR_MONK];
  aClassNames[9] = pGlobalTXT_LocalizationStrings[26];
  aClassNames[10] = pGlobalTXT_LocalizationStrings[432];
  aClassNames[11] = pGlobalTXT_LocalizationStrings[27];
- aClassNames[12] = pGlobalTXT_LocalizationStrings[262];
+ aClassNames[12] = pGlobalTXT_LocalizationStrings[LOCSTR_PALADIN];
  aClassNames[13] = pGlobalTXT_LocalizationStrings[263];
  aClassNames[14] = pGlobalTXT_LocalizationStrings[264];
  aClassNames[15] = pGlobalTXT_LocalizationStrings[28];
- aClassNames[16] = pGlobalTXT_LocalizationStrings[265];
+ aClassNames[16] = pGlobalTXT_LocalizationStrings[LOCSTR_ARCHER];
  aClassNames[17] = pGlobalTXT_LocalizationStrings[267];
  aClassNames[18] = pGlobalTXT_LocalizationStrings[119];
  aClassNames[19] = pGlobalTXT_LocalizationStrings[124];
- aClassNames[20] = pGlobalTXT_LocalizationStrings[31];
+ aClassNames[20] = pGlobalTXT_LocalizationStrings[LOCSTR_RANGER];
  aClassNames[21] = pGlobalTXT_LocalizationStrings[370];
  aClassNames[22] = pGlobalTXT_LocalizationStrings[33];
  aClassNames[23] = pGlobalTXT_LocalizationStrings[40];
- aClassNames[24] = pGlobalTXT_LocalizationStrings[256];
+ aClassNames[24] = pGlobalTXT_LocalizationStrings[LOCSTR_CLERIC];
  aClassNames[25] = pGlobalTXT_LocalizationStrings[257];
  aClassNames[26] = pGlobalTXT_LocalizationStrings[44];
  aClassNames[27] = pGlobalTXT_LocalizationStrings[46];
- aClassNames[28] = pGlobalTXT_LocalizationStrings[268];
+ aClassNames[28] = pGlobalTXT_LocalizationStrings[LOCSTR_DRUID];
  aClassNames[29] = pGlobalTXT_LocalizationStrings[269];
  aClassNames[30] = pGlobalTXT_LocalizationStrings[270];
  aClassNames[31] = pGlobalTXT_LocalizationStrings[48];
- aClassNames[32] = pGlobalTXT_LocalizationStrings[259];
+ aClassNames[32] = pGlobalTXT_LocalizationStrings[LOCSTR_SORCERER];
  aClassNames[33] = pGlobalTXT_LocalizationStrings[260];
  aClassNames[34] = pGlobalTXT_LocalizationStrings[261];
  aClassNames[35] = pGlobalTXT_LocalizationStrings[49];
