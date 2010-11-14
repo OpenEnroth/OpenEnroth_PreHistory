@@ -2,7 +2,7 @@
 //#include <dinput.h>
 
 #include "AIL.h"
-
+#include "font.h"
 #include "data.h"
 #include "_audio.h"
 #include "_video.h"

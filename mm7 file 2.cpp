@@ -1,9 +1,9 @@
 #include <ddraw.h>
 //#include <dinput.h>
 #include <stdlib.h>
-
+#include "font.h"
 #include "AIL.h"
-
+#include "font.h"
 #include "classes.h"
 #include "data.h"
 #include "_audio.h"

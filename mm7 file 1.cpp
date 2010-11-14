@@ -8,6 +8,7 @@
 #pragma comment(lib, "winmm.lib")
 
 #include "defs.h"
+#include "font.h"
 #include "AIL.h"
 #include "_lod.h"
 #include "classes.h"

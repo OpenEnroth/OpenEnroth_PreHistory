@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include "c18.h"
+#include "font.h"
 #include "AIL.h"
 #include "Party.h"
 #include "Items.h"
