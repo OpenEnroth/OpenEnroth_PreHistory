@@ -12009,7 +12009,7 @@ void MenuUI_LoadTextures(unsigned int uAlignment)
   cPCXID_GameUI_ViewportTop.LODPCXLoad(pRequestedInterface[2],0);
   cPCXID_GameUI_ViewportLeft.LODPCXLoad(pRequestedInterface[3],0);
   cPCXID_GameUI_PartyFrame.LODPCXLoad(pRequestedInterface[1],0);
- uTextureID_right_backgr = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[5],2);		//"ib-mb-C",		 //05
+ uTextureID_right_backgr = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[26],2);		//"ib-bcu-C",		 //05
     
  uTextureID_WindowEdgeTop = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[37],2);	  //"edge_top-c", 	 //37
  uTextureID_WindowEdgeBottom = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[34],2);  // "edge_btm-c", 	 //34
@@ -12051,7 +12051,7 @@ void MenuUI_LoadTextures(unsigned int uAlignment)
  dword_5079CC = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[10],2);					//   "IB-InitR-c", 	 //10
 
  uTextureIdx_MinimapMask = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[06],2);	  //"ib-autmask-b", //06
- uTextureID_5079E4 = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[36],2);
+ uTextureID_5079E4 = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[5],2);            // "ib-mb-C"
 
  uTextureIdx_CharacterSelectionFrame = LODFile_Icons_LOD.LODFile_LoadTexture( pRequestedInterface[15],2);  //"IB-selec-C", 	 //15
 

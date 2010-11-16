@@ -64,7 +64,7 @@ extern int dword_4E249C; // idb
 extern int dword_4E24B0; // idb
 extern int dword_4E24C4; // weak
 extern int dword_4E24D8; // weak
-extern char *dword_4E24E8; // idb
+extern char *dword_4E24E8; // active window id
 extern int dword_4E2544[array_size_unknown]; // weak
 extern int dword_4E28F8; // weak
 extern char byte_4E28FC; // weak
@@ -547,7 +547,7 @@ extern int dword_506404; // weak
 extern int dword_506408[array_size_unknown]; // weak
 extern int dword_50640C[array_size_unknown]; // weak
 extern int dword_506434; // weak
-extern int uTextureID_right_backgr; // weak
+extern int uTextureID_right_backgr; // dword @ MM7.exe::00506438
 extern int dword_50643C; // weak
 extern int dword_506440; // idb
 extern int dword_506444; // idb
