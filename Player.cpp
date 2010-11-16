@@ -3394,7 +3394,7 @@ LABEL_5:
    #endif
 #ifdef OLD_CODE	
 
-    v8 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[uItemID].pIconName,0);
+    v8 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[uItemID].pIconName,2);
    #endif
     v7 = &LODFile_Icons_LOD.aLODHeaders[v8];
     v11 = GetSizeInInventorySlots(v7->uTextureWidth);

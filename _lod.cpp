@@ -815,11 +815,42 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 		  j+=3;
 		  }	 
 	  //new code create 32 ARGB color;
-	  
+	  bool trsp=false;
+	  unsigned char trnsp_indx=0;
+	 
+	  	 i=0;
+		  if ((tmp_palette[0]==0)&&(tmp_palette[1]==255)&&(tmp_palette[2]==255))
+			  {
+			   trnsp_indx=i;
+			   trsp=true;
+			  }
+		  else if ((tmp_palette[0]==0)&&(tmp_palette[1]==252)&&(tmp_palette[2]==252))
+			  {
+			   trnsp_indx=i;
+			   trsp=true;
+
+			  }
+		   else if ((tmp_palette[0]==252)&&(tmp_palette[1]==52)&&(tmp_palette[2]==252))
+			  {
+			   trnsp_indx=i;
+			   trsp=true;
+			  }
+		    else if ((tmp_palette[0]==0)&&(tmp_palette[1]==0)&&(tmp_palette[2]==0))
+			  {
+			   trnsp_indx=i;
+			   trsp=true;
+			  }
+		   else if ((tmp_palette[255*3]==0)&&(tmp_palette[255*3+1]==255)&&(tmp_palette[255*3+2]==255))
+			  {
+			   trnsp_indx=255;
+			   trsp=true;
+			  }
+
+		 
 	  for (i=0; i<pcTexture->uTextureWidth*pcTexture->uTextureHeight; i++)
 		  {	
 		   unsigned char unpackedPixels[4];
-			if ( pcTexture->pIndexedPixels[i]==0)
+			if (( pcTexture->pIndexedPixels[i]==trnsp_indx)&trsp)
 				 *(unsigned int*)&unpackedPixels[0]=0;
 		   else
 			   unpackedPixels[3]=  0xFF;

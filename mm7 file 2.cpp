@@ -3268,13 +3268,13 @@ int __cdecl sub_443801()
             *(_WORD *)(v0 + 2) = atoi(v3);
             break;
           case 3:
-            *(_DWORD *)(v0 + 4) = (int)sub_452C30(v3);
+            *(_DWORD *)(v0 + 4) = (int)RemoveQuote(v3);
             break;
           case 4:
-            *(_DWORD *)(v0 + 8) = (int)sub_452C30(v3);
+            *(_DWORD *)(v0 + 8) = (int)RemoveQuote(v3);
             break;
           case 5:
-            *(_DWORD *)(v0 + 16) = (int)sub_452C30(v3);
+            *(_DWORD *)(v0 + 16) = (int)RemoveQuote(v3);
             break;
           case 6:
             *(_WORD *)(v0 + 20) = atoi(v3);
@@ -3313,7 +3313,7 @@ int __cdecl sub_443801()
             *(_WORD *)(v0 + 48) = atoi(v3);
             break;
           case 21:
-            *(_DWORD *)(v0 + 12) = (int)sub_452C30(v3);
+            *(_DWORD *)(v0 + 12) = (int)RemoveQuote(v3);
             break;
           default:
             break;
@@ -5517,44 +5517,7 @@ void array_AD4674_FillZBuffer(int *pZBuffer, unsigned int uTextureID, unsigned i
   array_40F89C_ActuallyFillZBuffer(pZBuffer, &LODFile_Icons_LOD.aLODHeaders[uTextureID], uZFill);
 }
 
-//----- (0040F845) --------------------------------------------------------
-__int16 __fastcall sub_40F845(int a1, int a2, int a3, int a4, int a5, __int16 a6, int a7)
-{
-  int v7; // edi@1
-  int v8; // esi@1
-  int v9; // ecx@2
-  int v10; // eax@3
 
-  v7 = a1;
-  v8 = a2;
-  do
-  {
-    v9 = a3;
-    do
-    {
-      v10 = *(_BYTE *)v8++;
-      if ( (_BYTE)v10 )
-      {
-        if ( (_BYTE)v10 == 1 )
-        {
-          LOWORD(v10) = *(_WORD *)(a5 + 2 * v10);
-          *(_WORD *)v7 = v10;
-        }
-        else
-        {
-          LOWORD(v10) = a6;
-          *(_WORD *)v7 = a6;
-        }
-      }
-      v7 += 2;
-      --v9;
-    }
-    while ( v9 );
-    v7 = a7 + v7 - a3 - a3;
-  }
-  while ( a4-- != 1 );
-  return v10;
-}
 
 //----- (0040F89C) --------------------------------------------------------
 void array_40F89C_ActuallyFillZBuffer(int *pZBuffer, cTexture *pTexture, int uZFill)
@@ -5740,10 +5703,10 @@ char *__thiscall sub_410B28(void *_this)
   local_0C.uFrameZ = 417;
   local_0C.uFrameW = v3 + 67;
   local_0C.ptr_000048 = 0;
-  v19 = sub_44C51E(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[431]);
-  v21 = sub_44C51E(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[433]);
-  v20 = sub_44C51E(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[432]);
-  v4 = sub_44C51E(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[96]);
+  v19 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[431]);
+  v21 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[433]);
+  v20 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[432]);
+  v4 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[96]);
   v5 = v19;
   if ( v21 > v19 )
     v5 = v21;
@@ -6053,7 +6016,7 @@ int __fastcall sub_411300(int a1)
       v7 = LODFile_Icons_LOD.LODFile_LoadTexture( Str1, 2);
       dword_506408[v12] = 72 * v7 + 7145548;
       wsprintfA(Str1, "SB%sC%02d", (&off_4E1D18)[2 * v3], (unsigned __int8)*v6);
-      result = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( Str1, 2) + 7145548;
+      result = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( Str1, 2)];
       dword_5063D8[v12] = result;
     }
     v4 = v12 + 1;
@@ -6242,21 +6205,21 @@ int __cdecl sub_41192C()
   if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
     LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   AudioPlayer_sub_4AA306(pAudioPlayer, 230, 0, 0, -1, 0, 0, 0, 0);
-  dword_5064C4 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "book", 2) + 7145548;
-  dword_50649C[0] = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "pagemask", 2) + 7145548;
-  dword_506448 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "ib-m5-u", 2) + 7145548;
-  dword_506440 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "ib-m5-d", 2) + 7145548;
-  dword_50643C = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "ib-m6-u", 2) + 7145548;
+  dword_5064C4 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "book", 2)];
+  dword_50649C[0] =(int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "pagemask", 2)];
+  dword_506448 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "ib-m5-u", 2) ];
+  dword_506440 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "ib-m5-d", 2)];
+  dword_50643C = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "ib-m6-u", 2)];
   v1 = 1;
   v0 = (signed int)dword_506454;
-  dword_506444 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "ib-m6-d", 2) + 7145548;
+  dword_506444 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "ib-m6-d", 2)];
   do
   {
-    dword_50649C[v1] = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( (&dword_4E24E8)[4 * v1], 2) + 7145548;
+    dword_50649C[v1] = (int)&LODFile_Icons_LOD.aLODHeaders[ LODFile_Icons_LOD.LODFile_LoadTexture( (&dword_4E24E8)[4 * v1], 2)];
     wsprintfA((char *)TmpBuf, "tab%da", v1);
-    *(_DWORD *)(v0 - 4) = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( (char *)TmpBuf, 2) + 7145548;
+    *(_DWORD *)(v0 - 4) = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( (char *)TmpBuf, 2)];
     wsprintfA((char *)TmpBuf, "tab%db", v1++);
-    result = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( (char *)TmpBuf, 2) + 7145548;
+    result =(int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( (char *)TmpBuf, 2)];
     *(_DWORD *)v0 = result;
     v0 += 8;
   }
@@ -9632,7 +9595,7 @@ LABEL_125:
           || v39 > pOldViewport->uGameW
           || (v2 = sub_444564(), local_04.ptr_000048 = (unsigned char *)v2, !v2) )
           goto LABEL_132;
-        v37 = (double)(sub_44C51E(pFontArrus, v2) + 32);
+        v37 = (double)(GetStringWidth(pFontArrus, v2) + 32);
         v34 = v37 + 6.755399441055744e15;
         v36 = LODWORD(v34);
         local_04.uFrameWidth = LODWORD(v34);
@@ -10297,10 +10260,10 @@ _UNKNOWN *__fastcall sub_417BB5(int a1, int a2)
   v4 = a2;
   v3 = a1;
   v36 = a2;
-  v5 = sub_44C51E(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[431]);
-  v34 = sub_44C51E(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[433]);
-  v33 = sub_44C51E(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[432]);
-  v2 = sub_44C51E(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[96]);
+  v5 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[431]);
+  v34 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[433]);
+  v33 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[432]);
+  v2 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[96]);
   v35 = v5;
   if ( v34 > v5 )
     v35 = v34;
@@ -11171,7 +11134,7 @@ void __cdecl InitializeAwards()
       {
         if ( v6 == (char *)1 )
         {
-          *(_DWORD *)(unk_723E88 + v7) = (int)sub_452C30(result);
+          *(_DWORD *)(unk_723E88 + v7) = (int)RemoveQuote(result);
         }
         else
         {
@@ -11374,13 +11337,13 @@ void __thiscall sub_41C0B8(const char *Str1)
         {
           if ( dword_5C35B8 )
           {
-            for ( i = sub_44C51E(pFontLucida, (char *)&byte_5C3428); i > 450; i = sub_44C51E(pFontLucida, (char *)&byte_5C3428) )
+            for ( i = GetStringWidth(pFontLucida, (char *)&byte_5C3428); i > 450; i = GetStringWidth(pFontLucida, (char *)&byte_5C3428) )
               byte_5C3427[strlen((char *)&byte_5C3428)] = 0;
           }
           else
           {
             strcpy((char *)pStatusBarString, v1);
-            for ( j = sub_44C51E(pFontLucida, (char *)pStatusBarString); j > 450; j = sub_44C51E(pFontLucida, (char *)pStatusBarString) )
+            for ( j = GetStringWidth(pFontLucida, (char *)pStatusBarString); j > 450; j = GetStringWidth(pFontLucida, (char *)pStatusBarString) )
               pStatusBarString[strlen((char *)pStatusBarString) - 1] = 0;
           }
         }
@@ -12506,7 +12469,7 @@ LABEL_65:
         }
         v49 = pD3DRenderer->uTargetRMask;
         v47 = local_208.uFrameHeight - *(_BYTE *)(v94 + 5);
-        v45 = sub_44C51E((Font *)v94, (char *)TmpBuf);
+        v45 = GetStringWidth((Font *)v94, (char *)TmpBuf);
         v44 = v94;
         v46 = v45 + 132;
       }
@@ -13417,7 +13380,7 @@ LABEL_144:
   if (pParty_global->pPartyBuffs[3].qword_000000 > 0 )
   {
     wsprintfA((char *)TmpBuf, "%s: %d", pGlobalTXT_LocalizationStrings[650], *(_WORD *)(v143 + 40));
-    sub_44C51E(pFontSmallnum, (char *)TmpBuf);
+    GetStringWidth(pFontSmallnum, (char *)TmpBuf);
     result = GUIWindow_sub_44D406(
                (GUIWindow *)v145,
                pFontSmallnum,
@@ -13730,7 +13693,7 @@ void __cdecl sub_41FA01()
       byte_4E2BC8 = 1;
     }
     wsprintfA((char *)TmpBuf, "hglas%03d", (unsigned __int8)v5);
-    dword_507BB0 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( (char *)TmpBuf, 2) + 7145548;
+    dword_507BB0 =(int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( (char *)TmpBuf, 2)];
     Render_DrawIndexedTexture(pD3DRenderer, 267, 159, (cTexture *)dword_507BB0);
 
     memset(&local_08, 0, sizeof(GUIButton));

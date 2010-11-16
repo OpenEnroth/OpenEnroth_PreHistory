@@ -1718,7 +1718,7 @@ void __cdecl InitializeQuests()
       else
       {
         if ( v2 == 1 )
-          *(_DWORD *)(unk_722F14 + v6) = (int)sub_452C30(result);
+          *(_DWORD *)(unk_722F14 + v6) = (int)RemoveQuote(result);
       }
       ++v2;
       result = (char *)(v5 + 1);
@@ -2161,14 +2161,6 @@ int __cdecl MenuLoop_Main()
   if (pAsyncKeyboard)
     CAsyncKeyboard_Resume(pAsyncKeyboard);
  }
-/* while(1)	  //temporaly for text aligment	check
-  while (PeekMessageA(&Msg, 0, 0, 0, PM_REMOVE))
-    {
-     if ( Msg.message == WM_QUIT)
-       sub_464761(0);
-     TranslateMessage(&Msg);
-     DispatchMessageA(&Msg);
-    }	*/
  pGUIWindow2 = 0;
  AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
  class03_sub_4698A6(pGame->pClass03);
@@ -7226,7 +7218,7 @@ void __cdecl InitializeAutonotes()
       {
         if ( v1 == 1 )
         {
-          *(_DWORD *)(unk_723724 + v0 - 4) = (int)sub_452C30(v2);
+          *(_DWORD *)(unk_723724 + v0 - 4) = (int)RemoveQuote(v2);
         }
         else
         {
@@ -9781,7 +9773,7 @@ void __cdecl InitializeScrolls()
       else
       {
         if ( v2 == 1 )
-          *(_DWORD *)(&dword_723D38 + v6) = (int)sub_452C30(result);
+          *(_DWORD *)(&dword_723D38 + v6) = (int)RemoveQuote(result);
       }
       ++v2;
       result = (char *)(v5 + 1);
@@ -11169,36 +11161,36 @@ void *__cdecl sub_40AC5F()
   if ( byte_4FAA77 )
   {
     sub_40DEBE((char *)pGlobalTXT_LocalizationStrings[266], &Dest);
-    v13 = 320 - sub_44C51E(struct_505898.dword_5058E4, &Dest) / 2;
+    v13 = 320 - GetStringWidth(struct_505898.dword_5058E4, &Dest) / 2;
     v14 = 306;
     sub_40D75D(-1, &Dest, (int)&v13);
   }
   sub_40DEBE(byte_505708, &Dest);
   if ( !dword_4FAA6C )
     sub_40DEB4("***", &Dest);
-  v13 = 47 - sub_44C51E(struct_505898.dword_5058E0, &Dest) / 2;
+  v13 = 47 - GetStringWidth(struct_505898.dword_5058E0, &Dest) / 2;
   v14 = 21;
   sub_40D75D(-1, &Dest, (int)&v13);
   sub_40DEBE(byte_5057C4, &Dest);
   if ( dword_4FAA6C == 1 )
     sub_40DEB4("***", &Dest);
-  v13 = 595 - sub_44C51E(struct_505898.dword_5058E0, &Dest) / 2;
+  v13 = 595 - GetStringWidth(struct_505898.dword_5058E0, &Dest) / 2;
   v14 = 21;
   sub_40D75D(-1, &Dest, (int)&v13);
   sub_40DEC8(dword_50572C[0], (int)&Dest);
-  v13 = 123 - sub_44C51E(struct_505898.dword_5058E0, &Dest) / 2;
+  v13 = 123 - GetStringWidth(struct_505898.dword_5058E0, &Dest) / 2;
   v14 = 305;
   sub_40D75D(-1, &Dest, (int)&v13);
   sub_40DEC8(dword_5057E8, (int)&Dest);
-  v13 = 515 - sub_44C51E(struct_505898.dword_5058E0, &Dest) / 2;
+  v13 = 515 - GetStringWidth(struct_505898.dword_5058E0, &Dest) / 2;
   v14 = 305;
   sub_40D75D(-1, &Dest, (int)&v13);
   sub_40DEC8(dword_505730[0], (int)&Dest);
-  v13 = 188 - sub_44C51E(struct_505898.dword_5058E0, &Dest) / 2;
+  v13 = 188 - GetStringWidth(struct_505898.dword_5058E0, &Dest) / 2;
   v14 = 305;
   sub_40D75D(-1, &Dest, (int)&v13);
   sub_40DEC8(dword_5057EC, (int)&Dest);
-  v13 = 451 - sub_44C51E(struct_505898.dword_5058E0, &Dest) / 2;
+  v13 = 451 - GetStringWidth(struct_505898.dword_5058E0, &Dest) / 2;
   v14 = 305;
   sub_40D75D(-1, &Dest, (int)&v13);
   v0 = dword_505734[0];

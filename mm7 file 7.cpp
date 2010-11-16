@@ -3044,10 +3044,10 @@ char *__thiscall sub_4B1523(void *_this)
   local_0C.uFrameX = 90;
   local_0C.uFrameZ = 417;
   local_0C.uFrameW = v3 + 67;
-  v19 = sub_44C51E(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[431]);
-  v21 = sub_44C51E(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[433]);
-  v20 = sub_44C51E(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[432]);
-  v4 = sub_44C51E(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[96]);
+  v19 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[431]);
+  v21 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[433]);
+  v20 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[432]);
+  v4 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[96]);
   v5 = v19;
   if ( v21 > v19 )
     v5 = v21;
@@ -8111,7 +8111,7 @@ void __cdecl sub_4B7911()
         GUIWindow_sub_44D406(&local_B4, pFontArrus, 0, 146, v36[0], (char *)TmpBuf, 3);
         GUIWindow_sub_44D406(&local_B4, pFontArrus, 0, 186, v34[0], (char *)pKeyboardController->pPressedKeysBuffer, 3);
         v4 = (int)pFontArrus;
-        v5 = sub_44C51E(pFontArrus, (char *)pKeyboardController->pPressedKeysBuffer);
+        v5 = GetStringWidth(pFontArrus, (char *)pKeyboardController->pPressedKeysBuffer);
         GUIWindow_sub_459C2B(&local_B4, v5 / 2 + 80, 185, v4);
         return;
       }
@@ -8308,7 +8308,7 @@ LABEL_15:
     GUIWindow_sub_44D406(&local_0C, pFontArrus, 0, 146, v17[0], (char *)TmpBuf, 3);
     GUIWindow_sub_44D406(&local_0C, pFontArrus, 0, 186, v16[0], (char *)pKeyboardController->pPressedKeysBuffer, 3);
     v4 = (int)pFontArrus;
-    v5 = sub_44C51E(pFontArrus, (char *)pKeyboardController->pPressedKeysBuffer);
+    v5 = GetStringWidth(pFontArrus, (char *)pKeyboardController->pPressedKeysBuffer);
     GUIWindow_sub_459C2B(&local_0C, v5 / 2 + 80, 185, v4);
     return;
   }

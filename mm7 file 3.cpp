@@ -5750,7 +5750,7 @@ LABEL_6:
   v12 = LODFile_Icons_LOD.LODFile_LoadTexture( Str1, 2);
   v13 = (&off_4E6BB0)[4 * v10];
   uTextureID_Dialogue_Background = v12;
-  dword_59142C = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( v13, 2) + 7145548;
+  dword_59142C = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v13, 2)];
   if ( v9 )
   {
     if ( !v23 )
@@ -5909,7 +5909,7 @@ int __cdecl sub_444C8F()
   strcat(Str1, v3);
 LABEL_6:
   uTextureID_Dialogue_Background = LODFile_Icons_LOD.LODFile_LoadTexture( Str1, 2);
-  dword_59142C = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( "outside", 2) + 7145548;
+  dword_59142C = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "outside", 2)];
   v1 = CMapStats_FindLocation(pMapStats, Str1);
   if ( v1 )
     wsprintfA(byte_591098, (char *)pGlobalTXT_LocalizationStrings[410], pMapStats->pMapInfos[v1].pLocationName);
@@ -6070,7 +6070,7 @@ LABEL_15:
   if (pGUIWindow2->dword_00001C == 26)
   {
     wsprintfA(Str1, "%s %s", byte_5C3428, pKeyboardController->pPressedKeysBuffer);
-    v3 = sub_44C51E(pFontLucida, Str1);
+    v3 = GetStringWidth(pFontLucida, Str1);
     FontDrawText(pGUIWindow2, pFontLucida, 13, 357, Str1, 0, 0, 0);
     GUIWindow_sub_459C2B(pGUIWindow2, v3 + 13, 357, (int)pFontLucida);
     return;
@@ -6835,7 +6835,7 @@ __int16 __fastcall Actor_InitializeDialogue(struct Actor *pActor, int a2)
  dword_5913F0 = 0;
  dword_591424 = 1;
 
- uTextureID_Dialogue_Background = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
+ uTextureID_Dialogue_Background = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
 #endif
  
  
@@ -6854,7 +6854,7 @@ __int16 __fastcall Actor_InitializeDialogue(struct Actor *pActor, int a2)
 	 wsprintfA(Str1, "npc%03u", v6->uPortraitID);
 
  dword_591084 = dword_506128;
- uTextureID_Dialogue_NPCPortrait[0] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
+ uTextureID_Dialogue_NPCPortrait[0] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
 #endif
  
  uTextureID_507B04 = uTextureID_5079E4;
@@ -7649,7 +7649,7 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int sEventType, int a2, int a
             v17 = *(_BYTE *)(v16 + 5);
             v14 = *(_BYTE *)(v16 + 6);
             strcpy(&v147, &Str);
-            v15 = sub_452C30(&v147);
+            v15 = RemoveQuote(&v147);
             MoviePlayerLoop(v15, 0, v17, 1);
             if ( !_strcmpi(v15, "arbiter good") )
             {
@@ -12047,7 +12047,7 @@ int __fastcall sub_44C175(const char *Source, int a2)
   v3 = a2;
   strcpy((char *)byte_5C3428, Source);
   dword_5C35B8 = 1000 * v3 + GetTickCount();
-  for ( result = sub_44C51E(pFontLucida, (char *)byte_5C3428); result > 450; result = sub_44C51E(pFontLucida, (char *)byte_5C3428) )
+  for ( result = GetStringWidth(pFontLucida, (char *)byte_5C3428); result > 450; result = GetStringWidth(pFontLucida, (char *)byte_5C3428) )
     byte_5C3427[strlen((char *)byte_5C3428)] = 0;
   return result;
 }
@@ -12177,74 +12177,7 @@ void sub_44C362_NormalizeIntVector(int *_this)
 
 
 
-//----- (0044D2FD) --------------------------------------------------------
-char *__fastcall sub_44D2FD(int a1, int a2, int Str, int a4, int a5, int a6, unsigned __int16 a7, unsigned __int16 a8, const char *a9, int a10, int a11)
-{
-  char *result; // eax@1
-  int v12; // ebx@1
-  signed int v13; // edi@1
-  int v14; // esi@1
-  char *v15; // eax@1
-  signed int v16; // ecx@4
-  int v17; // edi@4
-  int v18; // eax@6
-  char *v19; // [sp+Ch] [bp-5Ch]@1
-  int v20; // [sp+10h] [bp-58h]@1
-  int v21; // [sp+14h] [bp-54h]@1
-  int v22; // [sp+18h] [bp-50h]@1
-  char *v23; // [sp+1Ch] [bp-4Ch]@1
-  int v24; // [sp+20h] [bp-48h]@1
-  int v25; // [sp+60h] [bp-8h]@1
-  int v26; // [sp+64h] [bp-4h]@1
-  const char *v27; // [sp+70h] [bp+8h]@1
-  int v28; // [sp+74h] [bp+Ch]@4
-  signed int v29; // [sp+80h] [bp+18h]@2
 
-  v12 = a7;
-  v22 = a6;
-  v13 = Str;
-  v26 = a1;
-  v24 = a4 + a6 - 1;
-  v21 = a5;
-  v25 = a2;
-  v23 = (char *)(Str + a5 - 1);
-  dword_5C6DB4 = a7;
-  v19 = (char *)Str;
-  v20 = a4;
-  v15 = sub_44C933(a9, a1, a2, (int)&v19, 0, 1);
-  result = strtok(v15, "\n");
-  v27 = result;
-  v14 = a10 + 2 * a11 * a4;
-  if ( result )
-  {
-    v29 = v13 >> 1;
-    while ( 1 )
-    {
-      v17 = v26;
-      dword_5C6DB4 = v12;
-      v16 = 0;
-      v28 = v12;
-      if ( *result == 95 )
-      {
-        v17 = v25;
-        v28 = a8;
-        dword_5C6DB4 = a8;
-        v16 = 1;
-      }
-      v18 = (a5 - sub_44C51E((Font *)v17, &result[v16])) >> 1;
-      if ( v18 < 0 )
-        v18 = 0;
-      sub_44D0B5(v17, v28, a8, v14 + 2 * (v18 + v29), v27, a11);
-      v14 += 2 * a11 * (*(_BYTE *)(v17 + 5) - 3);
-      result = strtok(0, "\n");
-      v27 = result;
-      if ( !result )
-        break;
-      result = (char *)v27;
-    }
-  }
-  return result;
-}
 
 //----- (0044E054) --------------------------------------------------------
 int __thiscall sub_44E054(void *Str)

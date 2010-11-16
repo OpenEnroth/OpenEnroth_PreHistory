@@ -2635,7 +2635,7 @@ void sub_487389_DrawSpansAndAll()
       v30 = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( L"wtrtyla");
 #endif	
 #ifdef OLD_CODE
-      v30 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "wtrtyla",0);
+      v30 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "wtrtyla",2);
 #endif
       v4->ptr_00003C = &LODFile_Bitmaps_LOD.aLODHeaders[v30];
       if (!sub_4847EB(pSpan))
@@ -13621,7 +13621,7 @@ void __cdecl LoadLevel_InitializeLevelStr()
 
  for (i = 0; i < uLevelStrNumStrings; ++i)
  {
-  if (sub_452C30((char *)&pLevelStr[uLevelStrOffsets[i]]) != (char *)&pLevelStr[uLevelStrOffsets[i]] )
+  if (RemoveQuote((char *)&pLevelStr[uLevelStrOffsets[i]]) != (char *)&pLevelStr[uLevelStrOffsets[i]] )
     uLevelStrOffsets[i]++;
  }
 }

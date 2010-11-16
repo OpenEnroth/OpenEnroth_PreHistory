@@ -43,7 +43,7 @@ void __cdecl InitializeTransitions();
 void __cdecl InitializeAwards();
 void __cdecl InitializeAutonotes();
 void __cdecl InitializeQuests();
-void __cdecl InitializeGameText();
+
 size_t __cdecl locked_fwrite(const void *Str, size_t Size, size_t Count, FILE *File);
 size_t __cdecl locked_fread(void *dst, size_t size, size_t count, FILE *f);
 int __cdecl MenuUI_LoadFontsAndSomeStuff();
@@ -199,7 +199,7 @@ signed int __thiscall sub_40E55E(void *Source, unsigned int Filename, unsigned i
 signed int __thiscall sub_40EAD8(void *Source, FILE *File, unsigned int a3, int a4);
 signed int __thiscall sub_40F5F5(void *_this, const char *Str1);
 void array_AD4674_FillZBuffer(int *pZBuffer, unsigned int uTextureID, unsigned int uZFill);
-__int16 __fastcall sub_40F845(int a1, int a2, int a3, int a4, int a5, __int16 a6, int a7);
+
 void array_40F89C_ActuallyFillZBuffer(int *pZBuffer, cTexture *pTexture, int a3);
 int __fastcall sub_40F92A(int a1, int a2, int a3);
 //int __thiscall LODFile_sub_40F9C5(int _this);
@@ -534,8 +534,7 @@ void sub_44C362_NormalizeIntVector(int *_this);
 
 
 
-char *__fastcall sub_44D2FD(int a1, int a2, int Str, int a4, int a5, int a6, unsigned __int16 a7, unsigned __int16 a8, const char *a9, int a10, int a11);
-char *__fastcall GUIWindow_sub_44D406(struct GUIWindow *a1, struct Font *pFont, int a3, int a4, unsigned __int16 a5, const char *pString, int a7);
+
 int __thiscall sub_44E054(void *Str);
 void *__thiscall CGame_outline_selection(int _this);
 char __cdecl sub_44EC20();
@@ -569,7 +568,7 @@ int __fastcall MakeColorMaskFromBitDepth(int a1);
 int __fastcall sub_452AF3(int a1, unsigned int *pRenderTarget, unsigned int a3);
 int __fastcall sub_452B2E(int a1, signed int a2);
 int __fastcall memset_dw(void *a2, int a1, int a3);
-char *__fastcall sub_452C30(char *Str);
+
 const char *__thiscall sub_453CE5(void *_this);
 int __thiscall sub_453E6D(void *_this);
 unsigned int __fastcall sub_4548E2(struct StringSplitter *pStrings, int *a2);

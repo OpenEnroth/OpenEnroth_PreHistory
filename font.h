@@ -28,8 +28,11 @@ struct Font
  char            unk_001020;
 };
 
-
+char *RemoveQuote(char *Str);  
+int  GetStringWidth(struct Font *pFont, const char *pString);
+void  InitializeGameText();
 bool inline test_char(char c, Font *pFontData);	 //bool __fastcall sub_44C4DE(unsigned char a1, unsigned char *a2);
+
 int  CalculateTextHeght(Font *pFontData, const char *pString, GUIWindow *parentW, int uXOff, int a5);
 int __fastcall Font_sub_44C6C2(struct Font *a1, const char *a2, struct GUIWindow *a3, char a4, int a5);
 //int __cdecl sub_49750E();
@@ -37,7 +40,8 @@ void __cdecl DeleteFontCChar();
 void __fastcall sub_44D0B5(int a1, int a2, int a3, int a4, const char *Str, int a6);
 int __fastcall sub_44C62E(int a1, char a2, const char *Str, int a4, int a5, int a6);
 struct Font *__cdecl LoadFont(const char *pFontFile, const char *pFontPalette);
- char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int a6);
+// char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int a6);
+char *sub_44C933(const char *pString, struct Font *pFont, struct GUIWindow *pParent, int a4, int uX, int a6);
 void __fastcall sub_44D1E7(unsigned char *pFontData, int a2, int a3, int a4, const char *pString, int a6);
 
 int  AlignText_Center(int a1, const char *pString, struct Font *pFont);
@@ -46,5 +50,10 @@ void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, 
 	               unsigned int uTextMainColor, signed int a8, unsigned int uTextShadowColor);
 
 struct Font *__cdecl sub_44C448(const char *pFontName, const char *pFontPalette);
-int __fastcall sub_44C51E(struct Font *pFont, const char *pString);
+
 int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, __int16 a5, const char *Str1, signed int Source, int a8);
+
+__int16 __fastcall sub_40F845(int a1, int a2, int a3, int a4, int a5, __int16 a6, int a7);
+
+char *__fastcall sub_44D2FD(int a1, int a2, int Str, int a4, int a5, int a6, unsigned __int16 a7, unsigned __int16 a8, const char *a9, int a10, int a11);
+char *__fastcall GUIWindow_sub_44D406(struct GUIWindow *a1, struct Font *pFont, int a3, int a4, unsigned __int16 a5, const char *pString, int a7);

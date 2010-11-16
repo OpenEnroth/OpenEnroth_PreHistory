@@ -12799,7 +12799,7 @@ void __thiscall sub_4A7688(void *_this, int a2)
   v14 = (double)*(signed int *)(a2 + 8);
   v15 = (double)*(signed int *)(a2 + 12);
   v20 = (rand() & 0x7F) + 128;
-  v21 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar01", 0);
+  v21 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar01", 2);
   v27 = 10;
   v22 = 1.0;
   do
@@ -13174,7 +13174,7 @@ void __stdcall sub_4A7E89(int a1, int a2)
   Dst = 1036;
   v10 = (rand() & 0x7F) + 128;
   v2 = a1;
-  v11 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar02", 0);
+  v11 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar02", 2);
   v14 = 50;
   v12 = 1.0;
   do

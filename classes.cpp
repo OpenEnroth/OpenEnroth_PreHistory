@@ -1928,7 +1928,7 @@ char *sub_456D84(struct class40 *_this)
         {
           if ( v104 == 1 )
           {
-           _this->pEnchantments[i].pName = (unsigned char *)sub_452C30(v3);
+           _this->pEnchantments[i].pName = (unsigned char *)RemoveQuote(v3);
           }
           else
           {
@@ -1938,7 +1938,7 @@ char *sub_456D84(struct class40 *_this)
         }
         else
         {
-         _this->pEnchantments[i].pParam = (unsigned char *)sub_452C30(v3);
+         _this->pEnchantments[i].pParam = (unsigned char *)RemoveQuote(v3);
         }
       }
       else
@@ -2026,7 +2026,7 @@ char *sub_456D84(struct class40 *_this)
         {
           if ( v106 == 1 )
           {
-           _this->pSpecialEnchantments[i].pName = (unsigned char *)sub_452C30((char *)v17);
+           _this->pSpecialEnchantments[i].pName = (unsigned char *)RemoveQuote((char *)v17);
           }
           else
           {
@@ -2059,7 +2059,7 @@ char *sub_456D84(struct class40 *_this)
         }
         else
         {
-         _this->pSpecialEnchantments[i].pParam = (unsigned char *)sub_452C30((char *)v17);
+         _this->pSpecialEnchantments[i].pParam = (unsigned char *)RemoveQuote((char *)v17);
         }
       }
       else
@@ -2117,8 +2117,8 @@ LABEL_63:
         switch ( v107 )
         {
           case 0: v28 = atoi(v30); break;
-          case 1: _this->pItems[v28 - 1].pIconName = (unsigned char *)sub_452C30(v30); break;
-          case 2: _this->pItems[v28 - 1].pName = (unsigned char *)sub_452C30(v30);     break;
+          case 1: _this->pItems[v28 - 1].pIconName = (unsigned char *)RemoveQuote(v30); break;
+          case 2: _this->pItems[v28 - 1].pName = (unsigned char *)RemoveQuote(v30);     break;
           case 3: _this->pItems[v28 - 1].uValue = atoi(v30);          break;
 
           case 4:
@@ -2222,7 +2222,7 @@ LABEL_63:
             break;
 
           case 9:  ((char *)(&_this->pItems[v28 - 1 + 1].dword_000000))[2] = atoi(v30); break;
-          case 10: _this->pItems[v28 - 1].pUnidentifiedName = (unsigned char *)sub_452C30(v30); break;
+          case 10: _this->pItems[v28 - 1].pUnidentifiedName = (unsigned char *)RemoveQuote(v30); break;
           case 11: _this->pItems[v28 - 1].uSpriteIndex = atoi(v30); break;
 
           case 12:
@@ -2271,7 +2271,7 @@ LABEL_181:
 
           case 14: _this->pItems[v28 - 1].uEquipX = atoi(v30); break;
           case 15: _this->pItems[v28 - 1].uEquipY = atoi(v30); break;
-          case 16: _this->pItems[v28 - 1].pDescription = (unsigned char *)sub_452C30(v30); break;
+          case 16: _this->pItems[v28 - 1].pDescription = (unsigned char *)RemoveQuote(v30); break;
 
           default:
             break;
@@ -2531,19 +2531,19 @@ LABEL_196:
         switch ( v110 )
         {
           case 1:
-            array_5C8A70[v53] = (unsigned char *)sub_452C30(v54);
+            array_5C8A70[v53] = (unsigned char *)RemoveQuote(v54);
             break;
           case 2:
-            array_5C89D8[v53] = (unsigned char *)sub_452C30(v54);
+            array_5C89D8[v53] = (unsigned char *)RemoveQuote(v54);
             break;
           case 3:
-            array_5C8940[v53] = (unsigned char *)sub_452C30(v54);
+            array_5C8940[v53] = (unsigned char *)RemoveQuote(v54);
             break;
           case 4:
-            array_5C88A8[v53] = (unsigned char *)sub_452C30(v54);
+            array_5C88A8[v53] = (unsigned char *)RemoveQuote(v54);
             break;
           case 5:
-            array_5C8810[v53] = (unsigned char *)sub_452C30(v54);
+            array_5C8810[v53] = (unsigned char *)RemoveQuote(v54);
             break;
         }
       }
@@ -2605,26 +2605,26 @@ LABEL_196:
             case 3:
             case 4:
             case 5:
-            case 6:  pAttributeDescriptions[v77] = (unsigned char *)sub_452C30(v58); break;
-            case 7:  pHealthPointsAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 8:  pArmourClassAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 9:  pSpellPointsAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 10: pPlayerConditionAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 11: pFastSpellAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 12: pPlayerAgeAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 13: pPlayerLevelAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 14: pPlayerExperienceAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 15: pAttackBonusAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 16: pAttackDamageAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 17: pMissleBonusAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 18: pMissleDamageAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 19: pFireResistanceAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 20: pAirResistanceAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 21: pWaterResistanceAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 22: pEarthResistanceAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 23: pMindResistanceAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 24: pBodyResistanceAttributeDescription = (unsigned char *)sub_452C30(v58); break;
-            case 25: pSkillPointsAttributeDescription = (unsigned char *)sub_452C30(v58); break;
+            case 6:  pAttributeDescriptions[v77] = (unsigned char *)RemoveQuote(v58); break;
+            case 7:  pHealthPointsAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 8:  pArmourClassAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 9:  pSpellPointsAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 10: pPlayerConditionAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 11: pFastSpellAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 12: pPlayerAgeAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 13: pPlayerLevelAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 14: pPlayerExperienceAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 15: pAttackBonusAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 16: pAttackDamageAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 17: pMissleBonusAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 18: pMissleDamageAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 19: pFireResistanceAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 20: pAirResistanceAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 21: pWaterResistanceAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 22: pEarthResistanceAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 23: pMindResistanceAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 24: pBodyResistanceAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
+            case 25: pSkillPointsAttributeDescription = (unsigned char *)RemoveQuote(v58); break;
             default:
               break;
           }
@@ -2740,11 +2740,11 @@ int CMapStats_Initialize(struct CMapStats *_this)
    {
     switch ( v17 )
     {
-     case 1:  pMapInfo->pLocationName = (unsigned char *)sub_452C30(v3);             break;
-     case 2:  pMapInfo->pLocationFilename = (unsigned char *)sub_452C30(v3);         break;
-     case 16: pMapInfo->pEncounterMonster1Texture = (unsigned char *)sub_452C30(v3); break;
-     case 20: pMapInfo->pEncounterMonster2Texture = (unsigned char *)sub_452C30(v3); break;
-     case 24: pMapInfo->pEncounterMonster3Texture = (unsigned char *)sub_452C30(v3); break;
+     case 1:  pMapInfo->pLocationName = (unsigned char *)RemoveQuote(v3);             break;
+     case 2:  pMapInfo->pLocationFilename = (unsigned char *)RemoveQuote(v3);         break;
+     case 16: pMapInfo->pEncounterMonster1Texture = (unsigned char *)RemoveQuote(v3); break;
+     case 20: pMapInfo->pEncounterMonster2Texture = (unsigned char *)RemoveQuote(v3); break;
+     case 24: pMapInfo->pEncounterMonster3Texture = (unsigned char *)RemoveQuote(v3); break;
 
 
      case 3:  pMapInfo->uNumResets = atoi(v3); break;
@@ -3047,11 +3047,11 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
           break;
 
           case 1:
-            pMonsterInfo->pName = (unsigned char *)sub_452C30((char *)v2);
+            pMonsterInfo->pName = (unsigned char *)RemoveQuote((char *)v2);
           break;
 
           case 2:
-            pMonsterInfo->pTexture = (unsigned char *)sub_452C30((char *)v2);
+            pMonsterInfo->pTexture = (unsigned char *)RemoveQuote((char *)v2);
           break;
 
           case 3:
@@ -4046,7 +4046,7 @@ char *CMonsterStats_LoadMonsterPlacements(struct CMonsterStats *_this)
       else
       {
         if ( v11 == (char *)1 )
-          _this->sPlacements.pSubstrings[i] = (unsigned char *)sub_452C30(result);
+          _this->sPlacements.pSubstrings[i] = (unsigned char *)RemoveQuote(result);
       }
       ++v11;
       result = (char *)(v6 + 1);
@@ -4125,7 +4125,7 @@ char *CSpellStats_Initialize(struct CSpellStats *_this)
      switch ( v4 )
      {
       case 2:
-        pSpellInfo->pSpellName = (unsigned char *)sub_452C30(v5);
+        pSpellInfo->pSpellName = (unsigned char *)RemoveQuote(v5);
       break;
 
       case 3:
@@ -4154,27 +4154,27 @@ char *CSpellStats_Initialize(struct CSpellStats *_this)
       break;
 
       case 4:
-        pSpellInfo->pSpellNameShort = (unsigned char *)sub_452C30(v5);
+        pSpellInfo->pSpellNameShort = (unsigned char *)RemoveQuote(v5);
       break;
 
       case 5:
-        pSpellInfo->pSpellDescription = (unsigned char *)sub_452C30(v5);
+        pSpellInfo->pSpellDescription = (unsigned char *)RemoveQuote(v5);
       break;
 
       case 6:
-        pSpellInfo->pSpellBasicSkillDesc = (unsigned char *)sub_452C30(v5);
+        pSpellInfo->pSpellBasicSkillDesc = (unsigned char *)RemoveQuote(v5);
       break;
 
       case 7:
-        pSpellInfo->pSpellExpertSkillDesc = (unsigned char *)sub_452C30(v5);
+        pSpellInfo->pSpellExpertSkillDesc = (unsigned char *)RemoveQuote(v5);
       break;
 
       case 8:
-        pSpellInfo->pSpellMasterSkillDesc = (unsigned char *)sub_452C30(v5);
+        pSpellInfo->pSpellMasterSkillDesc = (unsigned char *)RemoveQuote(v5);
       break;
 
       case 9:
-        pSpellInfo->pSpellGrandmasterSkillDesc = (unsigned char *)sub_452C30(v5);
+        pSpellInfo->pSpellGrandmasterSkillDesc = (unsigned char *)RemoveQuote(v5);
       break;
 
       case 10:
@@ -4585,7 +4585,7 @@ int StorylineText_Initialize(struct StorylineText *_this)
       {
         if ( v11 == (char *)1 )
         {
-          *(_DWORD *)(v12 - 8) = (int)sub_452C30(v3);
+          *(_DWORD *)(v12 - 8) = (int)RemoveQuote(v3);
         }
         else
         {
@@ -4596,7 +4596,7 @@ int StorylineText_Initialize(struct StorylineText *_this)
           else
           {
             if ( v11 - 2 == (char *)1 )
-              *(_DWORD *)(v12 - 4) = (int)sub_452C30(v3);
+              *(_DWORD *)(v12 - 4) = (int)RemoveQuote(v3);
           }
         }
       }
@@ -4796,11 +4796,11 @@ void CNPCStats_Initialize(struct CNPCStats *_this)
         if ( v21 )
         {
           if ( v21 == 1 )
-            v17[1] = (unsigned char *)sub_452C30(v4);
+            v17[1] = (unsigned char *)RemoveQuote(v4);
         }
         else
         {
-          v17[0] = (unsigned char *)sub_452C30(v4);
+          v17[0] = (unsigned char *)RemoveQuote(v4);
         }
       }
       else
@@ -4863,16 +4863,16 @@ LABEL_45:
             _this->pProfessions[i].uHireCost = atoi(v9);
             break;
           case 3:
-            _this->pProfessions[i].pActionText = (unsigned char *)sub_452C30(v9);
+            _this->pProfessions[i].pActionText = (unsigned char *)RemoveQuote(v9);
             break;
           case 4:
-            _this->pProfessions[i].pBenefits = (unsigned char *)sub_452C30(v9);
+            _this->pProfessions[i].pBenefits = (unsigned char *)RemoveQuote(v9);
             break;
           case 5:
-            _this->pProfessions[i].pJoinText = (unsigned char *)sub_452C30(v9);
+            _this->pProfessions[i].pJoinText = (unsigned char *)RemoveQuote(v9);
             break;
           case 6:
-            _this->pProfessions[i].pDismissText = (unsigned char *)sub_452C30(v9);
+            _this->pProfessions[i].pDismissText = (unsigned char *)RemoveQuote(v9);
             break;
         }
       }
@@ -4956,8 +4956,8 @@ void CNPCStats_sub_476CB5(struct CNPCStats *_this)
         switch ( v40 )
         {
           case 0:
-            _this->pNPCData[i].pNPCName = (unsigned char *)sub_452C30(v4);
-            _this->pNPCNames2[i] = (unsigned char *)sub_452C30(v4);
+            _this->pNPCData[i].pNPCName = (unsigned char *)RemoveQuote(v4);
+            _this->pNPCNames2[i] = (unsigned char *)RemoveQuote(v4);
             break;
           case 1:
             _this->pNPCData[i].uPortraitID = atoi(v4);
@@ -5028,9 +5028,9 @@ void CNPCStats_sub_476CB5(struct CNPCStats *_this)
       if ( v11 )
       {
         if ( v41 == 1 )
-          _this->pNPCGreetings[i].pGreeting1 = (unsigned char *)sub_452C30(v10);
+          _this->pNPCGreetings[i].pGreeting1 = (unsigned char *)RemoveQuote(v10);
         else if (v41 == 2)
-          _this->pNPCGreetings[i].pGreeting2 = (unsigned char *)sub_452C30(v10);
+          _this->pNPCGreetings[i].pGreeting2 = (unsigned char *)RemoveQuote(v10);
       }
       ++v41;
       v10 = (char *)(v13 + 1);
@@ -5094,7 +5094,7 @@ void CNPCStats_sub_476CB5(struct CNPCStats *_this)
       if ( v24 )
       {
         if ( v43 == 1 )
-          _this->pCatchPhrases[i] = (unsigned char *)sub_452C30(result);
+          _this->pCatchPhrases[i] = (unsigned char *)RemoveQuote(result);
       }
       ++v43;
       result = (char *)(v25 + 1);
@@ -5180,7 +5180,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
       else
       {
         if ( v23 == 1 )
-          *(_DWORD *)(unk_72166C + v29) = (int)sub_452C30(v4);
+          *(_DWORD *)(unk_72166C + v29) = (int)RemoveQuote(v4);
       }
       ++v23;
       v4 = (char *)(v7 + 1);
@@ -5230,7 +5230,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
       else
       {
         if ( v24 == 1 )
-          *(_DWORD *)(unk_721668 + v30) = (int)sub_452C30(v9);
+          *(_DWORD *)(unk_721668 + v30) = (int)RemoveQuote(v9);
       }
       ++v24;
       v9 = (char *)(v12 + 1);
@@ -7820,7 +7820,7 @@ LABEL_32:
         v65 = "sp18h1"[6];
         sub_4BE59E((int)&unk_F8BAD8, 1, 6);
         HIBYTE(v64) = sub_4BE623((int)&unk_F8BAD8) + 48;
-        v62 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)&Str1, 0);
+        v62 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)&Str1, 2);
         v55 = 100;
         v49 = a2;
 LABEL_157:

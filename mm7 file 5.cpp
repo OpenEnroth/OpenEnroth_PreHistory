@@ -10424,24 +10424,24 @@ void __cdecl InitializeMerchants()
       {
         if ( v8 == (char *)1 )
         {
-          *(_DWORD *)(v1 - 56) = (int)sub_452C30(v2);
+          *(_DWORD *)(v1 - 56) = (int)RemoveQuote(v2);
         }
         else
         {
           if ( v8 == (char *)2 )
           {
-            *(_DWORD *)(v1 - 28) = (int)sub_452C30(v2);
+            *(_DWORD *)(v1 - 28) = (int)RemoveQuote(v2);
           }
           else
           {
             if ( v8 == (char *)3 )
             {
-              *(_DWORD *)v1 = (int)sub_452C30(v2);
+              *(_DWORD *)v1 = (int)RemoveQuote(v2);
             }
             else
             {
               if ( v8 - 3 == (char *)1 )
-                *(_DWORD *)(v1 + 28) = (int)sub_452C30(v2);
+                *(_DWORD *)(v1 + 28) = (int)RemoveQuote(v2);
             }
           }
         }
@@ -10504,7 +10504,7 @@ void __cdecl InitializeTransitions()
       else
       {
         if ( v2 == 1 )
-          pTransitionStrings[i] = (unsigned char *)sub_452C30(result);
+          pTransitionStrings[i] = (unsigned char *)RemoveQuote(result);
       }
       ++v2;
       result = (char *)(v5 + 1);
@@ -12842,7 +12842,7 @@ LABEL_30:
           v38 = 0.0;
           v42 = 1.0;
           v40 = (rand() & 0x80) + 128;
-          v41 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar01", 0);
+          v41 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar01",2);
           class02_sub_48AB23((int)pGame->class02_obj, (int)&Dst);
         }
       }
@@ -13596,7 +13596,7 @@ int __thiscall class51_sub_47CDE2(int Dest)
   *(_DWORD *)(v2 + 224) = v7;
   *(_WORD *)v7 = 0;
   strcpy((char *)(v2 + 96), byte_6BE114_cfg_textures_DefaultSkyTexture);
-  *(_DWORD *)(v2 + 232) = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)(v2 + 96), 0);
+  *(_DWORD *)(v2 + 232) = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)(v2 + 96), 2);
   strcpy((char *)(v2 + 128), byte_6BE124_cfg_textures_DefaultGroundTexture);
   result = LODFile_Bitmaps_LOD.LODFile_LoadTexture( (const char *)(v2 + 128), 0);
   v8 = *(_DWORD *)(v2 + 232) == -1;

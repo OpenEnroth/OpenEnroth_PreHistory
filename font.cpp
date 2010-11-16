@@ -19,8 +19,7 @@ static char temp_string[2048];	// byte_5C45B0
  //----- (0044C4DE) --------.text:0044D4A0 ------------------------------------------------
 bool inline test_char(char c, Font *pFontData)
 {
-return ((c < pFontData->uFirstChar)||(c >pFontData->uLastChar)) &&( c == '\f' || c == '\r' || c == '\n' || c == '\t');
-   
+return 	((c >= pFontData->uFirstChar)&&(c <=pFontData->uLastChar)||( c == '\f' || c == '\r' || c == '\n' || c == '\t'));   
 }
 
 
@@ -119,7 +118,6 @@ char *FitTextInAWindow(const char *pString, struct Font *pFont, struct GUIWindow
   
 unsigned char c;
 unsigned int uInStrLen,i;
-char *tmp_pos;
 char digits[3];
 int possible_trasition_point;
 int string_pixel_Width;
@@ -136,75 +134,79 @@ uInStrLen = strlen(pString);
 strcpy(&temp_string[0], pString);
 if (uInStrLen==0)
 	return &temp_string[0];
-tmp_pos= &temp_string[1];
 i=0;
 start_pixel_offset=string_pixel_Width=uX;
 possible_trasition_point=0;
-for(i=0; i<uInStrLen; i++, tmp_pos++) 
+for(i=0; i<uInStrLen; i++) 
 	{
 	c=temp_string[i];
-	if (((c < pFont->uFirstChar)||(c >pFont->uLastChar)) &&( c == '\f' || c == '\r' || c == '\n' || c == '\t'))
+	if ((c>= pFont->uFirstChar) &&(c <=pFont->uLastChar)||( c == '\f' || c == '\r' || c == '\n' || c == '\t'))
 		{
-		if(c == '\t')	// Horizontal tab 09
+		switch (c)
 			{
-			strncpy(digits,tmp_pos,3);
+		case '\t':	// Horizontal tab 09
+			{
+			strncpy(digits,&temp_string[i+1],3);
 			string_pixel_Width= atoi(digits)+uX;
 			i+=3;
-			tmp_pos+=3;
+			break;
 			}
-		if(c == '\n')	//Line Feed 0A 10
+		case  '\n':	//Line Feed 0A 10
 			{
 			string_pixel_Width=start_pixel_offset;
 			possible_trasition_point=i;
-			continue;
+			break;
 			}
-		if (c == '\f')   //Form Feed, page eject  0C 12
+		case  '\f':   //Form Feed, page eject  0C 12
 			{
 			i+=5;
-			tmp_pos+=5;
+			break;
 			}
-		if (c =='\r' )   //Carriage Return 0D 13
+		case  '\r':   //Carriage Return 0D 13
 			{
 			if (a5==0)
 				return (char*)pString;
+			break;
 			}
-		if (c ==' ' )
+		case ' ' :
 			{
 			string_pixel_Width+=pFont->fw_table[c].letterW;
 			possible_trasition_point=i;
+			break;
 			}
+		default:
 
-		if ((string_pixel_Width+pFont->fw_table[c].letterW+ pFont->fw_table[c].preWidth+
-			pFont->fw_table[c].postWidth)<pParent->uFrameWidth)
-			{
-			if(i>possible_trasition_point)
-				string_pixel_Width+=pFont->fw_table[c].preWidth;
-			string_pixel_Width+=pFont->fw_table[c].letterW;
-			if (i<uInStrLen)
-				string_pixel_Width+=pFont->fw_table[c].postWidth;
-			}
-		else
-			{
-			temp_string[possible_trasition_point]='\n';
-			string_pixel_Width=start_pixel_offset;
-			if (i>possible_trasition_point)
+			if ((string_pixel_Width+pFont->fw_table[c].letterW+ pFont->fw_table[c].preWidth+
+				pFont->fw_table[c].postWidth)<pParent->uFrameWidth)
 				{
-				for(int j=possible_trasition_point;j<i; ++j ) 
+				if(i>possible_trasition_point)
+					string_pixel_Width+=pFont->fw_table[c].preWidth;
+				string_pixel_Width+=pFont->fw_table[c].letterW;
+				if (i<uInStrLen)
+					string_pixel_Width+=pFont->fw_table[c].postWidth;
+				}
+			else
+				{
+				temp_string[possible_trasition_point]='\n';
+				string_pixel_Width=start_pixel_offset;
+				if (i>possible_trasition_point)
 					{
-					c=temp_string[j];
-					if (((c < pFont->uFirstChar)||(c >pFont->uLastChar)) &&( c == '\f' || c == '\r' || c == '\n' || c == '\t'))
+					for(int j=possible_trasition_point;j<i; ++j ) 
 						{
-						if(j>possible_trasition_point)
-							string_pixel_Width+=pFont->fw_table[c].preWidth;
-						string_pixel_Width+=pFont->fw_table[c].letterW;
-						if (j<i)
-							string_pixel_Width+=pFont->fw_table[c].postWidth;
+						c=temp_string[j];
+						if (((c >= pFont->uFirstChar)) &&(c <=pFont->uLastChar)||( c == '\f' || c == '\r' || c == '\n' || c == '\t'))
+							{
+							if(j>possible_trasition_point)
+								string_pixel_Width+=pFont->fw_table[c].preWidth;
+							string_pixel_Width+=pFont->fw_table[c].letterW;
+							if (j<i)
+								string_pixel_Width+=pFont->fw_table[c].postWidth;
 
-						}
-					}  
+							}
+						}  
+					}
 				}
 			}
-
 		}
 	}
 return &temp_string[0];
@@ -311,7 +313,7 @@ void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, 
                 v30 = 0;
                 v38 += 3;
                 v18 = atoi(Dest);
-                c = sub_44C51E((Font *)v9, &v37[v38]);
+                c = GetStringWidth((Font *)v9, &v37[v38]);
                 uOutX = *(_DWORD *)(v10 + 16) - (_DWORD)c - v18;
                 uOutY = uY + *(_DWORD *)(v10 + 4);
                 if ( a8 )
@@ -429,7 +431,7 @@ int  AlignText_Center(int a1, const char *pString, struct Font *pFont)
   int v3; // esi@1
   int result; // eax@2
 
-  v3 = (a1 - sub_44C51E(pFont, pString)) / 2;
+  v3 = (a1 - GetStringWidth(pFont, pString)) / 2;
   if ( v3 >= 0 )
     result = v3;
   else
@@ -438,47 +440,50 @@ int  AlignText_Center(int a1, const char *pString, struct Font *pFont)
 }
 
 //----- (0044C51E) --------------------------------------------------------
-int __fastcall sub_44C51E(struct Font *_this, const char *pString)
+int GetStringWidth(struct Font *pFont, const char *pString)
 {
-  signed int i; // ebx@3
-  size_t v5; // ebp@3
-  int v6; // esi@3
-  const char *v8; // [sp+0h] [bp-4h]@1
- unsigned char c;
+signed int i; // ebx@3
+unsigned int str_len; // ebp@3
+int string_width; // esi@3
 
- if (!pString)
-   return 0;
+unsigned char c;
 
- v8 = pString;
- v5 = strlen(pString);
- v6 = 0;
- for ( i = 0; i < v5; ++i )
- {
-  c = pString[i];
-  if (test_char(c, _this))
-  {
-   if (c == '\n' || c == '\r')
-     return v6;
-   if (c != '\f')
-   {
-    if (i > 0)
-      v6 += _this->fw_table[c].preWidth;
-    v6 += _this->fw_table[c].letterW;
-    if (i < v5)
-      v6 += _this->fw_table[c].postWidth;
-   }
-   else
-     i += 5;
-  }
- }
- return v6;
+if (!pString)
+	return 0;
+
+str_len = strlen(pString);
+string_width = 0;
+for ( i = 0; i < str_len; ++i )
+	{
+	c = pString[i];
+	if (test_char(c, pFont))
+		{
+		switch (c)
+			{
+		case '\n':
+		case '\r':
+			return string_width;
+		case '\f':
+			i += 5;
+			break;
+		default:
+			if (i > 0)
+				string_width += pFont->fw_table[c].preWidth;
+			string_width += pFont->fw_table[c].letterW;
+			if (i < str_len)
+				string_width +=pFont->fw_table[c].postWidth;
+			}
+
+		}
+	}
+return string_width;
 }
 
-
-//----- (0044C933) --------------------------------------------------------
-char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int a6)
+							//  (const char *a1, int a2, char a3, int a4, int a5, int a6)
+//----- (0044C933) ---------.text:0044D92F -----------------------------------------------
+char * sub_44C933(const char *pString, struct Font *pFont, struct GUIWindow *pParent, int a4, int uX, int a6)
 {
-  const char *v6; // esi@1
+ /* const char *v6; // esi@1
   int v8; // eax@3
   int v9; // ebx@3
   size_t v10; // edi@3
@@ -517,9 +522,130 @@ char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int
   int v43; // [sp+28h] [bp-8h]@3
   int i; // [sp+2Ch] [bp-4h]@17
   char *v45; // [sp+38h] [bp+8h]@2
+			 */
 
-  v6 = a1;
-  v38 = a2;
+  unsigned char c;
+unsigned int uInStrLen,i;
+char digits[3];
+int possible_trasition_point;
+int string_pixel_Width;
+int start_pixel_offset;
+
+  if (!pString)
+	{
+	// *(_DWORD *)&uX = (int)&v29;
+	// Game_sub_40E2C8(&v29, "Invalid string passed !", (int)(&uX + 3));
+	// sub_466D09(&pParent, *(int *)&v29, v30, v31, v32, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Font.cpp", 445);
+	return 0;
+	}
+uInStrLen = strlen(pString);
+strcpy(&temp_string[0], pString);
+if (uInStrLen==0)
+	return &temp_string[0];
+i=0;
+start_pixel_offset=string_pixel_Width=uX;
+possible_trasition_point=0;
+for(i=0; i<uInStrLen; i++) 
+	{
+	c=temp_string[i];
+	if ((c >= pFont->uFirstChar) &&(c <=pFont->uLastChar)||( c == '\f' || c == '\r' || c == '\n' || c == '\t'))
+		{
+		switch (c)
+			{
+		case '\t':	// Horizontal tab 09
+			{
+			strncpy(digits,&temp_string[i+1],3);
+			string_pixel_Width= atoi(digits)+uX;
+			i+=3;
+			break;
+			}
+		case  '\n':	//Line Feed 0A 10
+			{
+			string_pixel_Width=start_pixel_offset;
+			possible_trasition_point=i;
+			break;
+			}
+		case  '\f':   //Form Feed, page eject  0C 12
+			{
+			i+=5;
+			break;
+			}
+		case  '\r':   //Carriage Return 0D 13
+			{
+			if (a6==0)
+				return (char*)pString;
+			break;
+			}
+		case ' ' :
+			{
+			string_pixel_Width+=pFont->fw_table[c].letterW;
+			possible_trasition_point=i;
+			break;
+			}
+		case '_' :
+			{
+			
+			 //   v11 = a3;	 uFrameX
+			break;
+			}
+		default:
+
+			if ((string_pixel_Width+pFont->fw_table[c].letterW+ pFont->fw_table[c].preWidth+
+				pFont->fw_table[c].postWidth)<pParent->uFrameWidth)
+				{
+				if(i>possible_trasition_point)
+					string_pixel_Width+=pFont->fw_table[c].preWidth;
+				string_pixel_Width+=pFont->fw_table[c].letterW;
+				if (i<uInStrLen)
+					string_pixel_Width+=pFont->fw_table[c].postWidth;
+				}
+			else
+				{
+				temp_string[possible_trasition_point]='\n';
+				string_pixel_Width=start_pixel_offset;
+			/*	    v23 = v43;
+                      v24 = v11 == a3;	 uFrameX
+				  if ( v24 )
+                      {
+                        v26 = v41;
+                        v25 = v23 + 1;
+                        while ( v26 >= v25 )
+                        {
+                         temp_string[v26] = stru_5C3610.byte_000F9C[v26];
+                          --v26;
+                        }
+                        ++v42;
+                        ++v41;
+                       temp_string[1 + v23++] = 95;	//5F _
+                        v43 = v25;
+                      }		 */
+
+				if (i>possible_trasition_point)
+					{
+					for(int j=possible_trasition_point;j<i; ++j ) 
+						{
+						c=temp_string[j];
+						if ((c >= pFont->uFirstChar) &&(c <=pFont->uLastChar)||( c == '\f' || c == '\r' || c == '\n' || c == '\t'))
+							{
+							if(j>possible_trasition_point)
+								string_pixel_Width+=pFont->fw_table[c].preWidth;
+							string_pixel_Width+=pFont->fw_table[c].letterW;
+							if (j<i)
+								string_pixel_Width+=pFont->fw_table[c].postWidth;
+
+							}
+						}  
+					}
+				}
+			}
+		}
+	}
+return &temp_string[0];
+
+
+/*
+  v6 = a1; //string
+  v38 = a2;	//pfont
   v35 = a1;
   if ( !a1 )
   {
@@ -534,11 +660,11 @@ char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int
   v10 = v12;
   v42 = v12;
   strcpy(temp_string, v6);
-  v8 = a5;
-  v11 = v38;
+  v8 = a5;	//v8 poziton
+  v11 = v38; //pfont
   v9 = 0;
   v43 = 0;
-  v40 = a5;
+  v40 = a5;	 //offset
   v39 = 0;
   if ( (signed int)v10 > 0 )
   {
@@ -599,7 +725,7 @@ char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int
                         }
                         ++v42;
                         ++v41;
-                       temp_string[1 + v23++] = 95;
+                       temp_string[1 + v23++] = 95;	//5F _
                         v43 = v25;
                       }
                       v9 = v39;
@@ -631,7 +757,7 @@ char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int
               }
               else
               {
-                if ( !a6 )
+                if ( !a6 )	//parameter
                   return (char *)v35;
               }
             }
@@ -652,7 +778,7 @@ char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int
           strncpy(&Dest, (char *)&temp_string[v9 + 1], 3u);
           v37 = 0;
           v28 = atoi(&Dest);
-          v8 = a5 + v28;
+          v8 = a5 + v28;  //a5 uX
           v9 += 3;
           v40 = v8;
         }
@@ -662,7 +788,7 @@ char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int
     }
     while ( v9 < v42 );
   }
-  return (char *)temp_string;
+  return (char *)temp_string;	*/
 }
 
 
@@ -760,7 +886,7 @@ int __fastcall sub_44C62E(int a1, char a2, const char *Str, int a4, int a5, int 
   if ( !Str )
     return 0;
   v9 = *(_BYTE *)(a1 + 5) - 3;
-  v8 = (unsigned __int8 *)sub_44C933(Str, a1, a2, a4, a5, 0);
+  v8 = (unsigned __int8 *)sub_44C933(Str, (Font*)a1, (GUIWindow *)a2, a4, a5, 0);
   v10 = strlen(Str);
   v12 = 0;
   v13 = v10;
@@ -923,7 +1049,7 @@ int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, __int
   v9 = a2;
   v29 = a1;
   v30 = strlen(Str1);
-  v8 = sub_44C51E((Font *)v9, Str1);
+  v8 = GetStringWidth((Font *)v9, Str1);
   if ( v8 < Source )
   {
     FontDrawText((GUIWindow *)v29, (Font *)v9, a3, a4, Str1, 0xFFFFFFFF, 0, 0);
@@ -965,7 +1091,7 @@ LABEL_12:
   }
   byte_5C657F[i] = 0;
   v30 = strlen((char *)pStringBuffer);
-  v28 = sub_44C51E((Font *)v9, (char *)pStringBuffer);
+  v28 = GetStringWidth((Font *)v9, (char *)pStringBuffer);
   if ( a8 )
     _strrev((char *)pStringBuffer);
   v32 = 0;
@@ -995,7 +1121,7 @@ LABEL_12:
                 v32 += 3;
                 v33 += 3;
                 v22 = atoi(&Dest);
-                v23 = sub_44C51E((Font *)v9, (char *)&pStringBuffer[v32]);
+                v23 = GetStringWidth((Font *)v9, (char *)&pStringBuffer[v32]);
                 v14 = *(_DWORD *)(v29 + 16) - v23 - v22;
                 v13 = a4;
               }
@@ -1050,10 +1176,10 @@ LABEL_12:
   return v28;
 }
 
-//----- (00452C30) --------------------------------------------------------
-char *__fastcall sub_452C30(char *pStr)
+//----- (00452C30) --------.text:00453D8------------------------------------------------
+char *RemoveQuote(char *pStr)
 {
-  if ( *pStr == '4' )
+  if ( *pStr == '"' )
   {
     pStr[strlen(pStr) - 1] = 0;
     return pStr + 1;
@@ -1061,67 +1187,201 @@ char *__fastcall sub_452C30(char *pStr)
   return pStr;
 }
 
+//----- (0044D406) --------------------------------------------------------
+char *__fastcall GUIWindow_sub_44D406(struct GUIWindow *a1, struct Font *pFont, int a3, int a4, unsigned __int16 a5, const char *pString, int a7)
+{
+  char *result; // eax@1
+  int v8; // ebx@1
+  int v9; // edi@1
+  int v10; // esi@1
+  char *v12; // eax@1
+  int v13; // eax@2
+
+  v8 = a1->uFrameWidth - a3;
+  dword_5C6DB4 = a5;
+  v12 = (char *)FitTextInAWindow(pString, pFont, a1, a3, 0);
+  result = strtok(v12, "\n");
+  v9 = a3 + a1->uFrameX;
+  v10 = a4 + a1->uFrameY;
+  while ( result )
+  {
+    v13 = (v8 - GetStringWidth(pFont, result)) >> 1;
+    if ( v13 < 0 )
+      v13 = 0;
+    sub_44D1E7((unsigned char *)pFont, a5, v9 + v13, v10, result, 640);
+    v10 += ((unsigned char *)pFont)[5] - a7;
+    result = strtok(0, "\n");
+  }
+  return result;
+}
+
+//----- (0044D2FD) --------------------------------------------------------
+char *__fastcall sub_44D2FD(int a1, int a2, int Str, int a4, int a5, int a6, unsigned __int16 a7, unsigned __int16 a8, const char *a9, int a10, int a11)
+{
+  char *result; // eax@1
+  int v12; // ebx@1
+  signed int v13; // edi@1
+  int v14; // esi@1
+  char *v15; // eax@1
+  signed int v16; // ecx@4
+  int v17; // edi@4
+  int v18; // eax@6
+  char *v19; // [sp+Ch] [bp-5Ch]@1
+  int v20; // [sp+10h] [bp-58h]@1
+  int v21; // [sp+14h] [bp-54h]@1
+  int v22; // [sp+18h] [bp-50h]@1
+  char *v23; // [sp+1Ch] [bp-4Ch]@1
+  int v24; // [sp+20h] [bp-48h]@1
+  int v25; // [sp+60h] [bp-8h]@1
+  int v26; // [sp+64h] [bp-4h]@1
+  const char *v27; // [sp+70h] [bp+8h]@1
+  int v28; // [sp+74h] [bp+Ch]@4
+  signed int v29; // [sp+80h] [bp+18h]@2
+
+  v12 = a7;
+  v22 = a6;
+  v13 = Str;
+  v26 = a1;
+  v24 = a4 + a6 - 1;
+  v21 = a5;
+  v25 = a2;
+  v23 = (char *)(Str + a5 - 1);
+  dword_5C6DB4 = a7;
+  v19 = (char *)Str;
+  v20 = a4;
+  v15 = sub_44C933(a9, (Font*)a1, (GUIWindow *)a2, (int)&v19, 0, 1);
+  result = strtok(v15, "\n");
+  v27 = result;
+  v14 = a10 + 2 * a11 * a4;
+  if ( result )
+  {
+    v29 = v13 >> 1;
+    while ( 1 )
+    {
+      v17 = v26;
+      dword_5C6DB4 = v12;
+      v16 = 0;
+      v28 = v12;
+      if ( *result == 95 )
+      {
+        v17 = v25;
+        v28 = a8;
+        dword_5C6DB4 = a8;
+        v16 = 1;
+      }
+      v18 = (a5 - GetStringWidth((Font *)v17, &result[v16])) >> 1;
+      if ( v18 < 0 )
+        v18 = 0;
+      sub_44D0B5(v17, v28, a8, v14 + 2 * (v18 + v29), v27, a11);
+      v14 += 2 * a11 * (*(_BYTE *)(v17 + 5) - 3);
+      result = strtok(0, "\n");
+      v27 = result;
+      if ( !result )
+        break;
+      result = (char *)v27;
+    }
+  }
+  return result;
+}
+
+//----- (0040F845) --------------------------------------------------------
+__int16 __fastcall sub_40F845(int a1, int a2, int a3, int a4, int a5, __int16 a6, int a7)
+{
+  int v7; // edi@1
+  int v8; // esi@1
+  int v9; // ecx@2
+  int v10; // eax@3
+
+  v7 = a1;
+  v8 = a2; //string
+  do
+  {
+    v9 = a3;
+    do
+    {
+      v10 = *(_BYTE *)v8++;
+      if ( (_BYTE)v10 )
+      {
+        if ( (_BYTE)v10 == 1 )
+        {
+          LOWORD(v10) = *(_WORD *)(a5 + 2 * v10);
+          *(_WORD *)v7 = v10;
+        }
+        else
+        {
+          LOWORD(v10) = a6;
+          *(_WORD *)v7 = a6;
+        }
+      }
+      v7 += 2;
+      --v9;
+    }
+    while ( v9 );
+    v7 = a7 + v7 - a3 - a3;
+  }
+  while ( a4-- != 1 );
+  return v10;
+}
+
 //----- (00452C49) --------------------------------------------------------
-void __cdecl InitializeGameText()
+void  InitializeGameText()
 {
  int i;
-  unsigned char *v1; // eax@3
-  int v2; // ebp@4
-  unsigned char v3; // dl@5
-  int v4; // ecx@5
-  unsigned int v5;
-  unsigned char **v7; // [sp+10h] [bp-8h]@3
-  signed int v8; // [sp+14h] [bp-4h]@4
+  unsigned char *test_string; // eax@3
+  unsigned char *tmp_pos; // eax@3
+  int step; // ebp@4
+  unsigned char c; // dl@5
+  int temp_str_len; // ecx@5
+
+  bool string_end; // [sp+14h] [bp-4h]@4
 
  if (pGlobalTXT_Raw)
    mem_mng.DeleteBuffer( (void *)pGlobalTXT_Raw);
 
  pGlobalTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "global.txt", 0);
  
- strtok((char *)pGlobalTXT_Raw, "\r");
- strtok(NULL, "\r");
- v1 = (unsigned char *)strtok(NULL, "\r") + 1;
- v7 = &pGlobalTXT_LocalizationStrings[0];
+ strtok((char *)pGlobalTXT_Raw, "\r");	   //Carriage Return 0D 13
+ strtok(NULL, "\r");					   	  //Carriage Return 0D 13
+ test_string = (unsigned char *)strtok(NULL, "\r") + 1;	 //Carriage Return 0D 13
 
+ for (i = 0; i < 677; ++i)
+	 {
+	 step = 0;
+	 string_end = false;
+	 do
+		 {
+		 c = *test_string;
+		 temp_str_len = 0;
+		 if (c!= '\t' )	// Horizontal tab 09 
+			 {
+			 do
+				 {
+				 if ( !c )
+					 break; 
+				 c = *(test_string+temp_str_len+1);
+				 temp_str_len++;    
+				 }
+				 while ( c != '\t' );	// Horizontal tab 09 
+			 }
+		 tmp_pos=test_string+temp_str_len;
+		 if (*tmp_pos == 0)
+			 string_end = true;
+		 *tmp_pos = 0;
+		 if ( temp_str_len == 0)
+			 string_end = true;
+		 else
+			 {
+			 if ( step == 1 )
+				 pGlobalTXT_LocalizationStrings[i] = (unsigned char *)RemoveQuote((char *)test_string);
+			 }
+		 ++step;
+		 test_string=tmp_pos+1;
+		 }
+		 while ( step <= 2 && !string_end);  
 
-  for (i = 0; i < 677; ++i)
-  {
-    v2 = 0;
-    v8 = 0;
-    do
-    {
-      v3 = *v1;
-      v4 = 0;
-      if (*v1 != '\t' )
-      {
-        do
-        {
-          if ( !v3 )
-            break;
-          ++v4;
-          v3 = v1[v4];
-        }
-        while ( v3 != '\t' );
-      }
+		 test_string = (unsigned char *)strtok(NULL, "\r") + 1;  //Carriage Return 0D 13
+	 }	
 
-      if (v1[v4] == 0)
-        v8 = 1;
-      v1[v4] = 0;
-      if ( v4 == 0)
-        v8 = 1;
-      else
-      {
-        if ( v2 == 1 )
-         v7[i] = (unsigned char *)sub_452C30((char *)v1);
-      }
-      ++v2;
-      v1 = &v1[v4] + 1;
-    }
-    while ( v2 - 1 <= 1 && !v8 );
-
-    v1 = (unsigned char *)strtok(NULL, "\r") + 1;
-  }	
- 
 
  aMonthNames[0] = pGlobalTXT_LocalizationStrings[415];  aMonthNames[1] = pGlobalTXT_LocalizationStrings[416];
  aMonthNames[2] = pGlobalTXT_LocalizationStrings[417];  aMonthNames[3] = pGlobalTXT_LocalizationStrings[418];

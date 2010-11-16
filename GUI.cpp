@@ -5564,27 +5564,27 @@ void __cdecl GameUI_DrawStatusBar()
     if ( dword_5C35B8 )
     {
       v2 = (char *)&byte_5C3428;
-      v1 = sub_44C51E(pFontLucida, (char *)byte_5C3428);
+      v1 = GetStringWidth(pFontLucida, (char *)byte_5C3428);
       v3 = 450;
       while ( v1 > 450 )
       {
         v4 = strlen((char *)&byte_5C3428);
         v5 = (int)pFontLucida;
         byte_5C3427[v4] = 0;
-        v1 = sub_44C51E(pFontLucida, (char *)byte_5C3428);
+        v1 = GetStringWidth(pFontLucida, (char *)byte_5C3428);
       }
     }
     else
     {
       v2 = (char *)pStatusBarString;
-      v6 = sub_44C51E(pFontLucida, (char *)pStatusBarString);
+      v6 = GetStringWidth(pFontLucida, (char *)pStatusBarString);
       v3 = 450;
       while ( v6 > 450 )
       {
         v7 = strlen((char *)pStatusBarString);
         v8 = (int)pFontLucida;
         pStatusBarString[v7 - 1] = 0;
-        v6 = sub_44C51E(pFontLucida, (char *)pStatusBarString);
+        v6 = GetStringWidth(pFontLucida, (char *)pStatusBarString);
       }
     }
     v9 = *v2 == 0;
@@ -5941,7 +5941,7 @@ void GUIButton_sub_415180(struct GUIButton *a1, const unsigned char *a2, struct 
   v6 = (char *)a2;
   v7 = (int)a1;
   strlen((char *)a2);
-  v8 = sub_44C51E((Font *)a3, v6);
+  v8 = GetStringWidth((Font *)a3, v6);
   FontDrawText(*(GUIWindow **)(v7 + 56),
            (Font *)a3,
            *(_DWORD *)v7 + (*(_DWORD *)(v7 + 8) - v8) / 2,
@@ -5953,33 +5953,6 @@ void GUIButton_sub_415180(struct GUIButton *a1, const unsigned char *a2, struct 
            (unsigned int)a5);
 }
 
-//----- (0044D406) --------------------------------------------------------
-char *__fastcall GUIWindow_sub_44D406(struct GUIWindow *a1, struct Font *pFont, int a3, int a4, unsigned __int16 a5, const char *pString, int a7)
-{
-  char *result; // eax@1
-  int v8; // ebx@1
-  int v9; // edi@1
-  int v10; // esi@1
-  char *v12; // eax@1
-  int v13; // eax@2
-
-  v8 = a1->uFrameWidth - a3;
-  dword_5C6DB4 = a5;
-  v12 = (char *)FitTextInAWindow(pString, pFont, a1, a3, 0);
-  result = strtok(v12, "\n");
-  v9 = a3 + a1->uFrameX;
-  v10 = a4 + a1->uFrameY;
-  while ( result )
-  {
-    v13 = (v8 - sub_44C51E(pFont, result)) >> 1;
-    if ( v13 < 0 )
-      v13 = 0;
-    sub_44D1E7((unsigned char *)pFont, a5, v9 + v13, v10, result, 640);
-    v10 += ((unsigned char *)pFont)[5] - a7;
-    result = strtok(0, "\n");
-  }
-  return result;
-}
 
 
 //----- (0044158F) --------------------------------------------------------
@@ -7409,10 +7382,10 @@ int CharacterUI_LoadPaperdollTextures()
       if (uFace == 12 || uFace == 13) // dwarf male, load beard
       {
         wsprintf(Str1, "pc%02dbrd", uFace + 1);
-        pPaperdollTextures_Beards[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
+        pPaperdollTextures_Beards[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
       }
       wsprintf(Str1, "item281pc%02d", uFace + 1);
-      pPaperdollTextures_Feet[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,0);
+      pPaperdollTextures_Feet[uPlayer] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
 #endif
       byte_5111B9[uPlayer] = 0;
     }
@@ -8161,7 +8134,7 @@ LABEL_74:
                       {
                         v198 = "sp91a";
 LABEL_85:
-                        v43 = 72 * v42->LODFile_LoadTexture( v198, 2) + 7145548;
+                        v43 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v198, 2)];
                         v44 = dword_50C9A8 == pClass24_global->int_00001C;
                         v45 = dword_50C9A8 - pClass24_global->int_00001C < 0;
                         dword_50C9A8 -= pClass24_global->int_00001C;
@@ -8176,7 +8149,7 @@ LABEL_85:
                           (int)pD3DRenderer,
                           v237,
                           v225,
-                          v40 != -1 ? 72 * v40 + 7145548 : 0,
+                          v40 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v40] : 0,
                           v43,
                           (signed __int64)v46,
                           0,
@@ -8271,7 +8244,7 @@ LABEL_106:
                         {
                           v199 = "sp91a";
 LABEL_117:
-                          v57 = 72 * v56->LODFile_LoadTexture( v199, 2) + 7145548;
+                          v57 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v199, 2)];
                           v58 = dword_50C9A8 == pClass24_global->int_00001C;
                           v59 = dword_50C9A8 - pClass24_global->int_00001C < 0;
                           dword_50C9A8 -= pClass24_global->int_00001C;
@@ -8478,7 +8451,7 @@ LABEL_168:
                         {
                           v201 = "sp91a";
 LABEL_181:
-                          v88 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( v201, 2) + 7145548;
+                          v88 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v201, 2)];
                           v89 = dword_50C9A8 == pClass24_global->int_00001C;
                           v90 = dword_50C9A8 - pClass24_global->int_00001C < 0;
                           dword_50C9A8 -= pClass24_global->int_00001C;
@@ -8713,7 +8686,7 @@ LABEL_312:
                                           {
                                             v209 = "sp91a";
 LABEL_325:
-                                            v151 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( v209, 2) + 7145548;
+                                            v151 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v209, 2)];
                                             v152 = dword_50C9A8 == pClass24_global->int_00001C;
                                             v153 = dword_50C9A8 - pClass24_global->int_00001C < 0;
                                             dword_50C9A8 -= pClass24_global->int_00001C;
@@ -8887,7 +8860,7 @@ LABEL_370:
                                                   {
                                                     v212 = "sp91a";
 LABEL_381:
-                                                    v183 = 72 *v182-> LODFile_LoadTexture( v212, 2) + 7145548;
+                                                    v183 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v212, 2)];
                                                     v184 = dword_50C9A8 == pClass24_global->int_00001C;
                                                     v185 = dword_50C9A8 - pClass24_global->int_00001C < 0;
                                                     dword_50C9A8 -= pClass24_global->int_00001C;
@@ -9035,7 +9008,7 @@ LABEL_209:
                                 {
                                   v202 = "sp91a";
 LABEL_226:
-                                  v110 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( v202, 2) + 7145548;
+                                  v110 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v202, 2)];
                                   v111 = dword_50C9A8 == pClass24_global->int_00001C;
                                   v112 = dword_50C9A8 - pClass24_global->int_00001C < 0;
                                   dword_50C9A8 -= pClass24_global->int_00001C;
@@ -9161,7 +9134,7 @@ LABEL_256:
                             {
                               v207 = "sp91a";
 LABEL_246:
-                              v110 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( v207, 2) + 7145548;
+                              v110 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v207, 2)];
                               v126 = dword_50C9A8 == pClass24_global->int_00001C;
                               v127 = dword_50C9A8 - pClass24_global->int_00001C < 0;
                               dword_50C9A8 -= pClass24_global->int_00001C;
@@ -9317,7 +9290,7 @@ LABEL_48:
         {
           v196 = "sp91a";
 LABEL_27:
-          v16 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( v196, 2) + 7145548;
+          v16 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v196, 2)];
           v17 = dword_50C9A8 == pClass24_global->int_00001C;
           v18 = dword_50C9A8 - pClass24_global->int_00001C < 0;
           dword_50C9A8 -= pClass24_global->int_00001C;
@@ -9526,7 +9499,7 @@ LABEL_11:
       goto LABEL_13;
     v45 = "sp91a";
 LABEL_14:
-    v49 = 72 * v7->LODFile_LoadTexture( v45, 2) + 7145548;
+    v49 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v45, 2)];
     v8 = dword_50C9A8 == pClass24_global->int_00001C;
     v9 = dword_50C9A8 - pClass24_global->int_00001C < 0;
     dword_50C9A8 -= pClass24_global->int_00001C;
@@ -9613,7 +9586,7 @@ LABEL_34:
 LABEL_36:
   v46 = "sptext01";
 LABEL_37:
-  v51 = 72 *v21->LODFile_LoadTexture( v46, 2) + 7145548;
+  v51 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v46, 2)];
   v22 = dword_50C9A8 == pClass24_global->int_00001C;
   v23 = dword_50C9A8 - pClass24_global->int_00001C < 0;
   dword_50C9A8 -= pClass24_global->int_00001C;
@@ -9685,7 +9658,7 @@ LABEL_55:
 LABEL_57:
   v47 = "sptext01";
 LABEL_58:
-  v37 = 72 * v36->LODFile_LoadTexture( v47, 2) + 7145548;
+  v37 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v47, 2)];
   v38 = dword_50C9A8 == pClass24_global->int_00001C;
   v39 = dword_50C9A8 - pClass24_global->int_00001C < 0;
   dword_50C9A8 -= pClass24_global->int_00001C;
@@ -10340,7 +10313,7 @@ LABEL_82:
           GUIWindow_sub_415551(ptr_507BD0, 0);
           FontDrawText(ptr_507BD0, pFontCreate, 30, 40, (char *)pKeyboardController->pPressedKeysBuffer, 0, 0, 0);
           v30 = (int)pFontCreate;
-          v31 = sub_44C51E(pFontCreate, (char *)pKeyboardController->pPressedKeysBuffer);
+          v31 = GetStringWidth(pFontCreate, (char *)pKeyboardController->pPressedKeysBuffer);
           GUIWindow_sub_459C2B(ptr_507BD0, v31 + 30, 40, v30);
           continue;
         }
