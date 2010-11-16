@@ -14,64 +14,66 @@
 #include "_video.h"
  #include "_lod.h"
 
+static char temp_string[2048];	// byte_5C45B0
 
-
-
-
-//----- (0044C59D) --------------------------------------------------------
-int __fastcall Font_sub_44C59D(Font *pFontData, const char *pString, GUIWindow *a3, char a4, int a5)
+ //----- (0044C4DE) --------.text:0044D4A0 ------------------------------------------------
+bool inline test_char(char c, Font *pFontData)
 {
-  const char *v5; // ebx@1
-  signed int v8; // ebx@3
-  int v9; // esi@3
-  size_t v10; // eax@3
-  unsigned __int8 v11; // cl@4
-  unsigned __int8 *v13; // [sp+14h] [bp+Ch]@3
+return ((c < pFontData->uFirstChar)||(c >pFontData->uLastChar)) &&( c == '\f' || c == '\r' || c == '\n' || c == '\t');
+   
+}
+
+
+
+//----- (0044C59D) --------------.text:0044D568------------------------------------------
+int  CalculateTextHeght(Font *pFontData, const char *pString, GUIWindow *parentW, int uXOff, int a5)
+{
+
+  int uAllHeght; // esi@3
+  unsigned int uStringLen; // eax@3
+  char c; // cl@4
+  char *test_string; // [sp+14h] [bp+Ch]@3
  int i;
 
  if (!pString)
    return 0;
 
- v5 = pString;
- v9 = ((unsigned char *)(pFontData))[5] - 3;
- v13 = FitTextInAWindow(pString, pFontData, a3, a4, 0);
- v10 = strlen(pString);
- v8 = 0;
+ 
+ uAllHeght = pFontData->uFontHeight - 3;
+ test_string = FitTextInAWindow(pString, pFontData, parentW, uXOff, 0);
+ uStringLen = strlen(pString);
 
- for (i = 0; i < v10; ++i)
+
+ for (i = 0; i < uStringLen; ++i)
  {
-  if (sub_44C4DE(*v13, (unsigned char *)pFontData))
+  if (test_char(*test_string, pFontData))
   {
-   v11 = *v13;
-   if (v11 == 9)
-     goto LABEL_8;
-
-   switch (v11)
+   c = *test_string;
+   switch (c)
    {
-    case 0xAu:
-      v9 = v9 + *(_BYTE *)((int)pFontData + 5) - 3;
+   case '\n':	//Line Feed 0A 10:
+      uAllHeght+= pFontData->uFontHeight - 3;
     break;
 
-    case 0xCu:
-      v13 += 5;
-      v8 += 5;
+   case '\f':  //Form Feed, page eject  0C 12
+      test_string += 5;
+      i += 5;
     break;
+   case '\t':	// Horizontal tab 09
+   case '\r':   //Carriage Return 0D 13
 
-    case 0xDu:
-LABEL_8:
       if (a5 != 1)
       {
-       v13 += 3;
-       v8 += 3;
+       test_string += 3;
+       i += 3;
       }
     break;
    }
   }
-  ++v8;
-  ++v13;
+  ++test_string;
  }
 
- return v9;
+ return uAllHeght;
 }
 
 
@@ -111,153 +113,102 @@ void __cdecl DeleteFontCChar()
 
 
 
-//----- (0044C768) --------------------------------------------------------
-unsigned char *__fastcall FitTextInAWindow(const char *pString, struct Font *pFont, struct GUIWindow *pParent, unsigned int uX, int a5)
+//----- (0044C768) -----------------.text:0044D751---------------------------------------
+char *FitTextInAWindow(const char *pString, struct Font *pFont, struct GUIWindow *pParent, unsigned int uX, int a5)
 {
-  const char *v5; // edi@1
-  unsigned char *v6; // esi@1
-  int v8; // eax@3
-  int v9; // edi@3
-  int *v12; // ecx@10
-  int v16; // edx@15
-  int v17; // ecx@15
-  int v18; // esi@15
-  int v19; // ebx@16
-  int v20; // edi@16
-  unsigned __int8 v24; // dl@17
-  int v27; // edi@39
-  int v28; // eax@42
-  char v29; // [sp-18h] [bp-40h]@2
-  int v30; // [sp-14h] [bp-3Ch]@2
-  int v31; // [sp-10h] [bp-38h]@2
-  int v32; // [sp-Ch] [bp-34h]@2
-  const char *v35; // [sp+Ch] [bp-1Ch]@1
-  char Dest[3+256+array_size_unknown];
-  char v37; // [sp+13h] [bp-15h]@42
-  size_t v38; // [sp+14h] [bp-14h]@3
-  int v39; // [sp+18h] [bp-10h]@3
-  int v40; // [sp+1Ch] [bp-Ch]@1
-  int v41; // [sp+20h] [bp-8h]@3
-  int v42; // [sp+24h] [bp-4h]@3
- unsigned char c;
+  
+unsigned char c;
+unsigned int uInStrLen,i;
+char *tmp_pos;
+char digits[3];
+int possible_trasition_point;
+int string_pixel_Width;
+int start_pixel_offset;
 
- v5 = pString;
- v35 = pString;
- v6 = (unsigned char *)pFont;
- v40 = (int)pFont;
- if (!pString)
- {
-   *(_DWORD *)&uX = (int)&v29;
-   Game_sub_40E2C8(&v29, "Invalid string passed !", (int)(&uX + 3));
-   sub_466D09(&pParent, *(int *)&v29, v30, v31, v32, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Font.cpp", 445);
-   return 0;
- }
+if (!pString)
+	{
+	// *(_DWORD *)&uX = (int)&v29;
+	// Game_sub_40E2C8(&v29, "Invalid string passed !", (int)(&uX + 3));
+	// sub_466D09(&pParent, *(int *)&v29, v30, v31, v32, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Font.cpp", 445);
+	return 0;
+	}
+uInStrLen = strlen(pString);
+strcpy(&temp_string[0], pString);
+if (uInStrLen==0)
+	return &temp_string[0];
+tmp_pos= &temp_string[1];
+i=0;
+start_pixel_offset=string_pixel_Width=uX;
+possible_trasition_point=0;
+for(i=0; i<uInStrLen; i++, tmp_pos++) 
+	{
+	c=temp_string[i];
+	if (((c < pFont->uFirstChar)||(c >pFont->uLastChar)) &&( c == '\f' || c == '\r' || c == '\n' || c == '\t'))
+		{
+		if(c == '\t')	// Horizontal tab 09
+			{
+			strncpy(digits,tmp_pos,3);
+			string_pixel_Width= atoi(digits)+uX;
+			i+=3;
+			tmp_pos+=3;
+			}
+		if(c == '\n')	//Line Feed 0A 10
+			{
+			string_pixel_Width=start_pixel_offset;
+			possible_trasition_point=i;
+			continue;
+			}
+		if (c == '\f')   //Form Feed, page eject  0C 12
+			{
+			i+=5;
+			tmp_pos+=5;
+			}
+		if (c =='\r' )   //Carriage Return 0D 13
+			{
+			if (a5==0)
+				return (char*)pString;
+			}
+		if (c ==' ' )
+			{
+			string_pixel_Width+=pFont->fw_table[c].letterW;
+			possible_trasition_point=i;
+			}
 
- strcpy((char *)byte_5C45B0, pString);
- v8 = uX;
- v9 = 0;
- v41 = 0;
- v39 = uX;
- v42 = 0;
+		if ((string_pixel_Width+pFont->fw_table[c].letterW+ pFont->fw_table[c].preWidth+
+			pFont->fw_table[c].postWidth)<pParent->uFrameWidth)
+			{
+			if(i>possible_trasition_point)
+				string_pixel_Width+=pFont->fw_table[c].preWidth;
+			string_pixel_Width+=pFont->fw_table[c].letterW;
+			if (i<uInStrLen)
+				string_pixel_Width+=pFont->fw_table[c].postWidth;
+			}
+		else
+			{
+			temp_string[possible_trasition_point]='\n';
+			string_pixel_Width=start_pixel_offset;
+			if (i>possible_trasition_point)
+				{
+				for(int j=possible_trasition_point;j<i; ++j ) 
+					{
+					c=temp_string[j];
+					if (((c < pFont->uFirstChar)||(c >pFont->uLastChar)) &&( c == '\f' || c == '\r' || c == '\n' || c == '\t'))
+						{
+						if(j>possible_trasition_point)
+							string_pixel_Width+=pFont->fw_table[c].preWidth;
+						string_pixel_Width+=pFont->fw_table[c].letterW;
+						if (j<i)
+							string_pixel_Width+=pFont->fw_table[c].postWidth;
 
- v38 = strlen(pString);
- if (!v38)
-   return byte_5C45B0;
+						}
+					}  
+				}
+			}
 
- while (true)
- {
-  c = byte_5C45B0[v9];
-  if ((c < v6[0] || c > v6[1]) && c != '\f' && c != '\r' && c != '\n' && c != '\t')
-    goto LABEL_34;
+		}
+	}
+return &temp_string[0];
 
-  v12 = pFont->dword_000020[c];
-  if (c == '\t')
-  {
-   strncpy(Dest, (char *)&byte_5C45B0[v9 + 1], 3);
-   v28 = atoi(Dest);
-   v37 = 0;
-   v8 = uX + v28;
-   v27 = v9 + 3;
-   v39 = v8;
-   v42 = v27;
-   goto LABEL_34;
-  }
-  else if (c == '\n')
-    break;
-  else if (c == '\f')
-  {
-   v27 = v9 + 5;
-   v42 = v27;
-   goto LABEL_34;
-  }
-  else if (c != '\r')
-  {
-   if (c != ' ')
-   {
-    v17 = v12[0];
-    v16 = v12[1];
-    v18 = v12[2];
-
-    if ((unsigned int)(v8 + v18 + v17 + v16) < pParent->uFrameWidth)
-    {
-     if ( v42 > v41 )
-       v8 += v17;
-     v8 += v16;
-     if (v42 < (signed int)v38)
-       v8 += v18;
-     v6 = (unsigned char *)v40;
-    }
-    else
-    {
-     v19 = v41;
-     v8 = v39;
-     v6 = (unsigned char *)v40;
-     byte_5C45B0[v41] = '\n';
-     v20 = v19;
-
-     //compile_error;//v23 = __SETO__(v41, v42);
-     //v21 = v41 == v42;
-     //v22 = v41 - v42 < 0;
-     //if ( (unsigned __int8)(v22 ^ v23) | v21 )
-     if (v41 <= v42)
-     {
-      do
-      {
-       v24 = byte_5C45B0[v20];
-       if (v24 >= v6[0] && v24 <= v6[1] || v24 == '\f' || v24 == '\r' || v24 == '\n' || v24 ==  '\t')
-       {
-        if ( v20 > v19 )
-          v8 += *(_DWORD *)(v6 + 12 * v24 + 32);
-        v8 += *(_DWORD *)(v6 + 4 * (3 * v24 + 9));
-        if ( v20 < v42 )
-          v8 += *(_DWORD *)(v6 + 12 * v24 + 40);
-       }
-       ++v20;
-      }
-      while ( v20 <= v42 );
-     }
-    }
-    goto LABEL_34;
-   }
-   v8 += *(_DWORD *)(v12 + 4);
-   goto LABEL_41;
-  }
-  if (!a5)
-    return (unsigned char *)v35;
-
-LABEL_34:
-  v9 = v42 + 1;
-  v42++;
-  //compile_error;//v26 = __SETO__(v42, v38);
-  //v25 = (signed int)(v42 - v38) < 0;
-  if (v42 >= v38)//if ( !(v25 ^ v26) )
-    return byte_5C45B0;
- }
- v8 = v39;
-
-LABEL_41:
- v41 = v9;
- goto LABEL_34;
 }
 
 
@@ -384,10 +335,10 @@ LABEL_36:
                 }
                 v32 = &v37[v12];
                 v15 = (unsigned __int8)v37[v12];
-                v16 = pFont->dword_000020[v15][1];
-                v33 = pFont->dword_000020[v15][2];
+                v16 = pFont->fw_table[v15].letterW;
+                v33 = pFont->fw_table[v15].postWidth;
                 if ( v12 > 0 )
-                  uOutX += pFont->dword_000020[v15][0];
+                  uOutX += pFont->fw_table[v15].preWidth;
                 v17 = pFont->array_000C20[v15] + (int)&pFont->unk_001020;
 
                 Render_DrawText(pD3DRenderer, uOutX, uOutY, (unsigned char *)v17,
@@ -395,10 +346,10 @@ LABEL_36:
                     pFont->uFontHeight, pFont->pFontPalette,
                     uTextMainColor,
                     uTextShadowColor);
-                uOutX += pFont->dword_000020[v15][1];
+                uOutX += pFont->fw_table[v15].letterW;
                 if ( v38 < (signed int)v35)
                 {
-                  uOutX += pFont->dword_000020[v15][2];
+                  uOutX += pFont->fw_table[v15].postWidth;
                 }
                 break;
             }
@@ -436,7 +387,7 @@ int __fastcall Font_sub_44C6C2(struct Font *a1, const char *a2, struct GUIWindow
   v14 = v10;
   if ( (signed int)v10 > 0 )
   {
-    while ( !sub_44C4DE(*v8, (unsigned char *)v13) )
+    while ( !test_char(*v8, (Font*)v13) )
     {
 LABEL_11:
       ++v9;
@@ -473,7 +424,7 @@ LABEL_10:
 }
 
 //----- (0044C502) --------------------------------------------------------
-int __fastcall AlignText_Center(int a1, const char *pString, struct Font *pFont)
+int  AlignText_Center(int a1, const char *pString, struct Font *pFont)
 {
   int v3; // esi@1
   int result; // eax@2
@@ -504,17 +455,17 @@ int __fastcall sub_44C51E(struct Font *_this, const char *pString)
  for ( i = 0; i < v5; ++i )
  {
   c = pString[i];
-  if (sub_44C4DE(c, (unsigned char *)_this))
+  if (test_char(c, _this))
   {
    if (c == '\n' || c == '\r')
      return v6;
    if (c != '\f')
    {
     if (i > 0)
-      v6 += _this->dword_000020[c][0];
-    v6 += _this->dword_000020[c][1];
+      v6 += _this->fw_table[c].preWidth;
+    v6 += _this->fw_table[c].letterW;
     if (i < v5)
-      v6 += _this->dword_000020[c][2];
+      v6 += _this->fw_table[c].postWidth;
    }
    else
      i += 5;
@@ -582,7 +533,7 @@ char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int
   v12 = strlen(a1);
   v10 = v12;
   v42 = v12;
-  strcpy((char *)byte_5C45B0, v6);
+  strcpy(temp_string, v6);
   v8 = a5;
   v11 = v38;
   v9 = 0;
@@ -594,7 +545,7 @@ char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int
     v41 = v10 - 1;
     do
     {
-      v13 = byte_5C45B0[v9];
+      v13 = temp_string[v9];
       if ( v13 >= *(_BYTE *)v11 && v13 <= *(_BYTE *)(v11 + 1) || v13 == 12 || v13 == 13 || v13 == 9 || v13 == 10 )
       {
         v14 = v13 - 9;
@@ -636,26 +587,26 @@ char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int
                     {
                       v23 = v43;
                       v24 = v11 == a3;
-                      *(byte_5C45B0 + v43) = 10;
+                      *(temp_string + v43) = 10;
                       if ( v24 )
                       {
                         v26 = v41;
                         v25 = v23 + 1;
                         while ( v26 >= v25 )
                         {
-                         byte_5C45B0[v26] = stru_5C3610.byte_000F9C[v26];
+                         temp_string[v26] = stru_5C3610.byte_000F9C[v26];
                           --v26;
                         }
                         ++v42;
                         ++v41;
-                        byte_5C45B0[1 + v23++] = 95;
+                       temp_string[1 + v23++] = 95;
                         v43 = v25;
                       }
                       v9 = v39;
                       v8 = v40;
                       for ( i = v23; i <= v39; ++i )
                       {
-                        v27 = byte_5C45B0[i];
+                        v27 = temp_string[i];
                         if ( v27 >= *(_BYTE *)v11 && v27 <= *(_BYTE *)(v11 + 1)
                           || v27 == 12
                           || v27 == 13
@@ -698,7 +649,7 @@ char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int
         }
         else
         {
-          strncpy(&Dest, (char *)&byte_5C45B0[v9 + 1], 3u);
+          strncpy(&Dest, (char *)&temp_string[v9 + 1], 3u);
           v37 = 0;
           v28 = atoi(&Dest);
           v8 = a5 + v28;
@@ -711,5 +662,719 @@ char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int
     }
     while ( v9 < v42 );
   }
-  return (char *)byte_5C45B0;
+  return (char *)temp_string;
+}
+
+
+//----- (0044D1E7) --------------------------------------------------------
+void __fastcall sub_44D1E7(unsigned char *pFontData, int a2, int a3, int a4, const char *pString, int a6)
+{
+  int v6; // ebx@1
+  int v8; // edi@3
+  unsigned __int8 v9; // cl@4
+  int v10; // eax@5
+  int v14; // edx@9
+  int v15; // ecx@9
+  int v16; // eax@12
+  __int16 v17; // cx@12
+  char Dest[5]; // [sp+Ch] [bp-1Ch]@16
+  char v19; // [sp+11h] [bp-17h]@16
+  size_t v20; // [sp+20h] [bp-8h]@2
+  int v21; // [sp+24h] [bp-4h]@1
+  int v22; // [sp+30h] [bp+8h]@9
+
+  v6 = 0;
+  v21 = a2;
+
+
+ if (!pString)
+   return;
+
+ v21 = dword_5C6DB4;
+ v20 = strlen(pString);
+
+ if (!v20)
+   return;
+
+
+ v8 = a3;
+ do
+ {
+  if (test_char(pString[v6], (Font*)pFontData))
+  {
+   v10 = v9 = pString[v6];
+   if (v9 != '\t')
+   {
+    if (v9 == '\n')
+      return;
+
+    if (v9 != '\f')
+    {
+     if (v9 != '\r')
+     {
+              v15 = 3 * v10 + 9;
+              v14 = *(_DWORD *)(pFontData + 4 * v15);
+              v22 = *(_DWORD *)(pFontData + 4 * v15);
+              if ( v14 )
+              {
+                if ( v6 > 0 )
+                  v8 += *(_DWORD *)(pFontData + 12 * v10 + 32);
+                v17 = v21;
+                v16 = (int)(*(_DWORD *)(pFontData + 4 * v10 + 3104) + pFontData + 4128);
+                if ( !v21 )
+                  v17 = -1;
+                Render_DrawText(pD3DRenderer, v8, a4, (unsigned char *)v16, v14, pFontData[5], (unsigned short *)*(_DWORD *)(pFontData + 12), v17, 0);
+                v8 += v22;
+                if ( v6 < (signed int)v20 )
+                  v8 += *(_DWORD *)(pFontData + 12 * v10 + 40);
+              }
+            }
+          }
+          else
+          {
+            strncpy(Dest, &pString[v6 + 1], 5u);
+            v19 = 0;
+            v21 = atoi(Dest);
+            dword_5C6DB4 = v21;
+            v6 += 5;
+          }
+        }
+      }
+      ++v6;
+    }
+    while (v6 < v20);
+}
+
+//----- (0044C62E) --------------------------------------------------------
+int __fastcall sub_44C62E(int a1, char a2, const char *Str, int a4, int a5, int a6)
+{
+  int v6; // edi@1
+  unsigned __int8 *v8; // ebx@3
+  int v9; // esi@3
+  size_t v10; // eax@3
+  unsigned __int8 v11; // cl@4
+  signed int v12; // [sp+Ch] [bp+8h]@3
+  size_t v13; // [sp+14h] [bp+10h]@3
+
+  v6 = a1;
+  if ( !Str )
+    return 0;
+  v9 = *(_BYTE *)(a1 + 5) - 3;
+  v8 = (unsigned __int8 *)sub_44C933(Str, a1, a2, a4, a5, 0);
+  v10 = strlen(Str);
+  v12 = 0;
+  v13 = v10;
+  while ( v12 < (signed int)v13 )
+  {
+    if (test_char(*v8, (Font *)v6) )
+    {
+      if ( v11 == 9 )
+        goto LABEL_9;
+      switch ( v11 )
+      {
+        case 0xAu:
+          v9 = v9 + *(_BYTE *)(v6 + 5) - 3;
+          break;
+        case 0xCu:
+          v8 += 5;
+          v12 += 5;
+          break;
+        case 0xDu:
+LABEL_9:
+          if ( a6 != 1 )
+          {
+            v8 += 3;
+            v12 += 3;
+          }
+          break;
+      }
+    }
+    ++v12;
+    ++v8;
+  }
+  return v9;
+}
+
+
+
+//----- (0044D0B5) --------------------------------------------------------
+void __fastcall sub_44D0B5(int a1, int a2, int a3, int a4, const char *Str, int a6)
+{
+  int v6; // ebx@1
+  int v7; // esi@1
+  int v8; // edi@3
+  unsigned __int8 v9; // cl@4
+  int v10; // eax@5
+  int v11; // ecx@5
+  int v12; // ecx@6
+  int v13; // ecx@7
+  int v14; // ecx@8
+  int v15; // ebx@10
+  __int16 v16; // ax@13
+  int v17; // edx@13
+  unsigned __int8 v18; // sf@18
+  unsigned __int8 v19; // of@18
+  char Dest; // [sp+Ch] [bp-20h]@17
+  char v21; // [sp+11h] [bp-1Bh]@17
+  size_t v22; // [sp+20h] [bp-Ch]@2
+  int v23; // [sp+24h] [bp-8h]@1
+  int v24; // [sp+28h] [bp-4h]@2
+  char *v25; // [sp+38h] [bp+Ch]@4
+
+  v6 = 0;
+  v23 = a2;
+  v7 = a1;
+  if ( Str )
+  {
+    v23 = dword_5C6DB4;
+    v22 = strlen(Str);
+    v24 = 0;
+    if ( (signed int)v22 > 0 )
+    {
+      v8 = a4;
+      do
+      {
+        v25 = (char *)&Str[v6];
+        if ( test_char(Str[v6], (Font *)v7) )
+        {
+          v10 = v9;
+          v11 = v9 - 9;
+          if ( v11 )
+          {
+            v12 = v11 - 1;
+            if ( !v12 )
+              return;
+            v13 = v12 - 2;
+            if ( v13 )
+            {
+              v14 = v13 - 1;
+              if ( v14 )
+              {
+                if ( v14 != 82 )
+                {
+                  v15 = *(_DWORD *)(v7 + 4 * (3 * v10 + 9));
+                  if ( v15 )
+                  {
+                    if ( v24 > 0 )
+                      v8 += 2 * *(_DWORD *)(v7 + 12 * v10 + 32);
+                    v17 = *(_DWORD *)(v7 + 4 * v10 + 3104) + v7 + 4128;
+                    v16 = v23;
+                    if ( !v23 )
+                      v16 = -1;
+                    sub_40F845(v8, v17, v15, *(_BYTE *)(v7 + 5), *(_DWORD *)(v7 + 12), v16, 2 * a6);
+                    v8 += 2 * v15;
+                    if ( v24 < (signed int)v22 )
+                      v8 += 2 * *(_DWORD *)(v7 + 12 * (unsigned __int8)*v25 + 40);
+                  }
+                }
+              }
+            }
+            else
+            {
+              strncpy(&Dest, &Str[v6 + 1], 5u);
+              v21 = 0;
+              v23 = atoi(&Dest);
+              dword_5C6DB4 = v23;
+              v24 = v6 + 5;
+            }
+          }
+        }
+        v6 = v24 + 1;
+        compile_error;//v19 = __SETO__(v24 + 1, v22);
+        v18 = (signed int)(v24++ + 1 - v22) < 0;
+      }
+      while ( v18 ^ v19 );
+    }
+  }
+}
+
+
+//----- (0044CB4F) --------------------------------------------------------
+int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, __int16 a5, const char *Str1, signed int Source, int a8)
+{
+  int v8; // ebx@1
+  int v9; // edi@1
+  signed int v11; // esi@3
+  unsigned __int8 v12; // cl@7
+  int v13; // ebx@19
+  int v14; // esi@19
+  unsigned __int8 v15; // cl@21
+  int v16; // eax@22
+  int v17; // ecx@22
+  int v18; // ecx@23
+  int v19; // ecx@24
+  int v20; // ecx@26
+  int v21; // eax@28
+  int v22; // ebx@34
+  int v23; // eax@34
+  int v24; // ebx@36
+  char Dest; // [sp+Ch] [bp-20h]@34
+  char v26; // [sp+Fh] [bp-1Dh]@34
+  char v27; // [sp+11h] [bp-1Bh]@35
+  int v28; // [sp+20h] [bp-Ch]@17
+  int v29; // [sp+24h] [bp-8h]@1
+  size_t v30; // [sp+28h] [bp-4h]@1
+  int i; // [sp+40h] [bp+14h]@5
+  int v32; // [sp+40h] [bp+14h]@19
+  const char *v33; // [sp+44h] [bp+18h]@20
+  int v34; // [sp+48h] [bp+1Ch]@26
+
+  //a5;//colored or white text flag
+  v9 = a2;
+  v29 = a1;
+  v30 = strlen(Str1);
+  v8 = sub_44C51E((Font *)v9, Str1);
+  if ( v8 < Source )
+  {
+    FontDrawText((GUIWindow *)v29, (Font *)v9, a3, a4, Str1, 0xFFFFFFFF, 0, 0);
+    return v8;
+  }
+  strcpy((char *)pStringBuffer, Str1);
+  v11 = 0;
+  if ( a8 )
+    _strrev((char *)pStringBuffer);
+  for ( i = 0; i < (signed int)v30; ++i )
+  {
+    if ( v11 >= Source )
+      break;
+    if (v12 = test_char((unsigned char)pStringBuffer[i], (Font *)v9) )
+    {
+      if ( v12 < 9u )
+        goto LABEL_12;
+      if ( v12 > 0xAu )
+      {
+        if ( v12 == 12 )
+        {
+          i += 5;
+        }
+        else
+        {
+          if ( v12 != 13 )
+          {
+LABEL_12:
+            if ( i > 0 )
+              v11 += *(_DWORD *)(v9 + 12 * v12 + 32);
+            v11 += *(_DWORD *)(v9 + 4 * (3 * v12 + 9));
+            if ( i < (signed int)v30 )
+              v11 += *(_DWORD *)(v9 + 12 * v12 + 40);
+            continue;
+          }
+        }
+      }
+    }
+  }
+  byte_5C657F[i] = 0;
+  v30 = strlen((char *)pStringBuffer);
+  v28 = sub_44C51E((Font *)v9, (char *)pStringBuffer);
+  if ( a8 )
+    _strrev((char *)pStringBuffer);
+  v32 = 0;
+  v14 = a3 + *(_DWORD *)v29;
+  v13 = a4 + *(_DWORD *)(v29 + 4);
+  if ( (signed int)v30 > 0 )
+  {
+    v33 = (char *)(char *)pStringBuffer + 1;
+    do
+    {
+      if ( v15 = test_char((unsigned char)pStringBuffer[v32], (Font *)v9) )
+      {
+        v16 = v15;
+        v17 = v15 - 9;
+        if ( v17 )
+        {
+          v18 = v17 - 1;
+          if ( v18 )
+          {
+            v19 = v18 - 2;
+            if ( v19 )
+            {
+              if ( v19 == 1 )
+              {
+                strncpy(&Dest, v33, 3u);
+                v26 = 0;
+                v32 += 3;
+                v33 += 3;
+                v22 = atoi(&Dest);
+                v23 = sub_44C51E((Font *)v9, (char *)&pStringBuffer[v32]);
+                v14 = *(_DWORD *)(v29 + 16) - v23 - v22;
+                v13 = a4;
+              }
+              else
+              {
+                v20 = *(_DWORD *)(v9 + 4 * (3 * v16 + 9));
+                v34 = *(_DWORD *)(v9 + 4 * (3 * v16 + 9));
+                if ( v32 > 0 )
+                  v14 += *(_DWORD *)(v9 + 12 * v16 + 32);
+                v21 = *(_DWORD *)(v9 + 4 * v16 + 3104) + v9 + 4128;
+                //if ( a5 )
+                  Render_DrawText(pD3DRenderer, v14, v13, (unsigned char *)v21, v20, *(_BYTE *)(v9 + 5), (unsigned short *)*(_DWORD *)(v9 + 12), a5, 0);
+                /*else
+                  sub_4A6AB1(pD3DRenderer, v14, v13, v21, v20, *(_BYTE *)(v9 + 5), *(_DWORD *)(v9 + 12), 0);*/
+                //sub_4A6AB1 is obsolete, replaces with Render_DrawText
+                v14 += v34;
+                if ( v32 < (signed int)v30 )
+                  v14 += *(_DWORD *)(v9 + 12 * (unsigned __int8)(char *)pStringBuffer[v32] + 40);
+              }
+            }
+            else
+            {
+              strncpy(&Dest, v33, 5u);
+              v27 = 0;
+              v32 += 5;
+              v33 += 5;
+              *(_DWORD *)&a5 = atoi(&Dest);
+            }
+          }
+          else
+          {
+            v24 = *(_BYTE *)(v9 + 5);
+            v14 = a3;
+            a4 = a4 + v24 - 3;
+            v13 = v24 + a4 - 3;
+          }
+        }
+        else
+        {
+          strncpy(&Dest, v33, 3u);
+          v26 = 0;
+          atoi(&Dest);
+          v32 += 3;
+          v33 += 3;
+        }
+      }
+      ++v32;
+      ++v33;
+    }
+    while ( v32 < (signed int)v30 );
+  }
+  return v28;
+}
+
+//----- (00452C30) --------------------------------------------------------
+char *__fastcall sub_452C30(char *pStr)
+{
+  if ( *pStr == '4' )
+  {
+    pStr[strlen(pStr) - 1] = 0;
+    return pStr + 1;
+  }
+  return pStr;
+}
+
+//----- (00452C49) --------------------------------------------------------
+void __cdecl InitializeGameText()
+{
+ int i;
+  unsigned char *v1; // eax@3
+  int v2; // ebp@4
+  unsigned char v3; // dl@5
+  int v4; // ecx@5
+  unsigned int v5;
+  unsigned char **v7; // [sp+10h] [bp-8h]@3
+  signed int v8; // [sp+14h] [bp-4h]@4
+
+ if (pGlobalTXT_Raw)
+   mem_mng.DeleteBuffer( (void *)pGlobalTXT_Raw);
+
+ pGlobalTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "global.txt", 0);
+ 
+ strtok((char *)pGlobalTXT_Raw, "\r");
+ strtok(NULL, "\r");
+ v1 = (unsigned char *)strtok(NULL, "\r") + 1;
+ v7 = &pGlobalTXT_LocalizationStrings[0];
+
+
+  for (i = 0; i < 677; ++i)
+  {
+    v2 = 0;
+    v8 = 0;
+    do
+    {
+      v3 = *v1;
+      v4 = 0;
+      if (*v1 != '\t' )
+      {
+        do
+        {
+          if ( !v3 )
+            break;
+          ++v4;
+          v3 = v1[v4];
+        }
+        while ( v3 != '\t' );
+      }
+
+      if (v1[v4] == 0)
+        v8 = 1;
+      v1[v4] = 0;
+      if ( v4 == 0)
+        v8 = 1;
+      else
+      {
+        if ( v2 == 1 )
+         v7[i] = (unsigned char *)sub_452C30((char *)v1);
+      }
+      ++v2;
+      v1 = &v1[v4] + 1;
+    }
+    while ( v2 - 1 <= 1 && !v8 );
+
+    v1 = (unsigned char *)strtok(NULL, "\r") + 1;
+  }	
+ 
+
+ aMonthNames[0] = pGlobalTXT_LocalizationStrings[415];  aMonthNames[1] = pGlobalTXT_LocalizationStrings[416];
+ aMonthNames[2] = pGlobalTXT_LocalizationStrings[417];  aMonthNames[3] = pGlobalTXT_LocalizationStrings[418];
+ aMonthNames[4] = pGlobalTXT_LocalizationStrings[419];  aMonthNames[5] = pGlobalTXT_LocalizationStrings[420];
+ aMonthNames[6] = pGlobalTXT_LocalizationStrings[421];  aMonthNames[7] = pGlobalTXT_LocalizationStrings[422];
+ aMonthNames[8] = pGlobalTXT_LocalizationStrings[423];  aMonthNames[9] = pGlobalTXT_LocalizationStrings[424];
+ aMonthNames[10] = pGlobalTXT_LocalizationStrings[425]; aMonthNames[11] = pGlobalTXT_LocalizationStrings[426];
+
+ aDayNames[0] = pGlobalTXT_LocalizationStrings[145];  aDayNames[1] = pGlobalTXT_LocalizationStrings[230];
+ aDayNames[2] = pGlobalTXT_LocalizationStrings[243];  aDayNames[3] = pGlobalTXT_LocalizationStrings[227];
+ aDayNames[4] = pGlobalTXT_LocalizationStrings[91];   aDayNames[5] = pGlobalTXT_LocalizationStrings[188];
+ aDayNames[6] = pGlobalTXT_LocalizationStrings[222];
+
+ pSomeItemsNames[0] = pGlobalTXT_LocalizationStrings[568];
+ pSomeItemsNames[1] = pGlobalTXT_LocalizationStrings[271];
+ pSomeItemsNames[2] = pGlobalTXT_LocalizationStrings[272];
+ pSomeItemsNames[3] = pGlobalTXT_LocalizationStrings[273];
+ pSomeItemsNames[4] = pGlobalTXT_LocalizationStrings[274];
+ pSomeItemsNames[5] = pGlobalTXT_LocalizationStrings[275];
+ pSomeItemsNames[6] = pGlobalTXT_LocalizationStrings[276];
+ pSomeItemsNames[7] = pGlobalTXT_LocalizationStrings[277];
+ pSomeItemsNames[8] = pGlobalTXT_LocalizationStrings[278];
+ pSomeItemsNames[9] = pGlobalTXT_LocalizationStrings[279];
+ pSomeItemsNames[10] = pGlobalTXT_LocalizationStrings[280];
+ pSomeItemsNames[11] = pGlobalTXT_LocalizationStrings[281];
+ pSomeItemsNames[12] = pGlobalTXT_LocalizationStrings[282];
+ pSomeItemsNames[13] = pGlobalTXT_LocalizationStrings[143];
+
+ aClassNames[0] = pGlobalTXT_LocalizationStrings[LOCSTR_KNIGHT];
+ aClassNames[1] = pGlobalTXT_LocalizationStrings[LOCSTR_CAVALIER];
+ aClassNames[2] = pGlobalTXT_LocalizationStrings[LOCSTR_CHAMPION];
+ aClassNames[3] = pGlobalTXT_LocalizationStrings[LOCSTR_BLK_KNIGHT];
+ aClassNames[4] = pGlobalTXT_LocalizationStrings[LOCSTR_THIEF];
+ aClassNames[5] = pGlobalTXT_LocalizationStrings[LOCSTR_ROGUE];
+ aClassNames[6] = pGlobalTXT_LocalizationStrings[LOCSTR_SPY];
+ aClassNames[7] = pGlobalTXT_LocalizationStrings[LOCSTR_ASSASIN];
+ aClassNames[8] = pGlobalTXT_LocalizationStrings[LOCSTR_MONK];
+ aClassNames[9] = pGlobalTXT_LocalizationStrings[26];
+ aClassNames[10] = pGlobalTXT_LocalizationStrings[432];
+ aClassNames[11] = pGlobalTXT_LocalizationStrings[27];
+ aClassNames[12] = pGlobalTXT_LocalizationStrings[LOCSTR_PALADIN];
+ aClassNames[13] = pGlobalTXT_LocalizationStrings[263];
+ aClassNames[14] = pGlobalTXT_LocalizationStrings[264];
+ aClassNames[15] = pGlobalTXT_LocalizationStrings[28];
+ aClassNames[16] = pGlobalTXT_LocalizationStrings[LOCSTR_ARCHER];
+ aClassNames[17] = pGlobalTXT_LocalizationStrings[267];
+ aClassNames[18] = pGlobalTXT_LocalizationStrings[119];
+ aClassNames[19] = pGlobalTXT_LocalizationStrings[124];
+ aClassNames[20] = pGlobalTXT_LocalizationStrings[LOCSTR_RANGER];
+ aClassNames[21] = pGlobalTXT_LocalizationStrings[370];
+ aClassNames[22] = pGlobalTXT_LocalizationStrings[33];
+ aClassNames[23] = pGlobalTXT_LocalizationStrings[40];
+ aClassNames[24] = pGlobalTXT_LocalizationStrings[LOCSTR_CLERIC];
+ aClassNames[25] = pGlobalTXT_LocalizationStrings[257];
+ aClassNames[26] = pGlobalTXT_LocalizationStrings[44];
+ aClassNames[27] = pGlobalTXT_LocalizationStrings[46];
+ aClassNames[28] = pGlobalTXT_LocalizationStrings[LOCSTR_DRUID];
+ aClassNames[29] = pGlobalTXT_LocalizationStrings[269];
+ aClassNames[30] = pGlobalTXT_LocalizationStrings[270];
+ aClassNames[31] = pGlobalTXT_LocalizationStrings[48];
+ aClassNames[32] = pGlobalTXT_LocalizationStrings[LOCSTR_SORCERER];
+ aClassNames[33] = pGlobalTXT_LocalizationStrings[260];
+ aClassNames[34] = pGlobalTXT_LocalizationStrings[261];
+ aClassNames[35] = pGlobalTXT_LocalizationStrings[49];
+
+ aCharacterConditionNames[0] = pGlobalTXT_LocalizationStrings[52];
+ aCharacterConditionNames[1] = pGlobalTXT_LocalizationStrings[241];
+ aCharacterConditionNames[2] = pGlobalTXT_LocalizationStrings[14];
+ aCharacterConditionNames[3] = pGlobalTXT_LocalizationStrings[4];
+ aCharacterConditionNames[4] = pGlobalTXT_LocalizationStrings[69];
+ aCharacterConditionNames[5] = pGlobalTXT_LocalizationStrings[117];
+ aCharacterConditionNames[6] = pGlobalTXT_LocalizationStrings[166];
+ aCharacterConditionNames[7] = pGlobalTXT_LocalizationStrings[65];
+ aCharacterConditionNames[8] = pGlobalTXT_LocalizationStrings[166];
+ aCharacterConditionNames[9] = pGlobalTXT_LocalizationStrings[65];
+ aCharacterConditionNames[10] = pGlobalTXT_LocalizationStrings[166];
+ aCharacterConditionNames[11] = pGlobalTXT_LocalizationStrings[65];
+ aCharacterConditionNames[12] = pGlobalTXT_LocalizationStrings[162];
+ aCharacterConditionNames[13] = pGlobalTXT_LocalizationStrings[231];
+ aCharacterConditionNames[14] = pGlobalTXT_LocalizationStrings[58];
+ aCharacterConditionNames[15] = pGlobalTXT_LocalizationStrings[220];
+ aCharacterConditionNames[16] = pGlobalTXT_LocalizationStrings[76];
+ aCharacterConditionNames[17] = pGlobalTXT_LocalizationStrings[601];
+ aCharacterConditionNames[18] = pGlobalTXT_LocalizationStrings[98];
+
+ aSkillNames[0] = pGlobalTXT_LocalizationStrings[271];
+ aSkillNames[1] = pGlobalTXT_LocalizationStrings[272];
+ aSkillNames[2] = pGlobalTXT_LocalizationStrings[273];
+ aSkillNames[3] = pGlobalTXT_LocalizationStrings[274];
+ aSkillNames[4] = pGlobalTXT_LocalizationStrings[275];
+ aSkillNames[5] = pGlobalTXT_LocalizationStrings[276];
+ aSkillNames[6] = pGlobalTXT_LocalizationStrings[277];
+ aSkillNames[7] = pGlobalTXT_LocalizationStrings[278];
+ aSkillNames[8] = pGlobalTXT_LocalizationStrings[279];
+ aSkillNames[9] = pGlobalTXT_LocalizationStrings[280];
+ aSkillNames[10] = pGlobalTXT_LocalizationStrings[281];
+ aSkillNames[11] = pGlobalTXT_LocalizationStrings[282];
+ aSkillNames[12] = pGlobalTXT_LocalizationStrings[283];
+ aSkillNames[13] = pGlobalTXT_LocalizationStrings[284];
+ aSkillNames[14] = pGlobalTXT_LocalizationStrings[285];
+ aSkillNames[15] = pGlobalTXT_LocalizationStrings[286];
+ aSkillNames[16] = pGlobalTXT_LocalizationStrings[289];
+ aSkillNames[17] = pGlobalTXT_LocalizationStrings[290];
+ aSkillNames[18] = pGlobalTXT_LocalizationStrings[291];
+ aSkillNames[19] = pGlobalTXT_LocalizationStrings[287];
+ aSkillNames[20] = pGlobalTXT_LocalizationStrings[288];
+ aSkillNames[21] = pGlobalTXT_LocalizationStrings[292];
+ aSkillNames[22] = pGlobalTXT_LocalizationStrings[293];
+ aSkillNames[23] = pGlobalTXT_LocalizationStrings[294];
+ aSkillNames[24] = pGlobalTXT_LocalizationStrings[295];
+ aSkillNames[25] = pGlobalTXT_LocalizationStrings[296];
+ aSkillNames[26] = pGlobalTXT_LocalizationStrings[297];
+ aSkillNames[27] = pGlobalTXT_LocalizationStrings[298];
+ aSkillNames[28] = pGlobalTXT_LocalizationStrings[299];
+ aSkillNames[29] = pGlobalTXT_LocalizationStrings[300];
+ aSkillNames[30] = pGlobalTXT_LocalizationStrings[50];
+ aSkillNames[31] = pGlobalTXT_LocalizationStrings[77];
+ aSkillNames[32] = pGlobalTXT_LocalizationStrings[88];
+ aSkillNames[33] = pGlobalTXT_LocalizationStrings[89];
+ aSkillNames[34] = pGlobalTXT_LocalizationStrings[90];
+ aSkillNames[35] = pGlobalTXT_LocalizationStrings[95];
+ aSkillNames[36] = pGlobalTXT_LocalizationStrings[301];
+ aSkillNames[37] = pGlobalTXT_LocalizationStrings[153];
+
+ aSpellSchoolNames[0] = pGlobalTXT_LocalizationStrings[87];
+ aSpellSchoolNames[1] = pGlobalTXT_LocalizationStrings[6];
+ aSpellSchoolNames[2] = pGlobalTXT_LocalizationStrings[240];
+ aSpellSchoolNames[3] = pGlobalTXT_LocalizationStrings[70];
+ aSpellSchoolNames[4] = pGlobalTXT_LocalizationStrings[214];
+ aSpellSchoolNames[5] = pGlobalTXT_LocalizationStrings[142];
+ aSpellSchoolNames[6] = pGlobalTXT_LocalizationStrings[29];
+ aSpellSchoolNames[7] = pGlobalTXT_LocalizationStrings[133];
+ aSpellSchoolNames[8] = pGlobalTXT_LocalizationStrings[54];
+
+ aAttributeNames[0] = pGlobalTXT_LocalizationStrings[144];
+ aAttributeNames[1] = pGlobalTXT_LocalizationStrings[116];
+ aAttributeNames[2] = pGlobalTXT_LocalizationStrings[163];
+ aAttributeNames[3] = pGlobalTXT_LocalizationStrings[75];
+ aAttributeNames[4] = pGlobalTXT_LocalizationStrings[1];
+ aAttributeNames[5] = pGlobalTXT_LocalizationStrings[211];
+ aAttributeNames[6] = pGlobalTXT_LocalizationStrings[136];
+
+ aAMPMNames[0] = pGlobalTXT_LocalizationStrings[472];
+ aAMPMNames[1] = pGlobalTXT_LocalizationStrings[473];
+
+ aNPCProfessionNames[0] = pGlobalTXT_LocalizationStrings[153];
+ aNPCProfessionNames[1] = pGlobalTXT_LocalizationStrings[308];
+ aNPCProfessionNames[2] = pGlobalTXT_LocalizationStrings[309];
+ aNPCProfessionNames[3] = pGlobalTXT_LocalizationStrings[7];
+ aNPCProfessionNames[4] = pGlobalTXT_LocalizationStrings[306];
+ aNPCProfessionNames[5] = pGlobalTXT_LocalizationStrings[310];
+ aNPCProfessionNames[6] = pGlobalTXT_LocalizationStrings[311];
+ aNPCProfessionNames[7] = pGlobalTXT_LocalizationStrings[312];
+ aNPCProfessionNames[8] = pGlobalTXT_LocalizationStrings[313];
+ aNPCProfessionNames[9] = pGlobalTXT_LocalizationStrings[314];
+ aNPCProfessionNames[10] = pGlobalTXT_LocalizationStrings[105];
+ aNPCProfessionNames[11] = pGlobalTXT_LocalizationStrings[315];
+ aNPCProfessionNames[12] = pGlobalTXT_LocalizationStrings[316];
+ aNPCProfessionNames[13] = pGlobalTXT_LocalizationStrings[317];
+ aNPCProfessionNames[14] = pGlobalTXT_LocalizationStrings[115];
+ aNPCProfessionNames[15] = pGlobalTXT_LocalizationStrings[318];
+ aNPCProfessionNames[16] = pGlobalTXT_LocalizationStrings[319];
+ aNPCProfessionNames[17] = pGlobalTXT_LocalizationStrings[320];
+ aNPCProfessionNames[18] = pGlobalTXT_LocalizationStrings[321];
+ aNPCProfessionNames[19] = pGlobalTXT_LocalizationStrings[322];
+ aNPCProfessionNames[20] = pGlobalTXT_LocalizationStrings[323];
+ aNPCProfessionNames[21] = pGlobalTXT_LocalizationStrings[293];
+ aNPCProfessionNames[22] = pGlobalTXT_LocalizationStrings[324];
+ aNPCProfessionNames[23] = pGlobalTXT_LocalizationStrings[498];
+ aNPCProfessionNames[24] = pGlobalTXT_LocalizationStrings[525];
+ aNPCProfessionNames[25] = pGlobalTXT_LocalizationStrings[327];
+ aNPCProfessionNames[26] = pGlobalTXT_LocalizationStrings[328];
+ aNPCProfessionNames[27] = pGlobalTXT_LocalizationStrings[329];
+ aNPCProfessionNames[28] = pGlobalTXT_LocalizationStrings[330];
+ aNPCProfessionNames[29] = pGlobalTXT_LocalizationStrings[331];
+ aNPCProfessionNames[20] = pGlobalTXT_LocalizationStrings[332];
+ aNPCProfessionNames[31] = pGlobalTXT_LocalizationStrings[333];
+ aNPCProfessionNames[32] = pGlobalTXT_LocalizationStrings[334];
+ aNPCProfessionNames[33] = pGlobalTXT_LocalizationStrings[335];
+ aNPCProfessionNames[34] = pGlobalTXT_LocalizationStrings[336];
+ aNPCProfessionNames[35] = pGlobalTXT_LocalizationStrings[337];
+ aNPCProfessionNames[36] = pGlobalTXT_LocalizationStrings[338];
+ aNPCProfessionNames[37] = pGlobalTXT_LocalizationStrings[339];
+ aNPCProfessionNames[38] = pGlobalTXT_LocalizationStrings[340];
+ aNPCProfessionNames[39] = pGlobalTXT_LocalizationStrings[341];
+ aNPCProfessionNames[40] = pGlobalTXT_LocalizationStrings[342];
+ aNPCProfessionNames[41] = pGlobalTXT_LocalizationStrings[343];
+ aNPCProfessionNames[42] = pGlobalTXT_LocalizationStrings[596];
+ aNPCProfessionNames[43] = pGlobalTXT_LocalizationStrings[345];
+ aNPCProfessionNames[44] = pGlobalTXT_LocalizationStrings[346];
+ aNPCProfessionNames[45] = pGlobalTXT_LocalizationStrings[347];
+ aNPCProfessionNames[46] = pGlobalTXT_LocalizationStrings[348];
+ aNPCProfessionNames[47] = pGlobalTXT_LocalizationStrings[349];  
+ aNPCProfessionNames[48] = pGlobalTXT_LocalizationStrings[350];
+ aNPCProfessionNames[49] = pGlobalTXT_LocalizationStrings[597];
+ aNPCProfessionNames[50] = pGlobalTXT_LocalizationStrings[352];
+ aNPCProfessionNames[51] = pGlobalTXT_LocalizationStrings[353];
+ aNPCProfessionNames[52] = pGlobalTXT_LocalizationStrings[598];
+ aNPCProfessionNames[53] = pGlobalTXT_LocalizationStrings[344];
+ aNPCProfessionNames[54] = pGlobalTXT_LocalizationStrings[26];
+ aNPCProfessionNames[55] = pGlobalTXT_LocalizationStrings[599];
+ aNPCProfessionNames[56] = pGlobalTXT_LocalizationStrings[21];
+ aNPCProfessionNames[57] = pGlobalTXT_LocalizationStrings[600];
+ aNPCProfessionNames[58] = pGlobalTXT_LocalizationStrings[370];
+
+ aMoonPhaseNames[0] = pGlobalTXT_LocalizationStrings[150];
+ aMoonPhaseNames[1] = pGlobalTXT_LocalizationStrings[171];
+ aMoonPhaseNames[2] = pGlobalTXT_LocalizationStrings[102];
+ aMoonPhaseNames[3] = pGlobalTXT_LocalizationStrings[169];
+ aMoonPhaseNames[4] = pGlobalTXT_LocalizationStrings[92];
+
+ aSpellNames[0] = pGlobalTXT_LocalizationStrings[202];
+ aSpellNames[1] = pGlobalTXT_LocalizationStrings[204];
+ aSpellNames[2] = pGlobalTXT_LocalizationStrings[219];
+ aSpellNames[3] = pGlobalTXT_LocalizationStrings[215];
+ aSpellNames[4] = pGlobalTXT_LocalizationStrings[208];
+ aSpellNames[5] = pGlobalTXT_LocalizationStrings[454];
+ aSpellNames[6] = pGlobalTXT_LocalizationStrings[24];
+ aSpellNames[7] = pGlobalTXT_LocalizationStrings[455];
+ aSpellNames[8] = pGlobalTXT_LocalizationStrings[441];
+ aSpellNames[9] = pGlobalTXT_LocalizationStrings[440];
+ aSpellNames[10] = pGlobalTXT_LocalizationStrings[218];
+ aSpellNames[11] = pGlobalTXT_LocalizationStrings[217];
+ aSpellNames[12] = pGlobalTXT_LocalizationStrings[213];
+ aSpellNames[13] = pGlobalTXT_LocalizationStrings[462];
+ aSpellNames[14] = pGlobalTXT_LocalizationStrings[279];
+ aSpellNames[15] = pGlobalTXT_LocalizationStrings[442];
+ aSpellNames[16] = pGlobalTXT_LocalizationStrings[452];
+ aSpellNames[17] = pGlobalTXT_LocalizationStrings[194];
+ aSpellNames[18] = pGlobalTXT_LocalizationStrings[456];
+ aSpellNames[19] = pGlobalTXT_LocalizationStrings[453];
+ aSpellNames[20] = pGlobalTXT_LocalizationStrings[202];
+ aSpellNames[21] = pGlobalTXT_LocalizationStrings[443];
+ aSpellNames[22] = pGlobalTXT_LocalizationStrings[204];
+ aSpellNames[23] = pGlobalTXT_LocalizationStrings[208];
+ aSpellNames[24] = pGlobalTXT_LocalizationStrings[221];
+ aSpellNames[25] = pGlobalTXT_LocalizationStrings[24];
+ aSpellNames[26] = pGlobalTXT_LocalizationStrings[228];
+ aSpellNames[27] = pGlobalTXT_LocalizationStrings[441];
+ aSpellNames[28] = pGlobalTXT_LocalizationStrings[440];
+ aSpellNames[29] = pGlobalTXT_LocalizationStrings[213];
+ aSpellNames[30] = pGlobalTXT_LocalizationStrings[229];
+ aSpellNames[31] = pGlobalTXT_LocalizationStrings[233];
+ aSpellNames[32] = pGlobalTXT_LocalizationStrings[234];
+ aSpellNames[33] = pGlobalTXT_LocalizationStrings[279];
+ aSpellNames[34] = pGlobalTXT_LocalizationStrings[442];
+ aSpellNames[35] = pGlobalTXT_LocalizationStrings[235];
+ aSpellNames[36] = pGlobalTXT_LocalizationStrings[246];
+ aSpellNames[37] = pGlobalTXT_LocalizationStrings[247];
+ aSpellNames[38] = pGlobalTXT_LocalizationStrings[248];
+ aSpellNames[39] = pGlobalTXT_LocalizationStrings[674];
+ aSpellNames[40] = pGlobalTXT_LocalizationStrings[249];
+ aSpellNames[41] = pGlobalTXT_LocalizationStrings[258];
+ aSpellNames[42] = pGlobalTXT_LocalizationStrings[194];
+ aSpellNames[43] = pGlobalTXT_LocalizationStrings[657];
 }

@@ -5,6 +5,12 @@
 #include "gui.h"
 
 
+struct FontWidth
+	{
+	int preWidth;
+	int letterW;
+	int postWidth;
+	};
 
 struct Font
 {
@@ -17,24 +23,28 @@ struct Font
  int             dword_000008;
  unsigned short *pFontPalette;         // dword @ 00000C
  int             dword_000010[4];
- int             dword_000020[256][3];
+ struct FontWidth  fw_table[256];	  //dword_000020
  int             array_000C20[256];
  char            unk_001020;
 };
 
 
-int __fastcall Font_sub_44C59D(Font *pFont, const char *pString, GUIWindow *a3, char a4, int a5);
-
+bool inline test_char(char c, Font *pFontData);	 //bool __fastcall sub_44C4DE(unsigned char a1, unsigned char *a2);
+int  CalculateTextHeght(Font *pFontData, const char *pString, GUIWindow *parentW, int uXOff, int a5);
+int __fastcall Font_sub_44C6C2(struct Font *a1, const char *a2, struct GUIWindow *a3, char a4, int a5);
 //int __cdecl sub_49750E();
 void __cdecl DeleteFontCChar();
-
+void __fastcall sub_44D0B5(int a1, int a2, int a3, int a4, const char *Str, int a6);
+int __fastcall sub_44C62E(int a1, char a2, const char *Str, int a4, int a5, int a6);
 struct Font *__cdecl LoadFont(const char *pFontFile, const char *pFontPalette);
+ char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int a6);
+void __fastcall sub_44D1E7(unsigned char *pFontData, int a2, int a3, int a4, const char *pString, int a6);
 
-
-int __fastcall AlignText_Center(int a1, const char *pString, struct Font *pFont);
-unsigned char *__fastcall FitTextInAWindow(const char *pString, struct Font *pFont, struct GUIWindow *pParent, unsigned int uX, int a5);
+int  AlignText_Center(int a1, const char *pString, struct Font *pFont);
+char *FitTextInAWindow(const char *pString, struct Font *pFont, struct GUIWindow *pParent, unsigned int uX, int a5);
 void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, const char *pString, 
 	               unsigned int uTextMainColor, signed int a8, unsigned int uTextShadowColor);
 
 struct Font *__cdecl sub_44C448(const char *pFontName, const char *pFontPalette);
 int __fastcall sub_44C51E(struct Font *pFont, const char *pString);
+int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, __int16 a5, const char *Str1, signed int Source, int a8);

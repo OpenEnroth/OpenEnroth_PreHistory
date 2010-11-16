@@ -15,6 +15,8 @@
 
 #define  LOCSTR_RANGER		                        31 //"Ranger"	
 
+#define  LOCSTR_CLASS                       		41	// "Class"	
+
 #define  LOCSTR_ROGUE                           	114	 //"Rogue"
 
 #define  LOCSTR_3DO_COPYRHT							157	  // ""© 1999 The 3DO Company.
@@ -73,7 +75,7 @@
 +		[38]	0x04102f8b "Cast Spell"	unsigned char *
 +		[0x27]	0x04102f9a "Select Target"	unsigned char *
 +		[0x28]	0x04102fac "Bounty Hunter"	unsigned char *
-+		[0x29]	0x04102fbe "Class"	unsigned char *
+
 +		[0x2a]	0x04102fc8 "Clerk"	unsigned char *
 +		[0x2b]	0x04102fd2 "Cold"	unsigned char *
 +		[0x2c]	0x04102fdb "Priest of Light"	unsigned char *

@@ -527,14 +527,13 @@ signed int __cdecl sub_44C28B();
 int __cdecl sub_44C28F();
 bool sub_44C2F4_SomeDecorationTypeCheck(struct LevelDecoration *_this);
 void sub_44C362_NormalizeIntVector(int *_this);
-bool __fastcall sub_44C4DE(unsigned char a1, unsigned char *a2);
 
-int __fastcall sub_44C62E(int a1, char a2, const char *Str, int a4, int a5, int a6);
-int __fastcall Font_sub_44C6C2(struct Font *a1, const char *a2, struct GUIWindow *a3, char a4, int a5);
-char *__fastcall sub_44C933(const char *a1, int a2, char a3, int a4, int a5, int a6);
-int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, __int16 a5, const char *Str1, signed int Source, int a8);
-void __fastcall sub_44D0B5(int a1, int a2, int a3, int a4, const char *Str, int a6);
-void __fastcall sub_44D1E7(unsigned char *pFontData, int a2, int a3, int a4, const char *pString, int a6);
+
+
+
+
+
+
 char *__fastcall sub_44D2FD(int a1, int a2, int Str, int a4, int a5, int a6, unsigned __int16 a7, unsigned __int16 a8, const char *a9, int a10, int a11);
 char *__fastcall GUIWindow_sub_44D406(struct GUIWindow *a1, struct Font *pFont, int a3, int a4, unsigned __int16 a5, const char *pString, int a7);
 int __thiscall sub_44E054(void *Str);

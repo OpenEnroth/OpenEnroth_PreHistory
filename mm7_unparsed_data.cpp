@@ -1215,7 +1215,7 @@ struct Font *ptr_5C35F4 = 0; // dword @ MM7.exe::005C35F4
 
 
 struct unnamed_5C3610 stru_5C3610; // struct @ MM7.exe::005C3610
-unsigned char byte_5C45B0[2048];
+
 
  _UNKNOWN unk_5C4DB0; // weak
 unsigned char TmpBuf[array_size_unknown + 2000]; // byte[~2000] @ MM7.exe::005C5DB0

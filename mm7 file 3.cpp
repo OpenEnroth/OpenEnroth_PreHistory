@@ -5878,7 +5878,7 @@ LABEL_12:
   v9 = (char *)3;
   v8 = (int)v1;
   v7 = 0;
-  v3 = Font_sub_44C59D(pFontCreate, v1, &local_0C, 0, 0);
+  v3 = CalculateTextHeght(pFontCreate, v1, &local_0C, 0, 0);
   result = GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, (212 - v3) / 2 + 101, v7, (char *)v8, (int)v9);
   dword_5B5924 = 1;
   return result;
@@ -6002,7 +6002,7 @@ void __cdecl sub_444DCA()
     strcat((char *)TmpBuf, "\n \n");
     wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[126], pMapStats->pMapInfos[v11].pLocationName);
     strcat((char *)TmpBuf, (char *)pStringBuffer);
-    v4 = Font_sub_44C59D(pFontCreate, (char *)TmpBuf, &local_0C, 0, 0);
+    v4 = CalculateTextHeght(pFontCreate, (char *)TmpBuf, &local_0C, 0, 0);
     GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, (212 - v4) / 2 + 101, 0, (char *)TmpBuf, 3);
     dword_5B5924 = 1;
   }
@@ -6033,11 +6033,11 @@ void __cdecl sub_444FBE_DrawBranchlessDialogueUI()
   }
   local_D4.uFrameWidth = 460;
   local_D4.uFrameZ = 452;
-  v1 = Font_sub_44C59D(pFontArrus, (char *)byte_5B0938, &local_D4, 12, 0) + 7;
+  v1 = CalculateTextHeght(pFontArrus, (char *)byte_5B0938, &local_D4, 12, 0) + 7;
   if ( 352 - v1 < 8 )
   {
     v8 = (int)pFontCreate;
-    v1 = Font_sub_44C59D(pFontCreate, (char *)byte_5B0938, &local_D4, 12, 0) + 7;
+    v1 = CalculateTextHeght(pFontCreate, (char *)byte_5B0938, &local_D4, 12, 0) + 7;
   }
   Render_sub_4A6A68(pD3DRenderer, 8, 352 - v1, (int)&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather], (short)&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather].uTextureHeight);
   Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v1, pcTexture_EndcapTexture);
@@ -6330,11 +6330,11 @@ LABEL_39:
       local_04.uFrameWidth = 460;
       local_04.uFrameZ = 452;
       i = (int)pFontArrus;
-      v12 = Font_sub_44C59D(pFontArrus, v64, &local_04, 13, v8) + 7;
+      v12 = CalculateTextHeght(pFontArrus, v64, &local_04, 13, v8) + 7;
       if ( 352 - v12 < 8 )
       {
         i = (int)pFontCreate;
-        v12 = Font_sub_44C59D(pFontCreate, v64, &local_04, 13, v8) + 7;
+        v12 = CalculateTextHeght(pFontCreate, v64, &local_04, 13, v8) + 7;
       }
       Render_sub_4A6A68(pD3DRenderer, 8, 352 - v12, (int)&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather],
                  LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather].uTextureHeight - v12);
@@ -6505,7 +6505,7 @@ LABEL_79:
       v34 = (int)pDialogueWindow;
       break;
     }
-    v39 = Font_sub_44C59D(pFontArrus, (char *)v38->pButtonName, &local_AC, 0, 0);
+    v39 = CalculateTextHeght(pFontArrus, (char *)v38->pButtonName, &local_AC, 0, 0);
     v34 = (int)pDialogueWindow;
     v35 += v39;
     ++v36;
@@ -6529,7 +6529,7 @@ LABEL_79:
           break;
         *(_DWORD *)(v44 + 4) = i + v42;
         Str = (char *)(v44 + 85);
-        v47 = Font_sub_44C59D(pFontArrus, (const char *)(v44 + 85), &local_AC, 0, 0);
+        v47 = CalculateTextHeght(pFontArrus, (const char *)(v44 + 85), &local_AC, 0, 0);
         v46 = *(_DWORD *)(v44 + 4);
         v48 = v62;
         *(_DWORD *)(v44 + 12) = v47;
@@ -12174,148 +12174,8 @@ void sub_44C362_NormalizeIntVector(int *_this)
   _this[2] = floorf(v14 + 0.5f);
 }
 
-//----- (0044C62E) --------------------------------------------------------
-int __fastcall sub_44C62E(int a1, char a2, const char *Str, int a4, int a5, int a6)
-{
-  int v6; // edi@1
-  unsigned __int8 *v8; // ebx@3
-  int v9; // esi@3
-  size_t v10; // eax@3
-  unsigned __int8 v11; // cl@4
-  signed int v12; // [sp+Ch] [bp+8h]@3
-  size_t v13; // [sp+14h] [bp+10h]@3
-
-  v6 = a1;
-  if ( !Str )
-    return 0;
-  v9 = *(_BYTE *)(a1 + 5) - 3;
-  v8 = (unsigned __int8 *)sub_44C933(Str, a1, a2, a4, a5, 0);
-  v10 = strlen(Str);
-  v12 = 0;
-  v13 = v10;
-  while ( v12 < (signed int)v13 )
-  {
-    if ( sub_44C4DE(*v8, (unsigned char *)v6) )
-    {
-      if ( v11 == 9 )
-        goto LABEL_9;
-      switch ( v11 )
-      {
-        case 0xAu:
-          v9 = v9 + *(_BYTE *)(v6 + 5) - 3;
-          break;
-        case 0xCu:
-          v8 += 5;
-          v12 += 5;
-          break;
-        case 0xDu:
-LABEL_9:
-          if ( a6 != 1 )
-          {
-            v8 += 3;
-            v12 += 3;
-          }
-          break;
-      }
-    }
-    ++v12;
-    ++v8;
-  }
-  return v9;
-}
 
 
-
-//----- (0044D0B5) --------------------------------------------------------
-void __fastcall sub_44D0B5(int a1, int a2, int a3, int a4, const char *Str, int a6)
-{
-  int v6; // ebx@1
-  int v7; // esi@1
-  int v8; // edi@3
-  unsigned __int8 v9; // cl@4
-  int v10; // eax@5
-  int v11; // ecx@5
-  int v12; // ecx@6
-  int v13; // ecx@7
-  int v14; // ecx@8
-  int v15; // ebx@10
-  __int16 v16; // ax@13
-  int v17; // edx@13
-  unsigned __int8 v18; // sf@18
-  unsigned __int8 v19; // of@18
-  char Dest; // [sp+Ch] [bp-20h]@17
-  char v21; // [sp+11h] [bp-1Bh]@17
-  size_t v22; // [sp+20h] [bp-Ch]@2
-  int v23; // [sp+24h] [bp-8h]@1
-  int v24; // [sp+28h] [bp-4h]@2
-  char *v25; // [sp+38h] [bp+Ch]@4
-
-  v6 = 0;
-  v23 = a2;
-  v7 = a1;
-  if ( Str )
-  {
-    v23 = dword_5C6DB4;
-    v22 = strlen(Str);
-    v24 = 0;
-    if ( (signed int)v22 > 0 )
-    {
-      v8 = a4;
-      do
-      {
-        v25 = (char *)&Str[v6];
-        if ( sub_44C4DE(Str[v6], (unsigned char *)v7) )
-        {
-          v10 = v9;
-          v11 = v9 - 9;
-          if ( v11 )
-          {
-            v12 = v11 - 1;
-            if ( !v12 )
-              return;
-            v13 = v12 - 2;
-            if ( v13 )
-            {
-              v14 = v13 - 1;
-              if ( v14 )
-              {
-                if ( v14 != 82 )
-                {
-                  v15 = *(_DWORD *)(v7 + 4 * (3 * v10 + 9));
-                  if ( v15 )
-                  {
-                    if ( v24 > 0 )
-                      v8 += 2 * *(_DWORD *)(v7 + 12 * v10 + 32);
-                    v17 = *(_DWORD *)(v7 + 4 * v10 + 3104) + v7 + 4128;
-                    v16 = v23;
-                    if ( !v23 )
-                      v16 = -1;
-                    sub_40F845(v8, v17, v15, *(_BYTE *)(v7 + 5), *(_DWORD *)(v7 + 12), v16, 2 * a6);
-                    v8 += 2 * v15;
-                    if ( v24 < (signed int)v22 )
-                      v8 += 2 * *(_DWORD *)(v7 + 12 * (unsigned __int8)*v25 + 40);
-                  }
-                }
-              }
-            }
-            else
-            {
-              strncpy(&Dest, &Str[v6 + 1], 5u);
-              v21 = 0;
-              v23 = atoi(&Dest);
-              dword_5C6DB4 = v23;
-              v24 = v6 + 5;
-            }
-          }
-        }
-        v6 = v24 + 1;
-        compile_error;//v19 = __SETO__(v24 + 1, v22);
-        v18 = (signed int)(v24++ + 1 - v22) < 0;
-      }
-      while ( v18 ^ v19 );
-    }
-  }
-}
 
 //----- (0044D2FD) --------------------------------------------------------
 char *__fastcall sub_44D2FD(int a1, int a2, int Str, int a4, int a5, int a6, unsigned __int16 a7, unsigned __int16 a8, const char *a9, int a10, int a11)

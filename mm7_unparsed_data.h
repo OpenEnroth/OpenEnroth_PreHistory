@@ -1387,7 +1387,7 @@ extern struct unnamed_5C3610
 } stru_5C3610;  // struct @ MM7.exe::005C3610
 //extern int dword_5C3610[1000 + array_size_unknown]; // weak
 //extern char byte_5C45AF[array_size_unknown]; // weak
-extern unsigned char byte_5C45B0[2048];
+//extern unsigned char byte_5C45B0[2048];
 //char byte_5C45B1[array_size_unknown]; // weak
 
 extern _UNKNOWN unk_5C4DB0; // weak

@@ -14431,7 +14431,7 @@ void __cdecl sub_467FB6()
   local_0C.uFrameX = 1;
   local_0C.uFrameY = 1;
   local_0C.uFrameWidth = 468;
-  v0 = Font_sub_44C59D(pFontSmallnum, (&dword_723D38)[4 * ptr_507BC4->dword_00001C], &local_0C, 0, 0)
+  v0 = CalculateTextHeght(pFontSmallnum, (&dword_723D38)[4 * ptr_507BC4->dword_00001C], &local_0C, 0, 0)
      + 2 * *(_BYTE *)(pFontCreate + 5)
      + 24;
   local_0C.uFrameHeight = v0;

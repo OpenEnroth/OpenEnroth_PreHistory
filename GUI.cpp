@@ -185,9 +185,7 @@ void GameUI_LoadIcons()
  #ifndef OLD_CODE
  wchar_t pFilepath[256];
 #endif
-#ifdef OLD_CODE
-  char pFilepath[256];
-#endif
+
 
  pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("wizeyeC"));
  pIconFrameTable->InitializeAnimation(pIconFrameTable->FindAnimation("wizeyeB"));
@@ -520,6 +518,8 @@ void GameUI_LoadIcons()
   uTextureIdx_SpellEffecIcons[i] = LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilepath);
 #endif
   #ifdef OLD_CODE
+
+  char pFilepath[16];
    wsprintf(pFilepath, "isn-%02d", i + 1);
    uTextureIdx_SpellEffecIcons[i] = LODFile_Icons_LOD.LODFile_LoadTexture( pFilepath,2);
 #endif
@@ -530,16 +530,11 @@ void GameUI_LoadIcons()
 }
 
 
-//----- (00415485) --------------------------------------------------------
+//----- (00415485) --------.text:004158F7 ------------------------------------------------
 char *__cdecl CreateCopyrightWindow()
 {
  GUIWindow local_08;
-  //int Dst; // [sp+8h] [bp-54h]@1
-  //int v2; // [sp+Ch] [bp-50h]@1
-  //int v3; // [sp+10h] [bp-4Ch]@1
-  //int v4; // [sp+14h] [bp-48h]@1
-  //int v5; // [sp+18h] [bp-44h]@1
-  //int v6; // [sp+1Ch] [bp-40h]@1
+ int text_h;
 
  memset(&local_08, 0, sizeof(GUIWindow));
 
@@ -547,9 +542,11 @@ char *__cdecl CreateCopyrightWindow()
  local_08.uFrameY = 30;
  local_08.uFrameWidth = 624;
  local_08.uFrameHeight = 256;
- local_08.uFrameHeight = Font_sub_44C59D(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_3DO_COPYRHT], &local_08, 24, 0) + 2 * pFontSmallnum->uFontHeight + 24;
 
- local_08.uFrameY = 470 - local_08.uFrameHeight;
+ text_h=CalculateTextHeght(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_3DO_COPYRHT], &local_08, 24, 0);
+ text_h=text_h	 + 2 * pFontSmallnum->uFontHeight + 24;
+ local_08.uFrameHeight=text_h; 
+ local_08.uFrameY = 470 - text_h;
  local_08.uFrameZ = local_08.uFrameX + local_08.uFrameWidth - 1;
  local_08.uFrameW = 469;
  GUIWindow_sub_415551(&local_08, 0);
@@ -658,7 +655,7 @@ LABEL_14:
   v12 = (char *)local_0C.ptr_000048;
   if ( v12 )
   {
-    v15 = Font_sub_44C59D(pFontLucida, v12, &local_0C, 0, 0);
+    v15 = CalculateTextHeght(pFontLucida, v12, &local_0C, 0, 0);
     v11 = v28;
     v14 = v15 + 24;
   }
@@ -673,7 +670,7 @@ LABEL_14:
   DrawWindow(v24.y, v11, v26, v14);
   if (local_0C.ptr_000048)
   {
-    v17 = Font_sub_44C59D(pFontLucida, (char *)local_0C.ptr_000048, &local_0C, 0, 0);
+    v17 = CalculateTextHeght(pFontLucida, (char *)local_0C.ptr_000048, &local_0C, 0, 0);
     GUIWindow_sub_44D406(&local_0C, pFontLucida, 0, (v14 - v17) / 2 - 14, 0, (char *)local_0C.ptr_000048, 3);
   }
 }
@@ -6736,7 +6733,7 @@ LABEL_43:
       ++dword_506520;
       v15 = 0xFF000000 | ((unsigned int)(byte_4E2AA4[3 * v14 % 6]) << 16) | ((unsigned int)(byte_4E2AA4[3 * v14 % 6 + 1]) << 8) | byte_4E2AA4[3 * v14 % 6 + 2];
       FontDrawText((GUIWindow *)&v19, pFontArrus, 0, 0, v6, 0, 0, 0);
-      v16 = Font_sub_44C59D(pFontArrus, v6, (GUIWindow *)&v19, 0, 0);
+      v16 = CalculateTextHeght(pFontArrus, v6, (GUIWindow *)&v19, 0, 0);
       result = v16 + v20 + 4;
       if ( result <= v22 )
       {
@@ -9794,7 +9791,7 @@ void __thiscall GUIWindow_sub_4B3157(const GUIWindow *_this)
       v2 = (const char *)dword_59143C[13 * ptr_507BC0->dword_00001C];
       if ( v2 )
       {
-        v3 = 2 * *(_BYTE *)(pFontCreate + 5) - 6 - Font_sub_44C59D(pFontCreate, v2, (GUIWindow *)&v17, 0, 0);
+        v3 = 2 * *(_BYTE *)(pFontCreate + 5) - 6 - CalculateTextHeght(pFontCreate, v2, (GUIWindow *)&v17, 0, 0);
         if ( v3 < 0 )
           v3 = 0;
         GUIWindow_sub_44D406(&local_60,
@@ -9927,7 +9924,7 @@ LABEL_36:
     {
       v18 = 458;
       v20 = 457;
-      v5 = Font_sub_44C59D(pFontArrus, dword_F8B1E8, (GUIWindow *)&v17, 13, 0);
+      v5 = CalculateTextHeght(pFontArrus, dword_F8B1E8, (GUIWindow *)&v17, 13, 0);
       v6 = v5 + 7;
       Render_sub_4A6A68(
         pD3DRenderer,
@@ -11103,11 +11100,11 @@ void PlayerCreationUI_Draw()
   i = 0;
   do
   {
-   unsigned int uClassIconCellX,
-                uClassIconCellY;
-
+  
    FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, v143 + 73, 100, (char *)aClassNames[pParty_global->pPlayers[i].uClass], 0xFFFFFFFF, 0, 0);
 #ifndef OLD_CODE 
+    unsigned int uClassIconCellX,
+                uClassIconCellY;
    uClassIconCellX = (pParty_global->pPlayers[i].uClass / 4) % 3;
    uClassIconCellY = (pParty_global->pPlayers[i].uClass / 4) / 3;
    Render_DrawTransparentRect(pD3DRenderer, v143 + 77, 50,
@@ -11195,7 +11192,8 @@ void PlayerCreationUI_Draw()
     v25 = Player_GetActualStrength(&pParty_global->pPlayers[i]);
     if (pParty_global->pPlayers[i].uStrength < 10)
       wsprintfA((char *)TmpBuf, "%s\t099%d", pGlobalTXT_LocalizationStrings[144], pParty_global->pPlayers[i].uStrength);
-    else wsprintfA((char *)TmpBuf, "%s\t092%d", pGlobalTXT_LocalizationStrings[144], pParty_global->pPlayers[i].uStrength);
+    else 
+	  wsprintfA((char *)TmpBuf, "%s\t092%d", pGlobalTXT_LocalizationStrings[144], pParty_global->pPlayers[i].uStrength);
     uColor = PlayerCreationUI_GetStatColor(&pParty_global->pPlayers[i], 0);
     FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, v141, 169, (char *)TmpBuf, uColor, 0, 0);
 
@@ -11280,7 +11278,7 @@ void PlayerCreationUI_Draw()
 
 
 
-  strcpy((char *)Str1, (char *)pGlobalTXT_LocalizationStrings[41]);
+  strcpy((char *)Str1, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_CLASS]);
   v52 = strlen((char *)Str1) - 1;
   v143 = v52;
   if ( (signed int)v52 >= 0 )
