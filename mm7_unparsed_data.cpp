@@ -502,7 +502,7 @@ struct unnamed_505898 struct_505898;
  char byte_505992; // weak
  */
  int dword_5059A8[480]; // 
- int dword_506128; // weak
+ bool bTextureLoading; // weak	 int dword__506128; 
  char byte_506130[array_size_unknown]; // weak
  int dword_506338; // weak
  int dword_50633C; // idb

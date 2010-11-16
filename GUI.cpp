@@ -7760,7 +7760,7 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
   unsigned __int8 v45; // sf@85
   double v46; // st7@87
   int v47; // edi@88
-  int v48; // edi@89
+  cTexture* v48; // edi@89
   int v49; // eax@93
   int v50; // edx@94
   int v51; // eax@98
@@ -7774,9 +7774,9 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
   unsigned __int8 v59; // sf@117
   double v60; // st7@119
   int v61; // edi@120
-  int v62; // edi@121
+  cTexture *v62; // edi@121
   char v63; // zf@122
-  int v64; // eax@122
+ cTexture *v64; // eax@122
   int v65; // eax@127
   int v66; // ecx@128
   int v67; // edi@128
@@ -7788,9 +7788,9 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
   unsigned __int8 v73; // zf@145
   unsigned __int8 v74; // sf@145
   double v75; // st7@147
-  int v76; // eax@148
+  cTexture *v76; // eax@148
   int v77; // edi@148
-  int v78; // edi@149
+  cTexture *v78; // edi@149
   int v79; // edx@155
   int v80; // ebx@155
   int v81; // edx@156
@@ -7804,9 +7804,9 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
   unsigned __int8 v89; // zf@181
   unsigned __int8 v90; // sf@181
   double v91; // st7@183
-  int v92; // eax@184
+  cTexture *v92; // eax@184
   int v93; // edi@184
-  int v94; // edi@185
+  cTexture *v94; // edi@185
   int v95; // eax@192
   int v96; // eax@193
   int v97; // eax@197
@@ -7830,7 +7830,7 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
   int v115; // ecx@229
   int v116; // edi@229
   char v117; // zf@229
-  int v118; // edi@230
+  cTexture *v118; // edi@230
   int v119; // edi@236
   int v120; // eax@237
   int v121; // edx@237
@@ -7840,7 +7840,7 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
   int v125; // edx@240
   unsigned __int8 v126; // zf@246
   unsigned __int8 v127; // sf@246
-  int v128; // edx@250
+  cTexture *v128; // edx@250
   int v129; // edi@250
   int v130; // eax@259
   int v131; // eax@260
@@ -7853,9 +7853,9 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
   unsigned __int8 v138; // zf@284
   unsigned __int8 v139; // sf@284
   double v140; // st7@286
-  int v141; // eax@287
+  cTexture *v141; // eax@287
   int v142; // edi@287
-  int v143; // edi@288
+  cTexture *v143; // edi@288
   int v144; // edi@295
   int v145; // ebx@297
   int v146; // edi@298
@@ -7867,9 +7867,9 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
   unsigned __int8 v152; // zf@325
   unsigned __int8 v153; // sf@325
   double v154; // st7@327
-  int v155; // eax@328
+  cTexture *v155; // eax@328
   int v156; // edi@328
-  int v157; // edi@329
+  cTexture *v157; // edi@329
   int v158; // eax@335
   int v159; // eax@336
   int v160; // eax@336
@@ -7880,9 +7880,9 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
   unsigned __int8 v165; // zf@348
   unsigned __int8 v166; // sf@348
   double v167; // st7@350
-  int v168; // eax@351
+  cTexture *v168; // eax@351
   int v169; // edi@351
-  int v170; // edi@352
+  cTexture *v170; // edi@352
   int v171; // eax@358
   int v172; // eax@359
   int v173; // edx@359
@@ -7899,9 +7899,9 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
   unsigned __int8 v184; // zf@381
   unsigned __int8 v185; // sf@381
   double v186; // st7@383
-  int v187; // edi@385
+  cTexture *v187; // edi@385
   char v188; // zf@386
-  int v189; // eax@386
+  cTexture *v189; // eax@386
   int v190; // eax@393
   int v191; // eax@394
   int v192; // [sp-Ch] [bp-58h]@230
@@ -7929,9 +7929,9 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
   signed int v214; // [sp-4h] [bp-50h]@99
   signed int v215; // [sp-4h] [bp-50h]@202
   int v216; // [sp-4h] [bp-50h]@228
-  int v217; // [sp-4h] [bp-50h]@230
-  int v218; // [sp-4h] [bp-50h]@233
-  int v219; // [sp-4h] [bp-50h]@235
+  cTexture *v217; // [sp-4h] [bp-50h]@230
+  cTexture *v218; // [sp-4h] [bp-50h]@233
+  cTexture *v219; // [sp-4h] [bp-50h]@235
   signed int v220; // [sp-4h] [bp-50h]@266
   signed int v221; // [sp-4h] [bp-50h]@304
   int v222; // [sp+10h] [bp-3Ch]@7
@@ -8171,16 +8171,16 @@ LABEL_84:
               v47 = v40 + 1;
               if ( v38 & 2 )
               {
-                v48 = v47 != 0 ? 72 * v40 + 7145548 : 0;
-                Render_sub_4A6776((int)pD3DRenderer, v237, v39, v48);
+                v48 = v47 != 0 ? &LODFile_Icons_LOD.aLODHeaders[v40] : 0;
+                Render_sub_4A6776((int)pD3DRenderer, v237, v39, (int)v48);
               }
               else
               {
-                v48 = v47 != 0 ? 72 * v40 + 7145548 : 0;
-                Render_DrawTransparentTexture(pD3DRenderer, v237, v39, (cTexture *)v48);
+                v48 = v47 != 0 ? &LODFile_Icons_LOD.aLODHeaders[v40] : 0;
+                Render_DrawTransparentTexture(pD3DRenderer, v237, v39, v47 != 0 ? &LODFile_Icons_LOD.aLODHeaders[v40] : 0 );
               }
               if ( !dword_5118E0 )
-                Render_sub_4A612A((int)pD3DRenderer, v237, v225, v48, v260);
+                Render_sub_4A612A((int)pD3DRenderer, v237, v225, (int)v48, v260);
 LABEL_93:
               v269 = 4 * uSelectedCharacter - 4;
               Render_DrawTransparentTexture(pD3DRenderer,
@@ -8259,7 +8259,7 @@ LABEL_117:
                             (int)pD3DRenderer,
                             v238,
                             v226,
-                            v54 != -1 ? 72 * v54 + 7145548 : 0,
+                            v54 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v54] : 0,
                             v57,
                             (signed __int64)v60,
                             0,
@@ -8281,17 +8281,17 @@ LABEL_116:
                 v61 = v54 + 1;
                 if ( v52 & 2 )
                 {
-                  v62 = v61 != 0 ? (int)&LODFile_Icons_LOD.aLODHeaders[v54 ] : 0;
-                  Render_sub_4A6776((int)pD3DRenderer, v238, v53, v62);
+                  v62 = v61 != 0 ? &LODFile_Icons_LOD.aLODHeaders[v54 ] : 0;
+                  Render_sub_4A6776((int)pD3DRenderer, v238, v53, (int)v62);
                 }
                 else
                 {
                   v63 = (v52 & 1) == 0;
-                  v64 = 72 * v54 + 7145548;
+                  v64 = &LODFile_Icons_LOD.aLODHeaders[v54];
                   if ( v63 )
                   {
                     v62 = v61 != 0 ? v64 : 0;
-                    Render_sub_4A68EF((int)pD3DRenderer, v238, v53, v62);
+                    Render_sub_4A68EF((int)pD3DRenderer, v238, v53, (int)v62);
                   }
                   else
                   {
@@ -8300,7 +8300,7 @@ LABEL_116:
                   }
                 }
                 if ( !dword_5118E0 )
-                  Render_sub_4A612A((int)pD3DRenderer, v238, v226, v62, v261);
+                  Render_sub_4A612A((int)pD3DRenderer, v238, v226, (int)v62, v261);
 LABEL_127:
                 v65 = *(_DWORD *)(v246 + 6504);
                 if ( !v65 )
@@ -8345,11 +8345,11 @@ LABEL_127:
                 if ( !(*(_DWORD *)(v67 + 20) & 0xF0) )
                 {
                   v77 = v68 + 1;
-                  v76 = 72 * v68 + 7145548;
+                  v76 = &LODFile_Icons_LOD.aLODHeaders[v68];
                   if ( v71 & 2 )
                   {
                     v78 = v77 != 0 ? v76 : 0;
-                    Render_sub_4A6776((int)pD3DRenderer, v239, v227, v78);
+                    Render_sub_4A6776((int)pD3DRenderer, v239, v227, (int)v78);
                   }
                   else
                   {
@@ -8361,11 +8361,11 @@ LABEL_127:
                     else
                     {
                       v78 = v77 != 0 ? v76 : 0;
-                      Render_sub_4A68EF((int)pD3DRenderer, v239, v227, v78);
+                      Render_sub_4A68EF((int)pD3DRenderer, v239, v227, (int)v78);
                     }
                   }
                   if ( !dword_5118E0 )
-                    Render_sub_4A612A((int)pD3DRenderer, v239, v227, v78, v262);
+                    Render_sub_4A612A((int)pD3DRenderer, v239, v227, (int)v78, v262);
 LABEL_155:
                   v80 = v246;
                   v79 = *(_DWORD *)(v246 + 6476);
@@ -8412,11 +8412,11 @@ LABEL_168:
                       if ( !(*(_DWORD *)(v246 + 36 * v82 + 516) & 0xF0) )
                       {
                         v93 = v86 + 1;
-                        v92 = 72 * v86 + 7145548;
+                        v92 = &LODFile_Icons_LOD.aLODHeaders[v86];
                         if ( v87 & 2 )
                         {
                           v94 = v93 != 0 ? v92 : 0;
-                          Render_sub_4A6776((int)pD3DRenderer, v240, v228, v94);
+                          Render_sub_4A6776((int)pD3DRenderer, v240, v228, (int)v94);
                         }
                         else
                         {
@@ -8428,11 +8428,11 @@ LABEL_168:
                           else
                           {
                             v94 = v93 != 0 ? v92 : 0;
-                            Render_sub_4A68EF((int)pD3DRenderer, v240, v228, v94);
+                            Render_sub_4A68EF((int)pD3DRenderer, v240, v228, (int)v94);
                           }
                         }
                         if ( !dword_5118E0 )
-                          Render_sub_4A612A((int)pD3DRenderer, v240, v228, v94, v263);
+                          Render_sub_4A612A((int)pD3DRenderer, v240, v228, (int)v94, v263);
                         goto LABEL_191;
                       }
                       if ( (*(_DWORD *)(v246 + 36 * v82 + 516) & 0xF0) != 16 )
@@ -8466,7 +8466,7 @@ LABEL_181:
                             (int)pD3DRenderer,
                             v240,
                             v228,
-                            v86 != -1 ? 72 * v86 + 7145548 : 0,
+                            v86 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v86] : 0,
                             v88,
                             (signed __int64)v91,
                             0,
@@ -8559,11 +8559,11 @@ LABEL_292:
                                       if ( !(*(_DWORD *)(v254 + 20) & 0xF0) )
                                       {
                                         v142 = v134 + 1;
-                                        v141 = 72 * v134 + 7145548;
+                                        v141 = &LODFile_Icons_LOD.aLODHeaders[v134];
                                         if ( v137 & 2 )
                                         {
                                           v143 = v142 != 0 ? v141 : 0;
-                                          Render_sub_4A6776((int)pD3DRenderer, v242, v230, v143);
+                                          Render_sub_4A6776((int)pD3DRenderer, v242, v230, (int)v143);
                                         }
                                         else
                                         {
@@ -8571,7 +8571,7 @@ LABEL_292:
                                           Render_DrawTransparentTexture(pD3DRenderer, v242, v230, (cTexture *)v143);
                                         }
                                         if ( !dword_5118E0 )
-                                          Render_sub_4A612A((int)pD3DRenderer, v242, v230, v143, v265);
+                                          Render_sub_4A612A((int)pD3DRenderer, v242, v230, (int)v143, v265);
                                         goto LABEL_292;
                                       }
                                       if ( (*(_DWORD *)(v254 + 20) & 0xF0) != 16 )
@@ -8605,7 +8605,7 @@ LABEL_284:
                                             (int)pD3DRenderer,
                                             v135,
                                             v230,
-                                            v134 != -1 ? 72 * v134 + 7145548 : 0,
+                                            v134 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v134]: 0,
                                             v243,
                                             (signed __int64)v140,
                                             0,
@@ -8701,7 +8701,7 @@ LABEL_325:
                                               (int)pD3DRenderer,
                                               v244,
                                               v231,
-                                              v149 != -1 ? 72 * v149 + 7145548 : 0,
+                                              v149 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v149] : 0,
                                               v151,
                                               (signed __int64)v154,
                                               0,
@@ -8713,11 +8713,11 @@ LABEL_325:
                                         goto LABEL_325;
                                       }
                                       v156 = v149 + 1;
-                                      v155 = 72 * v149 + 7145548;
+                                      v155 = &LODFile_Icons_LOD.aLODHeaders[v149];
                                       if ( v150 & 2 )
                                       {
                                         v157 = v156 != 0 ? v155 : 0;
-                                        Render_sub_4A6776((int)pD3DRenderer, v244, v231, v157);
+                                        Render_sub_4A6776((int)pD3DRenderer, v244, v231, (int)v157);
                                       }
                                       else
                                       {
@@ -8729,11 +8729,11 @@ LABEL_325:
                                         else
                                         {
                                           v157 = v156 != 0 ? v155 : 0;
-                                          Render_sub_4A68EF((int)pD3DRenderer, v244, v231, v157);
+                                          Render_sub_4A68EF((int)pD3DRenderer, v244, v231, (int)v157);
                                         }
                                       }
                                       if ( !dword_5118E0 )
-                                        Render_sub_4A612A((int)pD3DRenderer, v244, v231, v157, v266);
+                                        Render_sub_4A612A((int)pD3DRenderer, v244, v231, (int)v157, v266);
 LABEL_335:
                                       v158 = *(_DWORD *)(v246 + 6476);
                                       if ( !v158 )
@@ -8758,11 +8758,11 @@ LABEL_335:
                                       if ( !(*(_DWORD *)(v256 + 20) & 0xF0) )
                                       {
                                         v169 = v163 + 1;
-                                        v168 = 72 * v163 + 7145548;
+                                        v168 = &LODFile_Icons_LOD.aLODHeaders[v163];
                                         if ( v162 & 2 )
                                         {
                                           v170 = v169 != 0 ? v168 : 0;
-                                          Render_sub_4A6776((int)pD3DRenderer, v245, v232, v170);
+                                          Render_sub_4A6776((int)pD3DRenderer, v245, v232, (int)v170);
                                         }
                                         else
                                         {
@@ -8774,11 +8774,11 @@ LABEL_335:
                                           else
                                           {
                                             v170 = v169 != 0 ? v168 : 0;
-                                            Render_sub_4A68EF((int)pD3DRenderer, v245, v232, v170);
+                                            Render_sub_4A68EF((int)pD3DRenderer, v245, v232, (int)v170);
                                           }
                                         }
                                         if ( !dword_5118E0 )
-                                          Render_sub_4A612A((int)pD3DRenderer, v245, v232, v170, v267);
+                                          Render_sub_4A612A((int)pD3DRenderer, v245, v232, (int)v170, v267);
 LABEL_358:
                                         v171 = *(_DWORD *)(v246 + 6472);
                                         v278 = *(_DWORD *)(v246 + 6472);
@@ -8823,17 +8823,17 @@ LABEL_370:
                                             {
                                               if ( v179 & 2 )
                                               {
-                                                v187 = v272 != -1 ? 72 * v272 + 7145548 : 0;
-                                                Render_sub_4A6776((int)pD3DRenderer, v176, v233, v187);
+                                                v187 = v272 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v272] : 0;
+                                                Render_sub_4A6776((int)pD3DRenderer, v176, v233, (int)v187);
                                               }
                                               else
                                               {
                                                 v188 = (v179 & 1) == 0;
-                                                v189 = 72 * v272 + 7145548;
+                                                v189 = &LODFile_Icons_LOD.aLODHeaders[v272];
                                                 if ( v188 )
                                                 {
                                                   v187 = v272 != -1 ? v189 : 0;
-                                                  Render_sub_4A68EF((int)pD3DRenderer, v176, v233, v272 != -1 ? v189 : 0);
+                                                  Render_sub_4A68EF((int)pD3DRenderer, v176, v233, v272 != -1 ? (int)v189 : 0);
                                                 }
                                                 else
                                                 {
@@ -8842,7 +8842,7 @@ LABEL_370:
                                                 }
                                               }
                                               if ( !dword_5118E0 )
-                                                Render_sub_4A612A((int)pD3DRenderer, v176, v233, v187, v278);
+                                                Render_sub_4A612A((int)pD3DRenderer, v176, v233, (int)v187, v278);
                                               goto LABEL_391;
                                             }
                                             if ( (*(_DWORD *)(v257 + 20) & 0xF0) != 16 )
@@ -9026,7 +9026,7 @@ LABEL_249:
                                     (int)pD3DRenderer,
                                     v241,
                                     v229,
-                                    v107 != -1 ? 72 * v107 + 7145548 : 0,
+                                    v107 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v107] : 0,
                                     v110,
                                     (signed __int64)(v113 * 0.1000000014901161),
                                     v203,
@@ -9039,21 +9039,21 @@ LABEL_249:
                             }
                             v116 = v107 + 1;
                             v117 = (v109 & 2) == 0;
-                            v114 = 72 * v107 + 7145548;
+                            v114 = (int)&LODFile_Icons_LOD.aLODHeaders[v107];
                             v115 = (int)pD3DRenderer;
                             if ( !v117 )
                             {
-                              v118 = v116 != 0 ? v114 : 0;
+                              v118 = (cTexture *)v116 != 0 ? (cTexture *)v114 : 0;
                               v217 = v118;
                               v204 = v229;
                               v192 = v241;
 LABEL_231:
-                              Render_sub_4A6776(v115, v192, v204, v217);
+                              Render_sub_4A6776(v115, v192, v204, (int)v217);
                               goto LABEL_256;
                             }
                             if ( *(_BYTE *)(v271 + 516) & 1 )
                             {
-                              v118 = v116 != 0 ? v114 : 0;
+                              v118 = (cTexture *)v116 != 0 ? (cTexture *)v114 : 0;
                               v218 = v118;
                               v205 = v229;
                               v193 = v241;
@@ -9061,7 +9061,7 @@ LABEL_234:
                               Render_DrawTransparentTexture((BaseRender *)v115, v193, v205, (cTexture *)v218);
                               goto LABEL_256;
                             }
-                            v118 = v116 != 0 ? v114 : 0;
+                            v118 = (cTexture *)v116 != 0 ? (cTexture *)v114 : 0;
                             v219 = v118;
                             v206 = v229;
                             v194 = v241;
@@ -9084,7 +9084,7 @@ LABEL_258:
                           if ( !v121 )
                           {
                             v129 = v107 + 1;
-                            v128 = 72 * v107 + 7145548;
+                            v128 = &LODFile_Icons_LOD.aLODHeaders[v107];
                             if ( v253 & 2 )
                             {
                               v118 = v129 != 0 ? v128 : 0;
@@ -9109,10 +9109,10 @@ LABEL_258:
                             v194 = v120;
                             v115 = (int)pD3DRenderer;
 LABEL_255:
-                            Render_sub_4A68EF(v115, v194, v206, v219);
+                            Render_sub_4A68EF(v115, v194, v206, (int)v219);
 LABEL_256:
                             if ( !dword_5118E0 )
-                              Render_sub_4A612A((int)pD3DRenderer, v241, v229, v118, v264);
+                              Render_sub_4A612A((int)pD3DRenderer, v241, v229, (int)v118, v264);
                             goto LABEL_258;
                           }
                           v123 = v121 - 16;
@@ -9237,12 +9237,12 @@ LABEL_48:
     pD3DRenderer,
     dword_4E4C28,
     dword_4E4C2C,
-    (cTexture *)(*(int *)((char *)pPaperdollTextures_Bodies + v269) != -1 ? 72 * *(int *)((char *)pPaperdollTextures_Bodies + v269) + 7145548 : 0));
+    (cTexture *)(*(int *)((char *)pPaperdollTextures_Bodies + v269) != -1 ?&LODFile_Icons_LOD.aLODHeaders[*(int *)((char *)pPaperdollTextures_Bodies + v269)] : 0));
   if ( !dword_5118E0 )
     Render_sub_4A612A((int)pD3DRenderer,
       v234,
       v222,
-      *(int *)((char *)pPaperdollTextures_Bodies + v269) != -1 ? 72 * *(int *)((char *)pPaperdollTextures_Bodies + v269) + 7145548 : 0,
+       (*(int *)((char *)pPaperdollTextures_Bodies + v269) != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[ *(int *)((char *)pPaperdollTextures_Bodies + v269)] : 0),
       *(_DWORD *)(v2 + 6484));
   v276 = 8 * v5;
   v6 = *(_DWORD *)(v2 + 6476);
@@ -9253,7 +9253,7 @@ LABEL_48:
       pD3DRenderer,
       dword_4E4C28 + dword_4E5AE0[2 * v5],
       dword_4E4C2C + dword_4E5AE0[2 * v5 + 1],
-      (cTexture *)(*(int *)((char *)pPaperdollTextures_LeftArmsEmpty + v269) != -1 ? 72 * *(int *)((char *)pPaperdollTextures_LeftArmsEmpty + v269) + 7145548 : 0));
+      (cTexture *)(*(int *)((char *)pPaperdollTextures_LeftArmsEmpty + v269) != -1 ? &LODFile_Icons_LOD.aLODHeaders[ *(int *)((char *)pPaperdollTextures_LeftArmsEmpty + v269)] : 0));
   v8 = *(_DWORD *)(v2 + 6476);
   if ( v8 )
   {
@@ -9406,9 +9406,9 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
   unsigned __int8 v39; // sf@58
   double v40; // st7@60
   int v41; // esi@61
-  int v42; // esi@62
+  cTexture *v42; // esi@62
   char v43; // zf@63
-  int v44; // eax@63
+  cTexture *v44; // eax@63
   const char *v45; // [sp-8h] [bp-38h]@8
   const char *v46; // [sp-8h] [bp-38h]@31
   const char *v47; // [sp-8h] [bp-38h]@52
@@ -9454,13 +9454,13 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
       v11 = v5 + 1;
       if ( v4 & 2 )
       {
-        v12 = v11 != 0 ? 72 * v5 + 7145548 : 0;
+        v12 = v11 != 0 ? (int)&LODFile_Icons_LOD.aLODHeaders[v5] : 0;
         Render_sub_4A6776((int)pD3DRenderer, v54, v53, v12);
       }
       else
       {
         v13 = (v4 & 1) == 0;
-        v14 = 72 * v5 + 7145548;
+        v14 = (int)&LODFile_Icons_LOD.aLODHeaders[v5];
         if ( v13 )
         {
           v12 = v11 != 0 ? v14 : 0;
@@ -9510,7 +9510,7 @@ LABEL_14:
       dword_50C9A4 = 0;
     }
     v10 = (double)GetTickCount() * 0.1000000014901161;
-    Render_sub_4A63E6((int)pD3DRenderer, v54, v53, v5 != -1 ? 72 * v5 + 7145548 : 0, v49, (signed __int64)v10, 0, 255);
+    Render_sub_4A63E6((int)pD3DRenderer, v54, v53, v5 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v5]: 0, v49, (signed __int64)v10, 0, 255);
 LABEL_23:
     v2 = v56;
 LABEL_24:
@@ -9534,17 +9534,17 @@ LABEL_24:
     v25 = v20 + 1;
     if ( v19 & 2 )
     {
-      v26 = 9 * v20;
+      //v26 = 9 * v20;
       v27 = 493;
-      v28 = v25 != 0 ? 8 * v26 + 7145548 : 0;
+      v28 = v25 != 0 ? (int)&LODFile_Icons_LOD.aLODHeaders[v20] : 0;
       Render_sub_4A6776((int)pD3DRenderer, 493, 91, v28);
     }
     else
     {
       v29 = (v19 & 1) == 0;
-      v31 = 9 * v20;
+     // v31 = 9 * v20;
       v27 = 493;
-      v30 = 8 * v31 + 7145548;
+      v30 =(int)&LODFile_Icons_LOD.aLODHeaders[v20];
       if ( v29 )
       {
         v28 = v25 != 0 ? v30 : 0;
@@ -9597,7 +9597,7 @@ LABEL_37:
     dword_50C9A4 = 0;
   }
   v24 = (double)GetTickCount() * 0.1000000014901161;
-  Render_sub_4A63E6((int)pD3DRenderer, 493, 91, v20 != -1 ? 72 * v20 + 7145548 : 0, v51, (signed __int64)v24, 0, 255);
+  Render_sub_4A63E6((int)pD3DRenderer, 493, 91, v20 != -1 ?(int) &LODFile_Icons_LOD.aLODHeaders[v20] : 0, v51, (signed __int64)v24, 0, 255);
 LABEL_46:
   v32 = *(_DWORD *)(v2 + 6500);
   if ( !v32 )
@@ -9611,17 +9611,17 @@ LABEL_46:
     v41 = v34 + 1;
     if ( v33 & 2 )
     {
-      v42 = v41 != 0 ? 72 * v34 + 7145548 : 0;
-      Render_sub_4A6776((int)pD3DRenderer, 586, 88, v42);
+      v42 = v41 != 0 ? &LODFile_Icons_LOD.aLODHeaders[v34] : 0;
+      Render_sub_4A6776((int)pD3DRenderer, 586, 88, (int)v42);
     }
     else
     {
       v43 = (v33 & 1) == 0;
-      v44 = 72 * v34 + 7145548;
+      v44 = &LODFile_Icons_LOD.aLODHeaders[v34];
       if ( v43 )
       {
         v42 = v41 != 0 ? v44 : 0;
-        Render_sub_4A68EF((int)pD3DRenderer, 586, 88, v42);
+        Render_sub_4A68EF((int)pD3DRenderer, 586, 88, (int)v42);
       }
       else
       {
@@ -9629,7 +9629,7 @@ LABEL_46:
         Render_DrawTransparentTexture(pD3DRenderer, 586, 88, (cTexture *)v42);
       }
     }
-    sub_4A601E((int)pD3DRenderer, 586, 88, v42, v52);
+    sub_4A601E((int)pD3DRenderer, 586, 88, (int)v42, v52);
     return;
   }
   if ( (*(_DWORD *)(v35 + 20) & 0xF0) == 16 )
@@ -9669,7 +9669,7 @@ LABEL_58:
     dword_50C9A4 = 0;
   }
   v40 = (double)GetTickCount() * 0.1000000014901161;
-  Render_sub_4A63E6((int)pD3DRenderer, 586, 88, v34 != -1 ? 72 * v34 + 7145548 : 0, v37, (signed __int64)v40, 0, 255);
+  Render_sub_4A63E6((int)pD3DRenderer, 586, 88, v34 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v34] : 0, v37, (signed __int64)v40, 0, 255);
 }
 
 //----- (00417FE5) --------------------------------------------------------
@@ -9735,7 +9735,7 @@ void __thiscall GUIWindow_sub_4B3157(const GUIWindow *_this)
   int v13; // [sp-8h] [bp-C0h]@50
   int v14; // [sp-8h] [bp-C0h]@60
   int v15; // [sp-4h] [bp-BCh]@50
-  int v16; // [sp-4h] [bp-BCh]@60
+  cTexture *v16; // [sp-4h] [bp-BCh]@60
   char v17; // [sp+Ch] [bp-ACh]@5
   int v18; // [sp+14h] [bp-A4h]@4
   int v19; // [sp+18h] [bp-A0h]@4
@@ -9873,18 +9873,18 @@ void __thiscall GUIWindow_sub_4B3157(const GUIWindow *_this)
 LABEL_58:
       if ( dword_5913F0 == dword_591424 && dword_5C35D0 )
       {
-        Render_DrawIndexedTexture(pD3DRenderer, 556, 451, (cTexture *)(uTextureIdx_BtnXxU != -1 ? 72 * uTextureIdx_BtnXxU + 7145548 : 0));
-        v16 = uTextureIdx_BtnXokU != -1 ? 72 * uTextureIdx_BtnXokU + 7145548 : 0;
+        Render_DrawIndexedTexture(pD3DRenderer, 556, 451, (uTextureIdx_BtnXxU != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnXxU] : 0));
+        v16 = uTextureIdx_BtnXokU != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnXokU] : 0;
         v14 = 451;
         v12 = 476;
       }
       else
       {
-        v16 = uTextureID_right_backgr != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0;
+        v16 = uTextureID_right_backgr != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0;
         v14 = 445;
         v12 = 471;
       }
-      Render_DrawIndexedTexture(pD3DRenderer, v12, v14, (cTexture *)v16);
+      Render_DrawIndexedTexture(pD3DRenderer, v12, v14, v16);
       return;
     }
     if ( dword_F8B198 == 31 )
@@ -9903,8 +9903,8 @@ LABEL_36:
         pD3DRenderer,
         8,
         352 - (v5 + 7),
-        uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 : 0,
-        *(_WORD *)(uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 + 0x1A : 26) - (v5 + 7));
+        uTextureIdx_Leather != -1 ?(int) &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather] : 0,
+        (uTextureIdx_Leather != -1 ? LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather].uTextureHeight : 26) - (v5 + 7));
       Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v6, pcTexture_EndcapTexture);
       v7 = (char *)FitTextInAWindow(dword_F8B1E8, pFontArrus, (GUIWindow *)&v17, 13, 0);
       FontDrawText(ptr_507BC0, pFontArrus, 13, 354 - v6, v7, 0, 0, 0);
@@ -9918,7 +9918,7 @@ LABEL_36:
         pD3DRenderer,
         *(&uDialogueUIIconsOffsetX + v8 + 6 * dword_591424 - 6) - 4,
         *(&uDialogueUIIconsOffsetY + v8 + 6 * dword_591424 - 6) - 4,
-        (cTexture *)(dword_50795C_TextureID != -1 ? 72 * dword_50795C_TextureID + 7145548 : 0));
+        (dword_50795C_TextureID != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_50795C_TextureID] : 0));
       Render_DrawIndexedTexture(pD3DRenderer,
         *(&uDialogueUIIconsOffsetX + v8 + 6 * dword_591424 - 6),
         *(&uDialogueUIIconsOffsetY + v8 + 6 * dword_591424 - 6),
@@ -10009,7 +10009,7 @@ void __cdecl sub_4156F0_LooksLike_UI_ProcessCallbacks()
   int v43; // ebp@146
   int v44; // [sp-1Ch] [bp-124h]@17
   int v45; // [sp-18h] [bp-120h]@17
-  int v46; // [sp-14h] [bp-11Ch]@17
+  cTexture *v46; // [sp-14h] [bp-11Ch]@17
   int v47; // [sp-14h] [bp-11Ch]@86
   signed int i; // [sp+0h] [bp-108h]@3
 
@@ -10110,7 +10110,7 @@ LABEL_152:
               }
               continue;
             }
-            v46 = *(_DWORD *)(pWnd->dword_00001C + 60);
+            v46 =(cTexture *) *(_DWORD *)(pWnd->dword_00001C + 60);
             v45 = pWnd->uFrameY;
             v44 = pWnd->uFrameX;
 LABEL_18:
@@ -10370,7 +10370,7 @@ LABEL_110:
                   pD3DRenderer,
                   *(_DWORD *)dword_5076F4,
                   *(_DWORD *)(dword_5076F4 + 4),
-                  (cTexture *)(uTextureIdx_BtnXxU != -1 ? 72 * uTextureIdx_BtnXxU + 7145548 : 0));
+                  (uTextureIdx_BtnXxU != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnXxU] : 0));
               }
             }
             else
@@ -10510,7 +10510,7 @@ LABEL_142:
             }
             continue;
           }
-          v46 = dword_507944 != -1 ? 72 * dword_507944 + 7145548 : 0;
+          v46 = dword_507944 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507944] : 0;
           v45 = pOldViewport->uGameY;
           v44 = pOldViewport->uGameX;
           goto LABEL_18;

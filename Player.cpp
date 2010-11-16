@@ -3204,7 +3204,7 @@ int CanPlaceItemInInventory(struct Player *_this, signed int a2, int a3)
  uNumSlotsX = GetSizeInInventorySlots(v4->uTextureWidth);
  uNumSlotsY = GetSizeInInventorySlots(v4->uTextureHeight);
 
-  if ( !dword_506128 )
+  if ( !bTextureLoading )
   {
    runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
    //cTexture_Free(v4);
@@ -3262,7 +3262,7 @@ int Player_sub_492826(struct Player *_this, signed int a2, struct ItemGen *Src)
         {
           v8 = (const void *)Src;
           v7 = v5;
-          return Player_sub_49289C(_this, v7, v8);
+          return Player_sub_49289C(_this, v7, (InventorySlot*)v8);
         }
         ++v4;
         v5 += 14;
@@ -3279,37 +3279,35 @@ int Player_sub_492826(struct Player *_this, signed int a2, struct ItemGen *Src)
     return 0;
   v8 = (const void *)Src;
   v7 = a2;
-  return Player_sub_49289C(_this, v7, v8);
+  return Player_sub_49289C(_this, v7, (InventorySlot*)v8);
 }
 
-//----- (0049289C) --------------------------------------------------------
-int Player_sub_49289C(struct Player *_this, int a2, const void *Src)
+//----- (0049289C) ----------------.text:004943FA  ----------------------------------------
+int Player_sub_49289C(struct Player *_this, int a2, struct InventorySlot *sItem)
 {
   int v3, i, x; // eax@1
-  signed int v4; // ebx@1
+  signed int  items_count; // ebx@1
   int result; // eax@6
   cTexture *v6; // esi@7
   int v7; // eax@7
   void *v9; // esi@10
-  int v11; // [sp+4h] [bp-Ch]@7
-  int v12; // [sp+8h] [bp-8h]@7
+  int  slotsW; // [sp+4h] [bp-Ch]@7
+  int slotsH; // [sp+8h] [bp-8h]@7
   void *v13; // [sp+Ch] [bp-4h]@1
   
 
   v13 = _this;
-  v4 = 0;
-  v3 = (int)_this->cInventorySlots;
-  while ( *(_DWORD *)v3 )
+  items_count = 0;
+  while (_this->cInventorySlots[items_count].uItemID )
   {
-    ++v4;
-    v3 += 36;
-    if ( v4 >= 126 )
+    ++ items_count;
+    if (  items_count >= 126 )
     {
-      v4 = -1;
+       items_count = -1;
       break;
     }
   }
-  if ( v4 == -1 )
+  if (  items_count == -1 )
   {
     result = 0;
   }
@@ -3321,36 +3319,36 @@ int Player_sub_49289C(struct Player *_this, int a2, const void *Src)
    v7 = LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilename);
    #endif
 #ifdef OLD_CODE	
-   char pFilename[256];
-   wsprintf(pFilename, "%S", pClass40->pItems[*(_DWORD *)Src].pIconName);
-   v7 = LODFile_Icons_LOD.LODFile_LoadTexture( pFilename,0);
+  // char pFilename[16];
+  // wsprintf(pFilename, "%S", );
+   v7 = LODFile_Icons_LOD.LODFile_LoadTexture((char*) pClass40->pItems[sItem->uItemID].pIconName,2);
    #endif
    v6 = &LODFile_Icons_LOD.aLODHeaders[v7];
 
-   v11 = GetSizeInInventorySlots(v6->uTextureWidth);
-   v12 = GetSizeInInventorySlots(v6->uTextureHeight);
+    slotsW = GetSizeInInventorySlots(v6->uTextureWidth);
+    slotsH = GetSizeInInventorySlots(v6->uTextureHeight);
 
-    if ( !dword_506128 )
+    if ( !bTextureLoading )
     {
       cTexture_Free(v6);
       LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
-    if ( v12 > 0 ) // reserving space for large items in inventory
+    if (slotsH > 0 ) // reserving space for large items in inventory
     {
-      for(x = a2; v12-- != 1; x+=14) // 14 is the columns count, so getting to next row
+      for(x = a2; slotsH-- != 0; x+=14) // 14 is the columns count, so getting to next row
       {
-        for(i = 0; i < v11; i++) // filling number of columns horizontally
+        for(i = 0; i <slotsW ; i++) // filling number of columns horizontally
          _this->sInventoryIndexes[x + i] = -1 - a2;
       }
     }
-    _this->sInventoryIndexes[a2] = v4 + 1;
-    memcpy(&_this->cInventorySlots[v4], Src, sizeof(struct InventorySlot));
-    result = v4 + 1;
+    _this->sInventoryIndexes[a2] = items_count + 1;
+    memcpy(&_this->cInventorySlots[items_count], sItem, sizeof(struct InventorySlot));
+    result = items_count + 1;
   }
   return result;
 }
 
-//----- (00492600) --------------------------------------------------------
+//----- (00492600) --------.text:00494156  ------------------------------------------------
 int __thiscall sub_492600(struct Player *_this, int a2, unsigned int uItemID) // place item to inventory
 {
   int v3, i, x; // eax@1
@@ -3359,27 +3357,27 @@ int __thiscall sub_492600(struct Player *_this, int a2, unsigned int uItemID) //
  cTexture *v7; // esi@10
   int v8; // eax@10
   void *v9; // esi@13
-  int v11; // [sp+0h] [bp-Ch]@10
+  int slotsW; // [sp+0h] [bp-Ch]@10
   void *v12; // [sp+4h] [bp-8h]@1
   signed int v13; // [sp+8h] [bp-4h]@4
-  int v14; // [sp+18h] [bp+Ch]@10
+  int slotsH; // [sp+18h] [bp+Ch]@10
  wchar_t pItemIconNameW[64];
 
   v12 = _this;
   v4 = 0;
-  v3 = (int)((char *)_this + 532);
-  while ( *(_DWORD *)v3 )
+  //v3 = (int)((char *)_this + 532);  //cInventorySlots
+  v3 = _this->cInventorySlots[v4].uItemID;
+  while (v3 )
   {
     ++v4;
-    v3 += 36;
+    v3 = _this->cInventorySlots[v4].uItemID;
     if ( v4 >= 126 )
     {
       v13 = -1;
-      goto LABEL_5;
+      break;
     }
   }
   v13 = v4;
-LABEL_5:
   if ( v13 == -1 )
   {
     if ( uActiveCharacter )
@@ -3397,26 +3395,26 @@ LABEL_5:
     v8 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[uItemID].pIconName,2);
    #endif
     v7 = &LODFile_Icons_LOD.aLODHeaders[v8];
-    v11 = GetSizeInInventorySlots(v7->uTextureWidth);
-    v14 = GetSizeInInventorySlots(v7->uTextureHeight);
-    if ( !dword_506128 )
+    slotsW = GetSizeInInventorySlots(v7->uTextureWidth);
+    slotsH = GetSizeInInventorySlots(v7->uTextureHeight);
+    if ( !bTextureLoading )
     {
      runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
       //cTexture_Free(v7);
       LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
 
-    if ( v14 > 0 ) // reserving space for large items in inventory
+    if ( slotsH > 0 ) // reserving space for large items in inventory
     {
-      for(x = a2; v14-- != 1; x+=14) // 14 is the columns count, so getting to next row
+      for(x = a2; slotsH-- != 0; x+=14) // 14 is the columns count, so getting to next row
       {
-        for(i = 0; i < v11; i++) // filling number of columns horizontally
+        for(i = 0; i < slotsW; i++) // filling number of columns horizontally
          _this->sInventoryIndexes[x + i] = -1 - a2;
       }
     }
     result = v13 + 1;
-    *((_DWORD *)v12 + a2 + 1375) = v13 + 1;
-    *((_DWORD *)v12 + 9 * v13 + 133) = uItemID;
+    _this->sInventoryIndexes[a2] = v13 + 1;
+    _this->cInventorySlots[v13].uItemID = uItemID;
   }
   return result;
 }

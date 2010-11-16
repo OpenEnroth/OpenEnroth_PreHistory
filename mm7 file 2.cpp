@@ -9260,7 +9260,7 @@ LABEL_74:
               }
               goto LABEL_115;
             }
-            Player_sub_492A36((void *)v0, v18);
+            Player_sub_492A36((struct Player *)v0, v18);
             Player_sub_492D65((Player *)v0, 16, 0);
             v23 = 0;
           }
@@ -12476,7 +12476,7 @@ LABEL_65:
       FontDrawText(&local_208, (Font *)v44, v46, v47, v52, v56, v61, (unsigned int)v66);
 LABEL_116:
       Render_Reset2DClippingRect((BaseRender *)v18);
-      if ( !dword_506128 )
+      if ( !bTextureLoading )
       {
         cTexture_Free((cTexture *)v79);
         LODFile_Icons_LOD.LODFile_sub_40F9C5();
@@ -13777,7 +13777,7 @@ signed int __fastcall sub_41FE71(signed int a1, int a2, int a3)
   if ( v7 < 14 )
     v7 = 14;
   v10 = ((v7 - 14) >> 5) + 1;
-  if ( !dword_506128 )
+  if ( !bTextureLoading )
   {
     cTexture_Free((cTexture *)v4);
     LODFile_Icons_LOD.LODFile_sub_40F9C5();
@@ -14016,7 +14016,7 @@ LABEL_8:
     if ( v11 < 14 )
       v11 = 14;
     v13 = ((v11 - 14) >> 5) + 1;
-    if ( !dword_506128 )
+    if ( !bTextureLoading )
     {
       cTexture_Free((cTexture *)v9);
       LODFile_Icons_LOD.LODFile_sub_40F9C5();
@@ -14122,7 +14122,7 @@ int __fastcall sub_42013E(int a1, int a2, int a3)
   if ( v11 < 14 )
     v11 = 14;
   v12 = ((v11 - 14) >> 5) + 1;
-  if ( !dword_506128 )
+  if ( !bTextureLoading )
   {
     cTexture_Free((cTexture *)v8);
     LODFile_Icons_LOD.LODFile_sub_40F9C5();
@@ -14618,7 +14618,7 @@ int __fastcall sub_420B13(int a1, int a2)
     v7 = 14;
   v10 = ((v7 - 14) >> 5) + 1;
   v23 = v10;
-  if ( !dword_506128 )
+  if ( !bTextureLoading )
   {
     cTexture_Free((cTexture *)v3);
     LODFile_Icons_LOD.LODFile_sub_40F9C5();
@@ -14889,7 +14889,7 @@ signed int __cdecl sub_421B2C()
   {
    v1 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 * pParty_global->stru_007754.uItemID].pIconName, 2);
     v0 = v1 != -1 ? 72 * v1 + 7145548 : 0;
-    v22 = dword_506128;
+    v22 = bTextureLoading;
     if ( uActiveCharacter && (v2 = CreateItemInInventory(pPlayers[uActiveCharacter - 1], -1, pParty_global->stru_007754.uItemID)) != 0 )
     {
      memcpy(&pPlayers[uActiveCharacter - 1]->cInventorySlots[v2], &pParty_global->stru_007754, sizeof(struct ItemGen));
@@ -15149,7 +15149,7 @@ void __cdecl sub_421EA6()
           if ( !v7 )
             return;
           memcpy(&pParty_global->stru_007754, (char *)v0 + 36 * v7 + 496, sizeof(struct ItemGen));
-          Player_sub_492A36(v0, v17);
+          Player_sub_492A36((struct Player *)v0, v17);
           v9 = pParty_global->stru_007754.uItemID;
           goto LABEL_24;
         }
@@ -15158,7 +15158,7 @@ void __cdecl sub_421EA6()
         {
           v13 = (char *)v0 + 36 * v7 + 496;
           memcpy(&local_0C, v13, 0x24u);
-          Player_sub_492A36(v0, v17);
+          Player_sub_492A36((struct Player *)v0, v17);
           v16 = Player_sub_492826((Player *)v0, v17, &pParty_global->stru_007754);
           if ( !v16 )
           {

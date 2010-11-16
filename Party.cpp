@@ -321,7 +321,7 @@ int Party_AddItem(struct Party *_this, struct ItemGen *a2)
     v8 = LODFile_Icons_LOD.LODFile_LoadTexture( pTextureFilename,0);
 #endif
     v6 = v8 != -1 ? 72 * v8 + 7145548 : 0;
-    v24 = dword_506128;
+    v24 = bTextureLoading;
     v7 = 0;
     while ( 1 )
     {

@@ -5837,9 +5837,9 @@ char *__cdecl sub_444A51()
     (cTexture *)(dword_50795C_TextureID != -1 ? 72 * dword_50795C_TextureID + 7145548 : 0));
   Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, (cTexture *)dword_59142C);
   uTextureID_507B04 = uTextureID_5079E4;
-  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (cTexture *)(uTextureID_5079E4 != -1 ? 72 * uTextureID_5079E4 + 7145548 : 0));
-  Render_DrawIndexedTexture(pD3DRenderer, 556, 451, (cTexture *)(uTextureIdx_BtnXxU != -1 ? 72 * uTextureIdx_BtnXxU + 7145548 : 0));
-  Render_DrawIndexedTexture(pD3DRenderer, 476, 451, (cTexture *)(uTextureIdx_BtnXokU != -1 ? 72 * uTextureIdx_BtnXokU + 7145548 : 0));
+  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (uTextureID_5079E4 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_5079E4] : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 556, 451, (uTextureIdx_BtnXxU != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnXxU] : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 476, 451, (uTextureIdx_BtnXokU != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnXokU] : 0));
   if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) || v13 )
   {
     if ( *dword_591164 != 48 )
@@ -5973,8 +5973,8 @@ void __cdecl sub_444DCA()
   Render_DrawIndexedTexture(pD3DRenderer, 477, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
   Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (cTexture *)(uTextureID_507B04 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04] : 0));
   Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, (cTexture *)(dword_59142C));
-  Render_DrawIndexedTexture(pD3DRenderer, 556, 451, (cTexture *)(uTextureIdx_BtnXxU != -1 ? 72 * uTextureIdx_BtnXxU + 7145548 : 0));
-  Render_DrawIndexedTexture(pD3DRenderer, 476, 451, (cTexture *)(uTextureIdx_BtnXokU != -1 ? 72 * uTextureIdx_BtnXokU + 7145548 : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 556, 451, (uTextureIdx_BtnXxU != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnXxU] : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 476, 451, (uTextureIdx_BtnXokU != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnXokU] : 0));
   if ( v0 )
   {
    v2 = (int *)&pMapStats->pMapInfos[v0];
@@ -6847,13 +6847,13 @@ __int16 __fastcall Actor_InitializeDialogue(struct Actor *pActor, int a2)
   #ifndef OLD_CODE
 	   wsprintfW(Str1, L"npc%03u", v6->uPortraitID);
 
- dword_591084 = dword_506128;
+ dword_591084 = bTextureLoading;
  uTextureID_Dialogue_NPCPortrait[0] = LODFile_Icons_LOD.LODFile_LoadTexture_New( Str1);
 #endif
 #ifdef OLD_CODE
 	 wsprintfA(Str1, "npc%03u", v6->uPortraitID);
 
- dword_591084 = dword_506128;
+ dword_591084 = bTextureLoading;
  uTextureID_Dialogue_NPCPortrait[0] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
 #endif
  
@@ -8121,7 +8121,7 @@ LABEL_140:
               {
                 if ( *((_DWORD *)v69 + 9 * *(_DWORD *)v70 + 124) == v66 )
                 {
-                  Player_sub_492A36(v69, v68);
+                  Player_sub_492A36((struct Player *)v69, v68);
                   goto LABEL_291;
                 }
                 ++v68;
@@ -8153,7 +8153,7 @@ LABEL_140:
                   {
                     if ( *((_DWORD *)v73 + 9 * *(_DWORD *)v75 + 124) == v66 )
                     {
-                      Player_sub_492A36(v73, v74);
+                      Player_sub_492A36((struct Player *)v73, v74);
                       goto LABEL_169;
                     }
                     ++v74;
@@ -12025,7 +12025,7 @@ LABEL_17:
       {
         if ( *(_DWORD *)(_this + 36 * *(_DWORD *)v15 + 496) == a3 )
         {
-          Player_sub_492A36((void *)_this, v3);
+          Player_sub_492A36((struct Player *)_this, v3);
           return;
         }
         ++v3;

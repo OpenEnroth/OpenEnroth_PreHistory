@@ -247,10 +247,12 @@ void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, 
   v34 = 0;
   v10 = (int)_this;
   v9 = (int)pFont;
-
+ 
+ 
+	
   if (!strcmp(pString, "null"))
     return;
-
+  
     v35 = strlen(pString);
 
     if ( !uX )
@@ -280,7 +282,7 @@ void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, 
           {
             switch ( c )
             {
-              case 9u: // number (3 digit always) after \t denotes tab amount (in pixels);  example:  "\t004skips 4 whitespaces before _this string"
+              case '\t': // number (3 digit always) after \t denotes tab amount (in pixels);  example:  "\t004skips 4 whitespaces before _this string"
                 memset(&Dest,0, sizeof (Dest));
                 strncpy(Dest, &v37[v12 + 1], 3);
                 v30 = 0;
@@ -289,7 +291,7 @@ void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, 
                 v19 = atoi(Dest);
                 uOutX = uX + _this->uFrameX + v19;
                 break;
-              case 0xAu:
+              case '\n':
                 c = pFont->uFontHeight;
                 uY = uY + pFont->uFontHeight - 3;
                 uOutY = uY + _this->uFrameY;
@@ -297,9 +299,9 @@ void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, 
                 if ( a8 )
                   goto LABEL_36;
                 break;
-              case 0xCu:
+              case '\f':
                 memset(Dest,0, sizeof (Dest));
-                strncpy(Dest, &v37[v12 + 1], 6);
+                strncpy(Dest, &v37[v12 + 1], 5);
                 v31 = 0;
                 sscanf(Dest,"%x",&uTextMainColor);
                 if(!uTextMainColor)
@@ -307,9 +309,9 @@ void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, 
                 uTextMainColor|=0xFF000000;
                 v38 += 6;
                 break;
-              case 0xDu:
+              case '\r':
                 memset(Dest,0, sizeof (Dest));
-                strncpy(Dest, &v37[v12 + 1], 3u);
+                strncpy(Dest, &v37[v12 + 1], 3);
                 v30 = 0;
                 v38 += 3;
                 v18 = atoi(Dest);
@@ -327,9 +329,9 @@ LABEL_36:
                 }
                 break;
               default:
-                if (c == 34 )
+                if (c == '"' )
                 {
-                  if ( v37[v12 + 1] == 34 )
+                  if ( v37[v12 + 1] == '"' )
                   {
                     ++v12;
                     v38 = v12;
@@ -1015,7 +1017,7 @@ void __fastcall sub_44D0B5(int a1, int a2, int a3, int a4, const char *Str, int 
 }
 
 
-//----- (0044CB4F) --------------------------------------------------------
+//----- (0044CB4F) -----------.text:0044DEA3---------------------------------------------
 int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, __int16 a5, const char *Str1, signed int Source, int a8)
 {
   int v8; // ebx@1

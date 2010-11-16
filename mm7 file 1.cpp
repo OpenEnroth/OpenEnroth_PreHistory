@@ -13887,7 +13887,7 @@ LABEL_23:
             }
             */
              v14 = (int)pIconFrameTable->GetImage(v13, v20);
-            Render_DrawTransparentTexture(pD3DRenderer, v19, v11, (cTexture *)(72 * *(_WORD *)(v14 + 30) + 7145548));
+            Render_DrawTransparentTexture(pD3DRenderer, v19, v11, &LODFile_Icons_LOD.aLODHeaders[*(_WORD *)(v14 + 30)]);
           }
         }
         ++v25;

@@ -932,7 +932,7 @@ LABEL_73:
         }
         v28 = v47;
         memcpy((void *)v27, (const void *)(v5 + 36 * *(_DWORD *)(v5 + 4 * v47 + 5500) + 496), 0x24u);
-        Player_sub_492A36((void *)v5, v28);
+        Player_sub_492A36((struct Player *)v5, v28);
 LABEL_79:
         v42 = 0;
         v37 = 0;
@@ -2225,18 +2225,18 @@ signed int __thiscall sub_492700(void *_this, signed int a2)
 signed int __thiscall sub_49298B(void *_this, struct ItemGen *a2, int a3, int a4)
 {
   void *v4; // ebx@1
-  int v5; // esi@1
+  cTexture* v5; // esi@1
   int v6; // eax@1
   void *v7; // esi@4
   int v10; // [sp+Ch] [bp-4h]@1
   int v11; // [sp+18h] [bp+8h]@1
 
   v4 = _this;
-  v6 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[*(_DWORD *)a2].pIconName, 2);
-  v5 = v6 != -1 ? 72 * v6 + 7145548 : 0;
-  v10 = GetSizeInInventorySlots(*(_WORD *)(v6 != -1 ? 72 * v6 + 7145548 + 0x18 : 24));
-  v11 = GetSizeInInventorySlots(*(_WORD *)(v5 + 26));
-  if ( !dword_506128 )
+  v6 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[a2->uItemID].pIconName, 2);
+  v5 = v6 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v6] : 0;
+  v10 = GetSizeInInventorySlots((v6 != -1 ? LODFile_Icons_LOD.aLODHeaders[v6].uTextureHeight : 24));
+  v11 = GetSizeInInventorySlots((v5->uTextureWidth));
+  if ( !bTextureLoading )
   {
     cTexture_Free((cTexture *)v5);
     LODFile_Icons_LOD.LODFile_sub_40F9C5();
@@ -2257,35 +2257,36 @@ signed int __thiscall sub_49298B(void *_this, struct ItemGen *a2, int a3, int a4
 }
 
 //----- (00492A36) --------------------------------------------------------
-int __thiscall Player_sub_492A36(void *_this, int a2)
+int __thiscall Player_sub_492A36(struct Player *_this, int a2)
 {
   int result; // eax@1
   int v3; // ebp@1
   int v4; // edi@1
-  int v5; // esi@1
-  int v6; // ecx@1
+  cTexture* v5; // esi@1
+  ItemGen * v6; // ecx@1
   int v7; // esi@1
   int v8; // eax@1
   void *v9; // edx@4
   int v10; // [sp+14h] [bp+4h]@1
 
-  v4 = (int)((char *)_this + 4 * a2 + 5500);
-  v6 = (int)((char *)_this + 36 * *(_DWORD *)v4 + 496);
-  v7 = *(_DWORD *)v6;
-  ItemGen_Reset((ItemGen *)v6);
+  v4 = _this->sInventoryIndexes[a2];
+ // v6 = (int)((char *)_this + 36 * *(_DWORD *)v4 + 496);
+  v6=(ItemGen *)&_this->cInventorySlots[v4];
+  v7 = v6->uItemID;
+  ItemGen_Reset(v6);
   v8 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[v7].pIconName, 2);
-  v5 = v8 != -1 ? 72 * v8 + 7145548 : 0;
-  v10 = GetSizeInInventorySlots(*(_WORD *)(v8 != -1 ? 72 * v8 + 7145548 + 0x18 : 24));
-  result = GetSizeInInventorySlots(*(_WORD *)(v5 + 26));
+  v5 = v8 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v8]: 0;
+  v10 = GetSizeInInventorySlots((v8 != -1 ? LODFile_Icons_LOD.aLODHeaders[v8].uTextureWidth : 24));
+  result = GetSizeInInventorySlots((v5 ->uTextureHeight));
   v3 = result;
-  if ( !dword_506128 )
+  if ( !bTextureLoading )
   {
     cTexture_Free((cTexture *)v5);
     result = LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
   if ( v3 > 0 )
   {
-    v9 = (void *)v4;
+    v9 = &_this->sInventoryIndexes[a2];
     do
     {
       if ( v10 > 0 )

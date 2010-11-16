@@ -1330,7 +1330,7 @@ int LODFile_IB::LODFile_LoadTexture( const char *pContainerName, unsigned int a3
 {
   int i; // ebx@8
   int result;
-  dword_506128 = 1;
+  bTextureLoading = true;
   if ( uNumLoadedFiles > 0 )
 	  {
 	  //already loaded check
@@ -1358,7 +1358,7 @@ int LODFile_IB::LODFile_LoadTexture( const char *pContainerName, unsigned int a3
 		  }
 	  }
 
-  dword_506128 = 0;
+  bTextureLoading = false;
   uNumLoadedFiles++;
   return  uNumLoadedFiles - 1;
 }

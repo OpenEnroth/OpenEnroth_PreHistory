@@ -1390,23 +1390,23 @@ LABEL_24:
 }
 
 //----- (00469BE6) --------------------------------------------------------
-void __thiscall sub_469BE6(int _this)
+void __thiscall sub_469BE6(struct class03 *_this)
 {
   int v1; // esi@1
 
-  v1 = _this;
-  *(_DWORD *)(_this + 4) = 0;
-  if ( !*(_DWORD *)(_this + 48) )
-    *(_DWORD *)(_this + 48) = (int)sub_469C0D(_this);
-  if ( !*(_DWORD *)(v1 + 56) )
-    *(_DWORD *)(v1 + 56) = (int)sub_469C0D(v1);
+ // v1 = _this;
+ _this->dword_000004 = 0;
+  if ( !_this->ptr_000030 )
+    _this->ptr_000030 =( unsigned char*)sub_469C0D(_this);
+  if ( !_this->ptr_000038 )
+    _this->ptr_000038 = ( unsigned char*)sub_469C0D(_this);
 }
 
 //----- (00469C0D) --------------------------------------------------------
-void *__thiscall sub_469C0D(int _this)
+void *__thiscall sub_469C0D(struct class03 *_this)
 {
-  return malloc(4 * *(_WORD *)(*(_DWORD *)(_this + 36) != -1 ? 72 * *(_DWORD *)(_this + 36) + 7145548 + 0x18 : 24)
-                  * *(_WORD *)(*(_DWORD *)(_this + 36) != -1 ? 72 * *(_DWORD *)(_this + 36) + 7145548 + 0x1A : 26));
+  return malloc(4 * (_this->dword_000024 != -1 ? LODFile_Icons_LOD.aLODHeaders[_this->dword_000024].uTextureHeight : 24)
+                  * (_this->dword_000024 != -1 ? LODFile_Icons_LOD.aLODHeaders[_this->dword_000024].uTextureWidth : 26));
 }
 
 //----- (00469CC2) --------------------------------------------------------

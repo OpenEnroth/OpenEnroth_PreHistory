@@ -508,7 +508,7 @@ extern struct unnamed_505898 struct_505898;
 void unnamed_505898_ctor(struct unnamed_505898 *_this);
 
 extern int dword_5059A8[480]; // 
-extern int dword_506128; // weak
+extern bool bTextureLoading; // weak
 extern char byte_506130[array_size_unknown]; // weak
 extern int dword_506338; // weak
 extern int dword_50633C; // idb

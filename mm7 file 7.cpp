@@ -12120,7 +12120,7 @@ LABEL_12:
     ItemGen_Reset((ItemGen *)(36 * (v1 + 12 * ptr_507BC0->dword_00001C) + 11341700));
     dword_AD0F84[9 * (v1 + 12 * *(_DWORD *)(v7 + 28))] = v2;
     dword_AD0F98[9 * (v1++ + 12 * *(_DWORD *)(v7 + 28))] = 1;
-    result = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[v2].pIconName, 2) + 7145548;
+    result = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[v2].pIconName, 2)];
     dword_F8B164[v1] = result;
   }
   while ( v1 < 12 );
@@ -13369,7 +13369,7 @@ void __thiscall sub_4BE2DD(void *_this, int a2, int a3, int a4)
     v4 = 1;
   if ( v4 < 1 )
     v4 = 1;
-  Player_sub_492A36(v5, a2);
+  Player_sub_492A36((struct Player *)v5, a2);
   sub_492B70((void *)(pParty_global->uNumGold + v4));
 }
 

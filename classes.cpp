@@ -722,11 +722,11 @@ void sub_469903(struct class03 *_this, const char *pSource)
   v9 = LODFile_Icons_LOD.LODFile_LoadTexture( pSource, 2);
   *(_DWORD *)(_this + 36) = v9;
   *(_DWORD *)(_this + 40) = v9;
-  sub_469BE6((int)_this);
+  sub_469BE6(_this);
   *(_DWORD *)(_this + 12) = 0;
   *(_DWORD *)(_this + 20) = 1;
   *(_DWORD *)(_this + 4) = 1;
-  if ( !dword_506128 )
+  if ( !bTextureLoading )
   {
    cTexture_Free((cTexture *)(*(_DWORD *)(_this + 36) != -1 ? 72 * *(_DWORD *)(_this + 36) + 7145548 : 0));
    LODFile_Icons_LOD.LODFile_sub_40F9C5();
