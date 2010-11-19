@@ -19,7 +19,11 @@
 
 #define  LOCSTR_ROGUE                           	114	 //"Rogue"
 
+#define  LOCSTR_MIGHT		                        144	 //"Might"
+
 #define  LOCSTR_3DO_COPYRHT							157	  // ""© 1999 The 3DO Company.
+
+#define  LOCSTR_SKILL_POINTS		                207 /// "Skill Points"	
 
 #define  LOCSTR_KNIGHT                      		253  //"Knight"	
 #define  LOCSTR_CAVALIER		                    254  //"Cavalier"	
@@ -35,7 +39,9 @@
 
 #define  LOCSTR_DRUID		                        268 // "Druid"	
 
-#define  LOCSTR_THIEF                       		307 //"Thief"	
+#define  LOCSTR_THIEF                       		307 //"Thief"
+
+#define  LOCSTR_S_THE_S                             429    //"%s the %s"
 /*
 
 +		[4]	0x04102dab "Afraid"	unsigned char *
@@ -178,7 +184,7 @@
 +		[141]	0x04103719 "Seer Notes"	unsigned char *
 +		[142]	0x04103729 "Mind"	unsigned char *
 +		[143]	0x04103733 "Misc"	unsigned char *
-+		[144]	0x0410373d "Might"	unsigned char *
+
 +		[145]	0x04103748 "Monday"	unsigned char *
 +		[146]	0x04103754 "Month"	unsigned char *
 +		[147]	0x0410375f "You are eligible to train to %u."	unsigned char *
@@ -241,7 +247,7 @@
 +		[204]	0x04103dc1 "Body Res"	unsigned char *
 +		[205]	0x04103dcf "Skills"	unsigned char *
 +		[206]	0x04103ddb "Skills for"	unsigned char *
-+		[207]	0x04103deb "Skill Points"	unsigned char *
+
 +		[208]	0x04103dfd "Earth Res"	unsigned char *
 +		[209]	0x04103e0c "SP"	unsigned char *
 +		[210]	0x04103e14 "Special"	unsigned char *
@@ -460,7 +466,7 @@
 +		[426]	0x04104b91 "December"	unsigned char *
 +		[427]	0x04104b9f "%s is in no condition to %s"	unsigned char *
 +		[428]	0x04104bc0 "Spell failed"	unsigned char *
-+		[429]	0x04104bd2 "%s the %s"	unsigned char *
+
 +		[430]	0x04104be1 "%s is now Level %lu and has earned %lu Skill Points!"	unsigned char *
 +		[431]	0x04104c1b "Normal"	unsigned char *
 +		[432]	0x04104c27 "Master"	unsigned char *

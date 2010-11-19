@@ -1909,8 +1909,8 @@ LABEL_33:
         *(_WORD *)v15 = 0;
         if ( !v17 )
         {
-          GUIWindowDelete((GUIWindow *)dword_507BD4);
-          dword_507BD4 = 0;
+          GUIWindowDelete(ptr_507BD4);
+          ptr_507BD4 = NULL;
           sub_469903(pGame->pClass03, "MICON1");
           dword_5C35B8 = 0;
           dword_50C9A0 = 0;
@@ -1925,20 +1925,20 @@ LABEL_33:
     {
       if ( v7 & 2 )
       {
-        if ( dword_507BD4 )
+        if ( ptr_507BD4 )
           return result;
-        dword_507BD4 = (int)GUIWindowCreate(0, 0, 640, 480, 27, 20 * result + 5292232, 0);
-        GUIButtonCreate((GUIWindow *)dword_507BD4, 52, 422, 35, 0, 2, 0, 69, 0, 49, (unsigned char *)"", 0);
-        GUIButtonCreate((GUIWindow *)dword_507BD4, 165, 422, 35, 0, 2, 0, 69, 1, 50, (unsigned char *)"", 0);
-        GUIButtonCreate((GUIWindow *)dword_507BD4, 280, 422, 35, 0, 2, 0, 69, 2, 51, (unsigned char *)"", 0);
-        GUIButtonCreate((GUIWindow *)dword_507BD4, 390, 422, 35, 0, 2, 0, 69, 3, 52, (unsigned char *)"", 0);
+        ptr_507BD4 = GUIWindowCreate(0, 0, 640, 480, 27, 20 * result + 5292232, 0);
+        GUIButtonCreate(ptr_507BD4,  52, 422, 35, 0, 2, 0, 69, 0, 49, (unsigned char *)"", 0);
+        GUIButtonCreate(ptr_507BD4, 165, 422, 35, 0, 2, 0, 69, 1, 50, (unsigned char *)"", 0);
+        GUIButtonCreate(ptr_507BD4, 280, 422, 35, 0, 2, 0, 69, 2, 51, (unsigned char *)"", 0);
+        GUIButtonCreate(ptr_507BD4, 390, 422, 35, 0, 2, 0, 69, 3, 52, (unsigned char *)"", 0);
         return sub_421B2C();
       }
       if ( v7 & 8 )
       {
-        if ( dword_507BD4 )
+        if ( ptr_507BD4 )
           return result;
-        v18 = (int)GUIWindowCreate(0, 0, 640, 480, 27, 20 * result + 5292232, 0);
+        ptr_507BD4 = GUIWindowCreate(0, 0, 640, 480, 27, 20 * result + 5292232, 0);
         v30 = 0;
         v29 = "";
         v28 = 0;
@@ -1951,15 +1951,16 @@ LABEL_44:
         v22 = 460;
         v21 = 8;
         v20 = 8;
-        dword_507BD4 = v18;
-        v19 = v18;
+       // ptr_507BD4 = v18;
+     //   v19 = v18;
 LABEL_56:
-        GUIButtonCreate((GUIWindow *)v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, (unsigned char *)v29, 0);
+        GUIButtonCreate(ptr_507BD4, v20, v21, v22, v23, v24, v25, v26, v27, v28, (unsigned char *)v29, 0);
+	//	  GUIButtonCreate(ptr_507BD4,       390, 422,  35,   0,   2,  1,  0,   70,  0,   0, (unsigned char *)"", 0);
         return sub_421B2C();
       }
       if ( v7 & 0x40 )
       {
-        if ( dword_507BD4 )
+        if ( ptr_507BD4 )
           return result;
         v18 = (int)GUIWindowCreate(0, 0, 640, 480, 27, 20 * result + 5292232, 0);
         v30 = 0;
@@ -1971,25 +1972,25 @@ LABEL_56:
       }
       if ( (_BYTE)v7 < 0 )
       {
-        if ( dword_507BD4 )
+        if ( ptr_507BD4 )
           return result;
         ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
         if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
           LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
-        dword_507BD4 = sub_4219BE((void *)(20 * result + 5292232));
+        ptr_507BD4 = (GUIWindow *)sub_4219BE((void *)(20 * result + 5292232));
         dword_50C9A0 = 1;
         dword_50C0C4 = uActiveCharacter;
         return sub_421B2C();
       }
       if ( HIBYTE(v7) & 1 )
       {
-        if ( dword_507BD4 )
+        if ( ptr_507BD4 )
           return result;
-        dword_507BD4 = (int)GUIWindowCreate(0, 0, 640, 480, 27, 20 * result + 5292232, 0);
-        GUIButtonCreate((GUIWindow *)dword_507BD4, 52, 422, 35, 0, 2, 0, 141, 0, 49, (unsigned char *)"", 0);
-        GUIButtonCreate((GUIWindow *)dword_507BD4, 165, 422, 35, 0, 2, 0, 141, 1, 50, (unsigned char *)"", 0);
-        GUIButtonCreate((GUIWindow *)dword_507BD4, 280, 422, 35, 0, 2, 0, 141, 2, 51, (unsigned char *)"", 0);
-        GUIButtonCreate((GUIWindow *)dword_507BD4, 390, 422, 35, 0, 2, 0, 141, 3, 52, (unsigned char *)"", 0);
+        ptr_507BD4 = GUIWindowCreate(0, 0, 640, 480, 27, 20 * result + 5292232, 0);
+        GUIButtonCreate(ptr_507BD4, 52, 422, 35, 0, 2, 0, 141, 0, 49, (unsigned char *)"", 0);
+        GUIButtonCreate(ptr_507BD4, 165, 422, 35, 0, 2, 0, 141, 1, 50, (unsigned char *)"", 0);
+        GUIButtonCreate(ptr_507BD4, 280, 422, 35, 0, 2, 0, 141, 2, 51, (unsigned char *)"", 0);
+        GUIButtonCreate(ptr_507BD4, 390, 422, 35, 0, 2, 0, 141, 3, 52, (unsigned char *)"", 0);
         v30 = 0;
         v29 = "";
         v28 = 0;
@@ -2001,20 +2002,20 @@ LABEL_56:
         v22 = 460;
         v21 = 8;
         v20 = 8;
-        v19 = dword_507BD4;
+       // v19 = ptr_507BD4;
         goto LABEL_56;
       }
       if ( HIBYTE(v7) & 2 )
       {
-        if ( !dword_507BD4 )
+        if ( !ptr_507BD4 )
         {
-          dword_507BD4 = (int)GUIWindowCreate(0, 0, 640, 480, 27, 20 * result + 5292232, 0);
+          ptr_507BD4 = GUIWindowCreate(0, 0, 640, 480, 27, 20 * result + 5292232, 0);
           pBtn_Game_NPCScrollLeftDown = GUIButtonCreate(
-                           (GUIWindow *)dword_507BD4,
+                           ptr_507BD4,
                            469,
                            178,
-                           *(_WORD *)(uTextureIdx_ib_npcld_a != -1 ? 72 * uTextureIdx_ib_npcld_a + 7145548 + 0x18 : 24),
-                           *(_WORD *)(uTextureIdx_ib_npcld_a != -1 ? 72 * uTextureIdx_ib_npcld_a + 7145548 + 0x1A : 26),
+						   (uTextureIdx_ib_npcld_a != -1 ? LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcld_a].uTextureWidth : 24),
+                           (uTextureIdx_ib_npcld_a != -1 ? LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcld_a].uTextureHeight: 26),
                            1,
                            0,
                            188,
@@ -2023,11 +2024,11 @@ LABEL_56:
                            (unsigned char *)"",
                            uTextureIdx_ib_npcld_a != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcld_a] : 0);
           pBtn_Game_NPCScrollRightDown = GUIButtonCreate(
-                           (GUIWindow *)dword_507BD4,
+                           ptr_507BD4,
                            626,
                            178,
-                           *(_WORD *)(uTextureIdx_ib_npcrd_a != -1 ? 72 * uTextureIdx_ib_npcrd_a + 7145548 + 0x18 : 24),
-                           *(_WORD *)(uTextureIdx_ib_npcrd_a != -1 ? 72 * uTextureIdx_ib_npcrd_a + 7145548 + 0x1A : 26),
+                           (uTextureIdx_ib_npcrd_a != -1 ? LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcrd_a].uTextureWidth : 24),
+                           (uTextureIdx_ib_npcrd_a != -1 ? LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcrd_a].uTextureHeight: 26),
                            1,
                            0,
                            188,
@@ -2035,8 +2036,8 @@ LABEL_56:
                            0,
                            (unsigned char *)"",
                            uTextureIdx_ib_npcrd_a != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcrd_a] : 0);
-          GUIButtonCreate((GUIWindow *)dword_507BD4, 491, 149, 64, 74, 1, 0, 143, 4, 53, (unsigned char *)"", 0);
-          result = (int)GUIButtonCreate((GUIWindow *)dword_507BD4, 561, 149, 64, 74, 1, 0, 143, 5, 54, (unsigned char *)"", 0);
+          GUIButtonCreate(ptr_507BD4, 491, 149, 64, 74, 1, 0, 143, 4, 53, (unsigned char *)"", 0);
+          result = (int)GUIButtonCreate(ptr_507BD4, 561, 149, 64, 74, 1, 0, 143, 5, 54, (unsigned char *)"", 0);
         }
       }
     }
@@ -2059,8 +2060,8 @@ void __thiscall sub_427D48(void *_this, int a2)
       if ( *((_WORD *)v3 + 4) & 0x3CA )
       {
         *(_WORD *)v3 = 0;
-        GUIWindowDelete((GUIWindow *)dword_507BD4);
-        dword_507BD4 = 0;
+        GUIWindowDelete(ptr_507BD4);
+       ptr_507BD4 = NULL;
         sub_469903(pGame->pClass03, "MICON1");
         dword_5C35B8 = 0;
         dword_50C9A0 = 0;
@@ -3776,7 +3777,7 @@ void __cdecl sub_4356FF()
     sub_467F9F();
   if ( !dword_4E28F8 )
   {
-    if ( !dword_507BD4 )
+    if ( !ptr_507BD4 )
       class24_sub_426363(pClass24_global);
   }
   struct_576FE8.dword_000044 = 1;

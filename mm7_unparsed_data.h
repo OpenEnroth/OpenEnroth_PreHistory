@@ -823,7 +823,7 @@ extern struct GUIWindow *ptr_507BC4;      // dword @ MM7.exe::00507BC4
 extern int dword_507BC8; // weak
 
 extern struct GUIWindow *ptr_507BD0; //  dword @ MM7.exe::00507BD0
-extern int dword_507BD4; // idb
+extern struct GUIWindow *ptr_507BD4; // idb
 extern int dword_507BDC; // weak
 extern struct GUIWindow *ptr_507BE0; // dword @ MM7.exe::00507BE0
 

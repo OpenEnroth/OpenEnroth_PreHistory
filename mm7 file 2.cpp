@@ -15075,7 +15075,7 @@ int __thiscall sub_421E75(void *_this, int a2)
   return result;
 }
 
-//----- (00421EA6) --------------------------------------------------------
+//----- (00421EA6) -------------------.text:00422608 -------------------------------------
 void __cdecl sub_421EA6()
 {
   void *v0; // ebx@1
@@ -15093,42 +15093,51 @@ void __cdecl sub_421EA6()
   struct ItemGen local_0C;
   //int v11; // [sp+Ch] [bp-3Ch]@1
 
-  char v12; // [sp+30h] [bp-18h]@4
+  POINT v12; // [sp+30h] [bp-18h]@4
   const void *v13; // [sp+34h] [bp-14h]@14
   int v14; // [sp+38h] [bp-10h]@13
   int v15; // [sp+3Ch] [bp-Ch]@2
   int v16; // [sp+40h] [bp-8h]@2
   int v17; // [sp+44h] [bp-4h]@2
 
+  int pointX, pointY;
+
   ItemGen_Reset(&local_0C);
   v0 = pPlayers[uActiveCharacter - 1];
   if ( dword_506F48 == 103 )
   {
-    class03_GetMouseClickPos(pGame->pClass03, &v16, &v15);
-    v2 = v15 - 17;
-    v3 = v16 - 14;
-    v15 = v2;
-    v16 = v3;
-    v4 = 14 * (v2 >> 5);
-    v3 >>= 5;
-    v5 = v3 + v4 < 0;
-    v1 = v3 + v4;
-    v17 = v1;
-    if ( !v5 )
+    class03_GetMouseClickPos(pGame->pClass03, &pointX, &pointY);
+
+	pointX-=17;
+	pointY-=14;
+  //  v2 = v15 - 17;
+ //   v3 = v16 - 14;
+ //   v15 = v2;
+//    v16 = v3;
+	v5=	(pointX>>5)*14+pointY>>5;
+  //  v4 = 14 * (v2 >> 5);  
+ //   v3 >>= 5;
+  //  v5 = v3 + v4 < 0;
+ //   v1 = v3 + v4;
+  //  v17 = v1;
+	
+    if ( v5>=0 )
     {
-      if ( v1 <= 126
-        && *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v12) < 462
-        && *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v12) >= 14 )
+	  class03_GetMousePos(pGame->pClass03, &v12);
+      if ( (v5 <= 126)
+       // && *(_DWORD *)class03_GetMousePos(pGame->pClass03, &v12) < 462
+      //  && *(_DWORD *)class03_GetMousePos(pGame->pClass03, &v12) >= 14 )
+	  &&v12.x<462&&v12.x>=14)
       {
         if ( dword_50C9A0 )
         {
-          v6 = sub_421E75(v0, (int)&v17);
+          v6 = sub_421E75(v0, (int)&v5);
           if ( v6 )
           {
-            *(_BYTE *)(*(_DWORD *)(dword_507BD4 + 28) + 8) &= 0x7Fu;
-            *(_WORD *)(*(_DWORD *)(dword_507BD4 + 28) + 4) = uActiveCharacter - 1;
-            *(_DWORD *)(*(_DWORD *)(dword_507BD4 + 28) + 12) = v6 - 1;
-            *(_WORD *)(*(_DWORD *)(dword_507BD4 + 28) + 6) = v17;
+            *(_BYTE *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 8) &= 0x7Fu;
+            *(_WORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 4) = uActiveCharacter - 1;
+            *(_DWORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 12) = v6 - 1;
+            *(_WORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 6) = v17;
             dword_50C9A4 = (int)((char *)v0 + 36 * v6 + 496);
             dword_50C9A0 = 0;
             if ( dword_50CBD0[0] )

@@ -1299,11 +1299,11 @@ LABEL_96:
   }
   if ( dword_50C9A0 )
   {
-    *(_BYTE *)(*(_DWORD *)(dword_507BD4 + 28) + 8) &= 0x7Fu;
-    *(_WORD *)(*(_DWORD *)(dword_507BD4 + 28) + 4) = uActiveCharacter - 1;
+    *(_BYTE *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 8) &= 0x7Fu;
+    *(_WORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 4) = uActiveCharacter - 1;
     v42 = v56;
-    *(_DWORD *)(*(_DWORD *)(dword_507BD4 + 28) + 12) = v39;
-    *(_WORD *)(*(_DWORD *)(dword_507BD4 + 28) + 6) = v42;
+    *(_DWORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 12) = v39;
+    *(_WORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 6) = v42;
     dword_50C9A4 = v38;
     dword_50C9A0 = 0;
     if ( dword_50CBD0[0] )
@@ -1521,7 +1521,7 @@ int __thiscall sub_469E24(int _this)
   return result;
 }
 
-//----- (00469EA4) --------------------------------------------------------
+//----- (00469EA4) ---------v2-----------------------------------------------
 void __thiscall class03_sub_469EA4_LooksLikeDrawPickedItem(int _this)
 {
   int v1; // esi@1

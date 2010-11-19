@@ -55,8 +55,8 @@ int  CalculateTextHeght(Font *pFontData, const char *pString, GUIWindow *parentW
     break;
 
    case '\f':  //Form Feed, page eject  0C 12
-      test_string += 5;
-      i += 5;
+      test_string += 6;
+      i += 6;
     break;
    case '\t':	// Horizontal tab 09
    case '\r':   //Carriage Return 0D 13
@@ -159,7 +159,7 @@ for(i=0; i<uInStrLen; i++)
 			}
 		case  '\f':   //Form Feed, page eject  0C 12
 			{
-			i+=5;
+			i+=6;  //5 was
 			break;
 			}
 		case  '\r':   //Carriage Return 0D 13
@@ -240,9 +240,12 @@ void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, 
   size_t v35; // [sp+2Ch] [bp-Ch]@4
   char *v37; // [sp+34h] [bp-4h]@7
   int v38; // [sp+4Ch] [bp+14h]@11
- unsigned char c;
+ unsigned char c,b;
  unsigned int uOutX,
               uOutY;
+
+unsigned int uInStrLen,i;
+char *test_string;
 
   v34 = 0;
   v10 = (int)_this;
@@ -253,17 +256,17 @@ void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, 
   if (!strcmp(pString, "null"))
     return;
   
-    v35 = strlen(pString);
+    uInStrLen = strlen(pString);
 
     if ( !uX )
       uX = 12;
     if ( a8 )
     {
-      v37 = (char *)pString;
+      test_string = (char *)pString;
     }
     else
     {
-      v37 = (char *)FitTextInAWindow(pString, pFont, _this, uX, 0);
+      test_string = (char *)FitTextInAWindow(pString, pFont, _this, uX, 0);
     }
     uOutX = uX + _this->uFrameX;
     uOutY = uY + _this->uFrameY;
@@ -271,98 +274,98 @@ void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, 
 
   if (!a8 || uOutY + pFont->uFontHeight <= a8)
   {
-   v38 = 0;
-   if ((signed int)v35 > 0)
+//   v38 = 0;
+   if (uInStrLen > 0)
       {
-        do
+        for(i=0; i<uInStrLen; i++) 
         {
-          c = v37[v12];
+          c = test_string[i];
           if (c >= pFont->uFirstChar && c <= pFont->uLastChar
             || c == '\f' || c == '\r' || c == '\t' || c == '\n')
           {
             switch ( c )
             {
               case '\t': // number (3 digit always) after \t denotes tab amount (in pixels);  example:  "\t004skips 4 whitespaces before _this string"
-                memset(&Dest,0, sizeof (Dest));
-                strncpy(Dest, &v37[v12 + 1], 3);
-                v30 = 0;
-                v38 += 3;
+              //  memset(&Dest,0, sizeof (Dest));
+                strncpy(Dest, &test_string[i + 1], 3);
+                Dest[3] = 0;
+                i += 3;
                 v34 = atoi(Dest);
-                v19 = atoi(Dest);
-                uOutX = uX + _this->uFrameX + v19;
+              //  v19 = v34;
+                uOutX = uX + _this->uFrameX + atoi(Dest);
                 break;
               case '\n':
-                c = pFont->uFontHeight;
+               // b = pFont->uFontHeight;
                 uY = uY + pFont->uFontHeight - 3;
                 uOutY = uY + _this->uFrameY;
                 uOutX = uX + v34 + _this->uFrameX;
                 if ( a8 )
-                  goto LABEL_36;
+					{
+				 
+                  if ( (pFont->uFontHeight + uOutY - 3) > a8 )
+                    return;
+					}
                 break;
               case '\f':
-                memset(Dest,0, sizeof (Dest));
-                strncpy(Dest, &v37[v12 + 1], 5);
-                v31 = 0;
+              //  memset(Dest,0, sizeof (Dest));
+                strncpy(Dest,  &test_string[i + 1], 6);
+                Dest[6] = 0;
                 sscanf(Dest,"%x",&uTextMainColor);
                 if(!uTextMainColor)
                  uTextMainColor = 0xFFFFFF;
                 uTextMainColor|=0xFF000000;
-                v38 += 6;
+                i += 6;
                 break;
               case '\r':
-                memset(Dest,0, sizeof (Dest));
-                strncpy(Dest, &v37[v12 + 1], 3);
-                v30 = 0;
-                v38 += 3;
-                v18 = atoi(Dest);
-                c = GetStringWidth((Font *)v9, &v37[v38]);
-                uOutX = *(_DWORD *)(v10 + 16) - (_DWORD)c - v18;
-                uOutY = uY + *(_DWORD *)(v10 + 4);
+              //  memset(Dest,0, sizeof (Dest));
+                strncpy(Dest, &test_string[i + 1], 3);
+                Dest[3] = 0;
+                i += 3;
+              //  v18 = atoi(Dest);
+                b = GetStringWidth(pFont, &test_string[i]);
+                uOutX = _this->uFrameZ - (_DWORD)b -atoi(Dest);
+                uOutY = uY + _this->uFrameY;
                 if ( a8 )
                 {
-                 c = pFont->uFontHeight;
-LABEL_36:
-                  c = pFont->uFontHeight + uOutY - 3;
-                  if ( (signed int)c > a8 )
+                  b = pFont->uFontHeight + uOutY - 3;
+                  if ( (signed int)b > a8 )
                     return;
-                  break;
                 }
                 break;
               default:
                 if (c == '"' )
                 {
-                  if ( v37[v12 + 1] == '"' )
+                  if ( test_string[i + 1] == '"' )
                   {
-                    ++v12;
-                    v38 = v12;
+                    ++i;
+                  //  i = v12;
                   }
                 }
-                v32 = &v37[v12];
-                v15 = (unsigned __int8)v37[v12];
-                v16 = pFont->fw_table[v15].letterW;
-                v33 = pFont->fw_table[v15].postWidth;
-                if ( v12 > 0 )
-                  uOutX += pFont->fw_table[v15].preWidth;
-                v17 = pFont->array_000C20[v15] + (int)&pFont->unk_001020;
+               // v32 = (char*)&test_string[v12];
+                c = test_string[i];
+               // v16 = pFont->fw_table[c].letterW;
+             //   v33 = pFont->fw_table[c].postWidth;
+                if ( i > 0 )
+                  uOutX += pFont->fw_table[c].preWidth;
+                v17 = pFont->array_000C20[c] + (int)&pFont->unk_001020;
 
                 Render_DrawText(pD3DRenderer, uOutX, uOutY, (unsigned char *)v17,
-                    v16,
+                    pFont->fw_table[c].letterW,
                     pFont->uFontHeight, pFont->pFontPalette,
                     uTextMainColor,
                     uTextShadowColor);
-                uOutX += pFont->fw_table[v15].letterW;
-                if ( v38 < (signed int)v35)
+                uOutX += pFont->fw_table[c].letterW;
+                if ( i < uInStrLen)
                 {
-                  uOutX += pFont->fw_table[v15].postWidth;
+                  uOutX += pFont->fw_table[c].postWidth;
                 }
                 break;
             }
           }
-          v12 = v38 + 1;
+         // v12 = i + 1;
           //v21 = __SETO__(v38 + 1, v35);
           //v20 = (signed int)(v38++ + 1 - v35) < 0;
         }
-        while ( ++v38 < v35);
       }
     }
 }
@@ -441,7 +444,7 @@ int  AlignText_Center(int a1, const char *pString, struct Font *pFont)
   return result;
 }
 
-//----- (0044C51E) --------------------------------------------------------
+//----- (0044C51E) -----------.text:0044D4E0 ---------------------------------------------
 int GetStringWidth(struct Font *pFont, const char *pString)
 {
 signed int i; // ebx@3
@@ -462,11 +465,12 @@ for ( i = 0; i < str_len; ++i )
 		{
 		switch (c)
 			{
+		case '\t':
 		case '\n':
 		case '\r':
 			return string_width;
 		case '\f':
-			i += 5;
+			i += 6;	  //was 5  new 32 color!
 			break;
 		default:
 			if (i > 0)
@@ -569,7 +573,7 @@ for(i=0; i<uInStrLen; i++)
 			}
 		case  '\f':   //Form Feed, page eject  0C 12
 			{
-			i+=5;
+			i+=6;  //was 5	new 32 color
 			break;
 			}
 		case  '\r':   //Carriage Return 0D 13
@@ -805,7 +809,7 @@ void __fastcall sub_44D1E7(unsigned char *pFontData, int a2, int a3, int a4, con
   int v15; // ecx@9
   int v16; // eax@12
   __int16 v17; // cx@12
-  char Dest[5]; // [sp+Ch] [bp-1Ch]@16
+  char Dest[6]; // [sp+Ch] [bp-1Ch]@16
   char v19; // [sp+11h] [bp-17h]@16
   size_t v20; // [sp+20h] [bp-8h]@2
   int v21; // [sp+24h] [bp-4h]@1
@@ -860,11 +864,11 @@ void __fastcall sub_44D1E7(unsigned char *pFontData, int a2, int a3, int a4, con
           }
           else
           {
-            strncpy(Dest, &pString[v6 + 1], 5u);
-            v19 = 0;
+            strncpy(Dest, &pString[v6 + 1], 6u);
+            Dest[6] = 0;
             v21 = atoi(Dest);
             dword_5C6DB4 = v21;
-            v6 += 5;
+            v6 += 6;	  //
           }
         }
       }
@@ -904,8 +908,8 @@ int __fastcall sub_44C62E(int a1, char a2, const char *Str, int a4, int a5, int 
           v9 = v9 + *(_BYTE *)(v6 + 5) - 3;
           break;
         case 0xCu:
-          v8 += 5;
-          v12 += 5;
+          v8 += 6;	 //	for 32 color
+          v12 += 6;	 //
           break;
         case 0xDu:
 LABEL_9:
@@ -1036,7 +1040,7 @@ int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, __int
   int v22; // ebx@34
   int v23; // eax@34
   int v24; // ebx@36
-  char Dest; // [sp+Ch] [bp-20h]@34
+  char Dest[6]; // [sp+Ch] [bp-20h]@34
   char v26; // [sp+Fh] [bp-1Dh]@34
   char v27; // [sp+11h] [bp-1Bh]@35
   int v28; // [sp+20h] [bp-Ch]@17
@@ -1073,7 +1077,7 @@ int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, __int
       {
         if ( v12 == 12 )
         {
-          i += 5;
+          i += 6; //5
         }
         else
         {
@@ -1118,11 +1122,11 @@ LABEL_12:
             {
               if ( v19 == 1 )
               {
-                strncpy(&Dest, v33, 3u);
-                v26 = 0;
+                strncpy(Dest, v33, 3u);
+                Dest[3] = 0;
                 v32 += 3;
                 v33 += 3;
-                v22 = atoi(&Dest);
+                v22 = atoi(Dest);
                 v23 = GetStringWidth((Font *)v9, (char *)&pStringBuffer[v32]);
                 v14 = *(_DWORD *)(v29 + 16) - v23 - v22;
                 v13 = a4;
@@ -1146,11 +1150,11 @@ LABEL_12:
             }
             else
             {
-              strncpy(&Dest, v33, 5u);
-              v27 = 0;
-              v32 += 5;
-              v33 += 5;
-              *(_DWORD *)&a5 = atoi(&Dest);
+              strncpy(Dest, v33, 6u);
+              Dest[6] = 0;
+              v32 += 6;	 //
+              v33 += 6;	//
+              *(_DWORD *)&a5 = atoi(Dest);
             }
           }
           else
@@ -1163,9 +1167,9 @@ LABEL_12:
         }
         else
         {
-          strncpy(&Dest, v33, 3u);
-          v26 = 0;
-          atoi(&Dest);
+          strncpy(Dest, v33, 3u);
+          Dest[3] = 0;
+          atoi(Dest);
           v32 += 3;
           v33 += 3;
         }

@@ -780,7 +780,7 @@ struct GUIWindow *ptr_507BC4 = 0;      // dword @ MM7.exe::00507BC4
  int dword_507BC8; // weak
 
 struct GUIWindow *ptr_507BD0 = 0; //  dword @ MM7.exe::00507BD0
- int dword_507BD4; // idb
+struct GUIWindow *ptr_507BD4 = 0; // idb  dword @ MM7.exe::00507B4
  int dword_507BDC; // weak
 struct GUIWindow *ptr_507BE0; // dword @ MM7.exe::00507BE0
 
