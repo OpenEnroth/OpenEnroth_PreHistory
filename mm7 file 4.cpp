@@ -12091,7 +12091,7 @@ int __fastcall sub_45E361(int a1)
   dword_69CEFC = LODFile_Icons_LOD.LODFile_LoadTexture( "x_u", 2);
   if ( v12 )
   {
-    Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(dword_69CF20 != -1 ? 72 * dword_69CF20 + 7145548 : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 8, 8,(dword_69CF20 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CF20] : 0));
     if ( dword_4E28F8 == 11 )
     {
       v2 = dword_69CF18;
@@ -12102,9 +12102,9 @@ int __fastcall sub_45E361(int a1)
       v2 = dword_69CF1C;
       v1 = dword_69CF04;
     }
-    Render_DrawIndexedTexture(pD3DRenderer, 241, 302, (cTexture *)(v1 != -1 ? 72 * v1 + 7145548 : 0));
-    Render_DrawIndexedTexture(pD3DRenderer, 18, 141, (cTexture *)(v2 != -1 ? 72 * v2 + 7145548 : 0));
-    Render_DrawIndexedTexture(pD3DRenderer, 351, 302, (cTexture *)(dword_69CEFC != -1 ? 72 * dword_69CEFC + 7145548 : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 241, 302, (cTexture *)(v1 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v1] : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 18, 141, (cTexture *)(v2 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v2] : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 351, 302, (cTexture *)(dword_69CEFC != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CEFC] : 0));
   }
   else
   {
@@ -12273,7 +12273,7 @@ int __cdecl sub_45E93E()
   dword_69CF04 = LODFile_Icons_LOD.LODFile_LoadTexture( "LS_loadU", 2);
   dword_69CF00 = LODFile_Icons_LOD.LODFile_LoadTexture( "LS_saveU", 2);
   dword_69CEFC = LODFile_Icons_LOD.LODFile_LoadTexture( "x_u", 2);
-  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(dword_69CF20 != -1 ? 72 * dword_69CF20 + 7145548 : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(dword_69CF20 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CF20] : 0));
   if ( dword_4E28F8 == 11 )
   {
     v1 = dword_69CF18;
@@ -12284,9 +12284,9 @@ int __cdecl sub_45E93E()
     v1 = dword_69CF1C;
     v0 = dword_69CF04;
   }
-  Render_DrawIndexedTexture(pD3DRenderer, 241, 302, (cTexture *)(v0 != -1 ? 72 * v0 + 7145548 : 0));
-  Render_DrawIndexedTexture(pD3DRenderer, 351, 302, (cTexture *)(dword_69CEFC != -1 ? 72 * dword_69CEFC + 7145548 : 0));
-  Render_DrawIndexedTexture(pD3DRenderer, 18, 141, (cTexture *)(v1 != -1 ? 72 * v1 + 7145548 : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 241, 302, (cTexture *)(v0 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v0] : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 351, 302, (cTexture *)(dword_69CEFC != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CEFC] : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 18, 141, (cTexture *)(v1 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v1] : 0));
   FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, 25, 199, (char *)pGlobalTXT_LocalizationStrings[505], 0, 0, 0);
   pD3DRenderer->Present();
   sub_45E297((void *)1);
@@ -12793,7 +12793,7 @@ void *__fastcall sub_4601B7(int a1)
   {
     if ( sub_466CA0() != 9 )
     {
-      Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(dword_69CF20 != -1 ? 72 * dword_69CF20 + 7145548 : 0));
+      Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(dword_69CF20 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CF20] : 0));
       if ( v40 )
       {
         v3 = dword_69CF18;
@@ -12804,9 +12804,9 @@ void *__fastcall sub_4601B7(int a1)
         v3 = dword_69CF1C;
         v2 = dword_69CF04;
       }
-      Render_DrawIndexedTexture(pD3DRenderer, 241, 302, (cTexture *)(v2 != -1 ? 72 * v2 + 7145548 : 0));
-      Render_DrawIndexedTexture(pD3DRenderer, 18, 139, (cTexture *)(v3 != -1 ? 72 * v3 + 7145548 : 0));
-      Render_DrawIndexedTexture(pD3DRenderer, 351, 302, (cTexture *)(dword_69CEFC != -1 ? 72 * dword_69CEFC + 7145548 : 0));
+      Render_DrawIndexedTexture(pD3DRenderer, 241, 302, (v2 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v2] : 0));
+      Render_DrawIndexedTexture(pD3DRenderer, 18, 139, (v3 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v3] : 0));
+      Render_DrawIndexedTexture(pD3DRenderer, 351, 302, (dword_69CEFC != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CEFC] : 0));
       v1 = 255;
     }
   }

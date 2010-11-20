@@ -13,6 +13,8 @@
 #define  LOCSTR_ASSASIN                     		13	// "Assassin"	
 #define  LOCSTR_MONK                        		21 //"Monk"	
 
+#define  LOCSTR_AVARDS_FOR                  		23 //"Awards for"
+
 #define  LOCSTR_RANGER		                        31 //"Ranger"	
 
 #define  LOCSTR_CLASS                       		41	// "Class"	
@@ -63,7 +65,7 @@
 +		[20]	0x04102e88 "Available Skills"	unsigned char *
 
 +		[22]	0x04102ea6 "Awards"	unsigned char *
-+		[23]	0x04102eb1 "Awards for"	unsigned char *
+
 +		[24]	0x04102ec0 "Fire Res"	unsigned char *
 +		[25]	0x04102ecd "Balance"	unsigned char *
 +		[26]	0x04102ed9 "Initiate"	unsigned char *

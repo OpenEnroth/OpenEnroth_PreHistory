@@ -5834,7 +5834,7 @@ char *__cdecl sub_444A51()
   Render_DrawIndexedTexture(pD3DRenderer,
     uDialogueUIIconsOffsetX - 4,
     uDialogueUIIconsOffsetY - 4,
-    (cTexture *)(dword_50795C_TextureID != -1 ? 72 * dword_50795C_TextureID + 7145548 : 0));
+    (dword_50795C_TextureID != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_50795C_TextureID] : 0));
   Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, (cTexture *)dword_59142C);
   uTextureID_507B04 = uTextureID_5079E4;
   Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (uTextureID_5079E4 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_5079E4] : 0));

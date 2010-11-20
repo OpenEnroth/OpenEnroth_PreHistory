@@ -8029,7 +8029,7 @@ void __cdecl sub_4142D3()
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(dword_507BF4 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507BF4] : 0));
   if ( dword_506F08 == 1 )
   {
-    Render_DrawIndexedTexture(pD3DRenderer, 19, 302, (cTexture *)(dword_507C00 != -1 ? 72 * dword_507C00 + 7145548 : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 19, 302, (dword_507C00 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507C00 ] : 0));
     FontDrawText(pGUIWindow_CurrentMenu, pFontLucida, 23, 142, "боепед", 0, 0, 0);
     v7 = sub_45AE2C(dword_506E90[0]);
     v8 = sub_414D24(0);//colored or white text flag
@@ -8172,7 +8172,7 @@ void __cdecl sub_414D9A()
   //int v7; // [sp+18h] [bp-44h]@3
   //int v8; // [sp+1Ch] [bp-40h]@3
 
-  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(dword_507C10 != -1 ? 72 * dword_507C10 + 7145548 : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (dword_507C10 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507C10] : 0));
   if ( !pD3DRenderer->dword_040058 )
   {
     if (pD3DRenderer->IsGammaControlSupported())
@@ -8195,20 +8195,20 @@ void __cdecl sub_414D9A()
   }
   if ( !pD3DRenderer->pRenderD3D3 )
   {
-    Render_DrawIndexedTexture(pD3DRenderer, 20, 281, (cTexture *)(dword_507C50 != -1 ? 72 * dword_507C50 + 7145548 : 0));
-    Render_DrawIndexedTexture(pD3DRenderer, 20, 303, (cTexture *)(dword_507C54 != -1 ? 72 * dword_507C54 + 7145548 : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 20, 281, (cTexture *)(dword_507C50 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507C50] : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 20, 303, (cTexture *)(dword_507C54 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507C54] : 0));
     v2 = dword_507C58;
     goto LABEL_12;
   }
   if ( *(_BYTE *)(LODWORD(pGame) + 3620) & 0x20 )
-    Render_DrawIndexedTexture(pD3DRenderer, 20, 281, (cTexture *)(dword_507C14 != -1 ? 72 * dword_507C14 + 7145548 : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 20, 281, (cTexture *)(dword_507C14 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507C14] : 0));
   if ( pD3DRenderer->bUseColoredLights )
-    Render_DrawIndexedTexture(pD3DRenderer, 20, 303, (cTexture *)(dword_507C18 != -1 ? 72 * dword_507C18 + 7145548 : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 20, 303, (cTexture *)(dword_507C18 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507C18] : 0));
   if ( pD3DRenderer->bTinting )
   {
     v2 = dword_507C1C;
 LABEL_12:
-    Render_DrawIndexedTexture(pD3DRenderer, 20, 325, (cTexture *)(v2 != -1 ? 72 * v2 + 7145548 : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 20, 325, (cTexture *)(v2 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v2] : 0));
   }
 }
 
@@ -8319,8 +8319,8 @@ void __cdecl sub_414F82_DrawGameOptions()
 {
   signed int v0; // eax@1
 
-  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(dword_507944 != -1 ? 72 * dword_507944 + 7145548 : 0));
-  Render_DrawIndexedTexture(pD3DRenderer, 8, 132, (cTexture *)(dword_507C60 != -1 ? 72 * dword_507C60 + 7145548 : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(dword_507944 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507944] : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 8, 132, (cTexture *)(dword_507C60 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507C60] : 0));
   v0 = 0;
   if ( uTurnSpeed == 128 )
   {
@@ -8333,13 +8333,13 @@ void __cdecl sub_414F82_DrawGameOptions()
   }
   Render_DrawIndexedTexture(pD3DRenderer, dword_4E2910[v0], 270, &LODFile_Icons_LOD.aLODHeaders[dword_507C64_TextureID[v0]]);
   if ( dword_6BE374_WalkSoundFlag )
-    Render_DrawIndexedTexture(pD3DRenderer, 20, 303, (cTexture *)(dword_507CB4 != -1 ? 72 * dword_507CB4 + 7145548 : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 20, 303, (cTexture *)(dword_507CB4 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507CB4] : 0));
   if ( dword_6BE378_ShowDamageFlag )
-    Render_DrawIndexedTexture(pD3DRenderer, 128, 303, (cTexture *)(dword_507CB8 != -1 ? 72 * dword_507CB8 + 7145548 : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 128, 303, (cTexture *)(dword_507CB8 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507CB8] : 0));
   if ( dword_6BE380 )
-    Render_DrawIndexedTexture(pD3DRenderer, 128, 325, (cTexture *)(dword_507C84 != -1 ? 72 * dword_507C84 + 7145548 : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 128, 325, (cTexture *)(dword_507C84 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507C84] : 0));
   if ( dword_6BE37C )
-    Render_DrawIndexedTexture(pD3DRenderer, 20, 325, (cTexture *)(dword_507CB0 != -1 ? 72 * dword_507CB0 + 7145548 : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 20, 325, (cTexture *)(dword_507CB0 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507CB0] : 0));
   Render_DrawIndexedTexture(pD3DRenderer, 17 * uSoundVolumeMultiplier + 265, 162, &LODFile_Icons_LOD.aLODHeaders[uTextureID_SoundLevels[uSoundVolumeMultiplier]]);
   Render_DrawIndexedTexture(pD3DRenderer, 17 * uMusicVolimeMultiplier + 265, 216, &LODFile_Icons_LOD.aLODHeaders[uTextureID_SoundLevels[uMusicVolimeMultiplier]]);
   Render_DrawIndexedTexture(pD3DRenderer, 17 * uVoicesVolumeMultiplier + 265, 270, &LODFile_Icons_LOD.aLODHeaders[uTextureID_SoundLevels[uVoicesVolumeMultiplier]]);

@@ -6295,7 +6295,7 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
   v30 = Player_GetBaseAccuracy(pp);
   v31 = Player_GetActualAccuracy(pp);
   v34 = sub_4178FE_GetColor(v31, v30);
-  wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[1], v34, v31, v30);
+  wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[LOCSTR_ACCURACY], v34, v31, v30);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v29, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
 
   v35 = v29 - 2 + pFontArrus->uFontHeight;
@@ -6595,7 +6595,7 @@ void __fastcall CharacterUI_DrawInventoryTab(unsigned int uSelectedCharacter, bo
           {
             v24 = "sp91a";
 LABEL_24:
-            v19 = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( v24, 2) + 0x6D084C;
+            v19 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v24, 2)];
             //v20 = dword_50C9A8 == pClass24_global->int_00001C;
             //v21 = dword_50C9A8 - pClass24_global->int_00001C < 0;
             //dword_50C9A8 -= pClass24_global->int_00001C;
@@ -6622,7 +6622,7 @@ LABEL_33:
   }
 }
 
-//----- (0041A000) --------------------------------------------------------
+//----- (0041A000) --------------.text:0041A623------------------------------------------
 int __fastcall CharacterUI_DrawAwardsTab(unsigned int uCharacter)
 {
   int result; // eax@1
@@ -6661,7 +6661,7 @@ int __fastcall CharacterUI_DrawAwardsTab(unsigned int uCharacter)
   #endif
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, &LODFile_Icons_LOD.aLODHeaders[v4]);
 
-  wsprintfA((char *)TmpBuf, "%s \x0C%08X", pGlobalTXT_LocalizationStrings[23], v3);
+  wsprintfA((char *)TmpBuf, "%s \f%06d", pGlobalTXT_LocalizationStrings[LOCSTR_AVARDS_FOR], v3);
   wsprintfA(Source, (char *)pGlobalTXT_LocalizationStrings[429], pParty_global->pPlayers[uCharacter - 1].sName, aClassNames[pParty_global->pPlayers[uCharacter - 1].uClass]);
 
   strcat((char *)TmpBuf, Source);
@@ -9455,8 +9455,8 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
   v56 = (int)*(&ptr_A750C4 + a1);
   LODFile_Icons_LOD.LODFile_LoadTexture( "sptext01", 2);
   CharacterUI_DrawPaperdoll(v3);
-  Render_DrawTransparentTexture(pD3DRenderer, 473, 0, (cTexture *)(uTextureID_GameUI_PaperdollJewelryOverlay != -1 ? 72 * uTextureID_GameUI_PaperdollJewelryOverlay + 7145548 : 0));
-  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (cTexture *)(uTextureID_507B04 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04] : 0));
+  Render_DrawTransparentTexture(pD3DRenderer, 473, 0, (uTextureID_GameUI_PaperdollJewelryOverlay != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_GameUI_PaperdollJewelryOverlay] : 0));
+  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (uTextureID_507B04 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04] : 0));
   Render_DrawTransparentTexture(
     pD3DRenderer,
     *(_DWORD *)dword_507694,

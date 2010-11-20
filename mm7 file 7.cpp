@@ -4341,8 +4341,8 @@ char __cdecl sub_4B2A74()
           pD3DRenderer,
           8,
           352 - (v11 + 7),
-          uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 : 0,
-          *(_WORD *)(uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 + 0x1A : 26) - (v11 + 7));
+          uTextureIdx_Leather != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather] : 0,
+          *(_WORD *)(uTextureIdx_Leather != -1 ? LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather].uTextureHeight : 26) - (v11 + 7));
         Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v12, pcTexture_EndcapTexture);
         v13 = (char *)FitTextInAWindow((const char *)v64, pFontArrus, &local_B4, 13, 0);
         FontDrawText(pDialogueWindow, pFontArrus, 13, 354 - v12, v13, 0, 0, 0);
@@ -12327,8 +12327,7 @@ LABEL_15:
               if ( v40 )
               {
                 v11 = (int)ptr_507BC0;
-                dword_F8B168[v39] = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[v40].pIconName, 2)
-                                  + 7145548;
+                dword_F8B168[v39] = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[v40].pIconName, 2)];
               }
               ++v39;
             }
