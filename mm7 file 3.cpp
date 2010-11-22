@@ -6101,7 +6101,7 @@ void __fastcall sub_4451A8(int a1, int a2, int a3)
     dword_5C3418 = v3;
     dword_5C341C = v4;
     dword_591094 = dword_5C3420;
-    pGUIWindow2 = GUIWindowCreate(0, 0, 640, 480, 19, a3, 0);
+    pGUIWindow2 = GUIWindowCreate(0, 0, 640, 480, 19, (GUIButton*)a3, 0);
     GUIButtonCreate(pGUIWindow2, 61, 424, 31, 40, 2, 94, 110, 1, 49, (unsigned char *)"", 0);
     GUIButtonCreate(pGUIWindow2, 177, 424, 31, 40, 2, 94, 110, 2, 50, (unsigned char *)"", 0);
     GUIButtonCreate(pGUIWindow2, 292, 424, 31, 40, 2, 94, 110, 3, 51, (unsigned char *)"", 0);
@@ -6895,7 +6895,7 @@ LABEL_36:
 LABEL_17:
   if (uDialogue_SpeakingActorID < 0 )
     v8 = 4;
-  v11 = (int)GUIWindowCreate(0, 0, 640, 480, 10, v8, 0);
+  v11 = (int)GUIWindowCreate(0, 0, 640, 480, 10, (GUIButton *)v8, 0);
   pDialogueWindow = (GUIWindow *)v11;
   if (v6->dword_000008 & 0x80 )
   {
@@ -7834,7 +7834,7 @@ LABEL_47:
                 if ( sub_44622E(170) )
                 {
                   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-                  ptr_507BC0 = GUIWindowCreate(0, 0, 640, 480, 25, 170, 0);
+                  ptr_507BC0 = GUIWindowCreate(0, 0, 640, 480, 25, (GUIButton *)170, 0);
                   GUIButtonCreate(ptr_507BC0, 61, 424, 31, 0, 2, 94, 110, 1, 49, (unsigned char *)v7, 0);
                   GUIButtonCreate(ptr_507BC0, 177, 424, 31, 0, 2, 94, 110, 2, 50, (unsigned char *)v7, 0);
                   GUIButtonCreate(ptr_507BC0, 292, 424, 31, 0, 2, 94, 110, 3, 51, (unsigned char *)v7, 0);
@@ -7927,7 +7927,7 @@ LABEL_47:
                 if ( sub_44622E(165) )
                 {
                   AudioPlayer_sub_4AA306(pAudioPlayer, 0, 0, 0, -1, 0, 0, 0, 0);
-                  v50 = (int)GUIWindowCreate(0, 0, 640, 480, 25, 165, 0);
+                  v50 = (int)GUIWindowCreate(0, 0, 640, 480, 25, (GUIButton *)165, 0);
                   ptr_507BC0 = (GUIWindow *)v50;
                   v51 = *(_DWORD *)(v50 + 76);
                   if ( v51 )
@@ -8677,7 +8677,7 @@ LABEL_280:
               v108 = 187;
               if ( dword_591160 != 167 )
                 v108 = v107;
-              ptr_507BC0 = GUIWindowCreate(0, 0, 640, 480, 25, v108, 0);
+              ptr_507BC0 = GUIWindowCreate(0, 0, 640, 480, 25, (GUIButton *)v108, 0);
               GUIButtonCreate(ptr_507BC0, 61, 424, 31, 0, 2, 94, 110, 1, 49, (unsigned char *)v7, 0);
               GUIButtonCreate(ptr_507BC0, 177, 424, 31, 0, 2, 94, 110, 2, 50, (unsigned char *)v7, 0);
               GUIButtonCreate(ptr_507BC0, 292, 424, 31, 0, 2, 94, 110, 3, 51, (unsigned char *)v7, 0);

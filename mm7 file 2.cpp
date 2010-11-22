@@ -1,6 +1,7 @@
 #include <ddraw.h>
 //#include <dinput.h>
 #include <stdlib.h>
+#include "localization_defs.h"
 #include "font.h"
 #include "AIL.h"
 #include "font.h"
@@ -6175,7 +6176,7 @@ int __thiscall sub_411621(void *_this)
   if ( *(_WORD *)(v2 + 304) )
     GUIButtonCreate((GUIWindow *)v3, 400, 307, 50, 36, 1, 0, 87, 8, 0, aSpellSchoolNames[8], 0);
   GUIButtonCreate((GUIWindow *)v3, 476, 450, *(_WORD *)(dword_506444 + 24), *(_WORD *)(dword_506444 + 26), 1, 78, 88, 0, 0, (unsigned char *)"", 0);
-  dword_5064F8 = (int)GUIButtonCreate((GUIWindow *)v3, 476, 450, 48, 32, 1, 78, 88, 0, 0, (unsigned char *)"",  &LODFile_Icons_LOD.aLODHeaders[dword_506444],0);
+  dword_5064F8 = GUIButtonCreate((GUIWindow *)v3, 476, 450, 48, 32, 1, 78, 88, 0, 0, (unsigned char *)"",  &LODFile_Icons_LOD.aLODHeaders[dword_506444],0);
   GUIButtonCreate((GUIWindow *)v3,
     561,
     450,
@@ -6188,8 +6189,8 @@ int __thiscall sub_411621(void *_this)
     0,
     pGlobalTXT_LocalizationStrings[79],
     0);
-  result = (int)GUIButtonCreate((GUIWindow *)v3, 561, 450, 48, 32, 1, 0, 113, 0, 0, pGlobalTXT_LocalizationStrings[79],  &LODFile_Icons_LOD.aLODHeaders[dword_506440],0);
-  dword_5064F4 = result;
+  result =0; 
+  dword_5064F4 = GUIButtonCreate((GUIWindow *)v3, 561, 450, 48, 32, 1, 0, 113, 0, 0, pGlobalTXT_LocalizationStrings[79],  &LODFile_Icons_LOD.aLODHeaders[dword_506440],0);
   return result;
 }
 
@@ -7864,7 +7865,7 @@ int __fastcall sub_4141CA(int a1, int a2)
   v4 = a2;
   class24_fn1(pClass24_global);
   dword_506F0C = dword_4E28F8;
-  result = (int)GUIWindowCreate(0, 0, 640, 480, 70, v4, v3);
+  result = (int)GUIWindowCreate(0, 0, 640, 480, 70, (GUIButton*)v4, v3);
   dword_507BDC = result;
   dword_4E28F8 = 22;
   return result;
@@ -9826,7 +9827,7 @@ LABEL_112:
     local_04.uFrameHeight = 256;
     local_04.uFrameX = 128;
     local_04.uFrameY = 40;
-    local_04.uFrameHeight = CalculateTextHeght(pFontSmallnum, v24, &local_04, 24, 0) + 2 * *(_BYTE *)(pFontLucida + 5) + 24;
+    local_04.uFrameHeight = CalculateTextHeght(pFontSmallnum, v24, &local_04, 24, 0) + 2 * pFontLucida->uFontHeight + 24;
     local_04.uFrameZ = local_04.uFrameX + local_04.uFrameWidth - 1;
     local_04.uFrameW = local_04.uFrameY + local_04.uFrameHeight - 1;
     GUIWindow_sub_415551(&local_04, 0);
@@ -9837,9 +9838,9 @@ LABEL_112:
     local_04.uFrameZ = local_04.uFrameX + local_04.uFrameWidth - 1;
     local_04.uFrameW = local_04.uFrameY + local_04.uFrameHeight - 1;
     v25 = 0xFFFFFF9B;
-    wsprintfA((char *)TmpBuf, "\x0C%05d%s\x0C\x30\x30\x30\x30\x30", v25, v14);
+    wsprintfA((char *)TmpBuf, "\f%05d%s\f00000", v25, v14);
     GUIWindow_sub_44D406(&local_04, pFontCreate, 0, 0, 0, (char *)TmpBuf, 3);
-    FontDrawText(&local_04, pFontSmallnum, 1, *(_BYTE *)(pFontLucida + 5), v23, 0, 0, 0);
+    FontDrawText(&local_04, pFontSmallnum, 1, pFontLucida->uFontHeight, v23, 0, 0, 0);
   }
 LABEL_132:
   dword_507BF0 = 1;
@@ -10149,7 +10150,7 @@ void sub_4179BC(int a1, const char *a2)
   local_0C.uFrameZ = local_0C.uFrameX + local_0C.uFrameWidth - 1;
   local_0C.uFrameW = local_0C.uFrameY + local_0C.uFrameHeight - 1;
   v5 = 0xFFFFFF9B;
-  wsprintfA((char *)TmpBuf, "\x0C%05d%s\x0C\x30\x30\x30\x30\x30", v5, v4);
+  wsprintfA((char *)TmpBuf, "\f%05d%s\f00000", v5, v4);
   GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, 0, 0, (char *)TmpBuf, 3);
   FontDrawText(&local_0C, pFontSmallnum, 1, *(_BYTE *)(pFontLucida + 5), v3, 0, 0, 0);
 }
@@ -10281,21 +10282,21 @@ _UNKNOWN *__fastcall sub_417BB5(int a1, int a2)
   {
     strcpy(Dest, "%s\n\n");
     v24 = sub_417AD4(*((_BYTE *)v6 + 185), v4, 1);
-    wsprintfA(Source, "\x0C%05d", v24);
+    wsprintfA(Source, "\f%05d", v24);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v25 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 2);
-    wsprintfA(Source, "\x0C%05d", v25);
+    wsprintfA(Source, "\f%05d", v25);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v26 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 3);
-    wsprintfA(Source, "\x0C%05d", v26);
+    wsprintfA(Source, "\f%05d", v26);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v27 = *((_BYTE *)v6 + 185);
     v28 = v36;
     v29 = sub_417AD4(v27, v36, 4);
-    wsprintfA(Source, "\x0C%05d", v29);
+    wsprintfA(Source, "\f%05d", v29);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v9 = &unk_506990;
@@ -10323,11 +10324,11 @@ _UNKNOWN *__fastcall sub_417BB5(int a1, int a2)
   {
     strcpy(Dest, "%s\n\n");
     v10 = sub_417AD4(*((_BYTE *)v6 + 185), v4, 1);
-    wsprintfA(Source, "\x0C%05d", v10);
+    wsprintfA(Source, "\f%05d", v10);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v11 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 2);
-    wsprintfA(Source, "\x0C%05d", v11);
+    wsprintfA(Source, "\f%05d", v11);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v12 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 3);
@@ -10336,11 +10337,11 @@ _UNKNOWN *__fastcall sub_417BB5(int a1, int a2)
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v13 = v36;
     v14 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 4);
-    wsprintfA(Source, "\x0C%05d", v14);
+    wsprintfA(Source, "\f%05d", v14);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n\n");
     v15 = 0xFFFFFFFF;
-    wsprintfA(Source, "\x0C%05d", v15);
+    wsprintfA(Source, "\f%05d", v15);
     strcat(Dest, Source);
     strcat(Dest, "%s: +%d");
     v16 = v13;
@@ -11022,7 +11023,7 @@ void __cdecl sub_41A57E()
   }
   v41 = sub_495430(v38);
 
-  wsprintfA((char *)TmpBuf, "%s: \x0C%05d%s\x0C\x30\x30\x30\x30\x30", pGlobalTXT_LocalizationStrings[180], v39, v41);
+  wsprintfA((char *)TmpBuf, "%s: \f%05d%s\f00000", pGlobalTXT_LocalizationStrings[180], v39, v41);
 
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 22, 323, (char *)TmpBuf, 0, 0, 0);
   v42 = Party_sub_49135E_GetAllPartyExpDiv1000(pParty_global);
@@ -11211,23 +11212,31 @@ int __fastcall sub_41B4E1(unsigned __int8 a1, unsigned __int8 a2, char a3)
   int l; // ecx@8
   char v9; // [sp+4h] [bp-8h]@1
   char v10; // [sp+8h] [bp-4h]@1
+  GUIWindow *curr_wnd;
 
   v4 = a2;
   v10 = toupper(a1);
-  result = toupper(v4);
-  v9 = result;
+  result = 0;
+  v9 = toupper(v4);
   if ( a3 )
   {
     for ( i = sLastGUIWindowIdx; i >= 0; --i )
     {
-      result = 84 * array_5075E0[i];
-      for ( j = *(int *)((char *)&dword_506F48 + result); j; j = *(_DWORD *)(j + 52) )
-        *(_DWORD *)(j + 40) = 0;
+	 curr_wnd=&GUIWindow_List[array_5075E0[i] - 1];
+	 curr_wnd->dword_000034=0;
+	 curr_wnd->dword_000028=0;
+     // result = 84 * array_5075E0[i];
+    //  for ( j = *(int *)((char *)&dword_506F48 + result); j; j = *(_DWORD *)(j + 52) )
+      //  *(_DWORD *)(j + 40) = 0;
+
     }
   }
   for ( k = sLastGUIWindowIdx; k >= 0; --k )
   {
-    result = 84 * array_5075E0[k];
+	 curr_wnd=&GUIWindow_List[array_5075E0[k] - 1];
+	 curr_wnd->dword_000034=0;
+	 curr_wnd->dword_000028=1;
+   /* result = 84 * array_5075E0[k];
     for ( l = *(int *)((char *)&dword_506F48 + result); l; l = *(_DWORD *)(l + 52) )
     {
       LOBYTE(result) = v10;
@@ -11240,7 +11249,7 @@ int __fastcall sub_41B4E1(unsigned __int8 a1, unsigned __int8 a2, char a3)
           *(_BYTE *)(l + 84) = v9;
         }
       }
-    }
+    }  */
   }
   return result;
 }
@@ -11278,7 +11287,7 @@ int __cdecl MenuUI_LoadFontsAndSomeStuff()
  sLastGUIWindowIdx = -1;
  memset(array_5075E0, 0, 20 * sizeof(int));
  for (i = 0; i < 20; ++i)
-   GUIWindow_List[i].bSlotUsed = false;
+   GUIWindow_List[i].uWindowType = 0;
 
  return 0;
 }
@@ -11842,12 +11851,12 @@ void GUIWindow_sub_41D3B7(GUIWindow *_this)
 
   v4 = (int)_this;
   v42 = (int)pFontComic;
- Player *pPlayer = &pParty_global->pPlayers[_this->dword_00001C];
+ Player *pPlayer = &pParty_global->pPlayers[(int)_this->dword_00001C];
   v43 = v4;
   v2 = 0;
-  v1 = (int)pParty_global->pPlayers[_this->dword_00001C].pPlayerBuffs;
+  v1 = (int)pParty_global->pPlayers[(int)_this->dword_00001C].pPlayerBuffs;
   v3 = 24;
-  v41 = (int)pParty_global->pPlayers[_this->dword_00001C].pPlayerBuffs;
+  v41 = (int)pParty_global->pPlayers[(int)_this->dword_00001C].pPlayerBuffs;
   do
   {
     if ( *(_QWORD *)v1 > 0i64 )
@@ -11897,21 +11906,21 @@ void GUIWindow_sub_41D3B7(GUIWindow *_this)
 
   Render_DrawTransparentTexture(pD3DRenderer, *(_DWORD *)v4 + 24, *(_DWORD *)(v4 + 4) + 24, (cTexture *)v13);
   v17 = 0xFFFFFF9B;
-  wsprintfA((char *)TmpBuf, "\x0C%05d", v17);
+  wsprintfA((char *)TmpBuf, "\f%05d", v17);
   wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[429], pPlayer->sName, aClassNames[pPlayer->uClass]);
 
 
   strcat((char *)TmpBuf, (char *)pStringBuffer);
-  strcat((char *)TmpBuf, "\x0C\x30\x30\x30\x30\x30\n");
+  strcat((char *)TmpBuf, "\f00000\n");
   v20 = Player_GetMaxHealth(pPlayer);
   v21 = sub_4178FE_GetColor(pPlayer->sHealth, v20);
 
 
-  wsprintfA((char *)pStringBuffer, "%s : \x0C%05u%d\x0C\x30\x30\x30\x30\x30 / %d\n", pGlobalTXT_LocalizationStrings[108], v21, pPlayer->sHealth, v20);
+  wsprintfA((char *)pStringBuffer, "%s : \f%05u%d\f000000 / %d\n", pGlobalTXT_LocalizationStrings[LOCSTR_HIT_POINTS], v21, pPlayer->sHealth, v20);
   strcat((char *)TmpBuf, (char *)pStringBuffer);
   v24 = Player_GetMaxMana(pPlayer);
   v25 = sub_4178FE_GetColor(pPlayer->sMana, v24);
-  wsprintfA((char *)pStringBuffer, "%s : \x0C%05u%d\x0C\x30\x30\x30\x30\x30 / %d\n", pGlobalTXT_LocalizationStrings[212], v25, pPlayer->sMana, v24);
+  wsprintfA((char *)pStringBuffer, "%s : \f%05u%d\f00000 / %d\n", pGlobalTXT_LocalizationStrings[212], v25, pPlayer->sMana, v24);
   strcat((char *)TmpBuf, (char *)pStringBuffer);
   v26 = Player_GetConditionIdx(pPlayer);
   v27 = (char *)aCharacterConditionNames[v26];
@@ -11919,7 +11928,7 @@ void GUIWindow_sub_41D3B7(GUIWindow *_this)
   
 
   v28 = sub_417939((void *)v26);
-  wsprintfA((char *)pStringBuffer, "%s: \x0C%05d%s\0x0C\0x30\0x30\0x30\0x30\0x30\n", pGlobalTXT_LocalizationStrings[47], v28, v27);
+  wsprintfA((char *)pStringBuffer, "%s: \x0C%05d%s\0x0C\0x30\0x30\0x30\0x30\0x30\n", pGlobalTXT_LocalizationStrings[LOCSTR_CONDITION], v28, v27);
   strcat((char *)TmpBuf, (char *)pStringBuffer);
   v16 = pPlayer->uQuickSpell;
   if ( v16 )
@@ -12129,7 +12138,7 @@ void __thiscall sub_41D895(void *_this)
   int v76; // [sp+1E8h] [bp-90h]@93
   int v77; // [sp+1ECh] [bp-8Ch]@91
   __int16 v78[2]; // [sp+1F0h] [bp-88h]@1
-  int v79; // [sp+1F4h] [bp-84h]@5
+  cTexture *v79; // [sp+1F4h] [bp-84h]@5
   int v80; // [sp+1F8h] [bp-80h]@5
   int *v81; // [sp+1FCh] [bp-7Ch]@5
   int v82; // [sp+200h] [bp-78h]@12
@@ -12170,12 +12179,13 @@ void __thiscall sub_41D895(void *_this)
     v4 = (int *)&pClass40->pItems[*(_DWORD *)v97].pIconName;
     v81 = v4;
     v6 = LODFile_Icons_LOD.LODFile_LoadTexture( (const char *)*v4, 2);
-    v5 = v6;
-    v6 *= 72;
+   // v5 = v6;
+   // v6 *= 72;
     v80 = v6;
-    v79 = (int)LODFile_Icons_LOD.aLODHeaders + v6;
-    compile_error;//v3 = 100 - *(_WORD *)LODFile_Icons_LOD.array_000032C[v6 + 24];
-    v7 = *(_WORD *)(v79 + 26);
+	v79 = &LODFile_Icons_LOD.aLODHeaders[v6];
+   // compile_error;//v3 = 100 - *(_WORD *)LODFile_Icons_LOD.array_000032C[v6 + 24];
+	v3= 100-v79->uTextureWidth;
+    v7 = v79->uTextureHeight;
     v83 = v3;
     v93 = 144 - v7;
     if ( v3 > 0 )
@@ -13421,9 +13431,9 @@ int __cdecl sub_41F54A()
     cTexture_Free((cTexture *)dword_507BB0);
   LODFile_Icons_LOD.LODFile_sub_40F9C5();
   wsprintfA((char *)TmpBuf, "TERRA%03d", pParty_global->uCurrentMinute / 6u + 10 * pParty_global->uCurrentHour);
-  result = 72 * LODFile_Icons_LOD.LODFile_LoadTexture( (char *)TmpBuf, 2) + 7145548;
-  dword_507BAC = result;
-  return result;
+  
+  dword_507BAC = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( (char *)TmpBuf, 2)];
+  return 0;
 }
 
 //----- (0041F5BE) --------------------------------------------------------
@@ -13495,7 +13505,7 @@ int __cdecl sub_41F6C1()
   }
   class24_fn1(pClass24_global);
   if ( dword_506F14 != 2 )
-    GUIWindowCreate(518, 450, 0, 0, 90, (int)pBtn_Game_Rest, 0);
+    GUIWindowCreate(518, 450, 0, 0, 90, pBtn_Game_Rest, 0);
   dword_506F18 = 0;
   dword_506F14 = 0;
   dword_506F10 = 2;
@@ -13655,7 +13665,7 @@ void __cdecl sub_41FA01()
   while ( v0 <= (signed int)&dword_A750D4 );
   if ( v1 )
   {
-    Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(dword_50765C != -1 ? 72 * dword_50765C + 7145548 : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (dword_50765C != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_50765C] : 0));
     v17 = pParty_global->uCurrentHour;
     dword_506F1C = *(_DWORD *)(pGUIWindow_CurrentMenu + 44);
     if ( pParty_global->uCurrentHour <= 12 )
@@ -13739,7 +13749,7 @@ void __cdecl sub_41FA01()
   }
   else
   {
-    GUIWindowCreate(*(_DWORD *)dword_507638, *(_DWORD *)(dword_507638 + 4), 0, 0, 96, (int)dword_507638, (int)pGlobalTXT_LocalizationStrings[81]);
+    GUIWindowCreate(*(_DWORD *)dword_507638, *(_DWORD *)(dword_507638 + 4), 0, 0, 96, dword_507638, (int)pGlobalTXT_LocalizationStrings[81]);
   }
 }
 
@@ -14303,20 +14313,20 @@ signed int __fastcall sub_42041E(int a1)
   int v45; // [sp+88h] [bp-3Ch]@16
   int v46; // [sp+8Ch] [bp-38h]@16
   int v47; // [sp+90h] [bp-34h]@16
-  float v48; // [sp+94h] [bp-30h]@23
+  int v48; // [sp+94h] [bp-30h]@23
   char *v49; // [sp+98h] [bp-2Ch]@5
   int v50; // [sp+9Ch] [bp-28h]@16
   int v51; // [sp+A0h] [bp-24h]@28
   int v52; // [sp+A4h] [bp-20h]@28
   int v53; // [sp+A8h] [bp-1Ch]@28
-  float v54; // [sp+ACh] [bp-18h]@1
+ int v54; // [sp+ACh] [bp-18h]@1
   int v55; // [sp+B0h] [bp-14h]@21
   int v56; // [sp+B4h] [bp-10h]@23
   float v57; // [sp+B8h] [bp-Ch]@23
   float v58; // [sp+BCh] [bp-8h]@23
   int X; // [sp+C0h] [bp-4h]@8
 
-  LODWORD(v54) = a1;
+  v54 = a1;
   if ( a1 < 0 )
     return 0;
   if ( a1 >= 20 )
@@ -14471,7 +14481,7 @@ LABEL_12:
       Player_PlaySound(*(&ptr_A750C4 + uActiveCharacter), 4, 0);
   }
   dword_507CD8 = 0;
-  v4 = (int)GUIWindowCreate(0, 0, 640, 480, 20, SLODWORD(v54), 0);
+  v4 = (int)GUIWindowCreate(0, 0, 640, 480, 20, (GUIButton*)v54, 0);
   pGUIWindow_CurrentMenu = (GUIWindow *)v4;
   dword_507BB8 = v4;
   dword_5076F4 = GUIButtonCreate(
@@ -14505,7 +14515,7 @@ void __fastcall sub_42092D(int a1)
   signed int v7; // eax@4
   signed int v8; // edx@4
   signed int v9; // ecx@4
-  int v10; // esi@4
+  cTexture *v10; // esi@4
   int v11; // eax@4
   int v12; // eax@6
   int v13; // eax@6
@@ -14545,21 +14555,21 @@ void __fastcall sub_42092D(int a1)
         v11 = LODFile_Icons_LOD.LODFile_LoadTexture(
                 (char *)pClass40->pItems[12 * *(int *)((char *)&dword_5E5130[9 * v6] + v1)].pIconName,
                 2);
-        v10 = v11 != -1 ? 72 * v11 + 7145548 : 0;
-        v9 = *(_WORD *)(v11 != -1 ? 72 * v11 + 7145548 + 0x18 : 24);
-        v8 = *(_WORD *)(v11 != -1 ? 72 * v11 + 7145548 + 0x1A : 26);
-        v7 = *(_WORD *)(v11 != -1 ? 72 * v11 + 7145548 + 0x18 : 24);
+        v10 = v11 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v11] : NULL;
+        v9 = (v11 != -1 ? LODFile_Icons_LOD.aLODHeaders[v11].uTextureWidth : 24);
+        v8 = (v11 != -1 ? LODFile_Icons_LOD.aLODHeaders[v11].uTextureHeight : 26);
+        v7 = (v11 != -1 ? LODFile_Icons_LOD.aLODHeaders[v11].uTextureWidth : 24);
         if ( v9 < 14 )
           v7 = 14;
         v13 = v7 - 14;
         LOBYTE(v13) = v13 & 0xE0;
         v12 = v13 + 32;
-        if ( (signed int)*(_WORD *)(v10 + 26) < 14 )
+        if (v10->uTextureHeight < 14 )
           v8 = 14;
         v14 = v19 + 32 * v22 % v20 + ((v12 - v9) >> 1);
         v15 = v17 + 32 * v22 / v18 + ((((v8 - 14) & 0xFFFFFFE0) - *(_WORD *)(v10 + 26) + 32) >> 1);
         Render_DrawTransparentTexture(pD3DRenderer, v14, v15, (cTexture *)v10);
-        sub_40F92A(v16 + 4 * (v14 + dword_5059A8[v15]), v10, v22 + 1);
+        sub_40F92A(v16 + 4 * (v14 + dword_5059A8[v15]), (int)v10, v22 + 1);
         v2 = (int)pD3DRenderer;
       }
       ++v22;
@@ -14569,8 +14579,8 @@ void __fastcall sub_42092D(int a1)
   }
   Render_DrawIndexedTexture(
     (BaseRender *)v2,
-    *(_DWORD *)dword_5076F4,
-    *(_DWORD *)(dword_5076F4 + 4),
+     dword_5076F4->uX,
+     dword_5076F4->uY,
     uTextureID_right_backgr != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr]: 0);
 }
 
@@ -14824,7 +14834,7 @@ void __cdecl sub_420E01()
 int __thiscall sub_4219BE(void *_this)
 {
   int v2; // esi@1
-  int v3; // ebx@1
+  GUIWindow *v3; // ebx@1
 
   v2 = (int)_this;
   class24_fn1(pClass24_global);
@@ -14832,9 +14842,9 @@ int __thiscall sub_4219BE(void *_this)
   dword_5118E0 = 0;
   CharacterUI_LoadPaperdollTextures();
   dword_4E28F8 = 23;
-  v3 = (int)GUIWindowCreate(0, 0, 640, 480, 31, v2, 0);
+  v3 = GUIWindowCreate(0, 0, 640, 480, 31, (GUIButton*)v2, 0);
   pCharacterUI_BtnExit = GUIButtonCreate(
-                   (GUIWindow *)v3,
+                   v3,
                    394,
                    318,
                    75,
@@ -14844,15 +14854,15 @@ int __thiscall sub_4219BE(void *_this)
                    168,
                    0,
                    0,
-                   pGlobalTXT_LocalizationStrings[79],
+                   pGlobalTXT_LocalizationStrings[LOCSTR_EXIT],
                     &LODFile_Icons_LOD.aLODHeaders[uTextureID_ButtExit1]);
-  GUIButtonCreate((GUIWindow *)v3, 0, 0, 476, 345, 1, 122, 120, 0, 0, (unsigned char *)"", 0);
-  dword_507690 = GUIButtonCreate((GUIWindow *)v3, 476, 0, 164, 345, 1, 0, 133, 0, 0, (unsigned char *)"", 0);
-  GUIButtonCreate((GUIWindow *)v3, 61, 424, 31, 0, 2, 94, 110, 1, 49, (unsigned char *)"", 0);
-  GUIButtonCreate((GUIWindow *)v3, 177, 424, 31, 0, 2, 94, 110, 2, 50, (unsigned char *)"", 0);
-  GUIButtonCreate((GUIWindow *)v3, 292, 424, 31, 0, 2, 94, 110, 3, 51, (unsigned char *)"", 0);
-  GUIButtonCreate((GUIWindow *)v3, 407, 424, 31, 0, 2, 94, 110, 4, 52, (unsigned char *)"", 0);
-  return v3;
+  GUIButtonCreate(v3, 0, 0, 476, 345, 1, 122, 120, 0, 0, (unsigned char *)"", 0);
+  dword_507690 = GUIButtonCreate(v3, 476, 0, 164, 345, 1, 0, 133, 0, 0, (unsigned char *)"", 0);
+  GUIButtonCreate(v3, 61, 424, 31, 0, 2, 94, 110, 1, 49, (unsigned char *)"", 0);
+  GUIButtonCreate(v3, 177, 424, 31, 0, 2, 94, 110, 2, 50, (unsigned char *)"", 0);
+  GUIButtonCreate(v3, 292, 424, 31, 0, 2, 94, 110, 3, 51, (unsigned char *)"", 0);
+  GUIButtonCreate(v3, 407, 424, 31, 0, 2, 94, 110, 4, 52, (unsigned char *)"", 0);
+  return (int)v3;
 }
 
 //----- (00421B2C) --------------------------------------------------------

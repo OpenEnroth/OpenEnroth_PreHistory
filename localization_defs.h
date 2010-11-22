@@ -15,14 +15,27 @@
 
 #define  LOCSTR_AVARDS_FOR                  		23 //"Awards for"
 
-#define  LOCSTR_RANGER		                        31 //"Ranger"	
 
-#define  LOCSTR_CLASS                       		41	// "Class"	
+#define  LOCSTR_RANGER		                        31 //"Ranger"
+
+#define  LOCSTR_CANCEL		                        34 //"Cancel"	
+
+#define  LOCSTR_SELECT_TGT                  		39	 ///"Select Target"
+
+#define  LOCSTR_CLASS                       		41	// "Class"
+
+#define  LOCSTR_CONDITION                   		47	//"Condition"	
+
+#define  LOCSTR_EXIT                        		79	// "Exit"	
+#define  LOCSTR_EXIT_BLDNG                  		80   // "Exit Building"	
+
+#define  LOCSTR_HIT_POINTS		                    108	// "Hit Points"	
 
 #define  LOCSTR_ROGUE                           	114	 //"Rogue"
 
 #define  LOCSTR_MIGHT		                        144	 //"Might"
 
+#define  LOCSTR_STAY_IN_AREA		                156  //"Stay in this Area"	
 #define  LOCSTR_3DO_COPYRHT							157	  // ""© 1999 The 3DO Company.
 
 #define  LOCSTR_SKILL_POINTS		                207 /// "Skill Points"	
@@ -42,6 +55,8 @@
 #define  LOCSTR_DRUID		                        268 // "Druid"	
 
 #define  LOCSTR_THIEF                       		307 //"Thief"
+
+#define  LOCSTR_ENTER_S		                        411 // "Enter %s"	
 
 #define  LOCSTR_S_THE_S                             429    //"%s the %s"
 /*
@@ -81,7 +96,7 @@
 +		[36]	0x04102f5b "%s can not be used that way"	unsigned char *
 +		[37]	0x04102f7b "Total Time:"	unsigned char *
 +		[38]	0x04102f8b "Cast Spell"	unsigned char *
-+		[0x27]	0x04102f9a "Select Target"	unsigned char *
+
 +		[0x28]	0x04102fac "Bounty Hunter"	unsigned char *
 
 +		[0x2a]	0x04102fc8 "Clerk"	unsigned char *
@@ -89,7 +104,7 @@
 +		[0x2c]	0x04102fdb "Priest of Light"	unsigned char *
 +		[45]	0x04102fef "Cond"	unsigned char *
 +		[46]	0x04102ff8 "Priest of Dark"	unsigned char *
-+		[47]	0x0410300b "Condition"	unsigned char *
+
 +		[48]	0x04103019 "Warlock"	unsigned char *
 +		[49]	0x04103025 "Lich"	unsigned char *
 +		[50]	0x0410302e "Dodging"	unsigned char *
@@ -122,7 +137,7 @@
 +		[0x4d]	0x0410328f "Unarmed"	unsigned char *
 +		[0x4e]	0x0410329b "Calendar"	unsigned char *
 +		[0x4f]	0x041032a8 "Exit"	unsigned char *
-+		[80]	0x041032b1 "Exit Building"	unsigned char *
+
 +		[81]	0x041032c3 "Exit Rest"	unsigned char *
 +		[82]	0x041032d1 "Are you sure?  Click again to quit"	unsigned char *
 +		[83]	0x041032f8 "Experience"	unsigned char *
@@ -198,7 +213,7 @@
 +		[153]	0x041037d6 "None"	unsigned char *
 +		[154]	0x041037e0 "Auto Notes"	unsigned char *
 +		[155]	0x041037f0 "You don't have enough gold"	unsigned char *
-+		[156]	0x04103810 "Stay in this Area"	unsigned char *
+
 +		[157]	0x04103827 ""© 1999 The 3DO Company.  All Rights Reserved.  Might and Magic, Blood and Honor, New World Computing, 3DO, and their respective logos, are trademarks and/or service marks of The 3DO Company in the U.S. and other countries.  All other trademarks belong to their respective owners.  New World Computing is a division of The 3DO Company.""	unsigned char *
 +		[158]	0x0410397d "Bootleg Bay East"	unsigned char *
 +		[159]	0x04103993 "Display Inventory"	unsigned char *
@@ -450,7 +465,7 @@
 +		[408]	0x041049e9 "Dismiss %s"	unsigned char *
 +		[409]	0x041049f9 "Do you wish to leave %s?"	unsigned char *
 +		[410]	0x04104a17 "Leave %s"	unsigned char *
-+		[411]	0x04104a25 "Enter %s"	unsigned char *
+
 +		[412]	0x04104a33 "Create Party cannot be completed unless you have assigned all characters 2 extra skills and have spent all of your bonus points."	unsigned char *
 +		[413]	0x04104ab9 "You can't spend more than 50 points."	unsigned char *
 +		[414]	0x04104ae3 "This place is open from %d%s to %d%s"	unsigned char *

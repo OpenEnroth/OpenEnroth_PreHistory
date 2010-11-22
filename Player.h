@@ -95,10 +95,10 @@ struct Spellbook
 
 struct Player
 {
- union
- {
-  struct
-  {
+// union
+// {
+ // struct
+ // {
    __int64          pConditions[20];      // qword[20] @ 000000   [14] eradicated  [16] dead
    unsigned __int64 uExperience;          // qword     @ 0000A0
    unsigned char    sName[16];            // byte[16]  @ 0000A8
@@ -205,12 +205,12 @@ struct Player
    int dword_001AA8;
 
    int dword_001B38;
-  };
-  struct
-  {
-   unsigned char _[0x1B3C];
-  };
- };
+//  };
+//  struct
+ // {
+ //  unsigned char _[0x1B3C];
+ // };
+// };
 };
 //sizeof == 1B3C
 

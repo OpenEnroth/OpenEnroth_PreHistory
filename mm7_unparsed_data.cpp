@@ -64,8 +64,8 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  int dword_4E2A50[12] = {35, 33, 24, 21, 32, 36, 29, 25, 22, 26, 23, 34};
  int dword_4E2A80[9] = {12, 13, 14, 15, 16, 17, 18, 19, 20};
  _BYTE byte_4E2AA4[20] = {248, 108, 160, 112, 220, 248, 192, 192, 240, 64, 244, 96, 232, 244, 96, 240, 252, 192, 0, 0};
- int dword_4E2AB8[4] = {16, 137, 251, 366};
- int dword_4E2AC8[4] = {102, 217, 331, 447};
+ int uHealthBarPos[4] = {22, 137, 251, 366};		 //dword _4E2AB8
+ int uManaBarPos[4] = {102, 217, 331, 447};		  //dword _4E2AC8
  _UNKNOWN unk_4E2AD9; // weak
  _UNKNOWN unk_4E2B21; // weak
  char byte_4E2B70[array_size_unknown]; // weak
@@ -564,8 +564,8 @@ class cTexture* dword_5064E4; // weak
 class cTexture* dword_5064E8; // weak
 class cTexture* dword_5064EC; // weak
 class cTexture* dword_5064F0; // weak
- int dword_5064F4; // weak
- int dword_5064F8; // weak
+struct GUIButton *dword_5064F4 = 0; // weak
+struct GUIButton *dword_5064F8 = 0; // weak
 struct GUIButton *dword_5064FC = 0; // weak
 struct GUIButton *dword_506500 = 0; // weak
 struct GUIButton *dword_506504 = 0; // weak

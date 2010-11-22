@@ -3368,7 +3368,7 @@ LABEL_30:
       sub_4B1E92(v1, v0);
       return;
     }
-    v1 = ptr_507BC0->dword_00001C;
+    v1 = (int)ptr_507BC0->dword_00001C;
     v2 = pParty_global->array_000334[2 * v1 + 1];
     if ( v2 < HIDWORD(pParty_global->qword_00002C)
       || v2 <= HIDWORD(pParty_global->qword_00002C) && (unsigned int)pParty_global->array_000334[2 * v1] <= (_DWORD)pParty_global->qword_00002C )
@@ -3822,7 +3822,7 @@ LABEL_77:
   strcpy(v23, v25);
   pParty_global->byte_000709 = 0;
   sub_44A56A();
-  sub_44606A(ptr_507BC0->dword_00001C);
+  sub_44606A((int)ptr_507BC0->dword_00001C);
   dword_F8B19C = 1;
   if ( dword_50CBD0[0] < 40 )
   {
@@ -4619,7 +4619,7 @@ int __thiscall sub_4B3703(void *_this)
       v19 = 1;
       do
       {
-       v20 = v19 + 4 * ptr_507BC0->dword_00001C + ptr_507BC0->dword_00001C;
+       v20 = v19 + 4 * (int)ptr_507BC0->dword_00001C + ptr_507BC0->dword_00001C;
         if ( v4 )
           v21 = word_4F063E[v20];
         else
@@ -5217,9 +5217,9 @@ int __cdecl sub_4B3E1E()
 
   v2 = (char *)sub_4459F9_GetNPCData(uDialogue_SpeakingActorID);
   v1 = 0;
-  pDialogueWindow->bSlotUsed = 1;
+  pDialogueWindow->uWindowType = 1;
   GUIWindowDelete(pDialogueWindow);
-  v0 = (int)GUIWindowCreate(0, 0, 640, 480, 10, 1, 0);
+  v0 = (int)GUIWindowCreate(0, 0, 640, 480, 10, (GUIButton *)1, 0);
   pDialogueWindow = (GUIWindow *)v0;
   //if ( (&dword_737C2C)[20 * *((_DWORD *)v2 + 6)] )
   if (pNPCStats->pProfessions[*((_DWORD *)v2 + 6) - 1].pBenefits)
@@ -5242,7 +5242,7 @@ int __fastcall sub_4B3EF0(int a1)
   dword_F8B1E8 = (char *)dword_721984[2 * a1];
   sub_4B29F2(a1);
   GUIWindowDelete(pDialogueWindow);
-  pDialogueWindow = GUIWindowCreate(0, 0, 640, 350, 1, v2, 0);
+  pDialogueWindow = GUIWindowCreate(0, 0, 640, 350, 1, (GUIButton*)v2, 0);
   dword_5076F4 = GUIButtonCreate(pDialogueWindow,
                    471,
                    445,
@@ -5274,7 +5274,7 @@ int __fastcall sub_4B3FE5(void *a1)
   dword_F8B1E8 = (char *)dword_721BAC[2 * (_DWORD)a1];
   sub_4B254D(a1);
   GUIWindowDelete(pDialogueWindow);
-  pDialogueWindow = GUIWindowCreate(0, 0, 640, 350, 1, v2, 0);
+  pDialogueWindow = GUIWindowCreate(0, 0, 640, 350, 1, (GUIButton*)v2, 0);
   v1 = "";
   dword_5076F4 = GUIButtonCreate(pDialogueWindow,
                    471,
@@ -7082,7 +7082,7 @@ signed int __cdecl sub_4B6478()
     }
     return result;
   }
-  if ( !(unsigned __int16)sub_449B57(v1 + 338, word_4F0754[2 * ptr_507BC0->dword_00001C]) )
+  if ( !(unsigned __int16)sub_449B57(v1 + 338, word_4F0754[2 * (int)ptr_507BC0->dword_00001C]) )
   {
     v24 = dword_721BC4;
     v25 = v33[0];
@@ -12562,12 +12562,12 @@ LABEL_200:
     switch ( v61 )
     {
       case 96:
-        pDialogueWindow->bSlotUsed = 1;
+        pDialogueWindow->uWindowType = 1;
         sub_4BCA33();
         sub_4B3703((void *)dword_F8B198);
         break;
       case 101:
-        pDialogueWindow->bSlotUsed = 1;
+        pDialogueWindow->uWindowType = 1;
         sub_4BCA33();
         sub_4B3A72((void *)dword_F8B198);
         break;
@@ -12642,7 +12642,7 @@ LABEL_200:
             {
               if ( v61 == 94 )
               {
-                pDialogueWindow->bSlotUsed = 1;
+                pDialogueWindow->uWindowType = 1;
                 sub_4BCA33();
                 sub_4B3AD4(dword_F8B198);
               }
@@ -13792,7 +13792,7 @@ int __thiscall VideoPlayer_sub_4BF5B2(int _this)
         if ( result )
         {
           AudioPlayer_sub_4AA306(pAudioPlayer, 0, 0, 0, -1, 0, 0, 0, 0);
-          ptr_507BC0 = GUIWindowCreate(0, 0, 640, 480, 25, 165, 0);
+          ptr_507BC0 = GUIWindowCreate(0, 0, 640, 480, 25, (GUIButton*)165, 0);
           GUIButtonCreate(ptr_507BC0, 61, 424, 31, 0, 2, 94, 110, 1, 49, (unsigned char *)"", 0);
           GUIButtonCreate(ptr_507BC0, 177, 424, 31, 0, 2, 94, 110, 2, 50, (unsigned char *)"", 0);
           GUIButtonCreate(ptr_507BC0, 292, 424, 31, 0, 2, 94, 110, 3, 51, (unsigned char *)"", 0);

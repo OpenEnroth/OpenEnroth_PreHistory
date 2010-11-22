@@ -79,8 +79,8 @@ extern int dword_4E2A2C[9];
 extern int dword_4E2A50[12];
 extern int dword_4E2A80[9];
 extern _BYTE byte_4E2AA4[20]; // idb
-extern int dword_4E2AB8[]; // weak
-extern int dword_4E2AC8[]; // weak
+extern int uHealthBarPos[]; // weak
+extern int uManaBarPos[]; // weak
 extern _UNKNOWN unk_4E2AD9; // weak
 extern _UNKNOWN unk_4E2B21; // weak
 extern char byte_4E2B70[array_size_unknown]; // weak
@@ -570,8 +570,8 @@ extern class cTexture* dword_5064E4; // weak
 extern class cTexture* dword_5064E8; // weak
 extern class cTexture* dword_5064EC; // weak
 extern class cTexture* dword_5064F0; // weak
-extern int dword_5064F4; // weak
-extern int dword_5064F8; // weak
+extern struct GUIButton *dword_5064F4; // weak
+extern struct GUIButton *dword_5064F8; // weak
 extern struct GUIButton *dword_5064FC; // weak
 extern struct GUIButton *dword_506500; // weak
 extern struct GUIButton *dword_506504; // weak

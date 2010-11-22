@@ -2059,7 +2059,7 @@ int Party_sub_49135E_GetAllPartyExpDiv1000(struct Party *_this)
 }
 
 
-//----- (00491DE7) --------------------------------------------------------
+//----- (00491DE7) --------.text:0049391C ------------------------------------------------
 int __fastcall sub_491DE7(int a1, int a2)
 {
   int result; // eax@1

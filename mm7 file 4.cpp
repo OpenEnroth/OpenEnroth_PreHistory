@@ -1740,7 +1740,7 @@ signed int __fastcall sub_427769(int a1)
   return result;
 }
 
-//----- (0042777D) --------------------------------------------------------
+//----- (0042777D) -----.text:00427F3B ---------------------------------------------------
 int __fastcall sub_42777D(int a1, int a2, int a3, __int16 a4, int a5)
 {
   int result; // eax@2
@@ -1927,7 +1927,7 @@ LABEL_33:
       {
         if ( ptr_507BD4 )
           return result;
-        ptr_507BD4 = GUIWindowCreate(0, 0, 640, 480, 27, 20 * result + 5292232, 0);
+        ptr_507BD4 = GUIWindowCreate(0, 0, 640, 480, 27, (GUIButton*)(20 * result + 5292232), 0);
         GUIButtonCreate(ptr_507BD4,  52, 422, 35, 0, 2, 0, 69, 0, 49, (unsigned char *)"", 0);
         GUIButtonCreate(ptr_507BD4, 165, 422, 35, 0, 2, 0, 69, 1, 50, (unsigned char *)"", 0);
         GUIButtonCreate(ptr_507BD4, 280, 422, 35, 0, 2, 0, 69, 2, 51, (unsigned char *)"", 0);
@@ -1938,7 +1938,7 @@ LABEL_33:
       {
         if ( ptr_507BD4 )
           return result;
-        ptr_507BD4 = GUIWindowCreate(0, 0, 640, 480, 27, 20 * result + 5292232, 0);
+        ptr_507BD4 = GUIWindowCreate(0, 0, 640, 480, 27, (GUIButton*)(20 * result + 5292232), 0);
         v30 = 0;
         v29 = "";
         v28 = 0;
@@ -1962,7 +1962,7 @@ LABEL_56:
       {
         if ( ptr_507BD4 )
           return result;
-        v18 = (int)GUIWindowCreate(0, 0, 640, 480, 27, 20 * result + 5292232, 0);
+        v18 = (int)GUIWindowCreate(0, 0, 640, 480, 27, (GUIButton*)(20 * result + 5292232), 0);
         v30 = 0;
         v29 = "";
         v28 = 0;
@@ -1986,7 +1986,7 @@ LABEL_56:
       {
         if ( ptr_507BD4 )
           return result;
-        ptr_507BD4 = GUIWindowCreate(0, 0, 640, 480, 27, 20 * result + 5292232, 0);
+        ptr_507BD4 = GUIWindowCreate(0, 0, 640, 480, 27, (GUIButton*)(20 * result + 5292232), 0);
         GUIButtonCreate(ptr_507BD4, 52, 422, 35, 0, 2, 0, 141, 0, 49, (unsigned char *)"", 0);
         GUIButtonCreate(ptr_507BD4, 165, 422, 35, 0, 2, 0, 141, 1, 50, (unsigned char *)"", 0);
         GUIButtonCreate(ptr_507BD4, 280, 422, 35, 0, 2, 0, 141, 2, 51, (unsigned char *)"", 0);
@@ -2009,7 +2009,7 @@ LABEL_56:
       {
         if ( !ptr_507BD4 )
         {
-          ptr_507BD4 = GUIWindowCreate(0, 0, 640, 480, 27, 20 * result + 5292232, 0);
+          ptr_507BD4 = GUIWindowCreate(0, 0, 640, 480, 27, (GUIButton*)(20 * result + 5292232), 0);
           pBtn_Game_NPCScrollLeftDown = GUIButtonCreate(
                            ptr_507BD4,
                            469,
@@ -3860,7 +3860,7 @@ LABEL_133:
             v39 = 28;
             v37 = 61;
 LABEL_134:
-            GUIWindowCreate(v20, v9, v37, v39, v41, v43, v47);
+            GUIWindowCreate(v20, v9, v37, v39, v41, (GUIButton*)v43, v47);
             continue;
           }
           if ( v49 == 165 )
@@ -3924,7 +3924,7 @@ LABEL_134:
                                            + pGUIWindow_CurrentMenu->dword_000038
                                            + 7 * v48;
             uPlayerCreationUI_SelectedCharacter = v28;
-            GUIWindowCreate(*(_DWORD *)array_A74CAC[v28], *(_DWORD *)(array_A74CAC[v28] + 4), 0, 0, 92, (int)array_A74CAC[v28], 1);
+            GUIWindowCreate(*(_DWORD *)array_A74CAC[v28], *(_DWORD *)(array_A74CAC[v28] + 4), 0, 0, 92, (GUIButton*)array_A74CAC[v28], 1);
             v1 = (int)pAudioPlayer;
             AudioPlayer_sub_4AA306(pAudioPlayer, 66, 0, 0, -1, 0, 0, 0, 0);
             v21 = (void *)v26;
@@ -3944,7 +3944,7 @@ LABEL_134:
                                            + pGUIWindow_CurrentMenu->dword_000038
                                            + 7 * v48;
             uPlayerCreationUI_SelectedCharacter = v24;
-            GUIWindowCreate(*(_DWORD *)array_A74CBC[v24], *(_DWORD *)(array_A74CBC[v24] + 4), 0, 0, 92, (int)array_A74CBC[v24], 1);
+            GUIWindowCreate(*(_DWORD *)array_A74CBC[v24], *(_DWORD *)(array_A74CBC[v24] + 4), 0, 0, 92, (GUIButton*)array_A74CBC[v24], 1);
             v1 = (int)pAudioPlayer;
             AudioPlayer_sub_4AA306(pAudioPlayer, 66, 0, 0, -1, 0, 0, 0, 0);
             v21 = (void *)v22;
@@ -3955,12 +3955,12 @@ LABEL_117:
           }
           if ( v49 == 173 )
           {
-           GUIWindowCreate(pMainMenu_NewGame->uX, pMainMenu_NewGame->uY, 0, 0, 90, (int)pMainMenu_NewGame, 0);
+           GUIWindowCreate(pMainMenu_NewGame->uX, pMainMenu_NewGame->uY, 0, 0, 90, pMainMenu_NewGame, 0);
             goto LABEL_99;
           }
           if ( v49 != 174 )
             continue;
-          GUIWindowCreate(pMainMenu_Exit->uX, pMainMenu_Exit->uY, 0, 0, 90, (int)pMainMenu_Exit, 0);
+          GUIWindowCreate(pMainMenu_Exit->uX, pMainMenu_Exit->uY, 0, 0, 90, pMainMenu_Exit, 0);
 LABEL_114:
           v44 = 10;
 LABEL_89:
@@ -3999,7 +3999,7 @@ LABEL_99:
             dword_4E28F8 = 0;
             struct_576FE8.dword_000044 = 1;
           }
-          GUIWindowCreate(602, 450, 0, 0, 92, (int)pBtn_Game_Options, 0);
+          GUIWindowCreate(602, 450, 0, 0, 92, pBtn_Game_Options, 0);
           if ( dword_50CBD0[0] >= 40 )
             continue;
           dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
@@ -4135,7 +4135,7 @@ LABEL_40:
             while ( v11 != v50 );
             v12 = (int)array_A74C8C[v48];
 LABEL_60:
-            GUIWindowCreate(*(_DWORD *)v12, *(_DWORD *)(v12 + 4), 0, 0, 92, v12, 1);
+            GUIWindowCreate(*(_DWORD *)v12, *(_DWORD *)(v12 + 4), 0, 0, 92, (GUIButton*)v12, 1);
             AudioPlayer_sub_4AA306((AudioPlayer *)v1, 66, 0, 0, -1, 0, 0, 0, 0);
             Player_PlaySound((Player *)v10, 102, 0);
             continue;
@@ -4174,7 +4174,7 @@ LABEL_105:
         {
           if ( v49 == 62 )
           {
-            GUIWindowCreate(613, 393, 0, 0, 90, (int)pPlayerCreationUI_BtnPlus, 1);
+            GUIWindowCreate(613, 393, 0, 0, 90, pPlayerCreationUI_BtnPlus, 1);
             PartyCreation_BtnPlusClick(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], (pGUIWindow_CurrentMenu->dword_00002C - pGUIWindow_CurrentMenu->dword_000038) % 7);
             v46 = 0;
             v42 = 0;
@@ -4188,7 +4188,7 @@ LABEL_105:
           }
           if ( v49 == 63 )
           {
-            GUIWindowCreate(523, 393, 0, 0, 90, (int)pPlayerCreationUI_BtnMinus, 1);            
+            GUIWindowCreate(523, 393, 0, 0, 90, pPlayerCreationUI_BtnMinus, 1);            
             PartyCreation_BtnMinusClick(&pParty_global->pPlayers[uPlayerCreationUI_SelectedCharacter], (pGUIWindow_CurrentMenu->dword_00002C - pGUIWindow_CurrentMenu->dword_000038) % 7);
             v46 = 0;
             v42 = 0;
@@ -4222,7 +4222,7 @@ LABEL_105:
           }
           if ( v49 == 66 ) // Character Creation :: OK
           {
-            GUIWindowCreate(580, 431, 0, 0, 90, (int)pPlayerCreationUI_BtnOK, 0);
+            GUIWindowCreate(580, 431, 0, 0, 90, pPlayerCreationUI_BtnOK, 0);
             /*if ( PlayerCreation_ComputeAttributeBonus() || !sub_4908DE() ) // check all points are destributed
               dword_5C35B8 = GetTickCount() + 4000;
             else*/
@@ -4231,7 +4231,7 @@ LABEL_105:
           }
           if ( v49 == 67 )
           {
-            GUIWindowCreate(527, 431, 0, 0, 90, (int)pPlayerCreationUI_BtnReset, 0);
+            GUIWindowCreate(527, 431, 0, 0, 90, pPlayerCreationUI_BtnReset, 0);
             Party_Reset(pParty_global);
           }
           else
@@ -4270,25 +4270,25 @@ LABEL_44:
             default:
               if ( v49 == 54 )
               {
-                GUIWindowCreate(495, 172, 0, 0, 90, (int)pMainMenu_NewGame, 0);
+                GUIWindowCreate(495, 172, 0, 0, 90, pMainMenu_NewGame, 0);
                 v2 = (void *)1;
                 goto LABEL_90;
               }
               if ( v49 == 55 )
               {
-                GUIWindowCreate(495, 227, 0, 0, 90, (int)pMainMenu_LoadGame, 0);
+                GUIWindowCreate(495, 227, 0, 0, 90, pMainMenu_LoadGame, 0);
                 v44 = 3;
                 goto LABEL_89;
               }
               if ( v49 == 56 )
               {
-                GUIWindowCreate(495, 282, 0, 0, 90, (int)pMainMenu_Credits, 0);
+                GUIWindowCreate(495, 282, 0, 0, 90, pMainMenu_Credits, 0);
                 v44 = 2;
                 goto LABEL_89;
               }
               if ( v49 == 57 )
               {
-                GUIWindowCreate(495, 337, 0, 0, 90, (int)pMainMenu_Exit, 0);
+                GUIWindowCreate(495, 337, 0, 0, 90, pMainMenu_Exit, 0);
                 v44 = 4;
                 goto LABEL_89;
               }
@@ -14395,7 +14395,7 @@ void __fastcall sub_467F48(signed int a1)
       if ( a1 <= 782 )
       {
         dword_720980 = LODFile_Icons_LOD.LODFile_LoadTexture( "leather", 2);
-        ptr_507BC4 = GUIWindowCreate(0, 0, 640, 480, 30, v1 - 700, 0);
+        ptr_507BC4 = GUIWindowCreate(0, 0, 640, 480, 30, (GUIButton *)(v1 - 700), 0);
       }
     }
   }
@@ -14458,7 +14458,7 @@ void __cdecl sub_467FB6()
   GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, 0, 0, (char *)TmpBuf, 3);
   FontDrawText(&local_0C, pFontSmallnum,
            1,
-           *(_BYTE *)(pFontCreate + 5) - 3,
+           pFontCreate->uFontHeight - 3,
            (&dword_723D38)[4 * ptr_507BC4->dword_00001C],
            0,
            0,

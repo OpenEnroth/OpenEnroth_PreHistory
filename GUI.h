@@ -34,9 +34,12 @@ struct GUIWindow
  unsigned int uFrameHeight; // dword @ 00000C
  unsigned int uFrameZ;      // dword @ 000010
  unsigned int uFrameW;      // dword @ 000014
- unsigned int bSlotUsed;    // dword @ 000018
-
- int dword_00001C; // looks like pointer to GUIButton, but not always;  maybe UserData
+ unsigned int uWindowType;    // dword @ 000018
+ union 
+	 {
+ struct GUIButton* ptr_00001C; // looks like pointer to GUIButton, but not always;  maybe UserData
+   int dword_00001C; // looks like pointer to GUIButton, but not always;  maybe UserData
+	 };
  unsigned int uNumControls; // dword @ 000020
  int dword_000024;
  int dword_000028;
@@ -52,6 +55,11 @@ struct GUIWindow
  struct GUIButton *pControlsTail; // ptr @ 000050
 };
 //sizeof = 54
+
+
+
+ 
+ 
 
 
 struct GUIButton
@@ -142,9 +150,9 @@ void SetCurrentMenu(unsigned int uMenuID);
 
 
 
-struct GUIWindow *__fastcall GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
+struct GUIWindow * GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
                                              unsigned int uFrameWidth, unsigned int uFrameHeight,
-                                             signed int a5, int a6, int a7);
+                                             unsigned int uWindowType, struct GUIButton *a6, int a7);
 
 struct GUIButton*  GUIButtonCreate(struct GUIWindow *pParentWindow,
                                              unsigned int uX, unsigned int uY,
