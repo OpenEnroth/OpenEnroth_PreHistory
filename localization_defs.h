@@ -10,7 +10,10 @@
 
 
 
-#define  LOCSTR_ASSASIN                     		13	// "Assassin"	
+#define  LOCSTR_ASSASIN                     		13	// "Assassin"
+
+#define  LOCSTR_AUTOSAVE                    		16	// "Autosave"	
+
 #define  LOCSTR_MONK                        		21 //"Monk"	
 
 #define  LOCSTR_AVARDS_FOR                  		23 //"Awards for"
@@ -25,6 +28,11 @@
 #define  LOCSTR_CLASS                       		41	// "Class"
 
 #define  LOCSTR_CONDITION                   		47	//"Condition"	
+
+#define  LOCSTR_TROUBLE_LOAD                 		63 //"Might and Magic VII is having trouble loading files. 
+	                                                   // Please re-install to fix this problem. Note: Re-installing will not destroy your save games."	
+
+#define  LOCSTR_EMPTY                       		72 // "Empty"	
 
 #define  LOCSTR_EXIT                        		79	// "Exit"	
 #define  LOCSTR_EXIT_BLDNG                  		80   // "Exit Building"	
@@ -59,6 +67,8 @@
 #define  LOCSTR_ENTER_S		                        411 // "Enter %s"	
 
 #define  LOCSTR_S_THE_S                             429    //"%s the %s"
+
+#define  LOCSTR_AUTOSAVE_MM7                    	613// "AutoSave.MM7"	
 /*
 
 +		[4]	0x04102dab "Afraid"	unsigned char *
@@ -73,7 +83,7 @@
 
 +		[0xe]	0x04102e2d "Asleep"	unsigned char *
 +		[0xf]	0x04102e38 "Assertion failed at %d in %s"	unsigned char *
-+		[0x10]	0x04102e59 "Autosave"	unsigned char *
+
 +		[17]	0x04102e66 "Exp."	unsigned char *
 +		[18]	0x04102e6f "Attack"	unsigned char *
 +		[19]	0x04102e7a "Available"	unsigned char *
@@ -120,7 +130,7 @@
 +		[60]	0x041030ab "Deposit"	unsigned char *
 +		[61]	0x041030b7 "Press Escape"	unsigned char *
 +		[62]	0x041030c8 "Might and Magic VII requires your desktop to be in 16bit (32k or 65k) Color mode in order to operate in a window."	unsigned char *
-+		[63]	0x0410313e "Might and Magic VII is having trouble loading files. Please re-install to fix this problem. Note: Re-installing will not destroy your save games."	unsigned char *
+
 +		[64]	0x041031d4 "Detail Toggle"	unsigned char *
 +		[65]	0x041031e6 "Diseased"	unsigned char *
 +		[0x42]	0x041031f3 "Dmg"	unsigned char *
@@ -129,7 +139,7 @@
 +		[69]	0x04103225 "Drunk"	unsigned char *
 +		[70]	0x0410322f "Earth"	unsigned char *
 +		[71]	0x04103239 "Electricity"	unsigned char *
-+		[72]	0x04103249 "Empty"	unsigned char *
+
 +		[73]	0x04103253 "Enter"	unsigned char *
 +		[74]	0x0410325d "End Conversation"	unsigned char *
 +		[75]	0x04103272 "Endurance"	unsigned char *
@@ -667,7 +677,7 @@
 +		[610]	0x04105b95 "Day of Protection"	unsigned char *
 +		[611]	0x04105bac "Play ArcoMage"	unsigned char *
 +		[612]	0x04105bbf "Save game corrupted!  Code=%d"	unsigned char *
-+		[613]	0x04105be2 "AutoSave.MM7"	unsigned char *
+
 +		[614]	0x04105bf4 "New Game"	unsigned char *
 +		[615]	0x04105c02 "Save Game"	unsigned char *
 +		[616]	0x04105c11 "Load Game"	unsigned char *

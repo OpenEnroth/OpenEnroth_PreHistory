@@ -1683,18 +1683,12 @@ extern int dword_69CEFC; // weak
 extern int dword_69CF00; // weak
 extern int dword_69CF04; // weak
 extern int dword_69CF08; // weak
-extern int dword_69CF0C; // weak
-extern int dword_69CF10; // weak
-extern int dword_69CF14; // weak
-extern int dword_69CF18; // weak
-extern int dword_69CF1C; // weak
-extern int dword_69CF20; // weak
-extern int dword_69CF24; // idb
-extern int dword_69CF28[array_size_unknown]; // weak
-extern _UNKNOWN unk_69CFE0; // weak
-extern char byte_69CFF4[11200]; // idb
+
+
+
+
 extern _UNKNOWN unk_69FBB4; // weak
-extern _UNKNOWN unk_6A0118; // weak
+
 extern int dword_6A013C[array_size_unknown]; // weak
 extern _UNKNOWN unk_6A0758; // weak
 extern _UNKNOWN unk_6A07A4; // weak
@@ -1784,7 +1778,7 @@ extern int dword_6BD07C; // weak
 
 extern struct unnamed_6BD080
 {
- short word_000000[2000];
+ short word_000000[2000];	 //
  int dword_000FA0;
  int dword_000FA4;
 } struct_6BD080;

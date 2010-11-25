@@ -58,9 +58,6 @@ struct GUIWindow
 
 
 
- 
- 
-
 
 struct GUIButton
 {

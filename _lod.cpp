@@ -619,7 +619,7 @@ void *LODFile_IB::LODFile_LoadRaw( const char *pContainer, int a3)
     ReadFile(hFile, &cTexture_obj, 0x30, &w, 0);
 #endif
 #ifdef OLD_CODE
-	 locked_fread(&cTexture_obj, 1, 0x30u, pContainerFile);
+	 locked_fread(&cTexture_obj, 1, 48, pContainerFile);
 #endif
 	
   if (cTexture_obj.uDecompressedSize)

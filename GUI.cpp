@@ -4,6 +4,7 @@
 #include "localization_defs.h"
 
 #include "font.h"
+#include "menus.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
@@ -57,6 +58,28 @@ class cPCXTexture  cPCXID_CurrentMenu;
 	   "pc14", "pc15","pc16","pc17-","pc18","pc19","pc20","pc21-","pc22-","pc23","pc24-","pc25-"
 	};
 
+
+ //----- (00491DE7) --------.text:0049391C ------------------------------------------------
+int __fastcall sub_491DE7(int a1, int a2)
+{
+  int result; // eax@1
+  char *v3; // ebx@1
+  int v4; // ebp@1
+  int i; // esi@2
+
+  result = 0;
+  //portret_names[], 
+ // v4 = 4 * a2 + 5164080;
+  v3 = (char *)(pTextureIdx_PlayerFaces[a2][a1] );	//+ 224 * a1
+ for( i=1; i< 56; i++)
+	 {
+    wsprintfA((char *)TmpBuf, "%s%02d", portret_names[a2], i);
+    LODFile_Icons_LOD.LODFile_sub_4101B1((char*)pTextureIdx_PlayerFaces[a2][i], (char *)TmpBuf, 2);
+  
+  }
+ 
+  return 0;
+}
 
 //----- (00421626) --------------------------------------------------------
 struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
@@ -126,7 +149,7 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    168,
                    0,
                    0,
-                   pGlobalTXT_LocalizationStrings[79],
+                   pGlobalTXT_LocalizationStrings[LOCSTR_EXIT],
                    &LODFile_Icons_LOD.aLODHeaders[uTextureID_ButtExit1],0 );
   GUIButtonCreate(pCharacterWindow, 0, 0, 476, 345, 1, 122, 120, 0, 0, (unsigned char *)"", 0);
   dword_507694 = GUIButtonCreate(pCharacterWindow, 600, 300, 30, 30, 1, 0, 85, 0, 0, pGlobalTXT_LocalizationStrings[64], 0);
@@ -3862,8 +3885,8 @@ LABEL_709:
           GUIButton_sub_41D0D8(dword_507690);
           if ( dword_5118E0 )
           {
-		  v145 = *(_WORD *)(dword_5118C8 != -1 ? LODFile_Icons_LOD.aLODHeaders[dword_5118C8].uTextureHeight : 26);
-            v142 = *(_WORD *)(dword_5118C8 != -1 ? LODFile_Icons_LOD.aLODHeaders[dword_5118C8].uTextureWidth : 24);
+		  v145 = (dword_5118C8 != -1 ? LODFile_Icons_LOD.aLODHeaders[dword_5118C8].uTextureHeight : 26);
+            v142 = (dword_5118C8 != -1 ? LODFile_Icons_LOD.aLODHeaders[dword_5118C8].uTextureWidth : 24);
             v140 = 445;
             v138 = 470;
           }
@@ -9458,10 +9481,9 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
   CharacterUI_DrawPaperdoll(v3);
   Render_DrawTransparentTexture(pD3DRenderer, 473, 0, (uTextureID_GameUI_PaperdollJewelryOverlay != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_GameUI_PaperdollJewelryOverlay] : 0));
   Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (uTextureID_507B04 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04] : 0));
-  Render_DrawTransparentTexture(
-    pD3DRenderer,
-    *(_DWORD *)dword_507694,
-    *(_DWORD *)(dword_507694 + 4),
+  Render_DrawTransparentTexture(pD3DRenderer,
+    dword_507694->uX,
+    dword_507694->uY,
     (dword_5118C8 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_5118C8]: 0));
   v1 = 0;
   v55 = v2 + 6512;
@@ -9706,16 +9728,16 @@ void __cdecl CharacterUI_SkillsTab_ShowHint()
   int v1; // ecx@1
   int i; // esi@6
   const char *v3; // eax@12
-  int v5; // [sp+4h] [bp-8h]@1
+  POINT v5; // [sp+4h] [bp-8h]@1
   int v6; // [sp+8h] [bp-4h]@1
 
   //class03_GetMousePos(pGame->pClass03, (int)&v5, (int)&v6);
-  class03_GetMousePos(pGame->pClass03, (POINT *)&v5);
-  v1 = v5;
-  v0 = v6;
-  if ( v5 < 24 || v5 > 455 || v6 < 18 || v6 > 36 )
+  class03_GetMousePos(pGame->pClass03, &v5);
+  v1 = v5.x;
+  v0 = v5.y;
+  if ( v5.x < 24 || v5.x > 455 || v5.y < 18 || v5.y > 36 )
   {
-    for ( i = *(_DWORD *)(pGUIWindow_CurrentMenu + 76); i; i = *(_DWORD *)(i + 52) )
+    for ( i = *(DWORD*)pGUIWindow_CurrentMenu->pControlsHead; i; i = *(_DWORD *)(i + 52) )
     {
       if ( *(_DWORD *)(i + 32) == 121 )
       {
@@ -9729,8 +9751,8 @@ void __cdecl CharacterUI_SkillsTab_ShowHint()
               {
                 v3 = (const char *)sub_417BB5(uActiveCharacter - 1, *(_DWORD *)(i + 36));
                 sub_4179BC((int)aSkillNames[*(_DWORD *)(i + 36)], v3);//sub_4179BC((int)(&dword_AE32D0)[4 * *(_DWORD *)(i + 36)], v3);
-                v0 = v6;
-                v1 = v5;
+                v0 = v5.y;
+                v1 = v5.x;
               }
             }
           }
@@ -10072,7 +10094,7 @@ void __cdecl sub_4156F0_LooksLike_UI_ProcessCallbacks()
         {
           if ((int)pWnd->ptr_000048 != 1)
             AudioPlayer_sub_4AA306(pAudioPlayer, 75, 0, 0, -1, 0, 0, 0, 0);
-          v43 = (GUIButton *)pWnd->dword_00001C;
+          v43 = pWnd->ptr_00001C;
           Render_DrawIndexedTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, v43->pTexture[0]);
           v42 = *(const char **)((char*)pWnd + 72);
           struct_576FE8.dword_000044 = 1;
@@ -10163,7 +10185,7 @@ LABEL_114:
         }
         if ((int)pWnd->ptr_000048 != 1 )
           AudioPlayer_sub_4AA306(pAudioPlayer, 75, 0, 0, -1, 0, 0, 0, 0);
-        v32 = (GUIButton*)pWnd->dword_00001C;
+        v32 = pWnd->ptr_00001C;
         Render_DrawIndexedTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, v32->pTexture[1]);
         goto LABEL_138;
       }
@@ -10171,7 +10193,7 @@ LABEL_114:
       {
         if ((int)pWnd->ptr_000048 != 1 )
           AudioPlayer_sub_4AA306(pAudioPlayer, 75, 0, 0, -1, 0, 0, 0, 0);
-        v32 = (GUIButton*)pWnd->dword_00001C;
+        v32 = pWnd->ptr_00001C;
         Render_DrawTransparentTexture(pD3DRenderer, pWnd->uFrameX, pWnd->uFrameY, v32->pTexture[0]);
 LABEL_138:
         v40 = *(const char **)((char*)pWnd + 72);
@@ -10774,7 +10796,7 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
           v21 %= 24i64;
           v11 = sub_417939(v8);
 
-          wsprintfA((char *)TmpBuf, "\x0C%05d%s\x0C\x30\x30\x30\x30\x30 - ", v11, v10);
+          wsprintfA((char *)TmpBuf, "\f%06d%s\f000000 - ", v11, v10);
           strcat((char *)pStringBuffer, (char *)TmpBuf);
           if ( v21 && v21 <= 1 )
             v12 = (int)pGlobalTXT_LocalizationStrings[109];
@@ -12066,5 +12088,3 @@ void MenuUI_LoadTextures(unsigned int uAlignment)
 }
 
 #endif
-
-#undef OLD_CODE

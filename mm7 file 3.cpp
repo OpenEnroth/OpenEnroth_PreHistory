@@ -1,6 +1,6 @@
 #include <ddraw.h>
 //#include <dinput.h>
-
+#include "menus.h"
 
 #include "AIL.h"
 #include "font.h"

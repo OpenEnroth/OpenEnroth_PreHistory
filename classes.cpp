@@ -2888,11 +2888,11 @@ void CMonsterStats_ctor(struct CMonsterStats *_this)
 {
 }
 
-//----- (0045501E) --------------------------------------------------------
+//----- (0045501E) ----------.text:00456186----------------------------------------------
 int CMonsterStats_Initialize(struct CMonsterStats *_this)
 {
   void *v1; // ebx@1
-  int v2; // ebx@4
+  //int v2; // ebx@4
   int v3; // eax@5
   char v4; // cl@5
   size_t v5; // eax@19
@@ -2933,7 +2933,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
   int v41; // edi@180
   int v42; // esi@180
   size_t v43; // eax@180
-  int v44; // edi@184
+  char *v44; // edi@184
   int v45; // edx@232
   int v46; // ecx@232
   int v47; // eax@232
@@ -2974,7 +2974,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
   int v83; // [sp-Ch] [bp-464h]@317
   int v84; // [sp-8h] [bp-460h]@306
   int v85; // [sp-4h] [bp-45Ch]@23
-  int v86;
+  char v86;
   char v87; // [sp+10h] [bp-448h]@297
   char v88; // [sp+8Ch] [bp-3CCh]@249
   char v89; // [sp+108h] [bp-350h]@240
@@ -2996,16 +2996,17 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
   char *v105; // [sp+3BCh] [bp-9Ch]@300
   char *Source; // [sp+3C0h] [bp-98h]@303
   int v107; // [sp+430h] [bp-28h]@317
-  int v108; // [sp+434h] [bp-24h]@9
+  char *v108; // [sp+434h] [bp-24h]@9
   int v109; // [sp+438h] [bp-20h]@4
-  __int64 v110; // [sp+43Ch] [bp-1Ch]@4
+  int v110; // [sp+43Ch] [bp-1Ch]@4
   int v111; // [sp+444h] [bp-14h]@36
   int v112; // [sp+448h] [bp-10h]@36
   size_t v113; // [sp+44Ch] [bp-Ch]@19
   int v114; // [sp+450h] [bp-8h]@1
   int v115;
  struct MonsterInfo *pMonsterInfo;
-
+ char *test_str;
+ char c;
   v1 = _this;
   v114 = (int)_this;
 
@@ -3013,79 +3014,85 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
    mem_mng.DeleteBuffer( (void *)pMonstersTXT_Raw);
 
  pMonstersTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "monsters.txt", 0);
- strtok((char *)pMonstersTXT_Raw, "\r");
+ test_str=(char *)pMonstersTXT_Raw;
+ strtok(test_str, "\r");
  strtok(0, "\r");
  strtok(0, "\r");
  strtok(0, "\r");
 
- _this->uNumMonsters = 0;
+ _this->uNumMonsters = 265;
  pMonsterInfo = _this->pMonsterInfos;
- do
+ for( int i=0; i<265; i++)
  {
-    v2 = (int)(strtok(0, "\r") + 1);
-    HIDWORD(v110) = 0;
+    test_str = strtok(0, "\r") + 1;
+    v110 = 0;
     v109 = 0;
     do
     {
-      v4 = *(_BYTE *)v2;
+      c = *test_str;
       v3 = 0;
-      while ( v4 != 9 && v4 )
+      while ( (c != '\t') && c )
       {
         ++v3;
-        v4 = *(_BYTE *)(v3 + v2);
+        c = *(test_str+ v3);
       }
-      v108 = v3 + v2;
-      if ( !*(_BYTE *)(v3 + v2) )
+      v108 = v3 + test_str;
+      if ( !*(v3 + test_str) )
         v109 = 1;
-      *(_BYTE *)(v3 + v2) = 0;
+      *(v3 + test_str) = 0;
       if ( v3 )
       {
-        switch ( HIDWORD(v110) )
+        switch (v110)
         {
           case 0:
-            pMonsterInfo->uID = _this->uNumMonsters;
+            pMonsterInfo->uID = atoi((char *)test_str);
           break;
 
           case 1:
-            pMonsterInfo->pName = (unsigned char *)RemoveQuote((char *)v2);
+            pMonsterInfo->pName = (unsigned char *)RemoveQuote((char *)test_str);
           break;
 
           case 2:
-            pMonsterInfo->pTexture = (unsigned char *)RemoveQuote((char *)v2);
+            pMonsterInfo->pTexture = (unsigned char *)RemoveQuote((char *)test_str);
           break;
 
           case 3:
-            pMonsterInfo->uLevel = atoi((char *)v2);
+            pMonsterInfo->uLevel = atoi((char *)test_str);
           break;
 
           case 4:
-            if (*(char *)v2 == ' ' || *(char *)v2 == '"')
-              pMonsterInfo->uHP = 10;
-            else pMonsterInfo->uHP = atoi((char *)v2);
+
+            if (*test_str == '"')
+				 *test_str == ' ' ;
+			strlen(test_str);
+
+              pMonsterInfo->uHP = 10;   
+            pMonsterInfo->uHP = atoi((char *)test_str);
           break;
 
           case 5:
-            pMonsterInfo->uAC = atoi((char *)v2);
+            pMonsterInfo->uAC = atoi((char *)test_str);
           break;
 
 
           case 6:
-            if (*(char *)v2 == ' ' || *(char *)v2 == '"')
+			  {
+            if (*(char *)test_str == ' ' || *(char *)test_str == '"')
               pMonsterInfo->uExp = 10;
-            else pMonsterInfo->uExp = atoi((char *)v2);
+            else pMonsterInfo->uExp = atoi((char *)test_str);
           break;
-
+			  }
 
           case 7:
             v15 = 0;
             v111 = 0;
             v112 = 0;
             v16 = 0;
-            v113 = strlen((char *)v2);
+            v113 = strlen((char *)test_str);
 
             do
             {
-              v86 = *(_BYTE *)(v16 + v2);
+              v86 = *(_BYTE *)(v16 + test_str);
               v17 = tolower(v86);
               switch ( v17 )
               {
@@ -3104,7 +3111,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
             while ( v16 < v113 );
 
             if ( v15 )
-              pMonsterInfo->byte_000009 = atoi((char *)v2);
+              pMonsterInfo->byte_000009 = atoi((char *)test_str);
             else
               pMonsterInfo->byte_000009 = 100;
 
@@ -3114,12 +3121,12 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
               v112 = 0;
               do
               {
-                v86 = *(_BYTE *)(v19 + v2);
+                v86 = *(_BYTE *)(v19 + test_str);
                 v20 = tolower(v86);
                 if ( v20 == 37 )
                 {
-                  v86 = v19 + v2 + 1;
-                  pMonsterInfo->byte_00000A = atoi((char *)v86);
+                  //v86 = (_BYTE *)(v19 + test_str + 1);
+                  pMonsterInfo->byte_00000A = atoi(v19 + test_str + 1);
                   v112 = 1;
                 }
                 else
@@ -3127,10 +3134,10 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
                   if ( v20 == 100 )
                   {
                     if ( !v112 )
-                      pMonsterInfo->byte_00000A = atoi((char *)v2);
-                    v86 = v19 + v2 + 1;
+                      pMonsterInfo->byte_00000A = atoi((char *)test_str);
+                    //v86 = (_BYTE *)(v19 + test_str + 1);
                     v19 = v113;
-                    pMonsterInfo->byte_00000B = atoi((char *)v86);
+                    pMonsterInfo->byte_00000B = atoi(v19 + test_str + 1);
                   }
                 }
                 ++v19;
@@ -3143,7 +3150,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
               v21 = 0;
               while ( 1 )
               {
-                v86 = *(_BYTE *)(v21 + v2);
+                v86 = *(_BYTE *)(v21 + test_str);
                 if ( tolower(v86) == 108 )
                   break;
                 ++v21;
@@ -3151,8 +3158,8 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
                   break;
               }
 
-              v23 = *(_BYTE *)(v21 + v2 + 1);
-              v22 = (char *)(v21 + v2 + 2);
+              v23 = *(_BYTE *)(v21 + test_str + 1);
+              v22 = (char *)(v21 + test_str + 2);
               pMonsterInfo->byte_00000C = v23 - 48;
               if ( *v22 )
               {
@@ -3212,38 +3219,38 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
 
 
           case 8:
-            pMonsterInfo->bQuestMonster = atoi((char *)v2);
+            pMonsterInfo->bQuestMonster = atoi((char *)test_str);
           break;
 
           case 9:
-            pMonsterInfo->uCanFly = *(char *)v2 == 'Y';
+            pMonsterInfo->uCanFly = *(char *)test_str == 'Y';
           break;
 
           case 10:
-            v86 = *(_BYTE *)v2;
+            v86 = *(_BYTE *)test_str;
             v113 = 4;
             if ( tolower(v86) == 115 )
             {
-              v86 = *(_BYTE *)(v2 + 1);
+              v86 = *(_BYTE *)(test_str + 1);
               v25 = tolower(v86) != 104 ? 5 : 0;
             }
             else
             {
-              v86 = *(_BYTE *)v2;
+              v86 = *(_BYTE *)test_str;
               if ( tolower(v86) == 109 )
               {
                 v113 = 1;
               }
               else
               {
-                v86 = *(_BYTE *)v2;
+                v86 = *(_BYTE *)test_str;
                 if ( tolower(v86) == 108 )
                 {
                   v113 = 2;
                 }
                 else
                 {
-                  v86 = *(_BYTE *)v2;
+                  v86 = *(_BYTE *)test_str;
                   if ( tolower(v86) == 103 )
                     v113 = 3;
                 }
@@ -3254,7 +3261,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
           break;
 
           case 11:
-            v86 = *(_BYTE *)v2;
+            v86 = *(_BYTE *)test_str;
             v113 = 3;
             if ( tolower(v86) == 115 )
             {
@@ -3262,14 +3269,14 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
             }
             else
             {
-              v86 = *(_BYTE *)v2;
+              v86 = *(_BYTE *)test_str;
               if ( tolower(v86) == 119 )
               {
                 v113 = 1;
               }
               else
               {
-                v86 = *(_BYTE *)v2;
+                v86 = *(_BYTE *)test_str;
                 if ( tolower(v86) == 110 )
                   v113 = 2;
               }
@@ -3278,15 +3285,15 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
           break;
 
           case 12:
-            pMonsterInfo->byte_000011 = atoi((char *)v2);
+            pMonsterInfo->byte_000011 = atoi(test_str);
           break;
 
           case 13:
-            pMonsterInfo->uSpeed = atoi((char *)v2);
+            pMonsterInfo->uSpeed = atoi(test_str);
           break;
 
           case 15:
-            v26 = strlen((const char *)v2);
+            v26 = strlen((const char *)test_str);
             v112 = 0;
             v113 = v26;
             if ( (signed int)v26 > 0 )
@@ -3295,7 +3302,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
               v28 = v114;
               do
               {
-                v86 = *(_BYTE *)(v112 + v2);
+                v86 = *(_BYTE *)(v112 + test_str);
                 v29 = tolower(v86);
                 if ( v29 > 107 )
                 {
@@ -3324,7 +3331,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
                   {
                     if ( v29 == 115 )
                     {
-                      pMonsterInfo->byte_000054 |= 0x20u;
+                      pMonsterInfo->byte_000054 |= 32;
                     }
                     else
                     {
@@ -3439,11 +3446,11 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
           break;
 
           case 14:
-            pMonsterInfo->uRecoveryTime = atoi((char *)v2);
+            pMonsterInfo->uRecoveryTime = atoi((char *)test_str);
           break;
 
           case 16:
-            v43 = strlen((char *)v2);
+            v43 = strlen((char *)test_str);
             v41 = 0;
             v42 = (int)pMonsterInfo;
             v112 = v43;
@@ -3453,7 +3460,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
             
             while (true)
             {
-             v86 = *(_BYTE *)(v41 + v2);
+             v86 = *(_BYTE *)(v41 + test_str);
              if ( tolower(v86) == 120 )
                break;
              ++v41;
@@ -3461,95 +3468,95 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
                goto LABEL_185;
             }
 
-            v44 = v2 + v41;
+            v44 = test_str + v41;
             *(_BYTE *)v44 = 0;
             *(_BYTE *)(v42 + 20) = atoi((const char *)(v44 + 1));
             *(_BYTE *)v44 = 100;
 LABEL_185:
-            _strlwr((char *)v2);
-            if (strstr((char *)v2, "curse"))
+            _strlwr((char *)test_str);
+            if (strstr((char *)test_str, "curse"))
               pMonsterInfo->uSpecialAttack = 1;
-            else if (strstr((char *)v2, "weak"))
+            else if (strstr((char *)test_str, "weak"))
               pMonsterInfo->uSpecialAttack = 2;
-            else if (strstr((char *)v2, "asleep"))
+            else if (strstr((char *)test_str, "asleep"))
               pMonsterInfo->uSpecialAttack = 3;
-            else if (strstr((char *)v2, "afraid"))
+            else if (strstr(test_str, "afraid"))
               pMonsterInfo->uSpecialAttack = 23;
-            else if (strstr((char *)v2, "drunk"))
+            else if (strstr(test_str, "drunk"))
               pMonsterInfo->uSpecialAttack = 4;
-            else if (strstr((char *)v2, "insane"))
+            else if (strstr(test_str, "insane"))
               pMonsterInfo->uSpecialAttack = 5;
-            else if (strstr((char *)v2, "poison1"))
+            else if (strstr(test_str, "poison1"))
               pMonsterInfo->uSpecialAttack = 6;
-            else if (strstr((char *)v2, "poison2"))
+            else if (strstr(test_str, "poison2"))
               pMonsterInfo->uSpecialAttack = 7;
-            else if (strstr((char *)v2, "poison3"))
+            else if (strstr(test_str, "poison3"))
               pMonsterInfo->uSpecialAttack = 8;
-            else if (strstr((char *)v2, "disease1"))
+            else if (strstr(test_str, "disease1"))
               pMonsterInfo->uSpecialAttack = 9;
-            else if (strstr((char *)v2, "disease2"))
+            else if (strstr(test_str, "disease2"))
               pMonsterInfo->uSpecialAttack = 10;
-            else if (strstr((char *)v2, "disease3"))
+            else if (strstr(test_str, "disease3"))
               pMonsterInfo->uSpecialAttack = 11;
-            else if (strstr((char *)v2, "paralyze"))
+            else if (strstr(test_str, "paralyze"))
               pMonsterInfo->uSpecialAttack = 12;
-            else if (strstr((char *)v2, "uncon"))
+            else if (strstr(test_str, "uncon"))
               pMonsterInfo->uSpecialAttack = 13;
-            else if (strstr((char *)v2, "dead"))
+            else if (strstr(test_str, "dead"))
               pMonsterInfo->uSpecialAttack = 14;
-            else if (strstr((char *)v2, "stone"))
+            else if (strstr(test_str, "stone"))
               pMonsterInfo->uSpecialAttack = 15;
-            else if (strstr((char *)v2, "errad"))
+            else if (strstr(test_str, "errad"))
               pMonsterInfo->uSpecialAttack = 16;
-            else if (strstr((char *)v2, "brkitem"))
+            else if (strstr(test_str, "brkitem"))
               pMonsterInfo->uSpecialAttack = 17;
-            else if (strstr((char *)v2, "brkarmor"))
+            else if (strstr(test_str, "brkarmor"))
               pMonsterInfo->uSpecialAttack = 18;
-            else if (strstr((char *)v2, "brkweapon"))
+            else if (strstr(test_str, "brkweapon"))
               pMonsterInfo->uSpecialAttack = 19;
-            else if (strstr((char *)v2, "steal"))
+            else if (strstr(test_str, "steal"))
               pMonsterInfo->uSpecialAttack = 20;
-            else if (strstr((char *)v2, "age"))
+            else if (strstr(test_str, "age"))
               pMonsterInfo->uSpecialAttack = 21;
-            else if (strstr((char *)v2, "drainsp"))
+            else if (strstr(test_str, "drainsp"))
               pMonsterInfo->uSpecialAttack = 22;
             else pMonsterInfo->uSpecialAttack = 0;
            break;
 
           case 17:
-            pMonsterInfo->uAttackType = sub_454CB4((char *)v2);
+            pMonsterInfo->uAttackType = sub_454CB4(test_str);
           break;
 
           case 18:
-            sub_454D7D((char *)v2, &pMonsterInfo->byte_000016, &pMonsterInfo->byte_000017, &pMonsterInfo->byte_000018);
+            sub_454D7D(test_str, &pMonsterInfo->byte_000016, &pMonsterInfo->byte_000017, &pMonsterInfo->byte_000018);
           break;
 
           case 19:
-            pMonsterInfo->uMissleType = sub_454E3A((char *)v2);
+            pMonsterInfo->uMissleType = sub_454E3A(test_str);
           break;
 
           case 20:
-            pMonsterInfo->byte_00001A = atoi((char *)v2);
+            pMonsterInfo->byte_00001A = atoi(test_str);
           break;
 
           case 21:
-            pMonsterInfo->uAttack2Type = sub_454CB4((char *)v2);
+            pMonsterInfo->uAttack2Type = sub_454CB4(test_str);
           break;
 
           case 22:
-            sub_454D7D((char *)v2, &pMonsterInfo->byte_00001C, &pMonsterInfo->byte_00001D, &pMonsterInfo->byte_00001E);
+            sub_454D7D(test_str, &pMonsterInfo->byte_00001C, &pMonsterInfo->byte_00001D, &pMonsterInfo->byte_00001E);
           break;
 
           case 23:
-            pMonsterInfo->uAttack2MissleType = sub_454E3A((char *)v2);
+            pMonsterInfo->uAttack2MissleType = sub_454E3A(test_str);
           break;
 
           case 24:
-            pMonsterInfo->uSpell1UseChance = atoi((char *)v2);
+            pMonsterInfo->uSpell1UseChance = atoi(test_str);
           break;
 
-          case 0x19:
-            strcpy(Str, (char *)v2);
+          case 25:
+            strcpy(Str, (char *)test_str);
             Str[0] = 32;
             Str[strlen(Str) - 1] = 32;
             sub_4BE3BF((unsigned char *)Str, &splitter);
@@ -3573,12 +3580,12 @@ LABEL_185:
           break;
 
 
-          case 0x1A:
-            pMonsterInfo->uSpell2UseChance = atoi((char *)v2);
+          case 26:
+            pMonsterInfo->uSpell2UseChance = atoi((char *)test_str);
           break;
 
-          case 0x1B:
-            strcpy(Str, (char *)v2);
+          case 27:
+            strcpy(Str, (char *)test_str);
             Str[0] = 32;
             Str[strlen(Str) - 1] = 32;
             sub_4BE3BF((unsigned char *)Str, &splitter);
@@ -3601,93 +3608,94 @@ LABEL_185:
             }
           break;
 
-          case 0x1C:
-            if (tolower(*(_BYTE *)v2) == 'i')
+          case 28:
+            if (tolower(*(_BYTE *)test_str) == 'i')
               v63 = 200;
             else
-              v63 = atoi((char *)v2);
+              v63 = atoi((char *)test_str);
             pMonsterInfo->uResistanceFire = v63;
           break;
 
-          case 0x1D:
-            if (tolower(*(_BYTE *)v2) == 'i')
+          case 29:
+            if (tolower(*(_BYTE *)test_str) == 'i')
               v63 = 200;
             else
-              v63 = atoi((char *)v2);
+              v63 = atoi((char *)test_str);
             pMonsterInfo->uResistanceAir = v63;
           break;
 
-          case 0x1E:
-            if (tolower(*(_BYTE *)v2) == 'i')
+          case 30:
+            if (tolower(*(_BYTE *)test_str) == 'i')
               v63 = 200;
             else
-              v63 = atoi((char *)v2);
+              v63 = atoi((char *)test_str);
             pMonsterInfo->uResistanceWater = v63;
           break;
 
-          case 0x1F:
-            if (tolower(*(_BYTE *)v2) == 'i')
+          case 31:
+            if (tolower(*(_BYTE *)test_str) == 'i')
               v63 = 200;
             else
-              v63 = atoi((char *)v2);
+              v63 = atoi((char *)test_str);
             pMonsterInfo->uResistanceEarth = v63;
           break;
 
-          case 0x20:
-            if (tolower(*(_BYTE *)v2) == 'i')
+          case 32:
+            if (tolower(*(_BYTE *)test_str) == 'i')
               v63 = 200;
             else
-              v63 = atoi((char *)v2);
+              v63 = atoi((char *)test_str);
             pMonsterInfo->uResistanceMind = v63;
           break;
 
-          case 0x21:
-            if (tolower(*(_BYTE *)v2) == 'i')
+          case 33:
+            if (tolower(*(_BYTE *)test_str) == 'i')
               v63 = 200;
             else
-              v63 = atoi((char *)v2);
+              v63 = atoi((char *)test_str);
             pMonsterInfo->uResistanceSpirit = v63;
           break;
 
-          case 0x22:
-            if (tolower(*(_BYTE *)v2) == 'i')
+          case 34:
+            if (tolower(*(_BYTE *)test_str) == 'i')
               v63 = 200;
             else
-              v63 = atoi((char *)v2);
+              v63 = atoi((char *)test_str);
             pMonsterInfo->uResistanceBody = v63;
           break;
 
-          case 0x23:
-            if (tolower(*(_BYTE *)v2) == 'i')
+          case 35:
+            if (tolower(*(_BYTE *)test_str) == 'i')
               v63 = 200;
             else
-              v63 = atoi((char *)v2);
+              v63 = atoi((char *)test_str);
             pMonsterInfo->uResistanceLight = v63;
           break;
 
-          case 0x24:
-            if (tolower(*(_BYTE *)v2) == 'i')
+          case 36:
+            if (tolower(*(_BYTE *)test_str) == 'i')
               v63 = 200;
             else
-              v63 = atoi((char *)v2);
+              v63 = atoi((char *)test_str);
             pMonsterInfo->uResistanceDark = v63;
           break;
 
-          case 0x25:
-            if (tolower(*(_BYTE *)v2) == 'i')
+          case 37:
+            if (tolower(*(_BYTE *)test_str) == 'i')
               v63 = 200;
             else
-              v63 = atoi((char *)v2);
+              v63 = atoi((char *)test_str);
             pMonsterInfo->uResistancePhysical = v63;
           break;
 
-          case 0x26:
-          break;
-            strcpy(Str, (char *)v2);
+          case 38:
+          
+            strcpy(Str, (char *)test_str);
             Str[0] = ' ';
             Str[strlen(Str) - 1] = ' ';
-
-
+			 //!!!!!!!
+			  v104=test_str;
+			 //!!!!!!!
             sub_4BE3BF((unsigned char *)Str, &splitter);
             if (splitter.uNumSubstrings)
             {
@@ -3706,7 +3714,7 @@ LABEL_185:
                       v85 = v78 + 48;
                       pMonsterInfo->byte_00002E = 3;
                       sub_454D7D((char *)splitter.pSubstrings[2], &pMonsterInfo->byte_00002E, (unsigned char *)&pMonsterInfo->byte_000030, (unsigned char *)&pMonsterInfo->byte_000031);
-                      pMonsterInfo->word_00003C = sub_454CB4((char *)v2);
+                      pMonsterInfo->word_00003C = sub_454CB4(test_str);
                     }
                   }
                   else
@@ -3804,14 +3812,14 @@ LABEL_185:
       {
         v109 = 1;
       }
-      v110 += 4294967296i64;
-      v2 = v108 + 1;
+      v110 +=1;
+      test_str = v108 + 1;
     }
     while ( /*HIDWORD(v110) - 1 <= *(_DWORD *)(v114 + 23444) &&*/ !v109 );
 
     pMonsterInfo++;
   }
-  while ( ++_this->uNumMonsters < 265);//278 );
+
   return _this->uNumMonsters;
 }
 

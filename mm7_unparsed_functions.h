@@ -565,7 +565,7 @@ signed int __thiscall sub_451007(int _this, int a2, signed int a3, signed int a4
 signed int __thiscall sub_45271F(int _this);
 signed int __fastcall sub_452A9E(signed int a1);
 int __fastcall MakeColorMaskFromBitDepth(int a1);
-int __fastcall sub_452AF3(int a1, unsigned int *pRenderTarget, unsigned int a3);
+void sub_452AF3(int a1, unsigned int *pRenderTarget, unsigned int a3);
 int __fastcall sub_452B2E(int a1, signed int a2);
 int __fastcall memset_dw(void *a2, int a1, int a3);
 
@@ -648,15 +648,12 @@ void __fastcall sub_45DF48(void *_this);
 void *__cdecl sub_45E006();
 int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed int a2);
 int __thiscall sub_45E26C(char *Filename);
-int __thiscall sub_45E297(void *_this);
-int __fastcall sub_45E361(int a1);
-int __cdecl sub_45E93E();
-void sub_45EE8A(int a1);
-int __fastcall SaveGame(int a1, int a2);
-int __fastcall sub_460078(int a1);
-void *__fastcall sub_4601B7(int a1);
-void *__cdecl sub_4606F7();
-void *__cdecl sub_4606FE();
+
+
+
+
+
+
 int __cdecl sub_46080D();
 signed int __cdecl sub_46082C();
 char __thiscall sub_460A78(void *_this);
@@ -1205,7 +1202,7 @@ signed int __cdecl sub_4B4FCF();
 signed int __cdecl sub_4B5D7C();
 signed int __cdecl sub_4B6478();
 signed int __fastcall sub_4B68EA(int a1);
-void __cdecl sub_4B6943();
+
 signed int __thiscall Player_sub_4B6FF9(void *_this);
 int __cdecl sub_4B705E();
 void __cdecl sub_4B7911();

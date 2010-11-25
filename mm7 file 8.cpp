@@ -6,6 +6,7 @@
  #include "_lod.h"
  #include "font.h"
 #include "AIL.h"
+#include "menus.h"
 
 #include "data.h"
 #include "_audio.h"
@@ -2219,7 +2220,7 @@ int __cdecl MenuLoop_Main()
                                      56,
                                      2,
                                      67,
-                                     (unsigned char *)"Creadits",
+                                     (unsigned char *)"Credits",
                                      &LODFile_Icons_LOD.aLODHeaders[v6],0);
   #ifndef OLD_CODE
 	 v7 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_exit");

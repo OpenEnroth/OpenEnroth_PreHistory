@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "localization_defs.h"
 #include "font.h"
+#include "menus.h"
 #include "AIL.h"
 #include "font.h"
 #include "classes.h"
@@ -8348,453 +8349,6 @@ void __cdecl sub_414F82_DrawGameOptions()
 
 
 
-//----- (0045F469) --------------------------------------------------------
-int __fastcall SaveGame(int a1, int a2)
-{
-  int result; // eax@1
-  int v5; // eax@6
-  int v6; // eax@6
-  int v7; // eax@6
-  int v8; // edi@8
-  int v9; // eax@24
-  FILE *v10; // edi@24
-  unsigned int v11; // edi@30
-  void *v12; // esi@31
-  void *v13; // esi@31
-  int v14; // esi@37
-  void *v15; // esi@37
-  void *v16; // esi@37
-  void *v17; // esi@37
-  void *v18; // esi@37
-  void *v19; // esi@37
-  int v20; // ecx@38
-  int v21; // edx@39
-  int v22; // esi@39
-  void *v23; // esi@41
-  void *v24; // esi@41
-  int v25; // eax@42
-  signed int v26; // edi@42
-  unsigned __int8 v27; // zf@43
-  unsigned __int8 v28; // sf@43
-  signed int v29; // edi@47
-  void *v30; // esi@50
-  void *v31; // esi@50
-  void *v32; // esi@50
-  void *v33; // esi@50
-  int v34; // esi@51
-  int v35; // eax@51
-  int  v36; // eax@54
-  DWORD v37; // eax@59
-  char v38; // [sp-18h] [bp-288h]@8
-  int v39; // [sp-14h] [bp-284h]@8
-  const char *v40; // [sp-10h] [bp-280h]@6
-  const char *v41; // [sp-Ch] [bp-27Ch]@6
-  int v42; // [sp-8] [bp-278]@6
-  CHAR Buffer; // [sp+Ch] [bp-264h]@59
-  char Dir; // [sp+8Ch] [bp-1E4h]@51
-  char Drive; // [sp+ACh] [bp-1C4h]@51
-
-  int v47; // [sp+CCh] [bp-1A4h]@10
-  char v48[20]; // [sp+E0h] [bp-190h]@10
-  __int64 v49; // [sp+F4h] [bp-17Ch]@10
-  char v50; // [sp+130h] [bp-140h]@51
-  char Ext; // [sp+150h] [bp-120h]@51
-  char v52; // [sp+151h] [bp-11Fh]@51
-  char FullPath[32]; // [sp+170h] [bp-100h]@51
-  char Str[120]; // [sp+190h] [bp-E0h]@8
-
-  int v55; // [sp+208h] [bp-68h]@2
-  int v56; // [sp+20Ch] [bp-64h]@2
-  int v57; // [sp+210h] [bp-60h]@2
-  int v58; // [sp+214h] [bp-5Ch]@2
-  int Src; // [sp+218h] [bp-58h]@30
-  char v60; // [sp+21Ch] [bp-54h]@30
-  char v61; // [sp+21Dh] [bp-53h]@30
-  char v62; // [sp+21Eh] [bp-52h]@30
-  char v63; // [sp+21Fh] [bp-51h]@30
-  int v64; // [sp+220h] [bp-50h]@30
-  int v65; // [sp+224h] [bp-4Ch]@30
-  int v66; // [sp+228h] [bp-48h]@2
-
-  //local struct
-  LODIndex St2; // [sp+22Ch] [bp-44h]@2
-  int ElementSize; // [sp+240h] [bp-30h]@5
-  int v69; // [sp+24Ch] [bp-24h]@1
-  size_t Size; // [sp+250h] [bp-20h]@26
-  int v71; // [sp+254h] [bp-1Ch]@1
-  void *DstBuf; // [sp+258h] [bp-18h]@2
-  const void *v73; // [sp+25Ch] [bp-14h]@32
-  int v74; // [sp+260h] [bp-10h]@23
-  int v75; // [sp+264h] [bp-Ch]@22
-  unsigned int v76; // [sp+268h] [bp-8h]@8
-  int v77; // [sp+26Fh] [bp-1h]@8
-
-  v71 = a2;
-  v69 = a1;
-  strcpy(byte_6BE3B0, Str1);
-  result = stricmp(Str1, "d05.blv");
-  if ( result )
-  {
-    DstBuf = malloc(0xF4240);//DstBuf = operator new(0xF4240u);
-    Reset_LODIndex(&St2);
-    v56 = pParty_global->sPartyPosX;
-    v55 = pParty_global->sPartyPosY;
-    v66 = pParty_global->sPartyPosZ;
-    v57 = pParty_global->sRotationY;
-    v58 = pParty_global->sRotationX;
-    pParty_global->sPartyPosX = pParty_global->sOldPosX;
-    pParty_global->sPartyPosY = pParty_global->sOldPosY;
-    pParty_global->sPartyPosZ = pParty_global->sOldPosZ;
-    pParty_global->sRotationY = pParty_global->sOldRotationY;
-    pParty_global->sRotationX = pParty_global->sOldRotationX;
-    pParty_global->dword_000700 = pParty_global->sOldPosZ;
-
-    if (dword_6BE360 == 1)
-      qword_6BE6B4 = pParty_global->qword_00002C;
-    else
-      qword_6A12E0 = pParty_global->qword_00002C;
-
-    runtime_warning(aint workin);
-    //v3 = sub_45E03A_SomethingLikeCaptureAScreenshot(150, 112);
-    //sub_49F5A2(pD3DRenderer, v3, 150, 112, DstBuf, 1000000, (int)&ElementSize);
-    //operator_delete(0, v3);
-
-    strcpy(St2.pFilename, "image.pcx");
-    if ( dword_4E28F8 == 11 )
-    {
-      Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(dword_69CF20 != -1 ? 72 * dword_69CF20 + 7145548 : 0));
-      Render_DrawIndexedTexture(pD3DRenderer, 18, 141, (cTexture *)(dword_69CF18 != -1 ? 72 * dword_69CF18 + 7145548 : 0));
-      v40 = (char *)pGlobalTXT_LocalizationStrings[190];
-      v5 = AlignText_Center(186, (char *)pGlobalTXT_LocalizationStrings[190], pFontSmallnum);
-      FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, v5 + 25, 219, v40, 0, 0, 0);
-      v41 = (char *)&unk_69BD68 + 100 * dword_6A0CA0;
-      v6 = AlignText_Center(186, (const char *)&unk_69BD68 + 100 * dword_6A0CA0, pFontSmallnum);
-      GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontSmallnum, v6 + 25, 259, 0, v41, 185, 0);
-      v40 = (char *)pGlobalTXT_LocalizationStrings[165];
-      v7 = AlignText_Center(186, (char *)pGlobalTXT_LocalizationStrings[165], pFontSmallnum);
-      FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, v7 + 25, 299, v40, 0, 0, 0);
-      pD3DRenderer->Present();
-    }
-   if ( LODFile_New_LOD.Add_Container_to_File( &St2, DstBuf, 0) )
-    {
-      wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 200);
-      v76 = (unsigned int)&v38;
-      Game_sub_40E2C8(&v38, (char *)&Str, (int)&v77);
-      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
-    } 
-
-    strcpy(v48, Str1);
-    v49 = pParty_global->qword_00002C;
-    strcpy(&St2.pFilename[0], "header.bin");
-    St2.size_data = 100;
-    if (LODFile_New_LOD.Add_Container_to_File( &St2, &v47, 0) )
-    {
-      wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 201);
-      v76 = (unsigned int)&v38;
-      Game_sub_40E2C8(&v38, (char *)&Str, (int)&v77);
-      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
-    }
-
-    strcpy(&St2.pFilename[0], "party.bin");
-    St2.size_data = 90680;
-    if (LODFile_New_LOD.Add_Container_to_File( &St2, pParty_global, 0) )
-    {
-      wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 202);
-      v76 = (unsigned int)&v38;
-      Game_sub_40E2C8(&v38, (char *)&Str, (int)&v77);
-      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
-    }
-
-    strcpy(&St2.pFilename[0], "clock.bin");
-    St2.size_data = 40;
-    if (LODFile_New_LOD.Add_Container_to_File( &St2, pClass24_global, 0) )
-    {
-      wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 203);
-      v76 = (unsigned int)&v38;
-      Game_sub_40E2C8(&v38, (char *)&Str, (int)&v77);
-      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
-    }
-
-    strcpy(&St2.pFilename[0], "overlay.bin");
-    St2.size_data = 1008;
-    if (LODFile_New_LOD.Add_Container_to_File(&St2, array_5E4D58, 0) )
-    {
-      wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 204);
-      v76 = (unsigned int)&v38;
-      Game_sub_40E2C8(&v38, (char *)&Str, (int)&v77);
-      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
-    }
-
-    strcpy(&St2.pFilename[0], "npcdata.bin");
-    St2.size_data = 38076;
-    if (LODFile_New_LOD.Add_Container_to_File(&St2, pNPCStats->pNPCData2, 0) )
-    {
-      wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[165], 205);
-      v76 = (unsigned int)&v38;
-      Game_sub_40E2C8(&v38, (char *)&Str, (int)&v77);
-      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
-    }
-
-    strcpy(&St2.pFilename[0], "npcgroup.bin");
-    St2.size_data = 102;
-    if (LODFile_New_LOD.Add_Container_to_File( &St2, pNPCStats->word_017F5A, 0) )
-    {
-      wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[165], 206);
-      v76 = (unsigned int)&v38;
-      Game_sub_40E2C8(&v38, (char *)&Str, (int)&v77);
-      sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
-    }
-	   
-    v75 = 1;
-    do
-    {
-      v74 = 1;
-      do
-      {
-        v42 = v75;
-        wsprintfA(Str, "data\\lloyd%d%d.pcx", v75, v74);
-        v10 = fopen(Str, "rb");
-        //v10 = (FILE *)v9;
-        if ( v10 )
-        {
-          v42 = v75;
-          wsprintfA(St2.pFilename, "lloyd%d%d.pcx", v75, v74);
-          fseek(v10, 0, 2);
-          St2.size_data = ftell(v10);
-          rewind(v10);
-          locked_fread(DstBuf, ElementSize, 1u, v10);
-          strcpy(Str2, Str);
-          fclose(v10);
-          remove(Str);
-          v9 =LODFile_New_LOD.Add_Container_to_File( &St2, DstBuf, 0);
-          if ( v9 )
-          {
-            wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[165], 207);
-            v76 = (unsigned int)&v38;
-            Game_sub_40E2C8(&v38, (char *)&Str, (int)&v77);
-            //v9 = 
-			sub_466D09(&Size, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
-            Size = 5080748;
-          }
-        }
-        ++v74;
-      }
-      while ( v74 <= 5 );
-      ++v75;
-    }
-    while ( v75 <= 4 );
-
-    if ( !a2 )
-    {
-      sub_42FA22();
-      v11 = (unsigned int)malloc(0xF4240u);
-      v76 = v11;
-      Src = 91969;
-      v60 = 109;
-      v61 = 118;
-      v62 = 105;
-      v63 = 105;
-      v64 = 0;
-      v65 = 0;
-      memcpy((void *)v11, &Src, 0x10u);
-      if ( dword_6BE360 == 1 )
-      {
-        v13 = DstBuf;
-        dword_6BE69C = dword_6BE640;
-        dword_6BE6A4 = 0;
-        dword_6BE6A0 = uNumLevelDecorations;
-        memcpy(DstBuf, &unk_6BE68C, 0x28u);
-        v13 = (char *)v13 + 40;
-        memcpy(v13, byte_6BE6EC, 0x36Bu);
-        v12 = (char *)v13 + 875;
-        v75 = 0;
-        if ( dword_6BE640 > 0 )
-        {
-          v73 = 0;
-          do
-          {
-            v42 = (int)((char *)v73 + dword_6BE644 + 44);
-            memcpy(v12, (const void *)v42, 4u);
-            v73 = (char *)v73 + 96;
-            v12 = (char *)v12 + 4;
-            ++v75;
-          }
-          while ( v75 < dword_6BE640 );
-        }
-        v75 = 0;
-        if ( (signed int)uNumLevelDecorations > 0 )
-        {
-         v73 = &pLevelDecorations[0].word_000002;
-          do
-          {
-            memcpy(v12, v73, 2);
-            v73 = (char *)v73 + 32;
-            v12 = (char *)v12 + 2;
-            ++v75;
-          }
-          while ( v75 < (signed int)uNumLevelDecorations );
-        }
-        memcpy(v12, &uNumActors, 4u);
-        v15 = (char *)v12 + 4;
-        memcpy(v15, pActors, 836 * uNumActors);
-        v16 = (char *)v15 + 836 * uNumActors;
-        memcpy(v16, &uNumLayingItems, 4);
-        v16 = (char *)v16 + 4;
-        memcpy(v16, pLayingItemsList, 112 * uNumLayingItems);
-        v17 = (char *)v16 + 112 * uNumLayingItems;
-        memcpy(v17, &dword_5FF140, 4u);
-        v17 = (char *)v17 + 4;
-        memcpy(v17, array_5E5150, 0x14CC * dword_5FF140);
-        v18 = (char *)v17 + 5324 * dword_5FF140;
-        compile_error;//memcpy(v18, ::Src, 0x3E80u);
-        v18 = (char *)v18 + 16000;
-        compile_error;//memcpy(v18, dword_6BE67C, ::Size);
-        compile_error;//v19 = (char *)v18 + ::Size;
-        memcpy(v19, &global_5E4C90, sizeof(struct struct4));
-        v14 = (int)((char *)v19 + 200);
-        memcpy((void *)v14, &qword_6BE6B4, 0x38u);
-      }
-      else
-      {
-        v20 = 0;
-        dword_6A12C8 = 0;
-        if ( pClass51_global->uNumBModels > 0 )
-        {
-          v22 = pClass51_global->uNumBModels;
-          v21 = (int)pClass51_global->pBModels + 76;
-          do
-          {
-            v20 += *(_DWORD *)v21;
-            v21 += 188;
-            --v22;
-            dword_6A12C8 = v20;
-          }
-          while ( v22 );
-        }
-        v24 = DstBuf;
-        dword_6A12D0 = pClass51_global->uNumBModels;
-        dword_6A12CC = uNumLevelDecorations;
-        memcpy(DstBuf, &unk_6A12B8, 0x28u);
-        v24 = (char *)v24 + 40;
-        memcpy(v24, &unk_6A1318, 0x3C8u);
-        v24 = (char *)v24 + 968;
-        memcpy(v24, &unk_6A16E0, 0x3C8u);
-        v23 = (char *)v24 + 968;
-        v75 = 0;
-        if ( pClass51_global->uNumBModels > 0 )
-        {
-          v25 = (int)pClass51_global->pBModels;
-          v26 = 76;
-          do
-          {
-            v27 = *(_DWORD *)(v26 + v25) == 0;
-            v28 = *(_DWORD *)(v26 + v25) < 0;
-            v71 = 0;
-            if ( !(v28 | v27) )
-            {
-              v73 = 0;
-              do
-              {
-                v42 = (int)((char *)v73 + *(_DWORD *)(v25 + v26 + 8) + 28);
-                memcpy(v23, (const void *)v42, 4);
-                v25 = (int)pClass51_global->pBModels;
-                v73 = (char *)v73 + 308;
-                v23 = (char *)v23 + 4;
-                ++v71;
-              }
-              while ( v71 < *(_DWORD *)(v26 + pClass51_global->pBModels) );
-            }
-            ++v75;
-            v26 += 188;
-          }
-          while ( v75 < pClass51_global->uNumBModels );
-        }
-        v29 = 0;
-        if ( (signed int)uNumLevelDecorations > 0 )
-        {
-         v71 = (int)&pLevelDecorations[0].word_000002;
-          do
-          {
-            memcpy(v23, (const void *)v71, 2);
-            v71 += 32;
-            v23 = (char *)v23 + 2;
-            ++v29;
-          }
-          while ( v29 < (signed int)uNumLevelDecorations );
-        }
-        memcpy(v23, &uNumActors, 4u);
-        v30 = (char *)v23 + 4;
-        memcpy(v30, pActors, 836 * uNumActors);
-        v31 = (char *)v30 + 836 * uNumActors;
-        memcpy(v31, &uNumLayingItems, 4u);
-        v31 = (char *)v31 + 4;
-        memcpy(v31, pLayingItemsList, 112 * uNumLayingItems);
-        v32 = (char *)v31 + 112 * uNumLayingItems;
-        memcpy(v32, &dword_5FF140, 4u);
-        v32 = (char *)v32 + 4;
-        memcpy(v32, array_5E5150, 5324 * dword_5FF140);
-        v33 = (char *)v32 + 5324 * dword_5FF140;
-        memcpy(v33, &global_5E4C90, sizeof(struct struct4));
-        v14 = (int)((char *)v33 + 200);
-        memcpy((void *)v14, &qword_6A12E0, 0x38u);
-        v11 = v76;
-      }
-      v34 = v14 + 56;
-      strcpy(FullPath, Str1);
-      _splitpath(FullPath, &Drive, &Dir, &v50, &Ext);
-      v52 = 100;
-      Size = v34 - (_DWORD)DstBuf;
-      v74 = 999984;
-      LOBYTE(v35) = compress((void *)(v11 + 16), (unsigned int *)&v74, DstBuf, v34 - (_DWORD)DstBuf);
-      if ( v35 || v74 > (signed int)Size )
-      {
-        memcpy((void *)(v11 + 16), DstBuf, Size);
-        v74 = Size;
-      }
-      v74 += 16;
-      memcpy((void *)(v11 + 8), &v74, 4u);
-      memcpy((void *)(v11 + 12), &Size, 4u);
-      wsprintfA(FullPath, "%s%s", &v50, &Ext);
-      strcpy(St2.pFilename, FullPath);
-      St2.size_data = v74;
-      v36 = LODFile_New_LOD.Add_Container_to_File( &St2, (const void *)v11, 0);
-      if ( v36 )
-      {
-        wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[165], 208);
-        v76 = (unsigned int)&v38;
-        Game_sub_40E2C8(&v38, (char *)&Str, (int)&v77);
-       // v36 = 
-		sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
-      }
-     // v9 = (void *)free();
-	  free((void *)v11);
-    }
-
-    operator_delete(DstBuf);
-    if ( v69 )
-    {
-      if ( !CopyFileA("data\\new.lod", "saves\\autosave.mm7", 0) )
-      {
-        v37 = GetLastError();
-        FormatMessageA(0x1000u, 0, v37, 0x400u, &Buffer, 0x80u, 0);
-        wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[612], 300);
-        v69 = (int)&v38;
-        Game_sub_40E2C8(&v38, (char *)&Str, (int)&v77);
-        sub_466D09(&v69, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
-      }
-    }
-    pParty_global->sPartyPosX = v56;
-    pParty_global->sPartyPosY = v55;
-    pParty_global->sPartyPosZ = v66;
-    pParty_global->dword_000700 = v66;
-    pParty_global->sRotationY = v57;
-    result = v58;
-    pParty_global->sRotationX = v58;
-  }
-  return result;
-}
-
-
 
 //----- (004160CA) --------------------------------------------------------
 char __fastcall sub_4160CA(int a1, int a2)
@@ -10138,7 +9692,7 @@ void sub_4179BC(int a1, const char *a2)
   local_0C.uFrameHeight = 256;
   local_0C.uFrameX = 128;
   local_0C.uFrameY = *(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v12) + 4) + 30;
-  local_0C.uFrameHeight = CalculateTextHeght(pFontSmallnum, v3, &local_0C, 24, 0) + 2 * *(_BYTE *)(pFontLucida + 5) + 24;
+  local_0C.uFrameHeight = CalculateTextHeght(pFontSmallnum, v3, &local_0C, 24, 0) + 2 *pFontLucida->uFontHeight + 24;
   local_0C.uFrameZ = local_0C.uFrameX + local_0C.uFrameWidth - 1;
   local_0C.uFrameW = local_0C.uFrameY + local_0C.uFrameHeight - 1;
   GUIWindow_sub_415551(&local_0C, 0);
@@ -10150,9 +9704,9 @@ void sub_4179BC(int a1, const char *a2)
   local_0C.uFrameZ = local_0C.uFrameX + local_0C.uFrameWidth - 1;
   local_0C.uFrameW = local_0C.uFrameY + local_0C.uFrameHeight - 1;
   v5 = 0xFFFFFF9B;
-  wsprintfA((char *)TmpBuf, "\f%05d%s\f00000", v5, v4);
+  wsprintfA((char *)TmpBuf, "\f%06d%s\f000000", v5, v4);
   GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, 0, 0, (char *)TmpBuf, 3);
-  FontDrawText(&local_0C, pFontSmallnum, 1, *(_BYTE *)(pFontLucida + 5), v3, 0, 0, 0);
+  FontDrawText(&local_0C, pFontSmallnum, 1, pFontLucida->uFontHeight, v3, 0, 0, 0);
 }
 
 //----- (00417AD4) --------------------------------------------------------
@@ -10296,7 +9850,7 @@ _UNKNOWN *__fastcall sub_417BB5(int a1, int a2)
     v27 = *((_BYTE *)v6 + 185);
     v28 = v36;
     v29 = sub_417AD4(v27, v36, 4);
-    wsprintfA(Source, "\f%05d", v29);
+    wsprintfA(Source, "\f%06d", v29);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v9 = &unk_506990;
@@ -10324,11 +9878,11 @@ _UNKNOWN *__fastcall sub_417BB5(int a1, int a2)
   {
     strcpy(Dest, "%s\n\n");
     v10 = sub_417AD4(*((_BYTE *)v6 + 185), v4, 1);
-    wsprintfA(Source, "\f%05d", v10);
+    wsprintfA(Source, "\f%06d", v10);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v11 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 2);
-    wsprintfA(Source, "\f%05d", v11);
+    wsprintfA(Source, "\f%06d", v11);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v12 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 3);

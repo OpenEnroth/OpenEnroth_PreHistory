@@ -2,7 +2,7 @@
 //#include <dinput.h>
 
 #include "defs.h"
-
+#include "localization_defs.h"
 #include "font.h"
 
 #include "AIL.h"
@@ -2059,28 +2059,7 @@ int Party_sub_49135E_GetAllPartyExpDiv1000(struct Party *_this)
 }
 
 
-//----- (00491DE7) --------.text:0049391C ------------------------------------------------
-int __fastcall sub_491DE7(int a1, int a2)
-{
-  int result; // eax@1
-  char *v3; // ebx@1
-  int v4; // ebp@1
-  int v5; // esi@2
 
-  result = 0;
-  v4 = 4 * a2 + 5164080;
-  v3 = (char *)(pTextureIdx_PlayerFaces[a2][a1] );	//+ 224 * a1
-  do
-  {
-    v5 = result + 1;
-    wsprintfA((char *)TmpBuf, "%s%02d", *(_DWORD *)v4, result + 1);
-    LODFile_Icons_LOD.LODFile_sub_4101B1( v3, (char *)TmpBuf, 2);
-    result = v5;
-    ++v3;
-  }
-  while ( v5 < 56 );
-  return result;
-}
 
 //----- (00491E3A) --------------------------------------------------------
 int __cdecl sub_491E3A()
@@ -3470,15 +3449,15 @@ LABEL_116:
   return (char *)pStringBuffer;
 }
 
-//----- (004979D2) --------------------------------------------------------
+//----- (004979D2) -----.text:00499660  ---------------------------------------------------
 int CreditsMenuLoop()
 {
   FILE *v0; // eax@5
-  const char *v1; // edi@5
+  char *v1; // edi@5
   int v2; // eax@5
   int v3; // esi@7
-  char v4; // dl@9
-  int v5; // ecx@9
+  Font *v4; // dl@9
+  Font *v5; // ecx@9
   __int16 v6; // ax@9
   unsigned int v8; // ST2C_4@9
   int v9; // eax@9
@@ -3490,16 +3469,16 @@ int CreditsMenuLoop()
   cTexture cTexture_obj;//[128]; // [sp+Ch] [bp-130h]@5
   int v17; // [sp+20h] [bp-11Ch]@8
   size_t Count; // [sp+34h] [bp-108h]@7
-  class cPCXTexture v19;
+  class cPCXTexture cBackGround;
   //char v19; // [sp+54h] [bp-E8h]@1
   double v20; // [sp+7Ch] [bp-C0h]@9
   MSG Msg; // [sp+84h] [bp-B8h]@10
   int v22; // [sp+A0h] [bp-9Ch]@9
-  int v23; // [sp+A4h] [bp-98h]@9
-  int v24; // [sp+A8h] [bp-94h]@9
-  int v25; // [sp+ACh] [bp-90h]@9
-  int v26; // [sp+B0h] [bp-8Ch]@9
-  __int16 v27[2]; // [sp+F8h] [bp-44h]@9
+ // int v23; // [sp+A4h] [bp-98h]@9
+ // int v24; // [sp+A8h] [bp-94h]@9
+  //int v25; // [sp+ACh] [bp-90h]@9
+  //int v26; // [sp+B0h] [bp-8Ch]@9
+  int v27; // [sp+F8h] [bp-44h]@9
   int v28; // [sp+FCh] [bp-40h]@9
   //char v29; // [sp+100h] [bp-3Ch]@1
  class cPCXTexture v29;
@@ -3511,14 +3490,15 @@ int CreditsMenuLoop()
   int v35; // [sp+128h] [bp-14h]@1
   char *Dest; // [sp+12Ch] [bp-10h]@9
   char *Source; // [sp+130h] [bp-Ch]@5
-  int v38; // [sp+134h] [bp-8h]@1
-  int v39; // [sp+138h] [bp-4h]@1
+  Font *v38; // [sp+134h] [bp-8h]@1
+  Font *v39; // [sp+138h] [bp-4h]@1
+  GUIWindow stCreditsWindow;
 
-  v19.PCXTexture_Zero();
+  cBackGround.PCXTexture_Zero();
   v29.PCXTexture_Zero();
   v35 = 0;
-  v38 = (int)LoadFont("quick.fnt", "FONTPAL");
-  v39 = (int)LoadFont("cchar.fnt", "FONTPAL");
+  v38 = LoadFont("quick.fnt", "FONTPAL");
+  v39 = LoadFont("cchar.fnt", "FONTPAL");
   if ( dword_50CBD0[0] )
     dword_50CBD0[0] = dword_50CBD0[3] != 0;
   ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
@@ -3526,53 +3506,58 @@ int CreditsMenuLoop()
     LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
   dword_A74C88 = 0;
   sub_4AA13F((int)pAudioPlayer, 15);
-  v19.LODPCXLoad("mm6title.pcx", 0);
-  v2 = (int)LODFile_Events_LOD.LODFile_LoadRaw( "credits.txt", 0);
-  v1 = (const char *)v2;
-  Source = (char *)v2;
+  cBackGround.LODPCXLoad("mm6title.pcx", 0);
+  v1 = (char *)LODFile_Events_LOD.LODFile_LoadRaw( "credits.txt", 0);
+ // v1 = (const char *)v2;
+ // Source = (char *)v1;
   cTexture_obj.cTexture_Zero();
   v0 = LODFile_Events_LOD.Find_Container( "credits.txt", 0);
   if ( !v0 )
-    erroneous_printf((char *)pGlobalTXT_LocalizationStrings[63]);
-  locked_fread(&cTexture_obj, 1u, 0x30u, (FILE *)v0);
-  v3 = Count;
-  if ( !Count )
-    v3 = v17;
-  memset(&pSpansBuf, 0, 0x48u);
+    erroneous_printf((char *)pGlobalTXT_LocalizationStrings[LOCSTR_TROUBLE_LOAD]);
+  locked_fread(&cTexture_obj, 1, 48, v0);
+  v3 = cTexture_obj.uDecompressedSize;
+  if ( !cTexture_obj.uDecompressedSize )
+    v3 = cTexture_obj.uTextureSize;
+  memset(&cTexture_obj, 0, 72);
   v4 = v39;
   v5 = v38;
-  compile_error;//v1[v3] = 0;
-  v25 = 250;
-  v26 = 440;
-  v23 = 389;
-  v24 = 19;
+  v1[v3] = 0;
+  stCreditsWindow.uFrameX=389;
+  stCreditsWindow.uFrameY=19;
+  stCreditsWindow.uFrameWidth=250;
+  stCreditsWindow.uFrameHeight=440;
+  //v25 = 250;
+//  v26 = 440;
+ // v23 = 389;
+//  v24 = 19;
   v29.uWidth = 250;
-  v6 = sub_44C62E(v5, v4, v1, (int)&v23, 0, 1);
-  v29.uHeight = v6 + 2 * v26;
+  v6 = sub_44C62E(v5, v4, v1,&stCreditsWindow , 0, true);
+  v29.uHeight = v6 + 2 * stCreditsWindow.uFrameHeight;
   v29.uNumPixels = v29.uWidth * v29.uHeight;
-  v29.pPixels = (unsigned int *)mem_mng.AllocatedNamedBuffer( v29.pPixels, 2 * v29.uNumPixels, "scrollermap");
+  v29.pPixels = (unsigned int *)mem_mng.AllocatedNamedBuffer( v29.pPixels, 4 * v29.uNumPixels, "scrollermap");
   v8 = v29.uNumPixels;
   v9 = 0xFF00FFFF;
-  sub_452AF3(v9, v29.pPixels, v8);
+ // sub_452AF3(v9, v29.pPixels, v29.uNumPixels);
+  memset(v29.pPixels,v9,v29.uNumPixels*4);
   v29.word_000020 = 0;
   v29.word_000022 = 0;
   v28 = 0xFF708FFE;
-  *(_DWORD *)v27 = 0xFFECE69C;
-  compile_error;//Dest = (char *)operator new(2 * v3);
-  strncpy(Dest, Source, v3);
-  sub_44D2FD(v38, v39, 1, v26 + 1, v29.uWidth, v29.uHeight, 1u, 1u, Dest, (int)v29.pPixels, v29.uWidth);
-  strncpy(Dest, Source, v3);
-  v10 = (int)sub_44D2FD(v38, v39, 0, v26, v29.uWidth, v29.uHeight, v28, v27[0], Dest, (int)v29.pPixels, v29.uWidth);
-  operator_delete(Dest);
+  v27 = 0xFFECE69C;
+  Dest = new char [2 * v3];
+  strncpy(Dest, v1, v3);
+  sub_44D2FD(v38, v39, 1, 440 + 1, v29.uWidth, v29.uHeight, 1u, 1u, Dest, (int)v29.pPixels, v29.uWidth);
+  strncpy(Dest, v1, v3);
+  sub_44D2FD(v38, v39, 0, 440, v29.uWidth, v29.uHeight, v28, v27, Dest, (int)v29.pPixels, v29.uWidth);
+  delete(Dest);
 
-  pGUIWindow_MainMenu = GUIWindowCreate(0, 0, 640, 480, 1, 0, (int)Source);
+  pGUIWindow_MainMenu = GUIWindowCreate(0, 0, 640, 480, 1, 0, (int)v1);
   GUIButtonCreate(pGUIWindow_MainMenu, 0, 0, 0, 0, 1, 0, 113, 0, 27, (unsigned char *)"", 0);
   dword_4E28F8 = 9;
   SetCurrentMenu(8);
   pD3DRenderer->BeginScene();
-  Render_DrawRGBTexture(pD3DRenderer, 0, 0, &v19);
-  Render_Set2DClippingRect(pD3DRenderer, v23, v24, v23 + v25, v24 + v26);
-  sub_4A5D33((int)pD3DRenderer, v23, v24, 0, 0, (int)&v29);
+  Render_DrawRGBTexture(pD3DRenderer, 0, 0, &cBackGround);
+  Render_Set2DClippingRect(pD3DRenderer, 389, 19, 389 + 250, 19 + 440);
+  sub_4A5D33((int)pD3DRenderer, 389, 19, 0, 0, (int)&v29);
   Render_Reset2DClippingRect(pD3DRenderer);
   pD3DRenderer->EndScene();
   Dest = (char *)1148846080;
@@ -3582,7 +3567,7 @@ int CreditsMenuLoop()
   pD3DRenderer->Present();
   do
   {
-    while ( PeekMessageA(&Msg, 0, 0, 0, 1u) )
+    while ( PeekMessageA(&Msg, 0, 0, 0, 1) )
     {
       if ( Msg.message == 18 )
         sub_464761(0);
@@ -3599,28 +3584,28 @@ int CreditsMenuLoop()
         sub_46B736((void *)dword_720010, 1);
       if ( dword_A74C88 )
       {
-        v19.LODPCXLoad("mm6title.pcx", 2);
+        cBackGround.LODPCXLoad("mm6title.pcx", 1);
         v11 = v29.uNumPixels;
         v12 = 0xFF00FFFF;
         sub_452AF3(v12, v29.pPixels, v11);
-        strncpy((char *)(char *)TmpBuf, Source, 0x7D0u);
-        sub_44D2FD(v38, v39, 1, v26 + 1, v29.uWidth, v29.uHeight, 1u, 1u, (char *)TmpBuf, (int)v29.pPixels, v29.uWidth);
-        strncpy((char *)(char *)TmpBuf, Source, 0x7D0u);
-        sub_44D2FD(v38, v39, 0, v26, v29.uWidth, v29.uHeight, v28, v27[0], (char *)TmpBuf, (int)v29.pPixels, v29.uWidth);
+        strncpy((char*)TmpBuf, v1, 2000);
+        sub_44D2FD(v38, v39, 1, 440 + 1, v29.uWidth, v29.uHeight, 1u, 1u, (char *)TmpBuf, (int)v29.pPixels, v29.uWidth);
+        strncpy((char *)TmpBuf, v1,2000);
+        sub_44D2FD(v38, v39, 0, 440, v29.uWidth, v29.uHeight, v28, v27, (char *)TmpBuf, (int)v29.pPixels, v29.uWidth);
         dword_A74C88 = 0;
         pD3DRenderer->BeginScene();
-        Render_DrawRGBTexture(pD3DRenderer, 0, 0, &v19);
-        Render_Set2DClippingRect(pD3DRenderer, v23, v24, v23 + v25, v23 + v26);
-        sub_4A5D33((int)pD3DRenderer, v23, v24, 0, v35, (int)&v29);
+        Render_DrawRGBTexture(pD3DRenderer, 0, 0, &cBackGround);
+        Render_Set2DClippingRect(pD3DRenderer, 389, 19, 389 + 250, 389 +440);
+        sub_4A5D33((int)pD3DRenderer, 389, 19, 0, v35, (int)&v29);
         Render_Reset2DClippingRect(pD3DRenderer);
         pD3DRenderer->EndScene();
         pD3DRenderer->Present();
       }
       timeGetTime();
       pD3DRenderer->BeginScene();
-      Render_DrawRGBTexture(pD3DRenderer, 0, 0, &v19);
-      Render_Set2DClippingRect(pD3DRenderer, v23, v24, v23 + v25, v24 + v26);
-      sub_4A5D33((int)pD3DRenderer, v23, v24, 0, v35, (int)&v29);
+      Render_DrawRGBTexture(pD3DRenderer, 0, 0, &cBackGround);
+      Render_Set2DClippingRect(pD3DRenderer, 389, 19, 389 + 250, 19 + 440);
+      sub_4A5D33((int)pD3DRenderer, 389, 19, 0, v35, (int)&v29);
       Render_Reset2DClippingRect(pD3DRenderer);
       pD3DRenderer->EndScene();
       ++v35;
@@ -3638,13 +3623,13 @@ int CreditsMenuLoop()
   pD3DRenderer->EndScene();
   pD3DRenderer->Present();
   AudioPlayer_sub_4AA258((int)pAudioPlayer, 1);
-  mem_mng.DeleteBuffer( (void *)Source);
-  mem_mng.DeleteBuffer( (void *)(void *)v38);
-  mem_mng.DeleteBuffer( (void *)(void *)v39);
+  mem_mng.DeleteBuffer( v29.pPixels);
+  mem_mng.DeleteBuffer( v38);
+  mem_mng.DeleteBuffer( v39);
   GUIWindowDelete(pGUIWindow_MainMenu);
-  v14 = LODFile_Icons_LOD.LODFile_sub_4114F2();
- // v15 = RGBTexture_Release((int)&v19);
- // RGBTexture_Release((int)&v29);
+ // v14 = LODFile_Icons_LOD.LODFile_sub_4114F2();
+  cBackGround.PCXTexture_Release();
+  v29.PCXTexture_Release();
   return sub_466CA0() - 8;
 }
 

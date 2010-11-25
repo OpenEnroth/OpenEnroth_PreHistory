@@ -1366,18 +1366,13 @@ struct GUIButton *dword_69BD64; // weak
  int dword_69CF00; // weak
  int dword_69CF04; // weak
  int dword_69CF08; // weak
- int dword_69CF0C; // weak
- int dword_69CF10; // weak
- int dword_69CF14; // weak
- int dword_69CF18; // weak
- int dword_69CF1C; // weak
- int dword_69CF20; // weak
- int dword_69CF24; // idb
- int dword_69CF28[array_size_unknown]; // weak
- _UNKNOWN unk_69CFE0; // weak
- char byte_69CFF4[11200]; // idb
+
+
+ 
+
+
  _UNKNOWN unk_69FBB4; // weak
- _UNKNOWN unk_6A0118; // weak
+ 
  int dword_6A013C[array_size_unknown]; // weak
  _UNKNOWN unk_6A0758; // weak
  _UNKNOWN unk_6A07A4; // weak
