@@ -72,8 +72,9 @@ extern int dword_4E2900_GammaPos; // [0..9]
 extern int dword_4E2910[array_size_unknown]; // weak
 extern __int16 word_4E2930[array_size_unknown]; // weak
 extern __int16 word_4E2938[array_size_unknown]; // weak
-extern void *off_4E2942; // weak
-extern void *off_4E2A12; // weak
+//extern void *off_4E2942; // weak
+//extern void *off_4E2A12; // weak
+extern __int16 g_StatsHintCoords[108];
 extern int dword_4E2A18[5];
 extern int dword_4E2A2C[9]; 
 extern int dword_4E2A50[12];

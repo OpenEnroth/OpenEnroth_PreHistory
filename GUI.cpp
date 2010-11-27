@@ -10711,36 +10711,38 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
   int v16; // eax@29
   int v17; // edx@29
   int v18; // eax@35
-  __int64 v20; // [sp+Ch] [bp-24h]@1
+  //__int64 v20; // [sp+Ch] [bp-24h]@1
   __int64 v21; // [sp+14h] [bp-1Ch]@15
   const CHAR *v22; // [sp+1Ch] [bp-14h]@13
   int v23; // [sp+20h] [bp-10h]@13
   unsigned int v24; // [sp+24h] [bp-Ch]@15
   void **v25; // [sp+28h] [bp-8h]@13
   int v26; // [sp+2Ch] [bp-4h]@10
+  POINT ptMouse;
 
-  v3 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v20);
-  v0 = *(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v20) + 4);
+  class03_GetMousePos(pGame->pClass03, &ptMouse);
+  v3 = ptMouse.x;
+  v0 = ptMouse.y;
   v2 = 0;
-  v1 = (signed int)&off_4E2942;
+  v1 = 0;//(signed int)&off_4E2942;
   while ( 1 )
   {
-    v4 = *(_WORD *)(v1 - 2);
+    v4 = g_StatsHintCoords[v1];
     if ( v3 >= v4 )
     {
-      if ( v3 <= v4 + *(_WORD *)(v1 + 2) )
+      if ( v3 <= v4 + g_StatsHintCoords[v1 + 2] )
       {
-        v5 = *(_WORD *)v1;
+        v5 = g_StatsHintCoords[v1 + 1];
         if ( v0 >= v5 )
         {
-          if ( v0 <= v5 + *(_WORD *)(v1 + 4) )
+          if ( v0 <= v5 + g_StatsHintCoords[v1 + 3] )
             break;
         }
       }
     }
-    v1 += 8;
+    v1 += 4;
     ++v2;
-    if ( v1 >= (signed int)&off_4E2A12 )
+    if ( v1 >= 108 )
       return;
   }
   switch ( v2 )
@@ -10787,9 +10789,9 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
           strcat((char *)pStringBuffer, " \n");
           v8 = *v25;
           v9 = (unsigned __int64)(pParty_global->qword_00002C - *(_QWORD *)(v23 + 8 * (_DWORD)*v25)) >> 32;
-          LODWORD(v20) = pParty_global->qword_00002C - *(_DWORD *)(v23 + 8 * (_DWORD)*v25);
-          HIDWORD(v20) = v9;
-          v21 = (signed __int64)((double)v20 * 0.234375) / 60 / 60;
+          ptMouse.x = pParty_global->qword_00002C - *(_DWORD *)(v23 + 8 * (_DWORD)*v25);
+          ptMouse.y = v9;
+          v21 = (signed __int64)((double)(signed __int64)&ptMouse * 0.234375) / 60 / 60;
           v24 = (_DWORD)v21 / 0x18u;
           v10 = (char *)aCharacterConditionNames[(_DWORD)v8];
 

@@ -711,7 +711,10 @@ void __fastcall sub_44D1E7(unsigned char *pFontData, int a2, int a3, int a4, con
           {
             strncpy(Dest, &pString[v6 + 1], 6u);
             Dest[6] = 0;
-            v21 = atoi(Dest);
+            sscanf(Dest,"%x",&v21);
+            if(!v21)
+              v21 = 0xFFFFFF;
+            v21|=0xFF000000;
             dword_5C6DB4 = v21;
             v6 += 6;	  //   was 5
           }

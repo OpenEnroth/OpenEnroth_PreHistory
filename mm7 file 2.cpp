@@ -9511,7 +9511,7 @@ void sub_4179BC(int a1, const char *a2)
   local_0C.uFrameHeight -= 12;
   local_0C.uFrameZ = local_0C.uFrameX + local_0C.uFrameWidth - 1;
   local_0C.uFrameW = local_0C.uFrameY + local_0C.uFrameHeight - 1;
-  v5 = 0xFFFFFF9B;
+  v5 = 0xFFFF9B;
   wsprintfA((char *)TmpBuf, "\f%06x%s\f000000", v5, v4);
   GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, 0, 0, (char *)TmpBuf, 3);
   FontDrawText(&local_0C, pFontSmallnum, 1, pFontLucida->uFontHeight, v3, 0, 0, 0);
