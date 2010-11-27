@@ -1577,7 +1577,7 @@ LABEL_60:
         case 0xA5:
           if ( pGUIWindow_CurrentMenu->dword_000040 == v0 )
             KeyboardController_sub_459ED1(pKeyboardController, 0);
-          if ( dword_4E28F8 != 11 || dword_6A0CA0 != dword_6A0C9C + v209 )
+          if ( dword_4E28F8 != 11 || dword_6A0CA0_indx != dword_6A0C9C + v209 )
           {
             v12 = dword_6A0C9C + v209;
             if ( dword_6BE138 == dword_6A0C9C + v209 )
@@ -1598,21 +1598,21 @@ LABEL_60:
                 }
               }
             }
-            dword_6A0CA0 = v12;
+            dword_6A0CA0_indx = v12;
             dword_6BE138 = v12;
           }
           else
           {
             KeyboardController_sub_459E5A(pKeyboardController, 0, 19, (int)pGUIWindow_CurrentMenu);
-            if ( strcmp((const char *)&unk_69BD68 + 100 * dword_6A0CA0, (char *)pGlobalTXT_LocalizationStrings[72]) )
-              strcpy((char *)pKeyboardController->pPressedKeysBuffer, (const char *)&unk_69BD68 + 100 * dword_6A0CA0);
+            if ( strcmp((const char *)&unk_69BD68 + 100 * dword_6A0CA0_indx, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_EMPTY]) )
+              strcpy((char *)pKeyboardController->pPressedKeysBuffer, (const char *)&unk_69BD68 + 100 * dword_6A0CA0_indx);
             pKeyboardController->uNumKeysPressed = strlen((char *)pKeyboardController->pPressedKeysBuffer);
           }
           goto LABEL_92;
         case 0x52:
-          if ( dword_69CF28[dword_6A0CA0] )
+          if ( dword_69CF28[dword_6A0CA0_indx] )
           {
-            /*v2 = */sub_45EE8A(dword_6A0CA0);
+            /*v2 = */sub_45EE8A(dword_6A0CA0_indx);
             dword_6A0D48 = 3;
           }
           goto LABEL_189;
@@ -1620,9 +1620,9 @@ LABEL_60:
           if ( pGUIWindow_CurrentMenu->dword_000040 == v0 )
           {
             KeyboardController_sub_459ED1(pKeyboardController, 0);
-            strcpy((char *)&unk_69BD68 + 100 * dword_6A0CA0, (char *)pKeyboardController->pPressedKeysBuffer);
+            strcpy((char *)&unk_69BD68 + 100 * dword_6A0CA0_indx, (char *)pKeyboardController->pPressedKeysBuffer);
           }
-          v2 = sub_460078(dword_6A0CA0);
+          v2 = sub_460078(dword_6A0CA0_indx);
           goto LABEL_189;
         case 0x7E:
           GUIWindowDelete(pGUIWindow_CurrentMenu);
@@ -2656,10 +2656,10 @@ LABEL_322:
               struct_576FE8.dword_000048 = v0;
               Class33_global3.PCXTexture_Release();
            //   v46 = sub_45E03A_SomethingLikeCaptureAScreenshot(155, 117);
-              v212 = v46;
-              v47 = (int)sub_49F8B5(pD3DRenderer, "gamma.pcx", v46, 155, 117);
-              operator_delete((void *)v212);
-              sub_40E55E(&Class33_global3, (unsigned int)"gamma.pcx", 0);
+           //   v212 = v46;
+            //  v47 = (int)sub_49F8B5(pD3DRenderer, "gamma.pcx", v46, 155, 117);
+           //   operator_delete((void *)v212);
+           //   sub_40E55E(&Class33_global3, (unsigned int)"gamma.pcx", 0);
               goto LABEL_92;
             }
             goto LABEL_333;
@@ -3854,10 +3854,10 @@ LABEL_693:
           }
           Class33_global3.PCXTexture_Release();
         //  v117 = sub_45E03A_SomethingLikeCaptureAScreenshot(155, 117);
-          v212 = v117;
-          v118 = (int)sub_49F8B5(pD3DRenderer, "gamma.pcx", v117, 155, 117);
-          operator_delete((void *)v212);
-          sub_40E55E(&Class33_global3, (unsigned int)"gamma.pcx", 0);
+         // v212 = v117;
+         // v118 = (int)sub_49F8B5(pD3DRenderer, "gamma.pcx", v117, 155, 117);
+         // operator_delete((void *)v212);
+         // sub_40E55E(&Class33_global3, (unsigned int)"gamma.pcx", 0);
           GUIWindowCreate(602, 450, 0, 0, 92, pBtn_Game_Options, 0);
 LABEL_453:
           if ( dword_50CBD0[0] >= 40 )

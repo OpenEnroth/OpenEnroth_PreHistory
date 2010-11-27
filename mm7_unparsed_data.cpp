@@ -1355,17 +1355,9 @@ struct unnamed_69B110 object_69B110; // struct @ MM7.exe::0069B110
  char byte_69BD41; // weak
  char byte_69BD44; // weak
  char *dword_69BD48; // idb
-struct GUIButton *dword_69BD58; // weak
-struct GUIButton *dword_69BD5C; // weak
-struct GUIButton *dword_69BD60; // weak
-struct GUIButton *dword_69BD64; // weak
- _UNKNOWN unk_69BD68; // weak
- char byte_69BD7C[20]; // idb
- int dword_69BD90[40 * 25 + array_size_unknown]; // weak
- int dword_69CEFC; // weak
- int dword_69CF00; // weak
- int dword_69CF04; // weak
- int dword_69CF08; // weak
+
+
+
 
 
  
@@ -1374,13 +1366,10 @@ struct GUIButton *dword_69BD64; // weak
  _UNKNOWN unk_69FBB4; // weak
  
  int dword_6A013C[array_size_unknown]; // weak
- _UNKNOWN unk_6A0758; // weak
+
  _UNKNOWN unk_6A07A4; // weak
 
-LOD_Writefile LODFile_New_LOD;   // struct @ MM7.exe::006A0820
-LOD_Writefile LODFile_Games_LOD; // struct @ MM7.exe::006A0A60
- int dword_6A0C9C;
- int dword_6A0CA0; // weak
+
  int global_dword_6A0CA8; // weak
  HWND dword_6A0CFC; // idb
  int dword_6A0D00; // weak

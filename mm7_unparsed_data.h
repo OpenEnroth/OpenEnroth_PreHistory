@@ -1674,15 +1674,10 @@ extern struct GUIButton *dword_69BD58; // weak
 extern struct GUIButton *dword_69BD5C; // weak
 extern struct GUIButton *dword_69BD60; // weak
 extern struct GUIButton *dword_69BD64; // weak
-extern _UNKNOWN unk_69BD68; // weak
-extern char byte_69BD7C[20]; // idb
-extern int dword_69BD90[]; // weak
-//int dword_69BD94; // weak
 
-extern int dword_69CEFC; // weak
-extern int dword_69CF00; // weak
-extern int dword_69CF04; // weak
-extern int dword_69CF08; // weak
+
+
+
 
 
 
@@ -1690,19 +1685,10 @@ extern int dword_69CF08; // weak
 extern _UNKNOWN unk_69FBB4; // weak
 
 extern int dword_6A013C[array_size_unknown]; // weak
-extern _UNKNOWN unk_6A0758; // weak
+
 extern _UNKNOWN unk_6A07A4; // weak
 
-extern class LOD_Writefile LODFile_New_LOD; // struct @ MM7.exe::006A0820
-//_UNKNOWN unk_6A0820; // weak
-//int dword_6A0A4C; // ::+22C    uNumSubidices
 
-extern class LOD_Writefile LODFile_Games_LOD; // struct @ MM7.exe::006A0A60
-//_UNKNOWN unk_6A0A60; // weak
-//int dword_6A0C8C; // ::+22C   uNumSubidices
-//int dword_6A0C90; // ::+230   pLODSubIndexNamedBuffer
-extern int dword_6A0C9C;
-extern int dword_6A0CA0;
 extern int dword_6A0CA4;
 extern int global_dword_6A0CA8;
 extern HWND dword_6A0CFC; // idb

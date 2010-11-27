@@ -3867,7 +3867,7 @@ LABEL_134:
           {
             if ( pGUIWindow_CurrentMenu->dword_000040 == 1 )
               KeyboardController_sub_459ED1(pKeyboardController, 0);
-            if ( dword_4E28F8 != 11 || dword_6A0CA0 != v48 + dword_6A0C9C )
+            if ( dword_4E28F8 != 11 || dword_6A0CA0_indx != v48 + dword_6A0C9C )
             {
               v29 = v48 + dword_6A0C9C;
               if ( dword_6BE138 == v48 + dword_6A0C9C )
@@ -3888,13 +3888,13 @@ LABEL_134:
                   }
                 }
               }
-              dword_6A0CA0 = v29;
+              dword_6A0CA0_indx = v29;
               dword_6BE138 = v29;
             }
             else
             {
               KeyboardController_sub_459E5A(pKeyboardController, 0, 19, (int)pGUIWindow_CurrentMenu);
-              strcpy((char *)pKeyboardController->pPressedKeysBuffer, (const char *)&unk_69BD68 + 100 * dword_6A0CA0);
+              strcpy((char *)pKeyboardController->pPressedKeysBuffer, (const char *)&unk_69BD68 + 100 * dword_6A0CA0_indx);
               pKeyboardController->uNumKeysPressed = strlen((char *)pKeyboardController->pPressedKeysBuffer);
             }
             continue;
@@ -3984,7 +3984,7 @@ LABEL_90:
         }
         if ( v49 == 82 )
         {
-          if ( !dword_69CF28[dword_6A0CA0] )
+          if ( !dword_69CF28[dword_6A0CA0_indx] )
             continue;
 LABEL_99:
           v44 = 9;

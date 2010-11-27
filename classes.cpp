@@ -3077,13 +3077,15 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
 
           case 6:
 			  {
-            if (*(char *)test_str == ' ' || *(char *)test_str == '"')
+            if ( *test_str == '"')
+				 *test_str == ' ';
               pMonsterInfo->uExp = 10;
-            else pMonsterInfo->uExp = atoi((char *)test_str);
+            pMonsterInfo->uExp = atoi((char *)test_str);
           break;
 			  }
 
           case 7:
+			  {
             v15 = 0;
             v111 = 0;
             v112 = 0;
@@ -3216,16 +3218,18 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
               }
             }
           break;
-
+			  }
 
           case 8:
+			  {
             pMonsterInfo->bQuestMonster = atoi((char *)test_str);
           break;
-
+			  }
           case 9:
+			  {
             pMonsterInfo->uCanFly = *(char *)test_str == 'Y';
           break;
-
+			  }
           case 10:
             v86 = *(_BYTE *)test_str;
             v113 = 4;

@@ -17,18 +17,51 @@
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
+#define MAX_SAVEGAME_PATH 280
+ struct	Save_files_list
+	 {	
+	    char unk_69CFE0[20]; // weak
+	    char name_list[40][MAX_SAVEGAME_PATH]; // idb 40  byte_69CFF4[11200]
+	 };
+
+ int uGUIx_u; // weak	 dword_69CEFC
+ int uGUILS_saveU; // weak
+ int uGUILS_loadU; // weak dword_69CF04
+ int dword_69CF08; // weak
  int dword_69CF0C; // weak
  int dword_69CF10; // weak
  int dword_69CF14; // weak
- int dword_69CF18; // weak
- int dword_69CF1C; // weak
- int dword_69CF20; // weak
- int dword_69CF24; // idb
- int dword_69CF28[array_size_unknown]; // weak
+ int uGUISaveUp; // weak  dword_69CF18
+ int uGUILoadUp; // weak dword_69CF1C
+ int uGUILoadSave; // weak	 dword_69CF20
+ int uSaveFileCount; // idb	dword_69CF24
 
- char byte_69CFF4[11200]; // idb
-_UNKNOWN unk_6A0118; // weak
-_UNKNOWN unk_69CFE0; // weak
+ int dword_69CF28[45]; // weak
+
+ Save_files_list saves_lst;	  // unk_69CFE0	[20]  +	  byte_69CFF4[11200]
+
+
+cPCXTexture unk_6A0118[45]; // weak  [1800]	  45*0x28
+ //  _UNKNOWN unk_6A0758; // weak	 end
+LOD_Writefile LODFile_New_LOD;   // struct @ MM7.exe::006A0820
+
+ int dword_6A0C9C;
+ int dword_6A0CA0_indx; // weak
+
+LOD_Writefile LODFile_Games_LOD; // struct @ MM7.exe::006A0A60
+
+ _UNKNOWN unk_69BD68; // weak
+
+ char byte_69BD7C[20]; // idb
+ int dword_69BD90[40 * 25 + array_size_unknown]; // weak
+
+
+
+
+struct GUIButton *dword_69BD58; // weak
+struct GUIButton *dword_69BD5C; // weak
+struct GUIButton *dword_69BD60; // weak
+struct GUIButton *dword_69BD64; // weak
 
 
 //----- (0045E93E) --------------------------------------------------------
@@ -53,37 +86,37 @@ int __cdecl sub_45E93E()
   v13 = 0;
   if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
     LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
-  memset(dword_69CF28, 0, 0xB4u);
-  memset(&unk_6A0118, 0, 0x708u);
-  dword_69CF20 = LODFile_Icons_LOD.LODFile_LoadTexture( "loadsave", 2);
-  dword_69CF1C = LODFile_Icons_LOD.LODFile_LoadTexture( "load_up", 2);
-  dword_69CF18 = LODFile_Icons_LOD.LODFile_LoadTexture( "save_up", 2);
-  dword_69CF04 = LODFile_Icons_LOD.LODFile_LoadTexture( "LS_loadU", 2);
-  dword_69CF00 = LODFile_Icons_LOD.LODFile_LoadTexture( "LS_saveU", 2);
-  dword_69CEFC = LODFile_Icons_LOD.LODFile_LoadTexture( "x_u", 2);
-  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(dword_69CF20 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CF20] : 0));
+  memset(dword_69CF28, 0, 45*sizeof(int));
+  memset(&unk_6A0118, 0, 1800);
+  uGUILoadSave = LODFile_Icons_LOD.LODFile_LoadTexture("loadsave", 2);		  //dword_69CF20
+  uGUILoadUp   = LODFile_Icons_LOD.LODFile_LoadTexture("load_up", 2);		   //dword_69CF1C
+  uGUISaveUp   = LODFile_Icons_LOD.LODFile_LoadTexture("save_up", 2);		  // dword_69CF18
+  uGUILS_loadU  = LODFile_Icons_LOD.LODFile_LoadTexture("LS_loadU", 2);		   //dword_69CF04 
+  uGUILS_saveU  = LODFile_Icons_LOD.LODFile_LoadTexture("LS_saveU", 2);		  //dword_69CF00
+  uGUIx_u      = LODFile_Icons_LOD.LODFile_LoadTexture("x_u", 2);			   //dword_69CEFC
+  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (uGUILoadSave != -1 ? &LODFile_Icons_LOD.aLODHeaders[uGUILoadSave] : 0));
   if ( dword_4E28F8 == 11 )
   {
-    v1 = dword_69CF18;
-    v0 = dword_69CF00;
+    v1 = uGUISaveUp;
+    v0 = uGUILS_saveU;
   }
   else
   {
-    v1 = dword_69CF1C;
-    v0 = dword_69CF04;
+    v1 = uGUILoadUp;
+    v0 = uGUILS_loadU;
   }
-  Render_DrawIndexedTexture(pD3DRenderer, 241, 302,(v0 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v0] : 0));
-  Render_DrawIndexedTexture(pD3DRenderer, 351, 302, (dword_69CEFC != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CEFC] : 0));
-  Render_DrawIndexedTexture(pD3DRenderer, 18, 141, (v1 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v1] : 0));
-  FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, 25, 199, (char *)pGlobalTXT_LocalizationStrings[505], 0, 0, 0);
+  Render_DrawIndexedTexture(pD3DRenderer, 241, 302, (v0 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v0] : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 351, 302, (uGUIx_u != -1 ? &LODFile_Icons_LOD.aLODHeaders[uGUIx_u] : 0));
+  Render_DrawIndexedTexture(pD3DRenderer,  18, 141, (v1 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v1] : 0));
+  FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, 25, 199, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_READING], 0, 0, 0);
   pD3DRenderer->Present();
-  sub_45E297((void *)1);
+  sub_45E297(1);
   v12->AllocateSubidexAndIOBuffer( 300, 0);
   v2 = (int)dword_69CF28;
   v10 = (char *)&unk_69BD68;
-  v11 = &unk_6A0118;
-  v9 = (signed int)byte_69CFF4;
-  do
+  v11 = &unk_6A0118[0];
+ // v9 = (signed int)byte_69CFF4;
+/*  do
   {
     v3 = v9;
     if ( !*(_BYTE *)v9 )
@@ -117,7 +150,7 @@ int __cdecl sub_45E93E()
     v10 += 100;
     v2 += 4;
   }
-  while ( v9 < (signed int)&unk_69FBB4 );
+  while ( v9 < (signed int)&unk_69FBB4 );  */
   v12->FreeSubIndxIOBuffers();
   dword_69CF14 = LODFile_Icons_LOD.LODFile_LoadTexture( "x_d", 2);
   dword_69CF10 = LODFile_Icons_LOD.LODFile_LoadTexture( "LS_saveD", 2);
@@ -131,57 +164,19 @@ int __cdecl sub_45E93E()
   GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 278, 191, 18, 1, 0, 165, 4, 0, (unsigned char *)"", 0);
   GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 298, 191, 18, 1, 0, 165, 5, 0, (unsigned char *)"", 0);
   GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 318, 191, 18, 1, 0, 165, 6, 0, (unsigned char *)"", 0);
-  dword_69BD64 = GUIButtonCreate(pGUIWindow_CurrentMenu,
-                   241,
-                   302,
-                   105,
-                   40,
-                   1,
-                   0,
-                   164,
-                   0,
-                   0,
-                   (unsigned char *)"",
+  dword_69BD64 = 
+  GUIButtonCreate(pGUIWindow_CurrentMenu,241, 302, 105, 40, 1, 0, 164, 0, 0, (unsigned char *)"",
                    dword_69CF10 != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_69CF10] : 0);
-  dword_69BD60 = GUIButtonCreate(pGUIWindow_CurrentMenu,
-                   350,
-                   302,
-                   105,
-                   40,
-                   1,
-                   0,
-                   166,
-                   0,
-                   0,
-                   (unsigned char *)"",
+  dword_69BD60 = 
+  GUIButtonCreate(pGUIWindow_CurrentMenu,350, 302, 105, 40, 1, 0, 166, 0, 0, (unsigned char *)"",
                    dword_69CF14 != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_69CF14] : 0);
-  dword_69BD5C = GUIButtonCreate(pGUIWindow_CurrentMenu,
-                   215,
-                   199,
-                   17,
-                   17,
-                   1,
-                   0,
-                   162,
-                   0,
-                   0,
-                   (unsigned char *)"",
+  dword_69BD5C = 
+  GUIButtonCreate(pGUIWindow_CurrentMenu,215, 199,  17, 17,	1, 0, 162, 0, 0, (unsigned char *)"",
                    dword_69CF0C != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_69CF0C] : 0);
-  v8 = (int)GUIButtonCreate(
-         pGUIWindow_CurrentMenu,
-         215,
-         323,
-         17,
-         17,
-         1,
-         0,
-         163,
-         34,
-         0,
-         (unsigned char *)"",
-         dword_69CF08 != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_69CF08] : 0);
-  v13 = -1;
-  dword_69BD58 = (GUIButton *)v8;
+  dword_69BD58 = 
+  GUIButtonCreate(pGUIWindow_CurrentMenu,215, 323,  17, 17,	1, 0, 163,34, 0, (unsigned char *)"",
+                   dword_69CF08 != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_69CF08] : 0);
+ 
   return 0/*sub_461790((int)&v12)*/;
 }
 
@@ -291,7 +286,7 @@ LABEL_17:
       }
     }
 
-    wsprintfA((char *)TmpBuf, "saves\\%s", &byte_69CFF4[280 * v1]);
+    wsprintfA((char *)TmpBuf, "saves\\%s", &saves_lst.name_list[v1]);
     LODFile_New_LOD.Close_Written_File();
     if ( !CopyFileA((char *)TmpBuf, "data\\new.lod", 0) )
       GetLastError();
@@ -451,16 +446,16 @@ LABEL_55:
   v26 = strcpy(Str1, Source);
   LOWORD(dword_6BE364) = dword_6BE364 | 0x2001;
   v27 = 0;
-  if ( dword_69CF24 > 0 )
+  if (uSaveFileCount > 0 )
   {
-    v28 = (int)&unk_6A0118;
+    v28 = (int)&unk_6A0118[0];
     do
     {
       // (char *)RGBTexture_Release(v28);
       ++v27;
       v28 += 40;
     }
-    while ( v27 < dword_69CF24 );
+    while ( v27 < uSaveFileCount );
   }
   LODFile_Icons_LOD.LODFile_sub_4114F2();
   AudioPlayer_SetVolume((AudioPlayer *)v23, aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
@@ -529,24 +524,24 @@ void sub_4601B7(int a1)
   {
     if ( sub_466CA0() != 9 )
     {
-      Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(dword_69CF20 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CF20] : 0));
+      Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (uGUILoadSave != -1 ? &LODFile_Icons_LOD.aLODHeaders[uGUILoadSave] : 0));
       if ( v40 )
       {
-        v3 = dword_69CF18;
-        v2 = dword_69CF00;
+        v3 = uGUISaveUp;
+        v2 = uGUILS_saveU;
       }
       else
       {
-        v3 = dword_69CF1C;
-        v2 = dword_69CF04;
+        v3 = uGUILoadUp;
+        v2 = uGUILS_loadU;
       }
       Render_DrawIndexedTexture(pD3DRenderer, 241, 302, (v2 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v2] : 0));
       Render_DrawIndexedTexture(pD3DRenderer, 18, 139, (v3 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v3] : 0));
-      Render_DrawIndexedTexture(pD3DRenderer, 351, 302, (dword_69CEFC != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CEFC] : 0));
+      Render_DrawIndexedTexture(pD3DRenderer, 351, 302, (uGUIx_u != -1 ? &LODFile_Icons_LOD.aLODHeaders[uGUIx_u] : 0));
       v1 = 255;
     }
   }
-  if ( dword_69CF28[dword_6A0CA0] )
+  if ( dword_69CF28[dword_6A0CA0_indx] )
   {
     memset(&local_0C, 0, sizeof(GUIWindow));
     local_0C.uFrameX = pGUIWindow_CurrentMenu->uFrameX + 240;
@@ -558,21 +553,21 @@ void sub_4601B7(int a1)
     local_0C.uFrameZ = local_0C.uFrameX + 219;
     local_0C.uFrameHeight = v6;
     local_0C.uFrameW = v6 + v5 - 1;
-    v4 = dword_6A0CA0;
-    if ( dword_6A013C[10 * dword_6A0CA0] )
+    v4 = dword_6A0CA0_indx;
+    if ( dword_6A013C[10 * dword_6A0CA0_indx] )
     {
       Render_DrawRGBTexture(
         pD3DRenderer,
         pGUIWindow_CurrentMenu->uFrameX + 276,
         pGUIWindow_CurrentMenu->uFrameY + 171,
-        (cPCXTexture *)((char *)&unk_6A0118 + 40 * dword_6A0CA0));
-      v4 = dword_6A0CA0;
+       &unk_6A0118[dword_6A0CA0_indx]);
+      v4 = dword_6A0CA0_indx;
     }
     v10 = CMapStats_FindLocation(pMapStats, &byte_69BD7C[100 * v4]);
     GUIWindow_sub_44D406(&local_0C, pFontSmallnum, 0, 0, 0, (const char *)pMapStats->pMapInfos[v10].pLocationName, 3);
-    v11 = (signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0] * 0.234375) / 60;
-    v12 = (signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0] * 0.234375) / 60;
-    HIDWORD(v35) = (unsigned __int64)((signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0]
+    v11 = (signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0_indx] * 0.234375) / 60;
+    v12 = (signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0_indx] * 0.234375) / 60;
+    HIDWORD(v35) = (unsigned __int64)((signed __int64)((double)*(signed __int64 *)&dword_69BD90[25 * dword_6A0CA0_indx]
                                                      * 0.234375)
                                     / 60) >> 32;
     v11 /= 60i64;
@@ -629,7 +624,7 @@ LABEL_23:
   if ( pGUIWindow_CurrentMenu->dword_000040 == 2 )
   {
     pGUIWindow_CurrentMenu->dword_000040 = 0;
-    strcpy((char *)&unk_69BD68 + 100 * dword_6A0CA0, (char *)pKeyboardController->pPressedKeysBuffer);
+    strcpy((char *)&unk_69BD68 + 100 * dword_6A0CA0_indx, (char *)pKeyboardController->pPressedKeysBuffer);
     if ( dword_50CBD0[0] < 40 )
     {
       dword_50CBD0[3 * dword_50CBD0[0] + 1] = 83;
@@ -644,11 +639,11 @@ LABEL_23:
   }
   if ( sub_466CA0() == 9 )
   {
-    v20 = (char *)pGlobalTXT_LocalizationStrings[135];
-    v21 = AlignText_Center(186, (char *)pGlobalTXT_LocalizationStrings[135], pFontSmallnum);
+    v20 = (char *)pGlobalTXT_LocalizationStrings[LOCSTR_LOADING];
+    v21 = AlignText_Center(186, v20, pFontSmallnum);
     FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, v21 + 25, 220, v20, 0, 0, 0);
-    v22 = (char *)&unk_69BD68 + 100 * dword_6A0CA0;
-    v23 = AlignText_Center(186, (const char *)&unk_69BD68 + 100 * dword_6A0CA0, pFontSmallnum);
+    v22 = (char *)&unk_69BD68 + 100 * dword_6A0CA0_indx;
+    v23 = AlignText_Center(186, (const char *)&unk_69BD68 + 100 * dword_6A0CA0_indx, pFontSmallnum);
     GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontSmallnum, v23 + 25, 262, 0, v22, 185, 0);
     v24 = (char *)pGlobalTXT_LocalizationStrings[165];
     v25 = AlignText_Center(186, (char *)pGlobalTXT_LocalizationStrings[165], pFontSmallnum);
@@ -659,7 +654,7 @@ LABEL_23:
     if ( v40 )
       v37 = 40;
     else
-      v37 = dword_69CF24;
+      v37 = uSaveFileCount;
     v40 = 199;
     v39 = dword_6A0C9C;
     v26 = (char *)&unk_69BD68 + 100 * dword_6A0C9C;
@@ -667,8 +662,8 @@ LABEL_23:
     {
       if ( v39 >= (signed int)v37 )
         break;
-      HIDWORD(v38) = v39 == dword_6A0CA0 ? 0xFF000064 | (v1 << 16) | (v1 << 8) : 0;
-      if ( pGUIWindow_CurrentMenu->dword_000040 != 1 || v39 != dword_6A0CA0 )
+      HIDWORD(v38) = v39 == dword_6A0CA0_indx ? 0xFF000064 | (v1 << 16) | (v1 << 8) : 0;
+      if ( pGUIWindow_CurrentMenu->dword_000040 != 1 || v39 != dword_6A0CA0_indx )
       {
         GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontSmallnum, 27, v40, SWORD2(v38), v26, 185, 0);
       }
@@ -688,42 +683,44 @@ LABEL_23:
 
 
 
-//----- (0045E297) --------------------------------------------------------
-int sub_45E297(void *_this)
+//----- (0045E297) -------------.text:0045F527-------------------------------------------
+void sub_45E297(int a1)
 {
   signed int v1; // edi@4
   int v2; // eax@6
-  void *v4; // [sp+10h] [bp-4h]@1
+  int v4; // [sp+10h] [bp-4h]@1
 
-  v4 = _this;
-  memset(&unk_69CFE0, 0,12600);
+  v4 = a1;
+  memset(&saves_lst, 0,sizeof(Save_files_list));
   SetCurrentDirectoryW(L".\\Saves");
-  dword_69CF24 = 0;
+  uSaveFileCount = 0;
   if ( !v4 )
   {
     if ( _access((char *)pGlobalTXT_LocalizationStrings[LOCSTR_AUTOSAVE_MM7], 0) != -1 )
-      strcpy(&byte_69CFF4[280 * dword_69CF24++], (char *)pGlobalTXT_LocalizationStrings[LOCSTR_AUTOSAVE_MM7]);
+		{
+        strcpy((char *)&saves_lst.name_list[uSaveFileCount], (char *)pGlobalTXT_LocalizationStrings[LOCSTR_AUTOSAVE_MM7]);
+	    uSaveFileCount++;
+		}
   }
-  v1 = 0;
-  do
+ 
+  for(int i=0;i<40; i++) 
   {
-    wsprintfA((char *)TmpBuf, "save%03d.mm7", v1);
+    wsprintfA((char *)TmpBuf, "save%03d.mm7",i);
     if ( _access((char *)TmpBuf, 0) != -1 )
     {
-      v2 = v1;
+      v2 = i;
       if ( !v4 )
-        v2 = dword_69CF24;
-      strcpy(&byte_69CFF4[280 * v2], (char *)TmpBuf);
-      ++dword_69CF24;
+        v2 = uSaveFileCount;
+      strcpy((char *)&saves_lst.name_list[v2], (char *)TmpBuf);
+      ++uSaveFileCount;
     }
-    ++v1;
   }
-  while ( v1 < 40 );
-  return SetCurrentDirectoryW(L"..");
+
+  SetCurrentDirectoryW(L"..");
 }
 
 //----- (0045E361) --------------------------------------------------------
-int __fastcall sub_45E361(int a1)  //saveload menu
+void sub_45E361(int a1)  //saveload menu
 {
   int v1; // eax@5
   int v2; // ebp@5
@@ -749,30 +746,30 @@ int __fastcall sub_45E361(int a1)  //saveload menu
   v17 = 0;
   if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
     LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
-  memset(dword_69CF28, 0, 180);
-  memset(&unk_6A0118, 0, 1800);
-  dword_69CF20 = LODFile_Icons_LOD.LODFile_LoadTexture( "loadsave", 2);
-  dword_69CF1C = LODFile_Icons_LOD.LODFile_LoadTexture( "load_up", 2);
-  dword_69CF18 = LODFile_Icons_LOD.LODFile_LoadTexture( "save_up", 2);
-  dword_69CF04 = LODFile_Icons_LOD.LODFile_LoadTexture( "LS_loadU", 2);
-  dword_69CF00 = LODFile_Icons_LOD.LODFile_LoadTexture( "LS_saveU", 2);
-  dword_69CEFC = LODFile_Icons_LOD.LODFile_LoadTexture( "x_u", 2);
+  memset(&dword_69CF28, 0, 45*sizeof(int));
+  memset(&unk_6A0118, 0, 45*sizeof(cPCXTexture));
+  uGUILoadSave = LODFile_Icons_LOD.LODFile_LoadTexture( "loadsave", 2);
+  uGUILoadUp   = LODFile_Icons_LOD.LODFile_LoadTexture( "load_up", 2);
+  uGUISaveUp = LODFile_Icons_LOD.LODFile_LoadTexture( "save_up", 2);
+  uGUILS_loadU = LODFile_Icons_LOD.LODFile_LoadTexture( "LS_loadU", 2);
+  uGUILS_saveU = LODFile_Icons_LOD.LODFile_LoadTexture( "LS_saveU", 2);
+  uGUIx_u = LODFile_Icons_LOD.LODFile_LoadTexture( "x_u", 2);
   if ( v12 )
   {
-    Render_DrawIndexedTexture(pD3DRenderer, 8, 8,(dword_69CF20 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CF20] : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 8, 8,(uGUILoadSave != -1 ? &LODFile_Icons_LOD.aLODHeaders[uGUILoadSave] : 0));
     if ( dword_4E28F8 == 11 )
     {
-      v2 = dword_69CF18;
-      v1 = dword_69CF00;
+      v2 = uGUISaveUp;
+      v1 = uGUILS_saveU;
     }
     else
     {
-      v2 = dword_69CF1C;
-      v1 = dword_69CF04;
+      v2 = uGUILoadUp;
+      v1 = uGUILS_loadU;
     }
     Render_DrawIndexedTexture(pD3DRenderer, 241, 302, (v1 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v1] : 0));
     Render_DrawIndexedTexture(pD3DRenderer, 18, 141, (v2 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v2] : 0));
-    Render_DrawIndexedTexture(pD3DRenderer, 351, 302, (dword_69CEFC != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CEFC] : 0));
+    Render_DrawIndexedTexture(pD3DRenderer, 351, 302, (uGUIx_u != -1 ? &LODFile_Icons_LOD.aLODHeaders[uGUIx_u] : 0));
   }
   else
   {
@@ -787,13 +784,14 @@ int __fastcall sub_45E361(int a1)  //saveload menu
   FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, 25, 199, (char *)pGlobalTXT_LocalizationStrings[505], 0, 0, 0);
   pD3DRenderer->Present();
   sub_45E297(0);
-  if ( dword_6A0C9C > dword_69CF24 )
+  if ( dword_6A0C9C > uSaveFileCount)
   {
     dword_6A0C9C = 0;
-    dword_6A0CA0 = 0;
+    dword_6A0CA0_indx = 0;
   }
   v16->AllocateSubidexAndIOBuffer( 300, 0);
   v3 = 0;
+  /*
   if ( dword_69CF24 > 0 )
   {
     v14 = &unk_69BD68;
@@ -833,81 +831,47 @@ LABEL_23:
     v10 = (char *)pGlobalTXT_LocalizationStrings[LOCSTR_EMPTY];
     goto LABEL_22;
   }
-LABEL_24:
+LABEL_24: */
   v16->FreeSubIndxIOBuffers();
   if ( dword_4E28F8 == 11 )
-  {
-
-   
     v9 = "LS_saveD";
-  }
   else
-  {
-  
     v9 = "LS_loadD";
-  }
+
   dword_69CF14 = LODFile_Icons_LOD.LODFile_LoadTexture( "x_d", 2);;
   dword_69CF10 = LODFile_Icons_LOD.LODFile_LoadTexture( v9, 2);
   dword_69CF0C = LODFile_Icons_LOD.LODFile_LoadTexture( "AR_UP_DN", 2);
   dword_69CF08 = LODFile_Icons_LOD.LODFile_LoadTexture( "AR_DN_DN", 2);
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 198, 191, 18, 1, 0, 165, 0, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 219, 191, 18, 1, 0, 165, 1, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 240, 191, 18, 1, 0, 165, 2, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 261, 191, 18, 1, 0, 165, 3, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 282, 191, 18, 1, 0, 165, 4, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 303, 191, 18, 1, 0, 165, 5, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 324, 191, 18, 1, 0, 165, 6, 0, (unsigned char *)"", 0);
-  dword_69BD64 = GUIButtonCreate(pGUIWindow_CurrentMenu,
-                   241,
-                   302,
-                   105,
-                   40,
-                   1,
-                   0,
-                   164,
-                   0,
-                   0,
-                   (unsigned char *)"",
-                   dword_69CF10 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CF10 ] : 0);
-  dword_69BD60 = GUIButtonCreate(pGUIWindow_CurrentMenu,
-                   350,
-                   302,
-                   105,
-                   40,
-                   1,
-                   0,
-                   166,
-                   0,
-                   0,
-                   (unsigned char *)"",
-                   dword_69CF14 != -1 ? &LODFile_Icons_LOD.aLODHeaders[ dword_69CF14] : 0);
-  dword_69BD5C = GUIButtonCreate(pGUIWindow_CurrentMenu,
-                   215,
-                   199,
+  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 198, 191, 18, 1, 0, 165, 0, 0, (unsigned char *)"", 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 219, 191, 18, 1, 0, 165, 1, 0, (unsigned char *)"", 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 240, 191, 18, 1, 0, 165, 2, 0, (unsigned char *)"", 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 261, 191, 18, 1, 0, 165, 3, 0, (unsigned char *)"", 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 282, 191, 18, 1, 0, 165, 4, 0, (unsigned char *)"", 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 303, 191, 18, 1, 0, 165, 5, 0, (unsigned char *)"", 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 324, 191, 18, 1, 0, 165, 6, 0, (unsigned char *)"", 0);
+  dword_69BD64 = 
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 241, 302, 105, 40, 1,	0, 164, 0, 0, (unsigned char *)"",
+                                 dword_69CF10 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CF10] : 0);
+  dword_69BD60 = 
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 350, 302, 105, 40, 1, 0, 166, 0, 0, (unsigned char *)"",
+                                 dword_69CF14 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CF14] : 0);
+  dword_69BD5C = 
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 215, 199,  17, 17, 1, 0, 162, 0, 0, (unsigned char *)"",
+                                 dword_69CF0C != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CF0C] : 0);
+  dword_69BD58 = 
+  GUIButtonCreate(pGUIWindow_CurrentMenu,
+	              215,
+                  323,
                    17,
                    17,
-                   1,
+                    1,
+                    0,
+                  163,
+                uSaveFileCount,
                    0,
-                   162,
-                   0,
-                   0,
-                   (unsigned char *)"",
-                   dword_69CF0C != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_69CF0C] : 0);
-  v8 = (int)GUIButtonCreate(pGUIWindow_CurrentMenu,
-         215,
-         323,
-         17,
-         17,
-         1,
-         0,
-         163,
-         dword_69CF24,
-         0,
          (unsigned char *)"",
          dword_69CF08 != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_69CF08]: 0);
-  v17 = -1;
-  dword_69BD58 = (GUIButton *)v8;
-  return 0 /*v16->~LOD_file()*/;
+
 }
 
 
@@ -946,14 +910,15 @@ int __fastcall sub_460078(int a1)
   sub_4156F0_LooksLike_UI_ProcessCallbacks();
   GUIWindowDelete(pGUIWindow_CurrentMenu);
   dword_4E28F8 = 0;
-  v4 = (int)&unk_6A0118;
+  v4 = 0;
   struct_576FE8.dword_000044 = 1;
   do
   {
-  //  v3 = RGBTexture_Release(v4);
-    v4 += 40;
+    unk_6A0118[v4].PCXTexture_Release();
+	v4++;
+  //  v4 += 40;
   }
-  while ( v4 < (signed int)&unk_6A0758 );
+  while ( v4 < 40 );
   if ( v8 )
     LODFile_New_LOD.ReloadFile();
   else
@@ -1092,16 +1057,16 @@ int __fastcall SaveGame(int a1, int a2)
     strcpy(St2.pFilename, "image.pcx");
     if ( dword_4E28F8 == 11 )
     {
-      Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (dword_69CF20 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CF20] : 0));
-      Render_DrawIndexedTexture(pD3DRenderer, 18, 141, (dword_69CF18 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_69CF18] : 0));
-      v40 = (char *)pGlobalTXT_LocalizationStrings[190];
-      v5 = AlignText_Center(186, (char *)pGlobalTXT_LocalizationStrings[190], pFontSmallnum);
+      Render_DrawIndexedTexture(pD3DRenderer,  8,   8, (uGUILoadSave != -1 ? &LODFile_Icons_LOD.aLODHeaders[uGUILoadSave] : 0));
+      Render_DrawIndexedTexture(pD3DRenderer, 18, 141,   (uGUISaveUp != -1 ? &LODFile_Icons_LOD.aLODHeaders[uGUISaveUp] : 0));
+      v40 = (char *)pGlobalTXT_LocalizationStrings[LOCSTR_SAVING];
+      v5 = AlignText_Center(186, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_SAVING], pFontSmallnum);
       FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, v5 + 25, 219, v40, 0, 0, 0);
-      v41 = (char *)&unk_69BD68 + 100 * dword_6A0CA0;
-      v6 = AlignText_Center(186, (const char *)&unk_69BD68 + 100 * dword_6A0CA0, pFontSmallnum);
+      v41 = (char *)&unk_69BD68 + 100 * dword_6A0CA0_indx;
+      v6 = AlignText_Center(186, (const char *)&unk_69BD68 + 100 * dword_6A0CA0_indx, pFontSmallnum);
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontSmallnum, v6 + 25, 259, 0, v41, 185, 0);
-      v40 = (char *)pGlobalTXT_LocalizationStrings[165];
-      v7 = AlignText_Center(186, (char *)pGlobalTXT_LocalizationStrings[165], pFontSmallnum);
+      v40 = (char *)pGlobalTXT_LocalizationStrings[LOCSTR_PLEASE_WAIT];
+      v7 = AlignText_Center(186, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_PLEASE_WAIT], pFontSmallnum);
       FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, v7 + 25, 299, v40, 0, 0, 0);
       pD3DRenderer->Present();
     }
@@ -1566,7 +1531,7 @@ void __cdecl sub_4B6943()
           if (pDialogueWindow->dword_00002C != v76 )
             v31 = *(_DWORD *)v68;
           v56[1] = (const char *)v31;
-          wsprintfA(v75, "\x0C%05d", v31);
+          wsprintfA(v75, "\f%06d", v31);
           v77 = (unsigned __int8)byte_4F09B8[v30];
           if (ptr_507BC0->dword_00001C >= 63 )
           {
@@ -1774,3 +1739,305 @@ LABEL_33:
     }
   }
 }
+
+//----- (0046086A) --------------------------------------------------------
+bool MaybeDoAutosave()
+{
+  int v1; // eax@4
+  int v2; // edx@5
+  int v3; // eax@7
+  char v4; // zf@7
+
+  //local struct
+  LODFileHeader lod_header; // [sp+Ch] [bp-16Ch]@3
+ // char Dest[80 + 4*array_size_unknown]; // [sp+10h] [bp-168h]@3
+ // char v8[80 + 4*array_size_unknown]; // [sp+60h] [bp-118h]@3
+  int v9; // [sp+B0h] [bp-C8h]@3
+  int v10; // [sp+B4h] [bp-C4h]@3
+  LODIndex  v11; // [sp+10Ch] [bp-6Ch]@4
+  LODIndex v12; // [sp+12Ch] [bp-4Ch]@9
+  int v13; // [sp+140h] [bp-38h]@9
+
+  //local struct
+  LODIndex v14; ; // [sp+14Ch] [bp-2Ch]@3
+  int v15; // [sp+164h] [bp-14h]@3
+  __int16 v16; // [sp+16Ah] [bp-Eh]@3
+  int v17; // [sp+16Ch] [bp-Ch]@5
+  void *DstBuf; // [sp+170h] [bp-8h]@3
+  int v19; // [sp+174h] [bp-4h]@5
+
+  if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
+    CVideoPlayer_UnloadAll(pVideoPlayer);
+
+  DstBuf =mem_mng.AllocatedNamedBuffer(0, 1000000, 0);
+  LODFile_New_LOD.Close_Written_File();
+  remove("data\\new.lod");
+
+  Reset_LODFileHeader(&lod_header);
+  strcpy(lod_header.a1, "MMVII");
+  strcpy(lod_header.a2, "newmaps for MMVII");
+  v9 = 100;
+  v10 = 0;
+
+  Reset_LODIndex(&v14);
+  v15 = 0;
+  v16 = 0;
+  strcpy(&v14.pFilename[0], "current");
+
+  LODFile_New_LOD.Write_Lod_Header(&lod_header, &v14, "data\\new.lod");
+
+  if (!LODFile_New_LOD.Load_File("data\\new.lod", 0))
+  { 
+   mem_mng.DeleteBuffer(DstBuf);
+   return false;
+  }
+
+    LODFile_New_LOD.OpenTempFile();
+    LODFile_New_LOD.uNumSubidices = 0;
+    Reset_LODIndex(&v11);
+    v1 = LODFile_Games_LOD.uNumSubidices / 2;
+    if (LODFile_Games_LOD.uNumSubidices / 2 < LODFile_Games_LOD.uNumSubidices)
+    {
+      v2 = 32 * v1;
+      v19 = 32 * v1;
+      v17 = LODFile_Games_LOD.uNumSubidices - v1;
+      while ( 1 )
+      {
+       memcpy(&v11, &LODFile_Games_LOD.pLODSubIndexNamedBuffer[v2 / 32], sizeof(LODIndex));
+       v3 = (int)LODFile_Games_LOD.Find_Container(LODFile_Games_LOD.pLODSubIndexNamedBuffer[v2 / 32].pFilename, 1);
+       locked_fread(DstBuf, LODFile_Games_LOD.pLODSubIndexNamedBuffer[v2 / 32].size_data, 1u, (FILE *)v3);
+        LODFile_New_LOD.Append_item_to_temp_file( &v11, DstBuf);
+        v19 += 32;
+        v4 = v17-- == 1;
+        if ( v4 )
+          break;
+        v2 = v19;
+      }
+    }
+    Reset_LODIndex(&v12);
+    strcpy(byte_69BD7C, "out01.odm");
+    strcpy(&v12.pFilename[0], "header.bin");
+    v13 = 100;
+    LODFile_New_LOD.Append_item_to_temp_file(&v12, &unk_69BD68);
+    LODFile_New_LOD.Write_SubIndex();
+
+    pParty_global->sPartyPosX = 12552;
+    pParty_global->sPartyPosY = 1816;
+    pParty_global->sPartyPosZ = 0;
+
+
+    //Camera_SetDirection(pParty_global->pCamera, 0, 0, 1);
+    runtime_warning(deprication);
+    {
+     pParty_global->sRotationX = 0;
+     pParty_global->sRotationY = 512;
+    }
+
+    pParty_global->sOldPosX = 12552;
+    pParty_global->sOldPosY = 1816;
+    pParty_global->sOldPosZ = 0;
+    pParty_global->sOldRotationY = 512;
+    pParty_global->sOldRotationX = 0;
+
+    pParty_global->dword_000700 = 0;
+
+
+    SaveGame(1, 1);
+   //mem_mng.DeleteBuffer(
+  mem_mng.DeleteBuffer((void *)DstBuf);
+  return true;
+}
+
+
+//----- (00410DEC) --------------------------------------------------------
+int __cdecl sub_410DEC()
+{
+  char *v0; // eax@1
+  int *v1; // esi@1
+  __int16 v2; // ax@6
+  int result; // eax@11
+  int v4; // esi@13
+  int v5; // ecx@13
+  char v6; // zf@13
+  unsigned int v7; // eax@14
+  unsigned int v8; // esi@14
+  int v9; // esi@14
+  int v10; // eax@14
+  __int64 v11; // edx@15
+  int v12; // eax@19
+  int v13; // ecx@22
+  int v14; // eax@27
+  unsigned __int8 v15; // sf@29
+  unsigned __int8 v16; // of@29
+  int v17; // [sp-10h] [bp-98h]@25
+  unsigned __int16 v18; // [sp-Ch] [bp-94h]@25
+  int v19; // [sp-8h] [bp-90h]@21
+  const char *v20; // [sp-8h] [bp-90h]@25
+  class cTexture* v21; // [sp-4h] [bp-8Ch]@4
+  int v22; // [sp-4h] [bp-8Ch]@21
+  int v23; // [sp-4h] [bp-8Ch]@25
+
+  GUIWindow local_0C;
+  //int v24; // [sp+Ch] [bp-7Ch]@1
+  //int v25; // [sp+10h] [bp-78h]@1
+  //int v26; // [sp+14h] [bp-74h]@1
+  //int v27; // [sp+18h] [bp-70h]@1
+  //int v28; // [sp+1Ch] [bp-6Ch]@1
+  //int v29; // [sp+20h] [bp-68h]@1
+
+  int v30; // [sp+64h] [bp-24h]@14
+  __int64 v31; // [sp+68h] [bp-20h]@14
+  int v32; // [sp+70h] [bp-18h]@13
+  char *Str; // [sp+74h] [bp-14h]@14
+  int v34; // [sp+78h] [bp-10h]@11
+  int v35; // [sp+7Ch] [bp-Ch]@12
+  int v36; // [sp+80h] [bp-8h]@12
+  int v37; // [sp+84h] [bp-4h]@6
+
+  v1 = (int *)&pParty_global->pPlayers[dword_506348];
+  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)dword_506358[(unsigned __int8)byte_50656C]);
+  v0 = (char *)pGlobalTXT_LocalizationStrings[523];
+  local_0C.uFrameX = 8;
+  local_0C.uFrameY = 8;
+  local_0C.uFrameWidth = 428;
+  local_0C.uFrameHeight = 344;
+  local_0C.uFrameZ = 435;
+  local_0C.uFrameW = 351;
+  if ( !byte_50656C )
+    v0 = (char *)pGlobalTXT_LocalizationStrings[375];
+  wsprintfA((char *)TmpBuf, "%s", v0);
+  GUIWindow_sub_44D406(&local_0C, ptr_5C35F0, 0, 22, 0, (char *)TmpBuf, 3);
+  if ( byte_50656C )
+  {
+   Render_DrawTransparentTexture(pD3DRenderer, dword_506518->uX, dword_506518->uY, uTextureID_tab_an_6b__zoom_on);
+    v21 = uTextureID_tab_an_6a__zoom_off;
+  }
+  else
+  {
+    Render_DrawTransparentTexture(pD3DRenderer, dword_506518->uX, dword_506518->uY, uTextureID_tab_an_6a__zoom_off);
+    v21 = uTextureID_tab_an_6b__zoom_on;
+  }
+  Render_DrawTransparentTexture(pD3DRenderer, dword_506514->uX, dword_506514->uY, v21);
+  v2 = *((_WORD *)v1 + 146);
+  v37 = 1;
+  if ( HIBYTE(v2) & 1 || (_BYTE)v2 < 0 )
+  {
+    v37 = 5;
+  }
+  else
+  {
+    if ( v2 & 0x40 )
+      v37 = 3;
+  }
+  result = 0;
+  v34 = 0;
+  if ( v37 > 0 )
+  {
+    v36 = (int)&unk_6A0118;
+    v35 = (int)(v1 + 1707);
+    while ( 1 )
+    {
+      local_0C.uFrameWidth = 92;
+      v4 = 4 * result;
+      local_0C.uFrameHeight = 68;
+      v5 = *(&dword_4E249C + result);
+      local_0C.uFrameY = *(&dword_4E24B0 + result);
+      v32 = local_0C.uFrameY;
+      local_0C.uFrameX = v5;
+      local_0C.uFrameW = local_0C.uFrameY + 67;
+      v6 = *(_DWORD *)(v36 + 36) == 0;
+      local_0C.uFrameZ = v5 + 91;
+      if ( !v6 )
+        break;
+      if ( !byte_50656C )
+      {
+        Render_DrawTransparentTexture(
+          pD3DRenderer,
+          *(int *)((char *)&dword_4E24C4 + v4),
+          *(int *)((char *)&dword_4E24D8 + v4),
+          uTextureID_lb_bordr__townport__sbquicknot);
+        v23 = 3;
+        v20 = (char *)pGlobalTXT_LocalizationStrings[LOCSTR_AVAILABLE];
+        v18 = 1;
+        v14 = CalculateTextHeght(ptr_5C35E4, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_AVAILABLE], &local_0C, 0, 0);
+        v17 = local_0C.uFrameHeight / 2 - v14 / 2;
+        goto LABEL_28;
+      }
+LABEL_29:
+      v36 += 40;
+      v35 += 28;
+      result = v34 + 1;
+      compile_error;//v16 = __SETO__(v34 + 1, v37);
+      v15 = v34++ + 1 - v37 < 0;
+      if ( !(v15 ^ v16) )
+        goto LABEL_30;
+    }
+    Render_DrawTransparentTexture(
+      pD3DRenderer,
+      *(int *)((char *)&dword_4E24C4 + v4),
+      *(int *)((char *)&dword_4E24D8 + v4),
+      uTextureID_lb_bordr__townport__sbquicknot);
+    Render_DrawRGBTexture(pD3DRenderer, *(int *)((char *)&dword_4E249C + v4), *(int *)((char *)&dword_4E24B0 + v4), (cPCXTexture *)v36);
+    v9 = v35;
+    Str = (char *)pMapStats->pMapInfos[sub_410D99(*(_WORD *)(v35 + 26))].pLocationName;
+    v10 = CalculateTextHeght(ptr_5C35E4, Str, &local_0C, 0, 0);
+    local_0C.uFrameY += -6 - v10;
+    GUIWindow_sub_44D406(&local_0C, ptr_5C35E4, 0, 0, 1u, Str, 3);
+    v31 = *(_QWORD *)v9 - pParty_global->qword_00002C;
+    v30 = (unsigned __int64)((signed __int64)((double)v31 * 0.234375) / 60 / 60) >> 32;
+    v8 = (signed __int64)((double)v31 * 0.234375) / 60 / 60;
+    v7 = v8 / 0x18;
+    if ( (unsigned int)((signed __int64)((double)v31 * 0.234375) / 60 / 60) / 0x18 )
+    {
+      v13 = (int)pGlobalTXT_LocalizationStrings[57];
+      if ( v7 > 1 )
+      {
+LABEL_24:
+        v22 = v13;
+        v19 = v7 + 1;
+LABEL_25:
+        wsprintfA((char *)TmpBuf, "%lu %s", v19, v22);
+        v23 = 3;
+        v20 = (char *)TmpBuf;
+        v18 = 1;
+        local_0C.uFrameY = v32 + local_0C.uFrameHeight + 4;
+        v17 = 0;
+LABEL_28:
+        GUIWindow_sub_44D406(&local_0C, ptr_5C35E4, 0, v17, v18, v20, v23);
+        goto LABEL_29;
+      }
+    }
+    else
+    {
+      HIDWORD(v11) = v30;
+      LODWORD(v11) = (signed __int64)((double)v31 * 0.234375) / 60 / 60;
+      if ( v11 + 1 <= 23 )
+      {
+        if ( v30 < 0 || v30 <= 0 && v8 <= 1 )
+          v12 = (int)pGlobalTXT_LocalizationStrings[109];
+        else
+          v12 = (int)pGlobalTXT_LocalizationStrings[110];
+        v22 = v12;
+        v19 = v8 + 1;
+        goto LABEL_25;
+      }
+    }
+    v13 = (int)pGlobalTXT_LocalizationStrings[56];
+    goto LABEL_24;
+  }
+LABEL_30:
+  if ( byte_506360 )
+  {
+    result = dword_50CBD0[0];
+    if ( dword_50CBD0[0] < 40 )
+    {
+      dword_50CBD0[3 * dword_50CBD0[0] + 1] = 181;
+      dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
+      result = 3 * dword_50CBD0[0] + 3;
+      dword_50CBD0[3 * dword_50CBD0[0] + 3] = 0;
+      ++dword_50CBD0[0];
+    }
+  }
+  return result;
+}
+

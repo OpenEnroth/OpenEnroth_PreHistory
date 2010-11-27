@@ -12,7 +12,9 @@
 
 #define  LOCSTR_ASSASIN                     		13	// "Assassin"
 
-#define  LOCSTR_AUTOSAVE                    		16	// "Autosave"	
+#define  LOCSTR_AUTOSAVE                    		16	// "Autosave"
+
+#define  LOCSTR_AVAILABLE                           19 //"Available"
 
 #define  LOCSTR_MONK                        		21 //"Monk"	
 
@@ -41,10 +43,16 @@
 
 #define  LOCSTR_ROGUE                           	114	 //"Rogue"
 
+#define  LOCSTR_LOADING                     		135  //"Loading"	
+
 #define  LOCSTR_MIGHT		                        144	 //"Might"
 
 #define  LOCSTR_STAY_IN_AREA		                156  //"Stay in this Area"	
 #define  LOCSTR_3DO_COPYRHT							157	  // ""© 1999 The 3DO Company.
+
+#define  LOCSTR_PLEASE_WAIT                 		165	// "Please Wait"	
+
+#define  LOCSTR_SAVING                      		190  // "Saving"	
 
 #define  LOCSTR_SKILL_POINTS		                207 /// "Skill Points"	
 
@@ -68,6 +76,8 @@
 
 #define  LOCSTR_S_THE_S                             429    //"%s the %s"
 
+#define  LOCSTR_READING                         	505 ///"Reading..."	
+
 #define  LOCSTR_AUTOSAVE_MM7                    	613// "AutoSave.MM7"	
 /*
 
@@ -86,7 +96,7 @@
 
 +		[17]	0x04102e66 "Exp."	unsigned char *
 +		[18]	0x04102e6f "Attack"	unsigned char *
-+		[19]	0x04102e7a "Available"	unsigned char *
+
 +		[20]	0x04102e88 "Available Skills"	unsigned char *
 
 +		[22]	0x04102ea6 "Awards"	unsigned char *
@@ -202,7 +212,7 @@
 +		[132]	0x0410368f "Years"	unsigned char *
 +		[133]	0x0410369a "Light"	unsigned char *
 +		[134]	0x041036a5 "Buy Standard"	unsigned char *
-+		[135]	0x041036b7 "Loading"	unsigned char *
+
 +		[136]	0x041036c4 "Luck"	unsigned char *
 +		[137]	0x041036ce "Fountain Notes"	unsigned char *
 +		[138]	0x041036e2 "Magic"	unsigned char *
@@ -232,7 +242,7 @@
 +		[162]	0x041039c7 "Paralyzed"	unsigned char *
 +		[163]	0x041039d6 "Personality"	unsigned char *
 +		[164]	0x041039e7 "%s hits %s for %lu damage"	unsigned char *
-+		[165]	0x04103a06 "Please Wait"	unsigned char *
+
 +		[166]	0x04103a17 "Poison"	unsigned char *
 +		[167]	0x04103a23 "- The Might and Magic VII Development Team."	unsigned char *
 +		[168]	0x04103a54 "Points"	unsigned char *
@@ -257,7 +267,7 @@
 +		[187]	0x04103c30 "Stolen"	unsigned char *
 +		[188]	0x04103c3c "Saturday"	unsigned char *
 +		[189]	0x04103c4a "%s shoots %s for %lu points"	unsigned char *
-+		[190]	0x04103c6b "Saving"	unsigned char *
+
 +		[191]	0x04103c77 "You've been banned from this shop!"	unsigned char *
 +		[192]	0x04103c9f "Scroll Up"	unsigned char *
 +		[193]	0x04103cae "Scroll Down"	unsigned char *
@@ -569,7 +579,7 @@
 +		[502]	0x0410526a "You find %lu food"	unsigned char *
 +		[503]	0x04105281 "You lose %lu gold"	unsigned char *
 +		[504]	0x04105298 "You lose %lu food"	unsigned char *
-+		[505]	0x041052af "Reading..."	unsigned char *
+
 +		[506]	0x041052bf "Roderick"	unsigned char *
 +		[507]	0x041052cd "Alexis"	unsigned char *
 +		[508]	0x041052d9 "Serena"	unsigned char *

@@ -211,7 +211,7 @@ void __thiscall sub_4103BB(int _this);
 //signed int __thiscall LODFile_sub_410522(int _this, void *DstBuf, const char *Source, int a4);
 char *__thiscall sub_410B28(void *_this);
 signed int __fastcall sub_410D99(int a1);
-int __cdecl sub_410DEC();
+
 
 int __fastcall sub_411300(int a1);
 int __cdecl sub_41140B();
