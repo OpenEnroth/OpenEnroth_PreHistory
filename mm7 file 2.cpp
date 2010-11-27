@@ -9704,7 +9704,7 @@ void sub_4179BC(int a1, const char *a2)
   local_0C.uFrameZ = local_0C.uFrameX + local_0C.uFrameWidth - 1;
   local_0C.uFrameW = local_0C.uFrameY + local_0C.uFrameHeight - 1;
   v5 = 0xFFFFFF9B;
-  wsprintfA((char *)TmpBuf, "\f%06d%s\f000000", v5, v4);
+  wsprintfA((char *)TmpBuf, "\f%06x%s\f000000", v5, v4);
   GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, 0, 0, (char *)TmpBuf, 3);
   FontDrawText(&local_0C, pFontSmallnum, 1, pFontLucida->uFontHeight, v3, 0, 0, 0);
 }
@@ -9850,7 +9850,7 @@ _UNKNOWN *__fastcall sub_417BB5(int a1, int a2)
     v27 = *((_BYTE *)v6 + 185);
     v28 = v36;
     v29 = sub_417AD4(v27, v36, 4);
-    wsprintfA(Source, "\f%06d", v29);
+    wsprintfA(Source, "\f%06x", v29);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v9 = &unk_506990;
@@ -9878,11 +9878,11 @@ _UNKNOWN *__fastcall sub_417BB5(int a1, int a2)
   {
     strcpy(Dest, "%s\n\n");
     v10 = sub_417AD4(*((_BYTE *)v6 + 185), v4, 1);
-    wsprintfA(Source, "\f%06d", v10);
+    wsprintfA(Source, "\f%06x", v10);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v11 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 2);
-    wsprintfA(Source, "\f%06d", v11);
+    wsprintfA(Source, "\f%06x", v11);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v12 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 3);

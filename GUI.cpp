@@ -1967,12 +1967,13 @@ LABEL_117:
             v25 = (double)dword_4E2900_GammaPos * 0.10000000000000001 + 0.59999999999999998;
             GammaController_sub_44F4D9(pGame->pGammaController, v25);
             v183 = v0;
-            v169 = (int)dword_50C9CC;
+            //v169 = (int)dword_50C9CC;
             v162 = 90;
             v157 = 0;
             v153 = 0;
             v24 = 21;
-            goto LABEL_122;
+            GUIWindowCreate(v24, 161, v153, v157, v162,  dword_50C9CC, v183);
+            goto LABEL_128;							 
           }
           if ( v209 == 5 )
           {
@@ -1987,7 +1988,6 @@ LABEL_117:
               v162 = 90;
               v157 = 0;
               v153 = 0;
-LABEL_122:
               GUIWindowCreate(v24, 161, v153, v157, v162,  dword_50C9C8, v183);
               goto LABEL_128;							 
             }
@@ -2027,7 +2027,6 @@ LABEL_128:
             v184 = v0;
             v28 = 243;
            // v170 = (int);
-LABEL_136:
             GUIWindowCreate(v28, 216, 0, 0, 90, dword_50C9CC, v184);
             goto LABEL_143;
           }
@@ -2038,8 +2037,9 @@ LABEL_136:
               uMusicVolimeMultiplier = 9;
             v184 = v0;
             v28 = 435;
-            v170 = (int)dword_50C9C8;
-            goto LABEL_136;
+            //v170 = (int)dword_50C9C8;
+            GUIWindowCreate(v28, 216, 0, 0, 90, dword_50C9C8, v184);
+            goto LABEL_143;
           }
           uMusicVolimeMultiplier = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v218) - 263) / 17;
           if ( uMusicVolimeMultiplier > 9 )
@@ -2058,7 +2058,6 @@ LABEL_143:
             v185 = v0;
             v30 = 243;
             //v171 = (int);
-LABEL_150:
             GUIWindowCreate(v30, 162, 0, 0, 90, dword_50C9CC, v185);
             goto LABEL_157;
           }
@@ -2069,8 +2068,9 @@ LABEL_150:
               uSoundVolumeMultiplier = 9;
             v185 = v0;
             v30 = 435;
-            v171 = (int)dword_50C9C8;
-            goto LABEL_150;
+            //v171 = (int)dword_50C9C8;
+            GUIWindowCreate(v30, 162, 0, 0, 90, dword_50C9C8, v185);
+            goto LABEL_157;
           }
           uSoundVolumeMultiplier = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v223) - 263) / 17;
           if ( uSoundVolumeMultiplier > 8 )
@@ -2107,7 +2107,6 @@ LABEL_157:
             v186 = v0;
             v31 = 243;
            // v172 = (int);
-LABEL_166:
             GUIWindowCreate(v31, 270, 0, 0, 90, dword_50C9CC, v186);
             goto LABEL_173;
           }
@@ -2118,8 +2117,9 @@ LABEL_166:
               uVoicesVolumeMultiplier = 9;
             v186 = v0;
             v31 = 435;
-            v172 = (int)dword_50C9C8;
-            goto LABEL_166;
+            //v172 = (int)dword_50C9C8;
+            GUIWindowCreate(v31, 270, 0, 0, 90, dword_50C9C8, v186);
+            goto LABEL_173;
           }
           uVoicesVolumeMultiplier = (*(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v221) - 263) / 17;
           if ( uVoicesVolumeMultiplier > 8 )
@@ -6676,7 +6676,7 @@ int __fastcall CharacterUI_DrawAwardsTab(unsigned int uCharacter)
   int v26; // [sp+C8h] [bp-8h]@14
   int v27; // [sp+CCh] [bp-4h]@40
 
-  v3 = 0xFFFFFF9B;
+  v3 = 0xFFFF9B;
   #ifndef OLD_CODE
   v4 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"fr_award");
   #endif
@@ -6685,7 +6685,7 @@ int __fastcall CharacterUI_DrawAwardsTab(unsigned int uCharacter)
   #endif
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, &LODFile_Icons_LOD.aLODHeaders[v4]);
 
-  wsprintfA((char *)TmpBuf, "%s \f%06d", pGlobalTXT_LocalizationStrings[LOCSTR_AVARDS_FOR], v3);
+  wsprintfA((char *)TmpBuf, "%s \f%06x", pGlobalTXT_LocalizationStrings[LOCSTR_AVARDS_FOR], v3);
   wsprintfA(Source, (char *)pGlobalTXT_LocalizationStrings[429], pParty_global->pPlayers[uCharacter - 1].sName, aClassNames[pParty_global->pPlayers[uCharacter - 1].uClass]);
 
   strcat((char *)TmpBuf, Source);
@@ -10796,7 +10796,7 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
           v21 %= 24i64;
           v11 = sub_417939(v8);
 
-          wsprintfA((char *)TmpBuf, "\f%06d%s\f000000 - ", v11, v10);
+          wsprintfA((char *)TmpBuf, "\f%06x%s\f000000 - ", v11, v10);
           strcat((char *)pStringBuffer, (char *)TmpBuf);
           if ( v21 && v21 <= 1 )
             v12 = (int)pGlobalTXT_LocalizationStrings[109];

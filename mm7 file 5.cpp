@@ -10581,7 +10581,7 @@ signed int __stdcall sub_47730C(int a1)
 
 extern "C" int _ftol(float);
 //----- (0047732C) --------------------------------------------------------
-function_error; //#error "FFFFFFFF: variables would overlap: ecx/4 and edx/8 (funcsize=165)"
+//function_error; //#error "FFFFFFFF: variables would overlap: ecx/4 and edx/8 (funcsize=165)"
 __declspec(naked)long __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCStats *_this, int dummy_edx,
                                                                    struct NPCData *pNPCData, long a4, long a8, long aC)
 {
@@ -10610,11 +10610,11 @@ __declspec(naked)long __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCSt
 
                  fild    dword ptr [ebp + 0x0C] // arg4
                  //fmul    dword ptr ds:byte_4D8410+33Ch
-                 {
+
                   push 0xBEAAAAAB
                   fmul dword ptr [esp]
                   add esp, 4
-                 }
+
                  call    _ftol
                    // eax = (int)(a4 * -0.33333334)
 
@@ -10660,12 +10660,12 @@ __declspec(naked)long __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCSt
                    //v4 = v8 = 0;
 
                  jmp     short loc_47738E
- ; ---------------------------------------------------------------------------
+ // ---------------------------------------------------------------------------
 
- loc_47738C:                             ; CODE XREF: sub_47732C+15Ej
+ loc_47738C:                             // CODE XREF: sub_47732C+15Ej
                  xor     eax, eax
 
- loc_47738E:                             ; CODE XREF: sub_47732C+5Ej
+ loc_47738E:                             // CODE XREF: sub_47732C+5Ej
                  mov     ecx, [ebp + 0x0C] // arg4
                  sub     ecx, eax
                  jz      loc_477428        // if (arg4 == eax)  goto loc_477428
@@ -10685,15 +10685,15 @@ __declspec(naked)long __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCSt
                  mov     [ebp + 0x08], 0x0183 //arg0
                  jmp     loc_47744F        // }
                                            // goto loc_47744F
- ; ---------------------------------------------------------------------------
+ // ---------------------------------------------------------------------------
 
- loc_4773C6:                             ; CODE XREF: sub_47732C+7Ej
+ loc_4773C6:                             // CODE XREF: sub_47732C+7Ej
                  mov     [ebp + 0x0C], 0x012C //arg4
                  mov     [ebp + 0x08], 0x014A //arg0
                  jmp     short loc_47744F
- ; ---------------------------------------------------------------------------
+ // ---------------------------------------------------------------------------
 
- loc_4773D6:                             ; CODE XREF: sub_47732C+71j
+ loc_4773D6:                             // CODE XREF: sub_47732C+71j
                  mov     ecx, esi
                  sub     ecx, eax
                  jz      short loc_4773EF
@@ -10702,15 +10702,15 @@ __declspec(naked)long __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCSt
                  mov     [ebp + 0x0C], 0x0212 //arg4
                  mov     [ebp + 0x08], 0x0226 //arg0
                  jmp     short loc_47744F
- ; ---------------------------------------------------------------------------
+ // ---------------------------------------------------------------------------
 
- loc_4773EF:                             ; CODE XREF: sub_47732C+AEj
+ loc_4773EF:                             // CODE XREF: sub_47732C+AEj
                  mov     [ebp + 0x0C], 0x01F4 //arg4
                  mov     [ebp + 0x08], 0x0208 //arg0
                  jmp     short loc_47744F
- ; ---------------------------------------------------------------------------
+ // ---------------------------------------------------------------------------
 
- loc_4773FF:                             ; CODE XREF: sub_47732C+6Ej
+ loc_4773FF:                             // CODE XREF: sub_47732C+6Ej
                  mov     ecx, esi
                  sub     ecx, eax
                  jz      short loc_477418
@@ -10719,15 +10719,15 @@ __declspec(naked)long __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCSt
                  mov     [ebp + 0x0C], 0x01CC //arg4
                  mov     [ebp + 0x08], 0x01EA //arg0
                  jmp     short loc_47744F
- ; ---------------------------------------------------------------------------
+ // ---------------------------------------------------------------------------
 
- loc_477418:                             ; CODE XREF: sub_47732C+D7j
+ loc_477418:                             // CODE XREF: sub_47732C+D7j
                  mov     [ebp + 0x0C], 0x0190 //arg4
                  mov     [ebp + 0x08], 0x01AE //arg0
                  jmp     short loc_47744F
- ; ---------------------------------------------------------------------------
+ // ---------------------------------------------------------------------------
 
- loc_477428:                             ; CODE XREF: sub_47732C+67j
+ loc_477428:                             // CODE XREF: sub_47732C+67j
                  mov     ecx, esi
                  sub     ecx, eax
                  jz      short loc_477441
@@ -10736,14 +10736,14 @@ __declspec(naked)long __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCSt
                  mov     [ebp + 0x0C], 0xC9 //arg4
                  mov     [ebp + 0x08], 0xFA //arg0
                  jmp     short loc_47744F
- ; ---------------------------------------------------------------------------
+ // ---------------------------------------------------------------------------
 
- loc_477441:                             ; CODE XREF: sub_47732C+100j
+ loc_477441:                             // CODE XREF: sub_47732C+100j
                  mov     [ebp + 0x0C], 0x02 //arg4
                  mov     [ebp + 0x08], 0x64 //arg0
 
- loc_47744F:                             ; CODE XREF: sub_47732C+74j
-                                         ; sub_47732C+81j ...
+ loc_47744F:                             // CODE XREF: sub_47732C+74j
+                                         // sub_47732C+81j ...
                  call    rand
                  mov     ecx, [ebp + 0x08] //arg0
                  push    [ebp-0x0C]      //varc
@@ -10761,14 +10761,14 @@ __declspec(naked)long __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCSt
                  jnz     short loc_477477
                  mov     [ebp - 0x08], edx //var8
 
- loc_477477:                             ; CODE XREF: sub_47732C+146j
+ loc_477477:                             // CODE XREF: sub_47732C+146j
                  inc     [ebp - 0x04]    //var4
                  cmp     [ebp - 0x04], 4 //var4
                  jl      short loc_477486
                  mov     ecx, [ebp + 0x0C] //arg4
                  mov     [ebp - 0x08], edx //var8
 
- loc_477486:                             ; CODE XREF: sub_47732C+152j
+ loc_477486:                             // CODE XREF: sub_47732C+152j
                  cmp     [ebp - 0x08], 0 //var8
                  jz      loc_47738C
                  xor     esi, esi
@@ -10785,34 +10785,34 @@ __declspec(naked)long __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCSt
                  jge     short loc_4774B1
                  mov     [edi + 0x10], esi
                  jmp     short loc_4774E2
- ; ---------------------------------------------------------------------------
+ // ---------------------------------------------------------------------------
 
- loc_4774B1:                             ; CODE XREF: sub_47732C+17Ej
+ loc_4774B1:                             // CODE XREF: sub_47732C+17Ej
                  cmp     edx, 0x5A
                  jge     short loc_4774BF
                  mov     dword ptr [edi + 0x10], 0xC8
                  jmp     short loc_4774E2
- ; ---------------------------------------------------------------------------
+ // ---------------------------------------------------------------------------
 
- loc_4774BF:                             ; CODE XREF: sub_47732C+188j
+ loc_4774BF:                             // CODE XREF: sub_47732C+188j
                  cmp     edx, 0x5F
                  jge     short loc_4774CD
                  mov     dword ptr [edi + 0x10], 0xFFFFFED4
                  jmp     short loc_4774E2
- ; ---------------------------------------------------------------------------
+ // ---------------------------------------------------------------------------
 
- loc_4774CD:                             ; CODE XREF: sub_47732C+196j
+ loc_4774CD:                             // CODE XREF: sub_47732C+196j
                  cmp     edx, 0x62
                  jge     short loc_4774DB
                  mov     dword ptr [edi + 0x10], 0x0190
                  jmp     short loc_4774E2
- ; ---------------------------------------------------------------------------
+ // ---------------------------------------------------------------------------
 
- loc_4774DB:                             ; CODE XREF: sub_47732C+1A4j
+ loc_4774DB:                             // CODE XREF: sub_47732C+1A4j
                  mov     dword ptr [edi + 10h], 0xFFFFFDA8
 
- loc_4774E2:                             ; CODE XREF: sub_47732C+183j
-                                         ; sub_47732C+191j ...
+ loc_4774E2:                             // CODE XREF: sub_47732C+183j
+                                         // sub_47732C+191j ...
                  mov     eax, [ebp + 0x14] //argc
                  shl     eax, 6
                  lea     esi, [eax + ebx]
@@ -10826,14 +10826,14 @@ __declspec(naked)long __fastcall NPCStats_InitializeAdditionalNPCs(struct CNPCSt
                  test    edx, edx
                  jle     short loc_477511
 
- loc_477502:                             ; CODE XREF: sub_47732C+1E3j
+ loc_477502:                             // CODE XREF: sub_47732C+1E3j
                  movzx   ebx, byte ptr [esi + eax + 0x016548]
                  add     ecx, ebx
                  inc     eax
                  cmp     ecx, edx
                  jl      short loc_477502
 
- loc_477511:                             ; CODE XREF: sub_47732C+1D4j
+ loc_477511:                             // CODE XREF: sub_47732C+1D4j
                  dec     eax
                  mov     [edi + 0x18], eax
                  mov     eax, [ebp + 0x10] //arg8

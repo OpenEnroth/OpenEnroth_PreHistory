@@ -33,7 +33,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\</OutDir>
@@ -104,6 +104,7 @@
     <ClCompile Include="classes.cpp" />
     <ClCompile Include="data.cpp" />
     <ClCompile Include="Driver.cpp" />
+    <ClCompile Include="font.cpp" />
     <ClCompile Include="FrameTables.cpp" />
     <ClCompile Include="FrameTables_FromTXT.cpp" />
     <ClCompile Include="GUI.cpp" />
@@ -124,6 +125,7 @@
     <ClCompile Include="libpng143\pngwrite.c" />
     <ClCompile Include="libpng143\pngwtran.c" />
     <ClCompile Include="libpng143\pngwutil.c" />
+    <ClCompile Include="menus.cpp" />
     <ClCompile Include="mm7 file 1.cpp" />
     <ClCompile Include="mm7 file 2.cpp" />
     <ClCompile Include="mm7 file 3.cpp" />
@@ -172,6 +174,7 @@
     <ClInclude Include="classes.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="defs.h" />
+    <ClInclude Include="font.h" />
     <ClInclude Include="FrameTables.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="Items.h" />
@@ -206,6 +209,7 @@
     <ClInclude Include="libpng143\pngconf.h" />
     <ClInclude Include="libpng143\pngpriv.h" />
     <ClInclude Include="Math\Math.h" />
+    <ClInclude Include="menus.h" />
     <ClInclude Include="mm7_unparsed_data.h" />
     <ClInclude Include="mm7_unparsed_functions.h" />
     <ClInclude Include="NPC.h" />
