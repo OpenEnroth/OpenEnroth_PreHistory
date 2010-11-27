@@ -384,9 +384,6 @@
     <ClInclude Include="_audio.h">
       <Filter>Wight and Wagic</Filter>
     </ClInclude>
-    <ClInclude Include="_c_interface.h">
-      <Filter>Wight and Wagic</Filter>
-    </ClInclude>
     <ClInclude Include="_video.h">
       <Filter>Wight and Wagic</Filter>
     </ClInclude>
@@ -463,6 +460,9 @@
       <Filter>Wight and Wagic</Filter>
     </ClInclude>
     <ClInclude Include="memory_mng.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="localization_defs.h">
       <Filter>Wight and Wagic</Filter>
     </ClInclude>
     <ClInclude Include="font.h">
