@@ -3894,7 +3894,7 @@ LABEL_134:
             else
             {
               KeyboardController_sub_459E5A(pKeyboardController, 0, 19, (int)pGUIWindow_CurrentMenu);
-              strcpy((char *)pKeyboardController->pPressedKeysBuffer, (const char *)&unk_69BD68 + 100 * dword_6A0CA0_indx);
+              strcpy((char *)pKeyboardController->pPressedKeysBuffer, (const char *)&saves_hdr[dword_6A0CA0_indx].name1);
               pKeyboardController->uNumKeysPressed = strlen((char *)pKeyboardController->pPressedKeysBuffer);
             }
             continue;

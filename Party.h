@@ -24,7 +24,7 @@ struct Party
  int           dword_000020;
  int           dword_000024;
  int           dword_000028;
- __int64       qword_00002C;  // time played ?
+ __int64       qword_00002C;  // world time
  __int64       qword_000034;
  int           array_00003C[20];
  int           array_00008C[170];

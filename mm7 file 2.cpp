@@ -6135,8 +6135,9 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
   v1 = (int)_this;
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
   sub_411AAA();
-  GUIButtonCreate(_this, 475, 445, 158, 34, 1, 0, 113, 0, 0, pGlobalTXT_LocalizationStrings[79], 0);
+  GUIButtonCreate(_this, 475, 445, 158, 34, 1, 0, 113, 0, 0, pGlobalTXT_LocalizationStrings[LOCSTR_EXIT], 0);
   dword_4E28F8 = 3;
+
   dword_506524 = 0;
   dword_506528 = 0;
   dword_50651C = 0;

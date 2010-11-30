@@ -25,14 +25,18 @@
 
 #define  LOCSTR_CANCEL		                        34 //"Cancel"	
 
+
 #define  LOCSTR_SELECT_TGT                  		39	 ///"Select Target"
 
 #define  LOCSTR_CLASS                       		41	// "Class"
 
-#define  LOCSTR_CONDITION                   		47	//"Condition"	
+#define  LOCSTR_CONDITION                   		47	//"Condition"
+
+#define  LOCSTR_DAYS                        		57	/// "Days"	
 
 #define  LOCSTR_TROUBLE_LOAD                 		63 //"Might and Magic VII is having trouble loading files. 
 	                                                   // Please re-install to fix this problem. Note: Re-installing will not destroy your save games."	
+#define  LOCSTR_DETAIL_TOGGLE               		64	 //"Detail Toggle"	
 
 #define  LOCSTR_EMPTY                       		72 // "Empty"	
 
@@ -40,6 +44,8 @@
 #define  LOCSTR_EXIT_BLDNG                  		80   // "Exit Building"	
 
 #define  LOCSTR_HIT_POINTS		                    108	// "Hit Points"	
+#define  LOCSTR_HOUR                         		109	//"Hour"	
+#define  LOCSTR_HOURS		                        110 //"Hours"	
 
 #define  LOCSTR_ROGUE                           	114	 //"Rogue"
 
@@ -72,13 +78,24 @@
 
 #define  LOCSTR_THIEF                       		307 //"Thief"
 
+#define  LOCSTR_SET_BEACON                  		375	// "Set Beacon"
+
+#define  LOCSTR_D_DAYS_TO_S                  		404   //"%d days to %s"	
+#define  LOCSTR_TRAVEL_COST                         405    //"Travel Cost %d gold"	
+
 #define  LOCSTR_ENTER_S		                        411 // "Enter %s"	
 
 #define  LOCSTR_S_THE_S                             429    //"%s the %s"
 
 #define  LOCSTR_READING                         	505 ///"Reading..."	
 
-#define  LOCSTR_AUTOSAVE_MM7                    	613// "AutoSave.MM7"	
+#define  LOCSTR_RECALL_BEACON               		523 // "Recall Beacon"	
+
+#define  LOCSTR_NO_SAVING                   		583	//"No saving in the Arena"	
+
+#define  LOCSTR_AUTOSAVE_MM7                    	613 // "AutoSave.MM7"	
+
+#define  LOCSTR_GAME_SAVED                  		656	// "Game Saved!"	
 /*
 
 +		[4]	0x04102dab "Afraid"	unsigned char *
@@ -134,14 +151,14 @@
 +		[0x36]	0x0410306c "Dark"	unsigned char *
 +		[0x37]	0x04103075 "Dawn"	unsigned char *
 +		[0x38]	0x0410307e "Day"	unsigned char *
-+		[0x39]	0x04103086 "Days"	unsigned char *
+
 +		[58]	0x0410308f "Dead"	unsigned char *
 +		[59]	0x04103098 "Internal Error"	unsigned char *
 +		[60]	0x041030ab "Deposit"	unsigned char *
 +		[61]	0x041030b7 "Press Escape"	unsigned char *
 +		[62]	0x041030c8 "Might and Magic VII requires your desktop to be in 16bit (32k or 65k) Color mode in order to operate in a window."	unsigned char *
 
-+		[64]	0x041031d4 "Detail Toggle"	unsigned char *
+
 +		[65]	0x041031e6 "Diseased"	unsigned char *
 +		[0x42]	0x041031f3 "Dmg"	unsigned char *
 +		[0x43]	0x041031fb "%s does not have the skill"	unsigned char *
@@ -186,8 +203,7 @@
 +		[106]	0x0410342c "Goblin"	unsigned char *
 +		[107]	0x04103438 "HP"	unsigned char *
 +		[108]	0x04103440 "Hit Points"	unsigned char *
-+		[109]	0x04103450 "Hour"	unsigned char *
-+		[110]	0x0410345a "Hours"	unsigned char *
+
 +		[111]	0x04103465 "Grand"	unsigned char *
 +		[112]	0x04103470 "How Much?"	unsigned char *
 +		[113]	0x0410347f "Identify"	unsigned char *
@@ -449,7 +465,7 @@
 +		[372]	0x0410477e "Missionary"	unsigned char *
 +		[373]	0x0410478e "Follower of Baa"	unsigned char *
 +		[374]	0x041047a3 "Gambler"	unsigned char *
-+		[375]	0x041047b0 "Set Beacon"	unsigned char *
+
 +		[376]	0x041047c0 "%s was caught stealing!"	unsigned char *
 +		[377]	0x041047dd "%s failed to steal anything!"	unsigned char *
 +		[378]	0x041047ff ""%s %d, %d""	unsigned char *
@@ -478,8 +494,7 @@
 +		[401]	0x04104957 "Skill Cost: %lu"	unsigned char *
 +		[402]	0x0410496c "Friendly"	unsigned char *
 +		[403]	0x0410497a "You already know the %s skill"	unsigned char *
-+		[404]	0x0410499d "%d days to %s"	unsigned char *
-+		[405]	0x041049b0 "Travel Cost %d gold"	unsigned char *
+
 +		[406]	0x041049c9 "Hire"	unsigned char *
 +		[407]	0x041049d3 "More Information"	unsigned char *
 +		[408]	0x041049e9 "Dismiss %s"	unsigned char *
@@ -597,7 +612,7 @@
 +		[520]	0x04105378 "Notorious"	unsigned char *
 +		[521]	0x04105387 "Nothing here"	unsigned char *
 +		[522]	0x04105399 "SP Cost"	unsigned char *
-+		[523]	0x041053a6 "Recall Beacon"	unsigned char *
+
 +		[524]	0x041053b9 "Once again you've cheated death! …"	unsigned char *
 +		[525]	0x041053e1 "Apothecary"	unsigned char *
 +		[526]	0x041053f1 "Time"	unsigned char *
@@ -657,7 +672,7 @@
 +		[580]	0x04105976 "Knight"	unsigned char *
 +		[581]	0x04105982 "Lord"	unsigned char *
 +		[582]	0x0410598c "You already won this trip to the Arena…"	unsigned char *
-+		[583]	0x041059b9 "No saving in the Arena"	unsigned char *
+
 +		[584]	0x041059d5 "Click here to remove your Quick Spell"	unsigned char *
 +		[585]	0x04105a00 "Item is not of high enough quality"	unsigned char *
 +		[586]	0x04105a28 "Not enough spell points"	unsigned char *
@@ -730,7 +745,7 @@
 +		[653]	0x04105fc6 "Food"	unsigned char *
 +		[654]	0x04105fd0 "%s's Jar"	unsigned char *
 +		[655]	0x04105fde "%s' Jar"	unsigned char *
-+		[656]	0x04105feb "Game Saved!"	unsigned char *
+
 +		[657]	0x04105ffc "Water Breathing"	unsigned char *
 +		[658]	0x04106011 "Collect Prize"	unsigned char *
 +		[659]	0x04106024 "x: %d  y: %d"	unsigned char *

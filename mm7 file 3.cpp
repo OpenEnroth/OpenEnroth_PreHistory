@@ -3724,7 +3724,7 @@ void __fastcall sub_43FA33(int a1, int a2)
       v30 = 0.0;
       v34 = 1.0;
       v32 = (rand() & 0x80) + 128;
-      v33 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar01", 0);
+      v33 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar01", 2);
       class02_sub_48AB23((int)pGame->class02_obj, (int)&Dst);
     }
   }

@@ -182,8 +182,8 @@ extern int dword_4E5AE0[8];
 extern int dword_4E5B00[8];
 extern int dword_4E5B20[8];
 extern int dword_4E5B40[8];
-extern int dword_4E5C1C; // weak
-extern int dword_4E5C34; // weak
+extern int dword_4E5C1C[6]; // weak
+extern int dword_4E5C34[6]; // weak
 extern int dword_4E5D68[]; // weak
 //int dword_4E5D6C[array_size_unknown]; // weak
 extern char byte_4E5DD8[array_size_unknown]; // weak
@@ -517,9 +517,12 @@ extern int dword_506340; // weak
 extern int dword_506344; // weak
 extern int dword_506348; // weak
 extern __int64 qword_506350; // weak
+
 extern int dword_506358[array_size_unknown]; // weak
 extern int dword_50635C; // weak
+
 extern char byte_506360; // weak
+
 extern int dword_506364; // weak
 extern class cTexture* dword_506368; // weak
 extern class cTexture* dword_50636C; // idb
@@ -543,6 +546,7 @@ extern class cTexture* dword_5063B0; // weak
 extern class cTexture* dword_5063B4; // weak
 extern class cTexture* dword_5063B8; // weak
 extern class cTexture* dword_5063BC; // weak
+
 extern int dword_5063D8[array_size_unknown]; // weak
 extern int dword_506404; // weak
 extern int dword_506408[array_size_unknown]; // weak
@@ -703,7 +707,7 @@ extern struct GUIButton *pCharacterUI_BtnInventory; // dword @ MM7.exe::00507684
 extern struct GUIButton *pCharacterUI_BtnSkills;    // dword @ MM7.exe::00507688
 extern struct GUIButton *pCharacterUI_BtnStats;     // dword @ MM7.exe::0050768C
 extern struct GUIButton *dword_507690; // weak
-extern struct GUIButton *dword_507694; // weak
+extern struct GUIButton *pCharacterUI_BtnDetail; // weak	dword_507694
 
 extern unsigned int uTextureID_WindowEdgeTop;          // dword @ MM7.exe::00507698
 extern unsigned int uTextureID_WindowEdgeRight;        // dword @ MM7.exe::0050769C

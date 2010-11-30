@@ -47,8 +47,10 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  char byte_4E2431[array_size_unknown]; // weak
  int dword_4E249C; // idb
  int dword_4E24B0; // idb
+
  int dword_4E24C4; // weak
  int dword_4E24D8; // weak
+
  char *dword_4E24E8; // idb
  int dword_4E2544[array_size_unknown]; // weak
  int dword_4E28F8; // weak
@@ -146,8 +148,8 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  int dword_4E5B00[8] = { 26, 107,  40, 109,  25, 141,  32, 146 }; // XY of left hand position on paperdoll
  int dword_4E5B20[8] = { 30, 144,  34, 158,  25, 186,  31, 184 }; // XY of right hand position on paperdoll
  int dword_4E5B40[8] = { 128, 205, 131, 201, 131, 216, 123, 216 }; // XY position of left empty hand on paperdoll
- int dword_4E5C1C = 490; // weak
- int dword_4E5C34 = 202; // weak
+ int dword_4E5C1C[6] = { 490, 538, 584, 490, 538, 584}; // weak
+ int dword_4E5C34[6] = { 202, 202, 202, 250, 250, 250}; // weak
  int dword_4E5D68[array_size_unknown]; // weak
  char byte_4E5DD8[array_size_unknown]; // weak
  char byte_4E5DE8[array_size_unknown]; // weak
@@ -524,7 +526,7 @@ struct unnamed_505898 struct_505898;
  char byte_506360; // weak
  int dword_506364; // weak
 class cTexture* dword_506368; // weak
- class cTexture* dword_50636C; // idb
+class cTexture* dword_50636C; // idb
 class cTexture* dword_506370; // weak
 class cTexture* dword_506374; // idb
 class cTexture* dword_506378; // weak
@@ -671,7 +673,7 @@ struct GUIButton *pCharacterUI_BtnInventory; // dword @ MM7.exe::00507684
 struct GUIButton *pCharacterUI_BtnSkills;    // dword @ MM7.exe::00507688
 struct GUIButton *pCharacterUI_BtnStats;     // dword @ MM7.exe::0050768C
 struct GUIButton *dword_507690; // weak
-struct GUIButton *dword_507694; // weak
+struct GUIButton *pCharacterUI_BtnDetail; // weak		dword_507694
 
  unsigned int uTextureID_WindowEdgeTop;          // dword @ MM7.exe::00507698
  unsigned int uTextureID_WindowEdgeRight;        // dword @ MM7.exe::0050769C
