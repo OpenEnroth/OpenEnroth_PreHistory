@@ -3921,7 +3921,7 @@ const CHAR *__thiscall sub_4B254D(void *_this)
     v12 = v35;
     v13 = 0;
     v10 = v35 - v35 % 4;
-    v11 = &byte_4ED970[37 * (v35 - v35 % 4)] + v2;
+    v11 = (char*)&byte_4ED970[37 * (v35 - v35 % 4)] + v2;
     do
     {
       v15 = (unsigned __int8)*v11;

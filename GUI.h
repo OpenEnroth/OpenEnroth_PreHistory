@@ -84,8 +84,8 @@ struct GUIButton
  unsigned int uTexturesCount;// dword_000050;
 // int dword_000054;
  unsigned char uHotkey; // byte @ 000054   hotkey shortcut
- unsigned char pButtonName[3]; // byte[?] @ 000055
- int dword_000058;
+ unsigned char pButtonName[103]; // byte[?] @ 000055
+/* int dword_000058;
  int dword_00005C;
  int dword_000060;
  int dword_000064;
@@ -109,7 +109,7 @@ struct GUIButton
  int dword_0000AC;
  int dword_0000B0;
  int dword_0000B4;
- int dword_0000B8;
+ int dword_0000B8; */
 };
 //sizeof == BC
 

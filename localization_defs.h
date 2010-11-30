@@ -43,6 +43,8 @@
 #define  LOCSTR_EXIT                        		79	// "Exit"	
 #define  LOCSTR_EXIT_BLDNG                  		80   // "Exit Building"	
 
+#define  LOCSTR_GRAND		                        96	// "Grand"
+
 #define  LOCSTR_HIT_POINTS		                    108	// "Hit Points"	
 #define  LOCSTR_HOUR                         		109	//"Hour"	
 #define  LOCSTR_HOURS		                        110 //"Hours"	
@@ -87,13 +89,19 @@
 
 #define  LOCSTR_S_THE_S                             429    //"%s the %s"
 
+#define  LOCSTR_NORMAL                      		431	//"Normal"
+#define  LOCSTR_MASTER		                        432	//"Master"	
+#define  LOCSTR_EXPERT		                        433	//"Expert"	
+
 #define  LOCSTR_READING                         	505 ///"Reading..."	
 
 #define  LOCSTR_RECALL_BEACON               		523 // "Recall Beacon"	
 
 #define  LOCSTR_NO_SAVING                   		583	//"No saving in the Arena"	
 
-#define  LOCSTR_AUTOSAVE_MM7                    	613 // "AutoSave.MM7"	
+#define  LOCSTR_AUTOSAVE_MM7                    	613 // "AutoSave.MM7"
+
+#define  LOCSTR_BONUS                       		623 //"Bonus"	
 
 #define  LOCSTR_GAME_SAVED                  		656	// "Game Saved!"	
 /*
@@ -190,7 +198,9 @@
 +		[93]	0x04103395 "Game Options"	unsigned char *
 +		[94]	0x041033a6 "Your score: %lu"	unsigned char *
 +		[95]	0x041033ba "Alchemy"	unsigned char *
-+		[96]	0x041033c6 "Grand"	unsigned char *
+
+
+
 +		[97]	0x041033d0 "Gold"	unsigned char *
 +		[98]	0x041033d9 "Good"	unsigned char *
 +		[99]	0x041033e2 "Human"	unsigned char *
@@ -520,9 +530,7 @@
 +		[428]	0x04104bc0 "Spell failed"	unsigned char *
 
 +		[430]	0x04104be1 "%s is now Level %lu and has earned %lu Skill Points!"	unsigned char *
-+		[431]	0x04104c1b "Normal"	unsigned char *
-+		[432]	0x04104c27 "Master"	unsigned char *
-+		[433]	0x04104c33 "Expert"	unsigned char *
+
 +		[434]	0x04104c3f "Liked"	unsigned char *
 +		[435]	0x04104c4a "Converse with %s"	unsigned char *
 +		[436]	0x04104c60 "Minutes"	unsigned char *
@@ -712,7 +720,7 @@
 +		[620]	0x04105c64 "Rules"	unsigned char *
 +		[621]	0x04105c6f "Play"	unsigned char *
 +		[622]	0x04105c79 "Victory Conditions"	unsigned char *
-+		[623]	0x04105c91 "Bonus"	unsigned char *
+
 +		[624]	0x04105c9c "Physical"	unsigned char *
 +		[625]	0x04105caa "Immune"	unsigned char *
 +		[626]	0x04105cb6 "Resistances"	unsigned char *

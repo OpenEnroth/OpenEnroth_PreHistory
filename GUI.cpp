@@ -9729,48 +9729,33 @@ LABEL_58:
   Render_sub_4A63E6((int)pD3DRenderer, 586, 88, v34 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v34] : 0, (int)v37, (signed __int64)v40, 0, 255);
 }
 
-//----- (00417FE5) --------------------------------------------------------
+//----- (00417FE5) --------.text:004185E7    ------------------------------------------------
 void __cdecl CharacterUI_SkillsTab_ShowHint()
 {
-  int v0; // eax@1
-  int v1; // ecx@1
-  int i; // esi@6
+ 
+  GUIButton *curr_button; // esi@6
   const char *v3; // eax@12
   POINT v5; // [sp+4h] [bp-8h]@1
-  int v6; // [sp+8h] [bp-4h]@1
 
   //class03_GetMousePos(pGame->pClass03, (int)&v5, (int)&v6);
   class03_GetMousePos(pGame->pClass03, &v5);
-  v1 = v5.x;
-  v0 = v5.y;
   if ( v5.x < 24 || v5.x > 455 || v5.y < 18 || v5.y > 36 )
   {
-    for ( i = *(DWORD*)pGUIWindow_CurrentMenu->pControlsHead; i; i = *(_DWORD *)(i + 52) )
-    {
-      if ( *(_DWORD *)(i + 32) == 121 )
+   	curr_button=pGUIWindow_CurrentMenu->pControlsHead;
+    while(curr_button)
+	 {
+      if ( (curr_button->dword_000020 == 121)&&( v5.x >= curr_button->uX )&& (v5.x <= curr_button->uZ )&&
+		     ( v5.y>= curr_button->uY )&&( v5.y <=curr_button->uW ) )
       {
-        if ( v1 >= *(_DWORD *)i )
-        {
-          if ( v1 <= *(_DWORD *)(i + 16) )
-          {
-            if ( v0 >= *(_DWORD *)(i + 4) )
-            {
-              if ( v0 <= *(_DWORD *)(i + 20) )
-              {
-                v3 = (const char *)sub_417BB5(uActiveCharacter - 1, *(_DWORD *)(i + 36));
-                sub_4179BC((int)aSkillNames[*(_DWORD *)(i + 36)], v3);//sub_4179BC((int)(&dword_AE32D0)[4 * *(_DWORD *)(i + 36)], v3);
-                v0 = v5.y;
-                v1 = v5.x;
-              }
-            }
-          }
-        }
+             v3 = (const char *)sub_417BB5(uActiveCharacter - 1, curr_button->dword_000024);
+              sub_4179BC(aSkillNames[curr_button->dword_000024], v3);//sub_4179BC((int)(&dword_AE32D0)[4 * *(_DWORD *)(i + 36)], v3);      
       }
+	  curr_button=curr_button->pNext;
     }
   }
   else
   {
-    sub_4179BC((int)pGlobalTXT_LocalizationStrings[207], (char *)pSkillPointsAttributeDescription);
+    sub_4179BC(pGlobalTXT_LocalizationStrings[LOCSTR_SKILL_POINTS], (char *)pSkillPointsAttributeDescription);
   }
 }
 
@@ -9817,11 +9802,11 @@ void __thiscall GUIWindow_sub_4B3157(const GUIWindow *_this)
     if ( dword_5913F0 != dword_591424 || !dword_5C35D0 )
     {
       v18 = 130;
-      v19 = 2 * *(_BYTE *)(pFontCreate + 5);
+      v19 = 2 * pFontCreate->uFontHeight;
       v2 = (const char *)dword_59143C[13 * ptr_507BC0->dword_00001C];
       if ( v2 )
       {
-        v3 = 2 * *(_BYTE *)(pFontCreate + 5) - 6 - CalculateTextHeght(pFontCreate, v2, (GUIWindow *)&v17, 0, 0);
+        v3 = 2 * (pFontCreate->uFontHeight) - 6 - CalculateTextHeght(pFontCreate, v2, (GUIWindow *)&v17, 0, 0);
         if ( v3 < 0 )
           v3 = 0;
         GUIWindow_sub_44D406(&local_60,
@@ -10706,7 +10691,7 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
   int v3; // esi@1
   int v4; // edx@2
   int v5; // edx@4
-  int v6; // ecx@9
+  unsigned char * v6; // ecx@9
   int v7; // ebx@9
   void *v8; // ebx@15
   int v9; // edx@15
@@ -10725,7 +10710,7 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
   int v23; // [sp+20h] [bp-10h]@13
   unsigned int v24; // [sp+24h] [bp-Ch]@15
   void **v25; // [sp+28h] [bp-8h]@13
-  int v26; // [sp+2Ch] [bp-4h]@10
+  unsigned char *v26; // [sp+2Ch] [bp-4h]@10
   POINT ptMouse;
 
   class03_GetMousePos(pGame->pClass03, &ptMouse);
@@ -10763,26 +10748,26 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
     case 5:
     case 6:
       LOBYTE(v0) = 4 * v2;
-      v6 = (int)aAttributeNames[v2 / 4];
+      v6 = aAttributeNames[v2 / 4];
       v7 = (int)pAttributeDescriptions[v2];
       goto LABEL_48;
     case 7:
       LOBYTE(v0) = (int)pGlobalTXT_LocalizationStrings[108];
       v7 = (int)pHealthPointsAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[108];
+      v26 = pGlobalTXT_LocalizationStrings[108];
       goto LABEL_49;
     case 8:
       LOBYTE(v0) = (int)pGlobalTXT_LocalizationStrings[212];
       v7 = (int)pSpellPointsAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[212];
+      v26 = pGlobalTXT_LocalizationStrings[212];
       goto LABEL_49;
     case 9:
       LOBYTE(v0) = (int)pGlobalTXT_LocalizationStrings[12];
       v7 = (int)pArmourClassAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[12];
+      v26 = pGlobalTXT_LocalizationStrings[12];
       goto LABEL_49;
     case 10:
-      v26 = (int)pGlobalTXT_LocalizationStrings[47];
+      v26 = pGlobalTXT_LocalizationStrings[47];
       strcpy((char *)pStringBuffer, (char *)pPlayerConditionAttributeDescription);
       v7 = (int)pStringBuffer;
       v22 = (char *)pStringBuffer;
@@ -10826,21 +10811,21 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
     case 11:
       LOBYTE(v0) = (int)pGlobalTXT_LocalizationStrings[172];
       v7 = (int)pFastSpellAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[172];
+      v26 = pGlobalTXT_LocalizationStrings[172];
       goto LABEL_49;
     case 12:
       LOBYTE(v0) = (int)pGlobalTXT_LocalizationStrings[5];
       v7 = (int)pPlayerAgeAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[5];
+      v26 = pGlobalTXT_LocalizationStrings[5];
       goto LABEL_49;
     case 13:
       LOBYTE(v0) = (_BYTE)pGlobalTXT_LocalizationStrings[131];
       v7 = (int)pPlayerLevelAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[131];
+      v26 = pGlobalTXT_LocalizationStrings[131];
       goto LABEL_49;
     case 14:
       v15 = (int)*(&ptr_A750C4 + uActiveCharacter);
-      v26 = (int)pGlobalTXT_LocalizationStrings[83];
+      v26 = pGlobalTXT_LocalizationStrings[83];
       v14 = *(_WORD *)(v15 + 218);
       do
       {
@@ -10867,61 +10852,61 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
     case 15:
       LOBYTE(v0) = (int)pGlobalTXT_LocalizationStrings[587];
       v7 = (int)pAttackBonusAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[587];
+      v26 = pGlobalTXT_LocalizationStrings[587];
       goto LABEL_49;
     case 16:
       LOBYTE(v0) = (int)pGlobalTXT_LocalizationStrings[588];
       v7 = (int)pAttackDamageAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[588];
+      v26 = pGlobalTXT_LocalizationStrings[588];
       goto LABEL_49;
     case 17:
       LOBYTE(v0) = (int)pGlobalTXT_LocalizationStrings[589];
       v7 = (int)pMissleBonusAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[589];
+      v26 = pGlobalTXT_LocalizationStrings[589];
       goto LABEL_49;
     case 18:
       LOBYTE(v0) = (int)pGlobalTXT_LocalizationStrings[590];
       v7 = (int)pMissleDamageAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[590];
+      v26 = pGlobalTXT_LocalizationStrings[590];
       goto LABEL_49;
     case 19:
       LOBYTE(v0) = (int)pGlobalTXT_LocalizationStrings[87];
       v7 = (int)pFireResistanceAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[87];
+      v26 = pGlobalTXT_LocalizationStrings[87];
       goto LABEL_49;
     case 20:
       LOBYTE(v0) = (int)pGlobalTXT_LocalizationStrings[6];
       v7 = (int)pAirResistanceAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[6];
+      v26 = pGlobalTXT_LocalizationStrings[6];
       goto LABEL_49;
     case 21:
       LOBYTE(v0) = (int)pGlobalTXT_LocalizationStrings[240];
       v7 = (int)pWaterResistanceAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[240];
+      v26 = pGlobalTXT_LocalizationStrings[240];
       goto LABEL_49;
     case 22:
       LOBYTE(v0) = (int)pGlobalTXT_LocalizationStrings[70];
       v7 = (int)pEarthResistanceAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[70];
+      v26 = pGlobalTXT_LocalizationStrings[70];
       goto LABEL_49;
     case 23:
       LOBYTE(v0) = (int)pGlobalTXT_LocalizationStrings[142];
       v7 = (int)pMindResistanceAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[142];
+      v26 = pGlobalTXT_LocalizationStrings[142];
       goto LABEL_49;
     case 24:
       LOBYTE(v0) = (int)pGlobalTXT_LocalizationStrings[29];
       v7 = (int)pBodyResistanceAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[29];
+      v26 = pGlobalTXT_LocalizationStrings[29];
       goto LABEL_49;
     case 25:
       LOBYTE(v0) = (int)pGlobalTXT_LocalizationStrings[207];
       v7 = (int)pSkillPointsAttributeDescription;
-      v26 = (int)pGlobalTXT_LocalizationStrings[207];
+      v26 = pGlobalTXT_LocalizationStrings[207];
       goto LABEL_49;
     case 26:
       v0 = 4 * *((_BYTE *)*(&ptr_A750C4 + uActiveCharacter) + 185);
-      v6 = (int)(aClassNames[v0 / 4]);
+      v6 = aClassNames[v0 / 4];
 
       v7 = *(int *)((char *)pClassDescriptions + v0);
 LABEL_48:

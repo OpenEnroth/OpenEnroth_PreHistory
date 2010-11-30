@@ -488,46 +488,7 @@ return string_width;
 //----- (0044C933) ---------.text:0044D92F -----------------------------------------------
 char * sub_44C933(const char *pString, struct Font *pFont1, struct Font *pFont2, struct GUIWindow *a4, int uX, bool a6)
 {
- /* const char *v6; // esi@1
-  int v8; // eax@3
-  int v9; // ebx@3
-  size_t v10; // edi@3
-  int v11; // esi@3
-  size_t v12; // eax@3
-  unsigned __int8 v13; // cl@5
-  int v14; // edx@11
-  int v15; // ecx@11
-  int v16; // edx@12
-  int v17; // edx@13
-  int v18; // edx@14
-  int v19; // edx@15
-  int v20; // edx@17
-  int v21; // ecx@17
-  int v22; // edi@17
-  int v23; // edi@18
-  char v24; // zf@18
-  int v25; // eax@19
-  int v26; // ecx@19
-  unsigned __int8 v27; // dl@24
-  int v28; // eax@46
-  char v29; // [sp-18h] [bp-48h]@2
-  int v30; // [sp-14h] [bp-44h]@2
-  int v31; // [sp-10h] [bp-40h]@2
-  int v32; // [sp-Ch] [bp-3Ch]@2
-  const char *v33; // [sp-8h] [bp-38h]@2
-  int v34; // [sp-4h] [bp-34h]@2
-  const char *v35; // [sp+Ch] [bp-24h]@1
-  char Dest; // [sp+10h] [bp-20h]@46
-  char v37; // [sp+13h] [bp-1Dh]@46
-  int v38; // [sp+14h] [bp-1Ch]@1
-  int v39; // [sp+18h] [bp-18h]@3
-  int v40; // [sp+1Ch] [bp-14h]@3
-  int v41; // [sp+20h] [bp-10h]@4
-  int v42; // [sp+24h] [bp-Ch]@3
-  int v43; // [sp+28h] [bp-8h]@3
-  int i; // [sp+2Ch] [bp-4h]@17
-  char *v45; // [sp+38h] [bp+8h]@2
-			 */
+ 
   Font *current_font;
   unsigned char c;
 unsigned int uInStrLen,i;
@@ -644,7 +605,7 @@ return &temp_string[0];
 
 
 //----- (0044D1E7) --------------------------------------------------------
-void __fastcall sub_44D1E7(unsigned char *pFontData, int a2, int a3, int a4, const char *pString, int a6)
+void  sub_44D1E7(Font *pFont, int a2, int a3, int a4, const char *pString, int a6)
 {
   int v6; // ebx@1
   int v8; // edi@3
@@ -653,13 +614,15 @@ void __fastcall sub_44D1E7(unsigned char *pFontData, int a2, int a3, int a4, con
   int v14; // edx@9
   int v15; // ecx@9
   int v16; // eax@12
-  __int16 v17; // cx@12
-  char Dest[6]; // [sp+Ch] [bp-1Ch]@16
-  char v19; // [sp+11h] [bp-17h]@16
-  size_t v20; // [sp+20h] [bp-8h]@2
+  int v17; // cx@12
+  char Dest1[7]; // [sp+Ch] [bp-1Ch]@16
+
+  //char v19; // [sp+11h] [bp-17h]@16
+ // size_t v20; // [sp+20h] [bp-8h]@2
   int v21; // [sp+24h] [bp-4h]@1
   int v22; // [sp+30h] [bp+8h]@9
-
+  unsigned char c;
+unsigned int uInStrLen,i;
   v6 = 0;
   v21 = a2;
 
@@ -668,61 +631,62 @@ void __fastcall sub_44D1E7(unsigned char *pFontData, int a2, int a3, int a4, con
    return;
 
  v21 = dword_5C6DB4;
- v20 = strlen(pString);
+ uInStrLen = strlen(pString);
 
- if (!v20)
+ if (!uInStrLen)
    return;
 
 
  v8 = a3;
- do
- {
-  if (test_char(pString[v6], (Font*)pFontData))
-  {
-   v10 = v9 = pString[v6];
-   if (v9 != '\t')
-   {
-    if (v9 == '\n')
-      return;
+ for(i=0; i<uInStrLen; i++) 
+	{
+	c=pString[i];
 
-    if (v9 != '\f')
-    {
-     if (v9 != '\r')
-     {
-              v15 = 3 * v10 + 9;
-              v14 = *(_DWORD *)(pFontData + 4 * v15);
-              v22 = *(_DWORD *)(pFontData + 4 * v15);
-              if ( v14 )
-              {
-                if ( v6 > 0 )
-                  v8 += *(_DWORD *)(pFontData + 12 * v10 + 32);
-                v17 = v21;
-                v16 = (int)(*(_DWORD *)(pFontData + 4 * v10 + 3104) + pFontData + 4128);
-                if ( !v21 )
-                  v17 = -1;
-                Render_DrawText(pD3DRenderer, v8, a4, (unsigned char *)v16, v14, pFontData[5], (unsigned short *)*(_DWORD *)(pFontData + 12), v17, 0);
-                v8 += v22;
-                if ( v6 < (signed int)v20 )
-                  v8 += *(_DWORD *)(pFontData + 12 * v10 + 40);
-              }
-            }
-          }
-          else
-          {
-            strncpy(Dest, &pString[v6 + 1], 6u);
-            Dest[6] = 0;
-            sscanf(Dest,"%x",&v21);
+  if (test_char(c, pFont))
+  {
+	 switch (c)
+			{
+			case  '\f':   //Form Feed, page eject  0C 12
+				{
+				 strncpy(Dest1, &pString[i + 1], 6);
+            Dest1[6] = 0;
+			
+            sscanf(Dest1,"%x",&v21);
             if(!v21)
               v21 = 0xFFFFFF;
             v21|=0xFF000000;
             dword_5C6DB4 = v21;
-            v6 += 6;	  //   was 5
-          }
-        }
-      }
-      ++v6;
-    }
-    while (v6 < v20);
+            i += 6;	  //   was 5
+				break;
+				}
+			case '\t':	// Horizontal tab 09
+				{
+				break;
+				}
+			case  '\n':	//Line Feed 0A 10
+			  return;
+	 default:
+		 {
+			//v15 = 3 * v10 + 9;
+            //  v14 = *(_DWORD *)(pFont + 4 * v15);
+            //  v22 = *(_DWORD *)(pFont + 4 * v15);
+              if ( pFont->fw_table[c].letterW )
+              {
+                if ( i > 0 )
+                  v8 +=pFont->fw_table[c].preWidth;
+                v17 = v21;
+                v16 = pFont->array_000C20[c] + (int)&pFont->unk_001020;
+                if ( !v21 )
+                  v17 = 0xFFFFFFFF;
+                Render_DrawText(pD3DRenderer, v8, a4, (unsigned char *)v16, pFont->fw_table[c].letterW, pFont->uFontHeight, pFont->pFontPalette, v17, 0);
+                v8 +=  pFont->fw_table[c].letterW;
+                if (i <uInStrLen )
+                  v8 += pFont->fw_table[c].postWidth;
+		 }
+		 }
+		 }
+	  }
+	 }
 }
 
 //----- (0044C62E) ---.text:0044D607   -----------------------------------------------------
@@ -1058,8 +1022,8 @@ char *__fastcall GUIWindow_sub_44D406(struct GUIWindow *a1, struct Font *pFont, 
     v13 = (v8 - GetStringWidth(pFont, result)) >> 1;
     if ( v13 < 0 )
       v13 = 0;
-    sub_44D1E7((unsigned char *)pFont, a5, v9 + v13, v10, result, 640);
-    v10 += ((unsigned char *)pFont)[5] - a7;
+    sub_44D1E7(pFont, a5, v9 + v13, v10, result, 640);
+    v10 += pFont->uFontHeight - a7;
     result = strtok(0, "\n");
   }
   return result;

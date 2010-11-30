@@ -283,10 +283,12 @@ extern unsigned char byte_4ED78C[0x24];
 
 
 extern char byte_4ED94C[array_size_unknown]; // weak
-extern char byte_4ED970[array_size_unknown]; // weak
-extern char byte_4ED995[array_size_unknown]; // weak
-extern char byte_4ED9BA[array_size_unknown]; // weak
-extern char byte_4ED9DF[array_size_unknown]; // weak
+
+extern unsigned char byte_4ED970[1328]; // weak
+//extern char byte_4ED995[array_size_unknown]; // weak
+//extern char byte_4ED9BA[array_size_unknown]; // weak
+//extern char byte_4ED9DF[array_size_unknown]; // weak
+
 extern int dword_4EDEA0[array_size_unknown]; // weak
 extern int dword_4EDEB4[array_size_unknown]; // weak
 extern int dword_4EDEC4; // weak
@@ -620,7 +622,7 @@ extern int dword_506980; // weak
 extern int dword_506984; // weak
 extern int dword_506988; // weak
 extern int dword_50698C; // weak
-extern _UNKNOWN unk_506990; // weak
+//extern _UNKNOWN unk_506990; // weak
 
 extern int dword_506E68; // weak
 extern _WORD byte_506E6C[18]; // idb

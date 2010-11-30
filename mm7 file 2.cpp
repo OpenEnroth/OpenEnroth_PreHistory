@@ -18,7 +18,7 @@
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
-
+static char unk_506990[1240]; // weak
 
 
 
@@ -9478,10 +9478,10 @@ signed int __thiscall sub_417939(void *_this)
 }
 
 //----- (004179BC) --------------------------------------------------------
-void sub_4179BC(int a1, const char *a2)
+void sub_4179BC(const unsigned char *a1, const char *a2)
 {
   const char *v3; // ebx@1
-  int v4; // edi@1
+  const unsigned char *v4; // edi@1
   unsigned int v5; // eax@1
 
   GUIWindow local_0C;
@@ -9492,7 +9492,7 @@ void sub_4179BC(int a1, const char *a2)
   //int v10; // [sp+1Ch] [bp-4Ch]@1
   //int v11; // [sp+20h] [bp-48h]@1
 
-  char v12; // [sp+60h] [bp-8h]@1
+  POINT v12; // [sp+60h] [bp-8h]@1
 
   v3 = a2;
   v4 = a1;
@@ -9500,7 +9500,7 @@ void sub_4179BC(int a1, const char *a2)
   local_0C.uFrameWidth = 384;
   local_0C.uFrameHeight = 256;
   local_0C.uFrameX = 128;
-  local_0C.uFrameY = *(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v12) + 4) + 30;
+  local_0C.uFrameY = class03_GetMousePos(pGame->pClass03, &v12)->y + 30;
   local_0C.uFrameHeight = CalculateTextHeght(pFontSmallnum, v3, &local_0C, 24, 0) + 2 *pFontLucida->uFontHeight + 24;
   local_0C.uFrameZ = local_0C.uFrameX + local_0C.uFrameWidth - 1;
   local_0C.uFrameW = local_0C.uFrameY + local_0C.uFrameHeight - 1;
@@ -9518,8 +9518,8 @@ void sub_4179BC(int a1, const char *a2)
   FontDrawText(&local_0C, pFontSmallnum, 1, pFontLucida->uFontHeight, v3, 0, 0, 0);
 }
 
-//----- (00417AD4) --------------------------------------------------------
-unsigned int __fastcall sub_417AD4(signed int a1, int a2, signed int a3)
+//----- (00417AD4) -------.text:0041819E-------------------------------------------------
+unsigned int  sub_417AD4(char a1, int a2, signed int a3)
 {
   int v3; // edx@1
   unsigned int v4; // ecx@1
@@ -9537,60 +9537,69 @@ unsigned int __fastcall sub_417AD4(signed int a1, int a2, signed int a3)
 
   v5 = a2;
   v6 = a1;
+
   v16 = 0xFFFFFFFF;
   v15 = 0xFFFF0000;
   v14 = 0xFFFFFF00;
-  v4 = 0;
+  v4 =  0;
+
   v3 = v6 % 4;
-  if ( !(v6 % 4) )
+  if ( !v3 )
   {
     v11 = 37 * v6 + v5;
-    if ( (unsigned __int8)byte_4ED970[v11] >= a3 )
-      goto LABEL_8;
-    if ( (unsigned __int8)byte_4ED995[v11] < a3 && (unsigned __int8)byte_4ED9BA[v11] < a3 )
+    if ( (unsigned __int8)byte_4ED970[37 * v6+v5] >= a3 )
+      {
+	   return v16;
+		}
+    if ( (unsigned __int8)byte_4ED970[37 * (v6+1)+v5] < a3 && (unsigned __int8)byte_4ED970[37 * (v6+2)+v5] < a3 )
     {
-      v12 = (unsigned __int8)byte_4ED9DF[v11];
-      compile_error;//v9 = __SETO__(v12, a3);
-      v8 = v12 - a3 < 0;
-LABEL_15:
+      v12 = (unsigned __int8)byte_4ED970[37 * (v6+3)+v5];
+    //  compile_error;//v9 = __SETO__(v12, a3);
+     // v8 = v12 - a3 < 0;
+
       v4 = v15;
-      if ( v8 ^ v9 )
+      if ( v12 - a3 < 0 )
         return v4;
     }
     return v14;
   }
+
   if ( v3 == 1 )
   {
     v7 = 37 * v6 + v5;
-    if ( (unsigned __int8)byte_4ED970[v7] >= a3 )
-      goto LABEL_8;
-    if ( (unsigned __int8)byte_4ED995[v7] < a3 )
+    if ( (unsigned __int8)byte_4ED970[37 * v6+v5] >= a3 )
+		{
+	   return v16;
+		}
+    if ( (unsigned __int8)byte_4ED970[37 * (v6+1)+v5] < a3 )
     {
-      v10 = (unsigned __int8)byte_4ED9BA[v7];
-      compile_error;//v9 = __SETO__(v10, a3);
-      v8 = v10 - a3 < 0;
-      goto LABEL_15;
+      v10 = (unsigned __int8)byte_4ED970[37 * (v6+2)+v5];
+     // compile_error;//v9 = __SETO__(v10, a3);
+     // v8 = v10 - a3 < 0;
+	  v4 = v15;
+      if ( v10 - a3 < 0 )
+        return v4;
     }
     return v14;
   }
+
   if ( v3 > 1 && v3 <= 3 )
   {
-    if ( (unsigned __int8)*(&byte_4ED970[37 * v6] + v5) < a3 )
+    if ( (unsigned __int8)*(&byte_4ED970[37 * v6 + v5]) < a3 )
       return v15;
-LABEL_8:
     v4 = v16;
   }
   return v4;
 }
 
-//----- (00417BB5) --------------------------------------------------------
-_UNKNOWN *__fastcall sub_417BB5(int a1, int a2)
+//----- (00417BB5) ---------------.text:0041819E   -----------------------------------------
+char *sub_417BB5(int a1, int a2)
 {
   int v2; // eax@1
   int v3; // ebx@1
   signed int v4; // esi@1
   int v5; // edi@1
-  int *v6; // ebx@7
+  Player *v6; // ebx@7
   char v7; // al@7
   char v8; // cl@7
   _UNKNOWN *v9; // esi@8
@@ -9618,127 +9627,134 @@ _UNKNOWN *__fastcall sub_417BB5(int a1, int a2)
   char Source[120]; // [sp+4BCh] [bp-88h]@7
   int v33; // [sp+534h] [bp-10h]@1
   int v34; // [sp+538h] [bp-Ch]@1
-  int v35; // [sp+53Ch] [bp-8h]@1
+  int max_width; // [sp+53Ch] [bp-8h]@1
   int v36; // [sp+540h] [bp-4h]@1
 
   v4 = a2;
   v3 = a1;
   v36 = a2;
-  v5 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[431]);
-  v34 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[433]);
-  v33 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[432]);
-  v2 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[96]);
-  v35 = v5;
+  v5 =  GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_NORMAL]);
+  v34 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_EXPERT]);
+  v33 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_MASTER]);
+  v2 =  GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_GRAND]);
+  max_width = v5;
   if ( v34 > v5 )
-    v35 = v34;
-  if ( v33 > v35 )
-    v35 = v33;
-  if ( v2 > v35 )
-    v35 = v2;
-  v6 = (int *)&pParty_global->pPlayers[v3];
-  v33 = (int)((char *)v6 + 2 * v4 + 264);
+    max_width = v34;
+  if ( v33 > max_width )
+    max_width = v33;
+  if ( v2 > max_width )
+    max_width = v2;
+  v6 = &pParty_global->pPlayers[v3];
+  //v33 = v6->pActiveSkills[v4];
   v7 = Player_sub_48F882(v6, v4);
-  v8 = *((_BYTE *)v6 + 2 * v4 + 264);
+  v8 =  v6->pActiveSkills[v4];
   Dest[0] = 0;
   Source[0] = 0;
   if ( (v8 & 0x3F) == (v7 & 0x3F) )
   {
     strcpy(Dest, "%s\n\n");
-    v24 = sub_417AD4(*((_BYTE *)v6 + 185), v4, 1);
-    wsprintfA(Source, "\f%05d", v24);
+
+    v24 = sub_417AD4(v6->uClass, v4, 1);
+
+    wsprintfA(Source, "\f%06x", v24);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
-    v25 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 2);
-    wsprintfA(Source, "\f%05d", v25);
+
+    v25 = sub_417AD4(v6->uClass, v36, 2);
+
+    wsprintfA(Source, "\f%06x", v25);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
-    v26 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 3);
-    wsprintfA(Source, "\f%05d", v26);
+
+    v26 = sub_417AD4(v6->uClass, v36, 3);
+
+    wsprintfA(Source, "\f%06x", v26);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
-    v27 = *((_BYTE *)v6 + 185);
+
+    v27 = v6->uClass;
     v28 = v36;
-    v29 = sub_417AD4(v27, v36, 4);
+    v29 = sub_417AD4(v6->uClass, v36, 4);
     wsprintfA(Source, "\f%06x", v29);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
-    v9 = &unk_506990;
-    wsprintfA(&unk_506990,
+    v9 = (char* )&unk_506990;
+    wsprintfA((char* )&unk_506990,
       Dest,
       array_5C8A70[v28],
-      pGlobalTXT_LocalizationStrings[431],
-      v35 + 3,
-      v35 + 10,
+      pGlobalTXT_LocalizationStrings[LOCSTR_NORMAL],
+      max_width + 3,
+      max_width + 10,
       array_5C89D8[v28],
-      pGlobalTXT_LocalizationStrings[433],
-      v35 + 3,
-      v35 + 10,
+      pGlobalTXT_LocalizationStrings[LOCSTR_EXPERT],
+      max_width + 3,
+      max_width + 10,
       array_5C8940[v28],
-      pGlobalTXT_LocalizationStrings[432],
-      v35 + 3,
-      v35 + 10,
+      pGlobalTXT_LocalizationStrings[LOCSTR_MASTER],
+      max_width + 3,
+      max_width + 10,
       array_5C88A8[v28],
-      pGlobalTXT_LocalizationStrings[96],
-      v35 + 3,
-      v35 + 10,
+      pGlobalTXT_LocalizationStrings[LOCSTR_GRAND],
+      max_width + 3,
+      max_width + 10,
       array_5C8810[v28]);
   }
   else
   {
     strcpy(Dest, "%s\n\n");
-    v10 = sub_417AD4(*((_BYTE *)v6 + 185), v4, 1);
+    v10 = sub_417AD4(v6->uClass, v4, 1);
     wsprintfA(Source, "\f%06x", v10);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
-    v11 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 2);
+    v11 = sub_417AD4(v6->uClass, v36, 2);
     wsprintfA(Source, "\f%06x", v11);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
-    v12 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 3);
-    wsprintfA(Source, "\x0C%05d", v12);
+    v12 = sub_417AD4(v6->uClass, v36, 3);
+    wsprintfA(Source, "\f%06x", v12);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v13 = v36;
-    v14 = sub_417AD4(*((_BYTE *)v6 + 185), v36, 4);
-    wsprintfA(Source, "\f%05d", v14);
+    v14 = sub_417AD4(v6->uClass, v36, 4);
+    wsprintfA(Source, "\f%06x", v14);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n\n");
     v15 = 0xFFFFFFFF;
-    wsprintfA(Source, "\f%05d", v15);
+    wsprintfA(Source, "\f%06x", v15);
     strcat(Dest, Source);
     strcat(Dest, "%s: +%d");
-    v16 = v13;
-    v17 = v35 + 10;
-    v16 *= 4;
-    v34 = v35 + 3;
+   // v16 = v13;
+    v17 = max_width + 10;
+    //v16 *= 4;
+    v34 = max_width + 3;
     v18 = Player_sub_48F882(v6, v36);
-    v19 = (int)array_5C8810[v16 / 4];
-    v20 = (int)array_5C88A8[v16 / 4];
-    v21 = (int)array_5C8940[v16 / 4];
-    v22 = (int)array_5C89D8[v16 / 4];
-    v23 = (int)array_5C8A70[v16 / 4];
-    v9 = &unk_506990;
-    wsprintfA(&unk_506990,
+    v19 = (int)array_5C8810[v13];
+    v20 = (int)array_5C88A8[v13];
+    v21 = (int)array_5C8940[v13];
+    v22 = (int)array_5C89D8[v13];
+    v23 = (int)array_5C8A70[v13];
+    v9 = (char* )&unk_506990;
+    wsprintfA((char* )&unk_506990,
       Dest,
       v23,
-      pGlobalTXT_LocalizationStrings[431],
+      pGlobalTXT_LocalizationStrings[LOCSTR_NORMAL],
       v34,
       v17,
       v22,
-      pGlobalTXT_LocalizationStrings[433],
+      pGlobalTXT_LocalizationStrings[LOCSTR_EXPERT],
       v34,
       v17,
       v21,
-      pGlobalTXT_LocalizationStrings[432],
+      pGlobalTXT_LocalizationStrings[LOCSTR_MASTER],
       v34,
       v17,
       v20,
-      pGlobalTXT_LocalizationStrings[96],
+      pGlobalTXT_LocalizationStrings[LOCSTR_GRAND],
       v34,
       v17,
       v19,
-      pGlobalTXT_LocalizationStrings[623],
-      (v18 & 0x3F) - (*(_BYTE *)v33 & 0x3F));
+      pGlobalTXT_LocalizationStrings[LOCSTR_BONUS],
+      (v18 & 0x3F) - (*(_BYTE *)v8 & 0x3F));
   }
   return v9;
 }
