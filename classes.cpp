@@ -2531,19 +2531,19 @@ LABEL_196:
         switch ( v110 )
         {
           case 1:
-            array_5C8A70[v53] = (unsigned char *)RemoveQuote(v54);
+            pSkillDescription[v53] = (unsigned char *)RemoveQuote(v54);
             break;
           case 2:
-            array_5C89D8[v53] = (unsigned char *)RemoveQuote(v54);
+            pNormalSkillDescr[v53] = (unsigned char *)RemoveQuote(v54);
             break;
           case 3:
-            array_5C8940[v53] = (unsigned char *)RemoveQuote(v54);
+            pExpertSkillDescr[v53] = (unsigned char *)RemoveQuote(v54);
             break;
           case 4:
-            array_5C88A8[v53] = (unsigned char *)RemoveQuote(v54);
+            pMasterSkillDescr[v53] = (unsigned char *)RemoveQuote(v54);
             break;
           case 5:
-            array_5C8810[v53] = (unsigned char *)RemoveQuote(v54);
+            pGrandSkillDescr[v53] = (unsigned char *)RemoveQuote(v54);
             break;
         }
       }

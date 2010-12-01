@@ -57,15 +57,16 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  char byte_4E28FC; // weak
  int dword_4E2900_GammaPos; // weak
  int dword_4E2910[array_size_unknown]; // weak
- __int16 word_4E2930[array_size_unknown]; // weak
- __int16 word_4E2938[array_size_unknown]; // weak
- __int16 g_StatsHintCoords[108] = 
- {26,57,220,18,   26,74,220,18,    26,91,220,18,    26,108,220,18,   26,125,220,18,
-  26,142,220,18,  26,159,220,18,   26,198,220,18,   26,215,220,18,   26,232,220,18,
-  26,268,220,18,  26,286,220,18,   273,54,186,18,   273,71,186,18,   273,88,186,18,
-  273,126,186,18, 273,143,186,18,  273,160,186,18,  273,177,186,18,  273,202,186,18,
-  273,221,186,18, 273,240,186,18,  273,259,186,18,  273,278,186,18,  273,297,186,18,
-  318,18,137,18,  24,18,240,18};
+ __int16 word_4E2930[4] = { 0x14,  0x83,  0xF2,  0x165};// weak	  array_size_unknown
+ __int16 word_4E2938[4]=  { 0x53,  0xC6,  0x138,  0x1A7}; 	// weak	  array_size_unknown 
+
+ Square g_StatsHintCoords[27] = 
+	{{26,57,220,18},   {26,74,220,18},    {26,91,220,18},    {26,108,220,18},   {26,125,220,18},
+	 {26,142,220,18},  {26,159,220,18},   {26,198,220,18},   {26,215,220,18},   {26,232,220,18},
+	 {26,268,220,18},  {26,286,220,18},   {273,54,186,18},   {273,71,186,18},   {273,88,186,18},
+	 {273,126,186,18}, {273,143,186,18},  {273,160,186,18},  {273,177,186,18},  {273,202,186,18},
+	 {273,221,186,18}, {273,240,186,18},  {273,259,186,18},  {273,278,186,18},  {273,297,186,18},
+	 {318,18,137,18},  {24,18,240,18}};
 
 
 
@@ -255,13 +256,13 @@ unsigned char byte_4ED750[0xC] =
 };
 
  char byte_4ED94C[array_size_unknown]; // weak
- //one array  0x530 size
+ //one array  0x534 size
  //char byte_4ED970[array_size_unknown]; // weak
 // char byte_4ED995[array_size_unknown]; // weak +1
  //char byte_4ED9BA[array_size_unknown]; // weak +2
  //char byte_4ED9DF[array_size_unknown]; // weak +3
 
- unsigned char byte_4ED970[1328] = {
+ unsigned char byte_4ED970[36][37] = {
 	0x02, 0x03, 0x02, 0x03, 0x03, 0x02, 0x03, 0x04, 0x03, 0x03, 0x03, 0x03, 0x00, 0x00, 0x00, 0x00, 
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x03, 0x03, 0x00, 0x02, 0x01, 0x00, 0x01, 0x02, 0x02, 
 	0x00, 0x03, 0x00, 0x00, 0x01, 0x02, 0x03, 0x02, 0x03, 0x03, 0x02, 0x03, 0x04, 0x03, 0x03, 0x03, 
@@ -344,10 +345,12 @@ unsigned char byte_4ED750[0xC] =
 	0x00, 0x04, 0x00, 0x02, 0x00, 0x00, 0x04, 0x04, 0x04, 0x04, 0x00, 0x00, 0x00, 0x04, 0x00, 0x04, 
 	0x01, 0x02, 0x00, 0x03, 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x03, 0x03, 0x03, 
 	0x00, 0x02, 0x00, 0x00, 0x01, 0x00, 0x04, 0x00, 0x02, 0x00, 0x00, 0x04, 0x04, 0x04, 0x04, 0x00, 
-	0x00, 0x00, 0x00, 0x04, 0x04, 0x01, 0x02, 0x00, 0x03, 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x04
+	0x00, 0x00, 0x00, 0x04, 0x04, 0x01, 0x02, 0x00, 0x03, 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x04,
+	0x00, 0x00, 0x03, 0x03
 };
 
- int dword_4EDEA0[array_size_unknown]; // weak
+ //int dword_4EDEA0[array_size_unknown]; // weak
+ int dword_4EDEA4[array_size_unknown]; // weak
  int dword_4EDEB4[array_size_unknown]; // weak
  int dword_4EDEC4; // weak
  __int16 word_4EDED8[array_size_unknown]; // weak
@@ -355,13 +358,13 @@ unsigned char byte_4ED750[0xC] =
  int dword_4EDEF8[array_size_unknown]; // weak
  _UNKNOWN unk_4EDF40; // weak
  
- unsigned char uConditionStrengthMultiplier[19] = {100, 100, 100, 120, 50, 200, 75, 60, 50, 30, 25, 10, 100, 100, 100, 100, 100, 100, 100};
- unsigned char uConditionIntelligenceMultiplier[19] = {100, 100, 100, 50, 25, 10, 100, 100, 75, 60, 50, 30, 100, 100, 100, 100, 100, 1, 100};
- unsigned char uConditionWillpowerMultiplier[19] = {100, 100, 100, 50, 25, 10, 100, 100, 75, 60, 50, 30, 100, 100, 100, 100, 100, 1, 100};
- unsigned char uConditionEnduranceMultiplier[19] = {100, 100, 100, 100, 50, 150, 75, 60, 50, 30, 25, 10, 100, 100, 100, 100, 100, 100, 100};
- unsigned char uConditionAccuracyMultiplier[19] = {100, 100, 100, 50, 10, 100, 75, 60, 50, 30, 25, 10, 100, 100, 100, 100, 100, 50, 100};
- unsigned char uConditionSpeedMultiplier[19] = {100, 100, 100, 120, 20, 120, 75, 60, 50, 30, 25, 10, 100, 100, 100, 100, 100, 50, 100};
- unsigned char uConditionLuckMultiplier[19] = {100, 100, 100, 100, 200, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100};
+ unsigned char uConditionStrengthMultiplier[19] =     {100, 100, 100, 120,  50, 200,  75,  60,  50,  30,  25,  10, 100, 100, 100, 100, 100, 100, 100};
+ unsigned char uConditionIntelligenceMultiplier[19] = {100, 100, 100,  50,  25,  10, 100, 100,  75,  60,  50,  30, 100, 100, 100, 100, 100,   1, 100};
+ unsigned char uConditionWillpowerMultiplier[19] =    {100, 100, 100,  50,  25,  10, 100, 100,  75,  60,  50,  30, 100, 100, 100, 100, 100,   1, 100};
+ unsigned char uConditionEnduranceMultiplier[19]    = {100, 100, 100, 100,  50, 150,  75,  60,  50,  30,  25,  10, 100, 100, 100, 100, 100, 100, 100};
+ unsigned char uConditionAccuracyMultiplier[19]     = {100, 100, 100,  50,  10, 100,  75,  60,  50,  30,  25,  10, 100, 100, 100, 100, 100,  50, 100};
+ unsigned char uConditionSpeedMultiplier[19]        = {100, 100, 100, 120,  20, 120,  75,  60,  50,  30,  25,  10, 100, 100, 100, 100, 100,  50, 100};
+ unsigned char uConditionLuckMultiplier[19]         = {100, 100, 100, 100, 200, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100};
 
  unsigned int uAgeingTable[4] = {50, 100, 150, 0xFFFF};  // player age
  unsigned char uAgeingStrengthMultiplier[4] = {100, 75, 40, 10}; // player weakens upon ageing
@@ -609,8 +612,9 @@ struct unnamed_505898 struct_505898;
  int dword_506344; // weak
  int dword_506348; // weak
  __int64 qword_506350; // weak
- int dword_506358[array_size_unknown]; // weak
- int dword_50635C; // weak
+
+class cTexture* dword_506358[2]; // weak
+ //int dword_50635C; // weak
  char byte_506360; // weak
  int dword_506364; // weak
 class cTexture* dword_506368; // weak
@@ -1340,11 +1344,11 @@ char byte_5C8678[104]; // idb
 
 unsigned char *pAttributeDescriptions[7]; // ptr[7] @ MM7.exe::005C8778
 //int dword_5C8778[array_size_unknown]; // weak
- unsigned char *array_5C8810[38];
- unsigned char *array_5C88A8[38];
- unsigned char *array_5C8940[38];
- unsigned char *array_5C89D8[38];
- unsigned char *array_5C8A70[38];
+ unsigned char *pGrandSkillDescr[38];  //array_5C8810
+ unsigned char *pMasterSkillDescr[38];	//array_5C88A8
+ unsigned char *pExpertSkillDescr[38];	//array_5C8940
+ unsigned char *pNormalSkillDescr[38];  //array_5C89D8
+ unsigned char *pSkillDescription[38];	//array_5C8A70
 
 unsigned char *pClassTXT_Raw = 0; // ptr @ MM7.exe::005C8B54
 unsigned char *pStatsTXT_Raw = 0; // ptr @ MM7.exe::005C8B58

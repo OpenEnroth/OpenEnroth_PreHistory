@@ -1871,7 +1871,7 @@ int __cdecl sub_410DEC()
   int v37; // [sp+84h] [bp-4h]@6
 
   v1 = &pParty_global->pPlayers[dword_506348];
-  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)dword_506358[(unsigned __int8)byte_50656C]);
+  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, dword_506358[byte_50656C]);
   v0 = (char *)pGlobalTXT_LocalizationStrings[LOCSTR_RECALL_BEACON];
   local_0C.uFrameX = 8;
   local_0C.uFrameY = 8;

@@ -15,6 +15,15 @@
 
 #pragma pack(push, 1)
 
+struct Square
+	{
+	unsigned short x;
+	unsigned short y;
+	unsigned short width;
+	unsigned short heght;
+	};
+
+		  
 extern OSWindow *pAppWindow;
 
 
@@ -70,11 +79,11 @@ extern int dword_4E28F8; // weak
 extern char byte_4E28FC; // weak
 extern int dword_4E2900_GammaPos; // [0..9]
 extern int dword_4E2910[array_size_unknown]; // weak
-extern __int16 word_4E2930[array_size_unknown]; // weak
-extern __int16 word_4E2938[array_size_unknown]; // weak
+extern __int16 word_4E2930[4]; // weak
+extern __int16 word_4E2938[4]; // weak
 //extern void *off_4E2942; // weak
 //extern void *off_4E2A12; // weak
-extern __int16 g_StatsHintCoords[108];
+extern Square g_StatsHintCoords[27];
 extern int dword_4E2A18[5];
 extern int dword_4E2A2C[9]; 
 extern int dword_4E2A50[12];
@@ -284,12 +293,13 @@ extern unsigned char byte_4ED78C[0x24];
 
 extern char byte_4ED94C[array_size_unknown]; // weak
 
-extern unsigned char byte_4ED970[1328]; // weak
+extern unsigned char byte_4ED970[36][37]; // weak
 //extern char byte_4ED995[array_size_unknown]; // weak
 //extern char byte_4ED9BA[array_size_unknown]; // weak
 //extern char byte_4ED9DF[array_size_unknown]; // weak
 
-extern int dword_4EDEA0[array_size_unknown]; // weak
+//extern int dword_4EDEA0[array_size_unknown]; // weak
+extern int dword_4EDEA4[array_size_unknown]; // weak
 extern int dword_4EDEB4[array_size_unknown]; // weak
 extern int dword_4EDEC4; // weak
 extern __int16 word_4EDED8[array_size_unknown]; // weak
@@ -520,8 +530,8 @@ extern int dword_506344; // weak
 extern int dword_506348; // weak
 extern __int64 qword_506350; // weak
 
-extern int dword_506358[array_size_unknown]; // weak
-extern int dword_50635C; // weak
+extern class cTexture* dword_506358[2]; // weak
+//extern int dword_50635C; // weak
 
 extern char byte_506360; // weak
 
@@ -1420,11 +1430,11 @@ extern char byte_5C8678[104]; // idb
 
 
 extern unsigned char *pAttributeDescriptions[7]; // ptr[7] @ MM7.exe::005C8778
-extern unsigned char *array_5C8810[38];
-extern unsigned char *array_5C88A8[38];
-extern unsigned char *array_5C8940[38];
-extern unsigned char *array_5C89D8[38];
-extern unsigned char *array_5C8A70[38];
+extern unsigned char *pGrandSkillDescr[38];
+extern unsigned char *pMasterSkillDescr[38];
+extern unsigned char *pExpertSkillDescr[38];
+extern unsigned char *pNormalSkillDescr[38];
+extern unsigned char *pSkillDescription[38];
 
 extern unsigned char *pClassTXT_Raw; // ptr @ MM7.exe::005C8B54
 extern unsigned char *pStatsTXT_Raw; // ptr @ MM7.exe::005C8B58

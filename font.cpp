@@ -48,7 +48,6 @@ int  CalculateTextHeght(Font *pFontData, const char *pString, GUIWindow *parentW
   c = test_string[i];
   if (test_char(c, pFontData))
   {
-   ;
    switch (c)
    {
    case '\n':	//Line Feed 0A 10:
@@ -213,7 +212,7 @@ return &temp_string[0];
 }
 
 
-//----- (0044CE08) --------------------------------------------------------
+//----- (0044CE08) -------.text:0044DEA3   -------------------------------------------------
 void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, unsigned int uY, const char *pString, unsigned int uTextMainColor, signed int a8, unsigned int uTextShadowColor)
 {
   int v9; // ebx@1
@@ -310,9 +309,7 @@ char *test_string;
                 strncpy(Dest,  &test_string[i + 1], 6);	  //5
                 Dest[6] = 0;
                 sscanf(Dest,"%x",&uTextMainColor);
-                if(!uTextMainColor)
-                 uTextMainColor = 0xFFFFFF;
-                uTextMainColor|=0xFF000000;
+               
                 i += 6;
                 break;
               case '\r':
@@ -340,6 +337,10 @@ char *test_string;
                   //  i = v12;
                   }
                 }
+				 if(!uTextMainColor)
+                 uTextMainColor = 0xFFFFFF;
+                uTextMainColor|=0xFF000000;
+				uTextShadowColor|=0xFF000000; 
                // v32 = (char*)&test_string[v12];
                 c = test_string[i];
                // v16 = pFont->fw_table[c].letterW;

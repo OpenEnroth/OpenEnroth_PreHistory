@@ -1499,65 +1499,111 @@ unsigned char *LODFile_IB::LODFile_LoadEvent(const wchar_t *pFilename)
 #endif
 
 //----- (004101B1) -----------.text:004104B7---------------------------------------------
-signed int  LODFile_IB::LODFile_sub_4101B1( char *DstBuf, const char *Source, size_t Count)
+signed int  LODFile_IB::ReLoadTexture(class cTexture *dst_texture, const char *pContainerName, int mode)
 {
-  FILE* v4; // eax@1
-  int v5; // edi@1
-  char *v6; // esi@2
-  size_t v7; // ecx@6
-  signed int v8; // ebx@6
-  signed int result; // eax@7
-  size_t *v10; // ebx@8
-  int v11; // eax@10
-  int v12; // eax@10
-  signed int v13; // ebx@12
-  size_t v14; // eax@13
-  int v15; // edx@13
-  FILE *v16; // [sp+Ch] [bp-8h]@1
-  unsigned __int8 v17; // [sp+11h] [bp-3h]@13
-  unsigned __int8 v18; // [sp+12h] [bp-2h]@13
-  unsigned __int8 v19; // [sp+13h] [bp-1h]@13
-  void *v20; // [sp+1Ch] [bp+8h]@10
-  void *v21; // [sp+20h] [bp+Ch]@10
-  size_t v22; // [sp+24h] [bp+10h]@6
+  FILE* texture_file; // eax@1
+  unsigned char* tmp_palette;
+  unsigned char *pCompressedBuffer,
+                *pDecompressedBuffer;
+  int   i,j;
+  unsigned int prev_size;
 
-  v5 = (int)this;
-  v4 = Find_Container( Source, 0);
-  //v16 = (FILE *)v4;
-  if ( v4
-    && (v6 = DstBuf, *((_DWORD *)DstBuf + 12))
-    && Count == 2
-    && *((_DWORD *)DstBuf + 16)
-    && !*((_DWORD *)DstBuf + 17)
-    && (v8 = *((_DWORD *)DstBuf + 5),
-        locked_fread(DstBuf, 1u, 0x30u, v4),
-        strcpy(DstBuf, Source),
-        v7 = *((_DWORD *)DstBuf + 5),
-        v22 = *((_DWORD *)DstBuf + 5),
-        (signed int)v7 <= v8) )
-  {
-    v10 = (size_t *)(DstBuf + 40);
-    if ( !*((_DWORD *)DstBuf + 10) || *(_DWORD *)(v5 + 72612) )
-    {
-      locked_fread(*((void **)DstBuf + 12), 1u, v7, v4);
-    }
-    else
-    {
-      v21 = malloc(*((_DWORD *)DstBuf + 10));
-      v20 = malloc(*((_DWORD *)DstBuf + 5));
-      locked_fread(v20, 1u, v22, v16);
-      MemUnzip(v21, (unsigned int *)v6 + 10, v20, *((_DWORD *)v6 + 5));
-      v11 = *v10;
-      *((_DWORD *)v6 + 5) = *v10;
-      free(v20);
-      v12 = (int)memcpy(*((void **)v6 + 12), v21, *v10);
-      free(v21);
-    }
-    v13 = 0;
+  texture_file = Find_Container(pContainerName, 0);
+
+  if ( !texture_file || (mode != 2)||(dst_texture->pIndexedPixels==NULL) ||(dst_texture->pPalette==NULL)||(dst_texture->ptr_000044!=NULL))
+	  return -1;
+  prev_size= dst_texture->uTextureSize;
+  locked_fread(dst_texture, 1, 48, texture_file);
+  strcpy(dst_texture->sContainerName, pContainerName);
+  if (prev_size>0)
+	  return -1;
+
+
+  // v10 = (size_t *)(DstBuf + 40);
+
+  if ( (dst_texture->uDecompressedSize==0) || lod_IB_dword_011BA4 )
+	  {
+	  locked_fread(dst_texture->pIndexedPixels, 1, dst_texture->uTextureSize, texture_file);
+	  }
+  else
+	  {
+	  pCompressedBuffer = (unsigned char *)malloc(dst_texture->uTextureSize);
+	  pDecompressedBuffer = (unsigned char *)malloc(dst_texture->uDecompressedSize);
+
+	  locked_fread(pCompressedBuffer, 1, dst_texture->uTextureSize, texture_file);
+	  MemUnzip(pDecompressedBuffer, &dst_texture->uDecompressedSize, pCompressedBuffer, dst_texture->uTextureSize);
+	  free(pCompressedBuffer);
+
+	  dst_texture->uTextureSize = dst_texture->uDecompressedSize;
+	  memcpy(dst_texture->pIndexedPixels, pDecompressedBuffer, dst_texture->uTextureSize);
+	  free(pDecompressedBuffer);
+	  }
+
+  //new code create 32 ARGB color;
+  //
+  tmp_palette=(unsigned char*)malloc(768);
+  locked_fread(tmp_palette,768, 1, texture_file);
+  j=0;
+  for (i = 0; i < 256; i++)
+	  { 
+	  dst_texture->pPalette[i] = (tmp_palette[j] >> (8 -  uTextureRedBits)) << ( uTextureBlueBits + uTextureGreenBits);
+	  dst_texture->pPalette[i] += (tmp_palette[j+1] >> (8 -  uTextureGreenBits)) <<  uTextureBlueBits;
+	  dst_texture->pPalette[i] += tmp_palette[j+2] >> (8 -  uTextureBlueBits);
+	  j+=3;
+	  }	 
+  //new code create 32 ARGB color;
+  bool trsp=false;
+  unsigned char trnsp_indx=0;
+
+  i=0;
+  if ((tmp_palette[0]==0)&&(tmp_palette[1]==255)&&(tmp_palette[2]==255))
+	  {
+	  trnsp_indx=i;
+	  trsp=true;
+	  }
+  else if ((tmp_palette[0]==0)&&(tmp_palette[1]==252)&&(tmp_palette[2]==252))
+	  {
+	  trnsp_indx=i;
+	  trsp=true;
+
+	  }
+  else if ((tmp_palette[0]==252)&&(tmp_palette[1]==52)&&(tmp_palette[2]==252))
+	  {
+	  trnsp_indx=i;
+	  trsp=true;
+	  }
+  else if ((tmp_palette[0]==0)&&(tmp_palette[1]==0)&&(tmp_palette[2]==0))
+	  {
+	  trnsp_indx=i;
+	  trsp=true;
+	  }
+  else if ((tmp_palette[255*3]==0)&&(tmp_palette[255*3+1]==255)&&(tmp_palette[255*3+2]==255))
+	  {
+	  trnsp_indx=255;
+	  trsp=true;
+	  }
+
+
+  for (i=0; i<dst_texture->uTextureWidth*dst_texture->uTextureHeight; i++)
+	  {	
+	  unsigned char unpackedPixels[4];
+	  if (( dst_texture->pIndexedPixels[i]==trnsp_indx)&trsp)
+		  *(unsigned int*)&unpackedPixels[0]=0;
+	  else
+		  unpackedPixels[3]=  0xFF;
+	  unpackedPixels[0]= tmp_palette[dst_texture->pIndexedPixels[i]*3+2];
+	  unpackedPixels[1]= tmp_palette[dst_texture->pIndexedPixels[i]*3+1]; 
+	  unpackedPixels[2]= tmp_palette[dst_texture->pIndexedPixels[i]*3];	 
+	  dst_texture->pTruecolorPixels[i]=*(unsigned int*)&unpackedPixels[0];
+	  }	
+  free(tmp_palette);
+
+  /*  v13 = 0;
     do
     {
       locked_fread(&v19, 1u, 1u, v4);
       locked_fread(&v18, 1u, 1u, v4);
+
       v14 = locked_fread(&v17, 1u, 1u, v4);
       LOWORD(v14) = (unsigned __int8)(v19 >> (8 - *(_BYTE *)(v5 + 72588)));
       *(_WORD *)(v13 + *((_DWORD *)v6 + 16)) = v14 << (*(_BYTE *)(v5 + 72596) + *(_BYTE *)(v5 + 72592));
@@ -1566,14 +1612,10 @@ signed int  LODFile_IB::LODFile_sub_4101B1( char *DstBuf, const char *Source, si
       *(_WORD *)(v13 + *((_DWORD *)v6 + 16)) += (unsigned __int8)(v17 >> (8 - *(_BYTE *)(v5 + 72596)));
       v13 += 2;
     }
-    while ( v13 < 512 );
-    result = 1;
-  }
-  else
-  {
-    result = -1;
-  }
-  return result;
+    while ( v13 < 512 );   */
+    return  1;
+ 
+ 
 }
 
 

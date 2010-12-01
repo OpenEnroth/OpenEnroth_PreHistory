@@ -333,7 +333,7 @@ bool __thiscall sub_48D76C(int _this, int a2, int a3, int a4, int a5, int a6)
     v6 = pClass40->pItems[*(_DWORD *)a2 - 1].uEquipType;
     if ( !pClass40->pItems[*(_DWORD *)a2 - 1].uEquipType || v6 == 1 || v6 == 2 )
       v10 *= 3;
-    v11 = dword_4EDEB4[rand() % 100 / 20] + v9 * dword_4EDEA0[v8];
+    v11 = dword_4EDEB4[rand() % 100 / 20] + v9 * dword_4EDEA4[v8-1];
     *(_DWORD *)a6 = 100 * (a4 + a3) + v10 + (a5 != 0 ? 0x1F4 : 0);
     if ( rand() % 100 >= 5 )
     {
@@ -403,7 +403,7 @@ signed int __thiscall sub_48D88B(int _this, int a2, int a3, int a4)
     v7 = v6 & 0x3F;
     v9 = sub_458244(v6);
     v29 = 4 * v9;
-    v31 = dword_4EDEA0[v9];
+    v31 = dword_4EDEA4[v9-1];
     v30 = dword_4EDEB4[rand() % 100 / 20];
     v8 = (unsigned __int8)v4[52] + 100 * (a3 + a4);
     if ( rand() % 100 < 5 || v8 > v30 + v7 * v31 || (v33 = 2, v4[38] & 8) )

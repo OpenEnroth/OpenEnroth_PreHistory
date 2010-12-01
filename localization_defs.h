@@ -41,7 +41,9 @@
 #define  LOCSTR_EMPTY                       		72 // "Empty"	
 
 #define  LOCSTR_EXIT                        		79	// "Exit"	
-#define  LOCSTR_EXIT_BLDNG                  		80   // "Exit Building"	
+#define  LOCSTR_EXIT_BLDNG                  		80   // "Exit Building"
+
+#define  LOCSTR_EXPIRIENCE		                    83 //"Experience"	
 
 #define  LOCSTR_GRAND		                        96	// "Grand"
 
@@ -185,7 +187,7 @@
 
 +		[81]	0x041032c3 "Exit Rest"	unsigned char *
 +		[82]	0x041032d1 "Are you sure?  Click again to quit"	unsigned char *
-+		[83]	0x041032f8 "Experience"	unsigned char *
+
 +		[84]	0x04103307 "Fame"	unsigned char *
 +		[85]	0x04103310 "Potion Notes"	unsigned char *
 +		[86]	0x04103321 "Fill Packs to %d days for %d gold"	unsigned char *

@@ -5708,7 +5708,7 @@ char *__thiscall sub_410B28(void *_this)
   v19 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[431]);
   v21 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[433]);
   v20 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[432]);
-  v4 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[96]);
+  v4 =  GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[96]);
   v5 = v19;
   if ( v21 > v19 )
     v5 = v21;
@@ -6146,14 +6146,14 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
   {
     byte_506360 = 0;
     uTextureID_lb_bordr__townport__sbquicknot =&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "lb_bordr", 2)];
-    dword_506358[0] = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "sbmap", 2)];
-    dword_50635C = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "sbmap", 2)];
+    dword_506358[0] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "sbmap", 2)];
+    dword_506358[1] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "sbmap", 2)];
  #ifndef OLD_CODE
     uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6b")];
     uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6a")];
  #endif
 #ifdef OLD_CODE 
-	 uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6b",2)];
+	uTextureID_tab_an_6b__zoom_on  = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6b",2)];
     uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6a",2)];
  #endif
     dword_506518 = GUIButtonCreate((GUIWindow *)v1, 415, 13, 39, 36, 1, 0, 178, 0, 0, pGlobalTXT_LocalizationStrings[375], 0);
@@ -6230,7 +6230,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
 		#endif
 
 #ifdef OLD_CODE 
-		 uTextureID_lb_bordr__townport__sbquicknot = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("sbquiknot",2)];
+		uTextureID_lb_bordr__townport__sbquicknot = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("sbquiknot",2)];
         uTextureID_divbar = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("divbar",2)];
         uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6b",2)];
         uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-7b",2)];
@@ -9119,7 +9119,7 @@ LABEL_42:
               {
                 v18 = 4 * GetSkillIdxByOrder(&pParty_global->pPlayers[1743 * uPlayerCreationUI_SelectedCharacter], *(_DWORD *)(v12 + 36) + 4);
                 v14 = (int)aSkillNames[v18 / 4];
-                local_04.ptr_000048 = array_5C8A70[v18 / 4];
+                local_04.ptr_000048 = pSkillDescription[v18 / 4];
                 v13 = v39;
               }
               goto LABEL_117;
@@ -9477,7 +9477,7 @@ signed int __thiscall sub_417939(void *_this)
   return v2;
 }
 
-//----- (004179BC) --------------------------------------------------------
+//----- (004179BC) ---------.text:00417FA5-----------------------------------------------
 void sub_4179BC(const unsigned char *a1, const char *a2)
 {
   const char *v3; // ebx@1
@@ -9519,12 +9519,12 @@ void sub_4179BC(const unsigned char *a1, const char *a2)
 }
 
 //----- (00417AD4) -------.text:0041819E-------------------------------------------------
-unsigned int  sub_417AD4(char a1, int a2, signed int a3)
+unsigned int  sub_417AD4(int uPClass, int skill_index, signed int skill_level)
 {
   int v3; // edx@1
   unsigned int v4; // ecx@1
-  int v5; // ebx@1
-  signed int v6; // edi@1
+  //int v5; // ebx@1
+  //signed int v6; // edi@1
   int v7; // eax@7
   unsigned __int8 v8; // sf@10
   unsigned __int8 v9; // of@10
@@ -9535,69 +9535,63 @@ unsigned int  sub_417AD4(char a1, int a2, signed int a3)
   unsigned int v15; // [sp+10h] [bp-8h]@1
   unsigned int v16; // [sp+14h] [bp-4h]@1
 
-  v5 = a2;
-  v6 = a1;
+ // v5 = a2;
+ // v6 = a1;
 
-  v16 = 0xFFFFFFFF;
-  v15 = 0xFFFF0000;
-  v14 = 0xFFFFFF00;
+  v16 = 0xFFFFFF; //white
+  v15 = 0xFF0000; //red
+  v14 = 0xFFFF00; //yellow
   v4 =  0;
 
-  v3 = v6 % 4;
-  if ( !v3 )
+  v3 = uPClass % 4;
+  
+  if ( v3==0 )
   {
-    v11 = 37 * v6 + v5;
-    if ( (unsigned __int8)byte_4ED970[37 * v6+v5] >= a3 )
+   // v11 = 37 * uPClass + v5;
+    if ( byte_4ED970[uPClass][skill_index] >= skill_level )
       {
 	   return v16;
 		}
-    if ( (unsigned __int8)byte_4ED970[37 * (v6+1)+v5] < a3 && (unsigned __int8)byte_4ED970[37 * (v6+2)+v5] < a3 )
+    if ( (byte_4ED970[uPClass+1][skill_index] < skill_level) && (byte_4ED970[uPClass+2][skill_index] < skill_level) )
     {
-      v12 = (unsigned __int8)byte_4ED970[37 * (v6+3)+v5];
-    //  compile_error;//v9 = __SETO__(v12, a3);
-     // v8 = v12 - a3 < 0;
-
-      v4 = v15;
-      if ( v12 - a3 < 0 )
-        return v4;
+      v12 = byte_4ED970[uPClass+3][skill_index];
+      if ( v12<skill_level )
+        return v15;
     }
     return v14;
   }
 
   if ( v3 == 1 )
   {
-    v7 = 37 * v6 + v5;
-    if ( (unsigned __int8)byte_4ED970[37 * v6+v5] >= a3 )
+   // v7 = 37 * v6 + v5;
+    if ( byte_4ED970[uPClass][skill_index] >= skill_level )
 		{
 	   return v16;
 		}
-    if ( (unsigned __int8)byte_4ED970[37 * (v6+1)+v5] < a3 )
+    if ( byte_4ED970[uPClass+1][skill_index] < skill_level )
     {
-      v10 = (unsigned __int8)byte_4ED970[37 * (v6+2)+v5];
-     // compile_error;//v9 = __SETO__(v10, a3);
-     // v8 = v10 - a3 < 0;
-	  v4 = v15;
-      if ( v10 - a3 < 0 )
-        return v4;
+      v10 = (unsigned __int8)byte_4ED970[uPClass+2][skill_index];
+      if ( v10 <skill_level )
+        return v15;
     }
     return v14;
   }
 
-  if ( v3 > 1 && v3 <= 3 )
+  if ( (v3 ==2) || (v3 == 3) )
   {
-    if ( (unsigned __int8)*(&byte_4ED970[37 * v6 + v5]) < a3 )
+    if ( byte_4ED970[uPClass][skill_index] < skill_level )
       return v15;
-    v4 = v16;
+
   }
-  return v4;
+  return v16;
 }
 
 //----- (00417BB5) ---------------.text:0041819E   -----------------------------------------
-char *sub_417BB5(int a1, int a2)
+char *sub_417BB5(int player_index, int skill_index)
 {
   int v2; // eax@1
-  int v3; // ebx@1
-  signed int v4; // esi@1
+ // int v3; // ebx@1
+ // signed int v4; // esi@1
   int v5; // edi@1
   Player *v6; // ebx@7
   char v7; // al@7
@@ -9628,11 +9622,11 @@ char *sub_417BB5(int a1, int a2)
   int v33; // [sp+534h] [bp-10h]@1
   int v34; // [sp+538h] [bp-Ch]@1
   int max_width; // [sp+53Ch] [bp-8h]@1
-  int v36; // [sp+540h] [bp-4h]@1
+ // int v36; // [sp+540h] [bp-4h]@1
 
-  v4 = a2;
-  v3 = a1;
-  v36 = a2;
+ // v4 = a2;
+  //v3 = a1;
+ // v36 = a2;
   v5 =  GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_NORMAL]);
   v34 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_EXPERT]);
   v33 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_MASTER]);
@@ -9644,82 +9638,82 @@ char *sub_417BB5(int a1, int a2)
     max_width = v33;
   if ( v2 > max_width )
     max_width = v2;
-  v6 = &pParty_global->pPlayers[v3];
+  v6 = &pParty_global->pPlayers[player_index];
   //v33 = v6->pActiveSkills[v4];
-  v7 = Player_sub_48F882(v6, v4);
-  v8 =  v6->pActiveSkills[v4];
+  v7 = Player_sub_48F882(v6, skill_index);
+  v8 =  v6->pActiveSkills[skill_index];
   Dest[0] = 0;
   Source[0] = 0;
   if ( (v8 & 0x3F) == (v7 & 0x3F) )
   {
     strcpy(Dest, "%s\n\n");
 
-    v24 = sub_417AD4(v6->uClass, v4, 1);
+    v24 = sub_417AD4(v6->uClass, skill_index, 1);
 
     wsprintfA(Source, "\f%06x", v24);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
 
-    v25 = sub_417AD4(v6->uClass, v36, 2);
+    v25 = sub_417AD4(v6->uClass, skill_index, 2);
 
     wsprintfA(Source, "\f%06x", v25);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
 
-    v26 = sub_417AD4(v6->uClass, v36, 3);
+    v26 = sub_417AD4(v6->uClass, skill_index, 3);
 
     wsprintfA(Source, "\f%06x", v26);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
 
-    v27 = v6->uClass;
-    v28 = v36;
-    v29 = sub_417AD4(v6->uClass, v36, 4);
+    //v27 = v6->uClass;
+   // v28 = v36;
+    v29 = sub_417AD4(v6->uClass, skill_index, 4);
     wsprintfA(Source, "\f%06x", v29);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
     v9 = (char* )&unk_506990;
     wsprintfA((char* )&unk_506990,
       Dest,
-      array_5C8A70[v28],
+      pSkillDescription[skill_index],
       pGlobalTXT_LocalizationStrings[LOCSTR_NORMAL],
       max_width + 3,
       max_width + 10,
-      array_5C89D8[v28],
+      pNormalSkillDescr[skill_index],
       pGlobalTXT_LocalizationStrings[LOCSTR_EXPERT],
       max_width + 3,
       max_width + 10,
-      array_5C8940[v28],
+      pExpertSkillDescr[skill_index],
       pGlobalTXT_LocalizationStrings[LOCSTR_MASTER],
       max_width + 3,
       max_width + 10,
-      array_5C88A8[v28],
+      pMasterSkillDescr[skill_index],
       pGlobalTXT_LocalizationStrings[LOCSTR_GRAND],
       max_width + 3,
       max_width + 10,
-      array_5C8810[v28]);
+      pGrandSkillDescr[skill_index]);
   }
   else
   {
     strcpy(Dest, "%s\n\n");
-    v10 = sub_417AD4(v6->uClass, v4, 1);
+    v10 = sub_417AD4(v6->uClass, skill_index, 1);
     wsprintfA(Source, "\f%06x", v10);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
-    v11 = sub_417AD4(v6->uClass, v36, 2);
+    v11 = sub_417AD4(v6->uClass, skill_index, 2);
     wsprintfA(Source, "\f%06x", v11);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
-    v12 = sub_417AD4(v6->uClass, v36, 3);
+    v12 = sub_417AD4(v6->uClass, skill_index, 3);
     wsprintfA(Source, "\f%06x", v12);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n");
-    v13 = v36;
-    v14 = sub_417AD4(v6->uClass, v36, 4);
+    //v13 = v36;
+    v14 = sub_417AD4(v6->uClass, skill_index, 4);
     wsprintfA(Source, "\f%06x", v14);
     strcat(Dest, Source);
     strcat(Dest, "%s\t%03d:\t%03d%s\t000\n\n");
-    v15 = 0xFFFFFFFF;
+    v15 = 0xFFFFFF;
     wsprintfA(Source, "\f%06x", v15);
     strcat(Dest, Source);
     strcat(Dest, "%s: +%d");
@@ -9727,32 +9721,32 @@ char *sub_417BB5(int a1, int a2)
     v17 = max_width + 10;
     //v16 *= 4;
     v34 = max_width + 3;
-    v18 = Player_sub_48F882(v6, v36);
-    v19 = (int)array_5C8810[v13];
-    v20 = (int)array_5C88A8[v13];
-    v21 = (int)array_5C8940[v13];
-    v22 = (int)array_5C89D8[v13];
-    v23 = (int)array_5C8A70[v13];
+    v18 = Player_sub_48F882(v6, skill_index);
+   // v19 = (int)
+    ///v20 = (int);
+    //v21 = (int);
+    //v22 = (int);
+   // v23 = (int);
     v9 = (char* )&unk_506990;
     wsprintfA((char* )&unk_506990,
       Dest,
-      v23,
+      pSkillDescription[skill_index],
       pGlobalTXT_LocalizationStrings[LOCSTR_NORMAL],
       v34,
       v17,
-      v22,
+      pNormalSkillDescr[skill_index],
       pGlobalTXT_LocalizationStrings[LOCSTR_EXPERT],
       v34,
       v17,
-      v21,
+      pExpertSkillDescr[skill_index],
       pGlobalTXT_LocalizationStrings[LOCSTR_MASTER],
       v34,
       v17,
-      v20,
+      pMasterSkillDescr[skill_index],
       pGlobalTXT_LocalizationStrings[LOCSTR_GRAND],
       v34,
       v17,
-      v19,
+      pGrandSkillDescr[skill_index],
       pGlobalTXT_LocalizationStrings[LOCSTR_BONUS],
       (v18 & 0x3F) - (*(_BYTE *)v8 & 0x3F));
   }
@@ -11284,22 +11278,22 @@ void GUIWindow_sub_41D3B7(GUIWindow *_this)
 
 
   Render_DrawTransparentTexture(pD3DRenderer, *(_DWORD *)v4 + 24, *(_DWORD *)(v4 + 4) + 24, (cTexture *)v13);
-  v17 = 0xFFFFFF9B;
-  wsprintfA((char *)TmpBuf, "\f%05d", v17);
+  v17 = 0xFFFF9B;
+  wsprintfA((char *)TmpBuf, "\f%06x", v17);
   wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[429], pPlayer->sName, aClassNames[pPlayer->uClass]);
 
 
   strcat((char *)TmpBuf, (char *)pStringBuffer);
-  strcat((char *)TmpBuf, "\f00000\n");
+  strcat((char *)TmpBuf, "\f000000\n");
   v20 = Player_GetMaxHealth(pPlayer);
   v21 = sub_4178FE_GetColor(pPlayer->sHealth, v20);
 
 
-  wsprintfA((char *)pStringBuffer, "%s : \f%05u%d\f000000 / %d\n", pGlobalTXT_LocalizationStrings[LOCSTR_HIT_POINTS], v21, pPlayer->sHealth, v20);
+  wsprintfA((char *)pStringBuffer, "%s : \f%06x%d\f000000 / %d\n", pGlobalTXT_LocalizationStrings[LOCSTR_HIT_POINTS], v21, pPlayer->sHealth, v20);
   strcat((char *)TmpBuf, (char *)pStringBuffer);
   v24 = Player_GetMaxMana(pPlayer);
   v25 = sub_4178FE_GetColor(pPlayer->sMana, v24);
-  wsprintfA((char *)pStringBuffer, "%s : \f%05u%d\f00000 / %d\n", pGlobalTXT_LocalizationStrings[212], v25, pPlayer->sMana, v24);
+  wsprintfA((char *)pStringBuffer, "%s : \f%06x%d\f000000 / %d\n", pGlobalTXT_LocalizationStrings[212], v25, pPlayer->sMana, v24);
   strcat((char *)TmpBuf, (char *)pStringBuffer);
   v26 = Player_GetConditionIdx(pPlayer);
   v27 = (char *)aCharacterConditionNames[v26];
@@ -11307,7 +11301,7 @@ void GUIWindow_sub_41D3B7(GUIWindow *_this)
   
 
   v28 = sub_417939((void *)v26);
-  wsprintfA((char *)pStringBuffer, "%s: \x0C%05d%s\0x0C\0x30\0x30\0x30\0x30\0x30\n", pGlobalTXT_LocalizationStrings[LOCSTR_CONDITION], v28, v27);
+  wsprintfA((char *)pStringBuffer, "%s: \f%06x%s\f000000\n", pGlobalTXT_LocalizationStrings[LOCSTR_CONDITION], v28, v27);
   strcat((char *)TmpBuf, (char *)pStringBuffer);
   v16 = pPlayer->uQuickSpell;
   if ( v16 )
@@ -13995,8 +13989,8 @@ int __fastcall sub_420B13(int a1, int a2)
   v4 = (int)&array_5E5150[v5/5324].array_000004[a1];
   v19 = dword_4E2C0C[*(__int16 *)((char *)array_5E5150 + v5)];
   v6 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 * *(_DWORD *)v4].pName, 2);
-  v3 = v6 != -1 ? 72 * v6 + 7145548 : 0;
-  v2 = *(_WORD *)(v6 != -1 ? 72 * v6 + 7145548 + 0x18 : 24);
+  v3 = v6 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v6]  : 0;
+  v2 = *(_WORD *)(v6 != -1 ? LODFile_Icons_LOD.aLODHeaders[v6].uTextureWidth : 24);
   if ( v2 < 14 )
     v2 = 14;
   v9 = v2 - 14;
@@ -14277,7 +14271,7 @@ signed int __cdecl sub_421B2C()
   if (pParty_global->stru_007754.uItemID)
   {
    v1 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 * pParty_global->stru_007754.uItemID].pIconName, 2);
-    v0 = v1 != -1 ? 72 * v1 + 7145548 : 0;
+    v0 = v1 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v1]  : 0;
     v22 = bTextureLoading;
     if ( uActiveCharacter && (v2 = CreateItemInInventory(pPlayers[uActiveCharacter - 1], -1, pParty_global->stru_007754.uItemID)) != 0 )
     {
