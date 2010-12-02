@@ -350,13 +350,13 @@ unsigned char byte_4ED750[0xC] =
 };
 
  //int dword_4EDEA0[array_size_unknown]; // weak
- int dword_4EDEA4[array_size_unknown]; // weak
+ int dword_4EDEA4[4]; // weak
  int dword_4EDEB4[array_size_unknown]; // weak
  int dword_4EDEC4; // weak
  __int16 word_4EDED8[array_size_unknown]; // weak
  __int16 word_4EDEDC; // weak
- int dword_4EDEF8[array_size_unknown]; // weak
- _UNKNOWN unk_4EDF40; // weak
+ int dword_4EDEF8[18]={16, 15, 14, 17, 2, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 1, 0}; // weak
+// _UNKNOWN unk_4EDF40; // weak	border
  
  unsigned char uConditionStrengthMultiplier[19] =     {100, 100, 100, 120,  50, 200,  75,  60,  50,  30,  25,  10, 100, 100, 100, 100, 100, 100, 100};
  unsigned char uConditionIntelligenceMultiplier[19] = {100, 100, 100,  50,  25,  10, 100, 100,  75,  60,  50,  30, 100, 100, 100, 100, 100,   1, 100};

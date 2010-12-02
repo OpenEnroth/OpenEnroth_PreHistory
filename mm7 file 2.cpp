@@ -9432,44 +9432,37 @@ unsigned int __fastcall sub_4178FE_GetColor(signed int a1, signed int a2)
   return RGB_MAKE(v3, v2, v6);
 }
 
-//----- (00417939) --------------------------------------------------------
-signed int __thiscall sub_417939(void *_this)
+//----- (00417939) ------.text:00417F22 --------------------------------------------------
+unsigned int sub_417939(unsigned int code) //get status color
 {
-  unsigned int v1; // eax@1
-  signed int v2; // edi@1
-  unsigned int v3; // esi@1
-  void *v4; // ebx@1
-  unsigned int v6; // [sp+Ch] [bp-4h]@1
+ 
+  unsigned int v2; // edi@1
 
-  v4 = _this;
-  v2 = 65535;
-  v3 = 0xFFE1CD23;
-  v6 = 0xFFFF2300;
-  v1 = 0xFF00FF00;
-  switch ( (unsigned int)(v4) )
+  v2 = 0xFFFFFF;
+  switch ( code )
   {
-    case 0u:
-    case 1u:
-    case 3u:
-    case 4u:
-    case 5u:
-    case 6u:
-    case 7u:
-      v2 = v1;
+    case 0:
+    case 1:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+      v2 =0x00FF00;
       break;
     case 2:
-    case 8u:
-    case 9u:
-    case 0xCu:
-    case 0xDu:
-      v2 = v3;
+    case 8:
+    case 9:
+    case 12:
+    case 13:
+      v2 = 0xE1CD23;
       break;
-    case 0xAu:
-    case 0xBu:
-    case 0xEu:
-    case 0xFu:
-    case 0x10u:
-      v2 = v6;
+    case 10:
+    case 11:
+    case 14:
+    case 15:
+    case 16:
+      v2 = 0xFF2300;
       break;
     default:
       return v2;
@@ -10200,7 +10193,7 @@ int __fastcall GetSizeInInventorySlots(unsigned int uNumPixels)
 //----- (0041A556) --------------------------------------------------------
 void __cdecl sub_41A556()
 {
-  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)(uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 : 0));
+  Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (uTextureIdx_Leather != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather] : 0));
 }
 
 //----- (0041A57E) --------------------------------------------------------
@@ -10208,7 +10201,7 @@ void __cdecl sub_41A57E()
 {
   int v0; // ebx@1
   int v1; // eax@1
-  int v2; // ebp@2
+  Player *v2; // ebp@2
   int v3; // eax@6
   int v4; // edi@6
   __int16 v5; // ax@7
@@ -10257,9 +10250,9 @@ void __cdecl sub_41A57E()
   unsigned int v49; // [sp+28h] [bp-4h]@1
 
   v0 = 0;
-  v47 = 0xFFFFFF9B;
-  v49 = 0xFFFF0000;
-  v46 = 0xFF00FF00;
+  v47 = 0xFFFF9B;
+  v49 = 0xFF0000;
+  v46 = 0x00FF00;
   #ifndef OLD_CODE
 	 v1 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"quikref");
 #endif
@@ -10269,29 +10262,29 @@ void __cdecl sub_41A57E()
   
   Render_DrawIndexedTextureHandle(pD3DRenderer, 8, 8, v1);
   v43 = 0;
-  v45 = *(_BYTE *)(pFontArrus + 5) + 1;
+  v45 = pFontArrus->uFontHeight + 1;
   do
   {
-    v2 = (int)&pParty_global->pPlayers[v43];
+    v2 = &pParty_global->pPlayers[v43];
     v44 = 94 * v43 + 89;
     if ( v43 == v0 )
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, 18, v0, (char *)pGlobalTXT_LocalizationStrings[149], 60, v0);
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 94 * v43 + 89, 18, v47, (const char *)(v2 + 168), 84, v0);
+    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 94 * v43 + 89, 18, v47, (const char *)v2->sName, 84, v0);
     if ( v43 == v0 )
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, 47, v0, (char *)pGlobalTXT_LocalizationStrings[131], 60, v0);
-    v3 = Player_GetActualLevel((Player *)v2);
+    v3 = Player_GetActualLevel(v2);
     wsprintfA((char *)TmpBuf, "%lu", v3);
-    v4 = Player_GetBaseLevel((Player *)v2);
-    if ( Player_GetActualLevel((Player *)v2) <= v4 )
-      v5 = Player_sub_48D498(v2);
+    v4 = Player_GetBaseLevel(v2);
+    if ( Player_GetActualLevel(v2) <= v4 )
+      v5 = Player_sub_48D498((int)v2);
     else
-      v5 = 0xFF00FF00 | (unsigned char)v0;
+      v5 = 0x00FF00 | (unsigned char)v0;
     GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, 47, v5, (char *)TmpBuf, 84, v0);
     v6 = v45 + 47;
     if ( v43 == v0 )
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v45 + 47, v0, (char *)pGlobalTXT_LocalizationStrings[41], 60, v0);
     //GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v6, v0, (&dword_AE31F0)[4 * *(_BYTE *)(v2 + 185)], 84, v0);
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v6, v0, (char *)aClassNames[*(_BYTE *)(v2 + 185)], 84, v0);
+    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v6, v0, (char *)aClassNames[v2->uClass], 84, v0);
 
     v7 = v45 + v6;
     if ( v43 == v0 )
@@ -10303,77 +10296,76 @@ void __cdecl sub_41A57E()
     v8 = v45 + v7;
     if ( v43 == v0 )
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v8, v0, (char *)pGlobalTXT_LocalizationStrings[209], 60, v0);
-    wsprintfA((char *)TmpBuf, "%d", *(_DWORD *)(v2 + 6464));
+    wsprintfA((char *)TmpBuf, "%d", v2->sHealth);
     v12 = Player_GetMaxMana((Player *)v2);
-    v13 = sub_4178FE_GetColor(*(_DWORD *)(v2 + 6464), v12);
+    v13 = sub_4178FE_GetColor(v2->sMana, v12);
     GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v8, v13, (char *)TmpBuf, 84, v0);
     v11 = v45 + v8;
     if ( v43 == v0 )
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v11, v0, (char *)pGlobalTXT_LocalizationStrings, 60, v0);
-    v15 = Player_sub_48E68F(v2);
+    v15 = Player_sub_48E68F((int)v2);
     wsprintfA((char *)TmpBuf, "%d", v15);
     v16 = v0;
-    v17 = Player_sub_48E656(v2);
-    v18 = Player_sub_48E68F(v2);
+    v17 = Player_sub_48E656((int)v2);
+    v18 = Player_sub_48E68F((int)v2);
     v19 = sub_4178FE_GetColor(v18, v17);
     GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v11, v19, (char *)TmpBuf, 84, v16);
     v0 = 0;
     v14 = v45 + v11;
     if ( !v43 )
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v14, 0, (char *)pGlobalTXT_LocalizationStrings[18], 60, 0);
-    v21 = sub_48CCF5(v2, 0);
+    v21 = sub_48CCF5((int)v2, 0);
     wsprintfA((char *)TmpBuf, (const char *)&off_4E3044, v21);
     GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v14, 0, (char *)TmpBuf, 84, 0);
     v20 = v45 + v14;
     if ( !v43 )
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v20, 0, (char *)pGlobalTXT_LocalizationStrings[66], 60, 0);
-    v23 = sub_48D2EA(v2);
+    v23 = sub_48D2EA((int)v2);
     GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v20, 0, v23, 84, 0);
     v22 = v45 + v20;
     if ( !v43 )
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v22, 0, (char *)pGlobalTXT_LocalizationStrings[203], 60, 0);
-    v25 = Player_sub_48D0B9(v2);
+    v25 = Player_sub_48D0B9((int)v2);
     wsprintfA((char *)TmpBuf, (const char *)&off_4E3044, v25);
     GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v22, 0, (char *)TmpBuf, 84, 0);
     v24 = v45 + v22;
     if ( !v43 )
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v24, 0, (char *)pGlobalTXT_LocalizationStrings[66], 60, 0);
-    v27 = Player_sub_48D396(v2);
+    v27 = Player_sub_48D396((int)v2);
     GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v24, 0, v27, 84, 0);
     v26 = v45 + v24;
     if ( !v43 )
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v26, 0, (char *)pGlobalTXT_LocalizationStrings[205], 60, 0);
     v30 = 0;
-    v28 = v2 + 264;
-    v29 = 36;
-    do
+   // v28 = v2 + 264;
+  //  v29 = 36;
+    for(int i=0; i<36; i++)
     {
-      if ( *(_WORD *)v28 )
+      if (v2->pActiveSkills[i] )
         ++v30;
-      v28 += 2;
-      --v29;
+     
     }
-    while ( v29 );
+   
     wsprintfA((char *)TmpBuf, "%lu", v30);
     GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v26, 0, (char *)TmpBuf, 84, 0);
     v31 = v45 + v26;
     if ( !v43 )
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v31, 0, (char *)pGlobalTXT_LocalizationStrings[168], 60, 0);
-    wsprintfA((char *)TmpBuf, "%lu", *(_DWORD *)(v2 + 6456));
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v31, *(_DWORD *)(v2 + 6456) != 0 ? v46 : 0, (char *)TmpBuf, 84, 0);
+    wsprintfA((char *)TmpBuf, "%lu", v2->uSkillPoints);
+    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v31, v2->uSkillPoints != 0 ? v46 : 0, (char *)TmpBuf, 84, 0);
     v32 = v45 + v31;
-    v48 = Player_GetConditionIdx((Player *)v2);
+    v48 = Player_GetConditionIdx(v2);
     if ( !v43 )
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v32, 0, (char *)pGlobalTXT_LocalizationStrings[45], 60, 0);
     //v34 = (&dword_AE3280)[4 * v48];
     v34 = (char *)aCharacterConditionNames[v48];
 
-    v35 = sub_417939((void *)v48);
+    v35 = sub_417939(v48);
     GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v32, v35, v34, 84, 0);
     v33 = v45 + v32;
     if ( !v43 )
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v33, 0, (char *)pGlobalTXT_LocalizationStrings[170], 60, 0);
-    v36 = *(_BYTE *)(v2 + 6735);
+    v36 = v2->uQuickSpell;
     if ( v36 )
       //v37 = (&dword_5CC034)[36 * v36];
       v37 = (char *)pSpellStats->pSpellInfos[v36].pSpellNameShort;
@@ -10388,7 +10380,7 @@ void __cdecl sub_41A57E()
   {
     v39 = v49;
     if ( v38 <= 5 )
-      v39 = 65535;
+      v39 = 0x00FFF;
   }
   else
   {
@@ -11179,12 +11171,12 @@ void sub_41D20D(int a1, int a2, __int64 a3, int a4)
 }
 
 //----- (0041D3B7) --------------------------------------------------------
-void GUIWindow_sub_41D3B7(GUIWindow *_this)
+void GUIWindow_sub_41D3B7(GUIWindow *_this)	  //show quick info
 {
   int v1; // eax@1
   int v2; // ecx@1
   signed int v3; // ebx@1
-  int v4; // edi@1
+  GUIWindow *v4; // edi@1
   int v6; // eax@5
   int v7; // ebx@5
   int v8; // ecx@5
@@ -11192,7 +11184,7 @@ void GUIWindow_sub_41D3B7(GUIWindow *_this)
   int v10; // eax@5
   int v11; // eax@5
   int v12; // ecx@5
-  int v13; // eax@6
+  cTexture *v13; // eax@6
   PlayerFrame *v14; // eax@12
   signed int v15; // eax@12
   unsigned __int8 v16; // al@15
@@ -11216,47 +11208,45 @@ void GUIWindow_sub_41D3B7(GUIWindow *_this)
   __int16 v38; // ax@22
   char *v39; // eax@24
   int v41; // [sp+14h] [bp-14h]@1
-  int v42; // [sp+18h] [bp-10h]@1
-  int v43; // [sp+1Ch] [bp-Ch]@1
+  Font *v42; // [sp+18h] [bp-10h]@1
+  GUIWindow *v43; // [sp+1Ch] [bp-Ch]@1
   signed int v44; // [sp+20h] [bp-8h]@9
   int v45; // [sp+20h] [bp-8h]@18
   signed int v46; // [sp+24h] [bp-4h]@18
 
-  v4 = (int)_this;
-  v42 = (int)pFontComic;
- Player *pPlayer = &pParty_global->pPlayers[(int)_this->dword_00001C];
+  v4 = _this;
+  v42 = pFontComic;
+ Player *pPlayer = &pParty_global->pPlayers[_this->dword_00001C];
   v43 = v4;
   v2 = 0;
-  v1 = (int)pParty_global->pPlayers[(int)_this->dword_00001C].pPlayerBuffs;
-  v3 = 24;
-  v41 = (int)pParty_global->pPlayers[(int)_this->dword_00001C].pPlayerBuffs;
-  do
-  {
-    if ( *(_QWORD *)v1 > 0i64 )
+ // v1 = (int)pParty_global->pPlayers[_this->dword_00001C].pPlayerBuffs;
+  //v3 = 24;
+  v41 = (int)pParty_global->pPlayers[_this->dword_00001C].pPlayerBuffs;
+  for( int i=0; i<24; i++)
+	  {
+    if (pParty_global->pPlayers[_this->dword_00001C].pPlayerBuffs[i].qword_000000 > 0i64 )
       ++v2;
-    v1 += 16;
-    --v3;
-  }
-  while ( v3 );
-  v6 = *(_BYTE *)((char *)pFontArrus + 5) + 162;
-  *(_DWORD *)(v4 + 12) = v6;
-  v7 = (v2 - 1) * *(_BYTE *)((char *)pFontArrus + 5);
-  v8 = *(_DWORD *)v4;
+       }
+ 
+  v6 = pFontArrus->uFontHeight + 162;
+ // v4->uFrameHeight = v6;
+  v7 = (v2 - 1) *pFontArrus->uFontHeight;
+  v8 = v4->uFrameX;
   v9 = v6 + v7;
-  v10 = *(_DWORD *)(v4 + 8);
-  *(_DWORD *)(v4 + 12) = v9;
+  v10 = v4->uFrameWidth;
+  v4->uFrameHeight = v9;
   v11 = v10 + v8 - 1;
-  v12 = *(_DWORD *)(v4 + 4);
-  *(_DWORD *)(v4 + 16) = v11;
-  *(_DWORD *)(v4 + 20) = v9 + v12 - 1;
-  GUIWindow_sub_415551((GUIWindow *)v4, 0);
+  v12 = v4->uFrameY;
+  v4->uFrameZ = v11;
+  v4->uFrameW = v9 + v12 - 1;
+  GUIWindow_sub_415551(v4, 0);
   if (pPlayer->pConditions[16])
   {
-    v13 = uTextureIdx_PlayerFaceDead;
+    v13 = &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_PlayerFaceDead];
   }
   else if (pPlayer->pConditions[14])
   {
-      v13 = uTextureIdx_PlayerFaceEradicated;
+      v13 = &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_PlayerFaceEradicated];
   }
   else
   {
@@ -11272,12 +11262,13 @@ void GUIWindow_sub_41D3B7(GUIWindow *_this)
         v15 = class24_fn2(pClass24_global2);
         v14 = pPlayerFrameTable->GetFrameFromFrameset( v44, v15);
       }
-      pPlayer->word_001AA2 = *(_WORD *)(v14 + 2) - 1;
-      v13 = dword_A74CEC[*(_WORD *)(v14 + 2) + 56 * *(_DWORD *)(v4 + 28)];
+      pPlayer->word_001AA2 = v14->uTextureID - 1;
+     // v13 = dword_A74CEC[ + 56 * ];
+	  v13 =pTextureIdx_PlayerFaces[v4->dword_00001C][v14->uTextureID-1];
   }
 
 
-  Render_DrawTransparentTexture(pD3DRenderer, *(_DWORD *)v4 + 24, *(_DWORD *)(v4 + 4) + 24, (cTexture *)v13);
+  Render_DrawTransparentTexture(pD3DRenderer, v4->uFrameX + 24, v4->uFrameY + 24, v13);
   v17 = 0xFFFF9B;
   wsprintfA((char *)TmpBuf, "\f%06x", v17);
   wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[429], pPlayer->sName, aClassNames[pPlayer->uClass]);
@@ -11287,21 +11278,19 @@ void GUIWindow_sub_41D3B7(GUIWindow *_this)
   strcat((char *)TmpBuf, "\f000000\n");
   v20 = Player_GetMaxHealth(pPlayer);
   v21 = sub_4178FE_GetColor(pPlayer->sHealth, v20);
-
-
   wsprintfA((char *)pStringBuffer, "%s : \f%06x%d\f000000 / %d\n", pGlobalTXT_LocalizationStrings[LOCSTR_HIT_POINTS], v21, pPlayer->sHealth, v20);
+
   strcat((char *)TmpBuf, (char *)pStringBuffer);
   v24 = Player_GetMaxMana(pPlayer);
   v25 = sub_4178FE_GetColor(pPlayer->sMana, v24);
   wsprintfA((char *)pStringBuffer, "%s : \f%06x%d\f000000 / %d\n", pGlobalTXT_LocalizationStrings[212], v25, pPlayer->sMana, v24);
+
   strcat((char *)TmpBuf, (char *)pStringBuffer);
   v26 = Player_GetConditionIdx(pPlayer);
   v27 = (char *)aCharacterConditionNames[v26];
-
-  
-
-  v28 = sub_417939((void *)v26);
+  v28 = sub_417939(v26);
   wsprintfA((char *)pStringBuffer, "%s: \f%06x%s\f000000\n", pGlobalTXT_LocalizationStrings[LOCSTR_CONDITION], v28, v27);
+
   strcat((char *)TmpBuf, (char *)pStringBuffer);
   v16 = pPlayer->uQuickSpell;
   if ( v16 )
@@ -11311,7 +11300,7 @@ void GUIWindow_sub_41D3B7(GUIWindow *_this)
   wsprintfA((char *)pStringBuffer, "%s: %s", pGlobalTXT_LocalizationStrings[172], v29);
   strcat((char *)TmpBuf, (char *)pStringBuffer);
   v32 = 0;
-  FontDrawText((GUIWindow *)v43, pFontArrus, 120, 22, (char *)TmpBuf, 0, 0, 0);
+  FontDrawText(v43, pFontArrus, 120, 22, (char *)TmpBuf, 0, 0, 0);
   v30 = v41;
   v45 = 0;
   v31 = &unk_4E2AD9;
@@ -11323,9 +11312,9 @@ void GUIWindow_sub_41D3B7(GUIWindow *_this)
   {
     v34 = *(_DWORD *)(v30 + 4);
     v33 = *(_DWORD *)v30;
-    if ( v34 >= v32 )
+    if ( v34 >=0 )
     {
-      if ( v34 > v32 || v33 > v32 )
+      if ( v34 >0|| v33 >0 )
       {
         //v35 = __PAIR__(v34, v33) - pParty_global->qword_00002C;
         v35 = *(_QWORD *)v30 - pParty_global->qword_00002C;
@@ -11333,8 +11322,8 @@ void GUIWindow_sub_41D3B7(GUIWindow *_this)
         v36 = v45++ * *(_BYTE *)(v42 + 5) + 134;
         v37 = *(const char **)v46;
         v38 = 0xFF000000 | ((unsigned int)(*((_BYTE *)v31 - 1)) << 16) | ((unsigned int)(*(_BYTE *)v31) << 8) | *((_BYTE *)v31 + 1);//colored or white text flag
-        FontDrawText((GUIWindow *)v43, (Font *)v42, 52, v36, v37, 0, 0, 0);
-        sub_41D20D(v36, v43, v35, v42);
+        FontDrawText(v43, v42, 52, v36, v37, 0, 0, 0);
+        sub_41D20D(v36, (int)v43, v35, (int)v42);
         v30 = v41;
         v32 = 0;
       }
@@ -11350,7 +11339,7 @@ void GUIWindow_sub_41D3B7(GUIWindow *_this)
   v39 = "";
   if ( v45 == v32 )
     v39 = (char *)pGlobalTXT_LocalizationStrings[153];
-  wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[450], v39);
+  wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_ACTIVE_SPELL], v39);
   FontDrawText((GUIWindow *)v43, pFontArrus, 14, 114, (char *)TmpBuf, v32, v32, (unsigned int)v32);
 }
 

@@ -99,7 +99,7 @@ struct Player
 // {
  // struct
  // {
-   __int64          pConditions[20];      // qword[20] @ 000000   [14] eradicated  [16] dead
+   __int64          pConditions[20];      // qword[20] @ 000000   [14] eradicated  [16] dead  condition time may be
    unsigned __int64 uExperience;          // qword     @ 0000A0
    unsigned char    sName[16];            // byte[16]  @ 0000A8
    unsigned char    uSex;                 // byte      @ 0000B8    0 male 1 female

@@ -4867,17 +4867,17 @@ LABEL_23:
     v97 = a3 - v85 + 1;
     v95 = a4 - v83 + 1;
     v96 = (int)pD3DRenderer->pTargetSurface + (v85 + v83 * v82);
-    compile_error;//v98 = *(_DWORD *)LODFile_Icons_LOD.byte_00023C[72 * uTextureID_LocationMap + 48];
-    compile_error;//v81 = *(_DWORD *)LODFile_Icons_LOD.byte_00023C[72 * uTextureID_LocationMap + 64];
-    compile_error;//v90 = (1 << ((unsigned __int8)*(_WORD *)LODFile_Icons_LOD.byte_00023C[72 * uTextureID_LocationMap + 28] + 16)) / v5;
-    compile_error;//v33 = (double)(1 << (16 - (unsigned __int8)*(_WORD *)LODFile_Icons_LOD.byte_00023C[72 * uTextureID_LocationMap + 28]));
+    v98 = (int)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].pIndexedPixels;
+    v81 = (int)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].pPalette;
+    v90 = (1 << ((unsigned __int8)*(_WORD *)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C + 16)) / v5;
+    v33 = (double)(1 << (16 - (unsigned __int8)*(_WORD *)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C));
     v92 = 22528 / (v5 / 384);
     v86 = (unsigned int)(signed __int64)((double)(v6 - 22528 / (v5 / 384) + 32768) / v33) << 16;
     v100 = (const void *)((unsigned int)(signed __int64)((double)(v6 - 22528 / (v5 / 384) + 32768) / v33) << 16);
     v99 = 32768 - v92 - v87;
     v34 = (signed __int64)((double)v99 / v33);
     v31 = &v78;
-    compile_error;//v35 = *(_WORD *)LODFile_Icons_LOD.byte_00023C[72 * uTextureID_LocationMap + 24];
+    v35 = LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].uTextureWidth;
     v30 = (_DWORD)v34 << 16;
     v84 = (signed int)v86 >> 16;
     v92 = (signed int)v86 >> 16;
@@ -5140,7 +5140,7 @@ LABEL_38:
 LABEL_71:
     ;
      //MapDirs are altlased into uTextureID_MinimapDirections
-    //Render_sub_4A6776(pD3DRenderer, v52, v50, uTextureIdx_MapDirs[v53] != -1 ? 72 * uTextureIdx_MapDirs[v53] + 7145548 : 0);
+    Render_sub_4A6776((int)pD3DRenderer, v52, v50, (int)(uTextureIdx_MapDirs[v53] != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_MapDirs[v53] ] : 0));
   }
   result = 0xFFFFFFFF;
   v98 = 0;
@@ -5202,7 +5202,7 @@ LABEL_71:
     v93 = a3 - v85 + 1;
     v98 = a4 - v83 + 1;
     v80 = (int)pD3DRenderer->pTargetSurface + (v85 + v83 * v82);
-    compile_error;//v62 = *(_WORD *)LODFile_Icons_LOD.byte_00023C[72 * uTextureID_LocationMap + 28];
+    v62 = LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C;
     v92 = (1 << (v62 + 16)) / v5;
     v63 = (double)(1 << (16 - (_BYTE)v62));
     v64 = 22528 / (v5 / 384);

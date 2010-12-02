@@ -32,6 +32,7 @@
 
 #define  LOCSTR_CONDITION                   		47	//"Condition"
 
+#define  LOCSTR_DAY                          		56	//"Day"	
 #define  LOCSTR_DAYS                        		57	/// "Days"	
 
 #define  LOCSTR_TROUBLE_LOAD                 		63 //"Might and Magic VII is having trouble loading files. 
@@ -56,6 +57,8 @@
 #define  LOCSTR_LOADING                     		135  //"Loading"	
 
 #define  LOCSTR_MIGHT		                        144	 //"Might"
+
+#define  LOCSTR_YOU_TO_TRAIN                   		147 // "You are eligible to train to %u."	
 
 #define  LOCSTR_STAY_IN_AREA		                156  //"Stay in this Area"	
 #define  LOCSTR_3DO_COPYRHT							157	  // ""© 1999 The 3DO Company.
@@ -95,9 +98,13 @@
 #define  LOCSTR_MASTER		                        432	//"Master"	
 #define  LOCSTR_EXPERT		                        433	//"Expert"	
 
+#define  LOCSTR_ACTIVE_SPELL                		450	// "Active Spells: %s"	
+
 #define  LOCSTR_READING                         	505 ///"Reading..."	
 
 #define  LOCSTR_RECALL_BEACON               		523 // "Recall Beacon"	
+
+#define  LOCSTR_NEED_MORE_EXP               		538 //"You need %d more experience to train to level %d"	
 
 #define  LOCSTR_NO_SAVING                   		583	//"No saving in the Arena"	
 
@@ -160,7 +167,7 @@
 +		[0x35]	0x04103061 "Damage"	unsigned char *
 +		[0x36]	0x0410306c "Dark"	unsigned char *
 +		[0x37]	0x04103075 "Dawn"	unsigned char *
-+		[0x38]	0x0410307e "Day"	unsigned char *
+
 
 +		[58]	0x0410308f "Dead"	unsigned char *
 +		[59]	0x04103098 "Internal Error"	unsigned char *
@@ -252,7 +259,7 @@
 
 +		[145]	0x04103748 "Monday"	unsigned char *
 +		[146]	0x04103754 "Month"	unsigned char *
-+		[147]	0x0410375f "You are eligible to train to %u."	unsigned char *
+
 +		[148]	0x04103785 "Months"	unsigned char *
 +		[149]	0x04103791 "Name"	unsigned char *
 +		[150]	0x0410379b "New"	unsigned char *
@@ -637,7 +644,7 @@
 +		[535]	0x041054e1 "Learn"	unsigned char *
 +		[536]	0x041054ec ""With your skills, you should be working here as a teacher.""	unsigned char *
 +		[537]	0x0410552e "Train to level %d for %d gold"	unsigned char *
-+		[538]	0x04105551 "You need %d more experience to train to level %d"	unsigned char *
+
 +		[539]	0x04105587 "Buy Items"	unsigned char *
 +		[540]	0x04105596 "Sell Items"	unsigned char *
 +		[541]	0x041055a6 "Identify Items"	unsigned char *

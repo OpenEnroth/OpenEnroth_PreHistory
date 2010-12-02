@@ -5523,8 +5523,8 @@ int __fastcall sub_4B46F8(int a1)
   int i; // edx@1
 
   v1 = 0;
-  for ( i = 0; i < a1; ++i )
-    v1 += i + 1;
+  for ( i = 1; i <= a1; ++i )
+    v1 += i;
   return 1000 * v1;
 }
 

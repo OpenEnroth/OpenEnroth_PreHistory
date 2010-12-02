@@ -170,7 +170,7 @@ void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigne
 
 
 
-
+extern unsigned int uTextureIdx_MapDirs[8];  
 extern unsigned int uTextureID_CurrentMenu;
 extern class cPCXTexture  cPCXID_CurrentMenu;
 

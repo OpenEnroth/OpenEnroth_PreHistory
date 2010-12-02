@@ -247,7 +247,7 @@ int __thiscall sub_417871(int _this);
 void __cdecl sub_4178C4();
 void __cdecl sub_4178E1();
 unsigned int __fastcall sub_4178FE_GetColor(signed int a1, signed int a2);
-signed int __thiscall sub_417939(void *_this);
+unsigned int sub_417939(unsigned int code);
 void sub_4179BC(const unsigned char *a1, const char *a2);
 unsigned int  sub_417AD4(char a1, int a2, signed int a3);
 char *sub_417BB5(int a1, int a2);

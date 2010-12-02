@@ -6289,55 +6289,55 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
     uClr = 0xFFFFFF;
   wsprintfA((char *)pStringBuffer, "\f000000\r180%s: \f%06x%d\f000000\n\n\n", pGlobalTXT_LocalizationStrings[LOCSTR_SKILL_POINTS], uClr, pp->uSkillPoints);
   strcat((char *)TmpBuf, (char *)pStringBuffer);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, 18, (char *)TmpBuf, 0xFFFFFF9B, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, 18, (char *)TmpBuf, 0xFFFF9B, 0, 0);
 
   v6 = Player_GetBaseStrength(pp);
   v7 = Player_GetActualStrength(pp);
   v10 = sub_4178FE_GetColor(v7, v6);
   wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[LOCSTR_MIGHT], v10, v7, v6);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, 53, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, 53, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v11 = pFontArrus->uFontHeight + 51;
   v12 = Player_GetBaseIntelligence(pp);
   v13 = Player_GetActualIntelligence(pp);
   v16 = sub_4178FE_GetColor(v13, v12);
   wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[116], v16, v13, v12);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v11, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v11, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v17 = v11 - 2 + pFontArrus->uFontHeight;
   v18 = Player_GetBaseWillpower(pp);
   v19 = Player_GetActualWillpower(pp);
   v22 = sub_4178FE_GetColor(v19, v18);
   wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[163], v22, v19, v18);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v17, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v17, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v23 = v17 - 2 + pFontArrus->uFontHeight;
   v24 = Player_GetBaseEndurance(pp);
   v25 = Player_GetActualEndurance(pp);
   v28 = sub_4178FE_GetColor(v25, v24);
   wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[75], v28, v25, v24);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v23, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v23, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v29 = v23 - 2 + pFontArrus->uFontHeight;
   v30 = Player_GetBaseAccuracy(pp);
   v31 = Player_GetActualAccuracy(pp);
   v34 = sub_4178FE_GetColor(v31, v30);
   wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[LOCSTR_ACCURACY], v34, v31, v30);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v29, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v29, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v35 = v29 - 2 + pFontArrus->uFontHeight;
   v36 = Player_GetBaseSpeed(pp);
   v37 = Player_GetActualSpeed(pp);
   v40 = sub_4178FE_GetColor(v37, v36);
   wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[211], v40, v37, v36);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v35, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v35, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v41 = v35 - 2 + pFontArrus->uFontHeight;
   v42 = Player_GetBaseLuck(pp);
   v43 = Player_GetActualLuck(pp);
   v46 = sub_4178FE_GetColor(v43, v42);
   wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n\n", pGlobalTXT_LocalizationStrings[136], v46, v43, v42);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v41, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v41, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v122 = "%s\f%06x\r424%d\f000000 /\t185%d\n";
   v5 = v41 + 5 + 2 * pFontArrus->uFontHeight;
@@ -6346,7 +6346,7 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
   v47 = Player_GetMaxHealth(pp);
   v50 = sub_4178FE_GetColor(pp->sHealth, v47);
   wsprintfA((char *)TmpBuf, v122, pGlobalTXT_LocalizationStrings[108], v50, pp->sHealth, v47);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v5, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v5, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v123 = "%s\f%06x\r424%d\f000000 /\t185%d\n";
   v113 = v5 - 2 + pFontArrus->uFontHeight;
@@ -6355,22 +6355,22 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
   v53 = Player_GetMaxMana(pp);
   v56 = sub_4178FE_GetColor(pp->sMana, v53);
   wsprintfA((char *)TmpBuf, v123, pGlobalTXT_LocalizationStrings[212], v56, pp->sMana, v53);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v113, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v113, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v57 = v113 - 2 + pFontArrus->uFontHeight;
   v58 = Player_sub_48E656((int)pp);
   v59 = Player_sub_48E68F((int)pp);
   v62 = sub_4178FE_GetColor(v59, v58);
   wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n\n", pGlobalTXT_LocalizationStrings[12], v62, v59, v58);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v57, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v57, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v63 = v57 - 2 + 2 * pFontArrus->uFontHeight;
   v64 = Player_GetConditionIdx(pp);
   //v65 = (&dword_AE3280)[4 * v64];
   v65 = (char *)aCharacterConditionNames[v64];
 
-  v66 = sub_417939((void *)v64);
-  wsprintfA((char *)TmpBuf, "%s: \f%06x%s\n", pGlobalTXT_LocalizationStrings[47], v66, v65);
+  v66 = sub_417939(v64);
+  wsprintfA((char *)TmpBuf, "%s: \f%06x%s\n", pGlobalTXT_LocalizationStrings[LOCSTR_CONDITION], v66, v65);
   GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 26, v63, 0, (char *)TmpBuf, 226, 0);
 
   v52 = v63 - 1 + pFontArrus->uFontHeight;
@@ -6386,7 +6386,7 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
   v69 = Player_GetActualAge(pp);
   v72 = sub_4178FE_GetColor(v68, v69);
   wsprintfA((char *)TmpBuf, "%s\f%06x\t100%d\f000000 / %d\n", pGlobalTXT_LocalizationStrings[5], v72, v69, v68);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, 50, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, 50, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v124 = "%s\f%06x\t100%d\f000000 / %d\n";
   v114 = pFontArrus->uFontHeight + 48;
@@ -6396,7 +6396,7 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
   v74 = Player_GetActualLevel(pp);
   v77 = sub_4178FE_GetColor(v74, v73);
   wsprintfA((char *)TmpBuf, v124, pGlobalTXT_LocalizationStrings[131], v77, v74, v73);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v114, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v114, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v115 = v114 + pFontArrus->uFontHeight - 2;
   if ( pp->uExperience <= 9999999)
@@ -6405,27 +6405,27 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
     v78 = (int)pGlobalTXT_LocalizationStrings[17];
   v82 = Player_sub_48D498((int)pp);
   wsprintfA((char *)TmpBuf, "%s\r180\f%06x%lu\f000000\n\n", v78, v82, pp->uExperience);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v115, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v115, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v83 = v115 + 2 * pFontArrus->uFontHeight;
   v84 = 0;// attack bonus sub_48CCF5(pp, 0);
   wsprintfA((char *)TmpBuf, "%s\t100%+d\n", pGlobalTXT_LocalizationStrings[18], v84);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v83, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v83, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v85 = v83 + pFontArrus->uFontHeight - 2;
   v86 = "1";// damage sub_48D2EA(pp);
   wsprintfA((char *)TmpBuf, "%s\t100 %s\n", pGlobalTXT_LocalizationStrings[53], v86);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v85, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v85, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v87 = v85 + pFontArrus->uFontHeight - 2;
   v88 = Player_sub_48D0B9((int)pp);
   wsprintfA((char *)TmpBuf, "%s\t100%+d\n", pGlobalTXT_LocalizationStrings[203], v88);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v87, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v87, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v89 = v87 + pFontArrus->uFontHeight - 2;
   v90 = Player_sub_48D396((int)pp);
   wsprintfA((char *)TmpBuf, "%s\t100 %s\n\n", pGlobalTXT_LocalizationStrings[53], v90);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v89, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v89, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v125 = "%s\f%06x\t110%d\f000000 / %d\n";
   v116 = v89 + 2 * pFontArrus->uFontHeight - 4;
@@ -6436,7 +6436,7 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
   v92 = v79;
   v93 = sub_4178FE_GetColor(v131, v79);
   wsprintfA((char *)TmpBuf, v125, pGlobalTXT_LocalizationStrings[87], v93, v131, v92);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v116, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v116, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v126 = "%s\f%06x\t110%d\f000000 / %d\n";
   v117 = v116 + pFontArrus->uFontHeight - 2;
@@ -6466,7 +6466,7 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
     v128 = "%s\f%06x\t180%d\f000000 / %d\n";
   v102 = sub_4178FE_GetColor(v134, v97);
   wsprintfA((char *)TmpBuf, v128, pGlobalTXT_LocalizationStrings[70], v102, v134, v97);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v119, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v119, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v129 = "%s\f%06x\t110%d\f000000 / %d\n";
   v120 = v119 + pFontArrus->uFontHeight - 2;
@@ -6505,7 +6505,7 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
       wsprintfA((char *)TmpBuf, "%s\f%06x\r180%s", pGlobalTXT_LocalizationStrings[29], v111, pGlobalTXT_LocalizationStrings[625]);
     }
   }
-  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v121, (char *)TmpBuf, 0xFFFFFFFF, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v121, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 }
 
 //----- (0041A2D1) --------------------------------------------------------
@@ -10694,7 +10694,7 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
   int v5; // edx@4
   unsigned char *v6; // ecx@9
   unsigned char *v7; // ebx@9
-  void *v8; // ebx@15
+  int v8; // ebx@15
   int v9; // edx@15
   char *v10; // ST2C_4@15
   signed int v11; // eax@15
@@ -10706,13 +10706,15 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
   int v17; // edx@29
   int v18; // eax@35
   //__int64 v20; // [sp+Ch] [bp-24h]@1
-  __int64 v21; // [sp+14h] [bp-1Ch]@15
+  signed __int64 v21; // [sp+14h] [bp-1Ch]@15
   const CHAR *v22; // [sp+1Ch] [bp-14h]@13
   Player *v23; // [sp+20h] [bp-10h]@13
   unsigned int v24; // [sp+24h] [bp-Ch]@15
-  void **v25; // [sp+28h] [bp-8h]@13
+  int v25; // [sp+28h] [bp-8h]@13
   unsigned char *v26; // [sp+2Ch] [bp-4h]@10
   POINT ptMouse;
+  _QWORD v27;
+  
 
   class03_GetMousePos(pGame->pClass03, &ptMouse);
 
@@ -10764,41 +10766,45 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
       v7 = pStringBuffer;
       v22 = (char *)pStringBuffer;
       strcat((char *)pStringBuffer, "\n");
-      v25 = (void **)dword_4EDEF8;
+      //v25 = dword_4EDEF8[0];
+	  v25=0;
       //v0 = pPlayers[uActiveCharacter-1];
       v23 = pPlayers[uActiveCharacter-1];
       do
       {
-        if ( *(_QWORD *)(v23 + 8 * (_DWORD)*v25) )
+        if ( v23->pConditions[dword_4EDEF8[v25]] )
         {
           strcat((char *)pStringBuffer, " \n");
-          v8 = *v25;
-          v9 = (unsigned __int64)(pParty_global->qword_00002C - *(_QWORD *)(v23 + 8 * (_DWORD)*v25)) >> 32;
-          ptMouse.x = pParty_global->qword_00002C - *(_DWORD *)(v23 + 8 * (_DWORD)*v25);
-          ptMouse.y = v9;
-          v21 = (signed __int64)((double)(signed __int64)&ptMouse * 0.234375) / 60 / 60;
-          v24 = (_DWORD)v21 / 0x18u;
-          v10 = (char *)aCharacterConditionNames[(_DWORD)v8];
+          v8 =  dword_4EDEF8[v25];
+         // v9 = (unsigned __int64)(pParty_global->qword_00002C -v23->pConditions[dword_4EDEF8[v25]]) >> 32;
+          v27 = pParty_global->qword_00002C - v23->pConditions[dword_4EDEF8[v25]];
+         
+          v21 = (v27* 0.234375) / 60 / 60;
+          v24 = (_DWORD)v21 / 24;
+		  v21 %= 24i64;
 
-          v21 %= 24i64;
+          v10 = (char *)aCharacterConditionNames[v8];          
           v11 = sub_417939(v8);
 
           wsprintfA((char *)TmpBuf, "\f%06x%s\f000000 - ", v11, v10);
           strcat((char *)pStringBuffer, (char *)TmpBuf);
-          if ( v21 && v21 <= 1 )
+
+          if ( LODWORD(v21) && LODWORD(v21) <= 1 )
             v12 = (int)pGlobalTXT_LocalizationStrings[LOCSTR_HOUR];
           else
             v12 = (int)pGlobalTXT_LocalizationStrings[LOCSTR_HOURS];
-          if ( !v24 || (v13 = (int)pGlobalTXT_LocalizationStrings[56], v24 > 1) )
+          if ( !v24 || (v24 > 1) )
+			  v13 = (int)pGlobalTXT_LocalizationStrings[LOCSTR_DAY];
+		  else
             v13 = (int)pGlobalTXT_LocalizationStrings[LOCSTR_DAYS];
-          wsprintfA((char *)TmpBuf, "%lu %s, %lu %s", v24, v13, v21, v12);
+          wsprintfA((char *)TmpBuf, "%lu %s, %lu %s", v24, v13, LODWORD(v21), v12);
           strcat((char *)pStringBuffer, (char *)TmpBuf);
          // v7 = v22;
          // v0 = v23;
         }
         ++v25;
       }
-      while ( (signed int)v25 < (signed int)&unk_4EDF40 );
+      while ( v25 < 18 );
       break;
 		}
     case 11:
@@ -10821,26 +10827,26 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
 		}
     case 14:
 		{
-      v15 = pPlayers[uActiveCharacter-1];
-      v26 = pGlobalTXT_LocalizationStrings[LOCSTR_EXPIRIENCE];
-      v14 = *(_WORD *)(v15 + 218);
+         v15 = pPlayers[uActiveCharacter-1];
+         v26 = pGlobalTXT_LocalizationStrings[LOCSTR_EXPIRIENCE];
+         v14 = v15->uLevelBase;
       do
       {
         v16 = sub_4B46F8(v14);
-        v17 = *(_DWORD *)(v15 + 164);
+        v17 =HIDWORD(v15->uExperience);
         if ( v17 < 0 )
           break;
-        if ( v17 <= 0 && *(_DWORD *)(v15 + 160) < (unsigned int)v16 )
+        if ( v17 <= 0 && LODWORD(v15->uExperience) < (unsigned int)v16 )
           break;
         ++v14;
       }
       while ( v14 <= 10000 );
       TmpBuf[0] = 0;
       pStringBuffer[0] = 0;
-      if ( v14 > *(_WORD *)(v15 + 218) )
-        wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[147], v14);
+      if ( v14 > v15->uLevelBase )
+        wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_YOU_TO_TRAIN], v14);
       v18 = sub_4B46F8(v14);
-      wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[538], v18 - *(_DWORD *)(v15 + 160), v14 + 1);
+      wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_NEED_MORE_EXP], v18 -LODWORD(v15->uExperience) , v14 + 1);
       strcat((char *)TmpBuf, "\n");
       strcat((char *)TmpBuf, (char *)pStringBuffer);
       wsprintfA((char *)pStringBuffer, "%s\n \n%s", pPlayerExperienceAttributeDescription, (char *)TmpBuf);
@@ -11124,7 +11130,7 @@ void PlayerCreationUI_Draw()
   do
   {
   
-   FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, v143 + 73, 100, (char *)aClassNames[pParty_global->pPlayers[i].uClass], 0xFFFFFFFF, 0, 0);
+   FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, v143 + 73, 100, (char *)aClassNames[pParty_global->pPlayers[i].uClass], 0xFFFFFF, 0, 0);
 #ifndef OLD_CODE 
     unsigned int uClassIconCellX,
                 uClassIconCellY;

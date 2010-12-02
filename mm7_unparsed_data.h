@@ -299,13 +299,13 @@ extern unsigned char byte_4ED970[36][37]; // weak
 //extern char byte_4ED9DF[array_size_unknown]; // weak
 
 //extern int dword_4EDEA0[array_size_unknown]; // weak
-extern int dword_4EDEA4[array_size_unknown]; // weak
+extern int dword_4EDEA4[4]; // weak
 extern int dword_4EDEB4[array_size_unknown]; // weak
 extern int dword_4EDEC4; // weak
 extern __int16 word_4EDED8[array_size_unknown]; // weak
 extern __int16 word_4EDEDC; // weak
-extern int dword_4EDEF8[array_size_unknown]; // weak
-extern _UNKNOWN unk_4EDF40; // weak
+extern int dword_4EDEF8[18]; // weak
+//extern _UNKNOWN unk_4EDF40; // weak
 
 extern unsigned char uConditionStrengthMultiplier[19]; 
 extern unsigned char uConditionIntelligenceMultiplier[19];
