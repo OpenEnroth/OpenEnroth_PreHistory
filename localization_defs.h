@@ -14,6 +14,7 @@
 
 #define  LOCSTR_AUTOSAVE                    		16	// "Autosave"
 
+#define  LOCSTR_ATTACK                      		18 // "Attack"	
 #define  LOCSTR_AVAILABLE                           19 //"Available"
 
 #define  LOCSTR_MONK                        		21 //"Monk"	
@@ -39,6 +40,8 @@
 	                                                   // Please re-install to fix this problem. Note: Re-installing will not destroy your save games."	
 #define  LOCSTR_DETAIL_TOGGLE               		64	 //"Detail Toggle"	
 
+#define  LOCSTR_DMG                      		    66	 /// "Dmg"	
+
 #define  LOCSTR_EMPTY                       		72 // "Empty"	
 
 #define  LOCSTR_EXIT                        		79	// "Exit"	
@@ -48,22 +51,29 @@
 
 #define  LOCSTR_GRAND		                        96	// "Grand"
 
+#define  LOCSTR_HP                          		107	// "HP"	
 #define  LOCSTR_HIT_POINTS		                    108	// "Hit Points"	
 #define  LOCSTR_HOUR                         		109	//"Hour"	
 #define  LOCSTR_HOURS		                        110 //"Hours"	
 
 #define  LOCSTR_ROGUE                           	114	 //"Rogue"
 
+#define  LOCSTR_LEVEL                        		131   // "Level"	
+
 #define  LOCSTR_LOADING                     		135  //"Loading"	
 
 #define  LOCSTR_MIGHT		                        144	 //"Might"
+
+#define  LOCSTR_NAME		                        149	// "Name"	
 
 #define  LOCSTR_YOU_TO_TRAIN                   		147 // "You are eligible to train to %u."	
 
 #define  LOCSTR_STAY_IN_AREA		                156  //"Stay in this Area"	
 #define  LOCSTR_3DO_COPYRHT							157	  // ""© 1999 The 3DO Company.
 
-#define  LOCSTR_PLEASE_WAIT                 		165	// "Please Wait"	
+#define  LOCSTR_PLEASE_WAIT                 		165	// "Please Wait"
+
+#define  LOCSTR_REPUTATION                  		180	 //"Reputation"	
 
 #define  LOCSTR_SAVING                      		190  // "Saving"	
 
@@ -87,6 +97,14 @@
 
 #define  LOCSTR_SET_BEACON                  		375	// "Set Beacon"
 
+#define  LOCSTR_HATED                        		379// "Hated"
+
+#define  LOCSTR_UNFRENDLY		                    392	 //"Unfriendly"	
+
+#define  LOCSTR_NEITRAL                     		399  // "Neutral"	
+
+#define  LOCSTR_FRENDLY                     		402 // "Friendly"	
+
 #define  LOCSTR_D_DAYS_TO_S                  		404   //"%d days to %s"	
 #define  LOCSTR_TRAVEL_COST                         405    //"Travel Cost %d gold"	
 
@@ -96,7 +114,8 @@
 
 #define  LOCSTR_NORMAL                      		431	//"Normal"
 #define  LOCSTR_MASTER		                        432	//"Master"	
-#define  LOCSTR_EXPERT		                        433	//"Expert"	
+#define  LOCSTR_EXPERT		                        433	//"Expert"
+#define  LOCSTR_LIKED		                        434 //"Liked"	
 
 #define  LOCSTR_ACTIVE_SPELL                		450	// "Active Spells: %s"	
 
@@ -129,7 +148,7 @@
 +		[0xf]	0x04102e38 "Assertion failed at %d in %s"	unsigned char *
 
 +		[17]	0x04102e66 "Exp."	unsigned char *
-+		[18]	0x04102e6f "Attack"	unsigned char *
+
 
 +		[20]	0x04102e88 "Available Skills"	unsigned char *
 
@@ -177,7 +196,7 @@
 
 
 +		[65]	0x041031e6 "Diseased"	unsigned char *
-+		[0x42]	0x041031f3 "Dmg"	unsigned char *
+
 +		[0x43]	0x041031fb "%s does not have the skill"	unsigned char *
 +		[68]	0x0410321a "Donate"	unsigned char *
 +		[69]	0x04103225 "Drunk"	unsigned char *
@@ -220,7 +239,7 @@
 +		[104]	0x04103416 "Heal"	unsigned char *
 +		[105]	0x04103420 "Healer"	unsigned char *
 +		[106]	0x0410342c "Goblin"	unsigned char *
-+		[107]	0x04103438 "HP"	unsigned char *
+
 +		[108]	0x04103440 "Hit Points"	unsigned char *
 
 +		[111]	0x04103465 "Grand"	unsigned char *
@@ -243,7 +262,7 @@
 +		[128]	0x04103635 "It will take %d days to travel to %s."	unsigned char *
 +		[129]	0x04103660 "%s the Level %u %s"	unsigned char *
 +		[130]	0x04103678 "Player"	unsigned char *
-+		[131]	0x04103684 "Level"	unsigned char *
+
 +		[132]	0x0410368f "Years"	unsigned char *
 +		[133]	0x0410369a "Light"	unsigned char *
 +		[134]	0x041036a5 "Buy Standard"	unsigned char *
@@ -261,7 +280,7 @@
 +		[146]	0x04103754 "Month"	unsigned char *
 
 +		[148]	0x04103785 "Months"	unsigned char *
-+		[149]	0x04103791 "Name"	unsigned char *
+
 +		[150]	0x0410379b "New"	unsigned char *
 +		[151]	0x041037a4 "Congratulations Adventurer."	unsigned char *
 +		[152]	0x041037c5 "Buy Special"	unsigned char *
@@ -292,7 +311,7 @@
 +		[177]	0x04103b7b "Standard"	unsigned char *
 +		[178]	0x04103b89 "Rent Room for %d gold"	unsigned char *
 +		[179]	0x04103ba4 "Repair"	unsigned char *
-+		[180]	0x04103bb0 "Reputation"	unsigned char *
+
 +		[181]	0x04103bc0 "Steal %24"	unsigned char *
 +		[182]	0x04103bcf "Rest"	unsigned char *
 +		[183]	0x04103bd9 "Rest & Heal 8 Hours"	unsigned char *
@@ -488,7 +507,7 @@
 +		[376]	0x041047c0 "%s was caught stealing!"	unsigned char *
 +		[377]	0x041047dd "%s failed to steal anything!"	unsigned char *
 +		[378]	0x041047ff ""%s %d, %d""	unsigned char *
-+		[379]	0x04104810 "Hated"	unsigned char *
+
 +		[380]	0x0410481b "You already know the %s spell"	unsigned char *
 +		[381]	0x0410483e "You don't have the skill to learn %s"	unsigned char *
 +		[382]	0x04104868 "That player is %s"	unsigned char *
@@ -501,17 +520,17 @@
 +		[389]	0x041048b7 "Lady"	unsigned char *
 +		[390]	0x041048c1 "brother"	unsigned char *
 +		[391]	0x041048ce "sister"	unsigned char *
-+		[392]	0x041048da "Unfriendly"	unsigned char *
+
 +		[393]	0x041048ea "daughter"	unsigned char *
 +		[394]	0x041048f8 "Unknown"	unsigned char *
 +		[395]	0x04104905 "morning"	unsigned char *
 +		[396]	0x04104912 "day"	unsigned char *
 +		[397]	0x0410491b "evening"	unsigned char *
 +		[398]	0x04104928 "Have a Drink"	unsigned char *
-+		[399]	0x0410493a "Neutral"	unsigned char *
+
 +		[400]	0x04104947 "Buy Spells"	unsigned char *
 +		[401]	0x04104957 "Skill Cost: %lu"	unsigned char *
-+		[402]	0x0410496c "Friendly"	unsigned char *
+
 +		[403]	0x0410497a "You already know the %s skill"	unsigned char *
 
 +		[406]	0x041049c9 "Hire"	unsigned char *
@@ -540,7 +559,7 @@
 
 +		[430]	0x04104be1 "%s is now Level %lu and has earned %lu Skill Points!"	unsigned char *
 
-+		[434]	0x04104c3f "Liked"	unsigned char *
+
 +		[435]	0x04104c4a "Converse with %s"	unsigned char *
 +		[436]	0x04104c60 "Minutes"	unsigned char *
 +		[437]	0x04104c6d "Minute"	unsigned char *

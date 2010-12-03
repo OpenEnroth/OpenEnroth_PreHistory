@@ -1233,11 +1233,11 @@ void RenderSky()
     array_50AC10[3].flt_000018 = pOldViewport->uGameZ;
     array_50AC10[3].flt_00001C = v39;
     
-    /*
+   
     v47_d = (double)(pOldViewport->uGameZ - pOldViewport->uGameX) * 0.5;
     v44 = 65536 / (signed int)(v47_d / tan(0.64577174186706543) + 0.5);
 
- for (i = 0; i < local_14.dword_000014; ++i)
+ for (i = 0; i < local_14.uNumVertices; ++i)
  {
       v40 = floorf(array_50AC10[i].flt_00001C + 0.5f);
       v50 = (unsigned __int64)(local_14.ptr_000038->dword_000014 * v44 * (v41 - v40)) / 65536;
@@ -1299,7 +1299,7 @@ LABEL_12:
       array_50AC10[i].flt_000020 = 1.0 / (double)(v17 / 65536);
       array_50AC10[i].u = (double)v46 / (65536.0 * LODFile_Bitmaps_LOD.aLODHeaders[pClass51_global->uSkyTextureID].uTextureWidth);
       array_50AC10[i].v = (double)v47 / (65536.0 * LODFile_Bitmaps_LOD.aLODHeaders[pClass51_global->uSkyTextureID].uTextureHeight);
- }*/
+ }
         
     //1.5f * cos(pOldCamera->sRotationX * 0.003066406352445483)
     {

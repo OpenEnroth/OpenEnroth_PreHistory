@@ -1170,9 +1170,9 @@ int __fastcall SaveGame(int a1, int a2)
         dword_6BE69C = dword_6BE640;
         dword_6BE6A4 = 0;
         dword_6BE6A0 = uNumLevelDecorations;
-        memcpy(DstBuf, &unk_6BE68C, 0x28u);
+        memcpy(DstBuf, &unk_6BE68C, 40);
         v13 = (char *)v13 + 40;
-        memcpy(v13, byte_6BE6EC, 0x36Bu);
+        memcpy(v13, byte_6BE6EC, 875);
         v12 = (char *)v13 + 875;
         v75 = 0;
         if ( dword_6BE640 > 0 )
@@ -1241,11 +1241,11 @@ int __fastcall SaveGame(int a1, int a2)
         v24 = DstBuf;
         dword_6A12D0 = pClass51_global->uNumBModels;
         dword_6A12CC = uNumLevelDecorations;
-        memcpy(DstBuf, &unk_6A12B8, 0x28u);
+        memcpy(DstBuf, &unk_6A12B8,40);
         v24 = (char *)v24 + 40;
-        memcpy(v24, &unk_6A1318, 0x3C8u);
+        memcpy(v24, &unk_6A1318, 968);
         v24 = (char *)v24 + 968;
-        memcpy(v24, &unk_6A16E0, 0x3C8u);
+        memcpy(v24, &unk_6A16E0, 968);
         v23 = (char *)v24 + 968;
         v75 = 0;
         if ( pClass51_global->uNumBModels > 0 )
@@ -1289,7 +1289,7 @@ int __fastcall SaveGame(int a1, int a2)
           }
           while ( v29 < (signed int)uNumLevelDecorations );
         }
-        memcpy(v23, &uNumActors, 4u);
+        memcpy(v23, &uNumActors, 4);
         v30 = (char *)v23 + 4;
         memcpy(v30, pActors, 836 * uNumActors);
         v31 = (char *)v30 + 836 * uNumActors;
@@ -1297,7 +1297,7 @@ int __fastcall SaveGame(int a1, int a2)
         v31 = (char *)v31 + 4;
         memcpy(v31, pLayingItemsList, 112 * uNumLayingItems);
         v32 = (char *)v31 + 112 * uNumLayingItems;
-        memcpy(v32, &dword_5FF140, 4u);
+        memcpy(v32, &dword_5FF140, 4);
         v32 = (char *)v32 + 4;
         memcpy(v32, array_5E5150, 5324 * dword_5FF140);
         v33 = (char *)v32 + 5324 * dword_5FF140;

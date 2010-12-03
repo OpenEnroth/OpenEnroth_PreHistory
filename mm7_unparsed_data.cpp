@@ -61,12 +61,12 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  __int16 word_4E2938[4]=  { 0x53,  0xC6,  0x138,  0x1A7}; 	// weak	  array_size_unknown 
 
  Square g_StatsHintCoords[27] = 
-	{{26,57,220,18},   {26,74,220,18},    {26,91,220,18},    {26,108,220,18},   {26,125,220,18},
-	 {26,142,220,18},  {26,159,220,18},   {26,198,220,18},   {26,215,220,18},   {26,232,220,18},
-	 {26,268,220,18},  {26,286,220,18},   {273,54,186,18},   {273,71,186,18},   {273,88,186,18},
-	 {273,126,186,18}, {273,143,186,18},  {273,160,186,18},  {273,177,186,18},  {273,202,186,18},
-	 {273,221,186,18}, {273,240,186,18},  {273,259,186,18},  {273,278,186,18},  {273,297,186,18},
-	 {318,18,137,18},  {24,18,240,18}};
+	{{ 26, 57,220, 18},  { 26, 74,220, 18},    { 26, 91,220, 18},    { 26,108,220, 18},   { 26,125,220, 18},
+	 { 26,142,220, 18},  { 26,159,220, 18},    { 26,198,220, 18},    { 26,215,220, 18},   { 26,232,220, 18},
+	 { 26,268,220, 18},  { 26,286,220, 18},    {273, 54,186, 18},    {273, 71,186, 18},   {273, 88,186, 18},
+	 {273,126,186, 18},  {273,143,186, 18},    {273,160,186, 18},    {273,177,186, 18},   {273,202,186, 18},
+	 {273,221,186, 18},  {273,240,186, 18},    {273,259,186, 18},    {273,278,186, 18},   {273,297,186, 18},
+	 {318, 18,137, 18},  { 24, 18,240, 18}};
 
 
 
@@ -1492,6 +1492,7 @@ struct class51 *pClass51_global = &class51_6A0DA0_dwReserved; // struct @ stru_6
 //dwReserved @ 6A0DF0 @ pClass51_global::000000
  int dword_6A12B0; // weak
  int dword_6A12B4; // weak
+ //struct 40 bytes
  _UNKNOWN unk_6A12B8; // weak
  int dword_6A12C4; // weak
  int dword_6A12C8; // weak
@@ -1502,6 +1503,7 @@ struct class51 *pClass51_global = &class51_6A0DA0_dwReserved; // struct @ stru_6
  int dword_6A12F8; // weak
  int dword_6A12FC; // weak
  _UNKNOWN unk_6A1318; // weak
+ //
  _UNKNOWN unk_6A16E0; // weak
 
 
@@ -1629,12 +1631,16 @@ int uTurnSpeed; // dword @ MM7.exe::006BE38C
  void *dword_6BE67C; // idb
  int dword_6BE684; // weak
  int dword_6BE688; // weak
+ //struct 40 bytes
  _UNKNOWN unk_6BE68C; // weak
- int dword_6BE698; // weak
- int dword_6BE69C; // weak
- int dword_6BE6A0; // weak
- int dword_6BE6A4; // weak
- __int64 qword_6BE6B4; // weak
+ int dword_6BE694; // weak 8
+ int dword_6BE698; // weak	12
+ int dword_6BE69C; // weak	16
+ int dword_6BE6A0; // weak	20
+ int dword_6BE6A4; // weak	14
+ //
+ __int64 qword_6BE6B4; // weak 
+
  char byte_6BE6EC[array_size_unknown]; // weak
 
 

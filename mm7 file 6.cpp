@@ -2988,33 +2988,17 @@ LABEL_17:
 //----- (00495430) --------------------------------------------------------
 int __fastcall sub_495430(signed int a1)
 {
-  int result; // eax@2
-
-  if ( a1 < 25 )
-  {
-    if ( a1 < 6 )
-    {
-      if ( a1 < -5 )
-      {
-        result = (int)pGlobalTXT_LocalizationStrings[402];
-        if ( a1 < -24 )
-          result = (int)pGlobalTXT_LocalizationStrings[434];
-      }
-      else
-      {
-        result = (int)pGlobalTXT_LocalizationStrings[399];
-      }
-    }
-    else
-    {
-      result = (int)pGlobalTXT_LocalizationStrings[392];
-    }
-  }
-  else
-  {
-    result = (int)pGlobalTXT_LocalizationStrings[379];
-  }
-  return result;
+ 
+  if ( a1 >25 )
+ 	 return (int)pGlobalTXT_LocalizationStrings[LOCSTR_HATED];
+  else if ( a1 > 6 )
+     return  (int)pGlobalTXT_LocalizationStrings[LOCSTR_UNFRENDLY];
+  else if ( a1 > -5)
+	 return (int)pGlobalTXT_LocalizationStrings[LOCSTR_NEITRAL];
+  else if ( a1 < -5)
+     return (int)pGlobalTXT_LocalizationStrings[LOCSTR_FRENDLY];
+  else if ( a1 < -24)
+     return  (int)pGlobalTXT_LocalizationStrings[LOCSTR_LIKED];
 }
 
 //----- (00495461) --------------------------------------------------------

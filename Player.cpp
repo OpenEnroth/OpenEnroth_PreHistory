@@ -377,7 +377,7 @@ int Player_GetActualAge(struct Player *_this)
 int Player_GetBaseAge(struct Player *_this)
 {
   double d = pParty_global->qword_00002C;
-  return (signed int)((unsigned int)((signed __int64)(d * 0.234375) / 60 / 60) / 0x18) / 7 / 4 / 12
+  return (signed int)((unsigned int)((signed __int64)(d * 0.234375) / 60 / 60) / 24) / 7 / 4 / 12
        - _this->uBirthYear + 1168;
 }
 

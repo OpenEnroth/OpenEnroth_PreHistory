@@ -755,7 +755,7 @@ void __fastcall sub_44D0B5(struct Font *a1, int a2, int a3, int a4, const char *
   int v17; // edx@13
   unsigned __int8 v18; // sf@18
   unsigned __int8 v19; // of@18
-  char Dest; // [sp+Ch] [bp-20h]@17
+  char Dest[7]; // [sp+Ch] [bp-20h]@17
   char v21; // [sp+11h] [bp-1Bh]@17
   size_t v22; // [sp+20h] [bp-Ch]@2
   int v23; // [sp+24h] [bp-8h]@1
@@ -812,16 +812,16 @@ void __fastcall sub_44D0B5(struct Font *a1, int a2, int a3, int a4, const char *
             }
             else
             {
-              strncpy(&Dest, &Str[v6 + 1], 6u);	   //was 5
+              strncpy(Dest, &Str[v6 + 1], 6u);	   //was 5
               v21 = 0;
-              v23 = atoi(&Dest);
+               sscanf(Dest,"%x",&v23);;
               dword_5C6DB4 = v23;
               v24 = v6 + 6;
             }
           }
         }
         v6 = v24 + 1;
-        compile_error;//v19 = __SETO__(v24 + 1, v22);
+      //  compile_error;//v19 = __SETO__(v24 + 1, v22);
         v18 = (signed int)(v24++ + 1 - v22) < 0;
       }
       while ( v18 ^ v19 );
@@ -831,7 +831,7 @@ void __fastcall sub_44D0B5(struct Font *a1, int a2, int a3, int a4, const char *
 
 
 //----- (0044CB4F) -----------.text:0044DEA3---------------------------------------------
-int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, __int16 a5, const char *Str1, signed int Source, int a8)
+int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, int a5, const char *Str1, signed int Source, int a8)
 {
   int v8; // ebx@1
   int v9; // edi@1
@@ -867,7 +867,7 @@ int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, __int
   v8 = GetStringWidth((Font *)v9, Str1);
   if ( v8 < Source )
   {
-    FontDrawText((GUIWindow *)v29, (Font *)v9, a3, a4, Str1, 0xFFFFFFFF, 0, 0);
+    FontDrawText((GUIWindow *)v29, (Font *)v9, a3, a4, Str1, 0xFFFFFF, 0, 0);
     return v8;
   }
   strcpy((char *)pStringBuffer, Str1);
@@ -963,7 +963,7 @@ LABEL_12:
               Dest[6] = 0;
               v32 += 6;	 //
               v33 += 6;	//
-              *(_DWORD *)&a5 = atoi(Dest);
+               sscanf(Dest,"%x",&a5);;
             }
           }
           else
