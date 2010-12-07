@@ -201,7 +201,7 @@ int cPCXTexture::LODPCXLoad(const char *pContainerName, int mode)
 	memcpy(&psx_head1,pDecompressedBuffer,16);
 	memcpy(&color_map,pDecompressedBuffer+16,48);
 	memcpy(&psx_head2,pDecompressedBuffer+64,6);
-	if (!psx_head1.bpp==8)
+	if (psx_head1.bpp!=8)
 		{
 		free(pDecompressedBuffer);
 		return 3; 
@@ -283,7 +283,7 @@ int cPCXTexture::LODPCXReLoad(const char *pContainerName)
 	memcpy(&psx_head1,pDecompressedBuffer,16);
 	memcpy(&color_map,pDecompressedBuffer+16,48);
 	memcpy(&psx_head2,pDecompressedBuffer+64,6);
-	if (!psx_head1.bpp==8)
+	if (psx_head1.bpp!=8)
 		{
 		free(pDecompressedBuffer);
 		return 3; 
@@ -327,7 +327,7 @@ int cPCXTexture::DecodePCX( unsigned char *pPCXData, unsigned long *pOutBuffer, 
  memcpy(&color_map,pPCXData+16,48);
  memcpy(&psx_head2,pPCXData+64,6);
 
- if (!psx_head1.bpp==8)
+ if (psx_head1.bpp!=8)
 		return 3; 
  uWidth=(short int )(psx_head1.windowRight-psx_head1.windowLeft+1);  // word @ 000014
  uHeight=(short int )(psx_head1.windowLower-psx_head1.windowUpper+1);  // word @ 000016
@@ -382,8 +382,8 @@ int cPCXTexture::DecodePCX( unsigned char *pPCXData, unsigned long *pOutBuffer, 
 
  
  read_offset = 128;
- if (psx_head2.planes == 3)
- {
+ if (psx_head2.planes != 3)
+ 	  return 3;
   current_line = 0;
   if ( uWidth > 0 )
   {
@@ -505,9 +505,7 @@ int cPCXTexture::DecodePCX( unsigned char *pPCXData, unsigned long *pOutBuffer, 
    while (current_line < uHeight);
   }
    return 0;
- }
- else
-   return 3;
+ 
 }
 
 
@@ -528,6 +526,235 @@ void  cPCXTexture::PCXTexture_Release()
 	uWidth=0;  // 20 word @ 000014
 	word_00001A=0;			//26
 	word_000018=0;		   //24
+}
+
+
+//----- (0040EAD8) ------------.text:0040EDB9   --------------------------------------------
+int cPCXTexture::LoadPCXFromFile(FILE *File, unsigned int mode, bool close_file)
+{
+
+  char v22[60]; // [sp+Ch] [bp-90h]@3
+  PCXHEADER_1 psx_head1;
+  PCXHEADER_2 psx_head2;
+	short int width, height;
+  BYTE  color_map[48];	// Colormap for 16-color images
+  unsigned char test_byte; // edx@3
+  unsigned int row_position; // edi@40
+  unsigned char value; // cl@63
+  char count; // [sp+50h] [bp-Ch]@43
+  unsigned short current_line; // [sp+54h] [bp-8h]@38
+  unsigned long *dec_position; 
+  unsigned long *temp_dec_position; 
+
+
+  if ( !File )
+	  return 1;
+
+  locked_fread(&psx_head1,sizeof(PCXHEADER_1),1,File);
+
+
+  locked_fread(&color_map,48,1,File);
+  locked_fread(&psx_head2,sizeof(PCXHEADER_2),1,File);
+
+  locked_fread(&v22, 58, 1, File);
+
+  if ( psx_head1.bpp != 8 )
+	  return 3;
+
+  uWidth = psx_head1.windowRight-psx_head1.windowLeft+1;
+  uHeight = psx_head1.windowLower-psx_head1.windowUpper+1;
+  uNumPixels = uWidth*uHeight;
+  if ( mode == 0 )
+	  {
+	  if ( pPixels )
+		  {
+		  mem_mng.DeleteBuffer( pPixels);
+		  pPixels = NULL;
+		  }
+	  pPixels =(unsigned int*) mem_mng.AllocatedNamedBuffer( pPixels,  4 * uNumPixels+ 16, sContainerName);
+
+	  }
+  else if ( mode == 2  )
+	  {
+	  //allocate for ARGB now, not for 16 bit color
+		pPixels=(unsigned int*)malloc((uNumPixels+2)*4);
+		word_000020^=1;
+	  }
+  else
+	  return 2;
+
+  if (!pPixels)
+	  return 2;
+
+  for (short i=1; i<=15; i++)
+	  {
+	  if ((1<<i)==uWidth)
+		  {
+		  word_000018=i;
+		  break;
+		  }
+	  }
+
+  for (short i=1; i<=15; i++)
+	  {
+	  if ((1<<i)==uHeight)
+		  {
+		  word_00001A=i;
+		  break;
+		  }
+	  }
+  switch (word_000018)
+	  {
+  case 2:   word_00001C = 3;    break;
+  case 3:   word_00001C = 7;    break;
+  case 4:   word_00001C = 15;   break;
+  case 5:   word_00001C = 31;   break;
+  case 6:   word_00001C = 63;   break;
+  case 7:   word_00001C = 127;  break;
+  case 8:   word_00001C = 255;  break;
+  case 9:   word_00001C = 511;  break;
+  case 10:  word_00001C = 1023; break;
+  case 11:  word_00001C = 2047; break;
+  case 12:  word_00001C = 4095; break;
+	  }
+
+  switch (word_00001A)
+	  {
+  case 2:   word_00001E = 3;    break;
+  case 3:   word_00001E = 7;    break;
+  case 4:   word_00001E = 15;   break;
+  case 5:   word_00001E = 31;   break;
+  case 6:   word_00001E = 63;   break;
+  case 7:   word_00001E = 127;  break;
+  case 8:   word_00001E = 255;  break;
+  case 9:   word_00001E = 511;  break;
+  case 10:  word_00001E = 1023; break;
+  case 11:  word_00001E = 2047; break;
+  case 12:  word_00001E = 4095; break;
+	  }
+  if ( psx_head2.planes == 1 )
+	  erroneous_printf("24bit PCX Only!");
+  if ( psx_head2.planes == 3 )
+	  {
+	  current_line = 0;
+	  dec_position=(unsigned long*)pPixels;
+	  if ( uWidth > 0 )
+		  {
+		  do
+			  {
+			  temp_dec_position = dec_position;
+			  row_position = 0;
+			  //decode red line
+			  if (psx_head2.bytes_per_line)
+				  {
+				  do
+					  {
+					  locked_fread(&test_byte, 1, 1, File);
+
+					  if ((test_byte & 0xC0) == 0xC0)
+						  {	 
+						  locked_fread(&value, 1, 1, File);
+						  if ((test_byte & 0x3F) > 0)
+							  {
+							  count = test_byte & 0x3F;
+							  do
+								  {
+
+								  ++row_position;
+								  *temp_dec_position =0xFF000000;
+								  *temp_dec_position|=(unsigned long)value<<16;
+								  temp_dec_position++;
+								  if (row_position == psx_head2.bytes_per_line)
+									  break;
+								  }
+								  while (count-- != 1);
+							  }
+						  }
+					  else
+						  {
+						  ++row_position;
+						  *temp_dec_position =0xFF000000; 
+						  *temp_dec_position|= (unsigned long)test_byte<<16;
+						  temp_dec_position++;
+						  }
+
+					  }
+					  while (row_position < psx_head2.bytes_per_line);
+				  }
+			  temp_dec_position = dec_position;
+			  row_position=0;
+			  //decode green line
+			  while (row_position <  psx_head2.bytes_per_line)
+				  {
+				  locked_fread(&test_byte, 1u, 1u, File);
+				  if ((test_byte & 0xC0) == 0xC0)
+					  {
+					  locked_fread(&value, 1, 1, File);
+					  if ((test_byte & 0x3F) > 0)
+						  {
+						  count = test_byte & 0x3F;
+						  do
+							  {
+							  *temp_dec_position|= (unsigned int)value<<8;
+							  temp_dec_position++;
+							  ++row_position;
+							  if (row_position == psx_head2.bytes_per_line)
+								  break;
+
+							  }
+							  while (count-- != 1);
+						  }
+					  }
+				  else
+					  {
+					  *temp_dec_position |=(unsigned int) test_byte<<8;
+					  temp_dec_position++;
+					  ++row_position;
+					  }
+				  }
+
+			  temp_dec_position = dec_position;
+			  row_position=0;
+			  //decode blue line
+			  while (row_position < psx_head2.bytes_per_line)
+				  {
+				  locked_fread(&test_byte, 1, 1, File);
+				  if ((test_byte & 0xC0) ==  0xC0)
+					  {
+					  locked_fread(&value, 1, 1, File);
+					  if ((test_byte & 0x3F) > 0)
+						  {
+						  count = test_byte & 0x3F;
+						  do
+							  {
+							  *temp_dec_position|= value;
+							  temp_dec_position++;
+							  ++row_position;
+							  if (row_position == psx_head2.bytes_per_line)
+								  break;
+							  }
+							  while (count-- != 1);
+						  }
+					  }
+				  else
+					  {
+					  *temp_dec_position|= test_byte;
+					  temp_dec_position++;
+					  ++row_position;
+					  }
+
+				  }
+			  ++current_line;
+			  dec_position += uWidth;
+			  }
+			  while (current_line < uHeight);
+		  }
+	  }
+	
+  if (close_file )
+	  fclose(File);
+
+  return 0;
 }
 
 

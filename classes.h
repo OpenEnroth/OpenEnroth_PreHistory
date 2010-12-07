@@ -679,32 +679,6 @@ struct class22
 
 
 
-//clock.bin
-//class24
-struct class24
-{
- int dword_000000;
- int dword_000004;
- int dword_000008;
- int dword_00000C;
- int dword_000010;
- int dword_000014;
- int dword_000018;
- int int_00001C;
- int dword_000020;
- int dword_000024;
-};
-//sizeof ~ 28
-//void __thiscall sub_426402(int _this);
-void class24_ctor(struct class24 *_this);
-//void __thiscall sub_426349(int _this);
-void class24_fn1(struct class24 *_this);
-//__int64 __thiscall sub_426317(void *_this);
-__int64 class24_fn2(struct class24 *_this);
-//int __thiscall class24_sub_4263B7(int _this)
-int class24_sub_4263B7(struct class24 *_this);
-
-
 //class27
 struct class27
 {

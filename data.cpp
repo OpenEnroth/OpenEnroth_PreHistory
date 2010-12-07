@@ -1,5 +1,6 @@
 #include <windows.h>
 #include "_lod.h"
+#include "clock.h"
 #include "mm7_unparsed_data.h"
 #include "FrameTables.h"
 
@@ -1264,7 +1265,11 @@ struct GUIButton *pPlayerCreationUI_BtnMinus = 0;        // ptr     @ MM7.exe::0
 
 
 
-struct class24 *pClass24_global2 = 0; // struct @ MM7.exe::0050BBB8
+
+ //
+class Clock cClock2;  // struct @ MM7.exe::0050BBB8	class24 *pClass24_ global2 
+class Clock cClock1;  // struct @ MM7.exe::0050BBE0	   *pClass24_ global = 0;
+ //clock data end
 
 struct CMapStats     *pMapStats = 0;     // struct @ MM7.exe::005CABB8
 struct CSpellStats   *pSpellStats = 0;   // struct @ MM7.exe::005CC030

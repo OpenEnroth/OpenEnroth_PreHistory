@@ -5,6 +5,7 @@
 #include "font.h"
 #include <strsafe.h>
 #include "menus.h"
+#include "clock.h"
 #include "AIL.h"
 #include "font.h"
 #include "classes.h"
@@ -810,7 +811,7 @@ int __cdecl sub_463149()
     }
 
     sub_464866(v17, 1);
-    class24_sub_426363(pClass24_global);
+    cClock1.clock_sub_426363();
     dword_6BE364 |= 0x80;
     dword_6BE340 = 2;
     dword_4E28F8 = 0;
@@ -880,25 +881,25 @@ LABEL_89:
         }
       }
 
-      class24_sub_4263B7(pClass24_global);
-      class24_sub_4263B7(pClass24_global2);
+    cClock1.clock_sub_4263B7();
+    cClock2.clock_sub_4263B7();
       sub_448B67(false);
       sub_448B45_LooksLikeResetSomeTimer(false);
-      if (pClass24_global2->dword_000004)
+      if (cClock2.dword_000004)
       {
-        if ( !pClass24_global->dword_000004 )
-          class24_sub_426363(pClass24_global2);
+        if ( !cClock1.dword_000004 )
+          cClock2.clock_sub_426363();
       }
-      if ( pClass24_global->dword_000008 )
+      if ( cClock1.dword_000008 )
       {
         if (!pParty_global->dword_00087C)
-          pClass24_global->dword_000008 = 0;
+          cClock1.dword_000008 = 0;
       }
-      if ( !pClass24_global->dword_000004 )
+      if ( !cClock1.dword_000004 )
       {
         if ( !dword_6A0D48 )
         {
-          if ( !pClass24_global->dword_000008 )
+          if ( !cClock1.dword_000008 )
             sub_494035();
           if ( dword_6BE364 & 1 )
           {
@@ -1042,7 +1043,7 @@ LABEL_85:
       v13 = 0;
       do
       {
-        if ( Player_sub_492C0B((int)*(&ptr_A750C4 + v11)) )
+        if ( Player_sub_492C0B((int)pPlayers[v11-1]) )
           v20[v13++] = v11;
         ++v11;
       }
@@ -1058,7 +1059,7 @@ LABEL_85:
     }
     while ( !v18 );
     dword_6BE340 = 0;
-    class24_fn1(pClass24_global);
+    cClock1.clock_fn1();
     sub_464479();
     if ( dword_6A0D48 == 3 )
     {
@@ -5184,334 +5185,6 @@ LABEL_29:
   return result;
 }
 
-//----- (0040EAD8) --------------------------------------------------------
-signed int __thiscall sub_40EAD8(void *Source, FILE *File, unsigned int a3, int a4)
-{
-  void *v4; // esi@1
-  signed int result; // eax@2
-  signed int v6; // ebx@3
-  int v7; // eax@5
-  int v8; // ecx@5
-  int v9; // eax@5
-  char v10; // zf@5
-  signed int v11; // ecx@14
-  signed int v12; // ecx@19
-  int v13; // ebx@19
-  int v14; // ebx@52
-  int v15; // edi@52
-  __int16 v16; // ax@54
-  int v17; // edi@59
-  __int16 v18; // ax@61
-  int v19; // edi@66
-  unsigned __int16 v20; // ax@68
-  int v21; // eax@73
-  char v22; // [sp+Ch] [bp-90h]@3
-  char v23; // [sp+48h] [bp-54h]@3
-  char DstBuf; // [sp+78h] [bp-24h]@3
-  char v25; // [sp+79h] [bp-23h]@3
-  char v26; // [sp+7Ah] [bp-22h]@3
-  char v27; // [sp+7Bh] [bp-21h]@3
-  int v28; // [sp+7Ch] [bp-20h]@3
-  int v29; // [sp+80h] [bp-1Ch]@3
-  char v30; // [sp+84h] [bp-18h]@3
-  char v31; // [sp+86h] [bp-16h]@3
-  char v32; // [sp+88h] [bp-14h]@3
-  char v33; // [sp+89h] [bp-13h]@3
-  unsigned __int16 v34; // [sp+8Ah] [bp-12h]@3
-  char v35; // [sp+8Ch] [bp-10h]@3
-  int v36; // [sp+90h] [bp-Ch]@51
-  int v37; // [sp+94h] [bp-8h]@54
-  unsigned __int8 v38; // [sp+9Bh] [bp-1h]@54
-
-  v4 = Source;
-  if ( File )
-  {
-    locked_fread(&DstBuf, 1u, 1u, File);
-    locked_fread(&v25, 1u, 1u, File);
-    locked_fread(&v26, 1u, 1u, File);
-    locked_fread(&v27, 1u, 1u, File);
-    v6 = 2;
-    locked_fread(&v28, 2, 1u, File);
-    locked_fread((char *)&v28 + 2, 2, 1u, File);
-    locked_fread(&v29, 2, 1u, File);
-    locked_fread((char *)&v29 + 2, 2, 1u, File);
-    locked_fread(&v30, 2, 1u, File);
-    locked_fread(&v31, 2, 1u, File);
-    locked_fread(&v23, 0x30u, 1u, File);
-    locked_fread(&v32, 1u, 1u, File);
-    locked_fread(&v33, 1u, 1u, File);
-    locked_fread(&v34, 2, 1u, File);
-    locked_fread(&v35, 2, 1u, File);
-    locked_fread(&v22, 0x3Au, 1u, File);
-    if ( v27 == 8 )
-    {
-      v8 = v29 - v28 + 1;
-      v9 = *(int *)((char *)&v29 + 2) - *(int *)((char *)&v28 + 2);
-      *((_WORD *)v4 + 10) = v8;
-      ++v9;
-      *((_WORD *)v4 + 11) = v9;
-      v7 = (signed __int16)v8 * (signed __int16)v9;
-      v10 = a3 == 0;
-      *((_DWORD *)v4 + 4) = v7;
-      if ( v10 )
-      {
-        if ( *((_DWORD *)v4 + 9) )
-        {
-          mem_mng.DeleteBuffer( (void *)*((_DWORD *)v4 + 9));
-          *((_DWORD *)v4 + 9) = 0;
-        }
-        *((_DWORD *)v4 + 9) = (int)mem_mng.AllocatedNamedBuffer(
-                                ((_DWORD *)v4 + 9),
-                                2 * *((_DWORD *)v4 + 4) + 4,
-                                (const char *)v4);
-        v6 = 2;
-      }
-      else
-      {
-        if ( a3 != 1 )
-        {
-          if ( a3 == 2 )
-          {
-            compile_error;//operator new(2 * v7 + 4);
-            *((_DWORD *)v4 + 9) = 0;
-            *((_DWORD *)v4 + 8) |= 1u;
-          }
-        }
-      }
-      if ( *((_DWORD *)v4 + 9) )
-      {
-        v11 = 1;
-        while ( 1 << v11 != *((_WORD *)v4 + 10) )
-        {
-          ++v11;
-          if ( v11 >= 15 )
-            goto LABEL_19;
-        }
-        *((_WORD *)v4 + 12) = v11;
-LABEL_19:
-        v13 = *((_WORD *)v4 + 11);
-        v12 = 1;
-        while ( 1 << v12 != v13 )
-        {
-          ++v12;
-          if ( v12 >= 15 )
-            goto LABEL_24;
-        }
-        *((_WORD *)v4 + 13) = v12;
-LABEL_24:
-        switch ( *((_WORD *)v4 + 12) )
-        {
-          case 2:
-            *((_WORD *)v4 + 14) = 3;
-            break;
-          case 3:
-            *((_WORD *)v4 + 14) = 7;
-            break;
-          case 4:
-            *((_WORD *)v4 + 14) = 15;
-            break;
-          case 5:
-            *((_WORD *)v4 + 14) = 31;
-            break;
-          case 6:
-            *((_WORD *)v4 + 14) = 63;
-            break;
-          case 7:
-            *((_WORD *)v4 + 14) = 127;
-            break;
-          case 8:
-            *((_WORD *)v4 + 14) = 255;
-            break;
-          case 9:
-            *((_WORD *)v4 + 14) = 511;
-            break;
-          case 10:
-            *((_WORD *)v4 + 14) = 1023;
-            break;
-          case 11:
-            *((_WORD *)v4 + 14) = 2047;
-            break;
-          case 12:
-            *((_WORD *)v4 + 14) = 4095;
-            break;
-          default:
-            break;
-        }
-        switch ( *((_WORD *)v4 + 13) )
-        {
-          case 2:
-            *((_WORD *)v4 + 15) = 3;
-            break;
-          case 3:
-            *((_WORD *)v4 + 15) = 7;
-            break;
-          case 4:
-            *((_WORD *)v4 + 15) = 15;
-            break;
-          case 5:
-            *((_WORD *)v4 + 15) = 31;
-            break;
-          case 6:
-            *((_WORD *)v4 + 15) = 63;
-            break;
-          case 7:
-            *((_WORD *)v4 + 15) = 127;
-            break;
-          case 8:
-            *((_WORD *)v4 + 15) = 255;
-            break;
-          case 9:
-            *((_WORD *)v4 + 15) = 511;
-            break;
-          case 10:
-            *((_WORD *)v4 + 15) = 1023;
-            break;
-          case 11:
-            *((_WORD *)v4 + 15) = 2047;
-            break;
-          case 12:
-            *((_WORD *)v4 + 15) = 4095;
-            break;
-          default:
-            break;
-        }
-        if ( v33 == 1 )
-          erroneous_printf("24bit PCX Only!");
-        if ( v33 == 3 )
-        {
-          v36 = 0;
-          if ( v13 > 0 )
-          {
-            do
-            {
-              v14 = 0;
-              v15 = *((_DWORD *)v4 + 9) + 2 * v36 * *((_WORD *)v4 + 10);
-              if ( v34 )
-              {
-                do
-                {
-                  locked_fread((char *)&a3 + 3, 1u, 1u, File);
-                  if ( (BYTE3(a3) & 0xC0) == -64 )
-                  {
-                    BYTE3(a3) &= 0x3Fu;
-                    locked_fread(&v38, 1u, 1u, File);
-                    v37 = 0;
-                    v16 = v38;
-                    if ( BYTE3(a3) )
-                    {
-                      do
-                      {
-                        ++v14;
-                        *(_WORD *)v15 = pD3DRenderer->uTargetRMask & (v16 << (pD3DRenderer->uNumTargetGBits
-                                                              + (_BYTE)pD3DRenderer->uNumTargetRBits
-                                                              + (_BYTE)pD3DRenderer->uNumTargetBBits
-                                                              - 8));
-                        v15 += 2;
-                        ++v37;
-                      }
-                      while ( v37 < BYTE3(a3) );
-                    }
-                  }
-                  else
-                  {
-                    ++v14;
-                    *(_WORD *)v15 = pD3DRenderer->uTargetRMask & (BYTE3(a3) << (pD3DRenderer->uNumTargetGBits
-                                                                + (_BYTE)pD3DRenderer->uNumTargetRBits
-                                                                + (_BYTE)pD3DRenderer->uNumTargetBBits
-                                                                - 8));
-                    v15 += 2;
-                  }
-                }
-                while ( v14 < v34 );
-              }
-              v17 = *((_DWORD *)v4 + 9) + 2 * v36 * *((_WORD *)v4 + 10);
-              while ( v14 < 2 * v34 )
-              {
-                locked_fread((char *)&a3 + 3, 1u, 1u, File);
-                if ( (BYTE3(a3) & 0xC0) == -64 )
-                {
-                  BYTE3(a3) &= 0x3Fu;
-                  locked_fread(&v38, 1u, 1u, File);
-                  v37 = 0;
-                  v18 = v38;
-                  if ( BYTE3(a3) )
-                  {
-                    do
-                    {
-                      *(_WORD *)v17 |= (_WORD)pD3DRenderer->uTargetGMask & (unsigned __int16)(v18 << (pD3DRenderer->uNumTargetGBits
-                                                                                      + (_BYTE)pD3DRenderer->uNumTargetBBits
-                                                                                      - 8));
-                      ++v14;
-                      v17 += 2;
-                      ++v37;
-                    }
-                    while ( v37 < BYTE3(a3) );
-                  }
-                }
-                else
-                {
-                  *(_WORD *)v17 |= (_WORD)pD3DRenderer->uTargetGMask & (unsigned __int16)(BYTE3(a3) << (pD3DRenderer->uNumTargetGBits
-                                                                                        + (_BYTE)pD3DRenderer->uNumTargetBBits
-                                                                                        - 8));
-                  ++v14;
-                  v17 += 2;
-                }
-              }
-              v19 = *((_DWORD *)v4 + 9) + 2 * v36 * *((_WORD *)v4 + 10);
-              while ( v14 < 3 * v34 )
-              {
-                locked_fread((char *)&a3 + 3, 1u, 1u, File);
-                if ( (BYTE3(a3) & 0xC0) == -64 )
-                {
-                  BYTE3(a3) &= 0x3Fu;
-                  locked_fread(&v38, 1u, 1u, File);
-                  v37 = 0;
-                  v20 = v38;
-                  if ( BYTE3(a3) )
-                  {
-                    do
-                    {
-                      *(_WORD *)v19 |= v20 >> (8 - pD3DRenderer->uNumTargetBBits);
-                      ++v14;
-                      v19 += 2;
-                      ++v37;
-                    }
-                    while ( v37 < BYTE3(a3) );
-                  }
-                }
-                else
-                {
-                  *(_WORD *)v19 |= BYTE3(a3) >> (8 - pD3DRenderer->uNumTargetBBits);
-                  ++v14;
-                  v19 += 2;
-                }
-              }
-              v21 = *((_WORD *)v4 + 11);
-              ++v36;
-            }
-            while ( v36 < v21 );
-          }
-        }
-        if ( a4 )
-          fclose(File);
-        result = 0;
-      }
-      else
-      {
-        result = v6;
-      }
-    }
-    else
-    {
-      result = 3;
-    }
-  }
-  else
-  {
-    result = 1;
-  }
-  return result;
-}
 
 
 //----- (0040F82D) --------------------------------------------------------
@@ -6060,43 +5733,7 @@ void sub_411AAA()
   ptr_5C35E4 = LoadFont("spell.fnt", "FONTPAL");
 }
 
-//----- (00411B59) --------------------------------------------------------
-int __fastcall sub_411B59(int a1, int a2)
-{
-  FILE *v2; // ebx@1
-  int v3; // edi@1
-  int v4; // esi@1
-  FILE *v5; // eax@2
-  int result; // eax@3
-  char Str1[64]; // [sp+Ch] [bp-44h]@1
-  int v8; // [sp+4Ch] [bp-4h]@1
 
-  v4 = a1;
-  v8 = a2;
-  v3 = a1 + 1;
-  wsprintfA(Str1, "data\\lloyd%d%d.pcx", a2, a1 + 1);
-  v2 = fopen(Str1, "rb");
-  if ( v2 )
-  {
-    sub_40EAD8((void *)(40 * v4 + 6947096), v2, 0, 1);
-    result = fclose(v2);
-  }
-  else
-  {
-    wsprintfA(Str1, "lloyd%d%d.pcx", v8, v3);
-    v5 = LODFile_New_LOD.Find_Container( Str1, 1);
-    if ( v5 )
-    {
-      result = sub_40EAD8((void *)(40 * v4 + 6947096), v5, 0, 0);
-    }
-    else
-    {
-      result = 5 * v4;
-      dword_6A013C[10 * v4] = 0;
-    }
-  }
-  return result;
-}
 
 //----- (00411BFC) --------------------------------------------------------
 int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
@@ -7674,7 +7311,7 @@ int __fastcall sub_4141CA(int a1, int a2)
 
   v3 = a1;
   v4 = a2;
-  class24_fn1(pClass24_global);
+  cClock1.clock_fn1();
   dword_506F0C = dword_4E28F8;
   result = (int)GUIWindowCreate(0, 0, 640, 480, 70, (GUIButton*)v4, v3);
   dword_507BDC = result;
@@ -7719,7 +7356,7 @@ void __cdecl sub_41426F()
   GUIWindowDelete((GUIWindow *)v1);
   dword_507BDC = 0;
   dword_4E28F8 = dword_506F0C;
-  class24_sub_426363(pClass24_global);
+  cClock1.clock_sub_426363();
 }
 
 //----- (004142D3) --------------------------------------------------------
@@ -8885,7 +8522,7 @@ void __thiscall sub_416D62_ShowMonsterRecord(int _this)
     }
     while ( v1 < 4 );
   }
-  class24_fn1(pClass24_global);
+  cClock1.clock_fn1();
   if ( dword_4E28F8 <= 10 )
   {
     if ( dword_4E28F8 == 10 )
@@ -8910,9 +8547,9 @@ void __thiscall sub_416D62_ShowMonsterRecord(int _this)
       v9 = v38 + dword_5059A8[v39];
       if ( !(pD3DRenderer->pActiveZBuffer[v9] & 0xFFFF) )
         goto LABEL_132;
-      v8 = (char *)&dword_5E5130[1331 * *(_DWORD *)(dword_507BB8 + 28)] +
+      //v8 = (char *)&dword_5E5130[1331 * *(_DWORD *)(dword_507BB8 + 28)] +
         //36 * word_5E6502[(*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v9) & 0xFFFF) + 2662 * *(_DWORD *)(dword_507BB8 + 28)];
-          36 * ((short *)((char *)&array_5E5150[*(_DWORD *)(dword_507BB8 + 28)] + 0x13B2))[(pD3DRenderer->pActiveZBuffer[v9] & 0xFFFF)];
+         // 36 * ((short *)((char *)&array_5E5150[*(_DWORD *)(dword_507BB8 + 28)] + 0x13B2))[(pD3DRenderer->pActiveZBuffer[v9] & 0xFFFF)];
 
 
           
@@ -11263,11 +10900,11 @@ void GUIWindow_sub_41D3B7(GUIWindow *_this)	  //show quick info
         v44 = 1;
       if (pPlayer->uDefaultFaceID == 21)
       {
-       v14 = pPlayerFrameTable->PlayerFrameTable_sub_494B5E( (int)&pPlayer->dword_001AA8, (int)&pPlayer->dword_001AA4, pClass24_global2->int_00001C);
+       v14 = pPlayerFrameTable->PlayerFrameTable_sub_494B5E( (int)&pPlayer->dword_001AA8, (int)&pPlayer->dword_001AA4, cClock2.int_00001C);
       }
       else
       {
-        v15 = class24_fn2(pClass24_global2);
+        v15 = cClock2.clock_fn2();
         v14 = pPlayerFrameTable->GetFrameFromFrameset( v44, v15);
       }
       pPlayer->word_001AA2 = v14->uTextureID - 1;
@@ -12336,7 +11973,7 @@ LABEL_59:
   GUIWindow_sub_44D406((GUIWindow *)v145, pFontComic, 0, 12, v38, (char *)TmpBuf, 3);
   sub_41AF52(v143, v145);
   v141 = 0;
-  stru_506580_MonsterInfoUI_Doll.dword_0000B8 += pClass24_global2->int_00001C;
+  stru_506580_MonsterInfoUI_Doll.dword_0000B8 += cClock2.int_00001C;
   v137 = 0;
   v138 = 0;
   i = 0;
@@ -12828,7 +12465,7 @@ void __cdecl sub_41F5BE()
     if ( dword_506F14 == 2 )
     {
       GUIWindowDelete(pGUIWindow_CurrentMenu);
-      class24_sub_426363(pClass24_global);
+      cClock1.clock_sub_426363();
       if ( dword_507BAC )
         cTexture_Free((cTexture *)dword_507BAC);
       if ( dword_507BB0 )
@@ -12873,7 +12510,7 @@ int __cdecl sub_41F6C1()
     dword_4E28F8 = 0;
     struct_576FE8.dword_000044 = 1;
   }
-  class24_fn1(pClass24_global);
+  cClock1.clock_fn1();
   if ( dword_506F14 != 2 )
     GUIWindowCreate(518, 450, 0, 0, 90, pBtn_Game_Rest, 0);
   dword_506F18 = 0;
@@ -13053,9 +12690,9 @@ void __cdecl sub_41FA01()
       cTexture_Free((cTexture *)dword_507BB0);
       LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
-    v3 = pClass24_global->int_00001C + dword_507CD4;
-    v4 = (unsigned int)(pClass24_global->int_00001C + dword_507CD4) < 0x200;
-    dword_507CD4 += pClass24_global->int_00001C;
+    v3 = cClock1.int_00001C + dword_507CD4;
+    v4 = (unsigned int)(cClock1.int_00001C + dword_507CD4) < 0x200;
+    dword_507CD4 += cClock1.int_00001C;
     if ( !v4 )
     {
       v3 = 0;
@@ -13625,9 +13262,9 @@ void __cdecl sub_42038D()
                    + 4 * (*(_DWORD *)v1 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v3) + 4)]));
     if ( v0 )
     {
-      v2 = ItemGen_sub_456499((char *)&dword_5E5130[1331 * *(_DWORD *)(dword_507BB8 + 28)] +
+    //  v2 = ItemGen_sub_456499((char *)&dword_5E5130[1331 * *(_DWORD *)(dword_507BB8 + 28)] +
                       //36 * word_5E6502[v0 + 2662 * *(_DWORD *)(dword_507BB8 + 28)]);
-                      36 * ((short *)((char *)&array_5E5150[*(_DWORD *)(dword_507BB8 + 28)] + 0x13B2))[v0]);
+              //        36 * ((short *)((char *)&array_5E5150[*(_DWORD *)(dword_507BB8 + 28)] + 0x13B2))[v0]);
 
       sub_41C0B8((const char *)v2);
     }
@@ -13869,7 +13506,7 @@ LABEL_12:
                    uTextureID_right_backgr != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0);
   GUIButtonCreate((GUIWindow *)dword_507BB8, 7, 8, 460, 343, 1, 0, 12, 0, 0, (unsigned char *)"", 0);
   dword_4E28F8 = 10;
-  class24_fn1(pClass24_global);
+  cClock1.clock_fn1();
   return 1;
 }
 
@@ -13922,9 +13559,9 @@ void __fastcall sub_42092D(int a1)
       v6 = *(_WORD *)v21;
       if ( v6 > 0 )
       {
-        v11 = LODFile_Icons_LOD.LODFile_LoadTexture(
-                (char *)pClass40->pItems[12 * *(int *)((char *)&dword_5E5130[9 * v6] + v1)].pIconName,
-                2);
+        v11 =-1;// LODFile_Icons_LOD.LODFile_LoadTexture(  temporaly 
+              //  (char *)pClass40->pItems[12 * *(int *)((char *)&dword_5E5130[9 * v6] + v1)].pIconName,
+              //  2);
         v10 = v11 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v11] : NULL;
         v9 = (v11 != -1 ? LODFile_Icons_LOD.aLODHeaders[v11].uTextureWidth : 24);
         v8 = (v11 != -1 ? LODFile_Icons_LOD.aLODHeaders[v11].uTextureHeight : 26);
@@ -14200,40 +13837,7 @@ void __cdecl sub_420E01()
   }
 }
 
-//----- (004219BE) --------------------------------------------------------
-int __thiscall sub_4219BE(void *_this)
-{
-  int v2; // esi@1
-  GUIWindow *v3; // ebx@1
 
-  v2 = (int)_this;
-  class24_fn1(pClass24_global);
-  AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-  dword_5118E0 = 0;
-  CharacterUI_LoadPaperdollTextures();
-  dword_4E28F8 = 23;
-  v3 = GUIWindowCreate(0, 0, 640, 480, 31, (GUIButton*)v2, 0);
-  pCharacterUI_BtnExit = GUIButtonCreate(
-                   v3,
-                   394,
-                   318,
-                   75,
-                   33,
-                   1,
-                   0,
-                   168,
-                   0,
-                   0,
-                   pGlobalTXT_LocalizationStrings[LOCSTR_EXIT],
-                    &LODFile_Icons_LOD.aLODHeaders[uTextureID_ButtExit1]);
-  GUIButtonCreate(v3, 0, 0, 476, 345, 1, 122, 120, 0, 0, (unsigned char *)"", 0);
-  dword_507690 = GUIButtonCreate(v3, 476, 0, 164, 345, 1, 0, 133, 0, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(v3, 61, 424, 31, 0, 2, 94, 110, 1, 49, (unsigned char *)"", 0);
-  GUIButtonCreate(v3, 177, 424, 31, 0, 2, 94, 110, 2, 50, (unsigned char *)"", 0);
-  GUIButtonCreate(v3, 292, 424, 31, 0, 2, 94, 110, 3, 51, (unsigned char *)"", 0);
-  GUIButtonCreate(v3, 407, 424, 31, 0, 2, 94, 110, 4, 52, (unsigned char *)"", 0);
-  return (int)v3;
-}
 
 //----- (00421B2C) --------------------------------------------------------
 signed int __cdecl sub_421B2C()
@@ -14796,7 +14400,7 @@ LABEL_13:
       Actor_ProbablyForceToFaceParty(v37, 4, 0, 0);
       if ( !*(_WORD *)(v17 + 32) )
       {
-        v19 = pNPCStats->word_017F5A[*(_DWORD *)(v17 + 708)];
+        v19 = pNPCStats->npc_group[*(_DWORD *)(v17 + 708)];
         if ( v19 )
         {
           v20 = (char *)pNPCStats->pCatchPhrases[(unsigned __int16)v19];

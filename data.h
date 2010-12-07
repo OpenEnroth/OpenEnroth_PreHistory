@@ -239,7 +239,8 @@ extern struct GUIButton *pPlayerCreationUI_BtnMinus;
 extern class cTexture *pPlayerCreationUI_Sky;
 extern class cTexture *pPlayerCreationUI_Top;
 
-extern struct class24 *pClass24_global2;
+extern class Clock cClock2;  //struct class24 *cClock2
+extern class Clock cClock1;
 
 extern unsigned int uPlayerCreationUI_SelectedCharacter;
 

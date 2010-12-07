@@ -5,7 +5,7 @@
 
 #include "AIL.h"
 #include "_audio.h"
-
+#include "clock.h"
 #include "data.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -169,7 +169,8 @@ void CVideoPlayer_UnloadAll(struct CVideoPlayer *_this)
   if (!dword_F8BC10)
     AIL_redbook_resume(pAudioPlayer->hAILRedbook);
  }
- class24_sub_426363(pClass24_global);
+// class24_sub_426363();
+ cClock1.clock_sub_426363();
 }
 
 //----- (004BED4F) --------------------------------------------------------
@@ -276,8 +277,8 @@ HBINK CVideoPlayer_OpenBinkMovie(struct CVideoPlayer *_this, const char *pVideoF
 void CVideoPlayer_Initialize(struct CVideoPlayer *_this)
 {
  IDirectDrawSurface *v3;
-
- class24_fn1(pClass24_global);
+ cClock1.clock_fn1();
+// class24_fn1();
  if (pAudioPlayer->hAILRedbook)
    AIL_redbook_pause(pAudioPlayer->hAILRedbook);
 

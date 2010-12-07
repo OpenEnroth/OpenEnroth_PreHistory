@@ -1,5 +1,6 @@
 #include "Party.h"
 #include "_audio.h"
+#include "clock.h"
 #include "_lod.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -250,10 +251,11 @@ int Party_Reset(struct Party *_this)
  }
 
  memcpy(pNPCStats->pNPCData2, pNPCStats->pNPCData, 501 * sizeof(struct NPCData));
- memcpy(pNPCStats->word_017F5A, pNPCStats->array_017EF4, 51 * sizeof(short));
+ memcpy(pNPCStats->npc_group, pNPCStats->array_017EF4, 51 * sizeof(short));
  dword_72D778 |= 0x80u;
  sub_494035();
- class24_fn1(pClass24_global);
+ //class24_fn1();
+ cClock1.clock_fn1();
  return 0;
 }
 

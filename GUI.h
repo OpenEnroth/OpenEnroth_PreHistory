@@ -165,7 +165,7 @@ struct GUIButton *GUIWindow_GetChild(struct GUIWindow *_this, int uID);
 
 void __fastcall DrawWindow(unsigned int uWindowX, unsigned int uWindowY, unsigned int uWindowWidth, unsigned int uWindowHeight);
 
-
+int __thiscall sub_4219BE(void *_this);
 
 
 

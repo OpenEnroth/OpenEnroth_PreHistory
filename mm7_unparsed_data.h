@@ -223,10 +223,8 @@ extern char unk_4E8408[];
 extern char byte_4E94D0; // weak
 extern char byte_4E94D2; // weak
 extern char byte_4E94D3; // weak
-extern int dword_4E94D4[array_size_unknown]; // weak
-extern int dword_4E94DC[array_size_unknown]; // weak
-extern int dword_4E94E4[array_size_unknown]; // weak
-extern int dword_4E94EC[array_size_unknown]; // weak
+
+
 extern int dword_4E98BC; // weak
 extern _UNKNOWN unk_4E98D4; // weak
 extern char *off_4EB080; // idb
@@ -948,7 +946,7 @@ extern int dword_50BAF4; // weak
 extern int dword_50BAF8; // weak
 
 
-extern struct class24 *pClass24_global;  //struct @ MM7.exe::0050BBE0
+//extern struct class24 *cClock1;  //struct @ MM7.exe::0050BBE0
 //int dword_50BBE0; // weak
 //int dword_50BBE4; // weak
 //int dword_50BBE8; // weak
@@ -1102,10 +1100,7 @@ extern int dword_511844; // weak
 extern int dword_511848; // weak
 extern int dword_51184C; // weak
 extern int dword_5118C8; // weak
-extern unsigned int uTextureID_GameUI_MagnifyingGlass;         // dword @ MM7.exe::005118CC
-extern unsigned int uTextureID_GameUI_PaperdollBackground;     // dword @ MM7.exe::005118D8
-extern unsigned int uTextureID_GameUI_PaperdollJewelryOverlay; // dword @ MM7.exe::005118DC
-extern int dword_5118E0; // weak
+
 
 extern struct struct5 array_5118E8[100]; // struct[100] @ MM7.exe::005118E8
 //_UNKNOWN unk_5118E8; // weak
@@ -1521,9 +1516,9 @@ extern _UNKNOWN unk_5E4D52; // weak
 
 
 //_UNKNOWN unk_5E4D58; // weak
-extern unsigned short array_5E4D58[50][10];
+extern unsigned short array_5E4D58[50][10];//[42][12];
 //_UNKNOWN unk_5E4D64; // weak
-extern int dword_5E5130[array_size_unknown]; // weak
+//extern int dword_5E5130[array_size_unknown]; // weak
 extern int dword_5E5144; // weak
 
 extern struct struct3 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
@@ -1687,10 +1682,7 @@ extern char byte_69BD40; // weak
 extern char byte_69BD41; // weak
 extern char byte_69BD44; // weak
 extern char *dword_69BD48; // idb
-extern struct GUIButton *dword_69BD58; // weak
-extern struct GUIButton *dword_69BD5C; // weak
-extern struct GUIButton *dword_69BD60; // weak
-extern struct GUIButton *dword_69BD64; // weak
+
 
 
 
@@ -1701,9 +1693,9 @@ extern struct GUIButton *dword_69BD64; // weak
 
 extern _UNKNOWN unk_69FBB4; // weak
 
-extern int dword_6A013C[array_size_unknown]; // weak
+//extern int dword_6A013C[array_size_unknown]; // weak
 
-extern _UNKNOWN unk_6A07A4; // weak
+//extern _UNKNOWN unk_6A07A4; // weak
 
 
 extern int dword_6A0CA4;
@@ -1921,8 +1913,8 @@ extern int dword_6BE698; // weak
 extern int dword_6BE69C; // weak
 extern int dword_6BE6A0; // weak
 extern int dword_6BE6A4; // weak
-extern __int64 qword_6BE6B4; // weak
-extern char byte_6BE6EC[array_size_unknown]; // weak
+extern __int64 qword_6BE6B4[7]; // weak
+extern char byte_6BE6EC[875]; // weak
 
 
 

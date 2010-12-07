@@ -196,11 +196,11 @@ char __thiscall sub_40E363(int _this, unsigned int a2, char a3);
 int loc_40E4FC(); // weak
 
 signed int __thiscall sub_40E55E(void *Source, unsigned int Filename, unsigned int a3);
-signed int __thiscall sub_40EAD8(void *Source, FILE *File, unsigned int a3, int a4);
+
 signed int __thiscall sub_40F5F5(void *_this, const char *Str1);
 void array_AD4674_FillZBuffer(int *pZBuffer, unsigned int uTextureID, unsigned int uZFill);
 
-void array_40F89C_ActuallyFillZBuffer(int *pZBuffer, cTexture *pTexture, int a3);
+void array_40F89C_ActuallyFillZBuffer(int *pZBuffer,class cTexture *pTexture, int a3);
 int __fastcall sub_40F92A(int a1, int a2, int a3);
 //int __thiscall LODFile_sub_40F9C5(int _this);
 //signed int __thiscall LODFile_sub_40F9F0(int _this, const char *Str2);
@@ -266,10 +266,10 @@ int __fastcall sub_41B4E1(unsigned __int8 a1, unsigned __int8 a2, char a3);
 void __cdecl sub_41C047();
 void __thiscall sub_41C0B8(const char *Str1);
 signed int __thiscall sub_41CD4F_MaybeOnlyUI_OnKeyDown(unsigned char Key);
-int __thiscall GUIWindow_sub_41D08F(GUIWindow *_this, int a2, int a3, int a4, int a5);
+int __thiscall GUIWindow_sub_41D08F(struct GUIWindow *_this, int a2, int a3, int a4, int a5);
 void __thiscall GUIButton_sub_41D0D8(struct GUIButton *_this);
 void sub_41D20D(int a1, int a2, __int64 a3, int a4);
-void GUIWindow_sub_41D3B7(GUIWindow *_this);
+void GUIWindow_sub_41D3B7(struct GUIWindow *_this);
 void GUIWindow_sub_41D73D(int _this);
 void __thiscall sub_41D895(void *_this);
 char *__fastcall sub_41E360(int a1, int a2);
@@ -289,7 +289,7 @@ void __fastcall sub_42092D(int a1);
 int __fastcall sub_420B13(int a1, int a2);
 void __fastcall sub_420C05(int a1, int a2);
 void __cdecl sub_420E01();
-int __thiscall sub_4219BE(void *_this);
+
 signed int __cdecl sub_421B2C();
 int __thiscall sub_421E75(void *_this, int a2);
 void __cdecl sub_421EA6();
@@ -304,9 +304,7 @@ signed int __fastcall sub_4250FE(int a1);
 signed int __fastcall sub_4252E8(int a1);
 int sub_4254D2(signed int a1);
 char __thiscall sub_42620A(int _this);
-void class24_sub_426363(struct class24 *_this);
-void __thiscall class24_sub_426386(int _this);
-void __thiscall class24_sub_4263A0(class24 *_this);
+
 __int64 __thiscall sub_426429(void *_this);
 signed int __thiscall sub_42654C(int _this, int a2);
 
@@ -555,7 +553,7 @@ int __thiscall sub_450929(void *_this);
 void *__cdecl sub_450AAA();
 signed int __fastcall sub_450B0A(int a1);
 int __thiscall sub_450CA9(int _this, int a2, int a3);
-int __thiscall sub_450D68(HardwareSprite *_this);
+int __thiscall sub_450D68(struct HardwareSprite *_this);
 int __cdecl sub_450DA3();
 void *__thiscall sub_450DDE(void *_this);
 void *__thiscall sub_450DF1(void *Dst, const void *Src, const void *a3);
@@ -645,7 +643,7 @@ char __stdcall sub_45DAE8(int a1, int a2, float a3);
 int __fastcall sub_45DF13(void *); // weak
 void __fastcall sub_45DCA9(unsigned int a1, const char *a2, int a3, int a4, int a5, int a6);
 void __fastcall sub_45DF48(void *_this);
-void *__cdecl sub_45E006();
+
 int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed int a2);
 int __thiscall sub_45E26C(char *Filename);
 
@@ -1085,14 +1083,14 @@ int __stdcall sub_4A1EA3(int a1);
 int __stdcall sub_4A2031(float, int, int, int, int); // idb
 void __thiscall Render_sub_4A2ED5(int _this, signed int a2, int a3, int a4);
 void __thiscall Render_sub_4A2FC0(int _this, signed int a2, int a3, signed int a4, signed int a5, int a6, signed int a7, int a8);
-void __thiscall sub_4A354F(int _this, int a2, IDirect3DTexture2 *pTexture, unsigned int uDiffuseColor, int a5);
-void __thiscall sub_4A3AD9(int _this, int a2, IDirect3DTexture2 *pTexture, unsigned int uDiffuseColor, int a5);
+void __thiscall sub_4A354F(int _this, int a2,struct IDirect3DTexture2 *pTexture, unsigned int uDiffuseColor, int a5);
+void __thiscall sub_4A3AD9(int _this, int a2,struct IDirect3DTexture2 *pTexture, unsigned int uDiffuseColor, int a5);
 void __thiscall Render_sub_4A43B1(int _this, int a2, int a3, int a4);
 int __fastcall sub_4A46E6(int a1, int a2, signed int a3, int a4, unsigned int a5); // weak
 signed int __stdcall sub_4A48E4(int a1, int a2, int a3, int a4, signed int a5);
 int __stdcall sub_4A49D0(float, float, float, float, float, float, float, float, int); // idb
 int __stdcall sub_4A4CC9(int a1, int a2);
-signed int __thiscall Render_sub_4A4DE1(BaseRender* _this, unsigned char* a2, int a3, struct IDirectDrawSurface4 **pOutSurface, struct IDirect3DTexture2 **pOutTexture);
+signed int __thiscall Render_sub_4A4DE1(struct BaseRender* _this, unsigned char* a2, int a3, struct IDirectDrawSurface4 **pOutSurface, struct IDirect3DTexture2 **pOutTexture);
 void __cdecl sub_4A5190();
 int __thiscall Render_sub_4A52F1(int _this, int a2, float a3);
 void __cdecl sub_4A57E9();

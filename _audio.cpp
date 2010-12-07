@@ -1,7 +1,7 @@
 #include "_audio.h"
 #include "_video.h"
 #include "AIL.h"
-
+#include "clock.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
@@ -1303,7 +1303,7 @@ void AudioPlayer_sub_4AAFCF(struct AudioPlayer *_this)
   if ( !v3 )
   {
     v4 = v2 + 720;
-    *(_DWORD *)v4 -= pClass24_global->int_00001C;
+    *(_DWORD *)v4 -= cClock1.int_00001C;
     if ( *(_DWORD *)(v2 + 720) <= 0 )
     {
       v5 = *(_DWORD *)(v2 + 4) == 0;

@@ -4,7 +4,7 @@
 #include "localization_defs.h"
 #include "defs.h"
 #include "menus.h"
-
+#include "clock.h"
 
 #include "AIL.h"
 #include "_lod.h"
@@ -706,66 +706,6 @@ char __thiscall sub_42620A(int _this)
   return 1;
 }
 
-//----- (00426386) --------------------------------------------------------
-void __thiscall class24_sub_426386(int _this)
-{
-  int v1; // esi@1
-
-  v1 = _this;
-  if ( !*(_DWORD *)(_this + 8) )
-  {
-    *(_DWORD *)(_this + 20) = class24_fn2((class24 *)_this);
-    *(_DWORD *)(v1 + 8) = 1;
-  }
-}
-
-//----- (004263A0) --------------------------------------------------------
-void __thiscall class24_sub_4263A0(class24 *_this)
-{
-  int v1; // esi@1
-  int v2; // eax@2
-
-  v1 = (int)_this;
-  if ( *(_DWORD *)(v1 + 8) )
-  {
-    v2 = class24_fn2(_this);
-    *(_DWORD *)(v1 + 8) = 0;
-    *(_DWORD *)(v1 + 12) = v2;
-  }
-}
-
-//----- (004263B7) --------------------------------------------------------
-int __thiscall class24_sub_4263B7(struct class24 *_this)
-{
-  void *v1; // esi@1
-  int v2; // eax@2
-  signed int v3; // eax@3
-  char v4; // zf@5
-  int result; // eax@8
-
-  v1 = _this;
-  do
-  {
-    v2 = class24_fn2(_this) - _this->dword_00000C;
-   _this->int_00001C = v2;
-  }
-  while ( v2 <= 0 );
-
-  *((_DWORD *)v1 + 3) = class24_fn2((class24 *)v1);
-  v3 = *((_DWORD *)v1 + 7);
-  if ( v3 > 32 )
-    v3 = 32;
-  v4 = *((_DWORD *)v1 + 1) == 0;
-  *((_DWORD *)v1 + 7) = v3;
-  if ( v4 )
-  {
-    if ( !*((_DWORD *)v1 + 2) )
-      *((_DWORD *)v1 + 9) += v3;
-  }
-  result = (v3 << 16) / 128;
-  *((_DWORD *)v1 + 8) = result;
-  return result;
-}
 
 
 
@@ -3147,7 +3087,7 @@ signed int __cdecl sub_42FA22()
     {
       if ( v3 != v1 )
       {
-        memcpy(v2, (const void *)(result - 2), 0x70u);
+        memcpy(v2, (const void *)(result - 2), 112);
         *(_WORD *)result = 0;
       }
       ++v1;
@@ -3365,7 +3305,7 @@ LABEL_3:
   pParty_global->dword_000884 |= 2;
 
 LABEL_6:
-  if ( !pClass24_global->dword_000004 )
+  if ( !cClock1.dword_000004 )
   {
     v23 = 0;
     v1 = 1;
@@ -3623,32 +3563,32 @@ LABEL_125:
             dword_50C9E8[3 * dword_50C9E8[0] + 1] = 176;
             goto LABEL_155;
           case 20:
-            if ( pClass24_global->dword_000004 )
+            if ( cClock1.dword_000004 )
               break;
             v18 = 7;
             goto LABEL_39;
           case 22:
-            if ( pClass24_global->dword_000004 )
+            if ( cClock1.dword_000004 )
               break;
             v18 = 9;
             goto LABEL_39;
           case 21:
-            if ( pClass24_global->dword_000004 )
+            if ( cClock1.dword_000004 )
               break;
             v18 = 8;
             goto LABEL_39;
           case 25:
-            if ( dword_4E28F8 || pClass24_global->dword_000004 )
+            if ( dword_4E28F8 || cClock1.dword_000004 )
               break;
             v18 = 13;
             goto LABEL_39;
           case 27:
-            if ( dword_4E28F8 || pClass24_global->dword_000004 )
+            if ( dword_4E28F8 || cClock1.dword_000004 )
               break;
             v18 = 15;
             goto LABEL_39;
           case 26:
-            if ( !dword_4E28F8 && !pClass24_global->dword_000004 )
+            if ( !dword_4E28F8 && !cClock1.dword_000004 )
             {
               v18 = 14;
 LABEL_39:
@@ -3778,7 +3718,7 @@ void __cdecl sub_4356FF()
   if ( !dword_4E28F8 )
   {
     if ( !ptr_507BD4 )
-      class24_sub_426363(pClass24_global);
+      cClock1.clock_sub_426363();
   }
   struct_576FE8.dword_000044 = 1;
 }
@@ -3852,7 +3792,7 @@ void __cdecl sub_435748()
           if ( v49 == 164 )
           {
             v47 = 0;
-            v43 = (int)dword_69BD64;
+            v43 = (int)pLoadSaveBtn;
             v9 = pGUIWindow_CurrentMenu->uFrameY + 302;
             v41 = 94;
             v20 = pGUIWindow_CurrentMenu->uFrameX + 241;
@@ -3902,7 +3842,7 @@ LABEL_134:
           if ( v49 == 166 )
           {
             v47 = 0;
-            v43 = (int)dword_69BD60;
+            v43 = (int)pCancelBtn;
             v9 = pGUIWindow_CurrentMenu->uFrameY + 302;
             v41 = 95;
             v20 = pGUIWindow_CurrentMenu->uFrameX + 350;
@@ -3978,7 +3918,7 @@ LABEL_90:
             dword_6A0C9C = 0;
           v8 = (int)pGUIWindow_CurrentMenu;
           v47 = 0;
-          v43 = (int)dword_69BD58;
+          v43 = (int)pArrowDownBtn;
           v9 = pGUIWindow_CurrentMenu->uFrameY + 323;
           goto LABEL_105;
         }
@@ -3995,7 +3935,7 @@ LABEL_99:
           if ( dword_4E28F8 )
           {
             GUIWindowDelete(pGUIWindow_CurrentMenu);
-            class24_sub_426363(pClass24_global);
+            cClock1.clock_sub_426363();
             dword_4E28F8 = 0;
             struct_576FE8.dword_000044 = 1;
           }
@@ -4070,7 +4010,7 @@ LABEL_81:
             GUIWindowDelete(pGUIWindow_CurrentMenu);
             GUIWindowDelete(pGUIWindow2);
             pGUIWindow2 = 0;
-            class24_sub_426363(pClass24_global);
+            cClock1.clock_sub_426363();
             dword_4E28F8 = 0;
             struct_576FE8.dword_000044 = v16;
             continue;
@@ -4147,7 +4087,7 @@ LABEL_60:
               dword_6A0C9C = 0;
             v8 = (int)pGUIWindow_CurrentMenu;
             v47 = 0;
-            v43 = (int)dword_69BD5C;
+            v43 = (int)pArrowUpBtn;
             v9 = pGUIWindow_CurrentMenu->uFrameY + 197;
 LABEL_105:
             v41 = 90;
@@ -11985,26 +11925,7 @@ void __fastcall class04_stru0_detor(struct class04_stru0 *_this)
   compile_error;//JUMPOUT(*(unsigned int *)loc_40E4FC);
 }
 
-//----- (0045E006) --------------------------------------------------------
-void *__cdecl sub_45E006()
-{
-  int *v0; // esi@1
-  void *result; // eax@2
 
-  v0 = dword_6A013C;
-  do
-  {
-    result = (void *)*v0;
-    if ( *v0 )
-    {
-      mem_mng.DeleteBuffer( (void *)*v0);
-      result = memset(v0 - 9, 0, 0x28u);
-    }
-    v0 += 10;
-  }
-  while ( (signed int)v0 < (signed int)&unk_6A07A4 );
-  return result;
-}
 
 //----- (0045E26C) --------------------------------------------------------
 int __thiscall sub_45E26C(char *Filename)
@@ -12625,14 +12546,14 @@ void __thiscall sub_4646F0(int _this)
   v1 = _this;
   if ( pD3DRenderer->pRenderD3D3 )
     Vis_sub_4C1A02(pGame->pVis);
-  class24_fn1(pClass24_global);
-  class24_fn1(pClass24_global2);
+  cClock1.clock_fn1();
+  cClock2.clock_fn1();
   pParty_global->dword_007778 = 2;
   sub_427D48(&struct_50C0C8, 1);
   sub_464479();
   sub_464866(0, (v1 == 0) + 1);
-  class24_sub_426363(pClass24_global2);
-  class24_sub_426363(pClass24_global);
+  cClock2.clock_sub_426363();
+  cClock1.clock_sub_426363();
 }
 
 //----- (00464761) --------------------------------------------------------
@@ -12869,14 +12790,14 @@ void __cdecl sub_4667E9()
   if ( !pD3DRenderer->pRenderD3D3 || **(_DWORD **)(pD3DRenderer->pRenderD3D3 + 28) )
   {
 LABEL_52:
-    if ( pClass24_global->dword_000004 )
+    if ( cClock1.dword_000004 )
       BYTE1(dword_6BE364) |= 8u;
     else
-      class24_fn1(pClass24_global);
-    if (pClass24_global2->dword_000004)
+      cClock1.clock_fn1();
+    if (cClock2.dword_000004)
       BYTE1(dword_6BE364) |= 0x10u;
     else
-      class24_fn1(pClass24_global2);
+      cClock2.clock_fn1();
     pGame->pClass03->dword_000004 = 0;
     if ( pD3DRenderer->pRenderD3D3 )
     {
@@ -13001,11 +12922,11 @@ LABEL_38:
     if ( BYTE1(dword_6BE364) & 8 )
       BYTE1(dword_6BE364) &= 0xF7u;
     else
-      class24_sub_426363(pClass24_global);
+      cClock1.clock_sub_426363();
     if ( BYTE1(dword_6BE364) & 0x10 )
       BYTE1(dword_6BE364) &= 0xEFu;
     else
-      class24_sub_426363(pClass24_global2);
+      cClock2.clock_sub_426363();
     sub_465C2C();
     sub_465F5A_InitializeAsyncMouseAndSomething();
     if (dword_720010)

@@ -193,10 +193,7 @@ unsigned char data_4E7168[116] =
  char byte_4E94D0; // weak
  char byte_4E94D2; // weak
  char byte_4E94D3; // weak
- int dword_4E94D4[array_size_unknown]; // weak
- int dword_4E94DC[array_size_unknown]; // weak
- int dword_4E94E4[array_size_unknown]; // weak
- int dword_4E94EC[array_size_unknown]; // weak
+
  int dword_4E98BC; // weak
  _UNKNOWN unk_4E98D4; // weak
  char *off_4EB080; // idb
@@ -969,12 +966,13 @@ struct RenderVertex array_50AC10[50];    // struct[50] @ MM7.exe::0050AC10
  int dword_50BAF4; // weak
  int dword_50BAF8; // weak
 
- struct class24 *pClass24_global = 0;  //struct @ MM7.exe::0050BBE0
+
  int dword_50BC10[array_size_unknown]; // weak
  int dword_50BDA0[array_size_unknown]; // weak
  int dword_50BF30[array_size_unknown]; // weak
  char byte_50C0C0; // weak
  int dword_50C0C4; // weak
+ 
 
 struct unnamed_50C0C8 struct_50C0C8;
  //_UNKNOWN unk_50C0C8[256*array_size_unknown]; // weak
@@ -1102,10 +1100,7 @@ unsigned int uTextureListForPaperdoll[89]; // dword @ MM7.exe::00511638
  int dword_511848; // weak
  int dword_51184C; // weak
  int dword_5118C8; // weak
-unsigned int uTextureID_GameUI_MagnifyingGlass;         // dword @ MM7.exe::005118CC
-unsigned int uTextureID_GameUI_PaperdollBackground;     // dword @ MM7.exe::005118D8
-unsigned int uTextureID_GameUI_PaperdollJewelryOverlay; // dword @ MM7.exe::005118DC
- int dword_5118E0; // weak
+
 
 struct struct5         array_5118E8[100]; // struct[100] @ MM7.exe::005118E8
 struct RenderBillboard pBillboardRenderList[500]; // struct[500] @ MM7.exe::00512250
@@ -1409,14 +1404,16 @@ struct struct4 global_5E4C90; // struct @ MM7.exe::005E4C90
 _UNKNOWN unk_5E4D52; // weak
 
 
-//_UNKNOWN unk_5E4D58; // weak
-unsigned short array_5E4D58[50][10];
+//_UNKNOWN unk_5E4D58; // weak	 
+//overlay	 1008 size
+unsigned short array_5E4D58[50][10];  // [42][12];
 //_UNKNOWN unk_5E4D64; // weak
- int dword_5E5130[array_size_unknown]; // weak
+ //int dword_5E5130[array_size_unknown]; // weak
  int dword_5E5144; // weak
 
 struct struct3                 array_5E5150[20]; // struct[20] @ MM7.exe::005E5150
 unsigned int dword_5FF140; // idb
+
 int                            chest_descriptor[2];   //struct @ MM7.exe::005FF144
 struct MonsterDescriptionList *pMonsterDescriptionList = 0; // struct @ MM7.exe::05FF14C
 //int dword_5FF14C; // weak
@@ -1468,9 +1465,9 @@ struct unnamed_69B110 object_69B110; // struct @ MM7.exe::0069B110
 
  _UNKNOWN unk_69FBB4; // weak
  
- int dword_6A013C[array_size_unknown]; // weak
+ //int dword_6A013C[array_size_unknown]; // weak
 
- _UNKNOWN unk_6A07A4; // weak
+ //_UNKNOWN unk_6A07A4; // weak
 
 
  int global_dword_6A0CA8; // weak
@@ -1498,6 +1495,7 @@ struct class51 *pClass51_global = &class51_6A0DA0_dwReserved; // struct @ stru_6
  int dword_6A12C8; // weak
  int dword_6A12CC; // weak
  int dword_6A12D0; // weak
+ //
  __int64 qword_6A12E0; // weak
  int dword_6A12F4; // weak
  int dword_6A12F8; // weak
@@ -1631,17 +1629,20 @@ int uTurnSpeed; // dword @ MM7.exe::006BE38C
  void *dword_6BE67C; // idb
  int dword_6BE684; // weak
  int dword_6BE688; // weak
+
  //struct 40 bytes
  _UNKNOWN unk_6BE68C; // weak
  int dword_6BE694; // weak 8
  int dword_6BE698; // weak	12
  int dword_6BE69C; // weak	16
  int dword_6BE6A0; // weak	20
- int dword_6BE6A4; // weak	14
- //
- __int64 qword_6BE6B4; // weak 
+ int dword_6BE6A4; // weak	24
 
- char byte_6BE6EC[array_size_unknown]; // weak
+
+ //
+ __int64 qword_6BE6B4[7]; // weak 
+ // bytes875
+ char byte_6BE6EC[875]; // weak
 
 
 

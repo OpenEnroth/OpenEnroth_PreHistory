@@ -16,7 +16,6 @@
 	   char location_name[20];	// byte_69BD7C
 	 __int64 qWorld_time;     		// dword_69BD90
 	  char fill_1[52];
-
 	 };//size 0x64 100	//69BDCC end
 
  struct	Save_files_list
@@ -46,11 +45,15 @@ int __cdecl sub_410DEC();
 
 void __cdecl sub_4B6943();
 
+void *__cdecl sub_45E006();
+
 extern int dword_69CF28[45]; // weak
 
 extern Save_Header     saves_hdr[40];	
 //extern _UNKNOWN unk_69BD68; // weak
 //extern char byte_69BD7C[20]; // idb
+
+extern cPCXTexture cSaveTumbnail[45];
 
 //int dword_69BD94; // weak
 
@@ -64,3 +67,8 @@ extern class LOD_Writefile LODFile_Games_LOD; // struct @ MM7.exe::006A0A60
 //int dword_6A0C90; // ::+230   pLODSubIndexNamedBuffer
 extern int dword_6A0C9C;
 extern int dword_6A0CA0_indx;
+
+extern struct GUIButton *pArrowDownBtn; // weak
+extern struct GUIButton *pArrowUpBtn; // weak	 dword_69BD5C
+extern struct GUIButton *pCancelBtn; // weak dword_69BD60
+extern struct GUIButton *pLoadSaveBtn; // weak

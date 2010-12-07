@@ -33,6 +33,8 @@
 
 #define  LOCSTR_CONDITION                   		47	//"Condition"
 
+#define  LOCSTR_CREATE_PARTY                  		51   //"C R E A T E   P A R T Y"	
+
 #define  LOCSTR_DAY                          		56	//"Day"	
 #define  LOCSTR_DAYS                        		57	/// "Days"	
 
@@ -73,7 +75,9 @@
 
 #define  LOCSTR_PLEASE_WAIT                 		165	// "Please Wait"
 
-#define  LOCSTR_REPUTATION                  		180	 //"Reputation"	
+#define  LOCSTR_REPUTATION                  		180	 //"Reputation"
+
+#define  LOCSTR_REST_HEAL_8                         183 //"Rest & Heal 8 Hours"	
 
 #define  LOCSTR_SAVING                      		190  // "Saving"	
 
@@ -120,6 +124,8 @@
 #define  LOCSTR_ACTIVE_SPELL                		450	// "Active Spells: %s"	
 
 #define  LOCSTR_READING                         	505 ///"Reading..."	
+
+#define  LOCSTR_NOTHING_HERE                 		521 // "Nothing here"	
 
 #define  LOCSTR_RECALL_BEACON               		523 // "Recall Beacon"	
 
@@ -181,7 +187,7 @@
 +		[48]	0x04103019 "Warlock"	unsigned char *
 +		[49]	0x04103025 "Lich"	unsigned char *
 +		[50]	0x0410302e "Dodging"	unsigned char *
-+		[51]	0x0410303a "C R E A T E   P A R T Y"	unsigned char *
+
 +		[52]	0x04103056 "Cursed"	unsigned char *
 +		[0x35]	0x04103061 "Damage"	unsigned char *
 +		[0x36]	0x0410306c "Dark"	unsigned char *
@@ -314,7 +320,7 @@
 
 +		[181]	0x04103bc0 "Steal %24"	unsigned char *
 +		[182]	0x04103bcf "Rest"	unsigned char *
-+		[183]	0x04103bd9 "Rest & Heal 8 Hours"	unsigned char *
+
 +		[184]	0x04103bf2 "Reinstall Necessary"	unsigned char *
 +		[185]	0x04103c0b "Steal item"	unsigned char *
 +		[186]	0x04103c1b "Time in Erathia"	unsigned char *
@@ -646,7 +652,7 @@
 +		[518]	0x04105359 "Despicable"	unsigned char *
 +		[519]	0x04105369 "Monstrous"	unsigned char *
 +		[520]	0x04105378 "Notorious"	unsigned char *
-+		[521]	0x04105387 "Nothing here"	unsigned char *
+
 +		[522]	0x04105399 "SP Cost"	unsigned char *
 
 +		[524]	0x041053b9 "Once again you've cheated death! …"	unsigned char *

@@ -61,7 +61,7 @@ struct CNPCStats
  char                   unk_016544[0x1348];
  struct NPCGreeting     pNPCGreetings[205]; // struct[205] @ 01788C
  short                  array_017EF4[51];
- unsigned short         word_017F5A[51];
+ unsigned short         npc_group[51];   //word_017F5A
  int                    dword_017FC0;
  int                    dword_017FC4;  // num elems in pNPCData2
  int                    dword_017FC8;

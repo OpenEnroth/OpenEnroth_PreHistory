@@ -31,7 +31,7 @@ class Sprites_Header
 		void Clear_Data();
 		Sprites_Header();
 		~Sprites_Header();
-	};
+	};	//0x28 	40
 
 
 
@@ -101,8 +101,11 @@ void PCXTexture_Release();	   //  destr
 //signed int __thiscall sub_40F037(void *_this, void *Src, int a3, int a4)
 int DecodePCX(unsigned char *pPCXData,unsigned long *pOutBuffer, unsigned int uWidth);
 int LODPCXReLoad(const char *pContainerName);
+int LoadPCXFromFile(FILE *File, unsigned int mode, bool close_file);	//sub_40EAD8
 };
 //sizeof = 28
+
+
 //
 #ifndef OLD_CODE 
 //signed int __thiscall sub_40F414(void *_this, const char *Str1, int a3);
