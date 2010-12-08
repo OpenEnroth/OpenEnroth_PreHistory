@@ -3691,12 +3691,13 @@ LABEL_84:
             }
             Player_PlaySound(pPlayers[uActiveCharacter - 1], 85, 0);
           }
-          if ( dword_50CBD0[0] < 40 )
+        /*  if ( dword_50CBD0[0] < 40 )
           {
             dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
             dword_50CBD0[3 * dword_50CBD0[0] + 2] = 1;
             dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-          }
+          }	 */
+		  dword_50CBD0.PutMessageToQueue(113,1,0);
         }
         break;
       case 82:
@@ -3759,12 +3760,13 @@ LABEL_84:
               }
               break;
           }
-          if ( dword_50CBD0[0] < 40 )
+        /*  if ( dword_50CBD0[0] < 40 )
           {
             dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
             dword_50CBD0[3 * dword_50CBD0[0] + 2] = 1;
             dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-          }
+          }	   */
+		  dword_50CBD0.PutMessageToQueue(113,1,0);
           v11 = uActiveCharacter;
           if ( uActiveCharacter )
           {
@@ -3824,12 +3826,13 @@ LABEL_77:
   sub_44A56A();
   sub_44606A((int)ptr_507BC0->dword_00001C);
   dword_F8B19C = 1;
-  if ( dword_50CBD0[0] < 40 )
+ /* if ( dword_50CBD0[0] < 40 )
   {
     dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
     dword_50CBD0[3 * dword_50CBD0[0] + 2] = 1;
     dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-  }
+  }	   */
+  dword_50CBD0.PutMessageToQueue(113,1,0);
   v11 = uActiveCharacter;
   if ( uActiveCharacter )
   {
@@ -5815,15 +5818,16 @@ LABEL_82:
 LABEL_59:
           sub_4B1E92(ptr_507BC0->dword_00001C, v66);
 LABEL_60:
-          result = dword_50CBD0[0];
-          if ( dword_50CBD0[0] < 40 )
+          result = 0;// dword_50CBD0[0];
+         /* if ( dword_50CBD0[0] < 40 )
           {
             dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
             dword_50CBD0[3 * dword_50CBD0[0] + 2] = 1;
             result = 3 * dword_50CBD0[0] + 3;
             dword_50CBD0[result] = 0;
             ++dword_50CBD0[0];
-          }
+          }	   */
+		  dword_50CBD0.PutMessageToQueue(113,1,0);
           return result;
         }
         wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[538], v7 - *(_DWORD *)(v3 + 160), v35 + 1);
@@ -6762,15 +6766,16 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
           }
         }
       }
-      result = dword_50CBD0[0];
-      if ( dword_50CBD0[0] < 40 )
+      result = 0;// dword_50CBD0[0];
+    /*  if ( dword_50CBD0[0] < 40 )
       {
         dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
         dword_50CBD0[3 * dword_50CBD0[0] + 2] = 1;
         result = 3 * dword_50CBD0[0] + 3;
         dword_50CBD0[result] = 0;
         ++dword_50CBD0[0];
-      }
+      }	   */
+	  dword_50CBD0.PutMessageToQueue(113,1,0);
       return result;
     }
     Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)dword_F8B164[0]);
@@ -7071,15 +7076,16 @@ signed int __cdecl sub_4B6478()
     {
       v5 = 0;
     }
-    result = dword_50CBD0[0];
-    if ( dword_50CBD0[0] < 40 )
+    result = 0;//dword_50CBD0[0];
+   /* if ( dword_50CBD0[0] < 40 )
     {
       dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
       dword_50CBD0[3 * dword_50CBD0[0] + 2] = 1;
       result = 3 * dword_50CBD0[0] + 3;
       dword_50CBD0[result] = v5;
       ++dword_50CBD0[0];
-    }
+    }  */
+	dword_50CBD0.PutMessageToQueue(113,1,0);
     return result;
   }
   if ( !(unsigned __int16)sub_449B57(v1 + 338, word_4F0754[2 * (int)ptr_507BC0->dword_00001C]) )
@@ -7561,15 +7567,16 @@ LABEL_63:
     Player_PlaySound((Player *)v1, 82, 0);
     sub_4418B1(20, uActiveCharacter + 99, 0, 65536);
 LABEL_46:
-    result = dword_50CBD0[0];
-    if ( dword_50CBD0[0] < 40 )
+    result = 0;//dword_50CBD0[0];
+   /* if ( dword_50CBD0[0] < 40 )
     {
       dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
       dword_50CBD0[3 * dword_50CBD0[0] + 2] = 1;
       result = 3 * dword_50CBD0[0] + 3;
       dword_50CBD0[result] = v24;
       ++dword_50CBD0[0];
-    }
+    } */
+	dword_50CBD0.PutMessageToQueue(113,1,0);
     return result;
   }
   v65 = 1;
@@ -7773,7 +7780,7 @@ void __cdecl sub_4B7911()
         if ( v1 <= 0 )
         {
 LABEL_8:
-          LOBYTE(v0) = LOBYTE(dword_50CBD0[0]);
+       /*   LOBYTE(v0) = LOBYTE(dword_50CBD0[0]);
           if ( dword_50CBD0[0] < 40 )
           {
             dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
@@ -7781,7 +7788,8 @@ LABEL_8:
             v0 = 3 * dword_50CBD0[0] + 3;
             dword_50CBD0[v0] = 0;
             ++dword_50CBD0[0];
-          }
+          }	  */
+		dword_50CBD0.PutMessageToQueue(113,1,0);
           return;
         }
         if ( v1 > (unsigned int)pParty_global->uNumGold )
@@ -7885,7 +7893,7 @@ void __cdecl sub_4B7D7E()
           if ( !v6 )
           {
 LABEL_17:
-            LOBYTE(v0) = LOBYTE(dword_50CBD0[0]);
+         /*   LOBYTE(v0) = LOBYTE(dword_50CBD0[0]);
             if ( dword_50CBD0[0] < 40 )
             {
               dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
@@ -7893,7 +7901,8 @@ LABEL_17:
               v0 = 3 * dword_50CBD0[0] + 3;
               dword_50CBD0[v0] = 0;
               ++dword_50CBD0[0];
-            }
+            }	*/
+		  dword_50CBD0.PutMessageToQueue(113,1,0);
             return;
           }
           if ( v6 > (unsigned int)pParty_global->uNumGold )
@@ -8349,13 +8358,16 @@ void __cdecl sub_4B8285()
           CVideoPlayer_UnloadAll(pVideoPlayer);
           GUIWindowDelete(ptr_507BC0);
           ptr_507BC0 = 0;
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+		  dword_50CBD0.CutQueueTail();
+      /*    if ( dword_50CBD0.msg_count )
+			   if  (dword_50CBD0.prm[0].msg_param3)
+                          dword_50CBD0.msg_count = 1;
           dword_50CBD0[0 + 1] = 409;
           dword_50CBD0[0 + 2] = v27;
           dword_50CBD0[0 + 3] = 1;
 LABEL_51:
-          ++dword_50CBD0[0];
+          ++dword_50CBD0[0];  */
+		  dword_50CBD0.PutMessageToQueue(409,v27,1);
           return;
         }
       }
@@ -8468,12 +8480,14 @@ LABEL_51:
           sub_4B1E92(ptr_507BC0->dword_00001C, 3);
           v5 = 1;
 LABEL_43:
-          if ( dword_50CBD0[0] >= 40 )
+        /*  if ( dword_50CBD0[0] >= 40 )
             return;
           dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
           dword_50CBD0[3 * dword_50CBD0[0] + 2] = v5;
           dword_50CBD0[3 * dword_50CBD0[0] + 3] = 0;
-          goto LABEL_51;
+          goto LABEL_51;*/
+		  dword_50CBD0.PutMessageToQueue(113,v5,0);
+		  return;
         }
       }
       sub_44C175((char *)pGlobalTXT_LocalizationStrings[155], 2);
@@ -8485,7 +8499,7 @@ LABEL_43:
     v28 = *(_DWORD *)v89;
     if (pDialogueWindow->dword_00002C != 2 )
       v28 = v86;
-    wsprintfA(Dest, "\x0C%05d", v28);
+    wsprintfA(Dest, "\f%06x", v28);
     wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[178], v96);
     strcat(Dest, (char *)pStringBuffer);
     v95 = CalculateTextHeght(pFontArrus, Dest, &local_1F0, 0, 0);
@@ -8493,7 +8507,7 @@ LABEL_43:
     v29 = *(_DWORD *)v89;
     if (pDialogueWindow->dword_00002C != 3 )
       v29 = v86;
-    wsprintfA(&v77, "\x0C%05d", v29);
+    wsprintfA(&v77, "\f%06x", v29);
     wsprintfA((char *)pStringBuffer,
       (char *)pGlobalTXT_LocalizationStrings[86],
       (signed __int64)*((float *)&unk_591458 + 13 * ptr_507BC0->dword_00001C),
@@ -8504,7 +8518,7 @@ LABEL_43:
     v30 = *(_DWORD *)v89;
     if (pDialogueWindow->dword_00002C != 4 )
       v30 = v86;
-    wsprintfA(&v78, "\x0C%05d", v30);
+    wsprintfA(&v78, "\f%06x", v30);
     strcat(&v78, (char *)pGlobalTXT_LocalizationStrings[160]);
     v87 = CalculateTextHeght(pFontArrus, &v78, &local_1F0, 0, 0);
     strcat(&v78, "\n \n");
@@ -8518,7 +8532,7 @@ LABEL_43:
         v32 = *(_DWORD *)v89;
         if (pDialogueWindow->dword_00002C != 5 )
           v32 = v86;
-        wsprintfA(&v76, "\x0C%05d", v32);
+        wsprintfA(&v76, "\f%06x", v32);
         strcat(&v76, (char *)pGlobalTXT_LocalizationStrings[611]);
         v92 = CalculateTextHeght(pFontArrus, &v76, &local_1F0, 0, 0);
       }
@@ -8527,7 +8541,7 @@ LABEL_43:
     Str[1] = (char *)pDialogueWindow;
     v35 = pDialogueWindow->dword_000038;
     v36 = v35 + pDialogueWindow->dword_000028;
-    v34 = *(_BYTE *)(pFontArrus + 5) - 3;
+    v34 = pFontArrus->uFontHeight - 3;
     v37 = -pDialogueWindow->dword_000028 < 0;
     v96 = pDialogueWindow->dword_000038;
     
@@ -10816,12 +10830,13 @@ signed int __fastcall sub_4BB756(signed int a1)
     {
       if ( a1 == 41 )
       {
-        if ( dword_50CBD0[0] < 40 )
+       /* if ( dword_50CBD0[0] < 40 )
         {
           dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
           dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
           dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-        }
+        }	*/
+	  dword_50CBD0.PutMessageToQueue(113,0,0);
         dword_50C9DC = 195;
         dword_50C9E0 = sub_4459F9_GetNPCData(uDialogue_SpeakingActorID);
         return 0;
@@ -11311,8 +11326,8 @@ void __cdecl sub_4BC109()
   Render_sub_4A6A68(pD3DRenderer,
     8,
     352 - v0,
-    uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 : 0,
-    *(_WORD *)(uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 + 0x1A : 26) - v0);
+    uTextureIdx_Leather != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather] : 0,
+    (uTextureIdx_Leather != -1 ? LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather].uTextureHeight : 26) - v0);
   Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v0, pcTexture_EndcapTexture);
   v1 = (char *)FitTextInAWindow((char *)pGlobalTXT_LocalizationStrings[575], pFontArrus, &local_D4, 13, 0);
   FontDrawText(pDialogueWindow, pFontArrus, 13, 354 - v0, v1, 0, 0, 0);
@@ -11325,12 +11340,13 @@ void __cdecl sub_4BC109()
   pParty_global->sRotationY = 512;
   pParty_global->sRotationX = 0;
   pParty_global->dword_0006E8 = 0;
-  if ( dword_50CBD0[0] < 40 )
+ /* if ( dword_50CBD0[0] < 40 )
   {
     dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
     dword_50CBD0[3 * dword_50CBD0[0] + 2] = 1;
     dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-  }
+  }	*/
+  dword_50CBD0.PutMessageToQueue(113,1,0);
 
 
   for (i = 0; i < 4; ++i)
@@ -11555,12 +11571,13 @@ LABEL_51:
       pParty_global->byte_000709 = 0;
       sub_44A56A();
       dword_591084 = 0;
-      if ( dword_50CBD0[0] < 40 )
+    /*  if ( dword_50CBD0[0] < 40 )
       {
         dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
         dword_50CBD0[3 * dword_50CBD0[0] + 2] = 1;
         dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-      }
+      }	*/
+	  dword_50CBD0.PutMessageToQueue(113,1,0);
       goto LABEL_89;
     }
     if (pParty_global->pHiredNPCs[0].pNPCName && pParty_global->pHiredNPCs[1].pNPCName)
@@ -11602,12 +11619,13 @@ LABEL_64:
     strcpy(v13, v15);
     pParty_global->byte_000709 = 0;
     sub_44A56A();
-    if ( dword_50CBD0[0] < 40 )
+    /*if ( dword_50CBD0[0] < 40 )
     {
       dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
       dword_50CBD0[3 * dword_50CBD0[0] + 2] = 1;
       dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-    }
+    }  */
+	dword_50CBD0.PutMessageToQueue(113,1,0);
     if (uDialogue_SpeakingActorID >= 0)
       pDialogue_SpeakingActor->word_0000B0_state = 11;
     if (uActiveCharacter)
@@ -11625,12 +11643,13 @@ LABEL_64:
     {
       if ( *((_DWORD *)v2 + 6) != 41 )
         *((_DWORD *)v2 + 17) = 1;
-      if ( dword_50CBD0[0] < 40 )
+     /* if ( dword_50CBD0[0] < 40 )
       {
         dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
         dword_50CBD0[3 * dword_50CBD0[0] + 2] = 1;
         dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-      }
+      }	 */
+	  dword_50CBD0.PutMessageToQueue(113,1,0);
       goto LABEL_87;
     }
     v7 = (char *)pGlobalTXT_LocalizationStrings[140];
@@ -12229,12 +12248,13 @@ LABEL_200:
         dword_F8B19C = 103;
         break;
       case 104:
-        if ( dword_50CBD0[0] < 40 )
+       /* if ( dword_50CBD0[0] < 40 )
         {
           dword_50CBD0[3 * dword_50CBD0[0] + 1] = 29;
           dword_50CBD0[3 * dword_50CBD0[0] + 2] = v3;
           dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = v3;
-        }
+        }	 */
+		dword_50CBD0.PutMessageToQueue(29,0,0);
         dword_F8B19C = 104;
         break;
     }
@@ -12416,8 +12436,9 @@ signed int __cdecl sub_4BD8B5()
   int v2; // esi@30
   const char *v3; // ebx@31
 
-  if ( dword_50CBD0[0] )
-    dword_50CBD0[0] = dword_50CBD0[3] != 0;
+  if ( dword_50CBD0.msg_count )
+			   if  (dword_50CBD0.prm[0].msg_param3)
+                          dword_50CBD0.msg_count = 1;
   KeyboardController_sub_459ED1(pKeyboardController, 3);
   sub_459E3F();
   dword_5C3420 = 0;
@@ -13509,7 +13530,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   int v14; // eax@14
   BOOL v15; // eax@25
   cPCXTexture v16; // [sp+Ch] [bp-C4h]@1
-  unsigned int v17; // [sp+30h] [bp-A0h]@1
+  //unsigned int v17; // [sp+30h] [bp-A0h]@1
 
   GUIWindow local_34;
   //int v18; // [sp+34h] [bp-9Ch]@1
@@ -13545,14 +13566,15 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   pVideoPlayer->dword_000040 = 0;
   sub_449B57((int)pParty_global->unk_000764 + 1, 99);
 
-  compile_error;
-  /*RGBTexture_Load(&v16, "winbg.pcx", 2);
+  v16.LODPCXLoad("winbg.pcx", 2);
   pD3DRenderer->BeginScene();
-  Render_DrawRGBTexture(pD3DRenderer, 0, 0, (int)&v16);*/
+  Render_DrawRGBTexture(pD3DRenderer, 0, 0, &v16);
 
   v1 = (int)pD3DRenderer->EndScene();
-  free((char *)v17);
-  v17 = 0;
+  free(v16.pPixels);
+  v16.pPixels=NULL;
+  //free((char *)v17);
+  //v17 = 0;
   ptr_507BC0 = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
   local_34.uFrameX = 75;
   local_34.uFrameY = 60;
@@ -13633,7 +13655,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   ptr_507BC0 = 0;
   if ( v26 == (void *)2 )
   {
-    result = dword_50CBD0[0];
+    result = dword_50CBD0.msg_count;
   }
   else
   {
@@ -13650,11 +13672,9 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
       TranslateMessage(&Msg);
       DispatchMessageA(&Msg);
     }
-    if ( dword_50CBD0[0] )
-    {
-      LOBYTE(v15) = dword_50CBD0[3] != 0;
-      dword_50CBD0[0] = v15;
-    }
+    if ( dword_50CBD0.msg_count )
+			   if  (dword_50CBD0.prm[0].msg_param3)
+                          dword_50CBD0.msg_count = 1;
     sub_459E3F();
     pKeyboardController->uLastKeyPressed = 0;
     do
@@ -13668,35 +13688,39 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
       }
     }
     while ( !pKeyboardController->uLastKeyPressed );
-    result = dword_50CBD0[0];
+  /*  result = dword_50CBD0[0];
     if ( dword_50CBD0[0] )
     {
       result = dword_50CBD0[3] != 0;
       dword_50CBD0[0] = dword_50CBD0[3] != 0;
-    }
+    } */
+	dword_50CBD0.CutQueueTail();
   }
   if ( v26 )
   {
-    if ( result < 40 )
+  /*  if ( result < 40 )
     {
       dword_50CBD0[3 * result + 1] = 132;
       goto LABEL_42;
-    }
+    } */
+	dword_50CBD0.PutMessageToQueue(132,1,0);
   }
   else
   {
-    if ( result < 40 )
+  /*  if ( result < 40 )
     {
       dword_50CBD0[3 * result + 1] = 197;
 LABEL_42:
       dword_50CBD0[3 * dword_50CBD0[0] + 2] = 1;
       result = 3 * dword_50CBD0[0] + 3;
       dword_50CBD0[result] = 0;
-      ++dword_50CBD0[0];
-      goto LABEL_43;
-    }
+      ++dword_50CBD0[0];*/
+
+    //  goto LABEL_43;
+   // }
+	 dword_50CBD0.PutMessageToQueue(197,1,0);
   }
-LABEL_43:
+//LABEL_43:
   dword_F8BC10 = 0;
   return result;
 }

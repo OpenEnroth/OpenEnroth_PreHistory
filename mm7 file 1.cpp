@@ -3251,7 +3251,12 @@ LABEL_261:
         goto LABEL_184;
       }
       if ( uMsg == WM_CHAR )
-        sub_459F10(pKeyboardController, wParam);
+		  {
+		  if (!sub_459F10(pKeyboardController, wParam))
+			  {
+			  sub_41B438(LOBYTE(wParam));
+			  }
+		  }
       if ( uMsg != WM_COMMAND )
         goto LABEL_184;
       if ( wParam != 101 )
@@ -3299,13 +3304,14 @@ LABEL_104:
       }
       else if (wParam == VK_ESCAPE)
       {
-       if ( dword_50CBD0[0] < 40 )
+     /*  if ( dword_50CBD0[0] < 40 )
        {
         v13 = ptr_507BC0 == 0;
         dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
         dword_50CBD0[3 * dword_50CBD0[0] + 2] = !v13;
         dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-       }
+       }  */
+	   dword_50CBD0.PutMessageToQueue(113,!v13,0);
        return 0;
       }
       else if (wParam < VK_LEFT)
@@ -11092,7 +11098,7 @@ LABEL_616:
         if ( pParty_global->dword_007778 & 0x30 && v11 != 4 || rand() % 100 >= v714 && v709 != 4 )
           goto LABEL_200;
         byte_50C0C0 = *(_BYTE *)(v2 + 2);
-        sub_42EB8D(dword_50CBD0, 195, SHIDWORD(v1), SHIDWORD(v1));
+        dword_50CBD0.PutMessageToQueue(195, SHIDWORD(v1), SHIDWORD(v1));
         goto LABEL_1056;
       case 33:
         v711 = 604800 * v1;
@@ -11102,7 +11108,7 @@ LABEL_616:
         if ( *(_DWORD *)(v707 + 6464) >= LODWORD(v706) )
         {
           cClock1.clock_fn1();
-          sub_42EB8D(dword_50CBD0, 177, SHIDWORD(v1), SHIDWORD(v1));
+          dword_50CBD0.PutMessageToQueue(177, SHIDWORD(v1), SHIDWORD(v1));
           qword_506350 = v711;
           dword_506348 = *(_WORD *)(v2 + 2);
           dword_506344 = v1;

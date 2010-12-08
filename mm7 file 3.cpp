@@ -1872,7 +1872,7 @@ int __fastcall sub_43AFE3(int a1, int a2, signed int a3, int a4)
 //----- (0043B057) --------------------------------------------------------
 __int16 __fastcall sub_43B057(int a1, int a2, int a3)
 {
-  bool v3; // eax@1
+  int v3; // eax@1
   int v4; // esi@1
   int v5; // ecx@3
   signed int v6; // edi@4
@@ -1890,7 +1890,7 @@ __int16 __fastcall sub_43B057(int a1, int a2, int a3)
     LOWORD(v3) = v10 & 7;
     if ( v3 == 2 )
     {
-      v3 = (bool)((char *)pLayingItemsList + 112 * (v10 >> 3));
+      v3 = (int)((char *)pLayingItemsList + 112 * (v10 >> 3));
       v5 = *(_DWORD *)(v3 + 72);
       if ( v5 )
       {
@@ -1932,7 +1932,7 @@ __int16 __fastcall sub_43B1B0(signed int a1, int a2, int a3, signed int a4)
 {
   int v4; // ebx@1
   char *v5; // eax@2
-  bool v6; // eax@3
+  int v6; // eax@3
   int v7; // edi@4
   int v8; // esi@4
   char v9; // zf@5
@@ -6149,7 +6149,7 @@ int __fastcall sub_445308(int a1)
 void __cdecl sub_445350_DrawDialogueUI()
 {
  struct NPCData *v1; // ebx@2
-  unsigned __int16 v2; // di@2
+  int v2; // di@2
   int v3; // eax@2
   int v8; // edi@19
   char *v9; // ecx@27
@@ -6231,7 +6231,7 @@ void __cdecl sub_445350_DrawDialogueUI()
   local_58.uFrameZ -= 10;
   v61 = v3;
 
-  v2 = 0xFF1599E9;
+  v2 = 0x1599E9;
   Render_DrawIndexedTexture(pD3DRenderer, 477, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
   Render_DrawTransparentTexture(pD3DRenderer, 468, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04]);
   Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX - 4, uDialogueUIIconsOffsetY - 4, &LODFile_Icons_LOD.aLODHeaders[dword_50795C_TextureID]);
@@ -6317,7 +6317,7 @@ LABEL_24:
   {
     if (v61 == 2 ) // npc type 2 (>5000)
     {
-      v8 = 0;
+    //  v8 = 0;
       if (v1->dword_000008 & 0x80)
         v9 = (char *)pNPCStats->pProfessions[v1->uProfession - 1].pDismissText;
       else
@@ -6325,23 +6325,23 @@ LABEL_24:
       v10 = (int)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(v9, uActiveCharacter - 1, 0, 0, 0, 0);
 LABEL_32:
       v64 = (const char *)v10;
-      if ( v10 == v8 )
+      if ( v10 == 0 )
         goto LABEL_42;
 LABEL_39:
       local_04.uFrameWidth = 460;
       local_04.uFrameZ = 452;
       i = (int)pFontArrus;
-      v12 = CalculateTextHeght(pFontArrus, v64, &local_04, 13, v8) + 7;
+      v12 = CalculateTextHeght(pFontArrus, v64, &local_04, 13,0) + 7;
       if ( 352 - v12 < 8 )
       {
         i = (int)pFontCreate;
-        v12 = CalculateTextHeght(pFontCreate, v64, &local_04, 13, v8) + 7;
+        v12 = CalculateTextHeght(pFontCreate, v64, &local_04, 13, 0) + 7;
       }
       Render_sub_4A6A68(pD3DRenderer, 8, 352 - v12, (int)&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather],
                  LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather].uTextureHeight - v12);
       Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v12, pcTexture_EndcapTexture);
-      v13 = (char *)FitTextInAWindow(v64, (Font *)i, &local_04, 13, v8);
-      FontDrawText(pDialogueWindow, (Font *)i, 13, 354 - v12, v13, v8, v8, (unsigned int)v8);
+      v13 = (char *)FitTextInAWindow(v64, (Font *)i, &local_04, 13, 0);
+      FontDrawText(pDialogueWindow, (Font *)i, 13, 354 - v12, v13, 0, 0, 0);
       goto LABEL_42;
     }
   }
@@ -7085,8 +7085,10 @@ int __fastcall sub_44622E(int a1)
   byte_5C3428[0] = 0;
   pStatusBarString[0] = 0;
   sub_44C175("", 2);
-  if ( dword_50CBD0[0] )
-    dword_50CBD0[0] = dword_50CBD0[3] != 0;
+ // if ( dword_50CBD0.msg_count )
+	//		   if  (dword_50CBD0.prm[0].msg_param3)
+      //                    dword_50CBD0.msg_count = 1;
+  dword_50CBD0.CutQueueTail();
   struct_576FE8.dword_000044 = 1;
   uDialogueType = 0;
   KeyboardController_sub_459ED1(pKeyboardController, 3);
@@ -8624,8 +8626,10 @@ LABEL_280:
                   CVideoPlayer_UnloadAll(pVideoPlayer);
                   GUIWindowDelete(ptr_507BC0);
                   ptr_507BC0 = 0;
-                  if ( dword_50CBD0[0] )
-                    dword_50CBD0[0] = dword_50CBD0[3] != 0;
+                 // if ( dword_50CBD0.msg_count )
+					//  if  (dword_50CBD0.prm[0].msg_param3)
+                    //      dword_50CBD0.msg_count = 1;
+				  dword_50CBD0.CutQueueTail();
                   dword_4E28F8 = 0;
                   struct_576FE8.dword_000044 = 1;
                   dword_5913F0 = 0;

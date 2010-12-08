@@ -881,8 +881,8 @@ struct GUIWindow *ptr_507BC4 = 0;      // dword @ MM7.exe::00507BC4
 
 struct GUIWindow *ptr_507BD0 = 0; //  dword @ MM7.exe::00507BD0
 struct GUIWindow *ptr_507BD4 = 0; // idb  dword @ MM7.exe::00507B4
- int dword_507BDC; // weak
-struct GUIWindow *ptr_507BE0; // dword @ MM7.exe::00507BE0
+struct GUIWindow *ptr_507BDC = 0; // weak
+struct GUIWindow *ptr_507BE0 = 0; // dword @ MM7.exe::00507BE0
 
  struct GUIWindow *pGUIWindow2 = 0;         // ptr   @ MM7.exe::00507BE4
  unsigned int      uActiveCharacter; // dword @ MM7.exe::00507BEC
@@ -1011,9 +1011,8 @@ struct GUIButton *dword_50C9CC; // weak
  int dword_50C9D8; // weak
  int dword_50C9DC; // weak
 struct NPCData *dword_50C9E0; // weak
- int dword_50C9E8[1 + 120]; // 1 + 40*3
- int dword_50CBD0[array_size_unknown]; // weak
-//int dword_50CBD4[array_size_unknown]; // weak
+
+// int dword_50CBD4[40][3]; // weak
 //int dword_50CBD8[array_size_unknown]; // weak
 // int dword_50CBDC; // weak
  int dword_50CDC8; // weak

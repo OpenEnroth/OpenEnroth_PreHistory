@@ -38,6 +38,8 @@
 #define  LOCSTR_DAY                          		56	//"Day"	
 #define  LOCSTR_DAYS                        		57	/// "Days"	
 
+#define  LOCSTR_PRESS_ESCAPE                		61	// "Press Escape"	
+
 #define  LOCSTR_TROUBLE_LOAD                 		63 //"Might and Magic VII is having trouble loading files. 
 	                                                   // Please re-install to fix this problem. Note: Re-installing will not destroy your save games."	
 #define  LOCSTR_DETAIL_TOGGLE               		64	 //"Detail Toggle"	
@@ -197,7 +199,7 @@
 +		[58]	0x0410308f "Dead"	unsigned char *
 +		[59]	0x04103098 "Internal Error"	unsigned char *
 +		[60]	0x041030ab "Deposit"	unsigned char *
-+		[61]	0x041030b7 "Press Escape"	unsigned char *
+
 +		[62]	0x041030c8 "Might and Magic VII requires your desktop to be in 16bit (32k or 65k) Color mode in order to operate in a window."	unsigned char *
 
 

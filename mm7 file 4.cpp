@@ -33,7 +33,7 @@ signed int __fastcall sub_424EE0_MakeFanFromTriangle(int a1)
   unsigned __int8 v12; // c3@15
   double v15; // st6@22
   signed int result; // eax@24
-  bool v20; // [sp+Ch] [bp-28h]@6
+  int v20; // [sp+Ch] [bp-28h]@6
   signed int v23; // [sp+18h] [bp-1Ch]@1
  int i;
 
@@ -2110,23 +2110,7 @@ int __thiscall IconFrameTable_sub_42EB78(int _this, int a2)
   return 8 * *(_WORD *)(32 * a2 + *(_DWORD *)(_this + 4) + 26);
 }
 
-//----- (0042EB8D) --------------------------------------------------------
-int __thiscall sub_42EB8D(void *_this, int a2, int a3, int a4)
-{
-  int result; // eax@1
 
-  result = *(_DWORD *)_this;
-  if ( *(_DWORD *)_this < 40 )
-  {
-    *((_DWORD *)_this + 3 * result + 1) = a2;
-    *((_DWORD *)_this + 3 * *(_DWORD *)_this + 2) = a3;
-    result = 3 * (*(_DWORD *)_this + 1);
-    *((_DWORD *)_this + 3 * (*(_DWORD *)_this + 1)) = a4;
-
-    *(_DWORD *)(_this) += 1;
-  }
-  return result;
-}
 
 //----- (0042EBBE) --------------------------------------------------------
 int __fastcall sub_42EBBE(int a1, int a2)
@@ -3501,20 +3485,23 @@ LABEL_75:
             {
               v1 = 1;
 LABEL_120:
-              if ( dword_50CBD0[0] < 40 )
+         /*     if ( dword_50CBD0[0] < 40 )
               {
                 dword_50CBD0[3 * dword_50CBD0[0] + 1] = 23;
                 goto LABEL_125;
-              }
+              }	*/
+			  dword_50CBD0.PutMessageToQueue(23,0,0);
+			  break;
             }
             else
             {
-              if ( dword_50C9E8[0] < 40 )
+            /*  if ( dword_50C9E8[0] < 40 )
               {
                 dword_50C9E8[3 * dword_50C9E8[0] + 1] = 25;
                 dword_50C9E8[3 * dword_50C9E8[0] + 2] = 0;
                 dword_50C9E8[3 * dword_50C9E8[0]++ + 3] = 0;
-              }
+              }	  */
+			  dword_50C9E8.PutMessageToQueue(25,0,0);
               v1 = 1;
             }
             break;
@@ -3532,20 +3519,23 @@ LABEL_118:
           case 9: // space
             if ( !dword_4E28F8 )
             {
-              if ( dword_50CBD0[0] >= 40 )
-                break;
-              dword_50CBD0[3 * dword_50CBD0[0] + 1] = 404;
-              goto LABEL_125;
+             // if ( dword_50CBD0[0] >= 40 )
+             //   break;
+             // dword_50CBD0[3 * dword_50CBD0[0] + 1] = 404;
+			  dword_50CBD0.PutMessageToQueue(404,0,0);
+              //goto LABEL_125;
+			  break;
             }
             if ( dword_4E28F8 == 4 )
             {
-              v11 = dword_50CBD0[0];
+            /*  v11 = dword_50CBD0[0];
               if ( dword_50CBD0[0] )
               {
                 if ( dword_50CBD0[3] )
                 {
                   v11 = v1;
                   dword_50CBD0[0] = v1;
+
 LABEL_132:
                   dword_50CBD0[3 * v11 + 1] = 113;
 LABEL_125:
@@ -3557,14 +3547,18 @@ LABEL_125:
                 dword_50CBD0[0] = 0;
               }
               if ( v11 < 40 )
-                goto LABEL_132;
+                goto LABEL_132;	*/
+			  dword_50CBD0.CutQueueTail();
+			  dword_50CBD0.PutMessageToQueue(113,0,0);
             }
             break;
           case 12:
-            if ( dword_4E28F8 == 8 || dword_50C9E8[0] >= 40 )
+            if ( dword_4E28F8 == 8)
               break;
-            dword_50C9E8[3 * dword_50C9E8[0] + 1] = 176;
-            goto LABEL_155;
+         //   dword_50C9E8[3 * dword_50C9E8[0] + 1] = 176;	|| dword_50C9E8[0] >= 40
+          //  goto LABEL_155;
+			  dword_50C9E8.PutMessageToQueue(176,0,0);
+			  break;
           case 20:
             if ( cClock1.dword_000004 )
               break;
@@ -3600,18 +3594,21 @@ LABEL_30:
             }
             break;
           case 23:
-            if ( dword_50C9E8[0] >= 40 )
+           /* if ( dword_50C9E8[0] >= 40 )
               break;
             dword_50C9E8[3 * dword_50C9E8[0] + 1] = 367;
-            goto LABEL_155;
+            goto LABEL_155;	*/
+			 dword_50C9E8.PutMessageToQueue(367,0,0);
+			 break;
           case 24:
-            if ( dword_50C9E8[0] < 40 )
+         /*   if ( dword_50C9E8[0] < 40 )
             {
               dword_50C9E8[3 * dword_50C9E8[0] + 1] = 368;
 LABEL_155:
               dword_50C9E8[3 * dword_50C9E8[0] + 2] = 0;
               dword_50C9E8[3 * dword_50C9E8[0]++ + 3] = 0;
-            }
+            }	   */
+			dword_50C9E8.PutMessageToQueue(368,0,0);  
             break;
           case 19:
             dword_6BE37C = dword_6BE37C == 0;
@@ -3636,14 +3633,17 @@ LABEL_155:
     {
       if ( !dword_4E28F8 )
       {
-        if ( dword_50CBD0[0] >= 40 )
+      /*  if ( dword_50CBD0[0] >= 40 )
           goto LABEL_175;
         dword_50CBD0[3 * dword_50CBD0[0] + 1] = 404;
-        goto LABEL_174;
+        goto LABEL_174;*/
+		dword_50CBD0.PutMessageToQueue(404,0,0);
       }
-      if ( dword_4E28F8 == 4 || dword_4E28F8 == 19 )
+	  else if ( dword_4E28F8 == 4 || dword_4E28F8 == 19 )
       {
-        v15 = dword_50CBD0[0];
+
+		 dword_50CBD0.CutQueueTail();
+     /*   v15 = dword_50CBD0[0];
         if ( dword_50CBD0[0] )
         {
           v15 = 0;
@@ -3662,10 +3662,11 @@ LABEL_173:
 LABEL_174:
         dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
         dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-        goto LABEL_175;
-      }
+        goto LABEL_175;	 */
+	  dword_50CBD0.PutMessageToQueue(113,0,0);
+      }	  
     }
-LABEL_175:
+//LABEL_175:
     ++v12;
   }
   while ( v12 < 30 );
@@ -3778,16 +3779,16 @@ void __cdecl sub_435748()
   int v46; // [sp-10h] [bp-20h]@36
   int v47; // [sp-10h] [bp-20h]@56
   int v48; // [sp+4h] [bp-Ch]@3
-  int v49; // [sp+8h] [bp-8h]@3
+  unsigned int v49; // [sp+8h] [bp-8h]@3
   int v50; // [sp+Ch] [bp-4h]@3
 
-  if ( dword_50CBD0[0] )
+  if ( dword_50CBD0.msg_count )
   {
     v1 = (int)pAudioPlayer;
     v0 = (int)&pParty_global->pPlayers[0];
     do
     {
-      GUIMessageQueue_GetMessage((GUIMessageQueue *)dword_50CBD0, &v49, &v48, &v50);
+      dword_50CBD0.GetQueueMessage(&v49, &v48, &v50);
       if ( v49 > 75 )
       {
         if ( v49 > 163 )
@@ -3815,7 +3816,7 @@ LABEL_134:
               v29 = v48 + dword_6A0C9C;
               if ( dword_6BE138 == v48 + dword_6A0C9C )
               {
-                if ( dword_50CBD0[0] < 40 )
+              /*  if ( dword_50CBD0[0] < 40 )
                 {
                   dword_50CBD0[3 * dword_50CBD0[0] + 1] = 164;
                   dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
@@ -3829,7 +3830,9 @@ LABEL_134:
                     dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
                     dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
                   }
-                }
+                }	*/
+				dword_50CBD0.PutMessageToQueue(164,0,0);
+				dword_50CBD0.PutMessageToQueue(82,0,0);
               }
               dword_6A0CA0_indx = v29;
               dword_6BE138 = v29;
@@ -3943,14 +3946,16 @@ LABEL_99:
             struct_576FE8.dword_000044 = 1;
           }
           GUIWindowCreate(602, 450, 0, 0, 92, pBtn_Game_Options, 0);
-          if ( dword_50CBD0[0] >= 40 )
+       /*   if ( dword_50CBD0[0] >= 40 )
             continue;
           dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
-          goto LABEL_93;
+          goto LABEL_93; */
+		  dword_50CBD0.PutMessageToQueue(113,0,0);
+		   continue;
         }
         if ( v49 == 113 )
         {
-          if ( dword_507BDC )
+          if ( ptr_507BDC )
           {
             sub_41426F();
             continue;
@@ -3977,14 +3982,15 @@ LABEL_83:
               v44 = 11;
               goto LABEL_89;
             }
-            if ( dword_50CBD0[0] < 40 )
+     /*       if ( dword_50CBD0[0] < 40 )
             {
               dword_50CBD0[3 * dword_50CBD0[0] + 1] = 5;
 LABEL_93:
               dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
               dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
               continue;
-            }
+            }	*/
+			dword_50CBD0.PutMessageToQueue(5,0,0);
             continue;
           }
           v18 = sub_466CA0() == 8;
@@ -4243,7 +4249,7 @@ LABEL_44:
         }
       }
     }
-    while ( dword_50CBD0[0] );
+    while ( dword_50CBD0.msg_count );
   }
 }
 
@@ -4746,7 +4752,7 @@ void __stdcall sub_436CDC(int a1, int a2, int a3, int a4)
   unsigned __int8 v11; // c2@16
   unsigned __int8 v12; // c3@16
   int v13; // edi@17
-  bool v15; // [sp+Ch] [bp+8h]@7
+  int v15; // [sp+Ch] [bp+8h]@7
 
   if ( a2 )
   {
@@ -4844,7 +4850,7 @@ void __stdcall sub_436F09(int a1, int a2, int a3, int a4)
   unsigned __int8 v13; // c2@16
   unsigned __int8 v14; // c3@16
   int v15; // edi@17
-  bool v17; // [sp+Ch] [bp+8h]@7
+  int v17; // [sp+Ch] [bp+8h]@7
   int v18; // [sp+18h] [bp+14h]@5
 
   v4 = a4;
@@ -9365,7 +9371,7 @@ LABEL_53:
     goto LABEL_53;
   }
   word_69ADE0 = a1;
-  *(_WORD *)&word_69ADE0 = (unsigned __int8)word_69ADE0;
+ // *(_WORD *)&word_69ADE0 = (unsigned __int8)word_69ADE0;
   return &word_69ADE0;
 }
 

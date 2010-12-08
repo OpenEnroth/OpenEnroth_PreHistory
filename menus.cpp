@@ -624,12 +624,14 @@ LABEL_23:
   {
     pGUIWindow_CurrentMenu->dword_000040 = 0;
     strcpy((char *)&saves_hdr[dword_6A0CA0_indx].name1, (char *)pKeyboardController->pPressedKeysBuffer);
-    if ( dword_50CBD0[0] < 40 )
-    {
-      dword_50CBD0[3 * dword_50CBD0[0] + 1] = 83;
-      dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
-      dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-    }
+	/* if ( dword_50CBD0.msg_count < 40 )
+            {
+			  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param1=83;
+			  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param2=0;
+			  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param3=0;
+			  dword_50CBD0.msg_count++;
+            }  */
+	 dword_50CBD0.PutMessageToQueue(83,0,0);
   }
   else
   {
@@ -1613,11 +1615,13 @@ LABEL_71:
       {
         sub_44C175((char *)pGlobalTXT_LocalizationStrings[155], 2);
         sub_4B1E92(ptr_507BC0->dword_00001C, 3);
-        if ( dword_50CBD0[0] >= 40 )
+       /* if ( dword_50CBD0[0] >= 40 )
           return;
         dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
         dword_50CBD0[3 * dword_50CBD0[0] + 2] = 1;
-        goto LABEL_33;
+        goto LABEL_33;*/
+		 dword_50CBD0.PutMessageToQueue(113,1,0);
+		 return;
       }
       sub_492BB6(v76);
       v56[1] = (const char *)7;
@@ -1693,14 +1697,15 @@ LABEL_71:
           sqrt(3.1415926);
         while ( sub_4BD8B5() )
           ;
-        if ( dword_50CBD0[0] < 40 )
+		 dword_50CBD0.PutMessageToQueue(113,0,0);
+       /* if ( dword_50CBD0[0] < 40 )
         {
           dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
           dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
 LABEL_33:
           dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
           return;
-        }
+        }	*/
       }
       else
       {
@@ -2005,15 +2010,16 @@ LABEL_28:
 LABEL_30:
   if ( byte_506360 )
   {
-    result = dword_50CBD0[0];
-    if ( dword_50CBD0[0] < 40 )
+    result = 0;
+  /*  if ( dword_50CBD0[0] < 40 )
     {
       dword_50CBD0[3 * dword_50CBD0[0] + 1] = 181;
       dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
       result = 3 * dword_50CBD0[0] + 3;
       dword_50CBD0[3 * dword_50CBD0[0] + 3] = 0;
       ++dword_50CBD0[0];
-    }
+    }	*/
+	 dword_50CBD0.PutMessageToQueue(181,0,0);
   }
   return result;
 }

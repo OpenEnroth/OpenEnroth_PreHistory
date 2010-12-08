@@ -3483,8 +3483,10 @@ int CreditsMenuLoop()
   v35 = 0;
   v38 = LoadFont("quick.fnt", "FONTPAL");
   v39 = LoadFont("cchar.fnt", "FONTPAL");
-  if ( dword_50CBD0[0] )
-    dword_50CBD0[0] = dword_50CBD0[3] != 0;
+ //if ( dword_50CBD0.msg_count )
+	//		   if  (dword_50CBD0.prm[0].msg_param3)
+        //                  dword_50CBD0.msg_count = 1;
+  dword_50CBD0.CutQueueTail();
   ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
   if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
     LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
@@ -3525,8 +3527,8 @@ int CreditsMenuLoop()
   memset(v29.pPixels,v9,v29.uNumPixels*4);
   v29.word_000020 = 0;
   v29.word_000022 = 0;
-  v28 = 0xFF708FFE;
-  v27 = 0xFFECE69C;
+  v28 = 0x708FFE;
+  v27 = 0xECE69C;
   Dest = new char [2 * v3];
   strncpy(Dest, v1, v3);
   sub_44D2FD(v38, v39, 1, 440 + 1, v29.uWidth, v29.uHeight, 1u, 1u, Dest, (int)v29.pPixels, v29.uWidth);

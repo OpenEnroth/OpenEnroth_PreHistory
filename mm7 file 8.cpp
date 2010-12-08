@@ -572,20 +572,21 @@ LABEL_27:
     v5 = pGUIWindow_CurrentMenu->pControlsHead;
     if ( v5 != 0)
     {
-      v7 = dword_50CBD0[0];
+    //  v7 = dword_50CBD0[0];
       do
       {
        if (v6 >= v5->uX && v6 <= v5->uZ &&
            v4 >= v5->uY && v4 <= v5->uW)
        {
         v8 = v5->dword_000024;
-                if ( v7 < 40 )
+            /*    if ( v7 < 40 )
                 {
                   dword_50CBD0[3 * v7 + 1] = *(_DWORD *)(v5 + 28);
                   dword_50CBD0[3 * dword_50CBD0[0] + 2] = v8;
                   dword_50CBD0[3 * dword_50CBD0[0] + 3] = 0;
                   v7 = dword_50CBD0[0]++ + 1;
-                }
+                }  */
+				dword_50CBD0.PutMessageToQueue(v5->dword_00001C,v8,0);
        }
        v5 = v5->pNext;
       }
@@ -2208,7 +2209,7 @@ int __cdecl MenuLoop_Main()
       }
       else if (uCurrentMenuID == MENU_MAIN)
       {
-       if (!dword_507BDC && v17->pControlsHead)
+       if (!ptr_507BDC && v17->pControlsHead)
        {
         v8 = v17->pControlsHead;
         while (true)

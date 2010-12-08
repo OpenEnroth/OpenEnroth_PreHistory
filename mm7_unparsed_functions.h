@@ -334,7 +334,7 @@ __int16 __thiscall ObjectDescriptionList_sub_42EB42(int _this, __int16 a2);
 int __thiscall Game_sub_42EB6A(int _this);
 int __thiscall Game_sub_42EB71(int _this);
 int __thiscall IconFrameTable_sub_42EB78(int _this, int a2);
-int __thiscall sub_42EB8D(void *_this, int a2, int a3, int a4);
+
 int __fastcall sub_42EBBE(int a1, int a2);
 int __thiscall class59_sub_42EBDB(int _this, int a2);
 signed int __thiscall sub_42EBEE(void *_this);
@@ -988,7 +988,7 @@ signed int __thiscall sub_49125A(void *_this);
 signed int __thiscall sub_4912B0(void *_this);
 char __thiscall sub_491317(void *_this);
 int Party_sub_49135E_GetAllPartyExpDiv1000(struct Party *_this);
-int __fastcall sub_491DE7(int a1, int a2);
+
 int __cdecl sub_491E3A();
 void __cdecl sub_491F87_DrawHiredNPCs();
 signed int __thiscall sub_4925E6(void *_this);

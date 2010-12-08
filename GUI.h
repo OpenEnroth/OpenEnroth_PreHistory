@@ -12,18 +12,41 @@
 
 
 
-
+/*
 struct GUIMessageQueue
 {
  int dword_000000;
  int dword_000004;
  int dword_000008;
  int dword_00000C;
-};
-//sizeof ==
-//void __thiscall sub_4356B9(int _this, int a2, int a3, int a4);
-bool GUIMessageQueue_GetMessage(struct GUIMessageQueue *_this, int *a2, int *a3, int *a4);
+};	*/
+struct Msg_param
+	{
+	 int msg_param1;
+	 int msg_param2;
+	 int msg_param3;
+	};
 
+
+class GUIMessageQueue
+{
+public:
+ int msg_count;
+ Msg_param prm[40];
+//void __thiscall sub_4356B9(int _this, int a2, int a3, int a4);
+bool GetQueueMessage(unsigned int *param1, int *param2, int *param3);
+void PutMessageToQueue(unsigned int param1, int param2, int param3);	  //sub_42EB8D
+void CutQueueTail();
+};	//sizeof ==	1E4
+
+extern class GUIMessageQueue dword_50C9E8; // 1 + 40*3
+//int dword_50C9EC[]; // weak
+//int dword_50C9F0[array_size_unknown]; // weak
+
+extern class GUIMessageQueue dword_50CBD0; // 404 for action[def:space] key
+//extern int dword_50CBD4; // weak; // weak
+//int dword_50CBD8[array_size_unknown]; // weak
+//int dword_50CBDC; // weak	 param 3!!!
 
 
 struct GUIWindow
@@ -237,5 +260,7 @@ void GUIButton_sub_415180(struct GUIButton *a1, const unsigned char *a2, struct 
 char *__cdecl CreateCopyrightWindow();
 void GUIWindow_sub_415551(GUIWindow *_this, int a2);
 void __cdecl sub_4156F0_LooksLike_UI_ProcessCallbacks();
+
+void sub_491DE7(int a1, int a2);
 
 #pragma pack(pop)

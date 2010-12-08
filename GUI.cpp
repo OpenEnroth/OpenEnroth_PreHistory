@@ -62,27 +62,19 @@ unsigned int uTextureID_GameUI_PaperdollJewelryOverlay; // dword @ MM7.exe::0051
 	   "pc14", "pc15","pc16","pc17-","pc18","pc19","pc20","pc21-","pc22-","pc23","pc24-","pc25-"
 	};
 
+class GUIMessageQueue dword_50C9E8; // 1 + 40*3 [1 + 120]	  second
+
+class GUIMessageQueue dword_50CBD0; // weak	 [array_size_unknown]  main
+
 
  //----- (00491DE7) --------.text:0049391C ------------------------------------------------
-int __fastcall sub_491DE7(int a1, int a2)
+void sub_491DE7(int a1, int a2)
 {
-  int result; // eax@1
-  char *v3; // ebx@1
-  int v4; // ebp@1
-  int i; // esi@2
-
-  result = 0;
-  //portret_names[], 
- // v4 = 4 * a2 + 5164080;
- // v3 = (char *)(pTextureIdx_PlayerFaces[a2][a1] );	//+ 224 * a1
- for( i=a1; i< 56; i++)
-	 {
-    wsprintfA((char *)TmpBuf, "%s%02d", portret_names[a2], i);
-    LODFile_Icons_LOD.ReLoadTexture(pTextureIdx_PlayerFaces[a2][i], (char *)TmpBuf, 2);
-  
-  }
- 
-  return 0;
+for(int i=a1; i< 56; i++)
+	{
+	wsprintfA((char *)TmpBuf, "%s%02d", portret_names[a2], i);
+	LODFile_Icons_LOD.ReLoadTexture(pTextureIdx_PlayerFaces[a2][i], (char *)TmpBuf, 2);
+	}
 }
 
 //----- (00421626) --------------------------------------------------------
@@ -170,37 +162,44 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
 }
 
 //----- (004356B9) --------------------------------------------------------
-bool GUIMessageQueue_GetMessage(struct GUIMessageQueue *_this, int *a2, int *a3, int *a4)
+bool GUIMessageQueue::GetQueueMessage(unsigned int *param1, int *param2, int *param3)
 {
-  int v4; // edx@1
-  int v5; // eax@2
+if (!msg_count)
+	return false;
 
-  v4 = 0;
+*param1 = prm[0].msg_param1;
+*param2 = prm[0].msg_param2;
+*param3 = prm[0].msg_param3;
 
- if (!_this->dword_000000)
-   return false;
+if (msg_count > 1)
+	{
+	for(int i=0; i<msg_count-1; i++)
+		{
+		prm[i].msg_param1 = prm[i+1].msg_param1;
+		prm[i].msg_param2 = prm[i+1].msg_param2;
+		prm[i].msg_param3 = prm[i+1].msg_param3;
+		}
+	}
+msg_count--;
+return true;
+}
 
+//----- (0042EB8D) --------------------------------------------------------
+inline void  GUIMessageQueue::PutMessageToQueue(unsigned int param1, int param2, int param3)	  //sub_42EB8D
+{
+ if (msg_count < 40 )
+	{
+		prm[msg_count].msg_param1=param1;
+		prm[msg_count].msg_param2=param2;
+		prm[msg_count].msg_param3=param3;
+		msg_count++;
+	}  
+}
 
-    v5 = (int)&_this->dword_000004;
-
-    *a2 = _this->dword_000004;
-    *a3 = _this->dword_000008;
-    *a4 = _this->dword_00000C;
-
-    if (_this->dword_000000 - 1 > 0)
-    {
-      do
-      {
-        *(_DWORD *)v5 = *(_DWORD *)(v5 + 12);
-        *(_DWORD *)(v5 + 4) = *(_DWORD *)(v5 + 16);
-        *(_DWORD *)(v5 + 8) = *(_DWORD *)(v5 + 20);
-        ++v4;
-        v5 += 12;
-      }
-      while ( v4 < _this->dword_000000 - 1);
-    }
-    --_this->dword_000000;
-   return true;
+inline void	 GUIMessageQueue::CutQueueTail()
+{
+if ((msg_count)&&(prm[0].msg_param3>0))
+		msg_count = 1;
 }
 
 
@@ -989,12 +988,14 @@ _mouse_is_on_UI:
              return;
             }
             v38 = pControl->dword_000024;
-            if ( dword_50CBD0[0] < 40 )
+         /*   if ( dword_50CBD0.msg_count < 40 )
             {
-              dword_50CBD0[3 * dword_50CBD0[0] + 1] = v37;
-              dword_50CBD0[3 * dword_50CBD0[0] + 2] = v38;
-              dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-            }
+			  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param1=v37;
+			  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param2=v38;
+			  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param3=0;
+			  dword_50CBD0.msg_count++;
+            }  */
+			dword_50CBD0.PutMessageToQueue(pControl->dword_00001C,pControl->dword_000024,0);
             dword_506578 = 1;
             return;
           }
@@ -1013,13 +1014,15 @@ _mouse_is_on_UI:
 
                   if ( v35 != 0 )
                   {
-                    v36 = pControl->dword_000024;
-                    if ( dword_50CBD0[0] < 40 )
-                    {
-                      dword_50CBD0[3 * dword_50CBD0[0] + 1] = v35;
-                      dword_50CBD0[3 * dword_50CBD0[0] + 2] = v36;
-                      dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-                    }
+                  /*  v36 = pControl->dword_000024;
+					  if ( dword_50CBD0.msg_count < 40 )
+						{
+						  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param1=v35;
+						  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param2=v36;
+						  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param3=0;
+						  dword_50CBD0.msg_count++;
+						}	*/
+				   dword_50CBD0.PutMessageToQueue(pControl->dword_00001C,pControl->dword_000024,0);
                   }
               sub_41C0B8((char *)pControl->pButtonName);
               dword_506578 = 1;
@@ -1027,7 +1030,7 @@ _mouse_is_on_UI:
             }
            }
          }
-         else if (pControl->dword_000018 == 3 &&
+        else if (pControl->dword_000018 == 3 &&
                   x >= pControl->uX && x <= pControl->uZ &&
                   y >= pControl->uY && y <= pControl->uW)
             goto LABEL_19;
@@ -1052,14 +1055,15 @@ LABEL_24:
             v11 = pControl->dword_00001C;
             if ( v11 )
             {
-              v12 = pControl->dword_000024;
-              if ( dword_50CBD0[0] < 40 )
-              {
-                dword_50CBD0[3 * dword_50CBD0[0] + 1] = v11;
-                dword_50CBD0[3 * dword_50CBD0[0] + 2] = v12;
-                dword_50CBD0[3 * dword_50CBD0[0] + 3] = 0;
-                ++dword_50CBD0[0];
-              }
+             /* v12 = pControl->dword_000024;
+			    if ( dword_50CBD0.msg_count < 40 )
+				{
+				  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param1=v11;
+				  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param2=v12;
+				  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param3=0;
+				  dword_50CBD0.msg_count++;
+				}  */
+			  dword_50CBD0.PutMessageToQueue(pControl->dword_00001C,pControl->dword_000024,0);
             }
 
             sub_41C0B8((char *)pControl->pButtonName);
@@ -1385,7 +1389,7 @@ void GameUI_Process()
 
   v0 = 1;
   v1 = "";
-  while (GUIMessageQueue_GetMessage((GUIMessageQueue *)dword_50CBD0, (int *)&uControlID, &v209, &v215))
+  while (dword_50CBD0.GetQueueMessage(&uControlID, &v209, &v215))
    {
       v2 = uControlID - 5;
       switch (uControlID)
@@ -1405,9 +1409,11 @@ void GameUI_Process()
           if ( !uActiveCharacter )
             goto LABEL_92;
           struct_576FE8.dword_000048 = v0;
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
-          dword_5B65D0 = pActors[v209].word_000020;
+      //   if ( dword_50CBD0.msg_count )
+		//	   if  (dword_50CBD0.prm[0].msg_param3)
+             //             dword_50CBD0.msg_count = 1;
+		  dword_50CBD0.CutQueueTail();
+          dword_5B65D0 = pActors[v209].word_000020;	   
 
           Actor_InitializeDialogue(&pActors[v209], v0);
           goto LABEL_92;
@@ -1419,8 +1425,10 @@ void GameUI_Process()
           {
             if ( !dword_4E28F8 )
             {
-              if ( dword_50CBD0[0] )
-                dword_50CBD0[0] = dword_50CBD0[3] != 0;
+            //if ( dword_50CBD0.msg_count )
+			//   if  (dword_50CBD0.prm[0].msg_param3)
+             //             dword_50CBD0.msg_count = 1;
+			dword_50CBD0.CutQueueTail();
               v210 = 0;
               v212 = uControlID - 134;
 
@@ -1485,8 +1493,10 @@ void GameUI_Process()
           {
             LODFile_Icons_LOD.LODFile_sub_40F9C5();
             LODFile_Icons_LOD.LODFile_sub_4114F2();
-            if ( dword_50CBD0[0] )
-              dword_50CBD0[0] = dword_50CBD0[3] != 0;
+       //  if ( dword_50CBD0.msg_count )
+			//   if  (dword_50CBD0.prm[0].msg_param3)
+             //             dword_50CBD0.msg_count = 1;
+			dword_50CBD0.CutQueueTail();
             GUIWindowDelete(pGUIWindow_CurrentMenu);
             dword_6A0D48 = 4;
 LABEL_188:
@@ -1505,8 +1515,10 @@ LABEL_189:
         case 0x7D:
           LODFile_Icons_LOD.LODFile_sub_40F9C5();
           LODFile_Icons_LOD.LODFile_sub_4114F2();
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+       // if ( dword_50CBD0.msg_count )
+			//   if  (dword_50CBD0.prm[0].msg_param3)
+               //           dword_50CBD0.msg_count = 1;
+		  dword_50CBD0.CutQueueTail();
           GUIWindowDelete(pGUIWindow_CurrentMenu);
           dword_4E28F8 = 12;
           sub_45E361(v0);
@@ -1516,8 +1528,10 @@ LABEL_189:
           {
             LODFile_Icons_LOD.LODFile_sub_40F9C5();
             LODFile_Icons_LOD.LODFile_sub_4114F2();
-            if ( dword_50CBD0[0] )
-              dword_50CBD0[0] = dword_50CBD0[3] != 0;
+       // if ( dword_50CBD0.msg_count )
+			 //  if  (dword_50CBD0.prm[0].msg_param3)
+                    //      dword_50CBD0.msg_count = 1;
+			dword_50CBD0.CutQueueTail();
             GUIWindowDelete(pGUIWindow_CurrentMenu);
             dword_4E28F8 = 0;
             struct_576FE8.dword_000044 = v0;
@@ -1588,21 +1602,23 @@ LABEL_60:
             v12 = dword_6A0C9C + v209;
             if ( dword_6BE138 == dword_6A0C9C + v209 )
             {
-              if ( dword_50CBD0[0] < 40 )
+             /* if ( dword_50CBD0[0] < 40 )
               {
                 dword_50CBD0[3 * dword_50CBD0[0] + 1] = 164;
                 dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
                 dword_50CBD0[3 * dword_50CBD0[0] + 3] = 0;
-                v13 = dword_50CBD0[0] + 1;
+                v13 = dword_50CBD0 + 1;
                 compile_error;//v15 = __SETO__(dword_50CBD0[0] + 1, 40);
-                v14 = dword_50CBD0[0]++ - 39 < 0;
+                v14 = dword_50CBD0++ - 39 < 0;
                 if ( v14 ^ v15 )
                 {
                   dword_50CBD0[3 * v13 + 1] = 82;
                   dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
                   dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-                }
-              }
+                }  */
+				dword_50CBD0.PutMessageToQueue(164,0,0);
+				dword_50CBD0.PutMessageToQueue(82,0,0);
+             // }
             }
             dword_6A0CA0_indx = v12;
             dword_6BE138 = v12;
@@ -1636,8 +1652,10 @@ LABEL_60:
           sub_45E93E();
           goto LABEL_92;
         case 0x7F:
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+       // if ( dword_50CBD0.msg_count )
+		//	   if  (dword_50CBD0.prm[0].msg_param3)
+                 //         dword_50CBD0.msg_count = 1;
+		  dword_50CBD0.CutQueueTail();
           GUIWindowDelete(pGUIWindow_CurrentMenu);
           struct_576FE8.dword_000048 = v0;
           dword_4E28F8 = 2;
@@ -1792,8 +1810,10 @@ LABEL_60:
           v137 = 19;
           goto LABEL_117;
         case 0x19F:
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+      // if ( dword_50CBD0.msg_count )
+			//   if  (dword_50CBD0.prm[0].msg_param3)
+               //           dword_50CBD0.msg_count = 1;
+		  dword_50CBD0.CutQueueTail();
           GUIWindowDelete(pGUIWindow_CurrentMenu);
           struct_576FE8.dword_000048 = 1;
           dword_4E28F8 = 26;
@@ -1883,8 +1903,9 @@ LABEL_60:
           dword_506F08 = 2;
           goto LABEL_92;
         case 0x1A5:
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+         // if ( dword_50CBD0[0] )
+          //     dword_50CBD0[0] = dword_50CBD0[3] != 0;
+		  dword_50CBD0.CutQueueTail();
           GUIWindowDelete(pGUIWindow_CurrentMenu);
           struct_576FE8.dword_000048 = v0;
           dword_4E28F8 = 28;
@@ -2180,8 +2201,9 @@ LABEL_184:
 
         case 0xC8:
           // open questbook
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+          if ( dword_50CBD0.msg_count )
+			   if  (dword_50CBD0.prm[0].msg_param3)
+                          dword_50CBD0.msg_count = 1;
           if ( dword_4E28F8 )
             GUIWindowDelete(pGUIWindow_CurrentMenu);
           cClock1.clock_fn1();
@@ -2193,8 +2215,10 @@ LABEL_184:
 
         case 0xC9:
           // open autonotes
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+         //if ( dword_50CBD0.msg_count )
+			//   if  (dword_50CBD0.prm[0].msg_param3)
+               //           dword_50CBD0.msg_count = 1;
+		  dword_50CBD0.CutQueueTail();
           if ( dword_4E28F8 )
             GUIWindowDelete(pGUIWindow_CurrentMenu);
           cClock1.clock_fn1();
@@ -2204,8 +2228,10 @@ LABEL_184:
           byte_507949 = 0;
           goto LABEL_92;
         case 0xCA:
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+          //if ( dword_50CBD0.msg_count )
+			//   if  (dword_50CBD0.prm[0].msg_param3)
+            //             dword_50CBD0.msg_count = 1;
+			dword_50CBD0.CutQueueTail();
           if ( dword_4E28F8 )
             GUIWindowDelete(pGUIWindow_CurrentMenu);
           cClock1.clock_fn1();
@@ -2219,8 +2245,10 @@ LABEL_184:
           v173 = (int)pBtn_Game_Maps;
           goto LABEL_210;
         case 0xCB:
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+        // if ( dword_50CBD0.msg_count )
+		//	   if  (dword_50CBD0.prm[0].msg_param3)
+             //             dword_50CBD0.msg_count = 1;
+			dword_50CBD0.CutQueueTail();
           if ( dword_4E28F8 )
             GUIWindowDelete(pGUIWindow_CurrentMenu);
           cClock1.clock_fn1();
@@ -2235,8 +2263,10 @@ LABEL_210:
           ptr_507BE0 = GUIWindowCreate(v34, v33, 0, 0, 99, pBtn_Game_Calendar, v187);
           goto LABEL_92;
         case 0xE0:
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+         // if ( dword_50CBD0.msg_count )
+		//	   if  (dword_50CBD0.prm[0].msg_param3)
+         //                 dword_50CBD0.msg_count = 1;
+			dword_50CBD0.CutQueueTail();
           if ( dword_4E28F8 )
             GUIWindowDelete(pGUIWindow_CurrentMenu);
           cClock1.clock_fn1();
@@ -2247,8 +2277,10 @@ LABEL_210:
           goto LABEL_92;
         case 0x71:
           sub_4356FF();
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+        //  if ( dword_50CBD0.msg_count )
+		//	   if  (dword_50CBD0.prm[0].msg_param3)
+             //             dword_50CBD0.msg_count = 1;
+		  dword_50CBD0.CutQueueTail();
           if ( dword_4E28F8 > 15 )
           {
             if ( dword_4E28F8 >= 17 && (dword_4E28F8 <= 18 || dword_4E28F8 == 104) )
@@ -2274,7 +2306,7 @@ LABEL_231:
             }
           }
 LABEL_232:
-          if ( !dword_507BDC )
+          if ( !ptr_507BDC )
           {
             Render_ClearZBuffer(pD3DRenderer, 0, 479);
             struct_576FE8.dword_000044 = v0;
@@ -2673,7 +2705,7 @@ LABEL_322:
           }
           sub_41426F();
 LABEL_92:
-          if ( !dword_50CBD0[0] )
+          if ( !dword_50CBD0.msg_count )
             break;
           continue;
         case 0xBC:
@@ -2701,8 +2733,10 @@ LABEL_92:
           sub_491F87_DrawHiredNPCs();
           goto LABEL_92;
         case 0x19B:
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+          //if ( dword_50CBD0.msg_count )
+		//	   if  (dword_50CBD0.prm[0].msg_param3)
+           //               dword_50CBD0.msg_count = 1;
+			dword_50CBD0.CutQueueTail();
           dword_50CDC8 = v0;
           sub_42FBDD();
           sub_4B1E92(dword_591160, 2);
@@ -2772,8 +2806,10 @@ LABEL_92:
           v50 = sub_49387A((void *)v51);
           goto LABEL_421;
         case 0x5A:
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+         // if ( dword_50CBD0.msg_count )
+			//   if  (dword_50CBD0.prm[0].msg_param3)
+            //              dword_50CBD0.msg_count = 1;
+			dword_50CBD0.CutQueueTail();
           dword_50CDC8 = v0;
           sub_42FBDD();
           v211 = sub_444D80();
@@ -2933,8 +2969,10 @@ LABEL_333:
         case 0x45:
         case 0x8D:
         case 0x8F:
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+         //if ( dword_50CBD0.msg_count )
+			//   if  (dword_50CBD0.prm[0].msg_param3)
+          //                dword_50CBD0.msg_count = 1;
+			dword_50CBD0.CutQueueTail();
           if ( dword_50C9A0 )
           {
             v50 = v209;
@@ -3096,12 +3134,13 @@ LABEL_450:
               pParty_global->sRotationY = *(_WORD *)(v211 + 20);
               pParty_global->sRotationX = *(_WORD *)(v211 + 22);
             }
-            if ( dword_50CBD0[0] < 40 )
+          /*  if ( dword_50CBD0[0] < 40 )
             {
               dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
               dword_50CBD0[3 * dword_50CBD0[0] + 2] = v0;
               dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-            }
+            }  */
+			 dword_50CBD0.PutMessageToQueue(113,1,0);
             sub_45E006();
             GUIWindowDelete(ptr_507BE0);
             GUIWindowDelete(pGUIWindow_CurrentMenu);
@@ -3200,13 +3239,14 @@ LABEL_486:
                   else
                     sub_427730((int)&pParty_global->pPlayers[(unsigned __int8)byte_50C0C0], 20);
 LABEL_434:
-                  if ( dword_50CBD0[0] < 40 )
+               /*   if ( dword_50CBD0[0] < 40 )
                   {
                     dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
                     dword_50CBD0[3 * dword_50CBD0[0] + 2] = v0;
 LABEL_771:
                     dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-                  }
+                  }	 */
+				  dword_50CBD0.PutMessageToQueue(113,1,0);
                   goto LABEL_92;
                 }
                 v75 = 210;
@@ -3494,8 +3534,10 @@ LABEL_569:
             dword_506F18 = v98 + 720;
           goto LABEL_615;
         case 0x68:
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+        //  if ( dword_50CBD0.msg_count )
+		//	   if  (dword_50CBD0.prm[0].msg_param3)
+           //               dword_50CBD0.msg_count = 1;
+			dword_50CBD0.CutQueueTail();
           if ( dword_4E28F8 )
             goto LABEL_92;
           if ( sub_42F4DA() )
@@ -3567,12 +3609,13 @@ LABEL_619:
                 sub_4938D1(v107 % 6 + 60);
                 dword_506F18 = 0;
                 dword_506F14 = 0;
-                if ( dword_50CBD0[0] < 40 )
+              /*  if ( dword_50CBD0[0] < 40 )
                 {
                   dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
                   dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
                   dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-                }
+                } */
+				dword_50CBD0.PutMessageToQueue(113,0,0);
                 sub_44C175((char *)pGlobalTXT_LocalizationStrings[481], 2);
                 v182 = 0;
                 v168 = 0;
@@ -3749,12 +3792,13 @@ LABEL_662:
                   dword_4E28F8 = 0;
                   LODFile_Icons_LOD.LODFile_sub_4114F2();
                   v116 = dword_50654C + 11 * *(_BYTE *)(v212 + 6734);
-                  if ( dword_50C9E8[0] < 40 )
+                /*  if ( dword_50C9E8[0] < 40 )
                   {
                     dword_50C9E8[3 * dword_50C9E8[0] + 1] = 142;
                     dword_50C9E8[3 * dword_50C9E8[0] + 2] = v116;
                     dword_50C9E8[3 * dword_50C9E8[0]++ + 3] = uActiveCharacter - 1;
-                  }
+                  }	 */
+				  dword_50C9E8.PutMessageToQueue(142,v116,uActiveCharacter - 1); 
                 }
                 else
                 {
@@ -3808,8 +3852,10 @@ LABEL_721:
           }
           else
           {
-            if ( dword_50CBD0[0] )
-              dword_50CBD0[0] = dword_50CBD0[3] != 0;
+           // if ( dword_50CBD0.msg_count )
+			//   if  (dword_50CBD0.prm[0].msg_param3)
+               //           dword_50CBD0.msg_count = 1;
+		  dword_50CBD0.CutQueueTail();
             if ( uActiveCharacter && !pPlayers[uActiveCharacter - 1]->cInventorySlots[74].word_00001E)
             {
               if ( !dword_4E28F8 )
@@ -3830,8 +3876,10 @@ LABEL_693:
           }
           goto LABEL_92;
         case 0x6A:
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+         //if ( dword_50CBD0.msg_count )
+			//   if  (dword_50CBD0.prm[0].msg_param3)
+          //                dword_50CBD0.msg_count = 1;
+			dword_50CBD0.CutQueueTail();
           if ( dword_4E28F8 )
             GUIWindowDelete(pGUIWindow_CurrentMenu);
           ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
@@ -3873,13 +3921,17 @@ LABEL_693:
          // sub_40E55E(&Class33_global3, (unsigned int)"gamma.pcx", 0);
           GUIWindowCreate(602, 450, 0, 0, 92, pBtn_Game_Options, 0);
 LABEL_453:
-          if ( dword_50CBD0[0] >= 40 )
+         /* if ( dword_50CBD0.msg_count >= 40 )
             goto LABEL_92;
-          dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
-          goto LABEL_770;
+          dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param1 = 113;
+           dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param2=0;
+             dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param3=0;
+		    dword_50CBD0.msg_count++; */
+		    dword_50CBD0.PutMessageToQueue(113,0,0);
+			goto LABEL_92;
         case 0xC0:
           dword_50651C = v0;
-          if ( *(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v227) + 4) > 178 )
+          if ( class03_GetMousePos(pGame->pClass03, (POINT *)&v227)->y > 178 )
             dword_50651C = -1;
           goto LABEL_92;
         case 0xA9:
@@ -4044,8 +4096,10 @@ LABEL_731:
           goto LABEL_732;
 
         case 0x6E:
-          if (dword_50CBD0[0])
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+         // if ( dword_50CBD0.msg_count )
+			//   if  (dword_50CBD0.prm[0].msg_param3)
+           //               dword_50CBD0.msg_count = 1;
+			dword_50CBD0.CutQueueTail();
           GameUI_OnPlayerPortraitLeftClick(v209);
           goto LABEL_92;
 
@@ -4112,32 +4166,48 @@ LABEL_731:
 LABEL_762:
           sub_421EA6();
           goto LABEL_92;
-        case 0xA:
+        case 0xA:	  //bred ->check in asm
           if ( !pD3DRenderer->pRenderD3D3 )
-            goto LABEL_772;
-          v130 = dword_50CBD0[0];
-          if ( !dword_50CBD0[0] )
+			  {
+           // goto LABEL_772;
+			  //if ( dword_50CBD0.msg_count )
+			 //  if  (dword_50CBD0.prm[0].msg_param3)
+                //          dword_50CBD0.msg_count = 1;
+				dword_50CBD0.CutQueueTail();
+                       sub_42213C();
+					    goto LABEL_92;
+			  }
+          v130 = dword_50CBD0.msg_count;
+          if ( !dword_50CBD0.msg_count)
             goto LABEL_768;
-          if (dword_50CBD0[3])
+          if (dword_50CBD0.prm[0].msg_param3)
           {
             v130 = v0;
-            dword_50CBD0[0] = v0;
+            dword_50CBD0.msg_count = v0;
 LABEL_769:
-            dword_50CBD0[3 * v130 + 1] = 14;
+            ///dword_50CBD0[3 * v130 + 1] = 14;
+			dword_50CBD0.prm[v130].msg_param1=14;
 LABEL_770:
-            dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
-            goto LABEL_771;
+            //dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
+			  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param2=0;
+             dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param3=0;
+		    dword_50CBD0.msg_count++;
+			goto LABEL_92;
           }
           v130 = 0;
-          dword_50CBD0[0] = 0;
+          dword_50CBD0.msg_count = 0;
+
+
 LABEL_768:
           if ( v130 < 40 )
             goto LABEL_769;
           goto LABEL_92;
         case 0xE:
 LABEL_772:
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+       //  if ( dword_50CBD0.msg_count )
+		//	   if  (dword_50CBD0.prm[0].msg_param3)
+        //                  dword_50CBD0.msg_count = 1;
+			dword_50CBD0.CutQueueTail();
           sub_42213C();
           goto LABEL_92;
         case 0xF:
@@ -4170,8 +4240,10 @@ LABEL_733:
           goto LABEL_92;
 
         case 0x194: //action[def:space]
-          if ( dword_50CBD0[0] )
-            dword_50CBD0[0] = dword_50CBD0[3] != 0;
+     //   if ( dword_50CBD0.msg_count )
+		//	   if  (dword_50CBD0.prm[0].msg_param3)
+           //               dword_50CBD0.msg_count = 1;
+			dword_50CBD0.CutQueueTail();
           sub_46A14B_ProbablyDoInteraction();
         goto LABEL_92;
 
@@ -4234,17 +4306,20 @@ LABEL_789:
     }
 
 
-  dword_50CBD0[0] = dword_50C9E8[0];
-  memcpy(dword_50CBD0 + 1, dword_50C9E8 + 1, 12 * dword_50C9E8[0]);
-  dword_50C9E8[0] = 0;
+  dword_50CBD0.msg_count = dword_50C9E8.msg_count;
+  memcpy(&dword_50CBD0.prm, &dword_50C9E8.prm, 12 * dword_50C9E8.msg_count);
+  dword_50C9E8.msg_count = 0;
+
   if ( dword_50C9DC )
   {
-    if ( dword_50CBD0[0] < 40 )
+  /*  if ( dword_50CBD0[0] < 40 )
     {
       dword_50CBD0[3 * dword_50CBD0[0] + 1] = dword_50C9DC;
       dword_50CBD0[3 * dword_50CBD0[0] + 2] = (int)dword_50C9E0;
       dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-    }
+    }	*/
+	
+	dword_50CBD0.PutMessageToQueue( dword_50C9DC,(int)dword_50C9E0,0);
     dword_50C9DC = 0;
   }
   else
@@ -4256,12 +4331,13 @@ LABEL_789:
       dword_50C9D8 -= cClock1.int_00001C;
       if ( v136 | v135 )
       {
-        if ( dword_50CBD0[0] < 40 )
+      /*  if ( dword_50CBD0[0] < 40 )
         {
           dword_50CBD0[3 * dword_50CBD0[0] + 1] = dword_50C9D0;
           dword_50CBD0[3 * dword_50CBD0[0] + 2] = dword_50C9D4;
           dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-        }
+        }  */
+		dword_50CBD0.PutMessageToQueue( dword_50C9D0,dword_50C9D4,0); 
         dword_50C9D0 = 0;
         dword_50C9D4 = 0;
         dword_50C9D8 = 0;
@@ -5271,8 +5347,9 @@ void __cdecl PlayerCreationUI_Initialize()
 
  int i;
  wchar_t pFilename[256];
-  if ( dword_50CBD0[0] )
-    dword_50CBD0[0] = dword_50CBD0[3] != 0;
+  if ( dword_50CBD0.msg_count )
+			   if  (dword_50CBD0.prm[0].msg_param3)
+                          dword_50CBD0.msg_count = 1;
 
   AudioPlayer_SetVolume(pAudioPlayer, aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
 
@@ -9406,7 +9483,7 @@ LABEL_27:
             (int)pD3DRenderer,
             v10,
             v223,
-            v15 != -1 ? 72 * v15 + 7145548 : 0,
+            v15 != -1 ?(int)&LODFile_Icons_LOD.aLODHeaders[v15] : 0,
             v16,
             (signed __int64)v19,
             0,
@@ -10146,15 +10223,17 @@ void __cdecl sub_4156F0_LooksLike_UI_ProcessCallbacks()
               GUIButton_sub_415180((GUIButton *)v43, (unsigned char *)v42, pFontCreate, 0, 0);
           }
           GUIWindowDelete(pWnd);
-          if ( dword_50CBD0[0] >= 40 )
+    /*      if ( dword_50CBD0[0] >= 40 )
             continue;
           v41 = dword_50CBD0[0];
 LABEL_151:
           dword_50CBD0[3 * v41 + 1] = 113;
 LABEL_152:
           dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
-          dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-          continue;
+          dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;	 */
+
+		   	dword_50CBD0.PutMessageToQueue(113,0,0);
+			continue;
         }
         v34 = pWnd->uWindowType - 1;
         if ( v34 )
@@ -10380,19 +10459,23 @@ LABEL_82:
           GUIWindowDelete(pWnd);
           if ( dword_4E28F8 == 11 )
           {
-            if ( dword_50CBD0[0] < 40 )
+          /*  if ( dword_50CBD0[0] < 40 )
             {
               dword_50CBD0[3 * dword_50CBD0[0] + 1] = 83;
               goto LABEL_152;
-            }
+            }  */
+			 dword_50CBD0.PutMessageToQueue(83,0,0);
+			    continue;
           }
           else
           {
-            if ( dword_50CBD0[0] < 40 )
+           /* if ( dword_50CBD0[0] < 40 )
             {
               dword_50CBD0[3 * dword_50CBD0[0] + 1] = 82;
               goto LABEL_152;
-            }
+            }  */
+		   dword_50CBD0.PutMessageToQueue(82,0,0);
+				 continue;
           }
         }
       }
@@ -10410,14 +10493,15 @@ LABEL_82:
         }
         if (ptr_507BD0->dword_000040 == 2)
         {
-          v29 = dword_50CBD0[0];
+         // v29 = dword_50CBD0[0];
           pWnd->dword_000040 = 0;
-          if ( v29 < 40 )
+         /* if ( v29 < 40 )
           {
            dword_50CBD0[3 * v29 + 1] = (int)ptr_507BD0->dword_00001C;
             dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
             dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-          }
+          }	*/
+		  dword_50CBD0.PutMessageToQueue(ptr_507BD0->dword_00001C,0,0);
           cClock1.clock_sub_426363();
           GUIWindowDelete(ptr_507BD0);
           dword_4E28F8 = 0;
@@ -10543,9 +10627,10 @@ LABEL_110:
           continue;
         }
 LABEL_142:
-        v41 = dword_50CBD0[0];
-        if ( dword_50CBD0[0] < 40 )
-          goto LABEL_151;
+      //  v41 = dword_50CBD0[0];
+       // if ( dword_50CBD0[0] < 40 )
+       //   goto LABEL_151;
+		  dword_50CBD0.PutMessageToQueue(113,0,0);
         continue;
       }
       if ( v0 == 18 )
@@ -11059,13 +11144,15 @@ void PlayerCreationUI_Draw()
   int v117; // eax@82
   int v119; // [sp+0h] [bp-170h]@39
   unsigned char Str1[200]; // [sp+10h] [bp-160h]@14
-  int v121; // [sp+D8h] [bp-98h]@85
-  int v122; // [sp+DCh] [bp-94h]@85
-  int v123; // [sp+E0h] [bp-90h]@85
-  int v124; // [sp+E4h] [bp-8Ch]@85
-  int v125; // [sp+E8h] [bp-88h]@85
-  int v126; // [sp+ECh] [bp-84h]@85
-  int v127; // [sp+120h] [bp-50h]@83
+
+  GUIWindow v121; // [sp+D8h] [bp-98h]@85 x
+  //int v122; // [sp+DCh] [bp-94h]@85	   y
+  //int v123; // [sp+E0h] [bp-90h]@85	  wd
+  //int v124; // [sp+E4h] [bp-8Ch]@85	  ht
+  //int v125; // [sp+E8h] [bp-88h]@85	  z
+  //int v126; // [sp+ECh] [bp-84h]@85	  w
+  //int v127; // [sp+120h] [bp-50h]@83   string
+
   int v128; // [sp+12Ch] [bp-44h]@18
   size_t v129; // [sp+130h] [bp-40h]@25
   int v130; // [sp+134h] [bp-3Ch]@18
@@ -11480,7 +11567,7 @@ LABEL_77:
   }
 
   v115 = AlignText_Center(92, (char *)pGlobalTXT_LocalizationStrings[30], pFontCreate);
-  FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, v115 + 533, 394, (char *)pGlobalTXT_LocalizationStrings[30], 0xFFD1BB61, 0, 0);
+  FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, v115 + 533, 394, (char *)pGlobalTXT_LocalizationStrings[30], 0xD1BB61, 0, 0);
 
   wsprintfA((char *)TmpBuf, "%d", PlayerCreation_ComputeAttributeBonus());
   if (PlayerCreation_ComputeAttributeBonus() > 0)
@@ -11492,16 +11579,16 @@ LABEL_77:
 
   if ( dword_5C35B8_Some_GetTickCount_timer > GetTickCount() )
   {
-    v127 = (int)pGlobalTXT_LocalizationStrings[412];
+    v121.ptr_000048 = pGlobalTXT_LocalizationStrings[412];
     if ( PlayerCreation_ComputeAttributeBonus() < 0 )
-      v127 = (int)pGlobalTXT_LocalizationStrings[413];
-    v123 = 300;
-    v124 = 100;
-    v121 = 170;
-    v122 = 140;
-    v125 = 469;
-    v126 = 239;
-    GUIWindow_sub_415551((GUIWindow *)&v121, 0);
+      v121.ptr_000048 = pGlobalTXT_LocalizationStrings[413];
+    v121.uFrameWidth = 300;
+    v121.uFrameHeight = 100;
+    v121.uFrameX = 170;
+    v121.uFrameY = 140;
+    v121.uFrameZ = 469;
+    v121.uFrameW = 239;
+    GUIWindow_sub_415551(&v121, 0);
   }
   pD3DRenderer->EndScene();
 }

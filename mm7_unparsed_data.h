@@ -839,7 +839,7 @@ extern int dword_507BC8; // weak
 
 extern struct GUIWindow *ptr_507BD0; //  dword @ MM7.exe::00507BD0
 extern struct GUIWindow *ptr_507BD4; // idb
-extern int dword_507BDC; // weak
+extern struct GUIWindow *ptr_507BDC; // weak
 extern struct GUIWindow *ptr_507BE0; // dword @ MM7.exe::00507BE0
 
 extern struct GUIWindow *pGUIWindow2;         // ptr   @ MM7.exe::00507BE4
@@ -1018,14 +1018,7 @@ extern int dword_50C9D4; // weak
 extern int dword_50C9D8; // weak
 extern int dword_50C9DC; // weak
 extern struct NPCData *dword_50C9E0; // weak
-extern int dword_50C9E8[]; // 1 + 40*3
-//int dword_50C9EC[]; // weak
-//int dword_50C9F0[array_size_unknown]; // weak
 
-extern int dword_50CBD0[array_size_unknown]; // 404 for action[def:space] key
-//int dword_50CBD4[array_size_unknown]; // weak
-//int dword_50CBD8[array_size_unknown]; // weak
-//int dword_50CBDC; // weak
 extern int dword_50CDC8; // weak
 extern int dword_50CDCC; // weak
 extern _UNKNOWN unk_50CDD0; // weak

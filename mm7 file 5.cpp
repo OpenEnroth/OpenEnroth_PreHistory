@@ -776,12 +776,13 @@ LABEL_178:
                 {
                   if ( !v73 )
                     goto LABEL_187;
-                  if ( dword_50CBD0[0] < 40 )
+               /*   if ( dword_50CBD0[0] < 40 )
                   {
                     dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
                     dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
                     dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-                  }
+                  }	 */
+				 dword_50CBD0.PutMessageToQueue(113,0,0);
                 }
                 if ( v73 )
                 {
@@ -853,24 +854,26 @@ LABEL_178:
   {
     dword_720984 = pParty_global->stru_007754.uItemID;
     class03_sub_4698A6(pGame->pClass03);
-    if ( dword_50C9E8[0] < 40 )
+  /*  if ( dword_50C9E8[0] < 40 )
     {
       dword_50C9E8[3 * dword_50C9E8[0] + 1] = 146;
       dword_50C9E8[3 * dword_50C9E8[0] + 2] = v24;
       dword_50C9E8[3 * dword_50C9E8[0]++ + 3] = a2 - 1;
-    }
+    } */
+	dword_50C9E8.PutMessageToQueue(146,v24, a2 - 1);
     if ( dword_4E28F8 )
     {
       if ( pGUIWindow_CurrentMenu )
       {
         if ( *(_DWORD *)(pGUIWindow_CurrentMenu + 24) )
         {
-          if ( dword_50CBD0[0] < 40 )
+      /*    if ( dword_50CBD0[0] < 40 )
           {
             dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
             dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
             dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-          }
+          }	 */
+		dword_50CBD0.PutMessageToQueue(113,0,0);
         }
       }
     }
@@ -1306,8 +1309,10 @@ LABEL_96:
     *(_WORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 6) = v42;
     dword_50C9A4 = v38;
     dword_50C9A0 = false;
-    if ( dword_50CBD0[0] )
-      dword_50CBD0[0] = dword_50CBD0[3] != 0;
+  // if ( dword_50CBD0.msg_count )
+	//		   if  (dword_50CBD0.prm[0].msg_param3)
+       //                   dword_50CBD0.msg_count = 1;
+	 dword_50CBD0.CutQueueTail();
     sub_469903(pGame->pClass03, "MICON1");
     dword_50C9D4 = 0;
     dword_50C9D0 = 113;
@@ -1928,12 +1933,13 @@ char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
               Actor_ProbablyForceToFaceParty(a1 >> 3, 4, 0, 0);
               if (pActor->word_000020)
               {
-                if ( dword_50CBD0[0] < 40 )
+               /* if ( dword_50CBD0[0] < 40 )
                 {
                   dword_50CBD0[3 * dword_50CBD0[0] + 1] = 161;
                   dword_50CBD0[3 * dword_50CBD0[0] + 2] = a1 >> 3;
                   dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-                }
+                } */
+				dword_50CBD0.PutMessageToQueue(161,a1 >> 3,0);
               }
               else
               {
