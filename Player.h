@@ -286,9 +286,13 @@ int __thiscall sub_49107D(void *_this);
 int Player_sub_48FC00(struct Player *_this, signed int a2);
 
 //int __thiscall sub_48E1B5(void *_this, int a2);
-int Player_sub_48E1B5(void *_this, int a2);
+int Player_sub_GetAttackRecoveryTime(void *_this, int a2);
 bool Player_sub_48D6D0(struct Player *_this, int a2);
 signed int Player_sub_48DC1E(struct Player *_this, signed int a2, int a3);
 int Player_sub_492826(struct Player *_this, signed int a2, struct ItemGen *Src);
+
+
+//signed int __thiscall sub_492C0B(int _this);
+bool Player_sub_492C0B_MaybeIfPlayerConscious(struct Player *_this);
 
 #pragma pack(pop)

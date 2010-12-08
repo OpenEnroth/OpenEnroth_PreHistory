@@ -1770,7 +1770,7 @@ LABEL_76:
     v30 = 0;
     for (i = 0; i < 4; ++i)
     {
-      if ( Player_sub_492C0B((int)pPlayers[i]) )
+      if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[i]) )
         ++v30;
     }
 
@@ -1898,8 +1898,8 @@ LABEL_82:
         v22 = 1;
         do
         {
-          //if ( Player_sub_492C0B((int)*(&ptr_A750C4 + v22)) )
-          if ( Player_sub_492C0B((int)pPlayers[v22 - 1]))
+          //if ( Player_sub_492C0B_MaybeIfPlayerConscious(*(&ptr_A750C4 + v22)) )
+          if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v22 - 1]))
           {
             ++v31;
             v21 = v22;
@@ -3313,16 +3313,16 @@ int Player_sub_49289C(struct Player *_this, int a2, struct InventorySlot *sItem)
   }
   else
   {
-  #ifndef OLD_CODE
+#ifndef OLD_CODE
   wchar_t pFilename[256];
-   wsprintfW(pFilename, L"%S", pClass40->pItems[*(_DWORD *)Src].pIconName);
-   v7 = LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilename);
-   #endif
-#ifdef OLD_CODE	
+  wsprintfW(pFilename, L"%S", pClass40->pItems[sItem->uItemID].pIconName);
+  v7 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pFilename);
+#else
   // char pFilename[16];
   // wsprintf(pFilename, "%S", );
-   v7 = LODFile_Icons_LOD.LODFile_LoadTexture((char*) pClass40->pItems[sItem->uItemID].pIconName,2);
-   #endif
+  v7 = LODFile_Icons_LOD.LODFile_LoadTexture((char *)pClass40->pItems[sItem->uItemID].pIconName,2);
+#endif
+
    v6 = &LODFile_Icons_LOD.aLODHeaders[v7];
 
     slotsW = GetSizeInInventorySlots(v6->uTextureWidth);
@@ -3386,14 +3386,12 @@ int __thiscall sub_492600(struct Player *_this, int a2, unsigned int uItemID) //
   }
   else
   {
-  #ifndef OLD_CODE
+#ifndef OLD_CODE
     MultiByteToWideChar(CP_ACP, 0, (char *)pClass40->pItems[uItemID].pIconName, -1, pItemIconNameW, 64);
-    v8 = LODFile_Icons_LOD.LODFile_LoadTexture_New( pItemIconNameW);
-   #endif
-#ifdef OLD_CODE	
-
-    v8 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[uItemID].pIconName,2);
-   #endif
+    v8 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pItemIconNameW);
+#else
+    v8 = LODFile_Icons_LOD.LODFile_LoadTexture((char *)pClass40->pItems[uItemID].pIconName,2);
+#endif
     v7 = &LODFile_Icons_LOD.aLODHeaders[v8];
     slotsW = GetSizeInInventorySlots(v7->uTextureWidth);
     slotsH = GetSizeInInventorySlots(v7->uTextureHeight);

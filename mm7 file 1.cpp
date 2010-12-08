@@ -6157,7 +6157,7 @@ LABEL_164:
                 {
                   if ( !Player_sub_48D709((Player *)*v33, 529, 8) )
                   {
-                    if ( Player_sub_492C0B((int)*v33) )
+                    if ( Player_sub_492C0B_MaybeIfPlayerConscious((Player *)*v33) )
                       Player_PlaySound((Player *)*v33, 66, 0);
                   }
                 }
@@ -6897,15 +6897,13 @@ int __fastcall sub_402F27(int _this)
 }
 
 //----- (00492C0B) --------------------------------------------------------
-signed int __thiscall Player_sub_492C0B(int _this)
+bool Player_sub_492C0B_MaybeIfPlayerConscious(struct Player *_this)
 {
-  signed int result; // eax@2
-
-  if ( *(_QWORD *)(_this + 16) | *(_QWORD *)(_this + 96) | *(_QWORD *)(_this + 104) | *(_QWORD *)(_this + 112) | *(_QWORD *)(_this + 120) | *(_QWORD *)(_this + 128) )
-    result = 0;
-  else
-    result = 1;
-  return result;
+ if (_this->pConditions[2] | _this->pConditions[12] | _this->pConditions[13] | _this->pConditions[14] |
+     _this->pConditions[15] | _this->pConditions[16])
+   return false;
+ else
+   return true;
 }
 
 //----- (0047BACF) --------------------------------------------------------
@@ -8716,8 +8714,8 @@ void __thiscall sub_427E01(struct unnamed_50C0C8 *_this)
 
   if (_this->array_000000[i].word_000008 & 0x03CA)
   {
-   if (!Player_sub_492C0B((int)&pParty_global->pPlayers[_this->array_000000[i].uPlayerID]))
-     sub_427D48(_this, 1);
+   if (!Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[_this->array_000000[i].uPlayerID]))
+     sub_427D48_MessWith_unnamed_50C0C8(_this, 1);
    continue;
   }
 
@@ -8912,7 +8910,7 @@ LABEL_69:
         LODWORD(v702) = 1;
         if ( sub_458244(*(_WORD *)(v707 + 274)) >= 3 )
           LODWORD(v702) = 2;
-        v683 = Player_sub_48E1B5((Player *)HIDWORD(v1), 1);
+        v683 = Player_sub_GetAttackRecoveryTime((Player *)HIDWORD(v1), 1);
         ItemGen_Reset((ItemGen *)v686.v694);
         v16 = *(_WORD *)v2;
         v686.v696 = v1;
@@ -8956,7 +8954,7 @@ LABEL_69:
         }
         goto LABEL_83;
       case 102:
-        v683 = Player_sub_48E1B5((void *)v707, 0);
+        v683 = Player_sub_GetAttackRecoveryTime((void *)v707, 0);
         ItemGen_Reset((ItemGen *)v686.v694);
         v686.v695 = *(_WORD *)v2;
         v686.v696 = v701;

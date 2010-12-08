@@ -593,7 +593,7 @@ signed int __thiscall Player_sub_48DC1E(struct Player *_this, signed int a2, int
   }
   if ( v11 )
   {
-    if (Player_sub_492C0B((int)_this))
+    if (Player_sub_492C0B_MaybeIfPlayerConscious(_this))
       Player_PlaySound(_this, 24, 0);
   }
   return v11;
@@ -975,7 +975,7 @@ int __stdcall sub_48E1A3(int a1)
 }
 
 //----- (0048E1B5) --------------------------------------------------------
-int __thiscall Player_sub_48E1B5(void *_this, int a2)
+int __thiscall Player_sub_GetAttackRecoveryTime(void *_this, int a2)
 {
   int v2; // ebx@1
   int *v3; // edi@1

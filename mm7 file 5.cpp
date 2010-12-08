@@ -674,7 +674,7 @@ LABEL_187:
         class03_sub_4698A6(pGame->pClass03);
         return;
       }
-      if ( Player_sub_492C0B((int)&pParty_global->pPlayers[a2 - 1]))
+      if ( Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[a2 - 1]))
       {
         sub_467F48(pParty_global->stru_007754.uItemID);
         v65 = 0;
@@ -719,7 +719,7 @@ LABEL_63:
       AudioPlayer_sub_4AA306((AudioPlayer *)v14, v37, v39, v41, v43, v45, v48, v52, v61);
       return;
     }
-    if ( !Player_sub_492C0B((int)&pParty_global->pPlayers[a2 - 1]))
+    if ( !Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[a2 - 1]))
     {
      v66 = (int)(aCharacterConditionNames[Player_GetConditionIdx((Player *)v3)]);
 
@@ -831,7 +831,7 @@ LABEL_178:
   }
   if ( dword_4E28F8 == 23 )
     return;
-  if ( !Player_sub_492C0B((int)&pParty_global->pPlayers[a2 - 1]) )
+  if ( !Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[a2 - 1]) )
     goto LABEL_89;
   if ( byte_6BE3C4_MaybeDrowningFlag == 1 )
   {
@@ -1305,7 +1305,7 @@ LABEL_96:
     *(_DWORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 12) = v39;
     *(_WORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 6) = v42;
     dword_50C9A4 = v38;
-    dword_50C9A0 = 0;
+    dword_50C9A0 = false;
     if ( dword_50CBD0[0] )
       dword_50CBD0[0] = dword_50CBD0[3] != 0;
     sub_469903(pGame->pClass03, "MICON1");

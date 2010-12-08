@@ -972,6 +972,7 @@ struct unnamed_50C0C8_stru0
  short          word_00000E;
  int            dword_000010;
 };
+//sizeof == 14
 extern struct unnamed_50C0C8
 {
  struct unnamed_50C0C8_stru0 array_000000[10];
@@ -1374,7 +1375,7 @@ extern char byte_5C3427[array_size_unknown]; // weak
 extern unsigned char byte_5C3428[]; // idb
 //extern char byte_5C34EF[array_size_unknown]; // pStatusBarString[-1] addressing
 extern unsigned char pStatusBarString[200]; // byte[200] @ MM7.exe::005C34F0
-extern int dword_5C35B8; // weak
+extern int dword_5C35B8_Some_GetTickCount_timer; // weak
 extern int dword_5C35BC; // weak
 extern int dword_5C35C0; // weak
 extern int dword_5C35C4; // weak

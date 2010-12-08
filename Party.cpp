@@ -116,7 +116,7 @@ bool Party_sub_497FC5(struct Party *_this)
   v2 = 0;
   for (i = 0; i < 4; ++i)
   {
-    if ( Player_sub_492C0B((int)&_this->pPlayers[i]) )
+    if ( Player_sub_492C0B_MaybeIfPlayerConscious(&_this->pPlayers[i]) )
     {
       v5 = sub_49125A(&_this->pPlayers[i]);
       if ( v5 > v2 )

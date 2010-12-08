@@ -1294,7 +1294,7 @@ struct Event pLevelEVT_Events[4400]; // struct[4400] @ MM7.exe::005B65D8
  char byte_5C3427[array_size_unknown]; // weak
 unsigned char byte_5C3428[200]; // idb
 unsigned char pStatusBarString[200]; // byte[200] @ MM7.exe::005C34F0
- int dword_5C35B8; // weak
+ int dword_5C35B8_Some_GetTickCount_timer; // weak
  int dword_5C35BC; // weak
  int dword_5C35C0; // weak
  int dword_5C35C4; // weak

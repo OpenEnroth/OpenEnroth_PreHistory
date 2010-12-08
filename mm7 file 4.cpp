@@ -1852,8 +1852,8 @@ LABEL_33:
           GUIWindowDelete(ptr_507BD4);
           ptr_507BD4 = NULL;
           sub_469903(pGame->pClass03, "MICON1");
-          dword_5C35B8 = 0;
-          dword_50C9A0 = 0;
+          dword_5C35B8_Some_GetTickCount_timer = 0;
+          dword_50C9A0 = false;
           sub_4356FF();
         }
       }
@@ -1918,7 +1918,7 @@ LABEL_56:
         if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
           LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
         ptr_507BD4 = (GUIWindow *)sub_4219BE((void *)(20 * result + 5292232));
-        dword_50C9A0 = 1;
+        dword_50C9A0 = true;
         dword_50C0C4 = uActiveCharacter;
         return sub_421B2C();
       }
@@ -1986,32 +1986,29 @@ LABEL_56:
 }
 
 //----- (00427D48) --------------------------------------------------------
-void __thiscall sub_427D48(void *_this, int a2)
+void __thiscall sub_427D48_MessWith_unnamed_50C0C8(struct unnamed_50C0C8 *_this, int a2)
 {
-  signed int v2; // ebx@1
   void *v3; // esi@1
 
   v3 = _this;
-  v2 = 10;
-  do
+ for (unsigned int i = 0; i < 10; ++i)
+ {
+  if (!_this->array_000000[i].word_000000)
+    continue;
+
+  if (_this->array_000000[i].word_000008 & 0x03CA)
   {
-    if ( *(_WORD *)v3 )
-    {
-      if ( *((_WORD *)v3 + 4) & 0x3CA )
-      {
-        *(_WORD *)v3 = 0;
-        GUIWindowDelete(ptr_507BD4);
-       ptr_507BD4 = NULL;
-        sub_469903(pGame->pClass03, "MICON1");
-        dword_5C35B8 = 0;
-        dword_50C9A0 = 0;
-        sub_4356FF();
-      }
-    }
-    v3 = (char *)v3 + 20;
-    --v2;
+   _this->array_000000[i].word_000000 = 0;
+
+   GUIWindowDelete(ptr_507BD4);
+   ptr_507BD4 = 0;
+
+   sub_469903(pGame->pClass03, "MICON1");
+   dword_5C35B8_Some_GetTickCount_timer = 0;
+   dword_50C9A0 = false;
+   sub_4356FF();
   }
-  while ( v2 );
+ }
 }
 
 //----- (00427DA0) --------------------------------------------------------
@@ -2158,10 +2155,10 @@ signed int __thiscall sub_42EBEE(void *_this)
   v3 = uActiveCharacter;
   v7 = (int)_this;
   v2 = &pParty_global->pPlayers[uActiveCharacter - 1];
-  result = Player_sub_492C0B((int)&pParty_global->pPlayers[uActiveCharacter - 1]);
+  result = Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[uActiveCharacter - 1]);
   if ( result )
   {
-    sub_427D48(&struct_50C0C8, v3);
+    sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, v3);
     v5 = 0;
     v4 = CMapStats_FindLocation(pMapStats, Str1);
     if ( v4 )
@@ -2170,7 +2167,7 @@ signed int __thiscall sub_42EBEE(void *_this)
     if ( dword_6BE360 != 2 )
       v6 = &unk_6BE68C;
     compile_error;//sub_48D88B((int)v2, v7, v5, *((_DWORD *)v6 + 2)++);
-    v8 = Player_sub_48E1B5(v2, 0);
+    v8 = Player_sub_GetAttackRecoveryTime(v2, 0);
     if ( v8 < 30 )
       v8 = 30;
     if (!pParty_global->dword_00087C)
@@ -2182,9 +2179,8 @@ signed int __thiscall sub_42EBEE(void *_this)
 }
 
 //----- (0042ECB5) --------------------------------------------------------
-signed int __cdecl sub_42ECB5()
+bool sub_42ECB5_PlayerAttack()
 {
-  signed int result; // eax@1
   int v1; // ebx@1
   int v2; // esi@1
   int v3; // edi@2
@@ -2225,20 +2221,29 @@ signed int __cdecl sub_42ECB5()
   v1 = uActiveCharacter;
   v29 = 6972 * uActiveCharacter;
   v2 = (int)&pParty_global->pPlayers[uActiveCharacter - 1];
-  result = Player_sub_492C0B((int)&pParty_global->pPlayers[uActiveCharacter - 1]);
-  if ( result )
-  {
-    sub_427D48(&struct_50C0C8, v1);
+
+ if (!Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[uActiveCharacter - 1]))
+   return false;
+
+
+ sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, uActiveCharacter);
     v3 = 0;
     if (pParty_global->pPartyBuffs[11].qword_000000 > 0 )
       SpellBuff_sub_458585(&pParty_global->pPartyBuffs[11]);
-    v33 = *(_DWORD *)(v2 + 6480);
-    if ( v33 )
-    {
-      if ( *(_BYTE *)(v2 + 36 * v33 + 516) & 2 )
-        v33 = 0;
-    }
-    v4 = *(_DWORD *)(v2 + 6476);
+
+ v33 = pParty_global->pPlayers[uActiveCharacter - 1].sEquppedItemIndexes[2];
+    //v33 = *(_DWORD *)(v2 + 6480);
+
+ if ( v33 )
+ {
+  //if ( *(_BYTE *)(v2 + 36 * v33 + 516) & 2 )
+  if (*((char *)pParty_global->pPlayers[uActiveCharacter - 1].cInventorySlots - 0x10 + 36 * v33))
+    v33 = 0;
+ }
+
+ v4 = pParty_global->pPlayers[uActiveCharacter - 1].sEquppedItemIndexes[1];
+     //v4 = *(_DWORD *)(v2 + 6476);
+
     v34 = 0;
     v35 = 0;
     if ( v4 )
@@ -2253,7 +2258,7 @@ signed int __cdecl sub_42ECB5()
           if ( *(_DWORD *)(v5 + 512) <= 0 )
           {
             *(_DWORD *)v30 = 0;
-            *(_DWORD *)(v2 + 6476) = 0;
+            pParty_global->pPlayers[uActiveCharacter - 1].sEquppedItemIndexes[1] = 0;
           }
           else
           {
@@ -2437,7 +2442,7 @@ LABEL_66:
       if ( !v33 )
       {
 LABEL_39:
-        v33 = Player_sub_48E1B5((void *)v2, v3);
+        v33 = Player_sub_GetAttackRecoveryTime((void *)v2, v3);
         if ( v33 < 30 )
           v33 = 30;
         if (pParty_global->dword_00087C == v3)
@@ -2452,8 +2457,6 @@ LABEL_39:
     }
     sub_42777D(v17, v1 - 1, v19, v21, v23);
     goto LABEL_29;
-  }
-  return result;
 }
 
 //----- (0042F184) --------------------------------------------------------
@@ -3455,11 +3458,11 @@ LABEL_75:
               v6 = (int)*(&ptr_A750C4 + uActiveCharacter);
               if ( !*(_WORD *)(v6 + 6452) )
               {
-                v24 = Player_sub_48E1B5((void *)v6, 0);
+                v24 = Player_sub_GetAttackRecoveryTime((void *)v6, 0);
                 if (!pParty_global->dword_00087C)
                   Player_SetRecoveryTime(pPlayers[uActiveCharacter - 1],
                     (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v24 * 2.1333333333333333));
-                sub_427D48(&struct_50C0C8, uActiveCharacter);
+                sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, uActiveCharacter);
                 sub_40471C(&unk_4F8858);
               }
             }
@@ -4163,8 +4166,9 @@ LABEL_105:
           if ( v49 == 66 ) // Character Creation :: OK
           {
             GUIWindowCreate(580, 431, 0, 0, 90, pPlayerCreationUI_BtnOK, 0);
+            runtime_warning();
             /*if ( PlayerCreation_ComputeAttributeBonus() || !sub_4908DE() ) // check all points are destributed
-              dword_5C35B8 = GetTickCount() + 4000;
+              dword_5C35B8_Some_GetTickCount_timer = GetTickCount() + 4000;
             else*/
               dword_6A0D48 = 6;
             continue;
@@ -12295,7 +12299,7 @@ LABEL_90:
     v32 = 1;
     do
     {
-      v30 = Player_sub_492C0B((int)*(&ptr_A750C4 + v32));
+      v30 = Player_sub_492C0B_MaybeIfPlayerConscious(*(&ptr_A750C4 + v32));
       if ( v30 )
         v38[v31++] = v32;
       ++v32;
@@ -12549,7 +12553,7 @@ void __thiscall sub_4646F0(int _this)
   cClock1.clock_fn1();
   cClock2.clock_fn1();
   pParty_global->dword_007778 = 2;
-  sub_427D48(&struct_50C0C8, 1);
+  sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, 1);
   sub_464479();
   sub_464866(0, (v1 == 0) + 1);
   cClock2.clock_sub_426363();

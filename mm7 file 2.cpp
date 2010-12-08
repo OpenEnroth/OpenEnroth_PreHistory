@@ -1043,7 +1043,7 @@ LABEL_85:
       v13 = 0;
       do
       {
-        if ( Player_sub_492C0B((int)pPlayers[v11-1]) )
+        if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v11-1]) )
           v20[v13++] = v11;
         ++v11;
       }
@@ -7960,7 +7960,7 @@ void __cdecl sub_416196()
         return;
       v58 = v7;
     }
-    if ( Player_sub_492C0B((int)v0) )
+    if ( Player_sub_492C0B_MaybeIfPlayerConscious(v0) )
     {
       --v58;
       LOBYTE(v10) = Player_sub_48F882((void *)v0, 35);
@@ -8288,7 +8288,7 @@ LABEL_74:
       sub_42F7EB(1051, v56, v53, v55, 0, 1, 0, 0, 0);
       if ( dword_4E455C )
       {
-        if ( Player_sub_492C0B((int)v0) )
+        if ( Player_sub_492C0B_MaybeIfPlayerConscious(v0) )
           Player_PlaySound(v0, 17, 0);
         sub_44C175((char *)pGlobalTXT_LocalizationStrings[444], 2);
 LABEL_91:
@@ -8527,7 +8527,7 @@ void __thiscall sub_416D62_ShowMonsterRecord(int _this)
   {
     if ( dword_4E28F8 == 10 )
     {
-      if ( !Player_sub_492C0B((int)pPlayers[uActiveCharacter - 1]) )
+      if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter - 1]) )
       {
         wsprintfA((char *)TmpBuf,
           (char *)pGlobalTXT_LocalizationStrings[427],
@@ -8914,7 +8914,7 @@ void __thiscall OnMouseLeftClick(void *_this)
             {
               if ( v5 < 33554432 )
               {
-                if ( Player_sub_492C0B((int)*(&ptr_A750C4 + uActiveCharacter)) )
+                if ( Player_sub_492C0B_MaybeIfPlayerConscious(*(&ptr_A750C4 + uActiveCharacter)) )
                 {
                   if ( sub_492C40(pPlayers[uActiveCharacter - 1]) )
                   {
@@ -10320,7 +10320,7 @@ void __cdecl sub_41C047()
   Render_DrawRGBTexture(pD3DRenderer, 0, 352, &cPCXID_GameUI_StatusBar);
 
 #endif
-  if ( dword_5C35B8 )
+  if ( dword_5C35B8_Some_GetTickCount_timer )
   {
     v1 = (char *)&byte_5C3428;
   }
@@ -10352,9 +10352,9 @@ void __thiscall sub_41C0B8(const char *Str1)
     {
       if ( !IsBadStringPtrA(v1, 1u) )
       {
-        if ( *v1 || dword_5C35B8 )
+        if ( *v1 || dword_5C35B8_Some_GetTickCount_timer )
         {
-          if ( dword_5C35B8 )
+          if ( dword_5C35B8_Some_GetTickCount_timer )
           {
             for ( i = GetStringWidth(pFontLucida, (char *)&byte_5C3428); i > 450; i = GetStringWidth(pFontLucida, (char *)&byte_5C3428) )
               byte_5C3427[strlen((char *)&byte_5C3428)] = 0;
@@ -13959,13 +13959,13 @@ void GameUI_OnPlayerPortraitLeftClick(unsigned int uCharacter)
       class03_sub_4698A6(pGame->pClass03);
       return;
     }
-    if ( Player_sub_492C0B(v3) )
+    if ( Player_sub_492C0B_MaybeIfPlayerConscious((Player *)v3) )
     {
       v4 = pPlayers[uCharacter - 1];
     }
     else
     {
-      if ( !Player_sub_492C0B((int)pPlayers[uActiveCharacter - 1]) )
+      if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter - 1]) )
         goto LABEL_9;
       v4 = pPlayers[uActiveCharacter - 1];
     }
@@ -14123,7 +14123,7 @@ void __cdecl sub_421EA6()
             *(_DWORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 12) = v6 - 1;
             *(_WORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 6) = v17;
             dword_50C9A4 = (int)((char *)v0 + 36 * v6 + 496);
-            dword_50C9A0 = 0;
+            dword_50C9A0 = false;
             if ( dword_50CBD0[0] )
               dword_50CBD0[0] = dword_50CBD0[3] != 0;
             sub_469903(pGame->pClass03, "MICON1");

@@ -2551,8 +2551,8 @@ LABEL_322:
                   GUIWindowDelete(ptr_507BD4);
                   ptr_507BD4 = NULL;
                   sub_469903(pGame->pClass03, "MICON1");
-                  dword_5C35B8 = 0;
-                  dword_50C9A0 = 0;
+                  dword_5C35B8_Some_GetTickCount_timer = 0;
+                  dword_50C9A0 = false;
                   sub_4356FF();
                 }
               }
@@ -2800,7 +2800,7 @@ LABEL_317:
           {
             pParty_global->dword_0006E4 = 0;
             pParty_global->dword_0006E0 = 0;
-            sub_427D48(&struct_50C0C8, v0);
+            sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, v0);
             sub_44603D();
             cClock1.clock_fn1();
             LevelLoadingUI_Initialize(pLoadingUI, 2);
@@ -2926,8 +2926,8 @@ LABEL_333:
           GUIWindowDelete(v44);
           ptr_507BD4 = NULL;
           sub_469903(pGame->pClass03, "MICON1");
-          dword_5C35B8 = 0;
-          dword_50C9A0 = 0;
+          dword_5C35B8_Some_GetTickCount_timer = 0;
+          dword_50C9A0 = false;
           sub_4356FF();
           goto LABEL_92;
         case 0x45:
@@ -2966,8 +2966,8 @@ LABEL_422:
                ptr_507BD4 = NULL;
               cClock1.clock_sub_426363();
               sub_469903(pGame->pClass03, "MICON1");
-              dword_5C35B8 = 0;
-              dword_50C9A0 = 0;
+              dword_5C35B8_Some_GetTickCount_timer = 0;
+              dword_50C9A0 = false;
             }
           }
           goto LABEL_92;
@@ -3448,17 +3448,23 @@ LABEL_569:
               sub_42EBEE((void *)v209);
           }
           goto LABEL_92;
+
+          // attack ('A' default)
         case 0x17:
-          if ( !uActiveCharacter )
+          if (!uActiveCharacter)
             goto LABEL_90;
           if ( pParty_global->dword_00087C != v0 )
-            goto LABEL_577;
-          if ( dword_4F885C == v0 || dword_4F885C == 3 )
+          {
+           sub_42ECB5_PlayerAttack();
+           goto LABEL_92;
+          }
+          else if ( dword_4F885C == v0 || dword_4F885C == 3 )
             goto LABEL_90;
-          if ( !(dword_4F8870 & 2) )
-LABEL_577:
-            sub_42ECB5();
+          else if ( !(dword_4F8870 & 2) )
+            sub_42ECB5_PlayerAttack();
           goto LABEL_92;
+
+
         case 0xA7:
           v180 = (int)pGlobalTXT_LocalizationStrings[81];
           v97 = (int)dword_507638;
@@ -3524,7 +3530,7 @@ LABEL_595:
           if ( pParty_global->uNumFood < (unsigned int)dword_506F10 )
           {
             sub_44C175((char *)pGlobalTXT_LocalizationStrings[482], 2);
-            if ( uActiveCharacter && Player_sub_492C0B((int)*(&ptr_A750C4 + uActiveCharacter)) )
+            if ( uActiveCharacter && Player_sub_492C0B_MaybeIfPlayerConscious(*(&ptr_A750C4 + uActiveCharacter)) )
             {
               v101 = uActiveCharacter;
               v193 = 0;
@@ -5621,7 +5627,7 @@ void __cdecl GameUI_DrawStatusBar()
   int v11; // eax@13
 
   v0 = *(char **)&dword_507AF8;
-  if ( pStatusBarString[0] || dword_5C35B8 || dword_5C35BC )
+  if ( pStatusBarString[0] || dword_5C35B8_Some_GetTickCount_timer || dword_5C35BC )
   {
 
 #ifndef OLD_CODE
@@ -5630,7 +5636,7 @@ void __cdecl GameUI_DrawStatusBar()
 #ifdef OLD_CODE
     Render_DrawRGBTexture(pD3DRenderer, 0, 352, &cPCXID_GameUI_StatusBar);
 #endif
-    if ( dword_5C35B8 )
+    if ( dword_5C35B8_Some_GetTickCount_timer )
     {
       v2 = (char *)&byte_5C3428;
       v1 = GetStringWidth(pFontLucida, (char *)byte_5C3428);
@@ -5823,13 +5829,12 @@ char __cdecl LoadPlayerPortraintsAndVoices()
    for (j = 0; j < 56; ++j)
    {
     wsprintfW(pFilename, L"pc%02u-%02u", pParty_global->pPlayers[i].uFace + 1, j + 1);
-    pTextureIdx_PlayerFaces[i][j] = =&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilename)];
+    pTextureIdx_PlayerFaces[i][j] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(pFilename)];
    }
 
- uTextureIdx_PlayerFaceEradicated = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Eradcate");
- uTextureIdx_PlayerFaceDead = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"DEAD");
-#endif
-#ifdef OLD_CODE	 
+ uTextureIdx_PlayerFaceEradicated = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"Eradcate");
+ uTextureIdx_PlayerFaceDead = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"DEAD");
+#else
  char pFilename[16];
 	 for (i = 0; i < 4; ++i)
    for (j = 0; j < 56; ++j)
@@ -5883,7 +5888,7 @@ void GameUI_DrawPortraits(void *_this)
     qword_A750D8 -= cClock2.int_00001C;
     if ( qword_A750D8 <= 0 )
     {
-      if ( Player_sub_492C0B((int)pPlayers[word_A750E2 - 1]) )
+      if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[word_A750E2 - 1]) )
         Player_PlaySound(pPlayers[word_A750E2 - 1], word_A750E0, 0);
       qword_A750D8 = 0i64;
     }
@@ -5984,7 +5989,7 @@ LABEL_27:
   {
     for (i = 0; i < 4; ++i)
     {
-      if (Player_sub_492C0B((int)&pParty_global->pPlayers[i]))
+      if (Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[i]))
       {
         if (!pParty_global->pPlayers[i].uTimeToRecovery)
         {
@@ -11485,7 +11490,7 @@ LABEL_77:
   v117 = AlignText_Center(90, (char *)TmpBuf, pFontCreate);
   FontDrawText(pGUIWindow_CurrentMenu, pFontCreate, v117 + 530, 410, (char *)TmpBuf, uColor, 0, 0);
 
-  if ( dword_5C35B8 > GetTickCount() )
+  if ( dword_5C35B8_Some_GetTickCount_timer > GetTickCount() )
   {
     v127 = (int)pGlobalTXT_LocalizationStrings[412];
     if ( PlayerCreation_ComputeAttributeBonus() < 0 )

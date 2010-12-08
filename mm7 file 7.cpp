@@ -3113,7 +3113,7 @@ signed int __cdecl sub_4B1784()
   //int v6; // [sp+14h] [bp-44h]@3
 
   v0 = (int)pPlayers[uActiveCharacter - 1];
-  if ( Player_sub_492C0B((int)pPlayers[uActiveCharacter - 1]) )
+  if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter - 1]) )
   {
     pDialogueWindow->dword_000028 = dword_F8B1E0;
     result = 1;
@@ -3389,7 +3389,7 @@ LABEL_30:
           v7 = 1;
           do
           {
-            if ( Player_sub_492C0B((int)pPlayers[v7 - 1]) )
+            if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v7 - 1]) )
               v8[v6++] = v7;
             ++v7;
           }
@@ -3412,7 +3412,7 @@ LABEL_30:
         v4 = 1;
         do
         {
-          if ( Player_sub_492C0B((int)pPlayers[v4 - 1]) )
+          if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v4 - 1]) )
             v8[v3++] = v4;
           ++v4;
         }
@@ -3971,7 +3971,7 @@ LABEL_23:
     wsprintfA((char *)TmpBuf, (const char *)v24, v27);
     return (char *)TmpBuf;
   }
-  if ( !Player_sub_492C0B(v4) )
+  if ( !Player_sub_492C0B_MaybeIfPlayerConscious((Player *)v4) )
     return dword_721A3C;
   if ( !v8 )
     return (const CHAR *)dword_721A84;
@@ -4186,7 +4186,7 @@ int __fastcall sub_4B29F2(int a1)
   v4 = (int)*(&ptr_A750C4 + uActiveCharacter);
   dword_F8B1AC = v3;
   uArenaReward = dword_4F08EC[v2];
-  if ( Player_sub_492C0B(v4) )
+  if ( Player_sub_492C0B_MaybeIfPlayerConscious((Player *)v4) )
   {
     if ( (unsigned __int16)sub_449B57(v1 + 338, dword_F8B1AC) )
     {

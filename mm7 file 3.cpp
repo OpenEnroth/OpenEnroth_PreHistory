@@ -278,7 +278,7 @@ __int16 __thiscall sub_438E35(void *_this)
     v12 = (void **)pPlayers;
     do
     {
-      if ( Player_sub_492C0B((int)*v12) && (v13 = sub_49125A(*v12) + 20, rand() % v13 > 20) )
+      if ( Player_sub_492C0B_MaybeIfPlayerConscious((Player *)*v12) && (v13 = sub_49125A(*v12) + 20, rand() % v13 > 20) )
         LOWORD(v10) = Player_PlaySound((Player *)*v12, 6, 0);
       else
         LOWORD(v10) = Player_sub_48DC1E((Player *)*v12, v11, v18);
@@ -1050,7 +1050,7 @@ LABEL_80:
         v79 = 1;
         do
         {
-          if ( Player_sub_492C0B((int)*(&ptr_A750C4 + v79)) )
+          if ( Player_sub_492C0B_MaybeIfPlayerConscious(*(&ptr_A750C4 + v79)) )
           {
             v67 = v74++;
             v72[v67] = v79;
@@ -7587,7 +7587,7 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int sEventType, int a2, int a
   dword_5B65C4 = 0;
   if ( !a1 )
   {
-    if ( !dword_5C35B8 )
+    if ( !dword_5C35B8_Some_GetTickCount_timer )
       sub_44C175((char *)pGlobalTXT_LocalizationStrings[LOCSTR_NOTHING_HERE], 2);
     return;
   }
@@ -12047,7 +12047,7 @@ int __fastcall sub_44C175(const char *Source, int a2)
 
   v3 = a2;
   strcpy((char *)byte_5C3428, Source);
-  dword_5C35B8 = 1000 * v3 + GetTickCount();
+  dword_5C35B8_Some_GetTickCount_timer = 1000 * v3 + GetTickCount();
   for ( result = GetStringWidth(pFontLucida, (char *)byte_5C3428); result > 450; result = GetStringWidth(pFontLucida, (char *)byte_5C3428) )
     byte_5C3427[strlen((char *)byte_5C3428)] = 0;
   return result;
@@ -12058,7 +12058,7 @@ int __cdecl sub_44C1D0()
 {
   int result; // eax@2
 
-  if ( !dword_5C35B8 )
+  if ( !dword_5C35B8_Some_GetTickCount_timer )
     result = sub_44C175((char *)pGlobalTXT_LocalizationStrings[521], 2);
   return result;
 }

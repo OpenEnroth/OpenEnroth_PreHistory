@@ -379,7 +379,7 @@ LABEL_17:
     i = 0;
     while ( 1 )
     {
-      if (Player_sub_492C0B((int)&pParty_global->pPlayers[i++]))
+      if (Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[i++]))
         break;
       if (i >= 4)
         goto LABEL_46;

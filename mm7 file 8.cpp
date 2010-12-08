@@ -3450,7 +3450,7 @@ signed int __thiscall sub_4059DB_ProbablyStartTurn(void *_this)
   v3 = 0;
   for (i = 0; i < 4; ++i)
   {
-    if ( Player_sub_492C0B((int)&pParty_global->pPlayers[i]) )
+    if ( Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[i]) )
     {
       *(_DWORD *)(16 * (*(_DWORD *)(v1 + 12) + 2) + v1) = 8 * v3 | 4;
       *(_DWORD *)(16 * *(_DWORD *)(v1 + 12) + v1 + 44) = 2;
@@ -3552,7 +3552,7 @@ LABEL_27:
   {
     do
     {
-     (&v33.uDistance)[v18] = Player_sub_48E1B5(&pParty_global->pPlayers[(*(_DWORD *)(16 * ((&v35.uDistance)[v18] + 2) + v1) >> 3)], v2);
+     (&v33.uDistance)[v18] = Player_sub_GetAttackRecoveryTime(&pParty_global->pPlayers[(*(_DWORD *)(16 * ((&v35.uDistance)[v18] + 2) + v1) >> 3)], v2);
       ++v18;
     }
     while ( v18 < v41 );
@@ -4374,7 +4374,7 @@ LABEL_8:
         goto LABEL_11;
     }
     v15 = v5 >> 3;
-    if ( !Player_sub_492C0B((int)pPlayers[v5 >> 3]) || v19 != v15 )
+    if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v5 >> 3]) || v19 != v15 )
     {
       v1 = 0;
       goto LABEL_8;
@@ -4799,7 +4799,7 @@ int __thiscall sub_406457(void *_this, int a2)
     if ( v4 )
       *(_DWORD *)v5 = 0;
     else
-      v4 = Player_sub_48E1B5((void *)pPlayers[v6], 0);
+      v4 = Player_sub_GetAttackRecoveryTime((void *)pPlayers[v6], 0);
     if ( v4 < 30 )
       v4 = 30;
   }
@@ -5874,7 +5874,7 @@ int __cdecl sub_494035()
           if ( pParty_global->dword_007778 & 4 )
           {
             strcpy((char *)byte_5C3428, (char *)pGlobalTXT_LocalizationStrings[660]);
-            dword_5C35B8 = 128;
+            dword_5C35B8_Some_GetTickCount_timer = 128;
           }
           goto LABEL_39;
         }
@@ -5905,7 +5905,7 @@ LABEL_39:
           if ( pParty_global->dword_007778 & 0x200 )
           {
             strcpy((char *)byte_5C3428, (char *)pGlobalTXT_LocalizationStrings[661]);
-            dword_5C35B8 = 128;
+            dword_5C35B8_Some_GetTickCount_timer = 128;
           }
         }
       }
@@ -6139,7 +6139,7 @@ LABEL_61:
     {
       if ( !(*(_BYTE *)(v47 + 15) & 1) )
       {
-        if ( !Player_sub_492C0B((int)pPlayers[*(_BYTE *)(v47 + 14) - 1]) )
+        if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[*(_BYTE *)(v47 + 14) - 1]) )
         {
           SpellBuff_sub_458585((SpellBuff *)v47);
           if (array_4EE07C[i] == 7 )
@@ -6288,8 +6288,8 @@ LABEL_26:
 //----- (00448B45) --------------------------------------------------------
 void sub_448B45_LooksLikeResetSomeTimer(bool a1)
 {
- if (a1 || dword_5C35B8 && GetTickCount() >= dword_5C35B8 )
-   dword_5C35B8 = 0;
+ if (a1 || dword_5C35B8_Some_GetTickCount_timer && GetTickCount() >= dword_5C35B8_Some_GetTickCount_timer )
+   dword_5C35B8_Some_GetTickCount_timer = 0;
 }
 
 //----- (00406D10) --------------------------------------------------------
