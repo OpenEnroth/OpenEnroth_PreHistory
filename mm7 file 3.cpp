@@ -4748,541 +4748,618 @@ void __cdecl sub_441BD4()
 //----- (00442955) --------------------------------------------------------
 unsigned int __fastcall sub_442955(int a1, int a2, int a3, int a4, int a5)
 {
-  signed int v5; // ebx@1
-  int v6; // edi@1
-  int v7; // eax@8
-  unsigned __int8 v8; // zf@8
-  unsigned __int8 v9; // sf@8
-  int v10; // esi@10
-  int v11; // edx@11
-  __int16 v12; // cx@12
-  signed int v13; // eax@15
-  int v14; // eax@16
-  int v15; // ecx@16
-  int v16; // edx@16
-  int v17; // ecx@16
-  int v18; // eax@16
-  int v19; // ecx@16
-  int v20; // eax@16
-  int v21; // esi@18
-  int v22; // ecx@21
-  int v23; // ecx@21
-  int v24; // edx@21
-  int v25; // eax@21
-  int v26; // ecx@21
-  int v27; // edi@21
-  int v28; // edx@21
-  int v29; // eax@21
-  signed int v30; // eax@23
-  char *v31; // edx@23
-  signed int v32; // ecx@23
-  double v33; // st7@23
-  signed __int64 v34; // qax@23
-  int v35; // esi@23
-  int v36; // ecx@27
-  int v37; // esi@27
-  int v40; // edx@31
-  int v41; // eax@33
-  int v42; // ecx@33
-  int v43; // edi@33
-  int v44; // esi@33
-  int v45; // esi@33
-  int v46; // edi@33
-  unsigned __int8 v47; // cf@33
-  unsigned int v48; // ecx@33
-  int v50; // eax@38
-  signed int v51; // ecx@38
-  int v52; // esi@38
-  signed int v53; // edx@55
-  int v54; // ecx@55
-  unsigned int result; // eax@72
-  int v56; // eax@75
-  int v57; // esi@75
-  int v58; // eax@75
-  signed int v59; // ebx@85
-  signed int v60; // edi@85
-  int v61; // esi@85
-  __int16 v62; // si@85
-  double v63; // st7@85
-  int v64; // ebx@85
-  signed __int64 v65; // qax@85
-  signed __int64 v66; // qax@85
-  int v67; // eax@87
-  char *v68; // edx@95
-  int v69; // ebx@95
-  int v70; // esi@96
-  int v71; // edi@98
-  __int16 v72; // cx@99
-  int v73; // [sp-10h] [bp-48074h]@80
-  int v74; // [sp-Ch] [bp-48070h]@80
-  int v75; // [sp-8h] [bp-4806Ch]@80
-  signed int v76; // [sp-4h] [bp-48068h]@59
-  __int16 v77; // [sp-4h] [bp-48068h]@79
-  char v78; // [sp+Ch] [bp-48058h]@23
-  int v79; // [sp+4800Ch] [bp-58h]@23
-  int v80; // [sp+48010h] [bp-54h]@27
-  int v81; // [sp+48014h] [bp-50h]@23
-  int v82; // [sp+48018h] [bp-4Ch]@1
-  int v83; // [sp+4801Ch] [bp-48h]@1
-  int v84; // [sp+48020h] [bp-44h]@23
-  int v85; // [sp+48024h] [bp-40h]@1
-  unsigned int v86; // [sp+48028h] [bp-3Ch]@8
-  int v87; // [sp+4802Ch] [bp-38h]@1
-  int v88; // [sp+48030h] [bp-34h]@1
-  unsigned int v89; // [sp+48034h] [bp-30h]@1
-  int v90; // [sp+48038h] [bp-2Ch]@16
-  int v91; // [sp+4803Ch] [bp-28h]@16
-  int v92; // [sp+48040h] [bp-24h]@8
-  int v93; // [sp+48044h] [bp-20h]@1
-  int i; // [sp+48048h] [bp-1Ch]@9
-  int v95; // [sp+4804Ch] [bp-18h]@16
-  int v96; // [sp+48050h] [bp-14h]@16
-  int v97; // [sp+48054h] [bp-10h]@8
-  int v98; // [sp+48058h] [bp-Ch]@16
-  int v99; // [sp+4805Ch] [bp-8h]@10
-  const void *v100; // [sp+48060h] [bp-4h]@16
-  char *v101; // [sp+4806Ch] [bp+8h]@85
-  int v102; // [sp+48070h] [bp+Ch]@86
+	signed int v5; // ebx@1
+	int v6; // edi@1
+	int v7; // eax@8
+	unsigned __int8 v8; // zf@8
+	unsigned __int8 v9; // sf@8
+	int v10; // esi@10
+	int v11; // edx@11
+	__int16 v12; // cx@12
+	signed int v13; // eax@15
+	int v14; // eax@16
+	int v15; // ecx@16
+	int v16; // edx@16
+	int v17; // ecx@16
+	int v18; // eax@16
+	int v19; // ecx@16
+	int v20; // eax@16
+	int v21; // esi@18
+	int v22; // ecx@21
+	int v23; // ecx@21
+	int v24; // edx@21
+	int v25; // eax@21
+	int v26; // ecx@21
+	int v27; // edi@21
+	int v28; // edx@21
+	int v29; // eax@21
+	signed int v30; // eax@23
+	char *v31; // edx@23
+	signed int v32; // ecx@23
+	double v33; // st7@23
+	signed __int64 v34; // qax@23
+	int v35; // esi@23
+	int v36; // ecx@27
+	int v37; // esi@27
+	int v40; // edx@31
+	int v41; // eax@33
+	int v42; // ecx@33
 
-  v85 = a1;
-  v83 = a2;
-  v88 = (a1 + a3) >> 1;
-  v93 = (a2 + a4) >> 1;
-  v82 = pD3DRenderer->uTargetSurfacePitch;
-  Render_sub_4A0E97(pD3DRenderer, a1, a2, a3, a4);
-  v5 = struct_576FE8.dword_00002C;
-  v6 = struct_576FE8.dword_000030;
-  v89 = struct_576FE8.dword_000030;
-  v87 = struct_576FE8.dword_000034;
-  if ( struct_576FE8.dword_00002C != 384 )
-  {
-   if ( struct_576FE8.dword_00002C == 768 )
-    {
-      if ( dword_6BE360 != 1 )
-        goto LABEL_23;
-      v5 = 680;
-    }
-    if ( dword_6BE360 == 1 )
-      goto LABEL_8;
+	int v43; // edi@33
+	int v44; // esi@33
+  
+	int v45; // esi@33
+	int v46; // edi@33
+	unsigned __int8 v47; // cf@33
+	unsigned int v48; // ecx@33
+	int v50; // eax@38
+	signed int v51; // ecx@38
+	int v52; // esi@38
+	signed int v53; // edx@55
+	int v54; // ecx@55
+	unsigned int result; // eax@72
+	int v56; // eax@75
+	int v57; // esi@75
+	int v58; // eax@75
+	signed int v59; // ebx@85
+	signed int v60; // edi@85
+	int v61; // esi@85
+	__int16 v62; // si@85
+	double v63; // st7@85
+	int v64; // ebx@85
+	signed __int64 v65; // qax@85
+	signed __int64 v66; // qax@85
+	int v67; // eax@87
+	char *v68; // edx@95
+	int v69; // ebx@95
+
+//  int v70; // esi@96
+	unsigned int *v70; // esi@96
+  
+	int v71; // edi@98
+	__int16 v72; // cx@99
+
+	int v73; // [sp-10h] [bp-48074h]@80
+	int v74; // [sp-Ch] [bp-48070h]@80
+	int v75; // [sp-8h] [bp-4806Ch]@80
+	signed int v76; // [sp-4h] [bp-48068h]@59
+	__int16 v77; // [sp-4h] [bp-48068h]@79
+	char v78; // [sp+Ch] [bp-48058h]@23
+
+	int v79; // [sp+4800Ch] [bp-58h]@23
+  
+//  int v80; // [sp+48010h] [bp-54h]@27
+	unsigned int *v80;
+
+//  int v81; // [sp+48014h] [bp-50h]@23
+	unsigned short *v81;
+  
+
+	int v82; // [sp+48018h] [bp-4Ch]@1
+	int v83; // [sp+4801Ch] [bp-48h]@1
+	int v84; // [sp+48020h] [bp-44h]@23
+	int v85; // [sp+48024h] [bp-40h]@1
+	unsigned int v86; // [sp+48028h] [bp-3Ch]@8
+	int v87; // [sp+4802Ch] [bp-38h]@1
+	int v88; // [sp+48030h] [bp-34h]@1
+	unsigned int v89; // [sp+48034h] [bp-30h]@1
+	int v90; // [sp+48038h] [bp-2Ch]@16
+	int v91; // [sp+4803Ch] [bp-28h]@16
+	int v92; // [sp+48040h] [bp-24h]@8
+	int v93; // [sp+48044h] [bp-20h]@1
+	int i; // [sp+48048h] [bp-1Ch]@9
+	int v95; // [sp+4804Ch] [bp-18h]@16
+	int v96; // [sp+48050h] [bp-14h]@16
+	int v97; // [sp+48054h] [bp-10h]@8
+	int v98; // [sp+48058h] [bp-Ch]@16
+	int v99; // [sp+4805Ch] [bp-8h]@10
+	const void *v100; // [sp+48060h] [bp-4h]@16
+	char *v101; // [sp+4806Ch] [bp+8h]@85
+	int v102; // [sp+48070h] [bp+Ch]@86
+
+
+
+
+
+
+	v85 = a1;
+	v83 = a2;
+	v88 = (a1 + a3) >> 1;
+	v93 = (a2 + a4) >> 1;
+	v82 = pD3DRenderer->uTargetSurfacePitch;
+	Render_sub_4A0E97(pD3DRenderer, a1, a2, a3, a4);
+	v5 = struct_576FE8.dword_00002C;
+	v6 = struct_576FE8.dword_000030;
+	v89 = struct_576FE8.dword_000030;
+	v87 = struct_576FE8.dword_000034;
+
+	if ( struct_576FE8.dword_00002C != 384 )
+	{
+		if ( struct_576FE8.dword_00002C == 768 )
+		{
+			if ( dword_6BE360 != 1 ) goto LABEL_23;
+			v5 = 680;
+		}
+		
+		if ( dword_6BE360 == 1 ) goto LABEL_8;
+
+
 LABEL_23:
-    v97 = a3 - v85 + 1;
-    v95 = a4 - v83 + 1;
-    v96 = (int)pD3DRenderer->pTargetSurface + (v85 + v83 * v82);
-    v98 = (int)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].pIndexedPixels;
-    v81 = (int)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].pPalette;
-    v90 = (1 << ((unsigned __int8)*(_WORD *)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C + 16)) / v5;
-    v33 = (double)(1 << (16 - (unsigned __int8)*(_WORD *)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C));
-    v92 = 22528 / (v5 / 384);
-    v86 = (unsigned int)(signed __int64)((double)(v6 - 22528 / (v5 / 384) + 32768) / v33) << 16;
-    v100 = (const void *)((unsigned int)(signed __int64)((double)(v6 - 22528 / (v5 / 384) + 32768) / v33) << 16);
-    v99 = 32768 - v92 - v87;
-    v34 = (signed __int64)((double)v99 / v33);
-    v31 = &v78;
-    v35 = LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].uTextureWidth;
-    v30 = (_DWORD)v34 << 16;
-    v84 = (signed int)v86 >> 16;
-    v92 = (signed int)v86 >> 16;
-    v79 = v35;
-    v32 = v30 >> 16;
-    if ( v98 )
-    {
-      if ( v95 > 0 )
-      {
-        v99 = v95;
-        do
-        {
-          v91 = 0;
-          if ( v97 > 0 )
-          {
-            v37 = v98 + v32 * v79;
-            i = v97;
-            v91 = v97;
-            v36 = v92;
-            v80 = v37;
-            do
-            {
-              *(_WORD *)v31 = *(_WORD *)(v81 + 2 * *(_BYTE *)(v80 + v36));
-              v31 += 2;
-              v100 = (char *)v100 + v90;
-              v36 = (signed int)v100 >> 16;
-            }
-            while ( i-- != 1 );
-          }
-          v30 += v90;
-          v100 = (const void *)v86;
-          v92 = v84;
-          v31 += 2 * (v97 - v91);
-          v32 = v30 >> 16;
-        }
-        while ( v99-- != 1 );
-      }
-    }
-    v100 = &v78;
-    if ( v95 > 0 )
-    {
-      v99 = v95;
-      v40 = 2 * (v82 - v97);
-      do
-      {
-        if ( v97 > 0 )
-        {
-          v41 = v97;
-          v45 = (int)v100;
-          v46 = v96;
-          v47 = v97 & 1;
-          v48 = (unsigned int)v97 >> 1;
-          memcpy((void *)v96, v100, 4 * ((unsigned int)v97 >> 1));
-          v44 = v45 + 4 * v48;
-          v43 = v46 + 4 * v48;
-          v42 = 2 * v47;
-          v41 *= 2;
-          v96 += v41;
-          v100 = (char *)v100 + v41;
-          while ( v42 )
-          {
-            *(_WORD *)v43 = *(_WORD *)v44;
-            v44 += 2;
-            v43 += 2;
-            --v42;
-          }
-          v6 = v89;
-        }
-        v96 += v40;
-      }
-      while ( v99-- != 1 );
-    }
-    goto LABEL_38;
-  }
-  v6 = struct_576FE8.word_000038;
-  v89 = struct_576FE8.word_000038;
-  v87 = struct_576FE8.word_00003A;
-  if ( dword_6BE360 != 1 )
-    goto LABEL_23;
-  v5 = struct_576FE8.dword_00002C - 34;
+
+		v97 = a3 - v85 + 1;
+		v95 = a4 - v83 + 1;
+
+
+		v96 = (int)pD3DRenderer->pTargetSurface + (v85 + v83 * v82);
+
+		v98 = (int)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].pIndexedPixels;
+	//	v81 = (int)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].pPalette;
+		v81 = LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].pPalette;
+
+	//	v90 = (1 << ((unsigned __int8)*(_WORD *)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C + 16)) / v5;
+		v90 = (1 << (LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C + 16)) / v5;
+
+
+	//	v33 = (double)(1 << (16 - (unsigned __int8)*(_WORD *)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C));
+		v33 = (double)(1 << (16 - LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C));
+  
+		v92 = 22528 / (v5 / 384);
+		v86 = (unsigned int)(signed __int64)((double)(v6 - 22528 / (v5 / 384) + 32768) / v33) << 16;
+		v100 = (const void *)((unsigned int)(signed __int64)((double)(v6 - 22528 / (v5 / 384) + 32768) / v33) << 16);
+		v99 = 32768 - v92 - v87;
+		v34 = (signed __int64)((double)v99 / v33);
+
+	//	v31 = &v78;
+		v31 = (char *)pD3DRenderer->pTargetSurface;
+
+		v35 = LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].uTextureWidth;
+		v30 = (_DWORD)v34 << 16;
+		v84 = (signed int)v86 >> 16;
+		v92 = (signed int)v86 >> 16;
+		v79 = v35;
+		v32 = v30 >> 16;
+    
+	
+	
+// --- верхняя полоска
+		if ( v98 )
+		{
+			if ( v95 > 0 )
+			{
+				v99 = v95;
+				do
+				{
+					v91 = 0;
+					if ( v97 > 0 )
+					{
+						v37 = v98 + v32 * v79;
+						i = v97;
+						v91 = v97;
+						v36 = v92;
+						v80 = (unsigned int*)v37;
+						do
+						{
+							*(_WORD *)v31 = *(_WORD *)(v81 + 2 * *(_BYTE *)(v80 + v36)); // нет верхней полоски и все лучше
+							v31 += 2;
+							v100 = (char *)v100 + v90;
+							v36 = (signed int)v100 >> 16;
+
+					    }
+						while ( i-- != 1 );
+					}
+          
+				v30 += v90;
+				v100 = (const void *)v86;
+				v92 = v84;
+				v31 += 2 * (v97 - v91);
+				v32 = v30 >> 16;
+				}
+			while ( v99-- != 1 );
+			}
+		}
+// --- верхняя полоска
+
+// --- отрисовка 2х карт
+
+	//	v100 = &v78;
+		v100 = (char *)pD3DRenderer->pTargetSurface;
+
+		if ( v95 > 0 )
+		{
+			v99 = v95;
+			v40 = 2 * (v82 - v97);
+    
+	  
+			do // по v99
+			{
+				if ( v97 > 0 )
+				{
+					v41 = v97;
+   
+		//			v45 = (int)v100;
+					v45 = (int)pD3DRenderer->pTargetSurface;
+          
+					v46 = v96;
+					v47 = v97 & 1;
+					v48 = (unsigned int)v97 >> 1;
+					memcpy((void *)v96, v100, 4 * ((unsigned int)v97 >> 1)); 
+          
+					v44 = v45 + 4 * v48;
+					v43 = v46 + 4 * v48;
+          
+					v41 *= 2;
+					v96 += v41;
+					v100 = (char *)v100 + v41;
+          
+					v42 = 2 * v47;
+					while ( v42 ) 
+					{
+						*(_WORD *)v43 = *(_WORD *)v44;
+						v44 += 2;
+						v43 += 2;
+						--v42;
+					}
+
+
+					v6 = v89;
+				}
+				v96 += v40;
+			}
+			while ( v99-- != 1 );
+		}
+ 
+		goto LABEL_38;
+	}
+
+
+
+	v6 = struct_576FE8.word_000038;
+	v89 = struct_576FE8.word_000038;
+	v87 = struct_576FE8.word_00003A;
+	if ( dword_6BE360 != 1 ) goto LABEL_23;
+	v5 = struct_576FE8.dword_00002C - 34;
+
 LABEL_8:
-  v92 = 0xFF000000;
-  v86 = 0xFF00FFFF;
-  v7 = dword_6BE670;
-  dword_576D14 = 0;
-  v8 = *(_DWORD *)dword_6BE670 == 0;
-  v9 = *(_DWORD *)dword_6BE670 < 0;
-  v97 = 0;
-  if ( !(v9 | v8) )
-  {
-    i = 0;
-    do
-    {
-      v10 = i + v7 + 4;
-      v99 = *(_DWORD *)(96 * *(_WORD *)(i + v7 + 8) + dword_6BE644 + 44);
-      if ( BYTE1(v99) & 0x20 || (v11 = *(_DWORD *)(96 * *(_WORD *)(i + v7 + 10) + dword_6BE644 + 44), BYTE1(v11) & 0x20) )
-        goto LABEL_17;
-      v12 = *(_WORD *)(i + v7 + 14);
-      if ( !(v12 & 1) )
-      {
-        if ( !(v99 & 0x80) && (_BYTE)v11 >= 0 )
-          goto LABEL_17;
-        v99 = v97 >> 3;
-        v13 = v97;
-        *(_WORD *)(v10 + 10) = v12 | 1;
-        byte_6BE6EC[v99] |= 1 << (7 - v13 % 8);
-      }
-      v14 = *(_WORD *)v10;
-      v91 = v5;
-      v15 = dword_6BE63C + 6 * v14;
-      v16 = *(_WORD *)v15;
-      v17 = *(_WORD *)(v15 + 2) - v87;
-      v96 = v16 - v6;
-      v95 = v17;
-      v18 = dword_6BE63C + 6 * *(_WORD *)(v10 + 2);
-      v19 = *(_WORD *)v18;
-      v20 = *(_WORD *)(v18 + 2) - v87;
-      v98 = v19 - v6;
-      v100 = (const void *)v20;
-      v91 = (unsigned __int64)((v16 - v6) * v5) >> 16;
-      v90 = (unsigned __int64)(v95 * v5) >> 16;
-      v96 = (unsigned __int64)((v19 - v6) * v5) >> 16;
-      v95 = (unsigned __int64)(v20 * v5) >> 16;
-      Render_FillRect(
-        pD3DRenderer,
-        v88 + v91,
-        v93 - v90,
-        v88 + ((unsigned __int64)((v19 - v6) * v5) >> 16),
-        v93 - v95,
-        v92);
-      v7 = dword_6BE670;
+	v92 = 0xFF000000;
+	v86 = 0xFF00FFFF;
+	v7 = dword_6BE670;
+	dword_576D14 = 0;
+	v8 = *(_DWORD *)dword_6BE670 == 0;
+	v9 = *(_DWORD *)dword_6BE670 < 0;
+	v97 = 0;
+	if ( !(v9 | v8) )
+	{
+		i = 0;
+		do
+		{
+			v10 = i + v7 + 4;
+			v99 = *(_DWORD *)(96 * *(_WORD *)(i + v7 + 8) + dword_6BE644 + 44);
+
+			if ( BYTE1(v99) & 0x20 || (v11 = *(_DWORD *)(96 * *(_WORD *)(i + v7 + 10) + dword_6BE644 + 44), BYTE1(v11) & 0x20) ) goto LABEL_17;
+
+			v12 = *(_WORD *)(i + v7 + 14);
+			if ( !(v12 & 1) )
+			{
+				if ( !(v99 & 0x80) && (_BYTE)v11 >= 0 ) goto LABEL_17;
+				v99 = v97 >> 3;
+				v13 = v97;
+				*(_WORD *)(v10 + 10) = v12 | 1;
+				byte_6BE6EC[v99] |= 1 << (7 - v13 % 8);
+			}
+
+			v14 = *(_WORD *)v10;
+			v91 = v5;
+			v15 = dword_6BE63C + 6 * v14;
+			v16 = *(_WORD *)v15;
+			v17 = *(_WORD *)(v15 + 2) - v87;
+			v96 = v16 - v6;
+			v95 = v17;
+			v18 = dword_6BE63C + 6 * *(_WORD *)(v10 + 2);
+			v19 = *(_WORD *)v18;
+			v20 = *(_WORD *)(v18 + 2) - v87;
+			v98 = v19 - v6;
+			v100 = (const void *)v20;
+			v91 = (unsigned __int64)((v16 - v6) * v5) >> 16;
+			v90 = (unsigned __int64)(v95 * v5) >> 16;
+			v96 = (unsigned __int64)((v19 - v6) * v5) >> 16;
+			v95 = (unsigned __int64)(v20 * v5) >> 16;
+      
+			Render_FillRect(pD3DRenderer,v88 + v91, v93 - v90, v88 + ((unsigned __int64)((v19 - v6) * v5) >> 16),v93 - v95,v92);
+			v7 = dword_6BE670;
+
+
 LABEL_17:
-      ++v97;
-      i += 12;
-    }
-    while ( v97 < *(_DWORD *)v7 );
-  }
-  v21 = 0;
-  if ( dword_576D14 > 0 )
-  {
-    while ( 1 )
-    {
-      v22 = (unsigned __int16)word_576D80[v21];
-      v90 = v5;
-      v23 = v7 + 12 * v22 + 4;
-      v24 = dword_6BE63C + 6 * *(_WORD *)v23;
-      v25 = dword_6BE63C + 6 * *(_WORD *)(v23 + 2);
-      v26 = *(_WORD *)v25;
-      v27 = *(_WORD *)v24 - v89;
-      v28 = *(_WORD *)(v24 + 2) - v87;
-      v29 = *(_WORD *)(v25 + 2) - v87;
-      v96 = v27;
-      v95 = v28;
-      v100 = (const void *)v29;
-      v90 = (unsigned __int64)(v27 * v5) >> 16;
-      v91 = (unsigned __int64)(v28 * v5) >> 16;
-      i = (unsigned __int64)((signed int)(v26 - v89) * v5) >> 16;
-      v98 = (unsigned __int64)(v29 * v5) >> 16;
-      Render_FillRect(
-        pD3DRenderer,
-        v88 + ((unsigned __int64)(v27 * v5) >> 16),
-        v93 - v91,
-        v88 + ((unsigned __int64)((signed int)(v26 - v89) * v5) >> 16),
-        v93 - v98,
-        v86);
-      ++v21;
-      if ( v21 >= dword_576D14 )
-        break;
-      v7 = dword_6BE670;
-    }
-    v6 = v89;
-  }
+
+
+			++v97;
+			i += 12;
+		}
+		while ( v97 < *(_DWORD *)v7 );
+	}
+
+	v21 = 0;
+	if ( dword_576D14 > 0 )
+	{
+		while ( 1 )
+		{
+			v22 = (unsigned __int16)word_576D80[v21];
+			v90 = v5;
+			v23 = v7 + 12 * v22 + 4;
+			v24 = dword_6BE63C + 6 * *(_WORD *)v23;
+			v25 = dword_6BE63C + 6 * *(_WORD *)(v23 + 2);
+			v26 = *(_WORD *)v25;
+			v27 = *(_WORD *)v24 - v89;
+			v28 = *(_WORD *)(v24 + 2) - v87;
+			v29 = *(_WORD *)(v25 + 2) - v87;
+			v96 = v27;
+			v95 = v28;
+			v100 = (const void *)v29;
+			v90 = (unsigned __int64)(v27 * v5) >> 16;
+			v91 = (unsigned __int64)(v28 * v5) >> 16;
+			i = (unsigned __int64)((signed int)(v26 - v89) * v5) >> 16;
+			v98 = (unsigned __int64)(v29 * v5) >> 16;
+						
+			Render_FillRect(pD3DRenderer,v88 + ((unsigned __int64)(v27 * v5) >> 16),v93 - v91,v88 + ((unsigned __int64)((signed int)(v26 - v89) * v5) >> 16),v93 - v98,v86);
+      
+			++v21;
+				
+			if ( v21 >= dword_576D14 ) break;
+      
+			v7 = dword_6BE670;
+		}
+
+		v6 = v89;
+	}
+
+// --- отрисовка 2х карт
+
+//2я часть
 LABEL_38:
-  v52 = ((unsigned __int64)((pParty_global->sPartyPosX - v6) * v5) >> 16) + v88 - 3;
-  v84 = pParty_global->sPartyPosY - v87;
-  v100 = (const void *)((unsigned __int64)((pParty_global->sPartyPosY - v87) * v5) >> 16);
-  v51 = 1;
-  v50 = v93 - (_DWORD)v100 - 3;
-  if ( v52 >= v85 )
-  {
-    if ( v52 > a3 )
-    {
-      if ( (signed int)(((unsigned __int64)((pParty_global->sPartyPosX - v6) * v5) >> 16) + v88 - 6) > a3 )
-        v51 = 0;
-      v52 = a3;
-    }
-  }
-  else
-  {
-    if ( (signed int)(((unsigned __int64)((pParty_global->sPartyPosX - v6) * v5) >> 16) + v88) < v85 )
-      v51 = 0;
-    v52 = v85;
-  }
-  if ( v50 >= v83 )
-  {
-    if ( v50 > a4 )
-    {
-      if ( v93 - (_DWORD)v100 - 6 > a4 )
-        v51 = 0;
-      v50 = a4;
-    }
-  }
-  else
-  {
-    if ( v93 - (_DWORD)v100 < v83 )
-      v51 = 0;
-    v50 = v83;
-  }
-  if ( v51 == 1 )
-  {
-    v53 = 0;
-    v54 = pParty_global->sRotationY & pClass59_global->uDoublePiMask;
-    if ( (pParty_global->sRotationY & pClass59_global->uDoublePiMask) >= 128 )
-    {
-      if ( v54 > 384 )
-      {
-        if ( v54 >= 640 )
-        {
-          if ( v54 > 896 )
-          {
-            if ( v54 >= 1152 )
-            {
-              if ( v54 > 1408 )
-              {
-                if ( v54 >= 1664 )
-                {
-                  if ( v54 > 1920 )
-                    goto LABEL_71;
-                  v76 = 7;
-                }
-                else
-                {
-                  v76 = 6;
-                }
-              }
-              else
-              {
-                v76 = 5;
-              }
-            }
-            else
-            {
-              v76 = 4;
-            }
-          }
-          else
-          {
-            v76 = 3;
-          }
-        }
-        else
-        {
-          v76 = 2;
-        }
-        v53 = v76;
-        goto LABEL_71;
-      }
-      v53 = 1;
-    }
+
+	v52 = ((unsigned __int64)((pParty_global->sPartyPosX - v6) * v5) >> 16) + v88 - 3;
+	v84 = pParty_global->sPartyPosY - v87;
+	v100 = (const void *)((unsigned __int64)((pParty_global->sPartyPosY - v87) * v5) >> 16);
+	v51 = 1;
+	v50 = v93 - (_DWORD)v100 - 3;
+	
+
+	if ( v52 >= v85 )
+	{
+		if ( v52 > a3 )
+		{
+			if ( (signed int)(((unsigned __int64)((pParty_global->sPartyPosX - v6) * v5) >> 16) + v88 - 6) > a3 )
+			v51 = 0;
+			v52 = a3;
+		}
+	}
+	else
+	{
+		if ( (signed int)(((unsigned __int64)((pParty_global->sPartyPosX - v6) * v5) >> 16) + v88) < v85 )
+		v51 = 0;
+		v52 = v85;
+	}
+
+
+	if ( v50 >= v83 )
+	{
+		if ( v50 > a4 )
+		{
+			if ( v93 - (_DWORD)v100 - 6 > a4 )
+			v51 = 0;
+			v50 = a4;
+		}
+	}
+	else
+	{
+		if ( v93 - (_DWORD)v100 < v83 )
+		v51 = 0;
+		v50 = v83;
+	}
+
+
+	if ( v51 == 1 )
+	{
+		v53 = 0;
+		v54 = pParty_global->sRotationY & pClass59_global->uDoublePiMask;
+		if ( (pParty_global->sRotationY & pClass59_global->uDoublePiMask) >= 128 )
+		{
+			if ( v54 > 384 )
+			{
+				if ( v54 >= 640 )
+				{
+					if ( v54 > 896 )
+					{
+						if ( v54 >= 1152 )
+						{
+							if ( v54 > 1408 )
+							{
+								if ( v54 >= 1664 )
+								{
+									if ( v54 > 1920 ) goto LABEL_71;
+									v76 = 7;
+								}
+								else v76 = 6;
+							}
+							else v76 = 5;
+						}
+						else v76 = 4;
+					}
+					else v76 = 3;
+				}
+				else v76 = 2;
+    
+				v53 = v76;
+				goto LABEL_71;
+			}
+			v53 = 1;
+		}
+
 LABEL_71:
-    ;
-     //MapDirs are altlased into uTextureID_MinimapDirections
-    Render_sub_4A6776((int)pD3DRenderer, v52, v50, (int)(uTextureIdx_MapDirs[v53] != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_MapDirs[v53] ] : 0));
-  }
-  result = 0xFFFFFFFF;
-  v98 = 0;
-  v89 = result;
-  if ( (signed int)uNumLevelDecorations > 0 )
-  {
-   v97 = (int)&pLevelDecorations[0].sPosX;
-    do
-    {
-      if ( *(_BYTE *)(v97 - 2) & 8 )
-      {
-        v58 = *(_DWORD *)(v97 + 4) - v87;
-        v96 = *(_DWORD *)v97 - v6;
-        v95 = v58;
-        v57 = ((unsigned __int64)(v96 * v5) >> 16) + v88;
-        v100 = (const void *)((unsigned __int64)(v58 * v5) >> 16);
-        v56 = v93 - (_DWORD)v100;
-        if ( v57 >= pD3DRenderer->dword_00001C)
-        {
-          if ( v57 <= pD3DRenderer->dword_000024 )
-          {
-            if ( v56 >= pD3DRenderer->dword_000020 )
-            {
-              if ( v56 <= pD3DRenderer->dword_000028 )
-              {
-                v77 = v89;
-                if ( v5 > 512 )
-                {
-                  v99 = v56 + 1;
-                  v92 = v56 - 1;
-                  Render_FillRect(pD3DRenderer, v57 - 1, v56 - 1, v57 - 1, v56 + 1, v89);
-                  Render_FillRect(pD3DRenderer, v57, v92, v57, v99, v89);
-                  ++v57;
-                  v77 = v89;
-                  v75 = v99;
-                  v74 = v57;
-                  v73 = v92;
-                }
-                else
-                {
-                  v75 = v93 - (_DWORD)v100;
-                  v74 = ((unsigned __int64)(v96 * v5) >> 16) + v88;
-                  v73 = v93 - (_DWORD)v100;
-                }
-                Render_FillRect(pD3DRenderer, v57, v73, v74, v75, v77);
-              }
-            }
-          }
-        }
-      }
-      ++v98;
-      result = v98;
-      v97 += 32;
-    }
-    while ( v98 < (signed int)uNumLevelDecorations );
-  }
-  if ( dword_6BE360 == 2 )
-  {
-    v93 = a3 - v85 + 1;
-    v98 = a4 - v83 + 1;
-    v80 = (int)pD3DRenderer->pTargetSurface + (v85 + v83 * v82);
-    v62 = LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C;
-    v92 = (1 << (v62 + 16)) / v5;
-    v63 = (double)(1 << (16 - (_BYTE)v62));
-    v64 = 22528 / (v5 / 384);
-    v65 = (signed __int64)((double)(v6 - v64 + 32768) / v63);
-    v60 = (_DWORD)v65 << 16;
-    v100 = (const void *)((_DWORD)v65 << 16);
-    v66 = (signed __int64)((double)(32768 - v64 - v87) / v63);
-    v81 = v60 >> 16;
-    v59 = (_DWORD)v66 << 16;
-    v86 = v60 >> 16;
-    v61 = (_DWORD)v66 << 16 >> 16;
-    v101 = &v78;
-    result = 0xFF0C0C0C;
-    v88 = 0;
-    for ( i = result; v88 < v98; result = v88 )
-    {
-      v102 = 0;
-      if ( v93 > 0 )
-      {
-        v99 = (v61 - 80) / 4;
-        v67 = v86;
-        do
-        {
-          v84 = (v67 - 80) / 4;
-          if ( !sub_47F04C(pClass51_global, v84, v99) )
-          {
-            if ( sub_47F097(pClass51_global, v84, v99) )
-            {
-              if ( !((v102 + v88) % 2) )
-                *(_WORD *)v101 = i;
-            }
-            else
-            {
-              *(_WORD *)v101 = 0;
-            }
-          }
-          v101 += 2;
-          v100 = (char *)v100 + v92;
-          v67 = (signed int)v100 >> 16;
-          ++v102;
-        }
-        while ( v102 < v93 );
-      }
-      v59 += v92;
-      v100 = (const void *)v60;
-      v101 += 2 * (v93 - v102);
-      v61 = v59 >> 16;
-      ++v88;
-      v86 = v81;
-    }
-    v69 = v98;
-    v68 = &v78;
-    if ( v98 > 0 )
-    {
-      v70 = v80;
-      result = 2 * (v82 - v93);
-      do
-      {
-        if ( v93 > 0 )
-        {
-          v71 = v93;
-          do
-          {
-            v72 = *(_WORD *)v68;
-            if ( !*(_WORD *)v68 || v72 == (_WORD)i )
-              *(_WORD *)v70 = v72;
-            v68 += 2;
-            v70 += 2;
-            --v71;
-          }
-          while ( v71 );
-        }
-        v70 += result;
-        --v69;
-      }
-      while ( v69 );
-    }
-  }
-  return result;
+
+		//MapDirs are altlased into uTextureID_MinimapDirections
+		Render_sub_4A6776((int)pD3DRenderer, v52, v50, (int)(uTextureIdx_MapDirs[v53] != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_MapDirs[v53] ] : 0));
+	}
+
+
+
+	result = 0xFFFFFFFF;
+	v98 = 0;
+	v89 = result;
+	if ( (signed int)uNumLevelDecorations > 0 )
+	{
+		v97 = (int)&pLevelDecorations[0].sPosX;
+		do
+		{
+			if ( *(_BYTE *)(v97 - 2) & 8 )
+			{
+				v58 = *(_DWORD *)(v97 + 4) - v87;
+				v96 = *(_DWORD *)v97 - v6;
+				v95 = v58;
+				v57 = ((unsigned __int64)(v96 * v5) >> 16) + v88;
+				v100 = (const void *)((unsigned __int64)(v58 * v5) >> 16);
+				v56 = v93 - (_DWORD)v100;
+				if ( v57 >= pD3DRenderer->dword_00001C)
+				{
+					if ( v57 <= pD3DRenderer->dword_000024 )
+					{
+						if ( v56 >= pD3DRenderer->dword_000020 )
+						{
+							if ( v56 <= pD3DRenderer->dword_000028 )
+							{
+								v77 = v89;
+								if ( v5 > 512 )
+								{
+									v99 = v56 + 1;
+									v92 = v56 - 1;
+											
+									Render_FillRect(pD3DRenderer, v57 - 1, v56 - 1, v57 - 1, v56 + 1, v89);
+									Render_FillRect(pD3DRenderer, v57, v92, v57, v99, v89);
+											
+									++v57;
+									v77 = v89;
+										
+									v75 = v99;
+									v74 = v57;
+									v73 = v92;
+								}
+								else
+								{
+							
+									v75 = v93 - (_DWORD)v100;
+									v74 = ((unsigned __int64)(v96 * v5) >> 16) + v88;
+									v73 = v93 - (_DWORD)v100;
+								}
+                
+								Render_FillRect(pD3DRenderer, v57, v73, v74, v75, v77);
+							}
+						}
+					}
+				}
+			}
+
+			++v98;
+			result = v98;
+			v97 += 32;
+		}
+		while ( v98 < (signed int)uNumLevelDecorations );
+	}
+
+	if ( dword_6BE360 == 2 )
+	{
+		v93 = a3 - v85 + 1;
+		v98 = a4 - v83 + 1;
+//		v80 = (int)pD3DRenderer->pTargetSurface + (v85 + v83 * v82);
+		v62 = LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C;
+		v92 = (1 << (v62 + 16)) / v5;
+		v63 = (double)(1 << (16 - (_BYTE)v62));
+		v64 = 22528 / (v5 / 384);
+		v65 = (signed __int64)((double)(v6 - v64 + 32768) / v63);
+		v60 = (_DWORD)v65 << 16;
+		v100 = (const void *)((_DWORD)v65 << 16);
+		v66 = (signed __int64)((double)(32768 - v64 - v87) / v63);
+//		v81 = v60 >> 16;
+		v59 = (_DWORD)v66 << 16;
+		v86 = v60 >> 16;
+		v61 = (_DWORD)v66 << 16 >> 16;
+
+//		v101 = &v78;
+		v101 = (char *)pD3DRenderer->pTargetSurface;
+
+		result = 0xFF0C0C0C;
+		
+		v88 = 0;
+		for ( i = result; v88 < v98; result = v88 )
+		{
+			v102 = 0;
+			if ( v93 > 0 )
+			{
+				v99 = (v61 - 80) / 4;
+				v67 = v86;
+						
+				do
+				{
+					v84 = (v67 - 80) / 4;
+					if ( !sub_47F04C(pClass51_global, v84, v99) )
+					{
+						if ( sub_47F097(pClass51_global, v84, v99) )
+						{
+							if ( !((v102 + v88) % 2) ) *(_WORD *)v101 = i;
+						}
+						else *(_WORD *)v101 = 0;
+					}
+
+				v101 += 2;
+				v100 = (char *)v100 + v92;
+				v67 = (signed int)v100 >> 16;
+				++v102;
+				}
+				while ( v102 < v93 );
+			}
+
+			v59 += v92;
+			v100 = (const void *)v60;
+			v101 += 2 * (v93 - v102);
+			v61 = v59 >> 16;
+			++v88;
+//			v86 = v81;
+		}
+    
+	
+	
+		v69 = v98;
+
+//		v68 = &v78;
+		v68 = (char *)pD3DRenderer->pTargetSurface;
+
+		if ( v98 > 0 )
+		{
+ //			v70 = v80;
+			v70 = v80;
+			result = 2 * (v82 - v93);
+			do
+			{
+				if ( v93 > 0 )
+				{
+					v71 = v93;
+					do
+					{
+						v72 = *(_WORD *)v68;
+						if ( !*(_WORD *)v68 || v72 == (_WORD)i ) *(_WORD *)v70 = v72;
+						v68 += 2;
+						v70 += 2;
+						--v71;
+					}
+					while ( v71 );
+				}
+						
+				v70 += result;
+				--v69;
+			}
+			while ( v69 );
+		}
+	}
+  
+	return result;
 }
 
 //----- (00443219) --------------------------------------------------------

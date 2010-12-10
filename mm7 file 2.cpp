@@ -7029,6 +7029,7 @@ LABEL_46:
 
 //----- (00413980) --------------------------------------------------------
 char *__cdecl sub_413980()
+
 {
   int v0; // eax@3
   int v1; // eax@7
@@ -7050,7 +7051,8 @@ char *__cdecl sub_413980()
   class cTexture* v18; // [sp-4h] [bp-DCh]@13
   class cTexture* v19; // [sp-4h] [bp-DCh]@16
   class cTexture* v20; // [sp-4h] [bp-DCh]@19
-  char Str; // [sp+Ch] [bp-CCh]@37
+  char Str[50]; // [sp+Ch] [bp-CCh]@37
+
 
   GUIWindow local_84;
   //int v22; // [sp+84h] [bp-54h]@35
@@ -7157,6 +7159,7 @@ char *__cdecl sub_413980()
   }
   if ( dword_506548 | dword_506544 | dword_506540 | dword_50653C | dword_506538 | v6 )
     AudioPlayer_sub_4AA306(pAudioPlayer, 75, 0, 0, -1, 0, 0, 0, 0);
+
   dword_506548 = 0;
   dword_506544 = 0;
   dword_506534 = 0;
@@ -7164,19 +7167,26 @@ char *__cdecl sub_413980()
   dword_50653C = 0;
   dword_506540 = 0;
   sub_442955(97, 49, 361, 313, 0);
-  Render_DrawTransparentTexture(pD3DRenderer, 75, 22, &LODFile_Icons_LOD.aLODHeaders[dword_506498_uTextureID_MapBrdr]);
+
+  Render_DrawTransparentTexture(pD3DRenderer, 75, 22, &LODFile_Icons_LOD.aLODHeaders[dword_506498_uTextureID_MapBrdr]); // Map Decor Borders
+  
   local_84.uFrameWidth = 460;
   local_84.uFrameHeight = 344;
   local_84.uFrameX = 8;
   local_84.uFrameY = 8;
   local_84.uFrameZ = 467;
   local_84.uFrameW = 467;
+
+
   v7 = CMapStats_FindLocation(pMapStats, Str1);
-  if ( v7 )
-   GUIWindow_sub_44D406(&local_84, ptr_5C35F0, -14, 12, 0, (const char *)&pMapStats->pMapInfos[v7], 3);
+  if ( v7 ) 
+	GUIWindow_sub_44D406(&local_84, ptr_5C35F0, -14, 12, 0, (const char *)&pMapStats->pMapInfos[v7], 3);
+
   local_84.uFrameX = 0;
-  wsprintfA(&Str, (char *)pGlobalTXT_LocalizationStrings[659], pParty_global->sPartyPosX, pParty_global->sPartyPosY);
-  return GUIWindow_sub_44D406(&local_84, pFontComic, 0, 320, 0, &Str, 0);
+
+  wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[659], pParty_global->sPartyPosX, pParty_global->sPartyPosY);
+  return GUIWindow_sub_44D406(&local_84, pFontComic, 0, 320, 0, Str, 0);
+
 }
 
 //----- (00413CC6) --------------------------------------------------------
