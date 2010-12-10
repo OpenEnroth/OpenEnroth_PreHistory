@@ -10768,7 +10768,7 @@ LABEL_14:
       goto LABEL_14;
     }
 LABEL_15:
-    Render_sub_4A612A((int)pD3DRenderer, word_4E1D3C[v0], word_4E1D48[v0], (int)dword_5063A8[v0], v0 + 1);
+    Render_sub_4A612A((int)pD3DRenderer, word_4E1D3C[v0], word_4E1D48[v0], (int)pTexture_TownPortal_Icons[v0], v0 + 1);
 LABEL_16:
     ++v0;
   }

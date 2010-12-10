@@ -5829,14 +5829,14 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
   {
     if ( *(_DWORD *)(v1 + 28) == 195 )
     {
-      uTextureID_lb_bordr__townport__sbquicknot = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "townport", 2) ];
-      dword_5063A8[0] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tpharmndy", 2)];
-      dword_5063AC = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tpelf", 2)];
-      dword_5063B0 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tpwarlock", 2)];
-      dword_5063B4 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tpisland", 2) ];
-      dword_5063B8 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tpheaven", 2)];
+      uTextureID_lb_bordr__townport__sbquicknot = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("townport", 2) ];
+      pTexture_TownPortal_Icons[0] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tpharmndy", 2)];
+      pTexture_TownPortal_Icons[1] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tpelf", 2)];
+      pTexture_TownPortal_Icons[2] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tpwarlock", 2)];
+      pTexture_TownPortal_Icons[3] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tpisland", 2) ];
+      pTexture_TownPortal_Icons[4] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tpheaven", 2)];
+      pTexture_TownPortal_Icons[5] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tphell", 2)];
       v15 = 0;
-      dword_5063BC = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tphell", 2)];
       do
       {
         result = (int)GUIButtonCreate((GUIWindow *)v1,
@@ -6071,27 +6071,26 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
           if ( *(_DWORD *)(v1 + 28) == 202 )
           {
             dword_506364 = 1;
-            dword_5064D0 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "sbmap", 2)];
-    #ifndef OLD_CODE
-            uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"zoom-on")];
-            uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"zoot-on")];
-            uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"zoom-off")];
-            uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"zoot-off")];
-     #endif
- #ifdef OLD_CODE
+            pTexture_SpellbookPage_Map = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("sbmap", 2)];
+#ifndef OLD_CODE
+           uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"zoom-on")];
+           uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"zoot-on")];
+           uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"zoom-off")];
+           uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"zoot-off")];
+#else
 		   uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("zoom-on",2)];
-            uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("zoot-on",2)];
-            uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("zoom-off",2)];
-            uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("zoot-off",2)];
-	   #endif
-            dword_506394 = &LODFile_Icons_LOD.aLODHeaders[ LODFile_Icons_LOD.LODFile_LoadTexture( "tabNon", 2)];
-            dword_506390 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tabNoff", 2)];
-            dword_50638C = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tabSon", 2)];
-            dword_506388 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tabSoff", 2)];
-            dword_506384 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tabEon", 2)];
-            dword_506380 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tabEoff", 2)];
-            dword_50637C = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tabWon", 2)];
-            dword_506378 = &LODFile_Icons_LOD.aLODHeaders[ LODFile_Icons_LOD.LODFile_LoadTexture( "tabWoff", 2)];
+           uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("zoot-on",2)];
+           uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("zoom-off",2)];
+           uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("zoot-off",2)];
+#endif
+            dword_506394 = &LODFile_Icons_LOD.aLODHeaders[ LODFile_Icons_LOD.LODFile_LoadTexture("tabNon", 2)];
+            dword_506390 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabNoff", 2)];
+            dword_50638C = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabSon", 2)];
+            dword_506388 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabSoff", 2)];
+            dword_506384 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabEon", 2)];
+            dword_506380 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabEoff", 2)];
+            dword_50637C = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabWon", 2)];
+            dword_506378 = &LODFile_Icons_LOD.aLODHeaders[ LODFile_Icons_LOD.LODFile_LoadTexture("tabWoff", 2)];
             dword_506518 = GUIButtonCreate((GUIWindow *)v1,
                              pOldViewport->uGameX + 398,
                              pOldViewport->uGameY + 1,
@@ -7028,7 +7027,7 @@ LABEL_46:
 }
 
 //----- (00413980) --------------------------------------------------------
-char *__cdecl sub_413980()
+char *__cdecl sub_413980_DrawSpellbook_Map()
 
 {
   int v0; // eax@3
@@ -7062,7 +7061,7 @@ char *__cdecl sub_413980()
   //int v26; // [sp+94h] [bp-44h]@35
   //int v27; // [sp+98h] [bp-40h]@35
 
-  Render_DrawIndexedTexture(pD3DRenderer, pOldViewport->uGameX, pOldViewport->uGameY, (cTexture *)dword_5064D0);
+  Render_DrawIndexedTexture(pD3DRenderer, pOldViewport->uGameX, pOldViewport->uGameY, pTexture_SpellbookPage_Map);
   if ( dword_506548 || struct_576FE8.dword_00002C / 128 >= 12 )
   {
     v15 = uTextureID_tab_an_6a__zoom_off;
@@ -7218,7 +7217,7 @@ void __thiscall sub_413CC6_DrawSpellbook(void *_this)
         {
           if ( v1 == (void *)202 )
           {
-            sub_413980();
+            sub_413980_DrawSpellbook_Map();
           }
           else
           {

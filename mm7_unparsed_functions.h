@@ -227,7 +227,7 @@ void __cdecl sub_412B58();
 void __cdecl sub_412E85();
 void __cdecl sub_413126_DrawSpellbook_Quests();
 void __cdecl sub_41338E_DrawSpellbook_Autonotes();
-char *__cdecl sub_413980();
+char *__cdecl sub_413980_DrawSpellbook_Map();
 void __thiscall sub_413CC6_DrawSpellbook(void *_this);
 int __cdecl sub_413D3C();
 void __cdecl sub_413D6F();

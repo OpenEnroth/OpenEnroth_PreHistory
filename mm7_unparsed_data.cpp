@@ -630,12 +630,8 @@ class cTexture* uTextureID_tab_an_7a__zoot_off = 0; // dword @ MM7.exe::00506398
 class cTexture* uTextureID_tab_an_6a__zoom_off = 0; // dword @ MM7.exe::0050639C
 class cTexture* uTextureID_tab_an_7b__zoot_on = 0;  // dword @ MM7.exe::005063A0
 class cTexture* uTextureID_tab_an_6b__zoom_on = 0;  // dword @ MM7.exe::005063A4
-class cTexture* dword_5063A8[array_size_unknown]; // weak
-class cTexture* dword_5063AC; // weak
-class cTexture* dword_5063B0; // weak
-class cTexture* dword_5063B4; // weak
-class cTexture* dword_5063B8; // weak
-class cTexture* dword_5063BC; // weak
+class cTexture* pTexture_TownPortal_Icons[6]; // dword[6] @ MM7.exe::005063A8
+
  int dword_5063D8[array_size_unknown]; // weak
  int dword_506404; // weak
  int dword_506408[array_size_unknown]; // weak
@@ -655,7 +651,7 @@ unsigned int dword_506498_uTextureID_MapBrdr; // weak
  int dword_5064C4; // weak
 class cTexture* uTextureID_divbar = 0; // dword @ MM7.exe::005064C8
 class cTexture* dword_5064CC; // weak
-class cTexture* dword_5064D0; // weak
+class cTexture* pTexture_SpellbookPage_Map; // dword @ MM7.exe::005064D0
 class cTexture* dword_5064D4; // weak
 class cTexture* uTextureID_sbAutonotes = 0;                    // dword @ MM7.exe::005064D8
 class cTexture* uTextureID_lb_bordr__townport__sbquicknot = 0; // dword @ MM7.exe::005064DC
