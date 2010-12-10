@@ -1050,7 +1050,7 @@ LABEL_80:
         v79 = 1;
         do
         {
-          if ( Player_sub_492C0B_MaybeIfPlayerConscious(*(&ptr_A750C4 + v79)) )
+          if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v79]) )
           {
             v67 = v74++;
             v72[v67] = v79;
@@ -1864,7 +1864,7 @@ int __fastcall sub_43AFE3(int a1, int a2, signed int a3, int a4)
     if ( a1 == 44 )
       result = a4 * ((unsigned __int8)byte_4E3FE8 + 2 * a2) / 100;
     else
-      result = (unsigned __int8)byte_4E3C78[20 * a1] + sub_452B2E(a2, (unsigned __int8)byte_4E3C79[20 * a1]);
+      result =  word_4E3C68[a1].byte11 + sub_452B2E(a2, word_4E3C68[a1].byte12);
   }
   return result;
 }
@@ -2857,7 +2857,7 @@ char __thiscall sub_43ED6F(int a1)
 {
   int r; 
   char v5; // zf@5
-  int i = 0;
+  int i = 1;
 
   while ( 1 )
   {
@@ -2871,7 +2871,7 @@ char __thiscall sub_43ED6F(int a1)
       break;
 
     ++i;
-    if (i >= 4)
+    if (i > 4)
       return 0;
   }
   return 1;
@@ -2884,7 +2884,7 @@ char __thiscall sub_43EDB9(int a1)
   int r; 
   int v5; // esi@2
   char v6; // zf@7
-  int i = 0;
+  int i = 1;
 
   while ( 1 )
   {
@@ -2900,7 +2900,7 @@ LABEL_11:
       return 1;
     ++i;
 
-    if (i >= 4)
+    if (i > 4)
       return 0;
   }
   if ( sex == SEX_FEMALE || a1 )
@@ -2973,9 +2973,9 @@ char __fastcall sub_43EE77(signed int a1)
     }
     return 0;
   }
-  if ( !sub_43EE15(604, pPlayers[a1 - 1], 0))
+  if ( !sub_43EE15(604, pPlayers[a1], 0))
     return 0;
-  v1 = (int)pPlayers[a1 - 1];
+  v1 = (int)pPlayers[a1];
   v3 = *(_DWORD *)(v1 + 0x1954);
   if(!v3)
     return 0;
@@ -3025,12 +3025,12 @@ void __fastcall sub_43EF2B(int a1)
   int v8; // [sp+18h] [bp-8h]@1
   int v9; // [sp+1Ch] [bp-4h]@7
 
-  v1 = a1 - 1;
+  v1 = a1-1;
   v8 = a1;
-  if ( a1 - 1 >= 0 )
+  if ( a1>0 )
   {
     v4 = (int *)(4 * a1 + 10965188);
-    v3 = Player_GetRace(pPlayers[a1 - 1]);
+    v3 = Player_GetRace(pPlayers[a1]);
     v2 = Player_GetVoiceSex((Player *)*v4);
     if ( v3 && v3 != 1 && v3 != 2 )
       v5 = (v2 != 0) + 3;
@@ -3049,11 +3049,11 @@ void __fastcall sub_43EF2B(int a1)
     pPaperdollTextures_LeftHandsEmpty[v1] = LODFile_Icons_LOD.LODFile_LoadTexture( &Str1, 2);
     wsprintfA(&Str1, "pc23v%dlhu", v9);
     pPaperdollTextures_LeftHandsWeapon[v1] = LODFile_Icons_LOD.LODFile_LoadTexture( &Str1, 2);
-    v6 = *(_BYTE *)(pPlayers[v1] + 186);
+    v6 = *(_BYTE *)(pPlayers[v8] + 186);
     if ( v6 == 12 || v6 == 13 )
-      pPaperdollTextures_Beards[*((_BYTE *)*(&ptr_A750C4 + v8) + 186)] = 0;
-    pPaperdollTextures_Feet[*((_BYTE *)*(&ptr_A750C4 + v8) + 186)] = 0;
-    byte_5111B9[v8 - 1] = 1;
+      pPaperdollTextures_Beards[v6] = 0;
+    pPaperdollTextures_Feet[v6] = 0;
+    byte_5111B9[v8] = 1;
   }
 }
 
@@ -3075,7 +3075,7 @@ int __fastcall sub_43F0BD(int a1)
     v4 = 4 * a1 + 10965188;
     v5 = 4 * (a1 - 1);
     *(int *)((char *)pPaperdollTextures_Bodies + v5) = LODFile_Icons_LOD.LODFile_LoadTexture(
-                                            (&off_4ECD68)[4 * *((_BYTE *)*(&ptr_A750C4 + a1) + 186)],
+                                            (&off_4ECD68)[4 * *(_BYTE *)(*(_DWORD *)v4 + 186)],
                                             2);
     *(int *)((char *)pPaperdollTextures_LeftArmsEmpty + v5) = LODFile_Icons_LOD.LODFile_LoadTexture(
                                             (&off_4ECC98)[4 * *(_BYTE *)(*(_DWORD *)v4 + 186)],
@@ -3103,7 +3103,7 @@ int __fastcall sub_43F0BD(int a1)
     wsprintfA(&Str1, "item281pc%02d", *(_BYTE *)v3 + 1);
     pPaperdollTextures_Feet[*(_BYTE *)(*(_DWORD *)v4 + 186)] = LODFile_Icons_LOD.LODFile_LoadTexture( &Str1, 2);
     result = v7;
-    byte_5111B9[v7 - 1] = 0;
+    byte_5111B9[v7] = 0;
   }
   return result;
 }
@@ -5873,7 +5873,7 @@ LABEL_20:
     if ( uActiveCharacter )
     {
       if ( pParty_global->dword_007778 & 0x30 )
-        Player_PlaySound(*(&ptr_A750C4 + uActiveCharacter), 47, 0);
+        Player_PlaySound(pPlayers[uActiveCharacter], 47, 0);
     }
   }
   result = v23;
@@ -6326,16 +6326,16 @@ void __cdecl sub_445350_DrawDialogueUI()
  {
   case 13:
     v8 = 0;
-    v64 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)pNPCStats->pProfessions[v1->uProfession - 1].pJoinText, uActiveCharacter - 1, 0, 0, 0, 0);
+    v64 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)pNPCStats->pProfessions[v1->uProfession - 1].pJoinText, uActiveCharacter, 0, 0, 0, 0);
     goto LABEL_39;
 
   case 77:
     if (byte_F8B1EC)
-      v64 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)pNPCStats->pProfessions[v1->uProfession - 1].pBenefits, uActiveCharacter - 1, 0, 0, 0, 0);
+      v64 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)pNPCStats->pProfessions[v1->uProfession - 1].pBenefits, uActiveCharacter , 0, 0, 0, 0);
     else if (v1->dword_000008 & 0x80 )
-      v64 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)pNPCStats->pProfessions[v1->uProfession - 1].pDismissText, uActiveCharacter - 1, 0, 0, 0, 0);
+      v64 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)pNPCStats->pProfessions[v1->uProfession - 1].pDismissText, uActiveCharacter, 0, 0, 0, 0);
     else
-      v64 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)pNPCStats->pProfessions[v1->uProfession - 1].pJoinText, uActiveCharacter - 1, 0, 0, 0, 0);
+      v64 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)pNPCStats->pProfessions[v1->uProfession - 1].pJoinText, uActiveCharacter, 0, 0, 0, 0);
     
     v8 = 0;
     goto LABEL_39;
@@ -6399,7 +6399,7 @@ LABEL_24:
         v9 = (char *)pNPCStats->pProfessions[v1->uProfession - 1].pDismissText;
       else
         v9 = (char *)pNPCStats->pProfessions[v1->uProfession - 1].pJoinText;
-      v10 = (int)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(v9, uActiveCharacter - 1, 0, 0, 0, 0);
+      v10 = (int)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(v9, uActiveCharacter, 0, 0, 0, 0);
 LABEL_32:
       v64 = (const char *)v10;
       if ( v10 == 0 )
@@ -7006,7 +7006,7 @@ LABEL_17:
           v14 = 23;  // good evening
         else
           v14 = 22;  // good day
-        result = Player_PlaySound(pPlayers[uActiveCharacter - 1], v14, 0);
+        result = Player_PlaySound(pPlayers[uActiveCharacter], v14, 0);
       }
     }
   }
@@ -7213,7 +7213,7 @@ LABEL_10:
       wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[414], v2, aAMPMNames[v8], v9, aAMPMNames[v7]);
       sub_44C175((char *)TmpBuf, 2);
       if ( uActiveCharacter )
-        Player_PlaySound(*(&ptr_A750C4 + uActiveCharacter), 3, 0);
+        Player_PlaySound(pPlayers[uActiveCharacter], 3, 0);
       return 0;
     }
   }
@@ -7301,7 +7301,7 @@ LABEL_39:
     {
       v20 = word_4F0704[2 * v10] - 1;
       v19 = v10;
-      if ( !((unsigned __int8)(0x80u >> v20 % 8) & *((_BYTE *)*(&ptr_A750C4 + uActiveCharacter) + (v20 >> 3) + 338)) )
+      if ( !((unsigned __int8)(0x80u >> v20 % 8) & *(_BYTE *)pPlayers[uActiveCharacter] + (v20 >> 3) + 338)) 
       {
         sub_4B1E92(v10, 3);
         v17 = 1;
@@ -7775,7 +7775,7 @@ LABEL_28:
             {
               if ( v131 == 4 )
               {
-                v24 = *((_WORD *)pPlayers[uActiveCharacter - 1] + v11[5] + 132);
+                v24 = *((_WORD *)pPlayers[uActiveCharacter] + v11[5] + 132);
               }
               else
               {
@@ -8050,7 +8050,7 @@ LABEL_47:
             {
               v121 = 0;
               v117 = *(_BYTE *)(v11 + 6);
-              v55 = (int)pPlayers[uActiveCharacter - 1];
+              v55 = (int)pPlayers[uActiveCharacter];
               goto LABEL_109;
             }
             if ( v53 != 5 )
@@ -8088,7 +8088,7 @@ LABEL_291:
             {
               v122 = 0;
               v118 = *(_BYTE *)(v11 + 6);
-              v59 = *(&ptr_A750C4 + uActiveCharacter);
+              v59 = pPlayers[uActiveCharacter];
               goto LABEL_120;
             }
             if ( v57 != 5 )
@@ -8155,7 +8155,7 @@ LABEL_129:
             {
               if ( uActiveCharacter )
               {
-                v6 = (int *)pPlayers[uActiveCharacter - 1];
+                v6 = (int *)pPlayers[uActiveCharacter];
                 goto LABEL_138;
               }
             }
@@ -8195,7 +8195,7 @@ LABEL_140:
                 goto LABEL_291;
               }
               v68 = 0;
-              v69 = *(&ptr_A750C4 + uActiveCharacter);
+              v69 = pPlayers[uActiveCharacter];
               v70 = (int)((char *)v69 + 5500);
               do
               {
@@ -8276,7 +8276,7 @@ LABEL_183:
                 }
                 if ( uActiveCharacter )
                 {
-                  v6 = (int *)*(&ptr_A750C4 + uActiveCharacter);
+                  v6 = (int *)pPlayers[uActiveCharacter];
                   goto LABEL_182;
                 }
 LABEL_180:
@@ -8313,7 +8313,7 @@ LABEL_197:
                 }
                 if ( uActiveCharacter )
                 {
-                  v6 = (int *)pPlayers[uActiveCharacter - 1];
+                  v6 = (int *)pPlayers[uActiveCharacter];
                   goto LABEL_196;
                 }
 LABEL_194:
@@ -8352,7 +8352,7 @@ LABEL_211:
                 }
                 if ( uActiveCharacter )
                 {
-                  v6 = (int *)*(&ptr_A750C4 + uActiveCharacter);
+                  v6 = (int *)pPlayers[uActiveCharacter];;
                   goto LABEL_210;
                 }
 LABEL_208:
@@ -8438,7 +8438,7 @@ LABEL_131:
               if ( !uActiveCharacter )
                 goto LABEL_291;
               v123 = *(_BYTE *)(v11 + 6);
-              v91 = (int)*(&ptr_A750C4 + uActiveCharacter);
+              v91 = (int)pPlayers[uActiveCharacter];
               v119 = *(_BYTE *)(v11 + 7)
                    + ((*(_BYTE *)(v11 + 8) + ((*(_BYTE *)(v11 + 9) + (*(_BYTE *)(v11 + 10) << 8)) << 8)) << 8);
               goto LABEL_234;

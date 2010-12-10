@@ -31,7 +31,7 @@ int Party_sub_49370F(struct Party *_this)
     v2 = dword_4F8878[0] >> 3;
     return v2 + 1;
   }
-  v5 = 0;
+  v5 = 1;
   v4 = (int)((char *)v1 + 8960);
   while ( 1 )
   {
@@ -161,10 +161,10 @@ int Party_Reset(struct Party *_this)
   _this->dword_00087C = 0;
 
  uActiveCharacter = 1;
- ptr_A750C4 = &_this->pPlayers[uActiveCharacter - 1];
+ //pPlayers[1] = &_this->pPlayers[uActiveCharacter - 1];
 
  {
-  pPlayers[0] = &_this->pPlayers[0];
+  pPlayers[1] = &_this->pPlayers[0];
   Player_Reset(&_this->pPlayers[0], CLASS_KNIGHT);
 
   _this->pPlayers[0].uFace = 17;
@@ -178,7 +178,7 @@ int Party_Reset(struct Party *_this)
 
 
  {
-  pPlayers[1] = &_this->pPlayers[1];
+  pPlayers[2] = &_this->pPlayers[1];
   Player_Reset(&_this->pPlayers[1], CLASS_THIEF);
 
   _this->pPlayers[1].uFace = 3;
@@ -192,7 +192,7 @@ int Party_Reset(struct Party *_this)
 
 
  { 
-  pPlayers[2] = &_this->pPlayers[2];
+  pPlayers[3] = &_this->pPlayers[2];
   Player_Reset(&_this->pPlayers[2], CLASS_CLERIC);
  
   _this->pPlayers[2].uFace = 14;
@@ -206,7 +206,7 @@ int Party_Reset(struct Party *_this)
 
 
  { 
-  pPlayers[3] = &_this->pPlayers[3];
+  pPlayers[4] = &_this->pPlayers[3];
   Player_Reset(&_this->pPlayers[3], CLASS_SORCERER);
 
   _this->pPlayers[3].uFace = 10;
@@ -219,7 +219,7 @@ int Party_Reset(struct Party *_this)
  }
 
 
- for (i = 0; i < 4; ++i)
+ for (i = 1; i < 5; ++i)
  {
   pPlayers[i]->uTimeToRecovery = 0;
 
@@ -243,7 +243,7 @@ int Party_Reset(struct Party *_this)
   sub_449B7E((int)_this->unk_000764 + 1, 5, 1);
   sub_449B7E((int)_this->unk_000764 + 1, 6, 1);
 
- for (i = 0; i < 4; ++i)
+ for (i = 1; i < 5; ++i)
  {
   pPlayers[i]->uDefaultFaceID = 1;
   pPlayers[i]->word_001A9E = 0;

@@ -190,7 +190,7 @@ struct Player
    int              sEquppedItemIndexes[16]; // dword[16] @ 001948
    int              array_001988[65]; // dword[] @ 001988
 
-   char          byte_001A4E;
+   char          byte_001A4E;	//spell skill? or school?
    unsigned char uQuickSpell;     // byte  @ 001A4F
    char          array_001A50[72];
 

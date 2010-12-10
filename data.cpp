@@ -1272,7 +1272,9 @@ class Clock cClock1;  // struct @ MM7.exe::0050BBE0	   *pClass24_ global = 0;
  //clock data end
 
 struct CMapStats     *pMapStats = 0;     // struct @ MM7.exe::005CABB8
+
 struct CSpellStats   *pSpellStats = 0;   // struct @ MM7.exe::005CC030
+
 struct CMonsterStats *pMonsterStats = 0; //struct @ MM7.exe::005CCE40
 
 struct COverlayDescriptionList    *pOverlayDescriptionList = 0;    // struct @ MM7.exe::005E5148

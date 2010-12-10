@@ -4052,26 +4052,20 @@ void CSpellStats_ctor(struct CSpellStats *_this)
  memset(_this, 0, sizeof(struct CSpellStats));
 }
 
-//----- (0045384A) --------------------------------------------------------
-char *CSpellStats_Initialize(struct CSpellStats *_this)
+//----- (0045384A) -------------------------.text:004549AB -------------------------------
+void CSpellStats_Initialize(struct CSpellStats *_this)
 {
-  void *v1; // esi@1
-  signed int v4; // ebx@4
-  char *v5; // esi@4
-  int v6; // eax@5
-  char v7; // cl@5
-  size_t v8; // ebp@40
-  int v9; // eax@41
-  int v10; // eax@42
-  int v11; // eax@43
-  char *result; // eax@53
-  signed int v13; // [sp+10h] [bp-10h]@3
-  signed int v14; // [sp+14h] [bp-Ch]@4
-  signed int v15; // [sp+18h] [bp-8h]@3
-  int v16; // [sp+1Ch] [bp-4h]@9
+
+  unsigned int column; // ebx@4
+  char *string_pos; // esi@4
+  char *next_string_pos; // esi@4
+  int sub_str_len; // eax@5
+  char test_char; // cl@
+  int mode_flag; // eax@41
+  unsigned int spell_count; // [sp+10h] [bp-10h]@3
+  bool skip; // [sp+14h] [bp-Ch]@4
  struct SpellInfo *pSpellInfo;
 
-  v1 = _this;
  if (pSpellsTXT_Raw)
    mem_mng.DeleteBuffer( (void *)pSpellsTXT_Raw);
 
@@ -4079,139 +4073,134 @@ char *CSpellStats_Initialize(struct CSpellStats *_this)
  strtok((char *)pSpellsTXT_Raw, "\r");
  strtok(0, "\r");
 
-  v15 = 1;
-  //v13 = (signed int)&unk_4E3C8E;
-  v13 = 0;
+ for (spell_count=1; spell_count<100; spell_count++)
+	 {
+	 pSpellInfo = &_this->pSpellInfos[spell_count];
+	 column = 0;
+	 string_pos = strtok(0, "\r") + 1;
+	 skip = false;
+	 do
+		 {
+		 test_char = *string_pos;
+		 sub_str_len = 0;
+		 while ( test_char != 9 && test_char )
+			 {
+			 ++sub_str_len;
+			 test_char = *(string_pos+sub_str_len);
+			 }
+		 next_string_pos = string_pos+sub_str_len;
 
-  pSpellInfo = _this->pSpellInfos;
+		 if ( ! *(string_pos+sub_str_len) )
+			 skip = true;
 
- do
- {
-   v4 = 0;
-   v5 = strtok(0, "\r") + 1;
-   v14 = 0;
-   do
-   {
-    v7 = *v5;
-    v6 = 0;
-    while ( v7 != 9 && v7 )
-    {
-     ++v6;
-     v7 = v5[v6];
-    }
-    v16 = (int)&v5[v6];
-    if ( !v5[v6] )
-      v14 = 1;
-    v5[v6] = 0;
-    if ( v6 )
-    {
-     switch ( v4 )
-     {
-      case 2:
-        pSpellInfo->pSpellName = (unsigned char *)RemoveQuote(v5);
-      break;
+		 *(string_pos+sub_str_len) = 0;
 
-      case 3:
-        pSpellInfo->uSpellSchool = 4;
+		 if ( sub_str_len )
+			 {
+			 switch (column )
+				 {
+			 case 2:
+				 {
+				 pSpellInfo->pSpellName = (unsigned char *)RemoveQuote(string_pos);
+				 break;
+				 }
+			 case 3:
+				 {
+				 pSpellInfo->uSpellSchool = 4;
 
-        if (!_strcmpi("fire", v5))
-          pSpellInfo->uSpellSchool = 0;
-        else if (!_strcmpi("air", v5))
-          pSpellInfo->uSpellSchool = 1;
-        else if (!_strcmpi("water", v5))
-          pSpellInfo->uSpellSchool = 2;
-        else if (!_strcmpi("earth", v5))
-          pSpellInfo->uSpellSchool = 3;
-        else if (!_strcmpi("spirit", v5))
-          pSpellInfo->uSpellSchool = 6;
-        else if (!_strcmpi("mind", v5))
-          pSpellInfo->uSpellSchool = 7;
-        else if (!_strcmpi("body", v5))
-          pSpellInfo->uSpellSchool = 8;
-        else if (!_strcmpi("light", v5))
-          pSpellInfo->uSpellSchool = 9;
-        else if (!_strcmpi("dark", v5))
-          pSpellInfo->uSpellSchool = 10;
-        else if (!_strcmpi("magic", v5))
-          pSpellInfo->uSpellSchool = 5;
-      break;
+				 if (!strcmpi("fire", string_pos))
+					 pSpellInfo->uSpellSchool = 0;
+				 else if (!strcmpi("air", string_pos))
+					 pSpellInfo->uSpellSchool = 1;
+				 else if (!strcmpi("water", string_pos))
+					 pSpellInfo->uSpellSchool = 2;
+				 else if (!strcmpi("earth", string_pos))
+					 pSpellInfo->uSpellSchool = 3;
+				 else if (!strcmpi("spirit", string_pos))
+					 pSpellInfo->uSpellSchool = 6;
+				 else if (!strcmpi("mind", string_pos))
+					 pSpellInfo->uSpellSchool = 7;
+				 else if (!_strcmpi("body", string_pos))
+					 pSpellInfo->uSpellSchool = 8;
+				 else if (!strcmpi("light", string_pos))
+					 pSpellInfo->uSpellSchool = 9;
+				 else if (!strcmpi("dark", string_pos))
+					 pSpellInfo->uSpellSchool = 10;
+				 else if (!strcmpi("magic", string_pos))
+					 pSpellInfo->uSpellSchool = 5;
+				 break;
+				 }
+			 case 4:
+				 {
+				 pSpellInfo->pSpellNameShort = (unsigned char *)RemoveQuote(string_pos);
+				 break;
+				 }
+			 case 5:
+				 {
+				 pSpellInfo->pSpellDescription = (unsigned char *)RemoveQuote(string_pos);
+				 break;
+				 }
+			 case 6:
+				 {
+				 pSpellInfo->pSpellBasicSkillDesc = (unsigned char *)RemoveQuote(string_pos);
+				 break;
+				 }
+			 case 7:
+				 {
+				 pSpellInfo->pSpellExpertSkillDesc = (unsigned char *)RemoveQuote(string_pos);
+				 break;
+				 }
+			 case 8:
+				 {
+				 pSpellInfo->pSpellMasterSkillDesc = (unsigned char *)RemoveQuote(string_pos);
+				 break;
+				 }
+			 case 9:
+				 {
+				 pSpellInfo->pSpellGrandmasterSkillDesc = (unsigned char *)RemoveQuote(string_pos);
+				 break;
+				 }
+			 case 10:
+				 {
 
-      case 4:
-        pSpellInfo->pSpellNameShort = (unsigned char *)RemoveQuote(v5);
-      break;
+				 sub_str_len = strlen(string_pos);
+				 if ( sub_str_len > 0 )
+					 {
+					 for(int i=0; i<sub_str_len; i++)
+						 {
+						 mode_flag = tolower(*(string_pos+i)) - 99;
+						 switch (mode_flag )
+							 {
+						 case 13:	word_4E3C68[spell_count].byte13|= 8;  //P
+							 break;
+						 case 10:	word_4E3C68[spell_count].byte13|= 1; //M
+							 break;
+						 case 2:   word_4E3C68[spell_count].byte13|= 2; //E 
+							 break;
+						 case 0:   word_4E3C68[spell_count].byte13|= 4;  //C
+							  break;
+							 }
+						 }
 
-      case 5:
-        pSpellInfo->pSpellDescription = (unsigned char *)RemoveQuote(v5);
-      break;
+					 }
+				 break;
+				 }
+				 }
+			 }
+		 else
+			 {
+			 skip = true;
+			 }
+		 ++column;
+		 string_pos=next_string_pos+1;
+		 }
+		 while ( column <12 && !skip );
 
-      case 6:
-        pSpellInfo->pSpellBasicSkillDesc = (unsigned char *)RemoveQuote(v5);
-      break;
+		 if ( !(spell_count % 11) )
+			 strtok(0, "\r");
+	 }
 
-      case 7:
-        pSpellInfo->pSpellExpertSkillDesc = (unsigned char *)RemoveQuote(v5);
-      break;
-
-      case 8:
-        pSpellInfo->pSpellMasterSkillDesc = (unsigned char *)RemoveQuote(v5);
-      break;
-
-      case 9:
-        pSpellInfo->pSpellGrandmasterSkillDesc = (unsigned char *)RemoveQuote(v5);
-      break;
-
-      case 10:
-            v4 = 0;
-            v8 = strlen(v5);
-            if ( (signed int)v8 > 0 )
-            {
-              do
-              {
-                v9 = tolower((unsigned __int8)v5[v4]) - 99;
-                if ( v9 )
-                {
-                  v10 = v9 - 2;
-                  if ( v10 )
-                  {
-                    v11 = v10 - 8;
-                    if ( v11 == 11)
-                      some_spell_stuff[v13 * 20] |= 8;
-                    else
-                      some_spell_stuff[v13 * 20] |= 1;
-                  }
-                  else
-                    some_spell_stuff[v13 * 20] |= 2;
-                }
-                else
-                  some_spell_stuff[v13 * 20] |= 4;
-
-                ++v4;
-              }
-              while (v4 < v8);
-            }
-          break;
-
-          default:
-            break;
-        }
-      }
-      else
-      {
-        v14 = 1;
-      }
-      ++v4;
-      v5 = (char *)(v16 + 1);
-    }
-    while ( v4 - 1 <= 10 && !v14 );
-    result = (char *)(v15 / 11);
-    if ( !(v15 % 11) )
-      result = strtok((char *)(v15 % 11), "\r");
-    v13++;
-    ++v15;
-    pSpellInfo++;
-  }
-  while (v13 < 99);
-  return result;
+ 
 }
 
 

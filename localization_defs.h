@@ -116,6 +116,8 @@
 
 #define  LOCSTR_ENTER_S		                        411 // "Enter %s"	
 
+#define  LOCSTR_IS_IN_NO_COND		                427	// "%s is in no condition to %s"	
+
 #define  LOCSTR_S_THE_S                             429    //"%s the %s"
 
 #define  LOCSTR_NORMAL                      		431	//"Normal"
@@ -129,9 +131,12 @@
 
 #define  LOCSTR_NOTHING_HERE                 		521 // "Nothing here"	
 
+#define  LOCSTR_SP_COST                      		522 //"SP Cost"
 #define  LOCSTR_RECALL_BEACON               		523 // "Recall Beacon"	
 
 #define  LOCSTR_NEED_MORE_EXP               		538 //"You need %d more experience to train to level %d"	
+
+#define  LOCSTR_IDENT_ITEM                  		541 // "Identify Items"
 
 #define  LOCSTR_NO_SAVING                   		583	//"No saving in the Arena"	
 
@@ -562,7 +567,7 @@
 +		[424]	0x04104b76 "October"	unsigned char *
 +		[425]	0x04104b83 "November"	unsigned char *
 +		[426]	0x04104b91 "December"	unsigned char *
-+		[427]	0x04104b9f "%s is in no condition to %s"	unsigned char *
+
 +		[428]	0x04104bc0 "Spell failed"	unsigned char *
 
 +		[430]	0x04104be1 "%s is now Level %lu and has earned %lu Skill Points!"	unsigned char *
@@ -643,6 +648,7 @@
 +		[507]	0x041052cd "Alexis"	unsigned char *
 +		[508]	0x041052d9 "Serena"	unsigned char *
 +		[509]	0x041052e5 "Zoltan"	unsigned char *
+
 +		[510]	0x041052f1 "Saintly"	unsigned char *
 +		[511]	0x041052fe "Angelic"	unsigned char *
 +		[512]	0x0410530b "Glorious"	unsigned char *
@@ -655,7 +661,7 @@
 +		[519]	0x04105369 "Monstrous"	unsigned char *
 +		[520]	0x04105378 "Notorious"	unsigned char *
 
-+		[522]	0x04105399 "SP Cost"	unsigned char *
+
 
 +		[524]	0x041053b9 "Once again you've cheated death! …"	unsigned char *
 +		[525]	0x041053e1 "Apothecary"	unsigned char *
@@ -674,7 +680,7 @@
 
 +		[539]	0x04105587 "Buy Items"	unsigned char *
 +		[540]	0x04105596 "Sell Items"	unsigned char *
-+		[541]	0x041055a6 "Identify Items"	unsigned char *
+
 +		[542]	0x041055ba "Repair Items"	unsigned char *
 +		[543]	0x041055cc "Special Items"	unsigned char *
 +		[544]	0x041055df "Seek knowledge elsewhere %s the %s"	unsigned char *

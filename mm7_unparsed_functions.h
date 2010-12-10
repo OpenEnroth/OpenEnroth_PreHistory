@@ -193,11 +193,11 @@ int __thiscall sub_40E2A7(int _this);
 int __thiscall Game_sub_40E2C8(void *_this, const char *Src, int a3);
 int __thiscall sub_40E32E(int _this, const void *Src, size_t Size);
 char __thiscall sub_40E363(int _this, unsigned int a2, char a3);
-int loc_40E4FC(); // weak
+//int loc_40E4FC(); // weak
 
-signed int __thiscall sub_40E55E(void *Source, unsigned int Filename, unsigned int a3);
 
-signed int __thiscall sub_40F5F5(void *_this, const char *Str1);
+
+
 void array_AD4674_FillZBuffer(int *pZBuffer, unsigned int uTextureID, unsigned int uZFill);
 
 void array_40F89C_ActuallyFillZBuffer(int *pZBuffer,class cTexture *pTexture, int a3);
@@ -205,11 +205,11 @@ int __fastcall sub_40F92A(int a1, int a2, int a3);
 //int __thiscall LODFile_sub_40F9C5(int _this);
 //signed int __thiscall LODFile_sub_40F9F0(int _this, const char *Str2);
 //signed int __thiscall LODFile_sub_4101B1(int _this, char *DstBuf, const char *Source, size_t Count);
-void __thiscall sub_41033D(int _this);
-void __thiscall sub_4103BB(int _this);
+//void __thiscall sub_41033D(int _this);
+//void __thiscall sub_4103BB(int _this);
 //void *__thiscall sub_410423(int _this);
 //signed int __thiscall LODFile_sub_410522(int _this, void *DstBuf, const char *Source, int a4);
-char *__thiscall sub_410B28(void *_this);
+void sub_410B28(int _this);
 signed int __fastcall sub_410D99(int a1);
 
 

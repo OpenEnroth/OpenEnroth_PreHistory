@@ -1673,7 +1673,7 @@ signed int __fastcall sub_427769(int a1)
 {
   signed int result; // eax@2
 
-  if ( byte_4E3C7A[20 * a1] & 0xC )
+  if ( word_4E3C68[a1].byte13 & 0xC )
     result = 1;
   else
     result = 0;
@@ -3428,7 +3428,7 @@ LABEL_75:
               if ( uActiveCharacter )
               {
                 sub_43AD34();
-                Player_PlaySound(*(&ptr_A750C4 + uActiveCharacter), 65, 0);
+                Player_PlaySound(pPlayers[uActiveCharacter], 65, 0);
               }
             }
             break;
@@ -3439,12 +3439,12 @@ LABEL_75:
               goto LABEL_118;
             if ( uActiveCharacter )
             {
-              v6 = (int)*(&ptr_A750C4 + uActiveCharacter);
+              v6 = (int)pPlayers[uActiveCharacter];
               if ( !*(_WORD *)(v6 + 6452) )
               {
                 v24 = Player_sub_GetAttackRecoveryTime((void *)v6, 0);
                 if (!pParty_global->dword_00087C)
-                  Player_SetRecoveryTime(pPlayers[uActiveCharacter - 1],
+                  Player_SetRecoveryTime(pPlayers[uActiveCharacter],
                     (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v24 * 2.1333333333333333));
                 sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, uActiveCharacter);
                 sub_40471C(&unk_4F8858);
@@ -3476,12 +3476,13 @@ LABEL_75:
               goto LABEL_118;
             if ( !uActiveCharacter )
               break;
-            v8 = (int)*(&ptr_A750C4 + uActiveCharacter);
+            v8 = (int)pPlayers[uActiveCharacter];
             v7 = *(_BYTE *)(v8 + 6735);
             if ( !v7
               || byte_6BE3C4_MaybeDrowningFlag
-              || ((v9 = *(_WORD *)(v8 + 2 * ((unsigned __int8)v7 / 11 + 12) + 264), !(HIBYTE(v9) & 1)) ? ((_BYTE)v9 >= 0 ? (!(v9 & 0x40) ? (v10 = (unsigned __int16)word_4E3C68[10 * (unsigned __int8)v7]) : (v10 = (unsigned __int16)word_4E3C6A[10 * (unsigned __int8)v7])) : (v10 = (unsigned __int16)word_4E3C6C[10 * (unsigned __int8)v7])) : (v10 = (unsigned __int16)word_4E3C6E[10 * (unsigned __int8)v7]),
-                  v10 > *(_DWORD *)(v8 + 6464)) )
+              || ((v9 = *(_WORD *)(v8 + 2 * ((unsigned __int8)v7 / 11 + 12) + 264) 
+			 /* !(HIBYTE(v9) & 1)) ? ((_BYTE)v9 >= 0 ? (!(v9 & 0x40) ? (v10 = (unsigned __int16)word_4E3C68[10 * (unsigned __int8)v7]) : (v10 = (unsigned __int16)word_4E3C6A[10 * (unsigned __int8)v7])) : (v10 = (unsigned __int16)word_4E3C6C[10 * (unsigned __int8)v7])) : (v10 = (unsigned __int16)word_4E3C6E[10 * (unsigned __int8)v7]),
+                  v10 > *(_DWORD *)(v8 + 6464) */))	) //temporaly
             {
               v1 = 1;
 LABEL_120:
@@ -7901,7 +7902,7 @@ LABEL_10:
     {
       if ( v5 <= 4u )
       {
-        v6 = (char *)*(&ptr_A750C4 + v5) + 168;
+        v6 = (char *)pPlayers[v5] + 168;
         strlen(v6);
         v11 = v6;
         if ( v6[strlen(v6) - 1] == 115 )
@@ -12305,7 +12306,7 @@ LABEL_90:
     v32 = 1;
     do
     {
-      v30 = Player_sub_492C0B_MaybeIfPlayerConscious(*(&ptr_A750C4 + v32));
+      v30 = Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v32]);
       if ( v30 )
         v38[v31++] = v32;
       ++v32;
@@ -13343,7 +13344,7 @@ void __thiscall sub_467E7F(void *_this)
   v4 = _this;
   ItemGen_Reset(&local_0C);
   v3 = *(_BYTE *)((_DWORD)byte_4E8398 + (_DWORD)v4);
-  v1 = *(&ptr_A750C4 + uActiveCharacter);
+  v1 = pPlayers[uActiveCharacter];;
   v11 = v1;
   v13 = (int *)((char *)v1 + 4 * v3 + 6472);
   v2 = *v13;

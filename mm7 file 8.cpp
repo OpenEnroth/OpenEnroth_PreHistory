@@ -5858,9 +5858,9 @@ int __cdecl sub_494035()
     struct_576FE8.dword_000044 = 1;
     while ( 1 )
     {
-      if (Player_sub_48D709(pPlayers[v9 - 1], 516, 3) ||
-          Player_sub_48D6D0(pPlayers[v9 - 1], 71) ||
-          *(_QWORD *)((char *)pPlayers[v9 - 1] + 0x1910) > 0i64 )
+      if (Player_sub_48D709(pPlayers[v9], 516, 3) ||
+          Player_sub_48D6D0(pPlayers[v9], 71) ||
+          *(_QWORD *)((char *)pPlayers[v9] + 0x1910) > 0i64 )
       {
         v55 = 0;
       }
@@ -5880,7 +5880,7 @@ int __cdecl sub_494035()
           goto LABEL_39;
         }
       }
-      Player_sub_494A25((int)pPlayers[v9 - 1], 37, v55);
+      Player_sub_494A25((int)pPlayers[v9], 37, v55);
 LABEL_39:
       ++v9;
       if ( v9 > 4 )
@@ -5898,7 +5898,7 @@ LABEL_39:
       {
         struct_576FE8.dword_000044 = 1;
         pParty_global->dword_0006FC = v8 + 128;
-        for (i = 0; i < 4; ++i)
+        for (i = 1; i < 5; ++i)
         {
           v14 = (int)pPlayers[i];
           v15 = (double)Player_GetMaxHealth(pPlayers[i]) * 0.10000000000000001;
@@ -5924,7 +5924,7 @@ LABEL_39:
       v61 = 1;
   }
 
-  for (i = 0; i < 4; ++i)
+  for (i = 1; i < 5; ++i)
   {
    v18 = pPlayers[i];
 
@@ -6140,7 +6140,7 @@ LABEL_61:
     {
       if ( !(*(_BYTE *)(v47 + 15) & 1) )
       {
-        if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[*(_BYTE *)(v47 + 14) - 1]) )
+        if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[*(_BYTE *)(v47 + 14)]) )
         {
           SpellBuff_sub_458585((SpellBuff *)v47);
           if (array_4EE07C[i] == 7 )
@@ -6183,7 +6183,7 @@ LABEL_137:
   {
     if ( dword_4E28F8 != 5 )
     {
-      result = (int)pPlayers[uActiveCharacter - 1];
+      result = (int)pPlayers[uActiveCharacter];
       if ( *(_QWORD *)(result + 16)
         || *(_QWORD *)(result + 96)
         || *(_QWORD *)(result + 104)

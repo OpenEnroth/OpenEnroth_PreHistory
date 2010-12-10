@@ -99,7 +99,7 @@ void __thiscall sub_4680ED(void *_this, signed int a2, int a3)
   int v77; // [sp+28h] [bp-4h]@22
 
   v76 = (int)_this;
-  v3 = (int)&pParty_global->pPlayers[a2 - 1];
+  v3 = (int)&pParty_global->pPlayers[a2];
   v73 = 1;
   if (pParty_global->dword_00087C == 1 && (dword_4F885C == 1 || dword_4F885C == 3) )
     return;
@@ -127,14 +127,14 @@ LABEL_167:
         }
         v69 = 2;
 LABEL_111:
-        Player_sub_48DBB9((int)&pParty_global->pPlayers[a2 - 1], v69);
+        Player_sub_48DBB9((int)&pParty_global->pPlayers[a2], v69);
       }
 LABEL_112:
       Player_PlaySound((Player *)v3, 36, 0);
       goto LABEL_173;
     }
 LABEL_172:
-    Player_sub_492D65(&pParty_global->pPlayers[a2 - 1], 6, 1);
+    Player_sub_492D65(&pParty_global->pPlayers[a2], 6, 1);
     goto LABEL_173;
   }
   if (pClass40->pItems[pParty_global->stru_007754.uItemID - 1].uEquipType == 14 )
@@ -302,7 +302,7 @@ LABEL_172:
         v33 = *(_DWORD *)(v3 + 124);
         v34 = *(_DWORD *)(v3 + 128);
         v35 = *(_DWORD *)(v3 + 132);
-        memset(&pParty_global->pPlayers[a2 - 1], 0, 0xA0);
+        memset(&pParty_global->pPlayers[a2], 0, 0xA0);
         *(_DWORD *)(v3 + 116) = v31;
         *(_DWORD *)(v3 + 120) = v32;
         *(_DWORD *)(v3 + 124) = v33;
@@ -948,7 +948,7 @@ void __cdecl sub_468F8A()
 
   v55 = 0;
   ItemGen_Reset(&local_0C);
-  v1 = (int)pPlayers[uActiveCharacter - 1];
+  v1 = (int)pPlayers[uActiveCharacter];
   v0 = *(_DWORD *)(v1 + 6476);
   v2 = *(_DWORD *)(v1 + 6472);
   v58 = *(_DWORD *)(v1 + 6472);
@@ -1185,7 +1185,7 @@ LABEL_71:
           *(_DWORD *)(v1 + 6472) = 0;
 LABEL_74:
         if ( v54 )
-          sub_494836((char *)&unk_A750F8 + 45016 * (uActiveCharacter - 1), dword_4E421C[v54], uActiveCharacter - 1 + 9);
+          sub_494836((char *)&unk_A750F8 + 45016 * (uActiveCharacter), dword_4E421C[v54], uActiveCharacter + 9);
         break;
       case 1:
         if ( sub_43EE77(uActiveCharacter) )
@@ -1303,7 +1303,7 @@ LABEL_96:
   if ( dword_50C9A0 )
   {
     *(_BYTE *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 8) &= 0x7Fu;
-    *(_WORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 4) = uActiveCharacter - 1;
+    *(_WORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 4) = uActiveCharacter;
     v42 = v56;
     *(_DWORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 12) = v39;
     *(_WORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 6) = v42;
@@ -9457,7 +9457,7 @@ LABEL_70:
           v65 = 0;
           v63 = 64;
 LABEL_76:
-          Player_PlaySound(*(&ptr_A750C4 + v35), v63, v65);
+          Player_PlaySound(pPlayers[uActiveCharacter], v63, v65);
         }
         break;
       case 9:

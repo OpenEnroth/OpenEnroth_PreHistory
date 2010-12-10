@@ -1899,7 +1899,7 @@ LABEL_82:
         do
         {
           //if ( Player_sub_492C0B_MaybeIfPlayerConscious(*(&ptr_A750C4 + v22)) )
-          if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v22 - 1]))
+          if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v22]))
           {
             ++v31;
             v21 = v22;
@@ -1910,7 +1910,7 @@ LABEL_82:
         if ( v30 == 2 )
         {
           if ( v31 == 1 )
-            Player_PlaySound(pPlayers[v21 - 1], 107, 0);
+            Player_PlaySound(pPlayers[v21], 107, 0);
         }
         result = 1;
         break;
@@ -2151,7 +2151,7 @@ bool Player_SetRecoveryTime(struct Player *_this, int sRecoveryTime)
  if (v2 > _this->uTimeToRecovery)
    _this->uTimeToRecovery = v2;
 
-  if (pPlayers[uActiveCharacter - 1] == _this)
+  if (pPlayers[uActiveCharacter] == _this)
   {
     if ( !dword_50C0C4 )
       uActiveCharacter = Party_sub_49370F(pParty_global);
@@ -3381,7 +3381,7 @@ int __thiscall sub_492600(struct Player *_this, int a2, unsigned int uItemID) //
   if ( v13 == -1 )
   {
     if ( uActiveCharacter )
-      Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
+      Player_PlaySound(pPlayers[uActiveCharacter], 15, 0);
     result = 0;
   }
   else

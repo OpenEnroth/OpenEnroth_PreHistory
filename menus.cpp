@@ -1450,7 +1450,7 @@ void __cdecl sub_4B6943()
   v2 = (int)ptr_507BC0;
   memcpy(&local_208, ptr_507BC0, sizeof(GUIWindow));
   v1 = 255;
-  v72 = pPlayers[uActiveCharacter - 1];
+  v72 = pPlayers[uActiveCharacter];
   v3 = v72;
   local_208.uFrameX = 483;
   local_208.uFrameWidth = 148;

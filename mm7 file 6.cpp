@@ -1062,7 +1062,7 @@ LABEL_4:
     v8 = *(_DWORD *)v9;
     v3 = (int *)&pClass40->pItems[v8].pIconName;
     if ( *((_BYTE *)v3 + 28) == 12 )
-      v10 = (unsigned __int16)word_4E3C72[10 * dword_4E421C[v8]];
+      v10 = (unsigned __int16)word_4E3C68[ dword_4E421C[v8]].word0A;
     else
       v10 = (unsigned __int16)word_4EDED8[*((_BYTE *)v3 + 29)];
     v47 = v10;
@@ -1807,7 +1807,7 @@ signed int __stdcall sub_4910D3(int a1)
   int v7; // eax@7
   signed int v9; // [sp-4h] [bp-14h]@2
 
-  LOBYTE(v1) = Player_sub_48F882(*(&ptr_A750C4 + uActiveCharacter), 21);
+  LOBYTE(v1) = Player_sub_48F882(pPlayers[uActiveCharacter], 21);
   v2 = v1;
   if ( HIBYTE(v1) & 1 )
   {
@@ -2733,7 +2733,7 @@ signed int __thiscall sub_49387A(void *_this)
       --result;
       if ( result < 1 )
         result = 4;
-      if ( !*((_WORD *)pPlayers[result - 1] + 3226) )
+      if ( !*((_WORD *)pPlayers[result] + 3226) )
         break;
       ++v2;
       if ( v2 >= 4 )
@@ -2748,7 +2748,7 @@ signed int __thiscall sub_49387A(void *_this)
       ++result;
       if ( result > 4 )
         result = 1;
-      if ( !*((_WORD *)pPlayers[result - 1] + 3226) ) // pPlayer[result]->cInventorySlots[74].uItemID
+      if ( !*((_WORD *)pPlayers[result] + 3226) ) // pPlayer[result]->cInventorySlots[74].uItemID
         break;
       ++v3;
       if ( v3 >= 4 )
@@ -3391,13 +3391,13 @@ LABEL_98:
       switch ( v15 )
       {
         case 31:
-          v52 = (int)pPlayers[0];
-          break;
-        case 32:
           v52 = (int)pPlayers[1];
           break;
-        case 33:
+        case 32:
           v52 = (int)pPlayers[2];
+          break;
+        case 33:
+          v52 = (int)pPlayers[3];
           break;
         default:
           if ( v15 != 34 )

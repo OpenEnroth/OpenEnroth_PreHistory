@@ -100,11 +100,11 @@ void PCXTexture_Release();	   //  destr
 
 //signed int __thiscall sub_40F037(void *_this, void *Src, int a3, int a4)
 int DecodePCX(unsigned char *pPCXData,unsigned long *pOutBuffer, unsigned int uWidth);
-int LODPCXReLoad(const char *pContainerName);
+int LODPCXReLoad(const char *pContainerName); // signed int __thiscall sub_40F5F5(void *_this, const char *Str1);
 int LoadPCXFromFile(FILE *File, unsigned int mode, bool close_file);	//sub_40EAD8
 };
 //sizeof = 28
-
+signed int __thiscall sub_40E55E(void *Source, unsigned int Filename, unsigned int a3);
 
 //
 #ifndef OLD_CODE 

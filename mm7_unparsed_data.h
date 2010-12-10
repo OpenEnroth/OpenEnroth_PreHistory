@@ -125,17 +125,24 @@ extern __int16 word_4E3AF0; // weak
 extern __int16 word_4E3B08; // weak
 extern __int16 word_4E3C40; // weak
 extern __int16 word_4E3C66; // weak
-extern __int16 word_4E3C68[array_size_unknown]; // weak
-extern __int16 word_4E3C6A[array_size_unknown]; // weak
-extern __int16 word_4E3C6C[array_size_unknown]; // weak
-extern __int16 word_4E3C6E[array_size_unknown]; // weak
-extern __int16 word_4E3C72[array_size_unknown]; // weak
-extern char byte_4E3C78[array_size_unknown]; // weak
-extern char byte_4E3C79[array_size_unknown]; // weak
-extern char byte_4E3C7A[array_size_unknown]; // weak
-extern __int16 word_4E3C7C[array_size_unknown]; // weak
+/*											
+ 
+extern __int16 word_4E3C68[array_size_unknown]; // weak	   unsigned short word00;
+extern __int16 word_4E3C6A[array_size_unknown]; // weak	   unsigned short word02;
+extern __int16 word_4E3C6C[array_size_unknown]; // weak	    unsigned short word04;
+extern __int16 word_4E3C6E[array_size_unknown]; // weak	   unsigned short word06;
+														    unsigned short word08;
+extern __int16 word_4E3C72[array_size_unknown]; // weak	   unsigned short word0A;
+														    unsigned short word0c;
+														    unsigned short word10;
+extern char byte_4E3C78[array_size_unknown]; // weak  unsigned char	byte11;
+extern char byte_4E3C79[array_size_unknown]; // weak  unsigned char	byte12;
+extern char byte_4E3C7A[array_size_unknown]; // weak  unsigned char	byte13;
+                                                 unsigned char	byte14;      */
+extern  struct Spell_data word_4E3C68[100]; // weak
 
-extern unsigned char some_spell_stuff[98 * 20]; //struct[98] @ MM7.exe::004E3C8E  98 spells
+//extern unsigned char some_spell_stuff[98 * 20]; //struct[98] @ MM7.exe::004E3C8E  98 spells
+
 //_UNKNOWN unk_4E3C8E; // weak
 extern char byte_4E3FE8; // weak
 extern int dword_4E421C[array_size_unknown]; // weak
@@ -278,8 +285,9 @@ extern char *off_4ECEA0; // idb
 extern char byte_4ECEEF[array_size_unknown]; // weak
 extern char byte_4ED3D8[856];
 extern char byte_4ED498; // weak
-extern __int16 word_4ED746[array_size_unknown]; // this and next 4 or 5 words are X offsets of player portraits/selection frames i the bottom GameUI hud
-extern _WORD off_4ED748[4]; // idb
+//extern __int16 word_4ED746[array_size_unknown]; // this and next 4 or 5 words are X offsets of player portraits/selection frames i the bottom GameUI hud
+extern _WORD off_4ED748[5]; // idb
+
 extern unsigned char byte_4ED750[0xC];
 
 extern char byte_4ED75C[array_size_unknown]; // weak
@@ -1050,7 +1058,8 @@ extern struct class36 class36_global0; // struct @ MM7.exe::005107A8
 //extern char byte_51117E[array_size_unknown]; // weak
 //int dword_5111AC; // 000A04
 //int dword_5111B0; // 000A08
-extern char byte_5111B9[4]; // weak
+extern char byte_5111B9[5]; // weak
+
 extern char byte_5111C0[54];
 extern char byte_5111F6[18]; 
 extern unsigned int pPaperdollTextures_Beards[]; // dword[4] @ MM7.exe::00511208
@@ -2288,7 +2297,7 @@ extern int dword_A74CDC; // weak
 extern unsigned int uTextureIdx_PlayerFaceEradicated; // dword @ MM7.exe::00A74CE4
 extern unsigned int uTextureIdx_PlayerFaceDead;       // dword @ MM7.exe::00A74CE8
 
-extern int dword_A74CEC[array_size_unknown]; // weak
+//extern int dword_A74CEC[array_size_unknown]; // weak
 
 extern class cTexture *pTextureIdx_PlayerFaces[4][56]; // dword[224] @ MM7.exe::00A74CF0
 //_UNKNOWN unk_A74CF0; // weak
@@ -2297,8 +2306,8 @@ extern int dword_A75070; // weak
 extern char byte_A75074[40]; // idb
 extern char byte_A7509C[40]; // idb
 
-extern struct Player *ptr_A750C4;   //pPlayers[-1] indexing
-extern struct Player *pPlayers[4]; // ptr[4] @ MM7.exe::00A750C8
+//extern struct Player *ptr_A750C4;   //pPlayers[-1] indexing
+extern struct Player *pPlayers[5]; // ptr[4] @ MM7.exe::00A750C8
 //int dword_A750CC; // weak
 //int dword_A750D0; // weak
 extern int dword_A750D4; // looks like pPlayers[5] indexing

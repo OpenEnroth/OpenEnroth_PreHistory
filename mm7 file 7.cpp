@@ -1,6 +1,6 @@
 #include <ddraw.h>
 //#include <dinput.h>
-
+#include "localization_defs.h"
 #include "AIL.h"
 #include "font.h"
 #include "data.h"
@@ -3057,23 +3057,23 @@ char *__thiscall sub_4B1523(void *_this)
     v5 = v4;
   wsprintfA((char *)pStringBuffer,
     "%s\n\n%s\t%03d:\t%03d%s\t000\n%s\t%03d:\t%03d%s\t000\n%s\t%03d:\t%03d%s\t000\n%s\t%03d:\t%03d%s",
-    pSpellStats->pSpellInfos[v1 / 4].pSpellDescription,//*((_DWORD *)&unk_5CC038 + 9 * v1),
+    pSpellStats->pSpellInfos[v1].pSpellDescription,//*((_DWORD *)&unk_5CC038 + 9 * v1),
     pGlobalTXT_LocalizationStrings[431],
     v5 + 3,
     v5 + 10,
-    pSpellStats->pSpellInfos[v1 / 4].pSpellBasicSkillDesc,//*((_DWORD *)&unk_5CC03C + 9 * v1),
+    pSpellStats->pSpellInfos[v1].pSpellBasicSkillDesc,//*((_DWORD *)&unk_5CC03C + 9 * v1),
     pGlobalTXT_LocalizationStrings[433],
     v5 + 3,
     v5 + 10,
-    pSpellStats->pSpellInfos[v1 / 4].pSpellExpertSkillDesc,//*((_DWORD *)&unk_5CC040 + 9 * v1),
+    pSpellStats->pSpellInfos[v1].pSpellExpertSkillDesc,//*((_DWORD *)&unk_5CC040 + 9 * v1),
     pGlobalTXT_LocalizationStrings[432],
     v5 + 3,
     v5 + 10,
-    pSpellStats->pSpellInfos[v1 / 4].pSpellMasterSkillDesc,//*((_DWORD *)&unk_5CC044 + 9 * v1),
+    pSpellStats->pSpellInfos[v1].pSpellMasterSkillDesc,//*((_DWORD *)&unk_5CC044 + 9 * v1),
     pGlobalTXT_LocalizationStrings[96],
     v5 + 3,
     v5 + 10,
-    pSpellStats->pSpellInfos[v1 / 4].pSpellGrandmasterSkillDesc);//*((_DWORD *)&unk_5CC048 + 9 * v1));
+    pSpellStats->pSpellInfos[v1].pSpellGrandmasterSkillDesc);//*((_DWORD *)&unk_5CC048 + 9 * v1));
   v6 = CalculateTextHeght(pFontSmallnum, (char *)pStringBuffer, &local_0C, 0, 0);
   local_0C.uFrameHeight += v6;
   if (local_0C.uFrameHeight < 150)
@@ -3084,19 +3084,19 @@ char *__thiscall sub_4B1523(void *_this)
   local_0C.uFrameHeight -= 12;
 
   //dword_5CC030 == pSpellStats
-  compile_error;//v8 = (const char *)dword_5CC030[9 * v1];
+  v8 = (char*)pSpellStats->pSpellInfos[v1].pSpellName;
   
   local_0C.uFrameZ = local_0C.uFrameX + local_0C.uFrameWidth - 1;
   local_0C.uFrameW = local_0C.uFrameHeight + local_0C.uFrameY - 1;
-  v9 = 0xFFFFFF9B;
+  v9 = 0xFFFF9B;
   GUIWindow_sub_44D406(&local_0C, pFontArrus, 120, 12, v9, v8, 3);
   FontDrawText(&local_0C, pFontSmallnum, 120, 44, (char *)pStringBuffer, 0, 0, 0);
   local_0C.uFrameZ = local_0C.uFrameX + 107;
   local_0C.uFrameWidth = 108;
   //GUIWindow_sub_44D406((int)&v10, pFontComic, 12, 75, 0, (&dword_AE3300)[v17], 3);
   GUIWindow_sub_44D406(&local_0C, pFontComic, 12, 75, 0, (char *)aSkillNames[12 + v17 / 4], 3);
-  wsprintfA((char *)TmpBuf, "%s\n%d", pGlobalTXT_LocalizationStrings[522], (unsigned __int16)word_4E3C68[10 * v1]);
-  return GUIWindow_sub_44D406(&local_0C, pFontComic, 12, local_0C.uFrameHeight - *(_BYTE *)(pFontComic + 5) - 16, 0, (char *)TmpBuf, 3);
+  wsprintfA((char *)TmpBuf, "%s\n%d", pGlobalTXT_LocalizationStrings[LOCSTR_SP_COST], word_4E3C68[v1].word00);
+  return GUIWindow_sub_44D406(&local_0C, pFontComic, 12, local_0C.uFrameHeight - pFontComic->uFontHeight - 16, 0, (char *)TmpBuf, 3);
 }
 
 //----- (004B1784) --------------------------------------------------------
@@ -3112,8 +3112,8 @@ signed int __cdecl sub_4B1784()
   //int v5; // [sp+Ch] [bp-4Ch]@3
   //int v6; // [sp+14h] [bp-44h]@3
 
-  v0 = (int)pPlayers[uActiveCharacter - 1];
-  if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter - 1]) )
+  v0 = (int)pPlayers[uActiveCharacter];
+  if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter]) )
   {
     pDialogueWindow->dword_000028 = dword_F8B1E0;
     result = 1;
@@ -3239,7 +3239,7 @@ void __cdecl sub_4B1A2D()
   char v18; // [sp+40h] [bp-Ch]@5
   int v19; // [sp+48h] [bp-4h]@5
 
-  v0 = pPlayers[uActiveCharacter - 1];
+  v0 = pPlayers[uActiveCharacter];
   if ( dword_F8B198 > 0 )
   {
     if ( dword_F8B198 > 4 )
@@ -3389,7 +3389,7 @@ LABEL_30:
           v7 = 1;
           do
           {
-            if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v7 - 1]) )
+            if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v7]) )
               v8[v6++] = v7;
             ++v7;
           }
@@ -3412,7 +3412,7 @@ LABEL_30:
         v4 = 1;
         do
         {
-          if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v4 - 1]) )
+          if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[v4]) )
             v8[v3++] = v4;
           ++v4;
         }
@@ -3474,7 +3474,7 @@ void __cdecl sub_4B1ECE()
     if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, *(_WORD *)(v0 - 2)) )
     {
       v1 = 0;
-      for (i = 0; i < 4; ++i)
+      for (i = 1; i < 5; ++i)
       {
         LOBYTE(v3) = Player_sub_449BB4((int)&pParty_global->pPlayers[i], 17, (void *)*(_WORD *)v0);
         if ( v3 )
@@ -3587,7 +3587,7 @@ int __fastcall sub_4B2001(int _this)
       if ( _this == 13 )
       {
         dword_F8B1E8 = (char *)pNPCStats->pProfessions[*(_DWORD *)(v2 + 24) - 1].pJoinText;
-        dword_F8B1E8 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(dword_F8B1E8, uActiveCharacter - 1, 0, 0, 0, 0);
+        dword_F8B1E8 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(dword_F8B1E8, uActiveCharacter, 0, 0, 0, 0);
         sub_4B40E6();
         byte_F8B1EC = 0;
         return VideoPlayer_sub_4BF5B2((int)pVideoPlayer);
@@ -3662,7 +3662,7 @@ LABEL_84:
         else
           v17 = (char *)pNPCStats->pProfessions[v16 - 1].pBenefits;
         dword_F8B1E8 = v17;
-        v18 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(v17, uActiveCharacter - 1, 0, 0, 0, 0);
+        v18 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(v17, uActiveCharacter, 0, 0, 0, 0);
         byte_F8B1EC ^= 1u;
         dword_F8B1E8 = v18;
         break;
@@ -3672,24 +3672,24 @@ LABEL_84:
           sub_492BB6(uArenaReward);
           if ( uActiveCharacter )
           {
-            v12 = (char *)pPlayers[uActiveCharacter - 1] + 2 * dword_F8B1AC + 264;
+            v12 = (char *)pPlayers[uActiveCharacter] + 2 * dword_F8B1AC + 264;
             *(_WORD *)v12 &= 0x3Fu;
             switch ( dword_F8B1B0 )
             {
               case 2:
-                v15 = (char *)pPlayers[uActiveCharacter - 1] + 2 * dword_F8B1AC + 264;
+                v15 = (char *)pPlayers[uActiveCharacter] + 2 * dword_F8B1AC + 264;
                 *(_BYTE *)v15 |= 0x40u;
                 break;
               case 3:
-                v14 = (char *)pPlayers[uActiveCharacter - 1] + 2 * dword_F8B1AC + 264;
+                v14 = (char *)pPlayers[uActiveCharacter] + 2 * dword_F8B1AC + 264;
                 *(_BYTE *)v14 |= 0x80u;
                 break;
               case 4:
-                v13 = (char *)pPlayers[uActiveCharacter - 1] + 2 * dword_F8B1AC + 264;
+                v13 = (char *)pPlayers[uActiveCharacter ] + 2 * dword_F8B1AC + 264;
                 *((_BYTE *)v13 + 1) |= 1u;
                 break;
             }
-            Player_PlaySound(pPlayers[uActiveCharacter - 1], 85, 0);
+            Player_PlaySound(pPlayers[uActiveCharacter], 85, 0);
           }
         /*  if ( dword_50CBD0[0] < 40 )
           {
@@ -3773,7 +3773,7 @@ LABEL_84:
             v26 = 0;
             v24 = 86;
 LABEL_50:
-            Player_PlaySound(pPlayers[v11 - 1], v24, v26);
+            Player_PlaySound(pPlayers[v11], v24, v26);
             return VideoPlayer_sub_4BF5B2((int)pVideoPlayer);
           }
         }
@@ -3798,9 +3798,9 @@ LABEL_77:
       byte_F8B1EC = 0;
       uDialogueType = 13;
       dword_F8B1E8 = (char *)pNPCStats->pProfessions[*(_DWORD *)(v2 + 24) - 1].pJoinText;
-      dword_F8B1E8 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(dword_F8B1E8, uActiveCharacter - 1, 0, 0, 0, 0);
+      dword_F8B1E8 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(dword_F8B1E8, uActiveCharacter, 0, 0, 0, 0);
       if ( uActiveCharacter )
-        Player_PlaySound(pPlayers[uActiveCharacter - 1], 38, 0);
+        Player_PlaySound(pPlayers[uActiveCharacter], 38, 0);
       v19 = (char *)pGlobalTXT_LocalizationStrings[155];
       goto LABEL_77;
     }
@@ -3883,7 +3883,7 @@ const CHAR *__thiscall sub_4B254D(void *_this)
   int v36; // [sp+24h] [bp-8h]@7
   int v37; // [sp+28h] [bp-4h]@1
 
-  v4 = (int)pPlayers[uActiveCharacter - 1];
+  v4 = (int)pPlayers[uActiveCharacter];
   dword_F8B1A8 = 0;
   v5 = (signed int)((char *)_this - 200);
   v2 = (signed int)((char *)_this - 200) / 3;
@@ -4184,9 +4184,9 @@ int __fastcall sub_4B29F2(int a1)
 
   v2 = a1;
   dword_F8B1A8 = 0;
-  v1 = (int)*(&ptr_A750C4 + uActiveCharacter);
+  v1 = (int)pPlayers[uActiveCharacter];
   v3 = a1 + 50;
-  v4 = (int)*(&ptr_A750C4 + uActiveCharacter);
+  v4 = (int)pPlayers[uActiveCharacter];
   dword_F8B1AC = v3;
   uArenaReward = dword_4F08EC[v2];
   if ( Player_sub_492C0B_MaybeIfPlayerConscious((Player *)v4) )
@@ -4402,9 +4402,9 @@ LABEL_45:
         if ( !v28 )
         {
           v29 = (int *)&pMonsterStats->pMonsterInfos[word_F8B1A0];
-          v30 = 0xFFFFFFFF;
+          v30 = 0xFFFFFF;
           v31 = *v29;
-          v32 = 0xFFFFFF9B;
+          v32 = 0xFFFF9B;
           wsprintfA((char *)TmpBuf, (const char *)&unk_4F0F98, v32, v31, v30);
           wsprintfA((char *)pStringBuffer, (const char *)dword_F8B1A4, (char *)TmpBuf, 100 * *((_BYTE *)v29 + 8));
           dword_F8B1E8 = (char *)pStringBuffer;
@@ -4448,7 +4448,7 @@ LABEL_33:
             }
             if ( uDialogueType != 84 )
               goto LABEL_49;
-            wsprintfA((char *)TmpBuf, "\x0C%05d%s\x0C\x30\x30\x30\x30\x30", *(_DWORD *)v62, dword_5D29EC[12 * dword_F8B1A8]);
+            wsprintfA((char *)TmpBuf, "\f%06x%s\f000000", *(_DWORD *)v62, dword_5D29EC[12 * dword_F8B1A8]);
             wsprintfA((char *)pStringBuffer, dword_F8B1E8, (char *)TmpBuf);
             dword_F8B1E8 = (char *)pStringBuffer;
             goto LABEL_45;
@@ -4487,9 +4487,9 @@ LABEL_49:
     }
   }
   v35 = 0;
-  v61 = 0xFFFFFFFF;
+  v61 = 0xFFFFFF;
   v34 = *(_DWORD *)(v14 + 56);
-  *(_DWORD *)v62 = 0xFFE1CD23;
+  *(_DWORD *)v62 = 0xE1CD23;
   for ( i = v34 + *(_DWORD *)(v14 + 40); v34 < i; i = pDialogueWindow->dword_000028 + pDialogueWindow->dword_000038)
   {
     v36 = (int)GUIWindow_GetChild((GUIWindow *)v14, v34);
@@ -4545,12 +4545,9 @@ LABEL_49:
       v45 = (int)pFontCreate;
       v46 = CalculateTextHeght(pFontCreate, dword_F8B1E8, (GUIWindow *)&v49, 13, 0) + 7;
     }
-    Render_sub_4A6A68(
-      pD3DRenderer,
-      8,
-      352 - v46,
-      uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 : 0,
-      *(_WORD *)(uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 + 0x1A : 26) - v46);
+    Render_sub_4A6A68( pD3DRenderer,  8,   352 - v46,
+      uTextureIdx_Leather != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather] : 0,
+      (uTextureIdx_Leather != -1 ? LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather].uTextureHeight : 26) - v46);
     Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v46, pcTexture_EndcapTexture);
     v47 = (char *)FitTextInAWindow(dword_F8B1E8, (Font *)v45, (GUIWindow *)&v49, 13, 0);
     FontDrawText(&local_B4, (Font *)v45, 13, 354 - v46, v47, 0, 0, 0);
@@ -5311,16 +5308,7 @@ int __cdecl sub_4B40E6()
   v1 = dword_5913D8[dword_5913F0 - ((dword_591080 != 0) + 1)];
   GUIWindowDelete(pDialogueWindow);
   pDialogueWindow = GUIWindowCreate(0, 0, 640, 350, 1, 0, 0);
-  dword_5076F4 = GUIButtonCreate(pDialogueWindow,
-                   471,
-                   445,
-                   169,
-                   35,
-                   1,
-                   0,
-                   113,
-                   0,
-                   0,
+  dword_5076F4 = GUIButtonCreate(pDialogueWindow, 471, 445,	169, 35, 1, 0, 113,	0, 0,
                    pGlobalTXT_LocalizationStrings[34],
                    uTextureID_right_backgr != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0);
   GUIButtonCreate(pDialogueWindow, 0, 0, 0, 0, 1, 0, 81, 0, 0, (unsigned char *)"", 0);
@@ -5617,13 +5605,13 @@ int __cdecl sub_4B4710()
   int v77; // [sp+7Ch] [bp-8h]@18
   int v78; // [sp+80h] [bp-4h]@16
 
-  v3 = (int)pPlayers[uActiveCharacter - 1];
+  v3 = (int)pPlayers[uActiveCharacter];
   memcpy(&local_0C, ptr_507BC0, sizeof(GUIWindow));
   local_0C.uFrameX = 483;
   local_0C.uFrameWidth = 148;
   local_0C.uFrameZ = 334;
-  v72 = 0xFFFFFFFF;
-  v4 = 0xFFE1CD23;
+  v72 = 0xFFFFFF;
+  v4 = 0xE1CD23;
   v2 = *(_WORD *)(v3 + 218);
   *(_DWORD *)v76 = v4;
   v0 = 0;
@@ -5791,7 +5779,7 @@ LABEL_82:
               v39 += 4;
             }
             while ( v39 < (signed int)word_F8B158 );
-            v41 = 4 * uActiveCharacter + 16298308;
+            v41 = (int)pPlayers[uActiveCharacter];
             ++*(&dword_F8B144 + uActiveCharacter);
             if ( *(_DWORD *)v41 > v40 )
             {
@@ -6096,14 +6084,14 @@ signed int __cdecl sub_4B4FCF()
   unsigned __int8 v124; // [sp+F3h] [bp-5h]@14
   int v125; // [sp+F4h] [bp-4h]@23
 
-  v0 = pPlayers[uActiveCharacter - 1];
-  v123 = (int)pPlayers[uActiveCharacter - 1];
+  v0 = pPlayers[uActiveCharacter];
+  v123 = (int)pPlayers[uActiveCharacter];
   memcpy(&local_7C, ptr_507BC0, sizeof(GUIWindow));
   local_7C.uFrameX = 483;
   local_7C.uFrameWidth = 148;
   local_7C.uFrameZ = 334;
-  *(_DWORD *)v119 = 0xFFFFFFFF;
-  *(_DWORD *)v118 = 0xFFE1CD23;
+  *(_DWORD *)v119 = 0xFFFFFF;
+  *(_DWORD *)v118 = 0xE1CD23;
   if ( dword_F8B19C > 5 )
   {
     if ( dword_F8B19C == 94 )
@@ -6288,7 +6276,7 @@ LABEL_140:
       v94 = ptr_507BC0->dword_00001C;
       v91 = v123 + 4 * result + 496;
       v28 = ptr_507BC0->dword_00001C;
-      v124 = uActiveCharacter - 1;
+      v124 = uActiveCharacter;
       v29 = sub_490EEE((void *)v123, v123 + 4 * result + 496, 3, v28, 5);
       v7 = v124;
       v8 = *(_DWORD *)&dword_73C3C0[4 * v29];
@@ -6381,7 +6369,7 @@ LABEL_140:
                   v4 = v123 + 36 * result + 496;
                   if ( *(_BYTE *)(v4 + 20) & 1 )
                   {
-                    v6 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue("%24", uActiveCharacter - 1, v4, ptr_507BC0->dword_00001C, 4, 0);
+                    v6 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue("%24", uActiveCharacter, v4, ptr_507BC0->dword_00001C, 4, 0);
                     v98 = 3;
                     v96 = v6;
                     v93 = v119[0];
@@ -6391,7 +6379,7 @@ LABEL_140:
                   v94 = ptr_507BC0->dword_00001C;
                   v91 = v4;
                   v9 = ptr_507BC0->dword_00001C;
-                  v124 = uActiveCharacter - 1;
+                  v124 = uActiveCharacter;
                   v10 = sub_490EEE((void *)v123, v4, 3, v9, 4);
                   v7 = v124;
                   v8 = dword_73C3DC[v10];
@@ -6420,7 +6408,7 @@ LABEL_140:
       v94 = ptr_507BC0->dword_00001C;
       v91 = v123 + 36 * result + 496;
       v12 = ptr_507BC0->dword_00001C;
-      v124 = uActiveCharacter - 1;
+      v124 = uActiveCharacter;
       v13 = sub_490EEE((void *)v123, v91, 3, v12, 3);
       v7 = v124;
       v8 = dword_73C3A4[v13];
@@ -6631,7 +6619,7 @@ LABEL_61:
         v95 = 2;
         v94 = ptr_507BC0->dword_00001C;
         v91 = v73;
-        v7 = uActiveCharacter - 1;
+        v7 = uActiveCharacter;
       }
       else
       {
@@ -6639,7 +6627,7 @@ LABEL_61:
         v95 = 2;
         v94 = ptr_507BC0->dword_00001C;
         v91 = v73;
-        v124 = uActiveCharacter - 1;
+        v124 = uActiveCharacter;
         v75 = sub_490EEE((void *)v123, v73, 3, v71, 2);
         v7 = v124;
         v8 = *(_DWORD *)&dword_73C388[4 * v75];
@@ -6723,13 +6711,13 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
 
   v2 = (int)ptr_507BC0;
   memcpy(&local_274, ptr_507BC0, sizeof(GUIWindow));
-  v58 = (int)pPlayers[uActiveCharacter - 1];
+  v58 = (int)pPlayers[uActiveCharacter];
   v1 = (void *)v58;
   local_274.uFrameX = 483;
   local_274.uFrameWidth = 148;
   local_274.uFrameZ = 334;
-  *(_DWORD *)v56 = 0xFFFFFFFF;
-  *(_DWORD *)v57 = 0xFFFFFF9B;
+  *(_DWORD *)v56 = 0xFFFFFF;
+  *(_DWORD *)v57 = 0xFFFF9B;
   v0 = (signed __int64)(*((float *)&unk_591458 + 13 * *(_DWORD *)(v2 + 28)) * 500.0);
   v63 = v0 * (100 - sub_4911F3(v1)) / 100;
   if ( v63 < v0 / 3 )
@@ -6846,7 +6834,7 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
         v15 = ptr_507BC0->dword_00001C;
         v16 = 36 * (v12 + 12 * v15) + 11341664;
         v17 = ptr_507BC0->dword_00001C;
-        v59 = uActiveCharacter - 1;
+        v59 = uActiveCharacter;
         v18 = sub_490EEE(v1, 36 * (v12 + 12 * v15) + 11341664, 3, v17, 2);
         v14 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(*(char **)&dword_73C388[4 * v18], v59, v16, v15, 2, 0);
         v44 = 3;
@@ -7030,7 +7018,7 @@ signed int __cdecl sub_4B6478()
 
   v3 = (int)ptr_507BC0;
   memcpy(&local_0C, ptr_507BC0, sizeof(GUIWindow));
-  v1 = (int)pPlayers[uActiveCharacter - 1];
+  v1 = (int)pPlayers[uActiveCharacter];
   local_0C.uFrameX = 483;
   local_0C.uFrameWidth = 148;
   local_0C.uFrameZ = 334;
@@ -7325,10 +7313,10 @@ int __cdecl sub_4B705E()
   local_13C.uFrameX = 483;
   local_13C.uFrameWidth = 148;
   local_13C.uFrameZ = 334;
-  HIDWORD(v60) = 0xFFFFFFFF;
-  HIDWORD(v61) = 0xFFFFFF9B;
-  v1 = (int)pPlayers[uActiveCharacter - 1];
-  v0 = Player_sub_4B807C((void *)pPlayers[uActiveCharacter - 1], *((float *)&unk_591458 + 13 * *(_DWORD *)(v2 + 28)));
+  HIDWORD(v60) = 0xFFFFFF;
+  HIDWORD(v61) = 0xFFFF9B;
+  v1 = (int)pPlayers[uActiveCharacter];
+  v0 = Player_sub_4B807C((void *)pPlayers[uActiveCharacter], *((float *)&unk_591458 + 13 * *(_DWORD *)(v2 + 28)));
   HIDWORD(v62) = v0;
   if ( dword_F8B19C != 1 )
   {
@@ -7465,7 +7453,7 @@ LABEL_78:
           {
             v30 = pParty_global->uDaysPlayed % 7u + 1;
             LOBYTE(v30) = v30 | 0x80;
-            sub_42777D(12, uActiveCharacter - 1, v30, 48, 0);
+            sub_42777D(12, uActiveCharacter, v30, 48, 0);
             v29 = uActiveCharacter;
           }
           if ( *(_DWORD *)(v26 + 8) <= -10 )
@@ -7545,7 +7533,7 @@ LABEL_55:
         *(_DWORD *)(v1 + 6432) = (Player_GetVoiceSex((Player *)v1) != 0) + 23;
         v40 = (Player_GetVoiceSex((Player *)v1) != 0) + 23;
         *(_BYTE *)(v1 + 186) = v40;
-        sub_491DE7(uActiveCharacter - 1, v40);
+        sub_491DE7(uActiveCharacter, v40);
         *(_DWORD *)(v1 + 136) = pParty_global->qword_00002C;
         v39 = HIDWORD(pParty_global->qword_00002C);
       }
@@ -7559,7 +7547,7 @@ LABEL_55:
         v38 = *(_DWORD *)(v1 + 6436);
         *(_BYTE *)(v1 + 186) = v37;
         *(_DWORD *)(v1 + 6432) = v38;
-        sub_491DE7(uActiveCharacter - 1, v37);
+        sub_491DE7(uActiveCharacter, v37);
       }
     }
 LABEL_63:
@@ -7805,7 +7793,7 @@ LABEL_8:
         if ( v3 )
           dword_AE31E0 = 0;
         if ( uActiveCharacter )
-          Player_PlaySound(*(&ptr_A750C4 + uActiveCharacter), 81, 0);
+          Player_PlaySound(pPlayers[uActiveCharacter], 81, 0);
         v0 = (int)ptr_507BC0;
       }
       else
@@ -7915,7 +7903,7 @@ LABEL_17:
             sub_492BB6(v7);
             pParty_global->uNumGoldInBank += v7;
             if ( uActiveCharacter )
-              Player_PlaySound(pPlayers[uActiveCharacter - 1], 81, 0);
+              Player_PlaySound(pPlayers[uActiveCharacter], 81, 0);
           }
           v0 = (int)ptr_507BC0;
 LABEL_16:
@@ -8254,7 +8242,7 @@ void __cdecl sub_4B8285()
 
   v2 = (int)ptr_507BC0;
   memcpy(&local_1F0, ptr_507BC0, sizeof(GUIWindow));
-  v90 = (int)pPlayers[uActiveCharacter - 1];
+  v90 = (int)pPlayers[uActiveCharacter];
   v3 = (void *)v90;
   local_1F0.uFrameX = 483;
   local_1F0.uFrameWidth = 148;
@@ -8470,7 +8458,7 @@ LABEL_51:
         {
           sub_44C175((char *)pGlobalTXT_LocalizationStrings[140], 2);
           if ( uActiveCharacter )
-            Player_PlaySound(pPlayers[uActiveCharacter - 1], 67, 0);
+            Player_PlaySound(pPlayers[uActiveCharacter], 67, 0);
           goto LABEL_43;
         }
         if ( pParty_global->uNumGold >= (unsigned int)v6 )
@@ -8949,8 +8937,8 @@ int __cdecl sub_4B910F()
   int v113; // [sp+F0h] [bp-8h]@26
   unsigned __int8 v114; // [sp+F7h] [bp-1h]@16
 
-  v0 = pPlayers[uActiveCharacter - 1];
-  v111 = (int)pPlayers[uActiveCharacter - 1];
+  v0 = pPlayers[uActiveCharacter];
+  v111 = (int)pPlayers[uActiveCharacter];
   memcpy(&local_7C, ptr_507BC0, sizeof(GUIWindow));
   local_7C.uFrameX = 483;
   local_7C.uFrameWidth = 148;
@@ -9572,8 +9560,8 @@ signed int __cdecl sub_4B9CC6()
   unsigned __int8 v116; // [sp+D3h] [bp-5h]@47
   int v117; // [sp+D4h] [bp-4h]@11
 
-  v0 = pPlayers[uActiveCharacter - 1];
-  v113 = (int)pPlayers[uActiveCharacter - 1];
+  v0 = pPlayers[uActiveCharacter];
+  v113 = (int)pPlayers[uActiveCharacter];
   memcpy(&local_5C, ptr_507BC0, sizeof(GUIWindow));
   local_5C.uFrameX = 483;
   local_5C.uFrameWidth = 148;
@@ -10230,8 +10218,8 @@ char __cdecl sub_4BA928()
   int v150; // [sp+FCh] [bp-8h]@24
   int v151; // [sp+100h] [bp-4h]@44
 
-  v0 = (int)pPlayers[uActiveCharacter - 1];
-  v148 = (int)pPlayers[uActiveCharacter - 1];
+  v0 = (int)pPlayers[uActiveCharacter];
+  v148 = (int)pPlayers[uActiveCharacter];
   memcpy(&local_8C, ptr_507BC0, sizeof(GUIWindow));
   local_8C.uFrameX = 483;
   local_8C.uFrameWidth = 148;
@@ -10730,7 +10718,7 @@ LABEL_96:
     v116 = ptr_507BC0->dword_00001C;
     v112 = v0 + 36 * v1 + 496;
     v13 = ptr_507BC0->dword_00001C;
-    v149 = uActiveCharacter - 1;
+    v149 = uActiveCharacter;
     v14 = sub_490EEE((void *)v0, v112, 2, v13, 3);
     v11 = v149;
     v12 = dword_73C3A4[v14];
@@ -10760,7 +10748,7 @@ LABEL_96:
             if ( *(_BYTE *)(v3 + 20) & 1 )
             {
               v114 = ptr_507BC0->dword_00001C;
-              v4 = uActiveCharacter - 1;
+              v4 = uActiveCharacter;
               v5 = "%24";
               v110 = v3;
             }
@@ -10769,7 +10757,7 @@ LABEL_96:
               v114 = ptr_507BC0->dword_00001C;
               v110 = v3;
               v7 = ptr_507BC0->dword_00001C;
-              v149 = uActiveCharacter - 1;
+              v149 = uActiveCharacter;
               v8 = sub_490EEE((void *)v0, v3, 2, v7, 4);
               v4 = v149;
               v5 = (char *)dword_73C3DC[v8];
@@ -11597,7 +11585,7 @@ LABEL_64:
         byte_F8B1EC = 0;
         uDialogueType = 13;
         if ( uActiveCharacter )
-          Player_PlaySound(*(&ptr_A750C4 + uActiveCharacter), 38, 0);
+          Player_PlaySound(pPlayers[uActiveCharacter], 38, 0);
         v7 = (char *)pGlobalTXT_LocalizationStrings[155];
         goto LABEL_64;
       }
@@ -11898,7 +11886,7 @@ void __fastcall sub_4BCACC(signed int a1, int a2)
     {
       v5 = 0;
       v8 = 0;
-      v7 = (int)*(&ptr_A750C4 + uActiveCharacter);
+      v7 = (int)pPlayers[uActiveCharacter];
       v6 = *(_WORD *)(v7 + 218);
       if ( v6 > 0 )
       {
@@ -11947,7 +11935,7 @@ LABEL_12:
   }
   if ( uActiveCharacter != v3 )
   {
-    if ( !Player_sub_4B6FF9(&pPlayers[uActiveCharacter - 1]))
+    if ( !Player_sub_4B6FF9(&pPlayers[uActiveCharacter]))
       return;
     goto LABEL_12;
   }
@@ -12280,9 +12268,9 @@ LABEL_200:
           {
             if ( v61 <= 72 )
             {
-              v42 = (int)*(&ptr_A750C4 + uActiveCharacter);
+              v42 = (int)pPlayers[uActiveCharacter];
               v43 = (signed __int64)(*((float *)&unk_59145C + 13 * *(_DWORD *)(v11 + 28)) * 500.0);
-              v41 = v43 * (100 - sub_4911F3(*(&ptr_A750C4 + uActiveCharacter))) / 100;
+              v41 = v43 * (100 - sub_4911F3(pPlayers[uActiveCharacter])) / 100;
               if ( v41 < v43 / 3 )
                 v41 = v43 / 3;
               if ( *(&byte_4ED94C[37 * *(_BYTE *)(v42 + 185)] + v61) )
@@ -12694,8 +12682,8 @@ void __cdecl sub_4BDB56()
   int v81; // [sp+ACh] [bp-8h]@12
   int v82; // [sp+B0h] [bp-4h]@13
 
-  v0 = (int)*(&ptr_A750C4 + uActiveCharacter);
-  v78 = (int)*(&ptr_A750C4 + uActiveCharacter);
+  v0 = (int)pPlayers[uActiveCharacter];
+  v78 = (int)pPlayers[uActiveCharacter];
   if ( dword_4E28F8 == 14 )
     goto LABEL_73;
   if ( !sub_4B1784() )

@@ -5672,10 +5672,10 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
       pParty_global->pPartyBuffs[SPELLBUFF_FEATHERFALL].dword_000004 <= 0 && pParty_global->pPartyBuffs[SPELLBUFF_FEATHERFALL].byte_000000 <= 0)
   {
     v96 = 0;
-    v111 = 0;
+    v111 = 1;
     while ( !Player_sub_48D709(pPlayers[v111++], 536, 16) )
     {
-      if ( v111 > 3)
+      if ( v111 > 4)
         goto LABEL_9;
     }
   }
@@ -6024,7 +6024,7 @@ LABEL_9:
           v87 = 0;
           v85 = 64;
 LABEL_105:
-          Player_PlaySound(*(&ptr_A750C4 + v22), v85, v87);
+          Player_PlaySound(pPlayers[uActiveCharacter], v85, v87);
         }
         break;
 
@@ -8873,7 +8873,7 @@ LABEL_47:
     v12 = 2 * (v11 + 10 * (signed __int16)v9);
     v13 = *(_WORD *)(v2 + 10) == WORD2(v1);
     v14 = *(unsigned __int16 *)((char *)&word_4E3C66 + v12);
-    v15 = *(unsigned __int16 *)((char *)word_4E3C6E + v12);
+    v15 = 0;// *(unsigned __int16 *)((char *)word_4E3C6E + v12);
     LODWORD(v706) = v14;
     v683 = v15;
     if ( !v13 )
@@ -11531,9 +11531,9 @@ LABEL_679:
         v708 = v1;
         if ( (_DWORD)v1 > HIDWORD(v1) )
         {
-          do
-            LODWORD(v712) += *((_DWORD *)*(&ptr_A750C4 + v639[v361++]) + 1615);
-          while ( v361 < (_DWORD)v1 );
+        //  do
+        //    LODWORD(v712) += *((_DWORD *)*(&ptr_A750C4 + v639[v361++]) + 1615);
+       //   while ( v361 < (_DWORD)v1 );
         }
         v710 = (signed __int64)((double)SLODWORD(v712) / (double)v708);
         LODWORD(v712) = HIDWORD(v1);
@@ -11542,7 +11542,7 @@ LABEL_679:
           do
           {
             LODWORD(v1) = 4 * v639[LODWORD(v712)] + 10965188;
-            *((_DWORD *)*(&ptr_A750C4 + v639[LODWORD(v712)]) + 1615) = v710;
+           // *((_DWORD *)*(&ptr_A750C4 + v639[LODWORD(v712)]) + 1615) = v710;
             LODWORD(v704) = *(_DWORD *)v1;
             v362 = Player_GetMaxHealth((Player *)SLODWORD(v704));
             if ( *(_DWORD *)(LODWORD(v704) + 6460) > v362 )
@@ -13231,7 +13231,7 @@ LABEL_1119:
         v589 = 1;
         do
         {
-          v590 = (int)*(&ptr_A750C4 + v589);
+          v590 = (int)pPlayers[v589];
           if ( !*(_QWORD *)(v590 + 16) )
           {
             if ( !*(_QWORD *)(v590 + 96) )
@@ -13262,7 +13262,7 @@ LABEL_1119:
           do
           {
             v592 = 4 * v638[LODWORD(v712)] + 10965188;
-            v593 = (int)*(&ptr_A750C4 + v638[LODWORD(v712)]);
+            v593 = (int)pPlayers[v638[LODWORD(v712)]];//*(&ptr_A750C4 + );
             *(_DWORD *)(v593 + 6460) += v710;
             LODWORD(v704) = *(_DWORD *)v592;
             v594 = Player_GetMaxHealth((Player *)SLODWORD(v704));

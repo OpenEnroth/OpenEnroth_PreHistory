@@ -757,6 +757,332 @@ int cPCXTexture::LoadPCXFromFile(FILE *File, unsigned int mode, bool close_file)
   return 0;
 }
 
+//----- (0040E55E) --------------------------------------------------------
+signed int __thiscall sub_40E55E(void *Source, unsigned int Filename, unsigned int a3)
+{
+  char *v3; // esi@1
+  signed int result; // eax@2
+  char *v5; // eax@3
+  int v6; // edx@3
+  FILE *v7; // edi@3
+  char v8; // cl@4
+  int v9; // eax@9
+  int v10; // ecx@9
+  int v11; // eax@9
+  char v12; // zf@9
+  int v13; // eax@12
+  signed int v14; // ecx@19
+  signed int v15; // ecx@24
+  int v16; // edi@57
+  int v17; // eax@57
+  int v18; // ecx@57
+  signed int v19; // eax@59
+  int v20; // edi@64
+  signed int v21; // eax@66
+  int v22; // edi@71
+  signed int v23; // eax@73
+  int v24; // eax@78
+  char v25; // [sp+Ch] [bp-54h]@3
+  char DstBuf; // [sp+3Ch] [bp-24h]@3
+  char v27; // [sp+3Dh] [bp-23h]@3
+  char v28; // [sp+3Eh] [bp-22h]@3
+  char v29; // [sp+3Fh] [bp-21h]@3
+  int v30; // [sp+40h] [bp-20h]@3
+  int v31; // [sp+44h] [bp-1Ch]@3
+  char v32; // [sp+48h] [bp-18h]@3
+  char v33; // [sp+4Ah] [bp-16h]@3
+  char v34; // [sp+4Ch] [bp-14h]@3
+  char v35; // [sp+4Dh] [bp-13h]@3
+  unsigned __int16 v36; // [sp+4Eh] [bp-12h]@3
+  int v37; // [sp+54h] [bp-Ch]@3
+  int v38; // [sp+58h] [bp-8h]@57
+  FILE *File; // [sp+5Ch] [bp-4h]@1
+
+  v3 = (char *)Source;
+  File = fopen((const char *)Filename, "rb");
+  if ( !File )
+    return 1;
+  v7 = File;
+  locked_fread(&DstBuf, 1u, 1u, File);
+  locked_fread(&v27, 1u, 1u, v7);
+  locked_fread(&v28, 1u, 1u, v7);
+  locked_fread(&v29, 1u, 1u, v7);
+  locked_fread(&v30, 2, 1u, v7);
+  locked_fread((char *)&v30 + 2, 2, 1u, File);
+  locked_fread(&v31, 2, 1u, File);
+  locked_fread((char *)&v31 + 2, 2, 1u, File);
+  locked_fread(&v32, 2, 1u, File);
+  locked_fread(&v33, 2, 1u, File);
+  locked_fread(&v25, 0x30u, 1u, File);
+  locked_fread(&v34, 1u, 1u, File);
+  locked_fread(&v35, 1u, 1u, File);
+  locked_fread(&v36, 2, 1u, File);
+  v5 = (char *)Filename;
+  v37 = 0;
+  v6 = (int)&v3[-Filename];
+
+  do
+  {
+    v8 = *v5;
+    if ( !*v5 )
+      break;
+    if ( v8 == 46 )
+      break;
+    ++v37;
+    (v5++)[v6] = v8;
+  }
+  while ( v37 < 15 );
+
+  v3[v37] = 0;
+  if ( v29 != 8 )
+    return 3;
+  v10 = v31 - v30 + 1;
+  v11 = *(int *)((char *)&v31 + 2) - *(int *)((char *)&v30 + 2);
+  *((_WORD *)v3 + 10) = v10;
+  ++v11;
+  *((_WORD *)v3 + 11) = v11;
+  v9 = (signed __int16)v10 * (signed __int16)v11;
+  v12 = a3 == 0;
+  *((_DWORD *)v3 + 4) = v9;
+  if ( v12 )
+  {
+    if ( *((_DWORD *)v3 + 9) )
+      mem_mng.DeleteBuffer( (void *)*((_DWORD *)v3 + 9));
+    v13 = (int)mem_mng.AllocatedNamedBuffer( (void*) *((_DWORD *)v3 + 9), 2 * *((_DWORD *)v3 + 4) + 4, v3);
+    goto LABEL_16;
+  }
+  if ( a3 != 1 && a3 == 2 )
+  {
+    compile_error;//v13 = (int)operator new(4 * v9 + 8);
+    *((_DWORD *)v3 + 8) |= 1u;
+LABEL_16:
+    *((_DWORD *)v3 + 9) = v13;
+  }
+  if ( *((_DWORD *)v3 + 9) )
+  {
+    v14 = 1;
+    while ( 1 << v14 != *((_WORD *)v3 + 10) )
+    {
+      ++v14;
+      if ( v14 >= 15 )
+        goto LABEL_24;
+    }
+    *((_WORD *)v3 + 12) = v14;
+LABEL_24:
+    v15 = 1;
+    while ( 1 << v15 != *((_WORD *)v3 + 11) )
+    {
+      ++v15;
+      if ( v15 >= 15 )
+        goto LABEL_29;
+    }
+    *((_WORD *)v3 + 13) = v15;
+LABEL_29:
+    switch ( *((_WORD *)v3 + 12) )
+    {
+      case 2:
+        *((_WORD *)v3 + 14) = 3;
+        break;
+      case 3:
+        *((_WORD *)v3 + 14) = 7;
+        break;
+      case 4:
+        *((_WORD *)v3 + 14) = 15;
+        break;
+      case 5:
+        *((_WORD *)v3 + 14) = 31;
+        break;
+      case 6:
+        *((_WORD *)v3 + 14) = 63;
+        break;
+      case 7:
+        *((_WORD *)v3 + 14) = 127;
+        break;
+      case 8:
+        *((_WORD *)v3 + 14) = 255;
+        break;
+      case 9:
+        *((_WORD *)v3 + 14) = 511;
+        break;
+      case 10:
+        *((_WORD *)v3 + 14) = 1023;
+        break;
+      case 11:
+        *((_WORD *)v3 + 14) = 2047;
+        break;
+      case 12:
+        *((_WORD *)v3 + 14) = 4095;
+        break;
+      default:
+        break;
+    }
+    switch ( *((_WORD *)v3 + 13) )
+    {
+      case 2:
+        *((_WORD *)v3 + 15) = 3;
+        break;
+      case 3:
+        *((_WORD *)v3 + 15) = 7;
+        break;
+      case 4:
+        *((_WORD *)v3 + 15) = 15;
+        break;
+      case 5:
+        *((_WORD *)v3 + 15) = 31;
+        break;
+      case 6:
+        *((_WORD *)v3 + 15) = 63;
+        break;
+      case 7:
+        *((_WORD *)v3 + 15) = 127;
+        break;
+      case 8:
+        *((_WORD *)v3 + 15) = 255;
+        break;
+      case 9:
+        *((_WORD *)v3 + 15) = 511;
+        break;
+      case 10:
+        *((_WORD *)v3 + 15) = 1023;
+        break;
+      case 11:
+        *((_WORD *)v3 + 15) = 2047;
+        break;
+      case 12:
+        *((_WORD *)v3 + 15) = 4095;
+        break;
+      default:
+        break;
+    }
+    fseek(File, 128, 0);
+    ftell(File);
+    if ( v35 == 1 )
+      erroneous_printf("24bit PCX Only!");
+    if ( v35 == 3 )
+    {
+      v37 = 0;
+      if ( *((_WORD *)v3 + 11) > 0 )
+      {
+        do
+        {
+          v17 = v37 * *((_WORD *)v3 + 10);
+          v18 = *((_DWORD *)v3 + 9);
+          v38 = 0;
+          v16 = v18 + 2 * v17;
+          if ( v36 )
+          {
+            do
+            {
+              locked_fread((char *)&Filename + 3, 1u, 1u, File);
+              if ( (BYTE3(Filename) & 0xC0) == -64 )
+              {
+                BYTE3(Filename) &= 0x3Fu;
+                locked_fread((char *)&a3 + 3, 1u, 1u, File);
+                v19 = 0;
+                if ( BYTE3(Filename) )
+                {
+                  do
+                  {
+                    ++v38;
+                    *(_WORD *)v16 = pD3DRenderer->uTargetRMask & (BYTE3(a3) << (pD3DRenderer->uNumTargetGBits
+                                                                + (_BYTE)pD3DRenderer->uNumTargetRBits
+                                                                + (_BYTE)pD3DRenderer->uNumTargetBBits
+                                                                - 8));
+                    v16 += 2;
+                    ++v19;
+                  }
+                  while ( v19 < BYTE3(Filename) );
+                }
+              }
+              else
+              {
+                ++v38;
+                *(_WORD *)v16 = pD3DRenderer->uTargetRMask & (BYTE3(Filename) << (pD3DRenderer->uNumTargetGBits
+                                                                  + (_BYTE)pD3DRenderer->uNumTargetRBits
+                                                                  + (_BYTE)pD3DRenderer->uNumTargetBBits
+                                                                  - 8));
+                v16 += 2;
+              }
+            }
+            while ( v38 < v36 );
+          }
+          v20 = *((_DWORD *)v3 + 9) + 2 * v37 * *((_WORD *)v3 + 10);
+          while ( v38 < 2 * v36 )
+          {
+            locked_fread((char *)&Filename + 3, 1u, 1u, File);
+            if ( (BYTE3(Filename) & 0xC0) == -64 )
+            {
+              BYTE3(Filename) &= 0x3Fu;
+              locked_fread((char *)&a3 + 3, 1u, 1u, File);
+              v21 = 0;
+              if ( BYTE3(Filename) )
+              {
+                do
+                {
+                  *(_WORD *)v20 |= (_WORD)pD3DRenderer->uTargetGMask & (unsigned __int16)(BYTE3(a3) << (pD3DRenderer->uNumTargetGBits
+                                                                                        + (_BYTE)pD3DRenderer->uNumTargetBBits
+                                                                                        - 8));
+                  ++v38;
+                  v20 += 2;
+                  ++v21;
+                }
+                while ( v21 < BYTE3(Filename) );
+              }
+            }
+            else
+            {
+              *(_WORD *)v20 |= (_WORD)pD3DRenderer->uTargetGMask & (unsigned __int16)(BYTE3(Filename) << (pD3DRenderer->uNumTargetGBits
+                                                                                          + (_BYTE)pD3DRenderer->uNumTargetBBits
+                                                                                          - 8));
+              ++v38;
+              v20 += 2;
+            }
+          }
+          v22 = *((_DWORD *)v3 + 9) + 2 * v37 * *((_WORD *)v3 + 10);
+          while ( v38 < 3 * v36 )
+          {
+            locked_fread((char *)&Filename + 3, 1u, 1u, File);
+            if ( (BYTE3(Filename) & 0xC0) == -64 )
+            {
+              BYTE3(Filename) &= 0x3Fu;
+              locked_fread((char *)&a3 + 3, 1u, 1u, File);
+              v23 = 0;
+              if ( BYTE3(Filename) )
+              {
+                do
+                {
+                  *(_WORD *)v22 |= BYTE3(a3) >> (8 - pD3DRenderer->uNumTargetBBits);
+                  ++v38;
+                  v22 += 2;
+                  ++v23;
+                }
+                while ( v23 < BYTE3(Filename) );
+              }
+            }
+            else
+            {
+              *(_WORD *)v22 |= BYTE3(Filename) >> (8 - pD3DRenderer->uNumTargetBBits);
+              ++v38;
+              v22 += 2;
+            }
+          }
+          v24 = *((_WORD *)v3 + 11);
+          ++v37;
+        }
+        while ( v37 < v24 );
+      }
+    }
+    fclose(File);
+    result = 0;
+  }
+  else
+  {
+    result = 2;
+  }
+  return result;
+}
+
+
 
 #ifndef OLD_CODE
 int RGBTexture_Load_New( cPCXTexture *_this, const wchar_t *pTextureName)
