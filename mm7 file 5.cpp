@@ -9105,9 +9105,9 @@ void __cdecl sub_472866()
   int v2; // esi@1
   int v3; // esi@1
   float v4; // ST40_4@8
-  void **v5; // esi@15
+  Player *v5; // esi@15
   int v6; // eax@18
-  int *v7; // esi@24
+  Player *v7; // esi@24
   signed __int64 v8; // qax@27
   int v9; // eax@27
   double v10; // st7@27
@@ -9141,7 +9141,7 @@ void __cdecl sub_472866()
   int v38; // esi@96
   int v39; // eax@106
   signed int v40; // ecx@106
-  int *v41; // esi@113
+  Player *v41; // esi@113
   int v42; // eax@120
   signed int v43; // ecx@123
   char v44; // al@126
@@ -9246,16 +9246,19 @@ void __cdecl sub_472866()
       pParty_global->pPartyBuffs[SPELLBUFF_FEATHERFALL].dword_000004 <= 0 && pParty_global->pPartyBuffs[SPELLBUFF_FEATHERFALL].byte_000000 <= 0)
   {
     v75 = 0;
-    v5 = (void **)pPlayers;
-    while ( !Player_sub_48D709((Player *)*v5, 536, 16) )
+	int ii=1;
+    v5 = pPlayers[ii];
+    while ( !Player_sub_48D709(v5, 536, 16) )
     {
-      ++v5;
-      if ( (signed int)v5 > (signed int)&dword_A750D4 )
+      ++ii;
+      if ( ii > 4 )
       {
         v6 = pParty_global->dword_000700;
         goto LABEL_20;
       }
+	   v5 = pPlayers[ii];
     }
+
   }
   v6 = i;
   v75 = 1;
@@ -9273,23 +9276,23 @@ LABEL_20:
         }
         else
         {
-          v7 = (int *)pPlayers;
-          do
-          {
-            if ( !Player_sub_48D6D0((Player *)*v7, 72) )
+          for(int i=1; i<5; i++) 
+          {  
+		    v7 = pPlayers[i];
+            if ( !Player_sub_48D6D0(v7, 72) )
             {
-              if ( !Player_sub_48D709((Player *)*v7, 529, 8) )
+              if ( !Player_sub_48D709(v7, 529, 8) )
               {
-                v8 = (signed __int64)((double)Player_GetMaxHealth((Player *)*v7) * 0.10000000000000001);
-                Player_sub_48DC1E((Player *)*v7, (pParty_global->dword_000700 - v87) * (_DWORD)v8 / 256, 4);
-                v9 = Player_GetActualEndurance((Player *)*v7);
+                v8 = (signed __int64)((double)Player_GetMaxHealth(v7) * 0.10000000000000001);
+                Player_sub_48DC1E(v7, (pParty_global->dword_000700 - v87) * (_DWORD)v8 / 256, 4);
+                v9 = Player_GetActualEndurance(v7);
                 v10 = (double)(20 - sub_48EA1B(v9)) * flt_6BE3A4_debug_recmod1 * 2.1333333333333333;
-                Player_SetRecoveryTime((Player *)*v7, (signed __int64)v10);
+                Player_SetRecoveryTime(v7, (signed __int64)v10);
               }
             }
-            ++v7;
+          //  ++v7;
           }
-          while ( (signed int)v7 <= (signed int)&dword_A750D4 );
+        //  while ( (signed int)v7 <= (signed int)&dword_A750D4 );
         }
       }
     }
@@ -9501,17 +9504,17 @@ LABEL_76:
     {
       if (!pParty_global->dword_000704)
       {
-        v41 = (int *)pPlayers;
-        do
-        {
-          if ( !Player_sub_48D6D0((Player *)*v41, 72) )
+        for(int i=1; i<5; i++) 
           {
-            if ( !Player_sub_48D709((Player *)*v41, 529, 8) )
-              Player_sub_494A25(*v41, 46, 0);
+		  v41 = pPlayers[i];
+          if ( !Player_sub_48D6D0(v41, 72) )
+          {
+            if ( !Player_sub_48D709(v41, 529, 8) )
+              Player_sub_494A25((int)v41, 46, 0);
           }
-          ++v41;
+          //++v41;
         }
-        while ( (signed int)v41 <= (signed int)&dword_A750D4 );
+        //while ( (signed int)v41 <= (signed int)&dword_A750D4 );
       }
     }
     goto LABEL_93;

@@ -102,8 +102,8 @@ public:
  int     uTextureRedBits;		//  dword_011B8C
  int     uTextureGreenBits;	   //  dword_011B90
  int     uTextureBlueBits;		//  dword_011B94
- int     lod_IB_dword_011B98; //	 72600
- int     lod_IB_dword_011B9C; //	72604
+ unsigned int     uPrevLoadedFiles; //	 72600	//previous load files  count	dword_011B98
+ unsigned int     uTexturePacksCount; //	72604 //texture packs count	  dword_011B9C
  int     lod_IB_dword_011BA0;
  int     lod_IB_dword_011BA4; //
 
@@ -135,7 +135,7 @@ int LODFile_LoadTexture( const char *pContainerName, unsigned int a3);
 int LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerName, unsigned int uTextureType);
 
 //int __thiscall LODFile_sub_4114F2(_DWORD);
-int LODFile_sub_4114F2();
+void LODFile_sub_4114F2();
 //int __thiscall sub_46454B(int _this);
 int sub_46454B();
 

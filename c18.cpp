@@ -110,7 +110,7 @@ void cTexture_Free(cTexture* cTxtr)
   runtime_warning(no no more implace deleting);
   runtime_warning( this thing CRUSHES);
  
-  /*
+  
   if ( cTxtr )
   {
     cTxtr->sContainerName[0] = 0;
@@ -127,7 +127,7 @@ void cTexture_Free(cTexture* cTxtr)
 	cTxtr->pLevelOfDetal3 = NULL;
     cTxtr->pPalette = NULL;
     cTxtr->ptr_000044 = NULL;
-    cTxtr->uCompressedSize = 0;
+    cTxtr->uTextureSize = 0;
     cTxtr->uTextureWidth = 0;
     cTxtr->uTextureHeight = 0;
     cTxtr->word_00001C = 0;
@@ -135,7 +135,7 @@ void cTexture_Free(cTexture* cTxtr)
     cTxtr->word_000024 = 0;
     cTxtr->word_000026 = 0;
     cTxtr->word_00002C = 0;
-  }*/
+  }
 }
 
 

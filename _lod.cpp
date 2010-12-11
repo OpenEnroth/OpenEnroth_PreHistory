@@ -28,8 +28,8 @@ LODFile_IB::LODFile_IB()
 	 lod_IB_dword_011B80=0;//
 	 lod_IB_dword_011B84=0; //
 
-	 lod_IB_dword_011B98=0; //
-	 lod_IB_dword_011B9C=0; //
+	 uPrevLoadedFiles=0; //
+	 uTexturePacksCount=0; //
 
 	 lod_IB_dword_011BA4=0; //
 	 lod_IB_dword_011BA8=0; //
@@ -983,67 +983,45 @@ void LODFile_IB::SetupPalettes( int uTargetRBits, int uTargetGBits, int uTargetB
 
 }
 
-//----- (004114F2) --------------------------------------------------------
-int LODFile_IB::LODFile_sub_4114F2()
+//----- (004114F2) ----------.text:00411810 ----------------------------------------------
+void LODFile_IB::LODFile_sub_4114F2()
 {
-  int result; // eax@1
-  int v2; // ecx@1
-  int v3; // esi@1
-  int v4; // ecx@2
-  int v5; // edi@3
-  int v6; // ebx@4
-  int v7; // eax@5
-  int v8; // eax@6
-  int v9; // eax@8
-  int v10; // eax@9
+  int i; // eax@1
 
-  v3 = (int)this;
-  result = (int)& lod_IB_dword_011B9C;
-  v2 =  lod_IB_dword_011B9C;
-  if ( v2 )
-  {
-    v4 = v2 - 1;
-     lod_IB_dword_011B9C = v4;
-    if ( !v4 )
+
+ // v3 = (int)this;
+ // result = (int)& uTexturePacksCount;
+ // v2 =  uTexturePacksCount;
+  if ( !uTexturePacksCount )
+  	 return;
+   uTexturePacksCount --;
+  if ( !uTexturePacksCount)
     {
-      v5 =  uNumLoadedFiles - 1;
-      if ( v5 >=  lod_IB_dword_011B98)
+      if (  uNumLoadedFiles - 1 >=  uPrevLoadedFiles)
       {
-        v6 = (int)& aLODHeaders[v5];
-        do
+       
+       for(i= uNumLoadedFiles - 1; i>=uPrevLoadedFiles; i--)
         {
-          cTexture_Free((cTexture *)v6);
-          v7 = (int) pHardwareTextures;
-          if ( v7 )
-          {
-            v8 = *(_DWORD *)(v7 + 4 * v5);
-            if ( v8 )
-            {
-              (*(void (__stdcall **)(int))(*(_DWORD *)v8 + 8))(v8);
-              *(_DWORD *)(*(_DWORD *)(v3 + 72624) + 4 * v5) = 0;
-            }
-          }
-          v9 = *(_DWORD *)(v3 + 72620);
-          if ( v9 )
-          {
-            v10 = *(_DWORD *)(v9 + 4 * v5);
-            if ( v10 )
-            {
-              (*(void (__stdcall **)(int))(*(_DWORD *)v10 + 8))(v10);
-              *(_DWORD *)(*(_DWORD *)(v3 + 72620) + 4 * v5) = 0;
-            }
-          }
-          --v5;
-          v6 -= 72;
+          cTexture_Free(&aLODHeaders[i]);
+        /* if (pHardwareSurfaces)
+			 if	 (pHardwareSurfaces[i])
+				 {
+				 pHardwareSurfaces[i]->Release();
+				 pHardwareSurfaces[i]=NULL;
+				 }
+		 if (pHardwareTextures)
+			 if	 (pHardwareTextures[i])
+				 {
+				 pHardwareTextures[i]->Release();
+				 pHardwareTextures[i]=NULL;
+				 }	 */
         }
-        while ( v5 >= *(_DWORD *)(v3 + 72600) );
       }
-      result = *(_DWORD *)(v3 + 72600);
-      *(_DWORD *)(v3 + 72600) = 0;
-      *(_DWORD *)(v3 + 72572) = result;
+      uNumLoadedFiles=uPrevLoadedFiles;
+	  uPrevLoadedFiles=0;
     }
-  }
-  return result;
+
+ 
 }
 
 
@@ -1263,8 +1241,8 @@ void LODFile_IB::Reset_TextureBuffs()
 	 lod_IB_dword_011B80=0;//
 	 lod_IB_dword_011B84=0; //
 
-	 lod_IB_dword_011B98=0; //
-	 lod_IB_dword_011B9C=0; //	
+	 uPrevLoadedFiles=0; //
+	 uTexturePacksCount=0; //	
 
 }
 

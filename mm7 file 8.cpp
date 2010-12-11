@@ -2059,9 +2059,9 @@ int __cdecl MenuLoop_Main()
  pGUIWindow2 = 0;
  AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
  class03_sub_4698A6(pGame->pClass03);
- ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
- if (!LODFile_Icons_LOD.lod_IB_dword_011B98)
-   LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+ ++LODFile_Icons_LOD.uTexturePacksCount;
+ if (!LODFile_Icons_LOD.uPrevLoadedFiles)
+   LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
 
  pGUIWindow_MainMenu = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
 
@@ -2323,7 +2323,7 @@ void __fastcall sub_404AC7(int a1, int a2, signed int a3, int a4, int a5)
   int v54; // ecx@138
   int v55; // eax@142
   int v56; // esi@143
-  int *v57; // esi@145
+  Player *v57; // esi@145
   int v58; // eax@146
   int v59; // edi@146
   int v60; // eax@146
@@ -2990,30 +2990,30 @@ LABEL_127:
       }
       while ( v56 < (signed int)&pParty_global->pPlayers[0] );
       v148 = 1;
-      v57 = (int *)pPlayers;
-      do
-      {
-        v58 = Player_GetActualWillpower((Player *)*v57);
+      for(int i=1; i<5; i++) 
+          {
+	    v57 = pPlayers[i];
+        v58 = Player_GetActualWillpower(v57);
         v59 = sub_48EA1B(v58);
-        v60 = Player_GetActualIntelligence((Player *)*v57);
+        v60 = Player_GetActualIntelligence(v57);
         v61 = (sub_48EA1B(v60) + v59) >> 1;
-        v62 = Player_GetActualLuck((Player *)*v57);
+        v62 = Player_GetActualLuck(v57);
         v63 = v61 + sub_48EA1B(v62) + 30;
         if ( rand() % v63 < 30 )
         {
           v64 = 6048;
           do
           {
-            SpellBuff_sub_458585((SpellBuff *)(v64 + *v57));
+            SpellBuff_sub_458585((SpellBuff *)(v64 + (int)v57));
             v64 += 16;
           }
           while ( v64 < 6432 );
           sub_4418B1(11210, v148 + 99, 0, 65536);
         }
         ++v148;
-        ++v57;
+       // ++v57;
       }
-      while ( (signed int)v57 <= (signed int)&dword_A750D4 );
+    //  while ( (signed int)v57 <= (signed int)&dword_A750D4 );
       v110 = 0;
       v108 = 0;
       v107 = 0;
@@ -5762,7 +5762,7 @@ int __cdecl sub_494035()
   bool v40; // ebx@104
   int v47; // esi@124
   signed int v48; // edx@130
-  signed int v49; // ecx@132
+  Player *v49; // ecx@132
   int v50; // eax@133
   int result; // eax@141
   int v52; // [sp-8h] [bp-38h]@18
@@ -6157,19 +6157,23 @@ LABEL_61:
     goto LABEL_137;
   if ( dword_4E28F8 != 5 )
   {
-    v49 = (signed int)pPlayers;
-    while ( 1 )
-    {
+   
+     for(int i=1; i<5; i++) 
+          {
+	  v49 = pPlayers[i];
       v50 = *(_DWORD *)v49;
       if ( *(_QWORD *)(*(_DWORD *)v49 + 16) )
+		  {	
+		  *(_DWORD *)(v50 + 16) = 0;
+         *(_DWORD *)(v50 + 20) = 0;
+           v48 = 1;
         break;
-      v49 += 4;
-      if ( v49 > (signed int)&dword_A750D4 )
-        goto LABEL_137;
+		  }
+     // v49 += 4;
+     // if ( v49 > (signed int)&dword_A750D4 )
+      //  goto LABEL_137;
     }
-    *(_DWORD *)(v50 + 16) = 0;
-    *(_DWORD *)(v50 + 20) = 0;
-    v48 = 1;
+    
 LABEL_137:
     if ( dword_4E28F8 != 5 )
     {

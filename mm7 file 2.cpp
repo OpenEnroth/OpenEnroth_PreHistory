@@ -782,14 +782,15 @@ int __cdecl sub_463149()
  int i;
 
   v17 = uCurrentMenuID == 9;
-  SetCurrentMenu(-1);
+
   if (uCurrentMenuID == 9)
   {
     Party_Reset(pParty_global);
     dword_6BE340 = 0;
     dword_6A0D48 = 0;
     sub_45EE8A(dword_6A0CA0_indx);
-  }
+  }	  
+  SetCurrentMenu(-1);
   v0 = 1;
 
   LoadPlayerPortraintsAndVoices();
@@ -5253,7 +5254,9 @@ int __cdecl sub_411473()
   }
   while ( (signed int)v0 < (signed int)&dword_5064C4 );
   AudioPlayer_sub_4AA306(pAudioPlayer, 231, 0, 0, -1, 0, 0, 0, 0);
-  return LODFile_Icons_LOD.LODFile_sub_4114F2();
+  
+ LODFile_Icons_LOD.LODFile_sub_4114F2();  
+ return  0;
 }
 
 //----- (00411597) --------------------------------------------------------
@@ -5272,9 +5275,9 @@ int __cdecl sub_411597()
 
   cTexture_Free((cTexture *)dword_506498_uTextureID_MapBrdr);
   AudioPlayer_sub_4AA306(pAudioPlayer, 231, 0, 0, -1, 0, 0, 0, 0);
-  result = LODFile_Icons_LOD.LODFile_sub_4114F2();
+  LODFile_Icons_LOD.LODFile_sub_4114F2();
   dword_506364 = 0;
-  return result;
+  return 0;
 }
 
 //----- (00411621) --------------------------------------------------------
@@ -5364,9 +5367,9 @@ int __cdecl sub_41192C()
   int result; // eax@4
 
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
-  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
-    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  ++LODFile_Icons_LOD.uTexturePacksCount;
+  if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
+    LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
   AudioPlayer_sub_4AA306(pAudioPlayer, 230, 0, 0, -1, 0, 0, 0, 0);
   dword_5064C4 = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "book", 2)];
   dword_50649C[0] =(int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "pagemask", 2)];
@@ -5396,9 +5399,9 @@ void sub_411AAA()
   int result; // eax@3
 
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
-  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
-    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  ++LODFile_Icons_LOD.uTexturePacksCount;
+  if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
+    LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
   AudioPlayer_sub_4AA306(pAudioPlayer, 230, 0, 0, -1, 0, 0, 0, 0);
 #ifndef OLD_CODE 
   dword_506498_uTextureID_MapBrdr = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"mapbordr");
@@ -12245,9 +12248,9 @@ LABEL_15:
     if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 98) )
       dword_506F10 = 0;
   }
-  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
-  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
-    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  ++LODFile_Icons_LOD.uTexturePacksCount;
+  if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
+    LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
   dword_4E28F8 = 5;
   dword_507CD4 = 0;
   dword_50765C = LODFile_Icons_LOD.LODFile_LoadTexture( "restmain", 2);
@@ -12326,7 +12329,7 @@ LABEL_15:
 //----- (0041FA01) --------------------------------------------------------
 void __cdecl sub_41FA01()
 {
-  signed int v0; // ecx@1
+  Player *v0; // ecx@1
   int v1; // esi@1
   int v2; // eax@2
   int v3; // eax@15
@@ -12353,9 +12356,9 @@ void __cdecl sub_41FA01()
   v1 = 0;
   v19 = 0x0A0000;
   *(_DWORD *)v18 = 0xE6D6C1;
-  v0 = (signed int)pPlayers;
-  do
-  {
+  for(int i=1; i<5; i++) 
+          {
+    v0 = pPlayers[i];
     v2 = *(_DWORD *)v0;
     if ( !*(_QWORD *)(*(_DWORD *)v0 + 112) )
     {
@@ -12365,9 +12368,9 @@ void __cdecl sub_41FA01()
           ++v1;
       }
     }
-    v0 += 4;
+  //  v0 += 4;
   }
-  while ( v0 <= (signed int)&dword_A750D4 );
+  //while ( v0 <= (signed int)&dword_A750D4 );
   if ( v1 )
   {
     Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (dword_50765C != -1 ?  &LODFile_Icons_LOD.aLODHeaders[dword_50765C] : 0));
@@ -13036,9 +13039,9 @@ signed int __fastcall sub_42041E(int a1)
     return 0;
   if ( a1 >= 20 )
     return 0;
-  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
-  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
-    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  ++LODFile_Icons_LOD.uTexturePacksCount;
+  if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
+    LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
   v1 = (char *)&array_5E5150[a1].word_000002;
   v49 = v1;
   if ( !(*v1 & 2) )

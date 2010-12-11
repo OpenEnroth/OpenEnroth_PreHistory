@@ -4518,7 +4518,7 @@ void __cdecl sub_401A91()
   _UNKNOWN *v5; // esi@12
   __int16 v6; // cx@14
   signed int v7; // eax@14
-  signed int v8; // esi@20
+  Player *v8; // esi@20
   int v9; // ecx@21
   int v11; // esi@34
   unsigned int v13; // eax@47
@@ -4670,9 +4670,10 @@ void __cdecl sub_401A91()
             }
             while ( v87 < (signed int)uNumActors );
           }
-          v8 = (signed int)pPlayers;
-          do
+         // v8 = (signed int)pPlayers;
+          for(int i=1; i<5; i++) 
           {
+			v8 = pPlayers[i];
             v9 = *(_DWORD *)v8;
             if ( !*(_QWORD *)(*(_DWORD *)v8 + 112) )
             {
@@ -4682,9 +4683,9 @@ void __cdecl sub_401A91()
                   Player_sub_48DC1E((Player *)v9, v4, 5);
               }
             }
-            v8 += 4;
+           // v8 += 4;
           }
-          while ( v8 <= (signed int)&dword_A750D4 );
+         // while ( v8 <= (signed int)&dword_A750D4 );
           v0 = 0;
         }
         if ( dword_4F8874 != v0 )
@@ -5561,7 +5562,7 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
   int v30; // esi@159
   int v31; // eax@159
   int v32; // esi@162
-  void **v33; // esi@172
+  Player *v33; // esi@172
   bool v34; // eax@180
   signed int v35; // edx@184
   signed int v36; // ecx@184
@@ -5591,7 +5592,7 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
   int v63; // ebx@271
   int v64; // edi@271
   int v65; // esi@271
-  int *v66; // esi@283
+  Player *v66; // esi@283
   int v67; // eax@284
   int v68; // edi@293
   bool v69; // edx@297
@@ -5601,7 +5602,7 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
   signed int v73; // ecx@318
   int v74; // ebx@318
   int v75; // eax@321
-  int *v76; // esi@333
+  Player *v76; // esi@333
   int v77; // eax@334
   int v78; // [sp-20h] [bp-B4h]@246
   signed int v79; // [sp-20h] [bp-B4h]@248
@@ -6156,20 +6157,21 @@ LABEL_164:
           {
             if (pParty_global->pPartyBuffs[SPELLBUFF_FEATHERFALL].dword_000004 < 0 || !pParty_global->pPartyBuffs[SPELLBUFF_FEATHERFALL].byte_000000)
             {
-              v33 = (void **)pPlayers;
-              do
-              {
-                if ( !Player_sub_48D6D0((Player *)*v33, 72) )
+              
+              for(int i=1; i<5; i++) 
+              {	
+			    v33 = pPlayers[i];
+                if ( !Player_sub_48D6D0(v33, 72) )
                 {
-                  if ( !Player_sub_48D709((Player *)*v33, 529, 8) )
+                  if ( !Player_sub_48D709(v33, 529, 8) )
                   {
-                    if ( Player_sub_492C0B_MaybeIfPlayerConscious((Player *)*v33) )
-                      Player_PlaySound((Player *)*v33, 66, 0);
+                    if ( Player_sub_492C0B_MaybeIfPlayerConscious(v33) )
+                      Player_PlaySound(v33, 66, 0);
                   }
                 }
-                ++v33;
+               // ++v33;
               }
-              while ( (signed int)v33 <= (signed int)&dword_A750D4 );
+            //  while ( (signed int)v33 <= (signed int)&dword_A750D4 );
             }
           }
         }
@@ -6571,20 +6573,22 @@ LABEL_344:
                 }
                 else
                 {
-                  v66 = (int *)pPlayers;
-                  do
-                  {
-                    v102 = Player_GetMaxHealth((Player *)*v66);
-                    Player_sub_48DC1E((Player *)*v66,
+                //  v66 = (int *)pPlayers;
+                //  do
+                   for(int i=1; i<5; i++) 
+					   {
+					  v66 = pPlayers[i];
+                    v102 = Player_GetMaxHealth(v66);
+                    Player_sub_48DC1E(v66,
                       (signed int)((pParty_global->dword_000700 - v63) * (signed __int64)((double)v102 * 0.10000000000000001))
                     / 256,
                       4);
-                    v67 = Player_GetActualEndurance((Player *)*v66);
+                    v67 = Player_GetActualEndurance(v66);
                     v102 = 20 - sub_48EA1B(v67);
-                    Player_SetRecoveryTime((Player *)*v66, (signed __int64)((double)v102 * flt_6BE3A4_debug_recmod1 * 2.1333333333333333));
-                    ++v66;
+                    Player_SetRecoveryTime(v66, (signed __int64)((double)v102 * flt_6BE3A4_debug_recmod1 * 2.1333333333333333));
+                    //++v66;
                   }
-                  while ( (signed int)v66 <= (signed int)&dword_A750D4 );
+                //  while ( (signed int)v66 <= (signed int)&dword_A750D4 );
                   v62 = pParty_global->sPartyPosZ;
                 }
               }
@@ -6706,20 +6710,20 @@ LABEL_318:
               }
               else
               {
-                v76 = (int *)pPlayers;
-                do
-                {
-                  v102 = Player_GetMaxHealth((Player *)*v76);
-                  Player_sub_48DC1E((Player *)*v76,
+                for(int i=1; i<5; i++) 
+					{
+				v76 =pPlayers[i];
+                  v102 = Player_GetMaxHealth(v76);
+                  Player_sub_48DC1E(v76,
                     (signed int)((pParty_global->dword_000700 - v74) * (signed __int64)((double)v102 * 0.10000000000000001))
                   / 256,
                     4);
-                  v77 = Player_GetActualEndurance((Player *)*v76);
+                  v77 = Player_GetActualEndurance(v76);
                   v102 = 20 - sub_48EA1B(v77);
-                  Player_SetRecoveryTime((Player *)*v76, (signed __int64)((double)v102 * flt_6BE3A4_debug_recmod1 * 2.1333333333333333));
-                  ++v76;
+                  Player_SetRecoveryTime(v76, (signed __int64)((double)v102 * flt_6BE3A4_debug_recmod1 * 2.1333333333333333));
+                //  ++v76;
                 }
-                while ( (signed int)v76 <= (signed int)&dword_A750D4 );
+              //  while ( (signed int)v76 <= (signed int)&dword_A750D4 );
                 v73 = pParty_global->sPartyPosZ;
               }
             }

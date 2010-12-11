@@ -179,17 +179,17 @@ LABEL_12:
         v7 = *((_DWORD *)v6 + 2);
         if ( v7 < 10000 )
           *((_DWORD *)v6 + 2) = v7 + 1;
-        v8 = (signed int)pPlayers;
-        do
-        {
+        for(int i=1; i<5; i++) 
+          {
+		  v8 = (int)pPlayers[i];
           if ( dword_AE31E0 )
           {
             if ( !(unsigned __int16)sub_449B57(*(_DWORD *)v8 + 338, 1) )
               sub_449B7E(*(_DWORD *)v8 + 338, 1, 1);
           }
-          v8 += 4;
+        //  v8 += 4;
         }
-        while ( v8 <= (signed int)&dword_A750D4 );
+      //  while ( v8 <= (signed int)&dword_A750D4 );
         return;
       }
     }
@@ -210,7 +210,7 @@ __int16 __thiscall sub_438E35(void *_this)
   unsigned int v9; // edx@6
   unsigned int v10; // eax@7
   signed int v11; // ebx@8
-  void **v12; // esi@18
+  Player *v12; // esi@18
   signed int v13; // edi@20
   int v15; // [sp+Ch] [bp-Ch]@1
   int v16; // [sp+10h] [bp-8h]@1
@@ -275,16 +275,16 @@ __int16 __thiscall sub_438E35(void *_this)
         v18 = 8;
         break;
     }
-    v12 = (void **)pPlayers;
-    do
-    {
-      if ( Player_sub_492C0B_MaybeIfPlayerConscious((Player *)*v12) && (v13 = sub_49125A(*v12) + 20, rand() % v13 > 20) )
-        LOWORD(v10) = Player_PlaySound((Player *)*v12, 6, 0);
+   	 for(int i=1; i<5; i++) 
+          { 
+	  v12 = pPlayers[i];
+      if ( Player_sub_492C0B_MaybeIfPlayerConscious(v12) && (v13 = sub_49125A(v12) + 20, rand() % v13 > 20) )
+        LOWORD(v10) = Player_PlaySound(v12, 6, 0);
       else
-        LOWORD(v10) = Player_sub_48DC1E((Player *)*v12, v11, v18);
-      ++v12;
+        LOWORD(v10) = Player_sub_48DC1E(v12, v11, v18);
+   //   ++v12;
     }
-    while ( (signed int)v12 <= (signed int)&dword_A750D4 );
+   // while ( (signed int)v12 <= (signed int)&dword_A750D4 );
   }
   return v10;
 }
@@ -7223,13 +7223,13 @@ LABEL_16:
   v10 = v25;
   if ( v25 >= 53 )
     goto LABEL_23;
-  v11 = pParty_global->array_000334[2 * v25 + 1];
-  if ( !(v11 | pParty_global->array_000334[2 * v25])
+  v11 = pParty_global->Abc.array_000334[2 * v25 + 1];
+  if ( !(v11 | pParty_global->Abc.array_000334[2 * v25])
     || v11 < HIDWORD(pParty_global->qword_00002C)
-    || v11 <= HIDWORD(pParty_global->qword_00002C) && (unsigned int)pParty_global->array_000334[2 * v25] <= (_DWORD)pParty_global->qword_00002C )
+    || v11 <= HIDWORD(pParty_global->qword_00002C) && (unsigned int)pParty_global->Abc.array_000334[2 * v25] <= (_DWORD)pParty_global->qword_00002C )
   {
-    pParty_global->array_000334[2 * v25] = 0;
-    pParty_global->array_000334[2 * v10 + 1] = 0;
+    pParty_global->Abc.array_000334[2 * v25] = 0;
+    pParty_global->Abc.array_000334[2 * v10 + 1] = 0;
 LABEL_23:
     if ( !dword_597F18 )
       AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
@@ -7264,9 +7264,9 @@ LABEL_23:
         v10 = v25;
       }
     }
-    ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
-    if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
-      LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+    ++LODFile_Icons_LOD.uTexturePacksCount;
+    if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
+      LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
     v16 = sub_44C28B();
     wsprintfA(&Str1, "evt%02d", v16);
     if ( pParty_global->uAlignment )
@@ -8176,12 +8176,12 @@ LABEL_140:
             if ( v65 )
               goto LABEL_129;
             goto LABEL_291;
-          case 0x33:
-           v65 = sub_44665D(
+          case 0x33:  //crahes on loading save
+           v65 =0; /*sub_44665D(
                     *(_BYTE *)(v11 + 5),
                     *(_BYTE *)(v11 + 6)
                   + ((*(_BYTE *)(v11 + 7) + ((*(_BYTE *)(v11 + 8) + (*(_BYTE *)(v11 + 9) << 8)) << 8)) << 8),
-                    *(_BYTE *)(v11 + 10)); 
+                    *(_BYTE *)(v11 + 10)); */
             goto LABEL_140;
           case 0x11:
             v66 = *(_BYTE *)(v11 + 7)
@@ -8221,7 +8221,8 @@ LABEL_140:
                 v72 += 4;
               }
               while ( v71 < 16 );
-              v129 = (signed int)pPlayers;
+			  int ii=1;
+              v129 = (signed int)pPlayers[ii];
               while ( 1 )
               {
                 v73 = *(void **)v129;
@@ -8254,8 +8255,10 @@ LABEL_169:
                   v67 = 1;
                 }
 LABEL_170:
-                v129 += 4;
-                if ( v129 > (signed int)&dword_A750D4 )
+               // v129 += 4;
+				v129 = (signed int)pPlayers[ii];
+				ii++;
+                if ( ii > 4 )
                   goto LABEL_291;
               }
             }
@@ -10713,10 +10716,10 @@ LABEL_8:
         }
         if ( a2 <= 275
           || a2 > 304
-          || (v21 = a2 - 276, pParty_global->array_00052C[2 * v21 + 1] | pParty_global->array_00052C[2 * v21])
-          || (pParty_global->array_00052C[2 * (a2 - 276)] = pParty_global->qword_00002C,
+          || (v21 = a2 - 276, pParty_global->Abc.array_00052C[2 * v21 + 1] | pParty_global->Abc.array_00052C[2 * v21])
+          || (pParty_global->Abc.array_00052C[2 * (a2 - 276)] = pParty_global->qword_00002C,
               v22 = ((char *)(pStorylineText))[12 * v21] == 0,
-              pParty_global->array_00052C[2 * (a2 - 276) + 1] = HIDWORD(pParty_global->qword_00002C),
+              pParty_global->Abc.array_00052C[2 * (a2 - 276) + 1] = HIDWORD(pParty_global->qword_00002C),
               v22) )
           return;
         byte_507948 = 1;
@@ -10880,7 +10883,7 @@ LABEL_51:
           if ( a3 >= 500 )
           {
             if ( a3 <= 528 )
-              pParty_global->byte_0005C6[a3] = 1;
+              pParty_global->Abc.byte_0005C6[a3] = 1;
           }
           return;
         case 21:
@@ -11251,10 +11254,10 @@ LABEL_8:
         }
         if ( a2 <= 275
           || a2 > 304
-          || (v25 = a2 - 276, pParty_global->array_00052C[2 * v25 + 1] | pParty_global->array_00052C[2 * v25])
-          || (pParty_global->array_00052C[2 * (a2 - 276)] = pParty_global->qword_00002C,
+          || (v25 = a2 - 276, pParty_global->Abc.array_00052C[2 * v25 + 1] | pParty_global->Abc.array_00052C[2 * v25])
+          || (pParty_global->Abc.array_00052C[2 * (a2 - 276)] = pParty_global->qword_00002C,
               v26 = ((char *)(pStorylineText))[12 * v25] == 0,
-              pParty_global->array_00052C[2 * (a2 - 276) + 1] = HIDWORD(pParty_global->qword_00002C),
+              pParty_global->Abc.array_00052C[2 * (a2 - 276) + 1] = HIDWORD(pParty_global->qword_00002C),
               v26) )
           return;
         byte_507948 = 1;
@@ -11437,7 +11440,7 @@ LABEL_44:
           if ( a3 >= 500 )
           {
             if ( a3 <= 528 )
-              pParty_global->byte_0005C6[a3] = 1;
+              pParty_global->Abc.byte_0005C6[a3] = 1;
           }
           if ( a3 >= 135 )
           {
@@ -13511,7 +13514,7 @@ signed int __thiscall sub_4505CC(void *_this)
   v1 = 500;
   do
   {
-    if ( !pParty_global->byte_0005C6[v1] )
+    if ( !pParty_global->Abc.byte_0005C6[v1] )
       v5[v3++] = v1;
     ++v1;
   }

@@ -1914,9 +1914,9 @@ LABEL_56:
       {
         if ( ptr_507BD4 )
           return result;
-        ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
-        if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
-          LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+        ++LODFile_Icons_LOD.uTexturePacksCount;
+        if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
+          LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
         ptr_507BD4 = (GUIWindow *)sub_4219BE((void *)(20 * result + 5292232));
         dword_50C9A0 = true;
         dword_50C0C4 = uActiveCharacter;

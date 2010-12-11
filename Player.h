@@ -203,7 +203,8 @@ struct Player
    short word_001AA2; //PlayerFrame::word_000002 - 1
    int dword_001AA4;
    int dword_001AA8;
-
+   int array_align[19];
+   short   align_sh;
    int dword_001B38;
 //  };
 //  struct

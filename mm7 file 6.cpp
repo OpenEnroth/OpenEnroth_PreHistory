@@ -2762,7 +2762,7 @@ signed int __thiscall sub_49387A(void *_this)
 int __fastcall sub_4938D1(unsigned int a1)
 {
   unsigned int v1; // esi@1
-  void **v2; // esi@3
+  Player *v2; // esi@3
   double v3; // st7@3
 
   v1 = a1;
@@ -2770,13 +2770,13 @@ int __fastcall sub_4938D1(unsigned int a1)
     UpdateActors();
   v3 = (double)(7680 * v1) * 0.03333333507180214;
   pParty_global->qword_00002C += (signed __int64)v3;
-  v2 = (void **)pPlayers;
-  do
+  for(int i=1; i<5; i++) 
   {
-    Player_sub_48E8F5((Player *)*v2, (signed __int64)v3);
-    ++v2;
+    v2 = pPlayers[i];
+    Player_sub_48E8F5(v2, (signed __int64)v3);
+    //++v2;
   }
-  while ( (signed int)v2 <= (signed int)&dword_A750D4 );
+ // while ( (signed int)v2 <= (signed int)&dword_A750D4 );
   return sub_494035();
 }
 
@@ -3076,8 +3076,8 @@ const CHAR *__fastcall sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_D
     return "Invalid String Passed";
   v66 = strlen(Str);
   Dest[0] = 0;
-  v8 = (int)&pParty_global->pPlayers[v6];
-  v65 = 0xFFFFFF9B;
+  v8 = (int)pPlayers[v6];
+  v65 = 0xFFFF9B;
   v67 = v8;
   memset((char *)pStringBuffer, 0, 0x7D0u);
   if ( dword_5C35D4 )
@@ -3284,7 +3284,7 @@ LABEL_93:
         if ( v16 + 10 * (unsigned __int8)*v17 == 552 )
         {
           v46 = ItemGen_sub_456499((void *)v12);
-          wsprintfA(Dest, "\x0C%05d%s\x0C\x30\x30\x30\x30\x30", v65, v46);
+          wsprintfA(Dest, "\f%06x%s\f000000", v65, v46);
 LABEL_117:
           v13 = (int)Dest;
           goto LABEL_118;
@@ -3406,8 +3406,8 @@ LABEL_98:
               goto LABEL_108;
             if ( v16 + 10 * (unsigned __int8)*v17 - 579 >= 20 )
               goto LABEL_118;
-            HIDWORD(v50) = pParty_global->array_00047C[2 * v15 + 1];
-            LODWORD(v50) = pParty_global->array_00047C[2 * v15];
+            HIDWORD(v50) = pParty_global->Abc.array_00047C[2 * v15 + 1];
+            LODWORD(v50) = pParty_global->Abc.array_00047C[2 * v15];
             sub_493F79((int)&v56, v50);
             v54 = v59;
             v53 = v57 + 1;
@@ -3416,7 +3416,7 @@ LABEL_116:
             wsprintfA(Dest, (char *)pGlobalTXT_LocalizationStrings[378], aMonthNames[v49], v53, v54);
             goto LABEL_117;
           }
-          v52 = dword_A750D4;
+          v52 = (int)pPlayers[4];
           break;
       }
       v13 = v52 + 168;
@@ -3487,9 +3487,9 @@ int CreditsMenuLoop()
 	//		   if  (dword_50CBD0.prm[0].msg_param3)
         //                  dword_50CBD0.msg_count = 1;
   dword_50CBD0.CutQueueTail();
-  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
-  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
-    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  ++LODFile_Icons_LOD.uTexturePacksCount;
+  if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
+    LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
   dword_A74C88 = 0;
   sub_4AA13F((int)pAudioPlayer, 15);
   cBackGround.LODPCXLoad("mm6title.pcx", 0);

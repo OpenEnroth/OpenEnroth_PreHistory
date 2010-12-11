@@ -2310,7 +2310,7 @@ extern char byte_A7509C[40]; // idb
 extern struct Player *pPlayers[5]; // ptr[4] @ MM7.exe::00A750C8
 //int dword_A750CC; // weak
 //int dword_A750D0; // weak
-extern int dword_A750D4; // looks like pPlayers[5] indexing
+//extern int dword_A750D4; // looks like pPlayers[5] indexing
 
 extern __int64 qword_A750D8; // weak
 extern __int16 word_A750E0; // weak
@@ -2319,10 +2319,12 @@ extern __int16 word_A750E2; // weak
 extern class CPlayerFrameTable *pPlayerFrameTable; // struct @ MM7.exe::00A750EC
 //int dword_A750EC; // pPlayerFrameTable::uNumFrames
 //int dword_A750F0; // pPlayerFrameTable::pFrames
-extern _UNKNOWN unk_A750F8; // weak
+
+extern  char unk_A750F8[4][45016]; // weak
 extern _UNKNOWN unk_A81376; // weak
-extern _UNKNOWN unk_A96080; // weak
-extern _UNKNOWN unk_AA1058; // weak
+//extern _UNKNOWN unk_A96080; // weak
+
+extern char unk_AA1058[4][45016]; // weak
 //extern _UNKNOWN unk_ACBE48; // pParty_global->pPlayers[-1] indexing
 extern int dword_ACC038[array_size_unknown]; // weak
 extern int dword_ACCCEC[]; // weak
@@ -2331,7 +2333,7 @@ extern int dword_ACCD94[]; // weak
 //int dword_ACCD98[array_size_unknown]; // weak
 extern int dword_ACCDD4[]; // weak
 //int dword_ACCDD8[array_size_unknown]; // weak
-
+//end
 
 
 extern struct Party *pParty_global; // struct @ MM7.exe::00ACCFB8

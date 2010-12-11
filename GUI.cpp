@@ -82,12 +82,12 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
 {
  struct GUIWindow *pCharacterWindow;
 
-  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
-  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
-    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
-  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
-  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
-    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  ++LODFile_Icons_LOD.uTexturePacksCount;
+  if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
+    LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
+  ++LODFile_Icons_LOD.uTexturePacksCount;
+  if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
+    LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
   	cClock1.clock_fn1();//	 class24_fn1);
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
 
@@ -2413,7 +2413,8 @@ LABEL_291:
                       LODFile_Icons_LOD.LODFile_sub_40F9C5();
                       LODFile_Icons_LOD.LODFile_sub_4114F2();
                       LODFile_Icons_LOD.LODFile_sub_40F9C5();
-                      v35 = LODFile_Icons_LOD.LODFile_sub_4114F2();
+                      v35 =0;
+					  LODFile_Icons_LOD.LODFile_sub_4114F2();
                       goto LABEL_291;
                     case 28:
                       if ( pD3DRenderer->pRenderD3D3 )
@@ -2600,10 +2601,10 @@ LABEL_322:
               GUIWindowCreate(602, 450, 0, 0, 90, pBtn_Game_Options, v0);
               cClock1.clock_fn1();
               AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-              ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
+              ++LODFile_Icons_LOD.uTexturePacksCount;
               dword_4E28F8 = v0;
-              if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
-                LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+              if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
+                LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
               pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 3, 0, 0);
               dword_507944 = LODFile_Icons_LOD.LODFile_LoadTexture( "options", 2);
               dword_507940 = LODFile_Icons_LOD.LODFile_LoadTexture( "new1", 2);
@@ -3691,7 +3692,7 @@ LABEL_521:
           }
           v111 = dword_50654C + 11 * *(_BYTE *)*((char*)pPlayers[uActiveCharacter] + 6734);
           *(_BYTE *)*((char*)pPlayers[uActiveCharacter] + 6735) = v111;
-          sub_494836((char *)&unk_A96080 + 45016 * uActiveCharacter, v111, uActiveCharacter);
+          sub_494836((char *)&unk_AA1058 + 45016 * (uActiveCharacter-1), v111, uActiveCharacter);
           if ( uActiveCharacter )
             Player_PlaySound((Player *)v207, 12, 0);
           byte_506550 = 0;
@@ -3857,9 +3858,9 @@ LABEL_693:
 			dword_50CBD0.CutQueueTail();
           if ( dword_4E28F8 )
             GUIWindowDelete(pGUIWindow_CurrentMenu);
-          ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
-          if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
-            LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+          ++LODFile_Icons_LOD.uTexturePacksCount;
+          if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
+            LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
           GUIWindowCreate(560, 450, 0, 0, 90, pBtn_Game_QuickRef, 0);
           struct_576FE8.dword_000044 = v0;
           cClock1.clock_fn1();
@@ -4875,17 +4876,7 @@ struct GUIWindow *GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
 	  {
 	  dword_506978 = dword_4E28F8;
 	  dword_4E28F8 = 4;
-	  dword_5076F4 = GUIButtonCreate(
-		  v9,
-		  471,
-		  445,
-		  169,
-		  35,
-		  1,
-		  0,
-		  113,
-		  0,
-		  0,
+	  dword_5076F4 = GUIButtonCreate( v9, 471, 445,	 169,  35,  1,  0,  113, 0,  0,
 		  pGlobalTXT_LocalizationStrings[LOCSTR_EXIT],
 		  uTextureID_right_backgr != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0,0);
 	  if (v9->dword_00001C!= 1 )
@@ -4987,28 +4978,10 @@ struct GUIWindow *GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
 	  {
 	  dword_506978 = dword_4E28F8;
 	  dword_4E28F8 = 17;
-	  dword_5076F4 = GUIButtonCreate(v9,
-		  566,
-		  445,
-		  75,
-		  33,
-		  1,
-		  0,
-		  91,
-		  0,
-		  78,
+	  dword_5076F4 = GUIButtonCreate(v9, 566, 445,  75,  33, 1,	0,  91,	0,  78,
 		  pGlobalTXT_LocalizationStrings[LOCSTR_STAY_IN_AREA],
 		  uTextureIdx_BtnEsc2!= -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2]  : NULL,0);
-	  dword_5076FC = GUIButtonCreate(v9,
-		  486,
-		  445,
-		  75,
-		  33,
-		  1,
-		  0,
-		  90,
-		  0,
-		  89,
+	  dword_5076FC = GUIButtonCreate(v9, 486, 445, 75, 33, 1,  0,  90,  0, 89,
 		  v9->ptr_000048,
 		  uTextureIdx_BtnYes2!= -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnYes2]  : NULL,0);
 	  GUIButtonCreate(v9, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, 63, 73, 1, 0, 90, 1, 32, *(const unsigned char **)(v9 + 72), 0);
@@ -5031,17 +5004,7 @@ struct GUIWindow *GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
   case 25:
 	  {
 	  dword_4E28F8 = 13;
-	  dword_5076F4 = GUIButtonCreate(
-		  v9,
-		  471,
-		  445,
-		  169,
-		  35,
-		  1,
-		  0,
-		  113,
-		  0,
-		  0,
+	  dword_5076F4 = GUIButtonCreate(v9, 471, 445, 169, 35,  1,  0, 113, 0,	0,
 		  pGlobalTXT_LocalizationStrings[LOCSTR_EXIT_BLDNG],
 		  uTextureID_right_backgr != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr]  : NULL,0);
 	  v25 = dword_591424;
@@ -5095,30 +5058,10 @@ struct GUIWindow *GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
 	  {
 	  dword_506978 = dword_4E28F8;
 	  dword_4E28F8 = 18;
-	  dword_5076F4 = GUIButtonCreate(
-		  v9,
-		  566,
-		  445,
-		  75,
-		  33,
-		  1,
-		  0,
-		  412,
-		  0,
-		  78,
+	  dword_5076F4 = GUIButtonCreate(v9, 566, 445, 75, 33, 1, 0, 412, 0, 78,
 		  pGlobalTXT_LocalizationStrings[LOCSTR_CANCEL],
 		  uTextureIdx_BtnEsc2 + 1 != 0 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2] : 0,0);
-	  dword_5076FC = GUIButtonCreate(
-		  v9,
-		  486,
-		  445,
-		  75,
-		  33,
-		  1,
-		  0,
-		  411,
-		  0,
-		  89,
+	  dword_5076FC = GUIButtonCreate(v9,   486, 445, 75,  33, 1, 0, 411, 0,	 89,
 		  v9->ptr_000048,
 		  uTextureIdx_BtnYes2 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnYes2] : 0,0);
 	  GUIButtonCreate(v9, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, 63, 73, 1, 0, 411, 1, 32, v9->ptr_000048, 0);
@@ -5145,25 +5088,15 @@ struct GUIWindow *GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
   case 31: 
 	  {
 	  sub_469903(pGame->pClass03, "MICON2");
-	  dword_5076F4 = GUIButtonCreate(
-		  v9,
-		  392,
-		  318,
-		  75,
-		  33,
-		  1,
-		  0,
-		  113,
-		  0,
-		  0,
+	  dword_5076F4 = GUIButtonCreate( v9, 392,  318, 75, 33, 1, 0,  113, 0, 0,
 		  pGlobalTXT_LocalizationStrings[34],
 		  uTextureIdx_BtnEsc2  != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2]  : 0,0);
 	  sub_44C175((char *)pGlobalTXT_LocalizationStrings[LOCSTR_SELECT_TGT], 2);
-	  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
+	  ++LODFile_Icons_LOD.uTexturePacksCount;
 	  dword_506F48 = 103;
 	  dword_4E28F8 = 23;
-	  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
-		  LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+	  if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
+		  LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
 	  break;
 	  }
 	  }
@@ -5328,9 +5261,9 @@ void __cdecl PlayerCreationUI_Initialize()
 
   AudioPlayer_SetVolume(pAudioPlayer, aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
 
-  ++LODFile_Icons_LOD.lod_IB_dword_011B9C;
-  if ( !LODFile_Icons_LOD.lod_IB_dword_011B98 )
-    LODFile_Icons_LOD.lod_IB_dword_011B98 = LODFile_Icons_LOD.uNumLoadedFiles;
+  ++LODFile_Icons_LOD.uTexturePacksCount;
+  if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
+    LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
 
   dword_4E28F8 = 21;
   dword_A74CD4 = 0;
@@ -10591,7 +10524,7 @@ LABEL_110:
         v10 = (int)ptr_507BC0->dword_00001C;
         if ( v10 >= 53 )
           continue;
-        v11 = pParty_global->array_000334[2 * v10 + 1];
+        v11 = pParty_global->Abc.array_000334[2 * v10 + 1];
 
         compile_error;//if ( !__PAIR__(v11, pParty_global->array_000334[2 * v10])
           //|| v11 < HIDWORD(pParty_global->qword_00002C)
@@ -10600,8 +10533,8 @@ LABEL_110:
         {
           if ( v10 < 53 )
           {
-            pParty_global->array_000334[2 * v10] = 0;
-            pParty_global->array_000334[2 * v10 + 1] = 0;
+            pParty_global->Abc.array_000334[2 * v10] = 0;
+            pParty_global->Abc.array_000334[2 * v10 + 1] = 0;
           }
           continue;
         }

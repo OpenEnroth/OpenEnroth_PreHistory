@@ -2939,7 +2939,7 @@ unsigned int __fastcall sub_4B1447(int a1, int a2, int a3)
   int v5; // eax@8
   __int64 v6; // qax@12
   _UNKNOWN *v7; // eax@14
-  signed int v8; // edi@18
+  Player *v8; // edi@18
   unsigned int result; // eax@19
   int v10; // esi@20
 
@@ -2972,8 +2972,8 @@ unsigned int __fastcall sub_4B1447(int a1, int a2, int a3)
       dword_AE31E0 = 4000000;
   }
   v6 = pParty_global->qword_00002C + 368640;
-  pParty_global->array_000334[2 * a1] = pParty_global->qword_00002C + 368640;
-  pParty_global->array_000334[2 * a1 + 1] = HIDWORD(v6);
+  pParty_global->Abc.array_000334[2 * a1] = pParty_global->qword_00002C + 368640;
+  pParty_global->Abc.array_000334[2 * a1 + 1] = HIDWORD(v6);
 LABEL_13:
   dword_AE310C[a1] = 1;
   if ( v3 )
@@ -2985,9 +2985,9 @@ LABEL_13:
     if ( *((_DWORD *)v7 + 2) > 10000 )
       *((_DWORD *)v7 + 2) = 10000;
   }
-  v8 = (signed int)pPlayers;
-  do
-  {
+   for(int i=1; i<5; i++) 
+          { 
+    v8 = pPlayers[i];
     result = *(_DWORD *)v8;
     if ( dword_AE31E0 )
     {
@@ -2996,9 +2996,9 @@ LABEL_13:
       if ( !(_WORD)result )
         result = sub_449B7E(v10, 1, 1);
     }
-    v8 += 4;
+    //v8 += 4;
   }
-  while ( v8 <= (signed int)&dword_A750D4 );
+ // while ( v8 <= (signed int)&dword_A750D4 );
   return result;
 }
 
@@ -3369,9 +3369,9 @@ LABEL_30:
       return;
     }
     v1 = (int)ptr_507BC0->dword_00001C;
-    v2 = pParty_global->array_000334[2 * v1 + 1];
+    v2 = pParty_global->Abc.array_000334[2 * v1 + 1];
     if ( v2 < HIDWORD(pParty_global->qword_00002C)
-      || v2 <= HIDWORD(pParty_global->qword_00002C) && (unsigned int)pParty_global->array_000334[2 * v1] <= (_DWORD)pParty_global->qword_00002C )
+      || v2 <= HIDWORD(pParty_global->qword_00002C) && (unsigned int)pParty_global->Abc.array_000334[2 * v1] <= (_DWORD)pParty_global->qword_00002C )
     {
       if ( (unsigned int)pParty_global->uNumGold <= 0x2710 )
       {
@@ -11014,17 +11014,17 @@ int __cdecl sub_4BBA85()
   GUIWindow_sub_41D08F(pDialogueWindow, 1, 1, 0, 2);
   dword_F8B19C = -1;
   v1 = ptr_507BC0->dword_00001C - 102;
-  v0 = pParty_global->array_00003C[2 * v1 + 1];
+  v0 = pParty_global->Abc.array_00003C[2 * v1 + 1];
   if ( v0 <= HIDWORD(pParty_global->qword_00002C) )
   {
-    if ( v0 < HIDWORD(pParty_global->qword_00002C) || pParty_global->array_00003C[2 * v1] < (_DWORD)pParty_global->qword_00002C )
+    if ( v0 < HIDWORD(pParty_global->qword_00002C) || pParty_global->Abc.array_00003C[2 * v1] < (_DWORD)pParty_global->qword_00002C )
     {
       pParty_global->array_00075A[v1] = 0;
       v3 = (signed __int64)((double)(309657600
                                    * ((unsigned int)pParty_global->uCurrentMonth + 12i64 * (unsigned int)pParty_global->uCurrentYear - 14015))
                           * 0.03333333507180214);
-      pParty_global->array_00003C[2 * v1] = v3;
-      pParty_global->array_00003C[2 * v1 + 1] = HIDWORD(v3);
+      pParty_global->Abc.array_00003C[2 * v1] = v3;
+      pParty_global->Abc.array_00003C[2 * v1 + 1] = HIDWORD(v3);
       for ( i = rand(); ; i = rand() )
       {
         v4 = i % 258 + 1;
@@ -12010,9 +12010,9 @@ LABEL_15:
           v15 = *(_DWORD *)(v11 + 28) - 102;
           v62 = v15;
           v14 = 8 * v15 + 11325428;
-          v13 = pParty_global->array_00003C[2 * v15 + 1];
+          v13 = pParty_global->Abc.array_00003C[2 * v15 + 1];
           if ( v13 > HIDWORD(pParty_global->qword_00002C)
-            || v13 >= HIDWORD(pParty_global->qword_00002C) && pParty_global->array_00003C[2 * v15] >= (_DWORD)pParty_global->qword_00002C )
+            || v13 >= HIDWORD(pParty_global->qword_00002C) && pParty_global->Abc.array_00003C[2 * v15] >= (_DWORD)pParty_global->qword_00002C )
           {
             v17 = 0;
           }
@@ -12316,10 +12316,10 @@ LABEL_200:
     return;
   }
   v46 = *(_DWORD *)(v11 + 28);
-  v47 = pParty_global->array_00008C[2 * v46 + 1];
+  v47 = pParty_global->Abc.array_00008C[2 * v46 + 1];
   if ( v47 <= HIDWORD(pParty_global->qword_00002C) )
   {
-    if ( v47 < HIDWORD(pParty_global->qword_00002C) || (unsigned int)pParty_global->array_00008C[2 * v46] < (_DWORD)pParty_global->qword_00002C )
+    if ( v47 < HIDWORD(pParty_global->qword_00002C) || (unsigned int)pParty_global->Abc.array_00008C[2 * v46] < (_DWORD)pParty_global->qword_00002C )
     {
       sub_4B8E3D();
       sub_4B8F94();
@@ -12329,8 +12329,8 @@ LABEL_200:
       v49 = pParty_global->qword_00002C
           + (signed __int64)((double)(11059200 * (signed int)word_591454[26 * ptr_507BC0->dword_00001C])
                            * 0.03333333507180214);
-      pParty_global->array_00008C[2 * v48] = v49;
-      pParty_global->array_00008C[2 * v48 + 1] = HIDWORD(v49);
+      pParty_global->Abc.array_00008C[2 * v48] = v49;
+      pParty_global->Abc.array_00008C[2 * v48 + 1] = HIDWORD(v49);
     }
   }
   v50 = *(_DWORD *)(v11 + 28);

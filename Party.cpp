@@ -268,7 +268,7 @@ int Party_AddItem(struct Party *_this, struct ItemGen *a2)
   signed int v3; // edx@4
   int v4; // ecx@4
   const char *v5; // eax@8
-  int v6; // ebx@10
+  cTexture *v6; // ebx@10
   signed int v7; // esi@10
   int v8; // eax@10
   int v9; // eax@11
@@ -315,14 +315,10 @@ int Party_AddItem(struct Party *_this, struct ItemGen *a2)
    wchar_t pTextureFilename[256];
    wsprintfW(pTextureFilename, L"%S", v5);
     v8 = LODFile_Icons_LOD.LODFile_LoadTexture_New( pTextureFilename);
+#else
+    v8 = LODFile_Icons_LOD.LODFile_LoadTexture( v5,0);
 #endif
-  #ifdef OLD_CODE
-   char pTextureFilename[256];
-   wsprintf(pTextureFilename, "%S", v5);
-
-    v8 = LODFile_Icons_LOD.LODFile_LoadTexture( pTextureFilename,0);
-#endif
-    v6 = v8 != -1 ? 72 * v8 + 7145548 : 0;
+    v6 = v8 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v8] : 0;
     v24 = bTextureLoading;
     v7 = 0;
     while ( 1 )
@@ -337,7 +333,7 @@ int Party_AddItem(struct Party *_this, struct ItemGen *a2)
       {
         if ( v24 == v9 )
         {
-          cTexture_Free((cTexture *)v6);
+          cTexture_Free(v6);
           LODFile_Icons_LOD.LODFile_sub_40F9C5();
         }
         goto LABEL_15;

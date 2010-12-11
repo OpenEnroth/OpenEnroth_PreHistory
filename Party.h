@@ -26,17 +26,24 @@ struct Party
  int           dword_000028;
  __int64       qword_00002C;  // world time
  __int64       qword_000034;
+ union
+	 {
+      int 		   array2_00003C[413];
+	
+struct abc	 {
  int           array_00003C[20];
  int           array_00008C[170];
  int           array_000334[82];
- int           array_00047C[44];
+ int           array_00047C[43];//44   align to original
  int           array_00052C[38];
  char          byte_0005C4[2];
  char          byte_0005C6[238];
-
+	 } Abc;
+	 };
  runtime_warning(addition)
  struct Camera *pCamera;
  runtime_warning(deprication)
+	 
  int           sPartyPosX;       // dword @ 0006B4     world coordinates are  x: -32768..  32767
  int           sPartyPosY;       // dword @ 0006B8                            y:  32767.. -32768
  int           sPartyPosZ;       // dword @ 0006BC
@@ -59,10 +66,12 @@ struct Party
  int           dword_0006FC;
  int           dword_000700;
  int           dword_000704; // flying flag?
+
  unsigned char byte_000708;
  unsigned char byte_000709;
  unsigned char byte_00070A;
  unsigned char byte_00070B;
+
  unsigned int  uCurrentYear;      // dword @ 00070C
  unsigned int  uCurrentMonth;     // dword @ 000710
  int           uCurrentMonthWeek; // dword @ 000014
@@ -76,17 +85,22 @@ struct Party
  unsigned int  uNumGold;       // dword @ 000734
  unsigned int  uNumGoldInBank; // dword @ 000738
  int           dword_00073C; // num deaths? looks very like it
+
  int           dword_000740;
  int           dword_000744;
  int           dword_000748;
+ int           dword_00074C;
  short         array_000750[5];
  short         array_00075A[5];
- char          unk_000764[0x100]; // quests?
 
- unsigned char byte_000854[32 + array_size_unknown];
+ char          unk_000764[240]; // quests?
 
+ unsigned char byte_000854[32];
+
+ int dword_000874;
+ int dword_000878;
  int dword_00087C;
-
+ int dword_000880;
  int                dword_000884; //flags
  unsigned int       uAlignment;       // dword      @ 000888   enum (0, 1, 2) = (good, neutral, evil)
  struct SpellBuff   pPartyBuffs[20];  // struct[20] @ 00088C
@@ -110,7 +124,7 @@ struct Party
 
  char pad2[100000];
 };
-//sizeof ~ 16238
+//sizeof ~ 16238  90680		   
 
 //int __thiscall Party_sub_49135E_GetAllPartyExpDiv1000(void *_this)
 void Party_ctor(struct Party *_this);

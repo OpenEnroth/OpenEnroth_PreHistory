@@ -230,7 +230,8 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  //end spell data
 //_UNKNOWN unk_4E3C8E; // weak
  char byte_4E3FE8; // weak
- int dword_4E421C[array_size_unknown]; // weak
+
+ int dword_4E421C[array_size_unknown]; // weak sound
 //_UNKNOWN unk_4E4436; // weak
 
  int dword_4E455C; // weak
@@ -1519,6 +1520,7 @@ _UNKNOWN unk_5E4D52; // weak
 //_UNKNOWN unk_5E4D58; // weak	 
 //overlay	 1008 size
 unsigned short array_5E4D58[50][10];  // [42][12];
+
 //_UNKNOWN unk_5E4D64; // weak
  //int dword_5E5130[array_size_unknown]; // weak
  int dword_5E5144; // weak
@@ -2005,31 +2007,35 @@ unsigned int uTextureIdx_PlayerFaceDead;       // dword @ MM7.exe::00A74CE8
  char byte_A75074[40]; // idb
  char byte_A7509C[40]; // idb
 
-//struct Player *ptr_A750C4;   //pPlayers[-1] indexing
-struct Player *pPlayers[5]; // ptr[4] @ MM7.exe::00A750C8
-//int dword_A750CC; // weak
-//int dword_A750D0; // weak
-int dword_A750D4; // looks like pPlayers[5] indexing
+//struct Player *ptr_A750C4;   //pPlayers[-1] indexing	 0
+struct Player *pPlayers[5]; // ptr[4] @ MM7.exe::00A750C8 1
+//int dword_A750CC; // weak								  2
+//int dword_A750D0; // weak								  3
+//int dword_A750D4; // looks like pPlayers[5] indexing	  4	   points to the end of Players[4], used in *pPlayers++ loops to stop
 
- __int64 qword_A750D8; // points to the end of Players[4], used in *pPlayers++ loops to stop
+ __int64 qword_A750D8; // 
  __int16 word_A750E0; // weak
  __int16 word_A750E2; // weak
 
 class CPlayerFrameTable *pPlayerFrameTable = 0; // struct @ MM7.exe::00A750EC
 //int dword_A750EC; // pPlayerFrameTable::uNumFrames
 //int dword_A750F0; // pPlayerFrameTable::pFrames
- _UNKNOWN unk_A750F8; // weak
+//start
+    char unk_A750F8[4][45016]; // weak	 size 4*AFD8  =2BF60    //sound buffers	 weapon sound 
  _UNKNOWN unk_A81376; // weak
- _UNKNOWN unk_A96080; // weak
- _UNKNOWN unk_AA1058; // weak
+ //_UNKNOWN unk_A96080; // weak	-1 to   unk_AA1058
+ //end
+ //start
+   char unk_AA1058[4][45016]; // weak	size	4*AFD8 = 2BF60	 //sound buffers spell sound
  int dword_ACC038[array_size_unknown]; // weak
  int dword_ACCCEC[21 * 2]; // weak
  int dword_ACCD94[16]; // weak
  int dword_ACCDD4[array_size_unknown]; // weak
-
+  //end
 
 
 struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
+
  _DWORD dword_ACD4E8[36]; // idb
  char byte_ACD719[array_size_unknown]; // weak
  char byte_ACD76D; // weak
@@ -2079,6 +2085,7 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  _UNKNOWN unk_ACF1E4; // weak
  __int16 word_ACF2B8[array_size_unknown]; // weak
  int dword_ACF2C0[array_size_unknown]; // weak
+
  _UNKNOWN unk_ACF3D3; // weak
  _UNKNOWN unk_ACF4BC; // weak
  __int64 qword_ACF4D0; // weak
@@ -2116,7 +2123,7 @@ struct Party *pParty_global = 0; // struct @ MM7.exe::00ACCFB8
  int dword_AE31E4; // weak
  int dword_AE31E8; // weak
  int dword_AE31EC; // weak
-
+	//end  AE31F0
 
  char byte_AE3368[array_size_unknown]; // weak
  char algn_AE3369; // weak
