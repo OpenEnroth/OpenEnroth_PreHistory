@@ -67,6 +67,17 @@
 
 extern  class cTexture *pTextureID_PCFaces[];
 
+struct Beacon
+{
+__int64 uBeaconTime;
+int  dword_00008;
+int  dword_0000C;
+int  dword_00010;
+int  dword_00014;
+int  dword_00018;
+};
+//0x1C
+
 struct StatTable
 {
   unsigned char InitialStat;
@@ -86,10 +97,7 @@ struct Spellbook
 
 struct Player
 {
-// union
-// {
- // struct
- // {
+
    __int64          pConditions[20];      // qword[20] @ 000000   [14] eradicated  [16] dead  condition time may be
    unsigned __int64 uExperience;          // qword     @ 0000A0
    unsigned char    sName[16];            // byte[16]  @ 0000A8
@@ -185,7 +193,7 @@ struct Player
 
    char          byte_001A4E;	//spell skill? or school?
    unsigned char uQuickSpell;     // byte  @ 001A4F
-   char          array_001A50[72];
+   char          array_001A50[10];	 // was 72  changed to solve align problem
 
    char byte_001A98;
    char array_001A99[3];
@@ -196,15 +204,13 @@ struct Player
    short word_001AA2; //PlayerFrame::word_000002 - 1
    int dword_001AA4;
    int dword_001AA8;
-   int array_align[19];
-   short   align_sh;
+
+   struct Beacon stBeacons[5]; // dword_001AAC   beacons 5 struct 0x1C size 
+
+ //  int array_align[7];	  // 001B1C
+
    int dword_001B38;
-//  };
-//  struct
- // {
- //  unsigned char _[0x1B3C];
- // };
-// };
+
 };
 //sizeof == 1B3C
 

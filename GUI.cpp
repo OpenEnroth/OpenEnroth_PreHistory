@@ -5180,7 +5180,7 @@ void GUIWindowDelete(GUIWindow *_this)
           if ( !v4 )
           {
             if ( !dword_591084 )
-              cTexture_Free((cTexture *)uTextureID_Dialogue_NPCPortrait[0]);
+              cTexture_Free((cTexture *)uTextureID_Dialogue_NPCPortrait[0]); //fix portait index needed 
             cTexture_Free((cTexture *)uTextureID_Dialogue_Background);
             LODFile_Icons_LOD.LODFile_sub_40F9C5();
             dword_591424 = 0;
@@ -10574,7 +10574,7 @@ LABEL_142:
           }
           else
           {
-            sub_41A57E();
+            QuickRefDraw();
           }
           continue;
         }
@@ -10694,14 +10694,14 @@ LABEL_16:
   v2 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
                  + 4 * (*(_DWORD *)v3 + dword_5059A8[*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v12) + 4)])) & 0xFFFF;
   if ( !v2 )
-    return GUIWindow_sub_44D406(&local_0C, pBook2Font, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[10], 3);
+    return GUIWindow_sub_44D406(&local_0C, pBook2Font, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_TOWN_PORTAL], 3);
   if ( v2 == 1 )
   {
     v4 = 206;
 LABEL_30:
     if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, v4) )
       goto LABEL_31;
-    return GUIWindow_sub_44D406(&local_0C, pBook2Font, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[10], 3);
+    return GUIWindow_sub_44D406(&local_0C, pBook2Font, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_TOWN_PORTAL], 3);
   }
   if ( v2 == 2 )
   {
@@ -10730,7 +10730,7 @@ LABEL_30:
   }
 LABEL_31:
   Render_DrawIndexedTexture(pD3DRenderer, word_4E1D3A[v2], word_4E1D46[v2], (cTexture *)*(&uTextureID_tab_an_6b__zoom_on + v2));
-  return GUIWindow_sub_44D406(&local_0C, pBook2Font, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[10], 3);
+  return GUIWindow_sub_44D406(&local_0C, pBook2Font, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_TOWN_PORTAL], 3);
 }
 
 //----- (00418083) ------.text:00418683  --------------------------------------------------

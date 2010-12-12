@@ -51,8 +51,14 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  int dword_4E20D4; // weak
  char byte_4E2430[array_size_unknown]; // weak
  char byte_4E2431[array_size_unknown]; // weak
- int dword_4E249C; // idb
- int dword_4E24B0; // idb
+
+ int dword_4E249C[5] ={
+	 61, 281, 61, 281, 171
+	 }; //  button X
+
+ int dword_4E24B0[5]={
+	 84, 84, 228, 228, 155
+	 }; // button y
 
  int dword_4E24C4; // weak
  int dword_4E24D8; // weak
@@ -1130,10 +1136,13 @@ struct GUIButton *dword_50C9C0; // weak
 struct GUIButton *dword_50C9C4; // weak
 struct GUIButton *dword_50C9C8; // weak
 struct GUIButton *dword_50C9CC; // weak
+
  int dword_50C9D0; // weak
  int dword_50C9D4; // weak
  int dword_50C9D8; // weak
+
  int dword_50C9DC; // weak
+
 struct NPCData *dword_50C9E0; // weak
 
 // int dword_50CBD4[40][3]; // weak

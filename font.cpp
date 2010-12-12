@@ -830,7 +830,7 @@ void __fastcall sub_44D0B5(struct Font *a1, int a2, int a3, int a4, const char *
 }
 
 
-//----- (0044CB4F) -----------.text:0044DEA3---------------------------------------------
+//----- (0044CB4F) -----------.text:0044DB6F  ---------------------------------------------
 int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, int a5, const char *Str1, signed int Source, int a8)
 {
   int v8; // ebx@1

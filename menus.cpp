@@ -1931,8 +1931,8 @@ int __cdecl sub_410DEC()
       local_0C.uFrameWidth = 92;
       v4 = 4 * result;
       local_0C.uFrameHeight = 68;
-      v5 = *(&dword_4E249C + result);
-      local_0C.uFrameY = *(&dword_4E24B0 + result);
+      v5 = dword_4E249C[result];
+      local_0C.uFrameY = dword_4E24B0[result];
       v32 = local_0C.uFrameY;
       local_0C.uFrameX = v5;
       local_0C.uFrameW = local_0C.uFrameY + 67;
@@ -2037,41 +2037,40 @@ LABEL_30:
 
 
 //----- (00411B59) --------------------------------------------------------
-int __fastcall sub_411B59(int a1, int a2)
+void sub_411B59(int a1, int a2)
 {
   FILE *v2; // ebx@1
-  int v3; // edi@1
-  int v4; // esi@1
+ // int v3; // edi@1
+//  int v4; // esi@1
   FILE *v5; // eax@2
-  int result; // eax@3
+ // int result; // eax@3
   char Str1[64]; // [sp+Ch] [bp-44h]@1
-  int v8; // [sp+4Ch] [bp-4h]@1
+ // int v8; // [sp+4Ch] [bp-4h]@1
 
-  v4 = a1;
-  v8 = a2;
-  v3 = a1 + 1;
+ // v4 = a1;
+ // v8 = a2;
+ // v3 = a1 + 1;
   wsprintfA(Str1, "data\\lloyd%d%d.pcx", a2, a1 + 1);
   v2 = fopen(Str1, "rb");
   if ( v2 )
   {
-    cSaveTumbnail[v4].LoadPCXFromFile(v2, 0, true);
-    result = fclose(v2);
+    cSaveTumbnail[a1].LoadPCXFromFile(v2, 0, true);
+    fclose(v2);
   }
   else
   {
-    wsprintfA(Str1, "lloyd%d%d.pcx", v8, v3);
+    wsprintfA(Str1, "lloyd%d%d.pcx", a2, a1 + 1);
     v5 = LODFile_New_LOD.Find_Container( Str1, 1);
     if ( v5 )
     {
-      result = cSaveTumbnail[v4].LoadPCXFromFile(v5, 0, false);
+      cSaveTumbnail[a1].LoadPCXFromFile(v5, 0, false);
     }
     else
     {
-      result = 5 * v4;
-      cSaveTumbnail[v4].pPixels = 0;
+      cSaveTumbnail[a1].pPixels = 0;
     }
   }
-  return result;
+ // return result;
 }
 
 //----- (0045E006) --------------------------------------------------------

@@ -71,8 +71,8 @@ extern int dword_4E20D0; // weak
 extern int dword_4E20D4; // weak
 extern char byte_4E2430[array_size_unknown]; // weak
 extern char byte_4E2431[array_size_unknown]; // weak
-extern int dword_4E249C; // idb
-extern int dword_4E24B0; // idb
+extern int dword_4E249C[5]; // idb
+extern int dword_4E24B0[5]; // idb
 extern int dword_4E24C4; // weak
 extern int dword_4E24D8; // weak
 extern char *dword_4E24E8; // active window id

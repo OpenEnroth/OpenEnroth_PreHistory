@@ -3346,7 +3346,7 @@ void class06_sub_4A90A0(struct class06 *_this)
  _this->dword_0005EC = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( L"effpar03");
 #endif
 #ifdef OLD_CODE
-	_this->dword_0005E4 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar01",2);
+ _this->dword_0005E4 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar01",2);
  _this->dword_0005E8 = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar02",2);
  _this->dword_0005EC = LODFile_Bitmaps_LOD.LODFile_LoadTexture( "effpar03",2);
 #endif
@@ -5417,10 +5417,10 @@ void sub_411AAA()
 
 
 
-//----- (00411BFC) --------------------------------------------------------
-int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
+//----- (00411BFC) -------------.text:00411F44 -------------------------------------------
+int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)	   // prepere textures for books
 {
-  int v1; // ebp@1
+  GUIWindow *v1; // ebp@1
   int result; // eax@7
   signed int v3; // ecx@8
   __int64 *v4; // ebp@9
@@ -5436,7 +5436,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
   int v14; // eax@31
   int v15; // esi@35
   __int16 v16; // ax@38
-  int *v17; // esi@38
+  Player *v17; // esi@38
   int i; // edi@43
   int v19; // edi@45
   int v20; // esi@45
@@ -5452,504 +5452,364 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)
   int v30; // [sp+28h] [bp-44h]@8
   int v31; // [sp+2Ch] [bp-40h]@8
 
-  v1 = (int)_this;
+  v1 = _this;
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
   sub_411AAA();
   GUIButtonCreate(_this, 475, 445, 158, 34, 1, 0, 113, 0, 0, pGlobalTXT_LocalizationStrings[LOCSTR_EXIT], 0);
+
   dword_4E28F8 = 3;
 
   dword_506524 = 0;
   dword_506528 = 0;
   dword_50651C = 0;
   dword_506520 = 0;
-  if ( *(_DWORD *)(v1 + 28) == 177 )
-  {
-    byte_506360 = 0;
-    uTextureID_lb_bordr__townport__sbquicknot =&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "lb_bordr", 2)];
-    dword_506358[0] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "sbmap", 2)];
-    dword_506358[1] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "sbmap", 2)];
- #ifndef OLD_CODE
-    uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6b")];
-    uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6a")];
- #endif
+  switch (v1->dword_00001C)
+	  {
+  case 177:	  //beacons
+	  {
+	  byte_506360 = 0;
+	  uTextureID_lb_bordr__townport__sbquicknot =&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "lb_bordr", 2)];
+	  dword_506358[0] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "sbmap", 2)];
+	  dword_506358[1] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "sbmap", 2)];
+#ifndef OLD_CODE
+	  uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6b")];
+	  uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6a")];
+#endif
 #ifdef OLD_CODE 
-	uTextureID_tab_an_6b__zoom_on  = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6b",2)];
-    uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6a",2)];
- #endif
-    dword_506518 = GUIButtonCreate((GUIWindow *)v1, 415, 13, 39, 36, 1, 0, 178, 0, 0, pGlobalTXT_LocalizationStrings[375], 0);
-    dword_506514 = GUIButtonCreate((GUIWindow *)v1, 415, 48, 39, 36, 1, 0, 178, 1, 0, pGlobalTXT_LocalizationStrings[523], 0);
-    v17 = (int *)&pParty_global->pPlayers[1743 * dword_506348];
-    v23 = 1;
-    v16 = *((_WORD *)v17 + 146);
-    if ( HIBYTE(v16) & 1 || (_BYTE)v16 < 0 )
-    {
-      v23 = 5;
-    }
-    else
-    {
-      if ( v16 & 0x40 )
-        v23 = 3;
-    }
-    for ( i = 0; i < v23; ++i )
-      GUIButtonCreate((GUIWindow *)v1, *(&dword_4E249C + i), *(&dword_4E24B0 + i), 92, 68, 1, 180, 179, i, 0, (unsigned char *)"", 0);
-    v19 = 0;
-    v20 = (int)(v17 + 1707);
-    do
-    {
-      v21 = *(_DWORD *)(v20 + 4);
-      if ( v21 > HIDWORD(pParty_global->qword_00002C) || v21 >= HIDWORD(pParty_global->qword_00002C) && *(_DWORD *)v20 >= (_DWORD)pParty_global->qword_00002C )
-        result = sub_411B59(v19, dword_506348 + 1);
-      else
-        result = (int)memset((void *)v20, 0, 0x1Cu);
-      ++v19;
-      v20 += 28;
-    }
-    while ( v19 < 5 );
-  }
-  else
-  {
-    if ( *(_DWORD *)(v1 + 28) == 195 )
-    {
-      uTextureID_lb_bordr__townport__sbquicknot = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("townport", 2) ];
-      pTexture_TownPortal_Icons[0] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tpharmndy", 2)];
-      pTexture_TownPortal_Icons[1] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tpelf", 2)];
-      pTexture_TownPortal_Icons[2] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tpwarlock", 2)];
-      pTexture_TownPortal_Icons[3] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tpisland", 2) ];
-      pTexture_TownPortal_Icons[4] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tpheaven", 2)];
-      pTexture_TownPortal_Icons[5] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tphell", 2)];
-      v15 = 0;
-      do
-      {
-        result = (int)GUIButtonCreate((GUIWindow *)v1,
-                   word_4E1D3C[v15],
-                   word_4E1D48[v15],
-                   word_4E1D54[v15],
-                   word_4E1D60[v15],
-                   1,
-                   182,
-                   183,
-                   v15,
-                   0,
-                   (unsigned char *)"",
-                   0);
-        ++v15;
-      }
-      while ( v15 < 6 );
-    }
-    else
-    {
-      if ( *(_DWORD *)(v1 + 28) == 200 )
-      {
- #ifndef OLD_CODE 
-        uTextureID_lb_bordr__townport__sbquicknot = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"sbquiknot")];
-        uTextureID_divbar = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"divbar")];
-        uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6b")];
-        uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-7b")];
-        uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6a")];
-        uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-7a")];
-		#endif
+	  uTextureID_tab_an_6b__zoom_on  = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6b",2)];
+	  uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6a",2)];
+#endif
+	  dword_506518 = GUIButtonCreate(v1, 415, 13, 39, 36, 1, 0, 178, 0, 0, pGlobalTXT_LocalizationStrings[LOCSTR_SET_BEACON], 0);
+	  dword_506514 = GUIButtonCreate(v1, 415, 48, 39, 36, 1, 0, 178, 1, 0, pGlobalTXT_LocalizationStrings[LOCSTR_RECALL_BEACON], 0);
+	  v17 = &pParty_global->pPlayers[dword_506348];
+	  v23 = 1;	//number of beacons	 1
+	  v16 = v17->pActiveSkills[14];//*((_WORD *)v17 + 146);
+	  if ( v16 & 0x100 || v16 & 0x80 )	
+		  {
+		  v23 = 5;	  //5 beacons
+		  }
+	  else
+		  {
+		  if ( v16 & 0x40 )
+			  v23 = 3;	   // 3 beacons
+		  }
+	  for ( i = 0; i < v23; ++i )
+		  GUIButtonCreate(v1, dword_4E249C[i], dword_4E24B0[i], 92, 68, 1, 180, 179, i, 0, (unsigned char *)"", 0);
+	 
+	  //v20 = v17->dword_001AAC;	 // may be  beacons structures 
+	  for(v19=0; v19 < 5; v19++)
+		  {
+		//  v21 = *(_DWORD *)(v20 + 4);
+		   if  (v17->stBeacons[v19].uBeaconTime>=pParty_global->qword_00002C)
+		//  if ( v21 > HIDWORD(pParty_global->qword_00002C) || v21 >= HIDWORD(pParty_global->qword_00002C) &&
+		//	  *(_DWORD *)v20 >= (_DWORD)pParty_global->qword_00002C )
+			  sub_411B59(v19, dword_506348 + 1);   //load  position tumbinails
+		  else
+			  memset(&v17->stBeacons[v19], 0,28);
+		//  v20 += 28;
+		  }
+		  break;
+	  }
+  case 195:
+	  {
+	  uTextureID_lb_bordr__townport__sbquicknot = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("townport", 2) ];
+	  pTexture_TownPortal_Icons[0] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tpharmndy", 2)];
+	  pTexture_TownPortal_Icons[1] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tpelf", 2)];
+	  pTexture_TownPortal_Icons[2] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tpwarlock", 2)];
+	  pTexture_TownPortal_Icons[3] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tpisland", 2) ];
+	  pTexture_TownPortal_Icons[4] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tpheaven", 2)];
+	  pTexture_TownPortal_Icons[5] = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tphell", 2)];
+	  for (v15=0; v15 < 6; v15++)
+		  GUIButtonCreate(v1, word_4E1D3C[v15],	word_4E1D48[v15], word_4E1D54[v15],	 word_4E1D60[v15],  1, 182,	 183,  v15, 0,   (unsigned char *)"", 0);
+		
+	 break;
+	  }
+  case   200:
+	  {
+#ifndef OLD_CODE 
+	  uTextureID_lb_bordr__townport__sbquicknot = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"sbquiknot")];
+	  uTextureID_divbar = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"divbar")];
+	  uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6b")];
+	  uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-7b")];
+	  uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6a")];
+	  uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-7a")];
+#endif
 
 #ifdef OLD_CODE 
-		uTextureID_lb_bordr__townport__sbquicknot = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("sbquiknot",2)];
-        uTextureID_divbar = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("divbar",2)];
-        uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6b",2)];
-        uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-7b",2)];
-        uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6a",2)];
-        uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-7a",2)];
+	  uTextureID_lb_bordr__townport__sbquicknot = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("sbquiknot",2)];
+	  uTextureID_divbar = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("divbar",2)];
+	  uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6b",2)];
+	  uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-7b",2)];
+	  uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6a",2)];
+	  uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-7a",2)];
 #endif
-        dword_506518 = GUIButtonCreate((GUIWindow *)v1,
-                         pOldViewport->uGameX + 398,
-                         pOldViewport->uGameY + 1,
-                         uTextureID_tab_an_6b__zoom_on->uTextureWidth,
-                         uTextureID_tab_an_6b__zoom_on->uTextureHeight,
-                         1,
-                         0,
-                         71,
-                         11,
-                         0,
-                         pGlobalTXT_LocalizationStrings[192],
-                          uTextureID_tab_an_6b__zoom_on,0);
-        dword_506514 = GUIButtonCreate((GUIWindow *)v1,
-                         pOldViewport->uGameX + 398,
-                         pOldViewport->uGameY + 38,
-                         uTextureID_tab_an_7b__zoot_on->uTextureWidth,
-                         uTextureID_tab_an_7b__zoot_on->uTextureHeight,
-                         1,
-                         0,
-                         71,
-                         10,
-                         0,
-                         pGlobalTXT_LocalizationStrings[193],
-                          uTextureID_tab_an_7b__zoot_on,0);
-        dword_506520 = 0;
-        memset(&stru_5C3610, 0, sizeof(struct unnamed_5C3610));
-        for ( j = dword_506528; j < 512; ++j )
-        {
-          v13 = (&dword_722F10)[4 * j];
-          if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, j) )
-          {
-            if ( v13 )
-            {
-              v14 = dword_506520++;
-              stru_5C3610.array_000000[v14] = j;
-            }
-          }
-        }
-      }
-      else
-      {
-        if ( *(_DWORD *)(v1 + 28) == 201 )
-        {//autonotes
+	  dword_506518 = GUIButtonCreate(v1,  pOldViewport->uGameX + 398,  pOldViewport->uGameY + 1,
+		  uTextureID_tab_an_6b__zoom_on->uTextureWidth,
+		  uTextureID_tab_an_6b__zoom_on->uTextureHeight,
+		  1, 0, 71,  11, 0,
+		  pGlobalTXT_LocalizationStrings[192],
+		  uTextureID_tab_an_6b__zoom_on,0);
+	  dword_506514 = GUIButtonCreate(v1, pOldViewport->uGameX + 398, pOldViewport->uGameY + 38,
+		  uTextureID_tab_an_7b__zoot_on->uTextureWidth,
+		  uTextureID_tab_an_7b__zoot_on->uTextureHeight,
+		  1, 0,	71,	10,	 0,
+		  pGlobalTXT_LocalizationStrings[193],
+		  uTextureID_tab_an_7b__zoot_on,0);
+	  dword_506520 = 0;
+	  memset(&stru_5C3610, 0, sizeof(struct unnamed_5C3610));
+	  for ( j = dword_506528; j < 512; ++j )
+		  {
+		  v13 = (&dword_722F10)[4 * j];
+		  if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, j) )
+			  {
+			  if ( v13 )
+				  {
+				  v14 = dword_506520++;
+				  stru_5C3610.array_000000[v14] = j;
+				  }
+			  }
+		  }
+	  break;
+	  }
+  case 201:
+	  {//autonotes
 
 #ifndef OLD_CODE 
-          uTextureID_sbAutonotes = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"sbautnot")];
-          uTextureID_divbar = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"divbar")];
-          uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6b")];
-          uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-7b")];
-          uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6a")];
-          uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-7a")];
-  #endif
- #ifdef OLD_CODE
-		  uTextureID_sbAutonotes = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("sbautnot",2)];
-          uTextureID_divbar = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("divbar",2)];
-          uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6b",2)];
-          uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-7b",2)];
-          uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6a",2)];
-          uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-7a",2)];
-  #endif
-          dword_506394 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-1b", 2)];
-          dword_506390 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-1a", 2)];
-          dword_50638C = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-2b", 2)];
-          dword_506388 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-2a", 2)];
-          dword_506384 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-3b", 2)];
-          dword_506380 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-3a", 2)];
-          dword_50637C = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-5b", 2)];
-          dword_506378 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-5a", 2)];
-          dword_506374 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-4b", 2)];
-          dword_506370 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-4a", 2)];
-          dword_50636C = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-8b", 2)];
-          dword_506368 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-8a", 2)];
-          dword_506518 = GUIButtonCreate((GUIWindow *)v1,
-                           pOldViewport->uGameX + 398,
-                           pOldViewport->uGameY + 1,
-                           50,
-                           34,
-                           1,
-                           0,
-                           71,
-                           11,
-                           0,
-                           pGlobalTXT_LocalizationStrings[193],
-                            uTextureID_tab_an_6b__zoom_on,0);
-          dword_506514 = GUIButtonCreate((GUIWindow *)v1,
-                           pOldViewport->uGameX + 398,
-                           pOldViewport->uGameY + 38,
-                           50,
-                           34,
-                           1,
-                           0,
-                           71,
-                           10,
-                           0,
-                           pGlobalTXT_LocalizationStrings[192],
-                            uTextureID_tab_an_7b__zoot_on,0);
-          dword_506510 = GUIButtonCreate((GUIWindow *)v1,
-                           pOldViewport->uGameX + 398,
-                           pOldViewport->uGameY + 113,
-                           50,
-                           34,
-                           1,
-                           0,
-                           71,
-                           2,
-                           0,
-                           pGlobalTXT_LocalizationStrings[85],
-                            dword_506394,0);
-          dword_50650C = GUIButtonCreate((GUIWindow *)v1,
-                           pOldViewport->uGameX + 399,
-                           pOldViewport->uGameY + 150,
-                           50,
-                           34,
-                           1,
-                           0,
-                           71,
-                           3,
-                           0,
-                           pGlobalTXT_LocalizationStrings[137],
-                            dword_50638C,0);
-          dword_506508 = GUIButtonCreate((GUIWindow *)v1,
-                           pOldViewport->uGameX + 397,
-                           pOldViewport->uGameY + 188,
-                           50,
-                           34,
-                           1,
-                           0,
-                           71,
-                           4,
-                           0,
-                           pGlobalTXT_LocalizationStrings[8],
-                            dword_506384,0);
-          dword_506504 = GUIButtonCreate((GUIWindow *)v1,
-                           pOldViewport->uGameX + 397,
-                           pOldViewport->uGameY + 226,
-                           50,
-                           34,
-                           1,
-                           0,
-                           71,
-                           5,
-                           0,
-                           pGlobalTXT_LocalizationStrings[141],
-                            dword_50637C,0);
-          dword_506500 = GUIButtonCreate((GUIWindow *)v1,
-                           pOldViewport->uGameX + 397,
-                           pOldViewport->uGameY + 264,
-                           50,
-                           34,
-                           1,
-                           0,
-                           71,
-                           6,
-                           0,
-                           pGlobalTXT_LocalizationStrings[123],
-                           dword_506374,0);
-          v10 = dword_506528;
-          dword_5064FC = GUIButtonCreate((GUIWindow *)v1,
-                           pOldViewport->uGameX + 397,
-                           pOldViewport->uGameY + 302,
-                           50,
-                           34,
-                           1,
-                           0,
-                           71,
-                           7,
-                           0,
-                           pGlobalTXT_LocalizationStrings[662],
-                           dword_50636C,0);
-          dword_506520 = 0;
-          while ( v10 < 196 )
-          {
-            if ( dword_506568 == dword_72371C[2 * v10] )
-            {
-              v25 = (&dword_723718)[8 * (signed __int16)v10];
-              if ( (_WORD)v10 )
-              {
-                if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 0x9A, v10) )
-                {
-                  if ( v25 )
-                  {
-                    v11 = dword_506520++;
-                    stru_5C3610.array_000000[v11] = (signed __int16)v10;
-                  }
-                }
-              }
-            }
-            ++v10;
-          }
-        }
-        else
-        {
-          if ( *(_DWORD *)(v1 + 28) == 202 )
-          {
-            dword_506364 = 1;
-            pTexture_SpellbookPage_Map = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("sbmap", 2)];
-#ifndef OLD_CODE
-           uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"zoom-on")];
-           uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"zoot-on")];
-           uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"zoom-off")];
-           uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"zoot-off")];
-#else
-		   uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("zoom-on",2)];
-           uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("zoot-on",2)];
-           uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("zoom-off",2)];
-           uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("zoot-off",2)];
+	  uTextureID_sbAutonotes = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"sbautnot")];
+	  uTextureID_divbar = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"divbar")];
+	  uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6b")];
+	  uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-7b")];
+	  uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6a")];
+	  uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-7a")];
 #endif
-            dword_506394 = &LODFile_Icons_LOD.aLODHeaders[ LODFile_Icons_LOD.LODFile_LoadTexture("tabNon", 2)];
-            dword_506390 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabNoff", 2)];
-            dword_50638C = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabSon", 2)];
-            dword_506388 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabSoff", 2)];
-            dword_506384 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabEon", 2)];
-            dword_506380 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabEoff", 2)];
-            dword_50637C = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabWon", 2)];
-            dword_506378 = &LODFile_Icons_LOD.aLODHeaders[ LODFile_Icons_LOD.LODFile_LoadTexture("tabWoff", 2)];
-            dword_506518 = GUIButtonCreate((GUIWindow *)v1,
-                             pOldViewport->uGameX + 398,
-                             pOldViewport->uGameY + 1,
-                             50,
-                             34,
-                             1,
-                             0,
-                             71,
-                             0,
-                             0,
-                             pGlobalTXT_LocalizationStrings[251],
-                              uTextureID_tab_an_6b__zoom_on,0);
-            dword_506514 = GUIButtonCreate((GUIWindow *)v1,
-                             pOldViewport->uGameX + 398,
-                             pOldViewport->uGameY + 38,
-                             50,
-                             34,
-                             1,
-                             0,
-                             71,
-                             1,
-                             0,
-                             pGlobalTXT_LocalizationStrings[252],
-                              uTextureID_tab_an_7b__zoot_on,0);
-            dword_506510 = GUIButtonCreate((GUIWindow *)v1,
-                             pOldViewport->uGameX + 397,
-                             pOldViewport->uGameY + 113,
-                             50,
-                             34,
-                             1,
-                             0,
-                             71,
-                             2,
-                             0,
-                             pGlobalTXT_LocalizationStrings[192],
-                             0);
-            dword_50650C = GUIButtonCreate((GUIWindow *)v1,
-                             pOldViewport->uGameX + 397,
-                             pOldViewport->uGameY + 150,
-                             50,
-                             34,
-                             1,
-                             0,
-                             71,
-                             3,
-                             0,
-                             pGlobalTXT_LocalizationStrings[193],
-                             0);
-            dword_506508 = GUIButtonCreate((GUIWindow *)v1,
-                             pOldViewport->uGameX + 397,
-                             pOldViewport->uGameY + 188,
-                             50,
-                             34,
-                             1,
-                             0,
-                             71,
-                             4,
-                             0,
-                             pGlobalTXT_LocalizationStrings[573],
-                             0);
-            dword_506504 = GUIButtonCreate((GUIWindow *)v1,
-                       pOldViewport->uGameX + 397,
-                       pOldViewport->uGameY + 226,
-                       50,
-                       34,
-                       1,
-                       0,
-                       71,
-                       5,
-                       0,
-                       pGlobalTXT_LocalizationStrings[572],
-                       0);
-            return (int)dword_506504;
-          }
-          if ( *(_DWORD *)(v1 + 28) == 203 )
-          {
-            dword_5064D4 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "sbdate-time", 2)];
-            dword_5064E0 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "moon_new", 2)];
-            dword_5064E4 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "moon_4", 2)];
-            dword_5064E8 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "moon_2", 2)];
-            dword_5064EC = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "moon_2", 2)];
-            dword_5064F0 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "moon_ful", 2)];
-            
-            return 0;
-          }
-          result = *(_DWORD *)(v1 + 28) - 224;
-          if ( *(_DWORD *)(v1 + 28) != 224 )
-            return result;
-          dword_5064CC = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "sbplayrnot", 2)];
-  #ifndef OLD_CODE
-          uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6b")];
-          uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-7b")];
-          uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6a")];
-          uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-7a")];
-     #endif
- #ifdef OLD_CODE
-		 uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6b",2)];
-          uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-7b",2)];
-          uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6a",2)];
-          uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-7a",2)];
-     #endif
-          dword_506518 = GUIButtonCreate((GUIWindow *)v1,
-                           pOldViewport->uGameX + 398,
-                           pOldViewport->uGameY + 1,
-                           uTextureID_tab_an_6b__zoom_on->uTextureWidth,
-                           uTextureID_tab_an_6b__zoom_on->uTextureHeight,
-                           1,
-                           0,
-                           71,
-                           11,
-                           0,
-                           pGlobalTXT_LocalizationStrings[192],
-                           uTextureID_tab_an_6b__zoom_on,0);
-          dword_506514 = GUIButtonCreate((GUIWindow *)v1,
-                           pOldViewport->uGameX + 398,
-                           pOldViewport->uGameY + 38,
-                           uTextureID_tab_an_7b__zoot_on->uTextureWidth,
-                           uTextureID_tab_an_7b__zoot_on->uTextureHeight,
-                           1,
-                           0,
-                           71,
-                           10,
-                           0,
-                           pGlobalTXT_LocalizationStrings[193],
-                            uTextureID_tab_an_7b__zoot_on,0);
-          dword_506520 = 0;
-          v26 = 48;
-          v27 = 70;
-          v28 = 360;
-          v29 = 264;
-          v3 = *(_BYTE *)((char *)ptr_5C35E0 + 5) - 3;
-          v30 = 407;
-          v29 = v3 * 264 / v3;
-          v31 = v29 + 69;
-          memset(&stru_5C3610, 0, sizeof(struct unnamed_5C3610));
-          memset(byte_5C6D50, 0, 0x64u);
-          if ( dword_506528 < 29 )
-          {
-            v4 = (__int64 *)(8 * dword_506528 + 11326692);
-            v24 = dword_506528 + 1;
-            v22 = 12 * dword_506528 + 6065004;
-            do
-            {
-              v5 = *(char **)v22;
-              if ( *v4 )
-              {
-                if ( v5 )
-                {
-                  v8 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(v5, uActiveCharacter, 0, 0, 0, v4);
-                  v9 = CalculateTextHeght(ptr_5C35E0, v8, (GUIWindow *)&v26, 1, 0);
-                  v6 = (v9 - 3) / v29;
-                  v7 = v6 + 1;
-                  if ( (_DWORD)v6 + 1 > 0 )
-                  {
-                    memset_dw(&stru_5C3610.array_000000[dword_506520], v24, 4 * v7);
-                    do
-                    {
-                      LODWORD(v6) = dword_506520++;
-                      byte_5C6D50[(_DWORD)v6] = BYTE4(v6);
-                      v6 += 4294967296i64;
-                    }
-                    while ( HIDWORD(v6) < v7 );
-                  }
-                }
-              }
-              v22 += 12;
-              ++v4;
-              ++v24;
-            }
-            while ( v22 < (signed int)&unk_5C8CC8 );
-          }
-        }
-      }
-      result = dword_506520;
-      dword_506520 = 0;
-      dword_506524 = result;
-    }
-  }
+#ifdef OLD_CODE
+	  uTextureID_sbAutonotes = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("sbautnot",2)];
+	  uTextureID_divbar = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("divbar",2)];
+	  uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6b",2)];
+	  uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-7b",2)];
+	  uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6a",2)];
+	  uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-7a",2)];
+#endif
+	  dword_506394 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-1b", 2)];
+	  dword_506390 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-1a", 2)];
+
+	  dword_50638C = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-2b", 2)];
+	  dword_506388 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-2a", 2)];
+
+	  dword_506384 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-3b", 2)];
+	  dword_506380 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-3a", 2)];
+
+	  dword_50637C = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-5b", 2)];
+	  dword_506378 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-5a", 2)];
+
+	  dword_506374 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-4b", 2)];
+	  dword_506370 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-4a", 2)];
+
+	  dword_50636C = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-8b", 2)];
+	  dword_506368 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "tab-an-8a", 2)];
+
+	  dword_506518 = GUIButtonCreate(v1,  pOldViewport->uGameX + 398,  pOldViewport->uGameY + 1,
+		  50, 34, 1, 0, 71, 11,  0,
+		  pGlobalTXT_LocalizationStrings[193],
+		  uTextureID_tab_an_6b__zoom_on,0);
+	  dword_506514 = GUIButtonCreate(v1, pOldViewport->uGameX + 398,  pOldViewport->uGameY + 38,
+		  50, 34, 1, 0, 71,  0,  0,
+		  pGlobalTXT_LocalizationStrings[192],
+		  uTextureID_tab_an_7b__zoot_on,0);
+	  dword_506510 = GUIButtonCreate(v1, pOldViewport->uGameX + 398,  pOldViewport->uGameY + 113,
+		  50, 34, 1, 0, 71,  2,  0,
+		  pGlobalTXT_LocalizationStrings[85],
+		  dword_506394,0);
+	  dword_50650C = GUIButtonCreate(v1, pOldViewport->uGameX + 399,  pOldViewport->uGameY + 150,
+		  50, 34, 1, 0, 71,  3,  0,
+		  pGlobalTXT_LocalizationStrings[137],
+		  dword_50638C,0);
+	  dword_506508 = GUIButtonCreate(v1, pOldViewport->uGameX + 397,  pOldViewport->uGameY + 188,
+		  50, 34, 1, 0, 71,  4,  0,
+		  pGlobalTXT_LocalizationStrings[8],
+		  dword_506384,0);
+	  dword_506504 = GUIButtonCreate(v1, pOldViewport->uGameX + 397,  pOldViewport->uGameY + 226,
+		  50, 34, 1, 0, 71,  5,  0,
+		  pGlobalTXT_LocalizationStrings[141],
+		  dword_50637C,0);
+	  dword_506500 = GUIButtonCreate(v1, pOldViewport->uGameX + 397,  pOldViewport->uGameY + 264,
+		  50, 34, 1, 0, 71,  6, 0,
+		  pGlobalTXT_LocalizationStrings[123],
+		  dword_506374,0);
+	  dword_5064FC = GUIButtonCreate(v1, pOldViewport->uGameX + 397,  pOldViewport->uGameY + 302,
+		  50, 34, 1, 0,  71, 7, 0,
+		  pGlobalTXT_LocalizationStrings[662],
+		  dword_50636C,0);
+	  v10 = dword_506528;
+	  dword_506520 = 0;
+	  while ( v10 < 196 )
+		  {
+		  if ( dword_506568 == dword_72371C[2 * v10] )
+			  {
+			  v25 = (&dword_723718)[8 * (signed __int16)v10];
+			  if ( (_WORD)v10 )
+				  {
+				  if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 0x9A, v10) )
+					  {
+					  if ( v25 )
+						  {
+						  v11 = dword_506520++;
+						  stru_5C3610.array_000000[v11] = (signed __int16)v10;
+						  }
+					  }
+				  }
+			  }
+		  ++v10;
+		  }
+	  break;
+	  }
+  case 202:
+	  {
+	  dword_506364 = 1;
+	  pTexture_SpellbookPage_Map = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("sbmap", 2)];
+#ifndef OLD_CODE
+	  uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"zoom-on")];
+	  uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"zoot-on")];
+	  uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"zoom-off")];
+	  uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"zoot-off")];
+#else
+	  uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("zoom-on",2)];
+	  uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("zoot-on",2)];
+	  uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("zoom-off",2)];
+	  uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("zoot-off",2)];
+#endif
+	  dword_506394 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabNon",  2)];
+	  dword_506390 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabNoff", 2)];
+	  dword_50638C = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabSon",  2)];
+	  dword_506388 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabSoff", 2)];
+	  dword_506384 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabEon",  2)];
+	  dword_506380 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabEoff", 2)];
+	  dword_50637C = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabWon",  2)];
+	  dword_506378 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tabWoff", 2)];
+	  dword_506518 = GUIButtonCreate(v1, pOldViewport->uGameX + 398, pOldViewport->uGameY + 1,
+		  50, 34, 1,	0, 71, 0, 0,
+		  pGlobalTXT_LocalizationStrings[251],
+		  uTextureID_tab_an_6b__zoom_on,0);
+	  dword_506514 = GUIButtonCreate(v1, pOldViewport->uGameX + 398, pOldViewport->uGameY + 38,
+		  50, 34, 1, 0, 71, 1, 0,
+		  pGlobalTXT_LocalizationStrings[252],
+		  uTextureID_tab_an_7b__zoot_on,0);
+	  dword_506510 = GUIButtonCreate(v1, pOldViewport->uGameX + 397, pOldViewport->uGameY + 113,
+		  50, 34, 1, 0, 71, 2, 0,
+		  pGlobalTXT_LocalizationStrings[192],
+		  0);
+	  dword_50650C = GUIButtonCreate(v1, pOldViewport->uGameX + 397, pOldViewport->uGameY + 150,
+		  50, 34, 1, 0, 71, 3, 0,
+		  pGlobalTXT_LocalizationStrings[193],
+		  0);
+	  dword_506508 = GUIButtonCreate(v1, pOldViewport->uGameX + 397, pOldViewport->uGameY + 188,
+		  50, 34, 1, 0, 71, 4, 0,
+		  pGlobalTXT_LocalizationStrings[573],
+		  0);
+	  dword_506504 = GUIButtonCreate(v1, pOldViewport->uGameX + 397, pOldViewport->uGameY + 226,
+		  50, 34, 1, 0, 71, 5, 0,
+		  pGlobalTXT_LocalizationStrings[572],
+		  0);
+	  return (int)dword_506504;
+	  break;
+	  }
+  case 203:
+	  {
+	  dword_5064D4 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "sbdate-time", 2)];
+	  // no such textures in lod !
+	  dword_5064E0 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "moon_new", 2)];
+	  dword_5064E4 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "moon_4", 2)];
+	  dword_5064E8 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "moon_2", 2)];
+	  dword_5064EC = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "moon_2", 2)];
+	  dword_5064F0 = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "moon_ful", 2)];
+
+	  return 0;
+	  }
+  case 224:
+	  {
+	  dword_5064CC = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "sbplayrnot", 2)];
+#ifndef OLD_CODE
+	  uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6b")];
+	  uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-7b")];
+	  uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-6a")];
+	  uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(L"tab-an-7a")];
+#endif
+#ifdef OLD_CODE
+	  uTextureID_tab_an_6b__zoom_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6b",2)];
+	  uTextureID_tab_an_7b__zoot_on = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-7b",2)];
+	  uTextureID_tab_an_6a__zoom_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-6a",2)];
+	  uTextureID_tab_an_7a__zoot_off = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("tab-an-7a",2)];
+#endif
+	  dword_506518 = GUIButtonCreate(v1, pOldViewport->uGameX + 398, pOldViewport->uGameY + 1,
+		  uTextureID_tab_an_6b__zoom_on->uTextureWidth,
+		  uTextureID_tab_an_6b__zoom_on->uTextureHeight,
+		  1, 0, 71, 11, 0,
+		  pGlobalTXT_LocalizationStrings[192],
+		  uTextureID_tab_an_6b__zoom_on,0);
+	  dword_506514 = GUIButtonCreate((GUIWindow *)v1,
+		  pOldViewport->uGameX + 398,
+		  pOldViewport->uGameY + 38,
+		  uTextureID_tab_an_7b__zoot_on->uTextureWidth,
+		  uTextureID_tab_an_7b__zoot_on->uTextureHeight,
+		  1,
+		  0,
+		  71,
+		  10,
+		  0,
+		  pGlobalTXT_LocalizationStrings[193],
+		  uTextureID_tab_an_7b__zoot_on,0);
+	  dword_506520 = 0;
+	  v26 = 48;
+	  v27 = 70;
+	  v28 = 360;
+	  v29 = 264;
+	  v3 = *(_BYTE *)((char *)ptr_5C35E0 + 5) - 3;
+	  v30 = 407;
+	  v29 = v3 * 264 / v3;
+	  v31 = v29 + 69;
+	  memset(&stru_5C3610, 0, sizeof(struct unnamed_5C3610));
+	  memset(byte_5C6D50, 0, 0x64u);
+	  if ( dword_506528 < 29 )
+		  {
+		  v4 = (__int64 *)(8 * dword_506528 + 11326692);
+		  v24 = dword_506528 + 1;
+		  v22 = 12 * dword_506528 + 6065004;
+		  do
+			  {
+			  v5 = *(char **)v22;
+			  if ( *v4 )
+				  {
+				  if ( v5 )
+					  {
+					  v8 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(v5, uActiveCharacter, 0, 0, 0, v4);
+					  v9 = CalculateTextHeght(ptr_5C35E0, v8, (GUIWindow *)&v26, 1, 0);
+					  v6 = (v9 - 3) / v29;
+					  v7 = v6 + 1;
+					  if ( (_DWORD)v6 + 1 > 0 )
+						  {
+						  memset_dw(&stru_5C3610.array_000000[dword_506520], v24, 4 * v7);
+						  do
+							  {
+							  LODWORD(v6) = dword_506520++;
+							  byte_5C6D50[(_DWORD)v6] = BYTE4(v6);
+							  v6 += 4294967296i64;
+							  }
+							  while ( HIDWORD(v6) < v7 );
+						  }
+					  }
+				  }
+			  v22 += 12;
+			  ++v4;
+			  ++v24;
+			  }
+			  while ( v22 < (signed int)&unk_5C8CC8 );
+		  }
+	  }
+	  // }
+	  result = dword_506520;
+	  dword_506520 = 0;
+	  dword_506524 = result;
+	  }
   return result;
 }
 
@@ -6876,8 +6736,8 @@ void  sub_413CC6_DrawSpellbook(int book_code)
   Render_DrawTransparentTexture(pD3DRenderer, 471, 445, &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr]);
   switch (book_code)
 	  {
-	  case	177:	 sub_410DEC(); break;
-	  case  195:	 sub_411150(); break;
+	  case	177:	 sub_410DEC(); break;  //beacons
+	  case  195:	 sub_411150(); break;	//town portals
 	  case	200:	 sub_413126_DrawSpellbook_Quests(); break;
 	  case	201:	 sub_41338E_DrawSpellbook_Autonotes(); break;
 	  case 	202:	 sub_413980_DrawSpellbook_Map();  break;
@@ -9500,7 +9360,7 @@ void __cdecl sub_41A556()
 }
 
 //----- (0041A57E) -----.text:0041ABC6---------------------------------------------------
-void __cdecl sub_41A57E()
+void  QuickRefDraw()
 {
   int v0; // ebx@1
   int v1; // eax@1
@@ -9548,7 +9408,7 @@ void __cdecl sub_41A57E()
   signed int v44; // [sp+14h] [bp-18h]@2
   int v45; // [sp+18h] [bp-14h]@1
   unsigned int v46; // [sp+1Ch] [bp-10h]@1
-  __int16 v47; // [sp+20h] [bp-Ch]@1
+  int v47; // [sp+20h] [bp-Ch]@1
   int v48; // [sp+24h] [bp-8h]@33
   unsigned int v49; // [sp+28h] [bp-4h]@1
 
@@ -9573,7 +9433,7 @@ void __cdecl sub_41A57E()
     if ( v43 == 0 )
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, 18, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_NAME], 60, v0);
     GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 94 * v43 + 89, 18, v47, (const char *)v2->sName, 84, v0);
-    if ( v43 == v0 )
+    if ( v43 == 0 )
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, 47, v0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_LEVEL], 60, v0);
     v3 = Player_GetActualLevel(v2);
     wsprintfA((char *)TmpBuf, "%lu", v3);
@@ -9581,7 +9441,7 @@ void __cdecl sub_41A57E()
     if ( Player_GetActualLevel(v2) <= v4 )
       v5 = Player_sub_48D498((int)v2);
     else
-      v5 = 0x00FF00 | (unsigned char)v0;
+      v5 = 0x00FF00;
     GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, 47, v5, (char *)TmpBuf, 84, v0);
     v6 = v45 + 47;
     if ( v43 == 0 )
@@ -9599,7 +9459,7 @@ void __cdecl sub_41A57E()
     if ( v43 == 0 )
       GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v8, 0, (char *)pGlobalTXT_LocalizationStrings[209], 60, v0);
     wsprintfA((char *)TmpBuf, "%d", v2->sMana);
-    v12 = Player_GetMaxMana((Player *)v2);
+    v12 = Player_GetMaxMana(v2);
     v13 = sub_4178FE_GetColor(v2->sMana, v12);
     GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v8, v13, (char *)TmpBuf, 84, v0);
     v11 = v45 + v8;
@@ -9686,7 +9546,7 @@ void __cdecl sub_41A57E()
   {
     v39 = v49;
     if ( v38 <= 5 )
-      v39 = 0x00FFF;
+      v39 = 0xFFFFFF;
   }
   else
   {

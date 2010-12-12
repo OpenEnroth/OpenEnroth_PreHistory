@@ -220,7 +220,7 @@ int __cdecl sub_411597();
 int __thiscall sub_411621(void *_this);
 int __cdecl sub_41192C();
 void sub_411AAA();
-int __fastcall sub_411B59(int a1, int a2);
+void  sub_411B59(int a1, int a2);
 
 void __cdecl sub_412AF9();
 void __cdecl sub_412B58();
@@ -257,7 +257,7 @@ void __cdecl sub_419379();
 int __cdecl sub_419401();
 void __cdecl sub_4196A0();
 void __cdecl sub_41A556();
-void __cdecl sub_41A57E();
+void QuickRefDraw();
 void sub_41AD6E(void); // weak
 void __fastcall sub_41AF52(int a1, int a2);
 void __cdecl sub_41B3B6();

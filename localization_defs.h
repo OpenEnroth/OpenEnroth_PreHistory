@@ -8,7 +8,7 @@
 #define  LOCSTR_BLK_KNIGHT 							2		//"Black Knight"
 #define  LOCSTR_SPY  							    3		// "Spy"
 
-
+#define  LOCSTR_TOWN_PORTAL		                    10 // "Town Portal"	
 
 #define  LOCSTR_ASSASIN                     		13	// "Assassin"
 
@@ -161,7 +161,7 @@
 +		[7]	0x04102dc3 "Alchemist"	unsigned char *
 +		[8]	0x04102dd0 "Obelisk Notes"	unsigned char *
 +		[9]	0x04102de1 "Congratulations!"	unsigned char *
-+		[10]	0x04102df6 "Town Portal"	unsigned char *
+
 +		[11]	0x04102e06 "Armor"	unsigned char *
 +		[0xc]	0x04102e10 "Armor Class"	unsigned char *
 
