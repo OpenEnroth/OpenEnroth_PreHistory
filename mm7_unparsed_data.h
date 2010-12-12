@@ -55,9 +55,11 @@ extern int dword_4E1880; // weak
 extern int dword_4E1884; // weak
 extern int dword_4E1888; // weak
 extern _UNKNOWN unk_4E19FC; // weak
-extern char asc_4E1A08[1]; // idb
-extern char asc_4E1A28[4]; // idb
-extern char byte_4E1B18[array_size_unknown]; // weak
+//extern char asc_4E1A08[1]; // idb
+//extern char asc_4E1A28[4]; // idb
+
+extern char DayMoonPhase[28]; // weak
+
 extern wchar_t *off_4E1D18; // weak
 extern __int16 word_4E1D3A[array_size_unknown]; // weak
 extern __int16 word_4E1D3C[array_size_unknown]; // weak
@@ -1386,8 +1388,8 @@ extern int dword_5C35D4; // weak
 extern struct Font *ptr_5C35E0; // dword @ MM7.exe::005C35E0
 extern struct Font *ptr_5C35E4; // dword @ MM7.exe::005C35E4
 
-extern struct Font *ptr_5C35F0; // dword @ MM7.exe::005C35F0
-extern struct Font *ptr_5C35F4; // dword @ MM7.exe::005C35F4
+extern struct Font *pBook2Font; // dword @ MM7.exe::005C35F0 ptr _5C35F0
+extern struct Font *pBookFont; // dword @ MM7.exe::005C35F4 ptr _5C35F4
 
 
 extern struct unnamed_5C3610
@@ -1865,7 +1867,7 @@ extern unsigned int uWindowPosY;
 extern LONG dwNewLong; // idb
 extern HMENU hMenu; // idb
 extern int dword_6BE340; // weak
-extern char Str1[20]; // idb
+extern char CurrentLevelName[20]; // idb
 extern unsigned int uLevelMapStatsID; // dword @ MM7.exe::006BE358
 extern int dword_6BE35C; // weak
 extern int dword_6BE360; // weak

@@ -17783,8 +17783,8 @@ signed int __cdecl sub_489487()
   int v5; // esi@7
   unsigned __int8 v6; // al@9
 
-  strcpy((char *)pClass51_global->string_000000, Str1);
-  result = CMapStats_FindLocation(pMapStats, Str1);
+  strcpy((char *)pClass51_global->string_000000, CurrentLevelName);
+  result = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   v1 = result;
   if ( result >= 1 && result != 7 && result != 8 && result <= 15 )
   {

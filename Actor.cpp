@@ -41,9 +41,9 @@ void __cdecl UpdateActors()
   v7 = 0;
   v5 = 0;
 
-  if ( !_strcmpi(Str1, "d25.blv") ) //Celeste
+  if ( !_strcmpi(CurrentLevelName, "d25.blv") ) //Celeste
     v8 = 1;
-  if ( !_strcmpi(Str1, "d26.blv") ) //The Pit
+  if ( !_strcmpi(CurrentLevelName, "d26.blv") ) //The Pit
     v6 = 1;
   if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 99) )
     v7 = 1;  

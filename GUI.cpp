@@ -2789,7 +2789,7 @@ LABEL_92:
           dword_50CDC8 = v0;
           sub_42FBDD();
           v211 = sub_444D80();
-          strcpy((char *)pClass51_global->string_000000, Str1);
+          strcpy((char *)pClass51_global->string_000000, CurrentLevelName);
           if ( byte_6BE3C4_MaybeDrowningFlag != 1 && pParty_global->dword_000704
            || sub_48902E((char *)pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, &Source, 20) != v0 )
           {
@@ -2839,14 +2839,14 @@ LABEL_317:
             }
             sub_48A336(&class35_obj);
             SpriteFrameTable_fn3(pSpriteFrameTable);
-            strcpy(Str1, &Source);
-            strcpy(&Dest, Str1);
+            strcpy(CurrentLevelName, &Source);
+            strcpy(&Dest, CurrentLevelName);
             v52 = strtok(&Dest, ".");
             strcpy(&Dest, v52);
             Level_LoadEvtAndStr(&Dest);
             class58_sub_49B525(pClass58_global, 0);
             LoadLevel_InitializeLevelEvt();
-            uLevelMapStatsID = CMapStats_FindLocation(pMapStats, Str1);
+            uLevelMapStatsID = CMapStats_FindLocation(pMapStats, CurrentLevelName);
             byte_6BE3C4_MaybeDrowningFlag = 0;
             byte_6BE3C5 = 0;
             *(_DWORD *)(LODWORD(pGame) + 3620) &= 0xFFFFFFF7u;
@@ -2855,7 +2855,7 @@ LABEL_317:
               byte_6BE3C4_MaybeDrowningFlag = 1;
               *(_DWORD *)(LODWORD(pGame) + 3620) |= 8u;
             }
-            if ( !_strcmpi(Str1, "out15.odm") || !_strcmpi(Str1, "d47.blv") )
+            if ( !_strcmpi(CurrentLevelName, "out15.odm") || !_strcmpi(CurrentLevelName, "d47.blv") )
               byte_6BE3C5 = 1;
             v0 = 1;
             PrepareToLoadODM(1, (void *)1);
@@ -2989,7 +2989,7 @@ LABEL_422:
           dword_50CDC8 = v0;
           sub_42FBDD();
           SaveGame(v0, 0);
-          strcpy(Str1, (char *)pMapStats->pMapInfos[dword_5C35D0].pLocationFilename);
+          strcpy(CurrentLevelName, (char *)pMapStats->pMapInfos[dword_5C35D0].pLocationFilename);
           dword_6BE364 |= v0;
           dword_6A0D48 = 2;
           v65 = word_591468[26 * (int)ptr_507BC0->dword_00001C];
@@ -3047,7 +3047,7 @@ LABEL_439:
             v174 = (int)pGlobalTXT_LocalizationStrings[474];
             goto LABEL_520;
           }
-          v71 = CMapStats_FindLocation(pMapStats, Str1);
+          v71 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
           v201 = (int)"Not in Map Stats";
           if ( v71 )
             v201 = (int)pMapStats->pMapInfos[v71].pLocationName;
@@ -3087,11 +3087,11 @@ LABEL_450:
           AudioPlayer_sub_4AA306(pAudioPlayer, word_4EE088[dword_506338], 0, 0, -1, 0, dword_50633C, 0, 0);
           if ( byte_50656C )
           {
-           if ( _strcmpi(Str1, LODFile_Games_LOD.pLODSubIndexNamedBuffer[*(_WORD *)(v211 + 26)].pFilename) )
+           if ( _strcmpi(CurrentLevelName, LODFile_Games_LOD.pLODSubIndexNamedBuffer[*(_WORD *)(v211 + 26)].pFilename) )
             {
               SaveGame(v0, 0);
               sub_443F95();
-              strcpy(Str1, LODFile_Games_LOD.pLODSubIndexNamedBuffer[*(_WORD *)(v211 + 26)].pFilename);
+              strcpy(CurrentLevelName, LODFile_Games_LOD.pLODSubIndexNamedBuffer[*(_WORD *)(v211 + 26)].pFilename);
               dword_6BE364 |= v0;
               dword_6A0D48 = 2;
               dword_5B65A8 = *(_DWORD *)(v211 + 8);
@@ -3142,7 +3142,7 @@ LABEL_450:
             if (LODFile_Games_LOD.uNumSubidices / 2 <= 0 )
               goto LABEL_92;
             v210 = 0;
-            while ( _strcmpi((const char *)((char *)LODFile_Games_LOD.pLODSubIndexNamedBuffer + v210), Str1) )
+            while ( _strcmpi((const char *)((char *)LODFile_Games_LOD.pLODSubIndexNamedBuffer + v210), CurrentLevelName) )
             {
               ++v203;
               v210 += 32;
@@ -3174,7 +3174,7 @@ LABEL_450:
                 {
 LABEL_486:
                   SaveGame(v0, 0);
-                  v77 = CMapStats_FindLocation(pMapStats, Str1);
+                  v77 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
                   v76 = 20 * v209;
                   //if ( v77 == word_4ECBC8[10 * v209] )
                   if (v77 == stru_4ECBB8[v209].uMapInfoID)
@@ -3199,7 +3199,7 @@ LABEL_486:
                     sub_443F95();
                     dword_6BE364 |= v0;
                     dword_6A0D48 = 2;
-                    strcpy(Str1, (char *)pMapStats->pMapInfos[stru_4ECBB8[v209].uMapInfoID].pLocationFilename);
+                    strcpy(CurrentLevelName, (char *)pMapStats->pMapInfos[stru_4ECBB8[v209].uMapInfoID].pLocationFilename);
                     dword_5B65C0 = v0;
                     dword_5B65A8 = stru_4ECBB8[v209].sSomeX;
                     dword_5B65AC = stru_4ECBB8[v209].sSomeY;
@@ -3349,7 +3349,7 @@ LABEL_91:
               while ( v84 < v211 );
               if ( v84 < v211 )
               {
-               strcpy(Str1, LODFile_Games_LOD.pLODSubIndexNamedBuffer[v84].pFilename);
+               strcpy(CurrentLevelName, LODFile_Games_LOD.pLODSubIndexNamedBuffer[v84].pFilename);
                 dword_6BE364 |= 1u;
                 dword_6A0D48 = 2;
                 sub_443F95();
@@ -3563,7 +3563,7 @@ LABEL_619:
             qword_AD100C = pParty_global->qword_00002C;
             qword_ACF4D0 = pParty_global->qword_00002C;
             qword_ACD994 = pParty_global->qword_00002C;
-            v102 = CMapStats_FindLocation(pMapStats, Str1);
+            v102 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
             if ( !v102 )
               //v102 = rand() % pMapStats->uNumMaps + 1;
               v102 = rand() % pMapStats->uNumMaps;
@@ -5481,17 +5481,17 @@ bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarT
       if (_this->array_000010[i] == 1)
         ++v5;
 
-    v6 = (int)((char *)v2 + 16);
+  //  v6 = (int)_this->array_000010[0];
 
     if (v5 == 5 )
       memset(_this->array_000010, 0, 8);
 
     v7 = rand() % 5 + 1;
-    if ( *((_BYTE *)v2 + v7 + 16) == 1 )
+    if (_this->array_000010[v7] == 1 )
     {
       do
         v7 = rand() % 5 + 1;
-      while ( *(_BYTE *)(v6 + v7) == 1 );
+      while ( _this->array_000010[v7] == 1 );
     }
 #ifndef OLD_CODE
 
@@ -5507,7 +5507,7 @@ bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarT
 	_this->loading=new cPCXTexture;
 	_this->loading->PCXTexture_Zero();
     _this->loading->LODPCXLoad( Str1,2); 
-    _this->_addon_loadprog_id_in_Icons_LOD = LODFile_Icons_LOD.LODFile_LoadTexture( "loadprog",2);
+    _this->loadprog = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "loadprog",2)];
 #endif
     _this->uX = 122;
     _this->uY = 151;
@@ -5522,11 +5522,11 @@ bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarT
   else
   {
    if (pParty_global->uAlignment == PARTY_ALIGNMENT_GOOD)
-     LODFile_Icons_LOD.LODFile_sub_410522( (cTexture *)v2 + 296, "bardata-b", 2);
+     LODFile_Icons_LOD.LODFile_sub_410522( _this->loadprog, "bardata-b", 2);
    else if (pParty_global->uAlignment == PARTY_ALIGNMENT_NEUTRAL)
-     LODFile_Icons_LOD.LODFile_sub_410522( (cTexture *)v2 + 296, "bardata", 2);
+     LODFile_Icons_LOD.LODFile_sub_410522(_this->loadprog, "bardata", 2);
    else
-     LODFile_Icons_LOD.LODFile_sub_410522( (cTexture *)v2 + 296, "bardata-C", 2);
+     LODFile_Icons_LOD.LODFile_sub_410522( _this->loadprog, "bardata-C", 2);
 
    *((_BYTE *)v2 + 11) = 0;
    *((_BYTE *)v2 + 10) = 26;
@@ -5571,16 +5571,18 @@ void DrawLoadingScreen(struct class56 *_this)
   }
 #ifndef OLD_CODE  
   Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, _this->uTextureID_Loading);
-#endif
-#ifdef OLD_CODE
+#else
   Render_DrawRGBTexture(pD3DRenderer, 0, 0, _this->loading);
- 
 #endif
   Render_sub_4A0E97(pD3DRenderer, 0, 0, 639, 479);
   Render_Set2DClippingRect(pD3DRenderer, 172, 459,
     172 + 300 * ((float)(_this->uProgressCurrent) / (float)_this->uProgressMax),
     471);
+#ifndef OLD_CODE 
   Render_DrawTransparentTexture(pD3DRenderer, 172, 459, &LODFile_Icons_LOD.aLODHeaders[_this->_addon_loadprog_id_in_Icons_LOD]);
+#else
+   Render_DrawTransparentTexture(pD3DRenderer, 172, 459, _this->loadprog);
+#endif
   Render_Reset2DClippingRect(pD3DRenderer);
   pD3DRenderer->EndScene();
   pD3DRenderer->Present();
@@ -10585,7 +10587,7 @@ LABEL_142:
               if ( v4 )
               {
                 if ( v4 == 3 )
-                  sub_413CC6_DrawSpellbook((void *)pWnd->dword_00001C);
+                  sub_413CC6_DrawSpellbook(pWnd->dword_00001C);
               }
               else
               {
@@ -10689,14 +10691,14 @@ LABEL_16:
   v2 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
                  + 4 * (*(_DWORD *)v3 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v12) + 4)])) & 0xFFFF;
   if ( !v2 )
-    return GUIWindow_sub_44D406(&local_0C, ptr_5C35F0, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[10], 3);
+    return GUIWindow_sub_44D406(&local_0C, pBook2Font, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[10], 3);
   if ( v2 == 1 )
   {
     v4 = 206;
 LABEL_30:
     if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, v4) )
       goto LABEL_31;
-    return GUIWindow_sub_44D406(&local_0C, ptr_5C35F0, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[10], 3);
+    return GUIWindow_sub_44D406(&local_0C, pBook2Font, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[10], 3);
   }
   if ( v2 == 2 )
   {
@@ -10725,7 +10727,7 @@ LABEL_30:
   }
 LABEL_31:
   Render_DrawIndexedTexture(pD3DRenderer, word_4E1D3A[v2], word_4E1D46[v2], (cTexture *)*(&uTextureID_tab_an_6b__zoom_on + v2));
-  return GUIWindow_sub_44D406(&local_0C, ptr_5C35F0, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[10], 3);
+  return GUIWindow_sub_44D406(&local_0C, pBook2Font, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[10], 3);
 }
 
 //----- (00418083) ------.text:00418683  --------------------------------------------------

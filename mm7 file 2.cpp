@@ -1030,9 +1030,9 @@ LABEL_85:
       pParty_global->dword_0006E8 = 0;
       pParty_global->dword_0006E4 = 0;
       pParty_global->dword_0006E0 = 0;
-      if ( _strcmpi(&Source, Str1) )
+      if ( _strcmpi(&Source, CurrentLevelName) )
       {
-        strcpy(Str1, &Source);
+        strcpy(CurrentLevelName, &Source);
         dword_5B65A8 = pParty_global->sPartyPosX;
         dword_5B65AC = pParty_global->sPartyPosY;
         dword_5B65B0 = pParty_global->sPartyPosZ;
@@ -5266,14 +5266,14 @@ int __cdecl sub_411597()
 
   mem_mng.DeleteBuffer(ptr_5C35E4);
   ptr_5C35E4 = 0;
-  mem_mng.DeleteBuffer(ptr_5C35F4);
-  ptr_5C35F4 = 0;
-  mem_mng.DeleteBuffer(ptr_5C35F0);
-  ptr_5C35F0 = 0;
+  mem_mng.DeleteBuffer(pBookFont);
+  pBookFont = 0;
+  mem_mng.DeleteBuffer(pBook2Font);
+  pBook2Font = 0;
   mem_mng.DeleteBuffer(ptr_5C35E0);
   ptr_5C35E0 = 0;
 
-  cTexture_Free((cTexture *)dword_506498_uTextureID_MapBrdr);
+  cTexture_Free(&LODFile_Icons_LOD.aLODHeaders[dword_506498_uTextureID_MapBrdr]);
   AudioPlayer_sub_4AA306(pAudioPlayer, 231, 0, 0, -1, 0, 0, 0, 0);
   LODFile_Icons_LOD.LODFile_sub_4114F2();
   dword_506364 = 0;
@@ -5409,8 +5409,8 @@ void sub_411AAA()
 #ifdef OLD_CODE 
   dword_506498_uTextureID_MapBrdr = LODFile_Icons_LOD.LODFile_LoadTexture("mapbordr",2);
 #endif
-  ptr_5C35F4 = LoadFont("book.fnt", "FONTPAL");
-  ptr_5C35F0 = LoadFont("book2.fnt", "FONTPAL");
+  pBookFont = LoadFont("book.fnt", "FONTPAL");
+  pBook2Font = LoadFont("book2.fnt", "FONTPAL");
   ptr_5C35E0 = LoadFont("autonote.fnt", "FONTPAL");
   ptr_5C35E4 = LoadFont("spell.fnt", "FONTPAL");
 }
@@ -6238,13 +6238,13 @@ void __cdecl sub_412E85()
     local_08.uFrameZ = 467;
     local_08.uFrameW = 351;
     if ( v2 )
-      GUIWindow_sub_44D406(&local_08, ptr_5C35F0, 0, 22, 0, v2, 3);
+      GUIWindow_sub_44D406(&local_08, pBook2Font, 0, 22, 0, v2, 3);
   }
   local_08.uFrameX = 48;
   local_08.uFrameY = 70;
   local_08.uFrameWidth = 360;
   local_08.uFrameHeight = 264;
-  v4 = *(_BYTE *)((char *)ptr_5C35E0 + 5) - 3;
+  v4 = ptr_5C35E0->uFontHeight - 3;
   local_08.uFrameZ = 407;
   local_08.uFrameHeight = v4 * 264 / v4;
   local_08.uFrameW = local_08.uFrameHeight + 69;
@@ -6343,7 +6343,7 @@ void __cdecl sub_413126_DrawSpellbook_Quests()
   local_0C.uFrameY = 8;
   local_0C.uFrameZ = 467;
   local_0C.uFrameW = 351;
-  GUIWindow_sub_44D406(&local_0C, ptr_5C35F0, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[174], 3);
+  GUIWindow_sub_44D406(&local_0C, pBook2Font, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[174], 3);
   local_0C.uFrameX = 48;
   local_0C.uFrameY = 70;
   local_0C.uFrameWidth = 360;
@@ -6616,7 +6616,7 @@ LABEL_46:
   local_14.uFrameY = 8;
   local_14.uFrameZ = 467;
   local_14.uFrameW = 467;
-  GUIWindow_sub_44D406(&local_14, ptr_5C35F0, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[154], 3);
+  GUIWindow_sub_44D406(&local_14, pBook2Font, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[154], 3);
 
   local_14.uFrameX = 48;
   local_14.uFrameY = 70;
@@ -6708,7 +6708,7 @@ LABEL_46:
 }
 
 //----- (00413980) --------------------------------------------------------
-char *__cdecl sub_413980_DrawSpellbook_Map()
+void sub_413980_DrawSpellbook_Map()
 
 {
   int v0; // eax@3
@@ -6717,7 +6717,7 @@ char *__cdecl sub_413980_DrawSpellbook_Map()
   int v3; // eax@13
   int v4; // eax@16
   int v5; // eax@19
-  int v6; // eax@31
+ // int v6; // eax@31
   signed int v7; // eax@35
   int v9; // [sp-8h] [bp-E0h]@3
   int v10; // [sp-8h] [bp-E0h]@7
@@ -6755,7 +6755,7 @@ char *__cdecl sub_413980_DrawSpellbook_Map()
     v9 = pOldViewport->uGameY + 1;
     v0 = pOldViewport->uGameX + 398;
   }
-  Render_DrawTransparentTexture(pD3DRenderer, v0, v9, (cTexture *)v15);
+  Render_DrawTransparentTexture(pD3DRenderer, v0, v9, v15);
   if ( dword_506544 || struct_576FE8.dword_00002C / 128 <= 3 )
   {
     v16 = uTextureID_tab_an_7a__zoot_off;
@@ -6768,7 +6768,7 @@ char *__cdecl sub_413980_DrawSpellbook_Map()
     v10 = pOldViewport->uGameY + 38;
     v1 = pOldViewport->uGameX + 398;
   }
-  Render_DrawTransparentTexture(pD3DRenderer, v1, v10, (cTexture *)v16);
+  Render_DrawTransparentTexture(pD3DRenderer, v1, v10, v16);
   if ( dword_506540 )
   {
     v17 = dword_506390;
@@ -6781,7 +6781,7 @@ char *__cdecl sub_413980_DrawSpellbook_Map()
     v11 = pOldViewport->uGameY + 113;
     v2 = pOldViewport->uGameX + 398;
   }
-  Render_DrawTransparentTexture(pD3DRenderer, v2, v11, (cTexture *)v17);
+  Render_DrawTransparentTexture(pD3DRenderer, v2, v11, v17);
   if ( dword_50653C )
   {
     v18 = dword_506388;
@@ -6794,7 +6794,7 @@ char *__cdecl sub_413980_DrawSpellbook_Map()
     v12 = pOldViewport->uGameX + 150;
     v3 = pOldViewport->uGameY + 399;
   }
-  Render_DrawTransparentTexture(pD3DRenderer, v3, v12, (cTexture *)v18);
+  Render_DrawTransparentTexture(pD3DRenderer, v3, v12, v18);
   if ( dword_506538 )
   {
     v19 = dword_506380;
@@ -6807,7 +6807,7 @@ char *__cdecl sub_413980_DrawSpellbook_Map()
     v13 = pOldViewport->uGameY + 188;
     v4 = pOldViewport->uGameX + 397;
   }
-  Render_DrawTransparentTexture(pD3DRenderer, v4, v13, (cTexture *)v19);
+  Render_DrawTransparentTexture(pD3DRenderer, v4, v13, v19);
   if ( dword_506534 )
   {
     v20 = dword_506378;
@@ -6820,7 +6820,7 @@ char *__cdecl sub_413980_DrawSpellbook_Map()
     v14 = pOldViewport->uGameY + 226;
     v5 = pOldViewport->uGameX + 397;
   }
-  Render_DrawTransparentTexture(pD3DRenderer, v5, v14, (cTexture *)v20);
+  Render_DrawTransparentTexture(pD3DRenderer, v5, v14, v20);
   if ( dword_506544 )
     sub_443291((int)&struct_576FE8);
   if ( dword_506548 )
@@ -6831,13 +6831,13 @@ char *__cdecl sub_413980_DrawSpellbook_Map()
     sub_443231((int)&struct_576FE8);
   if ( dword_506538 )
     sub_44323D((int)&struct_576FE8);
-  v6 = dword_506534;
+ // v6 =;
   if ( dword_506534 )
   {
     sub_443225((int)&struct_576FE8);
-    v6 = dword_506534;
+ //   v6 = dword_506534;
   }
-  if ( dword_506548 | dword_506544 | dword_506540 | dword_50653C | dword_506538 | v6 )
+  if ( dword_506548 | dword_506544 | dword_506540 | dword_50653C | dword_506538 |  dword_506534 )
     AudioPlayer_sub_4AA306(pAudioPlayer, 75, 0, 0, -1, 0, 0, 0, 0);
 
   dword_506548 = 0;
@@ -6858,88 +6858,57 @@ char *__cdecl sub_413980_DrawSpellbook_Map()
   local_84.uFrameW = 467;
 
 
-  v7 = CMapStats_FindLocation(pMapStats, Str1);
+  v7 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   if ( v7 ) 
-	GUIWindow_sub_44D406(&local_84, ptr_5C35F0, -14, 12, 0, (const char *)&pMapStats->pMapInfos[v7], 3);
+	GUIWindow_sub_44D406(&local_84, pBook2Font, -14, 12, 0, (const char *)pMapStats->pMapInfos[v7].pLocationName, 3);
 
   local_84.uFrameX = 0;
 
   wsprintfA(Str, (char *)pGlobalTXT_LocalizationStrings[659], pParty_global->sPartyPosX, pParty_global->sPartyPosY);
-  return GUIWindow_sub_44D406(&local_84, pFontComic, 0, 320, 0, Str, 0);
+  GUIWindow_sub_44D406(&local_84, pFontComic, 0, 320, 0, Str, 0);
 
 }
 
 //----- (00413CC6) --------------------------------------------------------
-void __thiscall sub_413CC6_DrawSpellbook(void *_this)
+void  sub_413CC6_DrawSpellbook(int book_code)
 {
-  void *v1; // esi@1
-
-  v1 = _this;
+ 
   Render_DrawTransparentTexture(pD3DRenderer, 471, 445, &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr]);
-  if ( v1 == (void *)177 )
-  {
-    sub_410DEC();
-  }
-  else
-  {
-    if ( v1 == (void *)195 )
-    {
-      sub_411150();
-    }
-    else
-    {
-      if ( v1 == (void *)200 )
-        sub_413126_DrawSpellbook_Quests();
-      else
-      {
-        if ( v1 == (void *)201 )
-          sub_41338E_DrawSpellbook_Autonotes();
-        else
-        {
-          if ( v1 == (void *)202 )
-          {
-            sub_413980_DrawSpellbook_Map();
-          }
-          else
-          {
-            if ( v1 == (void *)203 )
-            {
-              sub_413D6F();
-            }
-            else
-            {
-              if ( (char *)v1 - 203 == (void *)21 )
-                sub_412E85();
-            }
-          }
-        }
-      }
-    }
-  }
+  switch (book_code)
+	  {
+	  case	177:	 sub_410DEC(); break;
+	  case  195:	 sub_411150(); break;
+	  case	200:	 sub_413126_DrawSpellbook_Quests(); break;
+	  case	201:	 sub_41338E_DrawSpellbook_Autonotes(); break;
+	  case 	202:	 sub_413980_DrawSpellbook_Map();  break;
+	  case	203:	 DrawCalendar(); break;
+	  case  224:	 sub_412E85(); break;
+	  }
+
 }
 
 //----- (00413D3C) --------------------------------------------------------
-int __cdecl sub_413D3C()
+unsigned char *GetDayPart() //sub_413D3C()
 {
   if ( (unsigned int)pParty_global->uCurrentHour > 4 )
   {
     if ( pParty_global->uCurrentHour == 5 )
-      return (int)pGlobalTXT_LocalizationStrings[55];
+      return pGlobalTXT_LocalizationStrings[LOCSTR_DAWN];
     if ( pParty_global->uCurrentHour == 20 )
-      return (int)pGlobalTXT_LocalizationStrings[566];
-    if ( (unsigned int)pParty_global->uCurrentHour <= 0x14 || (unsigned int)pParty_global->uCurrentHour > 0x17 )
-      return (int)pGlobalTXT_LocalizationStrings[56];
+      return pGlobalTXT_LocalizationStrings[LOCSTR_DUSK];
+    if ( (unsigned int)pParty_global->uCurrentHour <= 20 || (unsigned int)pParty_global->uCurrentHour > 23 )
+      return pGlobalTXT_LocalizationStrings[LOCSTR_DAY];
   }
-  return (int)pGlobalTXT_LocalizationStrings[567];
+  return pGlobalTXT_LocalizationStrings[LOCSTR_NIGHT];
 }
 
-//----- (00413D6F) --------------------------------------------------------
-void __cdecl sub_413D6F()
+//----- (00413D6F) ------.text:004141C6--------------------------------------------------
+void  DrawCalendar()
 {
-  signed int v0; // esi@1
-  int v1; // eax@5
+  int v0; // esi@1
+  unsigned char *v1; // eax@5
   int v2; // ecx@5
-  int v3; // eax@6
+  unsigned char *v3; // eax@6
 
   GUIWindow local_0C;
   //int v5; // [sp+Ch] [bp-60h]@5
@@ -6949,48 +6918,43 @@ void __cdecl sub_413D6F()
   //int v9; // [sp+1Ch] [bp-50h]@5
   //int v10; // [sp+20h] [bp-4Ch]@5
 
-  int v11; // [sp+60h] [bp-Ch]@1
-  int v12; // [sp+64h] [bp-8h]@1
+  int location_index; // [sp+60h] [bp-Ch]@1
+  char v12; // [sp+64h] [bp-8h]@1
   int v13; // [sp+68h] [bp-4h]@1
 
   v0 = pParty_global->uCurrentHour;
-  v11 = CMapStats_FindLocation(pMapStats, Str1);
+  location_index = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   v13 = 0x4B4B4B; //colored or white text flag
   Render_DrawIndexedTexture(pD3DRenderer, pOldViewport->uGameX, pOldViewport->uGameY, dword_5064D4);
-  v12 = (unsigned __int8)byte_4E1B18[pParty_global->uDaysPlayed];
+  v12 = DayMoonPhase[pParty_global->uDaysPlayed];
   if ( v0 <= 12 )
-  {
-    if ( !v0 )
-      v0 = 12;
-  }
+      v2 = 0;
   else
-  {
-    v0 -= 12;
-  }
+    v2 = 1;
   local_0C.uFrameX = 8;
   local_0C.uFrameY = 8;
   local_0C.uFrameWidth = 460;
   local_0C.uFrameHeight = 344;
   local_0C.uFrameZ = 467;
   local_0C.uFrameW = 467;
-  GUIWindow_sub_44D406(&local_0C, ptr_5C35F0, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[186], 3);
-  v1 = sub_413D3C();
-  wsprintfA((char *)TmpBuf, "%s\t100:\t110%d:%02d %s - %s", pGlobalTXT_LocalizationStrings[526], v0, pParty_global->uCurrentMinute, aAMPMNames[v2], v1);
-  FontDrawText(&local_0C, ptr_5C35F4, 70, 55, (char *)TmpBuf, 0, 0, 0);
-  wsprintfA((char *)TmpBuf, "%s\t100:\t110%d - %s", pGlobalTXT_LocalizationStrings[56], pParty_global->uDaysPlayed + 1, aDayNames[pParty_global->uDaysPlayed % 7]);
-  FontDrawText(&local_0C, ptr_5C35F4, 70, 2 * ptr_5C35F4->uFontHeight + 49, (char *)TmpBuf, 0, 0, 0);
+  GUIWindow_sub_44D406(&local_0C, pBook2Font, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_TIME_ERATHIA], 3);
+  v1 =  GetDayPart();
+  wsprintfA((char *)TmpBuf, "%s\t100:\t110%d:%02d %s - %s", pGlobalTXT_LocalizationStrings[LOCSTR_TIME], v0, pParty_global->uCurrentMinute, aAMPMNames[v2], v1);
+  FontDrawText(&local_0C, pBookFont, 70, 55, (char *)TmpBuf, v13, 0, 0);
+  wsprintfA((char *)TmpBuf, "%s\t100:\t110%d - %s", pGlobalTXT_LocalizationStrings[LOCSTR_DAY], pParty_global->uDaysPlayed + 1, aDayNames[pParty_global->uDaysPlayed % 7]);
+  FontDrawText(&local_0C, pBookFont, 70, 2 * pBookFont->uFontHeight + 49, (char *)TmpBuf, v13, 0, 0);
   wsprintfA((char *)TmpBuf, "%s\t100:\t110%d - %s", pGlobalTXT_LocalizationStrings[146], pParty_global->uCurrentMonth + 1, aMonthNames[pParty_global->uCurrentMonth]);
-  FontDrawText(&local_0C, ptr_5C35F4, 70, 4 *  ptr_5C35F4->uFontHeight + 43, (char *)TmpBuf, 0, 0, 0);
+  FontDrawText(&local_0C, pBookFont, 70, 4 *  pBookFont->uFontHeight + 43, (char *)TmpBuf, v13, 0, 0);
   wsprintfA((char *)TmpBuf, "%s\t100:\t110%d", pGlobalTXT_LocalizationStrings[245], pParty_global->uCurrentYear);
-  FontDrawText(&local_0C, ptr_5C35F4, 70, 6 *  ptr_5C35F4->uFontHeight + 37, (char *)TmpBuf, 0, 0, 0);
+  FontDrawText(&local_0C, pBookFont, 70, 6 *  pBookFont->uFontHeight + 37, (char *)TmpBuf, v13, 0, 0);
   wsprintfA((char *)TmpBuf, "%s\t100:\t110%s", pGlobalTXT_LocalizationStrings[530], aMoonPhaseNames[v12]);
-  FontDrawText(&local_0C, ptr_5C35F4, 70, 8 *  ptr_5C35F4->uFontHeight + 31, (char *)TmpBuf, 0, 0, 0);
-  if ( v11 )
-    v3 = (int)pMapStats->pMapInfos[v11].pLocationName;
+  FontDrawText(&local_0C, pBookFont, 70, 8 *  pBookFont->uFontHeight + 31, (char *)TmpBuf, v13, 0, 0);
+  if ( location_index )
+    v3 = pMapStats->pMapInfos[location_index].pLocationName;
   else
-    v3 = (int)"Unknown";
+    v3 = (unsigned char*)"Unknown";
   wsprintfA((char *)TmpBuf, "%s\t100:\t110%s", pGlobalTXT_LocalizationStrings[531], v3);
-  FontDrawText(&local_0C, ptr_5C35F4, 70, 10 * *(_BYTE *)((char *)ptr_5C35F4 + 5) + 25, (char *)TmpBuf, 0, 0, 0);
+  FontDrawText(&local_0C, pBookFont, 70, 10 * pBookFont->uFontHeight + 25, (char *)TmpBuf, v13, 0, 0);
 }
 
 //----- (004141CA) --------------------------------------------------------
@@ -8517,8 +8481,8 @@ LABEL_116:
   local_04.ptr_000048 = pStringBuffer;
   v14 = (int)aSkillNames[v39];
 LABEL_112:
-  v23 = Str1;
-  if ( Str1 )
+  v23 = CurrentLevelName;
+  if ( CurrentLevelName )
   {
     v24 = (char *)local_04.ptr_000048;
     local_04.ptr_000048 = 0;
@@ -12243,7 +12207,7 @@ LABEL_15:
     --dword_506F10;
   if ( dword_506F10 < 1 )
     dword_506F10 = 1;
-  if ( !_strcmpi(Str1, "d29.blv") )
+  if ( !_strcmpi(CurrentLevelName, "d29.blv") )
   {
     if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 98) )
       dword_506F10 = 0;
@@ -12581,7 +12545,7 @@ void sub_47A384(const char *pLevelFilename, void *a2)
   sub_450DA3();
   if ( qword_A750D8 )
     qword_A750D8 = 0i64;
-  v3 = CMapStats_FindLocation(pMapStats, Str1);
+  v3 = CMapStats_FindLocation(pMapStats,CurrentLevelName);
 
   if ( v3 )
   {
@@ -12599,7 +12563,7 @@ void sub_47A384(const char *pLevelFilename, void *a2)
   memset(pClass51_global, 0, sizeof(struct class51));
   LoadLevel(pClass51_global,
     pLevelFilename,
-    (unsigned int)(signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 0x3C / 0x3C / 0x18 + 1,
+    (unsigned int)(signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60 / 60 / 24 + 1,
     v2,
     (int)&a2);
 
@@ -13049,7 +13013,7 @@ signed int __fastcall sub_42041E(int a1)
   if ( !uActiveCharacter )
     return 0;
   X = 0;
-  v2 = CMapStats_FindLocation(pMapStats, Str1);
+  v2 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   if ( !(*v1 & 1) || !v2 )
     goto LABEL_12;
   if ( sub_4912B0(pPlayers[uActiveCharacter]) < 2 * pMapStats->pMapInfos[v2].byte_00002C)
@@ -13192,18 +13156,7 @@ LABEL_12:
   v4 = (int)GUIWindowCreate(0, 0, 640, 480, 20, (GUIButton*)v54, 0);
   pGUIWindow_CurrentMenu = (GUIWindow *)v4;
   dword_507BB8 = v4;
-  dword_5076F4 = GUIButtonCreate(
-                   (GUIWindow *)v4,
-                   471,
-                   445,
-                   169,
-                   35,
-                   1,
-                   0,
-                   113,
-                   0,
-                   0,
-                   pGlobalTXT_LocalizationStrings[79],
+  dword_5076F4 = GUIButtonCreate((GUIWindow *)v4, 471, 445,	169, 35, 1,	0, 113,  0, 0,  pGlobalTXT_LocalizationStrings[79],
                    uTextureID_right_backgr != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0);
   GUIButtonCreate((GUIWindow *)dword_507BB8, 7, 8, 460, 343, 1, 0, 12, 0, 0, (unsigned char *)"", 0);
   dword_4E28F8 = 10;

@@ -459,7 +459,7 @@ LABEL_17:
     }
   }
 
-  v26 = strcpy(Str1, loc_hdr.location_name);
+  v26 = strcpy(CurrentLevelName, loc_hdr.location_name);
   LOWORD(dword_6BE364) = dword_6BE364 | 0x2001;
 
   v27 = 0;
@@ -883,13 +883,13 @@ int __fastcall sub_460078(int a1)
 
   v1 = a1;
   v9 = a1;
-  v8 = _strcmpi(Str1, "d05.blv");
+  v8 = _strcmpi(CurrentLevelName, "d05.blv");
   if ( v8 )
   {
     SaveGame(0, 0);
     Reset_LODIndex(&St);
     //v2 = 100 * v1;
-    strcpy((char *)&saves_hdr[v1].location_name, Str1);
+    strcpy((char *)&saves_hdr[v1].location_name, CurrentLevelName);
     //*(int *)((char *)dword_69BD90 + v2) = pParty_global->qword_00002C;
     //*(int *)((char *)&dword_69BD90 + 4 + v2) = HIDWORD(pParty_global->qword_00002C);
 	saves_hdr[v1].qWorld_time=pParty_global->qword_00002C;
@@ -1019,8 +1019,8 @@ int __fastcall SaveGame(int a1, int a2)
 
   v71 = a2;
   v69 = a1;
-  strcpy(byte_6BE3B0, Str1);
-  result = stricmp(Str1, "d05.blv");
+  strcpy(byte_6BE3B0, CurrentLevelName);
+  result = stricmp(CurrentLevelName, "d05.blv");
   if ( result )
   {
     DstBuf = malloc(1000000);//DstBuf = operator new(0xF4240u);
@@ -1072,7 +1072,7 @@ int __fastcall SaveGame(int a1, int a2)
       sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
     } 	*/
 
-    strcpy(v47.location_name, Str1);
+    strcpy(v47.location_name, CurrentLevelName);
     v47.qWorld_time = pParty_global->qword_00002C;
     strcpy(&St2.pFilename[0], "header.bin");
     St2.size_data = 100;
@@ -1319,7 +1319,7 @@ int __fastcall SaveGame(int a1, int a2)
         v11 = v76;
       }
       v34 = v14 + 56;
-      strcpy(FullPath, Str1);
+      strcpy(FullPath, CurrentLevelName);
       _splitpath(FullPath, (char*)&Drive, (char*)&Dir, (char*)&v50, (char*)&Ext);
       Ext[1] = 'd';
       Size = v34 - (_DWORD)DstBuf;
@@ -1639,10 +1639,10 @@ LABEL_71:
       v5 = &byte_4F09B0[32 * (unsigned __int8)*(&byte_4F0CCF[4 * ptr_507BC0->dword_00001C] + dword_F8B19C)];
       if ( v5[pParty_global->uDaysPlayed % 7u + 1] )
       {
-        if ( _strcmpi(Str1, (char *)pMapStats->pMapInfos[(unsigned __int8)*v5].pLocationFilename))
+        if ( _strcmpi(CurrentLevelName, (char *)pMapStats->pMapInfos[(unsigned __int8)*v5].pLocationFilename))
         {
           SaveGame(1, 0);
-          strcpy(Str1, (char *)pMapStats->pMapInfos[(unsigned __int8)*v5].pLocationFilename);
+          strcpy(CurrentLevelName, (char *)pMapStats->pMapInfos[(unsigned __int8)*v5].pLocationFilename);
           v8 = *((_DWORD *)v5 + 6);
           v9 = *((_DWORD *)v5 + 5);
           v10 = *((_DWORD *)v5 + 4);
@@ -1897,7 +1897,7 @@ int __cdecl sub_410DEC()
   if ( !byte_50656C )
     v0 = (char *)pGlobalTXT_LocalizationStrings[LOCSTR_SET_BEACON];
   wsprintfA((char *)TmpBuf, "%s", v0);
-  GUIWindow_sub_44D406(&local_0C, ptr_5C35F0, 0, 22, 0, (char *)TmpBuf, 3);
+  GUIWindow_sub_44D406(&local_0C, pBook2Font, 0, 22, 0, (char *)TmpBuf, 3);
   if ( byte_50656C )
   {
    Render_DrawTransparentTexture(pD3DRenderer, dword_506518->uX, dword_506518->uY, uTextureID_tab_an_6b__zoom_on);

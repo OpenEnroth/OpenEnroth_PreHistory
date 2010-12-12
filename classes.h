@@ -817,11 +817,11 @@ void *class37_ctor(struct class37 *_this);
 
 struct MapInfo
 {
- const unsigned char *pLocationName;             // ptr @ 000000
- const unsigned char *pLocationFilename;         // ptr @ 000004
- const unsigned char *pEncounterMonster1Texture; // ptr @ 000008
- const unsigned char *pEncounterMonster2Texture; // ptr @ 00000C
- const unsigned char *pEncounterMonster3Texture; // ptr @ 000010
+ unsigned char *pLocationName;             // ptr @ 000000
+ unsigned char *pLocationFilename;         // ptr @ 000004
+ unsigned char *pEncounterMonster1Texture; // ptr @ 000008
+ unsigned char *pEncounterMonster2Texture; // ptr @ 00000C
+ unsigned char *pEncounterMonster3Texture; // ptr @ 000010
  unsigned int uNumResets;       // dword @ 000014
  unsigned int uVisitedAt;       // dword @ 000018
  unsigned int uRespawnInterval; // dword @ 00001C

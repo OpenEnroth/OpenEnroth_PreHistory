@@ -1216,7 +1216,7 @@ bool __cdecl TryLoadLevelFromFile()
   int DstBuf; // [sp+40Ch] [bp-4h]@2
  void *f;
 
- strcpy(FullPath, Str1);
+ strcpy(FullPath, CurrentLevelName);
  _splitpath(FullPath, Drive, Dir, Filename, Ext);
  wsprintfA(FullPath, "levels\\%s%s", Filename, ".lod");
 

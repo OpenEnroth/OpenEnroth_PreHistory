@@ -1639,7 +1639,7 @@ signed int AudioPlayer_sub_4AC041(struct AudioPlayer *_this)
   unsigned int v3; // [sp+4h] [bp-4h]@3
 
   v2 = (int)_this;
-  result = CMapStats_FindLocation(pMapStats, Str1);
+  result = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   if ( *(_DWORD *)(v2 + 4) )
   {
     if ( *(_DWORD *)v2 )

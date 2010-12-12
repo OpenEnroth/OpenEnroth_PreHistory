@@ -104,11 +104,9 @@ void cTexture::cTexture_Zero()
   //----- (0040F77C) ---------text:0040FA6E-----------------------------------------------
 void cTexture_Free(cTexture* cTxtr)
 {
-  //int v1; // esi@1
-  char v2; // zf@2
-
-  runtime_warning(no no more implace deleting);
-  runtime_warning( this thing CRUSHES);
+ 
+ // runtime_warning(no no more implace deleting);
+ // runtime_warning( this thing CRUSHES);
  
   
   if ( cTxtr )
@@ -119,8 +117,11 @@ void cTexture_Free(cTexture* cTxtr)
       mem_mng.DeleteBuffer( (void *)cTxtr->pIndexedPixels);
       mem_mng.DeleteBuffer( (void *)cTxtr->pPalette);
       mem_mng.DeleteBuffer( (void *)cTxtr->ptr_000044);
+	  if  (cTxtr->pTruecolorPixels)		// new
+		  free(cTxtr->pTruecolorPixels);	 //
     }
 	cTxtr->uSizeOfMaxLevelOfDetal = 0;
+	cTxtr->pTruecolorPixels	= NULL;	  //new
     cTxtr->pIndexedPixels = NULL;
 	cTxtr->pLevelOfDetal1 = NULL;
 	cTxtr->pLevelOfDetal2 = NULL;

@@ -2144,7 +2144,7 @@ signed int __thiscall sub_42EBEE(void *_this)
   {
     sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, v3);
     v5 = 0;
-    v4 = CMapStats_FindLocation(pMapStats, Str1);
+    v4 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
     if ( v4 )
       v5 = pMapStats->pMapInfos[v4].dword_000024;
     v6 = &unk_6A12B8;
@@ -12018,7 +12018,7 @@ char __thiscall sub_460A78(void *_this)
     byte_6BE3C4_MaybeDrowningFlag = 1;
     *(_DWORD *)(LODWORD(pGame) + 3620) |= 8u;
   }
-  if ( !_strcmpi(Str1, "out15.odm") || !_strcmpi(Str1, "d23.blv") )
+  if ( !_strcmpi(CurrentLevelName, "out15.odm") || !_strcmpi(CurrentLevelName, "d23.blv") )
     byte_6BE3C5 = 1;
   class35_obj.byte_267AD3 = 0;
   class35_obj.byte_267AD4 = 0;
@@ -12026,7 +12026,7 @@ char __thiscall sub_460A78(void *_this)
   class35_sub_48A614(&class35_obj);
   if ( qword_A750D8 )
     qword_A750D8 = 0i64;
-  v2 = CMapStats_FindLocation(pMapStats, Str1);
+  v2 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   v43 = v2;
   if ( v2 )
   {
@@ -12046,20 +12046,20 @@ char __thiscall sub_460A78(void *_this)
   pStationaryLightsStack->uNumStationaryLightsActive = 0;
   v4 = sub_498E0A(
          byte_6BE3C8,
-         Str1,
-         (unsigned int)(signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 0x3C / 0x3C / 0x18 + 1,
+         CurrentLevelName,
+         (unsigned int)(signed __int64)((double)pParty_global->qword_00002C * 0.234375) / 60 / 60 / 24 + 1,
          v1,
          (int)&v44)
      - 1;
   if ( !v4 )
   {
-    wsprintfA(Args, "Unable to open %s", Str1);
+    wsprintfA(Args, "Unable to open %s", CurrentLevelName);
     erroneous_printf(Args);
   }
   v5 = v4 - 1;
   if ( !v5 )
   {
-    wsprintfA(Args, "File %s is not a BLV File", Str1);
+    wsprintfA(Args, "File %s is not a BLV File", CurrentLevelName);
     erroneous_printf(Args);
   }
   v6 = v5 - 1;
@@ -12393,64 +12393,6 @@ void *__thiscall sub_462272(void *_this)
   return v2;
 }
 
-//----- (00462303) --------------------------------------------------------
-int __thiscall sub_462303(int _this)
-{
-  int v1; // edi@1
-  int v2; // esi@1
-  int v3; // eax@3
-  int v4; // eax@4
-  int v5; // eax@6
-  int v6; // eax@7
-  int v7; // eax@10
-  int v8; // eax@12
-  int v9; // eax@14
-  int v11; // [sp+4h] [bp-10h]@2
-
-  v2 = _this;
-  v1 = *(_DWORD *)(_this + 72572) - 1;
-  if ( v1 >= 0 )
-  {
-    v11 = _this + 72 * v1 + 572;
-    do
-    {
-      cTexture_Free((cTexture *)v11);
-      v3 = *(_DWORD *)(v2 + 72624);
-      if ( v3 )
-      {
-        v4 = *(_DWORD *)(v3 + 4 * v1);
-        if ( v4 )
-        {
-          (*(void (__stdcall **)(int))(*(_DWORD *)v4 + 8))(v4);
-          *(_DWORD *)(*(_DWORD *)(v2 + 72624) + 4 * v1) = 0;
-        }
-      }
-      v5 = *(_DWORD *)(v2 + 72620);
-      if ( v5 )
-      {
-        v6 = *(_DWORD *)(v5 + 4 * v1);
-        if ( v6 )
-        {
-          (*(void (__stdcall **)(int))(*(_DWORD *)v6 + 8))(v6);
-          *(_DWORD *)(*(_DWORD *)(v2 + 72620) + 4 * v1) = 0;
-        }
-      }
-      v11 -= 72;
-      --v1;
-    }
-    while ( v1 >= 0 );
-  }
-  v7 = *(_DWORD *)(v2 + 72620);
-  if ( v7 )
-    operator_delete(*(_DWORD **)(v2 + 72620));
-  v8 = *(_DWORD *)(v2 + 72624);
-  if ( v8 )
-    operator_delete(*(_DWORD **)(v2 + 72624));
-  v9 = *(_DWORD *)(v2 + 72628);
-  if ( v9 )
-    operator_delete(*(_DWORD **)(v2 + 72628));
-  return 0/*sub_461790(v2)*/;
-}
 
 //----- (004623E5) --------------------------------------------------------
 void *__thiscall sub_4623E5(void *_this)
@@ -12589,7 +12531,7 @@ void __thiscall sub_464761(void *Code)
 //----- (00464839) --------------------------------------------------------
 char __cdecl sub_464839()
 {
-  return _strcmpi(Str1, "out15.odm") == 0;
+  return _strcmpi(CurrentLevelName, "out15.odm") == 0;
 }
 
 //----- (00464851) --------------------------------------------------------

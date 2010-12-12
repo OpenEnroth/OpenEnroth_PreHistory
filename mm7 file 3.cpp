@@ -218,7 +218,7 @@ __int16 __thiscall sub_438E35(void *_this)
   int v18; // [sp+14h] [bp-4h]@14
 
   v4 = _this;
-  v5 = (int *)&pMapStats->pMapInfos[CMapStats_FindLocation(pMapStats, Str1)];
+  v5 = (int *)&pMapStats->pMapInfos[CMapStats_FindLocation(pMapStats, CurrentLevelName)];
   v6 = abs(pParty_global->sPartyPosX - *((_DWORD *)v4 + 1));
   v15 = abs(pParty_global->sPartyPosY - *((_DWORD *)v4 + 2));
   v16 = abs((int)(pParty_global->sPartyPosZ + pParty_global->uEyelevel - *((_DWORD *)v4 + 3)));
@@ -5534,7 +5534,7 @@ int __cdecl sub_4443D5()
   if ( dword_6BE360 != 2 || (v23 = 0, v1 <= 0) )
   {
 LABEL_14:
-    v17 = CMapStats_FindLocation(pMapStats, Str1);
+    v17 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
     if ( v17 == v0 )
       result = (int)"No Maze Info for _this maze on file!";
     else
@@ -5906,7 +5906,7 @@ char *__cdecl sub_444A51()
   int v15; // [sp+6Bh] [bp-1h]@11
 
   memcpy(&local_0C, pGUIWindow0, sizeof(struct GUIWindow));
-  v14 = CMapStats_FindLocation(pMapStats, Str1);
+  v14 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   v13 = sub_444810(dword_591164);
   Render_DrawIndexedTexture(pD3DRenderer, 477, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
   Render_DrawIndexedTexture(pD3DRenderer,
@@ -6045,7 +6045,7 @@ void __cdecl sub_444DCA()
   int v11; // [sp+80h] [bp-4h]@1
 
   memcpy(&local_0C, pGUIWindow0, sizeof(struct GUIWindow));
-  v11 = CMapStats_FindLocation(pMapStats, Str1);
+  v11 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   sub_48902E((char *)pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, &Str2, 20);
   v0 = CMapStats_FindLocation(pMapStats, &Str2);
   Render_DrawIndexedTexture(pD3DRenderer, 477, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
@@ -9324,7 +9324,7 @@ const void *__fastcall sub_448CF4(__int16 a1, __int16 a2, signed int a3, int a4,
   v20 = 32;
   v21 = 3;
   v22 = v9 + 2 * v10 + v10;
-  result = (const void *)CMapStats_FindLocation(pMapStats, Str1);
+  result = (const void *)CMapStats_FindLocation(pMapStats, CurrentLevelName);
   if ( result )
   {
     v11 = uNumActors;
@@ -9956,10 +9956,10 @@ char *__fastcall sub_44987B(const char *Source, int a2)
   v2 = a2;
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
   LevelLoadingUI_Initialize(pLoadingUI, 0);
-  if ( _strcmpi(Str1, v3) )
+  if ( _strcmpi(CurrentLevelName, v3) )
     SaveGame(1, 0);
   dword_6A0D48 = 2;
-  result = strcpy(Str1, v3);
+  result = strcpy(CurrentLevelName, v3);
   dword_6BE35C = v2;
   return result;
 }
@@ -12186,7 +12186,7 @@ int __cdecl sub_44C28F()
 {
   int result; // eax@1
 
-  result = _strcmpi("nwc.blv", Str1);
+  result = _strcmpi("nwc.blv", CurrentLevelName);
   if ( result )
   {
     dword_5B65A8 = 0;

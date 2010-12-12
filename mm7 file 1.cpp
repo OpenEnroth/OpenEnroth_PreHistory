@@ -201,7 +201,7 @@ LABEL_21:
           for (v9 = 0; v9 < 50; ++v9)
             sub_45855F(array_5E4D58[v9++]);
 
-          strcpy(Str1, (char *)pStartMapName);
+          strcpy(CurrentLevelName, (char *)pStartMapName);
           Party_CreateDefaultParty(pParty_global, 0);
 
           PlayerCreationUI_Initialize();
@@ -257,7 +257,7 @@ LABEL_21:
             goto LABEL_53;
           }
           SetCurrentDirectoryW(L"..\\");
-          strcpy(Str1, stru_6A0DA0.lpstrFileTitle);
+          strcpy(CurrentLevelName, stru_6A0DA0.lpstrFileTitle);
           class03_fn1(pGame->pClass03, 1);
           if (dword_720010)
             sub_46B105((void*)dword_720010);
@@ -2464,7 +2464,7 @@ int __fastcall sub_46BE0A(unsigned int a1)
   sub_473893_SomeStuffIncludingPartyPosUpdate();
   if ( pParty_global->sPartyPosX < -22528 || pParty_global->sPartyPosX > 22528 || pParty_global->sPartyPosY < -22528 || pParty_global->sPartyPosY > 22528 )
   {
-   strcpy((char *)pClass51_global->string_000000, Str1);
+   strcpy((char *)pClass51_global->string_000000, CurrentLevelName);
    v1 = sub_48902E((char *)pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, (char *)&v3, 32);
     if ( !byte_6BE3C4_MaybeDrowningFlag && (pParty_global->dword_007778 & 0x8C || pParty_global->dword_007778 & 0x0200 || pParty_global->dword_000704) || !v1 )
     {
@@ -11106,7 +11106,7 @@ LABEL_616:
         goto LABEL_1056;
       case 33:
         v711 = 604800 * v1;
-        if ( !_strcmpi(Str1, "d05.blv") )
+        if ( !_strcmpi(CurrentLevelName, "d05.blv") )
           goto LABEL_200;
         LODWORD(v1) = LODWORD(v706);
         if ( *(_DWORD *)(v707 + 6464) >= LODWORD(v706) )
@@ -13474,7 +13474,7 @@ void __cdecl sub_461103()
   byte_ACD76D = 0;
   dword_5C6DF8 = 1;
   pNPCStats->dword_017FC0 = 0;
-  v20 = CMapStats_FindLocation(pMapStats, Str1);
+  v20 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
 
   for (i = 0; i < uNumActors; ++i)
   {
@@ -13501,7 +13501,7 @@ void __cdecl sub_461103()
         continue;
       if ( v18 )
       {
-        NPCStats_InitializeAdditionalNPCs(pNPCStats, 0, &pNPCStats->array_013EF4[pNPCStats->dword_017FC0], v3, 0, v20);
+        NPCStats_InitializeAdditionalNPCs(pNPCStats, 0, &pNPCStats->array_013EF4[pNPCStats->dword_017FC0], v3, 0, v20-1);//!!!! -1 hack
         v15 = pNPCStats->dword_017FC0++ + 5000;
         pActors[i].word_000020 = v15;
         continue;
@@ -13918,7 +13918,7 @@ void __fastcall PrepareToLoadODM(int a1, void *a2)
   LevelLoadingUI_Reset(pLoadingUI, 27);
   sub_4A9D79(pSoundList, 0);
   dword_6BE360 = 2;
-  sub_47A384(Str1, a2);
+  sub_47A384(CurrentLevelName, a2);
   if ( !v2 )
     sub_4498D5((void *)dword_6BE35C);
   sub_443365(&struct_576FE8);

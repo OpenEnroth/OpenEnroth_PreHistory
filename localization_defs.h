@@ -35,6 +35,7 @@
 
 #define  LOCSTR_CREATE_PARTY                  		51   //"C R E A T E   P A R T Y"	
 
+#define  LOCSTR_DAWN                                55 //"Dawn"	
 #define  LOCSTR_DAY                          		56	//"Day"	
 #define  LOCSTR_DAYS                        		57	/// "Days"	
 
@@ -80,6 +81,8 @@
 #define  LOCSTR_REPUTATION                  		180	 //"Reputation"
 
 #define  LOCSTR_REST_HEAL_8                         183 //"Rest & Heal 8 Hours"	
+
+#define  LOCSTR_TIME_ERATHIA                		186 // "Time in Erathia"	
 
 #define  LOCSTR_SAVING                      		190  // "Saving"	
 
@@ -134,9 +137,14 @@
 #define  LOCSTR_SP_COST                      		522 //"SP Cost"
 #define  LOCSTR_RECALL_BEACON               		523 // "Recall Beacon"	
 
+#define  LOCSTR_TIME                        		526	//"Time"	
+
 #define  LOCSTR_NEED_MORE_EXP               		538 //"You need %d more experience to train to level %d"	
 
 #define  LOCSTR_IDENT_ITEM                  		541 // "Identify Items"
+
+#define  LOCSTR_DUSK                         		566   //"Dusk"	
+#define  LOCSTR_NIGHT                               567  // "Night"	
 
 #define  LOCSTR_NO_SAVING                   		583	//"No saving in the Arena"	
 
@@ -198,7 +206,7 @@
 +		[52]	0x04103056 "Cursed"	unsigned char *
 +		[0x35]	0x04103061 "Damage"	unsigned char *
 +		[0x36]	0x0410306c "Dark"	unsigned char *
-+		[0x37]	0x04103075 "Dawn"	unsigned char *
+
 
 
 +		[58]	0x0410308f "Dead"	unsigned char *
@@ -330,7 +338,7 @@
 
 +		[184]	0x04103bf2 "Reinstall Necessary"	unsigned char *
 +		[185]	0x04103c0b "Steal item"	unsigned char *
-+		[186]	0x04103c1b "Time in Erathia"	unsigned char *
+
 +		[187]	0x04103c30 "Stolen"	unsigned char *
 +		[188]	0x04103c3c "Saturday"	unsigned char *
 +		[189]	0x04103c4a "%s shoots %s for %lu points"	unsigned char *
@@ -665,7 +673,7 @@
 
 +		[524]	0x041053b9 "Once again you've cheated death! …"	unsigned char *
 +		[525]	0x041053e1 "Apothecary"	unsigned char *
-+		[526]	0x041053f1 "Time"	unsigned char *
+
 +		[527]	0x041053fb "Thank You!"	unsigned char *
 +		[528]	0x0410540b "I can offer you nothing further."	unsigned char *
 +		[529]	0x04105431 ""Sorry, but we are unable to train you.""	unsigned char *
@@ -705,8 +713,7 @@
 +		[563]	0x0410573b "Pack is Full!"	unsigned char *
 +		[564]	0x0410574e "Hic..."	unsigned char *
 +		[565]	0x0410575a "Have a Drink first..."	unsigned char *
-+		[566]	0x04105775 "Dusk"	unsigned char *
-+		[567]	0x0410577f "Night"	unsigned char *
+
 +		[568]	0x0410578a "Club"	unsigned char *
 +		[569]	0x04105794 "Done!"	unsigned char *
 +		[570]	0x0410579f "Good as New!"	unsigned char *

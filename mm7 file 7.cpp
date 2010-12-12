@@ -12811,7 +12811,7 @@ LABEL_49:
     v79 = 0;
     v77 = 0;
     v74 = v37;
-    v33 = CMapStats_FindLocation(pMapStats, Str1);
+    v33 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
     if ( v33 )
       v77 = pMapStats->pMapInfos[v33].dword_000024;
     v38 = sub_47752B();

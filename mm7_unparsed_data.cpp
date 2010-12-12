@@ -31,9 +31,15 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
  int dword_4E1884; // weak
  int dword_4E1888; // weak
  _UNKNOWN unk_4E19FC; // weak
- char asc_4E1A08[1]; // idb
- char asc_4E1A28[4]; // idb
- char byte_4E1B18[array_size_unknown]; // weak
+// char asc_4E1A08[1]; // idb
+// char asc_4E1A28[4]; // idb
+
+ char DayMoonPhase[28]= {
+	0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x02, 0x02, 0x02, 0x03, 0x03, 0x03, 0x03, 0x04, 0x04, 
+	0x04, 0x03, 0x03, 0x03, 0x03, 0x02, 0x02, 0x02, 0x01, 0x01, 0x01, 0x01
+};	   //moon phases	byte _4E1B18
+ 
+
  wchar_t *off_4E1D18; // weak
  __int16 word_4E1D3A[array_size_unknown]; // weak
  __int16 word_4E1D3C[array_size_unknown]; // weak
@@ -1421,8 +1427,8 @@ unsigned char *p2DEventsTXT_Raw = 0; // ptr @ MM7.exe::005C35CC
 struct Font *ptr_5C35E0 = 0; // dword @ MM7.exe::005C35E0
 struct Font *ptr_5C35E4 = 0; // dword @ MM7.exe::005C35E4
 
-struct Font *ptr_5C35F0 = 0; // dword @ MM7.exe::005C35F0
-struct Font *ptr_5C35F4 = 0; // dword @ MM7.exe::005C35F4
+struct Font *pBook2Font = 0; // dword @ MM7.exe::005C35F0
+struct Font *pBookFont = 0; // dword @ MM7.exe::005C35F4
 
 
 struct unnamed_5C3610 stru_5C3610; // struct @ MM7.exe::005C3610
@@ -1688,7 +1694,7 @@ struct struct9 *pStruct9_global; // struct @ MM7.exe::006BE070
  LONG dwNewLong; // idb
  HMENU hMenu; // idb
  int dword_6BE340; // weak
- char Str1[20]; // idb
+ char CurrentLevelName[20]; // idb	 Str1
 unsigned int uLevelMapStatsID; // dword @ MM7.exe::006BE358
  int dword_6BE35C; // weak
  int dword_6BE360; // weak

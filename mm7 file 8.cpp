@@ -1356,7 +1356,7 @@ char __cdecl sub_450218()
  int i, j;
 
  v48 = rand() % 100;
- v0 = CMapStats_FindLocation(pMapStats, Str1);
+ v0 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
  v50 = (int *)&pMapStats->pMapInfos[v0];
  v2 = (MapInfo *)v50;
  v51 = (int)array_5E5150;
@@ -7032,7 +7032,7 @@ bool __cdecl sub_47F138()
 
   v0 = 0;
   v7 = 0;
-  if ( !_strcmpi(Str1, "out09.odm") )
+  if ( !_strcmpi(CurrentLevelName, "out09.odm") )
     v7 = 1;
 
   for (i = 0; i < uNumLevelDecorations; ++i)
@@ -8436,19 +8436,19 @@ int __fastcall sub_464866(int a1, int a2)
  memset(pLoadingUI, 0, sizeof(struct class56));
  LevelLoadingUI_Initialize(pLoadingUI, a2);
 
- sscanf(Str1, "%[^.].%s", pLevelName, pLevelType);
+ sscanf(CurrentLevelName, "%[^.].%s", pLevelName, pLevelType);
  Level_LoadEvtAndStr((char *)pLevelName);
  LoadLevel_InitializeLevelEvt();
  
  for (i = 0; i < 1000; ++i)
    pLayingItemsList[i].uObjectDescriptionID = 0;
  
- uLevelMapStatsID = CMapStats_FindLocation(pMapStats, Str1);
+ uLevelMapStatsID = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   byte_6BE3C4_MaybeDrowningFlag = 0;
 
   pGame->dword_000E24 &= 0xFFFFFFF7;
 
-  if ( !strcmpi(Str1, "out15.odm") )
+  if ( !strcmpi(CurrentLevelName, "out15.odm") )
   {
     byte_6BE3C4_MaybeDrowningFlag = true;
     pGame->dword_000E24 |= 8;
@@ -8462,7 +8462,7 @@ int __fastcall sub_464866(int a1, int a2)
 
   AudioPlayer_sub_4AC041(pAudioPlayer);
   sub_461103();
-  if (!strcmpi(Str1, "d11.blv") || !strcmpi(Str1, "d10.blv"))
+  if (!strcmpi(CurrentLevelName, "d11.blv") || !strcmpi(CurrentLevelName, "d10.blv"))
   {
     for (i = 0; i < uNumActors; ++i)
     {

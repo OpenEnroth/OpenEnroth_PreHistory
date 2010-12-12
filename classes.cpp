@@ -2687,7 +2687,7 @@ int CMapStats_Initialize(struct CMapStats *_this)
 
  do
  {
-  pMapInfo = &_this->pMapInfos[_this->uNumMaps];
+  pMapInfo = &_this->pMapInfos[_this->uNumMaps+1];
   v4 = strtok(0, "\r");
   v17 = 0;
   v16 = 0;
@@ -2820,13 +2820,15 @@ int CMapStats_Initialize(struct CMapStats *_this)
          pMapInfo->uEAXEnv = 24;
        else if (!strcmp(v3, "PSYCHOTIC"))
          pMapInfo->uEAXEnv = 26;
-       else pMapInfo->uEAXEnv = 25;
+       else 
+		   pMapInfo->uEAXEnv = 25;
      break;
 
      default: break;
     }
    }
-   else v16 = 1;
+   else 
+	   v16 = 1;
 
 
       ++v17;
@@ -5790,7 +5792,7 @@ unsigned int CMapStats_FindLocation(struct CMapStats *_this, const char *pLocati
 {
  int i;
 
- for (i = 0; i < _this->uNumMaps; ++i)
+ for (i = 1; i < _this->uNumMaps; ++i)
    if (!lstrcmpiA((char *)_this->pMapInfos[i].pLocationFilename, pLocationName))
       return i;
  return 0;

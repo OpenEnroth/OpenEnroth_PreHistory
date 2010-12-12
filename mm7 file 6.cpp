@@ -3274,7 +3274,7 @@ LABEL_93:
         }
         if ( v16 + 10 * (unsigned __int8)*v17 == 551 )
         {
-          v47 = CMapStats_FindLocation(pMapStats, Str1);
+          v47 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
           if ( v47 )
            v13 = (int)pMapStats->pMapInfos[v47].pLocationName;
           else
@@ -14187,7 +14187,7 @@ char __cdecl LoadLevel_InitializeMusic()
 {
   signed int v0; // eax@1
 
-  v0 = CMapStats_FindLocation(pMapStats, Str1);
+  v0 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   if ( v0 )
     LOBYTE(v0) = sub_4AA13F((int)pAudioPlayer, pMapStats->pMapInfos[v0].uRedbookTrackNum);
   return v0;
@@ -14232,7 +14232,7 @@ signed int __thiscall sub_4AC0A2(void *_this)
   int v13; // [sp+20h] [bp-4h]@6
 
   v2 = (int)_this;
-  v3 = CMapStats_FindLocation(pMapStats, Str1);
+  v3 = CMapStats_FindLocation(pMapStats,CurrentLevelName);
   v4 = *(_DWORD *)(v2 + 4) == 0;
   v1 = v3;
   v12 = v3;

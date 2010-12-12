@@ -38,7 +38,7 @@ LODFile_IB::LODFile_IB()
 	 lod_IB_dword_011BB4=NULL;
 	 
 }
- //-------------------------------------------.text:0046361D------
+ //--------- (00462303) ------------------------------.text:0046361D------
  LODFile_IB::~LODFile_IB()
 {
 
@@ -66,6 +66,8 @@ LODFile_IB::LODFile_IB()
 		 delete(lod_IB_dword_011BB4);
 
 }
+
+
 
 //----------------------------------------------.text:004636FF 
  LODFile_Sprite::LODFile_Sprite()
@@ -688,8 +690,8 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 		  pHardwareSurfaces = new IDirectDrawSurface4 *[1000];
 		  pHardwareTextures = new IDirect3DTexture2 *[1000];
 		  lod_IB_dword_011BB4 = new char [1000];
-		  memset(*pHardwareTextures, 0, 4000);
-		  memset(*pHardwareSurfaces, 0, 4000);
+		  memset(pHardwareTextures, 0, 4000);
+		  memset(pHardwareSurfaces, 0, 4000);
 		  memset(lod_IB_dword_011BB4, 0, 1000);
 		  }
 	  if ( pContainerName[0] == 'w'		//wtrdr
@@ -926,8 +928,6 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
   case 12:  pcTexture->word_000022 = 4095; break;
 	  }
 
-//  Render_MoveToGPU(pD3DRenderer, pcTexture->uTextureWidth, pcTexture->uTextureHeight,  aLODHeaders[ uNumLoadedFiles].pTruecolorPixels,
-//	  &pHardwareSurfaces[ uNumLoadedFiles], & pHardwareTextures[ uNumLoadedFiles]);
   return 1;
 }
 
@@ -1003,7 +1003,7 @@ void LODFile_IB::LODFile_sub_4114F2()
        for(i= uNumLoadedFiles - 1; i>=uPrevLoadedFiles; i--)
         {
           cTexture_Free(&aLODHeaders[i]);
-        /* if (pHardwareSurfaces)
+         if (pHardwareSurfaces)
 			 if	 (pHardwareSurfaces[i])
 				 {
 				 pHardwareSurfaces[i]->Release();
@@ -1014,7 +1014,7 @@ void LODFile_IB::LODFile_sub_4114F2()
 				 {
 				 pHardwareTextures[i]->Release();
 				 pHardwareTextures[i]=NULL;
-				 }	 */
+				 }	
         }
       }
       uNumLoadedFiles=uPrevLoadedFiles;
@@ -1183,11 +1183,14 @@ bool LODFile_IB::LODFile_LoadLOD_Icons_Events( const char *pFilename)
  Reset_TextureBuffs();
  if (!Load_LODHeader( pFilename, 1))
    return 0;
-///#ifndef OLD_CODE 
+#ifndef OLD_CODE 
  pHardwareSurfaces = new IDirectDrawSurface4 *[1000];
  pHardwareTextures = new IDirect3DTexture2 *[1000];
  lod_IB_dword_011BB4 = new char [1000];
-///#endif  
+ memset(pHardwareTextures, 0, 4000);
+ memset(pHardwareSurfaces, 0, 4000);
+ memset(lod_IB_dword_011BB4, 0, 1000);
+#endif  
  return  Load_SubIndexes("icons") == 0;
 }
 
@@ -1197,11 +1200,14 @@ bool LODFile_IB::LODFile_LoadLOD_Bitmaps( const char *pFilename)
  Reset_TextureBuffs();
  if (!Load_LODHeader( pFilename, 1))
    return 0;
-// #ifndef OLD_CODE
+ #ifndef OLD_CODE
  pHardwareSurfaces = new IDirectDrawSurface4 *[1000];
  pHardwareTextures = new IDirect3DTexture2 *[1000];
  lod_IB_dword_011BB4 = new char [1000];
-//#endif
+ memset(pHardwareTextures, 0, 4000);
+ memset(pHardwareSurfaces, 0, 4000);
+ memset(lod_IB_dword_011BB4, 0, 1000);
+#endif
 
  return  Load_SubIndexes( "bitmaps") == 0;
 }
