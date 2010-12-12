@@ -2,6 +2,12 @@
 #pragma pack(push, 1)
 
 
+
+#define EQUIP_HAND   0  //right, or both - unsure;   sword has equip type 0
+#define EQUIP_ARMOUR 3
+
+
+
 struct ItemGen
 {
  unsigned int uItemID;      // dword @ 000000
@@ -9,12 +15,16 @@ struct ItemGen
  int          dword_000008;
  int          dword_00000C;
  int          dword_000010;
- int          dword_000014;
+ int          dword_000014; // draw mode flags, maybe more
+                            // & 0 - draw some way
+                            // & 1 - DrawTransparentTexture
+                            // & 2 - draw some other way
  char         byte_000018;
  char         byte_000019;
  char         byte_00001A;
  char         byte_00001B;
- int          dword_00001C;
+ short        word_00001C;
+ short        word_00001E;
  int          dword_000020;
 };
 //sizeof = 24

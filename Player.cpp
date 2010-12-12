@@ -790,7 +790,7 @@ int Player_sub_48FC00(struct Player *_this, signed int a2)
   v3 = 1;
   if ( v2 )
   {
-    v6 = sub_458244(v2);
+    v6 = sub_458244_GetSkillMasteryLevel(v2);
     if ( a2 == 26 )
     {
       if ( v6 >= 4 )
@@ -829,7 +829,7 @@ LABEL_12:
   if ( a2 == 8 )
   {
     v62 = byte_4ED78C[_this->uClass];
-    v61 = sub_4910A8(_this);
+    v61 = Player_sub_4910A8(_this);
     return v62 * v61;
   }
   if ( a2 != 9 )
@@ -849,9 +849,9 @@ LABEL_12:
           if ( Player_sub_48D6AA((Player *)v5, v72) )
           {
             v12 = (&pClass40->pItems[0].uEquipType)[48 * *((_DWORD *)v5 + 9 * *(_DWORD *)v9 + 124) + 1];
-            LOBYTE(v13) = Player_sub_48F882(v10, v12);
+            LOBYTE(v13) = Player_sub_48F882((Player *)v10, v12);
             v73 = v13;
-            sub_458244(v13);
+            sub_458244_GetSkillMasteryLevel(v13);
             v11 = v12 - 5;
             if ( !v11 )
               return v73 & 0x3F;
@@ -865,28 +865,28 @@ LABEL_12:
         }
         v14 = v73;
         v15 = 1;
-        if ( sub_458244(v73) >= 4 )
+        if ( sub_458244_GetSkillMasteryLevel(v73) >= 4 )
         {
           v63 = 5;
           goto LABEL_31;
         }
-        if ( sub_458244(v73) >= 3 )
+        if ( sub_458244_GetSkillMasteryLevel(v73) >= 3 )
         {
           v63 = 3;
           goto LABEL_31;
         }
-        if ( sub_458244(v73) < 2 )
+        if ( sub_458244_GetSkillMasteryLevel(v73) < 2 )
           goto LABEL_32;
         goto LABEL_30;
       }
       if ( sub_48D676(v5) )
       {
-        LOBYTE(v18) = Player_sub_48F882(v5, 31);
+        LOBYTE(v18) = Player_sub_48F882((Player *)v5, 31);
         v14 = v18;
         if ( !v18 )
           return v71;
         v15 = 0;
-        v19 = sub_458244(v18);
+        v19 = sub_458244_GetSkillMasteryLevel(v18);
         if ( v19 < 3 )
         {
           if ( v19 >= 2 )
@@ -916,19 +916,19 @@ LABEL_31:
       }
       v72 = 0;
       v25 = pClass40->pItems[v22 - 1].uSkillType;
-      LOBYTE(v26) = Player_sub_48F882(v5, v25);
+      LOBYTE(v26) = Player_sub_48F882((Player *)v5, v25);
       v24 = v26;
-      v23 = sub_458244(v26);
+      v23 = sub_458244_GetSkillMasteryLevel(v26);
       if ( !v25 )
       {
-        if ( sub_458244(v24) >= 4 )
+        if ( sub_458244_GetSkillMasteryLevel(v24) >= 4 )
         {
-          LOBYTE(v31) = Player_sub_48F882(v5, 31);
+          LOBYTE(v31) = Player_sub_48F882((Player *)v5, 31);
           LOBYTE(v24) = v31;
           if ( v31 )
           {
             v15 = 0;
-            v32 = sub_458244(v31);
+            v32 = sub_458244_GetSkillMasteryLevel(v31);
             if ( v32 < 3 )
             {
               if ( v32 >= 2 )
@@ -946,7 +946,7 @@ LABEL_31:
       }
       if ( v25 == 2 )
       {
-        v29 = sub_458244(v24);
+        v29 = sub_458244_GetSkillMasteryLevel(v24);
         compile_error;//v28 = __SETO__(v29, 4);
         v27 = v29 - 4 < 0;
       }
@@ -976,11 +976,11 @@ LABEL_53:
     }
     if ( sub_48D676(v5) == 1 )
     {
-      LOBYTE(v33) = Player_sub_48F882(v5, 31);
+      LOBYTE(v33) = Player_sub_48F882((Player *)v5, 31);
       v34 = v33;
       if ( !v33 )
         return v71;
-      if ( sub_458244(v33) >= 3 )
+      if ( sub_458244_GetSkillMasteryLevel(v33) >= 3 )
         v3 = 2;
       v30 = v3 * (v34 & 0x3F);
       return (int)&v70[v30];
@@ -1000,9 +1000,9 @@ LABEL_53:
         return v71;
     }
     v38 = pClass40->pItems[v37 - 1].uSkillType;
-    LOBYTE(v39) = Player_sub_48F882(v5, v38);
+    LOBYTE(v39) = Player_sub_48F882((Player *)v5, v38);
     v74 = v39;
-    sub_458244(v39);
+    sub_458244_GetSkillMasteryLevel(v39);
     v72 = 0;
     if ( v38 )
     {
@@ -1016,11 +1016,11 @@ LABEL_53:
         {
           if ( v38 == 7 )
           {
-            if ( sub_458244(v74) < 4 )
+            if ( sub_458244_GetSkillMasteryLevel(v74) < 4 )
             {
-              if ( sub_458244(v74) < 3 )
+              if ( sub_458244_GetSkillMasteryLevel(v74) < 3 )
               {
-                if ( sub_458244(v74) < 2 )
+                if ( sub_458244_GetSkillMasteryLevel(v74) < 2 )
                   return v3 * (v74 & 0x3F);
                 v64 = 2;
               }
@@ -1042,13 +1042,13 @@ LABEL_53:
     else
     {
       v72 = 1;
-      if ( sub_458244(v74) >= 4 )
+      if ( sub_458244_GetSkillMasteryLevel(v74) >= 4 )
       {
-        LOBYTE(v40) = Player_sub_48F882(v5, 31);
+        LOBYTE(v40) = Player_sub_48F882((Player *)v5, 31);
         v41 = v40;
         if ( v40 )
         {
-          if ( sub_458244(v40) >= 3 )
+          if ( sub_458244_GetSkillMasteryLevel(v40) >= 3 )
             v3 = 2;
           v69 = v3 * (v41 & 0x3F);
         }
@@ -1116,9 +1116,9 @@ LABEL_53:
 LABEL_112:
           v68 = 0;
 LABEL_113:
-          LOBYTE(v53) = Player_sub_48F882(v5, v44);
+          LOBYTE(v53) = Player_sub_48F882((Player *)v5, v44);
           v54 = v53;
-          v50 = sub_458244(v53);
+          v50 = sub_458244_GetSkillMasteryLevel(v53);
           v52 = v54 & 0x3F;
           for ( i = 0; i < v50; ++i )
           {
@@ -1142,9 +1142,9 @@ LABEL_117:
   v66 = 1;
   v67 = 1;
   v68 = 0;
-  LOBYTE(v58) = Player_sub_48F882(v5, 30);
+  LOBYTE(v58) = Player_sub_48F882((Player *)v5, 30);
   v57 = v58;
-  v56 = sub_458244(v58);
+  v56 = sub_458244_GetSkillMasteryLevel(v58);
   if ( !v75 )
   {
     if ( !v72 || v56 == 4 )
@@ -1364,7 +1364,7 @@ LABEL_61:
             if ( v13 != 65 )
             {
 LABEL_28:
-              if ( sub_458244(*(_WORD *)(v4 + 268)) >= 3 )
+              if ( sub_458244_GetSkillMasteryLevel(*(_WORD *)(v4 + 268)) >= 3 )
               {
                if (pClass40->pItems[*(_DWORD *)v7 - 1].uSkillType == 2 )
                 {
@@ -1441,7 +1441,7 @@ LABEL_33:
 LABEL_57:
                  if (pClass40->pItems[*(_DWORD *)v15 - 1].uSkillType == 2 )
                   {
-                    if ( sub_458244(*(_WORD *)(v4 + 268) >= 3u) )
+                    if ( sub_458244_GetSkillMasteryLevel(*(_WORD *)(v4 + 268) >= 3u) )
                     {
                       if ( rand() % 100 < 10 )
                         v5 *= 3;
@@ -1521,7 +1521,7 @@ int __thiscall sub_48D124(void *_this)
   v1 = *(_WORD *)(v3 + 274);
   if ( v1 )
   {
-    if ( sub_458244(v1) >= 4 )
+    if ( sub_458244_GetSkillMasteryLevel(v1) >= 4 )
     {
       if ( Player_sub_48D6AA((Player *)v3, 2) )
         v2 += *(_BYTE *)(v3 + 274) & 0x3F;
@@ -1551,7 +1551,7 @@ int __thiscall sub_48D191(void *_this)
   v1 = *(_WORD *)(v3 + 274);
   if ( v1 )
   {
-    if ( sub_458244(v1) >= 4 )
+    if ( sub_458244_GetSkillMasteryLevel(v1) >= 4 )
     {
       if ( Player_sub_48D6AA((Player *)v3, 2) )
         v2 += *(_BYTE *)(v3 + 274) & 0x3F;
@@ -2088,7 +2088,7 @@ int __thiscall Player_GetActualResistance(struct Player *_this, signed int a2)
     ResBonus = 20;
   if ( a2 == 10 || a2 == 11 || a2 == 12 || a2 == 13 )
   {
-    if ( sub_458244(_this->pActiveSkills[SKILL_LEATHER]) == 4 )  // Grandmaster leather bonus
+    if ( sub_458244_GetSkillMasteryLevel(_this->pActiveSkills[SKILL_LEATHER]) == 4 )  // Grandmaster leather bonus
     {  
       if ( Player_sub_48D6AA(_this, 3) ) // check equip?
       {
@@ -2151,7 +2151,7 @@ bool Player_SetRecoveryTime(struct Player *_this, int sRecoveryTime)
  if (v2 > _this->uTimeToRecovery)
    _this->uTimeToRecovery = v2;
 
-  if (pPlayers[uActiveCharacter] == _this)
+  if (pPlayers[uActiveCharacter - 1] == _this)
   {
     if ( !dword_50C0C4 )
       uActiveCharacter = Party_sub_49370F(pParty_global);
@@ -3262,7 +3262,7 @@ int Player_sub_492826(struct Player *_this, signed int a2, struct ItemGen *Src)
         {
           v8 = (const void *)Src;
           v7 = v5;
-          return Player_sub_49289C(_this, v7, (InventorySlot*)v8);
+          return Player_sub_49289C(_this, v7, (ItemGen *)v8);
         }
         ++v4;
         v5 += 14;
@@ -3279,11 +3279,11 @@ int Player_sub_492826(struct Player *_this, signed int a2, struct ItemGen *Src)
     return 0;
   v8 = (const void *)Src;
   v7 = a2;
-  return Player_sub_49289C(_this, v7, (InventorySlot*)v8);
+  return Player_sub_49289C(_this, v7, (ItemGen *)v8);
 }
 
 //----- (0049289C) ----------------.text:004943FA  ----------------------------------------
-int Player_sub_49289C(struct Player *_this, int a2, struct InventorySlot *sItem)
+int Player_sub_49289C(struct Player *_this, int a2, struct ItemGen *sItem)
 {
   int v3, i, x; // eax@1
   signed int  items_count; // ebx@1
@@ -3342,7 +3342,7 @@ int Player_sub_49289C(struct Player *_this, int a2, struct InventorySlot *sItem)
       }
     }
     _this->sInventoryIndexes[a2] = items_count + 1;
-    memcpy(&_this->cInventorySlots[items_count], sItem, sizeof(struct InventorySlot));
+    memcpy(&_this->cInventorySlots[items_count], sItem, sizeof(struct ItemGen));
     result = items_count + 1;
   }
   return result;
@@ -3381,7 +3381,7 @@ int __thiscall sub_492600(struct Player *_this, int a2, unsigned int uItemID) //
   if ( v13 == -1 )
   {
     if ( uActiveCharacter )
-      Player_PlaySound(pPlayers[uActiveCharacter], 15, 0);
+      Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
     result = 0;
   }
   else

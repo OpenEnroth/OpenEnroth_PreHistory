@@ -118,7 +118,7 @@ bool Party_sub_497FC5(struct Party *_this)
   {
     if ( Player_sub_492C0B_MaybeIfPlayerConscious(&_this->pPlayers[i]) )
     {
-      v5 = sub_49125A(&_this->pPlayers[i]);
+      v5 = Player_sub_49125A(&_this->pPlayers[i]);
       if ( v5 > v2 )
         v2 = v5;
     }
@@ -161,10 +161,9 @@ int Party_Reset(struct Party *_this)
   _this->dword_00087C = 0;
 
  uActiveCharacter = 1;
- //pPlayers[1] = &_this->pPlayers[uActiveCharacter - 1];
 
  {
-  pPlayers[1] = &_this->pPlayers[0];
+  pPlayers[0] = &_this->pPlayers[0];
   Player_Reset(&_this->pPlayers[0], CLASS_KNIGHT);
 
   _this->pPlayers[0].uFace = 17;
@@ -178,7 +177,7 @@ int Party_Reset(struct Party *_this)
 
 
  {
-  pPlayers[2] = &_this->pPlayers[1];
+  pPlayers[1] = &_this->pPlayers[1];
   Player_Reset(&_this->pPlayers[1], CLASS_THIEF);
 
   _this->pPlayers[1].uFace = 3;
@@ -192,7 +191,7 @@ int Party_Reset(struct Party *_this)
 
 
  { 
-  pPlayers[3] = &_this->pPlayers[2];
+  pPlayers[2] = &_this->pPlayers[2];
   Player_Reset(&_this->pPlayers[2], CLASS_CLERIC);
  
   _this->pPlayers[2].uFace = 14;
@@ -206,7 +205,7 @@ int Party_Reset(struct Party *_this)
 
 
  { 
-  pPlayers[4] = &_this->pPlayers[3];
+  pPlayers[3] = &_this->pPlayers[3];
   Player_Reset(&_this->pPlayers[3], CLASS_SORCERER);
 
   _this->pPlayers[3].uFace = 10;
@@ -219,7 +218,7 @@ int Party_Reset(struct Party *_this)
  }
 
 
- for (i = 1; i < 5; ++i)
+ for (i = 0; i < 4; ++i)
  {
   pPlayers[i]->uTimeToRecovery = 0;
 
@@ -236,14 +235,14 @@ int Party_Reset(struct Party *_this)
  _this->dword_007778 = 0;
 
 
-  sub_449B7E((int)_this->unk_000764 + 1, 1, 1);
-  sub_449B7E((int)_this->unk_000764 + 1, 2, 1);
-  sub_449B7E((int)_this->unk_000764 + 1, 3, 1);
-  sub_449B7E((int)_this->unk_000764 + 1, 4, 1);
-  sub_449B7E((int)_this->unk_000764 + 1, 5, 1);
-  sub_449B7E((int)_this->unk_000764 + 1, 6, 1);
+ sub_449B7E((int)_this->unk_000764 + 1, 1, 1);
+ sub_449B7E((int)_this->unk_000764 + 1, 2, 1);
+ sub_449B7E((int)_this->unk_000764 + 1, 3, 1);
+ sub_449B7E((int)_this->unk_000764 + 1, 4, 1);
+ sub_449B7E((int)_this->unk_000764 + 1, 5, 1);
+ sub_449B7E((int)_this->unk_000764 + 1, 6, 1);
 
- for (i = 1; i < 5; ++i)
+ for (i = 0; i < 4; ++i)
  {
   pPlayers[i]->uDefaultFaceID = 1;
   pPlayers[i]->word_001A9E = 0;

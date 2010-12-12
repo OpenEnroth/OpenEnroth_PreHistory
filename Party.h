@@ -106,7 +106,7 @@ struct abc	 {
  struct SpellBuff   pPartyBuffs[20];  // struct[20] @ 00088C
  struct Player      pPlayers[4];      // struct[4]  @ 0009CC
  struct NPCData     pHiredNPCs[2];    // struct[2]  @ 0076BC
- struct ItemGen     stru_007754;      // struct @ 007754
+ struct ItemGen     pickedItem;       // struct     @ 007754   item picked in inventory
  int                dword_007778;     // party flags;     0x0002 - party position/direction/eyelevel changed
                                       //                  0x0004 - You're Drowning!  message displayed
                                       //                  0x0200 - You are Burning!  message displayed

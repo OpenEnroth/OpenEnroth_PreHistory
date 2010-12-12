@@ -233,7 +233,7 @@ LABEL_21:
         {
           if ( uCurrentMenuID != 10 )
             goto LABEL_49;
-          class03_fn1(pGame->pClass03, 0);
+          GUICursor_fn1(pGame->pGUICursor, 0);
           if (dword_720010)
             Mouse_suspend(dword_720010);
           if (pGame->class14_obj->dword_000004 & 0xFF)
@@ -246,7 +246,7 @@ LABEL_21:
           sub_46271C();
           if ( !GetOpenFileNameA(&stru_6A0DA0) )
           {
-            class03_fn1(pGame->pClass03, 1);
+            GUICursor_fn1(pGame->pGUICursor, 1);
             if (dword_720010)
               sub_46B105((void*)dword_720010);
             if (pGame->class14_obj->dword_000004 & 0xFF)
@@ -258,7 +258,7 @@ LABEL_21:
           }
           SetCurrentDirectoryW(L"..\\");
           strcpy(CurrentLevelName, stru_6A0DA0.lpstrFileTitle);
-          class03_fn1(pGame->pClass03, 1);
+          GUICursor_fn1(pGame->pGUICursor, 1);
           if (dword_720010)
             sub_46B105((void*)dword_720010);
           if (pGame->class14_obj->dword_000004 & 0xFF)
@@ -1261,7 +1261,7 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
  sub_448B67(true);
  sub_448B45_LooksLikeResetSomeTimer(true);
  GameInitialize();
- pGame->pClass03 = pGame->class03_obj;
+ pGame->pGUICursor = pGame->class03_obj;
 
  /*
  GetWindowRect(hWnd_global, &rcWindow);
@@ -3047,7 +3047,7 @@ LABEL_208:
         if ( pVideoPlayer->dword_000024 )
          pVideoPlayer->dword_000068 = 1;
         if (!dword_720010)
-          class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
+          GUICursor_OnMouseLeftButton(pGame->pGUICursor, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
         if ( uCurrentMenuID != MENU_CREATEPARTY)
           goto LABEL_228;
         else goto LABEL_227;
@@ -3112,7 +3112,7 @@ LABEL_216:
         if ( pVideoPlayer->dword_000024 )
           pVideoPlayer->dword_00006C = 1;
         if ( !dword_720010 )
-          class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
+          GUICursor_OnMouseLeftButton(pGame->pGUICursor, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
         if ( uCurrentMenuID != MENU_CREATEPARTY)
           goto LABEL_228;
         if ( !dword_720010 )
@@ -3121,7 +3121,7 @@ LABEL_227:
           sub_41CD4F_MaybeOnlyUI_OnKeyDown(VK_SELECT);
 LABEL_228:
           if (!dword_720010)
-            class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
+            GUICursor_OnMouseLeftButton(pGame->pGUICursor, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
         }
         if (pGame)
         {
@@ -3149,7 +3149,7 @@ LABEL_238:
           if ( pVideoPlayer->dword_000024 != v31 )
             pVideoPlayer->dword_00006C = 1;
           if ( dword_720010 == v31 )
-            class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
+            GUICursor_OnMouseLeftButton(pGame->pGUICursor, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
           if ((int)pGame != v31 )
           {
             if ( dword_720010 != v31 )
@@ -3217,7 +3217,7 @@ LABEL_261:
         {
           if (dword_720010)
             goto LABEL_184;
-          class03_OnMouseLeftButton(pGame->pClass03, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
+          GUICursor_OnMouseLeftButton(pGame->pGUICursor, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
         }
         return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
     }
@@ -3962,7 +3962,7 @@ void sub_44103C()
   if (pD3DRenderer->pRenderD3D3)
     goto LABEL_22;
   pD3DRenderer->BeginScene();
-  ckass03_sub_469E3B(pGame->pClass03);
+  GUICursor_sub_469E3B(pGame->pGUICursor);
  }
  else
  {
@@ -3984,7 +3984,7 @@ void sub_44103C()
   pD3DRenderer->BeginScene();
 
   if (!pD3DRenderer->pRenderD3D3)
-    ckass03_sub_469E3B(pGame->pClass03);
+    GUICursor_sub_469E3B(pGame->pGUICursor);
 
   if (!sub_4226C2() || struct_576FE8.dword_000048 == 1)
   {
@@ -4021,7 +4021,7 @@ LABEL_22:
  //pD3DRenderer->BeginScene();
  Render_Set2DClippingRect(pD3DRenderer, 0, 0, 640, 480);
  if (pD3DRenderer->pRenderD3D3)
-   ckass03_sub_469E3B(pGame->pClass03);
+   GUICursor_sub_469E3B(pGame->pGUICursor);
  if (dword_5E5144)
    struct_576FE8.dword_000044 = 1;
  v5 = struct_576FE8.dword_000044;
@@ -4081,13 +4081,15 @@ LABEL_22:
   sub_4909F4(pParty_global);
   ++dword_510774;
   dword_5B5924 = 0;
-  if (v5)
-    pGame->pClass03->dword_000014[0] = 1;
-  class03_sub_469EA4_LooksLikeDrawPickedItem((int)pGame->pClass03);
-  class03_sub_469CCD((int)pGame->pClass03);
-  class03_sub_469E1C((int)pGame->pClass03);
-  pD3DRenderer->EndScene();
-  pD3DRenderer->Present();
+
+ if (v5)
+   pGame->pGUICursor->dword_000014[0] = 1;
+ GUICursor_sub_469EA4_LooksLikeDrawPickedItem(pGame->pGUICursor);
+ GUICursor_sub_469CCD(pGame->pGUICursor);
+ GUICursor_sub_469E1C(pGame->pGUICursor);
+
+ pD3DRenderer->EndScene();
+ pD3DRenderer->Present();
 
   pParty_global->dword_007778 &= 0xFFFFFFFD;
 }
@@ -5412,7 +5414,7 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
  char *pNames[4] = {"glow03", "glow05", "torchA", "wizeyeA"};
  int i;
 
-  sub_469C65(pGame->pClass03, pAppWindow->GetAPIHandle());
+  GUICursor_sub_469C65(pGame->pGUICursor, pAppWindow->GetAPIHandle());
   sub_465F5A_InitializeAsyncMouseAndSomething();
   sub_465FF0_InitializeAsyncKeyboardAndSomething();
 
@@ -5674,7 +5676,7 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
   {
     v96 = 0;
     v111 = 1;
-    while ( !Player_sub_48D709(pPlayers[v111++], 536, 16) )
+    while ( !Player_sub_48D709(pPlayers[v111++ - 1], 536, 16) )
     {
       if ( v111 > 4)
         goto LABEL_9;
@@ -6025,7 +6027,7 @@ LABEL_9:
           v87 = 0;
           v85 = 64;
 LABEL_105:
-          Player_PlaySound(pPlayers[uActiveCharacter], v85, v87);
+          Player_PlaySound(pPlayers[uActiveCharacter - 1], v85, v87);
         }
         break;
 
@@ -8743,12 +8745,12 @@ void __thiscall sub_427E01(struct unnamed_50C0C8 *_this)
     v625 = HIDWORD(v1);
 
   n = sub_42F184(&unk_50C198, 0x1400u, 1, v625);
-    v5 = pGame->pClass03->dword_000000;
+    v5 = pGame->pGUICursor->dword_000000;
     if (v5 != HIDWORD(v1)
       && (v5 & 7) == 3
       && Actor_sub_40894B(&pActors[v5 >> 3]))
     {
-     v3 = pGame->pClass03->dword_000000;
+     v3 = pGame->pGUICursor->dword_000000;
 LABEL_18:
       n = v3;
     }
@@ -8844,7 +8846,7 @@ LABEL_45:
         v626 = 12;
       }
       v703 = v626;
-      v8 = Player_sub_48F882((void *)v707, v626);
+      v8 = Player_sub_48F882((Player *)v707, v626);
       v701 = v8 & 0x3F;
       LODWORD(v1) = v8 & 0x3F;
       goto LABEL_45;
@@ -8918,7 +8920,7 @@ LABEL_69:
       case 101:
         HIDWORD(v1) = v707;
         LODWORD(v702) = 1;
-        if ( sub_458244(*(_WORD *)(v707 + 274)) >= 3 )
+        if ( sub_458244_GetSkillMasteryLevel(*(_WORD *)(v707 + 274)) >= 3 )
           LODWORD(v702) = 2;
         v683 = Player_sub_GetAttackRecoveryTime((Player *)HIDWORD(v1), 1);
         ItemGen_Reset((ItemGen *)v686.v694);
@@ -13591,8 +13593,8 @@ LABEL_12:
   dword_6BE35C = 0;
   LODFile_Sprites_LOD.LODFile_sub_461397();
   class35_sub_48A8CC(&class35_obj);
-  if (pParty_global->stru_007754.uItemID)
-    sub_4698D8(pParty_global->stru_007754.uItemID);
+  if (pParty_global->pickedItem.uItemID)
+    sub_4698D8(pParty_global->pickedItem.uItemID);
 }
 
 //----- (00443E31) --------------------------------------------------------
@@ -13974,8 +13976,8 @@ void erroneous_printf(const char *Format, ...)
   if ( !pD3DRenderer->dword_040058 )
     sub_4667E9();
   vsprintf((char *)TmpBuf, Format, va);
-  if (pGame->pClass03)
-    class03_fn1(pGame->pClass03, 0);
+  if (pGame->pGUICursor)
+    GUICursor_fn1(pGame->pGUICursor, 0);
 
   ClipCursor(0);
   MessageBoxA(0, (char *)TmpBuf, "Error", 0x30u);

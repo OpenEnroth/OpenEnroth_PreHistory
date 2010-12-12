@@ -3033,8 +3033,8 @@ char *__thiscall sub_4B1523(void *_this)
   v2 = (*(_DWORD *)_this - 400) % 11 + 1;
   v17 = 4 * (*(_DWORD *)_this - 400) / 11;
   wsprintfA((char *)TmpBuf, "%s%03d", *(wchar_t **)((char *)&off_4E1D18 + v17), v2);
-  if ( *(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v18) + 4) <= 320 )
-    v3 = *(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v18) + 4) + 30;
+  if ( *(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v18) + 4) <= 320 )
+    v3 = *(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v18) + 4) + 30;
   else
     v3 = 30;
   local_0C.ptr_000048 = 0;
@@ -3112,8 +3112,8 @@ signed int __cdecl sub_4B1784()
   //int v5; // [sp+Ch] [bp-4Ch]@3
   //int v6; // [sp+14h] [bp-44h]@3
 
-  v0 = (int)pPlayers[uActiveCharacter];
-  if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter]) )
+  v0 = (int)pPlayers[uActiveCharacter - 1];
+  if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter - 1]) )
   {
     pDialogueWindow->dword_000028 = dword_F8B1E0;
     result = 1;
@@ -3239,7 +3239,7 @@ void __cdecl sub_4B1A2D()
   char v18; // [sp+40h] [bp-Ch]@5
   int v19; // [sp+48h] [bp-4h]@5
 
-  v0 = pPlayers[uActiveCharacter];
+  v0 = pPlayers[uActiveCharacter - 1];
   if ( dword_F8B198 > 0 )
   {
     if ( dword_F8B198 > 4 )
@@ -3248,8 +3248,8 @@ void __cdecl sub_4B1A2D()
       {
         if ( dword_F8B19C == 18 )
         {
-          v2 = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v18);
-          v3 = *(_DWORD *)v2 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v17) + 4)];
+          v2 = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v18);
+          v3 = *(_DWORD *)v2 + dword_5059A8[*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v17) + 4)];
           v1 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v3) & 0xFFFF;
           v4 = (*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v3) & 0xFFFF) == 0;
           v19 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * v3) & 0xFFFF;
@@ -3268,9 +3268,9 @@ void __cdecl sub_4B1A2D()
       if ( dword_F8B19C != 95 )
         return;
 LABEL_12:
-      v6 = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v12);
+      v6 = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v12);
       v5 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
-                     + 4 * (*(_DWORD *)v6 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v11) + 4)])) & 0xFFFF;
+                     + 4 * (*(_DWORD *)v6 + dword_5059A8[*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v11) + 4)])) & 0xFFFF;
       v19 = v5;
       if ( !v5 )
         return;
@@ -3280,13 +3280,13 @@ LABEL_12:
         v8 = 4 * v7 + 11378816;
       goto LABEL_15;
     }
-    v9 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v16) - 14;
-    v19 = (v9 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v15) + 4) - 17) >> 5);
-    if ( *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v14) > 13 )
+    v9 = *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v16) - 14;
+    v19 = (v9 >> 5) + 14 * ((*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v15) + 4) - 17) >> 5);
+    if ( *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v14) > 13 )
     {
-      if ( *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v13) < 462 )
+      if ( *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v13) < 462 )
       {
-        v10 = sub_421E75(v0, (int)&v19);
+        v10 = Player_sub_421E75_GetItemAtInventoryIndex((Player *)v0, &v19);
         if ( v10 )
         {
           v8 = (int)((char *)v0 + 36 * v10 + 496);
@@ -3672,16 +3672,16 @@ LABEL_84:
           sub_492BB6(uArenaReward);
           if ( uActiveCharacter )
           {
-            v12 = (char *)pPlayers[uActiveCharacter] + 2 * dword_F8B1AC + 264;
+            v12 = (char *)pPlayers[uActiveCharacter - 1] + 2 * dword_F8B1AC + 264;
             *(_WORD *)v12 &= 0x3Fu;
             switch ( dword_F8B1B0 )
             {
               case 2:
-                v15 = (char *)pPlayers[uActiveCharacter] + 2 * dword_F8B1AC + 264;
+                v15 = (char *)pPlayers[uActiveCharacter - 1] + 2 * dword_F8B1AC + 264;
                 *(_BYTE *)v15 |= 0x40u;
                 break;
               case 3:
-                v14 = (char *)pPlayers[uActiveCharacter] + 2 * dword_F8B1AC + 264;
+                v14 = (char *)pPlayers[uActiveCharacter - 1] + 2 * dword_F8B1AC + 264;
                 *(_BYTE *)v14 |= 0x80u;
                 break;
               case 4:
@@ -3689,7 +3689,7 @@ LABEL_84:
                 *((_BYTE *)v13 + 1) |= 1u;
                 break;
             }
-            Player_PlaySound(pPlayers[uActiveCharacter], 85, 0);
+            Player_PlaySound(pPlayers[uActiveCharacter - 1], 85, 0);
           }
         /*  if ( dword_50CBD0[0] < 40 )
           {
@@ -3800,7 +3800,7 @@ LABEL_77:
       dword_F8B1E8 = (char *)pNPCStats->pProfessions[*(_DWORD *)(v2 + 24) - 1].pJoinText;
       dword_F8B1E8 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(dword_F8B1E8, uActiveCharacter, 0, 0, 0, 0);
       if ( uActiveCharacter )
-        Player_PlaySound(pPlayers[uActiveCharacter], 38, 0);
+        Player_PlaySound(pPlayers[uActiveCharacter - 1], 38, 0);
       v19 = (char *)pGlobalTXT_LocalizationStrings[155];
       goto LABEL_77;
     }
@@ -3883,7 +3883,7 @@ const CHAR *__thiscall sub_4B254D(void *_this)
   int v36; // [sp+24h] [bp-8h]@7
   int v37; // [sp+28h] [bp-4h]@1
 
-  v4 = (int)pPlayers[uActiveCharacter];
+  v4 = (int)pPlayers[uActiveCharacter - 1];
   dword_F8B1A8 = 0;
   v5 = (signed int)((char *)_this - 200);
   v2 = (signed int)((char *)_this - 200) / 3;
@@ -3978,7 +3978,7 @@ LABEL_23:
     return dword_721A3C;
   if ( !v8 )
     return (const CHAR *)dword_721A84;
-  v18 = sub_458244(v34);
+  v18 = sub_458244_GetSkillMasteryLevel(v34);
   if ( v18 > v3 + 1 )
     return (const CHAR *)dword_721A6C[2 * v3];
   if ( v36 != 2 )
@@ -4184,9 +4184,9 @@ int __fastcall sub_4B29F2(int a1)
 
   v2 = a1;
   dword_F8B1A8 = 0;
-  v1 = (int)pPlayers[uActiveCharacter];
+  v1 = (int)pPlayers[uActiveCharacter - 1];
   v3 = a1 + 50;
-  v4 = (int)pPlayers[uActiveCharacter];
+  v4 = (int)pPlayers[uActiveCharacter - 1];
   dword_F8B1AC = v3;
   uArenaReward = dword_4F08EC[v2];
   if ( Player_sub_492C0B_MaybeIfPlayerConscious((Player *)v4) )
@@ -5605,7 +5605,7 @@ int __cdecl sub_4B4710()
   int v77; // [sp+7Ch] [bp-8h]@18
   int v78; // [sp+80h] [bp-4h]@16
 
-  v3 = (int)pPlayers[uActiveCharacter];
+  v3 = (int)pPlayers[uActiveCharacter - 1];
   memcpy(&local_0C, ptr_507BC0, sizeof(GUIWindow));
   local_0C.uFrameX = 483;
   local_0C.uFrameWidth = 148;
@@ -5635,7 +5635,7 @@ int __cdecl sub_4B4710()
       i = 0;
       v74 = v9;
       v11 = (signed __int64)(v12 * *((float *)&unk_591458 + 13 * v6) * (double)v9);
-      v10 = v11 * (100 - sub_4911F3((void *)v3)) / 100;
+      v10 = v11 * (100 - Player_sub_4911F3((Player *)v3)) / 100;
       if ( v10 < v11 / 3 )
         v10 = v11 / 3;
       i = v10;
@@ -5657,7 +5657,7 @@ int __cdecl sub_4B4710()
             i = 0;
             v14 = (int)pDialogueWindow;
             v15 = (signed __int64)(*((float *)&unk_59145C + 13 * ptr_507BC0->dword_00001C) * 500.0);
-            v78 = v15 * (100 - sub_4911F3((void *)v3)) / 100;
+            v78 = v15 * (100 - Player_sub_4911F3((Player *)v3)) / 100;
             if ( v78 < v15 / 3 )
               v78 = v15 / 3;
             v16 = *(_DWORD *)(v14 + 56);
@@ -5779,7 +5779,7 @@ LABEL_82:
               v39 += 4;
             }
             while ( v39 < (signed int)word_F8B158 );
-            v41 = (int)pPlayers[uActiveCharacter];
+            v41 = (int)pPlayers[uActiveCharacter - 1];
             ++*(&dword_F8B144 + uActiveCharacter);
             if ( *(_DWORD *)v41 > v40 )
             {
@@ -6084,8 +6084,8 @@ signed int __cdecl sub_4B4FCF()
   unsigned __int8 v124; // [sp+F3h] [bp-5h]@14
   int v125; // [sp+F4h] [bp-4h]@23
 
-  v0 = pPlayers[uActiveCharacter];
-  v123 = (int)pPlayers[uActiveCharacter];
+  v0 = pPlayers[uActiveCharacter - 1];
+  v123 = (int)pPlayers[uActiveCharacter - 1];
   memcpy(&local_7C, ptr_507BC0, sizeof(GUIWindow));
   local_7C.uFrameX = 483;
   local_7C.uFrameWidth = 148;
@@ -6161,7 +6161,7 @@ signed int __cdecl sub_4B4FCF()
           v33 = ptr_507BC0->dword_00001C;
           v121 = 0;
           v32 = (signed __int64)(*((float *)&unk_59145C + 13 * v33) * 500.0);
-          v122 = v32 * (100 - sub_4911F3((void *)v123)) / 100;
+          v122 = v32 * (100 - Player_sub_4911F3((Player *)v123)) / 100;
           if ( v122 < v32 / 3 )
             v122 = v32 / 3;
           v34 = *(_DWORD *)(v31 + 56);
@@ -6263,12 +6263,12 @@ LABEL_140:
       sub_4B46A5((char *)pGlobalTXT_LocalizationStrings[198], 0);
       result = sub_4B1784();
       if ( !result
-        || (v27 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v111) - 14,
-            v120 = (v27 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v109) + 4) - 17) >> 5),
-            result = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v107),
+        || (v27 = *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v111) - 14,
+            v120 = (v27 >> 5) + 14 * ((*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v109) + 4) - 17) >> 5),
+            result = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v107),
             *(_DWORD *)result <= 13)
-        || (result = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v105), *(_DWORD *)result >= 462)
-        || (result = sub_421E75(v0, (int)&v120), v3 = 0, !result)
+        || (result = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v105), *(_DWORD *)result >= 462)
+        || (result = Player_sub_421E75_GetItemAtInventoryIndex((Player *)v0, &v120), v3 = 0, !result)
         || (result *= 9, !(*(_BYTE *)(v123 + 4 * result + 516) & 2)) )
         return result;
       v97 = 0;
@@ -6277,7 +6277,7 @@ LABEL_140:
       v91 = v123 + 4 * result + 496;
       v28 = ptr_507BC0->dword_00001C;
       v124 = uActiveCharacter;
-      v29 = sub_490EEE((void *)v123, v123 + 4 * result + 496, 3, v28, 5);
+      v29 = Player_sub_490EEE((Player *)v123, v123 + 4 * result + 496, 3, v28, 5);
       v7 = v124;
       v8 = *(_DWORD *)&dword_73C3C0[4 * v29];
       goto LABEL_35;
@@ -6352,15 +6352,15 @@ LABEL_140:
           result = sub_4B1784();
           if ( result )
           {
-            v2 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v110) - 14;
-            v120 = (v2 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v99) + 4) - 17) >> 5);
-            result = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v112);
+            v2 = *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v110) - 14;
+            v120 = (v2 >> 5) + 14 * ((*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v99) + 4) - 17) >> 5);
+            result = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v112);
             if ( *(_DWORD *)result > 13 )
             {
-              result = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v104);
+              result = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v104);
               if ( *(_DWORD *)result < 462 )
               {
-                result = sub_421E75(v0, (int)&v120);
+                result = Player_sub_421E75_GetItemAtInventoryIndex((Player *)v0, &v120);
                 v3 = 0;
                 if ( result )
                 {
@@ -6380,7 +6380,7 @@ LABEL_140:
                   v91 = v4;
                   v9 = ptr_507BC0->dword_00001C;
                   v124 = uActiveCharacter;
-                  v10 = sub_490EEE((void *)v123, v4, 3, v9, 4);
+                  v10 = Player_sub_490EEE((Player *)v123, v4, 3, v9, 4);
                   v7 = v124;
                   v8 = dword_73C3DC[v10];
                   goto LABEL_35;
@@ -6396,12 +6396,12 @@ LABEL_140:
       sub_4B46A5((char *)pGlobalTXT_LocalizationStrings[199], 0);
       result = sub_4B1784();
       if ( !result
-        || (v11 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v108) - 14,
-            v120 = (v11 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v100) + 4) - 17) >> 5),
-            result = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v106),
+        || (v11 = *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v108) - 14,
+            v120 = (v11 >> 5) + 14 * ((*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v100) + 4) - 17) >> 5),
+            result = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v106),
             *(_DWORD *)result <= 13)
-        || (result = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v102), *(_DWORD *)result >= 462)
-        || (result = sub_421E75(v0, (int)&v120), v3 = 0, !result) )
+        || (result = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v102), *(_DWORD *)result >= 462)
+        || (result = Player_sub_421E75_GetItemAtInventoryIndex((Player *)v0, &v120), v3 = 0, !result) )
         return result;
       v97 = 0;
       v95 = 3;
@@ -6409,7 +6409,7 @@ LABEL_140:
       v91 = v123 + 36 * result + 496;
       v12 = ptr_507BC0->dword_00001C;
       v124 = uActiveCharacter;
-      v13 = sub_490EEE((void *)v123, v91, 3, v12, 3);
+      v13 = Player_sub_490EEE((Player *)v123, v91, 3, v12, 3);
       v7 = v124;
       v8 = dword_73C3A4[v13];
 LABEL_35:
@@ -6581,7 +6581,7 @@ LABEL_61:
       while ( v66 < 12 );
     }
     v68 = GetAsyncKeyState(VK_CONTROL);
-    v67 = sub_492C40((void *)v123);
+    v67 = Player_sub_492C40((Player *)v123);
     Str = (char *)v67;
     if ( v68 && v67 )
     {
@@ -6601,8 +6601,8 @@ LABEL_61:
                     //         dword_ACD048[2 * *(_DWORD *)(dword_507BC0 + 28)],
                     //         dword_ACD044[2 * *(_DWORD *)(dword_507BC0 + 28)])
                     //     - pParty_global->qword_00002C);
-    v70 = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v103);
-    result = *(_DWORD *)v70 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v101) + 4)];
+    v70 = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v103);
+    result = *(_DWORD *)v70 + dword_5059A8[*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v101) + 4)];
     if ( *(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF )
     {
       v74 = (*(_DWORD *)(pD3DRenderer->pActiveZBuffer + 4 * result) & 0xFFFF) - 1;
@@ -6628,7 +6628,7 @@ LABEL_61:
         v94 = ptr_507BC0->dword_00001C;
         v91 = v73;
         v124 = uActiveCharacter;
-        v75 = sub_490EEE((void *)v123, v73, 3, v71, 2);
+        v75 = Player_sub_490EEE((Player *)v123, v73, 3, v71, 2);
         v7 = v124;
         v8 = *(_DWORD *)&dword_73C388[4 * v75];
       }
@@ -6711,7 +6711,7 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
 
   v2 = (int)ptr_507BC0;
   memcpy(&local_274, ptr_507BC0, sizeof(GUIWindow));
-  v58 = (int)pPlayers[uActiveCharacter];
+  v58 = (int)pPlayers[uActiveCharacter - 1];
   v1 = (void *)v58;
   local_274.uFrameX = 483;
   local_274.uFrameWidth = 148;
@@ -6719,7 +6719,7 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
   *(_DWORD *)v56 = 0xFFFFFF;
   *(_DWORD *)v57 = 0xFFFF9B;
   v0 = (signed __int64)(*((float *)&unk_591458 + 13 * *(_DWORD *)(v2 + 28)) * 500.0);
-  v63 = v0 * (100 - sub_4911F3(v1)) / 100;
+  v63 = v0 * (100 - Player_sub_4911F3((Player *)v1)) / 100;
   if ( v63 < v0 / 3 )
     v63 = v0 / 3;
   strcpy(&Dest, "");
@@ -6826,8 +6826,8 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
                       //         dword_ACCD98[2 * *(_DWORD *)(dword_507BC0 + 28)],
                       //         dword_ACCD94[2 * *(_DWORD *)(dword_507BC0 + 28)])
                       //     - pParty_global->qword_00002C);
-      v13 = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v51);
-      result = *(_DWORD *)v13 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v50) + 4)];
+      v13 = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v51);
+      result = *(_DWORD *)v13 + dword_5059A8[*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v50) + 4)];
       v12 = pD3DRenderer->pActiveZBuffer[result] & 0xFFFF;
       if ( pD3DRenderer->pActiveZBuffer[result] & 0xFFFF )
       {
@@ -6835,7 +6835,7 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
         v16 = 36 * (v12 + 12 * v15) + 11341664;
         v17 = ptr_507BC0->dword_00001C;
         v59 = uActiveCharacter;
-        v18 = sub_490EEE(v1, 36 * (v12 + 12 * v15) + 11341664, 3, v17, 2);
+        v18 = Player_sub_490EEE((Player *)v1, 36 * (v12 + 12 * v15) + 11341664, 3, v17, 2);
         v14 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(*(char **)&dword_73C388[4 * v18], v59, v16, v15, 2, 0);
         v44 = 3;
         v43 = v14;
@@ -7018,7 +7018,7 @@ signed int __cdecl sub_4B6478()
 
   v3 = (int)ptr_507BC0;
   memcpy(&local_0C, ptr_507BC0, sizeof(GUIWindow));
-  v1 = (int)pPlayers[uActiveCharacter];
+  v1 = (int)pPlayers[uActiveCharacter - 1];
   local_0C.uFrameX = 483;
   local_0C.uFrameWidth = 148;
   local_0C.uFrameZ = 334;
@@ -7027,7 +7027,7 @@ signed int __cdecl sub_4B6478()
   v4 = 52 * *(_DWORD *)(v3 + 28);
   v34 = (((*(__int16 *)((char *)word_591438 + v4) != 18) - 1) & 0x96) + 100;
   v2 = (signed __int64)((double)v34 * *(float *)(v4 + 5837912));
-  v0 = v2 * (100 - sub_4911F3((void *)v1)) / 100;
+  v0 = v2 * (100 - Player_sub_4911F3((Player *)v1)) / 100;
   v34 = v0;
   if ( v0 < v2 / 3 )
   {
@@ -7206,7 +7206,7 @@ signed int __fastcall sub_4B68EA(int a1)
 
 
 //----- (004B6FF9) --------------------------------------------------------
-signed int __thiscall Player_sub_4B6FF9(void *_this)
+signed int __thiscall Player_sub_4B6FF9(Player *_this)
 {
   signed int v1; // eax@1
   int v2; // esi@1
@@ -7216,18 +7216,18 @@ signed int __thiscall Player_sub_4B6FF9(void *_this)
   v1 = ptr_507BC0->dword_00001C;
   if ( v1 == 78 || v1 > 80 && v1 <= 82 )
   {
-    if ( Player_GetConditionIdx((Player *)_this) == 18 )
+    if ( Player_GetConditionIdx(_this) == 18 )
       goto LABEL_6;
-    v3 = Player_GetConditionIdx((Player *)v2) == 17;
+    v3 = Player_GetConditionIdx(_this) == 17;
   }
   else
   {
-    v3 = Player_GetConditionIdx((Player *)_this) == 18;
+    v3 = Player_GetConditionIdx(_this) == 18;
   }
   if ( !v3 )
     return 1;
 LABEL_6:
-  if ( *(_DWORD *)(v2 + 6460) < Player_GetMaxHealth((Player *)v2) || *(_DWORD *)(v2 + 6464) < Player_GetMaxMana((Player *)v2) )
+  if ( *(_DWORD *)(v2 + 6460) < Player_GetMaxHealth(_this) || *(_DWORD *)(v2 + 6464) < Player_GetMaxMana(_this) )
     return 1;
   return 0;
 }
@@ -7315,8 +7315,8 @@ int __cdecl sub_4B705E()
   local_13C.uFrameZ = 334;
   HIDWORD(v60) = 0xFFFFFF;
   HIDWORD(v61) = 0xFFFF9B;
-  v1 = (int)pPlayers[uActiveCharacter];
-  v0 = Player_sub_4B807C((void *)pPlayers[uActiveCharacter], *((float *)&unk_591458 + 13 * *(_DWORD *)(v2 + 28)));
+  v1 = (int)pPlayers[uActiveCharacter - 1];
+  v0 = Player_sub_4B807C(pPlayers[uActiveCharacter - 1], *((float *)&unk_591458 + 13 * *(_DWORD *)(v2 + 28)));
   HIDWORD(v62) = v0;
   if ( dword_F8B19C != 1 )
   {
@@ -7335,7 +7335,7 @@ int __cdecl sub_4B705E()
             v5 = ptr_507BC0->dword_00001C;
             v68 = 0;
             v67 = (signed __int64)(*((float *)&unk_59145C + 13 * v5) * 500.0);
-            v6 = sub_4911F3((void *)v1);
+            v6 = Player_sub_4911F3((Player *)v1);
             v66 = v67 * (100 - v6) / 100;
             if ( v66 < v67 / 3 )
               v66 = v67 / 3;
@@ -7495,7 +7495,7 @@ LABEL_78:
       }
       goto LABEL_55;
     }
-    result = Player_sub_4B6FF9((void *)v1);
+    result = Player_sub_4B6FF9((Player *)v1);
     if ( !result )
       return result;
     v24 = 0;
@@ -7572,7 +7572,7 @@ LABEL_46:
   strcpy(Dest, "");
   *(_DWORD *)(v41 + 12) = 0;
   *(_DWORD *)(v41 + 4) = 0;
-  if ( Player_sub_4B6FF9((void *)v1) )
+  if ( Player_sub_4B6FF9((Player *)v1) )
   {
     wsprintfA(Dest, "%s %d %s", pGlobalTXT_LocalizationStrings[104], HIDWORD(v62), pGlobalTXT_LocalizationStrings[97]);
     v65 = 0;
@@ -7793,7 +7793,7 @@ LABEL_8:
         if ( v3 )
           dword_AE31E0 = 0;
         if ( uActiveCharacter )
-          Player_PlaySound(pPlayers[uActiveCharacter], 81, 0);
+          Player_PlaySound(pPlayers[uActiveCharacter - 1], 81, 0);
         v0 = (int)ptr_507BC0;
       }
       else
@@ -7903,7 +7903,7 @@ LABEL_17:
             sub_492BB6(v7);
             pParty_global->uNumGoldInBank += v7;
             if ( uActiveCharacter )
-              Player_PlaySound(pPlayers[uActiveCharacter], 81, 0);
+              Player_PlaySound(pPlayers[uActiveCharacter - 1], 81, 0);
           }
           v0 = (int)ptr_507BC0;
 LABEL_16:
@@ -7978,7 +7978,7 @@ unsigned int __thiscall sub_4B8040(void *_this, int a2)
 }
 
 //----- (004B807C) --------------------------------------------------------
-int __thiscall Player_sub_4B807C(void *_this, float a2)
+int __thiscall Player_sub_4B807C(Player *_this, float a2)
 {
   int v2; // eax@1
   void *v3; // edi@1
@@ -7991,7 +7991,7 @@ int __thiscall Player_sub_4B807C(void *_this, float a2)
   unsigned int v11; // [sp+Ch] [bp-4h]@6
 
   v3 = _this;
-  v2 = Player_GetConditionIdx((Player *)_this);
+  v2 = Player_GetConditionIdx(_this);
   v4 = 0;
   if ( v2 >= 14 )
   {
@@ -8031,12 +8031,12 @@ LABEL_13:
 }
 
 //----- (004B8102) --------------------------------------------------------
-signed int __thiscall sub_4B8102(void *_this, signed int a2, float a3)
+signed int __thiscall Player_sub_4B8102(Player *_this, signed int a2, float a3)
 {
   signed int v3; // esi@1
   signed int result; // eax@3
 
-  v3 = (signed __int64)((double)a2 / (a3 + 2.0)) + a2 * sub_4911F3(_this) / 100;
+  v3 = (signed __int64)((double)a2 / (a3 + 2.0)) + a2 * Player_sub_4911F3(_this) / 100;
   if ( v3 > a2 )
     v3 = a2;
   result = 1;
@@ -8046,11 +8046,11 @@ signed int __thiscall sub_4B8102(void *_this, signed int a2, float a3)
 }
 
 //----- (004B8142) --------------------------------------------------------
-int __thiscall sub_4B8142(void *_this, signed int a2, float a3)
+int __thiscall Player_sub_4B8142(Player *_this, signed int a2, float a3)
 {
   int result; // eax@1
 
-  result = (signed int)((100 - sub_4911F3(_this)) * (signed __int64)((double)a2 * a3)) / 100;
+  result = (signed int)((100 - Player_sub_4911F3(_this)) * (signed __int64)((double)a2 * a3)) / 100;
   if ( result < a2 )
     result = a2;
   if ( result < 1 )
@@ -8059,14 +8059,14 @@ int __thiscall sub_4B8142(void *_this, signed int a2, float a3)
 }
 
 //----- (004B8179) --------------------------------------------------------
-signed int __thiscall sub_4B8179(void *_this, float a2)
+signed int __thiscall Player_sub_4B8179(Player *_this, float a2)
 {
   int v2; // ecx@1
   signed int v3; // esi@1
   signed int result; // eax@3
 
   v3 = (signed __int64)(a2 * 50.0);
-  v2 = v3 * (100 - sub_4911F3(_this)) / 100;
+  v2 = v3 * (100 - Player_sub_4911F3(_this)) / 100;
   if ( v2 < v3 / 3 )
     v2 = v3 / 3;
   result = 1;
@@ -8076,14 +8076,14 @@ signed int __thiscall sub_4B8179(void *_this, float a2)
 }
 
 //----- (004B81C3) --------------------------------------------------------
-signed int __thiscall sub_4B81C3(void *_this, signed int a2, float a3)
+signed int __thiscall Player_sub_4B81C3(Player *_this, signed int a2, float a3)
 {
   int v3; // ecx@1
   signed int v4; // esi@1
   signed int result; // eax@3
 
   v4 = (signed __int64)((double)a2 / (6.0 - a3));
-  v3 = v4 * (100 - sub_4911F3(_this)) / 100;
+  v3 = v4 * (100 - Player_sub_4911F3(_this)) / 100;
   if ( v3 < v4 / 3 )
     v3 = v4 / 3;
   result = 1;
@@ -8242,7 +8242,7 @@ void __cdecl sub_4B8285()
 
   v2 = (int)ptr_507BC0;
   memcpy(&local_1F0, ptr_507BC0, sizeof(GUIWindow));
-  v90 = (int)pPlayers[uActiveCharacter];
+  v90 = (int)pPlayers[uActiveCharacter - 1];
   v3 = (void *)v90;
   local_1F0.uFrameX = 483;
   local_1F0.uFrameWidth = 148;
@@ -8253,7 +8253,7 @@ void __cdecl sub_4B8285()
   *(float *)&v88 = *((float *)&unk_591458 + 13 * *(_DWORD *)(v2 + 28));
   *(float *)&v94 = v4 * v4;
   v1 = (signed __int64)(*(float *)&v94 * 0.1000000014901161);
-  v0 = v1 * (100 - sub_4911F3(v3)) / 100;
+  v0 = v1 * (100 - Player_sub_4911F3((Player *)v3)) / 100;
   if ( v0 < v1 / 3 )
     v0 = v1 / 3;
   v5 = 1;
@@ -8261,7 +8261,7 @@ void __cdecl sub_4B8285()
   if ( v0 <= 0 )
     v96 = 1;
   v7 = (signed __int64)(*(float *)&v94 * *(float *)&v88 * 0.009999999776482582);
-  v6 = v7 * (100 - sub_4911F3((void *)v90)) / 100;
+  v6 = v7 * (100 - Player_sub_4911F3((Player *)v90)) / 100;
   if ( v6 < v7 / 3 )
     v6 = v7 / 3;
   v88 = v6;
@@ -8368,7 +8368,7 @@ LABEL_51:
             v8 = (int)pDialogueWindow;
             v94 = 0;
             v9 = (signed __int64)(*((float *)&unk_59145C + 13 * ptr_507BC0->dword_00001C) * 500.0);
-            v96 = v9 * (100 - sub_4911F3((void *)v90)) / 100;
+            v96 = v9 * (100 - Player_sub_4911F3((Player *)v90)) / 100;
             if ( v96 < v9 / 3 )
               v96 = v9 / 3;
             v10 = *(_DWORD *)(v8 + 56);
@@ -8458,7 +8458,7 @@ LABEL_51:
         {
           sub_44C175((char *)pGlobalTXT_LocalizationStrings[140], 2);
           if ( uActiveCharacter )
-            Player_PlaySound(pPlayers[uActiveCharacter], 67, 0);
+            Player_PlaySound(pPlayers[uActiveCharacter - 1], 67, 0);
           goto LABEL_43;
         }
         if ( pParty_global->uNumGold >= (unsigned int)v6 )
@@ -8937,8 +8937,8 @@ int __cdecl sub_4B910F()
   int v113; // [sp+F0h] [bp-8h]@26
   unsigned __int8 v114; // [sp+F7h] [bp-1h]@16
 
-  v0 = pPlayers[uActiveCharacter];
-  v111 = (int)pPlayers[uActiveCharacter];
+  v0 = pPlayers[uActiveCharacter - 1];
+  v111 = (int)pPlayers[uActiveCharacter - 1];
   memcpy(&local_7C, ptr_507BC0, sizeof(GUIWindow));
   local_7C.uFrameX = 483;
   local_7C.uFrameWidth = 148;
@@ -9014,7 +9014,7 @@ int __cdecl sub_4B910F()
           v32 = ptr_507BC0->dword_00001C;
           v110 = 0;
           v31 = (signed __int64)(*((float *)&unk_59145C + 13 * v32) * 500.0);
-          v112 = v31 * (100 - sub_4911F3((void *)v111)) / 100;
+          v112 = v31 * (100 - Player_sub_4911F3((Player *)v111)) / 100;
           if ( v112 < v31 / 3 )
             v112 = v31 / 3;
           v33 = *(_DWORD *)(v30 + 56);
@@ -9117,15 +9117,15 @@ LABEL_105:
       result = sub_4B1784();
       if ( result )
       {
-        v27 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v100) - 14;
-        v109 = (v27 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v98) + 4) - 17) >> 5);
-        result = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v96);
+        v27 = *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v100) - 14;
+        v109 = (v27 >> 5) + 14 * ((*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v98) + 4) - 17) >> 5);
+        result = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v96);
         if ( *(_DWORD *)result > 13 )
         {
-          result = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v94);
+          result = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v94);
           if ( *(_DWORD *)result < 462 )
           {
-            result = sub_421E75(v0, (int)&v109);
+            result = Player_sub_421E75_GetItemAtInventoryIndex((Player *)v0, &v109);
             v3 = 0;
             if ( result )
             {
@@ -9138,7 +9138,7 @@ LABEL_105:
                 v80 = v111 + 4 * result + 496;
                 v28 = ptr_507BC0->dword_00001C;
                 v114 = uActiveCharacter - 1;
-                v29 = sub_490EEE((void *)v111, v111 + 4 * result + 496, 1, v28, 5);
+                v29 = Player_sub_490EEE((Player *)v111, v111 + 4 * result + 496, 1, v28, 5);
                 v6 = v114;
                 v5 = *(_DWORD *)&dword_73C3C0[4 * v29];
                 goto LABEL_14;
@@ -9216,15 +9216,15 @@ LABEL_105:
         result = sub_4B1784();
         if ( result )
         {
-          v11 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v97) - 14;
-          v109 = (v11 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v89) + 4) - 17) >> 5);
-          result = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v95);
+          v11 = *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v97) - 14;
+          v109 = (v11 >> 5) + 14 * ((*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v89) + 4) - 17) >> 5);
+          result = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v95);
           if ( *(_DWORD *)result > 13 )
           {
-            result = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v91);
+            result = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v91);
             if ( *(_DWORD *)result < 462 )
             {
-              result = sub_421E75(v0, (int)&v109);
+              result = Player_sub_421E75_GetItemAtInventoryIndex((Player *)v0, &v109);
               v3 = 0;
               if ( result )
               {
@@ -9234,7 +9234,7 @@ LABEL_105:
                 v80 = v111 + 36 * result + 496;
                 v12 = ptr_507BC0->dword_00001C;
                 v114 = uActiveCharacter - 1;
-                v13 = sub_490EEE((void *)v111, v80, 1, v12, 3);
+                v13 = Player_sub_490EEE((Player *)v111, v80, 1, v12, 3);
                 v6 = v114;
                 v5 = dword_73C3A4[v13];
                 goto LABEL_14;
@@ -9254,15 +9254,15 @@ LABEL_105:
           result = sub_4B1784();
           if ( result )
           {
-            v2 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v99) - 14;
-            v109 = (v2 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v88) + 4) - 17) >> 5);
-            result = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v101);
+            v2 = *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v99) - 14;
+            v109 = (v2 >> 5) + 14 * ((*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v88) + 4) - 17) >> 5);
+            result = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v101);
             if ( *(_DWORD *)result > 13 )
             {
-              result = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v93);
+              result = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v93);
               if ( *(_DWORD *)result < 462 )
               {
-                result = sub_421E75(v0, (int)&v109);
+                result = Player_sub_421E75_GetItemAtInventoryIndex((Player *)v0, &v109);
                 v3 = 0;
                 if ( result )
                 {
@@ -9275,7 +9275,7 @@ LABEL_105:
                     v80 = v4;
                     v9 = ptr_507BC0->dword_00001C;
                     v114 = uActiveCharacter - 1;
-                    v10 = sub_490EEE((void *)v111, v4, 1, v9, 4);
+                    v10 = Player_sub_490EEE((Player *)v111, v4, 1, v9, 4);
                     v6 = v114;
                     v5 = dword_73C3DC[v10];
                     goto LABEL_14;
@@ -9376,7 +9376,7 @@ LABEL_15:
       while ( v55 < 6 );
     }
     v57 = GetAsyncKeyState(VK_CONTROL);
-    v56 = sub_492C40((void *)v111);
+    v56 = Player_sub_492C40((Player *)v111);
     Str = (char *)v56;
     if ( v57 && v56 )
     {
@@ -9391,8 +9391,8 @@ LABEL_15:
     sub_4B46A5(v58, 0);
     if ( v109 )
     {
-      v59 = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v92);
-      result = *(_DWORD *)v59 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v90) + 4)];
+      v59 = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v92);
+      result = *(_DWORD *)v59 + dword_5059A8[*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v90) + 4)];
       if (pD3DRenderer->pActiveZBuffer[result] & 0xFFFF )
       {
         v63 = (pD3DRenderer->pActiveZBuffer[result] & 0xFFFF) - 1;
@@ -9409,7 +9409,7 @@ LABEL_15:
           v82 = ptr_507BC0->dword_00001C;
           v80 = v62;
           v114 = uActiveCharacter - 1;
-          v64 = sub_490EEE((void *)v111, v62, 1, v60, 2);
+          v64 = Player_sub_490EEE((Player *)v111, v62, 1, v60, 2);
           v6 = v114;
           v5 = *(_DWORD *)&dword_73C388[4 * v64];
           goto LABEL_14;
@@ -9560,8 +9560,8 @@ signed int __cdecl sub_4B9CC6()
   unsigned __int8 v116; // [sp+D3h] [bp-5h]@47
   int v117; // [sp+D4h] [bp-4h]@11
 
-  v0 = pPlayers[uActiveCharacter];
-  v113 = (int)pPlayers[uActiveCharacter];
+  v0 = pPlayers[uActiveCharacter - 1];
+  v113 = (int)pPlayers[uActiveCharacter - 1];
   memcpy(&local_5C, ptr_507BC0, sizeof(GUIWindow));
   local_5C.uFrameX = 483;
   local_5C.uFrameWidth = 148;
@@ -9634,12 +9634,12 @@ signed int __cdecl sub_4B9CC6()
     sub_4B46A5((char *)pGlobalTXT_LocalizationStrings[199], 0);
     result = sub_4B1784();
     if ( !result
-      || (v43 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v100) - 14,
-          v112 = (v43 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v96) + 4) - 17) >> 5),
-          result = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v103),
+      || (v43 = *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v100) - 14,
+          v112 = (v43 >> 5) + 14 * ((*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v96) + 4) - 17) >> 5),
+          result = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v103),
           *(_DWORD *)result <= 13)
-      || (result = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v101), *(_DWORD *)result >= 462)
-      || (result = sub_421E75(v0, (int)&v112), v2 = 0, !result) )
+      || (result = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v101), *(_DWORD *)result >= 462)
+      || (result = Player_sub_421E75_GetItemAtInventoryIndex((Player *)v0, &v112), v2 = 0, !result) )
       return result;
     v94 = 0;
     v92 = 3;
@@ -9647,7 +9647,7 @@ signed int __cdecl sub_4B9CC6()
     v88 = v113 + 36 * result + 496;
     v44 = ptr_507BC0->dword_00001C;
     v116 = uActiveCharacter - 1;
-    v45 = sub_490EEE((void *)v113, v88, 4, v44, 3);
+    v45 = Player_sub_490EEE((Player *)v113, v88, 4, v44, 3);
     v39 = v116;
     v38 = dword_73C3A4[v45];
 LABEL_45:
@@ -9667,12 +9667,12 @@ LABEL_45:
     sub_4B46A5((char *)pGlobalTXT_LocalizationStrings[197], 0);
     result = sub_4B1784();
     if ( !result
-      || (v36 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v104) - 14,
-          v112 = (v36 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v95) + 4) - 17) >> 5),
-          result = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v102),
+      || (v36 = *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v104) - 14,
+          v112 = (v36 >> 5) + 14 * ((*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v95) + 4) - 17) >> 5),
+          result = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v102),
           *(_DWORD *)result <= 13)
-      || (result = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v98), *(_DWORD *)result >= 462)
-      || (result = sub_421E75(v0, (int)&v112), v2 = 0, !result) )
+      || (result = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v98), *(_DWORD *)result >= 462)
+      || (result = Player_sub_421E75_GetItemAtInventoryIndex((Player *)v0, &v112), v2 = 0, !result) )
       return result;
     v94 = 0;
     v92 = 4;
@@ -9683,7 +9683,7 @@ LABEL_45:
       v88 = v37;
       v41 = ptr_507BC0->dword_00001C;
       v116 = uActiveCharacter - 1;
-      v42 = sub_490EEE((void *)v113, v37, 4, v41, 4);
+      v42 = Player_sub_490EEE((Player *)v113, v37, 4, v41, 4);
       v39 = v116;
       v38 = dword_73C3DC[v42];
       goto LABEL_45;
@@ -9903,7 +9903,7 @@ LABEL_134:
       while ( v62 < 12 );
     }
     v64 = GetAsyncKeyState(VK_CONTROL);
-    v63 = sub_492C40((void *)v113);
+    v63 = Player_sub_492C40((Player *)v113);
     Str = (char *)v63;
     if ( v64 && v63 )
     {
@@ -9923,8 +9923,8 @@ LABEL_134:
                     //         dword_ACD048[2 * *(_DWORD *)(dword_507BC0 + 28)],
                     //         dword_ACD044[2 * *(_DWORD *)(dword_507BC0 + 28)])
                     //     - pParty_global->qword_00002C);
-    v66 = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v99);
-    result = *(_DWORD *)v66 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v97) + 4)];
+    v66 = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v99);
+    result = *(_DWORD *)v66 + dword_5059A8[*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v97) + 4)];
     if ( !(pD3DRenderer->pActiveZBuffer[result] & 0xFFFF) )
       return result;
     v70 = (pD3DRenderer->pActiveZBuffer[result] & 0xFFFF) - 1;
@@ -9941,7 +9941,7 @@ LABEL_134:
       v90 = ptr_507BC0->dword_00001C;
       v88 = v69;
       v116 = uActiveCharacter - 1;
-      v71 = sub_490EEE((void *)v113, v69, 4, v67, 2);
+      v71 = Player_sub_490EEE((Player *)v113, v69, 4, v67, 2);
       v39 = v116;
       v38 = *(_DWORD *)&dword_73C388[4 * v71];
       goto LABEL_45;
@@ -9966,7 +9966,7 @@ LABEL_44:
       v5 = ptr_507BC0->dword_00001C;
       v115 = 0;
       v4 = (signed __int64)(*((float *)&unk_59145C + 13 * v5) * 500.0);
-      v114 = v4 * (100 - sub_4911F3((void *)v113)) / 100;
+      v114 = v4 * (100 - Player_sub_4911F3((Player *)v113)) / 100;
       if ( v114 < v4 / 3 )
         v114 = v4 / 3;
       v6 = *(_DWORD *)(v3 + 56);
@@ -10218,8 +10218,8 @@ char __cdecl sub_4BA928()
   int v150; // [sp+FCh] [bp-8h]@24
   int v151; // [sp+100h] [bp-4h]@44
 
-  v0 = (int)pPlayers[uActiveCharacter];
-  v148 = (int)pPlayers[uActiveCharacter];
+  v0 = (int)pPlayers[uActiveCharacter - 1];
+  v148 = (int)pPlayers[uActiveCharacter - 1];
   memcpy(&local_8C, ptr_507BC0, sizeof(GUIWindow));
   local_8C.uFrameX = 483;
   local_8C.uFrameWidth = 148;
@@ -10246,9 +10246,9 @@ char __cdecl sub_4BA928()
       while ( v88 < 8 );
       if ( v147 )
       {
-        v90 = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v128);
+        v90 = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v128);
         v147 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
-                         + 4 * (*(_DWORD *)v90 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v126) + 4)]));
+                         + 4 * (*(_DWORD *)v90 + dword_5059A8[*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v126) + 4)]));
         v89 = v147;
         if ( v147 )
         {
@@ -10258,7 +10258,7 @@ char __cdecl sub_4BA928()
             v91 = ptr_507BC0->dword_00001C;
             v92 = uActiveCharacter - 1;
             v93 = 36 * (v89 - 1 + 12 * v91) + 11378852;
-            v94 = sub_490EEE((void *)v148, 36 * (v89 - 1 + 12 * v91) + 11378852, 2, ptr_507BC0->dword_00001C, 2);
+            v94 = Player_sub_490EEE((Player *)v148, 36 * (v89 - 1 + 12 * v91) + 11378852, 2, ptr_507BC0->dword_00001C, 2);
             v95 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(*(char **)&dword_73C388[4 * v94], v92, v93, v91, 2, 0);
             v96 = v95;
             v97 = v146[0];
@@ -10364,7 +10364,7 @@ char __cdecl sub_4BA928()
       v150 = 0;
       v33 = (int)pDialogueWindow;
       v34 = (signed __int64)(*((float *)&unk_59145C + 13 * ptr_507BC0->dword_00001C) * 500.0);
-      v148 = v34 * (100 - sub_4911F3((void *)v0)) / 100;
+      v148 = v34 * (100 - Player_sub_4911F3((Player *)v0)) / 100;
       if ( v148 < v34 / 3 )
         v148 = v34 / 3;
       v35 = *(_DWORD *)(v33 + 56);
@@ -10553,7 +10553,7 @@ LABEL_64:
       while ( v63 < 6 );
     }
     v65 = GetAsyncKeyState(VK_CONTROL);
-    v64 = sub_492C40((void *)v148);
+    v64 = Player_sub_492C40((Player *)v148);
     Str = (char *)v64;
     if ( v65 == (_WORD)v10 || (char *)v64 == v10 )
     {
@@ -10568,8 +10568,8 @@ LABEL_64:
     sub_4B46A5(v66, 0);
     if ( (char *)v147 != v10 )
     {
-      v69 = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v132);
-      v1 = *(_DWORD *)v69 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v130) + 4)];
+      v69 = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v132);
+      v1 = *(_DWORD *)v69 + dword_5059A8[*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v130) + 4)];
       v68 = pD3DRenderer->pActiveZBuffer[v1] & 0xFFFF;
       if ( !(pD3DRenderer->pActiveZBuffer[v1] & 0xFFFF) )
         return v1;
@@ -10587,7 +10587,7 @@ LABEL_64:
         v116 = ptr_507BC0->dword_00001C;
         v112 = v72;
         v73 = uActiveCharacter - 1;
-        v12 = *(_DWORD *)&dword_73C388[4 * sub_490EEE((void *)v148, v72, 2, v70, 2)];
+        v12 = *(_DWORD *)&dword_73C388[4 * Player_sub_490EEE((Player *)v148, v72, 2, v70, 2)];
         v11 = v73;
       }
       else
@@ -10621,12 +10621,12 @@ LABEL_96:
     sub_4B46A5((char *)pGlobalTXT_LocalizationStrings[198], 0);
     v1 = sub_4B1784();
     if ( !v1
-      || (v29 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v131) - 14,
-          v147 = (v29 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v138) + 4) - 17) >> 5),
-          v1 = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v136),
+      || (v29 = *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v131) - 14,
+          v147 = (v29 >> 5) + 14 * ((*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v138) + 4) - 17) >> 5),
+          v1 = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v136),
           *(_DWORD *)v1 <= 13)
-      || (v1 = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v134), *(_DWORD *)v1 >= 462)
-      || (v1 = sub_421E75((void *)v0, (int)&v147), v10 = 0, !v1)
+      || (v1 = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v134), *(_DWORD *)v1 >= 462)
+      || (v1 = Player_sub_421E75_GetItemAtInventoryIndex((Player *)v0, &v147), v10 = 0, !v1)
       || (v1 *= 9, !(*(_BYTE *)(v0 + 4 * v1 + 516) & 2)) )
       return v1;
     v120 = 0;
@@ -10635,7 +10635,7 @@ LABEL_96:
     v112 = v0 + 4 * v1 + 496;
     v30 = ptr_507BC0->dword_00001C;
     v149 = uActiveCharacter - 1;
-    v31 = sub_490EEE((void *)v0, v0 + 4 * v1 + 496, 2, v30, 5);
+    v31 = Player_sub_490EEE((Player *)v0, v0 + 4 * v1 + 496, 2, v30, 5);
     v11 = v149;
     v12 = *(_DWORD *)&dword_73C3C0[4 * v31];
     goto LABEL_36;
@@ -10706,12 +10706,12 @@ LABEL_96:
     sub_4B46A5((char *)pGlobalTXT_LocalizationStrings[199], 0);
     v1 = sub_4B1784();
     if ( !v1
-      || (v9 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v135) - 14,
-          v147 = (v9 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v129) + 4) - 17) >> 5),
-          v1 = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v133),
+      || (v9 = *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v135) - 14,
+          v147 = (v9 >> 5) + 14 * ((*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v129) + 4) - 17) >> 5),
+          v1 = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v133),
           *(_DWORD *)v1 <= 13)
-      || (v1 = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v125), *(_DWORD *)v1 >= 462)
-      || (v1 = sub_421E75((void *)v0, (int)&v147), v10 = 0, !v1) )
+      || (v1 = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v125), *(_DWORD *)v1 >= 462)
+      || (v1 = Player_sub_421E75_GetItemAtInventoryIndex((Player *)v0, &v147), v10 = 0, !v1) )
       return v1;
     v120 = 0;
     v118 = 3;
@@ -10719,7 +10719,7 @@ LABEL_96:
     v112 = v0 + 36 * v1 + 496;
     v13 = ptr_507BC0->dword_00001C;
     v149 = uActiveCharacter;
-    v14 = sub_490EEE((void *)v0, v112, 2, v13, 3);
+    v14 = Player_sub_490EEE((Player *)v0, v112, 2, v13, 3);
     v11 = v149;
     v12 = dword_73C3A4[v14];
     goto LABEL_36;
@@ -10733,15 +10733,15 @@ LABEL_96:
     v1 = sub_4B1784();
     if ( v1 )
     {
-      v2 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v127) - 14;
-      v147 = (v2 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v124) + 4) - 17) >> 5);
-      v1 = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v137);
+      v2 = *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v127) - 14;
+      v147 = (v2 >> 5) + 14 * ((*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v124) + 4) - 17) >> 5);
+      v1 = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v137);
       if ( *(_DWORD *)v1 > 13 )
       {
-        v1 = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v139);
+        v1 = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v139);
         if ( *(_DWORD *)v1 < 462 )
         {
-          v1 = sub_421E75((void *)v0, (int)&v147);
+          v1 = Player_sub_421E75_GetItemAtInventoryIndex((Player *)v0, &v147);
           if ( v1 )
           {
             v3 = v0 + 36 * v1 + 496;
@@ -10758,7 +10758,7 @@ LABEL_96:
               v110 = v3;
               v7 = ptr_507BC0->dword_00001C;
               v149 = uActiveCharacter;
-              v8 = sub_490EEE((void *)v0, v3, 2, v7, 4);
+              v8 = Player_sub_490EEE((Player *)v0, v3, 2, v7, 4);
               v4 = v149;
               v5 = (char *)dword_73C3DC[v8];
             }
@@ -11585,7 +11585,7 @@ LABEL_64:
         byte_F8B1EC = 0;
         uDialogueType = 13;
         if ( uActiveCharacter )
-          Player_PlaySound(pPlayers[uActiveCharacter], 38, 0);
+          Player_PlaySound(pPlayers[uActiveCharacter - 1], 38, 0);
         v7 = (char *)pGlobalTXT_LocalizationStrings[155];
         goto LABEL_64;
       }
@@ -11617,7 +11617,7 @@ LABEL_64:
     if (uDialogue_SpeakingActorID >= 0)
       pDialogue_SpeakingActor->word_0000B0_state = 11;
     if (uActiveCharacter)
-      Player_PlaySound(pPlayers[uActiveCharacter], 61, 0);
+      Player_PlaySound(pPlayers[uActiveCharacter - 1], 61, 0);
     goto LABEL_87;
   }
   if ( v1 == 22 )
@@ -11886,7 +11886,7 @@ void __fastcall sub_4BCACC(signed int a1, int a2)
     {
       v5 = 0;
       v8 = 0;
-      v7 = (int)pPlayers[uActiveCharacter];
+      v7 = (int)pPlayers[uActiveCharacter - 1];
       v6 = *(_WORD *)(v7 + 218);
       if ( v6 > 0 )
       {
@@ -11935,7 +11935,7 @@ LABEL_12:
   }
   if ( uActiveCharacter != v3 )
   {
-    if ( !Player_sub_4B6FF9(&pPlayers[uActiveCharacter]))
+    if ( !Player_sub_4B6FF9(pPlayers[uActiveCharacter - 1]))
       return;
     goto LABEL_12;
   }
@@ -12268,9 +12268,9 @@ LABEL_200:
           {
             if ( v61 <= 72 )
             {
-              v42 = (int)pPlayers[uActiveCharacter];
+              v42 = (int)pPlayers[uActiveCharacter - 1];
               v43 = (signed __int64)(*((float *)&unk_59145C + 13 * *(_DWORD *)(v11 + 28)) * 500.0);
-              v41 = v43 * (100 - sub_4911F3(pPlayers[uActiveCharacter])) / 100;
+              v41 = v43 * (100 - Player_sub_4911F3(pPlayers[uActiveCharacter - 1])) / 100;
               if ( v41 < v43 / 3 )
                 v41 = v43 / 3;
               if ( *(&byte_4ED94C[37 * *(_BYTE *)(v42 + 185)] + v61) )
@@ -12682,8 +12682,8 @@ void __cdecl sub_4BDB56()
   int v81; // [sp+ACh] [bp-8h]@12
   int v82; // [sp+B0h] [bp-4h]@13
 
-  v0 = (int)pPlayers[uActiveCharacter];
-  v78 = (int)pPlayers[uActiveCharacter];
+  v0 = (int)pPlayers[uActiveCharacter - 1];
+  v78 = (int)pPlayers[uActiveCharacter - 1];
   if ( dword_4E28F8 == 14 )
     goto LABEL_73;
   if ( !sub_4B1784() )
@@ -12705,7 +12705,7 @@ void __cdecl sub_4BDB56()
     {
       v45 = dword_F8B19C - 36;
       v44 = (signed __int64)(*((float *)&unk_59145C + 13 * ptr_507BC0->dword_00001C) * 500.0);
-      v43 = v44 * (100 - sub_4911F3((void *)v0)) / 100;
+      v43 = v44 * (100 - Player_sub_4911F3((Player *)v0)) / 100;
       if ( v43 < v44 / 3 )
         v43 = v44 / 3;
       if ( *(&byte_4ED970[37 * *(_BYTE *)(v0 + 185)] + v45) )
@@ -12741,14 +12741,14 @@ void __cdecl sub_4BDB56()
     }
     dword_506F48 = 103;
 LABEL_73:
-    sub_421EA6();
+    sub_421EA6_OnInventoryLeftClick();
     return;
   }
   if ( dword_F8B19C == 18 )
   {
-    v18 = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v64);
+    v18 = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v64);
     v17 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
-                    + 4 * (*(_DWORD *)v18 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v62) + 4)])) & 0xFFFF;
+                    + 4 * (*(_DWORD *)v18 + dword_5059A8[*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v62) + 4)])) & 0xFFFF;
     if ( !v17 )
       return;
     v20 = ptr_507BC0->dword_00001C;
@@ -12756,7 +12756,7 @@ LABEL_73:
     v21 = *((float *)&unk_591458 + 13 * v20);
     v82 = v19;
     v22 = sub_456442(v19);
-    v23 = sub_4B8142((void *)v0, v22, v21);
+    v23 = Player_sub_4B8142((Player *)v0, v22, v21);
     v81 = v23;
     GetAsyncKeyState(VK_CONTROL);
     if ( pParty_global->uNumGold < (unsigned int)v23 )
@@ -12785,9 +12785,9 @@ LABEL_70:
   if ( dword_F8B19C == 2 )
   {
 LABEL_49:
-    v29 = (int)class03_GetMousePos(pGame->pClass03, (POINT *)&v60);
+    v29 = (int)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v60);
     v28 = *(_DWORD *)(pD3DRenderer->pActiveZBuffer
-                    + 4 * (*(_DWORD *)v29 + dword_5059A8[*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v58) + 4)])) & 0xFFFF;
+                    + 4 * (*(_DWORD *)v29 + dword_5059A8[*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v58) + 4)])) & 0xFFFF;
     if ( !v28 )
       return;
     v30 = ptr_507BC0->dword_00001C;
@@ -12804,10 +12804,10 @@ LABEL_49:
     }
     v34 = *((float *)&unk_591458 + 13 * v30);
     v35 = sub_456442(v32);
-    v81 = sub_4B8142((void *)v0, v35, v34);
+    v81 = Player_sub_4B8142((Player *)v0, v35, v34);
     LOWORD(v36) = GetAsyncKeyState(VK_CONTROL);
     v75 = v36;
-    v37 = sub_492C40((void *)v0);
+    v37 = Player_sub_492C40((Player *)v0);
     v79 = 0;
     v77 = 0;
     v74 = v37;
@@ -12877,17 +12877,17 @@ LABEL_81:
   }
   if ( dword_F8B19C == 3 )
   {
-    v14 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v72) - 14;
-    v80 = (v14 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v70) + 4) - 17) >> 5);
-    if ( *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v68) <= 13
-      || *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v66) >= 462
-      || (v15 = sub_421E75((void *)v0, (int)&v80), v78 = v15, !v15) )
+    v14 = *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v72) - 14;
+    v80 = (v14 >> 5) + 14 * ((*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v70) + 4) - 17) >> 5);
+    if ( *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v68) <= 13
+      || *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v66) >= 462
+      || (v15 = Player_sub_421E75_GetItemAtInventoryIndex((Player *)v0, &v80), v78 = v15, !v15) )
       return;
     v16 = (int)ptr_507BC0;
     if ( sub_4BDAAF(v0 + 36 * v15 + 496, ptr_507BC0->dword_00001C) )
     {
       dword_F8B1E4 = 1;
-      sub_4BE2DD((void *)v0, v80, v78 - 1, *(_DWORD *)(v16 + 28));
+      Player_sub_4BE2DD((Player *)v0, v80, v78 - 1, *(_DWORD *)(v16 + 28));
       struct_576FE8.dword_000044 = 1;
       Render_ClearZBuffer(pD3DRenderer, 0, 479);
       v54 = 0;
@@ -12908,16 +12908,16 @@ LABEL_87:
   }
   if ( dword_F8B19C == 4 )
   {
-    v10 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v63) - 14;
-    v80 = (v10 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v67) + 4) - 17) >> 5);
-    if ( *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v59) > 13 )
+    v10 = *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v63) - 14;
+    v80 = (v10 >> 5) + 14 * ((*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v67) + 4) - 17) >> 5);
+    if ( *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v59) > 13 )
     {
-      if ( *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v65) < 462 )
+      if ( *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v65) < 462 )
       {
-        v11 = sub_421E75((void *)v0, (int)&v80);
+        v11 = Player_sub_421E75_GetItemAtInventoryIndex((Player *)v0, &v80);
         if ( v11 )
         {
-          v81 = sub_4B8179((void *)v0, *((float *)&unk_591458 + 13 * ptr_507BC0->dword_00001C));
+          v81 = Player_sub_4B8179((Player *)v0, *((float *)&unk_591458 + 13 * ptr_507BC0->dword_00001C));
           v12 = v0 + 36 * v11 + 496;
           if ( !(*(_BYTE *)(v12 + 20) & 1) )
           {
@@ -12951,19 +12951,19 @@ LABEL_30:
   {
     if ( dword_F8B19C == 5 )
     {
-      v1 = *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v69) - 14;
-      v80 = (v1 >> 5) + 14 * ((*(_DWORD *)(class03_GetMousePos(pGame->pClass03, (POINT *)&v71) + 4) - 17) >> 5);
-      if ( *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v61) > 13 )
+      v1 = *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v69) - 14;
+      v80 = (v1 >> 5) + 14 * ((*(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v71) + 4) - 17) >> 5);
+      if ( *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v61) > 13 )
       {
-        if ( *(_DWORD *)class03_GetMousePos(pGame->pClass03, (POINT *)&v73) < 462 )
+        if ( *(_DWORD *)GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v73) < 462 )
         {
-          v2 = sub_421E75((void *)v0, (int)&v80);
+          v2 = Player_sub_421E75_GetItemAtInventoryIndex((Player *)v0, &v80);
           if ( v2 )
           {
             v3 = v0 + 36 * v2 + 496;
             v4 = *((float *)&unk_591458 + 13 * ptr_507BC0->dword_00001C);
             v5 = sub_456442(v0 + 36 * v2 + 496);
-            v6 = sub_4B81C3((void *)v0, v5, v4);
+            v6 = Player_sub_4B81C3((Player *)v0, v5, v4);
             v7 = (*(_BYTE *)(v3 + 20) & 2) == 0;
             v81 = v6;
             if ( !v7 )
@@ -13011,7 +13011,7 @@ LABEL_80:
 }
 
 //----- (004BE2DD) --------------------------------------------------------
-void __thiscall sub_4BE2DD(void *_this, int a2, int a3, int a4)
+void __thiscall Player_sub_4BE2DD(Player *_this, int a2, int a3, int a4)
 {
   signed int v4; // ebx@1
   void *v5; // edi@1
@@ -13023,12 +13023,12 @@ void __thiscall sub_4BE2DD(void *_this, int a2, int a3, int a4)
   v6 = (int)((char *)_this + 36 * a3);
   v7 = *((float *)&unk_591458 + 13 * a4);
   v8 = sub_456442(v6 + 532);
-  v4 = sub_4B8102(v5, v8, v7);
+  v4 = Player_sub_4B8102(_this, v8, v7);
   if ( *(_BYTE *)(v6 + 552) & 2 )
     v4 = 1;
   if ( v4 < 1 )
     v4 = 1;
-  Player_sub_492A36((struct Player *)v5, a2);
+  Player_sub_492A36_RemoveItemFromIndexMatrix(_this, a2);
   sub_492B70((void *)(pParty_global->uNumGold + v4));
 }
 
@@ -13436,7 +13436,7 @@ int __thiscall VideoPlayer_sub_4BF5B2(int _this)
       SmackNextFrame((HSMACK)*(_DWORD *)(v2 + 40));
     }
   }
-  sub_469E24((int)pGame->pClass03);
+  sub_469E24((int)pGame->pGUICursor);
   result = (int)ptr_507BC0;
   if (ptr_507BC0)
   {

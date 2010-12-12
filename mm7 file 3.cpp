@@ -278,7 +278,7 @@ __int16 __thiscall sub_438E35(void *_this)
    	 for(int i=1; i<5; i++) 
           { 
 	  v12 = pPlayers[i];
-      if ( Player_sub_492C0B_MaybeIfPlayerConscious(v12) && (v13 = sub_49125A(v12) + 20, rand() % v13 > 20) )
+      if ( Player_sub_492C0B_MaybeIfPlayerConscious(v12) && (v13 = Player_sub_49125A(v12) + 20, rand() % v13 > 20) )
         LOWORD(v10) = Player_PlaySound(v12, 6, 0);
       else
         LOWORD(v10) = Player_sub_48DC1E(v12, v11, v18);
@@ -409,7 +409,7 @@ __int16 __fastcall DamageMonsterFromParty(signed int a1, int a2, int a3)
     if ( Player_sub_48D6AA((Player *)v7, 1) )
     {
      v59 = pClass40->pItems[*(_DWORD *)(v7 + 36 * (_DWORD)v55 + 496) - 1].uSkillType;
-      v30 = sub_458244(*(_WORD *)(v7 + 2 * v59 + 264));
+      v30 = sub_458244_GetSkillMasteryLevel(*(_WORD *)(v7 + 2 * v59 + 264));
       v67 = v30;
       if ( v59 )
       {
@@ -417,14 +417,14 @@ __int16 __fastcall DamageMonsterFromParty(signed int a1, int a2, int a3)
         {
           if ( v30 >= 3 )
           {
-            LOBYTE(v55) = Player_sub_48F882((void *)v7, 6) & 0x3F;
+            LOBYTE(v55) = Player_sub_48F882((Player *)v7, 6) & 0x3F;
             v55 = (int *)(unsigned __int8)v55;
             if ( rand() % 100 < (unsigned __int8)v55 )
               v62 = 1;
           }
           if ( v67 >= 4 )
           {
-            LOBYTE(v55) = Player_sub_48F882((void *)v7, 6) & 0x3F;
+            LOBYTE(v55) = Player_sub_48F882((Player *)v7, 6) & 0x3F;
             v55 = (int *)(unsigned __int8)v55;
             if ( rand() % 100 < (unsigned __int8)v55 )
               v57 = 1;
@@ -435,7 +435,7 @@ __int16 __fastcall DamageMonsterFromParty(signed int a1, int a2, int a3)
       {
         if ( v67 >= 3 )
         {
-          LOBYTE(v55) = Player_sub_48F882((void *)v7, 0) & 0x3F;
+          LOBYTE(v55) = Player_sub_48F882((Player *)v7, 0) & 0x3F;
           v55 = (int *)(unsigned __int8)v55;
           if ( rand() % 100 < (unsigned __int8)v55 )
             v62 = 1;
@@ -498,7 +498,7 @@ __int16 __fastcall DamageMonsterFromParty(signed int a1, int a2, int a3)
   {
     v17 = *(_WORD *)(v7 + 278);
     v65 = 1;
-    if ( sub_458244(v17) >= 3 )
+    if ( sub_458244_GetSkillMasteryLevel(v17) >= 3 )
       v60 = *(_BYTE *)(v7 + 278) & 0x3F;
     v68 = 4;
     v67 = sub_48CDDB((void *)v7, 1, 1, 0);
@@ -764,9 +764,9 @@ LABEL_69:
     {
       if ( sub_427662(v8, 3) )
       {
-        LOBYTE(v45) = Player_sub_48F882((void *)v7, 6);
+        LOBYTE(v45) = Player_sub_48F882((Player *)v7, 6);
         v46 = v45;
-        v47 = sub_458244(v45);
+        v47 = sub_458244_GetSkillMasteryLevel(v45);
         v55 = (int *)(7680 * (v46 & 0x3F));
         SpellBuf_sub_4584E0(
           (SpellBuff *)(v8 + 308),
@@ -1098,9 +1098,9 @@ LABEL_80:
     v45 = *(_WORD *)v38;
     if ( *(_WORD *)v38 == 545 )
     {
-      LOBYTE(v52) = Player_sub_48F882((void *)v46, 31);
+      LOBYTE(v52) = Player_sub_48F882((Player *)v46, 31);
       v51 = v52;
-      if ( sub_458244(v52) >= 4 && rand() % 100 < (v51 & 0x3F) )
+      if ( sub_458244_GetSkillMasteryLevel(v52) >= 4 && rand() % 100 < (v51 & 0x3F) )
       {
         wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[637], v46 + 168);
         sub_44C175((char *)TmpBuf, 2);
@@ -1148,7 +1148,7 @@ LABEL_80:
           v77 >>= 1;
         if ( sub_48D62C_GetSomeItemEquipType((void *)v46, v75) == 4 )
         {
-          if ( sub_458244(*(_WORD *)(v46 + 280)) == 4 )
+          if ( sub_458244_GetSkillMasteryLevel(*(_WORD *)(v46 + 280)) == 4 )
             v77 >>= 1;
         }
       }
@@ -2123,7 +2123,7 @@ LABEL_10:
     v9 = *(_WORD *)(a1 + 102);
     v8 = *(_BYTE *)(a1 + 79);
   }
-  v10 = sub_458244(v9);
+  v10 = sub_458244_GetSkillMasteryLevel(v9);
   return sub_43AFE3(v8, v9 & 0x3F, v10, 0);
 }
 
@@ -2884,7 +2884,7 @@ char __thiscall sub_43EDB9(int a1)
   int r; 
   int v5; // esi@2
   char v6; // zf@7
-  int i = 1;
+  int i = 0;
 
   while ( 1 )
   {
@@ -2900,7 +2900,7 @@ LABEL_11:
       return 1;
     ++i;
 
-    if (i > 4)
+    if (i > 3)
       return 0;
   }
   if ( sex == SEX_FEMALE || a1 )
@@ -2918,7 +2918,7 @@ bool __fastcall sub_43EE15(int a1, struct Player *pp, char a3) // find item in i
   int v5;
   char *a2 = (char *)pp;
 
-  if (!a3 || pParty_global->stru_007754.uItemID != a1)
+  if (!a3 || pParty_global->pickedItem.uItemID != a1)
   {
     v3 = 0;
     while ( pp->sInventoryIndexes[v3] <= 0 || pp->cInventorySlots[pp->sInventoryIndexes[v3]].uItemID != a1 ) 
@@ -2941,7 +2941,7 @@ bool __fastcall sub_43EE15(int a1, struct Player *pp, char a3) // find item in i
 }
 
 //----- (0043EE77) --------------------------------------------------------
-char __fastcall sub_43EE77(signed int a1)
+char __fastcall sub_43EE77(unsigned int a1)
 {
   int v1; // edx@3
   int v2; // ecx@3
@@ -2973,9 +2973,9 @@ char __fastcall sub_43EE77(signed int a1)
     }
     return 0;
   }
-  if ( !sub_43EE15(604, pPlayers[a1], 0))
+  if ( !sub_43EE15(604, pPlayers[a1 - 1], 0))
     return 0;
-  v1 = (int)pPlayers[a1];
+  v1 = (int)pPlayers[a1 - 1];
   v3 = *(_DWORD *)(v1 + 0x1954);
   if(!v3)
     return 0;
@@ -2985,7 +2985,7 @@ char __fastcall sub_43EE77(signed int a1)
 }
 
 //----- (0043EEF3) --------------------------------------------------------
-char __thiscall sub_43EEF3(void *_this)
+char __thiscall Player_sub_43EEF3(Player *_this)
 {
   int v1; // edx@1
   signed int v2; // esi@1
@@ -5197,7 +5197,7 @@ LABEL_38:
 LABEL_71:
 
 		//MapDirs are altlased into uTextureID_MinimapDirections
-		Render_sub_4A6776((int)pD3DRenderer, v52, v50, (int)(uTextureIdx_MapDirs[v53] != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_MapDirs[v53] ] : 0));
+		Render_sub_4A6776(pD3DRenderer, v52, v50, (cTexture *)(uTextureIdx_MapDirs[v53] != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_MapDirs[v53] ] : 0));
 	}
 
 
@@ -5490,48 +5490,38 @@ void __cdecl sub_443F95()
 }
 
 //----- (004443D5) --------------------------------------------------------
-int __cdecl sub_4443D5()
+int __cdecl sub_4443D5_GetMinimapRightClickText()
 {
   signed int v0; // ebx@1
   int v1; // esi@1
   signed int v2; // ST20_4@1
   double v3; // st7@1
-  int v4; // esi@3
-  int v5; // ecx@4
   int v6; // edi@4
   int v7; // eax@4
   int v8; // eax@4
-  unsigned __int8 v9; // zf@5
-  char v10; // sf@5
-  unsigned __int8 v11; // of@5
   int v12; // eax@6
   __int16 v13; // cx@6
   char *v14; // eax@8
   char *v15; // edi@8
   int result; // eax@12
   signed int v17; // eax@14
-  int v18; // [sp+Ch] [bp-20h]@1
   int v19; // [sp+10h] [bp-1Ch]@1
   int v20; // [sp+14h] [bp-18h]@1
   int v21; // [sp+18h] [bp-14h]@1
   int v22; // [sp+1Ch] [bp-10h]@1
-  int v23; // [sp+20h] [bp-Ch]@1
   int v24; // [sp+24h] [bp-8h]@1
   int X; // [sp+28h] [bp-4h]@1
 
   v24 = pParty_global->sPartyPosX;
   v2 = pParty_global->sPartyPosY;
   v1 = pClass51_global->uNumBModels;
-  *(float *)&v23 = (double)struct_576FE8.uMinimapZoom * 0.0000152587890625;
   v0 = 0;
-  v18 = pClass51_global->uNumBModels;
   v21 = 0;
-  class03_GetMouseClickPos(pGame->pClass03, &X, &v22);
-  v3 = 1.0 / *(float *)&v23;
-  v23 = X - 557;
+  GUICursor_GetMouseClickPos(pGame->pGUICursor, &X, &v22);
+  v3 = 1.0 / ((double)struct_576FE8.uMinimapZoom * 0.0000152587890625);
   v19 = (signed __int64)((double)(X - 557) * v3 + (double)v24);
   v20 = (signed __int64)((double)v2 - (double)(v22 - 74) * v3);
-  if ( dword_6BE360 != 2 || (v23 = 0, v1 <= 0) )
+  if (dword_6BE360 != 2 || v1 <= 0)
   {
 LABEL_14:
     v17 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
@@ -5542,26 +5532,28 @@ LABEL_14:
   }
   else
   {
-    v4 = 0;
-    while ( 1 )
-    {
-      X = *(_DWORD *)(v4 + pClass51_global->pBModels + 172) - v19;
-      v22 = *(_DWORD *)(v4 + pClass51_global->pBModels + 176) - v20;
+   for (unsigned int i = 0; i < pClass51_global->uNumBModels; ++i)
+   {
+    //while ( 1 )
+    //{
+      X = *(_DWORD *)((char *)&pClass51_global->pBModels[i] + 172) - v19;
+      v22 = *(_DWORD *)((char *)&pClass51_global->pBModels[i] + 176) - v20;
       v6 = abs(v22);
       v7 = abs(X);
       v8 = sub_4621DA(v7, v6, v0);
-      v5 = (int)pClass51_global->pBModels;
-      if ( v8 < 2 * *(_DWORD *)(v4 + pClass51_global->pBModels + 184) )
+      //v5 = (int)pClass51_global->pBModels;
+      if ( v8 < 2 * *(_DWORD *)((char *)&pClass51_global->pBModels[i] + 184) )
       {
-        compile_error;//v11 = __SETO__(*(_DWORD *)(v4 + pClass51_global->pBModels + 76), v0);
-        v9 = *(_DWORD *)(v4 + pClass51_global->pBModels + 76) == v0;
-        v10 = *(_DWORD *)(v4 + pClass51_global->pBModels + 76) - v0 < 0;
+        //v11 = __SETO__(*(_DWORD *)(v4 + pClass51_global->pBModels + 76), v0);
+        //v9 = *(_DWORD *)(v4 + pClass51_global->pBModels + 76) == v0;
+        //v10 = *(_DWORD *)(v4 + pClass51_global->pBModels + 76) - v0 < 0;
         v24 = v0;
-        if ( !((unsigned __int8)(v10 ^ v11) | v9) )
+        //if ( !((unsigned __int8)(v10 ^ v11) | v9) )
+        if (*(_DWORD *)((char *)&pClass51_global->pBModels[i] + 76) <= v0)
         {
           do
           {
-            v12 = v0 + *(_DWORD *)(v4 + v5 + 84);
+            v12 = v0 + *(_DWORD *)((char *)&pClass51_global->pBModels[i] + 84);
             v13 = *(_WORD *)(v12 + 292);
             if ( v13 )
             {
@@ -5577,23 +5569,24 @@ LABEL_14:
               }
             }
             ++v24;
-            v5 = (int)pClass51_global->pBModels;
+            //v5 = (int)pClass51_global->pBModels;
             v0 += 308;
           }
-          while ( v24 < *(_DWORD *)(v4 + pClass51_global->pBModels + 76) );
+          while ( v24 < *(_DWORD *)((char *)&pClass51_global->pBModels[i] + 76) );
         }
         result = v21;
         v0 = 0;
         if ( v21 )
-          break;
+          return result;
       }
-      ++v23;
+      /*++v23;
       v4 += 188;
       if ( v23 >= v18 )
-        goto LABEL_14;
+        goto LABEL_14;*/
     }
+   goto LABEL_14;
   }
-  return result;
+  //return result;
 }
 
 //----- (00444564) --------------------------------------------------------
@@ -5634,7 +5627,7 @@ char *__cdecl sub_444564()
   }
   v17 = 0;
   v16 = pClass51_global->uNumBModels;
-  class03_GetMouseClickPos(pGame->pClass03, &X, &v18);
+  GUICursor_GetMouseClickPos(pGame->pGUICursor, &X, &v18);
   v1 = 1.0 / v19;
   v0 = (signed __int64)((double)(X - 229) * v1 + (double)v20);
   LODWORD(v19) = (signed __int64)((double)v21 - (double)(v18 - 181) * v1);
@@ -5873,7 +5866,7 @@ LABEL_20:
     if ( uActiveCharacter )
     {
       if ( pParty_global->dword_007778 & 0x30 )
-        Player_PlaySound(pPlayers[uActiveCharacter], 47, 0);
+        Player_PlaySound(pPlayers[uActiveCharacter - 1], 47, 0);
     }
   }
   result = v23;
@@ -7006,7 +6999,7 @@ LABEL_17:
           v14 = 23;  // good evening
         else
           v14 = 22;  // good day
-        result = Player_PlaySound(pPlayers[uActiveCharacter], v14, 0);
+        result = Player_PlaySound(pPlayers[uActiveCharacter - 1], v14, 0);
       }
     }
   }
@@ -7213,7 +7206,7 @@ LABEL_10:
       wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[414], v2, aAMPMNames[v8], v9, aAMPMNames[v7]);
       sub_44C175((char *)TmpBuf, 2);
       if ( uActiveCharacter )
-        Player_PlaySound(pPlayers[uActiveCharacter], 3, 0);
+        Player_PlaySound(pPlayers[uActiveCharacter - 1], 3, 0);
       return 0;
     }
   }
@@ -7301,7 +7294,7 @@ LABEL_39:
     {
       v20 = word_4F0704[2 * v10] - 1;
       v19 = v10;
-      if ( !((unsigned __int8)(0x80u >> v20 % 8) & *(_BYTE *)pPlayers[uActiveCharacter] + (v20 >> 3) + 338)) 
+      if ( !((unsigned __int8)(0x80u >> v20 % 8) & *(_BYTE *)pPlayers[uActiveCharacter - 1] + (v20 >> 3) + 338)) 
       {
         sub_4B1E92(v10, 3);
         v17 = 1;
@@ -7775,7 +7768,7 @@ LABEL_28:
             {
               if ( v131 == 4 )
               {
-                v24 = *((_WORD *)pPlayers[uActiveCharacter] + v11[5] + 132);
+                v24 = *((_WORD *)pPlayers[uActiveCharacter - 1] + v11[5] + 132);
               }
               else
               {
@@ -8050,7 +8043,7 @@ LABEL_47:
             {
               v121 = 0;
               v117 = *(_BYTE *)(v11 + 6);
-              v55 = (int)pPlayers[uActiveCharacter];
+              v55 = (int)pPlayers[uActiveCharacter - 1];
               goto LABEL_109;
             }
             if ( v53 != 5 )
@@ -8088,7 +8081,7 @@ LABEL_291:
             {
               v122 = 0;
               v118 = *(_BYTE *)(v11 + 6);
-              v59 = pPlayers[uActiveCharacter];
+              v59 = pPlayers[uActiveCharacter - 1];
               goto LABEL_120;
             }
             if ( v57 != 5 )
@@ -8155,7 +8148,7 @@ LABEL_129:
             {
               if ( uActiveCharacter )
               {
-                v6 = (int *)pPlayers[uActiveCharacter];
+                v6 = (int *)pPlayers[uActiveCharacter - 1];
                 goto LABEL_138;
               }
             }
@@ -8189,19 +8182,19 @@ LABEL_140:
             if ( *(_BYTE *)(v11 + 5) + (*(_BYTE *)(v11 + 6) << 8) == 17 )
             {
               v67 = 0;
-              if (pParty_global->stru_007754.uItemID == v66)
+              if (pParty_global->pickedItem.uItemID == v66)
               {
-                class03_sub_4698A6(pGame->pClass03);
+                GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
                 goto LABEL_291;
               }
               v68 = 0;
-              v69 = pPlayers[uActiveCharacter];
+              v69 = pPlayers[uActiveCharacter - 1];
               v70 = (int)((char *)v69 + 5500);
               do
               {
                 if ( *((_DWORD *)v69 + 9 * *(_DWORD *)v70 + 124) == v66 )
                 {
-                  Player_sub_492A36((struct Player *)v69, v68);
+                  Player_sub_492A36_RemoveItemFromIndexMatrix((struct Player *)v69, v68);
                   goto LABEL_291;
                 }
                 ++v68;
@@ -8234,7 +8227,7 @@ LABEL_140:
                   {
                     if ( *((_DWORD *)v73 + 9 * *(_DWORD *)v75 + 124) == v66 )
                     {
-                      Player_sub_492A36((struct Player *)v73, v74);
+                      Player_sub_492A36_RemoveItemFromIndexMatrix((struct Player *)v73, v74);
                       goto LABEL_169;
                     }
                     ++v74;
@@ -8279,7 +8272,7 @@ LABEL_183:
                 }
                 if ( uActiveCharacter )
                 {
-                  v6 = (int *)pPlayers[uActiveCharacter];
+                  v6 = (int *)pPlayers[uActiveCharacter - 1];
                   goto LABEL_182;
                 }
 LABEL_180:
@@ -8316,7 +8309,7 @@ LABEL_197:
                 }
                 if ( uActiveCharacter )
                 {
-                  v6 = (int *)pPlayers[uActiveCharacter];
+                  v6 = (int *)pPlayers[uActiveCharacter - 1];
                   goto LABEL_196;
                 }
 LABEL_194:
@@ -8355,7 +8348,7 @@ LABEL_211:
                 }
                 if ( uActiveCharacter )
                 {
-                  v6 = (int *)pPlayers[uActiveCharacter];;
+                  v6 = (int *)pPlayers[uActiveCharacter - 1];;
                   goto LABEL_210;
                 }
 LABEL_208:
@@ -8441,7 +8434,7 @@ LABEL_131:
               if ( !uActiveCharacter )
                 goto LABEL_291;
               v123 = *(_BYTE *)(v11 + 6);
-              v91 = (int)pPlayers[uActiveCharacter];
+              v91 = (int)pPlayers[uActiveCharacter - 1];
               v119 = *(_BYTE *)(v11 + 7)
                    + ((*(_BYTE *)(v11 + 8) + ((*(_BYTE *)(v11 + 9) + (*(_BYTE *)(v11 + 10) << 8)) << 8)) << 8);
               goto LABEL_234;
@@ -10405,7 +10398,7 @@ LABEL_14:
         v15 += 36;
         if ( v16 >= 138 )
         {
-          v17 = pParty_global->stru_007754.uItemID == (_DWORD)a3;
+          v17 = pParty_global->pickedItem.uItemID == (_DWORD)a3;
 LABEL_146:
           LOBYTE(v6) = v17;
           return v6;
@@ -12110,15 +12103,15 @@ LABEL_17:
       {
         if ( *(_DWORD *)(_this + 36 * *(_DWORD *)v15 + 496) == a3 )
         {
-          Player_sub_492A36((struct Player *)_this, v3);
+          Player_sub_492A36_RemoveItemFromIndexMatrix((struct Player *)_this, v3);
           return;
         }
         ++v3;
         v15 += 4;
       }
       while (v3 < 126);
-      if (pParty_global->stru_007754.uItemID == a3)
-        class03_sub_4698A6(pGame->pClass03);
+      if (pParty_global->pickedItem.uItemID == a3)
+        GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
     }
   }
 }

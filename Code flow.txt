@@ -1,0 +1,15 @@
+Inventory:	Left Click on Paperdoll/Equip
+			GameUI_Process case 0x85
+				sub_468F8A_OnPaperdollLeftClick
+
+		Left Click on item in inventory
+			GameUI_Process case 0x78
+				sub_421EA6_OnInventoryLeftClick
+
+
+
+
+
+Game:		Left Click on Player Portrait
+			GameUI_Process case 0x6E
+				GameUI_OnPlayerPortraitLeftClick

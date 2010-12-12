@@ -1461,7 +1461,7 @@ void __cdecl sub_4B6943()
   v2 = (int)ptr_507BC0;
   memcpy(&local_208, ptr_507BC0, sizeof(GUIWindow));
   v1 = 255;
-  v72 = pPlayers[uActiveCharacter];
+  v72 = pPlayers[uActiveCharacter - 1];
   v3 = v72;
   local_208.uFrameX = 483;
   local_208.uFrameWidth = 148;
@@ -1471,7 +1471,7 @@ void __cdecl sub_4B6943()
   v4 = 52 * *(_DWORD *)(v2 + 28);
   v70 = (((*(__int16 *)((char *)word_591438 + v4) != 27) - 1) & 0xFFFFFFE7) + 50;
   v0 = (signed __int64)((double)v70 * *(float *)(v4 + 5837912));
-  v76 = v0 * (100 - sub_4911F3(v3)) / 100;
+  v76 = v0 * (100 - Player_sub_4911F3((Player *)v3)) / 100;
   if ( v76 < v0 / 3 )
     v76 = v0 / 3;
   if ( dword_F8B19C == 1 )

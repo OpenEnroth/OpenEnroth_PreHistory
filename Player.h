@@ -6,6 +6,7 @@
 #include "AIL.h"
 #include "defs.h"
 #include "Spells.h"
+#include "Items.h"
 
 #pragma pack(push, 1)
 
@@ -76,16 +77,6 @@ struct StatTable
 extern struct StatTable g_StatTable[4][7]; // byte[] @ MM7.exe::004ED7B0
 extern unsigned char AvailSkillPerClass[9][37]; // byte[] @ MM7.exe::004ED820
 
-struct InventorySlot  // struct InventorySlot == struct ItemGen
-{
- unsigned int  uItemID; // dword @ 000000
- int           dword_000004[3];
- int           dword_000014;
- short         word_00001C;
- short         word_00001E;
- int           dword_000020[3];
-};
-//sizeof = 24
 
 struct Spellbook
 {
@@ -150,7 +141,7 @@ struct Player
    
    char           array_0001F5[31];
 
-   struct InventorySlot cInventorySlots[126]; // struct[14*9] @ 000214     struct InventorySlot == struct ItemGen
+   struct ItemGen   cInventorySlots[126]; // struct[14*9] @ 000214     struct InventorySlot == struct ItemGen
    char             array_0013CC[432];
    int              sInventoryIndexes[126]; // dword[14*9] @ 00157C
    short            sFireResistanceBase;    // word @ 001774
@@ -188,7 +179,9 @@ struct Player
    int              sMana;             // dword @ 001940
    unsigned int     uBirthYear;        // dword @ 001944
    int              sEquppedItemIndexes[16]; // dword[16] @ 001948
-   int              array_001988[65]; // dword[] @ 001988
+                                             // 1: right hand
+                                             // 3: body, leather armour
+   int              array_001988[65]; // dword[] @ 001988    looks like sEquppedItemIndexes
 
    char          byte_001A4E;	//spell skill? or school?
    unsigned char uQuickSpell;     // byte  @ 001A4F
@@ -295,5 +288,48 @@ int Player_sub_492826(struct Player *_this, signed int a2, struct ItemGen *Src);
 
 //signed int __thiscall sub_492C0B(int _this);
 bool Player_sub_492C0B_MaybeIfPlayerConscious(struct Player *_this);
+
+int Player_sub_421E75_GetItemAtInventoryIndex(Player *_this, int *a2);
+
+void Player_sub_492A36_RemoveItemFromIndexMatrix(struct Player *_this, int sItemID);
+
+
+
+int __thiscall Player_sub_48D0B9(int _this);
+char *__thiscall Player_sub_48D396(int _this);
+unsigned int __thiscall Player_sub_48D498(int _this);
+signed int __thiscall Player_sub_48D4B3(int _this, int a2, signed int a3);
+int __thiscall Player_sub_48DBB9(int _this, int a2);
+int __thiscall Player_sub_48E656(int _this);
+int __thiscall Player_sub_48E68F(int _this);
+char __thiscall Player_sub_48F882(Player *_this, signed int a2);
+int Player_sub_49289C(struct Player *_this, int a2, struct ItemGen *sItem);
+__int16 __thiscall Player_PlaySound(struct Player *_this, int a2, int a3);
+__int16 __thiscall Player_sub_494A25(int _this, int a2, int a3);
+bool Player_sub_492C4E(Player *_this, int sItemID);
+//signed int __thiscall sub_492700(int this, signed int a2);
+bool Player_CheckIfHasSkill(Player *_this, unsigned int uSkillType);
+signed int __thiscall Player_sub_4925E6(Player *_this);
+void __thiscall Player_sub_4680ED(Player *_this, signed int a2, int a3);
+int __thiscall Player_sub_490EEE(Player *_this, int a2, int a3, int a4, int a5);
+int __thiscall Player_sub_4910A8(Player *_this);
+signed int __thiscall Player_sub_491151(Player *_this, int a2);
+int __thiscall Player_sub_4911F3(Player *_this);
+signed int __thiscall Player_sub_49125A(Player *_this);
+signed int __thiscall Player_sub_4912B0(Player *_this);
+char __thiscall Player_sub_491317(Player *_this);
+bool __thiscall Player_sub_492C40(Player *_this);
+int __thiscall Player_sub_4B807C(Player *_this, float a2);
+signed int __thiscall Player_sub_4B8102(Player *_this, signed int a2, float a3);
+int __thiscall Player_sub_4B8142(Player *_this, signed int a2, float a3);
+signed int __thiscall Player_sub_4B6FF9(Player *_this);
+signed int __thiscall Player_sub_4B8179(Player *_this, float a2);
+signed int __thiscall Player_sub_4B81C3(Player *_this, signed int a2, float a3);
+void __thiscall Player_sub_4BE2DD(Player *_this, int a2, int a3, int a4);
+char __thiscall Player_sub_43EEF3(Player *_this);
+
+
+
+int sub_458244_GetSkillMasteryLevel(unsigned int uSkillLevel);
 
 #pragma pack(pop)

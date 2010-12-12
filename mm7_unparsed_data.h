@@ -529,7 +529,7 @@ extern struct unnamed_505898 struct_505898;
 void unnamed_505898_ctor(struct unnamed_505898 *_this);
 
 extern int dword_5059A8[480]; // 
-extern bool bTextureLoading; // weak
+extern bool bTextureLoading; // dword @ MM7.exe::00506128
 extern char byte_506130[array_size_unknown]; // weak
 extern int dword_506338; // weak
 extern int dword_50633C; // idb
@@ -1007,7 +1007,7 @@ extern int dword_50C994; // weak
 extern int dword_50C998; // weak
 extern int dword_50C99C; // weak
 extern int dword_50C9A0; // weak
-extern int dword_50C9A4; // weak
+extern struct ItemGen *ptr_50C9A4; // dword @ MM7.exe::0050C9A4
 extern int dword_50C9A8; // weak
 extern int dword_50C9AC; // weak
 extern struct GUIButton *dword_50C9B0; // weak
@@ -2309,7 +2309,7 @@ extern char byte_A75074[40]; // idb
 extern char byte_A7509C[40]; // idb
 
 //extern struct Player *ptr_A750C4;   //pPlayers[-1] indexing
-extern struct Player *pPlayers[5]; // ptr[4] @ MM7.exe::00A750C8
+extern struct Player *pPlayers[4]; // ptr[4] @ MM7.exe::00A750C8
 //int dword_A750CC; // weak
 //int dword_A750D0; // weak
 //extern int dword_A750D4; // looks like pPlayers[5] indexing

@@ -290,6 +290,29 @@ unsigned int Render_MoveToGPU(struct BaseRender *_this, unsigned int uWidth, uns
 
 
 
+int __thiscall Render_sub_49ECC4(int _this);
+void __thiscall Render_sub_49EDB6(int _this);
+void __thiscall Render_sub_49F1BC(int _this, const char *Filename);
+int __thiscall Render_sub_4A184C(void *_this);
+void __thiscall Render_sub_4A2ED5(int _this, signed int a2, int a3, int a4);
+void __thiscall Render_sub_4A2FC0(int _this, signed int a2, int a3, signed int a4, signed int a5, int a6, signed int a7, int a8);
+void __thiscall Render_sub_4A43B1(int _this, int a2, int a3, int a4);
+signed int __thiscall Render_sub_4A4DE1(struct BaseRender* _this, unsigned char* a2, int a3, struct IDirectDrawSurface4 **pOutSurface, struct IDirect3DTexture2 **pOutTexture);
+int __thiscall Render_sub_4A52F1(int _this, int a2, float a3);
+void __thiscall Render_sub_4A612A(struct BaseRender* _this, int a2, int a3, cTexture *a4, int a5);
+void __thiscall Render_sub_4A63E6(int _this, int a2, int a3, int a4, int a5, int a6, int a7, int a8);
+void __thiscall Render_sub_4A65CC(int _this, int a2, int a3, int a4, int a5, int a6, int a7, int a8);
+void __thiscall Render_sub_4A6776(struct BaseRender* _this, int a2, int a3, cTexture *a4);
+void __thiscall Render_sub_4A68EF(struct BaseRender* _this, int a2, int a3, cTexture *a4);
+void __thiscall Render_sub_4A6A68(void *_this, int a2, int a3, int a4, __int16 a5);
+void __thiscall Render_sub_4A601E(struct BaseRender* _this, int a2, int a3, cTexture *a4, int a5);
+
+
+
+
+
+
+
 
 struct RenderOpenGL: public BaseRender
 {

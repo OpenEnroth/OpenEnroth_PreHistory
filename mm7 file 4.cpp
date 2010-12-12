@@ -804,7 +804,7 @@ int __fastcall sub_4269A2(int a1)
       {
         if ( v11 )
         {
-          LOBYTE(v7) = sub_491317((void *)(v6 - 160));
+          LOBYTE(v7) = Player_sub_491317((Player *)(v6 - 160));
           v1 = v11 + v11 * v7 / 100;
           v8 = (_DWORD)v1 >= (unsigned int)-*(_DWORD *)v6;
           *(_DWORD *)v6 += v1;
@@ -1792,7 +1792,7 @@ LABEL_9:
           if ( !a3 )
             v9 = *((_WORD *)v6 + 152);
 LABEL_18:
-          v12 = sub_458244(v9);
+          v12 = sub_458244_GetSkillMasteryLevel(v9);
           compile_error;//v11 = __SETO__(v12, 3);
           v10 = v12 - 3 < 0;
           goto LABEL_24;
@@ -1800,7 +1800,7 @@ LABEL_18:
           v13 = a3;
           if ( !a3 )
             v13 = *((_WORD *)v6 + 150);
-          v14 = sub_458244(v13);
+          v14 = sub_458244_GetSkillMasteryLevel(v13);
           compile_error;//v11 = __SETO__(v14, 4);
           v10 = v14 - 4 < 0;
 LABEL_24:
@@ -1851,7 +1851,7 @@ LABEL_33:
         {
           GUIWindowDelete(ptr_507BD4);
           ptr_507BD4 = NULL;
-          sub_469903(pGame->pClass03, "MICON1");
+          GUICursor_SetCursorBitmap(pGame->pGUICursor, "MICON1");
           dword_5C35B8_Some_GetTickCount_timer = 0;
           dword_50C9A0 = false;
           sub_4356FF();
@@ -2003,7 +2003,7 @@ void __thiscall sub_427D48_MessWith_unnamed_50C0C8(struct unnamed_50C0C8 *_this,
    GUIWindowDelete(ptr_507BD4);
    ptr_507BD4 = 0;
 
-   sub_469903(pGame->pClass03, "MICON1");
+   GUICursor_SetCursorBitmap(pGame->pGUICursor, "MICON1");
    dword_5C35B8_Some_GetTickCount_timer = 0;
    dword_50C9A0 = false;
    sub_4356FF();
@@ -2259,9 +2259,9 @@ bool sub_42ECB5_PlayerAttack()
     v32 = 0;
     v31 = 0;
     v30 = 0;
-    v7 = pGame->pClass03->dword_000000;
+    v7 = pGame->pGUICursor->dword_000000;
     if ( ((_BYTE)v7 & 7) != 3
-     || (v36 = pGame->pClass03->dword_000000, !Actor_sub_40894B(&pActors[(v7 >> 3)])) )
+     || (v36 = pGame->pGUICursor->dword_000000, !Actor_sub_40894B(&pActors[(v7 >> 3)])) )
       v36 = sub_42F184(&unk_50C198, 0x1400u, 0, 0);
     v27 = 0;
     v26 = 0;
@@ -3428,7 +3428,7 @@ LABEL_75:
               if ( uActiveCharacter )
               {
                 sub_43AD34();
-                Player_PlaySound(pPlayers[uActiveCharacter], 65, 0);
+                Player_PlaySound(pPlayers[uActiveCharacter - 1], 65, 0);
               }
             }
             break;
@@ -3439,12 +3439,12 @@ LABEL_75:
               goto LABEL_118;
             if ( uActiveCharacter )
             {
-              v6 = (int)pPlayers[uActiveCharacter];
+              v6 = (int)pPlayers[uActiveCharacter - 1];
               if ( !*(_WORD *)(v6 + 6452) )
               {
                 v24 = Player_sub_GetAttackRecoveryTime((void *)v6, 0);
                 if (!pParty_global->dword_00087C)
-                  Player_SetRecoveryTime(pPlayers[uActiveCharacter],
+                  Player_SetRecoveryTime(pPlayers[uActiveCharacter - 1],
                     (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v24 * 2.1333333333333333));
                 sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, uActiveCharacter);
                 sub_40471C(&unk_4F8858);
@@ -3476,7 +3476,7 @@ LABEL_75:
               goto LABEL_118;
             if ( !uActiveCharacter )
               break;
-            v8 = (int)pPlayers[uActiveCharacter];
+            v8 = (int)pPlayers[uActiveCharacter - 1];
             v7 = *(_BYTE *)(v8 + 6735);
             if ( !v7
               || byte_6BE3C4_MaybeDrowningFlag
@@ -4216,7 +4216,7 @@ LABEL_44:
               dword_6A0D48 = 1;
               break;
             case 17:
-              sub_469903(pGame->pClass03, "MICON2");
+              GUICursor_SetCursorBitmap(pGame->pGUICursor, "MICON2");
               break;
             default:
               if ( v49 == 54 )
@@ -8005,28 +8005,20 @@ int __thiscall class40_sub_45814E(void *_this)
 }
 
 //----- (00458244) --------------------------------------------------------
-signed int __fastcall sub_458244(__int16 a1)
+int sub_458244_GetSkillMasteryLevel(unsigned int uSkillLevel)
 {
-  signed int result; // eax@1
-
-  result = 1;
-  if ( HIBYTE(a1) & 1 )
-  {
-    result = 4;
-  }
+  if (uSkillLevel & 0x100)
+    return 4; // Magister
   else
   {
-    if ( (_BYTE)a1 >= 0 )
+    if ( (_BYTE)uSkillLevel >= 0 )
     {
-      if ( a1 & 0x40 )
-        result = 2;
+      if (uSkillLevel & 0x40 )
+        return 2; // Expert
     }
-    else
-    {
-      result = 3;
-    }
+   else return 3; // Master
   }
-  return result;
+  return 1; // Normal
 }
 
 //----- (00458260) --------------------------------------------------------
@@ -12751,7 +12743,7 @@ LABEL_52:
       BYTE1(dword_6BE364) |= 0x10u;
     else
       cClock2.clock_fn1();
-    pGame->pClass03->dword_000004 = 0;
+    pGame->pGUICursor->dword_000004 = 0;
     if ( pD3DRenderer->pRenderD3D3 )
     {
       LODFile_Bitmaps_LOD.sub_4103BB();
@@ -12862,14 +12854,14 @@ LABEL_52:
 LABEL_38:
     struct_576FE8.dword_000044 = 1;
     sub_443343_GenerateSomeColorTable(&struct_576FE8);
-    class03_sub_4698F6((int)pGame->pClass03);
+    GUICursor_sub_4698F6(pGame->pGUICursor);
     if ( pD3DRenderer->dword_040058 )
     {
       InvalidateRect(0, 0, 0);
       MoveWindow(pAppWindow->GetAPIHandle(), uWindowPosX, uWindowPosY, uWindowWidth, uWindowHeight, 0);
       ShowWindow(pAppWindow->GetAPIHandle(), 1);
     }
-    pGame->pClass03->dword_000004 = 1;
+    pGame->pGUICursor->dword_000004 = 1;
     if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
       VideoPlayer_sub_4BF73A((int)pVideoPlayer);
     if ( BYTE1(dword_6BE364) & 8 )
@@ -13264,12 +13256,11 @@ char __thiscall sub_467D88(int _this, __int16 a2, __int16 a3, __int16 a4, __int1
 }
 
 //----- (00467E7F) --------------------------------------------------------
-void __thiscall sub_467E7F(void *_this)
+void __thiscall sub_467E7F_EquipArmour(unsigned int uEquipType)
 {
-  void *v1; // eax@1
+ Player *v1; // eax@1
   int v2; // edx@1
   int v3; // ebx@1
-  void *v4; // esi@1
   char v5; // zf@1
   int v6; // esi@2
   int v7; // eax@2
@@ -13279,36 +13270,35 @@ void __thiscall sub_467E7F(void *_this)
   //char v9; // [sp+Ch] [bp-30h]@1
   //char v10; // [sp+24h] [bp-18h]@2
 
-  void *v11; // [sp+30h] [bp-Ch]@1
+  //void *v11; // [sp+30h] [bp-Ch]@1
   int v12; // [sp+34h] [bp-8h]@1
   int *v13; // [sp+38h] [bp-4h]@1
 
-  v4 = _this;
   ItemGen_Reset(&local_0C);
-  v3 = *(_BYTE *)((_DWORD)byte_4E8398 + (_DWORD)v4);
-  v1 = pPlayers[uActiveCharacter];;
-  v11 = v1;
-  v13 = (int *)((char *)v1 + 4 * v3 + 6472);
+  v3 = byte_4E8398[uEquipType];
+  v1 = pPlayers[uActiveCharacter - 1];
+
+  v13 = &v1->sEquppedItemIndexes[v3];
   v2 = *v13;
   v5 = *v13 == 0;
   v12 = *v13;
   if ( v5 )
   {
-    v8 = sub_4925E6(v1);
+    v8 = Player_sub_4925E6(v1);
     if ( v8 >= 0 )
     {
-      pParty_global->stru_007754.byte_000018 = v3 + 1;
-      memcpy((char *)v11 + 36 * v8 + 532, &pParty_global->stru_007754, sizeof(struct ItemGen));
+      pParty_global->pickedItem.byte_000018 = v3 + 1;
+      memcpy(&v1->cInventorySlots[v8], &pParty_global->pickedItem, sizeof(struct ItemGen));
       *v13 = v8 + 1;
-      class03_sub_4698A6(pGame->pClass03);
+      GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
     }
   }
   else
   {
-    memcpy(&local_0C, &pParty_global->stru_007754, sizeof(struct ItemGen));
+    memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
     v6 = (int)((char *)v1 + 4 * (9 * v2 - 9));
     *(_BYTE *)(v6 + 556) = 0;
-    ItemGen_Reset(&pParty_global->stru_007754);
+    ItemGen_Reset(&pParty_global->pickedItem);
     sub_4936E1(pParty_global, (ItemGen *)(v6 + 532));
     v7 = v12;
     local_0C.byte_000018 = v3 + 1;

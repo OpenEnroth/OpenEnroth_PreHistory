@@ -309,7 +309,13 @@ unsigned char data_4E7168[116] =
  int dword_4E82B8; // weak
  int dword_4E82BC; // weak
  int dword_4E82C0; // weak
- char byte_4E8398[8*array_size_unknown]; // weak
+ char byte_4E8398[8*array_size_unknown] =
+{
+ 0x01, 0x01, 0x02, 0x03, 0x00, 0x04, 0x05, 0x06,   0x07, 0x08, 0x0A, 0x09, 0x01, 0x00, 0x00, 0x00,
+ 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00
+ //....
+};
+
  char unk_4E83B0[64*array_size_unknown];
  char unk_4E8408[64*array_size_unknown];
  char byte_4E94D0; // weak
@@ -723,7 +729,7 @@ struct unnamed_505898 struct_505898;
  char byte_505992; // weak
  */
  int dword_5059A8[480]; // 
- bool bTextureLoading; // weak	 int dword__506128; 
+ bool bTextureLoading; // dword @ MM7.exe::00506128
  char byte_506130[array_size_unknown]; // weak
  int dword_506338; // weak
  int dword_50633C; // idb
@@ -1113,7 +1119,7 @@ struct unnamed_50C0C8 struct_50C0C8;
  int dword_50C998; // weak
  int dword_50C99C; // weak
  int dword_50C9A0; // weak
- int dword_50C9A4; // weak
+struct ItemGen *ptr_50C9A4; // dword @ MM7.exe::0050C9A4
  int dword_50C9A8; // weak
  int dword_50C9AC; // weak
 struct GUIButton *dword_50C9B0; // weak
@@ -1785,7 +1791,7 @@ struct CGame *pGame = 0; //struct @ MM7.exe::00720014
  int dword_7207F0[array_size_unknown]; // weak
  int dword_720980; // weak
  int dword_720984; // weak
-//struct class03 *pClass03_global;  //CGame::000974, dword @ MM7.exe::00720988
+//struct GUICursor *pClass03_global;  //CGame::000974, dword @ MM7.exe::00720988
 //char  byte_72098C;                //CGame::000978, dword @ MM7.exe::00720988
 //char  byte_720990;                //CGame::00097C, dword @ MM7.exe::00720990
 //void *dword_720994;               //CGame::000980, ptr   @ MM7.exe::00720994
@@ -2014,7 +2020,7 @@ unsigned int uTextureIdx_PlayerFaceDead;       // dword @ MM7.exe::00A74CE8
  char byte_A7509C[40]; // idb
 
 //struct Player *ptr_A750C4;   //pPlayers[-1] indexing	 0
-struct Player *pPlayers[5]; // ptr[4] @ MM7.exe::00A750C8 1
+struct Player *pPlayers[4]; // ptr[4] @ MM7.exe::00A750C8 1
 //int dword_A750CC; // weak								  2
 //int dword_A750D0; // weak								  3
 //int dword_A750D4; // looks like pPlayers[5] indexing	  4	   points to the end of Players[4], used in *pPlayers++ loops to stop

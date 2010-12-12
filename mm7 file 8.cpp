@@ -567,7 +567,7 @@ LABEL_27:
     if (dword_720010)
       sub_46B736((void *)dword_720010, 1);
 
-    class03_GetMouseClickPos(pGame->pClass03, &v6, &v4);
+    GUICursor_GetMouseClickPos(pGame->pGUICursor, &v6, &v4);
 
     v5 = pGUIWindow_CurrentMenu->pControlsHead;
     if ( v5 != 0)
@@ -2058,7 +2058,7 @@ int __cdecl MenuLoop_Main()
  }
  pGUIWindow2 = 0;
  AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
- class03_sub_4698A6(pGame->pClass03);
+ GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
  ++LODFile_Icons_LOD.uTexturePacksCount;
  if (!LODFile_Icons_LOD.uPrevLoadedFiles)
    LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
@@ -2149,7 +2149,7 @@ int __cdecl MenuLoop_Main()
 
  while (uCurrentMenuID == MENU_MAIN || uCurrentMenuID == MENU_LOAD)
  {
-  class03_GetMousePos(pGame->pClass03, &ptMouse);
+  GUICursor_GetMousePos(pGame->pGUICursor, &ptMouse);
   v17 = pGUIWindow_MainMenu;
     if (uCurrentMenuID == MENU_LOAD)
     {
@@ -2422,7 +2422,7 @@ void __fastcall sub_404AC7(int a1, int a2, signed int a3, int a4, int a5)
   v138 = a2;
   sub_404828(&v119);
   v6 = a5 & 0x3F;
-  v5 = sub_458244(a5);
+  v5 = sub_458244_GetSkillMasteryLevel(a5);
   if ( a3 <= 47 )
   {
     if ( a3 != 47 )
@@ -3358,8 +3358,8 @@ void __cdecl sub_464479()
 {
   int v0; // esi@9
 
-  if (pGame->pClass03)
-    sub_469903(pGame->pClass03, "MICON1");
+  if (pGame->pGUICursor)
+    GUICursor_SetCursorBitmap(pGame->pGUICursor, "MICON1");
   sub_48A336(&class35_obj);
   LODFile_Bitmaps_LOD.sub_46454B();
   LODFile_Sprites_LOD.sub_4645DC();
@@ -4678,8 +4678,8 @@ int __cdecl sub_4645FA()
   NPCStats_sub_477266((int)pNPCStats);
   sub_465C53();
   sub_465C2C();
-  if (pGame->pClass03)
-    class03_sub_469CC2((int)pGame->pClass03);
+  if (pGame->pGUICursor)
+    GUICursor_sub_469CC2(pGame->pGUICursor);
   AudioPlayer_sub_4ABD5B((int)pAudioPlayer);
   //sub_461A11(LODFile_New_LOD);
   //sub_461A11(LODFile_Games_LOD);
@@ -5924,7 +5924,7 @@ LABEL_39:
       v61 = 1;
   }
 
-  for (i = 1; i < 5; ++i)
+  for (i = 0; i < 4; ++i)
   {
    v18 = pPlayers[i];
 
@@ -6187,7 +6187,7 @@ LABEL_137:
   {
     if ( dword_4E28F8 != 5 )
     {
-      result = (int)pPlayers[uActiveCharacter];
+      result = (int)pPlayers[uActiveCharacter - 1];
       if ( *(_QWORD *)(result + 16)
         || *(_QWORD *)(result + 96)
         || *(_QWORD *)(result + 104)

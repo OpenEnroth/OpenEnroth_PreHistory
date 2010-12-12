@@ -106,7 +106,7 @@ LABEL_19:
     v12 = *((_WORD *)v14 + 137);
     if ( v12 )
     {
-      if ( sub_458244(v12) >= 4 )
+      if ( sub_458244_GetSkillMasteryLevel(v12) >= 4 )
         v9 += *((_BYTE *)v14 + 274) & 0x3F;
     }
     result = v9;
@@ -241,12 +241,12 @@ LABEL_17:
         v15 = sub_48D651_GetSomeItemSkillType((void *)v3, 3) - 10;
         if ( v15 )
         {
-          if ( v15 != 1 || sub_458244(*(_WORD *)(v3 + 286)) < 3 )
+          if ( v15 != 1 || sub_458244_GetSkillMasteryLevel(*(_WORD *)(v3 + 286)) < 3 )
             return v18;
           v16 = (double)v18 * 0.5;
           return (signed __int64)v16;
         }
-        if ( sub_458244(*(_WORD *)(v3 + 284)) >= 4 )
+        if ( sub_458244_GetSkillMasteryLevel(*(_WORD *)(v3 + 284)) >= 4 )
         {
           v16 = (double)v18 * 0.666700005531311;
           return (signed __int64)v16;
@@ -328,7 +328,7 @@ bool __thiscall sub_48D76C(int _this, int a2, int a3, int a4, int a5, int a6)
   {
     v7 = *(_WORD *)(_this + 332);
     v9 = v7 & 0x3F;
-    v8 = sub_458244(v7);
+    v8 = sub_458244_GetSkillMasteryLevel(v7);
     v10 = sub_456442(a2);
     v6 = pClass40->pItems[*(_DWORD *)a2 - 1].uEquipType;
     if ( !pClass40->pItems[*(_DWORD *)a2 - 1].uEquipType || v6 == 1 || v6 == 2 )
@@ -401,7 +401,7 @@ signed int __thiscall sub_48D88B(int _this, int a2, int a3, int a4)
       sub_4086E9((int)((char *)pActors + 836 * a2));
     v6 = *(_WORD *)(v5 + 332);
     v7 = v6 & 0x3F;
-    v9 = sub_458244(v6);
+    v9 = sub_458244_GetSkillMasteryLevel(v6);
     v29 = 4 * v9;
     v31 = dword_4EDEA4[v9-1];
     v30 = dword_4EDEB4[rand() % 100 / 20];
@@ -494,7 +494,7 @@ LABEL_21:
             wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[304], v32 + 168, dword_5D29EC[12 * v15]);
             sub_44C175((char *)pStringBuffer, 2);
             sub_421B2C();
-            memcpy(&pParty_global->stru_007754, &local_08, sizeof(struct ItemGen));
+            memcpy(&pParty_global->pickedItem, &local_08, sizeof(struct ItemGen));
             sub_4698D8(v15);
             return v33;
           }
@@ -932,7 +932,7 @@ LABEL_73:
         }
         v28 = v47;
         memcpy((void *)v27, (const void *)(v5 + 36 * *(_DWORD *)(v5 + 4 * v47 + 5500) + 496), 0x24u);
-        Player_sub_492A36((struct Player *)v5, v28);
+        Player_sub_492A36_RemoveItemFromIndexMatrix((struct Player *)v5, v28);
 LABEL_79:
         v42 = 0;
         v37 = 0;
@@ -1046,7 +1046,7 @@ int __thiscall Player_sub_GetAttackRecoveryTime(void *_this, int a2)
   }
   if ( sub_48D676(_this) == 1 )
   {
-    LOBYTE(v7) = Player_sub_48F882((void *)v4, 31);
+    LOBYTE(v7) = Player_sub_48F882((Player *)v4, 31);
     if ( v7 )
     {
       v5 = (unsigned __int16)word_4EDEDC;
@@ -1084,7 +1084,7 @@ LABEL_17:
   if ( !Player_sub_48D6AA((Player *)v4, 3) )
     goto LABEL_28;
   v14 = pClass40->pItems[*(_DWORD *)(v4 + 36 * *(_DWORD *)(v4 + 6484) + 496) - 1].uSkillType;
-  sub_458244(*(_WORD *)(v4 + 282));
+  sub_458244_GetSkillMasteryLevel(*(_WORD *)(v4 + 282));
   v15 = (unsigned __int16)word_4EDED8[v14];
   v35 = 1.0;
   v43 = v15;
@@ -1115,7 +1115,7 @@ LABEL_26:
 LABEL_27:
   v18 = *(_WORD *)(v4 + 2 * v14 + 264);
   v38 = v16;
-  v43 = (signed __int64)((double)v43 * *(&v34 + sub_458244(v18)));
+  v43 = (signed __int64)((double)v43 * *(&v34 + sub_458244_GetSkillMasteryLevel(v18)));
   v2 = 0;
 LABEL_28:
   if ( Player_sub_48D6AA((Player *)v4, v2) )
@@ -1131,7 +1131,7 @@ LABEL_28:
       v23 = (unsigned __int16)word_4EDED8[v22];
       v38 = 0.0;
       v45 = v23;
-      v24 = sub_458244(*(_WORD *)(v4 + 2 * v22 + 264));
+      v24 = sub_458244_GetSkillMasteryLevel(*(_WORD *)(v4 + 2 * v22 + 264));
       v45 = (signed __int64)((double)v45 * *(&v34 + v24));
     }
   }
@@ -1141,13 +1141,13 @@ LABEL_28:
   if ( v3 != (int *)v2 )
   {
     v26 = *((_BYTE *)v3 + 29);
-    LOBYTE(v27) = Player_sub_48F882((void *)v4, *((_BYTE *)v3 + 29));
+    LOBYTE(v27) = Player_sub_48F882((Player *)v4, *((_BYTE *)v3 + 29));
     if ( v27 )
     {
       if ( v26 == 1 || v26 == 3 || v26 == 5 )
       {
         v28 = (__int16 *)(v4 + 2 * v26 + 264);
-        if ( sub_458244(*v28) >= 2 )
+        if ( sub_458244_GetSkillMasteryLevel(*v28) >= 2 )
           v40 = *(_BYTE *)v28 & 0x3F;
       }
     }
@@ -1159,12 +1159,12 @@ LABEL_28:
   {
     if ( v42 == v2 )
     {
-      LOBYTE(v29) = Player_sub_48F882((void *)v4, 33);
+      LOBYTE(v29) = Player_sub_48F882((Player *)v4, 33);
       if ( v29 != v2 )
       {
         v30 = v29 & 0x3F;
         v44 = v29 & 0x3F;
-        if ( sub_458244(v29) >= 4 )
+        if ( sub_458244_GetSkillMasteryLevel(v29) >= 4 )
           v44 += v30;
       }
     }
@@ -1647,7 +1647,7 @@ LABEL_33:
 }
 
 //----- (00490EEE) --------------------------------------------------------
-int __thiscall sub_490EEE(void *_this, int a2, int a3, int a4, int a5)
+int __thiscall Player_sub_490EEE(Player *_this, int a2, int a3, int a4, int a5)
 {
   int result; // eax@1
   signed int v6; // edx@1
@@ -1725,26 +1725,26 @@ LABEL_26:
   v15 = (float *)((char *)&unk_591458 + 52 * a4);
   v16 = *v15;
   v17 = sub_456442(a2);
-  v14 = sub_4B8142(v27, v17, v16);
+  v14 = Player_sub_4B8142((Player *)v27, v17, v16);
   if ( a5 == 3 )
   {
     v23 = *v15;
     v24 = sub_456442(a2);
-    v14 = sub_4B8102(v27, v24, v23);
+    v14 = Player_sub_4B8102((Player *)v27, v24, v23);
     if ( !(*(_BYTE *)(a2 + 20) & 2) )
       goto LABEL_39;
     goto LABEL_38;
   }
   if ( a5 == 4 )
   {
-    v20 = sub_4B8179(v27, *v15);
+    v20 = Player_sub_4B8179((Player *)v27, *v15);
     goto LABEL_35;
   }
   if ( a5 == 5 )
   {
     v21 = *v15;
     v22 = sub_456442(a2);
-    v20 = sub_4B81C3(v27, v22, v21);
+    v20 = Player_sub_4B81C3((Player *)v27, v22, v21);
 LABEL_35:
     v14 = v20;
     goto LABEL_39;
@@ -1753,7 +1753,7 @@ LABEL_35:
     goto LABEL_39;
   v18 = *v15;
   v19 = sub_456442(a2);
-  v14 = sub_4B8102(v27, v19, v18) / 2;
+  v14 = Player_sub_4B8102((Player *)v27, v19, v18) / 2;
   if ( *(_BYTE *)(a2 + 20) & 2 )
     v14 = 1;
   if ( v14 >= 1 )
@@ -1769,7 +1769,7 @@ LABEL_39:
 }
 
 //----- (004910A8) --------------------------------------------------------
-int __thiscall sub_4910A8(void *_this)
+int __thiscall Player_sub_4910A8(Player *_this)
 {
   int v1; // al@1
   int v2; // ecx@1
@@ -1807,7 +1807,7 @@ signed int __stdcall sub_4910D3(int a1)
   int v7; // eax@7
   signed int v9; // [sp-4h] [bp-14h]@2
 
-  LOBYTE(v1) = Player_sub_48F882(pPlayers[uActiveCharacter], 21);
+  LOBYTE(v1) = Player_sub_48F882(pPlayers[uActiveCharacter - 1], 21);
   v2 = v1;
   if ( HIBYTE(v1) & 1 )
   {
@@ -1830,7 +1830,7 @@ LABEL_7:
   v7 = CheckHiredNPCSpeciality(4);
   if ( v7 )
     goto LABEL_15;
-  if ( sub_458244(v2) >= 4 )
+  if ( sub_458244_GetSkillMasteryLevel(v2) >= 4 )
     v4 = 1;
   if ( v5 >= *((_BYTE *)v6 + 46) )
 LABEL_15:
@@ -1839,7 +1839,7 @@ LABEL_15:
 }
 
 //----- (00491151) --------------------------------------------------------
-signed int __thiscall sub_491151(void *_this, int a2)
+signed int __thiscall Player_sub_491151(Player *_this, int a2)
 {
   __int16 v2; // ax@1
   __int16 v3; // bx@1
@@ -1891,7 +1891,7 @@ LABEL_7:
     if ( *((_BYTE *)v7 + 28) >= 9u )
       goto LABEL_21;
   }
-  if ( sub_458244(v3) >= 4 )
+  if ( sub_458244_GetSkillMasteryLevel(v3) >= 4 )
     v5 = 1;
   if ( v6 >= *((_BYTE *)v7 + 46) )
 LABEL_21:
@@ -1900,7 +1900,7 @@ LABEL_21:
 }
 
 //----- (004911F3) --------------------------------------------------------
-int __thiscall sub_4911F3(void *_this)
+int __thiscall Player_sub_4911F3(Player *_this)
 {
   __int16 v1; // bx@1
   int v2; // edi@1
@@ -1916,7 +1916,7 @@ int __thiscall sub_4911F3(void *_this)
   v1 = *((_WORD *)v4 + 154);
   v3 = v5 & 0x3F;
   v2 = *((_WORD *)v4 + 154) & 0x3F;
-  if ( sub_458244(v5) >= 4 )
+  if ( sub_458244_GetSkillMasteryLevel(v5) >= 4 )
     return 10000;
   v7 = sub_47752B();
   if ( !v3 )
@@ -1939,7 +1939,7 @@ int __thiscall sub_4911F3(void *_this)
 }
 
 //----- (0049125A) --------------------------------------------------------
-signed int __thiscall sub_49125A(void *_this)
+signed int __thiscall Player_sub_49125A(Player *_this)
 {
   __int16 v1; // bx@1
   int v2; // edi@1
@@ -1954,7 +1954,7 @@ signed int __thiscall sub_49125A(void *_this)
   v1 = *((_WORD *)v4 + 158);
   v3 = v5 & 0x3F;
   v2 = *((_WORD *)v4 + 158) & 0x3F;
-  if ( sub_458244(v5) >= 4 )
+  if ( sub_458244_GetSkillMasteryLevel(v5) >= 4 )
     return 10000;
   if ( HIBYTE(v1) & 1 )
   {
@@ -1974,7 +1974,7 @@ signed int __thiscall sub_49125A(void *_this)
 }
 
 //----- (004912B0) --------------------------------------------------------
-signed int __thiscall sub_4912B0(void *_this)
+signed int __thiscall Player_sub_4912B0(Player *_this)
 {
   __int16 v1; // bx@1
   void *v2; // ebp@1
@@ -1989,7 +1989,7 @@ signed int __thiscall sub_4912B0(void *_this)
   v1 = *((_WORD *)v2 + 161);
   v4 = v5 & 0x3F;
   v3 = *((_WORD *)v2 + 161) & 0x3F;
-  if ( sub_458244(v5) >= 4 )
+  if ( sub_458244_GetSkillMasteryLevel(v5) >= 4 )
     return 10000;
   if ( Player_sub_48D6D0((Player *)v2, 35) )
     v4 *= 2;
@@ -2011,7 +2011,7 @@ signed int __thiscall sub_4912B0(void *_this)
 }
 
 //----- (00491317) --------------------------------------------------------
-char __thiscall sub_491317(void *_this)
+char __thiscall Player_sub_491317(Player *_this)
 {
   int v1; // eax@1
   int v2; // ecx@1
@@ -2165,13 +2165,13 @@ LABEL_12:
 }
 
 //----- (004925E6) --------------------------------------------------------
-signed int __thiscall sub_4925E6(void *_this)
+signed int __thiscall Player_sub_4925E6(Player *_this)
 {
   signed int result; // eax@1
   int v2; // ecx@1
 
   result = 0;
-  v2 = (int)((char *)_this + 532);
+  v2 = (int)((char *)_this + 0x214);
   while ( *(_DWORD *)v2 )
   {
     ++result;
@@ -2183,21 +2183,16 @@ signed int __thiscall sub_4925E6(void *_this)
 }
 
 //----- (00492700) --------------------------------------------------------
-signed int __thiscall sub_492700(void *_this, signed int a2)
+bool Player_CheckIfHasSkill(Player *_this, unsigned int uSkillType)
 {
-  signed int result; // eax@3
-
-  if ( a2 >= 37 || *((_WORD *)_this + a2 + 132) )
-  {
-    result = 1;
-  }
-  else
-  {
-    wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[67], (char *)_this + 168);
-    sub_44C175((char *)TmpBuf, 2);
-    result = 0;
-  }
-  return result;
+ if (uSkillType >= 37 || _this->pActiveSkills[uSkillType])
+   return true;
+ else
+ {
+  wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[67], _this->sName);
+  sub_44C175((char *)TmpBuf, 2);
+  return false;
+ }
 }
 
 //----- (0049298B) --------------------------------------------------------
@@ -2236,49 +2231,57 @@ signed int __thiscall sub_49298B(void *_this, struct ItemGen *a2, int a3, int a4
 }
 
 //----- (00492A36) --------------------------------------------------------
-int __thiscall Player_sub_492A36(struct Player *_this, int a2)
+void Player_sub_492A36_RemoveItemFromIndexMatrix(struct Player *_this, int sItemID)
 {
-  int result; // eax@1
-  int v3; // ebp@1
+  //int result; // eax@1
+  //int v3; // ebp@1
   int v4; // edi@1
   cTexture* v5; // esi@1
   ItemGen * v6; // ecx@1
   int v7; // esi@1
   int v8; // eax@1
   void *v9; // edx@4
-  int v10; // [sp+14h] [bp+4h]@1
+  //int v10; // [sp+14h] [bp+4h]@1
+ unsigned int uItemSlotsWidth,
+              uItemSlotsHeight;
 
-  v4 = _this->sInventoryIndexes[a2];
+  v4 = _this->sInventoryIndexes[sItemID];
  // v6 = (int)((char *)_this + 36 * *(_DWORD *)v4 + 496);
-  v6=(ItemGen *)&_this->cInventorySlots[v4];
+  v6 = &_this->cInventorySlots[v4];
   v7 = v6->uItemID;
   ItemGen_Reset(v6);
-  v8 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[v7].pIconName, 2);
+#ifndef OLD_CODE
+  wchar_t pTextureNameW[256];
+  wsprintfW(pTextureNameW, L"%S", pClass40->pItems[v7].pIconName);
+
+  v8 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pTextureNameW);
+#else
+  v8 = LODFile_Icons_LOD.LODFile_LoadTexture((char *)pClass40->pItems[v7].pIconName, 2);
+#endif
+
   v5 = v8 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v8]: 0;
-  v10 = GetSizeInInventorySlots((v8 != -1 ? LODFile_Icons_LOD.aLODHeaders[v8].uTextureWidth : 24));
-  result = GetSizeInInventorySlots((v5 ->uTextureHeight));
-  v3 = result;
+  uItemSlotsWidth = GetSizeInInventorySlots(v5->uTextureWidth);
+  uItemSlotsHeight = GetSizeInInventorySlots(v5->uTextureHeight);
+
   if ( !bTextureLoading )
   {
     cTexture_Free((cTexture *)v5);
-    result = LODFile_Icons_LOD.LODFile_sub_40F9C5();
+    LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
-  if ( v3 > 0 )
+  if (uItemSlotsHeight > 0 )
   {
-    v9 = &_this->sInventoryIndexes[a2];
+    v9 = &_this->sInventoryIndexes[sItemID];
     do
     {
-      if ( v10 > 0 )
+      if (uItemSlotsWidth > 0 )
       {
-        result = 0;
-        memset(v9, 0, 4 * v10);
+        memset(v9, 0, 4 * uItemSlotsWidth);
       }
       v9 = (char *)v9 + 56;
-      --v3;
+      --uItemSlotsHeight;
     }
-    while ( v3 );
+    while ( uItemSlotsHeight );
   }
-  return result;
 }
 
 //----- (00492AD5) --------------------------------------------------------
@@ -2350,7 +2353,7 @@ void __fastcall sub_492BB6(unsigned int a1)
 }
 
 //----- (00492C40) --------------------------------------------------------
-bool __thiscall sub_492C40(void *_this)
+bool __thiscall Player_sub_492C40(Player *_this)
 {
   int v2; // eax@1
 
@@ -2359,28 +2362,28 @@ bool __thiscall sub_492C40(void *_this)
 }
 
 //----- (00492C4E) --------------------------------------------------------
-signed int __thiscall sub_492C4E(int _this, signed int a2)
+bool Player_sub_492C4E(Player *_this, int sItemID)
 {
   char v2; // zf@9
   __int16 v4; // dx@13
   char v5; // zf@15
 
-  if ( a2 > 532 )
+  if (sItemID > 532)
   {
-    if ( a2 == 533 )
+    if (sItemID == 533)
     {
-      v2 = Player_GetRace((Player *)_this) == 1;
+      v2 = Player_GetRace(_this) == 1;
     }
     else
     {
-      if ( a2 != 534 )
+      if (sItemID != 534)
       {
-        if ( a2 == 535 )
+        if (sItemID == 535)
         {
-          switch ( *(_DWORD *)(_this + 6432) )
+          switch (_this->dword_001920)
           {
             default:
-              return 1;
+              return true;
             case 4:
             case 5:
             case 6:
@@ -2393,13 +2396,13 @@ signed int __thiscall sub_492C4E(int _this, signed int a2)
             case 0x13:
             case 0x15:
             case 0x18:
-              return 0;
+              return false;
           }
-          return 0;
+          return false;
         }
-        if ( a2 == 536 )
+        if (sItemID == 536)
         {
-          switch ( *(_DWORD *)(_this + 6432) )
+          switch (_this->dword_001920)
           {
             case 4:
             case 5:
@@ -2413,27 +2416,27 @@ signed int __thiscall sub_492C4E(int _this, signed int a2)
             case 0x13:
             case 0x15:
             case 0x18:
-              return 1;
+              return true;
             default:
-              return 0;
+              return false;
           }
-          return 0;
+          return false;
         }
-        if ( a2 != 604 )
-          return 1;
-        v5 = sub_43EEF3((void *)_this) == 0;
+        if (sItemID != 604)
+          return true;
+        v5 = Player_sub_43EEF3(_this) == 0;
         goto LABEL_23;
       }
-      v2 = Player_GetRace((Player *)_this) == 3;
+      v2 = Player_GetRace(_this) == 3;
     }
   }
   else
   {
-    if ( a2 != 532 )
+    if (sItemID != 532)
     {
-      if ( a2 != 515 && a2 != 517 )
+      if (sItemID != 515 && sItemID != 517)
       {
-        if ( a2 == 521 )
+        if (sItemID == 521)
         {
 LABEL_13:
           v4 = 99;
@@ -2441,16 +2444,16 @@ LABEL_15:
           v5 = (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, v4) == 0;
 LABEL_23:
           if ( !v5 )
-            return 1;
-          return 0;
+            return true;
+          return false;
         }
-        if ( a2 != 525 )
+        if (sItemID != 525)
         {
-          if ( a2 != 527 )
+          if (sItemID != 527)
           {
-            if ( a2 != 531 )
-              return 1;
-            v2 = Player_GetRace((Player *)_this) == 2;
+            if (sItemID != 531)
+              return true;
+            v2 = Player_GetRace(_this) == 2;
             goto LABEL_10;
           }
           goto LABEL_13;
@@ -2459,12 +2462,12 @@ LABEL_23:
       v4 = 100;
       goto LABEL_15;
     }
-    v2 = Player_GetRace((Player *)_this) == 0;
+    v2 = Player_GetRace(_this) == 0;
   }
 LABEL_10:
   if ( v2 )
-    return 1;
-  return 0;
+    return true;
+  return false;
 }
 
 //----- (00493244) --------------------------------------------------------
@@ -2733,7 +2736,7 @@ signed int __thiscall sub_49387A(void *_this)
       --result;
       if ( result < 1 )
         result = 4;
-      if ( !*((_WORD *)pPlayers[result] + 3226) )
+      if ( !*((_WORD *)pPlayers[result - 1] + 3226) )
         break;
       ++v2;
       if ( v2 >= 4 )
@@ -2748,7 +2751,7 @@ signed int __thiscall sub_49387A(void *_this)
       ++result;
       if ( result > 4 )
         result = 1;
-      if ( !*((_WORD *)pPlayers[result] + 3226) ) // pPlayer[result]->cInventorySlots[74].uItemID
+      if ( !*((_WORD *)pPlayers[result - 1] + 3226) ) // pPlayer[result]->cInventorySlots[74].uItemID
         break;
       ++v3;
       if ( v3 >= 4 )
@@ -3339,12 +3342,12 @@ LABEL_118:
         v27 = (char *)&unk_591458 + 52 * a4;
         v28 = *(float *)v27;
         v29 = sub_456442(v12);
-        v26 = sub_4B8142((void *)v8, v29, v28);
+        v26 = Player_sub_4B8142((Player *)v8, v29, v28);
         if ( a5 == 3 )
         {
           v35 = *(float *)v27;
           v36 = sub_456442(v12);
-          v26 = sub_4B8102((void *)v8, v36, v35);
+          v26 = Player_sub_4B8102((Player *)v8, v36, v35);
           if ( *(_BYTE *)(v12 + 20) & 2 )
           {
 LABEL_77:
@@ -3359,7 +3362,7 @@ LABEL_77:
           {
             v32 = *(float *)v27;
             v33 = sub_456442(v12);
-            v26 = sub_4B81C3((void *)v8, v33, v32);
+            v26 = Player_sub_4B81C3((Player *)v8, v33, v32);
           }
           else
           {
@@ -3367,7 +3370,7 @@ LABEL_77:
             {
               v30 = *(float *)v27;
               v31 = sub_456442(v12);
-              v26 = sub_4B8102((void *)v8, v31, v30) / 2;
+              v26 = Player_sub_4B8102((Player *)v8, v31, v30) / 2;
               if ( *(_BYTE *)(v12 + 20) & 2 )
                 v26 = 1;
 LABEL_91:
@@ -3383,7 +3386,7 @@ LABEL_98:
         v34 = *(float *)v27;
       }
       v48 = v34;
-      v26 = sub_4B8179((void *)v8, v48);
+      v26 = Player_sub_4B8179((Player *)v8, v48);
       goto LABEL_98;
     }
     if ( v15 != 30 )
@@ -11659,7 +11662,7 @@ void __thiscall sub_4A5D33(int _this, int a2, int a3, int a4, int a5, int a6)
 }
 
 //----- (004A601E) --------------------------------------------------------
-void __thiscall sub_4A601E(int _this, int a2, int a3, int a4, int a5)
+void __thiscall Render_sub_4A601E(struct BaseRender* _this, int a2, int a3, cTexture *a4, int a5)
 {
   int v5; // edx@3
   int v6; // ebx@3
@@ -11743,7 +11746,7 @@ void __thiscall sub_4A601E(int _this, int a2, int a3, int a4, int a5)
 }
 
 //----- (004A612A) --------------------------------------------------------
-void __thiscall Render_sub_4A612A(int _this, int a2, int a3, int a4, int a5)
+void __thiscall Render_sub_4A612A(struct BaseRender* _this, int a2, int a3, cTexture *a4, int a5)
 {
   int v5; // eax@2
   int v6; // edx@3
@@ -11765,9 +11768,9 @@ void __thiscall Render_sub_4A612A(int _this, int a2, int a3, int a4, int a5)
   int v23; // [sp+24h] [bp+Ch]@3
   int v24; // [sp+28h] [bp+10h]@3
 
-  if ( *(_DWORD *)(_this + 262372) )
+  if (_this->bSceneBegun)
   {
-    v5 = a4;
+    v5 = (int)a4;
     if ( a4 )
     {
       v6 = a3;
@@ -12091,7 +12094,7 @@ void __thiscall Render_sub_4A65CC(int _this, int a2, int a3, int a4, int a5, int
 }
 
 //----- (004A6776) --------------------------------------------------------
-void __thiscall Render_sub_4A6776(int _this, int a2, int a3, int a4)
+void __thiscall Render_sub_4A6776(struct BaseRender* _this, int a2, int a3, cTexture *a4)
 {
   int v4; // edi@2
   int v5; // eax@4
@@ -12117,7 +12120,7 @@ void __thiscall Render_sub_4A6776(int _this, int a2, int a3, int a4)
 
   if ( *(_DWORD *)(_this + 262372) )
   {
-    v4 = a4;
+    v4 = (int)a4;
     if ( a4 )
     {
       if ( *(_DWORD *)(a4 + 64) )
@@ -12144,7 +12147,7 @@ void __thiscall Render_sub_4A6776(int _this, int a2, int a3, int a4)
             v10 = v9 - a3;
             v20 += v19 * v10;
             v6 = a3 - *(_DWORD *)(_this + 262388) + *(_WORD *)(a4 + 26);
-            v4 = a4;
+            v4 = (int)a4;
             v5 += 2 * *(_DWORD *)(_this + 262384) * v10;
           }
           v11 = *(_DWORD *)(_this + 262392);
@@ -12201,7 +12204,7 @@ void __thiscall Render_sub_4A6776(int _this, int a2, int a3, int a4)
 }
 
 //----- (004A68EF) --------------------------------------------------------
-void __thiscall Render_sub_4A68EF(int _this, int a2, int a3, int a4)
+void __thiscall Render_sub_4A68EF(struct BaseRender* _this, int a2, int a3, cTexture *a4)
 {
   int v4; // edi@2
   int v5; // eax@4
@@ -12227,7 +12230,7 @@ void __thiscall Render_sub_4A68EF(int _this, int a2, int a3, int a4)
 
   if ( *(_DWORD *)(_this + 262372) )
   {
-    v4 = a4;
+    v4 = (int)a4;
     if ( a4 )
     {
       if ( *(_DWORD *)(a4 + 64) )
@@ -12254,7 +12257,7 @@ void __thiscall Render_sub_4A68EF(int _this, int a2, int a3, int a4)
             v10 = v9 - a3;
             v20 += v19 * v10;
             v6 = a3 - *(_DWORD *)(_this + 262388) + *(_WORD *)(a4 + 26);
-            v4 = a4;
+            v4 = (int)a4;
             v5 += 2 * *(_DWORD *)(_this + 262384) * v10;
           }
           v11 = *(_DWORD *)(_this + 262392);

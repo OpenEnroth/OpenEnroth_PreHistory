@@ -30,7 +30,7 @@ struct CGame
  float array_000718[array_size_unknown];
 
                               // looks like ptr to current selected input device
- struct class03 *pClass03;    // ptr @ 000974
+ struct GUICursor *pGUICursor;    // dword @ 000974
  unsigned int    dword_000978;
                               // looks like start of a struct or a class, sub_40E2F6 is a member of which
  struct CGame_stru0 unnamed_00097C;
@@ -50,7 +50,7 @@ struct CGame
  int  dword_000E38;
  struct class01 *class01_obj;  //dword ptr [0E3C]
  struct class02 *class02_obj;  //dword ptr [0E40]
- struct class03 *class03_obj;  //dword ptr [0E44]
+ struct GUICursor *class03_obj;  //dword ptr [0E44]
  struct class04 *class04_obj;  //dword ptr [0E48]
  struct Vis     *pVis;         // dword @ 000E4C
  struct class06 *class06_obj;  //dword ptr [0E50]
@@ -112,75 +112,6 @@ struct class01
 //sizeof = 64
 //int __thiscall sub_438B0B(int _this);
 void *class01_ctor(struct class01 *_this);
-
-
-
-//class03
-struct class03
-{
- int dword_000000; // when in Game, mouse over player portrait, highlighted player id is placed here
- int dword_000004;
- int dword_000008;
- int dword_00000C;
- int dword_000010;
- int dword_000014[4];
- int dword_000024;
- int dword_000028;
- HWND hWnd; // ptr @ 00002C
- unsigned char *ptr_000030;
- int dword_000034;
- unsigned char *ptr_000038;
- int dword_00003C;
- int dword_000040;
- int dword_000044;
- int dword_000048;
- int dword_00004C;
- int dword_000050[16];
- unsigned char *ptr_000090;
- int dword_000094;
- int dword_000098;
- int dword_00009C;
- int dword_0000A0;
- int dword_0000A4;
- int dword_0000A8;
- int dword_0000AC;
- int dword_0000B0;
- int dword_0000B4;
- int dword_0000B8;
- int dword_0000BC;
- int dword_0000C0;
- int dword_0000C4;
- int dword_0000C8;
-
- int dword_0000CC[16];
-
- unsigned char   array_0000F5[11];
-
- unsigned int    uMouseClickX;
- unsigned int    uMouseClickY;
- struct class01 *class01_obj;   // dword @ 000110
-};
-//sizeof = 0114
-//int __thiscall sub_467E4E(int _this, int a2);
-struct class03 *class03_ctor(struct class03 *_this, struct class01 *class01_obj);
-//int __thiscall sub_46A080(int _this, int a2);
-int class03_fn1(struct class03 *_this, int a2);
-//int __thiscall sub_469C39(int _this, int a2);
-POINT *class03_GetMousePos(struct class03 *_this, POINT *ptOut);
-//void __thiscall sub_469C65(int _this, int a2)
-void sub_469C65(struct class03 *_this, HWND hWnd);
-//void __thiscall sub_469903(int _this, const char *Source);
-void sub_469903(struct class03 *_this, const char *pSource);
-//int __thiscall sub_469BA3(int _this);
-int sub_469BA3(struct class03 *_this);
-//void __thiscall sub_4698A6(void *_this)
-void class03_sub_4698A6(struct class03 *_this);
-//void sub_46A08A(int _this, int a2, int a3)
-void class03_OnMouseLeftButton(struct class03 *_this, int x, int y);
-//int __thiscall sub_469860(int _this, int a2, int a3);
-void class03_GetMouseClickPos(struct class03 *_this, int *pX, int *pY);
-//int __thiscall ckass03_sub_469E3B(int _this)
-int ckass03_sub_469E3B(struct class03 *_this);
 
 
 

@@ -177,9 +177,9 @@ void CGame_ctor(struct CGame *_this)
  if (_this->class02_obj)
    class02_ctor(_this->class02_obj);
 
- _this->class03_obj = new class03;
+ _this->class03_obj = new GUICursor;
  if (_this->class03_obj)
-   class03_ctor(_this->class03_obj, _this->class01_obj);
+   GUICursor_ctor(_this->class03_obj, _this->class01_obj);
 
  _this->class04_obj = new class04;
  if (_this->class04_obj)
@@ -613,28 +613,28 @@ void *class02_fn0(struct class02 *_this)
 }
 
 //----- (MM7.exe::00467E4E) --------------------------------------------------------
-struct class03 *class03_ctor(struct class03 *_this, struct class01 *class01_obj)
+struct GUICursor *GUICursor_ctor(struct GUICursor *_this, struct class01 *class01_obj)
 {
- _this->dword_000024 = 0;
+ _this->uCursorTextureID = 0;
  _this->dword_000028 = 0;
  _this->hWnd = 0;
  _this->ptr_000030 = 0;
  _this->dword_000034 = 0;
  _this->ptr_000038 = 0;
- _this->dword_00003C = 0;
+ _this->ptr_00003C = 0;
  _this->ptr_000090 = 0;
  _this->class01_obj = class01_obj;
  return _this;
 }
 
 //----- (MM7.exe::0046A080) --------------------------------------------------------
-int class03_fn1(struct class03 *_this, int a2)
+int GUICursor_fn1(struct GUICursor *_this, int a2)
 {
  return _this->dword_000004 = a2;
 }
 
 //----- (MM7.exe::00469C39) --------------------------------------------------------
-POINT *class03_GetMousePos(struct class03 *_this, POINT *pOut)
+POINT *GUICursor_GetMousePos(struct GUICursor *_this, POINT *pOut)
 {
  int *v3; // edx@1
  int v4; // ecx@2
@@ -655,7 +655,7 @@ POINT *class03_GetMousePos(struct class03 *_this, POINT *pOut)
 }
 
 //----- (00469860) --------------------------------------------------------
-void class03_GetMouseClickPos(struct class03 *_this, int *pX, int *pY)
+void GUICursor_GetMouseClickPos(struct GUICursor *_this, int *pX, int *pY)
 {
   if (dword_720010)
   {
@@ -670,14 +670,14 @@ void class03_GetMouseClickPos(struct class03 *_this, int *pX, int *pY)
 }
 
 //----- (0046A08A) --------------------------------------------------------
-void class03_OnMouseLeftButton(struct class03 *_this, int x, int y)
+void GUICursor_OnMouseLeftButton(struct GUICursor *_this, int x, int y)
 {
  _this->uMouseClickX = x;
  _this->uMouseClickY = y;
 }
 
 //----- (00469C65) --------------------------------------------------------
-void sub_469C65(struct class03 *_this, HWND hwnd)
+void GUICursor_sub_469C65(struct GUICursor *_this, HWND hwnd)
 {
  _this->dword_000004 = 0;
 
@@ -693,13 +693,13 @@ void sub_469C65(struct class03 *_this, HWND hwnd)
 
  _this->uMouseClickY = 0;
 
- sub_469903(_this, "MICON3");
- sub_469903(_this, "MICON2");
- sub_469903(_this, "MICON1");
+ GUICursor_SetCursorBitmap(_this, "MICON3");
+ GUICursor_SetCursorBitmap(_this, "MICON2");
+ GUICursor_SetCursorBitmap(_this, "MICON1");
 }
 
 //----- (00469903) --------------------------------------------------------
-void sub_469903(struct class03 *_this, const char *pSource)
+void GUICursor_SetCursorBitmap(struct GUICursor *_this, const char *pSource)
 {
  HCURSOR hCursor;
   int v9; // eax@21
@@ -715,18 +715,26 @@ void sub_469903(struct class03 *_this, const char *pSource)
  if (_strcmpi((char *)_this->array_0000F5, pSource))
    strcpy((char *)_this->array_0000F5, pSource);
 
- sub_469BA3(_this);
+ GUICursor_sub_469BA3(_this);
 
  if (_strnicmp(pSource, "MICON1", 5))
  {
-  v9 = LODFile_Icons_LOD.LODFile_LoadTexture( pSource, 2);
-  *(_DWORD *)(_this + 36) = v9;
-  *(_DWORD *)(_this + 40) = v9;
-  sub_469BE6(_this);
-  *(_DWORD *)(_this + 12) = 0;
-  *(_DWORD *)(_this + 20) = 1;
-  *(_DWORD *)(_this + 4) = 1;
-  if ( !bTextureLoading )
+#ifdef OLD_CODE
+  v9 = LODFile_Icons_LOD.LODFile_LoadTexture(pSource, 2);
+#else
+  wchar_t pTextureNameW[256];
+  wsprintfW(pTextureNameW, L"%S", pSource);
+
+  v9 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pTextureNameW);
+#endif
+  _this->uCursorTextureID = v9;
+  _this->dword_000028 = v9;
+  GUICursor_sub_469BE6(_this);
+
+  _this->dword_00000C = 0;
+  _this->dword_000014[0] = 1;
+  _this->dword_000004 = 1;
+  if (!bTextureLoading)
   {
    cTexture_Free((cTexture *)(*(_DWORD *)(_this + 36) != -1 ? 72 * *(_DWORD *)(_this + 36) + 7145548 : 0));
    LODFile_Icons_LOD.LODFile_sub_40F9C5();
@@ -782,15 +790,15 @@ void sub_469903(struct class03 *_this, const char *pSource)
 }
 
 //----- (004698A6) --------------------------------------------------------
-void class03_sub_4698A6(struct class03 *_this)
+void GUICursor_ResetDefaultCursorAfterItemDragging(struct GUICursor *_this)
 {
- ItemGen_Reset(&pParty_global->stru_007754);
+ ItemGen_Reset(&pParty_global->pickedItem);
  if (_strcmpi((char *)_this->array_0000F5, "MICON2"))
-   sub_469903(_this, "MICON1");
+   GUICursor_SetCursorBitmap(_this, "MICON1");
 }
 
 //----- (00469BA3) --------------------------------------------------------
-int sub_469BA3(struct class03 *_this)
+int GUICursor_sub_469BA3(struct GUICursor *_this)
 {
  _this->dword_000004 = 0;
 
@@ -5336,7 +5344,8 @@ void ItemGen_Reset(struct ItemGen *_this)
  _this->dword_000014 = 0;
  _this->byte_000018 = 0;
  _this->byte_00001A = 0;
- _this->dword_00001C = 0;
+ _this->word_00001C = 0;
+ _this->word_00001E = 0;
  _this->dword_000020 = 0;
 }
 
@@ -5873,7 +5882,7 @@ char CGame_sub_44EEA7(struct CGame *_this)
   v1 = (int)_this;
   ++qword_5C6DF0;
   class02_sub_48AC65(_this->class02_obj);
-  class03_GetMousePos(_this->class03_obj, &pt);
+  GUICursor_GetMousePos(_this->class03_obj, &pt);
   if ( sub_4637E0() )
   {
     v11 = (int)&dword_F93E44;
@@ -6289,7 +6298,7 @@ void class08_Vec3Transform(struct class08 *_this, struct class26 *pVec, struct c
 
 
 //----- (00469E3B) --------------------------------------------------------
-int ckass03_sub_469E3B(struct class03 *_this)
+int GUICursor_sub_469E3B(struct GUICursor *_this)
 {
   int result; // eax@1
   int v2; // edx@3
@@ -6301,10 +6310,10 @@ int ckass03_sub_469E3B(struct class03 *_this)
   int v8; // [sp+8h] [bp-8h]@2
   int v9; // [sp+Ch] [bp-4h]@2
 
-  result = _this->dword_00003C;
+  result = (int)_this->ptr_00003C;
   if ( result )
   {
-    v9 = _this->dword_00003C;
+    v9 = (int)_this->ptr_00003C;
     v7 = pD3DRenderer->uTargetSurfacePitch;
     v8 = (int)pD3DRenderer->pTargetSurface;
     result = _this->dword_000044;
