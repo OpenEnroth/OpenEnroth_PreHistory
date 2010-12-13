@@ -361,9 +361,9 @@ struct unnamed_4ECBB8 stru_4ECBB8[6]; // struct[] @ MM7.exe::004ECBB8
  char byte_4ED3D8[856]; // need to fill with data...
  char byte_4ED498; // weak
  //__int16 word_4ED746[array_size_unknown]; // off_4ED748[-1] indexing
-short off_4ED748[5] =
+short off_4ED748[4] =
 {
- 0, 34, 149, 264, 379
+ 34, 149, 264, 379
 };
 unsigned char byte_4ED750[0xC] =
 {

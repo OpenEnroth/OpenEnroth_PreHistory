@@ -286,6 +286,8 @@ void Render_BillboardTransform(struct BaseRender *_this, struct Render_Billboard
 void Render_DrawTransparentRect(struct BaseRender *_this, unsigned int uOutX, unsigned int uOutY,
                                 unsigned int uSrcX, unsigned int uSrcY, unsigned int uSrcWidth, unsigned int uSrcHeight,
                                 class cTexture *pTexture);
+void Render_DrawTextureToZBuffer(struct BaseRender *_this, unsigned int uOutX, unsigned int uOutY, cTexture *pTexture, int sZValue);
+
 unsigned int Render_MoveToGPU(struct BaseRender *_this, unsigned int uWidth, unsigned int uHeight, unsigned int *pData, struct IDirectDrawSurface4 **pOutSurface, struct IDirect3DTexture2 **pOutTexture);
 
 
@@ -299,7 +301,6 @@ void __thiscall Render_sub_4A2FC0(int _this, signed int a2, int a3, signed int a
 void __thiscall Render_sub_4A43B1(int _this, int a2, int a3, int a4);
 signed int __thiscall Render_sub_4A4DE1(struct BaseRender* _this, unsigned char* a2, int a3, struct IDirectDrawSurface4 **pOutSurface, struct IDirect3DTexture2 **pOutTexture);
 int __thiscall Render_sub_4A52F1(int _this, int a2, float a3);
-void __thiscall Render_sub_4A612A(struct BaseRender* _this, int a2, int a3, cTexture *a4, int a5);
 void __thiscall Render_sub_4A63E6(int _this, int a2, int a3, int a4, int a5, int a6, int a7, int a8);
 void __thiscall Render_sub_4A65CC(int _this, int a2, int a3, int a4, int a5, int a6, int a7, int a8);
 void __thiscall Render_sub_4A6776(struct BaseRender* _this, int a2, int a3, cTexture *a4);

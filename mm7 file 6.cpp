@@ -288,7 +288,7 @@ signed int Player_sub_48D709(struct Player *_this, int a2, int a3)
   if ( a3 >= 16 )
   {
     v6 = 0;
-    while ( !Player_sub_48D6AA(_this, v6) || *((_DWORD *)_this + 9 * *(_DWORD *)v7 + 124) != a2 )
+    while (!Player_sub_48D6AA(_this, v6) || _this->cInventorySlots[a3 - 1].uItemID != a2 )
     {
       ++v6;
       if ( v6 >= 16 )
@@ -11744,9 +11744,9 @@ void __thiscall Render_sub_4A601E(struct BaseRender* _this, int a2, int a3, cTex
 }
 
 //----- (004A612A) --------------------------------------------------------
-void __thiscall Render_sub_4A612A(struct BaseRender* _this, int a2, int a3, cTexture *a4, int a5)
+void Render_DrawTextureToZBuffer(struct BaseRender *_this, unsigned int uOutX, unsigned int uOutY, cTexture *pTexture, int sZValue)
 {
-  int v5; // eax@2
+  //int v5; // eax@2
   int v6; // edx@3
   int v7; // ebx@3
   int v8; // edi@3
@@ -11763,63 +11763,70 @@ void __thiscall Render_sub_4A612A(struct BaseRender* _this, int a2, int a3, cTex
   int v20; // [sp+Ch] [bp-Ch]@3
   int v21; // [sp+10h] [bp-8h]@3
   int v22; // [sp+20h] [bp+8h]@21
-  int v23; // [sp+24h] [bp+Ch]@3
-  int v24; // [sp+28h] [bp+10h]@3
+#ifdef OLD_CODE
+  unsigned char *pTexturePixels;
+#else
+  unsigned int *pTexturePixels; // [sp+24h] [bp+Ch]@3
+#endif
+  int *v24; // [sp+28h] [bp+10h]@3
 
-  if (_this->bSceneBegun)
-  {
-    v5 = (int)a4;
-    if ( a4 )
-    {
-      v6 = a3;
-      v7 = *(_WORD *)(a4 + 26);
-      v24 = *(_DWORD *)(_this + 262196) + 4 * (a2 + 640 * a3);
-      v23 = *(_DWORD *)(v5 + 48);
-      v8 = *(_WORD *)(v5 + 24);
-      v21 = *(_WORD *)(v5 + 24);
-      v20 = *(_WORD *)(v5 + 24);
-      if ( *(_DWORD *)(_this + 262404) )
+  if (!_this->bSceneBegun || !pTexture)
+    return;
+
+      v6 = uOutY;
+      v7 = pTexture->uTextureHeight;
+      v24 = _this->pActiveZBuffer + (uOutX + 640 * uOutY);
+#ifdef OLD_CODE
+      pTexturePixels = pTexture->pIndexedPixels;
+#else
+      pTexturePixels = pTexture->pTruecolorPixels;
+#endif
+      v8 = pTexture->uTextureWidth;
+      v21 = pTexture->uTextureWidth;
+      v20 = pTexture->uTextureWidth;
+      if (_this->dword_040104)
       {
-        v9 = *(_DWORD *)(_this + 262392);
-        if ( a2 < v9 )
+        v9 = _this->uClipRectX;
+        if (uOutX < v9)
         {
-          v10 = v9 - a2;
-          v23 += v10;
-          v8 += a2 - *(_DWORD *)(_this + 262392);
+          v10 = v9 - uOutX;
+          pTexturePixels += v10;
+          v8 += uOutX - _this->uClipRectX;
           v21 = v8;
-          v24 += 4 * v10;
+          v24 += v10;
         }
-        v11 = *(_DWORD *)(_this + 262388);
+        v11 = _this->uClipRectY;
         if ( v6 < v11 )
         {
-          v23 += v20 * (v11 - v6);
+          pTexturePixels += v20 * (v11 - v6);
           v7 += v6 - v11;
-          v24 += 2560 * (v11 - v6);
+          v24 += 640 * (v11 - v6);
           v8 = v21;
         }
-        v12 = *(_DWORD *)(_this + 262392);
-        if ( v12 < a2 )
-          v12 = a2;
-        v13 = *(_DWORD *)(_this + 262400);
+        v12 = _this->uClipRectX;
+        if ( v12 < uOutX)
+          v12 = uOutX;
+        v13 = _this->uClipRectZ;
         if ( v8 + v12 > v13 )
         {
-          v14 = *(_DWORD *)(_this + 262392);
-          if ( v14 < a2 )
-            v14 = a2;
+          v14 = _this->uClipRectX;
+          if ( v14 < uOutX)
+            v14 = uOutX;
           v8 = v13 - v14;
         }
-        v15 = *(_DWORD *)(_this + 262388);
+        v15 = _this->uClipRectY;
         if ( v15 < v6 )
           v15 = v6;
-        v16 = *(_DWORD *)(_this + 262396);
+        v16 = _this->uClipRectW;
         if ( v7 + v15 > v16 )
         {
-          v17 = *(_DWORD *)(_this + 262388);
+          v17 = _this->uClipRectY;
           if ( v17 >= v6 )
             v6 = v17;
           v7 = v16 - v6;
         }
       }
+
       if ( v7 > 0 )
       {
         v22 = v7;
@@ -11830,21 +11837,22 @@ void __thiscall Render_sub_4A612A(struct BaseRender* _this, int a2, int a3, cTex
             v18 = v8;
             do
             {
-              if ( *(_BYTE *)v23 )
-                *(_DWORD *)v24 = a5;
-              v24 += 4;
-              ++v23;
+#ifdef OLD_CODE
+             if (*pTexturePixels++)
+#else
+             if (*pTexturePixels++ & 0xFF000000)
+#endif
+                *v24 = sZValue;
+              v24++;
               --v18;
             }
             while ( v18 );
           }
-          v24 += 4 * (640 - v8);
-          v23 += v20 - v8;
+          v24 += (640 - v8);
+          pTexturePixels += v20 - v8;
         }
         while ( v22-- != 1 );
       }
-    }
-  }
 }
 
 //----- (004A63E6) --------------------------------------------------------

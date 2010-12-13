@@ -5896,7 +5896,7 @@ void __cdecl sub_412B58()
             else
               Render_DrawIndexedTexture(pD3DRenderer, v17, v19, (cTexture *)v6);
             v8 = 8 * (12 * *(_BYTE *)(v0 + 6734) + (unsigned __int8)*(&byte_4E2430[12 * *(_BYTE *)(v0 + 6734)] + v3));
-            Render_sub_4A612A(
+            Render_DrawTextureToZBuffer(
               pD3DRenderer,
               *(int *)((char *)&dword_4E20D0 + v8),
               *(int *)((char *)&dword_4E20D4 + v8),
@@ -13458,31 +13458,30 @@ LABEL_18:
 void GameUI_OnPlayerPortraitLeftClick(unsigned int uCharacter)
 {
   int v2; // eax@2
-  int v3; // ecx@2
-  void *v4; // ecx@5
+ Player *v3; // ecx@2
+ Player *v4; // ecx@5
 
+ //if we are placing item on a portrait
   if (pParty_global->pickedItem.uItemID)
   {
-    v2 = CreateItemInInventory(pPlayers[uCharacter], -1, pParty_global->pickedItem.uItemID);
-    v3 = (int)pPlayers[uCharacter];
-    if ( v2 )
+    v2 = CreateItemInInventory(pPlayers[uCharacter - 1], -1, pParty_global->pickedItem.uItemID);
+    v3 = pPlayers[uCharacter - 1];
+    if (v2)
     {
-      memcpy((void *)(v3 + 36 * v2 + 496), &pParty_global->pickedItem, sizeof(struct ItemGen));
+      memcpy(&v3->cInventorySlots[v2 - 1], &pParty_global->pickedItem, sizeof(struct ItemGen));
       struct_576FE8.dword_000044 = 1;
       GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
       return;
     }
-    if ( Player_sub_492C0B_MaybeIfPlayerConscious((Player *)v3) )
-    {
-      v4 = pPlayers[uCharacter];
-    }
+    if (Player_sub_492C0B_MaybeIfPlayerConscious(v3))
+      v4 = pPlayers[uCharacter - 1];
     else
     {
       if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter - 1]) )
         goto LABEL_9;
       v4 = pPlayers[uActiveCharacter - 1];
     }
-    Player_PlaySound((Player *)v4, 15, 0);
+    Player_PlaySound(v4, 15, 0);
   }
 
 LABEL_9:
@@ -13491,7 +13490,7 @@ LABEL_9:
     struct_576FE8.dword_000044 = 1;
     if (uActiveCharacter != uCharacter)
     {
-     if (pPlayers[uCharacter]->uTimeToRecovery)
+     if (pPlayers[uCharacter - 1]->uTimeToRecovery)
        return;
 
      uActiveCharacter = uCharacter;
@@ -13501,20 +13500,20 @@ LABEL_9:
     pGUIWindow_CurrentMenu = GameUI_InitializeCharacterWindow(7);
     return;
   }
-  if ( dword_4E28F8 == 8 )
+  if (dword_4E28F8 == 8)
     return;
-  if ( dword_4E28F8 == 10 )
+  if (dword_4E28F8 == 10)
   {
 LABEL_23:
     struct_576FE8.dword_000044 = 1;
-    if (uActiveCharacter == uCharacter )
+    if (uActiveCharacter == uCharacter)
     {
       dword_506F48 = 103;
       dword_4E28F8 = 15;
       goto LABEL_28;
     }
 
-    if (pPlayers[uCharacter]->uTimeToRecovery)
+    if (pPlayers[uCharacter - 1]->uTimeToRecovery)
       return;
     uActiveCharacter = uCharacter;
     return;
