@@ -444,7 +444,7 @@ __int16 __fastcall DamageMonsterFromParty(signed int a1, int a2, int a3)
     }
     v54 = *(_WORD *)(v8 + 96);
     v68 = 4;
-    v27 = sub_48CDDB((void *)v7, 0, 0, v54);
+    v27 = Player_sub_48CDDB((Player *)v7, 0, 0, v54);
     goto LABEL_65;
   }
   v9 = *(_DWORD *)(v4 + 72) == 99;
@@ -501,7 +501,7 @@ __int16 __fastcall DamageMonsterFromParty(signed int a1, int a2, int a3)
     if ( sub_458244_GetSkillMasteryLevel(v17) >= 3 )
       v60 = *(_BYTE *)(v7 + 278) & 0x3F;
     v68 = 4;
-    v67 = sub_48CDDB((void *)v7, 1, 1, 0);
+    v67 = Player_sub_48CDDB((Player *)v7, 1, 1, 0);
     goto LABEL_67;
   }
   if ( v16 != 100 )
@@ -597,7 +597,7 @@ LABEL_69:
   v65 = sub_42756B(v8, v68, v67);
   if ( !v4 )
   {
-    if ( sub_48D676((void *)v7) )
+    if ( Player_sub_48D676((Player *)v7) )
     {
       if ( *(_DWORD *)(v7 + 6148) >= v4 )
       {
@@ -1146,7 +1146,7 @@ LABEL_80:
           v77 >>= 1;
         if ( v48 == 531 )
           v77 >>= 1;
-        if ( sub_48D62C_GetSomeItemEquipType((void *)v46, v75) == 4 )
+        if ( sub_48D62C_GetSomeItemEquipType((Player *)v46, v75) == 4 )
         {
           if ( sub_458244_GetSkillMasteryLevel(*(_WORD *)(v46 + 280)) == 4 )
             v77 >>= 1;
@@ -3053,7 +3053,7 @@ void __fastcall sub_43EF2B(int a1)
     if ( v6 == 12 || v6 == 13 )
       pPaperdollTextures_Beards[v6] = 0;
     pPaperdollTextures_Feet[v6] = 0;
-    byte_5111B9[v8] = 1;
+    IsPlayerWearingWatersuit[v8] = 1;
   }
 }
 
@@ -3103,7 +3103,7 @@ int __fastcall sub_43F0BD(int a1)
     wsprintfA(&Str1, "item281pc%02d", *(_BYTE *)v3 + 1);
     pPaperdollTextures_Feet[*(_BYTE *)(*(_DWORD *)v4 + 186)] = LODFile_Icons_LOD.LODFile_LoadTexture( &Str1, 2);
     result = v7;
-    byte_5111B9[v7] = 0;
+    IsPlayerWearingWatersuit[v7] = 0;
   }
   return result;
 }

@@ -286,7 +286,7 @@ int __thiscall sub_49107D(void *_this);
 int Player_sub_48FC00(struct Player *_this, signed int a2);
 
 //int __thiscall sub_48E1B5(void *_this, int a2);
-int Player_sub_GetAttackRecoveryTime(void *_this, int a2);
+int Player_sub_GetAttackRecoveryTime(Player *_this, int a2);
 bool Player_sub_48D6D0(struct Player *_this, int a2);
 signed int Player_sub_48DC1E(struct Player *_this, signed int a2, int a3);
 int Player_sub_492826(struct Player *_this, signed int a2, struct ItemGen *Src);
@@ -333,7 +333,11 @@ signed int __thiscall Player_sub_4B8179(Player *_this, float a2);
 signed int __thiscall Player_sub_4B81C3(Player *_this, signed int a2, float a3);
 void __thiscall Player_sub_4BE2DD(Player *_this, int a2, int a3, int a4);
 char __thiscall Player_sub_43EEF3(Player *_this);
+signed int __thiscall Player_sub_48CDDB(Player *_this, int a2, int a3, signed int a4);
 
+int __thiscall sub_48D62C_GetSomeItemEquipType(struct Player *_this, int a2);
+int __thiscall sub_48D651_GetSomeItemSkillType(struct Player *_this, int a2);
+bool __thiscall Player_sub_48D676(Player *_this);
 
 
 int sub_458244_GetSkillMasteryLevel(unsigned int uSkillLevel);

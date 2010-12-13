@@ -8966,7 +8966,7 @@ LABEL_69:
         }
         goto LABEL_83;
       case 102:
-        v683 = Player_sub_GetAttackRecoveryTime((void *)v707, 0);
+        v683 = Player_sub_GetAttackRecoveryTime((Player *)v707, 0);
         ItemGen_Reset((ItemGen *)v686.v694);
         v686.v695 = *(_WORD *)v2;
         v686.v696 = v701;

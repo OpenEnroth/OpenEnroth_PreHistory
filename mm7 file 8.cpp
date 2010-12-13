@@ -4800,7 +4800,7 @@ int __thiscall sub_406457(void *_this, int a2)
     if ( v4 )
       *(_DWORD *)v5 = 0;
     else
-      v4 = Player_sub_GetAttackRecoveryTime((void *)pPlayers[v6], 0);
+      v4 = Player_sub_GetAttackRecoveryTime(pPlayers[v6], 0);
     if ( v4 < 30 )
       v4 = 30;
   }

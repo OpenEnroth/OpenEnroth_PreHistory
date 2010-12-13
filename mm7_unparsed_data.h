@@ -1060,7 +1060,7 @@ extern struct class36 class36_global0; // struct @ MM7.exe::005107A8
 //extern char byte_51117E[array_size_unknown]; // weak
 //int dword_5111AC; // 000A04
 //int dword_5111B0; // 000A08
-extern char byte_5111B9[5]; // weak
+extern char IsPlayerWearingWatersuit[]; // byte @ MM7.exe::005111B9
 
 extern char byte_5111C0[54];
 extern char byte_5111F6[18]; 

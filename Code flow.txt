@@ -6,6 +6,12 @@ Inventory:	Left Click on Paperdoll/Equip
 			GameUI_Process case 0x78
 				sub_421EA6_OnInventoryLeftClick
 
+		Drawing Paperdoll
+			sub_44103C
+				sub_4156F0_LooksLike_UI_ProcessCallbacks
+					CharacterUI_DoDrawCharacterScreen
+						CharacterUI_DrawPaperdoll
+
 
 
 

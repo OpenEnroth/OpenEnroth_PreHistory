@@ -879,7 +879,7 @@ LABEL_12:
           goto LABEL_32;
         goto LABEL_30;
       }
-      if ( sub_48D676(v5) )
+      if ( Player_sub_48D676((Player *)v5) )
       {
         LOBYTE(v18) = Player_sub_48F882((Player *)v5, 31);
         v14 = v18;
@@ -974,7 +974,7 @@ LABEL_53:
         v72 = 1;
       goto LABEL_55;
     }
-    if ( sub_48D676(v5) == 1 )
+    if ( Player_sub_48D676((Player *)v5) == 1 )
     {
       LOBYTE(v33) = Player_sub_48F882((Player *)v5, 31);
       v34 = v33;
@@ -1262,7 +1262,7 @@ signed int __thiscall sub_48CD90(int _this)
 }
 
 //----- (0048CDDB) --------------------------------------------------------
-signed int __thiscall sub_48CDDB(void *_this, int a2, int a3, signed int a4)
+signed int __thiscall Player_sub_48CDDB(Player *_this, int a2, int a3, signed int a4)
 {
   int v4; // edi@1
   int v5; // esi@1
@@ -1303,7 +1303,7 @@ signed int __thiscall sub_48CDDB(void *_this, int a2, int a3, signed int a4)
   v35 = 0;
   v33 = 0;
   v29 = 0;
-  if ( sub_48D676(_this) == 1 )
+  if ( Player_sub_48D676(_this) == 1 )
   {
     v33 = rand() % 3 + 1;
 LABEL_61:
@@ -2509,7 +2509,7 @@ LABEL_95:
       v31 = *((_DWORD *)v4 + v65 + 1618) - 1;
       if ( v6 == 9 )
       {
-        v32 = sub_48D62C_GetSomeItemEquipType(v30, v65);
+        v32 = sub_48D62C_GetSomeItemEquipType((Player *)v30, v65);
         if ( v32 >= 3 )
         {
           if ( v32 <= 11 )
@@ -3073,11 +3073,11 @@ LABEL_361:
   }
   if ( a2 == 28 )
   {
-    if ( sub_48D676(_this) != 1 )
+    if ( Player_sub_48D676(_this) != 1 )
     {
       if ( Player_sub_48D6AA((Player *)v4, 1) )
       {
-        v22 = sub_48D62C_GetSomeItemEquipType(v21, 1);
+        v22 = sub_48D62C_GetSomeItemEquipType((Player *)v21, 1);
         if ( v22 >= 0 )
         {
           if ( v22 <= 2 )
@@ -3097,7 +3097,7 @@ LABEL_361:
           }
         }
       }
-      if ( a3 || !Player_sub_48D6AA((Player *)v4, 0) || (v28 = sub_48D62C_GetSomeItemEquipType(v27, 0), v28 < 0) || v28 > 2 )
+      if ( a3 || !Player_sub_48D6AA((Player *)v4, 0) || (v28 = sub_48D62C_GetSomeItemEquipType((Player *)v27, 0), v28 < 0) || v28 > 2 )
         return v5 + v62 + v61;
       v14 = pClass40->pItems[v29 - 1].uDamageModifier;
       v15 = pClass40->pItems[v29 - 1].uDamageDice * pClass40->pItems[v29 - 1].uDamageRoll;
@@ -3123,35 +3123,35 @@ LABEL_74:
     return v5 + v62 + v61;
   if ( a2 <= 26 )
   {
-    if ( sub_48D676(_this) == 1 )
+    if ( Player_sub_48D676(_this) == 1 )
     {
       v5 = 0;
       return v5 + v62 + v61;
     }
     if ( Player_sub_48D6AA((Player *)v4, 1) )
     {
-      v17 = sub_48D62C_GetSomeItemEquipType(v16, 1);
+      v17 = sub_48D62C_GetSomeItemEquipType((Player *)v16, 1);
       if ( v17 >= 0 )
       {
         if ( v17 <= 2 )
          v5 = pClass40->pItems[*((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1619) + 124) - 1].uDamageModifier;
       }
     }
-    if ( a3 || !Player_sub_48D6AA((Player *)v4, 0) || (v19 = sub_48D62C_GetSomeItemEquipType(v18, 0), v19 < 0) || v19 > 2 )
+    if ( a3 || !Player_sub_48D6AA((Player *)v4, 0) || (v19 = sub_48D62C_GetSomeItemEquipType((Player *)v18, 0), v19 < 0) || v19 > 2 )
       return v5 + v62 + v61;
     v20 = 48 * *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1618) + 124);
     goto LABEL_365;
   }
   if ( a2 == 27 )
   {
-    if ( sub_48D676(_this) == 1 )
+    if ( Player_sub_48D676(_this) == 1 )
     {
       v5 = 1;
       return v5 + v62 + v61;
     }
     if ( Player_sub_48D6AA((Player *)v4, 1) )
     {
-      v9 = sub_48D62C_GetSomeItemEquipType(v8, 1);
+      v9 = sub_48D62C_GetSomeItemEquipType((Player *)v8, 1);
       if ( v9 >= 0 )
       {
         if ( v9 <= 2 )
@@ -3165,7 +3165,7 @@ LABEL_74:
         }
       }
     }
-    if ( a3 || !Player_sub_48D6AA((Player *)v4, 0) || (v12 = sub_48D62C_GetSomeItemEquipType(v11, 0), v12 < 0) || v12 > 2 )
+    if ( a3 || !Player_sub_48D6AA((Player *)v4, 0) || (v12 = sub_48D62C_GetSomeItemEquipType((Player *)v11, 0), v12 < 0) || v12 > 2 )
       return v5 + v62 + v61;
     v15 = pClass40->pItems[v13 - 1].uDamageModifier;
     v14 = pClass40->pItems[v13 - 1].uDamageDice;

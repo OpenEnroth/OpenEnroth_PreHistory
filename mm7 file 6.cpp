@@ -238,7 +238,7 @@ LABEL_17:
     {
       if ( !(*(_BYTE *)(v3 + 36 * v14 + 516) & 2) )
       {
-        v15 = sub_48D651_GetSomeItemSkillType((void *)v3, 3) - 10;
+        v15 = sub_48D651_GetSomeItemSkillType((Player *)v3, 3) - 10;
         if ( v15 )
         {
           if ( v15 != 1 || sub_458244_GetSkillMasteryLevel(*(_WORD *)(v3 + 286)) < 3 )
@@ -258,25 +258,23 @@ LABEL_17:
 }
 
 //----- (0048D62C) --------------------------------------------------------
-int __thiscall sub_48D62C_GetSomeItemEquipType(void *_this, int a2)
+int __thiscall sub_48D62C_GetSomeItemEquipType(Player *_this, int a2)
 {
   //return (unsigned __int8)byte_5D2A00[48 * *((_DWORD *)_this + 9 * *((_DWORD *)_this + a2 + 1618) + 124)];
  return pClass40->pItems[*((_DWORD *)_this + 9 * *((_DWORD *)_this + a2 + 1618) + 124)].uEquipType;
 }
 
 //----- (0048D651) --------------------------------------------------------
-int __thiscall sub_48D651_GetSomeItemSkillType(void *_this, int a2)
+int __thiscall sub_48D651_GetSomeItemSkillType(Player *_this, int a2)
 {
   return pClass40->pItems[*((_DWORD *)_this + 9 * *((_DWORD *)_this + a2 + 1618) + 124)].uSkillType;
 }
 
 //----- (0048D676) --------------------------------------------------------
-bool __thiscall sub_48D676(void *_this)
+bool __thiscall Player_sub_48D676(Player *_this)
 {
-  void *v1; // esi@1
-
-  v1 = _this;
-  return Player_sub_48D6AA((Player *)_this, 1) != 1 && (Player_sub_48D6AA((Player *)v1, 0) != 1 || sub_48D62C_GetSomeItemEquipType(v1, 0) == 4);
+  return Player_sub_48D6AA(_this, 1) != 1 &&
+         (Player_sub_48D6AA(_this, 0) != 1 || sub_48D62C_GetSomeItemEquipType(_this, 0) == 4);
 }
 
 //----- (0048D709) --------------------------------------------------------
@@ -720,7 +718,7 @@ LABEL_5:
             v46[v3++] = *(_BYTE *)(v5 + 6484) - 1;
           if ( !v15 || v15 == 1 )
           {
-            if ( sub_48D62C_GetSomeItemEquipType((void *)v5, v15) == 4 )
+            if ( sub_48D62C_GetSomeItemEquipType((Player *)v5, v15) == 4 )
               v46[v3++] = *(_BYTE *)(v5 + 4 * v15 + 6472) - 1;
           }
         }
@@ -738,7 +736,7 @@ LABEL_5:
             v46[v3++] = *(_BYTE *)(v5 + 6480) - 1;
           if ( !v17 || v17 == 1 )
           {
-            if ( !sub_48D62C_GetSomeItemEquipType((void *)v5, v17) || sub_48D62C_GetSomeItemEquipType(v18, v17) == 1 )
+            if ( !sub_48D62C_GetSomeItemEquipType((Player *)v5, v17) || sub_48D62C_GetSomeItemEquipType((Player *)v18, v17) == 1 )
               v46[v3++] = *(_BYTE *)(v5 + 4 * v17 + 6472) - 1;
           }
         }
@@ -975,7 +973,7 @@ int __stdcall sub_48E1A3(int a1)
 }
 
 //----- (0048E1B5) --------------------------------------------------------
-int __thiscall Player_sub_GetAttackRecoveryTime(void *_this, int a2)
+int __thiscall Player_sub_GetAttackRecoveryTime(Player *_this, int a2)
 {
   int v2; // ebx@1
   int *v3; // edi@1
@@ -1044,7 +1042,7 @@ int __thiscall Player_sub_GetAttackRecoveryTime(void *_this, int a2)
     v5 = (unsigned __int16)word_4EDED8[*((_BYTE *)v3 + 29)];
     goto LABEL_4;
   }
-  if ( sub_48D676(_this) == 1 )
+  if ( Player_sub_48D676(_this) == 1 )
   {
     LOBYTE(v7) = Player_sub_48F882((Player *)v4, 31);
     if ( v7 )
@@ -1120,7 +1118,7 @@ LABEL_27:
 LABEL_28:
   if ( Player_sub_48D6AA((Player *)v4, v2) )
   {
-    if ( sub_48D62C_GetSomeItemEquipType(v19, v2) == 4 )
+    if ( sub_48D62C_GetSomeItemEquipType((Player *)v19, v2) == 4 )
     {
       v20 = 9 * *(_DWORD *)(v4 + 6472);
       v35 = 1.0;

@@ -1183,8 +1183,8 @@ unsigned int bNotIntelCPU; // dword @ MM7.exe::0050FDEC
 //int dword_5111AC; // class36_global0::dword_000A04
 //int dword_5111B0; // class36_global0::dword_000A08
 
-// char byte_5111B8[4]; // shifted byte_5111B9
- char byte_5111B9[5]; // some bitmask for 4 players in party
+// char byte_5111B8[4]; // shifted IsPlayerWearingWatersuit
+char IsPlayerWearingWatersuit[4]; // byte @ MM7.exe::005111B9      4-5 bytes ?
 
  char byte_5111C0[54]; 
  char byte_5111F6[18]; 

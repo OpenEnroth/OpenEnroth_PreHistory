@@ -2151,7 +2151,7 @@ signed int __thiscall sub_42EBEE(void *_this)
     if ( dword_6BE360 != 2 )
       v6 = &unk_6BE68C;
     compile_error;//sub_48D88B((int)v2, v7, v5, *((_DWORD *)v6 + 2)++);
-    v8 = Player_sub_GetAttackRecoveryTime(v2, 0);
+    v8 = Player_sub_GetAttackRecoveryTime((Player *)v2, 0);
     if ( v8 < 30 )
       v8 = 30;
     if (!pParty_global->dword_00087C)
@@ -2426,7 +2426,7 @@ LABEL_66:
       if ( !v33 )
       {
 LABEL_39:
-        v33 = Player_sub_GetAttackRecoveryTime((void *)v2, v3);
+        v33 = Player_sub_GetAttackRecoveryTime((Player *)v2, v3);
         if ( v33 < 30 )
           v33 = 30;
         if (pParty_global->dword_00087C == v3)
@@ -3442,7 +3442,7 @@ LABEL_75:
               v6 = (int)pPlayers[uActiveCharacter - 1];
               if ( !*(_WORD *)(v6 + 6452) )
               {
-                v24 = Player_sub_GetAttackRecoveryTime((void *)v6, 0);
+                v24 = Player_sub_GetAttackRecoveryTime((Player *)v6, 0);
                 if (!pParty_global->dword_00087C)
                   Player_SetRecoveryTime(pPlayers[uActiveCharacter - 1],
                     (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v24 * 2.1333333333333333));
