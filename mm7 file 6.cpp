@@ -327,7 +327,7 @@ bool __thiscall sub_48D76C(int _this, int a2, int a3, int a4, int a5, int a6)
     v7 = *(_WORD *)(_this + 332);
     v9 = v7 & 0x3F;
     v8 = sub_458244_GetSkillMasteryLevel(v7);
-    v10 = sub_456442(a2);
+    v10 = ItemGen_sub_456442((ItemGen *)a2);
     v6 = pClass40->pItems[*(_DWORD *)a2 - 1].uEquipType;
     if ( !pClass40->pItems[*(_DWORD *)a2 - 1].uEquipType || v6 == 1 || v6 == 2 )
       v10 *= 3;
@@ -493,7 +493,7 @@ LABEL_21:
             sub_44C175((char *)pStringBuffer, 2);
             sub_421B2C();
             memcpy(&pParty_global->pickedItem, &local_08, sizeof(struct ItemGen));
-            sub_4698D8(v15);
+            SetCursorBitmapFromItemID(v15);
             return v33;
           }
         }
@@ -576,7 +576,7 @@ signed int __thiscall Player_sub_48DC1E(struct Player *_this, signed int a2, int
     }
     if ( v3 )
     {
-      v7 = _this->sEquppedItemIndexes[3];
+      v7 = _this->pEquppedItemIndices[3];
       if ( v7 )
       {
         v9 = (int)((char *)&_this->cInventorySlots[v7] - 0x10);
@@ -1722,12 +1722,12 @@ LABEL_16:
 LABEL_26:
   v15 = (float *)((char *)&unk_591458 + 52 * a4);
   v16 = *v15;
-  v17 = sub_456442(a2);
+  v17 = ItemGen_sub_456442((ItemGen *)a2);
   v14 = Player_sub_4B8142((Player *)v27, v17, v16);
   if ( a5 == 3 )
   {
     v23 = *v15;
-    v24 = sub_456442(a2);
+    v24 = ItemGen_sub_456442((ItemGen *)a2);
     v14 = Player_sub_4B8102((Player *)v27, v24, v23);
     if ( !(*(_BYTE *)(a2 + 20) & 2) )
       goto LABEL_39;
@@ -1741,7 +1741,7 @@ LABEL_26:
   if ( a5 == 5 )
   {
     v21 = *v15;
-    v22 = sub_456442(a2);
+    v22 = ItemGen_sub_456442((ItemGen *)a2);
     v20 = Player_sub_4B81C3((Player *)v27, v22, v21);
 LABEL_35:
     v14 = v20;
@@ -1750,7 +1750,7 @@ LABEL_35:
   if ( a5 != 6 )
     goto LABEL_39;
   v18 = *v15;
-  v19 = sub_456442(a2);
+  v19 = ItemGen_sub_456442((ItemGen *)a2);
   v14 = Player_sub_4B8102((Player *)v27, v19, v18) / 2;
   if ( *(_BYTE *)(a2 + 20) & 2 )
     v14 = 1;
@@ -1760,7 +1760,7 @@ LABEL_38:
   v14 = 1;
 LABEL_39:
   if ( v26 )
-    result = (v14 == sub_456442(a2)) + 2;
+    result = (v14 == ItemGen_sub_456442((ItemGen *)a2)) + 2;
   else
     result = 1;
   return result;
@@ -2163,21 +2163,13 @@ LABEL_12:
 }
 
 //----- (004925E6) --------------------------------------------------------
-signed int __thiscall Player_sub_4925E6(Player *_this)
+unsigned int Player_FindNextFreeInventorySlotIndex(Player *_this)
 {
-  signed int result; // eax@1
-  int v2; // ecx@1
+ for (unsigned int i = 0; i < 126; ++i)
+   if (_this->cInventorySlots[i].uItemID == -1)
+     return i;
 
-  result = 0;
-  v2 = (int)((char *)_this + 0x214);
-  while ( *(_DWORD *)v2 )
-  {
-    ++result;
-    v2 += 36;
-    if ( result >= 126 )
-      return -1;
-  }
-  return result;
+ return -1;
 }
 
 //----- (00492700) --------------------------------------------------------
@@ -2229,7 +2221,7 @@ signed int __thiscall sub_49298B(void *_this, struct ItemGen *a2, int a3, int a4
 }
 
 //----- (00492A36) --------------------------------------------------------
-void Player_sub_492A36_RemoveItemFromIndexMatrix(struct Player *_this, int sItemID)
+void Player_sub_492A36_RemoveItemFromIndexMatrix(struct Player *_this, unsigned int uInventorySlot)
 {
   //int result; // eax@1
   //int v3; // ebp@1
@@ -2243,11 +2235,11 @@ void Player_sub_492A36_RemoveItemFromIndexMatrix(struct Player *_this, int sItem
  unsigned int uItemSlotsWidth,
               uItemSlotsHeight;
 
-  v4 = _this->sInventoryIndexes[sItemID];
+  v4 = _this->pInventoryIndices[uInventorySlot];
  // v6 = (int)((char *)_this + 36 * *(_DWORD *)v4 + 496);
   v6 = &_this->cInventorySlots[v4];
   v7 = v6->uItemID;
-  ItemGen_Reset(v6);
+  ItemGen_Reset(&_this->cInventorySlots[v4]);
 #ifndef OLD_CODE
   wchar_t pTextureNameW[256];
   wsprintfW(pTextureNameW, L"%S", pClass40->pItems[v7].pIconName);
@@ -2266,9 +2258,26 @@ void Player_sub_492A36_RemoveItemFromIndexMatrix(struct Player *_this, int sItem
     cTexture_Free((cTexture *)v5);
     LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
+
+ unsigned int uInventorySlotX = uInventorySlot % 14,
+              uInventorySlotY = uInventorySlot / 14;
+ while (~_this->pInventoryIndices[uInventorySlotY * 14 + uInventorySlotX] & 0x80000000) // heading for the left-topmost corner cell
+ {
+  if (uInventorySlotX > 0 &&
+      _this->pInventoryIndices[uInventorySlotY * 14 + uInventorySlotX - 1] | 0x80000000 == _this->pInventoryIndices[uInventorySlotY * 14 + uInventorySlotX])
+    --uInventorySlotX;
+  if (uInventorySlotY > 0 &&
+      _this->pInventoryIndices[(uInventorySlotY - 1) * 14 + uInventorySlotX] | 0x80000000 == _this->pInventoryIndices[(uInventorySlotY - 1) * 14 + uInventorySlotX])
+    --uInventorySlotY;
+ }
+
+ for (unsigned int y = uInventorySlotY; y < uInventorySlotY + uItemSlotsHeight; ++y)
+   for (unsigned int x = uInventorySlotX; x < uInventorySlotX + uItemSlotsWidth; ++x)
+     _this->pInventoryIndices[y * 14 + x] = -1;
+  /*
   if (uItemSlotsHeight > 0 )
   {
-    v9 = &_this->sInventoryIndexes[sItemID];
+    v9 = &_this->pInventoryIndices[sItemID];
     do
     {
       if (uItemSlotsWidth > 0 )
@@ -2279,7 +2288,7 @@ void Player_sub_492A36_RemoveItemFromIndexMatrix(struct Player *_this, int sItem
       --uItemSlotsHeight;
     }
     while ( uItemSlotsHeight );
-  }
+  }*/
 }
 
 //----- (00492AD5) --------------------------------------------------------
@@ -2708,14 +2717,11 @@ LABEL_83:
 }
 
 //----- (004936E1) --------------------------------------------------------
-void __thiscall sub_4936E1(void *_this, const struct ItemGen *a2)
+void Party_sub_4936E1(Party *_this, const struct ItemGen *pItem)
 {
-  void *v2; // esi@1
-
-  v2 = _this;
-  sub_421B2C();
-  memcpy((char *)v2 + 30548, a2, sizeof(struct ItemGen));
-  sub_4698D8(*((_DWORD *)v2 + 7637));
+ sub_421B2C();
+ memcpy(&_this->pickedItem, pItem, sizeof(struct ItemGen));
+ SetCursorBitmapFromItemID(_this->pickedItem.uItemID);
 }
 
 //----- (0049387A) --------------------------------------------------------
@@ -3294,13 +3300,13 @@ LABEL_117:
         {
           v37 = (float *)((char *)&unk_591458 + 52 * a4);
           v38 = *v37;
-          v39 = sub_456442(v12);
+          v39 = ItemGen_sub_456442((ItemGen *)v12);
           v26 = sub_4B8233(v39, v38);
           switch ( a5 )
           {
             case 3:
               v44 = *v37;
-              v45 = sub_456442(v12);
+              v45 = ItemGen_sub_456442((ItemGen *)v12);
               v26 = sub_4B8213(v45, v44);
               break;
             case 4:
@@ -3308,12 +3314,12 @@ LABEL_117:
               break;
             case 5:
               v42 = *v37;
-              v43 = sub_456442(v12);
+              v43 = ItemGen_sub_456442((ItemGen *)v12);
               v26 = sub_4B8265(v43, v42);
               break;
             case 6:
               v40 = *v37;
-              v41 = sub_456442(v12);
+              v41 = ItemGen_sub_456442((ItemGen *)v12);
               v26 = sub_4B8213(v41, v40) / 2;
               break;
           }
@@ -3339,12 +3345,12 @@ LABEL_118:
         }
         v27 = (char *)&unk_591458 + 52 * a4;
         v28 = *(float *)v27;
-        v29 = sub_456442(v12);
+        v29 = ItemGen_sub_456442((ItemGen *)v12);
         v26 = Player_sub_4B8142((Player *)v8, v29, v28);
         if ( a5 == 3 )
         {
           v35 = *(float *)v27;
-          v36 = sub_456442(v12);
+          v36 = ItemGen_sub_456442((ItemGen *)v12);
           v26 = Player_sub_4B8102((Player *)v8, v36, v35);
           if ( *(_BYTE *)(v12 + 20) & 2 )
           {
@@ -3359,7 +3365,7 @@ LABEL_77:
           if ( a5 == 5 )
           {
             v32 = *(float *)v27;
-            v33 = sub_456442(v12);
+            v33 = ItemGen_sub_456442((ItemGen *)v12);
             v26 = Player_sub_4B81C3((Player *)v8, v33, v32);
           }
           else
@@ -3367,7 +3373,7 @@ LABEL_77:
             if ( a5 == 6 )
             {
               v30 = *(float *)v27;
-              v31 = sub_456442(v12);
+              v31 = ItemGen_sub_456442((ItemGen *)v12);
               v26 = Player_sub_4B8102((Player *)v8, v31, v30) / 2;
               if ( *(_BYTE *)(v12 + 20) & 2 )
                 v26 = 1;
@@ -12210,10 +12216,10 @@ void __thiscall Render_sub_4A6776(struct BaseRender* _this, int a2, int a3, cTex
 }
 
 //----- (004A68EF) --------------------------------------------------------
-void __thiscall Render_sub_4A68EF(struct BaseRender* _this, int a2, int a3, cTexture *a4)
+void Render_DrawTransparentGreenChannel(struct BaseRender* _this, unsigned int uOutX, unsigned int uOutY, cTexture *pTexture)
 {
-  int v4; // edi@2
-  int v5; // eax@4
+  //int v4; // edi@2
+  unsigned int *v5; // eax@4
   int v6; // ebx@4
   int v7; // edx@5
   int v8; // edx@6
@@ -12227,72 +12233,74 @@ void __thiscall Render_sub_4A68EF(struct BaseRender* _this, int a2, int a3, cTex
   int v16; // ebx@22
   char v18; // zf@28
   int v19; // [sp+10h] [bp-10h]@4
-  int v20; // [sp+18h] [bp-8h]@4
+  //int v20; // [sp+18h] [bp-8h]@4
   int v21; // [sp+1Ch] [bp-4h]@4
   int v22; // [sp+28h] [bp+8h]@24
   int v23; // [sp+2Ch] [bp+Ch]@22
   int v24; // [sp+30h] [bp+10h]@11
   int v25; // [sp+30h] [bp+10h]@22
 
-  if ( *(_DWORD *)(_this + 262372) )
-  {
-    v4 = (int)a4;
-    if ( a4 )
-    {
-      if ( *(_DWORD *)(a4 + 64) )
-      {
-        v6 = *(_WORD *)(a4 + 26);
-        v5 = *(_DWORD *)(_this + 262380) + 2 * (a2 + a3 * *(_DWORD *)(_this + 262384));
-        v20 = *(_DWORD *)(a4 + 48);
-        v21 = *(_WORD *)(a4 + 24);
-        v19 = *(_WORD *)(a4 + 24);
-        if ( *(_DWORD *)(_this + 262404) )
+  if (!_this->bSceneBegun ||
+      !pTexture)
+    return;
+
+      //if (pTexture->pPalette)
+      //{
+  v6 = pTexture->uTextureHeight;
+        v5 = _this->pTargetSurface + (uOutX + uOutY * _this->uTargetSurfacePitch);
+        //v20 = pTexture->pIndexedPixels;
+        v21 = pTexture->uTextureWidth;
+        v19 = pTexture->uTextureWidth;
+
+        v16 = 0;
+        if (_this->dword_040104)
         {
-          v7 = *(_DWORD *)(_this + 262392);
-          if ( a2 < v7 )
+          v7 = _this->uClipRectX;
+          if (uOutX < v7)
           {
-            v8 = v7 - a2;
-            v20 += v8;
-            v21 += a2 - *(_DWORD *)(_this + 262392);
-            v5 += 2 * v8;
+            v8 = v7 - uOutX;
+            v16 += v8;
+            v21 += uOutX - _this->uClipRectX;
+            v5 += v8;
           }
-          v9 = *(_DWORD *)(_this + 262388);
-          v6 = *(_WORD *)(a4 + 26);
-          if ( a3 < v9 )
+          v9 = _this->uClipRectY;
+          v6 = pTexture->uTextureHeight;
+          if (uOutY < v9)
           {
-            v10 = v9 - a3;
-            v20 += v19 * v10;
-            v6 = a3 - *(_DWORD *)(_this + 262388) + *(_WORD *)(a4 + 26);
-            v4 = (int)a4;
-            v5 += 2 * *(_DWORD *)(_this + 262384) * v10;
+            v10 = v9 - uOutY;
+            v16 += v19 * v10;
+            v6 = uOutY - _this->uClipRectY + pTexture->uTextureHeight;
+            v5 += _this->uTargetSurfacePitch * v10;
           }
-          v11 = *(_DWORD *)(_this + 262392);
-          if ( v11 < a2 )
-            v11 = a2;
-          v24 = *(_DWORD *)(_this + 262400);
+          v11 = _this->uClipRectX;
+          if ( v11 < uOutX)
+            v11 = uOutX;
+          v24 = _this->uClipRectZ;
           if ( v11 + v21 > v24 )
           {
-            v12 = *(_DWORD *)(_this + 262392);
-            if ( v12 < a2 )
-              v12 = a2;
+            v12 = _this->uClipRectX;
+            if ( v12 < uOutX)
+              v12 = uOutX;
             v21 = v24 - v12;
           }
-          v13 = *(_DWORD *)(_this + 262388);
-          if ( v13 < a3 )
-            v13 = a3;
-          v14 = *(_DWORD *)(_this + 262396);
+          v13 = _this->uClipRectY;
+          if ( v13 < uOutY)
+            v13 = uOutY;
+          v14 = _this->uClipRectW;
           if ( v6 + v13 > v14 )
           {
-            v15 = *(_DWORD *)(_this + 262388);
-            if ( v15 < a3 )
-              v15 = a3;
+            v15 = _this->uClipRectY;
+            if ( v15 < uOutY)
+              v15 = uOutY;
             v6 = v14 - v15;
           }
         }
+
+
         if ( v6 > 0 )
         {
           v23 = v6;
-          v16 = v20;
+          //v16 = v20;
           v25 = v19 - v21;
           do
           {
@@ -12301,22 +12309,21 @@ void __thiscall Render_sub_4A68EF(struct BaseRender* _this, int a2, int a3, cTex
               v22 = v21;
               do
               {
-                if ( *(_BYTE *)v16 )
-                  *(_WORD *)v5 = *(_WORD *)(_this + 262364) & *(_WORD *)(*(_DWORD *)(v4 + 64) + 2 * *(_BYTE *)v16);
-                v5 += 2;
+                //if ( *(_BYTE *)v16 )
+                  //*v5 = _this->uTargetGMask & *(_WORD *)((int)pTexture->pPalette + 2 * *(_BYTE *)v16);
+               if (pTexture->pTruecolorPixels[v16] & 0xFF000000)
+                  *v5 = (0xFF000000 | _this->uTargetGMask) & pTexture->pTruecolorPixels[v16];
+                v5++;
                 ++v16;
               }
               while ( v22-- != 1 );
             }
             v16 += v25;
             v18 = v23-- == 1;
-            v5 += 2 * (*(_DWORD *)(_this + 262384) - v21);
+            v5 += (_this->uTargetSurfacePitch - v21);
           }
           while ( !v18 );
         }
-      }
-    }
-  }
 }
 
 //----- (004A6A68) --------------------------------------------------------

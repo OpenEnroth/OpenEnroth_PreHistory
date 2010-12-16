@@ -44,12 +44,16 @@ unsigned char AvailSkillPerClass[9][37] =  // byte[] @ MM7.exe::004ED820
 
 
 //----- (0048D6AA) --------------------------------------------------------
-bool Player_sub_48D6AA(struct Player *_this, int a2)
+bool Player_sub_48D6AA(struct Player *_this, unsigned int uSlotID)
 {
   int v2; // eax@1
 
-  v2 = _this->sEquppedItemIndexes[a2];
-  return v2 && !(*((_BYTE *)_this + 36 * v2 + 0x204) & 2);
+ v2 = _this->pEquppedItemIndices[uSlotID];
+ if (v2 == -1)
+   return false;
+
+ return !(_this->cInventorySlots[v2].dword_000014 & 0x02);
+ //return !(*((_BYTE *)_this + 36 * v2 + 0x204) & 2);
 }
 
 
@@ -120,7 +124,7 @@ bool Player_sub_48D6D0(struct Player *_this, int a2)
   int v3; // edx@2
 
   v2 = 0;
-  while (!Player_sub_48D6AA(_this, v2) || *((int *)((char *)_this + 0x2FC) + 9 * _this->sEquppedItemIndexes[v2]) != a2)
+  while (!Player_sub_48D6AA(_this, v2) || *((int *)((char *)_this + 0x2FC) + 9 * _this->pEquppedItemIndices[v2]) != a2)
   {
     ++v2;
     if ( v2 >= 16 )
@@ -1161,14 +1165,15 @@ LABEL_117:
 }
 
 //----- (004927A8) --------------------------------------------------------
-int __thiscall CreateItemInInventory(struct Player *_this, signed int a2, int itemid)
+unsigned int AddItem(struct Player *_this, unsigned int uInventorySlot, unsigned int uItemID)
 {
   signed int v3; // ebx@2
   signed int v4; // edi@3
   signed int v5; // esi@3
 
-  if ( a2 == -1 ) // need to find appropriate place for item
+  if (uInventorySlot == -1) // need to find appropriate place for item
   {
+   /*
     v3 = 0;
     while ( 2 )
     {
@@ -1177,7 +1182,7 @@ int __thiscall CreateItemInInventory(struct Player *_this, signed int a2, int it
       do
       {
         if ( CanPlaceItemInInventory(_this, v5, itemid) )
-          return sub_492600(_this, v5, itemid);
+          return CreateItemInInventory(_this, v5, itemid);
         
         ++v4;
         v5 += 14;
@@ -1188,14 +1193,28 @@ int __thiscall CreateItemInInventory(struct Player *_this, signed int a2, int it
         continue;
       break;
     }
-    return 0;
+    return 0;*/
+   uInventorySlot = FindPlaceForItemInInventory(_this, uItemID);
+   if (uInventorySlot == -1)
+   {
+    if (uActiveCharacter)
+      Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
+
+    return -1;
+   }
+   else return CreateItemInInventory(_this, uInventorySlot, uItemID);
   }
-  if ( !CanPlaceItemInInventory(_this, a2, itemid) )
+
+  if (!CanPlaceItemInInventory(_this, uInventorySlot, uItemID))
   {
     AudioPlayer_sub_4AA306(pAudioPlayer, 27, 0, 0, -1, 0, 0, 0, 0);
-    return 0;
+
+    if ( uActiveCharacter )
+      Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
+
+    return -1;
   }
-  return sub_492600(_this, a2, itemid);
+  return CreateItemInInventory(_this, uInventorySlot, uItemID);
 }
 
 //----- (0048CCF5) --------------------------------------------------------
@@ -1709,7 +1728,7 @@ signed int Player_sub_48EA46(struct Player *_this, int a2)
   {
     if ( !Player_sub_48D6AA(_this, v3) )
       goto LABEL_11;
-    v5 = _this->sEquppedItemIndexes[0] - 1;
+    v5 = _this->pEquppedItemIndices[0] - 1;
     if ( a2 != 17 )
       break;
     v6 = (int)((char *)_this + 36 * v5);
@@ -2300,32 +2319,32 @@ signed int __thiscall Player_GetVoiceSex(struct Player *_this)
 int Player_MaybeGetWearItemsBonus(struct Player *_this, signed int a2, int a3) 
 {
   signed int v3; // eax@1
-  void *v4; // ebx@1
+  //void *v4; // ebx@1
   int v5; // edi@1
   signed int v6; // esi@1
-  void *v8; // ecx@48
+  //void *v8; // ecx@48
   int v9; // eax@49
   int v10; // edx@49
-  void *v11; // ecx@55
+  //void *v11; // ecx@55
   int v12; // eax@56
   int v13; // edx@56
   int v14; // eax@58
   int v15; // ecx@58
-  void *v16; // ecx@61
+  //void *v16; // ecx@61
   int v17; // eax@62
-  void *v18; // ecx@66
+  //void *v18; // ecx@66
   int v19; // eax@67
   int v20; // eax@69
-  void *v21; // ecx@75
+  //void *v21; // ecx@75
   int v22; // eax@76
   int v23; // edx@76
   int v24; // eax@79
   int v25; // ecx@80
   int v26; // edi@80
-  void *v27; // ecx@84
+  //void *v27; // ecx@84
   int v28; // eax@85
   int v29; // edx@85
-  void *v30; // ecx@96
+  //void *v30; // ecx@96
   int v31; // ebp@97
   int v32; // eax@98
   int v33; // eax@100
@@ -2358,14 +2377,14 @@ int Player_MaybeGetWearItemsBonus(struct Player *_this, signed int a2, int a3)
   signed int v60; // [sp-4h] [bp-20h]@347
   int v61; // [sp+10h] [bp-Ch]@1
   int v62; // [sp+14h] [bp-8h]@1
-  int v63; // [sp+18h] [bp-4h]@101
-  int v64; // [sp+20h] [bp+4h]@101
+  //int v63; // [sp+18h] [bp-4h]@101
+  //int v64; // [sp+20h] [bp+4h]@101
   int v65; // [sp+24h] [bp+8h]@95
 
   v6 = a2;
   v3 = 36;
   v5 = 0;
-  v4 = _this;
+  //v4 = _this;
   v62 = 0;
   v61 = 0;
   if ( a2 > 36 )
@@ -2474,14 +2493,14 @@ LABEL_38:
     if ( a2 <= 30 )
     {
       if ( Player_sub_48D6AA(_this, 2) )
-        v5 = (*&pClass40->pItems[0].uEquipType + *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1620) + 124) + 4);
+        v5 = (*&pClass40->pItems[0].uEquipType + *((_DWORD *)_this + 9 * *((_DWORD *)_this + 1620) + 124) + 4);
       return v5 + v62 + v61;
     }
     if ( a2 == 31 )
     {
       if ( !Player_sub_48D6AA(_this, 2) )
         return v5 + v62 + v61;
-      v57 = *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1620) + 124);
+      v57 = *((_DWORD *)_this + 9 * *((_DWORD *)_this + 1620) + 124);
       v5 = pClass40->pItems[v57 - 1].uDamageModifier;
       v56 = pClass40->pItems[v57 -1].uDamageDice;
       goto LABEL_366;
@@ -2490,7 +2509,7 @@ LABEL_38:
     {
       if ( !Player_sub_48D6AA(_this, 2) )
         return v5 + v62 + v61;
-      v20 = 48 * *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1620) + 124);
+      v20 = 48 * *((_DWORD *)_this + 9 * *((_DWORD *)_this + 1620) + 124);
       v5 = *(&pClass40->pItems[0].uDamageDice + v20) * *(&pClass40->pItems[0].uDamageRoll + v20);
 LABEL_365:
       v56 = *(&pClass40->pItems[0].uDamageModifier + v20);
@@ -2504,27 +2523,28 @@ LABEL_95:
     v65 = 0;
     while ( 1 )
     {
-      if ( !Player_sub_48D6AA((Player *)v4, v65) )
+      if ( !Player_sub_48D6AA(_this, v65) )
         goto LABEL_361;
-      v31 = *((_DWORD *)v4 + v65 + 1618) - 1;
+      v31 = _this->pEquppedItemIndices[v65];
       if ( v6 == 9 )
       {
-        v32 = sub_48D62C_GetSomeItemEquipType((Player *)v30, v65);
+        v32 = sub_48D62C_GetSomeItemEquipType(_this, v65);
         if ( v32 >= 3 )
         {
           if ( v32 <= 11 )
           {
-            v33 = 48 * *((_DWORD *)v4 + 9 * v31 + 133);
-            v5 += pClass40->pItems[v33/48 - 1].uDamageDice + pClass40->pItems[v33/48 - 1].uDamageModifier;
+           v33 = 48 * _this->cInventorySlots[v31].uItemID;
+            v5 += pClass40->pItems[v33/48].uDamageDice + pClass40->pItems[v33/48].uDamageModifier;
           }
         }
       }
-      v63 = (int)((char *)v4 + 36 * v31);
-      v64 = v63 + 532;
-      if ( sub_456D5E(pClass40, v63 + 532) == 1 && !sub_456D43(pClass40, v64) )
+      //v63 = (int)((char *)v4 + 36 * v31);
+      //v64 = v63 + 0x214;
+      if ( class40_sub_456D5E(pClass40, &_this->cInventorySlots[v31]) == 1 &&
+          !class40_sub_456D43(pClass40, &_this->cInventorySlots[v31]) )
       {
-        v34 = *(_DWORD *)v64;
-        switch ( *(_DWORD *)v64 )
+        v34 = _this->cInventorySlots[v31].uItemID;
+        switch (_this->cInventorySlots[v31].uItemID)
         {
           case 0x1F4:
             v35 = v6 == 5;
@@ -2564,7 +2584,7 @@ LABEL_95:
           case 0x200:
             if ( v6 == 36 )
             {
-              LOBYTE(v34) = *((_BYTE *)v4 + 292);
+              LOBYTE(v34) = *((_BYTE *)_this + 292);
               v62 = ((unsigned int)v34 >> 1) & 0x1F;
             }
             v36 = v6 == 5;
@@ -2575,7 +2595,7 @@ LABEL_108:
           case 0x201:
             if ( v6 == 39 )
             {
-              LOBYTE(v34) = *((_BYTE *)v4 + 298);
+              LOBYTE(v34) = *((_BYTE *)_this + 298);
               v34 = ((unsigned int)v34 >> 1) & 0x1F;
               v62 = v34;
             }
@@ -2591,7 +2611,7 @@ LABEL_108:
           case 0x203:
             if ( v6 == 42 )
             {
-              LOBYTE(v34) = *((_BYTE *)v4 + 304);
+              LOBYTE(v34) = *((_BYTE *)_this + 304);
               v62 = ((unsigned int)v34 >> 1) & 0x1F;
             }
             if ( v6 == 43 )
@@ -2648,7 +2668,7 @@ LABEL_166:
           case 0x20B:
             if ( v6 == 34 )
             {
-              LOBYTE(v34) = *((_BYTE *)v4 + 288);
+              LOBYTE(v34) = *((_BYTE *)_this + 288);
               v62 = ((unsigned int)v34 >> 1) & 0x1F;
             }
             if ( v6 == 12 )
@@ -2685,13 +2705,13 @@ LABEL_374:
           case 0x20F:
             if ( v6 == 39 )
             {
-              LOBYTE(v34) = *((_BYTE *)v4 + 298);
+              LOBYTE(v34) = *((_BYTE *)_this + 298);
               v34 = ((unsigned int)v34 >> 1) & 0x1F;
               v62 = v34;
             }
             if ( v6 == 40 )
             {
-              LOBYTE(v34) = *((_BYTE *)v4 + 300);
+              LOBYTE(v34) = *((_BYTE *)_this + 300);
               v62 = ((unsigned int)v34 >> 1) & 0x1F;
             }
 LABEL_145:
@@ -2703,7 +2723,7 @@ LABEL_146:
           case 0x210:
             if ( v6 == 38 )
             {
-              LOBYTE(v34) = *((_BYTE *)v4 + 296);
+              LOBYTE(v34) = *((_BYTE *)_this + 296);
               v62 = ((unsigned int)v34 >> 1) & 0x1F;
             }
             if ( !v6 )
@@ -2760,26 +2780,26 @@ LABEL_199:
         }
         goto LABEL_361;
       }
-      if ( *(_DWORD *)(v63 + 536) == v6 + 1 )
+      if (_this->cInventorySlots[v31].dword_000004 == v6 + 1 )
       {
         if ( v6 >= 0 )
         {
           if ( v6 <= 15 )
           {
-            v5 += *((_DWORD *)v4 + 9 * v31 + 135);
+            v5 += *((_DWORD *)_this + 9 * v31 + 135);
           }
           else
           {
             if ( v6 <= 23 )
             {
-              if ( v5 < *((_DWORD *)v4 + 9 * v31 + 135) )
-                v5 = *((_DWORD *)v4 + 9 * v31 + 135);
+              if ( v5 < *((_DWORD *)_this + 9 * v31 + 135) )
+                v5 = *((_DWORD *)_this + 9 * v31 + 135);
             }
           }
         }
         goto LABEL_361;
       }
-      v34 = *(_DWORD *)(v63 + 544);
+      v34 = _this->cInventorySlots[v31].dword_00000C;
       if ( v34 > 48 )
       {
         switch ( v34 )
@@ -2937,7 +2957,7 @@ LABEL_309:
           {
             if ( v6 != 38 )
               goto LABEL_361;
-            LOBYTE(v34) = *((_BYTE *)v4 + 296);
+            LOBYTE(v34) = *((_BYTE *)_this + 296);
             goto LABEL_138;
           }
           --v34;
@@ -2945,7 +2965,7 @@ LABEL_309:
           {
             if ( v6 != 36 )
               goto LABEL_361;
-            LOBYTE(v34) = *((_BYTE *)v4 + 292);
+            LOBYTE(v34) = *((_BYTE *)_this + 292);
             goto LABEL_138;
           }
           v49 = v34 - 8;
@@ -2979,7 +2999,7 @@ LABEL_121:
         {
           if ( v6 != 39 )
             goto LABEL_361;
-          LOBYTE(v34) = *((_BYTE *)v4 + 298);
+          LOBYTE(v34) = *((_BYTE *)_this + 298);
           goto LABEL_138;
         }
         if ( v34 > 28 )
@@ -2993,20 +3013,20 @@ LABEL_121:
               --v34;
               if ( v34 || v6 != 41 )
                 goto LABEL_361;
-              LOBYTE(v34) = *((_BYTE *)v4 + 302);
+              LOBYTE(v34) = *((_BYTE *)_this + 302);
             }
             else
             {
               if ( v6 != 34 )
                 goto LABEL_361;
-              LOBYTE(v34) = *((_BYTE *)v4 + 288);
+              LOBYTE(v34) = *((_BYTE *)_this + 288);
             }
           }
           else
           {
             if ( v6 != 37 )
               goto LABEL_361;
-            LOBYTE(v34) = *((_BYTE *)v4 + 294);
+            LOBYTE(v34) = *((_BYTE *)_this + 294);
           }
           goto LABEL_138;
         }
@@ -3015,7 +3035,7 @@ LABEL_121:
 LABEL_136:
           if ( v6 == 42 )
           {
-            LOBYTE(v34) = *((_BYTE *)v4 + 304);
+            LOBYTE(v34) = *((_BYTE *)_this + 304);
 LABEL_138:
             v62 = ((unsigned int)v34 >> 1) & 0x1F;
             goto LABEL_361;
@@ -3035,13 +3055,13 @@ LABEL_138:
                 --v34;
                 if ( v34 || v6 != 40 )
                   goto LABEL_361;
-                LOBYTE(v34) = *((_BYTE *)v4 + 300);
+                LOBYTE(v34) = *((_BYTE *)_this + 300);
               }
               else
               {
                 if ( v6 != 35 )
                   goto LABEL_361;
-                LOBYTE(v34) = *((_BYTE *)v4 + 290);
+                LOBYTE(v34) = *((_BYTE *)_this + 290);
               }
               goto LABEL_138;
             }
@@ -3075,14 +3095,14 @@ LABEL_361:
   {
     if ( Player_sub_48D676(_this) != 1 )
     {
-      if ( Player_sub_48D6AA((Player *)v4, 1) )
+      if ( Player_sub_48D6AA(_this, 1) )
       {
-        v22 = sub_48D62C_GetSomeItemEquipType((Player *)v21, 1);
+        v22 = sub_48D62C_GetSomeItemEquipType(_this, 1);
         if ( v22 >= 0 )
         {
           if ( v22 <= 2 )
           {
-            if ( *((_DWORD *)v4 + 1618) || (v24 = 48 * v23, pClass40->pItems[v23 - 1].uSkillType != 4) )
+            if ( *((_DWORD *)_this + 1618) || (v24 = 48 * v23, pClass40->pItems[v23 - 1].uSkillType != 4) )
             {
               v24 = 48 * v23;
               v26 = pClass40->pItems[v23 - 1].uDamageRoll;
@@ -3097,7 +3117,7 @@ LABEL_361:
           }
         }
       }
-      if ( a3 || !Player_sub_48D6AA((Player *)v4, 0) || (v28 = sub_48D62C_GetSomeItemEquipType((Player *)v27, 0), v28 < 0) || v28 > 2 )
+      if ( a3 || !Player_sub_48D6AA(_this, 0) || (v28 = sub_48D62C_GetSomeItemEquipType(_this, 0), v28 < 0) || v28 > 2 )
         return v5 + v62 + v61;
       v14 = pClass40->pItems[v29 - 1].uDamageModifier;
       v15 = pClass40->pItems[v29 - 1].uDamageDice * pClass40->pItems[v29 - 1].uDamageRoll;
@@ -3128,18 +3148,18 @@ LABEL_74:
       v5 = 0;
       return v5 + v62 + v61;
     }
-    if ( Player_sub_48D6AA((Player *)v4, 1) )
+    if ( Player_sub_48D6AA(_this, 1) )
     {
-      v17 = sub_48D62C_GetSomeItemEquipType((Player *)v16, 1);
+      v17 = sub_48D62C_GetSomeItemEquipType(_this, 1);
       if ( v17 >= 0 )
       {
         if ( v17 <= 2 )
-         v5 = pClass40->pItems[*((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1619) + 124) - 1].uDamageModifier;
+         v5 = pClass40->pItems[*((_DWORD *)_this + 9 * *((_DWORD *)_this + 1619) + 124) - 1].uDamageModifier;
       }
     }
-    if ( a3 || !Player_sub_48D6AA((Player *)v4, 0) || (v19 = sub_48D62C_GetSomeItemEquipType((Player *)v18, 0), v19 < 0) || v19 > 2 )
+    if ( a3 || !Player_sub_48D6AA(_this, 0) || (v19 = sub_48D62C_GetSomeItemEquipType(_this, 0), v19 < 0) || v19 > 2 )
       return v5 + v62 + v61;
-    v20 = 48 * *((_DWORD *)v4 + 9 * *((_DWORD *)v4 + 1618) + 124);
+    v20 = 48 * *((_DWORD *)_this + 9 * *((_DWORD *)_this + 1618) + 124);
     goto LABEL_365;
   }
   if ( a2 == 27 )
@@ -3149,15 +3169,15 @@ LABEL_74:
       v5 = 1;
       return v5 + v62 + v61;
     }
-    if ( Player_sub_48D6AA((Player *)v4, 1) )
+    if ( Player_sub_48D6AA(_this, 1) )
     {
-      v9 = sub_48D62C_GetSomeItemEquipType((Player *)v8, 1);
+      v9 = sub_48D62C_GetSomeItemEquipType(_this, 1);
       if ( v9 >= 0 )
       {
         if ( v9 <= 2 )
         {
          v5 = pClass40->pItems[v10 - 1].uDamageDice + pClass40->pItems[v10 - 1].uDamageModifier;
-          if ( !*((_DWORD *)v4 + 1618) )
+          if ( !*((_DWORD *)_this + 1618) )
           {
            if (pClass40->pItems[v10 - 1].uSkillType == 4 )
               ++v5;
@@ -3165,7 +3185,7 @@ LABEL_74:
         }
       }
     }
-    if ( a3 || !Player_sub_48D6AA((Player *)v4, 0) || (v12 = sub_48D62C_GetSomeItemEquipType((Player *)v11, 0), v12 < 0) || v12 > 2 )
+    if ( a3 || !Player_sub_48D6AA(_this, 0) || (v12 = sub_48D62C_GetSomeItemEquipType(_this, 0), v12 < 0) || v12 > 2 )
       return v5 + v62 + v61;
     v15 = pClass40->pItems[v13 - 1].uDamageModifier;
     v14 = pClass40->pItems[v13 - 1].uDamageDice;
@@ -3175,30 +3195,31 @@ LABEL_88:
   return v5 + v62 + v61;
 }
 
-//----- (00492528) --------------------------------------------------------
-int CanPlaceItemInInventory(struct Player *_this, signed int a2, int a3)
+
+
+
+//----- (new) --------------------------------------------------------
+unsigned int FindPlaceForItemInInventory(struct Player *_this, unsigned int uItemID)
 {
-  unsigned int uNumSlotsX;
+ unsigned int uNumSlotsX;
   cTexture *v4; // esi@1
   int v5; // eax@1
-  int v6; // edi@5
-  int v7; // ecx@6
-  int v8; // edx@7
-  int v9; // eax@8
-  void *v11; // [sp+Ch] [bp-4h]@1
-  unsigned int uNumSlotsY;
+  //int v6; // edi@5
+  //int v7; // ecx@6
+  //int v8; // edx@7
+  //int *v9; // eax@8
+  //void *v11; // [sp+Ch] [bp-4h]@1
+ unsigned int uNumSlotsY;
 
 
-  v11 = _this;
 #ifndef OLD_CODE
-  wchar_t pFilename[256];
- wsprintfW(pFilename, L"%S", pClass40->pItems[a3].pIconName);
- v5 = LODFile_Icons_LOD.LODFile_LoadTexture_New( pFilename);
- #endif
-#ifdef OLD_CODE
- 
- v5 = LODFile_Icons_LOD.LODFile_LoadTexture((const char*) pClass40->pItems[a3].pIconName,2);
- #endif
+ wchar_t pFilename[256];
+ wsprintfW(pFilename, L"%S", pClass40->pItems[uItemID].pIconName);
+
+ v5 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pFilename);
+#else
+ v5 = LODFile_Icons_LOD.LODFile_LoadTexture((const char *)pClass40->pItems[uItemID].pIconName, 2);
+#endif
  v4 = &LODFile_Icons_LOD.aLODHeaders[v5];
 
  uNumSlotsX = GetSizeInInventorySlots(v4->uTextureWidth);
@@ -3210,47 +3231,171 @@ int CanPlaceItemInInventory(struct Player *_this, signed int a2, int a3)
    //cTexture_Free(v4);
     LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
-  if ( uNumSlotsX + a2 % 14 <= 14 && uNumSlotsY + a2 / 14 <= 9 )
-  {
-    v6 = 0;
-    v7 = (int)&_this->sInventoryIndexes[a2];
-    while ( 1 )
+
+ for (unsigned int uSlotY = 0; uSlotY < 10 - uNumSlotsY; ++uSlotY)
+   for (unsigned int uSlotX = 0; uSlotX < 15 - uNumSlotsX; ++uSlotX)
+   {
+    unsigned int uFits = true;
+    for (unsigned int y = uSlotY; y < uSlotY + uNumSlotsY; ++y)
     {
-      v8 = 0;
-      if ( uNumSlotsX > 0 )
+     for (unsigned int x = uSlotX; x < uSlotX + uNumSlotsX; ++x)
+       if (_this->pInventoryIndices[y * 14 + x] != -1)
+       {
+        uFits = false;
         break;
-LABEL_11:
-      ++v6;
-      v7 += 56;
-      if ( v6 >= uNumSlotsY )
-        return 1;
+       }
+
+     if (!uFits)
+       break;
     }
-    v9 = v7;
-    while ( !*(_DWORD *)v9 )
-    {
-      ++v8;
-      v9 += 4;
-      if ( v8 >= uNumSlotsX )
-        goto LABEL_11;
-    }
-  }
-  return 0;
+
+    if (uFits)
+      return uSlotY * 14 + uSlotX;
+   }
+ return -1;
 }
 
+
+//----- (00492528) --------------------------------------------------------
+bool CanPlaceItemInInventory(struct Player *_this, unsigned int uInventorySlot, unsigned int uItemID)
+{
+ unsigned int uNumSlotsX;
+  cTexture *v4; // esi@1
+  int v5; // eax@1
+  //int v6; // edi@5
+  //int v7; // ecx@6
+  //int v8; // edx@7
+  //int *v9; // eax@8
+  //void *v11; // [sp+Ch] [bp-4h]@1
+ unsigned int uNumSlotsY;
+
+
+#ifndef OLD_CODE
+ wchar_t pFilename[256];
+ wsprintfW(pFilename, L"%S", pClass40->pItems[uItemID].pIconName);
+
+ v5 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pFilename);
+#else
+ v5 = LODFile_Icons_LOD.LODFile_LoadTexture((const char *)pClass40->pItems[uItemID].pIconName, 2);
+#endif
+ v4 = &LODFile_Icons_LOD.aLODHeaders[v5];
+
+ uNumSlotsX = GetSizeInInventorySlots(v4->uTextureWidth);
+ uNumSlotsY = GetSizeInInventorySlots(v4->uTextureHeight);
+
+  if ( !bTextureLoading )
+  {
+   runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
+   //cTexture_Free(v4);
+    LODFile_Icons_LOD.LODFile_sub_40F9C5();
+  }
+
+ unsigned int uInventorySlotX = uInventorySlot % 14,
+              uInventorySlotY = uInventorySlot / 14;
+ if (uNumSlotsX + uInventorySlotX > 14 ||
+     uNumSlotsY + uInventorySlotY > 9)
+   return false;   // won't fit rightside
+
+
+ unsigned int uFits = true;
+ for (unsigned int y = uInventorySlotY; y < uInventorySlotY + uNumSlotsY; ++y)
+ {
+  for (unsigned int x = uInventorySlotX; x < uInventorySlotX + uNumSlotsX; ++x)
+    if (_this->pInventoryIndices[y * 14 + x] != -1)
+    {
+     uFits = false;
+     break;
+    }
+
+  if (!uFits)
+    break;
+ }
+
+ return uFits;
+}
+
+
+
+
+
+
+//----- (new) --------------------------------------------------------
+unsigned int FindPlaceForItemInInventory(struct Player *_this, ItemGen *pItem)
+{
+ unsigned int uNumSlotsX;
+  cTexture *v4; // esi@1
+  int v5; // eax@1
+ unsigned int uNumSlotsY;
+
+
+#ifndef OLD_CODE
+ wchar_t pFilename[256];
+ wsprintfW(pFilename, L"%S", pClass40->pItems[pItem->uItemID].pIconName);
+
+ v5 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pFilename);
+#else
+ v5 = LODFile_Icons_LOD.LODFile_LoadTexture((const char *)pClass40->pItems[pItem->uItemID].pIconName, 2);
+#endif
+ v4 = &LODFile_Icons_LOD.aLODHeaders[v5];
+
+ uNumSlotsX = GetSizeInInventorySlots(v4->uTextureWidth);
+ uNumSlotsY = GetSizeInInventorySlots(v4->uTextureHeight);
+
+  if ( !bTextureLoading )
+  {
+   runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
+   //cTexture_Free(v4);
+    LODFile_Icons_LOD.LODFile_sub_40F9C5();
+  }
+
+ for (unsigned int uSlotY = 0; uSlotY < 10 - uNumSlotsY; ++uSlotY)
+   for (unsigned int uSlotX = 0; uSlotX < 15 - uNumSlotsX; ++uSlotX)
+   {
+    unsigned int uFits = true;
+    for (unsigned int y = uSlotY; y < uSlotY + uNumSlotsY; ++y)
+    {
+     for (unsigned int x = uSlotX; x < uSlotX + uNumSlotsX; ++x)
+       if (_this->pInventoryIndices[y * 14 + x] != -1)
+       {
+        uFits = false;
+        break;
+       }
+
+     if (!uFits)
+       break;
+    }
+
+    if (uFits)
+      return uSlotY * 14 + uSlotX;
+   }
+ return -1;
+}
+
+
 //----- (00492826) --------------------------------------------------------
-int Player_sub_492826(struct Player *_this, signed int a2, struct ItemGen *Src)
+unsigned int AddItem(struct Player *_this, unsigned int uInventorySlot, struct ItemGen *pItem)
 {
   int v3; // ebx@1
   signed int v4; // edi@3
   signed int v5; // esi@3
-  int v7; // [sp-8h] [bp-18h]@9
-  const void *v8; // [sp-4h] [bp-14h]@9
   signed int v10; // [sp+18h] [bp+8h]@2
 
-  v3 = *(_DWORD *)Src;
-  class40_sub_456D17(pClass40, Src);
-  if ( a2 == -1 )
+ v3 = pItem->uItemID;
+ class40_sub_456D17(pClass40, pItem);
+
+ if (uInventorySlot == -1)
+ {
+  uInventorySlot = FindPlaceForItemInInventory(_this, pItem);
+  if (uInventorySlot == -1)
   {
+   if (uActiveCharacter)
+     Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
+
+   return -1;
+  }
+
+  return CreateItemInInventory(_this, uInventorySlot, pItem);
+  /*
     v10 = 0;
     while ( 2 )
     {
@@ -3260,9 +3405,7 @@ int Player_sub_492826(struct Player *_this, signed int a2, struct ItemGen *Src)
       {
         if ( CanPlaceItemInInventory(_this, v5, v3) )
         {
-          v8 = (const void *)Src;
-          v7 = v5;
-          return Player_sub_49289C(_this, v7, (ItemGen *)v8);
+          return CreateItemInInventory(_this, v5, pItem);
         }
         ++v4;
         v5 += 14;
@@ -3273,99 +3416,119 @@ int Player_sub_492826(struct Player *_this, signed int a2, struct ItemGen *Src)
         continue;
       break;
     }
-    return 0;
-  }
-  if ( !CanPlaceItemInInventory(_this, a2, v3) )
-    return 0;
-  v8 = (const void *)Src;
-  v7 = a2;
-  return Player_sub_49289C(_this, v7, (ItemGen *)v8);
+    return 0;*/
+ }
+
+ if (!CanPlaceItemInInventory(_this, uInventorySlot, pItem->uItemID))
+ {
+  if (uActiveCharacter)
+    Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
+
+   return -1;
+ }
+ return CreateItemInInventory(_this, uInventorySlot, pItem);
 }
 
 //----- (0049289C) ----------------.text:004943FA  ----------------------------------------
-int Player_sub_49289C(struct Player *_this, int a2, struct ItemGen *sItem)
+unsigned int CreateItemInInventory(struct Player *_this, unsigned int uInventorySlot, struct ItemGen *pItem)
 {
-  int v3, i, x; // eax@1
-  signed int  items_count; // ebx@1
-  int result; // eax@6
+  //int v3, i, x; // eax@1
+  //signed int  items_count; // ebx@1
+  //int result; // eax@6
   cTexture *v6; // esi@7
   int v7; // eax@7
-  void *v9; // esi@10
-  int  slotsW; // [sp+4h] [bp-Ch]@7
-  int slotsH; // [sp+8h] [bp-8h]@7
-  void *v13; // [sp+Ch] [bp-4h]@1
+  //void *v9; // esi@10
+  //int  slotsW; // [sp+4h] [bp-Ch]@7
+  //int slotsH; // [sp+8h] [bp-8h]@7
+  //void *v13; // [sp+Ch] [bp-4h]@1
   
 
-  v13 = _this;
-  items_count = 0;
-  while (_this->cInventorySlots[items_count].uItemID )
-  {
-    ++ items_count;
-    if (  items_count >= 126 )
-    {
-       items_count = -1;
-      break;
-    }
-  }
-  if (  items_count == -1 )
-  {
-    result = 0;
-  }
-  else
-  {
+
+
+ unsigned int uItemsPoolSlotID = -1;
+ for (unsigned int i = 0; i < 126; ++i)
+   if (_this->cInventorySlots[i].uItemID == -1)
+   {
+    uItemsPoolSlotID = i;
+    break;
+   }
+
+ if (uItemsPoolSlotID == -1)
+   return -1;
+
 #ifndef OLD_CODE
-  wchar_t pFilename[256];
-  wsprintfW(pFilename, L"%S", pClass40->pItems[sItem->uItemID].pIconName);
-  v7 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pFilename);
+ wchar_t pItemIconNameW[64];
+
+ MultiByteToWideChar(CP_ACP, 0, (char *)pClass40->pItems[pItem->uItemID].pIconName, -1, pItemIconNameW, 64);
+ v7 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pItemIconNameW);
 #else
-  // char pFilename[16];
-  // wsprintf(pFilename, "%S", );
-  v7 = LODFile_Icons_LOD.LODFile_LoadTexture((char *)pClass40->pItems[sItem->uItemID].pIconName,2);
+ v7 = LODFile_Icons_LOD.LODFile_LoadTexture((char *)pClass40->pItems[pItem->uItemID].pIconName,2);
 #endif
 
-   v6 = &LODFile_Icons_LOD.aLODHeaders[v7];
-
-    slotsW = GetSizeInInventorySlots(v6->uTextureWidth);
-    slotsH = GetSizeInInventorySlots(v6->uTextureHeight);
+ v6 = &LODFile_Icons_LOD.aLODHeaders[v7];
+ unsigned int uItemSizeX = GetSizeInInventorySlots(v6->uTextureWidth),
+              uItemSizeY = GetSizeInInventorySlots(v6->uTextureHeight);
 
     if ( !bTextureLoading )
     {
-      cTexture_Free(v6);
+     runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
+      //cTexture_Free(v7);
       LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
-    if (slotsH > 0 ) // reserving space for large items in inventory
+
+    /*if ( uNumSlotsY > 0 ) // reserving space for large items in inventory
     {
-      for(x = a2; slotsH-- != 0; x+=14) // 14 is the columns count, so getting to next row
+      for(x = uInventorySlot; uNumSlotsY-- != 0; x+=14) // 14 is the columns count, so getting to next row
       {
-        for(i = 0; i <slotsW ; i++) // filling number of columns horizontally
-         _this->sInventoryIndexes[x + i] = -1 - a2;
+        for(i = 0; i < uNumSlotsX; i++) // filling number of columns horizontally
+         _this->pInventoryIndices[x + i] = -1 - uInventorySlot;
       }
-    }
-    _this->sInventoryIndexes[a2] = items_count + 1;
-    memcpy(&_this->cInventorySlots[items_count], sItem, sizeof(struct ItemGen));
-    result = items_count + 1;
-  }
-  return result;
+    }*/
+
+ // fill X x Y area of pInvIndices with index, item form pool with ID
+ unsigned int uInventorySlotX = uInventorySlot % 14,
+              uInventorySlotY = uInventorySlot / 14;
+ for (unsigned int y = uInventorySlotY; y < uInventorySlotY + uItemSizeY; ++y)
+   for (unsigned int x = uInventorySlotX; x < uInventorySlotX + uItemSizeX; ++x)
+      _this->pInventoryIndices[y * 14 + x] = uItemsPoolSlotID;
+
+ _this->pInventoryIndices[uInventorySlotY * 14 + uInventorySlotX] |= 0x80000000; // draw flag. the whole inventory thing is a hack
+ memcpy(&_this->cInventorySlots[uItemsPoolSlotID], pItem, sizeof(ItemGen));
+  //}
+ return uItemsPoolSlotID;
 }
 
 //----- (00492600) --------.text:00494156  ------------------------------------------------
-int __thiscall sub_492600(struct Player *_this, int a2, unsigned int uItemID) // place item to inventory
+unsigned int CreateItemInInventory(struct Player *_this, unsigned int uInventorySlot, unsigned int uItemID)
 {
-  int v3, i, x; // eax@1
-  signed int v4; // edx@1
-  int result; // eax@8
+  //int v3;
+  //int i, x; // eax@1
+  //signed int v4; // edx@1
+  //int result; // eax@8
  cTexture *v7; // esi@10
   int v8; // eax@10
   void *v9; // esi@13
-  int slotsW; // [sp+0h] [bp-Ch]@10
-  void *v12; // [sp+4h] [bp-8h]@1
-  signed int v13; // [sp+8h] [bp-4h]@4
-  int slotsH; // [sp+18h] [bp+Ch]@10
- wchar_t pItemIconNameW[64];
+  //int slotsW; // [sp+0h] [bp-Ch]@10
+  //void *v12; // [sp+4h] [bp-8h]@1
+  //signed int v13; // [sp+8h] [bp-4h]@4
+  //int slotsH; // [sp+18h] [bp+Ch]@10
 
-  v12 = _this;
-  v4 = 0;
+  //v12 = _this;
+  //v4 = 0;
   //v3 = (int)((char *)_this + 532);  //cInventorySlots
+
+
+ unsigned int uItemsPoolSlotID = -1;
+ for (unsigned int i = 0; i < 126; ++i)
+   if (_this->cInventorySlots[i].uItemID == -1)
+   {
+    uItemsPoolSlotID = i;
+    break;
+   }
+
+ if (uItemsPoolSlotID == -1)
+   return -1;
+  /*
   v3 = _this->cInventorySlots[v4].uItemID;
   while (v3 )
   {
@@ -3385,16 +3548,20 @@ int __thiscall sub_492600(struct Player *_this, int a2, unsigned int uItemID) //
     result = 0;
   }
   else
-  {
+  {*/
 #ifndef OLD_CODE
-    MultiByteToWideChar(CP_ACP, 0, (char *)pClass40->pItems[uItemID].pIconName, -1, pItemIconNameW, 64);
-    v8 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pItemIconNameW);
+ wchar_t pItemIconNameW[64];
+
+ MultiByteToWideChar(CP_ACP, 0, (char *)pClass40->pItems[uItemID].pIconName, -1, pItemIconNameW, 64);
+ v8 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pItemIconNameW);
 #else
-    v8 = LODFile_Icons_LOD.LODFile_LoadTexture((char *)pClass40->pItems[uItemID].pIconName,2);
+ v8 = LODFile_Icons_LOD.LODFile_LoadTexture((char *)pClass40->pItems[uItemID].pIconName,2);
 #endif
-    v7 = &LODFile_Icons_LOD.aLODHeaders[v8];
-    slotsW = GetSizeInInventorySlots(v7->uTextureWidth);
-    slotsH = GetSizeInInventorySlots(v7->uTextureHeight);
+
+ v7 = &LODFile_Icons_LOD.aLODHeaders[v8];
+ unsigned int uItemSizeX = GetSizeInInventorySlots(v7->uTextureWidth),
+              uItemSizeY = GetSizeInInventorySlots(v7->uTextureHeight);
+
     if ( !bTextureLoading )
     {
      runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
@@ -3402,17 +3569,24 @@ int __thiscall sub_492600(struct Player *_this, int a2, unsigned int uItemID) //
       LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
 
-    if ( slotsH > 0 ) // reserving space for large items in inventory
+    /*if ( uNumSlotsY > 0 ) // reserving space for large items in inventory
     {
-      for(x = a2; slotsH-- != 0; x+=14) // 14 is the columns count, so getting to next row
+      for(x = uInventorySlot; uNumSlotsY-- != 0; x+=14) // 14 is the columns count, so getting to next row
       {
-        for(i = 0; i < slotsW; i++) // filling number of columns horizontally
-         _this->sInventoryIndexes[x + i] = -1 - a2;
+        for(i = 0; i < uNumSlotsX; i++) // filling number of columns horizontally
+         _this->pInventoryIndices[x + i] = -1 - uInventorySlot;
       }
-    }
-    result = v13 + 1;
-    _this->sInventoryIndexes[a2] = v13 + 1;
-    _this->cInventorySlots[v13].uItemID = uItemID;
-  }
-  return result;
+    }*/
+
+ // fill X x Y area of pInvIndices with index, item form pool with ID
+ unsigned int uInventorySlotX = uInventorySlot % 14,
+              uInventorySlotY = uInventorySlot / 14;
+ for (unsigned int y = uInventorySlotY; y < uInventorySlotY + uItemSizeY; ++y)
+   for (unsigned int x = uInventorySlotX; x < uInventorySlotX + uItemSizeX; ++x)
+      _this->pInventoryIndices[y * 14 + x] = uItemsPoolSlotID;
+
+ _this->pInventoryIndices[uInventorySlotY * 14 + uInventorySlotX] |= 0x80000000; // draw flag. the whole inventory thing is a hack
+ _this->cInventorySlots[uItemsPoolSlotID].uItemID = uItemID;
+  //}
+ return uItemsPoolSlotID;
 }

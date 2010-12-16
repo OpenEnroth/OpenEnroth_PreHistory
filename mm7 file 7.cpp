@@ -8710,7 +8710,7 @@ int __cdecl sub_4B8E3D()
 LABEL_12:
           v3 = v9;
 LABEL_13:
-          class40_sub_456620(pClass40, v5, v3, (ItemGen *)(36 * (v1 + 12 * v2) + 0xAD4734));
+          class40_sub_456620_CreateSomeSemirandomItem(pClass40, v5, v3, (ItemGen *)(36 * (v1 + 12 * v2) + 0xAD4734));
           v0 = (int)ptr_507BC0;
           dword_AD4748[9 * (v1 + 12 * ptr_507BC0->dword_00001C)] = 1;
           goto LABEL_14;
@@ -8786,7 +8786,7 @@ int __cdecl sub_4B8F94()
 LABEL_12:
           v5 = v11;
 LABEL_13:
-          class40_sub_456620(pClass40, v6, v5, (ItemGen *)(36 * (v1 + 12 * v3) + 0xADA0A4));
+          class40_sub_456620_CreateSomeSemirandomItem(pClass40, v6, v5, (ItemGen *)(36 * (v1 + 12 * v3) + 0xADA0A4));
           v2 = (int)ptr_507BC0;
           v0 = (int)&ptr_507BC0->dword_00001C;
           dword_ADA0B8[9 * (v1 + 12 * ptr_507BC0->dword_00001C)] = 1;
@@ -12755,7 +12755,7 @@ LABEL_73:
     v19 = 36 * (v17 + 12 * v20) + 11341664;
     v21 = *((float *)&unk_591458 + 13 * v20);
     v82 = v19;
-    v22 = sub_456442(v19);
+    v22 = ItemGen_sub_456442((ItemGen *)v19);
     v23 = Player_sub_4B8142((Player *)v0, v22, v21);
     v81 = v23;
     GetAsyncKeyState(VK_CONTROL);
@@ -12768,7 +12768,7 @@ LABEL_62:
       v55 = 2;
       goto LABEL_71;
     }
-    v25 = CreateItemInInventory((Player *)v0, -1, *(_DWORD *)v19);
+    v25 = AddItem((Player *)v0, -1, *(_DWORD *)v19);
     if ( v25 )
     {
       v26 = 1;
@@ -12803,7 +12803,7 @@ LABEL_49:
       v32 = 4 * v31 + 11378852;
     }
     v34 = *((float *)&unk_591458 + 13 * v30);
-    v35 = sub_456442(v32);
+    v35 = ItemGen_sub_456442((ItemGen *)v32);
     v81 = Player_sub_4B8142((Player *)v0, v35, v34);
     LOWORD(v36) = GetAsyncKeyState(VK_CONTROL);
     v75 = v36;
@@ -12837,7 +12837,7 @@ LABEL_49:
           goto LABEL_62;
       }
     }
-    v39 = CreateItemInInventory((Player *)v0, -1, *(_DWORD *)v32);
+    v39 = AddItem((Player *)v0, -1, *(_DWORD *)v32);
     if ( v39 )
     {
       *(_DWORD *)(v32 + 20) |= 1u;
@@ -12962,7 +12962,7 @@ LABEL_30:
           {
             v3 = v0 + 36 * v2 + 496;
             v4 = *((float *)&unk_591458 + 13 * ptr_507BC0->dword_00001C);
-            v5 = sub_456442(v0 + 36 * v2 + 496);
+            v5 = ItemGen_sub_456442((ItemGen *)(v0 + 36 * v2 + 496));
             v6 = Player_sub_4B81C3((Player *)v0, v5, v4);
             v7 = (*(_BYTE *)(v3 + 20) & 2) == 0;
             v81 = v6;
@@ -13022,7 +13022,7 @@ void __thiscall Player_sub_4BE2DD(Player *_this, int a2, int a3, int a4)
   v5 = _this;
   v6 = (int)((char *)_this + 36 * a3);
   v7 = *((float *)&unk_591458 + 13 * a4);
-  v8 = sub_456442(v6 + 532);
+  v8 = ItemGen_sub_456442(&_this->cInventorySlots[a3]);
   v4 = Player_sub_4B8102(_this, v8, v7);
   if ( *(_BYTE *)(v6 + 552) & 2 )
     v4 = 1;

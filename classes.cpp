@@ -5336,7 +5336,7 @@ int class35_sub_48A8A3(struct class35 *_this)
 //----- (00402F07) --------------------------------------------------------
 void ItemGen_Reset(struct ItemGen *_this)
 {
- _this->uItemID = 0;
+ _this->uItemID = -1;
  _this->dword_000004 = 0;
  _this->dword_000008 = 0;
  _this->dword_00000C = 0;
@@ -5353,7 +5353,7 @@ void ItemGen_Reset(struct ItemGen *_this)
 
 
 //----- (00456620) --------------------------------------------------------
-char class40_sub_456620(struct class40 *_this, int a2, signed int a3, struct ItemGen *Dst)
+char class40_sub_456620_CreateSomeSemirandomItem(struct class40 *_this, int a2, signed int a3, struct ItemGen *Dst)
 {
   void *v4; // edi@1
   unsigned char *v5; // esi@1
@@ -5420,7 +5420,7 @@ char class40_sub_456620(struct class40 *_this, int a2, signed int a3, struct Ite
   v5 = (unsigned char *)Dst;
   if (!v5)
     v5 = (unsigned char *)mem_mng.AllocatedNamedBuffer( NULL, 0x24, "newItemGen");
-  memset(v5, 0, 0x24);
+  memset(v5, 0, sizeof(ItemGen));
 
   v6 = a2 - 1;
   v53 = a2 - 1;

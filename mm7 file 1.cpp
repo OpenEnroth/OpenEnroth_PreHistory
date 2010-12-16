@@ -63,7 +63,6 @@ void RtlCallCtors()
  class37_ctor(&class37_global0);
 
  pParty_global = new Party;
- memset(pParty_global, 0, sizeof(struct Party));
  Party_ctor(pParty_global);
 
  pStruct9_global = new struct9;
@@ -9449,7 +9448,7 @@ LABEL_196:
                 v64 = *(_BYTE *)(LODWORD(v704) + 28);
                 if ( !v64 || v64 == 1 || v64 == 2 )
                 {
-                  if ( !sub_456D5E(pClass40, v708) )
+                  if ( !class40_sub_456D5E(pClass40, (ItemGen *)v708) )
                   {
                     v65 = v708;
                     v66 = v709 == 4;
@@ -10732,7 +10731,7 @@ LABEL_484:
                         LODWORD(v702) = (int)&v235[9 * n + 138];
                         if ( !(v235[9 * n + 138] & 2) )
                         {
-                          if ( (unsigned int)sub_456442(v1) < 0x1C2 )
+                          if ( (unsigned int)ItemGen_sub_456442((ItemGen *)v1) < 0x1C2 )
                           {
                             LODWORD(v706) = 1;
                             v708 = HIDWORD(v1);
@@ -10799,9 +10798,9 @@ LABEL_613:
             v703 = (int)v258;
             v257 = *((_BYTE *)v258 + 28);
             if ( v257 && v257 != 1 && v257 != 2 )
-              v259 = (unsigned int)sub_456442(v1) < 0x1C2;
+              v259 = (unsigned int)ItemGen_sub_456442((ItemGen *)v1) < 0x1C2;
             else
-              v259 = (unsigned int)sub_456442(v1) < 0xFA;
+              v259 = (unsigned int)ItemGen_sub_456442((ItemGen *)v1) < 0xFA;
             if ( v259 )
             {
               LODWORD(v706) = 1;
@@ -10895,9 +10894,9 @@ LABEL_613:
             v703 = (int)v238;
             v237 = *((_BYTE *)v238 + 28);
             if ( v237 && v237 != 1 && v237 != 2 )
-              v239 = (unsigned int)sub_456442(LODWORD(v704) + 36 * n + 532) < 0x1C2;
+              v239 = (unsigned int)ItemGen_sub_456442((ItemGen *)(LODWORD(v704) + 36 * n + 532)) < 0x1C2;
             else
-              v239 = (unsigned int)sub_456442(LODWORD(v704) + 36 * n + 532) < 0xFA;
+              v239 = (unsigned int)ItemGen_sub_456442((ItemGen *)(LODWORD(v704) + 36 * n + 532)) < 0xFA;
             if ( v239 )
             {
               LODWORD(v706) = 1;
@@ -11018,7 +11017,7 @@ LABEL_616:
           || v276 == 2
           || *(_BYTE *)(LODWORD(v702) + 20) & 2 )
           goto LABEL_616;
-        if ( (unsigned int)sub_456442(SLODWORD(v702)) < 0x1C2 )
+        if ( (unsigned int)ItemGen_sub_456442((ItemGen *)(SLODWORD(v702))) < 0x1C2 )
           LODWORD(v706) = 1;
         if ( rand() % 100 >= LODWORD(v712) )
           LODWORD(v706) = 1;
@@ -11985,7 +11984,7 @@ LABEL_855:
             wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], *(int *)((char *)dword_5D29EC + v421));
             sub_44C175((char *)pStringBuffer, 2);
             if (!Party_AddItem(pParty_global, &pLayingItemsList[v1].stru_000024))
-              sub_4936E1(pParty_global, &pLayingItemsList[v1].stru_000024);
+              Party_sub_4936E1(pParty_global, &pLayingItemsList[v1].stru_000024);
           }
           sub_42F933(v1);
         }
@@ -12911,7 +12910,7 @@ LABEL_1000:
           || *(_DWORD *)(LODWORD(v712) + 12) != HIDWORD(v1)
           || *(_DWORD *)(LODWORD(v712) + 4) != HIDWORD(v1)
           || (v554 = *(_BYTE *)(v710 + 28)) != 0 && v554 != 1 && v554 != 2
-          || sub_456D5E(pClass40, SLODWORD(v712)) )*/
+          || class40_sub_456D5E(pClass40, SLODWORD(v712)) )*/
         if (0)
           goto LABEL_199;
         v555 = LODWORD(v712);
@@ -13593,8 +13592,8 @@ LABEL_12:
   dword_6BE35C = 0;
   LODFile_Sprites_LOD.LODFile_sub_461397();
   class35_sub_48A8CC(&class35_obj);
-  if (pParty_global->pickedItem.uItemID)
-    sub_4698D8(pParty_global->pickedItem.uItemID);
+  if (pParty_global->pickedItem.uItemID != -1)
+    SetCursorBitmapFromItemID(pParty_global->pickedItem.uItemID);
 }
 
 //----- (00443E31) --------------------------------------------------------

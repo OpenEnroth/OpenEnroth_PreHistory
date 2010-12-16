@@ -907,14 +907,14 @@ LABEL_9:
     }
     class40_sub_456D17(pClass40, &local_0C);
     if ( !Party_AddItem(pParty_global, &local_0C))
-      sub_4936E1(pParty_global, &local_0C);
+      Party_sub_4936E1(pParty_global, &local_0C);
     *(_WORD *)(a1 + 180) = 0;
     if ( *(_DWORD *)(a1 + 564) )
     {
       if ( !Party_AddItem(pParty_global, (ItemGen *)(a1 + 564)))
       {
         sub_421B2C();
-        sub_4936E1(pParty_global, (ItemGen *)(a1 + 564));
+        Party_sub_4936E1(pParty_global, (ItemGen *)(a1 + 564));
       }
       ItemGen_Reset((ItemGen *)(a1 + 564));
     }
@@ -923,7 +923,7 @@ LABEL_9:
       if ( !Party_AddItem(pParty_global, (ItemGen *)(a1 + 600)))
       {
         sub_421B2C();
-        sub_4936E1(pParty_global, (const ItemGen *)(a1 + 600));
+        Party_sub_4936E1(pParty_global, (const ItemGen *)(a1 + 600));
       }
       ItemGen_Reset((ItemGen *)(a1 + 600));
     }
@@ -944,7 +944,7 @@ LABEL_55:
         wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], v10);
       sub_44C175((char *)pStringBuffer, 2);
       if ( !Party_AddItem(pParty_global, &local_0C) )
-        sub_4936E1(pParty_global, &local_0C);
+        Party_sub_4936E1(pParty_global, &local_0C);
       v15 = 1;
     }
     goto LABEL_44;
@@ -955,7 +955,7 @@ LABEL_44:
     v7 = pParty_global;
     goto LABEL_45;
   }
-  class40_sub_456620(pClass40, v6, *(_BYTE *)(a1 + 57), &local_0C);
+  class40_sub_456620_CreateSomeSemirandomItem(pClass40, v6, *(_BYTE *)(a1 + 57), &local_0C);
   v9 = dword_5D29EC[12 * local_0C.uItemID];
   if ( v16 )
     wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[490], v16, v9);
@@ -964,7 +964,7 @@ LABEL_44:
   sub_44C175((char *)pStringBuffer, 2);
   v7 = pParty_global;
   if ( !Party_AddItem(pParty_global, &local_0C))
-    sub_4936E1(pParty_global, &local_0C);
+    Party_sub_4936E1(pParty_global, &local_0C);
   v15 = 1;
 LABEL_45:
   if ( *(_DWORD *)(a1 + 564) )
@@ -972,7 +972,7 @@ LABEL_45:
     if ( !Party_AddItem((Party *)v7, (ItemGen *)(a1 + 564)))
     {
       sub_421B2C();
-      sub_4936E1(v7, (const struct ItemGen *)(a1 + 564));
+      Party_sub_4936E1((Party *)v7, (const ItemGen *)(a1 + 564));
       v15 = 1;
     }
     ItemGen_Reset((ItemGen *)(a1 + 564));
@@ -982,7 +982,7 @@ LABEL_45:
     if ( !Party_AddItem((Party *)v7, (ItemGen *)(a1 + 600)))
     {
       sub_421B2C();
-      sub_4936E1(v7, (const ItemGen *)(a1 + 600));
+      Party_sub_4936E1((Party *)v7, (const ItemGen *)(a1 + 600));
       v15 = 1;
     }
     ItemGen_Reset((ItemGen *)(a1 + 600));
@@ -2215,7 +2215,7 @@ bool sub_42ECB5_PlayerAttack()
     if (pParty_global->pPartyBuffs[11].qword_000000 > 0 )
       SpellBuff_sub_458585(&pParty_global->pPartyBuffs[11]);
 
- v33 = pParty_global->pPlayers[uActiveCharacter - 1].sEquppedItemIndexes[2];
+ v33 = pParty_global->pPlayers[uActiveCharacter - 1].pEquppedItemIndices[2];
     //v33 = *(_DWORD *)(v2 + 6480);
 
  if ( v33 )
@@ -2225,7 +2225,7 @@ bool sub_42ECB5_PlayerAttack()
     v33 = 0;
  }
 
- v4 = pParty_global->pPlayers[uActiveCharacter - 1].sEquppedItemIndexes[1];
+ v4 = pParty_global->pPlayers[uActiveCharacter - 1].pEquppedItemIndices[1];
      //v4 = *(_DWORD *)(v2 + 6476);
 
     v34 = 0;
@@ -2242,7 +2242,7 @@ bool sub_42ECB5_PlayerAttack()
           if ( *(_DWORD *)(v5 + 512) <= 0 )
           {
             *(_DWORD *)v30 = 0;
-            pParty_global->pPlayers[uActiveCharacter - 1].sEquppedItemIndexes[1] = 0;
+            pParty_global->pPlayers[uActiveCharacter - 1].pEquppedItemIndices[1] = 0;
           }
           else
           {
@@ -7822,7 +7822,7 @@ LABEL_6:
 }
 
 //----- (00456442) --------------------------------------------------------
-int __thiscall sub_456442(int _this)
+int __thiscall ItemGen_sub_456442(ItemGen *_this)
 {
   int v1; // edi@1
   int v2; // esi@1
@@ -7830,9 +7830,9 @@ int __thiscall sub_456442(int _this)
   int v4; // esi@5
   int result; // eax@7
 
-  v2 = _this;
-  v1 = dword_5D29F4[12 * *(_DWORD *)_this];
-  if ( *(_BYTE *)(_this + 20) & 8 || sub_456D5E(pClass40, _this) )
+  v2 = (int)_this;
+  v1 = dword_5D29F4[12 * _this->uItemID];
+  if ( *(_BYTE *)((int)_this + 20) & 8 || class40_sub_456D5E(pClass40, _this) )
     goto LABEL_12;
   if ( *(_DWORD *)(v2 + 4) )
   {
@@ -7913,7 +7913,7 @@ LABEL_10:
       }
     }
   }
-  if ( !sub_456D5E(pClass40, v3) )
+  if ( !class40_sub_456D5E(pClass40, (ItemGen *)v3) )
   {
     if ( *(_DWORD *)(v3 + 4) )
     {
@@ -7952,17 +7952,17 @@ LABEL_10:
 }
 
 //----- (00456D43) --------------------------------------------------------
-bool __thiscall sub_456D43(void *_this, int a2)
+bool class40_sub_456D43(class40 *_this, ItemGen *pItem)
 {
-  return *((_BYTE *)_this + 48 * *(_DWORD *)a2 + 37) == 3;
+  return *((_BYTE *)_this + 48 * pItem->uItemID + 37) == 3;
 }
 
 //----- (00456D5E) --------------------------------------------------------
-bool __thiscall sub_456D5E(void *_this, int a2)
+bool class40_sub_456D5E(struct class40 *_this, ItemGen *pItem)
 {
   char v2; // al@1
 
-  v2 = *((_BYTE *)_this + 48 * *(_DWORD *)a2 + 37);
+  v2 = *((_BYTE *)_this + 48 * pItem->uItemID + 37);
   return v2 == 3 || v2 == 1 || v2 == 2;
 }
 
@@ -13278,13 +13278,13 @@ void __thiscall sub_467E7F_EquipArmour(unsigned int uEquipType)
   v3 = byte_4E8398[uEquipType];
   v1 = pPlayers[uActiveCharacter - 1];
 
-  v13 = &v1->sEquppedItemIndexes[v3];
+  v13 = &v1->pEquppedItemIndices[v3];
   v2 = *v13;
   v5 = *v13 == 0;
   v12 = *v13;
   if ( v5 )
   {
-    v8 = Player_sub_4925E6(v1);
+    v8 = Player_FindNextFreeInventorySlotIndex(v1);
     if ( v8 >= 0 )
     {
       pParty_global->pickedItem.byte_000018 = v3 + 1;
@@ -13299,7 +13299,7 @@ void __thiscall sub_467E7F_EquipArmour(unsigned int uEquipType)
     v6 = (int)((char *)v1 + 4 * (9 * v2 - 9));
     *(_BYTE *)(v6 + 556) = 0;
     ItemGen_Reset(&pParty_global->pickedItem);
-    sub_4936E1(pParty_global, (ItemGen *)(v6 + 532));
+    Party_sub_4936E1(pParty_global, (ItemGen *)(v6 + 532));
     v7 = v12;
     local_0C.byte_000018 = v3 + 1;
     memcpy((void *)(v6 + 532), &local_0C, 0x24u);

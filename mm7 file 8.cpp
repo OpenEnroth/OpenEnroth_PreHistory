@@ -682,8 +682,8 @@ LABEL_27:
     pParty_global->pPlayers[i].byte_001A4E = v15;
 
 LABEL_45:
-    class40_sub_456620(pClass40, 2, 40, &local_0);
-    Player_sub_492826(&pParty_global->pPlayers[i], -1, &local_0);
+    class40_sub_456620_CreateSomeSemirandomItem(pClass40, 2, 40, &local_0);
+    AddItem(&pParty_global->pPlayers[i], -1, &local_0);
     v16 = 0;
     v30 = 0;
     do
@@ -726,31 +726,31 @@ LABEL_45:
             v20 = 76;
             goto LABEL_69;
           case 12:
-            CreateItemInInventory(&pParty_global->pPlayers[i], -1, 401);
+            AddItem(&pParty_global->pPlayers[i], -1, 401);
             pParty_global->pPlayers[i].cFireSpellbook.bIsSpellbookAvailable = true;
             break;
           case 13:
-            CreateItemInInventory(&pParty_global->pPlayers[i], -1, 412);
+            AddItem(&pParty_global->pPlayers[i], -1, 412);
             pParty_global->pPlayers[i].cAirSpellbook.bIsSpellbookAvailable = true;
             break;
           case 14:
-            CreateItemInInventory(&pParty_global->pPlayers[i], -1, 423);
+            AddItem(&pParty_global->pPlayers[i], -1, 423);
             pParty_global->pPlayers[i].cWaterSpellbook.bIsSpellbookAvailable = true;
             break;
           case 15:
-            CreateItemInInventory(&pParty_global->pPlayers[i], -1, 434);
+            AddItem(&pParty_global->pPlayers[i], -1, 434);
             pParty_global->pPlayers[i].cEarthSpellbook.bIsSpellbookAvailable = true;
             break;
           case 16:
-            CreateItemInInventory(&pParty_global->pPlayers[i], -1, 445);
+            AddItem(&pParty_global->pPlayers[i], -1, 445);
             pParty_global->pPlayers[i].cSpiritSpellbook.bIsSpellbookAvailable = true;
             break;
           case 17:
-            CreateItemInInventory(&pParty_global->pPlayers[i], -1, 456);
+            AddItem(&pParty_global->pPlayers[i], -1, 456);
             pParty_global->pPlayers[i].cMindSpellbook.bIsSpellbookAvailable = true;
             break;
           case 18:
-            CreateItemInInventory(&pParty_global->pPlayers[i], -1, 467);
+            AddItem(&pParty_global->pPlayers[i], -1, 467);
             pParty_global->pPlayers[i].cBodySpellbook.bIsSpellbookAvailable = true;
             break;
           case 21:
@@ -759,7 +759,7 @@ LABEL_45:
           case 26:
           case 29:
           case 36:
-            CreateItemInInventory(&pParty_global->pPlayers[i], -1, 220);
+            AddItem(&pParty_global->pPlayers[i], -1, 220);
             v20 = 5 * (rand() % 3 + 40);
             goto LABEL_69;
           case 30:
@@ -768,7 +768,7 @@ LABEL_45:
           case 31:
             v20 = 110;
 LABEL_69:
-            CreateItemInInventory(&pParty_global->pPlayers[i], -1, v20);
+            AddItem(&pParty_global->pPlayers[i], -1, v20);
             break;
           default:
             break;
@@ -1463,7 +1463,7 @@ LABEL_25:
                         goto LABEL_52;
                       if ( v28 >= 60 )
                       {
-                        LOBYTE(v0) = class40_sub_456620(pClass40, v49, 0, (ItemGen *)v26);
+                        LOBYTE(v0) = class40_sub_456620_CreateSomeSemirandomItem(pClass40, v49, 0, (ItemGen *)v26);
                         goto LABEL_51;
                       }
                       v30 = 0;
@@ -1549,7 +1549,7 @@ LABEL_52:
           *(_DWORD *)v3 = 197;
           goto LABEL_23;
         }
-        LOBYTE(v0) = class40_sub_456620(pClass40, v4, 0, (ItemGen *)v3);
+        LOBYTE(v0) = class40_sub_456620_CreateSomeSemirandomItem(pClass40, v4, 0, (ItemGen *)v3);
         goto LABEL_25;
       }
       LOBYTE(v0) = sub_4505CC((void *)v3);
@@ -4317,7 +4317,7 @@ int class40_sub_456D17(struct class40 *_this, struct ItemGen *a2)
 {
   int result; // eax@1
 
-  result = (int)((char *)_this + 48 * *(_DWORD *)a2);
+  result = (int)&_this->pItems[a2->uItemID];
   if ( *(_BYTE *)(result + 37) == 3 )
   {
     *(_DWORD *)(a2 + 4) = *(_BYTE *)(result + 39);
@@ -5867,7 +5867,7 @@ int __cdecl sub_494035()
       else
       {
         v55 = 0;
-        if ( !sub_43EE77(v9) )
+        if ( !sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(v9) )
         {
           v11 = (int)pPlayers[v9 - 1];
           v12 = (double)Player_GetMaxHealth(pPlayers[v9 - 1]) * 0.10000000000000001;
@@ -8617,7 +8617,7 @@ char __thiscall sub_4086E9(int _this)
   {
     LOBYTE(v4) = *(_BYTE *)(v2 + 56);
     if ( (_BYTE)v4 )
-      LOBYTE(v4) = class40_sub_456620(pClass40, (unsigned __int8)v4, *(_BYTE *)(v2 + 57), (ItemGen *)(v2 + 636));
+      LOBYTE(v4) = class40_sub_456620_CreateSomeSemirandomItem(pClass40, (unsigned __int8)v4, *(_BYTE *)(v2 + 57), (ItemGen *)(v2 + 636));
   }
   *(_BYTE *)(v2 + 38) |= 0x80u;
   return v4;

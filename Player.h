@@ -149,9 +149,9 @@ struct Player
    
    char           array_0001F5[31];
 
-   struct ItemGen   cInventorySlots[126]; // struct[14*9] @ 000214     struct InventorySlot == struct ItemGen
-   char             array_0013CC[432];
-   int              sInventoryIndexes[126]; // dword[14*9] @ 00157C
+   struct ItemGen   cInventorySlots[126];   // struct[14][9] @ 000214
+   struct ItemGen   array_0013CC[12];       // struct[12]    @ 0013CC     probably equipped items
+   int              pInventoryIndices[126]; // dword[14][9]  @ 00157C
    short            sFireResistanceBase;    // word @ 001774
    short            sAirResistanceBase;     // word @ 001776
    short            sWaterResistanceBase;   // word @ 001778
@@ -186,10 +186,10 @@ struct Player
    int              sHealth;           // dword @ 00193C
    int              sMana;             // dword @ 001940
    unsigned int     uBirthYear;        // dword @ 001944
-   int              sEquppedItemIndexes[16]; // dword[16] @ 001948
+   int              pEquppedItemIndices[16]; // dword[16] @ 001948
                                              // 1: right hand
                                              // 3: body, leather armour
-   int              array_001988[65]; // dword[] @ 001988    looks like sEquppedItemIndexes
+   int              array_001988[65]; // dword[] @ 001988    looks like pEquppedItemIndices
 
    char          byte_001A4E;	//spell skill? or school?
    unsigned char uQuickSpell;     // byte  @ 001A4F
@@ -205,7 +205,7 @@ struct Player
    int dword_001AA4;
    int dword_001AA8;
 
-   struct Beacon stBeacons[5]; // dword_001AAC   beacons 5 struct 0x1C size 
+   struct Beacon stBeacons[5]; // struct[5] @ 001AAC   beacons 5 struct 0x1C size 
 
  //  int array_align[7];	  // 001B1C
 
@@ -219,10 +219,14 @@ void Player_RandomizeName(struct Player *_this);
 
 //int __thiscall sub_49024A(int _this, char a2);
 void Player_Reset(struct Player *_this, unsigned int uClass);
+
+//void *__thiscall sub_48C6AF(void *_this);
+void Player_ctor(Player *_this);
+
 //signed int __thiscall Player_sub_48D709(void *_this, int a2, int a3);
 signed int Player_sub_48D709(struct Player *_this, int a2, int a3);
 //bool __thiscall Player_sub_48D6AA(void *_this, int a2);
-bool Player_sub_48D6AA(struct Player *_this, int a2);
+bool Player_sub_48D6AA(struct Player *_this, unsigned int uItemID);
 
 int Player_GetActualStrength(struct Player *_this);
 int Player_GetActualIntelligence(struct Player *_this);
@@ -276,12 +280,18 @@ int Player_GetSex(struct Player *_this);
 bool Player_sub_48E8F5(struct Player *_this, signed int a2);
 signed int Player_sub_48EA46(struct Player *_this, int a2);
 signed int Player_sub_492D65(struct Player *_this, int a2, int a3);
-int CanPlaceItemInInventory(struct Player *_this, signed int a2, int a3);
+
+bool CanPlaceItemInInventory(struct Player *_this, unsigned int uInventorySlot, unsigned int uItemID);
+unsigned int FindPlaceForItemInInventory(struct Player *_this, unsigned int uItemID);
+unsigned int FindPlaceForItemInInventory(struct Player *_this, struct ItemGen *pItem);
+unsigned int AddItem(struct Player *_this, unsigned int uInventorySlot, unsigned int uItemID);
+unsigned int AddItem(struct Player *_this, unsigned int uInventorySlot, struct ItemGen *pItem);
+unsigned int CreateItemInInventory(struct Player *_this, unsigned int uInventorySlot, unsigned int uItemID);
+unsigned int CreateItemInInventory(struct Player *_this, unsigned int uInventorySlot, struct ItemGen *pItem);
 
 signed int __thiscall GetSkillIdxByOrder(struct Player *_this, int Order);
 int Player_GetConditionIdx(struct Player *_this);
 int __thiscall WearItem(void *_this, int a2);
-int __thiscall CreateItemInInventory(struct Player *_this, signed int a2, int itemid);
 int __thiscall sub_49107D(void *_this);
 int Player_sub_48FC00(struct Player *_this, signed int a2);
 
@@ -289,7 +299,6 @@ int Player_sub_48FC00(struct Player *_this, signed int a2);
 int Player_sub_GetAttackRecoveryTime(Player *_this, int a2);
 bool Player_sub_48D6D0(struct Player *_this, int a2);
 signed int Player_sub_48DC1E(struct Player *_this, signed int a2, int a3);
-int Player_sub_492826(struct Player *_this, signed int a2, struct ItemGen *Src);
 
 
 //signed int __thiscall sub_492C0B(int _this);
@@ -297,7 +306,7 @@ bool Player_sub_492C0B_MaybeIfPlayerConscious(struct Player *_this);
 
 int Player_sub_421E75_GetItemAtInventoryIndex(Player *_this, int *a2);
 
-void Player_sub_492A36_RemoveItemFromIndexMatrix(struct Player *_this, int sItemID);
+void Player_sub_492A36_RemoveItemFromIndexMatrix(struct Player *_this, unsigned int uInventorySlot);
 
 
 
@@ -309,13 +318,12 @@ int __thiscall Player_sub_48DBB9(int _this, int a2);
 int __thiscall Player_sub_48E656(int _this);
 int __thiscall Player_sub_48E68F(int _this);
 char __thiscall Player_sub_48F882(Player *_this, signed int a2);
-int Player_sub_49289C(struct Player *_this, int a2, struct ItemGen *sItem);
 __int16 __thiscall Player_PlaySound(struct Player *_this, int a2, int a3);
 __int16 __thiscall Player_sub_494A25(int _this, int a2, int a3);
 bool Player_sub_492C4E(Player *_this, int sItemID);
 //signed int __thiscall sub_492700(int this, signed int a2);
 bool Player_CheckIfHasSkill(Player *_this, unsigned int uSkillType);
-signed int __thiscall Player_sub_4925E6(Player *_this);
+unsigned int Player_FindNextFreeInventorySlotIndex(Player *_this);
 void __thiscall Player_sub_4680ED(Player *_this, signed int a2, int a3);
 int __thiscall Player_sub_490EEE(Player *_this, int a2, int a3, int a4, int a5);
 int __thiscall Player_sub_4910A8(Player *_this);

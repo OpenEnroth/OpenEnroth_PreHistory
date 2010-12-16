@@ -138,7 +138,7 @@ int Party_Reset(struct Party *_this)
   signed int v12; // edi@18
  int i, j;
 
- memset(&_this->qword_00002C, 0, sizeof(struct Party) - 0x2C);
+ //memset(&_this->qword_00002C, 0, sizeof(struct Party) - 0x2C);
 
  
  _this->uEyelevel = 160;
@@ -324,7 +324,7 @@ int Party_AddItem(struct Party *_this, struct ItemGen *a2)
     {
       v10 = (int)((char *)v23 + 6972 * *(&v18 + v7) + 2508);
       v22 = (char *)v23 + 6972 * *(&v18 + v7) + 2508;
-      v9 = CreateItemInInventory((Player *)v22, -1, *(_DWORD *)a2);
+      v9 = AddItem((Player *)v22, -1, *(_DWORD *)a2);
       if ( v9 )
         break;
       ++v7;
@@ -498,8 +498,8 @@ LABEL_10:
     ItemGen_Reset(&local_1C);
     if ( a2 )
     {
-      class40_sub_456620(pClass40, 2, 40, &local_1C);
-      Player_sub_492826(&_this->pPlayers[i], -1, &local_1C);
+      class40_sub_456620_CreateSomeSemirandomItem(pClass40, 2, 40, &local_1C);
+      AddItem(&_this->pPlayers[i], -1, &local_1C);
       v19 = 0;
       do
       {
@@ -570,7 +570,7 @@ LABEL_25:
             case SKILL_DIPLOMACY:
             case SKILL_DISARMTRAP:
             case SKILL_LEARNING:
-              CreateItemInInventory(&_this->pPlayers[i], -1, 220);
+              AddItem(&_this->pPlayers[i], -1, 220);
               v17 = 5 * (rand() % 3 + 40);
               goto LABEL_36;
             case SKILL_DODGING:
@@ -579,7 +579,7 @@ LABEL_25:
             case SKILL_UNARMED:
               v17 = 110;
 LABEL_36:
-              CreateItemInInventory(&_this->pPlayers[i], -1, v17);
+              AddItem(&_this->pPlayers[i], -1, v17);
               break;
             default:
               break;
@@ -641,7 +641,7 @@ void Party_ctor(struct Party *_this)
   }
 
   for (i = 0; i < 4; ++i)
-    sub_48C6AF(&_this->pPlayers[i]);
+    Player_ctor(&_this->pPlayers[i]);
 
   ItemGen_Reset((ItemGen *)(v3 + 0x7754));
   v6 = 636;
@@ -674,25 +674,18 @@ void Party_ctor(struct Party *_this)
   }
   while ( v10 );
 
- sub_491BF9(_this);
+ Party_sub_491BF9_ResetPosMiscAndSpellBuffs(_this);
  _this->flt_01622C = 255.0;
  _this->flt_016230 = 255.0;
  _this->flt_016234 = 255.0;
+
+ pParty_global->pickedItem.uItemID = -1;
 }
 
 
 //----- (00491BF9) --------------------------------------------------------
-void sub_491BF9(struct Party *_this)
+void Party_sub_491BF9_ResetPosMiscAndSpellBuffs(struct Party *_this)
 {
-  int v1; // edi@1
-  int v2; // esi@1
-  int v3; // ebx@2
-  signed int v9; // [sp+8h] [bp-8h]@1
-  signed int v10; // [sp+Ch] [bp-4h]@2
- int i;
-
-  v2 = (int)_this;
-
  _this->sPartyPosX = 0;
  _this->sPartyPosY = 0;
  _this->sPartyPosZ = 0;
@@ -715,23 +708,10 @@ void sub_491BF9(struct Party *_this)
 
  _this->dword_000000 = 25;
 
-  v1 = v2 + 0x216C;
-  v9 = 4;
-  do
-  {
-    v3 = v1;
-    v10 = 24;
-    do
-    {
-      SpellBuff_sub_458585((SpellBuff *)v3);
-      v3 += 16;
-    }
-    while ( v10-- != 1 );
-    v1 += 0x1B3C;
-  }
-  while ( v9-- != 1 );
+ for (unsigned int i = 0; i < 4; ++i)
+   for (unsigned int j = 0; j < 24; ++j)
+     SpellBuff_sub_458585(&_this->pPlayers[i].pPlayerBuffs[j]);
 
-
- for (i = 0; i < 20; ++i)
+ for (unsigned int i = 0; i < 20; ++i)
    SpellBuff_sub_458585(&_this->pPartyBuffs[i]);
 }

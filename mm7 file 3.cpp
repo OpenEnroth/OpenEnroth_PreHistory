@@ -2921,13 +2921,13 @@ bool __fastcall sub_43EE15(int a1, struct Player *pp, char a3) // find item in i
   if (!a3 || pParty_global->pickedItem.uItemID != a1)
   {
     v3 = 0;
-    while ( pp->sInventoryIndexes[v3] <= 0 || pp->cInventorySlots[pp->sInventoryIndexes[v3]].uItemID != a1 ) 
+    while ( pp->pInventoryIndices[v3] <= 0 || pp->cInventorySlots[pp->pInventoryIndices[v3]].uItemID != a1 ) 
     {
       ++v3;
       if ( v3 >= 126 )
       {
         v5 = 0;
-        while ( pp->sEquppedItemIndexes[v5] <= 0 || pp->cInventorySlots[pp->sEquppedItemIndexes[v5]].uItemID != a1 )
+        while ( pp->pEquppedItemIndices[v5] <= 0 || pp->cInventorySlots[pp->pEquppedItemIndices[v5]].uItemID != a1 )
         {
           ++v5;
           if ( v5 >= 16 )
@@ -2941,7 +2941,7 @@ bool __fastcall sub_43EE15(int a1, struct Player *pp, char a3) // find item in i
 }
 
 //----- (0043EE77) --------------------------------------------------------
-char __fastcall sub_43EE77(unsigned int a1)
+char __fastcall sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(unsigned int a1)
 {
   int v1; // edx@3
   int v2; // ecx@3
@@ -2973,7 +2973,7 @@ char __fastcall sub_43EE77(unsigned int a1)
     }
     return 0;
   }
-  if ( !sub_43EE15(604, pPlayers[a1 - 1], 0))
+  if ( !sub_43EE15(603, pPlayers[a1 - 1], 0)) // if not equipping Underwater Suits
     return 0;
   v1 = (int)pPlayers[a1 - 1];
   v3 = *(_DWORD *)(v1 + 0x1954);
@@ -8735,10 +8735,10 @@ LABEL_280:
             v106 = (int)pSomeEVT + v10;
             v105 = *(_BYTE *)(v106 + 7)
                  + ((*(_BYTE *)(v106 + 8) + ((*(_BYTE *)(v106 + 9) + (*(_BYTE *)(v106 + 10) << 8)) << 8)) << 8);
-            class40_sub_456620(pClass40, *(_BYTE *)(v106 + 5), *(_BYTE *)(v106 + 6), &local_50);
+            class40_sub_456620_CreateSomeSemirandomItem(pClass40, *(_BYTE *)(v106 + 5), *(_BYTE *)(v106 + 6), &local_50);
             if ( v105 )
              local_50.uItemID = v105;
-            sub_4936E1(pParty_global, &local_50);
+            Party_sub_4936E1(pParty_global, &local_50);
             goto LABEL_291;
           case 2:
             v107 = *(_BYTE *)(v11 + 5)
@@ -10872,7 +10872,7 @@ LABEL_51:
           ItemGen_Reset(&local_0C);
           local_0C.uItemID = a3;
           local_0C.dword_000014 = 1;
-          sub_4936E1(pParty_global, &local_0C);
+          Party_sub_4936E1(pParty_global, &local_0C);
           if ( a3 >= 500 )
           {
             if ( a3 <= 528 )
@@ -11443,7 +11443,7 @@ LABEL_44:
              local_0C.byte_000019 = local_0C.dword_000010;
             }
           }
-          sub_4936E1(pParty_global, &local_0C);
+          Party_sub_4936E1(pParty_global, &local_0C);
           return;
         case 21:
           sub_420C05(a3, 1);
@@ -13459,7 +13459,7 @@ signed int __fastcall sub_450521(int a1, signed int a2, int a3, signed int a4, i
   v8 = a1;
   v9 = a2;
   sub_404828(&v13);
-  class40_sub_456620(pClass40, v8, v9, &local_2C);
+  class40_sub_456620_CreateSomeSemirandomItem(pClass40, v8, v9, &local_2C);
   v7 = 0;
   v6 = word_5D29F8[24 * local_2C.uItemID];
   v13 = word_5D29F8[24 * local_2C.uItemID];

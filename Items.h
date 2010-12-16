@@ -19,7 +19,7 @@ struct ItemGen
                             // & 0 - draw some way
                             // & 1 - DrawTransparentTexture
                             // & 2 - draw some other way
- char         byte_000018;
+ char         byte_000018;  // 2 == equipped? (probably (right) hand)
  char         byte_000019;
  char         byte_00001A;
  char         byte_00001B;
@@ -147,8 +147,14 @@ char *sub_456D84(struct class40 *_this);
 void class40_LoadPotionsTable(struct class40 *_this);
 //const char *__thiscall sub_453CE5(void *_this)
 void class40_LoadPotionNotes(struct class40 *_this);
-//char __thiscall class40_sub_456620(void *_this, int a2, signed int a3, int Dst);
-char class40_sub_456620(struct class40 *_this, int a2, signed int a3, struct ItemGen *Dst);
+//char __thiscall class40_sub_456620_CreateSomeSemirandomItem(void *_this, int a2, signed int a3, int Dst);
+char class40_sub_456620_CreateSomeSemirandomItem(struct class40 *_this, int a2, signed int a3, struct ItemGen *Dst);
+//bool __thiscall sub_456D5E(void *_this, int a2);
+bool class40_sub_456D5E(struct class40 *_this, ItemGen *pItem);
+//int sub_456D17(struct class40 *_this, struct ItemGen *a2);
+int class40_sub_456D17(struct class40 *_this, struct ItemGen *a2);
+//bool __thiscall sub_456D43(void *_this, int a2);
+bool class40_sub_456D43(class40 *_this, ItemGen *pItem);
 
 
 

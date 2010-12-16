@@ -7693,7 +7693,7 @@ LABEL_35:
 LABEL_54:
       v57 = 0;
       v56 = v8 + 1;
-      v17 = v0->sInventoryIndexes[0];//+ 5500;
+      v17 = v0->pInventoryIndices[0];//+ 5500;
       while ( *(_DWORD *)v17 != v56 )
       {
         ++v57;
@@ -7754,7 +7754,7 @@ LABEL_115:
             {
               if ( v59 != 5 )
               {
-                v19 = CreateItemInInventory((Player *)v0, -1, 220);
+                v19 = AddItem((Player *)v0, -1, 220);
                 if ( v19 )
                   *(_DWORD *)(v0 + 36 * v19 + 516) = 1;
                 v20 = v51 + 50 * v15;
@@ -7776,7 +7776,7 @@ LABEL_74:
                   *(_DWORD *)(v55 + 532) = pParty_global->pickedItem.uItemID;
                 else
                   *(_DWORD *)(v55 + 536) = pParty_global->pickedItem.dword_000004;
-                v21 = CreateItemInInventory((Player *)v0, -1, 220);
+                v21 = AddItem((Player *)v0, -1, 220);
                 if ( v21 )
                   *(_DWORD *)(v0 + 36 * v21 + 516) = 1;
                 goto LABEL_74;
@@ -8916,13 +8916,12 @@ unsigned __int16 SpellBuff_sub_458585(struct SpellBuff *_this)
   int v2; // esi@1
 
   v2 = (int)_this;
-  result = *(_WORD *)(_this + 12);
-  *(_DWORD *)_this = 0;
-  *(_DWORD *)(_this + 4) = 0;
-  *(_WORD *)(_this + 8) = 0;
-  *(_WORD *)(_this + 10) = 0;
-  *(_BYTE *)(_this + 14) = 0;
-  *(_BYTE *)(_this + 15) = 0;
+  result = *(_WORD *)(v2 + 12);
+  _this->qword_000000 = 0;
+  *(_WORD *)(v2 + 8) = 0;
+  *(_WORD *)(v2 + 10) = 0;
+  *(_BYTE *)(v2 + 14) = 0;
+  *(_BYTE *)(v2 + 15) = 0;
   if ( result )
   {
     //result = sub_45855F((void *)(20 * result + 0x5E4D44));
@@ -10750,7 +10749,7 @@ void __thiscall sub_41D895(void *_this)
         else
         {
           v95 = 8;
-          if ( sub_456442(v97) < (unsigned int)(100 * (*((_WORD *)pPlayers[uActiveCharacter - 1] + 109) + 5)) )
+          if ( ItemGen_sub_456442((ItemGen *)v97) < (unsigned int)(100 * (*((_WORD *)pPlayers[uActiveCharacter - 1] + 109) + 5)) )
             v95 = 7;
         }
         if ( dword_4E455C )
@@ -10988,7 +10987,7 @@ LABEL_65:
             FontDrawText(&local_208, (Font *)v94, 100, local_208.uFrameHeight - 2 * *(_BYTE *)(v94 + 5), (char *)TmpBuf, 0, 0, 0);
           }
         }
-        v43 = sub_456442(v97);
+        v43 = ItemGen_sub_456442((ItemGen *)v97);
         wsprintfA((char *)TmpBuf, "%s: %lu", pGlobalTXT_LocalizationStrings[465], v43);
         FontDrawText(&local_208, (Font *)v94, 100, local_208.uFrameHeight - *(_BYTE *)(v94 + 5), (char *)TmpBuf, 0, 0, 0);
         v42 = *(_DWORD *)(v97 + 20);
@@ -13343,7 +13342,7 @@ void __cdecl sub_420E01()
       }
       else
       {
-        sub_4936E1(pParty_global, &array_5E5150[v0].array_000004[v5]);
+        Party_sub_4936E1(pParty_global, &array_5E5150[v0].array_000004[v5]);
       }
       sub_420B13(v5, v3);
     }
@@ -13382,12 +13381,20 @@ signed int __cdecl sub_421B2C()
   int v23; // [sp+78h] [bp-4h]@5
  int i;
 
-  if (pParty_global->pickedItem.uItemID)
-  {
-   v1 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 * pParty_global->pickedItem.uItemID].pIconName, 2);
+ if (pParty_global->pickedItem.uItemID)
+ {
+#ifdef OLD_CODE
+  v1 = LODFile_Icons_LOD.LODFile_LoadTexture((char *)pClass40->pItems[pParty_global->pickedItem.uItemID].pIconName, 2);
+#else
+  wchar_t pTextureNameW[256];
+  wsprintfW(pTextureNameW, L"S", pClass40->pItems[pParty_global->pickedItem.uItemID].pIconName);
+
+  v1 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pTextureNameW);
+#endif
+
     v0 = v1 != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[v1]  : 0;
     v22 = bTextureLoading;
-    if ( uActiveCharacter && (v2 = CreateItemInInventory(pPlayers[uActiveCharacter - 1], -1, pParty_global->pickedItem.uItemID)) != 0 )
+    if ( uActiveCharacter && (v2 = AddItem(pPlayers[uActiveCharacter - 1], -1, pParty_global->pickedItem.uItemID)) != 0 )
     {
      memcpy(&pPlayers[uActiveCharacter - 1]->cInventorySlots[v2], &pParty_global->pickedItem, sizeof(struct ItemGen));
     }
@@ -13397,7 +13404,7 @@ signed int __cdecl sub_421B2C()
       i = 0;
       while ( 1 )
       {
-        v4 = CreateItemInInventory(&pParty_global->pPlayers[i++], -1, pParty_global->pickedItem.uItemID);
+        v4 = AddItem(&pParty_global->pPlayers[i++], -1, pParty_global->pickedItem.uItemID);
         if ( v4 )
           break;
         ++v23;
@@ -13462,9 +13469,9 @@ void GameUI_OnPlayerPortraitLeftClick(unsigned int uCharacter)
  Player *v4; // ecx@5
 
  //if we are placing item on a portrait
-  if (pParty_global->pickedItem.uItemID)
+  if (pParty_global->pickedItem.uItemID != -1)
   {
-    v2 = CreateItemInInventory(pPlayers[uCharacter - 1], -1, pParty_global->pickedItem.uItemID);
+    v2 = AddItem(pPlayers[uCharacter - 1], -1, pParty_global->pickedItem.uItemID);
     v3 = pPlayers[uCharacter - 1];
     if (v2)
     {
@@ -13553,18 +13560,19 @@ int Player_sub_421E75_GetItemAtInventoryIndex(Player *_this, int *a2)
 {
   if ( *a2 >= 126 || *a2 < 0 )
     return 0;
-  else
-  {
-   int result;
 
-    result = _this->sInventoryIndexes[*a2];
+ return _this->pInventoryIndices[*a2];
+
+   /*int result;
+
+    result = _this->pInventoryIndices[*a2] & 0x7FFFFFFF;
     if ( result < 0 )
     {
       *a2 = -1 - result;
-      return _this->sInventoryIndexes[-1 - result];
+      return _this->pInventoryIndices[-1 - result];
     }
-    return result;
-  }
+    return result;*/
+
 }
 
 //----- (00421EA6) -------------------.text:00422608 -------------------------------------
@@ -13588,7 +13596,7 @@ void __cdecl sub_421EA6_OnInventoryLeftClick()
   POINT v12; // [sp+30h] [bp-18h]@4
   int v14; // [sp+38h] [bp-10h]@13
   //int v15; // [sp+3Ch] [bp-Ch]@2
-  int v16; // [sp+40h] [bp-8h]@2
+  //int v16; // [sp+40h] [bp-8h]@2
   int v17; // [sp+44h] [bp-4h]@2
 
   int pointX, pointY;
@@ -13599,13 +13607,11 @@ void __cdecl sub_421EA6_OnInventoryLeftClick()
   {
     GUICursor_GetMouseClickPos(pGame->pGUICursor, &pointX, &pointY);
 
-	pointX -= 17;
-	pointY -= 14;
   //  v2 = v15 - 17;
  //   v3 = v16 - 14;
     //v15 = v2;
     //v16 = v3;
-	v1 = v5 = (pointX / 32 ) * 14 + pointY / 32;
+	v1 = v5 = (pointX - 14) / 32 + 14 * ((pointY - 17) / 32);
   //  v4 = 14 * (v2 >> 5);  
  //   v3 >>= 5;
   //  v5 = v3 + v4 < 0;
@@ -13642,26 +13648,26 @@ void __cdecl sub_421EA6_OnInventoryLeftClick()
           return;
         v8 = pParty_global->pickedItem.uItemID;
         v7 = Player_sub_421E75_GetItemAtInventoryIndex(v0, &v17);
-        if ( !v8 )
+        if (v8 == -1) // picking item
         {
-          if ( !v7 )
+          if (v7 == -1)
             return;
-          memcpy(&pParty_global->pickedItem, &v0->cInventorySlots[v7 - 1], sizeof(struct ItemGen));
+          memcpy(&pParty_global->pickedItem, &v0->cInventorySlots[v7], sizeof(struct ItemGen));
           Player_sub_492A36_RemoveItemFromIndexMatrix(v0, v17);
           v9 = pParty_global->pickedItem.uItemID;
           goto LABEL_24;
         }
         v14 = v7;
-        if ( v7 )
+        if ( v7 != -1) // replacing item
         {
-          v12.y = (int)((char *)v0 + 36 * v7 + 496);
-          memcpy(&local_0C, (void *)v12.y, 0x24u);
-          Player_sub_492A36_RemoveItemFromIndexMatrix((struct Player *)v0, v17);
-          v16 = Player_sub_492826((Player *)v0, v17, &pParty_global->pickedItem);
-          if ( !v16 )
+          v12.y = (int)&v0->cInventorySlots[v7];
+          memcpy(&local_0C, (void *)v12.y, sizeof(ItemGen));
+          Player_sub_492A36_RemoveItemFromIndexMatrix(v0, v17);
+          v10 = AddItem((Player *)v0, v17, &pParty_global->pickedItem);
+          if (v10 == -1)
           {
-            v16 = Player_sub_492826((Player *)v0, -1, &pParty_global->pickedItem);
-            if ( !v16 )
+            v10 = AddItem((Player *)v0, -1, &pParty_global->pickedItem);
+            if (v10 == -1)
             {
               sub_49298B(v0, &local_0C, v14 - 1, v17);
               memcpy((void *)v12.y, &local_0C, sizeof(struct ItemGen));
@@ -13674,11 +13680,14 @@ LABEL_24:
           GUICursor_SetCursorBitmap(pGame->pGUICursor, (char *)pClass40->pItems[v9].pIconName);
           return;
         }
-        v10 = CreateItemInInventory((Player *)v0, v17, v8);
-        v16 = v10;
-        if ( v10 || (v10 = CreateItemInInventory((Player *)v0, -1, pParty_global->pickedItem.uItemID), v16 = v10, v10) )
+          // placing item
+        v10 = AddItem(v0, v17, v8);
+        if (v10 == -1)
+          v10 = AddItem(v0, -1, v8);
+
+        if (v10 != -1)
         {
-          memcpy((char *)v0 + 36 * v10 + 496, &pParty_global->pickedItem, sizeof(struct ItemGen));
+          memcpy(&v0->cInventorySlots[v10], &pParty_global->pickedItem, sizeof(struct ItemGen));
           GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
         }
       }
@@ -13782,7 +13791,7 @@ void __cdecl sub_42213C()
         if ( *(_DWORD *)v23 == 455 )
           sub_449B7E((int)pParty_global->unk_000764 + 1, 185, 1);
         if ( !Party_AddItem(pParty_global, (ItemGen *)v23) )
-          sub_4936E1(pParty_global, (ItemGen *)v23);
+          Party_sub_4936E1(pParty_global, (ItemGen *)v23);
       }
       sub_42F933(v37);
       return;

@@ -170,7 +170,7 @@ struct BaseRender
  unsigned int                uClipRectX;          // dword @ 0400F8
  unsigned int                uClipRectW;          // dword @ 0400FC
  unsigned int                uClipRectZ;          // dword @ 040100
- int                         dword_040104;
+ int                         dword_040104;  // bool:  if clip against the above
  int                         dword_040108;
  unsigned int                uD3D3SceneBegun;     // dword @ 04010C
  int                         dword_040110;
@@ -304,7 +304,7 @@ int __thiscall Render_sub_4A52F1(int _this, int a2, float a3);
 void __thiscall Render_sub_4A63E6(int _this, int a2, int a3, int a4, int a5, int a6, int a7, int a8);
 void __thiscall Render_sub_4A65CC(int _this, int a2, int a3, int a4, int a5, int a6, int a7, int a8);
 void __thiscall Render_sub_4A6776(struct BaseRender* _this, int a2, int a3, cTexture *a4);
-void __thiscall Render_sub_4A68EF(struct BaseRender* _this, int a2, int a3, cTexture *a4);
+void __thiscall Render_DrawTransparentGreenChannel(struct BaseRender* _this, unsigned int uOutX, unsigned int uOutY, cTexture *pTexture);
 void __thiscall Render_sub_4A6A68(void *_this, int a2, int a3, int a4, __int16 a5);
 void __thiscall Render_sub_4A601E(struct BaseRender* _this, int a2, int a3, cTexture *a4, int a5);
 

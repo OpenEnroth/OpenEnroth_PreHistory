@@ -949,9 +949,9 @@ void __cdecl sub_468F8A_OnPaperdollLeftClick()
   v55 = 0;
   ItemGen_Reset(&local_0C);
   v1 = pPlayers[uActiveCharacter - 1];
-  v0 = v1->sEquppedItemIndexes[1];
-  v2 = v1->sEquppedItemIndexes[0];
-  v58 = v1->sEquppedItemIndexes[0];
+  v0 = v1->pEquppedItemIndices[1];
+  v2 = v1->pEquppedItemIndices[0];
+  v58 = v1->pEquppedItemIndices[0];
   v57 = v0;
   if ( v0 )
   {
@@ -1007,22 +1007,22 @@ LABEL_16:
       case 11:
         if ( !Player_CheckIfHasSkill(v1, v4) )
           goto LABEL_8;
-        if ( sub_43EE77(uActiveCharacter) && (v6 != (void *)EQUIP_ARMOUR || byte_6BE3C4_MaybeDrowningFlag) )
+        if ( sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(uActiveCharacter) && (v6 != (void *)EQUIP_ARMOUR || byte_6BE3C4_MaybeDrowningFlag) )
           goto LABEL_95;
         sub_467E7F_EquipArmour((unsigned int)v6);
         if (pParty_global->pickedItem.uItemID == 604)
           sub_43F0BD(uActiveCharacter);
         return;
       case 10:
-        if ( sub_43EE77(uActiveCharacter) )
+        if ( sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(uActiveCharacter) )
           goto LABEL_95;
         v56 = 10;
-        v7 = (int)&v1->sEquppedItemIndexes[10];
+        v7 = (int)&v1->pEquppedItemIndices[10];
         while ( 1 )
         {
           if ( !*(_DWORD *)v7 )
           {
-            v8 = Player_sub_4925E6(v1);
+            v8 = Player_FindNextFreeInventorySlotIndex(v1);
             if ( v8 >= 0 )
               break;
           }
@@ -1034,26 +1034,26 @@ LABEL_16:
         v9 = v56;
         pParty_global->pickedItem.byte_000018 = v56 + 1;
         memcpy(&v1->cInventorySlots[v8], &pParty_global->pickedItem.uItemID, sizeof(struct ItemGen));
-        v1->sEquppedItemIndexes[v9] = v8 + 1;
+        v1->pEquppedItemIndices[v9] = v8 + 1;
         GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
 LABEL_33:
         if ( v56 == 16 )
         {
-          v56 = v1->sEquppedItemIndexes[15] - 1;
+          v56 = v1->pEquppedItemIndices[15] - 1;
           memcpy(&local_0C, &pParty_global->pickedItem.uItemID, sizeof(struct ItemGen));
           v1->cInventorySlots[v56].byte_000018 = 0;
           //*(_BYTE *)(v10 + 556) = 0;
           ItemGen_Reset(&pParty_global->pickedItem);
-          //sub_4936E1(pParty_global, (ItemGen *)(v10 + 532));
-          sub_4936E1(pParty_global, &v1->cInventorySlots[v56]);
+          //Party_sub_4936E1(pParty_global, (ItemGen *)(v10 + 532));
+          Party_sub_4936E1(pParty_global, &v1->cInventorySlots[v56]);
           local_0C.byte_000018 = 16;
           v11 = v56 + 1;
           memcpy(&v1->cInventorySlots[v56], &local_0C, sizeof(struct ItemGen));
-          v1->sEquppedItemIndexes[15] = v11;
+          v1->pEquppedItemIndices[15] = v11;
         }
         return;
       case 4:
-        if ( sub_43EE77(uActiveCharacter) )
+        if ( sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(uActiveCharacter) )
           goto LABEL_95;
         if ( !Player_CheckIfHasSkill(v1, v4) )
           goto LABEL_8;
@@ -1063,19 +1063,19 @@ LABEL_33:
           memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
           v1->cInventorySlots[v58].byte_000018 = 0;
           ItemGen_Reset(&pParty_global->pickedItem);
-          sub_4936E1(pParty_global, &v1->cInventorySlots[v58]);
+          Party_sub_4936E1(pParty_global, &v1->cInventorySlots[v58]);
           local_0C.byte_000018 = 1;
           v13 = v58 + 1;
           v14 = v55 == 0;
           memcpy(&v1->cInventorySlots[v58], &local_0C, sizeof(struct ItemGen));
-          v1->sEquppedItemIndexes[0] = v13;
+          v1->pEquppedItemIndices[0] = v13;
           if ( v14 )
             return;
         }
         else
         {
          compile_error; // v1 pointer mess
-          v56 = Player_sub_4925E6(v1);
+          v56 = Player_FindNextFreeInventorySlotIndex(v1);
           if ( v56 < 0 )
             return;
           if ( !v55 )
@@ -1087,9 +1087,9 @@ LABEL_33:
             goto LABEL_45;
           }
           memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
-          v1->cInventorySlots[v57 - 1].byte_000018 = 0;
+          v1->cInventorySlots[v57].byte_000018 = 0;
           ItemGen_Reset(&pParty_global->pickedItem);
-          sub_4936E1(pParty_global, &v1->cInventorySlots[v57 - 1]);
+          Party_sub_4936E1(pParty_global, &v1->cInventorySlots[v57]);
           local_0C.byte_000018 = 1;
           v16 = v56 + 1;
           memcpy((void *)(v1 + 36 * v56 + 532), &local_0C, sizeof(struct ItemGen));
@@ -1101,8 +1101,11 @@ LABEL_33:
 
       case EQUIP_HAND:
       case 12:
-        if ( sub_43EE77(uActiveCharacter) && pParty_global->pickedItem.uItemID != 63 && pParty_global->pickedItem.uItemID != 64)
-          goto LABEL_95;
+        if (sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(uActiveCharacter) &&
+            pParty_global->pickedItem.uItemID != 63 &&
+            pParty_global->pickedItem.uItemID != 64)
+          goto LABEL_95;  // when wearing Underwater Suit, we can equip only blasters?
+
         if (!Player_CheckIfHasSkill(v1, v4))
           goto LABEL_8;
         v54 = 0;
@@ -1131,7 +1134,7 @@ LABEL_33:
 
                 v1->cInventorySlots[v58].byte_000018 = 0;
                 ItemGen_Reset(&pParty_global->pickedItem);
-                sub_4936E1(pParty_global, &v1->cInventorySlots[v58]);
+                Party_sub_4936E1(pParty_global, &v1->cInventorySlots[v58]);
                 local_0C.byte_000018 = 1;
                 v21 = v58 + 1;
                 v22 = v56 == 12;
@@ -1144,7 +1147,7 @@ LABEL_73:
                 v54 = v23;
                 goto LABEL_74;
               }
-              v24 = Player_sub_4925E6(v1);
+              v24 = Player_FindNextFreeInventorySlotIndex(v1);
               if ( v24 < 0 )
                 return;
               pParty_global->pickedItem.byte_000018 = 1;
@@ -1160,15 +1163,15 @@ LABEL_71:
             }
           }
         }
-        if ( !v57 )
+        if (v57 == -1)
         {
-          v28 = Player_sub_4925E6(v1);
-          if ( v28 < 0 )
+          v28 = Player_FindNextFreeInventorySlotIndex(v1);
+          if (v28 == -1)
             return;
           pParty_global->pickedItem.byte_000018 = 2;
-          v54 = (int)v1 + 36 * v28 + 532;
+          v54 = (int)&v1->cInventorySlots[v28];
           memcpy(&v1->cInventorySlots[v28], &pParty_global->pickedItem, sizeof(struct ItemGen));
-          v1->sEquppedItemIndexes[1] = v28 + 1;
+          v1->pEquppedItemIndices[1] = v28;
           goto LABEL_71;
         }
         --v57;
@@ -1176,7 +1179,7 @@ LABEL_71:
 
         v1->cInventorySlots[v57].byte_000018 = 0;
         ItemGen_Reset(&pParty_global->pickedItem);
-        sub_4936E1(pParty_global, &v1->cInventorySlots[v57]);
+        Party_sub_4936E1(pParty_global, &v1->cInventorySlots[v57]);
         local_0C.byte_000018 = 2;
         v26 = v57 + 1;
         v27 = v56 == 12;
@@ -1192,7 +1195,7 @@ LABEL_74:
         break;
       case 1:
          compile_error; // v1 pointer mess
-        if ( sub_43EE77(uActiveCharacter) )
+        if ( sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(uActiveCharacter) )
           goto LABEL_95;
         if ( !Player_CheckIfHasSkill(v1, v4) )
           goto LABEL_8;
@@ -1213,7 +1216,7 @@ LABEL_74:
           memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
           v1->cInventorySlots[v57].byte_000018 = 0;
           ItemGen_Reset(&pParty_global->pickedItem);
-          sub_4936E1(pParty_global, &v1->cInventorySlots[v57]);
+          Party_sub_4936E1(pParty_global, &v1->cInventorySlots[v57]);
           local_0C.byte_000018 = 2;
           v30 = v57 + 1;
           memcpy(&v1->cInventorySlots[v57], &local_0C, sizeof(struct ItemGen));
@@ -1221,7 +1224,7 @@ LABEL_74:
         }
         else
         {
-          v56 = Player_sub_4925E6(v1);
+          v56 = Player_FindNextFreeInventorySlotIndex(v1);
           if ( v56 >= 0 )
           {
             if ( v58 )
@@ -1229,7 +1232,7 @@ LABEL_74:
               memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
               v1->cInventorySlots[v58 - 1].byte_000018 = 0;
               ItemGen_Reset(&pParty_global->pickedItem);
-              sub_4936E1(pParty_global, &v1->cInventorySlots[v58 - 1]);
+              Party_sub_4936E1(pParty_global, &v1->cInventorySlots[v58 - 1]);
               local_0C.byte_000018 = 2;
               v32 = v56 + 1;
               memcpy(&v1->cInventorySlots[v56], &local_0C, sizeof(struct ItemGen));
@@ -1269,12 +1272,12 @@ LABEL_45:
   v36 = v35 + dword_5059A8[v34];
   if ( !(pD3DRenderer->pActiveZBuffer[v36] & 0xFFFF))
   {
-    v37 = *(_DWORD *)(v1 + 6480);
-    if ( v37 )
+    v37 = v1->pEquppedItemIndices[2];
+    if (v1->pEquppedItemIndices[2] != -1)
     {
-      sub_4936E1(pParty_global, (ItemGen *)(v1 + 36 * v37 + 496));
-      ItemGen_Reset((ItemGen *)(v1 + 36 * *(_DWORD *)(v1 + 6480) + 496));
-      *(_DWORD *)(v1 + 6480) = 0;
+     Party_sub_4936E1(pParty_global, &v1->cInventorySlots[v37]);
+     ItemGen_Reset(&v1->cInventorySlots[v1->pEquppedItemIndices[2]]);
+     v1->pEquppedItemIndices[2] = -1;
     }
     return;
   }
@@ -1282,8 +1285,8 @@ LABEL_45:
 
   v54 = (int)v1 + 36 * v39;
 
-  v41 = v1->cInventorySlots[v39].uItemID == 604;
-  v56 = pClass40->pItems[v1->cInventorySlots[v39].uItemID - 1].uEquipType;
+  v41 = v1->cInventorySlots[v39].uItemID == 603;
+  v56 = pClass40->pItems[v1->cInventorySlots[v39].uItemID].uEquipType;
   if ( v41 )
   {
     if ( byte_6BE3C4_MaybeDrowningFlag )
@@ -1324,7 +1327,7 @@ LABEL_96:
   {
     if ( !ptr_50C9A4 )
     {
-      sub_4936E1(pParty_global, &v1->cInventorySlots[v39]);
+      Party_sub_4936E1(pParty_global, &v1->cInventorySlots[v39]);
       *(_DWORD *)(v1 + 4 * *(_BYTE *)(v54 + 556) + 0x1944) = 0;
       ItemGen_Reset(&v1->cInventorySlots[v39]);
     }
@@ -1332,7 +1335,7 @@ LABEL_96:
 }
 
 //----- (004698D8) --------------------------------------------------------
-void __stdcall sub_4698D8(int a1)
+void __stdcall SetCursorBitmapFromItemID(int a1)
 {
   GUICursor_SetCursorBitmap(pGame->pGUICursor, (char *)pClass40->pItems[a1].pIconName);
 }
@@ -1560,15 +1563,15 @@ void GUICursor_sub_469EA4_LooksLikeDrawPickedItem(struct GUICursor *_this)
   unsigned int uDrawAtX,
                uDrawAtY;
 
-  if (pParty_global->pickedItem.uItemID)
-  {
+ if (pParty_global->pickedItem.uItemID != -1)
+ {
 #ifdef OLD_CODE
-   v3 = LODFile_Icons_LOD.LODFile_LoadTexture((char *)pClass40->pItems[pParty_global->pickedItem.uItemID].pIconName, 2);
+  v3 = LODFile_Icons_LOD.LODFile_LoadTexture((char *)pClass40->pItems[pParty_global->pickedItem.uItemID].pIconName, 2);
 #else
-   wchar_t pTextureNameW[256];
-   wsprintfW(pTextureNameW, L"%S", pClass40->pItems[pParty_global->pickedItem.uItemID].pIconName);
+  wchar_t pTextureNameW[256];
+  wsprintfW(pTextureNameW, L"%S", pClass40->pItems[pParty_global->pickedItem.uItemID].pIconName);
 
-   v3 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pTextureNameW);
+  v3 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pTextureNameW);
 #endif
 
     v2 = v3 != -1 ? /*72 * v3 + 7145548*/ &LODFile_Icons_LOD.aLODHeaders[v3] : 0;
@@ -1657,7 +1660,7 @@ void GUICursor_sub_469EA4_LooksLikeDrawPickedItem(struct GUICursor *_this)
           Render_sub_4A6776(pD3DRenderer, uDrawAtX, uDrawAtY, v2);
         else if (pParty_global->pickedItem.dword_000014 & 1)
           Render_DrawTransparentTexture(pD3DRenderer, uDrawAtX, uDrawAtY, v2);
-        else Render_sub_4A68EF(pD3DRenderer, uDrawAtX, uDrawAtY, v2);
+        else Render_DrawTransparentGreenChannel(pD3DRenderer, uDrawAtX, uDrawAtY, v2);
       }
     }
   }
@@ -1904,7 +1907,7 @@ char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
         if ( *(_DWORD *)v20 == 455 )
           sub_449B7E((int)pParty_global->unk_000764 + 1, 185, 1);
         if ( !Party_AddItem(pParty_global, (ItemGen *)v20))
-          sub_4936E1(pParty_global, (ItemGen *)v20);
+          Party_sub_4936E1(pParty_global, (ItemGen *)v20);
         v21 = (int)v29;
       }
       sub_42F933(v21);
@@ -17638,7 +17641,7 @@ LABEL_14:
   {
     if ( v9 == 4 )
     {
-      if ( sub_43EE77(0) )
+      if ( sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(0) )
       {
         dword_6BD07C = 1;
         strcpy(a4, "out15.odm");
@@ -18730,15 +18733,15 @@ signed int __thiscall sub_48B5B3(void *_this, int a2)
 }
 
 //----- (0048C6AF) --------------------------------------------------------
-void *__thiscall sub_48C6AF(void *_this)
+void Player_ctor(Player *_this)
 {
-  signed int v1; // ebx@1
-  int v2; // edi@1
-  void *v3; // esi@1
+  //signed int v1; // ebx@1
+  //int v2; // edi@1
+  //void *v3; // esi@1
   int v4; // eax@3
   signed int v5; // edx@3
 
-  v3 = _this;
+  /*v3 = _this;
   v1 = 138;
   v2 = (int)((char *)_this + 532);
   do
@@ -18747,8 +18750,20 @@ void *__thiscall sub_48C6AF(void *_this)
     v2 += 36;
     --v1;
   }
-  while ( v1 );
-  v4 = (int)((char *)v3 + 6048);
+  while ( v1 );*/
+ for (unsigned int i = 0; i < 126; ++i)
+ {
+  _this->pInventoryIndices[i] = -1;
+  ItemGen_Reset(&_this->cInventorySlots[i]);
+ }
+ 
+ for (unsigned int i = 0; i < 12; ++i)
+   ItemGen_Reset(&_this->array_0013CC[i]);
+ 
+ for (unsigned int i = 0; i < 16; ++i)
+   _this->pEquppedItemIndices[i] = -1;
+
+  v4 = (int)((char *)_this + 0x17A0);
   v5 = 24;
   do
   {
@@ -18762,5 +18777,23 @@ void *__thiscall sub_48C6AF(void *_this)
     --v5;
   }
   while ( v5 );
-  return v3;
+
+ _this->uQuickSpell = 0;
+
+ _this->uBirthYear = 0;
+ _this->sAgeModifier = 0;
+
+ _this->uLevelBase = 0;
+ _this->uLevelModifier = 0;
+
+ _this->sHealth = _this->sMana = 0;
+
+ _this->sAirResistanceBase = _this->sAirResistanceBonus = 0;
+ _this->sFireResistanceBase = _this->sFireResistanceBonus = 0;
+ _this->sWaterResistanceBase = _this->sWaterResistanceBonus = 0;
+ _this->sEarthResistanceBase = _this->sEarthResistanceBonus = 0;
+
+ _this->sBodyResistanceBase = _this->sBodyResistanceBonus = 0;
+ _this->sMindResistanceBase = _this->sMindResistanceBonus = 0;
+ _this->sSpiritResistanceBase = _this->sSpiritResistanceBonus = 0;
 }
