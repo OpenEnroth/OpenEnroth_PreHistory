@@ -13387,7 +13387,7 @@ signed int __cdecl sub_421B2C()
   v1 = LODFile_Icons_LOD.LODFile_LoadTexture((char *)pClass40->pItems[pParty_global->pickedItem.uItemID].pIconName, 2);
 #else
   wchar_t pTextureNameW[256];
-  wsprintfW(pTextureNameW, L"S", pClass40->pItems[pParty_global->pickedItem.uItemID].pIconName);
+  wsprintfW(pTextureNameW, L"%S", pClass40->pItems[pParty_global->pickedItem.uItemID].pIconName);
 
   v1 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pTextureNameW);
 #endif
