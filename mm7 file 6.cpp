@@ -1805,7 +1805,7 @@ signed int __stdcall sub_4910D3(int a1)
   int v7; // eax@7
   signed int v9; // [sp-4h] [bp-14h]@2
 
-  LOBYTE(v1) = Player_sub_48F882(pPlayers[uActiveCharacter - 1], 21);
+  LOBYTE(v1) = Player_sub_48F882(pPlayers[uActiveCharacter], 21);
   v2 = v1;
   if ( HIBYTE(v1) & 1 )
   {
@@ -11708,11 +11708,9 @@ void Render_DrawTextureToZBuffer(struct BaseRender *_this, unsigned int uOutX, u
   int v20; // [sp+Ch] [bp-Ch]@3
   int v21; // [sp+10h] [bp-8h]@3
   int v22; // [sp+20h] [bp+8h]@21
-#ifdef OLD_CODE
-  unsigned char *pTexturePixels;
-#else
+
   unsigned int *pTexturePixels; // [sp+24h] [bp+Ch]@3
-#endif
+
   int *v24; // [sp+28h] [bp+10h]@3
 
   if (!_this->bSceneBegun || !pTexture)
@@ -11721,11 +11719,9 @@ void Render_DrawTextureToZBuffer(struct BaseRender *_this, unsigned int uOutX, u
       v6 = uOutY;
       v7 = pTexture->uTextureHeight;
       v24 = _this->pActiveZBuffer + (uOutX + 640 * uOutY);
-#ifdef OLD_CODE
-      pTexturePixels = pTexture->pIndexedPixels;
-#else
+
       pTexturePixels = pTexture->pTruecolorPixels;
-#endif
+
       v8 = pTexture->uTextureWidth;
       v21 = pTexture->uTextureWidth;
       v20 = pTexture->uTextureWidth;
@@ -11782,11 +11778,9 @@ void Render_DrawTextureToZBuffer(struct BaseRender *_this, unsigned int uOutX, u
             v18 = v8;
             do
             {
-#ifdef OLD_CODE
+
              if (*pTexturePixels++)
-#else
-             if (*pTexturePixels++ & 0xFF000000)
-#endif
+
                 *v24 = sZValue;
               v24++;
               --v18;

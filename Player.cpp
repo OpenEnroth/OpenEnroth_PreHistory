@@ -2168,7 +2168,7 @@ bool Player_SetRecoveryTime(struct Player *_this, int sRecoveryTime)
  if (v2 > _this->uTimeToRecovery)
    _this->uTimeToRecovery = v2;
 
-  if (pPlayers[uActiveCharacter - 1] == _this)
+  if (pPlayers[uActiveCharacter] == _this)
   {
     if ( !dword_50C0C4 )
       uActiveCharacter = Party_sub_49370F(pParty_global);
@@ -3226,7 +3226,7 @@ unsigned int FindPlaceForItemInInventory(struct Player *_this, unsigned int uIte
   if ( !bTextureLoading )
   {
    runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
-   //cTexture_Free(v4);
+    cTexture_Free(v4);
     LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
 
@@ -3284,7 +3284,8 @@ bool CanPlaceItemInInventory(struct Player *_this, unsigned int uInventorySlot, 
   if ( !bTextureLoading )
   {
    runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
-   //cTexture_Free(v4);
+   if  (v4>=0)
+    cTexture_Free(v4);
     LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
 
@@ -3342,7 +3343,8 @@ unsigned int FindPlaceForItemInInventory(struct Player *_this, ItemGen *pItem)
   if ( !bTextureLoading )
   {
    runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
-   //cTexture_Free(v4);
+   if  (v4>=0)
+     cTexture_Free(v4);
     LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
 
@@ -3470,7 +3472,8 @@ unsigned int CreateItemInInventory(struct Player *_this, unsigned int uInventory
     if ( !bTextureLoading )
     {
      runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
-      //cTexture_Free(v7);
+	 if  (v6>=0)
+      cTexture_Free(v6);
       LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
 
@@ -3542,7 +3545,7 @@ unsigned int CreateItemInInventory(struct Player *_this, unsigned int uInventory
   if ( v13 == -1 )
   {
     if ( uActiveCharacter )
-      Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
+      Player_PlaySound(pPlayers[uActiveCharacter], 15, 0);
     result = 0;
   }
   else
@@ -3563,7 +3566,8 @@ unsigned int CreateItemInInventory(struct Player *_this, unsigned int uInventory
     if ( !bTextureLoading )
     {
      runtime_warning("When texture is unavailable, -1 index is returned. Then, here -1 index overwrites the LODFile containing the textures");
-      //cTexture_Free(v7);
+	 if  (v7>=0)
+      cTexture_Free(v7);
       LODFile_Icons_LOD.LODFile_sub_40F9C5();
     }
 

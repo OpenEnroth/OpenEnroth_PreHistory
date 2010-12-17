@@ -9462,7 +9462,7 @@ LABEL_70:
           v65 = 0;
           v63 = 64;
 LABEL_76:
-          Player_PlaySound(pPlayers[uActiveCharacter - 1], v63, v65);
+          Player_PlaySound(pPlayers[uActiveCharacter], v63, v65);
         }
         break;
       case 9:

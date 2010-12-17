@@ -5674,10 +5674,10 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
       pParty_global->pPartyBuffs[SPELLBUFF_FEATHERFALL].dword_000004 <= 0 && pParty_global->pPartyBuffs[SPELLBUFF_FEATHERFALL].byte_000000 <= 0)
   {
     v96 = 0;
-    v111 = 1;
-    while ( !Player_sub_48D709(pPlayers[v111++ - 1], 536, 16) )
+    v111 = 0;
+    while ( !Player_sub_48D709(pPlayers[v111++], 536, 16) )
     {
-      if ( v111 > 4)
+      if ( v111 > 3)
         goto LABEL_9;
     }
   }
@@ -6026,7 +6026,7 @@ LABEL_9:
           v87 = 0;
           v85 = 64;
 LABEL_105:
-          Player_PlaySound(pPlayers[uActiveCharacter - 1], v85, v87);
+          Player_PlaySound(pPlayers[uActiveCharacter], v85, v87);
         }
         break;
 
@@ -11518,7 +11518,7 @@ LABEL_679:
         v359 = 1;
         do
         {
-          v360 = (int)pPlayers[v359 - 1];
+          v360 = (int)pPlayers[v359];
           if ( !*(_QWORD *)(v360 + 112) )
           {
             if ( !*(_QWORD *)(v360 + 120) )

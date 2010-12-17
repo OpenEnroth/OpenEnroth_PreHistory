@@ -5045,7 +5045,7 @@ void sub_410B28(int _this)	//spell info
   int v20; // [sp+6Ch] [bp-8h]@4
   int v21; // [sp+70h] [bp-4h]@4
 
-  v1 = pPlayers[uActiveCharacter - 1];
+  v1 = pPlayers[uActiveCharacter];
   v17 = _this;
   v2 = (int)&pSpellStats->pSpellInfos[1 + (v17 + 11 * v1->byte_001A4E)]; //v17 + 11 * v1->byte_001A4E)]; //36 * (_DWORD)((char *)_this + 11 * v1->byte_001A4E) + 6078548;
   if ( *(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v18) + 4) <= 250 )
@@ -5161,7 +5161,7 @@ int __fastcall sub_411300(int a1)
 
   byte_506550 = 0;
   v3 = a1;
-  v2 = (int)pPlayers[uActiveCharacter - 1];
+  v2 = (int)pPlayers[uActiveCharacter];
   v1 = *(_BYTE *)(v2 + 6735);
   if ( v1 && (unsigned __int8)v1 / 11 == v3 )
     dword_50654C = (unsigned __int8)v1 - 11 * v3;
@@ -5291,7 +5291,7 @@ int __thiscall sub_411621(void *_this)
   int v6; // [sp+10h] [bp-8h]@1
   int v7; // [sp+14h] [bp-4h]@1
 
-  v2 = (int)pPlayers[uActiveCharacter - 1];
+  v2 = (int)pPlayers[uActiveCharacter];
   v3 = (int)_this;
   sub_411300(*(_BYTE *)(v2 + 6734));
   v1 = 0;
@@ -5859,7 +5859,7 @@ void __cdecl sub_412B58()
   int v24; // [sp+18h] [bp-8h]@13
 
   sub_412AF9();
-  v0 = (int)pPlayers[uActiveCharacter - 1];
+  v0 = (int)pPlayers[uActiveCharacter];
   v1 = 11 * *(_BYTE *)(v0 + 6734);
   v4 = LODFile_Icons_LOD.LODFile_sub_40F9F0( "Pending");
   v2 = v4 != -1 ? 72 * v4 + 7145548 : 0;
@@ -7452,7 +7452,7 @@ void __cdecl sub_416196()
 
   if ( !dword_50CDCC )
   {
-    v0 = pPlayers[uActiveCharacter - 1];
+    v0 = pPlayers[uActiveCharacter];
     pXY = GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v54);
 		
 	v58 = pD3DRenderer->pActiveZBuffer[pXY->x + dword_5059A8[pXY->y]] & 0xFFFF;
@@ -8045,11 +8045,11 @@ void __thiscall sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(int _this)
   {
     if ( dword_4E28F8 == 10 )
     {
-      if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter - 1]) )
+      if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter]) )
       {
         wsprintfA((char *)TmpBuf,
           (char *)pGlobalTXT_LocalizationStrings[LOCSTR_IS_IN_NO_COND],
-          (char *)pPlayers[uActiveCharacter - 1]->sName,
+          (char *)pPlayers[uActiveCharacter]->sName,
           pGlobalTXT_LocalizationStrings[LOCSTR_IDENT_ITEM]);
         local_04.ptr_000048 = TmpBuf;
         local_04.uFrameWidth = 384;
@@ -8432,9 +8432,9 @@ void __thiscall OnMouseLeftClick(void *_this)
             {
               if ( v5 < 33554432 )
               {
-                if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter - 1]) )
+                if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter]) )
                 {
-                  if ( Player_sub_492C40(pPlayers[uActiveCharacter - 1]) )
+                  if ( Player_sub_492C40(pPlayers[uActiveCharacter]) )
                   {
                  /*   if ( dword_50CBD0[0] < 40 )
                     {
@@ -8953,7 +8953,7 @@ int __cdecl sub_419100()
   int i; // [sp+10h] [bp-4h]@10
  struct Player *pPlayer;
 
-  pPlayer = pPlayers[uActiveCharacter - 1];
+  pPlayer = pPlayers[uActiveCharacter];
   memset(&stru_5C3610, 0, sizeof(unnamed_5C3610));
   memset(pStringBuffer, 0, 0x7D0u);
   v0 = 0;
@@ -9430,10 +9430,10 @@ void  QuickRefDraw()
     v2 = &pParty_global->pPlayers[v43];
     v44 = 94 * v43 + 89;
     if ( v43 == 0 )
-      GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, 18, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_NAME], 60, v0);
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 94 * v43 + 89, 18, v47, (const char *)v2->sName, 84, v0);
+      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, 18, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_NAME], 60, 0);
+    GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 94 * v43 + 89, 18, v47, (const char *)v2->sName, 84, v0);
     if ( v43 == 0 )
-      GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, 47, v0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_LEVEL], 60, v0);
+      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, 47, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_LEVEL], 60, 0);
     v3 = Player_GetActualLevel(v2);
     wsprintfA((char *)TmpBuf, "%lu", v3);
     v4 = Player_GetBaseLevel(v2);
@@ -9441,67 +9441,67 @@ void  QuickRefDraw()
       v5 = Player_sub_48D498((int)v2);
     else
       v5 = 0x00FF00;
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, 47, v5, (char *)TmpBuf, 84, v0);
+    GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, 47, v5, (char *)TmpBuf, 84, 0);
     v6 = v45 + 47;
     if ( v43 == 0 )
-      GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v45 + 47, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_CLASS], 60, v0);
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v6, 0, (char *)aClassNames[v2->uClass], 84, v0);
+      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v45 + 47, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_CLASS], 60, 0);
+    GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v6, 0, (char *)aClassNames[v2->uClass], 84, v0);
 
     v7 = v45 + v6;
     if ( v43 == 0 )
-      GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v7, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_HP], 60, v0);
+      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v7, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_HP], 60, 0);
     wsprintfA((char *)TmpBuf, "%d", v2->sHealth);
     v9 = Player_GetMaxHealth(v2);
     v10 = sub_4178FE_GetColor(v2->sHealth, v9);
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v7, v10, (char *)TmpBuf, 84, v0);
+    GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v7, v10, (char *)TmpBuf, 84, 0);
     v8 = v45 + v7;
     if ( v43 == 0 )
-      GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v8, 0, (char *)pGlobalTXT_LocalizationStrings[209], 60, v0);
+      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v8, 0, (char *)pGlobalTXT_LocalizationStrings[209], 60, 0);
     wsprintfA((char *)TmpBuf, "%d", v2->sMana);
     v12 = Player_GetMaxMana(v2);
     v13 = sub_4178FE_GetColor(v2->sMana, v12);
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v8, v13, (char *)TmpBuf, 84, v0);
+    GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v8, v13, (char *)TmpBuf, 84, 0);
     v11 = v45 + v8;
     if ( v43 == 0 )
-      GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v11, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_AC], 60, v0);
+      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v11, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_AC], 60, 0);
     v15 = Player_sub_48E68F((int)v2);
     wsprintfA((char *)TmpBuf, "%d", v15);
     v16 = v0;
     v17 = Player_sub_48E656((int)v2);
     v18 = Player_sub_48E68F((int)v2);
     v19 = sub_4178FE_GetColor(v18, v17);
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v11, v19, (char *)TmpBuf, 84, v16);
+    GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v11, v19, (char *)TmpBuf, 84, 0);
     v0 = 0;
     v14 = v45 + v11;
     if ( v43 == 0 )
-      GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v14, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_ATTACK], 60, 0);
+      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v14, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_ATTACK], 60, 0);
 
     v21 = sub_48CCF5((int)v2, 0);
     //wsprintfA((char *)TmpBuf, "%+d", v21);
 	StringCbPrintf((char *)TmpBuf,20,"%+d",  v21);
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v14, 0, (char *)TmpBuf, 84, 0);
+    GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v14, 0, (char *)TmpBuf, 84, 0);
     v20 = v45 + v14;
     if ( v43 == 0)
-      GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v20, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_DMG], 60, 0);
+      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v20, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_DMG], 60, 0);
 
     v23 = sub_48D2EA((int)v2);
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v20, 0, v23, 84, 0);
+    GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v20, 0, v23, 84, 0);
     v22 = v45 + v20;
     if ( v43 == 0 )
-      GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v22, 0, (char *)pGlobalTXT_LocalizationStrings[203], 60, 0);
+      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v22, 0, (char *)pGlobalTXT_LocalizationStrings[203], 60, 0);
 
     v25 = Player_sub_48D0B9((int)v2);
       //wsprintfA((char *)TmpBuf,"%+d",  v25);
 	StringCbPrintf((char *)TmpBuf,20,"%+d",  v25);
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v22, 0, (char *)TmpBuf, 84, 0);
+    GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v22, 0, (char *)TmpBuf, 84, 0);
     v24 = v45 + v22;
     if ( v43 == 0 )
-      GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v24, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_DMG], 60, 0);
+      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v24, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_DMG], 60, 0);
     v27 = Player_sub_48D396((int)v2);
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v24, 0, v27, 84, 0);
+    GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v24, 0, v27, 84, 0);
     v26 = v45 + v24;
     if (v43 == 0 )
-      GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v26, 0, (char *)pGlobalTXT_LocalizationStrings[205], 60, 0);
+      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v26, 0, (char *)pGlobalTXT_LocalizationStrings[205], 60, 0);
     v30 = 0;
    // v28 = v2 + 264;
   //  v29 = 36;
@@ -9512,31 +9512,31 @@ void  QuickRefDraw()
     }
    
     wsprintfA((char *)TmpBuf, "%lu", v30);
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v26, 0, (char *)TmpBuf, 84, 0);
+    GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v26, 0, (char *)TmpBuf, 84, 0);
     v31 = v45 + v26;
     if (v43 == 0 )
-      GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v31, 0, (char *)pGlobalTXT_LocalizationStrings[168], 60, 0);
+      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v31, 0, (char *)pGlobalTXT_LocalizationStrings[168], 60, 0);
     wsprintfA((char *)TmpBuf, "%lu", v2->uSkillPoints);
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v31, v2->uSkillPoints != 0 ? v46 : 0, (char *)TmpBuf, 84, 0);
+    GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v31, v2->uSkillPoints != 0 ? v46 : 0, (char *)TmpBuf, 84, 0);
     v32 = v45 + v31;
     v48 = Player_GetConditionIdx(v2);
     if ( !v43 )
-      GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v32, 0, (char *)pGlobalTXT_LocalizationStrings[45], 60, 0);
+      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v32, 0, (char *)pGlobalTXT_LocalizationStrings[45], 60, 0);
     //v34 = (&dword_AE3280)[4 * v48];
     v34 = (char *)aCharacterConditionNames[v48];
 
     v35 = sub_417939(v48);
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v32, v35, v34, 84, 0);
+    GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v32, v35, v34, 84, 0);
     v33 = v45 + v32;
     if ( v43 == 0 )
-      GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, 22, v33, 0, (char *)pGlobalTXT_LocalizationStrings[170], 60, 0);
+      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v33, 0, (char *)pGlobalTXT_LocalizationStrings[170], 60, 0);
     v36 = v2->uQuickSpell;
     if ( v36 )
       //v37 = (&dword_5CC034)[36 * v36];
       v37 = (char *)pSpellStats->pSpellInfos[v36].pSpellNameShort;
     else
       v37 = (char *)pGlobalTXT_LocalizationStrings[153];
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontArrus, v44, v33, 0, v37, 84, 0);
+    GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu,pFontArrus, v44, v33, 0, v37, 84, 0);
     ++v43;
   }
   while ( v43 < 4 );
@@ -10754,14 +10754,14 @@ void __thiscall sub_41D895(void *_this)
         }
         if ( dword_4E455C )
         {
-          Player_PlaySound(pPlayers[uActiveCharacter - 1], v95, 0);
+          Player_PlaySound(pPlayers[uActiveCharacter], v95, 0);
           dword_4E455C = 0;
         }
       }
       sub_458260(v97, pParty_global->qword_00002C);
       if ( v91.y )
       {
-        v14 = Player_sub_491151(pPlayers[uActiveCharacter - 1], v97) == 1;
+        v14 = Player_sub_491151(pPlayers[uActiveCharacter], v97) == 1;
         v13 = v97;
         if ( v14 )
           *(_DWORD *)(v97 + 20) = *(_DWORD *)(v97 + 20) & 0xFFFFFFFD | 1;
@@ -10773,7 +10773,7 @@ void __thiscall sub_41D895(void *_this)
           sub_44C175((char *)pGlobalTXT_LocalizationStrings[448], 2);
         if ( dword_4E455C )
         {
-          Player_PlaySound(pPlayers[uActiveCharacter - 1], v95, 0);
+          Player_PlaySound(pPlayers[uActiveCharacter], v95, 0);
           dword_4E455C = 0;
         }
       }
@@ -11506,7 +11506,7 @@ LABEL_59:
     v44 = 1;
     goto LABEL_84;
   }
-  LOBYTE(v39) = Player_sub_48F882(pPlayers[uActiveCharacter - 1], 32);
+  LOBYTE(v39) = Player_sub_48F882(pPlayers[uActiveCharacter], 32);
   v142 = v39;
   if ( v39 )
   {
@@ -11574,7 +11574,7 @@ LABEL_73:
       {
         if ( v142 )
         {
-          v46 = (int)pPlayers[uActiveCharacter - 1];
+          v46 = (int)pPlayers[uActiveCharacter];
           if ( v141 | v138 | i | (unsigned int)v134 )
           {
             if ( *(_BYTE *)(v143 + 52) >= *(_WORD *)(v46 + 218) - 5 )
@@ -12542,7 +12542,7 @@ LABEL_8:
     if ( v23 == v4 )
     {
       if ( uActiveCharacter )
-        Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
+        Player_PlaySound(pPlayers[uActiveCharacter], 15, 0);
       return 0;
     }
     v10 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[*v3].pIconName, 2);
@@ -12874,7 +12874,7 @@ signed int __fastcall sub_42041E(int a1)
   v2 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   if ( !(*v1 & 1) || !v2 )
     goto LABEL_12;
-  if ( Player_sub_4912B0(pPlayers[uActiveCharacter - 1]) < 2 * pMapStats->pMapInfos[v2].byte_00002C)
+  if ( Player_sub_4912B0(pPlayers[uActiveCharacter]) < 2 * pMapStats->pMapInfos[v2].byte_00002C)
   {
     v44 = 811;
     v45 = 812;
@@ -13008,7 +13008,7 @@ LABEL_12:
   if ( X )
   {
     if ( !dword_507CD8 )
-      Player_PlaySound(pPlayers[uActiveCharacter - 1], 4, 0);
+      Player_PlaySound(pPlayers[uActiveCharacter], 4, 0);
   }
   dword_507CD8 = 0;
   v4 = (int)GUIWindowCreate(0, 0, 640, 480, 20, (GUIButton*)v54, 0);
@@ -13396,7 +13396,7 @@ signed int __cdecl sub_421B2C()
     v22 = bTextureLoading;
     if ( uActiveCharacter && (v2 = AddItem(pPlayers[uActiveCharacter - 1], -1, pParty_global->pickedItem.uItemID)) != 0 )
     {
-     memcpy(&pPlayers[uActiveCharacter - 1]->cInventorySlots[v2], &pParty_global->pickedItem, sizeof(struct ItemGen));
+     memcpy(&pPlayers[uActiveCharacter]->cInventorySlots[v2], &pParty_global->pickedItem, sizeof(struct ItemGen));
     }
     else
     {
@@ -13484,9 +13484,9 @@ void GameUI_OnPlayerPortraitLeftClick(unsigned int uCharacter)
       v4 = pPlayers[uCharacter - 1];
     else
     {
-      if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter - 1]) )
+      if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter]) )
         goto LABEL_9;
-      v4 = pPlayers[uActiveCharacter - 1];
+      v4 = pPlayers[uActiveCharacter];
     }
     Player_PlaySound(v4, 15, 0);
   }
@@ -13602,7 +13602,7 @@ void __cdecl sub_421EA6_OnInventoryLeftClick()
   int pointX, pointY;
 
   ItemGen_Reset(&local_0C);
-  v0 = pPlayers[uActiveCharacter - 1];
+  v0 = pPlayers[uActiveCharacter];
   if ( dword_506F48 == 103 )
   {
     GUICursor_GetMouseClickPos(pGame->pGUICursor, &pointX, &pointY);
@@ -13959,7 +13959,7 @@ LABEL_42:
       return;
     }
     if ( uActiveCharacter)
-		if( sub_427769(pPlayers[uActiveCharacter - 1]->uQuickSpell)) 
+		if( sub_427769(pPlayers[uActiveCharacter]->uQuickSpell)) 
     {
 /*      dword_50CBD0[3 * dword_50CBD0[0] + 1] = 25;
 LABEL_41:

@@ -679,6 +679,7 @@ unsigned int uInStrLen,i;
                 v16 = pFont->array_000C20[c] + (int)&pFont->unk_001020;
                 if ( !v21 )
                   v17 = 0xFFFFFFFF;
+				v17|=0xFF000000;
                 Render_DrawText(pD3DRenderer, v8, a4, (unsigned char *)v16, pFont->fw_table[c].letterW, pFont->uFontHeight, pFont->pFontPalette, v17, 0);
                 v8 +=  pFont->fw_table[c].letterW;
                 if (i <uInStrLen )
@@ -831,10 +832,10 @@ void __fastcall sub_44D0B5(struct Font *a1, int a2, int a3, int a4, const char *
 
 
 //----- (0044CB4F) -----------.text:0044DB6F  ---------------------------------------------
-int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, int a5, const char *Str1, signed int Source, int a8)
-{
+int GUIWindow_sub_44CB4F(GUIWindow *a1, Font *a2, signed int a3, int a4, int a5, const char *Str1, signed int Source, int a8)
+{					//	 window			 font			   x         Y		color		   str			  widht			 reverse flag
   int v8; // ebx@1
-  int v9; // edi@1
+ // int v9; // edi@1
   signed int v11; // esi@3
   unsigned __int8 v12; // cl@7
   int v13; // ebx@19
@@ -853,7 +854,7 @@ int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, int a
   char v26; // [sp+Fh] [bp-1Dh]@34
   char v27; // [sp+11h] [bp-1Bh]@35
   int v28; // [sp+20h] [bp-Ch]@17
-  int v29; // [sp+24h] [bp-8h]@1
+//  int v29; // [sp+24h] [bp-8h]@1
   size_t v30; // [sp+28h] [bp-4h]@1
   int i; // [sp+40h] [bp+14h]@5
   int v32; // [sp+40h] [bp+14h]@19
@@ -861,13 +862,13 @@ int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, int a
   int v34; // [sp+48h] [bp+1Ch]@26
 
   //a5;//colored or white text flag
-  v9 = a2;
-  v29 = a1;
+ // v9 = a2;
+ // v29 = a1;
   v30 = strlen(Str1);
-  v8 = GetStringWidth((Font *)v9, Str1);
+  v8 = GetStringWidth(a2, Str1);
   if ( v8 < Source )
   {
-    FontDrawText((GUIWindow *)v29, (Font *)v9, a3, a4, Str1, 0xFFFFFF, 0, 0);
+    FontDrawText(a1, a2, a3, a4, Str1, a5, 0, 0);
     return v8;
   }
   strcpy((char *)pStringBuffer, Str1);
@@ -878,7 +879,7 @@ int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, int a
   {
     if ( v11 >= Source )
       break;
-    if (v12 = test_char((unsigned char)pStringBuffer[i], (Font *)v9) )
+    if (v12 = test_char((unsigned char)pStringBuffer[i], a2) )
     {
       if ( v12 < 9u )
         goto LABEL_12;
@@ -894,10 +895,10 @@ int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, int a
           {
 LABEL_12:
             if ( i > 0 )
-              v11 += *(_DWORD *)(v9 + 12 * v12 + 32);
-            v11 += *(_DWORD *)(v9 + 4 * (3 * v12 + 9));
+              v11 += a2->fw_table[v12].preWidth;
+            v11 += a2->fw_table[v12].letterW;
             if ( i < (signed int)v30 )
-              v11 += *(_DWORD *)(v9 + 12 * v12 + 40);
+              v11 += a2->fw_table[v12].postWidth;
             continue;
           }
         }
@@ -906,18 +907,19 @@ LABEL_12:
   }
   byte_5C657F[i] = 0;
   v30 = strlen((char *)pStringBuffer);
-  v28 = GetStringWidth((Font *)v9, (char *)pStringBuffer);
+  v28 = GetStringWidth(a2, (char *)pStringBuffer);
   if ( a8 )
     _strrev((char *)pStringBuffer);
   v32 = 0;
-  v14 = a3 + *(_DWORD *)v29;
-  v13 = a4 + *(_DWORD *)(v29 + 4);
+  v14 = a3 + a1->uFrameX;
+  v13 = a4 + a1->uFrameY;
+  v17|=0xFF000000;
   if ( (signed int)v30 > 0 )
   {
     v33 = (char *)(char *)pStringBuffer + 1;
     do
     {
-      if ( v15 = test_char((unsigned char)pStringBuffer[v32], (Font *)v9) )
+      if ( v15 = test_char((unsigned char)pStringBuffer[v32], a2) )
       {
         v16 = v15;
         v17 = v15 - 9;
@@ -936,25 +938,26 @@ LABEL_12:
                 v32 += 3;
                 v33 += 3;
                 v22 = atoi(Dest);
-                v23 = GetStringWidth((Font *)v9, (char *)&pStringBuffer[v32]);
-                v14 = *(_DWORD *)(v29 + 16) - v23 - v22;
+                v23 = GetStringWidth(a2, (char *)&pStringBuffer[v32]);
+                v14 = a1->uFrameZ - v23 - v22;
                 v13 = a4;
               }
               else
               {
-                v20 = *(_DWORD *)(v9 + 4 * (3 * v16 + 9));
-                v34 = *(_DWORD *)(v9 + 4 * (3 * v16 + 9));
+             //   v20 = *(_DWORD *)(v9 + 4 * (3 * v16 + 9));
+              //  v34 = *(_DWORD *)(v9 + 4 * (3 * v16 + 9));
                 if ( v32 > 0 )
-                  v14 += *(_DWORD *)(v9 + 12 * v16 + 32);
-                v21 = *(_DWORD *)(v9 + 4 * v16 + 3104) + v9 + 4128;
+                  v14 += a2->fw_table[v16].preWidth;//*(_DWORD *)(v9 + 12 * v16 + 32);
+                v21 =a2->array_000C20[v16] + (int)&a2->unk_001020;// *(_DWORD *)(v9 + 4 * v16 + 3104) + v9 + 4128;
                 //if ( a5 )
-                  Render_DrawText(pD3DRenderer, v14, v13, (unsigned char *)v21, v20, *(_BYTE *)(v9 + 5), (unsigned short *)*(_DWORD *)(v9 + 12), a5, 0);
+                  Render_DrawText(pD3DRenderer, v14, v13, (unsigned char *)v21,  a2->fw_table[v16].letterW, a2->uFontHeight, a2->pFontPalette, a5, 0);
                 /*else
                   sub_4A6AB1(pD3DRenderer, v14, v13, v21, v20, *(_BYTE *)(v9 + 5), *(_DWORD *)(v9 + 12), 0);*/
                 //sub_4A6AB1 is obsolete, replaces with Render_DrawText
-                v14 += v34;
+                v14 += a2->fw_table[v16].letterW;
                 if ( v32 < (signed int)v30 )
-                  v14 += *(_DWORD *)(v9 + 12 * (unsigned __int8)(char *)pStringBuffer[v32] + 40);
+					v14 += a2->fw_table[v16].postWidth;
+                 // v14 += *(_DWORD *)(v9 + 12 * (unsigned __int8)(char *)pStringBuffer[v32] + 40);
               }
             }
             else
@@ -968,7 +971,7 @@ LABEL_12:
           }
           else
           {
-            v24 = *(_BYTE *)(v9 + 5);
+            v24 =a2->uFontHeight;
             v14 = a3;
             a4 = a4 + v24 - 3;
             v13 = v24 + a4 - 3;

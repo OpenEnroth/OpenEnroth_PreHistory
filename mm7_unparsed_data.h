@@ -2309,7 +2309,7 @@ extern char byte_A75074[40]; // idb
 extern char byte_A7509C[40]; // idb
 
 //extern struct Player *ptr_A750C4;   //pPlayers[-1] indexing
-extern struct Player *pPlayers[4]; // ptr[4] @ MM7.exe::00A750C8
+extern struct Player *pPlayers[5]; // ptr[4] @ MM7.exe::00A750C8
 //int dword_A750CC; // weak
 //int dword_A750D0; // weak
 //extern int dword_A750D4; // looks like pPlayers[5] indexing

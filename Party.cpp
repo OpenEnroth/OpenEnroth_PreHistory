@@ -297,7 +297,7 @@ int Party_AddItem(struct Party *_this, struct ItemGen *a2)
   v20 = 2;
   if ( uActiveCharacter )
   {
-    v4 = uActiveCharacter - 1;
+    v4 = uActiveCharacter;
     v3 = 0;
     do
     {

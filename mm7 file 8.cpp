@@ -6187,7 +6187,7 @@ LABEL_137:
   {
     if ( dword_4E28F8 != 5 )
     {
-      result = (int)pPlayers[uActiveCharacter - 1];
+      result = (int)pPlayers[uActiveCharacter];
       if ( *(_QWORD *)(result + 16)
         || *(_QWORD *)(result + 96)
         || *(_QWORD *)(result + 104)

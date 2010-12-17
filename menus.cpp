@@ -657,7 +657,7 @@ LABEL_23:
 
     v22 = (char *)&saves_hdr[dword_6A0CA0_indx].name1;
     v23 = AlignText_Center(186, (const char *)&saves_hdr[dword_6A0CA0_indx].name1, pFontSmallnum);
-    GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontSmallnum, v23 + 25, 262, 0, v22, 185, 0);
+    GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontSmallnum, v23 + 25, 262, 0, v22, 185, 0);
 
     v24 = (char *)pGlobalTXT_LocalizationStrings[LOCSTR_PLEASE_WAIT];
     v25 = AlignText_Center(186, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_PLEASE_WAIT], pFontSmallnum);
@@ -679,11 +679,11 @@ LABEL_23:
       v38 = v39 == dword_6A0CA0_indx ? 0xFFFF64  : 0;
       if ( pGUIWindow_CurrentMenu->dword_000040 != 1 || v39 != dword_6A0CA0_indx )
       {
-        GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontSmallnum, 27, v40, v38,(char*)&saves_hdr[v39].name1, 185, 0);
+        GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontSmallnum, 27, v40, v38,(char*)&saves_hdr[v39].name1, 185, 0);
       }
       else
       {
-        v27 = GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontSmallnum, 27, v40, v38, (char *)pKeyboardController->pPressedKeysBuffer, 175, 1);
+        v27 = GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontSmallnum, 27, v40, v38, (char *)pKeyboardController->pPressedKeysBuffer, 175, 1);
         GUIWindow_sub_459C2B(pGUIWindow_CurrentMenu, v27 + 27, v40, (int)pFontSmallnum);
       }
       v40 += 21;
@@ -1058,7 +1058,7 @@ int __fastcall SaveGame(int a1, int a2)
 
       v41 = (char *)&saves_hdr[dword_6A0CA0_indx].name1;
       v6 = AlignText_Center(186, (const char *)&saves_hdr[dword_6A0CA0_indx].name1, pFontSmallnum);
-      GUIWindow_sub_44CB4F((int)pGUIWindow_CurrentMenu, (int)pFontSmallnum, v6 + 25, 259, 0, v41, 185, 0);
+      GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontSmallnum, v6 + 25, 259, 0, v41, 185, 0);
       v40 = (char *)pGlobalTXT_LocalizationStrings[LOCSTR_PLEASE_WAIT];
       v7 = AlignText_Center(186, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_PLEASE_WAIT], pFontSmallnum);
       FontDrawText(pGUIWindow_CurrentMenu, pFontSmallnum, v7 + 25, 299, v40, 0, 0, 0);
@@ -1461,7 +1461,7 @@ void __cdecl sub_4B6943()
   v2 = (int)ptr_507BC0;
   memcpy(&local_208, ptr_507BC0, sizeof(GUIWindow));
   v1 = 255;
-  v72 = pPlayers[uActiveCharacter - 1];
+  v72 = pPlayers[uActiveCharacter];
   v3 = v72;
   local_208.uFrameX = 483;
   local_208.uFrameWidth = 148;

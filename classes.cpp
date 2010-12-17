@@ -735,8 +735,8 @@ void GUICursor_SetCursorBitmap(struct GUICursor *_this, const char *pSource)
   _this->dword_000014[0] = 1;
   _this->dword_000004 = 1;
   if (!bTextureLoading)
-  {
-   cTexture_Free((cTexture *)(*(_DWORD *)(_this + 36) != -1 ? 72 * *(_DWORD *)(_this + 36) + 7145548 : 0));
+  {						  
+   cTexture_Free(_this->uCursorTextureID != -1 ? &LODFile_Icons_LOD.aLODHeaders[_this->uCursorTextureID] : 0);
    LODFile_Icons_LOD.LODFile_sub_40F9C5();
   }
   return;

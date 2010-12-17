@@ -51,7 +51,7 @@ void FontDrawText(struct GUIWindow *_this, struct Font *pFont, unsigned int uX, 
 
 struct Font *__cdecl sub_44C448(const char *pFontName, const char *pFontPalette);
 
-int __fastcall GUIWindow_sub_44CB4F(int a1, int a2, signed int a3, int a4, int a5, const char *Str1, signed int Source, int a8);
+int  GUIWindow_sub_44CB4F(GUIWindow *a1, Font *a2, signed int a3, int a4, int a5, const char *Str1, signed int Source, int a8);
 
 __int16 __fastcall sub_40F845(int a1, int a2, int a3, int a4, int a5, __int16 a6, int a7);
 

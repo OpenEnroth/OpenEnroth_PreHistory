@@ -2028,7 +2028,7 @@ unsigned int uTextureIdx_PlayerFaceDead;       // dword @ MM7.exe::00A74CE8
  char byte_A7509C[40]; // idb
 
 //struct Player *ptr_A750C4;   //pPlayers[-1] indexing	 0
-struct Player *pPlayers[4]; // ptr[4] @ MM7.exe::00A750C8 1
+struct Player *pPlayers[5]; // ptr[4] @ MM7.exe::00A750C8 1
 //int dword_A750CC; // weak								  2
 //int dword_A750D0; // weak								  3
 //int dword_A750D4; // looks like pPlayers[5] indexing	  4	   points to the end of Players[4], used in *pPlayers++ loops to stop

@@ -2975,7 +2975,7 @@ char __fastcall sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(unsigned int a1)
   }
   if ( !sub_43EE15(603, pPlayers[a1 - 1], 0)) // if not equipping Underwater Suits
     return 0;
-  v1 = (int)pPlayers[a1 - 1];
+  v1 = (int)pPlayers[a1];
   v3 = *(_DWORD *)(v1 + 0x1954);
   if(!v3)
     return 0;
@@ -5977,7 +5977,7 @@ LABEL_20:
     if ( uActiveCharacter )
     {
       if ( pParty_global->dword_007778 & 0x30 )
-        Player_PlaySound(pPlayers[uActiveCharacter - 1], 47, 0);
+        Player_PlaySound(pPlayers[uActiveCharacter], 47, 0);
     }
   }
   result = v23;
@@ -7110,7 +7110,7 @@ LABEL_17:
           v14 = 23;  // good evening
         else
           v14 = 22;  // good day
-        result = Player_PlaySound(pPlayers[uActiveCharacter - 1], v14, 0);
+        result = Player_PlaySound(pPlayers[uActiveCharacter], v14, 0);
       }
     }
   }
@@ -7317,7 +7317,7 @@ LABEL_10:
       wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[414], v2, aAMPMNames[v8], v9, aAMPMNames[v7]);
       sub_44C175((char *)TmpBuf, 2);
       if ( uActiveCharacter )
-        Player_PlaySound(pPlayers[uActiveCharacter - 1], 3, 0);
+        Player_PlaySound(pPlayers[uActiveCharacter], 3, 0);
       return 0;
     }
   }
@@ -7405,7 +7405,7 @@ LABEL_39:
     {
       v20 = word_4F0704[2 * v10] - 1;
       v19 = v10;
-      if ( !((unsigned __int8)(0x80u >> v20 % 8) & *(_BYTE *)pPlayers[uActiveCharacter - 1] + (v20 >> 3) + 338)) 
+      if ( !((unsigned __int8)(0x80u >> v20 % 8) & *(_BYTE *)pPlayers[uActiveCharacter] + (v20 >> 3) + 338)) 
       {
         sub_4B1E92(v10, 3);
         v17 = 1;
@@ -7879,7 +7879,7 @@ LABEL_28:
             {
               if ( v131 == 4 )
               {
-                v24 = *((_WORD *)pPlayers[uActiveCharacter - 1] + v11[5] + 132);
+                v24 = *((_WORD *)pPlayers[uActiveCharacter] + v11[5] + 132);
               }
               else
               {
@@ -8154,7 +8154,7 @@ LABEL_47:
             {
               v121 = 0;
               v117 = *(_BYTE *)(v11 + 6);
-              v55 = (int)pPlayers[uActiveCharacter - 1];
+              v55 = (int)pPlayers[uActiveCharacter];
               goto LABEL_109;
             }
             if ( v53 != 5 )
@@ -8192,7 +8192,7 @@ LABEL_291:
             {
               v122 = 0;
               v118 = *(_BYTE *)(v11 + 6);
-              v59 = pPlayers[uActiveCharacter - 1];
+              v59 = pPlayers[uActiveCharacter];
               goto LABEL_120;
             }
             if ( v57 != 5 )
@@ -8259,7 +8259,7 @@ LABEL_129:
             {
               if ( uActiveCharacter )
               {
-                v6 = (int *)pPlayers[uActiveCharacter - 1];
+                v6 = (int *)pPlayers[uActiveCharacter];
                 goto LABEL_138;
               }
             }
@@ -8299,7 +8299,7 @@ LABEL_140:
                 goto LABEL_291;
               }
               v68 = 0;
-              v69 = pPlayers[uActiveCharacter - 1];
+              v69 = pPlayers[uActiveCharacter];
               v70 = (int)((char *)v69 + 5500);
               do
               {
@@ -8383,7 +8383,7 @@ LABEL_183:
                 }
                 if ( uActiveCharacter )
                 {
-                  v6 = (int *)pPlayers[uActiveCharacter - 1];
+                  v6 = (int *)pPlayers[uActiveCharacter];
                   goto LABEL_182;
                 }
 LABEL_180:
@@ -8420,7 +8420,7 @@ LABEL_197:
                 }
                 if ( uActiveCharacter )
                 {
-                  v6 = (int *)pPlayers[uActiveCharacter - 1];
+                  v6 = (int *)pPlayers[uActiveCharacter];
                   goto LABEL_196;
                 }
 LABEL_194:
@@ -8459,7 +8459,7 @@ LABEL_211:
                 }
                 if ( uActiveCharacter )
                 {
-                  v6 = (int *)pPlayers[uActiveCharacter - 1];;
+                  v6 = (int *)pPlayers[uActiveCharacter];;
                   goto LABEL_210;
                 }
 LABEL_208:
@@ -8545,7 +8545,7 @@ LABEL_131:
               if ( !uActiveCharacter )
                 goto LABEL_291;
               v123 = *(_BYTE *)(v11 + 6);
-              v91 = (int)pPlayers[uActiveCharacter - 1];
+              v91 = (int)pPlayers[uActiveCharacter];
               v119 = *(_BYTE *)(v11 + 7)
                    + ((*(_BYTE *)(v11 + 8) + ((*(_BYTE *)(v11 + 9) + (*(_BYTE *)(v11 + 10) << 8)) << 8)) << 8);
               goto LABEL_234;
