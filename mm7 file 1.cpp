@@ -7395,7 +7395,7 @@ LABEL_25:
     {
       if ( Player_sub_48D6AA((Player *)v22, v23) )
       {
-        v25 = *(_DWORD *)(v22 + 36 * *(_DWORD *)v24 + 496);
+       v25 = ((Player *)v22)->pInventorySlots[*(_DWORD *)v24].uItemID;
         if ( v25 > 134 )
         {
           if ( v25 == 529 )
@@ -11985,7 +11985,7 @@ LABEL_855:
             wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], *(int *)((char *)dword_5D29EC + v421));
             sub_44C175((char *)pStringBuffer, 2);
             if (!Party_AddItem(pParty_global, &pLayingItemsList[v1].stru_000024))
-              Party_sub_4936E1(pParty_global, &pLayingItemsList[v1].stru_000024);
+              Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pLayingItemsList[v1].stru_000024);
           }
           sub_42F933(v1);
         }

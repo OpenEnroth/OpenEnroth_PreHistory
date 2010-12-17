@@ -1045,8 +1045,8 @@ LABEL_33:
           pPlayer->pInventorySlots[v56].byte_000018 = 0;
           //*(_BYTE *)(v10 + 556) = 0;
           ItemGen_Reset(&pParty_global->pickedItem);
-          //Party_sub_4936E1(pParty_global, (ItemGen *)(v10 + 532));
-          Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v56]);
+          //Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, (ItemGen *)(v10 + 532));
+          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v56]);
           local_0C.byte_000018 = 16;
           v11 = v56;
           memcpy(&pPlayer->pInventorySlots[v56], &local_0C, sizeof(struct ItemGen));
@@ -1064,7 +1064,7 @@ LABEL_33:
           memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
           pPlayer->pInventorySlots[v58].byte_000018 = 0;
           ItemGen_Reset(&pParty_global->pickedItem);
-          Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v58]);
+          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v58]);
           local_0C.byte_000018 = 1;
           v13 = v58;
           v14 = v55 == 0;
@@ -1090,7 +1090,7 @@ LABEL_33:
           memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
           pPlayer->pInventorySlots[v57].byte_000018 = 0;
           ItemGen_Reset(&pParty_global->pickedItem);
-          Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v57]);
+          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v57]);
           local_0C.byte_000018 = 1;
           v16 = v56;
           memcpy((void *)(pPlayer + 36 * v56 + 532), &local_0C, sizeof(struct ItemGen));
@@ -1135,7 +1135,7 @@ LABEL_33:
 
                 pPlayer->pInventorySlots[v58].byte_000018 = 0;
                 ItemGen_Reset(&pParty_global->pickedItem);
-                Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v58]);
+                Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v58]);
                 local_0C.byte_000018 = 1;
                 v21 = v58;
                 v22 = v56 == 12;
@@ -1180,7 +1180,7 @@ LABEL_71:
 
         pPlayer->pInventorySlots[v57].byte_000018 = 0;
         ItemGen_Reset(&pParty_global->pickedItem);
-        Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v57]);
+        Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v57]);
         local_0C.byte_000018 = 2;
         v26 = v57;
         v27 = v56 == 12;
@@ -1217,7 +1217,7 @@ LABEL_74:
           memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
           pPlayer->pInventorySlots[v57].byte_000018 = 0;
           ItemGen_Reset(&pParty_global->pickedItem);
-          Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v57]);
+          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v57]);
           local_0C.byte_000018 = 2;
           v30 = v57;
           memcpy(&pPlayer->pInventorySlots[v57], &local_0C, sizeof(struct ItemGen));
@@ -1233,7 +1233,7 @@ LABEL_74:
               memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
               pPlayer->pInventorySlots[v58 - 1].byte_000018 = 0;
               ItemGen_Reset(&pParty_global->pickedItem);
-              Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v58 - 1]);
+              Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v58 - 1]);
               local_0C.byte_000018 = 2;
               v32 = v56;
               memcpy(&pPlayer->pInventorySlots[v56], &local_0C, sizeof(struct ItemGen));
@@ -1276,7 +1276,7 @@ LABEL_45:
     v37 = pPlayer->pEquppedItemIndices[2];
     if (pPlayer->pEquppedItemIndices[2] != -1)
     {
-     Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v37]);
+     Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v37]);
      ItemGen_Reset(&pPlayer->pInventorySlots[pPlayer->pEquppedItemIndices[2]]);
      pPlayer->pEquppedItemIndices[2] = -1;
     }
@@ -1328,7 +1328,7 @@ LABEL_96:
   {
     if ( !ptr_50C9A4 )
     {
-      Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v39]);
+      Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &pPlayer->pInventorySlots[v39]);
       *(_DWORD *)(pPlayer + 4 * *(_BYTE *)(v54 + 556) + 0x1944) = 0;
       ItemGen_Reset(&pPlayer->pInventorySlots[v39]);
     }
@@ -1908,7 +1908,7 @@ char __fastcall sub_46A334_LooksLikeInteractWithTopmostZObject(int a1, int a2)
         if ( *(_DWORD *)v20 == 455 )
           sub_449B7E((int)pParty_global->unk_000764 + 1, 185, 1);
         if ( !Party_AddItem(pParty_global, (ItemGen *)v20))
-          Party_sub_4936E1(pParty_global, (ItemGen *)v20);
+          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, (ItemGen *)v20);
         v21 = (int)v29;
       }
       sub_42F933(v21);

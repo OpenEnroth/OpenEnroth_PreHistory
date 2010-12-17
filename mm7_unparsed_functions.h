@@ -290,7 +290,7 @@ int __fastcall sub_420B13(int a1, int a2);
 void __fastcall sub_420C05(int a1, int a2);
 void __cdecl sub_420E01();
 
-signed int __cdecl sub_421B2C();
+signed int __cdecl sub_421B2C_DropPickedItem();
 void __cdecl sub_421EA6_OnInventoryLeftClick();
 void __cdecl sub_42213C();
 bool __cdecl sub_4226C2();

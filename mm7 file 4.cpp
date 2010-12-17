@@ -850,7 +850,7 @@ void __stdcall sub_426A5A(int a1)
   int v15; // [sp+30h] [bp-8h]@1
   int v16; // [sp+34h] [bp-4h]@1
 
-  sub_421B2C();
+  sub_421B2C_DropPickedItem();
   ItemGen_Reset(&local_0C);
   v1 = 0;
   v2 = (0x00800000 & *(_DWORD *)(a1 + 36)) == 0;
@@ -907,14 +907,14 @@ LABEL_9:
     }
     class40_sub_456D17(pClass40, &local_0C);
     if ( !Party_AddItem(pParty_global, &local_0C))
-      Party_sub_4936E1(pParty_global, &local_0C);
+      Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &local_0C);
     *(_WORD *)(a1 + 180) = 0;
     if ( *(_DWORD *)(a1 + 564) )
     {
       if ( !Party_AddItem(pParty_global, (ItemGen *)(a1 + 564)))
       {
-        sub_421B2C();
-        Party_sub_4936E1(pParty_global, (ItemGen *)(a1 + 564));
+        sub_421B2C_DropPickedItem();
+        Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, (ItemGen *)(a1 + 564));
       }
       ItemGen_Reset((ItemGen *)(a1 + 564));
     }
@@ -922,8 +922,8 @@ LABEL_9:
     {
       if ( !Party_AddItem(pParty_global, (ItemGen *)(a1 + 600)))
       {
-        sub_421B2C();
-        Party_sub_4936E1(pParty_global, (const ItemGen *)(a1 + 600));
+        sub_421B2C_DropPickedItem();
+        Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, (const ItemGen *)(a1 + 600));
       }
       ItemGen_Reset((ItemGen *)(a1 + 600));
     }
@@ -944,7 +944,7 @@ LABEL_55:
         wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[471], v10);
       sub_44C175((char *)pStringBuffer, 2);
       if ( !Party_AddItem(pParty_global, &local_0C) )
-        Party_sub_4936E1(pParty_global, &local_0C);
+        Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &local_0C);
       v15 = 1;
     }
     goto LABEL_44;
@@ -964,15 +964,15 @@ LABEL_44:
   sub_44C175((char *)pStringBuffer, 2);
   v7 = pParty_global;
   if ( !Party_AddItem(pParty_global, &local_0C))
-    Party_sub_4936E1(pParty_global, &local_0C);
+    Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &local_0C);
   v15 = 1;
 LABEL_45:
   if ( *(_DWORD *)(a1 + 564) )
   {
     if ( !Party_AddItem((Party *)v7, (ItemGen *)(a1 + 564)))
     {
-      sub_421B2C();
-      Party_sub_4936E1((Party *)v7, (const ItemGen *)(a1 + 564));
+      sub_421B2C_DropPickedItem();
+      Party_sub_4936E1_ReceiveItemInHandsWhileInGame((Party *)v7, (const ItemGen *)(a1 + 564));
       v15 = 1;
     }
     ItemGen_Reset((ItemGen *)(a1 + 564));
@@ -981,8 +981,8 @@ LABEL_45:
   {
     if ( !Party_AddItem((Party *)v7, (ItemGen *)(a1 + 600)))
     {
-      sub_421B2C();
-      Party_sub_4936E1((Party *)v7, (const ItemGen *)(a1 + 600));
+      sub_421B2C_DropPickedItem();
+      Party_sub_4936E1_ReceiveItemInHandsWhileInGame((Party *)v7, (const ItemGen *)(a1 + 600));
       v15 = 1;
     }
     ItemGen_Reset((ItemGen *)(a1 + 600));
@@ -1872,7 +1872,7 @@ LABEL_33:
         GUIButtonCreate(ptr_507BD4, 165, 422, 35, 0, 2, 0, 69, 1, 50, (unsigned char *)"", 0);
         GUIButtonCreate(ptr_507BD4, 280, 422, 35, 0, 2, 0, 69, 2, 51, (unsigned char *)"", 0);
         GUIButtonCreate(ptr_507BD4, 390, 422, 35, 0, 2, 0, 69, 3, 52, (unsigned char *)"", 0);
-        return sub_421B2C();
+        return sub_421B2C_DropPickedItem();
       }
       if ( v7 & 8 )
       {
@@ -1896,7 +1896,7 @@ LABEL_44:
 LABEL_56:
         GUIButtonCreate(ptr_507BD4, v20, v21, v22, v23, v24, v25, v26, v27, v28, (unsigned char *)v29, 0);
 	//	  GUIButtonCreate(ptr_507BD4,       390, 422,  35,   0,   2,  1,  0,   70,  0,   0, (unsigned char *)"", 0);
-        return sub_421B2C();
+        return sub_421B2C_DropPickedItem();
       }
       if ( v7 & 0x40 )
       {
@@ -1920,7 +1920,7 @@ LABEL_56:
         ptr_507BD4 = (GUIWindow *)sub_4219BE((void *)(20 * result + 5292232));
         dword_50C9A0 = true;
         dword_50C0C4 = uActiveCharacter;
-        return sub_421B2C();
+        return sub_421B2C_DropPickedItem();
       }
       if ( HIBYTE(v7) & 1 )
       {
@@ -13292,7 +13292,7 @@ void sub_467E7F_EquipBody(unsigned int uEquipType)
     v6 = (int)((char *)v1 + 4 * (9 * v2 - 9));
     *(_BYTE *)(v6 + 556) = 0;
     ItemGen_Reset(&pParty_global->pickedItem);
-    Party_sub_4936E1(pParty_global, (ItemGen *)(v6 + 532));
+    Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, (ItemGen *)(v6 + 532));
     local_0C.byte_000018 = v3;
     memcpy((void *)(v6 + 532), &local_0C, sizeof(ItemGen));
     v1->pEquppedItemIndices[v3] = v12;

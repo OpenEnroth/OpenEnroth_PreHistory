@@ -8849,7 +8849,7 @@ LABEL_280:
             class40_sub_456620_CreateSomeSemirandomItem(pClass40, *(_BYTE *)(v106 + 5), *(_BYTE *)(v106 + 6), &local_50);
             if ( v105 )
              local_50.uItemID = v105;
-            Party_sub_4936E1(pParty_global, &local_50);
+            Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &local_50);
             goto LABEL_291;
           case 2:
             v107 = *(_BYTE *)(v11 + 5)
@@ -10983,7 +10983,7 @@ LABEL_51:
           ItemGen_Reset(&local_0C);
           local_0C.uItemID = a3;
           local_0C.dword_000014 = 1;
-          Party_sub_4936E1(pParty_global, &local_0C);
+          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &local_0C);
           if ( a3 >= 500 )
           {
             if ( a3 <= 528 )
@@ -11554,7 +11554,7 @@ LABEL_44:
              local_0C.byte_000019 = local_0C.dword_000010;
             }
           }
-          Party_sub_4936E1(pParty_global, &local_0C);
+          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &local_0C);
           return;
         case 21:
           sub_420C05(a3, 1);

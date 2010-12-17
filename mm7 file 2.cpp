@@ -13340,7 +13340,7 @@ void __cdecl sub_420E01()
       }
       else
       {
-        Party_sub_4936E1(pParty_global, &array_5E5150[v0].array_000004[v5]);
+        Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &array_5E5150[v0].array_000004[v5]);
       }
       sub_420B13(v5, v3);
     }
@@ -13350,7 +13350,7 @@ void __cdecl sub_420E01()
 
 
 //----- (00421B2C) --------------------------------------------------------
-signed int __cdecl sub_421B2C()
+signed int __cdecl sub_421B2C_DropPickedItem()
 {
   int v0; // ebx@2
   int v1; // eax@2
@@ -13379,7 +13379,7 @@ signed int __cdecl sub_421B2C()
   int v23; // [sp+78h] [bp-4h]@5
  int i;
 
- if (pParty_global->pickedItem.uItemID)
+ if (pParty_global->pickedItem.uItemID != -1)
  {
 #ifdef OLD_CODE
   v1 = LODFile_Icons_LOD.LODFile_LoadTexture((char *)pClass40->pItems[pParty_global->pickedItem.uItemID].pIconName, 2);
@@ -13789,7 +13789,7 @@ void __cdecl sub_42213C()
         if ( *(_DWORD *)v23 == 455 )
           sub_449B7E((int)pParty_global->unk_000764 + 1, 185, 1);
         if ( !Party_AddItem(pParty_global, (ItemGen *)v23) )
-          Party_sub_4936E1(pParty_global, (ItemGen *)v23);
+          Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, (ItemGen *)v23);
       }
       sub_42F933(v37);
       return;

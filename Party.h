@@ -143,6 +143,6 @@ int Party_Reset(struct Party *_this);
 
 
 //void __thiscall sub_4936E1(void *_this, const struct ItemGen *a2);
-void Party_sub_4936E1(Party *_this, const struct ItemGen *pItem);
+void Party_sub_4936E1_ReceiveItemInHandsWhileInGame(Party *_this, const struct ItemGen *pItem);
 
 #pragma pack(pop)

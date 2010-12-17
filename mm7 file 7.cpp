@@ -12312,7 +12312,7 @@ LABEL_200:
         dword_F8B19C = 5;
       }
     }
-    sub_421B2C();
+    sub_421B2C_DropPickedItem();
     return;
   }
   v46 = *(_DWORD *)(v11 + 28);

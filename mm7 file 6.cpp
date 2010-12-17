@@ -488,10 +488,10 @@ LABEL_21:
               ItemGen_Reset((ItemGen *)v17);
               v15 = local_08.uItemID;
             }
-            sub_421B2C();
+            sub_421B2C_DropPickedItem();
             wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[304], v32 + 168, dword_5D29EC[12 * v15]);
             sub_44C175((char *)pStringBuffer, 2);
-            sub_421B2C();
+            sub_421B2C_DropPickedItem();
             memcpy(&pParty_global->pickedItem, &local_08, sizeof(struct ItemGen));
             SetCursorBitmapFromItemID(v15);
             return v33;
@@ -2656,9 +2656,9 @@ LABEL_83:
 }
 
 //----- (004936E1) --------------------------------------------------------
-void Party_sub_4936E1(Party *_this, const struct ItemGen *pItem)
+void Party_sub_4936E1_ReceiveItemInHandsWhileInGame(Party *_this, const struct ItemGen *pItem)
 {
- sub_421B2C();
+ sub_421B2C_DropPickedItem();
  memcpy(&_this->pickedItem, pItem, sizeof(struct ItemGen));
  SetCursorBitmapFromItemID(_this->pickedItem.uItemID);
 }

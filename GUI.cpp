@@ -10277,7 +10277,7 @@ LABEL_138:
                   }
                 }
                 class40_sub_456D17(pClass40, &local_04);
-                Party_sub_4936E1(pParty_global, &local_04);
+                Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, &local_04);
               }
             }
           }
