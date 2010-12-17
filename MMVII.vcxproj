@@ -102,6 +102,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CbmTools.cpp" />
     <ClCompile Include="classes.cpp" />
+    <ClCompile Include="clock.cpp" />
     <ClCompile Include="data.cpp" />
     <ClCompile Include="Driver.cpp" />
     <ClCompile Include="font.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CbmTools.h" />
     <ClInclude Include="classes.h" />
+    <ClInclude Include="clock.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="defs.h" />
     <ClInclude Include="font.h" />

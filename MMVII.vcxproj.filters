@@ -226,6 +226,9 @@
     <ClCompile Include="menus.cpp">
       <Filter>Wight and Wagic</Filter>
     </ClCompile>
+    <ClCompile Include="clock.cpp">
+      <Filter>Wight and Wagic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libpng143\png.h">
@@ -462,13 +465,14 @@
     <ClInclude Include="memory_mng.h">
       <Filter>Wight and Wagic</Filter>
     </ClInclude>
-    <ClInclude Include="localization_defs.h">
-      <Filter>Wight and Wagic</Filter>
-    </ClInclude>
     <ClInclude Include="font.h">
       <Filter>Wight and Wagic</Filter>
     </ClInclude>
     <ClInclude Include="menus.h">
+      <Filter>Wight and Wagic</Filter>
+    </ClInclude>
+    <ClInclude Include="_c_interface.h" />
+    <ClInclude Include="clock.h">
       <Filter>Wight and Wagic</Filter>
     </ClInclude>
   </ItemGroup>

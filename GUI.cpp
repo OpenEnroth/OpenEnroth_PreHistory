@@ -6576,7 +6576,7 @@ void __fastcall CharacterUI_DrawInventoryTab(unsigned int uSelectedCharacter, bo
 #ifndef OLD_CODE
   v4 = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"fr_strip");
 #else
-  4 = LODFile_Icons_LOD.LODFile_LoadTexture("fr_strip",2);
+  v4 = LODFile_Icons_LOD.LODFile_LoadTexture("fr_strip",2);
 #endif
   Render_DrawIndexedTexture(pD3DRenderer, 8, 305, &LODFile_Icons_LOD.aLODHeaders[v4]);
  }
