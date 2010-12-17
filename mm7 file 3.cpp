@@ -4813,8 +4813,7 @@ unsigned int __fastcall sub_442955(int a1, int a2, int a3, int a4, int a5)
 	char *v68; // edx@95
 	int v69; // ebx@95
 
-//  int v70; // esi@96
-	unsigned int *v70; // esi@96
+	int v70; // esi@96
   
 	int v71; // edi@98
 	__int16 v72; // cx@99
@@ -4824,15 +4823,15 @@ unsigned int __fastcall sub_442955(int a1, int a2, int a3, int a4, int a5)
 	int v75; // [sp-8h] [bp-4806Ch]@80
 	signed int v76; // [sp-4h] [bp-48068h]@59
 	__int16 v77; // [sp-4h] [bp-48068h]@79
-	char v78; // [sp+Ch] [bp-48058h]@23
+
+//	char v78; // [sp+Ch] [bp-48058h]@23
+	void *v78;
 
 	int v79; // [sp+4800Ch] [bp-58h]@23
   
-//  int v80; // [sp+48010h] [bp-54h]@27
-	unsigned int *v80;
+	int v80; // [sp+48010h] [bp-54h]@27
 
-//  int v81; // [sp+48014h] [bp-50h]@23
-	unsigned short *v81;
+	int v81; // [sp+48014h] [bp-50h]@23
   
 
 	int v82; // [sp+48018h] [bp-4Ch]@1
@@ -4849,15 +4848,17 @@ unsigned int __fastcall sub_442955(int a1, int a2, int a3, int a4, int a5)
 	int v93; // [sp+48044h] [bp-20h]@1
 	int i; // [sp+48048h] [bp-1Ch]@9
 	int v95; // [sp+4804Ch] [bp-18h]@16
+
 	int v96; // [sp+48050h] [bp-14h]@16
+
 	int v97; // [sp+48054h] [bp-10h]@8
 	int v98; // [sp+48058h] [bp-Ch]@16
 	int v99; // [sp+4805Ch] [bp-8h]@10
-	const void *v100; // [sp+48060h] [bp-4h]@16
+	char *v100; // [sp+48060h] [bp-4h]@16
 	char *v101; // [sp+4806Ch] [bp+8h]@85
 	int v102; // [sp+48070h] [bp+Ch]@86
 
-
+	int x,y,x100;
 
 
 
@@ -4866,9 +4867,11 @@ unsigned int __fastcall sub_442955(int a1, int a2, int a3, int a4, int a5)
 	v83 = a2;
 	v88 = (a1 + a3) >> 1;
 	v93 = (a2 + a4) >> 1;
+
 	v82 = pD3DRenderer->uTargetSurfacePitch;
-	Render_sub_4A0E97(pD3DRenderer, a1, a2, a3, a4);
-	v5 = struct_576FE8.dword_00002C;
+	Render_sub_4A0E97(pD3DRenderer, a1, a2, a3, a4); 
+
+	v5 = struct_576FE8.dword_00002C; 
 	v6 = struct_576FE8.dword_000030;
 	v89 = struct_576FE8.dword_000030;
 	v87 = struct_576FE8.dword_000034;
@@ -4886,31 +4889,34 @@ unsigned int __fastcall sub_442955(int a1, int a2, int a3, int a4, int a5)
 
 LABEL_23:
 
+		v78 = malloc(300000); // needs 2 b free after all...
+
+
+
 		v97 = a3 - v85 + 1;
 		v95 = a4 - v83 + 1;
 
-
-		v96 = (int)pD3DRenderer->pTargetSurface + (v85 + v83 * v82);
-
+		v96 = (int)pD3DRenderer->pTargetSurface + (v85 + v83 * v82); 
 		v98 = (int)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].pIndexedPixels;
-	//	v81 = (int)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].pPalette;
-		v81 = LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].pPalette;
+		v81 = (int)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].pPalette;
 
 	//	v90 = (1 << ((unsigned __int8)*(_WORD *)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C + 16)) / v5;
-		v90 = (1 << (LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C + 16)) / v5;
-
+		v90 = (1 << (LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C + 16)) / v5; 
 
 	//	v33 = (double)(1 << (16 - (unsigned __int8)*(_WORD *)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C));
-		v33 = (double)(1 << (16 - LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C));
+		v33 = (double)(1 << (16 - LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C)); 
   
 		v92 = 22528 / (v5 / 384);
 		v86 = (unsigned int)(signed __int64)((double)(v6 - 22528 / (v5 / 384) + 32768) / v33) << 16;
-		v100 = (const void *)((unsigned int)(signed __int64)((double)(v6 - 22528 / (v5 / 384) + 32768) / v33) << 16);
+
+//		v100 = (const void *)((unsigned int)(signed __int64)((double)(v6 - 22528 / (v5 / 384) + 32768) / v33) << 16);
+		v100 = (char *)((unsigned int)(signed __int64)((double)(v6 - 22528 / (v5 / 384) + 32768) / v33) << 16);
+
 		v99 = 32768 - v92 - v87;
 		v34 = (signed __int64)((double)v99 / v33);
 
-	//	v31 = &v78;
-		v31 = (char *)pD3DRenderer->pTargetSurface;
+//		v31 = &v78;
+		v31 = (char *)v78;
 
 		v35 = LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].uTextureWidth;
 		v30 = (_DWORD)v34 << 16;
@@ -4920,75 +4926,102 @@ LABEL_23:
 		v32 = v30 >> 16;
     
 	
-	
-// --- верхняя полоска
+
 		if ( v98 )
 		{
 			if ( v95 > 0 )
 			{
 				v99 = v95;
+
+				x = 0;
 				do
 				{
 					v91 = 0;
 					if ( v97 > 0 )
 					{
 						v37 = v98 + v32 * v79;
+
 						i = v97;
+
 						v91 = v97;
 						v36 = v92;
-						v80 = (unsigned int*)v37;
+						v80 = (unsigned int)v37;
+
+						y = ((v6 - 22528 / (v5 / 384) + 32768) / v33)*65536;
 						do
 						{
-							*(_WORD *)v31 = *(_WORD *)(v81 + 2 * *(_BYTE *)(v80 + v36)); // нет верхней полоски и все лучше
+//							*(_WORD *)v31 = *(_WORD *)(v81 + 2 * *(_BYTE *)(v80 + v36));
+							
+							//input param v5,v6,v87 
+							v33 = (double)(1 << (16 - LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C)); // 2 в степени (16-LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C)
+							v90 = (1 << (LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C + 16)) / v5; // (2 в степени (16+LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C))/v5
+
+							v32 = (32768 - 22528/v5*384 - v87)/v33 + x*v90/65536;
+							v80 = (int)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].pIndexedPixels + v32 * LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].uTextureWidth;
+							
+							*(_WORD *)v31 = *(_WORD *)((int)LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].pPalette + 2 * *(_BYTE *)(v80 + y/65536));
+
+
+							
 							v31 += 2;
 							v100 = (char *)v100 + v90;
 							v36 = (signed int)v100 >> 16;
-
+	
+							y += v90;
 					    }
 						while ( i-- != 1 );
 					}
-          
-				v30 += v90;
-				v100 = (const void *)v86;
-				v92 = v84;
-				v31 += 2 * (v97 - v91);
-				v32 = v30 >> 16;
+					v30 += v90;
+					v100 = (char *)v86;
+					v92 = v84;
+					v31 += 2 * (v97 - v91);
+					v32 = v30 >> 16;
+
+					++x;
 				}
-			while ( v99-- != 1 );
+				while ( v99-- != 1 );
 			}
 		}
-// --- верхняя полоска
 
-// --- отрисовка 2х карт
 
-	//	v100 = &v78;
-		v100 = (char *)pD3DRenderer->pTargetSurface;
+
+//		v100 = &v78;
+		v100 = (char *)v78;
 
 		if ( v95 > 0 )
 		{
 			v99 = v95;
 			v40 = 2 * (v82 - v97);
     
-	  
+			x = 0;
 			do // по v99
 			{
 				if ( v97 > 0 )
 				{
 					v41 = v97;
    
-		//			v45 = (int)v100;
-					v45 = (int)pD3DRenderer->pTargetSurface;
-          
-					v46 = v96;
+					v45 = (int)v100;
+          			v46 = (int)v96;
+
 					v47 = v97 & 1;
+
 					v48 = (unsigned int)v97 >> 1;
-					memcpy((void *)v96, v100, 4 * ((unsigned int)v97 >> 1)); 
-          
+
+
+//					memcpy((void *)v96, v100, 4 * ((unsigned int)v97 >> 1)); 
+
+					v97 = a3 - a1 + 1;
+					memcpy((char *)(pD3DRenderer->pTargetSurface) + (a1 + a2 * pD3DRenderer->uTargetSurfacePitch) + 2*v97*x + 2*(pD3DRenderer->uTargetSurfacePitch - v97)*x, (char *)v78 + 2*v97*x, 2*v97); 
+
+					++x;
+
+
 					v44 = v45 + 4 * v48;
 					v43 = v46 + 4 * v48;
           
 					v41 *= 2;
-					v96 += v41;
+
+					v96 = v96 + v41;
 					v100 = (char *)v100 + v41;
           
 					v42 = 2 * v47;
@@ -5003,7 +5036,7 @@ LABEL_23:
 
 					v6 = v89;
 				}
-				v96 += v40;
+				v96 = v96 + v40;
 			}
 			while ( v99-- != 1 );
 		}
@@ -5018,6 +5051,11 @@ LABEL_23:
 	v87 = struct_576FE8.word_00003A;
 	if ( dword_6BE360 != 1 ) goto LABEL_23;
 	v5 = struct_576FE8.dword_00002C - 34;
+
+
+
+
+
 
 LABEL_8:
 	v92 = 0xFF000000;
@@ -5052,15 +5090,21 @@ LABEL_8:
 			v15 = dword_6BE63C + 6 * v14;
 			v16 = *(_WORD *)v15;
 			v17 = *(_WORD *)(v15 + 2) - v87;
+
 			v96 = v16 - v6;
 			v95 = v17;
+
 			v18 = dword_6BE63C + 6 * *(_WORD *)(v10 + 2);
 			v19 = *(_WORD *)v18;
 			v20 = *(_WORD *)(v18 + 2) - v87;
 			v98 = v19 - v6;
-			v100 = (const void *)v20;
+
+//			v100 = (const void *)v20;
+			v100 = (char *)v20;
+
 			v91 = (unsigned __int64)((v16 - v6) * v5) >> 16;
 			v90 = (unsigned __int64)(v95 * v5) >> 16;
+
 			v96 = (unsigned __int64)((v19 - v6) * v5) >> 16;
 			v95 = (unsigned __int64)(v20 * v5) >> 16;
       
@@ -5093,7 +5137,10 @@ LABEL_17:
 			v29 = *(_WORD *)(v25 + 2) - v87;
 			v96 = v27;
 			v95 = v28;
-			v100 = (const void *)v29;
+
+//			v100 = (const void *)v29;
+			v100 = (char *)v29;
+
 			v90 = (unsigned __int64)(v27 * v5) >> 16;
 			v91 = (unsigned __int64)(v28 * v5) >> 16;
 			i = (unsigned __int64)((signed int)(v26 - v89) * v5) >> 16;
@@ -5111,16 +5158,25 @@ LABEL_17:
 		v6 = v89;
 	}
 
-// --- отрисовка 2х карт
 
-//2я часть
+
+
+
+
 LABEL_38:
+
+
 
 	v52 = ((unsigned __int64)((pParty_global->sPartyPosX - v6) * v5) >> 16) + v88 - 3;
 	v84 = pParty_global->sPartyPosY - v87;
-	v100 = (const void *)((unsigned __int64)((pParty_global->sPartyPosY - v87) * v5) >> 16);
+
+//	v100 = (const void *)((unsigned __int64)((pParty_global->sPartyPosY - v87) * v5) >> 16);
+	x100 = (unsigned __int64)((pParty_global->sPartyPosY - v87) * v5) >> 16;
+
 	v51 = 1;
-	v50 = v93 - (_DWORD)v100 - 3;
+
+//	v50 = v93 - (_DWORD)v100 - 3;
+	v50 = v93 - (_DWORD)x100 - 3;
 	
 
 	if ( v52 >= v85 )
@@ -5144,14 +5200,16 @@ LABEL_38:
 	{
 		if ( v50 > a4 )
 		{
-			if ( v93 - (_DWORD)v100 - 6 > a4 )
+//			if ( v93 - (_DWORD)v100 - 6 > a4 )
+			if ( v93 - (_DWORD)x100 - 6 > a4 )
 			v51 = 0;
 			v50 = a4;
 		}
 	}
 	else
 	{
-		if ( v93 - (_DWORD)v100 < v83 )
+//		if ( v93 - (_DWORD)v100 < v83 )
+		if ( v93 - (_DWORD)x100 < v83 )
 		v51 = 0;
 		v50 = v83;
 	}
@@ -5197,7 +5255,8 @@ LABEL_38:
 LABEL_71:
 
 		//MapDirs are altlased into uTextureID_MinimapDirections
-		Render_sub_4A6776(pD3DRenderer, v52, v50, (cTexture *)(uTextureIdx_MapDirs[v53] != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_MapDirs[v53] ] : 0));
+//		Render_sub_4A6776(pD3DRenderer, v52, v50, (cTexture *)(uTextureIdx_MapDirs[v53] != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_MapDirs[v53] ] : 0));
+		;
 	}
 
 
@@ -5216,8 +5275,13 @@ LABEL_71:
 				v96 = *(_DWORD *)v97 - v6;
 				v95 = v58;
 				v57 = ((unsigned __int64)(v96 * v5) >> 16) + v88;
-				v100 = (const void *)((unsigned __int64)(v58 * v5) >> 16);
-				v56 = v93 - (_DWORD)v100;
+
+//				v100 = (const void *)((unsigned __int64)(v58 * v5) >> 16);
+				x100 = (unsigned __int64)(v58 * v5) >> 16;
+
+//				v56 = v93 - (_DWORD)v100;
+				v56 = v93 - (_DWORD)x100;
+
 				if ( v57 >= pD3DRenderer->dword_00001C)
 				{
 					if ( v57 <= pD3DRenderer->dword_000024 )
@@ -5245,9 +5309,13 @@ LABEL_71:
 								else
 								{
 							
-									v75 = v93 - (_DWORD)v100;
+//									v75 = v93 - (_DWORD)v100;
+									v75 = v93 - (_DWORD)x100;
+
 									v74 = ((unsigned __int64)(v96 * v5) >> 16) + v88;
-									v73 = v93 - (_DWORD)v100;
+
+//									v73 = v93 - (_DWORD)v100;
+									v73 = v93 - (_DWORD)x100;
 								}
                 
 								Render_FillRect(pD3DRenderer, v57, v73, v74, v75, v77);
@@ -5264,89 +5332,132 @@ LABEL_71:
 		while ( v98 < (signed int)uNumLevelDecorations );
 	}
 
+
+
+
 	if ( dword_6BE360 == 2 )
 	{
 		v93 = a3 - v85 + 1;
 		v98 = a4 - v83 + 1;
-//		v80 = (int)pD3DRenderer->pTargetSurface + (v85 + v83 * v82);
+
+		v80 = (int)pD3DRenderer->pTargetSurface + (v85 + v83 * v82);
+
 		v62 = LODFile_Icons_LOD.aLODHeaders[struct_576FE8.uTextureID_LocationMap].word_00001C;
 		v92 = (1 << (v62 + 16)) / v5;
 		v63 = (double)(1 << (16 - (_BYTE)v62));
 		v64 = 22528 / (v5 / 384);
 		v65 = (signed __int64)((double)(v6 - v64 + 32768) / v63);
 		v60 = (_DWORD)v65 << 16;
-		v100 = (const void *)((_DWORD)v65 << 16);
+
+//		v100 = (const void *)((_DWORD)v65 << 16);
+		v100 = (char *)((_DWORD)v65 << 16);
+
 		v66 = (signed __int64)((double)(32768 - v64 - v87) / v63);
-//		v81 = v60 >> 16;
+
+		v81 = v60 >> 16;
+
 		v59 = (_DWORD)v66 << 16;
 		v86 = v60 >> 16;
 		v61 = (_DWORD)v66 << 16 >> 16;
 
 //		v101 = &v78;
-		v101 = (char *)pD3DRenderer->pTargetSurface;
+		v101 = (char *)v78;
 
 		result = 0xFF0C0C0C;
 		
-		v88 = 0;
-		for ( i = result; v88 < v98; result = v88 )
+		v88 = 0; // counter
+
+//		for ( i = result; v88 < v98; result = v88 )
+		x = 0;
+		i = result;
+		do
+
 		{
-			v102 = 0;
+			v102 = 0; // counter
+
 			if ( v93 > 0 )
 			{
 				v99 = (v61 - 80) / 4;
 				v67 = v86;
 						
+				y = 0;
 				do
 				{
 					v84 = (v67 - 80) / 4;
-					if ( !sub_47F04C(pClass51_global, v84, v99) )
+					if ( !sub_47F04C(pClass51_global, v84, v99) ) 
 					{
-						if ( sub_47F097(pClass51_global, v84, v99) )
+						if ( sub_47F097(pClass51_global, v84, v99) ) 
 						{
-							if ( !((v102 + v88) % 2) ) *(_WORD *)v101 = i;
+							if ( !((v88 + v102) % 2) ) *(_WORD *)v101 = i;
 						}
-						else *(_WORD *)v101 = 0;
+						else *(_WORD *)v101 = 0; 
 					}
 
-				v101 += 2;
-				v100 = (char *)v100 + v92;
-				v67 = (signed int)v100 >> 16;
-				++v102;
+//					v84 = (v67 - 80) / 4;
+//					v99 = (v61 - 80) / 4;
+//					if ( !sub_47F04C(pClass51_global, v84, v99) ) 
+//					{
+//						if ( sub_47F097(pClass51_global, v84, v99) ) 
+//						{
+//							if ( !((x + y) % 2) ) *(_WORD *)v101 = i;
+//						}
+//						else *(_WORD *)v101 = 0; // fog of war
+//					}
+
+
+					v101 += 2;
+					v100 = (char *)v100 + v92;
+					v67 = (signed int)v100 >> 16;
+					
+					++v102; 
+					++y;
 				}
 				while ( v102 < v93 );
 			}
 
 			v59 += v92;
-			v100 = (const void *)v60;
+
+//			v100 = (const void *)v60;
+			v100 = (char *)v60;
+
 			v101 += 2 * (v93 - v102);
+			
 			v61 = v59 >> 16;
+			v86 = v81;
+
 			++v88;
-//			v86 = v81;
+			++x;
 		}
-    
+		while ( v88 < v98 );
+   
 	
 	
-		v69 = v98;
-
 //		v68 = &v78;
-		v68 = (char *)pD3DRenderer->pTargetSurface;
+		v68 = (char *)v78;
 
+		v69 = v98; // counter
 		if ( v98 > 0 )
 		{
- //			v70 = v80;
-			v70 = v80;
+ 			v70 = v80;
+//q			v70 = (int)pD3DRenderer->pTargetSurface + (v85 + v83 * v82);
+
+
 			result = 2 * (v82 - v93);
+			
 			do
 			{
 				if ( v93 > 0 )
 				{
-					v71 = v93;
+					v71 = v93; // counter
 					do
 					{
 						v72 = *(_WORD *)v68;
-						if ( !*(_WORD *)v68 || v72 == (_WORD)i ) *(_WORD *)v70 = v72;
-						v68 += 2;
-						v70 += 2;
+						
+//						if ( !*(_WORD *)v68 || v72 == (_WORD)i ) *(_WORD *)v70 = v72;
+//q						if ( !*(_WORD *)v68 || *(_WORD *)v68 == (_WORD)i ) *(_WORD *)v70 = *(_WORD *)v68;
+
+						v68 += 2; // source
+						v70 += 2; // destination
 						--v71;
 					}
 					while ( v71 );

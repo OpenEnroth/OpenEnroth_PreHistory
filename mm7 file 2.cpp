@@ -6706,7 +6706,8 @@ void sub_413980_DrawSpellbook_Map()
   dword_506538 = 0;
   dword_50653C = 0;
   dword_506540 = 0;
-  sub_442955(97, 49, 361, 313, 0);
+//  sub_442955(97, 49, 361, 313, 0);
+  sub_442955(400, 300, 764, 664, 0); // x1,y1,x2,y2 
 
   Render_DrawTransparentTexture(pD3DRenderer, 75, 22, &LODFile_Icons_LOD.aLODHeaders[dword_506498_uTextureID_MapBrdr]); // Map Decor Borders
   
@@ -6719,8 +6720,7 @@ void sub_413980_DrawSpellbook_Map()
 
 
   v7 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
-  if ( v7 ) 
-	GUIWindow_sub_44D406(&local_84, pBook2Font, -14, 12, 0, (const char *)pMapStats->pMapInfos[v7].pLocationName, 3);
+  if ( v7 ) GUIWindow_sub_44D406(&local_84, pBook2Font, -14, 12, 0, (const char *)pMapStats->pMapInfos[v7].pLocationName, 3);
 
   local_84.uFrameX = 0;
 
