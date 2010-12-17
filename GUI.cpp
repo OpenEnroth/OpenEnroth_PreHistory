@@ -944,7 +944,7 @@ LABEL_38:
         goto LABEL_123;
       v15 = (void *)(36 * (v16 + 12 * (int)ptr_507BC0->dword_00001C) + 11355920);
 LABEL_49:
-      v17 = ItemGen_sub_456499(v15);
+      v17 = ItemGen_sub_456499((ItemGen *)v15);
       sub_41C0B8((const char *)v17);
 LABEL_50:
       dword_506578 = 1;
@@ -3233,7 +3233,7 @@ LABEL_771:
           {
             v75 = 206;
           }
-          if ( !(unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, v75) )
+          if ( !(unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, v75) )
             return;
           goto LABEL_486;
         case 0xB6:
@@ -3264,7 +3264,7 @@ LABEL_771:
           {
             v80 = 206;
           }
-          if ( !(unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, v80) )
+          if ( !(unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, v80) )
           {
 #ifndef OLD_CODE
            
@@ -4112,10 +4112,10 @@ LABEL_731:
           goto LABEL_520;
 
         case 0x5E:
-          wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[429], pPlayers[v209]->sName, aClassNames[pPlayers[v209]->uClass]);
+          wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[429], pPlayers[v209 - 1]->sName, aClassNames[pPlayers[v209 - 1]->uClass]);
           strcat((char *)TmpBuf, ": ");
 
-          v122 = Player_GetConditionIdx(pPlayers[v209]);
+          v122 = Player_GetConditionIdx(pPlayers[v209 - 1]);
           strcat((char *)TmpBuf, (char *)aCharacterConditionNames[v122]);
 
           sub_41C0B8((char *)TmpBuf);
@@ -8086,17 +8086,17 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
   r = Player_GetRace(pPlayer);
   sex = Player_GetVoiceSex(pPlayer);
   v5=0;
-  if ( r != RACE_HUMAN && r != RACE_ELF && r != RACE_GOBLIN )
+  if ( r != Character::Race::Human && r != Character::Race::Elf && r != Character::Race::Goblin )
   {
     v277 = 1;
-	if	(sex != SEX_MALE)
+	if	(sex != Character::Sex::Male)
        v5 = 1;
 	v5+=2;
   }
   else
   {
     v277 = 0;
-	if (sex != SEX_MALE)
+	if (sex != Character::Sex::Male)
       v5 = 1;
   }
   v268 = v5;
@@ -8468,7 +8468,7 @@ LABEL_155:
                   v276 = 8 * v268;
                   if ( !v79
                    || pClass40->pItems[pPlayer->cInventorySlots[v79 - 1].uItemID - 1].uEquipType != 1
-                    && (pClass40->pItems[pPlayer->cInventorySlots[v79 - 1].uItemID - 1].uSkillType != SKILL_SPEAR || pPlayer->pInventoryIndices[0]) )
+                    && (pClass40->pItems[pPlayer->cInventorySlots[v79 - 1].uItemID - 1].uSkillType != Character::Skill::Spear || pPlayer->pInventoryIndices[0]) )
                     Render_DrawTransparentTexture(pD3DRenderer,
                       dword_4E4C28 + dword_4E5AE0[2 * v268],
                       dword_4E4C2C + dword_4E5AE0[2 * v268 + 1],
@@ -8579,7 +8579,7 @@ LABEL_192:
                   {
                    v96 = 48 * pPlayer->cInventorySlots[v95 - 1].uItemID;
                     if (pClass40->pItems[v96/48 - 1].uEquipType == 1 ||
-                        pClass40->pItems[v96/48 - 1].uSkillType == SKILL_SPEAR && !pPlayer->pInventoryIndices[0])
+                        pClass40->pItems[v96/48 - 1].uSkillType == Character::Skill::Spear && !pPlayer->pInventoryIndices[0])
                       Render_DrawTransparentTexture(pD3DRenderer,
                         dword_4E4C28 + dword_4E5B00[2 * v268],
                         dword_4E4C2C + dword_4E5B00[2 * v268 + 1],
@@ -9074,7 +9074,7 @@ LABEL_209:
                           runtime_warning(GetItem with player.. wtf);
                           if (pPlayer->pInventoryIndices[1]
                             && (sub_48D62C_GetSomeItemEquipType(pPlayer, 1) == 1
-                             || sub_48D651_GetSomeItemSkillType(pPlayer, 1) == SKILL_SPEAR && !pPlayer->pInventoryIndices[0]) )
+                             || sub_48D651_GetSomeItemSkillType(pPlayer, 1) == Character::Skill::Spear && !pPlayer->pInventoryIndices[0]) )
                           {
                             v105 = 17 * v268 + v103;
                             v104 = 12 * v105;
@@ -9348,7 +9348,7 @@ LABEL_48:
   v6 = pPlayer->pInventoryIndices[1];
   if ( !v6 ||
       (v7 = 48 * pPlayer->cInventorySlots[v6 - 1].uItemID, pClass40->pItems[v7/48 - 1].uEquipType != 1) &&
-      (pClass40->pItems[v7/48 - 1].uSkillType != SKILL_SPEAR || pPlayer->pInventoryIndices[0]) )
+      (pClass40->pItems[v7/48 - 1].uSkillType != Character::Skill::Spear || pPlayer->pInventoryIndices[0]) )
     Render_DrawTransparentTexture(pD3DRenderer,
       dword_4E4C28 + dword_4E5AE0[2 * v5],
       dword_4E4C2C + dword_4E5AE0[2 * v5 + 1],
@@ -9449,7 +9449,7 @@ LABEL_393:
   {
    v191 = 48 * pPlayer->cInventorySlots[v190 - 1].uItemID;
     if (pClass40->pItems[v191/48 - 1].uEquipType == 1 ||
-        pClass40->pItems[v191/48 - 1].uSkillType == SKILL_SPEAR && !pPlayer->pInventoryIndices[0])
+        pClass40->pItems[v191/48 - 1].uSkillType == Character::Skill::Spear && !pPlayer->pInventoryIndices[0])
       Render_DrawTransparentTexture(pD3DRenderer,
         dword_4E4C28 + dword_4E5B00[2 * v268],
         dword_4E4C2C + dword_4E5B00[2 * v268 + 1],
@@ -10619,7 +10619,7 @@ LABEL_142:
   if ( sub_466CA0() == -1 )
     GameUI_DrawFoodAndGold();
   if ( sub_4637E0() )
-    sub_416D62_ShowMonsterRecord(0);
+    sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(0);
 }
 
 
@@ -10659,7 +10659,7 @@ char *__cdecl sub_411150()
     {
       v1 = 206;
 LABEL_14:
-      if ( !(unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, v1) )
+      if ( !(unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, v1) )
         goto LABEL_16;
       goto LABEL_15;
     }
@@ -10703,7 +10703,7 @@ LABEL_16:
   {
     v4 = 206;
 LABEL_30:
-    if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, v4) )
+    if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, v4) )
       goto LABEL_31;
     return GUIWindow_sub_44D406(&local_0C, pBook2Font, 0, 22, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_TOWN_PORTAL], 3);
   }

@@ -1008,7 +1008,7 @@ LABEL_85:
         uActiveCharacter = 1;
       }
       while ( v12 < (signed int)&unk_AD5FB0 );
-      if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 136) )
+      if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 136) )
       {
         pParty_global->sPartyPosX = -17331;
         pParty_global->sPartyPosY = 12547;
@@ -3775,7 +3775,7 @@ LABEL_49:
     v11 = (int)&unk_ACDAD6;
     do
     {
-      if ( !(unsigned __int16)sub_449B57(v11, 1) )
+      if ( !(unsigned __int16)sub_449B57((unsigned char *)v11, 1) )
         sub_449B7E(v11, 103, 1);
       v11 += 6972;
     }
@@ -3789,7 +3789,7 @@ LABEL_49:
     v12 = (int)&unk_ACDAD6;
     do
     {
-      if ( !(unsigned __int16)sub_449B57(v12, 1) )
+      if ( !(unsigned __int16)sub_449B57((unsigned char *)v12, 1) )
         sub_449B7E(v12, 104, 1);
       v12 += 6972;
     }
@@ -5560,7 +5560,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)	   // prepere textures for
 	  for ( j = dword_506528; j < 512; ++j )
 		  {
 		  v13 = (&dword_722F10)[4 * j];
-		  if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, j) )
+		  if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, j) )
 			  {
 			  if ( v13 )
 				  {
@@ -5649,7 +5649,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)	   // prepere textures for
 			  v25 = (&dword_723718)[8 * (signed __int16)v10];
 			  if ( (_WORD)v10 )
 				  {
-				  if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 0x9A, v10) )
+				  if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 0x9A, v10) )
 					  {
 					  if ( v25 )
 						  {
@@ -6498,7 +6498,7 @@ LABEL_46:
         v32 = (&dword_723718)[8 * (signed __int16)v8];
         if ( (_WORD)v8 )
         {
-          if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 0x9A, v8) )
+          if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 0x9A, v8) )
           {
             if ( v32 )
             {
@@ -6741,7 +6741,7 @@ void  sub_413CC6_DrawSpellbook(int book_code)
 	  case	200:	 sub_413126_DrawSpellbook_Quests(); break;
 	  case	201:	 sub_41338E_DrawSpellbook_Autonotes(); break;
 	  case 	202:	 sub_413980_DrawSpellbook_Map();  break;
-	  case	203:	 DrawCalendar(); break;
+	  case	203:	 sub_413D6F_DrawSpellbook_Calendar(); break;
 	  case  224:	 sub_412E85(); break;
 	  }
 
@@ -6763,7 +6763,7 @@ unsigned char *GetDayPart() //sub_413D3C()
 }
 
 //----- (00413D6F) ------.text:004141C6--------------------------------------------------
-void  DrawCalendar()
+void  sub_413D6F_DrawSpellbook_Calendar()
 {
   int v0; // esi@1
   unsigned char *v1; // eax@5
@@ -7960,7 +7960,7 @@ int __fastcall sub_449B7E(int a1, __int16 a2, __int16 a3)
 }
 
 //----- (00416D62) --------------------------------------------------------
-void __thiscall sub_416D62_ShowMonsterRecord(int _this)
+void __thiscall sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(int _this)
 {
   signed int v1; // eax@12
   char *v2; // eax@32
@@ -8033,7 +8033,7 @@ void __thiscall sub_416D62_ShowMonsterRecord(int _this)
     {
       if ( v38 > word_4E2930[v1] && v38 < word_4E2938[v1] && v39 > 375 && v39 < 466 )
       {
-        Player_sub_4680ED(pPlayers[uActiveCharacter - 1], v1 + 1, 1);
+        Player_UseItem_DrinkPotion_etc(pPlayers[uActiveCharacter - 1], v1 + 1, 1);
         return;
       }
       ++v1;
@@ -8966,7 +8966,7 @@ int __cdecl sub_419100()
   do
   {
     v14 = dword_723E80[2 * v0];
-    if ( (unsigned __int16)sub_449B57((int)pPlayer->array_000152, v0) )
+    if ( (unsigned __int16)sub_449B57((unsigned char *)pPlayer->array_000152, v0) )
     {
       if ( v14 )
       {
@@ -10792,7 +10792,7 @@ void __thiscall sub_41D895(void *_this)
       local_208.uFrameW = local_208.uFrameY + local_208.uFrameHeight - 1;
       Render_sub_4A6776(pD3DRenderer, local_208.uFrameX + v83, v93 + local_208.uFrameY + 30, (cTexture *)(v5 != -1 ? &LODFile_Icons_LOD.aLODHeaders[v5] : 0));
       if ( v91.y )
-        v19 = sub_4564B3((void *)v97);
+        v19 = ItemGen_sub_4564B3((ItemGen *)v97);
       else
         v19 = v81[2];
       GUIWindow_sub_44D406(&local_208, pFontArrus, 0, 12, v78[0], (const char *)v19, 3);
@@ -10906,7 +10906,7 @@ LABEL_65:
       {
         local_208.uFrameWidth -= 24;
         v34 = pFontArrus->uFontHeight;
-        v35 = sub_4564B3((void *)v97);
+        v35 = ItemGen_sub_4564B3((ItemGen *)v97);
         if ( CalculateTextHeght(pFontArrus, (const char *)v35, &local_208, 0, 0) / v34 )
           v95 = v34;
         local_208.uFrameWidth += 24;
@@ -10943,7 +10943,7 @@ LABEL_65:
         FontDrawText(&local_208, pFontSmallnum, 100, v36, v40, 0, 0, 0);
       local_208.uFrameX += 12;
       local_208.uFrameWidth -= 24;
-      v41 = sub_4564B3((void *)v97);
+      v41 = ItemGen_sub_4564B3((ItemGen *)v97);
       GUIWindow_sub_44D406(&local_208, pFontArrus, 0, 12, v78[0], (const char *)v41, 3);
       local_208.uFrameWidth += 24;
       local_208.uFrameX -= 12;
@@ -12067,7 +12067,7 @@ LABEL_15:
     dword_506F10 = 1;
   if ( !_strcmpi(CurrentLevelName, "d29.blv") )
   {
-    if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 98) )
+    if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 98) )
       dword_506F10 = 0;
   }
   ++LODFile_Icons_LOD.uTexturePacksCount;

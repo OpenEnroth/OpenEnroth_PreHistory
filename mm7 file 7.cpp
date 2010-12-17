@@ -2992,7 +2992,7 @@ LABEL_13:
     if ( dword_AE31E0 )
     {
       v10 = result + 338;
-      result = sub_449B57(result + 338, 1);
+      result = sub_449B57((unsigned char *)result + 338, 1);
       if ( !(_WORD)result )
         result = sub_449B7E(v10, 1, 1);
     }
@@ -3471,7 +3471,7 @@ void __cdecl sub_4B1ECE()
   v0 = (signed int)&off_4F0882;
   while ( 1 )
   {
-    if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, *(_WORD *)(v0 - 2)) )
+    if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, *(_WORD *)(v0 - 2)) )
     {
       v1 = 0;
       for (i = 1; i < 5; ++i)
@@ -4007,7 +4007,7 @@ LABEL_23:
           case 20:
             v21 = 110;
 LABEL_57:
-            if ( !(unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, v21) )
+            if ( !(unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, v21) )
               return (const CHAR *)v37;
             goto LABEL_40;
           case 22:
@@ -4191,7 +4191,7 @@ int __fastcall sub_4B29F2(int a1)
   uArenaReward = dword_4F08EC[v2];
   if ( Player_sub_492C0B_MaybeIfPlayerConscious((Player *)v4) )
   {
-    if ( (unsigned __int16)sub_449B57(v1 + 338, dword_F8B1AC) )
+    if ( (unsigned __int16)sub_449B57((unsigned char *)v1 + 338, dword_F8B1AC) )
     {
       result = dword_721A44;
     }
@@ -6850,7 +6850,7 @@ LABEL_32:
     }
     return result;
   }
-  if ( !(unsigned __int16)sub_449B57((int)((char *)v1 + 338), word_4F0704[2 * ptr_507BC0->dword_00001C]) )
+  if ( !(unsigned __int16)sub_449B57((unsigned char *)((char *)v1 + 338), word_4F0704[2 * ptr_507BC0->dword_00001C]) )
   {
     v36 = dword_721A34;
     v37 = v57[0];
@@ -7076,7 +7076,7 @@ signed int __cdecl sub_4B6478()
 	dword_50CBD0.PutMessageToQueue(113,1,0);
     return result;
   }
-  if ( !(unsigned __int16)sub_449B57(v1 + 338, word_4F0754[2 * (int)ptr_507BC0->dword_00001C]) )
+  if ( !(unsigned __int16)sub_449B57((unsigned char *)v1 + 338, word_4F0754[2 * (int)ptr_507BC0->dword_00001C]) )
   {
     v24 = dword_721BC4;
     v25 = v33[0];
@@ -7193,7 +7193,7 @@ signed int __fastcall sub_4B68EA(int a1)
     if ( *(&byte_4F09B1[pParty_global->uDaysPlayed % 7u] + v3) )
     {
       if ( !*(_DWORD *)((char *)&unk_4F09CC + v3)
-        || (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, *(_WORD *)((char *)&unk_4F09CC + v3)) )
+        || (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, *(_WORD *)((char *)&unk_4F09CC + v3)) )
         break;
     }
     ++v1;
@@ -11771,7 +11771,7 @@ int __cdecl sub_4BC8D5()
 LABEL_12:
     if ( v2 == 487 )
     {
-      if ( !(unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 239) )
+      if ( !(unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 239) )
         --v2;
     }
     v7 = (int)ptr_507BC0;
@@ -13552,7 +13552,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   pD3DRenderer->EndScene();
   pD3DRenderer->Present();
   pVideoPlayer->dword_000040 = 0;
-  sub_449B57((int)pParty_global->unk_000764 + 1, 99);
+  sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 99);
 
   v16.LODPCXLoad("winbg.pcx", 2);
   pD3DRenderer->BeginScene();
@@ -13571,13 +13571,13 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   local_34.uFrameZ = 543;
   local_34.uFrameW = 397;
   v33 = (int)LoadFont("endgame.fnt", "FONTPAL");
-  if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 99) )
+  if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 99) )
   {
     v2 = (int)pGlobalTXT_LocalizationStrings[675];
   }
   else
   {
-    result = sub_449B57((int)pParty_global->unk_000764 + 1, 100);
+    result = sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 100);
     if ( !(_WORD)result )
       return result;
     v2 = (int)pGlobalTXT_LocalizationStrings[676];

@@ -99,7 +99,7 @@ struct abc	 {
 
  int dword_000874;
  int dword_000878;
- int dword_00087C;
+ int dword_00087C; // cannot drink potion if this = 1
  int dword_000880;
  int                dword_000884; //flags
  unsigned int       uAlignment;       // dword      @ 000888   enum (0, 1, 2) = (good, neutral, evil)

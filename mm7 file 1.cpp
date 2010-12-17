@@ -3165,7 +3165,7 @@ LABEL_238:
           }
           if ( dword_720010 == v31 )
           {
-            sub_416D62_ShowMonsterRecord(0);
+            sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(0);
             return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
           }
           goto LABEL_184;
@@ -8617,7 +8617,8 @@ void __thiscall sub_427E01(struct unnamed_50C0C8 *_this)
   char v637; // [sp+C94h] [bp-1F0h]@21
   int v638[4]; // [sp+CB0h] [bp-1D4h]@1137
   int v639[4]; // [sp+CC0h] [bp-1C4h]@731
-  int v640; // [sp+CD0h] [bp-1B4h]@791
+  //int v640; // [sp+CD0h] [bp-1B4h]@791
+  ItemGen local_CD0;
   int v641; // [sp+D04h] [bp-180h]@416
   int v642; // [sp+D08h] [bp-17Ch]@416
   int v643; // [sp+D0Ch] [bp-178h]@416
@@ -11727,12 +11728,12 @@ LABEL_780:
         LODWORD(v712) = HIDWORD(v1);
         if (pClass40->pItems[v393 - 1].uEquipType == 18 )
           LODWORD(v712) = *(_DWORD *)(v392 + 684);
-        sub_42EB25((int)&v640);
-        ItemGen_Reset((ItemGen *)&v640);
+        ItemGen_Reset_Dummy(&local_CD0);
+        ItemGen_Reset(&local_CD0);
         v394 = *(_WORD *)(v708 + 180);
         if ( v394 != WORD2(v1) )
         {
-          v640 = v394;
+         local_CD0.uItemID = v394;
           goto LABEL_799;
         }
         v395 = 0;
@@ -11744,24 +11745,24 @@ LABEL_780:
           if ( v395 >= 4 )
             goto LABEL_799;
         }
-        memcpy(&v640, (const void *)(v708 + 36 * v395 + 564), 0x24u);
+        memcpy(&local_CD0, (const void *)(v708 + 36 * v395 + 564), sizeof(ItemGen));
         v1 = (unsigned int)v701;
 LABEL_799:
         if ( LODWORD(v712) != HIDWORD(v1) )
         {
           v632 = LODWORD(v712);
-          if ( v640 != HIDWORD(v1) )
+          if (local_CD0.uItemID != HIDWORD(v1) )
           {
-            v397 = ItemGen_sub_456499(&v640);
+            v397 = ItemGen_sub_456499(&local_CD0);
             wsprintfA((char *)pStringBuffer, "(%s), and %d gold", v397, v632);
             goto LABEL_807;
           }
           v623[0] = "%d gold";
           goto LABEL_803;
         }
-        if ( v640 != HIDWORD(v1) )
+        if (local_CD0.uItemID != HIDWORD(v1) )
         {
-          v632 = ItemGen_sub_456499(&v640);
+          v632 = ItemGen_sub_456499(&local_CD0);
           v623[0] = "(%s)";
 LABEL_803:
           wsprintfA((char *)pStringBuffer, v623[0], v632);

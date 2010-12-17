@@ -2264,10 +2264,10 @@ void Player_sub_492A36_RemoveItemFromIndexMatrix(struct Player *_this, unsigned 
  while (~_this->pInventoryIndices[uInventorySlotY * 14 + uInventorySlotX] & 0x80000000) // heading for the left-topmost corner cell
  {
   if (uInventorySlotX > 0 &&
-      _this->pInventoryIndices[uInventorySlotY * 14 + uInventorySlotX - 1] | 0x80000000 == _this->pInventoryIndices[uInventorySlotY * 14 + uInventorySlotX])
+      (_this->pInventoryIndices[uInventorySlotY * 14 + uInventorySlotX - 1] | 0x80000000) == _this->pInventoryIndices[uInventorySlotY * 14 + uInventorySlotX])
     --uInventorySlotX;
   if (uInventorySlotY > 0 &&
-      _this->pInventoryIndices[(uInventorySlotY - 1) * 14 + uInventorySlotX] | 0x80000000 == _this->pInventoryIndices[(uInventorySlotY - 1) * 14 + uInventorySlotX])
+      (_this->pInventoryIndices[(uInventorySlotY - 1) * 14 + uInventorySlotX] | 0x80000000) == _this->pInventoryIndices[(uInventorySlotY - 1) * 14 + uInventorySlotX])
     --uInventorySlotY;
  }
 
@@ -2369,112 +2369,51 @@ bool __thiscall Player_sub_492C40(Player *_this)
 }
 
 //----- (00492C4E) --------------------------------------------------------
-bool Player_sub_492C4E(Player *_this, int sItemID)
+bool Player_CanEquip_RacialAndAlignmentCheck(Player *_this, unsigned int uItemID)
 {
   char v2; // zf@9
   __int16 v4; // dx@13
   char v5; // zf@15
 
-  if (sItemID > 532)
-  {
-    if (sItemID == 533)
-    {
-      v2 = Player_GetRace(_this) == 1;
-    }
-    else
-    {
-      if (sItemID != 534)
-      {
-        if (sItemID == 535)
-        {
-          switch (_this->dword_001920)
-          {
-            default:
-              return true;
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 0xA:
-            case 0xB:
-            case 0xE:
-            case 0xF:
-            case 0x12:
-            case 0x13:
-            case 0x15:
-            case 0x18:
-              return false;
-          }
-          return false;
-        }
-        if (sItemID == 536)
-        {
-          switch (_this->dword_001920)
-          {
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 0xA:
-            case 0xB:
-            case 0xE:
-            case 0xF:
-            case 0x12:
-            case 0x13:
-            case 0x15:
-            case 0x18:
-              return true;
-            default:
-              return false;
-          }
-          return false;
-        }
-        if (sItemID != 604)
-          return true;
-        v5 = Player_sub_43EEF3(_this) == 0;
-        goto LABEL_23;
-      }
-      v2 = Player_GetRace(_this) == 3;
-    }
-  }
-  else
-  {
-    if (sItemID != 532)
-    {
-      if (sItemID != 515 && sItemID != 517)
-      {
-        if (sItemID == 521)
-        {
-LABEL_13:
-          v4 = 99;
-LABEL_15:
-          v5 = (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, v4) == 0;
-LABEL_23:
-          if ( !v5 )
-            return true;
-          return false;
-        }
-        if (sItemID != 525)
-        {
-          if (sItemID != 527)
-          {
-            if (sItemID != 531)
-              return true;
-            v2 = Player_GetRace(_this) == 2;
-            goto LABEL_10;
-          }
-          goto LABEL_13;
-        }
-      }
-      v4 = 100;
-      goto LABEL_15;
-    }
-    v2 = Player_GetRace(_this) == 0;
-  }
-LABEL_10:
-  if ( v2 )
+ if (uItemID == 514 ||                       // item233  Посох Этрика              артефакт, зло
+     uItemID == 516 ||                       // item221  Старый Ник                артефакт, зло
+     uItemID == 524)                         // item325  Сумрак                    реликвия, зло
+   return sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 100) != 0;
+
+ if (uItemID == 521 ||                       // item239  Шлем Таледона             артефакт, добро
+     uItemID == 526)                         // item230  Справедливость            реликвия, добро
+   return sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 99) != 0;
+ 
+ if (uItemID == 530)                         // item093  Гибель Эльфа              артефакт, гоблин
+   return Player_GetRace(_this) == Character::Race::Goblin;
+ 
+ if (uItemID == 531)                         // item093  Око Мысли                 артефакт, человек
+   return Player_GetRace(_this) == Character::Race::Human;
+
+ if (uItemID == 532)                         // item073  Эльфийская Кольчуга       артефакт, эльф
+   return Player_GetRace(_this) == Character::Race::Elf;
+ 
+ if (uItemID == 533)                         // item113  Кованые Латные Рукавицы   артефакт, гном
+   return Player_GetRace(_this) == Character::Race::Dwarf;
+
+ if (uItemID == 534)                         // item104  Пояс Героя                артефакт, мужчина
+   return Player_GetSex(_this) == Character::Sex::Male;
+
+ if (uItemID == 535)                         // item129  Эскорт Леди               артефакт, женщина
+   return Player_GetSex(_this) == Character::Sex::Female;
+
+
+ if (uItemID > 531)
+ {
+  if (uItemID != 603)
+    return true;
+
+  v5 = Player_sub_43EEF3(_this) == 0;
+  if ( !v5 )
     return true;
   return false;
+ }
+ return true;
 }
 
 //----- (00493244) --------------------------------------------------------
@@ -2530,7 +2469,7 @@ LABEL_84:
         v7 = 1;
         goto LABEL_4;
       case 1:
-        if ( a3 && (unsigned __int16)sub_449B57(_this + 338, 17) || sub_49327B(_this, 2, a3) )
+        if ( a3 && (unsigned __int16)sub_449B57((unsigned char *)_this + 338, 17) || sub_49327B(_this, 2, a3) )
           goto LABEL_84;
         v8 = a3;
         v7 = 3;
@@ -2546,7 +2485,7 @@ LABEL_84:
         v7 = 5;
         goto LABEL_4;
       case 5:
-        if ( a3 && (unsigned __int16)sub_449B57(_this + 338, 11) || sub_49327B(_this, 6, a3) )
+        if ( a3 && (unsigned __int16)sub_449B57((unsigned char *)_this + 338, 11) || sub_49327B(_this, 6, a3) )
           goto LABEL_84;
         v8 = a3;
         v7 = 7;
@@ -2566,7 +2505,7 @@ LABEL_84:
         v7 = 9;
         goto LABEL_4;
       case 9:
-        if ( a3 && (unsigned __int16)sub_449B57(_this + 338, 23) || sub_49327B(_this, 10, a3) )
+        if ( a3 && (unsigned __int16)sub_449B57((unsigned char *)_this + 338, 23) || sub_49327B(_this, 10, a3) )
           goto LABEL_84;
         v8 = a3;
         v7 = 11;
@@ -2586,7 +2525,7 @@ LABEL_84:
         v7 = 13;
         goto LABEL_4;
       case 13:
-        if ( a3 && (unsigned __int16)sub_449B57(_this + 338, 41) || sub_49327B(_this, 14, a3) )
+        if ( a3 && (unsigned __int16)sub_449B57((unsigned char *)_this + 338, 41) || sub_49327B(_this, 14, a3) )
           goto LABEL_84;
         v8 = a3;
         v7 = 15;
@@ -2606,7 +2545,7 @@ LABEL_84:
         v7 = 17;
         goto LABEL_4;
       case 17:
-        if ( a3 && (unsigned __int16)sub_449B57(_this + 338, 35) || sub_49327B(_this, 18, a3) )
+        if ( a3 && (unsigned __int16)sub_449B57((unsigned char *)_this + 338, 35) || sub_49327B(_this, 18, a3) )
           goto LABEL_84;
         v8 = a3;
         v7 = 19;
@@ -2624,7 +2563,7 @@ LABEL_84:
         v7 = 21;
         goto LABEL_4;
       case 21:
-        if ( a3 && (unsigned __int16)sub_449B57(_this + 338, 29) || sub_49327B(_this, 22, a3) )
+        if ( a3 && (unsigned __int16)sub_449B57((unsigned char *)_this + 338, 29) || sub_49327B(_this, 22, a3) )
           goto LABEL_84;
         v8 = a3;
         v7 = 23;
@@ -2645,7 +2584,7 @@ LABEL_84:
         break;
       case 25:
 LABEL_56:
-        if ( a3 && (unsigned __int16)sub_449B57(v3 + 338, 63) || sub_49327B(_this, 26, a3) )
+        if ( a3 && (unsigned __int16)sub_449B57((unsigned char *)v3 + 338, 63) || sub_49327B(_this, 26, a3) )
           goto LABEL_84;
         v8 = a3;
         v7 = 27;
@@ -2665,7 +2604,7 @@ LABEL_56:
         v7 = 29;
         goto LABEL_4;
       case 29:
-        if ( a3 && (unsigned __int16)sub_449B57(_this + 338, 69) || sub_49327B(_this, 30, a3) )
+        if ( a3 && (unsigned __int16)sub_449B57((unsigned char *)_this + 338, 69) || sub_49327B(_this, 30, a3) )
           goto LABEL_84;
         v8 = a3;
         v7 = 31;
@@ -2685,7 +2624,7 @@ LABEL_56:
         v7 = 33;
         goto LABEL_4;
       case 33:
-        if ( a3 && (unsigned __int16)sub_449B57(_this + 338, 73) || sub_49327B(_this, 34, a3) )
+        if ( a3 && (unsigned __int16)sub_449B57((unsigned char *)_this + 338, 73) || sub_49327B(_this, 34, a3) )
           goto LABEL_84;
         v8 = a3;
         v7 = 35;
@@ -2702,7 +2641,7 @@ LABEL_4:
         {
           v5 = 79;
 LABEL_82:
-          v4 = (unsigned __int16)sub_449B57(_this + 338, v5) == 0;
+          v4 = (unsigned __int16)sub_449B57((unsigned char *)_this + 338, v5) == 0;
 LABEL_83:
           if ( !v4 )
             goto LABEL_84;
@@ -3175,7 +3114,7 @@ LABEL_119:
             v19 = v67 + 338;
             do
             {
-              if ( (unsigned __int16)sub_449B57(v19, *(_WORD *)((char *)&unk_4EE150 + v20)) )
+              if ( (unsigned __int16)sub_449B57((unsigned char *)v19, *(_WORD *)((char *)&unk_4EE150 + v20)) )
               {
                 v21 = v69;
                 v22 = *(_WORD *)((char *)&unk_4EE150 + v20);
@@ -3290,7 +3229,7 @@ LABEL_93:
         }
         if ( v16 + 10 * (unsigned __int8)*v17 == 552 )
         {
-          v46 = ItemGen_sub_456499((void *)v12);
+          v46 = ItemGen_sub_456499((ItemGen *)v12);
           wsprintfA(Dest, "\f%06x%s\f000000", v65, v46);
 LABEL_117:
           v13 = (int)Dest;

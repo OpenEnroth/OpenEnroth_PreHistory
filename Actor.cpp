@@ -45,9 +45,9 @@ void __cdecl UpdateActors()
     v8 = 1;
   if ( !_strcmpi(CurrentLevelName, "d26.blv") ) //The Pit
     v6 = 1;
-  if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 99) )
+  if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 99) )
     v7 = 1;  
-  if ( sub_449B57((int)pParty_global->unk_000764 + 1, 100) )
+  if ( sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 100) )
     v5 = 1;
 
   for (i = 0; i < uNumActors; ++i)

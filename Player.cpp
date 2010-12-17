@@ -60,8 +60,6 @@ bool Player_sub_48D6AA(struct Player *_this, unsigned int uSlotID)
 //----- (0049024A) --------------------------------------------------------
 void Player_Reset(struct Player *_this, unsigned int uDesiredClass)
 {
- int i;
-
  _this->uExperience = rand() % 100 + 251;
 
  _this->uClass = uDesiredClass;
@@ -90,7 +88,7 @@ void Player_Reset(struct Player *_this, unsigned int uDesiredClass)
 
  memset(_this->array_0001F5, 0, 31);
 
- for (i = 0; i < 37; ++i)
+ for (unsigned int i = 0; i < 37; ++i)
  {
   if (AvailSkillPerClass[_this->uClass / 4][i] == 2)
   {
@@ -99,15 +97,15 @@ void Player_Reset(struct Player *_this, unsigned int uDesiredClass)
       {
         switch (i)
         {
-          case SKILL_FIREMAGIC:   _this->cFireSpellbook.bIsSpellbookAvailable = true;   break;
-          case SKILL_AIRMAGIC:    _this->cAirSpellbook.bIsSpellbookAvailable = true;    break;
-          case SKILL_WATERMAGIC:  _this->cWaterSpellbook.bIsSpellbookAvailable = true;  break;
-          case SKILL_EARTHMAGIC:  _this->cEarthSpellbook.bIsSpellbookAvailable = true;  break;
-          case SKILL_SPIRITMAGIC: _this->cSpiritSpellbook.bIsSpellbookAvailable = true; break;
-          case SKILL_MINDMAGIC:   _this->cMindSpellbook.bIsSpellbookAvailable = true;   break;
-          case SKILL_BODYMAGIC:   _this->cBodySpellbook.bIsSpellbookAvailable = true;   break;
-          case SKILL_LIGHTMAGIC:  _this->cLightSpellbook.bIsSpellbookAvailable = true;  break;
-          case SKILL_DARKMAGIC:   _this->cDarkSpellbook.bIsSpellbookAvailable = true;   break;
+         case Character::Skill::Fire:   _this->cFireSpellbook.bIsSpellbookAvailable = true;   break;
+         case Character::Skill::Air:    _this->cAirSpellbook.bIsSpellbookAvailable = true;    break;
+         case Character::Skill::Water:  _this->cWaterSpellbook.bIsSpellbookAvailable = true;  break;
+         case Character::Skill::Earth:  _this->cEarthSpellbook.bIsSpellbookAvailable = true;  break;
+         case Character::Skill::Spirit: _this->cSpiritSpellbook.bIsSpellbookAvailable = true; break;
+         case Character::Skill::Mind:   _this->cMindSpellbook.bIsSpellbookAvailable = true;   break;
+         case Character::Skill::Body:   _this->cBodySpellbook.bIsSpellbookAvailable = true;   break;
+         case Character::Skill::Light:  _this->cLightSpellbook.bIsSpellbookAvailable = true;  break;
+         case Character::Skill::Dark:   _this->cDarkSpellbook.bIsSpellbookAvailable = true;   break;
         }
       }
     }
@@ -241,15 +239,15 @@ int Player_GetRace(struct Player *_this)
               */
 
  if (_this->uFace >= 0 && _this->uFace <= 7)
-   return RACE_HUMAN;
+   return Character::Race::Human;
  else if (_this->uFace > 7 && _this->uFace <= 11)
-   return RACE_ELF;
+   return Character::Race::Elf;
  else if (_this->uFace > 11 && _this->uFace <= 15)
-   return RACE_DWARF;
+   return Character::Race::Dwarf;
  else if (_this->uFace > 15 && _this->uFace <= 19)
-   return RACE_GOBLIN;
+   return Character::Race::Goblin;
  else if (_this->uFace > 19 && _this->uFace <= 25)
-   return RACE_UNDEAD;
+   return Character::Race::Undead;
 
  return -1;
 }
@@ -2052,33 +2050,33 @@ int __thiscall Player_GetBaseResistance(struct Player *_this, signed int a2)
   {
     case 10:
       ResValue = _this->sFireResistanceBase;
-      if (uRace == RACE_GOBLIN)
+      if (uRace == Character::Race::Goblin)
         ResRaceBonus = 5;
       break;
     case 11:
       ResValue = _this->sAirResistanceBase;
-      if (uRace == RACE_GOBLIN)
+      if (uRace == Character::Race::Goblin)
         ResRaceBonus = 5;
       break;
     case 12:
       ResValue = _this->sWaterResistanceBase;
-      if (uRace == RACE_DWARF)
+      if (uRace == Character::Race::Dwarf)
         ResRaceBonus = 5;
       break;
     case 13:
       ResValue = _this->sEarthResistanceBase;
-      if (uRace == RACE_DWARF)
+      if (uRace == Character::Race::Dwarf)
         ResRaceBonus = 5;
       break;
     case 14:
       ResValue = _this->sMindResistanceBase;
-      if (uRace == RACE_ELF)
+      if (uRace == Character::Race::Elf)
         ResRaceBonus = 10;
       break;
     case 15:
     case 33:
       ResValue = _this->sBodyResistanceBase;
-      if (uRace == RACE_HUMAN)
+      if (uRace == Character::Race::Human)
         ResRaceBonus = 5;
       break;
   }
@@ -2107,12 +2105,12 @@ int __thiscall Player_GetActualResistance(struct Player *_this, signed int a2)
     ResBonus = 20;
   if ( a2 == 10 || a2 == 11 || a2 == 12 || a2 == 13 )
   {
-    if ( sub_458244_GetSkillMasteryLevel(_this->pActiveSkills[SKILL_LEATHER]) == 4 )  // Grandmaster leather bonus
+    if ( sub_458244_GetSkillMasteryLevel(_this->pActiveSkills[Character::Skill::Leather]) == 4 )  // Grandmaster leather bonus
     {  
       if ( Player_sub_48D6AA(_this, 3) ) // check equip?
       {
         if ( sub_48D651_GetSomeItemSkillType(_this, 3) == 9 )
-          ResBonus += _this->pActiveSkills[SKILL_LEATHER] & 0x3F;
+          ResBonus += _this->pActiveSkills[Character::Skill::Leather] & 0x3F;
       }
     }
   }
@@ -2120,33 +2118,33 @@ int __thiscall Player_GetActualResistance(struct Player *_this, signed int a2)
   {
     case 10:
       ResValue = _this->sFireResistanceBase + _this->sFireResistanceBonus;
-      if (uRace == RACE_GOBLIN)
+      if (uRace == Character::Race::Goblin)
         ResRaceBonus = 5;
       break;
     case 11:
       ResValue = _this->sAirResistanceBase + _this->sAirResistanceBonus;
-      if (uRace == RACE_GOBLIN)
+      if (uRace == Character::Race::Goblin)
         ResRaceBonus = 5;
       break;
     case 12:
       ResValue = _this->sWaterResistanceBase + _this->sWaterResistanceBonus;
-      if (uRace == RACE_DWARF)
+      if (uRace == Character::Race::Dwarf)
         ResRaceBonus = 5;
       break;
     case 13:
       ResValue = _this->sEarthResistanceBase + _this->sEarthResistanceBonus;
-      if (uRace == RACE_DWARF)
+      if (uRace == Character::Race::Dwarf)
         ResRaceBonus = 5;
       break;
     case 14:
       ResValue = _this->sMindResistanceBase + _this->sMindResistanceBonus;
-      if (uRace == RACE_ELF)
+      if (uRace == Character::Race::Elf)
         ResRaceBonus = 10;
       break;
     case 15:
     case 33:
       ResValue = _this->sBodyResistanceBase + _this->sBodyResistanceBonus;
-      if (uRace == RACE_HUMAN)
+      if (uRace == Character::Race::Human)
         ResRaceBonus = 5;
       break;
   }

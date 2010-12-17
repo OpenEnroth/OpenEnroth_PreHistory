@@ -1447,7 +1447,7 @@ extern char byte_5C8D1A[array_size_unknown]; // weak
 extern struct class40 *pClass40; // struct @ MM7.exe::005D29E0
 //int dword_5D29E0; // weak
 //int dword_5D29E4[array_size_unknown]; // pClass40::pItems[0]::pName
-extern int dword_5D29E8[array_size_unknown]; // weak
+//int dword_5D29E8[array_size_unknown]; // 000008
 extern int dword_5D29EC[array_size_unknown]; // weak
 extern int dword_5D29F4[array_size_unknown]; // weak
 extern __int16 word_5D29F8[array_size_unknown]; // weak

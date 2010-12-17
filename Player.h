@@ -11,9 +11,86 @@
 #pragma pack(push, 1)
 
 
+namespace Character
+{
+ namespace Sex
+ {
+  enum
+  {
+   Male = 0,
+   Female = 1
+  };
+ };
 
-#define SKILL_STAFF         0
-#define SKILL_SWORD		    1
+ namespace Race
+ {
+  enum
+  {
+   Human = 0,
+   Elf = 1,
+   Goblin = 2,
+   Dwarf = 3,
+   Undead = 4
+  };
+ };
+
+ namespace Skill
+ {
+  enum
+  {
+   Staff = 0,
+   Sword = 1,
+   Dagger = 2,
+   Axe = 3,
+   Spear = 4,
+   Bow = 5,
+   Mace = 6,
+   Blaster = 7,
+   Shield = 8,
+   Leather = 9,
+   Chain = 10,
+   Plate = 11,
+   Fire = 12,
+   Air = 13,
+   Water = 14,
+   Earth = 15,
+   Spirit = 16,
+   Mind = 17,
+   Body = 18,
+   Light = 19,
+   Dark = 20,
+   ItemID = 21,
+   Merchant = 22,
+   Repair = 23,
+   Bodybuilding = 24,
+   Meditation = 25,
+   Perception = 26,
+   Diplomacy = 27,
+   Thievery = 28,
+   TrapDisarming = 29,
+   Dodging = 30,
+   Unarmed = 31,
+   MonsterID = 32,
+   Armsmaster = 33,
+   Stealing = 34,
+   Alchemy = 35,
+   Learning = 36
+  };
+ };
+
+ namespace Class
+ {
+  enum
+  {
+   Knight = 0,
+   Thief = 4,
+   Cleric = 24,
+   Sorcerer = 32
+  };
+ };
+};
+/*#define SKILL_STAFF         0
+#define SKILL_SWORD 	    1
 #define SKILL_DAGGER		2
 #define SKILL_AXE		    3
 #define SKILL_SPEAR		    4
@@ -50,7 +127,6 @@
 #define SKILL_ALCHEMY		35
 #define SKILL_LEARNING		36
 
-
 #define CLASS_KNIGHT   0
 #define CLASS_THIEF    4
 #define CLASS_CLERIC   24
@@ -63,7 +139,7 @@
 #define RACE_UNDEAD 4
 
 #define SEX_MALE    0
-#define SEX_FEMALE  1
+#define SEX_FEMALE  1*/
 
 extern  class cTexture *pTextureID_PCFaces[];
 
@@ -320,11 +396,11 @@ int __thiscall Player_sub_48E68F(int _this);
 char __thiscall Player_sub_48F882(Player *_this, signed int a2);
 __int16 __thiscall Player_PlaySound(struct Player *_this, int a2, int a3);
 __int16 __thiscall Player_sub_494A25(int _this, int a2, int a3);
-bool Player_sub_492C4E(Player *_this, int sItemID);
+bool Player_CanEquip_RacialAndAlignmentCheck(Player *_this, unsigned int uItemID);
 //signed int __thiscall sub_492700(int this, signed int a2);
 bool Player_CheckIfHasSkill(Player *_this, unsigned int uSkillType);
 unsigned int Player_FindNextFreeInventorySlotIndex(Player *_this);
-void __thiscall Player_sub_4680ED(Player *_this, signed int a2, int a3);
+void Player_UseItem_DrinkPotion_etc(Player *_this, unsigned int uCharacter, int a3);
 int __thiscall Player_sub_490EEE(Player *_this, int a2, int a3, int a4, int a5);
 int __thiscall Player_sub_4910A8(Player *_this);
 signed int __thiscall Player_sub_491151(Player *_this, int a2);

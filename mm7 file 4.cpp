@@ -2044,13 +2044,9 @@ LABEL_8:
 }
 
 //----- (0042EB25) --------------------------------------------------------
-int __thiscall sub_42EB25(int _this)
+void ItemGen_Reset_Dummy(ItemGen *_this)
 {
-  int v2; // esi@1
-
-  v2 = _this;
-  ItemGen_Reset((ItemGen *)_this);
-  return v2;
+ ItemGen_Reset(_this);
 }
 
 //----- (0042EB31) --------------------------------------------------------
@@ -7856,21 +7852,21 @@ LABEL_12:
 }
 
 //----- (00456499) --------------------------------------------------------
-int __thiscall ItemGen_sub_456499(void *_this)
+int __thiscall ItemGen_sub_456499(ItemGen *_this)
 {
   int result; // eax@2
 
   if ( *((_BYTE *)_this + 20) & 1 )
-    result = sub_4564B3(_this);
+    result = ItemGen_sub_4564B3(_this);
   else
-    result = dword_5D29EC[12 * *(_DWORD *)_this];
+    result = dword_5D29EC[12 * _this->uItemID];
   return result;
 }
 
 //----- (004564B3) --------------------------------------------------------
-int __thiscall sub_4564B3(void *_this)
+int __thiscall ItemGen_sub_4564B3(ItemGen *_this)
 {
-  int v1; // eax@1
+  //int v1; // eax@1
   char v2; // cl@1
   int v3; // esi@1
   int v4; // edi@4
@@ -7882,11 +7878,11 @@ int __thiscall sub_4564B3(void *_this)
   const char *v11; // [sp-4h] [bp-Ch]@4
 
   v3 = (int)_this;
-  v1 = 48 * *(_DWORD *)_this;
-  v2 = pClass40->pItems[v1/48 - 1].uEquipType;
-  if ( (unsigned __int8)v2 >= 0xDu && ((unsigned __int8)v2 <= 0xEu || v2 == 18) )
+  //v1 = 48 * _this->uItemID;
+  v2 = pClass40->pItems[_this->uItemID].uEquipType;
+  if (v2 >= 0x0D && ((unsigned __int8)v2 <= 0xEu || v2 == 18) )
   {
-    v11 = *(const char **)((char *)dword_5D29E8 + v1);
+    v11 = (char *)pClass40->pItems[_this->uItemID].pName;
     v4 = (int)byte_5C8678;
     v10 = (int)"%s";
 LABEL_10:
@@ -7894,8 +7890,8 @@ LABEL_10:
     return v4;
   }
   v4 = (int)byte_5C8678;
-  wsprintfA(byte_5C8678, "%s", *(int *)((char *)dword_5D29E8 + v1));
-  if ( *(_DWORD *)v3 == 601 )
+  wsprintfA(byte_5C8678, "%s", pClass40->pItems[_this->uItemID].pName);
+  if (_this->uItemID == 601 )
   {
     v5 = *(_BYTE *)(v3 + 26);
     if ( v5 >= 1u )
@@ -7940,7 +7936,7 @@ LABEL_10:
         || v7 == 67
         || v7 == 68 )
       {
-        wsprintfA(byte_5C8678, "%s %s", dword_5DC1A8[7 * v7], dword_5D29E8[12 * *(_DWORD *)v3]);
+        wsprintfA(byte_5C8678, "%s %s", dword_5DC1A8[7 * v7], pClass40->pItems[*(_DWORD *)v3].pName);
         return v4;
       }
       strcat(byte_5C8678, " ");
@@ -13256,14 +13252,14 @@ char __thiscall sub_467D88(int _this, __int16 a2, __int16 a3, __int16 a4, __int1
 }
 
 //----- (00467E7F) --------------------------------------------------------
-void __thiscall sub_467E7F_EquipArmour(unsigned int uEquipType)
+void sub_467E7F_EquipBody(unsigned int uEquipType)
 {
  Player *v1; // eax@1
   int v2; // edx@1
   int v3; // ebx@1
-  char v5; // zf@1
+  //char v5; // zf@1
   int v6; // esi@2
-  int v7; // eax@2
+  //int v7; // eax@2
   signed int v8; // eax@3
 
   struct ItemGen local_0C;
@@ -13272,38 +13268,34 @@ void __thiscall sub_467E7F_EquipArmour(unsigned int uEquipType)
 
   //void *v11; // [sp+30h] [bp-Ch]@1
   int v12; // [sp+34h] [bp-8h]@1
-  int *v13; // [sp+38h] [bp-4h]@1
+  //int *v13; // [sp+38h] [bp-4h]@1
 
   ItemGen_Reset(&local_0C);
   v3 = byte_4E8398[uEquipType];
   v1 = pPlayers[uActiveCharacter - 1];
 
-  v13 = &v1->pEquppedItemIndices[v3];
-  v2 = *v13;
-  v5 = *v13 == 0;
-  v12 = *v13;
-  if ( v5 )
+  v2 = v12 = v1->pEquppedItemIndices[v3];
+  if (v1->pEquppedItemIndices[v3] == -1)  // no armour
   {
     v8 = Player_FindNextFreeInventorySlotIndex(v1);
-    if ( v8 >= 0 )
+    if (v8 != -1)
     {
-      pParty_global->pickedItem.byte_000018 = v3 + 1;
+      pParty_global->pickedItem.byte_000018 = v3;
       memcpy(&v1->cInventorySlots[v8], &pParty_global->pickedItem, sizeof(struct ItemGen));
-      *v13 = v8 + 1;
+      v1->pEquppedItemIndices[v3] = v8;
       GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
     }
   }
-  else
+  else // replace armour
   {
     memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
     v6 = (int)((char *)v1 + 4 * (9 * v2 - 9));
     *(_BYTE *)(v6 + 556) = 0;
     ItemGen_Reset(&pParty_global->pickedItem);
     Party_sub_4936E1(pParty_global, (ItemGen *)(v6 + 532));
-    v7 = v12;
-    local_0C.byte_000018 = v3 + 1;
-    memcpy((void *)(v6 + 532), &local_0C, 0x24u);
-    *v13 = v7;
+    local_0C.byte_000018 = v3;
+    memcpy((void *)(v6 + 532), &local_0C, sizeof(ItemGen));
+    v1->pEquppedItemIndices[v3] = v12;
   }
 }
 

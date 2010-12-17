@@ -151,17 +151,17 @@ void __fastcall sub_438CF3(int a1)
       {
         if ( v1 == 6 || v1 == 7 )
         {
-          sub_449B57((int)pParty_global->unk_000764 + 1, 99);
-          if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 100) )
+          sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 99);
+          if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 100) )
             return;
           goto LABEL_12;
         }
         if ( v1 != 8 )
           goto LABEL_12;
       }
-      if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 99) )
+      if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 99) )
         v3 = 0;
-      if ( (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, 100) )
+      if ( (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 100) )
         v3 = 1;
       if ( v3 )
       {
@@ -184,7 +184,7 @@ LABEL_12:
 		  v8 = (int)pPlayers[i];
           if ( dword_AE31E0 )
           {
-            if ( !(unsigned __int16)sub_449B57(*(_DWORD *)v8 + 338, 1) )
+            if ( !(unsigned __int16)sub_449B57((unsigned char *)*(_DWORD *)v8 + 338, 1) )
               sub_449B7E(*(_DWORD *)v8 + 338, 1, 1);
           }
         //  v8 += 4;
@@ -2863,7 +2863,7 @@ char __thiscall sub_43ED6F(int a1)
   {
     r = Player_GetRace(pPlayers[i]);
     //Player_GetVoiceSex(pPlayers[i]);   // result not interested?
-    if ( r != RACE_HUMAN && r != RACE_ELF && r != RACE_GOBLIN )
+    if ( r != Character::Race::Human && r != Character::Race::Elf && r != Character::Race::Goblin )
       v5 = (a1 == 1);
     else
       v5 = (a1 == 0);
@@ -2890,9 +2890,9 @@ char __thiscall sub_43EDB9(int a1)
   {
     r = Player_GetRace(pPlayers[i]);
     sex = Player_GetVoiceSex(pPlayers[i]);
-    if ( r == RACE_HUMAN || r == RACE_ELF || r == RACE_GOBLIN )
+    if ( r == Character::Race::Human || r == Character::Race::Elf || r == Character::Race::Goblin )
       break;
-    if ( sex == SEX_MALE && a1 == 2 )
+    if ( sex == Character::Sex::Male && a1 == 2 )
       return 1;
     v6 = (a1 == 3);
 LABEL_11:
@@ -2903,7 +2903,7 @@ LABEL_11:
     if (i > 3)
       return 0;
   }
-  if ( sex == SEX_FEMALE || a1 )
+  if ( sex == Character::Sex::Female || a1 )
   {
     v6 = (a1 == 1);
     goto LABEL_11;
@@ -10162,9 +10162,9 @@ LABEL_27:
 }
 
 //----- (00449B57) --------------------------------------------------------
-unsigned int __fastcall sub_449B57(int a1, __int16 a2)
+unsigned int sub_449B57(unsigned char *a1, __int16 a2)
 {
-  return *(_BYTE *)(((a2 - 1) >> 3) + a1) & (0x80u >> (a2 - 1) % 8);
+  return a1[(a2 - 1) / 8] & (0x80 >> (a2 - 1) % 8);
 }
 
 //----- (00449BB4) --------------------------------------------------------

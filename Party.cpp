@@ -164,7 +164,7 @@ int Party_Reset(struct Party *_this)
 
  {
   pPlayers[0] = &_this->pPlayers[0];
-  Player_Reset(&_this->pPlayers[0], CLASS_KNIGHT);
+  Player_Reset(&_this->pPlayers[0], Character::Class::Knight);
 
   _this->pPlayers[0].uFace = 17;
   _this->pPlayers[0].dword_001920 = 17;
@@ -178,7 +178,7 @@ int Party_Reset(struct Party *_this)
 
  {
   pPlayers[1] = &_this->pPlayers[1];
-  Player_Reset(&_this->pPlayers[1], CLASS_THIEF);
+  Player_Reset(&_this->pPlayers[1], Character::Class::Thief);
 
   _this->pPlayers[1].uFace = 3;
   _this->pPlayers[1].dword_001920 = 3;
@@ -192,7 +192,7 @@ int Party_Reset(struct Party *_this)
 
  { 
   pPlayers[2] = &_this->pPlayers[2];
-  Player_Reset(&_this->pPlayers[2], CLASS_CLERIC);
+  Player_Reset(&_this->pPlayers[2], Character::Class::Cleric);
  
   _this->pPlayers[2].uFace = 14;
   _this->pPlayers[2].dword_001920 = 14;
@@ -206,7 +206,7 @@ int Party_Reset(struct Party *_this)
 
  { 
   pPlayers[3] = &_this->pPlayers[3];
-  Player_Reset(&_this->pPlayers[3], CLASS_SORCERER);
+  Player_Reset(&_this->pPlayers[3], Character::Class::Sorcerer);
 
   _this->pPlayers[3].uFace = 10;
   _this->pPlayers[3].dword_001920 = 10;
@@ -401,10 +401,10 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
  _this->pPlayers[0].uSpeed = 14;
  _this->pPlayers[0].uLuck = 7;
 
- _this->pPlayers[0].pActiveSkills[SKILL_SWORD] = 1;
- _this->pPlayers[0].pActiveSkills[SKILL_BOW] = 1;
- _this->pPlayers[0].pActiveSkills[SKILL_LEATHER] = 1;
- _this->pPlayers[0].pActiveSkills[SKILL_ARMSMASTER] = 1;
+ _this->pPlayers[0].pActiveSkills[Character::Skill::Sword] = 1;
+ _this->pPlayers[0].pActiveSkills[Character::Skill::Bow] = 1;
+ _this->pPlayers[0].pActiveSkills[Character::Skill::Leather] = 1;
+ _this->pPlayers[0].pActiveSkills[Character::Skill::Armsmaster] = 1;
 
 
 
@@ -423,10 +423,10 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
  _this->pPlayers[1].uSpeed = 13;
  _this->pPlayers[1].uLuck = 13;
 
- _this->pPlayers[1].pActiveSkills[SKILL_DAGGER] = 1;
- _this->pPlayers[1].pActiveSkills[SKILL_LEATHER] = 1;
- _this->pPlayers[1].pActiveSkills[SKILL_DISARMTRAP] = 1;
- _this->pPlayers[1].pActiveSkills[SKILL_STEALING] = 1;
+ _this->pPlayers[1].pActiveSkills[Character::Skill::Dagger] = 1;
+ _this->pPlayers[1].pActiveSkills[Character::Skill::Leather] = 1;
+ _this->pPlayers[1].pActiveSkills[Character::Skill::TrapDisarming] = 1;
+ _this->pPlayers[1].pActiveSkills[Character::Skill::Stealing] = 1;
 
 
 
@@ -444,10 +444,10 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
  _this->pPlayers[2].uSpeed = 13;
  _this->pPlayers[2].uLuck = 7;
 
- _this->pPlayers[2].pActiveSkills[SKILL_MACE] = 1;
- _this->pPlayers[2].pActiveSkills[SKILL_LEATHER] = 1;
- _this->pPlayers[2].pActiveSkills[SKILL_BODYMAGIC] = 1;
- _this->pPlayers[2].pActiveSkills[SKILL_ALCHEMY] = 1;
+ _this->pPlayers[2].pActiveSkills[Character::Skill::Mace] = 1;
+ _this->pPlayers[2].pActiveSkills[Character::Skill::Leather] = 1;
+ _this->pPlayers[2].pActiveSkills[Character::Skill::Body] = 1;
+ _this->pPlayers[2].pActiveSkills[Character::Skill::Alchemy] = 1;
 
 
 
@@ -465,10 +465,10 @@ int Party_CreateDefaultParty(struct Party *_this, char a2)
  _this->pPlayers[3].uSpeed = 13;
  _this->pPlayers[3].uLuck = 7;
 
- _this->pPlayers[3].pActiveSkills[SKILL_STAFF] = 1;
- _this->pPlayers[3].pActiveSkills[SKILL_LEATHER] = 1;
- _this->pPlayers[3].pActiveSkills[SKILL_FIREMAGIC] = 1;
- _this->pPlayers[3].pActiveSkills[SKILL_AIRMAGIC] = 1;
+ _this->pPlayers[3].pActiveSkills[Character::Skill::Staff] = 1;
+ _this->pPlayers[3].pActiveSkills[Character::Skill::Leather] = 1;
+ _this->pPlayers[3].pActiveSkills[Character::Skill::Fire] = 1;
+ _this->pPlayers[3].pActiveSkills[Character::Skill::Air] = 1;
 
   
  v4 = (int)_this;
@@ -507,76 +507,76 @@ LABEL_10:
         {
           switch (v19) // creating skill-related items
           {
-            case SKILL_STAFF:
+            case Character::Skill::Staff:
               v16 = 61;
               goto LABEL_25;
-            case SKILL_SWORD:
+            case Character::Skill::Sword:
               v16 = 1;
               goto LABEL_25;
-            case SKILL_DAGGER:
+            case Character::Skill::Dagger:
               v16 = 15;
               goto LABEL_25;
-            case SKILL_AXE:
+            case Character::Skill::Axe:
               v16 = 23;
               goto LABEL_25;
-            case SKILL_SPEAR:
+            case Character::Skill::Spear:
               v16 = 31;
               goto LABEL_25;
-            case SKILL_BOW:
+            case Character::Skill::Bow:
               v16 = 47;
               goto LABEL_25;
-            case SKILL_MACE:
+            case Character::Skill::Mace:
               v16 = 50;
               goto LABEL_25;
-            case SKILL_SHIELD:
+            case Character::Skill::Shield:
               v16 = 84;
               goto LABEL_25;
-            case SKILL_LEATHER:
+            case Character::Skill::Leather:
               v16 = 66;
               goto LABEL_25;
-            case SKILL_CHAIN:
+            case Character::Skill::Chain:
               v16 = 71;
               goto LABEL_25;
-            case SKILL_PLATE:
+            case Character::Skill::Plate:
               v16 = 76;
 LABEL_25:
               WearItem(&_this->pPlayers[i], v16);
               break;
-            case SKILL_FIREMAGIC:
+            case Character::Skill::Fire:
               v17 = 401;
               goto LABEL_36;
-            case SKILL_AIRMAGIC:
+            case Character::Skill::Air:
               v17 = 412;
               goto LABEL_36;
-            case SKILL_WATERMAGIC:
+            case Character::Skill::Water:
               v17 = 423;
               goto LABEL_36;
-            case SKILL_EARTHMAGIC:
+            case Character::Skill::Earth:
               v17 = 434;
               goto LABEL_36;
-            case SKILL_SPIRITMAGIC:
+            case Character::Skill::Spirit:
               v17 = 445;
               goto LABEL_36;
-            case SKILL_MINDMAGIC:
+            case Character::Skill::Mind:
               v17 = 456;
               goto LABEL_36;
-            case SKILL_BODYMAGIC:
+            case Character::Skill::Body:
               v17 = 467;
               goto LABEL_36;
-            case SKILL_IDITEM:
-            case SKILL_REPAIR:
-            case SKILL_MEDITATION:
-            case SKILL_PERCEPTION:
-            case SKILL_DIPLOMACY:
-            case SKILL_DISARMTRAP:
-            case SKILL_LEARNING:
+            case Character::Skill::ItemID:
+            case Character::Skill::Repair:
+            case Character::Skill::Meditation:
+            case Character::Skill::Perception:
+            case Character::Skill::Diplomacy:
+            case Character::Skill::TrapDisarming:
+            case Character::Skill::Learning:
               AddItem(&_this->pPlayers[i], -1, 220);
               v17 = 5 * (rand() % 3 + 40);
               goto LABEL_36;
-            case SKILL_DODGING:
+            case Character::Skill::Dodging:
               v17 = 115;
               goto LABEL_36;
-            case SKILL_UNARMED:
+            case Character::Skill::Unarmed:
               v17 = 110;
 LABEL_36:
               AddItem(&_this->pPlayers[i], -1, v17);

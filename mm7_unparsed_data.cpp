@@ -1493,7 +1493,6 @@ struct class48 *pClass48 = 0; // struct @ MM7.exe::005C8CC0
  char byte_5C8D1A[array_size_unknown]; // weak
 
 struct class40 *pClass40 = 0; // struct @ MM7.exe::005D29E0
- int dword_5D29E8[array_size_unknown]; // weak
  int dword_5D29EC[array_size_unknown]; // weak
  int dword_5D29F4[array_size_unknown]; // weak
  __int16 word_5D29F8[array_size_unknown]; // weak

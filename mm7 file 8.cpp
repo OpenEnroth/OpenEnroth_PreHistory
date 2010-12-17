@@ -672,7 +672,7 @@ LABEL_27:
 
     pParty_global->pPlayers[i].word_001A9E = 0;
     v15 = 0;
-    v14 = &pParty_global->pPlayers[i].pActiveSkills[SKILL_FIREMAGIC]; // starting from first magic skill 
+    v14 = &pParty_global->pPlayers[i].pActiveSkills[Character::Skill::Fire]; // starting from first magic skill 
     while (!*v14++)
     {
       ++v15;

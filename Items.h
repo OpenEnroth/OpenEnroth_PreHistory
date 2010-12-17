@@ -2,9 +2,23 @@
 #pragma pack(push, 1)
 
 
+namespace Items
+{
+ namespace EquipType
+ {
+  enum
+  {
+   Hand = 0,   //right, or both - unsure;   sword has equip type 0
 
-#define EQUIP_HAND   0  //right, or both - unsure;   sword has equip type 0
-#define EQUIP_ARMOUR 3
+   Back = 2,   // bows and crossbows
+   Armour = 3, // at least leather
+
+   Potion = 14,
+
+   Book = 16   // spellbook for sure.    maybe other items too
+  };
+ };
+};
 
 
 
@@ -19,7 +33,7 @@ struct ItemGen
                             // & 0 - draw some way
                             // & 1 - DrawTransparentTexture
                             // & 2 - draw some other way
- char         byte_000018;  // 2 == equipped? (probably (right) hand)
+ char         byte_000018;  // 2 == equipped? (probably (right) hand)  3 == equipped (body leather)
  char         byte_000019;
  char         byte_00001A;
  char         byte_00001B;

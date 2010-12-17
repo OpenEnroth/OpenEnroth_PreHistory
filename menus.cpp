@@ -1508,7 +1508,7 @@ void __cdecl sub_4B6943()
           && (v76 >= 6 ? (v29 = 1) : (v29 = (unsigned __int8)*(&byte_4F09B1[32 * (_DWORD)v27] + pParty_global->uDaysPlayed % 7u)),
               v29
            && ((v30 = 32 * (_DWORD)v27, !*(_DWORD *)((char *)&unk_4F09CC + v30))
-            || (unsigned __int16)sub_449B57((int)pParty_global->unk_000764 + 1, *(_WORD *)((char *)&unk_4F09CC + v30)))) )
+            || (unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, *(_WORD *)((char *)&unk_4F09CC + v30)))) )
         {
           v69 = v72;
           v31 = v67;
