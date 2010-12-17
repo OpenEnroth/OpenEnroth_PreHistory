@@ -225,7 +225,7 @@ struct Player
    
    char           array_0001F5[31];
 
-   struct ItemGen   cInventorySlots[126];   // struct[14][9] @ 000214
+   struct ItemGen   pInventorySlots[126];   // struct[14][9] @ 000214
    struct ItemGen   array_0013CC[12];       // struct[12]    @ 0013CC     probably equipped items
    int              pInventoryIndices[126]; // dword[14][9]  @ 00157C
    short            sFireResistanceBase;    // word @ 001774
@@ -269,7 +269,13 @@ struct Player
 
    char          byte_001A4E;	//spell skill? or school?
    unsigned char uQuickSpell;     // byte  @ 001A4F
-   char          array_001A50[10];	 // was 72  changed to solve align problem
+   char          array_001A50[7];	 // was 72  changed to solve align problem
+
+   char byte_001A90;
+
+   char byte_001A92;
+
+   char byte_001A94;
 
    char byte_001A98;
    char array_001A99[3];
@@ -386,14 +392,14 @@ void Player_sub_492A36_RemoveItemFromIndexMatrix(struct Player *_this, unsigned 
 
 
 
-int __thiscall Player_sub_48D0B9(int _this);
+int Player_sub_48D0B9(Player *_this);
 char *__thiscall Player_sub_48D396(int _this);
 unsigned int __thiscall Player_sub_48D498(int _this);
 signed int __thiscall Player_sub_48D4B3(int _this, int a2, signed int a3);
 int __thiscall Player_sub_48DBB9(int _this, int a2);
 int __thiscall Player_sub_48E656(int _this);
 int __thiscall Player_sub_48E68F(int _this);
-char __thiscall Player_sub_48F882(Player *_this, signed int a2);
+char __thiscall Player_GetActualSkillLevel(Player *_this, unsigned int uSkillType);
 __int16 __thiscall Player_PlaySound(struct Player *_this, int a2, int a3);
 __int16 __thiscall Player_sub_494A25(int _this, int a2, int a3);
 bool Player_CanEquip_RacialAndAlignmentCheck(Player *_this, unsigned int uItemID);
@@ -418,9 +424,12 @@ signed int __thiscall Player_sub_4B81C3(Player *_this, signed int a2, float a3);
 void __thiscall Player_sub_4BE2DD(Player *_this, int a2, int a3, int a4);
 char __thiscall Player_sub_43EEF3(Player *_this);
 signed int __thiscall Player_sub_48CDDB(Player *_this, int a2, int a3, signed int a4);
+char *__thiscall Player_GetMeleeDamage_String(Player *_this);
+signed int __thiscall Player_GetMeleeDamageMinimal(Player *_this);
+signed int __thiscall Player_GetMeleeDamageMaximal(Player *_this);
 
-int __thiscall sub_48D62C_GetSomeItemEquipType(struct Player *_this, int a2);
-int __thiscall sub_48D651_GetSomeItemSkillType(struct Player *_this, int a2);
+int __thiscall Player_GetEquippedItemEquipType(struct Player *_this, unsigned int uSlot);
+int __thiscall Player_GetEquippedItemSkillType(struct Player *_this, unsigned int uSlot);
 bool __thiscall Player_sub_48D676(Player *_this);
 
 

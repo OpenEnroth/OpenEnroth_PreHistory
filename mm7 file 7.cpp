@@ -13022,7 +13022,7 @@ void __thiscall Player_sub_4BE2DD(Player *_this, int a2, int a3, int a4)
   v5 = _this;
   v6 = (int)((char *)_this + 36 * a3);
   v7 = *((float *)&unk_591458 + 13 * a4);
-  v8 = ItemGen_sub_456442(&_this->cInventorySlots[a3]);
+  v8 = ItemGen_sub_456442(&_this->pInventorySlots[a3]);
   v4 = Player_sub_4B8102(_this, v8, v7);
   if ( *(_BYTE *)(v6 + 552) & 2 )
     v4 = 1;

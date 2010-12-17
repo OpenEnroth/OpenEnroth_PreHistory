@@ -3832,7 +3832,7 @@ LABEL_721:
 			//   if  (dword_50CBD0.prm[0].msg_param3)
                //           dword_50CBD0.msg_count = 1;
 		  dword_50CBD0.CutQueueTail();
-            if ( uActiveCharacter && !pPlayers[uActiveCharacter]->cInventorySlots[74].word_00001E)
+            if ( uActiveCharacter && !pPlayers[uActiveCharacter - 1]->cInventorySlots[74].word_00001E)
             {
               if ( !dword_4E28F8 )
                 goto LABEL_693;
@@ -6437,20 +6437,20 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v115, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v83 = v115 + 2 * pFontArrus->uFontHeight;
-  v84 = 0;// attack bonus sub_48CCF5(pp, 0);
+  v84 = Player_GetAttackBonus(pPlayer, 0);
  // wsprintfA((char *)TmpBuf, "%s\t100%+d\n", pGlobalTXT_LocalizationStrings[18], v84);
   StringCbPrintf((char *)TmpBuf,50 ,"%s\t100%+d\n", pGlobalTXT_LocalizationStrings[18], v84);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v83, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v85 = v83 + pFontArrus->uFontHeight - 2;
-  v86 = "1";// damage sub_48D2EA(pp);
+  v86 = Player_GetMeleeDamage_String(pPlayer);
   wsprintfA((char *)TmpBuf, "%s\t100 %s\n", pGlobalTXT_LocalizationStrings[53], v86);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v85, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v87 = v85 + pFontArrus->uFontHeight - 2;
-  v88 = Player_sub_48D0B9((int)pPlayer);
+  v88 = Player_sub_48D0B9(pPlayer);
   //wsprintfA((char *)TmpBuf, "%s\t100%+d\n", pGlobalTXT_LocalizationStrings[203], v88);
-   StringCbPrintf((char *)TmpBuf,50 ,"%s\t100%+d\n", pGlobalTXT_LocalizationStrings[203], v88);
+  StringCbPrintf((char *)TmpBuf,50 ,"%s\t100%+d\n", pGlobalTXT_LocalizationStrings[203], v88);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v87, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v89 = v87 + pFontArrus->uFontHeight - 2;
@@ -6580,7 +6580,7 @@ void __fastcall CharacterUI_DrawInventoryTab(unsigned int uSelectedCharacter, bo
        pPlayer->pInventoryIndices[i] & 0x80000000)
    {
     v28 = pPlayer->pInventoryIndices[i];
-    pItem = &pPlayer->cInventorySlots[v28];
+    pItem = &pPlayer->pInventorySlots[v28];
     
     if (pItem->uItemID == -1)
       continue;
@@ -8101,8 +8101,8 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
     if ( !v23 )
       goto LABEL_59;
     v259 = pPlayer->pEquppedItemIndices[2];
-    v26 = (int)&pPlayer->cInventorySlots[v23 - 1];
-    v27 = 48 * pPlayer->cInventorySlots[v23 - 1].uItemID;
+    v26 = (int)&pPlayer->pInventorySlots[v23 - 1];
+    v27 = 48 * pPlayer->pInventorySlots[v23 - 1].uItemID;
     v25 = dword_4E4C28 + dword_4E4C30[32 * v268 + 4] - *(__int16 *)((char *)&word_5D29FC + v27);
     v224 = dword_4E4C2C + dword_4E4C30[32 * v268 + 5] - *(__int16 *)((char *)&word_5D29FE + v27);
 
@@ -8110,7 +8110,7 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
     v270 = LODFile_Icons_LOD.LODFile_LoadTexture( (const char*)pClass40->pItems[pPlayer->cInventorySlots[v23 - 1].uItemID].pIconName, 2);
 #else
     wchar_t pTextureNameW[256];
-    wsprintfW(pTextureNameW, L"%S", pClass40->pItems[pPlayer->cInventorySlots[v23 - 1].uItemID].pIconName);
+    wsprintfW(pTextureNameW, L"%S", pClass40->pItems[pPlayer->pInventorySlots[v23 - 1].uItemID].pIconName);
 
     v270 = LODFile_Icons_LOD.LODFile_LoadTexture_New(pTextureNameW);
 #endif
@@ -8176,7 +8176,7 @@ LABEL_59:
             if ( !v35 )
               goto LABEL_93;
             v260 = pPlayer->pInventoryIndices[6];
-            v36 = &pPlayer->cInventorySlots[v35 - 1];
+            v36 = &pPlayer->pInventorySlots[v35 - 1];
 
             if (v36->uItemID != 525)
             {
@@ -8282,7 +8282,7 @@ LABEL_93:
               if ( !v49 )
                 goto LABEL_127;
               v261 = pPlayer->pInventoryIndices[3];
-              v50 = &pPlayer->cInventorySlots[v49 - 1];
+              v50 = &pPlayer->pInventorySlots[v49 - 1];
               if (v50->uItemID != 504)
               {
                 if (v50->uItemID == 505)
@@ -8395,7 +8395,7 @@ LABEL_127:
                 if ( !v65 )
                   goto LABEL_155;
                 v262 = pPlayer->pInventoryIndices[8];
-                v67 = &pPlayer->cInventorySlots[v65 - 1];
+                v67 = &pPlayer->pInventorySlots[v65 - 1];
 
                 v66 = v67->uItemID;
                 if (v67->uItemID == 529)
@@ -8459,8 +8459,8 @@ LABEL_155:
                   v79 = pPlayer->pInventoryIndices[1];
                   v276 = 8 * v268;
                   if ( !v79
-                   || pClass40->pItems[pPlayer->cInventorySlots[v79 - 1].uItemID - 1].uEquipType != 1
-                    && (pClass40->pItems[pPlayer->cInventorySlots[v79 - 1].uItemID - 1].uSkillType != Character::Skill::Spear || pPlayer->pInventoryIndices[0]) )
+                   || pClass40->pItems[pPlayer->pInventorySlots[v79 - 1].uItemID - 1].uEquipType != 1
+                    && (pClass40->pItems[pPlayer->pInventorySlots[v79 - 1].uItemID - 1].uSkillType != Character::Skill::Spear || pPlayer->pInventoryIndices[0]) )
                     Render_DrawTransparentTexture(pD3DRenderer,
                       dword_4E4C28 + dword_4E5AE0[2 * v268],
                       dword_4E4C2C + dword_4E5AE0[2 * v268 + 1],
@@ -8469,7 +8469,7 @@ LABEL_155:
                   if ( v82 )
                   {
                     v263 = pPlayer->pInventoryIndices[5];
-                    v83 = &pPlayer->cInventorySlots[v82 - 1];
+                    v83 = &pPlayer->pInventorySlots[v82 - 1];
 
                     if (v83->uItemID == 524 )
                     {
@@ -8494,8 +8494,8 @@ LABEL_168:
                         v86 = uTextureListForPaperdoll[56 + v85];
                       else
                         v86 = uTextureListForPaperdoll[56 + (v84 + 7 * (v268 - 2))];
-                      v87 = pPlayer->cInventorySlots[v82 - 1].dword_000014;
-                      if ( !(pPlayer->cInventorySlots[v82 - 1].dword_000014 & 0xF0) )
+                      v87 = pPlayer->pInventorySlots[v82 - 1].dword_000014;
+                      if ( !(pPlayer->pInventorySlots[v82 - 1].dword_000014 & 0xF0) )
                       {
                         v93 = v86 + 1;
                         v92 = &LODFile_Icons_LOD.aLODHeaders[v86];
@@ -8521,19 +8521,19 @@ LABEL_168:
                           Render_DrawTextureToZBuffer(pD3DRenderer, v240, v228, v94, v263);
                         goto LABEL_191;
                       }
-                      if ( (pPlayer->cInventorySlots[v82 - 1].dword_000014 & 0xF0) != 16 )
+                      if ( (pPlayer->pInventorySlots[v82 - 1].dword_000014 & 0xF0) != 16 )
                       {
-                        if ( (pPlayer->cInventorySlots[v82 - 1].dword_000014 & 0xF0) == 32 )
+                        if ( (pPlayer->pInventorySlots[v82 - 1].dword_000014 & 0xF0) == 32 )
                         {
                           v201 = "sp28a";
                           goto LABEL_181;
                         }
-                        if ( (pPlayer->cInventorySlots[v82 - 1].dword_000014 & 0xF0) == 64 )
+                        if ( (pPlayer->pInventorySlots[v82 - 1].dword_000014 & 0xF0) == 64 )
                         {
                           v201 = "sp30a";
                           goto LABEL_181;
                         }
-                        if ( (pPlayer->cInventorySlots[v82 - 1].dword_000014 & 0xF0) == 128 )
+                        if ( (pPlayer->pInventorySlots[v82 - 1].dword_000014 & 0xF0) == 128 )
                         {
                           v201 = "sp91a";
 LABEL_181:
@@ -8569,7 +8569,7 @@ LABEL_192:
                   v95 = pPlayer->pInventoryIndices[1];
                   if ( v95 )
                   {
-                   v96 = 48 * pPlayer->cInventorySlots[v95 - 1].uItemID;
+                   v96 = 48 * pPlayer->pInventorySlots[v95 - 1].uItemID;
                     if (pClass40->pItems[v96/48 - 1].uEquipType == 1 ||
                         pClass40->pItems[v96/48 - 1].uSkillType == Character::Skill::Spear && !pPlayer->pInventoryIndices[0])
                       Render_DrawTransparentTexture(pD3DRenderer,
@@ -8583,8 +8583,8 @@ LABEL_192:
                   v264 = v98;
                   v100 = (int)pPlayer + 36 * v98;
                   v271 = v100;
-                  v99 = pPlayer->cInventorySlots[v98 - 1].uItemID;
-                  v97 = pPlayer->cInventorySlots[v98 - 1].uItemID - 504;
+                  v99 = pPlayer->pInventorySlots[v98 - 1].uItemID;
+                  v97 = pPlayer->pInventorySlots[v98 - 1].uItemID - 504;
                   if ( v97 )
                   {
                     v101 = v97 - 1;
@@ -8604,7 +8604,7 @@ LABEL_259:
                             if ( !v130 )
                               goto LABEL_293;
                             v265 = pPlayer->pInventoryIndices[6];
-                            v132 = &pPlayer->cInventorySlots[v130 - 1];
+                            v132 = &pPlayer->pInventorySlots[v130 - 1];
 
                             v131 = v132->uItemID;
                             if ( v131 != 525 )
@@ -8714,7 +8714,7 @@ LABEL_293:
                                     if ( !v145 )
                                       goto LABEL_335;
                                     v266 = v145;
-                                    v146 = &pPlayer->cInventorySlots[v145 - 1];
+                                    v146 = &pPlayer->pInventorySlots[v145 - 1];
 
                                     if (v146->uItemID != 521 )
                                     {
@@ -8822,7 +8822,7 @@ LABEL_335:
                                       if (v158 == -1)
                                         goto LABEL_358;
                                       v158 &= 0x7FFFFFFF;
-                                      v160 = &pPlayer->cInventorySlots[v158];
+                                      v160 = &pPlayer->pInventorySlots[v158];
 
                                       v161 = v160->uItemID;
                                       v159 = 48 * v160->uItemID;
@@ -8875,7 +8875,7 @@ LABEL_358:
                                         if (v171 == -1)
                                           goto LABEL_393;
                                         v171 &= 0x7FFFFFFF;
-                                        v175 = &pPlayer->cInventorySlots[v171];
+                                        v175 = &pPlayer->pInventorySlots[v171];
 
                                         v174 = v175->uItemID;
                                         v172 = 48 * v175->uItemID;
@@ -9065,8 +9065,8 @@ LABEL_348:
 LABEL_209:
                           runtime_warning(GetItem with player.. wtf);
                           if (pPlayer->pInventoryIndices[1]
-                            && (sub_48D62C_GetSomeItemEquipType(pPlayer, 1) == 1
-                             || sub_48D651_GetSomeItemSkillType(pPlayer, 1) == Character::Skill::Spear && !pPlayer->pInventoryIndices[0]) )
+                            && (Player_GetEquippedItemEquipType(pPlayer, 1) == 1
+                             || Player_GetEquippedItemSkillType(pPlayer, 1) == Character::Skill::Spear && !pPlayer->pInventoryIndices[0]) )
                           {
                             v105 = 17 * v268 + v103;
                             v104 = 12 * v105;
@@ -9339,7 +9339,7 @@ LABEL_48:
   v276 = 8 * v5;
   v6 = pPlayer->pInventoryIndices[1];
   if ( !v6 ||
-      (v7 = 48 * pPlayer->cInventorySlots[v6 - 1].uItemID, pClass40->pItems[v7/48 - 1].uEquipType != 1) &&
+      (v7 = 48 * pPlayer->pInventorySlots[v6 - 1].uItemID, pClass40->pItems[v7/48 - 1].uEquipType != 1) &&
       (pClass40->pItems[v7/48 - 1].uSkillType != Character::Skill::Spear || pPlayer->pInventoryIndices[0]) )
     Render_DrawTransparentTexture(pD3DRenderer,
       dword_4E4C28 + dword_4E5AE0[2 * v5],
@@ -9349,7 +9349,7 @@ LABEL_48:
   if ( v8 )
   {
     v258 = pPlayer->pInventoryIndices[1];
-    v11 = &pPlayer->cInventorySlots[v8 - 1];
+    v11 = &pPlayer->pInventorySlots[v8 - 1];
     v12 = v5 << 7;
 
     v13 = v11->uItemID;
@@ -9439,7 +9439,7 @@ LABEL_393:
   v190 = pPlayer->pInventoryIndices[1];
   if ( v190 )
   {
-   v191 = 48 * pPlayer->cInventorySlots[v190 - 1].uItemID;
+   v191 = 48 * pPlayer->pInventorySlots[v190 - 1].uItemID;
     if (pClass40->pItems[v191/48 - 1].uEquipType == 1 ||
         pClass40->pItems[v191/48 - 1].uSkillType == Character::Skill::Spear && !pPlayer->pInventoryIndices[0])
       Render_DrawTransparentTexture(pD3DRenderer,
@@ -9535,7 +9535,7 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
     if ( !(v55==0) )
 		{
 			v48 =v55;
-			v6 = &v2->cInventorySlots[v55] ;//v2 + 36 * *(_DWORD *)v55 + 496
+			v6 = &v2->pInventorySlots[v55] ;//v2 + 36 * *(_DWORD *)v55 + 496
 			v53 = dword_4E5C34[v1];
 			v54 = dword_4E5C1C[v1];
 			v5 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 * v6->uItemID].pIconName, 2);
@@ -9621,7 +9621,7 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
   if ( !(v18==0) )
 	  {
   v50 = v2->pEquppedItemIndices[9];
-  v58 =  &v2->cInventorySlots[v18];
+  v58 =  &v2->pInventorySlots[v18];
   v20 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 * v58->uItemID].pIconName, 2);
   v19 = (v58->dword_000014);
   if ( !(v58->dword_000014) & 0xF0) 
@@ -9699,7 +9699,7 @@ LABEL_37:
   if (v32==0 )
     return;
   v52 =v2->pEquppedItemIndices[7]; // *(_DWORD *)(v2 + 6500)
-  v35 =&v2->cInventorySlots[v32];
+  v35 =&v2->pInventorySlots[v32];
   v34 =(int)LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 *v35->uItemID].pIconName, 2);
   v33 = v35->dword_000014;
   if ( !((v35->dword_000014) & 0xF0) )

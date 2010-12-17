@@ -403,7 +403,7 @@ LABEL_17:
         if (item_index)
         {
          // v21 = *(int *)((char *)&v19[9 * *(_DWORD *)v20 - 1559]);
-		  v21 =pParty_global->pPlayers[i].cInventorySlots[item_index+5].uItemID; //5 offset	need to verify
+		  v21 =pParty_global->pPlayers[i].pInventorySlots[item_index+5].uItemID; //5 offset	need to verify
           if (pClass40->pItems[v21 - 1].uEquipType == 12 )
 			  {
 			  // v36 = v18;

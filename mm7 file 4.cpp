@@ -1361,7 +1361,7 @@ LABEL_15:
 }
 
 //----- (004272F5) --------------------------------------------------------
-signed int __stdcall sub_4272F5(int a1, int a2, int a3, int a4)
+signed int __stdcall Player_sub_4272F5(Player *_this, int a2, int a3, int a4)
 {
   signed int v4; // edi@1
   signed int v5; // esi@1
@@ -1389,9 +1389,9 @@ signed int __stdcall sub_4272F5(int a1, int a2, int a3, int a4)
   }
   v6 = v4 + v5;
   if ( a3 )
-    v7 = Player_sub_48D0B9(a1);
+    v7 = Player_sub_48D0B9(_this);
   else
-    v7 = sub_48CCF5(a1, 0);
+    v7 = Player_GetAttackBonus(_this, 0);
   v8 = rand() % (v6 + 2 * v7 + 30);
   if ( a3 == 2 )
   {
@@ -2217,7 +2217,7 @@ bool sub_42ECB5_PlayerAttack()
  if ( v33 )
  {
   //if ( *(_BYTE *)(v2 + 36 * v33 + 516) & 2 )
-  if (*((char *)pParty_global->pPlayers[uActiveCharacter].cInventorySlots - 0x10 + 36 * v33))
+  if (*((char *)pParty_global->pPlayers[uActiveCharacter - 1].cInventorySlots - 0x10 + 36 * v33))
     v33 = 0;
  }
 
@@ -13281,7 +13281,7 @@ void sub_467E7F_EquipBody(unsigned int uEquipType)
     if (v8 != -1)
     {
       pParty_global->pickedItem.byte_000018 = v3;
-      memcpy(&v1->cInventorySlots[v8], &pParty_global->pickedItem, sizeof(struct ItemGen));
+      memcpy(&v1->pInventorySlots[v8], &pParty_global->pickedItem, sizeof(struct ItemGen));
       v1->pEquppedItemIndices[v3] = v8;
       GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
     }

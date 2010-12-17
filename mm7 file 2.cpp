@@ -389,7 +389,7 @@ unsigned int __thiscall sub_414D24(void *_this)
 }
 
 //----- (0048F882) --------------------------------------------------------
-char __thiscall Player_sub_48F882(Player *_this, signed int a2)
+char __thiscall Player_GetActualSkillLevel(Player *_this, unsigned int uSkillType)
 {
   signed int v2; // esi@1
   int v3; // eax@9
@@ -425,15 +425,14 @@ char __thiscall Player_sub_48F882(Player *_this, signed int a2)
   signed int v34; // [sp-4h] [bp-14h]@27
   signed int v35; // [sp-4h] [bp-14h]@35
   signed int v36; // [sp-4h] [bp-14h]@68
-  void *v37; // [sp+Ch] [bp-4h]@1
+  //void *v37; // [sp+Ch] [bp-4h]@1
 
   v2 = 0;
-  v37 = _this;
-  if ( a2 > 30 )
+  if ( uSkillType > 30 )
   {
-    if ( a2 != 31 )
+    if ( uSkillType != 31 )
     {
-      if ( a2 == 32 )
+      if ( uSkillType == 32 )
       {
         v27 = CheckHiredNPCSpeciality(0x3A);
         if ( v27 )
@@ -443,9 +442,9 @@ char __thiscall Player_sub_48F882(Player *_this, signed int a2)
           v2 += 6;
         goto LABEL_83;
       }
-      if ( a2 == 33 )
+      if (uSkillType == Character::Skill::Armsmaster)
       {
-        v25 = CheckHiredNPCSpeciality(0xF);
+        v25 = CheckHiredNPCSpeciality(0x0F);
         if ( v25 )
           v2 = 2;
         v26 = CheckHiredNPCSpeciality(0x10);
@@ -453,14 +452,14 @@ char __thiscall Player_sub_48F882(Player *_this, signed int a2)
           v2 += 3;
         goto LABEL_64;
       }
-      if ( a2 == 34 )
+      if ( uSkillType == 34 )
       {
         v24 = CheckHiredNPCSpeciality(0x33);
         if ( v24 )
           v2 = 8;
         goto LABEL_64;
       }
-      if ( a2 == 35 )
+      if ( uSkillType == 35 )
       {
         v22 = CheckHiredNPCSpeciality(0x17);
         if ( v22 )
@@ -470,7 +469,7 @@ char __thiscall Player_sub_48F882(Player *_this, signed int a2)
           v2 += 8;
         goto LABEL_64;
       }
-      if ( a2 == 36 )
+      if ( uSkillType == 36 )
       {
         v19 = CheckHiredNPCSpeciality(0xD);
         if ( v19 )
@@ -492,7 +491,7 @@ LABEL_85:
     v2 = 2;
     goto LABEL_86;
   }
-  if ( a2 == 30 )
+  if ( uSkillType == 30 )
   {
     v18 = CheckHiredNPCSpeciality(0x38);
     if ( !v18 )
@@ -500,15 +499,15 @@ LABEL_85:
     v34 = 2;
     goto LABEL_51;
   }
-  if ( a2 <= 21 )
+  if ( uSkillType <= 21 )
   {
-    if ( a2 != 21 )
+    if ( uSkillType != 21 )
     {
-      if ( a2 < 0 )
+      if ( uSkillType < 0 )
         goto LABEL_86;
-      if ( a2 > 11 )
+      if ( uSkillType > 11 )
       {
-        if ( a2 <= 15 )
+        if ( uSkillType <= 15 )
         {
           v6 = CheckHiredNPCSpeciality(0x11);
           if ( v6 )
@@ -520,7 +519,7 @@ LABEL_85:
         }
         else
         {
-          if ( a2 > 18 )
+          if ( uSkillType > 18 )
             goto LABEL_86;
           v3 = CheckHiredNPCSpeciality(0x35);
           if ( v3 )
@@ -533,23 +532,23 @@ LABEL_85:
         v5 = CheckHiredNPCSpeciality(v33);
         if ( v5 )
           v2 += 4;
-        if ( *((_BYTE *)v37 + 185) == 31 )
+        if (_this->uClass == 31)
         {
           if ( sub_476387() )
             v2 += 3;
         }
 LABEL_86:
-        if ( a2 <= 20 )
+        if ( uSkillType <= 20 )
         {
-          if ( a2 == 20 )
+          if ( uSkillType == 20 )
           {
             v36 = 42;
           }
           else
           {
-            if ( a2 > 15 )
+            if ( uSkillType > 15 )
             {
-              switch ( a2 )
+              switch ( uSkillType )
               {
                 case 16:
                   v36 = 38;
@@ -561,7 +560,7 @@ LABEL_86:
                   v36 = 40;
                   break;
                 default:
-                  if ( a2 != 19 )
+                  if ( uSkillType != 19 )
                     goto LABEL_126;
                   v36 = 41;
                   break;
@@ -569,7 +568,7 @@ LABEL_86:
             }
             else
             {
-              switch ( a2 )
+              switch ( uSkillType )
               {
                 case 15:
                   v36 = 37;
@@ -587,7 +586,7 @@ LABEL_86:
                   v36 = 35;
                   break;
                 default:
-                  if ( a2 != 14 )
+                  if ( uSkillType != 14 )
                     goto LABEL_126;
                   v36 = 36;
                   break;
@@ -596,18 +595,18 @@ LABEL_86:
           }
           goto LABEL_125;
         }
-        if ( a2 <= 32 )
+        if ( uSkillType <= 32 )
         {
-          if ( a2 != 32 )
+          if ( uSkillType != 32 )
             goto LABEL_112;
 LABEL_83:
           v36 = 20;
           goto LABEL_125;
         }
 LABEL_64:
-        switch ( a2 )
+        switch ( uSkillType )
         {
-          case 33:
+         case Character::Skill::Armsmaster:
             v36 = 21;
             break;
           case 34:
@@ -617,7 +616,7 @@ LABEL_64:
             v36 = 16;
             break;
           default:
-            if ( a2 != 36 )
+            if ( uSkillType != 36 )
               goto LABEL_126;
             v36 = 46;
             break;
@@ -637,7 +636,7 @@ LABEL_51:
     v2 = v34;
     goto LABEL_112;
   }
-  if ( a2 == 22 )
+  if ( uSkillType == 22 )
   {
     v14 = CheckHiredNPCSpeciality(0x14);
     if ( v14 )
@@ -655,9 +654,9 @@ LABEL_47:
       v2 += 8;
     goto LABEL_112;
   }
-  if ( a2 != 26 )
+  if ( uSkillType != 26 )
   {
-    if ( a2 != 29 )
+    if ( uSkillType != 29 )
       goto LABEL_86;
     v10 = CheckHiredNPCSpeciality(0x19);
     if ( v10 )
@@ -675,7 +674,7 @@ LABEL_47:
   if ( v13 )
     v2 += 5;
 LABEL_112:
-  switch ( a2 )
+  switch ( uSkillType )
   {
     case 21:
       v36 = 19;
@@ -690,16 +689,16 @@ LABEL_112:
       v36 = 22;
       break;
     default:
-      if ( a2 != 31 )
+      if ( uSkillType != 31 )
         goto LABEL_126;
       v36 = 23;
       break;
   }
 LABEL_125:
-  v2 += Player_MaybeGetWearItemsBonus((Player *)v37, v36, 0);
+  v2 += Player_MaybeGetWearItemsBonus(_this, v36, 0);
 LABEL_126:
-  v30 = *((_WORD *)v37 + a2 + 132);
-  if ( v2 + (*((_WORD *)v37 + a2 + 132) & 0x3F) < 60 )
+  v30 = _this->pActiveSkills[uSkillType];
+  if ( v2 + (_this->pActiveSkills[uSkillType] & 0x3F) < 60 )
     v31 = v2 + v30;
   else
     LOBYTE(v31) = v30 & 0xFC | 0x3C;
@@ -7479,7 +7478,7 @@ void __cdecl sub_416196()
     if ( Player_sub_492C0B_MaybeIfPlayerConscious(v0) )
     {
       --v58;
-      LOBYTE(v10) = Player_sub_48F882(v0, 35);
+      LOBYTE(v10) = Player_GetActualSkillLevel(v0, 35);
       v9 = v10 & 0x3F;
       v49 = v10 & 0x3F;
       v57 = sub_458244_GetSkillMasteryLevel(v10);
@@ -7487,7 +7486,7 @@ void __cdecl sub_416196()
       if (pParty_global->pickedItem.uItemID == 220)
       {
 LABEL_116:
-        sub_41D895((void *)(&v0->cInventorySlots[v8]));
+        sub_41D895((void *)(&v0->pInventorySlots[v8]));
         return;
       }
       if (pParty_global->pickedItem.uItemID >= 200)
@@ -7495,9 +7494,9 @@ LABEL_116:
         if (pParty_global->pickedItem.uItemID <= 219)
         {
          // v11 = v0 + 36 * v58;
-          if (v0->cInventorySlots[v58].uItemID == 220 )
+          if (v0->pInventorySlots[v58].uItemID == 220 )
           {
-           v0->cInventorySlots[v58].dword_000004 = v9 + pClass40->pItems[pParty_global->pickedItem.uItemID - 1].uDamageDice;
+           v0->pInventorySlots[v58].dword_000004 = v9 + pClass40->pItems[pParty_global->pickedItem.uItemID - 1].uDamageDice;
             switch (pParty_global->pickedItem.uItemID)
             {
               case 200:
@@ -7505,28 +7504,28 @@ LABEL_116:
               case 202:
               case 203:
               case 204:
-                v0->cInventorySlots[v58].uItemID = 222;
+                v0->pInventorySlots[v58].uItemID = 222;
                 break;
               case 205:
               case 206:
               case 207:
               case 208:
               case 209:
-                v0->cInventorySlots[v58].uItemID = 223;
+                v0->pInventorySlots[v58].uItemID = 223;
                 break;
               case 210:
               case 211:
               case 212:
               case 213:
               case 214:
-                v0->cInventorySlots[v58].uItemID= 224;
+                v0->pInventorySlots[v58].uItemID= 224;
                 break;
               case 215:
               case 216:
               case 217:
               case 218:
               case 219:
-               v0->cInventorySlots[v58].uItemID = 221;
+               v0->pInventorySlots[v58].uItemID = 221;
                 break;
               default:
                 break;
@@ -7545,28 +7544,28 @@ LABEL_116:
       if (pParty_global->pickedItem.uItemID < 221 ||
           pParty_global->pickedItem.uItemID > 271 ||
          // (v13 = v0 + 36 * v58, v55 = v13, v12 = *(_DWORD *)(v13 + 532), v59 = v12, v12 < 221)
-		 (v0->cInventorySlots[v58].uItemID<221)
-         || v0->cInventorySlots[v58].uItemID > 271 )
+		 (v0->pInventorySlots[v58].uItemID<221)
+         || v0->pInventorySlots[v58].uItemID > 271 )
       {
         if (pParty_global->pickedItem.uItemID != 236
           && (pParty_global->pickedItem.uItemID < 246 || pParty_global->pickedItem.uItemID > 250)
           && pParty_global->pickedItem.uItemID != 263
           && pParty_global->pickedItem.uItemID != 233 )
           goto LABEL_116;
-       // v29 = v0->cInventorySlots[v58];
-        v27 =v0->cInventorySlots[v58].uItemID; // *(_DWORD *)v29;
-        v59 = pClass40->pItems[v0->cInventorySlots[v58].uItemID  - 1].uEquipType;
+       // v29 = v0->pInventorySlots[v58];
+        v27 =v0->pInventorySlots[v58].uItemID; // *(_DWORD *)v29;
+        v59 = pClass40->pItems[v0->pInventorySlots[v58].uItemID  - 1].uEquipType;
         v28 = 1800 * pParty_global->pickedItem.dword_000004;
         if (pParty_global->pickedItem.uItemID != 233)
         {
           if (pParty_global->pickedItem.uItemID == 236)
           {
            // v35 = *(_DWORD *)(v29 + 20);
-			 v35 =v0->cInventorySlots[v58].dword_000014;
+			 v35 =v0->pInventorySlots[v58].dword_000014;
             if ( v35 & 2 || v59 < 0 || v59 > 12 || v27 >= 500 )
               goto LABEL_92;
             LOWORD(v35) = v35 | 0x210;
-            v0->cInventorySlots[v58].dword_000014 = v35;
+            v0->pInventorySlots[v58].dword_000014 = v35;
           }
           else
           {
@@ -7575,7 +7574,7 @@ LABEL_116:
             if (pParty_global->pickedItem.uItemID <= 250)
             {
               sub_458260(v29, pParty_global->qword_00002C);
-              v33 =v0->cInventorySlots[v58].uItemID; //*(_DWORD *)v29;
+              v33 =v0->pInventorySlots[v58].uItemID; //*(_DWORD *)v29;
               if ( v33>= 64 && v33 <= 65
                 || (v57 = *(_DWORD *)(v29 + 20), v57 & 2)
                 || *(_DWORD *)(v29 + 12)
@@ -8796,7 +8795,7 @@ char *sub_417BB5(int player_index, int skill_index)
     max_width = v2;
   v6 = &pParty_global->pPlayers[player_index];
   //v33 = v6->pActiveSkills[v4];
-  v7 = Player_sub_48F882(v6, skill_index);
+  v7 = Player_GetActualSkillLevel(v6, skill_index);
   v8 =  v6->pActiveSkills[skill_index];
   Dest[0] = 0;
   Source[0] = 0;
@@ -8877,7 +8876,7 @@ char *sub_417BB5(int player_index, int skill_index)
     v17 = max_width + 10;
     //v16 *= 4;
     v34 = max_width + 3;
-    v18 = Player_sub_48F882(v6, skill_index);
+    v18 = Player_GetActualSkillLevel(v6, skill_index);
    // v19 = (int)
     ///v20 = (int);
     //v21 = (int);
@@ -9476,7 +9475,7 @@ void  QuickRefDraw()
     if ( v43 == 0 )
       GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v14, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_ATTACK], 60, 0);
 
-    v21 = sub_48CCF5((int)v2, 0);
+    v21 = Player_GetAttackBonus(v2, 0);
     //wsprintfA((char *)TmpBuf, "%+d", v21);
 	StringCbPrintf((char *)TmpBuf,20,"%+d",  v21);
     GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v14, 0, (char *)TmpBuf, 84, 0);
@@ -9484,13 +9483,13 @@ void  QuickRefDraw()
     if ( v43 == 0)
       GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v20, 0, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_DMG], 60, 0);
 
-    v23 = sub_48D2EA((int)v2);
+    v23 = Player_GetMeleeDamage_String(v2);
     GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v20, 0, v23, 84, 0);
     v22 = v45 + v20;
     if ( v43 == 0 )
       GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, 22, v22, 0, (char *)pGlobalTXT_LocalizationStrings[203], 60, 0);
 
-    v25 = Player_sub_48D0B9((int)v2);
+    v25 = Player_sub_48D0B9(v2);
       //wsprintfA((char *)TmpBuf,"%+d",  v25);
 	StringCbPrintf((char *)TmpBuf,20,"%+d",  v25);
     GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontArrus, v44, v22, 0, (char *)TmpBuf, 84, 0);
@@ -11506,7 +11505,6 @@ LABEL_59:
     v44 = 1;
     goto LABEL_84;
   }
-  LOBYTE(v39) = Player_sub_48F882(pPlayers[uActiveCharacter], 32);
   v142 = v39;
   if ( v39 )
   {
@@ -11595,7 +11593,7 @@ LABEL_73:
 LABEL_84:
   for (j = 0; j < 4; ++j)
   {
-    LOBYTE(v47) = Player_sub_48F882(&pParty_global->pPlayers[j], 32);
+    LOBYTE(v47) = Player_GetActualSkillLevel(&pParty_global->pPlayers[j], 32);
     v133 = v47;
     v142 = 138;
     do
@@ -13396,7 +13394,7 @@ signed int __cdecl sub_421B2C()
     v22 = bTextureLoading;
     if ( uActiveCharacter && (v2 = AddItem(pPlayers[uActiveCharacter - 1], -1, pParty_global->pickedItem.uItemID)) != 0 )
     {
-     memcpy(&pPlayers[uActiveCharacter]->cInventorySlots[v2], &pParty_global->pickedItem, sizeof(struct ItemGen));
+     memcpy(&pPlayers[uActiveCharacter - 1]->cInventorySlots[v2], &pParty_global->pickedItem, sizeof(struct ItemGen));
     }
     else
     {
@@ -13411,7 +13409,7 @@ signed int __cdecl sub_421B2C()
         if (i >= 4)
           goto LABEL_10;
       }
-      memcpy(&pParty_global->pPlayers[v23].cInventorySlots[v4], &pParty_global->pickedItem, sizeof(struct ItemGen));
+      memcpy(&pParty_global->pPlayers[v23].pInventorySlots[v4], &pParty_global->pickedItem, sizeof(struct ItemGen));
       GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
 LABEL_10:
       if ( v23 != 4 )
@@ -13475,7 +13473,7 @@ void GameUI_OnPlayerPortraitLeftClick(unsigned int uCharacter)
     v3 = pPlayers[uCharacter - 1];
     if (v2)
     {
-      memcpy(&v3->cInventorySlots[v2 - 1], &pParty_global->pickedItem, sizeof(struct ItemGen));
+      memcpy(&v3->pInventorySlots[v2 - 1], &pParty_global->pickedItem, sizeof(struct ItemGen));
       struct_576FE8.dword_000044 = 1;
       GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
       return;
@@ -13632,7 +13630,7 @@ void __cdecl sub_421EA6_OnInventoryLeftClick()
             *(_WORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 4) = uActiveCharacter;
             *(_DWORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 12) = v6 - 1;
             *(_WORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 6) = v17;
-            ptr_50C9A4 = &v0->cInventorySlots[v6 - 1];
+            ptr_50C9A4 = &v0->pInventorySlots[v6 - 1];
             dword_50C9A0 = false;
         //    if ( dword_50CBD0[0] )
           //    dword_50CBD0[0] = dword_50CBD0[3] != 0;
@@ -13652,7 +13650,7 @@ void __cdecl sub_421EA6_OnInventoryLeftClick()
         {
           if (v7 == -1)
             return;
-          memcpy(&pParty_global->pickedItem, &v0->cInventorySlots[v7], sizeof(struct ItemGen));
+          memcpy(&pParty_global->pickedItem, &v0->pInventorySlots[v7], sizeof(struct ItemGen));
           Player_sub_492A36_RemoveItemFromIndexMatrix(v0, v17);
           v9 = pParty_global->pickedItem.uItemID;
           goto LABEL_24;
@@ -13660,7 +13658,7 @@ void __cdecl sub_421EA6_OnInventoryLeftClick()
         v14 = v7;
         if ( v7 != -1) // replacing item
         {
-          v12.y = (int)&v0->cInventorySlots[v7];
+          v12.y = (int)&v0->pInventorySlots[v7];
           memcpy(&local_0C, (void *)v12.y, sizeof(ItemGen));
           Player_sub_492A36_RemoveItemFromIndexMatrix(v0, v17);
           v10 = AddItem((Player *)v0, v17, &pParty_global->pickedItem);
@@ -13687,7 +13685,7 @@ LABEL_24:
 
         if (v10 != -1)
         {
-          memcpy(&v0->cInventorySlots[v10], &pParty_global->pickedItem, sizeof(struct ItemGen));
+          memcpy(&v0->pInventorySlots[v10], &pParty_global->pickedItem, sizeof(struct ItemGen));
           GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
         }
       }

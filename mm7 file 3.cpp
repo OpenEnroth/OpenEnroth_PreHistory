@@ -417,14 +417,14 @@ __int16 __fastcall DamageMonsterFromParty(signed int a1, int a2, int a3)
         {
           if ( v30 >= 3 )
           {
-            LOBYTE(v55) = Player_sub_48F882((Player *)v7, 6) & 0x3F;
+            LOBYTE(v55) = Player_GetActualSkillLevel((Player *)v7, 6) & 0x3F;
             v55 = (int *)(unsigned __int8)v55;
             if ( rand() % 100 < (unsigned __int8)v55 )
               v62 = 1;
           }
           if ( v67 >= 4 )
           {
-            LOBYTE(v55) = Player_sub_48F882((Player *)v7, 6) & 0x3F;
+            LOBYTE(v55) = Player_GetActualSkillLevel((Player *)v7, 6) & 0x3F;
             v55 = (int *)(unsigned __int8)v55;
             if ( rand() % 100 < (unsigned __int8)v55 )
               v57 = 1;
@@ -435,7 +435,7 @@ __int16 __fastcall DamageMonsterFromParty(signed int a1, int a2, int a3)
       {
         if ( v67 >= 3 )
         {
-          LOBYTE(v55) = Player_sub_48F882((Player *)v7, 0) & 0x3F;
+          LOBYTE(v55) = Player_GetActualSkillLevel((Player *)v7, 0) & 0x3F;
           v55 = (int *)(unsigned __int8)v55;
           if ( rand() % 100 < (unsigned __int8)v55 )
             v62 = 1;
@@ -539,7 +539,7 @@ __int16 __fastcall DamageMonsterFromParty(signed int a1, int a2, int a3)
       }
       v63 = 0;
 LABEL_67:
-      if ( !sub_4272F5(v7, v8, v65, v60) )
+      if ( !Player_sub_4272F5((Player *)v7, v8, v65, v60) )
       {
 LABEL_68:
         LOWORD(v5) = Player_PlaySound((Player *)v7, 52, 0);
@@ -764,7 +764,7 @@ LABEL_69:
     {
       if ( sub_427662(v8, 3) )
       {
-        LOBYTE(v45) = Player_sub_48F882((Player *)v7, 6);
+        LOBYTE(v45) = Player_GetActualSkillLevel((Player *)v7, 6);
         v46 = v45;
         v47 = sub_458244_GetSkillMasteryLevel(v45);
         v55 = (int *)(7680 * (v46 & 0x3F));
@@ -1098,7 +1098,7 @@ LABEL_80:
     v45 = *(_WORD *)v38;
     if ( *(_WORD *)v38 == 545 )
     {
-      LOBYTE(v52) = Player_sub_48F882((Player *)v46, 31);
+      LOBYTE(v52) = Player_GetActualSkillLevel((Player *)v46, 31);
       v51 = v52;
       if ( sub_458244_GetSkillMasteryLevel(v52) >= 4 && rand() % 100 < (v51 & 0x3F) )
       {
@@ -1146,7 +1146,7 @@ LABEL_80:
           v77 >>= 1;
         if ( v48 == 531 )
           v77 >>= 1;
-        if ( sub_48D62C_GetSomeItemEquipType((Player *)v46, v75) == 4 )
+        if ( Player_GetEquippedItemEquipType((Player *)v46, v75) == 4 )
         {
           if ( sub_458244_GetSkillMasteryLevel(*(_WORD *)(v46 + 280)) == 4 )
             v77 >>= 1;
@@ -2921,13 +2921,13 @@ bool __fastcall sub_43EE15(int a1, struct Player *pp, char a3) // find item in i
   if (!a3 || pParty_global->pickedItem.uItemID != a1)
   {
     v3 = 0;
-    while ( pp->pInventoryIndices[v3] <= 0 || pp->cInventorySlots[pp->pInventoryIndices[v3]].uItemID != a1 ) 
+    while ( pp->pInventoryIndices[v3] <= 0 || pp->pInventorySlots[pp->pInventoryIndices[v3]].uItemID != a1 ) 
     {
       ++v3;
       if ( v3 >= 126 )
       {
         v5 = 0;
-        while ( pp->pEquppedItemIndices[v5] <= 0 || pp->cInventorySlots[pp->pEquppedItemIndices[v5]].uItemID != a1 )
+        while ( pp->pEquppedItemIndices[v5] <= 0 || pp->pInventorySlots[pp->pEquppedItemIndices[v5]].uItemID != a1 )
         {
           ++v5;
           if ( v5 >= 16 )

@@ -9,6 +9,7 @@ namespace Items
   enum
   {
    Hand = 0,   //right, or both - unsure;   sword has equip type 0
+   //1 probably left hand
 
    Back = 2,   // bows and crossbows
    Armour = 3, // at least leather

@@ -238,7 +238,7 @@ LABEL_17:
     {
       if ( !(*(_BYTE *)(v3 + 36 * v14 + 516) & 2) )
       {
-        v15 = sub_48D651_GetSomeItemSkillType((Player *)v3, 3) - 10;
+        v15 = Player_GetEquippedItemSkillType((Player *)v3, 3) - 10;
         if ( v15 )
         {
           if ( v15 != 1 || sub_458244_GetSkillMasteryLevel(*(_WORD *)(v3 + 286)) < 3 )
@@ -258,23 +258,23 @@ LABEL_17:
 }
 
 //----- (0048D62C) --------------------------------------------------------
-int __thiscall sub_48D62C_GetSomeItemEquipType(Player *_this, int a2)
+int __thiscall Player_GetEquippedItemEquipType(Player *_this, unsigned int uSlot)
 {
   //return (unsigned __int8)byte_5D2A00[48 * *((_DWORD *)_this + 9 * *((_DWORD *)_this + a2 + 1618) + 124)];
- return pClass40->pItems[*((_DWORD *)_this + 9 * *((_DWORD *)_this + a2 + 1618) + 124)].uEquipType;
+ return pClass40->pItems[_this->pInventorySlots[_this->pEquppedItemIndices[uSlot]].uItemID].uEquipType;
 }
 
 //----- (0048D651) --------------------------------------------------------
-int __thiscall sub_48D651_GetSomeItemSkillType(Player *_this, int a2)
+int __thiscall Player_GetEquippedItemSkillType(Player *_this, unsigned int uSlot)
 {
-  return pClass40->pItems[*((_DWORD *)_this + 9 * *((_DWORD *)_this + a2 + 1618) + 124)].uSkillType;
+  return pClass40->pItems[_this->pInventorySlots[_this->pEquppedItemIndices[uSlot]].uItemID].uSkillType;
 }
 
 //----- (0048D676) --------------------------------------------------------
 bool __thiscall Player_sub_48D676(Player *_this)
 {
   return Player_sub_48D6AA(_this, 1) != 1 &&
-         (Player_sub_48D6AA(_this, 0) != 1 || sub_48D62C_GetSomeItemEquipType(_this, 0) == 4);
+         (Player_sub_48D6AA(_this, 0) != 1 || Player_GetEquippedItemEquipType(_this, 0) == 4);
 }
 
 //----- (0048D709) --------------------------------------------------------
@@ -288,7 +288,7 @@ signed int Player_sub_48D709(struct Player *_this, int a2, int a3)
   if ( a3 >= 16 )
   {
     v6 = 0;
-    while (!Player_sub_48D6AA(_this, v6) || _this->cInventorySlots[a3 - 1].uItemID != a2 )
+    while (!Player_sub_48D6AA(_this, v6) || _this->pInventorySlots[a3 - 1].uItemID != a2 )
     {
       ++v6;
       if ( v6 >= 16 )
@@ -579,7 +579,7 @@ signed int __thiscall Player_sub_48DC1E(struct Player *_this, signed int a2, int
       v7 = _this->pEquppedItemIndices[3];
       if ( v7 )
       {
-        v9 = (int)((char *)&_this->cInventorySlots[v7] - 0x10);
+        v9 = (int)((char *)&_this->pInventorySlots[v7] - 0x10);
         v8 = *(_DWORD *)v9;
         if ( !(BYTE1(v8) & 2) )
         {
@@ -718,7 +718,7 @@ LABEL_5:
             v46[v3++] = *(_BYTE *)(v5 + 6484) - 1;
           if ( !v15 || v15 == 1 )
           {
-            if ( sub_48D62C_GetSomeItemEquipType((Player *)v5, v15) == 4 )
+            if ( Player_GetEquippedItemEquipType((Player *)v5, v15) == 4 )
               v46[v3++] = *(_BYTE *)(v5 + 4 * v15 + 6472) - 1;
           }
         }
@@ -736,7 +736,7 @@ LABEL_5:
             v46[v3++] = *(_BYTE *)(v5 + 6480) - 1;
           if ( !v17 || v17 == 1 )
           {
-            if ( !sub_48D62C_GetSomeItemEquipType((Player *)v5, v17) || sub_48D62C_GetSomeItemEquipType((Player *)v18, v17) == 1 )
+            if ( !Player_GetEquippedItemEquipType((Player *)v5, v17) || Player_GetEquippedItemEquipType((Player *)v18, v17) == 1 )
               v46[v3++] = *(_BYTE *)(v5 + 4 * v17 + 6472) - 1;
           }
         }
@@ -1044,7 +1044,7 @@ int __thiscall Player_sub_GetAttackRecoveryTime(Player *_this, int a2)
   }
   if ( Player_sub_48D676(_this) == 1 )
   {
-    LOBYTE(v7) = Player_sub_48F882((Player *)v4, 31);
+    LOBYTE(v7) = Player_GetActualSkillLevel((Player *)v4, 31);
     if ( v7 )
     {
       v5 = (unsigned __int16)word_4EDEDC;
@@ -1118,7 +1118,7 @@ LABEL_27:
 LABEL_28:
   if ( Player_sub_48D6AA((Player *)v4, v2) )
   {
-    if ( sub_48D62C_GetSomeItemEquipType((Player *)v19, v2) == 4 )
+    if ( Player_GetEquippedItemEquipType((Player *)v19, v2) == 4 )
     {
       v20 = 9 * *(_DWORD *)(v4 + 6472);
       v35 = 1.0;
@@ -1139,7 +1139,7 @@ LABEL_28:
   if ( v3 != (int *)v2 )
   {
     v26 = *((_BYTE *)v3 + 29);
-    LOBYTE(v27) = Player_sub_48F882((Player *)v4, *((_BYTE *)v3 + 29));
+    LOBYTE(v27) = Player_GetActualSkillLevel((Player *)v4, *((_BYTE *)v3 + 29));
     if ( v27 )
     {
       if ( v26 == 1 || v26 == 3 || v26 == 5 )
@@ -1157,7 +1157,7 @@ LABEL_28:
   {
     if ( v42 == v2 )
     {
-      LOBYTE(v29) = Player_sub_48F882((Player *)v4, 33);
+      LOBYTE(v29) = Player_GetActualSkillLevel((Player *)v4, 33);
       if ( v29 != v2 )
       {
         v30 = v29 & 0x3F;
@@ -1671,7 +1671,7 @@ int __thiscall Player_sub_490EEE(Player *_this, int a2, int a3, int a4, int a5)
   void *v27; // [sp+14h] [bp-4h]@1
 
   v27 = _this;
-  LOBYTE(v9) = Player_sub_48F882(_this, 22);
+  LOBYTE(v9) = Player_GetActualSkillLevel(_this, 22);
   v26 = v9;
   result = 4;
   v6 = *(_DWORD *)a2;
@@ -1774,7 +1774,7 @@ int __thiscall Player_sub_4910A8(Player *_this)
   int v4; // eax@3
   signed int v6; // [sp-4h] [bp-4h]@2
 
-  v1 = Player_sub_48F882(_this, 25);
+  v1 = Player_GetActualSkillLevel(_this, 25);
   v2 = v1 & 0x3F;
   if ( v1 & 0x100 )
   {
@@ -1805,7 +1805,7 @@ signed int __stdcall sub_4910D3(int a1)
   int v7; // eax@7
   signed int v9; // [sp-4h] [bp-14h]@2
 
-  LOBYTE(v1) = Player_sub_48F882(pPlayers[uActiveCharacter], 21);
+  LOBYTE(v1) = Player_GetActualSkillLevel(pPlayers[uActiveCharacter - 1], 21);
   v2 = v1;
   if ( HIBYTE(v1) & 1 )
   {
@@ -1851,7 +1851,7 @@ signed int __thiscall Player_sub_491151(Player *_this, int a2)
   int v11; // eax@12
   signed int v13; // [sp-4h] [bp-14h]@2
 
-  LOBYTE(v2) = Player_sub_48F882(_this, 23);
+  LOBYTE(v2) = Player_GetActualSkillLevel(_this, 23);
   v3 = v2;
   if ( HIBYTE(v2) & 1 )
   {
@@ -1910,7 +1910,7 @@ int __thiscall Player_sub_4911F3(Player *_this)
   signed int v9; // [sp-4h] [bp-10h]@6
 
   v4 = _this;
-  LOBYTE(v5) = Player_sub_48F882(_this, 22);
+  LOBYTE(v5) = Player_GetActualSkillLevel(_this, 22);
   v1 = *((_WORD *)v4 + 154);
   v3 = v5 & 0x3F;
   v2 = *((_WORD *)v4 + 154) & 0x3F;
@@ -1948,7 +1948,7 @@ signed int __thiscall Player_sub_49125A(Player *_this)
   signed int v8; // [sp-4h] [bp-10h]@4
 
   v4 = _this;
-  LOBYTE(v5) = Player_sub_48F882(_this, 26);
+  LOBYTE(v5) = Player_GetActualSkillLevel(_this, 26);
   v1 = *((_WORD *)v4 + 158);
   v3 = v5 & 0x3F;
   v2 = *((_WORD *)v4 + 158) & 0x3F;
@@ -1983,7 +1983,7 @@ signed int __thiscall Player_sub_4912B0(Player *_this)
   signed int v8; // [sp-4h] [bp-14h]@6
 
   v2 = _this;
-  LOBYTE(v5) = Player_sub_48F882(_this, 29);
+  LOBYTE(v5) = Player_GetActualSkillLevel(_this, 29);
   v1 = *((_WORD *)v2 + 161);
   v4 = v5 & 0x3F;
   v3 = *((_WORD *)v2 + 161) & 0x3F;
@@ -2019,7 +2019,7 @@ char __thiscall Player_sub_491317(Player *_this)
   signed int v7; // [sp-4h] [bp-Ch]@3
 
   v4 = _this;
-  LOBYTE(v1) = Player_sub_48F882(_this, 36);
+  LOBYTE(v1) = Player_GetActualSkillLevel(_this, 36);
   v3 = *((_WORD *)v4 + 168);
   v2 = v1 & 0x3F;
   if ( v1 )
@@ -2166,7 +2166,7 @@ LABEL_12:
 unsigned int Player_FindNextFreeInventorySlotIndex(Player *_this)
 {
  for (unsigned int i = 0; i < 126; ++i)
-   if (_this->cInventorySlots[i].uItemID == -1)
+   if (_this->pInventorySlots[i].uItemID == -1)
      return i;
 
  return -1;
@@ -2237,9 +2237,9 @@ void Player_sub_492A36_RemoveItemFromIndexMatrix(struct Player *_this, unsigned 
 
   v4 = _this->pInventoryIndices[uInventorySlot];
  // v6 = (int)((char *)_this + 36 * *(_DWORD *)v4 + 496);
-  v6 = &_this->cInventorySlots[v4];
+  v6 = &_this->pInventorySlots[v4];
   v7 = v6->uItemID;
-  ItemGen_Reset(&_this->cInventorySlots[v4]);
+  ItemGen_Reset(&_this->pInventorySlots[v4]);
 #ifndef OLD_CODE
   wchar_t pTextureNameW[256];
   wsprintfW(pTextureNameW, L"%S", pClass40->pItems[v7].pIconName);
@@ -2264,10 +2264,10 @@ void Player_sub_492A36_RemoveItemFromIndexMatrix(struct Player *_this, unsigned 
  while (~_this->pInventoryIndices[uInventorySlotY * 14 + uInventorySlotX] & 0x80000000) // heading for the left-topmost corner cell
  {
   if (uInventorySlotX > 0 &&
-      (_this->pInventoryIndices[uInventorySlotY * 14 + uInventorySlotX - 1] | 0x80000000) == _this->pInventoryIndices[uInventorySlotY * 14 + uInventorySlotX])
+      (_this->pInventoryIndices[uInventorySlotY * 14 + uInventorySlotX - 1] & 0x7FFFFFFF) == (_this->pInventoryIndices[uInventorySlotY * 14 + uInventorySlotX] & 0x7FFFFFFF))
     --uInventorySlotX;
   if (uInventorySlotY > 0 &&
-      (_this->pInventoryIndices[(uInventorySlotY - 1) * 14 + uInventorySlotX] | 0x80000000) == _this->pInventoryIndices[(uInventorySlotY - 1) * 14 + uInventorySlotX])
+      (_this->pInventoryIndices[(uInventorySlotY - 1) * 14 + uInventorySlotX] & 0x7FFFFFFF) == (_this->pInventoryIndices[(uInventorySlotY - 1) * 14 + uInventorySlotX] & 0x7FFFFFFF))
     --uInventorySlotY;
  }
 
@@ -2364,7 +2364,7 @@ bool __thiscall Player_sub_492C40(Player *_this)
 {
   int v2; // eax@1
 
-  LOBYTE(v2) = Player_sub_48F882(_this, 34);
+  LOBYTE(v2) = Player_GetActualSkillLevel(_this, 34);
   return v2 != 0;
 }
 
@@ -2694,7 +2694,7 @@ signed int __thiscall sub_49387A(void *_this)
       ++result;
       if ( result > 4 )
         result = 1;
-      if ( !*((_WORD *)pPlayers[result - 1] + 3226) ) // pPlayer[result]->cInventorySlots[74].uItemID
+      if ( !*((_WORD *)pPlayers[result - 1] + 3226) ) // pPlayer[result]->pInventorySlots[74].uItemID
         break;
       ++v3;
       if ( v3 >= 4 )

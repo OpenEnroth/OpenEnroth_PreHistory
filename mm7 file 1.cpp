@@ -8846,7 +8846,7 @@ LABEL_45:
         v626 = 12;
       }
       v703 = v626;
-      v8 = Player_sub_48F882((Player *)v707, v626);
+      v8 = Player_GetActualSkillLevel((Player *)v707, v626);
       v701 = v8 & 0x3F;
       LODWORD(v1) = v8 & 0x3F;
       goto LABEL_45;

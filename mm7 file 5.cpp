@@ -954,7 +954,7 @@ void __cdecl sub_468F8A_OnPaperdollLeftClick()
   v57 = v0;
   if ( v0 != -1)
   {
-   if (pClass40->pItems[pPlayer->cInventorySlots[v0].uItemID].uEquipType == 1 )
+   if (pClass40->pItems[pPlayer->pInventorySlots[v0].uItemID].uEquipType == 1 )
       v55 = v0;
   }
   v3 = pParty_global->pickedItem.uItemID;
@@ -967,7 +967,7 @@ void __cdecl sub_468F8A_OnPaperdollLeftClick()
       if ( v2 )
       {
 LABEL_7:
-        LOBYTE(v5) = Player_sub_48F882(pPlayer, 4);
+        LOBYTE(v5) = Player_GetActualSkillLevel(pPlayer, 4);
         if ( sub_458244_GetSkillMasteryLevel(v5) < 3 )
         {
 LABEL_8:
@@ -981,7 +981,7 @@ LABEL_8:
     else
     {
      if ((v4 == Character::Skill::Shield || v4 == Character::Skill::Sword || v4 == Character::Skill::Dagger) && v0 &&
-         pClass40->pItems[pPlayer->cInventorySlots[v0 - 1].uItemID].uSkillType == Character::Skill::Spear)
+         pClass40->pItems[pPlayer->pInventorySlots[v0 - 1].uItemID].uSkillType == Character::Skill::Spear)
         goto LABEL_7;
     }
 LABEL_16:
@@ -1034,7 +1034,7 @@ LABEL_16:
         }
         v9 = v56;
         pParty_global->pickedItem.byte_000018 = v56;
-        memcpy(&pPlayer->cInventorySlots[v8], &pParty_global->pickedItem.uItemID, sizeof(struct ItemGen));
+        memcpy(&pPlayer->pInventorySlots[v8], &pParty_global->pickedItem.uItemID, sizeof(struct ItemGen));
         pPlayer->pEquppedItemIndices[v9] = v8;
         GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
 LABEL_33:
@@ -1042,14 +1042,14 @@ LABEL_33:
         {
           v56 = pPlayer->pEquppedItemIndices[15];
           memcpy(&local_0C, &pParty_global->pickedItem.uItemID, sizeof(struct ItemGen));
-          pPlayer->cInventorySlots[v56].byte_000018 = 0;
+          pPlayer->pInventorySlots[v56].byte_000018 = 0;
           //*(_BYTE *)(v10 + 556) = 0;
           ItemGen_Reset(&pParty_global->pickedItem);
           //Party_sub_4936E1(pParty_global, (ItemGen *)(v10 + 532));
-          Party_sub_4936E1(pParty_global, &pPlayer->cInventorySlots[v56]);
+          Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v56]);
           local_0C.byte_000018 = 16;
           v11 = v56;
-          memcpy(&pPlayer->cInventorySlots[v56], &local_0C, sizeof(struct ItemGen));
+          memcpy(&pPlayer->pInventorySlots[v56], &local_0C, sizeof(struct ItemGen));
           pPlayer->pEquppedItemIndices[15] = v11;
         }
         return;
@@ -1062,13 +1062,13 @@ LABEL_33:
         {
           --v58;
           memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
-          pPlayer->cInventorySlots[v58].byte_000018 = 0;
+          pPlayer->pInventorySlots[v58].byte_000018 = 0;
           ItemGen_Reset(&pParty_global->pickedItem);
-          Party_sub_4936E1(pParty_global, &pPlayer->cInventorySlots[v58]);
+          Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v58]);
           local_0C.byte_000018 = 1;
           v13 = v58;
           v14 = v55 == 0;
-          memcpy(&pPlayer->cInventorySlots[v58], &local_0C, sizeof(struct ItemGen));
+          memcpy(&pPlayer->pInventorySlots[v58], &local_0C, sizeof(struct ItemGen));
           pPlayer->pEquppedItemIndices[0] = v13;
           if ( v14 )
             return;
@@ -1088,9 +1088,9 @@ LABEL_33:
             goto LABEL_45;
           }
           memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
-          pPlayer->cInventorySlots[v57].byte_000018 = 0;
+          pPlayer->pInventorySlots[v57].byte_000018 = 0;
           ItemGen_Reset(&pParty_global->pickedItem);
-          Party_sub_4936E1(pParty_global, &pPlayer->cInventorySlots[v57]);
+          Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v57]);
           local_0C.byte_000018 = 1;
           v16 = v56;
           memcpy((void *)(pPlayer + 36 * v56 + 532), &local_0C, sizeof(struct ItemGen));
@@ -1133,13 +1133,13 @@ LABEL_33:
                 --v58;
                 memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
 
-                pPlayer->cInventorySlots[v58].byte_000018 = 0;
+                pPlayer->pInventorySlots[v58].byte_000018 = 0;
                 ItemGen_Reset(&pParty_global->pickedItem);
-                Party_sub_4936E1(pParty_global, &pPlayer->cInventorySlots[v58]);
+                Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v58]);
                 local_0C.byte_000018 = 1;
                 v21 = v58;
                 v22 = v56 == 12;
-                memcpy(&pPlayer->cInventorySlots[v58], &local_0C, sizeof(struct ItemGen));
+                memcpy(&pPlayer->pInventorySlots[v58], &local_0C, sizeof(struct ItemGen));
                 *(_DWORD *)(pPlayer + 6472) = v21;
                 if ( !v22 )
                   return;
@@ -1153,7 +1153,7 @@ LABEL_73:
                 return;
               pParty_global->pickedItem.byte_000018 = 1;
               v54 = (int)(pPlayer) + 36 * v24 + 532;
-              memcpy(&pPlayer->cInventorySlots[v24], &pParty_global->pickedItem, sizeof(struct ItemGen));
+              memcpy(&pPlayer->pInventorySlots[v24], &pParty_global->pickedItem, sizeof(struct ItemGen));
               *(_DWORD *)(pPlayer + 6472) = v24;
 LABEL_71:
               GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
@@ -1170,21 +1170,21 @@ LABEL_71:
           if (v28 == -1)
             return;
           pParty_global->pickedItem.byte_000018 = 2;
-          v54 = (int)&pPlayer->cInventorySlots[v28];
-          memcpy(&pPlayer->cInventorySlots[v28], &pParty_global->pickedItem, sizeof(struct ItemGen));
+          v54 = (int)&pPlayer->pInventorySlots[v28];
+          memcpy(&pPlayer->pInventorySlots[v28], &pParty_global->pickedItem, sizeof(struct ItemGen));
           pPlayer->pEquppedItemIndices[1] = v28;
           goto LABEL_71;
         }
         --v57;
         memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
 
-        pPlayer->cInventorySlots[v57].byte_000018 = 0;
+        pPlayer->pInventorySlots[v57].byte_000018 = 0;
         ItemGen_Reset(&pParty_global->pickedItem);
-        Party_sub_4936E1(pParty_global, &pPlayer->cInventorySlots[v57]);
+        Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v57]);
         local_0C.byte_000018 = 2;
         v26 = v57;
         v27 = v56 == 12;
-        memcpy(&pPlayer->cInventorySlots[v57], &local_0C, sizeof(struct ItemGen));
+        memcpy(&pPlayer->pInventorySlots[v57], &local_0C, sizeof(struct ItemGen));
         *(_DWORD *)(pPlayer + 6476) = v26;
         if ( v27 )
          v54 = local_0C.uItemID;
@@ -1215,12 +1215,12 @@ LABEL_74:
           }
           --v57;
           memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
-          pPlayer->cInventorySlots[v57].byte_000018 = 0;
+          pPlayer->pInventorySlots[v57].byte_000018 = 0;
           ItemGen_Reset(&pParty_global->pickedItem);
-          Party_sub_4936E1(pParty_global, &pPlayer->cInventorySlots[v57]);
+          Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v57]);
           local_0C.byte_000018 = 2;
           v30 = v57;
-          memcpy(&pPlayer->cInventorySlots[v57], &local_0C, sizeof(struct ItemGen));
+          memcpy(&pPlayer->pInventorySlots[v57], &local_0C, sizeof(struct ItemGen));
           *(_DWORD *)(pPlayer + 6476) = v30;
         }
         else
@@ -1231,12 +1231,12 @@ LABEL_74:
             if ( v58 )
             {
               memcpy(&local_0C, &pParty_global->pickedItem, sizeof(struct ItemGen));
-              pPlayer->cInventorySlots[v58 - 1].byte_000018 = 0;
+              pPlayer->pInventorySlots[v58 - 1].byte_000018 = 0;
               ItemGen_Reset(&pParty_global->pickedItem);
-              Party_sub_4936E1(pParty_global, &pPlayer->cInventorySlots[v58 - 1]);
+              Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v58 - 1]);
               local_0C.byte_000018 = 2;
               v32 = v56;
-              memcpy(&pPlayer->cInventorySlots[v56], &local_0C, sizeof(struct ItemGen));
+              memcpy(&pPlayer->pInventorySlots[v56], &local_0C, sizeof(struct ItemGen));
               *(_DWORD *)(pPlayer + 6472) = 0;
               *(_DWORD *)(pPlayer + 6476) = v32;
             }
@@ -1276,8 +1276,8 @@ LABEL_45:
     v37 = pPlayer->pEquppedItemIndices[2];
     if (pPlayer->pEquppedItemIndices[2] != -1)
     {
-     Party_sub_4936E1(pParty_global, &pPlayer->cInventorySlots[v37]);
-     ItemGen_Reset(&pPlayer->cInventorySlots[pPlayer->pEquppedItemIndices[2]]);
+     Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v37]);
+     ItemGen_Reset(&pPlayer->pInventorySlots[pPlayer->pEquppedItemIndices[2]]);
      pPlayer->pEquppedItemIndices[2] = -1;
     }
     return;
@@ -1286,8 +1286,8 @@ LABEL_45:
 
   v54 = (int)pPlayer + 36 * v39;
 
-  v41 = pPlayer->cInventorySlots[v39].uItemID == 603;
-  v56 = pClass40->pItems[pPlayer->cInventorySlots[v39].uItemID].uEquipType;
+  v41 = pPlayer->pInventorySlots[v39].uItemID == 603;
+  v56 = pClass40->pItems[pPlayer->pInventorySlots[v39].uItemID].uEquipType;
   if ( v41 )
   {
     if ( byte_6BE3C4_MaybeDrowningFlag )
@@ -1313,7 +1313,7 @@ LABEL_96:
     v42 = v56;
     *(_DWORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 12) = v39;
     *(_WORD *)(*(_DWORD *)(ptr_507BD4->dword_00001C) + 6) = v42;
-    ptr_50C9A4 = &pPlayer->cInventorySlots[v39];
+    ptr_50C9A4 = &pPlayer->pInventorySlots[v39];
     dword_50C9A0 = false;
   // if ( dword_50CBD0.msg_count )
 	//		   if  (dword_50CBD0.prm[0].msg_param3)
@@ -1328,9 +1328,9 @@ LABEL_96:
   {
     if ( !ptr_50C9A4 )
     {
-      Party_sub_4936E1(pParty_global, &pPlayer->cInventorySlots[v39]);
+      Party_sub_4936E1(pParty_global, &pPlayer->pInventorySlots[v39]);
       *(_DWORD *)(pPlayer + 4 * *(_BYTE *)(v54 + 556) + 0x1944) = 0;
-      ItemGen_Reset(&pPlayer->cInventorySlots[v39]);
+      ItemGen_Reset(&pPlayer->pInventorySlots[v39]);
     }
   }
 }
@@ -18755,7 +18755,7 @@ void Player_ctor(Player *_this)
  for (unsigned int i = 0; i < 126; ++i)
  {
   _this->pInventoryIndices[i] = -1;
-  ItemGen_Reset(&_this->cInventorySlots[i]);
+  ItemGen_Reset(&_this->pInventorySlots[i]);
  }
  
  for (unsigned int i = 0; i < 12; ++i)
