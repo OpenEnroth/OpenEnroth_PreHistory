@@ -2153,7 +2153,7 @@ bool Player_SetRecoveryTime(struct Player *_this, int sRecoveryTime)
  if (v2 > _this->uTimeToRecovery)
    _this->uTimeToRecovery = v2;
 
-  if (pPlayers[uActiveCharacter] == _this)
+  if (pPlayers[uActiveCharacter - 1] == _this)
   {
     if ( !dword_50C0C4 )
       uActiveCharacter = Party_sub_49370F(pParty_global);
@@ -3534,7 +3534,7 @@ unsigned int CreateItemInInventory(struct Player *_this, unsigned int uInventory
   if ( v13 == -1 )
   {
     if ( uActiveCharacter )
-      Player_PlaySound(pPlayers[uActiveCharacter], 15, 0);
+      Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
     result = 0;
   }
   else

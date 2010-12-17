@@ -6026,7 +6026,7 @@ LABEL_9:
           v87 = 0;
           v85 = 64;
 LABEL_105:
-          Player_PlaySound(pPlayers[uActiveCharacter], v85, v87);
+          Player_PlaySound(pPlayers[uActiveCharacter - 1], v85, v87);
         }
         break;
 

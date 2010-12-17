@@ -2134,8 +2134,8 @@ signed int __thiscall sub_42EBEE(void *_this)
 
   v3 = uActiveCharacter;
   v7 = (int)_this;
-  v2 = &pParty_global->pPlayers[uActiveCharacter];
-  result = Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[uActiveCharacter]);
+  v2 = &pParty_global->pPlayers[uActiveCharacter - 1];
+  result = Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[uActiveCharacter - 1]);
   if ( result )
   {
     sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, v3);
@@ -2200,9 +2200,9 @@ bool sub_42ECB5_PlayerAttack()
 
   v1 = uActiveCharacter;
   v29 = 6972 * uActiveCharacter;
-  v2 = (int)&pParty_global->pPlayers[uActiveCharacter];
+  v2 = (int)&pParty_global->pPlayers[uActiveCharacter - 1];
 
- if (!Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[uActiveCharacter]))
+ if (!Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[uActiveCharacter - 1]))
    return false;
 
 
@@ -2217,7 +2217,7 @@ bool sub_42ECB5_PlayerAttack()
  if ( v33 )
  {
   //if ( *(_BYTE *)(v2 + 36 * v33 + 516) & 2 )
-  if (*((char *)pParty_global->pPlayers[uActiveCharacter - 1].cInventorySlots - 0x10 + 36 * v33))
+  if (*((char *)pParty_global->pPlayers[uActiveCharacter - 1].pInventorySlots - 0x10 + 36 * v33))
     v33 = 0;
  }
 
@@ -3424,7 +3424,7 @@ LABEL_75:
               if ( uActiveCharacter )
               {
                 sub_43AD34();
-                Player_PlaySound(pPlayers[uActiveCharacter], 65, 0);
+                Player_PlaySound(pPlayers[uActiveCharacter - 1], 65, 0);
               }
             }
             break;
@@ -3435,12 +3435,12 @@ LABEL_75:
               goto LABEL_118;
             if ( uActiveCharacter )
             {
-              v6 = (int)pPlayers[uActiveCharacter];
+              v6 = (int)pPlayers[uActiveCharacter - 1];
               if ( !*(_WORD *)(v6 + 6452) )
               {
                 v24 = Player_sub_GetAttackRecoveryTime((Player *)v6, 0);
                 if (!pParty_global->dword_00087C)
-                  Player_SetRecoveryTime(pPlayers[uActiveCharacter],
+                  Player_SetRecoveryTime(pPlayers[uActiveCharacter - 1],
                     (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v24 * 2.1333333333333333));
                 sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, uActiveCharacter);
                 sub_40471C(&unk_4F8858);
@@ -3472,7 +3472,7 @@ LABEL_75:
               goto LABEL_118;
             if ( !uActiveCharacter )
               break;
-            v8 = (int)pPlayers[uActiveCharacter];
+            v8 = (int)pPlayers[uActiveCharacter - 1];
             v7 = *(_BYTE *)(v8 + 6735);
             if ( !v7
               || byte_6BE3C4_MaybeDrowningFlag
@@ -13272,7 +13272,7 @@ void sub_467E7F_EquipBody(unsigned int uEquipType)
 
   ItemGen_Reset(&local_0C);
   v3 = byte_4E8398[uEquipType];
-  v1 = pPlayers[uActiveCharacter];
+  v1 = pPlayers[uActiveCharacter - 1];
 
   v2 = v12 = v1->pEquppedItemIndices[v3];
   if (v1->pEquppedItemIndices[v3] == -1)  // no armour

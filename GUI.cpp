@@ -965,7 +965,7 @@ LABEL_123:
       v14 = pD3DRenderer->pActiveZBuffer[x + dword_5059A8[y]];
       if ( v14 == 0 || v14 == -65536 || v14 >= 0x1388 )
         goto LABEL_123;
-      v15 = *((char **)pPlayers[uActiveCharacter] + 36 * v14 + 496);
+      v15 = *((char **)pPlayers[uActiveCharacter - 1] + 36 * v14 + 496);
       goto LABEL_49;
     }
 
@@ -1102,7 +1102,7 @@ LABEL_24:
                 y >= pControl->uY && y <= pControl->uW)
             {
 LABEL_19:
-              v6 = (int)pPlayers[uActiveCharacter];
+              v6 = (int)pPlayers[uActiveCharacter - 1];
               v7 = *(_BYTE *)(v6 + 2 * pControl->dword_000024 + 264);
               v4 = *(_DWORD *)(v6 + 6456);
               v5 = (v7 & 0x3F) + 1;
@@ -3403,7 +3403,7 @@ LABEL_544:
         case 0x19:
           if ( byte_6BE3C4_MaybeDrowningFlag == 1 )
             goto LABEL_682;
-          if ( !uActiveCharacter || (v90 = (int)pPlayers[uActiveCharacter], *(_WORD *)(v90 + 6452)) )
+          if ( !uActiveCharacter || (v90 = (int)pPlayers[uActiveCharacter - 1], *(_WORD *)(v90 + 6452)) )
             goto LABEL_90;
           v92 = *(_BYTE *)(v90 + 6735);
           v192 = uActiveCharacter;
@@ -3548,13 +3548,13 @@ LABEL_595:
           if ( pParty_global->uNumFood < (unsigned int)dword_506F10 )
           {
             sub_44C175((char *)pGlobalTXT_LocalizationStrings[482], 2);
-            if ( uActiveCharacter && Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter]) )
+            if ( uActiveCharacter && Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter - 1]) )
             {
               v101 = uActiveCharacter;
               v193 = 0;
               v177 = 108;
 LABEL_619:
-              Player_PlaySound(pPlayers[uActiveCharacter], v177, v193);
+              Player_PlaySound(pPlayers[uActiveCharacter - 1], v177, v193);
             }
           }
           else
@@ -3639,7 +3639,7 @@ LABEL_520:
           }
           else
           {
-            if ( *((_BYTE *)pPlayers[uActiveCharacter] + 6735) )
+            if ( *((_BYTE *)pPlayers[uActiveCharacter - 1] + 6735) )
               v194 = (char *)pGlobalTXT_LocalizationStrings[584];
             else
               v194 = (char *)pGlobalTXT_LocalizationStrings[484];
@@ -3650,7 +3650,7 @@ LABEL_521:
           goto LABEL_92;
         case 0x4F:
           if ( !uActiveCharacter
-            || (v212 = (int)pPlayers[uActiveCharacter],
+            || (v212 = (int)pPlayers[uActiveCharacter - 1],
                 !*(_BYTE *)(v212 + 11 * *(_BYTE *)(v212 + 6734) + v209 + 402)) )
             goto LABEL_92;
           if ( sub_4637E0() )
@@ -3675,7 +3675,7 @@ LABEL_521:
           GUIWindowCreate(dword_5064F8->uX, dword_5064F8->uY, 0, 0, 90, dword_5064F8, 0);
           if ( !uActiveCharacter )
             goto LABEL_92;
-          v207 = (int)pPlayers[uActiveCharacter];;
+          v207 = (int)pPlayers[uActiveCharacter - 1];;
           if ( !byte_506550 || !dword_50654C )
           {
             v182 = 0;
@@ -3690,8 +3690,8 @@ LABEL_521:
             v144 = 203;
             goto LABEL_721;
           }
-          v111 = dword_50654C + 11 * *(_BYTE *)*((char*)pPlayers[uActiveCharacter] + 6734);
-          *(_BYTE *)*((char*)pPlayers[uActiveCharacter] + 6735) = v111;
+          v111 = dword_50654C + 11 * *(_BYTE *)*((char*)pPlayers[uActiveCharacter - 1] + 6734);
+          *(_BYTE *)*((char*)pPlayers[uActiveCharacter - 1] + 6735) = v111;
           sub_494836((char *)&unk_AA1058 + 45016 * (uActiveCharacter-1), v111, uActiveCharacter);
           if ( uActiveCharacter )
             Player_PlaySound((Player *)v207, 12, 0);
@@ -3700,7 +3700,7 @@ LABEL_521:
         case 0x33:
           if ( !uActiveCharacter )
             goto LABEL_92;
-          v112 = (int)pPlayers[uActiveCharacter];
+          v112 = (int)pPlayers[uActiveCharacter - 1];
           v211 = 0;
           v210 = 0;
           v113 = 0;
@@ -3733,13 +3733,13 @@ LABEL_521:
               v210 = 0;
           }
           sub_41140B();
-          *((_BYTE *)pPlayers[uActiveCharacter] + 6734) = LOBYTE(v236[v210]);
+          *((_BYTE *)pPlayers[uActiveCharacter - 1] + 6734) = LOBYTE(v236[v210]);
           goto LABEL_661;
         case 0x57:
-          if ( dword_4F885C == 3 || !uActiveCharacter || v209 == *(_BYTE *)*((char*)pPlayers[uActiveCharacter] + 6734) )
+          if ( dword_4F885C == 3 || !uActiveCharacter || v209 == *(_BYTE *)*((char*)pPlayers[uActiveCharacter - 1] + 6734) )
             goto LABEL_92;
           sub_41140B();
-          *(_BYTE *)*((char*)pPlayers[uActiveCharacter] + 6734) = v209;
+          *(_BYTE *)*((char*)pPlayers[uActiveCharacter - 1] + 6734) = v209;
 LABEL_661:
           sub_411621((void *)pGUIWindow_CurrentMenu);
 LABEL_662:
@@ -3757,7 +3757,7 @@ LABEL_662:
           {
             if ( uActiveCharacter )
             {
-              v212 = (int)pPlayers[uActiveCharacter];
+              v212 = (int)pPlayers[uActiveCharacter - 1];
               if ( *(_BYTE *)(v212 + 11 * *(_BYTE *)(v212 + 6734) + v209 + 402) )
               {
                 if ( dword_50654C - 1 == v209 )
@@ -3832,7 +3832,7 @@ LABEL_721:
 			//   if  (dword_50CBD0.prm[0].msg_param3)
                //           dword_50CBD0.msg_count = 1;
 		  dword_50CBD0.CutQueueTail();
-            if ( uActiveCharacter && !pPlayers[uActiveCharacter - 1]->cInventorySlots[74].word_00001E)
+            if ( uActiveCharacter && !pPlayers[uActiveCharacter - 1]->pInventorySlots[74].word_00001E)
             {
               if ( !dword_4E28F8 )
                 goto LABEL_693;
@@ -3959,7 +3959,7 @@ LABEL_709:
           v97 = (int)pCharacterUI_BtnSkills;
           goto LABEL_716;
         case 0x79:
-          v120 = (int)pPlayers[uActiveCharacter];
+          v120 = (int)pPlayers[uActiveCharacter - 1];
           v119 = v120 + 2 * v209 + 264;
           LOWORD(v3) = *(_WORD *)v119;
           v212 = v3;
@@ -6972,8 +6972,8 @@ void CharacterUI_DrawSkillsTab(int uSelectedCharacter) // character skills tab
   v100 = pGUIWindow_CurrentMenu->dword_00002C;
   v101 = 0xFF0000;
   v94 = 0x00FF00;
-  v2 = (char *)&pParty_global->pPlayers[uSelectedCharacter-1];
-  pp = pPlayers[uSelectedCharacter];
+  v2 = (char *)&pParty_global->pPlayers[uSelectedCharacter - 1];
+  pp = pPlayers[uSelectedCharacter - 1];
 
   #ifndef OLD_CODE
   v4 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"fr_skill");
@@ -10814,8 +10814,8 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
       strcat((char *)pStringBuffer, "\n");
       //v25 = dword_4EDEF8[0];
 	  v25=0;
-      //v0 = pPlayers[uActiveCharacter];
-      v23 = pPlayers[uActiveCharacter];
+      //v0 = pPlayers[uActiveCharacter - 1];
+      v23 = pPlayers[uActiveCharacter - 1];
       do
       {
         if ( v23->pConditions[dword_4EDEF8[v25]] )
@@ -10873,7 +10873,7 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
 		}
     case 14:
 		{
-         v15 = pPlayers[uActiveCharacter];
+         v15 = pPlayers[uActiveCharacter - 1];
          v26 = pGlobalTXT_LocalizationStrings[LOCSTR_EXPIRIENCE];
          v14 = v15->uLevelBase;
       do
@@ -10967,7 +10967,7 @@ void __cdecl CharacterUI_StatsTab_ShowHint()
 		}
     case 26:
 		{
-      v0 =pPlayers[uActiveCharacter]->uClass;
+      v0 =pPlayers[uActiveCharacter - 1]->uClass;
       v26 = aClassNames[v0];
       v7 = pClassDescriptions[v0];    
       break;

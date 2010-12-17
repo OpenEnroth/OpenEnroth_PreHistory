@@ -5044,7 +5044,7 @@ void sub_410B28(int _this)	//spell info
   int v20; // [sp+6Ch] [bp-8h]@4
   int v21; // [sp+70h] [bp-4h]@4
 
-  v1 = pPlayers[uActiveCharacter];
+  v1 = pPlayers[uActiveCharacter - 1];
   v17 = _this;
   v2 = (int)&pSpellStats->pSpellInfos[1 + (v17 + 11 * v1->byte_001A4E)]; //v17 + 11 * v1->byte_001A4E)]; //36 * (_DWORD)((char *)_this + 11 * v1->byte_001A4E) + 6078548;
   if ( *(_DWORD *)(GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v18) + 4) <= 250 )
@@ -5160,7 +5160,7 @@ int __fastcall sub_411300(int a1)
 
   byte_506550 = 0;
   v3 = a1;
-  v2 = (int)pPlayers[uActiveCharacter];
+  v2 = (int)pPlayers[uActiveCharacter - 1];
   v1 = *(_BYTE *)(v2 + 6735);
   if ( v1 && (unsigned __int8)v1 / 11 == v3 )
     dword_50654C = (unsigned __int8)v1 - 11 * v3;
@@ -5290,7 +5290,7 @@ int __thiscall sub_411621(void *_this)
   int v6; // [sp+10h] [bp-8h]@1
   int v7; // [sp+14h] [bp-4h]@1
 
-  v2 = (int)pPlayers[uActiveCharacter];
+  v2 = (int)pPlayers[uActiveCharacter - 1];
   v3 = (int)_this;
   sub_411300(*(_BYTE *)(v2 + 6734));
   v1 = 0;
@@ -5858,7 +5858,7 @@ void __cdecl sub_412B58()
   int v24; // [sp+18h] [bp-8h]@13
 
   sub_412AF9();
-  v0 = (int)pPlayers[uActiveCharacter];
+  v0 = (int)pPlayers[uActiveCharacter - 1];
   v1 = 11 * *(_BYTE *)(v0 + 6734);
   v4 = LODFile_Icons_LOD.LODFile_sub_40F9F0( "Pending");
   v2 = v4 != -1 ? 72 * v4 + 7145548 : 0;
@@ -7451,7 +7451,7 @@ void __cdecl sub_416196()
 
   if ( !dword_50CDCC )
   {
-    v0 = pPlayers[uActiveCharacter];
+    v0 = pPlayers[uActiveCharacter - 1];
     pXY = GUICursor_GetMousePos(pGame->pGUICursor, (POINT *)&v54);
 		
 	v58 = pD3DRenderer->pActiveZBuffer[pXY->x + dword_5059A8[pXY->y]] & 0xFFFF;
@@ -8044,11 +8044,11 @@ void __thiscall sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(int _this)
   {
     if ( dword_4E28F8 == 10 )
     {
-      if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter]) )
+      if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter - 1]) )
       {
         wsprintfA((char *)TmpBuf,
           (char *)pGlobalTXT_LocalizationStrings[LOCSTR_IS_IN_NO_COND],
-          (char *)pPlayers[uActiveCharacter]->sName,
+          (char *)pPlayers[uActiveCharacter - 1]->sName,
           pGlobalTXT_LocalizationStrings[LOCSTR_IDENT_ITEM]);
         local_04.ptr_000048 = TmpBuf;
         local_04.uFrameWidth = 384;
@@ -8431,9 +8431,9 @@ void __thiscall OnMouseLeftClick(void *_this)
             {
               if ( v5 < 33554432 )
               {
-                if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter]) )
+                if ( Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter - 1]) )
                 {
-                  if ( Player_sub_492C40(pPlayers[uActiveCharacter]) )
+                  if ( Player_sub_492C40(pPlayers[uActiveCharacter - 1]) )
                   {
                  /*   if ( dword_50CBD0[0] < 40 )
                     {
@@ -8952,7 +8952,7 @@ int __cdecl sub_419100()
   int i; // [sp+10h] [bp-4h]@10
  struct Player *pPlayer;
 
-  pPlayer = pPlayers[uActiveCharacter];
+  pPlayer = pPlayers[uActiveCharacter - 1];
   memset(&stru_5C3610, 0, sizeof(unnamed_5C3610));
   memset(pStringBuffer, 0, 0x7D0u);
   v0 = 0;
@@ -10753,14 +10753,14 @@ void __thiscall sub_41D895(void *_this)
         }
         if ( dword_4E455C )
         {
-          Player_PlaySound(pPlayers[uActiveCharacter], v95, 0);
+          Player_PlaySound(pPlayers[uActiveCharacter - 1], v95, 0);
           dword_4E455C = 0;
         }
       }
       sub_458260(v97, pParty_global->qword_00002C);
       if ( v91.y )
       {
-        v14 = Player_sub_491151(pPlayers[uActiveCharacter], v97) == 1;
+        v14 = Player_sub_491151(pPlayers[uActiveCharacter - 1], v97) == 1;
         v13 = v97;
         if ( v14 )
           *(_DWORD *)(v97 + 20) = *(_DWORD *)(v97 + 20) & 0xFFFFFFFD | 1;
@@ -10772,7 +10772,7 @@ void __thiscall sub_41D895(void *_this)
           sub_44C175((char *)pGlobalTXT_LocalizationStrings[448], 2);
         if ( dword_4E455C )
         {
-          Player_PlaySound(pPlayers[uActiveCharacter], v95, 0);
+          Player_PlaySound(pPlayers[uActiveCharacter - 1], v95, 0);
           dword_4E455C = 0;
         }
       }
@@ -11572,7 +11572,7 @@ LABEL_73:
       {
         if ( v142 )
         {
-          v46 = (int)pPlayers[uActiveCharacter];
+          v46 = (int)pPlayers[uActiveCharacter - 1];
           if ( v141 | v138 | i | (unsigned int)v134 )
           {
             if ( *(_BYTE *)(v143 + 52) >= *(_WORD *)(v46 + 218) - 5 )
@@ -12540,7 +12540,7 @@ LABEL_8:
     if ( v23 == v4 )
     {
       if ( uActiveCharacter )
-        Player_PlaySound(pPlayers[uActiveCharacter], 15, 0);
+        Player_PlaySound(pPlayers[uActiveCharacter - 1], 15, 0);
       return 0;
     }
     v10 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[*v3].pIconName, 2);
@@ -12872,7 +12872,7 @@ signed int __fastcall sub_42041E(int a1)
   v2 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   if ( !(*v1 & 1) || !v2 )
     goto LABEL_12;
-  if ( Player_sub_4912B0(pPlayers[uActiveCharacter]) < 2 * pMapStats->pMapInfos[v2].byte_00002C)
+  if ( Player_sub_4912B0(pPlayers[uActiveCharacter - 1]) < 2 * pMapStats->pMapInfos[v2].byte_00002C)
   {
     v44 = 811;
     v45 = 812;
@@ -13006,7 +13006,7 @@ LABEL_12:
   if ( X )
   {
     if ( !dword_507CD8 )
-      Player_PlaySound(pPlayers[uActiveCharacter], 4, 0);
+      Player_PlaySound(pPlayers[uActiveCharacter - 1], 4, 0);
   }
   dword_507CD8 = 0;
   v4 = (int)GUIWindowCreate(0, 0, 640, 480, 20, (GUIButton*)v54, 0);
@@ -13394,7 +13394,7 @@ signed int __cdecl sub_421B2C()
     v22 = bTextureLoading;
     if ( uActiveCharacter && (v2 = AddItem(pPlayers[uActiveCharacter - 1], -1, pParty_global->pickedItem.uItemID)) != 0 )
     {
-     memcpy(&pPlayers[uActiveCharacter - 1]->cInventorySlots[v2], &pParty_global->pickedItem, sizeof(struct ItemGen));
+     memcpy(&pPlayers[uActiveCharacter - 1]->pInventorySlots[v2], &pParty_global->pickedItem, sizeof(struct ItemGen));
     }
     else
     {
@@ -13482,9 +13482,9 @@ void GameUI_OnPlayerPortraitLeftClick(unsigned int uCharacter)
       v4 = pPlayers[uCharacter - 1];
     else
     {
-      if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter]) )
+      if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter - 1]) )
         goto LABEL_9;
-      v4 = pPlayers[uActiveCharacter];
+      v4 = pPlayers[uActiveCharacter - 1];
     }
     Player_PlaySound(v4, 15, 0);
   }
@@ -13600,7 +13600,7 @@ void __cdecl sub_421EA6_OnInventoryLeftClick()
   int pointX, pointY;
 
   ItemGen_Reset(&local_0C);
-  v0 = pPlayers[uActiveCharacter];
+  v0 = pPlayers[uActiveCharacter - 1];
   if ( dword_506F48 == 103 )
   {
     GUICursor_GetMouseClickPos(pGame->pGUICursor, &pointX, &pointY);
@@ -13957,7 +13957,7 @@ LABEL_42:
       return;
     }
     if ( uActiveCharacter)
-		if( sub_427769(pPlayers[uActiveCharacter]->uQuickSpell)) 
+		if( sub_427769(pPlayers[uActiveCharacter - 1]->uQuickSpell)) 
     {
 /*      dword_50CBD0[3 * dword_50CBD0[0] + 1] = 25;
 LABEL_41:
