@@ -261,13 +261,13 @@ LABEL_17:
 int __thiscall Player_GetEquippedItemEquipType(Player *_this, unsigned int uSlot)
 {
   //return (unsigned __int8)byte_5D2A00[48 * *((_DWORD *)_this + 9 * *((_DWORD *)_this + a2 + 1618) + 124)];
- return pClass40->pItems[_this->pInventorySlots[_this->pEquppedItemIndices[uSlot]].uItemID].uEquipType;
+ return pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[uSlot]].uItemID].uEquipType;
 }
 
 //----- (0048D651) --------------------------------------------------------
 int __thiscall Player_GetEquippedItemSkillType(Player *_this, unsigned int uSlot)
 {
-  return pClass40->pItems[_this->pInventorySlots[_this->pEquppedItemIndices[uSlot]].uItemID].uSkillType;
+  return pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[uSlot]].uItemID].uSkillType;
 }
 
 //----- (0048D676) --------------------------------------------------------
@@ -576,7 +576,7 @@ signed int __thiscall Player_sub_48DC1E(struct Player *_this, signed int a2, int
     }
     if ( v3 )
     {
-      v7 = _this->pEquppedItemIndices[3];
+      v7 = _this->pEquippedItemIndices[3];
       if ( v7 )
       {
         v9 = (int)((char *)&_this->pInventorySlots[v7] - 0x10);
@@ -2799,7 +2799,7 @@ int __thiscall sub_494836(void *_this, int a2, int a3)
 }
 
 //----- (00494A25) --------------------------------------------------------
-__int16 __thiscall Player_sub_494A25(int _this, int a2, int a3)
+__int16 __thiscall Player_sub_494A25(Player *_this, int a2, int a3)
 {
   signed int v3; // eax@1
   __int16 v4; // dx@1

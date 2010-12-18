@@ -1986,11 +1986,8 @@ LABEL_56:
 }
 
 //----- (00427D48) --------------------------------------------------------
-void __thiscall sub_427D48_MessWith_unnamed_50C0C8(struct unnamed_50C0C8 *_this, int a2)
+void sub_427D48_MessWith_unnamed_50C0C8(struct unnamed_50C0C8 *_this, int a2)
 {
-  void *v3; // esi@1
-
-  v3 = _this;
  for (unsigned int i = 0; i < 10; ++i)
  {
   if (!_this->array_000000[i].word_000000)
@@ -2162,19 +2159,19 @@ signed int __thiscall sub_42EBEE(void *_this)
 bool sub_42ECB5_PlayerAttack()
 {
   int v1; // ebx@1
-  int v2; // esi@1
+  //int v2; // esi@1
   int v3; // edi@2
   int v4; // eax@7
-  int v5; // eax@8
+  //int v5; // eax@8
   int v6; // ecx@9
   signed int v7; // eax@16
   char *v8; // edi@20
   int v9; // ecx@21
-  int v10; // eax@26
-  int v11; // eax@26
-  int v12; // eax@47
+  //int v10; // eax@26
+  //int v11; // eax@26
+  //int v12; // eax@47
   int v13; // eax@47
-  int v14; // eax@47
+  //int v14; // eax@47
   int v15; // ebx@54
   int v16; // [sp-10h] [bp-4Ch]@24
   int v17; // [sp-10h] [bp-4Ch]@44
@@ -2200,9 +2197,9 @@ bool sub_42ECB5_PlayerAttack()
 
   v1 = uActiveCharacter;
   v29 = 6972 * uActiveCharacter;
-  v2 = (int)&pParty_global->pPlayers[uActiveCharacter - 1];
+ Player *pPlayer = &pParty_global->pPlayers[uActiveCharacter - 1];
 
- if (!Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[uActiveCharacter - 1]))
+ if (!Player_sub_492C0B_MaybeIfPlayerConscious(pPlayer))
    return false;
 
 
@@ -2211,53 +2208,56 @@ bool sub_42ECB5_PlayerAttack()
     if (pParty_global->pPartyBuffs[11].qword_000000 > 0 )
       SpellBuff_sub_458585(&pParty_global->pPartyBuffs[11]);
 
- v33 = pParty_global->pPlayers[uActiveCharacter - 1].pEquppedItemIndices[2];
+ v33 = pPlayer->pEquippedItemIndices[2];
     //v33 = *(_DWORD *)(v2 + 6480);
 
- if ( v33 )
+ if (v33 != -1)
  {
   //if ( *(_BYTE *)(v2 + 36 * v33 + 516) & 2 )
-  if (*((char *)pParty_global->pPlayers[uActiveCharacter - 1].pInventorySlots - 0x10 + 36 * v33))
-    v33 = 0;
+  if (pPlayer->pInventorySlots[v33].dword_000014 & 0x02)
+    v33 = -1;
  }
 
- v4 = pParty_global->pPlayers[uActiveCharacter - 1].pEquppedItemIndices[1];
+ v4 = pPlayer->pEquippedItemIndices[1];
      //v4 = *(_DWORD *)(v2 + 6476);
 
-    v34 = 0;
-    v35 = 0;
+    v34 = -1;
+    v35 = -1;
     if ( v4 )
     {
-      v5 = v2 + 36 * v4;
-      if ( !(*(_BYTE *)(v5 + 516) & 2) )
+      //v5 = (int)pPlayer + 36 * v4;
+      if (~pPlayer->pInventorySlots[v4].dword_000014 & 0x02)
       {
-        v30 = v5 + 496;
-        v6 = *(_DWORD *)(v5 + 496);
-        if (pClass40->pItems[v6 - 1].uEquipType == 12 )
+        //v30 = v5 + 496;
+        v6 = pPlayer->pInventorySlots[v4].uItemID;
+        if (pClass40->pItems[v6].uEquipType == 12 )
         {
-          if ( *(_DWORD *)(v5 + 512) <= 0 )
-          {
-            *(_DWORD *)v30 = 0;
-            pParty_global->pPlayers[uActiveCharacter - 1].pEquppedItemIndices[1] = 0;
-          }
+         if (pPlayer->pInventorySlots[v4].dword_000010 <= 0)
+         {
+          pPlayer->pInventorySlots[v4].uItemID = -1;
+          pPlayer->pEquippedItemIndices[1] = -1;
+         }
           else
-          {
-            v34 = *(_DWORD *)(v5 + 496);
-          }
+            v34 = pPlayer->pInventorySlots[v4].uItemID;
         }
         else
         {
-          if ( v6 == 64 || v6 == 65 )
-            v35 = *(_DWORD *)(v5 + 496);
+          if ( v6 == 63 || v6 == 64 ) // blasters
+            v35 = pPlayer->pInventorySlots[v4].uItemID;
         }
       }
     }
+
+
+
+
+
     v32 = 0;
     v31 = 0;
     v30 = 0;
     v7 = pGame->pGUICursor->dword_000000;
-    if ( ((_BYTE)v7 & 7) != 3
-     || (v36 = pGame->pGUICursor->dword_000000, !Actor_sub_40894B(&pActors[(v7 >> 3)])) )
+    if ( (v7 & 7) != 3 ||
+        (v36 = pGame->pGUICursor->dword_000000, !Actor_sub_40894B(&pActors[(v7 >> 3)])) )
       v36 = sub_42F184(&unk_50C198, 0x1400u, 0, 0);
     v27 = 0;
     v26 = 0;
@@ -2299,14 +2299,14 @@ LABEL_28:
           8,
           v9,
           v1 + 8);
-        v11 = v2 + 36 * *(_DWORD *)(v2 + 6476) + 512;
-        --*(_DWORD *)v11;
-        v10 = v2 + 36 * *(_DWORD *)(v2 + 6476);
-        if ( *(_DWORD *)(v10 + 512) <= 0 )
+
+        runtime_warning(suspicious);
+        if (--pPlayer->pInventorySlots[pPlayer->pEquippedItemIndices[1] + 1].uItemID == -1)
         {
-          *(_DWORD *)(v10 + 496) = 0;
-          *(_DWORD *)(v2 + 6476) = 0;
+         pPlayer->pInventorySlots[pPlayer->pEquippedItemIndices[1]].uItemID = -1;
+         pPlayer->pEquippedItemIndices[1] = -1;
         }
+
         goto LABEL_28;
       }
       if ( (double)v36 <= 407.19999999999999 )
@@ -2316,7 +2316,7 @@ LABEL_28:
         v27 = *((_WORD *)v8 + 73) - pParty_global->sPartyPosZ;
         sub_43AB61((int)&v25, (int)&v26, (int)&v27);
         DamageMonsterFromParty((8 * v1 - 8) | 4, v28, (int)&v25);
-        if ( Player_sub_48D709((Player *)v2, 506, 1) || Player_sub_48D709((Player *)v2, 506, 0) )
+        if ( Player_sub_48D709(pPlayer, 506, 1) || Player_sub_48D709(pPlayer, 506, 0) )
           sub_42FA66(
             *((_WORD *)v8 + 71),
             *((_WORD *)v8 + 72),
@@ -2352,16 +2352,18 @@ LABEL_28:
     {
       if ( v34 )
       {
-        v13 = *(_DWORD *)(v2 + 6476);
+        v13 = pPlayer->pEquippedItemIndices[1];
         v31 = 1;
-        sub_42777D(dword_4E421C[*(_DWORD *)(v2 + 36 * v13 + 496)], v1 - 1, 8, 0, v1 + 8);
-        v14 = v2 + 36 * *(_DWORD *)(v2 + 6476) + 512;
-        --*(_DWORD *)v14;
-        v12 = v2 + 36 * *(_DWORD *)(v2 + 6476);
-        if ( *(_DWORD *)(v12 + 512) <= 0 )
+        sub_42777D(dword_4E421C[pPlayer->pInventorySlots[v13].uItemID], v1 - 1, 8, 0, v1 + 8);
+
+        //v14 = v2 + 36 * pPlayer->pEquippedItemIndices[1] + 512;
+        //--*(_DWORD *)v14;
+        //v12 = v2 + 36 * pPlayer->pEquippedItemIndices[1];
+        //if (*(_DWORD *)(v12 + 512) == 0)
+        if (--pPlayer->pInventorySlots[pPlayer->pEquippedItemIndices[1] + 1].uItemID == -1)
         {
-          *(_DWORD *)(v12 + 496) = 0;
-          *(_DWORD *)(v2 + 6476) = 0;
+         pPlayer->pInventorySlots[pPlayer->pEquippedItemIndices[1] + 1].uItemID = -1;
+         pPlayer->pEquippedItemIndices[1] = -1;
         }
 LABEL_29:
         v36 = v3;
@@ -2371,9 +2373,9 @@ LABEL_29:
             return 1;
           if ( v30 == v3 )
           {
-            v15 = *(_DWORD *)(v2 + 6476);
-            if ( Player_sub_48D6AA((Player *)v2, 1) )
-             v36 = pClass40->pItems[*(_DWORD *)(v2 + 36 * v15 + 496) - 1].uSkillType;
+            v15 = pPlayer->pEquippedItemIndices[1];
+            if ( Player_sub_48D6AA(pPlayer, 1) )
+             v36 = pClass40->pItems[pPlayer->pInventorySlots[pPlayer->pEquippedItemIndices[1]].uItemID].uSkillType;
             sub_40471C(&unk_4F8858);
           }
           else
@@ -2384,7 +2386,7 @@ LABEL_29:
         else
         {
           v36 = 5;
-          Player_PlaySound((Player *)v2, 50, v3);
+          Player_PlaySound(pPlayer, 50, v3);
         }
         switch ( v36 )
         {
@@ -2422,11 +2424,11 @@ LABEL_66:
       if ( !v33 )
       {
 LABEL_39:
-        v33 = Player_sub_GetAttackRecoveryTime((Player *)v2, v3);
+        v33 = Player_sub_GetAttackRecoveryTime(pPlayer, v3);
         if ( v33 < 30 )
           v33 = 30;
         if (pParty_global->dword_00087C == v3)
-          Player_SetRecoveryTime((Player *)v2, (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v33 * 2.1333333333333333));
+          Player_SetRecoveryTime(pPlayer, (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v33 * 2.1333333333333333));
         goto LABEL_29;
       }
       v23 = 0;
@@ -2440,12 +2442,12 @@ LABEL_39:
 }
 
 //----- (0042F184) --------------------------------------------------------
-int __thiscall sub_42F184(void *_this, unsigned int a2, int a3, int a4)
+unsigned int sub_42F184(void *_this, unsigned int a2, int a3, int a4)
 {
   int v4; // edi@1
-  void *v5; // esi@1
+  //void *v5; // esi@1
   int v6; // eax@2
-  signed int v7; // eax@4
+  //signed int v7; // eax@4
   int result; // eax@5
   int v9; // edx@8
   int v10; // ebx@10
@@ -2462,7 +2464,7 @@ int __thiscall sub_42F184(void *_this, unsigned int a2, int a3, int a4)
   __int16 v22; // ax@42
   int v23; // [sp+8h] [bp-24h]@11
   int v24; // [sp+Ch] [bp-20h]@7
-  void *v25; // [sp+10h] [bp-1Ch]@1
+  //void *v25; // [sp+10h] [bp-1Ch]@1
   int v26; // [sp+14h] [bp-18h]@8
   int v27; // [sp+18h] [bp-14h]@8
   int v28; // [sp+1Ch] [bp-10h]@10
@@ -2473,18 +2475,17 @@ int __thiscall sub_42F184(void *_this, unsigned int a2, int a3, int a4)
   signed int v33; // [sp+3Ch] [bp+10h]@32
 
   v4 = 0;
-  v5 = _this;
-  v25 = _this;
-  if ( pD3DRenderer->pRenderD3D3 )
+  //v5 = _this;
+  //v25 = _this;
+  if (pD3DRenderer->pRenderD3D3)
   {
     v6 = a3 != 0;
     if ( a4 )
       LOBYTE(v6) = v6 | 8;
-    v7 = sub_4C1944(pGame->pVis, 3, a2, v6, 657456, -1);
-    if ( v7 != -1 )
-      return (unsigned __int16)v7;
+    return (unsigned __int16)Vis_sub_4C1944(pGame->pVis, 3, a2, v6, 657456, -1);
   }
-  else
+  
+  /*else  //software render
   {
     v31 = 0;
     if ( pD3DRenderer->pActiveZBuffer )
@@ -2616,7 +2617,7 @@ int __thiscall sub_42F184(void *_this, unsigned int a2, int a3, int a4)
         return result;
       }
     }
-  }
+  }*/
   return 0;
 }
 
@@ -13274,15 +13275,15 @@ void sub_467E7F_EquipBody(unsigned int uEquipType)
   v3 = byte_4E8398[uEquipType];
   v1 = pPlayers[uActiveCharacter - 1];
 
-  v2 = v12 = v1->pEquppedItemIndices[v3];
-  if (v1->pEquppedItemIndices[v3] == -1)  // no armour
+  v2 = v12 = v1->pEquippedItemIndices[v3];
+  if (v1->pEquippedItemIndices[v3] == -1)  // no armour
   {
     v8 = Player_FindNextFreeInventorySlotIndex(v1);
     if (v8 != -1)
     {
       pParty_global->pickedItem.byte_000018 = v3;
       memcpy(&v1->pInventorySlots[v8], &pParty_global->pickedItem, sizeof(struct ItemGen));
-      v1->pEquppedItemIndices[v3] = v8;
+      v1->pEquippedItemIndices[v3] = v8;
       GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
     }
   }
@@ -13295,7 +13296,7 @@ void sub_467E7F_EquipBody(unsigned int uEquipType)
     Party_sub_4936E1_ReceiveItemInHandsWhileInGame(pParty_global, (ItemGen *)(v6 + 532));
     local_0C.byte_000018 = v3;
     memcpy((void *)(v6 + 532), &local_0C, sizeof(ItemGen));
-    v1->pEquppedItemIndices[v3] = v12;
+    v1->pEquippedItemIndices[v3] = v12;
   }
 }
 

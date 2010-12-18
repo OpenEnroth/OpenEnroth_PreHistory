@@ -239,6 +239,11 @@ void Vis_ProbablyGetD3DBillboardCenter(struct Vis *_this, struct RenderVertexD3D
 //char __thiscall sub_4C27AD(void *_this, int a2, int a3, int a4);
 /*template*/ bool Vis_Sort_template_D3DXVECTOR_y(struct Vis *_this, struct RenderVertexD3D3 *pVertices, int sLeft, int sRight);
 
+struct class25_stru0 *Vis_sub_4C1944(Vis *_this, int a2, unsigned int a3, int a4, int a5, int a6);
+signed int sub_4C1BAA_Vis_get_object_zbuf_val(void *_this, int a2);
+signed int sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(struct Vis *_this);
+int __stdcall Vis_sub_4C248E(struct Vis_stru0 *a1, float fMouseX, float fMouseY, float a4);
+
 
 struct class06_stru0
 {

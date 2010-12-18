@@ -180,6 +180,7 @@ struct class56
 struct GUICursor
 {
  int dword_000000; // when in Game, mouse over player portrait, highlighted player id is placed here
+                   // monster id here as well
  int dword_000004;
  int dword_000008;
  int dword_00000C;

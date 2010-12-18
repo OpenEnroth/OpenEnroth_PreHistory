@@ -399,7 +399,7 @@ LABEL_17:
 	  v20 =0;
       while ( 1 )
       {
-	    int item_index=	 pParty_global->pPlayers[i].pEquppedItemIndices[v20]; 
+	    int item_index=	 pParty_global->pPlayers[i].pEquippedItemIndices[v20]; 
         if (item_index)
         {
          // v21 = *(int *)((char *)&v19[9 * *(_DWORD *)v20 - 1559]);

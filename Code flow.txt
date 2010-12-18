@@ -19,3 +19,7 @@ Inventory:	Left Click on Paperdoll/Equip
 Game:		Left Click on Player Portrait
 			GameUI_Process case 0x6E
 				GameUI_OnPlayerPortraitLeftClick
+
+		Attack
+			GameUI_Process case 0x17 (hit 'A')
+				sub_42ECB5_PlayerAttack

@@ -8097,10 +8097,10 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
 
  if (!IsPlayerWearingWatersuit[uSelectedCharacter])
  {
-    v23 = pPlayer->pEquppedItemIndices[2];
+    v23 = pPlayer->pEquippedItemIndices[2];
     if ( !v23 )
       goto LABEL_59;
-    v259 = pPlayer->pEquppedItemIndices[2];
+    v259 = pPlayer->pEquippedItemIndices[2];
     v26 = (int)&pPlayer->pInventorySlots[v23 - 1];
     v27 = 48 * pPlayer->pInventorySlots[v23 - 1].uItemID;
     v25 = dword_4E4C28 + dword_4E4C30[32 * v268 + 4] - *(__int16 *)((char *)&word_5D29FC + v27);
@@ -9531,7 +9531,7 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
   v57 = 0;
   for (v1=0; v1<=5; v1++)
   {	
-     v55 = v2->pEquppedItemIndices[10+v1];  // + 6512
+     v55 = v2->pEquippedItemIndices[10+v1];  // + 6512
     if ( !(v55==0) )
 		{
 			v48 =v55;
@@ -9606,7 +9606,7 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
 		//LABEL_23:
 		//	v2 = v56;
 		}
-    //v55 = v2->pEquppedItemIndices[10+v1];
+    //v55 = v2->pEquippedItemIndices[10+v1];
 
   //  v1++;// = v57 + 4;
 
@@ -9617,10 +9617,10 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
   }
  // while ( (unsigned __int8)(v16 ^ v17) | v15 );
 
-  v18 = v2->pEquppedItemIndices[9];//	 *(_DWORD *)(v2 + 6508)
+  v18 = v2->pEquippedItemIndices[9];//	 *(_DWORD *)(v2 + 6508)
   if ( !(v18==0) )
 	  {
-  v50 = v2->pEquppedItemIndices[9];
+  v50 = v2->pEquippedItemIndices[9];
   v58 =  &v2->pInventorySlots[v18];
   v20 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 * v58->uItemID].pIconName, 2);
   v19 = (v58->dword_000014);
@@ -9695,10 +9695,10 @@ LABEL_37:
   v24 = (double)GetTickCount() * 0.1000000014901161;
   Render_sub_4A63E6((int)pD3DRenderer, 493, 91, v20 != -1 ?(int) &LODFile_Icons_LOD.aLODHeaders[v20] : 0, v51, (signed __int64)v24, 0, 255);
 	  }
-  v32 = v2->pEquppedItemIndices[7]; //*(_DWORD *)(v2 + 6500)
+  v32 = v2->pEquippedItemIndices[7]; //*(_DWORD *)(v2 + 6500)
   if (v32==0 )
     return;
-  v52 =v2->pEquppedItemIndices[7]; // *(_DWORD *)(v2 + 6500)
+  v52 =v2->pEquippedItemIndices[7]; // *(_DWORD *)(v2 + 6500)
   v35 =&v2->pInventorySlots[v32];
   v34 =(int)LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 *v35->uItemID].pIconName, 2);
   v33 = v35->dword_000014;
@@ -9836,7 +9836,7 @@ void __thiscall GUIWindow_sub_4B3157(const GUIWindow *_this)
     local_60.uFrameZ -= 18;
     v1 = 0xFFFFFFFF;
     *(_DWORD *)v24 = 0xFF1599E9;
-    Render_DrawIndexedTexture(pD3DRenderer, 477, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
+    Render_DrawIndexedTexture(pD3DRenderer, 477, 0, uTextureID_Dialogue_Background);//&LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
     Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (uTextureID_507B04 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04] : 0));
     if ( dword_5913F0 != dword_591424 || !dword_5C35D0 )
     {

@@ -1280,7 +1280,7 @@ extern cTexture *pcTexture_EndcapTexture; // ptr @ MM7.exe::00591428
 //int dword_591428; // idb
 
 extern int dword_59142C; // weak
-extern unsigned int uTextureID_Dialogue_Background; // dword @ MM7.exe::00591430
+extern cTexture *uTextureID_Dialogue_Background; // dword @ MM7.exe::00591430
 
 //struct array
 extern __int16 word_591438[array_size_unknown]; // weak
@@ -2952,8 +2952,8 @@ extern struct class25 class25_F8BDE8; // struct @ MM7.exe::00F8BDE8
 //_UNKNOWN unk_F8DDE0; // array_F8DDF8[-1].flt_000004
 //_UNKNOWN unk_F8DDE4; // array_F8DDF8[-1].flt_000008
 //int dword_F8DDEC; // 002004
-extern char byte_F8DDF0; // weak
-extern struct Vis_stru0 array_F8DDF8[64]; // struc[64] @ MM7.exe::00F8DDF8
+extern unsigned char  bIs_class25_F8BDE8_sub4C055C_Called; // byte      @ MM7.exe::00F8DDF0
+extern struct         Vis_stru0 array_F8DDF8[64];          // struc[64] @ MM7.exe::00F8DDF8
 //_UNKNOWN unk_F8DDF8; // weak
 //float flt_F8DE10; // 000018
 //float flt_F8DE14; // 00001C
@@ -2987,13 +2987,14 @@ extern int dword_F93E58; // weak
 
 extern struct unnamed_F93E6C
 {
- int dword_000000;
- int dword_000004;
- int dword_000008;
- int dword_00000C;
- int dword_000010;
+ int     dword_000000;
+ int     dword_000004;
+ int     dword_000008;
+ int     dword_00000C;
+ int     dword_000010;
+ __int64 qword_000014;
 } stru_F93E6C; // struct @ MM7.exe::00F93E6C
-//sizeof ~ ?
+// 14 <= sizeof <= 1C
 //int dword_F93E6C; // 000000
 extern int dword_F94004; // weak7
 extern int dword_F9400C; // weak

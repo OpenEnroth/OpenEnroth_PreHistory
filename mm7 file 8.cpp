@@ -5853,7 +5853,7 @@ int __cdecl sub_494035()
   v8 = pParty_global->qword_00002C;
   if ( pParty_global->dword_007778 & 4 && pParty_global->dword_0006FC < pParty_global->qword_00002C )
   {
-    v9 = 1;
+    v9 = 0;
     pParty_global->dword_0006FC = pParty_global->qword_00002C + 128;
     struct_576FE8.dword_000044 = 1;
     while ( 1 )
@@ -5880,10 +5880,10 @@ int __cdecl sub_494035()
           goto LABEL_39;
         }
       }
-      Player_sub_494A25((int)pPlayers[v9], 37, v55);
+      Player_sub_494A25(pPlayers[v9], 37, v55);
 LABEL_39:
       ++v9;
-      if ( v9 > 4 )
+      if ( v9 > 3 )
       {
         v8 = pParty_global->qword_00002C;
         break;

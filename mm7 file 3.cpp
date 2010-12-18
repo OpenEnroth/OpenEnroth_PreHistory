@@ -2927,7 +2927,7 @@ bool __fastcall sub_43EE15(int a1, struct Player *pp, char a3) // find item in i
       if ( v3 >= 126 )
       {
         v5 = 0;
-        while ( pp->pEquppedItemIndices[v5] <= 0 || pp->pInventorySlots[pp->pEquppedItemIndices[v5]].uItemID != a1 )
+        while ( pp->pEquippedItemIndices[v5] <= 0 || pp->pInventorySlots[pp->pEquippedItemIndices[v5]].uItemID != a1 )
         {
           ++v5;
           if ( v5 >= 16 )
@@ -5931,7 +5931,7 @@ int __fastcall sub_444839(int a1, int a2, int a3, int a4, int a5, int a6, int a7
 LABEL_6:
   v12 = LODFile_Icons_LOD.LODFile_LoadTexture( Str1, 2);
   v13 = (&off_4E6BB0)[4 * v10];
-  uTextureID_Dialogue_Background = v12;
+  uTextureID_Dialogue_Background = &LODFile_Icons_LOD.aLODHeaders[v12];
   dword_59142C = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( v13, 2)];
   if ( v9 )
   {
@@ -6012,7 +6012,7 @@ char *__cdecl sub_444A51()
   memcpy(&local_0C, pGUIWindow0, sizeof(struct GUIWindow));
   v14 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   v13 = sub_444810(dword_591164);
-  Render_DrawIndexedTexture(pD3DRenderer, 477, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
+  Render_DrawIndexedTexture(pD3DRenderer, 477, 0, uTextureID_Dialogue_Background);//&LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
   Render_DrawIndexedTexture(pD3DRenderer,
     uDialogueUIIconsOffsetX - 4,
     uDialogueUIIconsOffsetY - 4,
@@ -6090,7 +6090,7 @@ int __cdecl sub_444C8F()
   }
   strcat(Str1, v3);
 LABEL_6:
-  uTextureID_Dialogue_Background = LODFile_Icons_LOD.LODFile_LoadTexture( Str1, 2);
+  uTextureID_Dialogue_Background = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture(Str1, 2)];
   dword_59142C = (int)&LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "outside", 2)];
   v1 = CMapStats_FindLocation(pMapStats, Str1);
   if ( v1 )
@@ -6152,7 +6152,7 @@ void __cdecl sub_444DCA()
   v11 = CMapStats_FindLocation(pMapStats, CurrentLevelName);
   sub_48902E((char *)pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, &Str2, 20);
   v0 = CMapStats_FindLocation(pMapStats, &Str2);
-  Render_DrawIndexedTexture(pD3DRenderer, 477, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
+  Render_DrawIndexedTexture(pD3DRenderer, 477, 0, uTextureID_Dialogue_Background);//&LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
   Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (cTexture *)(uTextureID_507B04 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04] : 0));
   Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, (cTexture *)(dword_59142C));
   Render_DrawIndexedTexture(pD3DRenderer, 556, 451, (uTextureIdx_BtnXxU != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnXxU] : 0));
@@ -6413,7 +6413,7 @@ void __cdecl sub_445350_DrawDialogueUI()
   v61 = v3;
 
   v2 = 0x1599E9;
-  Render_DrawIndexedTexture(pD3DRenderer, 477, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
+  Render_DrawIndexedTexture(pD3DRenderer, 477, 0, uTextureID_Dialogue_Background);//&LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
   Render_DrawTransparentTexture(pD3DRenderer, 468, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04]);
   Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX - 4, uDialogueUIIconsOffsetY - 4, &LODFile_Icons_LOD.aLODHeaders[dword_50795C_TextureID]);
   Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, &LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_NPCPortrait[0]]);
@@ -7004,9 +7004,8 @@ __int16 __fastcall Actor_InitializeDialogue(struct Actor *pActor, int a2)
  dword_5913F0 = 0;
  dword_591424 = 1;
 
- uTextureID_Dialogue_Background = LODFile_Icons_LOD.LODFile_LoadTexture_New( Str1);
-#endif
-#ifdef OLD_CODE
+ uTextureID_Dialogue_Background = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture_New(Str1)];
+#else
  char Str1[128]; // [sp+14h] [bp-28h]@3
 	 wsprintfA(Str1, "evt%02d", v7);
  if (pParty_global->uAlignment == 0)
@@ -7017,7 +7016,7 @@ __int16 __fastcall Actor_InitializeDialogue(struct Actor *pActor, int a2)
  dword_5913F0 = 0;
  dword_591424 = 1;
 
- uTextureID_Dialogue_Background = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
+ uTextureID_Dialogue_Background = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture(Str1,2)];
 #endif
  
  
@@ -7387,7 +7386,7 @@ LABEL_23:
 LABEL_39:
     v18 = LODFile_Icons_LOD.LODFile_LoadTexture( &Str1, 2);
     dword_5913F0 = 0;
-    uTextureID_Dialogue_Background = v18;
+    uTextureID_Dialogue_Background = &LODFile_Icons_LOD.aLODHeaders[v18];
     uTextureID_507B04 = uTextureID_5079E4;
     sub_44606A(v10);
     v17 = 1;
@@ -8165,12 +8164,12 @@ LABEL_47:
 LABEL_108:
               v55 = (int)&pParty_global->pPlayers[v56];
 LABEL_109:
-              Player_sub_494A25(v55, v117, v121);
+              Player_sub_494A25((Player *)v55, v117, v121);
               goto LABEL_291;
             }
 
             for (i = 0; i < 4; ++i)
-              Player_sub_494A25((int)&pParty_global->pPlayers[i], *(_BYTE *)(v10 + pSomeEVT + 6), 0);
+              Player_sub_494A25(&pParty_global->pPlayers[i], *(_BYTE *)(v10 + pSomeEVT + 6), 0);
 
 LABEL_291:
             ++v126;

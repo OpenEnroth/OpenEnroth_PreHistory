@@ -48,7 +48,7 @@ bool Player_sub_48D6AA(struct Player *_this, unsigned int uSlotID)
 {
   int v2; // eax@1
 
- v2 = _this->pEquppedItemIndices[uSlotID];
+ v2 = _this->pEquippedItemIndices[uSlotID];
  if (v2 == -1)
    return false;
 
@@ -122,7 +122,7 @@ bool Player_sub_48D6D0(struct Player *_this, int a2)
   int v3; // edx@2
 
   v2 = 0;
-  while (!Player_sub_48D6AA(_this, v2) || *((int *)((char *)_this + 0x2FC) + 9 * _this->pEquppedItemIndices[v2]) != a2)
+  while (!Player_sub_48D6AA(_this, v2) || *((int *)((char *)_this + 0x2FC) + 9 * _this->pEquippedItemIndices[v2]) != a2)
   {
     ++v2;
     if ( v2 >= 16 )
@@ -844,7 +844,7 @@ LABEL_12:
         if ( a2 != 29 )
           return v71;
         v72 = 0;
-        v9 = (int)_this->pEquppedItemIndices;
+        v9 = (int)_this->pEquippedItemIndices;
         while ( 1 )
         {
           if ( Player_sub_48D6AA(_this, v72) )
@@ -907,7 +907,7 @@ LABEL_31:
       {
         if ( Player_sub_48D6AA(_this, v20) )
         {
-         v22 = _this->pInventorySlots[_this->pEquppedItemIndices[v20]].uItemID;
+         v22 = _this->pInventorySlots[_this->pEquippedItemIndices[v20]].uItemID;
           if (pClass40->pItems[v22].uEquipType <= 1u )
             break;
         }
@@ -1498,7 +1498,7 @@ int Player_sub_48D0B9(Player *_this)
   int v6; // edi@4
   int v7; // edi@4
 
-  v1 = _this->pInventorySlots[_this->pEquppedItemIndices[1]].uItemID;
+  v1 = _this->pInventorySlots[_this->pEquippedItemIndices[1]].uItemID;
   if (v1 < 63 || v1 > 64) // if not blasters
   {
     v4 = Player_GetActualAccuracy(_this);
@@ -1585,7 +1585,7 @@ char *__thiscall Player_GetMeleeDamage_String(Player *_this)
   int v8; // eax@8
   signed int v9; // esi@9
 
-  v1 = _this->pInventorySlots[_this->pEquppedItemIndices[1]].uItemID;
+  v1 = _this->pInventorySlots[_this->pEquippedItemIndices[1]].uItemID;
   if (v1 < 63 || v1 > 64) // if not blasters
   {
     v4 = Player_GetMeleeDamageMinimal(_this);
@@ -1606,7 +1606,7 @@ char *__thiscall Player_GetMeleeDamage_String(Player *_this)
     v7 = v4;
     wsprintfA(byte_A7509C, "%d - %d", v7, v3);
   }
-  v8 = _this->pEquppedItemIndices[1];
+  v8 = _this->pEquippedItemIndices[1];
   if ( v8 )
   {
    v9 = _this->pInventorySlots[v8].uItemID;
@@ -1711,7 +1711,7 @@ signed int Player_sub_48EA46(struct Player *_this, int a2)
   {
     if ( !Player_sub_48D6AA(_this, v3) )
       goto LABEL_11;
-    v5 = _this->pEquppedItemIndices[0] - 1;
+    v5 = _this->pEquippedItemIndices[0] - 1;
     if ( a2 != 17 )
       break;
     v6 = (int)((char *)_this + 36 * v5);
@@ -2513,7 +2513,7 @@ LABEL_95:
     {
       if ( !Player_sub_48D6AA(_this, v65) )
         goto LABEL_361;
-      v31 = _this->pEquppedItemIndices[v65];
+      v31 = _this->pEquippedItemIndices[v65];
       if ( v6 == 9 )
       {
         v32 = Player_GetEquippedItemEquipType(_this, v65);
@@ -3090,9 +3090,9 @@ LABEL_361:
         {
           if ( v22 <= 2 )
           {
-           v23 = _this->pInventorySlots[_this->pEquppedItemIndices[1]].uItemID;
+           v23 = _this->pInventorySlots[_this->pEquippedItemIndices[1]].uItemID;
 
-            if (_this->pEquppedItemIndices[0] != -1 || pClass40->pItems[v23].uSkillType != Character::Skill::Spear)
+            if (_this->pEquippedItemIndices[0] != -1 || pClass40->pItems[v23].uSkillType != Character::Skill::Spear)
             {
               v26 = pClass40->pItems[v23].uDamageRoll;
               v25 = pClass40->pItems[v23].uDamageDice;
@@ -3163,19 +3163,19 @@ LABEL_74:
       v9 = Player_GetEquippedItemEquipType(_this, 1);
       if ( v9 >= 0  && v9 <= 2 )
       {
-         v5 = pClass40->pItems[_this->pInventorySlots[_this->pEquppedItemIndices[1]].uItemID].uDamageDice +
-              pClass40->pItems[_this->pInventorySlots[_this->pEquppedItemIndices[1]].uItemID].uDamageModifier;
-          if (_this->pEquppedItemIndices[0] == -1)
+         v5 = pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[1]].uItemID].uDamageDice +
+              pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[1]].uItemID].uDamageModifier;
+          if (_this->pEquippedItemIndices[0] == -1)
           {
-           if (pClass40->pItems[_this->pInventorySlots[_this->pEquppedItemIndices[1]].uItemID].uSkillType == Character::Skill::Spear)
+           if (pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[1]].uItemID].uSkillType == Character::Skill::Spear)
               ++v5;
           }
       }
     }
     if ( a3 || !Player_sub_48D6AA(_this, 0) || (v12 = Player_GetEquippedItemEquipType(_this, 0), v12 < 0) || v12 > 2 )
       return v5 + v62 + v61;
-    v15 = pClass40->pItems[_this->pInventorySlots[_this->pEquppedItemIndices[0]].uItemID].uDamageModifier;
-    v14 = pClass40->pItems[_this->pInventorySlots[_this->pEquppedItemIndices[0]].uItemID].uDamageDice;
+    v15 = pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[0]].uItemID].uDamageModifier;
+    v14 = pClass40->pItems[_this->pInventorySlots[_this->pEquippedItemIndices[0]].uItemID].uDamageDice;
 LABEL_88:
     v5 += v14 + v15;
   }

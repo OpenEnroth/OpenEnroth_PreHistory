@@ -9338,7 +9338,7 @@ LABEL_23:
       if ( *(_DWORD *)(120 * v17 + pSoundList->pDescriptions + 44) )
         v22 = (dword_F1B4D4 << 7) / 1000;
     }
-    LOWORD(v13) = Player_sub_494A25(v21, v16, v22);
+    LOWORD(v13) = Player_sub_494A25((Player *)v21, v16, v22);
   }
   return v13;
 }

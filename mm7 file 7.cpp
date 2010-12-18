@@ -13748,7 +13748,7 @@ bool Vis_sub_4C0646(struct Vis *_this, float a2, float fMouseX, float fMouseY, i
 
  _this->class25_obj.dword_002004 = 0;
 
- sub_4C248E(local_1C, fMouseX, fMouseY, a2);
+ Vis_sub_4C248E(local_1C, fMouseX, fMouseY, a2);
  Vis_sub_4C1542(_this, a2, fMouseX, fMouseY, &_this->class25_obj, a5);
 
  if ( dword_6BE360 == 1 )
@@ -13877,7 +13877,7 @@ bool Vis_is_part_of_selection(unsigned int uD3DBillboardID, struct unnamed_F93E6
 
 
 
-  if ( v5 == a2->dword_000004)
+  if (v5 == a2->dword_000004)
   {
     if ( v5 != 3 )
     {
@@ -13976,7 +13976,7 @@ LABEL_49:
     LOWORD(v5) = 0;
     v37 = v5;
     Vis_ProbablyGetD3DBillboardCenter(_this, pBillboardRenderListD3D3[v4/156].pQuad, 4, (float *)&v35, (float *)&v36);
-    sub_4C248E(local_20, *(float *)&v35, *(float *)&v36, a2);
+    Vis_sub_4C248E(local_20, *(float *)&v35, *(float *)&v36, a2);
     if ( dword_6BE360 == 1 )
     {
       v6 = a2;
@@ -14028,7 +14028,7 @@ LABEL_49:
               {
                 v14 = v11;
                 v15 = v12;
-                sub_4C248E(local_80, SLODWORD(v15), v14, a2);
+                Vis_sub_4C248E(local_80, SLODWORD(v15), v14, a2);
                 if ( dword_6BE360 == 1 )
                 {
                   v16 = a2;
@@ -14079,7 +14079,7 @@ LABEL_49:
             || v23 > (double)pOldViewport->uScreenZ
             || (double)pOldViewport->uScreenY > v41
             || (double)pOldViewport->uScreenW < v41
-            || ((v24 = v39, v25 = v23, sub_4C248E(local_80, SLODWORD(v25), v41, a2), dword_6BE360 != 1) ? (v27 = a2, sub_4C17CF_ProbablyIfMouseOverBModel(v24, SLOBYTE(v27), (int)local_80, (int)&class25_F91E10, (int)&dword_F93E44, 0)) : (v26 = a2, sub_4C16B4(v24, SLOBYTE(v26), (int)local_80, (int)&class25_F91E10, (int)&dword_F93E44)),
+            || ((v24 = v39, v25 = v23, Vis_sub_4C248E(local_80, SLODWORD(v25), v41, a2), dword_6BE360 != 1) ? (v27 = a2, sub_4C17CF_ProbablyIfMouseOverBModel(v24, SLOBYTE(v27), (int)local_80, (int)&class25_F91E10, (int)&dword_F93E44, 0)) : (v26 = a2, sub_4C16B4(v24, SLOBYTE(v26), (int)local_80, (int)&class25_F91E10, (int)&dword_F93E44)),
                 (class25_create_object_pointers(&class25_F91E10, 0),
                  class25_sort_object_pointers(class25_F91E10.array_001804, 0, class25_F91E10.dword_002004 - 1),
                  class25_F91E10.dword_002004)
@@ -14370,7 +14370,7 @@ int __thiscall Vis_sub_4C1026(struct Vis *_this, int a2, int a3, float a4)
   if (sub_4C12C3_FindSomeBillboard(array_F8F200, v7, v23, v24))
     return result = 0;
 
-  if (sub_4C248E(local_20, v23, v24, a4), dword_6BE360 != 1)
+  if (Vis_sub_4C248E(local_20, v23, v24, a4), dword_6BE360 != 1)
   {
    v17 = a4;
    sub_4C17CF_ProbablyIfMouseOverBModel(v15, SLOBYTE(v17), (int)local_20, (int)&class25_F8FE00, (int)&dword_F93E44, 1);
@@ -14738,41 +14738,47 @@ void loc_4C19F7()
 {
 }
 //----- (004C1944) --------------------------------------------------------
-signed int __thiscall sub_4C1944(void *_this, int a2, unsigned int a3, int a4, int a5, int a6)
+struct class25_stru0 *Vis_sub_4C1944(Vis *_this, int a2, unsigned int a3, int a4, int a5, int a6)
 {
-  float v6; // ST00_4@3
-  signed int result; // eax@4
-  int v8; // [sp+18h] [bp-20h]@3
-  int v9; // [sp+1Ch] [bp-1Ch]@3
-  int v10; // [sp+20h] [bp-18h]@3
-  int v11; // [sp+24h] [bp-14h]@3
-  int v12; // [sp+28h] [bp-10h]@3
-  __int64 v13; // [sp+2Ch] [bp-Ch]@3
-  void *v14; // [sp+34h] [bp-4h]@1
+  //float v6; // ST00_4@3
+  //signed int result; // eax@4
 
-  v14 = _this;
-  if ( !(byte_F8DDF0 & 1) )
-  {
-    byte_F8DDF0 |= 1u;
-    class25_fn0(&class25_F8BDE8);
-    atexit(loc_4C19F7);
-  }
-  v9 = a2;
-  v10 = a6;
-  v11 = a5;
-  v12 = a4;
-  v13 = a3;
-  class25_F8BDE8.dword_002004 = 0;
-  v6 = (double)a3;
-  v8 = 1;
-  Vis_sub_4C06F8((Vis *)v14, v6, &class25_F8BDE8, (unnamed_F93E6C *)&v8);
-  class25_create_object_pointers(&class25_F8BDE8, 1);
-  class25_sort_object_pointers(class25_F8BDE8.array_001804, 0, class25_F8BDE8.dword_002004 - 1);
-  if (class25_F8BDE8.dword_002004 <= 0 )
-    result = -1;
-  else
-    result = (int)class25_F8BDE8.array_001804[1];
-  return result;
+  struct unnamed_F93E6C local_18;
+  //int v8; // [sp+18h] [bp-20h]@3
+  //int v9; // [sp+1Ch] [bp-1Ch]@3
+  //int v10; // [sp+20h] [bp-18h]@3
+  //int v11; // [sp+24h] [bp-14h]@3
+  //int v12; // [sp+28h] [bp-10h]@3
+  //__int64 v13; // [sp+2Ch] [bp-Ch]@3
+
+  //void *v14; // [sp+34h] [bp-4h]@1
+
+ if (!bIs_class25_F8BDE8_sub4C055C_Called)
+ {
+  bIs_class25_F8BDE8_sub4C055C_Called |= 1;
+  class25_fn0(&class25_F8BDE8);
+  atexit(loc_4C19F7);
+ }
+
+
+ local_18.dword_000000 = 1;
+ local_18.dword_000004 = a2;
+ local_18.dword_000008 = a6;
+ local_18.dword_00000C = a5;
+ local_18.dword_000010 = a4;
+ local_18.qword_000014 = a3;
+  
+ class25_F8BDE8.dword_002004 = 0;
+
+ Vis_sub_4C06F8(_this, a3, &class25_F8BDE8, &local_18);
+
+ class25_create_object_pointers(&class25_F8BDE8, 1);
+ class25_sort_object_pointers(class25_F8BDE8.array_001804, 0, class25_F8BDE8.dword_002004 - 1);
+
+ if (class25_F8BDE8.dword_002004 <= 0 )
+   return 0;
+ else
+   return class25_F8BDE8.array_001804[1];
 }
 
 //----- (004C1A02) --------------------------------------------------------
@@ -15300,7 +15306,7 @@ char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, int a6, int a7
 }
 
 //----- (004C248E) --------------------------------------------------------
-int __stdcall sub_4C248E(struct Vis_stru0 *a1, float fMouseX, float fMouseY, float a4)
+int __stdcall Vis_sub_4C248E(struct Vis_stru0 *a1, float fMouseX, float fMouseY, float a4)
 {
   int v5; // ebx@1
   int v6; // edi@1

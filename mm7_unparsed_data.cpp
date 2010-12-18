@@ -1368,7 +1368,7 @@ cTexture *pcTexture_EndcapTexture; // ptr @ MM7.exe::00591428
 //int dword_591428; // idb
 
  int dword_59142C; // weak
-unsigned int uTextureID_Dialogue_Background; // dword @ MM7.exe::00591430
+cTexture *uTextureID_Dialogue_Background; // dword @ MM7.exe::00591430
  __int16 word_591438[array_size_unknown]; // weak
  __int16 word_59143A[array_size_unknown]; // weak
  int dword_59143C[array_size_unknown]; // weak
@@ -2401,8 +2401,8 @@ struct OldViewport *pOldViewport = 0;  // struct @ MM7.exe::00F8BC14
 
  __int16 word_F8BC48[104]; // weak
  __int16 word_F8BD18[104]; // weak
-struct class25 class25_F8BDE8; // struct @ MM7.exe::00F8BDE8
- char byte_F8DDF0; // weak
+struct class25 class25_F8BDE8;                      // struct @ MM7.exe::00F8BDE8
+unsigned char  bIs_class25_F8BDE8_sub4C055C_Called; // byte   @ MM7.exe::00F8DDF0
 struct Vis_stru0 array_F8DDF8[64]; // struc[64] @ MM7.exe::00F8DDF8
  char byte_F8E9F8; // weak
 struct RenderVertexD3D3 array_F8EA00[64]; // struct[64] @ MM7.exe::00F8EA00

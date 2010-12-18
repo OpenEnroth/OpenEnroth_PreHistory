@@ -262,10 +262,10 @@ struct Player
    int              sHealth;           // dword @ 00193C
    int              sMana;             // dword @ 001940
    unsigned int     uBirthYear;        // dword @ 001944
-   int              pEquppedItemIndices[16]; // dword[16] @ 001948
+   int              pEquippedItemIndices[16]; // dword[16] @ 001948
                                              // 1: right hand
                                              // 3: body, leather armour
-   int              array_001988[65]; // dword[] @ 001988    looks like pEquppedItemIndices
+   int              array_001988[65]; // dword[] @ 001988    looks like pEquippedItemIndices
 
    char          byte_001A4E;	//spell skill? or school?
    unsigned char uQuickSpell;     // byte  @ 001A4F
@@ -401,7 +401,7 @@ int __thiscall Player_sub_48E656(int _this);
 int __thiscall Player_sub_48E68F(int _this);
 char __thiscall Player_GetActualSkillLevel(Player *_this, unsigned int uSkillType);
 __int16 __thiscall Player_PlaySound(struct Player *_this, int a2, int a3);
-__int16 __thiscall Player_sub_494A25(int _this, int a2, int a3);
+__int16 __thiscall Player_sub_494A25(Player *_this, int a2, int a3);
 bool Player_CanEquip_RacialAndAlignmentCheck(Player *_this, unsigned int uItemID);
 //signed int __thiscall sub_492700(int this, signed int a2);
 bool Player_CheckIfHasSkill(Player *_this, unsigned int uSkillType);

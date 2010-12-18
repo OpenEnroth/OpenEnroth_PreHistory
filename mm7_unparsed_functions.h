@@ -338,7 +338,7 @@ int __fastcall sub_42EBBE(int a1, int a2);
 int __thiscall class59_sub_42EBDB(int _this, int a2);
 signed int __thiscall sub_42EBEE(void *_this);
 bool sub_42ECB5_PlayerAttack();
-int __thiscall sub_42F184(void *_this, unsigned int a2, int a3, int a4);
+unsigned int sub_42F184(void *_this, unsigned int a2, int a3, int a4);
 void __cdecl sub_42F3D6();
 signed int __cdecl sub_42F4DA();
 signed int __fastcall sub_42F5ED(int a1, int a2, int a3, int a4, int a5);
@@ -1184,15 +1184,11 @@ bool __stdcall sub_4C12C3_FindSomeBillboard(struct Vis_stru0 *a1, int a2, float 
 int __thiscall sub_4C16B4(void *_this, char a2, int a3, int a4, int a5);
 char __thiscall sub_4C17CF_ProbablyIfMouseOverBModel(void *_this, char a2, int a3, int a4, int a5, char a6);
 char __thiscall Vis_sub_4C1930(void *_this, float a2, int a3);
-signed int __thiscall sub_4C1944(void *_this, int a2, unsigned int a3, int a4, int a5, int a6);
 void __cdecl loc_4C19F7(); // idb
-signed int __thiscall sub_4C1BAA_Vis_get_object_zbuf_val(void *_this, int a2);
-signed int __thiscall sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(struct Vis *_this);
 char __stdcall sub_4C1C0C(int a1, int a2, int a3, int a4, int a5, int a6);
 signed int __stdcall sub_4C1D2B(int a1, signed int a2, __int16 a3, int a4);
 char __stdcall sub_4C1EE5(int a1, int a2, int a3, int a4, int a5, int a6);
 char __stdcall sub_4C2186(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
-int __stdcall sub_4C248E(struct Vis_stru0 *a1, float fMouseX, float fMouseY, float a4);
 int __thiscall sub_4C2551(int _this, int a2, int a3);
 int __thiscall sub_4C2AA6(struct unnamed_6BD080 *_this);
 int sub_4C2EA0(struct unnamed_6BD080 *_this);
