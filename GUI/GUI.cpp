@@ -5289,8 +5289,7 @@ void __cdecl PlayerCreationUI_Initialize()
   uTextureID_PlayerCreationUI_BtnPlus = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"buttplus");
 
   uTextureID_PartyCreationUI_Arrows = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Arrows");
-#endif
-   #ifdef OLD_CODE
+#else
 	pPlayerCreatUI_ClIcons[0]= &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("IC_KNIGHT",2)];
 	pPlayerCreatUI_ClIcons[1]= &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("IC_THIEF",2)];
 	pPlayerCreatUI_ClIcons[2]= &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture("IC_MONK",2)];
@@ -11094,10 +11093,10 @@ void PlayerCreationUI_Draw()
   {
 #ifndef OLD_CODE
    Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu);
-#endif
-#ifdef OLD_CODE
+#else
    Render_DrawRGBTexture(pD3DRenderer, 0, 0,&cPCXID_CurrentMenu);
 #endif
+
    Render_DrawIndexedTexture(pD3DRenderer, dword_A74CCC, 2, pPlayerCreationUI_Sky);
    Render_DrawIndexedTexture(pD3DRenderer, dword_A74CCC - 640, 2, pPlayerCreationUI_Sky);
 
@@ -11141,9 +11140,7 @@ void PlayerCreationUI_Draw()
 #ifndef	OLD_CODE
    Render_DrawTransparentRect(pD3DRenderer, v5->uZ - 4, v5->uY, 20 * dword_A74CD4, 0, 20, 16, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
    Render_DrawTransparentRect(pD3DRenderer, v5->uX - 12, v5->uY, 20 * dword_A74CD4, 16, 20, 16, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PartyCreationUI_Arrows]);
-#endif
-#ifdef	OLD_CODE
-
+#else
    Render_DrawTransparentTexture(pD3DRenderer, v5->uZ - 4, v5->uY,pPlayerCreationUI_ArrowL[dword_A74CD4] );
    Render_DrawTransparentTexture(pD3DRenderer, v5->uX - 12, v5->uY,pPlayerCreationUI_ArrowR[dword_A74CD4]);
 #endif
@@ -11192,8 +11189,7 @@ void PlayerCreationUI_Draw()
    uClassIconCellY = (pParty_global->pPlayers[i].uClass / 4) / 3;
    Render_DrawTransparentRect(pD3DRenderer, v143 + 77, 50,
                                     uClassIconCellX * 48, uClassIconCellY * 52, 48, 52, &LODFile_Icons_LOD.aLODHeaders[uTextureID_PartyCreationUI_ClassIcons]);
-#endif
-#ifdef OLD_CODE
+#else
    Render_DrawTransparentTexture(pD3DRenderer, v143 + 77, 50,  pPlayerCreatUI_ClIcons[pParty_global->pPlayers[i].uClass/4]);
 #endif
 

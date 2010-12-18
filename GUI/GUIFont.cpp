@@ -137,9 +137,10 @@ unsigned char *FitTextInAWindow(const unsigned char *pInString,
 
   if (c == '\t')
   {
-   uLineWidth += ((pInString[i + 1] - '0') * 100 +
-                  (pInString[i + 2] - '0') * 10 +
-                  (pInString[i + 3] - '0')) * pFont->pMetrics[' '].uWidth;
+   uLineWidth = pParent->uFrameX + uX +
+                (pInString[i + 1] - '0') * 100 +
+                (pInString[i + 2] - '0') * 10 +
+                (pInString[i + 3] - '0');
 
    memcpy(pOutString + uOutStrLen, pInString + i, 4);
    i += 4, uOutStrLen += 4;

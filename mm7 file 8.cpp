@@ -549,13 +549,11 @@ int __fastcall MenuLoop_CharacterCreation()
   v28 = 0;
 
 
-  #ifndef OLD_CODE
-	uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"MakeMe");
-#endif
-#ifdef OLD_CODE
+#ifndef OLD_CODE
+	uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"MakeMe");
+#else
 	cPCXID_CurrentMenu.PCXTexture_Release();
 	cPCXID_CurrentMenu.LODPCXLoad("makeme.pcx",0);
-	
 #endif
  
   Render_Set2DClippingRect(pD3DRenderer, 0, 0, 640, 480);
@@ -2165,9 +2163,8 @@ int __cdecl MenuLoop_Main()
       {
 
 #ifndef OLD_CODE
-	    uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"lsave640");
-#endif
-#ifdef OLD_CODE
+	    uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"lsave640");
+#else
 	  cPCXID_CurrentMenu.LODPCXLoad("lsave640.pcx",0);
 #endif
     
@@ -2196,8 +2193,7 @@ int __cdecl MenuLoop_Main()
 
 #ifndef OLD_CODE
       Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, uTextureID_CurrentMenu); 
-#endif
-#ifdef OLD_CODE
+#else
 	  Render_DrawRGBTexture(pD3DRenderer, 0, 0, &cPCXID_CurrentMenu);
 #endif
       if (dword_720010)
