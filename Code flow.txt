@@ -23,3 +23,11 @@ Game:		Left Click on Player Portrait
 		Attack
 			GameUI_Process case 0x17 (hit 'A')
 				sub_42ECB5_PlayerAttack
+
+
+
+
+
+Text markups:
+	\t (0x09)	number (3 digit always) after \t denotes tab amount (in pixels);  example:  "\t004skips 4 whitespaces before this string"
+	\f (0x0C)	number (6 digits, hex) after \f denotes text color;    example: "\fFF0000 RED TEXT"

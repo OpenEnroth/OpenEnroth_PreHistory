@@ -54,6 +54,8 @@
   #define template
 #endif
 
+#define function_parameter_invalid(t) ((t)0)
+
 #define compile_warning
 #define runtime_warning(x)
 #define runtime_error __asm int 3;

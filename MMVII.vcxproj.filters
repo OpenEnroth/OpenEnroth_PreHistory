@@ -1,114 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="zlib">
-      <UniqueIdentifier>{7d66f862-495f-4d34-9a1e-db46c3ba7b63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="libpng">
-      <UniqueIdentifier>{25aaa0dd-089c-4d6a-bacb-589174ba9946}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Wight and Wagic">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="legacy dx">
-      <UniqueIdentifier>{2f3132dc-3b18-483c-ac67-848809d0451b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Math">
       <UniqueIdentifier>{998d8af0-d002-4b73-ab1a-5797ee240fbf}</UniqueIdentifier>
     </Filter>
     <Filter Include="Render">
       <UniqueIdentifier>{e8f69a95-f23e-4864-9765-1b400bbd1202}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{474aacfc-7841-4e4b-a058-81e93db01ac0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{2284f35f-7144-4f2f-a7c0-482756c46a15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\zlib">
+      <UniqueIdentifier>{e262acaf-b480-449b-b0a9-b9ddc02ceb16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\libpng">
+      <UniqueIdentifier>{8cbaed83-29e8-4369-8bfa-5227ec5d27fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\legacy_dx">
+      <UniqueIdentifier>{36440233-2009-436f-a2db-10227aa934a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="zlib\adler32.c">
-      <Filter>zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\compress.c">
-      <Filter>zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\deflate.c">
-      <Filter>zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\infblock.c">
-      <Filter>zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\infutil.c">
-      <Filter>zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\infcodes.c">
-      <Filter>zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\inffast.c">
-      <Filter>zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\inflate.c">
-      <Filter>zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\inftrees.c">
-      <Filter>zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\zutil.c">
-      <Filter>zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\uncompr.c">
-      <Filter>zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\trees.c">
-      <Filter>zlib</Filter>
-    </ClCompile>
-    <ClCompile Include="libpng143\png.c">
-      <Filter>libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="libpng143\pngerror.c">
-      <Filter>libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="libpng143\pngget.c">
-      <Filter>libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="libpng143\pngmem.c">
-      <Filter>libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="libpng143\pngpread.c">
-      <Filter>libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="libpng143\pngread.c">
-      <Filter>libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="libpng143\pngrio.c">
-      <Filter>libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="libpng143\pngrtran.c">
-      <Filter>libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="libpng143\pngrutil.c">
-      <Filter>libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="libpng143\pngset.c">
-      <Filter>libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="libpng143\pngtest.c">
-      <Filter>libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="libpng143\pngtrans.c">
-      <Filter>libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="libpng143\pngwio.c">
-      <Filter>libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="libpng143\pngwrite.c">
-      <Filter>libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="libpng143\pngwtran.c">
-      <Filter>libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="libpng143\pngwutil.c">
-      <Filter>libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\crc32.c">
-      <Filter>zlib</Filter>
-    </ClCompile>
     <ClCompile Include="Render\RenderD3D10.cpp">
       <Filter>Render</Filter>
     </ClCompile>
@@ -121,236 +36,148 @@
     <ClCompile Include="Render\RenderOperatorsOGL.cpp">
       <Filter>Render</Filter>
     </ClCompile>
-    <ClCompile Include="_audio.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="GUI\GUI.cpp">
+      <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="_video.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="GUI\GUIButton.cpp">
+      <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="GUI\GUIFont.cpp">
+      <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="AIL.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="GUI\GUIWindow.cpp">
+      <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Bink.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="_audio.cpp" />
+    <ClCompile Include="_lod.cpp" />
+    <ClCompile Include="_video.cpp" />
+    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="AIL.cpp" />
+    <ClCompile Include="Bink.cpp" />
+    <ClCompile Include="c18.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CbmTools.cpp" />
+    <ClCompile Include="classes.cpp" />
+    <ClCompile Include="clock.cpp" />
+    <ClCompile Include="data.cpp" />
+    <ClCompile Include="Driver.cpp" />
+    <ClCompile Include="FrameTables.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="memory_mng.cpp" />
+    <ClCompile Include="menus.cpp" />
+    <ClCompile Include="mm7 file 1.cpp" />
+    <ClCompile Include="mm7 file 2.cpp" />
+    <ClCompile Include="mm7 file 3.cpp" />
+    <ClCompile Include="mm7 file 4.cpp" />
+    <ClCompile Include="mm7 file 5.cpp" />
+    <ClCompile Include="mm7 file 6.cpp" />
+    <ClCompile Include="mm7 file 7.cpp" />
+    <ClCompile Include="mm7 file 8.cpp" />
+    <ClCompile Include="mm7 file 9 junk stuff.cpp" />
+    <ClCompile Include="mm7_unparsed_data.cpp" />
+    <ClCompile Include="Party.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Render.cpp" />
+    <ClCompile Include="RenderD3D3.cpp" />
+    <ClCompile Include="RenderOpenGL.cpp" />
+    <ClCompile Include="Smacker.cpp" />
+    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="libs\zlib\adler32.c">
+      <Filter>libs\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\zlib\compress.c">
+      <Filter>libs\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="CbmTools.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\zlib\crc32.c">
+      <Filter>libs\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="classes.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\zlib\deflate.c">
+      <Filter>libs\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="data.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\zlib\infblock.c">
+      <Filter>libs\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="Driver.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\zlib\infcodes.c">
+      <Filter>libs\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="FrameTables.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\zlib\inffast.c">
+      <Filter>libs\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="FrameTables_FromTXT.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\zlib\inflate.c">
+      <Filter>libs\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="GUI.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\zlib\inftrees.c">
+      <Filter>libs\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\zlib\infutil.c">
+      <Filter>libs\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="mm7 file 1.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\zlib\trees.c">
+      <Filter>libs\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="mm7 file 2.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\zlib\uncompr.c">
+      <Filter>libs\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="mm7 file 3.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\zlib\zutil.c">
+      <Filter>libs\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="mm7 file 4.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\libpng143\png.c">
+      <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="mm7 file 5.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\libpng143\pngerror.c">
+      <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="mm7 file 6.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\libpng143\pngget.c">
+      <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="mm7 file 7.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\libpng143\pngmem.c">
+      <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="mm7 file 8.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\libpng143\pngpread.c">
+      <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="mm7 file 9 junk stuff.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\libpng143\pngread.c">
+      <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="mm7_unparsed_data.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\libpng143\pngrio.c">
+      <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="Party.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\libpng143\pngrtran.c">
+      <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\libpng143\pngrutil.c">
+      <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="Render.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\libpng143\pngset.c">
+      <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="RenderD3D3.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\libpng143\pngtest.c">
+      <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="Smacker.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\libpng143\pngtrans.c">
+      <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\libpng143\pngwio.c">
+      <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="_lod.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\libpng143\pngwrite.c">
+      <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="c18.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\libpng143\pngwtran.c">
+      <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="memory_mng.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="libs\libpng143\pngwutil.c">
+      <Filter>libs\libpng</Filter>
     </ClCompile>
-    <ClCompile Include="font.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="GUI\GUIProgressBar.cpp">
+      <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="menus.cpp">
-      <Filter>Wight and Wagic</Filter>
+    <ClCompile Include="GUI\GUICursor.cpp">
+      <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="clock.cpp">
-      <Filter>Wight and Wagic</Filter>
-    </ClCompile>
+    <ClCompile Include="Game.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="libpng143\png.h">
-      <Filter>libpng</Filter>
-    </ClInclude>
-    <ClInclude Include="libpng143\pngconf.h">
-      <Filter>libpng</Filter>
-    </ClInclude>
-    <ClInclude Include="libpng143\pngpriv.h">
-      <Filter>libpng</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\deflate.h">
-      <Filter>zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\infblock.h">
-      <Filter>zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\infcodes.h">
-      <Filter>zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\inffast.h">
-      <Filter>zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\inffixed.h">
-      <Filter>zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\inftrees.h">
-      <Filter>zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\infutil.h">
-      <Filter>zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\trees.h">
-      <Filter>zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\zconf.h">
-      <Filter>zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\zlib.h">
-      <Filter>zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\zutil.h">
-      <Filter>zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\d3d.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\d3dcaps.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\d3drm.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\d3drmdef.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\d3drmobj.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\d3drmwin.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\d3dtypes.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\ddraw.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\dinput.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\dinputd.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\dmdls.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\dmerror.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\dmksctrl.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\dmplugin.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\dmusbuff.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\dmusicc.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\dmusicf.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\dmusici.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\dmusics.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\dsconf.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\dsound.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\dvoice.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\multimon.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\rmxfguid.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\rmxftmpl.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy dx\strsafe.h">
-      <Filter>legacy dx</Filter>
-    </ClInclude>
     <ClInclude Include="Math\Math.h">
       <Filter>Math</Filter>
     </ClInclude>
@@ -384,101 +211,179 @@
     <ClInclude Include="Render\TextureOGL.h">
       <Filter>Render</Filter>
     </ClInclude>
-    <ClInclude Include="_audio.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="GUI\GUI.h">
+      <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="_video.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="GUI\GUIButton.h">
+      <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Actor.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="GUI\GUIFont.h">
+      <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="AIL.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="GUI\GUIWindow.h">
+      <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Bink.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="Window.h" />
+    <ClInclude Include="_audio.h" />
+    <ClInclude Include="_lod.h" />
+    <ClInclude Include="_video.h" />
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="AIL.h" />
+    <ClInclude Include="Bink.h" />
+    <ClInclude Include="c18.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CbmTools.h" />
+    <ClInclude Include="classes.h" />
+    <ClInclude Include="clock.h" />
+    <ClInclude Include="data.h" />
+    <ClInclude Include="defs.h" />
+    <ClInclude Include="FrameTables.h" />
+    <ClInclude Include="Items.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="localization_defs.h" />
+    <ClInclude Include="memory_mng.h" />
+    <ClInclude Include="menus.h" />
+    <ClInclude Include="mm7_unparsed_data.h" />
+    <ClInclude Include="mm7_unparsed_functions.h" />
+    <ClInclude Include="NPC.h" />
+    <ClInclude Include="Party.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Render.h" />
+    <ClInclude Include="RenderD3D3.h" />
+    <ClInclude Include="RenderSoftware.h" />
+    <ClInclude Include="Smacker.h" />
+    <ClInclude Include="Spells.h" />
+    <ClInclude Include="libs\zlib\deflate.h">
+      <Filter>libs\zlib</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\zlib\infblock.h">
+      <Filter>libs\zlib</Filter>
     </ClInclude>
-    <ClInclude Include="CbmTools.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\zlib\infcodes.h">
+      <Filter>libs\zlib</Filter>
     </ClInclude>
-    <ClInclude Include="classes.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\zlib\inffast.h">
+      <Filter>libs\zlib</Filter>
     </ClInclude>
-    <ClInclude Include="data.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\zlib\inffixed.h">
+      <Filter>libs\zlib</Filter>
     </ClInclude>
-    <ClInclude Include="defs.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\zlib\inftrees.h">
+      <Filter>libs\zlib</Filter>
     </ClInclude>
-    <ClInclude Include="FrameTables.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\zlib\infutil.h">
+      <Filter>libs\zlib</Filter>
     </ClInclude>
-    <ClInclude Include="GUI.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\zlib\trees.h">
+      <Filter>libs\zlib</Filter>
     </ClInclude>
-    <ClInclude Include="Items.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\zlib\zconf.h">
+      <Filter>libs\zlib</Filter>
     </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\zlib\zlib.h">
+      <Filter>libs\zlib</Filter>
     </ClInclude>
-    <ClInclude Include="mm7_unparsed_data.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\zlib\zutil.h">
+      <Filter>libs\zlib</Filter>
     </ClInclude>
-    <ClInclude Include="mm7_unparsed_functions.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\legacy_dx\d3d.h">
+      <Filter>libs\legacy_dx</Filter>
     </ClInclude>
-    <ClInclude Include="NPC.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\legacy_dx\d3dcaps.h">
+      <Filter>libs\legacy_dx</Filter>
     </ClInclude>
-    <ClInclude Include="Party.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\legacy_dx\d3drm.h">
+      <Filter>libs\legacy_dx</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\legacy_dx\d3drmdef.h">
+      <Filter>libs\legacy_dx</Filter>
     </ClInclude>
-    <ClInclude Include="Render.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\legacy_dx\d3drmobj.h">
+      <Filter>libs\legacy_dx</Filter>
     </ClInclude>
-    <ClInclude Include="RenderD3D3.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\legacy_dx\d3drmwin.h">
+      <Filter>libs\legacy_dx</Filter>
     </ClInclude>
-    <ClInclude Include="RenderSoftware.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\legacy_dx\d3dtypes.h">
+      <Filter>libs\legacy_dx</Filter>
     </ClInclude>
-    <ClInclude Include="Smacker.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\legacy_dx\ddraw.h">
+      <Filter>libs\legacy_dx</Filter>
     </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\legacy_dx\dinput.h">
+      <Filter>libs\legacy_dx</Filter>
     </ClInclude>
-    <ClInclude Include="_lod.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\legacy_dx\dinputd.h">
+      <Filter>libs\legacy_dx</Filter>
     </ClInclude>
-    <ClInclude Include="c18.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\legacy_dx\dmdls.h">
+      <Filter>libs\legacy_dx</Filter>
     </ClInclude>
-    <ClInclude Include="memory_mng.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\legacy_dx\dmerror.h">
+      <Filter>libs\legacy_dx</Filter>
     </ClInclude>
-    <ClInclude Include="font.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\legacy_dx\dmksctrl.h">
+      <Filter>libs\legacy_dx</Filter>
     </ClInclude>
-    <ClInclude Include="menus.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\legacy_dx\dmplugin.h">
+      <Filter>libs\legacy_dx</Filter>
     </ClInclude>
-    <ClInclude Include="_c_interface.h" />
-    <ClInclude Include="clock.h">
-      <Filter>Wight and Wagic</Filter>
+    <ClInclude Include="libs\legacy_dx\dmusbuff.h">
+      <Filter>libs\legacy_dx</Filter>
     </ClInclude>
+    <ClInclude Include="libs\legacy_dx\dmusicc.h">
+      <Filter>libs\legacy_dx</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\legacy_dx\dmusicf.h">
+      <Filter>libs\legacy_dx</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\legacy_dx\dmusici.h">
+      <Filter>libs\legacy_dx</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\legacy_dx\dmusics.h">
+      <Filter>libs\legacy_dx</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\legacy_dx\dsconf.h">
+      <Filter>libs\legacy_dx</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\legacy_dx\dsound.h">
+      <Filter>libs\legacy_dx</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\legacy_dx\dvoice.h">
+      <Filter>libs\legacy_dx</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\legacy_dx\multimon.h">
+      <Filter>libs\legacy_dx</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\legacy_dx\rmxfguid.h">
+      <Filter>libs\legacy_dx</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\legacy_dx\rmxftmpl.h">
+      <Filter>libs\legacy_dx</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\legacy_dx\strsafe.h">
+      <Filter>libs\legacy_dx</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\libpng143\png.h">
+      <Filter>libs\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\libpng143\pngconf.h">
+      <Filter>libs\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\libpng143\pngpriv.h">
+      <Filter>libs\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\GUIProgressBar.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\GUICursor.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="legacy dx\d3dvec.inl">
-      <Filter>legacy dx</Filter>
+    <None Include="libs\legacy_dx\d3dvec.inl">
+      <Filter>libs\legacy_dx</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 #include "data.h"
  #include "_lod.h"
 #include "mm7_unparsed_functions.h"
+#include "Game.h"
 
 
 

@@ -83,5 +83,7 @@ int CVideoPlayer_IsAnyMovieLoaded(struct CVideoPlayer *_this);
 //void __thiscall sub_4BED4F(int _this, int a2, int a3, int a4);
 void sub_4BED4F(struct CVideoPlayer *_this, HWND hWnd, int a3, int a4);
 
+int __thiscall VideoPlayer_sub_4BF5B2(CVideoPlayer *_this);
+void __thiscall VideoPlayer_sub_4BF73A(CVideoPlayer *_this);
 
 #pragma pack(pop)

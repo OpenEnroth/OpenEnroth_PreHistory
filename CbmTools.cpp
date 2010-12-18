@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
 
-#include "libpng143\\png.h"
+#include "libs\libpng143\png.h"
 
 #pragma pack(push, 1)
 struct TGAHeader

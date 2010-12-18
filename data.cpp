@@ -1207,8 +1207,8 @@ int bUseLoResSprites;  // byte @ MM7.exe::006BE36C
 int bUseRegistry;      // byte @ MM7.exe::006BE36D
 int bLoadingFromCD;    // byte @ MM7.exe::006BE36E
 
-//unsigned char cGameCDDriveLetter; // byte @ MM7.exe::006A0D04
-wchar_t cGameCDDriveLetter; // byte @ MM7.exe::006A0D04
+//unsigned char GameCDDriveLetter; // byte @ MM7.exe::006A0D04
+wchar_t GameCDDriveLetter; // byte @ MM7.exe::006A0D04
 
 PCMWAVEFORMAT sPCMWaveFormat;  // struct @ MM7.exe::00F1B4B8
 

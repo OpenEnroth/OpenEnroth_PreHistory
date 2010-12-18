@@ -5,7 +5,7 @@
 #include "memory_mng.h"
 #include "RenderD3D3.h"
 #include "RenderSoftware.h"
-#include "GUI.h"
+#include "GUI\GUI.h"
 #include "Level.h"
 #include "Actor.h"
 #include "Player.h"
@@ -385,7 +385,7 @@ extern char byte_4F0D38[array_size_unknown]; // weak
 extern int dword_4F0E90[array_size_unknown]; // weak
 extern int dword_4F0E94[array_size_unknown]; // weak
 extern __int16 word_4F0F30[array_size_unknown]; // weak
-extern _UNKNOWN unk_4F0F98; // weak
+//_UNKNOWN unk_4F0F98; // "\x0C%05d%s\x0C%05d"
 
 extern void *off_4F2D68; // weak
 extern LPVOID off_4F2D6C; // idb
@@ -1406,8 +1406,8 @@ extern _UNKNOWN unk_5C4DB0; // weak
 extern unsigned char TmpBuf[array_size_unknown + 2000]; // byte[~2000] @ MM7.exe::005C5DB0
 extern char byte_5C657F[array_size_unknown]; // weak
 
-extern char byte_5C6D50[100]; // weak
-extern int dword_5C6DB4; // weak
+extern char         byte_5C6D50[100]; // weak
+//extern unsigned int sub_44D1E7_DrawTextLine_DefaultTextColor; // dword @ MM7.exe::005CDB4    OBSOLETE
 
 extern int dword_5C6DD8; // weak
 extern int dword_5C6DDC; // weak
@@ -1926,7 +1926,7 @@ extern unsigned int bUseOverrideData; // dword @ MM7.exe::00720008
 extern unsigned int bSkipVideo;       // dword @ MM7.exe::0072000C
 extern int dword_720010; // idb
 
-extern struct CGame *pGame; //struct @ MM7.exe::00720014
+extern struct Game *pGame; //struct @ MM7.exe::00720014
 //float pGame;
 //int dword_720018; // pGame::000004
 extern _BYTE dword_720020[400]; // idb
@@ -2055,23 +2055,23 @@ extern struct unnamed_7215D8_PlayerActionBuffer
 extern int dword_721654; // weak
 extern int dword_721658; // weak
 extern int dword_72165C; // weak
-extern char *dword_721660; // idb
-extern char *dword_721664; // idb
+extern unsigned char *dword_721660[]; // idb
+//extern char *dword_721664; // idb
 extern _UNKNOWN unk_721668[]; // npctopic
 extern _UNKNOWN unk_72166C[]; // npctext
 extern int dword_721824; // weak
-extern int dword_72193C; // weak
-extern int dword_721984[array_size_unknown]; // weak
-extern int dword_7219DC[array_size_unknown]; // weak
-extern char *dword_721A34; // idb
-extern char *dword_721A3C; // idb
-extern int dword_721A44; // weak
-extern int dword_721A4C; // weak
-extern int dword_721A64; // weak
-extern int dword_721A6C[array_size_unknown]; // weak
-extern int dword_721A84; // weak
-extern int dword_721BAC[array_size_unknown]; // weak
-extern char *dword_721BC4; // idb
+extern unsigned char *dword_72193C; // weak
+extern unsigned char *dword_721984[]; // weak
+extern unsigned char *dword_7219DC[]; // weak
+extern unsigned char *dword_721A34; // idb
+extern unsigned char *dword_721A3C; // idb
+extern unsigned char *dword_721A44; // weak
+extern unsigned char *dword_721A4C; // weak
+extern unsigned char *dword_721A64; // weak
+extern unsigned char *dword_721A6C[]; // weak
+extern unsigned char *dword_721A84; // weak
+extern unsigned char *dword_721BAC[]; // weak
+extern unsigned char *dword_721BC4; // idb
 extern _UNKNOWN dword_721E24; // idb
 extern int dword_722164; // weak
 extern int dword_72216C; // weak
@@ -2082,15 +2082,15 @@ extern int dword_722320; // weak
 extern int dword_722494; // weak
 extern int dword_72266C; // weak
 extern _UNKNOWN unk_722880; // weak
-extern int dword_722B3C; // weak
-extern int dword_722B44; // weak
+extern unsigned char *dword_722B3C; // weak
+extern unsigned char *dword_722B44; // weak
 extern char *dword_722F10; // idb
 extern _UNKNOWN unk_722F14[0x800 + array_size_unknown]; // quests.txt
 extern _UNKNOWN unk_723714; // weak
 extern char *dword_723718; // idb
 extern int dword_72371C[array_size_unknown]; // weak
 extern _UNKNOWN unk_723724[]; // autonotes.txt
-extern char *dword_723D38; // scroll.txt
+extern unsigned char *dword_723D38[]; // scroll.txt
 extern _UNKNOWN unk_723D3C; // weak
 extern int dword_723E80[210]; // weak
 extern int dword_723E84[array_size_unknown]; // weak
@@ -2129,7 +2129,7 @@ extern unsigned char *pAwardsTXT_Raw;    // ptr @ MM7.exe::0073C37C
 extern unsigned char *pScrollsTXT_Raw;   // ptr @ MM7.exe::0073C380
 extern unsigned char *pMerchantsTXT_Raw; // ptr @ MM7.exe::0073C384
 
-extern CHAR dword_73C388[28]; // idb
+extern unsigned char dword_73C388[28]; // idb
 extern int dword_73C3A4[array_size_unknown]; // weak
 extern CHAR dword_73C3C0[28]; // merchant.txt
 extern int dword_73C3DC[array_size_unknown]; // weak
@@ -2763,7 +2763,7 @@ extern _UNKNOWN unk_F79154; // weak
 //char byte_F794C8[array_size_unknown]; // weak
 //_UNKNOWN unk_F79CC8; // weak
 //int dword_F79D48; // weak
-//char cGameCDDriveLetter; //byte @ MM7.exe::F79D58; // weak
+//char GameCDDriveLetter; //byte @ MM7.exe::F79D58; // weak
 
 extern struct CSoundList *pSoundList; // struct @ MM7.exe::00F79D5C
 //int dword_F79D5C; // weak
@@ -2887,7 +2887,7 @@ extern int dword_F8B1D8; // weak
 extern int dword_F8B1DC; // weak
 extern int dword_F8B1E0; // weak
 extern int dword_F8B1E4; // weak
-extern char *dword_F8B1E8; // idb
+extern unsigned char *dword_F8B1E8; // idb
 extern char byte_F8B1EC; // weak
 extern char byte_F8B1EF[array_size_unknown]; // weak
 extern _UNKNOWN unk_F8B1F0; // weak
@@ -3012,6 +3012,5 @@ extern int dword_F94500; // weak
 extern HANDLE hHeap; // idb
 
 extern int dword_F94508; // weak
-extern const void* pCGame_scalar_dtor;
 
 #pragma pack(pop)

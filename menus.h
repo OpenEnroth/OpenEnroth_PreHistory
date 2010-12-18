@@ -1,7 +1,9 @@
 #pragma once
+#pragma pack(push, 1)
+
 
 #include "defs.h"
-#include "gui.h"
+#include "GUI\GUI.h"
 
 #define MAX_SAVEGAME_PATH 280
 
@@ -72,3 +74,6 @@ extern struct GUIButton *pArrowDownBtn; // weak
 extern struct GUIButton *pArrowUpBtn; // weak	 dword_69BD5C
 extern struct GUIButton *pCancelBtn; // weak dword_69BD60
 extern struct GUIButton *pLoadSaveBtn; // weak
+
+
+#pragma pack(pop)

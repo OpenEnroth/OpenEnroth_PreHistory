@@ -4,7 +4,6 @@
 #include "defs.h"
 #include "localization_defs.h"
  #include "_lod.h"
- #include "font.h"
 #include "AIL.h"
 #include "menus.h"
 #include "clock.h"
@@ -12,7 +11,16 @@
 #include "_audio.h"
 #include "_video.h"
 #include "FrameTables.h"
-#include "GUI.h"
+
+#include "Game.h"
+
+#include "GUI\GUI.h"
+#include "GUI\GUIButton.h"
+#include "GUI\GUICursor.h"
+#include "GUI\GUIFont.h"
+#include "GUI\GUIProgressBar.h"
+#include "GUI\GUIWindow.h"
+
 #include "Level.h"
 #include "Actor.h"
 
@@ -596,7 +604,7 @@ LABEL_27:
     while ( PeekMessageA(&Msg, 0, 0, 0, PM_REMOVE) )
     {
       if ( Msg.message == WM_QUIT )
-        sub_464761(0);
+        Game_DeinitializeAndTerminate(0);
       TranslateMessage(&Msg);
       DispatchMessageA(&Msg);
     }
@@ -2174,7 +2182,7 @@ int __cdecl MenuLoop_Main()
     while (PeekMessageA(&Msg, 0, 0, 0, PM_REMOVE))
     {
      if ( Msg.message == WM_QUIT)
-       sub_464761(0);
+       Game_DeinitializeAndTerminate(0);
      TranslateMessage(&Msg);
      DispatchMessageA(&Msg);
     }
@@ -3928,7 +3936,7 @@ int __cdecl err_show()
       sub_4667E9();
     if ( MessageBoxA(0, (char *)pGlobalTXT_LocalizationStrings[176], (char *)pGlobalTXT_LocalizationStrings[59], 0x34u) == 6 )
       SaveGame(1, 0);
-    sub_464761((void *)1);
+    Game_DeinitializeAndTerminate((void *)1);
   }
   return 0;
 }
@@ -4289,29 +4297,6 @@ LABEL_39:
   *(_DWORD *)(v2 + 8) -= cClock1.int_00001C;
 }
 
-//----- (00465C8B) --------------------------------------------------------
-struct CGame *__cdecl GameInitialize()
-{
- pGame = new CGame;
- if (pGame)
-   CGame_ctor(pGame);
-
- return pGame;
-}
-
-//----- (00465CF3) --------------------------------------------------------
-int __cdecl GameDestroy()
-{
-  int result = 0; // eax@2
-
-  if ( pGame )
-    result = (*(int (__cdecl **)(struct CGame*, char))pGame->dword_000000)(pGame, 1); //indirect call of the CGame destructor
-
-  pGame = 0;
-  return result;
-}
-
-
 //----- (00456D17) --------------------------------------------------------
 int class40_sub_456D17(struct class40 *_this, struct ItemGen *a2)
 {
@@ -4651,7 +4636,7 @@ LABEL_27:
 }
 
 //----- (004645FA) --------------------------------------------------------
-int __cdecl sub_4645FA()
+void Game_Deinitialize()
 {
   struct tagRECT Rect; // [sp+0h] [bp-10h]@6
 
@@ -4684,7 +4669,7 @@ int __cdecl sub_4645FA()
   //sub_461A11(LODFile_New_LOD);
   //sub_461A11(LODFile_Games_LOD);
   ClipCursor(0);
-  return GameDestroy();
+  Game_Destroy();
 }
 
 //----- (004063A1) --------------------------------------------------------
@@ -9672,7 +9657,7 @@ void __cdecl InitializeScrolls()
       else
       {
         if ( v2 == 1 )
-          *(_DWORD *)(&dword_723D38 + v6) = (int)RemoveQuote(result);
+          dword_723D38[v6 / 4] = (unsigned char *)RemoveQuote(result);
       }
       ++v2;
       result = (char *)(v5 + 1);
@@ -9812,7 +9797,7 @@ bool CheckForMM7CD(wchar_t *pGameCDDriveLetter)
               v14 = 58;
               v15 = 0;
               CreateRegistryKey("CDDrive", (const char *)&Data);
-              //pAudioPlayer->cGameCDDriveLetter = Data;
+              //pAudioPlayer->GameCDDriveLetter = Data;
               return 1;
             }
           }
@@ -10166,7 +10151,7 @@ LABEL_8:
   struct_505898.byte_505992 = 0;
   struct_576FE8.dword_000044 = 1;
   if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
-    VideoPlayer_sub_4BF5B2((int)pVideoPlayer);
+    VideoPlayer_sub_4BF5B2(pVideoPlayer);
   v4 = (int *)&unk_4FAA08;
   do
   {
@@ -11053,45 +11038,45 @@ void *__cdecl sub_40AC5F()
   int v8; // ecx@18
   int v9; // eax@18
   int v11; // eax@20
-  char Dest; // [sp+Ch] [bp-28h]@2
+  unsigned char Dest; // [sp+Ch] [bp-28h]@2
   int v13; // [sp+2Ch] [bp-8h]@2
   int v14; // [sp+30h] [bp-4h]@2
 
   if ( byte_4FAA77 )
   {
-    sub_40DEBE((char *)pGlobalTXT_LocalizationStrings[266], &Dest);
-    v13 = 320 - GetStringWidth(struct_505898.dword_5058E4, &Dest) / 2;
+    sub_40DEBE((char *)pGlobalTXT_LocalizationStrings[266], (char *)&Dest);
+    v13 = 320 - GUIFont_GetLineWidth(struct_505898.dword_5058E4, &Dest) / 2;
     v14 = 306;
-    sub_40D75D(-1, &Dest, (int)&v13);
+    sub_40D75D(-1, (char *)&Dest, (int)&v13);
   }
-  sub_40DEBE(byte_505708, &Dest);
+  sub_40DEBE(byte_505708, (char *)&Dest);
   if ( !dword_4FAA6C )
-    sub_40DEB4("***", &Dest);
-  v13 = 47 - GetStringWidth(struct_505898.dword_5058E0, &Dest) / 2;
+    sub_40DEB4("***", (char *)&Dest);
+  v13 = 47 - GUIFont_GetLineWidth(struct_505898.dword_5058E0, &Dest) / 2;
   v14 = 21;
-  sub_40D75D(-1, &Dest, (int)&v13);
-  sub_40DEBE(byte_5057C4, &Dest);
+  sub_40D75D(-1, (char *)&Dest, (int)&v13);
+  sub_40DEBE(byte_5057C4, (char *)&Dest);
   if ( dword_4FAA6C == 1 )
-    sub_40DEB4("***", &Dest);
-  v13 = 595 - GetStringWidth(struct_505898.dword_5058E0, &Dest) / 2;
+    sub_40DEB4("***", (char *)&Dest);
+  v13 = 595 - GUIFont_GetLineWidth(struct_505898.dword_5058E0, &Dest) / 2;
   v14 = 21;
-  sub_40D75D(-1, &Dest, (int)&v13);
+  sub_40D75D(-1, (char *)&Dest, (int)&v13);
   sub_40DEC8(dword_50572C[0], (int)&Dest);
-  v13 = 123 - GetStringWidth(struct_505898.dword_5058E0, &Dest) / 2;
+  v13 = 123 - GUIFont_GetLineWidth(struct_505898.dword_5058E0, &Dest) / 2;
   v14 = 305;
-  sub_40D75D(-1, &Dest, (int)&v13);
+  sub_40D75D(-1, (char *)&Dest, (int)&v13);
   sub_40DEC8(dword_5057E8, (int)&Dest);
-  v13 = 515 - GetStringWidth(struct_505898.dword_5058E0, &Dest) / 2;
+  v13 = 515 - GUIFont_GetLineWidth(struct_505898.dword_5058E0, &Dest) / 2;
   v14 = 305;
-  sub_40D75D(-1, &Dest, (int)&v13);
+  sub_40D75D(-1, (char *)&Dest, (int)&v13);
   sub_40DEC8(dword_505730[0], (int)&Dest);
-  v13 = 188 - GetStringWidth(struct_505898.dword_5058E0, &Dest) / 2;
+  v13 = 188 - GUIFont_GetLineWidth(struct_505898.dword_5058E0, &Dest) / 2;
   v14 = 305;
-  sub_40D75D(-1, &Dest, (int)&v13);
+  sub_40D75D(-1, (char *)&Dest, (int)&v13);
   sub_40DEC8(dword_5057EC, (int)&Dest);
-  v13 = 451 - GetStringWidth(struct_505898.dword_5058E0, &Dest) / 2;
+  v13 = 451 - GUIFont_GetLineWidth(struct_505898.dword_5058E0, &Dest) / 2;
   v14 = 305;
-  sub_40D75D(-1, &Dest, (int)&v13);
+  sub_40D75D(-1, (char *)&Dest, (int)&v13);
   v0 = dword_505734[0];
   if ( byte_4E185E )
     v0 = dword_4E1878 + dword_505734[0];
@@ -12150,7 +12135,7 @@ void __cdecl sub_4CA564()
   int v4; // [sp+3Ch] [bp-4h]@1
 
   v2 = v3;
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)&v2, 0);
+  Game_stru0_sub_40E2F6((Game_stru0 *)&v2, 0);
   v0 = strlen((char *)&byte_4D8410[11432]);
   sub_40E32E((int)&v2, &byte_4D8410[11432], v0);
   v4 = 0;

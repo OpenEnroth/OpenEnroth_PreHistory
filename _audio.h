@@ -108,7 +108,7 @@ struct AudioPlayer
 
  unsigned int uNumDevices;        // dword @ 000C70
  int dword_000C74;
- int          cGameCDDriveLetter; // byte @  000C80
+ int          GameCDDriveLetter; // byte @  000C80
 };
 //sizeof ~ ?
 void AudioPlayer_ctor(struct AudioPlayer *_this);

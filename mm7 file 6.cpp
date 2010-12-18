@@ -3,7 +3,6 @@
 
 #include "defs.h"
 #include "localization_defs.h"
-#include "font.h"
 
 #include "AIL.h"
 #include "clock.h"
@@ -11,13 +10,18 @@
 #include "_audio.h"
 #include "_video.h"
 #include "FrameTables.h"
-#include "GUI.h"
+
+#include "GUI\GUI.h"
+#include "GUI\GUIFont.h"
+#include "GUI\GUIWindow.h"
+
 #include "Level.h"
 #include "Actor.h"
 #include "_lod.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
+#include "Game.h"
 
 
 int __fastcall ReadWindowsRegistryString(char const *,unsigned char *,unsigned int,unsigned char const *)
@@ -2948,7 +2952,7 @@ int __fastcall sub_495430(signed int a1)
 }
 
 //----- (00495461) --------------------------------------------------------
-const CHAR *__fastcall sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(char *lpsz, unsigned __int8 a2, int a3, int a4, int a5, __int64 *a6)
+unsigned char *__fastcall sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(unsigned char *lpsz, unsigned __int8 a2, int a3, int a4, int a5, __int64 *a6)
 {
   unsigned __int8 v6; // bl@1
   int v8; // ebx@3
@@ -3011,21 +3015,21 @@ const CHAR *__fastcall sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_D
   unsigned int v65; // [sp+11Ch] [bp-1Ch]@3
   size_t v66; // [sp+120h] [bp-18h]@3
   int v67; // [sp+124h] [bp-14h]@3
-  char *Str; // [sp+128h] [bp-10h]@1
+  unsigned char *Str; // [sp+128h] [bp-10h]@1
   int v69; // [sp+12Ch] [bp-Ch]@32
   int v70; // [sp+130h] [bp-8h]@6
   int v71; // [sp+134h] [bp-4h]@6
 
   v6 = a2;
   Str = lpsz;
-  if ( IsBadStringPtrA(lpsz, 1) )
-    return "Invalid String Passed";
-  v66 = strlen(Str);
+  if ( IsBadStringPtrA((char *)lpsz, 1) )
+    return (unsigned char *)"Invalid String Passed";
+  v66 = strlen((char *)Str);
   Dest[0] = 0;
   v8 = (int)pPlayers[v6];
   v65 = 0xFFFF9B;
   v67 = v8;
-  memset((char *)pStringBuffer, 0, 0x7D0u);
+  memset(pStringBuffer, 0, 0x7D0u);
   if ( dword_5C35D4 )
     v9 = dword_5913D8[dword_5913F0 - ((dword_591080 != 0) + 1)];
   else
@@ -3048,9 +3052,9 @@ LABEL_119:
       ++v11;
       v70 = v11;
       if ( v11 >= (signed int)v66 )
-        return (char *)pStringBuffer;
+        return pStringBuffer;
     }
-    v17 = &Str[v11 + 1];
+    v17 = (char *)&Str[v11 + 1];
     v16 = (unsigned __int8)Str[v11 + 2];
     v15 = v16 + 10 * (unsigned __int8)*v17 - 528;
     if ( v15 <= 15 )
@@ -3376,7 +3380,7 @@ LABEL_116:
     v49 = v62;
     goto LABEL_116;
   }
-  return (char *)pStringBuffer;
+  return pStringBuffer;
 }
 
 //----- (004979D2) -----.text:00499660  ---------------------------------------------------
@@ -3502,7 +3506,7 @@ int CreditsMenuLoop()
     while ( PeekMessageA(&Msg, 0, 0, 0, 1) )
     {
       if ( Msg.message == 18 )
-        sub_464761(0);
+        Game_DeinitializeAndTerminate(0);
       TranslateMessage(&Msg);
       DispatchMessageA(&Msg);
     }
@@ -6230,7 +6234,7 @@ int __fastcall sub_49B3B8(int a1)
   size_t v2; // eax@1
 
   byte_AE5B94 = BYTE3(a1);
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)&byte_AE5B94, 0);
+  Game_stru0_sub_40E2F6((Game_stru0 *)&byte_AE5B94, 0);
   v2 = strlen("hwsplat04");
   return sub_40E32E((int)&byte_AE5B94, "hwsplat04", v2);
 }
@@ -6241,7 +6245,7 @@ void __cdecl sub_49B3EB()
   if ( !(byte_AE5B91 & 1) )
   {
     byte_AE5B91 |= 1u;
-    CGame_stru0_sub_40E2F6((CGame_stru0 *)&byte_AE5B94, 1);
+    Game_stru0_sub_40E2F6((Game_stru0 *)&byte_AE5B94, 1);
   }
 }
 

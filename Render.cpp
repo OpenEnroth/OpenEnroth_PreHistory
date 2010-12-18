@@ -8,12 +8,15 @@
 
 #include "data.h"
 
+#include "Game.h"
 
 
 
-#pragma comment(lib, "legacy dx\\lib\\ddraw.lib")
-#pragma comment(lib, "legacy dx\\lib\\dxguid.lib")
-//#pragma comment(lib, "legacy dx\\lib\\dinput8.lib")
+
+#pragma comment(lib, "libs\\legacy_dx\\lib\\ddraw.lib")
+#pragma comment(lib, "libs\\legacy_dx\\lib\\dxguid.lib")
+//#pragma comment(lib, "libs\\legacy_dx\\lib\\dinput8.lib")
+
 
 #define FI16_565_RED_MASK		0xF800
 #define FI16_565_GREEN_MASK		0x07E0

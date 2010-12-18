@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <windows.h>
 
-#include "legacy dx\ddraw.h"
+#include "libs\legacy_dx\ddraw.h"
 
 double __stdcall sub_44F377(DDGAMMARAMP *pddGammaRamp);
 bool __stdcall LockSurface_DDraw4(struct IDirectDrawSurface4 *, DDSURFACEDESC2 *, unsigned int uLockFlags);

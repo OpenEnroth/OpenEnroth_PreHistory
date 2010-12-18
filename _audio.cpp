@@ -19,7 +19,7 @@ void AudioPlayer_ctor(struct AudioPlayer *_this)
 
  memset(_this, 0, sizeof(struct AudioPlayer));
 
- _this->cGameCDDriveLetter = cGameCDDriveLetter;
+ _this->GameCDDriveLetter = GameCDDriveLetter;
 
  GetCurrentDirectoryA(120, pCurrentDirectory);
  wsprintfA(pIniFile, "%s\\mm6.ini", pCurrentDirectory);
@@ -748,7 +748,7 @@ int AudioPlayer_Initialize(struct AudioPlayer *_this, HWND hWnd)
 
  AIL_startup();
 
- _this->hAILRedbook = AIL_redbook_open_drive(_this->cGameCDDriveLetter);
+ _this->hAILRedbook = AIL_redbook_open_drive(_this->GameCDDriveLetter);
  _this->hDigDriver = sub_4ABAF7();
  if (_this->hDigDriver)
    SmackSoundUseMSS(_this->hDigDriver);

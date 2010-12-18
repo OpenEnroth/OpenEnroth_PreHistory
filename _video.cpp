@@ -333,7 +333,7 @@ int CVideoPlayer_LoadVideoHeaders(struct CVideoPlayer *_this)
    return false;
   }
 
-  wsprintfA((char *)pStringBuffer, "%c:\\%s", cGameCDDriveLetter, "anims\\magic7.vid");
+  wsprintfA((char *)pStringBuffer, "%c:\\%s", GameCDDriveLetter, "anims\\magic7.vid");
   _this->hMagicVid = CreateFileA((char *)pStringBuffer, GENERIC_READ, 1u, 0, 3u, 0x8000080u, 0);
   if ( _this->hMagicVid == INVALID_HANDLE_VALUE )
   {

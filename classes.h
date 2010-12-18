@@ -2,102 +2,19 @@
 
 #include <stdio.h>
 #include "c18.h"
-#include "font.h"
 #include "AIL.h"
 #include "Party.h"
 #include "Items.h"
-#include "GUI.h"
+
+#include "GUI\GUI.h"
+#include "GUI\GUIFont.h"
 
 #include "Render.h"
 
 #pragma pack(push, 1)
-//class00
-struct CGame_stru0
-{
- unsigned int    dword_000000;
- unsigned char  *ptr_000004;
- int             dword_000008;
- int             dword_00000C;
-};
 
-struct CGame
-{
- int  dword_000000;  //pointer to pointer to destructor of the class
- int  dword_000004;
- int  dword_000008[699];
- int  dword_000704;     //num stationary lights?
 
- float array_000718[array_size_unknown];
 
-                              // looks like ptr to current selected input device
- struct GUICursor *pGUICursor;    // dword @ 000974
- unsigned int    dword_000978;
-                              // looks like start of a struct or a class, sub_40E2F6 is a member of which
- struct CGame_stru0 unnamed_00097C;
-
- int  dword_000E08;
- int  dword_000E0C;
- int  dword_000E10;
- int  dword_000E14;
- int  dword_000E18;
- int  dword_000E1C;
- int  uSomeFlags;              //dword @ 000E20   & 0x01 == lighing on?
- int  dword_000E24;            // 0x20: bloodsplats
- float flt_000E28;
- __int64  qword_000E2C;
- //int  dword_000E30;
- int  dword_000E34;
- int  dword_000E38;
- struct class01 *class01_obj;  //dword ptr [0E3C]
- struct class02 *class02_obj;  //dword ptr [0E40]
- struct GUICursor *class03_obj;  //dword ptr [0E44]
- struct class04 *class04_obj;  //dword ptr [0E48]
- struct Vis     *pVis;         // dword @ 000E4C
- struct class06 *class06_obj;  //dword ptr [0E50]
- struct class08 *class08_obj;  //dword ptr [0E54]
- struct class09 *class09_obj;  //dword ptr [0E58]
- struct class10 *class10_obj;  //dword ptr [0E5C]
- struct class11 *class11_obj;  //dword ptr [0E60]
- struct class12 *class12_obj;  //dword ptr [0E64]
- struct class13 *class13_obj;  //dword ptr [0E68]
- struct class14 *class14_obj;  //dword ptr [0E6Ñ]
- struct CGammaController *pGammaController;  // dword @ 000E70
- int  dword_000E74;
-};
-//sizeof = 0E78
-//int __thiscall sub_44E4B7(int _this);
-void CGame_ctor(struct CGame *_this);
-//int __thiscall sub_44F0FD(int _this);
-int CGame_fn0(struct CGame *_this);
-//int __thiscall sub_44F0D8(int _this, int a2);
-int CGame_fn1(struct CGame *_this, int flags);
-//char __thiscall Game_InitializeGammaController(int _this);
-bool Game_InitializeGammaController(struct CGame *_this);
-//char __thiscall sub_44EEA7(int _this);
-char CGame_sub_44EEA7(struct CGame *_this);
-//char __thiscall sub_44EA5E(int _this, float a2, signed int a3, signed int a4, char a5, int a6, int a7);
-bool Game_Pick(struct CGame *_this, float a2, unsigned int uMouseX, unsigned int uMouseY, bool bOutline, int a6, int a7);
-//char __thiscall sub_44F07B(int _this);
-bool CGame_sub_44F07B(struct CGame *_this);
-//void __thiscall sub_44F120(int _this, int a2);
-void CGame_sub_44F120_MaybeStackStationaryLights(struct CGame *_this, int a2);
-//void __fastcall sub_44F192(int a1);
-void CGame_sub_44F192(struct CGame *_this);
-//void __thiscall sub_44E904(void *_this);
-void sub_44E904(struct CGame *_this);
-//signed int __thiscall sub_44ED0A(int _this, int a2, int a3, signed int a4);
-signed int __thiscall Game_sub_44ED0A(CGame *_this, struct struct8 *a2, int *a3, signed int a4);
-//signed int __thiscall sub_44EC23(int _this, int a2, int a3, signed int a4);
-signed int Game_sub_44EC23(struct CGame *_this, struct struct8 *a2, int *a3, signed int a4);
-//void __thiscall sub_40E2F6(int _this, char a2);
-void CGame_stru0_sub_40E2F6(struct CGame_stru0 *_this, char a2);
-//char __thiscall sub_44EE30(int _this, int a2, void **a3);
-bool Game_sub_44EE30(struct CGame *_this, struct class51_stru2 *a2, void **a3);
-//char __thiscall sub_44EB12(int _this, char a2, int a3, int a4);
-bool Game_sub_44EB12(struct CGame *_this, bool bOutline, int a3, int a4);
-
-int CGame_scalar_deleting_destructor(struct CGame *_this, char flag);
-int CGame_dtor(struct CGame *_this);
 
 
 //class01
@@ -244,6 +161,8 @@ signed int sub_4C1BAA_Vis_get_object_zbuf_val(void *_this, int a2);
 signed int sub_4C1BF1_Vis_LooksLikeFindTopmostZObject(struct Vis *_this);
 int __stdcall Vis_sub_4C248E(struct Vis_stru0 *a1, float fMouseX, float fMouseY, float a4);
 
+char __thiscall Vis_sub_4C1930(Vis *_this, float a2, int a3);
+void __thiscall Vis_SetupCtorDetor(Vis *_this);
 
 struct class06_stru0
 {

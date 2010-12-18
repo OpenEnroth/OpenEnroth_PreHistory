@@ -2,18 +2,24 @@
 //#include <dinput.h>
 #include "localization_defs.h"
 #include "AIL.h"
-#include "font.h"
 #include "data.h"
 #include "_audio.h"
 #include "_video.h"
 #include "FrameTables.h"
-#include "GUI.h"
+
+#include "GUI\GUI.h"
+#include "GUI\GUIButton.h"
+#include "GUI\GUICursor.h"
+#include "GUI\GUIFont.h"
+#include "GUI\GUIWindow.h"
+
 #include "Level.h"
 #include "Actor.h"
   #include "_lod.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
+#include "Game.h"
 
 //----- (004AD504) --------------------------------------------------------
 int __fastcall sub_4AD504(int a1)
@@ -3003,7 +3009,7 @@ LABEL_13:
 }
 
 //----- (004B1523) --------------------------------------------------------
-char *__thiscall sub_4B1523(void *_this)
+void __thiscall sub_4B1523(void *_this)
 {
   int v1; // esi@1
   int v2; // edx@1
@@ -3044,10 +3050,10 @@ char *__thiscall sub_4B1523(void *_this)
   local_0C.uFrameX = 90;
   local_0C.uFrameZ = 417;
   local_0C.uFrameW = v3 + 67;
-  v19 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[431]);
-  v21 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[433]);
-  v20 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[432]);
-  v4 = GetStringWidth(pFontSmallnum, (char *)pGlobalTXT_LocalizationStrings[96]);
+  v19 = GUIFont_GetLineWidth(pFontSmallnum, pGlobalTXT_LocalizationStrings[431]);
+  v21 = GUIFont_GetLineWidth(pFontSmallnum, pGlobalTXT_LocalizationStrings[433]);
+  v20 = GUIFont_GetLineWidth(pFontSmallnum, pGlobalTXT_LocalizationStrings[432]);
+  v4 = GUIFont_GetLineWidth(pFontSmallnum, pGlobalTXT_LocalizationStrings[96]);
   v5 = v19;
   if ( v21 > v19 )
     v5 = v21;
@@ -3074,7 +3080,7 @@ char *__thiscall sub_4B1523(void *_this)
     v5 + 3,
     v5 + 10,
     pSpellStats->pSpellInfos[v1].pSpellGrandmasterSkillDesc);//*((_DWORD *)&unk_5CC048 + 9 * v1));
-  v6 = CalculateTextHeght(pFontSmallnum, (char *)pStringBuffer, &local_0C, 0, 0);
+  v6 = GUIFont_CalculateTextHeight(pFontSmallnum, pStringBuffer, &local_0C, 0, 0);
   local_0C.uFrameHeight += v6;
   if (local_0C.uFrameHeight < 150)
     local_0C.uFrameHeight = 150;
@@ -3089,14 +3095,14 @@ char *__thiscall sub_4B1523(void *_this)
   local_0C.uFrameZ = local_0C.uFrameX + local_0C.uFrameWidth - 1;
   local_0C.uFrameW = local_0C.uFrameHeight + local_0C.uFrameY - 1;
   v9 = 0xFFFF9B;
-  GUIWindow_sub_44D406(&local_0C, pFontArrus, 120, 12, v9, v8, 3);
+  GUIWindow_DrawText(&local_0C, pFontArrus, 120, 12, v9, v8, 3);
   FontDrawText(&local_0C, pFontSmallnum, 120, 44, (char *)pStringBuffer, 0, 0, 0);
   local_0C.uFrameZ = local_0C.uFrameX + 107;
   local_0C.uFrameWidth = 108;
-  //GUIWindow_sub_44D406((int)&v10, pFontComic, 12, 75, 0, (&dword_AE3300)[v17], 3);
-  GUIWindow_sub_44D406(&local_0C, pFontComic, 12, 75, 0, (char *)aSkillNames[12 + v17 / 4], 3);
+  //GUIWindow_DrawText((int)&v10, pFontComic, 12, 75, 0, (&dword_AE3300)[v17], 3);
+  GUIWindow_DrawText(&local_0C, pFontComic, 12, 75, 0, (char *)aSkillNames[12 + v17 / 4], 3);
   wsprintfA((char *)TmpBuf, "%s\n%d", pGlobalTXT_LocalizationStrings[LOCSTR_SP_COST], word_4E3C68[v1].word00);
-  return GUIWindow_sub_44D406(&local_0C, pFontComic, 12, local_0C.uFrameHeight - pFontComic->uFontHeight - 16, 0, (char *)TmpBuf, 3);
+  GUIWindow_DrawText(&local_0C, pFontComic, 12, local_0C.uFrameHeight - pFontComic->uFontHeight - 16, 0, (char *)TmpBuf, 3);
 }
 
 //----- (004B1784) --------------------------------------------------------
@@ -3127,15 +3133,15 @@ signed int __cdecl sub_4B1784()
     local_04.uFrameZ = 334;
     wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[427], v0 + 168, pGlobalTXT_LocalizationStrings[562]);
     v2 = 0xFFFFFF9B;
-    v3 = CalculateTextHeght(pFontArrus, (char *)TmpBuf, &local_04, 0, 0);
-    GUIWindow_sub_44D406(&local_04, pFontArrus, 0, (212 - v3) / 2 + 101, v2, (char *)TmpBuf, 3);
+    v3 = GUIFont_CalculateTextHeight(pFontArrus, TmpBuf, &local_04, 0, 0);
+    GUIWindow_DrawText(&local_04, pFontArrus, 0, (212 - v3) / 2 + 101, v2, (char *)TmpBuf, 3);
     result = 0;
   }
   return result;
 }
 
 //----- (004B1854) --------------------------------------------------------
-char *__thiscall sub_4B1854(void *_this, __int64 a2)
+void __thiscall sub_4B1854(void *_this, __int64 a2)
 {
   unsigned int v2; // ebx@1
   int v3; // ebp@1
@@ -3211,8 +3217,8 @@ char *__thiscall sub_4B1854(void *_this, __int64 a2)
     }
   }
   v13 = 0xFFFFFF9B;
-  v14 = CalculateTextHeght(pFontArrus, (char *)TmpBuf, (GUIWindow *)v15, 0, 0);
-  return GUIWindow_sub_44D406((GUIWindow *)v15, pFontArrus, 0, (212 - v14) / 2 + 101, v13, (char *)TmpBuf, 3);
+  v14 = GUIFont_CalculateTextHeight(pFontArrus, TmpBuf, (GUIWindow *)v15, 0, 0);
+  GUIWindow_DrawText((GUIWindow *)v15, pFontArrus, 0, (212 - v14) / 2 + 101, v13, (char *)TmpBuf, 3);
 }
 
 //----- (004B1A2D) --------------------------------------------------------
@@ -3467,7 +3473,7 @@ void __cdecl sub_4B1ECE()
   dword_F8B1A8 = 0;
   v11 = 0;
   uDialogueType = 84;
-  dword_F8B1E8 = (char *)dword_722B44;
+  dword_F8B1E8 = dword_722B44;
   v0 = (signed int)&off_4F0882;
   while ( 1 )
   {
@@ -3490,7 +3496,7 @@ void __cdecl sub_4B1ECE()
     if ( v0 >= (signed int)((char *)dword_4F08EC + 2) )
       goto LABEL_10;
   }
-  dword_F8B1E8 = (char *)dword_722B3C;
+  dword_F8B1E8 = dword_722B3C;
   v4 = *((_WORD *)&off_4F0882 + 2 * v11);
   dword_F8B1A8 = *((_WORD *)&off_4F0882 + 2 * v11);
   sub_44AFFB((char *)&pParty_global->pPlayers[0], 17, v4);
@@ -3562,8 +3568,8 @@ int __fastcall sub_4B2001(int _this)
   void *v14; // eax@57
   void *v15; // eax@58
   int v16; // ebp@62
-  char *v17; // ecx@63
-  char *v18; // eax@65
+  unsigned char *v17; // ecx@63
+  unsigned char *v18; // eax@65
   const char *v19; // ecx@68
   int v20; // eax@69
   unsigned int v21; // ecx@70
@@ -3586,11 +3592,11 @@ int __fastcall sub_4B2001(int _this)
     {
       if ( _this == 13 )
       {
-        dword_F8B1E8 = (char *)pNPCStats->pProfessions[*(_DWORD *)(v2 + 24) - 1].pJoinText;
-        dword_F8B1E8 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(dword_F8B1E8, uActiveCharacter, 0, 0, 0, 0);
+        dword_F8B1E8 = pNPCStats->pProfessions[*(_DWORD *)(v2 + 24)].pJoinText;
+        dword_F8B1E8 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(dword_F8B1E8, uActiveCharacter, 0, 0, 0, 0);
         sub_4B40E6();
         byte_F8B1EC = 0;
-        return VideoPlayer_sub_4BF5B2((int)pVideoPlayer);
+        return VideoPlayer_sub_4BF5B2(pVideoPlayer);
       }
       switch ( _this )
       {
@@ -3605,7 +3611,7 @@ int __fastcall sub_4B2001(int _this)
           break;
         default:
           if ( _this != 22 )
-            return VideoPlayer_sub_4BF5B2((int)pVideoPlayer);
+            return VideoPlayer_sub_4BF5B2(pVideoPlayer);
           v3 = *(_DWORD *)(v2 + 52);
           break;
       }
@@ -3649,7 +3655,7 @@ LABEL_84:
     {
       sub_4B3FE5((void *)v3);
     }
-    return VideoPlayer_sub_4BF5B2((int)pVideoPlayer);
+    return VideoPlayer_sub_4BF5B2(pVideoPlayer);
   }
   if ( _this != 76 )
   {
@@ -3658,11 +3664,11 @@ LABEL_84:
       case 77:
         v16 = *(_DWORD *)(v2 + 24);
         if ( byte_F8B1EC )
-          v17 = (char *)pNPCStats->pProfessions[v16 - 1].pJoinText;
+          v17 = pNPCStats->pProfessions[v16].pJoinText;
         else
-          v17 = (char *)pNPCStats->pProfessions[v16 - 1].pBenefits;
+          v17 = pNPCStats->pProfessions[v16].pBenefits;
         dword_F8B1E8 = v17;
-        v18 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(v17, uActiveCharacter, 0, 0, 0, 0);
+        v18 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(v17, uActiveCharacter, 0, 0, 0, 0);
         byte_F8B1EC ^= 1u;
         dword_F8B1E8 = v18;
         break;
@@ -3774,19 +3780,19 @@ LABEL_84:
             v24 = 86;
 LABEL_50:
             Player_PlaySound(pPlayers[v11], v24, v26);
-            return VideoPlayer_sub_4BF5B2((int)pVideoPlayer);
+            return VideoPlayer_sub_4BF5B2(pVideoPlayer);
           }
         }
         break;
     }
-    return VideoPlayer_sub_4BF5B2((int)pVideoPlayer);
+    return VideoPlayer_sub_4BF5B2(pVideoPlayer);
   }
   if (pParty_global->pHiredNPCs[0].pNPCName && pParty_global->pHiredNPCs[1].pNPCName)
   {
     v19 = (char *)pGlobalTXT_LocalizationStrings[533];
 LABEL_77:
     sub_44C175(v19, 2);
-    return VideoPlayer_sub_4BF5B2((int)pVideoPlayer);
+    return VideoPlayer_sub_4BF5B2(pVideoPlayer);
   }
   v20 = *(_DWORD *)(v2 + 24);
   if ( v20 != 51 )
@@ -3797,8 +3803,8 @@ LABEL_77:
       sub_44C175((char *)pGlobalTXT_LocalizationStrings[155], 2);
       byte_F8B1EC = 0;
       uDialogueType = 13;
-      dword_F8B1E8 = (char *)pNPCStats->pProfessions[*(_DWORD *)(v2 + 24) - 1].pJoinText;
-      dword_F8B1E8 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(dword_F8B1E8, uActiveCharacter, 0, 0, 0, 0);
+      dword_F8B1E8 = pNPCStats->pProfessions[*(_DWORD *)(v2 + 24)].pJoinText;
+      dword_F8B1E8 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(dword_F8B1E8, uActiveCharacter, 0, 0, 0, 0);
       if ( uActiveCharacter )
         Player_PlaySound(pPlayers[uActiveCharacter - 1], 38, 0);
       v19 = (char *)pGlobalTXT_LocalizationStrings[155];
@@ -3840,11 +3846,11 @@ LABEL_77:
     v24 = 61;
     goto LABEL_50;
   }
-  return VideoPlayer_sub_4BF5B2((int)pVideoPlayer);
+  return VideoPlayer_sub_4BF5B2(pVideoPlayer);
 }
 
 //----- (004B254D) --------------------------------------------------------
-const CHAR *__thiscall sub_4B254D(void *_this)
+const unsigned char *__thiscall sub_4B254D(void *_this)
 {
   int v1; // eax@1
   int v2; // ecx@1
@@ -3881,7 +3887,7 @@ const CHAR *__thiscall sub_4B254D(void *_this)
   int v34; // [sp+1Ch] [bp-10h]@7
   int v35; // [sp+20h] [bp-Ch]@7
   int v36; // [sp+24h] [bp-8h]@7
-  int v37; // [sp+28h] [bp-4h]@1
+  unsigned char *v37; // [sp+28h] [bp-4h]@1
 
   v4 = (int)pPlayers[uActiveCharacter - 1];
   dword_F8B1A8 = 0;
@@ -3954,7 +3960,7 @@ const CHAR *__thiscall sub_4B254D(void *_this)
         if ( v33 == v16 )
         {
           wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[634], aClassNames[2 + v10], aClassNames[3 + v10]);
-          return (char *)TmpBuf;
+          return TmpBuf;
         }
         v27 = (int)aClassNames[2 + v10];
       }
@@ -3972,15 +3978,15 @@ const CHAR *__thiscall sub_4B254D(void *_this)
     v24 = (int)pGlobalTXT_LocalizationStrings[633];
 LABEL_23:
     wsprintfA((char *)TmpBuf, (const char *)v24, v27);
-    return (char *)TmpBuf;
+    return TmpBuf;
   }
   if ( !Player_sub_492C0B_MaybeIfPlayerConscious((Player *)v4) )
     return dword_721A3C;
   if ( !v8 )
-    return (const CHAR *)dword_721A84;
+    return dword_721A84;
   v18 = sub_458244_GetSkillMasteryLevel(v34);
   if ( v18 > v3 + 1 )
-    return (const CHAR *)dword_721A6C[2 * v3];
+    return dword_721A6C[2 * v3];
   if ( v36 != 2 )
   {
     if ( v36 == 3 )
@@ -4008,7 +4014,7 @@ LABEL_23:
             v21 = 110;
 LABEL_57:
             if ( !(unsigned __int16)sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, v21) )
-              return (const CHAR *)v37;
+              return v37;
             goto LABEL_40;
           case 22:
             v22 = Player_GetBaseWillpower((Player *)v4);
@@ -4021,7 +4027,7 @@ LABEL_57:
             v22 = Player_GetBaseIntelligence((Player *)v4);
 LABEL_61:
             if ( v22 < 50 )
-              return (const CHAR *)v37;
+              return v37;
             goto LABEL_40;
           case 21:
           case 23:
@@ -4074,7 +4080,7 @@ LABEL_40:
 LABEL_39:
             if ( sub_49327B(v4, v25, v28) == 1 )
               goto LABEL_40;
-            return (const CHAR *)v37;
+            return v37;
           case 30:
             v20 = *(_BYTE *)(v4 + 326);
             goto LABEL_47;
@@ -4082,7 +4088,7 @@ LABEL_39:
             v20 = *(_BYTE *)(v4 + 324);
 LABEL_47:
             if ( (v20 & 0x3Fu) < 0xA )
-              return (const CHAR *)v37;
+              return v37;
             goto LABEL_41;
           case 21:
           case 23:
@@ -4109,10 +4115,10 @@ LABEL_67:
         goto LABEL_41;
       }
     }
-    return (const CHAR *)v37;
+    return v37;
   }
   if ( v8 < 4 )
-    return (const CHAR *)v37;
+    return v37;
   v19 = dword_F8B1AC;
   if ( dword_F8B1AC > 27 )
   {
@@ -4145,7 +4151,7 @@ LABEL_87:
   uArenaReward = 1000;
 LABEL_42:
   if ( uArenaReward > (unsigned int)pParty_global->uNumGold )
-    return (const CHAR *)dword_721A4C;
+    return dword_721A4C;
 LABEL_79:
   dword_F8B1A8 = 1;
   if ( v36 == 2 )
@@ -4170,17 +4176,17 @@ LABEL_79:
 LABEL_90:
     wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[534], v23, v26, v29);
   }
-  return (char *)pStringBuffer;
+  return pStringBuffer;
 }
 
 //----- (004B29F2) --------------------------------------------------------
-int __fastcall sub_4B29F2(int a1)
+unsigned char *__fastcall sub_4B29F2(int a1)
 {
   int v1; // edi@1
   int v2; // esi@1
   int v3; // eax@1
   int v4; // ecx@1
-  int result; // eax@2
+  unsigned char *result; // eax@2
 
   v2 = a1;
   dword_F8B1A8 = 0;
@@ -4193,7 +4199,7 @@ int __fastcall sub_4B29F2(int a1)
   {
     if ( (unsigned __int16)sub_449B57((unsigned char *)v1 + 338, dword_F8B1AC) )
     {
-      result = dword_721A44;
+      return dword_721A44;
     }
     else
     {
@@ -4204,19 +4210,19 @@ int __fastcall sub_4B29F2(int a1)
       }
       else
       {
-        result = dword_721A4C;
+        return dword_721A4C;
       }
     }
   }
   else
   {
-    result = (int)dword_721A3C;
+    return dword_721A3C;
   }
   return result;
 }
 
 //----- (004B2A74) --------------------------------------------------------
-char __cdecl sub_4B2A74()
+void __cdecl sub_4B2A74()
 {
   const char *v0; // eax@3
   int v1; // esi@3
@@ -4233,7 +4239,7 @@ char __cdecl sub_4B2A74()
   int v12; // esi@12
   char *v13; // eax@12
   int v14; // ebx@13
-  const char *v15; // esi@14
+  const unsigned char *v15; // esi@14
   int v16; // eax@15
   signed int v17; // ecx@15
   int v18; // ecx@17
@@ -4251,7 +4257,7 @@ char __cdecl sub_4B2A74()
   unsigned int v30; // ST20_4@42
   int v31; // ST1C_4@42
   unsigned int v32; // eax@42
-  const CHAR *v33; // eax@43
+  const unsigned char *v33; // eax@43
   int v34; // edi@51
   int v35; // esi@51
   int v36; // eax@52
@@ -4270,7 +4276,7 @@ char __cdecl sub_4B2A74()
   int v50; // [sp+14h] [bp-108h]@64
   int v51; // [sp+1Ch] [bp-100h]@64
 
-  struct GUIWindow local_60;
+  GUIWindow local_60;
   //int v52; // [sp+60h] [bp-BCh]@13
   //int v53; // [sp+68h] [bp-B4h]@13
   //int v54; // [sp+70h] [bp-ACh]@13
@@ -4278,7 +4284,7 @@ char __cdecl sub_4B2A74()
   //int v56; // [sp+88h] [bp-94h]@13
   //int v57; // [sp+98h] [bp-84h]@13
 
-  struct GUIWindow local_B4;
+  GUIWindow local_B4;
   //int v58; // [sp+B4h] [bp-68h]@1
   //int v59; // [sp+BCh] [bp-60h]@3
   //int v60; // [sp+C4h] [bp-58h]@3
@@ -4299,7 +4305,7 @@ char __cdecl sub_4B2A74()
     local_B4.uFrameWidth = 126;
     local_B4.uFrameZ = 366;
 
-    GUIWindow_sub_44D406(&local_B4, pFontCreate, 0, 2, 0, v2, 3);
+    GUIWindow_DrawText(&local_B4, pFontCreate, 0, 2, 0, v2, 3);
     local_B4.uFrameX = 483;
     local_B4.uFrameWidth = 148;
     local_B4.uFrameZ = 334;
@@ -4311,9 +4317,9 @@ char __cdecl sub_4B2A74()
       v0 = (char *)TmpBuf;
     }
     v4 = v0;
-    v5 = CalculateTextHeght(pFontCreate, v0, &local_B4, 0, 0);
-    LOBYTE(i) = (unsigned int)GUIWindow_sub_44D406(&local_B4, pFontCreate, 0, (212 - v5) / 2 + 101, 0, v4, 3);
-    return i;
+    v5 = GUIFont_CalculateTextHeight(pFontCreate, (unsigned char *)v0, &local_B4, 0, 0);
+    /*LOBYTE(i) = (unsigned int)*/GUIWindow_DrawText(&local_B4, pFontCreate, 0, (212 - v5) / 2 + 101, 0, v4, 3);
+    return;// i;
   }
   local_B4.uFrameWidth -= 10;
   local_B4.uFrameZ -= 10;
@@ -4326,7 +4332,7 @@ char __cdecl sub_4B2A74()
     wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[429], *(_DWORD *)v8, aNPCProfessionNames[v6]);
   else
     strcpy((char *)TmpBuf, *(const char **)v8);
-  GUIWindow_sub_44D406(&local_B4, pFontCreate, 483, 113, v7, (char *)TmpBuf, 3);
+  GUIWindow_DrawText(&local_B4, pFontCreate, 483, 113, v7, (char *)TmpBuf, 3);
   if ( !dword_591080 )
   {
     if ( !uDialogueType )
@@ -4338,7 +4344,7 @@ char __cdecl sub_4B2A74()
         local_B4.uFrameWidth = 460;
         local_B4.uFrameZ = 452;
         v64 = dword_73BA54[((v10 & 3) == 2) + 2 * v9];
-        v11 = CalculateTextHeght(pFontArrus, (const char *)v64, &local_B4, 13, 0);
+        v11 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v64, &local_B4, 13, 0);
         v12 = v11 + 7;
         Render_sub_4A6A68(
           pD3DRenderer,
@@ -4347,7 +4353,9 @@ char __cdecl sub_4B2A74()
           uTextureIdx_Leather != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather] : 0,
           *(_WORD *)(uTextureIdx_Leather != -1 ? LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather].uTextureHeight : 26) - (v11 + 7));
         Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v12, pcTexture_EndcapTexture);
-        v13 = (char *)FitTextInAWindow((const char *)v64, pFontArrus, &local_B4, 13, 0);
+
+        unsigned char pOutString[2048];
+        v13 = (char *)FitTextInAWindow((unsigned char *)v64, pOutString, pFontArrus, &local_B4, 13, 0);
         FontDrawText(pDialogueWindow, pFontArrus, 13, 354 - v12, v13, 0, 0, 0);
       }
     }
@@ -4362,7 +4370,7 @@ char __cdecl sub_4B2A74()
   v63 = local_60.dword_000038;
   if (local_60.dword_000038 < local_60.dword_000038 + local_60.dword_000028)
   {
-    v15 = (const char *)v61;
+    v15 = (const unsigned char *)v61;
     while ( 1 )
     {
       v16 = (int)GUIWindow_GetChild(&local_60, v63);
@@ -4373,13 +4381,13 @@ char __cdecl sub_4B2A74()
         v24 = v17 - 76;
         if ( !v24 )
         {
-          v15 = (char *)pGlobalTXT_LocalizationStrings[406];
+          v15 = pGlobalTXT_LocalizationStrings[406];
           goto LABEL_49;
         }
         v25 = v24 - 1;
         if ( !v25 )
         {
-          v15 = (char *)pGlobalTXT_LocalizationStrings[407];
+          v15 = pGlobalTXT_LocalizationStrings[407];
           goto LABEL_49;
         }
         v26 = v25 - 2;
@@ -4395,7 +4403,7 @@ LABEL_45:
         v27 = v26 - 3;
         if ( !v27 )
         {
-          v33 = (const CHAR *)sub_4B29F2(local_60.dword_00001C);
+          v33 = sub_4B29F2(local_60.dword_00001C);
           goto LABEL_44;
         }
         v28 = v27 - 1;
@@ -4405,10 +4413,11 @@ LABEL_45:
           v30 = 0xFFFFFF;
           v31 = *v29;
           v32 = 0xFFFF9B;
-          wsprintfA((char *)TmpBuf, (const char *)&unk_4F0F98, v32, v31, v30);
+
+          wsprintfA((char *)TmpBuf, "\x0C%05d%s\x0C%05d", v32, v31, v30);
           wsprintfA((char *)pStringBuffer, (const char *)dword_F8B1A4, (char *)TmpBuf, 100 * *((_BYTE *)v29 + 8));
-          dword_F8B1E8 = (char *)pStringBuffer;
-          v15 = "";
+          dword_F8B1E8 = pStringBuffer;
+          v15 = (unsigned char *)"";
           goto LABEL_45;
         }
         if ( v28 != 10 )
@@ -4420,11 +4429,11 @@ LABEL_45:
         {
           v23 = *(_DWORD *)(v65 + 60);
 LABEL_33:
-          v15 = (&dword_721660)[8 * v23];
+          v15 = dword_721660[8 * v23 - 1];
           if ( !v15 )
           {
             *(_DWORD *)(v16 + 36) = 0;
-            v15 = "";
+            v15 = (unsigned char *)"";
           }
           goto LABEL_49;
         }
@@ -4440,17 +4449,17 @@ LABEL_33:
           v20 = v19 - 1;
           if ( !v20 )
           {
-            v15 = (&dword_721660)[8 * *(_DWORD *)(v65 + 44)];
+            v15 = dword_721660[8 * *(_DWORD *)(v65 + 44) - 1];
             if ( !v15 )
             {
               *(_DWORD *)(v16 + 36) = 0;
-              v15 = "";
+              v15 = (unsigned char *)"";
             }
             if ( uDialogueType != 84 )
               goto LABEL_49;
             wsprintfA((char *)TmpBuf, "\f%06x%s\f000000", *(_DWORD *)v62, dword_5D29EC[12 * dword_F8B1A8]);
-            wsprintfA((char *)pStringBuffer, dword_F8B1E8, (char *)TmpBuf);
-            dword_F8B1E8 = (char *)pStringBuffer;
+            wsprintfA((char *)pStringBuffer, (char *)dword_F8B1E8, TmpBuf);
+            dword_F8B1E8 = pStringBuffer;
             goto LABEL_45;
           }
           v21 = v20 - 1;
@@ -4471,13 +4480,13 @@ LABEL_33:
             goto LABEL_33;
           }
 LABEL_41:
-          v15 = "";
+          v15 = (unsigned char *)"";
           goto LABEL_49;
         }
-        v15 = (char *)pGlobalTXT_LocalizationStrings[122];
+        v15 = pGlobalTXT_LocalizationStrings[122];
       }
 LABEL_49:
-      strcpy((char *)(v16 + 85), v15);
+      strcpy((char *)(v16 + 85), (char *)v15);
       ++v63;
       if ( v63 >= local_60.dword_000038 + local_60.dword_000028 )
       {
@@ -4494,7 +4503,7 @@ LABEL_49:
   {
     v36 = (int)GUIWindow_GetChild((GUIWindow *)v14, v34);
     v14 = (int)pDialogueWindow;
-    v35 += CalculateTextHeght(pFontArrus, (const char *)(v36 + 85), &local_60, 0, 0);
+    v35 += GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)(v36 + 85), &local_60, 0, 0);
     ++v34;
   }
   v37 = *(_DWORD *)(v14 + 40);
@@ -4515,7 +4524,7 @@ LABEL_49:
         v43 = v42;
         v41 = (const char *)(v42 + 85);
         *(_DWORD *)(v42 + 4) = v65 + v38;
-        v44 = CalculateTextHeght(pFontArrus, (const char *)(v42 + 85), &local_60, 0, 0);
+        v44 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)(v42 + 85), &local_60, 0, 0);
         v40 = *(_DWORD *)(v43 + 4);
         *(_DWORD *)(v43 + 12) = v44;
         v38 = v40 + v44 - 1;
@@ -4523,7 +4532,7 @@ LABEL_49:
         v39 = v62[0];
         if (pDialogueWindow->dword_00002C != v64 )
           v39 = v61;
-        GUIWindow_sub_44D406(&local_60, pFontArrus, 0, v40, v39, v41, 3);
+        GUIWindow_DrawText(&local_60, pFontArrus, 0, v40, v39, v41, 3);
         v14 = (int)pDialogueWindow;
         ++v64;
         ++v63;
@@ -4539,20 +4548,21 @@ LABEL_49:
     v50 = 458;
     v51 = 457;
     v45 = (int)pFontArrus;
-    v46 = CalculateTextHeght(pFontArrus, dword_F8B1E8, (GUIWindow *)&v49, 13, 0) + 7;
+    v46 = GUIFont_CalculateTextHeight(pFontArrus, dword_F8B1E8, (GUIWindow *)&v49, 13, 0) + 7;
     if ( 352 - v46 < 8 )
     {
       v45 = (int)pFontCreate;
-      v46 = CalculateTextHeght(pFontCreate, dword_F8B1E8, (GUIWindow *)&v49, 13, 0) + 7;
+      v46 = GUIFont_CalculateTextHeight(pFontCreate, dword_F8B1E8, (GUIWindow *)&v49, 13, 0) + 7;
     }
     Render_sub_4A6A68( pD3DRenderer,  8,   352 - v46,
       uTextureIdx_Leather != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather] : 0,
       (uTextureIdx_Leather != -1 ? LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather].uTextureHeight : 26) - v46);
     Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v46, pcTexture_EndcapTexture);
-    v47 = (char *)FitTextInAWindow(dword_F8B1E8, (Font *)v45, (GUIWindow *)&v49, 13, 0);
+
+    unsigned char pOutString[2048];
+    v47 = (char *)FitTextInAWindow(dword_F8B1E8, pOutString, (Font *)v45, (GUIWindow *)&v49, 13, 0);
     FontDrawText(&local_B4, (Font *)v45, 13, 354 - v46, v47, 0, 0, 0);
   }
-  return i;
 }
 
 
@@ -5239,7 +5249,7 @@ int __fastcall sub_4B3EF0(int a1)
 
   v2 = a1;
   uDialogueType = 81;
-  dword_F8B1E8 = (char *)dword_721984[2 * a1];
+  dword_F8B1E8 = dword_721984[2 * a1];
   sub_4B29F2(a1);
   GUIWindowDelete(pDialogueWindow);
   pDialogueWindow = GUIWindowCreate(0, 0, 640, 350, 1, (GUIButton*)v2, 0);
@@ -5271,7 +5281,7 @@ int __fastcall sub_4B3FE5(void *a1)
 
   v2 = (int)a1;
   uDialogueType = 78;
-  dword_F8B1E8 = (char *)dword_721BAC[2 * (_DWORD)a1];
+  dword_F8B1E8 = dword_721BAC[2 * (_DWORD)a1];
   sub_4B254D(a1);
   GUIWindowDelete(pDialogueWindow);
   pDialogueWindow = GUIWindowCreate(0, 0, 640, 350, 1, (GUIButton*)v2, 0);
@@ -5520,8 +5530,9 @@ int __fastcall sub_4B46F8(int a1)
 }
 
 //----- (004B4710) --------------------------------------------------------
-int __cdecl sub_4B4710()
+void __cdecl sub_4B4710()
 {
+ int result;
   int v0; // eax@1
   int v1; // edx@1
   int v2; // ecx@1
@@ -5535,7 +5546,6 @@ int __cdecl sub_4B4710()
   int v10; // ecx@8
   signed int v11; // esi@8
   double v12; // st7@8
-  int result; // eax@11
   int v14; // edi@16
   signed int v15; // esi@16
   int v16; // esi@18
@@ -5554,7 +5564,7 @@ int __cdecl sub_4B4710()
   int v29; // eax@34
   unsigned __int16 v30; // ST14_2@36
   int v31; // eax@36
-  const char *v32; // ST18_4@38
+  const unsigned char *v32; // ST18_4@38
   unsigned __int16 v33; // ST14_2@38
   int v34; // eax@38
   int v35; // eax@39
@@ -5672,7 +5682,7 @@ int __cdecl sub_4B4710()
               {
                 if ( !*(_WORD *)(v3 + 2 * v18 + 264) )
                 {
-                  v19 = CalculateTextHeght(pFontArrus, (char *)aSkillNames[v18], &local_0C, 0, 0);
+                  v19 = GUIFont_CalculateTextHeight(pFontArrus, aSkillNames[v18], &local_0C, 0, 0);
                   i += v19;
                   ++v77;
                 }
@@ -5683,7 +5693,7 @@ int __cdecl sub_4B4710()
             if ( v77 )
             {
               wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[401], v78);
-              GUIWindow_sub_44D406(&local_0C, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
+              GUIWindow_DrawText(&local_0C, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
               v78 = (signed int)(149 - i) / v77;
               if ( v78 > 32 )
                 v78 = 32;
@@ -5710,7 +5720,7 @@ int __cdecl sub_4B4710()
                     v26 = (char *)aSkillNames[v21];
                     *(_DWORD *)(v22 + 4) = v78 + v73;
                     HIDWORD(v71) = (int)v26;
-                    v27 = CalculateTextHeght(pFontArrus, v26, &local_0C, 0, 0);
+                    v27 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v26, &local_0C, 0, 0);
                     v25 = *(_DWORD *)(v22 + 4);
                     *(_DWORD *)(v22 + 12) = v27;
                     v28 = v25 + v27 - 1;
@@ -5719,7 +5729,7 @@ int __cdecl sub_4B4710()
                     v24 = v76[0];
                     if (pDialogueWindow->dword_00002C != v77 )
                       v24 = v72;
-                    GUIWindow_sub_44D406(&local_0C, pFontArrus, 0, v25, v24, (char *)HIDWORD(v71), 3);
+                    GUIWindow_DrawText(&local_0C, pFontArrus, 0, v25, v24, (char *)HIDWORD(v71), 3);
                   }
                   v29 = *(_DWORD *)(v14 + 56);
                   ++i;
@@ -5739,22 +5749,22 @@ LABEL_82:
               strcat((char *)(char *)TmpBuf, "\n \n");
               strcat((char *)(char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[528]);
               v30 = v76[0];
-              v31 = CalculateTextHeght(pFontArrus, (char *)TmpBuf, &local_0C, 0, 0);
-              result = (int)GUIWindow_sub_44D406(&local_0C, pFontArrus, 0, (174 - v31) / 2 + 138, v30, (char *)TmpBuf, 3);
+              v31 = GUIFont_CalculateTextHeight(pFontArrus, TmpBuf, &local_0C, 0, 0);
+              GUIWindow_DrawText(&local_0C, pFontArrus, 0, (174 - v31) / 2 + 138, v30, (char *)TmpBuf, 3);
             }
           }
         }
-        return result;
+        return;
       }
       if ( !sub_4B1784() )
       {
         v32 = dword_721A3C;
         v33 = v76[0];
-        v34 = CalculateTextHeght(pFontArrus, dword_721A3C, &local_0C, 0, 0);
-        GUIWindow_sub_44D406(&local_0C, pFontArrus, 0, (212 - v34) / 2 + 101, v33, v32, 3);
-        result = (int)pDialogueWindow;
+        v34 = GUIFont_CalculateTextHeight(pFontArrus, dword_721A3C, &local_0C, 0, 0);
+        GUIWindow_DrawText(&local_0C, pFontArrus, 0, (212 - v34) / 2 + 101, v33, (char *)v32, 3);
+        //result = (int)pDialogueWindow;
         pDialogueWindow->dword_000028 = 0;
-        return result;
+        return;// result;
       }
       v35 = *(_WORD *)(v3 + 218);
       if ( v35 < v73 )
@@ -5806,7 +5816,7 @@ LABEL_82:
 LABEL_59:
           sub_4B1E92(ptr_507BC0->dword_00001C, v66);
 LABEL_60:
-          result = 0;// dword_50CBD0[0];
+          //result = dword_50CBD0[0];
          /* if ( dword_50CBD0[0] < 40 )
           {
             dword_50CBD0[3 * dword_50CBD0[0] + 1] = 113;
@@ -5816,14 +5826,14 @@ LABEL_60:
             ++dword_50CBD0[0];
           }	   */
 		  dword_50CBD0.PutMessageToQueue(113,1,0);
-          return result;
+          return;// result;
         }
         wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[538], v7 - *(_DWORD *)(v3 + 160), v35 + 1);
         v37 = 0;
         v65 = 3;
         v63 = (char *)TmpBuf;
         v61 = v76[0];
-        v36 = (212 - CalculateTextHeght(pFontArrus, (char *)TmpBuf, &local_0C, 0, 0)) / 2 + 88;
+        v36 = (212 - GUIFont_CalculateTextHeight(pFontArrus, TmpBuf, &local_0C, 0, 0)) / 2 + 88;
       }
       else
       {
@@ -5832,9 +5842,9 @@ LABEL_60:
         v65 = 3;
         v63 = (char *)TmpBuf;
         v61 = v76[0];
-        v36 = (212 - CalculateTextHeght(pFontArrus, (char *)TmpBuf, &local_0C, 0, 0)) / 2 + 101;
+        v36 = (212 - GUIFont_CalculateTextHeight(pFontArrus, TmpBuf, &local_0C, 0, 0)) / 2 + 101;
       }
-      GUIWindow_sub_44D406(&local_0C, pFontArrus, v37, v36, v61, v63, v65);
+      GUIWindow_DrawText(&local_0C, pFontArrus, v37, v36, v61, v63, v65);
       v66 = 3;
       goto LABEL_59;
     }
@@ -5879,7 +5889,7 @@ LABEL_60:
             }
             wsprintfA((char *)*v47, (const char *)v62, v64, v67);
           }
-          v50 = CalculateTextHeght(pFontArrus, *v47, &local_0C, 0, 0);
+          v50 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v47, &local_0C, 0, 0);
           v45 = (int)pDialogueWindow;
           v77 += v50;
           ++v47;
@@ -5904,7 +5914,7 @@ LABEL_60:
           v57 = (int)GUIWindow_GetChild((GUIWindow *)v45, v78);
           v58 = v57;
           *(_DWORD *)(v57 + 4) = HIDWORD(v71) + v51;
-          v59 = CalculateTextHeght(pFontArrus, *v54, &local_0C, 0, 0);
+          v59 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v54, &local_0C, 0, 0);
           v56 = *(_DWORD *)(v58 + 4);
           *(_DWORD *)(v58 + 12) = v59;
           v60 = v59 + v56 - 1;
@@ -5913,7 +5923,7 @@ LABEL_60:
           v55 = v76[0];
           if (pDialogueWindow->dword_00002C != i)
             v55 = v72;
-          GUIWindow_sub_44D406(&local_0C, pFontArrus, 0, v56, v55, *v54, 3);
+          GUIWindow_DrawText(&local_0C, pFontArrus, 0, v56, v55, *v54, 3);
           v45 = (int)pDialogueWindow;
           ++i;
           ++v54;
@@ -5924,13 +5934,11 @@ LABEL_60:
       }
     }
   }
-  return result;
 }
 
 //----- (004B4F4F) --------------------------------------------------------
-char *__cdecl sub_4B4F4F()
+void __cdecl sub_4B4F4F()
 {
-  const char *v1; // esi@1
   const char *v2; // ST10_4@1
   unsigned __int16 v3; // ST0C_2@1
   int v4; // eax@1
@@ -5941,14 +5949,13 @@ char *__cdecl sub_4B4F4F()
   //int v7; // [sp+18h] [bp-44h]@1
 
   memcpy(&local_08, ptr_507BC0, sizeof(GUIWindow));
-  v1 = (char *)pGlobalTXT_LocalizationStrings[672];
   v2 = (char *)pGlobalTXT_LocalizationStrings[672];
   local_08.uFrameX = 483;
   local_08.uFrameWidth = 148;
   local_08.uFrameZ = 334;
   v3 = 0xFFFFFF9B;
-  v4 = CalculateTextHeght(pFontArrus, v1, &local_08, 0, 0);
-  return GUIWindow_sub_44D406(&local_08, pFontArrus, 0, (310 - v4) / 2 + 18, v3, v2, 3);
+  v4 = GUIFont_CalculateTextHeight(pFontArrus, pGlobalTXT_LocalizationStrings[672], &local_08, 0, 0);
+  GUIWindow_DrawText(&local_08, pFontArrus, 0, (310 - v4) / 2 + 18, v3, v2, 3);
 }
 
 //----- (004B4FCF) --------------------------------------------------------
@@ -6105,7 +6112,7 @@ signed int __cdecl sub_4B4FCF()
       v76 = (const char **)dword_F8B1B8;
       do
       {
-        v78 = CalculateTextHeght(pFontArrus, *v76, &local_7C, 0, 0);
+        v78 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v76, &local_7C, 0, 0);
         ++v76;
         v77 += v78;
       }
@@ -6128,7 +6135,7 @@ signed int __cdecl sub_4B4FCF()
           v85 = (int)GUIWindow_GetChild((GUIWindow *)v79, v121);
           v86 = (const char **)v122;
           *(_DWORD *)(v85 + 4) = v123 + v80;
-          v87 = CalculateTextHeght(pFontArrus, *v86, &local_7C, 0, 0);
+          v87 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v86, &local_7C, 0, 0);
           v84 = *(_DWORD *)(v85 + 4);
           v88 = v125;
           *(_DWORD *)(v85 + 12) = v87;
@@ -6137,7 +6144,7 @@ signed int __cdecl sub_4B4FCF()
           v83 = v118[0];
           if (pDialogueWindow->dword_00002C != v88 )
             v83 = v119[0];
-          GUIWindow_sub_44D406(&local_7C, pFontArrus, 0, v84, v83, *(const char **)v122, 3);
+          GUIWindow_DrawText(&local_7C, pFontArrus, 0, v84, v83, *(const char **)v122, 3);
           v79 = (int)pDialogueWindow;
           ++v125;
           v122 += 4;
@@ -6176,7 +6183,7 @@ signed int __cdecl sub_4B4FCF()
             {
               if ( !*(_WORD *)(v123 + 2 * v36 + 264) )
               {
-                v37 = CalculateTextHeght(pFontArrus, (char *)aSkillNames[v36], &local_7C, 0, 0);
+                v37 = GUIFont_CalculateTextHeight(pFontArrus, aSkillNames[v36], &local_7C, 0, 0);
                 v121 += v37;
                 ++v125;
               }
@@ -6203,7 +6210,7 @@ LABEL_140:
             goto LABEL_61;
           }
           wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[401], v122);
-          GUIWindow_sub_44D406(&local_7C, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
+          GUIWindow_DrawText(&local_7C, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
           v122 = (149 - v121) / v125;
           if ( (149 - v121) / v125 > 32 )
             v122 = 32;
@@ -6230,7 +6237,7 @@ LABEL_140:
                 v44 = (char *)aSkillNames[v39];
                 *(_DWORD *)(v40 + 4) = v122 + v117;
                 Str = v44;
-                v45 = CalculateTextHeght(pFontArrus, v44, &local_7C, 0, 0);
+                v45 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v44, &local_7C, 0, 0);
                 v43 = *(_DWORD *)(v40 + 4);
                 v46 = v125;
                 *(_DWORD *)(v40 + 12) = v45;
@@ -6240,7 +6247,7 @@ LABEL_140:
                 v42 = v118[0];
                 if (pDialogueWindow->dword_00002C != v46 )
                   v42 = v119[0];
-                GUIWindow_sub_44D406(&local_7C, pFontArrus, 0, v43, v42, Str, 3);
+                GUIWindow_DrawText(&local_7C, pFontArrus, 0, v43, v42, Str, 3);
               }
               v48 = *(_DWORD *)(v31 + 56);
               ++v121;
@@ -6295,7 +6302,7 @@ LABEL_140:
         v15 = (const char **)dword_F8B1B8;
         do
         {
-          v16 = CalculateTextHeght(pFontArrus, *v15, &local_7C, 0, 0);
+          v16 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v15, &local_7C, 0, 0);
           ++v15;
           v14 += v16;
         }
@@ -6318,7 +6325,7 @@ LABEL_140:
             v23 = (int)GUIWindow_GetChild((GUIWindow *)v17, v125);
             v24 = (const char **)v123;
             *(_DWORD *)(v23 + 4) = v117 + v18;
-            v25 = CalculateTextHeght(pFontArrus, *v24, &local_7C, 0, 0);
+            v25 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v24, &local_7C, 0, 0);
             v22 = *(_DWORD *)(v23 + 4);
             v26 = v122;
             *(_DWORD *)(v23 + 12) = v25;
@@ -6327,7 +6334,7 @@ LABEL_140:
             v21 = v118[0];
             if (pDialogueWindow->dword_00002C != v26 )
               v21 = v119[0];
-            GUIWindow_sub_44D406(&local_7C, pFontArrus, 0, v22, v21, *(const char **)v123, 3);
+            GUIWindow_DrawText(&local_7C, pFontArrus, 0, v22, v21, *(const char **)v123, 3);
             v17 = (int)pDialogueWindow;
             ++v122;
             v123 += 4;
@@ -6369,12 +6376,13 @@ LABEL_140:
                   v4 = v123 + 36 * result + 496;
                   if ( *(_BYTE *)(v4 + 20) & 1 )
                   {
-                    v6 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue("%24", uActiveCharacter, v4, ptr_507BC0->dword_00001C, 4, 0);
+                    v6 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((unsigned char *)"%24", uActiveCharacter, v4, ptr_507BC0->dword_00001C, 4, 0);
                     v98 = 3;
                     v96 = v6;
                     v93 = v119[0];
-                    v5 = (212 - CalculateTextHeght(pFontArrus, v6, &local_7C, 0, 0)) / 2 + 101;
-                    return (signed int)GUIWindow_sub_44D406(&local_7C, pFontArrus, v3, v5, v93, v96, v98);
+                    v5 = (212 - GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v6, &local_7C, 0, 0)) / 2 + 101;
+                    GUIWindow_DrawText(&local_7C, pFontArrus, v3, v5, v93, v96, v98);
+                    return;
                   }
                   v94 = ptr_507BC0->dword_00001C;
                   v91 = v4;
@@ -6413,7 +6421,7 @@ LABEL_140:
       v7 = v124;
       v8 = dword_73C3A4[v13];
 LABEL_35:
-      v30 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)v8, v7, v91, v94, v95, v97);
+      v30 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((unsigned char *)v8, v7, v91, v94, v95, v97);
       v98 = 3;
       v96 = v30;
       v93 = v119[0];
@@ -6421,8 +6429,9 @@ LABEL_35:
       v90 = v3;
       v89 = (int)&local_7C;
 LABEL_61:
-      v5 = (174 - CalculateTextHeght(pFontArrus, v30, (GUIWindow *)v89, v90, v92)) / 2 + 138;
-      return (signed int)GUIWindow_sub_44D406(&local_7C, pFontArrus, v3, v5, v93, v96, v98);
+      v5 = (174 - GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v30, (GUIWindow *)v89, v90, v92)) / 2 + 138;
+      GUIWindow_DrawText(&local_7C, pFontArrus, v3, v5, v93, v96, v98);
+      return;
     }
   }
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)dword_F8B164[0]);
@@ -6836,7 +6845,7 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
         v17 = ptr_507BC0->dword_00001C;
         v59 = uActiveCharacter;
         v18 = Player_sub_490EEE((Player *)v1, 36 * (v12 + 12 * v15) + 11341664, 3, v17, 2);
-        v14 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(*(char **)&dword_73C388[4 * v18], v59, v16, v15, 2, 0);
+        v14 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(&dword_73C388[v18 * 4], v59, v16, v15, 2, 0);
         v44 = 3;
         v43 = v14;
         v42 = v56[0];
@@ -6844,18 +6853,19 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
         v40 = 0;
         v39 = (int)&local_274;
 LABEL_32:
-        v19 = CalculateTextHeght(pFontArrus, v14, (GUIWindow *)v39, v40, v41);
-        return (signed int)GUIWindow_sub_44D406(&local_274, pFontArrus, v5, (174 - v19) / 2 + 138, v42, v43, v44);
+        v19 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v14, (GUIWindow *)v39, v40, v41);
+        GUIWindow_DrawText(&local_274, pFontArrus, v5, (174 - v19) / 2 + 138, v42, v43, v44);
+        return;
       }
     }
     return result;
   }
   if ( !(unsigned __int16)sub_449B57((unsigned char *)((char *)v1 + 338), word_4F0704[2 * ptr_507BC0->dword_00001C]) )
   {
-    v36 = dword_721A34;
+    v36 = (char *)dword_721A34;
     v37 = v57[0];
-    v38 = CalculateTextHeght(pFontArrus, dword_721A34, &local_274, 0, 0);
-    GUIWindow_sub_44D406(&local_274, pFontArrus, 0, (212 - v38) / 2 + 101, v37, v36, 3);
+    v38 = GUIFont_CalculateTextHeight(pFontArrus, dword_721A34, &local_274, 0, 0);
+    GUIWindow_DrawText(&local_274, pFontArrus, 0, (212 - v38) / 2 + 101, v37, v36, 3);
     result = (int)pDialogueWindow;
     pDialogueWindow->dword_000028 = 0;
     return result;
@@ -6877,7 +6887,7 @@ LABEL_32:
     v23 = *(_DWORD *)(GUIWindow_GetChild((GUIWindow *)v20, v21) + 36);
     if ( v23 == 18 )
     {
-      v25 = CalculateTextHeght(pFontArrus, (char *)pGlobalTXT_LocalizationStrings[400], &local_274, 0, 0);
+      v25 = GUIFont_CalculateTextHeight(pFontArrus, pGlobalTXT_LocalizationStrings[400], &local_274, 0, 0);
       v62 += v25;
       ++v61;
     }
@@ -6887,7 +6897,7 @@ LABEL_32:
       {
         if ( !*(_WORD *)(v58 + 2 * v23 + 192) )
         {
-          v24 = CalculateTextHeght(pFontArrus, (char *)aClassNames[20 + v23], &local_274, 0, 0);
+          v24 = GUIFont_CalculateTextHeight(pFontArrus, aClassNames[20 + v23], &local_274, 0, 0);
           v62 += v24;
           ++v61;
           ++Str;
@@ -6916,7 +6926,7 @@ LABEL_64:
   if ( Str )
   {
     wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[401], v63);
-    GUIWindow_sub_44D406(&local_274, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
+    GUIWindow_DrawText(&local_274, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
   }
   v63 = (149 - v62) / v61;
   if ( v63 > 32 )
@@ -6942,7 +6952,7 @@ LABEL_64:
 LABEL_55:
         Str = v30;
         *(_DWORD *)(v28 + 4) = v63 + v55;
-        v33 = CalculateTextHeght(pFontArrus, v30, &local_274, 0, 0);
+        v33 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v30, &local_274, 0, 0);
         v32 = *(_DWORD *)(v28 + 4);
         *(_DWORD *)(v28 + 12) = v33;
         v34 = v32 + v33 - 1;
@@ -6951,7 +6961,7 @@ LABEL_55:
         v31 = v57[0];
         if (pDialogueWindow->dword_00002C != v61 )
           v31 = v56[0];
-        GUIWindow_sub_44D406(&local_274, pFontArrus, 0, v32, v31, Str, 3);
+        GUIWindow_DrawText(&local_274, pFontArrus, 0, v32, v31, Str, 3);
         goto LABEL_58;
       }
       *(_DWORD *)(v28 + 20) = 0;
@@ -6972,7 +6982,7 @@ LABEL_58:
 }
 
 //----- (004B6478) --------------------------------------------------------
-signed int __cdecl sub_4B6478()
+void __cdecl sub_4B6478()
 {
   int v0; // ebx@1
   int v1; // edi@1
@@ -7074,21 +7084,21 @@ signed int __cdecl sub_4B6478()
       ++dword_50CBD0[0];
     }  */
 	dword_50CBD0.PutMessageToQueue(113,1,0);
-    return result;
+    return;// result;
   }
   if ( !(unsigned __int16)sub_449B57((unsigned char *)v1 + 338, word_4F0754[2 * (int)ptr_507BC0->dword_00001C]) )
   {
-    v24 = dword_721BC4;
+    v24 = (char *)dword_721BC4;
     v25 = v33[0];
-    v26 = CalculateTextHeght(pFontArrus, dword_721BC4, &local_0C, 0, 0);
-    GUIWindow_sub_44D406(&local_0C, pFontArrus, 0, (212 - v26) / 2 + 101, v25, v24, 3);
+    v26 = GUIFont_CalculateTextHeight(pFontArrus, dword_721BC4, &local_0C, 0, 0);
+    GUIWindow_DrawText(&local_0C, pFontArrus, 0, (212 - v26) / 2 + 101, v25, v24, 3);
     result = (int)pDialogueWindow;
     pDialogueWindow->dword_000028 = 0;
-    return result;
+    return;// result;
   }
   result = sub_4B1784();
   if ( !result )
-    return result;
+    return;// result;
   v8 = (int)pDialogueWindow;
   v35 = 0;
   v36 = 0;
@@ -7105,7 +7115,7 @@ signed int __cdecl sub_4B6478()
     {
       if ( !*(_WORD *)(v1 + 2 * v11 + 264) )
       {
-        v12 = CalculateTextHeght(pFontArrus, (char *)aSkillNames[v11], &local_0C, 0, 0);
+        v12 = GUIFont_CalculateTextHeight(pFontArrus, aSkillNames[v11], &local_0C, 0, 0);
         v35 += v12;
         ++v36;
       }
@@ -7122,11 +7132,12 @@ LABEL_40:
     strcat((char *)TmpBuf, "\n \n");
     strcat((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[528]);
     v22 = v33[0];
-    v23 = CalculateTextHeght(pFontArrus, (char *)TmpBuf, &local_0C, 0, 0);
-    return (signed int)GUIWindow_sub_44D406(&local_0C, pFontArrus, 0, (174 - v23) / 2 + 138, v22, (char *)TmpBuf, 3);
+    v23 = GUIFont_CalculateTextHeight(pFontArrus, TmpBuf, &local_0C, 0, 0);
+    GUIWindow_DrawText(&local_0C, pFontArrus, 0, (174 - v23) / 2 + 138, v22, (char *)TmpBuf, 3);
+        return;
   }
   wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[401], v34);
-  GUIWindow_sub_44D406(&local_0C, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
+  GUIWindow_DrawText(&local_0C, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
   v34 = (149 - v35) / v36;
   if ( (149 - v35) / v36 > 32 )
     v34 = 32;
@@ -7147,7 +7158,7 @@ LABEL_40:
         {
           v19 = (char *)aSkillNames[v14];
           *(_DWORD *)(v15 + 4) = v34 + v36;
-          v20 = CalculateTextHeght(pFontArrus, v19, &local_0C, 0, 0);
+          v20 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v19, &local_0C, 0, 0);
           v18 = *(_DWORD *)(v15 + 4);
           *(_DWORD *)(v15 + 12) = v20;
           v21 = v18 + v20 - 1;
@@ -7156,7 +7167,7 @@ LABEL_40:
           v17 = v33[0];
           if (pDialogueWindow->dword_00002C != v35 )
             v17 = v32;
-          GUIWindow_sub_44D406(&local_0C, pFontArrus, 0, v18, v17, v19, 3);
+          GUIWindow_DrawText(&local_0C, pFontArrus, 0, v18, v17, v19, 3);
           goto LABEL_34;
         }
       }
@@ -7175,7 +7186,6 @@ LABEL_34:
     }
     while ( v37 < result );
   }
-  return result;
 }
 
 //----- (004B68EA) --------------------------------------------------------
@@ -7233,7 +7243,7 @@ LABEL_6:
 }
 
 //----- (004B705E) --------------------------------------------------------
-int __cdecl sub_4B705E()
+void sub_4B705E()
 {
   int v0; // edi@1
   int v1; // esi@1
@@ -7352,7 +7362,7 @@ int __cdecl sub_4B705E()
               {
                 if ( !*(_WORD *)(v1 + 2 * v9 + 264) )
                 {
-                  v10 = CalculateTextHeght(pFontArrus, (char *)aSkillNames[v9], &local_13C, 0, 0);
+                  v10 = GUIFont_CalculateTextHeight(pFontArrus, aSkillNames[v9], &local_13C, 0, 0);
                   v68 += v10;
                   ++v67;
                 }
@@ -7364,7 +7374,7 @@ int __cdecl sub_4B705E()
             if ( v67 )
             {
               wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[401], v66);
-              GUIWindow_sub_44D406(&local_13C, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
+              GUIWindow_DrawText(&local_13C, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
               v66 = (149 - (_DWORD)v68) / v67;
               if ( v66 > 32 )
                 v66 = 32;
@@ -7392,7 +7402,7 @@ int __cdecl sub_4B705E()
                     v19 = (char *)aSkillNames[v14];
                     *(_DWORD *)(v15 + 4) = v66 + v67;
                     HIDWORD(v62) = (int)v19;
-                    v20 = CalculateTextHeght(pFontArrus, v19, &local_13C, 0, 0);
+                    v20 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v19, &local_13C, 0, 0);
                     v18 = *(_DWORD *)(v15 + 4);
                     *(_DWORD *)(v15 + 12) = v20;
                     v21 = v18 + v20 - 1;
@@ -7401,7 +7411,7 @@ int __cdecl sub_4B705E()
                     v17 = WORD2(v61);
                     if (pDialogueWindow->dword_00002C != (int)v68 )
                       v17 = WORD2(v60);
-                    GUIWindow_sub_44D406(&local_13C, pFontArrus, 0, v18, v17, (char *)HIDWORD(v62), 3);
+                    GUIWindow_DrawText(&local_13C, pFontArrus, 0, v18, v17, (char *)HIDWORD(v62), 3);
                   }
                   result = v63;
                   ++v64;
@@ -7422,12 +7432,12 @@ LABEL_78:
               strcat((char *)TmpBuf, "\n \n");
               strcat((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[528]);
               v22 = WORD2(v61);
-              v23 = CalculateTextHeght(pFontArrus, (char *)TmpBuf, &local_13C, 0, 0);
-              result = (int)GUIWindow_sub_44D406(&local_13C, pFontArrus, 0, (174 - v23) / 2 + 138, v22, (char *)TmpBuf, 3);
+              v23 = GUIFont_CalculateTextHeight(pFontArrus, TmpBuf, &local_13C, 0, 0);
+              GUIWindow_DrawText(&local_13C, pFontArrus, 0, (174 - v23) / 2 + 138, v22, (char *)TmpBuf, 3);
             }
           }
         }
-        return result;
+        return;
       }
       v25 = *((float *)&unk_591458 + 13 * ptr_507BC0->dword_00001C);
       v24 = 0;
@@ -7497,7 +7507,7 @@ LABEL_78:
     }
     result = Player_sub_4B6FF9((Player *)v1);
     if ( !result )
-      return result;
+      return;// result;
     v24 = 0;
     if ( pParty_global->uNumGold < (unsigned int)v0 )
     {
@@ -7565,7 +7575,7 @@ LABEL_46:
       ++dword_50CBD0[0];
     } */
 	dword_50CBD0.PutMessageToQueue(113,1,0);
-    return result;
+    return;// result;
   }
   v65 = 1;
   v41 = (int)GUIWindow_GetChild(pDialogueWindow, pDialogueWindow->dword_000038);
@@ -7588,7 +7598,7 @@ LABEL_46:
     v63 = (int)&Dest[100 * v65];
     do
     {
-      v45 = CalculateTextHeght(pFontArrus, (const char *)v63, &local_13C, 0, 0);
+      v45 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v63, &local_13C, 0, 0);
       v68 += v45;
       v42 = (int)pDialogueWindow;
       v63 += 100;
@@ -7613,7 +7623,7 @@ LABEL_46:
       v51 = v68;
       v52 = v50;
       *(_DWORD *)(v50 + 4) = v66 + v47;
-      v53 = CalculateTextHeght(pFontArrus, v51, &local_13C, 0, 0);
+      v53 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v51, &local_13C, 0, 0);
       v49 = *(_DWORD *)(v52 + 4);
       *(_DWORD *)(v52 + 12) = v53;
       v47 = v49 + v53 - 1;
@@ -7621,7 +7631,7 @@ LABEL_46:
       v48 = WORD2(v61);
       if (pDialogueWindow->dword_00002C != v63 )
         v48 = WORD2(v60);
-      GUIWindow_sub_44D406(&local_13C, pFontArrus, 0, v49, v48, v68, 3);
+      GUIWindow_DrawText(&local_13C, pFontArrus, 0, v49, v48, v68, 3);
       v42 = (int)pDialogueWindow;
       v68 += 100;
       ++v63;
@@ -7630,7 +7640,6 @@ LABEL_46:
     }
     while ( v67 < result );
   }
-  return result;
 }
 
 //----- (004B7911) --------------------------------------------------------
@@ -7663,14 +7672,15 @@ void __cdecl sub_4B7911()
   int v24; // esi@30
   int v25; // eax@30
 
-  struct GUIWindow local_0C;
+  GUIWindow local_0C;
   //char v27; // [sp+Ch] [bp-110h]@21
 
-  char v28; // [sp+60h] [bp-BCh]@21
-  int v29; // [sp+68h] [bp-B4h]@21
-  int v30; // [sp+70h] [bp-ACh]@21
+  GUIWindow local_60;
+  //char v28; // [sp+60h] [bp-BCh]@21
+  //int v29; // [sp+68h] [bp-B4h]@21
+  //int v30; // [sp+70h] [bp-ACh]@21
 
-  struct GUIWindow local_B4;
+  GUIWindow local_B4;
   //int v31; // [sp+B4h] [bp-68h]@1
   //int v32; // [sp+BCh] [bp-60h]@1
   //int v33; // [sp+C4h] [bp-58h]@1
@@ -7689,7 +7699,7 @@ void __cdecl sub_4B7911()
   *(_DWORD *)v34 = 0xFFFFFFFF;
   *(_DWORD *)v36 = 0xFFFFFF9B;
   wsprintfA((char *)TmpBuf, "%s: %d", pGlobalTXT_LocalizationStrings[162], dword_AE31E0);
-  GUIWindow_sub_44D406(&local_B4, pFontArrus, 0, 260, v36[0], (char *)TmpBuf, 3);
+  GUIWindow_DrawText(&local_B4, pFontArrus, 0, 260, v36[0], (char *)TmpBuf, 3);
   if ( dword_F8B19C == 1 )
   {
     v12 = 1;
@@ -7702,7 +7712,7 @@ void __cdecl sub_4B7911()
     }
     for ( i = 0; i < v12; ++i )
     {
-      v14 = CalculateTextHeght(pFontArrus, (const char *)dword_F8B1B8[i], &local_B4, 0, 0);
+      v14 = GUIFont_CalculateTextHeight(pFontArrus, dword_F8B1B8[i], &local_B4, 0, 0);
       v38 += v14;
     }
     v35 = (100 - v38) / v12;
@@ -7725,7 +7735,7 @@ void __cdecl sub_4B7911()
         v23 = (int)GUIWindow_GetChild((GUIWindow *)v15, v38);
         v24 = v23;
         *(_DWORD *)(v23 + 4) = v35 + v16;
-        v25 = CalculateTextHeght(pFontArrus, *v20, &local_B4, 0, 0);
+        v25 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v20, &local_B4, 0, 0);
         v22 = *(_DWORD *)(v24 + 4);
         *(_DWORD *)(v24 + 12) = v25;
         v16 = v22 + v25 - 1;
@@ -7733,7 +7743,7 @@ void __cdecl sub_4B7911()
         v21 = v36[0];
         if (pDialogueWindow->dword_00002C != v37 )
           v21 = v34[0];
-        GUIWindow_sub_44D406(&local_B4, pFontArrus, 0, v22, v21, *v20, 3);
+        GUIWindow_DrawText(&local_B4, pFontArrus, 0, v22, v21, *v20, 3);
         v15 = (int)pDialogueWindow;
         ++v37;
         ++v20;
@@ -7754,10 +7764,10 @@ void __cdecl sub_4B7911()
       if (ptr_507BC0->dword_000040 == 1)
       {
         wsprintfA((char *)TmpBuf, "%s\n%s", pGlobalTXT_LocalizationStrings[163], pGlobalTXT_LocalizationStrings[112]);
-        GUIWindow_sub_44D406(&local_B4, pFontArrus, 0, 146, v36[0], (char *)TmpBuf, 3);
-        GUIWindow_sub_44D406(&local_B4, pFontArrus, 0, 186, v34[0], (char *)pKeyboardController->pPressedKeysBuffer, 3);
+        GUIWindow_DrawText(&local_B4, pFontArrus, 0, 146, v36[0], (char *)TmpBuf, 3);
+        GUIWindow_DrawText(&local_B4, pFontArrus, 0, 186, v34[0], (char *)pKeyboardController->pPressedKeysBuffer, 3);
         v4 = (int)pFontArrus;
-        v5 = GetStringWidth(pFontArrus, (char *)pKeyboardController->pPressedKeysBuffer);
+        v5 = GUIFont_GetLineWidth(pFontArrus, pKeyboardController->pPressedKeysBuffer);
         GUIWindow_sub_459C2B(&local_B4, v5 / 2 + 80, 185, v4);
         return;
       }
@@ -7808,19 +7818,19 @@ LABEL_8:
     v8 = 0xFFFFFFFF;
     v9 = *v7;
     v10 = 0xFFFFFF9B;
-    wsprintfA((char *)TmpBuf, (const char *)&unk_4F0F98, v10, v9, v8);
-    wsprintfA((char *)pStringBuffer, (const char *)dword_F8B1A4, (char *)TmpBuf, 100 * *((_BYTE *)v7 + 8));
-    dword_F8B1E8 = (char *)pStringBuffer;
+    wsprintfA((char *)TmpBuf, "\x0C%05d%s\x0C%05d", v10, v9, v8);
+    wsprintfA((char *)pStringBuffer, (const char *)dword_F8B1A4, TmpBuf, 100 * *((_BYTE *)v7 + 8));
+    dword_F8B1E8 = pStringBuffer;
 
     memcpy(&local_0C, pDialogueWindow, sizeof(struct GUIWindow));
-    v29 = 458;
-    v30 = 457;
+    local_60.uFrameWidth = 458;
+    local_60.uFrameZ = 457;
     v38 = (int)pFontArrus;
-    v6 = CalculateTextHeght(pFontArrus, (char *)pStringBuffer, (GUIWindow *)&v28, 13, 0) + 7;
+    v6 = GUIFont_CalculateTextHeight(pFontArrus, pStringBuffer, &local_60, 13, 0) + 7;
     if ( 352 - v6 < 8 )
     {
       v38 = (int)pFontCreate;
-      v6 = CalculateTextHeght(pFontCreate, dword_F8B1E8, (GUIWindow *)&v28, 13, 0) + 7;
+      v6 = GUIFont_CalculateTextHeight(pFontCreate, dword_F8B1E8, &local_60, 13, 0) + 7;
     }
     Render_sub_4A6A68(
       pD3DRenderer,
@@ -7829,7 +7839,9 @@ LABEL_8:
       uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 : 0,
       *(_WORD *)(uTextureIdx_Leather != -1 ? 72 * uTextureIdx_Leather + 7145548 + 0x1A : 26) - v6);
     Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v6, pcTexture_EndcapTexture);
-    v11 = (char *)FitTextInAWindow(dword_F8B1E8, (Font *)v38, (GUIWindow *)&v28, 13, 0);
+
+    unsigned char pOutString[2048];
+    v11 = (char *)FitTextInAWindow(dword_F8B1E8, pOutString, (Font *)v38, &local_60, 13, 0);
     FontDrawText(&local_0C, (Font *)v38, 13, 354 - v6, v11, 0, 0, 0);
   }
 }
@@ -7865,7 +7877,7 @@ void __cdecl sub_4B7D7E()
   *(_DWORD *)v16 = 0xFFFFFFFF;
   *(_DWORD *)v17 = 0xFFFFFF9B;
   wsprintfA((char *)TmpBuf, "%s: %d", pGlobalTXT_LocalizationStrings[25], pParty_global->uNumGoldInBank);
-  GUIWindow_sub_44D406(&local_0C, pFontArrus, 0, 220, v17[0], (char *)TmpBuf, 3);
+  GUIWindow_DrawText(&local_0C, pFontArrus, 0, 220, v17[0], (char *)TmpBuf, 3);
   if ( dword_F8B19C != 1 )
   {
     if ( dword_F8B19C == 7 )
@@ -7953,21 +7965,21 @@ LABEL_15:
       v11 = (char *)pGlobalTXT_LocalizationStrings[224];
     }
     wsprintfA((char *)TmpBuf, "%s\n%s", v11, v12);
-    GUIWindow_sub_44D406(&local_0C, pFontArrus, 0, 146, v17[0], (char *)TmpBuf, 3);
-    GUIWindow_sub_44D406(&local_0C, pFontArrus, 0, 186, v16[0], (char *)pKeyboardController->pPressedKeysBuffer, 3);
+    GUIWindow_DrawText(&local_0C, pFontArrus, 0, 146, v17[0], (char *)TmpBuf, 3);
+    GUIWindow_DrawText(&local_0C, pFontArrus, 0, 186, v16[0], (char *)pKeyboardController->pPressedKeysBuffer, 3);
     v4 = (int)pFontArrus;
-    v5 = GetStringWidth(pFontArrus, (char *)pKeyboardController->pPressedKeysBuffer);
+    v5 = GUIFont_GetLineWidth(pFontArrus, pKeyboardController->pPressedKeysBuffer);
     GUIWindow_sub_459C2B(&local_0C, v5 / 2 + 80, 185, v4);
     return;
   }
   v8 = v17[0];
   if (pDialogueWindow->dword_00002C != 2 )
     v8 = v16[0];
-  GUIWindow_sub_44D406(&local_0C, pFontArrus, 0, 146, v8, (char *)pGlobalTXT_LocalizationStrings[60], 3);
+  GUIWindow_DrawText(&local_0C, pFontArrus, 0, 146, v8, (char *)pGlobalTXT_LocalizationStrings[60], 3);
   v9 = v17[0];
   if (pDialogueWindow->dword_00002C != 3 )
     v9 = v16[0];
-  GUIWindow_sub_44D406(&local_0C, pFontArrus, 0, 176, v9, (char *)pGlobalTXT_LocalizationStrings[224], 3);
+  GUIWindow_DrawText(&local_0C, pFontArrus, 0, 176, v9, (char *)pGlobalTXT_LocalizationStrings[224], 3);
   return;
 }
 
@@ -8218,9 +8230,11 @@ void __cdecl sub_4B8285()
   char v76; // [sp+70h] [bp-204h]@59
   char v77; // [sp+D4h] [bp-1A0h]@57
   char v78; // [sp+138h] [bp-13Ch]@59
-  char v79; // [sp+19Ch] [bp-D8h]@99
-  int v80; // [sp+1A4h] [bp-D0h]@99
-  int v81; // [sp+1ACh] [bp-C8h]@99
+
+  GUIWindow local_19C;
+  //char v79; // [sp+19Ch] [bp-D8h]@99
+  //int v80; // [sp+1A4h] [bp-D0h]@99
+  //int v81; // [sp+1ACh] [bp-C8h]@99
 
   GUIWindow local_1F0;
   //int v82; // [sp+1F0h] [bp-84h]@1
@@ -8287,7 +8301,7 @@ void __cdecl sub_4B8285()
         }
         for ( i = 0; i < v48; ++i )
         {
-          v50 = CalculateTextHeght(pFontArrus, (const char *)dword_F8B1B8[i], &local_1F0, 0, 0);
+          v50 = GUIFont_CalculateTextHeight(pFontArrus, dword_F8B1B8[i], &local_1F0, 0, 0);
           v96 += v50;
         }
         v91 = (174 - v96) / v48;
@@ -8310,7 +8324,7 @@ void __cdecl sub_4B8285()
             v58 = (int)GUIWindow_GetChild((GUIWindow *)v51, v94);
             v59 = (const char **)v96;
             *(_DWORD *)(v58 + 4) = v91 + v52;
-            v60 = CalculateTextHeght(pFontArrus, *v59, &local_1F0, 0, 0);
+            v60 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v59, &local_1F0, 0, 0);
             v57 = *(_DWORD *)(v58 + 4);
             v61 = v90;
             *(_DWORD *)(v58 + 12) = v60;
@@ -8319,7 +8333,7 @@ void __cdecl sub_4B8285()
             v56 = v89[0];
             if (pDialogueWindow->dword_00002C != v61 )
               v56 = v86;
-            GUIWindow_sub_44D406(&local_1F0, pFontArrus, 0, v57, v56, *(const char **)v96, 3);
+            GUIWindow_DrawText(&local_1F0, pFontArrus, 0, v57, v56, *(const char **)v96, 3);
             v51 = (int)pDialogueWindow;
             ++v90;
             v96 += 4;
@@ -8383,7 +8397,7 @@ LABEL_51:
                 {
                   if ( !*(_WORD *)(v90 + 2 * v12 + 264) )
                   {
-                    v13 = CalculateTextHeght(pFontArrus, (char *)aSkillNames[v12], &local_1F0, 0, 0);
+                    v13 = GUIFont_CalculateTextHeight(pFontArrus, aSkillNames[v12], &local_1F0, 0, 0);
                     v94 += v13;
                     ++v91;
                   }
@@ -8394,7 +8408,7 @@ LABEL_51:
               if ( v91 )
               {
                 wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[401], v96);
-                GUIWindow_sub_44D406(&local_1F0, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
+                GUIWindow_DrawText(&local_1F0, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
                 v96 = (149 - v94) / v91;
                 if ( (149 - v94) / v91 > 32 )
                   v96 = 32;
@@ -8420,7 +8434,7 @@ LABEL_51:
                       v20 = (char *)aSkillNames[v15];
                       *(_DWORD *)(v16 + 4) = v96 + v88;
                       Str[1] = v20;
-                      v21 = CalculateTextHeght(pFontArrus, v20, &local_1F0, 0, 0);
+                      v21 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v20, &local_1F0, 0, 0);
                       v19 = *(_DWORD *)(v16 + 4);
                       v22 = v91;
                       *(_DWORD *)(v16 + 12) = v21;
@@ -8430,7 +8444,7 @@ LABEL_51:
                       v18 = v89[0];
                       if (pDialogueWindow->dword_00002C != v22 )
                         v18 = v86;
-                      GUIWindow_sub_44D406(&local_1F0, pFontArrus, 0, v19, v18, Str[1], 3);
+                      GUIWindow_DrawText(&local_1F0, pFontArrus, 0, v19, v18, Str[1], 3);
                     }
                     v24 = *(_DWORD *)(v8 + 40);
                     ++v94;
@@ -8490,7 +8504,7 @@ LABEL_43:
     wsprintfA(Dest, "\f%06x", v28);
     wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[178], v96);
     strcat(Dest, (char *)pStringBuffer);
-    v95 = CalculateTextHeght(pFontArrus, Dest, &local_1F0, 0, 0);
+    v95 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)Dest, &local_1F0, 0, 0);
     strcat(Dest, "\n \n");
     v29 = *(_DWORD *)v89;
     if (pDialogueWindow->dword_00002C != 3 )
@@ -8501,14 +8515,14 @@ LABEL_43:
       (signed __int64)*((float *)&unk_591458 + 13 * ptr_507BC0->dword_00001C),
       v88);
     strcat(&v77, (char *)pStringBuffer);
-    v93 = CalculateTextHeght(pFontArrus, &v77, &local_1F0, 0, 0);
+    v93 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)&v77, &local_1F0, 0, 0);
     strcat(&v77, "\n \n");
     v30 = *(_DWORD *)v89;
     if (pDialogueWindow->dword_00002C != 4 )
       v30 = v86;
     wsprintfA(&v78, "\f%06x", v30);
     strcat(&v78, (char *)pGlobalTXT_LocalizationStrings[160]);
-    v87 = CalculateTextHeght(pFontArrus, &v78, &local_1F0, 0, 0);
+    v87 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)&v78, &local_1F0, 0, 0);
     strcat(&v78, "\n \n");
     v76 = 0;
     v92 = 0;
@@ -8522,7 +8536,7 @@ LABEL_43:
           v32 = v86;
         wsprintfA(&v76, "\f%06x", v32);
         strcat(&v76, (char *)pGlobalTXT_LocalizationStrings[611]);
-        v92 = CalculateTextHeght(pFontArrus, &v76, &local_1F0, 0, 0);
+        v92 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)&v76, &local_1F0, 0, 0);
       }
     }
     v33 = (int)pDialogueWindow;
@@ -8543,7 +8557,7 @@ LABEL_75:
       v68 = 0;
       v67 = 146;
 LABEL_98:
-      GUIWindow_sub_44D406(&local_1F0, pFontArrus, 0, v67, v68, v70, v72);
+      GUIWindow_DrawText(&local_1F0, pFontArrus, 0, v67, v68, v70, v72);
       return;
     }
     while ( 1 )
@@ -8596,13 +8610,13 @@ LABEL_73:
     v66 = (int)pFontArrus;
     v96 = (int)pFontArrus;
     strcpy((char *)(char *)TmpBuf, dword_72217C);
-    v80 = 460;
-    v81 = 452;
-    v64 = CalculateTextHeght((Font *)v66, (char *)TmpBuf, (GUIWindow *)&v79, 12, 0) + 7;
+    local_19C.uFrameWidth = 460;
+    local_19C.uFrameZ = 452;
+    v64 = GUIFont_CalculateTextHeight((Font *)v66, TmpBuf, &local_19C, 12, 0) + 7;
     if ( 352 - v64 < 8 )
     {
       v96 = (int)pFontCreate;
-      v64 = CalculateTextHeght(pFontCreate, (char *)TmpBuf, (GUIWindow *)&v79, 12, 0) + 7;
+      v64 = GUIFont_CalculateTextHeight(pFontCreate, TmpBuf, &local_19C, 12, 0) + 7;
     }
     Render_sub_4A6A68(
       pD3DRenderer,
@@ -8614,16 +8628,18 @@ LABEL_73:
     v74 = 0;
     v71 = 0;
     v69 = 0;
-    v62 = (char *)FitTextInAWindow((char *)TmpBuf, (Font *)v96, (GUIWindow *)&v79, 12, 0);
+
+    unsigned char pOutString[2048];
+    v62 = (char *)FitTextInAWindow(TmpBuf, pOutString, (Font *)v96, &local_19C, 12, 0);
     v63 = v96;
     goto LABEL_103;
   }
   if ( dword_F8B19C == 103 )
   {
     compile_error;//strcpy((char *)(char *)TmpBuf, *(const char **)&dword_721E24[8 * *(_DWORD *)(dword_507BC0 + 28)]);
-    v80 = 460;
-    v81 = 452;
-    v65 = CalculateTextHeght(pFontArrus, (char *)TmpBuf, (GUIWindow *)&v79, 12, 0);
+    local_19C.uFrameWidth = 460;
+    local_19C.uFrameZ = 452;
+    v65 = GUIFont_CalculateTextHeight(pFontArrus, TmpBuf, &local_19C, 12, 0);
     v64 = v65 + 7;
     Render_sub_4A6A68(
       pD3DRenderer,
@@ -8635,7 +8651,9 @@ LABEL_73:
     v74 = 0;
     v71 = 0;
     v69 = 0;
-    v62 = (char *)FitTextInAWindow((char *)TmpBuf, pFontArrus, (GUIWindow *)&v79, 12, 0);
+
+    unsigned char pOutString[2048];
+    v62 = (char *)FitTextInAWindow(TmpBuf, pOutString, pFontArrus, &local_19C, 12, 0);
     v63 = (int)pFontArrus;
 LABEL_103:
     FontDrawText(ptr_507BC0, (Font *)v63, 12, 354 - v64, v62, v69, v71, (unsigned int)v74);
@@ -8660,7 +8678,7 @@ LABEL_97:
     v72 = 3;
     v70 = v26;
     v68 = v89[0];
-    v67 = (174 - CalculateTextHeght(pFontArrus, v26, &local_1F0, 0, 0)) / 2 + 138;
+    v67 = (174 - GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v26, &local_1F0, 0, 0)) / 2 + 138;
     goto LABEL_98;
   }
 }
@@ -8958,7 +8976,7 @@ int __cdecl sub_4B910F()
       v65 = (const char **)dword_F8B1B8;
       do
       {
-        v67 = CalculateTextHeght(pFontArrus, *v65, &local_7C, 0, 0);
+        v67 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v65, &local_7C, 0, 0);
         ++v65;
         v66 += v67;
       }
@@ -8981,7 +8999,7 @@ int __cdecl sub_4B910F()
           v74 = (int)GUIWindow_GetChild((GUIWindow *)v68, v110);
           v75 = (const char **)v112;
           *(_DWORD *)(v74 + 4) = v113 + v69;
-          v76 = CalculateTextHeght(pFontArrus, *v75, &local_7C, 0, 0);
+          v76 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v75, &local_7C, 0, 0);
           v73 = *(_DWORD *)(v74 + 4);
           v77 = v111;
           *(_DWORD *)(v74 + 12) = v76;
@@ -8990,7 +9008,7 @@ int __cdecl sub_4B910F()
           v72 = v107[0];
           if (pDialogueWindow->dword_00002C != v77 )
             v72 = v108[0];
-          GUIWindow_sub_44D406(&local_7C, pFontArrus, 0, v73, v72, *(const char **)v112, 3);
+          GUIWindow_DrawText(&local_7C, pFontArrus, 0, v73, v72, *(const char **)v112, 3);
           v68 = (int)pDialogueWindow;
           ++v111;
           v112 += 4;
@@ -9029,7 +9047,7 @@ int __cdecl sub_4B910F()
             {
               if ( !*(_WORD *)(v111 + 2 * v35 + 264) )
               {
-                v36 = CalculateTextHeght(pFontArrus, (char *)aSkillNames[v35], &local_7C, 0, 0);
+                v36 = GUIFont_CalculateTextHeight(pFontArrus, aSkillNames[v35], &local_7C, 0, 0);
                 v110 += v36;
                 ++v113;
               }
@@ -9056,7 +9074,7 @@ LABEL_105:
             goto LABEL_15;
           }
           wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[401], v112);
-          GUIWindow_sub_44D406(&local_7C, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
+          GUIWindow_DrawText(&local_7C, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
           v112 = (149 - v110) / v113;
           if ( (149 - v110) / v113 > 32 )
             v112 = 32;
@@ -9083,7 +9101,7 @@ LABEL_105:
                 v43 = (char *)aSkillNames[v38];
                 *(_DWORD *)(v39 + 4) = v112 + v106;
                 Str = v43;
-                v44 = CalculateTextHeght(pFontArrus, v43, &local_7C, 0, 0);
+                v44 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v43, &local_7C, 0, 0);
                 v42 = *(_DWORD *)(v39 + 4);
                 v45 = v113;
                 *(_DWORD *)(v39 + 12) = v44;
@@ -9093,7 +9111,7 @@ LABEL_105:
                 v41 = v107[0];
                 if (pDialogueWindow->dword_00002C != v45 )
                   v41 = v108[0];
-                GUIWindow_sub_44D406(&local_7C, pFontArrus, 0, v42, v41, Str, 3);
+                GUIWindow_DrawText(&local_7C, pFontArrus, 0, v42, v41, Str, 3);
               }
               v47 = *(_DWORD *)(v30 + 56);
               ++v110;
@@ -9162,7 +9180,7 @@ LABEL_105:
         v15 = (const char **)dword_F8B1B8;
         do
         {
-          v16 = CalculateTextHeght(pFontArrus, *v15, &local_7C, 0, 0);
+          v16 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v15, &local_7C, 0, 0);
           ++v15;
           v14 += v16;
         }
@@ -9185,7 +9203,7 @@ LABEL_105:
             v23 = (int)GUIWindow_GetChild((GUIWindow *)v17, v111);
             v24 = (const char **)v113;
             *(_DWORD *)(v23 + 4) = v106 + v18;
-            v25 = CalculateTextHeght(pFontArrus, *v24, &local_7C, 0, 0);
+            v25 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v24, &local_7C, 0, 0);
             v22 = *(_DWORD *)(v23 + 4);
             v26 = v112;
             *(_DWORD *)(v23 + 12) = v25;
@@ -9194,7 +9212,7 @@ LABEL_105:
             v21 = v107[0];
             if (pDialogueWindow->dword_00002C != v26 )
               v21 = v108[0];
-            GUIWindow_sub_44D406(&local_7C, pFontArrus, 0, v22, v21, *(const char **)v113, 3);
+            GUIWindow_DrawText(&local_7C, pFontArrus, 0, v22, v21, *(const char **)v113, 3);
             v17 = (int)pDialogueWindow;
             ++v112;
             v113 += 4;
@@ -9286,7 +9304,7 @@ LABEL_105:
 LABEL_13:
                   v6 = uActiveCharacter;
 LABEL_14:
-                  v7 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)v5, v6, v80, v82, v84, v86);
+                  v7 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((unsigned char *)v5, v6, v80, v82, v84, v86);
                   v87 = 3;
                   v85 = v7;
                   v83 = v108[0];
@@ -9294,15 +9312,16 @@ LABEL_14:
                   v79 = v3;
                   v78 = (int)&local_7C;
 LABEL_15:
-                  v8 = CalculateTextHeght(pFontArrus, v7, (GUIWindow *)v78, v79, v81);
-                  return (int)GUIWindow_sub_44D406(&local_7C, pFontArrus, v3, (174 - v8) / 2 + 138, v83, v85, v87);
+                  v8 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v7, (GUIWindow *)v78, v79, v81);
+                  GUIWindow_DrawText(&local_7C, pFontArrus, v3, (174 - v8) / 2 + 138, v83, v85, v87);
+                  return;
                 }
               }
             }
           }
         }
       }
-      return result;
+      return;
     }
   }
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)dword_F8B164[0]);
@@ -9581,7 +9600,7 @@ signed int __cdecl sub_4B9CC6()
       v73 = (const char **)dword_F8B1B8;
       do
       {
-        v74 = CalculateTextHeght(pFontArrus, *v73, &local_5C, 0, 0);
+        v74 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v73, &local_5C, 0, 0);
         ++v73;
         v72 += v74;
       }
@@ -9604,7 +9623,7 @@ signed int __cdecl sub_4B9CC6()
           v81 = (int)GUIWindow_GetChild((GUIWindow *)v75, v115);
           v82 = (const char **)v114;
           *(_DWORD *)(v81 + 4) = (int)&Str[v76];
-          v83 = CalculateTextHeght(pFontArrus, *v82, &local_5C, 0, 0);
+          v83 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v82, &local_5C, 0, 0);
           v80 = *(_DWORD *)(v81 + 4);
           v84 = v113;
           *(_DWORD *)(v81 + 12) = v83;
@@ -9613,7 +9632,7 @@ signed int __cdecl sub_4B9CC6()
           v79 = v109[0];
           if (pDialogueWindow->dword_00002C != v84 )
             v79 = v111[0];
-          GUIWindow_sub_44D406(&local_5C, pFontArrus, 0, v80, v79, *(const char **)v114, 3);
+          GUIWindow_DrawText(&local_5C, pFontArrus, 0, v80, v79, *(const char **)v114, 3);
           v75 = (int)pDialogueWindow;
           ++v113;
           v114 += 4;
@@ -9651,7 +9670,7 @@ signed int __cdecl sub_4B9CC6()
     v39 = v116;
     v38 = dword_73C3A4[v45];
 LABEL_45:
-    v21 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)v38, v39, v88, v90, v92, v94);
+    v21 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((unsigned char *)v38, v39, v88, v90, v92, v94);
     v93 = 3;
     v91 = v21;
     v89 = v111[0];
@@ -9703,7 +9722,7 @@ LABEL_45:
     v22 = (const char **)dword_F8B1B8;
     do
     {
-      v24 = CalculateTextHeght(pFontArrus, *v22, &local_5C, 0, 0);
+      v24 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v22, &local_5C, 0, 0);
       ++v22;
       v23 += v24;
     }
@@ -9726,7 +9745,7 @@ LABEL_45:
         v31 = (int)GUIWindow_GetChild((GUIWindow *)v25, v115);
         v32 = (const char **)v114;
         *(_DWORD *)(v31 + 4) = (int)&Str[v26];
-        v33 = CalculateTextHeght(pFontArrus, *v32, &local_5C, 0, 0);
+        v33 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v32, &local_5C, 0, 0);
         v30 = *(_DWORD *)(v31 + 4);
         v34 = v113;
         *(_DWORD *)(v31 + 12) = v33;
@@ -9736,7 +9755,7 @@ LABEL_45:
         v29 = v109[0];
         if (pDialogueWindow->dword_00002C != v34 )
           v29 = v111[0];
-        GUIWindow_sub_44D406(&local_5C, pFontArrus, 0, v30, v29, *(const char **)v114, 3);
+        GUIWindow_DrawText(&local_5C, pFontArrus, 0, v30, v29, *(const char **)v114, 3);
         v25 = (int)pDialogueWindow;
         ++v113;
         v114 += 4;
@@ -9981,8 +10000,8 @@ LABEL_44:
           {
             if ( !*(_WORD *)(v113 + 2 * v8 + 264) )
             {
-              //v9 = CalculateTextHeght(pFontArrus, (&dword_AE32D0)[4 * v8], (int)&v105, 0, 0);
-              v9 = CalculateTextHeght(pFontArrus, (char *)aSkillNames[v8], &local_5C, 0, 0);
+              //v9 = GUIFont_CalculateTextHeight(pFontArrus, (&dword_AE32D0)[4 * v8], (int)&v105, 0, 0);
+              v9 = GUIFont_CalculateTextHeight(pFontArrus, aSkillNames[v8], &local_5C, 0, 0);
               v115 += v9;
               ++v117;
             }
@@ -9993,7 +10012,7 @@ LABEL_44:
         if ( v117 )
         {
           wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[401], v114);
-          GUIWindow_sub_44D406(&local_5C, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
+          GUIWindow_DrawText(&local_5C, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
           v114 = (149 - v115) / v117;
           if ( (149 - v115) / v117 > 32 )
             v114 = 32;
@@ -10020,7 +10039,7 @@ LABEL_44:
                 v16 = (char *)aSkillNames[v11];
                 *(_DWORD *)(v12 + 4) = v114 + v108;
                 Str = v16;
-                v17 = CalculateTextHeght(pFontArrus, v16, &local_5C, 0, 0);
+                v17 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v16, &local_5C, 0, 0);
                 v15 = *(_DWORD *)(v12 + 4);
                 v18 = v117;
                 *(_DWORD *)(v12 + 12) = v17;
@@ -10030,7 +10049,7 @@ LABEL_44:
                 v14 = v109[0];
                 if (pDialogueWindow->dword_00002C != v18 )
                   v14 = v111[0];
-                GUIWindow_sub_44D406(&local_5C, pFontArrus, 0, v15, v14, Str, 3);
+                GUIWindow_DrawText(&local_5C, pFontArrus, 0, v15, v14, Str, 3);
               }
               v20 = *(_DWORD *)(v3 + 56);
               ++v115;
@@ -10053,11 +10072,12 @@ LABEL_44:
       v86 = 0;
       v85 = (int)&local_5C;
 LABEL_46:
-      v40 = CalculateTextHeght(pFontArrus, v21, (GUIWindow *)v85, v86, v87);
-      return (signed int)GUIWindow_sub_44D406(&local_5C, pFontArrus, v2, (174 - v40) / 2 + 138, v89, v91, v93);
+      v40 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v21, (GUIWindow *)v85, v86, v87);
+      GUIWindow_DrawText(&local_5C, pFontArrus, v2, (174 - v40) / 2 + 138, v89, v91, v93);
+      return;
     }
   }
-  return result;
+  return;
 }
 
 //----- (004BA928) --------------------------------------------------------
@@ -10259,11 +10279,11 @@ char __cdecl sub_4BA928()
             v92 = uActiveCharacter;
             v93 = 36 * (v89 - 1 + 12 * v91) + 11378852;
             v94 = Player_sub_490EEE((Player *)v148, 36 * (v89 - 1 + 12 * v91) + 11378852, 2, ptr_507BC0->dword_00001C, 2);
-            v95 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(*(char **)&dword_73C388[4 * v94], v92, v93, v91, 2, 0);
+            v95 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(&dword_73C388[4 * v94], v92, v93, v91, 2, 0);
             v96 = v95;
             v97 = v146[0];
-            v98 = CalculateTextHeght(pFontArrus, v95, &local_8C, 0, 0);
-            GUIWindow_sub_44D406(&local_8C, pFontArrus, 0, (174 - v98) / 2 + 138, v97, v96, 3);
+            v98 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v95, &local_8C, 0, 0);
+            GUIWindow_DrawText(&local_8C, pFontArrus, 0, (174 - v98) / 2 + 138, v97, v96, 3);
           }
         }
         v99 = 0;
@@ -10314,7 +10334,7 @@ char __cdecl sub_4BA928()
       v76 = (const char **)dword_F8B1B8;
       do
       {
-        v77 = CalculateTextHeght(pFontArrus, *v76, &local_8C, 0, 0);
+        v77 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v76, &local_8C, 0, 0);
         ++v76;
         v74 += v77;
       }
@@ -10336,7 +10356,7 @@ char __cdecl sub_4BA928()
           v84 = (int)GUIWindow_GetChild((GUIWindow *)v78, v148);
           v85 = v84;
           *(_DWORD *)(v84 + 4) = v150 + v79;
-          v86 = CalculateTextHeght(pFontArrus, *v75, &local_8C, 0, 0);
+          v86 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v75, &local_8C, 0, 0);
           v83 = *(_DWORD *)(v85 + 4);
           v87 = v151;
           *(_DWORD *)(v85 + 12) = v86;
@@ -10345,7 +10365,7 @@ char __cdecl sub_4BA928()
           v82 = v145[0];
           if (pDialogueWindow->dword_00002C != v87 )
             v82 = v146[0];
-          GUIWindow_sub_44D406(&local_8C, pFontArrus, 0, v83, v82, *v75, 3);
+          GUIWindow_DrawText(&local_8C, pFontArrus, 0, v83, v82, *v75, 3);
           v78 = (int)pDialogueWindow;
           ++v151;
           ++v75;
@@ -10379,7 +10399,7 @@ char __cdecl sub_4BA928()
           {
             if ( !*(_WORD *)(v0 + 2 * v37 + 264) )
             {
-              v38 = CalculateTextHeght(pFontArrus, (char *)aSkillNames[v37], &local_8C, 0, 0);
+              v38 = GUIFont_CalculateTextHeight(pFontArrus, aSkillNames[v37], &local_8C, 0, 0);
               v150 += v38;
               ++v151;
             }
@@ -10390,7 +10410,7 @@ char __cdecl sub_4BA928()
         if ( v151 )
         {
           wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[401], v148);
-          GUIWindow_sub_44D406(&local_8C, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
+          GUIWindow_DrawText(&local_8C, pFontArrus, 0, 146, 0, (char *)TmpBuf, 3);
           v148 = (149 - v150) / v151;
           if ( (149 - v150) / v151 > 32 )
             v148 = 32;
@@ -10417,7 +10437,7 @@ char __cdecl sub_4BA928()
                 v45 = (char *)aSkillNames[v40];
                 *(_DWORD *)(v41 + 4) = v148 + v144;
                 Str = v45;
-                v46 = CalculateTextHeght(pFontArrus, v45, &local_8C, 0, 0);
+                v46 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v45, &local_8C, 0, 0);
                 v44 = *(_DWORD *)(v41 + 4);
                 v47 = v151;
                 *(_DWORD *)(v41 + 12) = v46;
@@ -10427,7 +10447,7 @@ char __cdecl sub_4BA928()
                 v43 = v145[0];
                 if (pDialogueWindow->dword_00002C != v47 )
                   v43 = v146[0];
-                GUIWindow_sub_44D406(&local_8C, pFontArrus, 0, v44, v43, Str, 3);
+                GUIWindow_DrawText(&local_8C, pFontArrus, 0, v44, v43, Str, 3);
               }
               v49 = *(_DWORD *)(v33 + 56);
               ++v150;
@@ -10451,11 +10471,11 @@ char __cdecl sub_4BA928()
       v109 = 0;
       v107 = (int)&local_8C;
 LABEL_63:
-      v111 = (174 - CalculateTextHeght(pFontArrus, v32, (GUIWindow *)v107, v109, v113)) / 2 + 138;
+      v111 = (174 - GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v32, (GUIWindow *)v107, v109, v113)) / 2 + 138;
       v108 = (int)v10;
 LABEL_14:
-      LOBYTE(v1) = (unsigned int)GUIWindow_sub_44D406(&local_8C, pFontArrus, v108, v111, v115, v117, v119);
-      return v1;
+      /*LOBYTE(v1) = (unsigned int)*/GUIWindow_DrawText(&local_8C, pFontArrus, v108, v111, v115, v117, v119);
+      return;// v1;
     }
 LABEL_64:
     Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)dword_F8B164[0]);
@@ -10600,7 +10620,7 @@ LABEL_64:
         v11 = uActiveCharacter;
       }
 LABEL_36:
-      v32 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)v12, v11, v112, v116, v118, v120);
+      v32 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((unsigned char *)v12, v11, v112, v116, v118, v120);
       v119 = 3;
       v117 = v32;
       v115 = v146[0];
@@ -10654,7 +10674,7 @@ LABEL_96:
       v17 = (const char **)dword_F8B1B8;
       do
       {
-        v18 = CalculateTextHeght(pFontArrus, *v17, &local_8C, 0, 0);
+        v18 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v17, &local_8C, 0, 0);
         ++v17;
         v15 += v18;
       }
@@ -10676,7 +10696,7 @@ LABEL_96:
           v25 = (int)GUIWindow_GetChild((GUIWindow *)v19, v150);
           v26 = v25;
           *(_DWORD *)(v25 + 4) = v144 + v20;
-          v27 = CalculateTextHeght(pFontArrus, *v16, &local_8C, 0, 0);
+          v27 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)*v16, &local_8C, 0, 0);
           v24 = *(_DWORD *)(v26 + 4);
           v28 = v148;
           *(_DWORD *)(v26 + 12) = v27;
@@ -10685,7 +10705,7 @@ LABEL_96:
           v23 = v145[0];
           if (pDialogueWindow->dword_00002C != v28 )
             v23 = v146[0];
-          GUIWindow_sub_44D406(&local_8C, pFontArrus, 0, v24, v23, *v16, 3);
+          GUIWindow_DrawText(&local_8C, pFontArrus, 0, v24, v23, *v16, 3);
           v19 = (int)pDialogueWindow;
           ++v148;
           ++v16;
@@ -10762,11 +10782,11 @@ LABEL_96:
               v4 = v149;
               v5 = (char *)dword_73C3DC[v8];
             }
-            v6 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(v5, v4, v110, v114, 4, 0);
+            v6 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((unsigned char *)v5, v4, v110, v114, 4, 0);
             v119 = 3;
             v117 = v6;
             v115 = v146[0];
-            v111 = (174 - CalculateTextHeght(pFontArrus, v6, &local_8C, 0, 0)) / 2 + 138;
+            v111 = (174 - GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v6, &local_8C, 0, 0)) / 2 + 138;
             v108 = 0;
             goto LABEL_14;
           }
@@ -11289,7 +11309,7 @@ void __cdecl sub_4BC109()
 
   local_D4.uFrameWidth = 460;
   local_D4.uFrameZ = 452;
-  v0 = CalculateTextHeght(pFontArrus, (char *)pGlobalTXT_LocalizationStrings[575], &local_D4, 13, 0) + 7;
+  v0 = GUIFont_CalculateTextHeight(pFontArrus, pGlobalTXT_LocalizationStrings[575], &local_D4, 13, 0) + 7;
   pD3DRenderer->BeginScene();
   if ( dword_6BE360 == 1 )
   {
@@ -11317,7 +11337,9 @@ void __cdecl sub_4BC109()
     uTextureIdx_Leather != -1 ? (int)&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather] : 0,
     (uTextureIdx_Leather != -1 ? LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather].uTextureHeight : 26) - v0);
   Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v0, pcTexture_EndcapTexture);
-  v1 = (char *)FitTextInAWindow((char *)pGlobalTXT_LocalizationStrings[575], pFontArrus, &local_D4, 13, 0);
+
+  unsigned char pOutString[2048];
+  v1 = (char *)FitTextInAWindow(pGlobalTXT_LocalizationStrings[575], pOutString, pFontArrus, &local_D4, 13, 0);
   FontDrawText(pDialogueWindow, pFontArrus, 13, 354 - v0, v1, 0, 0, 0);
   pD3DRenderer->EndScene();
   pD3DRenderer->Present();
@@ -12461,7 +12483,7 @@ signed int __cdecl sub_4BD8B5()
       {
         sub_4B4224((void *)(dword_5913F0 - 1));
 LABEL_33:
-        VideoPlayer_sub_4BF5B2((int)pVideoPlayer);
+        VideoPlayer_sub_4BF5B2(pVideoPlayer);
         return 1;
       }
       if ( v0 != 94 && v0 != 96 && v0 != 101 )
@@ -12476,20 +12498,20 @@ LABEL_33:
         {
           if ( v0 != 102 && v0 != 103 && v0 != 104 )
           {
-            VideoPlayer_sub_4BF5B2((int)pVideoPlayer);
+            VideoPlayer_sub_4BF5B2(pVideoPlayer);
 LABEL_28:
             dword_F8B19C = 1;
             sub_4B3B42(dword_F8B198);
             return 1;
           }
-          VideoPlayer_sub_4BF5B2((int)pVideoPlayer);
+          VideoPlayer_sub_4BF5B2(pVideoPlayer);
           sub_4BCA33();
           dword_F8B19C = 101;
           sub_4B3A72((void *)dword_F8B198);
         }
         return 1;
       }
-      VideoPlayer_sub_4BF5B2((int)pVideoPlayer);
+      VideoPlayer_sub_4BF5B2(pVideoPlayer);
       sub_4BCA33();
       goto LABEL_28;
     }
@@ -13410,17 +13432,17 @@ LABEL_6:
 }
 
 //----- (004BF5B2) --------------------------------------------------------
-int __thiscall VideoPlayer_sub_4BF5B2(int _this)
+int __thiscall VideoPlayer_sub_4BF5B2(CVideoPlayer *_this)
 {
   int result; // eax@1
   int v2; // esi@1
   int v3; // edi@2
 
-  v2 = _this;
+  v2 = (int)_this;
   result = *(_DWORD *)(_this + 156);
   if ( result == 2 )
   {
-    v3 = _this + 128;
+    v3 = (int)_this + 128;
     BinkGoto(*(_DWORD *)(_this + 128), 1, 0);
     BinkDoFrame((HBINK)*(_DWORD *)v3);
     BinkNextFrame((HBINK)*(_DWORD *)v3);
@@ -13429,7 +13451,7 @@ int __thiscall VideoPlayer_sub_4BF5B2(int _this)
   {
     if ( result != 1 )
       return result;
-    SmackGoto(*(_DWORD *)(_this + 40), 1);
+    SmackGoto(*(_DWORD *)((int)_this + 40), 1);
     if ( dword_F79D7C != 2 || dword_F79D70 != 4 )
     {
       SmackDoFrame((HSMACK)*(_DWORD *)(v2 + 40));
@@ -13466,7 +13488,7 @@ int __thiscall VideoPlayer_sub_4BF5B2(int _this)
 }
 
 //----- (004BF73A) --------------------------------------------------------
-void __thiscall VideoPlayer_sub_4BF73A(int _this)
+void __thiscall VideoPlayer_sub_4BF73A(CVideoPlayer *_this)
 {
   unsigned __int8 v1; // bl@1
   int v2; // edi@1
@@ -13474,10 +13496,10 @@ void __thiscall VideoPlayer_sub_4BF73A(int _this)
   int v4; // edi@1
   char Source; // [sp+Ch] [bp-40h]@1
 
-  v3 = _this;
-  v4 = *(_DWORD *)(_this + 160);
-  v1 = *(_BYTE *)(_this + 100);
-  strcpy(&Source, (const char *)(_this + 164));
+  v3 = (int)_this;
+  v4 = *(_DWORD *)((int)_this + 160);
+  v1 = *(_BYTE *)((int)_this + 100);
+  strcpy(&Source, (const char *)((int)_this + 164));
   CVideoPlayer_UnloadAll((CVideoPlayer *)v3);
   v2 = v4 - 1;
   if ( v2 )
@@ -13591,7 +13613,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   if ( !v30 )
     v30 = 1;
   pD3DRenderer->BeginScene();
-  GUIWindow_sub_44D406(&local_34, (Font *)v33, 1, 35, 1u, (char *)pGlobalTXT_LocalizationStrings[9], 3);
+  GUIWindow_DrawText(&local_34, (Font *)v33, 1, 35, 1u, (char *)pGlobalTXT_LocalizationStrings[9], 3);
   v4 = (int)pParty_global->pPlayers[0].sName;
   v34 = 0i64;
   v31 = 0;
@@ -13601,7 +13623,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
 
     v6 = Player_GetBaseLevel((Player *)(v4 - 168));
     wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[129], i, v6, v5);
-    GUIWindow_sub_44D406(&local_34, (Font *)v33, 1, v31 * (*(_BYTE *)(v33 + 5) - 2) + *(_BYTE *)(v33 + 5) + 46, 1u, (char *)TmpBuf, 3);
+    GUIWindow_DrawText(&local_34, (Font *)v33, 1, v31 * (*(_BYTE *)(v33 + 5) - 2) + *(_BYTE *)(v33 + 5) + 46, 1u, (char *)TmpBuf, 3);
     v7 = *(_DWORD *)(i - 8);
     v8 = v7 >= -(_DWORD)v34;
     LODWORD(v34) = v7 + v34;
@@ -13615,8 +13637,10 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
       break;
   }
   v34 /= (signed __int64)v30;
-  v12 = (char *)FitTextInAWindow(v27, (Font *)v33, &local_34, 12, 0);
-  GUIWindow_sub_44D406(&local_34, (Font *)v33, 1, 5 * (*(_BYTE *)(v33 + 5) + 11), 1u, v12, 0);
+
+  unsigned char pOutString[2048];
+  v12 = (char *)FitTextInAWindow((unsigned char *)v27, pOutString, (Font *)v33, &local_34, 12, 0);
+  GUIWindow_DrawText(&local_34, (Font *)v33, 1, 5 * (*(_BYTE *)(v33 + 5) + 11), 1u, v12, 0);
   strcpy((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[37]);
   v11 = (int)pGlobalTXT_LocalizationStrings[56];
   if ( v28 != 1 )
@@ -13629,9 +13653,9 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
     v14 = (int)pGlobalTXT_LocalizationStrings[132];
   wsprintfA((char *)pStringBuffer, " %lu %s, %lu %s, %lu %s ", v25, v14, v29, v13, v28, v11);
   strcat((char *)TmpBuf, (char *)pStringBuffer);
-  GUIWindow_sub_44D406(&local_34, (Font *)v33, 1, local_34.uFrameHeight - 2 * *(_BYTE *)(v33 + 5) - 5, 1u, (char *)TmpBuf, 3);
+  GUIWindow_DrawText(&local_34, (Font *)v33, 1, local_34.uFrameHeight - 2 * *(_BYTE *)(v33 + 5) - 5, 1u, (char *)TmpBuf, 3);
   wsprintfA((char *)TmpBuf, (char *)pGlobalTXT_LocalizationStrings[94], v34);
-  GUIWindow_sub_44D406(&local_34, (Font *)v33, 1, local_34.uFrameHeight, 1u, (char *)TmpBuf, 3);
+  GUIWindow_DrawText(&local_34, (Font *)v33, 1, local_34.uFrameHeight, 1u, (char *)TmpBuf, 3);
   BYTE1(dword_6BE364) |= 0x40u;
   pD3DRenderer->EndScene();
   pD3DRenderer->Present();
@@ -13656,7 +13680,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
       if ( !v15 )
         break;
       if ( Msg.message == 18 )
-        sub_464761(0);
+        Game_DeinitializeAndTerminate(0);
       TranslateMessage(&Msg);
       DispatchMessageA(&Msg);
     }
@@ -13670,7 +13694,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
       while ( PeekMessageA(&Msg, 0, 0, 0, 1u) )
       {
         if ( Msg.message == 18 )
-          sub_464761(0);
+          Game_DeinitializeAndTerminate(0);
         TranslateMessage(&Msg);
         DispatchMessageA(&Msg);
       }
@@ -13714,7 +13738,7 @@ LABEL_42:
 }
 
 //----- (004C05BE) --------------------------------------------------------
-void __thiscall Vis_sub_4C05BE(int _this)
+void __thiscall Vis_SetupCtorDetor(Vis *_this)
 {
   *(_DWORD *)_this = (int)Vis_detor;
   *(_DWORD *)(_this + 4) = (int)class25_detor;
@@ -14729,9 +14753,9 @@ LABEL_8:
 }
 
 //----- (004C1930) --------------------------------------------------------
-char __thiscall Vis_sub_4C1930(void *_this, float a2, int a3)
+char __thiscall Vis_sub_4C1930(Vis *_this, float a2, int a3)
 {
-  return Vis_sub_4C091D((Vis *)_this, a2, a3);
+  return Vis_sub_4C091D(_this, a2, a3);
 }
 
 void loc_4C19F7()
@@ -15838,7 +15862,7 @@ void __cdecl sub_4CA338()
   int v4; // [sp+3Ch] [bp-4h]@1
 
   v2 = v3;
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)&v2, 0);
+  Game_stru0_sub_40E2F6((Game_stru0 *)&v2, 0);
   v0 = strlen((char *)&byte_4D8410[11380]);
   sub_40E32E((int)&v2, &byte_4D8410[11380], v0);
   v4 = 0;
@@ -15859,7 +15883,7 @@ void *__thiscall sub_4CA392(void *_this, int a2)
   exception__exception((int)&v4);
   v5 = 0;
   *((_BYTE *)v3 + 12) = *(_BYTE *)a2;
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)((char *)v3 + 12), 0);
+  Game_stru0_sub_40E2F6((Game_stru0 *)((char *)v3 + 12), 0);
   sub_4679E2((int)((char *)v3 + 12), a2, 0, *(size_t *)&byte_4D8410[11412]);
   *(_DWORD *)v3 = 5091480;
   return v3;
@@ -15873,7 +15897,7 @@ void *__thiscall sub_4CA479(void *_this, int a2)
   v3 = _this;
   exception__exception(a2);
   *((_BYTE *)v3 + 12) = *(_BYTE *)(a2 + 12);
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)((char *)v3 + 12), 0);
+  Game_stru0_sub_40E2F6((Game_stru0 *)((char *)v3 + 12), 0);
   sub_4679E2((int)((char *)v3 + 12), a2 + 12, 0, *(size_t *)&byte_4D8410[11412]);
   *(_DWORD *)v3 = 5091480;
   return v3;

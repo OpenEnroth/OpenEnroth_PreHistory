@@ -12,13 +12,19 @@
 #include "_audio.h"
 #include "_video.h"
 #include "FrameTables.h"
-#include "GUI.h"
+
+#include "GUI\GUI.h"
+#include "GUI\GUIButton.h"
+#include "GUI\GUICursor.h"
+#include "GUI\GUIWindow.h"
+
 #include "Level.h"
 #include "Actor.h"
  
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
+#include "Game.h"
 
 //----- (00424EE0) --------------------------------------------------------
 signed int __fastcall sub_424EE0_MakeFanFromTriangle(int a1)
@@ -9973,7 +9979,7 @@ int __fastcall sub_45BAB6(int a1)
   size_t v2; // eax@1
 
   byte_69BD44 = BYTE3(a1);
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)&byte_69BD44, 0);
+  Game_stru0_sub_40E2F6((Game_stru0 *)&byte_69BD44, 0);
   v2 = strlen("effpar03");
   return sub_40E32E((int)&byte_69BD44, "effpar03", v2);
 }
@@ -9984,7 +9990,7 @@ void __cdecl sub_45BAE9()
   if ( !(byte_69BD41 & 1) )
   {
     byte_69BD41 |= 1u;
-    CGame_stru0_sub_40E2F6((CGame_stru0 *)&byte_69BD44, 1);
+    Game_stru0_sub_40E2F6((Game_stru0 *)&byte_69BD44, 1);
   }
 }
 
@@ -12499,21 +12505,26 @@ void __thiscall sub_4646F0(int _this)
 }
 
 //----- (00464761) --------------------------------------------------------
-void __thiscall sub_464761(void *Code)
+void Game_DeinitializeAndTerminate(void *Code)
 {
   int v1; // esi@1
   HANDLE v2; // eax@1
-  int v3; // eax@1
 
   v1 = (int)Code;
   v2 = GetCurrentProcess();
   SetPriorityClass(v2, 0x20u);
   sub_464479();
-  v3 = sub_4645FA();
-  sub_49FC23(v3, (int)pD3DRenderer);
-  if ( !DestroyWindow(pAppWindow->GetAPIHandle()) )
-    GetLastError();
+  /*v3 = */Game_Deinitialize();
+
+  sub_49FC23(function_parameter_invalid(int)/*v3*/, (int)pD3DRenderer);
+  
+  delete pAppWindow;
+  pAppWindow = 0;
+  //if ( !DestroyWindow(pAppWindow->GetAPIHandle()) )
+  //  GetLastError();
   //hWnd_global = 0;
+
+
   exit(v1);
 }
 
@@ -12860,7 +12871,7 @@ LABEL_38:
     }
     pGame->pGUICursor->dword_000004 = 1;
     if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
-      VideoPlayer_sub_4BF73A((int)pVideoPlayer);
+      VideoPlayer_sub_4BF73A(pVideoPlayer);
     if ( BYTE1(dword_6BE364) & 8 )
       BYTE1(dword_6BE364) &= 0xF7u;
     else
@@ -12908,7 +12919,7 @@ void *__thiscall sub_466D09(void *_this, int a2, int a3, int a4, int a5, const c
   LOBYTE(v21) = 0;
   sub_466D83((int)&a2, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18);
   v21 = -1;
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)&a2, 1);
+  Game_stru0_sub_40E2F6((Game_stru0 *)&a2, 1);
   return v8;
 }
 
@@ -12941,15 +12952,15 @@ void *__thiscall sub_467834(void *_this, char a2, const CHAR *a3, int a4, int a5
   LOBYTE(v20) = 2;
   sub_467AAF((int)&a2, v10, 0, 0xFFFFFFFFu);
   LOBYTE(v20) = 1;
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)&v18, 1);
+  Game_stru0_sub_40E2F6((Game_stru0 *)&v18, 1);
   LOBYTE(v20) = 0;
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)&v17, 1);
+  Game_stru0_sub_40E2F6((Game_stru0 *)&v17, 1);
   v7 = a3;
   if ( !a3 )
     v7 = (char *)byte_4D8410 + 736;
   OutputDebugStringA(v7);
   v20 = -1;
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)&a2, 1);
+  Game_stru0_sub_40E2F6((Game_stru0 *)&a2, 1);
   return v8;
 }
 
@@ -12978,17 +12989,17 @@ int __fastcall sub_4678E2(int a1, int a2, char a3, int a4, int a5, int a6)
   LOBYTE(v16) = 3;
   sub_467BCF((int)&v14, v9, &Str);
   LOBYTE(v16) = 6;
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)&v12, 1);
+  Game_stru0_sub_40E2F6((Game_stru0 *)&v12, 1);
   LOBYTE(v16) = 5;
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)&v11, 1);
+  Game_stru0_sub_40E2F6((Game_stru0 *)&v11, 1);
   *(_BYTE *)v7 = v14;
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)v7, 0);
+  Game_stru0_sub_40E2F6((Game_stru0 *)v7, 0);
   sub_4679E2(v7, (int)&v14, 0, 0xFFFFFFFFu);
   v15 = 1;
   LOBYTE(v16) = 1;
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)&v14, 1);
+  Game_stru0_sub_40E2F6((Game_stru0 *)&v14, 1);
   LOBYTE(v16) = 0;
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)&a3, 1);
+  Game_stru0_sub_40E2F6((Game_stru0 *)&a3, 1);
   return v7;
 }
 
@@ -12999,7 +13010,7 @@ int __thiscall sub_4679B4(void *_this, int a2)
 
   v3 = (int)_this;
   *(_BYTE *)_this = *(_BYTE *)a2;
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)_this, 0);
+  Game_stru0_sub_40E2F6((Game_stru0 *)_this, 0);
   sub_4679E2(v3, a2, 0, 0xFFFFFFFFu);
   return v3;
 }
@@ -13036,7 +13047,7 @@ int __thiscall sub_4679E2(int _this, int a2, unsigned int a3, size_t a4)
       v6 = 5080816;
     if ( *(_BYTE *)(v6 - 1) < 0xFEu )
     {
-      CGame_stru0_sub_40E2F6((CGame_stru0 *)_this, 1);
+      Game_stru0_sub_40E2F6((Game_stru0 *)_this, 1);
       v7 = *(_DWORD *)(a2 + 4);
       if ( !v7 )
         v7 = 5080816;
@@ -13112,7 +13123,7 @@ void __thiscall sub_467B9F(int _this)
     {
       if ( v3 != -1 )
       {
-        CGame_stru0_sub_40E2F6((CGame_stru0 *)_this, 1);
+        Game_stru0_sub_40E2F6((Game_stru0 *)_this, 1);
         v4 = strlen(v2);
         sub_40E32E(v1, v2, v4);
       }
@@ -13134,16 +13145,16 @@ int __cdecl sub_467BCF(int a1, int a2, const char *Src)
   v4 = *(_BYTE *)a2;
   v9 = 0;
   v8 = v4;
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)&v8, 0);
+  Game_stru0_sub_40E2F6((Game_stru0 *)&v8, 0);
   sub_4679E2((int)&v8, a2, 0, 0xFFFFFFFFu);
   v10 = 0;
   v5 = strlen(Src);
   v6 = sub_467CD1((int)&v8, Src, v5);
   v7 = v6;
   *(_BYTE *)a1 = *(_BYTE *)v6;
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)a1, 0);
+  Game_stru0_sub_40E2F6((Game_stru0 *)a1, 0);
   sub_4679E2(a1, v7, 0, 0xFFFFFFFFu);
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)&v8, 1);
+  Game_stru0_sub_40E2F6((Game_stru0 *)&v8, 1);
   return a1;
 }
 
@@ -13159,16 +13170,16 @@ int __cdecl sub_467C50(int a1, const char *a2, int a3)
 
   v8 = 0;
   v7 = BYTE3(a2);
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)&v7, 0);
+  Game_stru0_sub_40E2F6((Game_stru0 *)&v7, 0);
   v4 = strlen(a2);
   sub_40E32E((int)&v7, a2, v4);
   v9 = 0;
   v5 = sub_467AAF((int)&v7, a3, 0, 0xFFFFFFFFu);
   v6 = v5;
   *(_BYTE *)a1 = *(_BYTE *)v5;
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)a1, 0);
+  Game_stru0_sub_40E2F6((Game_stru0 *)a1, 0);
   sub_4679E2(a1, v6, 0, 0xFFFFFFFFu);
-  CGame_stru0_sub_40E2F6((CGame_stru0 *)&v7, 1);
+  Game_stru0_sub_40E2F6((Game_stru0 *)&v7, 1);
   return a1;
 }
 
@@ -13350,7 +13361,7 @@ void __cdecl sub_467FB6()
   local_0C.uFrameX = 1;
   local_0C.uFrameY = 1;
   local_0C.uFrameWidth = 468;
-  v0 = CalculateTextHeght(pFontSmallnum, (&dword_723D38)[4 * ptr_507BC4->dword_00001C], &local_0C, 0, 0)
+  v0 = GUIFont_CalculateTextHeight(pFontSmallnum, dword_723D38[4 * ptr_507BC4->dword_00001C], &local_0C, 0, 0)
      + 2 * *(_BYTE *)(pFontCreate + 5)
      + 24;
   local_0C.uFrameHeight = v0;
@@ -13373,11 +13384,11 @@ void __cdecl sub_467FB6()
   v2 = dword_5DAD28[12 * ptr_507BC4->dword_00001C];
   v3 = 0xFFFFFF9B;
   wsprintfA((char *)TmpBuf, "\x0C%05d%s\x0C\x30\x30\x30\x30\x30", v3, v2);
-  GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, 0, 0, (char *)TmpBuf, 3);
+  GUIWindow_DrawText(&local_0C, pFontCreate, 0, 0, 0, (char *)TmpBuf, 3);
   FontDrawText(&local_0C, pFontSmallnum,
            1,
            pFontCreate->uFontHeight - 3,
-           (&dword_723D38)[4 * ptr_507BC4->dword_00001C],
+           (char *)dword_723D38[4 * ptr_507BC4->dword_00001C],
            0,
            0,
            0);

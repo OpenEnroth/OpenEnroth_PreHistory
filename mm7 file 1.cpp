@@ -8,7 +8,6 @@
 #pragma comment(lib, "winmm.lib")
 
 #include "defs.h"
-#include "font.h"
 #include "AIL.h"
 #include "_lod.h"
 #include "clock.h"
@@ -17,13 +16,18 @@
 #include "_audio.h"
 #include "_video.h"
 #include "FrameTables.h"
-#include "GUI.h"
+
+#include "GUI\GUI.h"
+#include "GUI\GUICursor.h"
+#include "GUI\GUIFont.h"
+
 #include "Level.h"
 #include "Actor.h"
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
+#include "Game.h"
 
 #include "Window.h"
 OSWindow *pAppWindow = 0;
@@ -131,7 +135,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 
- if (!bNoCD && !CheckForMM7CD(&cGameCDDriveLetter))
+ if (!bNoCD && !CheckForMM7CD(&GameCDDriveLetter))
    return 0;
 
  pAppWindow = new Win32Window;
@@ -168,11 +172,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
  Rect.bottom = pWindowDims[3];
  dword_6A0D00 = Rect.bottom;
 
- if (CreateWindowAndBasicInitialization(hInstance, lpCmdLine))
+ if (BasicInitialization(hInstance, lpCmdLine))
  {
   cClock1.clock_fn1();
 
-  LoadMainMenu();
+  ShowIntroVideo_LoadMainMenu_ShowGreetingWindow();
   RegistryWriteInt("Ran once", true);
   dword_6BE364 |= 0x4000;
 
@@ -306,7 +310,7 @@ LABEL_53:
 LABEL_68:
   hProcess = GetCurrentProcess();
   SetPriorityClass(hProcess, NORMAL_PRIORITY_CLASS);
-  sub_4645FA();
+  Game_Deinitialize();
 
  if (hPreviouslyActiveWindow)
    SetActiveWindow(hPreviouslyActiveWindow);
@@ -965,8 +969,8 @@ void sub_47A59E_LooksLikeMessWithRenderListAndMaybeDraw(bool bRedraw)
   class08_sub_438240(pGame->class08_obj);
  }
 
-  CGame_sub_44F120_MaybeStackStationaryLights(pGame, -1);
-  CGame_sub_44F192(pGame);
+  Game_sub_44F120_MaybeStackStationaryLights(pGame, -1);
+  Game_sub_44F192(pGame);
   if (bRedraw)
   {
     v4 = WorldPosToGridCellZ(pParty_global->sPartyPosY);
@@ -1176,7 +1180,7 @@ LABEL_34:
 }
 
 //----- (004651F4) --------------------------------------------------------
-signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const char *pCmdLine)
+signed int __fastcall BasicInitialization(HINSTANCE hInst, const char *pCmdLine)
 {
   HINSTANCE v6; // edi@4
   int v8; // ST2C_4@4
@@ -1259,7 +1263,7 @@ signed int __fastcall CreateWindowAndBasicInitialization(HINSTANCE hInst, const 
  cClock1.Clock_In();
  sub_448B67(true);
  sub_448B45_LooksLikeResetSomeTimer(true);
- GameInitialize();
+ Game_Initialize();
  pGame->pGUICursor = pGame->class03_obj;
 
  /*
@@ -2386,7 +2390,7 @@ void __fastcall MoviePlayerLoop(const char *pMovieName, int a2, int a3, int a4)
     while (PeekMessageA(&msg, 0, 0, 0, PM_REMOVE))
     {
      if (msg.message == WM_QUIT)
-       sub_464761(0);
+       Game_DeinitializeAndTerminate(0);
      if (msg.message == WM_PAINT)
        break;
 
@@ -2423,7 +2427,7 @@ void __fastcall MoviePlayerLoop(const char *pMovieName, int a2, int a3, int a4)
     while (PeekMessageA(&msg, 0, 0, 0, PM_REMOVE))
     {
      if (msg.message == WM_QUIT)
-       sub_464761(0);
+       Game_DeinitializeAndTerminate(0);
      else if (msg.message == WM_PAINT)
        break;
 
@@ -3546,7 +3550,7 @@ LABEL_179:
           {
             Render_RestoreFrontBuffer(pD3DRenderer);
             Render_sub_4A184C(pD3DRenderer);
-            VideoPlayer_sub_4BF5B2((int)pVideoPlayer);
+            VideoPlayer_sub_4BF5B2(pVideoPlayer);
           }
         }
         if ( pAudioPlayer->hAILRedbook )
@@ -5413,7 +5417,8 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
  char *pNames[4] = {"glow03", "glow05", "torchA", "wizeyeA"};
  int i;
 
-  GUICursor_sub_469C65(pGame->pGUICursor, pAppWindow->GetAPIHandle());
+ GUICursor_sub_469C65(pGame->pGUICursor, pAppWindow);
+
   sub_465F5A_InitializeAsyncMouseAndSomething();
   sub_465FF0_InitializeAsyncKeyboardAndSomething();
 
@@ -13981,5 +13986,5 @@ void erroneous_printf(const char *Format, ...)
 
   ClipCursor(0);
   MessageBoxA(0, (char *)TmpBuf, "Error", 0x30u);
- sub_464761((void *)1);
+ Game_DeinitializeAndTerminate((void *)1);
 }

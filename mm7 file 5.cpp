@@ -11,13 +11,18 @@
 #include "_audio.h"
 #include "_video.h"
 #include "FrameTables.h"
-#include "GUI.h"
+
+#include "GUI\GUI.h"
+#include "GUI\GUICursor.h"
+#include "GUI\GUIWindow.h"
+
 #include "Level.h"
 #include "Actor.h"
  #include "_lod.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
+#include "Game.h"
 
 //----- (004680ED) --------------------------------------------------------
 void Player_UseItem_DrinkPotion_etc(Player *_this, unsigned int uCharacter, int a3) // drink potions etc
@@ -2479,7 +2484,7 @@ int __fastcall sub_46AC59(int a1)
   size_t v2; // eax@1
 
   *(char *)(&pGame->unnamed_00097C.dword_000000) = BYTE3(a1);
-  CGame_stru0_sub_40E2F6(&pGame->unnamed_00097C, 0);
+  Game_stru0_sub_40E2F6(&pGame->unnamed_00097C, 0);
   v2 = strlen("micon1");
   return sub_40E32E((int)&pGame->unnamed_00097C, "micon1", v2);
 }
@@ -2490,7 +2495,7 @@ void __cdecl sub_46AC8C()
   if ( !(pGame->dword_000978 & 1) )
   {
     pGame->dword_000978 |= 1;
-    CGame_stru0_sub_40E2F6(&pGame->unnamed_00097C, 1);
+    Game_stru0_sub_40E2F6(&pGame->unnamed_00097C, 1);
   }
 }
 

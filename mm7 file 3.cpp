@@ -3,20 +3,27 @@
 #include "menus.h"
 #include "localization_defs.h"
 #include "AIL.h"
-#include "font.h"
 #include "classes.h"
 #include "clock.h"
 #include "data.h"
 #include "_audio.h"
 #include "_video.h"
 #include "FrameTables.h"
-#include "GUI.h"
+
+#include "GUI\GUI.h"
+#include "GUI\GUIButton.h"
+#include "GUI\GUICursor.h"
+#include "GUI\GUIFont.h"
+#include "GUI\GUIProgressBar.h"
+#include "GUI\GUIWindow.h"
+
 #include "Level.h"
 #include "Actor.h"
  #include "_lod.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
+#include "Game.h"
 
 
 
@@ -3231,7 +3238,7 @@ void __thiscall sub_43F39E(int _this)
     while ( v10 ^ v11 );
   }
   sub_43F515();
-  CGame_sub_44F192(pGame);
+  Game_sub_44F192(pGame);
 }
 
 //----- (0043F515) --------------------------------------------------------
@@ -5987,11 +5994,10 @@ LABEL_20:
 }
 
 //----- (00444A51) --------------------------------------------------------
-char *__cdecl sub_444A51()
+void __cdecl sub_444A51()
 {
   const char **v0; // esi@5
   const char *v1; // eax@6
-  char *result; // eax@12
   int v3; // eax@12
   char v4; // [sp-18h] [bp-84h]@11
   int v5; // [sp-14h] [bp-80h]@11
@@ -6031,7 +6037,7 @@ char *__cdecl sub_444A51()
   local_0C.uFrameX = 493;
   local_0C.uFrameWidth = 126;
   local_0C.uFrameZ = 366;
-  GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, 5, 0, *v0, 3);
+  GUIWindow_DrawText(&local_0C, pFontCreate, 0, 5, 0, *v0, 3);
   local_0C.uFrameX = 483;
   local_0C.uFrameWidth = 148;
   local_0C.uFrameZ = 334;
@@ -6060,10 +6066,9 @@ LABEL_12:
   v9 = (char *)3;
   v8 = (int)v1;
   v7 = 0;
-  v3 = CalculateTextHeght(pFontCreate, v1, &local_0C, 0, 0);
-  result = GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, (212 - v3) / 2 + 101, v7, (char *)v8, (int)v9);
+  v3 = GUIFont_CalculateTextHeight(pFontCreate, (unsigned char *)v1, &local_0C, 0, 0);
+  GUIWindow_DrawText(&local_0C, pFontCreate, 0, (212 - v3) / 2 + 101, v7, (char *)v8, (int)v9);
   dword_5B5924 = 1;
-  return result;
 }
 
 //----- (00444C8F) --------------------------------------------------------
@@ -6164,7 +6169,7 @@ void __cdecl sub_444DCA()
     local_0C.uFrameWidth = 126;
     v3 = (const char *)*v2;
     local_0C.uFrameZ = 366;
-    GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, 4, 0, v3, 3);
+    GUIWindow_DrawText(&local_0C, pFontCreate, 0, 4, 0, v3, 3);
 
     local_0C.uFrameX = 483;
     local_0C.uFrameWidth = 148;
@@ -6184,8 +6189,8 @@ void __cdecl sub_444DCA()
     strcat((char *)TmpBuf, "\n \n");
     wsprintfA((char *)pStringBuffer, (char *)pGlobalTXT_LocalizationStrings[126], pMapStats->pMapInfos[v11].pLocationName);
     strcat((char *)TmpBuf, (char *)pStringBuffer);
-    v4 = CalculateTextHeght(pFontCreate, (char *)TmpBuf, &local_0C, 0, 0);
-    GUIWindow_sub_44D406(&local_0C, pFontCreate, 0, (212 - v4) / 2 + 101, 0, (char *)TmpBuf, 3);
+    v4 = GUIFont_CalculateTextHeight(pFontCreate, TmpBuf, &local_0C, 0, 0);
+    GUIWindow_DrawText(&local_0C, pFontCreate, 0, (212 - v4) / 2 + 101, 0, (char *)TmpBuf, 3);
     dword_5B5924 = 1;
   }
 }
@@ -6211,19 +6216,21 @@ void __cdecl sub_444FBE_DrawBranchlessDialogueUI()
   if ( dword_F8B1E8 )
   {
     if ( !byte_5B0938 )
-      strcpy((char *)byte_5B0938, dword_F8B1E8);
+      strcpy((char *)byte_5B0938, (char *)dword_F8B1E8);
   }
   local_D4.uFrameWidth = 460;
   local_D4.uFrameZ = 452;
-  v1 = CalculateTextHeght(pFontArrus, (char *)byte_5B0938, &local_D4, 12, 0) + 7;
+  v1 = GUIFont_CalculateTextHeight(pFontArrus, byte_5B0938, &local_D4, 12, 0) + 7;
   if ( 352 - v1 < 8 )
   {
     v8 = (int)pFontCreate;
-    v1 = CalculateTextHeght(pFontCreate, (char *)byte_5B0938, &local_D4, 12, 0) + 7;
+    v1 = GUIFont_CalculateTextHeight(pFontCreate, byte_5B0938, &local_D4, 12, 0) + 7;
   }
   Render_sub_4A6A68(pD3DRenderer, 8, 352 - v1, (int)&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather], (short)&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather].uTextureHeight);
   Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v1, pcTexture_EndcapTexture);
-  v2 = (char *)FitTextInAWindow((char *)byte_5B0938, (Font *)v8, &local_D4, 12, 0);
+
+  unsigned char pOutString[2048];
+  v2 = (char *)FitTextInAWindow(byte_5B0938, pOutString, (Font *)v8, &local_D4, 12, 0);
   FontDrawText(pGUIWindow2, (Font *)v8, 12, 354 - v1, v2, 0, 0, 0);
  #ifndef OLD_CODE
            
@@ -6252,7 +6259,7 @@ LABEL_15:
   if (pGUIWindow2->dword_00001C == 26)
   {
     wsprintfA(Str1, "%s %s", byte_5C3428, pKeyboardController->pPressedKeysBuffer);
-    v3 = GetStringWidth(pFontLucida, Str1);
+    v3 = GUIFont_GetLineWidth(pFontLucida, (unsigned char *)Str1);
     FontDrawText(pGUIWindow2, pFontLucida, 13, 357, Str1, 0, 0, 0);
     GUIWindow_sub_459C2B(pGUIWindow2, v3 + 13, 357, (int)pFontLucida);
     return;
@@ -6423,23 +6430,23 @@ void __cdecl sub_445350_DrawDialogueUI()
  else
    strcpy((char *)TmpBuf, (char *)v1->pNPCName);
 
-  GUIWindow_sub_44D406(&local_58, pFontArrus, 483, 112, v2, (char *)TmpBuf, 3);
+  GUIWindow_DrawText(&local_58, pFontArrus, 483, 112, v2, (char *)TmpBuf, 3);
   Party_sub_49135E_GetAllPartyExpDiv1000(pParty_global);
 
  switch (uDialogueType)
  {
   case 13:
     v8 = 0;
-    v64 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)pNPCStats->pProfessions[v1->uProfession - 1].pJoinText, uActiveCharacter, 0, 0, 0, 0);
+    v64 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(pNPCStats->pProfessions[v1->uProfession].pJoinText, uActiveCharacter, 0, 0, 0, 0);
     goto LABEL_39;
 
   case 77:
     if (byte_F8B1EC)
-      v64 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)pNPCStats->pProfessions[v1->uProfession - 1].pBenefits, uActiveCharacter , 0, 0, 0, 0);
+      v64 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(pNPCStats->pProfessions[v1->uProfession].pBenefits, uActiveCharacter , 0, 0, 0, 0);
     else if (v1->dword_000008 & 0x80 )
-      v64 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)pNPCStats->pProfessions[v1->uProfession - 1].pDismissText, uActiveCharacter, 0, 0, 0, 0);
+      v64 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(pNPCStats->pProfessions[v1->uProfession].pDismissText, uActiveCharacter, 0, 0, 0, 0);
     else
-      v64 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((char *)pNPCStats->pProfessions[v1->uProfession - 1].pJoinText, uActiveCharacter, 0, 0, 0, 0);
+      v64 = (char *)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(pNPCStats->pProfessions[v1->uProfession].pJoinText, uActiveCharacter, 0, 0, 0, 0);
     
     v8 = 0;
     goto LABEL_39;
@@ -6503,7 +6510,7 @@ LABEL_24:
         v9 = (char *)pNPCStats->pProfessions[v1->uProfession - 1].pDismissText;
       else
         v9 = (char *)pNPCStats->pProfessions[v1->uProfession - 1].pJoinText;
-      v10 = (int)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(v9, uActiveCharacter, 0, 0, 0, 0);
+      v10 = (int)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((unsigned char *)v9, uActiveCharacter, 0, 0, 0, 0);
 LABEL_32:
       v64 = (const char *)v10;
       if ( v10 == 0 )
@@ -6512,16 +6519,18 @@ LABEL_39:
       local_04.uFrameWidth = 460;
       local_04.uFrameZ = 452;
       i = (int)pFontArrus;
-      v12 = CalculateTextHeght(pFontArrus, v64, &local_04, 13,0) + 7;
+      v12 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v64, &local_04, 13,0) + 7;
       if ( 352 - v12 < 8 )
       {
         i = (int)pFontCreate;
-        v12 = CalculateTextHeght(pFontCreate, v64, &local_04, 13, 0) + 7;
+        v12 = GUIFont_CalculateTextHeight(pFontCreate, (unsigned char *)v64, &local_04, 13, 0) + 7;
       }
       Render_sub_4A6A68(pD3DRenderer, 8, 352 - v12, (int)&LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather],
                  LODFile_Icons_LOD.aLODHeaders[uTextureIdx_Leather].uTextureHeight - v12);
       Render_DrawIndexedTexture(pD3DRenderer, 8, 347 - v12, pcTexture_EndcapTexture);
-      v13 = (char *)FitTextInAWindow(v64, (Font *)i, &local_04, 13, 0);
+      
+      unsigned char pOutString[2048];
+      v13 = (char *)FitTextInAWindow((unsigned char *)v64, pOutString, (Font *)i, &local_04, 13, 0);
       FontDrawText(pDialogueWindow, (Font *)i, 13, 354 - v12, v13, 0, 0, 0);
       goto LABEL_42;
     }
@@ -6587,7 +6596,7 @@ LABEL_42:
       {
         v23 = *((_DWORD *)v1 + 15);
 LABEL_63:
-        v24 = (int)(&dword_721660)[8 * v23];
+        v24 = (int)dword_721660[8 * v23 - 1];
         if ( !v24 )
         {
           v24 = (int)"";
@@ -6687,7 +6696,7 @@ LABEL_79:
       v34 = (int)pDialogueWindow;
       break;
     }
-    v39 = CalculateTextHeght(pFontArrus, (char *)v38->pButtonName, &local_AC, 0, 0);
+    v39 = GUIFont_CalculateTextHeight(pFontArrus, v38->pButtonName, &local_AC, 0, 0);
     v34 = (int)pDialogueWindow;
     v35 += v39;
     ++v36;
@@ -6711,7 +6720,7 @@ LABEL_79:
           break;
         *(_DWORD *)(v44 + 4) = i + v42;
         Str = (char *)(v44 + 85);
-        v47 = CalculateTextHeght(pFontArrus, (const char *)(v44 + 85), &local_AC, 0, 0);
+        v47 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)(v44 + 85), &local_AC, 0, 0);
         v46 = *(_DWORD *)(v44 + 4);
         v48 = v62;
         *(_DWORD *)(v44 + 12) = v47;
@@ -6720,7 +6729,7 @@ LABEL_79:
         v45 = (_WORD)v61;
         if (pDialogueWindow->dword_00002C != v48 )
           v45 = (unsigned __int16)v64;
-        GUIWindow_sub_44D406(&local_AC, pFontArrus, 0, v46, v45, Str, 3);
+        GUIWindow_DrawText(&local_AC, pFontArrus, 0, v46, v45, Str, 3);
         v34 = (int)pDialogueWindow;
         ++v62;
         ++v41;
@@ -7705,9 +7714,9 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int sEventType, int a2, int a
   int v91; // ecx@231
   int v92; // ecx@232
   int v93; // eax@243
-  const char *v94; // ecx@247
+  const unsigned char *v94; // ecx@247
   int v95; // eax@251
-  char *v96; // eax@252
+  unsigned char *v96; // eax@252
   __int64 v97; // ST4C_8@254
   int v98; // eax@262
   int v99; // ecx@262
@@ -8023,7 +8032,7 @@ LABEL_47:
                   GUIButtonCreate(ptr_507BC0, 292, 424, 31, 0, 2, 94, 110, 3, 51, (unsigned char *)v7, 0);
                   GUIButtonCreate(ptr_507BC0, 407, 424, 31, 0, 2, 94, 110, 4, 52, (unsigned char *)v7, 0);
                   GUIButtonCreate(ptr_507BC0, 0, 0, 0, 0, 1, 0, 176, 0, 9, (unsigned char *)v7, 0);
-                  dword_F8B1E8 = (char *)dword_72193C;
+                  dword_F8B1E8 = dword_72193C;
                 }
               }
             }
@@ -8615,14 +8624,14 @@ LABEL_234:
             {
               if ( dword_5C3420 == 1 )
               {
-                dword_F8B1E8 = (&dword_721664)[8 * v93];
+                dword_F8B1E8 = dword_721660[8 * v93 - 1];
                 goto LABEL_291;
               }
               if ( a3 == 1 )
               {
-                v94 = (&dword_721664)[8 * v93];
+                v94 = dword_721660[8 * v93 - 1];
 LABEL_248:
-                sub_44C175(v94, 2);
+                sub_44C175((char *)v94, 2);
                 goto LABEL_291;
               }
             }
@@ -8630,7 +8639,7 @@ LABEL_248:
             {
               if ( a3 == 1 )
               {
-                v94 = (char *)&pLevelStr[uLevelStrOffsets[v93]];
+                v94 = &pLevelStr[uLevelStrOffsets[v93]];
                 goto LABEL_248;
               }
             }
@@ -8639,9 +8648,9 @@ LABEL_248:
             v95 = v11[5] | ((unsigned int)v11[6] << 8) | ((unsigned int)v11[7] << 16) | ((unsigned int)v11[8] << 24);
             if ( dword_5C3420 )
             {
-              v96 = (&dword_721664)[8 * v95];
+              v96 = dword_721660[8 * v95 - 1];
               byte_5B0938[0] = 0;
-              dword_F8B1E8 = v96;
+              dword_F8B1E8 = (unsigned char *)v96;
             }
             else
             {
@@ -12235,7 +12244,7 @@ int __fastcall sub_44C175(const char *Source, int a2)
   v3 = a2;
   strcpy((char *)byte_5C3428, Source);
   dword_5C35B8_Some_GetTickCount_timer = 1000 * v3 + GetTickCount();
-  for ( result = GetStringWidth(pFontLucida, (char *)byte_5C3428); result > 450; result = GetStringWidth(pFontLucida, (char *)byte_5C3428) )
+  for ( result = GUIFont_GetLineWidth(pFontLucida, byte_5C3428); result > 450; result = GUIFont_GetLineWidth(pFontLucida, byte_5C3428) )
     byte_5C3427[strlen((char *)byte_5C3428)] = 0;
   return result;
 }
@@ -12483,7 +12492,7 @@ int TextureFrameTable_GetFrame(void *_this, int a2, signed int a3)
 }
 
 //----- (0044E904) --------------------------------------------------------
-void __thiscall sub_44E904(CGame *_this)
+void __thiscall sub_44E904(Game *_this)
 {
   __int64 v1; // qax@1
   unsigned int v2; // ecx@1
@@ -12558,13 +12567,13 @@ LABEL_12:
 }
 
 //----- (0044EB12) --------------------------------------------------------
-bool Game_sub_44EB12(struct CGame *_this, bool bOutline, int a3, int a4)
+bool Game_sub_44EB12(struct Game *_this, bool bOutline, int a3, int a4)
 {
  if (!dword_4E28F8 && _this->pVis && pD3DRenderer->pRenderD3D3)
  {
   Vis_sub_4C05CC(_this->pVis, &_this->pVis->class25_obj, a3, a4);
   if (bOutline)
-    CGame_outline_selection((int)_this);
+    Game_outline_selection((int)_this);
   return true;
  }
  else
@@ -12572,7 +12581,7 @@ bool Game_sub_44EB12(struct CGame *_this, bool bOutline, int a3, int a4)
 }
 
 //----- (0044EB5A) --------------------------------------------------------
-void *__thiscall CGame_outline_selection(int _this)
+void *__thiscall Game_outline_selection(int _this)
 {
   void *result; // eax@1
   int v2; // edx@9
@@ -12634,7 +12643,7 @@ void *__thiscall CGame_outline_selection(int _this)
           v10 = 302;
           v9 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Game.cpp";
           v12 = &v5;
-          Game_sub_40E2C8(&v5, "Undefined CObjectInfo type requested in CGame::outline_selection()", (int)((char *)&v13 + 1));
+          Game_sub_40E2C8(&v5, "Undefined CObjectInfo type requested in Game::outline_selection()", (int)((char *)&v13 + 1));
           result = sub_466D09(&v12, *(int *)&v5, v6, v7, v8, v9, v10);
         }
       }
@@ -12667,7 +12676,7 @@ char __thiscall Game_sub_44EDE4(int _this, int a2, void **a3)
 }
 
 //----- (0044EE30) --------------------------------------------------------
-bool Game_sub_44EE30(struct CGame *_this, struct class51_stru2 *a2, void **a3)
+bool Game_sub_44EE30(struct Game *_this, struct class51_stru2 *a2, void **a3)
 {
  if (_this->dword_000E24 & 2 && a2->byte_000010[12] & 2)
  {

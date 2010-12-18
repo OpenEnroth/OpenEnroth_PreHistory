@@ -4,6 +4,10 @@
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
+#include "Game.h"
+
+
+
  void  CheckMemoryAccess(void *memory_base, long memory_size);
 
 //mm7eng
@@ -44,7 +48,7 @@ void *MemoryMng::AllocatedNamedBuffer(void* obj_test, long size, const char *pBu
   int aligned_size; 
   
 
- if (!(obj_test==NULL)&&(!pGame->dword_000004))
+ if (!(obj_test == NULL) && (!pGame->dword_000004))
     err_show();
 
  if (!bBigBufferAllocated&&(!pGame->dword_000004 ))
