@@ -69,6 +69,7 @@ struct AudioPlayer_struct_0
  int a[4];
 };
 
+class OSWindow;
 struct AudioPlayer
 {
  int  dword_000000;
@@ -81,7 +82,8 @@ struct AudioPlayer
  int  dword_000218;
 
  int  dword_00029C;
- HWND        hWnd;          // ptr @ 0002A0
+ //HWND        hWnd;          // dword @ 0002A0
+ OSWindow     *pWindow;     // dword @ 0002A0
  HREDBOOK    hAILRedbook;   // ptr @ 0002A4
  HDIGDRIVER  hDigDriver;    // ptr @ 0002A8
  int  dword_0002AC;
@@ -108,12 +110,12 @@ struct AudioPlayer
 
  unsigned int uNumDevices;        // dword @ 000C70
  int dword_000C74;
- int          GameCDDriveLetter; // byte @  000C80
+ int          cGameCDDriveLetter; // byte @  000C80
 };
 //sizeof ~ ?
 void AudioPlayer_ctor(struct AudioPlayer *_this);
 //int __thiscall sub_4AB8CE(int _this, HWND);
-int AudioPlayer_Initialize(struct AudioPlayer *_this, HWND);
+unsigned int AudioPlayer_Initialize(struct AudioPlayer *_this, OSWindow *);
 //void __thiscall sub_4AA214(int _this, signed int a2);
 void AudioPlayer_sub_4AA214(struct AudioPlayer *_this, signed int a2);
 //int __thiscall sub_4AB818(void *_this);

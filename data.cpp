@@ -3,6 +3,8 @@
 #include "clock.h"
 #include "mm7_unparsed_data.h"
 #include "FrameTables.h"
+#include "AudioPlayer.h"
+#include "VideoPlayer.h"
 
 unsigned char *byte_4D8410 = (unsigned char *)&memory_4D8410;
 union unnamed_4D8410 memory_4D8410 =
@@ -1205,10 +1207,10 @@ unsigned char *pGlobalTXT_LocalizationStrings[677];   //ptr array[677] @ MM7.exe
 
 int bUseLoResSprites;  // byte @ MM7.exe::006BE36C
 int bUseRegistry;      // byte @ MM7.exe::006BE36D
-int bLoadingFromCD;    // byte @ MM7.exe::006BE36E
+int bCanLoadFromCD;    // byte @ MM7.exe::006BE36E
 
-//unsigned char GameCDDriveLetter; // byte @ MM7.exe::006A0D04
-wchar_t GameCDDriveLetter; // byte @ MM7.exe::006A0D04
+//unsigned char cGameCDDriveLetter; // byte @ MM7.exe::006A0D04
+wchar_t cGameCDDriveLetter; // byte @ MM7.exe::006A0D04
 
 PCMWAVEFORMAT sPCMWaveFormat;  // struct @ MM7.exe::00F1B4B8
 
@@ -1219,8 +1221,8 @@ LODFile_IB      LODFile_Events_LOD;   // struct @ MM7.exe::006BEA58
 LODFile_IB      LODFile_Icons_LOD;    // struct @ MM7.exe::006D0610
 LODFile_Sprite      LODFile_Sprites_LOD;  // struct @ MM7.exe::006E21C8
 LODFile_IB      LODFile_Bitmaps_LOD;  // struct @ MM7.exe::006F0E80
-struct AudioPlayer  *pAudioPlayer = 0;          // struct @ MM7.exe::00F790D8
-struct CVideoPlayer *pVideoPlayer = 0;          // struct @ MM7.exe::00F8BB08
+AudioPlayer  *pAudioPlayer = 0;          // struct @ MM7.exe::00F790D8
+VideoPlayer *pVideoPlayer = 0;          // struct @ MM7.exe::00F8BB08
 
 class cPCXTexture      Class33_global0;      // struct @ MM7.exe::005058F0
 class cPCXTexture      Class33_global1;      // struct @ MM7.exe::00505918

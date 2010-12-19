@@ -8,8 +8,8 @@
 #include "AIL.h"
 
 #include "data.h"
-#include "_audio.h"
-#include "_video.h"
+#include "AudioPlayer.h"
+#include "VideoPlayer.h"
 #include "FrameTables.h"
 
 #include "GUI\GUI.h"
@@ -954,12 +954,12 @@ void __cdecl sub_468F8A_OnPaperdollLeftClick()
   ItemGen_Reset(&local_0C);
   pPlayer = pPlayers[uActiveCharacter - 1];
   v0 = pPlayer->pEquippedItemIndices[1];
-  v2 = pPlayer->pEquippedItemIndices[Items::EquipType::Hand];
-  v58 = pPlayer->pEquippedItemIndices[Items::EquipType::Hand];
+  v2 = pPlayer->pEquippedItemIndices[Items::EquipType::OneOrTwoHands];
+  v58 = pPlayer->pEquippedItemIndices[Items::EquipType::OneOrTwoHands];
   v57 = v0;
   if ( v0 != -1)
   {
-   if (pClass40->pItems[pPlayer->pInventorySlots[v0].uItemID].uEquipType == 1 )
+   if (pClass40->pItems[pPlayer->pInventorySlots[v0].uItemID].uEquipType == Items::EquipType::TwoHands)
       v55 = v0;
   }
   v3 = pParty_global->pickedItem.uItemID;
@@ -986,7 +986,7 @@ LABEL_8:
     else
     {
      if ((v4 == Character::Skill::Shield || v4 == Character::Skill::Sword || v4 == Character::Skill::Dagger) && v0 &&
-         pClass40->pItems[pPlayer->pInventorySlots[v0 - 1].uItemID].uSkillType == Character::Skill::Spear)
+         pClass40->pItems[pPlayer->pInventorySlots[v0].uItemID].uSkillType == Character::Skill::Spear)
         goto LABEL_7;
     }
 LABEL_16:
@@ -1001,14 +1001,14 @@ LABEL_16:
 
     switch ( v56 )
     {
-     case Items::EquipType::Back:
+     case Items::EquipType::Bow:
      case Items::EquipType::Armour:
-      case 5:
-      case 6:
-      case 7:
-      case 8:
-      case 9:
-      case 11:
+     case Items::EquipType::Helmet:
+     case Items::EquipType::Belt:
+     case Items::EquipType::Cloak:
+     case Items::EquipType::Gauntlets:
+     case Items::EquipType::Boots:
+     case Items::EquipType::Amulet:
         if (!Player_CheckIfHasSkill(pPlayer, v4))
           goto LABEL_8;
         if (sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(uActiveCharacter) &&
@@ -1058,7 +1058,9 @@ LABEL_33:
           pPlayer->pEquippedItemIndices[15] = v11;
         }
         return;
-      case 4:
+
+
+      case Items::EquipType::Shield:
         if ( sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(uActiveCharacter) )
           goto LABEL_95;
         if ( !Player_CheckIfHasSkill(pPlayer, v4) )
@@ -1105,7 +1107,7 @@ LABEL_33:
         return;
 
 
-      case Items::EquipType::Hand:
+      case Items::EquipType::OneOrTwoHands:
       case 12:
         if (sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(uActiveCharacter) &&
             pParty_global->pickedItem.uItemID != 63 &&
@@ -1199,8 +1201,9 @@ LABEL_74:
         if ( v54 )
           sub_494836((char *)&unk_A750F8 + 45016 * (uActiveCharacter), dword_4E421C[v54], uActiveCharacter + 9);
         break;
-      case 1:
-         compile_error; // v1 pointer mess
+
+
+      case Items::EquipType::TwoHands:
         if ( sub_43EE77_ProbablyIfUnderwaterSuitIsEquipped(uActiveCharacter) )
           goto LABEL_95;
         if ( !Player_CheckIfHasSkill(pPlayer, v4) )
@@ -1419,8 +1422,8 @@ void GUICursor_sub_469BE6(struct GUICursor *_this)
 //----- (00469C0D) --------------------------------------------------------
 void *GUICursor_sub_469C0D(struct GUICursor *_this)
 {
-  return malloc(4 * (_this->uCursorTextureID != -1 ? LODFile_Icons_LOD.aLODHeaders[_this->uCursorTextureID].uTextureHeight : 24)
-                  * (_this->uCursorTextureID != -1 ? LODFile_Icons_LOD.aLODHeaders[_this->uCursorTextureID].uTextureWidth : 26));
+  return MemAlloc(char, 4 * (_this->uCursorTextureID != -1 ? LODFile_Icons_LOD.aLODHeaders[_this->uCursorTextureID].uTextureHeight : 24)
+                          * (_this->uCursorTextureID != -1 ? LODFile_Icons_LOD.aLODHeaders[_this->uCursorTextureID].uTextureWidth : 26));
 }
 
 //----- (00469CC2) --------------------------------------------------------
@@ -1620,9 +1623,9 @@ void GUICursor_sub_469EA4_LooksLikeDrawPickedItem(struct GUICursor *_this)
          if (_this->ptr_00003C)
            operator_delete(_this->ptr_00003C);
 #ifdef OLD_CODE
-         _this->ptr_00003C = new unsigned short[v2->uTextureWidth * v2->uTextureHeight];
+         _this->ptr_00003C = MemAlloc(unsigned short, v2->uTextureWidth * v2->uTextureHeight);
 #else
-         _this->ptr_00003C = new unsigned int[v2->uTextureWidth * v2->uTextureHeight];
+         _this->ptr_00003C = MemAlloc(unsigned int, v2->uTextureWidth * v2->uTextureHeight);
 #endif
 
          _this->dword_000040 = uDrawAtX;
@@ -2733,7 +2736,7 @@ char __thiscall sub_46B0A9(void *_this)
   int v3; // eax@2
 
   v2 = _this;
-  v1 = (int)malloc(0x2C);
+  v1 = (int)MemAlloc(char, 0x2C);
   if ( v1 )
     v3 = sub_43B9FF(v1);
   else
@@ -10402,7 +10405,8 @@ void __cdecl InitializeMerchants()
   char *v8; // [sp+10h] [bp-4h]@4
 
  if (pMerchantsTXT_Raw)
-   mem_mng.DeleteBuffer( (void *)pMerchantsTXT_Raw);
+   //MemFree( (void *)pMerchantsTXT_Raw);
+   MemFree(pMerchantsTXT_Raw);
 
  pMerchantsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "merchant.txt", 0);
  strtok((char *)pMerchantsTXT_Raw, "\r");
@@ -10484,7 +10488,8 @@ void __cdecl InitializeTransitions()
  int i;
 
  if (pTransitionsTXT_Raw)
-   mem_mng.DeleteBuffer( (void *)pTransitionsTXT_Raw);
+   //MemFree( (void *)pTransitionsTXT_Raw);
+   MemFree(pTransitionsTXT_Raw);
 
  pTransitionsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "trans.txt", 0);
  strtok((char *)pTransitionsTXT_Raw, "\r");
@@ -10565,26 +10570,35 @@ int __thiscall NPCStats_sub_477266(int _this)
   int v4; // ebx@1
   result=0;
   v2 = _this;
-  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 98280));
+  //MemFree( (void *)*(_DWORD *)(_this + 98280));
+  MemFree(*(_DWORD **)(_this + 98280));
   v3 = *(_DWORD *)(v2 + 98284);
   *(_DWORD *)(v2 + 98276) = 0;
-  mem_mng.DeleteBuffer( (void *)v3);
+  //MemFree( (void *)v3);
+  MemFree((void *)v3);
   *(_DWORD *)(v2 + 98276) = 0;
-  mem_mng.DeleteBuffer( (void *)0);
+  //MemFree( (void *)0);
+  MemFree((void *)0);
   *(_DWORD *)(v2 + 98276) = 0;
-  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 98272));
+  //MemFree( (void *)*(_DWORD *)(v2 + 98272));
+  MemFree(*(_DWORD **)(v2 + 98272));
   *(_DWORD *)(v2 + 98272) = 0;
-  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 98268));
+  //MemFree( (void *)*(_DWORD *)(v2 + 98268));
+  MemFree(*(_DWORD **)(v2 + 98268));
   *(_DWORD *)(v2 + 98268) = 0;
-  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 98264));
+  //MemFree( (void *)*(_DWORD *)(v2 + 98264));
+  MemFree(*(_DWORD **)(v2 + 98264));
   *(_DWORD *)(v2 + 98264) = 0;
-  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 98288));
+  //MemFree( (void *)*(_DWORD *)(v2 + 98288));
+  MemFree(*(_DWORD **)(v2 + 98288));
   *(_DWORD *)(v2 + 98288) = 0;
   v4 = v2 + 98292;
-  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 98292));
+  //MemFree( (void *)*(_DWORD *)(v2 + 98292));
+  MemFree(*(_DWORD **)(v2 + 98292));
   v2 += 98296;
   *(_DWORD *)v4 = 0;
-  mem_mng.DeleteBuffer( (void *)*(_DWORD *)v2);
+  //MemFree( (void *)*(_DWORD *)v2);
+  MemFree(*(_DWORD **)v2);
   *(_DWORD *)v2 = 0;
   return result;
 }
@@ -11597,16 +11611,20 @@ int __thiscall sub_478389(int _this)
   int v5; // ST00_4@1
   result=0;
   v2 = _this;
-  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 4));
+  //MemFree( (void *)*(_DWORD *)(_this + 4));
+  MemFree(*(_DWORD **)(_this + 4));
   v3 = *(_DWORD *)(v2 + 16);
   *(_DWORD *)(v2 + 4) = 0;
-  mem_mng.DeleteBuffer( (void *)v3);
+  //MemFree( (void *)v3);
+  MemFree((void *)v3);
   v4 = *(_DWORD *)(v2 + 20);
   *(_DWORD *)(v2 + 16) = 0;
-  mem_mng.DeleteBuffer( (void *)v4);
+  //MemFree( (void *)v4);
+  MemFree((void *)v4);
   v5 = *(_DWORD *)(v2 + 28);
   *(_DWORD *)(v2 + 20) = 0;
-  mem_mng.DeleteBuffer( (void *)v5);
+  //MemFree( (void *)v5);
+  MemFree((void *)v5);
   *(_DWORD *)(v2 + 28) = 0;
   *(_DWORD *)(v2 + 24) = 0;
   *(_DWORD *)(v2 + 8) = 0;
@@ -11615,53 +11633,6 @@ int __thiscall sub_478389(int _this)
   return result;
 }
 
-
-
-#pragma pack(push, 1)
-struct TGAHeader
-{
- unsigned char  tgaSkip;
- unsigned char  tgaDontCare1;
- unsigned char  tgaType;
- unsigned char  tgaDontCare2[9];
- unsigned short tgaWidth;
- unsigned short tgaHeight;
- unsigned char  tgaBPP;
- unsigned char  tgaDontCare3;
-};
-#pragma pack(pop)
-
-void SaveColormap(const wchar_t *pFile, unsigned char *pBits)
-{
- int i, j, x, y;
- struct TGAHeader tgaHeader =
- {
-  0, 0,
-  2, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  128 * 128, 128 * 128, 32, 0
- };
- DWORD  w;
- unsigned int *pColormap;
- void  *hFile = CreateFileW(pFile, GENERIC_WRITE, FILE_SHARE_READ, 0, CREATE_ALWAYS, 0, 0);
- if (hFile == INVALID_HANDLE_VALUE)
-   return;
- 
- WriteFile(hFile, &tgaHeader, sizeof(struct TGAHeader), &w, 0);
-
- pColormap = new unsigned int[128 * (128 * 128)];
- for (i = 0; i < 128; ++i)
- {
-   for (j = 0; j < 128; ++j)
-   {
-    cTexture *pTexture = &LODFile_Bitmaps_LOD.aLODHeaders[TileTable_GetTile(pTileTable, pBits[i * 128 + j])->word_000012];
-    for (y = 0; y < 128; ++y)
-      memcpy(pColormap + j * 128 * 128 + y * 128, pTexture->pTruecolorPixels + y * 128, 128 * 4);
-   }
-   WriteFile(hFile, pColormap, 128 * 128 * 128 * 4, &w, 0); 
- }
-
- CloseHandle(hFile);
-}
 
 
 void loc_4789D4()
@@ -13587,28 +13558,36 @@ int __thiscall class51_sub_47CDE2(int Dest)
   *(_WORD *)(v2 + 172) = 10;
   class51_sub_47F420((class51 *)v2);
   class51_sub_47F3EA((class51 *)v2);
-  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 216));
-  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 1220));
+  //MemFree( (void *)*(_DWORD *)(v2 + 216));
+  //MemFree( (void *)*(_DWORD *)(v2 + 1220));
+  MemFree(*(_DWORD **)(v2 + 216));
+  MemFree(*(_DWORD **)(v2 + 1220));
   *(_DWORD *)(v2 + 216) = 0;
   *(_DWORD *)(v2 + 1220) = 0;
   class51_InitializeGeodata((class51_Geodata *)(v2 + 180));
   sub_47CCE2((void **)(v2 + 180));
   sub_47C80A((class51_Geodata *)(v2 + 180), 0, 0, 128, 128);
-  mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v2 + 212));
+  //MemFree( (void *)*(_DWORD *)(v2 + 212));
+  MemFree(*(_DWORD **)(v2 + 212));
   *(_DWORD *)(v2 + 212) = 0;
-  v3 = (int)mem_mng.AllocatedNamedBuffer( 0, 32768, "CMAP");
+  //v3 = (int)mem_mng.AllocatedNamedBuffer( 0, 32768, "CMAP");
+  v3 = (int)NamedMemAlloc(char, 32768, "CMAP");
   v4 = *(_DWORD *)(v2 + 228);
   *(_DWORD *)(v2 + 212) = v3;
-  mem_mng.DeleteBuffer( (void *)v4);
+  //MemFree( (void *)v4);
+  MemFree((void *)v4);
   *(_DWORD *)(v2 + 228) = 0;
-  v5 = (int)mem_mng.AllocatedNamedBuffer( 0, 65536, "OMAP");
+  //v5 = (int)mem_mng.AllocatedNamedBuffer( 0, 65536, "OMAP");
+  v5 = (int)NamedMemAlloc(char, 65536, "OMAP");
   *(_DWORD *)(v2 + 228) = v5;
   memset((void *)v5, 0, 0x10000u);
   v6 = *(_DWORD *)(v2 + 224);
   *(_DWORD *)(v2 + 220) = 0;
-  mem_mng.DeleteBuffer( (void *)v6);
+  //MemFree( (void *)v6);
+  MemFree((void *)v6);
   *(_DWORD *)(v2 + 224) = 0;
-  v7 = (int)mem_mng.AllocatedNamedBuffer( 0, 2, "IDLIST");
+  //v7 = (int)mem_mng.AllocatedNamedBuffer( 0, 2, "IDLIST");
+  v7 = (int)NamedMemAlloc(char, 2, "IDLIST");
   *(_DWORD *)(v2 + 224) = v7;
   *(_WORD *)v7 = 0;
   strcpy((char *)(v2 + 96), byte_6BE114_cfg_textures_DefaultSkyTexture);
@@ -17579,7 +17558,8 @@ int __thiscall sub_487E1D(int _this)
   result = *(_DWORD *)(_this + 4);
   if ( result )
   {
-     mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 4));
+     //MemFree( (void *)*(_DWORD *)(_this + 4));
+   MemFree(*(_DWORD **)(_this + 4));
     *(_DWORD *)(v2 + 4) = 0;
   }
   *(_DWORD *)v2 = 0;

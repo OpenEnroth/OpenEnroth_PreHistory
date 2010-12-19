@@ -8,8 +8,8 @@
 #include "menus.h"
 #include "clock.h"
 #include "data.h"
-#include "_audio.h"
-#include "_video.h"
+#include "AudioPlayer.h"
+#include "VideoPlayer.h"
 #include "FrameTables.h"
 
 #include "Game.h"
@@ -810,11 +810,17 @@ LABEL_69:
 //----- (00486AFC) --------------------------------------------------------
 void __cdecl ReleaseDrawBuffers()
 {
+ MemFree(pSpansBuf);
+ MemFree(pEdgesBuf);
+ MemFree(pSurfsBuf);
+ MemFree(pNewEdgesBuf);
+ 
 
-  mem_mng.DeleteBuffer( (void *)pSpansBuf);
-  mem_mng.DeleteBuffer( (void *)pEdgesBuf);
-  mem_mng.DeleteBuffer( (void *)pSurfsBuf);
-  mem_mng.DeleteBuffer( (void *)pNewEdgesBuf);
+  //MemFree(pSpansBuf);
+  //MemFree(pEdgesBuf);
+  //MemFree(pSurfsBuf);
+  //MemFree(pNewEdgesBuf);
+
   pSpansBuf = 0;
   pEdgesBuf = 0;
   pSurfsBuf = 0;
@@ -852,7 +858,10 @@ void *__thiscall sub_458B4F(void *Dst, void *Src)
 
   v3 = Dst;
   memcpy(Dst, Src, 4u);
-  v4 = (int)mem_mng.AllocatedNamedBuffer( (void*) *((_DWORD *)v3 + 1), 36 * *(_DWORD *)v3, "Chest Descrip");
+
+  //v4 = (int)mem_mng.AllocatedNamedBuffer( (void*) *((_DWORD *)v3 + 1), 36 * *(_DWORD *)v3, "Chest Descrip");
+  v4 = (int)MemAlloc(char, 36 * *(_DWORD *)v3, "Chest Description");
+
   *((_DWORD *)v3 + 1) = v4;
   return memcpy((void *)v4, (char *)Src + 4, 36 * *(_DWORD *)v3);
 }
@@ -1581,7 +1590,8 @@ void __cdecl InitializeQuests()
   signed int v7; // [sp+14h] [bp-4h]@4
 
  if (pQuestsTXT_Raw)
-   mem_mng.DeleteBuffer( (void *)pQuestsTXT_Raw);
+   //MemFree( (void *)pQuestsTXT_Raw);
+   MemFree(pQuestsTXT_Raw);
 
  pQuestsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "quests.txt", 0);
  strtok((char *)pQuestsTXT_Raw, "\r");
@@ -1925,7 +1935,7 @@ void sub_4666D5()
   struct_576FE8.dword_000008 = struct_576FE8.dword_000018;
   struct_576FE8.dword_00000C = struct_576FE8.dword_00001C;
 
-  pOldViewport = new OldViewport;
+  pOldViewport = MemAlloc(OldViewport, 1);
   memset(pOldViewport, 0, sizeof(struct OldViewport));
   Viewport_fn0(pOldViewport, struct_576FE8.dword_000010, struct_576FE8.dword_000014, struct_576FE8.dword_000018, struct_576FE8.dword_00001C);
 
@@ -3709,7 +3719,7 @@ void InitializeCameraAndViewport()
 
  runtime_warning(deprication)
  {
-  pOldCamera = new OldCamera;
+  pOldCamera = MemAlloc(OldCamera, 1);
   OldCamera_ctor(pOldCamera);
   OldCamera_SetPerspective(pOldCamera, 65, struct_576FE8.dword_000018 - struct_576FE8.dword_000010 + 1, struct_576FE8.dword_00001C - struct_576FE8.dword_000014 + 1);
  } 
@@ -4049,7 +4059,11 @@ int sub_49F5A2(void *_this, int a2, int a3, int a4, void *Dst, int a6, int a7)
   v9 = (char *)v9 + 2;
   memcpy(v9, v18, 0x3Au);
   v8 = (char *)v9 + 58;
-  v41 = (int)mem_mng.AllocatedNamedBuffer( 0, 3 * a3 + 6, 0);
+
+  //v41 = (int)mem_mng.AllocatedNamedBuffer( 0, 3 * a3 + 6, 0);
+  v41 = (int)MemAlloc(char, 3 * a3 + 6);
+
+
   if ( a4 > 0 )
   {
     v11 = v42;
@@ -4118,7 +4132,10 @@ int sub_49F5A2(void *_this, int a2, int a3, int a4, void *Dst, int a6, int a7)
       v11 = v42;
     }
   }
-  mem_mng.DeleteBuffer( (void *)v41);
+
+  //MemFree( (void *)v41);
+  MemFree((void *)v41);
+
   result = a7;
   *(_DWORD *)a7 = (char *)v8 - (char*)Dst;
   return result;
@@ -5566,7 +5583,7 @@ int __fastcall sub_45E03A_SomethingLikeCaptureAScreenshot(signed int a1, signed 
   v29 = a2;
   v25 = 452.0 / (double)a1;
   v27 = 336.0 / (double)a2;
-  v24 = malloc(a1 * a2 * 2);//v24 = operator new(2 * a2 * a1);
+  v24 = MemAlloc(char, a1 * a2 * 2);//v24 = operator new(2 * a2 * a1);
   v2 = v24;
   if ( pD3DRenderer->pRenderD3D3 )
   {
@@ -7069,7 +7086,8 @@ void __cdecl InitializeAutonotes()
   signed int v7; // [sp+0h] [bp-4h]@4
 
  if (pAutonoteTXT_Raw)
-   mem_mng.DeleteBuffer( (void *)pAutonoteTXT_Raw);
+   //MemFree( (void *)pAutonoteTXT_Raw);
+   MemFree(pAutonoteTXT_Raw);
 
  pAutonoteTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "autonote.txt", 0);
  strtok((char *)pAutonoteTXT_Raw, "\r");
@@ -7177,7 +7195,10 @@ int LoadFileToBuffer(const char *pSourceFile, unsigned char *pOutBuffer, unsigne
  }
 
  memcpy(pOutBuffer, Src, v5);
- mem_mng.DeleteBuffer( (void *)Src);
+
+ //MemFree( (void *)Src);
+ MemFree(Src);
+
  return v5;
 }
 
@@ -8409,11 +8430,11 @@ int __fastcall sub_464866(int a1, int a2)
   v10 = a1;
   sub_464479();
 
- pClass58_global = new class58;
+ pClass58_global = MemAlloc(class58, 1);
  memset(pClass58_global, 0, sizeof(struct class58));
  class58_sub_49B525(pClass58_global, 0);
 
- pLoadingUI = new class56;
+ pLoadingUI = MemAlloc(class56, 1);
  memset(pLoadingUI, 0, sizeof(struct class56));
  LevelLoadingUI_Initialize(pLoadingUI, a2);
 
@@ -8782,16 +8803,20 @@ void AllocateDrawBuffers(void *_this)
   {
     ReleaseDrawBuffers();
 
-    pSpansBuf = (Span *)mem_mng.AllocatedNamedBuffer( pSpansBuf, 12500 * sizeof(struct Span), "SPANS");
+    //pSpansBuf = (Span *)mem_mng.AllocatedNamedBuffer( pSpansBuf, 12500 * sizeof(struct Span), "SPANS");
+    pSpansBuf = NamedMemAlloc(Span, 12500, "SPANS");
     memset(pSpansBuf, 0, 12500 * sizeof(struct Span));
 
-    pEdgesBuf = (Edge *)mem_mng.AllocatedNamedBuffer( pEdgesBuf, 6000 * sizeof(struct Edge), "EDGES");
+    //pEdgesBuf = (Edge *)mem_mng.AllocatedNamedBuffer( pEdgesBuf, 6000 * sizeof(struct Edge), "EDGES");
+    pEdgesBuf = NamedMemAlloc(Edge, 6000, "EDGES");
     memset(pEdgesBuf, 0, 6000 * sizeof(struct Edge));
 
-    pSurfsBuf = (Surf *)mem_mng.AllocatedNamedBuffer( pSurfsBuf, 2000 * sizeof(struct Surf), "SURFS");
+    //pSurfsBuf = (Surf *)mem_mng.AllocatedNamedBuffer( pSurfsBuf, 2000 * sizeof(struct Surf), "SURFS");
+    pSurfsBuf = NamedMemAlloc(Surf, 2000, "SURFS");
     memset(pSurfsBuf, 0, 2000 * sizeof(struct Surf));
 
-    pNewEdgesBuf = (Edge *)mem_mng.AllocatedNamedBuffer( pNewEdgesBuf, 480 * sizeof(struct Edge), "NEWEDGES");
+    //pNewEdgesBuf = (Edge *)mem_mng.AllocatedNamedBuffer( pNewEdgesBuf, 480 * sizeof(struct Edge), "NEWEDGES");
+    pNewEdgesBuf = NamedMemAlloc(Edge, 480, "NEWEDGES");
     memset(pNewEdgesBuf, 0, 480 * sizeof(struct Edge));
   }
 }
@@ -9615,7 +9640,8 @@ void __cdecl InitializeScrolls()
   signed int v7; // [sp+14h] [bp-4h]@4
 
  if (pScrollsTXT_Raw)
-   mem_mng.DeleteBuffer( (void *)pScrollsTXT_Raw);
+   //MemFree( (void *)pScrollsTXT_Raw);
+   MemFree(pScrollsTXT_Raw);
 
  pScrollsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "scroll.txt", 0);
  strtok((char *)pScrollsTXT_Raw, "\r");
@@ -9685,7 +9711,7 @@ void ShowLastError(void)
 }
 
 //----- (MM7.exe::00465061) --------------------------------------------------------
-bool CheckForMM7CD(wchar_t *pGameCDDriveLetter)
+bool CheckForMM7CD(wchar_t *pcGameCDDriveLetter)
 {
   char result; // al@19
   char cDriveLetter; // al@21
@@ -9717,7 +9743,7 @@ bool CheckForMM7CD(wchar_t *pGameCDDriveLetter)
       {
         if (!RegQueryValueExW(hDrvL, L"CDDrive", 0, 0, (BYTE *)pRoot, &cbData))
         {
-         *pGameCDDriveLetter = pRoot[0];
+         *pcGameCDDriveLetter = pRoot[0];
 
          if (IsMM7CD(pRoot))
            return true;
@@ -9745,7 +9771,7 @@ bool CheckForMM7CD(wchar_t *pGameCDDriveLetter)
 	CreateRegistryWString(L"CDDrive", pRoot, 4);
 
 	if (pInsertCDDialog)
-	  delete pInsertCDDialog;
+	  MemFree(pInsertCDDialog);
 
 	return true;
    }
@@ -9787,13 +9813,13 @@ bool CheckForMM7CD(wchar_t *pGameCDDriveLetter)
             if ( IsMM7CD(bCDDriveInRegistry) )
             {
               cDriveLetter = v16 + 65;
-              *pGameCDDriveLetter = v16 + 65;
+              *pcGameCDDriveLetter = v16 + 65;
 
               Data[0] = cDriveLetter;
               v14 = 58;
               v15 = 0;
               CreateRegistryKey("CDDrive", (const char *)&Data);
-              //pAudioPlayer->GameCDDriveLetter = Data;
+              //pAudioPlayer->cGameCDDriveLetter = Data;
               return 1;
             }
           }
@@ -10146,8 +10172,8 @@ LABEL_8:
   Class33_global1.PCXTexture_Release();
   struct_505898.byte_505992 = 0;
   struct_576FE8.dword_000044 = 1;
-  if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
-    VideoPlayer_sub_4BF5B2(pVideoPlayer);
+  if (pVideoPlayer->IsAnyMovieLoaded())
+    pVideoPlayer->sub_4BF5B2();
   v4 = (int *)&unk_4FAA08;
   do
   {

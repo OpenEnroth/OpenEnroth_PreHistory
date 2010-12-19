@@ -1,5 +1,5 @@
-#include "_audio.h"
-#include "_video.h"
+#include "AudioPlayer.h"
+#include "VideoPlayer.h"
 #include "AIL.h"
 #include "clock.h"
 #include "mm7_unparsed_data.h"
@@ -19,7 +19,7 @@ void AudioPlayer_ctor(struct AudioPlayer *_this)
 
  memset(_this, 0, sizeof(struct AudioPlayer));
 
- _this->GameCDDriveLetter = GameCDDriveLetter;
+ _this->cGameCDDriveLetter = cGameCDDriveLetter;
 
  GetCurrentDirectoryA(120, pCurrentDirectory);
  wsprintfA(pIniFile, "%s\\mm6.ini", pCurrentDirectory);
@@ -723,7 +723,7 @@ int AudioPlayer_SetVolume(struct AudioPlayer *_this, float fVolume)
 }
 
 //----- (MM7.exe::004AB8CE) --------------------------------------------------------
-int AudioPlayer_Initialize(struct AudioPlayer *_this, HWND hWnd)
+unsigned int AudioPlayer_Initialize(struct AudioPlayer *_this, OSWindow *pTargetWindow)
 {
   int v5; // eax@9
   int v6; // ST00_4@9
@@ -734,7 +734,7 @@ int AudioPlayer_Initialize(struct AudioPlayer *_this, HWND hWnd)
   int v16; // [sp+14h] [bp-4h]@5
   int i;
 
- _this->hWnd = hWnd;
+ _this->pWindow = pTargetWindow;
  _this->hAILRedbook = 0;
  _this->hDigDriver = 0;
  _this->dword_0002AC = 0;
@@ -748,7 +748,7 @@ int AudioPlayer_Initialize(struct AudioPlayer *_this, HWND hWnd)
 
  AIL_startup();
 
- _this->hAILRedbook = AIL_redbook_open_drive(_this->GameCDDriveLetter);
+ _this->hAILRedbook = AIL_redbook_open_drive(_this->cGameCDDriveLetter);
  _this->hDigDriver = sub_4ABAF7();
  if (_this->hDigDriver)
    SmackSoundUseMSS(_this->hDigDriver);
@@ -760,11 +760,13 @@ int AudioPlayer_Initialize(struct AudioPlayer *_this, HWND hWnd)
     *(_DWORD *)(_this + 4) = 0;
     ReadWindowsRegistryString("3DSoundProvider", (BYTE *)(_this + 540), 0x80u, (unsigned char *)"NONE");
     sub_4ABC9B(1);
-    while ( AIL_enumerate_3D_providers((int)&v16, (int)&hWnd, (int)&Str1) )
+
+    HWND hwnd = _this->pWindow->GetAPIHandle();
+    while ( AIL_enumerate_3D_providers((int)&v16, (int)&hwnd, (int)&Str1) )
     {
       if ( !strcmp(Str1, (const char *)(_this + 540)) )
       {
-        if ( AIL_open_3D_provider(v13, (int)hWnd) )
+        if ( AIL_open_3D_provider(v13, (int)hwnd) )
         {
           *(_DWORD *)_this = 0;
           *(_DWORD *)(_this + 4) = 0;
@@ -772,8 +774,8 @@ int AudioPlayer_Initialize(struct AudioPlayer *_this, HWND hWnd)
         }
         else
         {
-          v5 = (int)hWnd;
-          v6 = (int)hWnd;
+          v5 = (int)hwnd;
+          v6 = (int)hwnd;
           *(_DWORD *)(_this + 4) = 1;
           *(_DWORD *)(_this + 12) = v5;
           *(_DWORD *)(_this + 16) = 4;
@@ -819,9 +821,10 @@ int AudioPlayer_Initialize(struct AudioPlayer *_this, HWND hWnd)
  }
  AudioPlayer_LoadSoundHeaders(_this);
 
- pVideoPlayer = new CVideoPlayer;
- CVideoPlayer_ctor(pVideoPlayer);
- return CVideoPlayer_LoadVideoHeaders(pVideoPlayer);
+ if (pAudioPlayer->hAILRedbook)
+   AIL_redbook_pause(pAudioPlayer->hAILRedbook);
+
+ return Error::Success;
 }
 
 //----- (MM7.exe::004AB818) --------------------------------------------------------
@@ -839,7 +842,8 @@ int AudioPlayer_LoadSoundHeaders(struct AudioPlayer *_this)
 
  ReadFile(_this->hSoundsSource, &_this->uNumSounds, 4, &w, 0);
 
- _this->pSoundHeaders = (AudioPlayer_sound_header_struct *)mem_mng.AllocatedNamedBuffer(NULL, _this->uNumSounds * sizeof(struct AudioPlayer_sound_header_struct) + 2, 0);
+ //_this->pSoundHeaders = (AudioPlayer_sound_header_struct *)mem_mng.AllocatedNamedBuffer(NULL, _this->uNumSounds * sizeof(struct AudioPlayer_sound_header_struct) + 2, 0);
+ _this->pSoundHeaders = NamedMemAlloc(AudioPlayer_sound_header_struct, _this->uNumSounds, "AudioPlayer audio headers");
 
  return ReadFile(_this->hSoundsSource, _this->pSoundHeaders, _this->uNumSounds * sizeof(struct AudioPlayer_sound_header_struct), &w, 0);
 }
@@ -1020,7 +1024,8 @@ void *CSoundList_Initialize(struct CSoundList *_this, unsigned char *pSrc)
 {
  _this->uNumSounds = *(int *)(pSrc);
 
- _this->pDescriptions = (SoundDescription *)mem_mng.AllocatedNamedBuffer( _this->pDescriptions, _this->uNumSounds * sizeof(struct SoundDescription), "Snd Des.");
+ //_this->pDescriptions = (SoundDescription *)mem_mng.AllocatedNamedBuffer( _this->pDescriptions, _this->uNumSounds * sizeof(struct SoundDescription), "Snd Des.");
+ _this->pDescriptions = NamedMemAlloc(SoundDescription, _this->uNumSounds, "Sound Descrip");
  memcpy(_this->pDescriptions, pSrc + 4, _this->uNumSounds * sizeof(struct SoundDescription));
  return 0;
 }

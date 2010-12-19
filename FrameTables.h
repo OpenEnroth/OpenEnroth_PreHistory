@@ -113,22 +113,22 @@ template <typename Image>
    }
 
   
-
-
- protected:
+   
    inline ImageTable()
    {
     uNumImages = 0;
     pImages = 0;
    }
 
+
+ protected:
    unsigned int  uNumImages;
    Image        *pImages;
 };
 
-#endif
+#else
 
-#ifdef OLD_CODE
+
 template <typename Image>
   struct ImageTable;
 
@@ -222,15 +222,15 @@ template <typename Image>
    }
 
   
-
-
- protected:
+   
    inline ImageTable()
    {
     uNumImages = 0;
     pImages = 0;
    }
 
+
+ protected:
    unsigned int  uNumImages;
    Image        *pImages;
 };

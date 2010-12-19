@@ -13,8 +13,8 @@
 #include "clock.h"
 #include "classes.h"
 #include "data.h"
-#include "_audio.h"
-#include "_video.h"
+#include "AudioPlayer.h"
+#include "VideoPlayer.h"
 #include "FrameTables.h"
 
 #include "GUI\GUI.h"
@@ -46,10 +46,11 @@ void RtlCallCtors()
  
 
  //moved creation of d3d here since sub_40DEF3 uses it
- //pD3DRenderer = new RenderOpenGL;
- pD3DRenderer = new RenderDirect3D3;
+ //pD3DRenderer = MemAlloc(RenderOpenGL, 1);
+ pD3DRenderer = MemAlloc(RenderDirect3D3, 1);
+ pAppWindow->AttachRender(pD3DRenderer);
 
- pKeyboardController = new KeyboardController;
+ pKeyboardController = MemAlloc(KeyboardController, 1);
  KeyboardController_ctor(pKeyboardController);
 
  dword_507AFC = 0xFF0A0000;
@@ -66,13 +67,13 @@ void RtlCallCtors()
 
  class37_ctor(&class37_global0);
 
- pParty_global = new Party;
+ pParty_global = NamedMemAlloc(Party, 1, "Party");
  Party_ctor(pParty_global);
 
- pStruct9_global = new struct9;
+ pStruct9_global = NamedMemAlloc(struct9, 1, "struct9");
  memset(pStruct9_global, 0, sizeof(struct struct9));
 
- pClass59_global = new class59;
+ pClass59_global = NamedMemAlloc(class59, 1, "class59");
  class59_ctor(pClass59_global);
 
  //cClock2 = new class24;
@@ -112,7 +113,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
  HWND hPreviouslyActiveWindow = GetActiveWindow();
 
- bool bNoCD = false;
  if (lpCmdLine)
  {
   if (lpCmdLine[0])
@@ -120,28 +120,32 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
    if (strstr(lpCmdLine, "-usedefs"))
      bUseOverrideData = true;
    if (strstr(lpCmdLine, "-window"))
-     dword_6BE368 |= 1u;
+     dword_6BE368 |= 0x01;
    if (strstr(lpCmdLine, "-nosound"))
-     dword_6BE364 |= 0x10u;
+     dword_6BE364 |= 0x10;
    if (strstr(lpCmdLine, "-noanim"))
+     dword_6BE364 |= 0x40;
+
+   if (strstr(lpCmdLine, "-novideo"))
+     bNoVideo = true;
+
+   if (!strstr(lpCmdLine, "-nocd"))
    {
-    dword_6BE364 |= 0x40u;
-    bSkipVideo = true;
+    if (!CheckForMM7CD(&cGameCDDriveLetter))
+      return 0;
+
+    bCanLoadFromCD = true;
    }
-   if (strstr(lpCmdLine, "-nocd"))
-     bNoCD = true;
+   else bCanLoadFromCD = false;
   }
  }
+ bNoVideo = true;
 
 
-
- if (!bNoCD && !CheckForMM7CD(&GameCDDriveLetter))
-   return 0;
-
- pAppWindow = new Win32Window;
+ pAppWindow = MemAlloc(Win32Window, 1);
  if (pAppWindow->Initialize(L"MM7cls", L"Might and Magic® VII", WindowCreationParams::Framed | ::WindowCreationParams::Unique))
  {
-  delete pAppWindow;
+  MemFree(pAppWindow);
   return 0;
  }
 
@@ -1251,11 +1255,11 @@ signed int __fastcall BasicInitialization(HINSTANCE hInst, const char *pCmdLine)
  wsprintfW(pMM6ConfigFilename, L"%s\\mm6.ini", pGameDirectory);
 
 
- if (!mem_mng.AllocateBigBuffer( 27000))
+ /*if (!mem_mng.AllocateBigBuffer( 27000))
  {
   MessageBoxW(0, L"Unable to Allocate 26MB of RAM", L"More RAM Memory Required", 48);
   return 0;
- }
+ }*/
 
 
  //cClock1 = new class24;
@@ -1321,76 +1325,75 @@ signed int __fastcall BasicInitialization(HINSTANCE hInst, const char *pCmdLine)
  ReadMM6_ini(pMM6ConfigFilename);
 
  {
-  pSpriteFrameTable = new SpriteFrameTable;
+  pSpriteFrameTable = MemAlloc(SpriteFrameTable, 1);
   SpriteFrameTable_ctor(pSpriteFrameTable);
   v22 = LODFile_Events_LOD.LODFile_LoadRaw( "dsft.bin", 1);
   SpriteFrameTable_Initialize(pSpriteFrameTable, (unsigned int *)v22);
-  free(v22);
+  MemFree(v22);
 
-  pTextureFrameTable = new CTextureFrameTable;
+  pTextureFrameTable = MemAlloc(CTextureFrameTable, 1);
   CTextureFrameTable_ctor(pTextureFrameTable);
   v25 = LODFile_Events_LOD.LODFile_LoadRaw( "dtft.bin", 1);
   CTextureFrameTable_Initialize(pTextureFrameTable, (unsigned char *)v25);
-  free(v25);
+  MemFree(v25);
 
-  pTileTable = new CTileTable;
+  pTileTable = MemAlloc(CTileTable, 1);
   CTileTable_ctor(pTileTable);
   v28 = LODFile_Events_LOD.LODFile_LoadRaw( "dtile.bin", 1);
   CTileTable_Initialize(pTileTable, (unsigned char *)v28);
-  free(v28);
+  MemFree(v28);
 
-  pPlayerFrameTable = new CPlayerFrameTable;
+  pPlayerFrameTable = MemAlloc(CPlayerFrameTable, 1);
   //CPlayerFrameTable_ctor(pPlayerFrameTable);
   v31 = LODFile_Events_LOD.LODFile_LoadRaw( "dpft.bin", 1);
   pPlayerFrameTable->pft_Initialize((unsigned char *)v31);
-  free(v31);
+  MemFree(v31);
 
   //pIconFrameTable = new CIconFrameTable;
   //CIconFrameTable_ctor(pIconFrameTable);
   //v34 = LODFile_LoadRaw(pLODFile_Events_LOD, "dift.bin", 1);
   //CIconFrameTable_Initialize(pIconFrameTable, v34);
   //call_delete(v34);
- #ifndef OLD_CODE  
+#ifndef OLD_CODE  
   ImageTableLoader<IconFrame>().LoadFromFile(L"dift.bin", &pIconFrameTable);
-  #endif
-#ifdef OLD_CODE 
-    ImageTableLoader<IconFrame>().LoadFromFile("dift.bin", &pIconFrameTable);
+#else
+  ImageTableLoader<IconFrame>().LoadFromFile("dift.bin", &pIconFrameTable);
 #endif
 
-  pDecorationDescriptionList = new DecorationDescriptionList;
+  pDecorationDescriptionList = MemAlloc(DecorationDescriptionList, 1);
   DecorationDescriptionList_ctor(pDecorationDescriptionList);
   v37 = LODFile_Events_LOD.LODFile_LoadRaw( "ddeclist.bin", 1);
   DecorationDescriptionList_Initialize(pDecorationDescriptionList, (unsigned char *)v37);
-  free(v37);
+  MemFree(v37);
 
-  pObjectDescriptionList = new CObjectDescriptionList;
+  pObjectDescriptionList = MemAlloc(CObjectDescriptionList, 1);
   CObjectDescriptionList_ctor(pObjectDescriptionList);
   v40 = LODFile_Events_LOD.LODFile_LoadRaw( "dobjlist.bin", 1);
   CObjectDescriptionList_Initialize(pObjectDescriptionList, (unsigned char *)v40);
-  free(v40);
+  MemFree(v40);
 
-  pMonsterDescriptionList = new MonsterDescriptionList;
+  pMonsterDescriptionList = MemAlloc(MonsterDescriptionList, 1);
   MonsterDescriptionList_ctor(pMonsterDescriptionList);
   v43 = LODFile_Events_LOD.LODFile_LoadRaw( "dmonlist.bin", 1);
   MonsterDescriptionList_Initialize(pMonsterDescriptionList, (unsigned int *)v43);
-  free(v43);
+  MemFree(v43);
 
   //chest descriptor
   v46 = LODFile_Events_LOD.LODFile_LoadRaw( "dchest.bin", 1);
   sub_458B4F(chest_descriptor, v46);
-  free(v46);
+  MemFree(v46);
 
-  pOverlayDescriptionList = new COverlayDescriptionList;
+  pOverlayDescriptionList = MemAlloc(COverlayDescriptionList, 1);
   COverlayDescriptionList_ctor(pOverlayDescriptionList);
   v49 = LODFile_Events_LOD.LODFile_LoadRaw( "doverlay.bin", 1);
   COverlayDescriptionList_Initialize(pOverlayDescriptionList, (unsigned char *)v49);
-  free(v49);
+  MemFree(v49);
 
-  pSoundList = new CSoundList;
+  pSoundList = MemAlloc(CSoundList, 1);
   CSoundList_ctor(pSoundList);
   v51 = LODFile_Events_LOD.LODFile_LoadRaw( "dsounds.bin", 1);
   CSoundList_Initialize(pSoundList, (unsigned char *)v51);
-  free(v51);
+  MemFree(v51);
  }
 
 
@@ -1445,13 +1448,22 @@ signed int __fastcall BasicInitialization(HINSTANCE hInst, const char *pCmdLine)
  else
    pGame->dword_000E24 &= 0xFFFFFFDF;
 
- if (~dword_6BE364 & 0x10)  //if (!nosound)
+ pAudioPlayer = 0;
+ if (~dword_6BE364 & 0x10)
  {
-  pAudioPlayer = new AudioPlayer;
+  pAudioPlayer = MemAlloc(AudioPlayer, 1);
   AudioPlayer_ctor(pAudioPlayer);
 
-  AudioPlayer_Initialize(pAudioPlayer, pAppWindow->GetAPIHandle());
+  AudioPlayer_Initialize(pAudioPlayer, pAppWindow);
  }
+
+ pVideoPlayer = 0;
+ if (!bNoVideo)
+ {
+  pVideoPlayer = MemAlloc(VideoPlayer, 1);
+  pVideoPlayer->Initialize(pAppWindow, pAudioPlayer);
+ }
+
  dword_6BE364 |= 0x4000;
 
 
@@ -2348,115 +2360,6 @@ LABEL_4:
  return true;
 }
 
-//----- (004BE70E) --------------------------------------------------------
-void __fastcall MoviePlayerLoop(const char *pMovieName, int a2, int a3, int a4)
-{
-  int v4; // ebp@1
- MSG msg;
-
- v4 = a2;
- if (dword_6BE364 & 0x44)  //no movies
-   return;
-
- if (a2 == 2)
-   v4 = 0;
-
- ShowCursor(0);
- CVideoPlayer_OpenMovie(pVideoPlayer, pMovieName, 0, a3);
- pVideoPlayer->dword_000058 = 1;
- pVideoPlayer->dword_000044 = v4;
-
- if (pD3DRenderer->pRenderD3D3)
-   Render_ClearTarget(pD3DRenderer, 0);
- else
- {
-  pD3DRenderer->BeginScene();
-  Render_ClearTarget(pD3DRenderer, 0);
-  pD3DRenderer->EndScene();
- }
- dword_4E28F8 = 16;
-
-
- if (pVideoPlayer->dword_00009C == 2)
- {
-  if (pVideoPlayer->pBinkMovie)
-  {
-   sub_4BED4F(pVideoPlayer, pVideoPlayer->hWnd, v4, a3);
-   while (pVideoPlayer->pBinkMovie)
-   {
-    if (pVideoPlayer->dword_00006C)
-      break;
-
-    while (PeekMessageA(&msg, 0, 0, 0, PM_REMOVE))
-    {
-     if (msg.message == WM_QUIT)
-       Game_DeinitializeAndTerminate(0);
-     if (msg.message == WM_PAINT)
-       break;
-
-     TranslateMessage(&msg);
-     DispatchMessageA(&msg);
-    }
-
-    sub_435748();
-    if (!pVideoPlayer->pBinkMovie)
-      break;
-
-    if (!BinkWait(pVideoPlayer->pBinkMovie))
-    {
-     if (!pVideoPlayer->dword_00006C)
-       sub_4BED4F(pVideoPlayer, pVideoPlayer->hWnd, v4, a3);
-    }
-   }
-  }
-  if (pVideoPlayer->dword_00006C == 1)
-   Sleep(1000);
- }
-
- else if (pVideoPlayer->dword_00009C == 1)
- {
-  if (pVideoPlayer->pSmackerMovie)
-  {
-   sub_4BEE6B(pVideoPlayer, pVideoPlayer->hWnd, v4, a3);
-
-   while (pVideoPlayer->pSmackerMovie)
-   {
-    if (pVideoPlayer->dword_00006C)
-      break;
-
-    while (PeekMessageA(&msg, 0, 0, 0, PM_REMOVE))
-    {
-     if (msg.message == WM_QUIT)
-       Game_DeinitializeAndTerminate(0);
-     else if (msg.message == WM_PAINT)
-       break;
-
-     TranslateMessage(&msg);
-     DispatchMessageA(&msg);
-    }
-    sub_435748();
-
-    if (!pVideoPlayer->pSmackerMovie)
-      break;
-    if (!SmackWait(pVideoPlayer->pSmackerMovie))
-    {
-     if (!pVideoPlayer->dword_00006C)
-       sub_4BEE6B(pVideoPlayer, pVideoPlayer->hWnd, v4, a3);
-    }
-   }
-  }
- }
-
- if (a4 == 1)
-   dword_4E28F8 = 0;
-
- pVideoPlayer->dword_000058 = 0;
- ShowCursor(1);
-
- if (dword_4E28F8 == 16)
-   dword_4E28F8 = 0;
-}
-
 //----- (0046BE0A) --------------------------------------------------------
 int __fastcall sub_46BE0A(unsigned int a1)
 {
@@ -3047,8 +2950,8 @@ LABEL_208:
           v30 = 0;
           goto LABEL_261;
         }
-        if ( pVideoPlayer->dword_000024 )
-         pVideoPlayer->dword_000068 = 1;
+        if (pVideoPlayer && pVideoPlayer->dword_000024 )
+          pVideoPlayer->dword_000068 = 1;
         if (!dword_720010)
           GUICursor_OnMouseLeftButton(pGame->pGUICursor, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
         if ( uCurrentMenuID != MENU_CREATEPARTY)
@@ -3235,7 +3138,7 @@ LABEL_261:
   {
     if (uMsg == WM_WINDOWPOSCHANGED)
     {
-      if (pVideoPlayer && CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) && pVideoPlayer->pBinkBuffer)
+      if (pVideoPlayer &&pVideoPlayer->IsAnyMovieLoaded()&& pVideoPlayer->pBinkBuffer)
       {
         BinkBufferSetOffset(pVideoPlayer->pBinkBuffer, 0, 0);
         return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
@@ -3291,7 +3194,7 @@ LABEL_104:
       sub_459F10(pKeyboardController, wParam);
     if ( !struct_505898.byte_505992 )
     {
-      if ( pVideoPlayer->dword_000024 )
+      if (pVideoPlayer && pVideoPlayer->dword_000024 )
         pVideoPlayer->dword_00006C = 1;
 
       if (wParam == VK_RETURN)
@@ -3332,7 +3235,7 @@ LABEL_104:
       }
       if ( (unsigned int)wParam > VK_DOWN)
       {
-          if ( wParam != 115 || CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
+          if ( wParam != 115 ||pVideoPlayer->IsAnyMovieLoaded())
             return 0;
           v39 = 0;
           v38 = 104;
@@ -3490,7 +3393,7 @@ LABEL_179:
             {
               if ( wParam == 115 )
               {
-                if ( !CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
+                if ( !pVideoPlayer->IsAnyMovieLoaded())
                   SendMessageA(hWnd, 0x111u, 0x68u, 0);
               }
               goto LABEL_184;
@@ -3546,11 +3449,11 @@ LABEL_179:
               CAsyncKeyboard_Resume(pAsyncKeyboard);
           }
           struct_576FE8.dword_000044 = 1;
-          if ( pVideoPlayer->pSmackerMovie )
+          if (pVideoPlayer && pVideoPlayer->pSmackerMovie )
           {
             Render_RestoreFrontBuffer(pD3DRenderer);
             Render_sub_4A184C(pD3DRenderer);
-            VideoPlayer_sub_4BF5B2(pVideoPlayer);
+            pVideoPlayer->sub_4BF5B2();
           }
         }
         if ( pAudioPlayer->hAILRedbook )
@@ -3960,7 +3863,7 @@ void sub_44103C()
  class08_CreateWorldMatrixAndSomeStuff(pGame->class08_obj);
  class08_PrepareSomeVectors(pGame->class08_obj);
 
- if (CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer))
+ if (pVideoPlayer && pVideoPlayer->IsAnyMovieLoaded())
  {
   if (pD3DRenderer->pRenderD3D3)
     goto LABEL_22;
@@ -4040,7 +3943,7 @@ LABEL_22:
   struct_576FE8.dword_000044 = 0;
  }
  
-  if (!pVideoPlayer->pSmackerMovie)
+  if (!pVideoPlayer || (pVideoPlayer && !pVideoPlayer->pSmackerMovie))
   {
    GameUI_DrawMinimap(488, 16, 625, 133, struct_576FE8.uMinimapZoom);
 
@@ -4069,7 +3972,7 @@ LABEL_22:
   if (sub_44100D())
     sub_41B3B6();
  
-  if (!CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer))
+  if (pVideoPlayer && !pVideoPlayer->IsAnyMovieLoaded())
   {
     class06_sub_4A902A_DrawSomeIcon(pGame->class06_obj);
     sub_441964(array_5E4D58, v5);
@@ -4507,7 +4410,7 @@ void *__stdcall call_new(int a1, int a2, int a3)
  void *p;
  compile_warning;//return sub_4CD96F(a3, a2);
 
- p = malloc(a2 * a3);
+ p = MemAlloc(char, a2 * a3);
  memset(p, 0, a2 * a3);
  return p;
 }
@@ -5422,7 +5325,7 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
   sub_465F5A_InitializeAsyncMouseAndSomething();
   sub_465FF0_InitializeAsyncKeyboardAndSomething();
 
-  pClass40 = new class40;
+  pClass40 = MemAlloc(class40, 1);
   sub_456D84(pClass40);
   LODFile_Bitmaps_LOD.lod_IB_dword_011BA8=1;
   LODFile_Bitmaps_LOD.SetupPalettes(5,6,5);//pD3DRenderer->uNumTargetRBits, pD3DRenderer->uNumTargetGBits, pD3DRenderer->uNumTargetBBits);
@@ -5474,19 +5377,20 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
   for (i = 0; i < 8; ++i)
   {
 
-  #ifndef OLD_CODE
+#ifndef OLD_CODE
   wchar_t pWaterTileName[256]; // [sp+10h] [bp-Ch]@9
-   wsprintfW(pWaterTileName, L"HDWTR%03u", i);
-   uTextureID_WaterTiles[i] = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pWaterTileName);
-#endif
-  #ifdef OLD_CODE
-   char pWaterTileName[16]; // [sp+10h] [bp-Ch]@9
-    wsprintfA(pWaterTileName, "HDWTR%03u", i);
-   uTextureID_WaterTiles[i] = LODFile_Bitmaps_LOD.LODFile_LoadTexture( pWaterTileName,2);
+
+  wsprintfW(pWaterTileName, L"HDWTR%03u", i);
+  uTextureID_WaterTiles[i] = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pWaterTileName);
+#else
+  char pWaterTileName[16]; // [sp+10h] [bp-Ch]@9
+
+  wsprintfA(pWaterTileName, "HDWTR%03u", i);
+  uTextureID_WaterTiles[i] = LODFile_Bitmaps_LOD.LODFile_LoadTexture( pWaterTileName,2);
 #endif
   }
 
- pNPCStats = new CNPCStats;
+ pNPCStats = MemAlloc(CNPCStats, 1);
  CNPCStats_ctor(pNPCStats);
  CNPCStats_Initialize(pNPCStats);
 
@@ -5503,7 +5407,7 @@ signed int __cdecl sub_465D0B_InitializeSoundsAndTheRest()
  CreateDirectoryW(L".\\Saves", 0);
  //_mkdir("Saves");
 
- pStationaryLightsStack = new StationaryLightsStack;
+ pStationaryLightsStack = MemAlloc(StationaryLightsStack, 1);
  memset(pStationaryLightsStack, 0, sizeof(struct StationaryLightsStack));
 
  result = sub_46082C();
@@ -7134,64 +7038,6 @@ LABEL_8:
     }
   }
   return v3;
-}
-
-//----- (004A952D) --------------------------------------------------------
-void __stdcall PlayMovie(unsigned int uVideoID, char a2)
-{
-  int v2; // edx@5
-  const char *v3; // ecx@5
-
-  char  CShow[256];
-  int v5; // [sp-14h] [bp-20h]@4
-  int v6; // [sp-10h] [bp-1Ch]@4
-  int v7; // [sp-Ch] [bp-18h]@4
-  char v10; // [sp+0h] [bp-Ch]@14
-  char v11; // [sp+4h] [bp-8h]@4
-  int v12; // [sp+Bh] [bp-1h]@14
-
- if (dword_720010)
-   Mouse_suspend(dword_720010);
-
- switch (uVideoID)
- {
-    case 0:
-      Game_sub_40E2C8(CShow, "No movie", (int)((char *)&a1 + 3));
-      sub_467834(&v11, (char)CShow, (const CHAR *)v5, v6, v7, __FILE__, __LINE__);
-      break;
-
-    case 1: MoviePlayerLoop("3dologo", 0, 0, 1);
-    break;
-
-    case 2: MoviePlayerLoop("new world logo", 0, 1, 1);
-    break;
-
-    case 3: MoviePlayerLoop("jvc", 0, 1, 1);
-    break;
-
-    case 4: MoviePlayerLoop("Intro Post", 0, 1, 1);
-    break;
-
-    case 5: MoviePlayerLoop("Intro", 0, 1, 1);
-    break;
-
-    case 6: MoviePlayerLoop("losegame", 2, 1, 1);
-    break;
-
-    case 7: MoviePlayerLoop("end_seq1", 20, 1, 1);
-    break;
-
-    default:
-      Game_sub_40E2C8(CShow, "Invalid movie requested in CShow::Run()", (int)&v12);
-      sub_466D09(&v10, (int)CShow, v5, v6, v7, __FILE__, __LINE__);
-      break;
-  }
-
- if (a2)
- {
-  if (dword_720010)
-    sub_46B105((void *)dword_720010);
- }
 }
 
 

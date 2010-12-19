@@ -1,6 +1,6 @@
 #include "FrameTables.h"
 #include "mm7_unparsed_data.h"
-#include "_audio.h"
+#include "AudioPlayer.h"
 #include "data.h"
 #include "_lod.h"
 
@@ -14,10 +14,10 @@ template<> unsigned int ImageTableLoader<IconFrame>::LoadFromFile(const wchar_t 
  wsprintfA(pFilenameA, "%S", pFilename);
  unsigned char *pRawData = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw(pFilenameA, 1);
 
- ImageTable<IconFrame> *pImageTable = new ImageTable<IconFrame>;
+ ImageTable<IconFrame> *pImageTable = MemAlloc(ImageTable<IconFrame>, 1);
 
  pImageTable->uNumImages = *(unsigned int *)pRawData;
- pImageTable->pImages = new IconFrame[pImageTable->uNumImages];
+ pImageTable->pImages = MemAlloc(IconFrame, pImageTable->uNumImages);
  memcpy(pImageTable->pImages, pRawData + 4, pImageTable->uNumImages * sizeof(IconFrame));
 
  *ppOut = pImageTable;
@@ -29,14 +29,12 @@ template<> unsigned int ImageTableLoader<IconFrame>::LoadFromFile(const wchar_t 
 #ifdef OLD_CODE
 template<> unsigned int ImageTableLoader<IconFrame>::LoadFromFile(const char *pFilename, struct ImageTable<IconFrame> **ppOut)
 {
-
-
  unsigned char *pRawData = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw(pFilename, 1);
 
- ImageTable<IconFrame> *pImageTable = new ImageTable<IconFrame>;
+ ImageTable<IconFrame> *pImageTable = MemAlloc(ImageTable<IconFrame>, 1);
 
  pImageTable->uNumImages = *(unsigned int *)pRawData;
- pImageTable->pImages = new IconFrame[pImageTable->uNumImages];
+ pImageTable->pImages = MemAlloc(IconFrame, pImageTable->uNumImages);
  memcpy(pImageTable->pImages, pRawData + 4, pImageTable->uNumImages * sizeof(IconFrame));
 
  *ppOut = pImageTable;
@@ -55,7 +53,8 @@ void MonsterDescriptionList_ctor(struct MonsterDescriptionList *_this)
 void MonsterDescriptionList_Initialize(struct MonsterDescriptionList *_this, unsigned int *pSrc)
 {
  _this->uNumDescriptions = pSrc[0];
- _this->pDescriptions = (MonsterDescription *)mem_mng.AllocatedNamedBuffer( _this->pDescriptions, _this->uNumDescriptions * sizeof(struct MonsterDescription), "Mon Race");
+ //_this->pDescriptions = (MonsterDescription *)mem_mng.AllocatedNamedBuffer( _this->pDescriptions, _this->uNumDescriptions * sizeof(struct MonsterDescription), "Mon Race");
+ _this->pDescriptions = NamedMemAlloc(MonsterDescription, _this->uNumDescriptions, "Monster Race descr");
 
  memcpy(_this->pDescriptions, pSrc + 1, _this->uNumDescriptions * sizeof(struct MonsterDescription));
 }
@@ -66,7 +65,8 @@ void MonsterDescriptionList_Initialize(struct MonsterDescriptionList *_this, uns
 void CTextureFrameTable_Initialize(struct CTextureFrameTable *_this, unsigned char *pSrc)
 {
  _this->uNumTextures = *(int *)(pSrc);
- _this->pTextures = (TextureFrame *)mem_mng.AllocatedNamedBuffer(_this->pTextures, _this->uNumTextures * sizeof(struct TextureFrame), "Txt Frames");
+ //_this->pTextures = (TextureFrame *)mem_mng.AllocatedNamedBuffer(_this->pTextures, _this->uNumTextures * sizeof(struct TextureFrame), "Txt Frames");
+ _this->pTextures = NamedMemAlloc(TextureFrame, _this->uNumTextures, "Texture Frames");
 
  memcpy(_this->pTextures, pSrc + 4, _this->uNumTextures * sizeof(struct TextureFrame));
 }
@@ -94,7 +94,7 @@ void CIconFrameTable_Initialize(struct CIconFrameTable *_this, void *pSrc)
 {
  _this->uNumIcons = *(int *)pSrc;
 
- _this->pIcons = (IconFrame *)mem_mng.AllocatedNamedBuffer( _this->pIcons, _this->uNumIcons * sizeof(struct IconFrame), "I Frames");
+ _this->pIcons = NamedMemAlloc(IconFrame, _this->uNumIcons, "Icon Frames");
  memcpy(_this->pIcons, (char *)pSrc + 4, _this->uNumIcons * sizeof(struct IconFrame));
 }
 
@@ -210,9 +210,12 @@ int SpriteFrameTable_Initialize(struct SpriteFrameTable *_this, unsigned int *pS
  _this->uNumSpriteFrames = pSrc[0];
  _this->dword_000004 = pSrc[1];
 
- _this->pSpriteSFrames = (SpriteFrame *)mem_mng.AllocatedNamedBuffer( _this->pSpriteSFrames, _this->uNumSpriteFrames * sizeof(struct SpriteFrame), "S Frames");
- _this->pSpritePFrames = (SpriteFrame **)mem_mng.AllocatedNamedBuffer( _this->pSpritePFrames, 4 * _this->uNumSpriteFrames, "P Frames");
- _this->pSpriteEFrames = (unsigned short *)mem_mng.AllocatedNamedBuffer( _this->pSpriteEFrames, 2 * _this->uNumSpriteFrames, "E Frames");
+ //_this->pSpriteSFrames = (SpriteFrame *)mem_mng.AllocatedNamedBuffer( _this->pSpriteSFrames, _this->uNumSpriteFrames * sizeof(struct SpriteFrame), "S Frames");
+ //_this->pSpritePFrames = (SpriteFrame **)mem_mng.AllocatedNamedBuffer( _this->pSpritePFrames, 4 * _this->uNumSpriteFrames, "P Frames");
+ //_this->pSpriteEFrames = (unsigned short *)mem_mng.AllocatedNamedBuffer( _this->pSpriteEFrames, 2 * _this->uNumSpriteFrames, "E Frames");
+ _this->pSpriteSFrames = NamedMemAlloc(SpriteFrame, _this->uNumSpriteFrames, "S Frames");
+ _this->pSpritePFrames = NamedMemAlloc(SpriteFrame *, _this->uNumSpriteFrames, "P Frames");
+ _this->pSpriteEFrames = NamedMemAlloc(unsigned short, _this->uNumSpriteFrames, "E Frames");
 
  pSrc += 2;
  memcpy(_this->pSpriteSFrames, pSrc, _this->uNumSpriteFrames * sizeof(struct SpriteFrame));
@@ -458,7 +461,8 @@ int SpriteFrameTable_sub_44D4D8(struct SpriteFrameTable *_this)
 {
  if (_this->pSpriteSFrames)
  {
-  mem_mng.DeleteBuffer( (void *)_this->pSpriteSFrames);
+  //MemFree( (void *)_this->pSpriteSFrames);
+  MemFree(_this->pSpriteSFrames);
   _this->pSpriteSFrames = 0;
  }
  _this->uNumSpriteFrames = 0;
@@ -530,7 +534,8 @@ void CTileTable_ctor(struct CTileTable *_this)
 void CTileTable_Initialize(struct CTileTable *_this, unsigned char *pSrc)
 {
  _this->uNumTiles = *(int *)(pSrc);
- _this->pTiles = (TileDesc *)mem_mng.AllocatedNamedBuffer(_this->pTiles, _this->uNumTiles * sizeof(struct TileDesc), "Tile Descrip");
+ //_this->pTiles = (TileDesc *)mem_mng.AllocatedNamedBuffer(_this->pTiles, _this->uNumTiles * sizeof(struct TileDesc), "Tile Descrip");
+ _this->pTiles = NamedMemAlloc(TileDesc, _this->uNumTiles, "Tile Descrip");
  memcpy(_this->pTiles, pSrc + 4, _this->uNumTiles * sizeof(struct TileDesc));
 }
 
@@ -626,9 +631,10 @@ CPlayerFrameTable::CPlayerFrameTable()
 //----- (00494C0F) --------------------------------------------------------
 void CPlayerFrameTable::pft_Initialize(unsigned char *pSrc)
 {
-  this->uNumFrames = *(int *)(pSrc);
-  this->pFrames = (PlayerFrame *)mem_mng.AllocatedNamedBuffer( this->pFrames, this->uNumFrames * sizeof(struct PlayerFrame), "P Frames");
-  memcpy( this->pFrames, pSrc + 4, this->uNumFrames * sizeof(struct PlayerFrame));
+ uNumFrames = *(int *)(pSrc);
+ //pFrames = (PlayerFrame *)mem_mng.AllocatedNamedBuffer( this->pFrames, this->uNumFrames * sizeof(struct PlayerFrame), "P Frames");
+ pFrames = NamedMemAlloc(PlayerFrame, uNumFrames, "Player Frames");
+ memcpy(pFrames, pSrc + 4, uNumFrames * sizeof(PlayerFrame));
 }
 
 //----- (00494B10) --------------------------------------------------------
@@ -709,7 +715,8 @@ void *DecorationDescriptionList_Initialize(struct DecorationDescriptionList *_th
 {
  _this->uNumLevelDecorations = *(int *)(pSrc);
 
- _this->pDescriptions = (DecorationDescription *)mem_mng.AllocatedNamedBuffer( _this->pDescriptions, _this->uNumLevelDecorations * sizeof(struct DecorationDescription), "Dec Descrip");
+ //_this->pDescriptions = (DecorationDescription *)mem_mng.AllocatedNamedBuffer( _this->pDescriptions, _this->uNumLevelDecorations * sizeof(struct DecorationDescription), "Dec Descrip");
+ _this->pDescriptions = NamedMemAlloc(DecorationDescription, _this->uNumLevelDecorations, "Decoration Descrip");
  memcpy(_this->pDescriptions, pSrc + 4, _this->uNumLevelDecorations * sizeof(struct DecorationDescription));
  return 0;
 }
@@ -762,7 +769,8 @@ void *CObjectDescriptionList_Initialize(struct CObjectDescriptionList *_this, un
 {
  _this->uNumObjects = *(int *)(pSrc);
 
- _this->pDescriptions = (ObjectDescription *)mem_mng.AllocatedNamedBuffer( _this->pDescriptions, _this->uNumObjects * sizeof(struct ObjectDescription), "Obj Descrip");
+ //_this->pDescriptions = (ObjectDescription *)mem_mng.AllocatedNamedBuffer( _this->pDescriptions, _this->uNumObjects * sizeof(struct ObjectDescription), "Obj Descrip");
+ _this->pDescriptions = NamedMemAlloc(ObjectDescription,_this->uNumObjects, "Object Descrip");
  memcpy(_this->pDescriptions, pSrc + 4, _this->uNumObjects * sizeof(struct ObjectDescription));
  return 0;
 }
@@ -790,7 +798,8 @@ void *COverlayDescriptionList_Initialize(struct COverlayDescriptionList *_this, 
 {
  _this->uNumOverlays = *(int *)(pSrc);
 
- _this->pDescriptions = (OverlayDescription *)mem_mng.AllocatedNamedBuffer( _this->pDescriptions, _this->uNumOverlays * sizeof(struct OverlayDescription), "Ovl Des.");
+ //_this->pDescriptions = (OverlayDescription *)mem_mng.AllocatedNamedBuffer( _this->pDescriptions, _this->uNumOverlays * sizeof(struct OverlayDescription), "Ovl Des.");
+ _this->pDescriptions = NamedMemAlloc(OverlayDescription, _this->uNumOverlays, "Overlay Descrip");
  memcpy(_this->pDescriptions, pSrc + 4, _this->uNumOverlays * sizeof(struct OverlayDescription));
  return 0;
 }

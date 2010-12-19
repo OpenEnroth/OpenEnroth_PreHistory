@@ -8,7 +8,7 @@
 #include "Smacker.h"
 #include "Level.h"
 #include "FrameTables.h"
-#include "_audio.h"
+#include "AudioPlayer.h"
 
 #include "data.h"
 

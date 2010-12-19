@@ -281,7 +281,7 @@ void *class06_ctor(struct class06 *_this)
  _this->dword_0005C8 = 0;
  _this->dword_0005D8 = 0;
 
- _this->class07_obj = new class07;
+ _this->class07_obj = MemAlloc(class07, 1);
  if (_this->class07_obj)
    class07_ctor(_this->class07_obj);
 
@@ -306,9 +306,9 @@ void *class07_InitializeVectors(struct class07 *_this, float w)
  int v7; // eax@2
 
  _this->uNumVec4InArray1 = 66;
- _this->pFloatArray1 = new float[66 * 4];
+ _this->pFloatArray1 = NamedMemAlloc(float, 66 * 4, "class07 vectors");
  _this->uNumVec3InArray2 = 128;
- _this->pFloatArray2 = new float[128 * 3];
+ _this->pFloatArray2 = NamedMemAlloc(float, 128 * 3, "class07 vectors");
 
  v7 = 0;
  for (unsigned int i = 0; i < _this->uNumVec4InArray1; ++i)
@@ -556,7 +556,7 @@ struct class12 *class12_ctor(struct class12 *_this, struct class11 *class11_obj)
 
  for (unsigned int i = 0; i < 12; ++i)
  {
-  _this->class16_objs[i] = new class16;
+  _this->class16_objs[i] = MemAlloc(class16, 1);
   if (_this->class16_objs[i])
     class16_ctor(_this->class16_objs[i], 640);
  }
@@ -589,7 +589,7 @@ struct class14 *class14_ctor(struct class14 *_this)
 //----- (MM7.exe::0048958E) --------------------------------------------------------
 struct class16 *class16_ctor(struct class16 *_this, unsigned int uBlockSize)
 {
- _this->pMemBlock = malloc(8 * uBlockSize + 16);
+ _this->pMemBlock = MemAlloc(unsigned char, 8 * uBlockSize + 16);
  _this->pAlignedMem = (char *)(_this->pMemBlock) + (-(signed int)_this->pMemBlock & 7);
  return _this;
 }
@@ -1156,7 +1156,7 @@ char *sub_456D84(struct class40 *_this)
   char *v41; // eax@200
   char v42; // dl@201
   int v43; // ecx@201
-  char *v49; // esi@233
+  //char *v49; // esi@233
   char *v50; // eax@234
   char v51; // dl@235
   int v52; // ecx@235
@@ -1211,27 +1211,27 @@ char *sub_456D84(struct class40 *_this)
 
   v1 = _this;
 
-  pMapStats = new CMapStats;
+  pMapStats = MemAlloc(CMapStats, 1);
   CMapStats_ctor(pMapStats);
   CMapStats_Initialize(pMapStats);
 
-  pMonsterStats = new CMonsterStats;
+  pMonsterStats = MemAlloc(CMonsterStats, 1);
   CMonsterStats_ctor(pMonsterStats);
   CMonsterStats_Initialize(pMonsterStats);
   CMonsterStats_LoadMonsterPlacements(pMonsterStats);
 
-  pSpellStats = new CSpellStats;
+  pSpellStats = MemAlloc(CSpellStats, 1);
   CSpellStats_ctor(pSpellStats);
   CSpellStats_Initialize(pSpellStats);
 
   class40_LoadPotionsTable(_this);
   class40_LoadPotionNotes(_this);
 
-  pClass48 = new class48;
+  pClass48 = MemAlloc(class48, 1);
   class48_ctor(pClass48);
   class48_Initialize(pClass48);
 
-  pStorylineText = new StorylineText;
+  pStorylineText = MemAlloc(StorylineText, 1);
   StorylineText_Initialize(pStorylineText);
 
   _this->pStdItemsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "stditems.txt", 0);
@@ -1463,74 +1463,74 @@ LABEL_63:
 
           case 4:
             if (!strcmpi(v30, "weapon") || !strcmpi(v30, "weapon1or2"))
-              _this->pItems[v28 - 1].uEquipType = 0;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::OneOrTwoHands;
             else if (!strcmpi(v30, "weapon2"))
-              _this->pItems[v28 - 1].uEquipType = 1;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::TwoHands;
             else if (!strcmpi(v30, "missile") || !strcmpi(v30, "bow"))
-              _this->pItems[v28 - 1].uEquipType = 2;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::Bow;
             else if (!strcmpi(v30, "armor"))
-              _this->pItems[v28 - 1].uEquipType = 3;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::Armour;
             else if (!strcmpi(v30, "shield"))
-              _this->pItems[v28 - 1].uEquipType = 4;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::Shield;
             else if (!strcmpi(v30, "helm"))
-              _this->pItems[v28 - 1].uEquipType = 5;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::Helmet;
             else if (!strcmpi(v30, "belt"))
-              _this->pItems[v28 - 1].uEquipType = 6;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::Belt;
             else if (!strcmpi(v30, "cloak"))
-              _this->pItems[v28 - 1].uEquipType = 7;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::Cloak;
             else if (!strcmpi(v30, "gauntlets"))
-              _this->pItems[v28 - 1].uEquipType = 8;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::Gauntlets;
             else if (!strcmpi(v30, "boots"))
-              _this->pItems[v28 - 1].uEquipType = 9;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::Boots;
             else if (!strcmpi(v30, "ring"))
-              _this->pItems[v28 - 1].uEquipType = 10;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::Ring;
             else if (!strcmpi(v30, "amulet"))
-              _this->pItems[v28 - 1].uEquipType = 11;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::Amulet;
             else if (!strcmpi(v30, "weaponw"))
               _this->pItems[v28 - 1].uEquipType = 12;
             else if (!strcmpi(v30, "herb") || !_strcmpi(v30, "reagent"))
-              _this->pItems[v28 - 1].uEquipType = 13;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::Reagent;
             else if (!strcmpi(v30, "bottle"))
-              _this->pItems[v28 - 1].uEquipType = 14;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::Potion;
             else if (!strcmpi(v30, "sscroll"))
               _this->pItems[v28 - 1].uEquipType = 15;
             else if (!strcmpi(v30, "book"))
-              _this->pItems[v28 - 1].uEquipType = 16;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::Book;
             else if (!strcmpi(v30, "mscroll"))
               _this->pItems[v28 - 1].uEquipType = 17;
             else if (!strcmpi(v30, "gold"))
-              _this->pItems[v28 - 1].uEquipType = 18;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::Gold;
             else if (!strcmpi(v30, "gem"))
-              _this->pItems[v28 - 1].uEquipType = 19;
+              _this->pItems[v28 - 1].uEquipType = Items::EquipType::Gem;
             else
               _this->pItems[v28 - 1].uEquipType = 20;
             break;
 
           case 5:
             if (!strcmpi(v30, "staff"))
-              _this->pItems[v28 - 1].uSkillType = 0;
+              _this->pItems[v28 - 1].uSkillType = Character::Skill::Staff;
             else if (!strcmpi(v30, "sword"))
-              _this->pItems[v28 - 1].uSkillType = 1;
+              _this->pItems[v28 - 1].uSkillType = Character::Skill::Sword;
             else if (!strcmpi(v30, "dagger"))
-              _this->pItems[v28 - 1].uSkillType = 2;
+              _this->pItems[v28 - 1].uSkillType = Character::Skill::Dagger;
             else if (!strcmpi(v30, "axe"))
-              _this->pItems[v28 - 1].uSkillType = 3;
+              _this->pItems[v28 - 1].uSkillType = Character::Skill::Axe;
             else if (!strcmpi(v30, "spear"))
-              _this->pItems[v28 - 1].uSkillType = 4;
+              _this->pItems[v28 - 1].uSkillType = Character::Skill::Spear;
             else if (!strcmpi(v30, "bow"))
-              _this->pItems[v28 - 1].uSkillType = 5;
+              _this->pItems[v28 - 1].uSkillType = Character::Skill::Bow;
             else if (!strcmpi(v30, "mace"))
-              _this->pItems[v28 - 1].uSkillType = 6;
+              _this->pItems[v28 - 1].uSkillType = Character::Skill::Mace;
             else if (!strcmpi(v30, "blaster"))
-              _this->pItems[v28 - 1].uSkillType = 7;
+              _this->pItems[v28 - 1].uSkillType = Character::Skill::Blaster;
             else if (!strcmpi(v30, "shield"))
-              _this->pItems[v28 - 1].uSkillType = 8;
+              _this->pItems[v28 - 1].uSkillType = Character::Skill::Shield;
             else if (!strcmpi(v30, "leather"))
-              _this->pItems[v28 - 1].uSkillType = 9;
+              _this->pItems[v28 - 1].uSkillType = Character::Skill::Leather;
             else if (!strcmpi(v30, "chain"))
-              _this->pItems[v28 - 1].uSkillType = 10;
+              _this->pItems[v28 - 1].uSkillType = Character::Skill::Chain;
             else if (!strcmpi(v30, "plate"))
-              _this->pItems[v28 - 1].uSkillType = 11;
+              _this->pItems[v28 - 1].uSkillType = Character::Skill::Plate;
             else if (!strcmpi(v30, "club"))
               _this->pItems[v28 - 1].uSkillType = 37;
             else
@@ -1552,13 +1552,13 @@ LABEL_63:
 
           case 8:
             if (!_strcmpi(v30, "artifact") )
-              _this->pItems[v28 - 1].uMaterial = 1;
+              _this->pItems[v28 - 1].uMaterial = Items::Material::Artifact;
             else if (!_strcmpi(v30, "relic") )
-              _this->pItems[v28 - 1].uMaterial = 2;
+              _this->pItems[v28 - 1].uMaterial = Items::Material::Relic;
             else if (!_strcmpi(v30, "special") )
-              _this->pItems[v28 - 1].uMaterial = 3;
+              _this->pItems[v28 - 1].uMaterial = Items::Material::Special;
             else
-              _this->pItems[v28 - 1].uMaterial = 0;
+              _this->pItems[v28 - 1].uMaterial = Items::Material::Ordinary;
             break;
 
           case 9:  ((char *)(&_this->pItems[v28 - 1 + 1].dword_000000))[2] = atoi(v30); break;
@@ -1631,7 +1631,7 @@ LABEL_196:
   }
   _this->uNumItems = v28;
 
-  _this->pRndItemsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "rnditems.txt", 0);
+  _this->pRndItemsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw("rnditems.txt", 0);
   strtok((char *)_this->pRndItemsTXT_Raw, "\r");
   v39 = 0;
   strtok(0, "\r");
@@ -1682,12 +1682,6 @@ LABEL_196:
   }
   while ( v39 < 619 );
 
-  if (_this->pRndItemsTXT_Raw)
-  {
-   mem_mng.DeleteBuffer( (void *)_this->pRndItemsTXT_Raw);
-   _this->pRndItemsTXT_Raw = 0;
-  }
-
 
   memset(_this->array_011684, 0, 6 * sizeof(int));
   for (i = 0; i < 6; ++i)
@@ -1696,7 +1690,6 @@ LABEL_196:
      _this->array_011684[i] += _this->pItems[j].byte_00002C[i];
   }
 
-  v49 = 0;
   strtok(0, "\r");
   strtok(0, "\r");
   strtok(0, "\r");
@@ -1705,9 +1698,9 @@ LABEL_196:
   v94 = 0;
   do
   {
-    v50 = strtok(v49, "\r") + 1;
-    v109 = (signed int)v49;
-    v100 = (signed int)v49;
+    v50 = strtok(0, "\r") + 1;
+    v109 = 0;
+    v100 = 0;
     do
     {
       v51 = *v50;
@@ -1720,7 +1713,6 @@ LABEL_196:
       v85 = (int)&v50[v52];
       if ( !v50[v52] )
         v100 = 1;
-      v49 = 0;
       *(_BYTE *)v85 = 0;
       if ( v52 )
       {
@@ -2047,7 +2039,7 @@ int CMapStats_Initialize(struct CMapStats *_this)
  struct MapInfo *pMapInfo;
 
  if (pMapStatsTXT_Raw)
-   mem_mng.DeleteBuffer( (void *)pMapStatsTXT_Raw);
+   MemFree( (void *)pMapStatsTXT_Raw);
 
  pMapStatsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "MapStats.txt", 0);
  strtok((char *)pMapStatsTXT_Raw, "\r");
@@ -2353,7 +2345,7 @@ int CMonsterStats_Initialize(struct CMonsterStats *_this)
   v114 = (int)_this;
 
  if (pMonstersTXT_Raw)
-   mem_mng.DeleteBuffer( (void *)pMonstersTXT_Raw);
+   MemFree( (void *)pMonstersTXT_Raw);
 
  pMonstersTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "monsters.txt", 0);
  test_str=(char *)pMonstersTXT_Raw;
@@ -3438,7 +3430,7 @@ void CSpellStats_Initialize(struct CSpellStats *_this)
  struct SpellInfo *pSpellInfo;
 
  if (pSpellsTXT_Raw)
-   mem_mng.DeleteBuffer( (void *)pSpellsTXT_Raw);
+   MemFree( (void *)pSpellsTXT_Raw);
 
  pSpellsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "spells.txt", 0);
  strtok((char *)pSpellsTXT_Raw, "\r");
@@ -3595,7 +3587,7 @@ void class40_LoadPotionsTable(struct class40 *_this)
   v9 = _this;
 
  if (pPotionsTXT_Raw)
-   mem_mng.DeleteBuffer(pPotionsTXT_Raw);
+   MemFree(pPotionsTXT_Raw);
 
  pPotionsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "potion.txt", 0);
  for (i = strtok((char *)pPotionsTXT_Raw, "\t\r\n"); ; i = strtok(0, "\t\r\n"))
@@ -3671,7 +3663,7 @@ void class40_LoadPotionsTable(struct class40 *_this)
 
   if (pPotionsTXT_Raw)
   {
-    mem_mng.DeleteBuffer( (void *)pPotionsTXT_Raw);
+    MemFree( (void *)pPotionsTXT_Raw);
     pPotionsTXT_Raw = 0;
   }
 }
@@ -3695,7 +3687,7 @@ void class40_LoadPotionNotes(struct class40 *_this)
   v10 = _this;
 
  if (pPotionNotesTXT_Raw)
-   mem_mng.DeleteBuffer( (void *)pPotionNotesTXT_Raw);
+   MemFree( (void *)pPotionNotesTXT_Raw);
 
  pPotionNotesTXT_Raw = 0;
  pPotionNotesTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "potnotes.txt", 0);
@@ -3807,7 +3799,7 @@ int class48_Initialize(struct class48 *_this)
   v11 = _this;
 
  if (pHostileTXT_Raw)
-   mem_mng.DeleteBuffer( (void *)pHostileTXT_Raw);
+   MemFree( (void *)pHostileTXT_Raw);
 
  pHostileTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "hostile.txt", 0);
 
@@ -3861,7 +3853,7 @@ int class48_Initialize(struct class48 *_this)
 
   if (pHostileTXT_Raw)
   {
-    mem_mng.DeleteBuffer( (void *)pHostileTXT_Raw);
+    MemFree( (void *)pHostileTXT_Raw);
     pHostileTXT_Raw = 0;
   }
   return (int)pHostileTXT_Raw;
@@ -3889,7 +3881,7 @@ int StorylineText_Initialize(struct StorylineText *_this)
   v2 = _this;
 
  if (pHistoryTXT_Raw)
-    mem_mng.DeleteBuffer( (void *)pHistoryTXT_Raw);
+    MemFree( (void *)pHistoryTXT_Raw);
 
  pHistoryTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw("history.txt", 0);
  strtok((char *)pHistoryTXT_Raw, "\r");
@@ -4486,7 +4478,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
 
   v2 = (int)_this;
   if (_this->pNPCTextTXT_Raw)
-    mem_mng.DeleteBuffer( (void *)_this->pNPCTextTXT_Raw);
+    MemFree( (void *)_this->pNPCTextTXT_Raw);
 
   _this->pNPCTextTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "npctext.txt", 0);
   strtok((char *)_this->pNPCTextTXT_Raw, "\r");
@@ -4535,7 +4527,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
   while (v29 < 0x18A8);
 
  if (_this->pNPCTopicTXT_Raw)
-   mem_mng.DeleteBuffer( (void *)_this->pNPCTopicTXT_Raw);
+   MemFree( (void *)_this->pNPCTopicTXT_Raw);
 
  _this->pNPCTopicTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "npctopic.txt", 0);
  strtok((char *)_this->pNPCTopicTXT_Raw, "\r");
@@ -4586,7 +4578,7 @@ int CNPCStats_sub_476977(struct CNPCStats *_this)
 
 
  if (_this->pNPCDistTXT_Raw)
-   mem_mng.DeleteBuffer( (void *)_this->pNPCDistTXT_Raw);
+   MemFree( (void *)_this->pNPCDistTXT_Raw);
 
  _this->pNPCDistTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "npcdist.txt", 0);
  strtok((char *)_this->pNPCDistTXT_Raw, "\r");
@@ -4668,7 +4660,7 @@ LABEL_54:
 
  if (_this->pNPCDistTXT_Raw)
  {
-  mem_mng.DeleteBuffer( (void *)_this->pNPCDistTXT_Raw);
+  MemFree( (void *)_this->pNPCDistTXT_Raw);
   _this->pNPCDistTXT_Raw = 0;
  }
  return 0;
@@ -4780,7 +4772,7 @@ char class40_sub_456620_CreateSomeSemirandomItem(struct class40 *_this, int a2, 
 
   v5 = (unsigned char *)Dst;
   if (!v5)
-    v5 = (unsigned char *)mem_mng.AllocatedNamedBuffer( NULL, 0x24, "newItemGen");
+    v5 = (unsigned char *)NamedMemAlloc(ItemGen, 1, "Random Item Gen inplace buf");
   memset(v5, 0, sizeof(ItemGen));
 
   v6 = a2 - 1;
@@ -5197,24 +5189,24 @@ int class51_sub_47CF9C(struct class51 *_this)
  _this->uNumBModels = 0;
  _this->dword_0004C0 = 0;
 
- mem_mng.DeleteBuffer( (void *)_this->pBModels);
+ MemFree( (void *)_this->pBModels);
  _this->pBModels = 0;
 
- mem_mng.DeleteBuffer( (void *)_this->ptr_0004C4);
+ MemFree( (void *)_this->ptr_0004C4);
  _this->ptr_0004C4 = 0;
 
  class51_FreeGeodata(&_this->struct_0000B4);
 
- mem_mng.DeleteBuffer( (void *)_this->ptr_0000D4);
+ MemFree( (void *)_this->ptr_0000D4);
  _this->ptr_0000D4 = 0;
 
- mem_mng.DeleteBuffer( (void *)_this->ptr_0000E4);
+ MemFree( (void *)_this->ptr_0000E4);
  _this->ptr_0000E4 = 0;
 
- mem_mng.DeleteBuffer( (void *)_this->ptr_0000E0);
+ MemFree( (void *)_this->ptr_0000E0);
  _this->ptr_0000E0 = 0;
 
- mem_mng.DeleteBuffer( (void *)pTerrainNormals);
+ MemFree( (void *)pTerrainNormals);
  pTerrainNormals = 0;
 
  return 0;

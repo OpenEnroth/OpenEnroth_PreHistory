@@ -45,8 +45,8 @@ Sprites_Header::~Sprites_Header()
 	{
 	if  (!(c0001B&4==0))
 		{
-		mem_mng.DeleteBuffer(pSomeSpriteData);
-		mem_mng.DeleteBuffer(ptr_000024);
+		MemFree(pSomeSpriteData);
+		MemFree(ptr_000024);
 		}
 	pSomeSpriteData=NULL;
 	ptr_000024=NULL;
@@ -61,8 +61,8 @@ void Sprites_Header::Clear_Data()
 
   if  (!(c0001B&4==0))
 		{
-		mem_mng.DeleteBuffer(pSomeSpriteData);
-		mem_mng.DeleteBuffer(ptr_000024);
+		MemFree(pSomeSpriteData);
+		MemFree(ptr_000024);
 		}
 	pSomeSpriteData=NULL;
 	ptr_000024=NULL;
@@ -114,11 +114,11 @@ void cTexture_Free(cTexture* cTxtr)
     cTxtr->sContainerName[0] = 0;
     if (!(cTxtr->word_00002C&0x400) )
     {
-      mem_mng.DeleteBuffer( (void *)cTxtr->pIndexedPixels);
-      mem_mng.DeleteBuffer( (void *)cTxtr->pPalette);
-      mem_mng.DeleteBuffer( (void *)cTxtr->ptr_000044);
+      MemFree( (void *)cTxtr->pIndexedPixels);
+      MemFree( (void *)cTxtr->pPalette);
+      MemFree( (void *)cTxtr->ptr_000044);
 	  if  (cTxtr->pTruecolorPixels)		// new
-		  free(cTxtr->pTruecolorPixels);	 //
+		  MemFree(cTxtr->pTruecolorPixels);	 //
     }
 	cTxtr->uSizeOfMaxLevelOfDetal = 0;
 	cTxtr->pTruecolorPixels	= NULL;	  //new
@@ -149,7 +149,7 @@ int cTexture_UnzipPalette(cTexture *_this)
 
   v4 = (int)_this;
   v2 = (int)_this;
-  v3 = (int)malloc(_this->uDecompressedSize);
+  v3 = (int)MemAlloc(char, _this->uDecompressedSize);
   MemUnzip((void *)v3, (unsigned int *)&v4, _this->pIndexedPixels, *(_DWORD *)(v2 + 20));
   return v3;
 }
@@ -186,25 +186,25 @@ int cPCXTexture::LODPCXLoad(const char *pContainerName, int mode)
 	locked_fread(&cTexture_obj, 1,48, texture_file);
 	if (!cTexture_obj.uDecompressedSize)
 		{
-		pDecompressedBuffer = (unsigned char *)malloc(cTexture_obj.uTextureSize);
+		pDecompressedBuffer = MemAlloc(unsigned char, cTexture_obj.uTextureSize);
 		locked_fread(pDecompressedBuffer, 1, cTexture_obj.uTextureSize, texture_file);
 		}
 	else
-		{
-		pCompressedBuffer = (unsigned char *)mem_mng.AllocatedNamedBuffer(NULL,cTexture_obj.uTextureSize,NULL);
-		pDecompressedBuffer = (unsigned char *)malloc(cTexture_obj.uDecompressedSize);
+    {
+		pCompressedBuffer = NamedMemAlloc(unsigned char, cTexture_obj.uTextureSize, "PCX loading tmp");
+		pDecompressedBuffer = MemAlloc(unsigned char, cTexture_obj.uDecompressedSize);
 
 		locked_fread(pCompressedBuffer, 1, cTexture_obj.uTextureSize, texture_file);
 		MemUnzip(pDecompressedBuffer, &cTexture_obj.uDecompressedSize, pCompressedBuffer, cTexture_obj.uTextureSize);
-		mem_mng.DeleteBuffer(pCompressedBuffer);
+		MemFree(pCompressedBuffer);
 		cTexture_obj.uTextureSize = cTexture_obj.uDecompressedSize;
-		}
+    }
 	memcpy(&psx_head1,pDecompressedBuffer,16);
 	memcpy(&color_map,pDecompressedBuffer+16,48);
 	memcpy(&psx_head2,pDecompressedBuffer+64,6);
 	if (psx_head1.bpp!=8)
 		{
-		free(pDecompressedBuffer);
+		MemFree(pDecompressedBuffer);
 		return 3; 
 		}
 
@@ -214,30 +214,30 @@ int cPCXTexture::LODPCXLoad(const char *pContainerName, int mode)
 	if (mode==0)
 		{
 		if  (pPixels)
-			mem_mng.DeleteBuffer(pPixels);
+			MemFree(pPixels);
 		//allocate for ARGB now, not for 16 bit color
-		pPixels=(unsigned int*)mem_mng.AllocatedNamedBuffer(NULL,(uNumPixels+2)*4,"32bit PCX");
+		pPixels = NamedMemAlloc(unsigned int, uNumPixels, "32bit PCX image data");
 		}
 	else if (mode==2)
 		{
 		//allocate for ARGB now, not for 16 bit color
-		pPixels=(unsigned int*)malloc((uNumPixels+2)*4);
+		pPixels = MemAlloc(unsigned int, (uNumPixels+2));
 		word_000020^=1;
 		}
 	else
 		{
-		free(pDecompressedBuffer);
+		MemFree(pDecompressedBuffer);
 		return 2; 
 		}
 	if  (!pPixels)
 		{
-		free(pDecompressedBuffer);
+		MemFree(pDecompressedBuffer);
 		return 2; 
 		}
 	
 	    	
 	DecodePCX(pDecompressedBuffer, (unsigned long *)pPixels, uWidth); 
-	free(pDecompressedBuffer);
+	MemFree(pDecompressedBuffer);
 	return 0;
 
 	}
@@ -268,17 +268,17 @@ int cPCXTexture::LODPCXReLoad(const char *pContainerName)
 	locked_fread(&cTexture_obj, 1,48, texture_file);
 	if (!cTexture_obj.uDecompressedSize)
 		{
-		pDecompressedBuffer = (unsigned char *)malloc(cTexture_obj.uTextureSize);
+		pDecompressedBuffer = MemAlloc(unsigned char, cTexture_obj.uTextureSize);
 		locked_fread(pDecompressedBuffer, 1, cTexture_obj.uTextureSize, texture_file);
 		}
 	else
 		{
-		pCompressedBuffer = (unsigned char *)mem_mng.AllocatedNamedBuffer(NULL,cTexture_obj.uTextureSize,NULL);
-		pDecompressedBuffer = (unsigned char *)malloc(cTexture_obj.uDecompressedSize);
+		pCompressedBuffer = NamedMemAlloc(unsigned char, cTexture_obj.uTextureSize, "PCX reload tmp");
+		pDecompressedBuffer = MemAlloc(unsigned char, cTexture_obj.uDecompressedSize);
 
 		locked_fread(pCompressedBuffer, 1, cTexture_obj.uTextureSize, texture_file);
 		MemUnzip(pDecompressedBuffer, &cTexture_obj.uDecompressedSize, pCompressedBuffer, cTexture_obj.uTextureSize);
-		mem_mng.DeleteBuffer(pCompressedBuffer);
+		MemFree(pCompressedBuffer);
 		cTexture_obj.uTextureSize = cTexture_obj.uDecompressedSize;
 		}
 	memcpy(&psx_head1,pDecompressedBuffer,16);
@@ -286,21 +286,21 @@ int cPCXTexture::LODPCXReLoad(const char *pContainerName)
 	memcpy(&psx_head2,pDecompressedBuffer+64,6);
 	if (psx_head1.bpp!=8)
 		{
-		free(pDecompressedBuffer);
+		MemFree(pDecompressedBuffer);
 		return 3; 
 		}
 	width=psx_head1.windowRight-psx_head1.windowLeft+1;
 	height=psx_head1.windowLower-psx_head1.windowUpper+1;
 	if (uNumPixels< width*height)
 		{
-		free(pDecompressedBuffer);
+		MemFree(pDecompressedBuffer);
 		return -1; 
 		}
 	uWidth=width;  // word @ 000014 
 	uNumPixels=uHeight*width;	// dword @ 000010	 
 	uHeight=(short)uNumPixels;  // word @ 000016
 	DecodePCX(pDecompressedBuffer, (unsigned long *)pPixels, uWidth);
-	free(pDecompressedBuffer);
+	MemFree(pDecompressedBuffer);
 	return 0;
 	}
 
@@ -517,9 +517,12 @@ void  cPCXTexture::PCXTexture_Release()
 
 	sContainerName[0] = 0;
 	if ( (word_000020&1))
-		free(pPixels);
+    {
+		MemFree(pPixels);
+    }
 	else
-		mem_mng.DeleteBuffer( pPixels);
+		MemFree(pPixels);
+
 	word_000020 = 0;
 	pPixels = NULL; //24
 	uNumPixels = 0;
@@ -569,16 +572,16 @@ int cPCXTexture::LoadPCXFromFile(FILE *File, unsigned int mode, bool close_file)
 	  {
 	  if ( pPixels )
 		  {
-		  mem_mng.DeleteBuffer( pPixels);
+		  MemFree( pPixels);
 		  pPixels = NULL;
 		  }
-	  pPixels =(unsigned int*) mem_mng.AllocatedNamedBuffer( pPixels,  4 * uNumPixels+ 16, sContainerName);
+	  pPixels = NamedMemAlloc(unsigned int, uNumPixels, sContainerName);
 
 	  }
   else if ( mode == 2  )
 	  {
 	  //allocate for ARGB now, not for 16 bit color
-		pPixels=(unsigned int*)malloc((uNumPixels+2)*4);
+		pPixels = MemAlloc(unsigned int, (uNumPixels+2));
 		word_000020^=1;
 	  }
   else
@@ -848,8 +851,8 @@ signed int __thiscall sub_40E55E(void *Source, unsigned int Filename, unsigned i
   if ( v12 )
   {
     if ( *((_DWORD *)v3 + 9) )
-      mem_mng.DeleteBuffer( (void *)*((_DWORD *)v3 + 9));
-    v13 = (int)mem_mng.AllocatedNamedBuffer( (void*) *((_DWORD *)v3 + 9), 2 * *((_DWORD *)v3 + 4) + 4, v3);
+      MemFree( (void *)*((_DWORD *)v3 + 9));
+    v13 = (int)NamedMemAlloc(char, 2 * *((_DWORD *)v3 + 4) + 4, v3);
     goto LABEL_16;
   }
   if ( a3 != 1 && a3 == 2 )

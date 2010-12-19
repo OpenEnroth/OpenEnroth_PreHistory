@@ -200,19 +200,19 @@ int GUICursor_sub_469BA3(struct GUICursor *_this)
 
  if (_this->ptr_000030)
  {
-  free(_this->ptr_000030);
+  MemFree(_this->ptr_000030);
   _this->ptr_000030 = 0;
  }
 
  if (_this->ptr_000038)
  {
-  free(_this->ptr_000038);
+  MemFree(_this->ptr_000038);
   _this->ptr_000038 = 0;
  }
 
  if (_this->ptr_000090)
  {
-  free(_this->ptr_000090);
+  MemFree(_this->ptr_000090);
   _this->ptr_000090 = 0;
  }
 

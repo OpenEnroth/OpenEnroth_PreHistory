@@ -64,7 +64,7 @@ int Render_HWLContainer_LoadHWLHeaders(struct Render_HWLContainer *_this, const 
  locked_fread(&_this->uNumElements, 4, 1, _this->pHWLFile);
  for (i = 0; i <_this->uNumElements; i++)
  {
-  _this->pSriteNames[i] = (unsigned char *)malloc(20);  //operator new(0x14u)
+  _this->pSriteNames[i] = MemAlloc(unsigned char, 20);  //operator new(0x14u)
   locked_fread(_this->pSriteNames[i], 1, 20, _this->pHWLFile);
  }
 
@@ -965,7 +965,7 @@ unsigned int RenderDirect3D3::Initialize(OSWindow *pOutputWindow)
 
  if (this->bUseDirect3D)
  {
-  this->pRenderD3D3 = new RenderD3D3;
+  this->pRenderD3D3 = NamedMemAlloc(RenderD3D3, 1, "Old D3D Render");
   v43 = (int)this->pRenderD3D3;
   v44 = 0;
   if (this->pRenderD3D3)
@@ -1119,7 +1119,7 @@ unsigned int RenderDirect3D3::Initialize(OSWindow *pOutputWindow)
  }
  
  this->pTargetSurface = 0;
- this->ptr_0400E8 = (int)malloc(640 * 480 * 4 + 32);
+ this->ptr_0400E8 = (int)MemAlloc(char, 640 * 480 * 4 + 32);
  if (this->ptr_0400E8)
  {
   memset(&ddsd2, 0, sizeof(DDSURFACEDESC2));
@@ -1166,7 +1166,7 @@ void Render_Initialize_ZBuffer(struct BaseRender *_this)
 {
  if (!_this->pDefaultZBuffer)
  {
-  _this->pDefaultZBuffer = (int *)mem_mng.AllocatedNamedBuffer( 0, 640 * 480 * 4, "ZBuffer");
+  _this->pDefaultZBuffer = NamedMemAlloc(int, 640 * 480, "Old Render default ZBuffer");
   _this->pActiveZBuffer = _this->pDefaultZBuffer;
   memset(_this->pDefaultZBuffer, -65536, 640 * 480 * 4);
  }
@@ -1959,16 +1959,16 @@ bool __stdcall DDrawEnumCallback(GUID *pGUID, const char *pDriverDescription, co
  memset(&local_4CC, 0, 36);
 
  v4 = strlen(pDriverName);
- local_4CC.Dest = new char[v4 + 1];//Dest = (char *)operator new(v4 + 1);
+ local_4CC.Dest = MemAlloc(char, v4 + 1);//Dest = (char *)operator new(v4 + 1);
  strcpy(local_4CC.Dest, pDriverName);
 
  v5 = strlen(pDriverDescription);
- local_4CC.v36 = new char[v5 + 1];//v36 = (char *)operator new(v5 + 1);
+ local_4CC.v36 = MemAlloc(char, v5 + 1);//v36 = (char *)operator new(v5 + 1);
  strcpy(local_4CC.v36, pDriverDescription);
 
  if (pGUID)
  {
-  local_4CC.lpGUID = new GUID;
+  local_4CC.lpGUID = MemAlloc(GUID, 1);
   memcpy(local_4CC.lpGUID, pGUID, sizeof(GUID));
  }
  else
@@ -2003,7 +2003,7 @@ bool __stdcall DDrawEnumCallback(GUID *pGUID, const char *pDriverDescription, co
  else
  {
   v13 = strlen(ddDeviceId.szDescription);
-  local_4CC.v37 = new char[v13 + 1];//v37 = (char *)operator new(v13 + 1);
+  local_4CC.v37 = MemAlloc(char, v13 + 1);//v37 = (char *)operator new(v13 + 1);
   strcpy(local_4CC.v37, ddDeviceId.szDescription);
  }
  
@@ -2160,7 +2160,7 @@ unsigned int LoadHWL(const wchar_t *pFile, unsigned int *pWidth, unsigned int *p
  *pHeight = pBitmap->uHeight;
  *pPixels = pBitmap->pTruecolorPixels;
 
- free(pBitmap->pPixels);
+ MemFree(pBitmap->pPixels);
 
  return 0;
 };
@@ -2324,9 +2324,9 @@ bmfh.bfOffBits=54;
          v13 = (int)CheckHRESULT((void **)&a3, v18, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", 0xAD5u, 0);
       }
     }
-	free(v8->pPixels);
-   	free(v8->pTruecolorPixels);
-    free(v8);
+	MemFree(v8->pPixels);
+   	MemFree(v8->pTruecolorPixels);
+    MemFree(v8);
     result = 1;
   }
   return result;
@@ -2436,7 +2436,7 @@ bool Render_MoveHWSpriteToVideoMemory(struct BaseRender *_this, struct HardwareS
   //CheckHRESULT((void **)0, hr, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\screen16_3d.cpp", __LINE__, 0);
  }
 
- free(result->pPixels);
+ MemFree(result->pPixels);
  operator_delete(result);
 
  return true;
@@ -2506,7 +2506,7 @@ struct Render_HWLBitmap *Render_LoadHWLTexture(struct Render_HWLContainer *_this
     }
 
     fseek(_this->pHWLFile, _this->pSpriteFileOffsets[v6], SEEK_SET);
-    v10 = new Render_HWLBitmap;
+    v10 = MemAlloc(Render_HWLBitmap, 1);
     locked_fread(&DstBuf, 4u, 1u, _this->pHWLFile);
     locked_fread(&v10->dword_000018, 4, 1, _this->pHWLFile);
     locked_fread(&v10->dword_00001C, 4, 1, _this->pHWLFile);
@@ -2516,10 +2516,10 @@ struct Render_HWLBitmap *Render_LoadHWLTexture(struct Render_HWLContainer *_this
     locked_fread(&v10->uHeight, 4, 1, _this->pHWLFile);
     locked_fread(&v10->dword_000030, 4, 1, _this->pHWLFile);
     locked_fread(&v10->dword_000034, 4, 1, _this->pHWLFile);
-    v10->pPixels = new unsigned short[v10->uWidth * v10->uHeight];
+    v10->pPixels = MemAlloc(unsigned short, v10->uWidth * v10->uHeight);
     if ( DstBuf )
     {
-      v33 = malloc(DstBuf);
+      v33 = MemAlloc(char, DstBuf);
       locked_fread(v33, 1u, DstBuf, _this->pHWLFile);
       v27 = 2 * v10->uWidth * v10->uHeight;
       MemUnzip(v10->pPixels, (unsigned int *)&v27, v33, DstBuf);
@@ -2527,7 +2527,7 @@ struct Render_HWLBitmap *Render_LoadHWLTexture(struct Render_HWLContainer *_this
     else
       locked_fread(v10->pPixels, 2, v10->uWidth * v10->uHeight, _this->pHWLFile);
 
-    v10->pTruecolorPixels = new unsigned int[v10->uWidth * v10->uHeight];
+    v10->pTruecolorPixels = MemAlloc(unsigned int, v10->uWidth * v10->uHeight);
     for (i = 0; i < v10->uWidth * v10->uHeight; ++i)
     {/*
      v10->pTruecolorPixels[i] = (unsigned int)(((unsigned char)(((v10->pPixels[i] & 0xF800) >> 11) * 8)) << 16) |

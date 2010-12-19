@@ -156,7 +156,7 @@ unsigned int RenderOpenGL::Initialize(OSWindow *pOutputWindow)
  this->dword_040108 = 0;
 
  this->pTargetSurface = 0;
- this->ptr_0400E8 = (int)malloc(640 * 480 * 4 + 32);
+ this->ptr_0400E8 = (int)MemAlloc(char, 640 * 480 * 4 + 32);
  if (this->ptr_0400E8)
  {
         this->pTargetSurface = (unsigned int *)this->ptr_0400E8;

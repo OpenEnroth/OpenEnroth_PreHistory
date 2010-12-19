@@ -6,8 +6,8 @@
 #include "classes.h"
 #include "clock.h"
 #include "data.h"
-#include "_audio.h"
-#include "_video.h"
+#include "AudioPlayer.h"
+#include "VideoPlayer.h"
 #include "FrameTables.h"
 
 #include "GUI\GUI.h"
@@ -4896,7 +4896,7 @@ unsigned int __fastcall sub_442955(int a1, int a2, int a3, int a4, int a5)
 
 LABEL_23:
 
-		v78 = malloc(300000); // needs 2 b free after all...
+		v78 = MemAlloc(char, 300000); // needs 2 b free after all...
 
 
 
@@ -5943,7 +5943,7 @@ LABEL_6:
   if ( v9 )
   {
     if ( !v23 )
-      sub_4BF28F((int)pVideoPlayer, (unsigned int)*(&off_4E5F70 + 4 * word_59143A[26 * v9]), 1);
+      pVideoPlayer->sub_4BF28F((unsigned int)*(&off_4E5F70 + 4 * word_59143A[26 * v9]), 1);
   }
   else
   {
@@ -6024,11 +6024,11 @@ void __cdecl sub_444A51()
     uDialogueUIIconsOffsetY - 4,
     (dword_50795C_TextureID != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_50795C_TextureID] : 0));
   Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, (cTexture *)dword_59142C);
-  uTextureID_507B04 = uTextureID_5079E4;
+  uTextureID_507B04_CurrentRightPanelType = uTextureID_5079E4;
   Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (uTextureID_5079E4 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_5079E4] : 0));
   Render_DrawIndexedTexture(pD3DRenderer, 556, 451, (uTextureIdx_BtnXxU != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnXxU] : 0));
   Render_DrawIndexedTexture(pD3DRenderer, 476, 451, (uTextureIdx_BtnXokU != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnXokU] : 0));
-  if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) || v13 )
+  if (pVideoPlayer->IsAnyMovieLoaded()|| v13 )
   {
     if ( *dword_591164 != 48 )
       v14 = CMapStats_FindLocation(pMapStats, dword_591164);
@@ -6158,7 +6158,7 @@ void __cdecl sub_444DCA()
   sub_48902E((char *)pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, &Str2, 20);
   v0 = CMapStats_FindLocation(pMapStats, &Str2);
   Render_DrawIndexedTexture(pD3DRenderer, 477, 0, uTextureID_Dialogue_Background);//&LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
-  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (cTexture *)(uTextureID_507B04 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04] : 0));
+  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (cTexture *)(uTextureID_507B04_CurrentRightPanelType != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04_CurrentRightPanelType] : 0));
   Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, (cTexture *)(dword_59142C));
   Render_DrawIndexedTexture(pD3DRenderer, 556, 451, (uTextureIdx_BtnXxU != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnXxU] : 0));
   Render_DrawIndexedTexture(pD3DRenderer, 476, 451, (uTextureIdx_BtnXokU != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnXokU] : 0));
@@ -6421,7 +6421,7 @@ void __cdecl sub_445350_DrawDialogueUI()
 
   v2 = 0x1599E9;
   Render_DrawIndexedTexture(pD3DRenderer, 477, 0, uTextureID_Dialogue_Background);//&LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
-  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04]);
+  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04_CurrentRightPanelType]);
   Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX - 4, uDialogueUIIconsOffsetY - 4, &LODFile_Icons_LOD.aLODHeaders[dword_50795C_TextureID]);
   Render_DrawIndexedTexture(pD3DRenderer, uDialogueUIIconsOffsetX, uDialogueUIIconsOffsetY, &LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_NPCPortrait[0]]);
 
@@ -7047,7 +7047,7 @@ __int16 __fastcall Actor_InitializeDialogue(struct Actor *pActor, int a2)
  uTextureID_Dialogue_NPCPortrait[0] = LODFile_Icons_LOD.LODFile_LoadTexture( Str1,2);
 #endif
  
- uTextureID_507B04 = uTextureID_5079E4;
+ uTextureID_507B04_CurrentRightPanelType = uTextureID_5079E4;
 
  v8 = 0;
  if (~v6->dword_000008 & 0x80 && v6->dword_000014 >= 0)
@@ -7396,13 +7396,13 @@ LABEL_39:
     v18 = LODFile_Icons_LOD.LODFile_LoadTexture( &Str1, 2);
     dword_5913F0 = 0;
     uTextureID_Dialogue_Background = &LODFile_Icons_LOD.aLODHeaders[v18];
-    uTextureID_507B04 = uTextureID_5079E4;
+    uTextureID_507B04_CurrentRightPanelType = uTextureID_5079E4;
     sub_44606A(v10);
     v17 = 1;
-    uTextureID_507B04 = uTextureID_5079E4;
+    uTextureID_507B04_CurrentRightPanelType = uTextureID_5079E4;
     if ( dword_591424 == 1 )
       dword_5913F0 = 1;
-    sub_4BF28F((int)pVideoPlayer, (unsigned int)*(&off_4E5F70 + 4 * dword_591160), 1);
+    pVideoPlayer->sub_4BF28F((unsigned int)*(&off_4E5F70 + 4 * dword_591160), 1);
     if ( v10 < 139 || v10 > 172 )
     {
       if ( v10 >= 54 && v10 <= 73 && !sub_4B68EA(v10 - 54) )
@@ -7831,7 +7831,7 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int sEventType, int a2, int a
             if ( *v13 == 32 )
               *v13 = 0;
             if ( pVideoPlayer->dword_000054 )
-              CVideoPlayer_UnloadAll(pVideoPlayer);
+              pVideoPlayer->UnloadAll();
             pVideoPlayer->dword_00006C = 0;
             pVideoPlayer->dword_000040 = 0;
             if (dword_720010)
@@ -7842,7 +7842,8 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int sEventType, int a2, int a
             v14 = *(_BYTE *)(v16 + 6);
             strcpy(&v147, &Str);
             v15 = RemoveQuote(&v147);
-            MoviePlayerLoop(v15, 0, v17, 1);
+            //MoviePlayerLoop(v15, 0, v17, 1);
+            pVideoPlayer->PlayMovie(v15);
             if ( !_strcmpi(v15, "arbiter good") )
             {
               pParty_global->uAlignment = 0;
@@ -7870,7 +7871,7 @@ LABEL_28:
               if ( v132 == 3 )
                 pLoadingUI->uProgressBarType = 1;
               if ( v132 == 13 )
-                sub_4BF28F((int)pVideoPlayer, (unsigned int)*(&off_4E5F70 + 4 * dword_591160), 1);
+                pVideoPlayer->sub_4BF28F((unsigned int)*(&off_4E5F70 + 4 * dword_591160), 1);
             }
             if (dword_720010)
               sub_46B105((void *)dword_720010);
@@ -8112,7 +8113,7 @@ LABEL_47:
               if ( v49 == 165 )
               {
                 sub_4BD8B5();
-                CVideoPlayer_UnloadAll(pVideoPlayer);
+                pVideoPlayer->UnloadAll();
                 GUIWindowDelete(ptr_507BC0);
                 pParty_global->dword_007778 &= 0xFFFFFFFDu;
                 dword_5C3420 = 1;
@@ -8127,7 +8128,7 @@ LABEL_47:
                     do
                     {
                       v52 = *(_DWORD *)(v51 + 52);
-                      mem_mng.DeleteBuffer( (void *)(void *)v51);
+                      MemFree( (void *)(void *)v51);
                       v51 = v52;
                     }
                     while ( v52 );
@@ -8815,7 +8816,7 @@ LABEL_280:
                   dword_F8B19C = 0;
                   while ( sub_4BD8B5() )
                     ;
-                  CVideoPlayer_UnloadAll(pVideoPlayer);
+                  pVideoPlayer->UnloadAll();
                   GUIWindowDelete(ptr_507BC0);
                   ptr_507BC0 = 0;
                  // if ( dword_50CBD0.msg_count )
@@ -14039,7 +14040,7 @@ int __thiscall sub_450D68(HardwareSprite *_this)
 
   v1 = (int)_this;
   if ( *(_DWORD *)_this )
-    mem_mng.DeleteBuffer( (void *)*(_DWORD *)_this);
+    MemFree( (void *)*(_DWORD *)_this);
   v2 = *((_DWORD *)v1 + 2);
   if ( v2 )
     (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v2 + 8))(*((_DWORD *)v1 + 2));

@@ -1,5 +1,5 @@
 #include "Party.h"
-#include "_audio.h"
+#include "AudioPlayer.h"
 #include "clock.h"
 #include "_lod.h"
 #include "mm7_unparsed_data.h"

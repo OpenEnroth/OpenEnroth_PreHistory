@@ -95,7 +95,7 @@ struct Font *__cdecl LoadFont(const char *pFontFile, const char *pFontPalette)
 //----- (0049750E) --------------------------------------------------------
 void __cdecl DeleteFontCChar()
 {
-  mem_mng.DeleteBuffer( (void *)pFontCChar);
+  MemFree( (void *)pFontCChar);
   pFontCChar = 0;
 }
 
@@ -124,7 +124,7 @@ unsigned char *FitTextInAWindow(const unsigned char *pInString,
 
  unsigned int uLineStart = 0,
               uLineWidth = uX;
-
+ unsigned int bLeftSpacingRequired = false;
  for (unsigned int i = 0; i < uInStrLen; i)
  {
   unsigned char c;
@@ -133,6 +133,7 @@ unsigned char *FitTextInAWindow(const unsigned char *pInString,
    uLineWidth += pFont->pMetrics[' '].uWidth;
 
    ++i, pOutString[uOutStrLen++] = ' ';
+   bLeftSpacingRequired = false;
   }
 
   if (c == '\t')
@@ -144,6 +145,7 @@ unsigned char *FitTextInAWindow(const unsigned char *pInString,
 
    memcpy(pOutString + uOutStrLen, pInString + i, 4);
    i += 4, uOutStrLen += 4;
+   bLeftSpacingRequired = false;
   }
   else if (c == '\n')
   {
@@ -151,15 +153,21 @@ unsigned char *FitTextInAWindow(const unsigned char *pInString,
    uLineStart = i;
 
    ++i, pOutString[uOutStrLen++] = '\n';
+   bLeftSpacingRequired = false;
   }
   else if (c == '\f')
-    i += 6, pOutString[uOutStrLen++] = '\f';
+  {
+   memcpy(pOutString + uOutStrLen, pInString + i, 7);
+   i += 7, uOutStrLen += 7;
+  }
   else if (c == '\r')
   {
-   compile_error;
    runtime_warning(this seems very very odd.);
-   //if (!a5)
-   //  return pString;
+   if (!a5)
+   {
+    lstrcpyA((char *)pOutString, (char *)pInString);
+    return (unsigned char *)pInString;
+   }
   }
   else if (c >= pFont->uFirstChar && c <= pFont->uLastChar)
   {
@@ -168,7 +176,7 @@ unsigned char *FitTextInAWindow(const unsigned char *pInString,
 
    // account left margin of the word and remember it
    // we will have to subtract it if this word wouldn't fit in the current line
-   if (i && pInString[i - 1] != ' ' && pInString[i - 1] != '\n')
+   if (i && pInString[i - 1] != ' ' && pInString[i - 1] != '\n' || bLeftSpacingRequired)
      uWordLeftSpacing = pFont->pMetrics[c].uLeftSpacing;
 
    uWordWidth += pFont->pMetrics[c].uWidth;
@@ -180,9 +188,14 @@ unsigned char *FitTextInAWindow(const unsigned char *pInString,
    for (k = i + 1; k < uInStrLen; ++k)
    {
     if (pInString[k] < pFont->uFirstChar || pInString[k] > pFont->uLastChar ||
-        pInString[k] == '\t' || pInString[k] == '\f' || pInString[k] == '\n' || pInString[k] == '\r' ||
-        pInString[k] == ' ')
+        pInString[k] == '\r' || pInString[k] == '\n' || pInString[k] == '\t' || pInString[k] == ' ')
       break;
+
+    if (pInString[k] == '\f')
+    {
+     bLeftSpacingRequired = true;
+     break;
+    }
 
     uWordWidth += pFont->pMetrics[pInString[k]].uLeftSpacing;
     uWordWidth += pFont->pMetrics[pInString[k]].uWidth;
@@ -377,7 +390,7 @@ const unsigned char *test_string;
                 Dest[3] = 0;
                 i += 3;
               //  v18 = atoi(Dest);
-                b = GUIFont_GetLineWidth(pFont, &test_string[i]);
+                b = GUIFont_GetLineWidth(pFont, &test_string[i + 1]);
                 uOutX = _this->uFrameZ - (_DWORD)b -atoi(Dest);
                 uOutY = uY + _this->uFrameY;
                 if ( a8 )
@@ -513,7 +526,7 @@ unsigned int GUIFont_GetLineWidth(Font *pFont, const unsigned char *pString)
 
  unsigned int uStringLen = lstrlenA((char *)pString),
               uStringWidth = 0;
-
+ unsigned int bLeftSpacingRequired = false;
  for (unsigned int i = 0; i < uStringLen; ++i)
  {
   unsigned char c = pString[i];
@@ -521,11 +534,11 @@ unsigned int GUIFont_GetLineWidth(Font *pFont, const unsigned char *pString)
     switch (c)
     {
      case '\t':
-       uStringWidth += ((pString[i + 1] - '0') * 100 +
+       /*uStringWidth += ((pString[i + 1] - '0') * 100 +
                         (pString[i + 2] - '0') * 10 +
-                        (pString[i + 3] - '0')) * pFont->pMetrics[' '].uWidth;
+                        (pString[i + 3] - '0'));
        i += 3;
-     break;
+     break;*/
 
      case '\n':
      case '\r':
@@ -535,15 +548,22 @@ unsigned int GUIFont_GetLineWidth(Font *pFont, const unsigned char *pString)
        i += 6;
      break;
 
+     case ' ':
+       uStringWidth += pFont->pMetrics[c].uWidth;
+       bLeftSpacingRequired = false;
+     break;
+
      default:
-       if (i && pString[i - 1] != ' ')
+       if (i && bLeftSpacingRequired)
          uStringWidth += pFont->pMetrics[c].uLeftSpacing;
 
        uStringWidth += pFont->pMetrics[c].uWidth;
 
-       if (i < uStringLen)
-         uStringWidth +=pFont->pMetrics[c].uRightSpacing;
-
+       if (i < uStringLen && pString[i + 1] != ' ')
+       {
+        uStringWidth += pFont->pMetrics[c].uRightSpacing;
+       }
+       bLeftSpacingRequired = true;
     }
  }
 
@@ -1208,7 +1228,7 @@ void  InitializeGameText()
   bool string_end; // [sp+14h] [bp-4h]@4
 
  if (pGlobalTXT_Raw)
-   mem_mng.DeleteBuffer( (void *)pGlobalTXT_Raw);
+   MemFree( (void *)pGlobalTXT_Raw);
 
  pGlobalTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "global.txt", 0);
  

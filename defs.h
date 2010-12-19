@@ -1,3 +1,4 @@
+#pragma once
 /*
 
    This file contains definitions used by the Hex-Rays decompiler output.
@@ -14,6 +15,22 @@
 #include <ddraw.h>
 #include <math.h>
 #include <string.h>
+
+namespace Error
+{
+ enum
+ {
+  Generic = -1,       // Generic error without description
+
+  Success = 0,
+
+  InvalidParams = 1,  // Invalid parameters passed to function
+  FileNotFound = 2,   // Some files cannot be found
+  OutOfMemory = 3     // Ran out of memory during operation
+ };
+};
+
+
 
 #ifdef __BORLANDC__
 

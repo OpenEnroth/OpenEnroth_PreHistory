@@ -9,8 +9,8 @@
 #include "AIL.h"
 #include "_lod.h"
 #include "data.h"
-#include "_audio.h"
-#include "_video.h"
+#include "AudioPlayer.h"
+#include "VideoPlayer.h"
 #include "FrameTables.h"
 
 #include "GUI\GUI.h"
@@ -3975,7 +3975,7 @@ LABEL_99:
             v17 = dword_4E28F8;
 LABEL_83:
             if ( v17 == 16 )
-              sub_4BECD5((int)pVideoPlayer, pVideoPlayer->dword_000040);
+              pVideoPlayer->sub_4BECD5(pVideoPlayer->dword_000040);
             if ( sub_466CA0() == 7 )
             {
               v44 = 6;
@@ -4030,7 +4030,7 @@ LABEL_81:
           }
           if ( dword_4E28F8 == 16 )
           {
-            CVideoPlayer_UnloadAll(pVideoPlayer);
+            pVideoPlayer->UnloadAll();
           }
           else
           {
@@ -7977,27 +7977,30 @@ int __thiscall class40_sub_45814E(void *_this)
 
   v1 = _this;
   if ( pMonstersTXT_Raw )
-    mem_mng.DeleteBuffer( (void *)pMonstersTXT_Raw);
+    //MemFree( (void *)pMonstersTXT_Raw);
+    MemFree(pMonstersTXT_Raw);
   if ( pMonsterPlacementTXT_Raw )  //not alloc
-    mem_mng.DeleteBuffer( (void *)pMonsterPlacementTXT_Raw);
+    //MemFree( (void *)pMonsterPlacementTXT_Raw);
+    MemFree(pMonsterPlacementTXT_Raw);
   if ( pClassDescriptions )
-    mem_mng.DeleteBuffer( (void *)pClassDescriptions);
-/*  if ( *((_DWORD *)v1 + 17824) )		 //not allocade
-       mem_mng.DeleteBuffer( (void *)*((_DWORD *)v1 + 17824));
+    //MemFree( (void *)pClassDescriptions);
+    MemFree(pClassDescriptions);
+  if ( *((_DWORD *)v1 + 17824) )		 //not allocade
+       MemFree( (void *)*((_DWORD *)v1 + 17824));
   if ( *((_DWORD *)v1 + 17823) )
-    mem_mng.DeleteBuffer( (void *)*((_DWORD *)v1 + 17823));
+    MemFree( (void *)*((_DWORD *)v1 + 17823));
   if ( *((_DWORD *)v1 + 17822) )
-    mem_mng.DeleteBuffer( (void *)*((_DWORD *)v1 + 17822));
+    MemFree( (void *)*((_DWORD *)v1 + 17822));
   if ( *((_DWORD *)v1 + 17821) )
-    mem_mng.DeleteBuffer( (void *)*((_DWORD *)v1 + 17821));	*/
+    MemFree( (void *)*((_DWORD *)v1 + 17821));
   if ( pHostileTXT_Raw )
-    mem_mng.DeleteBuffer( (void *)pHostileTXT_Raw);
+    MemFree( (void *)pHostileTXT_Raw);
   if ( pHistoryTXT_Raw )
-    mem_mng.DeleteBuffer( (void *)pHistoryTXT_Raw);
+    MemFree( (void *)pHistoryTXT_Raw);
   if (pPotionsTXT_Raw)
-    mem_mng.DeleteBuffer( (void *)pPotionsTXT_Raw);
+    MemFree( (void *)pPotionsTXT_Raw);
   if ( pPotionNotesTXT_Raw )
-    mem_mng.DeleteBuffer( (void *)pPotionNotesTXT_Raw);
+    MemFree( (void *)pPotionNotesTXT_Raw);
   *((_DWORD *)v1 + 17824) = 0;
   pClassDescriptions[0] = 0;
   *((_DWORD *)v1 + 17823) = 0;
@@ -8298,7 +8301,7 @@ signed int __thiscall sub_458B9C(int _this, const char *a2)
   int v21; // [sp+300h] [bp+8h]@3
 
   v3 = _this;
-  mem_mng.DeleteBuffer( (void *)*(_DWORD **)(_this + 4));
+  MemFree( (void *)*(_DWORD **)(_this + 4));
   v4 = 0;
   *(_DWORD *)(v3 + 4) = 0;
   *(_DWORD *)v3 = 0;
@@ -8326,7 +8329,7 @@ signed int __thiscall sub_458B9C(int _this, const char *a2)
   }
   v7 = *(_DWORD *)(v3 + 4);
   *(_DWORD *)v3 = v5;
-  v6 = (int)mem_mng.AllocatedNamedBuffer( (void*)v7, 36 * v5, "Chest Descrip");
+  v6 = (int)NamedMemAlloc(char, 36 * v5, "Chest Descrip");
   *(_DWORD *)(v3 + 4) = v6;
   if ( v6 == v4 )
     erroneous_printf("ChestDescriptionList::load - Out of Memory!");
@@ -8456,7 +8459,7 @@ signed int __thiscall sub_4598FC(int _this, const char *a2)
   }
   *(_DWORD *)v3 = v4;
   //mem_mng.AllocatedNamedBuffer(
-  v5 = (int)mem_mng.AllocatedNamedBuffer( (void*) *(_DWORD *)(v3 + 4), 152 * v4, "Mon Race");
+  v5 = (int)NamedMemAlloc(char, 152 * v4, "Mon Race");
   *(_DWORD *)(v3 + 4) = v5;
   if ( !v5 )
     erroneous_printf("MonsterRaceListStruct::load - Out of Memory!");
@@ -12034,7 +12037,7 @@ char __thiscall sub_460A78(void *_this)
     v3 = v41;
   }
   dword_6BE13C = v43;
-  mem_mng.DeleteBuffer( (void *)dword_6A0D08);
+  MemFree( (void *)dword_6A0D08);
   dword_6A0D08 = 0;
   dword_6A0D0C = 0;
   TryLoadLevelFromFile();
@@ -12414,8 +12417,8 @@ void __fastcall sub_462463(char *_this)
   v1 = (int)_this;
   if ( !(*(_BYTE *)(_this + 27) & 4) )
   {
-    mem_mng.DeleteBuffer( (void *)*(_DWORD *)(_this + 36));
-     mem_mng.DeleteBuffer( (void *)*(_DWORD *)(v1 + 32));
+    MemFree( (void *)*(_DWORD *)(_this + 36));
+     MemFree( (void *)*(_DWORD *)(v1 + 32));
   }
   *(_DWORD *)(v1 + 36) = 0;
   *(_DWORD *)(v1 + 32) = 0;
@@ -12518,7 +12521,7 @@ void Game_DeinitializeAndTerminate(void *Code)
 
   sub_49FC23(function_parameter_invalid(int)/*v3*/, (int)pD3DRenderer);
   
-  delete pAppWindow;
+  MemFree(pAppWindow);
   pAppWindow = 0;
   //if ( !DestroyWindow(pAppWindow->GetAPIHandle()) )
   //  GetLastError();
@@ -12870,8 +12873,8 @@ LABEL_38:
       ShowWindow(pAppWindow->GetAPIHandle(), 1);
     }
     pGame->pGUICursor->dword_000004 = 1;
-    if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
-      VideoPlayer_sub_4BF73A(pVideoPlayer);
+    if (pVideoPlayer->IsAnyMovieLoaded())
+      pVideoPlayer->sub_4BF73A();
     if ( BYTE1(dword_6BE364) & 8 )
       BYTE1(dword_6BE364) &= 0xF7u;
     else

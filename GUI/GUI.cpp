@@ -21,8 +21,8 @@
 #include "..\data.h"
 
 #include "..\FrameTables.h"
-#include "..\_audio.h"
-#include "..\_video.h"
+#include "..\AudioPlayer.h"
+#include "..\VideoPlayer.h"
 #include "..\_lod.h"
 
 unsigned int uTextureID_CurrentMenu;
@@ -155,10 +155,8 @@ struct GUIWindow *GameUI_InitializeCharacterWindow(int a1)
                    pGlobalTXT_LocalizationStrings[LOCSTR_EXIT],
                    &LODFile_Icons_LOD.aLODHeaders[uTextureID_ButtExit1],0 );
   GUIButtonCreate(pCharacterWindow, 0, 0, 476, 345, 1, 122, 120, 0, 0, (unsigned char *)"", 0);
-  pCharacterUI_BtnDetail = 
-  GUIButtonCreate(pCharacterWindow, 600, 300, 30, 30, 1, 0, 85, 0, 0, pGlobalTXT_LocalizationStrings[LOCSTR_DETAIL_TOGGLE], 0);
-  dword_507690 = 
-  GUIButtonCreate(pCharacterWindow, 476,   0, 164, 345, 1,  0, 133, 0,  0, (unsigned char *)"", 0);
+  pCharacterUI_BtnDetail = GUIButtonCreate(pCharacterWindow, 600, 300, 30, 30, 1, 0, 85, 0, 0, pGlobalTXT_LocalizationStrings[LOCSTR_DETAIL_TOGGLE], 0);
+  dword_507690 = GUIButtonCreate(pCharacterWindow, 476,   0, 164, 345, 1,  0, 133, 0,  0, (unsigned char *)"", 0);
   GUIButtonCreate(pCharacterWindow,  61, 424,  31,   0, 2, 94, 110, 1, 49, (unsigned char *)"", 0);
   GUIButtonCreate(pCharacterWindow, 177, 424,  31,   0, 2, 94, 110, 2, 50, (unsigned char *)"", 0);
   GUIButtonCreate(pCharacterWindow, 292, 424,  31,   0, 2, 94, 110, 3, 51, (unsigned char *)"", 0);
@@ -720,27 +718,18 @@ void __cdecl ShowIntroVideo_LoadMainMenu_ShowGreetingWindow()
   int v5; // [sp+34h] [bp-8h]@8
   int v6; // [sp+38h] [bp-4h]@8
 
- pVideoPlayer->dword_00006C = 0;
- pVideoPlayer->dword_000040 = 0;
  dword_F8BC10 = 1;
-
- bSkipVideo = true;
- if (!bSkipVideo)
+ 
+ Render_ClearBackBufferAndPresent(pD3DRenderer);
+ if (pVideoPlayer)
  {
-  Render_ClearBackBufferAndPresent(pD3DRenderer);
+  pVideoPlayer->dword_00006C = 0;
+  pVideoPlayer->dword_000040 = 0;
 
-  PlayMovie(1, 1);
-
-  if (!pVideoPlayer->dword_00006C)
-  {
-   PlayMovie(2, 1);
-   if (!pVideoPlayer->dword_00006C)
-   {
-    PlayMovie(3, 1);
-    if (!pVideoPlayer->dword_00006C)
-      PlayMovie(5, 1);
-   }
-  }
+  pVideoPlayer->PlayMovie("3DOLogo");
+  pVideoPlayer->PlayMovie("New World Logo");
+  pVideoPlayer->PlayMovie("JVC");
+  pVideoPlayer->PlayMovie("Intro");
  }
 
  MenuUI_LoadTextures(1);
@@ -1404,7 +1393,7 @@ void GameUI_Process()
           dword_6A0D48 = v0;
           goto LABEL_92;
         case 0x1D:
-          VideoPlayer_sub_4BF5B2(pVideoPlayer);
+          pVideoPlayer->sub_4BF5B2();
           struct_505898.byte_505992 = 1;
           sub_409C8B();
           goto LABEL_92;
@@ -2522,13 +2511,13 @@ LABEL_291:
                       }
                       sub_4B1D27();
                       AudioPlayer_sub_4AA306(pAudioPlayer, 7, 814, 0, -1, 0, 0, 0, 0);
-                      CVideoPlayer_UnloadAll(pVideoPlayer);
+                      pVideoPlayer->UnloadAll();
                       pGUIWindow_CurrentMenu = ptr_507BC0;
                       goto LABEL_322;
                     case 18:
                       if ( dword_591160 == 153 )
                         sub_4B1E92(153, 3);
-                      CVideoPlayer_UnloadAll(pVideoPlayer);
+                      pVideoPlayer->UnloadAll();
                       goto LABEL_306;
                     case 4:
 LABEL_306:
@@ -2556,7 +2545,7 @@ LABEL_306:
                         pParty_global->sPartyPosY = 22528;
                       goto LABEL_317;
                     case 16:
-                      CVideoPlayer_UnloadAll(pVideoPlayer);
+                      pVideoPlayer->UnloadAll();
                       goto LABEL_92;
                     case 7:
                       goto LABEL_319;
@@ -2722,7 +2711,7 @@ LABEL_92:
           dword_50CDC8 = v0;
           sub_42FBDD();
           sub_4B1E92(dword_591160, 2);
-          CVideoPlayer_UnloadAll(pVideoPlayer);
+          pVideoPlayer->UnloadAll();
           sub_44603D();
           struct_576FE8.dword_000044 = v0;
           if ( dword_59117C | dword_591178 | dword_591174 | dword_591170 | dword_59116C | dword_591168 )
@@ -2779,7 +2768,7 @@ LABEL_92:
           goto LABEL_92;
         case 0x19C:
           sub_42FC15();
-          CVideoPlayer_UnloadAll(pVideoPlayer);
+          pVideoPlayer->UnloadAll();
           sub_44603D();
           dword_597F18 = 0;
           goto LABEL_422;
@@ -4763,10 +4752,9 @@ struct GUIButton *GUIButtonCreate(struct GUIWindow *pParentWindow,
 											 const unsigned char *pName,class cTexture* pButtnTexture1,
 											 class cTexture* pButtnTexture2)
 {
-  
  struct GUIButton *pButton;
 
- pButton = (GUIButton *)mem_mng.AllocatedNamedBuffer( NULL, sizeof(struct GUIButton), "BUTTON");
+ pButton = NamedMemAlloc(GUIButton, 1, "GUIButton");
 
  pButton->uX = uX + pParentWindow->uFrameX;
  pButton->uY = uY + pParentWindow->uFrameY;
@@ -5156,7 +5144,7 @@ void GUIWindowDelete(GUIWindow *_this)
       }
       if ( v6 == 1 )
       {
-        CVideoPlayer_UnloadAll(pVideoPlayer);
+        pVideoPlayer->UnloadAll();
         goto LABEL_18;
       }
     }
@@ -5204,7 +5192,8 @@ LABEL_26:
       do
       {
         v9 = *(_DWORD *)(v8 + 52);
-        mem_mng.DeleteBuffer( (void *)v8);
+        //MemFree( (void *)v8);
+        MemFree((void *)v8);
         v8 = v9;
       }
       while ( v9 );
@@ -5497,12 +5486,10 @@ bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarT
 
     _this->uTextureID_Loading = LODFile_Icons_LOD.LODFile_LoadTexture_New( Str1W);
     _this->_addon_loadprog_id_in_Icons_LOD = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"loadprog");
-#endif
-
-#ifdef OLD_CODE
+#else
     wsprintfA(Str1, "loading%d.pcx", v7);
 	// realy or not
-	_this->loading=new cPCXTexture;
+	_this->loading = MemAlloc(cPCXTexture, 1);
 	_this->loading->PCXTexture_Zero();
     _this->loading->LODPCXLoad( Str1,2); 
     _this->loadprog = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "loadprog",2)];
@@ -6326,52 +6313,52 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
   v6 = Player_GetBaseStrength(pPlayer);
   v7 = Player_GetActualStrength(pPlayer);
   v10 = sub_4178FE_GetColor(v7, v6);
-  wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[LOCSTR_MIGHT], v10, v7, v6);
+  wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t190%d\n", pGlobalTXT_LocalizationStrings[LOCSTR_MIGHT], v10, v7, v6);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, 53, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v11 = pFontArrus->uFontHeight + 51;
   v12 = Player_GetBaseIntelligence(pPlayer);
   v13 = Player_GetActualIntelligence(pPlayer);
   v16 = sub_4178FE_GetColor(v13, v12);
-  wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[116], v16, v13, v12);
+  wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t190%d\n", pGlobalTXT_LocalizationStrings[116], v16, v13, v12);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v11, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v17 = v11 - 2 + pFontArrus->uFontHeight;
   v18 = Player_GetBaseWillpower(pPlayer);
   v19 = Player_GetActualWillpower(pPlayer);
   v22 = sub_4178FE_GetColor(v19, v18);
-  wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[163], v22, v19, v18);
+  wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t190%d\n", pGlobalTXT_LocalizationStrings[163], v22, v19, v18);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v17, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v23 = v17 - 2 + pFontArrus->uFontHeight;
   v24 = Player_GetBaseEndurance(pPlayer);
   v25 = Player_GetActualEndurance(pPlayer);
   v28 = sub_4178FE_GetColor(v25, v24);
-  wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[75], v28, v25, v24);
+  wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t190%d\n", pGlobalTXT_LocalizationStrings[75], v28, v25, v24);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v23, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v29 = v23 - 2 + pFontArrus->uFontHeight;
   v30 = Player_GetBaseAccuracy(pPlayer);
   v31 = Player_GetActualAccuracy(pPlayer);
   v34 = sub_4178FE_GetColor(v31, v30);
-  wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[LOCSTR_ACCURACY], v34, v31, v30);
+  wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t190%d\n", pGlobalTXT_LocalizationStrings[LOCSTR_ACCURACY], v34, v31, v30);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v29, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v35 = v29 - 2 + pFontArrus->uFontHeight;
   v36 = Player_GetBaseSpeed(pPlayer);
   v37 = Player_GetActualSpeed(pPlayer);
   v40 = sub_4178FE_GetColor(v37, v36);
-  wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n", pGlobalTXT_LocalizationStrings[211], v40, v37, v36);
+  wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t190%d\n", pGlobalTXT_LocalizationStrings[211], v40, v37, v36);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v35, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
   v41 = v35 - 2 + pFontArrus->uFontHeight;
   v42 = Player_GetBaseLuck(pPlayer);
   v43 = Player_GetActualLuck(pPlayer);
   v46 = sub_4178FE_GetColor(v43, v42);
-  wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t185%d\n\n", pGlobalTXT_LocalizationStrings[136], v46, v43, v42);
+  wsprintfA((char *)TmpBuf, "%s\f%06x\r424%d\f000000 /\t190%d\n\n", pGlobalTXT_LocalizationStrings[136], v46, v43, v42);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v41, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
-  v122 = "%s\f%06x\r424%d\f000000 /\t185%d\n";
+  v122 = "%s\f%06x\r424%d\f000000 /\t190%d\n";
   v5 = v41 + 5 + 2 * pFontArrus->uFontHeight;
   if ( Player_GetMaxHealth(pPlayer) >= 1000 )
     v122 = "%s\f%06x\r388%d\f000000 / %d\n";
@@ -6380,7 +6367,7 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
   wsprintfA((char *)TmpBuf, v122, pGlobalTXT_LocalizationStrings[108], v50, pPlayer->sHealth, v47);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 26, v5, (char *)TmpBuf, 0xFFFFFF, 0, 0);
 
-  v123 = "%s\f%06x\r424%d\f000000 /\t185%d\n";
+  v123 = "%s\f%06x\r424%d\f000000 /\t190%d\n";
   v113 = v5 - 2 + pFontArrus->uFontHeight;
   if ( Player_GetMaxMana(pPlayer) >= 1000 )
     v123 = "%s\f%06x\r388%d\f000000 / %d\n";
@@ -6420,7 +6407,7 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
   v72 = sub_4178FE_GetColor(v68, v69);
   wsprintfA((char *)TmpBuf, "%s\f%06x\t100%d\f000000 / %d\n", pGlobalTXT_LocalizationStrings[5], v72, v69, v68);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, 50, (char *)TmpBuf, 0xFFFFFF, 0, 0);
-
+ 
   v124 = "%s\f%06x\t100%d\f000000 / %d\n";
   v114 = pFontArrus->uFontHeight + 48;
   if ( Player_GetBaseLevel(pPlayer) > 99 )
@@ -6430,16 +6417,16 @@ void CharacterUI_DrawStatsTab(unsigned int uSelectedCharacter) // character stat
   v77 = sub_4178FE_GetColor(v74, v73);
   wsprintfA((char *)TmpBuf, v124, pGlobalTXT_LocalizationStrings[131], v77, v74, v73);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v114, (char *)TmpBuf, 0xFFFFFF, 0, 0);
-
+ 
   v115 = v114 + pFontArrus->uFontHeight - 2;
   if (pPlayer->uExperience <= 9999999)
     v78 = (int)pGlobalTXT_LocalizationStrings[83];
   else
     v78 = (int)pGlobalTXT_LocalizationStrings[17];
   v82 = Player_sub_48D498((int)pPlayer);
-  wsprintfA((char *)TmpBuf, "%s\r180\f%06x%lu\f000000\n\n", v78, v82, pPlayer->uExperience);
+  wsprintfA((char *)TmpBuf, "%s\r190\f%06x%lu\f000000\n\n", v78, v82, pPlayer->uExperience);
   FontDrawText(pGUIWindow_CurrentMenu, pFontArrus, 266, v115, (char *)TmpBuf, 0xFFFFFF, 0, 0);
-
+  
   v83 = v115 + 2 * pFontArrus->uFontHeight;
   v84 = Player_GetAttackBonus(pPlayer, 0);
  // wsprintfA((char *)TmpBuf, "%s\t100%+d\n", pGlobalTXT_LocalizationStrings[18], v84);
@@ -7377,13 +7364,14 @@ int CharacterUI_LoadPaperdollTextures()
  uTextureID_GameUI_MagnifyingGlass = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"MAGNIF");
  uTextureID_GameUI_PaperdollBackground = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"PDoll-Bg");
  uTextureID_GameUI_PaperdollJewelryOverlay = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"BACKHAND");
+ uTextureID_507B04_CurrentRightPanelType = uTextureID_5079E4;
 #else
  char Str1[100]; // [sp+24h] [bp-14h]@12
 
  uTextureID_GameUI_MagnifyingGlass = LODFile_Icons_LOD.LODFile_LoadTexture("MAGNIF-B",2);
  uTextureID_GameUI_PaperdollBackground = LODFile_Icons_LOD.LODFile_LoadTexture("BACKDOLL",2);
  uTextureID_GameUI_PaperdollJewelryOverlay = LODFile_Icons_LOD.LODFile_LoadTexture("BACKHAND",2);
- uTextureID_507B04 = uTextureID_5079E4;
+ uTextureID_507B04_CurrentRightPanelType = uTextureID_5079E4;
 #endif
   dword_5118C8 = uTextureID_right_backgr;
  for (uPlayer = 0; uPlayer < 4; ++uPlayer)
@@ -9454,7 +9442,7 @@ LABEL_393:
   }
   if ( !dword_5118E0 )
     Render_DrawTransparentTexture(pD3DRenderer, 603, 299, &LODFile_Icons_LOD.aLODHeaders[uTextureID_GameUI_MagnifyingGlass]);
-  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04]);
+  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04_CurrentRightPanelType]);
 }
 
 //----- (0043E825) ----------.text:0043F396 ----------------------------------------------
@@ -9525,7 +9513,7 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
   LODFile_Icons_LOD.LODFile_LoadTexture( "sptext01", 2);
   CharacterUI_DrawPaperdoll(v3);
   Render_DrawTransparentTexture(pD3DRenderer, 473, 0, (uTextureID_GameUI_PaperdollJewelryOverlay != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_GameUI_PaperdollJewelryOverlay] : 0));
-  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (uTextureID_507B04 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04] : 0));
+  Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (uTextureID_507B04_CurrentRightPanelType != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04_CurrentRightPanelType] : 0));
   Render_DrawTransparentTexture(pD3DRenderer,
     pCharacterUI_BtnDetail->uX,
     pCharacterUI_BtnDetail->uY,
@@ -9841,7 +9829,7 @@ void __thiscall GUIWindow_sub_4B3157(const GUIWindow *_this)
     v1 = 0xFFFFFFFF;
     *(_DWORD *)v24 = 0xFF1599E9;
     Render_DrawIndexedTexture(pD3DRenderer, 477, 0, uTextureID_Dialogue_Background);//&LODFile_Icons_LOD.aLODHeaders[uTextureID_Dialogue_Background]);
-    Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (uTextureID_507B04 != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04] : 0));
+    Render_DrawTransparentTexture(pD3DRenderer, 468, 0, (uTextureID_507B04_CurrentRightPanelType != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_507B04_CurrentRightPanelType] : 0));
     if ( dword_5913F0 != dword_591424 || !dword_5C35D0 )
     {
       v18 = 130;
@@ -12135,7 +12123,7 @@ void MenuUI_LoadTextures(unsigned int uAlignment)
  dword_5079C8 = LODFile_Icons_LOD.LODFile_LoadTexture(pRequestedInterface[9],2);				  //   "IB-InitY-c", 	 //09
  dword_5079CC = LODFile_Icons_LOD.LODFile_LoadTexture(pRequestedInterface[10],2);					//   "IB-InitR-c", 	 //10
 
- uTextureIdx_MinimapMask = LODFile_Icons_LOD.LODFile_LoadTexture(pRequestedInterface[06],2);	  //"ib-autmask-b", //06
+ uTextureIdx_MinimapMask = LODFile_Icons_LOD.LODFile_LoadTexture(pRequestedInterface[6],2);	  //"ib-autmask-b", //06
  uTextureID_5079E4 = LODFile_Icons_LOD.LODFile_LoadTexture(pRequestedInterface[5],2);            // "ib-mb-C"
 
  uTextureIdx_CharacterSelectionFrame = LODFile_Icons_LOD.LODFile_LoadTexture(pRequestedInterface[15],2);  //"IB-selec-C", 	 //15

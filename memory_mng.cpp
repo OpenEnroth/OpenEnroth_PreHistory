@@ -7,15 +7,22 @@
 #include "Game.h"
 
 
+MemoryWatch *pMemoryWatch = new MemoryWatch;
 
+
+
+
+
+
+/*
  void  CheckMemoryAccess(void *memory_base, long memory_size);
 
 //mm7eng
-/*
-.text:00426C01                   c23_constr    
- //mm7ru
-	00426429
-*/
+//
+//.text:00426C01                   c23_constr    
+// mm7ru
+//	00426429
+
  MemoryMng::MemoryMng()
 	{
 	ulong i;
@@ -32,9 +39,9 @@
 
 
  ///mm7eng destr 0046355A 
-/*
- mov     eax, [ecx+1D4C8h]
- pop     ecx	*/
+
+// mov     eax, [ecx+1D4C8h]
+// pop     ecx
 MemoryMng::~MemoryMng()
 	{
 	if (pBigMemoryBuffer)
@@ -276,3 +283,4 @@ void MemoryMng::CreateFileDump( const char *type_of_dump)
   }
   
 }
+*/

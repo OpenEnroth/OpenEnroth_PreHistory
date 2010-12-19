@@ -8,8 +8,8 @@
 #include "_lod.h"
 #include "clock.h"
 #include "data.h"
-#include "_audio.h"
-#include "_video.h"
+#include "AudioPlayer.h"
+#include "VideoPlayer.h"
 #include "FrameTables.h"
 #include "GUI\GUI.h"
 #include "GUI\GUIButton.h"
@@ -99,8 +99,8 @@ int __cdecl sub_45E93E()
   uGUILoadSave = LODFile_Icons_LOD.LODFile_LoadTexture("loadsave", 2);		  //dword_69CF20
   uGUILoadUp   = LODFile_Icons_LOD.LODFile_LoadTexture("load_up", 2);		   //dword_69CF1C
   uGUISaveUp   = LODFile_Icons_LOD.LODFile_LoadTexture("save_up", 2);		  // dword_69CF18
-  uGUILS_loadU  = LODFile_Icons_LOD.LODFile_LoadTexture("LS_loadU", 2);		   //dword_69CF04 
-  uGUILS_saveU  = LODFile_Icons_LOD.LODFile_LoadTexture("LS_saveU", 2);		  //dword_69CF00
+  uGUILS_loadU = LODFile_Icons_LOD.LODFile_LoadTexture("LS_loadU", 2);		   //dword_69CF04 
+  uGUILS_saveU = LODFile_Icons_LOD.LODFile_LoadTexture("LS_saveU", 2);		  //dword_69CF00
   uGUIx_u      = LODFile_Icons_LOD.LODFile_LoadTexture("x_u", 2);			   //dword_69CEFC
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (uGUILoadSave != -1 ? &LODFile_Icons_LOD.aLODHeaders[uGUILoadSave] : 0));
   if ( dword_4E28F8 == 11 )
@@ -1025,7 +1025,7 @@ int __fastcall SaveGame(int a1, int a2)
   result = stricmp(CurrentLevelName, "d05.blv");
   if ( result )
   {
-    DstBuf = malloc(1000000);//DstBuf = operator new(0xF4240u);
+    DstBuf = MemAlloc(char, 1000000);//DstBuf = operator new(0xF4240u);
     Reset_LODIndex(&St2);
     v56 = pParty_global->sPartyPosX;
     v55 = pParty_global->sPartyPosY;
@@ -1178,7 +1178,7 @@ int __fastcall SaveGame(int a1, int a2)
     if ( !a2 )
     {
       sub_42FA22();
-      v11 = (unsigned int)malloc(1000000);
+      v11 = (unsigned int)MemAlloc(char, 1000000);
       v76 = v11;
 
       Src.data1 = 91969;
@@ -1348,10 +1348,10 @@ int __fastcall SaveGame(int a1, int a2)
 		sub_466D09(&v76, *(int *)&v38, v39, (int)v40, (int)v41, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\LoadSave.cpp", __LINE__);
       }
      // v9 = (void *)free();
-	  free((void *)v11);
+	  MemFree((void *)v11);
     }
 
-    free(DstBuf);
+    MemFree(DstBuf);
     if ( v69 )
     {
       if ( !CopyFileA("data\\new.lod", "saves\\autosave.mm7", 0) )
@@ -1758,10 +1758,10 @@ bool MaybeDoAutosave()
   void *DstBuf; // [sp+170h] [bp-8h]@3
   int v19; // [sp+174h] [bp-4h]@5
 
-  if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
-    CVideoPlayer_UnloadAll(pVideoPlayer);
+  if (pVideoPlayer && pVideoPlayer->IsAnyMovieLoaded())
+    pVideoPlayer->UnloadAll();
 
-  DstBuf =mem_mng.AllocatedNamedBuffer(0, 1000000, 0);
+  DstBuf = NamedMemAlloc(char, 1000000, "Autosave tmp data");
   LODFile_New_LOD.Close_Written_File();
   remove("data\\new.lod");
 
@@ -1781,7 +1781,7 @@ bool MaybeDoAutosave()
 
   if (!LODFile_New_LOD.Load_File("data\\new.lod", 0))
   { 
-   mem_mng.DeleteBuffer(DstBuf);
+   MemFree(DstBuf);
    return false;
   }
 
@@ -1836,8 +1836,8 @@ bool MaybeDoAutosave()
 
 
     SaveGame(1, 1);
-   //mem_mng.DeleteBuffer(
-  mem_mng.DeleteBuffer((void *)DstBuf);
+
+  MemFree(DstBuf);
   return true;
 }
 
@@ -2084,7 +2084,7 @@ void *__cdecl sub_45E006()
 	  {
 		if (cSaveTumbnail[i].pPixels)
 			{  
-			mem_mng.DeleteBuffer(cSaveTumbnail[i].pPixels);
+			MemFree(cSaveTumbnail[i].pPixels);
 			memset(&cSaveTumbnail[i],0, sizeof(cPCXTexture));
 			}
 

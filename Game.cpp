@@ -11,7 +11,7 @@
 //----- (00465C8B) --------------------------------------------------------
 Game *Game_Initialize()
 {
- pGame = new Game;
+ pGame = MemAlloc(Game, 1);
  if (pGame)
    Game_ctor(pGame);
 
@@ -24,7 +24,7 @@ void Game_Destroy()
  if (pGame)
  {
   (pGame->dtor_ptr)(pGame);
-  delete pGame;
+  MemFree(pGame);
  }
 }
 
@@ -63,59 +63,59 @@ void Game_ctor(Game *_this)
  _this->dword_000E34 = 0;
  _this->dword_000E38 = 0;
 
- _this->class01_obj = new class01;
+ _this->class01_obj = MemAlloc(class01, 1);
  if (_this->class01_obj)
    class01_ctor(_this->class01_obj);
 
- _this->class02_obj = new class02;
+ _this->class02_obj = MemAlloc(class02, 1);
  if (_this->class02_obj)
    class02_ctor(_this->class02_obj);
 
- _this->class03_obj = new GUICursor;
+ _this->class03_obj = MemAlloc(GUICursor, 1);
  if (_this->class03_obj)
    GUICursor_ctor(_this->class03_obj, _this->class01_obj);
 
- _this->class04_obj = new class04;
+ _this->class04_obj = MemAlloc(class04, 1);
  if (_this->class04_obj)
    class04_ctor(_this->class04_obj);
 
- _this->pVis = new Vis;
+ _this->pVis = MemAlloc(Vis, 1);
  if (_this->pVis)
    Vis_ctor(_this->pVis);
 
- _this->class06_obj = new class06;
+ _this->class06_obj = MemAlloc(class06, 1);
  if (_this->class06_obj)
    class06_ctor(_this->class06_obj);
 
- _this->class08_obj = new class08;
+ _this->class08_obj = MemAlloc(class08, 1);
  if (_this->class08_obj)
    class08_ctor(_this->class08_obj);
 
- _this->class09_obj = new class09;
+ _this->class09_obj = MemAlloc(class09, 1);
  if (_this->class09_obj)
    class09_ctor(_this->class09_obj);
 
- _this->class10_obj = new class10;
+ _this->class10_obj = MemAlloc(class10, 1);
  if (_this->class10_obj)
    class10_ctor(_this->class10_obj);
 
- _this->class11_obj = new class11;
+ _this->class11_obj = MemAlloc(class11, 1);
  if (_this->class11_obj)
    class11_ctor(_this->class11_obj, 0);
 
- _this->class12_obj = new class12;
+ _this->class12_obj = MemAlloc(class12, 1);
  if (_this->class12_obj)
    class12_ctor(_this->class12_obj, _this->class11_obj);
 
- _this->class13_obj = new class13;
+ _this->class13_obj = MemAlloc(class13, 1);
  if (_this->class13_obj)
    class13_ctor(_this->class13_obj);
 
- _this->class14_obj = new class14;
+ _this->class14_obj = MemAlloc(class14, 1);
  if (_this->class14_obj)
    class14_ctor(_this->class14_obj);
 
- _this->pGammaController = new CGammaController;
+ _this->pGammaController = MemAlloc(CGammaController, 1);
  if (_this->pGammaController)
    CGammaController_ctor(_this->pGammaController);
 

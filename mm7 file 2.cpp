@@ -8,8 +8,8 @@
 #include "AIL.h"
 #include "classes.h"
 #include "data.h"
-#include "_audio.h"
-#include "_video.h"
+#include "AudioPlayer.h"
+#include "VideoPlayer.h"
 #include "FrameTables.h"
 
 #include "GUI\GUI.h"
@@ -865,19 +865,22 @@ LABEL_89:
       }
       if ( dword_720010)
         sub_46B736((void *)dword_720010, 1);
-      if ( pVideoPlayer->pSmackerMovie )
+
+      if (pVideoPlayer)
       {
+       if (pVideoPlayer->pSmackerMovie )
+       {
         if ( !SmackWait(pVideoPlayer->pSmackerMovie) )
         {
          ((BaseRender *)v2)->BeginScene();
           GUICursor_sub_469E3B(pGame->pGUICursor);
-          sub_4BF08B((void *)pVideoPlayer->dword_00006C, (int)pVideoPlayer->hWnd);
+          sub_4BF08B((void *)pVideoPlayer->dword_00006C, (int)pVideoPlayer->pWindow->GetAPIHandle());
           GUICursor_sub_469EA4_LooksLikeDrawPickedItem(pGame->pGUICursor);
           ((BaseRender *)v2)->EndScene();
         }
-      }
-      if ( pVideoPlayer->pBinkMovie )
-      {
+       }
+       if (pVideoPlayer->pBinkMovie )
+       {
         if ( !BinkWait(pVideoPlayer->pBinkMovie) )
         {
           ((BaseRender *)v2)->BeginScene();
@@ -886,6 +889,7 @@ LABEL_89:
           GUICursor_sub_469EA4_LooksLikeDrawPickedItem(pGame->pGUICursor);
           ((BaseRender *)v2)->EndScene();
         }
+       }
       }
 
     cClock1.clock_sub_4263B7();
@@ -970,11 +974,13 @@ LABEL_85:
         while ( v6 < pNPCStats->dword_017FC4);
       }
 
-      if (!bSkipVideo)
+      // Let's play First Act movie
+      if (pVideoPlayer)
       {
-       PlayFirstActMovie();
-       if ( CVideoPlayer_IsAnyMovieLoaded(pVideoPlayer) )
-         CVideoPlayer_UnloadAll(pVideoPlayer);
+       pVideoPlayer->dword_00006C = 0;
+       pVideoPlayer->dword_000040 = 0;
+       if (!pVideoPlayer->PlayMovie("Intro Post"))
+         pVideoPlayer->UnloadAll();
       }
 
       SaveGame(0, 0);
@@ -3080,7 +3086,7 @@ int __cdecl sub_443801()
   signed int v10; // [sp+14h] [bp-4h]@5
 
  if (p2DEventsTXT_Raw)
-   mem_mng.DeleteBuffer( (void *)p2DEventsTXT_Raw);
+   MemFree( (void *)p2DEventsTXT_Raw);
 
   p2DEventsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "2dEvents.txt", 0);
   strtok((char *)p2DEventsTXT_Raw, "\r");
@@ -4551,7 +4557,7 @@ int __thiscall sub_40DFD1(void *_this)
   void *v3; // eax@1
 
   v2 = _this;
-  v3 = malloc(0x5Cu);
+  v3 = MemAlloc(char, 0x5Cu);
   *(_DWORD *)v2 = (int)v3;
   *(_DWORD *)v3 = 1735422580;
   result = 0;
@@ -4572,7 +4578,7 @@ signed int __fastcall sub_40DFFE(int a1, unsigned int a2)
   if ( *(_DWORD *)a2 == 1735422580 )
   {
     *(_DWORD *)a2 = 0x78787878;
-    free((void *)a2);
+    MemFree((void *)a2);
     result = 0;
   }
   else
@@ -5219,7 +5225,7 @@ int __cdecl sub_41140B()
     do
     {
       v2 = *(_DWORD *)(v1 + 52);
-      mem_mng.DeleteBuffer( (void *)v1);
+      MemFree( (void *)v1);
       v1 = v2;
     }
     while ( v2 );
@@ -5269,13 +5275,13 @@ int __cdecl sub_411597()
 {
   int result; // eax@1
 
-  mem_mng.DeleteBuffer(ptr_5C35E4);
+  MemFree(ptr_5C35E4);
   ptr_5C35E4 = 0;
-  mem_mng.DeleteBuffer(pBookFont);
+  MemFree(pBookFont);
   pBookFont = 0;
-  mem_mng.DeleteBuffer(pBook2Font);
+  MemFree(pBook2Font);
   pBook2Font = 0;
-  mem_mng.DeleteBuffer(ptr_5C35E0);
+  MemFree(ptr_5C35E0);
   ptr_5C35E0 = 0;
 
   cTexture_Free(&LODFile_Icons_LOD.aLODHeaders[dword_506498_uTextureID_MapBrdr]);
@@ -7227,7 +7233,7 @@ int __fastcall sub_4A97C6(char *a1, int a2, _DWORD a3)
   v6 = *(_DWORD *)(v8 + 48);
   v23 = *(_DWORD *)(v8 + 48);
   if ( v5 == -1 )
-    v5 = (int)mem_mng.AllocatedNamedBuffer( 0, v6 + 4, Source);
+    v5 = (int)NamedMemAlloc(char, v6 + 4, Source);
   SetFilePointer(pAudioPlayer->hSoundsSource, *(_DWORD *)(v8 + 40), 0, 0);
   v9 = *(_DWORD *)v7;
   if ( *(_DWORD *)(v8 + 44) >= *(_DWORD *)v7 )
@@ -7248,10 +7254,10 @@ int __fastcall sub_4A97C6(char *a1, int a2, _DWORD a3)
   }
   else
   {
-    v26 = malloc(*(_DWORD *)(v8 + 44));
+    v26 = MemAlloc(char, *(_DWORD *)(v8 + 44));
     ReadFile(pAudioPlayer->hSoundsSource, v26, *(_DWORD *)(v8 + 44), &NumberOfBytesRead, 0);
     MemUnzip((char *)v5 + 4, (unsigned int *)(v8 + 48), v26, *(_DWORD *)(v8 + 44));
-    free(v26);
+    MemFree(v26);
   }
   if ( v5 )
   {
@@ -9631,7 +9637,7 @@ void __cdecl InitializeAwards()
   signed int v7; // [sp+14h] [bp-4h]@3
 
  if (pAwardsTXT_Raw)
-   mem_mng.DeleteBuffer( (void *)pAwardsTXT_Raw);
+   MemFree( (void *)pAwardsTXT_Raw);
 
  pAwardsTXT_Raw = (unsigned char *)LODFile_Events_LOD.LODFile_LoadRaw( "awards.txt", 0);
  strtok((char *)pAwardsTXT_Raw, "\r");
@@ -10261,7 +10267,7 @@ void __thiscall GUIButton_sub_41D0D8(struct GUIButton *_this)
       }
     }
     --*(_DWORD *)(*(_DWORD *)((char*)_this + 56) + 32);
-    mem_mng.DeleteBuffer( (void *)_this);
+    MemFree( (void *)_this);
   }
 }
 
@@ -12478,7 +12484,7 @@ void sub_47A384(const char *pLevelFilename, void *a2)
   pStruct9_global->dword_000014 = pOldCamera->flt_00001C;
   pStruct9_global->dword_000018 = pOldCamera->flt_000020;
 
- pClass57_global = new class57;
+ pClass57_global = MemAlloc(class57, 1);
  memset(pClass57_global, 0, sizeof(struct class57));
 
  for (i = 0; i < 2000; ++i)
@@ -12605,7 +12611,7 @@ int __cdecl sub_46080D()
 {
   int result; // eax@1
     result=0;
-  mem_mng.DeleteBuffer( (void *)dword_6A0D08);
+  MemFree( (void *)dword_6A0D08);
   dword_6A0D08 = 0;
   dword_6A0D0C = 0;
   return result;

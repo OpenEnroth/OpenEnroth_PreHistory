@@ -1670,3 +1670,183 @@ signed int __cdecl sub_4CFD17(int a1)
   }
   return 1;*/
 }
+
+
+
+
+
+//----- (004A952D) --------------------------------------------------------
+/*void __stdcall PlayMovie(unsigned int uVideoID, char a2)
+{
+  int v2; // edx@5
+  const char *v3; // ecx@5
+
+  char  CShow[256];
+  int v5; // [sp-14h] [bp-20h]@4
+  int v6; // [sp-10h] [bp-1Ch]@4
+  int v7; // [sp-Ch] [bp-18h]@4
+  char v10; // [sp+0h] [bp-Ch]@14
+  char v11; // [sp+4h] [bp-8h]@4
+  int v12; // [sp+Bh] [bp-1h]@14
+
+ if (dword_720010)
+   Mouse_suspend(dword_720010);
+
+ switch (uVideoID)
+ {
+    case 0:
+      Game_sub_40E2C8(CShow, "No movie", (int)((char *)&a1 + 3));
+      sub_467834(&v11, (char)CShow, (const CHAR *)v5, v6, v7, __FILE__, __LINE__);
+      break;
+
+    case 1: MoviePlayerLoop("3dologo", 0, 0, 1);
+    break;
+
+    case 2: MoviePlayerLoop("new world logo", 0, 1, 1);
+    break;
+
+    case 3: MoviePlayerLoop("jvc", 0, 1, 1);
+    break;
+
+    case 4: MoviePlayerLoop("Intro Post", 0, 1, 1);
+    break;
+
+    case 5: MoviePlayerLoop("Intro", 0, 1, 1);
+    break;
+
+    case 6: MoviePlayerLoop("losegame", 2, 1, 1);
+    break;
+
+    case 7: MoviePlayerLoop("end_seq1", 20, 1, 1);
+    break;
+
+    default:
+      Game_sub_40E2C8(CShow, "Invalid movie requested in CShow::Run()", (int)&v12);
+      sub_466D09(&v10, (int)CShow, v5, v6, v7, __FILE__, __LINE__);
+      break;
+  }
+
+ if (a2)
+ {
+  if (dword_720010)
+    sub_46B105((void *)dword_720010);
+ }
+}*/
+
+//----- (004BF8F6) --------------------------------------------------------
+/*void PlayFirstActMovie()
+{
+ pVideoPlayer->dword_00006C = 0;
+ pVideoPlayer->dword_000040 = 0;
+ PlayMovie(4, 1);
+}*/
+
+
+//----- (004BE70E) --------------------------------------------------------
+/*void __fastcall MoviePlayerLoop(const char pMovieName, int a2, int a3, int a4)
+{
+  int v4; // ebp@1
+ MSG msg;
+
+ v4 = a2;
+ if (dword_6BE364 & 0x44)  //no movies
+   return;
+
+ if (a2 == 2)
+   v4 = 0;
+
+ ShowCursor(0);
+ pVideoPlayer->OpenMovie(pMovieName, 0, a3);
+ pVideoPlayer->dword_000058 = 1;
+ pVideoPlayer->dword_000044 = v4;
+
+ if (pD3DRenderer->pRenderD3D3)
+   Render_ClearTarget(pD3DRenderer, 0);
+ else
+ {
+  pD3DRenderer->BeginScene();
+  Render_ClearTarget(pD3DRenderer, 0);
+  pD3DRenderer->EndScene();
+ }
+ dword_4E28F8 = 16;
+
+
+ if (pVideoPlayer->dword_00009C == 2)
+ {
+  if (pVideoPlayer->pBinkMovie)
+  {
+   pVideoPlayer->BinkDoFrame(pVideoPlayer->pWindow->GetAPIHandle(), v4, a3);
+   while (pVideoPlayer->pBinkMovie)
+   {
+    if (pVideoPlayer->dword_00006C)
+      break;
+
+    while (PeekMessageA(&msg, 0, 0, 0, PM_REMOVE))
+    {
+     if (msg.message == WM_QUIT)
+       Game_DeinitializeAndTerminate(0);
+     if (msg.message == WM_PAINT)
+       break;
+
+     TranslateMessage(&msg);
+     DispatchMessageA(&msg);
+    }
+
+    sub_435748();
+    if (!pVideoPlayer->pBinkMovie)
+      break;
+
+    if (!BinkWait(pVideoPlayer->pBinkMovie))
+    {
+     if (!pVideoPlayer->dword_00006C)
+       pVideoPlayer->BinkDoFrame(pVideoPlayer->pWindow->GetAPIHandle(), v4, a3);
+    }
+   }
+  }
+  if (pVideoPlayer->dword_00006C == 1)
+   Sleep(1000);
+ }
+
+ else if (pVideoPlayer->dword_00009C == 1)
+ {
+  if (pVideoPlayer->pSmackerMovie)
+  {
+   pVideoPlayer->SmackDrawFrame(pVideoPlayer->pWindow->GetAPIHandle(), v4, a3);
+
+   while (pVideoPlayer->pSmackerMovie)
+   {
+    if (pVideoPlayer->dword_00006C)
+      break;
+
+    while (PeekMessageA(&msg, 0, 0, 0, PM_REMOVE))
+    {
+     if (msg.message == WM_QUIT)
+       Game_DeinitializeAndTerminate(0);
+     else if (msg.message == WM_PAINT)
+       break;
+
+     TranslateMessage(&msg);
+     DispatchMessageA(&msg);
+    }
+    sub_435748();
+
+    if (!pVideoPlayer->pSmackerMovie)
+      break;
+    if (!SmackWait(pVideoPlayer->pSmackerMovie))
+    {
+     if (!pVideoPlayer->dword_00006C)
+       pVideoPlayer->SmackDrawFrame(pVideoPlayer->pWindow->GetAPIHandle(), v4, a3);
+    }
+   }
+  }
+ }
+
+ if (a4 == 1)
+   dword_4E28F8 = 0;
+
+ pVideoPlayer->dword_000058 = 0;
+ ShowCursor(1);
+
+ if (dword_4E28F8 == 16)
+   dword_4E28F8 = 0;
+}*/

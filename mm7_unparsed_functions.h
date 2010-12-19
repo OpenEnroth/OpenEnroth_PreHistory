@@ -10,7 +10,6 @@ extern "C" int MemUnzip(void *dest, unsigned int *destLen, const void *source, u
 extern "C" int compress(void *dest, unsigned int *destLen, void *source, unsigned int sourceLen);
 
 
-void PlayFirstActMovie();
 bool TryLoadLevelFromFile();
 
 //-------------------------------------------------------------------------
@@ -31,7 +30,7 @@ long __cdecl std__basic_string_char_std__char_traits_char__std__allocator_char__
 void *CheckHRESULT(void **pSmthn, HRESULT hr, const char *pSourceFile, unsigned int uSourceline, int a5);
 void operator_delete(void *);
 
-bool CheckForMM7CD(wchar_t *pGameCDDriveLetter);
+bool CheckForMM7CD(wchar_t *pcGameCDDriveLetter);
 bool IsMM7CD(wchar_t *pRootDir);
 
 void CreateRegistryWString(const wchar_t *pName, const wchar_t *pValue, unsigned int uSize);
@@ -41,13 +40,11 @@ size_t __cdecl locked_fwrite(const void *Str, size_t Size, size_t Count, FILE *F
 size_t __cdecl locked_fread(void *dst, size_t size, size_t count, FILE *f);
 int __cdecl MenuUI_LoadFontsAndSomeStuff();
 void __cdecl GameUI_LoadIcons();
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd);
 LSTATUS __fastcall RegistryWriteInt(const CHAR *a1, int a2);
 void erroneous_printf(const char *Format, ...);
 int LoadFileToBuffer(const char *pSourceFile, unsigned char *pOutBuffer, unsigned int uBufferSize);
 int __cdecl Initialize_GlobalEVT();
 bool MaybeDoAutosave();
-void __fastcall MoviePlayerLoop(const char *Source, int a2, int a3, int a4);
 char __cdecl LoadPlayerPortraintsAndVoices();
 signed int __cdecl PlayerCreation_ComputeAttributeBonus();
 void __cdecl sub_487DBE_LooksLikeResetNewEdgesBuf();
@@ -1047,7 +1044,6 @@ int __thiscall sub_4A89BD(void *_this, __int16 a2, __int16 a3);
 int __thiscall sub_4A8BDF(int _this, int a2, int a3);
 int __thiscall sub_4A8BFC(void *_this);
 void class06_sub_4A90A0(struct class06 *_this);
-void __stdcall PlayMovie(unsigned int uVideoID, char a2);
 void *__thiscall sub_4A96BE(void *_this);
 int __fastcall sub_4A96FF(int a1, int a2, const char *Str1);
 int __fastcall sub_4A97C6(char *a1, int a2, _DWORD a3);
@@ -1157,9 +1153,7 @@ double __fastcall sub_4BE5B1(int a1);
 int __thiscall sub_4BE623(int _this);
 void __thiscall sub_4BE65D(void *_this, int a2);
 void *__thiscall sub_4BE6D1(void *_this);
-void __thiscall sub_4BECD5(int _this, unsigned int a2);
 void *__thiscall sub_4BF08B(void *_this, int a2);
-void __thiscall sub_4BF28F(int _this, char a2, int a3);
 int __thiscall sub_4BF91E_GameOverMenu(void *_this);
 int __thiscall sub_4C0312(int _this, int a2, int a3, int a4, int a5);
 void __cdecl loc_4C0D27(); // idb

@@ -3,8 +3,8 @@
 #include "localization_defs.h"
 #include "AIL.h"
 #include "data.h"
-#include "_audio.h"
-#include "_video.h"
+#include "AudioPlayer.h"
+#include "VideoPlayer.h"
 #include "FrameTables.h"
 
 #include "GUI\GUI.h"
@@ -3596,7 +3596,7 @@ int __fastcall sub_4B2001(int _this)
         dword_F8B1E8 = sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue(dword_F8B1E8, uActiveCharacter, 0, 0, 0, 0);
         sub_4B40E6();
         byte_F8B1EC = 0;
-        return VideoPlayer_sub_4BF5B2(pVideoPlayer);
+        return pVideoPlayer->sub_4BF5B2();
       }
       switch ( _this )
       {
@@ -3611,7 +3611,7 @@ int __fastcall sub_4B2001(int _this)
           break;
         default:
           if ( _this != 22 )
-            return VideoPlayer_sub_4BF5B2(pVideoPlayer);
+            return pVideoPlayer->sub_4BF5B2();
           v3 = *(_DWORD *)(v2 + 52);
           break;
       }
@@ -3655,7 +3655,7 @@ LABEL_84:
     {
       sub_4B3FE5((void *)v3);
     }
-    return VideoPlayer_sub_4BF5B2(pVideoPlayer);
+    return pVideoPlayer->sub_4BF5B2();
   }
   if ( _this != 76 )
   {
@@ -3780,19 +3780,19 @@ LABEL_84:
             v24 = 86;
 LABEL_50:
             Player_PlaySound(pPlayers[v11], v24, v26);
-            return VideoPlayer_sub_4BF5B2(pVideoPlayer);
+            return pVideoPlayer->sub_4BF5B2();
           }
         }
         break;
     }
-    return VideoPlayer_sub_4BF5B2(pVideoPlayer);
+    return pVideoPlayer->sub_4BF5B2();
   }
   if (pParty_global->pHiredNPCs[0].pNPCName && pParty_global->pHiredNPCs[1].pNPCName)
   {
     v19 = (char *)pGlobalTXT_LocalizationStrings[533];
 LABEL_77:
     sub_44C175(v19, 2);
-    return VideoPlayer_sub_4BF5B2(pVideoPlayer);
+    return pVideoPlayer->sub_4BF5B2();
   }
   v20 = *(_DWORD *)(v2 + 24);
   if ( v20 != 51 )
@@ -3846,7 +3846,7 @@ LABEL_77:
     v24 = 61;
     goto LABEL_50;
   }
-  return VideoPlayer_sub_4BF5B2(pVideoPlayer);
+  return pVideoPlayer->sub_4BF5B2();
 }
 
 //----- (004B254D) --------------------------------------------------------
@@ -8357,7 +8357,7 @@ void __cdecl sub_4B8285()
           while ( sub_4BD8B5() )
             ;
           sub_4B1D27();
-          CVideoPlayer_UnloadAll(pVideoPlayer);
+          pVideoPlayer->UnloadAll();
           GUIWindowDelete(ptr_507BC0);
           ptr_507BC0 = 0;
 		  dword_50CBD0.CutQueueTail();
@@ -11160,7 +11160,8 @@ LABEL_23:
       do
       {
         v7 = *(_DWORD *)(v6 + 52);
-        mem_mng.DeleteBuffer( (void *)(void *)v6);
+        //MemFree( (void *)(void *)v6);
+        MemFree((void *)v6);
         v6 = v7;
       }
       while ( v7 );
@@ -12483,7 +12484,7 @@ signed int __cdecl sub_4BD8B5()
       {
         sub_4B4224((void *)(dword_5913F0 - 1));
 LABEL_33:
-        VideoPlayer_sub_4BF5B2(pVideoPlayer);
+        pVideoPlayer->sub_4BF5B2();
         return 1;
       }
       if ( v0 != 94 && v0 != 96 && v0 != 101 )
@@ -12498,20 +12499,20 @@ LABEL_33:
         {
           if ( v0 != 102 && v0 != 103 && v0 != 104 )
           {
-            VideoPlayer_sub_4BF5B2(pVideoPlayer);
+            pVideoPlayer->sub_4BF5B2();
 LABEL_28:
             dword_F8B19C = 1;
             sub_4B3B42(dword_F8B198);
             return 1;
           }
-          VideoPlayer_sub_4BF5B2(pVideoPlayer);
+          pVideoPlayer->sub_4BF5B2();
           sub_4BCA33();
           dword_F8B19C = 101;
           sub_4B3A72((void *)dword_F8B198);
         }
         return 1;
       }
-      VideoPlayer_sub_4BF5B2(pVideoPlayer);
+      pVideoPlayer->sub_4BF5B2();
       sub_4BCA33();
       goto LABEL_28;
     }
@@ -13267,260 +13268,6 @@ void *__thiscall sub_4BE6D1(void *_this)
   return _this;
 }
 
-//----- (004BECBD) --------------------------------------------------------
-int sub_4BECBD(int a1, int a2)
-{
-  pVideoPlayer->dword_00006C = 0;
-  pVideoPlayer->dword_000040 = 0;
-  return 0; //RGBTexture_Release((int)pVideoPlayer);
-}
-
-//----- (004BECD5) --------------------------------------------------------
-void __thiscall sub_4BECD5(int _this, unsigned int a2)
-{
-  int v2; // eax@1
-  int v3; // esi@1
-
-  v3 = _this;
-  v2 = *(_DWORD *)(_this + 156);
-  if ( v2 == 2 )
-  {
-    if ( a2 )
-    {
-      while ( *(_DWORD *)(*(_DWORD *)(v3 + 128) + 20) < a2 )
-      {
-        BinkDoFrame(*(HBINK *)(v3 + 128));
-        BinkNextFrame(*(HBINK *)(v3 + 128));
-      }
-    }
-  }
-  else
-  {
-    if ( v2 != 1 )
-      return;
-    SmackSoundOnOff(*(HSMACK *)(_this + 40), 0);
-    if ( a2 )
-    {
-      while ( *(_DWORD *)(*(_DWORD *)(v3 + 40) + 884) < a2 )
-      {
-        SmackDoFrame(*(HSMACK *)(v3 + 40));
-        SmackNextFrame(*(HSMACK *)(v3 + 40));
-      }
-    }
-  }
-  CVideoPlayer_UnloadAll((CVideoPlayer *)v3);
-}
-
-//----- (004BF08B) --------------------------------------------------------
-void *__thiscall sub_4BF08B(void *_this, int a2)
-{
-  int v2; // eax@1
-  int v3; // esi@1
-  int v4; // ebx@1
-  int v5; // edi@1
-  signed int v6; // eax@1
-
-  v3 = (int)_this;
-  pD3DRenderer->BeginScene();
-  v4 = (int)pD3DRenderer->pTargetSurface;
-  v5 = pD3DRenderer->uTargetSurfacePitch;
-  v6 = VideoPlayer_Smacker_CheckSurfaceFromat();
-  SmackToBuffer(*(HSMACK *)(v3 + 40), 8, 8, 2 * v5, pD3DRenderer->dword_000014, (void *)v4, v6);
-  v2 = *(_DWORD *)(v3 + 40);
-  if ( *(_DWORD *)(v2 + 104) )
-  {
-    SmackBufferNewPalette(*(_DWORD *)(v3 + 44), v2 + 108, *(_WORD *)(v2 + 880));
-    SmackColorRemapWithTrans(
-      *(_DWORD *)(v3 + 40),
-      *(_DWORD *)(v3 + 44) + 60,
-      *(_DWORD *)(*(_DWORD *)(v3 + 44) + 44),
-      *(_DWORD *)(*(_DWORD *)(v3 + 44) + 1084),
-      1000);
-  }
-  SmackDoFrame((HSMACK)*(_DWORD *)(v3 + 40));
-  if ( *(_DWORD *)(*(_DWORD *)(v3 + 40) + 884) != *(_DWORD *)(*(_DWORD *)(v3 + 40) + 12) - 1 || *(_DWORD *)(v3 + 100) )
-    SmackNextFrame((HSMACK)*(_DWORD *)(v3 + 40));
-  else
-    CVideoPlayer_UnloadAll((CVideoPlayer *)v3);
-  return (void *)pD3DRenderer->EndScene();
-}
-
-//----- (004BF28F) --------------------------------------------------------
-void __thiscall sub_4BF28F(int _this, char a2, int a3)
-{
-  int v3; // esi@1
-  void *v4; // ecx@3
-  int v5; // eax@4
-  int v6; // ecx@7
-  int v7; // eax@7
-  int v8; // eax@7
-  int v9; // ebx@8
-  signed int v10; // eax@8
-  signed __int64 v11; // qax@9
-  const char *v12; // [sp-20h] [bp-54h]@3
-  int v13; // [sp-1Ch] [bp-50h]@3
-  char v14; // [sp-18h] [bp-4Ch]@3
-  int v15; // [sp-14h] [bp-48h]@6
-  int v16; // [sp-10h] [bp-44h]@6
-  int v17; // [sp-Ch] [bp-40h]@6
-  const char *v18; // [sp-8h] [bp-3Ch]@3
-  int v19; // [sp-4h] [bp-38h]@3
-  char Str2[48]; // [sp+Ch] [bp-28h]@4
-  char *v21; // [sp+3Ch] [bp+8h]@3
-  char *v22; // [sp+3Ch] [bp+8h]@5
-  int v23; // [sp+3Ch] [bp+8h]@8
-
-  v3 = _this;
-  if ( !*(_DWORD *)(_this + 84) )
-  {
-    CVideoPlayer_Initialize((CVideoPlayer *)_this);
-    *(_DWORD *)(v3 + 100) = a3;
-    if ( *(_BYTE *)(v3 + 260) == 1 )
-    {
-      v19 = 925;
-      v18 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Video.cpp";
-      v4 = &v14;
-      v21 = &v14;
-      v13 = (int)(&a2 + 3);
-      v12 = "Unsupported Bink playback!";
-LABEL_6:
-      Game_sub_40E2C8(v4, v12, v13);
-      sub_466D09(&a3, *(int *)&v14, v15, v16, v17, v18, v19);
-      return;
-    }
-    wsprintfA(Str2, "%s.smk", a2);
-    v5 = (int)CVideoPlayer_OpenSmackMovie((CVideoPlayer *)v3, Str2);
-    *(_DWORD *)(v3 + 40) = v5;
-    if ( !v5 )
-    {
-      CVideoPlayer_UnloadAll((CVideoPlayer *)v3);
-      wsprintfA((char *)TmpBuf, "Can't load %s", Str2);
-      v19 = 937;
-      v18 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\Video.cpp";
-      v4 = &v14;
-      v22 = &v14;
-      v13 = (int)(&a2 + 3);
-      v12 = (char *)TmpBuf;
-      goto LABEL_6;
-    }
-    v19 = a2;
-    *(_DWORD *)(v3 + 156) = 1;
-    strcpy((char *)(v3 + 164), (const char *)v19);
-    v7 = *(_DWORD *)(v3 + 40);
-    *(_DWORD *)(v3 + 160) = 1;
-    v8 = SmackBufferOpen(
-           *(_DWORD *)(v3 + 112),
-           4,
-           *(_WORD *)(v7 + 4),
-           *(_WORD *)(v7 + 8),
-           *(_WORD *)(v7 + 4),
-           *(_WORD *)(v7 + 8));
-    *(_DWORD *)(v3 + 44) = v8;
-    if ( v8 )
-    {
-      pD3DRenderer->BeginScene();
-      v9 = pD3DRenderer->uTargetSurfacePitch;
-      v23 = (int)pD3DRenderer->pTargetSurface;
-      v10 = VideoPlayer_Smacker_CheckSurfaceFromat();
-      SmackToBuffer(*(HSMACK *)(v3 + 40), 8, 8, 2 * v9, pD3DRenderer->dword_000014, (void *)v23, v10);
-      pD3DRenderer->EndScene();
-    }
-    v19 = 32767;
-    v11 = (signed __int64)(aMusicVolumeLevels[uSoundVolumeMultiplier] * 32767.0);
-    SmackVolumePan(v6, HIDWORD(v11), *(_DWORD *)(v3 + 40), 1040384, v11, 32767);
-  }
-}
-
-//----- (004BF5B2) --------------------------------------------------------
-int __thiscall VideoPlayer_sub_4BF5B2(CVideoPlayer *_this)
-{
-  int result; // eax@1
-  int v2; // esi@1
-  int v3; // edi@2
-
-  v2 = (int)_this;
-  result = *(_DWORD *)(_this + 156);
-  if ( result == 2 )
-  {
-    v3 = (int)_this + 128;
-    BinkGoto(*(_DWORD *)(_this + 128), 1, 0);
-    BinkDoFrame((HBINK)*(_DWORD *)v3);
-    BinkNextFrame((HBINK)*(_DWORD *)v3);
-  }
-  else
-  {
-    if ( result != 1 )
-      return result;
-    SmackGoto(*(_DWORD *)((int)_this + 40), 1);
-    if ( dword_F79D7C != 2 || dword_F79D70 != 4 )
-    {
-      SmackDoFrame((HSMACK)*(_DWORD *)(v2 + 40));
-      SmackNextFrame((HSMACK)*(_DWORD *)(v2 + 40));
-    }
-  }
-  sub_469E24((int)pGame->pGUICursor);
-  result = (int)ptr_507BC0;
-  if (ptr_507BC0)
-  {
-    if (ptr_507BC0->dword_00001C == 165 )
-    {
-      if ( !*(_DWORD *)(v2 + 40) )
-      {
-        dword_F8BC10 = 1;
-        sub_4BD8B5();
-        GUIWindowDelete(ptr_507BC0);
-        pParty_global->dword_007778 &= 0xFFFFFFFDu;
-        result = sub_44622E(165);
-        if ( result )
-        {
-          AudioPlayer_sub_4AA306(pAudioPlayer, 0, 0, 0, -1, 0, 0, 0, 0);
-          ptr_507BC0 = GUIWindowCreate(0, 0, 640, 480, 25, (GUIButton*)165, 0);
-          GUIButtonCreate(ptr_507BC0, 61, 424, 31, 0, 2, 94, 110, 1, 49, (unsigned char *)"", 0);
-          GUIButtonCreate(ptr_507BC0, 177, 424, 31, 0, 2, 94, 110, 2, 50, (unsigned char *)"", 0);
-          GUIButtonCreate(ptr_507BC0, 292, 424, 31, 0, 2, 94, 110, 3, 51, (unsigned char *)"", 0);
-          result = (int)GUIButtonCreate(ptr_507BC0, 407, 424, 31, 0, 2, 94, 110, 4, 52, (unsigned char *)"", 0);
-        }
-        dword_F8BC10 = 0;
-      }
-    }
-  }
-  return result;
-}
-
-//----- (004BF73A) --------------------------------------------------------
-void __thiscall VideoPlayer_sub_4BF73A(CVideoPlayer *_this)
-{
-  unsigned __int8 v1; // bl@1
-  int v2; // edi@1
-  int v3; // esi@1
-  int v4; // edi@1
-  char Source; // [sp+Ch] [bp-40h]@1
-
-  v3 = (int)_this;
-  v4 = *(_DWORD *)((int)_this + 160);
-  v1 = *(_BYTE *)((int)_this + 100);
-  strcpy(&Source, (const char *)((int)_this + 164));
-  CVideoPlayer_UnloadAll((CVideoPlayer *)v3);
-  v2 = v4 - 1;
-  if ( v2 )
-  {
-    if ( v2 == 1 )
-      CVideoPlayer_OpenMovie((CVideoPlayer *)v3, &Source, v1, 1);
-  }
-  else
-  {
-    sub_4BF28F(v3, (unsigned int)&Source, v1);
-  }
-}
-
-//----- (004BF8F6) --------------------------------------------------------
-void PlayFirstActMovie()
-{
-  pVideoPlayer->dword_00006C = 0;
-  pVideoPlayer->dword_000040 = 0;
-  PlayMovie(4, 1);
-}
-
 //----- (004BF91E) --------------------------------------------------------
 int __thiscall sub_4BF91E_GameOverMenu(void *_this)
 {
@@ -13581,7 +13328,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   Render_DrawRGBTexture(pD3DRenderer, 0, 0, &v16);
 
   v1 = (int)pD3DRenderer->EndScene();
-  free(v16.pPixels);
+  MemFree(v16.pPixels);
   v16.pPixels=NULL;
   //free((char *)v17);
   //v17 = 0;
@@ -13662,7 +13409,10 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   if ( pD3DRenderer->pRenderD3D3 )
     dword_EF52A8();
   Render_sub_49F1BC((int)pD3DRenderer, "MM7_Win.Pcx");
-  mem_mng.DeleteBuffer( (void *)(int *)v33);
+
+  //MemFree( (void *)(int *)v33);
+  MemFree((void *)v33);
+
   GUIWindowDelete(ptr_507BC0);
   ptr_507BC0 = 0;
   if ( v26 == (void *)2 )
@@ -15849,7 +15599,7 @@ void __cdecl sub_4C9BCF(LPCRITICAL_SECTION lpCriticalSection)
 //----- (004CA32D) --------------------------------------------------------
 void operator_delete(void *a2)
 {
-  free(a2);
+  MemFree(a2);
 }
 
 //----- (004CA338) --------------------------------------------------------

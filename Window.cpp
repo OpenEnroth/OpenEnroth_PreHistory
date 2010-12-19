@@ -1,4 +1,18 @@
+#include "defs.h"
+
 #include "Window.h"
+
+unsigned int Win32Window::AttachRender(BaseRender *pNewRender)
+{
+ pRender = pNewRender;
+
+ return Error::Success;
+}
+
+BaseRender *Win32Window::GetRender() const
+{
+ return pRender;
+}
 
 
 

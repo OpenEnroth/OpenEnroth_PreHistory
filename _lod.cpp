@@ -122,7 +122,7 @@ LOD_file::~LOD_file()
   if ( sLODFileHeader.Signature )
   {
     fclose(pLODFile);
-    mem_mng.DeleteBuffer(pLODSubIndexNamedBuffer);
+    MemFree(pLODSubIndexNamedBuffer);
   }
  
 }
@@ -176,8 +176,8 @@ void LOD_file::Close_Open_File()
   {
     sContainerName[0] = 0;	// 214
     current_index_dir = 0;  // 224
-    mem_mng.DeleteBuffer( pLODSubIndexNamedBuffer);	  //230
-    mem_mng.DeleteBuffer(pLODCArray); //210
+    MemFree( pLODSubIndexNamedBuffer);	  //230
+    MemFree(pLODCArray); //210
     pLODSubIndexNamedBuffer = NULL;
     pLODCArray = NULL;
     fclose(pLODFile);
@@ -192,8 +192,8 @@ void LOD_file::Close_Open_File()
 //----- (00461A11) -------------.text:00462D14 -------------------------------------------
 void LOD_file::FreeSubIndxIOBuffers()
 { 
-  mem_mng.DeleteBuffer( pLODSubIndexNamedBuffer);
-  mem_mng.DeleteBuffer( pLODIOBuffer);
+  MemFree( pLODSubIndexNamedBuffer);
+  MemFree( pLODIOBuffer);
   pLODIOBuffer = NULL;
   pLODSubIndexNamedBuffer =NULL;
 }
@@ -225,22 +225,21 @@ void LOD_file::AllocateSubidexAndIOBuffer(unsigned int uNumSubInd, unsigned int 
 if (pLODSubIndexNamedBuffer)
 	{
 	MessageBoxW(0, L"Attempt to reset a LOD subindex!", L"MM7", 0x30u);
-	mem_mng.DeleteBuffer(pLODSubIndexNamedBuffer);
+	MemFree(pLODSubIndexNamedBuffer);
 	pLODSubIndexNamedBuffer = NULL;
 	}
-pLODSubIndexNamedBuffer =
-	(LODIndex *)mem_mng.AllocatedNamedBuffer(pLODSubIndexNamedBuffer, sizeof(LODIndex) * uNumSubInd, "LODsubindex");
+pLODSubIndexNamedBuffer = NamedMemAlloc(LODIndex, uNumSubInd, "LOD SubIndex");
 
 if (pLODIOBuffer)
 	{
 	MessageBoxW(0, L"Attempt to reset a LOD IObuffer!", L"MM7", 0x30u);
-	mem_mng.DeleteBuffer(pLODIOBuffer);
+	MemFree(pLODIOBuffer);
 	pLODIOBuffer = NULL;
 	uIOBufferSize = 0;
 	}
 if (uIOBuffSize)
 	{
-	pLODIOBuffer = (unsigned char *)mem_mng.AllocatedNamedBuffer(pLODIOBuffer, uIOBuffSize, "LODio");
+	pLODIOBuffer = NamedMemAlloc(unsigned char, uIOBuffSize, "LOD IO Buffer");
 	uIOBufferSize = uIOBuffSize;
 	}
 }
@@ -336,7 +335,7 @@ bool LOD_file::Load_LODHeader( const char *pFilename, bool openmode)
 		return false;
 	strcpy(sLODName, pFilename);
 	locked_fread(&sLODFileHeader, sizeof(LODFileHeader), 1, pLODFile);
-	pLODCArray =(char*) mem_mng.AllocatedNamedBuffer(pLODCArray, 160, "LOD CArray");
+	pLODCArray = NamedMemAlloc(char, 160, "LOD CArray");
 	if (!pLODCArray)
 		{
 		fclose(pLODFile);
@@ -627,28 +626,27 @@ void *LODFile_IB::LODFile_LoadRaw( const char *pContainer, int a3)
   if (cTexture_obj.uDecompressedSize)
   {
     if (a3)
-      result = (unsigned char *)malloc(cTexture_obj.uDecompressedSize);
+      result = MemAlloc(unsigned char, cTexture_obj.uDecompressedSize);
     else
-      result = (unsigned char *)mem_mng.AllocatedNamedBuffer( NULL, cTexture_obj.uDecompressedSize, cTexture_obj.sContainerName);
+      result = NamedMemAlloc(unsigned char, cTexture_obj.uDecompressedSize, cTexture_obj.sContainerName);
 
-    v8 = (unsigned char *)mem_mng.AllocatedNamedBuffer( NULL, cTexture_obj.uTextureSize, cTexture_obj.sContainerName);
+    v8 = NamedMemAlloc(unsigned char, cTexture_obj.uTextureSize, cTexture_obj.sContainerName);
  #ifndef OLD_CODE
     ReadFile(hFile, v8, cTexture_obj.uTextureSize, &w, 0);
-  #endif
-#ifdef OLD_CODE
+#else
     fread(v8, 1, cTexture_obj.uTextureSize, pContainerFile);
   #endif
 
     MemUnzip(result, &cTexture_obj.uDecompressedSize, v8, cTexture_obj.uTextureSize);
     cTexture_obj.uTextureSize = cTexture_obj.uDecompressedSize;
-    mem_mng.DeleteBuffer( (void *)v8);
+    MemFree( (void *)v8);
   }
   else
   {
     if (a3)
-      result = (unsigned char *)malloc(cTexture_obj.uTextureSize);
+      result = MemAlloc(unsigned char, cTexture_obj.uTextureSize);
     else
-     result = (unsigned char *)mem_mng.AllocatedNamedBuffer( 0, cTexture_obj.uTextureSize, cTexture_obj.sContainerName);
+     result = NamedMemAlloc(unsigned char, cTexture_obj.uTextureSize, cTexture_obj.sContainerName);
     locked_fread(result, 1u, cTexture_obj.uTextureSize, pContainerFile);
   }
   #ifndef OLD_CODE
@@ -687,9 +685,9 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 	  {
 	  if ( !pHardwareSurfaces || !pHardwareTextures )
 		  {
-		  pHardwareSurfaces = new IDirectDrawSurface4 *[1000];
-		  pHardwareTextures = new IDirect3DTexture2 *[1000];
-		  lod_IB_dword_011BB4 = new char [1000];
+		  pHardwareSurfaces = NamedMemAlloc(IDirectDrawSurface4 *, 1000, "Hardware sprite dd4 surfaces");
+		  pHardwareTextures = NamedMemAlloc(IDirect3DTexture2 *, 1000, "Hardware sprite d3d2 textures");
+		  lod_IB_dword_011BB4 = MemAlloc(char, 1000);
 		  memset(pHardwareTextures, 0, 4000);
 		  memset(pHardwareSurfaces, 0, 4000);
 		  memset(lod_IB_dword_011BB4, 0, 1000);
@@ -701,7 +699,7 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 		  && pContainerName[4] == 'r' )
 		  {
 
-		  tmp_palette = (unsigned char*) malloc(strlen(pContainerName)+2);
+		  tmp_palette = MemAlloc(unsigned char, strlen(pContainerName)+2);
 		  tmp_palette[0] = 'h';
 		  tmp_palette[1] = 0;
 		  strcpy((char *)tmp_palette+1, (const char *) pContainerName);
@@ -714,7 +712,7 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 			  &pHardwareTextures[uNumLoadedFiles]);
 			
 		   
-		  free( tmp_palette);
+		  MemFree( tmp_palette);
 		  }
 	  else
 		  {
@@ -744,18 +742,17 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 
   if (!pcTexture->uDecompressedSize ||  lod_IB_dword_011BA4)
 	  {
-	  pcTexture->pIndexedPixels = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->pIndexedPixels, 
-		  pcTexture->uTextureSize, pcTexture->sContainerName);
+	  pcTexture->pIndexedPixels = NamedMemAlloc(unsigned char,  pcTexture->uTextureSize, pcTexture->sContainerName);
 	  locked_fread(pcTexture->pIndexedPixels, 1u, pcTexture->uTextureSize, texture_file);
 	  }
   else
 	  {
-	  pCompressedBuffer = (unsigned char *)malloc(pcTexture->uTextureSize);
-	  pDecompressedBuffer = (unsigned char *)malloc(pcTexture->uDecompressedSize);
+	  pCompressedBuffer = MemAlloc(unsigned char, pcTexture->uTextureSize);
+	  pDecompressedBuffer = MemAlloc(unsigned char, pcTexture->uDecompressedSize);
 
 	  locked_fread(pCompressedBuffer, 1, pcTexture->uTextureSize, texture_file);
 	  MemUnzip(pDecompressedBuffer, &pcTexture->uDecompressedSize, pCompressedBuffer, pcTexture->uTextureSize);
-	  free(pCompressedBuffer);
+	  MemFree(pCompressedBuffer);
 
 	  pcTexture->uTextureSize = pcTexture->uDecompressedSize;
 
@@ -766,7 +763,7 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 						   pcTexture->uSizeOfMaxLevelOfDetal/16+
 						   pcTexture->uSizeOfMaxLevelOfDetal/64;
 	
-		  pcTexture->pIndexedPixels =(unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->pIndexedPixels,total_l_o_d_size, pcTexture->sContainerName);
+		  pcTexture->pIndexedPixels = NamedMemAlloc(unsigned char, total_l_o_d_size, pcTexture->sContainerName);
 
 		  total_l_o_d_size=pcTexture->uTextureHeight*pcTexture->uTextureWidth+ total_l_o_d_size;
 		  memcpy(pcTexture->pIndexedPixels,pDecompressedBuffer,total_l_o_d_size);
@@ -782,18 +779,18 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 		  }
 	  else
 		  {
-		  pcTexture->pIndexedPixels = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->pIndexedPixels, pcTexture->uDecompressedSize, pcTexture->sContainerName);
+		  pcTexture->pIndexedPixels = NamedMemAlloc(unsigned char, pcTexture->uDecompressedSize, pcTexture->sContainerName);
 		  memcpy(pcTexture->pIndexedPixels, pDecompressedBuffer, pcTexture->uDecompressedSize);
 		  }
-	  free(pDecompressedBuffer);
+	  MemFree(pDecompressedBuffer);
 	  }
 
-  mem_mng.DeleteBuffer( (void *)pcTexture->pPalette);
-  mem_mng.DeleteBuffer( (void *)pcTexture->ptr_000044);
+   MemFree(pcTexture->pPalette);
+   MemFree(pcTexture->ptr_000044);
 
   if (uTextureType == 1)
 	  {
-	  pcTexture->ptr_000044 = (unsigned char *)mem_mng.AllocatedNamedBuffer( pcTexture->ptr_000044, 768, pcTexture->sContainerName);
+	  pcTexture->ptr_000044 = NamedMemAlloc(unsigned char, 768, pcTexture->sContainerName);
 	  locked_fread(pcTexture->ptr_000044, 1, 768, texture_file);
 	  pcTexture->pPalette = NULL;
 	  }
@@ -802,11 +799,11 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 
   if (uTextureType == 2)
 	  {	    
-	  pcTexture->pPalette = (unsigned short *)mem_mng.AllocatedNamedBuffer( pcTexture->pPalette, 512, pcTexture->sContainerName);
+	  pcTexture->pPalette = NamedMemAlloc(unsigned short, 256, pcTexture->sContainerName);
 	  //new code create 32 ARGB color;
-	  pcTexture->pTruecolorPixels= (unsigned int *)malloc( pcTexture->uTextureWidth*pcTexture->uTextureHeight*4 );
+	  pcTexture->pTruecolorPixels= MemAlloc(unsigned int, pcTexture->uTextureWidth*pcTexture->uTextureHeight);
 	  //
-	  tmp_palette=(unsigned char*)malloc(768);
+	  tmp_palette = MemAlloc(unsigned char, 768);
 	  locked_fread(tmp_palette,768, 1, texture_file);
 	 j=0;
 	  for (i = 0; i < 256; i++)
@@ -861,7 +858,7 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 			unpackedPixels[2]= tmp_palette[pcTexture->pIndexedPixels[i]*3];	 
 		    pcTexture->pTruecolorPixels[i]=*(unsigned int*)&unpackedPixels[0];
 		  }	
-	  free(tmp_palette);
+	  MemFree(tmp_palette);
 	  }
   else
 	  {
@@ -955,7 +952,7 @@ void LODFile_IB::SetupPalettes( int uTargetRBits, int uTargetGBits, int uTargetB
  uTextureBlueBits = uTargetBBits;
  if (! uNumLoadedFiles)
 	 return;
- tmp_palette=(unsigned char*)malloc(768);
+ tmp_palette = MemAlloc(unsigned char, 768);
  for (i = 0; i <  uNumLoadedFiles; i++)
 	 {
 
@@ -979,7 +976,7 @@ void LODFile_IB::SetupPalettes( int uTargetRBits, int uTargetGBits, int uTargetB
 		  k+=3;
 		 }
 	 }
- free(tmp_palette);
+ MemFree(tmp_palette);
 
 }
 
@@ -1070,7 +1067,7 @@ unsigned int LODFile_IB::LODFile_LoadTexture_New(const wchar_t *pFilename)
      WriteConsoleW(hStdHandle, pFileNotFound, lstrlenW(pFileNotFound), &w, 0);
 
      if (!pending_texture.pTruecolorPixels)
-       pending_texture.pTruecolorPixels = new unsigned int[52 * 53];
+       pending_texture.pTruecolorPixels = NamedMemAlloc(unsigned int, 52 * 53, "Pending Texture pixels");
      pending_texture.uTextureWidth = 52;
      pending_texture.uTextureHeight = 53;
      return -1;
@@ -1124,15 +1121,15 @@ unsigned int LODFile_Sprite::LODFile_LoadSprite( const char *pSourceFile, int a3
 	 //alloc hardware sprites
 	 if (!pHardwareSprites)
 		 {
-		 pHardwareSprites = (HardwareSprite *)mem_mng.AllocatedNamedBuffer( NULL, 1500 * sizeof(struct HardwareSprite), "hardSprites");
+		 pHardwareSprites = NamedMemAlloc(HardwareSprite, 2500, "Hardware Sprites");
 
-		 for (i = 0; i < 1500; i++)
-			 {
+		 for (i = 0; i < 2500; i++)
+         {
 			 pHardwareSprites[i].pSpriteName = 0;
 			 pHardwareSprites[i].pTexture = NULL;
 			 pHardwareSprites[i].pTextureSurface = NULL;
-			 }
-		 }
+         }
+     }
 
 	 Sprites_Header local_spr_hdr;
 	 work_file = Find_Container( pSourceFile, false);
@@ -1165,7 +1162,7 @@ unsigned int LODFile_Sprite::LODFile_LoadSprite( const char *pSourceFile, int a3
 	 }
  if (pD3DRenderer->pRenderD3D3)
     {
-     pHardwareSprites[uNumLoadedSprites].pSpriteName = (unsigned char *)mem_mng.AllocatedNamedBuffer(pHardwareSprites[uNumLoadedSprites].pSpriteName, 20, pSourceFile);
+     pHardwareSprites[uNumLoadedSprites].pSpriteName = NamedMemAlloc(unsigned char, 20, pSourceFile);
      strcpy((char *)pHardwareSprites[uNumLoadedSprites].pSpriteName, pSourceFile);
      pHardwareSprites[uNumLoadedSprites].dword_000004 = a3;
      Render_MoveHWSpriteToVideoMemory(pD3DRenderer, &pHardwareSprites[uNumLoadedSprites]);
@@ -1183,15 +1180,17 @@ bool LODFile_IB::LODFile_LoadLOD_Icons_Events( const char *pFilename)
  Reset_TextureBuffs();
  if (!Load_LODHeader( pFilename, 1))
    return 0;
+
 #ifndef OLD_CODE 
- pHardwareSurfaces = new IDirectDrawSurface4 *[1000];
- pHardwareTextures = new IDirect3DTexture2 *[1000];
- lod_IB_dword_011BB4 = new char [1000];
+ pHardwareSurfaces = NamedMemAlloc(IDirectDrawSurface4 *, 1000, "Hardware sprite dd4 surfaces");
+ pHardwareTextures = NamedMemAlloc(IDirect3DTexture2 *, 1000, "Hardware sprite d3d2 textures");
+ lod_IB_dword_011BB4 = MemAlloc(char, 1000);
  memset(pHardwareTextures, 0, 4000);
  memset(pHardwareSurfaces, 0, 4000);
  memset(lod_IB_dword_011BB4, 0, 1000);
-#endif  
- return  Load_SubIndexes("icons") == 0;
+#endif
+
+ return Load_SubIndexes("icons") == 0;
 }
 
 //----- (MM7.exe::0040FA2E) ---------.text:0040FD27 -----------------------------------------------
@@ -1200,16 +1199,17 @@ bool LODFile_IB::LODFile_LoadLOD_Bitmaps( const char *pFilename)
  Reset_TextureBuffs();
  if (!Load_LODHeader( pFilename, 1))
    return 0;
+
  #ifndef OLD_CODE
- pHardwareSurfaces = new IDirectDrawSurface4 *[1000];
- pHardwareTextures = new IDirect3DTexture2 *[1000];
- lod_IB_dword_011BB4 = new char [1000];
+ pHardwareSurfaces = NamedMemAlloc(IDirectDrawSurface4 *, 1000, "Hardware sprite dd4 surfaces");
+ pHardwareTextures = NamedMemAlloc(IDirect3DTexture2 *, 1000, "Hardware sprite d3d2 textures");
+ lod_IB_dword_011BB4 = MemAlloc(char, 1000);
  memset(pHardwareTextures, 0, 4000);
  memset(pHardwareSurfaces, 0, 4000);
  memset(lod_IB_dword_011BB4, 0, 1000);
 #endif
 
- return  Load_SubIndexes( "bitmaps") == 0;
+ return Load_SubIndexes( "bitmaps") == 0;
 }
 
 //----- (MM7.exe::004AC795) --------------------------------------------------------
@@ -1280,8 +1280,7 @@ else
 	offset_to_subindex =curr_index->offset_from_unit_start ;
 	uNumSubidices =curr_index->uSubIndixes;// *(_WORD *)(v8 + 28);
 	fseek( pLODFile, offset_to_subindex, 0);
-	pLODSubIndexNamedBuffer = 
-		(LODIndex *)mem_mng.AllocatedNamedBuffer( pLODSubIndexNamedBuffer, ( uNumSubidices + 5) * sizeof(struct LODIndex), "LOD Index");
+	pLODSubIndexNamedBuffer = NamedMemAlloc(LODIndex, (uNumSubidices + 5), "LOD Index");
 
 	if ( pLODSubIndexNamedBuffer)
 		locked_fread( pLODSubIndexNamedBuffer, sizeof(struct LODIndex),  uNumSubidices,  pLODFile);
@@ -1301,7 +1300,7 @@ void LOD_file::Reset_SubIndexBuffer()
    lLOD_Datasize = 0;
    uNumSubidices = 0;
    offset_to_subindex = 0;
-   mem_mng.DeleteBuffer( (void *) pLODSubIndexNamedBuffer);
+   MemFree( (void *) pLODSubIndexNamedBuffer);
    pLODSubIndexNamedBuffer = 0;
  }
 
@@ -1366,22 +1365,21 @@ int LODFile_Sprite::LoadSpriteFromFile( Sprites_Header *pSpriteHdr, const char *
    locked_fread(pSpriteHdr, 1,32, f);
    strcpy(pSpriteHdr->sContainerName, pFilename);
 
-   pSpriteHdr->pSomeSpriteData = 
-	   (SomeSpriteData *)mem_mng.AllocatedNamedBuffer( pSpriteHdr->pSomeSpriteData, sizeof(SomeSpriteData) * pSpriteHdr-> uSomeSprtDataCount,pSpriteHdr->sContainerName);
+   pSpriteHdr->pSomeSpriteData = NamedMemAlloc(SomeSpriteData, pSpriteHdr->uSomeSprtDataCount, pSpriteHdr->sContainerName);
    locked_fread(pSpriteHdr->pSomeSpriteData, 1, 8 * pSpriteHdr->uSomeSprtDataCount, f);
   // v6 = ;
     if ( pSpriteHdr->dUnCompressedSize )
     {
-     pSpriteHdr->ptr_000024 = (unsigned char *)mem_mng.AllocatedNamedBuffer( pSpriteHdr->ptr_000024, pSpriteHdr->dUnCompressedSize,pSpriteHdr->sContainerName);
-     temp_buff = (unsigned char *)mem_mng.AllocatedNamedBuffer( 0, pSpriteHdr->dSpriteSize, pSpriteHdr->sContainerName);
+     pSpriteHdr->ptr_000024 = NamedMemAlloc(unsigned char, pSpriteHdr->dUnCompressedSize,pSpriteHdr->sContainerName);
+     temp_buff = NamedMemAlloc(unsigned char, pSpriteHdr->dSpriteSize, pSpriteHdr->sContainerName);
      locked_fread(temp_buff, 1,pSpriteHdr->dSpriteSize, f);
      MemUnzip(pSpriteHdr->ptr_000024, (unsigned int *)&pSpriteHdr->dUnCompressedSize,temp_buff, pSpriteHdr->dSpriteSize);
      pSpriteHdr->dSpriteSize = pSpriteHdr->dUnCompressedSize;
-     mem_mng.DeleteBuffer( temp_buff);
+     MemFree( temp_buff);
     }
     else
     {
-     pSpriteHdr->ptr_000024 = (unsigned char *)mem_mng.AllocatedNamedBuffer(pSpriteHdr->ptr_000024, pSpriteHdr->dSpriteSize,pSpriteHdr->sContainerName);
+     pSpriteHdr->ptr_000024 = NamedMemAlloc(unsigned char, pSpriteHdr->dSpriteSize,pSpriteHdr->sContainerName);
      locked_fread(pSpriteHdr->ptr_000024, 1, pSpriteHdr->dSpriteSize, f);
     }
 
@@ -1474,7 +1472,7 @@ unsigned char *LODFile_IB::LODFile_LoadEvent(const wchar_t *pFilename)
   return (unsigned char *)LODFile_LoadRaw( pFilenameA, 0);
  }
 
- pOut = new unsigned char[GetFileSize(hFile, 0)];
+ pOut = NamedMemAlloc(unsigned char, GetFileSize(hFile, 0), "event data");
  ReadFile(hFile, pOut, GetFileSize(hFile, 0), &w, 0);
 
  CloseHandle(hFile);
@@ -1511,21 +1509,21 @@ signed int  LODFile_IB::ReLoadTexture(class cTexture *dst_texture, const char *p
 	  }
   else
 	  {
-	  pCompressedBuffer = (unsigned char *)malloc(dst_texture->uTextureSize);
-	  pDecompressedBuffer = (unsigned char *)malloc(dst_texture->uDecompressedSize);
+	  pCompressedBuffer = MemAlloc(unsigned char, dst_texture->uTextureSize);
+	  pDecompressedBuffer = MemAlloc(unsigned char, dst_texture->uDecompressedSize);
 
 	  locked_fread(pCompressedBuffer, 1, dst_texture->uTextureSize, texture_file);
 	  MemUnzip(pDecompressedBuffer, &dst_texture->uDecompressedSize, pCompressedBuffer, dst_texture->uTextureSize);
-	  free(pCompressedBuffer);
+	  MemFree(pCompressedBuffer);
 
 	  dst_texture->uTextureSize = dst_texture->uDecompressedSize;
 	  memcpy(dst_texture->pIndexedPixels, pDecompressedBuffer, dst_texture->uTextureSize);
-	  free(pDecompressedBuffer);
+	  MemFree(pDecompressedBuffer);
 	  }
 
   //new code create 32 ARGB color;
   //
-  tmp_palette=(unsigned char*)malloc(768);
+  tmp_palette = MemAlloc(unsigned char, 768);
   locked_fread(tmp_palette,768, 1, texture_file);
   j=0;
   for (i = 0; i < 256; i++)
@@ -1580,7 +1578,7 @@ signed int  LODFile_IB::ReLoadTexture(class cTexture *dst_texture, const char *p
 	  unpackedPixels[2]= tmp_palette[dst_texture->pIndexedPixels[i]*3];	 
 	  dst_texture->pTruecolorPixels[i]=*(unsigned int*)&unpackedPixels[0];
 	  }	
-  free(tmp_palette);
+  MemFree(tmp_palette);
 
   /*  v13 = 0;
     do
@@ -1676,8 +1674,8 @@ signed int LODFile_IB::LODFile_sub_410522(cTexture *pcTexture, const char *pCont
 
     if ( pcTexture->uDecompressedSize )
     {
-     pcTexture->pIndexedPixels =  new unsigned char [pcTexture->uDecompressedSize] ;
-     temp_buff = new unsigned char [pcTexture->uTextureSize];
+     pcTexture->pIndexedPixels = MemAlloc(unsigned char, pcTexture->uDecompressedSize);
+     temp_buff = MemAlloc(unsigned char, pcTexture->uTextureSize);
      locked_fread(temp_buff, 1,pcTexture->uTextureSize, texture_file);
      MemUnzip(pcTexture->pIndexedPixels, (unsigned int *)&pcTexture->uDecompressedSize,temp_buff,pcTexture->uTextureSize);
      pcTexture->uTextureSize = pcTexture->uDecompressedSize;
@@ -1685,13 +1683,13 @@ signed int LODFile_IB::LODFile_sub_410522(cTexture *pcTexture, const char *pCont
     }
     else
     {
-     pcTexture->pIndexedPixels = new unsigned char [pcTexture->uTextureSize];
+     pcTexture->pIndexedPixels = MemAlloc(unsigned char, pcTexture->uTextureSize);
      locked_fread(pcTexture->pIndexedPixels, 1, pcTexture->uTextureSize, texture_file);
     }
 
   if (uTextureType == 1)
 	  {
-	  pcTexture->ptr_000044 = new unsigned char [768];
+	  pcTexture->ptr_000044 = MemAlloc(unsigned char, 768);
 	  locked_fread(pcTexture->ptr_000044, 1, 768, texture_file);
 	  pcTexture->pPalette = NULL;
 	  }
@@ -1700,8 +1698,8 @@ signed int LODFile_IB::LODFile_sub_410522(cTexture *pcTexture, const char *pCont
 
   if (uTextureType == 2)
 	  {	    
-	  pcTexture->pPalette =  new unsigned short [512];
-	  tmp_palette=(char*)malloc(768);
+	  pcTexture->pPalette = MemAlloc(unsigned short, 512);
+	  tmp_palette = MemAlloc(char, 768);
 	  locked_fread(tmp_palette,768, 1, texture_file);
 	  j=0;
 	  for (i = 0; i < 256; i++)
@@ -1711,7 +1709,7 @@ signed int LODFile_IB::LODFile_sub_410522(cTexture *pcTexture, const char *pCont
 		  pcTexture->pPalette[i] += tmp_palette[j+2] >> (8 -  uTextureBlueBits);
 		  j+=3;
 		  }
-	  free(tmp_palette);
+	  MemFree(tmp_palette);
 	  }
   else
 	  {
@@ -2148,7 +2146,7 @@ void   LODFile_IB::sub_410423()
         else
         {
 
-           v4 = (char*) malloc(strlen(aLODHeaders[i].sContainerName)+2);
+           v4 = MemAlloc(char, strlen(aLODHeaders[i].sContainerName)+2);
 		   v4[0] = 'h';
 		  strcpy((char *)(v4[1]), aLODHeaders[i].sContainerName);
           Render_sub_4A4DE1(
@@ -2157,7 +2155,7 @@ void   LODFile_IB::sub_410423()
             aLODHeaders[i].word_000022,
             &pHardwareSurfaces[i],
             &pHardwareTextures[i]);
-          free(v4);
+          MemFree(v4);
         }
       }      
     } 

@@ -11,7 +11,7 @@ void nullsub_1();
 
 extern int bUseLoResSprites;
 extern int bUseRegistry;
-extern int bLoadingFromCD;
+extern int bCanLoadFromCD;
 
 extern float aMusicVolumeLevels[];
 
@@ -188,8 +188,8 @@ extern class LODFile_IB      LODFile_Icons_LOD;
 extern class LODFile_IB      LODFile_Events_LOD;
 extern class LODFile_IB      LODFile_Bitmaps_LOD;
 extern class LODFile_Sprite      LODFile_Sprites_LOD;
-extern struct AudioPlayer  *pAudioPlayer;
-extern struct CVideoPlayer *pVideoPlayer;
+extern class AudioPlayer  *pAudioPlayer;
+extern class VideoPlayer *pVideoPlayer;
 
 extern class cPCXTexture      Class33_global0;
 extern class cPCXTexture      Class33_global1;
@@ -205,8 +205,8 @@ extern unsigned char TmpBuf[];
 extern unsigned char pStringBuffer[];
 
 
-//extern unsigned char GameCDDriveLetter;
-extern wchar_t GameCDDriveLetter;
+//extern unsigned char cGameCDDriveLetter;
+extern wchar_t cGameCDDriveLetter;
 
 
 extern struct Edge *pNewEdgesBuf;
@@ -273,7 +273,3 @@ extern struct Font *pFontSmallnum;
 int __fastcall ReadWindowsRegistryString(const char *pKeyName, unsigned char *pOut, unsigned int uBufLen, const unsigned char *pDefaultValue);
 int __fastcall ReadWindowsRegistry(const char *pKeyName, int iDefaultValue);
 LSTATUS __stdcall sub_4ABC9B(char a1);
-
-
-void *__stdcall call_new(int, int, int);
-//int             free(void *ptr);

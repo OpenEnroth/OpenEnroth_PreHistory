@@ -4,19 +4,42 @@
 
 namespace Items
 {
+ namespace Material
+ {
+  enum
+  {
+   Ordinary = 0,
+   Artifact = 1,
+   Relic = 2,
+   Special = 3
+  };
+ };
+
  namespace EquipType
  {
   enum
   {
-   Hand = 0,   //right, or both - unsure;   sword has equip type 0
-   //1 probably left hand
+   OneOrTwoHands = 0,
+   TwoHands = 1,
+   Bow = 2,
+   Armour = 3,
+   Shield = 4,
+   Helmet = 5,
+   Belt = 6,
+   Cloak = 7,
+   Gauntlets = 8,
+   Boots = 9,
+   Ring = 10,
+   Amulet = 11,
 
-   Back = 2,   // bows and crossbows
-   Armour = 3, // at least leather
-
+   Reagent = 13,
    Potion = 14,
 
-   Book = 16   // spellbook for sure.    maybe other items too
+   Book = 16,
+
+   Gold = 18,
+   Gem = 19
+
   };
  };
 };

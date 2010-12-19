@@ -7,7 +7,7 @@
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
-#include "_audio.h"
+#include "AudioPlayer.h"
 #include "FrameTables.h"
 
 #include "Actor.h"
@@ -289,23 +289,23 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
     fseek(v7, v134, 0);
     locked_fread(*(void **)(v5 + 188), 1u, 0x4000u, v7);
     sub_47C80A((class51_Geodata *)(v5 + 180), 0, 0, 128, 128);
-    mem_mng.DeleteBuffer( (void *)(void *)*(_DWORD *)(v5 + 212));
+    MemFree( (void *)(void *)*(_DWORD *)(v5 + 212));
     *(_DWORD *)(v5 + 212) = 0;
-    v9 = (int)mem_mng.AllocatedNamedBuffer( NULL, 32768, "CMAP");
+    v9 = (int)NamedMemAlloc(char, 32768, "CMAP");
     v120 = *(_DWORD *)(v5 + 228);
     *(_DWORD *)(v5 + 212) = v9;
-    mem_mng.DeleteBuffer( (void *)(void *)v120);
+    MemFree( (void *)(void *)v120);
     *(_DWORD *)(v5 + 228) = 0;
-    v10 = (int)mem_mng.AllocatedNamedBuffer(NULL, 65536, "OMAP");
+    v10 = (int)NamedMemAlloc(char, 65536, "OMAP");
     v120 = 0;
     *(_DWORD *)(v5 + 228) = v10;
     fseek(v7, v149, v120);
     locked_fread(&uNumTerrainNormals, 4u, 1u, v7);
     locked_fread(&unk_73D514, 1u, 0x20000u, v7);
     locked_fread(uTerrainNormalIndices, 1u, 0x10000u, v7);
-    pTerrainNormals = (Normal *)mem_mng.AllocatedNamedBuffer( pTerrainNormals, uNumTerrainNormals * sizeof(struct Normal), "TerNorm");
+    pTerrainNormals = NamedMemAlloc(Normal, uNumTerrainNormals, "TerNorm");
     locked_fread(pTerrainNormals, 1u, uNumTerrainNormals * sizeof(struct Normal), v7);
-    v11 = (int)mem_mng.AllocatedNamedBuffer( (void*) *(_DWORD *)(v5 + 216), 188 * *(_DWORD *)(v5 + 176), "BDdata");
+    v11 = (int)NamedMemAlloc(char, 188 * *(_DWORD *)(v5 + 176), "BDdata");
     v120 = 0;
     *(_DWORD *)(v5 + 216) = v11;
     fseek(v7, v135, v120);
@@ -327,23 +327,20 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
         v14 = *(_DWORD *)(v5 + 216);
         v151 = 0;
         v120 = (int)FileName;
-        *(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 72) = (int)mem_mng.AllocatedNamedBuffer(
-                                                         (void*) * (_DWORD *)(v12 + v14 + 72),
+        *(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 72) = (int)NamedMemAlloc(char,
                                                           12 * *(_DWORD *)(v12 + v14 + 68),
                                                           FileName);
-        *(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 84) = (int)mem_mng.AllocatedNamedBuffer(
-                                                          (void*) *(_DWORD *)(v12 + *(_DWORD *)(v5 + 216) + 84),
+        *(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 84) = (int)NamedMemAlloc(char,
                                                           308 * *(_DWORD *)(v12 + *(_DWORD *)(v5 + 216) + 76),
                                                           FileName);
         v15 = v12 + *(_DWORD *)(v5 + 216);
         v120 = (int)FileName;
-        *(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 88) = (int)mem_mng.AllocatedNamedBuffer(
-                                                          (void*) *(_DWORD *)(v15 + 88),
+        *(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 88) = (int)NamedMemAlloc(char,
                                                           2 * *(_DWORD *)(v15 + 76),
                                                           FileName);
         v16 = v12 + *(_DWORD *)(v5 + 216);
         v120 = (int)FileName;
-        v17 = (int)mem_mng.AllocatedNamedBuffer((void*) * (_DWORD *)(v16 + 96), 8 * *(_DWORD *)(v16 + 92), FileName);
+        v17 = (int)NamedMemAlloc(char, 8 * *(_DWORD *)(v16 + 92), FileName);
         v18 = *(_DWORD *)(v5 + 216);
         v120 = File;
         *(_DWORD *)(v18 + v12 + 96) = v17;
@@ -367,7 +364,7 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
           8u,
           *(_DWORD *)(v12 + *(_DWORD *)(v5 + 216) + 92),
           (FILE *)File);
-        v19 = malloc(10 * *(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 76));
+        v19 = MemAlloc(char, 10 * *(_DWORD *)(*(_DWORD *)(v5 + 216) + v12 + 76));
         v119 = File;
         v20 = *(_DWORD *)(v5 + 216);
         v167 = v19;
@@ -377,7 +374,7 @@ bool LoadLevelFromODM(struct class51 *_this, const char *Source, int File, int a
         if ( *(_DWORD *)(v13 + v12 + 76) > 0 )
           break;
 LABEL_25:
-        free(v167);
+        MemFree(v167);
         ++a4;
         v12 += 188;
         if ( a4 >= *(_DWORD *)(v5 + 176) )
@@ -488,10 +485,10 @@ LABEL_33:
     locked_fread(array_5E5150, 0x14CCu, dword_5FF140, v24);
     fseek(v24, v141, 0);
     locked_fread((void *)(v5 + 220), 4u, 1u, v24);
-    mem_mng.DeleteBuffer((void *)*(_DWORD *)(v5 + 224));
+    MemFree((void *)*(_DWORD *)(v5 + 224));
     v35 = *(_DWORD *)(v5 + 220);
     *(_DWORD *)(v5 + 224) = 0;
-    v36 = (int)mem_mng.AllocatedNamedBuffer(NULL, 2 * v35, "IDLIST");
+    v36 = (int)NamedMemAlloc(char, 2 * v35, "IDLIST");
     v120 = (int)v24;
     *(_DWORD *)(v5 + 224) = v36;
     locked_fread((void *)v36, 2, *(_DWORD *)(v5 + 220), (FILE *)v120);
@@ -499,7 +496,7 @@ LABEL_33:
     locked_fread(*(void **)(v5 + 228), 4u, 0x4000u, v24);
     fseek(v24, v143, 0);
     locked_fread((void *)(v5 + 1216), 4u, 1u, v24);
-    *(_DWORD *)(v5 + 1220) = (int)mem_mng.AllocatedNamedBuffer( (void*) *(_DWORD *)(v5 + 1220), 24 * *(_DWORD *)(v5 + 1216), "Spawn");
+    *(_DWORD *)(v5 + 1220) = (int)NamedMemAlloc(char, 24 * *(_DWORD *)(v5 + 1216), "Spawn");
     fseek(v24, v144, 0);
     locked_fread(*(void **)(v5 + 1220), 0x18u, *(_DWORD *)(v5 + 1216), v24);
     fseek(v24, v145, 0);
@@ -585,15 +582,15 @@ LABEL_33:
   }
   v44 = v159.v164;
   ElementSize = v159.Size;
-  v42 = (unsigned char *)malloc(v159.Size);
+  v42 = MemAlloc(unsigned char, v159.Size);
 
   HIDWORD(v155) = (int)v42;
   if ( v44 < ElementSize )
   {
-    wtf = (int)malloc(v44);
+    wtf = (int)MemAlloc(char, v44);
     locked_fread((unsigned char *)wtf, v44, 1, hODMFile);
     MemUnzip(v42, &ElementSize, (unsigned char *)wtf, v44);
-   // free((unsigned char *)wtf);	   crash lower	at label 69
+   // MemFree((unsigned char *)wtf);	   crash lower	at label 69
   }
   else
   {
@@ -620,8 +617,8 @@ LABEL_33:
   memcpy(_this->struct_0000B4.pAttributemap, v42, 128 * 128);
   v42 += 128 * 128;
 
-  mem_mng.DeleteBuffer( (void *)_this->ptr_0000D4);
-  _this->ptr_0000D4 = (unsigned char *)mem_mng.AllocatedNamedBuffer( NULL, 0x8000, "CMAP");
+  MemFree(_this->ptr_0000D4);
+  _this->ptr_0000D4 = NamedMemAlloc(unsigned char, 0x8000, "ODM CMAP");
 
   sub_47C80A(&_this->struct_0000B4, 0, 0, 128, 128);
 
@@ -635,7 +632,7 @@ LABEL_33:
   memcpy(uTerrainNormalIndices, v42, 0x10000);
   v42 += 0x10000;
 
-  pTerrainNormals = (Normal *)mem_mng.AllocatedNamedBuffer( pTerrainNormals, uNumTerrainNormals * sizeof(struct Normal), "TerNorm");
+  pTerrainNormals = NamedMemAlloc(Normal, uNumTerrainNormals, "ODM Terrain Normals");
   memcpy(pTerrainNormals, v42, uNumTerrainNormals * sizeof(struct Normal));
   v42 += uNumTerrainNormals * sizeof(struct Normal);
 
@@ -645,7 +642,7 @@ LABEL_33:
   LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
   v48 = _this->uNumBModels;
 
-  _this->pBModels = (class51_BModel *)mem_mng.AllocatedNamedBuffer( _this->pBModels, v48 * sizeof(struct class51_BModel), "ODM BModel data");
+  _this->pBModels = NamedMemAlloc(class51_BModel, v48, "ODM BModel data");
   memcpy(_this->pBModels, v42, v48 * sizeof(struct class51_BModel));
   Src = v42 + v48 * sizeof(struct class51_BModel);
 
@@ -668,26 +665,26 @@ LABEL_33:
       v120 = (int)FileName;
 
       v119 = 12 * _this->pBModels[i].dword_000044;
-      _this->pBModels[i].ptr_000048 = (class51_stru3 *)mem_mng.AllocatedNamedBuffer( NULL, v119, FileName);
+      _this->pBModels[i].ptr_000048 = NamedMemAlloc(class51_stru3, _this->pBModels[i].dword_000044, FileName);
       memcpy(_this->pBModels[i].ptr_000048, Src, v119);
       Src = (char *)Src + v119;
 
       v119 = _this->pBModels[i].dword_00004C * sizeof(struct class51_stru2);
-      _this->pBModels[i].ptr_000054 = (class51_stru2 *)mem_mng.AllocatedNamedBuffer( NULL, v119, FileName);
+      _this->pBModels[i].ptr_000054 = NamedMemAlloc(class51_stru2, _this->pBModels[i].dword_00004C, FileName);
       memcpy(_this->pBModels[i].ptr_000054, Src, v119);
       Src = (char *)Src + v119;
 
       v119 = 2 * _this->pBModels[i].dword_00004C;
-      _this->pBModels[i].ptr_000058 = (unsigned short *)mem_mng.AllocatedNamedBuffer( NULL, v119, FileName);
+      _this->pBModels[i].ptr_000058 = NamedMemAlloc(unsigned short, _this->pBModels[i].dword_00004C, FileName);
       memcpy(_this->pBModels[i].ptr_000058, Src, v119);
       Src = (char *)Src + v119;
 
       v119 = 8 * _this->pBModels[i].dword_00005C;
-      _this->pBModels[i].ptr_000060 = (unsigned char *)mem_mng.AllocatedNamedBuffer( NULL, v119, FileName);
+      _this->pBModels[i].ptr_000060 = NamedMemAlloc(unsigned char, 8 * _this->pBModels[i].dword_00005C, FileName);
       memcpy(_this->pBModels[i].ptr_000060, Src, v119);
       Src = (char *)Src + v119;
 	  
-      pTexturesNames = (unsigned char *)malloc(10 * _this->pBModels[i].dword_00004C);
+      pTexturesNames = NamedMemAlloc(unsigned char, 10 * _this->pBModels[i].dword_00004C, "ODM Loading tmp texture names");
       v119 = 10 * _this->pBModels[i].dword_00004C;
       memcpy(pTexturesNames, Src, v119);
       Src = (char *)Src + v119;
@@ -698,7 +695,7 @@ LABEL_33:
         break;
 
 LABEL_74:
-      free(pTexturesNames);
+      MemFree(pTexturesNames);
       ++v170;
       v51 += 188;
       ++i;
@@ -751,9 +748,9 @@ LABEL_69:
 #ifndef OLD_CODE
 	wchar_t  pFilename[256];
     wsprintfW(pFilename, L"%S", Str2);
+
     v66->uTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture_New( pFilename);
-#endif
-#ifdef OLD_CODE
+#else
     v66->uTextureID = LODFile_Bitmaps_LOD.LODFile_LoadTexture(Str2,2);
 #endif
 
@@ -800,8 +797,9 @@ LABEL_75:
  v120 = (int)_this->ptr_0000E0;
  v69 = _this->dword_0000DC;
 
- mem_mng.DeleteBuffer( (void *)_this->ptr_0000E0);
- _this->ptr_0000E0 = (unsigned short *)mem_mng.AllocatedNamedBuffer( NULL, v69 * sizeof(short), "IDLIST");
+ //MemFree( (void *)_this->ptr_0000E0);
+ MemFree(_this->ptr_0000E0);
+ _this->ptr_0000E0 = NamedMemAlloc(unsigned short, v69, "ODM IDLIST");
  memcpy(_this->ptr_0000E0, Src, 2 * v69);
  Src = (char *)Src + 2 * v69;
 
@@ -809,8 +807,8 @@ LABEL_75:
 
 
 
- mem_mng.DeleteBuffer( (void *)_this->ptr_0000E4);
- _this->ptr_0000E4 = (unsigned int *)mem_mng.AllocatedNamedBuffer( NULL, 128 * 128 * sizeof(int), "OMAP");
+ MemFree(_this->ptr_0000E4);
+ _this->ptr_0000E4 = NamedMemAlloc(unsigned int, 128 * 128, "ODM OMAP");
  memcpy(_this->ptr_0000E4, Src, 128 * 128 * 4);
  Src = (char *)Src + 65536;
  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
@@ -824,7 +822,7 @@ LABEL_75:
 
 
  v73 = _this->dword_0004C0;
- _this->ptr_0004C4 = (unsigned char *)mem_mng.AllocatedNamedBuffer( NULL, 24 * v73, "Spawn");
+ _this->ptr_0004C4 = NamedMemAlloc(unsigned char, 24 * v73, "ODM Spawn");
  memcpy(_this->ptr_0004C4, Src, 24 * v73);
  LevelLoadingUI_UpdateAndDrawProgressBar(pLoadingUI);
 
@@ -833,7 +831,7 @@ LABEL_75:
 
 
 
- free((unsigned char *)HIDWORD(v155));
+ MemFree((unsigned char *)HIDWORD(v155));
  v77 = strlen(Str);
  strcpy(Str + v77 - 4, ".ddm");
  //hODMFile = LODFile_FindContainer(pLODFile_New_LOD, Str, 1);
@@ -853,7 +851,7 @@ LABEL_75:
   v166 = v159.Size;
   if ( !Str2 )
   {
-    v79 = (int)malloc(v159.Size);
+    v79 = (int)MemAlloc(char, v159.Size);
     v168 = v79;
     if ( wtf <= v166 )
     {
@@ -863,10 +861,10 @@ LABEL_75:
       }
       else
       {
-        Src = malloc(wtf);
+        Src = MemAlloc(char, wtf);
         locked_fread(Src, wtf, 1u, hODMFile);
         MemUnzip((unsigned char *)v79, &v166, Src, wtf);
-        free(Src);
+        MemFree(Src);
       }
     }
     else
@@ -913,7 +911,7 @@ LABEL_75:
     v87 = (int)memcpy(v121, (const void *)(v78 + 0x3C8), 0x3C8);
 
 LABEL_112:
-    free((unsigned char *)v168);
+    MemFree((unsigned char *)v168);
 
     _this->array_0004C8[1] = File;
     if (!Str2)
@@ -925,7 +923,7 @@ LABEL_112:
     locked_fread(&v159, 0x10, 1, hODMFile);
     wtf = v159.v164;
     v166 = v159.Size;
-    v89 = (int)malloc(v159.Size);
+    v89 = (int)MemAlloc(char, v159.Size);
     v168 = v89;
     if ( wtf <= v166 )
     {
@@ -935,10 +933,10 @@ LABEL_112:
       }
       else
       {
-        Src = malloc(wtf);
+        Src = MemAlloc(char, wtf);
         locked_fread(Src, wtf, 1, hODMFile);
         MemUnzip((char *)v89, &v166, Src, wtf);
-        free(Src);
+        MemFree(Src);
       }
     }
     else
@@ -1065,7 +1063,7 @@ LABEL_120:
 
 
   memcpy(_this->array_0004F0, (char *)v78 + 200, 0x38);
-  free((char *)v168);
+  MemFree((char *)v168);
   CTileTable_LoadSomeTiles(pTileTable, 4);
   CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[0]);
   CTileTable_LoadSomeTiles(pTileTable, _this->array_0000A0[2]);
@@ -1273,10 +1271,14 @@ bool class51_sub_47F3EA(struct class51 *_this)
 //----- (0047CD44) --------------------------------------------------------
 bool class51_InitializeGeodata(struct class51_Geodata *_this)
 {
- _this->pHeightmap = (unsigned char *)mem_mng.AllocatedNamedBuffer( _this->pHeightmap, 128 * 128, "ODM Heightmap");
- _this->pTilemap = (unsigned char *)mem_mng.AllocatedNamedBuffer( _this->pTilemap, 128 * 128, "ODM Tilemap");
- _this->pAttributemap = (unsigned char *)mem_mng.AllocatedNamedBuffer( _this->pAttributemap, 128 * 128, "ODM Attributes map");
- _this->ptr_00000C = (unsigned char *)mem_mng.AllocatedNamedBuffer( _this->ptr_00000C, 128 * 128 * 2, "DMAP");
+ //_this->pHeightmap = (unsigned char *)mem_mng.AllocatedNamedBuffer( _this->pHeightmap, 128 * 128, "ODM Heightmap");
+ //_this->pTilemap = (unsigned char *)mem_mng.AllocatedNamedBuffer( _this->pTilemap, 128 * 128, "ODM Tilemap");
+ //_this->pAttributemap = (unsigned char *)mem_mng.AllocatedNamedBuffer( _this->pAttributemap, 128 * 128, "ODM Attributes map");
+ //_this->ptr_00000C = (unsigned char *)mem_mng.AllocatedNamedBuffer( _this->ptr_00000C, 128 * 128 * 2, "DMAP");
+ _this->pHeightmap = NamedMemAlloc(unsigned char, 128 * 128, "ODM Heightmap");
+ _this->pTilemap = NamedMemAlloc(unsigned char, 128 * 128, "ODM Tilemap");
+ _this->pAttributemap = NamedMemAlloc(unsigned char, 128 * 128, "ODM Attributes map");
+ _this->ptr_00000C = NamedMemAlloc(unsigned char, 128 * 128 * 2, "DMAP");
 
  if (_this->pHeightmap && _this->pTilemap && _this->pAttributemap && _this->ptr_00000C)
    return true;
@@ -1286,16 +1288,20 @@ bool class51_InitializeGeodata(struct class51_Geodata *_this)
 //----- (0047C7C2) --------------------------------------------------------
 void class51_FreeGeodata(struct class51_Geodata *_this)
 {
- mem_mng.DeleteBuffer( (void *)_this->pHeightmap);
+ //MemFree( (void *)_this->pHeightmap);
+ MemFree(_this->pHeightmap);
  _this->pHeightmap = 0;
 
- mem_mng.DeleteBuffer( (void *)_this->pTilemap);
+ //MemFree( (void *)_this->pTilemap);
+ MemFree(_this->pTilemap);
  _this->pTilemap = 0;
 
- mem_mng.DeleteBuffer( (void *)_this->pAttributemap);
+ //MemFree( (void *)_this->pAttributemap);
+ MemFree(_this->pAttributemap);
  _this->pAttributemap = 0;
 
- mem_mng.DeleteBuffer( (void *)_this->ptr_00000C);
+ //MemFree( (void *)_this->ptr_00000C);
+ MemFree(_this->ptr_00000C);
  _this->ptr_00000C = 0;
 
  _this->word_000010 = 0;

@@ -395,7 +395,7 @@ void RenderD3D3_FindAvailableDevices(struct RenderD3D3 *_this)
  _this->dword_000040 = 1;
  _this->dword_000044 = 10;
 
- _this->pAvailableDevices = new RenderD3D3_DeviceDescription[4];
+ _this->pAvailableDevices = MemAlloc(RenderD3D3_DeviceDescription, 4);
  memset(_this->pAvailableDevices, 0, 4 * sizeof(struct RenderD3D3_DeviceDescription));
 
  DirectDrawEnumerateA((LPDDENUMCALLBACKA)(DDrawEnumCallback), _this->pAvailableDevices);
@@ -469,31 +469,31 @@ int __stdcall Direct3D3EnumDevicesCallback(GUID *pGUID, const char *pDeviceDescr
       a6->pDeviceDesc[v7].uDeviceCaps |= 0x0100;
 
     v9 = strlen(pDeviceName);
-    a6->pDeviceDesc[v7].pDeviceName = new unsigned char[v9 + 1];//*(_DWORD *)(v8 + *(_DWORD *)a6 + 4) = operator new(v9 + 1);
+    a6->pDeviceDesc[v7].pDeviceName = MemAlloc(unsigned char, v9 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 4) = operator new(v9 + 1);
     strcpy((char *)a6->pDeviceDesc[v7].pDeviceName, pDeviceName);
 
     v10 = strlen(pDeviceDescription);
-    a6->pDeviceDesc[v7].pDeviceDescription = new unsigned char[v10 + 1];//*(_DWORD *)(v8 + *(_DWORD *)a6 + 8) = operator new(v10 + 1);
+    a6->pDeviceDesc[v7].pDeviceDescription = MemAlloc(unsigned char, v10 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 8) = operator new(v10 + 1);
     strcpy((char *)a6->pDeviceDesc[v7].pDeviceDescription, pDeviceDescription);
 
-    a6->pDeviceDesc[v7].pDeviceGUID = new GUID;//*(_DWORD *)(v8 + *(_DWORD *)a6 + 12) = operator new(0x10u);
+    a6->pDeviceDesc[v7].pDeviceGUID = MemAlloc(GUID, 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 12) = operator new(0x10u);
     memcpy(a6->pDeviceDesc[v7].pDeviceGUID, pGUID, sizeof(GUID));
 
     v11 = strlen(*(const char **)(a6->ptr_000004 + 20));
-    a6->pDeviceDesc[v7].ptr_000014 = (unsigned char *)malloc(v11 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 20) = operator new(v11 + 1);
+    a6->pDeviceDesc[v7].ptr_000014 = MemAlloc(unsigned char, v11 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 20) = operator new(v11 + 1);
     strcpy((char *)a6->pDeviceDesc[v7].ptr_000014, *(const char **)(a6->ptr_000004 + 20));
 
     v12 = strlen(*(const char **)(a6->ptr_000004 + 24));
-    a6->pDeviceDesc[v7].ptr_000018 = (unsigned char *)malloc(v12 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 24) = operator new(v12 + 1);
+    a6->pDeviceDesc[v7].ptr_000018 = MemAlloc(unsigned char, v12 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 24) = operator new(v12 + 1);
     strcpy((char *)a6->pDeviceDesc[v7].ptr_000018, *(const char **)(a6->ptr_000004 + 24));
 
     v13 = strlen(*(const char **)(a6->ptr_000004 + 28));
-    a6->pDeviceDesc[v7].ptr_00001C = (unsigned char *)malloc(v13 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 28) = operator new(v13 + 1);
+    a6->pDeviceDesc[v7].ptr_00001C = MemAlloc(unsigned char, v13 + 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 28) = operator new(v13 + 1);
     strcpy((char *)a6->pDeviceDesc[v7].ptr_00001C, *(const char **)(a6->ptr_000004 + 28));
 
     if ( *(_DWORD *)(a6->ptr_000004 + 32) )
     {
-     a6->pDeviceDesc[v7].ptr_000020 = new GUID;//*(_DWORD *)(v8 + *(_DWORD *)a6 + 32) = operator new(0x10u);
+     a6->pDeviceDesc[v7].ptr_000020 = MemAlloc(GUID, 1);//*(_DWORD *)(v8 + *(_DWORD *)a6 + 32) = operator new(0x10u);
      memcpy(a6->pDeviceDesc[v7].ptr_000020, *(const void **)(a6->ptr_000004 + 32), sizeof(GUID));
     }
     else

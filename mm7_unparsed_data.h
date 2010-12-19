@@ -817,7 +817,7 @@ extern struct GUIButton *pMainMenu_NewGame;  // ptr @ MM7.exe::00507AF0
 extern int dword_507AF8; // idb
 extern int dword_507AFC; // idb
 extern int dword_507B00; // weak
-extern unsigned int uTextureID_507B04; // weak
+extern unsigned int uTextureID_507B04_CurrentRightPanelType; // weak
 
 
 
@@ -1919,11 +1919,11 @@ extern char byte_6BE6EC[875]; // weak
 
 
 //_UNKNOWN unk_702B28[26 * 1024 * 1024];  //some 26 or 16 Mb pointer is allocated at *(int *)((char *)(pClass23) + 120020) at startup
-extern MemoryMng mem_mng;  // struct @ MM7.exe::00702B28;  // struct @ MM7.exe::00702B28
+//extern MemoryMng mem_mng;  // struct @ MM7.exe::00702B28;  // struct @ MM7.exe::00702B28
 extern int dword_71FFF4; // weak
 extern int dword_71FFF8; // weak
 extern unsigned int bUseOverrideData; // dword @ MM7.exe::00720008
-extern unsigned int bSkipVideo;       // dword @ MM7.exe::0072000C
+extern unsigned int bNoVideo;       // dword @ MM7.exe::0072000C
 extern int dword_720010; // idb
 
 extern struct Game *pGame; //struct @ MM7.exe::00720014
@@ -2763,7 +2763,7 @@ extern _UNKNOWN unk_F79154; // weak
 //char byte_F794C8[array_size_unknown]; // weak
 //_UNKNOWN unk_F79CC8; // weak
 //int dword_F79D48; // weak
-//char GameCDDriveLetter; //byte @ MM7.exe::F79D58; // weak
+//char cGameCDDriveLetter; //byte @ MM7.exe::F79D58; // weak
 
 extern struct CSoundList *pSoundList; // struct @ MM7.exe::00F79D5C
 //int dword_F79D5C; // weak

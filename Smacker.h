@@ -145,4 +145,4 @@ int __stdcall SmackBufferNewPalette(long a1, long a2, long a3);
 int __stdcall SmackColorRemapWithTrans(long a1, long a2, long a3, long a4, long a5);
 
 // sub_4D83DC: using guessed type int __stdcall SmackBlitClear(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
-int __stdcall SmackBlitClear(long a1, long a2, long a3, long a4, long a5, long a6, long a7, long a8);
+int __stdcall SmackBlitClear(HSMACKBLIT, unsigned short *, long a3, long a4, long a5, long a6, long a7, long a8);
