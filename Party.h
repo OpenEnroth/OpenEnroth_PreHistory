@@ -9,6 +9,29 @@
 
 #pragma pack(push, 1)
 
+#define KEY_FORWARD         0   // default: arrow up
+#define KEY_BACKWARDS       1   // default: arrow down
+#define KEY_TURN_LEFT       2   // default: arrow left
+#define KEY_TURN_RIGHT      3   // default: arrow right
+#define KEY_YELL            4   // default: y
+#define KEY_JUMP            5   // default: x
+#define KEY_TOGGLE_REALTIME 6   // default: enter
+#define KEY_ATTACK          8   // default: a
+#define KEY_INTERACT        9   // default: space
+
+#define PARTY_ACTION_TURN_LEFT      1
+#define PARTY_ACTION_TURN_RIGHT     2
+//3 turning left with Ctrl pressed
+//4 turning right with Ctrl pressed
+#define PARTY_ACTION_WALK_FORWARD   5
+#define PARTY_ACTION_WALK_BACKWARDS 6
+#define PARTY_ACTION_JUMP           12
+//16 probably FLY FORWARD
+//17 probably FLY BACKWARDS
+//18 turning left under some sircumstances
+//19 turning right under some sircumstances
+
+
 
 
 struct Party
@@ -97,11 +120,11 @@ struct abc	 {
 
  unsigned char byte_000854[32];
 
- int dword_000874;
- int dword_000878;
- int dword_00087C; // cannot drink potion if this = 1
- int dword_000880;
- int                dword_000884; //flags
+ int                dword_000874;
+ int                dword_000878;
+ unsigned int       bTurnBasedModeOn;    // dword @ 00087C
+ int                dword_000880;
+ int                dword_000884; //flags   &2 probably flying
  unsigned int       uAlignment;       // dword      @ 000888   enum (0, 1, 2) = (good, neutral, evil)
  struct SpellBuff   pPartyBuffs[20];  // struct[20] @ 00088C
  struct Player      pPlayers[4];      // struct[4]  @ 0009CC

@@ -1010,7 +1010,7 @@ int __thiscall sub_40471C(void *_this)
 {
   int result; // eax@3
 
-  if (pParty_global->dword_00087C == 1 )
+  if (pParty_global->bTurnBasedModeOn)
   {
     if ( dword_4F885C == 2 )
       result = sub_406457(_this, 0);
@@ -2064,7 +2064,7 @@ int __cdecl MenuLoop_Main()
   POINT ptMouse;
   MSG Msg; // [sp+20h] [bp-1Ch]@15
 
- dword_4E28F8 = 0;
+ dword_4E28F8_PartyCantJumpIfTrue = 0;
  if (dword_720010)
    sub_46B105((void *)dword_720010);
  if (pGame->class14_obj->dword_000004)
@@ -2169,7 +2169,7 @@ int __cdecl MenuLoop_Main()
   v17 = pGUIWindow_MainMenu;
     if (uCurrentMenuID == MENU_LOAD)
     {
-      if ( dword_4E28F8 != 12 )
+      if ( dword_4E28F8_PartyCantJumpIfTrue != 12 )
       {
 
 #ifndef OLD_CODE
@@ -2180,7 +2180,7 @@ int __cdecl MenuLoop_Main()
     
       
         pGUIWindow2 = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
-        dword_4E28F8 = 12;
+        dword_4E28F8_PartyCantJumpIfTrue = 12;
         sub_45E361(0);
       }
       v17 = pGUIWindow_CurrentMenu;
@@ -2218,7 +2218,7 @@ int __cdecl MenuLoop_Main()
           sub_45E006();
           GUIWindowDelete(pGUIWindow_CurrentMenu);
           pGUIWindow_CurrentMenu = 0;
-          dword_4E28F8 = 0;
+          dword_4E28F8_PartyCantJumpIfTrue = 0;
           struct_576FE8.dword_000044 = 1;
       }
       else if (uCurrentMenuID == MENU_MAIN)
@@ -2252,7 +2252,7 @@ int __cdecl MenuLoop_Main()
            sub_45E006();
            GUIWindowDelete(pGUIWindow_CurrentMenu);
            pGUIWindow_CurrentMenu = 0;
-           dword_4E28F8 = 0;
+           dword_4E28F8_PartyCantJumpIfTrue = 0;
            struct_576FE8.dword_000044 = 1;
           }
           break;
@@ -6153,7 +6153,7 @@ LABEL_61:
   v48 = v62;
   if ( v62 )
     goto LABEL_137;
-  if ( dword_4E28F8 != 5 )
+  if ( dword_4E28F8_PartyCantJumpIfTrue != 5 )
   {
    
      for(int i=1; i<5; i++) 
@@ -6173,7 +6173,7 @@ LABEL_61:
     }
     
 LABEL_137:
-    if ( dword_4E28F8 != 5 )
+    if ( dword_4E28F8_PartyCantJumpIfTrue != 5 )
     {
       if ( !v48 || dword_5C35C0 )
         dword_6A0D48 = 8;
@@ -6183,7 +6183,7 @@ LABEL_137:
   result = uActiveCharacter;
   if ( uActiveCharacter )
   {
-    if ( dword_4E28F8 != 5 )
+    if ( dword_4E28F8_PartyCantJumpIfTrue != 5 )
     {
       result = (int)pPlayers[uActiveCharacter - 1];
       if ( *(_QWORD *)(result + 16)

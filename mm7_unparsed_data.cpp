@@ -67,7 +67,7 @@ char aTooManyStation[] = "Too many stationary lights!"; // byte[] @ MM7.exe::004
 
  char *dword_4E24E8; // idb
  int dword_4E2544[array_size_unknown]; // weak
- int dword_4E28F8; // weak
+ int dword_4E28F8_PartyCantJumpIfTrue; // weak
  char byte_4E28FC; // weak
  int dword_4E2900_GammaPos; // weak
  int dword_4E2910[array_size_unknown]; // weak

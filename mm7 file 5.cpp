@@ -105,7 +105,7 @@ void Player_UseItem_DrinkPotion_etc(Player *_this, unsigned int uCharacter, int 
 
  Player *pTargetPlayer = &pParty_global->pPlayers[uCharacter];
   v73 = 1;
-  if (pParty_global->dword_00087C == 1 && (dword_4F885C == 1 || dword_4F885C == 3) )
+  if (pParty_global->bTurnBasedModeOn && (dword_4F885C == 1 || dword_4F885C == 3) )
     return;
   v4 = 0;
   if (pClass40->pItems[pParty_global->pickedItem.uItemID].uEquipType == 13 )
@@ -790,7 +790,7 @@ LABEL_178:
                 }
                 if ( v73 )
                 {
-                  if (pParty_global->dword_00087C)
+                  if (pParty_global->bTurnBasedModeOn)
                   {
                     dword_AE30F8[uCharacter] = 100;
                     Player_SetRecoveryTime(_this, 100);
@@ -834,7 +834,7 @@ LABEL_178:
     v21 = v67;
     goto LABEL_83;
   }
-  if ( dword_4E28F8 == 23 )
+  if ( dword_4E28F8_PartyCantJumpIfTrue == 23 )
     return;
   if ( !Player_sub_492C0B_MaybeIfPlayerConscious(&pParty_global->pPlayers[uCharacter]) )
     goto LABEL_89;
@@ -850,7 +850,7 @@ LABEL_178:
     GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
     GUIWindowDelete(pGUIWindow_CurrentMenu);
     LODFile_Icons_LOD.LODFile_sub_4114F2();
-    dword_4E28F8 = 0;
+    dword_4E28F8_PartyCantJumpIfTrue = 0;
     struct_576FE8.dword_000044 = 1;
     sub_42777D(v24, uCharacter, 133, 1, 0);
   }
@@ -865,7 +865,7 @@ LABEL_178:
       dword_50C9E8[3 * dword_50C9E8[0]++ + 3] = a2 - 1;
     } */
 	dword_50C9E8.PutMessageToQueue(146,v24, uCharacter);
-    if ( dword_4E28F8 )
+    if ( dword_4E28F8_PartyCantJumpIfTrue )
     {
       if ( pGUIWindow_CurrentMenu )
       {
@@ -2022,7 +2022,7 @@ LABEL_13:
       }
       if ( v5 & 0x100000 || (v6 = *(_WORD *)(dword_6BE64C + 36 * *(_WORD *)(v4 + 72) + 26), !v6) )
         return 1;
-      if ( dword_4E28F8 != 19 )
+      if ( dword_4E28F8_PartyCantJumpIfTrue != 19 )
         goto LABEL_13;
       break;
   }
@@ -3942,7 +3942,7 @@ signed int __fastcall sub_46BFFA(int a1, signed int a2)
     if ( (a2 & 7) == 4 && (*(_BYTE *)(v3 + 88) & 7) == 4 )
       return 1;
   }
-  if (pParty_global->dword_00087C == 1 )
+  if (pParty_global->bTurnBasedModeOn)
   {
     LOWORD(a1) = *(_WORD *)(v3 + 26);
     if ( a1 & 4 )
@@ -7256,7 +7256,7 @@ void __cdecl sub_46F90C()
           v8 *= 2;
           v63 = v8;
         }
-        if (pParty_global->dword_00087C == 1 )
+        if (pParty_global->bTurnBasedModeOn)
         {
           if ( dword_4F885C == 1 )
             v8 = (signed __int64)((double)v63 * flt_6BE3AC_debug_recmod1_x_1_6);
@@ -7574,7 +7574,7 @@ LABEL_118:
               Actor_ProbablyForceToFaceParty(v65, v40, v23, (DirectionInfo *)v23);
               goto LABEL_119;
             }
-            if (pParty_global->dword_00087C == 1 && (dword_4F885C == 2 || dword_4F885C == 3) )
+            if (pParty_global->bTurnBasedModeOn && (dword_4F885C == 2 || dword_4F885C == 3) )
               goto LABEL_119;
             if ( *(_BYTE *)(v1 + 61) )
             {
@@ -7602,7 +7602,7 @@ LABEL_114:
         }
         else
         {
-          if (pParty_global->dword_00087C == 1 && (dword_4F885C == 2 || dword_4F885C == 3) )
+          if (pParty_global->bTurnBasedModeOn && (dword_4F885C == 2 || dword_4F885C == 3) )
             goto LABEL_123;
           if ( !*(_BYTE *)(v1 + 61) || v58 != v23 )
           {
@@ -7873,7 +7873,7 @@ LABEL_121:
         v10 *= 2;
         v75 = v10;
       }
-      if (pParty_global->dword_00087C == 1 )
+      if (pParty_global->bTurnBasedModeOn)
       {
         if ( dword_4F885C == 1 )
           v10 = (signed __int64)((double)v75 * flt_6BE3AC_debug_recmod1_x_1_6);
@@ -8121,7 +8121,7 @@ LABEL_107:
       switch ( v39 & 7 )
       {
         case 3:
-          if (pParty_global->dword_00087C != 1 )
+          if (!pParty_global->bTurnBasedModeOn)
             goto LABEL_97;
           if ( dword_4F885C != 2 && dword_4F885C != 3 )
           {
@@ -9238,7 +9238,7 @@ void __cdecl sub_472866()
   dword_721654 = pParty_global->sPartyPosX;
   dword_721658 = pParty_global->sPartyPosY;
   dword_72165C = pParty_global->sPartyPosZ;
-  if (pParty_global->dword_00087C != 1 )
+  if (!pParty_global->bTurnBasedModeOn)
   {
     v4 = (double)(GetTickCount() / 0x1F4);
     v67 = v4 + 6.755399441055744e15;
@@ -9558,7 +9558,7 @@ LABEL_93:
     stru_721530.dword_000024 = v89;
     stru_721530.dword_000074 = v77;
     v37 = 0;
-    if (pParty_global->dword_00087C == 1 )
+    if (pParty_global->bTurnBasedModeOn)
     {
       if ( dword_4F885C == 3 )
         v37 = 13312;

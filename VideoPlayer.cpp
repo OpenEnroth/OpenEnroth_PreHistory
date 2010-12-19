@@ -110,7 +110,7 @@ unsigned int VideoPlayer::PlayMovie(const char *pMovieName)
  BaseRender *pRenderer = pWindow->GetRender();
  Render_ClearTarget(pRenderer, 0);
 
- dword_4E28F8 = 16;
+ dword_4E28F8_PartyCantJumpIfTrue = 16;
 
  
  ShowCursor(false);
@@ -121,12 +121,12 @@ unsigned int VideoPlayer::PlayMovie(const char *pMovieName)
 
  ShowCursor(true);
 
- dword_4E28F8 = 0;
+ dword_4E28F8_PartyCantJumpIfTrue = 0;
 
  pVideoPlayer->dword_000058 = 0;
 
- if (dword_4E28F8 == 16)
-   dword_4E28F8 = 0;
+ if (dword_4E28F8_PartyCantJumpIfTrue == 16)
+   dword_4E28F8_PartyCantJumpIfTrue = 0;
 
  return Error::Success;
 }

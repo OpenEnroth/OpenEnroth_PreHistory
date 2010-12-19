@@ -103,7 +103,7 @@ int __cdecl sub_45E93E()
   uGUILS_saveU = LODFile_Icons_LOD.LODFile_LoadTexture("LS_saveU", 2);		  //dword_69CF00
   uGUIx_u      = LODFile_Icons_LOD.LODFile_LoadTexture("x_u", 2);			   //dword_69CEFC
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (uGUILoadSave != -1 ? &LODFile_Icons_LOD.aLODHeaders[uGUILoadSave] : 0));
-  if ( dword_4E28F8 == 11 )
+  if ( dword_4E28F8_PartyCantJumpIfTrue == 11 )
   {
     v1 = uGUISaveUp;
     v0 = uGUILS_saveU;
@@ -429,7 +429,7 @@ LABEL_17:
 
 
     GUIWindowDelete(pGUIWindow_CurrentMenu);
-    dword_4E28F8 = 0;
+    dword_4E28F8_PartyCantJumpIfTrue = 0;
     v22 = 1;
     struct_576FE8.dword_000044 = 1;
     if ( pParty_global->uAlignment )
@@ -773,7 +773,7 @@ void sub_45E361(int a1)  //saveload menu
   if ( v12 )
   {
     Render_DrawIndexedTexture(pD3DRenderer, 8, 8,(uGUILoadSave != -1 ? &LODFile_Icons_LOD.aLODHeaders[uGUILoadSave] : 0));
-    if ( dword_4E28F8 == 11 )
+    if ( dword_4E28F8_PartyCantJumpIfTrue == 11 )
     {
       v2 = uGUISaveUp;
       v1 = uGUILS_saveU;
@@ -837,7 +837,7 @@ void sub_45E361(int a1)  //saveload menu
 		  }
 	  }
   v16.FreeSubIndxIOBuffers();
-  if ( dword_4E28F8 == 11 )
+  if ( dword_4E28F8_PartyCantJumpIfTrue == 11 )
     v9 = "LS_saveD";
   else
     v9 = "LS_loadD";
@@ -904,7 +904,7 @@ int __fastcall sub_460078(int a1)
   }
   sub_4156F0_LooksLike_UI_ProcessCallbacks();
   GUIWindowDelete(pGUIWindow_CurrentMenu);
-  dword_4E28F8 = 0;
+  dword_4E28F8_PartyCantJumpIfTrue = 0;
   v4 = 0;
   struct_576FE8.dword_000044 = 1;
   for(int i=0; i<40;i++) 
@@ -1050,7 +1050,7 @@ int __fastcall SaveGame(int a1, int a2)
     //operator_delete(0, v3);
 
     strcpy(St2.pFilename, "image.pcx");
-    if ( dword_4E28F8 == 11 )
+    if ( dword_4E28F8_PartyCantJumpIfTrue == 11 )
     {
       Render_DrawIndexedTexture(pD3DRenderer,  8,   8, (uGUILoadSave != -1 ? &LODFile_Icons_LOD.aLODHeaders[uGUILoadSave] : 0));
       Render_DrawIndexedTexture(pD3DRenderer, 18, 141, (uGUISaveUp != -1 ? &LODFile_Icons_LOD.aLODHeaders[uGUISaveUp] : 0));

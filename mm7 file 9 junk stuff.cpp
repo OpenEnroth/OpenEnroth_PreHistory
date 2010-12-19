@@ -281,11 +281,11 @@ loc_41ADCD:                             ; CODE XREF: sub_41AD6E+52j
   cmp     al, bl
   mov     byte ptr [byte_50697C], al
   jz      loc_41AE9C
-  cmp     dword ptr [dword_4E28F8], 5
+  cmp     dword ptr [dword_4E28F8_PartyCantJumpIfTrue], 5
   jz      loc_41AE9C
  }*/
  byte_50697C = ~byte_50697C;
- if (!byte_50697C || dword_4E28F8 == 5)
+ if (!byte_50697C || dword_4E28F8_PartyCantJumpIfTrue == 5)
  {
   /*__asm
   {
@@ -1768,7 +1768,7 @@ signed int __cdecl sub_4CFD17(int a1)
   Render_ClearTarget(pD3DRenderer, 0);
   pD3DRenderer->EndScene();
  }
- dword_4E28F8 = 16;
+ dword_4E28F8_PartyCantJumpIfTrue = 16;
 
 
  if (pVideoPlayer->dword_00009C == 2)
@@ -1842,11 +1842,11 @@ signed int __cdecl sub_4CFD17(int a1)
  }
 
  if (a4 == 1)
-   dword_4E28F8 = 0;
+   dword_4E28F8_PartyCantJumpIfTrue = 0;
 
  pVideoPlayer->dword_000058 = 0;
  ShowCursor(1);
 
- if (dword_4E28F8 == 16)
-   dword_4E28F8 = 0;
+ if (dword_4E28F8_PartyCantJumpIfTrue == 16)
+   dword_4E28F8_PartyCantJumpIfTrue = 0;
 }*/

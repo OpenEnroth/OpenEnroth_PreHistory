@@ -1555,7 +1555,7 @@ LABEL_62:
           }
         }
       }
-      if ( dword_4E28F8 != v1 )
+      if ( dword_4E28F8_PartyCantJumpIfTrue != v1 )
       {
         v46 = v2 + 808;
         if ( AIL_sample_status(*(_DWORD *)v46) == 4 )

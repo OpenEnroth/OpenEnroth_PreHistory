@@ -150,7 +150,7 @@ class MemoryWatch
 
     if (!stLastInfoOutput.wYear ||
         1000 * ((60 * stCurrentTime.wHour + stCurrentTime.wMinute) * 60 + stCurrentTime.wSecond) -
-        1000 * ((60 * stLastInfoOutput.wHour + stLastInfoOutput.wMinute) * 60 + stLastInfoOutput.wSecond) >= 500)
+        1000 * ((60 * stLastInfoOutput.wHour + stLastInfoOutput.wMinute) * 60 + stLastInfoOutput.wSecond) >= 750)
     {
      char pMsg[256];
      sprintf(pMsg, "Current Memory usage:\t%lu Gb %lu Mb %lu Kb %lub (%lu bytes %u%% of peak %lu bytes)\n",
@@ -158,9 +158,10 @@ class MemoryWatch
              uCurrentMemoryUsage % (1024 * 1024 * 1024) / (1024 * 1024),
              uCurrentMemoryUsage % (1024 * 1024) / 1024,
              uCurrentMemoryUsage % 1024,
-             uPeakMemoryUsage, (unsigned int)(100.0f * uCurrentMemoryUsage / uPeakMemoryUsage), uPeakMemoryUsage);
+             uPeakMemoryUsage, (unsigned int)(100.0 * uCurrentMemoryUsage / uPeakMemoryUsage), uPeakMemoryUsage);
 
      OutputDebugStringA(pMsg);
+     fflush(pLog);
 
      memcpy(&stLastInfoOutput, &stCurrentTime, sizeof(SYSTEMTIME));
     }
@@ -223,7 +224,6 @@ class MemoryWatch
             pBlock->stAllocationTime.wHour, pBlock->stAllocationTime.wMinute, pBlock->stAllocationTime.wSecond,
             pBlock->pBlockName,
             pBlock->pElementName, pBlock->uNumElements, pBlock->pAddress, uNumElements * sizeof(type), pFunction, uLine, pFile);
-    fflush(pLog);
 
 
     if (!pMemory)
@@ -306,7 +306,6 @@ class MemoryWatch
        fprintf(pLog, "[%02hu/%02hu/%04hu %02hu:%02hu:%02hu] MemFree: %s[%lu] @ %p (%lu bytes) in %s (line %lu in file \"%s\")\n",
                st.wDay, st.wMonth, st.wYear, st.wHour, st.wMinute, st.wSecond,
                pBlock->pElementName, pBlock->uNumElements, pBlock->pAddress, pBlock->uNumElements * pBlock->uElementSize, pFunction, uLine, pFile);
-       fflush(pLog);
 
 
        delete pBlocks[i];
@@ -321,8 +320,6 @@ class MemoryWatch
      fprintf(pLog, "[%02hu/%02hu/%04hu %02hu:%02hu:%02hu] WARNING: Uncharted allocation @ %p in %s (line %lu in file \"%s\")\n",
              st.wDay, st.wMonth, st.wYear, st.wHour, st.wMinute, st.wSecond,
              pMemory, pFunction, uLine, pFile);
-     fflush(pLog);
-
     }
     
     MakeRealtimeReport();

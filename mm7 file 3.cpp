@@ -753,7 +753,10 @@ LABEL_69:
     {
       LODWORD(v44) = 20;
       v63 = 10;
-      if (pParty_global->dword_00087C == v43)
+
+      compile_error;
+      runtime_warning(direct bool cmp);
+      if (pParty_global->bTurnBasedModeOn == v43)
         v44 = (signed __int64)(flt_6BE3A8_debug_recmod2 * 42.666666666666664);
       *(_DWORD *)(v8 + 124) += v44;
       if ( dword_6BE378_ShowDamageFlag != v43 )
@@ -1277,7 +1280,7 @@ LABEL_133:
         }
       }
     }
-    if (!pParty_global->dword_00087C)
+    if (!pParty_global->bTurnBasedModeOn)
     {
       v65 = Player_GetActualEndurance((Player *)v46);
       v66 = (double)(20 - sub_48EA1B(v65)) * flt_6BE3A4_debug_recmod1 * 2.1333333333333333;
@@ -1470,7 +1473,7 @@ LABEL_43:
           }
         }
       }
-      if (!pParty_global->dword_00087C)
+      if (!pParty_global->bTurnBasedModeOn)
       {
         v35 = Player_GetActualEndurance((Player *)v6);
         v36 = (double)(20 - sub_48EA1B(v35)) * flt_6BE3A4_debug_recmod1 * 2.1333333333333333;
@@ -1662,7 +1665,7 @@ void __cdecl sub_43AD34()
 
   if (pParty_global->pPartyBuffs[11].qword_000000 > 0 )
     SpellBuff_sub_458585(&pParty_global->pPartyBuffs[11]);
-  if (pParty_global->dword_00087C != 1)
+  if (!pParty_global->bTurnBasedModeOn)
   {
     v4 = 0;
     if ( (signed int)uNumActors > 0 )
@@ -3637,7 +3640,7 @@ void __fastcall sub_43FA33(int a1, int a2)
            - class59_Atan2(pClass59_global, v7 - dword_51B6E8, v37 - dword_51B6EC);
         v47 = dword_51B6E0;
         v6 = ((pClass59_global->uIntegerPi + v9) >> 8) & 7;
-        if (pParty_global->dword_00087C == 1)
+        if (pParty_global->bTurnBasedModeOn)
           v47 = cClock2.dword_000024;
         v12 = abs(*((_DWORD *)v2 + 1) + *((_DWORD *)v2 + 2));
         v13 = (int)CSpriteFrameTable_fn1(pSpriteFrameTable, *(_WORD *)(v4 + 72), v47 + v12);
@@ -3810,7 +3813,7 @@ int __fastcall sub_43FDED(int a1)
       v4 = *((_WORD *)v2 + 71);
       v5 = ((pClass59_global->uIntegerPi + (pClass59_global->uIntegerPi >> 3) + a1 - v6) >> 8) & 7;
       v32 = v5;
-      if (pParty_global->dword_00087C)
+      if (pParty_global->bTurnBasedModeOn)
       {
         if ( v4 == 1 )
         {
@@ -4573,9 +4576,9 @@ int __thiscall sub_440E91(void *_this, __int16 a2, int a3, int a4, int a5, __int
 //----- (0044100D) --------------------------------------------------------
 bool __cdecl sub_44100D()
 {
-  return dword_4E28F8 == 4
-      || dword_4E28F8 == 7
-      || dword_4E28F8 > 12 && (dword_4E28F8 <= 14 || dword_4E28F8 > 16 && (dword_4E28F8 <= 18 || dword_4E28F8 == 23));
+  return dword_4E28F8_PartyCantJumpIfTrue == 4
+      || dword_4E28F8_PartyCantJumpIfTrue == 7
+      || dword_4E28F8_PartyCantJumpIfTrue > 12 && (dword_4E28F8_PartyCantJumpIfTrue <= 14 || dword_4E28F8_PartyCantJumpIfTrue > 16 && (dword_4E28F8_PartyCantJumpIfTrue <= 18 || dword_4E28F8_PartyCantJumpIfTrue == 23));
 }
 
 //----- (004418B1) --------------------------------------------------------
@@ -4649,8 +4652,8 @@ int __thiscall sub_441964(void *_this, int a2)
   signed int v6; // [sp-4h] [bp-8h]@4
   int v7; // [sp-4h] [bp-8h]@14
 
-  result = dword_4E28F8;
-  if (!dword_4E28F8 && pParty_global->dword_00087C == 1)
+  result = dword_4E28F8_PartyCantJumpIfTrue;
+  if (!dword_4E28F8_PartyCantJumpIfTrue && pParty_global->bTurnBasedModeOn)
   {
     if ( dword_4F885C == 3 )
     {
@@ -7836,7 +7839,7 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int sEventType, int a2, int a
             pVideoPlayer->dword_000040 = 0;
             if (dword_720010)
               Mouse_suspend(dword_720010);
-            v132 = dword_4E28F8;
+            v132 = dword_4E28F8_PartyCantJumpIfTrue;
             v16 = (int)pSomeEVT + v10;
             v17 = *(_BYTE *)(v16 + 5);
             v14 = *(_BYTE *)(v16 + 6);
@@ -7867,7 +7870,7 @@ LABEL_23:
 LABEL_28:
             if ( !v14 || v132 == 3 )
             {
-              dword_4E28F8 = v132;
+              dword_4E28F8_PartyCantJumpIfTrue = v132;
               if ( v132 == 3 )
                 pLoadingUI->uProgressBarType = 1;
               if ( v132 == 13 )
@@ -8808,7 +8811,7 @@ LABEL_280:
               pLoadingUI->uProgressBarType = (dword_5C3420 == 0) + 1;
               sub_44987B(v104, 0);
               v137 = 1;
-              if ( dword_4E28F8 == 13 )
+              if ( dword_4E28F8_PartyCantJumpIfTrue == 13 )
               {
                 if ( dword_6A0D48 == 2 )
                 {
@@ -8823,7 +8826,7 @@ LABEL_280:
 					//  if  (dword_50CBD0.prm[0].msg_param3)
                     //      dword_50CBD0.msg_count = 1;
 				  dword_50CBD0.CutQueueTail();
-                  dword_4E28F8 = 0;
+                  dword_4E28F8_PartyCantJumpIfTrue = 0;
                   struct_576FE8.dword_000044 = 1;
                   dword_5913F0 = 0;
 
@@ -12311,7 +12314,7 @@ int __cdecl sub_44C28F()
     dword_5B65C0 = 0;
     pLoadingUI->uProgressBarType = 1;
     sub_44987B("nwc.blv", 0);
-    dword_4E28F8 = 0;
+    dword_4E28F8_PartyCantJumpIfTrue = 0;
     result = 1;
   }
   return result;
@@ -12570,7 +12573,7 @@ LABEL_12:
 //----- (0044EB12) --------------------------------------------------------
 bool Game_sub_44EB12(struct Game *_this, bool bOutline, int a3, int a4)
 {
- if (!dword_4E28F8 && _this->pVis && pD3DRenderer->pRenderD3D3)
+ if (!dword_4E28F8_PartyCantJumpIfTrue && _this->pVis && pD3DRenderer->pRenderD3D3)
  {
   Vis_sub_4C05CC(_this->pVis, &_this->pVis->class25_obj, a3, a4);
   if (bOutline)

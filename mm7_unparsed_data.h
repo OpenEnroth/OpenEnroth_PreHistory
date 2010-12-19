@@ -77,7 +77,7 @@ extern int dword_4E24C4; // weak
 extern int dword_4E24D8; // weak
 extern char *dword_4E24E8; // active window id
 extern int dword_4E2544[array_size_unknown]; // weak
-extern int dword_4E28F8; // weak
+extern int dword_4E28F8_PartyCantJumpIfTrue; // weak
 extern char byte_4E28FC; // weak
 extern int dword_4E2900_GammaPos; // [0..9]
 extern int dword_4E2910[array_size_unknown]; // weak

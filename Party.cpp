@@ -24,7 +24,7 @@ int Party_sub_49370F(struct Party *_this)
 
   v1 = _this;
   v12 = 0;
-  if ( pParty_global->dword_00087C == 1 )
+  if (pParty_global->bTurnBasedModeOn)
   {
     if ( dword_4F885C != 2 || (dword_4F8878[0] & 7) != 4 )
       return 0;
@@ -158,7 +158,7 @@ int Party_Reset(struct Party *_this)
   _this->qword_00002C = 138240;
   _this->qword_000034 = 138240;
 
-  _this->dword_00087C = 0;
+ _this->bTurnBasedModeOn = false;
 
  uActiveCharacter = 1;
 

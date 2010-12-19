@@ -8,6 +8,20 @@
 #define MENU_LOAD        3
 #define MENU_CREATEPARTY 6
 
+
+#define MESSAGE_ATTACK                 0x17
+
+#define MESSAGE_OPEN_REST_DIALOG       0x68
+#define MESSAGE_OPEN_SPELLBOOK         0x69
+#define MESSAGE_OPEN_QUICKREFERENCE    0x6A
+
+#define MESSAGE_OPEN_QUESTBOOK         0xC8
+#define MESSAGE_OPEN_AUTONOTES         0xC9
+#define MESSAGE_OPEN_MAP_DIALOGUE      0xCA
+#define MESSAGE_OPEN_DATETIME_DIALOGUE 0xCB
+
+
+
 #pragma pack(push, 1)
 
 

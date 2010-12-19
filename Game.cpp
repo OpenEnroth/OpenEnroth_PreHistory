@@ -547,7 +547,7 @@ bool Game_Pick(struct Game *_this, float a2, unsigned int uMouseX, unsigned int 
   char *v16; // [sp+18h] [bp-8h]@5
   int v17; // [sp+1Fh] [bp-1h]@5
 
-  if (!dword_4E28F8 && pD3DRenderer->pRenderD3D3)
+  if (!dword_4E28F8_PartyCantJumpIfTrue && pD3DRenderer->pRenderD3D3)
   {
     if ( !_this->pVis)
     {

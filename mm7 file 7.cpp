@@ -12707,7 +12707,7 @@ void __cdecl sub_4BDB56()
 
   v0 = (int)pPlayers[uActiveCharacter - 1];
   v78 = (int)pPlayers[uActiveCharacter - 1];
-  if ( dword_4E28F8 == 14 )
+  if ( dword_4E28F8_PartyCantJumpIfTrue == 14 )
     goto LABEL_73;
   if ( !sub_4B1784() )
   {

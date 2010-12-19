@@ -16,13 +16,59 @@ Inventory:	Left Click on Paperdoll/Equip
 
 
 
-Game:		Left Click on Player Portrait
+Game:		1. sub_42FC4E_ProcessPressedKeys		pressed keys are mapped to Party Actions and  UI Messages
+		2. GameUI_Process				UI Messages are being processed
+
+
+
+		Left Click on Player Portrait
 			GameUI_Process case 0x6E
 				GameUI_OnPlayerPortraitLeftClick
 
+		Move forward
+			sub_42FC4E_ProcessPressedKeys case KEY_FORWARD (0x00, hit 'arrow up')
+				sub_4760C1_QueuePlayerAction(PARTY_ACTION_WALK_FORWARD)
+
+		Move backwards
+			sub_42FC4E_ProcessPressedKeys case KEY_BACKWARDS (0x01, hit 'arrow down')
+				sub_4760C1_QueuePlayerAction(PARTY_ACTION_WALK_BACKWARDS)
+
+		Turn left
+			sub_42FC4E_ProcessPressedKeys case KEY_TURN_LEFT (0x02, hit 'arrow left')
+				sub_4760C1_QueuePlayerAction(PARTY_ACTION_TURN_LEFT) or 3 or 18
+
+		Turn right
+			sub_42FC4E_ProcessPressedKeys case KEY_TURN_RIGHT (0x03, hit 'arrow right')
+				sub_4760C1_QueuePlayerAction(PARTY_ACTION_TURN_RIGHT) or 4 or 19
+
+		Yell
+			sub_42FC4E_ProcessPressedKeys case KEY_YELL (0x04, hit 'Y')
+				sub_43AD34
+				Player_PlaySound(65)
+
+		Toggle realtime mode
+			sub_42FC4E_ProcessPressedKeys case KEY_TOGGLE_REALTIME (0x06, hit 'enter')
+                		sub_4059DB_ProbablyStartTurn();
+
+
 		Attack
-			GameUI_Process case 0x17 (hit 'A')
+			sub_42FC4E_ProcessPressedKeys case KEY_ATTACK (0x08, hit 'A')
+				  dword_50CBD0.PutMessageToQueue(MESSAGE_ATTACK, 0, 0);
+
+			GameUI_Process case MESSAGE_ATTACK (0x17)
 				sub_42ECB5_PlayerAttack
+
+		Interact
+			sub_42FC4E_ProcessPressedKeys case KEY_INTERACT (0x09, hit 'space')
+			
+
+		Jump
+			sub_42FC4E_ProcessPressedKeys case KEY_JUMP (0x05, hit 'X')
+				sub_4760C1_QueuePlayerAction(PARTY_ACTION_JUMP)
+
+			sub_46BE0A
+				sub_473893_SomeStuffIncludingPartyPosUpdate
+					jump's executed here
 
 
 

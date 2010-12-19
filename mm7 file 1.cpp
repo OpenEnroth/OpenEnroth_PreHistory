@@ -1140,7 +1140,7 @@ LABEL_22:
               sub_47136C(i);
             else
               sub_471C03(i);
-            if (pParty_global->dword_00087C != 1)
+            if (!pParty_global->bTurnBasedModeOn)
               continue;
             if ( !(*((_BYTE *)v2 - 4) & 4) )
               continue;
@@ -3224,7 +3224,7 @@ LABEL_104:
         return 0;
       else if (wParam >= VK_LEFT && wParam <= VK_DOWN)
       {
-        if (dword_4E28F8 && dword_4E28F8 != 21 )
+        if (dword_4E28F8_PartyCantJumpIfTrue && dword_4E28F8_PartyCantJumpIfTrue != 21 )
           return 0;
 
         if (struct_576FE8.dword_00004C)
@@ -3686,7 +3686,7 @@ void __cdecl sub_47B42C_ClipActorsAgainstFrustrum()
       LOWORD(v10) = pActors[i].uYawAngle;
       v41 = ((pClass59_global->uIntegerPi + (pClass59_global->uIntegerPi >> 3) + v10 - v9) >> 8) & 7;
       v8 = pActors[i].word_0000B2_looks_like_current_sprite_frame;
-      if (pParty_global->dword_00087C)
+      if (pParty_global->bTurnBasedModeOn)
       {
         if ( v8 != 1 )
         {
@@ -4601,7 +4601,7 @@ void __cdecl sub_401A91()
       }
     }
   }
-  if (pParty_global->dword_00087C == 1)
+  if (pParty_global->bTurnBasedModeOn)
   {
     sub_405E14(&unk_4F8858);
     return;
@@ -5943,7 +5943,7 @@ LABEL_105:
         v112 = 0;
         break;
 
-      case 12:
+      case PARTY_ACTION_JUMP:
         if ( !v110 || v100 )
         {
           if ( !v104 )
@@ -6122,7 +6122,7 @@ LABEL_151:
     stru_721530.dword_000024 = v113;
     v28 = 0;
     stru_721530.dword_000074 = 0;
-    if (pParty_global->dword_00087C == 1)
+    if (pParty_global->bTurnBasedModeOn)
     {
       if ( dword_4F885C == 3 )
         v28 = 13312;
@@ -8797,7 +8797,7 @@ LABEL_69:
         v18 = (int *)&pParty_global->pPlayers[1743 * *(_WORD *)(v2 + 2)];
         memcpy(v686.v694, &v18[9 * v18[1620] + 124], 0x24u);
         v686.v691 = 256;
-        if (pParty_global->dword_00087C == 1)
+        if (pParty_global->bTurnBasedModeOn)
           v686.v691 = 260;
         for ( i = 0; i < LODWORD(v702); ++i )
         {
@@ -8811,7 +8811,7 @@ LABEL_69:
                  *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
                  *(_WORD *)(v2 + 2) + 1) != -1 )
           {
-            if (pParty_global->dword_00087C == 1)
+            if (pParty_global->bTurnBasedModeOn)
               ++dword_4F8874;
           }
         }
@@ -8841,7 +8841,7 @@ LABEL_69:
         v21 = sub_49AC17((int)byte_6BE3C8, pParty_global->sPartyPosX, pParty_global->sPartyPosY, SHIDWORD(v686.v688));
         HIBYTE(v686.v691) |= 1u;
         v686.v692 = v21;
-        if (pParty_global->dword_00087C == 1)
+        if (pParty_global->bTurnBasedModeOn)
           LOBYTE(v686.v691) = v686.v691 | 4;
         if ( sub_42F5ED(
                (int)&v686,
@@ -8850,7 +8850,7 @@ LABEL_69:
                *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
                *(_WORD *)(v2 + 2) + 1) != -1 )
         {
-          if (pParty_global->dword_00087C == 1)
+          if (pParty_global->bTurnBasedModeOn)
             ++dword_4F8874;
         }
         goto LABEL_83;
@@ -8943,7 +8943,7 @@ LABEL_69:
         v686.v700 = v677;
         v686.v689 = v678;
         v686.v690 = *(_WORD *)(v2 + 16);
-        if (pParty_global->dword_00087C == 1)
+        if (pParty_global->bTurnBasedModeOn)
           LOBYTE(v686.v691) = v686.v691 | 4;
         v627 = *(_WORD *)(v2 + 2) + 1;
         v618 = *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48);
@@ -9103,7 +9103,7 @@ LABEL_139:
         v686.v700 = v677;
         v686.v689 = v678;
         v686.v690 = *(_WORD *)(v2 + 16);
-        if (pParty_global->dword_00087C == 1)
+        if (pParty_global->bTurnBasedModeOn)
           LOBYTE(v686.v691) = v686.v691 | 4;
         if ( *(_WORD *)v2 == 18 )
           LOBYTE(v686.v691) = v686.v691 | 0x40;
@@ -9328,7 +9328,7 @@ LABEL_1162:
                     {
                       if ( v683 < 0 )
                         v683 = 0;
-                      if (pParty_global->dword_00087C)
+                      if (pParty_global->bTurnBasedModeOn)
                       {
                         v605 = v683;
                         pParty_global->array_016144[*(_WORD *)(v2 + 2)] = v683;
@@ -9871,7 +9871,7 @@ LABEL_304:
             v686.v700 = sub_427546(n + 2500);
             v686.v689 = v645;
             v686.v690 = *(_WORD *)(v2 + 16);
-            if (pParty_global->dword_00087C == 1)
+            if (pParty_global->bTurnBasedModeOn)
               v686.v691 = 4;
             if ( sub_42F5ED(
                    (int)&v686,
@@ -9880,7 +9880,7 @@ LABEL_304:
                    *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
                    SHIDWORD(v1)) != -1 )
             {
-              if (pParty_global->dword_00087C == 1)
+              if (pParty_global->bTurnBasedModeOn)
                 ++dword_4F8874;
             }
             LODWORD(v682) = rand() % 1024 - 512;
@@ -10062,7 +10062,7 @@ LABEL_353:
         v686.v699 = n;
         v686.v700 = v677;
         v686.v690 = *(_WORD *)(v2 + 16);
-        if (pParty_global->dword_00087C == 1)
+        if (pParty_global->bTurnBasedModeOn)
           LOBYTE(v686.v691) = v686.v691 | 4;
         v183 = LODWORD(v704) / -2;
         v182 = LODWORD(v704) / 2;
@@ -10076,7 +10076,7 @@ LABEL_353:
                  *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
                  *(_WORD *)(v2 + 2) + 1) != -1 )
           {
-            if (pParty_global->dword_00087C == 1)
+            if (pParty_global->bTurnBasedModeOn)
               ++dword_4F8874;
           }
           v183 += v710;
@@ -10295,7 +10295,7 @@ LABEL_104:
           v686.v700 = sub_427546(LODWORD(v702) + 2500);
           v686.v689 = v642;
           v686.v690 = *(_WORD *)(v2 + 16);
-          if (pParty_global->dword_00087C == 1)
+          if (pParty_global->bTurnBasedModeOn)
             v686.v691 = 4;
           if ( sub_42F5ED(
                  (int)&v686,
@@ -10304,7 +10304,7 @@ LABEL_104:
                  *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
                  SHIDWORD(v1)) != -1 )
           {
-            if (pParty_global->dword_00087C == 1)
+            if (pParty_global->bTurnBasedModeOn)
               ++dword_4F8874;
           }
           LODWORD(v685) = rand() % 1024 - 512;
@@ -10395,7 +10395,7 @@ LABEL_153:
           v686.v689 = v678;
           v686.v690 = *(_WORD *)(v2 + 16);
 LABEL_154:
-          if (pParty_global->dword_00087C == 1)
+          if (pParty_global->bTurnBasedModeOn)
             LOBYTE(v686.v691) = v686.v691 | 4;
 LABEL_156:
           v627 = *(_WORD *)(v2 + 2) + 1;
@@ -10405,7 +10405,7 @@ LABEL_156:
 LABEL_157:
           if ( sub_42F5ED((int)&v686, v35, v613, v618, v627) != -1 )
           {
-            if (pParty_global->dword_00087C == 1)
+            if (pParty_global->bTurnBasedModeOn)
               ++dword_4F8874;
           }
         }
@@ -10429,7 +10429,7 @@ LABEL_157:
           v686.v699 = n;
           v686.v700 = v677;
           v686.v690 = *(_WORD *)(v2 + 16);
-          if (pParty_global->dword_00087C == 1)
+          if (pParty_global->bTurnBasedModeOn)
             LOBYTE(v686.v691) = v686.v691 | 4;
           v219 = LODWORD(v712) / -2;
           Source = (char *)(LODWORD(v712) / 2);
@@ -10446,7 +10446,7 @@ LABEL_157:
                      *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
                      *(_WORD *)(v2 + 2) + 1) != -1 )
               {
-                if (pParty_global->dword_00087C == 1)
+                if (pParty_global->bTurnBasedModeOn)
                   ++dword_4F8874;
               }
               v219 += v710;
@@ -11026,7 +11026,7 @@ LABEL_634:
         v686.v700 = v677;
         v686.v689 = pParty_global->sRotationY;
         v686.v690 = *(_WORD *)(v2 + 16);
-        if (pParty_global->dword_00087C == 1)
+        if (pParty_global->bTurnBasedModeOn)
           LOBYTE(v686.v691) = v686.v691 | 4;
         v627 = *(_WORD *)(v2 + 2) + 1;
         v618 = *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48);
@@ -11056,7 +11056,7 @@ LABEL_634:
         v686.v699 = n;
         v686.v689 = pParty_global->sRotationY;
         v686.v690 = *(_WORD *)(v2 + 16);
-        if ( pParty_global->dword_00087C == 1 )
+        if (pParty_global->bTurnBasedModeOn)
           v686.v691 = 4;
         v627 = HIDWORD(v1);
         v618 = *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48);
@@ -12815,7 +12815,7 @@ LABEL_1062:
         v686.v699 = n;
         v686.v700 = v677;
         v686.v690 = *(_WORD *)(v2 + 16);
-        if ( pParty_global->dword_00087C == 1 )
+        if (pParty_global->bTurnBasedModeOn)
           LOBYTE(v686.v691) = v686.v691 | 4;
         v560 = LODWORD(v704) / -2;
         Source = (char *)(LODWORD(v704) / 2);
@@ -12832,7 +12832,7 @@ LABEL_1062:
                    *(_WORD *)(56 * SHIWORD(v686) + pObjectDescriptionList->pDescriptions + 48),
                    *(_WORD *)(v2 + 2) + 1) != -1 )
             {
-              if ( pParty_global->dword_00087C == 1 )
+              if (pParty_global->bTurnBasedModeOn)
                 ++dword_4F8874;
             }
             v560 += v710;
@@ -13153,7 +13153,7 @@ LABEL_1119:
         pParty_global->dword_01613C = 256;
         dword_AE30F8[0] = v1;
         ++*(_BYTE *)(v707 + 6969);
-        if ( pParty_global->dword_00087C == 1 )
+        if (pParty_global->bTurnBasedModeOn)
           ++dword_4F8874;
         LODWORD(v704) = 50;
         do
@@ -13213,7 +13213,10 @@ LABEL_439:
       continue;
     }
   }
-  if ( pParty_global->dword_00087C == HIDWORD(v1) )
+
+  compile_error;
+  runtime_warning(direct comparison of boolean may lead to error);
+  if (pParty_global->bTurnBasedModeOn == HIDWORD(v1))
   {
     v606 = v707;
     Player_SetRecoveryTime((Player *)v707, (signed __int64)(flt_6BE3A4_debug_recmod1 * 213.33333333333334));

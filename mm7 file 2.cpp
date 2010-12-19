@@ -749,7 +749,7 @@ void __fastcall sub_42F933(int a1)
   char *v3; // ecx@2
 
   pLayingItemsList[a1].uObjectDescriptionID = 0;
-  if (pParty_global->dword_00087C == 1)
+  if (pParty_global->bTurnBasedModeOn)
   {
    v3 = (char *)&pLayingItemsList[a1].word_00001A;
     v2 = *(_WORD *)v3;
@@ -811,17 +811,17 @@ int __cdecl sub_463149()
 			   if  (dword_50CBD0.prm[0].msg_param3)
                           dword_50CBD0.msg_count = 1;
     stru_7215D8.uNumActions = 0;
-    if (pParty_global->dword_00087C == 1)
+    if (pParty_global->bTurnBasedModeOn)
     {
       sub_405CFF((int)&unk_4F8858, 0);
-      pParty_global->dword_00087C = 0;
+      pParty_global->bTurnBasedModeOn = false;
     }
 
     sub_464866(v17, 1);
     cClock1.clock_sub_426363();
     dword_6BE364 |= 0x80;
     dword_6BE340 = 2;
-    dword_4E28F8 = 0;
+    dword_4E28F8_PartyCantJumpIfTrue = 0;
 
     if (dword_720010)
       sub_46B105((void *)dword_720010);
@@ -903,7 +903,7 @@ LABEL_89:
       }
       if ( cClock1.dword_000008 )
       {
-        if (!pParty_global->dword_00087C)
+        if (!pParty_global->bTurnBasedModeOn)
           cClock1.dword_000008 = 0;
       }
       if ( !cClock1.dword_000004 )
@@ -1004,10 +1004,10 @@ LABEL_85:
       while ( v9 );
       memset(pParty_global->pPartyBuffs, 0, 20 * 16);
       v11 = 1;
-      if (pParty_global->dword_00087C == 1)
+      if (pParty_global->bTurnBasedModeOn)
       {
         sub_405CFF((int)&unk_4F8858, 1);
-        pParty_global->dword_00087C = 0;
+        pParty_global->bTurnBasedModeOn = false;
       }
       v12 = (signed int)dword_ACF2C0;
       do
@@ -1085,7 +1085,7 @@ LABEL_85:
     }
     break;
   }
-  dword_4E28F8 = 16;
+  dword_4E28F8_PartyCantJumpIfTrue = 16;
   return sub_491E3A();
 }
 
@@ -5468,7 +5468,7 @@ int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this)	   // prepere textures for
   sub_411AAA();
   GUIButtonCreate(_this, 475, 445, 158, 34, 1, 0, 113, 0, 0, pGlobalTXT_LocalizationStrings[LOCSTR_EXIT], 0);
 
-  dword_4E28F8 = 3;
+  dword_4E28F8_PartyCantJumpIfTrue = 3;
 
   dword_506524 = 0;
   dword_506528 = 0;
@@ -6838,10 +6838,10 @@ int __fastcall sub_4141CA(int a1, int a2)
   v3 = a1;
   v4 = a2;
   cClock1.clock_fn1();
-  dword_506F0C = dword_4E28F8;
+  dword_506F0C = dword_4E28F8_PartyCantJumpIfTrue;
 
   ptr_507BDC = GUIWindowCreate(0, 0, 640, 480, 70, (GUIButton*)v4, v3);
-  dword_4E28F8 = 22;
+  dword_4E28F8_PartyCantJumpIfTrue = 22;
   return (int)ptr_507BDC;
 }
 
@@ -6882,7 +6882,7 @@ void __cdecl sub_41426F()
   dword_50CBD0.PutMessageToQueue(ptr_507BDC->dword_00001C,0,0);
   GUIWindowDelete(ptr_507BDC);
   ptr_507BDC = NULL;
-  dword_4E28F8 = dword_506F0C;
+  dword_4E28F8_PartyCantJumpIfTrue = dword_506F0C;
   cClock1.clock_sub_426363();
 }
 
@@ -8016,7 +8016,7 @@ void __thiscall sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(int _this)
   int v38; // [sp+70h] [bp-8h]@3
   int v39; // [sp+74h] [bp-4h]@3
 
-  if ( dword_4E28F8 == 16 )
+  if ( dword_4E28F8_PartyCantJumpIfTrue == 16 )
     return;
   if ( _this )
   {
@@ -8052,9 +8052,9 @@ void __thiscall sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(int _this)
     while ( v1 < 4 );
   }
   cClock1.clock_fn1();
-  if ( dword_4E28F8 <= 10 )
+  if ( dword_4E28F8_PartyCantJumpIfTrue <= 10 )
   {
-    if ( dword_4E28F8 == 10 )
+    if ( dword_4E28F8_PartyCantJumpIfTrue == 10 )
     {
       if ( !Player_sub_492C0B_MaybeIfPlayerConscious(pPlayers[uActiveCharacter - 1]) )
       {
@@ -8085,13 +8085,13 @@ void __thiscall sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(int _this)
     }
     else
     {
-      if ( dword_4E28F8 )
+      if ( dword_4E28F8_PartyCantJumpIfTrue )
       {
-        if ( dword_4E28F8 != 3 )
+        if ( dword_4E28F8_PartyCantJumpIfTrue != 3 )
         {
-          if ( dword_4E28F8 != 7 )
+          if ( dword_4E28F8_PartyCantJumpIfTrue != 7 )
           {
-            if ( dword_4E28F8 == 8 )
+            if ( dword_4E28F8_PartyCantJumpIfTrue == 8 )
             {
               if ( dword_507B00 )
                 sub_410B28(dword_507B00 - 1);
@@ -8099,7 +8099,7 @@ void __thiscall sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(int _this)
             goto LABEL_132;
           }
 LABEL_119:
-          if ( v38 > 467 && dword_4E28F8 != 14 )
+          if ( v38 > 467 && dword_4E28F8_PartyCantJumpIfTrue != 14 )
           {
 LABEL_126:
             sub_416196();
@@ -8236,7 +8236,7 @@ LABEL_42:
     sub_41D895(v8);
     goto LABEL_132;
   }
-  if ( dword_4E28F8 == 13 )
+  if ( dword_4E28F8_PartyCantJumpIfTrue == 13 )
   {
     if ( v39 < 345 )
     {
@@ -8245,13 +8245,13 @@ LABEL_42:
     }
     goto LABEL_132;
   }
-  if ( dword_4E28F8 <= 13 )
+  if ( dword_4E28F8_PartyCantJumpIfTrue <= 13 )
     goto LABEL_132;
-  if ( dword_4E28F8 <= 15 )
+  if ( dword_4E28F8_PartyCantJumpIfTrue <= 15 )
     goto LABEL_119;
-  if ( dword_4E28F8 != 21 )
+  if ( dword_4E28F8_PartyCantJumpIfTrue != 21 )
   {
-    v11 = dword_4E28F8 == 23;
+    v11 = dword_4E28F8_PartyCantJumpIfTrue == 23;
     goto LABEL_125;
   }
   local_04.ptr_000048 = 0;
@@ -8399,7 +8399,7 @@ void __thiscall OnMouseLeftClick(void *_this)
   int v13;
 
   v1 = _this;
-  if ( dword_4E28F8 != 16 && !sub_4637E0() )
+  if ( dword_4E28F8_PartyCantJumpIfTrue != 16 && !sub_4637E0() )
   {
     if (pGUIWindow2 && pGUIWindow2->dword_00001C == 33)
     {
@@ -8419,7 +8419,7 @@ void __thiscall OnMouseLeftClick(void *_this)
       v13 = click_y;
       v12 = click_x;
     }
-    if ( !dword_4E28F8 && dword_507B98_bCtrlPressed )
+    if ( !dword_4E28F8_PartyCantJumpIfTrue && dword_507B98_bCtrlPressed )
     {
       v4 = sub_466CA0();
       click_x = v12;
@@ -8454,7 +8454,7 @@ void __thiscall OnMouseLeftClick(void *_this)
                       dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
                     } */
 					 dword_50CBD0.PutMessageToQueue(27,v6 >> 3,0);
-                    if (pParty_global->dword_00087C == 1)
+                    if (pParty_global->bTurnBasedModeOn)
                     {
                       if ( dword_4F885C == 3 )
                         dword_4F8870 |= 8u;
@@ -10007,7 +10007,7 @@ LABEL_47:
     //if ( *(int *)((char *)array_506F68 + 20 + v3) - *(int *)((char *)array_506F68 + 32 + v3) - v12 >= 0 )
    if (GUIWindow_List[wndIdx].dword_00002C - GUIWindow_List[wndIdx].dword_000038 - v12 >= 0)
     {
-      v13 = dword_4E28F8 == 21;
+      v13 = dword_4E28F8_PartyCantJumpIfTrue == 21;
       //*(int *)((char *)array_506F68 + 20 + v3) -= v12;
       GUIWindow_List[wndIdx].dword_00002C -= v12;
       if ( v13 )
@@ -10053,7 +10053,7 @@ LABEL_26:
       //if ( v7 < *(int *)((char *)array_506F68 + 16 + v3) + *(int *)((char *)array_506F68 + 32 + v3) )
      if (v7 < GUIWindow_List[wndIdx].dword_000028 + GUIWindow_List[wndIdx].dword_000038)
       {
-        v8 = dword_4E28F8 == 21;
+        v8 = dword_4E28F8_PartyCantJumpIfTrue == 21;
         //*(int *)((char *)array_506F68 + 20 + v3) = v7;
         GUIWindow_List[wndIdx].dword_00002C = v7;
         if ( v8 )
@@ -12005,7 +12005,7 @@ void __cdecl sub_41F5BE()
       dword_507BAC = 0;
       LODFile_Icons_LOD.LODFile_sub_4114F2();
       LODFile_Icons_LOD.LODFile_sub_40F9C5();
-      dword_4E28F8 = 0;
+      dword_4E28F8_PartyCantJumpIfTrue = 0;
       struct_576FE8.dword_000044 = 1;
       if ( dword_6BE360 == 2 )
       {
@@ -12035,10 +12035,10 @@ int __cdecl sub_41F6C1()
 
   if ( !dword_506F14 )
     AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-  if ( dword_4E28F8 )
+  if ( dword_4E28F8_PartyCantJumpIfTrue )
   {
     GUIWindowDelete(pGUIWindow_CurrentMenu);
-    dword_4E28F8 = 0;
+    dword_4E28F8_PartyCantJumpIfTrue = 0;
     struct_576FE8.dword_000044 = 1;
   }
   cClock1.clock_fn1();
@@ -12081,7 +12081,7 @@ LABEL_15:
   ++LODFile_Icons_LOD.uTexturePacksCount;
   if ( !LODFile_Icons_LOD.uPrevLoadedFiles )
     LODFile_Icons_LOD.uPrevLoadedFiles = LODFile_Icons_LOD.uNumLoadedFiles;
-  dword_4E28F8 = 5;
+  dword_4E28F8_PartyCantJumpIfTrue = 5;
   dword_507CD4 = 0;
   dword_50765C = LODFile_Icons_LOD.LODFile_LoadTexture( "restmain", 2);
   dword_507654 = LODFile_Icons_LOD.LODFile_LoadTexture( "restb1", 2);
@@ -13025,7 +13025,7 @@ LABEL_12:
   dword_5076F4 = GUIButtonCreate((GUIWindow *)v4, 471, 445,	169, 35, 1,	0, 113,  0, 0,  pGlobalTXT_LocalizationStrings[79],
                    uTextureID_right_backgr != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0);
   GUIButtonCreate((GUIWindow *)dword_507BB8, 7, 8, 460, 343, 1, 0, 12, 0, 0, (unsigned char *)"", 0);
-  dword_4E28F8 = 10;
+  dword_4E28F8_PartyCantJumpIfTrue = 10;
   cClock1.clock_fn1();
   return 1;
 }
@@ -13500,7 +13500,7 @@ void GameUI_OnPlayerPortraitLeftClick(unsigned int uCharacter)
   }
 
 LABEL_9:
-  if ( !dword_4E28F8 )
+  if ( !dword_4E28F8_PartyCantJumpIfTrue )
   {
     struct_576FE8.dword_000044 = 1;
     if (uActiveCharacter != uCharacter)
@@ -13515,16 +13515,16 @@ LABEL_9:
     pGUIWindow_CurrentMenu = GameUI_InitializeCharacterWindow(7);
     return;
   }
-  if (dword_4E28F8 == 8)
+  if (dword_4E28F8_PartyCantJumpIfTrue == 8)
     return;
-  if (dword_4E28F8 == 10)
+  if (dword_4E28F8_PartyCantJumpIfTrue == 10)
   {
 LABEL_23:
     struct_576FE8.dword_000044 = 1;
     if (uActiveCharacter == uCharacter)
     {
       dword_506F48 = 103;
-      dword_4E28F8 = 15;
+      dword_4E28F8_PartyCantJumpIfTrue = 15;
       goto LABEL_28;
     }
 
@@ -13533,15 +13533,15 @@ LABEL_23:
     uActiveCharacter = uCharacter;
     return;
   }
-  if ( dword_4E28F8 != 13 )
+  if ( dword_4E28F8_PartyCantJumpIfTrue != 13 )
   {
-    if ( dword_4E28F8 == 14 )
+    if ( dword_4E28F8_PartyCantJumpIfTrue == 14 )
     {
 LABEL_28:
       uActiveCharacter = uCharacter;
       return;
     }
-    if ( dword_4E28F8 != 15 )
+    if ( dword_4E28F8_PartyCantJumpIfTrue != 15 )
     {
       struct_576FE8.dword_000044 = 1;
       uActiveCharacter = uCharacter;
@@ -13946,7 +13946,7 @@ LABEL_42:
 	  dword_50CBD0.PutMessageToQueue(161,v18,0);
       return;
     }
-    if (pParty_global->dword_00087C == 1 && dword_4F885C == 3)
+    if (pParty_global->bTurnBasedModeOn && dword_4F885C == 3)
     {
       dword_4F8870 |= 8u;
       return;
@@ -13956,12 +13956,12 @@ LABEL_42:
       dword_50CBD0[3 * dword_50CBD0[0] + 1] = 23;
       goto LABEL_41;
     }	*/
-	 dword_50CBD0.PutMessageToQueue(23,0,0);
+	 dword_50CBD0.PutMessageToQueue(MESSAGE_ATTACK, 0, 0);
 	 return;
   }
   else
   {
-    if (pParty_global->dword_00087C == 1 && dword_4F885C == 3)
+    if (pParty_global->bTurnBasedModeOn && dword_4F885C == 3)
     {
       pParty_global->dword_007778 |= 8u;
       return;
@@ -13982,11 +13982,11 @@ LABEL_41:
 //----- (004226C2) --------------------------------------------------------
 bool __cdecl sub_4226C2()
 {
- if (dword_4E28F8 && dword_4E28F8 != 4 && dword_4E28F8 != 17)
+ if (dword_4E28F8_PartyCantJumpIfTrue && dword_4E28F8_PartyCantJumpIfTrue != 4 && dword_4E28F8_PartyCantJumpIfTrue != 17)
  {
-  if (dword_4E28F8 == 18)
+  if (dword_4E28F8_PartyCantJumpIfTrue == 18)
     return pVideoPlayer->pSmackerMovie != 0;
-  else if (dword_4E28F8 != 19)
+  else if (dword_4E28F8_PartyCantJumpIfTrue != 19)
     return true;
  }
  return false;
