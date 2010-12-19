@@ -48,9 +48,7 @@
     <ClCompile Include="GUI\GUIWindow.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="_audio.cpp" />
     <ClCompile Include="_lod.cpp" />
-    <ClCompile Include="_video.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="AIL.cpp" />
     <ClCompile Include="Bink.cpp" />
@@ -176,6 +174,8 @@
       <Filter>GUI</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="AudioPlayer.cpp" />
+    <ClCompile Include="VideoPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Math.h">
@@ -224,9 +224,7 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="Window.h" />
-    <ClInclude Include="_audio.h" />
     <ClInclude Include="_lod.h" />
-    <ClInclude Include="_video.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="AIL.h" />
     <ClInclude Include="Bink.h" />
@@ -380,6 +378,8 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="AudioPlayer.h" />
+    <ClInclude Include="VideoPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\legacy_dx\d3dvec.inl">

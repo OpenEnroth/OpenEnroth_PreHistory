@@ -13,6 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E788BF48-D216-402A-BEBE-D8BE9193BBE8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
+    <ProjectName>Wight and Wagic</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -33,7 +34,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\</OutDir>
@@ -45,16 +46,13 @@
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(IncludePath)</IncludePath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\lib\x86;$(LibraryPath)</LibraryPath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\lib\x86;$(LibraryPath)</LibraryPath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(IncludePath)</IncludePath>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\SDK\DirectX Feb10\Include;$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\SDK\DirectX Feb10\Lib\x86;F:\SDK\DirectX Jun05\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>OLD_CODE;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -64,16 +62,12 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>$(MsBuildProjectDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <StackReserveSize>8192</StackReserveSize>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>d3dx10.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AllowIsolation>false</AllowIsolation>
-      <EnableUAC>false</EnableUAC>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -84,7 +78,6 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>$(MsBuildProjectDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -97,6 +90,7 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="AIL.cpp" />
+    <ClCompile Include="AudioPlayer.cpp" />
     <ClCompile Include="Bink.cpp" />
     <ClCompile Include="c18.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -105,27 +99,45 @@
     <ClCompile Include="clock.cpp" />
     <ClCompile Include="data.cpp" />
     <ClCompile Include="Driver.cpp" />
-    <ClCompile Include="font.cpp" />
     <ClCompile Include="FrameTables.cpp" />
-    <ClCompile Include="FrameTables_FromTXT.cpp" />
-    <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GUI\GUI.cpp" />
+    <ClCompile Include="GUI\GUIButton.cpp" />
+    <ClCompile Include="GUI\GUICursor.cpp" />
+    <ClCompile Include="GUI\GUIFont.cpp" />
+    <ClCompile Include="GUI\GUIProgressBar.cpp" />
+    <ClCompile Include="GUI\GUIWindow.cpp" />
     <ClCompile Include="Level.cpp" />
-    <ClCompile Include="libpng143\png.c" />
-    <ClCompile Include="libpng143\pngerror.c" />
-    <ClCompile Include="libpng143\pngget.c" />
-    <ClCompile Include="libpng143\pngmem.c" />
-    <ClCompile Include="libpng143\pngpread.c" />
-    <ClCompile Include="libpng143\pngread.c" />
-    <ClCompile Include="libpng143\pngrio.c" />
-    <ClCompile Include="libpng143\pngrtran.c" />
-    <ClCompile Include="libpng143\pngrutil.c" />
-    <ClCompile Include="libpng143\pngset.c" />
-    <ClCompile Include="libpng143\pngtest.c" />
-    <ClCompile Include="libpng143\pngtrans.c" />
-    <ClCompile Include="libpng143\pngwio.c" />
-    <ClCompile Include="libpng143\pngwrite.c" />
-    <ClCompile Include="libpng143\pngwtran.c" />
-    <ClCompile Include="libpng143\pngwutil.c" />
+    <ClCompile Include="libs\libpng143\png.c" />
+    <ClCompile Include="libs\libpng143\pngerror.c" />
+    <ClCompile Include="libs\libpng143\pngget.c" />
+    <ClCompile Include="libs\libpng143\pngmem.c" />
+    <ClCompile Include="libs\libpng143\pngpread.c" />
+    <ClCompile Include="libs\libpng143\pngread.c" />
+    <ClCompile Include="libs\libpng143\pngrio.c" />
+    <ClCompile Include="libs\libpng143\pngrtran.c" />
+    <ClCompile Include="libs\libpng143\pngrutil.c" />
+    <ClCompile Include="libs\libpng143\pngset.c" />
+    <ClCompile Include="libs\libpng143\pngtest.c" />
+    <ClCompile Include="libs\libpng143\pngtrans.c" />
+    <ClCompile Include="libs\libpng143\pngwio.c" />
+    <ClCompile Include="libs\libpng143\pngwrite.c" />
+    <ClCompile Include="libs\libpng143\pngwtran.c" />
+    <ClCompile Include="libs\libpng143\pngwutil.c" />
+    <ClCompile Include="libs\zlib\adler32.c" />
+    <ClCompile Include="libs\zlib\compress.c" />
+    <ClCompile Include="libs\zlib\crc32.c" />
+    <ClCompile Include="libs\zlib\deflate.c" />
+    <ClCompile Include="libs\zlib\infblock.c" />
+    <ClCompile Include="libs\zlib\infcodes.c" />
+    <ClCompile Include="libs\zlib\inffast.c" />
+    <ClCompile Include="libs\zlib\inflate.c" />
+    <ClCompile Include="libs\zlib\inftrees.c" />
+    <ClCompile Include="libs\zlib\infutil.c" />
+    <ClCompile Include="libs\zlib\trees.c" />
+    <ClCompile Include="libs\zlib\uncompr.c" />
+    <ClCompile Include="libs\zlib\zutil.c" />
+    <ClCompile Include="memory_mng.cpp" />
     <ClCompile Include="menus.cpp" />
     <ClCompile Include="mm7 file 1.cpp" />
     <ClCompile Include="mm7 file 2.cpp" />
@@ -141,33 +153,20 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="RenderD3D3.cpp" />
+    <ClCompile Include="RenderOpenGL.cpp" />
     <ClCompile Include="Render\RenderD3D10.cpp" />
     <ClCompile Include="Render\RenderOGL.cpp" />
     <ClCompile Include="Render\RenderOperatorsD3D10.cpp" />
     <ClCompile Include="Render\RenderOperatorsOGL.cpp" />
     <ClCompile Include="Smacker.cpp" />
+    <ClCompile Include="VideoPlayer.cpp" />
     <ClCompile Include="Window.cpp" />
-    <ClCompile Include="zlib\adler32.c" />
-    <ClCompile Include="zlib\compress.c" />
-    <ClCompile Include="zlib\crc32.c" />
-    <ClCompile Include="zlib\deflate.c" />
-    <ClCompile Include="zlib\infblock.c" />
-    <ClCompile Include="zlib\infcodes.c" />
-    <ClCompile Include="zlib\inffast.c" />
-    <ClCompile Include="zlib\inflate.c" />
-    <ClCompile Include="zlib\inftrees.c" />
-    <ClCompile Include="zlib\infutil.c" />
-    <ClCompile Include="zlib\trees.c" />
-    <ClCompile Include="zlib\uncompr.c" />
-    <ClCompile Include="zlib\zutil.c" />
-    <ClCompile Include="_audio.cpp" />
-    <ClCompile Include="memory_mng.cpp" />
     <ClCompile Include="_lod.cpp" />
-    <ClCompile Include="_video.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="AIL.h" />
+    <ClInclude Include="AudioPlayer.h" />
     <ClInclude Include="Bink.h" />
     <ClInclude Include="c18.h" />
     <ClInclude Include="Camera.h" />
@@ -176,41 +175,59 @@
     <ClInclude Include="clock.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="defs.h" />
-    <ClInclude Include="font.h" />
     <ClInclude Include="FrameTables.h" />
-    <ClInclude Include="GUI.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GUI\GUI.h" />
+    <ClInclude Include="GUI\GUIButton.h" />
+    <ClInclude Include="GUI\GUICursor.h" />
+    <ClInclude Include="GUI\GUIFont.h" />
+    <ClInclude Include="GUI\GUIProgressBar.h" />
+    <ClInclude Include="GUI\GUIWindow.h" />
     <ClInclude Include="Items.h" />
-    <ClInclude Include="legacy dx\d3d.h" />
-    <ClInclude Include="legacy dx\d3dcaps.h" />
-    <ClInclude Include="legacy dx\d3drm.h" />
-    <ClInclude Include="legacy dx\d3drmdef.h" />
-    <ClInclude Include="legacy dx\d3drmobj.h" />
-    <ClInclude Include="legacy dx\d3drmwin.h" />
-    <ClInclude Include="legacy dx\d3dtypes.h" />
-    <ClInclude Include="legacy dx\ddraw.h" />
-    <ClInclude Include="legacy dx\dinput.h" />
-    <ClInclude Include="legacy dx\dinputd.h" />
-    <ClInclude Include="legacy dx\dmdls.h" />
-    <ClInclude Include="legacy dx\dmerror.h" />
-    <ClInclude Include="legacy dx\dmksctrl.h" />
-    <ClInclude Include="legacy dx\dmplugin.h" />
-    <ClInclude Include="legacy dx\dmusbuff.h" />
-    <ClInclude Include="legacy dx\dmusicc.h" />
-    <ClInclude Include="legacy dx\dmusicf.h" />
-    <ClInclude Include="legacy dx\dmusici.h" />
-    <ClInclude Include="legacy dx\dmusics.h" />
-    <ClInclude Include="legacy dx\dsconf.h" />
-    <ClInclude Include="legacy dx\dsound.h" />
-    <ClInclude Include="legacy dx\dvoice.h" />
-    <ClInclude Include="legacy dx\multimon.h" />
-    <ClInclude Include="legacy dx\rmxfguid.h" />
-    <ClInclude Include="legacy dx\rmxftmpl.h" />
-    <ClInclude Include="legacy dx\strsafe.h" />
     <ClInclude Include="Level.h" />
-    <ClInclude Include="libpng143\png.h" />
-    <ClInclude Include="libpng143\pngconf.h" />
-    <ClInclude Include="libpng143\pngpriv.h" />
+    <ClInclude Include="libs\legacy_dx\d3d.h" />
+    <ClInclude Include="libs\legacy_dx\d3dcaps.h" />
+    <ClInclude Include="libs\legacy_dx\d3drm.h" />
+    <ClInclude Include="libs\legacy_dx\d3drmdef.h" />
+    <ClInclude Include="libs\legacy_dx\d3drmobj.h" />
+    <ClInclude Include="libs\legacy_dx\d3drmwin.h" />
+    <ClInclude Include="libs\legacy_dx\d3dtypes.h" />
+    <ClInclude Include="libs\legacy_dx\ddraw.h" />
+    <ClInclude Include="libs\legacy_dx\dinput.h" />
+    <ClInclude Include="libs\legacy_dx\dinputd.h" />
+    <ClInclude Include="libs\legacy_dx\dmdls.h" />
+    <ClInclude Include="libs\legacy_dx\dmerror.h" />
+    <ClInclude Include="libs\legacy_dx\dmksctrl.h" />
+    <ClInclude Include="libs\legacy_dx\dmplugin.h" />
+    <ClInclude Include="libs\legacy_dx\dmusbuff.h" />
+    <ClInclude Include="libs\legacy_dx\dmusicc.h" />
+    <ClInclude Include="libs\legacy_dx\dmusicf.h" />
+    <ClInclude Include="libs\legacy_dx\dmusici.h" />
+    <ClInclude Include="libs\legacy_dx\dmusics.h" />
+    <ClInclude Include="libs\legacy_dx\dsconf.h" />
+    <ClInclude Include="libs\legacy_dx\dsound.h" />
+    <ClInclude Include="libs\legacy_dx\dvoice.h" />
+    <ClInclude Include="libs\legacy_dx\multimon.h" />
+    <ClInclude Include="libs\legacy_dx\rmxfguid.h" />
+    <ClInclude Include="libs\legacy_dx\rmxftmpl.h" />
+    <ClInclude Include="libs\legacy_dx\strsafe.h" />
+    <ClInclude Include="libs\libpng143\png.h" />
+    <ClInclude Include="libs\libpng143\pngconf.h" />
+    <ClInclude Include="libs\libpng143\pngpriv.h" />
+    <ClInclude Include="libs\zlib\deflate.h" />
+    <ClInclude Include="libs\zlib\infblock.h" />
+    <ClInclude Include="libs\zlib\infcodes.h" />
+    <ClInclude Include="libs\zlib\inffast.h" />
+    <ClInclude Include="libs\zlib\inffixed.h" />
+    <ClInclude Include="libs\zlib\inftrees.h" />
+    <ClInclude Include="libs\zlib\infutil.h" />
+    <ClInclude Include="libs\zlib\trees.h" />
+    <ClInclude Include="libs\zlib\zconf.h" />
+    <ClInclude Include="libs\zlib\zlib.h" />
+    <ClInclude Include="libs\zlib\zutil.h" />
+    <ClInclude Include="localization_defs.h" />
     <ClInclude Include="Math\Math.h" />
+    <ClInclude Include="memory_mng.h" />
     <ClInclude Include="menus.h" />
     <ClInclude Include="mm7_unparsed_data.h" />
     <ClInclude Include="mm7_unparsed_functions.h" />
@@ -230,29 +247,18 @@
     <ClInclude Include="Render\TextureD3D10.h" />
     <ClInclude Include="Render\TextureOGL.h" />
     <ClInclude Include="Smacker.h" />
+    <ClInclude Include="Spells.h" />
+    <ClInclude Include="VideoPlayer.h" />
     <ClInclude Include="Window.h" />
-    <ClInclude Include="zlib\deflate.h" />
-    <ClInclude Include="zlib\infblock.h" />
-    <ClInclude Include="zlib\infcodes.h" />
-    <ClInclude Include="zlib\inffast.h" />
-    <ClInclude Include="zlib\inffixed.h" />
-    <ClInclude Include="zlib\inftrees.h" />
-    <ClInclude Include="zlib\infutil.h" />
-    <ClInclude Include="zlib\trees.h" />
-    <ClInclude Include="zlib\zconf.h" />
-    <ClInclude Include="zlib\zlib.h" />
-    <ClInclude Include="zlib\zutil.h" />
-    <ClInclude Include="_audio.h" />
-    <ClInclude Include="memory_mng.h" />
-    <ClInclude Include="_c_interface.h" />
     <ClInclude Include="_lod.h" />
-    <ClInclude Include="_video.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="legacy dx\d3dvec.inl" />
     <ClInclude Include="Math\Math.inl">
       <FileType>Document</FileType>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="libs\legacy_dx\d3dvec.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
