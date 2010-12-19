@@ -784,8 +784,9 @@ int LODFile_IB::LoadTextureFromLOD(cTexture *pcTexture, const char *pContainerNa
 		  }
 	  MemFree(pDecompressedBuffer);
 	  }
-
+ if (pcTexture->pPalette)
    MemFree(pcTexture->pPalette);
+ if (pcTexture->ptr_000044)
    MemFree(pcTexture->ptr_000044);
 
   if (uTextureType == 1)

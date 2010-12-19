@@ -276,12 +276,12 @@ void SetCurrentMenu(unsigned int uMenuID);
 struct GUIWindow * GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
                                              unsigned int uFrameWidth, unsigned int uFrameHeight,
                                              unsigned int uWindowType, struct GUIButton *a6, int a7);
-
+/*
 struct GUIButton*  GUIButtonCreate(struct GUIWindow *pParentWindow,
                                              unsigned int uX, unsigned int uY,
                                              unsigned int uWidth, unsigned int uHeight,
                                              int a6, int a7, unsigned int uControlID, int a9, unsigned int uHotkey, const unsigned char *pName,class cTexture* pButtnTexture1,  
-											 class cTexture* pButtnTexture2=NULL);	 //was multiparametr function!!
+											 class cTexture* pButtnTexture2=NULL);	 //was multiparametr function!!*/
 
 void GUIWindowDelete(struct GUIWindow *);
 void GUIWindow_sub_459C2B(struct GUIWindow *a1, signed int a2, int a3, int a4);
@@ -357,7 +357,7 @@ int CharacterUI_LoadPaperdollTextures();
 void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter);
 void __fastcall CharacterUI_DrawPaperdoll2(int a1);
 
-char *__cdecl sub_411150();
+//char *__cdecl sub_411150();
 int __thiscall GUIWindow_sub_411BFC(GUIWindow *_this);
 void GUIButton_sub_415180(struct GUIButton *a1, const unsigned char *a2, struct Font *a3, __int16 a4, char *a5);
 char *__cdecl CreateCopyrightWindow();

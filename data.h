@@ -188,7 +188,7 @@ extern class LODFile_IB      LODFile_Icons_LOD;
 extern class LODFile_IB      LODFile_Events_LOD;
 extern class LODFile_IB      LODFile_Bitmaps_LOD;
 extern class LODFile_Sprite      LODFile_Sprites_LOD;
-extern class AudioPlayer  *pAudioPlayer;
+extern struct AudioPlayer  *pAudioPlayer;
 extern class VideoPlayer *pVideoPlayer;
 
 extern class cPCXTexture      Class33_global0;

@@ -479,7 +479,7 @@ int __fastcall sub_44606A(int a1);
 int __fastcall sub_44622E(int a1);
 signed int __thiscall sub_4465DF(void *_this);
 int __fastcall sub_44665D(int a1, int a2, int a3);
-bool __thiscall sub_4466C4(void *_this);
+int __thiscall sub_4466C4(void *_this);
 void __fastcall sub_44684A_LooksLikeEventProcessor(int a1, int a2, int a3);
 int __fastcall sub_448518(int a1, int a2, int a3);
 int __fastcall sub_4485A7(signed int a1, int a2, int a3);

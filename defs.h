@@ -119,7 +119,7 @@ typedef unsigned long ulong;
 #define _WORD  short
 #define _DWORD long
 #define _QWORD ll
-#define _LONGLONG __int128
+//#define _LONGLONG __int128
 
 #ifndef _WINDOWS_
 typedef char BYTE;

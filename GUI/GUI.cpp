@@ -4816,17 +4816,17 @@ struct GUIWindow *GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
   int v11; // ebx@15
   char *v12; // ebp@15
   void *v13; // ecx@18
-  bool v14; // eax@20
+  int v14; // eax@20
   void *v15; // ecx@23
-  bool v16; // eax@25
+  int v16; // eax@25
   void *v17; // ecx@28
-  bool v18; // eax@30
+  int v18; // eax@30
   void *v19; // ecx@33
-  bool v20; // eax@35
+  int v20; // eax@35
   void *v21; // ecx@38
-  bool v22; // eax@40
+  int v22; // eax@40
   void *v23; // ecx@43
-  bool v24; // eax@45
+  int v24; // eax@45
   int v25; // eax@65
   int v26; // ebx@65
   int v27; // eax@71
@@ -8099,7 +8099,7 @@ void __fastcall CharacterUI_DrawPaperdoll(unsigned int uSelectedCharacter)
     v224 = dword_4E4C2C + dword_4E4C30[32 * v268 + 5] - *(__int16 *)((char *)&word_5D29FE + v27);
 
 #ifdef OLD_CODE
-    v270 = LODFile_Icons_LOD.LODFile_LoadTexture( (const char*)pClass40->pItems[pPlayer->cInventorySlots[v23 - 1].uItemID].pIconName, 2);
+    v270 = LODFile_Icons_LOD.LODFile_LoadTexture( (const char*)pClass40->pItems[pPlayer->pInventorySlots[v23 - 1].uItemID].pIconName, 2);
 #else
     wchar_t pTextureNameW[256];
     wsprintfW(pTextureNameW, L"%S", pClass40->pItems[pPlayer->pInventorySlots[v23 - 1].uItemID].pIconName);
@@ -9616,7 +9616,7 @@ void __fastcall CharacterUI_DrawPaperdoll2(int a1)
   v58 =  &v2->pInventorySlots[v18];
   v20 = LODFile_Icons_LOD.LODFile_LoadTexture( (char *)pClass40->pItems[12 * v58->uItemID].pIconName, 2);
   v19 = (v58->dword_000014);
-  if ( !(v58->dword_000014) & 0xF0) 
+  if ( !((v58->dword_000014) & 0xF0)) 
   {
     v25 = v20 + 1;
     if ( v19 & 2 )

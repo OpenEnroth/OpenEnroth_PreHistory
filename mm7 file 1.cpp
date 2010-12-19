@@ -3052,7 +3052,7 @@ LABEL_228:
         if ( !struct_505898.byte_505992 )
         {
 LABEL_238:
-          if ( pVideoPlayer->dword_000024 != v31 )
+          if (pVideoPlayer&& (pVideoPlayer->dword_000024 != v31) )
             pVideoPlayer->dword_00006C = 1;
           if ( dword_720010 == v31 )
             GUICursor_OnMouseLeftButton(pGame->pGUICursor, (unsigned __int16)lParam, (LPARAM)lParam >> 16);

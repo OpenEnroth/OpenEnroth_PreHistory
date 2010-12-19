@@ -7540,7 +7540,7 @@ int __fastcall sub_44665D(int a1, int a2, int a3)
 }
 
 //----- (004466C4) --------------------------------------------------------
-bool __thiscall sub_4466C4(void *_this)
+int __thiscall sub_4466C4(void *_this)
 {
   signed int v1; // ebp@1
   bool result; // eax@2
