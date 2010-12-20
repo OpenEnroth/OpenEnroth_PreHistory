@@ -1120,7 +1120,7 @@ unsigned int RenderDirect3D3::Initialize(OSWindow *pOutputWindow)
  this->ptr_0400E8 = NamedMemAlloc(unsigned int, 640 * 480, "Renderer software back buffer");
  if (this->ptr_0400E8)
  {
-  memset(this->ptr_0400E8, 0, (640 * 480 + 8) * sizeof(unsigned int));
+  memset(this->ptr_0400E8, 0, (640 * 480) * sizeof(unsigned int));
   memset(&ddsd2, 0, sizeof(DDSURFACEDESC2));
   ddsd2.dwSize = sizeof(DDSURFACEDESC2);
 

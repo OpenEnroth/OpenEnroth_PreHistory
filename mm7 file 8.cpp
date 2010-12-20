@@ -4944,7 +4944,7 @@ int __fastcall sub_46D49E_ProbablyCollidePartyWithBModels(signed int a1, signed 
               while ( 1 )
               {
                 v12 = &v10->ptr_000054[v44];
-                v11 = *(_BYTE *)(v12 + 303);
+                v11 = v12->byte_00012F;
                 if ( v11 == 3 || v11 == 4 )
                 {
                   if ( !(v12->byte_000010[15] & 0x20) )
@@ -5014,12 +5014,12 @@ int __fastcall sub_46D49E_ProbablyCollidePartyWithBModels(signed int a1, signed 
                               {
                                 if ( v48 >= 20 )
                                   break;
-                                if ( *(_BYTE *)(v12 + 303) == 3 )
-                                  v26 = *(_DWORD *)(v10->ptr_000048 + 12 * *(_WORD *)(v12 + 32) + 8);
+                                if ( v12->byte_00012F == 3 )
+                                  v26 = *(_DWORD *)(v10->ptr_000048 + 12 * v12->array_000020[0] + 8);
                                 else
-                                  v26 = ((unsigned __int64)(*(_DWORD *)(v12 + 16) * v7) >> 16)
-                                      + ((unsigned __int64)(*(_DWORD *)(v12 + 20) * v47) >> 16)
-                                      + *(_WORD *)(v12 + 26);
+                                  v26 = ((unsigned __int64)(*(_DWORD *)((char*)v12 + 16) * v7) >> 16)
+                                      + ((unsigned __int64)(*(_DWORD *)((char*)v12 + 20) * v47) >> 16)
+                                      + *(_WORD *)((char*)v12 + 26);
                                 v27 = 4 * v48++;
                                 *(int *)((char *)dword_7211B0 + v27) = v26;
                                 *(int *)((char *)dword_721160 + v27) = i;
