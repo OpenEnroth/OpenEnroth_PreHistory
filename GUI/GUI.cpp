@@ -4149,11 +4149,11 @@ LABEL_731:
 
         case 0x5D:
           wsprintfA((char *)TmpBuf, "%d / %d %s    %d / %d %s",
-            pPlayers[v209]->sHealth,
-            Player_GetMaxHealth(pPlayers[v209]),
+            pPlayers[v209-1]->sHealth,
+            Player_GetMaxHealth(pPlayers[v209-1]),
             pGlobalTXT_LocalizationStrings[108],
-            pPlayers[v209]->sMana,
-            Player_GetMaxMana(pPlayers[v209]),
+            pPlayers[v209-1]->sMana,
+            Player_GetMaxMana(pPlayers[v209-1]),
             pGlobalTXT_LocalizationStrings[212]);
           goto LABEL_521;
         case 0xC:
