@@ -3795,7 +3795,7 @@ LABEL_662:
                     dword_50C9E8[3 * dword_50C9E8[0] + 2] = v116;
                     dword_50C9E8[3 * dword_50C9E8[0]++ + 3] = uActiveCharacter ;
                   }	 */
-				  dword_50C9E8.PutMessageToQueue(142,v116,uActiveCharacter); 
+				  dword_50C9E8.PutMessageToQueue(142,v116,uActiveCharacter-1); 
                 }
                 else
                 {

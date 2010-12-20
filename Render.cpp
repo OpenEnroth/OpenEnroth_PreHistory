@@ -62,12 +62,13 @@ int Render_HWLContainer_LoadHWLHeaders(struct Render_HWLContainer *_this, const 
  fseek(_this->pHWLFile, _this->dword_000008, 0);
 
  locked_fread(&_this->uNumElements, 4, 1, _this->pHWLFile);
+ unsigned char* base= MemAlloc(unsigned char, 20*_this->uNumElements);  //operator new(0x14u)
  for (i = 0; i <_this->uNumElements; i++)
  {
-  _this->pSriteNames[i] = MemAlloc(unsigned char, 20);  //operator new(0x14u)
-  locked_fread(_this->pSriteNames[i], 1, 20, _this->pHWLFile);
+  _this->pSriteNames[i]=base+i*20;
+  
  }
-
+ locked_fread(_this->pSriteNames[0],_this->uNumElements, 20, _this->pHWLFile);
  locked_fread(_this->pSpriteFileOffsets, 4, _this->uNumElements, _this->pHWLFile);
  _this->dword_061A90 = 0;
  return true;

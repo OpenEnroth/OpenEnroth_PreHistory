@@ -557,7 +557,7 @@ int Player_GetMaxHealth(struct Player *_this)
 //----- (0048E565) --------------------------------------------------------
 int __thiscall Player_GetMaxMana(struct Player *_this)
 {
-  int v1; // edi@1
+  Player *v1; // edi@1
   int v2; // eax@2
   int v3; // esi@4
   int v4; // eax@5
@@ -568,8 +568,8 @@ int __thiscall Player_GetMaxMana(struct Player *_this)
   int v9; // esi@6
   int result; // eax@7
 
-  v1 = (int)_this;
-  switch ( *(_BYTE *)((char *)_this + 185) )
+  v1 = _this;
+  switch ( _this->uClass )
   {
     case 5:
     case 6:
@@ -611,11 +611,11 @@ LABEL_4:
       v6 = Player_GetActualIntelligence(_this);
       v3 = sub_48EA1B(v6) + v5;
 LABEL_6:
-      v8 = (unsigned __int8)byte_4ED78C[*(_BYTE *)(v1 + 185)] * (Player_GetActualLevel((Player *)v1) + v3);
-      v9 = Player_MaybeGetWearItemsBonus((Player *)v1, 8, 0) + v8;
-      v7 = *(_BYTE *)(v1 + 6810)
-         + (unsigned __int8)byte_4ED75C[(unsigned int)*(_BYTE *)(v1 + 185) >> 2]
-         + Player_sub_48FC00((Player *)v1, 8)
+      v8 = (unsigned __int8)byte_4ED78C[ _this->uClass] * (Player_GetActualLevel(v1) + v3);
+      v9 = Player_MaybeGetWearItemsBonus(v1, 8, 0) + v8;
+      v7 =   v1->array_001A99[1]	//*(_BYTE *)(v1 + 6810)
+         + (unsigned __int8)byte_4ED75C[ _this->uClass >> 2]
+         + Player_sub_48FC00(v1, 8)
          + v9;
       if ( v7 < 1 )
         goto LABEL_7;
