@@ -2793,8 +2793,8 @@ LABEL_92:
           sub_42FBDD();
           v211 = sub_444D80();
           strcpy((char *)pClass51_global->string_000000, CurrentLevelName);
-          if ( byte_6BE3C4_MaybeDrowningFlag != 1 && pParty_global->dword_000704
-           || sub_48902E((char *)pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, &Source, 20) != v0 )
+          if (byte_6BE3C4_MaybeDrowningFlag != 1 && pParty_global->bFlying ||
+              sub_48902E((char *)pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, &Source, 20) != v0 )
           {
             struct_576FE8.dword_000044 = v0;
 LABEL_387:
@@ -5754,7 +5754,7 @@ void __cdecl GameUI_DrawPartySpells()
   {
    if (pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000 > 0 )
     {
-      if (pParty_global->dword_000704)
+      if (pParty_global->bFlying)
         v6 = v0;
       else
         v6 = 0;

@@ -18,7 +18,7 @@ public:
  int dword_000010;
  int dword_000014;
  int dword_000018;
- int int_00001C;
+ int int_00001C;  // timed passed/factor.  used in gravity pull calculations
  int dword_000020;
  int dword_000024;
 

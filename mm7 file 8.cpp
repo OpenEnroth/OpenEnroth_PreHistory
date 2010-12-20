@@ -6142,7 +6142,7 @@ LABEL_61:
         {
           SpellBuff_sub_458585((SpellBuff *)v47);
           if (array_4EE07C[i] == 7 )
-            pParty_global->dword_000704 = 0;
+            pParty_global->bFlying = false;
         }
       }
     }

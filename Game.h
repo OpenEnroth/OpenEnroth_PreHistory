@@ -57,7 +57,8 @@ struct Game
  int      dword_000E18;
  int      dword_000E1C;
  int      uSomeFlags;              // dword @ 000E20   & 0x01 == lighing on?
- int      dword_000E24;            // 0x20: bloodsplats
+ int      dword_000E24;            // 0x08: gravity strength += 8
+                                   // 0x20: bloodsplats
  float    flt_000E28;
  __int64  qword_000E2C;
  int      dword_000E34;

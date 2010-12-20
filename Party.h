@@ -88,7 +88,7 @@ struct abc	 {
  int           dword_0006F8;
  int           dword_0006FC;
  int           dword_000700;
- int           dword_000704; // flying flag?
+ unsigned int  bFlying;      // dword @ 000704   or maybe 'in air', 'falling'; unclear
 
  unsigned char byte_000708;
  unsigned char byte_000709;
@@ -131,8 +131,8 @@ struct abc	 {
  struct NPCData     pHiredNPCs[2];    // struct[2]  @ 0076BC
  struct ItemGen     pickedItem;       // struct     @ 007754   item picked in inventory
  int                dword_007778;     // party flags;     0x0002 - party position/direction/eyelevel changed
-                                      //                  0x0004 - You're Drowning!  message displayed
-                                      //                  0x0200 - You are Burning!  message displayed
+                                      //                  0x0004 - You're Drowning!  message displayed - in water
+                                      //                  0x0200 - You are Burning!  message displayed - in lava
 
  char pad[100000];
 

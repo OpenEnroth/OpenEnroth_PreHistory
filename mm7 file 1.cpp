@@ -2379,7 +2379,7 @@ int __fastcall sub_46BE0A(unsigned int a1)
   {
    strcpy((char *)pClass51_global->string_000000, CurrentLevelName);
    v1 = sub_48902E((char *)pClass51_global->string_000000, pParty_global->sPartyPosX, pParty_global->sPartyPosY, (char *)&v3, 32);
-    if ( !byte_6BE3C4_MaybeDrowningFlag && (pParty_global->dword_007778 & 0x8C || pParty_global->dword_007778 & 0x0200 || pParty_global->dword_000704) || !v1 )
+    if ( !byte_6BE3C4_MaybeDrowningFlag && (pParty_global->dword_007778 & 0x8C || pParty_global->dword_007778 & 0x0200 || pParty_global->bFlying) || !v1 )
     {
       if (pParty_global->sPartyPosX < -22528)
         pParty_global->sPartyPosX = -22528;
@@ -5550,7 +5550,7 @@ void __cdecl sub_473893_SomeStuffIncludingPartyPosUpdate()
   int v101; // [sp+3Ch] [bp-58h]@28
   int v102; // [sp+40h] [bp-54h]@180
   int v103; // [sp+44h] [bp-50h]@14
-  int v104; // [sp+48h] [bp-4Ch]@1
+  int v104_looks_like_bPartyInAir; // [sp+48h] [bp-4Ch]@1
   int v105; // [sp+4Ch] [bp-48h]@1
   int v106; // [sp+50h] [bp-44h]@1
   int v107; // [sp+54h] [bp-40h]@48
@@ -5656,18 +5656,18 @@ LABEL_9:
     }
   }
   v101 = -1;
-  if (pParty_global->dword_000704 != 0)
+  if (pParty_global->bFlying)
     v101 = sub_46D8E3(pParty_global->sPartyPosX, pParty_global->sPartyPosY, pParty_global->sPartyPosZ + pParty_global->uPartyHeight, (int)&v94);
   v99 = v100 == 0;
   v97 = v103 + 1;
   if ( v115 <= v103 + 1 )
   {
     v101 = -1;
-    pParty_global->dword_000704 = 0;
-   v104 = 0;
+    pParty_global->bFlying = false;
+   v104_looks_like_bPartyInAir = false;
   }
   else
-    v104 = 1;
+    v104_looks_like_bPartyInAir = true;
 
   if (dword_6BE374_WalkSoundFlag)
   {
@@ -5680,10 +5680,10 @@ LABEL_9:
    if ( HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000) <= 0)
     {
      if ( HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000) < 0 || (_DWORD)pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000 <= 0)
-        pParty_global->dword_000704 = 0;
+        pParty_global->bFlying = false;
     }
   }
-  if (v104 == 0)
+  if (!v104_looks_like_bPartyInAir)
   {
     if (pParty_global->dword_0006F4 != (8 * v100 | 6))
     {
@@ -5716,14 +5716,14 @@ LABEL_9:
       case 13:
        if (pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000 > 0 || byte_6BE3C4_MaybeDrowningFlag == 1 )
         {
-          pParty_global->dword_000704 = 0;
+          pParty_global->bFlying = false;
           if ( byte_6BE3C4_MaybeDrowningFlag || byte_ACD8C3 & 1 || dword_ACD788[1743 * (unsigned __int8)byte_ACD8C2] > 0 )
           {
-            if ( pParty_global->sPartyPosZ < 4000 || v104 )
+            if ( pParty_global->sPartyPosZ < 4000 || v104_looks_like_bPartyInAir)
             {
               v115 += 30;
               v105 += 30;
-              pParty_global->dword_000704 = 1;
+              pParty_global->bFlying = true;
               if ( v115 > 4000 )
               {
                 v115 = 4000;
@@ -5745,7 +5745,7 @@ LABEL_9:
                     BYTE1(pParty_global->dword_007778) |= 1u;
                     pParty_global->sPartyPosZ = v101 - pParty_global->uPartyHeight - 31;
                     pParty_global->dword_0006F0 = v115;
-                    pParty_global->dword_000704 = 0;
+                    pParty_global->bFlying = false;
                     v115 = pParty_global->sPartyPosZ;
                     v105 = pParty_global->dword_0006F0;
                   }
@@ -5761,25 +5761,25 @@ LABEL_9:
       case 14:
        if (pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000 > 0 || byte_6BE3C4_MaybeDrowningFlag == 1 )
         {
-          pParty_global->dword_000704 = 0;
+          pParty_global->bFlying = false;
           if ( byte_6BE3C4_MaybeDrowningFlag || byte_ACD8C3 & 1 || dword_ACD788[1743 * (unsigned __int8)byte_ACD8C2] > 0 )
           {
             v115 -= 30;
             v105 -= 30;
             pParty_global->dword_0006E8 = 0;
             v113 = 0;
-            pParty_global->dword_000704 = 1;
+            pParty_global->bFlying = true;
             v119 = 1;
             if ( v115 <= v103 )
             {
-              pParty_global->dword_000704 = 0;
+              pParty_global->bFlying = false;
               stru_7215D8.uNumActions = 0;
             }
           }
         }
         break;
 
-      case 1: // turn left
+      case PARTY_ACTION_TURN_LEFT:
       {
        if (uTurnSpeed)
          v117 += uTurnSpeed;
@@ -5791,7 +5791,7 @@ LABEL_9:
       }
       break;
 
-      case 2: // turn right
+      case PARTY_ACTION_TURN_RIGHT:
       {
        if (uTurnSpeed)
          v117 -= uTurnSpeed;
@@ -5848,14 +5848,14 @@ LABEL_9:
         v116 = 1;
         break;
 
-      case 5: // move forward
+      case PARTY_ACTION_WALK_FORWARD:
         v0 += cosf(3.1415926 * (v117 / 1024.0)) * pParty_global->uWalkSpeed * fWalkSpeedMultiplier;
         v1 += sinf(3.1415926 * (v117 / 1024.0)) * pParty_global->uWalkSpeed * fWalkSpeedMultiplier;
         v120 = v1;
         v116 = 1;
       break;
 
-      case 6: // move backward
+      case PARTY_ACTION_WALK_BACKWARDS: // move backward
         v0 -= cosf(3.1415926 * (v117 / 1024.0)) * pParty_global->uWalkSpeed * fWalkSpeedMultiplier;
         v1 -= sinf(3.1415926 * (v117 / 1024.0)) * pParty_global->uWalkSpeed * fWalkSpeedMultiplier;
         v120 = v1;
@@ -5863,7 +5863,7 @@ LABEL_9:
       break;
 
       case 16:
-        if (pParty_global->dword_000704)
+        if (pParty_global->bFlying)
         {
           v17 = (double)v107;
           v118 = class59_SinCos(pClass59_global, v117);
@@ -5903,7 +5903,7 @@ LABEL_9:
         v21 = (double)v107;
         v118 = class59_SinCos(pClass59_global, v117);
         v20 = (signed __int64)(v21 * flt_6BE148);
-        if (pParty_global->dword_000704)
+        if (pParty_global->bFlying)
         {
           v121 = (unsigned __int64)(v118 * 4 * (_DWORD)v20) >> 16;
           v0 -= v121;
@@ -5953,19 +5953,17 @@ LABEL_105:
       case PARTY_ACTION_JUMP:
         if ( !v110 || v100 )
         {
-          if ( !v104 )
+          if ( !v104_looks_like_bPartyInAir )
           {
             if (pParty_global->dword_000024)
             {
-              if ( !(pParty_global->dword_007778 & 4) )
-              {
-                if ( !(BYTE1(pParty_global->dword_007778) & 2) )
+              if (~pParty_global->dword_007778 & 0x0004 && // if ! drowning
+                  ~pParty_global->dword_007778 & 0x0200)   // if ! burning
                 {
-                  v118 = pParty_global->dword_000024 << 6;
-                  v104 = 1;
-                  v113 = (signed __int64)((double)(pParty_global->dword_000024 << 6) * 1.5 + (double)v113);
+                  v118 = 64 * pParty_global->dword_000024;
+                  v104_looks_like_bPartyInAir = true;
+                  v113 += (signed __int64)(v118 * 1.5);
                 }
-              }
             }
           }
         }
@@ -5975,12 +5973,12 @@ LABEL_105:
         break;
 
       case 15:
-        if (pParty_global->dword_000704)
+        if (pParty_global->bFlying)
         {
           BYTE1(pParty_global->dword_007778) |= 1u;
           pParty_global->dword_0006E8 = 0;
         }
-        pParty_global->dword_000704 = 0;
+        pParty_global->bFlying = false;
         stru_7215D8.uNumActions = 0;
        break;
     }
@@ -5990,7 +5988,7 @@ LABEL_105:
   pParty_global->sRotationX = v112;
   if ( v115 < v103 )
   {
-    if (pParty_global->dword_000704)
+    if (pParty_global->bFlying)
     {
 LABEL_130:
       v23 = GetTickCount();
@@ -6016,7 +6014,7 @@ LABEL_130:
     v115 = v103;
     pParty_global->dword_000700 = v103;
   }
-  if (pParty_global->dword_000704)
+  if (pParty_global->bFlying)
     goto LABEL_130;
   v105 = v115;
   if ( HIDWORD(pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000) >= 0 )
@@ -6026,28 +6024,30 @@ LABEL_130:
   }
 LABEL_141:
   v24 = 0;
-  if (v104 && !pParty_global->dword_000704)
+
+  //gravity effect
+  if (v104_looks_like_bPartyInAir && !pParty_global->bFlying)
   {
-    v26 = -(cClock1.int_00001C * sub_46BDA8());
-    v25 = v113 + 2 * v26;
-    v113 += 2 * v26;
+    v26 = -(cClock1.int_00001C * sub_46BDA8_GetGravityStrength());
+    v25 = v113 += 2 * v26;
     goto LABEL_149;
   }
+
   if ( !v110 )
   {
     v25 = v113;
 LABEL_149:
-    if ( v104 == v24 )
+    if ( v104_looks_like_bPartyInAir == v24 )
       goto LABEL_150;
     goto LABEL_164;
   }
-  if ( !v104 )
+  if ( !v104_looks_like_bPartyInAir )
   {
     if ( v100 )
       goto LABEL_150;
     v115 = v103;
     sub_46DCC8(v108, v109, (int)&local_10);
-    v27 = v113 + -8 * cClock1.int_00001C * sub_46BDA8();
+    v27 = v113 + -8 * cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
     v121 = abs((int)(v0 * local_10.v90 + v1 * local_10.v91 + v27 * local_10.v92)) >> 16;
     v119 = (unsigned __int64)(v121 * local_10.v90) >> 16;
     v0 += v119;
@@ -6066,7 +6066,7 @@ LABEL_164:
   {
     if ( v25 < -500 )
     {
-      if (!pParty_global->dword_000704)
+      if (!pParty_global->bFlying)
       {
         if ( pParty_global->sPartyPosZ - v103 > 1000 )
         {
@@ -6253,7 +6253,7 @@ LABEL_199:
     {
       if ( (stru_721530.dword_000078 & 7) == 6 )
       {
-        pParty_global->dword_000704 = 0;
+        pParty_global->bFlying = false;
         v40 = (int)&pClass51_global->pBModels[(stru_721530.dword_000078 >> 9)];
         v119 = v40;
         v39 = *(_DWORD *)(v40 + 84) + 308 * ((stru_721530.dword_000078 >> 3) & 0x3F);
@@ -6358,7 +6358,7 @@ LABEL_234:
     v54 = abs(pParty_global->sPartyPosZ - v115);
     if ( sub_452A9E(v114 * v114 + v118 * v118 + v54 * v54) < 8 )
       goto LABEL_344;
-    if ( v106 && (!v104 || v93) )
+    if ( v106 && (!v104_looks_like_bPartyInAir || v93) )
     {
       if (!v99
        && !(*(_BYTE *)((char *)&pClass51_global->pBModels[(pParty_global->dword_0006F4 >> 9)].ptr_000054[((pParty_global->dword_0006F4 >> 3) & 0x3F)]
@@ -6388,7 +6388,7 @@ LABEL_255:
       v79 = class51_sub_47EE49((int)pClass51_global, v56, v55, v78);
       goto LABEL_257;
     }
-    if ( v116 && (!v104 || v93) )
+    if ( v116 && (!v104_looks_like_bPartyInAir || v93) )
     {
       if ( v99
         || *(_BYTE *)(*(_DWORD *)(188 * (pParty_global->dword_0006F4 >> 9) + pClass51_global->pBModels + 84)
@@ -6423,7 +6423,7 @@ LABEL_344:
       pParty_global->dword_0006F8 = 64;
     }
   }
-  if ( !v104 || v93 )
+  if ( !v104_looks_like_bPartyInAir || v93 )
     pParty_global->dword_007778 &= 0xFFFFFFF7u;
   else
     pParty_global->dword_007778 |= 8u;
@@ -6529,13 +6529,13 @@ LABEL_344:
     }
     return;
   }
-  v68 = pParty_global->dword_000704;
-  if (pParty_global->dword_000704 || v93 == 0 || v98 || !v119)
+  v68 = pParty_global->bFlying;
+  if (pParty_global->bFlying || v93 == 0 || v98 || !v119)
     v69 = 1;
   else
     v69 = v114 != 0;
   v106 = 0;
-  if (!pParty_global->dword_000704 && v93 != 0 && !v98)
+  if (!pParty_global->bFlying && v93 != 0 && !v98)
   {
     if ( v119 )
     {
@@ -7133,7 +7133,7 @@ int __cdecl sub_493938()
     v4 = (v2 - v1) / 5;
     if (pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000 > 0 )
     {
-      if (pParty_global->dword_000704)
+      if (pParty_global->bFlying)
       {
         if ( !(byte_ACD8C3 & 1) )
         {
@@ -7145,7 +7145,7 @@ int __cdecl sub_493938()
           {
             *(_DWORD *)v5 = 0;
             pParty_global->dword_007778 &= 0xFFFFFFBFu;
-            pParty_global->dword_000704 = 0;
+            pParty_global->bFlying = false;
             v69 = 1;
           }
         }

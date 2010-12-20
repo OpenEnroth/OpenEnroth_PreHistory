@@ -750,7 +750,7 @@ int __thiscall sub_46BCD2(void *_this, int a2, int a3, int a4);
 void *__stdcall sub_46BD09(void *a1, void *a2);
 int __thiscall sub_46BD2D(void *_this, int a2, unsigned int a3);
 int __fastcall sub_46BD66(int a1, int a2);
-unsigned int __cdecl sub_46BDA8();
+unsigned int __cdecl sub_46BDA8_GetGravityStrength();
 void __thiscall sub_46BEF1(void *_this);
 signed int __fastcall sub_46BFFA(int a1, signed int a2);
 int __cdecl sub_46CC4B();

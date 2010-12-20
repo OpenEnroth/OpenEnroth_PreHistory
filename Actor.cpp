@@ -773,7 +773,7 @@ void Actor_sub_402686(unsigned int uActorID, signed int a2, signed int a3, struc
 
   v4 = 0;
   pActor = &pActors[uActorID];
-  if ((pActor->byte_00002A[16] != 0 ) && (!pParty_global->dword_000704))
+  if ((pActor->byte_00002A[16] != 0 ) && !pParty_global->bFlying)
   {
     if (pActor->byte_00003E[7] && (dword_6BE360 == 2))
       v4 = pActor->word_000088 + 512;      
@@ -844,7 +844,7 @@ void Actor_sub_40281C(unsigned int uActorID, signed int a2, signed int a3, struc
     
   v5 = 0;
   pActor = &pActors[uActorID];
-  if ((pActor->byte_00002A[16] != 0 ) && (!pParty_global->dword_000704))
+  if ((pActor->byte_00002A[16] != 0 ) && !pParty_global->bFlying)
   {
     if (pActor->byte_00003E[7] && (dword_6BE360 == 2))
       v5 = pActor->word_000088 + 512;      
@@ -908,7 +908,7 @@ void Actor_sub_402AD7(unsigned int uActorID, signed int a2, signed int a3, int a
   pActor = &pActors[uActorID];
   v5 = 0;
 
-  if ((pActor->byte_00002A[16] != 0 ) && (!pParty_global->dword_000704))
+  if ((pActor->byte_00002A[16] != 0 ) && !pParty_global->bFlying)
   {
     if (pActor->byte_00003E[7])
       v5 = pActor->word_000088 + 512;

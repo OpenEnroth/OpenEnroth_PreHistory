@@ -3689,11 +3689,11 @@ int __fastcall sub_46BD66(int a1, int a2)
 }
 
 //----- (0046BDA8) --------------------------------------------------------
-unsigned int __cdecl sub_46BDA8()
+unsigned int __cdecl sub_46BDA8_GetGravityStrength()
 {
   int v1; // eax@1
 
-  v1 = ~*(_BYTE *)(LODWORD(pGame) + 3620) & 8;
+  v1 = ~pGame->dword_000E24 & 8;
   LOBYTE(v1) = v1 | 2;
   return (unsigned int)v1 >> 1;
 }
@@ -7313,7 +7313,7 @@ void __cdecl sub_46F90C()
         else
         {
           if ( *(_DWORD *)(v21 + 24) < 45000 )
-            *(_WORD *)(v1 + 152) -= cClock1.int_00001C * sub_46BDA8();
+            *(_WORD *)(v1 + 152) -= cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
         }
       }
       else
@@ -7321,7 +7321,7 @@ void __cdecl sub_46F90C()
         if ( v61 )
         {
           if ( !v64 )
-            *(_WORD *)(v1 + 152) += -8 * cClock1.int_00001C * sub_46BDA8();
+            *(_WORD *)(v1 + 152) += -8 * cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
         }
       }
       if ( *(_WORD *)(v1 + 148) * (signed int)*(_WORD *)(v1 + 148)
@@ -7933,7 +7933,7 @@ LABEL_121:
             v19 = *(_WORD *)(v1 + 142);
             *(_WORD *)(v1 + 146) = v5;
             sub_46DCC8(v19, v18, (int)&v62);
-            v20 = sub_46BDA8();
+            v20 = sub_46BDA8_GetGravityStrength();
             v21 = v62.v63;
             v22 = v62.v64;
             v23 = v62.v63 * *(_WORD *)(v1 + 150);
@@ -7954,7 +7954,7 @@ LABEL_121:
     }
     else
     {
-      *(_WORD *)(v1 + 152) -= cClock1.int_00001C * sub_46BDA8();
+      *(_WORD *)(v1 + 152) -= cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
     }
     if ( pParty_global->dword_01613C != v16 )
     {
@@ -8540,7 +8540,7 @@ LABEL_64:
   }
   if ( v50 <= *((_DWORD *)v2 + 3) - 3 )
   {
-    *((_WORD *)v2 + 10) -= cClock1.int_00001C * sub_46BDA8();
+    *((_WORD *)v2 + 10) -= cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
     goto LABEL_24;
   }
   if ( !(v5 & 0x40) || sub_46BFFA(v44, 0) )
@@ -8556,7 +8556,7 @@ LABEL_64:
     else
     {
       if ( *(_DWORD *)(v6 + 24) < 45000 )
-        *((_WORD *)v2 + 10) -= cClock1.int_00001C * sub_46BDA8();
+        *((_WORD *)v2 + 10) -= cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
       v8 = 0;
     }
     v50 = *((_WORD *)v2 + 8);
@@ -8735,7 +8735,7 @@ void __fastcall sub_471C03(int a1)
   {
     if ( v70 )
     {
-      *((_WORD *)v5 + 10) -= cClock1.int_00001C * sub_46BDA8();
+      *((_WORD *)v5 + 10) -= cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
       goto LABEL_13;
     }
     if ( v69 )
@@ -8744,7 +8744,7 @@ void __fastcall sub_471C03(int a1)
       v12 = *((_DWORD *)v5 + 1);
       *((_DWORD *)v5 + 3) = v4;
       sub_46DCC8(v12, v11, (int)&v51);
-      *((_WORD *)v5 + 10) -= cClock1.int_00001C * sub_46BDA8();
+      *((_WORD *)v5 + 10) -= cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
       v68 = abs(v52 * *((_WORD *)v5 + 9) + v53 * *((_WORD *)v5 + 10) + v51 * *((_WORD *)v5 + 8)) >> 16;
       v72 = (unsigned __int64)(v68 * v51) >> 16;
       *((_WORD *)v5 + 8) += (unsigned int)(v68 * v51) >> 16;
@@ -9216,9 +9216,9 @@ void __cdecl sub_472866()
   v84 = 0;
   v2 = v3 + 40;
   i = sub_46ED1B(v86, v85, v2, &v77, (int)&v79);
-  if (pParty_global->dword_000704)
+  if (pParty_global->bFlying)
   {
-    pParty_global->dword_000704 = 0;
+    pParty_global->bFlying = false;
     if (pParty_global->pPartyBuffs[SPELLBUFF_FLY].qword_000000 > 0 )
       *((_BYTE *)&unk_5E4D52 + 20 * pParty_global->pPartyBuffs[SPELLBUFF_FLY].word_00000C) |= 1u;
   }
@@ -9494,13 +9494,13 @@ LABEL_76:
   pParty_global->sRotationX = v83;
   if ( v84 )
   {
-    v89 += -2 * cClock1.int_00001C * sub_46BDA8();
+    v89 += -2 * cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
   }
   else
   {
     if ( *(_DWORD *)(v68 + dword_6BE644 + 24) < 32768 )
     {
-      v89 -= cClock1.int_00001C * sub_46BDA8();
+      v89 -= cClock1.int_00001C * sub_46BDA8_GetGravityStrength();
       goto LABEL_92;
     }
     if ( BYTE1(pParty_global->dword_007778) & 1 )
@@ -9511,7 +9511,7 @@ LABEL_76:
   {
     if ( v89 < -500 )
     {
-      if (!pParty_global->dword_000704)
+      if (!pParty_global->bFlying)
       {
         for (int i = 0; i < 4; i++) 
           {
