@@ -48,9 +48,9 @@ int __stdcall BinkGetRects(HBINK hBink, unsigned int uFlags)
  return (binkw32_BinkGetRects)(hBink, uFlags);
 }
 
-int __stdcall BinkCopyToBuffer(HBINK hBink, void *pBuffer, unsigned int lPitch, unsigned int unk, unsigned int uX, unsigned int uY, unsigned int uFlags)
+int __stdcall BinkCopyToBuffer(HBINK hBink, void *pBuffer, unsigned int lPitch, unsigned int uNumScanlines, unsigned int uX, unsigned int uY, unsigned int uFlags)
 {
- return (binkw32_BinkCopyToBuffer)(hBink, pBuffer, lPitch, unk, uX, uY, uFlags);
+ return (binkw32_BinkCopyToBuffer)(hBink, pBuffer, lPitch, uNumScanlines, uX, uY, uFlags);
 }
 
 int __stdcall BinkDoFrame(HBINK hBink)

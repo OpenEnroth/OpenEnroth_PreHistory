@@ -124,6 +124,7 @@ unsigned int __stdcall SmackSoundOnOff(HSMACK, unsigned int bOn);
 void __stdcall SmackClose(HSMACK);
 void __stdcall SmackBufferClose(HSMACKBUF);
 void __stdcall SmackBlitClose(HSMACKBLIT);
+int __stdcall SmackBlitClear(HSMACKBLIT a1, unsigned short *pFrameData, unsigned int uTargetSurfacePitch, unsigned int uOutX, unsigned int uOutY, unsigned int uOutZ, unsigned int uOutW, int a8);
 
 
 
@@ -143,6 +144,3 @@ int __stdcall SmackBufferNewPalette(long a1, long a2, long a3);
 
 // sub_4D83D4: using guessed type int __stdcall SmackColorRemapWithTrans(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
 int __stdcall SmackColorRemapWithTrans(long a1, long a2, long a3, long a4, long a5);
-
-// sub_4D83DC: using guessed type int __stdcall SmackBlitClear(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
-int __stdcall SmackBlitClear(HSMACKBLIT, unsigned short *, long a3, long a4, long a5, long a6, long a7, long a8);

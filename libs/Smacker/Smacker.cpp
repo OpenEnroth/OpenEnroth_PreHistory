@@ -16,6 +16,7 @@ unsigned int (__stdcall *smackw32_SmackSoundOnOff)(HSMACK, unsigned int) = 0;
 void (__stdcall *smackw32_SmackClose)(HSMACK) = 0;
 void (__stdcall *smackw32_SmackBufferClose)(HSMACKBUF) = 0;
 void (__stdcall *smackw32_SmackBlitClose)(HSMACKBLIT) = 0;
+int  (__stdcall *smackw32_SmackBlitClear)(HSMACKBLIT, unsigned short *, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, int) = 0;
 void SMACKW32_DLL_Initialize()
 {
  HMODULE pDll = LoadLibraryW(L"SmackW32.dll");
@@ -35,6 +36,7 @@ void SMACKW32_DLL_Initialize()
  smackw32_SmackClose = (void (__stdcall *)(HSMACK))GetProcAddress(pDll, "_SmackClose@4");
  smackw32_SmackBufferClose = (void (__stdcall *)(HSMACKBUF))GetProcAddress(pDll, "_SmackBufferClose@4");
  smackw32_SmackBlitClose = (void (__stdcall *)(HSMACKBLIT))GetProcAddress(pDll, "_SmackBlitClose@4");
+ smackw32_SmackBlitClear = (int (__stdcall *)(HSMACKBLIT, unsigned short *, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, int))GetProcAddress(pDll, "_SmackBlitClear@32");
 }
 
 
@@ -117,6 +119,10 @@ void __stdcall SmackToBuffer(HSMACK hSmack, unsigned int uX, unsigned int uY, un
  (smackw32_SmackToBuffer)(hSmack, uX, uY, uPitch, uHeight, pBuffer, uFlags);
 }
 
+int __stdcall SmackBlitClear(HSMACKBLIT a1, unsigned short *pFrameData, unsigned int uTargetSurfacePitch, unsigned int uOutX, unsigned int uOutY, unsigned int uOutZ, unsigned int uOutW, int a8)
+{
+ return (smackw32_SmackBlitClear)(a1, pFrameData, uTargetSurfacePitch, uOutX, uOutY, uOutZ, uOutW, a8);
+}
 
 
 
@@ -150,13 +156,6 @@ int __stdcall SmackBufferNewPalette(long a1, long a2, long a3)
 
 // sub_4D83D4: using guessed type int __stdcall SmackColorRemapWithTrans(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
 int __stdcall SmackColorRemapWithTrans(long a1, long a2, long a3, long a4, long a5)
-{
- __asm int 3
- return 0;
-}
-
-// sub_4D83DC: using guessed type int __stdcall SmackBlitClear(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD);
-int __stdcall SmackBlitClear(HSMACKBLIT a1, unsigned short *pFrameData, long a3, long a4, long a5, long a6, long a7, long a8)
 {
  __asm int 3
  return 0;

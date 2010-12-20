@@ -61,7 +61,7 @@ int __stdcall BinkWait(HBINK);
 int __stdcall BinkDoFrame(HBINK);
 int __stdcall BinkNextFrame(HBINK);
 int __stdcall BinkGetRects(HBINK hBink, unsigned int uFlags);
-int __stdcall BinkCopyToBuffer(HBINK hBink, void *pBuffer, unsigned int lPitch, unsigned int unk, unsigned int uX, unsigned int uY, unsigned int uFlags);
+int __stdcall BinkCopyToBuffer(HBINK hBink, void *pBuffer, unsigned int lPitch, unsigned int uNumLines, unsigned int uX, unsigned int uY, unsigned int uFlags);
 int __stdcall BinkPause(HBINK, int bPause);
 int __stdcall BinkClose(HBINK);
 
