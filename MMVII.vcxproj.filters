@@ -22,6 +22,15 @@
     <Filter Include="libs\legacy_dx">
       <UniqueIdentifier>{36440233-2009-436f-a2db-10227aa934a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libs\Smacker">
+      <UniqueIdentifier>{c3f89476-11a6-4c72-93b3-d477d698a2fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\Bink">
+      <UniqueIdentifier>{6db19f15-0454-4846-9715-dda2aa8a8810}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\AIL">
+      <UniqueIdentifier>{f773e185-099c-402d-bac1-7394022806dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Render\RenderD3D10.cpp">
@@ -50,8 +59,6 @@
     </ClCompile>
     <ClCompile Include="_lod.cpp" />
     <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="AIL.cpp" />
-    <ClCompile Include="Bink.cpp" />
     <ClCompile Include="c18.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CbmTools.cpp" />
@@ -78,7 +85,6 @@
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="RenderD3D3.cpp" />
     <ClCompile Include="RenderOpenGL.cpp" />
-    <ClCompile Include="Smacker.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="libs\zlib\adler32.c">
       <Filter>libs\zlib</Filter>
@@ -176,6 +182,15 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="AudioPlayer.cpp" />
     <ClCompile Include="VideoPlayer.cpp" />
+    <ClCompile Include="libs\Bink\Bink.cpp">
+      <Filter>libs\Bink</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\Smacker\Smacker.cpp">
+      <Filter>libs\Smacker</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\AIL\AIL.cpp">
+      <Filter>libs\AIL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Math.h">
@@ -226,8 +241,6 @@
     <ClInclude Include="Window.h" />
     <ClInclude Include="_lod.h" />
     <ClInclude Include="Actor.h" />
-    <ClInclude Include="AIL.h" />
-    <ClInclude Include="Bink.h" />
     <ClInclude Include="c18.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CbmTools.h" />
@@ -249,7 +262,6 @@
     <ClInclude Include="Render.h" />
     <ClInclude Include="RenderD3D3.h" />
     <ClInclude Include="RenderSoftware.h" />
-    <ClInclude Include="Smacker.h" />
     <ClInclude Include="Spells.h" />
     <ClInclude Include="libs\zlib\deflate.h">
       <Filter>libs\zlib</Filter>
@@ -380,6 +392,15 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="AudioPlayer.h" />
     <ClInclude Include="VideoPlayer.h" />
+    <ClInclude Include="libs\Bink\Bink.h">
+      <Filter>libs\Bink</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\Smacker\Smacker.h">
+      <Filter>libs\Smacker</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\AIL\AIL.h">
+      <Filter>libs\AIL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\legacy_dx\d3dvec.inl">

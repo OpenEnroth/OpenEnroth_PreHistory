@@ -89,9 +89,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="AIL.cpp" />
     <ClCompile Include="AudioPlayer.cpp" />
-    <ClCompile Include="Bink.cpp" />
     <ClCompile Include="c18.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CbmTools.cpp" />
@@ -108,6 +106,8 @@
     <ClCompile Include="GUI\GUIProgressBar.cpp" />
     <ClCompile Include="GUI\GUIWindow.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="libs\AIL\AIL.cpp" />
+    <ClCompile Include="libs\Bink\Bink.cpp" />
     <ClCompile Include="libs\libpng143\png.c" />
     <ClCompile Include="libs\libpng143\pngerror.c" />
     <ClCompile Include="libs\libpng143\pngget.c" />
@@ -124,6 +124,7 @@
     <ClCompile Include="libs\libpng143\pngwrite.c" />
     <ClCompile Include="libs\libpng143\pngwtran.c" />
     <ClCompile Include="libs\libpng143\pngwutil.c" />
+    <ClCompile Include="libs\Smacker\Smacker.cpp" />
     <ClCompile Include="libs\zlib\adler32.c" />
     <ClCompile Include="libs\zlib\compress.c" />
     <ClCompile Include="libs\zlib\crc32.c" />
@@ -158,16 +159,13 @@
     <ClCompile Include="Render\RenderOGL.cpp" />
     <ClCompile Include="Render\RenderOperatorsD3D10.cpp" />
     <ClCompile Include="Render\RenderOperatorsOGL.cpp" />
-    <ClCompile Include="Smacker.cpp" />
     <ClCompile Include="VideoPlayer.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="_lod.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
-    <ClInclude Include="AIL.h" />
     <ClInclude Include="AudioPlayer.h" />
-    <ClInclude Include="Bink.h" />
     <ClInclude Include="c18.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CbmTools.h" />
@@ -185,6 +183,8 @@
     <ClInclude Include="GUI\GUIWindow.h" />
     <ClInclude Include="Items.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="libs\AIL\AIL.h" />
+    <ClInclude Include="libs\Bink\Bink.h" />
     <ClInclude Include="libs\legacy_dx\d3d.h" />
     <ClInclude Include="libs\legacy_dx\d3dcaps.h" />
     <ClInclude Include="libs\legacy_dx\d3drm.h" />
@@ -214,6 +214,7 @@
     <ClInclude Include="libs\libpng143\png.h" />
     <ClInclude Include="libs\libpng143\pngconf.h" />
     <ClInclude Include="libs\libpng143\pngpriv.h" />
+    <ClInclude Include="libs\Smacker\Smacker.h" />
     <ClInclude Include="libs\zlib\deflate.h" />
     <ClInclude Include="libs\zlib\infblock.h" />
     <ClInclude Include="libs\zlib\infcodes.h" />
@@ -246,7 +247,6 @@
     <ClInclude Include="Render\Texture.h" />
     <ClInclude Include="Render\TextureD3D10.h" />
     <ClInclude Include="Render\TextureOGL.h" />
-    <ClInclude Include="Smacker.h" />
     <ClInclude Include="Spells.h" />
     <ClInclude Include="VideoPlayer.h" />
     <ClInclude Include="Window.h" />
