@@ -37,6 +37,7 @@ class VideoPlayer
    
    unsigned int Initialize(OSWindow *pWindow, AudioPlayer *pAudioPlayer);
    unsigned int PlayMovie(const char *pMovieName, unsigned int uOutX, unsigned int uOutY, unsigned int bLoop);
+   unsigned int StopMovie();
 
  protected:
    unsigned int OpenMovie(const char *pVideoName);
@@ -84,34 +85,27 @@ class VideoPlayer
    MovieHeader *pMagicVideoHeaders;  // dword @ 00003C
 
  public:
-   int  dword_000040;
-   int  dword_000044;
-
-   int  uNumMightVideoHeaders; // dword @ 000048
-   int  uNumMagicVideoHeaders; // dword @ 00004C
-
+   //int  dword_000040;                     // depricated
+   //int  dword_000044;                     // depricated
+   int          uNumMightVideoHeaders;      // dword @ 000048
+   int          uNumMagicVideoHeaders;      // dword @ 00004C
    int          sBinkDirectDrawSurfaceType; // dword @ 000050
-   int          dword_000054; // initialization flag
-   int          dword_000058;
-   unsigned int bFirstFrame;      // dword @ 00005C
-   unsigned int bUsingSmackerMMX; // dword @ 000060
-   unsigned int bLoopPlaying;     // dword @ 000064
-   int          dword_000068;
-   int          dword_00006C; //RGBTexture ptr
+   //int        dword_000054;               // depricated
+   unsigned int  bPlayingMovie;             // dword @ 000058    is any movie currently playing?
+   unsigned int  bFirstFrame;               // dword @ 00005C    is this a first frame we're drawing?
+   unsigned int  bUsingSmackerMMX;          // dword @ 000060
+   unsigned int  bLoopPlaying;              // dword @ 000064    do we play this movie in a loop?
+   //int          dword_000068;             // depricated, no use
+   unsigned int  bStopBeforeSchedule;       // dword @ 00006C    do we have to stop the video right now?
+   OSWindow     *pWindow;                   // dword @ 000070
+   HSMACKBLIT    pSmackMovieBlit;           // dword @ 000074
+   HANDLE        hMightVid;                 // dword @ 000078   OS file handle of might.vid
+   HANDLE        hMagicVid;                 // dword @ 00007C   OS file handle of magic.vid
+   HBINK         pBinkMovie;                // dword @ 000080
+   HBINKBUF      pBinkBuffer;               // dword @ 000084
 
-   //HWND    hWnd;      // dword @ 000070
-   OSWindow *pWindow;   // dword @ 000070
-
-   HSMACKBLIT pSmackMovieBlit; // ptr @ 000074
-
-   HANDLE  hMightVid; // ptr @ 000078
-   HANDLE  hMagicVid; // ptr @ 00007C
-
-   HBINK    pBinkMovie;   // ptr @ 000080
-   HBINKBUF pBinkBuffer;  // ptr @ 000084
-
-   unsigned int  uMovieFormat;      // dword @ 00009C     Video::Format
-   int           dword_0000A0;      // 1 bink 2 smacker
+   unsigned int  uMovieFormat;          // dword @ 00009C     Video::Format
+   int           dword_0000A0;          // 1 bink 2 smacker
    char          pCurrentMovieName[64]; // byte[64] @ 0000A4
 
  protected:

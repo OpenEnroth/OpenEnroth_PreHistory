@@ -158,18 +158,8 @@ BaseRender::BaseRender()
 //----- (MM7.exe::0049FBCD) --------------------------------------------------------
 void Render_ClearTarget(struct BaseRender *_this, unsigned int uColor)
 {
- int v4; // ecx@4
-
- if (_this->pRenderD3D3)
- {
-  if (_this->dword_040110)
-    RenderD3D3_ClearTarget(_this->pRenderD3D3, 1, uColor, 0, 0.0);
- }
- else
- {
-  v4 = _this->dword_000010 * _this->dword_000014 >> 1;
-  memset(_this->pTargetSurface, uColor, 4 * v4);
- }
+ if (_this->dword_040110)
+   RenderD3D3_ClearTarget(_this->pRenderD3D3, 1, uColor, 0, 0.0);
 }
 
 //----- (MM7.exe::004A51CB) --------------------------------------------------------
@@ -1115,12 +1105,12 @@ unsigned int RenderDirect3D3::Initialize(OSWindow *pOutputWindow)
     *(_DWORD *)(v2 + 262232) = 1;
     return 0;
  }
- 
+
  this->pTargetSurface = 0;
  this->ptr_0400E8 = NamedMemAlloc(unsigned int, 640 * 480, "Renderer software back buffer");
  if (this->ptr_0400E8)
  {
-  memset(this->ptr_0400E8, 0, (640 * 480) * sizeof(unsigned int));
+  memset(this->ptr_0400E8, 0, 640 * 480 * sizeof(unsigned int));
   memset(&ddsd2, 0, sizeof(DDSURFACEDESC2));
   ddsd2.dwSize = sizeof(DDSURFACEDESC2);
 

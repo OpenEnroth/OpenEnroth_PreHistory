@@ -3689,13 +3689,9 @@ int __fastcall sub_46BD66(int a1, int a2)
 }
 
 //----- (0046BDA8) --------------------------------------------------------
-unsigned int __cdecl sub_46BDA8_GetGravityStrength()
+unsigned int sub_46BDA8_GetGravityStrength()
 {
-  int v1; // eax@1
-
-  v1 = ~pGame->dword_000E24 & 8;
-  LOBYTE(v1) = v1 | 2;
-  return (unsigned int)v1 >> 1;
+ return (~pGame->dword_000E24 & 8) / 2 + 1;
 }
 
 //----- (0046BDF1) --------------------------------------------------------

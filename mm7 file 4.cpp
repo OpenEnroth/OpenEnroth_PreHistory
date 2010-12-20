@@ -3990,15 +3990,20 @@ LABEL_99:
           if ( !(BYTE1(dword_6BE364) & 0x40) )
             continue;
           v16 = 1;
-          pVideoPlayer->dword_00006C = 1;
+
+          if (!bNoVideo)
+            pVideoPlayer->StopMovie();
+
           struct_576FE8.dword_000044 = 1;
           struct_576FE8.dword_000048 = 1;
           if ( !sub_466CA0() || sub_466CA0() == MENU_CREATEPARTY || sub_466CA0() == 7 )
           {
             v17 = dword_4E28F8_PartyCantJumpIfTrue;
 LABEL_83:
-            if ( v17 == 16 )
-              pVideoPlayer->sub_4BECD5(pVideoPlayer->dword_000040);
+            runtime_warning();
+            //if ( v17 == 16 )
+            //  pVideoPlayer->sub_4BECD5(pVideoPlayer->dword_000040);
+
             if ( sub_466CA0() == 7 )
             {
               v44 = 6;

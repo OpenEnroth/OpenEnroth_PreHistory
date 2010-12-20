@@ -2957,8 +2957,8 @@ LABEL_208:
           v30 = 0;
           goto LABEL_261;
         }
-        if (pVideoPlayer && pVideoPlayer->dword_000024 )
-          pVideoPlayer->dword_000068 = 1;
+        //if (pVideoPlayer && pVideoPlayer->dword_000024 )
+        //  pVideoPlayer->dword_000068 = 1;
         if (!dword_720010)
           GUICursor_OnMouseLeftButton(pGame->pGUICursor, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
         if ( uCurrentMenuID != MENU_CREATEPARTY)
@@ -3022,8 +3022,10 @@ LABEL_216:
           struct_505898.dword_5058A0 = 7;
           return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
         }
-        if ( pVideoPlayer->dword_000024 )
-          pVideoPlayer->dword_00006C = 1;
+
+        if (!bNoVideo)
+          pVideoPlayer->StopMovie();
+
         if ( !dword_720010 )
           GUICursor_OnMouseLeftButton(pGame->pGUICursor, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
         if ( uCurrentMenuID != MENU_CREATEPARTY)
@@ -3059,8 +3061,10 @@ LABEL_228:
         if ( !struct_505898.byte_505992 )
         {
 LABEL_238:
-          if (pVideoPlayer&& (pVideoPlayer->dword_000024 != v31) )
-            pVideoPlayer->dword_00006C = 1;
+
+        if (!bNoVideo)
+          pVideoPlayer->StopMovie();
+
           if ( dword_720010 == v31 )
             GUICursor_OnMouseLeftButton(pGame->pGUICursor, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
           if ((int)pGame != v31 )
@@ -3201,8 +3205,8 @@ LABEL_104:
       sub_459F10(pKeyboardController, wParam);
     if ( !struct_505898.byte_505992 )
     {
-      if (pVideoPlayer && pVideoPlayer->dword_000024 )
-        pVideoPlayer->dword_00006C = 1;
+        if (!bNoVideo)
+          pVideoPlayer->StopMovie();
 
       if (wParam == VK_RETURN)
       {
@@ -3478,11 +3482,10 @@ LABEL_179:
       if ( !(dword_6BE364 & 0x100) )
       {
         dword_4E98BC = 0;
-        if (pVideoPlayer && (pVideoPlayer->pSmackerMovie || pVideoPlayer->pBinkMovie))
-        {
-          if ( pVideoPlayer->dword_000058)
-            pVideoPlayer->dword_00006C = 1;
-        }
+
+        if (!bNoVideo)
+          pVideoPlayer->StopMovie();
+
         if (dword_720010)
           Mouse_suspend(dword_720010);
         if ( pD3DRenderer->bUseDirect3D )
@@ -6025,7 +6028,7 @@ LABEL_130:
 LABEL_141:
   v24 = 0;
 
-  //gravity effect
+  //gravity pull effect
   if (v104_looks_like_bPartyInAir && !pParty_global->bFlying)
   {
     v26 = -(cClock1.int_00001C * sub_46BDA8_GetGravityStrength());

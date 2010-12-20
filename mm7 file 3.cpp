@@ -7832,10 +7832,10 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int sEventType, int a2, int a
             v13 = &Str + strlen(&Str) - 1;
             if ( *v13 == 32 )
               *v13 = 0;
-            if ( pVideoPlayer->dword_000054 )
+
+            if (!bNoVideo)
               pVideoPlayer->UnloadAll();
-            pVideoPlayer->dword_00006C = 0;
-            pVideoPlayer->dword_000040 = 0;
+
             if (dword_720010)
               Mouse_suspend(dword_720010);
             v132 = dword_4E28F8_PartyCantJumpIfTrue;

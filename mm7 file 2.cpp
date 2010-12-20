@@ -975,11 +975,9 @@ LABEL_85:
       }
 
       // Let's play First Act movie
-      if (pVideoPlayer)
+      if (!bNoVideo)
       {
-       pVideoPlayer->dword_00006C = 0;
-       pVideoPlayer->dword_000040 = 0;
-       if (!pVideoPlayer->PlayMovie("Intro Post", 0, 0, false))
+       if (pVideoPlayer->PlayMovie("Intro Post", 0, 0, false))
          pVideoPlayer->UnloadAll();
       }
 

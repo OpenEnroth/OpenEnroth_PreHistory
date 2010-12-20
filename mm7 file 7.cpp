@@ -13313,13 +13313,13 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
   v16.PCXTexture_Zero();
   BYTE1(dword_6BE364) &= 0xBFu;
   dword_F8BC10 = 1;
-  pVideoPlayer->dword_00006C = 0;
+
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
   pD3DRenderer->BeginScene();
   Render_sub_49ECC4((int)pD3DRenderer);
   pD3DRenderer->EndScene();
   pD3DRenderer->Present();
-  pVideoPlayer->dword_000040 = 0;
+
   sub_449B57((unsigned char *)pParty_global->unk_000764 + 1, 99);
 
   v16.LODPCXLoad("winbg.pcx", 2);

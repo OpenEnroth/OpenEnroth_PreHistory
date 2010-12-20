@@ -17,6 +17,17 @@
 
 
 
+unsigned int VideoPlayer::StopMovie()
+{
+ if (bPlayingMovie)
+ {
+  bStopBeforeSchedule = true;
+  return Error::Success;
+ }
+
+ return Error::Generic;
+}
+
 unsigned int VideoPlayer::BinkPlayMovie(unsigned int uOutX, unsigned int uOutY)
 {
  if (!pBinkMovie)
@@ -38,10 +49,10 @@ unsigned int VideoPlayer::BinkPlayMovie(unsigned int uOutX, unsigned int uOutY)
     }
 
     sub_435748();
-    if (!pBinkMovie)
-      break;
 
-    if (!BinkWait(pBinkMovie))
+    if (bStopBeforeSchedule)
+      break;
+    else if (!BinkWait(pBinkMovie))
        BinkDrawFrame(uOutX, uOutY);
  }
 
@@ -53,7 +64,6 @@ unsigned int VideoPlayer::SmackPlayMovie(unsigned int uOutX, unsigned int uOutY)
 {
  if (!pSmackerMovie)
    return Error::Generic;
-
 
  SmackDrawFrame(uOutX, uOutY);
  while (pSmackerMovie)
@@ -71,9 +81,9 @@ unsigned int VideoPlayer::SmackPlayMovie(unsigned int uOutX, unsigned int uOutY)
     }
     sub_435748();
 
-    if (!pSmackerMovie)
+    if (bStopBeforeSchedule)
       break;
-    if (!SmackWait(pSmackerMovie))
+    else if (!SmackWait(pSmackerMovie))
        SmackDrawFrame(uOutX, uOutY);
  }
 
@@ -87,12 +97,13 @@ unsigned int VideoPlayer::PlayMovie(const char *pMovieName, unsigned int uOutX, 
  if (OpenMovie(pMovieName))
    return Error::Generic;
 
+ bStopBeforeSchedule = false;
  bLoopPlaying = bLoop;
- dword_000058 = 1;
- dword_000044 = uOutY;
+
+ bPlayingMovie = true;
 
  BaseRender *pRenderer = pWindow->GetRender();
- Render_ClearTarget(pRenderer, 0);
+ Render_ClearTarget(pRenderer, 0xFF000000);
 
  dword_4E28F8_PartyCantJumpIfTrue = 16;
 
@@ -104,13 +115,9 @@ unsigned int VideoPlayer::PlayMovie(const char *pMovieName, unsigned int uOutX, 
    SmackPlayMovie(uOutX, uOutY);
 
  ShowCursor(true);
+ bPlayingMovie = false;
 
  dword_4E28F8_PartyCantJumpIfTrue = 0;
-
- pVideoPlayer->dword_000058 = 0;
-
- if (dword_4E28F8_PartyCantJumpIfTrue == 16)
-   dword_4E28F8_PartyCantJumpIfTrue = 0;
 
  return Error::Success;
 }
@@ -159,7 +166,6 @@ unsigned int VideoPlayer::Initialize(OSWindow *pTargetWindow, AudioPlayer *pExte
  ReadFile(hMagicVid, pMagicVideoHeaders, uNumMagicVideoHeaders * sizeof(VideoPlayer::MovieHeader), &w, 0);
 
 
- IDirectDrawSurface *v3;
  cClock1.clock_fn1();
 
  pAudioPlayer = pExternalAudioPlayer;
@@ -173,12 +179,9 @@ unsigned int VideoPlayer::Initialize(OSWindow *pTargetWindow, AudioPlayer *pExte
  pBinkMovie = 0;
  pBinkBuffer = 0;
  
- dword_000054 = false;//true;
- dword_000058 = 0;
  bFirstFrame = true;
  bUsingSmackerMMX = SmackUseMMX(1);
 
- dword_00006C = 0;
  pWindow = pTargetWindow;
 
  sBinkDirectDrawSurfaceType = BinkDDSurfaceType((IDirectDrawSurface *)pWindow->GetRender()->pdds4_BackBuffer);
@@ -214,6 +217,10 @@ VideoPlayer::VideoPlayer()
  pSomeSmackerBuffer = 0;
 
  uMovieFormat = Video::Format::Unknown;
+
+ bUsingSmackerMMX = false;
+ bStopBeforeSchedule = false;
+ bPlayingMovie = false;
 }
 
 
@@ -338,7 +345,6 @@ void VideoPlayer::UnloadAll()
   pSmackMovieBlit = 0;
  }
 
- dword_000054 = 0;
  uMovieFormat = Video::Format::Unknown;
  dword_0000A0 = 0;
 
@@ -370,19 +376,12 @@ unsigned int VideoPlayer::BinkDrawFrame(unsigned int uOutX, unsigned int uOutY)
 
  BinkDoFrame(pBinkMovie);
  BinkGetRects(pBinkMovie, pBinkBuffer->uBinkDDSurfaceType);
- if (!BinkLockBuffer(pBinkBuffer))
- {
-  BinkCopyToBuffer(pBinkMovie, pBinkBuffer->pDDrawSurfaceData, pBinkBuffer->uDDrawSurfacePitch,
-                   pBinkBuffer->uHeight,
-                   uOutX, uOutY,
-                   pBinkBuffer->uBinkDDSurfaceType);
-  BinkUnlockBuffer(pBinkBuffer);
- }
 
 
 
- RECT rcDst = {0,                   0,
-               pBinkBuffer->uWidth, pBinkBuffer->uHeight};
+
+ RECT rcDst = {uOutX,                       uOutY,
+               uOutX + pBinkBuffer->uWidth, uOutY + pBinkBuffer->uHeight};
  if (pD3DRenderer->bWindowMode)
  {
   POINT ptWindowOffset = {0, 0};
@@ -406,6 +405,17 @@ unsigned int VideoPlayer::BinkDrawFrame(unsigned int uOutX, unsigned int uOutY)
    rcSrc.top = 0;
    rcSrc.right = pBinkBuffer->uWidth;
    rcSrc.bottom = pBinkBuffer->uHeight;*/
+
+ if (!BinkLockBuffer(pBinkBuffer))
+ {
+  BinkCopyToBuffer(pBinkMovie, pBinkBuffer->pDDrawSurfaceData, pBinkBuffer->uDDrawSurfacePitch,
+                   pBinkBuffer->uHeight,
+                   0, 0,
+                   pBinkBuffer->uBinkDDSurfaceType);
+  BinkUnlockBuffer(pBinkBuffer);
+ }
+
+
 
  BltToFrontBuffer(&rcDst, pBinkBuffer->pTargetDDrawSurface, &rcSrc, DDBLT_WAIT);
  if (bLoopPlaying || pBinkMovie->FrameRate != pBinkMovie->Data1 - 1)
@@ -728,9 +738,11 @@ unsigned int VideoPlayer::BinkUnlockBuffer(HBINKBUF pBinkBuffer)
 //----- (004BECBD) --------------------------------------------------------
 int sub_4BECBD(int a1, int a2)
 {
-  pVideoPlayer->dword_00006C = 0;
-  pVideoPlayer->dword_000040 = 0;
-  return 0; //RGBTexture_Release((int)pVideoPlayer);
+ if (!bNoVideo)
+   pVideoPlayer->StopMovie();
+
+ compile_error;
+ return 0; //RGBTexture_Release((int)pVideoPlayer);
 }
 
 //----- (004BECD5) --------------------------------------------------------
