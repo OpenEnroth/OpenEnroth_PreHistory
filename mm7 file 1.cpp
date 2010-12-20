@@ -8,7 +8,6 @@
 #pragma comment(lib, "winmm.lib")
 
 #include "defs.h"
-#include "AIL.h"
 #include "_lod.h"
 #include "clock.h"
 #include "classes.h"
@@ -23,6 +22,7 @@
 
 #include "Level.h"
 #include "Actor.h"
+#include "libs\AIL\AIL.h" // parasite include, have to move all ail stuff to AudioPlayer class
 
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -126,8 +126,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
    if (strstr(lpCmdLine, "-noanim"))
      dword_6BE364 |= 0x40;
 
+
    if (strstr(lpCmdLine, "-novideo"))
      bNoVideo = true;
+   
+   if (strstr(lpCmdLine, "-nocredits"))
+     bNoCredits = true;
+
+   if (strstr(lpCmdLine, "-nointro"))
+     bNoIntro = true;
 
    if (!strstr(lpCmdLine, "-nocd"))
    {
@@ -139,8 +146,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
    else bCanLoadFromCD = false;
   }
  }
- bNoVideo = true;
 
+ 
+ AllocConsole();
 
  pAppWindow = MemAlloc(Win32Window, 1);
  if (pAppWindow->Initialize(L"MM7cls", L"Might and Magic® VII", WindowCreationParams::Framed | ::WindowCreationParams::Unique))
@@ -166,7 +174,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
  pAppWindow->Show();
   
  RtlCallCtors();
- AllocConsole();
 
  //ACHTUNG    4AC1C9 needs refactoring
  sub_4AC1C9(0, pWindowDims);
@@ -3562,7 +3569,7 @@ LABEL_184:
   {
     if (uMsg == WM_PAINT)
     {
-      if ( !GetUpdateRect(hWnd, 0, 0) || !dword_4E98BC && !pD3DRenderer->dword_040058 )
+      if ( !GetUpdateRect(hWnd, 0, 0) || !dword_4E98BC && !pD3DRenderer->bWindowMode)
         return 0;
       BeginPaint(hWnd, &Paint);
       if ( struct_505898.byte_505992 )
@@ -3582,7 +3589,7 @@ LABEL_20:
     goto LABEL_184;
   }
 
-  if ( hWnd != (HWND)wParam || (dword_4E98BC = 1, pD3DRenderer->dword_040058) || !dword_720010 )
+  if ( hWnd != (HWND)wParam || (dword_4E98BC = 1, pD3DRenderer->bWindowMode) || !dword_720010 )
     return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
   sub_46B105((void *)dword_720010);
   if ( !dword_720010 )
@@ -13827,7 +13834,7 @@ void erroneous_printf(const char *Format, ...)
   va_list va; // [sp+8h] [bp+8h]@1
 
   va_start(va, Format);
-  if ( !pD3DRenderer->dword_040058 )
+  if (!pD3DRenderer->bWindowMode)
     sub_4667E9();
   vsprintf((char *)TmpBuf, Format, va);
   if (pGame->pGUICursor)

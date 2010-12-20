@@ -5,7 +5,6 @@
 #include <strsafe.h>
 #include "menus.h"
 #include "clock.h"
-#include "AIL.h"
 #include "classes.h"
 #include "data.h"
 #include "AudioPlayer.h"
@@ -874,7 +873,8 @@ LABEL_89:
         {
          ((BaseRender *)v2)->BeginScene();
           GUICursor_sub_469E3B(pGame->pGUICursor);
-          sub_4BF08B((void *)pVideoPlayer->dword_00006C, (int)pVideoPlayer->pWindow->GetAPIHandle());
+          //pVideoPlayer->sub_4BF08B((void *)pVideoPlayer->dword_00006C, (int)pVideoPlayer->pWindow->GetAPIHandle());
+          pVideoPlayer->sub_4BF08B((int)pVideoPlayer->pWindow->GetAPIHandle());
           GUICursor_sub_469EA4_LooksLikeDrawPickedItem(pGame->pGUICursor);
           ((BaseRender *)v2)->EndScene();
         }
@@ -979,7 +979,7 @@ LABEL_85:
       {
        pVideoPlayer->dword_00006C = 0;
        pVideoPlayer->dword_000040 = 0;
-       if (!pVideoPlayer->PlayMovie("Intro Post"))
+       if (!pVideoPlayer->PlayMovie("Intro Post", 0, 0, false))
          pVideoPlayer->UnloadAll();
       }
 
@@ -7149,7 +7149,7 @@ void __cdecl sub_414D9A()
   //int v8; // [sp+1Ch] [bp-40h]@3
 
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (dword_507C10 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507C10] : 0));
-  if ( !pD3DRenderer->dword_040058 )
+  if (!pD3DRenderer->bWindowMode)
   {
     if (pD3DRenderer->IsGammaControlSupported())
     {
@@ -8027,7 +8027,7 @@ void __thiscall sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(int _this)
   {
     GUICursor_GetMouseClickPos(pGame->pGUICursor, &v38, &v39);
   }
-  if ( pD3DRenderer->dword_040058 )
+  if (pD3DRenderer->bWindowMode)
   {
     GetCursorPos(&Point);
     ScreenToClient(pAppWindow->GetAPIHandle(), &Point);

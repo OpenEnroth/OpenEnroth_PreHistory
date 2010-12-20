@@ -6,7 +6,6 @@
 #include "menus.h"
 #include "clock.h"
 
-#include "AIL.h"
 #include "_lod.h"
 #include "data.h"
 #include "AudioPlayer.h"
@@ -12758,7 +12757,7 @@ void __cdecl sub_4667E9()
   int v8; // [sp+0h] [bp-24h]@33
   struct tagRECT Rect; // [sp+14h] [bp-10h]@15
 
-  if ( pD3DRenderer->dword_040058 )
+  if (pD3DRenderer->bWindowMode)
     goto LABEL_52;
 
   compile_error;
@@ -12784,7 +12783,7 @@ LABEL_52:
       LODFile_Bitmaps_LOD.sub_4103BB();
       LODFile_Sprites_LOD.sub_4ACB70();
     }
-    if ( pD3DRenderer->dword_040058 )
+    if (pD3DRenderer->bWindowMode)
     {
       if ( GetWindowRect(pAppWindow->GetAPIHandle(), &Rect) )
       {
@@ -12890,7 +12889,7 @@ LABEL_38:
     struct_576FE8.dword_000044 = 1;
     sub_443343_GenerateSomeColorTable(&struct_576FE8);
     GUICursor_sub_4698F6(pGame->pGUICursor);
-    if ( pD3DRenderer->dword_040058 )
+    if (pD3DRenderer->bWindowMode)
     {
       InvalidateRect(0, 0, 0);
       MoveWindow(pAppWindow->GetAPIHandle(), uWindowPosX, uWindowPosY, uWindowWidth, uWindowHeight, 0);

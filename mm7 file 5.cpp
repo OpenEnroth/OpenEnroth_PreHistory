@@ -5,7 +5,6 @@
 
 
 #include "clock.h"
-#include "AIL.h"
 
 #include "data.h"
 #include "AudioPlayer.h"
@@ -1374,14 +1373,14 @@ LONG GUICursor_sub_469AE4(struct GUICursor *_this)
   else
   {
     GetCursorPos(&Point);
-    if ( pD3DRenderer->dword_040058 )
+    if (pD3DRenderer->bWindowMode)
       ScreenToClient(pAppWindow->GetAPIHandle(), &Point);
     result = Point.y;
     v3 = Point.x;
   }
   *(_DWORD *)(v1 + 264) = v3;
   *(_DWORD *)(v1 + 268) = result;
-  if ( pD3DRenderer->dword_040058 )
+  if (pD3DRenderer->bWindowMode)
     goto LABEL_16;
   if (dword_720010)
     goto LABEL_24;
@@ -1397,7 +1396,7 @@ LONG GUICursor_sub_469AE4(struct GUICursor *_this)
 LABEL_16:
     if (dword_720010)
       goto LABEL_24;
-    if ( pD3DRenderer->dword_040058 && (v3 < 0 || result < 0 || v3 > 639 || result > 479) )
+    if ( pD3DRenderer->bWindowMode && (v3 < 0 || result < 0 || v3 > 639 || result > 479) )
       goto LABEL_23;
   }
   if ( *(_DWORD *)(v1 + 12) )
@@ -1464,7 +1463,7 @@ void GUICursor_sub_469CCD(GUICursor *_this)
     *(_BYTE *)(v1 + 244) = 1;
     if ( !v2 )
       goto LABEL_12;
-    if ( pD3DRenderer->dword_040058 )
+    if (pD3DRenderer->bWindowMode)
     {
       if ( v3 < 0 || v4 < 0 || v3 > 639 || v4 > 479 )
       {

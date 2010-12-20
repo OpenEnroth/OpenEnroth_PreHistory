@@ -2,7 +2,6 @@
 //#include <dinput.h>
 #include "menus.h"
 #include "localization_defs.h"
-#include "AIL.h"
 #include "classes.h"
 #include "clock.h"
 #include "data.h"
@@ -7846,7 +7845,7 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int sEventType, int a2, int a
             strcpy(&v147, &Str);
             v15 = RemoveQuote(&v147);
             //MoviePlayerLoop(v15, 0, v17, 1);
-            pVideoPlayer->PlayMovie(v15);
+            pVideoPlayer->PlayMovie(v15, 0, 0, false);
             if ( !_strcmpi(v15, "arbiter good") )
             {
               pParty_global->uAlignment = 0;
@@ -8144,8 +8143,8 @@ LABEL_47:
               }
               else
               {
-                if ( v49 == 553 )
-                  pVideoPlayer->dword_000064 = 0;
+                if (v49 == 553)
+                  pVideoPlayer->bLoopPlaying = false;
               }
             }
             goto LABEL_291;
@@ -8738,9 +8737,9 @@ LABEL_248:
             v138 = v101 + ((*(_BYTE *)(v11 + 26) + ((*(_BYTE *)(v11 + 27) + (*(_BYTE *)(v11 + 28) << 8)) << 8)) << 8);
             if ( *(_BYTE *)(v11 + 29) || *(_BYTE *)(v11 + 30) )
             {
-              if ( pD3DRenderer->pRenderD3D3 )
+              if (pD3DRenderer->pRenderD3D3)
               {
-                if ( !pD3DRenderer->dword_040058 )
+                if (!pD3DRenderer->bWindowMode)
                   Render_sub_49FD3A((int)pD3DRenderer, v10);
               }
               sub_444839(
@@ -8870,7 +8869,7 @@ LABEL_280:
             {
               if ( pD3DRenderer->pRenderD3D3 )
               {
-                if ( !pD3DRenderer->dword_040058 )
+                if (!pD3DRenderer->bWindowMode)
                   Render_sub_49FD3A((int)pD3DRenderer, v107);
               }
               AudioPlayer_sub_4AA306(pAudioPlayer, 0, 0, 0, -1, 0, 0, 0, 0);

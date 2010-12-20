@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <windows.h>
 
-#include "AIL.h"
 #include "defs.h"
 #include "Spells.h"
 #include "Items.h"

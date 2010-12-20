@@ -1,6 +1,6 @@
 #include "AudioPlayer.h"
 #include "VideoPlayer.h"
-#include "AIL.h"
+#include "libs\AIL\AIL.h"
 #include "clock.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -1661,6 +1661,511 @@ signed int AudioPlayer_sub_4AC041(struct AudioPlayer *_this)
         result = v3;
         *(_DWORD *)(v2 + 532) = v3;
       }
+    }
+  }
+  return result;
+}
+
+
+//----- (004AA13F) --------------------------------------------------------
+char __thiscall sub_4AA13F(int _this, int a2)
+{
+  int v2; // esi@1
+  unsigned int v3; // eax@3
+  int v4; // edi@5
+  signed __int64 v5; // qax@6
+
+  v2 = _this;
+  if ( !(dword_6BE364 & 0x10) )
+  {
+    if ( pAudioPlayer->hAILRedbook )
+    {
+      LOBYTE(v3) = uMusicVolimeMultiplier;
+      if ( uMusicVolimeMultiplier )
+      {
+        if ( *(_DWORD *)(_this + 668) )
+        {
+          v4 = *(_DWORD *)(_this + 676);
+          if ( v4 )
+          {
+            v5 = (signed __int64)(aMusicVolumeLevels[uMusicVolimeMultiplier] * 64.0);
+            //AIL_redbook_set_volume(_this, HIDWORD(v5), v4, v5);
+            AIL_redbook_set_volume((HREDBOOK)_this, HIDWORD(v5));
+          }
+        }
+        AIL_redbook_stop(pAudioPlayer->hAILRedbook);
+        AIL_redbook_track_info(pAudioPlayer->hAILRedbook, a2, (unsigned int *)(v2 + 736), (unsigned int *)(v2 + 740));
+        AIL_redbook_play(pAudioPlayer->hAILRedbook, *(_DWORD *)(v2 + 736) + 1, *(_DWORD *)(v2 + 740));
+        v3 = ((*(_DWORD *)(v2 + 740) - *(_DWORD *)(v2 + 736)) << 7) / 0x3E8u;
+        *(_DWORD *)(v2 + 728) = ((*(_DWORD *)(v2 + 740) - *(_DWORD *)(v2 + 736)) << 7) / 0x3E8u;
+      }
+    }
+  }
+  return 0;
+}
+
+//----- (004AA258) --------------------------------------------------------
+void __thiscall AudioPlayer_sub_4AA258(int _this, int a2)
+{
+  int v2; // esi@1
+  int v3; // edi@4
+  int v4; // ebx@5
+  int v5; // ebx@11
+  int v6; // edi@12
+
+  v2 = _this;
+  if ( *(_DWORD *)(_this + 668) )
+  {
+    if ( *(_DWORD *)(_this + 4) && a2 && (v3 = 0, *(_DWORD *)(_this + 16) > 0) )
+    {
+      v4 = _this + 20;
+      while ( *(_DWORD *)(v4 + 4) != a2 || AIL_3D_sample_status(*(_DWORD *)v4) != 4 )
+      {
+        ++v3;
+        v4 += 16;
+        if ( v3 >= *(_DWORD *)(v2 + 16) )
+          goto LABEL_9;
+      }
+      AIL_end_3D_sample(*(_DWORD *)(16 * v3 + v2 + 20));
+    }
+    else
+    {
+LABEL_9:
+      if ( *(_DWORD *)(v2 + 680) )
+      {
+        if ( a2 )
+        {
+          v5 = 0;
+          if ( *(_DWORD *)(v2 + 1000) > 0 )
+          {
+            v6 = v2 + 744;
+            do
+            {
+              if ( *(_DWORD *)(v6 + 4) == a2 )
+              {
+                if ( AIL_sample_status(*(_DWORD *)v6) == 4 )
+                {
+                  AIL_end_sample(*(_DWORD *)v6);
+                  sub_4ABE55(v2, v6);
+                }
+              }
+              ++v5;
+              v6 += 16;
+            }
+            while ( v5 < *(_DWORD *)(v2 + 1000) );
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+//----- (004AC004) --------------------------------------------------------
+int __thiscall AudioPlayer_sub_4AC004(int _this)
+{
+  int v1; // edi@1
+  int result; // eax@2
+  int v3; // ST00_4@2
+  int v4; // ST00_4@2
+  float v5; // [sp+4h] [bp-4h]@2
+
+  v1 = _this;
+  if ( *(_DWORD *)_this )
+  {
+    v3 = *(_DWORD *)(_this + 12);
+    v5 = 0.0;
+    AIL_set_3D_provider_preference(v3, (int)"EAX effect volume", (int)&v5);
+    v4 = *(_DWORD *)(v1 + 12);
+    v5 = 1.0;
+    result = AIL_set_3D_provider_preference(v4, (int)"EAX damping", (int)&v5);
+  }
+  return result;
+}
+
+//----- (004AC0A2) --------------------------------------------------------
+signed int __thiscall sub_4AC0A2(void *_this)
+{
+  int v1; // ebx@1
+  int v2; // esi@1
+  signed int v3; // eax@1
+  char v4; // zf@1
+  int v5; // edi@2
+  int v6; // eax@4
+  int v8; // ebx@7
+  int v9; // eax@8
+  int v10; // ebx@14
+  unsigned int v11; // eax@14
+  int v12; // [sp+1Ch] [bp-8h]@1
+  int v13; // [sp+20h] [bp-4h]@6
+
+  v2 = (int)_this;
+  v3 = CMapStats_FindLocation(pMapStats,CurrentLevelName);
+  v4 = *(_DWORD *)(v2 + 4) == 0;
+  v1 = v3;
+  v12 = v3;
+  if ( !v4 )
+  {
+    v5 = v2 + 16;
+    AIL_3D_provider_attribute(*(_DWORD *)(v2 + 12), (int)"Maximum supported samples", v2 + 16);
+    if ( *(_DWORD *)(v2 + 16) > 32 )
+      *(_DWORD *)v5 = 32;
+    v6 = *(_DWORD *)v5;
+    if ( !*(_DWORD *)v5 )
+    {
+      *(_DWORD *)(v2 + 4) &= v6;
+      return -1;
+    }
+    v13 = 0;
+    if ( v6 > 0 )
+    {
+      v8 = v2 + 20;
+      while ( 1 )
+      {
+        v9 = AIL_allocate_3D_sample_handle(*(_DWORD *)(v2 + 12));
+        *(_DWORD *)v8 = v9;
+        if ( !v9 )
+          break;
+        AIL_set_3D_sample_float_distances(v9, 4096.0, 256.0, 4096.0, 256.0);
+        AIL_set_3D_sample_volume(*(_DWORD *)v8, *(_DWORD *)(v2 + 8));
+        ++v13;
+        v8 += 16;
+        if ( v13 >= *(_DWORD *)v5 )
+          goto LABEL_12;
+      }
+      *(_DWORD *)v5 = v13;
+LABEL_12:
+      v1 = v12;
+    }
+    if ( *(_DWORD *)v2 )
+    {
+      v10 = 68 * v1;
+      v11 = pMapStats->pMapInfos[v1].uEAXEnv;
+      v12 = pMapStats->pMapInfos[v1].uEAXEnv;
+      if ( v11 >= 0x1A )
+      {
+        AudioPlayer_sub_4AC004(v2);
+        *(_DWORD *)(v2 + 532) = -1;
+      }
+      else
+      {
+        AIL_set_3D_provider_preference(*(_DWORD *)(v2 + 12), (int)"EAX environment selection", (int)&v12);
+        *(_DWORD *)(v2 + 532) = v12;
+      }
+    }
+  }
+  return 1;
+}
+
+
+//----- (004ABF23) --------------------------------------------------------
+int __thiscall sub_4ABF23(int _this, int a2)
+{
+  int result; // eax@1
+  int v3; // ebx@1
+  int v4; // esi@1
+  unsigned __int8 v5; // zf@5
+  unsigned __int8 v6; // sf@5
+  int v7; // edi@6
+  int v8; // eax@8
+  int v9; // ST04_4@8
+  int v10; // ecx@12
+  int v11; // eax@13
+  int v12; // edi@13
+  unsigned __int8 v13; // sf@13
+  unsigned __int8 v14; // of@13
+  int v15[16]; // [sp+Ch] [bp-48h]@8
+  int v16; // [sp+4Ch] [bp-8h]@5
+  int v17; // [sp+50h] [bp-4h]@5
+
+  result = (int)pSoundList->pDescriptions;
+  v3 = 0;
+  v4 = _this;
+  if ( pSoundList->pDescriptions )
+  {
+    result = 120 * *(_DWORD *)(a2 + 8) + (int)pSoundList->pDescriptions;
+    if ( *(_DWORD *)(result + 36) == 2 )
+    {
+      if ( *(_DWORD *)(result + 112) )
+      {
+        if ( !(*(_BYTE *)(result + 40) & 1) )
+        {
+          v5 = *(_DWORD *)(_this + 16) == 0;
+          v6 = *(_DWORD *)(_this + 16) < 0;
+          v16 = 0;
+          v17 = 0;
+          if ( v6 | v5 )
+            goto LABEL_16;
+          v7 = _this + 20;
+          do
+          {
+            result = *(_DWORD *)(a2 + 12);
+            if ( result == *(_DWORD *)(v7 + 12) )
+            {
+              v8 = v17;
+              v9 = *(_DWORD *)v7;
+              ++v17;
+              v15[v8] = v3;
+              result = AIL_3D_sample_status(v9);
+              if ( result == 4 )
+                ++v16;
+            }
+            ++v3;
+            v7 += 16;
+          }
+          while ( v3 < *(_DWORD *)(v4 + 16) );
+          if ( !v16 )
+          {
+LABEL_16:
+            result = SoundList_sub_4A9DCD((int)pSoundList, *(_DWORD *)(a2 + 8), 1);
+            v10 = 0;
+            if ( v17 > 0 )
+            {
+              do
+              {
+                v11 = v15[v10];
+                v12 = 16 * (v11 + 2);
+                result = 16 * v11;
+                ++v10;
+                *(_DWORD *)(v12 + v4) = 0;
+                compile_error;//v14 = __SETO__(v10, v17);
+                v13 = v10 - v17 < 0;
+                *(_DWORD *)(result + v4 + 28) = 0;
+              }
+              while ( v13 ^ v14 );
+            }
+          }
+        }
+      }
+    }
+  }
+  return result;
+}
+
+
+//----- (004ABC9B) --------------------------------------------------------
+LSTATUS __stdcall sub_4ABC9B(char a1)
+{
+  LSTATUS result; // eax@1
+  DWORD cbData; // [sp+8h] [bp-Ch]@1
+  BYTE Data[4]; // [sp+Ch] [bp-8h]@1
+  HKEY hKey; // [sp+10h] [bp-4h]@1
+
+  hKey = 0;
+  cbData = 4;
+  *(_DWORD *)Data = 0;
+  result = RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\Aureal\\A3D", 0, 0x2001Fu, &hKey);
+  if ( !result )
+  {
+    if ( a1 )
+      compile_error;//RegQueryValueExA(hKey, "SplashAudio", 0, 0, &::Data, &cbData);
+    else
+      compile_error;//*(_DWORD *)Data = *(_DWORD *)&::Data;
+    RegSetValueExA(hKey, "SplashAudio", 0, 4u, Data, 4u);
+    *(_DWORD *)Data = 0;
+    if ( a1 )
+      RegQueryValueExA(hKey, "SplashScreen", 0, 0, &dword_F1B4B0, &cbData);
+    else
+      *(_DWORD *)Data = *(_DWORD *)&dword_F1B4B0;
+    RegSetValueExA(hKey, "SplashScreen", 0, 4u, Data, 4u);
+    result = RegCloseKey(hKey);
+  }
+  return result;
+}
+
+//----- (004ABD5B) --------------------------------------------------------
+void __thiscall AudioPlayer_sub_4ABD5B(int _this)
+{
+  int v1; // edi@1
+  int v2; // esi@1
+  int v3; // ebx@3
+  int v4; // ebx@6
+  int v5; // edi@7
+  int v6; // edi@13
+  int v7; // edx@14
+  int v8; // ecx@14
+  void *v9; // ecx@15
+
+  v2 = _this;
+  v1 = 0;
+  if ( *(_DWORD *)(_this + 668) )
+  {
+    CloseHandle(pVideoPlayer->hMightVid);
+    CloseHandle(pVideoPlayer->hMagicVid);
+    AudioPlayer_sub_4AB71F((AudioPlayer *)v2, -1, -1);
+    if ( *(_DWORD *)(v2 + 1000) > 0 )
+    {
+      v3 = v2 + 744;
+      do
+      {
+        AIL_release_sample_handle(*(_DWORD *)v3);
+        ++v1;
+        v3 += 16;
+      }
+      while ( v1 < *(_DWORD *)(v2 + 1000) );
+    }
+    if ( ReadWindowsRegistry("Disable3DSound", 0) != 1 )
+    {
+      v4 = 0;
+      sub_4ABC9B(0);
+      if ( *(_DWORD *)(v2 + 16) > 0 )
+      {
+        v5 = v2 + 20;
+        do
+        {
+          if ( *(_DWORD *)v5 )
+          {
+            AIL_release_3D_sample_handle(*(_DWORD *)v5);
+            *(_DWORD *)v5 = 0;
+          }
+          ++v4;
+          v5 += 16;
+        }
+        while ( v4 < *(_DWORD *)(v2 + 16) );
+      }
+      if ( *(_DWORD *)(v2 + 12) )
+      {
+        AIL_close_3D_provider(*(_DWORD *)(v2 + 12));
+        *(_DWORD *)(v2 + 12) = 0;
+      }
+    }
+    v6 = v2 + 676;
+    if ( *(_DWORD *)(v2 + 676) )
+    {
+      AIL_redbook_stop(*(HREDBOOK *)(v2 + 676));
+      //AIL_redbook_set_volume((HREDBOOK)v8, v7, *(_DWORD *)v6, *(_DWORD *)(v2 + 536));
+      AIL_redbook_set_volume((HREDBOOK)v8, v7);
+      AIL_redbook_close(*(_DWORD *)v6);
+    }
+    AIL_shutdown();
+    sub_4A9D3E(pSoundList);
+    v9 = *(void **)(v2 + 3192);
+    if ( v9 )
+      sub_4A96BE(v9);
+    CloseHandle(*(HANDLE *)(v2 + 700));
+  }
+}
+
+
+
+//----- (004ABE55) --------------------------------------------------------
+int __thiscall sub_4ABE55(int _this, int a2)
+{
+  int result; // eax@1
+  int v3; // ebx@1
+  int v4; // esi@1
+  unsigned __int8 v5; // zf@5
+  unsigned __int8 v6; // sf@5
+  int v7; // edi@6
+  int v8; // eax@8
+  int v9; // ST04_4@8
+  int v10; // ecx@12
+  int v11; // edi@13
+  unsigned __int8 v12; // sf@13
+  unsigned __int8 v13; // of@13
+  int v14[16]; // [sp+Ch] [bp-48h]@8
+  int v15; // [sp+4Ch] [bp-8h]@5
+  int v16; // [sp+50h] [bp-4h]@5
+
+  result = (int)pSoundList->pDescriptions;
+  v3 = 0;
+  v4 = _this;
+  if ( pSoundList->pDescriptions )
+  {
+    result = 120 * *(_DWORD *)(a2 + 8) + (int)pSoundList->pDescriptions;
+    if ( *(_DWORD *)(result + 36) == 2 )
+    {
+      if ( *(_DWORD *)(result + 44) )
+      {
+        if ( !(*(_BYTE *)(result + 40) & 1) )
+        {
+          v5 = *(_DWORD *)(_this + 1000) == 0;
+          v6 = *(_DWORD *)(_this + 1000) < 0;
+          v15 = 0;
+          v16 = 0;
+          if ( v6 | v5 )
+            goto LABEL_16;
+          v7 = _this + 744;
+          do
+          {
+            result = *(_DWORD *)(a2 + 12);
+            if ( result == *(_DWORD *)(v7 + 12) )
+            {
+              v8 = v16;
+              v9 = *(_DWORD *)v7;
+              ++v16;
+              v14[v8] = v3;
+              result = AIL_sample_status(v9);
+              if ( result == 4 )
+                ++v15;
+            }
+            ++v3;
+            v7 += 16;
+          }
+          while ( v3 < *(_DWORD *)(v4 + 1000) );
+          if ( !v15 )
+          {
+LABEL_16:
+            result = SoundList_sub_4A9DCD((int)pSoundList, *(_DWORD *)(a2 + 8), 1);
+            v10 = 0;
+            if ( v16 > 0 )
+            {
+              do
+              {
+                v11 = 16 * v14[v10];
+                result = 16 * (v14[v10++] + 47);
+                *(_DWORD *)(v11 + v4 + 756) = 0;
+                compile_error;//v13 = __SETO__(v10, v16);
+                v12 = v10 - v16 < 0;
+                *(_DWORD *)(result + v4) = 0;
+              }
+              while ( v12 ^ v13 );
+            }
+          }
+        }
+      }
+    }
+  }
+  return result;
+}
+
+
+
+//----- (004A9DCD) --------------------------------------------------------
+int __thiscall SoundList_sub_4A9DCD(int _this, int a2, char a3)
+{
+  int result; // eax@1
+  int v4; // edi@1
+  int v5; // esi@1
+  void *v6; // ecx@8
+
+  v5 = 120 * a2;
+  v4 = _this;
+  result = 120 * a2 + *(_DWORD *)(_this + 4);
+  if ( *(_DWORD *)(result + 36) != 1 )
+  {
+    if ( *(_BYTE *)(result + 40) & 2 )
+    {
+      if ( *(_DWORD *)(result + 112) )
+      {
+        if ( a3 )
+        {
+          if ( *(_BYTE *)(result + 116) )
+            AIL_mem_free_lock(*(_DWORD *)(result + 112));
+          *(_DWORD *)(*(_DWORD *)(v4 + 4) + v5 + 112) = 0;
+          *(_DWORD *)(*(_DWORD *)(v4 + 4) + v5 + 40) &= 0xFFFFFFFEu;
+        }
+      }
+    }
+    result = *(_DWORD *)(v4 + 4);
+    v6 = *(void **)(result + v5 + 44);
+    if ( v6 )
+    {
+      sub_4A96BE(v6);
+      *(_DWORD *)(*(_DWORD *)(v4 + 4) + v5 + 44) = 0;
+      result = *(_DWORD *)(v4 + 4) + v5 + 40;
+      *(_DWORD *)result &= 0xFFFFFFFEu;
     }
   }
   return result;

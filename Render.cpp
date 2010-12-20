@@ -93,7 +93,7 @@ BaseRender::BaseRender()
  Render_HWLContainer_ctor(&this->struct_0A1BAC);
 
  this->dword_040054 = 0;
- this->dword_040058 = 1;
+ this->bWindowMode = 1;
  this->bUseDirect3D = ReadWindowsRegistry("Use D3D", false);
  this->bStartInWindow = ReadWindowsRegistry("startinwindow", false);
  v1 = ReadWindowsRegistry("D3D Device", true);
@@ -947,8 +947,6 @@ unsigned int RenderDirect3D3::Initialize(OSWindow *pOutputWindow)
   v2 = (int)this;
   flt_6BE3A0 = 0.55000001;
 
-  
- pTargetWindow = pOutputWindow;
 
  Viewport_fn2(pOldViewport, 36044);
 
@@ -962,7 +960,8 @@ unsigned int RenderDirect3D3::Initialize(OSWindow *pOutputWindow)
  this->dword_040098 = 0;
 
  Render_Initialize_ZBuffer(this);
-
+ 
+ this->pWindow = pOutputWindow;
  if (this->bUseDirect3D)
  {
   this->pRenderD3D3 = NamedMemAlloc(RenderD3D3, 1, "Old D3D Render");
@@ -976,12 +975,12 @@ unsigned int RenderDirect3D3::Initialize(OSWindow *pOutputWindow)
     if (this->pRenderD3D3->pAvailableDevices[this->uDesiredDirect3DDevice].bDeviceIsValid &&
         this->uDesiredDirect3DDevice != 1)
     {
-     v8 = RenderD3D3_Initialize(this->pRenderD3D3, this->uDesiredDirect3DDevice, true, pTargetWindow->GetAPIHandle());
+     v8 = RenderD3D3_Initialize(this->pRenderD3D3, this->uDesiredDirect3DDevice, true, this->pWindow->GetAPIHandle());
      this->uAcquiredDirect3DDevice = this->uDesiredDirect3DDevice;
     }
     else if (this->pRenderD3D3->pAvailableDevices[0].bDeviceIsValid)
     {
-      v8 = RenderD3D3_Initialize(this->pRenderD3D3, 0, true, pTargetWindow->GetAPIHandle());
+      v8 = RenderD3D3_Initialize(this->pRenderD3D3, 0, true, this->pWindow->GetAPIHandle());
      this->uAcquiredDirect3DDevice = 0;
     }
     else
@@ -1089,8 +1088,7 @@ unsigned int RenderDirect3D3::Initialize(OSWindow *pOutputWindow)
  if (!this->pRenderD3D3)
  {
   this->pfn_1036C0 = (int (*)())nullsub_1;
-  this->dword_040058 = 1;
-  this->hWnd = pTargetWindow->GetAPIHandle();
+  this->bWindowMode = true;
   return 0;
  }
 
@@ -1114,38 +1112,38 @@ unsigned int RenderDirect3D3::Initialize(OSWindow *pOutputWindow)
     *(_DWORD *)(v2 + 1062592) = (int)sub_4A57E9;
     *(_DWORD *)(v2 + 262416) = 1;
     *(_DWORD *)(v2 + 262232) = 1;
-    this->hWnd = pTargetWindow->GetAPIHandle();
     return 0;
  }
  
  this->pTargetSurface = 0;
- this->ptr_0400E8 = (int)MemAlloc(char, 640 * 480 * 4 + 32);
+ this->ptr_0400E8 = NamedMemAlloc(unsigned int, 640 * 480, "Renderer software back buffer");
  if (this->ptr_0400E8)
  {
+  memset(this->ptr_0400E8, 0, (640 * 480 + 8) * sizeof(unsigned int));
   memset(&ddsd2, 0, sizeof(DDSURFACEDESC2));
   ddsd2.dwSize = sizeof(DDSURFACEDESC2);
 
   if (LockSurface_DDraw4(this->pdds4_BackBuffer, &ddsd2, 1))
   {
    pD3DRenderer->pdds4_BackBuffer->Unlock(0);
-
-      v23 = (unsigned int)ddsd2.lpSurface & 7;
+   
+      this->pTargetSurface = this->ptr_0400E8;
+      /*v23 = (unsigned int)ddsd2.lpSurface & 7;
       v25 = this->ptr_0400E8 & 7;
       if ( v25 == v23 )
-        this->pTargetSurface = (unsigned int *)this->ptr_0400E8;
+        this->pTargetSurface = this->ptr_0400E8;
       else
       {
         if ( v25 >= v23 )
-          this->pTargetSurface = (unsigned int *)(this->ptr_0400E8 + 4 * (v25 - v23) + 16);
+          this->pTargetSurface = this->ptr_0400E8 + (v25 - v23) + 4;
         else
-          this->pTargetSurface = (unsigned int *)(this->ptr_0400E8 + 4 * (v23 - v25) + 16);
-      }
+          this->pTargetSurface = this->ptr_0400E8 + (v23 - v25) + 4;
+      }*/
       this->uTargetSurfacePitch = 640;
       this->pfn_1036C0 = (int (__cdecl *)())sub_4A597D;
 
       this->dword_040110 = 1;
-      this->dword_040058 = 1;
-      this->hWnd = pTargetWindow->GetAPIHandle();
+      this->bWindowMode = true;
       return 0;
     }
  }
@@ -1422,30 +1420,16 @@ int Render_sub_49EBF1(struct BaseRender *_this)
 
 
 //----- (MM7.exe::0049ED18) --------------------------------------------------------
-int Render_ClearBackBufferAndPresent(struct BaseRender *_this)
+unsigned int Render_ClearAndPresent(struct BaseRender *_this, unsigned int uColor)
 {
- IDirectDrawSurface *v1; // eax@3
- HRESULT hr;
- DDBLTFX ddblt;
- RECT    rcDst;
-
- rcDst.left = uWindowPosX;
- rcDst.top = uWindowPosY;
- rcDst.right = uWindowPosX + uWindowWidth;
- rcDst.bottom = uWindowPosY + uWindowHeight;
-
- if (dword_F79D7C != 2 || dword_F79D70 != 4)
-   v1 = (IDirectDrawSurface *)pD3DRenderer->pdds4_BackBuffer;
- else
- {
-  v1 = (IDirectDrawSurface *)pD3DRenderer->pdds2_BackBuffer;
-  __asm int 3
- }
-
- ddblt.dwSize = sizeof(DDBLTFX);
- ddblt.dwFillColor = 0x00000000;
+ Viewport cClientArea;
+ _this->pWindow->GetClientArea(&cClientArea);
  
- hr = pD3DRenderer->pdds4_BackBuffer->Blt(&rcDst, 0, 0, DDBLT_COLORFILL, &ddblt);
+ DDBLTFX ddblt;
+ ddblt.dwSize = sizeof(DDBLTFX);
+ ddblt.dwFillColor = uColor;
+ 
+ _this->pdds4_BackBuffer->Blt((RECT *)&cClientArea, 0, 0, DDBLT_COLORFILL, &ddblt);
  return pD3DRenderer->Present();
 }
 
@@ -1478,12 +1462,12 @@ unsigned int RenderDirect3D3::Present()
   rc.bottom = 480;
 
   Render_RestoreFrontBuffer(this);
-  if (this->dword_040058)
+  if (this->bWindowMode)
   {
-   GetClientRect(this->hWnd, &Rect);
+   GetClientRect(this->pWindow->GetAPIHandle(), &Rect);
    Point.y = 0;
    Point.x = 0;
-   ClientToScreen(this->hWnd, &Point);
+   ClientToScreen(this->pWindow->GetAPIHandle(), &Point);
    OffsetRect(&Rect, Point.x, Point.y);
    Render_PresentRegion(this, &Rect, &rc);
   }

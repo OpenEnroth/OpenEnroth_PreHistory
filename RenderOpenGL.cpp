@@ -34,12 +34,6 @@ unsigned int RenderOpenGL::Initialize(OSWindow *pOutputWindow)
  HRESULT      hr;
 
 
-
-
-
-
- pTargetWindow = pOutputWindow;
-
  PIXELFORMATDESCRIPTOR pfd =
  {
   sizeof(PIXELFORMATDESCRIPTOR),  //  size of this pfd  
@@ -60,7 +54,8 @@ unsigned int RenderOpenGL::Initialize(OSWindow *pOutputWindow)
   0, 0, 0                // layer masks ignored  
  };
  
- hTargetWindowDC = GetDC(pTargetWindow->GetAPIHandle());
+ this->pWindow = pOutputWindow;
+ hTargetWindowDC = GetDC(this->pWindow->GetAPIHandle());
 
  int iPixelFormat = ChoosePixelFormat(hTargetWindowDC, &pfd);
  if (!iPixelFormat)
@@ -156,17 +151,16 @@ unsigned int RenderOpenGL::Initialize(OSWindow *pOutputWindow)
  this->dword_040108 = 0;
 
  this->pTargetSurface = 0;
- this->ptr_0400E8 = (int)MemAlloc(char, 640 * 480 * 4 + 32);
+ this->ptr_0400E8 = NamedMemAlloc(unsigned int, 640 * 480, "Renderer software back buffer");
  if (this->ptr_0400E8)
  {
-        this->pTargetSurface = (unsigned int *)this->ptr_0400E8;
+      this->pTargetSurface = this->ptr_0400E8;
 
       this->uTargetSurfacePitch = 640;
       this->pfn_1036C0 = (int (__cdecl *)())sub_4A597D;
 
       this->dword_040110 = 1;
-      this->dword_040058 = 1;
-      this->hWnd = pTargetWindow->GetAPIHandle();
+      this->bWindowMode = true;
       return 0;
 
  }

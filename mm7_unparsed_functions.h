@@ -1153,7 +1153,6 @@ double __fastcall sub_4BE5B1(int a1);
 int __thiscall sub_4BE623(int _this);
 void __thiscall sub_4BE65D(void *_this, int a2);
 void *__thiscall sub_4BE6D1(void *_this);
-void *__thiscall sub_4BF08B(void *_this, int a2);
 int __thiscall sub_4BF91E_GameOverMenu(void *_this);
 int __thiscall sub_4C0312(int _this, int a2, int a3, int a4, int a5);
 void __cdecl loc_4C0D27(); // idb

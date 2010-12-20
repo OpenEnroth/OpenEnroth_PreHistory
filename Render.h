@@ -106,6 +106,7 @@ struct RenderBillboard
 
 
 
+class OSWindow;
 
 struct BaseRender
 {
@@ -141,9 +142,9 @@ struct BaseRender
  int                          dword_040044;
  int                          dword_040048;
  int                          dword_04004C;
- HWND                         hWnd;               // ptr @ 040050
+ OSWindow                    *pWindow;            // dword @ 040050
  int                          dword_040054;
- int                          dword_040058;       //maybe windowed flag
+ unsigned int                 bWindowMode;        // dword @ 040058
  int                          dword_04005C[11];   // for struct align ?
  struct RenderD3D3           *pRenderD3D3;        // dword @ 040088
  struct IDirectDraw4         *pdd4;               // ptr   @ 04008C
@@ -163,7 +164,7 @@ struct BaseRender
  unsigned int                uTargetGMask;       // dword @ 0400DC
  unsigned int                uTargetBMask;       // dword @ 0400E0
  unsigned int                bSceneBegun;        // dword @ 0400E4
- int                         ptr_0400E8;
+ unsigned int               *ptr_0400E8;
  unsigned int               *pTargetSurface;      // ptr   @ 0400EC
  unsigned int                uTargetSurfacePitch; // dword @ 0400F0
  unsigned int                uClipRectY;          // dword @ 0400F4
@@ -200,9 +201,6 @@ struct BaseRender
  int dword_129838;  // dst pitch
  int dword_12983C;  // dst buffer
  int dword_129840;  // src buffer
-
- //addons
- OSWindow *pTargetWindow;
 };
 //signed int __thiscall sub_49FDBF(int _this)
 void Render_Initialize_ZBuffer(struct BaseRender *_this);
@@ -223,7 +221,7 @@ void *Render_sub_4A0EB6(struct BaseRender *_this);
 //int __thiscall sub_49EBF1(int _this);
 int Render_sub_49EBF1(struct BaseRender *_this);
 //signed int __thiscall sub_49ED18(int _this)
-int Render_ClearBackBufferAndPresent(struct BaseRender *_this);
+unsigned int Render_ClearAndPresent(struct BaseRender *_this, unsigned int uColor);
 //int __thiscall sub_4A1814(void *_this);
 HRESULT Render_RestoreFrontBuffer(struct BaseRender *_this);
 //int __thiscall sub_4A194A(int _this, int a2, int a3, int a4);

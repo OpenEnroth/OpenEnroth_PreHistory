@@ -25,6 +25,8 @@
 #include "..\VideoPlayer.h"
 #include "..\_lod.h"
 
+#include "..\libs\AIL\AIL.h" // parasite include, have to move all ail stuff to AudioPlayer class
+
 unsigned int uTextureID_CurrentMenu;
 
 unsigned int uTextureIdx_MapDirs[8];     // dword[8] @ MM7.exe::00507994
@@ -720,17 +722,21 @@ void __cdecl ShowIntroVideo_LoadMainMenu_ShowGreetingWindow()
 
  dword_F8BC10 = 1;
  
- Render_ClearBackBufferAndPresent(pD3DRenderer);
- if (pVideoPlayer)
+ Render_ClearAndPresent(pD3DRenderer, 0xFF000000);
+ if (!bNoVideo)
  {
-  pVideoPlayer->dword_00006C = 0;
-  pVideoPlayer->dword_000040 = 0;
+  if (!bNoCredits)
+  {
+   pVideoPlayer->PlayMovie("3DOLogo", 0, 0, false);
+   pVideoPlayer->PlayMovie("New World Logo", 0, 0, false);
+   pVideoPlayer->PlayMovie("JVC", 0, 0, false);
+  }
 
-  pVideoPlayer->PlayMovie("3DOLogo");
-  pVideoPlayer->PlayMovie("New World Logo");
-  pVideoPlayer->PlayMovie("JVC");
-  pVideoPlayer->PlayMovie("Intro");
+  if (!bNoIntro)
+    pVideoPlayer->PlayMovie("Intro", 0, 0, false);
  }
+
+
 
  MenuUI_LoadTextures(1);
  MenuUI_LoadFontsAndSomeStuff();
@@ -1945,7 +1951,7 @@ LABEL_60:
             GUIButtonCreate(pGUIWindow_CurrentMenu, 19, 302, 214, 18, v0, 0, 423, 0, 0, (unsigned char *)v1, 0);
             GUIButtonCreate(pGUIWindow_CurrentMenu, 19, 324, 214, 18, v0, 0, 424, 0, 0, (unsigned char *)v1, 0);
           }
-          if ( !pD3DRenderer->dword_040058 )
+          if (!pD3DRenderer->bWindowMode)
           {
             v0 = 1;
             if (pD3DRenderer->IsGammaControlSupported())
@@ -2420,7 +2426,7 @@ LABEL_291:
                         RegistryWriteInt("Tinting", pD3DRenderer->bTinting);
                         v35 = RegistryWriteInt("Bloodsplats", (*(_BYTE *)(LODWORD(pGame) + 3620) >> 5) & 1);
                       }
-                      if ( pD3DRenderer->dword_040058 )
+                      if (pD3DRenderer->bWindowMode)
                         goto LABEL_291;
                       v37 = dword_4E2900_GammaPos;
                       v38 = "GammaPos";
@@ -5560,7 +5566,7 @@ void DrawLoadingScreen(struct class56 *_this)
     {
       if ( pD3DRenderer->pRenderD3D3 )
       {
-        if ( !pD3DRenderer->dword_040058 )
+        if (!pD3DRenderer->bWindowMode)
           Render_sub_49FD3A((int)pD3DRenderer, v1);
       }
       Render_DrawIndexedTexture(pD3DRenderer, 80, 122, (cTexture *)(v1 + 296));

@@ -1,7 +1,6 @@
 #include <ddraw.h>
 //#include <dinput.h>
 #include "localization_defs.h"
-#include "AIL.h"
 #include "data.h"
 #include "AudioPlayer.h"
 #include "VideoPlayer.h"

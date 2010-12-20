@@ -1784,8 +1784,10 @@ int uTurnSpeed; // dword @ MM7.exe::006BE38C
 //MemoryMng mem_mng;  // struct @ MM7.exe::00702B28
  int dword_71FFF4; // weak
  int dword_71FFF8; // weak
-unsigned int bUseOverrideData; // dword @ MM7.exe::00720008
-unsigned int bNoVideo;       // dword @ MM7.exe::0072000C
+unsigned int bUseOverrideData;   // dword @ MM7.exe::00720008
+unsigned int bNoVideo = false;   // dword @ MM7.exe::0072000C
+unsigned int bNoCredits = false; // new
+unsigned int bNoIntro = false;   // new
  int dword_720010; // idb
 
 struct Game *pGame = 0; //struct @ MM7.exe::00720014

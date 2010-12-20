@@ -3,12 +3,9 @@
 #include <windows.h>
 #include "defs.h"
 
-#include "Smacker.h"
-#include "Bink.h"
+#include "libs\Smacker\Smacker.h"
+#include "libs\Bink\Bink.h"
 
-
-
-int __cdecl VideoPlayer_Smacker_CheckSurfaceFromat();
 
 
 namespace Video
@@ -33,29 +30,31 @@ class VideoPlayer
 {
  public:
     VideoPlayer();
-   ~VideoPlayer() {}
+   ~VideoPlayer()
+   {
+    UnloadAll();
+   }
    
    unsigned int Initialize(OSWindow *pWindow, AudioPlayer *pAudioPlayer);
-
-   
-   unsigned int PlayMovie(const char *pMovieName);
+   unsigned int PlayMovie(const char *pMovieName, unsigned int uOutX, unsigned int uOutY, unsigned int bLoop);
 
  protected:
-   unsigned int OpenMovie(const char *pVideoName, int a3);
+   unsigned int OpenMovie(const char *pVideoName);
    HBINK        OpenBinkMovie(const char *pVideoFile);
    HSMACK       OpenSmackMovie(const char *pVideoFile);
 
-   unsigned int PlaySmackMovie();
+   unsigned int SmackPlayMovie(unsigned int uOutX, unsigned int uOutY);
+   void         SmackDrawFrame(unsigned int uOutX, unsigned int uOutY);
+   unsigned int SmackCheckSurfaceFromat();
 
    
    HBINKBUF     BinkCreateBuffer(unsigned int uWidth, unsigned int uHeight, char a4);
-   unsigned int BinkPlayMovie();
-   unsigned int BinkDrawFrame(int a3, int a4);
+   unsigned int BinkPlayMovie(unsigned int uOutX, unsigned int uOutY);
+   unsigned int BinkDrawFrame(unsigned int uOutX, unsigned int uOutY);
    unsigned int BinkLockBuffer(HBINKBUF pBinkBuffer);
    unsigned int BinkUnlockBuffer(HBINKBUF pBinkBuffer);
 
-   
-   void SmackDrawFrame(int a3, int a4);
+
 
  public:
    bool IsAnyMovieLoaded();
@@ -65,6 +64,7 @@ class VideoPlayer
    int  sub_4BF5B2();
    void sub_4BF73A();
    void sub_4BF28F(char a2, int a3);
+   void sub_4BF08B(int a2);
 
  public:
    int            dword_000000[9];
@@ -93,9 +93,9 @@ class VideoPlayer
    int          sBinkDirectDrawSurfaceType; // dword @ 000050
    int          dword_000054; // initialization flag
    int          dword_000058;
-   int          dword_00005C;
+   unsigned int bFirstFrame;      // dword @ 00005C
    unsigned int bUsingSmackerMMX; // dword @ 000060
-   int          dword_000064; //a3 from OpenMovie
+   unsigned int bLoopPlaying;     // dword @ 000064
    int          dword_000068;
    int          dword_00006C; //RGBTexture ptr
 

@@ -3,7 +3,6 @@
 #include <stdio.h>
 
 
-#include "AIL.h"
 #include "AudioPlayer.h"
 #include "clock.h"
 #include "data.h"
@@ -13,21 +12,19 @@
 
 #include "GUI\GUIWindow.h"
 
+#include "libs\AIL\AIL.h" // parasite include, have to move all ail stuff to AudioPlayer class
 
 
 
 
-unsigned int VideoPlayer::BinkPlayMovie()
+unsigned int VideoPlayer::BinkPlayMovie(unsigned int uOutX, unsigned int uOutY)
 {
  if (!pBinkMovie)
    return Error::Generic;
 
- BinkDrawFrame(0, 0);//v4, a3);
+ BinkDrawFrame(uOutX, uOutY);
  while (pBinkMovie)
  {
-    if (dword_00006C)
-      break;
-    
     MSG msg;
     while (PeekMessageA(&msg, 0, 0, 0, PM_REMOVE))
     {
@@ -45,33 +42,22 @@ unsigned int VideoPlayer::BinkPlayMovie()
       break;
 
     if (!BinkWait(pBinkMovie))
-    {
-     if (!dword_00006C)
-       BinkDrawFrame(0, 0);//v4, a3);
-    }
+       BinkDrawFrame(uOutX, uOutY);
  }
-
-
- if (dword_00006C == 1)
-   Sleep(1000);
 
  return Error::Success;
 }
 
 
-unsigned int VideoPlayer::PlaySmackMovie()
+unsigned int VideoPlayer::SmackPlayMovie(unsigned int uOutX, unsigned int uOutY)
 {
  if (!pSmackerMovie)
    return Error::Generic;
 
 
- SmackDrawFrame(0, 0);//v4, a3);
-
+ SmackDrawFrame(uOutX, uOutY);
  while (pSmackerMovie)
  {
-    if (dword_00006C)
-      break;
-    
     MSG msg;
     while (PeekMessageA(&msg, 0, 0, 0, PM_REMOVE))
     {
@@ -88,10 +74,7 @@ unsigned int VideoPlayer::PlaySmackMovie()
     if (!pSmackerMovie)
       break;
     if (!SmackWait(pSmackerMovie))
-    {
-     if (!dword_00006C)
-       SmackDrawFrame(0, 0);//v4, a3);
-    }
+       SmackDrawFrame(uOutX, uOutY);
  }
 
  return Error::Success;
@@ -99,13 +82,14 @@ unsigned int VideoPlayer::PlaySmackMovie()
 
 
 //----- (004BE70E) --------------------------------------------------------
-unsigned int VideoPlayer::PlayMovie(const char *pMovieName)
+unsigned int VideoPlayer::PlayMovie(const char *pMovieName, unsigned int uOutX, unsigned int uOutY, unsigned int bLoop)
 {
- if (OpenMovie(pMovieName, 0))
+ if (OpenMovie(pMovieName))
    return Error::Generic;
 
+ bLoopPlaying = bLoop;
  dword_000058 = 1;
- dword_000044 = 0;//v4;
+ dword_000044 = uOutY;
 
  BaseRender *pRenderer = pWindow->GetRender();
  Render_ClearTarget(pRenderer, 0);
@@ -115,9 +99,9 @@ unsigned int VideoPlayer::PlayMovie(const char *pMovieName)
  
  ShowCursor(false);
  if (pVideoPlayer->uMovieFormat == Video::Format::Bink)
-   BinkPlayMovie();
+   BinkPlayMovie(uOutX, uOutY);
  else if (pVideoPlayer->uMovieFormat == Video::Format::Smack)
-   PlaySmackMovie();
+   SmackPlayMovie(uOutX, uOutY);
 
  ShowCursor(true);
 
@@ -191,7 +175,7 @@ unsigned int VideoPlayer::Initialize(OSWindow *pTargetWindow, AudioPlayer *pExte
  
  dword_000054 = false;//true;
  dword_000058 = 0;
- dword_00005C = 0;
+ bFirstFrame = true;
  bUsingSmackerMMX = SmackUseMMX(1);
 
  dword_00006C = 0;
@@ -235,7 +219,7 @@ VideoPlayer::VideoPlayer()
 
 
 //----- (MM7.exe::004BF411) --------------------------------------------------------
-unsigned int VideoPlayer::OpenMovie(const char *pVideoName, int a3)
+unsigned int VideoPlayer::OpenMovie(const char *pVideoName)
 {
  wsprintfA(pCurrentMovieName, "%s.bik", pVideoName);
 
@@ -246,6 +230,7 @@ unsigned int VideoPlayer::OpenMovie(const char *pVideoName, int a3)
   dword_0000A0 = 1;
   pBinkBuffer = BinkCreateBuffer(pBinkMovie->Width, pBinkMovie->Height, 0);
 
+  bFirstFrame = true;
   return Error::Success;
  }
 
@@ -267,7 +252,7 @@ unsigned int VideoPlayer::OpenMovie(const char *pVideoName, int a3)
  if (!pSomeSmackerBuffer)
  {
   UnloadAll();
-  MessageBoxW(0, L"Not enough memory", L"VideoPlayer::OpenMovie", 0);
+  MessageBoxW(0, L"Out of memory", L"VideoPlayer::OpenMovie", 0);
 
   return Error::OutOfMemory;
  }
@@ -277,7 +262,7 @@ unsigned int VideoPlayer::OpenMovie(const char *pVideoName, int a3)
                pSmackerMovie->Width, pSmackerMovie->Height,
                pSomeSmackerBuffer, 0);
   
- pSmackMovieBlit = SmackBlitOpen(VideoPlayer_Smacker_CheckSurfaceFromat());
+ pSmackMovieBlit = SmackBlitOpen(SmackCheckSurfaceFromat());
  if (!pSmackMovieBlit)
  {
   UnloadAll();
@@ -285,6 +270,8 @@ unsigned int VideoPlayer::OpenMovie(const char *pVideoName, int a3)
 
   return Error::Generic;
  }
+
+ bFirstFrame = true;
  return Error::Success;
 }
 
@@ -305,7 +292,7 @@ HSMACK VideoPlayer::OpenSmackMovie(const char *pVideoFile)
   if (!strcmpi(pMagicVideoHeaders[i].sVideoName, pVideoFile))
   {
    SetFilePointer(hMagicVid, pMagicVideoHeaders[i].uContainerOffset, 0, FILE_BEGIN);
-   return SmackOpen(hMightVid, 28992, -1);
+   return SmackOpen(hMagicVid, 28992, -1);
   }
  }
 
@@ -325,8 +312,8 @@ void VideoPlayer::UnloadAll()
 
  if (pBinkBuffer)
  {
-  (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(pBinkBuffer + 72) + 8))(*(_DWORD *)(pBinkBuffer + 72));
-  *(_DWORD *)(pBinkBuffer + 72) = 0;
+  pBinkBuffer->pTargetDDrawSurface->Release();
+  pBinkBuffer->pTargetDDrawSurface = 0;
 
   MemFree(pBinkBuffer);
   pBinkBuffer = 0;
@@ -366,17 +353,16 @@ void VideoPlayer::UnloadAll()
 }
 
 //----- (004BED4F) --------------------------------------------------------
-unsigned int VideoPlayer::BinkDrawFrame(int a3, int a4)
+unsigned int VideoPlayer::BinkDrawFrame(unsigned int uOutX, unsigned int uOutY)
 {
-  int v6; // edx@6
-  int v7; // edx@6
-  int v8; // ecx@6
-
-  RECT rcSrc;//int v9; // [sp+8h] [bp-20h]@10
+  //int v6; // edx@6
+  //int v7; // edx@6
+  //int v8; // ecx@6
+  //RECT rcSrc;//int v9; // [sp+8h] [bp-20h]@10
   //int v10; // [sp+Ch] [bp-1Ch]@10
   //int v11; // [sp+10h] [bp-18h]@10
   //int v12; // [sp+14h] [bp-14h]@10
-  RECT rcDst;//int v13; // [sp+18h] [bp-10h]@6
+  //RECT rcDst;//int v13; // [sp+18h] [bp-10h]@6
   //int v14; // [sp+1Ch] [bp-Ch]@6
   //int v15; // [sp+20h] [bp-8h]@6
   //int v16; // [sp+24h] [bp-4h]@8
@@ -386,37 +372,32 @@ unsigned int VideoPlayer::BinkDrawFrame(int a3, int a4)
  BinkGetRects(pBinkMovie, pBinkBuffer->uBinkDDSurfaceType);
  if (!BinkLockBuffer(pBinkBuffer))
  {
-  BinkCopyToBuffer(pBinkMovie,
-                   pBinkBuffer->pDDrawSurfaceData,
-                   pBinkBuffer->uDDrawSurfacePitch,
+  BinkCopyToBuffer(pBinkMovie, pBinkBuffer->pDDrawSurfaceData, pBinkBuffer->uDDrawSurfacePitch,
                    pBinkBuffer->uHeight,
-                   0, 0,
+                   uOutX, uOutY,
                    pBinkBuffer->uBinkDDSurfaceType);
   BinkUnlockBuffer(pBinkBuffer);
  }
 
- if (pD3DRenderer->dword_040058)
- {
-  v7 = pBinkBuffer->uRectX;
-    rcDst.left = v7;
-    rcDst.top = pBinkBuffer->uRectY;
-    v8 = v7 + pBinkBuffer->uWidth;
-    rcDst.right = v7 + pBinkBuffer->uWidth;
-    v6 = rcDst.top + pBinkBuffer->uHeight;
- }
- else
- {
-    rcDst.left = 0;
-    rcDst.top = 0;
-    rcDst.right = pBinkBuffer->uWidth;
-    rcDst.bottom = pBinkBuffer->uHeight;
 
-    v8 = pBinkBuffer->uWidth;
-    v6 = pBinkBuffer->uHeight;
- }
-   rcDst.bottom = v6;
 
-   if (a4)
+ RECT rcDst = {0,                   0,
+               pBinkBuffer->uWidth, pBinkBuffer->uHeight};
+ if (pD3DRenderer->bWindowMode)
+ {
+  POINT ptWindowOffset = {0, 0};
+  ClientToScreen(pWindow->GetAPIHandle(), &ptWindowOffset);
+
+  rcDst.left += ptWindowOffset.x;
+  rcDst.right += ptWindowOffset.x;
+
+  rcDst.top += ptWindowOffset.y;
+  rcDst.bottom += ptWindowOffset.y;
+ }
+
+ RECT rcSrc = {0,                   0,
+               pBinkBuffer->uWidth, pBinkBuffer->uHeight};
+   /*if (a4) bool strech to window
    {
     rcDst.right = pBinkBuffer->uWidth + v8;
     rcDst.bottom = pBinkBuffer->uHeight + v6;
@@ -424,13 +405,13 @@ unsigned int VideoPlayer::BinkDrawFrame(int a3, int a4)
    rcSrc.left = 0;
    rcSrc.top = 0;
    rcSrc.right = pBinkBuffer->uWidth;
-   rcSrc.bottom = pBinkBuffer->uHeight;
+   rcSrc.bottom = pBinkBuffer->uHeight;*/
 
-   BltToFrontBuffer(&rcDst, pBinkBuffer->pTargetDDrawSurface, &rcSrc, DDBLT_WAIT);
-   if (pBinkMovie->FrameRate != pBinkMovie->Data1 - 1 || dword_000064)
-     BinkNextFrame(pBinkMovie);
-   else
-     UnloadAll();
+ BltToFrontBuffer(&rcDst, pBinkBuffer->pTargetDDrawSurface, &rcSrc, DDBLT_WAIT);
+ if (bLoopPlaying || pBinkMovie->FrameRate != pBinkMovie->Data1 - 1)
+   BinkNextFrame(pBinkMovie);
+ else
+   UnloadAll();
 
  return Error::Success;
 }
@@ -460,15 +441,15 @@ HBINK VideoPlayer::OpenBinkMovie(const char *pVideoFile)
 }
 
 //----- (004BEE6B) --------------------------------------------------------
-void VideoPlayer::SmackDrawFrame(int a3, int a4)
+void VideoPlayer::SmackDrawFrame(unsigned int uOutX, unsigned int uOutY)
 {
   int v11; // eax@20
-  LONG v13; // [sp-18h] [bp-30h]@7
-  LONG v14; // [sp-14h] [bp-2Ch]@7
+  //LONG v13; // [sp-18h] [bp-30h]@7
+  //LONG v14; // [sp-14h] [bp-2Ch]@7
   //signed int v15; // [sp-10h] [bp-28h]@7
   //signed int v16; // [sp-Ch] [bp-24h]@7
-  signed int v17; // [sp-8h] [bp-20h]@7
-  struct tagPOINT Point; // [sp+8h] [bp-10h]@7
+  //signed int v17; // [sp-8h] [bp-20h]@7
+  //struct tagPOINT Point; // [sp+8h] [bp-10h]@7
   //int v19; // [sp+10h] [bp-8h]@5
   //int v20; // [sp+14h] [bp-4h]@5
 
@@ -476,55 +457,34 @@ void VideoPlayer::SmackDrawFrame(int a3, int a4)
  unsigned short *pSmackerFrameData;
  unsigned int   *pSurfaceData;
  unsigned int    uSurfacePitch;
- int             x, y;
 
 
  pSmackerFrameData = 0;
- pSmackerFrameData = MemAlloc(unsigned short, 1280 * 1024);
+ //pSmackerFrameData = MemAlloc(unsigned short, 1280 * 1024);
+ pSmackerFrameData = MemAlloc(unsigned short, 640 * 480);
 
- if (!pD3DRenderer->dword_040058 || GetFocus() == pWindow->GetAPIHandle())
+
+ if (pSmackerMovie->NewPalette)
+   SmackBlitSetPalette(pSmackMovieBlit, pSmackerMovie->Palette, pSmackerMovie->PalType);
+ SmackDoFrame(pSmackerMovie);
+
+ Render_LockFrontBuffer(pD3DRenderer, (void **)&pSurfaceData, &uSurfacePitch);
+
+ if (bFirstFrame)
  {
-  if (pSmackerMovie->NewPalette)
-    SmackBlitSetPalette(pSmackMovieBlit, pSmackerMovie->Palette, pSmackerMovie->PalType);
-  SmackDoFrame(pSmackerMovie);
+  SmackBlitClear(pSmackMovieBlit, pSmackerFrameData, 640 * 2, uOutX, uOutY, 640, 480, -1);
 
-  Render_LockFrontBuffer(pD3DRenderer, (void **)&pSurfaceData, &uSurfacePitch);
+  bFirstFrame = false;
+ }
 
-  if (dword_00005C)
-  {
-   if (pD3DRenderer->dword_040058)
-   {
-    Point.y = 0;
-    Point.x = 0;
-    ClientToScreen(pWindow->GetAPIHandle(), &Point);
-    v17 = -1;
-    v14 = Point.y;
-    v13 = Point.x;
-   }
-   else
-   {
-    v17 = -1;
-    v14 = 0;
-    v13 = 0;
-   }
-   SmackBlitClear(pSmackMovieBlit, pSmackerFrameData, uSurfacePitch * 2, v13, v14, 640, 480, v17);
-
-   dword_00005C = 0;
-  }
-
-  Render_RestoreFrontBuffer(pD3DRenderer);
-  if (pD3DRenderer->dword_040058)
-  {
-   Point.y = 0;
-   Point.x = 0;
-   ClientToScreen(pWindow->GetAPIHandle(), &Point);
-   if (a4)
-   {
+ Render_RestoreFrontBuffer(pD3DRenderer);
+ /*if (a4) //bool strech
+ {
     while (SmackToBufferRect(pSmackerMovie, 0))
     {
-     SmackBlit(pSmackMovieBlit, pSmackerFrameData, uSurfacePitch * 2,
-               pSmackerMovie->LastRectx + Point.x / 2,
-               pSmackerMovie->LastRecty + a3 + Point.y / 2,
+     SmackBlit(pSmackMovieBlit, pSmackerFrameData, 640 * 2,
+               pSmackerMovie->LastRectx + uOutX + 0 / 2,
+               pSmackerMovie->LastRecty + uOutY + 0 / 2,
                pSomeSmackerBuffer,
                pSmackerMovie->Width,
                pSmackerMovie->LastRectx,
@@ -532,30 +492,14 @@ void VideoPlayer::SmackDrawFrame(int a3, int a4)
                pSmackerMovie->LastRectw,
                pSmackerMovie->LastRecth);
     }
-   }
-   else
-   {
-    while (SmackToBufferRect(pSmackerMovie, 0))
-    {
-     SmackBlit(pSmackMovieBlit, pSmackerFrameData, uSurfacePitch * 2,
-               pSmackerMovie->LastRectx + Point.x,
-               pSmackerMovie->LastRecty + Point.y + a3,
-               pSomeSmackerBuffer,
-               pSmackerMovie->Width,
-               pSmackerMovie->LastRectx,
-               pSmackerMovie->LastRecty,
-               pSmackerMovie->LastRectw,
-               pSmackerMovie->LastRecth);
-    }
-   }
-  }
-  else
-  {
+ }
+ else
+ {*/
    while (SmackToBufferRect(pSmackerMovie, 0))
    {
-    SmackBlit(pSmackMovieBlit, pSmackerFrameData, uSurfacePitch * 2,
-              pSmackerMovie->LastRectx,
-              pSmackerMovie->LastRecty + a3,
+    SmackBlit(pSmackMovieBlit, pSmackerFrameData, 640 * 2,
+              pSmackerMovie->LastRectx + uOutX,
+              pSmackerMovie->LastRecty + uOutY,
               pSomeSmackerBuffer,
               pSmackerMovie->Width,
               pSmackerMovie->LastRectx,
@@ -563,23 +507,30 @@ void VideoPlayer::SmackDrawFrame(int a3, int a4)
               pSmackerMovie->LastRectw,
               pSmackerMovie->LastRecth);
    }
-  }
+ //}
 
-  for (y = 0; y < 480; ++y)
-    for (x = 0; x < 640; ++x)
-    {
-     uColor = ((pSmackerFrameData[y * 1280 + x] & 0x001F) * 8) & 0xFF;
-     uColor |= ((((((unsigned int)(pSmackerFrameData[y * 1280 + x]) & 0x07E0) >> 5) * 4) & 0xFF) << 8);
-     uColor |= ((((((unsigned int)(pSmackerFrameData[y * 1280 + x]) & 0xF800) >> 11) * 8) & 0xFF) << 16);
 
-     pSurfaceData[y * 1280 + x] = uColor;
-    }
 
-  Render_UnlockFrontBuffer(pD3DRenderer);
-  if (pSmackerMovie->FrameNum != pSmackerMovie->Frames - 1 || dword_000064)
-    SmackNextFrame(pSmackerMovie);
-  else UnloadAll();
- }
+ POINT ptWindowOffset = {0, 0};
+ if (pD3DRenderer->bWindowMode)
+   ClientToScreen(pWindow->GetAPIHandle(), &ptWindowOffset);
+
+ for (unsigned int y = 0; y < 480; ++y)
+   for (unsigned x = 0; x < 640; ++x)
+   {
+     uColor = ((pSmackerFrameData[y * 640 + x] & 0x001F) * 8) & 0xFF;
+     uColor |= ((((((unsigned int)(pSmackerFrameData[y * 640 + x]) & 0x07E0) >> 5) * 4) & 0xFF) << 8);
+     uColor |= ((((((unsigned int)(pSmackerFrameData[y * 640 + x]) & 0xF800) >> 11) * 8) & 0xFF) << 16);
+
+    pSurfaceData[(ptWindowOffset.y + y) * 1280 + ptWindowOffset.x + x] = uColor;
+   }
+ Render_UnlockFrontBuffer(pD3DRenderer);
+
+
+ if (bLoopPlaying || pSmackerMovie->FrameNum != pSmackerMovie->Frames - 1)
+   SmackNextFrame(pSmackerMovie);
+ else UnloadAll();
+
 
  MemFree(pSmackerFrameData);
 }
@@ -592,16 +543,16 @@ bool VideoPlayer::IsAnyMovieLoaded()
 
 
 //----- (MM7.exe::004BE95A) --------------------------------------------------------
-int __cdecl VideoPlayer_Smacker_CheckSurfaceFromat()
+unsigned int VideoPlayer::SmackCheckSurfaceFromat()
 {
-
+ return 0xC0000000;
+ /*
  DDPIXELFORMAT ddpsFrontBuffer;
  ddpsFrontBuffer.dwSize = sizeof(DDPIXELFORMAT);
  ddpsFrontBuffer.dwFlags = DDPF_RGB;
 
  Render_GetPrimarySurfacePixelFormat(pD3DRenderer, &ddpsFrontBuffer);
 
- return 0xC0000000;
  if (ddpsFrontBuffer.dwFourCC != 8)
  {
   if (ddpsFrontBuffer.dwRBitMask == 0xF800 &&
@@ -615,7 +566,7 @@ int __cdecl VideoPlayer_Smacker_CheckSurfaceFromat()
 
   MessageBoxW(0, L"Unsupported pixel format.", L"Smacker Error", 0);
  }
- return 0;
+ return 0;*/
 }
 
 
@@ -819,7 +770,7 @@ void VideoPlayer::sub_4BECD5(unsigned int a2)
 }
 
 //----- (004BF08B) --------------------------------------------------------
-void *__thiscall sub_4BF08B(void *_this, int a2)
+void VideoPlayer::sub_4BF08B(int a2)
 {
   int v2; // eax@1
   int v3; // esi@1
@@ -827,11 +778,13 @@ void *__thiscall sub_4BF08B(void *_this, int a2)
   int v5; // edi@1
   signed int v6; // eax@1
 
-  v3 = (int)_this;
+  //VideoPlayer::dword_00006C may be passed as this
+
+  v3 = (int)this;
   pD3DRenderer->BeginScene();
   v4 = (int)pD3DRenderer->pTargetSurface;
   v5 = pD3DRenderer->uTargetSurfacePitch;
-  v6 = VideoPlayer_Smacker_CheckSurfaceFromat();
+  v6 = SmackCheckSurfaceFromat();
   SmackToBuffer(*(HSMACK *)(v3 + 40), 8, 8, 2 * v5, pD3DRenderer->dword_000014, (void *)v4, v6);
   v2 = *(_DWORD *)(v3 + 40);
   if ( *(_DWORD *)(v2 + 104) )
@@ -849,7 +802,7 @@ void *__thiscall sub_4BF08B(void *_this, int a2)
     SmackNextFrame((HSMACK)*(_DWORD *)(v3 + 40));
   else
     ((VideoPlayer *)v3)->UnloadAll();
-  return (void *)pD3DRenderer->EndScene();
+  pD3DRenderer->EndScene();
 }
 
 //----- (004BF28F) --------------------------------------------------------
@@ -956,7 +909,8 @@ void VideoPlayer::sub_4BF73A()
   if ( v2 )
   {
     if ( v2 == 1 )
-      OpenMovie(&Source, v1);
+      //OpenMovie(&Source, v1);
+      OpenMovie(&Source);
   }
   else
   {

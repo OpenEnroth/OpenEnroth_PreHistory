@@ -4,9 +4,7 @@
 
 #include "defs.h"
 #include "RenderD3D3.h"
-#include "AIL.h"
 #include "clock.h"
-#include "Smacker.h"
 #include "Level.h"
 #include "FrameTables.h"
  #include "_lod.h"

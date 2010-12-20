@@ -4,7 +4,6 @@
 #include "defs.h"
 #include "localization_defs.h"
  #include "_lod.h"
-#include "AIL.h"
 #include "menus.h"
 #include "clock.h"
 #include "data.h"
@@ -3938,7 +3937,7 @@ int __cdecl err_show()
   {
     ClipCursor(0);
     pGame->dword_000004 = true;
-    if ( !pD3DRenderer->dword_040058 )
+    if (!pD3DRenderer->bWindowMode)
       sub_4667E9();
     if ( MessageBoxA(0, (char *)pGlobalTXT_LocalizationStrings[176], (char *)pGlobalTXT_LocalizationStrings[59], 0x34u) == 6 )
       SaveGame(1, 0);
@@ -4661,10 +4660,11 @@ void Game_Deinitialize()
     if (pAsyncKeyboard)
       Keyboard_suspend(pAsyncKeyboard);
   }
-  RegistryWriteInt("startinwindow", pD3DRenderer->dword_040058);
-  if ( GetWindowRect(pAppWindow->GetAPIHandle(), &Rect) )
+
+  RegistryWriteInt("startinwindow", pD3DRenderer->bWindowMode);
+  if (GetWindowRect(pAppWindow->GetAPIHandle(), &Rect))
   {
-    if ( pD3DRenderer->dword_040058 )
+    if (pD3DRenderer->bWindowMode)
     {
       RegistryWriteInt("window X", Rect.left);
       RegistryWriteInt("window Y", Rect.top);

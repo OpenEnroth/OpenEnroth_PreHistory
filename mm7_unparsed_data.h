@@ -1923,7 +1923,9 @@ extern char byte_6BE6EC[875]; // weak
 extern int dword_71FFF4; // weak
 extern int dword_71FFF8; // weak
 extern unsigned int bUseOverrideData; // dword @ MM7.exe::00720008
-extern unsigned int bNoVideo;       // dword @ MM7.exe::0072000C
+extern unsigned int bNoVideo;         // dword @ MM7.exe::0072000C
+extern unsigned int bNoCredits;       // new
+extern unsigned int bNoIntro;         // new
 extern int dword_720010; // idb
 
 extern struct Game *pGame; //struct @ MM7.exe::00720014
