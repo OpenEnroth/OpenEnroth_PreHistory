@@ -3347,7 +3347,7 @@ LABEL_6:
    {Keyboard::Key::StrafeRight,   PartyAction_OnStrafeRight}
   };
 
-  for (unsigned int i = 0; i < 10; ++i)
+  for (unsigned int i = 0; i < 30; ++i)
     if (events[i].handler && pUserInput->IsKeyToggled(events[i].event))
       (events[i].handler)();
  }
