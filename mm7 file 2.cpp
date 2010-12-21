@@ -10,6 +10,7 @@
 #include "AudioPlayer.h"
 #include "VideoPlayer.h"
 #include "FrameTables.h"
+#include "UserInput.h"
 
 #include "GUI\GUI.h"
 #include "GUI\GUICursor.h"
@@ -26,24 +27,6 @@
 #include "Game.h"
 
 static char unk_506990[1240]; // weak
-
-
-
-
-void KeyboardController_ctor(struct KeyboardController *_this)
-{
- unsigned int i;
-
- _this->uLastKeyPressed = 0;
-
- KeyboardController_InitalizeKeys(_this);
- KeyboardController_ReadKeyMapping(_this);
-
- for (i = 0; i < 30; ++i)
-   GetAsyncKeyState(_this->array_00000C_vkeys[i]);
-
- dword_506E68 = -1;
-}
 
 
 
@@ -761,7 +744,7 @@ void __fastcall sub_42F933(int a1)
   }
 }
 
-void Game_Process_cpp();
+
 //----- (00463149) --------------------------------------------------------
 int __cdecl sub_463149()
 {
@@ -822,14 +805,15 @@ int __cdecl sub_463149()
     dword_6BE340 = 2;
     dword_4E28F8_PartyCantJumpIfTrue = 0;
 
-    if (dword_720010)
-      sub_46B105((void *)dword_720010);
+    if (pAsyncMouse)
+      CAsyncMouse_sub_46B105((void *)pAsyncMouse);
 
-    if (pGame->class14_obj->dword_000004 && 0xFF)
+    runtime_warning(async input);
+    /*if (pGame->Win32Keyboard_obj->dword_000004 && 0xFF)
     {
       if (pAsyncKeyboard)
         CAsyncKeyboard_Resume(pAsyncKeyboard);
-    }
+    }*/
     if (pD3DRenderer->pRenderD3D3)
       Vis_sub_4C1A02(pGame->pVis);
     v18 = 0;
@@ -862,8 +846,8 @@ LABEL_89:
         ((BaseRender *)v2)->Present();
         continue;
       }
-      if ( dword_720010)
-        sub_46B736((void *)dword_720010, 1);
+      if ( pAsyncMouse)
+        CAsyncMouse_sub_46B736((void *)pAsyncMouse, 1);
 
       if (pVideoPlayer)
       {
@@ -4291,13 +4275,13 @@ bool __fastcall sub_40DC2D(int a1, void *a2)
     TranslateMessage(&struct_505898.Msg_global);
     DispatchMessageA(&struct_505898.Msg_global);
   }
-  if (dword_720010)
+  if (pAsyncMouse)
   {
     EnterCriticalSection(&pGame->class01_obj->cs1);
-    v5 = *(_DWORD *)(dword_720010 + 28);
-    struct_505898.dword_5058C8 = *(_DWORD *)(dword_720010 + 24);
+    v5 = *(_DWORD *)(pAsyncMouse + 28);
+    struct_505898.dword_5058C8 = *(_DWORD *)(pAsyncMouse + 24);
     struct_505898.dword_5058CC = v5;
-    v6 = *(_DWORD *)(dword_720010 + 108);
+    v6 = *(_DWORD *)(pAsyncMouse + 108);
     v4 = *(_DWORD *)v6;
     if ( *(_DWORD *)v6 != v6 )
     {
@@ -4315,10 +4299,10 @@ bool __fastcall sub_40DC2D(int a1, void *a2)
         }
         v4 = *(_DWORD *)v4;
       }
-      while ( v4 != *(_DWORD *)(dword_720010 + 108) );
+      while ( v4 != *(_DWORD *)(pAsyncMouse + 108) );
     }
-    sub_46B944(dword_720010);
-    if ( !*(_BYTE *)(dword_720010 + 90) )
+    CAsyncMouse_sub_46B944(pAsyncMouse);
+    if ( !*(_BYTE *)(pAsyncMouse + 90) )
       struct_505898.byte_50598E = 1;
     LeaveCriticalSection(&pGame->class01_obj->cs1);
   }
@@ -6975,7 +6959,7 @@ void __cdecl sub_4142D3()
   dword_507C08 = v3;
   if ( *(_DWORD *)(pGUIWindow_CurrentMenu + 64) == 2 )
   {
-    dword_506E90[dword_506E68] = pKeyboardController->pPressedKeysBuffer[0];
+    dword_506E90[dword_506E68] = pUserInput->pPressedKeysBuffer[0];
     memset(byte_506E6C, 0, 0x1Cu);
     v4 = 0;
     do
@@ -7310,9 +7294,9 @@ void __cdecl sub_414F82_DrawGameOptions()
     Render_DrawIndexedTexture(pD3DRenderer, 20, 303, (dword_507CB4 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507CB4] : 0));
   if ( dword_6BE378_ShowDamageFlag )
     Render_DrawIndexedTexture(pD3DRenderer, 128, 303,(dword_507CB8 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507CB8] : 0));
-  if ( dword_6BE380 )
+  if ( bFlipOnExit )
     Render_DrawIndexedTexture(pD3DRenderer, 128, 325, (dword_507C84 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507C84] : 0));
-  if ( dword_6BE37C )
+  if ( bAlwaysRun )
     Render_DrawIndexedTexture(pD3DRenderer, 20, 325, (dword_507CB0 != -1 ? &LODFile_Icons_LOD.aLODHeaders[dword_507CB0] : 0));
   Render_DrawIndexedTexture(pD3DRenderer, 17 * uSoundVolumeMultiplier + 265, 162, &LODFile_Icons_LOD.aLODHeaders[uTextureID_SoundLevels[uSoundVolumeMultiplier]]);
   Render_DrawIndexedTexture(pD3DRenderer, 17 * uMusicVolimeMultiplier + 265, 216, &LODFile_Icons_LOD.aLODHeaders[uTextureID_SoundLevels[uMusicVolimeMultiplier]]);
@@ -7905,11 +7889,11 @@ void __thiscall sub_416B01(void *_this)
           v7 = (const CHAR *)dword_72266C;
         else
           //v7 = (&dword_737C2C)[20 * *((_DWORD *)v5 + 6)];
-          v7 = (char *)pNPCStats->pProfessions[*((_DWORD *)v5 + 6) - 1].pBenefits;
+          v7 = (char *)pNPCStats->pProfessions[*((_DWORD *)v5 + 6)].pBenefits;
         lpsz = v7;
         if ( !v7 )
         {
-          lpsz = (char *)pNPCStats->pProfessions[*((_DWORD *)v6 + 6) - 1].pJoinText;
+          lpsz = (char *)pNPCStats->pProfessions[*((_DWORD *)v6 + 6)].pJoinText;
           if ( !lpsz )
             lpsz = "";
         }
@@ -8555,7 +8539,7 @@ void __cdecl sub_4178C4()
 {
   if ( struct_505898.byte_505992 == 1 )
   {
-    if (dword_720010)
+    if (pAsyncMouse)
       struct_505898.dword_5058A0 = 7;
   }
 }
@@ -8565,7 +8549,7 @@ void __cdecl sub_4178E1()
 {
   if ( struct_505898.byte_505992 == 1 )
   {
-    if (dword_720010)
+    if (pAsyncMouse)
       struct_505898.dword_5058A0 = 8;
   }
 }

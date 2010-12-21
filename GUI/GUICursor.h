@@ -98,6 +98,7 @@ void GUICursor_sub_4698F6(GUICursor *_this);
 //LONG __thiscall sub_469AE4(int _this);
 LONG GUICursor_sub_469AE4(GUICursor *_this);
 
+void __stdcall SetCursorBitmapFromItemID(int a1);
 
 
 

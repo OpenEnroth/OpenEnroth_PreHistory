@@ -1,10 +1,12 @@
 
 #include "defs.h"
+#include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
 
 
 #include "clock.h"
+#include "UserInput.h"
 
 
 //----- --------------------------------------------------------
@@ -43,7 +45,7 @@ void Clock::clock_sub_426363()
 {
   if (dword_000004)
   {
-    sub_459E3F();
+    pUserInput->ResetKeyboard();
     int_00000C = clock_fn2();
     dword_000004 = 0;
   }

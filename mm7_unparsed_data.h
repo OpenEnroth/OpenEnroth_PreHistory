@@ -1616,34 +1616,8 @@ extern struct LevelDecoration pLevelDecorations[3000];
 extern unsigned int uNumLevelDecorations; // dword @ MM7.exe::0069ADD0
 
 
-extern char word_69ADE0; // idb
-extern struct KeyboardController
-{
- unsigned int  uLastKeyPressed; // dword @ 000000
- unsigned int  dword_000004;
- unsigned int  dword_000008;
- unsigned int  array_00000C_vkeys[30]; // dword[30] @ 00000C
- int           unk_000084[30];
- int           dword_0000FC;
- unsigned char pPressedKeysBuffer[257]; // byte[257] @ 000100
- unsigned char uNumKeysPressed;         // byte @ 000201
- char          byte_0000202;
- char          byte_0000203;
- int           dword_000204;
- int          *ptr_000208;
-} *pKeyboardController; // struct @ MM7.exe::0069AE00
-// sizeof ~ ?
-//void *__thiscall sub_459C8D(void *_this)
-void KeyboardController_ctor(struct KeyboardController *_this);
-//int __thiscall sub_459C82_LooksLikeBindKey(void *_this, int a2);
-int KeyboardController_sub_459C82_LooksLikeBindKey(struct KeyboardController *_this, unsigned int uKey);
-//int __thiscall sub_459CC4(int _this);
-void KeyboardController_InitalizeKeys(struct KeyboardController *_this);
-//int __thiscall sub_459C68(void *_this, int a2, int a3, int a4);
-/*private*/ void KeyboardController_InitalizeKey(struct KeyboardController *_this, unsigned int uSlot, unsigned int uVKey, bool bActive);
-//char __thiscall sub_459FFC(void *_this);
-char KeyboardController_ReadKeyMapping(struct KeyboardController *_this);
-
+extern char             word_69ADE0; // idb
+extern class UserInput *pUserInput; // struct @ MM7.exe::0069AE00
 //extern int dword_69AE00; // last pressed key
 //extern int vKey[30]; // dword[30] @ MM7.exe::0069AE0C
 //extern int dword_69AE84[array_size_unknown]; // weak
@@ -1879,8 +1853,8 @@ extern unsigned char uVoicesVolumeMultiplier;
 extern unsigned char uMusicVolimeMultiplier;
 extern int dword_6BE374_WalkSoundFlag; // weak
 extern int dword_6BE378_ShowDamageFlag; // weak
-extern int dword_6BE37C; // weak
-extern int dword_6BE380; // weak
+extern unsigned int bAlwaysRun;  // dword @ MM7.exe::006BE37C
+extern unsigned int bFlipOnExit; // dword @ MM7.exe::006BE37C
 extern int dword_6BE384_2dacceloff; // weak
 extern char byte_6BE388_graphicsmode; // weak
 extern int uTurnSpeed; // dword @ MM7.exe::006BE38C
@@ -1926,7 +1900,7 @@ extern unsigned int bUseOverrideData; // dword @ MM7.exe::00720008
 extern unsigned int bNoVideo;         // dword @ MM7.exe::0072000C
 extern unsigned int bNoCredits;       // new
 extern unsigned int bNoIntro;         // new
-extern int dword_720010; // idb
+extern int pAsyncMouse; // dword @ MM7.exe::00720010
 
 extern struct Game *pGame; //struct @ MM7.exe::00720014
 //float pGame;
@@ -2047,11 +2021,7 @@ extern struct unnamed_721530
 //int dword_7215CC; // weak
 //int dword_7215D0; // 0000A0
 
-extern struct unnamed_7215D8_PlayerActionBuffer
-{
- unsigned int uNumActions;  // dword     @ 000000
- unsigned int pActions[30]; // dword[30] @ 000004
-} stru_7215D8; // struct @ MM7.exe::007215D8
+extern struct unnamed_7215D8_PlayerActionBuffer stru_7215D8; // struct @ MM7.exe::007215D8
 //extern int dword_7215D8; // weak
 
 extern int dword_721654; // weak

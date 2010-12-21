@@ -32,11 +32,12 @@ void Game_Destroy()
 //----- (0044F07B) --------------------------------------------------------
 bool Game_sub_44F07B(struct Game *_this)
 {
- if (!class14_IsKeyHeld(_this->class14_obj, VK_SHIFT) &&
-     !class14_IsKeyHeld(_this->class14_obj, VK_LSHIFT) &&
-     !class14_IsKeyHeld(_this->class14_obj, VK_LSHIFT) ||
-     !class14_IsKeyPressed(_this->class14_obj, VK_F11))
-   class14_IsKeyPressed(_this->class14_obj, VK_F11);
+ runtime_warning();
+ /*if (!Win32Keyboard_IsKeyBeingHeld(_this->Win32Keyboard_obj, VK_SHIFT) &&
+     !Win32Keyboard_IsKeyBeingHeld(_this->Win32Keyboard_obj, VK_LSHIFT) &&
+     !Win32Keyboard_IsKeyBeingHeld(_this->Win32Keyboard_obj, VK_LSHIFT) ||
+     !Win32Keyboard_IsKeyWasPressed(_this->Win32Keyboard_obj, VK_F11))
+   Win32Keyboard_IsKeyWasPressed(_this->Win32Keyboard_obj, VK_F11);*/
 
  return true;
 }
@@ -111,9 +112,9 @@ void Game_ctor(Game *_this)
  if (_this->class13_obj)
    class13_ctor(_this->class13_obj);
 
- _this->class14_obj = MemAlloc(class14, 1);
- if (_this->class14_obj)
-   class14_ctor(_this->class14_obj);
+ /*_this->Win32Keyboard_obj = MemAlloc(Win32Keyboard, 1);
+ if (_this->Win32Keyboard_obj)
+   Win32Keyboard_ctor(_this->Win32Keyboard_obj);*/
 
  _this->pGammaController = MemAlloc(CGammaController, 1);
  if (_this->pGammaController)

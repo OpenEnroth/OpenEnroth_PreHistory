@@ -9,6 +9,7 @@
 #include "data.h"
 
 #include "Game.h"
+#include "UserInput.h"
 
 
 
@@ -62,13 +63,12 @@ int Render_HWLContainer_LoadHWLHeaders(struct Render_HWLContainer *_this, const 
  fseek(_this->pHWLFile, _this->dword_000008, 0);
 
  locked_fread(&_this->uNumElements, 4, 1, _this->pHWLFile);
- unsigned char* base= MemAlloc(unsigned char, 20*_this->uNumElements);  //operator new(0x14u)
  for (i = 0; i <_this->uNumElements; i++)
  {
-  _this->pSriteNames[i]=base+i*20;
-  
+  _this->pSriteNames[i] = MemAlloc(unsigned char, 20);  //operator new(0x14u)
+  locked_fread(_this->pSriteNames[i], 1, 20, _this->pHWLFile);
  }
- locked_fread(_this->pSriteNames[0],_this->uNumElements, 20, _this->pHWLFile);
+
  locked_fread(_this->pSpriteFileOffsets, 4, _this->uNumElements, _this->pHWLFile);
  _this->dword_061A90 = 0;
  return true;
@@ -1439,11 +1439,11 @@ unsigned int RenderDirect3D3::Present()
 
  if (this->pRenderD3D3)
  {
-  if (dword_720010)
-    sub_46BAEC((void *)dword_720010);
+  if (pAsyncMouse)
+    CAsyncMouse_sub_46BAEC((void *)pAsyncMouse);
   RenderD3D3_Present(this->pRenderD3D3, 0);
-  if (dword_720010)
-    sub_46BB0A(dword_720010);
+  if (pAsyncMouse)
+    CAsyncMouse_sub_46BB0A(pAsyncMouse);
  }
  else
  {
@@ -1694,8 +1694,8 @@ bool __stdcall LockSurface_DDraw4(struct IDirectDrawSurface4 *pdds4, DDSURFACEDE
  hr = pdds4->Lock(0, pddsd2, uLockFlags, 0);
  if (hr == DDERR_SURFACELOST)
  {
-  if (dword_720010)
-    Mouse_suspend(dword_720010);
+  if (pAsyncMouse)
+    CAsyncMouse_suspend(pAsyncMouse);
 
   hr = pdds4->Restore();
   if (FAILED(hr))
@@ -1726,8 +1726,8 @@ bool __stdcall LockSurface_DDraw4(struct IDirectDrawSurface4 *pdds4, DDSURFACEDE
   if (pD3DRenderer->pRenderD3D3)
     sub_4A5190();
   pD3DRenderer->pdd4->RestoreAllSurfaces();
-  if (dword_720010)
-    sub_46B105((void *)dword_720010);
+  if (pAsyncMouse)
+    CAsyncMouse_sub_46B105((void *)pAsyncMouse);
  }
  else if (FAILED(hr))
  {

@@ -151,6 +151,7 @@
     <ClCompile Include="mm7 file 9 junk stuff.cpp" />
     <ClCompile Include="mm7_unparsed_data.cpp" />
     <ClCompile Include="Party.cpp" />
+    <ClCompile Include="PartyActions.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="RenderD3D3.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="Render\RenderOGL.cpp" />
     <ClCompile Include="Render\RenderOperatorsD3D10.cpp" />
     <ClCompile Include="Render\RenderOperatorsOGL.cpp" />
+    <ClCompile Include="UserInput.cpp" />
     <ClCompile Include="VideoPlayer.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="_lod.cpp" />
@@ -248,6 +250,7 @@
     <ClInclude Include="Render\TextureD3D10.h" />
     <ClInclude Include="Render\TextureOGL.h" />
     <ClInclude Include="Spells.h" />
+    <ClInclude Include="UserInput.h" />
     <ClInclude Include="VideoPlayer.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="_lod.h" />

@@ -1,12 +1,14 @@
 #include "Actor.h"
 
+#include "data.h"
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
 
 #include "FrameTables.h"
 #include "AudioPlayer.h"
 
-#include "data.h"
+#include "GUI\GUIProgressBar.h"
+
 
 
 //----- (0040894B) --------------------------------------------------------

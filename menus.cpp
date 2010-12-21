@@ -3,7 +3,6 @@
 #include "defs.h"
 #include "menus.h"
 
-
 #include "_lod.h"
 #include "clock.h"
 #include "data.h"
@@ -15,6 +14,7 @@
 #include "GUI\GUIWindow.h"
 #include "Level.h"
 #include "Actor.h"
+#include "UserInput.h"
  
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
@@ -635,7 +635,7 @@ LABEL_23:
   if ( pGUIWindow_CurrentMenu->dword_000040 == 2 )
   {
     pGUIWindow_CurrentMenu->dword_000040 = 0;
-    strcpy((char *)&saves_hdr[dword_6A0CA0_indx].name1, (char *)pKeyboardController->pPressedKeysBuffer);
+    strcpy((char *)&saves_hdr[dword_6A0CA0_indx].name1, (char *)pUserInput->pPressedKeysBuffer);
 	/* if ( dword_50CBD0.msg_count < 40 )
             {
 			  dword_50CBD0.prm[dword_50CBD0.msg_count].msg_param1=83;
@@ -684,7 +684,7 @@ LABEL_23:
       }
       else
       {
-        v27 = GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontSmallnum, 27, v40, v38, (char *)pKeyboardController->pPressedKeysBuffer, 175, 1);
+        v27 = GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontSmallnum, 27, v40, v38, (char *)pUserInput->pPressedKeysBuffer, 175, 1);
         GUIWindow_sub_459C2B(pGUIWindow_CurrentMenu, v27 + 27, v40, (int)pFontSmallnum);
       }
       v40 += 21;

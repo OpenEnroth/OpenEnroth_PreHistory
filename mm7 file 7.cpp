@@ -5,6 +5,7 @@
 #include "AudioPlayer.h"
 #include "VideoPlayer.h"
 #include "FrameTables.h"
+#include "UserInput.h"
 
 #include "GUI\GUI.h"
 #include "GUI\GUIButton.h"
@@ -3100,7 +3101,7 @@ void __thiscall sub_4B1523(void *_this)
   local_0C.uFrameWidth = 108;
   //GUIWindow_DrawText((int)&v10, pFontComic, 12, 75, 0, (&dword_AE3300)[v17], 3);
   GUIWindow_DrawText(&local_0C, pFontComic, 12, 75, 0, (char *)aSkillNames[12 + v17 / 4], 3);
-  wsprintfA((char *)TmpBuf, "%s\n%d", pGlobalTXT_LocalizationStrings[LOCSTR_SP_COST], word_4E3C68[v1].word00);
+  wsprintfA((char *)TmpBuf, "%s\n%d", pGlobalTXT_LocalizationStrings[LOCSTR_SP_COST], word_4E3C68[v1].uNormalLevelMana);
   GUIWindow_DrawText(&local_0C, pFontComic, 12, local_0C.uFrameHeight - pFontComic->uFontHeight - 16, 0, (char *)TmpBuf, 3);
 }
 
@@ -5231,7 +5232,7 @@ int __cdecl sub_4B3E1E()
   v0 = (int)GUIWindowCreate(0, 0, 640, 480, 10, (GUIButton *)1, 0);
   pDialogueWindow = (GUIWindow *)v0;
   //if ( (&dword_737C2C)[20 * *((_DWORD *)v2 + 6)] )
-  if (pNPCStats->pProfessions[*((_DWORD *)v2 + 6) - 1].pBenefits)
+  if (pNPCStats->pProfessions[*((_DWORD *)v2 + 6)].pBenefits)
   {
     GUIButtonCreate(pDialogueWindow, 480, 160, 140, 30, 1, 0, 136, 77, 0, pGlobalTXT_LocalizationStrings[407], 0);
     v1 = 1;
@@ -5322,7 +5323,7 @@ int __cdecl sub_4B40E6()
                    uTextureID_right_backgr != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0);
   GUIButtonCreate(pDialogueWindow, 0, 0, 0, 0, 1, 0, 81, 0, 0, (unsigned char *)"", 0);
 
-  if (pNPCStats->pProfessions[*(_DWORD *)(v1 + 24) - 1].pBenefits)
+  if (pNPCStats->pProfessions[*(_DWORD *)(v1 + 24)].pBenefits)
   {
     GUIButtonCreate(pDialogueWindow, 480, 160, 140, 30, 1, 0, 175, 77, 0, pGlobalTXT_LocalizationStrings[407], 0);
     v0 = 1;
@@ -7764,15 +7765,15 @@ void __cdecl sub_4B7911()
       {
         wsprintfA((char *)TmpBuf, "%s\n%s", pGlobalTXT_LocalizationStrings[163], pGlobalTXT_LocalizationStrings[112]);
         GUIWindow_DrawText(&local_B4, pFontArrus, 0, 146, v36[0], (char *)TmpBuf, 3);
-        GUIWindow_DrawText(&local_B4, pFontArrus, 0, 186, v34[0], (char *)pKeyboardController->pPressedKeysBuffer, 3);
+        GUIWindow_DrawText(&local_B4, pFontArrus, 0, 186, v34[0], (char *)pUserInput->pPressedKeysBuffer, 3);
         v4 = (int)pFontArrus;
-        v5 = GUIFont_GetLineWidth(pFontArrus, pKeyboardController->pPressedKeysBuffer);
+        v5 = GUIFont_GetLineWidth(pFontArrus, pUserInput->pPressedKeysBuffer);
         GUIWindow_sub_459C2B(&local_B4, v5 / 2 + 80, 185, v4);
         return;
       }
       if (ptr_507BC0->dword_000040 == 2)
       {
-        v1 = atoi((char *)pKeyboardController->pPressedKeysBuffer);
+        v1 = atoi((char *)pUserInput->pPressedKeysBuffer);
         v2 = v1;
         if ( v1 <= 0 )
         {
@@ -7887,7 +7888,7 @@ void __cdecl sub_4B7D7E()
        v1 = ptr_507BC0->dword_000040 - 2;
        if (ptr_507BC0->dword_000040 == 2)
         {
-          v6 = atoi((char *)pKeyboardController->pPressedKeysBuffer);
+          v6 = atoi((char *)pUserInput->pPressedKeysBuffer);
           v7 = v6;
           if ( !v6 )
           {
@@ -7941,7 +7942,7 @@ LABEL_15:
         if (ptr_507BC0->dword_000040 == 2)
         {
          ptr_507BC0->dword_000040 = 0;
-          v2 = atoi((char *)pKeyboardController->pPressedKeysBuffer);
+          v2 = atoi((char *)pUserInput->pPressedKeysBuffer);
           v3 = v2;
           if ( v2 )
           {
@@ -7965,9 +7966,9 @@ LABEL_15:
     }
     wsprintfA((char *)TmpBuf, "%s\n%s", v11, v12);
     GUIWindow_DrawText(&local_0C, pFontArrus, 0, 146, v17[0], (char *)TmpBuf, 3);
-    GUIWindow_DrawText(&local_0C, pFontArrus, 0, 186, v16[0], (char *)pKeyboardController->pPressedKeysBuffer, 3);
+    GUIWindow_DrawText(&local_0C, pFontArrus, 0, 186, v16[0], (char *)pUserInput->pPressedKeysBuffer, 3);
     v4 = (int)pFontArrus;
-    v5 = GUIFont_GetLineWidth(pFontArrus, pKeyboardController->pPressedKeysBuffer);
+    v5 = GUIFont_GetLineWidth(pFontArrus, pUserInput->pPressedKeysBuffer);
     GUIWindow_sub_459C2B(&local_0C, v5 / 2 + 80, 185, v4);
     return;
   }
@@ -11978,7 +11979,7 @@ LABEL_15:
       if ( dword_F8B19C >= 7 )
       {
         if ( dword_F8B19C <= 8 )
-          KeyboardController_sub_459E5A(pKeyboardController, 1, 10, v11);
+          pUserInput->sub_459E5A(1, 10, v11);
       }
       return;
     }
@@ -12230,7 +12231,7 @@ LABEL_15:
         }
         if ( v61 == 100 )
         {
-          KeyboardController_sub_459E5A(pKeyboardController, 1, 10, v11);
+          pUserInput->sub_459E5A(1, 10, v11);
           goto LABEL_200;
         }
       }
@@ -12449,8 +12450,8 @@ signed int __cdecl sub_4BD8B5()
   if ( dword_50CBD0.msg_count )
 			   if  (dword_50CBD0.prm[0].msg_param3)
                           dword_50CBD0.msg_count = 1;
-  KeyboardController_sub_459ED1(pKeyboardController, 3);
-  sub_459E3F();
+  pUserInput->sub_459ED1(3);
+  pUserInput->ResetKeyboard();
   dword_5C3420 = 0;
   dword_F8B1E8 = 0;
   if ( dword_5913F0 )
@@ -13436,8 +13437,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
     if ( dword_50CBD0.msg_count )
 			   if  (dword_50CBD0.prm[0].msg_param3)
                           dword_50CBD0.msg_count = 1;
-    sub_459E3F();
-    pKeyboardController->uLastKeyPressed = 0;
+    pUserInput->ResetKeyboard();
     do
     {
       while ( PeekMessageA(&Msg, 0, 0, 0, 1u) )
@@ -13448,7 +13448,7 @@ int __thiscall sub_4BF91E_GameOverMenu(void *_this)
         DispatchMessageA(&Msg);
       }
     }
-    while ( !pKeyboardController->uLastKeyPressed );
+    while ( !pUserInput->uLastKeyPressed );
   /*  result = dword_50CBD0[0];
     if ( dword_50CBD0[0] )
     {

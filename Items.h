@@ -68,6 +68,10 @@ struct ItemGen
 //sizeof = 24
 
 
+int __thiscall ItemGen_sub_456442(ItemGen *_this);
+int __thiscall ItemGen_sub_456499(ItemGen *_this);
+int __thiscall ItemGen_sub_4564B3(ItemGen *_this);
+
 
 //Item laying on the ground, pickable and rendered as a sprite billboard
 struct LayingItem
@@ -150,6 +154,8 @@ struct Item
  //char byte_000032;
 };
 //sizeof == 30
+
+
 
 
 //many items desc

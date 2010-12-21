@@ -1569,7 +1569,7 @@ struct LevelDecoration pLevelDecorations[3000]; // struct[3000] @ MM7.exe::00683
 unsigned int           uNumLevelDecorations;    // dword        @ MM7.exe::0069ADD0
 
  char word_69ADE0; // idb
-struct KeyboardController *pKeyboardController = 0; // struct @ MM7.exe::0069AE00
+class UserInput *pUserInput = 0; // struct @ MM7.exe::0069AE00
 // int dword_69AE00; // weak
 // int vKey[30]; // dword[30] @ MM7.exe::0069AE0C
 // int dword_69AE84[array_size_unknown]; // weak
@@ -1734,8 +1734,8 @@ unsigned char uVoicesVolumeMultiplier; // byte @ 6BE370  0..9
 unsigned char uMusicVolimeMultiplier;  // byte @ 6BE371  0..9
  int dword_6BE374_WalkSoundFlag; // weak
  int dword_6BE378_ShowDamageFlag; // weak
- int dword_6BE37C; // weak
- int dword_6BE380; // weak
+unsigned int bAlwaysRun; // dword @ MM7.exe::006BE37C
+unsigned int bFlipOnExit; // dword @ MM7.exe::006BE380
  int dword_6BE384_2dacceloff; // weak
  char byte_6BE388_graphicsmode; // weak
 int uTurnSpeed; // dword @ MM7.exe::006BE38C
@@ -1788,7 +1788,7 @@ unsigned int bUseOverrideData;   // dword @ MM7.exe::00720008
 unsigned int bNoVideo = false;   // dword @ MM7.exe::0072000C
 unsigned int bNoCredits = false; // new
 unsigned int bNoIntro = false;   // new
- int dword_720010; // idb
+int pAsyncMouse; // dword @ MM7.exe::00720010
 
 struct Game *pGame = 0; //struct @ MM7.exe::00720014
 //float pGame;

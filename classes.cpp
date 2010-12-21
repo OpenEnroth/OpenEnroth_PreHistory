@@ -570,20 +570,6 @@ struct class13 *class13_ctor(struct class13 *_this)
  return _this;
 }
 
-//----- (MM7.exe::0045AFD9) --------------------------------------------------------
-struct class14 *class14_ctor(struct class14 *_this)
-{
- _this->dword_000000 = 5080756;
- _this->dword_000004 = 0;
-
- if (dword_F79D7C == 2)
- {
-  if (dword_F79D70 == 4)
-    _this->dword_000004 = 0;
- }
- return _this;
-}
-
 //----- (MM7.exe::0048958E) --------------------------------------------------------
 struct class16 *class16_ctor(struct class16 *_this, unsigned int uBlockSize)
 {
@@ -5098,19 +5084,6 @@ LABEL_119:
 }
 
 
-//----- (00459E3F) --------------------------------------------------------
-int __cdecl sub_459E3F()
-{
- int i;
- int result;
-
- for (i = 0; i < 30; ++i)
-   result = GetAsyncKeyState(pKeyboardController->array_00000C_vkeys[i]);
-
- return result;
-}
-
-
 
 
 
@@ -5300,57 +5273,6 @@ int class02_sub_48AC65(struct class02 *_this)
  _this->dword_00E428 = v20;
  return v19;
 }
-
-
-
-
-
-
-//----- (0045B0A9) --------------------------------------------------------
-bool class14_IsKeyHeld(struct class14 *_this, int vKey)
-{
-  char result; // al@2
-  void *v3; // esi@2
-  char v4; // bl@2
-
-  if ( *(_BYTE *)(&_this->dword_000004) )
-  {
-    v3 = (void *)pAsyncKeyboard;
-    EnterCriticalSection(&pGame->class01_obj->cs4);
-    v4 = *((_BYTE *)v3 + (unsigned __int8)sub_45B57D(v3, vKey) + 265) >> 7;
-    LeaveCriticalSection(&pGame->class01_obj->cs4);
-    result = v4;
-  }
-  else
-  {
-    result = (GetAsyncKeyState(vKey) & 0x8001) != 0;
-  }
-  return result;
-}
-
-
-//----- (0045B0CE) --------------------------------------------------------
-bool class14_IsKeyPressed(struct class14 *_this, int vKey)
-{
-  char result; // al@2
-  void *v3; // esi@2
-  char v4; // bl@2
-
-  if ( *(_BYTE *)(&_this->dword_000004) )
-  {
-    v3 = (void *)pAsyncKeyboard;
-    EnterCriticalSection(&pGame->class01_obj->cs4);
-    v4 = *((_BYTE *)v3 + (unsigned __int8)sub_45B57D(v3, vKey) + 521) >> 7;
-    LeaveCriticalSection(&pGame->class01_obj->cs4);
-    result = v4;
-  }
-  else
-  {
-    result = GetAsyncKeyState(vKey) & 1;
-  }
-  return result;
-}
-
 
 
 

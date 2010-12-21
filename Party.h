@@ -9,27 +9,48 @@
 
 #pragma pack(push, 1)
 
-#define KEY_FORWARD         0   // default: arrow up
-#define KEY_BACKWARDS       1   // default: arrow down
-#define KEY_TURN_LEFT       2   // default: arrow left
-#define KEY_TURN_RIGHT      3   // default: arrow right
-#define KEY_YELL            4   // default: y
-#define KEY_JUMP            5   // default: x
-#define KEY_TOGGLE_REALTIME 6   // default: enter
-#define KEY_ATTACK          8   // default: a
-#define KEY_INTERACT        9   // default: space
+namespace Action
+{
+ enum Type
+ {
+  TurnLeft = 1,
+  TurnRight = 2,
+  StrafeLeft = 3,
+  StrafeRight = 4,
 
-#define PARTY_ACTION_TURN_LEFT      1
-#define PARTY_ACTION_TURN_RIGHT     2
-//3 turning left with Ctrl pressed
-//4 turning right with Ctrl pressed
-#define PARTY_ACTION_WALK_FORWARD   5
-#define PARTY_ACTION_WALK_BACKWARDS 6
-#define PARTY_ACTION_JUMP           12
+
+  WalkForward = 5,
+  WalkBackwards = 6,
+  LookUp = 7,
+  LookDown = 8,
+  CenterView = 9,
+
+
+
+  Jump = 12,
+  FlyUp = 13,
+  FlyDown = 14,
+  Land = 15
+ };
+};
+
+//#define PARTY_ACTION_WALK_FORWARD   5
+//#define PARTY_ACTION_WALK_BACKWARDS 6
+//#define PARTY_ACTION_JUMP           12
 //16 probably FLY FORWARD
 //17 probably FLY BACKWARDS
 //18 turning left under some sircumstances
 //19 turning right under some sircumstances
+
+
+struct unnamed_7215D8_PlayerActionBuffer
+{
+ unsigned int uNumActions;  // dword     @ 000000
+ Action::Type pActions[30]; // dword[30] @ 000004
+};
+
+
+
 
 
 
@@ -124,7 +145,7 @@ struct abc	 {
  int                dword_000878;
  unsigned int       bTurnBasedModeOn;    // dword @ 00087C
  int                dword_000880;
- int                dword_000884; //flags   &2 probably flying
+ int                dword_000884; //flags   &2 probably flying, or running
  unsigned int       uAlignment;       // dword      @ 000888   enum (0, 1, 2) = (good, neutral, evil)
  struct SpellBuff   pPartyBuffs[20];  // struct[20] @ 00088C
  struct Player      pPlayers[4];      // struct[4]  @ 0009CC
@@ -167,5 +188,41 @@ int Party_Reset(struct Party *_this);
 
 //void __thiscall sub_4936E1(void *_this, const struct ItemGen *a2);
 void Party_sub_4936E1_ReceiveItemInHandsWhileInGame(Party *_this, const struct ItemGen *pItem);
+
+
+
+
+
+
+
+void sub_4760C1_QueuePlayerAction(struct unnamed_7215D8_PlayerActionBuffer *_this, Action::Type eAction);
+unsigned int sub_4760D5_GetNextPlayerAction(struct unnamed_7215D8_PlayerActionBuffer *_this);
+
+
+
+// party events
+void PartyAction_OnMovingForward();
+void PartyAction_OnMovingBackwards();
+void PartyAction_OnTurningLeft();
+void PartyAction_OnTurningRight();
+void PartyAction_OnYell();
+void PartyAction_OnJump();
+void PartyAction_OnToggleTurnBasedMode();
+void PartyAction_OnCastReady();
+void PartyAction_OnAttack();
+void PartyAction_OnInteract();
+void PartyAction_OnPass();
+void PartyAction_OnCharCycle();
+void PartyAction_OnAlwaysRun();
+void PartyAction_OnLookUp();
+void PartyAction_OnLookDown();
+void PartyAction_OnCenterView();
+void PartyAction_OnZoomIn();
+void PartyAction_OnZoomOut();
+void PartyAction_OnFlyUp();
+void PartyAction_OnFlyDown();
+void PartyAction_OnLand();
+void PartyAction_OnStrafeLeft();
+void PartyAction_OnStrafeRight();
 
 #pragma pack(pop)

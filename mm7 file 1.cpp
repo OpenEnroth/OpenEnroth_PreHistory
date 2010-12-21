@@ -19,6 +19,7 @@
 #include "GUI\GUI.h"
 #include "GUI\GUICursor.h"
 #include "GUI\GUIFont.h"
+#include "GUI\GUIProgressBar.h"
 
 #include "Level.h"
 #include "Actor.h"
@@ -28,6 +29,7 @@
 #include "mm7_unparsed_functions.h"
 
 #include "Game.h"
+#include "UserInput.h"
 
 #include "Window.h"
 OSWindow *pAppWindow = 0;
@@ -39,10 +41,8 @@ void *hMM7Text_dll = 0;
 void RtlCallCtors()
 {
  BINKW32_DLL_Initialize();
-
- //hMM7Text_dll = LoadLibraryW(L"mm7text.dll");
- //sprintfex = (int (__cdecl *)(char *, const char *, ...))(GetProcAddress(hMM7Text_dll, "_sprintfex"));
-
+ MSS32_DLL_Initialize();
+ SMACKW32_DLL_Initialize();
  
 
  //moved creation of d3d here since sub_40DEF3 uses it
@@ -50,8 +50,8 @@ void RtlCallCtors()
  pD3DRenderer = MemAlloc(RenderDirect3D3, 1);
  pAppWindow->AttachRender(pD3DRenderer);
 
- pKeyboardController = MemAlloc(KeyboardController, 1);
- KeyboardController_ctor(pKeyboardController);
+ pUserInput = MemAlloc(UserInput, 1);
+ pUserInput->Initialize();
 
  dword_507AFC = 0xFF0A0000;
  dword_507AF8 = 0xFFE6D6C1;
@@ -248,38 +248,42 @@ LABEL_21:
           if ( uCurrentMenuID != 10 )
             goto LABEL_49;
           GUICursor_fn1(pGame->pGUICursor, 0);
-          if (dword_720010)
-            Mouse_suspend(dword_720010);
-          if (pGame->class14_obj->dword_000004 & 0xFF)
+          if (pAsyncMouse)
+            CAsyncMouse_suspend(pAsyncMouse);
+          
+    runtime_warning(async input);
+          /*if (pGame->Win32Keyboard_obj->dword_000004 & 0xFF)
           {
             if (pAsyncKeyboard)
-              Keyboard_suspend(pAsyncKeyboard);
-          }
+              CAsyncKeyboard_suspend(pAsyncKeyboard);
+          }*/
           Party_Reset(pParty_global);
           Party_CreateDefaultParty(pParty_global, 1);
           sub_46271C();
           if ( !GetOpenFileNameA(&stru_6A0DA0) )
           {
             GUICursor_fn1(pGame->pGUICursor, 1);
-            if (dword_720010)
-              sub_46B105((void*)dword_720010);
-            if (pGame->class14_obj->dword_000004 & 0xFF)
+            if (pAsyncMouse)
+              CAsyncMouse_sub_46B105((void*)pAsyncMouse);
+    runtime_warning(async input);
+            /*if (pGame->Win32Keyboard_obj->dword_000004 & 0xFF)
             {
               if (pAsyncKeyboard)
                 CAsyncKeyboard_Resume(pAsyncKeyboard);
-            }
+            }*/
             goto LABEL_53;
           }
           SetCurrentDirectoryW(L"..\\");
           strcpy(CurrentLevelName, stru_6A0DA0.lpstrFileTitle);
           GUICursor_fn1(pGame->pGUICursor, 1);
-          if (dword_720010)
-            sub_46B105((void*)dword_720010);
-          if (pGame->class14_obj->dword_000004 & 0xFF)
+          if (pAsyncMouse)
+            CAsyncMouse_sub_46B105((void*)pAsyncMouse);
+    runtime_warning(async input);
+          /*if (pGame->Win32Keyboard_obj->dword_000004 & 0xFF)
           {
             if (pAsyncKeyboard)
               CAsyncKeyboard_Resume(pAsyncKeyboard);
-          }
+          }*/
         }
         sub_463149();
 
@@ -1409,8 +1413,8 @@ signed int __fastcall BasicInitialization(HINSTANCE hInst, const char *pCmdLine)
  //{
  // SetWindowLongA(pAppWindow->GetAPIHandle(), GWL_EXSTYLE, 0);
  // SetWindowLongA(pAppWindow->GetAPIHandle(), GWL_STYLE, WS_VISIBLE);
- // if (dword_720010)
- //   sub_46BBD0();
+ // if (pAsyncMouse)
+ //   CAsyncMouse_ClipCursorToScreen();
  // Render_Initialize(pD3DRenderer, pAppWindow->GetAPIHandle());
  //}
  //else
@@ -1440,6 +1444,10 @@ signed int __fastcall BasicInitialization(HINSTANCE hInst, const char *pCmdLine)
  if (byte_6BE388_graphicsmode < 0 || byte_6BE388_graphicsmode > 2)
    byte_6BE388_graphicsmode = 0;
  uTurnSpeed = ReadWindowsRegistry("TurnDelta", 0);
+
+
+ bAlwaysRun = ReadWindowsRegistry("valAlwaysRun", 0);
+ bFlipOnExit = ReadWindowsRegistry("FlipOnExit", 0) != 0;
 
  pD3DRenderer->bTinting = ReadWindowsRegistry("Tinting", true);
 
@@ -2300,72 +2308,6 @@ int __stdcall sub_401000(int a1, int a2, int a3, int (__thiscall *a4)(_DWORD))
   return result;
 }
 
-//----- (00459F10) --------------------------------------------------------
-bool sub_459F10(struct KeyboardController *_this, unsigned int uKey)
-{
-  int v3; // [sp-4h] [bp-4h]@3
-
- _this->uLastKeyPressed = uKey;
-  if ( dword_506E68 == -1 )
-  {
-    if ( dword_69B004 == 1 )
-    {
-      if ( uKey != 8 )
-      {
-        if ( uKey == 9 )
-          return 1;
-        if ( uKey == 13 )
-          goto LABEL_3;
-        if ( uKey == 27 )
-          goto LABEL_15;
-        if (_this->uNumKeysPressed >= _this->dword_0000FC)
-          return true;
-        _this->pPressedKeysBuffer[_this->uNumKeysPressed++] = uKey;
-LABEL_24:
-        _this->pPressedKeysBuffer[_this->uNumKeysPressed] = 0;
-        return true;
-      }
-    }
-    else
-    {
-      if ( dword_69B004 != 2 )
-        return 0;
-      if ( uKey != 8 )
-      {
-        if ( uKey == 13 )
-          goto LABEL_3;
-        if ( uKey != 27 )
-        {
-          if ( uKey >= 48 )
-          {
-            if ( uKey <= 57 )
-            {
-              if ( (signed int)(unsigned __int8)_this->uNumKeysPressed < _this->dword_0000FC)
-                _this->pPressedKeysBuffer[_this->uNumKeysPressed++] = uKey;
-            }
-          }
-          return true;
-        }
-LABEL_15:
-        v3 = 3;
-        goto LABEL_4;
-      }
-    }
-    if (!_this->uNumKeysPressed)
-      return true;
-    --_this->uNumKeysPressed;
-    goto LABEL_24;
-  }
- _this->pPressedKeysBuffer[_this->uNumKeysPressed++] = uKey;
- _this->pPressedKeysBuffer[_this->uNumKeysPressed] = 0;
-
-LABEL_3:
-  v3 = 2;
-
-LABEL_4:
- KeyboardController_sub_459ED1(_this, v3);
- return true;
-}
 
 //----- (0046BE0A) --------------------------------------------------------
 int __fastcall sub_46BE0A(unsigned int a1)
@@ -2949,7 +2891,7 @@ __continue:
     v29 = 0;
     if (struct_505898. byte_505992 )
     {
-          if (dword_720010)
+          if (pAsyncMouse)
             goto LABEL_184;
           struct_505898.dword_5058A0 = 7;
           BYTE4(a1) = 1;
@@ -2959,7 +2901,7 @@ LABEL_208:
         }
         //if (pVideoPlayer && pVideoPlayer->dword_000024 )
         //  pVideoPlayer->dword_000068 = 1;
-        if (!dword_720010)
+        if (!pAsyncMouse)
           GUICursor_OnMouseLeftButton(pGame->pGUICursor, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
         if ( uCurrentMenuID != MENU_CREATEPARTY)
           goto LABEL_228;
@@ -2984,7 +2926,7 @@ LABEL_208:
         v31 = 0;
         if ( !struct_505898.byte_505992 )
           goto LABEL_238;
-        if (dword_720010)
+        if (pAsyncMouse)
           goto LABEL_184;
         struct_505898.dword_5058A0 = 8;
         BYTE4(a1) = 1;
@@ -2993,7 +2935,7 @@ LABEL_208:
         v32 = 0;
         if (!struct_505898.byte_505992)
           goto LABEL_216;
-        if (dword_720010)
+        if (pAsyncMouse)
           goto LABEL_184;
         struct_505898.dword_5058A0 = 3;
         BYTE4(a1) = 0;
@@ -3003,12 +2945,12 @@ LABEL_208:
         if ( !struct_505898.byte_505992 )
         {
 LABEL_216:
-          if ( dword_720010 != v32 )
+          if ( pAsyncMouse != v32 )
             goto LABEL_184;
           sub_4356FF();
           return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
         }
-        if (dword_720010)
+        if (pAsyncMouse)
           goto LABEL_184;
         struct_505898.dword_5058A0 = 4;
         BYTE4(a1) = 0;
@@ -3017,7 +2959,7 @@ LABEL_216:
         v29 = 0;
         if ( struct_505898.byte_505992 )
         {
-          if (dword_720010)
+          if (pAsyncMouse)
             goto LABEL_184;
           struct_505898.dword_5058A0 = 7;
           return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
@@ -3026,21 +2968,21 @@ LABEL_216:
         if (!bNoVideo)
           pVideoPlayer->StopMovie();
 
-        if ( !dword_720010 )
+        if ( !pAsyncMouse )
           GUICursor_OnMouseLeftButton(pGame->pGUICursor, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
         if ( uCurrentMenuID != MENU_CREATEPARTY)
           goto LABEL_228;
-        if ( !dword_720010 )
+        if ( !pAsyncMouse )
         {
 LABEL_227:
           sub_41CD4F_MaybeOnlyUI_OnKeyDown(VK_SELECT);
 LABEL_228:
-          if (!dword_720010)
+          if (!pAsyncMouse)
             GUICursor_OnMouseLeftButton(pGame->pGUICursor, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
         }
         if (pGame)
         {
-          if ( dword_720010)
+          if ( pAsyncMouse)
             goto LABEL_184;
           Game_Pick(pGame,
             512.0,
@@ -3050,7 +2992,7 @@ LABEL_228:
             (int)&stru_F93E6C,
             (int)&dword_F93E58);
         }
-        if (!dword_720010)
+        if (!pAsyncMouse)
         {
           OnMouseLeftClick(0);
           return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
@@ -3065,11 +3007,11 @@ LABEL_238:
         if (!bNoVideo)
           pVideoPlayer->StopMovie();
 
-          if ( dword_720010 == v31 )
+          if ( pAsyncMouse == v31 )
             GUICursor_OnMouseLeftButton(pGame->pGUICursor, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
           if ((int)pGame != v31 )
           {
-            if ( dword_720010 != v31 )
+            if ( pAsyncMouse != v31 )
               goto LABEL_184;
             v33 = sub_43643E();
             Game_Pick(
@@ -3081,21 +3023,21 @@ LABEL_238:
               (int)&dword_F93E30,
               (int)&dword_F93E58);
           }
-          if ( dword_720010 == v31 )
+          if ( pAsyncMouse == v31 )
           {
             sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(0);
             return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
           }
           goto LABEL_184;
         }
-        if (dword_720010)
+        if (pAsyncMouse)
           goto LABEL_184;
         struct_505898.dword_5058A0 = 8;
         return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
       case WM_MBUTTONDOWN:
         if (pD3DRenderer->pRenderD3D3)
         {
-          if (pGame && !dword_720010)
+          if (pGame && !pAsyncMouse)
           {
             v34 = sub_43643E();
             Game_Pick(pGame,
@@ -3116,7 +3058,7 @@ LABEL_238:
       case WM_MOUSEMOVE:
         if ( struct_505898.byte_505992 )
         {
-          if (dword_720010)
+          if (pAsyncMouse)
             goto LABEL_184;
           v41 = (unsigned __int16)lParam;
           v42 = (LPARAM)lParam >> 16;
@@ -3132,7 +3074,7 @@ LABEL_261:
         }
         else
         {
-          if (dword_720010)
+          if (pAsyncMouse)
             goto LABEL_184;
           GUICursor_OnMouseLeftButton(pGame->pGUICursor, (unsigned __int16)lParam, (LPARAM)lParam >> 16);
         }
@@ -3169,7 +3111,7 @@ LABEL_261:
       }
       if ( uMsg == WM_CHAR )
 		  {
-		  if (!sub_459F10(pKeyboardController, wParam))
+		  if (!pUserInput->sub_459F10(wParam))
 			  {
 			  sub_41B438(LOBYTE(wParam));
 			  }
@@ -3202,7 +3144,7 @@ LABEL_104:
       return 0;
     }
     if ( dword_506E68 != -1 )
-      sub_459F10(pKeyboardController, wParam);
+      pUserInput->sub_459F10(wParam);
     if ( !struct_505898.byte_505992 )
     {
         if (!bNoVideo)
@@ -3438,8 +3380,8 @@ LABEL_179:
             erroneous_printf(pGlobalTXT_LocalizationStrings[62]);
         } */
         BYTE1(dword_6BE364) &= 0xFEu;
-        if (dword_720010)
-          sub_46B105((void *)dword_720010);
+        if (pAsyncMouse)
+          CAsyncMouse_sub_46B105((void *)pAsyncMouse);
         if ( struct_505898.byte_505992 )
         {
           struct_505898.byte_505991 = 1;
@@ -3454,11 +3396,12 @@ LABEL_179:
             BYTE1(dword_6BE364) &= 0xFBu;
           else
             cClock2.clock_sub_426363();
-          if ( *(_BYTE *)(&pGame->class14_obj->dword_000004) )
+    runtime_warning(async input);
+          /*if ( *(_BYTE *)(&pGame->Win32Keyboard_obj->dword_000004) )
           {
             if (pAsyncKeyboard)
               CAsyncKeyboard_Resume(pAsyncKeyboard);
-          }
+          }*/
           struct_576FE8.dword_000044 = 1;
           if (pVideoPlayer && pVideoPlayer->pSmackerMovie )
           {
@@ -3486,8 +3429,8 @@ LABEL_179:
         if (!bNoVideo)
           pVideoPlayer->StopMovie();
 
-        if (dword_720010)
-          Mouse_suspend(dword_720010);
+        if (pAsyncMouse)
+          CAsyncMouse_suspend(pAsyncMouse);
         if ( pD3DRenderer->bUseDirect3D )
         {
           if ( pD3DRenderer->uAcquiredDirect3DDevice == 1 )
@@ -3505,11 +3448,12 @@ LABEL_179:
           cClock2.clock_fn1();
         if (pGame)
         {
-          if (pGame->class14_obj->dword_000004 & 0xFF)
+    runtime_warning(async input);
+          /*if (pGame->Win32Keyboard_obj->dword_000004 & 0xFF)
           {
             if (pAsyncKeyboard)
-              Keyboard_suspend(pAsyncKeyboard);
-          }
+              CAsyncKeyboard_suspend(pAsyncKeyboard);
+          }*/
         }
 
         runtime_warning();
@@ -3530,7 +3474,8 @@ LABEL_179:
     SetPriorityClass(v7, 0x20u);
     if (pGame)
     {
-     v8 = (int)pGame->class14_obj;
+    runtime_warning(async input);
+     /*v8 = (int)pGame->Win32Keyboard_obj;
       if ( v8 )
       {
         if (*(_BYTE *)(v8 + 4))
@@ -3538,10 +3483,10 @@ LABEL_179:
           if (pAsyncKeyboard)
             sub_45B3A4(pAsyncKeyboard);
         }
-      }
+      }*/
     }
-    if (dword_720010)
-      sub_46B1DD(dword_720010);
+    if (pAsyncMouse)
+      CAsyncMouse_sub_46B1DD(pAsyncMouse);
     PostQuitMessage(0);
     return 0;
   }
@@ -3557,9 +3502,9 @@ LABEL_179:
           SetWindowPos(hWnd, (HWND)0xFFFFFFFE, 0, 0, 0, 0, 0x18u);
       }
       ClipCursor(0);
-      if (dword_720010)
+      if (pAsyncMouse)
       {
-        Mouse_suspend(dword_720010);
+        CAsyncMouse_suspend(pAsyncMouse);
         return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
       }
     }
@@ -3592,12 +3537,12 @@ LABEL_20:
     goto LABEL_184;
   }
 
-  if ( hWnd != (HWND)wParam || (dword_4E98BC = 1, pD3DRenderer->bWindowMode) || !dword_720010 )
+  if ( hWnd != (HWND)wParam || (dword_4E98BC = 1, pD3DRenderer->bWindowMode) || !pAsyncMouse )
     return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
-  sub_46B105((void *)dword_720010);
-  if ( !dword_720010 )
+  CAsyncMouse_sub_46B105((void *)pAsyncMouse);
+  if ( !pAsyncMouse )
     goto LABEL_184;
-  sub_46BBD0();
+  CAsyncMouse_ClipCursorToScreen();
   return (long *)DefWindowProcA(hWnd, uMsg, wParam, v5);
 }
 
@@ -5782,7 +5727,7 @@ LABEL_9:
         }
         break;
 
-      case PARTY_ACTION_TURN_LEFT:
+      case Action::TurnLeft:
       {
        if (uTurnSpeed)
          v117 += uTurnSpeed;
@@ -5794,7 +5739,7 @@ LABEL_9:
       }
       break;
 
-      case PARTY_ACTION_TURN_RIGHT:
+      case Action::TurnRight:
       {
        if (uTurnSpeed)
          v117 -= uTurnSpeed;
@@ -5851,14 +5796,14 @@ LABEL_9:
         v116 = 1;
         break;
 
-      case PARTY_ACTION_WALK_FORWARD:
+      case Action::WalkForward:
         v0 += cosf(3.1415926 * (v117 / 1024.0)) * pParty_global->uWalkSpeed * fWalkSpeedMultiplier;
         v1 += sinf(3.1415926 * (v117 / 1024.0)) * pParty_global->uWalkSpeed * fWalkSpeedMultiplier;
         v120 = v1;
         v116 = 1;
       break;
 
-      case PARTY_ACTION_WALK_BACKWARDS: // move backward
+      case Action::WalkBackwards:
         v0 -= cosf(3.1415926 * (v117 / 1024.0)) * pParty_global->uWalkSpeed * fWalkSpeedMultiplier;
         v1 -= sinf(3.1415926 * (v117 / 1024.0)) * pParty_global->uWalkSpeed * fWalkSpeedMultiplier;
         v120 = v1;
@@ -5953,7 +5898,7 @@ LABEL_105:
         v112 = 0;
         break;
 
-      case PARTY_ACTION_JUMP:
+      case Action::Jump:
         if ( !v110 || v100 )
         {
           if ( !v104_looks_like_bPartyInAir )
@@ -13259,21 +13204,6 @@ LABEL_439:
 
 
 
-
-//----- (00459ED1) --------------------------------------------------------
-void __thiscall KeyboardController_sub_459ED1(struct KeyboardController *_this, int a2)
-{
- if (pGame->class14_obj->dword_000004)
- {
-  if (pAsyncKeyboard)
-    CAsyncKeyboard_Resume(pAsyncKeyboard);
- }
-
- _this->dword_000204 = 0;
-
- if (_this->ptr_000208)
-   _this->ptr_000208[16] = a2;
-}
 
 //----- (004C2EA0) --------------------------------------------------------
 int sub_4C2EA0(struct unnamed_6BD080 *_this)

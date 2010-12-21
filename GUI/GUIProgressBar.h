@@ -29,6 +29,11 @@ struct class56
 };
 //sizeof ~ 198
 
+bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarType);
+void LevelLoadingUI_UpdateAndDrawProgressBar(struct class56 *_this);
+void DrawLoadingScreen(struct class56 *_this);
+void LevelLoadingUI_Reset(struct class56 *_this, char a2);
+void LevelLoadingUI_Release(struct class56 *_this);
 
 
 #pragma pack(pop)

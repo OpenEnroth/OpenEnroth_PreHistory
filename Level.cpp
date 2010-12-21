@@ -4,8 +4,11 @@
 #include "menus.h"
 #include "data.h"
  #include "_lod.h"
+
 #include "mm7_unparsed_data.h"
 #include "mm7_unparsed_functions.h"
+
+#include "GUI\GUIProgressBar.h"
 
 #include "AudioPlayer.h"
 #include "FrameTables.h"

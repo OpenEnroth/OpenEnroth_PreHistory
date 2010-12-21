@@ -22,6 +22,7 @@
 #include "mm7_unparsed_functions.h"
 
 #include "Game.h"
+#include "UserInput.h"
 
 //----- (004680ED) --------------------------------------------------------
 void Player_UseItem_DrinkPotion_etc(Player *_this, unsigned int uCharacter, int a3) // drink potions etc
@@ -1119,10 +1120,10 @@ LABEL_33:
         if (v4 == Character::Skill::Dagger && (pPlayer->pActiveSkills[Character::Skill::Dagger] & 0xFFC0) ||
             v4 == Character::Skill::Sword && sub_458244_GetSkillMasteryLevel(pPlayer->pActiveSkills[Character::Skill::Sword]) >= 3 )
         {
-          if (dword_720010)
+          if (pAsyncMouse)
           {
-            v19 = *(_DWORD *)(dword_720010 + 24);
-            v18 = *(_DWORD *)(dword_720010 + 28);
+            v19 = *(_DWORD *)(pAsyncMouse + 24);
+            v18 = *(_DWORD *)(pAsyncMouse + 28);
           }
           else
           {
@@ -1265,11 +1266,11 @@ LABEL_45:
     }
     return;
   }
-  if (dword_720010)
+  if (pAsyncMouse)
   {
-    v35 = *(_DWORD *)(dword_720010 + 24);
-    v34 = *(_DWORD *)(dword_720010 + 28);
-    v53 = *(_DWORD *)(dword_720010 + 28);
+    v35 = *(_DWORD *)(pAsyncMouse + 24);
+    v34 = *(_DWORD *)(pAsyncMouse + 28);
+    v53 = *(_DWORD *)(pAsyncMouse + 28);
     v52 = v35;
   }
   else
@@ -1364,11 +1365,11 @@ LONG GUICursor_sub_469AE4(struct GUICursor *_this)
 
   v1 = (int)_this;
   *(_DWORD *)(_this + 8) = 1;
-  if (dword_720010)
+  if (pAsyncMouse)
   {
-    v3 = *(_DWORD *)(dword_720010 + 24);
-    Point.x = *(_DWORD *)(dword_720010 + 24);
-    result = *(_DWORD *)(dword_720010 + 28);
+    v3 = *(_DWORD *)(pAsyncMouse + 24);
+    Point.x = *(_DWORD *)(pAsyncMouse + 24);
+    result = *(_DWORD *)(pAsyncMouse + 28);
   }
   else
   {
@@ -1382,7 +1383,7 @@ LONG GUICursor_sub_469AE4(struct GUICursor *_this)
   *(_DWORD *)(v1 + 268) = result;
   if (pD3DRenderer->bWindowMode)
     goto LABEL_16;
-  if (dword_720010)
+  if (pAsyncMouse)
     goto LABEL_24;
   if ( v3 < 0 )
     v3 = 0;
@@ -1394,7 +1395,7 @@ LONG GUICursor_sub_469AE4(struct GUICursor *_this)
   {
     result = 479;
 LABEL_16:
-    if (dword_720010)
+    if (pAsyncMouse)
       goto LABEL_24;
     if ( pD3DRenderer->bWindowMode && (v3 < 0 || result < 0 || v3 > 639 || result > 479) )
       goto LABEL_23;
@@ -1583,10 +1584,10 @@ void GUICursor_sub_469EA4_LooksLikeDrawPickedItem(struct GUICursor *_this)
 #endif
 
     v2 = v3 != -1 ? /*72 * v3 + 7145548*/ &LODFile_Icons_LOD.aLODHeaders[v3] : 0;
-    if (dword_720010)
+    if (pAsyncMouse)
     {
-      v5 = *(_DWORD *)(dword_720010 + 24);
-      v4 = *(_DWORD *)(dword_720010 + 28);
+      v5 = *(_DWORD *)(pAsyncMouse + 24);
+      v4 = *(_DWORD *)(pAsyncMouse + 28);
     }
     else
     {
@@ -2541,7 +2542,7 @@ int __thiscall sub_46ACA9(int _this, int a2)
   *(_DWORD *)(v2 + 128) = 0;
   *(_DWORD *)(v2 + 132) = 0;
   *(_DWORD *)v2 = 5080880;
-  if ( !CMouseAsync_Initialize((LPVOID)v2) )
+  if ( !CAsyncMouse_Initialize((LPVOID)v2) )
   {
     a2 = (int)"Could not initialize CMouseAsync object";
     _CxxThrowException((int)&a2, 5094804);
@@ -2582,59 +2583,6 @@ int __thiscall sub_46ADE2(int _this)
   return sub_46BC73(v6, v3 + 104);
 }
 
-//----- (0046AE6E) --------------------------------------------------------
-char __thiscall CMouseAsync_Initialize(LPVOID lpParameter)
-{
-  void *v1; // esi@1
-  char result; // al@2
-
-  v1 = lpParameter;
-  if ( sub_46AF50(lpParameter) && sub_46B072((DWORD)v1) )
-    result = sub_46B0A9(v1) != 0;
-  else
-    result = 0;
-  return result;
-}
-
-//----- (0046AE97) --------------------------------------------------------
-char __thiscall sub_46AE97(void *_this, void *Source)
-{
-  void *v2; // esi@1
-  int v3; // eax@1
-  int v4; // eax@1
-  char result; // al@3
-  int v6; // [sp+8h] [bp-B0h]@1
-  int v7; // [sp+58h] [bp-60h]@1
-  cTexture cTexture_obj; // [sp+6Ch] [bp-4Ch]@1
-  char v9; // [sp+B4h] [bp-4h]@1
-
-  v2 = _this;
-  EnterCriticalSection(&pGame->class01_obj->cs2);
-  v3 = *((_DWORD *)v2 + 1);
-  v6 = 100;
-  v7 = 0;
-  v4 = (*(int (__stdcall **)(int, _DWORD, _DWORD, _DWORD, signed int, int *))(*(_DWORD *)v3 + 20))(
-         v3,
-         0,
-         0,
-         0,
-         1024,
-         &v6);
-  CheckHRESULT((void **)&v9, v4, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MouseAsync.cpp", 0x81u, 0);
-  
-  cTexture_obj.cTexture_Zero();
-  if ( LODFile_Icons_LOD.LoadTextureFromLOD( &cTexture_obj, (char *)Source, 2) != -1 && sub_46B1EC((int)&struct_505898.Dest, *((_DWORD *)v2 + 1), 0) )
-  {
-    cTexture_Free(&cTexture_obj);
-    LeaveCriticalSection(&pGame->class01_obj->cs2);
-    result = 1;
-  }
-  else
-  {
-    result = 0;
-  }
-  return result;
-}
 
 //----- (0046AF50) --------------------------------------------------------
 char __thiscall sub_46AF50(void *_this)
@@ -2696,7 +2644,7 @@ char __thiscall sub_46AF50(void *_this)
    v5 = pGame->unnamed_00097C.ptr_000004;
     if ( !pGame->unnamed_00097C.ptr_000004)
       v5 = byte_4D8410 + 736;
-    if ( !sub_46AE97(v1, v5) )
+    if ( !CAsyncMouse_sub_46AE97(v1, v5) )
     {
       v10 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MouseAsync.cpp";
       v22 = &v6;
@@ -2759,62 +2707,6 @@ int __thiscall sub_46B0ED(int _this)
   return result;
 }
 
-//----- (0046B105) --------------------------------------------------------
-void __thiscall sub_46B105(void *_this)
-{
-  void *v1; // esi@1
-
-  v1 = _this;
-  EnterCriticalSection(&pGame->class01_obj->cs3);
-  sub_46B0A9(v1);
-  sub_46BBD0();
-  ResumeThread(*((HANDLE *)v1 + 4));
-  *((_BYTE *)v1 + 88) = 0;
-  LeaveCriticalSection(&pGame->class01_obj->cs3);
-}
-
-//----- (0046B14F) --------------------------------------------------------
-void __thiscall Mouse_suspend(int _this)
-{
-  int v1; // esi@1
-  int v2; // eax@3
-  char v3; // [sp-18h] [bp-24h]@2
-  const CHAR *v4; // [sp-14h] [bp-20h]@2
-  int v5; // [sp-10h] [bp-1Ch]@2
-  int v6; // [sp-Ch] [bp-18h]@2
-  const char *v7; // [sp-8h] [bp-14h]@2
-  int v8; // [sp-4h] [bp-10h]@2
-  char *v9; // [sp+4h] [bp-8h]@2
-  int v10; // [sp+Bh] [bp-1h]@2
-
-  v1 = _this;
-  if ( *(_DWORD *)(_this + 132) )
-  {
-    v2 = (int)pGame->pVis;
-    if ( v2 )
-      *(_DWORD *)(v2 + 8200) = 0;
-    EnterCriticalSection(&pGame->class01_obj->cs3);
-    SuspendThread(*(HANDLE *)(v1 + 16));
-    sub_46B0ED(v1);
-    LeaveCriticalSection(&pGame->class01_obj->cs3);
-  }
-  else
-  {
-    v8 = 233;
-    v7 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MouseAsync.cpp";
-    v9 = &v3;
-    Game_sub_40E2C8(&v3, "DI_Mouse pointer invalid; bailing out from suspend()", (int)&v10);
-    sub_467834(&v9, v3, v4, v5, v6, v7, v8);
-  }
-}
-
-//----- (0046B1DD) --------------------------------------------------------
-char __thiscall sub_46B1DD(int _this)
-{
-  *(_BYTE *)(_this + 20) = 1;
-  Sleep(0x76u);
-  return 1;
-}
 
 //----- (0046B1EC) --------------------------------------------------------
 char __stdcall sub_46B1EC(int a1, int a2, int a3)
@@ -2924,61 +2816,6 @@ char __thiscall sub_46B289(int _this, int a2, char a3)
   return 1;
 }
 
-//----- (0046B342) --------------------------------------------------------
-int __thiscall sub_46B342(int _this, float a2, float a3)
-{
-  int result; // eax@1
-  double v4; // ST00_8@1
-  double v5; // ST00_8@1
-
-  v4 = a2 + 6.755399441055744e15;
-  *(_DWORD *)(_this + 40) = LODWORD(v4);
-  v5 = a3 + 6.755399441055744e15;
-  result = LODWORD(v5);
-  *(_DWORD *)(_this + 44) = LODWORD(v5);
-  return result;
-}
-
-//----- (0046B37C) --------------------------------------------------------
-int __thiscall update_mouse_data(int _this, int a2)
-{
-  int v2; // edi@1
-  int result; // eax@2
-  int v4; // eax@3
-  int v5; // esi@3
-  char v6; // [sp-18h] [bp-28h]@2
-  const CHAR *v7; // [sp-14h] [bp-24h]@2
-  int v8; // [sp-10h] [bp-20h]@2
-  int v9; // [sp-Ch] [bp-1Ch]@2
-  const char *v10; // [sp-8h] [bp-18h]@2
-  char *v12; // [sp+8h] [bp-8h]@2
-  int v13; // [sp+Fh] [bp-1h]@2
-
-  v2 = _this;
-  if ( *(_DWORD *)(_this + 132) )
-  {
-   EnterCriticalSection(&pGame->class01_obj->cs3);
-    sub_43BB89(*(_DWORD *)(v2 + 132));
-    v4 = *(_DWORD *)(v2 + 132);
-    v5 = v4 + 32;
-    sub_46B289(v2, v4 + 32, *(_DWORD *)(v4 + 40));
-    LeaveCriticalSection(&pGame->class01_obj->cs3);
-    result = a2;
-    *(_DWORD *)a2 = *(_DWORD *)v5;
-    *(_DWORD *)(a2 + 4) = *(_DWORD *)(v5 + 4);
-  }
-  else
-  {
-    v10 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MouseAsync.cpp";
-    v12 = &v6;
-    Game_sub_40E2C8(&v6, "DI_Mouse pointer invalid bailing out from update_mouse_data()", (int)&v13);
-    sub_467834(&v12, v6, v7, v8, v9, v10, __LINE__);
-    result = a2;
-    *(_DWORD *)a2 = 0;
-    *(_DWORD *)(a2 + 4) = 0;
-  }
-  return result;
-}
 
 //----- (0046B420) --------------------------------------------------------
 char __thiscall sub_46B420(int _this)
@@ -2999,7 +2836,7 @@ char __thiscall sub_46B420(int _this)
   }
   else
   {
-    update_mouse_data(_this, (int)&v7);
+    CAsyncMouse_update_mouse_data(_this, (int)&v7);
     sub_46BA8D((void *)v1, v7, v8);
     sub_46B958((void *)v1, v7 - *(_DWORD *)(v1 + 40), v8 - *(_DWORD *)(v1 + 44));
     sub_46B492((void *)v1, (int)&v7);
@@ -3176,145 +3013,7 @@ void __thiscall sub_46B5D5(void *_this, int a2)
   LeaveCriticalSection(&pGame->class01_obj->cs1);
 }
 
-//----- (0046B736) --------------------------------------------------------
-void __thiscall sub_46B736(void *_this, char a2)
-{
-  void *v2; // esi@1
 
-  v2 = _this;
-  sub_46B76F();
-  sub_46B879();
-  if ( a2 )
-  {
-    sub_46BCAB((int)((char *)v2 + 104));
-    sub_46BCAB((int)((char *)v2 + 116));
-  }
-  if ( *((_BYTE *)v2 + 102) )
-  {
-    sub_4356FF();
-    *((_BYTE *)v2 + 102) = 0;
-  }
-}
-
-//----- (0046B76F) --------------------------------------------------------
-void __cdecl sub_46B76F()
-{
-  int v0; // ebx@1
-  int v1; // edi@1
-  int v2; // eax@1
-  int v3; // eax@2
-  signed int *v4; // esi@2
-  signed int v5; // ST08_4@7
-  signed int v6; // ST04_4@7
-  float v7; // ST00_4@7
-  signed int v8; // ST08_4@9
-  signed int v9; // ST04_4@9
-  float v10; // ST00_4@9
-
-  EnterCriticalSection(&pGame->class01_obj->cs1);
-  v0 = dword_720010 + 108;
-  v2 = *(_DWORD *)(dword_720010 + 108);
-  v1 = *(_DWORD *)v2;
-  if ( *(_DWORD *)v2 != v2 )
-  {
-    do
-    {
-      v3 = *(_DWORD *)(v1 + 20);
-      v4 = (signed int *)(v1 + 12);
-      if ( v3 & 1 )
-      {
-        Game_Pick(pGame, 512.0, *v4, *(_DWORD *)(v1 + 16), 0, (int)&stru_F93E6C, (int)&dword_F93E58);
-        if ( sub_466CA0() == MENU_CREATEPARTY )
-          sub_41CD4F_MaybeOnlyUI_OnKeyDown(VK_SELECT);
-        OnMouseLeftClick((void *)(v1 + 12));
-      }
-      else
-      {
-        if ( v3 & 2 )
-        {
-          v5 = *(_DWORD *)(v1 + 16);
-          v6 = *v4;
-          v7 = sub_43643E();
-          Game_Pick(pGame, v7, v6, v5, 0, (int)&dword_F93E30, (int)&dword_F93E44);
-          sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(v1 + 12);
-        }
-        else
-        {
-          if ( v3 & 4 )
-          {
-            v8 = *(_DWORD *)(v1 + 16);
-            v9 = *v4;
-            v10 = sub_43643E();
-            Game_Pick(pGame, v10, v9, v8, 1, (int)&stru_F93E6C, (int)&dword_F93E44);
-          }
-        }
-      }
-      v1 = *(_DWORD *)v1;
-    }
-    while ( v1 != *(_DWORD *)v0 );
-  }
-  LeaveCriticalSection(&pGame->class01_obj->cs1);
-}
-
-//----- (0046B879) --------------------------------------------------------
-void __cdecl sub_46B879()
-{
-  int v0; // ebx@1
-  int v1; // edi@1
-  int v2; // eax@1
-  int v3; // eax@2
-  signed int *v4; // esi@2
-  signed int v5; // ST08_4@5
-  signed int v6; // ST04_4@5
-  float v7; // ST00_4@5
-
-  EnterCriticalSection(&pGame->class01_obj->cs1);
-  v0 = dword_720010 + 120;
-  v2 = *(_DWORD *)(dword_720010 + 120);
-  v1 = *(_DWORD *)v2;
-  if ( *(_DWORD *)v2 != v2 )
-  {
-    do
-    {
-      v3 = *(_DWORD *)(v1 + 20);
-      v4 = (signed int *)(v1 + 12);
-      if ( v3 & 1 )
-      {
-        Game_Pick(pGame, 512.0, *v4, *(_DWORD *)(v1 + 16), 0, (int)&stru_F93E6C, (int)&dword_F93E58);
-        sub_4178C4();
-      }
-      else
-      {
-        if ( v3 & 2 )
-        {
-          v5 = *(_DWORD *)(v1 + 16);
-          v6 = *v4;
-          v7 = sub_43643E();
-          Game_Pick(pGame, v7, v6, v5, 0, (int)&dword_F93E30, (int)&dword_F93E58);
-          sub_4178E1();
-        }
-        else
-        {
-          if ( v3 & 4 )
-            compile_error;//nullsub_1(v1 + 12);
-        }
-      }
-      v1 = *(_DWORD *)v1;
-    }
-    while ( v1 != *(_DWORD *)v0 );
-  }
-  LeaveCriticalSection(&pGame->class01_obj->cs1);
-}
-
-//----- (0046B944) --------------------------------------------------------
-int __thiscall sub_46B944(int _this)
-{
-  int v2; // esi@1
-
-  v2 = _this;
-  sub_46BCAB(_this + 104);
-  return sub_46BCAB(v2 + 116);
-}
 
 //----- (0046B958) --------------------------------------------------------
 char __thiscall sub_46B958(void *_this, int a2, int a3)
@@ -3443,121 +3142,15 @@ char __thiscall sub_46BA8D(void *_this, int a2, int a3)
   return *((_BYTE *)v4 + 90);
 }
 
-//----- (0046BAEC) --------------------------------------------------------
-void __thiscall sub_46BAEC(void *_this)
-{
-  void *v1; // esi@1
-
-  v1 = _this;
-  EnterCriticalSection(&pGame->class01_obj->cs2);
-  *((_BYTE *)v1 + 88) = 0;
-}
-
-//----- (0046BB0A) --------------------------------------------------------
-void __thiscall sub_46BB0A(int _this)
-{
-  int v1; // esi@1
-  int v2; // eax@1
-  int v3; // edx@1
-  int v4; // ecx@1
-  int v5; // edx@1
-  int v6; // eax@1
-  char v7; // zf@1
-  int v8; // ST08_4@8
-  int v9; // [sp+8h] [bp-74h]@8
-  int v10; // [sp+Ch] [bp-70h]@8
-  int v11; // [sp+6Ch] [bp-10h]@1
-  int v12; // [sp+70h] [bp-Ch]@1
-  int v13; // [sp+74h] [bp-8h]@1
-  int v14; // [sp+78h] [bp-4h]@1
-
-  v1 = _this;
-  v2 = *(_DWORD *)(_this + 68) - *(_DWORD *)(_this + 40);
-  v3 = *(_DWORD *)(_this + 56);
-  v4 = *(_DWORD *)(_this + 72) - *(_DWORD *)(_this + 44);
-  v11 = v2;
-  v5 = v2 + v3;
-  v6 = *(_DWORD *)(v1 + 60);
-  v12 = v4;
-  v7 = *(_BYTE *)(v1 + 90) == 0;
-  v13 = v5;
-  v14 = v4 + v6;
-  if ( v7 || *(_BYTE *)(v1 + 128) & 1 )
-  {
-    if ( *(_BYTE *)(v1 + 88) )
-      (*(void (__stdcall **)(int, _DWORD, _DWORD, _DWORD, int, signed int))(pD3DRenderer->pdds4_FrontBuffer + 28))(
-        (int)pD3DRenderer->pdds4_FrontBuffer,
-        *(_DWORD *)(v1 + 32),
-        *(_DWORD *)(v1 + 36),
-        *(_DWORD *)(v1 + 8),
-        v1 + 48,
-        16);
-    (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, int, int *, signed int))(**(_DWORD **)(v1 + 8) + 28))(
-      *(_DWORD *)(v1 + 8),
-      0,
-      0,
-      (int)pD3DRenderer->pdds4_FrontBuffer,
-      &v11,
-      16);
-  }
-  if ( *(_BYTE *)(v1 + 90) )
-  {
-    if ( !(*(_BYTE *)(v1 + 128) & 1) )
-    {
-      v8 = *(_DWORD *)(v1 + 4);
-      v9 = 100;
-      v10 = 8;
-      (*(void (__stdcall **)(int, int *, int, int, signed int, int *))(pD3DRenderer->pdds4_FrontBuffer + 20))(
-        (int)pD3DRenderer->pdds4_FrontBuffer,
-        &v11,
-        v8,
-        v1 + 48,
-        16812032,
-        &v9);
-    }
-  }
-  LeaveCriticalSection(&pGame->class01_obj->cs2);
-}
-
-//----- (0046BBD0) --------------------------------------------------------
-void *__cdecl sub_46BBD0()
-{
-  void *result; // eax@1
-  char v1; // [sp-18h] [bp-30h]@2
-  int v2; // [sp-14h] [bp-2Ch]@2
-  int v3; // [sp-10h] [bp-28h]@2
-  int v4; // [sp-Ch] [bp-24h]@2
-  const char *v5; // [sp-8h] [bp-20h]@2
-  int v6; // [sp-4h] [bp-1Ch]@2
-  RECT Rect; // [sp+0h] [bp-18h]@1
-  char *v8; // [sp+10h] [bp-8h]@2
-  int v9; // [sp+17h] [bp-1h]@2
-
-  SetWindowPos(pAppWindow->GetAPIHandle(), (HWND)((unsigned int)(HWND_MESSAGE)|0x2), 320, 240, 640, 480, 0);
-  Rect.left = 325;
-  Rect.top = 245;
-  Rect.right = 326;
-  Rect.bottom = 246;
-  result = (void *)ClipCursor(&Rect);
-  if ( !result )
-  {
-    v6 = 827;
-    v5 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MouseAsync.cpp";
-    v8 = &v1;
-    Game_sub_40E2C8(&v1, "Could not clip cursor to screen!", (int)&v9);
-    result = sub_466D09(&v8, *(int *)&v1, v2, v3, v4, v5, v6);
-  }
-  return result;
-}
 
 //----- (0046BC4E) --------------------------------------------------------
 void __stdcall sub_46BC4E(int a1)
 {
   while ( 1 )
   {
-    while ( !dword_720010 )
+    while ( !pAsyncMouse )
       ;
-    if ( !sub_46B420(dword_720010) )
+    if ( !sub_46B420(pAsyncMouse) )
       ExitThread(0);
     Sleep(0x12u);
   }
@@ -10324,10 +9917,10 @@ signed int __fastcall sub_475F30(int a1, int a2, int a3, int a4, int a5, int a6,
 }
 
 //----- (004760C1) --------------------------------------------------------
-void sub_4760C1_QueuePlayerAction(struct unnamed_7215D8_PlayerActionBuffer *_this, unsigned int uAction)
+void sub_4760C1_QueuePlayerAction(struct unnamed_7215D8_PlayerActionBuffer *_this, Action::Type eAction)
 {
  if (_this->uNumActions < 30)
-   _this->pActions[_this->uNumActions++] = uAction;
+   _this->pActions[_this->uNumActions++] = eAction;
 }
 
 //----- (004760D5) --------------------------------------------------------

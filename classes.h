@@ -452,20 +452,6 @@ struct class13 *class13_ctor(struct class13 *_this);
 
 
 
-//class14
-struct class14
-{
- int dword_000000;
- int dword_000004;
-};
-//sizeof = 0008
-//int __thiscall sub_45AFD9(int _this);
-struct class14 *class14_ctor(struct class14 *_this);
-//char __thiscall sub_45B0A9(int _this, int vKey);
-bool class14_IsKeyHeld(struct class14 *_this, int vKey);
-//char __thiscall sub_45B0CE(int _this, int vKey);
-bool class14_IsKeyPressed(struct class14 *_this, int vKey);
-
 
 
 //class16
@@ -812,50 +798,6 @@ void CMonsterStats_ctor(struct CMonsterStats *_this);
 int CMonsterStats_Initialize(struct CMonsterStats *_this);
 //char *__thiscall sub_454F4E(void *_this)
 char *CMonsterStats_LoadMonsterPlacements(struct CMonsterStats *_this);
-
-
-struct Spell_data
-{
- unsigned short word00;
- unsigned short word02;
- unsigned short word04;
- unsigned short word06;
- unsigned short word08;
- unsigned short word0A;
- unsigned short word0C;
- unsigned short word10;
- unsigned char	byte11;
- unsigned char	byte12;
- unsigned char	byte13;
- unsigned char	byte14;
-}; 
-//size of 14
-
-
-struct SpellInfo
-{
- unsigned char *pSpellName;                 // ptr   @ 000000  unk_5CC030
- unsigned char *pSpellNameShort;            // ptr   @ 000004  unk_5CC034
- unsigned char *pSpellDescription;          // ptr   @ 000008  unk_5CC038
- unsigned char *pSpellBasicSkillDesc;       // ptr   @ 00000Ñ  unk_5CC03C
- unsigned char *pSpellExpertSkillDesc;      // ptr   @ 000010  unk_5CC040
- unsigned char *pSpellMasterSkillDesc;      // ptr   @ 000014  unk_5CC044
- unsigned char *pSpellGrandmasterSkillDesc; // ptr   @ 000018  unk_5CC048
- unsigned int   uSpellSchool;               // dword @ 00001C  unk_5CC04c
- int            dword_000020;							     //unk_5CC050
-};
-//sizeof = 24
-
-
-struct CSpellStats
-{
- struct SpellInfo pSpellInfos[100]; //[9][11] struct @ 000000	 unk_5CC030
-};
-//sizeof ~ ?
-void CSpellStats_ctor(struct CSpellStats *_this);
-//char *__thiscall sub_45384A(void *_this)
-void CSpellStats_Initialize(struct CSpellStats *_this);
-
 
 
 

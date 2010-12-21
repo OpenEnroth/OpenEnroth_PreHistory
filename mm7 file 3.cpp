@@ -8,6 +8,7 @@
 #include "AudioPlayer.h"
 #include "VideoPlayer.h"
 #include "FrameTables.h"
+#include "UserInput.h"
 
 #include "GUI\GUI.h"
 #include "GUI\GUIButton.h"
@@ -6234,11 +6235,9 @@ void __cdecl sub_444FBE_DrawBranchlessDialogueUI()
   unsigned char pOutString[2048];
   v2 = (char *)FitTextInAWindow(byte_5B0938, pOutString, (Font *)v8, &local_D4, 12, 0);
   FontDrawText(pGUIWindow2, (Font *)v8, 12, 354 - v1, v2, 0, 0, 0);
- #ifndef OLD_CODE
-           
+#ifndef OLD_CODE
             Render_DrawRGBTexture_New(pD3DRenderer, 0, 352, uTextureID_GameUI_StatusBar);
-#endif
-#ifdef OLD_CODE
+#else
 		   Render_DrawRGBTexture(pD3DRenderer, 0, 352, &cPCXID_GameUI_StatusBar);
 #endif
   if (pGUIWindow2->dword_000040 != 1)
@@ -6246,7 +6245,7 @@ void __cdecl sub_444FBE_DrawBranchlessDialogueUI()
     if (pGUIWindow2->dword_000040 == 2)
     {
       pGUIWindow2->dword_000040 = 0;
-      strcpy((char *)byte_5C3428, (char *)pKeyboardController->pPressedKeysBuffer);
+      strcpy((char *)byte_5C3428, (char *)pUserInput->pPressedKeysBuffer);
 LABEL_16:
       sub_4452BB();
       return;
@@ -6260,15 +6259,15 @@ LABEL_15:
   }
   if (pGUIWindow2->dword_00001C == 26)
   {
-    wsprintfA(Str1, "%s %s", byte_5C3428, pKeyboardController->pPressedKeysBuffer);
+    wsprintfA(Str1, "%s %s", byte_5C3428, pUserInput->pPressedKeysBuffer);
     v3 = GUIFont_GetLineWidth(pFontLucida, (unsigned char *)Str1);
     FontDrawText(pGUIWindow2, pFontLucida, 13, 357, Str1, 0, 0, 0);
     GUIWindow_sub_459C2B(pGUIWindow2, v3 + 13, 357, (int)pFontLucida);
     return;
   }
-  if (pKeyboardController->pPressedKeysBuffer[0])
+  if (pUserInput->pPressedKeysBuffer[0])
   {
-    KeyboardController_sub_459ED1(pKeyboardController, 0);
+    pUserInput->sub_459ED1(0);
     goto LABEL_15;
   }
 }
@@ -6509,9 +6508,9 @@ LABEL_24:
     {
     //  v8 = 0;
       if (v1->dword_000008 & 0x80)
-        v9 = (char *)pNPCStats->pProfessions[v1->uProfession - 1].pDismissText;
+        v9 = (char *)pNPCStats->pProfessions[v1->uProfession].pDismissText;
       else
-        v9 = (char *)pNPCStats->pProfessions[v1->uProfession - 1].pJoinText;
+        v9 = (char *)pNPCStats->pProfessions[v1->uProfession].pJoinText;
       v10 = (int)sub_495461_DrawAn_AreYouSureWishTo_Join_Dismiss_ThisNPC_Dialogue((unsigned char *)v9, uActiveCharacter, 0, 0, 0, 0);
 LABEL_32:
       v64 = (const char *)v10;
@@ -7282,8 +7281,8 @@ int __fastcall sub_44622E(int a1)
   dword_50CBD0.CutQueueTail();
   struct_576FE8.dword_000044 = 1;
   uDialogueType = 0;
-  KeyboardController_sub_459ED1(pKeyboardController, 3);
-  sub_459E3F();
+  pUserInput->sub_459ED1(3);
+  pUserInput->ResetKeyboard();
   if ( v1 == 600 || v1 == 601 )
   {
     sub_4BF91E_GameOverMenu(0);
@@ -7836,8 +7835,8 @@ void __fastcall sub_44684A_LooksLikeEventProcessor(int sEventType, int a2, int a
             if (!bNoVideo)
               pVideoPlayer->UnloadAll();
 
-            if (dword_720010)
-              Mouse_suspend(dword_720010);
+            if (pAsyncMouse)
+              CAsyncMouse_suspend(pAsyncMouse);
             v132 = dword_4E28F8_PartyCantJumpIfTrue;
             v16 = (int)pSomeEVT + v10;
             v17 = *(_BYTE *)(v16 + 5);
@@ -7875,8 +7874,8 @@ LABEL_28:
               if ( v132 == 13 )
                 pVideoPlayer->sub_4BF28F((unsigned int)*(&off_4E5F70 + 4 * dword_591160), 1);
             }
-            if (dword_720010)
-              sub_46B105((void *)dword_720010);
+            if (pAsyncMouse)
+              CAsyncMouse_sub_46B105((void *)pAsyncMouse);
             goto LABEL_291;
           case 0x2B:
             v19 = v11[7] | ((unsigned int)v11[8] << 8) | ((unsigned int)v11[9] << 16) | ((unsigned int)v11[10] << 24);

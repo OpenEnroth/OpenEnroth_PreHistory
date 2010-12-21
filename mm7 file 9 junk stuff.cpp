@@ -6,6 +6,7 @@
 #include "data.h"
 
 #include "Game.h"
+#include "UserInput.h"
 
 /*x87 COMPARISON OPCODES
 
@@ -1047,6 +1048,1023 @@ LABEL_176:
   return 0;
 }
 
+
+//----- (0045B329) --------------------------------------------------------
+void __thiscall CAsyncKeyboard_suspend(int _this)
+{
+  int v1; // esi@1
+  char v2; // [sp-18h] [bp-24h]@2
+  const CHAR *v3; // [sp-14h] [bp-20h]@2
+  int v4; // [sp-10h] [bp-1Ch]@2
+  int v5; // [sp-Ch] [bp-18h]@2
+  const char *v6; // [sp-8h] [bp-14h]@2
+  int v7; // [sp-4h] [bp-10h]@2
+  char *v8; // [sp+4h] [bp-8h]@2
+  int v9; // [sp+Bh] [bp-1h]@2
+
+  v1 = _this;
+  if ( *(_DWORD *)(_this + 1804) )
+  {
+    EnterCriticalSection(&pGame->class01_obj->cs4);
+    SuspendThread(*(HANDLE *)(v1 + 4));
+    set_acquire(*(_DWORD *)(v1 + 1804), 0);
+    LeaveCriticalSection(&pGame->class01_obj->cs4);
+  }
+  else
+  {
+    v7 = 115;
+    v6 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\KeyboardAsync.cpp";
+    v8 = &v2;
+    Game_sub_40E2C8(&v2, "Invalid DI_Keyboard, bailing out of suspend()", (int)&v9);
+    sub_467834(&v8, v2, v3, v4, v5, v6, v7);
+  }
+}
+
+
+//----- (0045B3B6) --------------------------------------------------------
+void __thiscall CAsyncKeyboard_update_keyboard_data(int _this)
+{
+  int v1; // esi@1
+  int v2; // eax@3
+  signed int v3; // ecx@3
+  int v4; // edx@6
+  char v5; // [sp-18h] [bp-2Ch]@2
+  const CHAR *v6; // [sp-14h] [bp-28h]@2
+  int v7; // [sp-10h] [bp-24h]@2
+  int v8; // [sp-Ch] [bp-20h]@2
+  const char *v9; // [sp-8h] [bp-1Ch]@2
+  int v10; // [sp-4h] [bp-18h]@2
+  DWORD v11; // [sp+Ch] [bp-8h]@2
+  int v12; // [sp+13h] [bp-1h]@2
+
+  v1 = _this;
+  if ( *(_DWORD *)(_this + 1804) )
+  {
+   EnterCriticalSection(&pGame->class01_obj->cs4);
+    v11 = timeGetTime();
+    memcpy((void *)(v1 + 9), (const void *)(*(_DWORD *)(v1 + 1804) + 29), 0x100u);
+    update_data(*(_DWORD *)(v1 + 1804));
+    memcpy((void *)(v1 + 265), (const void *)(*(_DWORD *)(v1 + 1804) + 29), 0x100u);
+    v3 = 0;
+    v2 = v1 + 780;
+    do
+    {
+      if ( *(_BYTE *)(v1 + 265 + v3) & 0x80 )
+      {
+        if ( v11 - *(_DWORD *)v2 > 0xC8 )
+        {
+          v4 = v11;
+          *(_BYTE *)(v3 + v1 + 521) |= 0x80u;
+          *(_DWORD *)v2 = v4;
+        }
+      }
+      ++v3;
+      v2 += 4;
+    }
+    while ( v3 < 256 );
+    LeaveCriticalSection(&pGame->class01_obj->cs4);
+  }
+  else
+  {
+    v10 = 169;
+    v9 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\KeyboardAsync.cpp";
+    v11 = (DWORD)&v5;
+    Game_sub_40E2C8(&v5, "Invalid DI_Keyboard, bailing out of CAsyncKeyboard_update_keyboard_data()", (int)&v12);
+    sub_467834(&v11, v5, v6, v7, v8, v9, v10);
+  }
+}
+
+//----- (0045B18E) --------------------------------------------------------
+char __thiscall CAsyncKeyboard_Initialize(LPVOID lpParameter)
+{
+  char result; // al@1
+  void *v2; // esi@1
+
+  v2 = lpParameter;
+  sub_45B1B1((int)lpParameter);
+  result = sub_45B229((DWORD)v2);
+  if ( result )
+    result = sub_45B260(v2) != 0;
+  return result;
+}
+
+
+//----- (0045B2A7) --------------------------------------------------------
+void __thiscall CAsyncKeyboard_Resume(int _this)
+{
+  int v1; // esi@1
+  char v2; // [sp-18h] [bp-24h]@2
+  const CHAR *v3; // [sp-14h] [bp-20h]@2
+  int v4; // [sp-10h] [bp-1Ch]@2
+  int v5; // [sp-Ch] [bp-18h]@2
+  const char *v6; // [sp-8h] [bp-14h]@2
+  int v7; // [sp-4h] [bp-10h]@2
+  char *v8; // [sp+4h] [bp-8h]@2
+  int v9; // [sp+Bh] [bp-1h]@2
+
+  v1 = _this;
+  if ( *(_DWORD *)(_this + 1804) )
+  {
+    EnterCriticalSection(&pGame->class01_obj->cs4);
+    sub_45B1B1(v1);
+    set_acquire(*(_DWORD *)(v1 + 1804), 1);
+    ResumeThread(*(HANDLE *)(v1 + 4));
+    LeaveCriticalSection(&pGame->class01_obj->cs4);
+  }
+  else
+  {
+    v7 = 97;
+    v6 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\KeyboardAsync.cpp";
+    v8 = &v2;
+    Game_sub_40E2C8(&v2, "Invalid DI_Keyboard, bailing out of resume()", (int)&v9);
+    sub_467834(&v8, v2, v3, v4, v5, v6, v7);
+  }
+}
+
+
+//----- (00465FF0) --------------------------------------------------------
+void __cdecl sub_465FF0_InitializeAsyncKeyboardAndSomething()
+{
+  //int v0; // eax@1
+  int v1; // ecx@3
+  int v2; // ecx@4
+  char v3; // [sp+0h] [bp-24h]@1
+  int v4; // [sp+10h] [bp-14h]@3
+  char *v5; // [sp+14h] [bp-10h]@1
+  int v6; // [sp+20h] [bp-4h]@3
+ struct Win32Keyboard *pWin32Keyboard;
+
+ /*
+ pWin32Keyboard = pGame->Win32Keyboard_obj;
+ v5 = &v3;
+ if (pWin32Keyboard->dword_000004)
+ {
+    if ( !pAsyncKeyboard )
+    {
+      v6 = 0;
+      compile_error;//v1 = (int)operator new(0x710u);
+      v4 = v1;
+      LOBYTE(v6) = 1;
+      if ( v1 )
+        v2 = CAsyncKeyboard_ctor(v1);
+      else
+        v2 = 0;
+      LOBYTE(v6) = 0;
+      pAsyncKeyboard = v2;
+      if ( v2 )
+        CAsyncKeyboard_Resume(v2);
+    }
+ }*/
+}
+
+
+//----- (0045B10A) --------------------------------------------------------
+int __thiscall CAsyncKeyboard_ctor(int _this)
+{
+  int v1; // esi@1
+  int v3; // [sp+4h] [bp-4h]@2
+
+  v1 = _this;
+  *(_DWORD *)(_this + 4) = 0;
+  *(_BYTE *)(_this + 8) = 0;
+  *(_DWORD *)_this = 5080760;
+  if ( !CAsyncKeyboard_Initialize((LPVOID)_this) )
+  {
+    v3 = (int)"Could not initialize asynchronos keyboard object";
+    _CxxThrowException((int)&v3, 5094804);
+  }
+  return v1;
+}
+
+
+//----- (00465F5A) --------------------------------------------------------
+void __cdecl sub_465F5A_InitializeAsyncMouseAndSomething()
+{
+  int v0; // ecx@4
+  int v1; // ecx@5
+  char v2; // [sp+0h] [bp-24h]@1
+  int v3; // [sp+10h] [bp-14h]@4
+  char *v4; // [sp+14h] [bp-10h]@1
+  int v5; // [sp+20h] [bp-4h]@4
+
+  v4 = &v2;
+ if (pAsyncMouse)
+   return;
+
+ if (pD3DRenderer)
+ {
+  if (pD3DRenderer->uAcquiredDirect3DDevice == 1)
+  {
+        v5 = 0;
+        compile_error;//v0 = (int)operator new(0x88u);
+        v3 = v0;
+        LOBYTE(v5) = 1;
+        if ( v0 )
+          v1 = sub_46ACA9(v0, (int)pD3DRenderer->pdd4);
+        else
+          v1 = 0;
+        LOBYTE(v5) = 0;
+        pAsyncMouse = v1;
+        if ( v1 )
+          CAsyncMouse_sub_46B105((void *)v1);
+  }
+ }
+}
+
+
+//----- (0046B105) --------------------------------------------------------
+void __thiscall CAsyncMouse_sub_46B105(void *_this)
+{
+  void *v1; // esi@1
+
+  v1 = _this;
+  EnterCriticalSection(&pGame->class01_obj->cs3);
+  sub_46B0A9(v1);
+  CAsyncMouse_ClipCursorToScreen();
+  ResumeThread(*((HANDLE *)v1 + 4));
+  *((_BYTE *)v1 + 88) = 0;
+  LeaveCriticalSection(&pGame->class01_obj->cs3);
+}
+
+
+//----- (0045B57D) --------------------------------------------------------
+char __thiscall CAsyncKeyboard_sub_45B57D(void *_this, int a2)
+{
+  char result; // al@2
+  char v3; // [sp-18h] [bp-1Ch]@99
+  const CHAR *v4; // [sp-14h] [bp-18h]@99
+  int v5; // [sp-10h] [bp-14h]@99
+  int v6; // [sp-Ch] [bp-10h]@99
+  const char *v7; // [sp-8h] [bp-Ch]@99
+  int v8; // [sp-4h] [bp-8h]@99
+  void *v9; // [sp+0h] [bp-4h]@1
+  char *v10; // [sp+Ch] [bp+8h]@99
+
+  v9 = _this;
+  switch ( a2 )
+  {
+    case 8:
+      result = 14;
+      break;
+    case 9:
+      result = 15;
+      break;
+    case 13:
+      result = 28;
+      break;
+    case 16:
+    case 161:
+      result = 54;
+      break;
+    case 160:
+      result = 42;
+      break;
+    case 17:
+    case 163:
+      result = -99;
+      break;
+    case 162:
+      result = 29;
+      break;
+    case 18:
+      result = -72;
+      break;
+    case 20:
+      result = 58;
+      break;
+    case 21:
+      result = 112;
+      break;
+    case 25:
+      result = -108;
+      break;
+    case 27:
+      result = 1;
+      break;
+    case 28:
+      result = 121;
+      break;
+    case 29:
+      result = 123;
+      break;
+    case 32:
+      result = 57;
+      break;
+    case 33:
+      result = -55;
+      break;
+    case 34:
+      result = -47;
+      break;
+    case 35:
+      result = -49;
+      break;
+    case 36:
+      result = -57;
+      break;
+    case 37:
+      result = -53;
+      break;
+    case 38:
+      result = -56;
+      break;
+    case 39:
+      result = -51;
+      break;
+    case 40:
+      result = -48;
+      break;
+    case 42:
+      result = -73;
+      break;
+    case 45:
+      result = -46;
+      break;
+    case 46:
+      result = -45;
+      break;
+    case 48:
+      result = 11;
+      break;
+    case 49:
+      result = 2;
+      break;
+    case 50:
+      result = 3;
+      break;
+    case 51:
+      result = 4;
+      break;
+    case 52:
+      result = 5;
+      break;
+    case 53:
+      result = 6;
+      break;
+    case 54:
+      result = 7;
+      break;
+    case 55:
+      result = 8;
+      break;
+    case 56:
+      result = 9;
+      break;
+    case 57:
+      result = 10;
+      break;
+    case 65:
+      result = 30;
+      break;
+    case 66:
+      result = 48;
+      break;
+    case 67:
+      result = 46;
+      break;
+    case 68:
+      result = 32;
+      break;
+    case 69:
+      result = 18;
+      break;
+    case 70:
+      result = 33;
+      break;
+    case 71:
+      result = 34;
+      break;
+    case 72:
+      result = 35;
+      break;
+    case 73:
+      result = 23;
+      break;
+    case 74:
+      result = 36;
+      break;
+    case 75:
+      result = 37;
+      break;
+    case 76:
+      result = 38;
+      break;
+    case 77:
+      result = 50;
+      break;
+    case 78:
+      result = 49;
+      break;
+    case 79:
+      result = 24;
+      break;
+    case 80:
+      result = 25;
+      break;
+    case 81:
+      result = 16;
+      break;
+    case 82:
+      result = 19;
+      break;
+    case 83:
+      result = 31;
+      break;
+    case 84:
+      result = 20;
+      break;
+    case 85:
+      result = 22;
+      break;
+    case 86:
+      result = 47;
+      break;
+    case 87:
+      result = 17;
+      break;
+    case 88:
+      result = 45;
+      break;
+    case 89:
+      result = 21;
+      break;
+    case 90:
+      result = 44;
+      break;
+    case 91:
+      result = -37;
+      break;
+    case 92:
+      result = -36;
+      break;
+    case 93:
+      result = -35;
+      break;
+    case 96:
+      result = 82;
+      break;
+    case 97:
+      result = 79;
+      break;
+    case 98:
+      result = 80;
+      break;
+    case 99:
+      result = 81;
+      break;
+    case 100:
+      result = 75;
+      break;
+    case 101:
+      result = 76;
+      break;
+    case 102:
+      result = 77;
+      break;
+    case 103:
+      result = 71;
+      break;
+    case 104:
+      result = 72;
+      break;
+    case 105:
+      result = 73;
+      break;
+    case 106:
+      result = 55;
+      break;
+    case 107:
+      result = 78;
+      break;
+    case 109:
+      result = 74;
+      break;
+    case 110:
+      result = 83;
+      break;
+    case 111:
+      result = -75;
+      break;
+    case 112:
+      result = 59;
+      break;
+    case 113:
+      result = 60;
+      break;
+    case 114:
+      result = 61;
+      break;
+    case 115:
+      result = 62;
+      break;
+    case 116:
+      result = 63;
+      break;
+    case 117:
+      result = 64;
+      break;
+    case 118:
+      result = 65;
+      break;
+    case 119:
+      result = 66;
+      break;
+    case 120:
+      result = 67;
+      break;
+    case 121:
+      result = 68;
+      break;
+    case 122:
+      result = 87;
+      break;
+    case 123:
+      result = 88;
+      break;
+    case 124:
+      result = 100;
+      break;
+    case 125:
+      result = 101;
+      break;
+    case 126:
+      result = 102;
+      break;
+    case 144:
+      result = 69;
+      break;
+    case 145:
+      result = 70;
+      break;
+    default:
+      v8 = 999;
+      v7 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\KeyboardAsync.cpp";
+      v10 = &v3;
+      Game_sub_40E2C8(&v3, "Uknown key detected!", (int)((char *)&a2 + 3));
+      sub_467834(&v9, v3, v4, v5, v6, v7, v8);
+      goto LABEL_100;
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 12:
+    case 19:
+    case 23:
+    case 24:
+    case 30:
+    case 31:
+    case 41:
+    case 43:
+    case 44:
+    case 47:
+    case 108:
+    case 127:
+    case 128:
+    case 129:
+    case 130:
+    case 131:
+    case 132:
+    case 133:
+    case 134:
+    case 135:
+LABEL_100:
+      result = -1;
+      break;
+  }
+  return result;
+}
+
+//----- (0046B342) --------------------------------------------------------
+int __thiscall CAsyncMouse_sub_46B342(int _this, float a2, float a3)
+{
+  int result; // eax@1
+  double v4; // ST00_8@1
+  double v5; // ST00_8@1
+
+  v4 = a2 + 6.755399441055744e15;
+  *(_DWORD *)(_this + 40) = LODWORD(v4);
+  v5 = a3 + 6.755399441055744e15;
+  result = LODWORD(v5);
+  *(_DWORD *)(_this + 44) = LODWORD(v5);
+  return result;
+}
+
+//----- (0046B37C) --------------------------------------------------------
+int __thiscall CAsyncMouse_update_mouse_data(int _this, int a2)
+{
+  int v2; // edi@1
+  int result; // eax@2
+  int v4; // eax@3
+  int v5; // esi@3
+  char v6; // [sp-18h] [bp-28h]@2
+  const CHAR *v7; // [sp-14h] [bp-24h]@2
+  int v8; // [sp-10h] [bp-20h]@2
+  int v9; // [sp-Ch] [bp-1Ch]@2
+  const char *v10; // [sp-8h] [bp-18h]@2
+  char *v12; // [sp+8h] [bp-8h]@2
+  int v13; // [sp+Fh] [bp-1h]@2
+
+  v2 = _this;
+  if ( *(_DWORD *)(_this + 132) )
+  {
+   EnterCriticalSection(&pGame->class01_obj->cs3);
+    sub_43BB89(*(_DWORD *)(v2 + 132));
+    v4 = *(_DWORD *)(v2 + 132);
+    v5 = v4 + 32;
+    sub_46B289(v2, v4 + 32, *(_DWORD *)(v4 + 40));
+    LeaveCriticalSection(&pGame->class01_obj->cs3);
+    result = a2;
+    *(_DWORD *)a2 = *(_DWORD *)v5;
+    *(_DWORD *)(a2 + 4) = *(_DWORD *)(v5 + 4);
+  }
+  else
+  {
+    v10 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MouseAsync.cpp";
+    v12 = &v6;
+    Game_sub_40E2C8(&v6, "DI_Mouse pointer invalid bailing out from CAsyncMouse_update_mouse_data()", (int)&v13);
+    sub_467834(&v12, v6, v7, v8, v9, v10, __LINE__);
+    result = a2;
+    *(_DWORD *)a2 = 0;
+    *(_DWORD *)(a2 + 4) = 0;
+  }
+  return result;
+}
+
+
+//----- (0046AE6E) --------------------------------------------------------
+char __thiscall CAsyncMouse_Initialize(LPVOID lpParameter)
+{
+  void *v1; // esi@1
+  char result; // al@2
+
+  v1 = lpParameter;
+  if ( sub_46AF50(lpParameter) && sub_46B072((DWORD)v1) )
+    result = sub_46B0A9(v1) != 0;
+  else
+    result = 0;
+  return result;
+}
+
+//----- (0046AE97) --------------------------------------------------------
+char __thiscall CAsyncMouse_sub_46AE97(void *_this, void *Source)
+{
+  void *v2; // esi@1
+  int v3; // eax@1
+  int v4; // eax@1
+  char result; // al@3
+  int v6; // [sp+8h] [bp-B0h]@1
+  int v7; // [sp+58h] [bp-60h]@1
+  cTexture cTexture_obj; // [sp+6Ch] [bp-4Ch]@1
+  char v9; // [sp+B4h] [bp-4h]@1
+
+  v2 = _this;
+  EnterCriticalSection(&pGame->class01_obj->cs2);
+  v3 = *((_DWORD *)v2 + 1);
+  v6 = 100;
+  v7 = 0;
+  v4 = (*(int (__stdcall **)(int, _DWORD, _DWORD, _DWORD, signed int, int *))(*(_DWORD *)v3 + 20))(
+         v3,
+         0,
+         0,
+         0,
+         1024,
+         &v6);
+  CheckHRESULT((void **)&v9, v4, "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MouseAsync.cpp", 0x81u, 0);
+  
+  cTexture_obj.cTexture_Zero();
+  if ( LODFile_Icons_LOD.LoadTextureFromLOD( &cTexture_obj, (char *)Source, 2) != -1 && sub_46B1EC((int)&struct_505898.Dest, *((_DWORD *)v2 + 1), 0) )
+  {
+    cTexture_Free(&cTexture_obj);
+    LeaveCriticalSection(&pGame->class01_obj->cs2);
+    result = 1;
+  }
+  else
+  {
+    result = 0;
+  }
+  return result;
+}
+
+
+//----- (0046B736) --------------------------------------------------------
+void __thiscall CAsyncMouse_sub_46B736(void *_this, char a2)
+{
+  void *v2; // esi@1
+
+  v2 = _this;
+  sub_46B76F();
+  sub_46B879();
+  if ( a2 )
+  {
+    sub_46BCAB((int)((char *)v2 + 104));
+    sub_46BCAB((int)((char *)v2 + 116));
+  }
+  if ( *((_BYTE *)v2 + 102) )
+  {
+    sub_4356FF();
+    *((_BYTE *)v2 + 102) = 0;
+  }
+}
+
+
+//----- (0046BB0A) --------------------------------------------------------
+void __thiscall CAsyncMouse_sub_46BB0A(int _this)
+{
+  int v1; // esi@1
+  int v2; // eax@1
+  int v3; // edx@1
+  int v4; // ecx@1
+  int v5; // edx@1
+  int v6; // eax@1
+  char v7; // zf@1
+  int v8; // ST08_4@8
+  int v9; // [sp+8h] [bp-74h]@8
+  int v10; // [sp+Ch] [bp-70h]@8
+  int v11; // [sp+6Ch] [bp-10h]@1
+  int v12; // [sp+70h] [bp-Ch]@1
+  int v13; // [sp+74h] [bp-8h]@1
+  int v14; // [sp+78h] [bp-4h]@1
+
+  v1 = _this;
+  v2 = *(_DWORD *)(_this + 68) - *(_DWORD *)(_this + 40);
+  v3 = *(_DWORD *)(_this + 56);
+  v4 = *(_DWORD *)(_this + 72) - *(_DWORD *)(_this + 44);
+  v11 = v2;
+  v5 = v2 + v3;
+  v6 = *(_DWORD *)(v1 + 60);
+  v12 = v4;
+  v7 = *(_BYTE *)(v1 + 90) == 0;
+  v13 = v5;
+  v14 = v4 + v6;
+  if ( v7 || *(_BYTE *)(v1 + 128) & 1 )
+  {
+    if ( *(_BYTE *)(v1 + 88) )
+      (*(void (__stdcall **)(int, _DWORD, _DWORD, _DWORD, int, signed int))(pD3DRenderer->pdds4_FrontBuffer + 28))(
+        (int)pD3DRenderer->pdds4_FrontBuffer,
+        *(_DWORD *)(v1 + 32),
+        *(_DWORD *)(v1 + 36),
+        *(_DWORD *)(v1 + 8),
+        v1 + 48,
+        16);
+    (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, int, int *, signed int))(**(_DWORD **)(v1 + 8) + 28))(
+      *(_DWORD *)(v1 + 8),
+      0,
+      0,
+      (int)pD3DRenderer->pdds4_FrontBuffer,
+      &v11,
+      16);
+  }
+  if ( *(_BYTE *)(v1 + 90) )
+  {
+    if ( !(*(_BYTE *)(v1 + 128) & 1) )
+    {
+      v8 = *(_DWORD *)(v1 + 4);
+      v9 = 100;
+      v10 = 8;
+      (*(void (__stdcall **)(int, int *, int, int, signed int, int *))(pD3DRenderer->pdds4_FrontBuffer + 20))(
+        (int)pD3DRenderer->pdds4_FrontBuffer,
+        &v11,
+        v8,
+        v1 + 48,
+        16812032,
+        &v9);
+    }
+  }
+  LeaveCriticalSection(&pGame->class01_obj->cs2);
+}
+
+
+//----- (0046BBD0) --------------------------------------------------------
+void *__cdecl CAsyncMouse_ClipCursorToScreen()
+{
+  void *result; // eax@1
+  char v1; // [sp-18h] [bp-30h]@2
+  int v2; // [sp-14h] [bp-2Ch]@2
+  int v3; // [sp-10h] [bp-28h]@2
+  int v4; // [sp-Ch] [bp-24h]@2
+  const char *v5; // [sp-8h] [bp-20h]@2
+  int v6; // [sp-4h] [bp-1Ch]@2
+  RECT Rect; // [sp+0h] [bp-18h]@1
+  char *v8; // [sp+10h] [bp-8h]@2
+  int v9; // [sp+17h] [bp-1h]@2
+
+  SetWindowPos(pAppWindow->GetAPIHandle(), (HWND)((unsigned int)(HWND_MESSAGE)|0x2), 320, 240, 640, 480, 0);
+  Rect.left = 325;
+  Rect.top = 245;
+  Rect.right = 326;
+  Rect.bottom = 246;
+  result = (void *)ClipCursor(&Rect);
+  if ( !result )
+  {
+    v6 = 827;
+    v5 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MouseAsync.cpp";
+    v8 = &v1;
+    Game_sub_40E2C8(&v1, "Could not clip cursor to screen!", (int)&v9);
+    result = sub_466D09(&v8, *(int *)&v1, v2, v3, v4, v5, v6);
+  }
+  return result;
+}
+
+//----- (0046BAEC) --------------------------------------------------------
+void __thiscall CAsyncMouse_sub_46BAEC(void *_this)
+{
+  void *v1; // esi@1
+
+  v1 = _this;
+  EnterCriticalSection(&pGame->class01_obj->cs2);
+  *((_BYTE *)v1 + 88) = 0;
+}
+
+//----- (00409E3D) --------------------------------------------------------
+void __thiscall CAsyncMouse_sub_409E3D(int _this, char a2)
+{
+  if ( *(_BYTE *)(_this + 128) & 1 )
+    *(_BYTE *)(_this + 103) = 1;
+  else
+    *(_BYTE *)(_this + 103) = 0;
+  if ( a2 )
+    *(_DWORD *)(_this + 128) |= 1u;
+  else
+    *(_DWORD *)(_this + 128) &= 0xFFFFFFFEu;
+}
+
+//----- (0046B944) --------------------------------------------------------
+int __thiscall CAsyncMouse_sub_46B944(int _this)
+{
+  int v2; // esi@1
+
+  v2 = _this;
+  sub_46BCAB(_this + 104);
+  return sub_46BCAB(v2 + 116);
+}
+
+//----- (0046B76F) --------------------------------------------------------
+void __cdecl sub_46B76F()
+{
+  int v0; // ebx@1
+  int v1; // edi@1
+  int v2; // eax@1
+  int v3; // eax@2
+  signed int *v4; // esi@2
+  signed int v5; // ST08_4@7
+  signed int v6; // ST04_4@7
+  float v7; // ST00_4@7
+  signed int v8; // ST08_4@9
+  signed int v9; // ST04_4@9
+  float v10; // ST00_4@9
+
+  EnterCriticalSection(&pGame->class01_obj->cs1);
+  v0 = pAsyncMouse + 108;
+  v2 = *(_DWORD *)(pAsyncMouse + 108);
+  v1 = *(_DWORD *)v2;
+  if ( *(_DWORD *)v2 != v2 )
+  {
+    do
+    {
+      v3 = *(_DWORD *)(v1 + 20);
+      v4 = (signed int *)(v1 + 12);
+      if ( v3 & 1 )
+      {
+        Game_Pick(pGame, 512.0, *v4, *(_DWORD *)(v1 + 16), 0, (int)&stru_F93E6C, (int)&dword_F93E58);
+        if ( sub_466CA0() == MENU_CREATEPARTY )
+          sub_41CD4F_MaybeOnlyUI_OnKeyDown(VK_SELECT);
+        OnMouseLeftClick((void *)(v1 + 12));
+      }
+      else
+      {
+        if ( v3 & 2 )
+        {
+          v5 = *(_DWORD *)(v1 + 16);
+          v6 = *v4;
+          v7 = sub_43643E();
+          Game_Pick(pGame, v7, v6, v5, 0, (int)&dword_F93E30, (int)&dword_F93E44);
+          sub_416D62_ShowPopupWindow_MonsterRecord_ItemInfo_etc(v1 + 12);
+        }
+        else
+        {
+          if ( v3 & 4 )
+          {
+            v8 = *(_DWORD *)(v1 + 16);
+            v9 = *v4;
+            v10 = sub_43643E();
+            Game_Pick(pGame, v10, v9, v8, 1, (int)&stru_F93E6C, (int)&dword_F93E44);
+          }
+        }
+      }
+      v1 = *(_DWORD *)v1;
+    }
+    while ( v1 != *(_DWORD *)v0 );
+  }
+  LeaveCriticalSection(&pGame->class01_obj->cs1);
+}
+
+//----- (0046B879) --------------------------------------------------------
+void __cdecl sub_46B879()
+{
+  int v0; // ebx@1
+  int v1; // edi@1
+  int v2; // eax@1
+  int v3; // eax@2
+  signed int *v4; // esi@2
+  signed int v5; // ST08_4@5
+  signed int v6; // ST04_4@5
+  float v7; // ST00_4@5
+
+  EnterCriticalSection(&pGame->class01_obj->cs1);
+  v0 = pAsyncMouse + 120;
+  v2 = *(_DWORD *)(pAsyncMouse + 120);
+  v1 = *(_DWORD *)v2;
+  if ( *(_DWORD *)v2 != v2 )
+  {
+    do
+    {
+      v3 = *(_DWORD *)(v1 + 20);
+      v4 = (signed int *)(v1 + 12);
+      if ( v3 & 1 )
+      {
+        Game_Pick(pGame, 512.0, *v4, *(_DWORD *)(v1 + 16), 0, (int)&stru_F93E6C, (int)&dword_F93E58);
+        sub_4178C4();
+      }
+      else
+      {
+        if ( v3 & 2 )
+        {
+          v5 = *(_DWORD *)(v1 + 16);
+          v6 = *v4;
+          v7 = sub_43643E();
+          Game_Pick(pGame, v7, v6, v5, 0, (int)&dword_F93E30, (int)&dword_F93E58);
+          sub_4178E1();
+        }
+        else
+        {
+          if ( v3 & 4 )
+            compile_error;//nullsub_1(v1 + 12);
+        }
+      }
+      v1 = *(_DWORD *)v1;
+    }
+    while ( v1 != *(_DWORD *)v0 );
+  }
+  LeaveCriticalSection(&pGame->class01_obj->cs1);
+}
+
+//----- (0046B1DD) --------------------------------------------------------
+char __thiscall CAsyncMouse_sub_46B1DD(int _this)
+{
+  *(_BYTE *)(_this + 20) = 1;
+  Sleep(0x76u);
+  return 1;
+}
+
+
+//----- (0046B14F) --------------------------------------------------------
+void __thiscall CAsyncMouse_suspend(int _this)
+{
+  int v1; // esi@1
+  int v2; // eax@3
+  char v3; // [sp-18h] [bp-24h]@2
+  const CHAR *v4; // [sp-14h] [bp-20h]@2
+  int v5; // [sp-10h] [bp-1Ch]@2
+  int v6; // [sp-Ch] [bp-18h]@2
+  const char *v7; // [sp-8h] [bp-14h]@2
+  int v8; // [sp-4h] [bp-10h]@2
+  char *v9; // [sp+4h] [bp-8h]@2
+  int v10; // [sp+Bh] [bp-1h]@2
+
+  v1 = _this;
+  if ( *(_DWORD *)(_this + 132) )
+  {
+    v2 = (int)pGame->pVis;
+    if ( v2 )
+      *(_DWORD *)(v2 + 8200) = 0;
+    EnterCriticalSection(&pGame->class01_obj->cs3);
+    SuspendThread(*(HANDLE *)(v1 + 16));
+    sub_46B0ED(v1);
+    LeaveCriticalSection(&pGame->class01_obj->cs3);
+  }
+  else
+  {
+    v8 = 233;
+    v7 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\MouseAsync.cpp";
+    v9 = &v3;
+    Game_sub_40E2C8(&v3, "DI_Mouse pointer invalid; bailing out from suspend()", (int)&v10);
+    sub_467834(&v9, v3, v4, v5, v6, v7, v8);
+  }
+}
+
+//----- (0045B4EC) --------------------------------------------------------
+char __thiscall CAsyncKeyboard_sub_45B4EC(void *_this, unsigned __int8 a2)
+{
+  void *v3; // esi@1
+  char v4; // bl@1
+
+  v3 = _this;
+  EnterCriticalSection(&pGame->class01_obj->cs4);
+  v4 = *((_BYTE *)v3 + a2 + 265) >> 7;
+  LeaveCriticalSection(&pGame->class01_obj->cs4);
+  return v4;
+}
+
 //----- (MM7.exe::00466D83) --------------------------------------------------------
 void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UINT uType, char a7, int a8, int a9, int a10, int a11)
 {
@@ -1064,19 +2082,20 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
   int v22; // [sp+28h] [bp-4h]@1
 
   v22 = 1;
-  if (dword_720010)
-    Mouse_suspend(dword_720010);
+  if (pAsyncMouse)
+    CAsyncMouse_suspend(pAsyncMouse);
   if (pGame)
   {
-    v11 = (int)pGame->class14_obj;
+   runtime_warning(async input);
+    /*v11 = (int)pGame->Win32Keyboard_obj;
     if ( v11 )
     {
       if (*(_BYTE *)(v11 + 4))
       {
         if (pAsyncKeyboard)
-          Keyboard_suspend(pAsyncKeyboard);
+          CAsyncKeyboard_suspend(pAsyncKeyboard);
       }
-    }
+    }*/
   }
   if (pD3DRenderer)
   {
@@ -1100,7 +2119,8 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
   MessageBoxA(pAppWindow->GetAPIHandle(), v14, v12, uType);
   if (pGame)
   {
-    v15 = (int)pGame->class14_obj;
+   runtime_warning(async input);
+    /*v15 = (int)pGame->Win32Keyboard_obj;
     if ( v15 )
     {
       if ( *(_BYTE *)(v15 + 4) )
@@ -1108,14 +2128,65 @@ void __stdcall sub_466D83(int a1, char a2, LPCSTR lpCaption, int a4, int a5, UIN
         if (pAsyncKeyboard)
           CAsyncKeyboard_Resume(pAsyncKeyboard);
       }
-    }
+    }*/
   }
-  if (dword_720010)
-    sub_46B105((void *)dword_720010);
+  if (pAsyncMouse)
+    CAsyncMouse_sub_46B105((void *)pAsyncMouse);
   LOBYTE(v22) = 0;
   Game_stru0_sub_40E2F6((Game_stru0 *)&a2, 1);
   v22 = -1;
   Game_stru0_sub_40E2F6((Game_stru0 *)&a7, 1);
+}
+
+
+//----- (00465C2C) --------------------------------------------------------
+void __cdecl CAsyncMouse_Clear()
+{
+ runtime_warning(async input);
+ /*
+  if (pAsyncMouse)
+  {
+    CAsyncMouse_suspend(pAsyncMouse);
+    if (pAsyncMouse)
+      (*(void (__stdcall **)(_DWORD))*pAsyncMouse)(1);
+  }
+  pAsyncMouse = 0;*/
+}
+/*
+//----- (0045B019) --------------------------------------------------------
+void __thiscall Win32Keyboard_BeginReadingInput(int _this)
+{
+  if ( *(_BYTE *)(_this + 4) )
+    AsyncInput_sub_45B1FD_EnterCS();
+}*/
+
+
+//----- (0045B1FD) --------------------------------------------------------
+void __cdecl AsyncInput_sub_45B1FD_EnterCS()
+{
+  EnterCriticalSection(&pGame->class01_obj->cs4);
+}
+
+//----- (0045B213) --------------------------------------------------------
+void __cdecl AsyncInput_sub_45B1FD_LeaveCS()
+{
+  LeaveCriticalSection(&pGame->class01_obj->cs4);
+}
+
+//----- (00465C53) --------------------------------------------------------
+void __cdecl CAsyncKeyboard_Clear()
+{
+ runtime_warning(async input);
+  /*if (*(_BYTE *)(pGame->Win32Keyboard_obj + 4))
+  {
+    if (pAsyncKeyboard)
+    {
+      CAsyncKeyboard_suspend(pAsyncKeyboard);
+      if (pAsyncKeyboard)
+        (**(void (__stdcall ***)(_DWORD))pAsyncKeyboard)(1);
+    }
+    pAsyncKeyboard = 0;
+  }*/
 }
 
 //----- (MM7.exe::0046778D) --------------------------------------------------------
@@ -1689,8 +2760,8 @@ signed int __cdecl sub_4CFD17(int a1)
   char v11; // [sp+4h] [bp-8h]@4
   int v12; // [sp+Bh] [bp-1h]@14
 
- if (dword_720010)
-   Mouse_suspend(dword_720010);
+ if (pAsyncMouse)
+   CAsyncMouse_suspend(pAsyncMouse);
 
  switch (uVideoID)
  {
@@ -1728,8 +2799,8 @@ signed int __cdecl sub_4CFD17(int a1)
 
  if (a2)
  {
-  if (dword_720010)
-    sub_46B105((void *)dword_720010);
+  if (pAsyncMouse)
+    CAsyncMouse_sub_46B105((void *)pAsyncMouse);
  }
 }*/
 
@@ -1849,4 +2920,72 @@ signed int __cdecl sub_4CFD17(int a1)
 
  if (dword_4E28F8_PartyCantJumpIfTrue == 16)
    dword_4E28F8_PartyCantJumpIfTrue = 0;
+}*/
+
+/*
+//----- (00459C68) --------------------------------------------------------
+void KeyboardController_InitalizeKey(struct UserInput *_this, unsigned int uSlot, unsigned int uVKey, bool bActive)
+{
+ _this->pVirtualKeyCodesMapping[uSlot] = uVKey;
+ _this->unk_000084[uSlot] = bActive;
+}
+*/
+
+/*
+
+//----- (00464BEF) --------------------------------------------------------
+int __fastcall ReadRegistryKeyMapping(const CHAR *a1, BYTE *a2, DWORD Count, const char *Source)
+{
+  LSTATUS (__stdcall *v4)(HKEY); // esi@1
+  int result; // eax@7
+  DWORD Type; // [sp+Ch] [bp-24h]@5
+  LPCSTR lpValueName; // [sp+10h] [bp-20h]@1
+  DWORD cbData; // [sp+14h] [bp-1Ch]@1
+  LPBYTE Dest; // [sp+18h] [bp-18h]@1
+  DWORD dwDisposition; // [sp+1Ch] [bp-14h]@2
+  HKEY phkResult; // [sp+20h] [bp-10h]@1
+  HKEY hKey; // [sp+24h] [bp-Ch]@1
+  HKEY v13; // [sp+28h] [bp-8h]@1
+  HKEY v14; // [sp+2Ch] [bp-4h]@1
+
+  cbData = Count;
+  Dest = a2;
+  lpValueName = a1;
+  v14 = 0;
+  v13 = 0;
+  hKey = 0;
+  phkResult = 0;
+  v4 = RegCloseKey;
+  if ( RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE", 0, 0x2001Fu, &hKey)
+    || RegCreateKeyExA(hKey, "New World Computing", 0, "", 0, 983103u, 0, &phkResult, &dwDisposition)
+    || RegCreateKeyExA(phkResult, "Might and Magic VII", 0, "", 0, 0xF003Fu, 0, &v13, &dwDisposition)
+    || RegCreateKeyExA(v13, "1.0", 0, "", 0, 0xF003Fu, 0, &v14, &dwDisposition) )
+    goto LABEL_7;
+  if ( RegQueryValueExA(v14, lpValueName, 0, &Type, Dest, &cbData) )
+  {
+    RegCloseKey(v14);
+    v14 = 0;
+LABEL_7:
+    result = (int)strncpy((char *)Dest, Source, Count);
+    goto LABEL_8;
+  }
+  v4 = RegCloseKey;
+  RegCloseKey(v14);
+  v14 = 0;
+  RegCloseKey(v13);
+  v13 = 0;
+  RegCloseKey(phkResult);
+  phkResult = 0;
+  result = RegCloseKey(hKey);
+  hKey = 0;
+LABEL_8:
+  if ( v14 )
+    result = v4(v14);
+  if ( v13 )
+    result = v4(v13);
+  if ( hKey )
+    result = v4(hKey);
+  if ( phkResult )
+    result = v4(phkResult);
+  return result;
 }*/

@@ -21,6 +21,7 @@
 #include "mm7_unparsed_functions.h"
 
 #include "Game.h"
+#include "UserInput.h"
 
 
 int __fastcall ReadWindowsRegistryString(char const *,unsigned char *,unsigned int,unsigned char const *)
@@ -3518,8 +3519,8 @@ int CreditsMenuLoop()
     }
     else
     {
-      if (dword_720010)
-        sub_46B736((void *)dword_720010, 1);
+      if (pAsyncMouse)
+        CAsyncMouse_sub_46B736((void *)pAsyncMouse, 1);
       if ( dword_A74C88 )
       {
         cBackGround.LODPCXLoad("mm6title.pcx", 1);

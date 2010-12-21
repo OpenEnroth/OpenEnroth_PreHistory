@@ -743,9 +743,6 @@ unsigned int AudioPlayer_Initialize(struct AudioPlayer *_this, OSWindow *pTarget
  _this->dword_0002C8 = 64;
  _this->dword_0002CC = 2;
 
- MSS32_DLL_Initialize();
- SMACKW32_DLL_Initialize();
-
  AIL_startup();
 
  _this->hAILRedbook = AIL_redbook_open_drive(_this->cGameCDDriveLetter);

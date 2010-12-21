@@ -11,10 +11,12 @@
 #include "AudioPlayer.h"
 #include "VideoPlayer.h"
 #include "FrameTables.h"
+#include "UserInput.h"
 
 #include "GUI\GUI.h"
 #include "GUI\GUIButton.h"
 #include "GUI\GUICursor.h"
+#include "GUI\GUIProgressBar.h"
 #include "GUI\GUIWindow.h"
 
 #include "Level.h"
@@ -3253,7 +3255,7 @@ signed int __cdecl sub_42FC15()
 //----- (0042FC4E) --------------------------------------------------------
 void __cdecl sub_42FC4E_ProcessPressedKeys()
 {
-  int v1; // ebx@7
+  //int v1; // ebx@7
   //int v3; // ecx@8
   char v4; // al@9
   int v6; // ecx@86
@@ -3262,9 +3264,9 @@ void __cdecl sub_42FC4E_ProcessPressedKeys()
   __int16 v9; // ax@102
   int v10; // eax@103
   int v11; // eax@127
-  signed int v12; // esi@157
+  //signed int v12; // esi@157
   int v13; // ecx@158
-  char v14; // al@159
+  //char v14; // al@159
   int v15; // eax@168
   int v16; // esi@177
   int v17; // [sp-14h] [bp-1Ch]@8
@@ -3273,439 +3275,92 @@ void __cdecl sub_42FC4E_ProcessPressedKeys()
   __int16 v20; // [sp-14h] [bp-1Ch]@60
   int v21; // [sp-14h] [bp-1Ch]@68
   int v22; // [sp-Ch] [bp-14h]@158
-  signed int v23; // [sp+0h] [bp-8h]@7
+  //signed int v23; // [sp+0h] [bp-8h]@7
   int v24; // [sp+4h] [bp-4h]@87
 
-  class14_sub_45B019((int)pGame->class14_obj);
-
-  if (!dword_6BE37C)
+  if (!bAlwaysRun)
   {
-    if (class14_sub_45B06E((int)pGame->class14_obj))
+   if (pUserInput->IsShiftToggled())
       goto LABEL_3;
 LABEL_5:
     pParty_global->dword_000884 &= 0xFFFFFFFDu;
     goto LABEL_6;
   }
-  if (class14_sub_45B06E((int)pGame->class14_obj))
+  if (pUserInput->IsShiftToggled())
     goto LABEL_5;
 LABEL_3:
   pParty_global->dword_000884 |= 2;
 
 LABEL_6:
-  if ( !cClock1.dword_000004 )
+ if (cClock1.dword_000004)
+ {
+  if (pUserInput->IsKeyToggled(Keyboard::Key::Interact))
   {
-    v23 = 0;
-    v1 = 1;
-    while (true)
-    {
-      v17 = pKeyboardController->array_00000C_vkeys[v23];
-      if (pKeyboardController->unk_000084[v23] )
-        v4 = class14_IsKeyPressed(pGame->class14_obj, v17);
-      else
-        v4 = class14_IsKeyHeld(pGame->class14_obj, v17);
-      if ( v4 )
-      {
-        switch ( v23 )
-        {
-          case KEY_FORWARD:
-            if ( dword_4E28F8_PartyCantJumpIfTrue )
-              break;
-            if (!pParty_global->bTurnBasedModeOn)
-              goto LABEL_19;
-            if ( dword_4F885C != v1 && dword_4F885C != 2 && dword_4F886C > 0 )
-            {
-              dword_4F886C -= 26;
-LABEL_19:
-              if ( pParty_global->dword_000884 & 2 )
-                sub_4760C1_QueuePlayerAction(&stru_7215D8, 16);
-              else
-                sub_4760C1_QueuePlayerAction(&stru_7215D8, PARTY_ACTION_WALK_FORWARD);
-            break;
-
-            }
-            break;
-
-
-          case KEY_BACKWARDS:
-            if ( dword_4E28F8_PartyCantJumpIfTrue )
-              break;
-            if (!pParty_global->bTurnBasedModeOn)
-              goto LABEL_28;
-            if ( dword_4F885C != v1 && dword_4F885C != 2 && dword_4F886C > 0 )
-            {
-              dword_4F886C -= 26;
-LABEL_28:
-              if ( pParty_global->dword_000884 & 2 )
-                sub_4760C1_QueuePlayerAction(&stru_7215D8, 17);
-              else
-                sub_4760C1_QueuePlayerAction(&stru_7215D8, PARTY_ACTION_WALK_BACKWARDS);
-            break;
-            }
-            break;
-          case 28:
-            if ( dword_4E28F8_PartyCantJumpIfTrue )
-              break;
-            if (!pParty_global->bTurnBasedModeOn)
-              goto LABEL_38;
-            if ( dword_4F885C == v1 || dword_4F885C == 2 || dword_4F886C <= 0 )
-              break;
-            dword_4F886C -= 26;
-LABEL_38:
-
-            sub_4760C1_QueuePlayerAction(&stru_7215D8, 3);
-            break;
-
-          case 29:
-            if ( dword_4E28F8_PartyCantJumpIfTrue )
-              break;
-            if (!pParty_global->bTurnBasedModeOn)
-              goto LABEL_46;
-            if ( dword_4F885C == v1 || dword_4F885C == 2 || dword_4F886C <= 0 )
-              break;
-            dword_4F886C -= 26;
-LABEL_46:
-
-            sub_4760C1_QueuePlayerAction(&stru_7215D8, 4);
-            break;
-
-          case KEY_TURN_LEFT:
-            if ( dword_4E28F8_PartyCantJumpIfTrue )
-              break;
-            if ( GetAsyncKeyState(VK_CONTROL) )
-            {
-              if (pParty_global->bTurnBasedModeOn)
-              {
-                if ( dword_4F885C == v1 || dword_4F885C == 2 || dword_4F886C <= 0 )
-                  break;
-                dword_4F886C -= 26;
-              }
-              v19 = 3;
-            }
-            else
-            {
-              if ( pParty_global->dword_000884 & 2 )
-                v19 = 18;
-              else
-                v19 = PARTY_ACTION_TURN_LEFT;
-            }
-            sub_4760C1_QueuePlayerAction(&stru_7215D8, v19);
-            if ( dword_6BE360 == 2 && dword_6BE024 == v1 )
-            {
-              v20 = 10;
-              goto LABEL_75;
-            }
-            break;
-
-
-          case KEY_TURN_RIGHT:
-            if ( dword_4E28F8_PartyCantJumpIfTrue )
-              break;
-            if ( GetAsyncKeyState(VK_CONTROL) )
-            {
-              if (pParty_global->bTurnBasedModeOn)
-              {
-                if ( dword_4F885C == v1 || dword_4F885C == 2 || dword_4F886C <= 0 )
-                  break;
-                dword_4F886C -= 26;
-              }
-              v21 = 4;
-            }
-            else
-            {
-              if ( pParty_global->dword_000884 & 2 )
-                v21 = 19;
-              else
-                v21 = PARTY_ACTION_TURN_RIGHT;
-            }
-            sub_4760C1_QueuePlayerAction(&stru_7215D8, v21);
-            if ( dword_6BE360 == 2 && dword_6BE024 == v1 )
-            {
-              v20 = -10;
-LABEL_75:
-              sub_4C2F0B(&struct_6BD080, v20);
-            }
-            break;
-
-          case KEY_JUMP:  // Jump
-          {
-            if (dword_4E28F8_PartyCantJumpIfTrue || pParty_global->bTurnBasedModeOn)
-              break;
-            
-            sub_4760C1_QueuePlayerAction(&stru_7215D8, PARTY_ACTION_JUMP);
-          }
-          break;
-
-          case KEY_YELL:
-            if ( !dword_4E28F8_PartyCantJumpIfTrue )
-            {
-              if ( uActiveCharacter )
-              {
-                sub_43AD34();
-                Player_PlaySound(pPlayers[uActiveCharacter - 1], 65, 0);
-              }
-            }
-            break;
-          case 11:
-            if (dword_4E28F8_PartyCantJumpIfTrue)
-              break;
-            if (pParty_global->bTurnBasedModeOn && dword_4F885C == 3)
-              goto LABEL_118;
-            if ( uActiveCharacter )
-            {
-              v6 = (int)pPlayers[uActiveCharacter - 1];
-              if ( !*(_WORD *)(v6 + 6452) )
-              {
-                v24 = Player_sub_GetAttackRecoveryTime((Player *)v6, 0);
-                if (!pParty_global->bTurnBasedModeOn)
-                  Player_SetRecoveryTime(pPlayers[uActiveCharacter - 1],
-                    (signed __int64)(flt_6BE3A4_debug_recmod1 * (double)v24 * 2.1333333333333333));
-                sub_427D48_MessWith_unnamed_50C0C8(&struct_50C0C8, uActiveCharacter);
-                sub_40471C(&unk_4F8858);
-              }
-            }
-            break;
-
-
-          case KEY_TOGGLE_REALTIME:
-            if ( !dword_4E28F8_PartyCantJumpIfTrue )
-            {
-              if (pParty_global->bTurnBasedModeOn)
-              {
-                if ( dword_4F885C == 3 || (dword_4F8878[0] & 7) == 4 )
-                {
-                  pParty_global->bTurnBasedModeOn = false;
-                  sub_405CFF((int)&unk_4F8858, v1);
-                }
-              }
-              else
-              {
-                sub_4059DB_ProbablyStartTurn(&unk_4F8858);
-                pParty_global->bTurnBasedModeOn = true;
-              }
-            }
-            break;
-          case 7:
-            if ( dword_4E28F8_PartyCantJumpIfTrue )
-              break;
-            if (pParty_global->bTurnBasedModeOn && dword_4F885C == 3)
-              goto LABEL_118;
-            if ( !uActiveCharacter )
-              break;
-            v8 = (int)pPlayers[uActiveCharacter - 1];
-            v7 = *(_BYTE *)(v8 + 6735);
-
-            compile_error;
-            if ( !v7
-              || byte_6BE3C4_MaybeDrowningFlag
-              || ((v9 = *(_WORD *)(v8 + 2 * ((unsigned __int8)v7 / 11 + 12) + 264) 
-			 /* !(HIBYTE(v9) & 1)) ? ((_BYTE)v9 >= 0 ? (!(v9 & 0x40) ? (v10 = (unsigned __int16)word_4E3C68[10 * (unsigned __int8)v7]) : (v10 = (unsigned __int16)word_4E3C6A[10 * (unsigned __int8)v7])) : (v10 = (unsigned __int16)word_4E3C6C[10 * (unsigned __int8)v7])) : (v10 = (unsigned __int16)word_4E3C6E[10 * (unsigned __int8)v7]),
-                  v10 > *(_DWORD *)(v8 + 6464) */))	) //temporaly
-            {
-LABEL_120:
-         /*     if ( dword_50CBD0[0] < 40 )
-              {
-                dword_50CBD0[3 * dword_50CBD0[0] + 1] = 23;
-                goto LABEL_125;
-              }	*/
-			  dword_50CBD0.PutMessageToQueue(MESSAGE_ATTACK, 0, 0);
-			  break;
-            }
-            else
-            {
-            /*  if ( dword_50C9E8[0] < 40 )
-              {
-                dword_50C9E8[3 * dword_50C9E8[0] + 1] = 25;
-                dword_50C9E8[3 * dword_50C9E8[0] + 2] = 0;
-                dword_50C9E8[3 * dword_50C9E8[0]++ + 3] = 0;
-              }	  */
-			  dword_50C9E8.PutMessageToQueue(25,0,0);
-            }
-            break;
-          default:
-            break;
-
-          case KEY_ATTACK:
-            if (dword_4E28F8_PartyCantJumpIfTrue)
-              break;
-            if (!pParty_global->bTurnBasedModeOn || dword_4F885C != 3)
-            {
-             dword_50CBD0.PutMessageToQueue(MESSAGE_ATTACK, 0, 0);
-			 break;
-            }
-LABEL_118:
-            dword_4F8870 |= 8u;
-            break;
-
-          case KEY_INTERACT: // space
-            if ( !dword_4E28F8_PartyCantJumpIfTrue )
-            {
-             // if ( dword_50CBD0[0] >= 40 )
-             //   break;
-             // dword_50CBD0[3 * dword_50CBD0[0] + 1] = 404;
-			  dword_50CBD0.PutMessageToQueue(404, 0, 0);
-              //goto LABEL_125;
-			  break;
-            }
-            if ( dword_4E28F8_PartyCantJumpIfTrue == 4 )
-            {
-            /*  v11 = dword_50CBD0[0];
-              if ( dword_50CBD0[0] )
-              {
-                if ( dword_50CBD0[3] )
-                {
-                  v11 = v1;
-                  dword_50CBD0[0] = v1;
-
-LABEL_132:
-                  dword_50CBD0[3 * v11 + 1] = 113;
-LABEL_125:
-                  dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
-                  dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-                  break;
-                }
-                v11 = 0;
-                dword_50CBD0[0] = 0;
-              }
-              if ( v11 < 40 )
-                goto LABEL_132;	*/
-			  dword_50CBD0.CutQueueTail();
-			  dword_50CBD0.PutMessageToQueue(113,0,0);
-            }
-            break;
-          case 12:
-            if ( dword_4E28F8_PartyCantJumpIfTrue == 8)
-              break;
-         //   dword_50C9E8[3 * dword_50C9E8[0] + 1] = 176;	|| dword_50C9E8[0] >= 40
-          //  goto LABEL_155;
-			  dword_50C9E8.PutMessageToQueue(176, 0, 0);
-			  break;
-          case 20:
-            if ( cClock1.dword_000004 )
-              break;
-
-            sub_4760C1_QueuePlayerAction(&stru_7215D8, 7);
-            break;
-
-          case 22:
-            if ( cClock1.dword_000004 )
-              break;
-
-            sub_4760C1_QueuePlayerAction(&stru_7215D8, 9);
-            break;
-
-          case 21:
-            if ( cClock1.dword_000004 )
-              break;
-
-            sub_4760C1_QueuePlayerAction(&stru_7215D8, 8);
-            break;
-
-          case 25:
-            if ( dword_4E28F8_PartyCantJumpIfTrue || cClock1.dword_000004 )
-              break;
-
-            sub_4760C1_QueuePlayerAction(&stru_7215D8, 13);
-            break;
-
-          case 27:
-            if ( dword_4E28F8_PartyCantJumpIfTrue || cClock1.dword_000004 )
-              break;
-
-            sub_4760C1_QueuePlayerAction(&stru_7215D8, 15);
-            break;
-
-          case 26:
-            if ( !dword_4E28F8_PartyCantJumpIfTrue && !cClock1.dword_000004 )
-            {
-              sub_4760C1_QueuePlayerAction(&stru_7215D8, 14);
-            }
-            break;
-          case 23:
-           /* if ( dword_50C9E8[0] >= 40 )
-              break;
-            dword_50C9E8[3 * dword_50C9E8[0] + 1] = 367;
-            goto LABEL_155;	*/
-			 dword_50C9E8.PutMessageToQueue(367,0,0);
-			 break;
-          case 24:
-         /*   if ( dword_50C9E8[0] < 40 )
-            {
-              dword_50C9E8[3 * dword_50C9E8[0] + 1] = 368;
-LABEL_155:
-              dword_50C9E8[3 * dword_50C9E8[0] + 2] = 0;
-              dword_50C9E8[3 * dword_50C9E8[0]++ + 3] = 0;
-            }	   */
-			dword_50C9E8.PutMessageToQueue(368,0,0);  
-            break;
-          case 19:
-            dword_6BE37C = dword_6BE37C == 0;
-            break;
-        }
-      }
-      ++v23;
-      if ( v23 >= 30 )
-        goto LABEL_176;
-    }
+   if (!dword_4E28F8_PartyCantJumpIfTrue)
+     dword_50CBD0.PutMessageToQueue(404, 0, 0);
+   else if (dword_4E28F8_PartyCantJumpIfTrue == 4 ||
+            dword_4E28F8_PartyCantJumpIfTrue == 19)
+   {
+    dword_50CBD0.CutQueueTail();
+    dword_50CBD0.PutMessageToQueue(113,0,0);
+   }
   }
-  v12 = 0;
-  do
-  {
-    v22 = pKeyboardController->array_00000C_vkeys[v12];
-    v13 = (int)pGame->class14_obj;
-    if (pKeyboardController->unk_000084[v12] )
-      v14 = class14_IsKeyPressed((class14 *)v13, v22);
-    else
-      v14 = class14_IsKeyHeld((class14 *)v13, v22);
-    if ( v14 && v12 == 9 )
-    {
-      if ( !dword_4E28F8_PartyCantJumpIfTrue )
-      {
-      /*  if ( dword_50CBD0[0] >= 40 )
-          goto LABEL_175;
-        dword_50CBD0[3 * dword_50CBD0[0] + 1] = 404;
-        goto LABEL_174;*/
-		dword_50CBD0.PutMessageToQueue(404,0,0);
-      }
-	  else if ( dword_4E28F8_PartyCantJumpIfTrue == 4 || dword_4E28F8_PartyCantJumpIfTrue == 19 )
-      {
+ }
+ else
+ {
 
-		 dword_50CBD0.CutQueueTail();
-     /*   v15 = dword_50CBD0[0];
-        if ( dword_50CBD0[0] )
-        {
-          v15 = 0;
-          if ( dword_50CBD0[3] )
-          {
-            v15 = 1;
-            dword_50CBD0[0] = 1;
-            goto LABEL_173;
-          }
-          dword_50CBD0[0] = 0;
-        }
-        if ( v15 >= 40 )
-          goto LABEL_175;
-LABEL_173:
-        dword_50CBD0[3 * v15 + 1] = 113;
-LABEL_174:
-        dword_50CBD0[3 * dword_50CBD0[0] + 2] = 0;
-        dword_50CBD0[3 * dword_50CBD0[0]++ + 3] = 0;
-        goto LABEL_175;	 */
-	  dword_50CBD0.PutMessageToQueue(113,0,0);
-      }	  
-    }
-//LABEL_175:
-    ++v12;
-  }
-  while ( v12 < 30 );
-LABEL_176:
-  if ( *(_BYTE *)(&pGame->class14_obj->dword_000004) )
+  struct event_blueprint
   {
-    sub_45B213();
+   Keyboard::Key::Type event;
+   void (*handler)();
+  } events[] =
+  {
+   {Keyboard::Key::Forward,       PartyAction_OnMovingForward},
+   {Keyboard::Key::Backwards,     PartyAction_OnMovingBackwards},
+   {Keyboard::Key::TurnLeft,      PartyAction_OnTurningLeft},
+   {Keyboard::Key::TurnRight,     PartyAction_OnTurningRight},
+   {Keyboard::Key::Yell,          PartyAction_OnYell},
+   {Keyboard::Key::Jump,          PartyAction_OnJump},
+   {Keyboard::Key::Combat,        PartyAction_OnToggleTurnBasedMode},
+   {Keyboard::Key::CastReady,     PartyAction_OnCastReady},
+   {Keyboard::Key::Attack,        PartyAction_OnAttack},
+   {Keyboard::Key::Interact,      PartyAction_OnInteract},
+   {Keyboard::Key::Cast,          },
+   {Keyboard::Key::Pass,          PartyAction_OnPass},
+   {Keyboard::Key::CharCycle,     PartyAction_OnCharCycle},
+   {Keyboard::Key::OpenQuestbook, 0},
+   {Keyboard::Key::OpenQuickRef,  0},
+   {Keyboard::Key::Rest,          0},
+   {Keyboard::Key::OpenCalendar,  0},
+   {Keyboard::Key::OpenAutonotes, 0},
+   {Keyboard::Key::OpenMap,       0},
+   {Keyboard::Key::AlwaysRun,     PartyAction_OnAlwaysRun},
+   {Keyboard::Key::LookUp,        PartyAction_OnLookUp},
+   {Keyboard::Key::LookDown,      PartyAction_OnLookDown},
+   {Keyboard::Key::CenterView,    PartyAction_OnCenterView},
+   {Keyboard::Key::ZoomIn,        PartyAction_OnZoomIn},
+   {Keyboard::Key::ZoomOut,       PartyAction_OnZoomOut},
+   {Keyboard::Key::FlyUp,         PartyAction_OnFlyUp},
+   {Keyboard::Key::FlyDown,       PartyAction_OnFlyDown},
+   {Keyboard::Key::Land,          PartyAction_OnLand},
+   {Keyboard::Key::StrafeLeft,    PartyAction_OnStrafeLeft},
+   {Keyboard::Key::StrafeRight,   PartyAction_OnStrafeRight}
+  };
+
+  for (unsigned int i = 0; i < 10; ++i)
+    if (events[i].handler && pUserInput->IsKeyToggled(events[i].event))
+      (events[i].handler)();
+ }
+
+  runtime_warning(async input);
+  /*if ( *(_BYTE *)(&pGame->Win32Keyboard_obj->dword_000004) )
+  {
+    AsyncInput_sub_45B1FD_LeaveCS();
     v16 = pAsyncKeyboard;
-    sub_45B1FD();
+    AsyncInput_sub_45B1FD_EnterCS();
     memset((void *)(v16 + 521), 0, 0x100u);
-    sub_45B213();
-  }
+    AsyncInput_sub_45B1FD_LeaveCS();
+  }*/
 }
 
 void unnamed_505898_ctor(struct unnamed_505898 *_this)
@@ -3837,7 +3492,7 @@ LABEL_134:
           if ( v49 == 165 )
           {
             if ( pGUIWindow_CurrentMenu->dword_000040 == 1 )
-              KeyboardController_sub_459ED1(pKeyboardController, 0);
+              pUserInput->sub_459ED1(0);
             if ( dword_4E28F8_PartyCantJumpIfTrue != 11 || dword_6A0CA0_indx != v48 + dword_6A0C9C )
             {
               v29 = v48 + dword_6A0C9C;
@@ -3866,9 +3521,9 @@ LABEL_134:
             }
             else
             {
-              KeyboardController_sub_459E5A(pKeyboardController, 0, 19, (int)pGUIWindow_CurrentMenu);
-              strcpy((char *)pKeyboardController->pPressedKeysBuffer, (const char *)&saves_hdr[dword_6A0CA0_indx].name1);
-              pKeyboardController->uNumKeysPressed = strlen((char *)pKeyboardController->pPressedKeysBuffer);
+              pUserInput->sub_459E5A(0, 19, (int)pGUIWindow_CurrentMenu);
+              strcpy((char *)pUserInput->pPressedKeysBuffer, (const char *)&saves_hdr[dword_6A0CA0_indx].name1);
+              pUserInput->uNumKeysPressed = strlen((char *)pUserInput->pPressedKeysBuffer);
             }
             continue;
           }
@@ -4240,7 +3895,7 @@ LABEL_44:
               AudioPlayer_sub_4AA306((AudioPlayer *)v1, 24, 0, 0, -1, 0, 0, 0, 0);
               v3 = v48;
               uPlayerCreationUI_SelectedCharacter = v48;
-              KeyboardController_sub_459E5A(pKeyboardController, 0, 15, (int)pGUIWindow_CurrentMenu);
+              pUserInput->sub_459E5A(0, 15, (int)pGUIWindow_CurrentMenu);
               pGUIWindow_CurrentMenu->dword_00001C = v3;
               break;
             case 5:
@@ -8572,880 +8227,6 @@ void GUIWindow_sub_459C2B(struct GUIWindow *a1, signed int a2, int a3, int a4)
     FontDrawText(a1, (Font *)a4, v6, a3, "_", 0, 0, 0);
 }
 
-//----- (00459C68) --------------------------------------------------------
-void KeyboardController_InitalizeKey(struct KeyboardController *_this, unsigned int uSlot, unsigned int uVKey, bool bActive)
-{
- _this->array_00000C_vkeys[uSlot] = uVKey;
- _this->unk_000084[uSlot] = bActive;
-}
-
-//----- (00459CC4) --------------------------------------------------------
-void KeyboardController_InitalizeKeys(struct KeyboardController *_this)
-{
- _this->array_00000C_vkeys[0] = VK_UP;
- _this->unk_000084[0] = false;
-  
- _this->array_00000C_vkeys[1] = VK_DOWN;
- _this->unk_000084[1] = false;
-  
- _this->array_00000C_vkeys[2] = VK_LEFT;
- _this->unk_000084[2] = false;
-  
- _this->array_00000C_vkeys[3] = VK_RIGHT;
- _this->unk_000084[3] = false;
-  
- _this->array_00000C_vkeys[8] = 'A';
- _this->unk_000084[8] = true;
-  
- _this->array_00000C_vkeys[7] = 'S';
- _this->unk_000084[7] = true;
-  
- _this->array_00000C_vkeys[4] = 'Y';
- _this->unk_000084[4] = true;
-  
- _this->array_00000C_vkeys[5] = 'X';
- _this->unk_000084[5] = true;
-  
- _this->array_00000C_vkeys[6] = VK_RETURN;
- _this->unk_000084[6] = true;
-  
- _this->array_00000C_vkeys[9] = VK_SPACE;
- _this->unk_000084[9] = true;
-  
- _this->array_00000C_vkeys[10] = 'C';
- _this->unk_000084[10] = true;
-  
- _this->array_00000C_vkeys[11] = 'B';
- _this->unk_000084[11] = true;
-  
- _this->array_00000C_vkeys[12] = VK_TAB;
- _this->unk_000084[12] = true;
-  
- _this->array_00000C_vkeys[13] = 'P';
- _this->unk_000084[13] = true;
- 
- _this->array_00000C_vkeys[14] = 'Z';
- _this->unk_000084[14] = true;
- 
- _this->array_00000C_vkeys[15] = 'Q';
- _this->unk_000084[15] = true;
-
- _this->array_00000C_vkeys[16] = 84;
- _this->unk_000084[16] = true;
-
- _this->array_00000C_vkeys[17] = 78;
- _this->unk_000084[17] = true;
-
- _this->array_00000C_vkeys[18] = 77;
- _this->unk_000084[18] = true;
-
- _this->array_00000C_vkeys[19] = VK_NEXT;
- _this->unk_000084[19] = false;
-
- _this->array_00000C_vkeys[20] = VK_DELETE;
- _this->unk_000084[20] = false;
-
- KeyboardController_InitalizeKey(_this, 22, VK_END, false);
- KeyboardController_InitalizeKey(_this, 23, 107, true);
- KeyboardController_InitalizeKey(_this, 24, 109, true);
- KeyboardController_InitalizeKey(_this, 25, VK_PRIOR, false);
- KeyboardController_InitalizeKey(_this, 26, 45, false);
- KeyboardController_InitalizeKey(_this, 27, 36, true);
- KeyboardController_InitalizeKey(_this, 19, 85, true);
- KeyboardController_InitalizeKey(_this, 28, 219, false);
- KeyboardController_InitalizeKey(_this, 29, 221, false);
-}
-
-//----- (00459E5A) --------------------------------------------------------
-void __thiscall KeyboardController_sub_459E5A(struct KeyboardController *_this, int a2, int a3, int a4)
-{
-  int v4; // esi@1
-
-  v4 = (int)_this;
- memset(_this->pPressedKeysBuffer, 0, 257);
-  *(_BYTE *)(v4 + 513) = 0;
-  if ( a2 )
-    *(_DWORD *)(v4 + 516) = 2;
-  else
-    *(_DWORD *)(v4 + 516) = 1;
-  *(_DWORD *)(v4 + 252) = a3;
-  *(_DWORD *)(v4 + 520) = a4;
-  *(_DWORD *)(a4 + 64) = 1;
-  if (pGame->class14_obj->dword_000004 & 0xFF)
-  {
-    if (pAsyncKeyboard)
-      Keyboard_suspend(pAsyncKeyboard);
-  }
-}
-
-//----- (00459FFC) --------------------------------------------------------
-char __thiscall KeyboardController_ReadKeyMapping(struct KeyboardController *_this)
-{
-  void *v1; // esi@1
-  int v2; // eax@2
-  int v3; // eax@3
-  int v4; // eax@6
-  int v5; // eax@7
-  int v6; // eax@10
-  int v7; // eax@11
-  int v8; // eax@14
-  int v9; // eax@15
-  int v10; // eax@18
-  int v11; // eax@19
-  int v12; // eax@22
-  int v13; // eax@23
-  int v14; // eax@26
-  int v15; // eax@27
-  int v16; // eax@30
-  int v17; // eax@31
-  int v18; // eax@34
-  int v19; // eax@35
-  int v20; // eax@38
-  int v21; // eax@39
-  int v22; // eax@42
-  int v23; // eax@43
-  int v24; // eax@46
-  int v25; // eax@47
-  int v26; // eax@50
-  int v27; // eax@51
-  int v28; // eax@54
-  int v29; // eax@55
-  int v30; // eax@58
-  int v31; // eax@59
-  int v32; // eax@62
-  int v33; // eax@63
-  int v34; // eax@66
-  int v35; // eax@67
-  int v36; // eax@70
-  int v37; // eax@71
-  int v38; // eax@74
-  int v39; // eax@75
-  int v40; // eax@78
-  int v41; // eax@79
-  int v42; // eax@82
-  int v43; // eax@83
-  int v44; // eax@86
-  int v45; // eax@87
-  int v46; // eax@90
-  int v47; // eax@91
-  int v48; // eax@94
-  int v49; // eax@95
-  int v50; // eax@98
-  int v51; // eax@99
-  int v52; // eax@102
-  int v53; // eax@103
-  int v54; // eax@106
-  int v55; // eax@107
-  int v56; // eax@110
-  int v57; // eax@111
-  int v58; // eax@114
-  int v59; // eax@115
-  int v60; // eax@117
-  char Str1[32]; // [sp+Ch] [bp-20h]@1
-
-  v1 = _this;
-  ReadRegistryKeyMapping("KEY_FORWARD", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v2) = sub_45ABCA(Str1), v2 != -1) )
-  {
-    v3 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 3) = v3;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 3) = 38;
-  }
-  *((_DWORD *)v1 + 33) = 0;
-  ReadRegistryKeyMapping("KEY_BACKWARD", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v4) = sub_45ABCA(Str1), v4 != -1) )
-  {
-    v5 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 4) = v5;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 4) = 40;
-  }
-  *((_DWORD *)v1 + 34) = 0;
-  ReadRegistryKeyMapping("KEY_LEFT", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v6) = sub_45ABCA(Str1), v6 != -1) )
-  {
-    v7 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 5) = v7;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 5) = 37;
-  }
-  *((_DWORD *)v1 + 35) = 0;
-  ReadRegistryKeyMapping("KEY_RIGHT", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v8) = sub_45ABCA(Str1), v8 != -1) )
-  {
-    v9 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 6) = v9;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 6) = 39;
-  }
-  *((_DWORD *)v1 + 36) = 0;
-  ReadRegistryKeyMapping("KEY_ATTACK", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v10) = sub_45ABCA(Str1), v10 != -1) )
-  {
-    v11 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 11) = v11;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 11) = 65;
-  }
-  *((_DWORD *)v1 + 41) = 1;
-  ReadRegistryKeyMapping("KEY_CASTREADY", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v12) = sub_45ABCA(Str1), v12 != -1) )
-  {
-    v13 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 10) = v13;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 10) = 83;
-  }
-  *((_DWORD *)v1 + 40) = 1;
-  ReadRegistryKeyMapping("KEY_YELL", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v14) = sub_45ABCA(Str1), v14 != -1) )
-  {
-    v15 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 7) = v15;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 7) = 89;
-  }
-  *((_DWORD *)v1 + 37) = 1;
-  ReadRegistryKeyMapping("KEY_JUMP", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v16) = sub_45ABCA(Str1), v16 != -1) )
-  {
-    v17 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 8) = v17;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 8) = 88;
-  }
-  *((_DWORD *)v1 + 38) = 1;
-  ReadRegistryKeyMapping("KEY_COMBAT", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v18) = sub_45ABCA(Str1), v18 != -1) )
-  {
-    v19 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 9) = v19;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 9) = 13;
-  }
-  *((_DWORD *)v1 + 39) = 1;
-  ReadRegistryKeyMapping("KEY_EVENTTRIGGER", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v20) = sub_45ABCA(Str1), v20 != -1) )
-  {
-    v21 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 12) = v21;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 12) = 32;
-  }
-  *((_DWORD *)v1 + 42) = 1;
-  ReadRegistryKeyMapping("KEY_CAST", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v22) = sub_45ABCA(Str1), v22 != -1) )
-  {
-    v23 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 13) = v23;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 13) = 67;
-  }
-  *((_DWORD *)v1 + 43) = 1;
-  ReadRegistryKeyMapping("KEY_PASS", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v24) = sub_45ABCA(Str1), v24 != -1) )
-  {
-    v25 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 14) = v25;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 14) = 66;
-  }
-  *((_DWORD *)v1 + 44) = 1;
-  ReadRegistryKeyMapping("KEY_CHARCYCLE", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v26) = sub_45ABCA(Str1), v26 != -1) )
-  {
-    v27 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 15) = v27;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 15) = 9;
-  }
-  *((_DWORD *)v1 + 45) = 1;
-  ReadRegistryKeyMapping("KEY_QUEST", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v28) = sub_45ABCA(Str1), v28 != -1) )
-  {
-    v29 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 16) = v29;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 16) = 81;
-  }
-  *((_DWORD *)v1 + 46) = 1;
-  ReadRegistryKeyMapping("KEY_QUICKREF", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v30) = sub_45ABCA(Str1), v30 != -1) )
-  {
-    v31 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 17) = v31;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 17) = 90;
-  }
-  *((_DWORD *)v1 + 47) = 1;
-  ReadRegistryKeyMapping("KEY_REST", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v32) = sub_45ABCA(Str1), v32 != -1) )
-  {
-    v33 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 18) = v33;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 18) = 82;
-  }
-  *((_DWORD *)v1 + 48) = 1;
-  ReadRegistryKeyMapping("KEY_TIMECAL", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v34) = sub_45ABCA(Str1), v34 != -1) )
-  {
-    v35 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 19) = v35;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 19) = 84;
-  }
-  *((_DWORD *)v1 + 49) = 1;
-  ReadRegistryKeyMapping("KEY_AUTONOTES", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v36) = sub_45ABCA(Str1), v36 != -1) )
-  {
-    v37 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 20) = v37;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 20) = 78;
-  }
-  *((_DWORD *)v1 + 50) = 1;
-  ReadRegistryKeyMapping("KEY_MAPBOOK", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v38) = sub_45ABCA(Str1), v38 != -1) )
-  {
-    v39 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 21) = v39;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 21) = 77;
-  }
-  *((_DWORD *)v1 + 51) = 1;
-  ReadRegistryKeyMapping("KEY_LOOKUP", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v40) = sub_45ABCA(Str1), v40 != -1) )
-  {
-    v41 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 23) = v41;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 23) = 34;
-  }
-  *((_DWORD *)v1 + 53) = 1;
-  ReadRegistryKeyMapping("KEY_LOOKDOWN", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v42) = sub_45ABCA(Str1), v42 != -1) )
-  {
-    v43 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 24) = v43;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 24) = 46;
-  }
-  *((_DWORD *)v1 + 54) = 1;
-  ReadRegistryKeyMapping("KEY_CENTERVIEWPT", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v44) = sub_45ABCA(Str1), v44 != -1) )
-  {
-    v45 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 25) = v45;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 25) = 35;
-  }
-  *((_DWORD *)v1 + 55) = 1;
-  ReadRegistryKeyMapping("KEY_ZOOMIN", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v46) = sub_45ABCA(Str1), v46 != -1) )
-  {
-    v47 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 26) = v47;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 26) = 107;
-  }
-  *((_DWORD *)v1 + 56) = 1;
-  ReadRegistryKeyMapping("KEY_ZOOMOUT", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v48) = sub_45ABCA(Str1), v48 != -1) )
-  {
-    v49 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 27) = v49;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 27) = 109;
-  }
-  *((_DWORD *)v1 + 57) = 1;
-  ReadRegistryKeyMapping("KEY_FLYUP", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v50) = sub_45ABCA(Str1), v50 != -1) )
-  {
-    v51 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 28) = v51;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 28) = 33;
-  }
-  *((_DWORD *)v1 + 58) = 0;
-  ReadRegistryKeyMapping("KEY_FLYDOWN", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v52) = sub_45ABCA(Str1), v52 != -1) )
-  {
-    v53 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 29) = v53;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 29) = 45;
-  }
-  *((_DWORD *)v1 + 59) = 0;
-  ReadRegistryKeyMapping("KEY_LAND", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v54) = sub_45ABCA(Str1), v54 != -1) )
-  {
-    v55 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 30) = v55;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 30) = 36;
-  }
-  *((_DWORD *)v1 + 60) = 1;
-  ReadRegistryKeyMapping("KEY_ALWAYSRUN", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v56) = sub_45ABCA(Str1), v56 != -1) )
-  {
-    v57 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 22) = v57;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 22) = 85;
-  }
-  *((_DWORD *)v1 + 52) = 1;
-  dword_6BE37C = ReadWindowsRegistry("valAlwaysRun", 0) != 0;
-  dword_6BE380 = ReadWindowsRegistry("FlipOnExit", 0) != 0;
-  ReadRegistryKeyMapping("KEY_STEPLEFT", (BYTE *)Str1, 0x20u, "DEFAULT");
-  if ( strcmp(Str1, "DEFAULT") && (LOBYTE(v58) = sub_45ABCA(Str1), v58 != -1) )
-  {
-    v59 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 31) = v59;
-    *((_DWORD *)v1 + 61) = 1;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 61) = 0;
-    *((_DWORD *)v1 + 31) = 219;
-  }
-  ReadRegistryKeyMapping("KEY_STEPRIGHT", (BYTE *)Str1, 0x20u, "DEFAULT");
-  v60 = strcmp(Str1, "DEFAULT");
-  if ( v60 && (LOBYTE(v60) = sub_45ABCA(Str1), v60 != -1) )
-  {
-    v60 = sub_45ABCA(Str1);
-    *((_DWORD *)v1 + 32) = v60;
-    *((_DWORD *)v1 + 62) = 1;
-  }
-  else
-  {
-    *((_DWORD *)v1 + 62) = 0;
-    *((_DWORD *)v1 + 32) = 221;
-  }
-  return v60;
-}
-
-//----- (0045A960) --------------------------------------------------------
-LSTATUS __fastcall sub_45A960(const CHAR *a1, const char *a2)
-{
-  const CHAR *v3; // esi@1
-  char *v4; // eax@1
-  char *v5; // eax@1
-  char *v6; // eax@1
-  char *v7; // eax@1
-  char *v8; // eax@1
-  char *v9; // eax@1
-  char *v10; // eax@1
-  char *v11; // eax@1
-  char *v12; // eax@1
-  char *v13; // eax@1
-  char *v14; // eax@1
-  char *v15; // eax@1
-  char *v16; // eax@1
-  char *v17; // eax@1
-  char *v18; // eax@1
-  char *v19; // eax@1
-  char *v20; // eax@1
-  char *v21; // eax@1
-  char *v22; // eax@1
-  char *v23; // eax@1
-  char *v24; // eax@1
-  char *v25; // eax@1
-  char *v26; // eax@1
-  char *v27; // eax@1
-  char *v28; // eax@1
-  char *v29; // eax@1
-  char *v30; // eax@1
-  char *v31; // eax@1
-
-  v3 = a1;
-  v4 = sub_45AE2C(*((_DWORD *)a1 + 3));
-  CreateRegistryKey("KEY_FORWARD", v4);
-  v5 = sub_45AE2C(*((_DWORD *)v3 + 4));
-  CreateRegistryKey("KEY_BACKWARD", v5);
-  v6 = sub_45AE2C(*((_DWORD *)v3 + 5));
-  CreateRegistryKey("KEY_LEFT", v6);
-  v7 = sub_45AE2C(*((_DWORD *)v3 + 6));
-  CreateRegistryKey("KEY_RIGHT", v7);
-  v8 = sub_45AE2C(*((_DWORD *)v3 + 11));
-  CreateRegistryKey("KEY_ATTACK", v8);
-  v9 = sub_45AE2C(*((_DWORD *)v3 + 10));
-  CreateRegistryKey("KEY_CASTREADY", v9);
-  v10 = sub_45AE2C(*((_DWORD *)v3 + 7));
-  CreateRegistryKey("KEY_YELL", v10);
-  v11 = sub_45AE2C(*((_DWORD *)v3 + 8));
-  CreateRegistryKey("KEY_JUMP", v11);
-  v12 = sub_45AE2C(*((_DWORD *)v3 + 9));
-  CreateRegistryKey("KEY_COMBAT", v12);
-  v13 = sub_45AE2C(*((_DWORD *)v3 + 12));
-  CreateRegistryKey("KEY_EVENTTRIGGER", v13);
-  v14 = sub_45AE2C(*((_DWORD *)v3 + 13));
-  CreateRegistryKey("KEY_CAST", v14);
-  v15 = sub_45AE2C(*((_DWORD *)v3 + 14));
-  CreateRegistryKey("KEY_PASS", v15);
-  v16 = sub_45AE2C(*((_DWORD *)v3 + 15));
-  CreateRegistryKey("KEY_CHARCYCLE", v16);
-  v17 = sub_45AE2C(*((_DWORD *)v3 + 16));
-  CreateRegistryKey("KEY_QUEST", v17);
-  v18 = sub_45AE2C(*((_DWORD *)v3 + 17));
-  CreateRegistryKey("KEY_QUICKREF", v18);
-  v19 = sub_45AE2C(*((_DWORD *)v3 + 18));
-  CreateRegistryKey("KEY_REST", v19);
-  v20 = sub_45AE2C(*((_DWORD *)v3 + 19));
-  CreateRegistryKey("KEY_TIMECAL", v20);
-  v21 = sub_45AE2C(*((_DWORD *)v3 + 20));
-  CreateRegistryKey("KEY_AUTONOTES", v21);
-  v22 = sub_45AE2C(*((_DWORD *)v3 + 21));
-  CreateRegistryKey("KEY_MAPBOOK", v22);
-  v23 = sub_45AE2C(*((_DWORD *)v3 + 23));
-  CreateRegistryKey("KEY_LOOKUP", v23);
-  v24 = sub_45AE2C(*((_DWORD *)v3 + 24));
-  CreateRegistryKey("KEY_LOOKDOWN", v24);
-  v25 = sub_45AE2C(*((_DWORD *)v3 + 25));
-  CreateRegistryKey("KEY_CENTERVIEWPT", v25);
-  v26 = sub_45AE2C(*((_DWORD *)v3 + 26));
-  CreateRegistryKey("KEY_ZOOMIN", v26);
-  v27 = sub_45AE2C(*((_DWORD *)v3 + 27));
-  CreateRegistryKey("KEY_ZOOMOUT", v27);
-  v28 = sub_45AE2C(*((_DWORD *)v3 + 28));
-  CreateRegistryKey("KEY_FLYUP", v28);
-  v29 = sub_45AE2C(*((_DWORD *)v3 + 29));
-  CreateRegistryKey("KEY_FLYDOWN", v29);
-  v30 = sub_45AE2C(*((_DWORD *)v3 + 30));
-  CreateRegistryKey("KEY_LAND", v30);
-  v31 = sub_45AE2C(*((_DWORD *)v3 + 22));
-  CreateRegistryKey("KEY_ALWAYSRUN", v31);
- return 0;
-}
-
-//----- (0045ABCA) --------------------------------------------------------
-char __stdcall sub_45ABCA(const char *Str1)
-{
-  char result; // al@3
-
-  if ( !strcmp(Str1, "UP") )
-    return 38;
-  if ( !strcmp(Str1, "DOWN") )
-    return 40;
-  if ( !strcmp(Str1, "бкебн") )
-    return 37;
-  if ( !strcmp(Str1, "бопюбн") )
-    return 39;
-  if ( !strcmp(Str1, "RETURN") )
-    return 13;
-  if ( !strcmp(Str1, "SPACE") )
-    return 32;
-  if ( !strcmp(Str1, "PAGE_DOWN") )
-    return 34;
-  if ( !strcmp(Str1, "PAGE_UP") )
-    return 33;
-  if ( !strcmp(Str1, "TAB") )
-    return 9;
-  if ( !strcmp(Str1, "SUBTRACT") )
-    return 109;
-  if ( !strcmp(Str1, "ADD") )
-    return 107;
-  if ( !strcmp(Str1, "END") )
-    return 35;
-  if ( !strcmp(Str1, "DELETE") )
-    return 46;
-  if ( !strcmp(Str1, "HOME") )
-    return 36;
-  if ( !strcmp(Str1, "INSERT") )
-    return 45;
-  if ( strcmp(Str1, "COMMA") )
-  {
-    if ( !strcmp(Str1, "DECIMAL") )
-      return 110;
-    if ( strcmp(Str1, "SEMICOLON") )
-    {
-      if ( strcmp(Str1, "PERIOD") )
-      {
-        if ( strcmp(Str1, "SLASH") )
-        {
-          if ( strcmp(Str1, "SQUOTE") )
-          {
-            if ( strcmp(Str1, "BACKSLASH") )
-            {
-              if ( !strcmp(Str1, "BACKSPACE") )
-                return 8;
-              if ( !strcmp(Str1, "CONTROL") )
-                return 17;
-              if ( strlen(Str1) != 1
-                || (result = *Str1, (unsigned __int8)*Str1 < 0x41u)
-                || (unsigned __int8)result > 0x5Au )
-                result = -1;
-            }
-            else
-            {
-              result = -36;
-            }
-          }
-          else
-          {
-            result = -34;
-          }
-        }
-        else
-        {
-          result = -65;
-        }
-      }
-      else
-      {
-        result = -66;
-      }
-    }
-    else
-    {
-      result = -70;
-    }
-  }
-  else
-  {
-    result = -68;
-  }
-  return result;
-}
-
-//----- (0045AE2C) --------------------------------------------------------
-char *__stdcall sub_45AE2C(signed int a1)
-{
-  const char *v2; // [sp-4h] [bp-8h]@2
-
-  if ( a1 == 38 )
-  {
-    v2 = "UP";
-LABEL_53:
-    strcpy(&word_69ADE0, v2);
-    return &word_69ADE0;
-  }
-  if ( a1 == 40 )
-  {
-    v2 = "DOWN";
-    goto LABEL_53;
-  }
-  if ( a1 == 37 )
-  {
-    v2 = "бкебн";
-    goto LABEL_53;
-  }
-  if ( a1 == 39 )
-  {
-    v2 = "бопюбн";
-    goto LABEL_53;
-  }
-  if ( a1 == 13 )
-  {
-    v2 = "RETURN";
-    goto LABEL_53;
-  }
-  if ( a1 == 32 )
-  {
-    v2 = "SPACE";
-    goto LABEL_53;
-  }
-  if ( a1 == 34 )
-  {
-    v2 = "PAGE_DOWN";
-    goto LABEL_53;
-  }
-  if ( a1 == 33 )
-  {
-    v2 = "PAGE_UP";
-    goto LABEL_53;
-  }
-  if ( a1 == 9 )
-  {
-    v2 = "TAB";
-    goto LABEL_53;
-  }
-  if ( a1 == 109 )
-  {
-    v2 = "SUBTRACT";
-    goto LABEL_53;
-  }
-  if ( a1 == 107 )
-  {
-    v2 = "ADD";
-    goto LABEL_53;
-  }
-  if ( a1 == 35 )
-  {
-    v2 = "END";
-    goto LABEL_53;
-  }
-  if ( a1 == 46 )
-  {
-    v2 = "DELETE";
-    goto LABEL_53;
-  }
-  if ( a1 == 36 )
-  {
-    v2 = "HOME";
-    goto LABEL_53;
-  }
-  if ( a1 == 45 )
-  {
-    v2 = "INSERT";
-    goto LABEL_53;
-  }
-  if ( a1 == 110 )
-  {
-    v2 = "DECIMAL";
-    goto LABEL_53;
-  }
-  if ( a1 == 188 )
-  {
-    v2 = "COMMA";
-    goto LABEL_53;
-  }
-  if ( a1 == 186 )
-  {
-    v2 = "SEMICOLON";
-    goto LABEL_53;
-  }
-  if ( a1 == 190 )
-  {
-    v2 = "PERIOD";
-    goto LABEL_53;
-  }
-  if ( a1 == 191 )
-  {
-    v2 = "SLASH";
-    goto LABEL_53;
-  }
-  if ( a1 == 222 )
-  {
-    v2 = "SQUOTE";
-    goto LABEL_53;
-  }
-  if ( a1 == 220 )
-  {
-    v2 = "BACKSLASH";
-    goto LABEL_53;
-  }
-  if ( a1 == 17 )
-  {
-    v2 = "CONTROL";
-    goto LABEL_53;
-  }
-  if ( a1 == 8 )
-  {
-    v2 = "BACKSPACE";
-    goto LABEL_53;
-  }
-  if ( a1 < 65 || a1 > 90 )
-  {
-    v2 = "-мер -";
-    goto LABEL_53;
-  }
-  word_69ADE0 = a1;
- // *(_WORD *)&word_69ADE0 = (unsigned __int8)word_69ADE0;
-  return &word_69ADE0;
-}
-
-//----- (0045B019) --------------------------------------------------------
-void __thiscall class14_sub_45B019(int _this)
-{
-  if ( *(_BYTE *)(_this + 4) )
-    sub_45B1FD();
-}
-
-//----- (0045B06E) --------------------------------------------------------
-char __thiscall class14_sub_45B06E(int _this)
-{
-  char v1; // zf@3
-
-  if ( *(_BYTE *)(_this + 4) )
-  {
-    if ( sub_45B4EC((void *)pAsyncKeyboard, 0x2Au) )
-      return 1;
-    v1 = sub_45B4EC((void *)pAsyncKeyboard, 0x36u) == 0;
-  }
-  else
-  {
-    v1 = GetAsyncKeyState(VK_SHIFT) == 0;
-  }
-  if ( !v1 )
-    return 1;
-  return 0;
-}
-
-//----- (0045B10A) --------------------------------------------------------
-int __thiscall sub_45B10A(int _this)
-{
-  int v1; // esi@1
-  int v3; // [sp+4h] [bp-4h]@2
-
-  v1 = _this;
-  *(_DWORD *)(_this + 4) = 0;
-  *(_BYTE *)(_this + 8) = 0;
-  *(_DWORD *)_this = 5080760;
-  if ( !CKeyboardAsync_Initialize((LPVOID)_this) )
-  {
-    v3 = (int)"Could not initialize asynchronos keyboard object";
-    _CxxThrowException((int)&v3, 5094804);
-  }
-  return v1;
-}
 
 //----- (0045B15E) --------------------------------------------------------
 BOOL __thiscall sub_45B15E(int _this)
@@ -9464,20 +8245,6 @@ BOOL __thiscall sub_45B15E(int _this)
   return TerminateThread(*(HANDLE *)(v3 + 4), 0x1F4u);
 }
 
-//----- (0045B18E) --------------------------------------------------------
-char __thiscall CKeyboardAsync_Initialize(LPVOID lpParameter)
-{
-  char result; // al@1
-  void *v2; // esi@1
-
-  v2 = lpParameter;
-  sub_45B1B1((int)lpParameter);
-  result = sub_45B229((DWORD)v2);
-  if ( result )
-    result = sub_45B260(v2) != 0;
-  return result;
-}
-
 //----- (0045B1B1) --------------------------------------------------------
 void *__thiscall sub_45B1B1(int _this)
 {
@@ -9488,18 +8255,6 @@ void *__thiscall sub_45B1B1(int _this)
   memset((void *)(v2 + 265), 0, 0x100u);
   memset((void *)(v2 + 521), 0, 0x100u);
   return memset((void *)(v2 + 780), 0, 0x400u);
-}
-
-//----- (0045B1FD) --------------------------------------------------------
-void __cdecl sub_45B1FD()
-{
-  EnterCriticalSection(&pGame->class01_obj->cs4);
-}
-
-//----- (0045B213) --------------------------------------------------------
-void __cdecl sub_45B213()
-{
-  LeaveCriticalSection(&pGame->class01_obj->cs4);
 }
 
 //----- (0045B229) --------------------------------------------------------
@@ -9538,37 +8293,6 @@ char __thiscall sub_45B260(void *_this)
   return v3 != 0;
 }
 
-//----- (0045B329) --------------------------------------------------------
-void __thiscall Keyboard_suspend(int _this)
-{
-  int v1; // esi@1
-  char v2; // [sp-18h] [bp-24h]@2
-  const CHAR *v3; // [sp-14h] [bp-20h]@2
-  int v4; // [sp-10h] [bp-1Ch]@2
-  int v5; // [sp-Ch] [bp-18h]@2
-  const char *v6; // [sp-8h] [bp-14h]@2
-  int v7; // [sp-4h] [bp-10h]@2
-  char *v8; // [sp+4h] [bp-8h]@2
-  int v9; // [sp+Bh] [bp-1h]@2
-
-  v1 = _this;
-  if ( *(_DWORD *)(_this + 1804) )
-  {
-    EnterCriticalSection(&pGame->class01_obj->cs4);
-    SuspendThread(*(HANDLE *)(v1 + 4));
-    set_acquire(*(_DWORD *)(v1 + 1804), 0);
-    LeaveCriticalSection(&pGame->class01_obj->cs4);
-  }
-  else
-  {
-    v7 = 115;
-    v6 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\KeyboardAsync.cpp";
-    v8 = &v2;
-    Game_sub_40E2C8(&v2, "Invalid DI_Keyboard, bailing out of suspend()", (int)&v9);
-    sub_467834(&v8, v2, v3, v4, v5, v6, v7);
-  }
-}
-
 //----- (0045B3A4) --------------------------------------------------------
 char __thiscall sub_45B3A4(int _this)
 {
@@ -9577,418 +8301,6 @@ char __thiscall sub_45B3A4(int _this)
   return 1;
 }
 
-//----- (0045B3B6) --------------------------------------------------------
-void __thiscall update_keyboard_data(int _this)
-{
-  int v1; // esi@1
-  int v2; // eax@3
-  signed int v3; // ecx@3
-  int v4; // edx@6
-  char v5; // [sp-18h] [bp-2Ch]@2
-  const CHAR *v6; // [sp-14h] [bp-28h]@2
-  int v7; // [sp-10h] [bp-24h]@2
-  int v8; // [sp-Ch] [bp-20h]@2
-  const char *v9; // [sp-8h] [bp-1Ch]@2
-  int v10; // [sp-4h] [bp-18h]@2
-  DWORD v11; // [sp+Ch] [bp-8h]@2
-  int v12; // [sp+13h] [bp-1h]@2
-
-  v1 = _this;
-  if ( *(_DWORD *)(_this + 1804) )
-  {
-   EnterCriticalSection(&pGame->class01_obj->cs4);
-    v11 = timeGetTime();
-    memcpy((void *)(v1 + 9), (const void *)(*(_DWORD *)(v1 + 1804) + 29), 0x100u);
-    update_data(*(_DWORD *)(v1 + 1804));
-    memcpy((void *)(v1 + 265), (const void *)(*(_DWORD *)(v1 + 1804) + 29), 0x100u);
-    v3 = 0;
-    v2 = v1 + 780;
-    do
-    {
-      if ( *(_BYTE *)(v1 + 265 + v3) & 0x80 )
-      {
-        if ( v11 - *(_DWORD *)v2 > 0xC8 )
-        {
-          v4 = v11;
-          *(_BYTE *)(v3 + v1 + 521) |= 0x80u;
-          *(_DWORD *)v2 = v4;
-        }
-      }
-      ++v3;
-      v2 += 4;
-    }
-    while ( v3 < 256 );
-    LeaveCriticalSection(&pGame->class01_obj->cs4);
-  }
-  else
-  {
-    v10 = 169;
-    v9 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\KeyboardAsync.cpp";
-    v11 = (DWORD)&v5;
-    Game_sub_40E2C8(&v5, "Invalid DI_Keyboard, bailing out of update_keyboard_data()", (int)&v12);
-    sub_467834(&v11, v5, v6, v7, v8, v9, v10);
-  }
-}
-
-//----- (0045B4EC) --------------------------------------------------------
-char __thiscall sub_45B4EC(void *_this, unsigned __int8 a2)
-{
-  void *v3; // esi@1
-  char v4; // bl@1
-
-  v3 = _this;
-  EnterCriticalSection(&pGame->class01_obj->cs4);
-  v4 = *((_BYTE *)v3 + a2 + 265) >> 7;
-  LeaveCriticalSection(&pGame->class01_obj->cs4);
-  return v4;
-}
-
-//----- (0045B57D) --------------------------------------------------------
-char __thiscall sub_45B57D(void *_this, int a2)
-{
-  char result; // al@2
-  char v3; // [sp-18h] [bp-1Ch]@99
-  const CHAR *v4; // [sp-14h] [bp-18h]@99
-  int v5; // [sp-10h] [bp-14h]@99
-  int v6; // [sp-Ch] [bp-10h]@99
-  const char *v7; // [sp-8h] [bp-Ch]@99
-  int v8; // [sp-4h] [bp-8h]@99
-  void *v9; // [sp+0h] [bp-4h]@1
-  char *v10; // [sp+Ch] [bp+8h]@99
-
-  v9 = _this;
-  switch ( a2 )
-  {
-    case 8:
-      result = 14;
-      break;
-    case 9:
-      result = 15;
-      break;
-    case 13:
-      result = 28;
-      break;
-    case 16:
-    case 161:
-      result = 54;
-      break;
-    case 160:
-      result = 42;
-      break;
-    case 17:
-    case 163:
-      result = -99;
-      break;
-    case 162:
-      result = 29;
-      break;
-    case 18:
-      result = -72;
-      break;
-    case 20:
-      result = 58;
-      break;
-    case 21:
-      result = 112;
-      break;
-    case 25:
-      result = -108;
-      break;
-    case 27:
-      result = 1;
-      break;
-    case 28:
-      result = 121;
-      break;
-    case 29:
-      result = 123;
-      break;
-    case 32:
-      result = 57;
-      break;
-    case 33:
-      result = -55;
-      break;
-    case 34:
-      result = -47;
-      break;
-    case 35:
-      result = -49;
-      break;
-    case 36:
-      result = -57;
-      break;
-    case 37:
-      result = -53;
-      break;
-    case 38:
-      result = -56;
-      break;
-    case 39:
-      result = -51;
-      break;
-    case 40:
-      result = -48;
-      break;
-    case 42:
-      result = -73;
-      break;
-    case 45:
-      result = -46;
-      break;
-    case 46:
-      result = -45;
-      break;
-    case 48:
-      result = 11;
-      break;
-    case 49:
-      result = 2;
-      break;
-    case 50:
-      result = 3;
-      break;
-    case 51:
-      result = 4;
-      break;
-    case 52:
-      result = 5;
-      break;
-    case 53:
-      result = 6;
-      break;
-    case 54:
-      result = 7;
-      break;
-    case 55:
-      result = 8;
-      break;
-    case 56:
-      result = 9;
-      break;
-    case 57:
-      result = 10;
-      break;
-    case 65:
-      result = 30;
-      break;
-    case 66:
-      result = 48;
-      break;
-    case 67:
-      result = 46;
-      break;
-    case 68:
-      result = 32;
-      break;
-    case 69:
-      result = 18;
-      break;
-    case 70:
-      result = 33;
-      break;
-    case 71:
-      result = 34;
-      break;
-    case 72:
-      result = 35;
-      break;
-    case 73:
-      result = 23;
-      break;
-    case 74:
-      result = 36;
-      break;
-    case 75:
-      result = 37;
-      break;
-    case 76:
-      result = 38;
-      break;
-    case 77:
-      result = 50;
-      break;
-    case 78:
-      result = 49;
-      break;
-    case 79:
-      result = 24;
-      break;
-    case 80:
-      result = 25;
-      break;
-    case 81:
-      result = 16;
-      break;
-    case 82:
-      result = 19;
-      break;
-    case 83:
-      result = 31;
-      break;
-    case 84:
-      result = 20;
-      break;
-    case 85:
-      result = 22;
-      break;
-    case 86:
-      result = 47;
-      break;
-    case 87:
-      result = 17;
-      break;
-    case 88:
-      result = 45;
-      break;
-    case 89:
-      result = 21;
-      break;
-    case 90:
-      result = 44;
-      break;
-    case 91:
-      result = -37;
-      break;
-    case 92:
-      result = -36;
-      break;
-    case 93:
-      result = -35;
-      break;
-    case 96:
-      result = 82;
-      break;
-    case 97:
-      result = 79;
-      break;
-    case 98:
-      result = 80;
-      break;
-    case 99:
-      result = 81;
-      break;
-    case 100:
-      result = 75;
-      break;
-    case 101:
-      result = 76;
-      break;
-    case 102:
-      result = 77;
-      break;
-    case 103:
-      result = 71;
-      break;
-    case 104:
-      result = 72;
-      break;
-    case 105:
-      result = 73;
-      break;
-    case 106:
-      result = 55;
-      break;
-    case 107:
-      result = 78;
-      break;
-    case 109:
-      result = 74;
-      break;
-    case 110:
-      result = 83;
-      break;
-    case 111:
-      result = -75;
-      break;
-    case 112:
-      result = 59;
-      break;
-    case 113:
-      result = 60;
-      break;
-    case 114:
-      result = 61;
-      break;
-    case 115:
-      result = 62;
-      break;
-    case 116:
-      result = 63;
-      break;
-    case 117:
-      result = 64;
-      break;
-    case 118:
-      result = 65;
-      break;
-    case 119:
-      result = 66;
-      break;
-    case 120:
-      result = 67;
-      break;
-    case 121:
-      result = 68;
-      break;
-    case 122:
-      result = 87;
-      break;
-    case 123:
-      result = 88;
-      break;
-    case 124:
-      result = 100;
-      break;
-    case 125:
-      result = 101;
-      break;
-    case 126:
-      result = 102;
-      break;
-    case 144:
-      result = 69;
-      break;
-    case 145:
-      result = 70;
-      break;
-    default:
-      v8 = 999;
-      v7 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\KeyboardAsync.cpp";
-      v10 = &v3;
-      Game_sub_40E2C8(&v3, "Uknown key detected!", (int)((char *)&a2 + 3));
-      sub_467834(&v9, v3, v4, v5, v6, v7, v8);
-      goto LABEL_100;
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 12:
-    case 19:
-    case 23:
-    case 24:
-    case 30:
-    case 31:
-    case 41:
-    case 43:
-    case 44:
-    case 47:
-    case 108:
-    case 127:
-    case 128:
-    case 129:
-    case 130:
-    case 131:
-    case 132:
-    case 133:
-    case 134:
-    case 135:
-LABEL_100:
-      result = -1;
-      break;
-  }
-  return result;
-}
 
 //----- (0045BA60) --------------------------------------------------------
 void __stdcall StartAddress(int a1)
@@ -9999,7 +8311,7 @@ void __stdcall StartAddress(int a1)
       ;
     if ( *(_BYTE *)(pAsyncKeyboard + 8) )
       ExitThread(0);
-    update_keyboard_data(pAsyncKeyboard);
+    CAsyncKeyboard_update_keyboard_data(pAsyncKeyboard);
     Sleep(33);
   }
 }
@@ -12572,62 +10884,6 @@ void __cdecl sub_464851()
   dword_6BE044 = 5000;
 }
 
-//----- (00464BEF) --------------------------------------------------------
-int __fastcall ReadRegistryKeyMapping(const CHAR *a1, BYTE *a2, DWORD Count, const char *Source)
-{
-  LSTATUS (__stdcall *v4)(HKEY); // esi@1
-  int result; // eax@7
-  DWORD Type; // [sp+Ch] [bp-24h]@5
-  LPCSTR lpValueName; // [sp+10h] [bp-20h]@1
-  DWORD cbData; // [sp+14h] [bp-1Ch]@1
-  LPBYTE Dest; // [sp+18h] [bp-18h]@1
-  DWORD dwDisposition; // [sp+1Ch] [bp-14h]@2
-  HKEY phkResult; // [sp+20h] [bp-10h]@1
-  HKEY hKey; // [sp+24h] [bp-Ch]@1
-  HKEY v13; // [sp+28h] [bp-8h]@1
-  HKEY v14; // [sp+2Ch] [bp-4h]@1
-
-  cbData = Count;
-  Dest = a2;
-  lpValueName = a1;
-  v14 = 0;
-  v13 = 0;
-  hKey = 0;
-  phkResult = 0;
-  v4 = RegCloseKey;
-  if ( RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE", 0, 0x2001Fu, &hKey)
-    || RegCreateKeyExA(hKey, "New World Computing", 0, "", 0, 983103u, 0, &phkResult, &dwDisposition)
-    || RegCreateKeyExA(phkResult, "Might and Magic VII", 0, "", 0, 0xF003Fu, 0, &v13, &dwDisposition)
-    || RegCreateKeyExA(v13, "1.0", 0, "", 0, 0xF003Fu, 0, &v14, &dwDisposition) )
-    goto LABEL_7;
-  if ( RegQueryValueExA(v14, lpValueName, 0, &Type, Dest, &cbData) )
-  {
-    RegCloseKey(v14);
-    v14 = 0;
-LABEL_7:
-    result = (int)strncpy((char *)Dest, Source, Count);
-    goto LABEL_8;
-  }
-  v4 = RegCloseKey;
-  RegCloseKey(v14);
-  v14 = 0;
-  RegCloseKey(v13);
-  v13 = 0;
-  RegCloseKey(phkResult);
-  phkResult = 0;
-  result = RegCloseKey(hKey);
-  hKey = 0;
-LABEL_8:
-  if ( v14 )
-    result = v4(v14);
-  if ( v13 )
-    result = v4(v13);
-  if ( hKey )
-    result = v4(hKey);
-  if ( phkResult )
-    result = v4(phkResult);
-  return result;
-}
 
 //----- (00464F1B) --------------------------------------------------------
 signed int __stdcall DialogFunc(HWND hDlg, int a2, __int16 a3, int a4)
@@ -12720,32 +10976,6 @@ LABEL_9:
   return 0;
 }
 
-//----- (00465C2C) --------------------------------------------------------
-void __cdecl sub_465C2C()
-{
-  if (dword_720010)
-  {
-    Mouse_suspend(dword_720010);
-    if (dword_720010)
-      compile_error;//(*(void (__stdcall **)(_DWORD))*dword_720010)(1);
-  }
-  dword_720010 = 0;
-}
-
-//----- (00465C53) --------------------------------------------------------
-void __cdecl sub_465C53()
-{
-  if (*(_BYTE *)(pGame->class14_obj + 4))
-  {
-    if (pAsyncKeyboard)
-    {
-      Keyboard_suspend(pAsyncKeyboard);
-      if (pAsyncKeyboard)
-        (**(void (__stdcall ***)(_DWORD))pAsyncKeyboard)(1);
-    }
-    pAsyncKeyboard = 0;
-  }
-}
 
 //----- (004667E9) --------------------------------------------------------
 void __cdecl sub_4667E9()
@@ -12911,10 +11141,10 @@ LABEL_38:
       BYTE1(dword_6BE364) &= 0xEFu;
     else
       cClock2.clock_sub_426363();
-    sub_465C2C();
+    CAsyncMouse_Clear();
     sub_465F5A_InitializeAsyncMouseAndSomething();
-    if (dword_720010)
-      sub_46BBD0();
+    if (pAsyncMouse)
+      CAsyncMouse_ClipCursorToScreen();
   }
 }
 

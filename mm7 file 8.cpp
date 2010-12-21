@@ -12,6 +12,7 @@
 #include "FrameTables.h"
 
 #include "Game.h"
+#include "UserInput.h"
 
 #include "GUI\GUI.h"
 #include "GUI\GUIButton.h"
@@ -557,8 +558,8 @@ int __fastcall MenuLoop_CharacterCreation()
  
   Render_Set2DClippingRect(pD3DRenderer, 0, 0, 640, 480);
 
-  if (dword_720010)
-    sub_46B105((void *)dword_720010);
+  if (pAsyncMouse)
+    CAsyncMouse_sub_46B105((void *)pAsyncMouse);
 
   v3 = MENU_CREATEPARTY;
   pGUIWindow_CurrentMenu->dword_000040 = 0;
@@ -569,8 +570,8 @@ LABEL_27:
     if (sub_466CA0() != MENU_CREATEPARTY)
       break;
 
-    if (dword_720010)
-      sub_46B736((void *)dword_720010, 1);
+    if (pAsyncMouse)
+      CAsyncMouse_sub_46B736((void *)pAsyncMouse, 1);
 
     GUICursor_GetMouseClickPos(pGame->pGUICursor, &v6, &v4);
 
@@ -801,8 +802,8 @@ LABEL_69:
 
 
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
-  if (dword_720010)
-    Mouse_suspend(dword_720010);
+  if (pAsyncMouse)
+    CAsyncMouse_suspend(pAsyncMouse);
   return v28;
 }
 
@@ -2064,13 +2065,13 @@ int __cdecl MenuLoop_Main()
   MSG Msg; // [sp+20h] [bp-1Ch]@15
 
  dword_4E28F8_PartyCantJumpIfTrue = 0;
- if (dword_720010)
-   sub_46B105((void *)dword_720010);
- if (pGame->class14_obj->dword_000004)
+ if (pAsyncMouse)
+   CAsyncMouse_sub_46B105((void *)pAsyncMouse);
+ /*if (pGame->Win32Keyboard_obj->dword_000004)
  {
   if (pAsyncKeyboard)
     CAsyncKeyboard_Resume(pAsyncKeyboard);
- }
+ }*/
  pGUIWindow2 = 0;
  AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
  GUICursor_ResetDefaultCursorAfterItemDragging(pGame->pGUICursor);
@@ -2080,11 +2081,10 @@ int __cdecl MenuLoop_Main()
 
  pGUIWindow_MainMenu = GUIWindowCreate(0, 0, 640, 480, 1, 0, 0);
 
-  #ifndef OLD_CODE
-	 v4 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_new");
-#endif
-#ifdef OLD_CODE
-	 v4 = LODFile_Icons_LOD.LODFile_LoadTexture( "title_new",2);
+#ifndef OLD_CODE
+	 v4 = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"title_new");
+#else
+	 v4 = LODFile_Icons_LOD.LODFile_LoadTexture("title_new", 2);
 #endif
  
  pMainMenu_NewGame = GUIButtonCreate(pGUIWindow_MainMenu, 494, 172,
@@ -2097,11 +2097,10 @@ int __cdecl MenuLoop_Main()
                                      78,
                                      (unsigned char *)"New Game",
                                      &LODFile_Icons_LOD.aLODHeaders[v4],0);
- #ifndef OLD_CODE
-	 v5 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_load");
-#endif
-#ifdef OLD_CODE
-	 v5 = LODFile_Icons_LOD.LODFile_LoadTexture("title_load",2);
+#ifndef OLD_CODE
+	 v5 = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"title_load");
+#else
+	 v5 = LODFile_Icons_LOD.LODFile_LoadTexture("title_load", 2);
 #endif
  
  pMainMenu_LoadGame = GUIButtonCreate(pGUIWindow_MainMenu, 494, 227,
@@ -2114,11 +2113,10 @@ int __cdecl MenuLoop_Main()
                                       76,
                                       (unsigned char *)"Load Game",
                                       &LODFile_Icons_LOD.aLODHeaders[v5],0);
-  #ifndef OLD_CODE
-	   v6 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_cred");
-#endif
-#ifdef OLD_CODE
-	  v6 = LODFile_Icons_LOD.LODFile_LoadTexture( "title_cred",2);
+#ifndef OLD_CODE
+	   v6 = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"title_cred");
+#else
+	  v6 = LODFile_Icons_LOD.LODFile_LoadTexture("title_cred", 2);
 #endif
 
  pMainMenu_Credits = GUIButtonCreate(pGUIWindow_MainMenu, 494, 282,
@@ -2131,11 +2129,10 @@ int __cdecl MenuLoop_Main()
                                      67,
                                      (unsigned char *)"Credits",
                                      &LODFile_Icons_LOD.aLODHeaders[v6],0);
-  #ifndef OLD_CODE
-	 v7 = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"title_exit");
-#endif
-#ifdef OLD_CODE
-	v7 = LODFile_Icons_LOD.LODFile_LoadTexture( "title_exit",2);
+#ifndef OLD_CODE
+	 v7 = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"title_exit");
+#else
+	v7 = LODFile_Icons_LOD.LODFile_LoadTexture("title_exit", 2);
 #endif
  
  pMainMenu_Exit = GUIButtonCreate(pGUIWindow_MainMenu, 494, 337,
@@ -2150,10 +2147,8 @@ int __cdecl MenuLoop_Main()
                                   &LODFile_Icons_LOD.aLODHeaders[v7],0);
 
 #ifndef OLD_CODE
-	  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"Title");
-#endif
-
-#ifdef OLD_CODE
+	  uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"Title");
+#else
 	   cPCXID_CurrentMenu.LODPCXLoad("title.pcx", 0);
 #endif
 
@@ -2174,7 +2169,7 @@ int __cdecl MenuLoop_Main()
 #ifndef OLD_CODE
 	    uTextureID_CurrentMenu = LODFile_Icons_LOD.LODFile_LoadTexture_New(L"lsave640");
 #else
-	  cPCXID_CurrentMenu.LODPCXLoad("lsave640.pcx",0);
+	  cPCXID_CurrentMenu.LODPCXLoad("lsave640.pcx", 0);
 #endif
     
       
@@ -2205,12 +2200,12 @@ int __cdecl MenuLoop_Main()
 #else
 	  Render_DrawRGBTexture(pD3DRenderer, 0, 0, &cPCXID_CurrentMenu);
 #endif
-      if (dword_720010)
-        sub_46B736((void *)dword_720010, 1);
+      if (pAsyncMouse)
+        CAsyncMouse_sub_46B736((void *)pAsyncMouse, 1);
       sub_435748();
       sub_4156F0_LooksLike_UI_ProcessCallbacks();
-      if ( dword_720010)
-        sub_46B736((void *)dword_720010, 1);
+      if ( pAsyncMouse)
+        CAsyncMouse_sub_46B736((void *)pAsyncMouse, 1);
       if ( uCurrentMenuID == 9 )
       {
           LODFile_Icons_LOD.LODFile_sub_4114F2();
@@ -4652,14 +4647,14 @@ void Game_Deinitialize()
 {
   struct tagRECT Rect; // [sp+0h] [bp-10h]@6
 
-  if (dword_720010)
-    Mouse_suspend(dword_720010);
+  if (pAsyncMouse)
+    CAsyncMouse_suspend(pAsyncMouse);
 
-  if ( *(_BYTE *)(&pGame->class14_obj->dword_000004) )
+  /*if ( *(_BYTE *)(&pGame->Win32Keyboard_obj->dword_000004) )
   {
     if (pAsyncKeyboard)
-      Keyboard_suspend(pAsyncKeyboard);
-  }
+      CAsyncKeyboard_suspend(pAsyncKeyboard);
+  }*/
 
   RegistryWriteInt("startinwindow", pD3DRenderer->bWindowMode);
   if (GetWindowRect(pAppWindow->GetAPIHandle(), &Rect))
@@ -4671,11 +4666,11 @@ void Game_Deinitialize()
     }
   }
   RegistryWriteInt("debug flags", dword_51076C);
-  RegistryWriteInt("valAlwaysRun", dword_6BE37C);
+  RegistryWriteInt("valAlwaysRun", bAlwaysRun);
   class40_sub_45814E(pClass40);	//free not itnit mem    - not initialized because the initialization code never reached. bug. this func should be called anyways
   NPCStats_sub_477266((int)pNPCStats);
-  sub_465C53();
-  sub_465C2C();
+  CAsyncKeyboard_Clear();
+  CAsyncMouse_Clear();
   if (pGame->pGUICursor)
     GUICursor_sub_469CC2(pGame->pGUICursor);
   AudioPlayer_sub_4ABD5B((int)pAudioPlayer);
@@ -4944,7 +4939,7 @@ int __fastcall sub_46D49E_ProbablyCollidePartyWithBModels(signed int a1, signed 
               while ( 1 )
               {
                 v12 = &v10->ptr_000054[v44];
-                v11 = v12->byte_00012F;
+                v11 = *(_BYTE *)(v12 + 303);
                 if ( v11 == 3 || v11 == 4 )
                 {
                   if ( !(v12->byte_000010[15] & 0x20) )
@@ -5014,12 +5009,12 @@ int __fastcall sub_46D49E_ProbablyCollidePartyWithBModels(signed int a1, signed 
                               {
                                 if ( v48 >= 20 )
                                   break;
-                                if ( v12->byte_00012F == 3 )
-                                  v26 = *(_DWORD *)(v10->ptr_000048 + 12 * v12->array_000020[0] + 8);
+                                if ( *(_BYTE *)(v12 + 303) == 3 )
+                                  v26 = *(_DWORD *)(v10->ptr_000048 + 12 * *(_WORD *)(v12 + 32) + 8);
                                 else
-                                  v26 = ((unsigned __int64)(*(_DWORD *)((char*)v12 + 16) * v7) >> 16)
-                                      + ((unsigned __int64)(*(_DWORD *)((char*)v12 + 20) * v47) >> 16)
-                                      + *(_WORD *)((char*)v12 + 26);
+                                  v26 = ((unsigned __int64)(*(_DWORD *)(v12 + 16) * v7) >> 16)
+                                      + ((unsigned __int64)(*(_DWORD *)(v12 + 20) * v47) >> 16)
+                                      + *(_WORD *)(v12 + 26);
                                 v27 = 4 * v48++;
                                 *(int *)((char *)dword_7211B0 + v27) = v26;
                                 *(int *)((char *)dword_721160 + v27) = i;
@@ -7485,38 +7480,6 @@ LABEL_29:
   return result;
 }
 
-//----- (0045B2A7) --------------------------------------------------------
-void __thiscall CAsyncKeyboard_Resume(int _this)
-{
-  int v1; // esi@1
-  char v2; // [sp-18h] [bp-24h]@2
-  const CHAR *v3; // [sp-14h] [bp-20h]@2
-  int v4; // [sp-10h] [bp-1Ch]@2
-  int v5; // [sp-Ch] [bp-18h]@2
-  const char *v6; // [sp-8h] [bp-14h]@2
-  int v7; // [sp-4h] [bp-10h]@2
-  char *v8; // [sp+4h] [bp-8h]@2
-  int v9; // [sp+Bh] [bp-1h]@2
-
-  v1 = _this;
-  if ( *(_DWORD *)(_this + 1804) )
-  {
-    EnterCriticalSection(&pGame->class01_obj->cs4);
-    sub_45B1B1(v1);
-    set_acquire(*(_DWORD *)(v1 + 1804), 1);
-    ResumeThread(*(HANDLE *)(v1 + 4));
-    LeaveCriticalSection(&pGame->class01_obj->cs4);
-  }
-  else
-  {
-    v7 = 97;
-    v6 = "E:\\WORK\\MSDEV\\MM7\\MM7\\Code\\KeyboardAsync.cpp";
-    v8 = &v2;
-    Game_sub_40E2C8(&v2, "Invalid DI_Keyboard, bailing out of resume()", (int)&v9);
-    sub_467834(&v8, v2, v3, v4, v5, v6, v7);
-  }
-}
-
 //----- (00486B4E) --------------------------------------------------------
 void __fastcall sub_486B4E(struct RenderVertex *a1, int *a2, int *a3, struct struct8 *a4)
 {
@@ -8408,12 +8371,6 @@ LABEL_68:
     }
   }
   return !v112 || !v111;
-}
-
-//----- (00459C82) --------------------------------------------------------
-int KeyboardController_sub_459C82_LooksLikeBindKey(struct KeyboardController *_this, unsigned int uKey)
-{
-  return _this->array_00000C_vkeys[uKey];
 }
 
 //----- (00464866) --------------------------------------------------------
@@ -9594,39 +9551,6 @@ LABEL_11:
   return v2;
 }
 
-//----- (00465F5A) --------------------------------------------------------
-void __cdecl sub_465F5A_InitializeAsyncMouseAndSomething()
-{
-  int v0; // ecx@4
-  int v1; // ecx@5
-  char v2; // [sp+0h] [bp-24h]@1
-  int v3; // [sp+10h] [bp-14h]@4
-  char *v4; // [sp+14h] [bp-10h]@1
-  int v5; // [sp+20h] [bp-4h]@4
-
-  v4 = &v2;
- if (dword_720010)
-   return;
-
- if (pD3DRenderer)
- {
-  if (pD3DRenderer->uAcquiredDirect3DDevice == 1)
-  {
-        v5 = 0;
-        compile_error;//v0 = (int)operator new(0x88u);
-        v3 = v0;
-        LOBYTE(v5) = 1;
-        if ( v0 )
-          v1 = sub_46ACA9(v0, (int)pD3DRenderer->pdd4);
-        else
-          v1 = 0;
-        LOBYTE(v5) = 0;
-        dword_720010 = v1;
-        if ( v1 )
-          sub_46B105((void *)v1);
-  }
- }
-}
 
 //----- (004764C2) --------------------------------------------------------
 void __cdecl InitializeScrolls()
@@ -9886,8 +9810,8 @@ int __cdecl sub_409C8B()
   int v12; // [sp+1Ch] [bp-8h]@5
   int v13; // [sp+20h] [bp-4h]@3
 
-  if (dword_720010)
-    sub_409E3D(dword_720010, 1);
+  if (pAsyncMouse)
+    CAsyncMouse_sub_409E3D(pAsyncMouse, 1);
   AudioPlayer_sub_4AB71F(pAudioPlayer, -1, -1);
   strcpy(struct_505898.Dest.sContainerName, "»„");
   strcpy((char *)struct_505898.byte_50596C, "œ");
@@ -9956,19 +9880,6 @@ int __cdecl sub_409C8B()
   result = (int)pFontArrus;
   struct_505898.dword_5058E4 = pFontArrus;
   return result;
-}
-
-//----- (00409E3D) --------------------------------------------------------
-void __thiscall sub_409E3D(int _this, char a2)
-{
-  if ( *(_BYTE *)(_this + 128) & 1 )
-    *(_BYTE *)(_this + 103) = 1;
-  else
-    *(_BYTE *)(_this + 103) = 0;
-  if ( a2 )
-    *(_DWORD *)(_this + 128) |= 1u;
-  else
-    *(_DWORD *)(_this + 128) &= 0xFFFFFFFEu;
 }
 
 //----- (0048276F) --------------------------------------------------------
@@ -10163,10 +10074,10 @@ LABEL_8:
     v0 += 1067;
   }
   while ( (signed int)v0 < (signed int)&unk_5052C8 );
-  if (dword_720010)
+  if (pAsyncMouse)
   {
-    sub_409E3D(dword_720010, *(_BYTE *)(dword_720010 + 103));
-    v1 = sub_46B944(dword_720010);
+    CAsyncMouse_sub_409E3D(pAsyncMouse, *(_BYTE *)(pAsyncMouse + 103));
+    v1 = CAsyncMouse_sub_46B944(pAsyncMouse);
   }
   Class33_global0.PCXTexture_Release();
   Class33_global1.PCXTexture_Release();
@@ -10846,39 +10757,6 @@ LABEL_17:
   return dword_4FAA68 > 0;
 }
 
-//----- (00465FF0) --------------------------------------------------------
-void __cdecl sub_465FF0_InitializeAsyncKeyboardAndSomething()
-{
-  //int v0; // eax@1
-  int v1; // ecx@3
-  int v2; // ecx@4
-  char v3; // [sp+0h] [bp-24h]@1
-  int v4; // [sp+10h] [bp-14h]@3
-  char *v5; // [sp+14h] [bp-10h]@1
-  int v6; // [sp+20h] [bp-4h]@3
- struct class14 *pClass14;
-
- pClass14 = pGame->class14_obj;
- v5 = &v3;
- if (pClass14->dword_000004)
- {
-    if ( !pAsyncKeyboard )
-    {
-      v6 = 0;
-      compile_error;//v1 = (int)operator new(0x710u);
-      v4 = v1;
-      LOBYTE(v6) = 1;
-      if ( v1 )
-        v2 = sub_45B10A(v1);
-      else
-        v2 = 0;
-      LOBYTE(v6) = 0;
-      pAsyncKeyboard = v2;
-      if ( v2 )
-        CAsyncKeyboard_Resume(v2);
-    }
- }
-}
 
 //----- (0040A9AF) --------------------------------------------------------
 void *__thiscall sub_40A9AF(void *_this)

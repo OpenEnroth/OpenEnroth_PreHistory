@@ -24,6 +24,7 @@
 #include "..\AudioPlayer.h"
 #include "..\VideoPlayer.h"
 #include "..\_lod.h"
+#include "..\UserInput.h"
 
 #include "..\libs\AIL\AIL.h" // parasite include, have to move all ail stuff to AudioPlayer class
 
@@ -282,7 +283,7 @@ void GameUI_LoadIcons()
                    0,
                    200,
                    0,
-                   KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_RETURN),
+                   pUserInput->sub_459C82_LooksLikeBindKey(VK_RETURN),
                    pGlobalTXT_LocalizationStrings[174],
                     &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td1_A],0);
 
@@ -296,7 +297,7 @@ void GameUI_LoadIcons()
                    0,
                    201,
                    0,
-                   KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_CONTROL),
+                   pUserInput->sub_459C82_LooksLikeBindKey(VK_CONTROL),
                    pGlobalTXT_LocalizationStrings[154],
                     &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td2_A],0);
 
@@ -310,7 +311,7 @@ void GameUI_LoadIcons()
                    0,
                    202,
                    0,
-                   KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_MENU),
+                   pUserInput->sub_459C82_LooksLikeBindKey(VK_MENU),
                    pGlobalTXT_LocalizationStrings[139],
                     &LODFile_Icons_LOD.aLODHeaders[v17],0);
 
@@ -381,7 +382,7 @@ void GameUI_LoadIcons()
                    0,
                    200,
                    0,
-                   KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_RETURN),
+                   pUserInput->sub_459C82_LooksLikeBindKey(VK_RETURN),
                    pGlobalTXT_LocalizationStrings[174],
                    &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td1_A],0 );
 
@@ -395,7 +396,7 @@ void GameUI_LoadIcons()
                    0,
                    201,
                    0,
-                   KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_CONTROL),
+                   pUserInput->sub_459C82_LooksLikeBindKey(VK_CONTROL),
                    pGlobalTXT_LocalizationStrings[154],
                    &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_td2_A],0 );
 
@@ -409,7 +410,7 @@ void GameUI_LoadIcons()
                    0,
                    202,
                    0,
-                   KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_MENU),
+                   pUserInput->sub_459C82_LooksLikeBindKey(VK_MENU),
                    pGlobalTXT_LocalizationStrings[139],
                    &LODFile_Icons_LOD.aLODHeaders[v17],0 );
 
@@ -424,7 +425,7 @@ void GameUI_LoadIcons()
                    0,
                    203,
                    0,
-                   KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_SHIFT),
+                   pUserInput->sub_459C82_LooksLikeBindKey(VK_SHIFT),
                    pGlobalTXT_LocalizationStrings[78],
                    &LODFile_Icons_LOD.aLODHeaders[v22],0 );
 
@@ -454,7 +455,7 @@ void GameUI_LoadIcons()
                    0,
                    368,
                    0,
-                   KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_JUNJA),
+                   pUserInput->sub_459C82_LooksLikeBindKey(VK_JUNJA),
                    pGlobalTXT_LocalizationStrings[252],
                    &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_autout_a],0 );
 
@@ -467,7 +468,7 @@ void GameUI_LoadIcons()
                    0,
                    367,
                    0,
-                   KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, VK_FINAL),
+                   pUserInput->sub_459C82_LooksLikeBindKey(VK_FINAL),
                    pGlobalTXT_LocalizationStrings[251],
                    &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_autin_a],0 );
 
@@ -1597,7 +1598,7 @@ LABEL_60:
           goto LABEL_733;
         case 0xA5:
           if ( pGUIWindow_CurrentMenu->dword_000040 == v0 )
-            KeyboardController_sub_459ED1(pKeyboardController, 0);
+            pUserInput->sub_459ED1(0);
           if ( dword_4E28F8_PartyCantJumpIfTrue != 11 || dword_6A0CA0_indx != dword_6A0C9C + v209 )
           {
             v12 = dword_6A0C9C + v209;
@@ -1626,10 +1627,10 @@ LABEL_60:
           }
           else
           {
-            KeyboardController_sub_459E5A(pKeyboardController, 0, 19, (int)pGUIWindow_CurrentMenu);
+            pUserInput->sub_459E5A(0, 19, (int)pGUIWindow_CurrentMenu);
             if ( strcmp((const char *)&saves_hdr[dword_6A0CA0_indx].name1, (char *)pGlobalTXT_LocalizationStrings[LOCSTR_EMPTY]) )
-              strcpy((char *)pKeyboardController->pPressedKeysBuffer, (const char *)&saves_hdr[dword_6A0CA0_indx].name1);
-            pKeyboardController->uNumKeysPressed = strlen((char *)pKeyboardController->pPressedKeysBuffer);
+              strcpy((char *)pUserInput->pPressedKeysBuffer, (const char *)&saves_hdr[dword_6A0CA0_indx].name1);
+            pUserInput->uNumKeysPressed = strlen((char *)pUserInput->pPressedKeysBuffer);
           }
           goto LABEL_92;
         case 0x52:
@@ -1642,8 +1643,8 @@ LABEL_60:
         case 0x53:
           if ( pGUIWindow_CurrentMenu->dword_000040 == v0 )
           {
-            KeyboardController_sub_459ED1(pKeyboardController, 0);
-            strcpy((char *)&saves_hdr[dword_6A0CA0_indx].name1, (char *)pKeyboardController->pPressedKeysBuffer);
+            pUserInput->sub_459ED1(0);
+            strcpy((char *)&saves_hdr[dword_6A0CA0_indx].name1, (char *)pUserInput->pPressedKeysBuffer);
           }
           v2 = sub_460078(dword_6A0CA0_indx);
           goto LABEL_189;
@@ -1847,7 +1848,10 @@ LABEL_60:
           dword_506F08 = 1;
           memset(byte_506E6C, 0, 0x1Cu);
           byte_506E6C[14] = 0;
-          memcpy(dword_506E90, pKeyboardController->array_00000C_vkeys, 30 * 4);
+
+          pUserInput->GetVirtualCodeMappings((unsigned int *)dword_506E90);
+          //memcpy(dword_506E90, pUserInput->pVirtualKeyCodesMapping, 30 * 4);
+
           goto LABEL_90;
         default:
           goto LABEL_92;
@@ -1858,30 +1862,32 @@ LABEL_60:
           if ( dword_506F08 != v0 )
             v16 = v209 + 14;
           dword_506E68 = v16;
-          KeyboardController_sub_459E5A(pKeyboardController, 0, v0, (int)pGUIWindow_CurrentMenu);
+          pUserInput->sub_459E5A(0, v0, (int)pGUIWindow_CurrentMenu);
           goto LABEL_92;
+
         case 0x1A2:
+          pUserInput->SetDefaultKeyMapping();
+          
           v213 = 1;
-          KeyboardController_InitalizeKeys(pKeyboardController);
           v210 = 0;
           do
           {
-            v17 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, v210);
+            v17 = pUserInput->sub_459C82_LooksLikeBindKey(v210);
             if ( v17 != dword_506E90[v210] )
             {
               if ( v213 )
               {
-                v18 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, v210);
+                v18 = pUserInput->sub_459C82_LooksLikeBindKey(v210);
                 sub_41B4E1(LOBYTE(dword_506E90[v210]), v18, v0);
                 v213 = 0;
               }
               else
               {
-                v19 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, v210);
+                v19 = pUserInput->sub_459C82_LooksLikeBindKey(v210);
                 sub_41B4E1(LOBYTE(dword_506E90[v210]), v19, 0);
               }
             }
-            dword_506E90[v210] = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, v210);
+            dword_506E90[v210] = pUserInput->sub_459C82_LooksLikeBindKey(v210);
             v20 = v210++;
             compile_error;//v22 = __SETO__(v210, 28);
             v21 = v210 - 28 < 0;
@@ -2108,10 +2114,10 @@ LABEL_157:
           v144 = 218;
           goto LABEL_721;
         case 0xE2:
-          dword_6BE380 = dword_6BE380 == 0;
+          bFlipOnExit = bFlipOnExit == 0;
           goto LABEL_92;
         case 0xE1:
-          dword_6BE37C = dword_6BE37C == 0;
+          bAlwaysRun = bAlwaysRun == 0;
           goto LABEL_92;
         case 0xB9:
           dword_6BE374_WalkSoundFlag = dword_6BE374_WalkSoundFlag == 0;
@@ -2387,8 +2393,8 @@ LABEL_249:
                       RegistryWriteInt("WalkSound", dword_6BE374_WalkSoundFlag);
                       RegistryWriteInt("ShowDamage", dword_6BE378_ShowDamageFlag);
                       RegistryWriteInt("graphicsmode", (unsigned __int8)byte_6BE388_graphicsmode);
-                      RegistryWriteInt("valAlwaysRun", dword_6BE37C);
-                      RegistryWriteInt("FlipOnExit", dword_6BE380);
+                      RegistryWriteInt("valAlwaysRun", bAlwaysRun);
+                      RegistryWriteInt("FlipOnExit", bFlipOnExit);
                       if ( !uTurnSpeed )
                       {
                         v188 = 3;
@@ -2452,18 +2458,18 @@ LABEL_291:
                           v210 = 0;
                           do
                           {
-                            v40 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, v210);
+                            v40 = pUserInput->sub_459C82_LooksLikeBindKey(v210);
                             if ( v40 != dword_506E90[v210] )
                             {
                               if ( v213 )
                               {
-                                v41 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, v210);
+                                v41 = pUserInput->sub_459C82_LooksLikeBindKey(v210);
                                 sub_41B4E1(v41, LOBYTE(dword_506E90[v210]), v0);
                                 v213 = 0;
                               }
                               else
                               {
-                                v42 = KeyboardController_sub_459C82_LooksLikeBindKey(pKeyboardController, v210);
+                                v42 = pUserInput->sub_459C82_LooksLikeBindKey(v210);
                                 sub_41B4E1(v42, LOBYTE(dword_506E90[v210]), 0);
                               }
                             }
@@ -2471,11 +2477,13 @@ LABEL_291:
                               v189 = v0;
                             else
                               v189 = 0;
-                            KeyboardController_InitalizeKey(pKeyboardController, v210, dword_506E90[v210], v189);
+
+                            runtime_error;
+                            //KeyboardController_InitalizeKey(pUserInput, v210, dword_506E90[v210], v189);
                             ++v210;
                           }
                           while ( v210 < 28 );
-                          v35 = sub_45A960((char *)pKeyboardController, v43);
+                          v35 = sub_45A960((char *)pUserInput, v43);
                           goto LABEL_291;
                         }
                       }
@@ -3318,12 +3326,12 @@ LABEL_519:
           goto LABEL_92;
         case 0xC4:
           dword_6A0D48 = 0;
-          strcpy((char *)pKeyboardController->pPressedKeysBuffer, "2");
+          strcpy((char *)pUserInput->pPressedKeysBuffer, "2");
           goto LABEL_524;
         case 0xDD:
 LABEL_524:
-          wsprintfA((char *)TmpBuf, "%s", pKeyboardController->pPressedKeysBuffer);
-          memcpy(&v232, sub_4BE3BF(pKeyboardController->pPressedKeysBuffer, (StringSplitter *)&v237), 0x7Cu);
+          wsprintfA((char *)TmpBuf, "%s", pUserInput->pPressedKeysBuffer);
+          memcpy(&v232, sub_4BE3BF(pUserInput->pPressedKeysBuffer, (StringSplitter *)&v237), 0x7Cu);
           if ( v232 == 1 )
           {
             v211 = LODFile_Games_LOD.uNumSubidices / 2;
@@ -3403,7 +3411,8 @@ LABEL_544:
           }
           sub_44C175(v85, 6);
           goto LABEL_90;
-        case 0x19:
+
+        case MESSAGE_PROBABLY_CAST_QUICKSPELL:
           if ( byte_6BE3C4_MaybeDrowningFlag == 1 )
             goto LABEL_682;
           if ( !uActiveCharacter || (v90 = (int)pPlayers[uActiveCharacter - 1], *(_WORD *)(v90 + 6452)) )
@@ -3414,6 +3423,7 @@ LABEL_544:
           v164 = 0;
           v91 = uActiveCharacter;
           goto LABEL_679;
+
         case 0x46:
         case 0x8C:
           if ( pD3DRenderer->pRenderD3D3 )
@@ -3795,7 +3805,7 @@ LABEL_662:
                     dword_50C9E8[3 * dword_50C9E8[0] + 2] = v116;
                     dword_50C9E8[3 * dword_50C9E8[0]++ + 3] = uActiveCharacter ;
                   }	 */
-				  dword_50C9E8.PutMessageToQueue(142,v116,uActiveCharacter-1); 
+				  dword_50C9E8.PutMessageToQueue(142,v116,uActiveCharacter); 
                 }
                 else
                 {
@@ -4149,11 +4159,11 @@ LABEL_731:
 
         case 0x5D:
           wsprintfA((char *)TmpBuf, "%d / %d %s    %d / %d %s",
-            pPlayers[v209-1]->sHealth,
-            Player_GetMaxHealth(pPlayers[v209-1]),
+            pPlayers[v209]->sHealth,
+            Player_GetMaxHealth(pPlayers[v209]),
             pGlobalTXT_LocalizationStrings[108],
-            pPlayers[v209-1]->sMana,
-            Player_GetMaxMana(pPlayers[v209-1]),
+            pPlayers[v209]->sMana,
+            Player_GetMaxMana(pPlayers[v209]),
             pGlobalTXT_LocalizationStrings[212]);
           goto LABEL_521;
         case 0xC:
@@ -4751,22 +4761,22 @@ void SetCurrentMenu(unsigned int uMenuID)
   {
     if ( uMenuID != -1 )
     {
-      if (pGame->class14_obj->dword_000004 & 0xFF)
+      /*if (pGame->Win32Keyboard_obj->dword_000004 & 0xFF)
       {
         if (pAsyncKeyboard)
-          Keyboard_suspend(pAsyncKeyboard);
-      }
+          CAsyncKeyboard_suspend(pAsyncKeyboard);
+      }*/
     }
   }
   else
   {
     if ( uMenuID == -1)
     {
-      if (pGame->class14_obj->dword_000004 & 0xFF)
+      /*if (pGame->Win32Keyboard_obj->dword_000004 & 0xFF)
       {
         if (pAsyncKeyboard)
           CAsyncKeyboard_Resume(pAsyncKeyboard);
-      }
+      }*/
     }
   }
   uCurrentMenuID = uMenuID;
@@ -5020,7 +5030,7 @@ struct GUIWindow *GUIWindowCreate(unsigned int uFrameX, unsigned int uFrameY,
   case 19:
 	  {
 	  dword_506978 = dword_4E28F8_PartyCantJumpIfTrue;
-	  KeyboardController_sub_459E5A(pKeyboardController, 0, 15, (int)v9);
+	  pUserInput->sub_459E5A(0, 15, (int)v9);
 	  dword_4E28F8_PartyCantJumpIfTrue = 19;
 	  break;
 	  }
@@ -5149,7 +5159,7 @@ void GUIWindowDelete(GUIWindow *_this)
       {
         LODFile_Icons_LOD.LODFile_sub_40F9C5();
         dword_4E28F8_PartyCantJumpIfTrue = dword_506978;
-        KeyboardController_sub_459ED1(pKeyboardController, 3);
+        pUserInput->sub_459ED1(3);
         goto LABEL_26;
       }
       v6 = v5 - 6;
@@ -5162,7 +5172,7 @@ void GUIWindowDelete(GUIWindow *_this)
         dword_591424 = 0;
         LODFile_Icons_LOD.LODFile_sub_4114F2();
         dword_5C35D4 = 0;
-        if ( dword_6BE380 )
+        if ( bFlipOnExit )
         {
           pOldCamera->sRotationY = (pClass59_global->uIntegerDoublePi - 1) & (pClass59_global->uIntegerPi + pOldCamera->sRotationY);
           pParty_global->sRotationY = pOldCamera->sRotationY;
@@ -5461,155 +5471,6 @@ void __cdecl PlayerCreationUI_Initialize()
 }
 
 
-
-//----- (004435CD) --------------------------------------------------------
-void LevelLoadingUI_UpdateAndDrawProgressBar(struct class56 *_this)
-{
- if (++_this->uProgressCurrent > _this->uProgressMax)
-   _this->uProgressCurrent = _this->uProgressMax;
- DrawLoadingScreen(_this);
-}
-
-//----- (00443484) --------------------------------------------------------
-bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarType)
-{
-  void *v2; // esi@1
-  int v5; // ecx@8
-  int v6; // edi@8
-  int v7; // edx@14
-  const char *v8; // [sp-8h] [bp-84h]@20
-  char Str1[32]; // [sp+4h] [bp-78h]@16
-  wchar_t Str1W[32];
- int i;
-
-  v2 = _this;
-  if ( dword_720010)
-    Mouse_suspend(dword_720010);
-
-  if (uProgressBarType)
-    _this->uProgressBarType = uProgressBarType;
-
-  if (_this->uProgressBarType == 1)
-  {
-    v5 = 0;
-    for (i = 1; i < 6; ++i)
-      if (_this->array_000010[i] == 1)
-        ++v5;
-
-  //  v6 = (int)_this->array_000010[0];
-
-    if (v5 == 5 )
-      memset(_this->array_000010, 0, 8);
-
-    v7 = rand() % 5 + 1;
-    if (_this->array_000010[v7] == 1 )
-    {
-      do
-        v7 = rand() % 5 + 1;
-      while ( _this->array_000010[v7] == 1 );
-    }
-#ifndef OLD_CODE
-
-    wsprintfW(Str1W, L"loading%d", v7);
-
-    _this->uTextureID_Loading = LODFile_Icons_LOD.LODFile_LoadTexture_New( Str1W);
-    _this->_addon_loadprog_id_in_Icons_LOD = LODFile_Icons_LOD.LODFile_LoadTexture_New( L"loadprog");
-#else
-    wsprintfA(Str1, "loading%d.pcx", v7);
-	// realy or not
-	_this->loading = MemAlloc(cPCXTexture, 1);
-	_this->loading->PCXTexture_Zero();
-    _this->loading->LODPCXLoad( Str1,2); 
-    _this->loadprog = &LODFile_Icons_LOD.aLODHeaders[LODFile_Icons_LOD.LODFile_LoadTexture( "loadprog",2)];
-#endif
-    _this->uX = 122;
-    _this->uY = 151;
-    _this->uWidth = 449;
-    _this->uHeight = 56;
-
-    _this->uProgressMax = 26;
-    _this->uProgressCurrent = 0;
-
-    DrawLoadingScreen((class56 *)v2);
-  }
-  else
-  {
-   if (pParty_global->uAlignment == PARTY_ALIGNMENT_GOOD)
-     LODFile_Icons_LOD.LODFile_sub_410522( _this->loadprog, "bardata-b", 2);
-   else if (pParty_global->uAlignment == PARTY_ALIGNMENT_NEUTRAL)
-     LODFile_Icons_LOD.LODFile_sub_410522(_this->loadprog, "bardata", 2);
-   else
-     LODFile_Icons_LOD.LODFile_sub_410522( _this->loadprog, "bardata-C", 2);
-
-   *((_BYTE *)v2 + 11) = 0;
-   *((_BYTE *)v2 + 10) = 26;
-   DrawLoadingScreen((class56 *)v2);
-  }
- return true;
-}
-
-
-
-
-//----- (00443670) --------------------------------------------------------
-void DrawLoadingScreen(struct class56 *_this)
-{
-  int v1; // edi@1
-  int v4; // eax@10
-  float v5; // ST2C_4@10
-
-  v1 = (int)_this;
-  pD3DRenderer->BeginScene();
-  if (_this->uProgressBarType != 1 )
-  {
-    if ( *(_DWORD *)(v1 + 344) )
-    {
-      if ( pD3DRenderer->pRenderD3D3 )
-      {
-        if (!pD3DRenderer->bWindowMode)
-          Render_sub_49FD3A((int)pD3DRenderer, v1);
-      }
-      Render_DrawIndexedTexture(pD3DRenderer, 80, 122, (cTexture *)(v1 + 296));
-      v4 = (int)pIconFrameTable->GetImage(dword_50C984, 0);
-      Render_DrawTransparentTexture(pD3DRenderer, 100, 146, (cTexture *)(&LODFile_Icons_LOD.aLODHeaders[(v4 + 30)]));
-      v5 = (double)(113 * *(_BYTE *)(v1 + 11)) / (double)*(_BYTE *)(v1 + 10);
-      compile_error;//Render_FillRect2(pD3DRenderer, 0, 174, 164, v5 + 6.755399441055744e15, 16, pD3DRenderer->uTargetRMask);
-
-      pD3DRenderer->EndScene();
-      pD3DRenderer->Present();
-      return;
-    }
-    pD3DRenderer->EndScene();
-    return;
-  }
-#ifndef OLD_CODE  
-  Render_DrawRGBTexture_New(pD3DRenderer, 0, 0, _this->uTextureID_Loading);
-#else
-  Render_DrawRGBTexture(pD3DRenderer, 0, 0, _this->loading);
-#endif
-  Render_sub_4A0E97(pD3DRenderer, 0, 0, 639, 479);
-  Render_Set2DClippingRect(pD3DRenderer, 172, 459,
-    172 + 300 * ((float)(_this->uProgressCurrent) / (float)_this->uProgressMax),
-    471);
-#ifndef OLD_CODE 
-  Render_DrawTransparentTexture(pD3DRenderer, 172, 459, &LODFile_Icons_LOD.aLODHeaders[_this->_addon_loadprog_id_in_Icons_LOD]);
-#else
-   Render_DrawTransparentTexture(pD3DRenderer, 172, 459, _this->loadprog);
-#endif
-  Render_Reset2DClippingRect(pD3DRenderer);
-  pD3DRenderer->EndScene();
-  pD3DRenderer->Present();
-}
-
-
-//----- (004435BB) --------------------------------------------------------
-void LevelLoadingUI_Reset(struct class56 *_this, char a2)
-{
- _this->byte_000009 = 0;
- _this->uProgressMax = a2;
- _this->uProgressCurrent = 0;
-}
-
 //----- (0041C179) --------------------------------------------------------
 void __cdecl GameUI_DrawStatusBar()
 {
@@ -5796,19 +5657,6 @@ void __cdecl GameUI_DrawPartySpells()
       Render_DrawIndexedTexture(pD3DRenderer, off_4ED748[i] + 72, 444, &LODFile_Icons_LOD.aLODHeaders[dword_507960_TextureID]);
    // v4 += 2;
   }
-}
-
-
-//----- (004435E2) --------------------------------------------------------
-void LevelLoadingUI_Release(struct class56 *_this)
-{
-  void *v1; // esi@1
-  int v6; // eax@8
-  int v7; // eax@9
-
-  v1 = _this;
- if (dword_720010)
-   sub_46B105((void *)dword_720010);
 }
 
 
@@ -10197,7 +10045,7 @@ LABEL_152:
               {
                 GUIWindow_sub_415551(pWnd, 0);
                 FontDrawText(pWnd, pFontLucida, 10, 20, "Making item number", 0, 0, 0);
-                FontDrawText(pWnd, pFontLucida, 10, 40, (char *)pKeyboardController->pPressedKeysBuffer, 0, 0, 0);
+                FontDrawText(pWnd, pFontLucida, 10, 40, (char *)pUserInput->pPressedKeysBuffer, 0, 0, 0);
                 if ( !dword_69B004 )
                 {
                   ItemGen_Reset((ItemGen *)&v61);
@@ -10205,7 +10053,7 @@ LABEL_152:
                  cClock1.clock_sub_426363();
                   dword_4E28F8_PartyCantJumpIfTrue = 0;
                   struct_576FE8.dword_000044 = 1;
-                  v39 = atoi((char *)pKeyboardController->pPressedKeysBuffer);
+                  v39 = atoi((char *)pUserInput->pPressedKeysBuffer);
                   if ( v39 > 0 )
                   {
                     if ( v39 < 800 )
@@ -10270,7 +10118,7 @@ LABEL_138:
         {
           GUIWindow_sub_415551(pWnd, 0);
           FontDrawText(pWnd, pFontLucida, 10, 20, "Making item number", 0, 0, 0);
-          FontDrawText(pWnd, pFontLucida, 10, 40, (char *)pKeyboardController->pPressedKeysBuffer, 0, 0, 0);
+          FontDrawText(pWnd, pFontLucida, 10, 40, (char *)pUserInput->pPressedKeysBuffer, 0, 0, 0);
           if ( !dword_69B004 )
           {
             ItemGen_Reset(&local_04);
@@ -10278,7 +10126,7 @@ LABEL_138:
             cClock1.clock_sub_426363();
             dword_4E28F8_PartyCantJumpIfTrue = 0;
             struct_576FE8.dword_000044 = 1;
-            v26 = atoi((char *)pKeyboardController->pPressedKeysBuffer);
+            v26 = atoi((char *)pUserInput->pPressedKeysBuffer);
             if ( v26 > 0 )
             {
               if ( v26 < 800 )
@@ -10420,9 +10268,9 @@ LABEL_82:
         if (ptr_507BD0->dword_000040 == 1)
         {
           GUIWindow_sub_415551(ptr_507BD0, 0);
-          FontDrawText(ptr_507BD0, pFontCreate, 30, 40, (char *)pKeyboardController->pPressedKeysBuffer, 0, 0, 0);
+          FontDrawText(ptr_507BD0, pFontCreate, 30, 40, (char *)pUserInput->pPressedKeysBuffer, 0, 0, 0);
           v30 = (int)pFontCreate;
-          v31 = GUIFont_GetLineWidth(pFontCreate, pKeyboardController->pPressedKeysBuffer);
+          v31 = GUIFont_GetLineWidth(pFontCreate, pUserInput->pPressedKeysBuffer);
           GUIWindow_sub_459C2B(ptr_507BD0, v31 + 30, 40, v30);
           continue;
         }
@@ -11231,24 +11079,24 @@ void PlayerCreationUI_Draw()
         else
         {
           pGUIWindow_CurrentMenu->dword_000040 = 0;
-          v129 = strlen((char *)pKeyboardController->pPressedKeysBuffer);
+          v129 = strlen((char *)pUserInput->pPressedKeysBuffer);
           v135 = 0;
           v142 = 0;
-          if ( strlen((char *)pKeyboardController->pPressedKeysBuffer) )
+          if ( strlen((char *)pUserInput->pPressedKeysBuffer) )
           {
             do
             {
-              if (pKeyboardController->pPressedKeysBuffer[v142] == 32 )
+              if (pUserInput->pPressedKeysBuffer[v142] == 32 )
                 ++v135;
               ++v142;
-              v17 = strlen((char *)pKeyboardController->pPressedKeysBuffer);
+              v17 = strlen((char *)pUserInput->pPressedKeysBuffer);
             }
             while ( v142 < v17 );
           }
           if ( v129 )
           {
             if ( v135 != v129 )
-              strcpy((char *)Str, (char *)pKeyboardController->pPressedKeysBuffer);
+              strcpy((char *)Str, (char *)pUserInput->pPressedKeysBuffer);
           }
           GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontCreate, v143, 124, 0, (char *)Str, 130, 0);
           *((_WORD *)Str + 3323) = 1;
@@ -11256,7 +11104,7 @@ void PlayerCreationUI_Draw()
       }
       else
       {
-        v18 = GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontCreate, 159 * v13 + 18, 124, 0, (char *)pKeyboardController->pPressedKeysBuffer, 120, 1);
+        v18 = GUIWindow_sub_44CB4F(pGUIWindow_CurrentMenu, pFontCreate, 159 * v13 + 18, 124, 0, (char *)pUserInput->pPressedKeysBuffer, 120, 1);
         GUIWindow_sub_459C2B(pGUIWindow_CurrentMenu, 159 * *(_DWORD *)(pGUIWindow_CurrentMenu + 28) + v18 + 20, 124, (int)pFontCreate);
       }
     }

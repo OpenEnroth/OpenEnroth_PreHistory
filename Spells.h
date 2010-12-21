@@ -42,4 +42,65 @@ struct SpellBuff
 
 
 
+
+
+
+
+struct Spell_data
+{
+ unsigned short uNormalLevelMana;   // word @ 000000
+ unsigned short uExpertLevelMana;   // word @ 000002
+ unsigned short uMasterLevelMana;   // word @ 000004
+ unsigned short uMagisterLevelMana; // word @ 000006
+ unsigned short word08;
+ unsigned short word0A;
+ unsigned short word0C;
+ unsigned short word10;
+ unsigned char	byte11;
+ unsigned char	byte12;
+ unsigned char	byte13;
+ unsigned char	byte14;
+}; 
+//size of 14
+
+
+struct SpellInfo
+{
+ unsigned char *pSpellName;                 // ptr   @ 000000  unk_5CC030
+ unsigned char *pSpellNameShort;            // ptr   @ 000004  unk_5CC034
+ unsigned char *pSpellDescription;          // ptr   @ 000008  unk_5CC038
+ unsigned char *pSpellBasicSkillDesc;       // ptr   @ 00000Ñ  unk_5CC03C
+ unsigned char *pSpellExpertSkillDesc;      // ptr   @ 000010  unk_5CC040
+ unsigned char *pSpellMasterSkillDesc;      // ptr   @ 000014  unk_5CC044
+ unsigned char *pSpellGrandmasterSkillDesc; // ptr   @ 000018  unk_5CC048
+ unsigned int   uSpellSchool;               // dword @ 00001C  unk_5CC04c
+ int            dword_000020;							     //unk_5CC050
+};
+//sizeof = 24
+
+
+struct CSpellStats
+{
+ struct SpellInfo pSpellInfos[100]; //[9][11] struct @ 000000	 unk_5CC030
+};
+//sizeof ~ ?
+void CSpellStats_ctor(struct CSpellStats *_this);
+//char *__thiscall sub_45384A(void *_this)
+void CSpellStats_Initialize(struct CSpellStats *_this);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #pragma pack(pop)

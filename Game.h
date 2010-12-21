@@ -75,7 +75,8 @@ struct Game
  struct class11          *class11_obj;      // dword @ 000E60
  struct class12          *class12_obj;      // dword @ 000E64
  struct class13          *class13_obj;      // dword @ 000E68
- struct class14          *class14_obj;      // dword @ 000E6Ñ
+ //class Win32Keyboard *pWin32Keyboard; // dword @ 000E6Ñ
+ int                      dummy_000E6C; //member moved to class UserInput
  struct CGammaController *pGammaController; // dword @ 000E70
  int                      dword_000E74;
 };

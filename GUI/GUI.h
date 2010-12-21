@@ -11,14 +11,21 @@
 
 #define MESSAGE_ATTACK                 0x17
 
+#define MESSAGE_PROBABLY_CAST_QUICKSPELL 0x19
+
 #define MESSAGE_OPEN_REST_DIALOG       0x68
 #define MESSAGE_OPEN_SPELLBOOK         0x69
 #define MESSAGE_OPEN_QUICKREFERENCE    0x6A
+
+#define MESSAGE_PROBABLY_CHARCYCLE     0xB0
 
 #define MESSAGE_OPEN_QUESTBOOK         0xC8
 #define MESSAGE_OPEN_AUTONOTES         0xC9
 #define MESSAGE_OPEN_MAP_DIALOGUE      0xCA
 #define MESSAGE_OPEN_DATETIME_DIALOGUE 0xCB
+
+#define MESSAGE_MINIMAP_ZOOM_IN        0x16F
+#define MESSAGE_MINIMAP_ZOOM_OUT       0x170
 
 
 
@@ -122,12 +129,6 @@ void PlayerCreationUI_Draw();
 extern unsigned int uTextureID_PartyCreationUI_ClassIcons;
 extern unsigned int uTextureID_PartyCreationUI_Arrows;
 
-
-bool LevelLoadingUI_Initialize(struct class56 *_this, unsigned int uProgressBarType);
-void LevelLoadingUI_UpdateAndDrawProgressBar(struct class56 *_this);
-void DrawLoadingScreen(struct class56 *_this);
-void LevelLoadingUI_Reset(struct class56 *_this, char a2);
-void LevelLoadingUI_Release(struct class56 *_this);
 
 void __cdecl GameUI_DrawStatusBar();
 void GameUI_DrawFrames();

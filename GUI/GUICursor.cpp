@@ -1,7 +1,9 @@
 #include "GUICursor.h"
 
 #include "..\mm7_unparsed_data.h"
+
 #include "..\Game.h"
+#include "..\UserInput.h"
 
 #include "..\_lod.h"
 
@@ -34,8 +36,8 @@ POINT *GUICursor_GetMousePos(struct GUICursor *_this, POINT *pOut)
  int v4; // ecx@2
  int v5; // edx@3
 
- v3 = (int *)dword_720010;
- if (dword_720010)
+ v3 = (int *)pAsyncMouse;
+ if (pAsyncMouse)
  {
   pOut->x = v3[6];
   pOut->y = v3[7];
@@ -51,10 +53,10 @@ POINT *GUICursor_GetMousePos(struct GUICursor *_this, POINT *pOut)
 //----- (00469860) --------------------------------------------------------
 void GUICursor_GetMouseClickPos(struct GUICursor *_this, int *pX, int *pY)
 {
-  if (dword_720010)
+  if (pAsyncMouse)
   {
-    *pX = *(_DWORD *)(dword_720010 + 24);
-    *pY = *(_DWORD *)(dword_720010 + 28);
+    *pX = *(_DWORD *)(pAsyncMouse + 24);
+    *pY = *(_DWORD *)(pAsyncMouse + 28);
   }
   else
   {
@@ -144,10 +146,10 @@ void GUICursor_SetCursorBitmap(GUICursor *_this, const char *pSource)
  {
   hCursor = LoadCursorA(GetModuleHandleW(0), "Arrow");
   SetClassLongPtrW(_this->pWindow->GetAPIHandle(), GCL_HCURSOR, (LONG_PTR)(hCursor));
-  if (dword_720010)
+  if (pAsyncMouse)
   {
-   sub_46B342(dword_720010, 0.0, 0.0);
-   sub_46AE97((void *)dword_720010, (void *)pSource);
+   CAsyncMouse_sub_46B342(pAsyncMouse, 0.0, 0.0);
+   CAsyncMouse_sub_46AE97((void *)pAsyncMouse, (void *)pSource);
   }
   else
   {
@@ -159,10 +161,10 @@ void GUICursor_SetCursorBitmap(GUICursor *_this, const char *pSource)
  {
   hCursor = LoadCursorA(GetModuleHandleW(0), "Target");
   SetClassLongPtrW(_this->pWindow->GetAPIHandle(), GCL_HCURSOR, (LONG_PTR)(hCursor));
-  if (dword_720010)
+  if (pAsyncMouse)
   {
-   sub_46B342(dword_720010, 14.0, 14.0);
-   sub_46AE97((void *)dword_720010, (void *)pSource);
+   CAsyncMouse_sub_46B342(pAsyncMouse, 14.0, 14.0);
+   CAsyncMouse_sub_46AE97((void *)pAsyncMouse, (void *)pSource);
   }
   else
   {
@@ -175,8 +177,8 @@ void GUICursor_SetCursorBitmap(GUICursor *_this, const char *pSource)
   hCursor = LoadCursorA(0, (LPCSTR)0x7F02);
   SetClassLongPtrW(_this->pWindow->GetAPIHandle(), GCL_HCURSOR, (LONG_PTR)(hCursor));
 
-  if (dword_720010)
-    sub_46AE97((void *)dword_720010, (void *)pSource);
+  if (pAsyncMouse)
+    CAsyncMouse_sub_46AE97((void *)pAsyncMouse, (void *)pSource);
   else
   {
    GetCursorPos(&Point);
