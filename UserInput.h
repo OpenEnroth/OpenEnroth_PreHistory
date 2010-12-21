@@ -1,4 +1,5 @@
-#pragma once
+#ifndef USERINPUT_H
+#define USERINPUT_H
 
 namespace Keyboard
 {
@@ -212,3 +213,5 @@ void CAsyncMouse_sub_46BAEC(void *_this);
 void CAsyncMouse_sub_46BB0A(int _this);
 void *CAsyncMouse_ClipCursorToScreen();
 void CAsyncMouse_Clear();
+
+#endif

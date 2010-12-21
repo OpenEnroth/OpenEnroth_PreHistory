@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MMGAME_H
+#define MMGAME_H
+
 #pragma pack(push, 1)
 
 #include "defs.h"
@@ -143,3 +145,5 @@ unsigned int Game_OnInteract(int, int);
 
 
 #pragma pack(pop)
+
+#endif

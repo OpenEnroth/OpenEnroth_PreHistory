@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MMWINDOW_H
+#define MMWINDOW_H
+
 #include <windows.h>
 
 struct Viewport
@@ -77,3 +79,5 @@ class Win32Window: public OSWindow
    unsigned int uCreationFlags;
    HWND         hWindow;
 };
+
+#endif

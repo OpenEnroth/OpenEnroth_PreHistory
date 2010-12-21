@@ -26,7 +26,7 @@
 
 int __fastcall ReadWindowsRegistryString(char const *,unsigned char *,unsigned int,unsigned char const *)
 {
- __asm int 3 ; who-wo
+ __asm int 3 // who-wo
  return 0;
 }
 

@@ -20,6 +20,7 @@
 #include "GUI\GUICursor.h"
 #include "GUI\GUIFont.h"
 #include "GUI\GUIProgressBar.h"
+#include "GUI\GUIWindow.h"
 
 #include "Level.h"
 #include "Actor.h"

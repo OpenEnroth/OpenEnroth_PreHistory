@@ -6382,7 +6382,7 @@ LABEL_140:
                     v93 = v119[0];
                     v5 = (212 - GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v6, &local_7C, 0, 0)) / 2 + 101;
                     GUIWindow_DrawText(&local_7C, pFontArrus, v3, v5, v93, v96, v98);
-                    return;
+                    return result;
                   }
                   v94 = ptr_507BC0->dword_00001C;
                   v91 = v4;
@@ -6431,7 +6431,7 @@ LABEL_35:
 LABEL_61:
       v5 = (174 - GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v30, (GUIWindow *)v89, v90, v92)) / 2 + 138;
       GUIWindow_DrawText(&local_7C, pFontArrus, v3, v5, v93, v96, v98);
-      return;
+      return result;
     }
   }
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)dword_F8B164[0]);
@@ -6855,7 +6855,7 @@ signed int __cdecl sub_4B5D7C() //buy skills in shop
 LABEL_32:
         v19 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v14, (GUIWindow *)v39, v40, v41);
         GUIWindow_DrawText(&local_274, pFontArrus, v5, (174 - v19) / 2 + 138, v42, v43, v44);
-        return;
+        return result;
       }
     }
     return result;
@@ -9314,14 +9314,14 @@ LABEL_14:
 LABEL_15:
                   v8 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v7, (GUIWindow *)v78, v79, v81);
                   GUIWindow_DrawText(&local_7C, pFontArrus, v3, (174 - v8) / 2 + 138, v83, v85, v87);
-                  return;
+                  return result;
                 }
               }
             }
           }
         }
       }
-      return;
+      return result;
     }
   }
   Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)dword_F8B164[0]);
@@ -10074,10 +10074,10 @@ LABEL_44:
 LABEL_46:
       v40 = GUIFont_CalculateTextHeight(pFontArrus, (unsigned char *)v21, (GUIWindow *)v85, v86, v87);
       GUIWindow_DrawText(&local_5C, pFontArrus, v2, (174 - v40) / 2 + 138, v89, v91, v93);
-      return;
+      return result;
     }
   }
-  return;
+  return result;
 }
 
 //----- (004BA928) --------------------------------------------------------
@@ -10475,7 +10475,7 @@ LABEL_63:
       v108 = (int)v10;
 LABEL_14:
       /*LOBYTE(v1) = (unsigned int)*/GUIWindow_DrawText(&local_8C, pFontArrus, v108, v111, v115, v117, v119);
-      return;// v1;
+      return 0;// v1;
     }
 LABEL_64:
     Render_DrawIndexedTexture(pD3DRenderer, 8, 8, (cTexture *)dword_F8B164[0]);

@@ -1,6 +1,7 @@
-#pragma once
-#pragma pack(push, 1)
+#ifndef GUIWINDOW_H
+#define GUIWINDOW_H
 
+#pragma pack(push, 1)
 
 
 struct GUIWindow
@@ -45,3 +46,5 @@ void GUIWindow_sub_415551(GUIWindow *_this, int a2);
 
 
 #pragma pack(pop)
+
+#endif

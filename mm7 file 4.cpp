@@ -3240,7 +3240,7 @@ LABEL_20:
 signed int __cdecl sub_42FBDD()
 {
   AudioPlayer_sub_4AA306(pAudioPlayer, 75, 0, 0, -1, 0, 0, 0, 0);
-  Render_DrawTransparentTexture(pD3DRenderer, *(_DWORD *)dword_5076FC, *(_DWORD *)(dword_5076FC + 4), *(cTexture **)(dword_5076FC + 60));
+  Render_DrawTransparentTexture(pD3DRenderer, dword_5076FC->uX, dword_5076FC->uY, *(cTexture **)((char*)dword_5076FC + 60));
   return pD3DRenderer->Present();
 }
 
@@ -3248,7 +3248,7 @@ signed int __cdecl sub_42FBDD()
 signed int __cdecl sub_42FC15()
 {
   AudioPlayer_sub_4AA306(pAudioPlayer, 75, -2, 0, -1, 0, 0, 0, 0);
-  Render_DrawTransparentTexture(pD3DRenderer, *(_DWORD *)dword_5076F4, *(_DWORD *)(dword_5076F4 + 4), *(cTexture **)(dword_5076F4 + 60));
+  Render_DrawTransparentTexture(pD3DRenderer, dword_5076F4->uX, dword_5076F4->uY, *(cTexture **)((char*)dword_5076F4 + 60));
   return pD3DRenderer->Present();
 }
 

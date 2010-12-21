@@ -860,7 +860,7 @@ void *__thiscall sub_458B4F(void *Dst, void *Src)
   memcpy(Dst, Src, 4u);
 
   //v4 = (int)mem_mng.AllocatedNamedBuffer( (void*) *((_DWORD *)v3 + 1), 36 * *(_DWORD *)v3, "Chest Descrip");
-  v4 = (int)MemAlloc(char, 36 * *(_DWORD *)v3, "Chest Description");
+  v4 = (int)NamedMemAlloc(char, 36 * *(_DWORD *)v3, "Chest Description");
 
   *((_DWORD *)v3 + 1) = v4;
   return memcpy((void *)v4, (char *)Src + 4, 36 * *(_DWORD *)v3);
