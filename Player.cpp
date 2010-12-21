@@ -557,7 +557,7 @@ int Player_GetMaxHealth(struct Player *_this)
 //----- (0048E565) --------------------------------------------------------
 int __thiscall Player_GetMaxMana(struct Player *_this)
 {
-  int v1; // edi@1
+  Player *v1; // edi@1
   int v2; // eax@2
   int v3; // esi@4
   int v4; // eax@5
@@ -568,64 +568,64 @@ int __thiscall Player_GetMaxMana(struct Player *_this)
   int v9; // esi@6
   int result; // eax@7
 
-  v1 = (int)_this;
-  switch ( *(_BYTE *)((char *)_this + 185) )
+  v1 = _this;
+  switch ( _this->uClass )
   {
     case 5:
     case 6:
     case 7:
-    case 0x10:
-    case 0x11:
-    case 0x12:
-    case 0x13:
-    case 0x20:
-    case 0x21:
-    case 0x22:
-    case 0x23:
+    case 16:
+    case 17:
+    case 18:
+    case 19:
+    case 32:
+    case 33:
+    case 34:
+    case 35:
       v2 = Player_GetActualIntelligence(_this);
-      goto LABEL_4;
-    case 9:
-    case 0xA:
-    case 0xB:
-    case 0xC:
-    case 0xD:
-    case 0xE:
-    case 0xF:
-    case 0x18:
-    case 0x19:
-    case 0x1A:
-    case 0x1B:
-      v2 = Player_GetActualWillpower(_this);
-LABEL_4:
       v3 = sub_48EA1B(v2);
-      goto LABEL_6;
-    case 0x15:
-    case 0x16:
-    case 0x17:
-    case 0x1C:
-    case 0x1D:
-    case 0x1E:
-    case 0x1F:
+      break;
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 24:
+    case 25:
+    case 26:
+    case 27:
+      v2 = Player_GetActualWillpower(_this);
+      v3 = sub_48EA1B(v2);
+     break;
+    case 21:
+    case 22:
+    case 23:
+    case 28:
+    case 29:
+    case 30:
+    case 31:
       v4 = Player_GetActualWillpower(_this);
       v5 = sub_48EA1B(v4);
       v6 = Player_GetActualIntelligence(_this);
-      v3 = sub_48EA1B(v6) + v5;
-LABEL_6:
-      v8 = (unsigned __int8)byte_4ED78C[*(_BYTE *)(v1 + 185)] * (Player_GetActualLevel((Player *)v1) + v3);
-      v9 = Player_MaybeGetWearItemsBonus((Player *)v1, 8, 0) + v8;
-      v7 = *(_BYTE *)(v1 + 6810)
-         + (unsigned __int8)byte_4ED75C[(unsigned int)*(_BYTE *)(v1 + 185) >> 2]
-         + Player_sub_48FC00((Player *)v1, 8)
-         + v9;
-      if ( v7 < 1 )
-        goto LABEL_7;
-      result = v7;
+      v3 = sub_48EA1B(v6) + v5;     
       break;
     default:
-LABEL_7:
-      result = 0;
+
+      return 0;
       break;
   }
+   v8 = (unsigned __int8)byte_4ED78C[_this->uClass] * (Player_GetActualLevel(v1) + v3);
+      v9 = Player_MaybeGetWearItemsBonus(v1, 8, 0) + v8;
+      v7 = v1->array_001A99[1]//*(_BYTE *)(v1 + 6810)
+         + (unsigned __int8)byte_4ED75C[_this->uClass >> 2]	//need get bytes from exe
+         + Player_sub_48FC00(v1, 8)
+         + v9;
+      if ( v7 < 1 )
+        result = 0;
+	  else
+        result = v7;
   return result;
 }
 

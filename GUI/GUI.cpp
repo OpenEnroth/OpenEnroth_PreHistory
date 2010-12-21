@@ -3792,7 +3792,7 @@ LABEL_662:
                   LODFile_Icons_LOD.LODFile_sub_4114F2();
                   v116 = dword_50654C + 11 * *(_BYTE *)(v212 + 6734);
 
-				  dword_50C9E8.PutMessageToQueue(142,v116,uActiveCharacter); 
+				  dword_50C9E8.PutMessageToQueue(142,v116,uActiveCharacter-1); 
                 }
                 else
                 {
