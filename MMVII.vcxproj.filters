@@ -193,6 +193,7 @@
     </ClCompile>
     <ClCompile Include="UserInput.cpp" />
     <ClCompile Include="PartyActions.cpp" />
+    <ClCompile Include="GameEvents.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Math.h">

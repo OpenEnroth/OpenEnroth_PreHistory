@@ -852,7 +852,7 @@ LABEL_178:
     LODFile_Icons_LOD.LODFile_sub_4114F2();
     dword_4E28F8_PartyCantJumpIfTrue = 0;
     struct_576FE8.dword_000044 = 1;
-    sub_42777D(v24, uCharacter, 133, 1, 0);
+    sub_42777D_CastSpell(v24, uCharacter, 133, 1, 0);
   }
   else
   {

@@ -250,7 +250,7 @@ void PartyAction_OnCastReady()
  if (v10 > pCaster->sMana)
    dword_50CBD0.PutMessageToQueue(MESSAGE_ATTACK, 0, 0);
  else
-   dword_50C9E8.PutMessageToQueue(MESSAGE_PROBABLY_CAST_QUICKSPELL, 0, 0);
+   dword_50C9E8.PutMessageToQueue(MESSAGE_CAST_QUICKSPELL, 0, 0);
 }
 
 

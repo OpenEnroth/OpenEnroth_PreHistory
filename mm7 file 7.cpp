@@ -7463,14 +7463,14 @@ LABEL_78:
           {
             v30 = pParty_global->uDaysPlayed % 7u + 1;
             LOBYTE(v30) = v30 | 0x80;
-            sub_42777D(12, uActiveCharacter, v30, 48, 0);
+            sub_42777D_CastSpell(12, uActiveCharacter, v30, 48, 0);
             v29 = uActiveCharacter;
           }
           if ( *(_DWORD *)(v26 + 8) <= -10 )
           {
             v31 = pParty_global->uDaysPlayed % 7u + 1;
             LOBYTE(v31) = v31 | 0x80;
-            sub_42777D(50, v29 - 1, v31, 48, 0);
+            sub_42777D_CastSpell(50, v29 - 1, v31, 48, 0);
             v29 = uActiveCharacter;
             v26 = (int)v68;
           }
@@ -7478,7 +7478,7 @@ LABEL_78:
           {
             v32 = pParty_global->uDaysPlayed % 7u + 1;
             LOBYTE(v32) = v32 | 0x80;
-            sub_42777D(75, v29 - 1, v32, 48, 0);
+            sub_42777D_CastSpell(75, v29 - 1, v32, 48, 0);
             v29 = uActiveCharacter;
             v26 = (int)v68;
           }
@@ -7486,7 +7486,7 @@ LABEL_78:
           {
             v33 = pParty_global->uDaysPlayed % 7u + 1;
             LOBYTE(v33) = v33 | 0x80;
-            sub_42777D(86, v29 - 1, v33, 48, 0);
+            sub_42777D_CastSpell(86, v29 - 1, v33, 48, 0);
             v29 = uActiveCharacter;
             v26 = (int)v68;
           }
@@ -7494,7 +7494,7 @@ LABEL_78:
           {
             v34 = pParty_global->uDaysPlayed % 7u + 1;
             LOBYTE(v34) = v34 | 0x80;
-            sub_42777D(85, v29 - 1, v34, 48, 0);
+            sub_42777D_CastSpell(85, v29 - 1, v34, 48, 0);
             v29 = uActiveCharacter;
           }
         }
@@ -10875,7 +10875,7 @@ signed int __fastcall sub_4BB756(signed int a1)
           v26 = 86;
         }
       }
-      sub_42777D(v26, 0, v28, v30, v32);
+      sub_42777D_CastSpell(v26, 0, v28, v30, v32);
       return 0;
     }
     v20 = sub_4418B1(10005, 201, 0, 65536);

@@ -1199,7 +1199,8 @@ extern struct class56 *pLoadingUI; // struct @ MM7.exe::00576E30
 //int dword_576E3C; // 00000C
 
 
-//definetly a OldViewport, used for initialization of game OldCamera; maybe OldViewport class instance
+//definetly a Viewport, used for initialization of game OldCamera; maybe OldViewport class instance
+//minimap struct
 extern struct unnamed_576FE8
 {
  int dword_000000;
@@ -1214,8 +1215,8 @@ extern struct unnamed_576FE8
  unsigned int uMinimapZoom; // dword @ 000024    256/512/1024/2048/4096, 512 default
  int dword_000028;
  int dword_00002C;
- int dword_000030;
- int dword_000034;
+ int sPartyPosX; // dword @ 000030
+ int sPartyPosY; // dword @ 000034
  short word_000038;
  short word_00003A;
  int   dword_00003C;

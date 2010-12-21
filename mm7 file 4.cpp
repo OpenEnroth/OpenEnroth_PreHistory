@@ -1688,7 +1688,7 @@ signed int __fastcall sub_427769(int a1)
 }
 
 //----- (0042777D) -----.text:00427F3B ---------------------------------------------------
-int __fastcall sub_42777D(int a1, int a2, int a3, __int16 a4, int a5)
+int __fastcall sub_42777D_CastSpell(int a1, int a2, int a3, __int16 a4, int a5)
 {
   int result; // eax@2
   int *v6; // eax@4
@@ -2292,14 +2292,14 @@ bool sub_42ECB5_PlayerAttack()
         v18 = v9;
         v16 = 102;
 LABEL_34:
-        sub_42777D(v16, v1 - 1, v18, v20, v22);
+        sub_42777D_CastSpell(v16, v1 - 1, v18, v20, v22);
 LABEL_28:
         goto LABEL_29;
       }
       if ( v34 != v9 )
       {
         v31 = 1;
-        sub_42777D(
+        sub_42777D_CastSpell(
           dword_4E421C[*(int *)((char *)&dword_ACC038[9 * *(int *)((char *)&dword_ACD794 + v29)] + v29)],
           v1 - 1,
           8,
@@ -2359,7 +2359,7 @@ LABEL_28:
       {
         v13 = pPlayer->pEquippedItemIndices[1];
         v31 = 1;
-        sub_42777D(dword_4E421C[pPlayer->pInventorySlots[v13].uItemID], v1 - 1, 8, 0, v1 + 8);
+        sub_42777D_CastSpell(dword_4E421C[pPlayer->pInventorySlots[v13].uItemID], v1 - 1, 8, 0, v1 + 8);
 
         //v14 = v2 + 36 * pPlayer->pEquippedItemIndices[1] + 512;
         //--*(_DWORD *)v14;
@@ -2442,7 +2442,7 @@ LABEL_39:
       v32 = 1;
       v17 = 100;
     }
-    sub_42777D(v17, v1 - 1, v19, v21, v23);
+    sub_42777D_CastSpell(v17, v1 - 1, v19, v21, v23);
     goto LABEL_29;
 }
 

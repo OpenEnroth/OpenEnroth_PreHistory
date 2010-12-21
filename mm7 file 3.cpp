@@ -4882,9 +4882,9 @@ unsigned int __fastcall sub_442955(int a1, int a2, int a3, int a4, int a5)
 	Render_sub_4A0E97(pD3DRenderer, a1, a2, a3, a4); 
 
 	v5 = struct_576FE8.dword_00002C; 
-	v6 = struct_576FE8.dword_000030;
-	v89 = struct_576FE8.dword_000030;
-	v87 = struct_576FE8.dword_000034;
+	v6 = struct_576FE8.sPartyPosX;
+	v89 = struct_576FE8.sPartyPosX;
+	v87 = struct_576FE8.sPartyPosY;
 
 	if ( struct_576FE8.dword_00002C != 384 )
 	{
@@ -5738,8 +5738,8 @@ char *__cdecl sub_444564()
   int v22; // [sp+18h] [bp-8h]@8
   int X; // [sp+1Ch] [bp-4h]@3
 
-  v20 = struct_576FE8.dword_000030;
-  v21 = struct_576FE8.dword_000034;
+  v20 = struct_576FE8.sPartyPosX;
+  v21 = struct_576FE8.sPartyPosY;
   v19 = (double)struct_576FE8.dword_00002C * 0.0000152587890625;
   if ( struct_576FE8.dword_00002C == 384 )
   {

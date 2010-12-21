@@ -311,7 +311,7 @@ signed int __stdcall sub_42756B(int a1, int a2, signed int a3);
 bool __stdcall sub_427662(int a1, int a2);
 signed int __thiscall sub_427730(int _this, int a2);
 signed int __fastcall sub_427769(int a1);
-int __fastcall sub_42777D(int a1, int a2, int a3, __int16 a4, int a5);
+int __fastcall sub_42777D_CastSpell(int a1, int a2, int a3, __int16 a4, int a5);
 void __thiscall sub_427D48_MessWith_unnamed_50C0C8(struct unnamed_50C0C8 *_this, int a2);
 signed int __thiscall sub_427DA0(void *_this, __int16 a2, __int16 a3, __int16 a4, __int16 a5, int a6);
 void __thiscall sub_427E01(struct unnamed_50C0C8 *_this);

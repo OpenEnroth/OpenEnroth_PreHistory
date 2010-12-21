@@ -117,4 +117,29 @@ void Game_dtor(Game *_this);
 
 
 
+
+
+
+
+
+unsigned int Game_OnStartNPCDialogue(unsigned int uSpekerActorID, int);
+unsigned int Game_OnOpenQuestbook(int, unsigned int);
+unsigned int Game_OnOpenAutonotes(int, unsigned int);
+unsigned int Game_OnOpenMap(int, unsigned int);
+unsigned int Game_OnOpenCalendar(int, unsigned int);
+unsigned int Game_OnOpenSpellbook(int, int);
+unsigned int Game_OnOpenQuickRef(int, int);
+unsigned int Game_OnOpenRest(int, int);
+
+unsigned int Game_OnAttack(int, int);
+unsigned int Game_OnCastQuickspell(int, int);
+unsigned int Game_OnInteract(int, int);
+
+
+
+
+
+
+
+
 #pragma pack(pop)
