@@ -974,10 +974,10 @@ int VideoPlayer::sub_4BF5B2()
         {
           AudioPlayer_sub_4AA306(pAudioPlayer, 0, 0, 0, -1, 0, 0, 0, 0);
           ptr_507BC0 = GUIWindowCreate(0, 0, 640, 480, 25, (GUIButton*)165, 0);
-          GUIButtonCreate(ptr_507BC0, 61, 424, 31, 0, 2, 94, 110, 1, 49, (unsigned char *)"", 0);
-          GUIButtonCreate(ptr_507BC0, 177, 424, 31, 0, 2, 94, 110, 2, 50, (unsigned char *)"", 0);
-          GUIButtonCreate(ptr_507BC0, 292, 424, 31, 0, 2, 94, 110, 3, 51, (unsigned char *)"", 0);
-          result = (int)GUIButtonCreate(ptr_507BC0, 407, 424, 31, 0, 2, 94, 110, 4, 52, (unsigned char *)"", 0);
+          GUIButtonCreate(ptr_507BC0, 61, 424, 31, 0, 2, 94, 110, 1, 49, NULL, 0);
+          GUIButtonCreate(ptr_507BC0, 177, 424, 31, 0, 2, 94, 110, 2, 50, NULL, 0);
+          GUIButtonCreate(ptr_507BC0, 292, 424, 31, 0, 2, 94, 110, 3, 51, NULL, 0);
+          result = (int)GUIButtonCreate(ptr_507BC0, 407, 424, 31, 0, 2, 94, 110, 4, 52, NULL, 0);
         }
         dword_F8BC10 = 0;
       }

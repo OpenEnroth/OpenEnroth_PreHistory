@@ -58,6 +58,7 @@ bool Player_sub_48D6AA(struct Player *_this, unsigned int uSlotID)
 //----- (0049024A) --------------------------------------------------------
 void Player_Reset(struct Player *_this, unsigned int uDesiredClass)
 {
+ memset(_this,0,sizeof(Player));
  _this->uExperience = rand() % 100 + 251;
 
  _this->uClass = uDesiredClass;
@@ -2366,7 +2367,7 @@ int Player_MaybeGetWearItemsBonus(struct Player *_this, signed int a2, int a3)
   //int v63; // [sp+18h] [bp-4h]@101
   //int v64; // [sp+20h] [bp+4h]@101
   int v65; // [sp+24h] [bp+8h]@95
-
+  v29=0; ///to prevent crash
   v6 = a2;
   v3 = 36;
   v5 = 0;

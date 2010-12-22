@@ -6292,10 +6292,10 @@ void __fastcall sub_4451A8(int a1, int a2, int a3)
     dword_5C341C = v4;
     dword_591094 = dword_5C3420;
     pGUIWindow2 = GUIWindowCreate(0, 0, 640, 480, 19, (GUIButton*)a3, 0);
-    GUIButtonCreate(pGUIWindow2, 61, 424, 31, 40, 2, 94, 110, 1, 49, (unsigned char *)"", 0);
-    GUIButtonCreate(pGUIWindow2, 177, 424, 31, 40, 2, 94, 110, 2, 50, (unsigned char *)"", 0);
-    GUIButtonCreate(pGUIWindow2, 292, 424, 31, 40, 2, 94, 110, 3, 51, (unsigned char *)"", 0);
-    GUIButtonCreate(pGUIWindow2, 407, 424, 31, 40, 2, 94, 110, 4, 52, (unsigned char *)"", 0);
+    GUIButtonCreate(pGUIWindow2, 61, 424, 31, 40, 2, 94, 110, 1, 49, NULL, 0);
+    GUIButtonCreate(pGUIWindow2, 177, 424, 31, 40, 2, 94, 110, 2, 50, NULL, 0);
+    GUIButtonCreate(pGUIWindow2, 292, 424, 31, 40, 2, 94, 110, 3, 51, NULL, 0);
+    GUIButtonCreate(pGUIWindow2, 407, 424, 31, 40, 2, 94, 110, 4, 52, NULL, 0);
   }
 }
 
@@ -7097,16 +7097,16 @@ LABEL_17:
       {
         if ( v12 <= 12 || v12 > 32 && (v12 <= 34 || v12 > 38 && (v12 <= 43 || v12 == 52)) )
         {
-          GUIButtonCreate((GUIWindow *)v11, 480, 250, 140, *(_BYTE *)(pFontArrus + 5) - 3, 1, 0, 136, 9, 0, (unsigned char *)"", 0);
+          GUIButtonCreate((GUIWindow *)v11, 480, 250, 140, *(_BYTE *)(pFontArrus + 5) - 3, 1, 0, 136, 9, 0, NULL, 0);
           GUIWindow_sub_41D08F(pDialogueWindow, 4, 1, 0, 1);
         }
       }
     }
   }
-  GUIButtonCreate(pDialogueWindow, 61, 424, 31, 40, 2, 94, 110, 1, 49, (unsigned char *)"", 0);
-  GUIButtonCreate(pDialogueWindow, 177, 424, 31, 40, 2, 94, 110, 2, 50, (unsigned char *)"", 0);
-  GUIButtonCreate(pDialogueWindow, 292, 424, 31, 40, 2, 94, 110, 3, 51, (unsigned char *)"", 0);
-  result = (int)GUIButtonCreate(pDialogueWindow, 407, 424, 31, 40, 2, 94, 110, 4, 52, (unsigned char *)"", 0);
+  GUIButtonCreate(pDialogueWindow, 61, 424, 31, 40, 2, 94, 110, 1, 49, NULL, 0);
+  GUIButtonCreate(pDialogueWindow, 177, 424, 31, 40, 2, 94, 110, 2, 50, NULL, 0);
+  GUIButtonCreate(pDialogueWindow, 292, 424, 31, 40, 2, 94, 110, 3, 51, NULL, 0);
+  result = (int)GUIButtonCreate(pDialogueWindow, 407, 424, 31, 40, 2, 94, 110, 4, 52, NULL, 0);
   if (a2)
   {
     result = uActiveCharacter;

@@ -341,7 +341,10 @@ const unsigned char *test_string;
     uOutX = uX + _this->uFrameX;
     uOutY = uY + _this->uFrameY;
     v12 = 0;
-
+  if(!uTextMainColor)
+                 uTextMainColor = 0xFFFFFF;
+                uTextMainColor|=0xFF000000;
+				uTextShadowColor|=0xFF000000; 
   if (!a8 || uOutY + pFont->uFontHeight <= a8)
   {
 //   v38 = 0;
@@ -381,7 +384,9 @@ const unsigned char *test_string;
                 strncpy(Dest,  (char *)&test_string[i + 1], 6);	  //5
                 Dest[6] = 0;
                 sscanf(Dest,"%x",&uTextMainColor);
-               
+				 if(!uTextMainColor)
+                     uTextMainColor = 0xFFFFFF;
+               	  uTextMainColor|=0xFF000000;
                 i += 6;
                 break;
               case '\r':
@@ -390,7 +395,7 @@ const unsigned char *test_string;
                 Dest[3] = 0;
                 i += 3;
               //  v18 = atoi(Dest);
-                b = GUIFont_GetLineWidth(pFont, &test_string[i + 1]);
+                b = GUIFont_GetLineWidth(pFont, &test_string[i]);
                 uOutX = _this->uFrameZ - (_DWORD)b -atoi(Dest);
                 uOutY = uY + _this->uFrameY;
                 if ( a8 )
@@ -409,10 +414,7 @@ const unsigned char *test_string;
                   //  i = v12;
                   }
                 }
-				 if(!uTextMainColor)
-                 uTextMainColor = 0xFFFFFF;
-                uTextMainColor|=0xFF000000;
-				uTextShadowColor|=0xFF000000; 
+				 
                // v32 = (char*)&test_string[v12];
                 c = test_string[i];
                // v16 = pFont->fw_table[c].letterW;
@@ -715,7 +717,8 @@ unsigned int uInStrLen;
    return;
 
  v21 = uDefaultColor;
- 
+ if (!v21)
+      v21 = 0xFFFFFFFF;
  v8 = uOutX;
 
  uInStrLen = lstrlenA(pString);
@@ -733,9 +736,9 @@ unsigned int uInStrLen;
         Dest1[6] = 0;
 
         sscanf(pString + 1, "%06X", &v21);
-        //if (!v21)
-        //      v21 = 0xFFFFFF;
-
+        if (!v21)
+              v21 = 0xFFFFFF;
+		v21|=0xFF000000;
         i += 6;
       }
       break;

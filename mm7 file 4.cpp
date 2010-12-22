@@ -1875,10 +1875,10 @@ LABEL_33:
         if ( ptr_507BD4 )
           return result;
         ptr_507BD4 = GUIWindowCreate(0, 0, 640, 480, 27, (GUIButton*)(20 * result + 5292232), 0);
-        GUIButtonCreate(ptr_507BD4,  52, 422, 35, 0, 2, 0, 69, 0, 49, (unsigned char *)"", 0);
-        GUIButtonCreate(ptr_507BD4, 165, 422, 35, 0, 2, 0, 69, 1, 50, (unsigned char *)"", 0);
-        GUIButtonCreate(ptr_507BD4, 280, 422, 35, 0, 2, 0, 69, 2, 51, (unsigned char *)"", 0);
-        GUIButtonCreate(ptr_507BD4, 390, 422, 35, 0, 2, 0, 69, 3, 52, (unsigned char *)"", 0);
+        GUIButtonCreate(ptr_507BD4,  52, 422, 35, 0, 2, 0, 69, 0, 49, NULL, 0);
+        GUIButtonCreate(ptr_507BD4, 165, 422, 35, 0, 2, 0, 69, 1, 50, NULL, 0);
+        GUIButtonCreate(ptr_507BD4, 280, 422, 35, 0, 2, 0, 69, 2, 51, NULL, 0);
+        GUIButtonCreate(ptr_507BD4, 390, 422, 35, 0, 2, 0, 69, 3, 52, NULL, 0);
         return sub_421B2C_DropPickedItem();
       }
       if ( v7 & 8 )
@@ -1902,7 +1902,7 @@ LABEL_44:
      //   v19 = v18;
 LABEL_56:
         GUIButtonCreate(ptr_507BD4, v20, v21, v22, v23, v24, v25, v26, v27, v28, (unsigned char *)v29, 0);
-	//	  GUIButtonCreate(ptr_507BD4,       390, 422,  35,   0,   2,  1,  0,   70,  0,   0, (unsigned char *)"", 0);
+	//	  GUIButtonCreate(ptr_507BD4,       390, 422,  35,   0,   2,  1,  0,   70,  0,   0, NULL, 0);
         return sub_421B2C_DropPickedItem();
       }
       if ( v7 & 0x40 )
@@ -1934,10 +1934,10 @@ LABEL_56:
         if ( ptr_507BD4 )
           return result;
         ptr_507BD4 = GUIWindowCreate(0, 0, 640, 480, 27, (GUIButton*)(20 * result + 5292232), 0);
-        GUIButtonCreate(ptr_507BD4, 52, 422, 35, 0, 2, 0, 141, 0, 49, (unsigned char *)"", 0);
-        GUIButtonCreate(ptr_507BD4, 165, 422, 35, 0, 2, 0, 141, 1, 50, (unsigned char *)"", 0);
-        GUIButtonCreate(ptr_507BD4, 280, 422, 35, 0, 2, 0, 141, 2, 51, (unsigned char *)"", 0);
-        GUIButtonCreate(ptr_507BD4, 390, 422, 35, 0, 2, 0, 141, 3, 52, (unsigned char *)"", 0);
+        GUIButtonCreate(ptr_507BD4, 52, 422, 35, 0, 2, 0, 141, 0, 49, NULL, 0);
+        GUIButtonCreate(ptr_507BD4, 165, 422, 35, 0, 2, 0, 141, 1, 50, NULL, 0);
+        GUIButtonCreate(ptr_507BD4, 280, 422, 35, 0, 2, 0, 141, 2, 51, NULL, 0);
+        GUIButtonCreate(ptr_507BD4, 390, 422, 35, 0, 2, 0, 141, 3, 52, NULL, 0);
         v30 = 0;
         v29 = "";
         v28 = 0;
@@ -1968,7 +1968,7 @@ LABEL_56:
                            188,
                            0,
                            0,
-                           (unsigned char *)"",
+                           NULL,
                            uTextureIdx_ib_npcld_a != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcld_a] : 0);
           pBtn_Game_NPCScrollRightDown = GUIButtonCreate(
                            ptr_507BD4,
@@ -1981,10 +1981,10 @@ LABEL_56:
                            188,
                            1,
                            0,
-                           (unsigned char *)"",
+                           NULL,
                            uTextureIdx_ib_npcrd_a != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_ib_npcrd_a] : 0);
-          GUIButtonCreate(ptr_507BD4, 491, 149, 64, 74, 1, 0, 143, 4, 53, (unsigned char *)"", 0);
-          result = (int)GUIButtonCreate(ptr_507BD4, 561, 149, 64, 74, 1, 0, 143, 5, 54, (unsigned char *)"", 0);
+          GUIButtonCreate(ptr_507BD4, 491, 149, 64, 74, 1, 0, 143, 4, 53, NULL, 0);
+          result = (int)GUIButtonCreate(ptr_507BD4, 561, 149, 64, 74, 1, 0, 143, 5, 54, NULL, 0);
         }
       }
     }

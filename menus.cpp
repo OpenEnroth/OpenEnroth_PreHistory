@@ -164,24 +164,24 @@ int __cdecl sub_45E93E()
   uGUIar_up_dn = LODFile_Icons_LOD.LODFile_LoadTexture( "AR_UP_DN", 2);
   uGUIar_dn_dn = LODFile_Icons_LOD.LODFile_LoadTexture( "AR_DN_DN", 2);
   pGUIWindow_CurrentMenu = GUIWindowCreate(0, 0, 640, 480, 23, 0, 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 198, 191, 18, 1, 0, 165, 0, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 218, 191, 18, 1, 0, 165, 1, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 238, 191, 18, 1, 0, 165, 2, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 258, 191, 18, 1, 0, 165, 3, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 278, 191, 18, 1, 0, 165, 4, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 298, 191, 18, 1, 0, 165, 5, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 318, 191, 18, 1, 0, 165, 6, 0, (unsigned char *)"", 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 198, 191, 18, 1, 0, 165, 0, 0, NULL, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 218, 191, 18, 1, 0, 165, 1, 0, NULL, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 238, 191, 18, 1, 0, 165, 2, 0, NULL, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 258, 191, 18, 1, 0, 165, 3, 0, NULL, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 278, 191, 18, 1, 0, 165, 4, 0, NULL, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 298, 191, 18, 1, 0, 165, 5, 0, NULL, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 21, 318, 191, 18, 1, 0, 165, 6, 0, NULL, 0);
   pLoadSaveBtn = 
-  GUIButtonCreate(pGUIWindow_CurrentMenu,241, 302, 105, 40, 1, 0, 164, 0, 0, (unsigned char *)"",
+  GUIButtonCreate(pGUIWindow_CurrentMenu,241, 302, 105, 40, 1, 0, 164, 0, 0, NULL,
                    uGUIL_S_txtr != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uGUIL_S_txtr] : 0);
   pCancelBtn = 
-  GUIButtonCreate(pGUIWindow_CurrentMenu,350, 302, 105, 40, 1, 0, 166, 0, 0, (unsigned char *)"",
+  GUIButtonCreate(pGUIWindow_CurrentMenu,350, 302, 105, 40, 1, 0, 166, 0, 0, NULL,
                    uGUIx_d != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uGUIx_d] : 0);
   pArrowUpBtn = 
-  GUIButtonCreate(pGUIWindow_CurrentMenu,215, 199,  17, 17,	1, 0, 162, 0, 0, (unsigned char *)"",
+  GUIButtonCreate(pGUIWindow_CurrentMenu,215, 199,  17, 17,	1, 0, 162, 0, 0, NULL,
                    uGUIar_up_dn != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uGUIar_up_dn] : 0);
   pArrowDownBtn = 
-  GUIButtonCreate(pGUIWindow_CurrentMenu,215, 323,  17, 17,	1, 0, 163,34, 0, (unsigned char *)"",
+  GUIButtonCreate(pGUIWindow_CurrentMenu,215, 323,  17, 17,	1, 0, 163,34, 0, NULL,
                    uGUIar_dn_dn != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uGUIar_dn_dn] : 0);
  
   return 0/*sub_461790((int)&v12)*/;
@@ -845,24 +845,24 @@ void sub_45E361(int a1)  //saveload menu
   uGUIL_S_txtr = LODFile_Icons_LOD.LODFile_LoadTexture( v9, 2);
   uGUIar_up_dn = LODFile_Icons_LOD.LODFile_LoadTexture( "AR_UP_DN", 2);
   uGUIar_dn_dn = LODFile_Icons_LOD.LODFile_LoadTexture( "AR_DN_DN", 2);
-  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 198, 191, 18, 1, 0, 165, 0, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 219, 191, 18, 1, 0, 165, 1, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 240, 191, 18, 1, 0, 165, 2, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 261, 191, 18, 1, 0, 165, 3, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 282, 191, 18, 1, 0, 165, 4, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 303, 191, 18, 1, 0, 165, 5, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 324, 191, 18, 1, 0, 165, 6, 0, (unsigned char *)"", 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 198, 191, 18, 1, 0, 165, 0, 0, NULL, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 219, 191, 18, 1, 0, 165, 1, 0, NULL, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 240, 191, 18, 1, 0, 165, 2, 0, NULL, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 261, 191, 18, 1, 0, 165, 3, 0, NULL, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 282, 191, 18, 1, 0, 165, 4, 0, NULL, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 303, 191, 18, 1, 0, 165, 5, 0, NULL, 0);
+  GUIButtonCreate(pGUIWindow_CurrentMenu,  21, 324, 191, 18, 1, 0, 165, 6, 0, NULL, 0);
   pLoadSaveBtn = 
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 241, 302, 105, 40, 1,	0, 164, 0, 0, (unsigned char *)"",
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 241, 302, 105, 40, 1,	0, 164, 0, 0, NULL,
                                  uGUIL_S_txtr != -1 ? &LODFile_Icons_LOD.aLODHeaders[uGUIL_S_txtr] : 0);
   pCancelBtn = 
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 350, 302, 105, 40, 1, 0, 166, 0, 0, (unsigned char *)"",
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 350, 302, 105, 40, 1, 0, 166, 0, 0, NULL,
                                  uGUIx_d != -1 ? &LODFile_Icons_LOD.aLODHeaders[uGUIx_d] : 0);
   pArrowUpBtn = 
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 215, 199,  17, 17, 1, 0, 162, 0, 0, (unsigned char *)"",
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 215, 199,  17, 17, 1, 0, 162, 0, 0, NULL,
                                  uGUIar_up_dn != -1 ? &LODFile_Icons_LOD.aLODHeaders[uGUIar_up_dn] : 0);
   pArrowDownBtn = 
-  GUIButtonCreate(pGUIWindow_CurrentMenu, 215, 323,	 17, 17, 1, 0, 163,	uSaveFileCount, 0,  (unsigned char *)"",
+  GUIButtonCreate(pGUIWindow_CurrentMenu, 215, 323,	 17, 17, 1, 0, 163,	uSaveFileCount, 0,  NULL,
                                  uGUIar_dn_dn != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uGUIar_dn_dn]: 0);
 
 }

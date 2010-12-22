@@ -4417,7 +4417,7 @@ LABEL_45:
           wsprintfA((char *)TmpBuf, "\x0C%05d%s\x0C%05d", v32, v31, v30);
           wsprintfA((char *)pStringBuffer, (const char *)dword_F8B1A4, (char *)TmpBuf, 100 * *((_BYTE *)v29 + 8));
           dword_F8B1E8 = pStringBuffer;
-          v15 = (unsigned char *)"";
+          v15 = NULL;
           goto LABEL_45;
         }
         if ( v28 != 10 )
@@ -4433,7 +4433,7 @@ LABEL_33:
           if ( !v15 )
           {
             *(_DWORD *)(v16 + 36) = 0;
-            v15 = (unsigned char *)"";
+            v15 = NULL;
           }
           goto LABEL_49;
         }
@@ -4453,7 +4453,7 @@ LABEL_33:
             if ( !v15 )
             {
               *(_DWORD *)(v16 + 36) = 0;
-              v15 = (unsigned char *)"";
+              v15 = NULL;
             }
             if ( uDialogueType != 84 )
               goto LABEL_49;
@@ -4480,7 +4480,7 @@ LABEL_33:
             goto LABEL_33;
           }
 LABEL_41:
-          v15 = (unsigned char *)"";
+          v15 = NULL;
           goto LABEL_49;
         }
         v15 = pGlobalTXT_LocalizationStrings[122];
@@ -4569,7 +4569,7 @@ LABEL_49:
 //----- (004B36CC) --------------------------------------------------------
 int __fastcall sub_4B36CC(int a1, int a2)
 {
-  return (int)GUIButtonCreate(pDialogueWindow, 480, 30 * a1 + 146, 140, 30, 1, 0, 405, a2, 0, (unsigned char *)"", 0);
+  return (int)GUIButtonCreate(pDialogueWindow, 480, 30 * a1 + 146, 140, 30, 1, 0, 405, a2, 0, NULL, 0);
 }
 
 //----- (004B3703) --------------------------------------------------------
@@ -5265,7 +5265,7 @@ int __fastcall sub_4B3EF0(int a1)
                    0,
                    pGlobalTXT_LocalizationStrings[34],
                    uTextureID_right_backgr != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0);
-  GUIButtonCreate(pDialogueWindow, 0, 0, 0, 0, 1, 0, 81, 0, 0, (unsigned char *)"", 0);
+  GUIButtonCreate(pDialogueWindow, 0, 0, 0, 0, 1, 0, 81, 0, 0, NULL, 0);
   GUIButtonCreate(pDialogueWindow, 480, 160, 140, 30, 1, 0, 175, 82, 0, pGlobalTXT_LocalizationStrings[122], 0);
   result = GUIWindow_sub_41D08F(pDialogueWindow, 1, 1, 0, 2);
   dword_F8B19C = -1;
@@ -5298,7 +5298,7 @@ int __fastcall sub_4B3FE5(void *a1)
                    0,
                    pGlobalTXT_LocalizationStrings[34],
                    uTextureID_right_backgr != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0);
-  GUIButtonCreate(pDialogueWindow, 0, 0, 0, 0, 1, 0, 81, 0, 0, (unsigned char *)"", 0);
+  GUIButtonCreate(pDialogueWindow, 0, 0, 0, 0, 1, 0, 81, 0, 0, NULL, 0);
   if ( dword_F8B1A8 )
     v1 = (char *)pGlobalTXT_LocalizationStrings[535];
   GUIButtonCreate(pDialogueWindow, 480, 160, 140, 30, 1, 0, 175, 79, 0, (unsigned char *)v1, 0);
@@ -5321,7 +5321,7 @@ int __cdecl sub_4B40E6()
   dword_5076F4 = GUIButtonCreate(pDialogueWindow, 471, 445,	169, 35, 1, 0, 113,	0, 0,
                    pGlobalTXT_LocalizationStrings[34],
                    uTextureID_right_backgr != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0);
-  GUIButtonCreate(pDialogueWindow, 0, 0, 0, 0, 1, 0, 81, 0, 0, (unsigned char *)"", 0);
+  GUIButtonCreate(pDialogueWindow, 0, 0, 0, 0, 1, 0, 81, 0, 0, NULL, 0);
 
   if (pNPCStats->pProfessions[*(_DWORD *)(v1 + 24)].pBenefits)
   {
@@ -5415,7 +5415,7 @@ int __thiscall sub_4B4224(void *_this)
                      0,
                      pGlobalTXT_LocalizationStrings[74],
                      uTextureID_right_backgr != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0,0);
-    GUIButtonCreate(pDialogueWindow, 8, 8, 450, 320, 1, 0, 81, 0, 0, (unsigned char *)"", 0);
+    GUIButtonCreate(pDialogueWindow, 8, 8, 450, 320, 1, 0, 81, 0, 0, NULL, 0);
     if ( dword_5913F0 == 1 && dword_591080 )
     {
       result = sub_4B3B42(dword_F8B198);
@@ -5425,7 +5425,7 @@ int __thiscall sub_4B4224(void *_this)
       if ( *(_DWORD *)(v17 + 32) )
       {
         v1 = 1;
-        GUIButtonCreate(pDialogueWindow, 480, 160, 140, 30, 1, 0, 175, 13, 0, (unsigned char *)"", 0);
+        GUIButtonCreate(pDialogueWindow, 480, 160, 140, 30, 1, 0, 175, 13, 0, NULL, 0);
       }
       v5 = *(void **)(v17 + 40);
       if ( v5 )
@@ -5434,7 +5434,7 @@ int __thiscall sub_4B4224(void *_this)
         {
           v6 = sub_4466C4(v5);
           if ( v6 == 1 || v6 == 2 )
-            GUIButtonCreate(pDialogueWindow, 480, 30 * v1++ + 160, 140, 30, 1, 0, 175, 19, 0, (unsigned char *)"", 0);
+            GUIButtonCreate(pDialogueWindow, 480, 30 * v1++ + 160, 140, 30, 1, 0, 175, 19, 0, NULL, 0);
         }
       }
       v7 = *(void **)(v17 + 44);
@@ -5444,7 +5444,7 @@ int __thiscall sub_4B4224(void *_this)
         {
           v8 = sub_4466C4(v7);
           if ( v8 == 1 || v8 == 2 )
-            GUIButtonCreate(pDialogueWindow, 480, 30 * v1++ + 160, 140, 30, 1, 0, 175, 20, 0, (unsigned char *)"", 0);
+            GUIButtonCreate(pDialogueWindow, 480, 30 * v1++ + 160, 140, 30, 1, 0, 175, 20, 0, NULL, 0);
         }
       }
       v9 = *(void **)(v17 + 48);
@@ -5454,7 +5454,7 @@ int __thiscall sub_4B4224(void *_this)
         {
           v10 = sub_4466C4(v9);
           if ( v10 == 1 || v10 == 2 )
-            GUIButtonCreate(pDialogueWindow, 480, 30 * v1++ + 160, 140, 30, 1, 0, 175, 21, 0, (unsigned char *)"", 0);
+            GUIButtonCreate(pDialogueWindow, 480, 30 * v1++ + 160, 140, 30, 1, 0, 175, 21, 0, NULL, 0);
         }
       }
       v11 = *(void **)(v17 + 52);
@@ -5464,7 +5464,7 @@ int __thiscall sub_4B4224(void *_this)
         {
           v12 = sub_4466C4(v11);
           if ( v12 == 1 || v12 == 2 )
-            GUIButtonCreate(pDialogueWindow, 480, 30 * v1++ + 160, 140, 30, 1, 0, 175, 22, 0, (unsigned char *)"", 0);
+            GUIButtonCreate(pDialogueWindow, 480, 30 * v1++ + 160, 140, 30, 1, 0, 175, 22, 0, NULL, 0);
         }
       }
       v13 = *(void **)(v17 + 56);
@@ -5474,7 +5474,7 @@ int __thiscall sub_4B4224(void *_this)
         {
           v14 = sub_4466C4(v13);
           if ( v14 == 1 || v14 == 2 )
-            GUIButtonCreate(pDialogueWindow, 480, 30 * v1++ + 160, 140, 30, 1, 0, 175, 23, 0, (unsigned char *)"", 0);
+            GUIButtonCreate(pDialogueWindow, 480, 30 * v1++ + 160, 140, 30, 1, 0, 175, 23, 0, NULL, 0);
         }
       }
       v15 = *(void **)(v17 + 60);
@@ -5484,7 +5484,7 @@ int __thiscall sub_4B4224(void *_this)
         {
           v16 = sub_4466C4(v15);
           if ( v16 == 1 || v16 == 2 )
-            GUIButtonCreate(pDialogueWindow, 480, 30 * v1++ + 160, 140, 30, 1, 0, 175, 24, 0, (unsigned char *)"", 0);
+            GUIButtonCreate(pDialogueWindow, 480, 30 * v1++ + 160, 140, 30, 1, 0, 175, 24, 0, NULL, 0);
         }
       }
       GUIWindow_sub_41D08F(pDialogueWindow, v1, 1, 0, 2);
@@ -11029,8 +11029,8 @@ int __cdecl sub_4BBA85()
                    0,
                    pGlobalTXT_LocalizationStrings[34],
                    uTextureID_right_backgr != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0);
-  GUIButtonCreate(pDialogueWindow, 0, 0, 0, 0, 1, 0, 81, 0, 0, (unsigned char *)"", 0);
-  GUIButtonCreate(pDialogueWindow, 480, 160, 140, 30, 1, 0, 0, 83, 0, (unsigned char *)"", 0);
+  GUIButtonCreate(pDialogueWindow, 0, 0, 0, 0, 1, 0, 81, 0, 0, NULL, 0);
+  GUIButtonCreate(pDialogueWindow, 480, 160, 140, 30, 1, 0, 0, 83, 0, NULL, 0);
   GUIWindow_sub_41D08F(pDialogueWindow, 1, 1, 0, 2);
   dword_F8B19C = -1;
   v1 = ptr_507BC0->dword_00001C - 102;
@@ -11181,10 +11181,10 @@ LABEL_23:
                      0,
                      pGlobalTXT_LocalizationStrings[79],
                      uTextureID_right_backgr != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0);
-    GUIButtonCreate(pDialogueWindow, 480, 160, 140, 30, 1, 0, 136, 85, 0, (unsigned char *)"", 0);
-    GUIButtonCreate(pDialogueWindow, 480, 190, 140, 30, 1, 0, 136, 86, 0, (unsigned char *)"", 0);
-    GUIButtonCreate(pDialogueWindow, 480, 220, 140, 30, 1, 0, 136, 87, 0, (unsigned char *)"", 0);
-    GUIButtonCreate(pDialogueWindow, 480, 250, 140, 30, 1, 0, 136, 88, 0, (unsigned char *)"", 0);
+    GUIButtonCreate(pDialogueWindow, 480, 160, 140, 30, 1, 0, 136, 85, 0, NULL, 0);
+    GUIButtonCreate(pDialogueWindow, 480, 190, 140, 30, 1, 0, 136, 86, 0, NULL, 0);
+    GUIButtonCreate(pDialogueWindow, 480, 220, 140, 30, 1, 0, 136, 87, 0, NULL, 0);
+    GUIButtonCreate(pDialogueWindow, 480, 250, 140, 30, 1, 0, 136, 88, 0, NULL, 0);
     GUIWindow_sub_41D08F(pDialogueWindow, 4, 1, 0, 1);
   }
 }
@@ -11825,7 +11825,7 @@ int __cdecl sub_4BCA33()
                    0,
                    pGlobalTXT_LocalizationStrings[74],
                    uTextureID_right_backgr != -1 ? &LODFile_Icons_LOD.aLODHeaders[uTextureID_right_backgr] : 0);
-  return (int)GUIButtonCreate(pDialogueWindow, 8, 8, 450, 320, 1, 0, 81, 0, 0, (unsigned char *)"", 0);
+  return (int)GUIButtonCreate(pDialogueWindow, 8, 8, 450, 320, 1, 0, 81, 0, 0, NULL, 0);
 }
 
 //----- (004BCACC) --------------------------------------------------------
@@ -11950,7 +11950,7 @@ LABEL_11:
                      v3,
                      pGlobalTXT_LocalizationStrings[74],
                      uTextureIdx_BtnEsc2  != -1 ?  &LODFile_Icons_LOD.aLODHeaders[uTextureIdx_BtnEsc2] : 0);
-    GUIButtonCreate(pDialogueWindow, 8, 8, 450, 320, 1, v3, 81, v3, v3, (unsigned char *)"",  0);
+    GUIButtonCreate(pDialogueWindow, 8, 8, 450, 320, 1, v3, 81, v3, v3, NULL,  0);
 LABEL_12:
     v4 = dword_F8B198;
     v11 = (int)ptr_507BC0;
